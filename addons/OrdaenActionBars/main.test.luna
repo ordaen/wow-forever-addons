@@ -1,35 +1,92 @@
 import Client from "$client"
+import Events from "$events"
 import Game from "$game"
 import Test from "$test"
-import { ActionBars, Bar } from "@/main"
+import root Ordaen from "Ordaen"
+import { ALWAYS, Visibility, Visible } from "Ordaen"
+import { ActionBars, Bar, Choices } from "@/main"
 
 const SCREEN: Test.Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
-
-test "a bar's buttons are the client's own, each on its slot: a click does the slot's action" {
-  const bar = new Bar({ spec: { number: 2, first: 61 }, place: 1 })
-  Test.mount(bar, SCREEN)
-  Test.expect(bar.buttons.length == 12)
-  Test.inKey(() => {
-    (bar.buttons[1] ?? panic("the bar has its first button")).Click("LeftButton")
-    (bar.buttons[12] ?? panic("the bar has its last button")).Click("LeftButton")
-  })
-  Test.expect(Test.performed().join(", ") == "action 61, action 72")
+// What a bar is handed by its module: no keys bound, shown always.
+class Holder {
+  state keys: Map<String, String> = {}
+  state visibility: Visibility = ALWAYS
 }
 
-// One of the game's bars, shown or hidden as the character's settings say.
+// Shown out of a fight, hidden in one.
+const PEACEFUL: Visibility = { combat: { visible: Visible.Hide, opacity: 0 }, ..ALWAYS }
+
+// One of the game's bars, shown or hidden.
 function gameBar(name: String, shown: Boolean): any Client.Frame {
   const made = Client.CreateFrame("Frame", name, Client.UIParent, nil)
   if (!shown) { made.Hide() }
   return made
 }
 
-test "the bars drawn are Панель 1 and those the game showed, and the game's own are hidden" {
+test "the bars drawn are Панель 1 and those the character's settings show, and the game's own are hidden" {
   Game.frames.MainActionBar = gameBar("MainActionBar", true)
   Game.frames.MultiBarBottomLeft = gameBar("MultiBarBottomLeft", true)
-  Game.frames.MultiBarRight = gameBar("MultiBarRight", false)
   const bars = new ActionBars()
-  Test.mount(bars, SCREEN)
-  Test.expect(bars.bars.map(shown => String.of(shown.spec.number)).join(",") == "1,2")
+  // Ordaen draws its modules on the screen.
+  Test.mount(nil, SCREEN)
+  Test.flush()
+  // The stand-in's new character shows the two bottom bars.
+  Test.expect(bars.bars.map(shown => String.of(shown.spec.number)).join(",") == "1,2,3")
   Test.expect(Game.frames.MainActionBar?.IsShown() == false)
   Test.expect(Game.frames.MultiBarBottomLeft?.IsShown() == false)
+}
+
+test "a key of the game's bindings presses our button in its place, and the button shows its key" {
+  _ = Client.SetBinding("1", "ACTIONBUTTON1", nil)
+  _ = Client.SetBinding("SHIFT-2", "MULTIACTIONBAR1BUTTON2", nil)
+  const bars = new ActionBars()
+  // Ordaen draws its modules on the screen.
+  Test.mount(nil, SCREEN)
+  Test.flush()
+  Test.expect(Test.keyBound("1"))
+  Test.expect(Test.performed().join(", ") == "action 1")
+  Test.expect(Test.page().text("1").shown())
+  Test.expect(Test.page().text("S2").shown())
+  // Each bar's buttons stand on its own slots: Панель 2's second is slot 62.
+  Test.expect(Test.keyBound("SHIFT-2"))
+  Test.expect(Test.performed().join(", ") == "action 62")
+  // The player binds another key: the buttons follow.
+  _ = Client.SetBinding("Q", "ACTIONBUTTON3", nil)
+  Events.UPDATE_BINDINGS.emit()
+  Test.expect(Test.keyBound("Q"))
+  Test.expect(Test.page().text("Q").shown())
+  Test.expect(Test.performed().join(", ") == "action 3")
+}
+
+test "a bar the player never moved stands above what keeps the bottom edge, the highest of them" {
+  const holder = new Holder()
+  const bar = new Bar({ spec: { number: 1, first: 1, command: "ACTIONBUTTON" }, place: 2 }, holder.keys,
+    holder.visibility)
+  // Higher than the bottom panel, whatever it keeps: the highest decides.
+  Ordaen.keepBottom("Ledge", 1000)
+  const above = bar.home.y ?? 0
+  Ordaen.keepBottom("Shelf", 1100)
+  Test.expect(bar.home.y == above - 100)
+  Ordaen.keepBottom("Shelf", 0)
+  Test.expect(bar.home.y == above)
+  Ordaen.keepBottom("Ledge", 0)
+  Test.expect((bar.home.y ?? 0) > above + 900)
+}
+
+test "the bars fade as their visibility says: hidden in a fight, they keep their buttons" {
+  _ = Client.SetBinding("F7", "ACTIONBUTTON1", nil)
+  const bars = new ActionBars()
+  // Ordaen draws its modules on the screen.
+  Test.mount(nil, SCREEN)
+  Test.flush()
+  bars.settings.change((values: mut Choices): nil => {
+    values.visibility = PEACEFUL
+  })
+  Test.expect(Test.page().text("F7").opacity() == 1)
+  Test.combat(true)
+  Test.expect(Test.page().text("F7").opacity() == 0)
+  Test.expect(Test.keyBound("F7"))
+  Test.expect(Test.performed().join(", ") == "action 1")
+  Test.combat(false)
+  Test.expect(Test.page().text("F7").opacity() == 1)
 }

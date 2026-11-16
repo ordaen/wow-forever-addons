@@ -46,6 +46,11 @@ public class OrdaenCore implements App {
   public state dev = false
   // The modules that run: each module's root adds itself as it is made, and goes as it is destroyed.
   public const modules = new Registry<any Module>()
+  // The room each module's part keeps along the screen's bottom edge (the bottom panel), by its module's folder, and
+  // the room the highest keeps: the free parts that stand by that edge until the player moves them (the action bars)
+  // stand above it.
+  state bottoms: mut Map<String, Number> = {}
+  public derived bottomTaken: Number = self.bottomTakenOf()
   // The modules drawn on the screen: each once, until it ends and what it drew goes with it.
   drawn: mut WeakMap<any Module, Boolean> = {}
   // The mode in which the player moves every module's parts about the screen.
@@ -81,6 +86,18 @@ public class OrdaenCore implements App {
     Events.PLAYER_LEVEL_UP.listen(self.forgetTips)
     Events.SKILL_LINES_CHANGED.listen(self.forgetTips)
     self.start()
+  }
+
+  bottomTakenOf(self): Number {
+    let most: Number = 0
+    for (_, taken of self.bottoms) { most = most.max(taken) }
+    return most
+  }
+
+  // How far up from the screen's bottom edge a module's part reaches, in UI units: 0 while it keeps no room there
+  // (off, along another side, or the module ending).
+  public keepBottom(mut self, folder: String, taken: Number) {
+    self.bottoms[folder] = taken
   }
 
   // The game's tooltip of an item, asked of the game once and kept; none while the game has none yet.

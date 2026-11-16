@@ -165,6 +165,9 @@ public class ZoneBox implements Component {
   }
 }
 
+// The panel's addon folder: what tells its room along the bottom edge from another part's.
+const FOLDER = "OrdaenPanel"
+
 public class Panel implements Module, App {
   public const title: String = "Ordaen Panel"
 
@@ -184,6 +187,15 @@ public class Panel implements Module, App {
 
   constructor() {
     Ordaen.modules.add(self)
+    // The room it keeps along the screen's bottom edge, told to Ordaen: its height while it is on and stands there.
+    watch {
+      const taken: Number = self.settings.values.bottomOn && self.side == Side.Bottom ? self.tall : 0
+      Ordaen.keepBottom(FOLDER, taken)
+    }
+  }
+
+  destructor() {
+    Ordaen.keepBottom(FOLDER, 0)
   }
 
   // What the zones read.
