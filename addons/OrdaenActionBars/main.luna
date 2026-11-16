@@ -1,0 +1,141 @@
+import Client from "$client"
+import Game from "$game"
+import { Anchored, Frame, Point } from "$ltml"
+import root Ordaen from "Ordaen"
+import { Component, Module, Placed, SettingsPage, space } from "Ordaen"
+import Locale from "@/locales"
+
+// The client's action button is this wide and high, in UI units: its art and its regions are drawn for it.
+const BUTTON: Number = 45
+const BUTTONS = 12
+const GAP: Number = space(.Line)
+// The lowest bar's bottom above the screen's bottom edge, and each bar's step up from the one under it.
+const BOTTOM: Number = 60
+const STEP: Number = BUTTON + GAP
+
+// One of the game's eight bars: its number (Панель 1 to 8), and its first slot (the game's own pages for it).
+public struct BarSpec {
+  number: Integer
+  first: Integer
+}
+
+// A bar drawn: which of the eight, and its place in the stack from the bottom (1 the lowest).
+public struct Shown {
+  spec: BarSpec
+  place: Integer
+}
+
+// The game's eight bars in Blizzard's own slots: without this module, the game's bars show the same actions in the
+// same places.
+const SPECS: Array<BarSpec> = [
+  { number: 1, first: 1 },
+  { number: 2, first: 61 },
+  { number: 3, first: 49 },
+  { number: 4, first: 25 },
+  { number: 5, first: 37 },
+  { number: 6, first: 145 },
+  { number: 7, first: 157 },
+  { number: 8, first: 169 }
+]
+
+// A bar of twelve of the client's own action buttons (`ActionBarButtonTemplate`), each given its slot: the client's
+// template draws the action's icon, cooldown, charges and count, the range and usable tints and the key's text, and
+// casts or uses it on the player's click, in a fight too.
+public class Bar implements Component {
+  buttons: Array<any Client.CheckButton> = []
+  derived home: Anchored = { point: Point.Bottom, y: -(BOTTOM + (self.shown.place - 1) * STEP) }
+
+  // What tells it from every other part in the placing mode, and its name there.
+  id: String
+  title: String
+
+  const shown: Shown
+  constructor(shown: Shown) {
+    self.shown = shown
+    self.id = `OrdaenActionBars.bar${shown.spec.number}`
+    self.title = Locale.BAR_TITLE.format(shown.spec.number)
+    const made: Array<any Client.CheckButton> = []
+    for (index of 0..=BUTTONS - 1) {
+      const button = new Client.CheckButton(Client.UIParent, "ActionBarButtonTemplate")
+      button.SetAttribute("type", "action")
+      button.SetAttribute("action", shown.spec.first + index)
+      made.push(button)
+    }
+    self.buttons = made
+  }
+
+  // The client's frames can't be destroyed: hidden, they take no click and draw nothing.
+  destructor() {
+    for (button of self.buttons) { button.Hide() }
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <Placed id={self.id} title={self.title} home={self.home}>
+        <box columns={BUTTONS} gap={GAP}>
+          <embed $for={button of self.buttons} frame={button} width={BUTTON} height={BUTTON} />
+        </box>
+      </Placed>
+    }
+  }
+}
+
+public class ActionBars implements Module, App {
+  public const title: String = "Ordaen Action Bars"
+  public const pages: Array<SettingsPage> = []
+
+  // The bars drawn: Панель 1 always, and the others the character's own Blizzard settings show, as the game's bars
+  // stand when the module starts (before it hides them).
+  bars: Array<Shown> = []
+  // The game's bars, hidden while the module runs: their slots and bindings stay as they are.
+  derived hidden: Array<any Frame> = self.hiddenBars()
+
+  constructor() {
+    const numbers = self.shownNumbers()
+    const bars: Array<Shown> = []
+    for (spec of SPECS) {
+      if (numbers.any(number => number == spec.number)) { bars.push({ spec: spec, place: bars.length + 1 }) }
+    }
+    self.bars = bars
+    Ordaen.modules.add(self)
+  }
+
+  shownNumbers(self): Array<Integer> {
+    const numbers = [1]
+    for (number of 2..=SPECS.length) {
+      const frame = peek ActionBars.gameBar(number)
+      if (frame != nil && frame.IsShown()) { numbers.push(number) }
+    }
+    return numbers
+  }
+
+  hiddenBars(self): Array<any Frame> {
+    const parts: Array<any Frame> = []
+    for (number of 1..=SPECS.length) {
+      const frame = ActionBars.gameBar(number)
+      if (frame != nil) { parts.push(frame) }
+    }
+    return parts
+  }
+
+  // The game's own bar of that number (Панель 1 to 8).
+  gameBar(number: Integer): any Frame | nil {
+    return match (number) {
+      1 => Game.frames.MainActionBar
+      2 => Game.frames.MultiBarBottomLeft
+      3 => Game.frames.MultiBarBottomRight
+      4 => Game.frames.MultiBarRight
+      5 => Game.frames.MultiBarLeft
+      6 => Game.frames.MultiBar5
+      7 => Game.frames.MultiBar6
+      else => Game.frames.MultiBar7
+    }
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <frame $for={part of self.hidden} of={part} shown={false} />
+      <Bar $for={bar of self.bars} shown={peek bar} />
+    }
+  }
+}

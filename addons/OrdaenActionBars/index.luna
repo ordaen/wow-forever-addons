@@ -1,0 +1,3 @@
+// Ordaen Action Bars: the game's eight action bars drawn as Ordaen's own free bars, each placed in the placing mode,
+// on the client's own action buttons; the game's bars hidden while it runs.
+public import { ActionBars, Bar } from "@/main"
