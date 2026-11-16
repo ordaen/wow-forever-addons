@@ -74,16 +74,16 @@ surface 425,173.04 750x553.92 on DIALOG clamped raised by a click
       box 674,173.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
         box 692.58,183.29 77.33x34.25
           text 700.69,192.62 61.11x15.6 "Secondary" #a3977f
-    box 1095,182.12 80x38.67
-      box 1095,182.12 80x26.67 clipped
-        box 1095,182.12 27.5x26.67 absolute clipped @click
-          box 1095,182.12 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
-          box 1103.33,191.71 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 0 of 8
-        box 1122.5,182.12 25x26.67 absolute clipped @click
-          box 1122.5,182.12 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 3 of 16
-          box 1128.75,191.71 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
-        box 1147.5,182.12 27.5x26.67 absolute clipped @click
-          box 1147.5,182.12 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
-          box 1153.75,191.71 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
+    box 1095,189.37 80x31.42
+      box 1095,189.37 80x26.67 clipped
+        box 1095,189.37 27.5x26.67 absolute clipped @click
+          box 1095,189.37 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
+          box 1103.33,198.96 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 0 of 8
+        box 1122.5,189.37 25x26.67 absolute clipped @click
+          box 1122.5,189.37 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 3 of 16
+          box 1128.75,198.96 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
+        box 1147.5,189.37 27.5x26.67 absolute clipped @click
+          box 1147.5,189.37 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
+          box 1153.75,198.96 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
 asked: Spellbook.watch true
 asked: TalentTrees.watch true
