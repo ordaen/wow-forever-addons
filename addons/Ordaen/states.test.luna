@@ -49,7 +49,7 @@ function rectOf(frame: any Client.Frame): String {
 function pageOf(frame: any Client.Frame): any Client.Frame {
   const screen = Client.C_UI.GetUIParent()
   let at = frame
-  for (hop of 1..Number.huge) {
+  for (hop of 1..) {
     const up = at.GetParent()
     if (up == nil || up == screen || up.GetFrameStrata() != frame.GetFrameStrata()) { break }
     at = up
