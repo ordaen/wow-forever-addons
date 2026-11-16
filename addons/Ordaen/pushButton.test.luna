@@ -1,0 +1,42 @@
+// The library's PushButton holds its label inside the plate's caps: a label longer than the width it was given widens
+// the button, whatever plate it is drawn on.
+import { Align } from "$ltml"
+import Test from "$test"
+import { PushButton } from "@/pushButton"
+
+class Buttons {
+  public render(self): Template {
+    return $ltml {
+      <box rows={["max-content", "max-content", "max-content", "max-content"]} gap={8ui} xAlign={Align.Start}>
+        <PushButton label={"Run the benchmarks"} width={90ui} />
+        <PushButton label={"Выйти из игры"} width={60ui} accent={true} />
+        <PushButton label={"Перезагрузить интерфейс"} width={40ui} disabled={true} />
+        <PushButton label={"OK"} width={120ui} />
+      </box>
+    }
+  }
+}
+
+// Whether the button's label stands clear of its caps and inside its height.
+function fits(label: String): Boolean {
+  const plate = Test.page().button(label).rect()
+  const drawn = Test.page().text(label).letters()
+  // The caps: half as wide as the plate is high.
+  const cap = (plate.bottom - plate.top) / 2
+  return drawn.left >= plate.left + cap - 0.5 && drawn.right <= plate.right - cap + 0.5 &&
+    drawn.top >= plate.top && drawn.bottom <= plate.bottom
+}
+
+test "every push button's label stands inside its caps, a long one widening the button" {
+  let page = new Buttons()
+  Test.mount(page, { left: 0, top: 0, width: 600, height: 300 })
+  Test.expect(fits("Run the benchmarks"))
+  Test.expect(fits("Выйти из игры"))
+  Test.expect(fits("Перезагрузить интерфейс"))
+  Test.expect(fits("OK"))
+  // A short label keeps the width it was given.
+  const ok = Test.page().button("OK").rect()
+  Test.expect((ok.right - ok.left - 120).abs() < 1)
+  destroy page
+  Test.expect(Test.blank())
+}
