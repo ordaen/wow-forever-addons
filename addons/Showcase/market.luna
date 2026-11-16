@@ -96,7 +96,7 @@ public class Market implements Component {
   onMenuClose(mut self) { self.menuOpen = false }
 
   onItem(mut self, item: Integer) { self.chosenItem = item }
-  onSale(mut self, click: Pointer) { self.clicked = click.button == MouseButton.Right ? "right" : "left" }
+  onSale(mut self, button: MouseButton) { self.clicked = button == MouseButton.Right ? "right" : "left" }
 
   public render(self): Template {
     return $ltml {

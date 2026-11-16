@@ -138,6 +138,15 @@ at the end. Commits are lunatype's unless named `dev` (wow-dev-tools). What tool
   stand-in.
 - **`SetOverrideBindingClick` and `ClearOverrideBindings` exist, undocumented.** Known: 0fdbf8b. Stand-in:
   `SetOverrideBindingClick` (`client.lua`).
+- **A click binding clicks its button only as the button is registered for:** as the key goes down where it took
+  `AnyDown` (or `<mouse>Down`), as it comes up where it took `AnyUp`; with no `RegisterForClicks`, `LeftButtonUp`
+  alone. The mouse button the binding names is the button `OnClick` is handed (`LunaTypeGlobalKeys` is handed the
+  key's name). Known: Blizzard's binding docs, not yet seen on Forever. Stand-in: `Client.pressBound`.
+- **An override set with `isPriority` wins over every one set without it, whatever their order;** among those alike,
+  the latest. Known: Blizzard's binding docs, not yet seen on Forever. Stand-in: `overrideOf` (`client.lua`).
+- **A frame that takes the keyboard hears a key held go down again as the client repeats it, and its up once;**
+  the up is kept from the bindings or let go on by the frame's propagation as it stands. Known: the client's key
+  repeat. Stand-in: `Client.key` (`phase`), `Test.keyDown`/`Test.keyUp`.
 
 ## Text and fonts
 

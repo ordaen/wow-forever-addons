@@ -2,19 +2,19 @@
 box 0,0 500x31.6
   box 0,0 83.78x31.6 @pointerPress
     text 8,8 67.78x15.6 "Recipe row" #ffffff
-  box 123.78,0 58.22x31.6 @pointerPress
+  box 123.78,0 58.22x31.6 @keyPress @pointerPress
     text 131.78,8 42.22x15.6 "Beside" #ffffff
 surface 0,31.6 183.33x122.03 on FULLSCREEN_DIALOG #0a0806f7
-  box 0.83,37.43 181.67x25.6 #00000000 @pointerPress
+  box 0.83,37.43 181.67x25.6 #00000000 @keyPress @pointerPress
     text 12.5,42.43 150x15.6 "Link in chat" #e8dcc4
-  box 0.83,63.03 181.67x25.6 #00000000 @pointerPress
+  box 0.83,63.03 181.67x25.6 #00000000 @keyPress @pointerPress
     text 12.5,68.03 150x15.6 "Create [0]" #6f6552
-  box 0.83,88.63 181.67x32.5 #00000000 @pointerPress
+  box 0.83,88.63 181.67x32.5 #00000000 @keyPress @pointerPress
     text 12.5,100 118.33x15.6 "Favorite" #e8dcc4
     box 139.17,99.47 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 0 of 4
       box 136.67,96.97 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2 opacity=1
       box 151.67,96.97 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=0
-  box 0.83,121.13 181.67x26.67 #00000000 @pointerPress
+  box 0.83,121.13 181.67x26.67 #00000000 @keyPress @pointerPress
     text 12.5,126.67 118.33x15.6 "Track" #6f6552
     box 139.17,126.13 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 0 of 4
       box 136.67,123.63 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2 opacity=1
@@ -24,19 +24,19 @@ surface 0,31.6 183.33x122.03 on FULLSCREEN_DIALOG #0a0806f7
 box 0,0 500x31.6
   box 0,0 83.78x31.6 @pointerPress
     text 8,8 67.78x15.6 "Recipe row" #ffffff
-  box 123.78,0 58.22x31.6 @pointerPress
+  box 123.78,0 58.22x31.6 @keyPress @pointerPress
     text 131.78,8 42.22x15.6 "Beside" #ffffff
 surface 0,31.6 183.33x122.03 on FULLSCREEN_DIALOG #0a0806f7
-  box 0.83,37.43 181.67x25.6 #00000000 @pointerPress
+  box 0.83,37.43 181.67x25.6 #00000000 @keyPress @pointerPress
     text 12.5,42.43 150x15.6 "Link in chat" #e8dcc4
-  box 0.83,63.03 181.67x25.6 #00000000 @pointerPress
+  box 0.83,63.03 181.67x25.6 #00000000 @keyPress @pointerPress
     text 12.5,68.03 150x15.6 "Create [0]" #6f6552
-  box 0.83,88.63 181.67x32.5 #d6a56b2e @pointerPress
+  box 0.83,88.63 181.67x32.5 #d6a56b2e @keyPress @pointerPress
     text 12.5,100 118.33x15.6 "Favorite" #ffffff
     box 139.17,99.47 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 1 of 4
       box 136.67,96.97 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2 opacity=0
       box 151.67,96.97 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=1
-  box 0.83,121.13 181.67x26.67 #00000000 @pointerPress
+  box 0.83,121.13 181.67x26.67 #00000000 @keyPress @pointerPress
     text 12.5,126.67 118.33x15.6 "Track" #6f6552
     box 139.17,126.13 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 0 of 4
       box 136.67,123.63 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2 opacity=1

@@ -3,7 +3,7 @@
 // shade under the cursor; selected, its colour's fill and a 2 px edge of its colour along its left, so a green recipe
 // is selected in green. Without a colour, the gold the lists are drawn in. A click of either button reports `pick`
 // with the click (a right-click opens the item's menu).
-import { Align, Edges, Line, Overflow, Pointer, Position, Side, Stated, Track } from "$ltml"
+import { Align, Edges, Line, MouseButton, Overflow, Pointer, Position, Side, Stated, Track } from "$ltml"
 import { Component } from "@/module"
 import { space } from "@/units"
 
@@ -26,7 +26,7 @@ public function selectedFill(color: Color | nil): Color {
 }
 
 public class SelectItem implements Component {
-  public pick: Event<Pointer> = new Event()
+  public pick: Event<MouseButton> = new Event()
 
   derived background: Color | Stated<Color> = self.selected ? selectedFill(self.color) : SHADE
   derived edge: Color = self.color ?? GOLD
@@ -54,12 +54,14 @@ public class SelectItem implements Component {
     self.padding = padding
   }
 
-  onClick(mut self, click: Pointer) { self.pick.emit(click) }
+  onClick(mut self, click: Pointer) { self.pick.emit(click.button) }
+  onKey(mut self) { self.pick.emit(.Left) }
 
   public render(self): Template {
     return $ltml {
       <box columns={self.columns} gap={9.375dp} padding={self.padding} yAlign={Align.Center} border={self.rule}
-           background={self.background} overflow={Overflow.Hidden} @pointerPress={self.onClick}>
+           background={self.background} overflow={Overflow.Hidden} @pointerPress={self.onClick} @keyPress(.Enter)={self.onKey}
+           @keyPress(.Space)={self.onKey}>
         <box $if={self.selected} position={Position.Absolute} left={0ui} top={0ui} bottom={0ui} width={EDGE}
              background={self.edge} />
         <slot />

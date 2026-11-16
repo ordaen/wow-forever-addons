@@ -73,7 +73,7 @@ public class ServiceRow implements Component {
   public render(self): Template {
     return $ltml {
       <box columns={ROW} gap={9.375dp} yAlign={Align.Center} background={self.background}
-           padding={{ top: 3.515625dp, bottom: 3.515625dp, left: 7.03125dp, right: 7.03125dp }} @pointerPress={self.onPick}>
+           padding={{ top: 3.515625dp, bottom: 3.515625dp, left: 7.03125dp, right: 7.03125dp }} @pointerPress={self.onPick} @keyPress(.Enter)={self.onPick} @keyPress(.Space)={self.onPick}>
         <box width={32.8125dp} height={32.8125dp} icon={self.service.icon} tint={self.tint} />
         <box columns={1}>
           <text value={self.title} textColor={Style.INK} wrap={false} />

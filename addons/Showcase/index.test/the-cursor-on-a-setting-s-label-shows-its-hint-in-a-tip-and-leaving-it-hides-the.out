@@ -2,13 +2,13 @@
 box 0,0 700x385.73
   box 0,0 700x27.27
     box 0,26.43 700x0.83 absolute #3e2f1d
-    box 0,0 47.22x27.27 #00000000 @pointerPress
+    box 0,0 47.22x27.27 #00000000 @keyPress @pointerPress
       box 0.83,0.83 45.56x1.67 absolute #00000000
       text 12.5,6.67 22.22x15.6 "Map" #a3977f
-    box 50.56,0 67.22x27.27 #00000059 @pointerPress
+    box 50.56,0 67.22x27.27 #00000059 @keyPress @pointerPress
       box 51.39,0.83 65.56x1.67 absolute #d6a56b
       text 63.06,6.67 42.22x15.6 "Drawer" #ffffff
-    box 121.11,0 67.22x27.27 #00000000 @pointerPress
+    box 121.11,0 67.22x27.27 #00000000 @keyPress @pointerPress
       box 121.94,0.83 65.56x1.67 absolute #00000000
       text 133.61,6.67 42.22x15.6 "Market" #a3977f
   box 0,33.93 700x259.53
@@ -19,14 +19,14 @@ box 0,0 700x385.73
       box 0,61.2 700x16.67 opacity=1
         box 0,61.73 233.33x15.6 @pointerEnter @pointerLeave
           text 0,61.73 233.33x15.6 "Button drawer" #cbb994
-        box 248.33,61.2 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 0 of 4 @pointerPress
+        box 248.33,61.2 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 0 of 4 @keyPress @pointerPress
           box 245.83,58.7 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2 opacity=1
           box 260.83,58.7 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=0
       box 0,89.53 700x28.33 opacity=0.45
         box 0,95.9 233.33x15.6 @pointerEnter @pointerLeave
           text 0,95.9 233.33x15.6 "Hide the map" #cbb994
         box 248.33,89.53 200x28.33
-          box 248.33,89.53 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @pointerPress
+          box 248.33,89.53 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
             text 263.33,95.9 153.33x15.6 "Never" #f0c860
             box 425,97.03 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
       box 0,129.53 700x25 opacity=0.45
@@ -34,7 +34,7 @@ box 0,0 700x385.73
           text 0,134.23 233.33x15.6 "Its name" #cbb994
         box 248.33,129.53 250x25 #0d0a08 input "" @change
       text 0,166.2 700x0 "" #ffffff
-      box 0,177.87 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 0 of 4 @pointerPress
+      box 0,177.87 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 0 of 4 @keyPress @pointerPress
         box -2.5,175.37 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2 opacity=1
         box 12.5,175.37 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=0
     box 0,206.2 700x87.27
@@ -44,9 +44,9 @@ box 0,0 700x385.73
       box 0,233.47 700x60 #0d0a08 input "Ordaen:1:drawer\nhide=never" lines typing selected 0..26 clipped @change
   box 0,300.13 700x15.6 @pointerEnter @pointerLeave
     text 0,300.13 700x15.6 "zone shown" #ffffff
-  box 0,322.4 700x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @pointerDown @pointerEnter @pointerLeave @pointerPress
+  box 0,322.4 700x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
     text 335.56,328.77 28.89x15.6 "Save" #ffd100
-  box 0,357.4 700x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @pointerDown @pointerEnter @pointerLeave @pointerPress
+  box 0,357.4 700x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
     text 332.22,363.77 35.56x15.6 "Reset" #808080
 surface 100,127.33 271.17x83.05 on TOOLTIP Interface\AddOns\Ordaen\media\window-wood clamped
   text 123.58,150.92 229x19.2 "Button drawer" #ffffff
@@ -56,13 +56,13 @@ surface 100,127.33 271.17x83.05 on TOOLTIP Interface\AddOns\Ordaen\media\window-
 box 0,0 700x385.73
   box 0,0 700x27.27
     box 0,26.43 700x0.83 absolute #3e2f1d
-    box 0,0 47.22x27.27 #00000000 @pointerPress
+    box 0,0 47.22x27.27 #00000000 @keyPress @pointerPress
       box 0.83,0.83 45.56x1.67 absolute #00000000
       text 12.5,6.67 22.22x15.6 "Map" #a3977f
-    box 50.56,0 67.22x27.27 #00000059 @pointerPress
+    box 50.56,0 67.22x27.27 #00000059 @keyPress @pointerPress
       box 51.39,0.83 65.56x1.67 absolute #d6a56b
       text 63.06,6.67 42.22x15.6 "Drawer" #ffffff
-    box 121.11,0 67.22x27.27 #00000000 @pointerPress
+    box 121.11,0 67.22x27.27 #00000000 @keyPress @pointerPress
       box 121.94,0.83 65.56x1.67 absolute #00000000
       text 133.61,6.67 42.22x15.6 "Market" #a3977f
   box 0,33.93 700x259.53
@@ -73,14 +73,14 @@ box 0,0 700x385.73
       box 0,61.2 700x16.67 opacity=1
         box 0,61.73 233.33x15.6 @pointerEnter @pointerLeave
           text 0,61.73 233.33x15.6 "Button drawer" #cbb994
-        box 248.33,61.2 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 0 of 4 @pointerPress
+        box 248.33,61.2 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 0 of 4 @keyPress @pointerPress
           box 245.83,58.7 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2 opacity=1
           box 260.83,58.7 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=0
       box 0,89.53 700x28.33 opacity=0.45
         box 0,95.9 233.33x15.6 @pointerEnter @pointerLeave
           text 0,95.9 233.33x15.6 "Hide the map" #cbb994
         box 248.33,89.53 200x28.33
-          box 248.33,89.53 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @pointerPress
+          box 248.33,89.53 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
             text 263.33,95.9 153.33x15.6 "Never" #f0c860
             box 425,97.03 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
       box 0,129.53 700x25 opacity=0.45
@@ -88,7 +88,7 @@ box 0,0 700x385.73
           text 0,134.23 233.33x15.6 "Its name" #cbb994
         box 248.33,129.53 250x25 #0d0a08 input "" @change
       text 0,166.2 700x0 "" #ffffff
-      box 0,177.87 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 0 of 4 @pointerPress
+      box 0,177.87 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 0 of 4 @keyPress @pointerPress
         box -2.5,175.37 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2 opacity=1
         box 12.5,175.37 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=0
     box 0,206.2 700x87.27
@@ -98,7 +98,7 @@ box 0,0 700x385.73
       box 0,233.47 700x60 #0d0a08 input "Ordaen:1:drawer\nhide=never" lines typing selected 0..26 clipped @change
   box 0,300.13 700x15.6 @pointerEnter @pointerLeave
     text 0,300.13 700x15.6 "zone shown" #ffffff
-  box 0,322.4 700x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @pointerDown @pointerEnter @pointerLeave @pointerPress
+  box 0,322.4 700x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
     text 335.56,328.77 28.89x15.6 "Save" #ffd100
-  box 0,357.4 700x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @pointerDown @pointerEnter @pointerLeave @pointerPress
+  box 0,357.4 700x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
     text 332.22,363.77 35.56x15.6 "Reset" #808080

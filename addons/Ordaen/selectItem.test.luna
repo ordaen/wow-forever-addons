@@ -1,5 +1,5 @@
 // The library's SelectItem: a sidebar's items, the selected one filled in its own colour with an edge of it.
-import { MouseButton, Pointer, Track } from "$ltml"
+import { MouseButton, Track } from "$ltml"
 import Test from "$test"
 import { SelectItem, selectedFill } from "@/selectItem"
 
@@ -14,15 +14,15 @@ class Sidebar {
   const green: Color | nil = GREEN
   const orange: Color | nil = ORANGE
 
-  onBags(mut self, click: Pointer) { self.picked = "Bags" }
-  onCloak(mut self, click: Pointer) {
-    if (click.button == MouseButton.Right) {
+  onBags(mut self, button: MouseButton) { self.picked = "Bags" }
+  onCloak(mut self, button: MouseButton) {
+    if (button == MouseButton.Right) {
       self.menus += 1
       return
     }
     self.picked = "Linen Cloak"
   }
-  onVest(mut self, click: Pointer) { self.picked = "Brown Linen Vest" }
+  onVest(mut self, button: MouseButton) { self.picked = "Brown Linen Vest" }
 
   public render(self): Template {
     return $ltml {

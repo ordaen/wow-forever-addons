@@ -72,7 +72,7 @@ public class PushButton implements Component {
   public render(self): Template {
     return $ltml {
       <box width={{ min: self.width }} height={HEIGHT} padding={CAPS} xAlign={Align.Center} yAlign={Align.Center}
-           background={self.art} action={self.doing} @pointerPress={self.onClick} @pointerDown.repeat(.Left)={self.onHeld}
+           background={self.art} action={self.doing} @pointerPress={self.onClick} @keyPress(.Enter)={self.onClick} @keyPress(.Space)={self.onClick} @pointerDown.repeat(.Left)={self.onHeld}
            @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
         <Tip $if={self.tipShown} title={self.tipText.title} text={self.tipText.text} rows={self.tipText.rows} />
         <text value={self.label} textColor={self.color} textShadow={SHADOW} wrap={false}

@@ -10,7 +10,7 @@
 // row right-clicked: its menu (`RowMenu`).
 import Client from "$client"
 import Game from "$game"
-import { Align, Beside, Edges, Layer, Line, MouseButton, Overflow, Pointer, Side, Track } from "$ltml"
+import { Align, Beside, Edges, Layer, Line, MouseButton, Overflow, Side, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import { ARTWORK, Choice, Column, Component, Copper, CountInput, DropdownItem, ItemButton, ItemId, Memory, Menu, MenuEntry, Money, PushButton, SECONDARY_TEXT, SelectItem, Table, TableRow, ToolButton, ToolPick, Toolbar, ageText, space, tracksOf } from "Ordaen"
 import { PriceHistory } from "@/history"
@@ -199,7 +199,7 @@ class CategoryEntry implements Component {
     self.itemSubclass = itemSubclass
   }
 
-  onClass(self, click: Pointer) { self.pick.emit(self.category.itemClass, ANY) }
+  onClass(self, button: MouseButton) { self.pick.emit(self.category.itemClass, ANY) }
   onSubclass(self, subclass: Integer) { self.pick.emit(self.category.itemClass, subclass) }
 
   public render(self): Template {
@@ -230,7 +230,7 @@ class SubclassEntry implements Component {
     self.itemSubclass = itemSubclass
   }
 
-  onPick(self, click: Pointer) { self.pick.emit(self.subclass.itemSubclass) }
+  onPick(self, button: MouseButton) { self.pick.emit(self.subclass.itemSubclass) }
 
   public render(self): Template {
     return $ltml {
@@ -362,9 +362,9 @@ class FoundRow implements Component {
     self.menuOpen = menuOpen
   }
 
-  onPick(self, click: Pointer) {
+  onPick(self, button: MouseButton) {
     self.pick.emit(self.found.key)
-    if (click.button == MouseButton.Right) { self.menu.emit(self.found.key) }
+    if (button == MouseButton.Right) { self.menu.emit(self.found.key) }
   }
 
   onAct(self, act: RowAct) { self.act.emit(act, self.found) }

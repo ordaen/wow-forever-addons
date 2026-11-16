@@ -598,7 +598,7 @@ public class TipFrame implements Component {
           </box>
         </box>
         <box $if={self.locked} position={Position.Absolute} right={2.34375dp} top={2.34375dp} width={28.125dp}
-             height={28.125dp} background={CLOSE_ART} @pointerPress={self.onClose} />
+             height={28.125dp} background={CLOSE_ART} @pointerPress={self.onClose} @keyPress(.Enter)={self.onClose} @keyPress(.Space)={self.onClose} />
       </box>
     }
   }
