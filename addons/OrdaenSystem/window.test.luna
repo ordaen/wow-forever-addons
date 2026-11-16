@@ -13,6 +13,7 @@ import { Art, Key } from "$ltml"
 import Runtime from "$runtime"
 import Test from "$test"
 import root Ordaen from "Ordaen"
+import { FOLDED_MOST } from "@/addonsWindow"
 import Locale from "@/locales"
 import Style from "@/style"
 
@@ -2372,6 +2373,71 @@ test "the filter, the view and the picked addon are the profile's: there after a
   Test.reload()
   open()
   Test.expect(titles() == "Ordaen System" && window().text(Locale.COL_CATEGORY).shown() && card() != "")
+}
+
+test "the sort and which way are the profile's: there after a reload" {
+  Test.addon({ name: "Bagger", title: "Bagger", category: "Inventory" })
+  Test.mount(nil, SCREEN)
+  open()
+  pick(Ordaen.art.ctl.tool.categories, Locale.VIEW_TABLE)
+  window().text(Locale.COL_ADDON).click()
+  Test.expect(titles() == "Ordaen System, Ordaen, LunaType, Bagger")
+  Test.reload()
+  open()
+  Test.expect(titles() == "Ordaen System, Ordaen, LunaType, Bagger")
+}
+
+test "a folded category stays folded as the window closes and opens again" {
+  Test.addon({ name: "Bagger", title: "Bagger", category: "Inventory" })
+  Test.mount(nil, SCREEN)
+  open()
+  row("Inventory").click()
+  _ = Test.key(Key.Escape)
+  Test.expect(!window().shown())
+  open()
+  Test.expect(row("Inventory").paintedWith(Ordaen.art.ctl.markClosed) && !window().text("Bagger").shown())
+}
+
+test "folded categories are the profile's: folded after a reload, and open after the next once opened" {
+  Test.addon({ name: "Bagger", title: "Bagger", category: "Inventory" })
+  Test.mount(nil, SCREEN)
+  open()
+  row("Inventory").click()
+  Test.reload()
+  open()
+  Test.expect(row("Inventory").paintedWith(Ordaen.art.ctl.markClosed) && !window().text("Bagger").shown())
+  row("Inventory").click()
+  Test.reload()
+  open()
+  Test.expect(row("Inventory").paintedWith(Ordaen.art.ctl.markOpen) && window().text("Bagger").shown())
+}
+
+test "at most so many categories are kept folded: one more opens the earliest folded" {
+  for (i of 1..=FOLDED_MOST + 1) { Test.addon({ name: `Crate${i}`, title: `Crate ${i}`, category: `Aisle ${i}` }) }
+  Test.mount(nil, SCREEN)
+  open()
+  for (i of 1..=FOLDED_MOST + 1) { row(`Aisle ${i}`).click() }
+  Test.expect(row("Aisle 1").paintedWith(Ordaen.art.ctl.markOpen) && window().text("Crate 1").shown())
+  let closed = true
+  for (i of 2..=FOLDED_MOST + 1) {
+    if (!row(`Aisle ${i}`).paintedWith(Ordaen.art.ctl.markClosed)) { closed = false }
+  }
+  Test.expect(closed)
+}
+
+test "a folded category no addon has any more is let go: one of it installed again opens unfolded" {
+  Test.addon({ name: "Bagger", title: "Bagger", category: "Inventory" })
+  Test.mount(nil, SCREEN)
+  open()
+  row("Inventory").click()
+  Test.uninstall("Bagger")
+  Test.reload()
+  open()
+  Test.expect(!window().text("Inventory").shown())
+  Test.addon({ name: "Pouch", title: "Pouch", category: "Inventory" })
+  Test.reload()
+  open()
+  Test.expect(row("Inventory").paintedWith(Ordaen.art.ctl.markOpen) && window().text("Pouch").shown())
 }
 
 test "another profile has the list as it starts: by category, nothing picked, nothing filtered" {
