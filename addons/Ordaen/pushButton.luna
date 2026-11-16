@@ -1,23 +1,21 @@
 // PushButton: our push button, the bronze plate three-sliced from its art, or the red one with `accent`; the art's
-// hover glow over it under the cursor, its pushed row while pressed (the label 2 px lower). The label in gold, white
+// hover glow over it under the cursor, its pushed row while pressed. The label in gold, white
 // under the cursor, with a dark drop; disabled, the grey plate and a grey label, and no click. With an `action` it
 // is a secure box: the client does the action from the player's click (a spell, an item, a macro). With a `tip`, a Tip
 // says it while the cursor is on it.
-import { Action, Align, Art, Edges, Position, Shadow, Stated } from "$ltml"
+import { Action, Align, Art, Edges, Shadow, Stated } from "$ltml"
 import root Ordaen from "Ordaen"
 import { Component } from "@/module"
 import { Tip, TipText } from "@/tip"
 
 const HEIGHT = 39.84375dp
-// The label keeps off the art's caps (half as wide as the plate is high): a label longer than the width it was given
-// widens the button: it is as wide as the width it was given (a box of that width) or as its label pinned between
-// its sides (which widens the box it stands in) needs, whichever is more.
-const CAPS: Edges = { left: HEIGHT / 2, right: HEIGHT / 2 }
+// The label keeps inside the carved line round the plate's face (in the art, 14 of the 64 px a row is high in from
+// each end, the face from 15): a quarter of the height off each end. A label longer than the width it was given
+// widens the button.
+const CAPS: Edges = { left: HEIGHT / 4, right: HEIGHT / 4 }
 const LABEL: Stated<Color> = { default: Color.hex("#ffd100"), hover: Color.hex("#ffffff") }
 const GREY: Color = Color.hex("#808080")
 const SHADOW: Shadow = { color: Color.hex("#000000"), x: 1.171875dp, y: -1.171875dp }
-// The label while pressed.
-const DOWN: Stated<Number<Length>> = { default: 0ui, pressed: 2.34375dp }
 const NO_TIP: TipText = { title: "", text: "", rows: [] }
 
 public class PushButton implements Component {
@@ -68,15 +66,12 @@ public class PushButton implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box width={"max-content"} height={HEIGHT} background={self.art} action={self.doing} repeats={self.repeating}
+      <box width={{ min: self.width }} height={HEIGHT} padding={CAPS} xAlign={Align.Center} yAlign={Align.Center}
+           background={self.art} action={self.doing} repeats={self.repeating}
            @click={self.onClick} @enter={self.onEnter} @leave={self.onLeave}>
-        <box width={self.width} height={HEIGHT} />
         <Tip $if={self.tipShown} title={self.tipText.title} text={self.tipText.text} rows={self.tipText.rows} />
-        <box position={Position.Absolute} left={0ui} right={0ui} top={DOWN} height={HEIGHT} padding={CAPS}
-             xAlign={Align.Center} yAlign={Align.Center} stateFromParent={true}>
-          <text value={self.label} textColor={self.color} textShadow={SHADOW} wrap={false}
-                stateFromParent={true} />
-        </box>
+        <text value={self.label} textColor={self.color} textShadow={SHADOW} wrap={false}
+              stateFromParent={true} />
       </box>
     }
   }

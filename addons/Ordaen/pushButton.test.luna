@@ -17,12 +17,29 @@ class Buttons {
   }
 }
 
+class Cell {
+  public render(self): Template {
+    return $ltml {
+      <box columns={[98.4375dp]} rows={[35ui]} height={35ui} xAlign={Align.End}>
+        <PushButton label={"Forget"} width={93.75dp} />
+      </box>
+    }
+  }
+}
+
+test "a push button in a table's cell narrower than it holds its label in its content" {
+  let page = new Cell()
+  Test.mount(page, { left: 0, top: 0, width: 600, height: 300 })
+  Test.expect(fits("Forget"))
+  destroy page
+}
+
 // Whether the button's label stands clear of its caps and inside its height.
 function fits(label: String): Boolean {
   const plate = Test.page().button(label).rect()
   const drawn = Test.page().text(label).letters()
-  // The caps: half as wide as the plate is high.
-  const cap = (plate.bottom - plate.top) / 2
+  // The carved line round the face: 14 of the art's 64 px in from each end, the face a quarter of the height in.
+  const cap = (plate.bottom - plate.top) / 4
   return drawn.left >= plate.left + cap - 0.5 && drawn.right <= plate.right - cap + 0.5 &&
     drawn.top >= plate.top && drawn.bottom <= plate.bottom
 }
