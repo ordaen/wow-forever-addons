@@ -26,20 +26,21 @@ public class Recorder {
     Game.mailObserver.changed.listen(self.onMail)
   }
 
-  // The open profession's recipes, and the hour each with a cooldown is ready: one client call per recipe for the
-  // cooldown, once a profession is opened and each time its list changes. Nothing while none is open, or where the
-  // game gave no list (the seam says why).
+  // The open profession's recipes the character knows, and the hour each with a cooldown is ready: the recipes as
+  // the game's side has read them (no recipe is asked of the client again), one client call per known recipe for
+  // the cooldown, once a profession is opened and each time its list's length changes. Nothing while none is open
+  // or its list hasn't come.
   readRecipes(mut self, open: Integer | nil, count: Integer) {
-    if (open == nil) { return }
-    const known = Game.recipeReader.known()
-    if (known == nil) { return }
+    if (open == nil || count == 0) { return }
     const recipes: Array<RecipeId> = []
     const ready: Map<RecipeId, Hour> = {}
-    for (id of known) {
-      const recipe = RecipeId.of(id)
-      recipes.push(recipe)
-      const left = Game.recipeReader.cooldown(id)
-      if (left != nil) { ready[recipe] = Hour.fromNow(left) }
+    for (read of peek Game.tradeSkill.recipes) {
+      if (read.learned) {
+        const recipe = RecipeId.of(read.id)
+        recipes.push(recipe)
+        const left = Game.recipeReader.cooldown(read.id)
+        if (left != nil) { ready[recipe] = Hour.fromNow(left) }
+      }
     }
     self.records.setRecipes(open, mut recipes, mut ready)
   }
