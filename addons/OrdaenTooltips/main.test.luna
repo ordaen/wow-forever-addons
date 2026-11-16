@@ -24,7 +24,7 @@ function frame(kind: String, name: String, x: Number, y: Number, width: Number, 
   return made
 }
 
-// The game's own tooltip, in the screen's bottom right corner: 200 wide, its top at 720.
+// The game's own tooltip, in the screen's bottom right corner: 200 wide, its top at 720, its bottom at 800.
 function corner(): any Client.Frame {
   return frame("Frame", "GameTooltip", 1300, 720, 200, 80)
 }
@@ -159,14 +159,14 @@ test "with «Tooltips at buttons» unticked a button's tooltip stands where the 
   choose("General", "Tooltips at buttons")
   Game.tooltip.main = atButton("CharacterMicroButton", text("Character Info"))
   const at = Test.page().window("Character Info").rect()
-  Test.expect(near(at.bottom, 720) && near(at.right, 1500))
+  Test.expect(near(at.bottom, 800) && near(at.right, 1500))
 }
 
 test "a tooltip the game can't place by its owner stands where the game put its own" {
   Test.mount(nil, SCREEN)
   Game.tooltip.main = { placeable: false, ..atButton("SomeAddonButton", text("Some Addon")) }
   const at = Test.page().window("Some Addon").rect()
-  Test.expect(near(at.bottom, 720) && near(at.right, 1500))
+  Test.expect(near(at.bottom, 800) && near(at.right, 1500))
 }
 
 test "an item in the bags stands under its slot on its right edge in the screen's upper right, though buttons' tooltips don't" {
@@ -189,7 +189,7 @@ test "with bags' items set to the screen's corner an item in the bags stands whe
   pick("Items", "Beside the item", 1, "In the screen's corner")
   Game.tooltip.main = inSlot("ContainerFrame1Item3", sword())
   const at = Test.page().window("Sword").rect()
-  Test.expect(near(at.bottom, 720) && near(at.right, 1500))
+  Test.expect(near(at.bottom, 800) && near(at.right, 1500))
 }
 
 test "a worn item stands beside its slot of the character, and in the corner where the character's are set so" {
@@ -199,7 +199,7 @@ test "a worn item stands beside its slot of the character, and in the corner whe
   Test.expect(near(Test.page().window("Sword").rect().top, 240))
   pick("Items", "Beside the item", 2, "In the screen's corner")
   Game.tooltip.main = inSlot("CharacterHeadSlot", sword())
-  Test.expect(near(Test.page().window("Sword").rect().bottom, 720))
+  Test.expect(near(Test.page().window("Sword").rect().bottom, 800))
 }
 
 test "the tooltips beside an item stand in a column away from the corner, and the worn one beyond them" {

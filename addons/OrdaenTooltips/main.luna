@@ -397,8 +397,10 @@ public class Tooltips implements Module, App {
   where(self): Standing {
     let tip = Game.tooltip.main
     let owner = tip.owner
-    if (owner != nil && self.beside(tip)) { return { by: owner, below: tip.ownerHigh, right: tip.ownerRight } }
-    return { by: tip.corner, below: tip.below, right: tip.right }
+    if (owner != nil && self.beside(tip)) {
+      return { by: owner, inPlace: false, below: tip.ownerHigh, right: tip.ownerRight }
+    }
+    return { by: tip.corner, inPlace: true, below: tip.below, right: tip.right }
   }
 
   public render(self): Template {

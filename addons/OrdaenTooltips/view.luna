@@ -1,9 +1,9 @@
 // One Ordaen tooltip in place of the game's, and the group round it: the tooltip itself, the ones open beside it
 // from the start (a use effect, the set, the item a recipe makes: one column), and the items it is compared with.
 //
-// Where the group stands is decided by whoever shows it: at a frame of the game's (its owner, or the game's own
-// unseen tooltip), above it with the group's bottom edges on the frame's top, or below it with their tops on its
-// bottom; on the frame's left edge, or on its right edge with the group running leftwards. The main tooltip is
+// Where the group stands is decided by whoever shows it: in the place of the game's own unseen tooltip, hanging by
+// the corner the game anchored it by; or by its owner, above it with the group's bottom edges on the owner's top,
+// or below it with their tops on its bottom; on the frame's left edge, or on its right edge with the group running leftwards. The main tooltip is
 // always the one at the frame; the others follow it in one row, lined up on the edge that faces the frame, so no
 // tooltip floats off it.
 import { Align, Edges, Frame, Place, Point } from "$ltml"
@@ -24,7 +24,10 @@ const LEVEL: Edges = {}
 // Where a group stands by a frame of the game's.
 public struct Standing {
   by: any Frame
-  // Under the frame; above it otherwise.
+  // In the frame's place, hanging by the same corner (the game's own tooltip, where the game anchored it); beside
+  // the frame otherwise.
+  inPlace: Boolean
+  // Under the frame (in its place: hanging by its top); above it otherwise.
   below: Boolean
   // On the frame's right edge, the group running leftwards; on its left edge otherwise.
   right: Boolean
@@ -144,6 +147,12 @@ public class TipGroup implements Component {
 
   at(self): Place {
     let standing = self.standing
+    if (standing.inPlace) {
+      let point = standing.below ?
+        (standing.right ? Point.TopRight : Point.TopLeft) :
+        (standing.right ? Point.BottomRight : Point.BottomLeft)
+      return { point: point, to: point, by: standing.by }
+    }
     if (standing.below) {
       return standing.right ?
         { point: Point.TopRight, to: Point.BottomRight, by: standing.by } :
