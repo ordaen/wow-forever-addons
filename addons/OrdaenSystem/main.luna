@@ -1,6 +1,7 @@
 // Ordaen System: what belongs to the game client rather than to playing. The game menu dressed in Ordaen's look, and
-// the AddOns window that its «AddOns» opens in place of Blizzard's list. At login it costs one script hook on the
-// game menu and nothing else: the dress is made the first time the menu shows, the window the first time it opens.
+// the AddOns window that its «AddOns» opens in place of Blizzard's list. At login it costs a script hook on the game
+// menu and a hook of `ShowUIPanel` (Blizzard's list asked for opens ours), and nothing else: the dress is made the
+// first time the menu shows, the window the first time it opens.
 import Client from "$client"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
@@ -37,6 +38,11 @@ public class System implements Module, App {
     _ = Client.GameMenuFrame.HookScript("OnShow", (...args: Unknown): nil => {
       if (live.on) { self.dress() }
     })
+    // Blizzard's list asked for, whichever way (its own «AddOns» where that button takes a click): ours in its place.
+    // A hook on a rarely called function, its body one comparison.
+    Client.hooksecurefunc("ShowUIPanel", (...args: Unknown): nil => {
+      if (live.on && args[1] == Client.AddonList) { self.replace() }
+    })
   }
 
   destructor() { self.live.on = false }
@@ -54,6 +60,14 @@ public class System implements Module, App {
   }
 
   public closeWindow(mut self) { self.open = false }
+
+  // Blizzard's list was shown: shut again in the call that showed it, before a frame draws it, and ours opened, the
+  // game menu shut as our «AddOns» shuts it. The list's own hide resets what isn't saved; ours saves each switch.
+  replace(mut self) {
+    Client.HideUIPanel(Client.AddonList)
+    if (Client.GameMenuFrame.IsShown()) { self.menu.close() }
+    self.openWindow()
+  }
 
   public render(self): Template {
     return $ltml {
