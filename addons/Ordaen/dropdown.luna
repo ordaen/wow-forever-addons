@@ -7,7 +7,6 @@ import root Ordaen from "Ordaen"
 import Locale from "@/locales"
 import { Component } from "@/module"
 import { SettingRow } from "@/settingRow"
-import { PX } from "@/units"
 
 // One of a dropdown's choices: the value the setting takes, and what the player reads; on a toolbar's ToolPick, the
 // glyph its button shows while it is picked (a view's).
@@ -18,20 +17,20 @@ public struct Choice<T: Unknown> {
   icon: Art | nil
 }
 
-const WIDTH = 240 * PX
-const HEIGHT = 34 * PX
+const WIDTH = 281.25dp
+const HEIGHT = 39.84375dp
 const GOLD: Color = Color.hex("#f0c860")
 const WHITE: Color = Color.hex("#ffffff")
 const DIM: Color = Color.hex("#ffffff73")
 // The design's 700: the same colour one pixel to the right.
-const BOLD: Shadow = { color: GOLD, x: 1 * PX, y: 0 }
-const FACE_PAD: Edges = { right: 12 * PX, left: 18 * PX }
-const COMPACT_FACE_PAD: Edges = { right: 8 * PX, left: 12 * PX }
-const ARROW_SHADOW: Shadow = { color: Color.hex("#14141fcc"), x: 1 * PX, y: 1 * PX }
+const BOLD: Shadow = { color: GOLD, x: 1.171875dp, y: 0ui }
+const FACE_PAD: Edges = { right: 14.0625dp, left: 21.09375dp }
+const COMPACT_FACE_PAD: Edges = { right: 9.375dp, left: 14.0625dp }
+const ARROW_SHADOW: Shadow = { color: Color.hex("#14141fcc"), x: 1.171875dp, y: 1.171875dp }
 const MENU_BACK: Color = Color.hex("#0a0806f7")
-const MENU_EDGE: Line = { width: 1 * PX, color: Color.hex("#6c5535") }
-const MENU_PAD: Edges = { top: 6 * PX, bottom: 6 * PX }
-const ITEM_PAD: Edges = { top: 5 * PX, right: 14 * PX, bottom: 5 * PX, left: 30 * PX }
+const MENU_EDGE: Line = { width: 1.171875dp, color: Color.hex("#6c5535") }
+const MENU_PAD: Edges = { top: 7.03125dp, bottom: 7.03125dp }
+const ITEM_PAD: Edges = { top: 5.859375dp, right: 16.40625dp, bottom: 5.859375dp, left: 35.15625dp }
 const CLEAR: Color = Color.hex("#00000000")
 const LIGHT: Stated<Color> = { default: CLEAR, hover: Color.hex("#d6a56b2e") }
 
@@ -66,7 +65,7 @@ public class DropdownItem<T: Unknown> implements Component {
   public render(self): Template {
     return $ltml {
       <box padding={ITEM_PAD} background={self.light} @click={self.onClick}>
-        <box position={Position.Absolute} left={10 * PX} top={9 * PX} width={11 * PX} height={11 * PX}
+        <box position={Position.Absolute} left={11.71875dp} top={10.546875dp} width={12.890625dp} height={12.890625dp}
              background={self.mark} />
         <text value={self.text} textColor={self.color} wrap={self.wraps} />
       </box>
@@ -120,13 +119,13 @@ public class Dropdown<T: Unknown> implements Component {
     return $ltml {
       <SettingRow label={self.label} hint={self.hint} disabled={self.disabled}>
         <box width={WIDTH} height={HEIGHT}>
-          <box position={Position.Absolute} left={0} top={0} width={WIDTH} height={HEIGHT} padding={FACE_PAD}
-               columns={[{ fr: 1 }, 16 * PX]} gap={10 * PX} yAlign={Align.Center}
+          <box position={Position.Absolute} left={0ui} top={0ui} width={WIDTH} height={HEIGHT} padding={FACE_PAD}
+               columns={[{ fr: 1 }, 18.75dp]} gap={11.71875dp} yAlign={Align.Center}
                background={Ordaen.art.ctl.button} @click={self.toggle}>
             <text value={self.shown} textColor={GOLD} textShadow={BOLD} wrap={false} />
-            <box width={16 * PX} height={16 * PX} background={Ordaen.art.ctl.dropdownArrow} shadow={ARROW_SHADOW} />
+            <box width={18.75dp} height={18.75dp} background={Ordaen.art.ctl.dropdownArrow} shadow={ARROW_SHADOW} />
           </box>
-          <surface $if={self.open} layer={Layer.Tooltip} place={Beside { beside: "parent" }} width={WIDTH + 20 * PX}
+          <surface $if={self.open} layer={Layer.Tooltip} place={Beside { beside: "parent" }} width={WIDTH + 23.4375dp}
                    background={MENU_BACK} border={MENU_EDGE} padding={MENU_PAD} columns={1}
                    @clickOutside={self.close}>
             <DropdownItem $for={choice of self.choices} choice={choice} value={self.value} @pick={self.onPick} />
@@ -143,7 +142,7 @@ public class Dropdown<T: Unknown> implements Component {
 public class CompactDropdown<T: Unknown> implements Component {
   state open = false
   derived shown: String = labelOf(self.choices, self.value)
-  derived listWidth: Number = self.width + 40 * PX
+  derived listWidth: Number<Length> = self.width + 46.875dp
 
   value: mut Signal<T>
   const choices: Array<Choice<T>>
@@ -169,11 +168,11 @@ public class CompactDropdown<T: Unknown> implements Component {
   public render(self): Template {
     return $ltml {
       <box width={self.width} height={HEIGHT}>
-        <box position={Position.Absolute} left={0} top={0} width={self.width} height={HEIGHT}
-             padding={COMPACT_FACE_PAD} columns={[{ fr: 1 }, 16 * PX]} gap={6 * PX} yAlign={Align.Center}
+        <box position={Position.Absolute} left={0ui} top={0ui} width={self.width} height={HEIGHT}
+             padding={COMPACT_FACE_PAD} columns={[{ fr: 1 }, 18.75dp]} gap={7.03125dp} yAlign={Align.Center}
              background={Ordaen.art.ctl.button} @click={self.toggle}>
           <text value={self.shown} textColor={GOLD} wrap={false} />
-          <box width={16 * PX} height={16 * PX} background={Ordaen.art.ctl.dropdownArrow} shadow={ARROW_SHADOW} />
+          <box width={18.75dp} height={18.75dp} background={Ordaen.art.ctl.dropdownArrow} shadow={ARROW_SHADOW} />
         </box>
         <surface $if={self.open} layer={Layer.Tooltip} place={Beside { beside: "parent" }} minWidth={self.listWidth}
                  background={MENU_BACK} border={MENU_EDGE} padding={MENU_PAD} columns={1} @clickOutside={self.close}>
@@ -204,9 +203,9 @@ class ManyItem<T: Unknown> implements Component {
   public render(self): Template {
     return $ltml {
       <box padding={ITEM_PAD} background={LIGHT} @click={self.onClick}>
-        <box position={Position.Absolute} left={8 * PX} top={7 * PX} width={TICK} height={TICK}
+        <box position={Position.Absolute} left={9.375dp} top={8.203125dp} width={TICK} height={TICK}
              background={Ordaen.art.ctl.check}>
-          <box position={Position.Absolute} left={0} top={0} width={TICK} height={TICK}
+          <box position={Position.Absolute} left={0ui} top={0ui} width={TICK} height={TICK}
                background={Ordaen.art.ctl.tick} opacity={self.tick} />
         </box>
         <text value={self.choice.label} textColor={WHITE} />
@@ -215,7 +214,7 @@ class ManyItem<T: Unknown> implements Component {
   }
 }
 
-const TICK = 16 * PX
+const TICK = 18.75dp
 
 // The labels of the choices a list holds, in the choices' order, joined; none when it holds none.
 function labelsOf<T: Unknown>(choices: Array<Choice<T>>, value: Array<T>): String {
@@ -280,13 +279,13 @@ public class ManyDropdown<T: Unknown> implements Component {
     return $ltml {
       <SettingRow label={self.label} hint={self.hint} disabled={self.disabled}>
         <box width={WIDTH} height={HEIGHT}>
-          <box position={Position.Absolute} left={0} top={0} width={WIDTH} height={HEIGHT} padding={FACE_PAD}
-               columns={[{ fr: 1 }, 16 * PX]} gap={10 * PX} yAlign={Align.Center}
+          <box position={Position.Absolute} left={0ui} top={0ui} width={WIDTH} height={HEIGHT} padding={FACE_PAD}
+               columns={[{ fr: 1 }, 18.75dp]} gap={11.71875dp} yAlign={Align.Center}
                background={Ordaen.art.ctl.button} @click={self.toggle}>
             <text value={self.shown} textColor={self.color} wrap={false} />
-            <box width={16 * PX} height={16 * PX} background={Ordaen.art.ctl.dropdownArrow} shadow={ARROW_SHADOW} />
+            <box width={18.75dp} height={18.75dp} background={Ordaen.art.ctl.dropdownArrow} shadow={ARROW_SHADOW} />
           </box>
-          <surface $if={self.open} layer={Layer.Tooltip} place={Beside { beside: "parent" }} width={WIDTH + 20 * PX}
+          <surface $if={self.open} layer={Layer.Tooltip} place={Beside { beside: "parent" }} width={WIDTH + 23.4375dp}
                    background={MENU_BACK} border={MENU_EDGE} padding={MENU_PAD} columns={1}
                    @clickOutside={self.close}>
             <ManyItem $for={choice of self.choices} choice={choice} value={self.value} @flip={self.onFlip} />

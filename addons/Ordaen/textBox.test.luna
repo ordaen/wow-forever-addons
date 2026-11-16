@@ -10,8 +10,8 @@ class Export {
 
   public render(self): Template {
     return $ltml {
-      <box padding={10} shown={self.open}>
-        <TextBox value={mut self.text} height={80} />
+      <box padding={10ui} shown={self.open}>
+        <TextBox value={mut self.text} height={80ui} />
       </box>
     }
   }

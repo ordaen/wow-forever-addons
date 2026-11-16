@@ -3,19 +3,19 @@ import Events from "$events"
 import Game from "$game"
 import { Align, Anchored, Point, Position, Shadow } from "$ltml"
 import root Ordaen from "Ordaen"
-import { ALWAYS, Component, Module, Placed, Settings, SettingsPage, Visibility, VisibilityRows, opacityNow, space } from "Ordaen"
+import { ALWAYS, Component, Module, Placed, SECONDARY_TEXT, Settings, SettingsPage, Visibility, VisibilityRows, opacityNow, space } from "Ordaen"
 import Locale from "@/locales"
 
 // The client's action button is this wide and high, in UI units: its art and its regions are drawn for it.
-const BUTTON: Number = 45
+const BUTTON: Number<Length> = 45ui
 const BUTTONS = 12
-const GAP: Number = space(.Line)
+const GAP: Number<Length> = space(.Line)
 // The lowest bar's room above what keeps the screen's bottom edge (the bottom panel, or the edge itself), and each
 // bar's step up from the one under it.
-const ABOVE: Number = space(.Item)
-const STEP: Number = BUTTON + GAP
+const ABOVE: Number<Length> = space(.Item)
+const STEP: Number<Length> = BUTTON + GAP
 const INK: Color = Color.hex("#ffffff")
-const KEY_SHADOW: Shadow = { color: Color.hex("#000000"), x: 1, y: -1 }
+const KEY_SHADOW: Shadow = { color: Color.hex("#000000"), x: 1ui, y: -1 }
 
 // A frame never shown: what is put in it draws nothing, whatever shows it.
 function hiddenFrame(): any Client.Frame {
@@ -82,9 +82,9 @@ public class Button implements Component {
   public render(self): Template {
     return $ltml {
       <box width={BUTTON} height={BUTTON}>
-        <embed frame={self.slot.frame} position={Position.Absolute} left={0} top={0} width={BUTTON} height={BUTTON} />
-        <box position={Position.Absolute} left={0} top={0} right={0} xAlign={Align.End} padding={2} zLevel={2}>
-          <text value={self.key} textColor={INK} textSize={.Secondary} textShadow={KEY_SHADOW} wrap={false} />
+        <embed frame={self.slot.frame} position={Position.Absolute} left={0ui} top={0ui} width={BUTTON} height={BUTTON} />
+        <box position={Position.Absolute} left={0ui} top={0ui} right={0ui} xAlign={Align.End} padding={2ui} zLevel={2}>
+          <text value={self.key} textColor={INK} textSize={SECONDARY_TEXT} textShadow={KEY_SHADOW} wrap={false} />
         </box>
       </box>
     }

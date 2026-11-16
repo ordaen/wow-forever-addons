@@ -3,17 +3,17 @@
 // the bags' window, the rest faded.
 import Game from "$game"
 import { Align, Frame, Track } from "$ltml"
-import { Component, KeptWindow, PX, Window, WindowTabSpec, space } from "Ordaen"
+import { Component, KeptWindow, SECONDARY_TEXT, Window, WindowTabSpec, space } from "Ordaen"
 import Locale from "@/locales"
 
-const ROW: Array<Track> = [32 * PX, { fr: 1 }, "auto"]
-const ICON = 32 * PX
+const ROW: Array<Track> = [37.5dp, { fr: 1 }, "max-content"]
+const ICON = 37.5dp
 const INK: Color = Color.hex("#e8dcc4")
 const LABEL: Color = Color.hex("#a3977f")
 const WELL: Color = Color.hex("#0d0a08")
 const CLEAR: Color = Color.hex("#00000000")
 const SHADE: Color = Color.hex("#00000059")
-const WIDTH = 250 * PX
+const WIDTH = 292.96875dp
 
 // A bag as the window lists it: what the game says of it, and how many of its slots hold something.
 public struct BagLine {
@@ -48,7 +48,7 @@ class BagEntry implements Component {
            @leave={self.onLeave}>
         <box width={ICON} height={ICON} background={WELL} icon={self.line.info.icon} />
         <text value={self.line.info.name} textColor={INK} />
-        <text value={self.fill} textColor={LABEL} textFont={.Numbers} textSize={.Secondary} wrap={false} />
+        <text value={self.fill} textColor={LABEL} textFont={.Numbers} textSize={SECONDARY_TEXT} wrap={false} />
       </box>
     }
   }

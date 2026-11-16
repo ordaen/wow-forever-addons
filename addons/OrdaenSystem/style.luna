@@ -1,20 +1,19 @@
 // The AddOns window's measures and colours, and the client's own words for why an addon doesn't load.
 import Client from "$client"
-import { PX } from "Ordaen"
 
-public const WIDTH: Number = 980 * PX
-public const HEIGHT: Number = 560 * PX
+public const WIDTH: Number<Length> = 1148.4375dp
+public const HEIGHT: Number<Length> = 656.25dp
 // The card's column at the window's right.
-public const CARD: Number = 300 * PX
+public const CARD: Number<Length> = 351.5625dp
 // Every line of the list, a category's caption too, is this high.
-public const ROW: Number = 26 * PX
+public const ROW: Number<Length> = 30.46875dp
 // The numbers' columns: now, peak, memory.
-public const NUMBER: Number = 70 * PX
-public const MEMORY: Number = 80 * PX
+public const NUMBER: Number<Length> = 82.03125dp
+public const MEMORY: Number<Length> = 93.75dp
 // The table's category column.
-public const CATEGORY: Number = 150 * PX
+public const CATEGORY: Number<Length> = 175.78125dp
 // How far an addon under its group's parent stands in.
-public const INDENT: Number = 18 * PX
+public const INDENT: Number<Length> = 21.09375dp
 
 public const INK: Color = Color.hex("#e8e0d0")
 public const DIM: Color = Color.hex("#9a9080")

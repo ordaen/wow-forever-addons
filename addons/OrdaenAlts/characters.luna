@@ -1,7 +1,7 @@
 // «Characters»: every recorded character in a sortable table, and «Forget» on each but the one being played, which
 // asks first. A row is built from the records when they change while this tab shows.
 import { Align, Overflow, Track } from "$ltml"
-import { Column, Component, Dialog, Hour, Money, PX, PushButton, Table, TableRow, space, tracksOf } from "Ordaen"
+import { Column, Component, Dialog, Hour, Money, PushButton, SECONDARY_TEXT, Table, TableRow, space, tracksOf } from "Ordaen"
 import { CharacterId, Place, STALE } from "@/character"
 import Locale from "@/locales"
 import { Records } from "@/records"
@@ -9,17 +9,17 @@ import Style from "@/style"
 
 const COLUMNS: Array<Column> = [
   { title: Locale.COL_NAME, width: { fr: 2 }, sortable: true },
-  { title: Locale.COL_LEVEL, width: 56 * PX, align: Align.End, sortable: true },
-  { title: Locale.COL_GOLD, width: 120 * PX, align: Align.End, sortable: true },
+  { title: Locale.COL_LEVEL, width: 65.625dp, align: Align.End, sortable: true },
+  { title: Locale.COL_GOLD, width: 140.625dp, align: Align.End, sortable: true },
   { title: Locale.COL_PROFESSIONS, width: { fr: 3 } },
-  { title: Locale.COL_BAGS, width: 96 * PX, align: Align.End, sortable: true },
-  { title: Locale.COL_SEEN, width: 90 * PX, align: Align.End, sortable: true },
-  { title: Locale.COL_BANK, width: 118 * PX },
-  { title: Locale.COL_MAIL, width: 128 * PX },
-  { title: " ", width: 84 * PX }
+  { title: Locale.COL_BAGS, width: 112.5dp, align: Align.End, sortable: true },
+  { title: Locale.COL_SEEN, width: 105.46875dp, align: Align.End, sortable: true },
+  { title: Locale.COL_BANK, width: 138.28125dp },
+  { title: Locale.COL_MAIL, width: 150dp },
+  { title: " ", width: 98.4375dp }
 ]
 const TRACKS: Array<Track> = tracksOf(COLUMNS)
-const CONFIRM_WIDTH = 460 * PX
+const CONFIRM_WIDTH = 539.0625dp
 
 // One character as a row shows it.
 public struct Line {
@@ -82,7 +82,7 @@ public class CharacterRow implements Component {
         <text value={self.line.bank} textColor={Style.DIM} />
         <text value={self.line.mail} textColor={self.mail} />
         <box xAlign={Align.End}>
-          <PushButton $if={!self.line.current} label={Locale.FORGET} width={80 * PX} @click={self.onForget} />
+          <PushButton $if={!self.line.current} label={Locale.FORGET} width={93.75dp} @click={self.onForget} />
         </box>
       </TableRow>
     }
@@ -99,7 +99,7 @@ public class Characters implements Component {
   derived question: String = self.questionOf()
   derived alone: Boolean = self.lines.length < 2
   // The table scrolls in the window's height, above the note while there is one.
-  derived rows: Array<Track> = self.alone ? [{ fr: 1 }, "auto"] : [{ fr: 1 }]
+  derived rows: Array<Track> = self.alone ? [{ fr: 1 }, "max-content"] : [{ fr: 1 }]
 
   const records: Records
   touched: Signal<Integer>
@@ -184,11 +184,11 @@ public class Characters implements Component {
             <CharacterRow $for={line of self.ordered} $key={line.who} line={line} tracks={TRACKS} @forget={self.ask} />
           </Table>
         </box>
-        <text $if={self.alone} value={Locale.ONLY_ONE} textSize={.Secondary} textColor={Style.DIM} />
+        <text $if={self.alone} value={Locale.ONLY_ONE} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
         <Dialog $if={self.asking != nil} title={Locale.FORGET_TITLE} width={CONFIRM_WIDTH}>
           <text value={self.question} textColor={Style.INK} />
-          <PushButton #buttons label={Locale.CANCEL} width={120 * PX} @click={self.cancel} />
-          <PushButton #buttons label={Locale.FORGET} width={140 * PX} @click={self.confirm} />
+          <PushButton #buttons label={Locale.CANCEL} width={140.625dp} @click={self.cancel} />
+          <PushButton #buttons label={Locale.FORGET} width={164.0625dp} @click={self.confirm} />
         </Dialog>
       </box>
     }

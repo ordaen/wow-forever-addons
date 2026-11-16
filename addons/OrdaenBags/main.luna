@@ -12,8 +12,9 @@ import Game from "$game"
 import { Align, Click, MouseButton, Overflow, Track } from "$ltml"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
+import { SECONDARY_TEXT } from "Ordaen"
 import {
-  Choice, Component, KeptWindow, ListTab, Memory, Module, Money, PX, Settings, SettingsPage, space, Tip, TipRow, Toolbar, windowsTitle, WindowsPage,
+  Choice, Component, KeptWindow, ListTab, Memory, Module, Money, Settings, SettingsPage, space, Tip, TipRow, Toolbar, windowsTitle, WindowsPage,
   ToolAct, ToolButton, ToolPick, Window, WindowTabSpec
 } from "Ordaen"
 import { Arranger } from "@/arrange"
@@ -51,16 +52,16 @@ const BAGS_VIEW: BagsView = {}
 const DEFAULTS: Choices = { hidden: [], hideEmpty: false, grouping: {} }
 const NOTHING_KEPT: Kept = { guards: [] }
 // The window's body: wide enough for the tabs and ten slots, tall enough for ten rows.
-const WIDTH = 660 * PX
-const HEIGHT = 520 * PX
-const TABS_WIDTH = 186 * PX
+const WIDTH = 773.4375dp
+const HEIGHT = 609.375dp
+const TABS_WIDTH = 217.96875dp
 // The room the body's scroll bar takes at its right.
-const SCROLL_ROOM = 16 * PX
+const SCROLL_ROOM = 18.75dp
 
-const BODY: Array<Track> = ["auto", { fr: 1 }]
+const BODY: Array<Track> = ["max-content", { fr: 1 }]
 const WITH_TABS: Array<Track> = [TABS_WIDTH, { fr: 1 }]
 const FILL: Array<Track> = [{ fr: 1 }]
-const FOOT: Array<Track> = ["auto", { fr: 1 }, "auto", "auto"]
+const FOOT: Array<Track> = ["max-content", { fr: 1 }, "max-content", "max-content"]
 const LABEL: Color = Color.hex("#a3977f")
 const COUNT: Color = Color.hex("#a3977f")
 const SORTS: Array<Choice<SortBy>> = [
@@ -96,7 +97,7 @@ class TabEntry implements Component {
   public render(self): Template {
     return $ltml {
       <ListTab label={self.name} selected={self.selected} off={self.off} @pick={self.onPick}>
-        <text value={"%d"} arguments={[self.count]} textColor={COUNT} textSize={.Secondary} textFont={.Numbers} />
+        <text value={"%d"} arguments={[self.count]} textColor={COUNT} textSize={SECONDARY_TEXT} textFont={.Numbers} />
       </ListTab>
     }
   }
@@ -105,8 +106,8 @@ class TabEntry implements Component {
 public class Bags implements Module, App {
   public const title: String = "Ordaen Bags"
   // Its windows, declared: where each stands and what the player does with it, kept in the profile.
-  public window: mut KeptWindow = new KeptWindow("main", self.title, { x: 0, y: 0, width: WIDTH, height: HEIGHT })
-  public slotsWindow: mut KeptWindow = new KeptWindow("slots", Locale.BAG_SLOTS, { x: 0, y: 0, width: 250 * PX, height: 300 * PX })
+  public window: mut KeptWindow = new KeptWindow("main", self.title, { x: 0ui, y: 0ui, width: WIDTH, height: HEIGHT })
+  public slotsWindow: mut KeptWindow = new KeptWindow("slots", Locale.BAG_SLOTS, { x: 0ui, y: 0ui, width: 292.96875dp, height: 351.5625dp })
   public const windows: mut Array<mut KeptWindow> = [self.window, self.slotsWindow]
   public const pages: Array<SettingsPage> = [
     { title: windowsTitle(), content: $ltml { <WindowsPage windows={mut self.windows} /> } }
@@ -447,7 +448,7 @@ public class Bags implements Module, App {
 
   const footer: Template = $ltml {
     <box columns={FOOT} gap={space(.Group)} yAlign={Align.Center}>
-      <text value={self.freeText} textColor={LABEL} textSize={.Secondary} />
+      <text value={self.freeText} textColor={LABEL} textSize={SECONDARY_TEXT} />
       <box />
       <text value={Game.money.tracked} textFont={.Numbers} />
       <box @enter={self.onGoldEnter} @leave={self.onGoldLeave}>
@@ -473,7 +474,7 @@ public class Bags implements Module, App {
                           open={mut self.slotsOpen} tinted={false} />
             </Toolbar>
             <box $if={self.categories} columns={WITH_TABS} rows={FILL} gap={space(.Group)}>
-              <box columns={1} gap={2 * PX}>
+              <box columns={1} gap={2.34375dp}>
                 <TabEntry $for={tab of self.tabs} $key={tab} tab={peek tab} current={self.shownTab}
                           counts={self.counts} @picked={self.onTab} />
               </box>

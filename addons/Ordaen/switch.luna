@@ -5,16 +5,15 @@ import { Art, Position } from "$ltml"
 import root Ordaen from "Ordaen"
 import { Component } from "@/module"
 import { SettingRow } from "@/settingRow"
-import { PX } from "@/units"
 
-public const SWITCH_WIDTH: Number = 38 * PX
-public const SWITCH_HEIGHT: Number = 20 * PX
+public const SWITCH_WIDTH: Number<Length> = 44.53125dp
+public const SWITCH_HEIGHT: Number<Length> = 23.4375dp
 // The knob's art is a 26 px square, the 14 px knob 6 px in from each side (room for the glow of the one that is
 // on). The knob sits 3 px in from the track's left while off, 21 px while on, and 3 px down.
-public const SWITCH_KNOB: Number = 26 * PX
-public const KNOB_TOP: Number = (3 - 6) * PX
-public const KNOB_OFF: Number = (3 - 6) * PX
-public const KNOB_ON: Number = (21 - 6) * PX
+public const SWITCH_KNOB: Number<Length> = 30.46875dp
+public const KNOB_TOP: Number<Length> = -3.515625dp
+public const KNOB_OFF: Number<Length> = -3.515625dp
+public const KNOB_ON: Number<Length> = 17.578125dp
 
 // The knob of a switch on and the knob of one off are both drawn, each where it stands, the one that isn't the
 // state at no opacity: a switch on and one off differ in their colours alone.
@@ -58,7 +57,7 @@ public class Toggle implements Component {
 public enum Shown { On, Off, Some }
 
 // The knob of a switch on for some stands halfway, lit at half.
-const KNOB_SOME: Number = (KNOB_OFF + KNOB_ON) / 2
+const KNOB_SOME: Number<Length> = (KNOB_OFF + KNOB_ON) / 2
 
 // A switch that shows a state it doesn't own, beside an entry in a list: a click is the owner's to act on (`flip`),
 // and the switch follows the state it is given.
@@ -67,7 +66,7 @@ public class ShownToggle implements Component {
 
   derived track: Art = self.state == .Off ? Ordaen.art.ctl.switchOff : Ordaen.art.ctl.switchOn
   derived knob: Art = self.state == .Off ? Ordaen.art.ctl.knobOff : Ordaen.art.ctl.knobOn
-  derived knobLeft: Number = self.state == .On ? KNOB_ON : self.state == .Some ? KNOB_SOME : KNOB_OFF
+  derived knobLeft: Number<Length> = self.state == .On ? KNOB_ON : self.state == .Some ? KNOB_SOME : KNOB_OFF
   derived knobLight: Number = self.state == .Some ? 0.5 : 1
 
   state: Signal<Shown>

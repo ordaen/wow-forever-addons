@@ -4,7 +4,7 @@
 import { Edges } from "$ltml"
 import { Component } from "Ordaen"
 import { ItemLines, Line, ObjectLines } from "@/extend"
-import { BODY, INDENT, NAME_VALUE, NO_PAD, PX, RULE, SECTION_PAD } from "@/frame"
+import { BODY, INDENT, NAME_VALUE, NO_PAD, RULE, SECTION_PAD } from "@/frame"
 
 // A line, drawn as it is: a name with its value on the right in the numbers' font, never wrapped, or a sentence
 // that wraps; set in where it says so.
@@ -22,7 +22,7 @@ class AddedLine implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box $if={self.paired} columns={NAME_VALUE} gap={10 * PX} padding={self.padding}>
+      <box $if={self.paired} columns={NAME_VALUE} gap={11.71875dp} padding={self.padding}>
         <text value={self.line.left} textColor={self.leftColor} />
         <text value={self.right} textColor={self.rightColor} wrap={false} textFont={.Numbers} />
       </box>
@@ -44,7 +44,7 @@ class AddedLines implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box $if={self.some} gap={2 * PX} padding={SECTION_PAD} border={RULE}>
+      <box $if={self.some} gap={2.34375dp} padding={SECTION_PAD} border={RULE}>
         <AddedLine $for={line of self.lines} line={line} />
       </box>
     }

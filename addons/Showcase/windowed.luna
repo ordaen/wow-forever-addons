@@ -1,10 +1,10 @@
 // A window with two tabs over a page, for the run tests: what a module with a window of its own does, its footer on
 // the window's bottom line (a dim note at its left, «Save» at its right).
 import { Align, Track } from "$ltml"
-import { KeptWindow, Module, PushButton, SettingsPage, Window, WindowTabSpec, space } from "Ordaen"
+import { KeptWindow, Module, PushButton, SECONDARY_TEXT, SettingsPage, Window, WindowTabSpec, space } from "Ordaen"
 
 const DIM: Color = Color.hex("#a3977f")
-const FOOT: Array<Track> = [{ fr: 1 }, "auto"]
+const FOOT: Array<Track> = [{ fr: 1 }, "max-content"]
 
 public class Windowed implements Module {
   public const title: String = "Windowed"
@@ -15,7 +15,7 @@ public class Windowed implements Module {
     { title: "Recipes" }
   ]
   state tab = 1
-  public window: mut KeptWindow = new KeptWindow("windowed", "Windowed", { x: 0, y: 0, width: 400, height: 300 })
+  public window: mut KeptWindow = new KeptWindow("windowed", "Windowed", { x: 0ui, y: 0ui, width: 400ui, height: 300ui })
   state open = true
   // How many times the window's settings button was clicked, and its «Save».
   state settingsOpened = 0
@@ -24,7 +24,7 @@ public class Windowed implements Module {
   derived note: String = "saved %d times".format(self.saved)
   const footer: Template = $ltml {
     <box columns={FOOT} gap={space(.Group)} yAlign={Align.Center}>
-      <text value={self.note} textSize={.Secondary} textColor={DIM} />
+      <text value={self.note} textSize={SECONDARY_TEXT} textColor={DIM} />
       <PushButton label={"Save"} width={100} @click={self.onSave} />
     </box>
   }
@@ -35,7 +35,7 @@ public class Windowed implements Module {
 
   public render(self): Template {
     return $ltml {
-      <box padding={4}>
+      <box padding={4ui}>
         <text value={"a page under the window"} />
         <Window $if={self.open} tabs={self.tabs} selected={mut self.tab} declared={mut self.window}
                 maxWidth={600} withSettings={true} footer={self.footer} @close={self.onClose}

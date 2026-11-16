@@ -3,7 +3,7 @@
 import Game from "$game"
 import { Align, Art, Click, Drag, Frame, MouseButton, Position, Shadow } from "$ltml"
 import root Ordaen from "Ordaen"
-import { Component, PX, Tip } from "Ordaen"
+import { Component, Tip } from "Ordaen"
 import type { Hint, Minimap } from "@/main"
 
 public enum RingId { Tracking = "tracking", Ordaen = "ordaen", Drawer = "drawer", Mail = "mail", CraftingOrder = "craftingOrder", Landing = "landing" }
@@ -14,34 +14,34 @@ public struct RingSpec {
   angle: Number
   // The glyph drawn on ours: one of the game's own, in its own proportions.
   glyph: Art | nil
-  glyphWidth: Number = 0
-  glyphHeight: Number = 0
+  glyphWidth: Number<Length> = 0ui
+  glyphHeight: Number<Length> = 0ui
 }
 
-public const BUTTON: Number = 34 * PX
+public const BUTTON: Number<Length> = 39.84375dp
 // Room round the frame for the ring: 16 px out to a button's centre, 17 its radius.
-public const ROOM: Number = 33 * PX
+public const ROOM: Number<Length> = 38.671875dp
 
 // Ours, which other parts of the minimap stand by: the tooltip beside the Ordaen button, the drawer under its own.
 public const ORDAEN_BUTTON: RingSpec = { id: RingId.Ordaen, angle: 250 }
 public const DRAWER_BUTTON: RingSpec = { id: RingId.Drawer, angle: 225 }
 
 public const RING: Array<RingSpec> = [
-  { id: RingId.Tracking, angle: 290, glyph: "ui-hud-minimap-tracking-up", glyphWidth: 16 * PX, glyphHeight: 15 * PX },
+  { id: RingId.Tracking, angle: 290, glyph: "ui-hud-minimap-tracking-up", glyphWidth: 18.75dp, glyphHeight: 17.578125dp },
   ORDAEN_BUTTON,
   DRAWER_BUTTON,
-  { id: RingId.Mail, angle: 65, glyph: "ui-hud-minimap-mail-up", glyphWidth: 18 * PX, glyphHeight: 13.5 * PX },
+  { id: RingId.Mail, angle: 65, glyph: "ui-hud-minimap-mail-up", glyphWidth: 21.09375dp, glyphHeight: 15.8203125dp },
   { id: RingId.CraftingOrder, angle: 85 },
   { id: RingId.Landing, angle: 120 }
 ]
 
 const GOLD: Color = Color.hex("#ffd100")
-const COUNT_SHADOW: Shadow = { color: Color.hex("#000000"), x: 1, y: -1 }
+const COUNT_SHADOW: Shadow = { color: Color.hex("#000000"), x: 1ui, y: -1 }
 
 public class RingButton implements Component {
   // In the frame's box, whose places start at its line (`artOrigin`), ROOM in from the minimap's whole.
-  derived left: Number = self.map.ringLeft(self.spec) - ROOM
-  derived top: Number = self.map.ringTop(self.spec) - ROOM
+  derived left: Number<Length> = self.map.ringLeft(self.spec) - ROOM
+  derived top: Number<Length> = self.map.ringTop(self.spec) - ROOM
   derived opacity: Number = self.map.ringOpacity()
   // The game's button under ours, where there is one.
   derived theirs: any Frame | nil = self.frameOf()
@@ -128,7 +128,7 @@ public class RingButton implements Component {
              zLevel={1} opacity={self.opacity} xAlign={Align.Center} yAlign={Align.Center} background={self.art}
              @click={self.onClick} @dragStart={self.onDragStart} @drag={self.onDrag} @dragStop={self.onDragStop}
              @enter={self.onEnter} @leave={self.onLeave}>
-          <box $if={self.spec.id == RingId.Ordaen} width={22 * PX} height={22 * PX} icon={Ordaen.icon}
+          <box $if={self.spec.id == RingId.Ordaen} width={25.78125dp} height={25.78125dp} icon={Ordaen.icon}
                mask={Ordaen.art.panel.faceRound} />
           <text $elseif={self.spec.id == RingId.Drawer} value={self.count} textColor={GOLD}
                 textFont={.Numbers} textShadow={COUNT_SHADOW} wrap={false} />

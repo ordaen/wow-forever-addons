@@ -5,7 +5,7 @@
 import Client from "$client"
 import Game from "$game"
 import { Align, Click, Track } from "$ltml"
-import { Choice, Column, Component, Hour, ItemId, Money, PX, PushButton, Segmented, Table, TableRow, space, tracksOf } from "Ordaen"
+import { Choice, Column, Component, Hour, ItemId, Money, PushButton, SECONDARY_TEXT, Segmented, Table, TableRow, space, tracksOf } from "Ordaen"
 import root Alts from "OrdaenAlts"
 import root Auction from "OrdaenAuction"
 import type { PriceKey, PriceSource } from "OrdaenAuction"
@@ -25,16 +25,16 @@ const MODES: Array<Choice<Mode>> = [
 ]
 const COLUMNS: Array<Column> = [
   { title: Locale.COLUMN_RECIPE, width: { fr: 1 }, sortable: true },
-  { title: Locale.WORTH_WHO, width: 150 * PX, sortable: true },
-  { title: Locale.COLUMN_COST, width: 90 * PX, align: Align.End, sortable: true },
-  { title: Locale.WORTH_SALE, width: 90 * PX, align: Align.End, sortable: true },
-  { title: Locale.COLUMN_PROFIT, width: 90 * PX, align: Align.End, sortable: true },
-  { title: "%", width: 50 * PX, align: Align.End, sortable: true },
-  { title: Locale.WORTH_AGE, width: 60 * PX, align: Align.End, sortable: true },
-  { title: Locale.WORTH_CAN, width: 90 * PX, align: Align.End, sortable: true }
+  { title: Locale.WORTH_WHO, width: 175.78125dp, sortable: true },
+  { title: Locale.COLUMN_COST, width: 105.46875dp, align: Align.End, sortable: true },
+  { title: Locale.WORTH_SALE, width: 105.46875dp, align: Align.End, sortable: true },
+  { title: Locale.COLUMN_PROFIT, width: 105.46875dp, align: Align.End, sortable: true },
+  { title: "%", width: 58.59375dp, align: Align.End, sortable: true },
+  { title: Locale.WORTH_AGE, width: 70.3125dp, align: Align.End, sortable: true },
+  { title: Locale.WORTH_CAN, width: 105.46875dp, align: Align.End, sortable: true }
 ]
 const TRACKS: Array<Track> = tracksOf(COLUMNS)
-const PAGE: Array<Track> = ["auto", "auto", { fr: 1 }, "auto"]
+const PAGE: Array<Track> = ["max-content", "max-content", { fr: 1 }, "max-content"]
 const NONE = "—"
 const DAY = 24
 
@@ -336,20 +336,20 @@ public class WorthPage implements Component {
     return $ltml {
       <box rows={PAGE} gap={space(.Item)}>
         <Segmented value={mut self.mode} choices={MODES} />
-        <box rows={["auto", "auto", "auto"]}>
-          <text $if={self.alone} value={Locale.WORTH_ALONE} textSize={.Secondary} textColor={Style.DIM} />
-          <text $if={self.hasUnopened} value={self.unopenedLine} textSize={.Secondary}
+        <box rows={["max-content", "max-content", "max-content"]}>
+          <text $if={self.alone} value={Locale.WORTH_ALONE} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
+          <text $if={self.hasUnopened} value={self.unopenedLine} textSize={SECONDARY_TEXT}
                 textColor={Style.DIM} />
-          <text $if={self.noPrices} value={Locale.NO_PRICES} textSize={.Secondary} textColor={Style.DIM} />
+          <text $if={self.noPrices} value={Locale.NO_PRICES} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
         </box>
-        <box rows={[{ fr: 1 }]} border={{ width: 1 * PX, color: Style.LINE }} background={Style.LISTS_BACK}>
+        <box rows={[{ fr: 1 }]} border={{ width: 1.171875dp, color: Style.LINE }} background={Style.LISTS_BACK}>
           <Table columns={COLUMNS} sorted={mut self.sorted} descending={mut self.descending}>
             <WorthLine $for={row of self.rows} worth={row} chosen={self.chosen} @pick={self.onPick} />
           </Table>
         </box>
-        <box columns={[{ fr: 1 }, "auto"]} yAlign={Align.Center}>
-          <text value={self.emptyLine} textSize={.Secondary} textColor={Style.DIM} />
-          <PushButton label={Locale.TO_SHOPPING} width={180 * PX} disabled={!self.canShop} @click={self.onShop} />
+        <box columns={[{ fr: 1 }, "max-content"]} yAlign={Align.Center}>
+          <text value={self.emptyLine} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
+          <PushButton label={Locale.TO_SHOPPING} width={210.9375dp} disabled={!self.canShop} @click={self.onShop} />
         </box>
       </box>
     }

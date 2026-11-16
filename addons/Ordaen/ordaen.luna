@@ -25,8 +25,8 @@ const TIPS_MOST = 512
 public struct KeptPlace implements Plain {
   point: Point = Point.Center
   to: Point | nil
-  x: Number | nil
-  y: Number | nil
+  x: Number<Length> | nil
+  y: Number<Length> | nil
 }
 
 public class OrdaenCore implements App {

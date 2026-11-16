@@ -8,15 +8,14 @@ import { Edges, Line } from "$ltml"
 import Locale from "@/locales"
 import { Component } from "@/module"
 import { SettingRow } from "@/settingRow"
-import { PX } from "@/units"
 
 // The most it takes: 9,999,999 gold 99 silver 99 copper.
 const MOST = 99999999999
 const INK: Color = Color.hex("#e8dcc4")
 const FILL: Color = Color.hex("#0d0a08")
-const EDGE: Line = { width: 1 * PX, color: Color.hex("#4a3a24") }
-const BAD: Line = { width: 1 * PX, color: Color.hex("#c0463c") }
-const PADDING: Edges = { right: 10 * PX, left: 10 * PX }
+const EDGE: Line = { width: 1.171875dp, color: Color.hex("#4a3a24") }
+const BAD: Line = { width: 1.171875dp, color: Color.hex("#c0463c") }
+const PADDING: Edges = { right: 11.71875dp, left: 11.71875dp }
 
 // The copper a text names, or nothing where it isn't an amount.
 public function copperOf(text: String): Integer | nil {
@@ -103,7 +102,7 @@ public class MoneyField implements Component {
 
   public render(self): Template {
     return $ltml {
-      <input value={mut self.text} width={180 * PX} height={30 * PX} padding={PADDING} background={FILL}
+      <input value={mut self.text} width={210.9375dp} height={35.15625dp} padding={PADDING} background={FILL}
              border={self.edge} textColor={INK} maxLength={24} disabled={self.disabled} />
     }
   }

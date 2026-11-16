@@ -5,9 +5,8 @@ import Game from "$game"
 import { Line } from "$ltml"
 import { Component } from "@/module"
 import { SettingRow } from "@/settingRow"
-import { PX } from "@/units"
 
-const EDGE: Line = { width: 1 * PX, color: Color.hex("#6c5535") }
+const EDGE: Line = { width: 1.171875dp, color: Color.hex("#6c5535") }
 
 public class ColorPicker implements Component {
   // The game's picker as this one opened it: what it reports is for whoever opened it last.
@@ -52,7 +51,7 @@ public class ColorPicker implements Component {
   public render(self): Template {
     return $ltml {
       <SettingRow label={self.label} hint={self.hint} disabled={self.disabled}>
-        <box width={44 * PX} height={22 * PX} border={EDGE} background={self.value} @click={self.open} />
+        <box width={51.5625dp} height={25.78125dp} border={EDGE} background={self.value} @click={self.open} />
       </SettingRow>
     }
   }

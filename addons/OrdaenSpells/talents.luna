@@ -4,18 +4,18 @@
 // client's to say (`canSpend`, `canRefund`); the page only asks.
 import Game from "$game"
 import { Align, Click, MouseButton, Position, Track } from "$ltml"
-import { Component, PX, PushButton } from "Ordaen"
+import { Component, PushButton, SECONDARY_TEXT } from "Ordaen"
 import Locale from "@/locales"
 import Style from "@/style"
 
 // A node's size, and the room one step of the client's grid takes on the screen.
-const SIZE = 40 * PX
-const UNIT: Number = 0.075 * PX
-const MARGIN = 8 * PX
+const SIZE = 46.875dp
+const UNIT: Number<Length> = 0.087890625dp
+const MARGIN = 9.375dp
 
 const TREES: Array<Track> = [{ fr: 1 }, { fr: 1 }, { fr: 1 }]
-const PAGE: Array<Track> = ["auto", { fr: 1 }, "auto"]
-const FOOT: Array<Track> = ["auto", "auto", { fr: 1 }, "auto"]
+const PAGE: Array<Track> = ["max-content", { fr: 1 }, "max-content"]
+const FOOT: Array<Track> = ["max-content", "max-content", { fr: 1 }, "max-content"]
 
 // Where a tree's nodes begin: the smallest x or y.
 function leastOf(nodes: Array<Game.TalentNode>, vertical: Boolean): Number {
@@ -33,14 +33,14 @@ public function extentOf(nodes: Array<Game.TalentNode>, vertical: Boolean): Numb
 }
 
 // The thickness of an arrow's line.
-const LINE = 3 * PX
+const LINE = 3.515625dp
 
 // A straight piece of an arrow, where it lies in its tree's box.
 public struct Segment {
-  left: Number
-  top: Number
-  width: Number
-  height: Number
+  left: Number<Length>
+  top: Number<Length>
+  width: Number<Length>
+  height: Number<Length>
   // Gold where the node it leads to has a rank.
   color: Color
   // The frame level it is drawn at: the across piece under the down piece, which meet at the elbow.
@@ -86,8 +86,8 @@ public class NodeView implements Component {
   derived opacity: Number = !self.lit ? 0.3 : self.node.rank == 0 && !self.node.canSpend ? 0.55 : 1
   derived rank: String = "%d/%d".format(self.node.rank, self.node.ranks)
   derived rankColor: Color = self.node.rank == self.node.ranks ? Style.GOLD : self.node.canSpend ? Style.GREEN : Style.DIM
-  derived left: Number = (self.node.x - self.leastX) * UNIT + MARGIN
-  derived top: Number = (self.node.y - self.leastY) * UNIT + MARGIN
+  derived left: Number<Length> = (self.node.x - self.leastX) * UNIT + MARGIN
+  derived top: Number<Length> = (self.node.y - self.leastY) * UNIT + MARGIN
 
   node: Signal<Game.TalentNode>
   search: Signal<String>
@@ -111,9 +111,9 @@ public class NodeView implements Component {
   public render(self): Template {
     return $ltml {
       <box position={Position.Absolute} left={self.left} top={self.top} width={SIZE} height={SIZE}
-           border={{ width: 1 * PX, color: Style.LINE }} icon={self.node.icon} opacity={self.opacity}
+           border={{ width: 1.171875dp, color: Style.LINE }} icon={self.node.icon} opacity={self.opacity}
            xAlign={Align.End} yAlign={Align.End} @click={self.onClick}>
-        <text value={self.rank} textSize={.Secondary} textColor={self.rankColor} wrap={false} />
+        <text value={self.rank} textSize={SECONDARY_TEXT} textColor={self.rankColor} wrap={false} />
       </box>
     }
   }
@@ -126,8 +126,8 @@ public class TreeView implements Component {
   derived title: String = Locale.TREE_POINTS.format(self.tree.name, spent(self.tree))
   derived leastX: Number = leastOf(self.tree.nodes, false)
   derived leastY: Number = leastOf(self.tree.nodes, true)
-  derived width: Number = extentOf(self.tree.nodes, false)
-  derived height: Number = extentOf(self.tree.nodes, true)
+  derived width: Number<Length> = extentOf(self.tree.nodes, false)
+  derived height: Number<Length> = extentOf(self.tree.nodes, true)
   derived segments: Array<Segment> = segmentsOf(self.tree.nodes, self.leastX, self.leastY)
 
   tree: Signal<Game.TalentTree>
@@ -142,7 +142,7 @@ public class TreeView implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={1} gap={6 * PX} xAlign={Align.Center}>
+      <box columns={1} gap={7.03125dp} xAlign={Align.Center}>
         <text value={self.title} textColor={Style.GOLD} wrap={false} />
         <box width={self.width} height={self.height}>
           <box $for={index, segment of self.segments} $key={index} position={Position.Absolute} left={segment.left}
@@ -194,26 +194,26 @@ public class TalentsPage implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box rows={PAGE} gap={8 * PX}>
-        <box height={34 * PX} rows={[{ fr: 1 }]}>
-          <input value={mut self.search} padding={{ left: 10 * PX, right: 10 * PX }} textColor={Style.INK}
+      <box rows={PAGE} gap={9.375dp}>
+        <box height={39.84375dp} rows={[{ fr: 1 }]}>
+          <input value={mut self.search} padding={{ left: 11.71875dp, right: 11.71875dp }} textColor={Style.INK}
                  background={Color.hex("#00000080")} />
         </box>
         <box $if={self.empty} xAlign={Align.Center} yAlign={Align.Center}>
           <text value={Locale.NO_TALENTS} textColor={Style.DIM} />
         </box>
-        <box $else columns={TREES} gap={4 * PX}>
+        <box $else columns={TREES} gap={4.6875dp}>
           <TreeView $for={tree of self.trees} $key={tree.id} tree={tree} search={self.search} @spend={self.onSpend}
                     @refund={self.onRefund} />
         </box>
-        <box columns={FOOT} gap={8 * PX} yAlign={Align.Center}>
-          <PushButton label={Locale.CANCEL_CHANGES} width={190 * PX} disabled={self.waiting} @click={self.onCancel} />
-          <PushButton $if={self.inactive} label={Locale.ACTIVATE} width={150 * PX} @click={self.onActivate} />
+        <box columns={FOOT} gap={9.375dp} yAlign={Align.Center}>
+          <PushButton label={Locale.CANCEL_CHANGES} width={222.65625dp} disabled={self.waiting} @click={self.onCancel} />
+          <PushButton $if={self.inactive} label={Locale.ACTIVATE} width={175.78125dp} @click={self.onActivate} />
           <box $else />
           <box xAlign={Align.Center}>
             <text value={self.points} textColor={Style.INK} wrap={false} />
           </box>
-          <PushButton label={Locale.APPLY_CHANGES} width={190 * PX} accent={true} disabled={self.waiting}
+          <PushButton label={Locale.APPLY_CHANGES} width={222.65625dp} accent={true} disabled={self.waiting}
                       @click={self.onApply} />
         </box>
       </box>

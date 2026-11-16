@@ -1,10 +1,9 @@
 // The window's look: its size at the player's scale and colours, and how a number of hours reads. A text's size is a
 // step of the ladder (`$ltml`'s `TextSize`).
-import { PX } from "Ordaen"
 import Locale from "@/locales"
 
-public const WIDTH: Number = 1100 * PX
-public const HEIGHT: Number = 560 * PX
+public const WIDTH: Number<Length> = 1289.0625dp
+public const HEIGHT: Number<Length> = 656.25dp
 
 public const INK: Color = Color.hex("#e8dcc4")
 public const DIM: Color = Color.hex("#a3977f")

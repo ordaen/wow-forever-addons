@@ -12,9 +12,9 @@ class Pair {
 
   public render(self): Template {
     return $ltml {
-      <box rows={["auto", "auto"]} gap={10} xAlign={Align.Start}>
+      <box rows={["max-content", "max-content"]} gap={10ui} xAlign={Align.Start}>
         <CountInput value={mut self.count} least={self.least} most={self.most} />
-        <box width={80} height={26} rows={[{ fr: 1 }]}>
+        <box width={80ui} height={26ui} rows={[{ fr: 1 }]}>
           <CountInput value={mut self.count} least={self.least} most={self.most} look={CountLook.Field} />
         </box>
       </box>

@@ -19,8 +19,8 @@ import { TrainerPage } from "@/trainer"
 public class Spells implements Module, App {
   public const title: String = "Ordaen Spells"
   // Its windows, declared: where each stands and what the player does with it, kept in the profile.
-  public window: mut KeptWindow = new KeptWindow("book", self.title, { x: 0, y: 0, width: Style.WIDTH, height: Style.HEIGHT })
-  public trainerWindow: mut KeptWindow = new KeptWindow("trainer", Locale.TAB_TRAINER, { x: 0, y: 0, width: Style.TRAINER_WIDTH, height: Style.HEIGHT })
+  public window: mut KeptWindow = new KeptWindow("book", self.title, { x: 0ui, y: 0ui, width: Style.WIDTH, height: Style.HEIGHT })
+  public trainerWindow: mut KeptWindow = new KeptWindow("trainer", Locale.TAB_TRAINER, { x: 0ui, y: 0ui, width: Style.TRAINER_WIDTH, height: Style.HEIGHT })
   public const windows: mut Array<mut KeptWindow> = [self.window, self.trainerWindow]
   public const pages: Array<SettingsPage> = [
     { title: Locale.TAB_GENERAL, content: $ltml { <GeneralPage settings={mut self.settings} /> } },

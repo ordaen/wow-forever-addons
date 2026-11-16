@@ -8,7 +8,7 @@ import Game from "$game"
 import { Action, Align, Line, Overflow, Side, Track } from "$ltml"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
-import { ARTWORK, Choice, Column, ItemId, KeptWindow, Memory, Module, PX, PushButton, Settings, SettingsPage, Table, Tabs, ToolPick, Toolbar, Window, WindowTabSpec, WindowsPage, space, tracksOf, windowsTitle } from "Ordaen"
+import { ARTWORK, Choice, Column, ItemId, KeptWindow, Memory, Module, PushButton, SECONDARY_TEXT, Settings, SettingsPage, Table, Tabs, ToolPick, Toolbar, Window, WindowTabSpec, WindowsPage, space, tracksOf, windowsTitle } from "Ordaen"
 import root Auction from "OrdaenAuction"
 import type { PriceSource } from "OrdaenAuction"
 import { Book, written } from "@/book"
@@ -33,18 +33,18 @@ import { WorthPage } from "@/worth"
 
 const FILL: Array<Track> = [{ fr: 1 }]
 // The skill bar, the page tabs, and the recipes' side with the chosen recipe in the rest.
-const BODY: Array<Track> = ["auto", "auto", { fr: 1 }]
+const BODY: Array<Track> = ["max-content", "max-content", { fr: 1 }]
 // The recipes' side and the card share the width alike, the side never narrower than its lists' least; the
 // categories and the recipes share the side's, each never narrower than its least.
 const GRID: Array<Track> = [{ fr: 1 }, { fr: 1 }]
-const SIDE: Array<Track> = ["auto", { fr: 1 }]
+const SIDE: Array<Track> = ["max-content", { fr: 1 }]
 const LISTS: Array<Track> = [{ fr: 2 }, { fr: 3 }]
-const FRAME: Line = { width: 1 * PX, color: Style.LINE }
-const COLUMN_RULE: Line = { width: 1 * PX, color: Style.LINE, sides: [Side.Left] }
-const TRACK_WIDTH = 170 * PX
+const FRAME: Line = { width: 1.171875dp, color: Style.LINE }
+const COLUMN_RULE: Line = { width: 1.171875dp, color: Style.LINE, sides: [Side.Left] }
+const TRACK_WIDTH = 199.21875dp
 // The footer: the profession's spell, and what the page puts beside it; the queue's status and «Create next».
-const TRACK_FOOT: Array<Track> = ["auto", { fr: 1 }]
-const QUEUE_FOOT: Array<Track> = [{ fr: 1 }, "auto"]
+const TRACK_FOOT: Array<Track> = ["max-content", { fr: 1 }]
+const QUEUE_FOOT: Array<Track> = [{ fr: 1 }, "max-content"]
 // Mining's and Herbalism's finding on the minimap, by their skill lines: Find Minerals, Find Herbs.
 const MINING = 186
 const HERBALISM = 182
@@ -61,14 +61,14 @@ function trackSpellOf(skillLine: Integer | nil): Integer | nil {
 }
 const COLUMNS: Array<Column> = [
   { title: Locale.COLUMN_RECIPE, width: { fr: 1 }, sortable: true },
-  { title: Locale.COLUMN_MAKEABLE, width: 80 * PX, align: Align.End, sortable: true }
+  { title: Locale.COLUMN_MAKEABLE, width: 93.75dp, align: Align.End, sortable: true }
 ]
 // With Ordaen Auction's prices: one making's cost and profit.
 const PRICED_COLUMNS: Array<Column> = [
   { title: Locale.COLUMN_RECIPE, width: { fr: 1 }, sortable: true },
-  { title: Locale.COLUMN_MAKEABLE, width: 80 * PX, align: Align.End, sortable: true },
-  { title: Locale.COLUMN_COST, width: 110 * PX, align: Align.End, sortable: true },
-  { title: Locale.COLUMN_PROFIT, width: 110 * PX, align: Align.End, sortable: true }
+  { title: Locale.COLUMN_MAKEABLE, width: 93.75dp, align: Align.End, sortable: true },
+  { title: Locale.COLUMN_COST, width: 128.90625dp, align: Align.End, sortable: true },
+  { title: Locale.COLUMN_PROFIT, width: 128.90625dp, align: Align.End, sortable: true }
 ]
 const VIEWS: Array<Choice<View>> = [
   { value: View.Columns, label: Locale.VIEW_COLUMNS, icon: ARTWORK.ctl.tool.columns },
@@ -88,7 +88,7 @@ const NOTHING_KEPT: Kept = {
 public class Professions implements Module, App {
   public const title: String = "Ordaen Professions"
   // Its window, declared: where it stands and what the player does with it, kept in the profile.
-  public window: mut KeptWindow = new KeptWindow("main", self.title, { x: 0, y: 0, width: Style.WIDTH, height: Style.HEIGHT })
+  public window: mut KeptWindow = new KeptWindow("main", self.title, { x: 0ui, y: 0ui, width: Style.WIDTH, height: Style.HEIGHT })
   public const windows: mut Array<mut KeptWindow> = [self.window]
   public const pages: Array<SettingsPage> = [
     { title: Locale.TAB_GENERAL, content: $ltml { <GeneralPage settings={mut self.settings} /> } },
@@ -100,8 +100,8 @@ public class Professions implements Module, App {
     <box columns={self.footColumns} gap={space(.Group)} yAlign={Align.Center}>
       <PushButton $if={self.hasTrack} label={self.trackName} width={TRACK_WIDTH} action={self.trackAction} />
       <box $if={self.queueShown} columns={QUEUE_FOOT} gap={space(.Group)} yAlign={Align.Center}>
-        <text value={self.queueStatus} textSize={.Secondary} textColor={Style.DIM} />
-        <PushButton label={Locale.QUEUE_NEXT_BUTTON} width={180 * PX} disabled={!self.queueReady}
+        <text value={self.queueStatus} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
+        <PushButton label={Locale.QUEUE_NEXT_BUTTON} width={210.9375dp} disabled={!self.queueReady}
                     @click={self.onNext} />
       </box>
       <box $else />

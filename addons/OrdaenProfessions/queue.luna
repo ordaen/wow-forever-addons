@@ -5,7 +5,7 @@
 // starts the next run (the client starts a craft from nothing else), stand in the window's footer.
 import Game from "$game"
 import { Align, Art, Edges, Line, Overflow, Track } from "$ltml"
-import { Component, CountInput, ItemButton, Money, PX, PushButton, space } from "Ordaen"
+import { Component, CountInput, ItemButton, Money, PushButton, SECONDARY_TEXT, space } from "Ordaen"
 import type { PriceSource } from "OrdaenAuction"
 import { Way, unitOf } from "@/cost"
 import Locale from "@/locales"
@@ -15,19 +15,19 @@ import { MOST_COUNT, QueueAct, Queued } from "@/view"
 
 const NO_ICON: Art = "Interface/Icons/INV_Misc_QuestionMark"
 
-const FRAME: Line = { width: 1 * PX, color: Style.LINE }
+const FRAME: Line = { width: 1.171875dp, color: Style.LINE }
 const BACK: Color = Color.hex("#0000004d")
 // The lines and the table scrolling in the room there is.
 const PAGE: Array<Track> = [{ fr: 1 }]
-const LINE: Array<Track> = [32 * PX, { fr: 1 }, "auto", "auto"]
-const LINE_PAD: Edges = { top: 4 * PX, bottom: 4 * PX }
-const STEP = 24 * PX
-const SLOT = 32 * PX
-const NEED: Array<Track> = [28 * PX, { fr: 1 }, 70 * PX, 70 * PX, 90 * PX]
+const LINE: Array<Track> = [37.5dp, { fr: 1 }, "max-content", "max-content"]
+const LINE_PAD: Edges = { top: 4.6875dp, bottom: 4.6875dp }
+const STEP = 28.125dp
+const SLOT = 37.5dp
+const NEED: Array<Track> = [32.8125dp, { fr: 1 }, 82.03125dp, 82.03125dp, 105.46875dp]
 // With prices: what the missing part costs, and where it is cheaper.
-const NEED_PRICED: Array<Track> = [28 * PX, { fr: 1 }, 70 * PX, 70 * PX, 90 * PX, 100 * PX, 80 * PX]
-const BUY_ROW: Array<Track> = [{ fr: 1 }, "auto", "auto"]
-const NEED_PAD: Edges = { top: 3 * PX, right: 6 * PX, bottom: 3 * PX }
+const NEED_PRICED: Array<Track> = [32.8125dp, { fr: 1 }, 82.03125dp, 82.03125dp, 105.46875dp, 117.1875dp, 93.75dp]
+const BUY_ROW: Array<Track> = [{ fr: 1 }, "max-content", "max-content"]
+const NEED_PAD: Edges = { top: 3.515625dp, right: 7.03125dp, bottom: 3.515625dp }
 const SHORT: Color = Color.hex("#ff6a5a")
 
 // A queued recipe as its line draws it, with its count still to make.
@@ -203,7 +203,7 @@ public class NeedRow implements Component {
   public render(self): Template {
     return $ltml {
       <box columns={self.columns} gap={space(.Item)} yAlign={Align.Center} padding={NEED_PAD} border={Style.ROW_RULE}>
-        <ItemButton item={self.item} art={self.icon} size={28 * PX} />
+        <ItemButton item={self.item} art={self.icon} size={32.8125dp} />
         <text value={self.need.name} textColor={Style.INK} wrap={false} />
         <box xAlign={Align.End}>
           <text value={"%d"} arguments={[self.need.need]} textColor={Style.INK}
@@ -276,7 +276,7 @@ public class QueuePage implements Component {
   public render(self): Template {
     return $ltml {
       <box padding={space(.Panel)} border={FRAME} background={BACK} rows={PAGE}>
-        <text $if={self.empty} value={Locale.QUEUE_EMPTY} textSize={.Secondary} textColor={Style.DIM} />
+        <text $if={self.empty} value={Locale.QUEUE_EMPTY} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
         <$else>
           <box overflow={Overflow.Scroll} gap={space(.Group)}>
             <box columns={1}>
@@ -310,7 +310,7 @@ public class QueuePage implements Component {
               <text value={Locale.TOTAL_TO_BUY} textColor={Style.DIM} />
               <Money $if={self.hasToBuy} amount={self.toBuyCopper} />
               <text $else value={"—"} textColor={Style.DIM} />
-              <PushButton label={Locale.TO_SHOPPING} width={180 * PX} disabled={!self.lacking} @click={self.onShop} />
+              <PushButton label={Locale.TO_SHOPPING} width={210.9375dp} disabled={!self.lacking} @click={self.onShop} />
             </box>
           </box>
         </>

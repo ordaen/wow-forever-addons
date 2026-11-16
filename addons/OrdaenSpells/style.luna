@@ -1,11 +1,10 @@
 // The windows' look: sizes at the player's scale and the colours of what a spell or a service says.
-import { PX } from "Ordaen"
 
-public const WIDTH: Number = 900 * PX
-public const HEIGHT: Number = 620 * PX
-public const TRAINER_WIDTH: Number = 820 * PX
-public const GAP: Number = 10 * PX
-public const LIST: Number = 460 * PX
+public const WIDTH: Number<Length> = 1054.6875dp
+public const HEIGHT: Number<Length> = 726.5625dp
+public const TRAINER_WIDTH: Number<Length> = 960.9375dp
+public const GAP: Number<Length> = 11.71875dp
+public const LIST: Number<Length> = 539.0625dp
 
 public const INK: Color = Color.hex("#e8dcc4")
 public const DIM: Color = Color.hex("#a3977f")

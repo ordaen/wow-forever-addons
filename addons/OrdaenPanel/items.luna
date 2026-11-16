@@ -9,7 +9,7 @@ import { Cell, CellGroup } from "@/group"
 const INK: Color = Color.hex("#e8dcc4")
 // The panel's whole width: what wraps in it.
 const WHOLE: Array<Track> = [{ fr: 1 }]
-const PAIR: Array<Track> = ["auto", "auto"]
+const PAIR: Array<Track> = ["max-content", "max-content"]
 
 // The game's menu's buttons before its last. With the spellbook and the talents in one window (Ordaen Spells), the
 // spellbook's button alone opens it.
@@ -113,7 +113,7 @@ public class MoneyLine implements Component {
   // Down a side of the screen the two stand one under the other, in the panel's middle, the money wrapping in its
   // width.
   derived columns: Array<Track> = self.vertical ? WHOLE : PAIR
-  derived gap: Number = self.vertical ? 4 / 1.2 : 12 / 1.2
+  derived gap: Number<Length> = self.vertical ? 4 / 1.2 : 12 / 1.2
   derived across: Align = self.vertical ? Align.Center : Align.Stretch
 
   outline: Signal<Integer>

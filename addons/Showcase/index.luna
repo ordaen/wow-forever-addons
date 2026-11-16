@@ -80,7 +80,7 @@ public class Showcase implements Module {
             <Toggle value={mut self.choices.drawer} />
           </Section>
           <Section title={"Export"}>
-            <TextBox value={mut self.choices.exported} height={60} />
+            <TextBox value={mut self.choices.exported} height={60ui} />
           </Section>
         </SettingsTab>
         <SettingsTab title={"Market"} shown={self.onMarket}>

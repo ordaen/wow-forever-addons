@@ -17,7 +17,7 @@ import root Ordaen from "Ordaen"
 import { Component } from "@/module"
 import { Hold, kept } from "@/onScreen"
 import { Memory } from "@/settings"
-import { PX, space } from "@/units"
+import { SECONDARY_TEXT, space } from "@/units"
 
 // One of a window's tabs: its name, a second line under it, a picture at its left end.
 public struct WindowTabSpec {
@@ -29,10 +29,10 @@ public struct WindowTabSpec {
 // Where a window is: its centre from the screen's (y down), and its body's size. Its owner holds it, and the window
 // keeps it in its memory.
 public struct Placing implements Plain {
-  x: Number
-  y: Number
-  width: Number
-  height: Number
+  x: Number<Length>
+  y: Number<Length>
+  width: Number<Length>
+  height: Number<Length>
 }
 
 // What the player is in the middle of that hides a window, and after which it shows again: a fight; travel (riding a
@@ -46,13 +46,13 @@ public enum Occasion implements Plain { Combat = "combat", Travel = "travel", Mo
 // hides it (`hideDuring`) and, of that, after which it shows again (`showAfter`; a window hidden by anything else is
 // closed). The defaults are the window's declaration's (`KeptWindow`): hidden in a fight, never shown again by itself.
 public struct WindowView implements Plain {
-  x: Number = 0
-  y: Number = 0
-  width: Number = 0
-  height: Number = 0
+  x: Number<Length> = 0ui
+  y: Number<Length> = 0ui
+  width: Number<Length> = 0ui
+  height: Number<Length> = 0ui
   full: Boolean = false
   tab: Integer = 1
-  side: Number = 0
+  side: Number<Length> = 0ui
   remember: Boolean = true
   openOn: Integer = 0
   hideDuring: Array<Occasion> = [Occasion.Combat]
@@ -75,7 +75,7 @@ public class KeptWindow {
     self.title = title
     self.placing = placing.clone()
     self.defaults = {
-      x: placing.x, y: placing.y, width: placing.width, height: placing.height, full: full, tab: 1, side: 0,
+      x: placing.x, y: placing.y, width: placing.width, height: placing.height, full: full, tab: 1, side: 0ui,
       remember: true, openOn: 0, hideDuring: [Occasion.Combat], showAfter: []
     }
     self.memory = new Memory<WindowView>(self.defaults, .Profile, "window:" + name)
@@ -113,11 +113,11 @@ function holds(list: Array<Occasion>, occasion: Occasion): Boolean {
 const SIDE_LEAST = 2 / 3
 const SIDE_MOST = 2
 // How wide the side's line takes the cursor to drag it.
-const SIDE_HANDLE = 8 * PX
+const SIDE_HANDLE = 9.375dp
 
 // The tab row above the body: taller when a tab has a second line.
-const TAB = 36 * PX
-const TAB_DESC = 50 * PX
+const TAB = 42.1875dp
+const TAB_DESC = 58.59375dp
 const TITLE_OPEN: Color = Color.hex("#ffd100")
 // A closed tab's title: the look's dim ink.
 const TITLE_CLOSED: Color = Color.hex("#a3977f")
@@ -125,69 +125,69 @@ const DESC: Color = Color.hex("#8f8470")
 // A closed tab's wood and picture: half as bright.
 const SHADE: Color = Color.hex("#808080")
 const WHITE: Color = Color.hex("#ffffff")
-const SHADOW: Shadow = { color: Color.hex("#000000cc"), x: 1 * PX, y: -1 * PX }
-const LABEL_PAD = 10 * PX
-const MIN_TAB = 120 * PX
+const SHADOW: Shadow = { color: Color.hex("#000000cc"), x: 1.171875dp, y: -1.171875dp }
+const LABEL_PAD = 11.71875dp
+const MIN_TAB = 140.625dp
 // The body's wood inside the metal, and the room each of its sections keeps: the ladder's `Window` step from the line
 // on every side; with a footer, the footer stands on the bottom line, the ladder's `Panel` step above it, and keeps a
 // `Group` step from the content over it.
-const INSET = 3 * PX
-const ROOM: Number = space(.Window) + INSET
+const INSET = 3.515625dp
+const ROOM: Number<Length> = space(.Window) + INSET
 const PADDING: Edges = { top: space(.Window), right: space(.Window), bottom: space(.Window), left: space(.Window) }
 const PADDING_FOOTED: Edges = { top: space(.Window), right: space(.Window), bottom: space(.Panel), left: space(.Window) }
 const FOOTER_PAD: Edges = { top: space(.Group) }
 // The control group at the tab row's right end (the design's `CTRLS`): its controls from its left, each one kind of
 // plate with its glyph; how high it is with its rim.
 public enum CornerControl { Settings = "settings", Full = "full", Close = "close" }
-const CORNER_HEIGHT = 32 * PX
+const CORNER_HEIGHT = 37.5dp
 // How far below the body's top the group's foot stands: the middle of the frame's line.
-const CORNER_FOOT = 3 * PX
+const CORNER_FOOT = 3.515625dp
 // A plate's width; the group's rim on its left, top and right, with its shadow beside it (the first's left, the
 // last's right) and above it: a plate stands that far below the group's top.
-const PLATE = 30 * PX
-const RIM = 3 * PX
-const ABOVE = 5 * PX
+const PLATE = 35.15625dp
+const RIM = 3.515625dp
+const ABOVE = 5.859375dp
 // A plate's art and its glyph's cell: the glyph stands where the design centres it on the plate (one after
 // another has its divider in its width, so its glyph stands half a pixel further right).
-const PLATE_ART = 64 * PX
-const GLYPH = 16 * PX
-const GLYPH_TOP: Number = ABOVE + 6.5 * PX
-const GLYPH_LEFT_FIRST: Number = RIM + 7 * PX
-const GLYPH_LEFT = 7.5 * PX
+const PLATE_ART = 75dp
+const GLYPH = 18.75dp
+const GLYPH_TOP: Number<Length> = ABOVE + 7.6171875dp
+const GLYPH_LEFT_FIRST: Number<Length> = RIM + 8.203125dp
+const GLYPH_LEFT = 8.7890625dp
 // The controls of a window's group, from its left.
 public const function cornerControls(withSettings: Boolean): Array<CornerControl> {
   return withSettings ? [.Settings, .Full, .Close] : [.Full, .Close]
 }
 // The width of the `index`th of `count` plates: the first and the last with the group's rim.
 const function plateWidth(index: Integer, count: Integer): Number {
-  const left: Number = index == 1 ? RIM : 0
-  const right: Number = index == count ? RIM : 0
+  const left: Number<Length> = index == 1 ? RIM : 0
+  const right: Number<Length> = index == count ? RIM : 0
   return left + PLATE + right
 }
 // How far the `index`th plate stands from the group's left.
 const function plateLeft(index: Integer, count: Integer): Number {
-  let left: Number = 0
+  let left: Number<Length> = 0ui
   for (i of 1..=index - 1) { left += plateWidth(i, count) }
   return left
 }
 // The main section's content takes what its footer's row leaves; the body's one row is as high as the body.
-const MAIN_ROWS: Array<Track> = [{ fr: 1 }, "auto"]
+const MAIN_ROWS: Array<Track> = [{ fr: 1 }, "max-content"]
 const BODY_ROWS: Array<Track> = [{ fr: 1 }]
 const ONE: Array<Track> = [{ fr: 1 }]
 // The tab row: the tabs, and the control group at its right end.
-const ROW: Array<Track> = [{ fr: 1 }, "auto"]
+const ROW: Array<Track> = [{ fr: 1 }, "max-content"]
 
 // A window's side section: a column at the body's right, running from its top line to its bottom one, the frame's
 // line between it and the main section (as the trainer's card beside its list). It shares neither the main section's
 // head nor its footer: it lays out its own top and bottom.
 public struct WindowSide {
   // How wide its content is: the section adds its room on both sides and the frame's line.
-  width: Number
+  width: Number<Length>
   content: Template
 }
 // The smallest body unless the window names one: room for the tab row and a few lines.
-const MIN_W = 320 * PX
-const MIN_H = 200 * PX
+const MIN_W = 375dp
+const MIN_H = 234.375dp
 // The body stands over the tabs' feet.
 const BODY_LEVEL = 5
 
@@ -205,10 +205,10 @@ public class WindowTab implements Component {
   // The frame's measures at its scale: its art above its line, how far its foot stands behind the body's line,
   // where its line starts.
   derived reachTop: Number = Ordaen.art.frame.tab.reach.top * Ordaen.art.frame.tab.scale
-  derived flare: Number = Ordaen.art.frame.tab.curves.flare * Ordaen.art.frame.tab.scale
+  derived flare: Number<Length> = Ordaen.art.frame.tab.curves.flare * Ordaen.art.frame.tab.scale
   derived lineStart: Number = Ordaen.art.frame.tab.lineStart * Ordaen.art.frame.tab.scale
   // The height the tab is given: a framed box grows by its art's reach.
-  derived given: Number = self.height - self.reachTop
+  derived given: Number<Length> = self.height - self.reachTop
   // Open or closed only its colours differ: its wood and picture lighter, its title gold.
   derived tint: Color = self.open ? WHITE : SHADE
   derived titleColor: Color = self.open ? TITLE_OPEN : TITLE_CLOSED
@@ -220,9 +220,9 @@ public class WindowTab implements Component {
   // The picture is a square at the tab's left end, as tall as what shows of the tab: from the tab's own line
   // down to the body's line, which the tab stands behind. Everything here is measured from the tab's line, where
   // what a framed box places by offsets starts. Its line stands at its right.
-  derived side: Number = self.height - self.flare
-  derived lineLeft: Number = self.side - self.lineStart
-  derived lineWidth: Number = self.flare - Ordaen.art.frame.tabIconLine.reach.left * Ordaen.art.frame.tabIconLine.scale + 1
+  derived side: Number<Length> = self.height - self.flare
+  derived lineLeft: Number<Length> = self.side - self.lineStart
+  derived lineWidth: Number<Length> = self.flare - Ordaen.art.frame.tabIconLine.reach.left * Ordaen.art.frame.tabIconLine.scale + 1
   // The label's room: past the picture's line where there is a picture.
   derived padding: Edges = self.paddingOf()
 
@@ -268,15 +268,15 @@ public class WindowTab implements Component {
            tint={self.tint} padding={self.padding} rows={BODY_ROWS} @click={self.pick}
            @dragStart={self.onGrab} @drag={self.onMove} @dragStop={self.onDrop}>
         <$if={self.hasIcon}>
-          <box position={Position.Absolute} left={0} top={0} width={self.side} height={self.side}
+          <box position={Position.Absolute} left={0ui} top={0ui} width={self.side} height={self.side}
                icon={self.icon} tint={self.tint} border={Ordaen.art.frame.tabIconClip} />
-          <box position={Position.Absolute} left={self.lineLeft} top={0} width={self.lineWidth}
+          <box position={Position.Absolute} left={self.lineLeft} top={0ui} width={self.lineWidth}
                height={self.given} border={Ordaen.art.frame.tabIconLine} />
         </>
-        <box xAlign={Align.Center} yAlign={Align.Center} gap={1 * PX}>
+        <box xAlign={Align.Center} yAlign={Align.Center} gap={1.171875dp}>
           <text value={self.tab.title} wrap={false} textColor={self.titleColor}
                 textShadow={SHADOW} />
-          <text $if={self.hasDesc} value={self.desc} textSize={.Secondary} wrap={false} textColor={DESC}
+          <text $if={self.hasDesc} value={self.desc} textSize={SECONDARY_TEXT} wrap={false} textColor={DESC}
                 textShadow={SHADOW} />
         </box>
       </box>
@@ -297,9 +297,9 @@ class CornerPlate implements Component {
   control: Signal<CornerControl>
   const index: Integer
   const count: Integer
-  const left: Number
-  const width: Number
-  const glyphLeft: Number
+  const left: Number<Length>
+  const width: Number<Length>
+  const glyphLeft: Number<Length>
   full: Signal<Boolean>
   constructor(control: Signal<CornerControl>, index: Integer, count: Integer, full: Signal<Boolean>) {
     self.control = control
@@ -330,9 +330,9 @@ class CornerPlate implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box position={Position.Absolute} left={self.left} top={0} width={self.width} height={CORNER_HEIGHT}
+      <box position={Position.Absolute} left={self.left} top={0ui} width={self.width} height={CORNER_HEIGHT}
            overflow={Overflow.Hidden} @click={self.press}>
-        <box position={Position.Absolute} left={0} top={0} width={PLATE_ART} height={CORNER_HEIGHT}
+        <box position={Position.Absolute} left={0ui} top={0ui} width={PLATE_ART} height={CORNER_HEIGHT}
              background={self.plate} stateFromParent={true} />
         // Over the plate by a level: at one level the client draws either on top, and a frame the renderer's pool
         // gives back may come under the plate.
@@ -353,8 +353,8 @@ public class Window implements Component {
 
   state full: Boolean
   // Where the window and its body were when a drag began.
-  x0: Number = 0
-  y0: Number = 0
+  x0: Number<Length> = 0ui
+  y0: Number<Length> = 0ui
   w0: Number = 0
   h0: Number = 0
   // The least body the content leaves room for, as the grip's drag began: the grip stops there.
@@ -362,27 +362,27 @@ public class Window implements Component {
   leastH: Number = 0
 
   // The tab row's height: the design's, from a tab's own line down to the body, and the tab's art above its line.
-  derived tabHeight: Number = self.tabHeightOf() + Ordaen.art.frame.tab.reach.top * Ordaen.art.frame.tab.scale
+  derived tabHeight: Number<Length> = self.tabHeightOf() + Ordaen.art.frame.tab.reach.top * Ordaen.art.frame.tab.scale
   // A tab's height: down to the inner side of the body's top line, which stands over its foot.
   derived lineTop: Number = Ordaen.art.frame.tab.curves.flare * Ordaen.art.frame.tab.scale
   derived tabWhole: Number = self.tabHeight + self.lineTop
   derived columns: Array<Track> = self.tabColumns()
   derived place: Place = self.placeOf()
   // The main section keeps the width the player gave it: a side section widens the window by its own column.
-  derived width: Number | nil = self.full ? nil : self.declared.placing.width + self.sideWide
-  derived sideWide: Number = self.sideWideOf()
-  derived height: Number | nil = self.full || self.docked != nil ? nil : self.tabHeight + self.declared.placing.height
+  derived width: Number<Length> | nil = self.full ? nil : self.declared.placing.width + self.sideWide
+  derived sideWide: Number<Length> = self.sideWideOf()
+  derived height: Number<Length> | nil = self.full || self.docked != nil ? nil : self.tabHeight + self.declared.placing.height
   // Moved by a tab and resized by its grip: neither full screen nor docked.
   derived free: Boolean = !self.full && self.docked == nil
   // The screen's right side kept clear while full screen.
-  derived inset: Number = self.full ? self.room : 0
+  derived inset: Number<Length> = self.full ? self.room : 0
   // The tab row ends where the body does: short of that side while full screen.
   derived rowPad: Edges = { right: self.inset }
   // The control group's foot stands in the middle of the body's top line, which covers it.
   derived cornerFoot: Edges = { bottom: self.lineTop - CORNER_FOOT }
   derived grip: Stated<Art> = self.gripOf()
   // The ring round the control the keyboard has focused: the look's accent.
-  derived focusLine: Line = { width: 1 * PX, color: Ordaen.look.values.accent, sides: nil }
+  derived focusLine: Line = { width: 1.171875dp, color: Ordaen.look.values.accent, sides: nil }
 
   tabs: Signal<Array<WindowTabSpec>>
   selected: mut Signal<Integer>
@@ -392,7 +392,7 @@ public class Window implements Component {
   const maxHeight: Number | nil
   // The corner group's controls from its left, and its width.
   const controls: Array<CornerControl>
-  const cornerWidth: Number
+  const cornerWidth: Number<Length>
   shown: Signal<Boolean>
   // The footer row, and the body's room with it or without.
   const footer: Template
@@ -431,8 +431,8 @@ public class Window implements Component {
     selected: mut Signal<Integer>,
     // The window as its module declares it (`KeptWindow`): where it stands and what is kept of it.
     declared: mut KeptWindow,
-    minWidth: Number = MIN_W,
-    minHeight: Number = MIN_H,
+    minWidth: Number<Length> = MIN_W,
+    minHeight: Number<Length> = MIN_H,
     maxWidth: Number | nil = nil,
     maxHeight: Number | nil = nil,
     // A settings plate first in the corner's group, before full screen and close.
@@ -620,7 +620,7 @@ public class Window implements Component {
 
   tabColumns(self): Array<Track> {
     let list: Array<Track> = []
-    for (tab of self.tabs) { list.push("auto") }
+    for (tab of self.tabs) { list.push("max-content") }
     return list
   }
 
@@ -734,7 +734,7 @@ public class Window implements Component {
       <surface shown={self.seen} layer={Layer.Dialog} place={self.place} minWidth={self.width} height={self.height} clamp={true}
                raise={true} focusLine={self.focusLine}
                @escape={self.onClose}>
-        <box position={Position.Absolute} left={0} right={self.inset} top={self.tabHeight} bottom={0}
+        <box position={Position.Absolute} left={0ui} right={self.inset} top={self.tabHeight} bottom={0ui}
              border={Ordaen.art.frame.small} background={Ordaen.art.window.wood} padding={INSET}
              columns={self.bodyColumns} rows={BODY_ROWS} zLevel={BODY_LEVEL}>
           <box rows={MAIN_ROWS} padding={self.padding}>
@@ -745,17 +745,17 @@ public class Window implements Component {
           </box>
           <box $if={self.sided} border={Ordaen.art.frame.tabIconLine} rows={ONE} padding={self.padding}>
             {self.sideContent}
-            <box position={Position.Absolute} left={0} top={0} bottom={0} width={SIDE_HANDLE}
+            <box position={Position.Absolute} left={0ui} top={0ui} bottom={0ui} width={SIDE_HANDLE}
                  @dragStart={self.onSideGrab} @drag={self.onSide} @dragStop={self.onSideSettle} />
           </box>
-          <box $if={self.free} position={Position.Absolute} right={2 * PX} bottom={2 * PX} width={16 * PX}
-               height={16 * PX} background={self.grip} @dragStart={self.onGrabSize} @drag={self.onSize}
+          <box $if={self.free} position={Position.Absolute} right={2.34375dp} bottom={2.34375dp} width={18.75dp}
+               height={18.75dp} background={self.grip} @dragStart={self.onGrabSize} @drag={self.onSize}
                @dragStop={self.onSettle} />
         </box>
         // The tab row: the tabs from the left, the control group at the right, standing on the body's top line as the
         // tabs do. The row is the surface's least width: the window is never narrower than its tabs and its controls.
         <box columns={ROW} gap={space(.Item)} padding={self.rowPad} yAlign={Align.End}>
-          <box columns={self.columns} gap={12 * PX} yAlign={Align.End}>
+          <box columns={self.columns} gap={14.0625dp} yAlign={Align.End}>
             <WindowTab $for={index, tab of self.tabs} tab={tab} index={index} selected={self.selected}
                        height={self.tabWhole} @grab={self.onGrab} @move={self.onMove} @drop={self.onSettle}
                        @picked={self.onPicked} />

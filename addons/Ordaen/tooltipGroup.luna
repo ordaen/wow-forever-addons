@@ -10,9 +10,8 @@
 // tooltips' layer where its owner places it.
 import { Align, Layer, Place, Track } from "$ltml"
 import { Component } from "@/module"
-import { PX } from "@/units"
 
-const GAP = 4 * PX
+const GAP = 4.6875dp
 
 public class TooltipGroup implements Component {
   derived columns: Array<Track> = TooltipGroup.autos(1 + self.beside)
@@ -45,7 +44,7 @@ public class TooltipGroup implements Component {
 
   autos(count: Integer): Array<Track> {
     let list: Array<Track> = []
-    for (i of 1..=count) { list.push("auto") }
+    for (i of 1..=count) { list.push("max-content") }
     return list
   }
 

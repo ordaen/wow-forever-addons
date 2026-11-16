@@ -1,6 +1,6 @@
 // Ordaen Spells' page in the settings window: the spec tabs' names and whether the class trainer's window is ours.
 // Each control writes one entry of the settings' draft. An empty name saves nothing: the tab shows the game's.
-import { Checkbox, Component, PX, Settings } from "Ordaen"
+import { Checkbox, Component, Settings } from "Ordaen"
 import Locale from "@/locales"
 import Style from "@/style"
 
@@ -21,15 +21,15 @@ public class GeneralPage implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={1} gap={6 * PX}>
+      <box columns={1} gap={7.03125dp}>
         <text value={Locale.SETTING_SPEC_ONE} textColor={Style.INK} />
-        <box height={30 * PX} rows={[{ fr: 1 }]}>
-          <input value={mut self.settings.draft.specOne} maxLength={24} padding={{ left: 10 * PX, right: 10 * PX }}
+        <box height={35.15625dp} rows={[{ fr: 1 }]}>
+          <input value={mut self.settings.draft.specOne} maxLength={24} padding={{ left: 11.71875dp, right: 11.71875dp }}
                  textColor={Style.INK} background={Color.hex("#00000080")} />
         </box>
         <text value={Locale.SETTING_SPEC_TWO} textColor={Style.INK} />
-        <box height={30 * PX} rows={[{ fr: 1 }]}>
-          <input value={mut self.settings.draft.specTwo} maxLength={24} padding={{ left: 10 * PX, right: 10 * PX }}
+        <box height={35.15625dp} rows={[{ fr: 1 }]}>
+          <input value={mut self.settings.draft.specTwo} maxLength={24} padding={{ left: 11.71875dp, right: 11.71875dp }}
                  textColor={Style.INK} background={Color.hex("#00000080")} />
         </box>
       </box>

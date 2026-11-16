@@ -3,7 +3,7 @@
 import Game from "$game"
 import { Align, Overflow, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { Choice, Component, Memory, PX, Tabs, ToolPick, Toolbar } from "Ordaen"
+import { Choice, Component, Memory, SECONDARY_TEXT, Tabs, ToolPick, Toolbar } from "Ordaen"
 import Locale from "@/locales"
 import Style from "@/style"
 
@@ -20,8 +20,8 @@ const SORTS: Array<Choice<SortBy>> = [
   { value: SortBy.Level, label: Locale.SORT_LEVEL },
   { value: SortBy.Active, label: Locale.SORT_ACTIVE }
 ]
-const ROW: Array<Track> = [36 * PX, { fr: 1 }]
-const PAGE: Array<Track> = ["auto", "auto", { fr: 1 }]
+const ROW: Array<Track> = [42.1875dp, { fr: 1 }]
+const PAGE: Array<Track> = ["max-content", "max-content", { fr: 1 }]
 
 // Whether the spell stands before another in the sort's order; equal ones by name.
 function before(a: Game.SpellEntry, b: Game.SpellEntry, by: SortBy): Boolean {
@@ -52,11 +52,11 @@ public class SpellRow implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={ROW} gap={8 * PX} yAlign={Align.Center} padding={{ top: 3 * PX, bottom: 3 * PX }}>
-        <box width={32 * PX} height={32 * PX} border={{ width: 1 * PX, color: Style.LINE }} icon={self.spell.icon} />
+      <box columns={ROW} gap={9.375dp} yAlign={Align.Center} padding={{ top: 3.515625dp, bottom: 3.515625dp }}>
+        <box width={37.5dp} height={37.5dp} border={{ width: 1.171875dp, color: Style.LINE }} icon={self.spell.icon} />
         <box columns={1}>
           <text value={self.title} textColor={Style.INK} wrap={false} />
-          <text value={self.detail} textSize={.Secondary} textColor={Style.DIM} wrap={false} />
+          <text value={self.detail} textSize={SECONDARY_TEXT} textColor={Style.DIM} wrap={false} />
         </box>
       </box>
     }
@@ -108,7 +108,7 @@ public class SpellbookPage implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box rows={PAGE} gap={8 * PX}>
+      <box rows={PAGE} gap={9.375dp}>
         <Tabs tabs={self.names} selected={mut self.tab} />
         <Toolbar search={mut self.search} placeholder={Locale.SEARCH}>
           <ToolPick value={mut self.list.values.sort} choices={SORTS} icon={Ordaen.art.ctl.tool.sort} title={Locale.SORT} />

@@ -2,18 +2,18 @@
 // bronze rim, a notch every 10%, and on it the rank and the skill: «Apprentice · 31 / 75».
 import Game from "$game"
 import { Align, Art, Edges, Line, Overflow, Percent, Position, Side, Track } from "$ltml"
-import { Component, PX, XpFill, xpFillArt } from "Ordaen"
+import { Component, XpFill, xpFillArt } from "Ordaen"
 import Locale from "@/locales"
 import Style from "@/style"
 
-const HEIGHT = 30 * PX
-const RIM = 3 * PX
+const HEIGHT = 35.15625dp
+const RIM = 3.515625dp
 const PADDING: Edges = { right: RIM, bottom: RIM, left: RIM }
 const TROUGH: Color = Color.hex("#0b0805")
 const RIM_COLOR: Color = Color.hex("#3d2710")
 // Ten equal cells, each but the last with a 1 px dark right edge.
 const CELLS: Array<Integer> = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-const NOTCH: Line = { width: 1 * PX, color: Color.hex("#000000bf"), sides: [Side.Right] }
+const NOTCH: Line = { width: 1.171875dp, color: Color.hex("#000000bf"), sides: [Side.Right] }
 const FILL: Array<Track> = [{ fr: 1 }]
 
 public class SkillBar implements Component {
@@ -57,13 +57,13 @@ public class SkillBar implements Component {
     return $ltml {
       <box height={HEIGHT} padding={PADDING} background={RIM_COLOR} rows={FILL}>
         <box background={TROUGH} overflow={Overflow.Hidden}>
-          <box position={Position.Absolute} left={0} top={0} bottom={0} width={self.share}
+          <box position={Position.Absolute} left={0ui} top={0ui} bottom={0ui} width={self.share}
                background={self.fill} />
-          <box position={Position.Absolute} left={0} right={0} top={0} bottom={0} columns={10} rows={FILL}>
+          <box position={Position.Absolute} left={0ui} right={0ui} top={0ui} bottom={0ui} columns={10} rows={FILL}>
             <box $for={cell of CELLS} border={NOTCH} />
             <box />
           </box>
-          <box position={Position.Absolute} left={0} right={0} top={0} bottom={0} xAlign={Align.Center}
+          <box position={Position.Absolute} left={0ui} right={0ui} top={0ui} bottom={0ui} xAlign={Align.Center}
                yAlign={Align.Center}>
             <text value={self.label} textColor={Style.WHITE} textShadow={Style.SHADOW}
                   textFont={.Numbers} wrap={false} />

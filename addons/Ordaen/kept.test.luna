@@ -139,13 +139,13 @@ function body(): Test.Rect { return Test.edges(Ordaen.art.window.wood, 0) }
 class Crowded {
   state tabs: Array<WindowTabSpec> = [{ title: "Crowded" }]
   state tab = 1
-  public placing: mut KeptWindow = new KeptWindow("placing", "placing", { x: 0, y: 0, width: 800, height: 600 })
+  public placing: mut KeptWindow = new KeptWindow("placing", "placing", { x: 0ui, y: 0ui, width: 800ui, height: 600ui })
   const footer: Template = $ltml { <text value={"the footer"} /> }
 
   public render(self): Template {
     return $ltml {
       <Window tabs={self.tabs} selected={mut self.tab} declared={mut self.placing} footer={self.footer}>
-        <box width={500} height={400} background={Ordaen.art.window.wood} />
+        <box width={500ui} height={400ui} background={Ordaen.art.window.wood} />
       </Window>
     }
   }
@@ -165,7 +165,7 @@ test "the grip stops where the content would be cut, and the window grows again 
   const grown = Test.edges(Ordaen.art.window.wood, 0)
   Test.expect(grown.right > least.right + 20 && grown.bottom > least.bottom + 10)
   // A place handed to it smaller than its content needs (what a restore hands it) is drawn at the least.
-  page.placing.placing = { x: 0, y: 0, width: 280, height: 170 }
+  page.placing.placing = { x: 0ui, y: 0ui, width: 280ui, height: 170ui }
   Test.flush()
   const handed = Test.edges(Ordaen.art.window.wood, 0)
   Test.expect(near(handed.right - handed.left, least.right - least.left))
@@ -182,7 +182,7 @@ test "a size kept below what the content needs is raised to it as the window ope
   const kept = Ordaen.keeper.profiles.recalled(Ordaen.keeper.profiles.active, "Ordaen:window:settings")
   const view = WindowView.decode(kept, WindowView {})
   Ordaen.keeper.profiles.remember("Ordaen:window:settings", WindowView {
-    x: view.x - (view.width - 40) / 2, y: view.y, width: 40, height: 30, full: false, tab: 1, side: 0
+    x: view.x - (view.width - 40) / 2, y: view.y, width: 40ui, height: 30ui, full: false, tab: 1, side: 0ui
   })
   Test.reload()
   open()

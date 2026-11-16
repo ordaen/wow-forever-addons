@@ -1,11 +1,10 @@
 // The mail window's look: its size at the player's scale and the colours of what a letter says. A text's size is a
 // step of the ladder (`$ltml`'s `TextSize`).
-import { PX } from "Ordaen"
 
-public const WIDTH: Number = 1200 * PX
-public const HEIGHT: Number = 600 * PX
-public const LIST: Number = 620 * PX
-public const GAP: Number = 10 * PX
+public const WIDTH: Number<Length> = 1406.25dp
+public const HEIGHT: Number<Length> = 703.125dp
+public const LIST: Number<Length> = 726.5625dp
+public const GAP: Number<Length> = 11.71875dp
 
 public const INK: Color = Color.hex("#e8dcc4")
 public const DIM: Color = Color.hex("#a3977f")

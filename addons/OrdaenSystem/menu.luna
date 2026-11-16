@@ -10,30 +10,30 @@
 import Client from "$client"
 import { Align, Anchored, Art, Layer, Point, Position, Shadow, Stated } from "$ltml"
 import root Ordaen from "Ordaen"
-import { Component, PX, space } from "Ordaen"
+import { Component, space } from "Ordaen"
 
 // The dress's head, from its top: the frame's band, a gap, the title's line, a gap, the carved groove, the gap to
 // Blizzard's first button.
-const TITLE_TOP: Number = 14 * PX + space(.Item)
+const TITLE_TOP: Number<Length> = 16.40625dp + space(.Item)
 // The title's text, as tall as it is drawn.
-const TITLE_LINE = 18 * PX
-const GROOVE_TOP: Number = TITLE_TOP + TITLE_LINE + space(.Item)
-const GROOVE = 4 * PX
-const GROOVE_SIDE = 40 * PX
-const HEAD: Number = GROOVE_TOP + GROOVE + space(.Group)
+const TITLE_LINE = 21.09375dp
+const GROOVE_TOP: Number<Length> = TITLE_TOP + TITLE_LINE + space(.Item)
+const GROOVE = 4.6875dp
+const GROOVE_SIDE = 46.875dp
+const HEAD: Number<Length> = GROOVE_TOP + GROOVE + space(.Group)
 // Half the gap between two plates: taken off each plate above and below.
-const HALF_GAP: Number = space(.Item) / 2
+const HALF_GAP: Number<Length> = space(.Item) / 2
 const TITLE: Color = Color.hex("#ffd100")
-const ENGRAVED: Shadow = { color: Color.hex("#000000e6"), x: -1 * PX, y: 1 * PX }
+const ENGRAVED: Shadow = { color: Color.hex("#000000e6"), x: -1.171875dp, y: 1.171875dp }
 const LABEL: Color = Color.hex("#ffd100")
 // «AddOns», ours: its label white under the cursor and down while pressed, as a PushButton's.
-const OWN_DROP: Stated<Number> = { default: 0, pressed: 2 * PX }
+const OWN_DROP: Stated<Number> = { default: 0, pressed: 2.34375dp }
 const OWN_LABEL: Stated<Color> = { default: Color.hex("#ffd100"), hover: Color.hex("#ffffff") }
 const LABEL_HOVER: Color = Color.hex("#ffffff")
-const SHADOW: Shadow = { color: Color.hex("#000000"), x: 1 * PX, y: -1 * PX }
-const GEM = 16 * PX
-const GEM_LEFT = 12 * PX
-const DOWN = 2 * PX
+const SHADOW: Shadow = { color: Color.hex("#000000"), x: 1.171875dp, y: -1.171875dp }
+const GEM = 18.75dp
+const GEM_LEFT = 14.0625dp
+const DOWN = 2.34375dp
 
 // One of Blizzard's buttons as the dress draws it.
 public struct Dressed {
@@ -45,7 +45,7 @@ public struct Dressed {
   gem: Boolean
   // «AddOns»: ours stands over it.
   addons: Boolean
-  width: Number
+  width: Number<Length>
   height: Number
 }
 
@@ -79,7 +79,7 @@ public struct Live {
 public class GameMenu {
   public state shown = false
   public state buttons: Array<Dressed> = []
-  public state width: Number = 0
+  public state width: Number<Length> = 0ui
   public state height: Number = 0
   // How far Blizzard's first button stands under the menu's top (its point on the menu's), nothing when it stands by
   // something else.
@@ -234,10 +234,10 @@ public class Plate implements Component {
     self.down ? Ordaen.art.ctl.buttonDown : Ordaen.art.ctl.button
   derived light: Number = self.over ? 1 : 0
   derived color: Color = self.over ? LABEL_HOVER : LABEL
-  derived drop: Number = self.down ? DOWN : 0
+  derived drop: Number<Length> = self.down ? DOWN : 0
   derived gem: Number = self.dressed.gem ? 1 : 0
-  derived high: Number = self.dressed.height - 2 * HALF_GAP
-  derived gemTop: Number = (self.high - GEM) / 2
+  derived high: Number<Length> = self.dressed.height - 2 * HALF_GAP
+  derived gemTop: Number<Length> = (self.high - GEM) / 2
   derived place: Anchored = { point: Point.TopLeft, to: Point.TopLeft, y: HALF_GAP, by: self.dressed.button }
   // «AddOns», ours: lit while the cursor is on it.
   derived ownLight: Number = self.ownOver ? 1 : 0
@@ -257,22 +257,22 @@ public class Plate implements Component {
   public render(self): Template {
     return $ltml {
       <surface layer={Layer.Dialog} place={self.place} width={self.dressed.width} height={self.high}>
-        <box $if={self.dressed.addons} position={Position.Absolute} left={0} top={0} right={0} bottom={0}
+        <box $if={self.dressed.addons} position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui}
              background={Ordaen.art.ctl.button} @click={self.onClick} @enter={self.onEnter} @leave={self.onLeave}>
-          <box position={Position.Absolute} left={0} top={0} right={0} bottom={0} background={Ordaen.art.ctl.buttonLight}
+          <box position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui} background={Ordaen.art.ctl.buttonLight}
                opacity={self.ownLight} />
-          <box position={Position.Absolute} left={0} right={0} top={OWN_DROP} height={self.high}
+          <box position={Position.Absolute} left={0ui} right={0ui} top={OWN_DROP} height={self.high}
                xAlign={Align.Center} yAlign={Align.Center} stateFromParent={true}>
             <text value={self.dressed.label} textColor={OWN_LABEL} textShadow={SHADOW} wrap={false}
                   stateFromParent={true} />
           </box>
         </box>
-        <box $else position={Position.Absolute} left={0} top={0} right={0} bottom={0} background={self.art}>
-          <box position={Position.Absolute} left={0} top={0} right={0} bottom={0}
+        <box $else position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui} background={self.art}>
+          <box position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui}
                background={Ordaen.art.ctl.buttonLight} opacity={self.light} />
           <box position={Position.Absolute} left={GEM_LEFT} top={self.gemTop} width={GEM} height={GEM}
                background={Ordaen.art.ctl.newGem} opacity={self.gem} zLevel={1} />
-          <box position={Position.Absolute} left={0} right={0} top={self.drop} height={self.high}
+          <box position={Position.Absolute} left={0ui} right={0ui} top={self.drop} height={self.high}
                xAlign={Align.Center} yAlign={Align.Center}>
             <text value={self.dressed.label} textColor={self.color} textShadow={SHADOW} wrap={false} />
           </box>
@@ -288,9 +288,9 @@ public class MenuDress implements Component {
   // «AddOns» was clicked.
   public addons: Event<nil> = new Event()
 
-  derived wide: Number = self.menu.width
+  derived wide: Number<Length> = self.menu.width
   // The head stands over Blizzard's first button, which stands `lead` under the menu's top.
-  derived high: Number = self.menu.height - self.menu.lead + HEAD
+  derived high: Number<Length> = self.menu.height - self.menu.lead + HEAD
 
   // Blizzard's menu, matched by the module from its first show on.
   const menu: GameMenu

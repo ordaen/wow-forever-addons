@@ -2,7 +2,6 @@
 // The tab strip is the settings window's, which draws one tab at a time and reads `title` for it. `shown` false
 // hides the tab while its part is off. Its unnamed slot takes the rows.
 import { Component } from "@/module"
-import { PX } from "@/units"
 
 public class SettingsTab implements Component {
   public const title: String
@@ -17,7 +16,7 @@ public class SettingsTab implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={1} gap={14 * PX} shown={self.shown}>
+      <box columns={1} gap={16.40625dp} shown={self.shown}>
         <slot />
       </box>
     }

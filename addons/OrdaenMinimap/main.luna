@@ -3,7 +3,7 @@ import Game from "$game"
 import { Align, Anchored, Click, EmbedLook, Frame, Line, MouseButton, Point, Position, Shadow } from "$ltml"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
-import { ALWAYS, Module, PX, Placed, Settings, SettingsPage, Tip, opacityNow } from "Ordaen"
+import { ALWAYS, Module, Placed, Settings, SettingsPage, Tip, opacityNow } from "Ordaen"
 import { DrawerEntry } from "@/drawer"
 import Locale from "@/locales"
 import { BUTTON, DRAWER_BUTTON, RING, ROOM, RingButton, RingId, RingSpec } from "@/ring"
@@ -15,24 +15,24 @@ import { DrawerPage, MapPage } from "@/settings"
 public enum Hint { None = "none", Zone = "zone", Coords = "coords", Clock = "clock", Ordaen = "ordaen", Drawer = "drawer", Entry = "entry" }
 
 // The map at «Map size» 100%.
-const MAP = 262 * PX
+const MAP = 307.03125dp
 // The zone's strip above, the coordinates' and clock's below.
-const STRIP = 30 * PX
+const STRIP = 35.15625dp
 // From the frame's side to a ring button's centre.
-const RING_OUT = 16 * PX
-const CELL = 34 * PX
-const CELL_GAP = 4 * PX
-const DRAWER_PAD = 6 * PX
+const RING_OUT = 18.75dp
+const CELL = 39.84375dp
+const CELL_GAP = 4.6875dp
+const DRAWER_PAD = 7.03125dp
 const GOLD: Color = Color.hex("#ffd100")
 const INK: Color = Color.hex("#f3e1b8")
 // The clock while calendar invites wait.
 const PENDING: Color = Color.hex("#ff9a2e")
 // Dark up-left, as the windows' titles.
-const ENGRAVED: Shadow = { color: Color.hex("#000000e6"), x: -1, y: 1 }
+const ENGRAVED: Shadow = { color: Color.hex("#000000e6"), x: -1, y: 1ui }
 const RULE: Color = Color.hex("#120c06")
 // A strip's rule towards the map.
-const RULE_BELOW: Line = { width: 2 * PX, color: RULE, sides: ["bottom"] }
-const RULE_ABOVE: Line = { width: 2 * PX, color: RULE, sides: ["top"] }
+const RULE_BELOW: Line = { width: 2.34375dp, color: RULE, sides: ["bottom"] }
+const RULE_ABOVE: Line = { width: 2.34375dp, color: RULE, sides: ["top"] }
 
 // Where the map stands until the player moves it: the screen's top right corner.
 const HOME: Anchored = { point: Point.TopRight }
@@ -61,19 +61,19 @@ public class Minimap implements Module, App {
   state entryName = ""
 
   // The frame's metal: the map sits inside its wood, the line's width and the wood's inset in from the line.
-  derived out: Number = Ordaen.art.frame.small.width + Ordaen.art.frame.small.inset
-  derived size: Number = MAP * self.settings.values.scale
-  derived headHeight: Number = self.settings.values.showZone ? STRIP : 0
+  derived out: Number<Length> = Ordaen.art.frame.small.width + Ordaen.art.frame.small.inset
+  derived size: Number<Length> = MAP * self.settings.values.scale
+  derived headHeight: Number<Length> = self.settings.values.showZone ? STRIP : 0
   derived hasFoot: Boolean = self.settings.values.showCoords || self.settings.values.showClock
-  derived footHeight: Number = self.hasFoot ? STRIP : 0
-  derived frameWidth: Number = self.size + 2 * self.out
-  derived frameHeight: Number = self.size + 2 * self.out + self.headHeight + self.footHeight
-  derived wholeWidth: Number = self.frameWidth + 2 * ROOM
-  derived wholeHeight: Number = self.frameHeight + 2 * ROOM
+  derived footHeight: Number<Length> = self.hasFoot ? STRIP : 0
+  derived frameWidth: Number<Length> = self.size + 2 * self.out
+  derived frameHeight: Number<Length> = self.size + 2 * self.out + self.headHeight + self.footHeight
+  derived wholeWidth: Number<Length> = self.frameWidth + 2 * ROOM
+  derived wholeHeight: Number<Length> = self.frameHeight + 2 * ROOM
   // The metal stands past its line, and the frame's box holds it: the box starts that far out.
-  derived frameLeft: Number = ROOM - Ordaen.art.frame.small.reach.left * Ordaen.art.frame.small.scale
-  derived frameTop: Number = ROOM - Ordaen.art.frame.small.reach.top * Ordaen.art.frame.small.scale
-  derived mapTop: Number = self.out + self.headHeight
+  derived frameLeft: Number<Length> = ROOM - Ordaen.art.frame.small.reach.left * Ordaen.art.frame.small.scale
+  derived frameTop: Number<Length> = ROOM - Ordaen.art.frame.small.reach.top * Ordaen.art.frame.small.scale
+  derived mapTop: Number<Length> = self.out + self.headHeight
 
   derived showsCoords: Boolean = self.settings.values.showCoords && Game.minimap.coords != ""
   derived zoneColor: Color = self.colorOf()
@@ -94,11 +94,11 @@ public class Minimap implements Module, App {
   derived drawerParked: Boolean = self.settings.values.drawerOn && !self.drawerOpen
   // Its cells, the room round them and its frame's line on both sides.
   derived drawerEdge: Number = 2 * DRAWER_PAD + 2 * Ordaen.art.frame.small.width
-  derived drawerWidth: Number = self.settings.values.drawerColumns * CELL + (self.settings.values.drawerColumns - 1) * CELL_GAP + self.drawerEdge
+  derived drawerWidth: Number<Length> = self.settings.values.drawerColumns * CELL + (self.settings.values.drawerColumns - 1) * CELL_GAP + self.drawerEdge
   derived drawerRows: Integer = (1).max((self.held / self.settings.values.drawerColumns).ceil())
-  derived drawerHeight: Number = self.drawerRows * CELL + (self.drawerRows - 1) * CELL_GAP + self.drawerEdge
-  derived drawerLeft: Number = self.ringLeft(DRAWER_BUTTON) + BUTTON - self.drawerWidth
-  derived drawerTop: Number = self.ringTop(DRAWER_BUTTON) + BUTTON + 2 * PX
+  derived drawerHeight: Number<Length> = self.drawerRows * CELL + (self.drawerRows - 1) * CELL_GAP + self.drawerEdge
+  derived drawerLeft: Number<Length> = self.ringLeft(DRAWER_BUTTON) + BUTTON - self.drawerWidth
+  derived drawerTop: Number<Length> = self.ringTop(DRAWER_BUTTON) + BUTTON + 2.34375dp
 
   // The tooltip of what the cursor is on: written in that part's box, it stands beside it on the screen.
   public derived hintTitle: String = self.titleOf()
@@ -299,14 +299,14 @@ public class Minimap implements Module, App {
 
             <box $if={self.hasFoot} position={Position.Absolute} left={self.out} bottom={self.out} width={self.size}
                  height={STRIP} background={Ordaen.art.window.wood} border={RULE_ABOVE}
-                 columns={[{ fr: 1 }, "auto"]} padding={{ left: 10 * PX, right: 10 * PX }} yAlign={Align.Center}>
+                 columns={[{ fr: 1 }, "max-content"]} padding={{ left: 11.71875dp, right: 11.71875dp }} yAlign={Align.Center}>
               <box $if={self.showsCoords} @click={self.onCoordsClick} @enter={self.onCoordsEnter}
                    @leave={self.onHintLeave}>
                 <text value={Game.minimap.coords} textColor={INK} textShadow={ENGRAVED}
                       textFont={.Numbers} wrap={false} />
                 <Tip $if={self.hint == Hint.Coords} title={self.hintTitle} text={self.hintText} />
               </box>
-              <box $else width={1} />
+              <box $else width={1ui} />
               <box $if={self.settings.values.showClock} @click={self.onClockClick} @enter={self.onClockEnter}
                    @leave={self.onHintLeave}>
                 <text value={Game.clock.text} textColor={self.clockColor} textShadow={ENGRAVED}
@@ -328,7 +328,7 @@ public class Minimap implements Module, App {
                          @leave={self.onHintLeave} />
             <Tip $if={self.hint == Hint.Entry} title={self.hintTitle} text={self.hintText} />
           </box>
-          <box $elseif={self.drawerParked} position={Position.Absolute} left={0} top={0} width={0} height={0}
+          <box $elseif={self.drawerParked} position={Position.Absolute} left={0ui} top={0ui} width={0ui} height={0ui}
                opacity={0}>
             <embed $for={button of Game.minimap.buttons} frame={button} width={CELL} height={CELL}
                    look={EmbedLook.Icon} />

@@ -6,7 +6,7 @@
 import Game from "$game"
 import { Align, Art, Edges, Line, Overflow, Side, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { Component, ItemButton, PX, space } from "Ordaen"
+import { Component, ItemButton, SECONDARY_TEXT, TITLE_TEXT, space } from "Ordaen"
 import type { PriceSource } from "OrdaenAuction"
 import { PartPrice, Totals, partsOf, totalsOf, yieldOf } from "@/cost"
 import { Flag } from "@/flag"
@@ -17,17 +17,17 @@ import { ReagentRow } from "@/rows"
 import Style from "@/style"
 import { Act, Kept, MakeMode, has } from "@/view"
 
-const RIM: Line = { width: 1 * PX, color: Style.LINE }
-const SWITCHES: Line = { width: 1 * PX, color: Style.LINE, sides: [Side.Top] }
+const RIM: Line = { width: 1.171875dp, color: Style.LINE }
+const SWITCHES: Line = { width: 1.171875dp, color: Style.LINE, sides: [Side.Top] }
 const SWITCHES_PAD: Edges = { top: space(.Item) }
 const FLAGS: Array<Track> = [{ fr: 1 }, { fr: 1 }]
 // The head, the description, the needs, the reagents in the rest, their totals, the switches, the make row, the note.
-const PANEL: Array<Track> = ["auto", "auto", "auto", { fr: 1 }, "auto", "auto", "auto", "auto"]
+const PANEL: Array<Track> = ["max-content", "max-content", "max-content", { fr: 1 }, "max-content", "max-content", "max-content", "max-content"]
 const NO_TOTALS: Totals = {
   cost: nil, toBuy: nil, sellable: false, sale: nil, profit: nil, oldest: nil, priced: false
 }
 const NOTE: Color = Color.hex("#c8b48a")
-const SLOT = 52 * PX
+const SLOT = 60.9375dp
 const HEAD: Array<Track> = [SLOT, { fr: 1 }]
 const NOTHING: Game.Recipe = {
   id: 0, name: "", icon: "Interface/Icons/INV_Misc_QuestionMark", categoryID: 0, learned: false, difficulty: Game.Difficulty.Never, craftable: 0
@@ -159,14 +159,14 @@ public class RecipeDetails implements Component {
           <box columns={HEAD} gap={space(.Panel)} yAlign={Align.Center}>
             <ItemButton $if={self.hasItem} item={self.made} size={SLOT} dimmed={!self.shown.learned} />
             <box $else width={SLOT} height={SLOT} border={Style.BRONZE} icon={self.icon} />
-            <box gap={2 * PX}>
-              <text value={self.shown.name} textSize={.Title} textColor={Style.WHITE}
+            <box gap={2.34375dp}>
+              <text value={self.shown.name} textSize={TITLE_TEXT} textColor={Style.WHITE}
                     textShadow={Style.SHADOW} />
-              <text value={self.skill} textSize={.Secondary} textColor={self.skillColor} />
+              <text value={self.skill} textSize={SECONDARY_TEXT} textColor={self.skillColor} />
             </box>
           </box>
-          <text value={self.description} textSize={.Secondary} textColor={Style.INK} />
-          <text value={self.needs} textSize={.Secondary} textColor={Style.DIM} />
+          <text value={self.description} textSize={SECONDARY_TEXT} textColor={Style.INK} />
+          <text value={self.needs} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
           <box $if={self.priced} overflow={Overflow.Scroll}>
             <PriceTable parts={self.parts} />
           </box>
@@ -174,7 +174,7 @@ public class RecipeDetails implements Component {
             <ReagentRow $for={index, reagent of self.reagents} reagent={reagent} index={index} />
           </box>
           <box $if={self.priced} gap={space(.Item)}>
-            <text $if={self.noPrices} value={self.noPricesText} textSize={.Secondary} textColor={Style.DIM} />
+            <text $if={self.noPrices} value={self.noPricesText} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
             <TotalsBlock totals={self.totals} />
           </box>
           <box $else />
@@ -185,7 +185,7 @@ public class RecipeDetails implements Component {
           <MakeRow $if={self.shown.learned} recipe={self.recipe} count={mut self.count} mode={mut self.mode}
                    profession={self.profession} yellow={self.yellow} grey={self.grey} @create={self.onCreate} />
           <box $else />
-          <text $if={self.noted} value={self.note} textSize={.Secondary} textColor={NOTE} />
+          <text $if={self.noted} value={self.note} textSize={SECONDARY_TEXT} textColor={NOTE} />
         </>
       </box>
     }

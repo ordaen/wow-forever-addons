@@ -8,15 +8,15 @@
 import { Align, Beside, Layer, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import { Component } from "@/module"
-import { PX, space } from "@/units"
+import { TITLE_TEXT, space } from "@/units"
 
-const WIDTH = 314 * PX
+const WIDTH = 367.96875dp
 const NAME: Color = Color.hex("#ffffff")
 const LABEL: Color = Color.hex("#cbb994")
 const BY_ITS_BOX: Beside = { beside: "parent" }
-const ROW: Array<Track> = [{ fr: 1 }, "auto"]
+const ROW: Array<Track> = [{ fr: 1 }, "max-content"]
 // A label and the word after it, side by side at the row's start.
-const MARKED: Array<Track> = ["auto", "auto"]
+const MARKED: Array<Track> = ["max-content", "max-content"]
 
 // A word after a row's label in a colour of its own: a standing's name in its standing's colour. Without its text, the
 // label stands alone.
@@ -57,7 +57,7 @@ public class Tip implements Component {
       <surface layer={Layer.Tooltip} place={BY_ITS_BOX} clamp={true} width={WIDTH}
                border={Ordaen.art.frame.small} background={Ordaen.art.window.wood} artOrigin={true}
                padding={space(.Panel)} columns={1} gap={space(.Line)}>
-        <text value={self.title} textColor={NAME} textSize={.Title} />
+        <text value={self.title} textColor={NAME} textSize={TITLE_TEXT} />
         <text $if={self.hasText} value={self.text} textColor={LABEL} />
         <box $for={row of self.rows} columns={ROW} gap={space(.Item)} yAlign={Align.Center}>
           <box columns={MARKED} gap={space(.Line)} yAlign={Align.Center}>

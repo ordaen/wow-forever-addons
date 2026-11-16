@@ -4,7 +4,7 @@
 import Game from "$game"
 import { Align, Overflow, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { Choice, Component, Memory, Money, PX, PushButton, ToolPick, Toolbar } from "Ordaen"
+import { Choice, Component, Memory, Money, PushButton, SECONDARY_TEXT, TITLE_TEXT, ToolPick, Toolbar } from "Ordaen"
 import Locale from "@/locales"
 import Style from "@/style"
 
@@ -32,10 +32,10 @@ const ORDERS: Array<Choice<Order>> = [
 ]
 const BODY: Array<Track> = [Style.LIST, { fr: 1 }]
 const FILL: Array<Track> = [{ fr: 1 }]
-const PAGE: Array<Track> = ["auto", { fr: 1 }]
-const SIDE: Array<Track> = ["auto", "auto", { fr: 1 }, "auto"]
-const ROW: Array<Track> = [32 * PX, { fr: 1 }, "auto"]
-const FOOT: Array<Track> = [{ fr: 1 }, "auto"]
+const PAGE: Array<Track> = ["max-content", { fr: 1 }]
+const SIDE: Array<Track> = ["max-content", "max-content", { fr: 1 }, "max-content"]
+const ROW: Array<Track> = [37.5dp, { fr: 1 }, "max-content"]
+const FOOT: Array<Track> = [{ fr: 1 }, "max-content"]
 
 function passes(service: Game.TrainerService, show: Show, search: String): Boolean {
   const kept = match (show) {
@@ -72,12 +72,12 @@ public class ServiceRow implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={ROW} gap={8 * PX} yAlign={Align.Center} background={self.background}
-           padding={{ top: 3 * PX, bottom: 3 * PX, left: 6 * PX, right: 6 * PX }} @click={self.onPick}>
-        <box width={28 * PX} height={28 * PX} icon={self.service.icon} tint={self.tint} />
+      <box columns={ROW} gap={9.375dp} yAlign={Align.Center} background={self.background}
+           padding={{ top: 3.515625dp, bottom: 3.515625dp, left: 7.03125dp, right: 7.03125dp }} @click={self.onPick}>
+        <box width={32.8125dp} height={32.8125dp} icon={self.service.icon} tint={self.tint} />
         <box columns={1}>
           <text value={self.title} textColor={Style.INK} wrap={false} />
-          <text value={self.need} textSize={.Secondary} textColor={self.needColor} wrap={false} />
+          <text value={self.need} textSize={SECONDARY_TEXT} textColor={self.needColor} wrap={false} />
         </box>
         <Money $if={!self.free} amount={self.service.cost} color={self.affordable} />
       </box>
@@ -136,7 +136,7 @@ public class TrainerPage implements Component {
   public render(self): Template {
     return $ltml {
       <box columns={BODY} rows={FILL} gap={Style.GAP}>
-        <box rows={PAGE} gap={8 * PX}>
+        <box rows={PAGE} gap={9.375dp}>
           <Toolbar search={mut self.search} placeholder={Locale.SEARCH}>
             <ToolPick value={mut self.list.values.order} choices={ORDERS} icon={Ordaen.art.ctl.tool.sort} title={Locale.SORT} />
             <ToolPick value={mut self.list.values.show} choices={SHOWS} icon={Ordaen.art.ctl.tool.filter} title={Locale.FILTER}
@@ -150,27 +150,27 @@ public class TrainerPage implements Component {
                         met={service.level <= self.level} @pick={self.onPick} />
           </box>
         </box>
-        <box rows={SIDE} gap={8 * PX}>
-          <box $if={self.has} columns={1} gap={6 * PX}>
-            <text value={self.name} textSize={.Title} textColor={Style.GOLD} />
+        <box rows={SIDE} gap={9.375dp}>
+          <box $if={self.has} columns={1} gap={7.03125dp}>
+            <text value={self.name} textSize={TITLE_TEXT} textColor={Style.GOLD} />
             <text value={self.text} textColor={Style.INK} />
           </box>
-          <box $else columns={1} gap={6 * PX}>
+          <box $else columns={1} gap={7.03125dp}>
             <text value={Locale.PICK_SERVICE} textColor={Style.DIM} />
-            <text value={self.summary} textColor={Style.DIM} textSize={.Secondary} />
+            <text value={self.summary} textColor={Style.DIM} textSize={SECONDARY_TEXT} />
           </box>
           <box />
           <box />
-          <box columns={1} gap={6 * PX}>
-            <box columns={FOOT} gap={8 * PX}>
+          <box columns={1} gap={7.03125dp}>
+            <box columns={FOOT} gap={9.375dp}>
               <text value={Locale.YOUR_MONEY} textColor={Style.DIM} wrap={false} />
               <Money amount={Game.money.amount} />
             </box>
-            <box columns={FOOT} gap={8 * PX} yAlign={Align.Center}>
+            <box columns={FOOT} gap={9.375dp} yAlign={Align.Center}>
               <box>
                 <Money $if={self.has} amount={self.price} />
               </box>
-              <PushButton label={Locale.LEARN} width={150 * PX} accent={true} disabled={!self.canLearn} />
+              <PushButton label={Locale.LEARN} width={175.78125dp} accent={true} disabled={!self.canLearn} />
             </box>
           </box>
         </box>

@@ -3,7 +3,6 @@
 // inside. Left-click picks a tab: the strip writes the picked tab's index into the cell it was handed.
 import { Edges, Line, Position, Side, Stated, Track } from "$ltml"
 import { Component } from "@/module"
-import { PX } from "@/units"
 
 const LINE: Color = Color.hex("#3e2f1d")
 const NAME: Stated<Color> = { default: Color.hex("#a3977f"), hover: Color.hex("#e8dcc4") }
@@ -13,9 +12,9 @@ const SHADE: Stated<Color> = { default: CLEAR, hover: Color.hex("#00000033") }
 const PICKED: Color = Color.hex("#00000059")
 // The picked tab's outline; the others keep its room with a line that draws nothing, so a tab's box is the same
 // picked or not.
-const OUTLINE: Line = { width: 1 * PX, color: LINE, sides: [Side.Top, Side.Left, Side.Right] }
-const NO_OUTLINE: Line = { width: 1 * PX, color: CLEAR, sides: [Side.Top, Side.Left, Side.Right] }
-const PADDING: Edges = { top: 7 * PX, right: 14 * PX, bottom: 6 * PX, left: 14 * PX }
+const OUTLINE: Line = { width: 1.171875dp, color: LINE, sides: [Side.Top, Side.Left, Side.Right] }
+const NO_OUTLINE: Line = { width: 1.171875dp, color: CLEAR, sides: [Side.Top, Side.Left, Side.Right] }
+const PADDING: Edges = { top: 8.203125dp, right: 16.40625dp, bottom: 7.03125dp, left: 16.40625dp }
 const LIGHT: Color = Color.hex("#d6a56b")
 
 // One tab of the strip.
@@ -45,7 +44,7 @@ public class Tab implements Component {
   public render(self): Template {
     return $ltml {
       <box padding={PADDING} background={self.background} border={self.border} @click={self.pick}>
-        <box position={Position.Absolute} left={1 * PX} right={1 * PX} top={1 * PX} height={2 * PX}
+        <box position={Position.Absolute} left={1.171875dp} right={1.171875dp} top={1.171875dp} height={2.34375dp}
              background={self.light} />
         <text value={self.label} textColor={self.color} stateFromParent={true} wrap={false} />
       </box>
@@ -69,15 +68,15 @@ public class Tabs implements Component {
 
   tracks(self): Array<Track> {
     let list: Array<Track> = []
-    for (name of self.tabs) { list.push("auto") }
+    for (name of self.tabs) { list.push("max-content") }
     list.push({ fr: 1 })
     return list
   }
 
   public render(self): Template {
     return $ltml {
-      <box columns={self.columns} gap={4 * PX}>
-        <box position={Position.Absolute} left={0} right={0} bottom={0} height={1 * PX} background={LINE} zLevel={1} />
+      <box columns={self.columns} gap={4.6875dp}>
+        <box position={Position.Absolute} left={0ui} right={0ui} bottom={0ui} height={1.171875dp} background={LINE} zLevel={1} />
         <Tab $for={index, name of self.tabs} label={name} index={index} selected={mut self.selected} />
       </box>
     }

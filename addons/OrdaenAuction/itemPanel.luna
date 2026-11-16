@@ -4,7 +4,7 @@
 // its age, the lowest listed, the merchant's); then what the page does with it (its slot: «Buy»'s listings and «Buy»,
 // «Sell»'s quantity and «Post»), in the rest of the panel's height.
 import { Align, Track } from "$ltml"
-import { Age, Choice, Component, Copper, Hour, ItemButton, ItemId, Money, PX, Segmented, space } from "Ordaen"
+import { Age, Choice, Component, Copper, Hour, ItemButton, ItemId, Money, SECONDARY_TEXT, Segmented, TITLE_TEXT, space } from "Ordaen"
 import { PriceHistory } from "@/history"
 import { House } from "@/house"
 import Locale from "@/locales"
@@ -22,23 +22,23 @@ const SPANS: Array<Choice<Span>> = [
 const HOURS_A_DAY = 24
 const WEEK = 7
 const MONTH = 30
-const CHART_HEIGHT = 72 * PX
+const CHART_HEIGHT = 84.375dp
 // A bar's least height, so a price at the span's lowest still shows.
-const LEAST_BAR = 2 * PX
+const LEAST_BAR = 2.34375dp
 const BAR: Color = Color.hex("#d6a56b")
 const LAST_BAR: Color = Color.hex("#f0c860")
 const CHART_BACK: Color = Color.hex("#00000040")
 
 // The header, the chart, the prices, and the page's part, which takes the rest.
-const PANEL: Array<Track> = ["auto", "auto", "auto", { fr: 1 }]
-const HEAD: Array<Track> = ["auto", { fr: 1 }]
-const PAIR: Array<Track> = [{ fr: 1 }, "auto"]
-const PRICE: Array<Track> = ["auto", "auto"]
-const ENDS: Array<Track> = ["auto", { fr: 1 }, "auto"]
+const PANEL: Array<Track> = ["max-content", "max-content", "max-content", { fr: 1 }]
+const HEAD: Array<Track> = ["max-content", { fr: 1 }]
+const PAIR: Array<Track> = [{ fr: 1 }, "max-content"]
+const PRICE: Array<Track> = ["max-content", "max-content"]
+const ENDS: Array<Track> = ["max-content", { fr: 1 }, "max-content"]
 
 // One bar of the chart: its height (none where no price was seen in its hour or day), and its colour: the latest gold.
 struct Bar {
-  height: Number
+  height: Number<Length>
   color: Color
 }
 
@@ -112,8 +112,8 @@ class PriceChart implements Component {
     return $ltml {
       <box gap={space(.Item)}>
         <Segmented value={mut self.span} choices={SPANS} />
-        <box $if={self.priced} gap={4 * PX}>
-          <box columns={self.columns} gap={1 * PX} height={CHART_HEIGHT} yAlign={Align.End} background={CHART_BACK}>
+        <box $if={self.priced} gap={4.6875dp}>
+          <box columns={self.columns} gap={1.171875dp} height={CHART_HEIGHT} yAlign={Align.End} background={CHART_BACK}>
             <box $for={bar of self.bars} height={bar.height}
                  background={bar.color} />
           </box>
@@ -124,7 +124,7 @@ class PriceChart implements Component {
           </box>
         </box>
         <box $else height={CHART_HEIGHT} background={CHART_BACK} xAlign={Align.Center} yAlign={Align.Center}>
-          <text value={Locale.NO_HISTORY} textColor={Style.DIM} textSize={.Secondary} />
+          <text value={Locale.NO_HISTORY} textColor={Style.DIM} textSize={SECONDARY_TEXT} />
         </box>
       </box>
     }
@@ -188,17 +188,17 @@ public class ItemPanel implements Component {
   public render(self): Template {
     return $ltml {
       <box rows={PANEL} gap={space(.Group)}>
-        <box columns={HEAD} gap={10 * PX} yAlign={Align.Center}>
+        <box columns={HEAD} gap={11.71875dp} yAlign={Align.Center}>
           <ItemButton item={self.item} size={Style.BIG_SLOT} />
-          <box gap={2 * PX} overflow={.Hidden}>
-            <text value={self.name} textColor={self.color} textSize={.Title} wrap={false} />
-            <text value={self.detail} textColor={Style.DIM} textSize={.Secondary} wrap={false} />
+          <box gap={2.34375dp} overflow={.Hidden}>
+            <text value={self.name} textColor={self.color} textSize={TITLE_TEXT} wrap={false} />
+            <text value={self.detail} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={false} />
           </box>
         </box>
         <PriceChart key={self.key} history={self.history} />
         <box columns={PAIR} gap={space(.Item)} yAlign={Align.Center}>
           <text value={Locale.COLUMN_MARKET} textColor={Style.INK} />
-          <box $if={self.market != nil} columns={PRICE} gap={4 * PX} yAlign={Align.Center}>
+          <box $if={self.market != nil} columns={PRICE} gap={4.6875dp} yAlign={Align.Center}>
             <Money amount={self.marketAmount} />
             <Age seconds={self.age} />
           </box>

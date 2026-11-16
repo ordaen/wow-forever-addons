@@ -2,13 +2,12 @@
 // fit the grid's width, each line of them a row of their captions and then rows of their slots. A box with
 // `rowHeight` builds only the rows in view.
 import { Track } from "$ltml"
-import { PX } from "Ordaen"
 import { Slot } from "@/model"
 
 // A slot's size and the room between two slots; between two sections side by side, more.
-public const SLOT: Number = 37 * PX
-public const GAP: Number = 4 * PX
-public const SECTION_GAP: Number = 16 * PX
+public const SLOT: Number<Length> = 43.359375dp
+public const GAP: Number<Length> = 4.6875dp
+public const SECTION_GAP: Number<Length> = 18.75dp
 // A section with a caption is at least this many slots wide, so its caption fits.
 const CAPTION_SPAN = 4
 
@@ -53,7 +52,7 @@ function widthOf(span: Integer): Number {
 }
 
 // The room between two sections, past the row's own gap on each side.
-const BETWEEN: Number = SECTION_GAP - 2 * GAP
+const BETWEEN: Number<Length> = SECTION_GAP - 2 * GAP
 
 // The rows of `sections` in `columns` slots, those `collapsed` (by key) with their caption alone.
 public function rowsOf(sections: Array<Section>, columns: Integer, collapsed: Map<String, Boolean>): Array<Row> {

@@ -30,10 +30,10 @@ class Pair {
     return $ltml {
       <TooltipGroup shown={true} place={self.place} beside={1} leftwards={self.leftwards} @enter={self.onEnter}
                     @leave={self.onLeave}>
-        <box #primary width={100} height={80} background={WOOD}>
+        <box #primary width={100ui} height={80ui} background={WOOD}>
           <text value={"Primary"} />
         </box>
-        <box #secondary width={100} height={50} background={WOOD}>
+        <box #secondary width={100ui} height={50ui} background={WOOD}>
           <text value={"Secondary"} />
         </box>
       </TooltipGroup>

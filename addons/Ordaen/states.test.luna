@@ -22,7 +22,6 @@ import { Switch } from "@/switch"
 import { Column, Table, TableRow, tracksOf } from "@/table"
 import { Tabs } from "@/tabs"
 import { TreeRow } from "@/treeRow"
-import { PX } from "@/units"
 import { KeptWindow, Window, WindowTabSpec } from "@/window"
 
 const PAGE: Test.Page = { left: 0, top: 0, width: 900, height: 700 }
@@ -196,7 +195,7 @@ test "a page's tab keeps its box picked or not" {
 class Tabbed {
   state tabs: Array<WindowTabSpec>
   state tab = 1
-  public placing: mut KeptWindow = new KeptWindow("placing", "placing", { x: 0, y: 0, width: 600, height: 300 })
+  public placing: mut KeptWindow = new KeptWindow("placing", "placing", { x: 0ui, y: 0ui, width: 600ui, height: 300ui })
 
   constructor(tabs: Array<WindowTabSpec>) { self.tabs = tabs }
 
@@ -236,7 +235,7 @@ class Buttons {
   state disabled = false
 
   public render(self): Template {
-    return $ltml { <PushButton label={"Make"} width={120 * PX} accent={self.accent} disabled={self.disabled} /> }
+    return $ltml { <PushButton label={"Make"} width={140.625dp} accent={self.accent} disabled={self.disabled} /> }
   }
 }
 
@@ -313,7 +312,7 @@ class Lists {
 
   public render(self): Template {
     return $ltml {
-      <box columns={1} width={300 * PX}>
+      <box columns={1} width={351.5625dp}>
         <ListTab label={"Bars"} selected={self.selected} icon={ICON} off={self.off} />
         <ListTab label={"Plain"} selected={self.selected} off={self.off} />
         <TreeRow label={"Copper Bar"} depth={1} open={mut self.open} selected={self.selected} />
@@ -338,8 +337,8 @@ test "a list's entry and a tree's row keep their boxes selected, off or open" {
 
 const COLUMNS: Array<Column> = [
   { title: "Recipe", width: { fr: 1 }, sortable: true },
-  { title: "Makeable", width: 80 * PX, sortable: true },
-  { title: "Plain", width: 80 * PX }
+  { title: "Makeable", width: 93.75dp, sortable: true },
+  { title: "Plain", width: 93.75dp }
 ]
 
 class Sorted {
@@ -350,7 +349,7 @@ class Sorted {
 
   public render(self): Template {
     return $ltml {
-      <box width={500 * PX}>
+      <box width={585.9375dp}>
         <Table columns={COLUMNS} sorted={mut self.column} descending={mut self.descending}>
           <TableRow tracks={self.tracks} selected={self.selected}>
             <text value={"Linen Bandage"} />
@@ -383,7 +382,7 @@ class Menus {
 
   public render(self): Template {
     return $ltml {
-      <box width={200 * PX} height={30 * PX}>
+      <box width={234.375dp} height={35.15625dp}>
         <Menu entries={self.entries} />
       </box>
     }
@@ -420,7 +419,7 @@ class Modules {
 
   public render(self): Template {
     return $ltml {
-      <box width={300 * PX}>
+      <box width={351.5625dp}>
         <ModuleRow entry={self.entry} shown={self.shown} />
       </box>
     }

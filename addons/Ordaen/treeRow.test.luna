@@ -16,7 +16,7 @@ class Cost {
 
   public render(self): Template {
     return $ltml {
-      <box columns={1} width={400}>
+      <box columns={1} width={400ui}>
         <TreeRow label={"Bronze Axe"} depth={0} open={mut self.axe} selected={self.picked == "Bronze Axe"}
                  @pick={self.onAxe}>
           <Money amount={12345} />

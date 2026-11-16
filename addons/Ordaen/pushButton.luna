@@ -7,14 +7,13 @@ import { Action, Align, Art, Position, Shadow, Stated } from "$ltml"
 import root Ordaen from "Ordaen"
 import { Component } from "@/module"
 import { Tip, TipText } from "@/tip"
-import { PX } from "@/units"
 
-const HEIGHT = 34 * PX
+const HEIGHT = 39.84375dp
 const LABEL: Stated<Color> = { default: Color.hex("#ffd100"), hover: Color.hex("#ffffff") }
 const GREY: Color = Color.hex("#808080")
-const SHADOW: Shadow = { color: Color.hex("#000000"), x: 1 * PX, y: -1 * PX }
+const SHADOW: Shadow = { color: Color.hex("#000000"), x: 1.171875dp, y: -1.171875dp }
 // The label while pressed.
-const DOWN: Stated<Number> = { default: 0, pressed: 2 * PX }
+const DOWN: Stated<Number> = { default: 0, pressed: 2.34375dp }
 const NO_TIP: TipText = { title: "", text: "", rows: [] }
 
 public class PushButton implements Component {
@@ -68,7 +67,7 @@ public class PushButton implements Component {
       <box width={self.width} height={HEIGHT} background={self.art} action={self.doing} repeats={self.repeating}
            @click={self.onClick} @enter={self.onEnter} @leave={self.onLeave}>
         <Tip $if={self.tipShown} title={self.tipText.title} text={self.tipText.text} rows={self.tipText.rows} />
-        <box position={Position.Absolute} left={0} right={0} top={DOWN} height={HEIGHT}
+        <box position={Position.Absolute} left={0ui} right={0ui} top={DOWN} height={HEIGHT}
              xAlign={Align.Center} yAlign={Align.Center} stateFromParent={true}>
           <text value={self.label} textColor={self.color} textShadow={SHADOW} wrap={false}
                 stateFromParent={true} />

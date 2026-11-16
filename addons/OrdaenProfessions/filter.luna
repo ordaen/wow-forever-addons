@@ -3,18 +3,18 @@
 // click anywhere else closes it.
 import { Align, Beside, Edges, Layer, Line, Position } from "$ltml"
 import root Ordaen from "Ordaen"
-import { Component, PX, PushButton, ToolButton, space } from "Ordaen"
+import { Component, PushButton, ToolButton, space } from "Ordaen"
 import Locale from "@/locales"
 
-const WIDTH = 230 * PX
+const WIDTH = 269.53125dp
 const BACK: Color = Color.hex("#0a0806f7")
-const EDGE: Line = { width: 1 * PX, color: Color.hex("#6c5535") }
-const PAD: Number = space(.Panel)
+const EDGE: Line = { width: 1.171875dp, color: Color.hex("#6c5535") }
+const PAD: Number<Length> = space(.Panel)
 // What stands under a rule keeps an item's step from it.
 const AFTER_RULE: Edges = { top: space(.Item) }
-const RULE: Line = { width: 1 * PX, color: Color.hex("#d6a56b33"), sides: ["top"] }
+const RULE: Line = { width: 1.171875dp, color: Color.hex("#d6a56b33"), sides: ["top"] }
 const INK: Color = Color.hex("#e8dcc4")
-const SIZE = 22 * PX
+const SIZE = 25.78125dp
 
 // One option: a well with a gold tick while it is on, and its name.
 public class Check implements Component {
@@ -32,9 +32,9 @@ public class Check implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={[SIZE, { fr: 1 }]} gap={10 * PX} yAlign={Align.Center} @click={self.toggle}>
+      <box columns={[SIZE, { fr: 1 }]} gap={11.71875dp} yAlign={Align.Center} @click={self.toggle}>
         <box width={SIZE} height={SIZE} background={Ordaen.art.ctl.check}>
-          <box $if={self.value} position={Position.Absolute} left={0} top={0} width={SIZE} height={SIZE}
+          <box $if={self.value} position={Position.Absolute} left={0ui} top={0ui} width={SIZE} height={SIZE}
                background={Ordaen.art.ctl.tick} />
         </box>
         <text value={self.label} textColor={INK} wrap={false} />
@@ -81,7 +81,7 @@ public class FilterMenu implements Component {
           <Check label={Locale.FILTER_UNLEARNED} value={mut self.unlearned} />
         </box>
         <box columns={1} padding={AFTER_RULE} border={RULE}>
-          <PushButton label={Locale.FILTER_RESET} width={120 * PX} disabled={!self.filtered}
+          <PushButton label={Locale.FILTER_RESET} width={140.625dp} disabled={!self.filtered}
                       @click={self.onReset} />
         </box>
       </surface>

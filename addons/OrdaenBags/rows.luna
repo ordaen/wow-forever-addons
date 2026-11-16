@@ -5,17 +5,17 @@
 import Game from "$game"
 import { Action, Align, Click, Position, Shadow, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { Component, ItemButton, PX, Quality } from "Ordaen"
+import { Component, ItemButton, Quality, SECONDARY_TEXT } from "Ordaen"
 import { Cell, GAP, Row, SLOT, Section } from "@/layout"
 import { Slot } from "@/model"
 
 const CAPTION: Color = Color.hex("#e8c35a")
 const LABEL: Color = Color.hex("#a3977f")
 const NEW_GLOW: Color = Color.hex("#ffd65a")
-const SHADOW: Shadow = { color: Color.hex("#000000"), x: 1 * PX, y: -1 * PX }
-const MARK = 12 * PX
-const LOCK = 14 * PX
-const CAPTION_TRACKS: Array<Track> = [MARK, "auto", { fr: 1 }]
+const SHADOW: Shadow = { color: Color.hex("#000000"), x: 1.171875dp, y: -1.171875dp }
+const MARK = 14.0625dp
+const LOCK = 16.40625dp
+const CAPTION_TRACKS: Array<Track> = [MARK, "max-content", { fr: 1 }]
 // The client's padlock, small, over a protected slot's top left corner.
 const PADLOCK: Atlas = "QuestSharing-Padlock"
 // The classes of items crafting takes (`Enum.ItemClass`: trade goods, reagents).
@@ -77,9 +77,9 @@ class BagSlot implements Component {
     return $ltml {
       <ItemButton item={self.item} count={self.count} quality={self.quality} dimmed={self.dimmed} size={SLOT}
                   action={self.action} @pressed={self.onPressed} @entered={self.onEnter} @left={self.onLeave}>
-        <box $if={self.slot.isNew} position={Position.Absolute} left={0} top={0} right={0} bottom={0}
+        <box $if={self.slot.isNew} position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui}
              background={Ordaen.art.ctl.qualityRim} tint={NEW_GLOW} zLevel={2} />
-        <box $if={self.slot.guarded} position={Position.Absolute} left={2 * PX} top={2 * PX} width={LOCK} height={LOCK}
+        <box $if={self.slot.guarded} position={Position.Absolute} left={2.34375dp} top={2.34375dp} width={LOCK} height={LOCK}
              background={PADLOCK} zLevel={3} />
       </ItemButton>
     }
@@ -112,10 +112,10 @@ class Caption implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={CAPTION_TRACKS} gap={6 * PX} yAlign={Align.End} @click={self.onClick}>
+      <box columns={CAPTION_TRACKS} gap={7.03125dp} yAlign={Align.End} @click={self.onClick}>
         <box width={MARK} height={MARK} background={self.mark} opacity={self.markOpacity} />
         <text value={self.section.title} textColor={self.titleColor} textShadow={SHADOW} wrap={false} />
-        <text value={self.fill} textColor={LABEL} textSize={.Secondary} textFont={.Numbers} wrap={false} />
+        <text value={self.fill} textColor={LABEL} textSize={SECONDARY_TEXT} textFont={.Numbers} wrap={false} />
       </box>
     }
   }

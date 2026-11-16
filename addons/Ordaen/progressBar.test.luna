@@ -8,7 +8,7 @@ class Scan {
 
   public render(self): Template {
     return $ltml {
-      <ProgressBar fraction={self.done} label={self.label} width={200} />
+      <ProgressBar fraction={self.done} label={self.label} width={200ui} />
     }
   }
 }

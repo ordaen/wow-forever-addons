@@ -7,13 +7,13 @@ import { Component } from "Ordaen"
 import { BagCell, CELL_HEIGHT, CellSize, DIVIDER, FaceCell, MenuCell, cellSize } from "@/cells"
 
 // A divider: a groove carved in the wood across the cell's whole height, a dark line and a lit one beside it.
-const GROOVE: Number = DIVIDER / 2
+const GROOVE: Number<Length> = DIVIDER / 2
 const DARK: Color = Color.hex("#0a0603d9")
 const LIT_EDGE: Line = { width: GROOVE, color: Color.hex("#7a603c"), sides: [Side.Right] }
 const LIT_EDGE_DOWN: Line = { width: GROOVE, color: Color.hex("#7a603c"), sides: [Side.Bottom] }
 // One track down a side of the screen; along it, the divider and the cell.
-const DOWN: Array<Track> = ["auto"]
-const PAIR: Array<Track> = ["auto", "auto"]
+const DOWN: Array<Track> = ["max-content"]
+const PAIR: Array<Track> = ["max-content", "max-content"]
 
 // What a cell of a group is: the character's face, a button of the game's menu with our icon (the friends' with how
 // many are online), a bag button of the game's.
@@ -54,7 +54,7 @@ public class CellGroup implements Component {
   }
 
   across(self): Array<Track> {
-    return self.cells.map((cell: Cell): Track => "auto")
+    return self.cells.map((cell: Cell): Track => "max-content")
   }
 
   // A cell told anew (another icon on a bag) is another cell: it is drawn anew.
@@ -72,8 +72,8 @@ public class CellGroup implements Component {
 class GroupCell implements Component {
   derived columns: Array<Track> = self.vertical ? DOWN : PAIR
   derived rows: Array<Track> | nil = self.vertical ? PAIR : nil
-  derived dividerWidth: Number = self.vertical ? self.size.width : DIVIDER
-  derived dividerHeight: Number = self.vertical ? DIVIDER : self.size.height
+  derived dividerWidth: Number<Length> = self.vertical ? self.size.width : DIVIDER
+  derived dividerHeight: Number<Length> = self.vertical ? DIVIDER : self.size.height
   derived dividerEdge: Line = self.vertical ? LIT_EDGE_DOWN : LIT_EDGE
 
   const cell: Cell

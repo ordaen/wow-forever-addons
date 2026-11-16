@@ -6,17 +6,17 @@
 // each still lacks (a click opens one).
 import Game from "$game"
 import { Action, Align, Line, Overflow, Track } from "$ltml"
-import { Component, PX, PushButton, copperText, space } from "Ordaen"
+import { Component, PushButton, SECONDARY_TEXT, copperText, space } from "Ordaen"
 import { Taught, learnSkillOf } from "@/learn"
 import Locale from "@/locales"
 import { Thresholds } from "@/skillUps"
 import Style from "@/style"
 import { Kept, has } from "@/view"
 
-const FRAME: Line = { width: 1 * PX, color: Style.LINE }
+const FRAME: Line = { width: 1.171875dp, color: Style.LINE }
 const BACK: Color = Color.hex("#0000004d")
-const PAD: Number = space(.Panel)
-const CARD: Array<Track> = [{ fr: 1 }, "auto"]
+const PAD: Number<Length> = space(.Panel)
+const CARD: Array<Track> = [{ fr: 1 }, "max-content"]
 const GRID: Array<Track> = [{ fr: 1 }, { fr: 1 }, { fr: 1 }]
 // The most recipes «What to learn next» lists.
 const NEXT_MOST = 6
@@ -235,11 +235,11 @@ public class OverviewPage implements Component {
     return $ltml {
       <box overflow={Overflow.Scroll} gap={space(.Group)}>
         <box columns={CARD} gap={space(.Group)} yAlign={Align.Center} padding={PAD} border={FRAME} background={BACK}>
-          <box gap={5 * PX}>
+          <box gap={5.859375dp}>
             <text $if={self.hasNext} value={self.nextText} textColor={Style.INK} />
-            <text $if={self.isSecondary} value={Locale.SECONDARY} textSize={.Secondary} textColor={Style.DIM} />
+            <text $if={self.isSecondary} value={Locale.SECONDARY} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
           </box>
-          <PushButton $if={self.hasSpell} label={self.spellLabel} width={140 * PX} action={self.spellAction} />
+          <PushButton $if={self.hasSpell} label={self.spellLabel} width={164.0625dp} action={self.spellAction} />
         </box>
         <box columns={GRID} gap={space(.Group)}>
           <OverviewSection title={Locale.TAB_RECIPES} lines={self.counts} />
