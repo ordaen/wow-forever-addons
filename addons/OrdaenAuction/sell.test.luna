@@ -215,7 +215,7 @@ test "an item nothing of which is listed takes the market as its price; one with
   Test.expect(asked(""))
 }
 
-test "the quantity steps by one, by a hundred with Alt held, and holds to what the bags have" {
+test "the quantity steps by one, by a hundred with Ctrl held, and holds to what the bags have" {
   Game.clock.server = START
   Game.items.tooltip = names
   Game.auctionActions.sellable = bags

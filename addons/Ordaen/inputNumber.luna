@@ -12,7 +12,7 @@
 // value's unit: the slider shows the value in it (70%, 48 px), the field the unit's name (px). Disabled, it takes no
 // input.
 import Game from "$game"
-import { Align, Art, Drag, Edges, Keystroke, Line, Pointer, Position, Shadow, Stated, Track } from "$ltml"
+import { Align, Art, Drag, Edges, Keystroke, Line, MouseButton, Pointer, Position, Shadow, Stated, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import { STEP_WIDTH, stepTip, stride } from "@/countInput"
 import Locale from "@/locales"
@@ -214,12 +214,15 @@ public class InputNumber implements Component {
   }
 
   // − and + pressed and held by the pointer: each step shown, written as the steps rest and as the button is let go.
-  lessHeld(mut self) {
+  // The left button with any modifier held: Shift and Ctrl size the step (`stride`).
+  lessHeld(mut self, pointer: Pointer) {
+    if (pointer.button != MouseButton.Left) { return }
     self.settle()
     if (self.fewer) { self.move(self.steppedBy(-stride())) }
   }
 
-  raiseHeld(mut self) {
+  raiseHeld(mut self, pointer: Pointer) {
+    if (pointer.button != MouseButton.Left) { return }
     self.settle()
     if (self.more) { self.move(self.steppedBy(stride())) }
   }
@@ -335,8 +338,8 @@ public class InputNumber implements Component {
       <SettingRow label={self.label} hint={self.hint} disabled={self.disabled}>
         <box columns={ROW} gap={7.03125dp} yAlign={Align.Center}>
           <box width={STEP_WIDTH} height={STEP_HEIGHT} xAlign={Align.Center} yAlign={Align.Center}
-               background={self.plate} textColor={INK_STEP} disabled={!self.fewer} @pointerDown.repeat(.Left)={self.lessHeld}
-               @pointerUp(.Left)={self.onUp}
+               background={self.plate} textColor={INK_STEP} disabled={!self.fewer} @pointerDown.repeat={self.lessHeld}
+               @pointerUp={self.onUp}
                @keyPress(.Enter)={self.less} @keyPress(.Space)={self.less} @pointerEnter={self.onFewerEnter}
                @pointerLeave={self.onLeave}>
             <Tip $if={self.hovered < 0} title={self.tip.title} text={self.tip.text} rows={self.tip.rows} />
@@ -344,8 +347,8 @@ public class InputNumber implements Component {
           </box>
           {middle}
           <box width={STEP_WIDTH} height={STEP_HEIGHT} xAlign={Align.Center} yAlign={Align.Center}
-               background={self.plate} textColor={INK_STEP} disabled={!self.more} @pointerDown.repeat(.Left)={self.raiseHeld}
-               @pointerUp(.Left)={self.onUp}
+               background={self.plate} textColor={INK_STEP} disabled={!self.more} @pointerDown.repeat={self.raiseHeld}
+               @pointerUp={self.onUp}
                @keyPress(.Enter)={self.raise} @keyPress(.Space)={self.raise} @pointerEnter={self.onMoreEnter}
                @pointerLeave={self.onLeave}>
             <Tip $if={self.hovered > 0} title={self.tip.title} text={self.tip.text} rows={self.tip.rows} />
