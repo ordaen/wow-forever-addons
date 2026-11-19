@@ -1,3 +1,4 @@
+key: ESCAPE → none
 -- the guild: its roster by rank, the guild's card beside it
 surface 425,183.88 1050.25x532.25 on DIALOG clamped raised by a click
   box 425,232.79 1050.25x483.33 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
@@ -94,7 +95,13 @@ surface 425,183.88 1050.25x532.25 on DIALOG clamped raised by a click
                   text 1006.86,422.58 133.72x0 "" #a3977f
       box 457.75,661.23 689.5x31.07
         box 457.75,677.89 689.5x14.4
-          text 457.75,677.89 689.5x14.4 "3 members, 2 online" #a3977f
+          box 457.75,677.89 689.5x14.4
+            box 457.75,677.89 60x14.4
+              text 457.75,677.89 44.44x14.4 "Members" #a3977f
+              text 508.86,677.89 8.89x14.4 "3" #e8dcc4
+            box 534.42,677.89 54.44x14.4
+              text 534.42,677.89 38.89x14.4 "Online" #a3977f
+              text 579.97,677.89 8.89x14.4 "2" #e8dcc4
     box 1167.25,245.54 300.25x460.08 border=ButtonFrameTemplateNoPortrait sides=left
       box 1197.5,265.54 250x426.75
         box 1197.5,265.54 250x33.6
@@ -102,9 +109,9 @@ surface 425,183.88 1050.25x532.25 on DIALOG clamped raised by a click
           text 1197.5,284.74 250x14.4 "3 members, 2 online" #a3977f
         box 1197.5,315.81 250x261.48 scrolled 0 of 0
           text 1197.5,315.81 250x15.6 "Message of the day" #a3977f
-          text 1197.5,338.07 250x15.6 "Raid on Friday" #e8dcc4
-          text 1197.5,360.34 250x15.6 "Guild information" #a3977f
-          text 1197.5,382.61 250x15.6 "Be kind to the new ones." #e8dcc4
+          box 1197.5,338.07 250x50 input "Raid on Friday" lines clipped
+          text 1197.5,394.74 250x15.6 "Guild information" #a3977f
+          box 1197.5,417.01 250x100 input "Be kind to the new ones." lines clipped
         box 1197.5,593.96 250x98.33
           box 1197.5,593.96 250x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
             text 1272.5,600.33 100x15.6 "Invite to Guild" #ffd100

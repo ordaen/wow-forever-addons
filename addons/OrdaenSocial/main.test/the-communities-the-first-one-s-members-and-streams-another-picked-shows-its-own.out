@@ -83,7 +83,13 @@ surface 425,183.88 1050.25x532.25 on DIALOG clamped raised by a click
                   text 1073.53,365.31 67.06x0 "" #a3977f
       box 457.75,661.23 689.5x31.07
         box 457.75,677.89 689.5x14.4
-          text 457.75,677.89 689.5x14.4 "2 members, 1 online" #a3977f
+          box 457.75,677.89 689.5x14.4
+            box 457.75,677.89 60x14.4
+              text 457.75,677.89 44.44x14.4 "Members" #a3977f
+              text 508.86,677.89 8.89x14.4 "2" #e8dcc4
+            box 534.42,677.89 54.44x14.4
+              text 534.42,677.89 38.89x14.4 "Online" #a3977f
+              text 579.97,677.89 8.89x14.4 "1" #e8dcc4
     box 1167.25,245.54 300.25x460.08 border=ButtonFrameTemplateNoPortrait sides=left
       box 1197.5,265.54 250x426.75
         box 1197.5,265.54 250x33.6

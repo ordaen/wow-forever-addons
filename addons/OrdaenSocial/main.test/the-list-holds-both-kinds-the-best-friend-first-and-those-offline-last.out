@@ -60,7 +60,13 @@ surface 425,183.88 1150.25x532.25 on DIALOG clamped raised by a click
                 text 474.42,463.41 666.17x14.4 "Battle.net · offline" #a3977f
       box 457.75,661.23 689.5x31.07
         box 457.75,677.89 689.5x14.4
-          text 457.75,677.89 689.5x14.4 "4 friends, 2 online" #a3977f
+          box 457.75,677.89 689.5x14.4
+            box 457.75,677.89 60x14.4
+              text 457.75,677.89 44.44x14.4 "Friends" #a3977f
+              text 508.86,677.89 8.89x14.4 "4" #e8dcc4
+            box 534.42,677.89 54.44x14.4
+              text 534.42,677.89 38.89x14.4 "Online" #a3977f
+              text 579.97,677.89 8.89x14.4 "2" #e8dcc4
     box 1167.25,245.54 400.25x460.08 border=ButtonFrameTemplateNoPortrait sides=left
       box 1197.5,265.54 350x426.75
         box 1197.5,265.54 350x135.4

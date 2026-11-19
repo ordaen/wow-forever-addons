@@ -8,6 +8,7 @@
 import Client from "$client"
 import Events from "$events"
 import Game from "$game"
+import { Key } from "$ltml"
 import Test from "$test"
 import root Ordaen from "Ordaen"
 import root Social from "OrdaenSocial"
@@ -16,6 +17,15 @@ import { Ally, Club, Friend, Guild, Hero, Ignored, Me, Member, News, People, Pre
 const PAGE: Test.Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
 // A text the window always shows: its last tab.
 const WINDOW = "Recent Allies"
+
+// Whether a field in this part shows this text: the guild's message and information are texts to copy.
+function fieldSays(part: Test.Part, text: String): Boolean {
+  const fields = part.input()
+  for (at of 1..fields.count()) {
+    if (fields.nth(at).value() == text) { return true }
+  }
+  return false
+}
 
 function hero(name: String, level: Integer, area: String): Hero {
   return { name: name, level: level, className: "Warrior", classColor: nil, area: area, realm: "Flamegor" }
@@ -197,7 +207,7 @@ test "the game's guild window, hooked as its addon loads, shows ours on the guil
   Events.ADDON_LOADED.emit("Blizzard_Communities", false)
   game.Show()
   const window = Test.page().window(WINDOW)
-  Test.expect(window.text("Raid on Friday").shown())
+  Test.expect(fieldSays(window, "Raid on Friday"))
   window.button(Ordaen.art.ctl.corner.close).click()
   Test.expect(!game.IsShown())
   people.inGuild = false
@@ -332,6 +342,17 @@ test "the guild's roster: those online first, a heading sorts it, «Show» keeps
   Test.expect(window.text("Guild Master").shown() && window.text("Branna").shown())
   Test.expect(window.text("2 d ago").shown())
   Test.expect(window.text("3 members, 2 online").shown())
+  // The footer's counts, as label and value pairs.
+  Test.expect(window.text("Members").shown() && window.text("Online").shown())
+  // The message of the day is a text to copy: what is typed into it is put back.
+  const fields = window.input()
+  for (at of 1..fields.count()) {
+    if (fields.nth(at).value() == "Raid on Friday") { fields.nth(at).click() }
+  }
+  Test.expect(Test.keyboard())
+  Test.type("x")
+  Test.expect(fieldSays(window, "Raid on Friday"))
+  Test.key(Key.Escape)
   Test.shot("the guild: its roster by rank, the guild's card beside it")
   // By level, the highest last: those online still above Branna.
   window.text("Level").click()
@@ -339,7 +360,8 @@ test "the guild's roster: those online first, a heading sorts it, «Show» keeps
   window.button(Ordaen.art.ctl.tool.filter).click()
   Test.page().text("Online only").click()
   Test.expect(!window.text("Branna").shown() && window.text("Torvald").shown())
-  window.input().type("heals")
+  // The search: the first field drawn, before the guild's message and information.
+  window.input().nth(1).type("heals")
   Test.expect(window.text("Ingrid").shown() && !window.text("Torvald").shown())
 }
 
@@ -365,7 +387,7 @@ test "the guild's card invites by name and asks before leaving" {
   const people = new FakePeople()
   const window = opened(mut people)
   window.text("Guild").click()
-  Test.expect(window.text("Be kind to the new ones.").shown())
+  Test.expect(fieldSays(window, "Be kind to the new ones."))
   window.button("Invite to Guild").click()
   const invite = Test.page().window("The character's name; from another realm, with the realm after a dash.")
   invite.input().type(" Ulfric ")
@@ -455,5 +477,5 @@ test "«Guild Management» shows the game's own guild window as it is, until it 
   Test.expect(game.IsShown() && game.GetAlpha() == 1)
   game.Hide()
   game.Show()
-  Test.expect(Test.page().window(WINDOW).text("Raid on Friday").shown())
+  Test.expect(fieldSays(Test.page().window(WINDOW), "Raid on Friday"))
 }

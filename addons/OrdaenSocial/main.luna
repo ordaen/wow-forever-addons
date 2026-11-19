@@ -14,7 +14,7 @@ import Events from "$events"
 import { Align, Frame } from "$ltml"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
-import { ButtonPlate, Dialog, KeptWindow, Module, PushButton, SECONDARY_TEXT, Settings, SettingsPage, Tabs, Window, WindowSide, WindowTabSpec, WindowsPage, space, windowsTitle } from "Ordaen"
+import { ButtonPlate, Dialog, FooterCount, FooterCounts, KeptWindow, Module, PushButton, SECONDARY_TEXT, Settings, SettingsPage, Tabs, Window, WindowSide, WindowTabSpec, WindowsPage, space, windowsTitle } from "Ordaen"
 import { AllyCard, AllyList } from "@/allies"
 import { ClubCard, ClubList } from "@/communities"
 import { FriendCard, FriendList, IgnoreList, MyCard, RequestList, keyOf, titleOf } from "@/friends"
@@ -54,6 +54,11 @@ const GUILD_SUBS: Array<String> = [Locale.SUB_ROSTER, Locale.SUB_NEWS]
 const FIELD_PAD = 11.71875dp
 
 function onlineOf(members: Array<Member>): Integer { return members.count(member => member.presence != .Offline) }
+
+// A list's counts in the footer: how many it has, under its own label, and how many of them are online.
+function counted(label: String, all: Integer, online: Integer): Array<FooterCount> {
+  return [{ label: label, value: String.of(all) }, { label: Locale.FOOT_ONLINE, value: String.of(online) }]
+}
 
 public class Social implements Module, App {
   public const title: String = "Ordaen Social"
@@ -131,11 +136,11 @@ public class Social implements Module, App {
   derived addRule: String = namesAccount(self.addText) ? Locale.ADD_RULE_BATTLE_NET : Locale.ADD_RULE_CHARACTER
   derived broadcastCount: String = Locale.BROADCAST_COUNT.format(self.draft.length, BROADCAST_MOST)
   derived leaveText: String = Locale.LEAVE_GUILD_ASK.format(self.guild?.name ?? "")
-  derived counts: String = self.countsOf()
-  // The footer, as every list window's: the counts in small dim text.
+  derived counts: Array<FooterCount> = self.countsOf()
+  // The footer, as every list window's: the counts as label and value pairs.
   const footer: Template = $ltml {
     <box columns={[{ fr: 1 }]} yAlign={Align.Center}>
-      <text value={self.counts} textSize={SECONDARY_TEXT} textColor={Style.DIM} wrap={false} />
+      <FooterCounts counts={self.counts} />
     </box>
   }
 
@@ -312,12 +317,12 @@ public class Social implements Module, App {
   }
 
   // The footer's counts, of the tab shown.
-  countsOf(self): String {
+  countsOf(self): Array<FooterCount> {
     return match (self.tab) {
-      TAB_FRIENDS => Locale.FRIENDS_COUNT.format(self.friends.length, self.onlineCount)
-      TAB_GUILD => self.guild != nil ? Locale.GUILD_COUNT.format(self.guildMembers.length, self.guildOnline) : ""
-      TAB_COMMUNITIES => self.chosenClub != nil ? Locale.CLUB_COUNT.format(self.clubMembers.length, onlineOf(self.clubMembers)) : ""
-      else => Locale.ALLIES_FOOTER.format(self.allies.length)
+      TAB_FRIENDS => counted(Locale.FOOT_FRIENDS, self.friends.length, self.onlineCount)
+      TAB_GUILD => self.guild != nil ? counted(Locale.FOOT_MEMBERS, self.guildMembers.length, self.guildOnline) : []
+      TAB_COMMUNITIES => self.chosenClub != nil ? counted(Locale.FOOT_MEMBERS, self.clubMembers.length, onlineOf(self.clubMembers)) : []
+      else => [{ label: Locale.FOOT_ALLIES, value: String.of(self.allies.length) }]
     }
   }
 
