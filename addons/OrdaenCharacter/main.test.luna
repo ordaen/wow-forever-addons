@@ -11,8 +11,8 @@ import Test from "$test"
 import root Ordaen from "Ordaen"
 import { Quality } from "Ordaen"
 import root Char from "OrdaenCharacter"
-import { wearColor } from "@/gear"
-import { ClientSheet, Faction, Sheet, Skill, Stats, Who, Worn } from "@/sheet"
+import { FITS_GLOW, wearColor } from "@/gear"
+import { ClientSheet, Faction, GearSet, Sheet, Skill, Stats, Who, Worn } from "@/sheet"
 import Style from "@/style"
 
 const PAGE: Test.Page = { left: 0, top: 0, width: 1400, height: 900, screen: true }
@@ -23,6 +23,8 @@ const REAPER = 12784
 const HELM_ICON: Art = "Interface/Icons/INV_Helmet_41"
 const REAPER_ICON: Art = "Interface/Icons/INV_Axe_09"
 const EMPTY_FEET: Art = "Interface/PaperDoll/UI-PaperDoll-Slot-Feet"
+const OTHER_HELM = 16866
+const OTHER_ICON: Art = "Interface/Icons/INV_Helmet_01"
 
 function faction(index: Integer, id: Integer, name: String, standing: Integer, value: Integer): Faction {
   return {
@@ -49,7 +51,7 @@ class FakeSheet implements Sheet {
   stand = 4500
 
   public worn(self, slot: Integer): Worn {
-    if (slot == 1) { return { slot: slot, item: HELM, quality: Quality.Epic, level: 63, durability: 0.2 } }
+    if (slot == 1) { return { slot: slot, item: HELM, quality: Quality.Epic, level: 63, durability: 0.2, locked: self.helmLocked } }
     if (slot == 16) { return { slot: slot, item: REAPER, quality: Quality.Epic, level: 58, durability: 1 } }
     return { slot: slot, item: nil, quality: Quality.Common, level: nil, durability: nil }
   }
@@ -58,7 +60,12 @@ class FakeSheet implements Sheet {
 
   public who(self): Who { return { name: "Regy", level: 60, race: "Dwarf", className: "Warrior" } }
 
-  public stats(self): Stats { return { strength: 312, stamina: 280, armor: 4120, attackPower: 832, meleeCrit: 20.05 } }
+  public stats(self): Stats {
+    return {
+      strength: 312, stamina: 280, armor: 4120, attackPower: 832, meleeCrit: 20.05,
+      tips: { primary: ["Increases your attack power with melee weapons."] }
+    }
+  }
 
   public factions(self): Array<Faction> {
     const rows: Array<Faction> = [
@@ -89,10 +96,24 @@ class FakeSheet implements Sheet {
   public watchFaction(mut self, index: Integer, on: Boolean) { self.heard.push(`watch ${index} ${on}`) }
   public toggleAtWar(mut self, index: Integer) { self.heard.push(`war ${index}`) }
   public setInactive(mut self, index: Integer, inactive: Boolean) { self.heard.push(`inactive ${index} ${inactive}`) }
+
+  // The slot what the cursor holds goes in (none: 0), and the helm locked (picked up, on its way).
+  cursorSlot = 0
+  helmLocked = false
+  public fits(self, slot: Integer): Boolean { return slot == self.cursorSlot }
+  public tryOn(mut self, slot: Integer) { self.heard.push(`try ${slot}`) }
+  // The bags hold another helm.
+  public fitting(self, slot: Integer): Array<Integer> { return slot == 1 ? [OTHER_HELM] : [] }
+  public equip(mut self, item: Integer, slot: Integer) { self.heard.push(`equip ${item} ${slot}`) }
+  public sets(self): Array<GearSet> {
+    return [{ id: 0, name: "Tank", worn: true, missing: 0 }, { id: 1, name: "Fury", worn: false, missing: 2 }]
+  }
+  public useSet(mut self, id: Integer) { self.heard.push(`set ${id}`) }
+  public saveSet(mut self, name: String) { self.heard.push(`save ${name}`) }
 }
 
 // The worn items' icons, as the game gives them.
-function icons(id: Integer): Art | nil { return id == HELM ? HELM_ICON : REAPER_ICON }
+function icons(id: Integer): Art | nil { return id == HELM ? HELM_ICON : id == OTHER_HELM ? OTHER_ICON : REAPER_ICON }
 
 // The game's character window, shown as its key or its micro button shows it, with the test's sheet: ours.
 function opened(sheet: mut FakeSheet): Test.Part {
@@ -177,13 +198,94 @@ test "Shift+Left-click on a slot puts the item's link into the chat and picks no
   Test.expect(Test.requests().any(asked => asked.contains(String.of(REAPER))))
 }
 
-test "right-click on a slot picks nothing up" {
+test "right-click on a slot uses what is worn there, the client's own doing, and picks nothing up" {
   Test.mount(nil, PAGE)
   const sheet = new FakeSheet()
   Game.items.icon = icons
   const window = opened(mut sheet)
   window.button(HELM_ICON).rightClick()
   Test.expect(sheet.heard.length == 0)
+  Test.expect(Test.performed().join(", ") == "item 1")
+}
+
+test "a slot under the cursor shows the tooltip of the slot, never the item's (which the game compares with itself)" {
+  Test.mount(nil, PAGE)
+  Game.items.icon = icons
+  const window = opened(new FakeSheet())
+  _ = Test.requests()
+  window.button(HELM_ICON).hover()
+  const asked = Test.requests()
+  Test.expect(asked.any(a => a == "Items.showWorn 1"))
+  Test.expect(!asked.any(a => a.contains("Items.show ")))
+}
+
+test "Ctrl+Left-click on a slot tries what it holds on in the dressing room and picks nothing up" {
+  Test.mount(nil, PAGE)
+  const sheet = new FakeSheet()
+  Game.items.icon = icons
+  const window = opened(mut sheet)
+  Game.input.controlDown = (): Boolean => true
+  window.button(HELM_ICON).click()
+  Test.expect(sheet.heard.join(", ") == "try 1")
+}
+
+test "Alt+Left-click on a slot opens what the bags hold for it; one clicked is worn there and the flyout closes" {
+  Test.mount(nil, PAGE)
+  const sheet = new FakeSheet()
+  Game.items.icon = icons
+  const window = opened(mut sheet)
+  Game.input.altDown = (): Boolean => true
+  window.button(HELM_ICON).click()
+  Test.expect(window.text("From your bags").shown())
+  Game.input.altDown = (): Boolean => false
+  window.button(OTHER_ICON).click()
+  Test.expect(sheet.heard.join(", ") == `equip ${OTHER_HELM} 1`)
+  Test.expect(!window.text("From your bags").shown())
+}
+
+test "a slot's flyout with nothing for it says so, and Close shuts it" {
+  Test.mount(nil, PAGE)
+  Game.items.icon = icons
+  const window = opened(new FakeSheet())
+  Game.input.altDown = (): Boolean => true
+  window.button(EMPTY_FEET).click()
+  Game.input.altDown = (): Boolean => false
+  Test.expect(window.text("Nothing in your bags goes here.").shown())
+  window.button("Close").click()
+  Test.expect(!window.text("From your bags").shown())
+}
+
+test "the game's sets stand under the doll: one clicked is put on, and «+» saves what is worn as the next" {
+  Test.mount(nil, PAGE)
+  const sheet = new FakeSheet()
+  Game.items.icon = icons
+  const window = opened(mut sheet)
+  Test.expect(window.text("Tank").textColor() == Style.GOLD)
+  Test.expect(window.text("Fury").textColor() == Style.RED)
+  window.button("Fury").click()
+  window.button("+ Save set").click()
+  Test.expect(sheet.heard.join(", ") == "set 1, save Set 3")
+}
+
+test "the slot what the cursor holds goes in is lit, the others not; a locked item is greyed" {
+  Test.mount(nil, PAGE)
+  const sheet = new FakeSheet()
+  sheet.cursorSlot = 16
+  sheet.helmLocked = true
+  Game.items.icon = icons
+  const window = opened(mut sheet)
+  Test.expect(window.button(REAPER_ICON).paintedWith(FITS_GLOW))
+  Test.expect(!window.button(HELM_ICON).paintedWith(FITS_GLOW))
+  Test.expect(window.button(HELM_ICON).opacity() < 1)
+  Test.expect(window.button(REAPER_ICON).opacity() == 1)
+}
+
+test "a stat's card under the cursor shows the game's words on it" {
+  Test.mount(nil, PAGE)
+  Game.items.icon = icons
+  const window = opened(new FakeSheet())
+  window.text("Strength").hover()
+  Test.expect(window.text("Increases your attack power with melee weapons.").shown())
 }
 
 // The stats
@@ -290,4 +392,37 @@ test "the statistics' search keeps the statistics whose name holds it, under the
   Test.expect(window.text("Total gold acquired").shown())
   Test.expect(!window.text("Total deaths").shown())
   Test.expect(!window.text("Combat").shown())
+  Test.expect(window.text("1 statistics").shown())
+}
+
+test "the statistics as one list stand under no category" {
+  Test.mount(nil, PAGE)
+  const window = opened(new FakeSheet())
+  window.button("Statistics").click()
+  window.button(Ordaen.art.ctl.tool.categories).click()
+  window.button("One list").click()
+  Test.expect(window.text("Total deaths").shown())
+  Test.expect(!window.text("Combat").shown())
+}
+
+test "the reputation's search keeps the factions whose name holds it, under their heading; the footer counts them" {
+  Test.mount(nil, PAGE)
+  const window = opened(new FakeSheet())
+  window.button("Reputation").click()
+  Test.expect(window.text("2 factions").shown())
+  window.input().type("argent")
+  Test.expect(window.text("Argent Dawn").shown())
+  Test.expect(window.text("Other").shown())
+  Test.expect(!window.text("Stormwind").shown())
+  Test.expect(!window.text("Alliance").shown())
+}
+
+test "the reputation's filter keeps the factions at war alone, and says nothing found where none is" {
+  Test.mount(nil, PAGE)
+  const window = opened(new FakeSheet())
+  window.button("Reputation").click()
+  window.button(Ordaen.art.ctl.tool.filter).click()
+  window.button("At war").click()
+  Test.expect(!window.text("Stormwind").shown())
+  Test.expect(window.text("Nothing found.").shown())
 }

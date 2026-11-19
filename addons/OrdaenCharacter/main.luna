@@ -1,30 +1,35 @@
-// Ordaen Character: the character window, with five tabs: the character (the paper doll, the stats and the skills),
-// reputation, PvE, PvP and the statistics. It opens in place of the game's own character window: whatever shows the
-// game's (its key, C, its micro button, another addon's `ToggleCharacter`) shows ours, the game's held unseen and off
-// the screen while ours shows, and the game's tab picks ours (reputation, the skills, PvP). Closing ours closes the
-// game's. What it shows is read as it opens and again when the game says it changed, and only while it shows.
+// Ordaen Character: the character window, with three tabs: the character (the paper doll, the stats and the skills),
+// reputation and the statistics; PvE and PvP are windows of their own, from the micro menu. It opens in place of the
+// game's own character window: whatever shows the game's (its key, C, its micro button, another addon's
+// `ToggleCharacter`) shows ours, the game's held unseen and off the screen while ours shows, and the game's tab picks
+// ours (reputation, the skills). Closing ours closes the game's. What it shows is read as it opens and again when the
+// game says it changed, and only while it shows.
 import Client from "$client"
 import Events from "$events"
 import { Frame } from "$ltml"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
-import { KeptWindow, Module, Settings, SettingsPage, Window, WindowTabSpec, WindowsPage, windowsTitle } from "Ordaen"
+import { KeptWindow, Module, SECONDARY_TEXT, Settings, SettingsPage, Window, WindowTabSpec, WindowsPage, windowsTitle } from "Ordaen"
 import { GearPage } from "@/gear"
 import Locale from "@/locales"
-import { ReputationPage } from "@/reputation"
-import { PvePage, PvpPage, StatisticsPage } from "@/samples"
+import { FactionShow, ReputationPage, factionsCount } from "@/reputation"
+import { StatisticsPage, StatsView, statisticsCount } from "@/samples"
 import { Choices, GeneralPage } from "@/settings"
-import { ClientSheet, Faction, Sheet, Skill, Stats, Who, Worn } from "@/sheet"
+import { ClientSheet, Faction, GearSet, Sheet, Skill, Stats, Who, Worn } from "@/sheet"
 import Style from "@/style"
 
 // The tabs, in order.
 const TAB_CHARACTER = 1
 const TAB_REPUTATION = 2
-const TAB_PVE = 3
-const TAB_PVP = 4
+const TAB_STATISTICS = 3
 // The game's character window and its pages, by the names its code gives them, with the tab of ours each opens.
 const GAME_WINDOW = "CharacterFrame"
 const SECTION_SKILLS = 5
+// The tabs' pictures: the game's character window's side tabs (`CHARACTER_MODE_TAB_ICONS`), and a tabard for the
+// character, where the game draws the portrait.
+const CHARACTER_ICON: Asset = "Interface/ICONS/INV_Shirt_GuildTabard_01"
+const REPUTATION_ICON: Asset = "Interface/ICONS/INV_SideTab_Reputation2_c60"
+const STATISTICS_ICON: Asset = "Interface/ICONS/INV_SideTab_Stats_c60"
 
 public class Character implements Module, App {
   public const title: String = "Ordaen Character"
@@ -57,12 +62,27 @@ public class Character implements Module, App {
   // The faction picked, by its number (none: 0), and whether it is inactive.
   state chosen = 0
   state chosenInactive = false
+  // What the cursor holds goes in these slots; the game lights them.
+  state fitsSlots: Array<Integer> = []
+  state sets: Array<GearSet> = []
+  // The slot whose flyout is open (none: nil), and what the bags hold for it.
+  state flyoutSlot: Integer | nil = nil
+  state fitting: Array<Integer> = []
+  // The lists' toolbars: the reputation's search and filter, the statistics' search and view.
+  state factionSearch = ""
+  state factionShow = FactionShow.All
+  state statsSearch = ""
+  state statsView = StatsView.Categories
+  // The footer's count, in dim text, of the list the tab shows; none on the other tabs.
+  derived count: String = self.countOf()
+  const footer: Template = $ltml {
+    <text value={self.count} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
+  }
+  // Each tab's picture is the game's own for it.
   derived tabs: Array<WindowTabSpec> = [
-    { title: Locale.TAB_CHARACTER },
-    { title: Locale.TAB_REPUTATION },
-    { title: Locale.TAB_PVE },
-    { title: Locale.TAB_PVP },
-    { title: Locale.TAB_STATISTICS }
+    { title: Locale.TAB_CHARACTER, icon: CHARACTER_ICON },
+    { title: Locale.TAB_REPUTATION, icon: REPUTATION_ICON },
+    { title: Locale.TAB_STATISTICS, icon: STATISTICS_ICON }
   ]
 
   constructor() {
@@ -78,6 +98,12 @@ public class Character implements Module, App {
         Events.UNIT_RESISTANCES.listen(self.onUnitStats)
         Events.UPDATE_FACTION.listen(self.readFactions)
         Events.SKILL_LINES_CHANGED.listen(self.readSkills)
+        Events.CURSOR_CHANGED.listen(self.readFits)
+        Events.ITEM_LOCK_CHANGED.listen(self.readGear)
+        Events.BAG_UPDATE_COOLDOWN.listen(self.readGear)
+        Events.EQUIPMENT_SETS_CHANGED.listen(self.readSets)
+        Events.EQUIPMENT_SWAP_FINISHED.listen(self.readSets)
+        Events.BAG_UPDATE.listen(self.readFitting)
       }
     }
     self.hook(Runtime.frame(GAME_WINDOW))
@@ -100,7 +126,6 @@ public class Character implements Module, App {
     self.hookPage("PaperDollFrame", TAB_CHARACTER, nil)
     self.hookPage("ReputationFrame", TAB_REPUTATION, nil)
     self.hookPage("SkillsFrame", TAB_CHARACTER, SECTION_SKILLS)
-    self.hookPage("PVPRankFrame", TAB_PVP, nil)
     if (window.IsShown()) { self.onGameShown(frame) }
   }
 
@@ -134,7 +159,32 @@ public class Character implements Module, App {
     self.readStats()
     self.readFactions()
     self.readSkills()
+    self.readSets()
+    self.readFits()
     self.who = self.sheet.who()
+  }
+
+  countOf(self): String {
+    if (self.tab == TAB_REPUTATION) { return factionsCount(self.factions) }
+    if (self.tab == TAB_STATISTICS) { return statisticsCount(self.statsSearch) }
+    return ""
+  }
+
+  readSets(mut self) { self.sets = self.sheet.sets() }
+
+  // The slots what the cursor holds goes in, as the game's slots light.
+  readFits(mut self) {
+    const fits: Array<Integer> = []
+    for (slot of 0..19) {
+      if (self.sheet.fits(slot)) { fits.push(slot) }
+    }
+    self.fitsSlots = fits
+  }
+
+  // What the bags hold for the open flyout's slot.
+  readFitting(mut self) {
+    const slot = peek self.flyoutSlot
+    self.fitting = slot == nil ? [] : self.sheet.fitting(slot)
   }
 
   readGear(mut self) {
@@ -201,6 +251,33 @@ public class Character implements Module, App {
   // A slot clicked or dragged: in the click's own call, as the game's slot does it.
   onPicked(mut self, slot: Integer) { self.sheet.pickup(slot) }
 
+  // Ctrl+click: the game's dressing room tries on what the slot holds.
+  onTried(mut self, slot: Integer) { self.sheet.tryOn(slot) }
+
+  // Alt+click: the slot's flyout opens, or closes where it was open.
+  onFlyout(mut self, slot: Integer) {
+    self.flyoutSlot = (peek self.flyoutSlot) == slot ? nil : slot
+    self.readFitting()
+  }
+
+  onCloseFlyout(mut self) { self.flyoutSlot = nil }
+
+  // An item of the flyout chosen: worn in its slot, and the flyout closes, as the game's does.
+  onChose(mut self, item: Integer) {
+    const slot = peek self.flyoutSlot
+    if (slot == nil) { return }
+    self.sheet.equip(item, slot)
+    self.flyoutSlot = nil
+  }
+
+  onUseSet(mut self, id: Integer) { self.sheet.useSet(id) }
+
+  // «+»: what is worn saved as a new set, named by its place among them.
+  onSaveSet(mut self) {
+    self.sheet.saveSet(Locale.SET_NAME.format((peek self.sets).length + 1))
+    self.readSets()
+  }
+
   // Ours closed: the game's closes with it.
   onClose(mut self) {
     self.open = false
@@ -213,16 +290,18 @@ public class Character implements Module, App {
     return $ltml {
       <frame $if={self.gameWindow != nil} of={self.gameWindow} opacity={0} away={true} />
       <Window $if={self.open} tabs={self.tabs} selected={mut self.tab} declared={mut self.window} withSettings={true}
-              @close={self.onClose} @settings={self.onSettings}>
+              footer={self.footer} @close={self.onClose} @settings={self.onSettings}>
         <GearPage $if={self.tab == TAB_CHARACTER} worn={self.worn} who={self.who} stats={self.stats}
                   skills={self.skills} usesAmmo={self.usesAmmo} choices={self.settings.values}
-                  section={mut self.section} @picked={self.onPicked} />
+                  section={mut self.section} fitsSlots={self.fitsSlots} sets={self.sets}
+                  flyoutSlot={self.flyoutSlot} fitting={self.fitting} @picked={self.onPicked} @tried={self.onTried}
+                  @flyout={self.onFlyout} @chose={self.onChose} @closeFlyout={self.onCloseFlyout}
+                  @useSet={self.onUseSet} @saveSet={self.onSaveSet} />
         <ReputationPage $elseif={self.tab == TAB_REPUTATION} factions={self.factions} starts={self.starts}
-                        chosen={self.chosen} chosenInactive={self.chosenInactive} @pick={self.onPick}
+                        chosen={self.chosen} chosenInactive={self.chosenInactive} search={mut self.factionSearch}
+                        show={mut self.factionShow} @pick={self.onPick}
                         @fold={self.onFold} @atWar={self.onAtWar} @inactive={self.onInactive} @watch={self.onWatch} />
-        <PvePage $elseif={self.tab == TAB_PVE} />
-        <PvpPage $elseif={self.tab == TAB_PVP} />
-        <StatisticsPage $else />
+        <StatisticsPage $else search={mut self.statsSearch} view={mut self.statsView} />
       </Window>
     }
   }

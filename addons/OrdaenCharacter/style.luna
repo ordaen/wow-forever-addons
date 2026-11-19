@@ -1,21 +1,20 @@
 // The character window's look: its size at the player's scale, the paper doll's measures and the colours of what a
-// stat, a slot or a faction says.
+// stat, a slot or a faction says. Every gap and padding is a step of Ordaen's ladder (`space`); a row is as tall as
+// its text.
+import { Edges } from "$ltml"
+import { space } from "Ordaen"
 
 public const WIDTH: Number<Length> = 1054.6875dp
 public const HEIGHT: Number<Length> = 726.5625dp
-public const GAP: Number<Length> = 11.71875dp
 // The paper doll: the slots' columns and the model between them.
 public const DOLL: Number<Length> = 445.3125dp
 public const SLOT: Number<Length> = 46.875dp
-public const SLOT_GAP: Number<Length> = 4.6875dp
 // The durability bar under a slot.
 public const WEAR: Number<Length> = 3.515625dp
-// The bars of health and the resource under the model.
-public const BAR: Number<Length> = 23.4375dp
+// Round the text a bar shows (health, a faction's standing): the bar is as tall as it.
+public const BAR_PAD: Edges = { top: space(.Line), right: space(.Item), bottom: space(.Line), left: space(.Item) }
 // The reputation tab's side, where the chosen faction stands.
 public const SIDE: Number<Length> = 328.125dp
-public const ROW: Number<Length> = 32.8125dp
-public const FACTION_BAR: Number<Length> = 21.09375dp
 
 public const INK: Color = Color.hex("#e8dcc4")
 public const DIM: Color = Color.hex("#a3977f")
@@ -27,6 +26,8 @@ public const BACK: Color = Color.hex("#00000066")
 public const CARD: Color = Color.hex("#0000004d")
 public const PICKED: Color = Color.hex("#ffd10026")
 public const TROUGH: Color = Color.hex("#000000a6")
+// The flyout over the model.
+public const FLYOUT: Color = Color.hex("#000000d9")
 public const HEALTH: Color = Color.hex("#1d9a2a")
 // The resources' colours, as the client's power bars fill them (`PowerBarColor`).
 public const MANA: Color = Color.hex("#0000ff")
