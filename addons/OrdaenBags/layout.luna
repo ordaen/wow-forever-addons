@@ -1,6 +1,6 @@
 // How the window's sections are laid out as rows of one height: sections side by side in their fixed order while they
-// fit the grid's width, each line of them a row of their captions and then rows of their slots. A box with
-// `rowHeight` builds only the rows in view.
+// fit the grid's width, each line of them a row of their captions and then rows of their slots. A virtual
+// list builds only the rows in view.
 import { Track } from "$ltml"
 import { Slot } from "@/model"
 

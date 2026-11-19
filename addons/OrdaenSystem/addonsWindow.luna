@@ -5,7 +5,7 @@
 import Client from "$client"
 import Events from "$events"
 import Game from "$game"
-import { Action, Align, Edges, Overflow, Track } from "$ltml"
+import { Action, Align, Edges, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import { SECONDARY_TEXT } from "Ordaen"
 import { ARTWORK, Choice, Component, Dialog, TextField, Menu, MenuEntry, Placing, PushButton, space, Tip, TipRow, Toolbar,
@@ -554,12 +554,12 @@ public class AddOnsWindow implements Component {
             </box>
             <box />
           </box>
-          <box overflow={Overflow.Scroll} rowHeight={Style.ROW}>
+          <virtualList>
             <LineRow $for={line of self.lines} line={line} catalog={self.catalog} profiler={self.profiler}
                      hot={self.hot} picked={self.list.values.picked} framework={self.framework} @pick={self.onPick}
                      @toggle={self.onToggle} @toggleGroup={self.onToggleGroup} @fold={self.onFold}
                      @settings={self.onSettings} @loadNow={self.onLoadNow} />
-          </box>
+          </virtualList>
           <box $if={self.stepShown} columns={STRIP} gap={space(.Item)} yAlign={Align.Center}>
             <box xAlign={Align.End}>
               <text value={self.also} textColor={Style.INK} textSize={SECONDARY_TEXT} />

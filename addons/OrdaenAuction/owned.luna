@@ -65,7 +65,7 @@ class OwnedRow implements Component {
 
   public render(self): Template {
     return $ltml {
-      <TableRow tracks={TRACKS}>
+      <TableRow tracks={TRACKS} height={Style.BUTTON_ROW}>
         <box columns={ITEM} gap={9.375dp} yAlign={Align.Center}>
           <ItemButton item={self.shown.item} size={Style.SLOT} />
           <box rows={LINES} overflow={.Hidden}>
@@ -156,8 +156,7 @@ public class OwnedPage implements Component {
     return $ltml {
       <box rows={PAGE} gap={space(.Item)}>
         <box rows={FILL} border={Style.FRAME} background={Style.LISTS_BACK}>
-          <Table columns={COLUMNS} sorted={mut self.list.values.sorted} descending={mut self.list.values.descending}
-                 rowHeight={Style.BUTTON_ROW}>
+          <Table columns={COLUMNS} sorted={mut self.list.values.sorted} descending={mut self.list.values.descending}>
             <OwnedRow $for={row of self.rows} $key={row} shown={row} busy={Game.auctionActions.busy}
                       @cancel={self.onCancel} />
             <box $if={self.rows.length == 0} padding={Style.NOTE_PAD} yAlign={Align.Center}>

@@ -1,0 +1,64 @@
+// The ring the renderer draws round the control the keyboard has focused is the look's accent, and follows a change
+// of it: Ordaen gives the renderer its colour (`Runtime.focusColor`) as it gives its fonts.
+import { Frame, Region, UIParent } from "$client"
+import { Layer, Point } from "$ltml"
+import Test from "$test"
+import { Move } from "$test"
+import root Ordaen from "Ordaen"
+import { Look } from "@/look"
+
+const PLATE: Color = Color.hex("#2a1d12")
+
+class Focusable {
+  pressed(self) {}
+
+  public render(self): Template {
+    return $ltml {
+      <surface layer={Layer.Dialog} place={{ point: Point.TopLeft, x: 100ui, y: 50ui }} width={200ui} padding={10ui}>
+        <box height={30ui} background={PLATE} @pointerPress={self.pressed} @keyPress(.Enter)={self.pressed}
+             @keyPress(.Space)={self.pressed} />
+      </surface>
+    }
+  }
+}
+
+function listed(...kids: any Frame): Array<any Frame> {
+  let all: Array<any Frame> = []
+  for (i of 1..kids.length) {
+    const kid = kids[i]
+    if (kid != nil) { all.push(kid) }
+  }
+  return all
+}
+
+function counted(...regions: any Region): Integer { return regions.length }
+
+// Every frame under `frame` with four textures and nothing else, shown: the ring.
+function rings(frame: any Frame, into: mut Array<any Frame>) {
+  for (kid of listed(...frame.GetChildren())) {
+    if (counted(...kid.GetRegions()) == 4 && kid.GetNumChildren() == 0 && kid.IsShown()) { into.push(kid) }
+    rings(kid, mut into)
+  }
+}
+
+// What the ring shows, as the client describes it.
+function ringDrawn(): String {
+  let found: Array<any Frame> = []
+  rings(UIParent, mut found)
+  const shown = found[1] ?? panic("a ring stands round the focused box")
+  return Test.dump(shown)
+}
+
+test "the focus ring is the look's accent, and follows it" {
+  let page = new Focusable()
+  Test.mount(page, { left: 100, top: 50, width: 400, height: 300 })
+  Ordaen.look.change((values: mut Look): nil => { values.accent = Color.hex("#ff0000") })
+  // The surface is the active one once pressed; Tab then focuses its box.
+  Test.page().box(PLATE).click()
+  Test.key(Move.Next)
+  Test.expect(ringDrawn().contains("color=1,0,0,1"))
+  Ordaen.look.change((values: mut Look): nil => { values.accent = Color.hex("#0000ff") })
+  Test.flush()
+  Test.expect(ringDrawn().contains("color=0,0,1,1") && !ringDrawn().contains("color=1,0,0,1"))
+  destroy page
+}

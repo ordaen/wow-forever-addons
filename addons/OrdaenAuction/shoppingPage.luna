@@ -117,7 +117,7 @@ class ShoppingRow implements Component {
 
   public render(self): Template {
     return $ltml {
-      <TableRow tracks={TRACKS} selected={self.selected} @pick={self.onPick}>
+      <TableRow tracks={TRACKS} selected={self.selected} height={Style.BUTTON_ROW} @pick={self.onPick}>
         <box columns={ITEM} gap={9.375dp} yAlign={Align.Center}>
           <ItemButton item={self.row.item} size={Style.SLOT} dimmed={self.bought} />
           <box rows={["max-content", "max-content"]} overflow={.Hidden}>
@@ -245,8 +245,7 @@ public class ShoppingPage implements Component {
           </box>
         </box>
         <box rows={FILL} border={Style.FRAME} background={Style.LISTS_BACK}>
-          <Table columns={COLUMNS} sorted={mut self.kept.values.sorted} descending={mut self.kept.values.descending}
-                 rowHeight={Style.BUTTON_ROW}>
+          <Table columns={COLUMNS} sorted={mut self.kept.values.sorted} descending={mut self.kept.values.descending}>
             <ShoppingRow $for={row of self.list.rows} $key={row} row={row} prices={self.prices}
                          selected={self.picked == row.item}
                          quotedItem={self.quotedItem} quotedTotal={self.quotedTotal} @pick={self.onPick}

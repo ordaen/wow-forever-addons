@@ -232,14 +232,14 @@ public class LineRow implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box $if={self.line.caption} columns={CAPTION} gap={space(.Item)} padding={PAD} yAlign={Align.Center}
+      <box $if={self.line.caption} height={Style.ROW} columns={CAPTION} gap={space(.Item)} padding={PAD} yAlign={Align.Center}
            @pointerPress.self={self.onPick} @keyPress(.Enter)={self.onKey} @keyPress(.Space)={self.onKey}>
         <box width={MARK} height={MARK} background={self.mark} tint={Style.GOLD} />
         <text value={self.title} textColor={Style.GOLD} textFont={.Title} wrap={false} />
         <text value={self.countText} textColor={Style.DIM} textFont={.Numbers} wrap={false} />
         <ShownToggle state={self.shown} @flip={self.onGroup} />
       </box>
-      <box $else columns={self.columns} gap={space(.Item)} padding={PAD} yAlign={Align.Center}
+      <box $else height={Style.ROW} columns={self.columns} gap={space(.Item)} padding={PAD} yAlign={Align.Center}
            background={self.background} @pointerPress.self={self.onPick} @keyPress(.Enter)={self.onKey} @keyPress(.Space)={self.onKey} @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
         <box padding={self.indent}>
           <text value={self.title} textColor={Style.INK} wrap={false} />

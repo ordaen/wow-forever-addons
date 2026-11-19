@@ -75,7 +75,7 @@ class OfferedRow implements Component {
 
   public render(self): Template {
     return $ltml {
-      <TableRow tracks={TRACKS} selected={self.selected} @pick={self.onPick}>
+      <TableRow tracks={TRACKS} selected={self.selected} height={Style.ITEM_ROW} @pick={self.onPick}>
         <box columns={ITEM} gap={9.375dp} yAlign={Align.Center}>
           <ItemButton item={self.offered.item} size={Style.SLOT} />
           <box overflow={.Hidden}>
@@ -186,8 +186,7 @@ public class SellPage implements Component {
             <PushButton label={Locale.PAGE_OWNED} width={Style.OPENER} @click={self.onOpenOwned} />
           </box>
           <box rows={FILL} border={Style.FRAME} background={Style.LISTS_BACK}>
-            <Table columns={COLUMNS} sorted={mut self.list.values.sorted} descending={mut self.list.values.descending}
-                   rowHeight={Style.ITEM_ROW}>
+            <Table columns={COLUMNS} sorted={mut self.list.values.sorted} descending={mut self.list.values.descending}>
               <OfferedRow $for={row of self.rows} $key={row.item} offered={row}
                           selected={self.picked == row.item} @pick={self.onPick} />
               <box $if={self.rows.length == 0} padding={Style.NOTE_PAD} yAlign={Align.Center}>
