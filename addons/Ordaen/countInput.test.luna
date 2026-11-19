@@ -1,5 +1,4 @@
 // The library's CountInput: a whole number the player sets, never outside its least and its most, which may move.
-import Game from "$game"
 import { Align } from "$ltml"
 import Test from "$test"
 import { CountInput, held } from "@/countInput"
@@ -76,14 +75,13 @@ test "Shift steps by 10 and Ctrl by 100, held to the bounds" {
   let page = new Pair()
   page.most = 150
   Test.mount(page, { left: 0, top: 0, width: 300, height: 100 })
-  Game.input.shiftDown = (): Boolean => true
+  Test.hold([.Shift])
   click("+")
   Test.expect(page.count == 13)
   click("-")
   click("-")
   Test.expect(page.count == 1)
-  Game.input.shiftDown = (): Boolean => false
-  Game.input.controlDown = (): Boolean => true
+  Test.hold([.Ctrl])
   click("+")
   Test.expect(page.count == 101)
   click("+")

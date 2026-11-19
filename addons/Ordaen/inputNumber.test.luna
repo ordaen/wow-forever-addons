@@ -1,6 +1,5 @@
 // The library's InputNumber: every number a setting takes. A small range is a slider, a wide one a field; either has
 // − and +, which step as CountInput's do (Shift ten steps, Ctrl a hundred), and shows the value's unit.
-import Game from "$game"
 import { Key } from "$ltml"
 import Test from "$test"
 import { Move } from "$test"
@@ -32,11 +31,10 @@ test "the slider's − and + step it: a step, ten with Shift, a hundred with Ctr
   Test.expect(Test.page().input().count() == 1)
   Test.page().button("+").nth(1).click()
   Test.expect(near(page.share, 0.51))
-  Game.input.shiftDown = (): Boolean => true
+  Test.hold([.Shift])
   Test.page().button("-").nth(1).click()
   Test.expect(near(page.share, 0.41))
-  Game.input.shiftDown = (): Boolean => false
-  Game.input.controlDown = (): Boolean => true
+  Test.hold([.Ctrl])
   Test.page().button("+").nth(1).click()
   Test.expect(near(page.share, 1))
   Test.shot("the share at its most: 100%, + disabled")
@@ -50,11 +48,10 @@ test "the field's − and + step it too, and a number typed past a bound is the 
   Test.mount(page, { left: 0, top: 0, width: 900, height: 200 })
   Test.page().button("+").nth(2).click()
   Test.expect(page.place == 1)
-  Game.input.shiftDown = (): Boolean => true
+  Test.hold([.Shift])
   Test.page().button("+").nth(2).click()
   Test.expect(page.place == 11)
-  Game.input.shiftDown = (): Boolean => false
-  Game.input.controlDown = (): Boolean => true
+  Test.hold([.Ctrl])
   Test.page().button("-").nth(2).click()
   Test.expect(page.place == -89)
   Test.expect(Test.page().input().value() == "-89")
