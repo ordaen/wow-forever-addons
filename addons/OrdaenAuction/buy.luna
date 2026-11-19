@@ -381,7 +381,7 @@ class FoundRow implements Component {
 
   public render(self): Template {
     return $ltml {
-      <TableRow tracks={self.tracks} selected={self.selected} @pick={self.onPick}>
+      <TableRow tracks={self.tracks} selected={self.selected} height={Style.ITEM_ROW} @pick={self.onPick}>
         <RowMenu $if={self.menuOpen} key={peek self.found.key} @act={self.onAct} />
         <box columns={ITEM} gap={9.375dp} yAlign={Align.Center}>
           <ItemButton item={self.found.item} size={Style.SLOT} />
@@ -646,8 +646,7 @@ public class BuyPage implements Component {
             <PushButton label={Locale.PAGE_SHOPPING} width={Style.OPENER} @click={self.onOpenList} />
           </box>
           <box rows={FILL} border={Style.FRAME} background={Style.LISTS_BACK}>
-            <Table $if={self.byItem} columns={ITEM_COLUMNS} sorted={mut self.list.values.sorted} descending={mut self.list.values.descending}
-                   rowHeight={Style.ITEM_ROW}>
+            <Table $if={self.byItem} columns={ITEM_COLUMNS} sorted={mut self.list.values.sorted} descending={mut self.list.values.descending}>
               <FoundRow $for={row of self.rows} $key={row.item} found={row} selected={self.picked == row.key}
                         wanted={self.shopping.needed[row.item] != nil} tracks={ITEM_TRACKS}
                         menuOpen={self.menuFor == row.key} @pick={self.onPick} @menu={self.onMenu}
@@ -656,8 +655,7 @@ public class BuyPage implements Component {
                 <text value={self.empty} textColor={Style.DIM} />
               </box>
             </Table>
-            <Table $else columns={COLUMNS} sorted={mut self.list.values.sorted} descending={mut self.list.values.descending}
-                   rowHeight={Style.ITEM_ROW}>
+            <Table $else columns={COLUMNS} sorted={mut self.list.values.sorted} descending={mut self.list.values.descending}>
               <FoundRow $for={row of self.rows} $key={row.key} found={row} selected={self.picked == row.key}
                         wanted={self.shopping.needed[row.item] != nil} tracks={TRACKS}
                         menuOpen={self.menuFor == row.key} @pick={self.onPick} @menu={self.onMenu}

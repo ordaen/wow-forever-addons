@@ -12,7 +12,7 @@ public const SIDE_WIDTH: Number<Length> = 703.125dp
 // An item's slot in a row, and the chosen item's.
 public const SLOT: Number<Length> = 28.125dp
 public const BIG_SLOT: Number<Length> = 46.875dp
-// A table's row (`Table`'s `rowHeight`) with an item's slot, and one with a button: the row's padding round them.
+// A table's row (`TableRow`'s `height`) with an item's slot, and one with a button: the row's padding round them.
 public const ITEM_ROW: Number<Length> = SLOT + 9.375dp
 public const BUTTON_ROW: Number<Length> = 53.90625dp
 // A list's note where it has no rows: a row of the list itself, its text in the row's middle (`yAlign`), a panel's

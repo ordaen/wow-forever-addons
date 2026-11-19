@@ -9,7 +9,7 @@
 // rows in view. While it is shut nothing is read and the bags' events aren't heard.
 import Client from "$client"
 import Game from "$game"
-import { Align, Event, MouseButton, Overflow, Track } from "$ltml"
+import { Align, Event, MouseButton, Track } from "$ltml"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
 import { SECONDARY_TEXT } from "Ordaen"
@@ -21,7 +21,7 @@ import { Arranger } from "@/arrange"
 import { BagLine, BagSlotsWindow } from "@/bagSlots"
 import { Gold } from "@/gold"
 import { Guard, GuardTips, Hovered } from "@/guard"
-import { GAP, Row, SLOT, Section, columnsIn, rowsOf } from "@/layout"
+import { GAP, Row, Section, columnsIn, rowsOf } from "@/layout"
 import Locale from "@/locales"
 import { COUNTED, Grouping, KINDS, MARKED, MOVED, Slot, SortBy, Tab, View } from "@/model"
 import { BagRow, Filter } from "@/rows"
@@ -482,17 +482,17 @@ public class Bags implements Module, App {
                 <TabEntry $for={tab of self.tabs} $key={tab} tab={peek tab} current={self.shownTab}
                           counts={self.counts} @picked={self.onTab} />
               </box>
-              <box rowHeight={SLOT} gap={GAP} overflow={Overflow.Scroll}>
+              <virtualList gap={GAP}>
                 <BagRow $for={row of self.rows} row={row} filter={self.filter} free={self.free}
                         collapsed={self.collapsed} fills={self.fills} @pressed={self.onPressed}
                         @pickup={self.onPickup} @entered={self.onEnter} @left={self.onLeave} @toggled={self.onToggle} />
-              </box>
+              </virtualList>
             </box>
-            <box $else rowHeight={SLOT} gap={GAP} overflow={Overflow.Scroll}>
+            <virtualList $else gap={GAP}>
               <BagRow $for={row of self.rows} row={row} filter={self.filter} free={self.free}
                       collapsed={self.collapsed} fills={self.fills} @pressed={self.onPressed}
                       @pickup={self.onPickup} @entered={self.onEnter} @left={self.onLeave} @toggled={self.onToggle} />
-            </box>
+            </virtualList>
           </box>
         </Window>
         <BagSlotsWindow $if={self.slotsOpen && self.shown} lines={self.bagLines} declared={mut self.slotsWindow}

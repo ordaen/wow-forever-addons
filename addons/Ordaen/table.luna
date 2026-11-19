@@ -2,10 +2,11 @@
 // sortable heading sorts by it, again reverses (the cells `sorted`, the column's number from 1, and `descending`, which
 // the page handed with `mut` and orders its rows by: the table keeps no list of rows, so a row follows its own cells
 // and nothing is made for it when another changes). The rows are `TableRow`s in the table's slot, each laid out in the
-// columns' tracks (`tracksOf(columns)`, made once where the columns are), each `rowHeight` high (a row of text, `ROW`,
-// unless the table is told another). The body is a box of rows: it scrolls where it is given a `height`, or where the
-// table is given a height (its headings, then the body in the rest of it), and a `$for` of rows in it builds only the
-// rows in view, handing on the rows that leave to the items that come in: a row follows its item's cell.
+// columns' tracks (`tracksOf(columns)`, made once where the columns are). The body is a virtual list, each row as high
+// as the first it built came to (a box, every row built, where the table is told its rows vary): it scrolls where it is
+// given a `height`, or where the table is given a height (its headings, then the body in the rest of it), and a `$for`
+// of rows in it builds only the rows in view, handing on the rows that leave to the items that come in: a row follows
+// its item's cell.
 import { Align, Art, ByInteractionState, Edges, Event, Line, MouseButton, Overflow, Position, Side, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import { Component } from "@/module"
@@ -31,10 +32,10 @@ const PADDING: Edges = { top: space(.Item), bottom: space(.Item) }
 const ROW_PADDING: Edges = { top: 4.6875dp, right: space(.Item), bottom: 4.6875dp, left: space(.Item) }
 const SIDES: Edges = { left: space(.Item), right: space(.Item) }
 const HEAD: Array<Track> = ["max-content", "max-content"]
-// The headings, and the body in what is left of a height the table is given.
-const PARTS: Array<Track> = ["max-content", { fr: 1 }]
 // A row of one line of text: the text and the row's padding.
 public const ROW: Number<Length> = 32.8125dp
+// The headings, and the body in what is left of a height the table is given.
+const PARTS: Array<Track> = ["max-content", { fr: 1 }]
 // A sorted heading's mark (ctl.markUp, ctl.markDown): a triangle 8 px wide and 6 high in the middle of a 16 px cell.
 const MARK_WIDTH = 9.375dp
 const MARK_HEIGHT = 7.03125dp
@@ -116,12 +117,18 @@ public class TableRow implements Component {
 
   tracks: Signal<Array<Track>>
   selected: Signal<Boolean>
+  // How high it is: a line of text (`ROW`) unless it is told another, or as high as what it holds where it grows (a
+  // table whose rows vary).
+  const height: Number<Length> | nil
   constructor(
     tracks: Signal<Array<Track>>,
-    selected: Signal<Boolean> = false
+    selected: Signal<Boolean> = false,
+    height: Number<Length> = ROW,
+    grows: Boolean = false
   ) {
     self.tracks = tracks
     self.selected = selected
+    self.height = grows ? nil : height
   }
 
   onClick(mut self, click: Event.Press) { self.pick.emit(click.button) }
@@ -129,7 +136,7 @@ public class TableRow implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={self.tracks} gap={space(.Item)} padding={ROW_PADDING} yAlign={Align.Center} background={self.background}
+      <box columns={self.tracks} height={self.height} gap={space(.Item)} padding={ROW_PADDING} yAlign={Align.Center} background={self.background}
            @pointerPress.self={self.onClick} @keyPress(.Enter)={self.onKey}
            @keyPress(.Space)={self.onKey}>
         <slot />
@@ -145,8 +152,7 @@ public class Table implements Component {
   sorted: mut Signal<Integer>
   descending: mut Signal<Boolean>
   height: Signal<Number<Length> | nil>
-  // The body's `rowHeight`: none where the rows are as high as what they hold.
-  const fixedRows: Number<Length> | nil
+  const rowsVary: Boolean
   constructor(
     columns: Array<Column>,
     // The column the rows are ordered by, from 1; 0 for none.
@@ -154,14 +160,15 @@ public class Table implements Component {
     descending: mut Signal<Boolean>,
     // The body's height: it scrolls past it. None: as high as its rows, or the rest of a height the table is given.
     height: Signal<Number<Length> | nil> = nil,
-    // How high each row is; `"auto"`: each as high as what it holds, and every row built (rows whose height varies).
-    rowHeight: Number<Length> | "auto" = ROW
+    // Its rows aren't of one height: each is as high as what it holds, and every row is built. Otherwise the body is
+    // a virtual list, its rows as high as the first it built came to.
+    rowsVary: Boolean = false
   ) {
     self.columns = columns
     self.sorted = sorted
     self.descending = descending
     self.height = height
-    self.fixedRows = rowHeight is Number ? rowHeight : nil
+    self.rowsVary = rowsVary
   }
 
   public render(self): Template {
@@ -171,9 +178,12 @@ public class Table implements Component {
           <Heading $for={index, column of self.columns} column={column} index={index} sorted={mut self.sorted}
                    descending={mut self.descending} />
         </box>
-        <box columns={1} height={self.height} rowHeight={self.fixedRows} overflow={Overflow.Scroll}>
+        <box $if={self.rowsVary} columns={1} height={self.height} overflow={Overflow.Scroll}>
           <slot />
         </box>
+        <virtualList $else height={self.height}>
+          <slot />
+        </virtualList>
       </box>
     }
   }

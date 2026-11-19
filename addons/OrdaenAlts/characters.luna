@@ -64,7 +64,7 @@ public class CharacterRow implements Component {
 
   public render(self): Template {
     return $ltml {
-      <TableRow tracks={self.tracks}>
+      <TableRow tracks={self.tracks} grows={true}>
         <text value={self.line.name} textColor={self.name} wrap={false} />
         <box xAlign={Align.End}>
           <text value={"%d"} arguments={[self.line.level]} textColor={Style.INK} wrap={false} />
@@ -180,7 +180,7 @@ public class Characters implements Component {
       <box rows={self.rows} gap={space(.Group)}>
         <box overflow={Overflow.Scroll}>
           // A character's professions wrap: its row is as high as they are.
-          <Table columns={COLUMNS} sorted={mut self.sorted} descending={mut self.descending} rowHeight={"auto"}>
+          <Table columns={COLUMNS} sorted={mut self.sorted} descending={mut self.descending} rowsVary={true}>
             <CharacterRow $for={line of self.ordered} $key={line.who} line={line} tracks={TRACKS} @forget={self.ask} />
           </Table>
         </box>

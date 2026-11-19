@@ -12,7 +12,7 @@
 // side of the screen from its top to its bottom, as wide as its placing says: it isn't moved or resized, and its
 // full-screen toggle still covers the screen.
 import Game from "$game"
-import { Align, Art, Bounds, ByInteractionState, Docked, Edges, Event, Layer, Line, Overflow, Place, Point, Position, Shadow, Side, Track } from "$ltml"
+import { Align, Art, Bounds, ByInteractionState, Docked, Edges, Event, Layer, Overflow, Place, Point, Position, Shadow, Side, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import { reachAcross } from "@/art"
 import { Component } from "@/module"
@@ -392,8 +392,6 @@ public class Window implements Component {
   derived cornerFoot: Edges = { bottom: self.lineTop - (self.bodyReach + Ordaen.art.frame.small.inset) * 1ui }
   derived bodyReach: Number = Ordaen.art.frame.small.reach.top * Ordaen.art.frame.small.scale
   derived grip: ByInteractionState<Art> = self.gripOf()
-  // The ring round the control the keyboard has focused: the look's accent.
-  derived focusLine: Line = { width: 1.171875dp, color: Ordaen.look.values.accent, sides: nil }
 
   tabs: Signal<Array<WindowTabSpec>>
   selected: mut Signal<Integer>
@@ -743,7 +741,7 @@ public class Window implements Component {
       // As wide as the player made it, and never narrower than its tab row (its tabs and its control group): the
       // row is the one thing in its grid, and the width it keeps is its least.
       <surface shown={self.seen} layer={Layer.Dialog} place={self.place} width={self.bounds} height={self.height} clamp={true}
-               raise={true} focusLine={self.focusLine}
+               raise={true}
                @keyPress.parentScope(.Escape)={self.onClose}>
         <box position={Position.Absolute} left={0ui} right={self.inset} top={self.tabHeight} bottom={0ui}
              border={Ordaen.art.frame.small} background={Ordaen.art.window.wood} padding={INSET}
