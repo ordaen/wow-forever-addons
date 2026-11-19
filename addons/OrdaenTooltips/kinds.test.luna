@@ -44,9 +44,10 @@ function corner(): any Client.Frame {
 
 // The game's tooltip showing `data`.
 function showing(data: Game.TooltipData): Game.ShownTip {
+  const at = corner()
   return {
-    shown: true, data: data, placeable: false, ownerHigh: false, ownerRight: false, corner: corner(), below: false,
-    right: true
+    shown: true, data: data, placeable: false, ownerHigh: false, ownerRight: false, corner: at, below: false,
+    right: true, home: at, homeBelow: false, homeRight: true
   }
 }
 

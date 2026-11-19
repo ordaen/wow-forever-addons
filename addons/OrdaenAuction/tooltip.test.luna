@@ -27,7 +27,7 @@ function showing(data: Game.TooltipData): Game.ShownTip {
   corner.SetPoint("TOPLEFT", Client.C_UI.GetUIParent(), "TOPLEFT", 1300, -720)
   return {
     shown: true, data: data, placeable: false, ownerHigh: false, ownerRight: false, corner: corner, below: false,
-    right: true
+    right: true, home: corner, homeBelow: false, homeRight: true
   }
 }
 

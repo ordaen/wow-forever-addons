@@ -409,15 +409,18 @@ public class Tooltips implements Module, App {
   }
 
   // Beside its owner where its kind stands so and the owner is a frame it can stand by: above it in the screen's
-  // lower half, below it in the upper; on its right edge in the screen's right third. Otherwise in Blizzard's place.
+  // lower half, below it in the upper; on its right edge in the screen's right third. One it can't stand by (a unit's
+  // frame, the world) is where the game put its own, beside the owner where the game anchored it there. Otherwise in
+  // Blizzard's place.
   where(self): Standing {
     let tip = Game.tooltip.main
     let owner = tip.owner
     let place = self.read?.place ?? self.settings.values.place
-    if (owner != nil && place == Place.Anchor && tip.placeable) {
+    if (place == Place.Blizzard) { return blizzardPlace(tip) }
+    if (owner != nil && tip.placeable) {
       return { by: owner, inPlace: false, below: tip.ownerHigh, right: tip.ownerRight }
     }
-    return blizzardPlace(tip)
+    return { by: tip.corner, inPlace: true, below: tip.below, right: tip.right }
   }
 
   public render(self): Template {
@@ -436,11 +439,11 @@ public class Tooltips implements Module, App {
   }
 }
 
-// Blizzard's place: where the game put its own tooltip, hanging by the same corner. For a tooltip the game gives no
-// place of its own (the world, a unit's frame, an action button), that is its default anchor: the screen's bottom
-// right corner unless the player moved it in Edit Mode.
+// Blizzard's place: the game's default anchor, where it puts a tooltip with no place of its own (the world, a unit's
+// frame, an action button), hanging by the corner the game hangs one by there: the screen's bottom right corner
+// unless the player moved it in Edit Mode.
 function blizzardPlace(tip: Game.ShownTip): Standing {
-  return { by: tip.corner, inPlace: true, below: tip.below, right: tip.right }
+  return { by: tip.home, inPlace: true, below: tip.homeBelow, right: tip.homeRight }
 }
 
 // The model with the hotkeys other modules give its owner, by the owner's name, after its own.

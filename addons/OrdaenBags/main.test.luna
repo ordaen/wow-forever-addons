@@ -250,7 +250,8 @@ function asked(expected: String): Boolean {
 function tooltipOf(corner: any Client.Frame, id: Integer, name: String): Game.ShownTip {
   return {
     shown: true, data: { kind: 0, id: id, about: `item:${id}`, lines: [{ left: name, kind: 22 }] }, placeable: false,
-    ownerHigh: false, ownerRight: false, corner: corner, below: false, right: true
+    ownerHigh: false, ownerRight: false, corner: corner, below: false, right: true, home: corner, homeBelow: false,
+    homeRight: true
   }
 }
 
