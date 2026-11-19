@@ -237,6 +237,11 @@ Like EllesmereUI, but the modules load on demand. The approach and the inventory
   What the part does goes on its design page as a list, each with a test on the stand-in.
 - Modules follow the **globals** (theme, fonts, text size, scale, spacing, colours, bar textures, animations, ...):
   a module's look setting defaults to "as in the globals" and may be overridden for that module only.
+- **A window that lists things has one shape,** OrdaenProfessions' window its reference: a toolbar with the search
+  and the filter, sort and view switches on the right (switches, never checkboxes; a category's switch turns all of
+  it), the list, and a footer with counts and caps as dimmed text. A list, table, toolbar or filter control is taken
+  from the library; one that two windows would each write is made a component of the library first, never written
+  twice.
 - **Design for the weakest monitor:** colours, contrast and textures must hold on the least professional screen: white
   text on fills at least 5:1, similar colours clearly apart in hue and lightness, no meaning carried by subtle shading
   alone; check against a washed-out rendering.
