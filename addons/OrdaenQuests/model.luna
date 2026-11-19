@@ -66,3 +66,70 @@ public const function colorOf(difficulty: Difficulty): Color {
     .Impossible => Color.hex("#ff2020")
   }
 }
+
+// The filter's options: only the tracked quests; each difficulty; a quest played alone or with a group.
+public enum QuestFilter { Tracked, Trivial, Easy, Even, Hard, Impossible, Solo, Group }
+
+// The option a quest's difficulty passes by.
+const function difficultyFilter(difficulty: Difficulty): QuestFilter {
+  return match (difficulty) {
+    .Trivial => QuestFilter.Trivial
+    .Easy => QuestFilter.Easy
+    .Even => QuestFilter.Even
+    .Hard => QuestFilter.Hard
+    .Impossible => QuestFilter.Impossible
+  }
+}
+
+// The switch beside the search: the quests still to do, the completed ones, or all.
+public enum QuestStatus { Progress, Done, All }
+// How a header's quests are ordered: as the log has them, by level, by title.
+public enum QuestSort { Log, Level, Title }
+// The list under the headers, or one list.
+public enum QuestView { Zones, List }
+
+// What the window asks of the log: the search (lower case), the status switch, the filter's options on, and the
+// player's level the difficulties are of.
+public struct Asked {
+  sought: String
+  status: QuestStatus
+  filter: Map<QuestFilter, Boolean>
+  player: Integer
+}
+
+// Whether a quest's title or one of its objectives holds what is sought.
+function holds(quest: LogQuest, sought: String): Boolean {
+  return sought == "" || quest.title.lower().contains(sought) ||
+    quest.objectives.any(objective => objective.text.lower().contains(sought))
+}
+
+function statusPasses(quest: LogQuest, status: QuestStatus): Boolean {
+  return match (status) {
+    .Progress => !quest.done
+    .Done => quest.done
+    .All => true
+  }
+}
+
+public function passes(quest: LogQuest, asked: Asked): Boolean {
+  if (asked.filter[QuestFilter.Tracked] == true && !quest.tracked) { return false }
+  if (asked.filter[difficultyFilter(difficultyOf(quest.level, asked.player))] != true) { return false }
+  if (asked.filter[quest.group > 1 ? QuestFilter.Group : QuestFilter.Solo] != true) { return false }
+  return statusPasses(quest, asked.status) && holds(quest, asked.sought)
+}
+
+// The quests the search, the switch and the filter let through, in the order asked.
+public function listedOf(quests: Array<LogQuest>, asked: Asked, sort: QuestSort): Array<LogQuest> {
+  const listed = quests.filter(quest => passes(quest, asked))
+  match (sort) {
+    .Log => {}
+    .Level => listed.sort((a, b) => a.level != b.level ? a.level < b.level : a.title < b.title)
+    .Title => listed.sort((a, b) => a.title != b.title ? a.title < b.title : a.level < b.level)
+  }
+  return listed
+}
+
+// The quests of a kind, in the order they come.
+public function ofKind(quests: Array<LogQuest>, kind: QuestKind): Array<LogQuest> {
+  return quests.filter(quest => quest.kind == kind)
+}
