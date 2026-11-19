@@ -1,6 +1,5 @@
 key: ESCAPE → none
 -- the friends as a table: name with the star, level, where, note
-box 0,0 1600x0
 box 0,0 0x0
   embed 0,0 0x0 frame=none opacity=0
   embed 0,0 0x0 frame=none opacity=0
@@ -335,51 +334,51 @@ surface 425,183.88 1150.25x532.25 on DIALOG clamped raised by a click
                   box 935.75,341.14 204.83x15.6
                     text 935.75,341.14 28.89x15.6 "Note" #a3977f
               box 457.75,364.24 689.5x283.05 scrolled 0 of 0
-                box 457.75,364.24 689.5x23.33 #00000000 @keyPress @pointerPress
-                  box 464.42,368.11 204.83x15.6 clipped
-                    box 464.42,368.11 204.83x15.6
-                      box 464.42,370.91 10x10 Interface/FriendsFrame/StatusIcon-Online
-                      text 477.75,368.11 42.22x15.6 "Alexei" #82c5ff
-                      box 523.31,369.24 13.33x13.33 friendslist-favorite
-                  box 675.92,368.11 41.67x15.6 clipped
-                    text 702.03,368.11 15.56x15.6 "25" #a3977f
-                  box 724.25,368.11 204.83x15.6 clipped
-                    text 724.25,368.11 217.78x15.6 "Battle.net · Torgrim · Loch Modan" #a3977f
-                  box 935.75,368.11 204.83x15.6 clipped
-                    text 935.75,368.11 204.83x15.6 "tanks at night" #a3977f
-                box 457.75,387.57 689.5x23.33 #00000000 @keyPress @pointerPress
-                  box 464.42,391.44 204.83x15.6 clipped
-                    box 464.42,391.44 204.83x15.6
-                      box 464.42,394.24 10x10 Interface/FriendsFrame/StatusIcon-Away
-                      text 477.75,391.44 42.22x15.6 "Eliana" #e8dcc4
-                  box 675.92,391.44 41.67x15.6 clipped
-                    text 702.03,391.44 15.56x15.6 "24" #a3977f
-                  box 724.25,391.44 204.83x15.6 clipped
-                    text 724.25,391.44 204.83x15.6 "Stormwind" #a3977f
-                  box 935.75,399.24 204.83x0 clipped
-                    text 935.75,399.24 204.83x0 "" #a3977f
-                box 457.75,410.91 689.5x23.33 #00000000 @keyPress @pointerPress
-                  box 464.42,414.78 204.83x15.6 clipped
-                    box 464.42,414.78 204.83x15.6
-                      box 464.42,417.58 10x10 Interface/FriendsFrame/StatusIcon-Offline
-                      text 477.75,414.78 47.78x15.6 "Darrick" #7c848a
-                  box 675.92,414.78 41.67x15.6 clipped
-                    text 702.03,414.78 15.56x15.6 "22" #a3977f
-                  box 724.25,414.78 204.83x15.6 clipped
-                    text 724.25,414.78 204.83x15.6 "offline" #a3977f
-                  box 935.75,414.78 204.83x15.6 clipped
-                    text 935.75,414.78 204.83x15.6 "smith" #a3977f
-                box 457.75,434.24 689.5x23.33 #00000000 @keyPress @pointerPress
-                  box 464.42,438.11 204.83x15.6 clipped
-                    box 464.42,438.11 204.83x15.6
-                      box 464.42,440.91 10x10 Interface/FriendsFrame/StatusIcon-Offline
-                      text 477.75,438.11 35.56x15.6 "Irina" #7c848a
-                  box 675.92,445.91 41.67x0 clipped
-                    text 717.58,445.91 0x0 "" #a3977f
-                  box 724.25,438.11 204.83x15.6 clipped
-                    text 724.25,438.11 204.83x15.6 "Battle.net · offline" #a3977f
-                  box 935.75,445.91 204.83x0 clipped
-                    text 935.75,445.91 204.83x0 "" #a3977f
+                box 457.75,364.24 689.5x37.87 #00000000 @keyPress @pointerPress
+                  box 464.42,375.38 204.83x15.6
+                    box 464.42,375.38 204.83x15.6
+                      box 464.42,378.18 10x10 Interface/FriendsFrame/StatusIcon-Online
+                      text 477.75,375.38 174.83x15.6 "Alexei" #82c5ff
+                      box 655.92,376.51 13.33x13.33 friendslist-favorite
+                  box 675.92,375.38 41.67x15.6
+                    text 702.03,375.38 15.56x15.6 "25" #a3977f right
+                  box 724.25,367.57 204.83x31.2
+                    text 724.25,367.57 204.83x31.2 "Battle.net · Torgrim · Loch Modan" #a3977f
+                  box 935.75,375.38 204.83x15.6 clipped
+                    text 935.75,375.38 204.83x15.6 "tanks at night" #a3977f
+                box 457.75,402.11 689.5x22.27 #00000000 @keyPress @pointerPress
+                  box 464.42,405.44 204.83x15.6
+                    box 464.42,405.44 204.83x15.6
+                      box 464.42,408.24 10x10 Interface/FriendsFrame/StatusIcon-Away
+                      text 477.75,405.44 188.17x15.6 "Eliana" #e8dcc4
+                  box 675.92,405.44 41.67x15.6
+                    text 702.03,405.44 15.56x15.6 "24" #a3977f right
+                  box 724.25,405.44 204.83x15.6
+                    text 724.25,405.44 204.83x15.6 "Stormwind" #a3977f
+                  box 935.75,413.24 204.83x0 clipped
+                    text 935.75,413.24 204.83x0 "" #a3977f
+                box 457.75,424.38 689.5x22.27 #00000000 @keyPress @pointerPress
+                  box 464.42,427.71 204.83x15.6
+                    box 464.42,427.71 204.83x15.6
+                      box 464.42,430.51 10x10 Interface/FriendsFrame/StatusIcon-Offline
+                      text 477.75,427.71 188.17x15.6 "Darrick" #7c848a
+                  box 675.92,427.71 41.67x15.6
+                    text 702.03,427.71 15.56x15.6 "22" #a3977f right
+                  box 724.25,427.71 204.83x15.6
+                    text 724.25,427.71 204.83x15.6 "offline" #a3977f
+                  box 935.75,427.71 204.83x15.6 clipped
+                    text 935.75,427.71 204.83x15.6 "smith" #a3977f
+                box 457.75,446.64 689.5x22.27 #00000000 @keyPress @pointerPress
+                  box 464.42,449.97 204.83x15.6
+                    box 464.42,449.97 204.83x15.6
+                      box 464.42,452.77 10x10 Interface/FriendsFrame/StatusIcon-Offline
+                      text 477.75,449.97 188.17x15.6 "Irina" #7c848a
+                  box 675.92,457.77 41.67x0
+                    text 717.58,457.77 0x0 "" #a3977f
+                  box 724.25,449.97 204.83x15.6
+                    text 724.25,449.97 204.83x15.6 "Battle.net · offline" #a3977f
+                  box 935.75,457.77 204.83x0 clipped
+                    text 935.75,457.77 204.83x0 "" #a3977f
       box 457.75,647.29 689.5x45
         box 457.75,663.96 689.5x28.33
           box 457.75,670.93 575.33x14.4

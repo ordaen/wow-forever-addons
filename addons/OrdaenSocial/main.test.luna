@@ -404,6 +404,30 @@ test "the guild's roster: those online first, a heading sorts it, «Show» keeps
   Test.expect(window.text("Ingrid").shown() && !window.text("Torvald").shown())
 }
 
+// Where a text first stands among those a part says, in the order drawn.
+function placeOf(part: Test.Part, text: String): Integer {
+  for (at, said of part.texts()) {
+    if (said == text) { return at }
+  }
+  return 0
+}
+
+test "the guild's toolbar sorts as its headings do, and by class, which no column shows" {
+  Test.mount(nil, PAGE)
+  const window = opened(new FakePeople())
+  window.text("Guild").click()
+  Test.expect(!window.text("Class").shown())
+  // By rank: the Guild Master first.
+  Test.expect(placeOf(window, "Torvald") < placeOf(window, "Ingrid"))
+  window.button(Ordaen.art.ctl.tool.sort).click()
+  Test.page().text("Class").click()
+  // By class: the Priest before the Warrior.
+  Test.expect(placeOf(window, "Ingrid") < placeOf(window, "Torvald"))
+  // A heading sorts the toolbar's way too: by name.
+  window.text("Name").click()
+  Test.expect(placeOf(window, "Ingrid") < placeOf(window, "Torvald"))
+}
+
 test "a guild member's card whispers, invites, promotes and demotes in the click" {
   Test.mount(nil, PAGE)
   const people = new FakePeople()

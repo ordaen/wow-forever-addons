@@ -1,5 +1,4 @@
 -- the recent allies: an ally's card with what was done together
-box 0,0 1600x0
 box 0,0 0x0
   embed 0,0 0x0 frame=none opacity=0
   embed 0,0 0x0 frame=none opacity=0

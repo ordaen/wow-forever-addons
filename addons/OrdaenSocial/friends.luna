@@ -203,7 +203,7 @@ class FriendRow implements Component {
 }
 
 // A friend as a row of the table: the name (the star after a best friend's), the level, where it is or what it plays,
-// and the note, each cut at its column.
+// and the note, the note alone cut at its column.
 class FriendTableRow implements Component {
   public pick: Event<String> = new Event()
 
@@ -221,19 +221,19 @@ class FriendTableRow implements Component {
 
   public render(self): Template {
     return $ltml {
-      <TableRow tracks={TRACKS} selected={self.picked} @pick={self.onPick}>
-        <TableCell cut={true}>
-          <box columns={[Style.DOT, "max-content", "max-content"]} gap={space(.Line)} yAlign={Align.Center}>
+      <TableRow tracks={TRACKS} selected={self.picked} grows={true} @pick={self.onPick}>
+        <TableCell>
+          <box columns={[Style.DOT, { fr: 1 }, "max-content"]} gap={space(.Line)} yAlign={Align.Center}>
             <box width={Style.DOT} height={Style.DOT} background={markOf(self.friend.presence)} />
-            <text value={titleOf(self.friend)} textColor={nameColorOf(self.friend)} wrap={false} />
+            <text value={titleOf(self.friend)} textColor={nameColorOf(self.friend)} />
             <box $if={self.favorite} width={Style.STAR} height={Style.STAR} background={Style.STAR_ICON} />
           </box>
         </TableCell>
-        <TableCell align={Align.End} cut={true}>
-          <text value={self.level} textColor={Style.DIM} textFont={.Numbers} wrap={false} />
+        <TableCell align={Align.End}>
+          <text value={self.level} textColor={Style.DIM} textFont={.Numbers} />
         </TableCell>
-        <TableCell cut={true}>
-          <text value={pointsOf(self.friend)} textColor={Style.DIM} wrap={false} />
+        <TableCell>
+          <text value={pointsOf(self.friend)} textColor={Style.DIM} />
         </TableCell>
         <TableCell cut={true}>
           <text value={self.friend.note} textColor={Style.DIM} wrap={false} />
@@ -285,7 +285,7 @@ public class FriendList implements Component {
           <PushButton label={Locale.ADD_FRIEND} width={Style.BUTTON} @click={self.onAdd} />
         </box>
         <box $if={self.view == .Table} columns={1} rows={[{ fr: 1 }]}>
-          <Table columns={COLUMNS} sorted={mut self.sorted} descending={mut self.descending}>
+          <Table columns={COLUMNS} sorted={mut self.sorted} descending={mut self.descending} rowsVary={true}>
             <FriendTableRow $for={friend of self.shown} $key={keyOf(friend)} friend={friend}
                             picked={keyOf(friend) == self.picked} @pick={self.onPick} />
           </Table>

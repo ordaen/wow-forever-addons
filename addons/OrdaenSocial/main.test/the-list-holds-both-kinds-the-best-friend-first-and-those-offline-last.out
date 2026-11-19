@@ -1,5 +1,4 @@
 -- the friends: the best friend on top with its star, the levels at the right, the card the player's own
-box 0,0 1600x0
 box 0,0 0x0
   embed 0,0 0x0 frame=none opacity=0
   embed 0,0 0x0 frame=none opacity=0
