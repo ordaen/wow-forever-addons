@@ -20,7 +20,7 @@ import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
 import { SECONDARY_TEXT } from "Ordaen"
 import {
-  ButtonPlate, Choice, Component, Dialog, KeptWindow, ListTab, ModuleMemory, Module, Money, MoneyField, PushButton, Settings, SettingsPage, space, Tip,
+  ButtonPlate, Choice, Component, Dialog, FooterCount, FooterCounts, KeptWindow, ListTab, ModuleMemory, Module, Money, MoneyField, PushButton, Settings, SettingsPage, space, Tip,
   TipRow, Toolbar, windowsTitle, WindowsPage, ToolAct, ToolButton, ToolPick, Window, WindowTabSpec
 } from "Ordaen"
 import { Arranger } from "@/arrange"
@@ -265,7 +265,9 @@ public class Bags implements Module, App {
   derived fills: Map<Integer, String> = self.stock().fills
   // The chord a container's slot is used by, the client's own secure click.
   derived useChord: KeyBinding<MouseButton> = useBinding(self.settings.values.clicks)
-  derived freeText: String = Locale.FREE_OF.format(self.free, self.stock().total)
+  // The footer's counts: the free slots of the bags or the bank, and its junk where the junk is shown; the guild
+  // bank's withdrawal left today.
+  derived footCounts: Array<FooterCount> = self.footCountsOf()
   derived bagLines: Array<BagLine> = self.bagLinesOf()
   derived bankBags: Array<BankBag> = self.bankBagsOf()
   derived goldRows: Array<TipRow> = self.gold.rows
@@ -273,7 +275,6 @@ public class Bags implements Module, App {
   // The junk in the shown vault: how many, and what a merchant gives for it.
   derived junkCount: Integer = self.junkOf().count(slot => peek slot.id != 0)
   derived junkWorth: Integer = self.worthOf()
-  derived junkText: String = Locale.JUNK_WORTH.format(self.junkCount, Game.money.format(self.junkWorth))
   derived junkShown: Boolean = self.categories && self.shownTab == Tab.Junk
   derived selling: Boolean = self.isBags && Game.bags.place == Game.BagPlace.Merchant && self.junkCount > 0
   // The bags' junk, whatever the window shows: what the merchant's window sells.
@@ -811,11 +812,17 @@ public class Bags implements Module, App {
 
   onSettings(self) { Ordaen.toggleSettings(Runtime.Addon.of(self)) }
 
+  footCountsOf(self): Array<FooterCount> {
+    if (self.isGuild) { return [{ label: Locale.GUILD_LEFT, value: self.guildLeft }] }
+    const free: FooterCount = { label: Locale.FOOT_FREE, value: Locale.FREE_OF.format(self.free, self.stock().total) }
+    if (!self.junkShown) { return [free] }
+    return [free, { label: Locale.FOOT_JUNK, value: Locale.JUNK_WORTH.format(self.junkCount, Game.money.format(self.junkWorth)) }]
+  }
+
   const footer: Template = $ltml {
     <box columns={FOOT} gap={space(.Group)} yAlign={Align.Center}>
-      <text $if={!self.isGuild} value={self.freeText} textColor={LABEL} textSize={SECONDARY_TEXT} />
-      <text $else value={Locale.GUILD_LEFT.format(self.guildLeft)} textColor={LABEL} textSize={SECONDARY_TEXT} />
-      <text value={self.junkShown ? self.junkText : ""} textColor={LABEL} textSize={SECONDARY_TEXT} />
+      <FooterCounts counts={self.footCounts} />
+      <box />
       <PushButton $if={self.selling} label={Locale.SELL_JUNK} width={BUTTON} @click={self.sellJunk} />
       <box $elseif={self.isGuild} columns={2} gap={space(.Item)}>
         <PushButton label={Locale.GUILD_DEPOSIT} width={BUTTON} @click={self.onDeposit} />

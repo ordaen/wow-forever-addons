@@ -304,7 +304,7 @@ test "the window's close shuts the game's bags" {
   Test.mount(nil, SCREEN)
   Game.bags.open = true
   // The corner's controls show while the cursor is over the window.
-  bags().text("Free 13 of 22").hover()
+  bags().text("13 of 22").hover()
   bags().button(Ordaen.art.ctl.corner.close).click()
   Test.expect(!Game.bags.open && !bags().shown())
 }
@@ -315,13 +315,13 @@ test "the corner's gear opens the module's page of the settings, with its two wi
   Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
   Test.mount(nil, SCREEN)
   Game.bags.open = true
-  bags().text("Free 13 of 22").hover()
+  bags().text("13 of 22").hover()
   bags().button(Ordaen.art.ctl.corner.gear).click()
   const page = Test.page().window(SETTINGS)
   Test.expect(page.text("Ordaen Bags").shown() && page.text(Locale.BAG_SLOTS).shown())
   // The settings cover the bags, the gear too, and a window stops the clicks on what it draws: a click where the gear
   // stands is the settings' and leaves them open.
-  Test.page().window("Free 13 of 22").button(Ordaen.art.ctl.corner.gear).click()
+  Test.page().window("13 of 22").button(Ordaen.art.ctl.corner.gear).click()
   Test.expect(Test.page().window(SETTINGS).shown())
 }
 
@@ -336,10 +336,10 @@ test "turned off in the settings the window goes and the game's own bag windows 
   const page = settings()
   // The modules in the list: Bags, then Tooltips.
   page.button(Ordaen.art.ctl.switchOn).nth(1).click()
-  Test.expect(own.GetAlpha() == 1 && !Test.page().text("Free 13 of 22").shown())
+  Test.expect(own.GetAlpha() == 1 && !Test.page().text("13 of 22").shown())
   Test.expect(asked("Bags.follow true, Bags.follow false"))
   page.button(Ordaen.art.ctl.switchOff).click()
-  Test.expect(own.GetAlpha() == 0 && Test.page().text("Free 13 of 22").shown())
+  Test.expect(own.GetAlpha() == 0 && Test.page().text("13 of 22").shown())
 }
 
 // The tabs
@@ -1170,7 +1170,7 @@ test "the cursor on a bag lights its items, every other dimmed, and shows the ba
   Test.page().text("Backpack").hover()
   // The backpack is no item: no tooltip.
   Test.expect(held(RECIPE).opacity() == DIMMED && held(POTION).opacity() == 1 && Test.requests().length == 0)
-  bags().text("Free 13 of 22").hover()
+  bags().text("13 of 22").hover()
   Test.expect(held(RECIPE).opacity() == 1 && held(POTION).opacity() == 1)
 }
 
@@ -1247,7 +1247,7 @@ test "the footer says the free slots of the total, and the currency the player f
   Game.money.tracked = "12 Marks"
   Test.mount(nil, SCREEN)
   Game.bags.open = true
-  Test.expect(bags().text("Free 13 of 22").shown() && bags().text("12 Marks").shown())
+  Test.expect(bags().text("13 of 22").shown() && bags().text("12 Marks").shown())
   Test.expect(bags().text(Game.money.format(123456)).shown())
   Game.money.tracked = "13 Marks"
   Test.expect(bags().text("13 Marks").shown() && !bags().text("12 Marks").shown())
@@ -1327,7 +1327,7 @@ test "an item come into a bag shows, the counts told" {
   Test.expect(bags().shown())
   world.items.push({ bag: 1, slot: 6, id: 1710, name: "Greater Healing Potion", icon: MOSS, count: 2, kind: 0, subkind: 1, subkindName: "Potion" })
   Game.bags.updated.emit(1)
-  Test.expect(bags().text("Free 12 of 22").shown() && tab("Consumables") == "Consumables | 2" && held(MOSS).shown())
+  Test.expect(bags().text("12 of 22").shown() && tab("Consumables") == "Consumables | 2" && held(MOSS).shown())
   Test.expect(bags().text("12").shown())
 }
 
@@ -1357,7 +1357,7 @@ test "a bag swapped for a larger one: its slots read anew" {
   world.sizes[2] = 10
   world.items.push({ bag: 1, slot: 10, id: 1710, name: "Greater Healing Potion", icon: MOSS, kind: 0 })
   Game.bags.updated.emit(1)
-  Test.expect(bags().text("Free 16 of 26").shown() && held(MOSS).shown())
+  Test.expect(bags().text("16 of 26").shown() && held(MOSS).shown())
 }
 
 // What is kept between sessions
@@ -1488,7 +1488,7 @@ test "every bag with slots has its section in the view «By bag» and its slots 
   pick(Ordaen.art.ctl.tool.categories, "By bag")
   Test.expect(reads(bags().text("Bag 4").item(), "Bag 4 | 0/4") && bags().button(WELL).count() == 26)
   pick(Ordaen.art.ctl.tool.table, "One bag")
-  Test.expect(bags().button(WELL).count() == 26 && bags().text("Free 17 of 26").shown())
+  Test.expect(bags().button(WELL).count() == 26 && bags().text("17 of 26").shown())
 }
 
 test "in the view «By bag» a bag's caption shuts its section and opens it again" {
@@ -1558,7 +1558,7 @@ test "the cursor off a slot, or the bags shut, a tooltip of its item elsewhere s
   Test.mount(nil, SCREEN)
   Game.bags.open = true
   held(POTION).hover()
-  bags().text("Free 13 of 22").hover()
+  bags().text("13 of 22").hover()
   Game.tooltip.main = tooltipOf(corner, 118, "Minor Healing Potion")
   Test.expect(reads(Test.page().window("Minor Healing Potion"), "Minor Healing Potion"))
   held(POTION).hover()
@@ -1650,7 +1650,7 @@ test "in the view «One bag», the cursor off a slot, a tooltip of its item else
   Game.bags.open = true
   pick(Ordaen.art.ctl.tool.categories, "One bag")
   held(POTION).hover()
-  bags().text("Free 13 of 22").hover()
+  bags().text("13 of 22").hover()
   Game.tooltip.main = tooltipOf(corner, 118, "Minor Healing Potion")
   Test.expect(reads(Test.page().window("Minor Healing Potion"), "Minor Healing Potion"))
 }

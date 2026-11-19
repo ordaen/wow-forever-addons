@@ -10,7 +10,7 @@ import Game from "$game"
 import { Align, Art, Columns, Event, MouseButton, Overflow, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import {
-  ARTWORK, ButtonPlate, Choice, Column, Component, CountInput, Dialog, ItemButton, KeptWindow, ModuleMemory, Money, PushButton, SECONDARY_TEXT,
+  ARTWORK, ButtonPlate, Choice, Column, Component, CountInput, Dialog, FooterCount, FooterCounts, ItemButton, KeptWindow, ModuleMemory, Money, PushButton, SECONDARY_TEXT,
   Table, TableRow, ToolPick, Toolbar, Window, WindowSide, WindowTabSpec, space, tracksOf
 } from "Ordaen"
 import { SLOT } from "@/layout"
@@ -334,7 +334,7 @@ public class MerchantWindow implements Component {
   derived groups: Array<Tab> = KINDS.filter(tab => self.shown.any(ware => ware.tab == tab))
   // The buyback, the newest first.
   derived sold: Array<Sold> = self.soldOf()
-  derived countText: String = self.countTextOf()
+  derived counts: Array<FooterCount> = self.countsOf()
   derived side: WindowSide | nil = { width: SIDE_WIDTH, content: self.column }
   derived junkLabel: String = self.junkWorth > 0 ? `${Locale.SELL_JUNK} ${Game.money.format(self.junkWorth)}` : Locale.SELL_JUNK
   derived repairLabel: String = self.vendor.worn ? `${Locale.REPAIR_ALL} ${Game.money.format(self.vendor.repairCost)}` : Locale.REPAIR_ALL
@@ -382,11 +382,11 @@ public class MerchantWindow implements Component {
     return sold
   }
 
-  countTextOf(self): String {
-    if (!self.buying) { return Locale.SOLD_COUNT.format(self.vendor.sold.length) }
+  countsOf(self): Array<FooterCount> {
+    if (!self.buying) { return [{ label: Locale.FOOT_SOLD, value: String.of(self.vendor.sold.length) }] }
     const all = self.vendor.wares.length
     const shown = self.shown.length
-    return shown == all ? Locale.WARES.format(all) : Locale.WARES_OF.format(shown, all)
+    return [{ label: Locale.FOOT_WARES, value: shown == all ? String.of(all) : Locale.WARES_OF.format(shown, all) }]
   }
 
   // The items of a category, as the categories view shows them: none while it is folded.
@@ -492,7 +492,7 @@ public class MerchantWindow implements Component {
   }
 
   const footer: Template = $ltml {
-    <text value={self.countText} textColor={DIM} textSize={SECONDARY_TEXT} />
+    <FooterCounts counts={self.counts} />
   }
 
   public render(self): Template {

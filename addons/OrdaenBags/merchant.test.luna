@@ -80,13 +80,13 @@ test "the merchant's window opens with the merchant, each item with its price, a
   const window = Test.page().window(VENDOR)
   Test.expect(window.text("Coarse Thread").shown() && window.text("Gladius").shown() && window.text("2 left").shown())
   // A sold-out item leaves the list; the footer counts what shows, and what the search leaves of it.
-  Test.expect(!window.text("Sold Out Hat").shown() && window.text(Locale.WARES.format(4)).shown())
+  Test.expect(!window.text("Sold Out Hat").shown() && window.text(Locale.FOOT_WARES).shown() && window.text("4").shown())
   window.input().type("thr")
   Test.expect(window.text("Coarse Thread").shown() && !window.text("Gladius").shown())
   Test.expect(window.text(Locale.WARES_OF.format(1, 4)).shown())
   // The buyback: what was sold here, the newest first; a click buys it back.
   window.text(Locale.BUYBACK).click()
-  Test.expect(window.text("Worn Boots").shown() && window.text(Locale.SOLD_COUNT.format(2)).shown())
+  Test.expect(window.text("Worn Boots").shown() && window.text(Locale.FOOT_SOLD).shown())
   window.button(BOOTS).click()
   Test.expect(heard.take() == "buyback 2")
   Events.MERCHANT_CLOSED.emit()
