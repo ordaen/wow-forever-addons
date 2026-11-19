@@ -1,10 +1,10 @@
 // The window's rows: a row of section captions or of slots, each place what its cell holds. A slot is the library's
 // item slot: its item, its count, its quality's rim; dimmed where the search or the place leaves it out or another bag
 // is lit; a new item's glow inside it until it is hovered; a lock on a protected one; a coin on a junk one; its menu
-// under it while open. A container's slot has the client's own use of the item on its right button (secure); every
-// other click and the cursor's coming and going are told to the window through the shelf.
+// under it while open. A container's slot has the client's own use of the item on the scheme's chord for Use (secure);
+// every other click and the cursor's coming and going are told to the window through the shelf.
 import Game from "$game"
-import { Action, Align, Event, Position, Shadow, Track } from "$ltml"
+import { Action, Align, Event, KeyBinding, MouseButton, Position, Shadow, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import { Component, ItemButton, Menu, MenuEntry, Quality, SECONDARY_TEXT } from "Ordaen"
 import { Cell, GAP, Row, SLOT, Section } from "@/layout"
@@ -57,18 +57,22 @@ public class Shelf {
   public collapsed: Signal<Map<String, Boolean>>
   public fills: Signal<Map<Integer, String>>
   public menu: Signal<SlotMenu | nil>
+  // The chord a container's slot is used by (the client's secure click).
+  public useChord: Signal<KeyBinding<MouseButton>>
   constructor(
     filter: Signal<Filter>,
     free: Signal<Integer>,
     collapsed: Signal<Map<String, Boolean>>,
     fills: Signal<Map<Integer, String>>,
-    menu: Signal<SlotMenu | nil>
+    menu: Signal<SlotMenu | nil>,
+    useChord: Signal<KeyBinding<MouseButton>>
   ) {
     self.filter = filter
     self.free = free
     self.collapsed = collapsed
     self.fills = fills
     self.menu = menu
+    self.useChord = useChord
   }
 }
 
@@ -89,8 +93,8 @@ class BagSlot implements Component {
   derived count: Integer = self.slot.count
   derived quality: Quality = self.slot.quality
   derived coin: Boolean = self.slot.junk && self.slot.id != 0
-  // A container's item is used by the client's secure click (the right button); a guild bank's has none.
-  derived action: Action | nil = self.slot.vault == Vault.Guild ? nil : Action.UseBagItem { bag: self.slot.bag, slot: self.slot.index }
+  // A container's item is used by the client's secure click, on the scheme's chord for Use; a guild bank's has none.
+  derived action: Action | nil = self.slot.vault == Vault.Guild ? nil : Action.UseBagItem { bag: self.slot.bag, slot: self.slot.index, chord: self.shelf.useChord }
   derived menuShown: Boolean = self.shelf.menu?.slot == self.slot
   derived menuEntries: Array<MenuEntry> = self.shelf.menu?.entries ?? NO_ENTRIES
   derived menuTitle: String = self.shelf.menu?.title ?? ""

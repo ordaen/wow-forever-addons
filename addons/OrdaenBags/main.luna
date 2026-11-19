@@ -15,7 +15,7 @@
 import Client from "$client"
 import Events from "$events"
 import Game from "$game"
-import { Align, Event, Frame, MouseButton, Overflow, Track } from "$ltml"
+import { Align, Event, Frame, KeyBinding, MouseButton, Overflow, Track } from "$ltml"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
 import { SECONDARY_TEXT } from "Ordaen"
@@ -26,7 +26,7 @@ import {
 import { Arranger } from "@/arrange"
 import { BagLine, BagSlotsWindow } from "@/bagSlots"
 import { BANK_ICON, BankBag, BankSlotsWindow, bankInfos } from "@/bank"
-import { Clicks, OURS, SlotAction, actionAt, chordOf, secureScheme } from "@/clicks"
+import { Clicks, OURS, SlotAction, actionAt, chordOf, useBinding } from "@/clicks"
 import { Gold } from "@/gold"
 import { Guard, GuardTips, Hovered } from "@/guard"
 import { GUILD_ICON, GuildBank, GuildPage, GuildTab, withdrawalsText } from "@/guild"
@@ -243,6 +243,8 @@ public class Bags implements Module, App {
   public derived filter: Filter = { query: self.query, place: Game.bags.place, lit: self.isBags ? self.lit : -1 }
   derived free: Integer = self.stock().free
   derived fills: Map<Integer, String> = self.stock().fills
+  // The chord a container's slot is used by, the client's own secure click.
+  derived useChord: KeyBinding<MouseButton> = useBinding(self.settings.values.clicks)
   derived freeText: String = Locale.FREE_OF.format(self.free, self.stock().total)
   derived bagLines: Array<BagLine> = self.bagLinesOf()
   derived bankBags: Array<BankBag> = self.bankBagsOf()
@@ -273,7 +275,7 @@ public class Bags implements Module, App {
     self.hovered = new Hovered()
     self.tips = new GuardTips(self.hovered)
     self.guild = new GuildBank()
-    self.shelf = new Shelf(self.filter, self.free, self.collapsed, self.fills, self.menu)
+    self.shelf = new Shelf(self.filter, self.free, self.collapsed, self.fills, self.menu, self.useChord)
     Ordaen.modules.add(self)
     Game.bags.updated.listen(self.onUpdated)
     Game.bankObserver.changed.listen(self.onBankChanged)
@@ -545,7 +547,7 @@ public class Bags implements Module, App {
   }
 
   // A click on a slot: what the cursor holds is put down by the left button; else the chord's action in the player's
-  // scheme. A container's use is the client's own secure click (`secureScheme`), done before this is told.
+  // scheme. A container's use is the client's own secure click on its chord (`useChord`), done before this is told.
   onPressed(mut self, slot: mut Slot, click: Event.Press) {
     self.menu = nil
     if (click.button == MouseButton.Left && Client.CursorHasItem()) {
@@ -554,9 +556,7 @@ public class Bags implements Module, App {
     }
     const chord = chordOf(click.button, Game.input.shiftDown(), Game.input.controlDown(), Game.input.altDown())
     if (chord == nil) { return }
-    const clicks = peek self.settings.values.clicks
-    const scheme = slot.vault == Vault.Guild ? clicks : secureScheme(clicks)
-    self.act(mut slot, actionAt(scheme, chord))
+    self.act(mut slot, actionAt(peek self.settings.values.clicks, chord))
   }
 
   act(mut self, slot: mut Slot, action: SlotAction) {

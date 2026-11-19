@@ -10,7 +10,7 @@
 // do. Every click, of an empty slot too, is told as `pressed` (a bag's slot picks up and puts down there). Dragged
 // with the left button it tells `dragged`, and something dragged let go on it `dropped`, as the game's own slots
 // take a drag for a click (a bag's slot hands its item to the client's cursor, which the bars take). With an
-// `action` the right button is the client's own (a bag's item used: `Action.UseBagItem`). Nothing runs per frame.
+// `action` its chord is the client's own (a bag's item used: `Action.UseBagItem`). Nothing runs per frame.
 import Game from "$game"
 import { Action, Align, Art, ByInteractionState, Edges, Event, Frame, Line, MouseButton, Position, Shadow } from "$ltml"
 import root Ordaen from "Ordaen"

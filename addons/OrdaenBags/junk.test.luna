@@ -4,9 +4,9 @@
 import Client from "$client"
 import Events from "$events"
 import Game from "$game"
-import { Art } from "$ltml"
+import { Art, Modifier, MouseButton } from "$ltml"
 import Test from "$test"
-import { AS_THE_GAME, Chord, OURS, SlotAction, actionAt, choicesFor, chordFor, secureScheme } from "@/clicks"
+import { AS_THE_GAME, Chord, OURS, SlotAction, actionAt, choicesFor, chordFor, useBinding } from "@/clicks"
 import {
   JUNK_RULES, JunkLists, LEARNED, MOST_LEARNED, MOST_MARKS, Mark, NO_LISTS, Why, afterBuyback, afterSale, junkWhy, shareOf,
   withMark, withScore
@@ -179,7 +179,7 @@ test "a junk slot carries a coin, and the «Junk» tab counts it" {
   Test.expect(bags().text("Junk").item().texts().join(" | ") == "Junk | 1")
 }
 
-test "the left click opens the slot's menu, and «Not junk» takes the item out of junk at once, with a line in the chat" {
+test "the right click opens the slot's menu, and «Not junk» takes the item out of junk at once, with a line in the chat" {
   const world = new World(carried())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
   Game.bags.size = (bag: Integer): Integer => world.size(bag)
@@ -189,7 +189,7 @@ test "the left click opens the slot's menu, and «Not junk» takes the item out 
   Test.mount(nil, SCREEN)
   Game.bags.open = true
   _ = Test.printed()
-  bags().button(FOOT).click()
+  bags().button(FOOT).rightClick()
   Test.expect(Test.page().text("Junk: a grey item a merchant buys").shown())
   Test.page().button("Not junk").click()
   Test.expect(!bags().button(FOOT).paintedWith(COIN) && bags().text("Junk").item().texts().join(" | ") == "Junk | 0")
@@ -205,10 +205,10 @@ test "«Mark as junk» makes any item junk, and «As the rules decide» takes th
   Game.items.maxStack = (id: Integer): Integer | nil => 20
   Test.mount(nil, SCREEN)
   Game.bags.open = true
-  bags().button(CLOTH).click()
+  bags().button(CLOTH).rightClick()
   Test.page().button("Mark as junk").click()
   Test.expect(bags().button(CLOTH).paintedWith(COIN))
-  bags().button(CLOTH).click()
+  bags().button(CLOTH).rightClick()
   Test.page().button("As the rules decide").click()
   Test.expect(!bags().button(CLOTH).paintedWith(COIN))
 }
@@ -224,14 +224,15 @@ test "a sale by hand at a merchant is said in the chat, and two of a full stack 
   Game.bags.open = true
   Game.bags.place = Game.BagPlace.Merchant
   _ = Test.printed()
-  bags().button(CLOTH).rightClick()
+  bags().button(CLOTH).click()
+  Test.expect(Test.performed().join(", ") == "item 0 3")
   world.take(0, 3)
   Game.bags.updated.emit(0)
   Test.expect(!bags().button(CLOTH).shown())
   world.items.push({ bag: 0, slot: 3, id: 2589, name: "Linen Cloth", icon: CLOTH, count: 20, kind: 7 })
   Game.bags.updated.emit(0)
   Test.expect(!bags().button(CLOTH).paintedWith(COIN))
-  bags().button(CLOTH).rightClick()
+  bags().button(CLOTH).click()
   world.take(0, 3)
   Game.bags.updated.emit(0)
   world.items.push({ bag: 0, slot: 3, id: 2589, name: "Linen Cloth", icon: CLOTH, count: 20, kind: 7 })
@@ -250,7 +251,7 @@ test "a click that sold nothing teaches nothing" {
   Game.bags.open = true
   Game.bags.place = Game.BagPlace.Merchant
   _ = Test.printed()
-  bags().button(CLOTH).rightClick()
+  bags().button(CLOTH).click()
   Game.bags.updated.emit(0)
   Test.expect(Test.printed().length == 0)
 }
@@ -273,11 +274,33 @@ test "«Sell junk» shows at a merchant while there is junk, and sells it in the
 
 // The clicks
 
-test "the default scheme keeps the client's secure use on the right button: Use and the right's action change places" {
-  const scheme = secureScheme(OURS)
-  Test.expect(actionAt(scheme, .Right) == SlotAction.Use && actionAt(scheme, .Left) == SlotAction.Menu)
-  Test.expect(secureScheme(AS_THE_GAME).equal(AS_THE_GAME))
+test "the client's secure use stands on the scheme's chord for Use: the left in ours, the right as in the game" {
+  Test.expect(actionAt(OURS, .Left) == SlotAction.Use && actionAt(OURS, .ShiftLeft) == SlotAction.Pickup)
+  Test.expect(actionAt(OURS, .Right) == SlotAction.Menu)
+  Test.expect(useBinding(OURS) == MouseButton.Left && useBinding(AS_THE_GAME) == MouseButton.Right)
+  const moved = useBinding({ left: .Menu, shiftRight: .Use, ..OURS })
+  Test.expect(moved is [Modifier, MouseButton] && moved[1] == Modifier.Shift && moved[2] == MouseButton.Right)
   Test.expect(chordFor(OURS, .Protect) == Chord.AltLeft)
+}
+
+test "Shift+left picks the item up, and the right opens the menu: neither is the client's use" {
+  const world = new World(carried())
+  Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
+  Game.bags.size = (bag: Integer): Integer => world.size(bag)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.items.icon = (id: Integer): Art | nil => world.icon(id)
+  Game.items.maxStack = (id: Integer): Integer | nil => 20
+  Test.mount(nil, SCREEN)
+  Game.bags.open = true
+  _ = Test.requests()
+  Test.hold([.Shift])
+  Game.input.shiftDown = (): Boolean => true
+  bags().button(CLOTH).click()
+  Test.expect(Test.performed().length == 0 && Test.requests().join(", ").contains("Bags.pickup 0 3"))
+  Test.hold([])
+  Game.input.shiftDown = (): Boolean => false
+  bags().button(CLOTH).rightClick()
+  Test.expect(Test.performed().length == 0 && Test.page().text("Mark as junk").shown())
 }
 
 test "a chord's row holding the last Use or the last Menu offers nothing else" {

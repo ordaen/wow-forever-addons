@@ -1,7 +1,7 @@
 // The slot's clicks: eight chords of the mouse's buttons and the modifiers, each one action, the same in the bags,
 // the bank and the guild bank. The player sets them on the «Slot» page; a scheme always keeps a click for Use and one
 // for the Menu (a row holding the last of either offers nothing else), so it can't lock the player out of an item.
-import { MouseButton } from "$ltml"
+import { KeyBinding, Modifier, MouseButton } from "$ltml"
 import { Choice } from "Ordaen"
 import Locale from "@/locales"
 
@@ -102,13 +102,24 @@ public function chordFor(clicks: Clicks, action: SlotAction): Chord | nil {
   return CHORDS.find(chord => actionAt(clicks, chord) == action)
 }
 
-// The scheme a slot of the bags or the bank acts by. The client's use of a bag's item is a secure click, which the
-// renderer writes for the right button alone (`Action.UseBagItem`): where the scheme puts Use elsewhere, Use and what
-// the plain right button holds change places. A guild bank slot's use is no secure click: it takes the scheme as it is.
-public function secureScheme(clicks: Clicks): Clicks {
-  const use = chordFor(clicks, .Use)
-  if (use == nil || use == .Right) { return clicks }
-  return withAction(withAction(clicks, use, clicks.right), .Right, .Use)
+// The chord a slot of the bags or the bank is used by: the client's own secure click (`Action.UseBagItem`), on the
+// first chord the scheme gives Use (a scheme always keeps one). A guild bank slot's use is no secure click.
+public function useBinding(clicks: Clicks): KeyBinding<MouseButton> {
+  return bindingOf(chordFor(clicks, .Use) ?? .Left)
+}
+
+// A chord as the renderer's binding of a button and its modifier.
+public function bindingOf(chord: Chord): KeyBinding<MouseButton> {
+  return match (chord) {
+    .Left => MouseButton.Left
+    .ShiftLeft => [Modifier.Shift, MouseButton.Left]
+    .CtrlLeft => [Modifier.Ctrl, MouseButton.Left]
+    .AltLeft => [Modifier.Alt, MouseButton.Left]
+    .Right => MouseButton.Right
+    .ShiftRight => [Modifier.Shift, MouseButton.Right]
+    .CtrlRight => [Modifier.Ctrl, MouseButton.Right]
+    .AltRight => [Modifier.Alt, MouseButton.Right]
+  }
 }
 
 // How many chords hold the action.

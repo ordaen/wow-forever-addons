@@ -73,7 +73,7 @@ class Dragged {
   public render(self): Template {
     return $ltml {
       <box columns={["max-content", "max-content"]} gap={8ui}>
-        <ItemButton item={6948} action={Action.UseBagItem { bag: 0, slot: 1 }} @dragged={self.onDragged}
+        <ItemButton item={6948} action={Action.UseBagItem { bag: 0, slot: 1, chord: .Left }} @dragged={self.onDragged}
                     @pressed={self.onPressed} />
         <ItemButton item={2589} @dropped={self.onDropped} @pressed={self.onPressed} />
       </box>
