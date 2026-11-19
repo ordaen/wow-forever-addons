@@ -18,8 +18,6 @@ public const ASK: Number<Length> = 515.625dp
 public const ASK_BUTTON: Number<Length> = 175.78125dp
 // The card beside a roster or the recent allies: a member's, the guild's, a community's, an ally's.
 public const SIDE_CARD: Number<Length> = 351.5625dp
-// The communities' list, left of the picked one's members.
-public const CLUBS: Number<Length> = 257.8125dp
 // «Ничего не найдено» under a table's headings.
 public const EMPTY_TOP: Number<Length> = 46.875dp
 
@@ -42,6 +40,6 @@ public const ONLINE_ICON: Asset = "Interface/FriendsFrame/StatusIcon-Online"
 public const AWAY_ICON: Asset = "Interface/FriendsFrame/StatusIcon-Away"
 public const BUSY_ICON: Asset = "Interface/FriendsFrame/StatusIcon-DnD"
 public const OFFLINE_ICON: Asset = "Interface/FriendsFrame/StatusIcon-Offline"
-// A best friend's star: the game's own.
-public const STAR_ICON: Atlas = "PetJournal-FavoritesIcon"
+// A best friend's star after the name: the game's own friends list's.
+public const STAR_ICON: Atlas = "friendslist-favorite"
 public const STAR: Number<Length> = 18.75dp

@@ -98,6 +98,9 @@ public struct Rights {
   const invite: Boolean
   const promote: Boolean
   const demote: Boolean
+  // The guild's management the client keeps to its own window: the ranks (the leader's), removing a member, editing
+  // the notes.
+  const manage: Boolean
 }
 
 // The player's guild: its words to its members and its roster.
@@ -405,7 +408,13 @@ public class ClientPeople implements People {
       motd: Client.C_GuildInfo.GetMOTD(),
       info: Client.C_GuildInfo.GetInfoText(),
       members: membersOf(club, Client.C_GuildInfo.CanViewOfficerNote()),
-      rights: { invite: Client.CanGuildInvite(), promote: Client.CanGuildPromote(), demote: Client.CanGuildDemote() }
+      rights: {
+        invite: Client.CanGuildInvite(),
+        promote: Client.CanGuildPromote(),
+        demote: Client.CanGuildDemote(),
+        manage: Client.IsGuildLeader() || Client.CanGuildRemove() || Client.CanEditPublicNote() ||
+          Client.C_GuildInfo.CanEditOfficerNote()
+      }
     }
   }
 

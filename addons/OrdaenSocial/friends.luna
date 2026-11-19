@@ -2,14 +2,18 @@
 // card beside it (the picked friend's, or the player's own), the requests waiting, and the black list.
 //
 // A row: the friend's status mark, the name (a Battle.net account's in Battle.net blue, a character's in its class
-// colour, grey while offline) with the character's level, and under it «Battle.net» first for an account, then the
-// character and the zone, the game it plays, or when it was last seen. A best friend's gold star at the row's right;
-// best friends stay on top whatever the sort. Left-click picks a friend (its card shows); again, the card is the
-// player's own.
+// colour, grey while offline) with a best friend's star after it, and under it «Battle.net» first for an account, then
+// the character and the zone, the game it plays, or when it was last seen; the character's level at the row's right.
+// The view switch draws the same friends as a table's columns instead. Best friends stay on top whatever the sort; the
+// filter shows each kind and those online or offline. Left-click picks a friend (its card shows); again, the card is
+// the player's own.
 import Game from "$game"
-import { Align, Art, ByInteractionState, Edges, Overflow } from "$ltml"
+import { Align, Art, ByInteractionState, Edges, Overflow, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { ButtonPlate, Choice, CompactDropdown, Component, PushButton, SECONDARY_TEXT, TITLE_TEXT, ToolPick, Toolbar, space } from "Ordaen"
+import {
+  ARTWORK, ButtonPlate, Choice, Column, CompactDropdown, Component, FilterButton, FilterGroup, PushButton, SECONDARY_TEXT, TITLE_TEXT, Table,
+  TableCell, TableRow, ToolPick, Toolbar, space, switched, tracksOf
+} from "Ordaen"
 import Locale from "@/locales"
 import { Friend, Hero, Ignored, Me, Presence, Request, trimmed } from "@/people"
 import Style from "@/style"
@@ -22,6 +26,34 @@ const SORTS: Array<Choice<Sort>> = [
   { value: .Name, label: Locale.SORT_NAME },
   { value: .Level, label: Locale.SORT_LEVEL }
 ]
+// The filter's options: the friends' kinds, and online or not.
+public enum FriendFilter { BattleNet, Characters, Online, Offline }
+
+const FILTERS: Array<FilterGroup<FriendFilter>> = [
+  {
+    options: [{ key: FriendFilter.BattleNet, label: Locale.BATTLE_NET }, { key: FriendFilter.Characters, label: Locale.FILTER_CHARACTERS }]
+  },
+  {
+    options: [{ key: FriendFilter.Online, label: Locale.ONLINE }, { key: FriendFilter.Offline, label: Locale.OFFLINE }]
+  }
+]
+
+// How the list is drawn: rows of two lines, or a table's columns.
+public enum FriendView { List, Table }
+
+const VIEWS: Array<Choice<FriendView>> = [
+  { value: FriendView.List, label: Locale.VIEW_LIST, icon: ARTWORK.ctl.tool.list },
+  { value: FriendView.Table, label: Locale.VIEW_TABLE, icon: ARTWORK.ctl.tool.table }
+]
+const LEVEL_WIDTH = 58.59375dp
+const COLUMNS: Array<Column> = [
+  { title: Locale.COLUMN_NAME, width: { fr: 1 } },
+  { title: Locale.COLUMN_LEVEL, width: LEVEL_WIDTH, align: Align.End },
+  { title: Locale.WHERE, width: { fr: 1 } },
+  { title: Locale.COLUMN_NOTE, width: { fr: 1 } }
+]
+const TRACKS: Array<Track> = tracksOf(COLUMNS)
+
 // The status the player picks: the game's four.
 const PRESENCES: Array<Choice<Presence>> = [
   { value: .Online, label: Locale.ONLINE },
@@ -138,11 +170,23 @@ function found(friend: Friend, query: String): Boolean {
   return text.contains(query.lower())
 }
 
+// Whether the filter lets a friend through: its kind's switch, and its presence's (a search finds those offline too).
+function passes(friend: Friend, filter: Map<FriendFilter, Boolean>, query: String): Boolean {
+  const kind = friend.account != nil ? FriendFilter.BattleNet : FriendFilter.Characters
+  const presence = online(friend) ? FriendFilter.Online : FriendFilter.Offline
+  return filter[kind] == true && (filter[presence] == true || (query != "" && !online(friend)))
+}
+
 // The friends the list shows, in its order.
-public function shownOf(friends: Array<Friend>, query: String, sort: Sort, offline: Boolean): Array<Friend> {
-  const shown = friends.filter(friend => found(friend, query) && (offline || query != "" || online(friend)))
+public function shownOf(friends: Array<Friend>, query: String, sort: Sort, filter: Map<FriendFilter, Boolean>): Array<Friend> {
+  const shown = friends.filter(friend => found(friend, query) && passes(friend, filter, query))
   shown.sort((a, b) => before(a, b, sort))
   return shown
+}
+
+// The filter as the list starts it: both kinds, those online, and those offline as the settings say.
+public function filterStart(offline: Boolean): mut Map<FriendFilter, Boolean> {
+  return switched(switched({}, [FriendFilter.BattleNet, FriendFilter.Characters, FriendFilter.Online], true), [FriendFilter.Offline], offline)
 }
 
 class FriendRow implements Component {
@@ -167,28 +211,75 @@ class FriendRow implements Component {
            background={self.background} @pointerPress(.Left)={self.onPick} @keyPress(.Enter)={self.onPick}
            @keyPress(.Space)={self.onPick}>
         <box width={Style.DOT} height={Style.DOT} background={markOf(self.friend.presence)} />
-        <box columns={1}>
-          <box columns={["max-content", "max-content"]} gap={space(.Line)}>
+        <box columns={1} overflow={Overflow.Hidden}>
+          <box columns={["max-content", "max-content"]} gap={space(.Line)} yAlign={Align.Center}>
             <text value={titleOf(self.friend)} textColor={nameColorOf(self.friend)} wrap={false} />
-            <text value={self.level} textColor={Style.DIM} textFont={.Numbers} wrap={false} />
+            <box $if={self.favorite} width={Style.STAR} height={Style.STAR} background={Style.STAR_ICON} />
           </box>
           <text value={pointsOf(self.friend)} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={false} />
         </box>
-        <box $if={self.favorite} width={Style.STAR} height={Style.STAR} background={Style.STAR_ICON} />
+        <text value={self.level} textColor={Style.DIM} textFont={.Numbers} wrap={false} />
       </box>
     }
   }
 }
 
-// The friends' list with its tools, as every list window's: the toolbar (the search, the sort) and «Добавить друга»
-// beside it.
+// A friend as a row of the table: the name (the star after a best friend's), the level, where it is or what it plays,
+// and the note, each cut at its column.
+class FriendTableRow implements Component {
+  public pick: Event<String> = new Event()
+
+  derived level: String = self.friend.hero != nil ? String.of(levelOf(self.friend)) : ""
+  derived favorite: Boolean = self.friend.account?.favorite == true
+
+  friend: Signal<Friend>
+  picked: Signal<Boolean>
+  constructor(friend: Signal<Friend>, picked: Signal<Boolean>) {
+    self.friend = friend
+    self.picked = picked
+  }
+
+  onPick(mut self) { self.pick.emit(keyOf(self.friend)) }
+
+  public render(self): Template {
+    return $ltml {
+      <TableRow tracks={TRACKS} selected={self.picked} @pick={self.onPick}>
+        <TableCell>
+          <box columns={[Style.DOT, "max-content", "max-content"]} gap={space(.Line)} yAlign={Align.Center}>
+            <box width={Style.DOT} height={Style.DOT} background={markOf(self.friend.presence)} />
+            <text value={titleOf(self.friend)} textColor={nameColorOf(self.friend)} wrap={false} />
+            <box $if={self.favorite} width={Style.STAR} height={Style.STAR} background={Style.STAR_ICON} />
+          </box>
+        </TableCell>
+        <TableCell align={Align.End}>
+          <text value={self.level} textColor={Style.DIM} textFont={.Numbers} wrap={false} />
+        </TableCell>
+        <TableCell>
+          <text value={pointsOf(self.friend)} textColor={Style.DIM} wrap={false} />
+        </TableCell>
+        <TableCell>
+          <text value={self.friend.note} textColor={Style.DIM} wrap={false} />
+        </TableCell>
+      </TableRow>
+    }
+  }
+}
+
+// The friends' list with its tools, as every list window's: the toolbar (the search, the filter, the sort and the
+// view) and «Добавить друга» beside it.
 public class FriendList implements Component {
   public pick: Event<String> = new Event()
   public add: Event<nil> = new Event()
 
   state query = ""
   state sort: Sort = .Status
-  derived shown: Array<Friend> = shownOf(self.friends, self.query, self.sort, self.offline)
+  state view: FriendView = .List
+  state filter: Map<FriendFilter, Boolean> = filterStart(true)
+  // The table's headings sort nothing: the sort is the toolbar's, as in the list.
+  state sorted = 0
+  state descending = false
+  derived filterStarts: Map<FriendFilter, Boolean> = filterStart(self.offline)
+  derived shown: Array<Friend> = shownOf(self.friends, self.query, self.sort, self.filter)
 
   friends: Signal<Array<Friend>>
   picked: Signal<String>
@@ -197,6 +288,8 @@ public class FriendList implements Component {
     self.friends = friends
     self.picked = picked
     self.offline = offline
+    // Those offline as the settings say, now and whenever they change.
+    watch (shows of self.offline) { self.filter = switched(peek self.filter, [FriendFilter.Offline], shows) }
   }
 
   onPick(mut self, key: String) { self.pick.emit(key) }
@@ -207,11 +300,19 @@ public class FriendList implements Component {
       <box columns={1} rows={["max-content", { fr: 1 }]} gap={space(.Item)}>
         <box columns={[{ fr: 1 }, "max-content"]} gap={space(.Item)} yAlign={Align.Center}>
           <Toolbar search={mut self.query} placeholder={Locale.SEARCH}>
+            <FilterButton values={mut self.filter} start={self.filterStarts} groups={FILTERS} />
             <ToolPick value={mut self.sort} choices={SORTS} icon={Ordaen.art.ctl.tool.sort} title={Locale.SORT} />
+            <ToolPick value={mut self.view} choices={VIEWS} icon={Ordaen.art.ctl.tool.columns} title={Locale.VIEW} />
           </Toolbar>
           <PushButton label={Locale.ADD_FRIEND} width={Style.BUTTON} @click={self.onAdd} />
         </box>
-        <box columns={1} overflow={Overflow.Scroll}>
+        <box $if={self.view == .Table} columns={1} rows={[{ fr: 1 }]}>
+          <Table columns={COLUMNS} sorted={mut self.sorted} descending={mut self.descending}>
+            <FriendTableRow $for={friend of self.shown} $key={keyOf(friend)} friend={friend}
+                            picked={keyOf(friend) == self.picked} @pick={self.onPick} />
+          </Table>
+        </box>
+        <box $else columns={1} overflow={Overflow.Scroll}>
           <text $if={self.shown.length == 0} value={Locale.NOTHING_FOUND} textColor={Style.DIM} />
           <FriendRow $for={friend of self.shown} $key={keyOf(friend)} friend={friend}
                      picked={keyOf(friend) == self.picked} @pick={self.onPick} />

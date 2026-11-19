@@ -6,7 +6,7 @@
 // member (its card shows beside the list); again, the card goes.
 import { Align, Position, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { Choice, Column, Component, PushButton, SECONDARY_TEXT, TITLE_TEXT, Table, TableRow, ToolPick, Toolbar, space, tracksOf } from "Ordaen"
+import { Choice, Column, Component, PushButton, SECONDARY_TEXT, TITLE_TEXT, Table, TableCell, TableRow, ToolPick, Toolbar, space, tracksOf } from "Ordaen"
 import { Fact, agoHoursText, markOf, orDash, presenceText } from "@/friends"
 import Locale from "@/locales"
 import { Member, Rights } from "@/people"
@@ -122,17 +122,27 @@ class MemberRow implements Component {
   public render(self): Template {
     return $ltml {
       <TableRow tracks={TRACKS} selected={self.picked} @pick={self.onPick}>
-        <box columns={[Style.DOT, { fr: 1 }]} gap={space(.Line)} yAlign={Align.Center}>
-          <box width={Style.DOT} height={Style.DOT} background={markOf(self.member.presence)} />
-          <text value={self.member.name} textColor={nameColorOf(self.member)} wrap={false} />
-        </box>
-        <box xAlign={Align.End}>
+        <TableCell>
+          <box columns={[Style.DOT, { fr: 1 }]} gap={space(.Line)} yAlign={Align.Center}>
+            <box width={Style.DOT} height={Style.DOT} background={markOf(self.member.presence)} />
+            <text value={self.member.name} textColor={nameColorOf(self.member)} wrap={false} />
+          </box>
+        </TableCell>
+        <TableCell align={Align.End}>
           <text value={self.level} textColor={self.ink} textFont={.Numbers} wrap={false} />
-        </box>
-        <text value={self.member.className} textColor={self.ink} wrap={false} />
-        <text value={whereOf(self.member)} textColor={Style.DIM} wrap={false} />
-        <text value={self.member.rank} textColor={self.ink} wrap={false} />
-        <text value={self.member.note} textColor={Style.DIM} wrap={false} />
+        </TableCell>
+        <TableCell>
+          <text value={self.member.className} textColor={self.ink} wrap={false} />
+        </TableCell>
+        <TableCell>
+          <text value={whereOf(self.member)} textColor={Style.DIM} wrap={false} />
+        </TableCell>
+        <TableCell>
+          <text value={self.member.rank} textColor={self.ink} wrap={false} />
+        </TableCell>
+        <TableCell>
+          <text value={self.member.note} textColor={Style.DIM} wrap={false} />
+        </TableCell>
       </TableRow>
     }
   }

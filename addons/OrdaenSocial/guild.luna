@@ -1,8 +1,9 @@
-// The guild tab's own parts: the guild's card beside its roster (its name and counts, the message of the day and the
-// information, «Пригласить в гильдию», «Покинуть гильдию» and the game's own guild window, where the guild's management
-// the client keeps to itself stays), and the guild's news.
+// The guild tab's own parts: the guild's card beside its roster (its name, the message of the day and the information,
+// «Пригласить в гильдию», «Покинуть гильдию», and the game's own guild window for a player who may manage the guild:
+// the management the client keeps to itself stays there), and the guild's news, each line's text selected and copied.
+// The counts are the footer's.
 import { Align, Overflow } from "$ltml"
-import { ButtonPlate, Component, CopyText, PushButton, SECONDARY_TEXT, TITLE_TEXT, space } from "Ordaen"
+import { ButtonPlate, Component, CopyText, PushButton, TITLE_TEXT, space } from "Ordaen"
 import { orDash } from "@/friends"
 import Locale from "@/locales"
 import { Guild, News } from "@/people"
@@ -13,15 +14,14 @@ const ROW_PAD = 4.6875dp
 // six (a line of body text is a group's step high).
 const MOTD_HIGH: Number<Length> = space(.Group) * 3
 const INFO_HIGH: Number<Length> = space(.Group) * 6
+// A line of the news, selected and copied as the message of the day is: one line.
+const NEWS_HIGH: Number<Length> = space(.Group)
 
 // The guild's card, with no member picked.
 public class GuildCard implements Component {
   public invite: Event<nil> = new Event()
   public leave: Event<nil> = new Event()
   public gameWindow: Event<nil> = new Event()
-
-  derived online: Integer = self.guild.members.count(member => member.presence != .Offline)
-  derived counts: String = Locale.GUILD_COUNT.format(self.guild.members.length, self.online)
 
   guild: Signal<Guild>
   constructor(guild: Signal<Guild>) {
@@ -35,10 +35,7 @@ public class GuildCard implements Component {
   public render(self): Template {
     return $ltml {
       <box columns={1} rows={["max-content", { fr: 1 }, "max-content"]} gap={space(.Group)}>
-        <box columns={1}>
-          <text value={self.guild.name} textColor={Style.GOLD} textSize={TITLE_TEXT} textFont={.Title} wrap={false} />
-          <text value={self.counts} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={false} />
-        </box>
+        <text value={self.guild.name} textColor={Style.GOLD} textSize={TITLE_TEXT} textFont={.Title} wrap={false} />
         <box columns={1} gap={space(.Item)} overflow={Overflow.Scroll}>
           <text value={Locale.MOTD} textColor={Style.DIM} wrap={false} />
           <CopyText value={orDash(self.guild.motd)} height={MOTD_HIGH} />
@@ -47,7 +44,7 @@ public class GuildCard implements Component {
         </box>
         <box columns={1} gap={space(.Item)}>
           <PushButton $if={self.guild.rights.invite} label={Locale.GUILD_INVITE} width={Style.CARD_BUTTON} @click={self.onInvite} />
-          <PushButton label={Locale.GAME_GUILD_WINDOW} width={Style.CARD_BUTTON} @click={self.onGameWindow} />
+          <PushButton $if={self.guild.rights.manage} label={Locale.GAME_GUILD_WINDOW} width={Style.CARD_BUTTON} @click={self.onGameWindow} />
           <PushButton label={Locale.LEAVE_GUILD} width={Style.CARD_BUTTON} plate={ButtonPlate.Danger} @click={self.onLeave} />
         </box>
       </box>
@@ -69,7 +66,7 @@ class NewsRow implements Component {
         <text value={self.date} textColor={Style.DIM} textFont={.Numbers} wrap={false} />
         <box columns={["max-content", { fr: 1 }]} gap={space(.Line)}>
           <text value={self.news.who} textColor={self.news.sticky ? Style.GOLD : Style.INK} wrap={false} />
-          <text value={self.news.what} textColor={Style.INK} wrap={true} />
+          <CopyText value={self.news.what} height={NEWS_HIGH} />
         </box>
       </box>
     }

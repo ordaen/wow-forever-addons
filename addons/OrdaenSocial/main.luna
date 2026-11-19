@@ -9,6 +9,7 @@
 // the day, the information and the notes) stays the game's: the guild's card opens the game's own window, shown as it
 // is until it closes. What the window shows is read as it opens and again when the game says it changed, and only
 // while it shows.
+import Build from "$build"
 import Client from "$client"
 import Events from "$events"
 import { Align, Frame } from "$ltml"
@@ -16,7 +17,7 @@ import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
 import { ButtonPlate, Dialog, FooterCount, FooterCounts, KeptWindow, Module, PushButton, SECONDARY_TEXT, Settings, SettingsPage, Tabs, Window, WindowSide, WindowTabSpec, WindowsPage, space, windowsTitle } from "Ordaen"
 import { AllyCard, AllyList } from "@/allies"
-import { ClubCard, ClubList } from "@/communities"
+import { ClubCard } from "@/communities"
 import { FriendCard, FriendList, IgnoreList, MyCard, RequestList, keyOf, titleOf } from "@/friends"
 import { GuildCard, NewsList } from "@/guild"
 import Locale from "@/locales"
@@ -41,7 +42,8 @@ const ICON_GUILD: Asset = "Interface/Icons/INV_Shirt_GuildTabard_01"
 const ICON_COMMUNITIES: Asset = "Interface/Icons/INV_Misc_GroupNeedMore"
 const ICON_ALLIES: Asset = "Interface/Icons/INV_Misc_GroupLooking"
 // The game's friends window, and its pages, with the tab and the friends' page of ours each opens.
-const GAME_WINDOWS: Array<String> = ["FriendsFrame", "SocialUIFrame"]
+const FRIENDS_WINDOW = "FriendsFrame"
+const GAME_WINDOWS: Array<String> = [FRIENDS_WINDOW, "SocialUIFrame"]
 // The game's guild and communities window, made as its addon loads.
 const COMMUNITIES_ADDON = "Blizzard_Communities"
 const COMMUNITIES_WINDOW = "CommunitiesFrame"
@@ -49,7 +51,7 @@ const COMMUNITIES_WINDOW = "CommunitiesFrame"
 const BROADCAST_MOST = 127
 const NAME_MOST = 48
 const NO_ME: Me = { battleTag: "", presence: .Online, broadcast: "", hero: { name: "", level: 0, className: "", classColor: nil, area: "", realm: "" } }
-const NO_RIGHTS: Rights = { invite: false, promote: false, demote: false }
+const NO_RIGHTS: Rights = { invite: false, promote: false, demote: false, manage: false }
 const GUILD_SUBS: Array<String> = [Locale.SUB_ROSTER, Locale.SUB_NEWS]
 const FIELD_PAD = 11.71875dp
 
@@ -79,9 +81,10 @@ public class Social implements Module, App {
   // The game's own windows ours stands for, and those of them showing: held unseen and off the screen.
   games: mut Array<any Client.Frame> = []
   state held: mut Array<any Frame> = []
-  // The game's guild and communities window once its addon has loaded, and whether the player asked for it as it is.
+  // The game's guild and communities window once its addon has loaded, and the game's window the player asked for as
+  // it is, until it closes.
   communities: any Client.Frame | nil = nil
-  state passing = false
+  state passing: any Frame | nil = nil
   addonHeard: Handle | nil = nil
   state friends: Array<Friend> = []
   state requests: Array<Request> = []
@@ -93,11 +96,12 @@ public class Social implements Module, App {
   state clubMembers: Array<Member> = []
   state streams: Array<Stream> = []
   state allies: Array<Ally> = []
-  // The friend whose card shows, by `keyOf` (none: the player's own card); the guild member's, the community's and
-  // its member's, the ally's, by their keys (none: the guild's card, the first community's, no card).
+  // The friend whose card shows, by `keyOf` (none: the player's own card); the guild member's, the community's
+  // member's, the ally's, by their keys (none: the guild's card, the community's, no card). The community shown: its
+  // tab's place.
   public state picked = ""
   public state member = ""
-  public state club = ""
+  public state clubTab = 1
   public state clubMember = ""
   public state ally = ""
   // The friend the player asked to remove, while the question shows.
@@ -116,7 +120,8 @@ public class Social implements Module, App {
   derived guildMembers: Array<Member> = self.guild?.members ?? []
   derived rights: Rights = self.guild?.rights ?? NO_RIGHTS
   derived pickedMember: Member | nil = self.member == "" ? nil : self.guildMembers.find(one => one.key == self.member)
-  derived chosenClub: Club | nil = self.clubs.find(one => one.id == self.club) ?? self.clubs[1]
+  derived chosenClub: Club | nil = self.clubs[self.clubTab] ?? self.clubs[1]
+  derived clubNames: Array<String> = self.clubs.map(one => one.name)
   derived clubId: String = self.chosenClub?.id ?? ""
   derived pickedClubMember: Member | nil = self.clubMember == "" ? nil : self.clubMembers.find(one => one.key == self.clubMember)
   derived pickedAlly: Ally | nil = self.ally == "" ? nil : self.allies.find(one => one.member.key == self.ally)
@@ -137,10 +142,12 @@ public class Social implements Module, App {
   derived broadcastCount: String = Locale.BROADCAST_COUNT.format(self.draft.length, BROADCAST_MOST)
   derived leaveText: String = Locale.LEAVE_GUILD_ASK.format(self.guild?.name ?? "")
   derived counts: Array<FooterCount> = self.countsOf()
-  // The footer, as every list window's: the counts as label and value pairs.
+  // The footer, as every list window's: the counts as label and value pairs; in a development build, the game's own
+  // window to compare with.
   const footer: Template = $ltml {
-    <box columns={[{ fr: 1 }]} yAlign={Align.Center}>
+    <box columns={[{ fr: 1 }, "max-content"]} yAlign={Align.Center}>
       <FooterCounts counts={self.counts} />
+      <PushButton $if={Build.dev} label={Locale.GAME_WINDOW_DEV} width={Style.BUTTON} @click={self.onGameCompare} />
     </box>
   }
 
@@ -178,8 +185,11 @@ public class Social implements Module, App {
       Events.CLUB_STREAM_REMOVED.listen(self.onClubChanged)
       Events.CLUB_STREAM_UPDATED.listen(self.onClubChanged)
       Events.RECENT_ALLIES_CACHE_UPDATE.listen(self.readAllies)
-      // The picked community's members and streams, read as it is picked.
-      watch (id of self.clubId) { self.readClub(id) }
+      // The picked community's members and streams, read as it is picked; its member's card goes.
+      watch (id of self.clubId) {
+        self.clubMember = ""
+        self.readClub(id)
+      }
     }
     for (name of GAME_WINDOWS) { self.hook(Runtime.frame(name), nil) }
     self.hookPage("FriendsListFrame", TAB_FRIENDS, SUB_STATUS)
@@ -248,9 +258,9 @@ public class Social implements Module, App {
     self.window.memory.write(view)
   }
 
-  // The game's window shown: ours shows in its place, unless the player asked for the game's guild window as it is.
+  // The game's window shown: ours shows in its place, unless the player asked for the game's window as it is.
   onGameShown(mut self, frame: any Frame, tab: Integer | nil) {
-    if (peek self.passing && self.isCommunities(frame)) { return }
+    if (peek self.passing == frame) { return }
     if (tab == TAB_GUILD) {
       // The guild's window opens on the guild, outside one on the communities.
       self.readGuild()
@@ -267,17 +277,12 @@ public class Social implements Module, App {
   }
 
   onGameHidden(mut self, frame: any Frame) {
-    if (peek self.passing && self.isCommunities(frame)) {
-      self.passing = false
+    if (peek self.passing == frame) {
+      self.passing = nil
       return
     }
     self.held = (peek self.held).filter(one => one != frame)
     if ((peek self.held).length == 0) { self.open = false }
-  }
-
-  isCommunities(self, frame: any Frame): Boolean {
-    const communities = self.communities
-    return communities != nil && frame == communities
   }
 
   public refresh(mut self) {
@@ -332,11 +337,6 @@ public class Social implements Module, App {
   onPickMember(mut self, key: String) { self.member = (peek self.member) == key ? "" : key }
   onPickClubMember(mut self, key: String) { self.clubMember = (peek self.clubMember) == key ? "" : key }
   onPickAlly(mut self, key: String) { self.ally = (peek self.ally) == key ? "" : key }
-
-  onPickClub(mut self, id: String) {
-    self.club = id
-    self.clubMember = ""
-  }
 
   // What the card's buttons ask, in the click's own call.
   onWhisper(mut self) {
@@ -466,10 +466,27 @@ public class Social implements Module, App {
   onGameGuild(mut self) {
     if (self.communities == nil) { _ = Client.C_AddOns.LoadAddOn(COMMUNITIES_ADDON) }
     const communities = self.communities
-    if (communities == nil) { return }
+    if (communities != nil) { self.showGame(communities) }
+  }
+
+  // A development build's footer button: the game's own window of the tab shown, as it is, to compare ours with (the
+  // friends window for the friends and the recent allies, the guild and communities window for the guild and the
+  // communities).
+  onGameCompare(mut self) {
+    if (self.tab == TAB_GUILD || self.tab == TAB_COMMUNITIES) {
+      self.onGameGuild()
+      return
+    }
+    const friends = Runtime.frame(FRIENDS_WINDOW)
+    if (friends != nil) { self.showGame(friends) }
+  }
+
+  // The game's window as it is: ours closes, the game's shows until it closes.
+  showGame(mut self, frame: any Frame) {
+    const window: any Client.Frame = frame
     self.onClose()
-    self.passing = true
-    Client.ShowUIPanel(communities)
+    self.passing = frame
+    Client.ShowUIPanel(window)
   }
 
   onAllyWhisper(mut self) {
@@ -579,8 +596,8 @@ public class Social implements Module, App {
         <box $elseif={self.tab == TAB_GUILD} xAlign={Align.Center} yAlign={Align.Center}>
           <text value={Locale.NO_GUILD} textColor={Style.DIM} wrap={false} />
         </box>
-        <box $elseif={self.tab == TAB_COMMUNITIES && self.clubs.length > 0} columns={[Style.CLUBS, { fr: 1 }]} gap={space(.Group)}>
-          <ClubList clubs={self.clubs} chosen={self.clubId} @pick={self.onPickClub} />
+        <box $elseif={self.tab == TAB_COMMUNITIES && self.clubs.length > 0} columns={1} rows={["max-content", { fr: 1 }]} gap={space(.Item)}>
+          <Tabs tabs={self.clubNames} selected={mut self.clubTab} />
           <MemberTable members={self.clubMembers} chosen={self.clubMember} guild={false} @pick={self.onPickClubMember} />
         </box>
         <box $elseif={self.tab == TAB_COMMUNITIES} xAlign={Align.Center} yAlign={Align.Center}>

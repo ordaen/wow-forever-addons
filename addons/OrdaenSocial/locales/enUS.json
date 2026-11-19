@@ -76,7 +76,6 @@
   "COMMUNITIES_COUNT": "%d joined",
   "ALLIES_COUNT": "%d allies",
   "FOOT_ALLIES": "Recent allies",
-  "GUILD_COUNT": "%d members, %d online",
   "SHOW": "Show",
   "SHOW_EVERYONE": "Everyone",
   "SHOW_ONLINE": "Online only",
@@ -116,5 +115,10 @@
   "MEETINGS": "Recent activity",
   "PIN": "Pin",
   "UNPIN": "Unpin",
-  "BEFRIEND": "Add Friend"
+  "BEFRIEND": "Add Friend",
+  "VIEW": "View",
+  "VIEW_LIST": "List",
+  "VIEW_TABLE": "Table",
+  "FILTER_CHARACTERS": "Characters",
+  "GAME_WINDOW_DEV": "Blizzard window"
 }
