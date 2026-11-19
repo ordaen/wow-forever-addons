@@ -132,6 +132,26 @@ public struct Artwork {
   minimap: ArtMinimap
 }
 
+// Whether a frame of art draws a side: every side where it names none.
+function draws(metal: Metal, side: Side): Boolean {
+  const sides = metal.sides
+  return sides == nil || sides.any(each => each == side)
+}
+
+// How far a frame of art stands past its line across a box (left and right) and down it (top and bottom), on the
+// sides it draws. A border takes room inside the size its box is given: a size measured at the line takes these on.
+public function reachAcross(metal: Metal): Number<Length> {
+  const left = draws(metal, Side.Left) ? metal.reach.left : 0
+  const right = draws(metal, Side.Right) ? metal.reach.right : 0
+  return (left + right) * metal.scale * 1ui
+}
+
+public function reachDown(metal: Metal): Number<Length> {
+  const top = draws(metal, Side.Top) ? metal.reach.top : 0
+  const bottom = draws(metal, Side.Bottom) ? metal.reach.bottom : 0
+  return (top + bottom) * metal.scale * 1ui
+}
+
 // The metal frame: the client's window frame at half size. The line is 3 units; the art stands past it by its
 // reach on each side, and the box's background starts 1.5 units into the art. A rounded frame's right side is
 // its left mirrored, so it reaches as far as the left.

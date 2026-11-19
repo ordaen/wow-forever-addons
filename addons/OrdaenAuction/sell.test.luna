@@ -215,7 +215,7 @@ test "an item nothing of which is listed takes the market as its price; one with
   Test.expect(asked(""))
 }
 
-test "the quantity steps by one, by a hundred with Alt held, and holds to what the bags have" {
+test "the quantity steps by one, by a hundred with Ctrl held, and holds to what the bags have" {
   Game.clock.server = START
   Game.items.tooltip = names
   Game.auctionActions.sellable = bags
@@ -225,9 +225,9 @@ test "the quantity steps by one, by a hundred with Alt held, and holds to what t
   Game.auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }])
   window().button("Sell").click()
   window().text("Linen Cloth").click()
-  Game.input.controlDown = (): Boolean => true
+  Test.hold([.Ctrl])
   panel().button("+").click()
-  Game.input.controlDown = (): Boolean => false
+  Test.hold([])
   Test.expect(says(panel(), "Quantity", "- | 26 | +"))
   panel().button("-").click()
   Test.expect(panel().text("25").shown())
@@ -274,9 +274,9 @@ test "«Post» puts a commodity up from every stack, at the quantity, the durati
   Game.auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }])
   window().button("Sell").click()
   window().text("Linen Cloth").click()
-  Game.input.controlDown = (): Boolean => true
+  Test.hold([.Ctrl])
   panel().button("+").click()
-  Game.input.controlDown = (): Boolean => false
+  Test.hold([])
   panel().button("12 h").click()
   _ = Test.requests()
   panel().button("Post").click()

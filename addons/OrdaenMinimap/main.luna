@@ -3,7 +3,7 @@ import Game from "$game"
 import { Align, Anchored, EmbedLook, Frame, Line, MouseButton, Point, Pointer, Position, Shadow } from "$ltml"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
-import { ALWAYS, Module, Placed, Settings, SettingsPage, Tip, opacityNow } from "Ordaen"
+import { ALWAYS, Module, Placed, Settings, SettingsPage, Tip, opacityNow, reachAcross, reachDown } from "Ordaen"
 import { DrawerEntry } from "@/drawer"
 import Locale from "@/locales"
 import { BUTTON, DRAWER_BUTTON, RING, ROOM, RingButton, RingId, RingSpec } from "@/ring"
@@ -70,9 +70,12 @@ public class Minimap implements Module, App {
   derived frameHeight: Number<Length> = self.size + 2 * self.out + self.headHeight + self.footHeight
   derived wholeWidth: Number<Length> = self.frameWidth + 2 * ROOM
   derived wholeHeight: Number<Length> = self.frameHeight + 2 * ROOM
-  // The metal stands past its line, and the frame's box holds it: the box starts that far out.
+  // The metal stands past its line, and the frame's box holds it: the box starts that far out, and is that much
+  // larger than its size at the line.
   derived frameLeft: Number<Length> = ROOM - Ordaen.art.frame.small.reach.left * Ordaen.art.frame.small.scale * 1ui
   derived frameTop: Number<Length> = ROOM - Ordaen.art.frame.small.reach.top * Ordaen.art.frame.small.scale * 1ui
+  derived frameBoxWidth: Number<Length> = self.frameWidth + reachAcross(Ordaen.art.frame.small)
+  derived frameBoxHeight: Number<Length> = self.frameHeight + reachDown(Ordaen.art.frame.small)
   derived mapTop: Number<Length> = self.out + self.headHeight
 
   derived showsCoords: Boolean = self.settings.values.showCoords && Game.minimap.coords != ""
@@ -97,6 +100,9 @@ public class Minimap implements Module, App {
   derived drawerWidth: Number<Length> = self.settings.values.drawerColumns * CELL + (self.settings.values.drawerColumns - 1) * CELL_GAP + self.drawerEdge
   derived drawerRows: Integer = (1).max((self.held / self.settings.values.drawerColumns).ceil())
   derived drawerHeight: Number<Length> = self.drawerRows * CELL + (self.drawerRows - 1) * CELL_GAP + self.drawerEdge
+  // The drawer's box: its size at its frame's line, and the art past the line.
+  derived drawerBoxWidth: Number<Length> = self.drawerWidth + reachAcross(Ordaen.art.frame.small)
+  derived drawerBoxHeight: Number<Length> = self.drawerHeight + reachDown(Ordaen.art.frame.small)
   derived drawerLeft: Number<Length> = self.ringLeft(DRAWER_BUTTON) + BUTTON - self.drawerWidth
   derived drawerTop: Number<Length> = self.ringTop(DRAWER_BUTTON) + BUTTON + 2.34375dp
 
@@ -288,8 +294,8 @@ public class Minimap implements Module, App {
         // The room round the frame holds the ring and takes no mouse: a click there reaches the world. The cursor
         // is on the minimap while it is on the frame or on a ring button, which stand in the frame's box.
         <box width={self.wholeWidth} height={self.wholeHeight} opacity={self.opacity}>
-          <box position={Position.Absolute} left={self.frameLeft} top={self.frameTop} width={self.frameWidth}
-               height={self.frameHeight} border={Ordaen.art.frame.small} background={Ordaen.art.window.wood}
+          <box position={Position.Absolute} left={self.frameLeft} top={self.frameTop} width={self.frameBoxWidth}
+               height={self.frameBoxHeight} border={Ordaen.art.frame.small} background={Ordaen.art.window.wood}
                artOrigin={true} @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
             <embed frame={Game.minimap.frame} position={Position.Absolute} left={self.out} top={self.mapTop}
                    width={self.size} height={self.size} />
@@ -326,7 +332,7 @@ public class Minimap implements Module, App {
           </box>
 
           <box $if={self.drawerShown} position={Position.Absolute} left={self.drawerLeft} top={self.drawerTop}
-               width={self.drawerWidth} height={self.drawerHeight} columns={self.settings.values.drawerColumns} gap={CELL_GAP}
+               width={self.drawerBoxWidth} height={self.drawerBoxHeight} columns={self.settings.values.drawerColumns} gap={CELL_GAP}
                padding={DRAWER_PAD} border={Ordaen.art.frame.small} background={Ordaen.art.window.wood}
                artOrigin={true} zLevel={20}>
             <embed $for={button of Game.minimap.buttons} frame={button} width={CELL} height={CELL}

@@ -1,6 +1,6 @@
 // Ordaen as the language sees it: what every addon builds on. Its root (`OrdaenCore`) a module imports as a root,
 // `import root Ordaen from "Ordaen"`, and adds itself to its `modules`.
-public import { ARTWORK, Artwork } from "@/art"
+public import { ARTWORK, Artwork, reachAcross, reachDown } from "@/art"
 public import { Clock, Density, Globals, LargeNumbers, NumberFormat } from "@/globals"
 public import { Keeper } from "@/keeper"
 public import { Animation, BarFrame, BarTexture, Font, Hue, Look, LookArt, PRESETS, Preset, XpFill, hueColor, preset, presetOf, xpFillArt } from "@/look"

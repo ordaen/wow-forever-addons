@@ -10,7 +10,7 @@ import root Ordaen from "Ordaen"
 import { XpFill, xpFillArt } from "Ordaen"
 import root Panel from "OrdaenPanel"
 import { XpView } from "@/choices"
-import { XpBar, partOf } from "@/xpBar"
+import { XpBar, leftOf, partOf } from "@/xpBar"
 
 const PAGE: Test.Page = { left: 20, top: 20, width: 500, height: 60 }
 // The rested part's pale blue.
@@ -59,6 +59,13 @@ test "a part is of the whole, whole from ten percent, with one decimal under it"
   Test.expect(partOf(1050, 10000) == "10%" && partOf(990, 10000) == "9.9%")
   // Never below nothing.
   Test.expect(partOf(-5, 1000) == "0%")
+}
+
+test "what is left reads 100% with the part done, the shown part's complement" {
+  // 426 of 1 000 is 42%; the 574 left is 58%, not a cut 57%.
+  Test.expect(partOf(426, 1000) == "42%" && leftOf(574, 1000) == "58%")
+  Test.expect(partOf(95, 1000) == "9.5%" && leftOf(905, 1000) == "90.5%")
+  Test.expect(leftOf(1000, 1000) == "100%" && leftOf(0, 1000) == "0%")
 }
 
 // Experience

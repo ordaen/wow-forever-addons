@@ -6,7 +6,8 @@ import Game from "$game"
 import { Align, Anchored, Art, Docked, Drag, Edges, Layer, Overflow, Place, Point, Position, Shadow, Side, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import {
-  BarFrame, Component, Module, Mover, Placed, Settings, SettingsPage, XpFill, opacityNow, sideNear, space, xpFillArt
+  BarFrame, Component, Module, Mover, Placed, Settings, SettingsPage, XpFill, opacityNow, reachAcross, reachDown, sideNear, space,
+  xpFillArt
 } from "Ordaen"
 import { ActionBars, barDefaults, bartenderLoaded } from "@/actionBars"
 import { BARS_DEFAULTS, BarChoice, BarsChoices } from "@/barChoices"
@@ -203,9 +204,7 @@ public class Panel implements Module, App {
     // The room it keeps along the screen's bottom edge, told to Ordaen: its height and its top edge's metal, which
     // reaches over it, while it is on and stands there.
     watch {
-      const edge = Ordaen.art.panel.edge
-      const drawn = self.tall + edge.reach.top * edge.scale * 1ui
-      const taken: Number<Length> = self.settings.values.bottomOn && self.side == Side.Bottom ? drawn : 0ui
+      const taken: Number<Length> = self.settings.values.bottomOn && self.side == Side.Bottom ? self.drawnTall : 0ui
       Ordaen.keepBottom(FOLDER, taken)
     }
   }
@@ -263,8 +262,12 @@ public class Panel implements Module, App {
   // along it.
   derived tall: Number<Length> = (self.settings.values.height * 1ui).max(LEAST_HEIGHT)
   public derived inside: Number<Length> = self.tall - METAL - EDGE_ROOM_TOP
+  // How far it reaches in from its edge as drawn: its top edge's metal stands past its line, inside the box's size.
+  derived drawnTall: Number<Length> = self.tall + reachDown(Ordaen.art.panel.edge)
+  // The experience bar on its own: 600 at its frame's line, the art past the line on either side.
+  derived freeXpWidth: Number<Length> = 600ui + reachAcross(Ordaen.art.frame.small)
   derived width: Number<Length> | nil = self.vertical ? self.tall : nil
-  derived height: Number<Length> | nil = self.vertical ? nil : self.tall
+  derived height: Number<Length> | nil = self.vertical ? nil : self.drawnTall
   derived along: Align = self.vertical ? Align.Center : Align.Stretch
   derived across: Align = self.vertical ? Align.Stretch : Align.Center
   // Down a side whose items are longer than the screen even with the middle given way: the wheel scrolls it.
@@ -410,7 +413,7 @@ public class Panel implements Module, App {
       </Placed>
       <Placed $if={self.freeExperience} id={"OrdaenPanel.experience"} title={Locale.PANEL_EXPERIENCE}
               home={EXPERIENCE_HOME}>
-        <box width={600ui} background={Ordaen.art.window.wood} border={Ordaen.art.frame.small}
+        <box width={self.freeXpWidth} background={Ordaen.art.window.wood} border={Ordaen.art.frame.small}
              padding={space(.Item)}>
           <XpBar fill={self.xpFill} bezel={self.xpBezel} view={self.xpView} />
         </box>

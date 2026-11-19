@@ -54,15 +54,27 @@ function share(value: Integer, least: Integer, most: Integer): Number {
   return 100 * (0).max((value - least).min(span)) / span
 }
 
-// A percentage as it is written: whole from FINE_PERCENT up, with one decimal under it, cut, never rounded up.
-function percentText(percent: Number): String {
-  let shown = percent >= FINE_PERCENT ? percent.floor() : (percent * 10).floor() / 10
-  return number(shown) + "%"
+// A percentage as it is shown: whole from FINE_PERCENT up, with one decimal under it, cut, never rounded up.
+function shownPercent(percent: Number): Number {
+  return percent >= FINE_PERCENT ? percent.floor() : (percent * 10).floor() / 10
 }
 
-// A part of the whole, in percent of the whole: never of what is left of it.
+// A part of the whole in percent of the whole, as it is shown: never of what is left of it.
+function shownShare(part: Integer, whole: Integer): Number {
+  return shownPercent(whole > 0 ? 100 * (0).max(part) / whole : 0)
+}
+
+function percentText(percent: Number): String {
+  return number(shownPercent(percent)) + "%"
+}
+
 public function partOf(part: Integer, whole: Integer): String {
-  return percentText(whole > 0 ? 100 * (0).max(part) / whole : 0)
+  return number(shownShare(part, whole)) + "%"
+}
+
+// What is left of the whole, in percent: the whole less the part done as it is shown, so the two read 100% together.
+public function leftOf(left: Integer, whole: Integer): String {
+  return number(100 - shownShare(whole - left, whole)) + "%"
 }
 
 // The values of a tube as its view says them: what it says first, and what it says after, dimmed in brackets ("" for
@@ -92,6 +104,11 @@ function valuesOf(view: XpView, value: Integer, least: Integer, most: Integer, w
 // A count and its part of the whole: «900 (90%)».
 function countOf(part: Integer, whole: Integer): String {
   return "%s (%s)".format(number(part), partOf(part, whole))
+}
+
+// What is left to the whole and its part: «900 (90%)», with the part done reading 100% together.
+function leftCount(left: Integer, whole: Integer): String {
+  return "%s (%s)".format(number(left), leftOf(left, whole))
 }
 
 // Where a value is in its whole: «100 (10%) / 1 000».
@@ -292,7 +309,7 @@ public class XpBar implements Component {
     let whole = Game.player.xpMax
     let rows: Array<TipRow> = [
       { label: Locale.TIP_CURRENT, value: currentOf(Game.player.xp, whole) },
-      { label: Locale.XP_TIP_TO_LEVEL.format(Game.player.level + 1), value: countOf(self.toLevel, whole) }
+      { label: Locale.XP_TIP_TO_LEVEL.format(Game.player.level + 1), value: leftCount(self.toLevel, whole) }
     ]
     if (Game.player.rested > 0) {
       rows.push(self.restedRow())
@@ -319,7 +336,7 @@ public class XpBar implements Component {
       rows.push({
         label: Locale.REPUTATION_TIP_TO,
         mark: { text: Game.reputation.next, color: Game.reputation.nextColor },
-        value: countOf(self.toNext, whole)
+        value: leftCount(self.toNext, whole)
       })
     }
     return rows

@@ -7,6 +7,7 @@
 // edge, or by its right edge in the screen's right third), kept on the screen.
 import { Align, Beside, Layer, Track } from "$ltml"
 import root Ordaen from "Ordaen"
+import { reachAcross } from "@/art"
 import { Hotkeys } from "@/hotkeys"
 import { Component } from "@/module"
 import { TITLE_TEXT, space } from "@/units"
@@ -43,6 +44,8 @@ public struct TipText {
 
 public class Tip implements Component {
   derived hasText: Boolean = self.text != ""
+  // Its width as drawn: the design's at the frame's line, and the art past the line on either side.
+  derived width: Number<Length> = WIDTH + reachAcross(Ordaen.art.frame.small)
 
   title: Signal<String>
   text: Signal<String>
@@ -59,7 +62,7 @@ public class Tip implements Component {
 
   public render(self): Template {
     return $ltml {
-      <surface layer={Layer.Tooltip} place={BY_ITS_BOX} clamp={true} width={WIDTH}
+      <surface layer={Layer.Tooltip} place={BY_ITS_BOX} clamp={true} width={self.width}
                border={Ordaen.art.frame.small} background={Ordaen.art.window.wood} artOrigin={true}
                padding={space(.Panel)} columns={1} gap={space(.Line)}>
         <text value={self.title} textColor={NAME} textSize={TITLE_TEXT} />

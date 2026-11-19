@@ -3,7 +3,7 @@
 // under the cursor, with a dark drop; disabled, the grey plate and a grey label, and no click. With an `action` it
 // is a secure box: the client does the action from the player's click (a spell, an item, a macro). With a `tip`, a Tip
 // says it while the cursor is on it.
-import { Action, Align, Art, Edges, Shadow, Stated } from "$ltml"
+import { Action, Align, Art, Edges, MouseButton, Pointer, Shadow, Stated } from "$ltml"
 import root Ordaen from "Ordaen"
 import { Component } from "@/module"
 import { Tip, TipText } from "@/tip"
@@ -62,8 +62,9 @@ public class PushButton implements Component {
     if (!self.disabled && !self.repeats) { self.click.emit() }
   }
 
-  onHeld(mut self) {
-    if (self.repeating) { self.click.emit() }
+  // The left button with any modifier: Shift and Ctrl make the step larger (`stride`).
+  onHeld(mut self, pointer: Pointer) {
+    if (self.repeating && pointer.button == MouseButton.Left) { self.click.emit() }
   }
 
   onEnter(mut self) { self.hovered = true }
@@ -72,7 +73,7 @@ public class PushButton implements Component {
   public render(self): Template {
     return $ltml {
       <box width={{ min: self.width }} height={HEIGHT} padding={CAPS} xAlign={Align.Center} yAlign={Align.Center}
-           background={self.art} action={self.doing} @pointerPress={self.onClick} @keyPress(.Enter)={self.onClick} @keyPress(.Space)={self.onClick} @pointerDown.repeat(.Left)={self.onHeld}
+           background={self.art} action={self.doing} @pointerPress={self.onClick} @keyPress(.Enter)={self.onClick} @keyPress(.Space)={self.onClick} @pointerDown.repeat={self.onHeld}
            @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
         <Tip $if={self.tipShown} title={self.tipText.title} text={self.tipText.text} rows={self.tipText.rows} />
         <text value={self.label} textColor={self.color} textShadow={SHADOW} wrap={false}

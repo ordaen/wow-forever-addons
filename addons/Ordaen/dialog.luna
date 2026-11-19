@@ -4,6 +4,7 @@
 // `buttons` its PushButtons, up to three.
 import { Align, Edges, Layer, Position, Shadow } from "$ltml"
 import root Ordaen from "Ordaen"
+import { reachAcross } from "@/art"
 import { Component } from "@/module"
 import { TITLE_TEXT } from "@/units"
 
@@ -16,6 +17,8 @@ const TITLED: Edges = { top: 51.5625dp, right: 28.125dp, bottom: 28.125dp, left:
 public class Dialog implements Component {
   derived titled: Boolean = self.title != ""
   derived padding: Edges = self.titled ? TITLED : PLAIN
+  // Its width as drawn: the one it is given at the frame's line, and the art past the line on either side.
+  derived framed: Number<Length> = self.width + reachAcross(Ordaen.art.frame.small)
 
   width: Signal<Number<Length>>
   title: Signal<String>
@@ -34,7 +37,7 @@ public class Dialog implements Component {
     return $ltml {
       <surface layer={Layer.Dialog} place={"fill"} zLevel={100} background={SHADE} xAlign={Align.Center}
                yAlign={Align.Center} @pointerPress={self.swallow} @keyPress(.Enter)={self.swallow} @keyPress(.Space)={self.swallow}>
-        <box width={self.width} border={Ordaen.art.frame.small} background={Ordaen.art.window.wood}
+        <box width={self.framed} border={Ordaen.art.frame.small} background={Ordaen.art.window.wood}
              artOrigin={true} columns={1} gap={16.40625dp} padding={self.padding}>
           <slot />
           <box columns={[{ fr: 1 }, "max-content"]}>

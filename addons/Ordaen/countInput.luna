@@ -8,7 +8,7 @@
 // Stepping: a click steps 1, 10 with Shift held, 100 with Ctrl, held to the bounds; held down, a button steps again
 // after 0.4 s and then every 0.05 s until it is let go or reaches its bound; under the cursor, a Tip names those keys.
 import Game from "$game"
-import { Align, Bounds, Track } from "$ltml"
+import { Align, Bounds, Modifier, Track } from "$ltml"
 import Locale from "@/locales"
 import { Component } from "@/module"
 import { PushButton } from "@/pushButton"
@@ -34,8 +34,9 @@ const SHIFTED = 10
 const CONTROLLED = 100
 
 public function stride(): Integer {
-  if (Game.input.controlDown()) { return CONTROLLED }
-  if (Game.input.shiftDown()) { return SHIFTED }
+  const down = Game.keyboard.activeModifiers
+  if (down.any(m => m == Modifier.Ctrl)) { return CONTROLLED }
+  if (down.any(m => m == Modifier.Shift)) { return SHIFTED }
   return ONE
 }
 

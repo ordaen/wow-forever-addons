@@ -14,6 +14,7 @@
 import Game from "$game"
 import { Align, Art, Bounds, Docked, Drag, Edges, Layer, Line, Overflow, Place, Point, Position, Shadow, Side, Stated, Track } from "$ltml"
 import root Ordaen from "Ordaen"
+import { reachAcross } from "@/art"
 import { Component } from "@/module"
 import { Hold, kept } from "@/onScreen"
 import { Memory } from "@/settings"
@@ -127,7 +128,8 @@ const SHADE: Color = Color.hex("#808080")
 const WHITE: Color = Color.hex("#ffffff")
 const SHADOW: Shadow = { color: Color.hex("#000000cc"), x: 1.171875dp, y: -1.171875dp }
 const LABEL_PAD = 11.71875dp
-const TAB_BOUNDS: Bounds = { min: 140.625dp, max: nil }
+// The least a tab is wide at its line: its art reaches past that on both sides.
+const TAB_LEAST = 140.625dp
 // The body's wood inside the metal, and the room each of its sections keeps: the ladder's `Window` step from the line
 // on every side; with a footer, the footer stands on the bottom line, the ladder's `Panel` step above it, and keeps a
 // `Group` step from the content over it.
@@ -207,8 +209,11 @@ public class WindowTab implements Component {
   derived reachTop: Number<Length> = Ordaen.art.frame.tab.reach.top * Ordaen.art.frame.tab.scale * 1ui
   derived flare: Number<Length> = Ordaen.art.frame.tab.curves.flare * Ordaen.art.frame.tab.scale * 1ui
   derived lineStart: Number<Length> = Ordaen.art.frame.tab.lineStart * Ordaen.art.frame.tab.scale * 1ui
-  // The height the tab is given: a framed box grows by its art's reach.
+  // How high the tab is below its line, where what it places by offsets starts.
   derived given: Number<Length> = self.height - self.reachTop
+  // Its width: never under the least at its line, with the art past the line on both sides (a border's room is in the
+  // box's size).
+  derived bounds: Bounds = { min: TAB_LEAST + reachAcross(Ordaen.art.frame.tab), max: nil }
   // Open or closed only its colours differ: its wood and picture lighter, its title gold.
   derived tint: Color = self.open ? WHITE : SHADE
   derived titleColor: Color = self.open ? TITLE_OPEN : TITLE_CLOSED
@@ -222,7 +227,7 @@ public class WindowTab implements Component {
   // what a framed box places by offsets starts. Its line stands at its right.
   derived side: Number<Length> = self.height - self.flare
   derived lineLeft: Number<Length> = self.side - self.lineStart
-  derived lineWidth: Number<Length> = self.flare - Ordaen.art.frame.tabIconLine.reach.left * Ordaen.art.frame.tabIconLine.scale * 1ui + 1ui
+  derived lineWidth: Number<Length> = self.flare + 1ui
   // The label's room: past the picture's line where there is a picture.
   derived padding: Edges = self.paddingOf()
 
@@ -264,7 +269,7 @@ public class WindowTab implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box width={TAB_BOUNDS} height={self.given} border={Ordaen.art.frame.tab} background={Ordaen.art.window.wood}
+      <box width={self.bounds} height={self.height} border={Ordaen.art.frame.tab} background={Ordaen.art.window.wood}
            tint={self.tint} padding={self.padding} rows={BODY_ROWS} @pointerPress={self.pick} @keyPress(.Enter)={self.pick} @keyPress(.Space)={self.pick}
            @dragStart={self.onGrab} @drag={self.onMove} @dragStop={self.onDrop}>
         <$if={self.hasIcon}>
