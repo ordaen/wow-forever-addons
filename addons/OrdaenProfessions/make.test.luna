@@ -240,8 +240,8 @@ test "«Raise skill» counts up to the points left before the rank's most; the s
   Test.mount(nil, SCREEN)
   Game.tradeSkill.open = TAILORING
   mode("Quantity", "Raise skill")
-  // With Alt held, + steps a hundred: held to the most.
-  Game.input.altDown = (): Boolean => true
+  // With Ctrl held, + steps a hundred: held to the most.
+  Game.input.controlDown = (): Boolean => true
   times(1, "+")
   Test.expect(row().contains("- | 44 | +") && off("+"))
   Game.professions.list = professions(70)

@@ -150,7 +150,7 @@ public class InputNumber implements Component {
     // A field follows its value and takes what is typed; a slider shows its value as it is and has no text.
     if (!self.sliding) {
       self.text = String.of(peek self.held * self.scale)
-      watch (typed of self.text) { self.typed() }
+      watch (typed of self.text) { self.typed(typed) }
       watch (shown of self.held) { self.show(shown) }
     }
   }
@@ -198,9 +198,20 @@ public class InputNumber implements Component {
     return stepTip(title, steps => sign + said(steps * self.step, self.unit))
   }
 
-  // Typing is taken once it pauses for `SETTLE`: a number on its way («1» of «150») isn't held to the bounds yet.
-  typed(mut self) {
+  // Each keystroke writes the value where the text already is one (in the range, on a step), and where it is past a
+  // bound that more digits only take further (a positive number over the most, a negative one under the least): held
+  // to that bound. What reads the value next (Save, Post) sees what was typed. Only a number on its way into the range
+  // («1» of «150», the least 100) or between steps waits: for the typing to pause (`SETTLE`), Enter or a step.
+  typed(mut self, typed: String) {
     if (self.pending != nil) { destroy self.pending }
+    const number = numberOf(typed)
+    if (number == nil) { return }
+    const value = number / self.scale
+    const past = (value > self.most && value >= 0) || (value < self.least && value <= 0)
+    if (past || value == stepped(value, self.least, self.most, self.step)) {
+      self.take(typed)
+      return
+    }
     self.pending = self.later()
   }
 
