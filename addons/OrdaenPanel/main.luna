@@ -369,7 +369,7 @@ public class Panel implements Module, App {
       <surface $if={self.drawn} layer={Layer.Screen} place={self.place} width={self.width} height={self.height}
                background={Ordaen.art.panel.wood} border={Ordaen.art.panel.edge} padding={EDGE_ROOM}
                columns={self.columns} rows={self.rows} xAlign={self.along} yAlign={self.across}
-               opacity={self.opacity} overflow={self.overflow} hoverWithin={true}
+               opacity={self.opacity} overflow={self.overflow}
                @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
         <ZoneBox zone={Zone.Left} panel={self} />
         <ZoneBox zone={Zone.Center} panel={self} />
@@ -381,7 +381,7 @@ public class Panel implements Module, App {
         // standing in it, so it comes over the panel each time the panel shows again.
         <surface $if={self.portraitShown} layer={Layer.Screen} place={CORNER} width={PORTRAIT_WIDTH}
                  height={PORTRAIT_HEIGHT} portrait={self.face} icon={self.classIcon} mask={Ordaen.art.panel.corner}
-                 opacity={self.opacity} hoverWithin={true} @pointerEnter={self.onPortraitEnter} @pointerLeave={self.onPortraitLeave}>
+                 opacity={self.opacity} @pointerEnter={self.onPortraitEnter} @pointerLeave={self.onPortraitLeave}>
           <embed frame={Game.frames.CharacterMicroButton} position={Position.Absolute} left={0ui} top={0ui}
                  width={PORTRAIT_WIDTH} height={PORTRAIT_HEIGHT} opacity={0} />
           // The rim along the top and down the right, over the face: drawn over the box its shape is cut to.

@@ -174,8 +174,8 @@ surface 640,305.54 400x348.92 on DIALOG clamped raised by a click
     box 960,333.54 80x31.42
       box 960,333.54 80x26.67 clipped
         box 960,333.54 27.5x26.67 absolute clipped @keyPress @pointerPress
-          box 960,333.54 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
-          box 968.33,343.12 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 0 of 8
+          box 960,333.54 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 1 of 16
+          box 968.33,343.12 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 1 of 8
         box 987.5,333.54 25x26.67 absolute clipped @keyPress @pointerPress
           box 987.5,333.54 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 3 of 16
           box 993.75,343.12 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
@@ -213,8 +213,8 @@ surface 0,0 1600x900 on DIALOG clamped raised by a click
           box 1520,28 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
           box 1528.33,37.58 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 0 of 8
         box 1547.5,28 25x26.67 absolute clipped @keyPress @pointerPress
-          box 1547.5,28 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 3 of 16
-          box 1553.75,37.58 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 4 of 8
+          box 1547.5,28 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 4 of 16
+          box 1553.75,37.58 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 5 of 8
         box 1572.5,28 27.5x26.67 absolute clipped @keyPress @pointerPress
           box 1572.5,28 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
           box 1578.75,37.58 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
@@ -250,8 +250,8 @@ surface 640,305.54 400x348.92 on DIALOG clamped raised by a click
           box 960,333.54 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
           box 968.33,343.12 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 0 of 8
         box 987.5,333.54 25x26.67 absolute clipped @keyPress @pointerPress
-          box 987.5,333.54 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 3 of 16
-          box 993.75,343.12 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
+          box 987.5,333.54 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 4 of 16
+          box 993.75,343.12 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 3 of 8
         box 1012.5,333.54 27.5x26.67 absolute clipped @keyPress @pointerPress
           box 1012.5,333.54 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
           box 1018.75,343.12 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8

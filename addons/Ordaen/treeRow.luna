@@ -11,7 +11,7 @@ const INK: Color = Color.hex("#e8dcc4")
 const WHITE: Color = Color.hex("#ffffff")
 const MARK: Color = Color.hex("#d6a56b")
 const CLEAR: Color = Color.hex("#00000000")
-const SHADE: Stated<Color> = { default: CLEAR, hover: Color.hex("#00000059") }
+const SHADE: Stated<Color> = { default: CLEAR, hover: Color.hex("#00000059"), focus: Color.hex("#00000059") }
 const SELECTED: Color = Color.hex("#00000040")
 // How far each level stands in, and the room the mark has.
 const INDENT = 18.75dp
@@ -68,7 +68,7 @@ public class TreeRow implements Component {
           <box $if={!self.leaf} position={Position.Absolute} left={self.markLeft} top={MARK_TOP} width={MARK_CELL}
                height={MARK_CELL} background={self.mark} tint={MARK} />
         </box>
-        <text value={self.label} textColor={self.color} wrap={false} stateFromParent={true} />
+        <text value={self.label} textColor={self.color} wrap={false} />
         <box>
           <slot />
         </box>

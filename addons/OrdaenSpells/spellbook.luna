@@ -68,7 +68,7 @@ const CELL: Array<Track> = [23.4375dp, { fr: 1 }]
 const CLEAR: Color = Color.hex("#00000000")
 const HOVER: Color = Color.hex("#ffffff0d")
 // A spell's row: lit under the cursor.
-const GROUND: Stated<Color> = { default: CLEAR, hover: HOVER }
+const GROUND: Stated<Color> = { default: CLEAR, hover: HOVER, focus: HOVER }
 const PAGE: Array<Track> = ["max-content", "max-content", { fr: 1 }]
 
 // Whether the spell stands before another in the sort's order; equal ones by name.

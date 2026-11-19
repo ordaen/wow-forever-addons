@@ -44,6 +44,9 @@ function fits(slot: Slot, place: Game.BagPlace): Boolean {
 
 class BagSlot implements Component {
   public pressed: Event<(Slot, Pointer)> = new Event()
+  // Its item dragged off it, or something dragged let go on it: what a plain click does, as the game's own slots
+  // take a drag.
+  public pickup: Event<Slot> = new Event()
   public entered: Event<Slot> = new Event()
   public left: Event<Slot> = new Event()
 
@@ -70,13 +73,15 @@ class BagSlot implements Component {
   }
 
   onPressed(self, click: Pointer) { self.pressed.emit(self.slot, click) }
+  onPickup(self) { self.pickup.emit(self.slot) }
   onEnter(self) { self.entered.emit(self.slot) }
   onLeave(self) { self.left.emit(self.slot) }
 
   public render(self): Template {
     return $ltml {
       <ItemButton item={self.item} count={self.count} quality={self.quality} dimmed={self.dimmed} size={SLOT}
-                  action={self.action} @pressed={self.onPressed} @entered={self.onEnter} @left={self.onLeave}>
+                  action={self.action} @pressed={self.onPressed} @dragged={self.onPickup} @dropped={self.onPickup}
+                  @entered={self.onEnter} @left={self.onLeave}>
         <box $if={self.slot.isNew} position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui}
              background={Ordaen.art.ctl.qualityRim} tint={NEW_GLOW} zLevel={2} />
         <box $if={self.slot.guarded} position={Position.Absolute} left={2.34375dp} top={2.34375dp} width={LOCK} height={LOCK}
@@ -124,6 +129,7 @@ class Caption implements Component {
 // One place of a row.
 class Place implements Component {
   public pressed: Event<(Slot, Pointer)> = new Event()
+  public pickup: Event<Slot> = new Event()
   public entered: Event<Slot> = new Event()
   public left: Event<Slot> = new Event()
   public toggled: Event<String> = new Event()
@@ -148,6 +154,7 @@ class Place implements Component {
   }
 
   onPressed(self, slot: Slot, click: Pointer) { self.pressed.emit(slot, click) }
+  onPickup(self, slot: Slot) { self.pickup.emit(slot) }
   onEnter(self, slot: Slot) { self.entered.emit(slot) }
   onLeave(self, slot: Slot) { self.left.emit(slot) }
   onToggle(self, key: String) { self.toggled.emit(key) }
@@ -156,8 +163,8 @@ class Place implements Component {
   public render(self): Template {
     match (self.cell) {
       .Item => return $ltml {
-        <BagSlot slot={self.cell.slot} filter={self.filter} @pressed={self.onPressed} @entered={self.onEnter}
-                 @left={self.onLeave} />
+        <BagSlot slot={self.cell.slot} filter={self.filter} @pressed={self.onPressed} @pickup={self.onPickup}
+                 @entered={self.onEnter} @left={self.onLeave} />
       }
       .Caption => return $ltml {
         <Caption section={self.cell.section} collapsed={self.collapsed} fills={self.fills} @toggled={self.onToggle} />
@@ -171,6 +178,7 @@ class Place implements Component {
 // A row of the window's grid.
 public class BagRow implements Component {
   public pressed: Event<(Slot, Pointer)> = new Event()
+  public pickup: Event<Slot> = new Event()
   public entered: Event<Slot> = new Event()
   public left: Event<Slot> = new Event()
   public toggled: Event<String> = new Event()
@@ -195,6 +203,7 @@ public class BagRow implements Component {
   }
 
   onPressed(self, slot: Slot, click: Pointer) { self.pressed.emit(slot, click) }
+  onPickup(self, slot: Slot) { self.pickup.emit(slot) }
   onEnter(self, slot: Slot) { self.entered.emit(slot) }
   onLeave(self, slot: Slot) { self.left.emit(slot) }
   onToggle(self, key: String) { self.toggled.emit(key) }
@@ -203,8 +212,8 @@ public class BagRow implements Component {
     return $ltml {
       <box columns={self.row.tracks} gap={GAP} height={SLOT}>
         <Place $for={cell of self.row.cells} $key={cell} cell={peek cell} filter={self.filter} free={self.free}
-               collapsed={self.collapsed} fills={self.fills} @pressed={self.onPressed} @entered={self.onEnter}
-               @left={self.onLeave} @toggled={self.onToggle} />
+               collapsed={self.collapsed} fills={self.fills} @pressed={self.onPressed} @pickup={self.onPickup}
+               @entered={self.onEnter} @left={self.onLeave} @toggled={self.onToggle} />
       </box>
     }
   }

@@ -11,7 +11,7 @@ const CLEAR: Color = Color.hex("#00000000")
 // The list's gold: an item without a colour of its own is selected in it.
 const GOLD: Color = Color.hex("#f0c860")
 const GOLD_FILL: Color = Color.hex("#d6a56b3d")
-const SHADE: Stated<Color> = { default: CLEAR, hover: Color.hex("#d6a56b1f") }
+const SHADE: Stated<Color> = { default: CLEAR, hover: Color.hex("#d6a56b1f"), focus: Color.hex("#d6a56b1f") }
 const RULE: Line = { width: 1.171875dp, color: Color.hex("#d6a56b14"), sides: [Side.Top] }
 // How strong a colour's selected fill is.
 const FILL_ALPHA = 0.24

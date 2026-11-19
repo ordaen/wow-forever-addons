@@ -47,7 +47,7 @@ public const TABLE_COLUMNS: Array<Track> = [
 // The fold's mark (ctl.markClosed, ctl.markOpen), as TreeRow draws it: a 16 px cell, its triangle in the middle.
 const MARK = 18.75dp
 const PAD: Edges = { left: space(.Item), right: space(.Item) }
-const LIGHT: Stated<Color> = { default: Style.CLEAR, hover: Color.hex("#d6a56b1f") }
+const LIGHT: Stated<Color> = { default: Style.CLEAR, hover: Color.hex("#d6a56b1f"), focus: Color.hex("#d6a56b1f") }
 const DASH = "—"
 
 // What a row's menu of quick actions offers.

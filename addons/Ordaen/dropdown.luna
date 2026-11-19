@@ -32,7 +32,7 @@ const MENU_EDGE: Line = { width: 1.171875dp, color: Color.hex("#6c5535") }
 const MENU_PAD: Edges = { top: 7.03125dp, bottom: 7.03125dp }
 const ITEM_PAD: Edges = { top: 5.859375dp, right: 16.40625dp, bottom: 5.859375dp, left: 35.15625dp }
 const CLEAR: Color = Color.hex("#00000000")
-const LIGHT: Stated<Color> = { default: CLEAR, hover: Color.hex("#d6a56b2e") }
+const LIGHT: Stated<Color> = { default: CLEAR, hover: Color.hex("#d6a56b2e"), focus: Color.hex("#d6a56b2e") }
 
 // One choice in the open menu.
 public class DropdownItem<T: Unknown> implements Component {

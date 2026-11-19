@@ -26,10 +26,10 @@ const PAD: Edges = { top: 7.03125dp, bottom: 7.03125dp }
 const ITEM_PAD: Edges = { top: 7.03125dp, right: 16.40625dp, bottom: 7.03125dp, left: 16.40625dp }
 const GROUP_PAD: Edges = { top: 14.0625dp, right: 16.40625dp, bottom: 7.03125dp, left: 16.40625dp }
 const RULE: Line = { width: 1.171875dp, color: Color.hex("#3e2f1d"), sides: [Side.Top] }
-const NAME: Stated<Color> = { default: Color.hex("#e8dcc4"), hover: Color.hex("#ffffff") }
+const NAME: Stated<Color> = { default: Color.hex("#e8dcc4"), hover: Color.hex("#ffffff"), focus: Color.hex("#ffffff") }
 const DIM: Color = Color.hex("#6f6552")
 const CLEAR: Color = Color.hex("#00000000")
-const LIGHT: Stated<Color> = { default: CLEAR, hover: Color.hex("#d6a56b2e") }
+const LIGHT: Stated<Color> = { default: CLEAR, hover: Color.hex("#d6a56b2e"), focus: Color.hex("#d6a56b2e") }
 const ROW: Array<Track> = [{ fr: 1 }, "max-content"]
 
 // One line of the open menu.
@@ -65,7 +65,7 @@ public class MenuItem implements Component {
     return $ltml {
       <box columns={ROW} gap={11.71875dp} padding={self.padding} yAlign={Align.Center} border={self.rule}
            background={self.light} @pointerPress={self.onClick} @keyPress(.Enter)={self.onClick} @keyPress(.Space)={self.onClick}>
-        <text value={self.entry.label} textColor={self.color} wrap={false} stateFromParent={true} />
+        <text value={self.entry.label} textColor={self.color} wrap={false} />
         <box $if={self.switched} width={SWITCH_WIDTH} height={SWITCH_HEIGHT} background={self.track}>
           <box position={Position.Absolute} left={KNOB_OFF} top={KNOB_TOP} width={SWITCH_KNOB} height={SWITCH_KNOB}
                background={Ordaen.art.ctl.knobOff} opacity={self.offOpacity} />

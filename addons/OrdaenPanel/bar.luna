@@ -365,7 +365,7 @@ public class Bar implements Component {
     return $ltml {
       <frame $for={slot of self.unseen} of={slot.frame} shown={false} />
       <Placed id={self.id} title={self.title} home={self.home}>
-        <box columns={self.columns} gap={self.spacing} opacity={self.opacity} hoverWithin={true}
+        <box columns={self.columns} gap={self.spacing} opacity={self.opacity}
              @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
           <Button $for={index, slot of self.drawn} slot={peek slot} faced={self.spec.kind != BarKind.Action} keys={self.keys} size={self.size}
                   showKeys={self.showKeys} face={self.faces[index] ?? BLANK} />

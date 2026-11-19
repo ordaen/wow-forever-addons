@@ -116,7 +116,10 @@ would have caught it is half a fix: say which check now catches it, or add one.
 11. **Design checklist before showing any design** (same rule in wow-dev-tools' CLAUDE.md): every API, declaration,
    file format or tool interface is checked against the list in `../wow-dev-tools/design/development/rules.md`
    («Design checklist»: no invalid value can be written, rules hold by construction, nothing listed by hand, no fact
-   twice, no Lua traps, one name per concept) before it goes to the user, and what the check caught is said with it.
+   twice, no Lua traps, one name per concept, a new case costs one line in one place) before it goes to the user, and
+   what the check caught is said with it. Code itself follows «Shape», «Abstractions over raw code»: a repeated
+   condition or loop is one named function, a long chain over fields means the data is shaped wrong, flags that
+   mirror each other are one value; every diff is read as a reviewer reads it before it is handed over.
    The standard is general software engineering, not WoW-addon habit.
 
 ## Game install
@@ -154,6 +157,8 @@ would have caught it is half a fix: say which check now catches it, or add one.
   the same thread.
 - **What the companion may press:** the dev addon's keys (reload, probes, bench) and the player's own keys that open
   windows (`wow_open`). Never movement, abilities or anything bot-like.
+- **The machine's one queue:** every build, test and compiler run goes through `ordaen-run` (lunatype's CLAUDE.md,
+  «The machine's one queue»): one run at a time, at three quarters of the CPU.
 - **Long work runs in the background:** builds, lints, tests, probes, watch loops and repro runs, always; keep talking
   to the user meanwhile.
 - **Subagents as lunatype's `CLAUDE.md` says:** they do the work of the goal in lunatype's `NEXT.md`, one task an
@@ -218,6 +223,13 @@ Like EllesmereUI, but the modules load on demand. The approach and the inventory
   its root and the module that wants to be there adds to it, importing the owner's root (`import root`) and its
   contract by type alone; the owner knows only the trait it declared (`../wow-dev-tools/design/development/language/modules.md`). Dependencies
   point from the module that wants something to the one that owns it.
+- **Nothing Blizzard's UI does is lost:** a module that takes the place of a part of Blizzard's UI keeps everything
+  that part does (dragging an item or spell to the bars, modified clicks, keybindings, Quick Keybind, tooltips,
+  targeting cursors, sounds, what it hands other addons) or does it better; a loss is a bug, never a choice. What the
+  part does is read before it is replaced: Blizzard's own code for the build (`../blizzard-code/<build>`, exported
+  from the game's `_forever_/BlizzardInterfaceCode`: its scripts, mixins and templates), the client's API
+  (`api/forever/<build>`, `client.md`) and the play records of the player using it (`wow_records`, `wow_record`).
+  What the part does goes on its design page as a list, each with a test on the stand-in.
 - Modules follow the **globals** (theme, fonts, text size, scale, spacing, colours, bar textures, animations, ...):
   a module's look setting defaults to "as in the globals" and may be overridden for that module only.
 - **Design for the weakest monitor:** colours, contrast and textures must hold on the least professional screen: white
