@@ -1,5 +1,5 @@
 // Ordaen Auction among Ordaen's modules as the player meets it: listed in Ordaen's settings, its page's settings and
-// their hints, each taking effect once saved (scanning as the house opens, the house's cut, the window; the price line
+// their hints, each taking effect at once (scanning as the house opens, the house's cut, the window; the price line
 // is `tooltip.test.luna`'s), kept between sessions; what a merchant asks, kept for the account.
 import Client from "$client"
 import Game from "$game"
@@ -64,7 +64,6 @@ test "scanning as the house opens switched off: the house opening asks for none"
   Test.mount(nil, SCREEN)
   const page = settings()
   page.button(SCAN_ON_OPEN).click()
-  page.button("Save").click()
   _ = Test.requests()
   Game.auctionHouse.open = true
   Game.auctionHouse.opened.emit()
@@ -87,16 +86,16 @@ test "the house's cut set to 10%: what an item brings is weighed with it against
   // A click at the slider's middle: half of 0 to 20.
   page.box(Ordaen.art.ctl.groove).click()
   Test.expect(page.text("10").shown())
-  page.button("Save").click()
   // 36 less 10% is 32: the merchant pays more.
   Test.expect(window().text("Linen Cloth").item().text("Vendor").shown())
 }
 
-test "the settings saved are kept between sessions" {
+test "the settings changed are kept between sessions" {
   Test.mount(nil, SCREEN)
   const page = settings()
   page.button(SCAN_ON_OPEN).click()
-  page.button("Save").click()
+  // The game saves.
+  Ordaen.keeper.profiles.pack()
   Test.reload()
   _ = Test.requests()
   Game.auctionHouse.open = true

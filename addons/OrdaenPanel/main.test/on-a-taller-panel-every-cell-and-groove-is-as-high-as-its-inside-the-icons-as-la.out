@@ -373,7 +373,7 @@ surface 716.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
                 box 904.97,357.51 233.33x15.6 @pointerEnter @pointerLeave
                   text 904.97,357.51 233.33x15.6 "Height" #cbb994
                 box 1153.31,356.97 488.94x16.67
-                  box 1153.31,356.97 200x16.67 @drag @dragStart @keyPress @pointerPress
+                  box 1153.31,356.97 200x16.67 @drag @dragStart @dragStop @keyPress @pointerPress
                     box 1153.31,361.97 200x6.67 absolute Interface\AddOns\Ordaen\media\ctl-slider row 0 of 4
                     box 1154.14,362.81 198.33x5 absolute Interface\AddOns\Ordaen\media\ctl-slider row 1 of 4
                     box 1346.64,355.31 13.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-slider-knob
@@ -460,7 +460,7 @@ surface 716.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
                   box 904.97,850.38 233.33x15.6 @pointerEnter @pointerLeave
                     text 904.97,850.38 233.33x15.6 "Opacity" #cbb994
                   box 1153.31,849.84 488.94x16.67
-                    box 1153.31,849.84 200x16.67 @drag @dragStart @keyPress @pointerPress
+                    box 1153.31,849.84 200x16.67 @drag @dragStart @dragStop @keyPress @pointerPress
                       box 1153.31,854.84 200x6.67 absolute Interface\AddOns\Ordaen\media\ctl-slider row 0 of 4
                       box 1154.14,855.68 0x5 absolute Interface\AddOns\Ordaen\media\ctl-slider row 1 of 4
                       box 1146.64,848.18 13.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-slider-knob
@@ -469,12 +469,14 @@ surface 716.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
         box 749.42,708.12 906.17x28.33
           box 749.42,708.12 166.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
             text 802.19,714.49 61.11x15.6 "Move mode" #ffd100
-          box 932.75,722.29 474.5x0
+          box 932.75,715.09 474.5x14.4
+            text 932.75,715.09 474.5x14.4 "Changes this session: 1" #a3977f
           box 1423.92,708.12 231.67x28.33
             box 1423.92,708.12 108.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-              text 1447.53,714.49 61.11x15.6 "Roll back" #ffd100
-            box 1538.92,708.12 116.67x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-              text 1582.81,714.49 28.89x15.6 "Save" #808080
+              text 1447.53,714.49 61.11x15.6 "Savepoint" #ffd100
+            box 1538.92,708.12 116.67x28.33
+              box 1538.92,708.12 116.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+                text 1566.69,714.49 61.11x15.6 "Roll back" #ffd100
     box 1666.08,740.29 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 716.67,139.71 966.67x47.75
     box 716.67,139.71 905x47.75

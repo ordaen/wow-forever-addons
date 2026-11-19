@@ -1,20 +1,26 @@
 // Ordaen Settings: the one settings window. Ordaen's own page (General: the settings every module follows) and
 // every module in the list on the left with its switch, the chosen one's page beside it: its tabs, and the picked
-// tab's rows, which are the module's own. Every page's changes wait in the drafts until «Save»; closing with
-// changes unsaved asks first.
+// tab's rows, which are the module's own. Every change applies at once: the foot's «Точка» makes
+// a savepoint, and «Откатить» goes back to the step before the last change, to the session's start or to a savepoint.
+// Closing asks nothing.
 import { Align, Edges, Overflow, Position, Track } from "$ltml"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
 import { Dialog } from "@/dialog"
 import { BehaviourPage, NumbersPage, ScalePage } from "@/general"
+import { Input } from "@/input"
+import { POINTS_MOST, changeText, modulesText } from "@/keeper"
 import { ListTab } from "@/listTab"
 import Locale from "@/locales"
 import { LookPage } from "@/lookPage"
+import { Menu, MenuEntry } from "@/menu"
 import { Component, Entry, SettingsPage } from "@/module"
 import { ModuleEntry, ModuleRow } from "@/moduleRow"
+import { MAX_NAME, named } from "@/profiles"
 import { ProfilesPage } from "@/profilesPage"
 import { PushButton } from "@/pushButton"
 import { Tabs } from "@/tabs"
+import { TipText } from "@/tip"
 import { SECONDARY_TEXT, space } from "@/units"
 import { KeptWindow, Window, WindowTabSpec } from "@/window"
 import { WindowsPage } from "@/windowsPage"
@@ -29,8 +35,11 @@ const GENERAL = ""
 const LOOK = "look"
 const PROFILES = "profiles"
 
-// The question on closing with unsaved changes: as wide as its three buttons, the room round them and its frame.
-const CONFIRM_WIDTH = 567.1875dp
+// The question of a savepoint's profile name: as wide as its field, the room round it and its frame.
+const ASK_WIDTH = 567.1875dp
+// The history's menu: «Начало сессии · 12 настроек, Панель, Подсказки, Ordaen» on one line.
+const MENU_WIDTH = 515.625dp
+const FULL_TIP: TipText = { title: Locale.HISTORY_POINT, text: Locale.HISTORY_POINT_FULL.format(POINTS_MOST), rows: [] }
 
 const DIM: Color = Color.hex("#a3977f")
 const INK: Color = Color.hex("#e8dcc4")
@@ -40,9 +49,9 @@ const BODY: Array<Track> = ["max-content", { fr: 1 }]
 // The list's heading over the modules: a panel's step from the list's sides and the rows above, an item's to the
 // modules under it.
 const HEADING: Edges = { top: space(.Panel), right: space(.Panel), bottom: space(.Item), left: space(.Panel) }
-// The footer: the placing mode at its left, a hint, the rollback and «Save» at its right.
+// The footer: the placing mode at its left, a hint, «Точка» and «Откатить» at its right.
 const FOOT: Array<Track> = ["max-content", { fr: 1 }, "max-content"]
-const SAVE_ROW: Array<Track> = ["max-content", "max-content"]
+const BACK_ROW: Array<Track> = ["max-content", "max-content"]
 
 public class SettingsWindow implements Component {
   // The window, declared: where it stands and what the player does with it, kept in the profile.
@@ -60,25 +69,41 @@ public class SettingsWindow implements Component {
   // The page shown: Ordaen's own, its look, or a module's folder; and its tab.
   state page = GENERAL
   state tab = 1
-  // Asking about unsaved changes.
-  state closing = false
   state titles: Array<WindowTabSpec> = [{ title: Ordaen.title }]
   state titleTab = 1
+  // «Откатить»'s menu: open, its entries, and the savepoint whose entries it shows (0: its own).
+  state menuOpen = false
+  state menuEntries: Array<MenuEntry> = []
+  state pointShown = 0
+  // The savepoint a profile is being made of (0: none), the name typed for it and what was wrong with it.
+  state naming = 0
+  state profileName = ""
+  state nameFault = ""
 
   const nothing: Template = $ltml {}
   const footer: Template = $ltml {
     <box columns={FOOT} yAlign={Align.Center} gap={space(.Group)}>
       <PushButton label={Locale.PLACING} width={234.375dp} @click={self.placingMode} />
       <box>
-        <text $if={self.onGeneral} value={Locale.OPENS_PAGE} textColor={DIM} textSize={SECONDARY_TEXT} />
+        <text value={self.hint} textColor={DIM} textSize={SECONDARY_TEXT} />
       </box>
-      <box columns={SAVE_ROW} gap={space(.Item)}>
-        <PushButton $if={Ordaen.keeper.rollbackable} label={Locale.ROLLBACK} width={152.34375dp}
-                    @click={self.rollback} />
-        <PushButton label={Locale.SAVE} width={164.0625dp} disabled={self.unchanged} @click={self.save} />
+      <box columns={BACK_ROW} gap={space(.Item)}>
+        <PushButton label={Locale.HISTORY_POINT} width={152.34375dp} disabled={self.pointsFull} tip={self.pointTip}
+                    @click={self.mark} />
+        <box>
+          <PushButton label={Locale.ROLLBACK} width={164.0625dp} disabled={self.nothingBack} @click={self.openMenu} />
+          <Menu $if={self.menuOpen} entries={self.menuEntries} width={MENU_WIDTH} @pick={self.onMenuPick}
+                @close={self.closeMenu} />
+        </box>
       </box>
     </box>
   }
+  derived hint: String = Ordaen.keeper.steps == 0 ? Locale.HISTORY_APPLY : Locale.HISTORY_COUNT.format(Ordaen.keeper.steps)
+  derived nothingBack: Boolean = Ordaen.keeper.steps == 0 && Ordaen.keeper.points == 0
+  derived pointsFull: Boolean = Ordaen.keeper.points >= POINTS_MOST
+  derived pointTip: TipText | nil = self.pointsFull ? FULL_TIP : nil
+  derived asksName: Boolean = self.naming > 0
+  derived hasNameFault: Boolean = self.nameFault != ""
   derived heading: String = Locale.LIST_MODULES.upper()
   derived onGeneral: Boolean = self.page == GENERAL
   derived onLook: Boolean = self.page == LOOK
@@ -90,7 +115,6 @@ public class SettingsWindow implements Component {
   derived names: Array<String> = self.namesOf()
   derived hasTabs: Boolean = self.names.length > 1
   derived content: Template = self.contentOf()
-  derived unchanged: Boolean = Ordaen.keeper.unsaved == 0
 
   // Every module the player has, on or off: each addon that needs Ordaen, as the client lists them.
   const entries: Array<ModuleEntry>
@@ -172,30 +196,115 @@ public class SettingsWindow implements Component {
   pickProfiles(mut self) { self.show(PROFILES) }
   onPick(mut self, folder: String) { self.show(folder) }
 
-  // Closing asks first while anything is unsaved.
+  // Every change is kept as it is made: closing asks nothing.
   onClose(mut self) {
-    if (Ordaen.keeper.unsaved > 0) {
-      self.closing = true
+    self.menuOpen = false
+    self.open = false
+  }
+
+  placingMode(mut self) { Ordaen.togglePlacing() }
+
+  // «Точка»: every setting as it is now.
+  mark(mut self) { _ = Ordaen.keeper.mark() }
+
+  // The menu's entries are worked out as it opens: what each place back would change now.
+  openMenu(mut self) {
+    self.pointShown = 0
+    self.menuEntries = self.backEntries()
+    self.menuOpen = true
+  }
+
+  closeMenu(mut self) {
+    self.menuOpen = false
+    self.pointShown = 0
+  }
+
+  // «Последнее изменение», «Начало сессии», then a row per savepoint.
+  backEntries(mut self): Array<MenuEntry> {
+    const list: Array<MenuEntry> = []
+    const last = Ordaen.keeper.lastModules()
+    if (last.length == 0) {
+      list.push({ label: Locale.HISTORY_LAST_NONE, on: nil, disabled: true, group: nil })
+    } else {
+      list.push({ label: Locale.HISTORY_LAST.format(modulesText(last)), on: nil, disabled: nil, group: nil })
+    }
+    const start = Ordaen.keeper.startChange()
+    if (start.count == 0) {
+      list.push({ label: Locale.HISTORY_START_NONE, on: nil, disabled: true, group: nil })
+    } else {
+      list.push({ label: Locale.HISTORY_START.format(changeText(start)), on: nil, disabled: nil, group: nil })
+    }
+    const points = Ordaen.keeper.pointList()
+    if (points.length == 0) {
+      list.push({ label: Locale.HISTORY_POINTS_NONE, on: nil, disabled: true, group: true })
+    }
+    for (index, point of points) {
+      const change = Ordaen.keeper.changeTo(point.sections)
+      const changes = change.count == 0 ? Locale.HISTORY_UNCHANGED : changeText(change)
+      const name = Locale.HISTORY_POINT_NAME.format(point.number)
+      list.push({ label: Locale.HISTORY_POINT_ROW.format(name, point.at, changes), on: nil, disabled: nil, group: index == 1 })
+    }
+    return list
+  }
+
+  // A savepoint's own entries: back to it (greyed where it changes nothing), a profile of it, let it go.
+  pointEntries(mut self, index: Integer): Array<MenuEntry> {
+    const point = Ordaen.keeper.pointList()[index]
+    const same = point == nil || Ordaen.keeper.changeTo(point.sections).count == 0
+    return [
+      { label: Locale.HISTORY_TO_POINT, on: nil, disabled: same, group: nil },
+      { label: Locale.HISTORY_SAVE_PROFILE, on: nil, disabled: nil, group: nil },
+      { label: Locale.HISTORY_DELETE_POINT, on: nil, disabled: nil, group: nil }
+    ]
+  }
+
+  onMenuPick(mut self, index: Integer) {
+    const point = self.pointShown
+    if (point > 0) {
+      self.closeMenu()
+      if (index == 1) {
+        Ordaen.keeper.toPoint(point)
+      } else if (index == 2) {
+        self.naming = point
+        self.profileName = ""
+        self.nameFault = ""
+      } else {
+        Ordaen.keeper.unmark(point)
+      }
       return
     }
-    self.open = false
+    if (index == 1) {
+      self.closeMenu()
+      Ordaen.keeper.undo()
+    } else if (index == 2) {
+      self.closeMenu()
+      Ordaen.keeper.toStart()
+    } else {
+      // A savepoint's row opens its own entries in the menu's place.
+      self.pointShown = index - 2
+      self.menuEntries = self.pointEntries(index - 2)
+    }
   }
 
-  save(mut self) { Ordaen.keeper.saveAll() }
-  rollback(mut self) { Ordaen.keeper.rollbackAll() }
-  placingMode(mut self) { Ordaen.togglePlacing() }
-  stay(mut self) { self.closing = false }
+  stopNaming(mut self) { self.naming = 0 }
 
-  closeSaving(mut self) {
-    Ordaen.keeper.saveAll()
-    self.closing = false
-    self.open = false
-  }
-
-  closeDiscarding(mut self) {
-    Ordaen.keeper.discardAll()
-    self.closing = false
-    self.open = false
+  // The savepoint made a profile under the name typed: refused where it is empty, too long or taken.
+  saveProfile(mut self) {
+    const name = named(self.profileName)
+    if (name == nil) {
+      self.nameFault = self.profileName == "" ? Locale.PROFILES_ERR_NAME_EMPTY : Locale.PROFILES_ERR_NAME_LONG.format(MAX_NAME)
+      return
+    }
+    const point = Ordaen.keeper.pointList()[self.naming]
+    if (point == nil) {
+      self.naming = 0
+      return
+    }
+    if (!Ordaen.keeper.profiles.makeOf(name, point.sections)) {
+      self.nameFault = Locale.PROFILES_ERR_NAME_TAKEN.format(name)
+      return
+    }
+    self.naming = 0
   }
 
   public render(self): Template {
@@ -233,11 +342,11 @@ public class SettingsWindow implements Component {
           </box>
         </box>
       </Window>
-      <Dialog $if={self.closing} title={Locale.UNSAVED_TITLE} width={CONFIRM_WIDTH}>
-        <text value={Locale.UNSAVED_ASK} textColor={INK} />
-        <PushButton #buttons label={Locale.CANCEL} width={140.625dp} @click={self.stay} />
-        <PushButton #buttons label={Locale.DONT_SAVE} width={175.78125dp} @click={self.closeDiscarding} />
-        <PushButton #buttons label={Locale.SAVE} width={164.0625dp} @click={self.closeSaving} />
+      <Dialog $if={self.asksName} title={Locale.HISTORY_PROFILE_TITLE} width={ASK_WIDTH}>
+        <Input label={Locale.PROFILES_NAME} value={mut self.profileName} maxLength={MAX_NAME} />
+        <text $if={self.hasNameFault} value={self.nameFault} textColor={Ordaen.look.values.redText} />
+        <PushButton #buttons label={Locale.CANCEL} width={140.625dp} @click={self.stopNaming} />
+        <PushButton #buttons label={Locale.SAVE} width={164.0625dp} @click={self.saveProfile} />
       </Dialog>
     }
   }

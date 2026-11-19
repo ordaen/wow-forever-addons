@@ -1,6 +1,6 @@
 // Ordaen's look: the fonts, the colours and the bars' art every module draws with, which the player chooses. It is
-// Ordaen's own settings (`Ordaen::look`), saved, discarded and rolled back with every other. A preset is a whole
-// look by its name: choosing one writes every entry of the draft, and a change after it is a draft like any other.
+// Ordaen's own settings (`Ordaen:look`), applied at once and gone back through with every other. A preset is a whole
+// look by its name: choosing one writes every entry at once, one change, and a change after it is a change like any other.
 // What no preset changes (the metal, the wood, the controls' art, the measures) is Ordaen's art (art.luna).
 import { Art, Fonts, Piece } from "$ltml"
 

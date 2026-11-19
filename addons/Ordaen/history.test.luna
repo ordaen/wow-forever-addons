@@ -1,0 +1,116 @@
+// Instant settings: every change applies at once and is a step of the active profile's history; a drag is one step,
+// written as it rests and as it is let go; «Откатить» goes back to the last change, the session's start or a
+// savepoint, and a going back is a step «Последнее изменение» takes back.
+import Test from "$test"
+import root Ordaen from "Ordaen"
+import { ScalePage } from "@/general"
+import { Density } from "@/globals"
+import { Change, POINTS_MOST, changeText } from "@/keeper"
+import Locale from "@/locales"
+import { REST } from "@/rest"
+
+const PAGE: Test.Page = { left: 0, top: 0, width: 800, height: 400 }
+
+// The settings window opened on Ordaen's own page, drawn.
+function open() {
+  Ordaen.toggleNamed("")
+  Test.flush()
+}
+
+// What an entry of «Откатить»'s menu says of going back over `count` settings of Ordaen's own.
+function ordaens(count: Integer): String {
+  const change: Change = { count: count, modules: [Ordaen.title] }
+  return changeText(change)
+}
+
+test "a slider's drag shows at once, is written as it rests and as it is let go, and is one step" {
+  const page = new ScalePage(mut Ordaen.globals)
+  Test.mount(page, PAGE)
+  const steps = Ordaen.keeper.steps
+  const knob = Test.painted(Ordaen.art.ctl.sliderKnob, nil)
+  Test.moveTo(knob)
+  Test.press(nil)
+  Test.moveTo({ x: knob.x + 1, y: knob.y })
+  Test.pass(0.02)
+  Test.moveTo({ x: knob.x + 40, y: knob.y })
+  Test.pass(0.02)
+  // Moving: the knob is there, the setting not yet.
+  Test.expect(Ordaen.globals.values.scale == 1 && Ordaen.keeper.steps == steps)
+  Test.pass(REST * 2)
+  // Rested: the setting takes it, a step.
+  const rested = Ordaen.globals.values.scale
+  Test.expect(rested > 1 && Ordaen.keeper.steps == steps + 1)
+  Test.moveTo({ x: knob.x + 80, y: knob.y })
+  Test.pass(0.02)
+  Test.release(nil)
+  Test.flush()
+  // Let go: written at once, the same step.
+  Test.expect(Ordaen.globals.values.scale > rested && Ordaen.keeper.steps == steps + 1)
+  Ordaen.keeper.undo()
+  Test.flush()
+  Test.expect(Ordaen.globals.values.scale == 1 && Ordaen.keeper.steps == steps)
+}
+
+test "«Откатить» goes back to the session's start and to a savepoint, and the last change takes either back" {
+  Test.mount(nil, { left: 0, top: 0, width: 200, height: 100, screen: true })
+  open()
+  Test.expect(Test.page().text(Locale.HISTORY_APPLY).shown())
+  Ordaen.globals.values.density = Density.Roomy
+  Test.flush()
+  Test.page().button(Locale.HISTORY_POINT).click()
+  Test.expect(Ordaen.keeper.points == 1)
+  Ordaen.globals.values.numberRound = true
+  Test.flush()
+  Ordaen.globals.values.pixel = false
+  Test.flush()
+  Test.expect(Test.page().text(Locale.HISTORY_COUNT.format(3)).shown())
+
+  Test.page().button(Locale.ROLLBACK).click()
+  Test.expect(Test.page().text(Locale.HISTORY_LAST.format(Ordaen.title)).shown())
+  Test.shot("the menu: the last change, the session's start, a savepoint")
+  Test.page().text(Locale.HISTORY_START.format(ordaens(3))).click()
+  Test.flush()
+  Test.expect(Ordaen.globals.values.density == Density.Normal && !Ordaen.globals.values.numberRound)
+  Test.expect(Ordaen.globals.values.pixel && Ordaen.keeper.steps == 4)
+
+  // The going back is a step: the last change takes it back.
+  Test.page().button(Locale.ROLLBACK).click()
+  Test.page().text(Locale.HISTORY_LAST.format(Ordaen.title)).click()
+  Test.flush()
+  Test.expect(Ordaen.globals.values.density == Density.Roomy && Ordaen.globals.values.numberRound)
+  Test.expect(!Ordaen.globals.values.pixel && Ordaen.keeper.steps == 3)
+
+  // The savepoint: its row opens its own entries.
+  Test.page().button(Locale.ROLLBACK).click()
+  const at = (Ordaen.keeper.pointList()[1] ?? panic("one made")).at
+  const point = Locale.HISTORY_POINT_ROW.format(Locale.HISTORY_POINT_NAME.format(1), at, ordaens(2))
+  Test.page().text(point).click()
+  Test.page().text(Locale.HISTORY_TO_POINT).click()
+  Test.flush()
+  Test.expect(Ordaen.globals.values.density == Density.Roomy && !Ordaen.globals.values.numberRound)
+  Test.expect(Ordaen.globals.values.pixel && Ordaen.keeper.steps == 4)
+
+  // Closing asks nothing.
+  Ordaen.toggleNamed("")
+  Test.flush()
+  Test.expect(!Test.page().text(Locale.ROLLBACK).shown())
+}
+
+test "a savepoint is kept for the session alone, ten at most, and made a profile" {
+  for (n of 1..POINTS_MOST) { Test.expect(Ordaen.keeper.mark() && Ordaen.keeper.points == n) }
+  Test.expect(!Ordaen.keeper.mark() && Ordaen.keeper.points == POINTS_MOST)
+  Ordaen.keeper.unmark(1)
+  Ordaen.globals.values.density = Density.Compact
+  Test.flush()
+  const points = Ordaen.keeper.pointList()
+  const last = points[points.length] ?? panic("ten made, one let go")
+  Test.expect(Ordaen.keeper.profiles.makeOf("Before", last.sections))
+  Ordaen.keeper.profiles.use("Before")
+  Test.flush()
+  Test.expect(Ordaen.globals.values.density == Density.Normal)
+  // A switch shows the profile's own history: «Before» has none.
+  Test.expect(Ordaen.keeper.steps == 0 && Ordaen.keeper.points == 0)
+  Ordaen.keeper.profiles.pack()
+  Test.reload()
+  Test.expect(Ordaen.keeper.steps == 0 && Ordaen.keeper.points == 0)
+}

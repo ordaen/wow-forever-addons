@@ -1,12 +1,13 @@
 // Profiles: the profile a character uses, a switch that takes effect with no reload, and what `develop`'s build kept
 // read back, its settings as «Default».
+import Events from "$events"
 import Game from "$game"
 import Test from "$test"
 import root Ordaen from "Ordaen"
 import { DEFAULTS, Density, Globals } from "@/globals"
 import { Preset, preset } from "@/look"
 import { KeptPlace } from "@/ordaen"
-import { DEFAULT_PROFILE, Picks, ProfileName, Why, picked } from "@/profiles"
+import { DEFAULT_PROFILE, Picks, Profile, ProfileName, Why, picked } from "@/profiles"
 import { Memory } from "@/settings"
 
 // A module's settings and what a module remembers, as `develop`'s runtime kept them.
@@ -33,20 +34,17 @@ test "a character uses the profile picked for its spec, then for it, then for it
 }
 
 test "a switch to another profile takes effect at once, and is kept" {
-  Ordaen.globals.draft.density = .Roomy
-  Ordaen.keeper.saveAll()
+  Ordaen.globals.values.density = Density.Roomy
   Test.expect(Ordaen.keeper.profiles.make("Second", Ordaen.keeper.profiles.active))
   Test.expect(!Ordaen.keeper.profiles.make("Second", Ordaen.keeper.profiles.active))
   Test.expect(!Ordaen.keeper.profiles.make("", nil))
   Ordaen.keeper.profiles.use("Second")
   Test.flush()
   Test.expect(Ordaen.globals.values.density == Density.Roomy)
-  Ordaen.globals.draft.density = .Compact
-  Ordaen.keeper.saveAll()
+  Ordaen.globals.values.density = Density.Compact
   Ordaen.keeper.profiles.use(DEFAULT_PROFILE)
   Test.flush()
   Test.expect(Ordaen.globals.values.density == Density.Roomy)
-  Test.expect(Ordaen.globals.draft.density == Density.Roomy)
   Ordaen.keeper.profiles.use("Second")
   Test.flush()
   Test.expect(Ordaen.globals.values.density == Density.Compact)
@@ -83,7 +81,6 @@ test "what develop's build kept reads back: its settings as «Default», what mo
   Test.expect(Ordaen.globals.values.scale == 1.25 && Ordaen.globals.values.density == Density.Compact)
   Test.expect(Ordaen.look.values.font == look.font && Ordaen.look.values.barFrame == look.barFrame)
   Test.expect(Ordaen.look.values.accent.r == look.accent.r && Ordaen.look.values.red.g == look.red.g)
-  Test.expect(Ordaen.look.draft.font == look.font)
   const kept = Ordaen.keeper.profiles.kept.profiles[DEFAULT_PROFILE]
   Test.expect(kept != nil && kept.sections["Ordaen"] != nil && kept.sections["Ordaen:look"] != nil)
   Test.expect(Game.saved.stored(.Account, "Ordaen") == nil && Game.saved.stored(.Account, "Ordaen:look") == nil)
@@ -96,9 +93,12 @@ test "what develop's build kept reads back: its settings as «Default», what mo
   Test.expect(Ordaen.chosen["OrdaenPanel"] == false)
   Test.expect(Ordaen.moved("minimap")?.x == -10ui)
   Test.expect(Ordaen.moved("minimap")?.to == .TopRight)
+  // The places moved into «Default» too, once: the account's are gone.
+  Test.expect(kept != nil && kept.sections["Ordaen:places"] != nil)
+  Test.expect(Game.saved.stored(.Account, "places") == nil)
   // Saved again, the look is the profile's alone.
-  Ordaen.look.draft.accent = Color.hex("#112233")
-  Ordaen.keeper.saveAll()
+  Ordaen.look.values.accent = Color.hex("#112233")
+  Ordaen.keeper.profiles.pack()
   Test.reload()
   Test.expect(Ordaen.look.values.accent.b == Color.hex("#112233").b)
   Test.expect(Game.saved.stored(.Account, "Ordaen:look") == nil)
@@ -122,6 +122,50 @@ test "what develop kept for a module that loads after «Default» was renamed mo
   Test.expect(main != nil && main.sections["OrdaenMinimap"] != nil)
   Test.expect(profiles.kept.profiles[DEFAULT_PROFILE] == nil)
   Test.expect(Game.saved.stored(.Account, "OrdaenMinimap") == nil)
+}
+
+test "a change applies at once with nothing to save, and is packed into its profile as the game saves, not before" {
+  const profiles = Ordaen.keeper.profiles
+  const packed = (): String | nil => (profiles.kept.profiles[profiles.active] ?? Profile {}).sections["Ordaen"]
+  const before = packed()
+  Ordaen.globals.values.density = Density.Roomy
+  Test.flush()
+  // The module reads it at once; nothing is packed yet.
+  Test.expect(Ordaen.globals.values.density == Density.Roomy && packed() == before)
+  Events.PLAYER_LOGOUT.emit()
+  Test.expect(packed() != before)
+  Test.reload()
+  Test.expect(Ordaen.globals.values.density == Density.Roomy)
+}
+
+test "the parts' places are the active profile's, and the account's move into «Default» once" {
+  const places: Map<String, KeptPlace> = {}
+  places["minimap"] = { point: .TopRight, to: .TopRight, x: -10ui, y: -20ui }
+  const account: Map<String, Unknown> = {}
+  account["places"] = places
+  Test.saved("LunaTypeDB", account)
+  Test.reload()
+  Test.expect(Ordaen.moved("minimap")?.x == -10ui)
+  Test.expect(Game.saved.stored(.Account, "places") == nil)
+  // A profile made from the defaults has no places: a part put there is its own.
+  Test.expect(Ordaen.keeper.profiles.make("Raid", nil))
+  Ordaen.keeper.profiles.use("Raid")
+  Test.flush()
+  Test.expect(Ordaen.moved("minimap") == nil)
+  Ordaen.putAt("minimap", { point: .Center, to: .Center, x: 5ui, y: 5ui, by: nil })
+  Test.flush()
+  Ordaen.keeper.profiles.use(DEFAULT_PROFILE)
+  Test.flush()
+  Test.expect(Ordaen.moved("minimap")?.x == -10ui)
+  // «Default»'s own place, kept: the account's places aren't moved in again.
+  Ordaen.putAt("minimap", { point: .Center, to: .Center, x: 7ui, y: 7ui, by: nil })
+  // The game saves (the test's `Events` is the first load's: the root's own `pack` is what `PLAYER_LOGOUT` runs).
+  Ordaen.keeper.profiles.pack()
+  Test.reload()
+  Test.expect(Ordaen.moved("minimap")?.x == 7ui)
+  Ordaen.keeper.profiles.use("Raid")
+  Test.flush()
+  Test.expect(Ordaen.moved("minimap")?.x == 5ui)
 }
 
 test "what a module remembers is written whole by its own method" {

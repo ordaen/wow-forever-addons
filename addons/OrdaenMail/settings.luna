@@ -1,5 +1,5 @@
 // Ordaen Mail's page in the settings window: what collecting and sending do. Each control writes one entry of the
-// settings' draft.
+// settings, at once.
 import { Checkbox, Component, Settings, Slider } from "Ordaen"
 import Locale from "@/locales"
 
@@ -20,9 +20,9 @@ public class GeneralPage implements Component {
   public render(self): Template {
     return $ltml {
       <Slider label={Locale.SETTING_KEEP_FREE} hint={Locale.SETTING_KEEP_FREE_TIP}
-              value={mut self.settings.draft.keepFree} least={0} most={20} />
+              value={mut self.settings.values.keepFree} least={0} most={20} />
       <Checkbox label={Locale.SETTING_BLOCK_TRADES} hint={Locale.SETTING_BLOCK_TRADES_TIP}
-                value={mut self.settings.draft.blockTrades} />
+                value={mut self.settings.values.blockTrades} />
     }
   }
 }

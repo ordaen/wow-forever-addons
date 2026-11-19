@@ -1,5 +1,5 @@
 // The panel's tabs in the settings window. «General» switches each part on or off; each part has a tab of its own.
-// Each control writes one entry of the settings' draft.
+// Each control writes one entry of the settings, at once.
 import { Checkbox, Choice, Component, Dropdown, Section, Settings, Slider, Switch, Unit, VisibilityRows } from "Ordaen"
 import { CharButton, CharView, Choices, Edge, Fit, MicroIcons, Outline, Places, XpBorder, XpTexture, XpView, Zone } from "@/choices"
 import Locale from "@/locales"
@@ -69,22 +69,22 @@ public class GeneralPage implements Component {
     return $ltml {
       <Section title={Locale.SECTION_MICROMENU}>
         <Switch label={Locale.PANEL_MICROON} hint={Locale.PANEL_MICROON_TIP}
-                value={mut self.settings.draft.microOn} />
+                value={mut self.settings.values.microOn} />
       </Section>
       <Section title={Locale.SECTION_STATUS}>
         <Switch label={Locale.PANEL_STATUSON} hint={Locale.PANEL_STATUSON_TIP}
-                value={mut self.settings.draft.statusOn} />
+                value={mut self.settings.values.statusOn} />
       </Section>
       <Section title={Locale.SECTION_BOTTOM}>
         <Switch label={Locale.PANEL_BOTTOMON} hint={Locale.PANEL_BOTTOMON_TIP}
-                value={mut self.settings.draft.bottomOn} />
+                value={mut self.settings.values.bottomOn} />
       </Section>
     }
   }
 }
 
 public class MicroPage implements Component {
-  derived off: Boolean = !self.settings.draft.microOn
+  derived off: Boolean = !self.settings.values.microOn
 
   settings: mut Settings<Choices>
   constructor(settings: mut Settings<Choices>) {
@@ -94,19 +94,19 @@ public class MicroPage implements Component {
   public render(self): Template {
     return $ltml {
       <Dropdown label={Locale.PANEL_MICROICONS} hint={Locale.PANEL_MICROICONS_TIP}
-                value={mut self.settings.draft.microIcons} choices={ICONS} disabled={self.off} />
+                value={mut self.settings.values.microIcons} choices={ICONS} disabled={self.off} />
       <Section title={Locale.SECTION_CHARACTER}>
         <Dropdown label={Locale.PANEL_CHARBUTTON} hint={Locale.PANEL_CHARBUTTON_TIP}
-                  value={mut self.settings.draft.charButton} choices={CHAR_BUTTONS} disabled={self.off} />
+                  value={mut self.settings.values.charButton} choices={CHAR_BUTTONS} disabled={self.off} />
         <Dropdown label={Locale.PANEL_CHARVIEW} hint={Locale.PANEL_CHARVIEW_TIP}
-                  value={mut self.settings.draft.charView} choices={CHAR_VIEWS} disabled={self.off} />
+                  value={mut self.settings.values.charView} choices={CHAR_VIEWS} disabled={self.off} />
       </Section>
     }
   }
 }
 
 public class StatusPage implements Component {
-  derived off: Boolean = !self.settings.draft.statusOn
+  derived off: Boolean = !self.settings.values.statusOn
 
   settings: mut Settings<Choices>
   constructor(settings: mut Settings<Choices>) {
@@ -116,16 +116,16 @@ public class StatusPage implements Component {
   public render(self): Template {
     return $ltml {
       <Dropdown label={Locale.PANEL_OUTLINE} hint={Locale.PANEL_OUTLINE_TIP}
-                value={mut self.settings.draft.outline} choices={OUTLINES} />
+                value={mut self.settings.values.outline} choices={OUTLINES} />
       <Checkbox label={Locale.PANEL_SHADOW} hint={Locale.PANEL_SHADOW_TIP}
-                value={mut self.settings.draft.shadow} />
+                value={mut self.settings.values.shadow} />
       <Section title={Locale.SECTION_XPBAR}>
         <Dropdown label={Locale.PANEL_XPVIEW} hint={Locale.PANEL_XPVIEW_TIP}
-                  value={mut self.settings.draft.xpView} choices={XP_VIEWS} disabled={self.off} />
+                  value={mut self.settings.values.xpView} choices={XP_VIEWS} disabled={self.off} />
         <Dropdown label={Locale.PANEL_XPTEXTURE} hint={Locale.PANEL_XPTEXTURE_TIP}
-                  value={mut self.settings.draft.xpTexture} choices={XP_TEXTURES} disabled={self.off} />
+                  value={mut self.settings.values.xpTexture} choices={XP_TEXTURES} disabled={self.off} />
         <Dropdown label={Locale.PANEL_XPBORDER} hint={Locale.PANEL_XPBORDER_TIP}
-                  value={mut self.settings.draft.xpBorder} choices={XP_BORDERS} disabled={self.off} />
+                  value={mut self.settings.values.xpBorder} choices={XP_BORDERS} disabled={self.off} />
       </Section>
     }
   }
@@ -163,7 +163,7 @@ class PlacesRows implements Component {
 }
 
 public class BottomPage implements Component {
-  derived off: Boolean = !self.settings.draft.bottomOn
+  derived off: Boolean = !self.settings.values.bottomOn
 
   settings: mut Settings<Choices>
   const least: Number
@@ -178,14 +178,14 @@ public class BottomPage implements Component {
 
   public render(self): Template {
     return $ltml {
-      <Dropdown label={Locale.PANEL_EDGE} hint={Locale.PANEL_EDGE_TIP} value={mut self.settings.draft.edge}
+      <Dropdown label={Locale.PANEL_EDGE} hint={Locale.PANEL_EDGE_TIP} value={mut self.settings.values.edge}
                 choices={EDGES} disabled={self.off} />
-      <Dropdown label={Locale.PANEL_FIT} hint={Locale.PANEL_FIT_TIP} value={mut self.settings.draft.fit}
+      <Dropdown label={Locale.PANEL_FIT} hint={Locale.PANEL_FIT_TIP} value={mut self.settings.values.fit}
                 choices={FITS} disabled={self.off} />
-      <Slider label={Locale.PANEL_HEIGHT} hint={Locale.PANEL_HEIGHT_TIP} value={mut self.settings.draft.height}
+      <Slider label={Locale.PANEL_HEIGHT} hint={Locale.PANEL_HEIGHT_TIP} value={mut self.settings.values.height}
               least={self.least} most={96} unit={Unit.Px} disabled={self.off} />
-      <PlacesRows value={mut self.settings.draft.places} disabled={self.off} />
-      <VisibilityRows value={mut self.settings.draft.visibility} disabled={self.off} />
+      <PlacesRows value={mut self.settings.values.places} disabled={self.off} />
+      <VisibilityRows value={mut self.settings.values.visibility} disabled={self.off} />
     }
   }
 }

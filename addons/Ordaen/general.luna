@@ -1,5 +1,5 @@
 // Ordaen's own page in the settings window: the settings every module follows, on three tabs. Each control writes
-// one entry of their draft.
+// one entry of them, at once.
 import { Checkbox } from "@/checkbox"
 import { Choice, Dropdown } from "@/dropdown"
 import { Clock, Density, Globals, LargeNumbers, NumberFormat } from "@/globals"
@@ -35,18 +35,18 @@ public class ScalePage implements Component {
 
   public render(self): Template {
     return $ltml {
-      <Slider label={Locale.GLOBAL_SCALE} hint={Locale.GLOBAL_SCALE_TIP} value={mut self.globals.draft.scale}
+      <Slider label={Locale.GLOBAL_SCALE} hint={Locale.GLOBAL_SCALE_TIP} value={mut self.globals.values.scale}
               least={0.7} most={1.5} step={0.05} unit={Unit.Percent} />
       <Dropdown label={Locale.GLOBAL_DENSITY} hint={Locale.GLOBAL_DENSITY_TIP}
-                value={mut self.globals.draft.density} choices={DENSITIES} />
-      <Checkbox label={Locale.GLOBAL_PIXEL} hint={Locale.GLOBAL_PIXEL_TIP} value={mut self.globals.draft.pixel} />
+                value={mut self.globals.values.density} choices={DENSITIES} />
+      <Checkbox label={Locale.GLOBAL_PIXEL} hint={Locale.GLOBAL_PIXEL_TIP} value={mut self.globals.values.pixel} />
     }
   }
 }
 
 public class NumbersPage implements Component {
   // Rounded numbers have no decimal places to choose.
-  derived rounded: Boolean = self.globals.draft.numberRound
+  derived rounded: Boolean = self.globals.values.numberRound
 
   globals: mut Settings<Globals>
   constructor(globals: mut Settings<Globals>) {
@@ -56,13 +56,13 @@ public class NumbersPage implements Component {
   public render(self): Template {
     return $ltml {
       <Dropdown label={Locale.GLOBAL_NUMBERFORMAT} hint={Locale.GLOBAL_NUMBERFORMAT_TIP}
-                value={mut self.globals.draft.numberFormat} choices={FORMATS} />
+                value={mut self.globals.values.numberFormat} choices={FORMATS} />
       <Checkbox label={Locale.GLOBAL_NUMBERROUND} hint={Locale.GLOBAL_NUMBERROUND_TIP}
-                value={mut self.globals.draft.numberRound} />
+                value={mut self.globals.values.numberRound} />
       <Slider label={Locale.GLOBAL_NUMBERPRECISION} hint={Locale.GLOBAL_NUMBERPRECISION_TIP}
-              value={mut self.globals.draft.numberPrecision} least={0} most={3} disabled={self.rounded} />
+              value={mut self.globals.values.numberPrecision} least={0} most={3} disabled={self.rounded} />
       <Dropdown label={Locale.GLOBAL_NUMBERS} hint={Locale.GLOBAL_NUMBERS_TIP}
-                value={mut self.globals.draft.numbers} choices={LARGE} />
+                value={mut self.globals.values.numbers} choices={LARGE} />
     }
   }
 }
@@ -75,8 +75,8 @@ public class BehaviourPage implements Component {
 
   public render(self): Template {
     return $ltml {
-      <Checkbox label={Locale.GLOBAL_SOUNDS} hint={Locale.GLOBAL_SOUNDS_TIP} value={mut self.globals.draft.sounds} />
-      <Dropdown label={Locale.GLOBAL_CLOCK} hint={Locale.GLOBAL_CLOCK_TIP} value={mut self.globals.draft.clock}
+      <Checkbox label={Locale.GLOBAL_SOUNDS} hint={Locale.GLOBAL_SOUNDS_TIP} value={mut self.globals.values.sounds} />
+      <Dropdown label={Locale.GLOBAL_CLOCK} hint={Locale.GLOBAL_CLOCK_TIP} value={mut self.globals.values.clock}
                 choices={CLOCKS} />
     }
   }

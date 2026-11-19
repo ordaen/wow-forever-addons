@@ -1,6 +1,6 @@
 // The settings window's page of Ordaen's look: the presets, each a whole look chosen at once, then every entry of
 // the look (fonts, bars, animation, the accent and the palette, the class colours). Every row writes one entry of
-// the look's draft and a preset all of them, so «Save», leaving unsaved and «Roll back» treat both alike.
+// the look and a preset all of them, each at once and one step of the history.
 import { Align, Track } from "$ltml"
 import { ColorPicker } from "@/colorPicker"
 import { Choice, Dropdown } from "@/dropdown"
@@ -72,10 +72,10 @@ function aboutOf(named: Preset): String {
   }
 }
 
-// A preset: its name and what it is, and «Use», which writes the whole of it into the draft; «In use» where the
-// draft is that preset as it stands.
+// A preset: its name and what it is, and «Use», which writes the whole of it into the look; «In use» where the
+// look is that preset as it stands.
 public class PresetRow implements Component {
-  derived inUse: Boolean = presetOf(self.look.draft) == self.preset
+  derived inUse: Boolean = presetOf(self.look.values) == self.preset
   derived name: String = nameOf(self.preset)
   derived about: String = aboutOf(self.preset)
 
@@ -115,54 +115,54 @@ public class LookPage implements Component {
           <PresetRow $for={each of PRESETS} $key={each} preset={each} look={mut self.look} />
         </Section>
         <Section title={Locale.THEMES_FONTS}>
-          <Dropdown label={Locale.THEME_FONT} value={mut self.look.draft.font} choices={FONTS} />
-          <Dropdown label={Locale.THEME_FONTHEADER} value={mut self.look.draft.fontHeader} choices={FONTS} />
-          <Dropdown label={Locale.THEME_FONTNUMBERS} value={mut self.look.draft.fontNumbers} choices={FONTS} />
+          <Dropdown label={Locale.THEME_FONT} value={mut self.look.values.font} choices={FONTS} />
+          <Dropdown label={Locale.THEME_FONTHEADER} value={mut self.look.values.fontHeader} choices={FONTS} />
+          <Dropdown label={Locale.THEME_FONTNUMBERS} value={mut self.look.values.fontNumbers} choices={FONTS} />
         </Section>
         <Section title={Locale.THEMES_TEXTURES}>
           <Dropdown label={Locale.THEME_BARTEXTURE} hint={Locale.THEME_BARTEXTURE_TIP}
-                    value={mut self.look.draft.barTexture} choices={BARS} />
-          <Dropdown label={Locale.THEME_BARFRAME} value={mut self.look.draft.barFrame} choices={FRAMES} />
+                    value={mut self.look.values.barTexture} choices={BARS} />
+          <Dropdown label={Locale.THEME_BARFRAME} value={mut self.look.values.barFrame} choices={FRAMES} />
         </Section>
         <Section title={Locale.THEMES_ANIMATION}>
-          <Dropdown label={Locale.THEME_ANIM} hint={Locale.THEME_ANIM_TIP} value={mut self.look.draft.animation}
+          <Dropdown label={Locale.THEME_ANIM} hint={Locale.THEME_ANIM_TIP} value={mut self.look.values.animation}
                     choices={ANIMATIONS} />
         </Section>
         <Section title={Locale.THEMES_COLORS}>
-          <ColorPicker label={Locale.THEME_ACCENT} hint={Locale.THEME_ACCENT_TIP} value={mut self.look.draft.accent} />
-          <ColorPicker label={Locale.THEME_PALETTE_RED} value={mut self.look.draft.red} />
-          <ColorPicker label={Locale.THEME_PALETTE_REDTEXT} value={mut self.look.draft.redText} />
-          <ColorPicker label={Locale.THEME_PALETTE_ORANGE} value={mut self.look.draft.orange} />
-          <ColorPicker label={Locale.THEME_PALETTE_ORANGETEXT} value={mut self.look.draft.orangeText} />
-          <ColorPicker label={Locale.THEME_PALETTE_YELLOW} value={mut self.look.draft.yellow} />
-          <ColorPicker label={Locale.THEME_PALETTE_YELLOWTEXT} value={mut self.look.draft.yellowText} />
-          <ColorPicker label={Locale.THEME_PALETTE_GREEN} value={mut self.look.draft.green} />
-          <ColorPicker label={Locale.THEME_PALETTE_GREENTEXT} value={mut self.look.draft.greenText} />
-          <ColorPicker label={Locale.THEME_PALETTE_CYAN} value={mut self.look.draft.cyan} />
-          <ColorPicker label={Locale.THEME_PALETTE_CYANTEXT} value={mut self.look.draft.cyanText} />
-          <ColorPicker label={Locale.THEME_PALETTE_BLUE} value={mut self.look.draft.blue} />
-          <ColorPicker label={Locale.THEME_PALETTE_BLUETEXT} value={mut self.look.draft.blueText} />
-          <ColorPicker label={Locale.THEME_PALETTE_VIOLET} value={mut self.look.draft.violet} />
-          <ColorPicker label={Locale.THEME_PALETTE_VIOLETTEXT} value={mut self.look.draft.violetText} />
-          <ColorPicker label={Locale.THEME_PALETTE_PINK} value={mut self.look.draft.pink} />
-          <ColorPicker label={Locale.THEME_PALETTE_PINKTEXT} value={mut self.look.draft.pinkText} />
-          <ColorPicker label={Locale.THEME_PALETTE_TAN} value={mut self.look.draft.tan} />
-          <ColorPicker label={Locale.THEME_PALETTE_TANTEXT} value={mut self.look.draft.tanText} />
-          <ColorPicker label={Locale.THEME_PALETTE_WHITE} value={mut self.look.draft.white} />
-          <ColorPicker label={Locale.THEME_PALETTE_WHITETEXT} value={mut self.look.draft.whiteText} />
-          <ColorPicker label={Locale.THEME_PALETTE_GREY} value={mut self.look.draft.grey} />
-          <ColorPicker label={Locale.THEME_PALETTE_GREYTEXT} value={mut self.look.draft.greyText} />
+          <ColorPicker label={Locale.THEME_ACCENT} hint={Locale.THEME_ACCENT_TIP} value={mut self.look.values.accent} />
+          <ColorPicker label={Locale.THEME_PALETTE_RED} value={mut self.look.values.red} />
+          <ColorPicker label={Locale.THEME_PALETTE_REDTEXT} value={mut self.look.values.redText} />
+          <ColorPicker label={Locale.THEME_PALETTE_ORANGE} value={mut self.look.values.orange} />
+          <ColorPicker label={Locale.THEME_PALETTE_ORANGETEXT} value={mut self.look.values.orangeText} />
+          <ColorPicker label={Locale.THEME_PALETTE_YELLOW} value={mut self.look.values.yellow} />
+          <ColorPicker label={Locale.THEME_PALETTE_YELLOWTEXT} value={mut self.look.values.yellowText} />
+          <ColorPicker label={Locale.THEME_PALETTE_GREEN} value={mut self.look.values.green} />
+          <ColorPicker label={Locale.THEME_PALETTE_GREENTEXT} value={mut self.look.values.greenText} />
+          <ColorPicker label={Locale.THEME_PALETTE_CYAN} value={mut self.look.values.cyan} />
+          <ColorPicker label={Locale.THEME_PALETTE_CYANTEXT} value={mut self.look.values.cyanText} />
+          <ColorPicker label={Locale.THEME_PALETTE_BLUE} value={mut self.look.values.blue} />
+          <ColorPicker label={Locale.THEME_PALETTE_BLUETEXT} value={mut self.look.values.blueText} />
+          <ColorPicker label={Locale.THEME_PALETTE_VIOLET} value={mut self.look.values.violet} />
+          <ColorPicker label={Locale.THEME_PALETTE_VIOLETTEXT} value={mut self.look.values.violetText} />
+          <ColorPicker label={Locale.THEME_PALETTE_PINK} value={mut self.look.values.pink} />
+          <ColorPicker label={Locale.THEME_PALETTE_PINKTEXT} value={mut self.look.values.pinkText} />
+          <ColorPicker label={Locale.THEME_PALETTE_TAN} value={mut self.look.values.tan} />
+          <ColorPicker label={Locale.THEME_PALETTE_TANTEXT} value={mut self.look.values.tanText} />
+          <ColorPicker label={Locale.THEME_PALETTE_WHITE} value={mut self.look.values.white} />
+          <ColorPicker label={Locale.THEME_PALETTE_WHITETEXT} value={mut self.look.values.whiteText} />
+          <ColorPicker label={Locale.THEME_PALETTE_GREY} value={mut self.look.values.grey} />
+          <ColorPicker label={Locale.THEME_PALETTE_GREYTEXT} value={mut self.look.values.greyText} />
         </Section>
         <Section title={Locale.THEMES_CLASS_COLORS}>
-          <Dropdown label={Locale.THEME_CLASS_WARRIOR} value={mut self.look.draft.warrior} choices={HUES} />
-          <Dropdown label={Locale.THEME_CLASS_PALADIN} value={mut self.look.draft.paladin} choices={HUES} />
-          <Dropdown label={Locale.THEME_CLASS_HUNTER} value={mut self.look.draft.hunter} choices={HUES} />
-          <Dropdown label={Locale.THEME_CLASS_ROGUE} value={mut self.look.draft.rogue} choices={HUES} />
-          <Dropdown label={Locale.THEME_CLASS_PRIEST} value={mut self.look.draft.priest} choices={HUES} />
-          <Dropdown label={Locale.THEME_CLASS_SHAMAN} value={mut self.look.draft.shaman} choices={HUES} />
-          <Dropdown label={Locale.THEME_CLASS_MAGE} value={mut self.look.draft.mage} choices={HUES} />
-          <Dropdown label={Locale.THEME_CLASS_WARLOCK} value={mut self.look.draft.warlock} choices={HUES} />
-          <Dropdown label={Locale.THEME_CLASS_DRUID} value={mut self.look.draft.druid} choices={HUES} />
+          <Dropdown label={Locale.THEME_CLASS_WARRIOR} value={mut self.look.values.warrior} choices={HUES} />
+          <Dropdown label={Locale.THEME_CLASS_PALADIN} value={mut self.look.values.paladin} choices={HUES} />
+          <Dropdown label={Locale.THEME_CLASS_HUNTER} value={mut self.look.values.hunter} choices={HUES} />
+          <Dropdown label={Locale.THEME_CLASS_ROGUE} value={mut self.look.values.rogue} choices={HUES} />
+          <Dropdown label={Locale.THEME_CLASS_PRIEST} value={mut self.look.values.priest} choices={HUES} />
+          <Dropdown label={Locale.THEME_CLASS_SHAMAN} value={mut self.look.values.shaman} choices={HUES} />
+          <Dropdown label={Locale.THEME_CLASS_MAGE} value={mut self.look.values.mage} choices={HUES} />
+          <Dropdown label={Locale.THEME_CLASS_WARLOCK} value={mut self.look.values.warlock} choices={HUES} />
+          <Dropdown label={Locale.THEME_CLASS_DRUID} value={mut self.look.values.druid} choices={HUES} />
         </Section>
       </box>
     }

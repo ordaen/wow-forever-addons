@@ -117,18 +117,20 @@ test "− and + step as they go down, again after a wait, then at a pace, until 
   Test.moveTo(Test.holding("+", nil))
   Test.press(nil)
   Test.flush()
-  Test.expect(page.count == 2)
+  // The number shows the step at once; the value takes it when the steps rest.
+  Test.expect(Test.page().text("2").shown() && page.count == 1)
   Test.pass(0.3)
   Test.expect(page.count == 2)
   Test.pass(0.12)
-  const first = page.count
+  const first = Test.page().text("3").shown()
   Test.pass(0.1)
-  const later = page.count
+  const later = Test.page().text("5").shown()
+  const moving = page.count
   Test.release(nil)
   Test.flush()
   const released = page.count
-  Test.note(`down: 2; held 0.3 s: 2; at 0.42 s: ${first}; at 0.52 s: ${later}; let go: ${released}`)
-  Test.expect(first == 3 && later == 5 && released == later)
+  Test.note(`down: 2 shown; held 0.3 s: 2 written; at 0.42 s: 3 shown; at 0.52 s: 5 shown, ${moving} written; let go: ${released}`)
+  Test.expect(first && later && moving == 2 && released == 5)
   Test.pass(1)
   Test.expect(page.count == released)
 

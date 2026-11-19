@@ -1,9 +1,11 @@
 // Slider: a number setting's row (SettingRow) between its least and its most. A dark groove, the bronze fill up to the value, a bronze
-// knob; the value beside it in its unit (70%, 48 px, 3). A click or a drag anywhere along it sets the value, in its
-// steps. Disabled, it takes no input.
+// knob; the value beside it in its unit (70%, 48 px, 3). A click anywhere along it sets the value, in its steps; a
+// drag moves the knob at once and sets the value when it rests and as it is let go (`Resting`). Disabled, it takes
+// no input.
 import { Align, Drag, Keystroke, Pointer, Position, Shadow } from "$ltml"
 import root Ordaen from "Ordaen"
 import { Component } from "@/module"
+import { Resting } from "@/rest"
 import { SettingRow } from "@/settingRow"
 
 public enum Unit { None = "none", Percent = "percent", Px = "px", Sec = "sec" }
@@ -21,8 +23,11 @@ const WHITE: Color = Color.hex("#ffffff")
 
 public class Slider implements Component {
   // The value held to the range: one kept outside it (saved before the range changed) is read as its nearest end,
-  // which is what the slider shows.
-  derived held: Number = self.least.max(self.most.min(self.value))
+  // which is what the slider shows. While a drag is under way it shows where the drag is.
+  derived held: Number = self.least.max(self.most.min(self.dragged ?? self.value))
+  // Where a drag under way has put the knob: the value takes it when the drag rests and as it is let go.
+  state dragged: Number | nil = nil
+  const rest: mut Resting<Number>
   // Where the value sits along the range, from 0 to 1.
   derived fraction: Number = self.most > self.least ? (self.held - self.least) / (self.most - self.least) : 0
   derived fillWidth: Number<Length> = self.fraction * (LENGTH - 2 * EDGE)
@@ -55,6 +60,7 @@ public class Slider implements Component {
     self.unit = unit
     self.hint = hint
     self.disabled = disabled
+    self.rest = new Resting<Number>((to: Number): nil => { self.value = to })
   }
 
   // The value as the slider shows it, in its unit.
@@ -68,15 +74,30 @@ public class Slider implements Component {
   }
 
   // The value at `x` UI units along the groove, held to the range and its steps.
-  setAt(mut self, x: Number<Length>) {
-    if (self.disabled) { return }
-    let t = (0).max((1).min(x / LENGTH))
-    let steps = (t * (self.most - self.least) / self.step).round()
-    self.value = self.most.min(self.least + steps * self.step)
+  valueAt(self, x: Number<Length>): Number {
+    const t = (0).max((1).min(x / LENGTH))
+    const steps = (t * (self.most - self.least) / self.step).round()
+    return self.most.min(self.least + steps * self.step)
   }
 
-  onClick(mut self, click: Pointer) { self.setAt(click.x) }
-  onDrag(mut self, drag: Drag) { self.setAt(drag.x) }
+  // A click is one change, written at once.
+  onClick(mut self, click: Pointer) {
+    if (self.disabled || self.rest.busy()) { return }
+    self.value = self.valueAt(click.x)
+  }
+
+  // A drag moves the knob at once; the value follows it when it rests and as it is let go.
+  onDrag(mut self, drag: Drag) {
+    if (self.disabled) { return }
+    const value = self.valueAt(drag.x)
+    self.dragged = value
+    self.rest.move(value)
+  }
+
+  onDragStop(mut self) {
+    self.rest.end()
+    self.dragged = nil
+  }
 
   // A step down or up, held to the range.
   nudge(mut self, by: Number) {
@@ -100,7 +121,7 @@ public class Slider implements Component {
         <box columns={[LENGTH, "max-content"]} gap={14.0625dp} yAlign={Align.Center}>
           <box width={LENGTH} height={BAND} @pointerPress={self.onClick}
                @keyPress(.Left)={self.onKey} @keyPress(.Right)={self.onKey} @keyPress(.Home)={self.onKey} @keyPress(.End)={self.onKey}
-               @dragStart={self.onDrag} @drag={self.onDrag}>
+               @dragStart={self.onDrag} @drag={self.onDrag} @dragStop={self.onDragStop}>
             <box position={Position.Absolute} left={0ui} top={GROOVE_TOP} width={LENGTH} height={GROOVE}
                  background={Ordaen.art.ctl.groove} />
             <box position={Position.Absolute} left={EDGE} top={GROOVE_TOP + EDGE} height={GROOVE - 2 * EDGE}

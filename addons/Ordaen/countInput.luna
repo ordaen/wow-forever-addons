@@ -3,7 +3,8 @@
 // where a bound moves past it the value is written back to that bound. Where the most is under the least there is
 // nothing to choose: the value is the least and the control is disabled. Two looks: `Steps`, − and + either side of
 // the number (each disabled at its bound; a click steps 1, 10 with Shift held, 100 with Alt, held to the bounds; held
-// down, a button steps again after 0.4 s and then every 0.05 s until it is let go or reaches its bound; under the
+// down, a button steps again after 0.4 s and then every 0.05 s until it is let go or reaches its bound, the number
+// showing each step and the value taking it when the steps rest and as the button is let go; under the
 // cursor, a Tip names those keys), and `Field`, the number typed in, which fills the box it stands in (a
 // number past a bound is written as that bound; a text that isn't a number leaves the value and turns the edge red).
 import Game from "$game"
@@ -11,6 +12,7 @@ import { Align, Bounds, Edges, Line, Track } from "$ltml"
 import Locale from "@/locales"
 import { Component } from "@/module"
 import { PushButton } from "@/pushButton"
+import { Resting } from "@/rest"
 import { TipText } from "@/tip"
 
 public enum CountLook { Steps = "steps", Field = "field" }
@@ -68,8 +70,12 @@ function countOf(text: String, signed: Boolean): Integer | nil {
 
 public class CountInput implements Component {
   derived off: Boolean = self.disabled || self.most < self.least
-  derived fewer: Boolean = !self.off && self.value > self.least
-  derived more: Boolean = !self.off && self.value < self.most
+  derived fewer: Boolean = !self.off && self.count > self.least
+  derived more: Boolean = !self.off && self.count < self.most
+  // What the number shows: the value, or where − or + held down has stepped it to. The value takes it when the
+  // steps rest and as the button is let go.
+  state count: Integer
+  const rest: mut Resting<Integer>
   derived stepped: Boolean = self.look == CountLook.Steps
   public state text: String
   public derived bad: Boolean = countOf(self.text, self.least < 0) == nil
@@ -97,6 +103,8 @@ public class CountInput implements Component {
     self.step = step
     self.disabled = disabled
     self.text = String.of(peek self.value)
+    self.count = peek self.value
+    self.rest = new Resting<Integer>((count: Integer): nil => { self.value = count })
     watch { self.hold(self.value, self.least, self.most) }
     watch (typed of self.text) { self.take(typed) }
     watch (count of self.value) { self.show(count) }
@@ -120,30 +128,39 @@ public class CountInput implements Component {
     }
   }
 
-  // The value changed: the text says it, unless it already does.
+  // The value changed: the number and the text say it, unless a held button is stepping or the text already does.
   show(mut self, count: Integer) {
+    if (!self.rest.busy()) { self.count = count }
     if (countOf(peek self.text, peek self.least < 0) != count) { self.text = String.of(count) }
   }
 
+  stepTo(mut self, count: Integer) {
+    self.count = count
+    self.rest.move(count)
+  }
+
   less(mut self) {
-    if (self.fewer) { self.value = held(self.value - stride(), self.least, self.most) }
+    if (self.fewer) { self.stepTo(held(self.count - stride(), self.least, self.most)) }
   }
 
   raise(mut self) {
-    if (self.more) { self.value = held(self.value + stride(), self.least, self.most) }
+    if (self.more) { self.stepTo(held(self.count + stride(), self.least, self.most)) }
   }
+
+  // − or + let go: the value is where they stepped it.
+  released(mut self) { self.rest.end() }
 
   public render(self): Template {
     return $ltml {
       <box $if={self.stepped} columns={STEPS} gap={7.03125dp} yAlign={Align.Center}>
         <PushButton label={"-"} width={self.step} disabled={!self.fewer} repeats={true} tip={FEWER_TIP}
-                    @click={self.less} />
+                    @click={self.less} @released={self.released} />
         <box xAlign={Align.Center} width={NUMBER_BOUNDS}>
-          <text value={"%d"} arguments={[self.value]} textColor={WHITE}
+          <text value={"%d"} arguments={[self.count]} textColor={WHITE}
                 textFont={.Numbers} wrap={false} />
         </box>
         <PushButton label={"+"} width={self.step} disabled={!self.more} repeats={true} tip={MORE_TIP}
-                    @click={self.raise} />
+                    @click={self.raise} @released={self.released} />
       </box>
       <input $else value={mut self.text} padding={PADDING} textColor={INK} background={FILL}
              border={self.edge} maxLength={DIGITS} disabled={self.off} />

@@ -92,20 +92,18 @@ function tab(title: String): Test.Part {
   return settings
 }
 
-// A control of the module's tab clicked and saved, and the window closed.
+// A control of the module's tab clicked, which applies at once, and the window closed.
 function choose(title: String, control: String) {
   const settings = tab(title)
   settings.button(control).click()
-  settings.button("Save").click()
   Test.key(Key.Escape)
 }
 
-// A dropdown of the module's tab, the `nth` of those that say what it says now, set to another choice and saved.
+// A dropdown of the module's tab, the `nth` of those that say what it says now, set to another choice.
 function pick(title: String, now: String, nth: Integer, choice: String) {
   const settings = tab(title)
   settings.button(now).nth(nth).click()
   Test.page().window(choice).button(choice).click()
-  settings.button("Save").click()
   Test.key(Key.Escape)
 }
 

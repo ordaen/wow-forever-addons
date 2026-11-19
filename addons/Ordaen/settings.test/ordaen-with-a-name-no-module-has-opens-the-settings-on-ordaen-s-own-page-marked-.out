@@ -43,7 +43,7 @@ surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
                 box 492.19,267.51 233.33x15.6 @pointerEnter @pointerLeave
                   text 492.19,267.51 233.33x15.6 "Ordaen window scale" #cbb994
                 box 740.53,266.97 501.72x16.67
-                  box 740.53,266.97 200x16.67 @drag @dragStart @keyPress @pointerPress
+                  box 740.53,266.97 200x16.67 @drag @dragStart @dragStop @keyPress @pointerPress
                     box 740.53,271.97 200x6.67 absolute Interface\AddOns\Ordaen\media\ctl-slider row 0 of 4
                     box 741.36,272.81 74.38x5 absolute Interface\AddOns\Ordaen\media\ctl-slider row 1 of 4
                     box 808.86,265.31 13.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-slider-knob
@@ -64,11 +64,14 @@ surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
         box 349.42,708.12 906.17x28.33
           box 349.42,708.12 166.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
             text 402.19,714.49 61.11x15.6 "Move mode" #ffd100
-          box 532.75,715.09 582.83x14.4
-            text 532.75,715.09 582.83x14.4 "/ordaen opens this page" #a3977f
-          box 1132.25,708.12 123.33x28.33
-            box 1132.25,708.12 116.67x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-              text 1176.14,714.49 28.89x15.6 "Save" #808080
+          box 532.75,715.09 474.5x14.4
+            text 532.75,715.09 474.5x14.4 "Changes apply at once" #a3977f
+          box 1023.92,708.12 231.67x28.33
+            box 1023.92,708.12 108.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+              text 1047.53,714.49 61.11x15.6 "Savepoint" #ffd100
+            box 1138.92,708.12 116.67x28.33
+              box 1138.92,708.12 116.67x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+                text 1166.69,714.49 61.11x15.6 "Roll back" #808080
     box 1266.08,740.29 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 316.67,139.71 966.67x47.75
     box 316.67,139.71 905x47.75

@@ -1,4 +1,4 @@
-// What the player chooses, kept: a module's settings and the draft its settings page writes.
+// What the player chooses, kept: a module's settings, which its settings page writes as the player changes them.
 import Game from "$game"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
@@ -14,20 +14,20 @@ function keyOf(addon: Runtime.Addon | nil, part: String): String | nil {
 
 // A module's settings: a struct `S` of what the player chooses, with the defaults it starts from.
 //
-// The module reads `values` (`settings.values.scale`, followed). The settings page writes `draft`, an entry at a
-// time (`value={mut settings.draft.scale}`), and nothing the module reads changes until the draft is saved: every
-// page's changes wait for «Save» together. The values are kept in the active profile (`Profiles`), as a section
-// under the module's name (`keyOf`), and follow a switch to another profile.
+// The module reads `values` (`settings.values.scale`, followed), and its settings page binds the same entries
+// (`value={mut settings.values.scale}`): a change applies at once, with no draft and nothing to save. Each change is
+// recorded as a step of the history in Ordaen's `Keeper` (what the values were before it), which «Откатить» goes
+// back through. The values are kept in the active profile (`Profiles`), as a section under the module's name
+// (`keyOf`), packed when the game saves, before a switch of profile and before an export, never at each change; they
+// follow a switch to another profile.
 public class Settings<S: Plain> implements Sectioned {
   public const defaults: S
-  public state values: S
-  public state draft: mut S
-  // How many entries of the draft differ from the values.
-  public derived changed: Integer = self.draft.changes(self.values)
-  // What the values were before the last save that changed them.
-  before: S | nil = nil
-  // What they were before the save that is running, where it changed them.
-  replaced: S | nil = nil
+  public state values: mut S
+  // The values as last recorded: what a change is told from, and the step's `before` once it is made.
+  recorded: S
+  // The profile the values are of, and whether they changed since they were last packed into it.
+  profile: ProfileName | nil = nil
+  dirty = false
   key: String | nil = nil
   const keeper: mut Keeper
   const id: Integer
@@ -37,105 +37,92 @@ public class Settings<S: Plain> implements Sectioned {
   constructor(defaults: S, part: String = "", keeper: mut Keeper | nil = nil) {
     self.defaults = defaults
     self.values = defaults.clone()
-    self.draft = defaults.clone()
+    self.recorded = defaults.clone()
     self.keeper = keeper ?? Ordaen.keeper
     self.id = self.keeper.join()
-    const key = keyOf(Runtime.Addon.of(self), part)
+    const addon = Runtime.Addon.of(self)
+    const key = keyOf(addon, part)
     self.key = key
     if (key != nil) {
       // The active profile's section: read now, and again when the character switches to another profile.
       watch (name of self.keeper.profiles.active) { self.take(name, key) }
+      self.keeper.profiles.packing.listen(self.pack)
+      self.keeper.enrol(key, self.id, addon?.title ?? key, mut self)
     }
-    self.keeper.saving.listen(self.save)
-    self.keeper.saved.listen(self.settle)
-    self.keeper.discarding.listen(self.discard)
-    self.keeper.rollingBack.listen(self.rollback)
-    watch { self.tell() }
-    if (key != nil) { self.keeper.enrol(key, self.id, mut self) }
+    // Every entry is read, so a change to any of them is recorded.
+    watch { self.notice() }
   }
 
   destructor() {
     const key = self.key
     if (key != nil) { self.keeper.withdraw(key, self.id) }
-    self.keeper.leave(self.id)
   }
 
-  // How many settings a section would change in the values.
+  // How many settings a snapshot or a section would change in the values.
   public differs(self, raw: Unknown): Integer {
     return S.decode(raw, self.defaults).changes(self.values)
   }
 
-  // A section becomes the draft: it waits for «Save», as a preset's entries do.
-  public draftFrom(mut self, raw: Unknown) {
-    self.draft = S.decode(raw, self.defaults)
+  public snapshot(self): Unknown {
+    return (peek self.values).clone()
   }
 
-  tell(mut self) {
-    self.keeper.count(self.id, self.changed)
+  public restore(mut self, raw: Unknown) {
+    self.values = S.decode(raw, self.defaults)
   }
 
-  // A profile's section becomes the values, and the draft with them: what follows the values draws again.
-  take(mut self, profile: ProfileName, key: String) {
-    const values = S.decode(self.keeper.profiles.section(profile, key), self.defaults)
-    self.draft = values.clone()
-    self.values = values
+  notice(mut self) {
+    const now = self.values.clone()
+    if (!now.equal(self.recorded)) { self.record(now) }
   }
 
-  keep(mut self) {
+  public settle(mut self) {
+    const now = (peek self.values).clone()
+    if (!now.equal(self.recorded)) { self.record(now) }
+  }
+
+  record(mut self, now: S) {
     const key = self.key
-    if (key != nil) { self.keeper.profiles.write(key, peek self.values) }
+    if (key != nil) { self.keeper.stepped(key, self.recorded) }
+    self.recorded = now
+    self.dirty = true
   }
 
-  save(mut self) {
-    self.replaced = nil
-    if (peek self.changed == 0) { return }
-    self.replaced = (peek self.values).clone()
-    self.values = (peek self.draft).clone()
-    self.keep()
-    self.keeper.changed()
+  // The values packed into their profile, where they changed since they last were.
+  pack(mut self) {
+    self.settle()
+    const key = self.key
+    const profile = self.profile
+    if (!self.dirty || key == nil || profile == nil) { return }
+    self.dirty = false
+    self.keeper.profiles.write(profile, key, peek self.values)
   }
 
-  // A save changed something somewhere: what a roll back returns to is what this save replaced here, or nothing.
-  settle(mut self) {
-    self.before = self.replaced
-    self.replaced = nil
+  // A profile's section becomes the values: what follows them draws again. The profile left keeps its values first.
+  take(mut self, profile: ProfileName, key: String) {
+    self.pack()
+    const values = S.decode(self.keeper.profiles.section(profile, key), self.defaults)
+    self.recorded = values.clone()
+    self.values = values
+    self.profile = profile
   }
 
-  discard(mut self) {
-    self.draft = (peek self.values).clone()
-  }
-
-  rollback(mut self) {
-    const was = self.before
-    if (was == nil) { return }
-    self.values = was.clone()
-    self.draft = was.clone()
-    self.before = nil
-    self.keep()
-  }
-
-  // Every entry of the draft at once (a preset): it waits for «Save» as any other change does.
+  // Every entry at once (a preset): one change.
   public choose(mut self, values: S) {
-    self.draft = values.clone()
+    self.values = values.clone()
   }
 
   // What the player chose outside the settings page (a part taken to another side in the placing mode): `apply`
-  // changes the values at once, kept, and the draft the same way; the draft's other changes still wait for «Save».
+  // changes the values, one change.
   public change(mut self, apply: (values: mut S) => nil) {
     const values = (peek self.values).clone()
     apply(mut values)
     self.values = values
-    const draft = (peek self.draft).clone()
-    apply(mut draft)
-    self.draft = draft
-    self.keep()
   }
 
-  // Every value back to its default, the draft with them.
+  // Every value back to its default.
   public reset(mut self) {
     self.values = self.defaults.clone()
-    self.draft = self.defaults.clone()
-    self.keep()
   }
 }
 

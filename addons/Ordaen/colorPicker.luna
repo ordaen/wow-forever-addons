@@ -1,9 +1,11 @@
 // ColorPicker: a colour setting's row (SettingRow: its label, its hint, greyed while disabled) with a swatch of the
-// colour in a fine bronze edge. Left-click opens the game's colour picker on it; each colour picked there is
-// written to the setting, and the picker's Cancel puts back the colour it opened with. Disabled, it takes no click.
+// colour in a fine bronze edge. Left-click opens the game's colour picker on it; the swatch shows each colour picked
+// there at once, and the setting takes it when the picker rests (`Resting`); the picker's Cancel puts back the colour
+// it opened with at once. Disabled, it takes no click.
 import Game from "$game"
 import { Line } from "$ltml"
 import { Component } from "@/module"
+import { Resting } from "@/rest"
 import { SettingRow } from "@/settingRow"
 
 const EDGE: Line = { width: 1.171875dp, color: Color.hex("#6c5535") }
@@ -13,6 +15,10 @@ public class ColorPicker implements Component {
   ticket: Integer = 0
   // The colour when the picker opened.
   before: Color | nil = nil
+  // The colour last picked while the picker moves: the swatch shows it, the setting takes it when the picker rests.
+  state picking: Color | nil = nil
+  derived shown: Color = self.picking ?? self.value
+  const rest: mut Resting<Color>
 
   label: Signal<String>
   value: mut Signal<Color>
@@ -29,6 +35,10 @@ public class ColorPicker implements Component {
     self.value = value
     self.hint = hint
     self.disabled = disabled
+    self.rest = new Resting<Color>((color: Color): nil => {
+      self.value = color.clone()
+      self.picking = nil
+    }, true)
     Game.colorPicker.picked.listen(self.onPicked)
     Game.colorPicker.cancelled.listen(self.onCancelled)
   }
@@ -40,18 +50,22 @@ public class ColorPicker implements Component {
   }
 
   onPicked(mut self, ticket: Integer, color: Color) {
-    if (ticket == self.ticket) { self.value = color.clone() }
+    if (ticket != self.ticket) { return }
+    self.picking = color.clone()
+    self.rest.move(color.clone())
   }
 
   onCancelled(mut self, ticket: Integer) {
-    let before = self.before
-    if (ticket == self.ticket && before != nil) { self.value = before.clone() }
+    const before = self.before
+    if (ticket != self.ticket || before == nil) { return }
+    self.rest.move(before.clone())
+    self.rest.end()
   }
 
   public render(self): Template {
     return $ltml {
       <SettingRow label={self.label} hint={self.hint} disabled={self.disabled}>
-        <box width={51.5625dp} height={25.78125dp} border={EDGE} background={self.value} @pointerPress={self.open} @keyPress(.Enter)={self.open} @keyPress(.Space)={self.open} />
+        <box width={51.5625dp} height={25.78125dp} border={EDGE} background={self.shown} @pointerPress={self.open} @keyPress(.Enter)={self.open} @keyPress(.Space)={self.open} />
       </SettingRow>
     }
   }

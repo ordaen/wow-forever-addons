@@ -4,7 +4,7 @@
 // game's requests.
 import Client from "$client"
 import Game from "$game"
-import { Art } from "$ltml"
+import { Art, Key } from "$ltml"
 import Runtime from "$runtime"
 import Test from "$test"
 import root Ordaen from "Ordaen"
@@ -1109,8 +1109,10 @@ test "a name given to the first spec in the settings stands on its tab" {
     Test.key(Test.Move.Next)
   }
   Test.type("Arms")
-  settings.button("Save").click()
-  Test.expect(window.button("Arms").shown() && !window.button("Primary").shown())
+  // The typing is written as it rests.
+  Test.expect(!window.button("Arms").shown())
+  Test.pass(0.3)
+  Test.expect(window.button("Arms").shown() && !window.button("Primary").shown() && settings.shown())
 }
 
 test "a name given to the second spec in the settings stands on its tab" {
@@ -1126,8 +1128,9 @@ test "a name given to the second spec in the settings stands on its tab" {
   // The second field is the next the keyboard reaches.
   Test.key(Test.Move.Next)
   Test.type("Fury")
-  settings.button("Save").click()
-  Test.expect(window.button("Fury").shown() && !window.button(BOOK).shown())
+  // Enter writes it at once.
+  Test.key(Key.Enter)
+  Test.expect(window.button("Fury").shown() && !window.button(BOOK).shown() && settings.shown())
 }
 
 test "the trainer's window switched off in the settings leaves the game's trainer to the game" {
@@ -1138,6 +1141,5 @@ test "the trainer's window switched off in the settings leaves the game's traine
   const settings = Test.page().window("Name of the first spec tab")
   // The checkbox beside «Class trainer window»: its well, the page's only one, names it; its label doesn't.
   settings.button(Ordaen.art.ctl.check).click()
-  settings.button("Save").click()
   Test.expect(!window.shown())
 }

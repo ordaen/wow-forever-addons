@@ -1,6 +1,7 @@
 // The presets as the design site reads them: one line of JSON each, the snapshot of this test. The presets are
 // written once, in look.luna; the site reads this snapshot (`design/.vitepress/theme/themes.js` in wow-dev-tools),
 // and the suite fails where the two part.
+import Events from "$events"
 import Test from "$test"
 import root Core from "Ordaen"
 import Ordaen from "Ordaen"
@@ -72,14 +73,16 @@ test "a look saved as the Blizzard preset loads as Ordaen's" {
     ..Ordaen.preset(Ordaen.Preset.Ordaen)
   }
   Core.look.choose(blizzard)
-  Core.keeper.saveAll()
   Test.expect(Core.look.values.font == Ordaen.Font.Friz)
+  // The game saves: the values are packed.
+  Events.PLAYER_LOGOUT.emit()
   Test.reload()
   Test.expect(presetOf(Core.look.values) == Ordaen.Preset.Ordaen)
   // A look of the player's own that differs from it in anything is kept.
   blizzard.animation = Ordaen.Animation.Smooth
   Core.look.choose(blizzard)
-  Core.keeper.saveAll()
+  // The test's `Events` is the first load's: the root's own `pack` is what `PLAYER_LOGOUT` runs.
+  Core.keeper.profiles.pack()
   Test.reload()
   Test.expect(Core.look.values.font == Ordaen.Font.Friz)
 }

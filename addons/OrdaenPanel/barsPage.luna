@@ -1,5 +1,5 @@
 // The panel's «Action bars» page in the settings window: a bar picked from the list, its own settings one
-// section under another, and for Панель 1 the forms that page it. Each control writes the settings' draft.
+// section under another, and for Панель 1 the forms that page it. Each control writes the settings at once.
 import Game from "$game"
 import { Checkbox, Choice, Component, Dropdown, Section, Settings, Slider, Switch, VisibilityRows } from "Ordaen"
 import { Bar } from "@/bar"
@@ -40,12 +40,17 @@ class FormRow implements Component {
   constructor(form: Form, settings: mut Settings<BarsChoices>) {
     self.form = form
     self.settings = settings
-    self.on = (peek self.settings.draft).unpaged[String.of(form.bonusbar)] != true
-    watch (on of self.on) {
-      const unpaged = (peek self.settings.draft).unpaged.clone()
-      unpaged[String.of(self.form.bonusbar)] = !on
-      self.settings.draft.unpaged = unpaged
-    }
+    self.on = (peek self.settings.values).unpaged[String.of(form.bonusbar)] != true
+    watch (on of self.on) { self.write(on) }
+  }
+
+  // The switch as the settings hold it: written where it differs, so the page opening changes nothing.
+  write(mut self, on: Boolean) {
+    const key = String.of(self.form.bonusbar)
+    if (((peek self.settings.values).unpaged[key] != true) == on) { return }
+    const unpaged = (peek self.settings.values).unpaged.clone()
+    unpaged[key] = !on
+    self.settings.values.unpaged = unpaged
   }
 
   public render(self): Template {
@@ -53,24 +58,31 @@ class FormRow implements Component {
   }
 }
 
-// The picked bar's settings: a copy of its choice the controls change, written into the draft as they do.
+// The picked bar's settings: a copy of its choice the controls change, written into the settings as they do.
 class BarEditor implements Component {
   state choice: mut BarChoice
   derived paged: Boolean = self.spec.kind == BarKind.Action && self.spec.number == 1 && self.forms.length > 0
 
   const spec: BarSpec
   const forms: Array<Form>
+  const start: BarChoice
   settings: mut Settings<BarsChoices>
   constructor(spec: BarSpec, start: BarChoice, settings: mut Settings<BarsChoices>) {
     self.spec = spec
     self.settings = settings
     self.forms = formsOf(peek Game.player.classTag)
-    self.choice = ((peek self.settings.draft).bars[spec.id] ?? start).clone()
-    watch (choice of self.choice) {
-      const bars = (peek self.settings.draft).bars.clone()
-      bars[self.spec.id] = choice
-      self.settings.draft.bars = bars
-    }
+    self.choice = ((peek self.settings.values).bars[spec.id] ?? start).clone()
+    self.start = start
+    watch (choice of self.choice) { self.write(choice) }
+  }
+
+  // The bar's choice as the settings hold it (its start where they hold none): written where it differs, so the
+  // editor opening changes nothing.
+  write(mut self, choice: BarChoice) {
+    if (choice.equal((peek self.settings.values).bars[self.spec.id] ?? self.start)) { return }
+    const bars = (peek self.settings.values).bars.clone()
+    bars[self.spec.id] = choice.clone()
+    self.settings.values.bars = bars
   }
 
   public render(self): Template {

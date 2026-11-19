@@ -191,7 +191,6 @@ function settings(): Test.Part {
 function setting(label: String) {
   const page = settings()
   page.button(label).click()
-  page.button("Save").click()
   page.text(label).hover()
   page.button(Ordaen.art.ctl.corner.close).click()
 }

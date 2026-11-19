@@ -1,5 +1,5 @@
 // Ordaen Professions' page in the settings window: what the window does about the recipes it shows. Each control
-// writes one entry of the settings' draft.
+// writes one entry of the settings, at once.
 import { Checkbox, Component, Settings } from "Ordaen"
 import root Auction from "OrdaenAuction"
 import Locale from "@/locales"
@@ -26,12 +26,12 @@ public class GeneralPage implements Component {
 
   public render(self): Template {
     return $ltml {
-      <Checkbox label={Locale.SETTING_PRICES} hint={self.pricesTip} value={mut self.settings.draft.prices}
+      <Checkbox label={Locale.SETTING_PRICES} hint={self.pricesTip} value={mut self.settings.values.prices}
                 disabled={self.noAuction} />
       <Checkbox label={Locale.SETTING_REMEMBER} hint={Locale.SETTING_REMEMBER_TIP}
-                value={mut self.settings.draft.remember} />
+                value={mut self.settings.values.remember} />
       <Checkbox label={Locale.SETTING_UNLEARNED} hint={Locale.SETTING_UNLEARNED_TIP}
-                value={mut self.settings.draft.showUnlearned} />
+                value={mut self.settings.values.showUnlearned} />
     }
   }
 }

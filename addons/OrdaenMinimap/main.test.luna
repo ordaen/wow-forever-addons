@@ -57,21 +57,19 @@ const CLOCK_BOX = 2
 const COORDS_BOX = 3
 const HOVER_BOX = 4
 
-// One of the «Map» tab's checkboxes, the `nth`, clicked and saved.
+// One of the «Map» tab's checkboxes, the `nth`, clicked: it applies at once.
 function tick(nth: Integer) {
   const settings = tab("Map")
   settings.button(Ordaen.art.ctl.check).nth(nth).click()
-  settings.button("Save").click()
 }
 
-// One of «Visibility»'s states, the `nth` («General», «In combat», «On transport»), set to «Hide» and saved.
+// One of «Visibility»'s states, the `nth` («General», «In combat», «On transport»), set to «Hide».
 function hideWhen(nth: Integer) {
   const settings = tab("Map")
   settings.text("Map size").wheel(-10)
   settings.button("Show").nth(nth).click()
   const holders = Test.page().window("On mouseover")
   holders.nth(holders.count()).button("Hide").click()
-  settings.button("Save").click()
 }
 
 // A slider's knob taken with the left button and let go over another part.
@@ -554,7 +552,6 @@ test "the drawer turned off gives other addons' buttons back where they stood" {
   Test.mount(nil, SCREEN)
   const settings = tab("Button drawer")
   settings.button(Ordaen.art.ctl.switchOn).nth(2).click()
-  settings.button("Save").click()
   Test.pass(0.02)
   Test.expect(other.GetParent() == Client.C_UI.GetUIParent() && other.GetEffectiveAlpha() == 1 && other.GetRight() == 116)
 }
@@ -589,7 +586,6 @@ test "the drawer turned off on its tab takes its button away" {
   Test.mount(nil, SCREEN)
   const settings = tab("Button drawer")
   settings.button(Ordaen.art.ctl.switchOn).nth(2).click()
-  settings.button("Save").click()
   Test.expect(!minimap().text("3").shown())
 }
 
@@ -649,16 +645,14 @@ test "the clock and the coordinates both unticked take the lower strip away" {
   const settings = tab("Map")
   settings.button(Ordaen.art.ctl.check).nth(CLOCK_BOX).click()
   settings.button(Ordaen.art.ctl.check).nth(COORDS_BOX).click()
-  settings.button("Save").click()
   Test.expect(Test.page().window(ZONE).texts().join(" | ") == ZONE)
 }
 
-test "a change on the map's tab waits for Save" {
+test "a change on the map's tab applies at once" {
   Test.mount(nil, SCREEN)
   const settings = tab("Map")
-  settings.button(Ordaen.art.ctl.check).nth(ZONE_BOX).click()
   Test.expect(minimap().text(ZONE).shown())
-  settings.button("Save").click()
+  settings.button(Ordaen.art.ctl.check).nth(ZONE_BOX).click()
   Test.expect(!minimap().text(ZONE).shown())
 }
 

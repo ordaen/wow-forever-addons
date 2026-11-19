@@ -1,5 +1,5 @@
 // Ordaen's settings window over the modules it knows, worked as the player works it: the list, a module's page and its
-// tabs, the drafts saved and taken back, a module turned off and on, the question on closing with changes unsaved, the
+// tabs, a change applied at once and gone back through, a module turned off and on, closing with nothing asked, the
 // profiles. Here, as a module's tests are built with Ordaen: Ordaen's own tests have no module to list.
 import Client from "$client"
 import { Key } from "$ltml"
@@ -15,8 +15,6 @@ const ZONE = "Elwynn Forest"
 const ZONE_BOX = 1
 // The page of a module turned off.
 const OFF = "The module is off: it isn't loaded and costs nothing. Its settings are kept."
-// The question on closing with a change unsaved.
-const ASK = "Save the changes?"
 
 // The settings window, opened as the player opens it.
 function opened(): Test.Part {
@@ -31,9 +29,9 @@ function minimapPage(): Test.Part {
   return settings
 }
 
-// Whether the window's Save takes a click: a change waits.
-function saveable(settings: Test.Part): Boolean {
-  return !settings.button("Save").paintedWith(Ordaen.art.ctl.buttonDisabled)
+// Whether the window's «Roll back» takes a click: the session has a change or a savepoint.
+function backable(settings: Test.Part): Boolean {
+  return !settings.button("Roll back").paintedWith(Ordaen.art.ctl.buttonDisabled)
 }
 
 // Whether the `nth` checkbox is ticked: its tick, always drawn, shows.
@@ -74,16 +72,16 @@ test "/ordaen with a module's name opens its page; a word that names none opens 
   Test.expect(Test.page().window(SETTINGS).button("Numbers").shown())
 }
 
-test "a change waits for Save, which keeps it; Roll back takes the save back" {
+test "a change applies at once with nothing to save; «Roll back»'s last change, naming the module, takes it back" {
   Test.mount(nil, SCREEN)
   const settings = minimapPage()
-  Test.expect(!saveable(settings) && !settings.button("Roll back").shown())
+  Test.expect(!backable(settings) && settings.text("Changes apply at once").shown())
   settings.button(Ordaen.art.ctl.check).nth(ZONE_BOX).click()
-  Test.expect(saveable(settings) && Test.page().text(ZONE).shown())
-  settings.button("Save").click()
-  Test.expect(!saveable(settings) && !Test.page().text(ZONE).shown())
+  Test.expect(backable(settings) && !Test.page().text(ZONE).shown())
+  Test.expect(settings.text("Changes this session: 1").shown())
   settings.button("Roll back").click()
-  Test.expect(Test.page().text(ZONE).shown() && !settings.button("Roll back").shown())
+  Test.page().text("Last change (Minimap)").click()
+  Test.expect(Test.page().text(ZONE).shown() && !backable(settings))
 }
 
 test "Move mode clicked names the minimap over it; again, the mode ends" {
@@ -105,23 +103,13 @@ test "a module's switch in the list turned off ends it, and its page says it is 
   Test.expect(Test.page().text(ZONE).shown() && !settings.text(OFF).shown())
 }
 
-test "Escape with a change unsaved asks first; Cancel goes back to the window, the change still waiting" {
+test "Escape after a change closes the window and asks nothing: the change is kept" {
   Test.mount(nil, SCREEN)
   const settings = minimapPage()
   settings.button(Ordaen.art.ctl.check).nth(ZONE_BOX).click()
   Test.key(Key.Escape)
-  Test.page().window(ASK).button("Cancel").click()
-  Test.expect(!Test.page().window(ASK).shown() && saveable(settings))
-}
-
-test "Escape with a change unsaved, and «Don't save»: the window closes and the change is dropped" {
-  Test.mount(nil, SCREEN)
-  const settings = minimapPage()
-  settings.button(Ordaen.art.ctl.check).nth(ZONE_BOX).click()
-  Test.key(Key.Escape)
-  Test.page().window(ASK).button("Don't save").click()
-  Test.expect(!Test.page().window(SETTINGS).shown() && Test.page().text(ZONE).shown())
-  Test.expect(!saveable(opened()))
+  Test.expect(!Test.page().window(SETTINGS).shown() && !Test.page().text(ZONE).shown())
+  Test.expect(backable(opened()))
 }
 
 test "the press that opens the window under the cursor turns nothing in it as it is let go" {
@@ -145,7 +133,7 @@ test "the press that opens the window under the cursor turns nothing in it as it
   Test.expect(Test.page().window(SETTINGS).button(Ordaen.art.ctl.switchOn).shown() && Test.page().text(ZONE).shown())
 }
 
-test "every kind of control takes the player's click, and Save keeps them all" {
+test "every kind of control takes the player's click, each applied at once" {
   Test.mount(nil, SCREEN)
   const settings = opened()
   const pixel = ticked(settings, 1)
@@ -162,8 +150,7 @@ test "every kind of control takes the player's click, and Save keeps them all" {
   Test.page().window("Hide").button("On mouseover").click()
   settings.button("Button drawer").click()
   settings.button(Ordaen.art.ctl.switchOn).nth(2).click()
-  settings.button("Save").click()
-  Test.expect(!saveable(settings) && !Test.page().text(ZONE).shown())
+  Test.expect(!Test.page().text(ZONE).shown())
   Test.expect(!settings.button(Ordaen.art.ctl.switchOn).nth(2).shown())
   settings.button("Map").click()
   settings.text("Map size").wheel(-10)
@@ -182,14 +169,14 @@ test "the profiles page is made when its entry is picked" {
   Test.expect(settings.text("Use for").shown())
 }
 
-test "a profile picked for the character with a change unsaved asks first; «Don't save» switches to it" {
+test "a profile picked for the character after a change asks nothing, and shows that profile's own history" {
   Test.mount(nil, SCREEN)
   const settings = opened()
   settings.button(Ordaen.art.ctl.check).nth(1).click()
+  Test.expect(backable(settings))
   settings.button("Profiles").click()
   settings.input().nth(1).type("Raid")
   settings.button("New").click()
   settings.button(Ordaen.art.ctl.check).nth(2).click()
-  Test.page().window("Save the changes in profile «Default»?").button("Don't save").click()
-  Test.expect(settings.text("In use: Raid, for this character").shown() && !saveable(settings))
+  Test.expect(settings.text("In use: Raid, for this character").shown() && !backable(settings))
 }

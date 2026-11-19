@@ -27,7 +27,7 @@ box 0,0 700x258.47
         box 0,121.73 233.33x15.6 @pointerEnter @pointerLeave
           text 0,121.73 233.33x15.6 "Size" #cbb994
         box 248.33,121.2 451.67x16.67
-          box 248.33,121.2 200x16.67 @drag @dragStart @keyPress @pointerPress
+          box 248.33,121.2 200x16.67 @drag @dragStart @dragStop @keyPress @pointerPress
             box 248.33,126.2 200x6.67 absolute Interface\AddOns\Ordaen\media\ctl-slider row 0 of 4
             box 249.17,127.03 49.58x5 absolute Interface\AddOns\Ordaen\media\ctl-slider row 1 of 4
             box 291.67,119.53 13.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-slider-knob
@@ -36,7 +36,7 @@ box 0,0 700x258.47
         box 0,150.07 233.33x15.6 @pointerEnter @pointerLeave
           text 0,150.07 233.33x15.6 "Columns" #cbb994
         box 248.33,149.53 451.67x16.67
-          box 248.33,149.53 200x16.67 @drag @dragStart @keyPress @pointerPress
+          box 248.33,149.53 200x16.67 @drag @dragStart @dragStop @keyPress @pointerPress
             box 248.33,154.53 200x6.67 absolute Interface\AddOns\Ordaen\media\ctl-slider row 0 of 4
             box 249.17,155.37 39.67x5 absolute Interface\AddOns\Ordaen\media\ctl-slider row 1 of 4
             box 281.67,147.87 13.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-slider-knob
@@ -77,7 +77,7 @@ box 0,0 700x258.47
         box 0,121.73 233.33x15.6 @pointerEnter @pointerLeave
           text 0,121.73 233.33x15.6 "Size" #cbb994
         box 248.33,121.2 451.67x16.67
-          box 248.33,121.2 200x16.67 @drag @dragStart @keyPress @pointerPress
+          box 248.33,121.2 200x16.67 @drag @dragStart @dragStop @keyPress @pointerPress
             box 248.33,126.2 200x6.67 absolute Interface\AddOns\Ordaen\media\ctl-slider row 0 of 4
             box 249.17,127.03 49.58x5 absolute Interface\AddOns\Ordaen\media\ctl-slider row 1 of 4
             box 291.67,119.53 13.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-slider-knob
@@ -86,7 +86,7 @@ box 0,0 700x258.47
         box 0,150.07 233.33x15.6 @pointerEnter @pointerLeave
           text 0,150.07 233.33x15.6 "Columns" #cbb994
         box 248.33,149.53 451.67x16.67
-          box 248.33,149.53 200x16.67 @drag @dragStart @keyPress @pointerPress
+          box 248.33,149.53 200x16.67 @drag @dragStart @dragStop @keyPress @pointerPress
             box 248.33,154.53 200x6.67 absolute Interface\AddOns\Ordaen\media\ctl-slider row 0 of 4
             box 249.17,155.37 39.67x5 absolute Interface\AddOns\Ordaen\media\ctl-slider row 1 of 4
             box 281.67,147.87 13.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-slider-knob

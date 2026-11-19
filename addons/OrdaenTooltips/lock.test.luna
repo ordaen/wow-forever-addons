@@ -168,7 +168,6 @@ test "with «Tooltips in tooltips» unticked for items an item never charges" {
   settings.button("Tooltips").click()
   settings.button("Items").click()
   settings.button("Tooltips in tooltips").click()
-  settings.button("Save").click()
   Test.key(Key.Escape)
   Game.tooltip.main = inSlot(sword())
   Test.pass(2)
@@ -481,14 +480,13 @@ function ofKind(tab: String): Game.TooltipData {
   return { kind: 2, about: tab, lines: [{ left: tab == "Players" ? "Jaina" : "Wolf", kind: 2, unit: tab }] }
 }
 
-// «Tooltips in tooltips» of a kind's tab clicked and saved.
+// «Tooltips in tooltips» of a kind's tab clicked: it applies at once.
 function lockOf(tab: String) {
   Test.open("/ordaen")
   const settings = Test.page().window(SETTINGS)
   settings.button("Tooltips").click()
   settings.button(tab).click()
   settings.button("Tooltips in tooltips").click()
-  settings.button("Save").click()
   Test.key(Key.Escape)
 }
 
