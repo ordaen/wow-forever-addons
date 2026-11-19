@@ -116,7 +116,7 @@ would have caught it is half a fix: say which check now catches it, or add one.
 11. **Design checklist before showing any design** (same rule in wow-dev-tools' CLAUDE.md): every API, declaration,
    file format or tool interface is checked against the list in `../wow-dev-tools/design/development/rules.md`
    («Design checklist»: no invalid value can be written, rules hold by construction, nothing listed by hand, no fact
-   twice, no Lua traps, one name per concept, a new case costs one line in one place) before it goes to the user, and
+   twice, no Lua traps, one name per concept, clear over short and two words as a rule, `$` only for what the compiler provides, a new case costs one line in one place) before it goes to the user, and
    what the check caught is said with it. Code itself follows «Shape», «Abstractions over raw code»: a repeated
    condition or loop is one named function, a long chain over fields means the data is shaped wrong, flags that
    mirror each other are one value; every diff is read as a reviewer reads it before it is handed over.
