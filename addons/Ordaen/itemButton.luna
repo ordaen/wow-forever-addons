@@ -11,6 +11,7 @@
 // with the left button it tells `dragged`, and something dragged let go on it `dropped`, as the game's own slots
 // take a drag for a click (a bag's slot hands its item to the client's cursor, which the bars take). With an
 // `action` its chord is the client's own (a bag's item used: `Action.UseBagItem`). Nothing runs per frame.
+import Client from "$client"
 import Game from "$game"
 import { Action, Align, Art, ByInteractionState, Edges, Event, Frame, Line, MouseButton, Position, Shadow } from "$ltml"
 import root Ordaen from "Ordaen"
@@ -27,6 +28,20 @@ public enum Quality {
   Legendary = 5
   Artifact = 6
   Heirloom = 7
+}
+
+// The client's quality of an item as the slot draws it; common where the client gave none.
+public function qualityFrom(quality: Client.ItemQuality | nil): Quality {
+  return match (quality) {
+    .Poor => .Poor
+    .Uncommon => .Uncommon
+    .Rare => .Rare
+    .Epic => .Epic
+    .Legendary => .Legendary
+    .Artifact => .Artifact
+    .Heirloom => .Heirloom
+    else => .Common
+  }
 }
 
 public enum Corner { TopLeft = "topLeft", TopRight = "topRight", BottomLeft = "bottomLeft" }

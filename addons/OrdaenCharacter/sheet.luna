@@ -5,7 +5,7 @@
 import Client from "$client"
 import Game from "$game"
 import Runtime from "$runtime"
-import { Quality } from "Ordaen"
+import { Quality, qualityFrom } from "Ordaen"
 
 // A slot of the paper doll: the client's number for it and the art of its well while nothing is worn there.
 public struct SlotSpec {
@@ -167,20 +167,6 @@ public function averageLevel(worn: Array<Worn>): Number | nil {
   return any ? sum / COUNTED : nil
 }
 
-// The client's quality as the library's slot draws it.
-function qualityOf(quality: Client.ItemQuality | nil): Quality {
-  return match (quality) {
-    .Poor => .Poor
-    .Uncommon => .Uncommon
-    .Rare => .Rare
-    .Epic => .Epic
-    .Legendary => .Legendary
-    .Artifact => .Artifact
-    .Heirloom => .Heirloom
-    else => .Common
-  }
-}
-
 function statOf(index: Integer): Integer {
   let _, value, _, _ = Client.UnitStat("player", index)
   return value.floor()
@@ -213,7 +199,7 @@ public class ClientSheet implements Sheet {
     let _, _, quality, level, _, _, _, _, _, _, _, _, _, _, _, _, _, _ = Client.C_Item.GetItemInfo(item)
     let left, most = Client.GetInventoryItemDurability(slot)
     const durability = left != nil && most != nil && most > 0 ? left / most : nil
-    return { slot: slot, item: item, quality: qualityOf(quality), level: level?.floor(), durability: durability }
+    return { slot: slot, item: item, quality: qualityFrom(quality), level: level?.floor(), durability: durability }
   }
 
   public usesAmmo(self): Boolean { return Client.UnitUsesAmmo("player") }
