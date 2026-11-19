@@ -10,7 +10,7 @@
 import Client from "$client"
 import { Align, Anchored, Art, Layer, Point, Position, Shadow, Stated } from "$ltml"
 import root Ordaen from "Ordaen"
-import { Component, space } from "Ordaen"
+import { Component, reachAcross, reachDown, space } from "Ordaen"
 
 // The dress's head, from its top: the frame's band, a gap, the title's line, a gap, the carved groove, the gap to
 // Blizzard's first button.
@@ -288,9 +288,10 @@ public class MenuDress implements Component {
   // «AddOns» was clicked.
   public addons: Event<nil> = new Event()
 
-  derived wide: Number<Length> = self.menu.width
+  // Blizzard's menu at the frame's line, the art past the line round it.
+  derived wide: Number<Length> = self.menu.width + reachAcross(Ordaen.art.frame.small)
   // The head stands over Blizzard's first button, which stands `lead` under the menu's top.
-  derived high: Number<Length> = self.menu.height - self.menu.lead * 1ui + HEAD
+  derived high: Number<Length> = self.menu.height - self.menu.lead * 1ui + HEAD + reachDown(Ordaen.art.frame.small)
 
   // Blizzard's menu, matched by the module from its first show on.
   const menu: GameMenu
