@@ -218,6 +218,13 @@ Like EllesmereUI, but the modules load on demand. The approach and the inventory
   its root and the module that wants to be there adds to it, importing the owner's root (`import root`) and its
   contract by type alone; the owner knows only the trait it declared (`../wow-dev-tools/design/development/language/modules.md`). Dependencies
   point from the module that wants something to the one that owns it.
+- **Nothing Blizzard's UI does is lost:** a module that takes the place of a part of Blizzard's UI keeps everything
+  that part does (dragging an item or spell to the bars, modified clicks, keybindings, Quick Keybind, tooltips,
+  targeting cursors, sounds, what it hands other addons) or does it better; a loss is a bug, never a choice. What the
+  part does is read before it is replaced: Blizzard's own code for the build (`../blizzard-code/<build>`, exported
+  from the game's `_forever_/BlizzardInterfaceCode`: its scripts, mixins and templates), the client's API
+  (`api/forever/<build>`, `client.md`) and the play records of the player using it (`wow_records`, `wow_record`).
+  What the part does goes on its design page as a list, each with a test on the stand-in.
 - Modules follow the **globals** (theme, fonts, text size, scale, spacing, colours, bar textures, animations, ...):
   a module's look setting defaults to "as in the globals" and may be overridden for that module only.
 - **Design for the weakest monitor:** colours, contrast and textures must hold on the least professional screen: white
