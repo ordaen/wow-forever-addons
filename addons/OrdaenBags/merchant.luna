@@ -10,7 +10,7 @@ import Game from "$game"
 import { Align, Art, Columns, Event, MouseButton, Overflow, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import {
-  ARTWORK, Choice, Column, Component, CountInput, Dialog, ItemButton, KeptWindow, ModuleMemory, Money, PushButton, SECONDARY_TEXT,
+  ARTWORK, ButtonPlate, Choice, Column, Component, CountInput, Dialog, ItemButton, KeptWindow, ModuleMemory, Money, PushButton, SECONDARY_TEXT,
   Table, TableRow, ToolPick, Toolbar, Window, WindowSide, WindowTabSpec, space, tracksOf
 } from "Ordaen"
 import { SLOT } from "@/layout"
@@ -485,7 +485,7 @@ public class MerchantWindow implements Component {
         <PushButton label={self.junkLabel} width={SIDE_WIDTH} disabled={self.junkCount == 0} @click={self.onSellJunk} />
         <PushButton $if={self.guildRepair} label={Locale.REPAIR_GUILD} width={SIDE_WIDTH} @click={self.onGuildRepair} />
         <PushButton $if={self.vendor.repairs} label={Locale.REPAIR_ONE} width={SIDE_WIDTH} @click={self.onRepairOne} />
-        <PushButton $if={self.vendor.repairs} label={self.repairLabel} width={SIDE_WIDTH} accent={true} disabled={!self.canRepair}
+        <PushButton $if={self.vendor.repairs} label={self.repairLabel} width={SIDE_WIDTH} plate={ButtonPlate.Accent} disabled={!self.canRepair}
                     @click={self.onRepair} />
       </box>
     </box>
@@ -530,7 +530,7 @@ public class MerchantWindow implements Component {
         <text value={self.askTitle} textColor={INK} />
         <text value={self.askCosts} textColor={DIM} />
         <PushButton #buttons label={Locale.CANCEL} width={BUTTON} @click={self.onAskCancel} />
-        <PushButton #buttons label={Locale.BUY} width={BUTTON} accent={true} @click={self.onAsked} />
+        <PushButton #buttons label={Locale.BUY} width={BUTTON} plate={ButtonPlate.Accent} @click={self.onAsked} />
       </Dialog>
       <Dialog $if={self.counting != nil} width={DIALOG} title={Locale.HOW_MANY}>
         <box columns={PAIR} gap={space(.Item)} yAlign={Align.Center}>
@@ -538,7 +538,7 @@ public class MerchantWindow implements Component {
           <Money amount={self.countPrice} />
         </box>
         <PushButton #buttons label={Locale.CANCEL} width={BUTTON} @click={self.onCountCancel} />
-        <PushButton #buttons label={Locale.BUY} width={BUTTON} accent={true} @click={self.onCounted} />
+        <PushButton #buttons label={Locale.BUY} width={BUTTON} plate={ButtonPlate.Accent} @click={self.onCounted} />
       </Dialog>
     }
   }

@@ -28,6 +28,7 @@
   "COLUMN_MAKEABLE": "Можно",
   "SORT": "Сортировка",
   "VIEW": "Вид",
+  "FILTER": "Фильтр",
   "FILTER_MAKEABLE": "Можно создать",
   "FILTER_SKILLUP": "Повышает навык",
   "FILTER_LEARNED": "Изученные",
