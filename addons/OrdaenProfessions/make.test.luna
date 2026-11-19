@@ -213,9 +213,9 @@ test "«Raise skill» says the skill won't rise where the recipe turns grey firs
   window().text("Bolt of Linen Cloth").click()
   mode("Quantity", "Raise skill")
   // Twenty-one points from 31 would reach the bolt's grey at 50; with Shift held, + steps ten.
-  Game.input.shiftDown = (): Boolean => true
+  Test.hold([.Shift])
   times(2, "+")
-  Game.input.shiftDown = (): Boolean => false
+  Test.hold([])
   Test.expect(reads("Raise skill | - | 21 | + | Skill won't rise | Create") && off("Create"))
   times(2, "-")
   Test.expect(reads("Raise skill | - | 19 | + | ≈ 89 pcs. | Create") && !off("Create"))
@@ -241,7 +241,7 @@ test "«Raise skill» counts up to the points left before the rank's most; the s
   Game.tradeSkill.open = TAILORING
   mode("Quantity", "Raise skill")
   // With Ctrl held, + steps a hundred: held to the most.
-  Game.input.controlDown = (): Boolean => true
+  Test.hold([.Ctrl])
   times(1, "+")
   Test.expect(row().contains("- | 44 | +") && off("+"))
   Game.professions.list = professions(70)

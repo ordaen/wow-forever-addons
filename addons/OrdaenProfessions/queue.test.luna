@@ -702,7 +702,7 @@ test "a line's count stops at 999: «Create» of more with nothing ahead makes 9
   Game.professions.list = professions()
   Game.tradeSkill.categories = tailoringCategories()
   Game.tradeSkill.recipes = tailoringRecipes(5000)
-  Game.input.controlDown = (): Boolean => true
+  Test.hold([.Ctrl])
   Test.mount(nil, SCREEN)
   Game.tradeSkill.open = TAILORING
   // A thousand and one by «Quantity», Ctrl held: 1, then 100 a click.

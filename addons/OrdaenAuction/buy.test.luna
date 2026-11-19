@@ -436,9 +436,9 @@ test "a commodity picked: its listings asked and shown, a quantity, the total of
   Test.expect(reads(panel().text("10").item(), "0g 0s 36c | 10 | 2 h"))
   Test.expect(panel().text("Listed: 30").shown() && says(panel(), "Total", "0g 0s 36c"))
   // Shift steps 10, then one a click.
-  Game.input.shiftDown = (): Boolean => true
+  Test.hold([.Shift])
   panel().button("+").click()
-  Game.input.shiftDown = (): Boolean => false
+  Test.hold([])
   for (i of 1..4) { panel().button("+").click() }
   Test.expect(says(panel(), "Quantity", "- | 15 | +") && says(panel(), "Total", "0g 5s 60c"))
 }
@@ -756,9 +756,9 @@ test "the listings the quantity buys from are marked: the cheapest that hold it"
     { auction: 0, unit: 45, quantity: 5, left: 86400, own: false, commodity: true }
   ])
   Test.expect(panel().text("10").item().paintedWith(PICKED) && !panel().text("20").item().paintedWith(PICKED))
-  Game.input.shiftDown = (): Boolean => true
+  Test.hold([.Shift])
   panel().button("+").click()
-  Game.input.shiftDown = (): Boolean => false
+  Test.hold([])
   Test.expect(panel().text("20").item().paintedWith(PICKED) && !panel().text("5").item().paintedWith(PICKED))
   Test.expect(says(panel(), "Total", "0g 4s 0c"))
 }
@@ -948,16 +948,16 @@ test "a quantity the listings hold exactly can be bought; the quantity's listing
     { auction: 0, unit: 40, quantity: 20, left: 86400, own: false, commodity: true },
     { auction: 0, unit: 45, quantity: 5, left: 86400, own: false, commodity: true }
   ])
-  Game.input.shiftDown = (): Boolean => true
+  Test.hold([.Shift])
   panel().button("+").click()
-  Game.input.shiftDown = (): Boolean => false
+  Test.hold([])
   panel().button("-").click()
   Test.expect(says(panel(), "Quantity", "- | 10 | +"))
   Test.expect(panel().text("10").nth(1).item().paintedWith(PICKED) && !panel().text("20").item().paintedWith(PICKED))
-  Game.input.shiftDown = (): Boolean => true
+  Test.hold([.Shift])
   panel().button("+").click()
   panel().button("+").click()
-  Game.input.shiftDown = (): Boolean => false
+  Test.hold([])
   for (i of 1..5) { panel().button("+").click() }
   Test.expect(says(panel(), "Quantity", "- | 35 | +") && panel().text("5").item().paintedWith(PICKED))
   _ = Test.requests()
