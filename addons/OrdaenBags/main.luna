@@ -381,6 +381,10 @@ public class Bags implements Module, App {
     }
   }
 
+  // A slot's item dragged off it, or what is dragged let go on it: picked up or put down there, as a plain click
+  // does. The client's cursor holds what is picked up: an action bar's button takes it where it is let go.
+  onPickup(self, slot: Slot) { Game.bags.pickup(slot.bag, slot.index) }
+
   // An item's slot protected, or no more: an empty slot has nothing to protect.
   public guard(mut self, slot: Slot) {
     if (peek slot.id == 0) { return }
@@ -481,13 +485,13 @@ public class Bags implements Module, App {
               <box rowHeight={SLOT} gap={GAP} overflow={Overflow.Scroll}>
                 <BagRow $for={row of self.rows} row={row} filter={self.filter} free={self.free}
                         collapsed={self.collapsed} fills={self.fills} @pressed={self.onPressed}
-                        @entered={self.onEnter} @left={self.onLeave} @toggled={self.onToggle} />
+                        @pickup={self.onPickup} @entered={self.onEnter} @left={self.onLeave} @toggled={self.onToggle} />
               </box>
             </box>
             <box $else rowHeight={SLOT} gap={GAP} overflow={Overflow.Scroll}>
               <BagRow $for={row of self.rows} row={row} filter={self.filter} free={self.free}
                       collapsed={self.collapsed} fills={self.fills} @pressed={self.onPressed}
-                      @entered={self.onEnter} @left={self.onLeave} @toggled={self.onToggle} />
+                      @pickup={self.onPickup} @entered={self.onEnter} @left={self.onLeave} @toggled={self.onToggle} />
             </box>
           </box>
         </Window>

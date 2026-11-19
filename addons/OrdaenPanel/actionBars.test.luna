@@ -137,6 +137,38 @@ test "a key of the game's bindings presses our button in its place, and the butt
   Test.expect(Test.performed().join(", ") == "action 63")
 }
 
+test "an item the cursor holds goes onto the bar's button it is let go on, or clicked on, as on the game's bars" {
+  alone()
+  const holder = new Holder()
+  Client.C_Container.GetContainerItemInfo = (bag: Integer, slot: Integer): Client.ContainerItemInfo | nil => bag == 0 ?
+    Client.ContainerItemInfo {
+      iconFileID: 134829, stackCount: 5, isLocked: false, quality: .Common, isReadable: false, hasLoot: false,
+      hyperlink: `item:${117 + slot}`, isFiltered: false, hasNoValue: false, itemID: 117 + slot, isBound: false,
+      itemName: "Minor Healing Potion"
+    } :
+    nil
+  Test.mount(new ActionBars(holder.settings.values, holder.defaults), SCREEN)
+  Test.flush()
+  // A slot of a bag dragged: the item on the cursor, let go on Панель 2's first button (slot 61).
+  const bag = Client.CreateFrame("Button", nil, Client.UIParent, nil)
+  bag.SetSize(40, 40)
+  bag.SetPoint("TOPLEFT", Client.UIParent, "TOPLEFT", 20, -20)
+  bag.RegisterForDrag("LeftButton")
+  _ = bag.HookScript("OnDragStart", (): nil => Client.C_Container.PickupContainerItem(0, 1))
+  Test.moveTo(Test.centre(bag))
+  Test.press(nil)
+  Test.moveTo(Test.centre(button("2", 1)))
+  Test.release(nil)
+  const kind, id, _ = Client.GetActionInfo(61)
+  Test.expect(kind == "item" && id == 118 && !Client.CursorHasItem())
+  // Picked up by a click and clicked onto the second button: no action done, the item placed.
+  Client.C_Container.PickupContainerItem(0, 2)
+  _ = Test.performed()
+  Test.click(Test.centre(button("2", 2)), nil)
+  const secondKind, second, _ = Client.GetActionInfo(62)
+  Test.expect(secondKind == "item" && second == 119 && !Client.CursorHasItem() && Test.performed().length == 0)
+}
+
 test "a button's tooltip is given its key as the button shows it, among the tooltips' hotkeys" {
   alone()
   const holder = new Holder()

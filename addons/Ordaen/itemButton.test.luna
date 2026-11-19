@@ -2,7 +2,7 @@
 // the cursor comes onto it; Left-click picks and Shift+Left-click puts the item's link into the chat.
 import Events from "$events"
 import Game from "$game"
-import { Art } from "$ltml"
+import { Action, Art } from "$ltml"
 import Test from "$test"
 import { Corner, ItemButton, Marker, Quality } from "@/itemButton"
 
@@ -60,6 +60,39 @@ test "an item's slot draws its icon, its quality's border, its count and markers
 
   destroy page
   Test.expect(Test.blank())
+}
+
+// Two slots that say what they hear of a drag.
+class Dragged {
+  heard: mut Array<String> = []
+
+  onDragged(mut self) { self.heard.push("dragged") }
+  onDropped(mut self) { self.heard.push("dropped") }
+  onPressed(mut self) { self.heard.push("pressed") }
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={["max-content", "max-content"]} gap={8ui}>
+        <ItemButton item={6948} action={Action.UseBagItem { bag: 0, slot: 1 }} @dragged={self.onDragged}
+                    @pressed={self.onPressed} />
+        <ItemButton item={2589} @dropped={self.onDropped} @pressed={self.onPressed} />
+      </box>
+    }
+  }
+}
+
+test "a slot dragged says so, and the slot it is let go on that it was dropped on; neither is a click" {
+  let page = new Dragged()
+  Test.mount(page, { left: 0, top: 0, width: 600, height: 200 })
+  Test.moveTo({ x: 16, y: 16 })
+  Test.press(nil)
+  Test.moveTo({ x: 18, y: 16 })
+  Test.pass(0.02)
+  Test.moveTo({ x: 58, y: 16 })
+  Test.pass(0.02)
+  Test.release(nil)
+  Test.expect(page.heard.join(", ") == "dragged, dropped")
+  destroy page
 }
 
 // The slot as cells a test changes, to read what the snapshot's tree leaves out (a line's colour).
