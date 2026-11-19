@@ -1,5 +1,6 @@
-// PushButton: our push button, the bronze plate three-sliced from its art, or the red one with `accent`; the art's
-// hover glow over it under the cursor, its pushed row while pressed. The label in gold, white
+// PushButton: our push button, the bronze plate three-sliced from its art, or the red one (`plate`: `.Accent` for a
+// button that matters, `.Danger` for one that can't be undone, which Enter never presses: the keyboard's Space
+// does, and the mouse); the art's hover glow over it under the cursor, its pushed row while pressed. The label in gold, white
 // under the cursor, with a dark drop; disabled, the grey plate and a grey label, and no click. With an `action` it
 // is a secure box: the client does the action from the player's click (a spell, an item, a macro). With a `tip`, a Tip
 // says it while the cursor is on it.
@@ -18,10 +19,13 @@ const GREY: Color = Color.hex("#808080")
 const SHADOW: Shadow = { color: Color.hex("#000000"), x: 1.171875dp, y: -1.171875dp }
 const NO_TIP: TipText = { title: "", text: "", rows: [] }
 
+// The plate: bronze, or red for a button that matters or one that can't be undone.
+public enum ButtonPlate { Bronze, Accent, Danger }
+
 public class PushButton implements Component {
   public click: Event<nil> = new Event()
 
-  derived art: Art = self.disabled ? Ordaen.art.ctl.buttonDisabled : self.accent ? Ordaen.art.ctl.buttonAccent : Ordaen.art.ctl.button
+  derived art: Art = self.disabled ? Ordaen.art.ctl.buttonDisabled : self.plate == .Bronze ? Ordaen.art.ctl.button : Ordaen.art.ctl.buttonAccent
   derived color: Color | ByInteractionState<Color> = self.disabled ? GREY : LABEL
   // Disabled, it does nothing.
   derived doing: Action | nil = self.disabled ? nil : self.action
@@ -32,7 +36,7 @@ public class PushButton implements Component {
 
   label: Signal<String>
   width: Signal<Number<Length>>
-  accent: Signal<Boolean>
+  plate: Signal<ButtonPlate>
   disabled: Signal<Boolean>
   action: Signal<Action | nil>
   repeats: Signal<Boolean>
@@ -40,7 +44,7 @@ public class PushButton implements Component {
   constructor(
     label: Signal<String>,
     width: Signal<Number<Length>>,
-    accent: Signal<Boolean> = false,
+    plate: Signal<ButtonPlate> = ButtonPlate.Bronze,
     disabled: Signal<Boolean> = false,
     action: Signal<Action | nil> = nil,
     // Held down, its click comes again until it is let go or disabled (a stepper's − and +).
@@ -50,7 +54,7 @@ public class PushButton implements Component {
   ) {
     self.label = label
     self.width = width
-    self.accent = accent
+    self.plate = plate
     self.disabled = disabled
     self.action = action
     self.repeats = repeats
@@ -60,6 +64,11 @@ public class PushButton implements Component {
   // One that repeats is clicked as the button goes down and again while it is held; another as it is let go.
   onClick(mut self) {
     if (!self.disabled && !self.repeats) { self.click.emit() }
+  }
+
+  // Enter presses any but a danger button.
+  onEnterKey(mut self) {
+    if (self.plate != .Danger) { self.onClick() }
   }
 
   // The left button with any modifier: Shift and Ctrl make the step larger (`stride`).
@@ -73,7 +82,7 @@ public class PushButton implements Component {
   public render(self): Template {
     return $ltml {
       <box width={{ min: self.width }} height={HEIGHT} padding={CAPS} xAlign={Align.Center} yAlign={Align.Center}
-           background={self.art} action={self.doing} @pointerPress={self.onClick} @keyPress(.Enter)={self.onClick} @keyPress(.Space)={self.onClick} @pointerDown.repeat={self.onHeld}
+           background={self.art} action={self.doing} @pointerPress={self.onClick} @keyPress(.Enter)={self.onEnterKey} @keyPress(.Space)={self.onClick} @pointerDown.repeat={self.onHeld}
            @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
         <Tip $if={self.tipShown} title={self.tipText.title} text={self.tipText.text} rows={self.tipText.rows} />
         <text value={self.label} textColor={self.color} textShadow={SHADOW} wrap={false}

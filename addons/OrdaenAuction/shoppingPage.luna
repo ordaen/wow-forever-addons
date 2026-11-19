@@ -7,7 +7,7 @@
 // removed, and «Remove bought» clears every row at 0.
 import Game from "$game"
 import { Align, Track } from "$ltml"
-import { Age, Column, Component, ItemButton, ItemId, ModuleMemory, Money, PushButton, SECONDARY_TEXT, Table, TableRow, space, tracksOf } from "Ordaen"
+import { Age, ButtonPlate, Column, Component, ItemButton, ItemId, ModuleMemory, Money, PushButton, SECONDARY_TEXT, Table, TableRow, space, tracksOf } from "Ordaen"
 import { ageOf } from "@/buy"
 import { nameOf } from "@/house"
 import Locale from "@/locales"
@@ -256,7 +256,7 @@ public class ShoppingPage implements Component {
           </Table>
         </box>
         <box columns={BUTTONS} gap={space(.Item)}>
-          <PushButton label={Locale.SEARCH_ALL} width={175.78125dp} accent={true} disabled={self.empty}
+          <PushButton label={Locale.SEARCH_ALL} width={175.78125dp} plate={ButtonPlate.Accent} disabled={self.empty}
                       @click={self.onSearch} />
           <PushButton label={Locale.REMOVE_BOUGHT} width={199.21875dp} disabled={self.empty} @click={self.onClear} />
           <PushButton label={Locale.REMOVE} width={152.34375dp} disabled={!self.chosen} @click={self.onRemove} />

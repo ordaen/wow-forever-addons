@@ -12,7 +12,7 @@ import Client from "$client"
 import Game from "$game"
 import { Align, Beside, Edges, Layer, Line, MouseButton, Overflow, Side, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { ARTWORK, Choice, Column, Component, Copper, CountInput, DropdownItem, ItemButton, ItemId, Menu, MenuEntry, ModuleMemory, Money, PushButton, SECONDARY_TEXT, SelectItem, Table, TableRow, ToolButton, ToolPick, Toolbar, ageText, space, tracksOf } from "Ordaen"
+import { ARTWORK, ButtonPlate, Choice, Column, Component, Copper, CountInput, DropdownItem, ItemButton, ItemId, Menu, MenuEntry, ModuleMemory, Money, PushButton, SECONDARY_TEXT, SelectItem, Table, TableRow, ToolButton, ToolPick, Toolbar, ageText, space, tracksOf } from "Ordaen"
 import { PriceHistory } from "@/history"
 import { House } from "@/house"
 import { ItemPanel } from "@/itemPanel"
@@ -791,7 +791,7 @@ public class Chosen implements Component {
           <box>
             <text $if={self.refused} value={self.refusedText} textColor={Style.RED} textSize={SECONDARY_TEXT} />
           </box>
-          <PushButton label={self.buyLabel} width={Style.PANEL_BUTTON} accent={true} disabled={!self.canBuy}
+          <PushButton label={self.buyLabel} width={Style.PANEL_BUTTON} plate={ButtonPlate.Accent} disabled={!self.canBuy}
                       @click={self.onBuy} />
           <PushButton label={Locale.TO_LIST} width={Style.PANEL_BUTTON} @click={self.onList} />
         </box>

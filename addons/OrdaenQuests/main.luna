@@ -11,7 +11,7 @@ import Events from "$events"
 import Game from "$game"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
-import { Dialog, KeptWindow, Module, PushButton, Settings, SettingsPage, Window, WindowSide, WindowTabSpec, WindowsPage, windowsTitle } from "Ordaen"
+import { ButtonPlate, Dialog, KeptWindow, Module, PushButton, Settings, SettingsPage, Window, WindowSide, WindowTabSpec, WindowsPage, windowsTitle } from "Ordaen"
 import root Maps from "OrdaenMap"
 import { ClientQuestLog, LogQuest, QuestLog, QuestText } from "@/book"
 import { TakenClick } from "@/button"
@@ -209,7 +209,7 @@ public class Quests implements Module, App {
       </Window>
       <Dialog $if={self.abandoning != 0} width={Style.ASK} title={Locale.ABANDON}>
         <text value={self.abandonText} wrap={true} />
-        <PushButton #buttons label={Locale.ABANDON} width={Style.ASK_BUTTON} accent={true} @click={self.onAbandonYes} />
+        <PushButton #buttons label={Locale.ABANDON} width={Style.ASK_BUTTON} plate={ButtonPlate.Accent} @click={self.onAbandonYes} />
         <PushButton #buttons label={Locale.CANCEL} width={Style.ASK_BUTTON} @click={self.onAbandonNo} />
       </Dialog>
     }

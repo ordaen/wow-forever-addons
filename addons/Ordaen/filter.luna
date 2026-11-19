@@ -1,0 +1,182 @@
+// A list window's filter, on the toolbar's right beside the sort and the view: the funnel (a ToolButton), gold while
+// the filter narrows the list (any option off where the window starts it), its Tip naming the options on; a click
+// opens its menu under it, and a click anywhere else closes it.
+//
+// The menu: the options in their groups, each option a row of its name and a switch at its right (one press anywhere
+// on the row flips it); a group with a name has a row of its own above its options, gold, whose switch turns all of
+// them (on while all are, half while some are; a press turns them all on, or all off where all were on). A rule
+// before each group after the first, and under the last rule «Reset», greyed while the filter is as it starts.
+//
+// The window holds what is on, `Map<K, Boolean>` by the options' keys (an option missing from it is off), and what it
+// starts as; the filter writes it.
+import { Align, Beside, Bounds, Edges, Layer, Line, Track } from "$ltml"
+import root Ordaen from "Ordaen"
+import Locale from "@/locales"
+import { Component } from "@/module"
+import { PushButton } from "@/pushButton"
+import { SWITCH_WIDTH, Shown, SwitchFace } from "@/switch"
+import { ToolButton } from "@/toolbar"
+import { space } from "@/units"
+
+const WIDTH: Bounds = { min: 269.53125dp, max: nil }
+const BACK: Color = Color.hex("#0a0806f7")
+const EDGE: Line = { width: 1.171875dp, color: Color.hex("#6c5535") }
+// What stands under a rule keeps an item's step from it.
+const AFTER_RULE: Edges = { top: space(.Item) }
+const RULE: Line = { width: 1.171875dp, color: Color.hex("#d6a56b33"), sides: ["top"] }
+const INK: Color = Color.hex("#e8dcc4")
+const GOLD: Color = Color.hex("#f0c860")
+const LINE: Array<Track> = [{ fr: 1 }, SWITCH_WIDTH]
+const RESET_WIDTH = 140.625dp
+
+// One option: what the window's map knows it by, and its name.
+public struct FilterOption<K: Unknown> {
+  key: K
+  label: String
+}
+
+// Options that go together; with a `label`, a switch of its own turns them all.
+public struct FilterGroup<K: Unknown> {
+  label: String | nil
+  options: Array<FilterOption<K>>
+}
+
+// What is on with each of `keys` switched to `on`, the rest as they were.
+public function switched<K: Unknown>(values: Map<K, Boolean>, keys: Array<K>, on: Boolean): mut Map<K, Boolean> {
+  const next: Map<K, Boolean> = {}
+  for (key, value of values) { next[key] = value }
+  for (key of keys) { next[key] = on }
+  return next
+}
+
+// The options of a group that are on, against all of them.
+function shownOf<K: Unknown>(group: FilterGroup<K>, values: Map<K, Boolean>): Shown {
+  const on = group.options.count(option => values[option.key] == true)
+  if (on == 0) { return .Off }
+  return on == group.options.length ? .On : .Some
+}
+
+// One option's row: its name, and its switch.
+class FilterLine<K: Unknown> implements Component {
+  public flip: Event<K> = new Event()
+
+  derived state: Shown = self.on ? .On : .Off
+
+  option: Signal<FilterOption<K>>
+  on: Signal<Boolean>
+  constructor(option: Signal<FilterOption<K>>, on: Signal<Boolean>) {
+    self.option = option
+    self.on = on
+  }
+
+  onFlip(self) { self.flip.emit(self.option.key) }
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={LINE} gap={space(.Panel)} yAlign={Align.Center} @pointerPress={self.onFlip}
+           @keyPress(.Enter)={self.onFlip} @keyPress(.Space)={self.onFlip}>
+        <text value={self.option.label} textColor={INK} wrap={false} />
+        <SwitchFace state={self.state} />
+      </box>
+    }
+  }
+}
+
+// A group: its own row while it has a name, and its options.
+class FilterSection<K: Unknown> implements Component {
+  public flip: Event<K> = new Event()
+  public flipAll: Event<Integer> = new Event()
+
+  derived state: Shown = shownOf(self.group, self.values)
+  derived titled: Boolean = self.group.label != nil
+  derived title: String = self.group.label ?? ""
+  derived rule: Line | nil = self.index == 1 ? nil : RULE
+  derived padding: Edges | nil = self.index == 1 ? nil : AFTER_RULE
+
+  group: Signal<FilterGroup<K>>
+  values: Signal<Map<K, Boolean>>
+  const index: Integer
+  constructor(group: Signal<FilterGroup<K>>, values: Signal<Map<K, Boolean>>, index: Integer) {
+    self.group = group
+    self.values = values
+    self.index = index
+  }
+
+  onFlip(self, key: K) { self.flip.emit(key) }
+  onFlipAll(self) { self.flipAll.emit(self.index) }
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={1} gap={space(.Item)} padding={self.padding} border={self.rule}>
+        <box $if={self.titled} columns={LINE} gap={space(.Panel)} yAlign={Align.Center} @pointerPress={self.onFlipAll}
+             @keyPress(.Enter)={self.onFlipAll} @keyPress(.Space)={self.onFlipAll}>
+          <text value={self.title} textColor={GOLD} wrap={false} />
+          <SwitchFace state={self.state} />
+        </box>
+        <FilterLine $for={option of self.group.options} option={option} on={self.values[option.key] == true}
+                    @flip={self.onFlip} />
+      </box>
+    }
+  }
+}
+
+public class FilterButton<K: Unknown> implements Component {
+  state open = false
+  // Any option off what the window starts it as: the funnel is lit, and «Reset» does something.
+  derived narrowed: Boolean = self.groups.any(group => group.options.any(option => (self.values[option.key] == true) != (self.start[option.key] == true)))
+  derived named: String = self.namedOf()
+
+  values: mut Signal<Map<K, Boolean>>
+  start: Signal<Map<K, Boolean>>
+  const groups: Array<FilterGroup<K>>
+  constructor(
+    // What is on, by the options' keys.
+    values: mut Signal<Map<K, Boolean>>,
+    // What is on as the window starts, and again after «Reset».
+    start: Signal<Map<K, Boolean>>,
+    groups: Array<FilterGroup<K>>
+  ) {
+    self.values = values
+    self.start = start
+    self.groups = groups
+  }
+
+  // The Tip's text: the options on, in the menu's order.
+  namedOf(self): String {
+    const on: Array<String> = []
+    for (group of self.groups) {
+      for (option of group.options) {
+        if (self.values[option.key] == true) { on.push(option.label) }
+      }
+    }
+    return on.length == 0 ? Locale.FILTER_NONE : on.join(", ")
+  }
+
+  close(mut self) { self.open = false }
+
+  onFlip(mut self, key: K) { self.values = switched(self.values, [key], self.values[key] != true) }
+
+  onFlipAll(mut self, index: Integer) {
+    const group = self.groups[index] ?? panic("a section is one of the filter's groups")
+    const keys = group.options.map(option => option.key)
+    self.values = switched(self.values, keys, shownOf(group, self.values) != .On)
+  }
+
+  onReset(mut self) { self.values = switched(self.start, [], true) }
+
+  public render(self): Template {
+    return $ltml {
+      <ToolButton icon={Ordaen.art.ctl.tool.filter} title={Locale.FILTER} text={self.named} open={mut self.open}
+                  lit={self.narrowed}>
+        <surface $if={self.open} layer={Layer.Tooltip} place={Beside { beside: "parent" }} width={WIDTH} background={BACK}
+                 border={EDGE} padding={space(.Panel)} columns={1} gap={space(.Item)} @pointerPressOutside={self.close}>
+          <FilterSection $for={index, group of self.groups} group={group} values={self.values} index={index}
+                         @flip={self.onFlip} @flipAll={self.onFlipAll} />
+          <box columns={1} padding={AFTER_RULE} border={RULE}>
+            <PushButton label={Locale.FILTER_RESET} width={RESET_WIDTH} disabled={!self.narrowed} @click={self.onReset} />
+          </box>
+        </surface>
+      </ToolButton>
+    }
+  }
+}

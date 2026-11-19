@@ -5,7 +5,7 @@
 // Shift+Left-click and its box track it or stop tracking it; Right-click opens its menu: track, share, abandon.
 import { Align, Art, ByInteractionState, Edges, Position } from "$ltml"
 import root Ordaen from "Ordaen"
-import { Component, Menu, MenuEntry, Money, PushButton, SECONDARY_TEXT, TITLE_TEXT, space } from "Ordaen"
+import { ButtonPlate, Component, Menu, MenuEntry, Money, PushButton, SECONDARY_TEXT, TITLE_TEXT, space } from "Ordaen"
 import { LogQuest, Objective, QuestText } from "@/book"
 import Locale from "@/locales"
 import { colorOf, difficultyOf } from "@/model"
@@ -222,7 +222,7 @@ public class QuestPage implements Component {
         </box>
         <box columns={["max-content", "max-content", "max-content"]} gap={space(.Item)}>
           <PushButton label={Locale.SHOW_ON_MAP} width={131.25dp} @click={self.onMap} />
-          <PushButton label={self.trackLabel} width={131.25dp} accent={true} @click={self.onTrack} />
+          <PushButton label={self.trackLabel} width={131.25dp} plate={ButtonPlate.Accent} @click={self.onTrack} />
           <PushButton label={Locale.SHARE} width={131.25dp} disabled={!self.quest.shareable} @click={self.onShare} />
         </box>
         <box columns={["max-content", { fr: 1 }]}>
