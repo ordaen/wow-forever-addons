@@ -10,12 +10,6 @@ import { Guild, News } from "@/people"
 import Style from "@/style"
 
 const ROW_PAD = 4.6875dp
-// The message of the day and the information, texts the player selects and copies: as high as three lines and as
-// six (a line of body text is a group's step high).
-const MOTD_HIGH: Number<Length> = space(.Group) * 3
-const INFO_HIGH: Number<Length> = space(.Group) * 6
-// A line of the news, selected and copied as the message of the day is: one line.
-const NEWS_HIGH: Number<Length> = space(.Group)
 
 // The guild's card, with no member picked.
 public class GuildCard implements Component {
@@ -36,11 +30,11 @@ public class GuildCard implements Component {
     return $ltml {
       <box columns={1} rows={["max-content", { fr: 1 }, "max-content"]} gap={space(.Group)}>
         <text value={self.guild.name} textColor={Style.GOLD} textSize={TITLE_TEXT} textFont={.Title} wrap={false} />
-        <box columns={1} gap={space(.Item)} overflow={Overflow.Scroll}>
+        <box columns={1} rows={["max-content", "max-content", "max-content", { fr: 1 }]} gap={space(.Item)} overflow={Overflow.Scroll}>
           <text value={Locale.MOTD} textColor={Style.DIM} wrap={false} />
-          <CopyText value={orDash(self.guild.motd)} height={MOTD_HIGH} />
+          <CopyText value={orDash(self.guild.motd)} />
           <text value={Locale.GUILD_INFO} textColor={Style.DIM} wrap={false} />
-          <CopyText value={orDash(self.guild.info)} height={INFO_HIGH} />
+          <CopyText value={orDash(self.guild.info)} />
         </box>
         <box columns={1} gap={space(.Item)}>
           <PushButton $if={self.guild.rights.invite} label={Locale.GUILD_INVITE} width={Style.CARD_BUTTON} @click={self.onInvite} />
@@ -66,7 +60,7 @@ class NewsRow implements Component {
         <text value={self.date} textColor={Style.DIM} textFont={.Numbers} wrap={false} />
         <box columns={["max-content", { fr: 1 }]} gap={space(.Line)}>
           <text value={self.news.who} textColor={self.news.sticky ? Style.GOLD : Style.INK} wrap={false} />
-          <CopyText value={self.news.what} height={NEWS_HIGH} />
+          <CopyText value={self.news.what} />
         </box>
       </box>
     }
