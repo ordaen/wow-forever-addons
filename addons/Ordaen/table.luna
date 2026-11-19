@@ -145,6 +145,28 @@ public class TableRow implements Component {
   }
 }
 
+// One cell of a row: what it holds is cut at its column's edge, and asks the row for no width. A share among several
+// (`{ fr }`) is never narrower than what stands in it, and each row is laid out by itself: a long text in a bare cell
+// widens its column in its own row alone, and moves every column after it off the headings. A row of text that may run
+// long puts each cell in one.
+public class TableCell implements Component {
+  align: Signal<Align | nil>
+  constructor(
+    // Where what it holds stands: its column's `align`.
+    align: Signal<Align | nil> = nil
+  ) {
+    self.align = align
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <box overflow={Overflow.Hidden} xAlign={self.align} yAlign={Align.Center}>
+        <slot />
+      </box>
+    }
+  }
+}
+
 public class Table implements Component {
   derived tracks: Array<Track> = tracksOf(self.columns)
 
