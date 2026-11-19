@@ -75,18 +75,27 @@ test "an input under way is written before the values are packed: the game savin
   Test.expect(Ordaen.globals.values.scale > 1)
 }
 
-test "an input under way is written as the window closes, and as another page is shown" {
+test "an input under way is written as another page is shown" {
+  Test.mount(nil, { left: 0, top: 0, width: 200, height: 100, screen: true })
+  open()
+  // The scale's + held: its step shown, not yet written.
+  Test.page().button("+").nth(1).hover()
+  Test.press(nil)
+  Test.pass(0.02)
+  Test.expect(Ordaen.globals.values.scale == 1)
+  Ordaen.toggleNamed("profiles")
+  // Written as the page is asked for, before it is drawn.
+  Test.expect(Ordaen.globals.values.scale > 1)
+  Test.flush()
+  Test.release(nil)
+}
+
+test "an input under way is written as the window closes" {
   Test.mount(nil, { left: 0, top: 0, width: 200, height: 100, screen: true })
   open()
   Test.expect(dragging(1))
   Ordaen.toggleNamed("")
   Test.expect(Ordaen.globals.values.scale > 1)
-  Test.release(nil)
-  const closed = Ordaen.globals.values.scale
-  open()
-  Test.expect(dragging(closed))
-  Ordaen.toggleNamed("profiles")
-  Test.expect(Ordaen.globals.values.scale > closed)
   Test.release(nil)
 }
 
