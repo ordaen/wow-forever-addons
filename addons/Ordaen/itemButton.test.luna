@@ -204,3 +204,28 @@ test "an icon is drawn for each slot that has one" {
   Test.shot("six slots, four of them with an icon (the empty one and the one with none to draw have no texture)")
   destroy page
 }
+
+// A slot of what the player wears beside one of the bags.
+class Worn {
+  public render(self): Template {
+    return $ltml {
+      <box columns={["max-content", "max-content"]} gap={8ui}>
+        <ItemButton item={12640} worn={1} />
+        <ItemButton item={12640} />
+      </box>
+    }
+  }
+}
+
+test "a worn item's tooltip is its slot's, which the game compares with nothing; an item's elsewhere is the item's" {
+  let page = new Worn()
+  Test.mount(page, { left: 0, top: 0, width: 600, height: 200 })
+  _ = Test.requests()
+  Test.moveTo({ x: 16, y: 16 })
+  const worn = Test.requests()
+  Test.expect(worn.length == 1 && (worn[1] ?? "").contains("Items.showWorn"))
+  Test.moveTo({ x: 58, y: 16 })
+  const bagged = Test.requests()
+  Test.expect(bagged.length == 1 && (bagged[1] ?? "").contains("Items.show") && !(bagged[1] ?? "").contains("showWorn"))
+  destroy page
+}
