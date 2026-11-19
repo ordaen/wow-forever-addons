@@ -1,8 +1,8 @@
-// The tabs whose data the window doesn't read from the game yet: PvE (the dungeons and raids), PvP (the season's rank
-// and the kills) and the statistics. Each shows sample data, and says so on its top line, until `"$game"` has a part
-// for it (the module's report names them).
-import { Align, BarFill, Overflow, TextFont } from "$ltml"
-import { Component, SECONDARY_TEXT, TITLE_TEXT, TextField } from "Ordaen"
+// The statistics tab, whose data the window doesn't read from the game yet: it shows sample data, and says so on its
+// top line, until `"$game"` has a part for it (the module's report names it).
+import { Overflow } from "$ltml"
+import root Ordaen from "Ordaen"
+import { ARTWORK, Choice, Component, SECONDARY_TEXT, ToolPick, Toolbar, space } from "Ordaen"
 import { Card, Filed, Group, StatGroup, grouped } from "@/gear"
 import Locale from "@/locales"
 import Style from "@/style"
@@ -12,67 +12,6 @@ public class SampleNote implements Component {
   public render(self): Template {
     return $ltml {
       <text value={Locale.SAMPLE} textSize={SECONDARY_TEXT} textColor={Style.YELLOW} />
-    }
-  }
-}
-
-const DUNGEONS: Array<Card> = [
-  { label: "Ragefire Chasm", value: Locale.CLEARED.format(3) },
-  { label: "The Deadmines", value: Locale.CLEARED.format(5) },
-  { label: "Wailing Caverns", value: Locale.CLEARED.format(2) },
-  { label: "Scarlet Monastery", value: Locale.CLEARED.format(8) }
-]
-const RAIDS: Array<Card> = [
-  { label: "Molten Core", value: Locale.CLEARED.format(0) },
-  { label: "Onyxia's Lair", value: Locale.CLEARED.format(0) }
-]
-
-public class PvePage implements Component {
-  const groups: Array<Group> = [{ title: Locale.DUNGEONS, cards: DUNGEONS }, { title: Locale.RAIDS, cards: RAIDS }]
-
-  public render(self): Template {
-    return $ltml {
-      <box gap={Style.GAP}>
-        <SampleNote />
-        <StatGroup $for={group of self.groups} group={group} />
-      </box>
-    }
-  }
-}
-
-const RANK_NAME = "Private"
-const RATING = 120
-const RATING_NEXT = 750
-
-public class PvpPage implements Component {
-  const bar: BarFill = { value: RATING / RATING_NEXT, color: Style.GOLD }
-  const rating: String = Locale.RATING.format(String.of(RATING), String.of(RATING_NEXT))
-  const week: Array<Group> = [
-    {
-      title: Locale.THIS_WEEK,
-      cards: [{ label: Locale.HONORABLE_KILLS, value: "42" }, { label: Locale.TODAY, value: "7" }]
-    },
-    { title: Locale.LIFETIME, cards: [{ label: Locale.HONORABLE_KILLS, value: "1318" }] }
-  ]
-
-  public render(self): Template {
-    return $ltml {
-      <box gap={Style.GAP}>
-        <SampleNote />
-        <box columns={[Style.SIDE, { fr: 1 }]} gap={Style.GAP}>
-          <box gap={4.6875dp} background={Style.CARD} padding={Style.GAP}>
-            <text value={Locale.RANK} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
-            <text value={RANK_NAME} textSize={TITLE_TEXT} textFont={TextFont.Title} textColor={Style.GOLD} />
-            <box height={Style.BAR} background={Style.TROUGH} fill={self.bar} xAlign={Align.Center} yAlign={Align.Center}>
-              <text value={self.rating} textSize={SECONDARY_TEXT} textFont={TextFont.Numbers} textColor={Style.INK}
-                    wrap={false} />
-            </box>
-          </box>
-          <box gap={Style.GAP}>
-            <StatGroup $for={group of self.week} group={group} />
-          </box>
-        </box>
-      </box>
     }
   }
 }
@@ -93,25 +32,53 @@ const STATISTICS: Array<Statistic> = [
   { category: "Quests", name: "Daily quests completed", value: "—" }
 ]
 
-// The statistics under their categories, those whose name holds the search.
-function groupsFound(search: String): Array<Group> {
+// How the statistics stand: under their categories, or as one list.
+public enum StatsView { Categories, List }
+
+const VIEWS: Array<Choice<StatsView>> = [
+  { value: StatsView.Categories, label: Locale.VIEW_CATEGORIES, icon: ARTWORK.ctl.tool.categories },
+  { value: StatsView.List, label: Locale.VIEW_LIST, icon: ARTWORK.ctl.tool.list }
+]
+
+function found(search: String): Array<Statistic> {
   const needle = search.lower()
-  const found = STATISTICS.filter(s => needle == "" || s.name.lower().contains(needle))
-  return grouped(found.map(s => Filed { title: s.category, card: { label: s.name, value: s.value } }))
+  return STATISTICS.filter(s => needle == "" || s.name.lower().contains(needle))
 }
 
+// The statistics whose name holds the search: under their categories, or in one group with no heading.
+function groupsFound(search: String, view: StatsView): Array<Group> {
+  const kept = found(search)
+  if (view == .List) {
+    if (kept.length == 0) { return [] }
+    return [{ title: "", cards: kept.map(s => Card { label: s.name, value: s.value }) }]
+  }
+  return grouped(kept.map(s => Filed { title: s.category, card: { label: s.name, value: s.value } }))
+}
+
+// The footer's count: the statistics the search keeps.
+public function statisticsCount(search: String): String { return Locale.STATS_COUNT.format(found(search).length) }
+
 public class StatisticsPage implements Component {
-  state search = ""
-  derived groups: Array<Group> = groupsFound(self.search)
+  derived groups: Array<Group> = groupsFound(self.search, self.view)
   derived empty: Boolean = self.groups.length == 0
+
+  // The toolbar's search and view, the window's to keep.
+  search: mut Signal<String>
+  view: mut Signal<StatsView>
+  constructor(search: mut Signal<String>, view: mut Signal<StatsView>) {
+    self.search = search
+    self.view = view
+  }
 
   public render(self): Template {
     return $ltml {
-      <box rows={["max-content", "max-content", { fr: 1 }]} gap={Style.GAP}>
+      <box rows={["max-content", "max-content", { fr: 1 }]} gap={space(.Group)}>
         <SampleNote />
-        <TextField label={Locale.SEARCH} value={mut self.search} />
+        <Toolbar search={mut self.search} placeholder={Locale.SEARCH_STATS}>
+          <ToolPick value={mut self.view} choices={VIEWS} icon={Ordaen.art.ctl.tool.categories} title={Locale.VIEW} />
+        </Toolbar>
         <box overflow={Overflow.Scroll}>
-          <box gap={Style.GAP}>
+          <box gap={space(.Item)}>
             <text $if={self.empty} value={Locale.NOTHING_FOUND} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
             <StatGroup $for={group of self.groups} group={group} />
           </box>

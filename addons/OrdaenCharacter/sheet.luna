@@ -4,6 +4,7 @@
 // its own.
 import Client from "$client"
 import Game from "$game"
+import { FillDuration } from "$ltml"
 import Runtime from "$runtime"
 import { Quality } from "Ordaen"
 
@@ -55,6 +56,35 @@ public struct Worn {
   const level: Integer | nil
   // What is left of it, from 0 to 1; none for what doesn't wear.
   const durability: Number | nil
+  // How many it holds (the ammo's), picked up or on its way somewhere (the client takes nothing of it), and the
+  // cooldown it waits on since it was last used.
+  const count: Integer = 1
+  const locked: Boolean = false
+  const cooldown: FillDuration | nil = nil
+}
+
+// One of the sets the game's equipment manager keeps: whether all of it is worn, and how many of its items are
+// nowhere the player has them.
+public struct GearSet {
+  const id: Integer
+  const name: String
+  const worn: Boolean
+  const missing: Integer
+}
+
+// What the game's paper doll says of each stat as its tooltip's text, under the stat's name and value: the client's
+// own words, filled with the player's numbers. Empty where the game says nothing.
+public struct StatTips {
+  health: String = ""
+  power: String = ""
+  primary: Array<String> = ["", "", "", "", ""]
+  armor: String = ""
+  attackPower: String = ""
+  rangedAttackPower: String = ""
+  hit: String = ""
+  block: String = ""
+  healing: String = ""
+  regen: String = ""
 }
 
 // Who the character is, as the paper doll's top says it.
@@ -101,6 +131,9 @@ public struct Stats {
   healing: Integer = 0
   // Mana every five seconds while casting.
   regen: Number = 0
+  // The five main stats' base, without what buffs and items add or take: the tooltip's «312 (300+12)».
+  bases: Array<Integer> = [0, 0, 0, 0, 0]
+  tips: StatTips = {}
 }
 
 // A row of the game's reputation list: a group's heading, or a faction with its standing (1 hated to 8 exalted) and
@@ -147,6 +180,17 @@ public trait Sheet {
   // The slot clicked as the game's own slot is: what the cursor holds is equipped there, or what is worn there is
   // taken onto the cursor (to the bags, the bars, another slot).
   public pickup(mut self, slot: Integer)
+  // Whether what the cursor holds goes in the slot: the slot is lit, as the game's is.
+  public fits(self, slot: Integer): Boolean
+  // What is worn there tried on in the dressing room, as Ctrl+Left-click does.
+  public tryOn(mut self, slot: Integer)
+  // What the bags hold that the slot takes (the game's flyout, Alt), by the items' numbers, and one of them put on.
+  public fitting(self, slot: Integer): Array<Integer>
+  public equip(mut self, item: Integer, slot: Integer)
+  // The equipment manager's sets, one put on, and what is worn saved as a new one.
+  public sets(self): Array<GearSet>
+  public useSet(mut self, id: Integer)
+  public saveSet(mut self, name: String)
   public fold(mut self, index: Integer, open: Boolean)
   public watchFaction(mut self, index: Integer, on: Boolean)
   public toggleAtWar(mut self, index: Integer)
@@ -181,11 +225,6 @@ function qualityOf(quality: Client.ItemQuality | nil): Quality {
   }
 }
 
-function statOf(index: Integer): Integer {
-  let _, value, _, _ = Client.UnitStat("player", index)
-  return value.floor()
-}
-
 function resistanceOf(school: Client.Damageclass): Integer {
   let _, value, _, _ = Client.UnitResistance("player", school)
   return value.floor()
@@ -200,6 +239,24 @@ function resourceOf(kind: Client.PowerType | nil): Resource {
   }
 }
 
+// What the game's paper doll writes under a stat's value: its base and what buffs and items add and take («300+12»);
+// empty where nothing does.
+function breakdown(natural: Integer, up: Integer, down: Integer): String {
+  if (up == 0 && down == 0) { return "" }
+  let text = String.of(natural)
+  if (up > 0) { text += `+${up}` }
+  if (down < 0) { text += String.of(down) }
+  return text
+}
+
+// One of the client's own texts by its name; empty where it has none.
+function said(key: String): String {
+  return Runtime.text(key) ?? ""
+}
+
+// Attack power a point of damage per second takes, as the game's tooltip divides it (`ATTACK_POWER_MAGIC_NUMBER`).
+const ATTACK_POWER_PER_DPS = 14
+
 // The schools a spell's damage counts: holy to arcane, as the client numbers them.
 const FIRST_SCHOOL = 2
 const LAST_SCHOOL = 7
@@ -213,8 +270,59 @@ public class ClientSheet implements Sheet {
     let _, _, quality, level, _, _, _, _, _, _, _, _, _, _, _, _, _, _ = Client.C_Item.GetItemInfo(item)
     let left, most = Client.GetInventoryItemDurability(slot)
     const durability = left != nil && most != nil && most > 0 ? left / most : nil
-    return { slot: slot, item: item, quality: qualityOf(quality), level: level?.floor(), durability: durability }
+    let start, length, _ = Client.GetInventoryItemCooldown("player", slot)
+    return {
+      slot: slot,
+      item: item,
+      quality: qualityOf(quality),
+      level: level?.floor(),
+      durability: durability,
+      count: Client.GetInventoryItemCount("player", slot).floor(),
+      locked: Client.IsInventoryItemLocked(slot),
+      cooldown: length > 0 ? { start: start, length: length } : nil
+    }
   }
+
+  public fits(self, slot: Integer): Boolean { return Client.C_PaperDollInfo.CursorCanGoInSlot(slot) }
+
+  public tryOn(mut self, slot: Integer) {
+    const link = Client.GetInventoryItemLink("player", slot)
+    if (link != nil) { _ = Client.DressUpItemLink(link) }
+  }
+
+  public fitting(self, slot: Integer): Array<Integer> {
+    const found: Map<Integer, Integer> = {}
+    _ = Client.GetInventoryItemsForSlot(slot, mut found)
+    const items: Array<Integer> = []
+    for (_, item of found) {
+      if (!items.any(i => i == item)) { items.push(item) }
+    }
+    return items
+  }
+
+  // In the player's click alone, as the game's flyout does it.
+  public equip(mut self, item: Integer, slot: Integer) { Client.C_Item.EquipItemByName(item, slot) }
+
+  public sets(self): Array<GearSet> {
+    const sets: Array<GearSet> = []
+    for (id of Client.C_EquipmentSet.GetEquipmentSetIDs()) {
+      let name, _, _, worn, _, _, _, lost, _ = Client.C_EquipmentSet.GetEquipmentSetInfo(id)
+      if (name != nil) {
+        sets.push({
+          id: id.floor(),
+          name: name,
+          worn: worn == true,
+          missing: (lost ?? 0).floor()
+        })
+      }
+    }
+    return sets
+  }
+
+  // In the player's click alone: the client refuses it in a fight, which the window says before.
+  public useSet(mut self, id: Integer) { _ = Client.C_EquipmentSet.UseEquipmentSet(id) }
+
+  public saveSet(mut self, name: String) { Client.C_EquipmentSet.CreateEquipmentSet(name, nil) }
 
   public usesAmmo(self): Boolean { return Client.UnitUsesAmmo("player") }
 
@@ -230,16 +338,33 @@ public class ClientSheet implements Sheet {
     let _, armor, _, _ = Client.UnitArmor("player")
     let minDamage, maxDamage, _, _, _, _, _ = Client.UnitDamage("player")
     let speed, offSpeed, _ = Client.UnitAttackSpeed("player")
-    let _, casting = Client.GetManaRegen()
-    let kind, _, _, _, _ = Client.UnitPowerType("player", nil)
+    let resting, casting = Client.GetManaRegen()
+    let kind, token, _, _, _ = Client.UnitPowerType("player", nil)
     let spellDamage: Number = 0
     for (school of FIRST_SCHOOL..LAST_SCHOOL) { spellDamage = spellDamage.max(Client.GetSpellBonusDamage(school) ?? 0) }
+    const attackPower = (base + positive + negative).floor()
+    const rangedAttackPower = (rangedBase + rangedPositive + rangedNegative).floor()
+    const healing = Client.GetSpellBonusHealing().floor()
+    const block = Client.GetBlockChance()
+    const hit = Client.GetHitModifier()
+    const primary: Array<Integer> = []
+    const bases: Array<Integer> = []
+    const primaryTips: Array<String> = []
+    for (index of 1..5) {
+      let natural, effective, up, down = Client.UnitStat("player", index)
+      primary.push(effective.floor())
+      bases.push(natural.floor())
+      primaryTips.push(breakdown(natural.floor(), up.floor(), down.floor()))
+    }
+    const attackTip = Runtime.text(`${Game.player.classTag}_MELEE_ATTACK_POWER_TOOLTIP`) ?? said("MELEE_ATTACK_POWER_TOOLTIP")
+    const reduction = Client.C_PaperDollInfo.GetArmorEffectiveness(armor, Client.UnitEffectiveLevel("player")) * 100
     return {
-      strength: statOf(1),
-      agility: statOf(2),
-      stamina: statOf(3),
-      intellect: statOf(4),
-      spirit: statOf(5),
+      strength: primary[1] ?? 0,
+      agility: primary[2] ?? 0,
+      stamina: primary[3] ?? 0,
+      intellect: primary[4] ?? 0,
+      spirit: primary[5] ?? 0,
+      bases: bases,
       health: Client.UnitHealthMax("player").floor(),
       power: Client.UnitPowerMax("player", nil, nil).floor(),
       resource: resourceOf(kind),
@@ -251,8 +376,8 @@ public class ClientSheet implements Sheet {
         resistanceOf(.Nature),
         resistanceOf(.Shadow)
       ],
-      attackPower: (base + positive + negative).floor(),
-      rangedAttackPower: (rangedBase + rangedPositive + rangedNegative).floor(),
+      attackPower: attackPower,
+      rangedAttackPower: rangedAttackPower,
       minDamage: minDamage,
       maxDamage: maxDamage,
       speed: speed,
@@ -260,14 +385,26 @@ public class ClientSheet implements Sheet {
       meleeCrit: Client.GetCritChance(),
       rangedCrit: Client.GetRangedCritChance(),
       spellCrit: Client.GetSpellCritChance(),
-      hit: Client.GetHitModifier(),
+      hit: hit,
       haste: Client.GetHaste(),
       dodge: Client.GetDodgeChance(),
       parry: Client.GetParryChance(),
-      block: Client.GetBlockChance(),
+      block: block,
       spellDamage: spellDamage.floor(),
-      healing: Client.GetSpellBonusHealing().floor(),
-      regen: casting * 5
+      healing: healing,
+      regen: casting * 5,
+      tips: {
+        health: said("STAT_HEALTH_TOOLTIP"),
+        power: token != nil ? said(`STAT_${token}_TOOLTIP`) : "",
+        primary: primaryTips,
+        armor: said("STAT_ARMOR_TOOLTIP").format(reduction),
+        attackPower: attackTip.format((attackPower / ATTACK_POWER_PER_DPS).max(0)),
+        rangedAttackPower: said("RANGED_ATTACK_POWER_TOOLTIP").format((rangedAttackPower / ATTACK_POWER_PER_DPS).max(0)),
+        hit: said("CR_HIT_MELEE_TOOLTIP").format(hit),
+        block: said("STAT_BLOCK_VALUE_FLAT_TOOLTIP").format(block, Client.GetShieldBlock()),
+        healing: said("STAT_SPELLHEALING_TOOLTIP").format(healing),
+        regen: said("MANA_REGEN_TOOLTIP").format(String.of((resting * 5).floor()))
+      }
     }
   }
 
