@@ -176,6 +176,9 @@ test "a kind on Default stands where the general position says: Blizzard's place
   pick("Buttons and text", "Beside the object", 1, "Default")
   Game.tooltip.main = atButton("CharacterMicroButton", text("Character Info"))
   Test.expect(near(Test.page().window("Character Info").rect().bottom, 750))
+  // The cursor leaves the button for the settings: its tooltip goes, and stands over none of the window.
+  Game.tooltip.main = hidden()
+  Test.pass(0.3)
   pick("General", "Blizzard's place", 1, "Beside the object")
   Game.tooltip.main = atButton("CharacterMicroButton", text("Character Info"))
   Test.expect(near(Test.page().window("Character Info").rect().left, 600))
