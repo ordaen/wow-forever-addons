@@ -1,0 +1,288 @@
+-- the long name on two lines inside the column, its count at the column's right; «Beside» untouched
+box 0,0 400x70.13
+  box 0,0 160x70.13
+    box 0,0 160x42.87 #00000040 @keyPress @pointerPress
+      box 0,0 2.5x42.87 absolute #d6a56b
+      text 13.33,5.83 112.78x31.2 "Everything the professions take" #ffffff
+      box 134.44,13.63 15.56x15.6
+        text 134.44,13.63 15.56x15.6 "12" #ffffff
+    box 0,42.87 160x27.27 #00000000 @keyPress @pointerPress
+      box 0,42.87 2.5x27.27 absolute #00000000
+      text 13.33,48.7 119.44x15.6 "All" #e8dcc4
+      box 141.11,48.7 8.89x15.6
+        text 141.11,48.7 8.89x15.6 "3" #ffffff
+  text 160,0 240x15.6 "Beside" #ffffff
+surface 1323.67,0 276.33x326.33 on MEDIUM clamped
+  box 1323.67,0 276.33x326.33 opacity=1
+    box 1343.92,20.25 230.83x283.58 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @pointerEnter @pointerLeave
+      embed 1352.67,54 218.33x218.33 absolute frame=none
+      box 1352.67,29 218.33x25 absolute Interface\AddOns\Ordaen\media\window-wood
+        box 1417.94,32.87 87.78x15.6 @pointerEnter @pointerLeave
+          text 1417.94,32.87 87.78x15.6 "Elwynn Forest" #1aff1a
+      box 1352.67,272.33 218.33x25 absolute Interface\AddOns\Ordaen\media\window-wood
+        box 1361,277.87 166.11x15.6 @pointerEnter @pointerLeave @pointerPress
+          text 1361,277.87 166.11x15.6 "42.1, 63.0" #f3e1b8
+        box 1527.11,277.87 35.56x15.6 @pointerEnter @pointerLeave @pointerPress
+          text 1527.11,277.87 35.56x15.6 "12:30" #f3e1b8
+      box 1323.67,103.87 28.33x28.33 absolute Interface\AddOns\Ordaen\media\minimap-ring row 0 of 4 opacity=0 @drag @dragStart @dragStop @pointerEnter @pointerLeave @pointerPress
+        box 1331.17,111.79 13.33x12.5 ui-hud-minimap-tracking-up
+      box 1323.67,194.13 28.33x28.33 absolute Interface\AddOns\Ordaen\media\minimap-ring row 0 of 4 opacity=0 @drag @dragStart @dragStop @pointerEnter @pointerLeave @pointerPress
+        box 1328.67,199.13 18.33x18.33 icon=Interface/Icons/Trade_Engineering cut by Interface\AddOns\Ordaen\media\face-round-mask
+    box 1323.67,0 0x0 absolute opacity=0
+surface 508,781.08 584x45 on MEDIUM clamped
+  box 508,781.08 584x45 opacity=1 @pointerEnter @pointerLeave
+    box 508,781.08 45x45
+      embed 508,781.08 45x45 absolute frame=OrdaenPanelBar1Button1
+      box 508,781.08 45x4 absolute
+        text 551,783.08 0x0 "" #ffffff
+    box 557,781.08 45x45
+      embed 557,781.08 45x45 absolute frame=OrdaenPanelBar1Button2
+      box 557,781.08 45x4 absolute
+        text 600,783.08 0x0 "" #ffffff
+    box 606,781.08 45x45
+      embed 606,781.08 45x45 absolute frame=OrdaenPanelBar1Button3
+      box 606,781.08 45x4 absolute
+        text 649,783.08 0x0 "" #ffffff
+    box 655,781.08 45x45
+      embed 655,781.08 45x45 absolute frame=OrdaenPanelBar1Button4
+      box 655,781.08 45x4 absolute
+        text 698,783.08 0x0 "" #ffffff
+    box 704,781.08 45x45
+      embed 704,781.08 45x45 absolute frame=OrdaenPanelBar1Button5
+      box 704,781.08 45x4 absolute
+        text 747,783.08 0x0 "" #ffffff
+    box 753,781.08 45x45
+      embed 753,781.08 45x45 absolute frame=OrdaenPanelBar1Button6
+      box 753,781.08 45x4 absolute
+        text 796,783.08 0x0 "" #ffffff
+    box 802,781.08 45x45
+      embed 802,781.08 45x45 absolute frame=OrdaenPanelBar1Button7
+      box 802,781.08 45x4 absolute
+        text 845,783.08 0x0 "" #ffffff
+    box 851,781.08 45x45
+      embed 851,781.08 45x45 absolute frame=OrdaenPanelBar1Button8
+      box 851,781.08 45x4 absolute
+        text 894,783.08 0x0 "" #ffffff
+    box 900,781.08 45x45
+      embed 900,781.08 45x45 absolute frame=OrdaenPanelBar1Button9
+      box 900,781.08 45x4 absolute
+        text 943,783.08 0x0 "" #ffffff
+    box 949,781.08 45x45
+      embed 949,781.08 45x45 absolute frame=OrdaenPanelBar1Button10
+      box 949,781.08 45x4 absolute
+        text 992,783.08 0x0 "" #ffffff
+    box 998,781.08 45x45
+      embed 998,781.08 45x45 absolute frame=OrdaenPanelBar1Button11
+      box 998,781.08 45x4 absolute
+        text 1041,783.08 0x0 "" #ffffff
+    box 1047,781.08 45x45
+      embed 1047,781.08 45x45 absolute frame=OrdaenPanelBar1Button12
+      box 1047,781.08 45x4 absolute
+        text 1090,783.08 0x0 "" #ffffff
+surface 508,732.75 584x45 on MEDIUM clamped
+  box 508,732.75 584x45 opacity=1 @pointerEnter @pointerLeave
+    box 508,732.75 45x45
+      embed 508,732.75 45x45 absolute frame=OrdaenPanelBar2Button1
+      box 508,732.75 45x4 absolute
+        text 551,734.75 0x0 "" #ffffff
+    box 557,732.75 45x45
+      embed 557,732.75 45x45 absolute frame=OrdaenPanelBar2Button2
+      box 557,732.75 45x4 absolute
+        text 600,734.75 0x0 "" #ffffff
+    box 606,732.75 45x45
+      embed 606,732.75 45x45 absolute frame=OrdaenPanelBar2Button3
+      box 606,732.75 45x4 absolute
+        text 649,734.75 0x0 "" #ffffff
+    box 655,732.75 45x45
+      embed 655,732.75 45x45 absolute frame=OrdaenPanelBar2Button4
+      box 655,732.75 45x4 absolute
+        text 698,734.75 0x0 "" #ffffff
+    box 704,732.75 45x45
+      embed 704,732.75 45x45 absolute frame=OrdaenPanelBar2Button5
+      box 704,732.75 45x4 absolute
+        text 747,734.75 0x0 "" #ffffff
+    box 753,732.75 45x45
+      embed 753,732.75 45x45 absolute frame=OrdaenPanelBar2Button6
+      box 753,732.75 45x4 absolute
+        text 796,734.75 0x0 "" #ffffff
+    box 802,732.75 45x45
+      embed 802,732.75 45x45 absolute frame=OrdaenPanelBar2Button7
+      box 802,732.75 45x4 absolute
+        text 845,734.75 0x0 "" #ffffff
+    box 851,732.75 45x45
+      embed 851,732.75 45x45 absolute frame=OrdaenPanelBar2Button8
+      box 851,732.75 45x4 absolute
+        text 894,734.75 0x0 "" #ffffff
+    box 900,732.75 45x45
+      embed 900,732.75 45x45 absolute frame=OrdaenPanelBar2Button9
+      box 900,732.75 45x4 absolute
+        text 943,734.75 0x0 "" #ffffff
+    box 949,732.75 45x45
+      embed 949,732.75 45x45 absolute frame=OrdaenPanelBar2Button10
+      box 949,732.75 45x4 absolute
+        text 992,734.75 0x0 "" #ffffff
+    box 998,732.75 45x45
+      embed 998,732.75 45x45 absolute frame=OrdaenPanelBar2Button11
+      box 998,732.75 45x4 absolute
+        text 1041,734.75 0x0 "" #ffffff
+    box 1047,732.75 45x45
+      embed 1047,732.75 45x45 absolute frame=OrdaenPanelBar2Button12
+      box 1047,732.75 45x4 absolute
+        text 1090,734.75 0x0 "" #ffffff
+surface 508,684.42 584x45 on MEDIUM clamped
+  box 508,684.42 584x45 opacity=1 @pointerEnter @pointerLeave
+    box 508,684.42 45x45
+      embed 508,684.42 45x45 absolute frame=OrdaenPanelBar3Button1
+      box 508,684.42 45x4 absolute
+        text 551,686.42 0x0 "" #ffffff
+    box 557,684.42 45x45
+      embed 557,684.42 45x45 absolute frame=OrdaenPanelBar3Button2
+      box 557,684.42 45x4 absolute
+        text 600,686.42 0x0 "" #ffffff
+    box 606,684.42 45x45
+      embed 606,684.42 45x45 absolute frame=OrdaenPanelBar3Button3
+      box 606,684.42 45x4 absolute
+        text 649,686.42 0x0 "" #ffffff
+    box 655,684.42 45x45
+      embed 655,684.42 45x45 absolute frame=OrdaenPanelBar3Button4
+      box 655,684.42 45x4 absolute
+        text 698,686.42 0x0 "" #ffffff
+    box 704,684.42 45x45
+      embed 704,684.42 45x45 absolute frame=OrdaenPanelBar3Button5
+      box 704,684.42 45x4 absolute
+        text 747,686.42 0x0 "" #ffffff
+    box 753,684.42 45x45
+      embed 753,684.42 45x45 absolute frame=OrdaenPanelBar3Button6
+      box 753,684.42 45x4 absolute
+        text 796,686.42 0x0 "" #ffffff
+    box 802,684.42 45x45
+      embed 802,684.42 45x45 absolute frame=OrdaenPanelBar3Button7
+      box 802,684.42 45x4 absolute
+        text 845,686.42 0x0 "" #ffffff
+    box 851,684.42 45x45
+      embed 851,684.42 45x45 absolute frame=OrdaenPanelBar3Button8
+      box 851,684.42 45x4 absolute
+        text 894,686.42 0x0 "" #ffffff
+    box 900,684.42 45x45
+      embed 900,684.42 45x45 absolute frame=OrdaenPanelBar3Button9
+      box 900,684.42 45x4 absolute
+        text 943,686.42 0x0 "" #ffffff
+    box 949,684.42 45x45
+      embed 949,684.42 45x45 absolute frame=OrdaenPanelBar3Button10
+      box 949,684.42 45x4 absolute
+        text 992,686.42 0x0 "" #ffffff
+    box 998,684.42 45x45
+      embed 998,684.42 45x45 absolute frame=OrdaenPanelBar3Button11
+      box 998,684.42 45x4 absolute
+        text 1041,686.42 0x0 "" #ffffff
+    box 1047,684.42 45x45
+      embed 1047,684.42 45x45 absolute frame=OrdaenPanelBar3Button12
+      box 1047,684.42 45x4 absolute
+        text 1090,686.42 0x0 "" #ffffff
+surface 557,636.08 486x45 on MEDIUM clamped
+  box 557,636.08 486x45 opacity=1 @pointerEnter @pointerLeave
+    box 557,636.08 45x45
+      embed 557,636.08 45x45 absolute frame=OrdaenPanelBarpetButton1Cooldown
+      embed 557,636.08 45x45 absolute frame=OrdaenPanelBarpetButton1 opacity=0
+      box 557,636.08 45x4 absolute
+        text 600,638.08 0x0 "" #ffffff
+    box 606,636.08 45x45
+      embed 606,636.08 45x45 absolute frame=OrdaenPanelBarpetButton2Cooldown
+      embed 606,636.08 45x45 absolute frame=OrdaenPanelBarpetButton2 opacity=0
+      box 606,636.08 45x4 absolute
+        text 649,638.08 0x0 "" #ffffff
+    box 655,636.08 45x45
+      embed 655,636.08 45x45 absolute frame=OrdaenPanelBarpetButton3Cooldown
+      embed 655,636.08 45x45 absolute frame=OrdaenPanelBarpetButton3 opacity=0
+      box 655,636.08 45x4 absolute
+        text 698,638.08 0x0 "" #ffffff
+    box 704,636.08 45x45
+      embed 704,636.08 45x45 absolute frame=OrdaenPanelBarpetButton4Cooldown
+      embed 704,636.08 45x45 absolute frame=OrdaenPanelBarpetButton4 opacity=0
+      box 704,636.08 45x4 absolute
+        text 747,638.08 0x0 "" #ffffff
+    box 753,636.08 45x45
+      embed 753,636.08 45x45 absolute frame=OrdaenPanelBarpetButton5Cooldown
+      embed 753,636.08 45x45 absolute frame=OrdaenPanelBarpetButton5 opacity=0
+      box 753,636.08 45x4 absolute
+        text 796,638.08 0x0 "" #ffffff
+    box 802,636.08 45x45
+      embed 802,636.08 45x45 absolute frame=OrdaenPanelBarpetButton6Cooldown
+      embed 802,636.08 45x45 absolute frame=OrdaenPanelBarpetButton6 opacity=0
+      box 802,636.08 45x4 absolute
+        text 845,638.08 0x0 "" #ffffff
+    box 851,636.08 45x45
+      embed 851,636.08 45x45 absolute frame=OrdaenPanelBarpetButton7Cooldown
+      embed 851,636.08 45x45 absolute frame=OrdaenPanelBarpetButton7 opacity=0
+      box 851,636.08 45x4 absolute
+        text 894,638.08 0x0 "" #ffffff
+    box 900,636.08 45x45
+      embed 900,636.08 45x45 absolute frame=OrdaenPanelBarpetButton8Cooldown
+      embed 900,636.08 45x45 absolute frame=OrdaenPanelBarpetButton8 opacity=0
+      box 900,636.08 45x4 absolute
+        text 943,638.08 0x0 "" #ffffff
+    box 949,636.08 45x45
+      embed 949,636.08 45x45 absolute frame=OrdaenPanelBarpetButton9Cooldown
+      embed 949,636.08 45x45 absolute frame=OrdaenPanelBarpetButton9 opacity=0
+      box 949,636.08 45x4 absolute
+        text 992,638.08 0x0 "" #ffffff
+    box 998,636.08 45x45
+      embed 998,636.08 45x45 absolute frame=OrdaenPanelBarpetButton10Cooldown
+      embed 998,636.08 45x45 absolute frame=OrdaenPanelBarpetButton10 opacity=0
+      box 998,636.08 45x4 absolute
+        text 1041,638.08 0x0 "" #ffffff
+surface 0,832.75 1600x67.25 on MEDIUM Interface\AddOns\Ordaen\media\window-wood opacity=1
+  box 0,847 543.67x53
+    box 0,847 543.67x53
+      box 0,873 128x1
+      box 134.67,847 409x53
+        box 134.67,847 49.67x53
+          box 134.67,847 49.67x53 #00000000
+            box 142,856 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-professions
+            embed 134.67,847 49.67x53 absolute frame=none opacity=0
+        box 184.33,847 51.33x53
+          box 184.33,847 1.67x53 #0a0603d9
+          box 186,847 49.67x53 #00000000
+            box 193.33,856 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-spellbookabilities
+            embed 186,847 49.67x53 absolute frame=none opacity=0
+        box 235.67,847 51.33x53
+          box 235.67,847 1.67x53 #0a0603d9
+          box 237.33,847 49.67x53 #00000000
+            box 244.67,856 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-legacy
+            embed 237.33,847 49.67x53 absolute frame=none opacity=0
+        box 287,847 51.33x53
+          box 287,847 1.67x53 #0a0603d9
+          box 288.67,847 49.67x53 #00000000
+            box 296,856 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-questlog
+            embed 288.67,847 49.67x53 absolute frame=none opacity=0
+        box 338.33,847 51.33x53
+          box 338.33,847 1.67x53 #0a0603d9
+          box 340,847 49.67x53 #00000000
+            box 347.33,856 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-groupfinder
+            embed 340,847 49.67x53 absolute frame=none opacity=0
+        box 389.67,847 51.33x53
+          box 389.67,847 1.67x53 #0a0603d9
+          box 391.33,847 49.67x53 #00000000
+            box 398.67,856 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-collections
+            embed 391.33,847 49.67x53 absolute frame=none opacity=0
+        box 441,847 51.33x53
+          box 441,847 1.67x53 #0a0603d9
+          box 442.67,847 49.67x53 #00000000
+            box 450,856 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-social
+            embed 442.67,847 49.67x53 absolute frame=none opacity=0
+        box 492.33,847 51.33x53
+          box 492.33,847 1.67x53 #0a0603d9
+          box 494,847 49.67x53 #00000000
+            box 501.33,856 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-gamemenu
+            embed 494,847 49.67x53 absolute frame=none opacity=0
+  box 543.67,873.5 528.17x0
+    box 543.67,873.5 528.17x0
+  box 1071.83,865.7 528.17x15.6
+    box 1528.89,865.7 64.44x15.6
+      text 1528.89,865.7 54.44x15.6 "0g 0s 0c" #e8dcc4
+    box 1600,873.5 0x0
+surface 0,776 128x124 on MEDIUM face:player cut by Interface\AddOns\Ordaen\media\portrait-mask opacity=1
+  embed 0,776 128x124 absolute frame=none opacity=0
+  box 0,776 128x124 absolute Interface\AddOns\Ordaen\media\portrait-rim
+  box 86.7,781.3 36x36 absolute Interface\AddOns\Ordaen\media\level-badge
+    text 100.26,791.5 8.89x15.6 "1" #b88f57

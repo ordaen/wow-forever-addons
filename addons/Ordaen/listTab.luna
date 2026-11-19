@@ -1,5 +1,6 @@
 // ListTab: an entry in a list of pages (the settings window's modules, a module page's bars): its icon, its name,
-// and what its slot holds at its right (a switch). The shade under the cursor; selected, a darker shade, the name
+// and what its slot holds at its right (a switch). A name longer than its column wraps there: a text that doesn't wrap
+// keeps its whole line and would push its count past the column (a locale's longer names). The shade under the cursor; selected, a darker shade, the name
 // white and a 3 px light along its left; off, name and icon dimmed. Left-click reports `pick`.
 import { Align, Art, ByInteractionState, Edges, Position, Track } from "$ltml"
 import { Component } from "@/module"
@@ -54,7 +55,7 @@ public class ListTab implements Component {
            background={self.background} @pointerPress={self.onClick} @keyPress(.Enter)={self.onClick} @keyPress(.Space)={self.onClick}>
         <box position={Position.Absolute} left={0ui} top={0ui} bottom={0ui} width={3.515625dp} background={self.light} />
         <box $if={self.hasIcon} width={25.78125dp} height={25.78125dp} icon={self.icon} tint={self.tint} />
-        <text value={self.label} textColor={self.color} wrap={false} />
+        <text value={self.label} textColor={self.color} />
         <box>
           <slot />
         </box>

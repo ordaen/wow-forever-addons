@@ -66,8 +66,12 @@ public class GuildBank {
   public slots: Event<nil> = new Event()
 
   constructor() {
+    // The client opens the guild bank through its interaction manager (`GuildBanker`), and names it by the old events
+    // too where it does: either opens it, once.
     Events.GUILDBANKFRAME_OPENED.listen(self.onOpened)
     Events.GUILDBANKFRAME_CLOSED.listen(self.onClosed)
+    Events.PLAYER_INTERACTION_MANAGER_FRAME_SHOW.listen(self.onInteraction)
+    Events.PLAYER_INTERACTION_MANAGER_FRAME_HIDE.listen(self.onInteractionEnd)
     watch (open of self.open) {
       if (!open) { return }
       Events.GUILDBANKBAGSLOTS_CHANGED.listen(self.onSlots)
@@ -78,7 +82,16 @@ public class GuildBank {
     }
   }
 
+  onInteraction(mut self, kind: Client.PlayerInteractionType) {
+    if (kind == .GuildBanker) { self.onOpened() }
+  }
+
+  onInteractionEnd(mut self, kind: Client.PlayerInteractionType) {
+    if (kind == .GuildBanker) { self.onClosed() }
+  }
+
   onOpened(mut self) {
+    if (peek self.open) { return }
     self.open = true
     self.readTabs()
     self.readMoney()
