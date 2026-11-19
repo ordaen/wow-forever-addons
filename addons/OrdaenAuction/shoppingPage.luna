@@ -7,7 +7,7 @@
 // removed, and «Remove bought» clears every row at 0.
 import Game from "$game"
 import { Align, Track } from "$ltml"
-import { Age, ButtonPlate, Column, Component, ItemButton, ItemId, ModuleMemory, Money, PushButton, SECONDARY_TEXT, Table, TableRow, space, tracksOf } from "Ordaen"
+import { Age, ButtonPlate, Column, Component, ItemButton, ItemId, ModuleMemory, Money, PushButton, SECONDARY_TEXT, Table, TableRow, tracksOf } from "Ordaen"
 import { ageOf } from "@/buy"
 import { nameOf } from "@/house"
 import Locale from "@/locales"
@@ -45,7 +45,7 @@ function sourceText(source: Source): String {
   }
 }
 
-// Under the item's name, its sources on one line: every row is as high as the others (`Style.BUTTON_ROW`).
+// Under the item's name, its sources on one line: every row is as high as the others.
 function linesText(row: Row): String {
   let text = ""
   for (index, line of row.lines) {
@@ -117,10 +117,10 @@ class ShoppingRow implements Component {
 
   public render(self): Template {
     return $ltml {
-      <TableRow tracks={TRACKS} selected={self.selected} height={Style.BUTTON_ROW} @pick={self.onPick}>
-        <box columns={ITEM} gap={9.375dp} yAlign={Align.Center}>
+      <TableRow tracks={TRACKS} selected={self.selected} @pick={self.onPick}>
+        <box columns={ITEM} gap={2.5sp} yAlign={Align.Center}>
           <ItemButton item={self.row.item} size={Style.SLOT} dimmed={self.bought} />
-          <box rows={["max-content", "max-content"]} overflow={.Hidden}>
+          <box rows={["max-content", "max-content"]}>
             <text value={self.name} textColor={self.color} wrap={false} />
             <text value={self.from} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={false} />
           </box>
@@ -235,8 +235,8 @@ public class ShoppingPage implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box rows={PAGE} gap={space(.Item)}>
-        <box columns={HEAD} gap={space(.Item)} yAlign={Align.Center}>
+      <box rows={PAGE} gap={3sp}>
+        <box columns={HEAD} gap={3sp} yAlign={Align.Center}>
           <text value={Locale.HELD_HERE} textColor={Style.DIM} textSize={SECONDARY_TEXT} />
           <text value={Locale.TOTAL_TO_BUY} textColor={Style.DIM} wrap={false} />
           <box columns={PRICE} yAlign={Align.Center}>
@@ -255,7 +255,7 @@ public class ShoppingPage implements Component {
             </box>
           </Table>
         </box>
-        <box columns={BUTTONS} gap={space(.Item)}>
+        <box columns={BUTTONS} gap={3sp}>
           <PushButton label={Locale.SEARCH_ALL} width={175.78125dp} plate={ButtonPlate.Accent} disabled={self.empty}
                       @click={self.onSearch} />
           <PushButton label={Locale.REMOVE_BOUGHT} width={199.21875dp} disabled={self.empty} @click={self.onClear} />

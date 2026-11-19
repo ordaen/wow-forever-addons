@@ -18,7 +18,7 @@ import { reachAcross } from "@/art"
 import { Component } from "@/module"
 import { Hold, kept } from "@/onScreen"
 import { ModuleMemory } from "@/settings"
-import { SECONDARY_TEXT, space } from "@/units"
+import { BODY_LINE, SECONDARY_TEXT, WINDOW_ROOM } from "@/units"
 
 // One of a window's tabs: its name, a second line under it, a picture at its left end.
 public struct WindowTabSpec {
@@ -127,17 +127,16 @@ const DESC: Color = Color.hex("#8f8470")
 const SHADE: Color = Color.hex("#808080")
 const WHITE: Color = Color.hex("#ffffff")
 const SHADOW: Shadow = { color: Color.hex("#000000cc"), x: 1.171875dp, y: -1.171875dp }
-const LABEL_PAD = 11.71875dp
+const LABEL_PAD = 3sp
 // The least a tab is wide at its line: its art reaches past that on both sides.
 const TAB_LEAST = 140.625dp
-// The body's wood inside the metal, and the room each of its sections keeps: the ladder's `Window` step from the line
-// on every side; with a footer, the footer stands on the bottom line, the ladder's `Panel` step above it, and keeps a
-// `Group` step from the content over it.
-const INSET = 3.515625dp
-const ROOM: Number<Length> = space(.Window) + INSET
-const PADDING: Edges = { top: space(.Window), right: space(.Window), bottom: space(.Window), left: space(.Window) }
-const PADDING_FOOTED: Edges = { top: space(.Window), right: space(.Window), bottom: space(.Panel), left: space(.Window) }
-const FOOTER_PAD: Edges = { top: space(.Group) }
+// The body's wood inside the metal, and the room each of its sections keeps: `WINDOW_ROOM` from the line on every
+// side, more than any gap inside; with a footer, the footer stands on the bottom line, 5sp above it, and keeps 6sp
+// from the content over it.
+const INSET = 1sp
+const PADDING: Edges = { top: WINDOW_ROOM, right: WINDOW_ROOM, bottom: WINDOW_ROOM, left: WINDOW_ROOM }
+const PADDING_FOOTED: Edges = { top: 8sp, right: 8sp, bottom: 5sp, left: 8sp }
+const FOOTER_PAD: Edges = { top: 6sp }
 // The control group at the tab row's right end (the design's `CTRLS`): its controls from its left, each one kind of
 // plate with its glyph; how high it is with its rim.
 public enum CornerControl { Settings = "settings", Full = "full", Close = "close" }
@@ -250,13 +249,13 @@ public class WindowTab implements Component {
 
   // The tab's foot stands behind the body's line: its label keeps to what shows of it.
   paddingOf(self): Edges {
-    let foot = self.flare - self.reachTop
+    let foot = Ordaen.spacingOf(self.flare - self.reachTop)
     if (!self.hasIcon) { return { left: LABEL_PAD, right: LABEL_PAD, bottom: foot } }
     let line = Ordaen.art.frame.tabIconLine
     let frame = Ordaen.art.frame.tab
     let lineEnd = (line.width + line.reach.left * line.scale) * 1ui
     let frameEnd = (frame.width + frame.reach.left * frame.scale) * 1ui
-    let left = self.side + lineEnd - frameEnd + LABEL_PAD
+    let left = Ordaen.spacingOf(self.side + lineEnd - frameEnd) + LABEL_PAD
     return { left: left, right: LABEL_PAD, bottom: foot }
   }
 
@@ -278,7 +277,7 @@ public class WindowTab implements Component {
           <box position={Position.Absolute} left={self.lineLeft} top={0ui} width={self.lineWidth}
                height={self.given} border={Ordaen.art.frame.tabIconLine} />
         </>
-        <box xAlign={Align.Center} yAlign={Align.Center} gap={1.171875dp}>
+        <box xAlign={Align.Center} yAlign={Align.Center} gap={0.5sp}>
           <text value={self.tab.title} wrap={false} textColor={self.titleColor}
                 textShadow={SHADOW} />
           <text $if={self.hasDesc} value={self.desc} textSize={SECONDARY_TEXT} wrap={false} textColor={DESC}
@@ -384,12 +383,14 @@ public class Window implements Component {
   // The screen's right side kept clear while full screen.
   derived inset: Number<Length> = self.full ? self.room : 0ui
   // The tab row ends where the body does: short of that side while full screen.
-  derived rowPad: Edges = { right: self.inset }
+  derived rowPad: Edges = { right: Ordaen.spacingOf(self.inset) }
   // The control group's foot stands on the top of the body's line, as the tabs' sides meet it. The body is placed
   // by its art's top: its line stands the art's reach below that, and the line's metal starts the frame's inset
   // outside it. The group is drawn over the body: the frame's art above its line, its dark edge and shadow, would
   // otherwise cover the plates' foot.
-  derived cornerFoot: Edges = { bottom: self.lineTop - (self.bodyReach + Ordaen.art.frame.small.inset) * 1ui }
+  derived cornerFoot: Edges = {
+    bottom: Ordaen.spacingOf(self.lineTop - (self.bodyReach + Ordaen.art.frame.small.inset) * 1ui)
+  }
   derived bodyReach: Number = Ordaen.art.frame.small.reach.top * Ordaen.art.frame.small.scale
   derived grip: ByInteractionState<Art> = self.gripOf()
 
@@ -617,7 +618,7 @@ public class Window implements Component {
     const side = self.side
     if (side == nil) { return 0ui }
     const line = Ordaen.art.frame.tabIconLine
-    return self.sideWidth + 2 * space(.Window) + (line.width + line.reach.left * line.scale) * 1ui
+    return self.sideWidth + Ordaen.lengthOf(2 * WINDOW_ROOM) + (line.width + line.reach.left * line.scale) * 1ui
   }
 
   tabHeightOf(self): Number<Length> {
@@ -740,7 +741,7 @@ public class Window implements Component {
     return $ltml {
       // As wide as the player made it, and never narrower than its tab row (its tabs and its control group): the
       // row is the one thing in its grid, and the width it keeps is its least.
-      <surface shown={self.seen} layer={Layer.Dialog} place={self.place} width={self.bounds} height={self.height} clamp={true}
+      <surface lineHeight={BODY_LINE} shown={self.seen} layer={Layer.Dialog} place={self.place} width={self.bounds} height={self.height} clamp={true}
                raise={true}
                @keyPress.parentScope(.Escape)={self.onClose}>
         <box position={Position.Absolute} left={0ui} right={self.inset} top={self.tabHeight} bottom={0ui}
@@ -763,8 +764,8 @@ public class Window implements Component {
         </box>
         // The tab row: the tabs from the left, the control group at the right, standing on the body's top line as the
         // tabs do. The row is the surface's least width: the window is never narrower than its tabs and its controls.
-        <box columns={ROW} gap={space(.Item)} padding={self.rowPad} yAlign={Align.End}>
-          <box columns={self.columns} gap={14.0625dp} yAlign={Align.End}>
+        <box columns={ROW} gap={3sp} padding={self.rowPad} yAlign={Align.End}>
+          <box columns={self.columns} gap={3.5sp} yAlign={Align.End}>
             <WindowTab $for={index, tab of self.tabs} tab={tab} index={index} selected={self.selected}
                        height={self.tabWhole} @grab={self.onGrab} @move={self.onMove} @drop={self.onSettle}
                        @picked={self.onPicked} />

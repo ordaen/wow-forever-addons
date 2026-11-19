@@ -6,7 +6,7 @@
 import Client from "$client"
 import Game from "$game"
 import { Align, Art, Edges, Overflow, Track } from "$ltml"
-import { Component, PushButton, SECONDARY_TEXT, TipText, space } from "Ordaen"
+import { Component, PushButton, SECONDARY_TEXT, TipText } from "Ordaen"
 import { AddOn, Catalog, Status, plain } from "@/catalog"
 import Locale from "@/locales"
 import { Load, Profiler, SPIKES, memory, percent } from "@/perf"
@@ -15,7 +15,7 @@ import Style from "@/style"
 const ICON = 46.875dp
 const HEAD: Array<Track> = [ICON, { fr: 1 }]
 const PAIR: Array<Track> = ["max-content", { fr: 1 }]
-const SECTION: Edges = { top: space(.Item) }
+const SECTION: Edges = { top: 3sp }
 const LINK: Color = Color.hex("#d6b878")
 const DASH = "—"
 const LOAD_TIP: TipText = { title: Locale.LOAD_NOW, text: Locale.IN_COMBAT, rows: [] }
@@ -45,7 +45,7 @@ public class NamedLink implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={PAIR} gap={space(.Item)} @pointerPress={self.onClick} @keyPress(.Enter)={self.onClick} @keyPress(.Space)={self.onClick}>
+      <box columns={PAIR} gap={3sp} @pointerPress={self.onClick} @keyPress(.Enter)={self.onClick} @keyPress(.Space)={self.onClick}>
         <text value={self.named.title} textColor={LINK} wrap={false} />
         <box xAlign={Align.End}>
           <text value={self.named.state} textColor={self.named.color} textSize={SECONDARY_TEXT} wrap={false} />
@@ -195,8 +195,8 @@ public class Card implements Component {
   public render(self): Template {
     return $ltml {
       <box overflow={Overflow.Scroll}>
-        <box columns={1} gap={space(.Item)}>
-          <box columns={HEAD} gap={space(.Item)} yAlign={Align.Center}>
+        <box columns={1} gap={3sp}>
+          <box columns={HEAD} gap={3sp} yAlign={Align.Center}>
             <box width={ICON} height={ICON} icon={self.icon} />
             <box columns={1}>
               <text value={self.title} textColor={Style.GOLD} textFont={.Title} />
@@ -204,7 +204,7 @@ public class Card implements Component {
             </box>
           </box>
           <text $if={self.notes != ""} value={self.notes} textColor={Style.INK} textSize={SECONDARY_TEXT} />
-          <box columns={PAIR} gap={space(.Item)}>
+          <box columns={PAIR} gap={3sp}>
             <text value={Locale.CARD_STATE} textColor={Style.DIM} textSize={SECONDARY_TEXT} />
             <box xAlign={Align.End}>
               <text value={self.stateText} textColor={self.stateColor} textSize={SECONDARY_TEXT} />
@@ -223,13 +223,13 @@ public class Card implements Component {
           <box padding={SECTION}>
             <text value={Locale.CARD_LOAD} textColor={Style.GOLD} />
           </box>
-          <box $for={pair of self.loads} columns={PAIR} gap={space(.Item)}>
+          <box $for={pair of self.loads} columns={PAIR} gap={3sp}>
             <text value={pair.label} textColor={Style.DIM} textSize={SECONDARY_TEXT} />
             <box xAlign={Align.End}>
               <text value={pair.value} textColor={Style.INK} textFont={.Numbers} textSize={SECONDARY_TEXT} />
             </box>
           </box>
-          <box columns={["max-content", "max-content"]} gap={space(.Item)} padding={SECTION}>
+          <box columns={["max-content", "max-content"]} gap={3sp} padding={SECTION}>
             <PushButton $if={self.module} label={Locale.ORDAEN_SETTINGS} width={199.21875dp} @click={self.onSettings} />
             <PushButton $else label={self.switchLabel} width={140.625dp} @click={self.onSwitch} />
             <PushButton $if={self.loadable} label={Locale.LOAD_NOW} width={140.625dp} disabled={self.fighting}

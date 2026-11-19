@@ -10,7 +10,6 @@
 import { Align, Art, ByInteractionState, Edges, Event, Line, MouseButton, Overflow, Position, Side, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import { Component } from "@/module"
-import { space } from "@/units"
 
 // A column: its heading, its width, where its heading and its cells stand, and whether a heading click sorts by it.
 public struct Column {
@@ -28,12 +27,12 @@ const LIGHT: Color = Color.hex("#d6a56b")
 const CLEAR: Color = Color.hex("#00000000")
 const SHADE: ByInteractionState<Color> = { default: CLEAR, hover: Color.hex("#00000033"), focus: Color.hex("#00000033") }
 const BACK: Color = Color.hex("#00000040")
-const PADDING: Edges = { top: space(.Item), bottom: space(.Item) }
-const ROW_PADDING: Edges = { top: 4.6875dp, right: space(.Item), bottom: 4.6875dp, left: space(.Item) }
-const SIDES: Edges = { left: space(.Item), right: space(.Item) }
+const PADDING: Edges = { top: 3sp, bottom: 3sp }
+// A row of one line of text is the line and half a line round it: a line and a half of the rhythm, whatever the
+// density.
+const ROW_PADDING: Edges = { top: 1.5sp, right: 3sp, bottom: 1.5sp, left: 3sp }
+const SIDES: Edges = { left: 3sp, right: 3sp }
 const HEAD: Array<Track> = ["max-content", "max-content"]
-// A row of one line of text: the text and the row's padding.
-public const ROW: Number<Length> = 32.8125dp
 // The headings, and the body in what is left of a height the table is given.
 const PARTS: Array<Track> = ["max-content", { fr: 1 }]
 // A sorted heading's mark (ctl.markUp, ctl.markDown): a triangle 8 px wide and 6 high in the middle of a 16 px cell.
@@ -93,7 +92,7 @@ public class Heading implements Component {
       <box padding={PADDING} xAlign={self.column.align} background={self.shade} @pointerPress={self.onClick} @keyPress(.Enter)={self.onClick} @keyPress(.Space)={self.onClick}>
         <box position={Position.Absolute} left={0ui} right={0ui} bottom={0ui} height={2.34375dp} background={self.light} />
         // The title lights with the heading, wherever on it the cursor is.
-        <box columns={HEAD} gap={4.6875dp} yAlign={Align.Center} interactionState={self.$interactionState}>
+        <box columns={HEAD} gap={1sp} yAlign={Align.Center} interactionState={self.$interactionState}>
           <text value={self.column.title} textColor={self.color} wrap={false} />
           // The mark takes the triangle's own room; its cell, a triangle in its middle, reaches past it.
           <box $if={self.sortable} width={MARK_WIDTH} height={MARK_HEIGHT}>
@@ -117,18 +116,13 @@ public class TableRow implements Component {
 
   tracks: Signal<Array<Track>>
   selected: Signal<Boolean>
-  // How high it is: a line of text (`ROW`) unless it is told another, or as high as what it holds where it grows (a
-  // table whose rows vary).
+  // How high it is: as high as what it holds with its padding (a line of text: a line and a half), unless it is told
+  // another (a row of icons).
   const height: Number<Length> | nil
-  constructor(
-    tracks: Signal<Array<Track>>,
-    selected: Signal<Boolean> = false,
-    height: Number<Length> = ROW,
-    grows: Boolean = false
-  ) {
+  constructor(tracks: Signal<Array<Track>>, selected: Signal<Boolean> = false, height: Number<Length> | nil = nil) {
     self.tracks = tracks
     self.selected = selected
-    self.height = grows ? nil : height
+    self.height = height
   }
 
   onClick(mut self, click: Event.Press) { self.pick.emit(click.button) }
@@ -136,7 +130,7 @@ public class TableRow implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={self.tracks} height={self.height} gap={space(.Item)} padding={ROW_PADDING} yAlign={Align.Center} background={self.background}
+      <box columns={self.tracks} height={self.height} gap={3sp} padding={ROW_PADDING} yAlign={Align.Center} background={self.background}
            @pointerPress.self={self.onClick} @keyPress(.Enter)={self.onKey}
            @keyPress(.Space)={self.onKey}>
         <slot />
@@ -174,7 +168,7 @@ public class Table implements Component {
   public render(self): Template {
     return $ltml {
       <box columns={1} rows={PARTS}>
-        <box columns={self.tracks} gap={space(.Item)} padding={SIDES} background={BACK} border={RULE}>
+        <box columns={self.tracks} gap={3sp} padding={SIDES} background={BACK} border={RULE}>
           <Heading $for={index, column of self.columns} column={column} index={index} sorted={mut self.sorted}
                    descending={mut self.descending} />
         </box>

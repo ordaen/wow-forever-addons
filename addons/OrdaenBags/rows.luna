@@ -162,7 +162,7 @@ class Caption implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={CAPTION_TRACKS} gap={7.03125dp} yAlign={Align.End} @pointerPress={self.onClick} @keyPress(.Enter)={self.onClick} @keyPress(.Space)={self.onClick}>
+      <box columns={CAPTION_TRACKS} gap={GAP} yAlign={Align.End} @pointerPress={self.onClick} @keyPress(.Enter)={self.onClick} @keyPress(.Space)={self.onClick}>
         <box width={MARK} height={MARK} background={self.mark} opacity={self.markOpacity} />
         <text value={self.section.title} textColor={self.titleColor} textShadow={SHADOW} wrap={false} />
         <text value={self.fill} textColor={LABEL} textSize={SECONDARY_TEXT} textFont={.Numbers} wrap={false} />

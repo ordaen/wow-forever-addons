@@ -16,13 +16,13 @@ import { Component } from "@/module"
 import { PushButton } from "@/pushButton"
 import { SWITCH_WIDTH, Shown, SwitchFace } from "@/switch"
 import { ToolButton } from "@/toolbar"
-import { space } from "@/units"
+import { BODY_LINE } from "@/units"
 
 const WIDTH: Bounds = { min: 269.53125dp, max: nil }
 const BACK: Color = Color.hex("#0a0806f7")
 const EDGE: Line = { width: 1.171875dp, color: Color.hex("#6c5535") }
 // What stands under a rule keeps an item's step from it.
-const AFTER_RULE: Edges = { top: space(.Item) }
+const AFTER_RULE: Edges = { top: 3sp }
 const RULE: Line = { width: 1.171875dp, color: Color.hex("#d6a56b33"), sides: ["top"] }
 const INK: Color = Color.hex("#e8dcc4")
 const GOLD: Color = Color.hex("#f0c860")
@@ -73,7 +73,7 @@ class FilterLine<K: Unknown> implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={LINE} gap={space(.Panel)} yAlign={Align.Center} @pointerPress={self.onFlip}
+      <box columns={LINE} gap={5sp} yAlign={Align.Center} @pointerPress={self.onFlip}
            @keyPress(.Enter)={self.onFlip} @keyPress(.Space)={self.onFlip}>
         <text value={self.option.label} textColor={INK} wrap={false} />
         <SwitchFace state={self.state} />
@@ -107,8 +107,8 @@ class FilterSection<K: Unknown> implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={1} gap={space(.Item)} padding={self.padding} border={self.rule}>
-        <box $if={self.titled} columns={LINE} gap={space(.Panel)} yAlign={Align.Center} @pointerPress={self.onFlipAll}
+      <box columns={1} gap={3sp} padding={self.padding} border={self.rule}>
+        <box $if={self.titled} columns={LINE} gap={5sp} yAlign={Align.Center} @pointerPress={self.onFlipAll}
              @keyPress(.Enter)={self.onFlipAll} @keyPress(.Space)={self.onFlipAll}>
           <text value={self.title} textColor={GOLD} wrap={false} />
           <SwitchFace state={self.state} />
@@ -168,8 +168,8 @@ public class FilterButton<K: Unknown> implements Component {
     return $ltml {
       <ToolButton icon={Ordaen.art.ctl.tool.filter} title={Locale.FILTER} text={self.named} open={mut self.open}
                   lit={self.narrowed}>
-        <surface $if={self.open} layer={Layer.Tooltip} place={Beside { beside: "parent" }} width={WIDTH} background={BACK}
-                 border={EDGE} padding={space(.Panel)} columns={1} gap={space(.Item)} @pointerPressOutside={self.close}>
+        <surface lineHeight={BODY_LINE} $if={self.open} layer={Layer.Tooltip} place={Beside { beside: "parent" }} width={WIDTH} background={BACK}
+                 border={EDGE} padding={5sp} columns={1} gap={3sp} @pointerPressOutside={self.close}>
           <FilterSection $for={index, group of self.groups} group={group} values={self.values} index={index}
                          @flip={self.onFlip} @flipAll={self.onFlipAll} />
           <box columns={1} padding={AFTER_RULE} border={RULE}>

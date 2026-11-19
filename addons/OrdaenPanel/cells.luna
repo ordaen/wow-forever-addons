@@ -23,7 +23,7 @@ const LIT: ByInteractionState<Color> = { default: Color.hex("#00000000"), hover:
 // The friends online: a green pill in the cell's lower right, 18 px high (a line of `Secondary`) and at least as wide.
 const BADGE = 21.09375dp
 const BADGE_BOUNDS: Bounds = { min: BADGE, max: nil }
-const BADGE_PAD: Edges = { right: 4.6875dp, left: 4.6875dp }
+const BADGE_PAD: Edges = { right: 1sp, left: 1sp }
 // The design's bold number: a white shadow one pixel to the right.
 const BOLD: Shadow = { color: WHITE, x: 1ui, y: 0ui }
 

@@ -4,7 +4,6 @@ import { Align, Key, Track } from "$ltml"
 import Test from "$test"
 import root Ordaen from "Ordaen"
 import { PushButton } from "@/pushButton"
-import { space } from "@/units"
 import { KeptWindow, Window, WindowSide, WindowTabSpec } from "@/window"
 
 class Tabbed {
@@ -355,7 +354,7 @@ class Footed {
   public placing: mut KeptWindow = new KeptWindow("placing", "placing", { x: 0ui, y: 0ui, width: 400ui, height: 300ui })
   state saved = 0
   const footer: Template = $ltml {
-    <box columns={FOOT} gap={space(.Group)} yAlign={Align.Center}>
+    <box columns={FOOT} gap={6sp} yAlign={Align.Center}>
       <PushButton label={"Reset"} width={100ui} />
       <text value={"2 waiting"} />
       <PushButton label={"Save"} width={100ui} @click={self.onSave} />
@@ -390,7 +389,7 @@ class Sided {
   state tab = 1
   public placing: mut KeptWindow = new KeptWindow("placing", "placing", { x: 0ui, y: 0ui, width: 600ui, height: 300ui })
   const footer: Template = $ltml {
-    <box columns={FOOT} gap={space(.Group)} yAlign={Align.Center}>
+    <box columns={FOOT} gap={6sp} yAlign={Align.Center}>
       <text value={"5 items"} />
       <box />
       <PushButton label={"Scan"} width={100ui} />

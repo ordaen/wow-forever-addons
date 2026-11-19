@@ -6,7 +6,7 @@
 // Shift+Left-click and its box track it or stop tracking it; Right-click opens its menu: track, share, abandon.
 import { Align, Art, ByInteractionState, Edges, Position } from "$ltml"
 import root Ordaen from "Ordaen"
-import { ButtonPlate, Component, Menu, MenuEntry, Money, PushButton, SECONDARY_TEXT, TITLE_TEXT, space } from "Ordaen"
+import { ButtonPlate, Component, Menu, MenuEntry, Money, PushButton, SECONDARY_TEXT, TITLE_LINE, TITLE_TEXT } from "Ordaen"
 import { LogQuest, Objective, QuestText } from "@/book"
 import Locale from "@/locales"
 import { colorOf, difficultyOf } from "@/model"
@@ -25,7 +25,7 @@ const RED: Color = Color.hex("#ff4040")
 const CLEAR: Color = Color.hex("#00000000")
 const SHADE: ByInteractionState<Color> = { default: CLEAR, hover: Color.hex("#00000059"), focus: Color.hex("#00000059") }
 const PICKED: Color = Color.hex("#ffd1001f")
-const ROW_PAD: Edges = { top: space(.Line), right: space(.Line), bottom: space(.Line), left: space(.Panel) }
+const ROW_PAD: Edges = { top: 2sp, right: 2sp, bottom: 2sp, left: 5sp }
 const BOX = 14.0625dp
 // The fold mark's cell, as a tree's row has it.
 const MARK = 18.75dp
@@ -56,8 +56,8 @@ public class HeaderRow implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={["max-content", "max-content", { fr: 1 }]} gap={space(.Line)} yAlign={Align.Center}
-           padding={{ top: space(.Line), bottom: space(.Line) }} background={SHADE}
+      <box columns={["max-content", "max-content", { fr: 1 }]} gap={2sp} yAlign={Align.Center}
+           padding={{ top: 2sp, bottom: 2sp }} background={SHADE}
            @pointerPress={self.onFold} @keyPress(.Enter)={self.onFold} @keyPress(.Space)={self.onFold}>
         <box width={MARK} height={MARK} background={self.mark} tint={DIM} />
         <text value={self.header} textColor={GOLD} wrap={false} />
@@ -110,7 +110,7 @@ public class QuestRow implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={[BOX, "max-content", { fr: 1 }]} gap={space(.Line)} padding={ROW_PAD} background={self.background}
+      <box columns={[BOX, "max-content", { fr: 1 }]} gap={2sp} padding={ROW_PAD} background={self.background}
            @pointerPress(.Left)={self.onPick} @pointerPress([.Shift, .Left])={self.onTrack}
            @pointerPress(.Right)={self.onMenu} @keyPress(.Enter)={self.onPick} @keyPress(.Space)={self.onTrack}>
         <box width={BOX} height={BOX} background={Ordaen.art.ctl.check} @pointerPress.self={self.onTrack}>
@@ -119,7 +119,7 @@ public class QuestRow implements Component {
         </box>
         <text value={self.level} textColor={self.levelColor} textFont={.Numbers} wrap={false} />
         <box columns={1}>
-          <box columns={[{ fr: 1 }, "max-content", "max-content"]} gap={space(.Line)} yAlign={Align.Center}>
+          <box columns={[{ fr: 1 }, "max-content", "max-content"]} gap={2sp} yAlign={Align.Center}>
             <text value={self.quest.title} textColor={INK} wrap={false} />
             <text value={self.group} textColor={DIM} textSize={SECONDARY_TEXT} wrap={false} />
             <text value={self.progress} textColor={self.progressColor} textSize={SECONDARY_TEXT} wrap={false} />
@@ -172,7 +172,7 @@ class WhereLine implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={[93.75dp, { fr: 1 }]} gap={space(.Item)}>
+      <box columns={[93.75dp, { fr: 1 }]} gap={3sp}>
         <text value={self.label} textColor={DIM} textSize={SECONDARY_TEXT} />
         <text value={self.value} textColor={INK} textSize={SECONDARY_TEXT} />
       </box>
@@ -220,26 +220,26 @@ public class QuestPage implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={1} gap={space(.Item)}>
-        <text value={self.title} textColor={self.color} textSize={TITLE_TEXT} textFont={.Title} />
-        <text $if={self.text.story != ""} value={self.text.story} textColor={INK} lineHeight={1.4} />
+      <box columns={1} gap={3sp}>
+        <text value={self.title} textColor={self.color} textSize={TITLE_TEXT} lineHeight={TITLE_LINE} textFont={.Title} />
+        <text $if={self.text.story != ""} value={self.text.story} textColor={INK} lineHeight={7sp} />
         <text value={Locale.SECTION_TASKS} textColor={GOLD} />
         <text $if={self.text.task != ""} value={self.text.task} textColor={INK} />
         <ObjectiveLine $for={objective of self.quest.objectives} objective={objective} />
-        <box $if={self.known} columns={1} gap={space(.Line)}>
+        <box $if={self.known} columns={1} gap={2sp}>
           <text value={Locale.SECTION_WHERE} textColor={GOLD} />
           <WhereLine $if={self.giver != ""} label={Locale.GIVER} value={self.giver} />
           <WhereLine $if={self.taker != ""} label={Locale.TAKER} value={self.taker} />
         </box>
-        <box $if={self.gives} columns={1} gap={space(.Line)}>
+        <box $if={self.gives} columns={1} gap={2sp}>
           <text value={Locale.SECTION_REWARD} textColor={GOLD} />
           <WhereLine $if={self.text.experience > 0} label={Locale.EXPERIENCE} value={String.of(self.text.experience)} />
-          <box $if={self.text.money > 0} columns={[93.75dp, { fr: 1 }]} gap={space(.Item)}>
+          <box $if={self.text.money > 0} columns={[93.75dp, { fr: 1 }]} gap={3sp}>
             <text value={Locale.MONEY} textColor={DIM} textSize={SECONDARY_TEXT} />
             <Money amount={self.text.money} />
           </box>
         </box>
-        <box columns={["max-content", "max-content", "max-content"]} gap={space(.Item)}>
+        <box columns={["max-content", "max-content", "max-content"]} gap={3sp}>
           <PushButton label={Locale.SHOW_ON_MAP} width={131.25dp} @click={self.onMap} />
           <PushButton label={self.trackLabel} width={131.25dp} plate={ButtonPlate.Accent} @click={self.onTrack} />
           <PushButton label={Locale.SHARE} width={131.25dp} disabled={!self.quest.shareable} @click={self.onShare} />

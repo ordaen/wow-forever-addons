@@ -5,7 +5,7 @@
 import Game from "$game"
 import { Align, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { Checkbox, Component, ListTab, Menu, MenuEntry, ModuleMemory, NumberInput, SECONDARY_TEXT, Section, Settings, Shown, ShownToggle, Switch, TITLE_TEXT, Unit, VisibilityRows, space } from "Ordaen"
+import { Checkbox, Component, ListTab, Menu, MenuEntry, ModuleMemory, NumberInput, SECONDARY_TEXT, Section, Settings, Shown, ShownToggle, Switch, TITLE_LINE, TITLE_TEXT, Unit, VisibilityRows } from "Ordaen"
 import { Bar } from "@/bar"
 import { BarChoice, BarKind, BarSpec, BarsChoices, SPECS, copied, defaultChoice, reset } from "@/barChoices"
 import Locale from "@/locales"
@@ -252,14 +252,14 @@ public class BarsPage implements Component {
     return $ltml {
       <text $if={self.conflict} value={Locale.CONFLICT} />
       <text $if={Game.situation.combat} value={Locale.AFTER_COMBAT} />
-      <box columns={PAGE} gap={space(.Group)}>
+      <box columns={PAGE} gap={6sp}>
         <box columns={1}>
           <BarTab $for={spec of SPECS} $key={spec.id} spec={peek spec} picked={self.picked} defaults={self.defaults}
                   settings={self.settings} @pick={self.onPick} @flip={self.onFlip} />
         </box>
-        <box columns={1} gap={space(.Item)}>
-          <box columns={HEAD} gap={space(.Item)} yAlign={Align.Center}>
-            <text value={self.title} textFont={.Title} textSize={TITLE_TEXT} textColor={INK} />
+        <box columns={1} gap={3sp}>
+          <box columns={HEAD} gap={3sp} yAlign={Align.Center}>
+            <text value={self.title} textFont={.Title} textSize={TITLE_TEXT} lineHeight={TITLE_LINE} textColor={INK} />
             <box width={MORE} height={MORE} xAlign={Align.Center} yAlign={Align.Center} background={Ordaen.art.ctl.button}
                  @pointerPress={self.toggleMenu} @keyPress(.Enter)={self.toggleMenu} @keyPress(.Space)={self.toggleMenu}>
               <text value={MORE_GLYPH} textColor={INK} />

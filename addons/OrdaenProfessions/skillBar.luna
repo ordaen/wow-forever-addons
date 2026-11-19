@@ -7,7 +7,7 @@ import Locale from "@/locales"
 import Style from "@/style"
 
 const HEIGHT = 35.15625dp
-const RIM = 3.515625dp
+const RIM = 1sp
 const PADDING: Edges = { right: RIM, bottom: RIM, left: RIM }
 const TROUGH: Color = Color.hex("#0b0805")
 const RIM_COLOR: Color = Color.hex("#3d2710")

@@ -2,7 +2,7 @@
 // asked once per item the first time a search needs it and kept while the tab shows.
 import { Align, Edges, Overflow, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { Component, ItemButton, ItemId, SECONDARY_TEXT, space } from "Ordaen"
+import { Component, ItemButton, ItemId, SECONDARY_TEXT } from "Ordaen"
 import { Held, Place } from "@/character"
 import Locale from "@/locales"
 import { Records } from "@/records"
@@ -14,7 +14,7 @@ const ROW: Array<Track> = [51.5625dp, { fr: 2 }, { fr: 5 }]
 // The search, then the items (or the note that none is found), which scroll in the rest of the window's height.
 const PAGE: Array<Track> = ["max-content", { fr: 1 }]
 // The search's letters an item's step in from its sides.
-const FIELD_PAD: Edges = { left: space(.Item), right: space(.Item) }
+const FIELD_PAD: Edges = { left: 3sp, right: 3sp }
 
 // One item as a row shows it.
 public struct Entry {
@@ -101,15 +101,15 @@ public class Holdings implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box rows={PAGE} gap={space(.Group)}>
+      <box rows={PAGE} gap={6sp}>
         <box height={35.15625dp} rows={[{ fr: 1 }]}>
           <input value={mut self.search} padding={FIELD_PAD}
                  textColor={Style.INK} background={Color.hex("#00000080")} />
         </box>
         <text $if={self.empty} value={Locale.NOTHING_FOUND} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
         <box $else overflow={Overflow.Scroll}>
-          <box $for={entry of self.entries} $key={entry.id} columns={ROW} gap={space(.Item)} yAlign={Align.Center}
-               padding={{ top: 3.515625dp, bottom: 3.515625dp }}>
+          <box $for={entry of self.entries} $key={entry.id} columns={ROW} gap={3sp} yAlign={Align.Center}
+               padding={{ top: 1sp, bottom: 1sp }}>
             <ItemButton item={entry.id} count={entry.total} />
             <text value={entry.name} textColor={Style.INK} />
             <text value={entry.holders} textColor={Style.DIM} />

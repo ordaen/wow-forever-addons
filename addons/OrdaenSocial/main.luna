@@ -14,7 +14,7 @@ import Events from "$events"
 import { Align, Frame } from "$ltml"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
-import { ButtonPlate, Dialog, FooterCount, FooterCounts, KeptWindow, Module, PushButton, SECONDARY_TEXT, Settings, SettingsPage, Tabs, Window, WindowSide, WindowTabSpec, WindowsPage, space, windowsTitle } from "Ordaen"
+import { ButtonPlate, Dialog, FooterCount, FooterCounts, KeptWindow, Module, PushButton, SECONDARY_TEXT, Settings, SettingsPage, Tabs, Window, WindowSide, WindowTabSpec, WindowsPage, windowsTitle } from "Ordaen"
 import { AllyCard, AllyList } from "@/allies"
 import { ClubCard, ClubList } from "@/communities"
 import { FriendCard, FriendList, IgnoreList, MyCard, RequestList, keyOf, titleOf } from "@/friends"
@@ -51,7 +51,7 @@ const NAME_MOST = 48
 const NO_ME: Me = { battleTag: "", presence: .Online, broadcast: "", hero: { name: "", level: 0, className: "", classColor: nil, area: "", realm: "" } }
 const NO_RIGHTS: Rights = { invite: false, promote: false, demote: false }
 const GUILD_SUBS: Array<String> = [Locale.SUB_ROSTER, Locale.SUB_NEWS]
-const FIELD_PAD = 11.71875dp
+const FIELD_PAD = 3sp
 
 function onlineOf(members: Array<Member>): Integer { return members.count(member => member.presence != .Offline) }
 
@@ -563,14 +563,14 @@ public class Social implements Module, App {
       <frame $for={game of self.held} of={game} opacity={0} away={true} />
       <Window $if={self.open} tabs={self.tabs} selected={mut self.tab} declared={mut self.window} withSettings={true}
               side={self.side} footer={self.footer} @close={self.onClose} @settings={self.onSettings}>
-        <box $if={self.tab == TAB_FRIENDS} columns={1} rows={["max-content", { fr: 1 }]} gap={space(.Item)}>
+        <box $if={self.tab == TAB_FRIENDS} columns={1} rows={["max-content", { fr: 1 }]} gap={3sp}>
           <Tabs tabs={self.subTabs} selected={mut self.sub} />
           <FriendList $if={self.sub == SUB_STATUS} friends={self.friends} picked={self.picked}
                       offline={self.settings.values.offline} @pick={self.onPick} @add={self.onAdd} />
           <RequestList $elseif={self.sub == SUB_REQUESTS} requests={self.requests} @answer={self.onAnswer} />
           <IgnoreList $else ignored={self.ignored} @ignore={self.onIgnore} @unignore={self.onUnignore} />
         </box>
-        <box $elseif={self.tab == TAB_GUILD && self.guild != nil} columns={1} rows={["max-content", { fr: 1 }]} gap={space(.Item)}>
+        <box $elseif={self.tab == TAB_GUILD && self.guild != nil} columns={1} rows={["max-content", { fr: 1 }]} gap={3sp}>
           <Tabs tabs={GUILD_SUBS} selected={mut self.guildSub} />
           <MemberTable $if={self.guildSub == SUB_ROSTER} members={self.guildMembers} chosen={self.member}
                        @pick={self.onPickMember} />
@@ -579,7 +579,7 @@ public class Social implements Module, App {
         <box $elseif={self.tab == TAB_GUILD} xAlign={Align.Center} yAlign={Align.Center}>
           <text value={Locale.NO_GUILD} textColor={Style.DIM} wrap={false} />
         </box>
-        <box $elseif={self.tab == TAB_COMMUNITIES && self.clubs.length > 0} columns={[Style.CLUBS, { fr: 1 }]} gap={space(.Group)}>
+        <box $elseif={self.tab == TAB_COMMUNITIES && self.clubs.length > 0} columns={[Style.CLUBS, { fr: 1 }]} gap={6sp}>
           <ClubList clubs={self.clubs} chosen={self.clubId} @pick={self.onPickClub} />
           <MemberTable members={self.clubMembers} chosen={self.clubMember} guild={false} @pick={self.onPickClubMember} />
         </box>
@@ -589,7 +589,7 @@ public class Social implements Module, App {
         <AllyList $else allies={self.allies} chosen={self.ally} @pick={self.onPickAlly} />
       </Window>
       <Dialog $if={self.removing != nil} width={Style.ASK} title={Locale.REMOVE_FRIEND}>
-        <box columns={1} gap={space(.Line)}>
+        <box columns={1} gap={2sp}>
           <text value={self.removeText} textColor={Style.INK} wrap={true} />
           <text value={self.removeDetail} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={true} />
         </box>
@@ -597,7 +597,7 @@ public class Social implements Module, App {
         <PushButton #buttons label={Locale.CANCEL} width={Style.ASK_BUTTON} @click={self.onRemoveNo} />
       </Dialog>
       <Dialog $if={self.adding} width={Style.ASK} title={Locale.ADD_FRIEND}>
-        <box columns={1} gap={space(.Line)}>
+        <box columns={1} gap={2sp}>
           <box height={Style.FIELD} rows={[{ fr: 1 }]}>
             <input value={mut self.addText} maxLength={64} padding={{ left: FIELD_PAD, right: FIELD_PAD }}
                    textColor={Style.INK} background={Style.FIELD_BACK} @submit={self.onAddYes} />
@@ -609,7 +609,7 @@ public class Social implements Module, App {
         <PushButton #buttons label={Locale.CANCEL} width={Style.ASK_BUTTON} @click={self.onAddNo} />
       </Dialog>
       <Dialog $if={self.editing} width={Style.ASK} title={Locale.BROADCAST}>
-        <box columns={1} gap={space(.Line)} xAlign={Align.End}>
+        <box columns={1} gap={2sp} xAlign={Align.End}>
           <box height={Style.FIELD} rows={[{ fr: 1 }]}>
             <input value={mut self.draft} maxLength={BROADCAST_MOST} padding={{ left: FIELD_PAD, right: FIELD_PAD }}
                    textColor={Style.INK} background={Style.FIELD_BACK} @submit={self.onBroadcastYes} />
@@ -620,7 +620,7 @@ public class Social implements Module, App {
         <PushButton #buttons label={Locale.CANCEL} width={Style.ASK_BUTTON} @click={self.onBroadcastNo} />
       </Dialog>
       <Dialog $if={self.inviting} width={Style.ASK} title={Locale.GUILD_INVITE}>
-        <box columns={1} gap={space(.Line)}>
+        <box columns={1} gap={2sp}>
           <box height={Style.FIELD} rows={[{ fr: 1 }]}>
             <input value={mut self.inviteText} maxLength={NAME_MOST} padding={{ left: FIELD_PAD, right: FIELD_PAD }}
                    textColor={Style.INK} background={Style.FIELD_BACK} @submit={self.onGuildInviteYes} />

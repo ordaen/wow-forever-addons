@@ -4,7 +4,7 @@
 // «Left to buy», «Sale» («doesn't sell» for what makes no item), «Profit» (red under nought), and how old the
 // oldest price taken is, in its age's colour; «—» where a part has no price.
 import { Align, Art, Edges, Line, Side, Track } from "$ltml"
-import { Component, ItemButton, Money, SECONDARY_TEXT, ageText, space } from "Ordaen"
+import { Component, ItemButton, Money, SECONDARY_TEXT, ageText } from "Ordaen"
 import { PartPrice, Totals, Way } from "@/cost"
 import Locale from "@/locales"
 import Style from "@/style"
@@ -13,14 +13,14 @@ const SLOT = 37.5dp
 // The headings and the rows are one grid: a price's column and «Best»'s are as wide as the widest of their heading
 // and their cells, at the text's size. Each cell keeps its row's room round it, and its row's rule over it.
 const PRICED: Array<Track> = [SLOT, { fr: 1 }, "max-content", "max-content", "max-content", "max-content"]
-const GAP = 9.375dp
-const ROOM = 3.515625dp
+const GAP = 2.5sp
+const ROOM = 1sp
 const FIRST: Edges = { top: ROOM, bottom: ROOM }
 const NEXT: Edges = { top: ROOM, bottom: ROOM, left: GAP }
-const LAST: Edges = { top: ROOM, right: 7.03125dp, bottom: ROOM, left: GAP }
+const LAST: Edges = { top: ROOM, right: 2sp, bottom: ROOM, left: GAP }
 const TOTALS: Array<Track> = [{ fr: 1 }, "max-content"]
 const TOTALS_RULE: Line = { width: 1.171875dp, color: Style.LINE, sides: [Side.Top] }
-const TOTALS_PAD: Edges = { top: space(.Item) }
+const TOTALS_PAD: Edges = { top: 3sp }
 const NONE = "—"
 // The cheaper way, on a green ground.
 const CHEAPER: Color = Color.hex("#40c0402e")
@@ -155,7 +155,7 @@ public class TotalsBlock implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={TOTALS} gap={space(.Item)} padding={TOTALS_PAD} border={TOTALS_RULE}>
+      <box columns={TOTALS} gap={3sp} padding={TOTALS_PAD} border={TOTALS_RULE}>
         <text value={Locale.TOTAL_COST} textColor={Style.DIM} />
         <Money $if={self.hasCost} amount={self.cost} />
         <text $else value={NONE} textColor={Style.DIM} />
@@ -166,7 +166,7 @@ public class TotalsBlock implements Component {
         <Money $if={self.hasSale} amount={self.sale} />
         <text $else value={self.saleText} textColor={Style.DIM} />
         <text value={Locale.TOTAL_PROFIT} textColor={Style.DIM} />
-        <box $if={self.hasProfit} columns={["max-content", "max-content"]} gap={2.34375dp} xAlign={Align.End}>
+        <box $if={self.hasProfit} columns={["max-content", "max-content"]} gap={0.5sp} xAlign={Align.End}>
           <text $if={self.losing} value={"-"} textColor={Style.RED} />
           <Money amount={self.profit} color={self.profitColor} />
         </box>

@@ -14,10 +14,7 @@ import Game from "$game"
 import { Align, Edges, Track } from "$ltml"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
-import {
-  ARTWORK, ButtonPlate, Choice, Dialog, FilterButton, FilterGroup, FooterCount, FooterCounts, KeptWindow, Module, PushButton, SECONDARY_TEXT, Segmented, Settings,
-  SettingsPage, ToolPick, Toolbar, Window, WindowSide, WindowTabSpec, WindowsPage, space, switched, windowsTitle
-} from "Ordaen"
+import { ARTWORK, ButtonPlate, Choice, Dialog, FilterButton, FilterGroup, FooterCount, FooterCounts, KeptWindow, Module, PushButton, SECONDARY_TEXT, Segmented, Settings, SettingsPage, ToolPick, Toolbar, Window, WindowSide, WindowTabSpec, WindowsPage, switched, windowsTitle } from "Ordaen"
 import root Maps from "OrdaenMap"
 import { ClientQuestLog, LogQuest, QuestLog, QuestText } from "@/book"
 import { TakenClick } from "@/button"
@@ -43,7 +40,7 @@ const RED: Color = Color.hex("#ff4040")
 const BODY: Array<Track> = ["max-content", { fr: 1 }]
 const FOOT: Array<Track> = [{ fr: 1 }, "max-content"]
 // The status switch stands an item's step after the search.
-const AFTER_SEARCH: Edges = { left: space(.Item) }
+const AFTER_SEARCH: Edges = { left: 3sp }
 
 const STATUSES: Array<Choice<QuestStatus>> = [
   { value: QuestStatus.Progress, label: Locale.STATUS_PROGRESS },
@@ -110,7 +107,7 @@ public class Quests implements Module, App {
   // The window's footer: QuestieDB's absence where it can't be read, and the count against the log's cap (red when
   // full), as label and value.
   const footer: Template = $ltml {
-    <box columns={FOOT} gap={space(.Group)} yAlign={Align.Center}>
+    <box columns={FOOT} gap={6sp} yAlign={Align.Center}>
       <text $if={!self.known} value={Locale.NO_QUESTIE} textColor={RED} textSize={SECONDARY_TEXT} />
       <box $else />
       <FooterCounts counts={self.counted} />
@@ -281,7 +278,7 @@ public class Quests implements Module, App {
     return $ltml {
       <Window $if={self.open} tabs={self.tabs} selected={mut self.tab} declared={mut self.window} withSettings={true}
               side={self.side} footer={self.footer} @close={self.onClose} @settings={self.onSettings}>
-        <box rows={BODY} gap={space(.Item)}>
+        <box rows={BODY} gap={3sp}>
           <Toolbar search={mut self.search} placeholder={Locale.SEARCH}>
             <box padding={AFTER_SEARCH}>
               <Segmented value={mut self.status} choices={STATUSES} />

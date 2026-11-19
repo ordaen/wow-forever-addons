@@ -6,7 +6,7 @@
 import Game from "$game"
 import { Align, Art, Edges, Line, Overflow, Side, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { Component, ItemButton, SECONDARY_TEXT, TITLE_TEXT, space } from "Ordaen"
+import { Component, ItemButton, SECONDARY_TEXT, TITLE_LINE, TITLE_TEXT } from "Ordaen"
 import type { PriceSource } from "OrdaenAuction"
 import { PartPrice, Totals, partsOf, totalsOf, yieldOf } from "@/cost"
 import { Flag } from "@/flag"
@@ -19,7 +19,7 @@ import { Act, Kept, MakeMode, has } from "@/view"
 
 const RIM: Line = { width: 1.171875dp, color: Style.LINE }
 const SWITCHES: Line = { width: 1.171875dp, color: Style.LINE, sides: [Side.Top] }
-const SWITCHES_PAD: Edges = { top: space(.Item) }
+const SWITCHES_PAD: Edges = { top: 3sp }
 const FLAGS: Array<Track> = [{ fr: 1 }, { fr: 1 }]
 // The head, the description, the needs, the reagents in the rest, their totals, the switches, the make row, the note.
 const PANEL: Array<Track> = ["max-content", "max-content", "max-content", { fr: 1 }, "max-content", "max-content", "max-content", "max-content"]
@@ -154,13 +154,13 @@ public class RecipeDetails implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box rows={PANEL} gap={space(.Item)} padding={space(.Panel)} border={RIM} background={Ordaen.art.window.marble}>
+      <box rows={PANEL} gap={3sp} padding={5sp} border={RIM} background={Ordaen.art.window.marble}>
         <$if={self.has}>
-          <box columns={HEAD} gap={space(.Panel)} yAlign={Align.Center}>
+          <box columns={HEAD} gap={5sp} yAlign={Align.Center}>
             <ItemButton $if={self.hasItem} item={self.made} size={SLOT} dimmed={!self.shown.learned} />
             <box $else width={SLOT} height={SLOT} border={Style.BRONZE} icon={self.icon} />
-            <box gap={2.34375dp}>
-              <text value={self.shown.name} textSize={TITLE_TEXT} textColor={Style.WHITE}
+            <box gap={0.5sp}>
+              <text value={self.shown.name} textSize={TITLE_TEXT} lineHeight={TITLE_LINE} textColor={Style.WHITE}
                     textShadow={Style.SHADOW} />
               <text value={self.skill} textSize={SECONDARY_TEXT} textColor={self.skillColor} />
             </box>
@@ -173,12 +173,12 @@ public class RecipeDetails implements Component {
           <box $else overflow={Overflow.Scroll}>
             <ReagentRow $for={index, reagent of self.reagents} reagent={reagent} index={index} />
           </box>
-          <box $if={self.priced} gap={space(.Item)}>
+          <box $if={self.priced} gap={3sp}>
             <text $if={self.noPrices} value={self.noPricesText} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
             <TotalsBlock totals={self.totals} />
           </box>
           <box $else />
-          <box columns={FLAGS} gap={space(.Group)} padding={SWITCHES_PAD} border={SWITCHES}>
+          <box columns={FLAGS} gap={6sp} padding={SWITCHES_PAD} border={SWITCHES}>
             <Flag label={Locale.FAVORITE} on={self.favorite} @flipped={self.onFavorite} />
             <Flag $if={self.shown.learned} label={Locale.TRACK} on={self.tracked} @flipped={self.onTrack} />
           </box>

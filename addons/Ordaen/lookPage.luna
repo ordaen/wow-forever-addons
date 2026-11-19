@@ -90,8 +90,8 @@ public class PresetRow implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={PRESET_ROW} gap={14.0625dp} yAlign={Align.Center}>
-        <box columns={1} gap={2.34375dp}>
+      <box columns={PRESET_ROW} gap={3.5sp} yAlign={Align.Center}>
+        <box columns={1} gap={0.5sp}>
           <text value={self.name} textColor={WHITE} wrap={false} />
           <text value={self.about} textColor={DIM} textSize={SECONDARY_TEXT} />
         </box>
@@ -110,7 +110,7 @@ public class LookPage implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={1} gap={21.09375dp}>
+      <box columns={1} gap={5.5sp}>
         <Section title={Locale.LIST_THEMES}>
           <PresetRow $for={each of PRESETS} $key={each} preset={each} look={mut self.look} />
         </Section>

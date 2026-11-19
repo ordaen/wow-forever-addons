@@ -14,7 +14,7 @@ const PICKED: Color = Color.hex("#00000059")
 // picked or not.
 const OUTLINE: Line = { width: 1.171875dp, color: LINE, sides: [Side.Top, Side.Left, Side.Right] }
 const NO_OUTLINE: Line = { width: 1.171875dp, color: CLEAR, sides: [Side.Top, Side.Left, Side.Right] }
-const PADDING: Edges = { top: 8.203125dp, right: 16.40625dp, bottom: 7.03125dp, left: 16.40625dp }
+const PADDING: Edges = { top: 2sp, right: 4sp, bottom: 2sp, left: 4sp }
 const LIGHT: Color = Color.hex("#d6a56b")
 
 // One tab of the strip.
@@ -75,7 +75,7 @@ public class Tabs implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={self.columns} gap={4.6875dp}>
+      <box columns={self.columns} gap={1sp}>
         <box position={Position.Absolute} left={0ui} right={0ui} bottom={0ui} height={1.171875dp} background={LINE} zLevel={1} />
         <Tab $for={index, name of self.tabs} label={name} index={index} selected={mut self.selected} />
       </box>

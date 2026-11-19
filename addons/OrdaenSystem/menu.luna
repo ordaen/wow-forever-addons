@@ -1,7 +1,7 @@
 // The game menu (Escape's `GameMenuFrame`), dressed. Blizzard's buttons stay Blizzard's, each with its own click: the
 // dress draws a plate of ours where each stands (Blizzard's at alpha 0, its mouse kept), the exits in red, a «new»
 // label of Blizzard's as the gem on its button. «AddOns» is ours, a plate laid over Blizzard's in its slot
-// (Blizzard's at alpha 0, the mouse off it), and opens Ordaen's AddOns window. The plates stand `space(.Item)` apart:
+// (Blizzard's at alpha 0, the mouse off it), and opens Ordaen's AddOns window. The plates stand `3sp` apart:
 // each is its button less half the gap above and below, and the button's mouse is cut to it (its hit insets). The
 // dialog's frame round the menu, its title engraved inside near its top with a carved groove under it. The menu
 // itself takes no mouse while dressed: shown, the client raises it over everything of its strata, ours too, and it
@@ -10,19 +10,20 @@
 import Client from "$client"
 import { Align, Anchored, Art, ByInteractionState, InteractionState, Layer, Point, Position, Shadow } from "$ltml"
 import root Ordaen from "Ordaen"
-import { Component, reachAcross, reachDown, space } from "Ordaen"
+import { Component, reachAcross, reachDown } from "Ordaen"
+import { TIGHT_LINE } from "Ordaen"
 
 // The dress's head, from its top: the frame's band, a gap, the title's line, a gap, the carved groove, the gap to
 // Blizzard's first button.
-const TITLE_TOP: Number<Length> = 16.40625dp + space(.Item)
+const TITLE_TOP: Number<Length> = 16.40625dp + 12dp
 // The title's text, as tall as it is drawn.
 const TITLE_LINE = 21.09375dp
-const GROOVE_TOP: Number<Length> = TITLE_TOP + TITLE_LINE + space(.Item)
+const GROOVE_TOP: Number<Length> = TITLE_TOP + TITLE_LINE + 12dp
 const GROOVE = 4.6875dp
 const GROOVE_SIDE = 46.875dp
-const HEAD: Number<Length> = GROOVE_TOP + GROOVE + space(.Group)
+const HEAD: Number<Length> = GROOVE_TOP + GROOVE + 24dp
 // Half the gap between two plates: taken off each plate above and below.
-const HALF_GAP: Number<Length> = space(.Item) / 2
+const HALF_GAP: Number<Length> = 12dp / 2
 const TITLE: Color = Color.hex("#ffd100")
 const ENGRAVED: Shadow = { color: Color.hex("#000000e6"), x: -1.171875dp, y: 1.171875dp }
 const LABEL: Color = Color.hex("#ffd100")
@@ -257,7 +258,7 @@ public class Plate implements Component {
 
   public render(self): Template {
     return $ltml {
-      <surface layer={Layer.Dialog} place={self.place} width={self.dressed.width} height={self.high}>
+      <surface lineHeight={TIGHT_LINE} layer={Layer.Dialog} place={self.place} width={self.dressed.width} height={self.high}>
         <box $if={self.dressed.addons} position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui}
              background={Ordaen.art.ctl.button} @pointerPress={self.onClick} @keyPress(.Enter)={self.onClick} @keyPress(.Space)={self.onClick} @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
           <box position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui} background={Ordaen.art.ctl.buttonLight}
@@ -307,7 +308,7 @@ public class MenuDress implements Component {
   public render(self): Template {
     return $ltml {
       <$if={self.menu.shown}>
-        <surface layer={Layer.Dialog} place={{ point: Point.Bottom, to: Point.Bottom, by: Client.GameMenuFrame }}
+        <surface lineHeight={TIGHT_LINE} layer={Layer.Dialog} place={{ point: Point.Bottom, to: Point.Bottom, by: Client.GameMenuFrame }}
                  width={self.wide} height={self.high} border={Ordaen.art.frame.small}
                  background={Ordaen.art.window.wood} artOrigin={true} ownsGaps={true}>
           <box position={Position.Absolute} left={GROOVE_SIDE} right={GROOVE_SIDE} top={TITLE_TOP}

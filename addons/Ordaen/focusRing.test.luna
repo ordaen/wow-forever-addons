@@ -14,7 +14,7 @@ class Focusable {
 
   public render(self): Template {
     return $ltml {
-      <surface layer={Layer.Dialog} place={{ point: Point.TopLeft, x: 100ui, y: 50ui }} width={200ui} padding={10ui}>
+      <surface layer={Layer.Dialog} place={{ point: Point.TopLeft, x: 100ui, y: 50ui }} width={200ui} padding={3.5sp}>
         <box height={30ui} background={PLATE} @pointerPress={self.pressed} @keyPress(.Enter)={self.pressed}
              @keyPress(.Space)={self.pressed} />
       </surface>

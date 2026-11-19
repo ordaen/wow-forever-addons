@@ -6,8 +6,15 @@ import { Slot } from "@/model"
 
 // A slot's size and the room between two slots; between two sections side by side, more.
 public const SLOT: Number<Length> = 43.359375dp
-public const GAP: Number<Length> = 4.6875dp
-public const SECTION_GAP: Number<Length> = 18.75dp
+public const GAP: Number<Spacing> = 1sp
+public const SECTION_GAP: Number<Spacing> = 5sp
+
+// The rooms of the grid as lengths, as the density has them now (`Ordaen.lengthOf`): what the slots' columns and the
+// sections' tracks are worked out with.
+public struct GridRoom {
+  const gap: Number<Length>
+  const sectionGap: Number<Length>
+}
 // A section with a caption is at least this many slots wide, so its caption fits.
 const CAPTION_SPAN = 4
 
@@ -37,8 +44,8 @@ public struct Row {
 }
 
 // How many slots a row of `width` holds.
-public function columnsIn(width: Number<Length>): Integer {
-  return ((width + GAP) / (SLOT + GAP)).floor().max(1)
+public function columnsIn(width: Number<Length>, room: GridRoom): Integer {
+  return ((width + room.gap) / (SLOT + room.gap)).floor().max(1)
 }
 
 function spanOf(section: Section, columns: Integer): Integer {
@@ -47,40 +54,46 @@ function spanOf(section: Section, columns: Integer): Integer {
   return count.max(least).min(columns)
 }
 
-function widthOf(span: Integer): Number<Length> {
-  return span * SLOT + (span - 1) * GAP
+function widthOf(span: Integer, room: GridRoom): Number<Length> {
+  return span * SLOT + (span - 1) * room.gap
 }
 
 // The room between two sections, past the row's own gap on each side.
-const BETWEEN: Number<Length> = SECTION_GAP - 2 * GAP
+function between(room: GridRoom): Number<Length> {
+  return room.sectionGap - 2 * room.gap
+}
 
 // The rows of `sections` in `columns` slots, those `collapsed` (by key) with their caption alone.
-public function rowsOf(sections: Array<Section>, columns: Integer, collapsed: Map<String, Boolean>): Array<Row> {
+public function rowsOf(
+  sections: Array<Section>, columns: Integer, collapsed: Map<String, Boolean>, room: GridRoom
+): Array<Row> {
   let rows: Array<Row> = []
   let line: Array<Section> = []
   let spans: Array<Integer> = []
   let used: Number<Length> = 0ui
-  const room = widthOf(columns)
+  const wide = widthOf(columns, room)
   for (section of sections) {
     const span = spanOf(section, columns)
-    const width = widthOf(span)
-    const needed = line.length == 0 ? width : used + SECTION_GAP + width
-    if (line.length > 0 && needed > room) {
-      lineRows(mut rows, line, spans, collapsed)
+    const width = widthOf(span, room)
+    const needed = line.length == 0 ? width : used + room.sectionGap + width
+    if (line.length > 0 && needed > wide) {
+      lineRows(mut rows, line, spans, collapsed, room)
       line = []
       spans = []
       used = 0ui
     }
-    used = line.length == 0 ? width : used + SECTION_GAP + width
+    used = line.length == 0 ? width : used + room.sectionGap + width
     line.push(section)
     spans.push(span)
   }
-  if (line.length > 0) { lineRows(mut rows, line, spans, collapsed) }
+  if (line.length > 0) { lineRows(mut rows, line, spans, collapsed, room) }
   return rows
 }
 
 // One line of sections: its captions' row where one has a caption, then as many rows as its tallest section needs.
-function lineRows(rows: mut Array<Row>, line: Array<Section>, spans: Array<Integer>, collapsed: Map<String, Boolean>) {
+function lineRows(
+  rows: mut Array<Row>, line: Array<Section>, spans: Array<Integer>, collapsed: Map<String, Boolean>, room: GridRoom
+) {
   let titled = false
   let height = 0
   for (index, section of line) {
@@ -97,14 +110,14 @@ function lineRows(rows: mut Array<Row>, line: Array<Section>, spans: Array<Integ
     for (index, section of line) {
       if (index > 1) {
         cells.push(Cell.Space { at: cells.length + 1 })
-        tracks.push(BETWEEN)
+        tracks.push(between(room))
       }
       if (section.title != "") {
         cells.push(Cell.Caption { section: section })
       } else {
         cells.push(Cell.Space { at: cells.length + 1 })
       }
-      tracks.push(widthOf(spans[index] ?? 1))
+      tracks.push(widthOf(spans[index] ?? 1, room))
     }
     rows.push({ cells: cells, tracks: tracks })
   }
@@ -115,7 +128,7 @@ function lineRows(rows: mut Array<Row>, line: Array<Section>, spans: Array<Integ
       const span = spans[index] ?? 1
       if (index > 1) {
         cells.push(Cell.Space { at: cells.length + 1 })
-        tracks.push(BETWEEN)
+        tracks.push(between(room))
       }
       const shown = collapsed[section.key] != true
       for (place of 1..span) {

@@ -11,9 +11,9 @@ import { Tip, TipText } from "@/tip"
 
 const HEIGHT = 39.84375dp
 // The label keeps inside the carved line round the plate's face (in the art, 14 of the 64 px a row is high in from
-// each end, the face from 15): a quarter of the height off each end. A label longer than the width it was given
-// widens the button.
-const CAPS: Edges = { left: HEIGHT / 4, right: HEIGHT / 4 }
+// each end, the face from 15): a quarter of the height off each end, about 10dp. A label longer than the width it
+// was given widens the button.
+const CAPS: Edges = { left: 2.5sp, right: 2.5sp }
 const LABEL: ByInteractionState<Color> = { default: Color.hex("#ffd100"), hover: Color.hex("#ffffff"), focus: Color.hex("#ffffff") }
 const GREY: Color = Color.hex("#808080")
 const SHADOW: Shadow = { color: Color.hex("#000000"), x: 1.171875dp, y: -1.171875dp }

@@ -10,8 +10,9 @@
 // tooltips' layer where its owner places it.
 import { Align, Layer, Place, Track } from "$ltml"
 import { Component } from "@/module"
+import { TIGHT_LINE } from "@/units"
 
-const GAP = 4.6875dp
+const GAP = 1sp
 
 public class TooltipGroup implements Component {
   derived columns: Array<Track> = TooltipGroup.autos(1 + self.beside)
@@ -53,7 +54,7 @@ public class TooltipGroup implements Component {
 
   public render(self): Template {
     return $ltml {
-      <surface shown={self.shown} layer={Layer.Tooltip} place={self.place}>
+      <surface lineHeight={TIGHT_LINE} shown={self.shown} layer={Layer.Tooltip} place={self.place}>
         <box columns={self.columns} gap={GAP} yAlign={self.across} ownsGaps={true}
              @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
           // The primary tooltip stays where it is drawn: the group turning round moves the secondary ones alone.

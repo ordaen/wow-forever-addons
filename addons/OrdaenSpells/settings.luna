@@ -60,15 +60,15 @@ public class GeneralPage implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={1} gap={7.03125dp}>
+      <box columns={1} gap={2sp}>
         <text value={Locale.SETTING_SPEC_ONE} textColor={Style.INK} />
         <box height={35.15625dp} rows={[{ fr: 1 }]}>
-          <input value={mut self.one} maxLength={24} padding={{ left: 11.71875dp, right: 11.71875dp }}
+          <input value={mut self.one} maxLength={24} padding={{ left: 3sp, right: 3sp }}
                  textColor={Style.INK} background={Color.hex("#00000080")} @submit={self.enterOne} />
         </box>
         <text value={Locale.SETTING_SPEC_TWO} textColor={Style.INK} />
         <box height={35.15625dp} rows={[{ fr: 1 }]}>
-          <input value={mut self.two} maxLength={24} padding={{ left: 11.71875dp, right: 11.71875dp }}
+          <input value={mut self.two} maxLength={24} padding={{ left: 3sp, right: 3sp }}
                  textColor={Style.INK} background={Color.hex("#00000080")} @submit={self.enterTwo} />
         </box>
       </box>

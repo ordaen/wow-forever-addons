@@ -18,17 +18,18 @@ import root Ordaen from "Ordaen"
 import { Choice, DropdownItem } from "@/dropdown"
 import { Component } from "@/module"
 import { Tip } from "@/tip"
+import { BODY_LINE } from "@/units"
 
 const SIZE = 39.84375dp
 const GLYPH = 18.75dp
-const GAP = 7.03125dp
+const GAP = 2sp
 const INK: Color = Color.hex("#e8dcc4")
 const GOLD: Color = Color.hex("#f0c860")
 const DIM: Color = Color.hex("#a3977f")
 const WHITE: Color = Color.hex("#ffffff")
 const FIELD_BACK: Color = Color.hex("#00000080")
 const FIELD_EDGE: Line = { width: 1.171875dp, color: Color.hex("#4a3a24") }
-const FIELD_PAD: Edges = { right: 11.71875dp, left: 11.71875dp }
+const FIELD_PAD: Edges = { right: 3sp, left: 3sp }
 const ROW: Array<Track> = [{ fr: 1 }, "max-content"]
 const FILL: Array<Track> = [{ fr: 1 }]
 // Room for every button a toolbar holds; a track no button takes is none wide (each button carries its own gap).
@@ -36,7 +37,7 @@ const TOOLS: Array<Track> = ["max-content", "max-content", "max-content", "max-c
 const AFTER: Edges = { left: GAP }
 const LIST_BACK: Color = Color.hex("#0a0806f7")
 const LIST_EDGE: Line = { width: 1.171875dp, color: Color.hex("#6c5535") }
-const LIST_PAD: Edges = { top: 7.03125dp, bottom: 7.03125dp }
+const LIST_PAD: Edges = { top: 2sp, bottom: 2sp }
 const LIST_WIDTH = 246.09375dp
 
 public class Toolbar implements Component {
@@ -208,7 +209,7 @@ public class ToolPick<T: Unknown> implements Component {
   public render(self): Template {
     return $ltml {
       <ToolButton icon={self.glyph} title={self.title} text={self.shown} open={mut self.open} lit={self.lit}>
-        <surface $if={self.open} layer={Layer.Tooltip} place={Beside { beside: "parent" }} width={self.listBounds}
+        <surface lineHeight={BODY_LINE} $if={self.open} layer={Layer.Tooltip} place={Beside { beside: "parent" }} width={self.listBounds}
                  background={LIST_BACK} border={LIST_EDGE} padding={LIST_PAD} columns={1} @pointerPressOutside={self.close}>
           <DropdownItem $for={choice of self.choices} choice={choice} value={self.value} compact={true}
                         @pick={self.onPick} />

@@ -5,10 +5,7 @@
 import Game from "$game"
 import { Align, Anchored, Art, Docked, Edges, Event, Layer, Overflow, Place, Point, Position, Shadow, Side, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import {
-  BarFrame, Component, Module, Mover, Placed, Settings, SettingsPage, XpFill, opacityNow, reachAcross, reachDown, sideNear, space,
-  xpFillArt
-} from "Ordaen"
+import { BODY_LINE, BarFrame, Component, Module, Mover, Placed, Settings, SettingsPage, XpFill, opacityNow, reachAcross, reachDown, sideNear, xpFillArt } from "Ordaen"
 import { ActionBars, barDefaults, bartenderLoaded } from "@/actionBars"
 import { BARS_DEFAULTS, BarChoice, BarsChoices } from "@/barChoices"
 import { BarsPage } from "@/barsPage"
@@ -28,7 +25,6 @@ const TEXT_SHADOW: Shadow = { color: Color.hex("#000000"), x: 1ui, y: -1ui }
 const NO_SHADOW: Shadow = { color: Color.hex("#00000000"), x: 0ui, y: 0ui }
 // Under the metal along its inner side the content starts 4 further in.
 const EDGE_ROOM_TOP = 4ui
-const EDGE_ROOM: Edges = { top: EDGE_ROOM_TOP }
 // The metal's width along the inner side (Ordaen's `panel.edge`).
 const METAL = 3ui
 // The least the panel is high: a cell, a fixed size, under the metal and the room along it. A height saved lower is
@@ -140,10 +136,10 @@ public class ZoneBox implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={self.columns} rows={self.rows} gap={space(.Item)} xAlign={self.along}
+      <box columns={self.columns} rows={self.rows} gap={3sp} xAlign={self.along}
            yAlign={self.across}>
         <$if={self.micro}>
-          <box $if={self.panel.portraitShown} columns={PORTRAIT_ROOM} gap={space(.Item)}
+          <box $if={self.panel.portraitShown} columns={PORTRAIT_ROOM} gap={3sp}
                yAlign={Align.Center}>
             <box width={PORTRAIT_WIDTH} height={1ui} />
             <MicroLine gold={self.panel.goldIcons} faced={false} social={self.social}
@@ -267,6 +263,8 @@ public class Panel implements Module, App {
   // along it.
   derived tall: Number<Length> = (self.settings.values.height * 1ui).max(LEAST_HEIGHT)
   public derived inside: Number<Length> = self.tall - METAL - EDGE_ROOM_TOP
+  // The room under the metal, a measure of the art, as a padding takes it.
+  derived edgeRoom: Edges = { top: Ordaen.spacingOf(EDGE_ROOM_TOP) }
   // How far it reaches in from its edge as drawn: its top edge's metal stands past its line, inside the box's size.
   derived drawnTall: Number<Length> = self.tall + reachDown(Ordaen.art.panel.edge)
   // The experience bar on its own: 600 at its frame's line, the art past the line on either side.
@@ -374,8 +372,8 @@ public class Panel implements Module, App {
       <frame of={Game.frames.BagsBar} shown={false} />
       <frame of={Game.frames.BackpackFreeSlots} shown={false} />
 
-      <surface $if={self.drawn} layer={Layer.Screen} place={self.place} width={self.width} height={self.height}
-               background={Ordaen.art.panel.wood} border={Ordaen.art.panel.edge} padding={EDGE_ROOM}
+      <surface lineHeight={BODY_LINE} $if={self.drawn} layer={Layer.Screen} place={self.place} width={self.width} height={self.height}
+               background={Ordaen.art.panel.wood} border={Ordaen.art.panel.edge} padding={self.edgeRoom}
                columns={self.columns} rows={self.rows} xAlign={self.along} yAlign={self.across}
                opacity={self.opacity} overflow={self.overflow}
                @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
@@ -387,7 +385,7 @@ public class Panel implements Module, App {
         // The portrait: the player's face (or the class's icon) in the corner's shape, the level on a badge on its
         // rim, and the character's button of the game's unseen over all of it. Part of the panel: as faint as it, and
         // standing in it, so it comes over the panel each time the panel shows again.
-        <surface $if={self.portraitShown} layer={Layer.Screen} place={CORNER} width={PORTRAIT_WIDTH}
+        <surface lineHeight={BODY_LINE} $if={self.portraitShown} layer={Layer.Screen} place={CORNER} width={PORTRAIT_WIDTH}
                  height={PORTRAIT_HEIGHT} portrait={self.face} icon={self.classIcon} mask={Ordaen.art.panel.corner}
                  opacity={self.opacity} @pointerEnter={self.onPortraitEnter} @pointerLeave={self.onPortraitLeave}>
           <embed frame={Game.frames.CharacterMicroButton} position={Position.Absolute} left={0ui} top={0ui}
@@ -407,30 +405,30 @@ public class Panel implements Module, App {
       </surface>
 
       <Placed $if={self.freeMicro} id={"OrdaenPanel.micromenu"} title={Locale.PANEL_MICROMENU} home={MICRO_HOME}>
-        <box background={Ordaen.art.window.wood} border={Ordaen.art.frame.small} padding={space(.Item)}>
+        <box background={Ordaen.art.window.wood} border={Ordaen.art.frame.small} padding={3sp}>
           <MicroLine gold={self.goldIcons} merged={self.spellsMerged} guildMerged={self.guildMerged} face={self.face} icon={self.classIcon} />
         </box>
       </Placed>
       <Placed $if={self.freeSocial} id={"OrdaenPanel.social"} title={Locale.PANEL_SOCIAL} home={SOCIAL_HOME}>
-        <box background={Ordaen.art.window.wood} border={Ordaen.art.frame.small} padding={space(.Item)}>
+        <box background={Ordaen.art.window.wood} border={Ordaen.art.frame.small} padding={3sp}>
           <SocialLine gold={self.goldIcons} guildMerged={self.guildMerged} />
         </box>
       </Placed>
       <Placed $if={self.freeExperience} id={"OrdaenPanel.experience"} title={Locale.PANEL_EXPERIENCE}
               home={EXPERIENCE_HOME}>
         <box width={self.freeXpWidth} background={Ordaen.art.window.wood} border={Ordaen.art.frame.small}
-             padding={space(.Item)}>
+             padding={3sp}>
           <XpBar fill={self.xpFill} bezel={self.xpBezel} view={self.xpView} />
         </box>
       </Placed>
       <Placed $if={self.freeMoney} id={"OrdaenPanel.currencies"} title={Locale.PANEL_CURRENCIES}
               home={MONEY_HOME}>
-        <box background={Ordaen.art.window.wood} border={Ordaen.art.frame.small} padding={space(.Item)}>
+        <box background={Ordaen.art.window.wood} border={Ordaen.art.frame.small} padding={3sp}>
           <MoneyLine outline={self.outline} shadow={self.shadow} />
         </box>
       </Placed>
       <Placed $if={self.freeBags} id={"OrdaenPanel.bags"} title={Locale.PANEL_BAGS} home={BAGS_HOME}>
-        <box background={Ordaen.art.window.wood} border={Ordaen.art.frame.small} padding={space(.Item)}>
+        <box background={Ordaen.art.window.wood} border={Ordaen.art.frame.small} padding={3sp}>
           <BagLine />
         </box>
       </Placed>

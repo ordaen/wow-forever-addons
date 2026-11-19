@@ -5,7 +5,7 @@
 // health and the resource; on the right the main stats as cards, then the rest a section at a time.
 import Game from "$game"
 import { Action, Align, Art, BarFill, Edges, Event, FillFrom, Line, MouseButton, Overflow, Position, TextAlign, TextFont } from "$ltml"
-import { Component, ItemButton, SECONDARY_TEXT, TITLE_TEXT, Tabs, Tip, space } from "Ordaen"
+import { Component, ItemButton, SECONDARY_TEXT, TITLE_LINE, TITLE_TEXT, Tabs, Tip } from "Ordaen"
 import Locale from "@/locales"
 import { Choices } from "@/settings"
 import { AMMO, GearSet, LEFT, RIGHT, Resource, Skill, SlotSpec, Stats, WEAPONS, Who, Worn, averageLevel } from "@/sheet"
@@ -35,7 +35,7 @@ const FITS: Line = { width: 2.34375dp, color: Color.hex("#ffd100") }
 public const FITS_GLOW: Color = Color.hex("#ffd10040")
 // A set wholly worn; a chip's room round its name.
 const SET_WORN: Line = { width: 1.171875dp, color: Color.hex("#ffd100") }
-const CHIP_PAD: Edges = { top: space(.Line), right: space(.Item), bottom: space(.Line), left: space(.Item) }
+const CHIP_PAD: Edges = { top: 2sp, right: 3sp, bottom: 2sp, left: 3sp }
 const NO_SLOTS: Array<Integer> = []
 const NO_SETS: Array<GearSet> = []
 const NOTHING: Worn = { slot: 0, item: nil, quality: .Common, level: nil, durability: nil }
@@ -102,7 +102,7 @@ public class GearSlot implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box gap={space(.Line)}>
+      <box gap={2sp}>
         <ItemButton item={self.worn.item} quality={self.worn.quality} art={self.empty} size={self.size}
                     count={self.worn.count} dimmed={self.worn.locked} worn={self.spec.id} action={self.use}
                     @pressed={self.onPressed} @dragged={self.onDragged} @dropped={self.onDragged}>
@@ -139,7 +139,7 @@ public class StatCard implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box gap={space(.Line)} padding={space(.Item)} background={Style.CARD} @pointerEnter={self.onEnter}
+      <box gap={2sp} padding={3sp} background={Style.CARD} @pointerEnter={self.onEnter}
            @pointerLeave={self.onLeave}>
         <text value={self.card.label} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
         <text value={self.card.value} textSize={self.big ? TITLE_TEXT : 1rem} textFont={TextFont.Numbers}
@@ -159,9 +159,9 @@ public class StatGroup implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box gap={space(.Item)}>
+      <box gap={3sp}>
         <text $if={self.group.title != ""} value={self.group.title} textFont={TextFont.Title} textColor={Style.GOLD} />
-        <box columns={4} gap={space(.Line)}>
+        <box columns={4} gap={2sp}>
           <StatCard $for={card of self.group.cards} card={card} />
         </box>
       </box>
@@ -436,13 +436,13 @@ public class Flyout implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box gap={space(.Line)} padding={space(.Item)} background={Style.FLYOUT}>
-        <box columns={[{ fr: 1 }, "max-content"]} gap={space(.Item)} yAlign={Align.Center}>
+      <box gap={2sp} padding={3sp} background={Style.FLYOUT}>
+        <box columns={[{ fr: 1 }, "max-content"]} gap={3sp} yAlign={Align.Center}>
           <text value={Locale.FLYOUT} textSize={SECONDARY_TEXT} textColor={Style.GOLD} />
           <SetChip label={Locale.CLOSE} @click={self.onClose} />
         </box>
         <text $if={self.none} value={Locale.NOTHING_FITS} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
-        <box columns={{ each: "max-content" }} gap={space(.Line)}>
+        <box columns={{ each: "max-content" }} gap={2sp}>
           <ItemButton $for={item of self.items} item={peek item} @pick={self.onPick} />
         </box>
       </box>
@@ -524,53 +524,53 @@ public class GearPage implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={[Style.DOLL, { fr: 1 }]} gap={space(.Group)}>
-        <box rows={[{ fr: 1 }, "max-content", "max-content", "max-content"]} gap={space(.Item)}>
-          <box columns={[Style.SLOT, { fr: 1 }, Style.SLOT]} gap={space(.Item)}>
-            <box gap={space(.Line)}>
+      <box columns={[Style.DOLL, { fr: 1 }]} gap={6sp}>
+        <box rows={[{ fr: 1 }, "max-content", "max-content", "max-content"]} gap={3sp}>
+          <box columns={[Style.SLOT, { fr: 1 }, Style.SLOT]} gap={3sp}>
+            <box gap={2sp}>
               <GearSlot $for={spec of LEFT} spec={spec} worn={self.wornOf(spec.id)} levels={self.choices.itemLevels}
                         wear={self.choices.durability} fits={self.fitsIn(spec.id)} @picked={self.onPicked}
                         @tried={self.onTried} @flyout={self.onFlyout} />
             </box>
-            <box rows={["max-content", "max-content", "max-content", { fr: 1 }]} gap={space(.Line)}
-                 xAlign={Align.Center} textAlign={TextAlign.Center} background={Style.BACK} padding={space(.Item)}>
-              <text value={self.who.name} textSize={TITLE_TEXT} textFont={TextFont.Title} textColor={Style.GOLD} />
+            <box rows={["max-content", "max-content", "max-content", { fr: 1 }]} gap={2sp}
+                 xAlign={Align.Center} textAlign={TextAlign.Center} background={Style.BACK} padding={3sp}>
+              <text value={self.who.name} textSize={TITLE_TEXT} lineHeight={TITLE_LINE} textFont={TextFont.Title} textColor={Style.GOLD} />
               <text value={self.whoText} textSize={SECONDARY_TEXT} textColor={Style.INK} />
               <text value={self.levelText} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
               <box model={"player"} yAlign={Align.End}>
                 <Flyout $if={self.flyoutShown} items={self.fitting} @chose={self.onChose} @close={self.onCloseFlyout} />
               </box>
             </box>
-            <box gap={space(.Line)}>
+            <box gap={2sp}>
               <GearSlot $for={spec of RIGHT} spec={spec} worn={self.wornOf(spec.id)} levels={self.choices.itemLevels}
                         wear={self.choices.durability} fits={self.fitsIn(spec.id)} @picked={self.onPicked}
                         @tried={self.onTried} @flyout={self.onFlyout} />
             </box>
           </box>
-          <box columns={{ each: "max-content" }} gap={space(.Line)} xAlign={Align.Center} yAlign={Align.Start}>
+          <box columns={{ each: "max-content" }} gap={2sp} xAlign={Align.Center} yAlign={Align.Start}>
             <GearSlot $for={spec of WEAPONS} spec={spec} worn={self.wornOf(spec.id)} levels={self.choices.itemLevels}
                       wear={self.choices.durability} fits={self.fitsIn(spec.id)} @picked={self.onPicked}
                       @tried={self.onTried} @flyout={self.onFlyout} />
             <GearSlot $if={self.usesAmmo} spec={AMMO} worn={self.wornOf(AMMO.id)} levels={false} wear={false}
                       fits={self.fitsIn(AMMO.id)} size={AMMO_SIZE} @picked={self.onPicked} />
           </box>
-          <box columns={{ each: "max-content" }} gap={space(.Line)} xAlign={Align.Center}>
+          <box columns={{ each: "max-content" }} gap={2sp} xAlign={Align.Center}>
             <SetOf $for={set of self.sets} set={set} disabled={Game.situation.combat} @use={self.onUseSet} />
             <SetChip label={Locale.SAVE_SET} disabled={Game.situation.combat} @click={self.onSaveSet} />
           </box>
-          <box gap={space(.Line)}>
+          <box gap={2sp}>
             <PoolBar label={Locale.HEALTH} amount={self.stats.health} color={Style.HEALTH} tip={self.stats.tips.health} />
             <PoolBar label={self.resource} amount={self.stats.power} color={self.resourceTint}
                      tip={self.stats.tips.power} />
           </box>
         </box>
-        <box rows={["max-content", "max-content", { fr: 1 }]} gap={space(.Item)}>
-          <box columns={4} gap={space(.Line)}>
+        <box rows={["max-content", "max-content", { fr: 1 }]} gap={3sp}>
+          <box columns={4} gap={2sp}>
             <StatCard $for={card of self.main} card={card} big={true} />
           </box>
           <Tabs tabs={self.sectionNames} selected={mut self.section} />
           <box overflow={Overflow.Scroll}>
-            <box gap={space(.Group)}>
+            <box gap={6sp}>
               <text $if={self.noGroups} value={Locale.NO_SKILLS} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
               <StatGroup $for={group of self.groups} group={group} />
             </box>

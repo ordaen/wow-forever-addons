@@ -1,34 +1,34 @@
 -- the cursor on +: its Tip, each key and how far it steps
 box 0,0 300x28.33
-  box 0,0 75x28.33
+  box 0,0 76.38x28.33
     box 0,0 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
       text 7.22,6.37 8.89x15.6 "-" #ffd100
-    box 28.33,6.37 18.33x15.6
-      text 33.06,6.37 8.89x15.6 "3" #ffffff
-    box 51.67,0 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-      text 58.89,6.37 8.89x15.6 "+" #ffffff
-surface 51.67,28.33 271.17x155.45 on TOOLTIP Interface\AddOns\Ordaen\media\window-wood clamped
-  text 75.25,51.92 229x19.2 "More" #ffffff
-  text 75.25,74.45 229x31.2 "Hold to keep stepping, up to the limit." #cbb994
-  box 75.25,108.98 229x15.6
-    box 75.25,108.98 206.78x15.6
-      text 75.25,108.98 67.78x15.6 "Left-click" #cbb994
-    text 288.69,108.98 15.56x15.6 "+1" #ffffff
-  box 75.25,127.92 229x15.6
-    box 75.25,127.92 200.11x15.6
-      text 75.25,127.92 106.67x15.6 "Shift+Left-click" #cbb994
-    text 282.03,127.92 22.22x15.6 "+10" #ffffff
-  box 75.25,146.85 229x15.6
-    box 75.25,146.85 193.44x15.6
-      text 75.25,146.85 100x15.6 "Ctrl+Left-click" #cbb994
-    text 275.36,146.85 28.89x15.6 "+100" #ffffff
+    box 29.02,6.37 18.33x15.6
+      text 33.74,6.37 8.89x15.6 "3" #ffffff
+    box 53.04,0 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+      text 60.27,6.37 8.89x15.6 "+" #ffffff
+surface 53.04,28.33 271.17x174.12 on TOOLTIP Interface\AddOns\Ordaen\media\window-wood clamped
+  text 77.52,52.81 227.22x26.67 "More" #ffffff
+  text 77.52,85.16 227.22x31.2 "Hold to keep stepping, up to the limit." #cbb994
+  box 77.52,122.05 227.22x15.6
+    box 77.52,122.05 203.13x15.6
+      text 77.52,122.05 67.78x15.6 "Left-click" #cbb994
+    text 289.18,122.05 15.56x15.6 "+1" #ffffff
+  box 77.52,143.34 227.22x15.6
+    box 77.52,143.34 196.47x15.6
+      text 77.52,143.34 106.67x15.6 "Shift+Left-click" #cbb994
+    text 282.52,143.34 22.22x15.6 "+10" #ffffff
+  box 77.52,164.63 227.22x15.6
+    box 77.52,164.63 189.8x15.6
+      text 77.52,164.63 100x15.6 "Ctrl+Left-click" #cbb994
+    text 275.85,164.63 28.89x15.6 "+100" #ffffff
 
 -- the cursor away: no Tip
 box 0,0 300x28.33
-  box 0,0 75x28.33
+  box 0,0 76.38x28.33
     box 0,0 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
       text 7.22,6.37 8.89x15.6 "-" #ffd100
-    box 28.33,6.37 18.33x15.6
-      text 33.06,6.37 8.89x15.6 "3" #ffffff
-    box 51.67,0 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-      text 58.89,6.37 8.89x15.6 "+" #ffd100
+    box 29.02,6.37 18.33x15.6
+      text 33.74,6.37 8.89x15.6 "3" #ffffff
+    box 53.04,0 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+      text 60.27,6.37 8.89x15.6 "+" #ffd100

@@ -1,14 +1,14 @@
 -- the cursor over the window: full screen and close alone
 surface 600,281.38 400x337.25 on DIALOG clamped raised by a click
   box 600,318.62 400x300 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
-    box 612.75,331.38 379.5x276.75
-      text 632.75,351.38 339.5x15.6 "the page" #ffffff
+    box 613.09,331.72 378.81x276.06
+      text 635.85,354.47 333.3x17.78 "the page" #ffffff
     box 982.75,598.62 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 600,281.38 400x47.75
-    box 600,281.38 338.33x47.75
+    box 600,281.38 336.47x47.75
       box 600,281.38 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
-        box 618.58,291.62 77.33x34.25
-          text 633.36,300.95 47.78x15.6 "Recipes" #ffd100
+        box 618.78,291.62 76.93x34.25
+          text 633.36,299.86 47.78x17.78 "Recipes" #ffd100
     box 945,297.71 55x31.42
       box 945,297.71 55x26.67 clipped
         box 945,297.71 27.5x26.67 absolute clipped @keyPress @pointerPress

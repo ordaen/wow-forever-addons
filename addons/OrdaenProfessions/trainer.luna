@@ -6,10 +6,7 @@
 import Client from "$client"
 import Game from "$game"
 import { Align, Columns, MouseButton, Overflow, Track } from "$ltml"
-import {
-  ARTWORK, ButtonPlate, Choice, Column, Component, FooterCount, FooterCounts, KeptWindow, ModuleMemory, Money, PushButton, SECONDARY_TEXT, TITLE_TEXT, Table,
-  TableRow, ToolPick, Toolbar, Window, WindowSide, WindowTabSpec, space, tracksOf
-} from "Ordaen"
+import { ARTWORK, ButtonPlate, Choice, Column, Component, FooterCount, FooterCounts, KeptWindow, ModuleMemory, Money, PushButton, SECONDARY_TEXT, TITLE_LINE, TITLE_TEXT, Table, TableRow, ToolPick, Toolbar, Window, WindowSide, WindowTabSpec, tracksOf } from "Ordaen"
 import Locale from "@/locales"
 import Style from "@/style"
 
@@ -32,7 +29,6 @@ const TRAINER_ICON: Asset = "Interface/Icons/INV_Misc_Book_11"
 // A picked line, as a picked table row is shaded.
 const PICKED: Color = Color.hex("#00000040")
 const ICON = 28.125dp
-const ROW: Number<Length> = ICON + 2 * space(.Line)
 const CARD_WIDTH = 281.25dp
 const TRAIN_WIDTH = 140.625dp
 const FILL: Array<Track> = [{ fr: 1 }]
@@ -135,8 +131,8 @@ class ServiceTableRow implements Component {
 
   public render(self): Template {
     return $ltml {
-      <TableRow tracks={TRACKS} height={ROW} selected={self.selected} @pick={self.onPick}>
-        <box columns={NAMED} gap={space(.Item)} yAlign={Align.Center}>
+      <TableRow tracks={TRACKS} selected={self.selected} @pick={self.onPick}>
+        <box columns={NAMED} gap={3sp} yAlign={Align.Center}>
           <box width={ICON} height={ICON} icon={self.service.icon} />
           <box overflow={Overflow.Hidden}>
             <text value={self.title} textColor={self.ink} wrap={false} />
@@ -180,8 +176,8 @@ class ServiceLine implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={LINE} gap={space(.Item)} yAlign={Align.Center} background={self.background}
-           padding={{ top: space(.Line), bottom: space(.Line), left: space(.Item), right: space(.Item) }}
+      <box columns={LINE} gap={3sp} yAlign={Align.Center} background={self.background}
+           padding={{ top: 2sp, bottom: 2sp, left: 3sp, right: 3sp }}
            @pointerPress={self.onPick} @keyPress(.Enter)={self.onPick} @keyPress(.Space)={self.onPick}>
         <box width={ICON} height={ICON} icon={self.service.icon} />
         <box columns={1} overflow={Overflow.Hidden}>
@@ -252,9 +248,9 @@ public class TrainerWindow implements Component {
 
   // The picked service's card: its name and what it is, what it asks for, its price and «Train».
   const card: Template = $ltml {
-    <box rows={CARD} gap={space(.Item)}>
-      <box $if={self.has} columns={1} gap={space(.Line)}>
-        <text value={self.name} textSize={TITLE_TEXT} textColor={Style.GOLD} />
+    <box rows={CARD} gap={3sp}>
+      <box $if={self.has} columns={1} gap={2sp}>
+        <text value={self.name} textSize={TITLE_TEXT} lineHeight={TITLE_LINE} textColor={Style.GOLD} />
         <text value={self.needs} textColor={Style.DIM} textSize={SECONDARY_TEXT} />
         <text value={self.text} textColor={Style.INK} />
       </box>
@@ -262,7 +258,7 @@ public class TrainerWindow implements Component {
         <text value={Locale.PICK_SERVICE} textColor={Style.DIM} />
       </box>
       <box />
-      <box columns={PAIR} gap={space(.Item)} yAlign={Align.Center}>
+      <box columns={PAIR} gap={3sp} yAlign={Align.Center}>
         <box>
           <Money $if={self.has} amount={self.price} color={self.priceInk} />
         </box>
@@ -272,7 +268,7 @@ public class TrainerWindow implements Component {
   }
 
   const footer: Template = $ltml {
-    <box columns={FOOT} gap={space(.Group)} yAlign={Align.Center}>
+    <box columns={FOOT} gap={6sp} yAlign={Align.Center}>
       <FooterCounts counts={self.counts} />
       <Money amount={Game.money.amount} />
     </box>
@@ -282,7 +278,7 @@ public class TrainerWindow implements Component {
     return $ltml {
       <Window tabs={self.tabs} selected={mut self.tab} declared={mut self.declared} side={self.side} footer={self.footer}
               @close={self.onClose}>
-        <box rows={BODY} gap={space(.Group)}>
+        <box rows={BODY} gap={6sp}>
           <Toolbar search={mut self.search} placeholder={Locale.SEARCH}>
             <ToolPick value={mut self.list.values.show} choices={SHOWS} icon={ARTWORK.ctl.tool.filter} title={Locale.FILTER}
                       lit={self.narrowed} />

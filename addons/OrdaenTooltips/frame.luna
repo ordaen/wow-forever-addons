@@ -5,10 +5,11 @@
 // width.
 import { Align, Art, BarFill, Beside, Cursor, Edges, Layer, Line, Piece, Position, Side, TextFont, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { Component, Hotkeys, SECONDARY_TEXT, TITLE_TEXT, space } from "Ordaen"
+import { Component, Hotkeys, SECONDARY_TEXT, TITLE_LINE, TITLE_TEXT } from "Ordaen"
 import { GREEN, RED } from "@/colors"
 import Locale from "@/locales"
 import { Compared, Fact, Glyph, Model, Opens, Part, Picture, TextLine } from "@/model"
+import { TIGHT_LINE } from "Ordaen"
 
 // The glyphs' pictures (art/pieces/tooltip-glyphs.json): a column of 20 px cells, a row each in the order of
 // `Glyph`, the 16 px glyph 2 px in from its cell's top left, its shadow inside the cell; then the cost's dot's light
@@ -38,9 +39,9 @@ const SIDE_WIDTH = 309.375dp
 const ICON = 70.3125dp
 // The ladder's steps (`space`): a line's between the lines of a section, an item's round a section, a panel's
 // inside the frame.
-const LINE: Number<Length> = space(.Line)
-const SECTION: Number<Length> = space(.Item)
-const INSIDE: Number<Length> = space(.Panel)
+const LINE: Number<Spacing> = 2sp
+const SECTION: Number<Spacing> = 3sp
+const INSIDE: Number<Spacing> = 5sp
 const HEADING: Color = Color.hex("#ffd100")
 const LABEL: Color = Color.hex("#cbb994")
 const QUIET: Color = Color.hex("#857a66")
@@ -59,7 +60,7 @@ public const NAME_VALUE: Array<Track> = [{ fr: 1 }, "max-content"]
 // A compared value: the value, then its difference «(by», the mark, «)», 3 px apart (the design's `.diff`), the mark
 // 10 px (ctl.compareUp, ctl.compareDown).
 const COMPARED: Array<Track> = ["max-content", "max-content", "max-content", "max-content"]
-const COMPARED_GAP = 3.515625dp
+const COMPARED_GAP = 1sp
 const COMPARED_MARK = 11.71875dp
 // A text at its own width, the rest of its row empty.
 const OWN_WIDTH: Array<Track> = ["max-content", { fr: 1 }]
@@ -79,18 +80,21 @@ const BAR_GOLD: Color = Color.hex("#d6a56b80")
 const UNDERLINE: Color = Color.hex("#ffd10080")
 public const DASH: Piece = { file: "@/assets/dash.tga", width: 8, height: 1, tile: true }
 const UNDERLINE_HEIGHT: Number<Length> = 1.171875dp
-const UNDER_TEXT: Number<Length> = -(LINE / 2 + UNDERLINE_HEIGHT)
+// Where the underline stands under its text: half the line's gap below, which the density sizes.
+function underText(): Number<Length> {
+  return -(Ordaen.lengthOf(LINE) / 2 + UNDERLINE_HEIGHT)
+}
 const BY_ITS_TEXT: Beside = { beside: "parent" }
 // The game's red X.
 const CLOSE_ART: Asset = "Interface/Buttons/UI-Panel-MinimizeButton-Up"
 const UNDER_TITLE: Edges = { bottom: SECTION }
 public const NO_PAD: Edges = {}
-const CELL_PAD: Edges = { top: 9.375dp, right: 11.71875dp, bottom: 9.375dp, left: 11.71875dp }
+const CELL_PAD: Edges = { top: 2.5sp, right: 3sp, bottom: 2.5sp, left: 3sp }
 // The band ends the tooltip: no room under it.
-const CELL_PAD_LAST: Edges = { top: 9.375dp, right: 11.71875dp, left: 11.71875dp }
-public const INDENT: Edges = { left: 14.0625dp }
+const CELL_PAD_LAST: Edges = { top: 2.5sp, right: 3sp, left: 3sp }
+public const INDENT: Edges = { left: 3.5sp }
 // Where the body turns from rows into sentences or back.
-const SPACED: Edges = { top: 7.03125dp }
+const SPACED: Edges = { top: 2sp }
 
 // A line as it is drawn: its texts, their colours, its size, and the room round it.
 public struct Drawn {
@@ -163,11 +167,11 @@ public class TermText implements Component {
       <box>
         <text value={self.text} textColor={self.color} textSize={self.size} wrap={false}
               textFont={self.font} />
-        <box $if={self.lit} position={Position.Absolute} left={0ui} right={0ui} bottom={UNDER_TEXT} height={UNDERLINE_HEIGHT}
+        <box $if={self.lit} position={Position.Absolute} left={0ui} right={0ui} bottom={underText()} height={UNDERLINE_HEIGHT}
              background={DASH} tint={UNDERLINE} />
         <box $if={self.lit} position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui}
              cursor={Cursor.Help} @pointerEnter={self.onEnter} @pointerLeave={self.onLeave} />
-        <surface $if={self.open} layer={Layer.Tooltip} place={BY_ITS_TEXT}>
+        <surface lineHeight={TIGHT_LINE} $if={self.open} layer={Layer.Tooltip} place={BY_ITS_TEXT}>
           <slot #opened opens={self.opens} />
         </surface>
       </box>
@@ -264,7 +268,7 @@ public class FactCell implements Component {
   public render(self): Template {
     return $ltml {
       <box padding={self.padding} border={self.divider} xAlign={Align.Center}>
-        <box columns={["max-content", "max-content"]} gap={5.859375dp} yAlign={Align.Center}>
+        <box columns={["max-content", "max-content"]} gap={1.5sp} yAlign={Align.Center}>
           // The glyph, in its tint (a cost's dot in its resource's colour): its cell reaches past its room to hold
           // its shadow.
           <box $if={self.glyph != nil} width={GLYPH} height={GLYPH}>
@@ -277,13 +281,13 @@ public class FactCell implements Component {
           </box>
           <box>
             <text value={self.fact.text} textColor={self.color} wrap={false} />
-            <box $if={self.lit} position={Position.Absolute} left={0ui} right={0ui} bottom={UNDER_TEXT} height={UNDERLINE_HEIGHT}
+            <box $if={self.lit} position={Position.Absolute} left={0ui} right={0ui} bottom={underText()} height={UNDERLINE_HEIGHT}
                  background={DASH} tint={UNDERLINE} />
           </box>
         </box>
         <box $if={self.lit} position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui}
              cursor={Cursor.Help} @pointerEnter={self.onEnter} @pointerLeave={self.onLeave} />
-        <surface $if={self.open} layer={Layer.Tooltip} place={BY_ITS_TEXT}>
+        <surface lineHeight={TIGHT_LINE} $if={self.open} layer={Layer.Tooltip} place={BY_ITS_TEXT}>
           <slot #opened opens={self.fact.opens} />
         </surface>
       </box>
@@ -317,7 +321,7 @@ public class Row implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box $if={self.paired} columns={NAME_VALUE} gap={11.71875dp} padding={self.line.padding}>
+      <box $if={self.paired} columns={NAME_VALUE} gap={3sp} padding={self.line.padding}>
         <box $if={self.opening} columns={OWN_WIDTH}>
           <TermText text={self.line.left} color={self.line.leftColor} size={self.line.size} opens={self.line.opens}
                     locked={self.locked}>
@@ -525,19 +529,19 @@ public class TipFrame implements Component {
       <box width={"min-content"} padding={INSIDE} border={Ordaen.art.frame.small}
            background={Ordaen.art.window.wood}>
         <box width={self.width} height={0ui} />
-        <box $if={self.hasHeader} height={41.015625dp} gap={7.03125dp}>
+        <box $if={self.hasHeader} height={41.015625dp} gap={2sp}>
           <box xAlign={Align.Center}>
             <text value={self.header} textColor={HEADING} wrap={false} />
           </box>
           <box height={2.34375dp} border={GROOVE} />
         </box>
-        <box columns={self.titleColumns} gap={11.71875dp} yAlign={Align.Center} padding={self.titlePadding}>
-          <box $if={self.hasIcon} width={ICON} height={ICON} border={RIM} padding={1.171875dp} background={BLACK}
+        <box columns={self.titleColumns} gap={3sp} yAlign={Align.Center} padding={self.titlePadding}>
+          <box $if={self.hasIcon} width={ICON} height={ICON} border={RIM} padding={0.5sp} background={BLACK}
                rows={FILL}>
             <box icon={self.icon} portrait={self.face} />
           </box>
           <box gap={LINE} yAlign={Align.Center}>
-            <text value={self.model.name} textColor={self.model.nameColor} textSize={TITLE_TEXT} wrap={false}
+            <text value={self.model.name} textColor={self.model.nameColor} textSize={TITLE_TEXT} lineHeight={TITLE_LINE} wrap={false}
                   textFont={.Title} />
             <box $if={self.hasDesc} columns={self.descColumns} height={21.09375dp} yAlign={Align.Center}>
               <PartText $for={index, part of self.model.desc} part={part} index={index} color={LABEL}

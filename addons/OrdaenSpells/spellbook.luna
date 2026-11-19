@@ -61,8 +61,8 @@ const HEADINGS: Array<SortBy> = [SortBy.Name, SortBy.Line, SortBy.Active, SortBy
 const TRACKS: Array<Track> = tracksOf(COLUMNS)
 // The least width of a column of spells: an icon and a name with its rank; and the room between columns and rows.
 const COLUMN: Number<Length> = 318.75dp
-const ACROSS: Number<Length> = 13.125dp
-const DOWN: Number<Length> = 5.625dp
+const ACROSS: Number<Spacing> = 3.5sp
+const DOWN: Number<Spacing> = 1.5sp
 const ROW: Array<Track> = [37.5dp, { fr: 1 }]
 const CELL: Array<Track> = [23.4375dp, { fr: 1 }]
 const CLEAR: Color = Color.hex("#00000000")
@@ -80,8 +80,8 @@ function before(a: Game.SpellEntry, b: Game.SpellEntry, by: SortBy): Boolean {
 }
 
 // As many columns as the width holds at their least width, one at least.
-function columnsFor(width: Number<Length>): Array<Track> {
-  const count = (1).max(((width + ACROSS) / (COLUMN + ACROSS)).floor())
+function columnsFor(width: Number<Length>, across: Number<Length>): Array<Track> {
+  const count = (1).max(((width + across) / (COLUMN + across)).floor())
   const list: Array<Track> = []
   for (i of 1..count) { list.push({ fr: 1, min: 0dp }) }
   return list
@@ -128,7 +128,7 @@ public class SpellRow implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={ROW} gap={9.375dp} yAlign={Align.Center} padding={{ top: 3.75dp, bottom: 3.75dp, left: 5.625dp, right: 5.625dp }}
+      <box columns={ROW} gap={2.5sp} yAlign={Align.Center} padding={{ top: 1sp, bottom: 1sp, left: 1.5sp, right: 1.5sp }}
            background={GROUND} @dragStart={self.onGrab}>
         <box width={37.5dp} height={37.5dp} border={{ width: 1.171875dp, color: Style.LINE }} icon={self.spell.icon} />
         <box columns={1}>
@@ -162,7 +162,7 @@ public class SpellTableRow implements Component {
   public render(self): Template {
     return $ltml {
       <TableRow tracks={TRACKS}>
-        <box columns={CELL} gap={7.03125dp} yAlign={Align.Center} @dragStart={self.onGrab}>
+        <box columns={CELL} gap={2sp} yAlign={Align.Center} @dragStart={self.onGrab}>
           <box width={23.4375dp} height={23.4375dp} border={{ width: 1.171875dp, color: Style.LINE }} icon={self.spell.icon} />
           <text value={self.title} textColor={Style.INK} wrap={false} />
         </box>
@@ -187,7 +187,7 @@ public class SpellbookPage implements Component {
   derived all: Boolean = self.tab == 1
   derived tabled: Boolean = self.list.values.layout == BookLayout.Table
   derived narrowed: Boolean = self.list.values.kinds != Kinds.All
-  derived columns: Array<Track> = columnsFor(self.width)
+  derived columns: Array<Track> = columnsFor(self.width, Ordaen.lengthOf(ACROSS))
 
   spells: Signal<Array<Game.SpellEntry>>
   lines: Signal<Array<Game.SpellLine>>
@@ -236,7 +236,7 @@ public class SpellbookPage implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box rows={PAGE} gap={9.375dp}>
+      <box rows={PAGE} gap={2.5sp}>
         <Tabs tabs={self.names} selected={mut self.tab} />
         <Toolbar search={mut self.search} placeholder={Locale.SEARCH}>
           <ToolPick $if={!self.tabled && self.all} value={mut self.list.values.sort} choices={ALL_SORTS} icon={Ordaen.art.ctl.tool.sort} title={Locale.SORT} />

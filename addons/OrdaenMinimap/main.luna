@@ -21,8 +21,8 @@ const STRIP = 35.15625dp
 // From the frame's side to a ring button's centre.
 const RING_OUT = 18.75dp
 const CELL = 39.84375dp
-const CELL_GAP = 4.6875dp
-const DRAWER_PAD = 7.03125dp
+const CELL_GAP = 1sp
+const DRAWER_PAD = 2sp
 const GOLD: Color = Color.hex("#ffd100")
 const INK: Color = Color.hex("#f3e1b8")
 // The clock while calendar invites wait.
@@ -96,10 +96,11 @@ public class Minimap implements Module, App {
   derived drawerShown: Boolean = self.settings.values.drawerOn && self.drawerOpen && self.held > 0
   derived drawerParked: Boolean = self.settings.values.drawerOn && !self.drawerOpen
   // Its cells, the room round them and its frame's line on both sides.
-  derived drawerEdge: Number<Length> = 2 * DRAWER_PAD + 2 * Ordaen.art.frame.small.width * 1ui
-  derived drawerWidth: Number<Length> = self.settings.values.drawerColumns * CELL + (self.settings.values.drawerColumns - 1) * CELL_GAP + self.drawerEdge
+  derived drawerEdge: Number<Length> = Ordaen.lengthOf(2 * DRAWER_PAD) + 2 * Ordaen.art.frame.small.width * 1ui
+  derived cellGap: Number<Length> = Ordaen.lengthOf(CELL_GAP)
+  derived drawerWidth: Number<Length> = self.settings.values.drawerColumns * CELL + (self.settings.values.drawerColumns - 1) * self.cellGap + self.drawerEdge
   derived drawerRows: Integer = (1).max((self.held / self.settings.values.drawerColumns).ceil())
-  derived drawerHeight: Number<Length> = self.drawerRows * CELL + (self.drawerRows - 1) * CELL_GAP + self.drawerEdge
+  derived drawerHeight: Number<Length> = self.drawerRows * CELL + (self.drawerRows - 1) * self.cellGap + self.drawerEdge
   // The drawer's box: its size at its frame's line, and the art past the line.
   derived drawerBoxWidth: Number<Length> = self.drawerWidth + reachAcross(Ordaen.art.frame.small)
   derived drawerBoxHeight: Number<Length> = self.drawerHeight + reachDown(Ordaen.art.frame.small)
@@ -312,7 +313,7 @@ public class Minimap implements Module, App {
 
             <box $if={self.hasFoot} position={Position.Absolute} left={self.out} bottom={self.out} width={self.size}
                  height={STRIP} background={Ordaen.art.window.wood} border={RULE_ABOVE}
-                 columns={[{ fr: 1 }, "max-content"]} padding={{ left: 11.71875dp, right: 11.71875dp }} yAlign={Align.Center}>
+                 columns={[{ fr: 1 }, "max-content"]} padding={{ left: 3sp, right: 3sp }} yAlign={Align.Center}>
               <box $if={self.showsCoords} @pointerPress={self.onCoordsClick} @pointerEnter={self.onCoordsEnter}
                    @pointerLeave={self.onHintLeave}>
                 <text value={Game.minimap.coords} textColor={INK} textShadow={ENGRAVED}

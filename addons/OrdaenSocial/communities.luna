@@ -1,7 +1,7 @@
 // The communities tab's own parts: the player's communities in a list (the picked one's members in the roster beside
 // it), and the picked community's card: its kind and size, its description and broadcast, and its streams.
 import { Align, ByInteractionState, Edges, Overflow } from "$ltml"
-import { Component, SECONDARY_TEXT, TITLE_TEXT, space } from "Ordaen"
+import { Component, SECONDARY_TEXT, TITLE_LINE, TITLE_TEXT } from "Ordaen"
 import { orDash } from "@/friends"
 import Locale from "@/locales"
 import { Club, Stream } from "@/people"
@@ -9,7 +9,7 @@ import Style from "@/style"
 
 const CLEAR: Color = Color.hex("#00000000")
 const ROW_SHADE: ByInteractionState<Color> = { default: CLEAR, hover: Color.hex("#00000059"), focus: Color.hex("#00000059") }
-const ROW_PAD: Edges = { top: 4.6875dp, right: space(.Line), bottom: 4.6875dp, left: space(.Line) }
+const ROW_PAD: Edges = { top: 1sp, right: 2sp, bottom: 1sp, left: 2sp }
 
 // What a community is: of Battle.net accounts or of characters, and how many are in it.
 function kindOf(club: Club): String {
@@ -90,13 +90,13 @@ public class ClubCard implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={1} rows={["max-content", { fr: 1 }]} gap={space(.Group)}>
+      <box columns={1} rows={["max-content", { fr: 1 }]} gap={6sp}>
         <box columns={1}>
-          <text value={self.club.name} textColor={self.club.battleNet ? Style.BATTLE_NET : Style.GOLD} textSize={TITLE_TEXT}
+          <text value={self.club.name} textColor={self.club.battleNet ? Style.BATTLE_NET : Style.GOLD} textSize={TITLE_TEXT} lineHeight={TITLE_LINE}
                 textFont={.Title} wrap={false} />
           <text value={kindOf(self.club)} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={false} />
         </box>
-        <box columns={1} gap={space(.Item)} overflow={Overflow.Scroll} yAlign={Align.Start}>
+        <box columns={1} gap={3sp} overflow={Overflow.Scroll} yAlign={Align.Start}>
           <text value={Locale.CLUB_DESCRIPTION} textColor={Style.DIM} wrap={false} />
           <text value={orDash(self.club.description)} textColor={Style.INK} wrap={true} />
           <text $if={self.club.broadcast != ""} value={Locale.QUOTED.format(self.club.broadcast)} textColor={Style.INK} wrap={true} />

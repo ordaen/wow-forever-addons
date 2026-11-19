@@ -6,7 +6,7 @@
 // member (its card shows beside the list); again, the card goes.
 import { Align, Position, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { Choice, Column, Component, PushButton, SECONDARY_TEXT, TITLE_TEXT, Table, TableRow, ToolPick, Toolbar, space, tracksOf } from "Ordaen"
+import { Choice, Column, Component, PushButton, SECONDARY_TEXT, TITLE_LINE, TITLE_TEXT, Table, TableRow, ToolPick, Toolbar, tracksOf } from "Ordaen"
 import { Fact, agoHoursText, markOf, orDash, presenceText } from "@/friends"
 import Locale from "@/locales"
 import { Member, Rights } from "@/people"
@@ -122,7 +122,7 @@ class MemberRow implements Component {
   public render(self): Template {
     return $ltml {
       <TableRow tracks={TRACKS} selected={self.picked} @pick={self.onPick}>
-        <box columns={[Style.DOT, { fr: 1 }]} gap={space(.Line)} yAlign={Align.Center}>
+        <box columns={[Style.DOT, { fr: 1 }]} gap={2sp} yAlign={Align.Center}>
           <box width={Style.DOT} height={Style.DOT} background={markOf(self.member.presence)} />
           <text value={self.member.name} textColor={nameColorOf(self.member)} wrap={false} />
         </box>
@@ -163,7 +163,7 @@ public class MemberTable implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={1} rows={["max-content", { fr: 1 }]} gap={space(.Item)}>
+      <box columns={1} rows={["max-content", { fr: 1 }]} gap={3sp}>
         <Toolbar search={mut self.query} placeholder={Locale.SEARCH_MEMBERS}>
           <ToolPick value={mut self.show} choices={SHOWS} icon={Ordaen.art.ctl.tool.filter} title={Locale.SHOW} lit={self.lit} />
         </Toolbar>
@@ -214,12 +214,12 @@ public class MemberCard implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={1} rows={["max-content", { fr: 1 }, "max-content"]} gap={space(.Group)}>
-        <box columns={1} gap={space(.Item)}>
-          <box columns={[Style.BIG_DOT, { fr: 1 }]} gap={space(.Line)} yAlign={Align.Center}>
+      <box columns={1} rows={["max-content", { fr: 1 }, "max-content"]} gap={6sp}>
+        <box columns={1} gap={3sp}>
+          <box columns={[Style.BIG_DOT, { fr: 1 }]} gap={2sp} yAlign={Align.Center}>
             <box width={Style.BIG_DOT} height={Style.BIG_DOT} background={markOf(self.member.presence)} />
             <box columns={1}>
-              <text value={self.member.name} textColor={nameColorOf(self.member)} textSize={TITLE_TEXT} textFont={.Title} wrap={false} />
+              <text value={self.member.name} textColor={nameColorOf(self.member)} textSize={TITLE_TEXT} lineHeight={TITLE_LINE} textFont={.Title} wrap={false} />
               <text value={self.sub} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={false} />
             </box>
           </box>
@@ -230,12 +230,12 @@ public class MemberCard implements Component {
           <Fact $if={self.member.officerNote != ""} label={Locale.OFFICER_NOTE} value={self.member.officerNote} />
         </box>
         <box />
-        <box columns={1} gap={space(.Item)}>
-          <box columns={["max-content", "max-content"]} gap={space(.Item)}>
+        <box columns={1} gap={3sp}>
+          <box columns={["max-content", "max-content"]} gap={3sp}>
             <PushButton label={Locale.WHISPER} width={Style.SMALL_BUTTON} disabled={!self.canAsk} @click={self.onWhisper} />
             <PushButton label={Locale.INVITE} width={Style.SMALL_BUTTON} disabled={!self.canAsk} @click={self.onInvite} />
           </box>
-          <box $if={self.ranks} columns={["max-content", "max-content"]} gap={space(.Item)}>
+          <box $if={self.ranks} columns={["max-content", "max-content"]} gap={3sp}>
             <PushButton label={Locale.PROMOTE} width={Style.SMALL_BUTTON} disabled={!self.rights.promote} @click={self.onPromote} />
             <PushButton label={Locale.DEMOTE} width={Style.SMALL_BUTTON} disabled={!self.rights.demote} @click={self.onDemote} />
           </box>

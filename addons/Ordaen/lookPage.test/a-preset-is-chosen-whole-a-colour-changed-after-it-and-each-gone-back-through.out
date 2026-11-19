@@ -1,713 +1,713 @@
 steps 0; the look's preset ordaen; numbers drawn with Interface\AddOns\Ordaen\media\fonts\FiraSansCondensed-Medium.ttf
 -- Ordaen's preset in use
-box 0,0 800x1545.27
-  box 0,0 800x102.27
+box 0,0 800x1536.44
+  box 0,0 800x101.2
     box 0,0 800x15.6
       text 0,0 42.22x15.6 "Themes" #e8c35a
-      box 50.56,7.38 749.44x0.83 Interface\AddOns\Ordaen\media\ctl-rule
-    box 0,27.27 800x31.67
-      box 0,27.27 665x31.67
-        text 0,27.27 665x15.6 "Ordaen" #ffffff
-        text 0,44.53 665x14.4 "Blizzard's look in our style: bronze, dark wood, our own fonts" #a3977f
-      text 675,35.9 125x14.4 "In use" #a6e39a
-    box 0,70.6 800x31.67
-      box 0,70.6 665x31.67
-        text 0,70.6 665x15.6 "Minimal" #ffffff
-        text 0,87.87 665x14.4 "Flat, fine lines, hardly any textures or animations" #a3977f
-      box 675,72.27 125x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-        text 726.39,78.63 22.22x15.6 "Use" #ffd100
-  box 0,117.27 800x135.6
-    box 0,117.27 800x15.6
-      text 0,117.27 35.56x15.6 "Fonts" #e8c35a
-      box 43.89,124.65 756.11x0.83 Interface\AddOns\Ordaen\media\ctl-rule
-    box 0,144.53 800x28.33 opacity=1
-      box 0,150.9 233.33x15.6 @pointerEnter @pointerLeave
-        text 0,150.9 233.33x15.6 "Text font" #cbb994
-      box 248.33,144.53 200x28.33
-        box 248.33,144.53 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
-          text 263.33,150.9 153.33x15.6 "Fira Sans" #f0c860
-          box 425,152.03 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-    box 0,184.53 800x28.33 opacity=1
-      box 0,190.9 233.33x15.6 @pointerEnter @pointerLeave
-        text 0,190.9 233.33x15.6 "Title font" #cbb994
-      box 248.33,184.53 200x28.33
-        box 248.33,184.53 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
-          text 263.33,190.9 153.33x15.6 "Alegreya SC" #f0c860
-          box 425,192.03 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-    box 0,224.53 800x28.33 opacity=1
-      box 0,230.9 233.33x15.6 @pointerEnter @pointerLeave
-        text 0,230.9 233.33x15.6 "Number font" #cbb994
-      box 248.33,224.53 200x28.33
-        box 248.33,224.53 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
-          text 263.33,230.9 153.33x15.6 "Fira Sans Condensed" #f0c860
-          box 425,232.03 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-  box 0,267.87 800x95.6
-    box 0,267.87 800x15.6
-      text 0,267.87 54.44x15.6 "Textures" #e8c35a
-      box 62.78,275.25 737.22x0.83 Interface\AddOns\Ordaen\media\ctl-rule
-    box 0,295.13 800x28.33 opacity=1
-      box 0,301.5 233.33x15.6 @pointerEnter @pointerLeave
-        text 0,301.5 233.33x15.6 "Bar texture" #cbb994
-      box 248.33,295.13 200x28.33
-        box 248.33,295.13 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
-          text 263.33,301.5 153.33x15.6 "Flat" #f0c860
-          box 425,302.63 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-    box 0,335.13 800x28.33 opacity=1
-      box 0,341.5 233.33x15.6 @pointerEnter @pointerLeave
-        text 0,341.5 233.33x15.6 "Bar frame" #cbb994
-      box 248.33,335.13 200x28.33
-        box 248.33,335.13 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
-          text 263.33,341.5 153.33x15.6 "Bronze bezel" #f0c860
-          box 425,342.63 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-  box 0,378.47 800x55.6
-    box 0,378.47 800x15.6
-      text 0,378.47 67.78x15.6 "Animations" #e8c35a
-      box 76.11,385.85 723.89x0.83 Interface\AddOns\Ordaen\media\ctl-rule
-    box 0,405.73 800x28.33 opacity=1
-      box 0,412.1 233.33x15.6 @pointerEnter @pointerLeave
-        text 0,412.1 233.33x15.6 "Animations" #cbb994
-      box 248.33,405.73 200x28.33
-        box 248.33,405.73 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
-          text 263.33,412.1 153.33x15.6 "Smooth" #f0c860
-          box 425,413.23 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-  box 0,449.07 800x705.6
-    box 0,449.07 800x15.6
-      text 0,449.07 47.78x15.6 "Colours" #e8c35a
-      box 56.11,456.45 743.89x0.83 Interface\AddOns\Ordaen\media\ctl-rule
-    box 0,476.33 800x18.33 opacity=1
-      box 0,477.7 233.33x15.6 @pointerEnter @pointerLeave
-        text 0,477.7 233.33x15.6 "Accent colour" #cbb994
-      box 248.33,476.33 36.67x18.33 #b88f57 @keyPress @pointerPress
-    box 0,506.33 800x18.33 opacity=1
-      box 0,507.7 233.33x15.6 @pointerEnter @pointerLeave
-        text 0,507.7 233.33x15.6 "Red: bar" #cbb994
-      box 248.33,506.33 36.67x18.33 #bc010b @keyPress @pointerPress
-    box 0,536.33 800x18.33 opacity=1
-      box 0,537.7 233.33x15.6 @pointerEnter @pointerLeave
-        text 0,537.7 233.33x15.6 "Red: text" #cbb994
-      box 248.33,536.33 36.67x18.33 #ffa194 @keyPress @pointerPress
-    box 0,566.33 800x18.33 opacity=1
-      box 0,567.7 233.33x15.6 @pointerEnter @pointerLeave
-        text 0,567.7 233.33x15.6 "Orange: bar" #cbb994
-      box 248.33,566.33 36.67x18.33 #a24102 @keyPress @pointerPress
-    box 0,596.33 800x18.33 opacity=1
-      box 0,597.7 233.33x15.6 @pointerEnter @pointerLeave
-        text 0,597.7 233.33x15.6 "Orange: text" #cbb994
-      box 248.33,596.33 36.67x18.33 #fea47b @keyPress @pointerPress
-    box 0,626.33 800x18.33 opacity=1
-      box 0,627.7 233.33x15.6 @pointerEnter @pointerLeave
-        text 0,627.7 233.33x15.6 "Yellow: bar" #cbb994
-      box 248.33,626.33 36.67x18.33 #c79608 @keyPress @pointerPress
-    box 0,656.33 800x18.33 opacity=1
-      box 0,657.7 233.33x15.6 @pointerEnter @pointerLeave
-        text 0,657.7 233.33x15.6 "Yellow: text" #cbb994
-      box 248.33,656.33 36.67x18.33 #ffd988 @keyPress @pointerPress
-    box 0,686.33 800x18.33 opacity=1
-      box 0,687.7 233.33x15.6 @pointerEnter @pointerLeave
-        text 0,687.7 233.33x15.6 "Green: bar" #cbb994
-      box 248.33,686.33 36.67x18.33 #096c02 @keyPress @pointerPress
-    box 0,716.33 800x18.33 opacity=1
-      box 0,717.7 233.33x15.6 @pointerEnter @pointerLeave
-        text 0,717.7 233.33x15.6 "Green: text" #cbb994
-      box 248.33,716.33 36.67x18.33 #90d189 @keyPress @pointerPress
-    box 0,746.33 800x18.33 opacity=1
-      box 0,747.7 233.33x15.6 @pointerEnter @pointerLeave
-        text 0,747.7 233.33x15.6 "Cyan: bar" #cbb994
-      box 248.33,746.33 36.67x18.33 #066f86 @keyPress @pointerPress
-    box 0,776.33 800x18.33 opacity=1
-      box 0,777.7 233.33x15.6 @pointerEnter @pointerLeave
-        text 0,777.7 233.33x15.6 "Cyan: text" #cbb994
-      box 248.33,776.33 36.67x18.33 #51d0f3 @keyPress @pointerPress
-    box 0,806.33 800x18.33 opacity=1
-      box 0,807.7 233.33x15.6 @pointerEnter @pointerLeave
-        text 0,807.7 233.33x15.6 "Blue: bar" #cbb994
-      box 248.33,806.33 36.67x18.33 #0255ab @keyPress @pointerPress
-    box 0,836.33 800x18.33 opacity=1
-      box 0,837.7 233.33x15.6 @pointerEnter @pointerLeave
-        text 0,837.7 233.33x15.6 "Blue: text" #cbb994
-      box 248.33,836.33 36.67x18.33 #569ffe @keyPress @pointerPress
-    box 0,866.33 800x18.33 opacity=1
-      box 0,867.7 233.33x15.6 @pointerEnter @pointerLeave
-        text 0,867.7 233.33x15.6 "Violet: bar" #cbb994
-      box 248.33,866.33 36.67x18.33 #7849a0 @keyPress @pointerPress
-    box 0,896.33 800x18.33 opacity=1
-      box 0,897.7 233.33x15.6 @pointerEnter @pointerLeave
-        text 0,897.7 233.33x15.6 "Violet: text" #cbb994
-      box 248.33,896.33 36.67x18.33 #d2a9fa @keyPress @pointerPress
-    box 0,926.33 800x18.33 opacity=1
-      box 0,927.7 233.33x15.6 @pointerEnter @pointerLeave
-        text 0,927.7 233.33x15.6 "Pink: bar" #cbb994
-      box 248.33,926.33 36.67x18.33 #9b3c6a @keyPress @pointerPress
-    box 0,956.33 800x18.33 opacity=1
-      box 0,957.7 233.33x15.6 @pointerEnter @pointerLeave
-        text 0,957.7 233.33x15.6 "Pink: text" #cbb994
-      box 248.33,956.33 36.67x18.33 #fa9dc4 @keyPress @pointerPress
-    box 0,986.33 800x18.33 opacity=1
-      box 0,987.7 233.33x15.6 @pointerEnter @pointerLeave
-        text 0,987.7 233.33x15.6 "Tan: bar" #cbb994
-      box 248.33,986.33 36.67x18.33 #7e5b36 @keyPress @pointerPress
-    box 0,1016.33 800x18.33 opacity=1
-      box 0,1017.7 233.33x15.6 @pointerEnter @pointerLeave
-        text 0,1017.7 233.33x15.6 "Tan: text" #cbb994
-      box 248.33,1016.33 36.67x18.33 #ddb68e @keyPress @pointerPress
-    box 0,1046.33 800x18.33 opacity=1
-      box 0,1047.7 233.33x15.6 @pointerEnter @pointerLeave
-        text 0,1047.7 233.33x15.6 "White: bar" #cbb994
-      box 248.33,1046.33 36.67x18.33 #ababab @keyPress @pointerPress
-    box 0,1076.33 800x18.33 opacity=1
-      box 0,1077.7 233.33x15.6 @pointerEnter @pointerLeave
-        text 0,1077.7 233.33x15.6 "White: text" #cbb994
-      box 248.33,1076.33 36.67x18.33 #eeeeee @keyPress @pointerPress
-    box 0,1106.33 800x18.33 opacity=1
-      box 0,1107.7 233.33x15.6 @pointerEnter @pointerLeave
-        text 0,1107.7 233.33x15.6 "Grey: bar" #cbb994
-      box 248.33,1106.33 36.67x18.33 #636363 @keyPress @pointerPress
-    box 0,1136.33 800x18.33 opacity=1
-      box 0,1137.7 233.33x15.6 @pointerEnter @pointerLeave
-        text 0,1137.7 233.33x15.6 "Grey: text" #cbb994
-      box 248.33,1136.33 36.67x18.33 #bdbdbd @keyPress @pointerPress
-  box 0,1169.67 800x375.6
-    box 0,1169.67 800x15.6
-      text 0,1169.67 87.78x15.6 "Class colours" #e8c35a
-      box 96.11,1177.05 703.89x0.83 Interface\AddOns\Ordaen\media\ctl-rule
-    box 0,1196.93 800x28.33 opacity=1
-      box 0,1203.3 233.33x15.6 @pointerEnter @pointerLeave
-        text 0,1203.3 233.33x15.6 "Warrior" #cbb994
-      box 248.33,1196.93 200x28.33
-        box 248.33,1196.93 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
-          text 263.33,1203.3 153.33x15.6 "Tan" #f0c860
-          box 425,1204.43 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-    box 0,1236.93 800x28.33 opacity=1
-      box 0,1243.3 233.33x15.6 @pointerEnter @pointerLeave
-        text 0,1243.3 233.33x15.6 "Paladin" #cbb994
-      box 248.33,1236.93 200x28.33
-        box 248.33,1236.93 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
-          text 263.33,1243.3 153.33x15.6 "Pink" #f0c860
-          box 425,1244.43 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-    box 0,1276.93 800x28.33 opacity=1
-      box 0,1283.3 233.33x15.6 @pointerEnter @pointerLeave
-        text 0,1283.3 233.33x15.6 "Hunter" #cbb994
-      box 248.33,1276.93 200x28.33
-        box 248.33,1276.93 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
-          text 263.33,1283.3 153.33x15.6 "Green" #f0c860
-          box 425,1284.43 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-    box 0,1316.93 800x28.33 opacity=1
-      box 0,1323.3 233.33x15.6 @pointerEnter @pointerLeave
-        text 0,1323.3 233.33x15.6 "Rogue" #cbb994
-      box 248.33,1316.93 200x28.33
-        box 248.33,1316.93 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
-          text 263.33,1323.3 153.33x15.6 "Yellow" #f0c860
-          box 425,1324.43 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-    box 0,1356.93 800x28.33 opacity=1
-      box 0,1363.3 233.33x15.6 @pointerEnter @pointerLeave
-        text 0,1363.3 233.33x15.6 "Priest" #cbb994
-      box 248.33,1356.93 200x28.33
-        box 248.33,1356.93 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
-          text 263.33,1363.3 153.33x15.6 "White" #f0c860
-          box 425,1364.43 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-    box 0,1396.93 800x28.33 opacity=1
-      box 0,1403.3 233.33x15.6 @pointerEnter @pointerLeave
-        text 0,1403.3 233.33x15.6 "Shaman" #cbb994
-      box 248.33,1396.93 200x28.33
-        box 248.33,1396.93 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
-          text 263.33,1403.3 153.33x15.6 "Blue" #f0c860
-          box 425,1404.43 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-    box 0,1436.93 800x28.33 opacity=1
-      box 0,1443.3 233.33x15.6 @pointerEnter @pointerLeave
-        text 0,1443.3 233.33x15.6 "Mage" #cbb994
-      box 248.33,1436.93 200x28.33
-        box 248.33,1436.93 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
-          text 263.33,1443.3 153.33x15.6 "Cyan" #f0c860
-          box 425,1444.43 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-    box 0,1476.93 800x28.33 opacity=1
-      box 0,1483.3 233.33x15.6 @pointerEnter @pointerLeave
-        text 0,1483.3 233.33x15.6 "Warlock" #cbb994
-      box 248.33,1476.93 200x28.33
-        box 248.33,1476.93 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
-          text 263.33,1483.3 153.33x15.6 "Violet" #f0c860
-          box 425,1484.43 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-    box 0,1516.93 800x28.33 opacity=1
-      box 0,1523.3 233.33x15.6 @pointerEnter @pointerLeave
-        text 0,1523.3 233.33x15.6 "Druid" #cbb994
-      box 248.33,1516.93 200x28.33
-        box 248.33,1516.93 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
-          text 263.33,1523.3 153.33x15.6 "Orange" #f0c860
-          box 425,1524.43 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+      box 50.76,7.38 749.24x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+    box 0,26.98 800x31.42
+      box 0,26.98 665.04x31.42
+        text 0,26.98 665.04x15.6 "Ordaen" #ffffff
+        text 0,44 665.04x14.4 "Blizzard's look in our style: bronze, dark wood, our own fonts" #a3977f
+      text 675,35.49 125x14.4 "In use" #a6e39a
+    box 0,69.78 800x31.42
+      box 0,69.78 665.04x31.42
+        text 0,69.78 665.04x15.6 "Minimal" #ffffff
+        text 0,86.8 665.04x14.4 "Flat, fine lines, hardly any textures or animations" #a3977f
+      box 675,71.32 125x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+        text 726.39,77.69 22.22x15.6 "Use" #ffd100
+  box 0,116.84 800x134.73
+    box 0,116.84 800x15.6
+      text 0,116.84 35.56x15.6 "Fonts" #e8c35a
+      box 44.09,124.23 755.91x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+    box 0,143.82 800x28.33 opacity=1
+      box 0,150.19 233.33x15.6 @pointerEnter @pointerLeave
+        text 0,150.19 233.33x15.6 "Text font" #cbb994
+      box 248.98,143.82 200x28.33
+        box 248.98,143.82 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
+          text 264.62,150.19 152.53x15.6 "Fira Sans" #f0c860
+          box 425.69,151.32 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+    box 0,183.53 800x28.33 opacity=1
+      box 0,189.9 233.33x15.6 @pointerEnter @pointerLeave
+        text 0,189.9 233.33x15.6 "Title font" #cbb994
+      box 248.98,183.53 200x28.33
+        box 248.98,183.53 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
+          text 264.62,189.9 152.53x15.6 "Alegreya SC" #f0c860
+          box 425.69,191.03 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+    box 0,223.24 800x28.33 opacity=1
+      box 0,229.61 233.33x15.6 @pointerEnter @pointerLeave
+        text 0,229.61 233.33x15.6 "Number font" #cbb994
+      box 248.98,223.24 200x28.33
+        box 248.98,223.24 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
+          text 264.62,229.61 152.53x15.6 "Fira Sans Condensed" #f0c860
+          box 425.69,230.74 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+  box 0,267.22 800x95.02
+    box 0,267.22 800x15.6
+      text 0,267.22 54.44x15.6 "Textures" #e8c35a
+      box 62.98,274.61 737.02x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+    box 0,294.2 800x28.33 opacity=1
+      box 0,300.57 233.33x15.6 @pointerEnter @pointerLeave
+        text 0,300.57 233.33x15.6 "Bar texture" #cbb994
+      box 248.98,294.2 200x28.33
+        box 248.98,294.2 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
+          text 264.62,300.57 152.53x15.6 "Flat" #f0c860
+          box 425.69,301.7 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+    box 0,333.91 800x28.33 opacity=1
+      box 0,340.28 233.33x15.6 @pointerEnter @pointerLeave
+        text 0,340.28 233.33x15.6 "Bar frame" #cbb994
+      box 248.98,333.91 200x28.33
+        box 248.98,333.91 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
+          text 264.62,340.28 152.53x15.6 "Bronze bezel" #f0c860
+          box 425.69,341.41 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+  box 0,377.89 800x55.31
+    box 0,377.89 800x15.6
+      text 0,377.89 67.78x15.6 "Animations" #e8c35a
+      box 76.31,385.27 723.69x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+    box 0,404.87 800x28.33 opacity=1
+      box 0,411.23 233.33x15.6 @pointerEnter @pointerLeave
+        text 0,411.23 233.33x15.6 "Animations" #cbb994
+      box 248.98,404.87 200x28.33
+        box 248.98,404.87 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
+          text 264.62,411.23 152.53x15.6 "Smooth" #f0c860
+          box 425.69,412.37 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+  box 0,448.84 800x698.96
+    box 0,448.84 800x15.6
+      text 0,448.84 47.78x15.6 "Colours" #e8c35a
+      box 56.31,456.23 743.69x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+    box 0,475.82 800x18.33 opacity=1
+      box 0,477.19 233.33x15.6 @pointerEnter @pointerLeave
+        text 0,477.19 233.33x15.6 "Accent colour" #cbb994
+      box 248.98,475.82 36.67x18.33 #b88f57 @keyPress @pointerPress
+    box 0,505.53 800x18.33 opacity=1
+      box 0,506.9 233.33x15.6 @pointerEnter @pointerLeave
+        text 0,506.9 233.33x15.6 "Red: bar" #cbb994
+      box 248.98,505.53 36.67x18.33 #bc010b @keyPress @pointerPress
+    box 0,535.24 800x18.33 opacity=1
+      box 0,536.61 233.33x15.6 @pointerEnter @pointerLeave
+        text 0,536.61 233.33x15.6 "Red: text" #cbb994
+      box 248.98,535.24 36.67x18.33 #ffa194 @keyPress @pointerPress
+    box 0,564.96 800x18.33 opacity=1
+      box 0,566.32 233.33x15.6 @pointerEnter @pointerLeave
+        text 0,566.32 233.33x15.6 "Orange: bar" #cbb994
+      box 248.98,564.96 36.67x18.33 #a24102 @keyPress @pointerPress
+    box 0,594.67 800x18.33 opacity=1
+      box 0,596.03 233.33x15.6 @pointerEnter @pointerLeave
+        text 0,596.03 233.33x15.6 "Orange: text" #cbb994
+      box 248.98,594.67 36.67x18.33 #fea47b @keyPress @pointerPress
+    box 0,624.38 800x18.33 opacity=1
+      box 0,625.74 233.33x15.6 @pointerEnter @pointerLeave
+        text 0,625.74 233.33x15.6 "Yellow: bar" #cbb994
+      box 248.98,624.38 36.67x18.33 #c79608 @keyPress @pointerPress
+    box 0,654.09 800x18.33 opacity=1
+      box 0,655.46 233.33x15.6 @pointerEnter @pointerLeave
+        text 0,655.46 233.33x15.6 "Yellow: text" #cbb994
+      box 248.98,654.09 36.67x18.33 #ffd988 @keyPress @pointerPress
+    box 0,683.8 800x18.33 opacity=1
+      box 0,685.17 233.33x15.6 @pointerEnter @pointerLeave
+        text 0,685.17 233.33x15.6 "Green: bar" #cbb994
+      box 248.98,683.8 36.67x18.33 #096c02 @keyPress @pointerPress
+    box 0,713.51 800x18.33 opacity=1
+      box 0,714.88 233.33x15.6 @pointerEnter @pointerLeave
+        text 0,714.88 233.33x15.6 "Green: text" #cbb994
+      box 248.98,713.51 36.67x18.33 #90d189 @keyPress @pointerPress
+    box 0,743.22 800x18.33 opacity=1
+      box 0,744.59 233.33x15.6 @pointerEnter @pointerLeave
+        text 0,744.59 233.33x15.6 "Cyan: bar" #cbb994
+      box 248.98,743.22 36.67x18.33 #066f86 @keyPress @pointerPress
+    box 0,772.93 800x18.33 opacity=1
+      box 0,774.3 233.33x15.6 @pointerEnter @pointerLeave
+        text 0,774.3 233.33x15.6 "Cyan: text" #cbb994
+      box 248.98,772.93 36.67x18.33 #51d0f3 @keyPress @pointerPress
+    box 0,802.64 800x18.33 opacity=1
+      box 0,804.01 233.33x15.6 @pointerEnter @pointerLeave
+        text 0,804.01 233.33x15.6 "Blue: bar" #cbb994
+      box 248.98,802.64 36.67x18.33 #0255ab @keyPress @pointerPress
+    box 0,832.36 800x18.33 opacity=1
+      box 0,833.72 233.33x15.6 @pointerEnter @pointerLeave
+        text 0,833.72 233.33x15.6 "Blue: text" #cbb994
+      box 248.98,832.36 36.67x18.33 #569ffe @keyPress @pointerPress
+    box 0,862.07 800x18.33 opacity=1
+      box 0,863.43 233.33x15.6 @pointerEnter @pointerLeave
+        text 0,863.43 233.33x15.6 "Violet: bar" #cbb994
+      box 248.98,862.07 36.67x18.33 #7849a0 @keyPress @pointerPress
+    box 0,891.78 800x18.33 opacity=1
+      box 0,893.14 233.33x15.6 @pointerEnter @pointerLeave
+        text 0,893.14 233.33x15.6 "Violet: text" #cbb994
+      box 248.98,891.78 36.67x18.33 #d2a9fa @keyPress @pointerPress
+    box 0,921.49 800x18.33 opacity=1
+      box 0,922.86 233.33x15.6 @pointerEnter @pointerLeave
+        text 0,922.86 233.33x15.6 "Pink: bar" #cbb994
+      box 248.98,921.49 36.67x18.33 #9b3c6a @keyPress @pointerPress
+    box 0,951.2 800x18.33 opacity=1
+      box 0,952.57 233.33x15.6 @pointerEnter @pointerLeave
+        text 0,952.57 233.33x15.6 "Pink: text" #cbb994
+      box 248.98,951.2 36.67x18.33 #fa9dc4 @keyPress @pointerPress
+    box 0,980.91 800x18.33 opacity=1
+      box 0,982.28 233.33x15.6 @pointerEnter @pointerLeave
+        text 0,982.28 233.33x15.6 "Tan: bar" #cbb994
+      box 248.98,980.91 36.67x18.33 #7e5b36 @keyPress @pointerPress
+    box 0,1010.62 800x18.33 opacity=1
+      box 0,1011.99 233.33x15.6 @pointerEnter @pointerLeave
+        text 0,1011.99 233.33x15.6 "Tan: text" #cbb994
+      box 248.98,1010.62 36.67x18.33 #ddb68e @keyPress @pointerPress
+    box 0,1040.33 800x18.33 opacity=1
+      box 0,1041.7 233.33x15.6 @pointerEnter @pointerLeave
+        text 0,1041.7 233.33x15.6 "White: bar" #cbb994
+      box 248.98,1040.33 36.67x18.33 #ababab @keyPress @pointerPress
+    box 0,1070.04 800x18.33 opacity=1
+      box 0,1071.41 233.33x15.6 @pointerEnter @pointerLeave
+        text 0,1071.41 233.33x15.6 "White: text" #cbb994
+      box 248.98,1070.04 36.67x18.33 #eeeeee @keyPress @pointerPress
+    box 0,1099.76 800x18.33 opacity=1
+      box 0,1101.12 233.33x15.6 @pointerEnter @pointerLeave
+        text 0,1101.12 233.33x15.6 "Grey: bar" #cbb994
+      box 248.98,1099.76 36.67x18.33 #636363 @keyPress @pointerPress
+    box 0,1129.47 800x18.33 opacity=1
+      box 0,1130.83 233.33x15.6 @pointerEnter @pointerLeave
+        text 0,1130.83 233.33x15.6 "Grey: text" #cbb994
+      box 248.98,1129.47 36.67x18.33 #bdbdbd @keyPress @pointerPress
+  box 0,1163.44 800x373
+    box 0,1163.44 800x15.6
+      text 0,1163.44 87.78x15.6 "Class colours" #e8c35a
+      box 96.31,1170.83 703.69x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+    box 0,1190.42 800x28.33 opacity=1
+      box 0,1196.79 233.33x15.6 @pointerEnter @pointerLeave
+        text 0,1196.79 233.33x15.6 "Warrior" #cbb994
+      box 248.98,1190.42 200x28.33
+        box 248.98,1190.42 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
+          text 264.62,1196.79 152.53x15.6 "Tan" #f0c860
+          box 425.69,1197.92 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+    box 0,1230.13 800x28.33 opacity=1
+      box 0,1236.5 233.33x15.6 @pointerEnter @pointerLeave
+        text 0,1236.5 233.33x15.6 "Paladin" #cbb994
+      box 248.98,1230.13 200x28.33
+        box 248.98,1230.13 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
+          text 264.62,1236.5 152.53x15.6 "Pink" #f0c860
+          box 425.69,1237.63 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+    box 0,1269.84 800x28.33 opacity=1
+      box 0,1276.21 233.33x15.6 @pointerEnter @pointerLeave
+        text 0,1276.21 233.33x15.6 "Hunter" #cbb994
+      box 248.98,1269.84 200x28.33
+        box 248.98,1269.84 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
+          text 264.62,1276.21 152.53x15.6 "Green" #f0c860
+          box 425.69,1277.34 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+    box 0,1309.56 800x28.33 opacity=1
+      box 0,1315.92 233.33x15.6 @pointerEnter @pointerLeave
+        text 0,1315.92 233.33x15.6 "Rogue" #cbb994
+      box 248.98,1309.56 200x28.33
+        box 248.98,1309.56 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
+          text 264.62,1315.92 152.53x15.6 "Yellow" #f0c860
+          box 425.69,1317.06 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+    box 0,1349.27 800x28.33 opacity=1
+      box 0,1355.63 233.33x15.6 @pointerEnter @pointerLeave
+        text 0,1355.63 233.33x15.6 "Priest" #cbb994
+      box 248.98,1349.27 200x28.33
+        box 248.98,1349.27 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
+          text 264.62,1355.63 152.53x15.6 "White" #f0c860
+          box 425.69,1356.77 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+    box 0,1388.98 800x28.33 opacity=1
+      box 0,1395.34 233.33x15.6 @pointerEnter @pointerLeave
+        text 0,1395.34 233.33x15.6 "Shaman" #cbb994
+      box 248.98,1388.98 200x28.33
+        box 248.98,1388.98 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
+          text 264.62,1395.34 152.53x15.6 "Blue" #f0c860
+          box 425.69,1396.48 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+    box 0,1428.69 800x28.33 opacity=1
+      box 0,1435.06 233.33x15.6 @pointerEnter @pointerLeave
+        text 0,1435.06 233.33x15.6 "Mage" #cbb994
+      box 248.98,1428.69 200x28.33
+        box 248.98,1428.69 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
+          text 264.62,1435.06 152.53x15.6 "Cyan" #f0c860
+          box 425.69,1436.19 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+    box 0,1468.4 800x28.33 opacity=1
+      box 0,1474.77 233.33x15.6 @pointerEnter @pointerLeave
+        text 0,1474.77 233.33x15.6 "Warlock" #cbb994
+      box 248.98,1468.4 200x28.33
+        box 248.98,1468.4 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
+          text 264.62,1474.77 152.53x15.6 "Violet" #f0c860
+          box 425.69,1475.9 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+    box 0,1508.11 800x28.33 opacity=1
+      box 0,1514.48 233.33x15.6 @pointerEnter @pointerLeave
+        text 0,1514.48 233.33x15.6 "Druid" #cbb994
+      box 248.98,1508.11 200x28.33
+        box 248.98,1508.11 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
+          text 264.62,1514.48 152.53x15.6 "Orange" #f0c860
+          box 425.69,1515.61 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
 
 steps 1; the look's preset minimal; numbers drawn with Interface\AddOns\Ordaen\media\fonts\FiraSansCondensed-Medium.ttf
 steps 1; the look's preset minimal; numbers drawn with Interface\AddOns\Ordaen\media\fonts\FiraSansCondensed-Medium.ttf
 steps 2; the look's preset none; numbers drawn with Interface\AddOns\Ordaen\media\fonts\FiraSansCondensed-Medium.ttf
 -- Minimal chosen, then its accent changed: no preset is the look
-box 0,0 800x1545.27
-  box 0,0 800x102.27
+box 0,0 800x1536.44
+  box 0,0 800x101.2
     box 0,0 800x15.6
       text 0,0 42.22x15.6 "Themes" #e8c35a
-      box 50.56,7.38 749.44x0.83 Interface\AddOns\Ordaen\media\ctl-rule
-    box 0,27.27 800x31.67
-      box 0,27.27 665x31.67
-        text 0,27.27 665x15.6 "Ordaen" #ffffff
-        text 0,44.53 665x14.4 "Blizzard's look in our style: bronze, dark wood, our own fonts" #a3977f
-      box 675,28.93 125x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-        text 726.39,35.3 22.22x15.6 "Use" #ffd100
-    box 0,70.6 800x31.67
-      box 0,70.6 665x31.67
-        text 0,70.6 665x15.6 "Minimal" #ffffff
-        text 0,87.87 665x14.4 "Flat, fine lines, hardly any textures or animations" #a3977f
-      box 675,72.27 125x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-        text 726.39,78.63 22.22x15.6 "Use" #ffd100
-  box 0,117.27 800x135.6
-    box 0,117.27 800x15.6
-      text 0,117.27 35.56x15.6 "Fonts" #e8c35a
-      box 43.89,124.65 756.11x0.83 Interface\AddOns\Ordaen\media\ctl-rule
-    box 0,144.53 800x28.33 opacity=1
-      box 0,150.9 233.33x15.6 @pointerEnter @pointerLeave
-        text 0,150.9 233.33x15.6 "Text font" #cbb994
-      box 248.33,144.53 200x28.33
-        box 248.33,144.53 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
-          text 263.33,150.9 153.33x15.6 "Fira Sans" #f0c860
-          box 425,152.03 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-    box 0,184.53 800x28.33 opacity=1
-      box 0,190.9 233.33x15.6 @pointerEnter @pointerLeave
-        text 0,190.9 233.33x15.6 "Title font" #cbb994
-      box 248.33,184.53 200x28.33
-        box 248.33,184.53 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
-          text 263.33,190.9 153.33x15.6 "Fira Sans" #f0c860
-          box 425,192.03 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-    box 0,224.53 800x28.33 opacity=1
-      box 0,230.9 233.33x15.6 @pointerEnter @pointerLeave
-        text 0,230.9 233.33x15.6 "Number font" #cbb994
-      box 248.33,224.53 200x28.33
-        box 248.33,224.53 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
-          text 263.33,230.9 153.33x15.6 "Fira Sans Condensed" #f0c860
-          box 425,232.03 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-  box 0,267.87 800x95.6
-    box 0,267.87 800x15.6
-      text 0,267.87 54.44x15.6 "Textures" #e8c35a
-      box 62.78,275.25 737.22x0.83 Interface\AddOns\Ordaen\media\ctl-rule
-    box 0,295.13 800x28.33 opacity=1
-      box 0,301.5 233.33x15.6 @pointerEnter @pointerLeave
-        text 0,301.5 233.33x15.6 "Bar texture" #cbb994
-      box 248.33,295.13 200x28.33
-        box 248.33,295.13 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
-          text 263.33,301.5 153.33x15.6 "Flat" #f0c860
-          box 425,302.63 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-    box 0,335.13 800x28.33 opacity=1
-      box 0,341.5 233.33x15.6 @pointerEnter @pointerLeave
-        text 0,341.5 233.33x15.6 "Bar frame" #cbb994
-      box 248.33,335.13 200x28.33
-        box 248.33,335.13 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
-          text 263.33,341.5 153.33x15.6 "Bronze bezel" #f0c860
-          box 425,342.63 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-  box 0,378.47 800x55.6
-    box 0,378.47 800x15.6
-      text 0,378.47 67.78x15.6 "Animations" #e8c35a
-      box 76.11,385.85 723.89x0.83 Interface\AddOns\Ordaen\media\ctl-rule
-    box 0,405.73 800x28.33 opacity=1
-      box 0,412.1 233.33x15.6 @pointerEnter @pointerLeave
-        text 0,412.1 233.33x15.6 "Animations" #cbb994
-      box 248.33,405.73 200x28.33
-        box 248.33,405.73 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
-          text 263.33,412.1 153.33x15.6 "Off" #f0c860
-          box 425,413.23 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-  box 0,449.07 800x705.6
-    box 0,449.07 800x15.6
-      text 0,449.07 47.78x15.6 "Colours" #e8c35a
-      box 56.11,456.45 743.89x0.83 Interface\AddOns\Ordaen\media\ctl-rule
-    box 0,476.33 800x18.33 opacity=1
-      box 0,477.7 233.33x15.6 @pointerEnter @pointerLeave
-        text 0,477.7 233.33x15.6 "Accent colour" #cbb994
-      box 248.33,476.33 36.67x18.33 #0080ff @keyPress @pointerPress
-    box 0,506.33 800x18.33 opacity=1
-      box 0,507.7 233.33x15.6 @pointerEnter @pointerLeave
-        text 0,507.7 233.33x15.6 "Red: bar" #cbb994
-      box 248.33,506.33 36.67x18.33 #bc010b @keyPress @pointerPress
-    box 0,536.33 800x18.33 opacity=1
-      box 0,537.7 233.33x15.6 @pointerEnter @pointerLeave
-        text 0,537.7 233.33x15.6 "Red: text" #cbb994
-      box 248.33,536.33 36.67x18.33 #ffa194 @keyPress @pointerPress
-    box 0,566.33 800x18.33 opacity=1
-      box 0,567.7 233.33x15.6 @pointerEnter @pointerLeave
-        text 0,567.7 233.33x15.6 "Orange: bar" #cbb994
-      box 248.33,566.33 36.67x18.33 #a24102 @keyPress @pointerPress
-    box 0,596.33 800x18.33 opacity=1
-      box 0,597.7 233.33x15.6 @pointerEnter @pointerLeave
-        text 0,597.7 233.33x15.6 "Orange: text" #cbb994
-      box 248.33,596.33 36.67x18.33 #fea47b @keyPress @pointerPress
-    box 0,626.33 800x18.33 opacity=1
-      box 0,627.7 233.33x15.6 @pointerEnter @pointerLeave
-        text 0,627.7 233.33x15.6 "Yellow: bar" #cbb994
-      box 248.33,626.33 36.67x18.33 #c79608 @keyPress @pointerPress
-    box 0,656.33 800x18.33 opacity=1
-      box 0,657.7 233.33x15.6 @pointerEnter @pointerLeave
-        text 0,657.7 233.33x15.6 "Yellow: text" #cbb994
-      box 248.33,656.33 36.67x18.33 #ffd988 @keyPress @pointerPress
-    box 0,686.33 800x18.33 opacity=1
-      box 0,687.7 233.33x15.6 @pointerEnter @pointerLeave
-        text 0,687.7 233.33x15.6 "Green: bar" #cbb994
-      box 248.33,686.33 36.67x18.33 #096c02 @keyPress @pointerPress
-    box 0,716.33 800x18.33 opacity=1
-      box 0,717.7 233.33x15.6 @pointerEnter @pointerLeave
-        text 0,717.7 233.33x15.6 "Green: text" #cbb994
-      box 248.33,716.33 36.67x18.33 #90d189 @keyPress @pointerPress
-    box 0,746.33 800x18.33 opacity=1
-      box 0,747.7 233.33x15.6 @pointerEnter @pointerLeave
-        text 0,747.7 233.33x15.6 "Cyan: bar" #cbb994
-      box 248.33,746.33 36.67x18.33 #066f86 @keyPress @pointerPress
-    box 0,776.33 800x18.33 opacity=1
-      box 0,777.7 233.33x15.6 @pointerEnter @pointerLeave
-        text 0,777.7 233.33x15.6 "Cyan: text" #cbb994
-      box 248.33,776.33 36.67x18.33 #51d0f3 @keyPress @pointerPress
-    box 0,806.33 800x18.33 opacity=1
-      box 0,807.7 233.33x15.6 @pointerEnter @pointerLeave
-        text 0,807.7 233.33x15.6 "Blue: bar" #cbb994
-      box 248.33,806.33 36.67x18.33 #0255ab @keyPress @pointerPress
-    box 0,836.33 800x18.33 opacity=1
-      box 0,837.7 233.33x15.6 @pointerEnter @pointerLeave
-        text 0,837.7 233.33x15.6 "Blue: text" #cbb994
-      box 248.33,836.33 36.67x18.33 #569ffe @keyPress @pointerPress
-    box 0,866.33 800x18.33 opacity=1
-      box 0,867.7 233.33x15.6 @pointerEnter @pointerLeave
-        text 0,867.7 233.33x15.6 "Violet: bar" #cbb994
-      box 248.33,866.33 36.67x18.33 #7849a0 @keyPress @pointerPress
-    box 0,896.33 800x18.33 opacity=1
-      box 0,897.7 233.33x15.6 @pointerEnter @pointerLeave
-        text 0,897.7 233.33x15.6 "Violet: text" #cbb994
-      box 248.33,896.33 36.67x18.33 #d2a9fa @keyPress @pointerPress
-    box 0,926.33 800x18.33 opacity=1
-      box 0,927.7 233.33x15.6 @pointerEnter @pointerLeave
-        text 0,927.7 233.33x15.6 "Pink: bar" #cbb994
-      box 248.33,926.33 36.67x18.33 #9b3c6a @keyPress @pointerPress
-    box 0,956.33 800x18.33 opacity=1
-      box 0,957.7 233.33x15.6 @pointerEnter @pointerLeave
-        text 0,957.7 233.33x15.6 "Pink: text" #cbb994
-      box 248.33,956.33 36.67x18.33 #fa9dc4 @keyPress @pointerPress
-    box 0,986.33 800x18.33 opacity=1
-      box 0,987.7 233.33x15.6 @pointerEnter @pointerLeave
-        text 0,987.7 233.33x15.6 "Tan: bar" #cbb994
-      box 248.33,986.33 36.67x18.33 #7e5b36 @keyPress @pointerPress
-    box 0,1016.33 800x18.33 opacity=1
-      box 0,1017.7 233.33x15.6 @pointerEnter @pointerLeave
-        text 0,1017.7 233.33x15.6 "Tan: text" #cbb994
-      box 248.33,1016.33 36.67x18.33 #ddb68e @keyPress @pointerPress
-    box 0,1046.33 800x18.33 opacity=1
-      box 0,1047.7 233.33x15.6 @pointerEnter @pointerLeave
-        text 0,1047.7 233.33x15.6 "White: bar" #cbb994
-      box 248.33,1046.33 36.67x18.33 #ababab @keyPress @pointerPress
-    box 0,1076.33 800x18.33 opacity=1
-      box 0,1077.7 233.33x15.6 @pointerEnter @pointerLeave
-        text 0,1077.7 233.33x15.6 "White: text" #cbb994
-      box 248.33,1076.33 36.67x18.33 #eeeeee @keyPress @pointerPress
-    box 0,1106.33 800x18.33 opacity=1
-      box 0,1107.7 233.33x15.6 @pointerEnter @pointerLeave
-        text 0,1107.7 233.33x15.6 "Grey: bar" #cbb994
-      box 248.33,1106.33 36.67x18.33 #636363 @keyPress @pointerPress
-    box 0,1136.33 800x18.33 opacity=1
-      box 0,1137.7 233.33x15.6 @pointerEnter @pointerLeave
-        text 0,1137.7 233.33x15.6 "Grey: text" #cbb994
-      box 248.33,1136.33 36.67x18.33 #bdbdbd @keyPress @pointerPress
-  box 0,1169.67 800x375.6
-    box 0,1169.67 800x15.6
-      text 0,1169.67 87.78x15.6 "Class colours" #e8c35a
-      box 96.11,1177.05 703.89x0.83 Interface\AddOns\Ordaen\media\ctl-rule
-    box 0,1196.93 800x28.33 opacity=1
-      box 0,1203.3 233.33x15.6 @pointerEnter @pointerLeave
-        text 0,1203.3 233.33x15.6 "Warrior" #cbb994
-      box 248.33,1196.93 200x28.33
-        box 248.33,1196.93 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
-          text 263.33,1203.3 153.33x15.6 "Tan" #f0c860
-          box 425,1204.43 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-    box 0,1236.93 800x28.33 opacity=1
-      box 0,1243.3 233.33x15.6 @pointerEnter @pointerLeave
-        text 0,1243.3 233.33x15.6 "Paladin" #cbb994
-      box 248.33,1236.93 200x28.33
-        box 248.33,1236.93 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
-          text 263.33,1243.3 153.33x15.6 "Pink" #f0c860
-          box 425,1244.43 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-    box 0,1276.93 800x28.33 opacity=1
-      box 0,1283.3 233.33x15.6 @pointerEnter @pointerLeave
-        text 0,1283.3 233.33x15.6 "Hunter" #cbb994
-      box 248.33,1276.93 200x28.33
-        box 248.33,1276.93 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
-          text 263.33,1283.3 153.33x15.6 "Green" #f0c860
-          box 425,1284.43 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-    box 0,1316.93 800x28.33 opacity=1
-      box 0,1323.3 233.33x15.6 @pointerEnter @pointerLeave
-        text 0,1323.3 233.33x15.6 "Rogue" #cbb994
-      box 248.33,1316.93 200x28.33
-        box 248.33,1316.93 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
-          text 263.33,1323.3 153.33x15.6 "Yellow" #f0c860
-          box 425,1324.43 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-    box 0,1356.93 800x28.33 opacity=1
-      box 0,1363.3 233.33x15.6 @pointerEnter @pointerLeave
-        text 0,1363.3 233.33x15.6 "Priest" #cbb994
-      box 248.33,1356.93 200x28.33
-        box 248.33,1356.93 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
-          text 263.33,1363.3 153.33x15.6 "White" #f0c860
-          box 425,1364.43 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-    box 0,1396.93 800x28.33 opacity=1
-      box 0,1403.3 233.33x15.6 @pointerEnter @pointerLeave
-        text 0,1403.3 233.33x15.6 "Shaman" #cbb994
-      box 248.33,1396.93 200x28.33
-        box 248.33,1396.93 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
-          text 263.33,1403.3 153.33x15.6 "Blue" #f0c860
-          box 425,1404.43 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-    box 0,1436.93 800x28.33 opacity=1
-      box 0,1443.3 233.33x15.6 @pointerEnter @pointerLeave
-        text 0,1443.3 233.33x15.6 "Mage" #cbb994
-      box 248.33,1436.93 200x28.33
-        box 248.33,1436.93 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
-          text 263.33,1443.3 153.33x15.6 "Cyan" #f0c860
-          box 425,1444.43 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-    box 0,1476.93 800x28.33 opacity=1
-      box 0,1483.3 233.33x15.6 @pointerEnter @pointerLeave
-        text 0,1483.3 233.33x15.6 "Warlock" #cbb994
-      box 248.33,1476.93 200x28.33
-        box 248.33,1476.93 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
-          text 263.33,1483.3 153.33x15.6 "Violet" #f0c860
-          box 425,1484.43 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-    box 0,1516.93 800x28.33 opacity=1
-      box 0,1523.3 233.33x15.6 @pointerEnter @pointerLeave
-        text 0,1523.3 233.33x15.6 "Druid" #cbb994
-      box 248.33,1516.93 200x28.33
-        box 248.33,1516.93 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
-          text 263.33,1523.3 153.33x15.6 "Orange" #f0c860
-          box 425,1524.43 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+      box 50.76,7.38 749.24x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+    box 0,26.98 800x31.42
+      box 0,26.98 665.04x31.42
+        text 0,26.98 665.04x15.6 "Ordaen" #ffffff
+        text 0,44 665.04x14.4 "Blizzard's look in our style: bronze, dark wood, our own fonts" #a3977f
+      box 675,28.52 125x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+        text 726.39,34.89 22.22x15.6 "Use" #ffd100
+    box 0,69.78 800x31.42
+      box 0,69.78 665.04x31.42
+        text 0,69.78 665.04x15.6 "Minimal" #ffffff
+        text 0,86.8 665.04x14.4 "Flat, fine lines, hardly any textures or animations" #a3977f
+      box 675,71.32 125x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+        text 726.39,77.69 22.22x15.6 "Use" #ffd100
+  box 0,116.84 800x134.73
+    box 0,116.84 800x15.6
+      text 0,116.84 35.56x15.6 "Fonts" #e8c35a
+      box 44.09,124.23 755.91x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+    box 0,143.82 800x28.33 opacity=1
+      box 0,150.19 233.33x15.6 @pointerEnter @pointerLeave
+        text 0,150.19 233.33x15.6 "Text font" #cbb994
+      box 248.98,143.82 200x28.33
+        box 248.98,143.82 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
+          text 264.62,150.19 152.53x15.6 "Fira Sans" #f0c860
+          box 425.69,151.32 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+    box 0,183.53 800x28.33 opacity=1
+      box 0,189.9 233.33x15.6 @pointerEnter @pointerLeave
+        text 0,189.9 233.33x15.6 "Title font" #cbb994
+      box 248.98,183.53 200x28.33
+        box 248.98,183.53 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
+          text 264.62,189.9 152.53x15.6 "Fira Sans" #f0c860
+          box 425.69,191.03 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+    box 0,223.24 800x28.33 opacity=1
+      box 0,229.61 233.33x15.6 @pointerEnter @pointerLeave
+        text 0,229.61 233.33x15.6 "Number font" #cbb994
+      box 248.98,223.24 200x28.33
+        box 248.98,223.24 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
+          text 264.62,229.61 152.53x15.6 "Fira Sans Condensed" #f0c860
+          box 425.69,230.74 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+  box 0,267.22 800x95.02
+    box 0,267.22 800x15.6
+      text 0,267.22 54.44x15.6 "Textures" #e8c35a
+      box 62.98,274.61 737.02x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+    box 0,294.2 800x28.33 opacity=1
+      box 0,300.57 233.33x15.6 @pointerEnter @pointerLeave
+        text 0,300.57 233.33x15.6 "Bar texture" #cbb994
+      box 248.98,294.2 200x28.33
+        box 248.98,294.2 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
+          text 264.62,300.57 152.53x15.6 "Flat" #f0c860
+          box 425.69,301.7 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+    box 0,333.91 800x28.33 opacity=1
+      box 0,340.28 233.33x15.6 @pointerEnter @pointerLeave
+        text 0,340.28 233.33x15.6 "Bar frame" #cbb994
+      box 248.98,333.91 200x28.33
+        box 248.98,333.91 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
+          text 264.62,340.28 152.53x15.6 "Bronze bezel" #f0c860
+          box 425.69,341.41 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+  box 0,377.89 800x55.31
+    box 0,377.89 800x15.6
+      text 0,377.89 67.78x15.6 "Animations" #e8c35a
+      box 76.31,385.27 723.69x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+    box 0,404.87 800x28.33 opacity=1
+      box 0,411.23 233.33x15.6 @pointerEnter @pointerLeave
+        text 0,411.23 233.33x15.6 "Animations" #cbb994
+      box 248.98,404.87 200x28.33
+        box 248.98,404.87 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
+          text 264.62,411.23 152.53x15.6 "Off" #f0c860
+          box 425.69,412.37 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+  box 0,448.84 800x698.96
+    box 0,448.84 800x15.6
+      text 0,448.84 47.78x15.6 "Colours" #e8c35a
+      box 56.31,456.23 743.69x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+    box 0,475.82 800x18.33 opacity=1
+      box 0,477.19 233.33x15.6 @pointerEnter @pointerLeave
+        text 0,477.19 233.33x15.6 "Accent colour" #cbb994
+      box 248.98,475.82 36.67x18.33 #0080ff @keyPress @pointerPress
+    box 0,505.53 800x18.33 opacity=1
+      box 0,506.9 233.33x15.6 @pointerEnter @pointerLeave
+        text 0,506.9 233.33x15.6 "Red: bar" #cbb994
+      box 248.98,505.53 36.67x18.33 #bc010b @keyPress @pointerPress
+    box 0,535.24 800x18.33 opacity=1
+      box 0,536.61 233.33x15.6 @pointerEnter @pointerLeave
+        text 0,536.61 233.33x15.6 "Red: text" #cbb994
+      box 248.98,535.24 36.67x18.33 #ffa194 @keyPress @pointerPress
+    box 0,564.96 800x18.33 opacity=1
+      box 0,566.32 233.33x15.6 @pointerEnter @pointerLeave
+        text 0,566.32 233.33x15.6 "Orange: bar" #cbb994
+      box 248.98,564.96 36.67x18.33 #a24102 @keyPress @pointerPress
+    box 0,594.67 800x18.33 opacity=1
+      box 0,596.03 233.33x15.6 @pointerEnter @pointerLeave
+        text 0,596.03 233.33x15.6 "Orange: text" #cbb994
+      box 248.98,594.67 36.67x18.33 #fea47b @keyPress @pointerPress
+    box 0,624.38 800x18.33 opacity=1
+      box 0,625.74 233.33x15.6 @pointerEnter @pointerLeave
+        text 0,625.74 233.33x15.6 "Yellow: bar" #cbb994
+      box 248.98,624.38 36.67x18.33 #c79608 @keyPress @pointerPress
+    box 0,654.09 800x18.33 opacity=1
+      box 0,655.46 233.33x15.6 @pointerEnter @pointerLeave
+        text 0,655.46 233.33x15.6 "Yellow: text" #cbb994
+      box 248.98,654.09 36.67x18.33 #ffd988 @keyPress @pointerPress
+    box 0,683.8 800x18.33 opacity=1
+      box 0,685.17 233.33x15.6 @pointerEnter @pointerLeave
+        text 0,685.17 233.33x15.6 "Green: bar" #cbb994
+      box 248.98,683.8 36.67x18.33 #096c02 @keyPress @pointerPress
+    box 0,713.51 800x18.33 opacity=1
+      box 0,714.88 233.33x15.6 @pointerEnter @pointerLeave
+        text 0,714.88 233.33x15.6 "Green: text" #cbb994
+      box 248.98,713.51 36.67x18.33 #90d189 @keyPress @pointerPress
+    box 0,743.22 800x18.33 opacity=1
+      box 0,744.59 233.33x15.6 @pointerEnter @pointerLeave
+        text 0,744.59 233.33x15.6 "Cyan: bar" #cbb994
+      box 248.98,743.22 36.67x18.33 #066f86 @keyPress @pointerPress
+    box 0,772.93 800x18.33 opacity=1
+      box 0,774.3 233.33x15.6 @pointerEnter @pointerLeave
+        text 0,774.3 233.33x15.6 "Cyan: text" #cbb994
+      box 248.98,772.93 36.67x18.33 #51d0f3 @keyPress @pointerPress
+    box 0,802.64 800x18.33 opacity=1
+      box 0,804.01 233.33x15.6 @pointerEnter @pointerLeave
+        text 0,804.01 233.33x15.6 "Blue: bar" #cbb994
+      box 248.98,802.64 36.67x18.33 #0255ab @keyPress @pointerPress
+    box 0,832.36 800x18.33 opacity=1
+      box 0,833.72 233.33x15.6 @pointerEnter @pointerLeave
+        text 0,833.72 233.33x15.6 "Blue: text" #cbb994
+      box 248.98,832.36 36.67x18.33 #569ffe @keyPress @pointerPress
+    box 0,862.07 800x18.33 opacity=1
+      box 0,863.43 233.33x15.6 @pointerEnter @pointerLeave
+        text 0,863.43 233.33x15.6 "Violet: bar" #cbb994
+      box 248.98,862.07 36.67x18.33 #7849a0 @keyPress @pointerPress
+    box 0,891.78 800x18.33 opacity=1
+      box 0,893.14 233.33x15.6 @pointerEnter @pointerLeave
+        text 0,893.14 233.33x15.6 "Violet: text" #cbb994
+      box 248.98,891.78 36.67x18.33 #d2a9fa @keyPress @pointerPress
+    box 0,921.49 800x18.33 opacity=1
+      box 0,922.86 233.33x15.6 @pointerEnter @pointerLeave
+        text 0,922.86 233.33x15.6 "Pink: bar" #cbb994
+      box 248.98,921.49 36.67x18.33 #9b3c6a @keyPress @pointerPress
+    box 0,951.2 800x18.33 opacity=1
+      box 0,952.57 233.33x15.6 @pointerEnter @pointerLeave
+        text 0,952.57 233.33x15.6 "Pink: text" #cbb994
+      box 248.98,951.2 36.67x18.33 #fa9dc4 @keyPress @pointerPress
+    box 0,980.91 800x18.33 opacity=1
+      box 0,982.28 233.33x15.6 @pointerEnter @pointerLeave
+        text 0,982.28 233.33x15.6 "Tan: bar" #cbb994
+      box 248.98,980.91 36.67x18.33 #7e5b36 @keyPress @pointerPress
+    box 0,1010.62 800x18.33 opacity=1
+      box 0,1011.99 233.33x15.6 @pointerEnter @pointerLeave
+        text 0,1011.99 233.33x15.6 "Tan: text" #cbb994
+      box 248.98,1010.62 36.67x18.33 #ddb68e @keyPress @pointerPress
+    box 0,1040.33 800x18.33 opacity=1
+      box 0,1041.7 233.33x15.6 @pointerEnter @pointerLeave
+        text 0,1041.7 233.33x15.6 "White: bar" #cbb994
+      box 248.98,1040.33 36.67x18.33 #ababab @keyPress @pointerPress
+    box 0,1070.04 800x18.33 opacity=1
+      box 0,1071.41 233.33x15.6 @pointerEnter @pointerLeave
+        text 0,1071.41 233.33x15.6 "White: text" #cbb994
+      box 248.98,1070.04 36.67x18.33 #eeeeee @keyPress @pointerPress
+    box 0,1099.76 800x18.33 opacity=1
+      box 0,1101.12 233.33x15.6 @pointerEnter @pointerLeave
+        text 0,1101.12 233.33x15.6 "Grey: bar" #cbb994
+      box 248.98,1099.76 36.67x18.33 #636363 @keyPress @pointerPress
+    box 0,1129.47 800x18.33 opacity=1
+      box 0,1130.83 233.33x15.6 @pointerEnter @pointerLeave
+        text 0,1130.83 233.33x15.6 "Grey: text" #cbb994
+      box 248.98,1129.47 36.67x18.33 #bdbdbd @keyPress @pointerPress
+  box 0,1163.44 800x373
+    box 0,1163.44 800x15.6
+      text 0,1163.44 87.78x15.6 "Class colours" #e8c35a
+      box 96.31,1170.83 703.69x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+    box 0,1190.42 800x28.33 opacity=1
+      box 0,1196.79 233.33x15.6 @pointerEnter @pointerLeave
+        text 0,1196.79 233.33x15.6 "Warrior" #cbb994
+      box 248.98,1190.42 200x28.33
+        box 248.98,1190.42 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
+          text 264.62,1196.79 152.53x15.6 "Tan" #f0c860
+          box 425.69,1197.92 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+    box 0,1230.13 800x28.33 opacity=1
+      box 0,1236.5 233.33x15.6 @pointerEnter @pointerLeave
+        text 0,1236.5 233.33x15.6 "Paladin" #cbb994
+      box 248.98,1230.13 200x28.33
+        box 248.98,1230.13 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
+          text 264.62,1236.5 152.53x15.6 "Pink" #f0c860
+          box 425.69,1237.63 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+    box 0,1269.84 800x28.33 opacity=1
+      box 0,1276.21 233.33x15.6 @pointerEnter @pointerLeave
+        text 0,1276.21 233.33x15.6 "Hunter" #cbb994
+      box 248.98,1269.84 200x28.33
+        box 248.98,1269.84 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
+          text 264.62,1276.21 152.53x15.6 "Green" #f0c860
+          box 425.69,1277.34 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+    box 0,1309.56 800x28.33 opacity=1
+      box 0,1315.92 233.33x15.6 @pointerEnter @pointerLeave
+        text 0,1315.92 233.33x15.6 "Rogue" #cbb994
+      box 248.98,1309.56 200x28.33
+        box 248.98,1309.56 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
+          text 264.62,1315.92 152.53x15.6 "Yellow" #f0c860
+          box 425.69,1317.06 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+    box 0,1349.27 800x28.33 opacity=1
+      box 0,1355.63 233.33x15.6 @pointerEnter @pointerLeave
+        text 0,1355.63 233.33x15.6 "Priest" #cbb994
+      box 248.98,1349.27 200x28.33
+        box 248.98,1349.27 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
+          text 264.62,1355.63 152.53x15.6 "White" #f0c860
+          box 425.69,1356.77 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+    box 0,1388.98 800x28.33 opacity=1
+      box 0,1395.34 233.33x15.6 @pointerEnter @pointerLeave
+        text 0,1395.34 233.33x15.6 "Shaman" #cbb994
+      box 248.98,1388.98 200x28.33
+        box 248.98,1388.98 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
+          text 264.62,1395.34 152.53x15.6 "Blue" #f0c860
+          box 425.69,1396.48 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+    box 0,1428.69 800x28.33 opacity=1
+      box 0,1435.06 233.33x15.6 @pointerEnter @pointerLeave
+        text 0,1435.06 233.33x15.6 "Mage" #cbb994
+      box 248.98,1428.69 200x28.33
+        box 248.98,1428.69 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
+          text 264.62,1435.06 152.53x15.6 "Cyan" #f0c860
+          box 425.69,1436.19 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+    box 0,1468.4 800x28.33 opacity=1
+      box 0,1474.77 233.33x15.6 @pointerEnter @pointerLeave
+        text 0,1474.77 233.33x15.6 "Warlock" #cbb994
+      box 248.98,1468.4 200x28.33
+        box 248.98,1468.4 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
+          text 264.62,1474.77 152.53x15.6 "Violet" #f0c860
+          box 425.69,1475.9 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+    box 0,1508.11 800x28.33 opacity=1
+      box 0,1514.48 233.33x15.6 @pointerEnter @pointerLeave
+        text 0,1514.48 233.33x15.6 "Druid" #cbb994
+      box 248.98,1508.11 200x28.33
+        box 248.98,1508.11 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
+          text 264.62,1514.48 152.53x15.6 "Orange" #f0c860
+          box 425.69,1515.61 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
 asked: ColorPicker.open #9e9e9e
 asked: ColorPicker.open #9e9e9e
 
 steps 1; the look's preset minimal; numbers drawn with Interface\AddOns\Ordaen\media\fonts\FiraSansCondensed-Medium.ttf
 steps 0; the look's preset ordaen; numbers drawn with Interface\AddOns\Ordaen\media\fonts\FiraSansCondensed-Medium.ttf
 -- gone back: Ordaen's again
-box 0,0 800x1545.27
-  box 0,0 800x102.27
+box 0,0 800x1536.44
+  box 0,0 800x101.2
     box 0,0 800x15.6
       text 0,0 42.22x15.6 "Themes" #e8c35a
-      box 50.56,7.38 749.44x0.83 Interface\AddOns\Ordaen\media\ctl-rule
-    box 0,27.27 800x31.67
-      box 0,27.27 665x31.67
-        text 0,27.27 665x15.6 "Ordaen" #ffffff
-        text 0,44.53 665x14.4 "Blizzard's look in our style: bronze, dark wood, our own fonts" #a3977f
-      text 675,35.9 125x14.4 "In use" #a6e39a
-    box 0,70.6 800x31.67
-      box 0,70.6 665x31.67
-        text 0,70.6 665x15.6 "Minimal" #ffffff
-        text 0,87.87 665x14.4 "Flat, fine lines, hardly any textures or animations" #a3977f
-      box 675,72.27 125x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-        text 726.39,78.63 22.22x15.6 "Use" #ffd100
-  box 0,117.27 800x135.6
-    box 0,117.27 800x15.6
-      text 0,117.27 35.56x15.6 "Fonts" #e8c35a
-      box 43.89,124.65 756.11x0.83 Interface\AddOns\Ordaen\media\ctl-rule
-    box 0,144.53 800x28.33 opacity=1
-      box 0,150.9 233.33x15.6 @pointerEnter @pointerLeave
-        text 0,150.9 233.33x15.6 "Text font" #cbb994
-      box 248.33,144.53 200x28.33
-        box 248.33,144.53 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
-          text 263.33,150.9 153.33x15.6 "Fira Sans" #f0c860
-          box 425,152.03 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-    box 0,184.53 800x28.33 opacity=1
-      box 0,190.9 233.33x15.6 @pointerEnter @pointerLeave
-        text 0,190.9 233.33x15.6 "Title font" #cbb994
-      box 248.33,184.53 200x28.33
-        box 248.33,184.53 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
-          text 263.33,190.9 153.33x15.6 "Alegreya SC" #f0c860
-          box 425,192.03 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-    box 0,224.53 800x28.33 opacity=1
-      box 0,230.9 233.33x15.6 @pointerEnter @pointerLeave
-        text 0,230.9 233.33x15.6 "Number font" #cbb994
-      box 248.33,224.53 200x28.33
-        box 248.33,224.53 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
-          text 263.33,230.9 153.33x15.6 "Fira Sans Condensed" #f0c860
-          box 425,232.03 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-  box 0,267.87 800x95.6
-    box 0,267.87 800x15.6
-      text 0,267.87 54.44x15.6 "Textures" #e8c35a
-      box 62.78,275.25 737.22x0.83 Interface\AddOns\Ordaen\media\ctl-rule
-    box 0,295.13 800x28.33 opacity=1
-      box 0,301.5 233.33x15.6 @pointerEnter @pointerLeave
-        text 0,301.5 233.33x15.6 "Bar texture" #cbb994
-      box 248.33,295.13 200x28.33
-        box 248.33,295.13 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
-          text 263.33,301.5 153.33x15.6 "Flat" #f0c860
-          box 425,302.63 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-    box 0,335.13 800x28.33 opacity=1
-      box 0,341.5 233.33x15.6 @pointerEnter @pointerLeave
-        text 0,341.5 233.33x15.6 "Bar frame" #cbb994
-      box 248.33,335.13 200x28.33
-        box 248.33,335.13 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
-          text 263.33,341.5 153.33x15.6 "Bronze bezel" #f0c860
-          box 425,342.63 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-  box 0,378.47 800x55.6
-    box 0,378.47 800x15.6
-      text 0,378.47 67.78x15.6 "Animations" #e8c35a
-      box 76.11,385.85 723.89x0.83 Interface\AddOns\Ordaen\media\ctl-rule
-    box 0,405.73 800x28.33 opacity=1
-      box 0,412.1 233.33x15.6 @pointerEnter @pointerLeave
-        text 0,412.1 233.33x15.6 "Animations" #cbb994
-      box 248.33,405.73 200x28.33
-        box 248.33,405.73 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
-          text 263.33,412.1 153.33x15.6 "Smooth" #f0c860
-          box 425,413.23 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-  box 0,449.07 800x705.6
-    box 0,449.07 800x15.6
-      text 0,449.07 47.78x15.6 "Colours" #e8c35a
-      box 56.11,456.45 743.89x0.83 Interface\AddOns\Ordaen\media\ctl-rule
-    box 0,476.33 800x18.33 opacity=1
-      box 0,477.7 233.33x15.6 @pointerEnter @pointerLeave
-        text 0,477.7 233.33x15.6 "Accent colour" #cbb994
-      box 248.33,476.33 36.67x18.33 #b88f57 @keyPress @pointerPress
-    box 0,506.33 800x18.33 opacity=1
-      box 0,507.7 233.33x15.6 @pointerEnter @pointerLeave
-        text 0,507.7 233.33x15.6 "Red: bar" #cbb994
-      box 248.33,506.33 36.67x18.33 #bc010b @keyPress @pointerPress
-    box 0,536.33 800x18.33 opacity=1
-      box 0,537.7 233.33x15.6 @pointerEnter @pointerLeave
-        text 0,537.7 233.33x15.6 "Red: text" #cbb994
-      box 248.33,536.33 36.67x18.33 #ffa194 @keyPress @pointerPress
-    box 0,566.33 800x18.33 opacity=1
-      box 0,567.7 233.33x15.6 @pointerEnter @pointerLeave
-        text 0,567.7 233.33x15.6 "Orange: bar" #cbb994
-      box 248.33,566.33 36.67x18.33 #a24102 @keyPress @pointerPress
-    box 0,596.33 800x18.33 opacity=1
-      box 0,597.7 233.33x15.6 @pointerEnter @pointerLeave
-        text 0,597.7 233.33x15.6 "Orange: text" #cbb994
-      box 248.33,596.33 36.67x18.33 #fea47b @keyPress @pointerPress
-    box 0,626.33 800x18.33 opacity=1
-      box 0,627.7 233.33x15.6 @pointerEnter @pointerLeave
-        text 0,627.7 233.33x15.6 "Yellow: bar" #cbb994
-      box 248.33,626.33 36.67x18.33 #c79608 @keyPress @pointerPress
-    box 0,656.33 800x18.33 opacity=1
-      box 0,657.7 233.33x15.6 @pointerEnter @pointerLeave
-        text 0,657.7 233.33x15.6 "Yellow: text" #cbb994
-      box 248.33,656.33 36.67x18.33 #ffd988 @keyPress @pointerPress
-    box 0,686.33 800x18.33 opacity=1
-      box 0,687.7 233.33x15.6 @pointerEnter @pointerLeave
-        text 0,687.7 233.33x15.6 "Green: bar" #cbb994
-      box 248.33,686.33 36.67x18.33 #096c02 @keyPress @pointerPress
-    box 0,716.33 800x18.33 opacity=1
-      box 0,717.7 233.33x15.6 @pointerEnter @pointerLeave
-        text 0,717.7 233.33x15.6 "Green: text" #cbb994
-      box 248.33,716.33 36.67x18.33 #90d189 @keyPress @pointerPress
-    box 0,746.33 800x18.33 opacity=1
-      box 0,747.7 233.33x15.6 @pointerEnter @pointerLeave
-        text 0,747.7 233.33x15.6 "Cyan: bar" #cbb994
-      box 248.33,746.33 36.67x18.33 #066f86 @keyPress @pointerPress
-    box 0,776.33 800x18.33 opacity=1
-      box 0,777.7 233.33x15.6 @pointerEnter @pointerLeave
-        text 0,777.7 233.33x15.6 "Cyan: text" #cbb994
-      box 248.33,776.33 36.67x18.33 #51d0f3 @keyPress @pointerPress
-    box 0,806.33 800x18.33 opacity=1
-      box 0,807.7 233.33x15.6 @pointerEnter @pointerLeave
-        text 0,807.7 233.33x15.6 "Blue: bar" #cbb994
-      box 248.33,806.33 36.67x18.33 #0255ab @keyPress @pointerPress
-    box 0,836.33 800x18.33 opacity=1
-      box 0,837.7 233.33x15.6 @pointerEnter @pointerLeave
-        text 0,837.7 233.33x15.6 "Blue: text" #cbb994
-      box 248.33,836.33 36.67x18.33 #569ffe @keyPress @pointerPress
-    box 0,866.33 800x18.33 opacity=1
-      box 0,867.7 233.33x15.6 @pointerEnter @pointerLeave
-        text 0,867.7 233.33x15.6 "Violet: bar" #cbb994
-      box 248.33,866.33 36.67x18.33 #7849a0 @keyPress @pointerPress
-    box 0,896.33 800x18.33 opacity=1
-      box 0,897.7 233.33x15.6 @pointerEnter @pointerLeave
-        text 0,897.7 233.33x15.6 "Violet: text" #cbb994
-      box 248.33,896.33 36.67x18.33 #d2a9fa @keyPress @pointerPress
-    box 0,926.33 800x18.33 opacity=1
-      box 0,927.7 233.33x15.6 @pointerEnter @pointerLeave
-        text 0,927.7 233.33x15.6 "Pink: bar" #cbb994
-      box 248.33,926.33 36.67x18.33 #9b3c6a @keyPress @pointerPress
-    box 0,956.33 800x18.33 opacity=1
-      box 0,957.7 233.33x15.6 @pointerEnter @pointerLeave
-        text 0,957.7 233.33x15.6 "Pink: text" #cbb994
-      box 248.33,956.33 36.67x18.33 #fa9dc4 @keyPress @pointerPress
-    box 0,986.33 800x18.33 opacity=1
-      box 0,987.7 233.33x15.6 @pointerEnter @pointerLeave
-        text 0,987.7 233.33x15.6 "Tan: bar" #cbb994
-      box 248.33,986.33 36.67x18.33 #7e5b36 @keyPress @pointerPress
-    box 0,1016.33 800x18.33 opacity=1
-      box 0,1017.7 233.33x15.6 @pointerEnter @pointerLeave
-        text 0,1017.7 233.33x15.6 "Tan: text" #cbb994
-      box 248.33,1016.33 36.67x18.33 #ddb68e @keyPress @pointerPress
-    box 0,1046.33 800x18.33 opacity=1
-      box 0,1047.7 233.33x15.6 @pointerEnter @pointerLeave
-        text 0,1047.7 233.33x15.6 "White: bar" #cbb994
-      box 248.33,1046.33 36.67x18.33 #ababab @keyPress @pointerPress
-    box 0,1076.33 800x18.33 opacity=1
-      box 0,1077.7 233.33x15.6 @pointerEnter @pointerLeave
-        text 0,1077.7 233.33x15.6 "White: text" #cbb994
-      box 248.33,1076.33 36.67x18.33 #eeeeee @keyPress @pointerPress
-    box 0,1106.33 800x18.33 opacity=1
-      box 0,1107.7 233.33x15.6 @pointerEnter @pointerLeave
-        text 0,1107.7 233.33x15.6 "Grey: bar" #cbb994
-      box 248.33,1106.33 36.67x18.33 #636363 @keyPress @pointerPress
-    box 0,1136.33 800x18.33 opacity=1
-      box 0,1137.7 233.33x15.6 @pointerEnter @pointerLeave
-        text 0,1137.7 233.33x15.6 "Grey: text" #cbb994
-      box 248.33,1136.33 36.67x18.33 #bdbdbd @keyPress @pointerPress
-  box 0,1169.67 800x375.6
-    box 0,1169.67 800x15.6
-      text 0,1169.67 87.78x15.6 "Class colours" #e8c35a
-      box 96.11,1177.05 703.89x0.83 Interface\AddOns\Ordaen\media\ctl-rule
-    box 0,1196.93 800x28.33 opacity=1
-      box 0,1203.3 233.33x15.6 @pointerEnter @pointerLeave
-        text 0,1203.3 233.33x15.6 "Warrior" #cbb994
-      box 248.33,1196.93 200x28.33
-        box 248.33,1196.93 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
-          text 263.33,1203.3 153.33x15.6 "Tan" #f0c860
-          box 425,1204.43 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-    box 0,1236.93 800x28.33 opacity=1
-      box 0,1243.3 233.33x15.6 @pointerEnter @pointerLeave
-        text 0,1243.3 233.33x15.6 "Paladin" #cbb994
-      box 248.33,1236.93 200x28.33
-        box 248.33,1236.93 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
-          text 263.33,1243.3 153.33x15.6 "Pink" #f0c860
-          box 425,1244.43 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-    box 0,1276.93 800x28.33 opacity=1
-      box 0,1283.3 233.33x15.6 @pointerEnter @pointerLeave
-        text 0,1283.3 233.33x15.6 "Hunter" #cbb994
-      box 248.33,1276.93 200x28.33
-        box 248.33,1276.93 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
-          text 263.33,1283.3 153.33x15.6 "Green" #f0c860
-          box 425,1284.43 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-    box 0,1316.93 800x28.33 opacity=1
-      box 0,1323.3 233.33x15.6 @pointerEnter @pointerLeave
-        text 0,1323.3 233.33x15.6 "Rogue" #cbb994
-      box 248.33,1316.93 200x28.33
-        box 248.33,1316.93 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
-          text 263.33,1323.3 153.33x15.6 "Yellow" #f0c860
-          box 425,1324.43 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-    box 0,1356.93 800x28.33 opacity=1
-      box 0,1363.3 233.33x15.6 @pointerEnter @pointerLeave
-        text 0,1363.3 233.33x15.6 "Priest" #cbb994
-      box 248.33,1356.93 200x28.33
-        box 248.33,1356.93 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
-          text 263.33,1363.3 153.33x15.6 "White" #f0c860
-          box 425,1364.43 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-    box 0,1396.93 800x28.33 opacity=1
-      box 0,1403.3 233.33x15.6 @pointerEnter @pointerLeave
-        text 0,1403.3 233.33x15.6 "Shaman" #cbb994
-      box 248.33,1396.93 200x28.33
-        box 248.33,1396.93 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
-          text 263.33,1403.3 153.33x15.6 "Blue" #f0c860
-          box 425,1404.43 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-    box 0,1436.93 800x28.33 opacity=1
-      box 0,1443.3 233.33x15.6 @pointerEnter @pointerLeave
-        text 0,1443.3 233.33x15.6 "Mage" #cbb994
-      box 248.33,1436.93 200x28.33
-        box 248.33,1436.93 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
-          text 263.33,1443.3 153.33x15.6 "Cyan" #f0c860
-          box 425,1444.43 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-    box 0,1476.93 800x28.33 opacity=1
-      box 0,1483.3 233.33x15.6 @pointerEnter @pointerLeave
-        text 0,1483.3 233.33x15.6 "Warlock" #cbb994
-      box 248.33,1476.93 200x28.33
-        box 248.33,1476.93 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
-          text 263.33,1483.3 153.33x15.6 "Violet" #f0c860
-          box 425,1484.43 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-    box 0,1516.93 800x28.33 opacity=1
-      box 0,1523.3 233.33x15.6 @pointerEnter @pointerLeave
-        text 0,1523.3 233.33x15.6 "Druid" #cbb994
-      box 248.33,1516.93 200x28.33
-        box 248.33,1516.93 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
-          text 263.33,1523.3 153.33x15.6 "Orange" #f0c860
-          box 425,1524.43 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+      box 50.76,7.38 749.24x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+    box 0,26.98 800x31.42
+      box 0,26.98 665.04x31.42
+        text 0,26.98 665.04x15.6 "Ordaen" #ffffff
+        text 0,44 665.04x14.4 "Blizzard's look in our style: bronze, dark wood, our own fonts" #a3977f
+      text 675,35.49 125x14.4 "In use" #a6e39a
+    box 0,69.78 800x31.42
+      box 0,69.78 665.04x31.42
+        text 0,69.78 665.04x15.6 "Minimal" #ffffff
+        text 0,86.8 665.04x14.4 "Flat, fine lines, hardly any textures or animations" #a3977f
+      box 675,71.32 125x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+        text 726.39,77.69 22.22x15.6 "Use" #ffd100
+  box 0,116.84 800x134.73
+    box 0,116.84 800x15.6
+      text 0,116.84 35.56x15.6 "Fonts" #e8c35a
+      box 44.09,124.23 755.91x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+    box 0,143.82 800x28.33 opacity=1
+      box 0,150.19 233.33x15.6 @pointerEnter @pointerLeave
+        text 0,150.19 233.33x15.6 "Text font" #cbb994
+      box 248.98,143.82 200x28.33
+        box 248.98,143.82 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
+          text 264.62,150.19 152.53x15.6 "Fira Sans" #f0c860
+          box 425.69,151.32 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+    box 0,183.53 800x28.33 opacity=1
+      box 0,189.9 233.33x15.6 @pointerEnter @pointerLeave
+        text 0,189.9 233.33x15.6 "Title font" #cbb994
+      box 248.98,183.53 200x28.33
+        box 248.98,183.53 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
+          text 264.62,189.9 152.53x15.6 "Alegreya SC" #f0c860
+          box 425.69,191.03 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+    box 0,223.24 800x28.33 opacity=1
+      box 0,229.61 233.33x15.6 @pointerEnter @pointerLeave
+        text 0,229.61 233.33x15.6 "Number font" #cbb994
+      box 248.98,223.24 200x28.33
+        box 248.98,223.24 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
+          text 264.62,229.61 152.53x15.6 "Fira Sans Condensed" #f0c860
+          box 425.69,230.74 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+  box 0,267.22 800x95.02
+    box 0,267.22 800x15.6
+      text 0,267.22 54.44x15.6 "Textures" #e8c35a
+      box 62.98,274.61 737.02x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+    box 0,294.2 800x28.33 opacity=1
+      box 0,300.57 233.33x15.6 @pointerEnter @pointerLeave
+        text 0,300.57 233.33x15.6 "Bar texture" #cbb994
+      box 248.98,294.2 200x28.33
+        box 248.98,294.2 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
+          text 264.62,300.57 152.53x15.6 "Flat" #f0c860
+          box 425.69,301.7 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+    box 0,333.91 800x28.33 opacity=1
+      box 0,340.28 233.33x15.6 @pointerEnter @pointerLeave
+        text 0,340.28 233.33x15.6 "Bar frame" #cbb994
+      box 248.98,333.91 200x28.33
+        box 248.98,333.91 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
+          text 264.62,340.28 152.53x15.6 "Bronze bezel" #f0c860
+          box 425.69,341.41 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+  box 0,377.89 800x55.31
+    box 0,377.89 800x15.6
+      text 0,377.89 67.78x15.6 "Animations" #e8c35a
+      box 76.31,385.27 723.69x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+    box 0,404.87 800x28.33 opacity=1
+      box 0,411.23 233.33x15.6 @pointerEnter @pointerLeave
+        text 0,411.23 233.33x15.6 "Animations" #cbb994
+      box 248.98,404.87 200x28.33
+        box 248.98,404.87 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
+          text 264.62,411.23 152.53x15.6 "Smooth" #f0c860
+          box 425.69,412.37 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+  box 0,448.84 800x698.96
+    box 0,448.84 800x15.6
+      text 0,448.84 47.78x15.6 "Colours" #e8c35a
+      box 56.31,456.23 743.69x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+    box 0,475.82 800x18.33 opacity=1
+      box 0,477.19 233.33x15.6 @pointerEnter @pointerLeave
+        text 0,477.19 233.33x15.6 "Accent colour" #cbb994
+      box 248.98,475.82 36.67x18.33 #b88f57 @keyPress @pointerPress
+    box 0,505.53 800x18.33 opacity=1
+      box 0,506.9 233.33x15.6 @pointerEnter @pointerLeave
+        text 0,506.9 233.33x15.6 "Red: bar" #cbb994
+      box 248.98,505.53 36.67x18.33 #bc010b @keyPress @pointerPress
+    box 0,535.24 800x18.33 opacity=1
+      box 0,536.61 233.33x15.6 @pointerEnter @pointerLeave
+        text 0,536.61 233.33x15.6 "Red: text" #cbb994
+      box 248.98,535.24 36.67x18.33 #ffa194 @keyPress @pointerPress
+    box 0,564.96 800x18.33 opacity=1
+      box 0,566.32 233.33x15.6 @pointerEnter @pointerLeave
+        text 0,566.32 233.33x15.6 "Orange: bar" #cbb994
+      box 248.98,564.96 36.67x18.33 #a24102 @keyPress @pointerPress
+    box 0,594.67 800x18.33 opacity=1
+      box 0,596.03 233.33x15.6 @pointerEnter @pointerLeave
+        text 0,596.03 233.33x15.6 "Orange: text" #cbb994
+      box 248.98,594.67 36.67x18.33 #fea47b @keyPress @pointerPress
+    box 0,624.38 800x18.33 opacity=1
+      box 0,625.74 233.33x15.6 @pointerEnter @pointerLeave
+        text 0,625.74 233.33x15.6 "Yellow: bar" #cbb994
+      box 248.98,624.38 36.67x18.33 #c79608 @keyPress @pointerPress
+    box 0,654.09 800x18.33 opacity=1
+      box 0,655.46 233.33x15.6 @pointerEnter @pointerLeave
+        text 0,655.46 233.33x15.6 "Yellow: text" #cbb994
+      box 248.98,654.09 36.67x18.33 #ffd988 @keyPress @pointerPress
+    box 0,683.8 800x18.33 opacity=1
+      box 0,685.17 233.33x15.6 @pointerEnter @pointerLeave
+        text 0,685.17 233.33x15.6 "Green: bar" #cbb994
+      box 248.98,683.8 36.67x18.33 #096c02 @keyPress @pointerPress
+    box 0,713.51 800x18.33 opacity=1
+      box 0,714.88 233.33x15.6 @pointerEnter @pointerLeave
+        text 0,714.88 233.33x15.6 "Green: text" #cbb994
+      box 248.98,713.51 36.67x18.33 #90d189 @keyPress @pointerPress
+    box 0,743.22 800x18.33 opacity=1
+      box 0,744.59 233.33x15.6 @pointerEnter @pointerLeave
+        text 0,744.59 233.33x15.6 "Cyan: bar" #cbb994
+      box 248.98,743.22 36.67x18.33 #066f86 @keyPress @pointerPress
+    box 0,772.93 800x18.33 opacity=1
+      box 0,774.3 233.33x15.6 @pointerEnter @pointerLeave
+        text 0,774.3 233.33x15.6 "Cyan: text" #cbb994
+      box 248.98,772.93 36.67x18.33 #51d0f3 @keyPress @pointerPress
+    box 0,802.64 800x18.33 opacity=1
+      box 0,804.01 233.33x15.6 @pointerEnter @pointerLeave
+        text 0,804.01 233.33x15.6 "Blue: bar" #cbb994
+      box 248.98,802.64 36.67x18.33 #0255ab @keyPress @pointerPress
+    box 0,832.36 800x18.33 opacity=1
+      box 0,833.72 233.33x15.6 @pointerEnter @pointerLeave
+        text 0,833.72 233.33x15.6 "Blue: text" #cbb994
+      box 248.98,832.36 36.67x18.33 #569ffe @keyPress @pointerPress
+    box 0,862.07 800x18.33 opacity=1
+      box 0,863.43 233.33x15.6 @pointerEnter @pointerLeave
+        text 0,863.43 233.33x15.6 "Violet: bar" #cbb994
+      box 248.98,862.07 36.67x18.33 #7849a0 @keyPress @pointerPress
+    box 0,891.78 800x18.33 opacity=1
+      box 0,893.14 233.33x15.6 @pointerEnter @pointerLeave
+        text 0,893.14 233.33x15.6 "Violet: text" #cbb994
+      box 248.98,891.78 36.67x18.33 #d2a9fa @keyPress @pointerPress
+    box 0,921.49 800x18.33 opacity=1
+      box 0,922.86 233.33x15.6 @pointerEnter @pointerLeave
+        text 0,922.86 233.33x15.6 "Pink: bar" #cbb994
+      box 248.98,921.49 36.67x18.33 #9b3c6a @keyPress @pointerPress
+    box 0,951.2 800x18.33 opacity=1
+      box 0,952.57 233.33x15.6 @pointerEnter @pointerLeave
+        text 0,952.57 233.33x15.6 "Pink: text" #cbb994
+      box 248.98,951.2 36.67x18.33 #fa9dc4 @keyPress @pointerPress
+    box 0,980.91 800x18.33 opacity=1
+      box 0,982.28 233.33x15.6 @pointerEnter @pointerLeave
+        text 0,982.28 233.33x15.6 "Tan: bar" #cbb994
+      box 248.98,980.91 36.67x18.33 #7e5b36 @keyPress @pointerPress
+    box 0,1010.62 800x18.33 opacity=1
+      box 0,1011.99 233.33x15.6 @pointerEnter @pointerLeave
+        text 0,1011.99 233.33x15.6 "Tan: text" #cbb994
+      box 248.98,1010.62 36.67x18.33 #ddb68e @keyPress @pointerPress
+    box 0,1040.33 800x18.33 opacity=1
+      box 0,1041.7 233.33x15.6 @pointerEnter @pointerLeave
+        text 0,1041.7 233.33x15.6 "White: bar" #cbb994
+      box 248.98,1040.33 36.67x18.33 #ababab @keyPress @pointerPress
+    box 0,1070.04 800x18.33 opacity=1
+      box 0,1071.41 233.33x15.6 @pointerEnter @pointerLeave
+        text 0,1071.41 233.33x15.6 "White: text" #cbb994
+      box 248.98,1070.04 36.67x18.33 #eeeeee @keyPress @pointerPress
+    box 0,1099.76 800x18.33 opacity=1
+      box 0,1101.12 233.33x15.6 @pointerEnter @pointerLeave
+        text 0,1101.12 233.33x15.6 "Grey: bar" #cbb994
+      box 248.98,1099.76 36.67x18.33 #636363 @keyPress @pointerPress
+    box 0,1129.47 800x18.33 opacity=1
+      box 0,1130.83 233.33x15.6 @pointerEnter @pointerLeave
+        text 0,1130.83 233.33x15.6 "Grey: text" #cbb994
+      box 248.98,1129.47 36.67x18.33 #bdbdbd @keyPress @pointerPress
+  box 0,1163.44 800x373
+    box 0,1163.44 800x15.6
+      text 0,1163.44 87.78x15.6 "Class colours" #e8c35a
+      box 96.31,1170.83 703.69x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+    box 0,1190.42 800x28.33 opacity=1
+      box 0,1196.79 233.33x15.6 @pointerEnter @pointerLeave
+        text 0,1196.79 233.33x15.6 "Warrior" #cbb994
+      box 248.98,1190.42 200x28.33
+        box 248.98,1190.42 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
+          text 264.62,1196.79 152.53x15.6 "Tan" #f0c860
+          box 425.69,1197.92 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+    box 0,1230.13 800x28.33 opacity=1
+      box 0,1236.5 233.33x15.6 @pointerEnter @pointerLeave
+        text 0,1236.5 233.33x15.6 "Paladin" #cbb994
+      box 248.98,1230.13 200x28.33
+        box 248.98,1230.13 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
+          text 264.62,1236.5 152.53x15.6 "Pink" #f0c860
+          box 425.69,1237.63 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+    box 0,1269.84 800x28.33 opacity=1
+      box 0,1276.21 233.33x15.6 @pointerEnter @pointerLeave
+        text 0,1276.21 233.33x15.6 "Hunter" #cbb994
+      box 248.98,1269.84 200x28.33
+        box 248.98,1269.84 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
+          text 264.62,1276.21 152.53x15.6 "Green" #f0c860
+          box 425.69,1277.34 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+    box 0,1309.56 800x28.33 opacity=1
+      box 0,1315.92 233.33x15.6 @pointerEnter @pointerLeave
+        text 0,1315.92 233.33x15.6 "Rogue" #cbb994
+      box 248.98,1309.56 200x28.33
+        box 248.98,1309.56 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
+          text 264.62,1315.92 152.53x15.6 "Yellow" #f0c860
+          box 425.69,1317.06 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+    box 0,1349.27 800x28.33 opacity=1
+      box 0,1355.63 233.33x15.6 @pointerEnter @pointerLeave
+        text 0,1355.63 233.33x15.6 "Priest" #cbb994
+      box 248.98,1349.27 200x28.33
+        box 248.98,1349.27 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
+          text 264.62,1355.63 152.53x15.6 "White" #f0c860
+          box 425.69,1356.77 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+    box 0,1388.98 800x28.33 opacity=1
+      box 0,1395.34 233.33x15.6 @pointerEnter @pointerLeave
+        text 0,1395.34 233.33x15.6 "Shaman" #cbb994
+      box 248.98,1388.98 200x28.33
+        box 248.98,1388.98 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
+          text 264.62,1395.34 152.53x15.6 "Blue" #f0c860
+          box 425.69,1396.48 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+    box 0,1428.69 800x28.33 opacity=1
+      box 0,1435.06 233.33x15.6 @pointerEnter @pointerLeave
+        text 0,1435.06 233.33x15.6 "Mage" #cbb994
+      box 248.98,1428.69 200x28.33
+        box 248.98,1428.69 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
+          text 264.62,1435.06 152.53x15.6 "Cyan" #f0c860
+          box 425.69,1436.19 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+    box 0,1468.4 800x28.33 opacity=1
+      box 0,1474.77 233.33x15.6 @pointerEnter @pointerLeave
+        text 0,1474.77 233.33x15.6 "Warlock" #cbb994
+      box 248.98,1468.4 200x28.33
+        box 248.98,1468.4 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
+          text 264.62,1474.77 152.53x15.6 "Violet" #f0c860
+          box 425.69,1475.9 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+    box 0,1508.11 800x28.33 opacity=1
+      box 0,1514.48 233.33x15.6 @pointerEnter @pointerLeave
+        text 0,1514.48 233.33x15.6 "Druid" #cbb994
+      box 248.98,1508.11 200x28.33
+        box 248.98,1508.11 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
+          text 264.62,1514.48 152.53x15.6 "Orange" #f0c860
+          box 425.69,1515.61 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow

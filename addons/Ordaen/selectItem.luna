@@ -5,7 +5,6 @@
 // with the click (a right-click opens the item's menu).
 import { Align, ByInteractionState, Edges, Event, Line, MouseButton, Overflow, Position, Side, Track } from "$ltml"
 import { Component } from "@/module"
-import { space } from "@/units"
 
 const CLEAR: Color = Color.hex("#00000000")
 // The list's gold: an item without a colour of its own is selected in it.
@@ -16,7 +15,7 @@ const RULE: Line = { width: 1.171875dp, color: Color.hex("#d6a56b14"), sides: [S
 // How strong a colour's selected fill is.
 const FILL_ALPHA = 0.24
 const EDGE = 2.34375dp
-const PADDING: Edges = { top: 7.03125dp, right: space(.Panel), bottom: 7.03125dp, left: space(.Panel) }
+const PADDING: Edges = { top: 2sp, right: 5sp, bottom: 2sp, left: 5sp }
 const ONE: Array<Track> = [{ fr: 1 }]
 
 // The selected fill of an item of this colour.
@@ -59,7 +58,7 @@ public class SelectItem implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={self.columns} gap={9.375dp} padding={self.padding} yAlign={Align.Center} border={self.rule}
+      <box columns={self.columns} gap={2.5sp} padding={self.padding} yAlign={Align.Center} border={self.rule}
            background={self.background} overflow={Overflow.Hidden} @pointerPress={self.onClick} @keyPress(.Enter)={self.onKey}
            @keyPress(.Space)={self.onKey}>
         <box $if={self.selected} position={Position.Absolute} left={0ui} top={0ui} bottom={0ui} width={EDGE}

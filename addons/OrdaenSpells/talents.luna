@@ -144,7 +144,7 @@ public class TreeView implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={1} gap={7.03125dp} xAlign={Align.Center}>
+      <box columns={1} gap={2sp} xAlign={Align.Center}>
         <text value={self.title} textColor={Style.GOLD} wrap={false} />
         <box width={self.width} height={self.height}>
           <box $for={index, segment of self.segments} $key={index} position={Position.Absolute} left={segment.left}
@@ -197,10 +197,10 @@ public class TalentsPage implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box rows={PAGE} gap={9.375dp}>
-        <box columns={TOP} gap={9.375dp} yAlign={Align.Center}>
+      <box rows={PAGE} gap={2.5sp}>
+        <box columns={TOP} gap={2.5sp} yAlign={Align.Center}>
           <box height={39.84375dp} rows={[{ fr: 1 }]}>
-            <input value={mut self.search} padding={{ left: 11.71875dp, right: 11.71875dp }} textColor={Style.INK}
+            <input value={mut self.search} padding={{ left: 3sp, right: 3sp }} textColor={Style.INK}
                    background={Color.hex("#00000080")} />
           </box>
           <PushButton $if={self.inactive} label={Locale.ACTIVATE} width={175.78125dp} @click={self.onActivate} />
@@ -208,11 +208,11 @@ public class TalentsPage implements Component {
         <box $if={self.empty} xAlign={Align.Center} yAlign={Align.Center}>
           <text value={Locale.NO_TALENTS} textColor={Style.DIM} />
         </box>
-        <box $else columns={TREES} gap={4.6875dp}>
+        <box $else columns={TREES} gap={1sp}>
           <TreeView $for={tree of self.trees} $key={tree.id} tree={tree} search={self.search} @spend={self.onSpend}
                     @refund={self.onRefund} />
         </box>
-        <box columns={FOOT} gap={9.375dp} yAlign={Align.Center}>
+        <box columns={FOOT} gap={2.5sp} yAlign={Align.Center}>
           <box>
             <PushButton $if={self.waiting} label={Locale.CANCEL_CHANGES} width={222.65625dp} @click={self.onCancel} />
           </box>

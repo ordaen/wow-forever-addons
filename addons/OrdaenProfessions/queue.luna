@@ -5,7 +5,7 @@
 // starts the next run (the client starts a craft from nothing else), stand in the window's footer.
 import Game from "$game"
 import { Align, Art, Edges, Line, Overflow, Track } from "$ltml"
-import { ButtonPlate, Component, CountInput, ItemButton, Money, PushButton, SECONDARY_TEXT, space } from "Ordaen"
+import { ButtonPlate, Component, CountInput, ItemButton, Money, PushButton, SECONDARY_TEXT } from "Ordaen"
 import type { PriceSource } from "OrdaenAuction"
 import { Way, unitOf } from "@/cost"
 import Locale from "@/locales"
@@ -20,14 +20,14 @@ const BACK: Color = Color.hex("#0000004d")
 // The lines and the table scrolling in the room there is.
 const PAGE: Array<Track> = [{ fr: 1 }]
 const LINE: Array<Track> = [37.5dp, { fr: 1 }, "max-content", "max-content"]
-const LINE_PAD: Edges = { top: 4.6875dp, bottom: 4.6875dp }
+const LINE_PAD: Edges = { top: 1sp, bottom: 1sp }
 const STEP = 28.125dp
 const SLOT = 37.5dp
 const NEED: Array<Track> = [32.8125dp, { fr: 1 }, 82.03125dp, 82.03125dp, 105.46875dp]
 // With prices: what the missing part costs, and where it is cheaper.
 const NEED_PRICED: Array<Track> = [32.8125dp, { fr: 1 }, 82.03125dp, 82.03125dp, 105.46875dp, 117.1875dp, 93.75dp]
 const BUY_ROW: Array<Track> = [{ fr: 1 }, "max-content", "max-content"]
-const NEED_PAD: Edges = { top: 3.515625dp, right: 7.03125dp, bottom: 3.515625dp }
+const NEED_PAD: Edges = { top: 1sp, right: 2sp, bottom: 1sp }
 const SHORT: Color = Color.hex("#ff6a5a")
 
 // A queued recipe as its line draws it, with its count still to make.
@@ -135,7 +135,7 @@ public class QueueRow implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={LINE} gap={space(.Item)} yAlign={Align.Center} padding={LINE_PAD} border={self.rule}>
+      <box columns={LINE} gap={3sp} yAlign={Align.Center} padding={LINE_PAD} border={self.rule}>
         <box width={SLOT} height={SLOT} border={Style.BRONZE} icon={self.icon} />
         <box @pointerPress={self.onOpen} @keyPress(.Enter)={self.onOpen} @keyPress(.Space)={self.onOpen}>
           <text value={self.line.name} textColor={self.color} textShadow={Style.SHADOW}
@@ -202,7 +202,7 @@ public class NeedRow implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={self.columns} gap={space(.Item)} yAlign={Align.Center} padding={NEED_PAD} border={Style.ROW_RULE}>
+      <box columns={self.columns} gap={3sp} yAlign={Align.Center} padding={NEED_PAD} border={Style.ROW_RULE}>
         <ItemButton item={self.item} art={self.icon} size={32.8125dp} />
         <text value={self.need.name} textColor={Style.INK} wrap={false} />
         <box xAlign={Align.End}>
@@ -275,16 +275,16 @@ public class QueuePage implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box padding={space(.Panel)} border={FRAME} background={BACK} rows={PAGE}>
+      <box padding={5sp} border={FRAME} background={BACK} rows={PAGE}>
         <text $if={self.empty} value={Locale.QUEUE_EMPTY} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
         <$else>
-          <box overflow={Overflow.Scroll} gap={space(.Group)}>
+          <box overflow={Overflow.Scroll} gap={6sp}>
             <box columns={1}>
               <QueueRow $for={index, line of self.lines} $key={line.recipe} line={line} index={index}
                         @act={self.onAct} @counted={self.onCounted} />
             </box>
             <box columns={1}>
-              <box columns={self.headColumns} gap={space(.Item)} padding={NEED_PAD}>
+              <box columns={self.headColumns} gap={3sp} padding={NEED_PAD}>
                 <box />
                 <box />
                 <box xAlign={Align.End}>
@@ -306,7 +306,7 @@ public class QueuePage implements Component {
               <NeedRow $for={entry of self.entries} $key={entry.need.name} entry={entry} priced={self.priced} />
             </box>
             // What the missing parts cost, and «To the shopping list» (Ordaen Auction's), while prices show.
-            <box $if={self.priced} columns={BUY_ROW} gap={space(.Item)} yAlign={Align.Center}>
+            <box $if={self.priced} columns={BUY_ROW} gap={3sp} yAlign={Align.Center}>
               <text value={Locale.TOTAL_TO_BUY} textColor={Style.DIM} />
               <Money $if={self.hasToBuy} amount={self.toBuyCopper} />
               <text $else value={"—"} textColor={Style.DIM} />

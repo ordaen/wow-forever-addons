@@ -2,7 +2,6 @@
 // stat, a slot or a faction says. Every gap and padding is a step of Ordaen's ladder (`space`); a row is as tall as
 // its text.
 import { Edges } from "$ltml"
-import { space } from "Ordaen"
 
 public const WIDTH: Number<Length> = 1054.6875dp
 public const HEIGHT: Number<Length> = 726.5625dp
@@ -12,7 +11,7 @@ public const SLOT: Number<Length> = 46.875dp
 // The durability bar under a slot.
 public const WEAR: Number<Length> = 3.515625dp
 // Round the text a bar shows (health, a faction's standing): the bar is as tall as it.
-public const BAR_PAD: Edges = { top: space(.Line), right: space(.Item), bottom: space(.Line), left: space(.Item) }
+public const BAR_PAD: Edges = { top: 2sp, right: 3sp, bottom: 2sp, left: 3sp }
 // The reputation tab's side, where the chosen faction stands.
 public const SIDE: Number<Length> = 328.125dp
 

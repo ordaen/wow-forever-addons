@@ -7,6 +7,7 @@ import root Ordaen from "Ordaen"
 import Locale from "@/locales"
 import { Component } from "@/module"
 import { SettingRow } from "@/settingRow"
+import { BODY_LINE } from "@/units"
 
 // One of a dropdown's choices: the value the setting takes, and what the player reads; on a toolbar's ToolPick, the
 // glyph its button shows while it is picked (a view's).
@@ -24,13 +25,13 @@ const WHITE: Color = Color.hex("#ffffff")
 const DIM: Color = Color.hex("#ffffff73")
 // The design's 700: the same colour one pixel to the right.
 const BOLD: Shadow = { color: GOLD, x: 1.171875dp, y: 0ui }
-const FACE_PAD: Edges = { right: 14.0625dp, left: 21.09375dp }
-const COMPACT_FACE_PAD: Edges = { right: 9.375dp, left: 14.0625dp }
+const FACE_PAD: Edges = { right: 3.5sp, left: 5.5sp }
+const COMPACT_FACE_PAD: Edges = { right: 2.5sp, left: 3.5sp }
 const ARROW_SHADOW: Shadow = { color: Color.hex("#14141fcc"), x: 1.171875dp, y: 1.171875dp }
 const MENU_BACK: Color = Color.hex("#0a0806f7")
 const MENU_EDGE: Line = { width: 1.171875dp, color: Color.hex("#6c5535") }
-const MENU_PAD: Edges = { top: 7.03125dp, bottom: 7.03125dp }
-const ITEM_PAD: Edges = { top: 5.859375dp, right: 16.40625dp, bottom: 5.859375dp, left: 35.15625dp }
+const MENU_PAD: Edges = { top: 2sp, bottom: 2sp }
+const ITEM_PAD: Edges = { top: 1.5sp, right: 4sp, bottom: 1.5sp, left: 9sp }
 const CLEAR: Color = Color.hex("#00000000")
 const LIGHT: ByInteractionState<Color> = { default: CLEAR, hover: Color.hex("#d6a56b2e"), focus: Color.hex("#d6a56b2e") }
 
@@ -120,12 +121,12 @@ public class Dropdown<T: Unknown> implements Component {
       <SettingRow label={self.label} hint={self.hint} disabled={self.disabled}>
         <box width={WIDTH} height={HEIGHT}>
           <box position={Position.Absolute} left={0ui} top={0ui} width={WIDTH} height={HEIGHT} padding={FACE_PAD}
-               columns={[{ fr: 1 }, 18.75dp]} gap={11.71875dp} yAlign={Align.Center}
+               columns={[{ fr: 1 }, 18.75dp]} gap={3sp} yAlign={Align.Center}
                background={Ordaen.art.ctl.button} @pointerPress={self.toggle} @keyPress(.Enter)={self.toggle} @keyPress(.Space)={self.toggle}>
             <text value={self.shown} textColor={GOLD} textShadow={BOLD} wrap={false} />
             <box width={18.75dp} height={18.75dp} background={Ordaen.art.ctl.dropdownArrow} shadow={ARROW_SHADOW} />
           </box>
-          <surface $if={self.open} layer={Layer.Tooltip} place={Beside { beside: "parent" }} width={WIDTH + 23.4375dp}
+          <surface lineHeight={BODY_LINE} $if={self.open} layer={Layer.Tooltip} place={Beside { beside: "parent" }} width={WIDTH + 23.4375dp}
                    background={MENU_BACK} border={MENU_EDGE} padding={MENU_PAD} columns={1}
                    @pointerPressOutside={self.close}>
             <DropdownItem $for={choice of self.choices} choice={choice} value={self.value} @pick={self.onPick} />
@@ -169,12 +170,12 @@ public class CompactDropdown<T: Unknown> implements Component {
     return $ltml {
       <box width={self.width} height={HEIGHT}>
         <box position={Position.Absolute} left={0ui} top={0ui} width={self.width} height={HEIGHT}
-             padding={COMPACT_FACE_PAD} columns={[{ fr: 1 }, 18.75dp]} gap={7.03125dp} yAlign={Align.Center}
+             padding={COMPACT_FACE_PAD} columns={[{ fr: 1 }, 18.75dp]} gap={2sp} yAlign={Align.Center}
              background={Ordaen.art.ctl.button} @pointerPress={self.toggle} @keyPress(.Enter)={self.toggle} @keyPress(.Space)={self.toggle}>
           <text value={self.shown} textColor={GOLD} wrap={false} />
           <box width={18.75dp} height={18.75dp} background={Ordaen.art.ctl.dropdownArrow} shadow={ARROW_SHADOW} />
         </box>
-        <surface $if={self.open} layer={Layer.Tooltip} place={Beside { beside: "parent" }} width={self.listBounds}
+        <surface lineHeight={BODY_LINE} $if={self.open} layer={Layer.Tooltip} place={Beside { beside: "parent" }} width={self.listBounds}
                  background={MENU_BACK} border={MENU_EDGE} padding={MENU_PAD} columns={1} @pointerPressOutside={self.close}>
           <DropdownItem $for={choice of self.choices} choice={choice} value={self.value} compact={true}
                         @pick={self.onPick} />
@@ -280,12 +281,12 @@ public class ManyDropdown<T: Unknown> implements Component {
       <SettingRow label={self.label} hint={self.hint} disabled={self.disabled}>
         <box width={WIDTH} height={HEIGHT}>
           <box position={Position.Absolute} left={0ui} top={0ui} width={WIDTH} height={HEIGHT} padding={FACE_PAD}
-               columns={[{ fr: 1 }, 18.75dp]} gap={11.71875dp} yAlign={Align.Center}
+               columns={[{ fr: 1 }, 18.75dp]} gap={3sp} yAlign={Align.Center}
                background={Ordaen.art.ctl.button} @pointerPress={self.toggle} @keyPress(.Enter)={self.toggle} @keyPress(.Space)={self.toggle}>
             <text value={self.shown} textColor={self.color} wrap={false} />
             <box width={18.75dp} height={18.75dp} background={Ordaen.art.ctl.dropdownArrow} shadow={ARROW_SHADOW} />
           </box>
-          <surface $if={self.open} layer={Layer.Tooltip} place={Beside { beside: "parent" }} width={WIDTH + 23.4375dp}
+          <surface lineHeight={BODY_LINE} $if={self.open} layer={Layer.Tooltip} place={Beside { beside: "parent" }} width={WIDTH + 23.4375dp}
                    background={MENU_BACK} border={MENU_EDGE} padding={MENU_PAD} columns={1}
                    @pointerPressOutside={self.close}>
             <ManyItem $for={choice of self.choices} choice={choice} value={self.value} @flip={self.onFlip} />

@@ -4,14 +4,14 @@ import Client from "$client"
 import Events from "$events"
 import { Align, Anchored, Art, Point, Position, Shadow } from "$ltml"
 import root Ordaen from "Ordaen"
-import { Component, Placed, SECONDARY_TEXT, Visibility, opacityNow, space } from "Ordaen"
+import { Component, Placed, SECONDARY_TEXT, Visibility, opacityNow } from "Ordaen"
 import { BarChoice, BarKind, BarSpec, defaultChoice } from "@/barChoices"
 import Locale from "@/locales"
 
 // The lowest bar's room above what keeps the screen's bottom edge (the bottom panel, or the edge itself), and the
 // room between a bar and the one above it in the default stack.
-const ABOVE: Number<Length> = space(.Item)
-public const BETWEEN: Number<Length> = space(.Line)
+const ABOVE: Number<Length> = 12dp
+public const BETWEEN: Number<Length> = 8dp
 const INK: Color = Color.hex("#ffffff")
 const KEY_SHADOW: Shadow = { color: Color.hex("#000000"), x: 1ui, y: -1ui }
 
@@ -134,7 +134,7 @@ public class Button implements Component {
         <box $if={self.face.lit && self.slot.shown} position={Position.Absolute} left={0ui} top={0ui}
              width={self.size} height={self.size} background={Ordaen.art.ctl.qualityRim}
              tint={Ordaen.look.values.accent} zLevel={2} />
-        <box position={Position.Absolute} left={0ui} top={0ui} right={0ui} xAlign={Align.End} padding={2ui} zLevel={2}>
+        <box position={Position.Absolute} left={0ui} top={0ui} right={0ui} xAlign={Align.End} padding={0.5sp} zLevel={2}>
           <text value={self.key} textColor={INK} textSize={SECONDARY_TEXT} textShadow={KEY_SHADOW} wrap={false} />
         </box>
       </box>
@@ -162,7 +162,8 @@ public class Bar implements Component {
   // The buttons past its count: kept unseen while it is drawn (the renderer shows an embedded frame let go again).
   derived unseen: Array<Slot> = self.drawnOf(false)
   derived size: Number<Length> = self.choice.size * 1ui
-  derived spacing: Number<Length> = self.choice.spacing * 1ui
+  // The player's spacing of the buttons, a length they chose, as the gap takes it.
+  derived spacing: Number<Spacing> = Ordaen.spacingOf(self.choice.spacing * 1ui)
   derived showKeys: Boolean = self.choice.keys
   // As many columns as buttons in a row, and no more than it has buttons: an empty column would take the cursor.
   derived columns: Integer = self.choice.perRow.min(self.count).max(1)

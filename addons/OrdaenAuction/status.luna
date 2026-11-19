@@ -5,7 +5,7 @@
 import Debug from "$debug"
 import Game from "$game"
 import { Align, Track } from "$ltml"
-import { Component, ProgressBar, PushButton, SECONDARY_TEXT, space } from "Ordaen"
+import { Component, ProgressBar, PushButton, SECONDARY_TEXT } from "Ordaen"
 import Locale from "@/locales"
 import { serverSeconds } from "@/quote"
 import { Scanner } from "@/scan"
@@ -56,7 +56,7 @@ public class Status implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={COLUMNS} gap={space(.Group)} yAlign={Align.Center}>
+      <box columns={COLUMNS} gap={6sp} yAlign={Align.Center}>
         <box $if={self.scanner.reading}>
           <ProgressBar fraction={self.scanner.progress} label={self.percent} />
         </box>

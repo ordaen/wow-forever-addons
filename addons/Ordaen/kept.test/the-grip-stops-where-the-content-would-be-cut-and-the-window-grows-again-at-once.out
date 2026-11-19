@@ -1,21 +1,21 @@
 -- sized down past what it holds: held at its content's least size, the footer under the block
-surface 400,131.38 560.5x526.1 on DIALOG clamped raised by a click
-  box 400,168.62 560.5x488.85 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
-    box 412.75,181.38 540x465.6
-      box 432.75,201.38 500x400 Interface\AddOns\Ordaen\media\window-wood
-      box 432.75,601.38 500x32.27
-        text 432.75,618.04 500x15.6 "the footer" #ffffff
-    box 943.25,637.47 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
-  box 400,131.38 560.5x47.75
-    box 400,131.38 498.83x47.75
+surface 400,131.38 566.7x533.01 on DIALOG clamped raised by a click
+  box 400,168.62 566.7x495.76 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
+    box 413.09,181.72 545.51x471.82
+      box 435.85,204.47 500x400 Interface\AddOns\Ordaen\media\window-wood
+      box 435.85,604.47 500x34.84
+        text 435.85,621.54 500x17.78 "the footer" #ffffff
+    box 949.45,644.39 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
+  box 400,131.38 566.7x47.75
+    box 400,131.38 503.17x47.75
       box 400,131.38 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
-        box 418.58,141.62 77.33x34.25
-          text 433.36,150.95 47.78x15.6 "Crowded" #ffd100
-    box 905.5,147.71 55x31.42
-      box 905.5,147.71 55x26.67 clipped
-        box 905.5,147.71 27.5x26.67 absolute clipped @keyPress @pointerPress
-          box 905.5,147.71 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
-          box 913.83,157.29 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
-        box 933,147.71 27.5x26.67 absolute clipped @keyPress @pointerPress
-          box 933,147.71 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
-          box 939.25,157.29 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
+        box 418.78,141.62 76.93x34.25
+          text 433.36,149.86 47.78x17.78 "Crowded" #ffd100
+    box 911.7,147.71 55x31.42
+      box 911.7,147.71 55x26.67 clipped
+        box 911.7,147.71 27.5x26.67 absolute clipped @keyPress @pointerPress
+          box 911.7,147.71 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
+          box 920.03,157.29 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
+        box 939.2,147.71 27.5x26.67 absolute clipped @keyPress @pointerPress
+          box 939.2,147.71 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
+          box 945.45,157.29 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8

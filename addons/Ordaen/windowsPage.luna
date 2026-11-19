@@ -10,7 +10,6 @@ import Locale from "@/locales"
 import { Component } from "@/module"
 import { NumberInput, Unit } from "@/numberInput"
 import { SelectItem } from "@/selectItem"
-import { space } from "@/units"
 import { KeptWindow, Occasion, WindowView } from "@/window"
 
 const SIDEBAR = 234.375dp
@@ -148,12 +147,12 @@ public class WindowsPage implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={COLUMNS} gap={space(.Group)}>
+      <box columns={COLUMNS} gap={6sp}>
         <box columns={1}>
           <WindowItem $for={index, window of self.windows} title={window.title} index={index} current={self.current}
                       @picked={self.onPick} />
         </box>
-        <box columns={1} gap={space(.Item)}>
+        <box columns={1} gap={3sp}>
           <Checkbox label={Locale.WINDOW_REMEMBER} hint={Locale.WINDOW_REMEMBER_TIP} value={mut self.remember} />
           <Checkbox label={Locale.WINDOW_FULL} value={mut self.full} disabled={self.fixed} />
           <NumberInput label={Locale.WINDOW_X} value={mut self.x} least={-FAR} most={FAR} unit={Unit.Px}

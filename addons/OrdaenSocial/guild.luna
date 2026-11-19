@@ -2,17 +2,17 @@
 // information, «Пригласить в гильдию», «Покинуть гильдию» and the game's own guild window, where the guild's management
 // the client keeps to itself stays), and the guild's news.
 import { Align, Overflow } from "$ltml"
-import { ButtonPlate, Component, CopyText, PushButton, SECONDARY_TEXT, TITLE_TEXT, space } from "Ordaen"
+import { ButtonPlate, Component, CopyText, PushButton, SECONDARY_TEXT, TITLE_LINE, TITLE_TEXT } from "Ordaen"
 import { orDash } from "@/friends"
 import Locale from "@/locales"
 import { Guild, News } from "@/people"
 import Style from "@/style"
 
-const ROW_PAD = 4.6875dp
+const ROW_PAD = 1sp
 // The message of the day and the information, texts the player selects and copies: as high as three lines and as
 // six (a line of body text is a group's step high).
-const MOTD_HIGH: Number<Length> = space(.Group) * 3
-const INFO_HIGH: Number<Length> = space(.Group) * 6
+const MOTD_HIGH: Number<Length> = 24dp * 3
+const INFO_HIGH: Number<Length> = 24dp * 6
 
 // The guild's card, with no member picked.
 public class GuildCard implements Component {
@@ -34,18 +34,18 @@ public class GuildCard implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={1} rows={["max-content", { fr: 1 }, "max-content"]} gap={space(.Group)}>
+      <box columns={1} rows={["max-content", { fr: 1 }, "max-content"]} gap={6sp}>
         <box columns={1}>
-          <text value={self.guild.name} textColor={Style.GOLD} textSize={TITLE_TEXT} textFont={.Title} wrap={false} />
+          <text value={self.guild.name} textColor={Style.GOLD} textSize={TITLE_TEXT} lineHeight={TITLE_LINE} textFont={.Title} wrap={false} />
           <text value={self.counts} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={false} />
         </box>
-        <box columns={1} gap={space(.Item)} overflow={Overflow.Scroll}>
+        <box columns={1} gap={3sp} overflow={Overflow.Scroll}>
           <text value={Locale.MOTD} textColor={Style.DIM} wrap={false} />
           <CopyText value={orDash(self.guild.motd)} height={MOTD_HIGH} />
           <text value={Locale.GUILD_INFO} textColor={Style.DIM} wrap={false} />
           <CopyText value={orDash(self.guild.info)} height={INFO_HIGH} />
         </box>
-        <box columns={1} gap={space(.Item)}>
+        <box columns={1} gap={3sp}>
           <PushButton $if={self.guild.rights.invite} label={Locale.GUILD_INVITE} width={Style.CARD_BUTTON} @click={self.onInvite} />
           <PushButton label={Locale.GAME_GUILD_WINDOW} width={Style.CARD_BUTTON} @click={self.onGameWindow} />
           <PushButton label={Locale.LEAVE_GUILD} width={Style.CARD_BUTTON} plate={ButtonPlate.Danger} @click={self.onLeave} />
@@ -65,9 +65,9 @@ class NewsRow implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={["max-content", { fr: 1 }]} gap={space(.Item)} padding={{ top: ROW_PAD, bottom: ROW_PAD }}>
+      <box columns={["max-content", { fr: 1 }]} gap={3sp} padding={{ top: ROW_PAD, bottom: ROW_PAD }}>
         <text value={self.date} textColor={Style.DIM} textFont={.Numbers} wrap={false} />
-        <box columns={["max-content", { fr: 1 }]} gap={space(.Line)}>
+        <box columns={["max-content", { fr: 1 }]} gap={2sp}>
           <text value={self.news.who} textColor={self.news.sticky ? Style.GOLD : Style.INK} wrap={false} />
           <text value={self.news.what} textColor={Style.INK} wrap={true} />
         </box>

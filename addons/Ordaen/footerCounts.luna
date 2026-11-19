@@ -3,7 +3,7 @@
 // quest log full: red). A list window's footer stands it at its left.
 import { Align, TextFont } from "$ltml"
 import { Component } from "@/module"
-import { SECONDARY_TEXT, Space, space } from "@/units"
+import { SECONDARY_TEXT } from "@/units"
 
 const INK: Color = Color.hex("#e8dcc4")
 const DIM: Color = Color.hex("#a3977f")
@@ -24,8 +24,8 @@ public class FooterCounts implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={{ each: "max-content" }} gap={space(Space.Group)} yAlign={Align.Center}>
-        <box $for={count of self.counts} columns={{ each: "max-content" }} gap={space(Space.Item)} yAlign={Align.Center}>
+      <box columns={{ each: "max-content" }} gap={6sp} yAlign={Align.Center}>
+        <box $for={count of self.counts} columns={{ each: "max-content" }} gap={3sp} yAlign={Align.Center}>
           <text value={count.label} textSize={SECONDARY_TEXT} textColor={DIM} wrap={false} />
           <text value={count.value} textSize={SECONDARY_TEXT} textFont={TextFont.Numbers} textColor={count.color ?? INK}
                 wrap={false} />

@@ -13,7 +13,7 @@ public const MEMORY: Number<Length> = 93.75dp
 // The table's category column.
 public const CATEGORY: Number<Length> = 175.78125dp
 // How far an addon under its group's parent stands in.
-public const INDENT: Number<Length> = 21.09375dp
+public const INDENT: Number<Spacing> = 5.5sp
 
 public const INK: Color = Color.hex("#e8e0d0")
 public const DIM: Color = Color.hex("#9a9080")
