@@ -1,0 +1,101 @@
+// Ordaen Bags' pages in the settings window beside its windows: «Junk» (the rules, learning, the chat's lines, and the
+// two resets of what play made: the learned scores and the player's marks) and «Slot» (the eight clicks of a slot, each
+// one action, and the two schemes to start from). A chord's row that holds the last Use or the last Menu offers nothing
+// else, so no scheme leaves an item without a click to use it or to open its menu.
+import { Choice, Component, Dropdown, NumberInput, PushButton, Section, Switch, space } from "Ordaen"
+import { AS_THE_GAME, CHORDS, Chord, Clicks, OURS, SlotAction, actionAt, choicesFor, chordName, withAction } from "@/clicks"
+import { JunkRules } from "@/junk"
+import Locale from "@/locales"
+
+const BUTTON = 187.5dp
+
+public class JunkPage implements Component {
+  // A reset asked: of the marks (true) or of what was learned.
+  public reset: Event<Boolean> = new Event()
+
+  rules: mut Signal<JunkRules>
+  constructor(rules: mut Signal<JunkRules>) { self.rules = rules }
+
+  onForgetLearned(self) { self.reset.emit(false) }
+  onForgetMarks(self) { self.reset.emit(true) }
+
+  public render(self): Template {
+    return $ltml {
+      <Section title={Locale.SECTION_RULES}>
+        <Switch label={Locale.RULE_GREY} hint={Locale.RULE_GREY_TIP} value={mut self.rules.grey} />
+        <NumberInput label={Locale.RULE_GREY_LEVEL} hint={Locale.RULE_GREY_LEVEL_TIP} value={mut self.rules.greyGearLevel}
+                     least={0} most={100} disabled={!self.rules.grey} />
+      </Section>
+      <Section title={Locale.SECTION_LEARNING}>
+        <Switch label={Locale.RULE_LEARN} hint={Locale.RULE_LEARN_TIP} value={mut self.rules.learn} />
+        <Switch label={Locale.RULE_CHAT} hint={Locale.RULE_CHAT_TIP} value={mut self.rules.chat} />
+        <box columns={2} gap={space(.Item)}>
+          <PushButton label={Locale.FORGET_LEARNED} width={BUTTON} @click={self.onForgetLearned} />
+          <PushButton label={Locale.FORGET_MARKS} width={BUTTON} @click={self.onForgetMarks} />
+        </box>
+      </Section>
+    }
+  }
+}
+
+// A chord's row as the page lists it: rebuilt when what it offers changes (its key says it).
+struct ChordSpec {
+  const chord: Chord
+  const choices: Array<Choice<SlotAction>>
+  const key: String
+}
+
+// One chord's dropdown: the action picked written into the scheme, and the scheme's action shown.
+class ChordRow implements Component {
+  state picked: SlotAction
+
+  const chord: Chord
+  const choices: Array<Choice<SlotAction>>
+  clicks: mut Signal<Clicks>
+  constructor(chord: Chord, choices: Array<Choice<SlotAction>>, clicks: mut Signal<Clicks>) {
+    self.chord = chord
+    self.choices = choices
+    self.clicks = clicks
+    self.picked = actionAt(peek self.clicks, chord)
+    watch (action of self.picked) { self.take(action) }
+    watch (now of self.clicks) { self.picked = actionAt(now, self.chord) }
+  }
+
+  take(mut self, action: SlotAction) {
+    const now = peek self.clicks
+    if (actionAt(now, self.chord) != action) { self.clicks = withAction(now, self.chord, action).clone() }
+  }
+
+  public render(self): Template {
+    return $ltml { <Dropdown label={chordName(self.chord)} value={mut self.picked} choices={self.choices} /> }
+  }
+}
+
+public class ClicksPage implements Component {
+  derived rows: Array<ChordSpec> = CHORDS.map(chord => self.specOf(chord))
+
+  clicks: mut Signal<Clicks>
+  constructor(clicks: mut Signal<Clicks>) { self.clicks = clicks }
+
+  specOf(self, chord: Chord): ChordSpec {
+    const choices = choicesFor(self.clicks, chord)
+    return { chord: chord, choices: choices, key: `${chord}/${choices.length}` }
+  }
+
+  onOurs(mut self) { self.clicks = OURS.clone() }
+  onGame(mut self) { self.clicks = AS_THE_GAME.clone() }
+
+  public render(self): Template {
+    return $ltml {
+      <Section title={Locale.SECTION_CLICKS}>
+        <text value={Locale.CLICKS_TIP} wrap={true} />
+        <ChordRow $for={row of self.rows} $key={row.key} chord={peek row.chord} choices={peek row.choices}
+                  clicks={mut self.clicks} />
+        <box columns={2} gap={space(.Item)}>
+          <PushButton label={Locale.PRESET_OURS} width={BUTTON} @click={self.onOurs} />
+          <PushButton label={Locale.PRESET_GAME} width={BUTTON} @click={self.onGame} />
+        </box>
+      </Section>
+    }
+  }
+}

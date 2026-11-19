@@ -1,0 +1,70 @@
+// The slot's menu: every action on the item in one list, opened by the Menu click. Its title is the item's name; its
+// first line, dim, the item's category and why; then the mark («Junk», «Not junk», «As the rules decide»), and what
+// the slot's place allows: pick it up, its link, its sockets (gear), sell it (at a merchant), protect it (the bags).
+import Game from "$game"
+import { MenuEntry } from "Ordaen"
+import { Mark, Why } from "@/junk"
+import Locale from "@/locales"
+import { Slot } from "@/model"
+import { tabName } from "@/sections"
+import { Vault } from "@/vault"
+
+// What a line of the menu does.
+public enum MenuAct { Heading, MarkJunk, MarkKeep, Unmark, Pickup, Link, Socket, Sell, Protect }
+
+// The menu open on a slot: its lines and what each does, by place.
+public struct SlotMenu {
+  const slot: Slot
+  const title: String
+  const entries: Array<MenuEntry>
+  const acts: Array<MenuAct>
+}
+
+// The client's classes of what is worn (`Enum.ItemClass`): what may have sockets.
+const WEAPON = 2
+const ARMOR = 4
+
+// Why an item is junk, as the menu's heading and the tooltip's note say it.
+public function whyText(why: Why): String {
+  return match (why) {
+    .Marked => Locale.WHY_MARKED
+    .Learned => Locale.WHY_LEARNED
+    .Grey => Locale.WHY_GREY
+  }
+}
+
+// The menu of the slot's item, as the slot stands now.
+public function menuOf(slot: Slot, mark: Mark | nil, place: Game.BagPlace): SlotMenu {
+  let entries: Array<MenuEntry> = []
+  let acts: Array<MenuAct> = []
+  const why = slot.why
+  entries.push({ label: why != nil ? whyText(why) : tabName(slot.tab), on: nil, disabled: true, group: nil, more: nil })
+  acts.push(MenuAct.Heading)
+  const junk = peek slot.junk
+  entries.push({ label: junk ? Locale.MARK_KEEP : Locale.MARK_JUNK, on: nil, disabled: nil, group: true, more: nil })
+  acts.push(junk ? MenuAct.MarkKeep : MenuAct.MarkJunk)
+  if (mark != nil) {
+    entries.push({ label: Locale.MARK_NONE, on: nil, disabled: nil, group: nil, more: nil })
+    acts.push(MenuAct.Unmark)
+  }
+  entries.push({ label: Locale.MENU_PICKUP, on: nil, disabled: nil, group: true, more: nil })
+  acts.push(MenuAct.Pickup)
+  entries.push({ label: Locale.MENU_LINK, on: nil, disabled: nil, group: nil, more: nil })
+  acts.push(MenuAct.Link)
+  const worn = slot.read.kind == WEAPON || slot.read.kind == ARMOR
+  if (worn && slot.vault != Vault.Guild) {
+    entries.push({ label: Locale.MENU_SOCKET, on: nil, disabled: nil, group: nil, more: nil })
+    acts.push(MenuAct.Socket)
+  }
+  if (slot.vault == Vault.Bags && place == Game.BagPlace.Merchant) {
+    entries.push({ label: Locale.MENU_SELL, on: nil, disabled: slot.read.price == 0, group: nil, more: nil })
+    acts.push(MenuAct.Sell)
+  }
+  if (slot.vault == Vault.Bags) {
+    entries.push({
+      label: peek slot.guarded ? Locale.MENU_UNPROTECT : Locale.MENU_PROTECT, on: nil, disabled: nil, group: nil, more: nil
+    })
+    acts.push(MenuAct.Protect)
+  }
+  return { slot: slot, title: slot.read.name, entries: entries, acts: acts }
+}

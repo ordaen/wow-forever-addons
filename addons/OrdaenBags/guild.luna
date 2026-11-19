@@ -1,0 +1,169 @@
+// The guild bank in the bags' window, while the game has it open (`GUILDBANKFRAME_OPENED` to `_CLOSED`). The guild's
+// tabs stay the guild's: their names, icons and rights come from the server, and a tab's slots show in its own order,
+// never regrouped. A tab's contents arrive after it is asked for (`QueryGuildBankTab`, then
+// `GUILDBANKBAGSLOTS_CHANGED`): until then it shows as loading, not as empty. The log of the tab and the money's log
+// are pages of the window. The guild bank's events are heard only while it is open.
+import Client from "$client"
+import Events from "$events"
+import Game from "$game"
+import { Art } from "$ltml"
+import Locale from "@/locales"
+
+// A tab of the guild's: its place, name and icon, whether the player may see it and put things in, and how many
+// withdrawals a day the guild allows the player there (-1: any).
+public struct GuildTab {
+  const index: Integer
+  const name: String
+  const icon: Art
+  const viewable: Boolean
+  const canDeposit: Boolean
+  const withdrawals: Integer
+}
+
+// What the guild bank's page shows: a tab's slots, the tab's log, or the money's log.
+public enum GuildPage { Items, Log, MoneyLog }
+
+// The game's icons: the guild bank's own (a tab of the window), and one for a tab the guild gave none.
+public const GUILD_ICON: Asset = "Interface/ICONS/ACHIEVEMENT_GUILDPERK_MOBILEBANKING"
+const NO_ICON: Asset = "Interface/ICONS/INV_Misc_QuestionMark"
+// The money's log is asked as the tab past the last (the game's `MAX_GUILDBANK_TABS + 1`).
+const MONEY_LOG = 9
+
+// A tab's name: the guild's, or its place where the guild named it nothing.
+public function tabTitle(index: Integer, name: String): String {
+  return name != "" ? name : Locale.GUILD_TAB.format(index)
+}
+
+// What a tab's line says beside its name: the withdrawals a day where the guild limits them, a dash where the player
+// may take nothing.
+public function withdrawalsText(tab: GuildTab): String {
+  if (tab.withdrawals < 0) { return "" }
+  return Locale.GUILD_WITHDRAWALS.format(tab.withdrawals)
+}
+
+// A line of a tab's log, as the guild bank's own window writes it.
+public function logLine(kind: String, who: String, item: String, count: Integer): String {
+  return match (kind) {
+    "deposit" => Locale.LOG_DEPOSIT.format(who, count, item)
+    "withdraw" => Locale.LOG_WITHDRAW.format(who, count, item)
+    else => Locale.LOG_MOVE.format(who, count, item)
+  }
+}
+
+public class GuildBank {
+  public state open = false
+  public state tabs: Array<GuildTab> = []
+  // The tab shown, from 1; whether its slots are on their way.
+  public state tab = 1
+  public state loading = false
+  public state page: GuildPage = .Items
+  public state money = 0
+  // What the player may still take of the guild's money today; -1: any.
+  public state withdrawLeft = 0
+  public state canWithdraw = false
+  public state log: Array<String> = []
+  // The shown tab's slots came, or changed.
+  public slots: Event<nil> = new Event()
+
+  constructor() {
+    Events.GUILDBANKFRAME_OPENED.listen(self.onOpened)
+    Events.GUILDBANKFRAME_CLOSED.listen(self.onClosed)
+    watch (open of self.open) {
+      if (!open) { return }
+      Events.GUILDBANKBAGSLOTS_CHANGED.listen(self.onSlots)
+      Events.GUILDBANK_UPDATE_TABS.listen(self.readTabs)
+      Events.GUILDBANK_UPDATE_MONEY.listen(self.readMoney)
+      Events.GUILDBANK_UPDATE_WITHDRAWMONEY.listen(self.readMoney)
+      Events.GUILDBANKLOG_UPDATE.listen(self.readLog)
+    }
+  }
+
+  onOpened(mut self) {
+    self.open = true
+    self.readTabs()
+    self.readMoney()
+    const first = (peek self.tabs).find(tab => tab.viewable)
+    self.show(first?.index ?? 1)
+  }
+
+  onClosed(mut self) { self.open = false }
+
+  // A tab shown: the client told which, and asked for its slots (and its log, on the log's page).
+  public show(mut self, tab: Integer) {
+    self.tab = tab
+    Client.SetCurrentGuildBankTab(tab)
+    if (peek self.page == GuildPage.Items) {
+      self.loading = true
+      Client.QueryGuildBankTab(tab)
+    } else {
+      self.ask(peek self.page)
+    }
+  }
+
+  public showPage(mut self, page: GuildPage) {
+    self.page = page
+    if (page == .Items) {
+      self.show(peek self.tab)
+    } else {
+      self.log = []
+      self.ask(page)
+    }
+  }
+
+  ask(self, page: GuildPage) {
+    Client.QueryGuildBankLog(page == .MoneyLog ? MONEY_LOG : peek self.tab)
+  }
+
+  onSlots(mut self) {
+    self.loading = false
+    self.slots.emit()
+  }
+
+  readTabs(mut self) {
+    let tabs: Array<GuildTab> = []
+    for (index of 1..Client.GetNumGuildBankTabs().floor()) {
+      let name, icon, viewable, canDeposit, withdrawals = Client.GetGuildBankTabInfo(index)
+      tabs.push({
+        index: index, name: tabTitle(index, name), icon: icon is Asset ? icon : NO_ICON, viewable: viewable,
+        canDeposit: canDeposit, withdrawals: withdrawals.floor()
+      })
+    }
+    self.tabs = tabs
+  }
+
+  readMoney(mut self) {
+    self.money = Client.GetGuildBankMoney().floor()
+    self.withdrawLeft = Client.GetGuildBankWithdrawMoney().floor()
+    self.canWithdraw = Client.CanWithdrawGuildBankMoney()
+  }
+
+  readLog(mut self) {
+    let lines: Array<String> = []
+    if (peek self.page == GuildPage.MoneyLog) {
+      for (index of 1..Client.GetNumGuildBankMoneyTransactions().floor()) {
+        let kind, who, amount, _, _, _, _ = Client.GetGuildBankMoneyTransaction(index)
+        const said = Game.money.format(amount.floor())
+        lines.push(kind == "deposit" ? Locale.LOG_MONEY_IN.format(who, said) : Locale.LOG_MONEY_OUT.format(who, said))
+      }
+    } else {
+      const tab = peek self.tab
+      for (index of 1..Client.GetNumGuildBankTransactions(tab).floor()) {
+        let kind, who, item, count, _, _, _, _, _, _ = Client.GetGuildBankTransaction(tab, index)
+        lines.push(logLine(kind, who, item, count.floor()))
+      }
+    }
+    self.log = lines
+  }
+
+  // The guild's money moved in the player's click on the dialog's button.
+  public deposit(self, copper: Integer) { Client.DepositGuildBankMoney(copper) }
+  public withdraw(self, copper: Integer) { Client.WithdrawGuildBankMoney(copper) }
+
+  // The player's use of a slot of the guild bank: its stack into the bags, as the game's right click does.
+  public take(self, tab: Integer, slot: Integer) { Client.AutoStoreGuildBankItem(tab, slot) }
+
+  // The window's close leaves the guild bank.
+  public close(self) {
+    if (peek self.open) { Client.CloseGuildBankFrame() }
+  }
+}

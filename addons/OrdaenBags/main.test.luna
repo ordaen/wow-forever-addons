@@ -397,7 +397,7 @@ test "an item stands in the tab of its class, and a grey one in «Junk» whateve
     { bag: 0, slot: 3, id: 3, name: "Ash", icon: ASH, kind: 7, subkindName: "Kind" },
     { bag: 0, slot: 4, id: 4, name: "Vest", icon: SHIRT, kind: 4, subkindName: "Kind" },
     { bag: 0, slot: 5, id: 5, name: "Blade", icon: SWORD, kind: 2, subkindName: "Kind" },
-    { bag: 0, slot: 6, id: 6, name: "Broken Blade", icon: FOOT, quality: 0, kind: 2, subkindName: "Kind" },
+    { bag: 0, slot: 6, id: 6, name: "Broken Blade", icon: FOOT, quality: 0, kind: 2, subkindName: "Kind", level: 20 },
     { bag: 0, slot: 7, id: 7, name: "Pattern", icon: RECIPE, kind: 9, subkindName: "Kind" },
     { bag: 0, slot: 8, id: 8, name: "Elixir", icon: POTION, kind: 0, subkindName: "Kind" },
     { bag: 0, slot: 9, id: 9, name: "Letter", icon: DEED, kind: 12, subkindName: "Kind" },
@@ -665,7 +665,7 @@ test "«Free»'s caption has no mark and shuts nothing" {
 
 // A slot's clicks
 
-test "a click on a slot picks its item up, or puts down there what the cursor holds" {
+test "Shift+click on a slot picks its item up, or puts down there what the cursor holds" {
   const world = new World(everyday())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
   Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
@@ -674,6 +674,7 @@ test "a click on a slot picks its item up, or puts down there what the cursor ho
   Game.bags.open = true
   pick(Ordaen.art.ctl.tool.categories, "One bag")
   _ = Test.requests()
+  Game.input.shiftDown = (): Boolean => true
   nth(3).click()
   nth(6).click()
   Test.expect(asked("Items.show 118, Bags.pickup 0 3, Bags.pickup 0 6"))
@@ -735,7 +736,7 @@ test "the right button on a slot is the client's own use of the item" {
   Test.expect(Test.performed().join(", ") == "item 0 3" && asked("Bags.follow true, Items.show 118"))
 }
 
-test "Shift-click puts the item's link into the chat" {
+test "Shift+right-click puts the item's link into the chat" {
   const world = new World(everyday())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
   Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
@@ -743,7 +744,7 @@ test "Shift-click puts the item's link into the chat" {
   Test.mount(nil, SCREEN)
   Game.bags.open = true
   Game.input.shiftDown = (): Boolean => true
-  held(POTION).click()
+  held(POTION).rightClick()
   Test.expect(asked("Bags.follow true, Items.show 118, Chat.link 118"))
 }
 

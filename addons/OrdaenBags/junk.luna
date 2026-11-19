@@ -1,0 +1,157 @@
+// Junk: the category whose members a verdict decides, the same in the bags, the bank and the guild bank. The first
+// line that has an answer decides: the player's mark (junk; or not junk, which sends the item to its own tab whatever
+// the rules say), then what the bags learned from the player's own sales, then the rules, each a setting. What is
+// marked and learned is the profile's (`OrdaenBags:junk`), written at once as play makes it, never a step of the
+// settings' history; each list has a hard cap.
+import Game from "$game"
+
+// The player's mark on an item.
+public enum Mark implements Plain { Junk = "junk", Keep = "keep" }
+
+// A mark, and when it was last given (the lists' own count of marks given): the oldest leaves first at the cap.
+public struct Marked implements Plain {
+  mark: Mark
+  turn: Integer
+}
+
+// What the player marked and what the bags learned, by item: kept because they are the player's teaching, which
+// nothing can rebuild; `MOST_MARKS` and `MOST_LEARNED` at most (about 25 KB a profile).
+public struct JunkLists implements Plain {
+  marks: Map<Integer, Marked>
+  // How sure the bags are that the player sells the item, from `FORGOTTEN` to 1; junk above `LEARNED`.
+  learned: Map<Integer, Number>
+  turn: Integer
+}
+
+public const NO_LISTS: JunkLists = { marks: {}, learned: {}, turn: 0 }
+
+// The rules, each a setting of the «Junk» page.
+public struct JunkRules implements Plain {
+  // A grey item a merchant buys is junk.
+  grey: Boolean
+  // Grey weapons and armour are junk by the grey rule only above this item level.
+  greyGearLevel: Number
+  // The bags learn from what the player sells by hand.
+  learn: Boolean
+  // The module's lines about junk in the chat.
+  chat: Boolean
+}
+
+public const JUNK_RULES: JunkRules = { grey: true, greyGearLevel: 10, learn: true, chat: true }
+
+// Why an item is junk: the tooltip's note says it.
+public enum Why implements Plain { Marked = "marked", Learned = "learned", Grey = "grey" }
+
+public const MOST_MARKS = 1000
+public const MOST_LEARNED = 300
+// Above it a learned item is junk; below `FORGOTTEN` its score is dropped.
+public const LEARNED: Number = 0.5
+const FORGOTTEN: Number = 0.1
+// How far one full stack sold moves the score toward 1; a buyback moves it twice as far back.
+const RATE: Number = 0.382
+
+// The client's classes and the subclass of a fishing pole (`Enum.ItemClass`, `Enum.ItemWeaponSubclass`).
+const WEAPON = 2
+const ARMOR = 4
+const FISHING_POLE = 20
+// Never junk by a rule, whatever the settings: what is worn as a tabard or a shirt. The player's own mark still wins.
+const KEEP_WORN: Array<String> = ["INVTYPE_TABARD", "INVTYPE_BODY"]
+
+// Why the item is junk, or nil where it isn't.
+public function junkWhy(item: Game.SlotItem, lists: JunkLists, rules: JunkRules): Why | nil {
+  const marked = lists.marks[item.id]
+  if (marked != nil) { return marked.mark == .Junk ? Why.Marked : nil }
+  if ((lists.learned[item.id] ?? 0) > LEARNED) { return .Learned }
+  return ruleWhy(item, rules)
+}
+
+// Why the rules alone make the item junk.
+public function ruleWhy(item: Game.SlotItem, rules: JunkRules): Why | nil {
+  if (keptByRule(item)) { return nil }
+  if (rules.grey && item.quality == 0 && item.price > 0 && !lowGear(item, rules)) { return .Grey }
+  return nil
+}
+
+function keptByRule(item: Game.SlotItem): Boolean {
+  return KEEP_WORN.any(worn => worn == item.worn) || (item.kind == WEAPON && item.subkind == FISHING_POLE)
+}
+
+function lowGear(item: Game.SlotItem, rules: JunkRules): Boolean {
+  return (item.kind == WEAPON || item.kind == ARMOR) && item.level <= rules.greyGearLevel
+}
+
+// Whether a sale or a buyback of the item teaches: only what neither the player's mark nor the rules decide.
+public function teaches(item: Game.SlotItem, lists: JunkLists, rules: JunkRules): Boolean {
+  return lists.marks[item.id] == nil && ruleWhy(item, rules) == nil
+}
+
+// The share of a full stack a sale moved: what a score moves by.
+public function shareOf(count: Integer, stack: Integer): Number {
+  return (count / stack.max(1)).min(1)
+}
+
+// The score after a sale by hand, and after a buyback.
+public function afterSale(old: Number, share: Number): Number {
+  return old + (1 - old) * RATE * share
+}
+
+public function afterBuyback(old: Number, share: Number): Number {
+  return (1 - 2 * RATE * share) * old
+}
+
+// The lists with the item's mark given (nil takes it away). Past the cap the mark given longest ago leaves.
+public function withMark(lists: JunkLists, id: Integer, mark: Mark | nil): JunkLists {
+  const turn = lists.turn + 1
+  let marks: Map<Integer, Marked> = {}
+  let count = 0
+  for (key, entry of lists.marks) {
+    if (key != id) {
+      marks[key] = entry
+      count += 1
+    }
+  }
+  if (mark != nil) {
+    marks[id] = { mark: mark, turn: turn }
+    count += 1
+  }
+  if (count > MOST_MARKS) {
+    let oldest = 0
+    let at = turn
+    for (key, entry of marks) {
+      if (entry.turn < at) {
+        at = entry.turn
+        oldest = key
+      }
+    }
+    marks[oldest] = nil
+  }
+  return { marks: marks, learned: lists.learned, turn: turn }
+}
+
+// The lists with the item's score (one below `FORGOTTEN` is dropped). Past the cap the lowest score leaves.
+public function withScore(lists: JunkLists, id: Integer, score: Number): JunkLists {
+  let learned: Map<Integer, Number> = {}
+  let count = 0
+  for (key, value of lists.learned) {
+    if (key != id) {
+      learned[key] = value
+      count += 1
+    }
+  }
+  if (score >= FORGOTTEN) {
+    learned[id] = score
+    count += 1
+  }
+  if (count > MOST_LEARNED) {
+    let lowest = 0
+    let least: Number = 2
+    for (key, value of learned) {
+      if (value < least) {
+        least = value
+        lowest = key
+      }
+    }
+    learned[lowest] = nil
+  }
+  return { marks: lists.marks, learned: learned, turn: lists.turn }
+}
