@@ -1,0 +1,8 @@
+// The quest log's measures at the player's scale: the window's body, its page beside the list, and the abandon
+// question.
+
+public const WIDTH: Number<Length> = 703.125dp
+public const HEIGHT: Number<Length> = 656.25dp
+public const PAGE: Number<Length> = 492.1875dp
+public const ASK: Number<Length> = 468.75dp
+public const ASK_BUTTON: Number<Length> = 140.625dp

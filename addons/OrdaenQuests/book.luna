@@ -1,0 +1,129 @@
+// What the player has: the client's quest log, read as the log's events say it changed, and what the player does with
+// a quest (track it, share it, abandon it). `QuestLog` is what the module asks; `ClientQuestLog` asks the client
+// (`C_QuestLog` and the log's own functions). It is the part `"$game"` will have as `Game.questLog`.
+import Client from "$client"
+import { QuestKind, kindOfTag } from "@/kind"
+
+// One objective of a quest: what the client says of it («Убито волков: 5/10»), and whether it is done.
+public struct Objective {
+  text: String
+  done: Boolean
+}
+
+// A quest of the player's log, as the client says it.
+public struct LogQuest {
+  id: Integer
+  title: String
+  level: Integer
+  // The client's header it stands under: a zone, an instance, a battleground.
+  header: String
+  kind: QuestKind
+  done: Boolean
+  failed: Boolean
+  tracked: Boolean
+  // The group it is meant for (an elite quest, «Группа: 3»); 0 for one played alone.
+  group: Integer
+  // The player can share it now: the client lets it be shared, and the player is in a group.
+  shareable: Boolean
+  objectives: Array<Objective>
+}
+
+// What a quest's page says: its story, its task, and what it gives.
+public struct QuestText {
+  story: String
+  task: String
+  experience: Integer
+  money: Integer
+}
+
+public trait QuestLog {
+  // The log's quests, in the client's order.
+  public quests(self): Array<LogQuest>
+  // How many quests the log holds at most.
+  public most(self): Integer
+  // The zone the player is in, as the log's headers name zones.
+  public zone(self): String
+  public text(self, id: Integer): QuestText
+  public track(mut self, id: Integer, on: Boolean)
+  public share(mut self, id: Integer)
+  public abandon(mut self, id: Integer)
+}
+
+const NO_TEXT: QuestText = { story: "", task: "", experience: 0, money: 0 }
+
+// The client's quest log.
+public class ClientQuestLog implements QuestLog {
+  public quests(self): Array<LogQuest> {
+    const found: Array<LogQuest> = []
+    let entries, _ = Client.C_QuestLog.GetNumQuestLogEntries()
+    let header = ""
+    for (index of 1..entries.floor()) {
+      const info = Client.C_QuestLog.GetInfo(index)
+      if (info != nil) {
+        if (info.isHeader) {
+          header = info.title
+        } else if (!info.isHidden) {
+          found.push(ClientQuestLog.questOf(info.questID.floor(), info, header))
+        }
+      }
+    }
+    return found
+  }
+
+  questOf(id: Integer, info: Client.QuestInfo, header: String): LogQuest {
+    const tag = Client.C_QuestLog.GetQuestTagInfo(id)
+    const objectives: Array<Objective> = []
+    for (objective of Client.C_QuestLog.GetQuestObjectives(id) ?? []) {
+      objectives.push({ text: objective.text, done: objective.finished })
+    }
+    return {
+      id: id,
+      title: info.title,
+      level: info.level.floor(),
+      header: header,
+      kind: kindOfTag(tag == nil ? nil : tag.tagID.floor()),
+      done: Client.C_QuestLog.IsComplete(id),
+      failed: Client.C_QuestLog.IsFailed(id),
+      tracked: Client.C_QuestLog.GetQuestWatchType(id) != nil,
+      group: info.suggestedGroup.floor(),
+      shareable: Client.IsInGroup(nil) && Client.C_QuestLog.IsPushableQuest(id),
+      objectives: objectives
+    }
+  }
+
+  public most(self): Integer { return Client.C_QuestLog.GetMaxNumQuestsCanAccept() }
+
+  public zone(self): String { return Client.GetRealZoneText(nil) }
+
+  public text(self, id: Integer): QuestText {
+    const index = Client.C_QuestLog.GetLogIndexForQuestID(id)
+    if (index == nil) { return NO_TEXT }
+    let story, task = Client.GetQuestLogQuestText(index)
+    return {
+      story: story,
+      task: task,
+      experience: Client.GetQuestLogRewardXP(id).floor(),
+      money: Client.GetQuestLogRewardMoney(id).floor()
+    }
+  }
+
+  public track(mut self, id: Integer, on: Boolean) {
+    if (on) {
+      _ = Client.C_QuestLog.AddQuestWatch(id)
+    } else {
+      _ = Client.C_QuestLog.RemoveQuestWatch(id)
+    }
+  }
+
+  public share(mut self, id: Integer) {
+    const index = Client.C_QuestLog.GetLogIndexForQuestID(id)
+    if (index != nil) { Client.QuestLogPushQuest(index) }
+  }
+
+  // The client's own three steps, in the player's click.
+  public abandon(mut self, id: Integer) {
+    Client.C_QuestLog.SetSelectedQuest(id)
+    Client.C_QuestLog.SetAbandonQuest()
+    Client.C_QuestLog.AbandonQuest()
+  }
+}

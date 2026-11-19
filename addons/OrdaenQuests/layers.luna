@@ -1,0 +1,71 @@
+// What Quests puts on Ordaen Map: where the tracked quests' objectives are, and whom to hand a tracked quest that is
+// done. Each pin is a spot QuestieDB knows; a quest it doesn't know has none. Both are added to Map's `layers` while
+// Map is on, by the root.
+import type { Layer, Pin } from "OrdaenMap"
+import { LogQuest } from "@/book"
+import Locale from "@/locales"
+import { Figure, QuestFacts } from "@/questie"
+
+// Which of a tracked quest's places a layer shows.
+public enum PinKind {
+  // Where what it asks for is: while it isn't done.
+  Objectives
+  // Whom to hand it to: once it is done.
+  TurnIns
+}
+
+const OBJECTIVE: Asset = "Interface/GossipFrame/IncompleteQuestIcon"
+const TURN_IN: Asset = "Interface/GossipFrame/ActiveQuestIcon"
+
+public class QuestPins implements Layer {
+  public const id: String
+  public const title: String
+  public const hint: String
+
+  const kind: PinKind
+  quests: Signal<Array<LogQuest>>
+  facts: Signal<Map<Integer, QuestFacts>>
+  constructor(kind: PinKind, quests: Signal<Array<LogQuest>>, facts: Signal<Map<Integer, QuestFacts>>) {
+    self.kind = kind
+    self.quests = quests
+    self.facts = facts
+    self.id = kind == .Objectives ? "quests.objectives" : "quests.turnIns"
+    self.title = kind == .Objectives ? Locale.LAYER_OBJECTIVES : Locale.LAYER_TURN_INS
+    self.hint = kind == .Objectives ? Locale.LAYER_OBJECTIVES_TIP : Locale.LAYER_TURN_INS_TIP
+  }
+
+  // The figures of the quest this layer shows, and their pins' icon; none where it shows nothing of it.
+  figuresOf(self, quest: LogQuest, facts: QuestFacts): Array<Figure> {
+    if (!quest.tracked) { return [] }
+    return match (self.kind) {
+      .Objectives => quest.done ? [] : facts.targets
+      .TurnIns => quest.done ? facts.takers : []
+    }
+  }
+
+  public pins(self): Array<Pin> {
+    const icon = self.kind == .Objectives ? OBJECTIVE : TURN_IN
+    const pins: Array<Pin> = []
+    for (quest of self.quests) {
+      const facts = self.facts[quest.id]
+      if (facts != nil) {
+        for (figure of self.figuresOf(quest, facts)) {
+          for (spot of figure.spots) { pins.push({ of: quest.id, area: spot.area, x: spot.x, y: spot.y, icon: icon }) }
+        }
+      }
+    }
+    return pins
+  }
+
+  // The quest's title, then what is still to do, or whom to hand it to.
+  public lines(self, pin: Pin): Array<String> {
+    const quest = self.quests.find(quest => quest.id == pin.of)
+    if (quest == nil) { return [] }
+    if (self.kind == .TurnIns) { return [quest.title, Locale.TURN_IN] }
+    const lines: Array<String> = [quest.title]
+    for (objective of quest.objectives) {
+      if (!objective.done) { lines.push(objective.text) }
+    }
+    return lines
+  }
+}

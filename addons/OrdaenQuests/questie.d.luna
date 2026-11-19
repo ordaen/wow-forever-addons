@@ -1,0 +1,36 @@
+// QuestieDB's public API (`_G.LibQuestieDB`, contract 4), as `questie.lua` reads it: what the world holds of a quest.
+// QuestieDB is GPLv3: it is called from the player's own install, and nothing of it is copied here.
+
+// A place in the world: an `AreaTable` area, and where in it, 0 to 1 across and down.
+public struct Spot {
+  area: Integer
+  x: Number
+  y: Number
+}
+
+// An NPC or an object a quest names, and where it stands.
+public struct Figure {
+  name: String
+  spots: Array<Spot>
+}
+
+// What QuestieDB says of a quest.
+public struct QuestFacts {
+  name: String
+  level: Integer
+  // Positive: the `AreaTable` area it belongs to; negative: a `QuestSort`.
+  zone: Integer
+  // Who gives it, who takes it back, and where its objectives are (the creatures and objects it names, and those
+  // that drop the items it asks for).
+  givers: Array<Figure>
+  takers: Array<Figure>
+  targets: Array<Figure>
+  // The quest after it in its chain; 0 for none.
+  next: Integer
+}
+
+// Why QuestieDB can't be read: it isn't loaded, or its contract isn't the one this reader is written against (its
+// own message); nil where it can be.
+public function fault(): String | nil
+// The quest's facts; nil for a quest QuestieDB doesn't know (Forever's newest), or where it can't be read.
+public function quest(id: Integer): QuestFacts | nil

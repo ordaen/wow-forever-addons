@@ -1,0 +1,59 @@
+// What Quests puts on Ordaen Map, and the colours of its levels: a tracked quest's objectives while it is to do, its
+// turn-in once done, nothing of a quest not tracked or not known to QuestieDB.
+import Test from "$test"
+import { LogQuest } from "@/book"
+import { PinKind, QuestPins } from "@/layers"
+import { Difficulty, colorOf, difficultyOf } from "@/model"
+import { QuestFacts } from "@/questie"
+
+function quest(id: Integer, tracked: Boolean, done: Boolean): LogQuest {
+  return {
+    id: id, title: `Quest ${id}`, level: 10, header: "Westfall", kind: .World, done: done, failed: false,
+    tracked: tracked, group: 0, shareable: false,
+    objectives: [{ text: "Wolves slain: 5/10", done: false }, { text: "Bears slain: 2/2", done: true }]
+  }
+}
+
+// The log and the facts the layers follow.
+class Holder {
+  public state quests: Array<LogQuest> = []
+  public state facts: Map<Integer, QuestFacts> = {}
+}
+
+const FACTS: QuestFacts = {
+  name: "", level: 10, zone: 40, next: 0,
+  givers: [{ name: "Giver", spots: [{ area: 40, x: 0.1, y: 0.1 }] }],
+  takers: [{ name: "Taker", spots: [{ area: 40, x: 0.2, y: 0.2 }] }],
+  targets: [{ name: "Wolf", spots: [{ area: 40, x: 0.3, y: 0.3 }, { area: 40, x: 0.4, y: 0.4 }] }]
+}
+
+test "the objectives' layer shows the tracked quests that aren't done, each of their spots" {
+  const holder = new Holder()
+  holder.quests = [quest(1, true, false), quest(2, false, false), quest(3, true, true), quest(4, true, false)]
+  holder.facts = { [1]: FACTS, [2]: FACTS, [3]: FACTS }
+  const layer = new QuestPins(PinKind.Objectives, holder.quests, holder.facts)
+  const pins = layer.pins()
+  Test.expect(pins.length == 2)
+  Test.expect(pins.all(pin => pin.of == 1))
+  const lines = layer.lines(pins[1] ?? panic("a pin"))
+  Test.expect(lines.length == 2 && lines[1] == "Quest 1" && lines[2] == "Wolves slain: 5/10")
+}
+
+test "the turn-ins' layer shows whom to hand a tracked quest that is done" {
+  const holder = new Holder()
+  holder.quests = [quest(1, true, false), quest(3, true, true)]
+  holder.facts = { [1]: FACTS, [3]: FACTS }
+  const layer = new QuestPins(PinKind.TurnIns, holder.quests, holder.facts)
+  const pins = layer.pins()
+  Test.expect(pins.length == 1)
+  Test.expect(pins[1]?.of == 3 && pins[1]?.x == 0.2)
+}
+
+test "a quest's level is coloured as the client colours it against the player's" {
+  Test.expect(difficultyOf(25, 20) == Difficulty.Impossible)
+  Test.expect(difficultyOf(23, 20) == Difficulty.Hard)
+  Test.expect(difficultyOf(18, 20) == Difficulty.Even)
+  Test.expect(difficultyOf(13, 20) == Difficulty.Easy)
+  Test.expect(difficultyOf(12, 20) == Difficulty.Trivial)
+  Test.expect(colorOf(.Trivial).r == colorOf(.Trivial).g)
+}

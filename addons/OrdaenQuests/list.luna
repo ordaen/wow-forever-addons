@@ -1,0 +1,115 @@
+// A tab's list: the count of the log's quests against what it holds (red when full), then the tab's quests under the
+// client's headers, the player's zone first; a header folds. A tab with no quest says so.
+import { Align, Overflow } from "$ltml"
+import { Component, SECONDARY_TEXT, space } from "Ordaen"
+import { LogQuest } from "@/book"
+import { QuestKind } from "@/kind"
+import Locale from "@/locales"
+import { Group, groupsOf } from "@/model"
+import { Act, HeaderRow, QuestRow } from "@/view"
+
+const DIM: Color = Color.hex("#a3977f")
+const WHITE: Color = Color.hex("#ffffff")
+const RED: Color = Color.hex("#ff4040")
+
+// A group's rows: its header, and its quests while it isn't folded.
+class GroupRows implements Component {
+  public act: Event<(Integer, Act)> = new Event()
+  public fold: Event<String> = new Event()
+
+  derived open: Boolean = self.folded[self.group.header] != true
+
+  group: Signal<Group>
+  picked: Signal<Integer>
+  folded: Signal<Map<String, Boolean>>
+  player: Signal<Integer>
+  constructor(group: Signal<Group>, picked: Signal<Integer>, folded: Signal<Map<String, Boolean>>, player: Signal<Integer>) {
+    self.group = group
+    self.picked = picked
+    self.folded = folded
+    self.player = player
+  }
+
+  onAct(mut self, id: Integer, act: Act) { self.act.emit(id, act) }
+  onFold(mut self, header: String) { self.fold.emit(header) }
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={1}>
+        <HeaderRow header={self.group.header} here={self.group.here} folded={!self.open} @fold={self.onFold} />
+        <box $if={self.open} columns={1}>
+          <QuestRow $for={quest of self.group.quests} $key={quest.id} quest={quest} picked={quest.id == self.picked}
+                    player={self.player} @act={self.onAct} />
+        </box>
+      </box>
+    }
+  }
+}
+
+public class QuestList implements Component {
+  public act: Event<(Integer, Act)> = new Event()
+  public fold: Event<String> = new Event()
+
+  derived groups: Array<Group> = groupsOf(self.quests, self.kind, self.zone)
+  derived full: Boolean = self.count >= self.most
+  derived countColor: Color = self.full ? RED : WHITE
+  derived counted: String = Locale.COUNT.format(self.count, self.most)
+  derived empty: String = match (self.kind) {
+    .World => Locale.EMPTY_WORLD
+    .Dungeon => Locale.EMPTY_DUNGEONS
+    .Raid => Locale.EMPTY_RAIDS
+    .PvP => Locale.EMPTY_PVP
+  }
+
+  quests: Signal<Array<LogQuest>>
+  kind: Signal<QuestKind>
+  zone: Signal<String>
+  count: Signal<Integer>
+  most: Signal<Integer>
+  picked: Signal<Integer>
+  folded: Signal<Map<String, Boolean>>
+  player: Signal<Integer>
+  // QuestieDB can be read: where it can't, the list says so under the count.
+  known: Signal<Boolean>
+  constructor(
+    quests: Signal<Array<LogQuest>>,
+    kind: Signal<QuestKind>,
+    zone: Signal<String>,
+    count: Signal<Integer>,
+    most: Signal<Integer>,
+    picked: Signal<Integer>,
+    folded: Signal<Map<String, Boolean>>,
+    player: Signal<Integer>,
+    known: Signal<Boolean>
+  ) {
+    self.quests = quests
+    self.kind = kind
+    self.zone = zone
+    self.count = count
+    self.most = most
+    self.picked = picked
+    self.folded = folded
+    self.player = player
+    self.known = known
+  }
+
+  onAct(mut self, id: Integer, act: Act) { self.act.emit(id, act) }
+  onFold(mut self, header: String) { self.fold.emit(header) }
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={1} rows={["max-content", { fr: 1 }]} gap={space(.Item)}>
+        <box columns={[{ fr: 1 }, "max-content"]} yAlign={Align.Center} gap={space(.Item)}>
+          <text $if={!self.known} value={Locale.NO_QUESTIE} textColor={RED} textSize={SECONDARY_TEXT} />
+          <box $else />
+          <text value={self.counted} textColor={self.countColor} textSize={SECONDARY_TEXT} wrap={false} />
+        </box>
+        <box columns={1} overflow={Overflow.Scroll}>
+          <text $if={self.groups.length == 0} value={self.empty} textColor={DIM} />
+          <GroupRows $for={group of self.groups} $key={group.header} group={group} picked={self.picked}
+                     folded={self.folded} player={self.player} @act={self.onAct} @fold={self.onFold} />
+        </box>
+      </box>
+    }
+  }
+}

@@ -1,0 +1,204 @@
+// The quest log as the player meets it: the game's quest log key and the micro menu's button open it, its tabs sort
+// the quests by the client's tag, a quest's page says where to go, and what the player does with a quest reaches the
+// client's log. The client's log and QuestieDB are the test's own (`TestLog`, `TestData`): the stand-in has neither
+// `C_QuestLog`'s tags and watches nor QuestieDB.
+import Client from "$client"
+import Events from "$events"
+import Game from "$game"
+import Test from "$test"
+import root Quests from "OrdaenQuests"
+import { LogQuest, QuestLog, QuestText } from "@/book"
+import { QuestData } from "@/data"
+import { QuestKind, kindOfTag } from "@/kind"
+import { QuestFacts } from "@/questie"
+
+const PAGE: Test.Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
+
+function quest(id: Integer, title: String, header: String, kind: QuestKind): LogQuest {
+  return {
+    id: id, title: title, level: 14, header: header, kind: kind, done: false, failed: false, tracked: false, group: 0,
+    shareable: false, objectives: [{ text: "Wolves slain: 5/10", done: false }]
+  }
+}
+
+// The client's log as a test sets it, and what the player asked of it.
+class TestLog implements QuestLog {
+  public list: mut Array<LogQuest> = [
+    quest(101, "The Defias Brotherhood", "Westfall", .World),
+    quest(102, "Red Silk Bandanas", "The Deadmines", .Dungeon),
+    quest(103, "Elwynn Wolves", "Elwynn Forest", .World)
+  ]
+  public tracked: mut Array<Integer> = []
+  public abandoned = 0
+  public shared = 0
+
+  public quests(self): Array<LogQuest> { return self.list }
+  public most(self): Integer { return 25 }
+  public zone(self): String { return "Elwynn Forest" }
+  public text(self, id: Integer): QuestText { return { story: "Gryan asks you to look into Westfall.", task: "", experience: 420, money: 0 } }
+  public track(mut self, id: Integer, on: Boolean) { if (on) { self.tracked.push(id) } }
+  public share(mut self, id: Integer) { self.shared = id }
+  public abandon(mut self, id: Integer) { self.abandoned = id }
+}
+
+// QuestieDB as a test sets it: it knows the first quest alone.
+class TestData implements QuestData {
+  public fault(self): String | nil { return nil }
+  public quest(mut self, id: Integer): QuestFacts | nil {
+    if (id != 101) { return nil }
+    return {
+      name: "The Defias Brotherhood", level: 14, zone: 40, next: 0, targets: [],
+      givers: [{ name: "Gryan Stoutmantle", spots: [{ area: 40, x: 0.56, y: 0.47 }] }],
+      takers: [{ name: "Gryan Stoutmantle", spots: [{ area: 40, x: 0.56, y: 0.47 }] }]
+    }
+  }
+}
+
+// The module with the test's log and data, its window open.
+function opened(log: mut TestLog, data: mut TestData) {
+  Test.mount(nil, PAGE)
+  Quests.log = log
+  Quests.data = data
+  Quests.flip()
+  Quests.refresh()
+  Test.flush()
+}
+
+test "a quest's tab is the client's tag: dungeon, raid, battleground, else the world" {
+  Test.expect(kindOfTag(81) == .Dungeon)
+  Test.expect(kindOfTag(85) == .Dungeon)
+  Test.expect(kindOfTag(62) == .Raid)
+  Test.expect(kindOfTag(88) == .Raid)
+  Test.expect(kindOfTag(89) == .Raid)
+  Test.expect(kindOfTag(41) == .PvP)
+  Test.expect(kindOfTag(1) == .World)
+  Test.expect(kindOfTag(nil) == .World)
+}
+
+test "the game's quest log key opens the window, and again closes it" {
+  Test.mount(nil, PAGE)
+  _ = Client.SetBinding("L", "TOGGLEQUESTLOG")
+  Events.UPDATE_BINDINGS.emit()
+  Test.flush()
+  Test.keyBound("L")
+  Test.expect(Test.page().window("World").shown())
+  Test.keyBound("L")
+  Test.expect(!Test.page().window("World").shown())
+}
+
+test "switched off, the key is the game's again" {
+  Test.mount(nil, PAGE)
+  _ = Client.SetBinding("L", "TOGGLEQUESTLOG")
+  Quests.settings.values.ownKey = false
+  Test.flush()
+  Test.keyBound("L")
+  Test.expect(!Test.page().window("World").shown())
+  Test.expect(Client.GetBindingAction("L", true) == "TOGGLEQUESTLOG")
+}
+
+test "the micro menu's quest log button opens the window, and has the game's click back as the module ends" {
+  Test.mount(nil, PAGE)
+  const button = Client.CreateFrame("Button", "QuestLogMicroButton", Client.UIParent, nil)
+  button.SetSize(30, 40)
+  button.SetPoint("CENTER", Client.UIParent, "CENTER", 0, 0)
+  let gameClicks = 0
+  button.SetScript("OnClick", (): nil => {
+    gameClicks += 1
+    return nil
+  })
+  Game.frames.QuestLogMicroButton = button
+  Test.flush()
+  Test.click(Test.centre(button), nil)
+  Test.expect(Test.page().window("World").shown())
+  Test.expect(gameClicks == 0)
+  Quests.settings.values.ownKey = false
+  Test.flush()
+  Test.click(Test.centre(button), nil)
+  Test.expect(gameClicks == 1)
+}
+
+test "each tab lists its own quests and counts them, the player's zone first" {
+  opened(new TestLog(), new TestData())
+  const window = Test.page().window("World")
+  Test.expect(window.text("Elwynn Wolves").shown())
+  Test.expect(window.text("The Defias Brotherhood").shown())
+  Test.expect(!window.text("Red Silk Bandanas").shown())
+  Test.expect(window.text("you are here").shown())
+  const texts = window.texts()
+  Test.expect(texts.find(text => text == "Elwynn Forest") != nil)
+  window.text("Dungeons").click()
+  Test.expect(window.text("Red Silk Bandanas").shown())
+  Test.expect(!window.text("Elwynn Wolves").shown())
+  Test.expect(window.text("Quests: 3/25").shown())
+}
+
+test "a header folds its quests away and back" {
+  opened(new TestLog(), new TestData())
+  const window = Test.page().window("World")
+  window.text("Westfall").click()
+  Test.expect(!window.text("The Defias Brotherhood").shown())
+  window.text("Westfall").click()
+  Test.expect(window.text("The Defias Brotherhood").shown())
+}
+
+test "Shift+Left-click on a quest tracks it" {
+  const log = new TestLog()
+  opened(mut log, new TestData())
+  Test.hold([.Shift])
+  Test.page().window("World").text("Elwynn Wolves").click()
+  Test.hold([])
+  Test.expect(log.tracked.length == 1 && log.tracked[1] == 103)
+}
+
+test "a quest picked shows its page, with where its giver stands from QuestieDB" {
+  opened(new TestLog(), new TestData())
+  Test.page().window("World").text("The Defias Brotherhood").click()
+  const window = Test.page().window("World")
+  Test.expect(window.text("Gryan asks you to look into Westfall.").shown())
+  Test.expect(window.text("Gryan Stoutmantle (56, 47)").count() == 2)
+  Test.expect(window.text("420").shown())
+}
+
+test "a quest QuestieDB doesn't know has no «Where»" {
+  opened(new TestLog(), new TestData())
+  Test.page().window("World").text("Elwynn Wolves").click()
+  Test.expect(!Test.page().window("World").text("Where").shown())
+}
+
+test "abandoning asks first, and only «Abandon quest» in the question abandons" {
+  const log = new TestLog()
+  opened(mut log, new TestData())
+  Test.page().window("World").text("The Defias Brotherhood").click()
+  Test.page().window("World").button("Abandon quest").click()
+  Test.expect(log.abandoned == 0)
+  const asked = Test.page().window("Abandon «The Defias Brotherhood»?")
+  asked.button("Cancel").click()
+  Test.expect(log.abandoned == 0)
+  Test.page().window("World").button("Abandon quest").click()
+  Test.page().window("Abandon «The Defias Brotherhood»?").button("Abandon quest").click()
+  Test.expect(log.abandoned == 101)
+}
+
+test "a quest that can't be shared has its button greyed: a click shares nothing" {
+  const log = new TestLog()
+  opened(mut log, new TestData())
+  Test.page().window("World").text("The Defias Brotherhood").click()
+  Test.page().window("World").button("Share").click()
+  Test.expect(log.shared == 0)
+}
+
+test "Right-click on a quest opens its menu, and «Track» there tracks it" {
+  const log = new TestLog()
+  opened(mut log, new TestData())
+  Test.page().window("World").text("Elwynn Wolves").rightClick()
+  Test.page().window("Abandon quest").button("Track").click()
+  Test.expect(log.tracked.length == 1 && log.tracked[1] == 103)
+}
+
+test "its layers stand on Ordaen Map's settings page while Map is on" {
+  Test.mount(nil, PAGE)
+  Test.open("Ordaen")
+  Test.page().window("Ordaen").text("Map").click()
+  Test.expect(Test.page().text("Quest objectives").shown())
+  Test.expect(Test.page().text("Turn in").shown())
+}

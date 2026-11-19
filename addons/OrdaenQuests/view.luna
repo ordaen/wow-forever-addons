@@ -1,0 +1,236 @@
+// The quest log's parts: a header of the list (it folds), a quest's row, and the picked quest's page.
+//
+// A row as the client's log has it: the tracking box, the level in its difficulty colour, the title, an elite quest's
+// «Группа: 3», and at the right its progress or «Готово». Left-click picks it (its page shows beside the list);
+// Shift+Left-click and its box track it or stop tracking it; Right-click opens its menu: track, share, abandon.
+import { Align, Art, ByInteractionState, Edges, Position } from "$ltml"
+import root Ordaen from "Ordaen"
+import { Component, Menu, MenuEntry, Money, PushButton, SECONDARY_TEXT, TITLE_TEXT, space } from "Ordaen"
+import { LogQuest, Objective, QuestText } from "@/book"
+import Locale from "@/locales"
+import { colorOf, difficultyOf } from "@/model"
+import { Figure, QuestFacts } from "@/questie"
+
+// What the player asks of a quest from its row or its page.
+public enum Act { Pick, Track, Share, Abandon, ShowOnMap }
+
+const INK: Color = Color.hex("#e8dcc4")
+const WHITE: Color = Color.hex("#ffffff")
+const GOLD: Color = Color.hex("#ffd100")
+const DIM: Color = Color.hex("#a3977f")
+const GREEN: Color = Color.hex("#40c040")
+const RED: Color = Color.hex("#ff4040")
+const CLEAR: Color = Color.hex("#00000000")
+const SHADE: ByInteractionState<Color> = { default: CLEAR, hover: Color.hex("#00000059"), focus: Color.hex("#00000059") }
+const PICKED: Color = Color.hex("#ffd1001f")
+const ROW_PAD: Edges = { top: 3.515625dp, right: space(.Line), bottom: 3.515625dp, left: space(.Panel) }
+const BOX = 14.0625dp
+// The fold mark's cell, as a tree's row has it.
+const MARK = 18.75dp
+
+// A text a quest's row ends with: its progress, «Готово», or «Провалено».
+function progressOf(quest: LogQuest): String {
+  if (quest.failed) { return Locale.FAILED }
+  if (quest.done) { return Locale.DONE }
+  const left = quest.objectives.find(objective => !objective.done)
+  return left?.text ?? ""
+}
+
+// The header of a group: a fold mark and the header's text; «вы здесь» beside the player's zone.
+public class HeaderRow implements Component {
+  public fold: Event<String> = new Event()
+
+  derived mark: Art = self.folded ? Ordaen.art.ctl.markClosed : Ordaen.art.ctl.markOpen
+
+  header: Signal<String>
+  here: Signal<Boolean>
+  folded: Signal<Boolean>
+  constructor(header: Signal<String>, here: Signal<Boolean>, folded: Signal<Boolean>) {
+    self.header = header
+    self.here = here
+    self.folded = folded
+  }
+
+  onFold(mut self) { self.fold.emit(self.header) }
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={["max-content", "max-content", { fr: 1 }]} gap={space(.Line)} yAlign={Align.Center}
+           padding={{ top: space(.Line), bottom: space(.Line) }} background={SHADE}
+           @pointerPress={self.onFold} @keyPress(.Enter)={self.onFold} @keyPress(.Space)={self.onFold}>
+        <box width={MARK} height={MARK} background={self.mark} tint={DIM} />
+        <text value={self.header} textColor={GOLD} wrap={false} />
+        <text $if={self.here} value={Locale.HERE} textColor={DIM} textSize={SECONDARY_TEXT} wrap={false} />
+      </box>
+    }
+  }
+}
+
+public class QuestRow implements Component {
+  public act: Event<(Integer, Act)> = new Event()
+
+  state menuOpen = false
+  derived level: String = `[${self.quest.level}${self.quest.group > 1 ? "+" : ""}]`
+  derived levelColor: Color = colorOf(difficultyOf(self.quest.level, self.player))
+  derived progress: String = progressOf(self.quest)
+  derived progressColor: Color = self.quest.failed ? RED : self.quest.done ? GREEN : DIM
+  derived background: Color | ByInteractionState<Color> = self.picked ? PICKED : SHADE
+  derived tick: Number = self.quest.tracked ? 1 : 0
+  derived group: String = self.quest.group > 1 ? Locale.GROUP.format(self.quest.group) : ""
+  derived entries: Array<MenuEntry> = [
+    { label: self.quest.tracked ? Locale.UNTRACK : Locale.TRACK },
+    { label: Locale.SHARE, disabled: !self.quest.shareable },
+    { label: Locale.ABANDON, group: true }
+  ]
+
+  quest: Signal<LogQuest>
+  picked: Signal<Boolean>
+  player: Signal<Integer>
+  constructor(quest: Signal<LogQuest>, picked: Signal<Boolean>, player: Signal<Integer>) {
+    self.quest = quest
+    self.picked = picked
+    self.player = player
+  }
+
+  onPick(mut self) { self.act.emit(self.quest.id, Act.Pick) }
+  onTrack(mut self) { self.act.emit(self.quest.id, Act.Track) }
+  onMenu(mut self) { self.menuOpen = true }
+  onClose(mut self) { self.menuOpen = false }
+
+  onEntry(mut self, index: Integer) {
+    self.menuOpen = false
+    const act = match (index) {
+      1 => Act.Track
+      2 => Act.Share
+      else => Act.Abandon
+    }
+    self.act.emit(self.quest.id, act)
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={[BOX, "max-content", { fr: 1 }, "max-content", "max-content"]} gap={space(.Line)}
+           yAlign={Align.Center} padding={ROW_PAD} background={self.background}
+           @pointerPress(.Left)={self.onPick} @pointerPress([.Shift, .Left])={self.onTrack}
+           @pointerPress(.Right)={self.onMenu} @keyPress(.Enter)={self.onPick} @keyPress(.Space)={self.onTrack}>
+        <box width={BOX} height={BOX} background={Ordaen.art.ctl.check} @pointerPress.self={self.onTrack}>
+          <box position={Position.Absolute} left={0ui} top={0ui} width={BOX} height={BOX}
+               background={Ordaen.art.ctl.tick} opacity={self.tick} />
+        </box>
+        <text value={self.level} textColor={self.levelColor} textFont={.Numbers} wrap={false} />
+        <text value={self.quest.title} textColor={INK} wrap={false} />
+        <text value={self.group} textColor={DIM} textSize={SECONDARY_TEXT} wrap={false} />
+        <text value={self.progress} textColor={self.progressColor} textSize={SECONDARY_TEXT} wrap={false} />
+        <Menu $if={self.menuOpen} entries={self.entries} title={self.quest.title} @pick={self.onEntry}
+              @close={self.onClose} />
+      </box>
+    }
+  }
+}
+
+// One objective on a quest's page: white while it is to do, grey once done.
+class ObjectiveLine implements Component {
+  derived color: Color = self.objective.done ? DIM : WHITE
+
+  objective: Signal<Objective>
+  constructor(objective: Signal<Objective>) { self.objective = objective }
+
+  public render(self): Template {
+    return $ltml {
+      <text value={`— ${self.objective.text}`} textColor={self.color} />
+    }
+  }
+}
+
+// A line of the page's «Где»: what it is, and who and where.
+class WhereLine implements Component {
+  label: Signal<String>
+  value: Signal<String>
+  constructor(label: Signal<String>, value: Signal<String>) {
+    self.label = label
+    self.value = value
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={[93.75dp, { fr: 1 }]} gap={space(.Item)}>
+        <text value={self.label} textColor={DIM} textSize={SECONDARY_TEXT} />
+        <text value={self.value} textColor={INK} textSize={SECONDARY_TEXT} />
+      </box>
+    }
+  }
+}
+
+// Who a list of figures is, and where the first stands: «Гриан Стаутмантл (56, 47)».
+function whoOf(figures: Array<Figure>): String {
+  const first = figures[1]
+  if (first == nil) { return "" }
+  const spot = first.spots[1]
+  if (spot == nil) { return first.name }
+  return `${first.name} (${(spot.x * 100).floor()}, ${(spot.y * 100).floor()})`
+}
+
+// The picked quest's page: its title, its story, its objectives, where its giver and its turn-in are (QuestieDB's),
+// what it gives, and its buttons. Abandoning asks first.
+public class QuestPage implements Component {
+  public act: Event<(Integer, Act)> = new Event()
+
+  derived color: Color = colorOf(difficultyOf(self.quest.level, self.player))
+  derived title: String = `[${self.quest.level}] ${self.quest.title}`
+  derived trackLabel: String = self.quest.tracked ? Locale.UNTRACK : Locale.TRACK
+  derived known: Boolean = self.facts != nil
+  derived giver: String = whoOf(self.facts?.givers ?? [])
+  derived taker: String = whoOf(self.facts?.takers ?? [])
+  derived gives: Boolean = self.text.experience > 0 || self.text.money > 0
+
+  quest: Signal<LogQuest>
+  text: Signal<QuestText>
+  facts: Signal<QuestFacts | nil>
+  player: Signal<Integer>
+  constructor(quest: Signal<LogQuest>, text: Signal<QuestText>, facts: Signal<QuestFacts | nil>, player: Signal<Integer>) {
+    self.quest = quest
+    self.text = text
+    self.facts = facts
+    self.player = player
+  }
+
+  onTrack(mut self) { self.act.emit(self.quest.id, Act.Track) }
+  onShare(mut self) { self.act.emit(self.quest.id, Act.Share) }
+  onAbandon(mut self) { self.act.emit(self.quest.id, Act.Abandon) }
+  onMap(mut self) { self.act.emit(self.quest.id, Act.ShowOnMap) }
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={1} gap={space(.Item)}>
+        <text value={self.title} textColor={self.color} textSize={TITLE_TEXT} textFont={.Title} />
+        <text $if={self.text.story != ""} value={self.text.story} textColor={INK} lineHeight={1.4} />
+        <text value={Locale.SECTION_TASKS} textColor={GOLD} />
+        <text $if={self.text.task != ""} value={self.text.task} textColor={INK} />
+        <ObjectiveLine $for={objective of self.quest.objectives} objective={objective} />
+        <box $if={self.known} columns={1} gap={space(.Line)}>
+          <text value={Locale.SECTION_WHERE} textColor={GOLD} />
+          <WhereLine $if={self.giver != ""} label={Locale.GIVER} value={self.giver} />
+          <WhereLine $if={self.taker != ""} label={Locale.TAKER} value={self.taker} />
+        </box>
+        <box $if={self.gives} columns={1} gap={space(.Line)}>
+          <text value={Locale.SECTION_REWARD} textColor={GOLD} />
+          <WhereLine $if={self.text.experience > 0} label={Locale.EXPERIENCE} value={String.of(self.text.experience)} />
+          <box $if={self.text.money > 0} columns={[93.75dp, { fr: 1 }]} gap={space(.Item)}>
+            <text value={Locale.MONEY} textColor={DIM} textSize={SECONDARY_TEXT} />
+            <Money amount={self.text.money} />
+          </box>
+        </box>
+        <box columns={["max-content", "max-content", "max-content"]} gap={space(.Item)}>
+          <PushButton label={Locale.SHOW_ON_MAP} width={131.25dp} @click={self.onMap} />
+          <PushButton label={self.trackLabel} width={131.25dp} accent={true} @click={self.onTrack} />
+          <PushButton label={Locale.SHARE} width={131.25dp} disabled={!self.quest.shareable} @click={self.onShare} />
+        </box>
+        <box columns={["max-content", { fr: 1 }]}>
+          <box @pointerPress={self.onAbandon} @keyPress(.Enter)={self.onAbandon} @keyPress(.Space)={self.onAbandon}>
+            <text value={Locale.ABANDON} textColor={DIM} textSize={SECONDARY_TEXT} wrap={false} />
+          </box>
+        </box>
+      </box>
+    }
+  }
+}

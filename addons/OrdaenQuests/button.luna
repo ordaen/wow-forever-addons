@@ -1,0 +1,16 @@
+// A button of the game's whose click is Quests' while this is drawn: the micro menu's quest log button opens Quests'
+// window in place of the game's log. The game's own click is kept and given back as this ends.
+import Client from "$client"
+
+public class TakenClick {
+  const button: any Client.Frame
+  const game: Unknown
+
+  constructor(button: any Client.Frame, run: () => nil) {
+    self.button = button
+    self.game = button.GetScript("OnClick", nil)
+    button.SetScript("OnClick", run)
+  }
+
+  destructor() { self.button.SetScript("OnClick", self.game) }
+}

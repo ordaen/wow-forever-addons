@@ -1,0 +1,24 @@
+// Ordaen Quests' page in the settings window: whether the game's quest log key opens Quests' window. Each control
+// writes one entry of the settings, at once.
+import { Component, Section, Settings, Switch } from "Ordaen"
+import Locale from "@/locales"
+
+public struct Choices implements Plain {
+  // The game's «Журнал заданий» key (L) and its button in the micro menu open Quests' window; off, the game's log.
+  ownKey: Boolean
+}
+
+public class GeneralPage implements Component {
+  settings: mut Settings<Choices>
+  constructor(settings: mut Settings<Choices>) {
+    self.settings = settings
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <Section title={Locale.SECTION_LOG}>
+        <Switch label={Locale.SETTING_OWN_KEY} hint={Locale.SETTING_OWN_KEY_TIP} value={mut self.settings.values.ownKey} />
+      </Section>
+    }
+  }
+}
