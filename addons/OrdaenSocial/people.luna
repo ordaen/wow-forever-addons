@@ -1,0 +1,334 @@
+// Who the social window shows, and what its clicks ask of the game: the player's friends of both kinds (Battle.net
+// accounts and characters of this realm), the requests waiting, the black list, the player's own Battle.net self, and
+// the raid. `"$game"` has no part for these yet (what it should gain: the module's report), so `People` is the window's
+// one door to them: `ClientPeople` reads the client, a test hands its own. Every act is called in the player's click,
+// as the client's restricted calls (status, the broadcast, invites, a ready check) want.
+import Client from "$client"
+
+// How a friend stands: the client's four.
+public enum Presence { Online, Away, Busy, Offline }
+
+// A character in the game: a friend of this realm, or the one a Battle.net friend plays.
+public struct Hero {
+  const name: String
+  const level: Integer
+  const className: String
+  // The class's colour, as the raid frames give it; none where the client doesn't say the class.
+  const classColor: Color | nil
+  const area: String
+  const realm: String
+}
+
+// A Battle.net friend's account.
+public struct Account {
+  const id: Number
+  // The account's name as the client gives it (a token the client shows as the name), and the BattleTag.
+  const name: String
+  const battleTag: String
+  // What it plays: the client's code of the program (`WoW`, `App`, `BSAp`, ...); empty while offline.
+  const program: String
+  // The friend's broadcast, its «Объявление».
+  const broadcast: String
+  // A best friend: kept on top of the list.
+  const favorite: Boolean
+  // When it was last online, in seconds since 1970; 0 while online or where the client doesn't say.
+  const lastOnline: Number
+  // The World of Warcraft account it plays a character of this game on: 0 for none.
+  const gameAccount: Number
+}
+
+// One friend of the player's: a character of this realm (`account` none), or a Battle.net friend (`hero` the
+// character it plays in this game, while it does).
+public struct Friend {
+  // Its place in the client's list of its kind.
+  const index: Integer
+  const presence: Presence
+  const note: String
+  const hero: Hero | nil
+  const account: Account | nil
+}
+
+// A friend request waiting for the player's answer.
+public struct Request {
+  const id: Number
+  const name: String
+  // When it was sent, in seconds since 1970.
+  const sent: Number
+}
+
+// One on the black list: a character ignored (by its place in the client's list), or a Battle.net account blocked.
+public enum Ignored {
+  Character { index: Integer, name: String }
+  Account { id: Number, name: String }
+}
+
+// The player as their Battle.net friends see them.
+public struct Me {
+  // The BattleTag; empty while Battle.net is off.
+  const battleTag: String
+  const presence: Presence
+  const broadcast: String
+  const hero: Hero
+}
+
+// The raid's roles where Forever has them.
+public enum Role { Tank, Healer, Damage, None }
+
+// One of the raid: their place in the raid's list (`raid1` to `raid40`) and the group they stand in.
+public struct Member {
+  const index: Integer
+  const name: String
+  const group: Integer
+  const level: Integer
+  const classColor: Color | nil
+  const online: Boolean
+  const dead: Boolean
+  // 2 the leader, 1 an assistant, 0 any other.
+  const rank: Integer
+  const role: Role
+}
+
+// The client's door to the window's people; each list read as the window opens and when the client says it changed.
+public trait People {
+  public friends(self): Array<Friend>
+  public requests(self): Array<Request>
+  public ignored(self): Array<Ignored>
+  public me(self): Me
+  public raid(self): Array<Member>
+  // The player may move the raid's members and start a ready check: the leader or an assistant.
+  public leads(self): Boolean
+  public whisper(mut self, friend: Friend)
+  public invite(mut self, friend: Friend)
+  public remove(mut self, friend: Friend)
+  public answer(mut self, request: Request, accept: Boolean)
+  public ignore(mut self, name: String)
+  public unignore(mut self, entry: Ignored)
+  // A BattleTag or an email makes a Battle.net friend, a character's name a friend of this realm.
+  public addFriend(mut self, text: String)
+  public setPresence(mut self, presence: Presence)
+  public setBroadcast(mut self, text: String)
+  public copy(mut self, text: String)
+  public readyCheck(mut self)
+  public toParty(mut self)
+  public leave(mut self)
+  // A member moved to a group: into its free place, or in place of `other` (0: none), who takes theirs.
+  public move(mut self, member: Integer, group: Integer, other: Integer)
+}
+
+// Whether a text the player typed names a Battle.net account (a BattleTag or an email), as the add-friend window reads
+// it; anything else is a character's name.
+public function namesAccount(text: String): Boolean { return text.contains("#") || text.contains("@") }
+
+// A text as the player meant it: without the spaces before and after.
+public function trimmed(text: String): String { return text.match("^%s*(.-)%s*$") ?? "" }
+
+// A class's colour by the client's tag of it (`WARRIOR`).
+function classColorOf(tag: String | nil): Color | nil {
+  if (tag == nil) { return nil }
+  const rgb = Client.RAID_CLASS_COLORS[tag]
+  if (rgb == nil) { return nil }
+  return { r: rgb.r, g: rgb.g, b: rgb.b, a: 1 }
+}
+
+function presenceOf(online: Boolean, away: Boolean, busy: Boolean): Presence {
+  if (!online) { return .Offline }
+  if (busy) { return .Busy }
+  if (away) { return .Away }
+  return .Online
+}
+
+function roleOf(role: String): Role {
+  return match (role) {
+    "TANK" => .Tank
+    "HEALER" => .Healer
+    "DAMAGER" => .Damage
+    else => .None
+  }
+}
+
+public class ClientPeople implements People {
+  public friends(self): Array<Friend> {
+    const list: Array<Friend> = []
+    let accounts, _ = Client.BNGetNumFriends()
+    for (index of 1..accounts.floor()) {
+      const friend = ClientPeople.account(index)
+      if (friend != nil) { list.push(friend) }
+    }
+    for (index of 1..Client.C_FriendList.GetNumFriends()) {
+      const info = Client.C_FriendList.GetFriendInfoByIndex(index)
+      if (info == nil) { continue }
+      let _, tag, _, _, _, _, realm, _ = Client.GetPlayerInfoByGUID(info.guid)
+      list.push({
+        index: index,
+        presence: presenceOf(info.connected, info.afk, info.dnd),
+        note: info.notes ?? "",
+        hero: {
+          name: info.name, level: info.level.floor(), className: info.className ?? "", classColor: classColorOf(tag),
+          area: info.area ?? "", realm: realm ?? ""
+        },
+        account: nil
+      })
+    }
+    return list
+  }
+
+  // A Battle.net friend by their place in the client's list.
+  account(index: Integer): Friend | nil {
+    const info = Client.C_BattleNet.GetFriendAccountInfo(index, nil)
+    if (info == nil) { return nil }
+    const game = info.gameAccountInfo
+    const playsHere = game.isOnline && game.clientProgram == "WoW" && game.characterName != nil && game.playerGuid != nil
+    let hero: Hero | nil = nil
+    if (playsHere) {
+      hero = {
+        name: game.characterName ?? "", level: (game.characterLevel ?? 0).floor(), className: game.className ?? "",
+        classColor: classColorOf(game.classFilename), area: game.areaName ?? "",
+        realm: game.realmDisplayName ?? game.realmName ?? ""
+      }
+    }
+    return {
+      index: index,
+      presence: presenceOf(game.isOnline, info.isAFK || game.isGameAFK, info.isDND || game.isGameBusy),
+      note: info.note,
+      hero: hero,
+      account: {
+        id: info.bnetAccountID, name: info.accountName, battleTag: info.battleTag,
+        program: game.isOnline ? game.clientProgram : "", broadcast: info.customMessage, favorite: info.isFavorite,
+        lastOnline: game.isOnline ? 0 : info.lastOnlineTime, gameAccount: playsHere ? game.gameAccountID : 0
+      }
+    }
+  }
+
+  public requests(self): Array<Request> {
+    const list: Array<Request> = []
+    for (index of 1..Client.BNGetNumFriendInvites().floor()) {
+      const info = Client.C_BattleNet.GetFriendInviteInfo(index)
+      if (info == nil) { continue }
+      const name = info.accountName
+      list.push({ id: info.inviteID, name: name is String ? name : "", sent: info.creationTimestamp })
+    }
+    return list
+  }
+
+  public ignored(self): Array<Ignored> {
+    const list: Array<Ignored> = []
+    for (index of 1..Client.C_FriendList.GetNumIgnores()) {
+      const name = Client.C_FriendList.GetIgnoreName(index)
+      if (name != nil) { list.push(Ignored.Character { index: index, name: name }) }
+    }
+    for (index of 1..Client.BNGetNumBlocked().floor()) {
+      let id, name = Client.BNGetBlockedInfo(index)
+      list.push(Ignored.Account { id: id, name: name })
+    }
+    return list
+  }
+
+  public me(self): Me {
+    let name, _ = Client.UnitName("player")
+    let className, tag, _ = Client.UnitClass("player")
+    const hero: Hero = {
+      name: name, level: Client.UnitLevel("player").floor(), className: className ?? "", classColor: classColorOf(tag),
+      area: Client.GetZoneText(), realm: Client.GetRealmName()
+    }
+    const guid = Client.UnitGUID("player")
+    const info = guid == nil ? nil : Client.C_BattleNet.GetAccountInfoByGUID(guid)
+    if (info == nil) { return { battleTag: "", presence: .Online, broadcast: "", hero: hero } }
+    const presence: Presence = info.appearOffline ? .Offline : presenceOf(true, info.isAFK, info.isDND)
+    return { battleTag: info.battleTag, presence: presence, broadcast: info.customMessage, hero: hero }
+  }
+
+  public raid(self): Array<Member> {
+    const list: Array<Member> = []
+    if (!Client.IsInRaid(nil)) { return list }
+    for (index of 1..Client.GetNumGroupMembers(nil)) {
+      let name, rank, group, level, _, tag, _, online, dead, _, _ = Client.GetRaidRosterInfo(index)
+      if (name == nil) { continue }
+      list.push({
+        index: index, name: name, group: group.floor(), level: level.floor(), classColor: classColorOf(tag),
+        online: online, dead: dead, rank: rank.floor(), role: roleOf(Client.UnitGroupRolesAssigned(`raid${index}`))
+      })
+    }
+    return list
+  }
+
+  public leads(self): Boolean {
+    return Client.UnitIsGroupLeader("player", nil) || Client.UnitIsGroupAssistant("player")
+  }
+
+  // The chat's line opened to them, as the game's «Шепнуть» opens it: a character by name, a Battle.net friend by
+  // the account's token, which the client's whisper takes.
+  public whisper(mut self, friend: Friend) {
+    const to = friend.account?.name ?? friend.hero?.name
+    if (to != nil) { Client.ChatFrameUtil.OpenChat(`/w ${to} `) }
+  }
+
+  // A character asked to the group; a Battle.net friend's character through Battle.net, as the game's list does.
+  public invite(mut self, friend: Friend) {
+    const account = friend.account
+    if (account != nil) {
+      if (account.gameAccount != 0) { Client.C_BattleNet.InviteFriend(account.gameAccount) }
+      return
+    }
+    const hero = friend.hero
+    if (hero != nil) { Client.C_PartyInfo.InviteUnit(hero.name) }
+  }
+
+  public remove(mut self, friend: Friend) {
+    const account = friend.account
+    if (account != nil) {
+      Client.BNRemoveFriend(account.id)
+      return
+    }
+    Client.C_FriendList.RemoveFriendByIndex(friend.index)
+  }
+
+  public answer(mut self, request: Request, accept: Boolean) {
+    if (accept) {
+      Client.BNAcceptFriendInvite(request.id)
+    } else {
+      Client.BNDeclineFriendInvite(request.id)
+    }
+  }
+
+  public ignore(mut self, name: String) { _ = Client.C_FriendList.AddIgnore(name) }
+
+  public unignore(mut self, entry: Ignored) {
+    match (entry) {
+      .Character => Client.C_FriendList.DelIgnoreByIndex(entry.index)
+      .Account => Client.C_BattleNet.SetBlocked(entry.id, false)
+    }
+  }
+
+  public addFriend(mut self, text: String) {
+    if (namesAccount(text)) {
+      Client.BNSendFriendInvite(text, "")
+    } else {
+      Client.C_FriendList.AddFriend(text, nil)
+    }
+  }
+
+  // The game's four: away and busy are flags of their own, invisible is appearing offline.
+  public setPresence(mut self, presence: Presence) {
+    Client.C_BattleNet.SetAppearOffline(presence == .Offline)
+    Client.C_BattleNet.SetAFK(presence == .Away)
+    Client.C_BattleNet.SetDND(presence == .Busy)
+  }
+
+  public setBroadcast(mut self, text: String) { _ = Client.C_BattleNet.SetCustomMessage(text) }
+
+  public copy(mut self, text: String) { _ = Client.CopyToClipboard(text, nil) }
+
+  public readyCheck(mut self) { Client.C_PartyInfo.DoReadyCheck() }
+
+  public toParty(mut self) { Client.C_PartyInfo.ConvertToParty() }
+
+  public leave(mut self) { Client.C_PartyInfo.LeaveParty(nil) }
+
+  public move(mut self, member: Integer, group: Integer, other: Integer) {
+    if (other != 0) {
+      Client.SwapRaidSubgroup(member, other)
+    } else {
+      Client.SetRaidSubgroup(member, group)
+    }
+  }
+}

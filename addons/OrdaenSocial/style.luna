@@ -1,0 +1,43 @@
+// The social window's look: its size at the player's scale (the guild window's, one for every tab), the friends' list
+// beside the card, the raid's groups, and the colours of who stands how.
+
+public const WIDTH: Number<Length> = 1054.6875dp
+public const HEIGHT: Number<Length> = 679.6875dp
+// The friends' list; the card takes the rest.
+public const CARD: Number<Length> = 492.1875dp
+public const DOT: Number<Length> = 14.0625dp
+public const BIG_DOT: Number<Length> = 18.75dp
+public const FIELD: Number<Length> = 35.15625dp
+public const SEARCH: Number<Length> = 164.0625dp
+public const BUTTON: Number<Length> = 152.34375dp
+public const WIDE_BUTTON: Number<Length> = 246.09375dp
+public const SMALL_BUTTON: Number<Length> = 128.90625dp
+// The player's own card's two buttons, side by side in it.
+public const CARD_BUTTON: Number<Length> = 210.9375dp
+public const ASK: Number<Length> = 515.625dp
+public const ASK_BUTTON: Number<Length> = 175.78125dp
+// The raid's slot of a member.
+public const SLOT: Number<Length> = 28.125dp
+
+public const INK: Color = Color.hex("#e8dcc4")
+public const DIM: Color = Color.hex("#a3977f")
+public const GOLD: Color = Color.hex("#ffd100")
+// The game's colours of a Battle.net friend's name and of one offline (`FRIENDS_BNET_NAME_COLOR`,
+// `FRIENDS_GRAY_COLOR`).
+public const BATTLE_NET: Color = Color.hex("#82c5ff")
+public const OFFLINE: Color = Color.hex("#7c848a")
+public const RED: Color = Color.hex("#ff4040")
+public const SHADE: Color = Color.hex("#0000004d")
+public const PICKED: Color = Color.hex("#ffd10026")
+public const CARD_BACK: Color = Color.hex("#00000040")
+public const FIELD_BACK: Color = Color.hex("#00000080")
+public const BADGE: Color = Color.hex("#b3261e")
+
+// The game's own marks of a friend's status.
+public const ONLINE_ICON: Asset = "Interface/FriendsFrame/StatusIcon-Online"
+public const AWAY_ICON: Asset = "Interface/FriendsFrame/StatusIcon-Away"
+public const BUSY_ICON: Asset = "Interface/FriendsFrame/StatusIcon-DnD"
+public const OFFLINE_ICON: Asset = "Interface/FriendsFrame/StatusIcon-Offline"
+// A best friend's star: the game's own.
+public const STAR_ICON: Atlas = "PetJournal-FavoritesIcon"
+public const STAR: Number<Length> = 18.75dp

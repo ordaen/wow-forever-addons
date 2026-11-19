@@ -1,0 +1,499 @@
+// The friends tab's parts: the list of both kinds of friends in one (with its sort, search and «Добавить друга»), the
+// card beside it (the picked friend's, or the player's own), the requests waiting, and the black list.
+//
+// A row: the friend's status mark, the name (a Battle.net account's in Battle.net blue, a character's in its class
+// colour, grey while offline) with the character's level, and under it «Battle.net» first for an account, then the
+// character and the zone, the game it plays, or when it was last seen. A best friend's gold star at the row's right;
+// best friends stay on top whatever the sort. Left-click picks a friend (its card shows); again, the card is the
+// player's own.
+import Game from "$game"
+import { Align, Art, ByInteractionState, Edges, Overflow } from "$ltml"
+import root Ordaen from "Ordaen"
+import { Choice, CompactDropdown, Component, PushButton, SECONDARY_TEXT, TITLE_TEXT, ToolPick, Toolbar, space } from "Ordaen"
+import Locale from "@/locales"
+import { Friend, Hero, Ignored, Me, Presence, Request, trimmed } from "@/people"
+import Style from "@/style"
+
+// How the list is sorted, below the best friends.
+public enum Sort { Status, Name, Level }
+
+const SORTS: Array<Choice<Sort>> = [
+  { value: .Status, label: Locale.SORT_STATUS },
+  { value: .Name, label: Locale.SORT_NAME },
+  { value: .Level, label: Locale.SORT_LEVEL }
+]
+// The status the player picks: the game's four.
+const PRESENCES: Array<Choice<Presence>> = [
+  { value: .Online, label: Locale.ONLINE },
+  { value: .Away, label: Locale.AWAY },
+  { value: .Busy, label: Locale.BUSY },
+  { value: .Offline, label: Locale.INVISIBLE }
+]
+const CLEAR: Color = Color.hex("#00000000")
+const ROW_SHADE: ByInteractionState<Color> = { default: CLEAR, hover: Color.hex("#00000059"), focus: Color.hex("#00000059") }
+const ROW_PAD: Edges = { top: 4.6875dp, right: space(.Line), bottom: 4.6875dp, left: space(.Line) }
+const FIELD_PAD: Edges = { left: 11.71875dp, right: 11.71875dp }
+const MINUTE = 60
+const HOUR = 3600
+const DAY = 86400
+
+// What a friend is called in the list: the account's name, or the character's.
+public function titleOf(friend: Friend): String { return friend.account?.name ?? friend.hero?.name ?? "" }
+
+// What tells a friend from every other: its kind and the account or the character.
+public function keyOf(friend: Friend): String {
+  const account = friend.account
+  if (account != nil) { return `bn:${account.id}` }
+  return `wow:${friend.hero?.name ?? ""}`
+}
+
+public function markOf(presence: Presence): Art {
+  return match (presence) {
+    .Online => Style.ONLINE_ICON
+    .Away => Style.AWAY_ICON
+    .Busy => Style.BUSY_ICON
+    .Offline => Style.OFFLINE_ICON
+  }
+}
+
+public function presenceText(presence: Presence): String {
+  return match (presence) {
+    .Online => Locale.ONLINE
+    .Away => Locale.AWAY
+    .Busy => Locale.BUSY
+    .Offline => Locale.OFFLINE
+  }
+}
+
+// How long ago a moment was, as the list says it: minutes, hours or days.
+public function agoText(seconds: Number): String {
+  const passed = (Game.clock.server - seconds).max(0)
+  if (passed < HOUR) { return Locale.AGO_MINUTES.format((passed / MINUTE).floor().max(1)) }
+  if (passed < DAY) { return Locale.AGO_HOURS.format((passed / HOUR).floor()) }
+  return Locale.AGO_DAYS.format((passed / DAY).floor())
+}
+
+// What a Battle.net friend plays, by the client's code of the program.
+public function gameName(program: String): String {
+  return match (program) {
+    "WoW" => Locale.GAME_WOW
+    "App", "BSAp" => Locale.GAME_APP
+    else => program
+  }
+}
+
+function nameColorOf(friend: Friend): Color {
+  if (friend.presence == .Offline) { return Style.OFFLINE }
+  if (friend.account != nil) { return Style.BATTLE_NET }
+  return friend.hero?.classColor ?? Style.INK
+}
+
+// The second line's points: «Battle.net» first for an account, then the character and its zone, the game, or when it
+// was last seen.
+function pointsOf(friend: Friend): String {
+  const points: Array<String> = []
+  const account = friend.account
+  if (account != nil) { points.push(Locale.BATTLE_NET) }
+  const hero = friend.hero
+  if (friend.presence == .Offline) {
+    points.push(Locale.OFFLINE_LOWER)
+    if (account != nil && account.lastOnline > 0) { points.push(agoText(account.lastOnline)) }
+  } else if (account != nil && hero != nil) {
+    points.push(hero.name)
+    if (hero.area != "") { points.push(hero.area) }
+  } else if (account != nil) {
+    points.push(gameName(account.program))
+  } else if (hero != nil && hero.area != "") {
+    points.push(hero.area)
+  }
+  return points.join(" · ")
+}
+
+function online(friend: Friend): Boolean { return friend.presence != .Offline }
+
+function levelOf(friend: Friend): Integer { return friend.hero?.level ?? 0 }
+
+// Whether a friend comes before another: best friends first, then the sort.
+function before(a: Friend, b: Friend, sort: Sort): Boolean {
+  const aFavorite = a.account?.favorite == true
+  const bFavorite = b.account?.favorite == true
+  if (aFavorite != bFavorite) { return aFavorite }
+  if (sort == .Status && online(a) != online(b)) { return online(a) }
+  if (sort == .Level && levelOf(a) != levelOf(b)) { return levelOf(a) > levelOf(b) }
+  return titleOf(a).lower() < titleOf(b).lower()
+}
+
+// Whether a friend is found by what the player typed: in the names, the BattleTag, the zone or the note.
+function found(friend: Friend, query: String): Boolean {
+  if (query == "") { return true }
+  const hero = friend.hero
+  const account = friend.account
+  const text = [account?.battleTag ?? "", hero?.name ?? "", hero?.area ?? "", friend.note].join(" ").lower()
+  return text.contains(query.lower())
+}
+
+// The friends the list shows, in its order.
+public function shownOf(friends: Array<Friend>, query: String, sort: Sort, offline: Boolean): Array<Friend> {
+  const shown = friends.filter(friend => found(friend, query) && (offline || query != "" || online(friend)))
+  shown.sort((a, b) => before(a, b, sort))
+  return shown
+}
+
+class FriendRow implements Component {
+  public pick: Event<String> = new Event()
+
+  derived background: Color | ByInteractionState<Color> = self.picked ? Style.PICKED : ROW_SHADE
+  derived level: String = self.friend.hero != nil ? String.of(levelOf(self.friend)) : ""
+  derived favorite: Boolean = self.friend.account?.favorite == true
+
+  friend: Signal<Friend>
+  picked: Signal<Boolean>
+  constructor(friend: Signal<Friend>, picked: Signal<Boolean>) {
+    self.friend = friend
+    self.picked = picked
+  }
+
+  onPick(mut self) { self.pick.emit(keyOf(self.friend)) }
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={[Style.DOT, { fr: 1 }, "max-content"]} gap={space(.Line)} yAlign={Align.Center} padding={ROW_PAD}
+           background={self.background} @pointerPress(.Left)={self.onPick} @keyPress(.Enter)={self.onPick}
+           @keyPress(.Space)={self.onPick}>
+        <box width={Style.DOT} height={Style.DOT} background={markOf(self.friend.presence)} />
+        <box columns={1}>
+          <box columns={["max-content", "max-content"]} gap={space(.Line)}>
+            <text value={titleOf(self.friend)} textColor={nameColorOf(self.friend)} wrap={false} />
+            <text value={self.level} textColor={Style.DIM} textFont={.Numbers} wrap={false} />
+          </box>
+          <text value={pointsOf(self.friend)} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={false} />
+        </box>
+        <box $if={self.favorite} width={Style.STAR} height={Style.STAR} background={Style.STAR_ICON} />
+      </box>
+    }
+  }
+}
+
+// The friends' list with its tools, as every list window's: the toolbar (the search, the sort) and «Добавить друга»
+// beside it.
+public class FriendList implements Component {
+  public pick: Event<String> = new Event()
+  public add: Event<nil> = new Event()
+
+  state query = ""
+  state sort: Sort = .Status
+  derived shown: Array<Friend> = shownOf(self.friends, self.query, self.sort, self.offline)
+
+  friends: Signal<Array<Friend>>
+  picked: Signal<String>
+  offline: Signal<Boolean>
+  constructor(friends: Signal<Array<Friend>>, picked: Signal<String>, offline: Signal<Boolean>) {
+    self.friends = friends
+    self.picked = picked
+    self.offline = offline
+  }
+
+  onPick(mut self, key: String) { self.pick.emit(key) }
+  onAdd(mut self) { self.add.emit() }
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={1} rows={["max-content", { fr: 1 }]} gap={space(.Item)}>
+        <box columns={[{ fr: 1 }, "max-content"]} gap={space(.Item)} yAlign={Align.Center}>
+          <Toolbar search={mut self.query} placeholder={Locale.SEARCH}>
+            <ToolPick value={mut self.sort} choices={SORTS} icon={Ordaen.art.ctl.tool.sort} title={Locale.SORT} />
+          </Toolbar>
+          <PushButton label={Locale.ADD_FRIEND} width={Style.BUTTON} @click={self.onAdd} />
+        </box>
+        <box columns={1} overflow={Overflow.Scroll}>
+          <text $if={self.shown.length == 0} value={Locale.NOTHING_FOUND} textColor={Style.DIM} />
+          <FriendRow $for={friend of self.shown} $key={keyOf(friend)} friend={friend}
+                     picked={keyOf(friend) == self.picked} @pick={self.onPick} />
+        </box>
+      </box>
+    }
+  }
+}
+
+// A line of the card: what it says on the left, its value on the right.
+class Fact implements Component {
+  label: Signal<String>
+  value: Signal<String>
+  color: Signal<Color>
+  constructor(label: Signal<String>, value: Signal<String>, color: Signal<Color> = Style.INK) {
+    self.label = label
+    self.value = value
+    self.color = color
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={[117.1875dp, { fr: 1 }]} gap={space(.Line)}>
+        <text value={self.label} textColor={Style.DIM} wrap={false} />
+        <text value={self.value} textColor={self.color} wrap={true} />
+      </box>
+    }
+  }
+}
+
+// A character as the card says it: «Торгрим, Воин 25 · Пламегор».
+function heroText(hero: Hero): String {
+  const realm = hero.realm != "" ? ` · ${hero.realm}` : ""
+  return `${hero.name}, ${hero.className} ${hero.level}${realm}`
+}
+
+function orDash(text: String): String { return text != "" ? text : Locale.DASH }
+
+// The picked friend's card: who it is, how it stands, what it plays and where, the note; Шепнуть, Пригласить and
+// «Удалить» (which asks first).
+public class FriendCard implements Component {
+  public whisper: Event<nil> = new Event()
+  public invite: Event<nil> = new Event()
+  public remove: Event<nil> = new Event()
+
+  derived title: String = titleOf(self.friend)
+  derived color: Color = nameColorOf(self.friend)
+  derived sub: String = self.subOf()
+  derived favorite: Boolean = self.friend.account?.favorite == true
+  derived status: String = self.statusOf()
+  derived plays: String = self.friend.account != nil && online(self.friend) ? gameName(self.friend.account?.program ?? "") : ""
+  derived hero: String = self.friend.hero != nil ? heroText(self.friend.hero ?? panic("tested")) : ""
+  derived where: String = online(self.friend) ? orDash(self.friend.hero?.area ?? "") : Locale.DASH
+  derived broadcast: String = self.friend.account?.broadcast ?? ""
+  derived canWhisper: Boolean = online(self.friend)
+  derived canInvite: Boolean = online(self.friend) && (self.friend.account == nil || self.friend.account?.gameAccount != 0)
+
+  friend: Signal<Friend>
+  constructor(friend: Signal<Friend>) {
+    self.friend = friend
+  }
+
+  subOf(self): String {
+    const account = self.friend.account
+    if (account != nil) { return Locale.CARD_BATTLE_NET.format(account.battleTag) }
+    const hero = self.friend.hero
+    if (hero == nil) { return "" }
+    return Locale.CARD_CHARACTER.format(hero.className, hero.level, hero.realm)
+  }
+
+  statusOf(self): String {
+    const text = presenceText(self.friend.presence)
+    const last = self.friend.account?.lastOnline ?? 0
+    if (self.friend.presence == .Offline && last > 0) { return `${text} · ${agoText(last)}` }
+    return text
+  }
+
+  onWhisper(mut self) { self.whisper.emit() }
+  onInvite(mut self) { self.invite.emit() }
+  onRemove(mut self) { self.remove.emit() }
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={1} rows={["max-content", { fr: 1 }, "max-content"]} gap={space(.Group)}>
+        <box columns={1} gap={space(.Item)}>
+          <box columns={[Style.BIG_DOT, { fr: 1 }]} gap={space(.Line)} yAlign={Align.Center}>
+            <box width={Style.BIG_DOT} height={Style.BIG_DOT} background={markOf(self.friend.presence)} />
+            <box columns={1}>
+              <box columns={["max-content", "max-content"]} gap={space(.Line)}>
+                <text value={self.title} textColor={self.color} textSize={TITLE_TEXT} textFont={.Title} wrap={false} />
+                <box $if={self.favorite} width={Style.STAR} height={Style.STAR} background={Style.STAR_ICON} />
+              </box>
+              <text value={self.sub} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={false} />
+            </box>
+          </box>
+          <text $if={self.broadcast != ""} value={Locale.QUOTED.format(self.broadcast)} textColor={Style.INK} wrap={true} />
+          <Fact label={Locale.STATUS} value={self.status} />
+          <Fact $if={self.plays != ""} label={Locale.PLAYS} value={self.plays} />
+          <Fact $if={self.hero != ""} label={Locale.CHARACTER} value={self.hero} />
+          <Fact label={Locale.WHERE} value={self.where} />
+          <Fact label={Locale.NOTE} value={orDash(self.friend.note)} />
+        </box>
+        <box />
+        <box columns={["max-content", "max-content", "max-content"]} gap={space(.Item)}>
+          <PushButton label={Locale.WHISPER} width={Style.SMALL_BUTTON} disabled={!self.canWhisper} @click={self.onWhisper} />
+          <PushButton label={Locale.INVITE} width={Style.SMALL_BUTTON} disabled={!self.canInvite} @click={self.onInvite} />
+          <PushButton label={Locale.REMOVE} width={Style.SMALL_BUTTON} accent={true} @click={self.onRemove} />
+        </box>
+      </box>
+    }
+  }
+}
+
+// The player's own card, with no friend picked: the BattleTag, the status to pick (the game's four), the broadcast
+// (read here, changed in its own dialog), the character and where it is.
+public class MyCard implements Component {
+  public presence: Event<Presence> = new Event()
+  public edit: Event<nil> = new Event()
+  public copy: Event<nil> = new Event()
+
+  // The status picked here: the client's, until the player picks another.
+  state picked: Presence = .Online
+  derived connected: Boolean = self.me.battleTag != ""
+
+  me: Signal<Me>
+  constructor(me: Signal<Me>) {
+    self.me = me
+    watch (now of self.me) { self.picked = now.presence }
+    watch (chosen of self.picked) {
+      if (chosen != (peek self.me).presence) { self.presence.emit(chosen) }
+    }
+  }
+
+  onEdit(mut self) { self.edit.emit() }
+  onCopy(mut self) { self.copy.emit() }
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={1} rows={["max-content", { fr: 1 }, "max-content"]} gap={space(.Group)}>
+        <box columns={1} gap={space(.Item)}>
+          <box columns={[Style.BIG_DOT, { fr: 1 }]} gap={space(.Line)} yAlign={Align.Center}>
+            <box width={Style.BIG_DOT} height={Style.BIG_DOT} background={markOf(self.me.presence)} />
+            <box columns={1}>
+              <text value={self.connected ? self.me.battleTag : self.me.hero.name} textColor={Style.BATTLE_NET}
+                    textSize={TITLE_TEXT} textFont={.Title} wrap={false} />
+              <text value={Locale.YOU} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={false} />
+            </box>
+          </box>
+          <box $if={self.connected} columns={[117.1875dp, { fr: 1 }]} gap={space(.Line)} yAlign={Align.Center}>
+            <text value={Locale.STATUS} textColor={Style.DIM} wrap={false} />
+            <CompactDropdown value={mut self.picked} choices={PRESENCES} width={Style.WIDE_BUTTON} />
+          </box>
+          <Fact $if={self.connected} label={Locale.BROADCAST} value={orDash(self.me.broadcast)} />
+          <Fact label={Locale.CHARACTER} value={heroText(self.me.hero)} color={self.me.hero.classColor ?? Style.INK} />
+          <Fact label={Locale.WHERE} value={orDash(self.me.hero.area)} />
+        </box>
+        <box />
+        <box $if={self.connected} columns={["max-content", "max-content"]} gap={space(.Item)}>
+          <PushButton label={Locale.EDIT_BROADCAST} width={Style.CARD_BUTTON} @click={self.onEdit} />
+          <PushButton label={Locale.COPY_BATTLE_TAG} width={Style.CARD_BUTTON} @click={self.onCopy} />
+        </box>
+      </box>
+    }
+  }
+}
+
+class RequestRow implements Component {
+  public answer: Event<(Request, Boolean)> = new Event()
+
+  request: Signal<Request>
+  constructor(request: Signal<Request>) {
+    self.request = request
+  }
+
+  onAccept(mut self) { self.answer.emit(self.request, true) }
+  onDecline(mut self) { self.answer.emit(self.request, false) }
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={[{ fr: 1 }, "max-content", "max-content"]} gap={space(.Item)} yAlign={Align.Center} padding={ROW_PAD}>
+        <box columns={1}>
+          <text value={self.request.name} textColor={Style.BATTLE_NET} wrap={false} />
+          <text value={agoText(self.request.sent)} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={false} />
+        </box>
+        <PushButton label={Locale.ACCEPT} width={Style.SMALL_BUTTON} @click={self.onAccept} />
+        <PushButton label={Locale.DECLINE} width={Style.SMALL_BUTTON} @click={self.onDecline} />
+      </box>
+    }
+  }
+}
+
+// The requests received: Принять or Отклонить each.
+public class RequestList implements Component {
+  public answer: Event<(Request, Boolean)> = new Event()
+
+  derived heading: String = Locale.RECEIVED.format(self.requests.length)
+
+  requests: Signal<Array<Request>>
+  constructor(requests: Signal<Array<Request>>) {
+    self.requests = requests
+  }
+
+  onAnswer(mut self, request: Request, accept: Boolean) { self.answer.emit(request, accept) }
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={1} gap={space(.Line)} overflow={Overflow.Scroll}>
+        <text value={self.heading} textColor={Style.GOLD} wrap={false} />
+        <text $if={self.requests.length == 0} value={Locale.NO_REQUESTS} textColor={Style.DIM} />
+        <RequestRow $for={request of self.requests} $key={request.id} request={request} @answer={self.onAnswer} />
+      </box>
+    }
+  }
+}
+
+function ignoredName(entry: Ignored): String {
+  return match (entry) {
+    .Character => entry.name
+    .Account => entry.name
+  }
+}
+
+function ignoredKey(entry: Ignored): String {
+  return match (entry) {
+    .Character => `wow:${entry.name}`
+    .Account => `bn:${entry.id}`
+  }
+}
+
+class IgnoredRow implements Component {
+  public unignore: Event<Ignored> = new Event()
+
+  entry: Signal<Ignored>
+  constructor(entry: Signal<Ignored>) {
+    self.entry = entry
+  }
+
+  onUnignore(mut self) { self.unignore.emit(self.entry) }
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={[{ fr: 1 }, "max-content"]} gap={space(.Item)} yAlign={Align.Center} padding={ROW_PAD}>
+        <text value={ignoredName(self.entry)} textColor={Style.INK} wrap={false} />
+        <PushButton label={Locale.UNIGNORE} width={Style.SMALL_BUTTON} @click={self.onUnignore} />
+      </box>
+    }
+  }
+}
+
+// The black list: a name added, each taken off with Убрать.
+public class IgnoreList implements Component {
+  public ignore: Event<String> = new Event()
+  public unignore: Event<Ignored> = new Event()
+
+  state name = ""
+  derived heading: String = Locale.IGNORED.format(self.ignored.length)
+
+  ignored: Signal<Array<Ignored>>
+  constructor(ignored: Signal<Array<Ignored>>) {
+    self.ignored = ignored
+  }
+
+  onIgnore(mut self) {
+    const name = trimmed(peek self.name)
+    if (name == "") { return }
+    self.name = ""
+    self.ignore.emit(name)
+  }
+
+  onUnignore(mut self, entry: Ignored) { self.unignore.emit(entry) }
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={1} rows={["max-content", { fr: 1 }, "max-content"]} gap={space(.Item)}>
+        <box columns={[{ fr: 1 }, "max-content"]} gap={space(.Item)} yAlign={Align.Center}>
+          <box height={Style.FIELD} rows={[{ fr: 1 }]}>
+            <input value={mut self.name} maxLength={48} padding={FIELD_PAD} textColor={Style.INK}
+                   background={Style.FIELD_BACK} @submit={self.onIgnore} />
+          </box>
+          <PushButton label={Locale.ADD_IGNORE} width={Style.WIDE_BUTTON} @click={self.onIgnore} />
+        </box>
+        <box columns={1} gap={space(.Line)} overflow={Overflow.Scroll}>
+          <text value={self.heading} textColor={Style.GOLD} wrap={false} />
+          <text $if={self.ignored.length == 0} value={Locale.IGNORE_EMPTY} textColor={Style.DIM} />
+          <IgnoredRow $for={entry of self.ignored} $key={ignoredKey(entry)} entry={entry} @unignore={self.onUnignore} />
+        </box>
+        <text value={Locale.IGNORE_HINT} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={true} />
+      </box>
+    }
+  }
+}

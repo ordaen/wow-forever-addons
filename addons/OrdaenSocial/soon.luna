@@ -1,0 +1,24 @@
+// A tab not built yet: its icon dimmed, «В разработке», and when it comes.
+import { Align } from "$ltml"
+import { Component, space } from "Ordaen"
+import Locale from "@/locales"
+import Style from "@/style"
+
+const ICON = 65.625dp
+
+public class SoonPage implements Component {
+  icon: Signal<Asset>
+  constructor(icon: Signal<Asset>) {
+    self.icon = icon
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={1} gap={space(.Item)} xAlign={Align.Center} yAlign={Align.Center}>
+        <box width={ICON} height={ICON} background={self.icon} opacity={0.45} />
+        <text value={Locale.SOON} textColor={Style.INK} wrap={false} />
+        <text value={Locale.SOON_TEXT} textColor={Style.DIM} wrap={false} />
+      </box>
+    }
+  }
+}
