@@ -269,7 +269,7 @@ public class Plate implements Component {
           </box>
         </box>
         <box $else position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui} background={self.art}
-             interactionState={self.looks}>
+             interactionState={self.looks} mouseThrough={true}>
           <box position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui}
                background={Ordaen.art.ctl.buttonLight} opacity={self.light} />
           <box position={Position.Absolute} left={GEM_LEFT} top={self.gemTop} width={GEM} height={GEM}

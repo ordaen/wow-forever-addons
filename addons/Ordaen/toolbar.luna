@@ -64,7 +64,7 @@ public class Toolbar implements Component {
           <input value={mut self.search} padding={FIELD_PAD} textColor={INK} background={FIELD_BACK}
                  border={FIELD_EDGE} @submit={self.onSubmit} />
           <box $if={!self.searching} position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui}
-               padding={FIELD_PAD} yAlign={Align.Center}>
+               padding={FIELD_PAD} yAlign={Align.Center} mouseThrough={true}>
             <text value={self.placeholder} textColor={DIM} wrap={false} />
           </box>
         </box>
