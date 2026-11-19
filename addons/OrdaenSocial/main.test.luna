@@ -1,0 +1,273 @@
+// The social window as the player meets it: the game's friends window shown (O, its micro button, the panel's cell)
+// shows ours in its place, and closing ours closes the game's; the friends' list holds both kinds, best friends on top;
+// a friend picked shows their card, whose buttons ask the game; removing asks first; requests are answered; the black
+// list is added to and taken from; the raid's groups show, the leader drags a member to another group. The door to the
+// client is the test's own (what the window asks of it is heard).
+import Client from "$client"
+import Test from "$test"
+import root Ordaen from "Ordaen"
+import root Social from "OrdaenSocial"
+import { Friend, Hero, Ignored, Me, Member, People, Presence, Request } from "@/people"
+
+const PAGE: Test.Page = { left: 0, top: 0, width: 1400, height: 900, screen: true }
+// A text the window always shows: its last tab.
+const WINDOW = "Raid"
+
+function hero(name: String, level: Integer, area: String): Hero {
+  return { name: name, level: level, className: "Warrior", classColor: nil, area: area, realm: "Flamegor" }
+}
+
+// The test's door: two Battle.net friends (one a best friend playing here, one offline), two characters (one
+// offline), a request, one ignored, and a raid of three with the player leading.
+class FakePeople implements People {
+  heard: mut Array<String> = []
+  removed = false
+  isLeader = true
+
+  public friends(self): Array<Friend> {
+    const list: Array<Friend> = [
+      {
+        index: 1, presence: .Offline, note: "", hero: nil,
+        account: {
+          id: 11, name: "Irina", battleTag: "Iris#5512", program: "", broadcast: "", favorite: false, lastOnline: 0,
+          gameAccount: 0
+        }
+      },
+      {
+        index: 2, presence: .Online, note: "tanks at night", hero: hero("Torgrim", 25, "Loch Modan"),
+        account: {
+          id: 12, name: "Alexei", battleTag: "Drake#2145", program: "WoW", broadcast: "LFG Deadmines",
+          favorite: true, lastOnline: 0, gameAccount: 7
+        }
+      },
+      { index: 1, presence: .Away, note: "", hero: hero("Eliana", 24, "Stormwind"), account: nil },
+      { index: 2, presence: .Offline, note: "smith", hero: hero("Darrick", 22, ""), account: nil }
+    ]
+    if (self.removed) { _ = list.remove(3) }
+    return list
+  }
+
+  public requests(self): Array<Request> { return [{ id: 31, name: "Ulfric#1111", sent: 0 }] }
+  public ignored(self): Array<Ignored> { return [Ignored.Character { index: 1, name: "Rudegnome" }] }
+
+  public me(self): Me {
+    return { battleTag: "Ordaen#2718", presence: .Online, broadcast: "", hero: hero("Torvald", 25, "Ironforge") }
+  }
+
+  public raid(self): Array<Member> {
+    return [
+      { index: 1, name: "Torvald", group: 1, level: 25, classColor: nil, online: true, dead: false, rank: 2, role: .Tank },
+      { index: 2, name: "Ingrid", group: 1, level: 25, classColor: nil, online: true, dead: false, rank: 0, role: .Healer },
+      { index: 3, name: "Branna", group: 2, level: 27, classColor: nil, online: true, dead: false, rank: 0, role: .None }
+    ]
+  }
+
+  public leads(self): Boolean { return self.isLeader }
+  public whisper(mut self, friend: Friend) { self.heard.push(`whisper ${friend.hero?.name ?? ""}`) }
+  public invite(mut self, friend: Friend) { self.heard.push(`invite ${friend.hero?.name ?? ""}`) }
+
+  public remove(mut self, friend: Friend) {
+    self.heard.push(`remove ${friend.hero?.name ?? ""}`)
+    self.removed = true
+  }
+
+  public answer(mut self, request: Request, accept: Boolean) { self.heard.push(`answer ${request.id} ${accept}`) }
+  public ignore(mut self, name: String) { self.heard.push(`ignore ${name}`) }
+
+  public unignore(mut self, entry: Ignored) {
+    match (entry) {
+      .Character => self.heard.push(`unignore ${entry.name}`)
+      .Account => self.heard.push(`unblock ${entry.id}`)
+    }
+  }
+
+  public addFriend(mut self, text: String) { self.heard.push(`add ${text}`) }
+  public setPresence(mut self, presence: Presence) { self.heard.push(`presence ${presence}`) }
+  public setBroadcast(mut self, text: String) { self.heard.push(`broadcast ${text}`) }
+  public copy(mut self, text: String) { self.heard.push(`copy ${text}`) }
+  public readyCheck(mut self) { self.heard.push("ready check") }
+  public toParty(mut self) { self.heard.push("to party") }
+  public leave(mut self) { self.heard.push("leave") }
+  public move(mut self, member: Integer, group: Integer, other: Integer) { self.heard.push(`move ${member} ${group} ${other}`) }
+}
+
+// The game's friends window, shown as its key or its micro button shows it, with the test's door: ours.
+function opened(people: mut FakePeople): Test.Part {
+  Social.people = people
+  const game = Client.CreateFrame("Frame", "FriendsFrame", Client.UIParent, nil)
+  game.Hide()
+  Social.hook(game)
+  game.Show()
+  return Test.page().window(WINDOW)
+}
+
+// The window
+
+test "the game's friends window shown shows ours, and closing ours closes the game's" {
+  Test.mount(nil, PAGE)
+  Social.people = new FakePeople()
+  const game = Client.CreateFrame("Frame", "FriendsFrame", Client.UIParent, nil)
+  game.Hide()
+  Social.hook(game)
+  Test.expect(!Test.page().window(WINDOW).shown())
+  game.Show()
+  const window = Test.page().window(WINDOW)
+  Test.expect(window.text("Friends").shown())
+  window.button(Ordaen.art.ctl.corner.close).click()
+  Test.expect(!window.shown())
+  Test.expect(!game.IsShown())
+}
+
+test "the tabs not built yet say so, and the guild's stays the game's" {
+  Test.mount(nil, PAGE)
+  const window = opened(new FakePeople())
+  window.text("Guild").click()
+  Test.expect(window.text("In development").shown())
+  window.text("Communities").click()
+  Test.expect(window.text("In development").shown())
+}
+
+// The friends
+
+test "the list holds both kinds, the best friend first and those offline last" {
+  Test.mount(nil, PAGE)
+  const window = opened(new FakePeople())
+  const texts = window.texts()
+  const alexei = texts.find(text => text == "Alexei")
+  Test.expect(alexei != nil)
+  Test.expect(window.text("Battle.net · Torgrim · Loch Modan").shown())
+  Test.expect(window.text("Eliana").shown())
+  Test.expect(window.text("Battle.net · offline").shown())
+  Test.shot("the friends: the best friend on top with its star, the card the player's own")
+}
+
+test "a friend picked shows their card, whose buttons ask the game in the click" {
+  Test.mount(nil, PAGE)
+  const people = new FakePeople()
+  const window = opened(mut people)
+  window.text("Eliana").click()
+  Test.expect(window.text("Stormwind").shown())
+  window.button("Whisper").click()
+  window.button("Invite").click()
+  Test.expect(people.heard.join(", ") == "whisper Eliana, invite Eliana")
+  // Picked again: the player's own card.
+  window.text("Eliana").nth(1).click()
+  Test.expect(window.text("This is you").shown())
+}
+
+test "an offline friend can't be whispered or invited" {
+  Test.mount(nil, PAGE)
+  const people = new FakePeople()
+  const window = opened(mut people)
+  window.text("Darrick").click()
+  window.button("Whisper").click()
+  window.button("Invite").click()
+  Test.expect(people.heard.length == 0)
+}
+
+test "removing a friend asks first, and only the yes removes" {
+  Test.mount(nil, PAGE)
+  const people = new FakePeople()
+  const window = opened(mut people)
+  window.text("Eliana").click()
+  window.button("Remove").click()
+  const ask = Test.page().window("Remove Eliana from your friends?")
+  Test.expect(ask.text("The character leaves your friends list.").shown())
+  ask.button("Cancel").click()
+  Test.expect(people.heard.length == 0)
+  window.button("Remove").click()
+  Test.page().window("Remove Eliana from your friends?").button("Remove").click()
+  Test.expect(people.heard.join(", ") == "remove Eliana")
+  Test.expect(!window.text("Eliana").shown())
+  Test.expect(window.text("This is you").shown())
+}
+
+test "the search finds by name, note and BattleTag" {
+  Test.mount(nil, PAGE)
+  const window = opened(new FakePeople())
+  window.input().type("smith")
+  Test.expect(window.text("Darrick").shown())
+  Test.expect(!window.text("Eliana").shown())
+}
+
+test "add friend sends what is typed, and says which kind it makes" {
+  Test.mount(nil, PAGE)
+  const people = new FakePeople()
+  const window = opened(mut people)
+  window.button("Add Friend").click()
+  const add = Test.page().window("Send Request")
+  Test.expect(add.text("A character's name: they are added to your World of Warcraft friends.").shown())
+  add.input().type("Drake#2145")
+  Test.expect(add.text("A BattleTag or an email: a Battle.net friend request is sent.").shown())
+  add.button("Send Request").click()
+  Test.expect(people.heard.join(", ") == "add Drake#2145")
+}
+
+test "the player's own card changes the broadcast in its dialog" {
+  Test.mount(nil, PAGE)
+  const people = new FakePeople()
+  const window = opened(mut people)
+  Test.expect(window.text("Ordaen#2718").shown())
+  window.button("Change Broadcast").click()
+  const dialog = Test.page().window("Update")
+  Test.expect(dialog.text("0 / 127").shown())
+  dialog.input().type("  Raid at eight ")
+  dialog.button("Update").click()
+  Test.expect(people.heard.join(", ") == "broadcast Raid at eight")
+}
+
+test "a request is accepted or declined" {
+  Test.mount(nil, PAGE)
+  const people = new FakePeople()
+  const window = opened(mut people)
+  window.text("Requests (1)").click()
+  window.button("Accept").click()
+  window.button("Decline").click()
+  Test.expect(people.heard.join(", ") == "answer 31 true, answer 31 false")
+}
+
+test "the black list takes a name and gives one back" {
+  Test.mount(nil, PAGE)
+  const people = new FakePeople()
+  const window = opened(mut people)
+  window.text("Ignore List").click()
+  Test.expect(window.text("Rudegnome").shown())
+  window.input().type("Goldseller")
+  window.button("Add to Ignore List").click()
+  window.text("Rudegnome").item().button("Remove").click()
+  Test.expect(people.heard.join(", ") == "ignore Goldseller, unignore Rudegnome")
+}
+
+// The raid
+
+test "the raid shows its groups; the leader starts a ready check and moves a member" {
+  Test.mount(nil, PAGE)
+  const people = new FakePeople()
+  const window = opened(mut people)
+  window.text("Raid").click()
+  Test.expect(window.text("In the raid: 3 of 40").shown())
+  Test.expect(window.text("Group 8").shown())
+  window.button("Ready Check").click()
+  Test.moveTo(Test.holding("Branna", nil))
+  Test.press(nil)
+  Test.moveTo(Test.holding("Ingrid", nil))
+  Test.flush()
+  Test.release(nil)
+  Test.expect(people.heard.join(", ") == "ready check, move 3 1 2")
+  Test.shot("the raid: two groups, the leader marked")
+}
+
+test "one who doesn't lead can't start a ready check or move anyone" {
+  Test.mount(nil, PAGE)
+  const people = new FakePeople()
+  people.isLeader = false
+  const window = opened(mut people)
+  window.text("Raid").click()
+  window.button("Ready Check").click()
+  Test.moveTo(Test.holding("Branna", nil))
+  Test.press(nil)
+  Test.moveTo(Test.holding("Ingrid", nil))
+  Test.flush()
+  Test.release(nil)
+  Test.expect(people.heard.length == 0)
+}

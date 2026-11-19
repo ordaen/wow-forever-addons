@@ -1,0 +1,157 @@
+// The raid tab: the ready check and «Преобразовать в группу», then the raid's eight groups of five; the count and
+// «Выйти из рейда» stand in the window's footer. The leader or an assistant drags a member to another group: let go
+// on a free place, they move there; on another member, the two swap. A member's role, where the raid has one, is a
+// letter after the name; the leader and the assistants are marked before it.
+import { Align, ByInteractionState, Edges, Overflow } from "$ltml"
+import { Component, PushButton, SECONDARY_TEXT, space } from "Ordaen"
+import Locale from "@/locales"
+import { Member, Role } from "@/people"
+import Style from "@/style"
+
+const PLACES = 5
+
+// A party is at most five: a raid becomes one only at that size.
+const PARTY_SIZE = 5
+const SLOT_PAD: Edges = { left: space(.Line), right: space(.Line) }
+const SLOT_BACK: Color = Color.hex("#00000059")
+const EMPTY_BACK: Color = Color.hex("#00000026")
+const DROP: ByInteractionState<Color> = { default: SLOT_BACK, hover: Color.hex("#ffd10033") }
+
+function roleText(role: Role): String {
+  return match (role) {
+    .Tank => Locale.ROLE_TANK
+    .Healer => Locale.ROLE_HEALER
+    .Damage => Locale.ROLE_DAMAGE
+    .None => ""
+  }
+}
+
+// The free places of a group, counted.
+function freePlaces(count: Integer): Array<Integer> {
+  const places: Array<Integer> = []
+  for (place of 1..count) { places.push(place) }
+  return places
+}
+
+// One group's members, in the order the raid lists them.
+public function groupOf(members: Array<Member>, group: Integer): Array<Member> {
+  return members.filter(member => member.group == group)
+}
+
+// A member's place in a group: their name in their class colour (grey offline), the role's letter.
+class MemberSlot implements Component {
+  public grab: Event<Integer> = new Event()
+  public drop: Event<Integer> = new Event()
+
+  derived color: Color = self.member.online ? self.member.classColor ?? Style.INK : Style.OFFLINE
+  derived role: String = roleText(self.member.role)
+  derived marked: String = self.member.rank == 2 ? Locale.LEADER_MARK : self.member.rank == 1 ? Locale.ASSIST_MARK : ""
+
+  member: Signal<Member>
+  movable: Signal<Boolean>
+  constructor(member: Signal<Member>, movable: Signal<Boolean>) {
+    self.member = member
+    self.movable = movable
+  }
+
+  onGrab(mut self) {
+    if (self.movable) { self.grab.emit(self.member.index) }
+  }
+  onDrop(mut self) { self.drop.emit(self.member.index) }
+
+  public render(self): Template {
+    return $ltml {
+      <box height={Style.SLOT} columns={["max-content", { fr: 1 }, "max-content"]} gap={space(.Line)} yAlign={Align.Center}
+           padding={SLOT_PAD} background={DROP} @dragStart={self.onGrab} @drop={self.onDrop}>
+        <text value={self.marked} textColor={Style.GOLD} textSize={SECONDARY_TEXT} wrap={false} />
+        <text value={self.member.name} textColor={self.color} wrap={false} />
+        <text value={self.role} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={false} />
+      </box>
+    }
+  }
+}
+
+// One of the eight groups: its title and its five places.
+class GroupBox implements Component {
+  public grab: Event<Integer> = new Event()
+  public drop: Event<(Integer, Integer)> = new Event()
+
+  derived title: String = Locale.GROUP.format(self.group)
+  derived members: Array<Member> = groupOf(self.raid, self.group)
+  derived free: Array<Integer> = freePlaces(PLACES - self.members.length)
+
+  raid: Signal<Array<Member>>
+  group: Integer
+  movable: Signal<Boolean>
+  constructor(raid: Signal<Array<Member>>, group: Integer, movable: Signal<Boolean>) {
+    self.raid = raid
+    self.group = group
+    self.movable = movable
+  }
+
+  onGrab(mut self, member: Integer) { self.grab.emit(member) }
+  onDropOn(mut self, member: Integer) { self.drop.emit(self.group, member) }
+  onDropFree(mut self) { self.drop.emit(self.group, 0) }
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={1} gap={3.515625dp}>
+        <text value={self.title} textColor={Style.GOLD} textSize={SECONDARY_TEXT} wrap={false} />
+        <MemberSlot $for={member of self.members} $key={member.name} member={member} movable={self.movable}
+                    @grab={self.onGrab} @drop={self.onDropOn} />
+        <box $for={place of self.free} $key={place} height={Style.SLOT} background={EMPTY_BACK} @drop={self.onDropFree} />
+      </box>
+    }
+  }
+}
+
+public class RaidPage implements Component {
+  public readyCheck: Event<nil> = new Event()
+  public toParty: Event<nil> = new Event()
+  public move: Event<(Integer, Integer, Integer)> = new Event()
+
+  // The member being dragged: 0 while none is.
+  state dragging = 0
+  derived inRaid: Boolean = self.raid.length > 0
+  derived small: Boolean = self.raid.length <= PARTY_SIZE
+
+  raid: Signal<Array<Member>>
+  leads: Signal<Boolean>
+  constructor(raid: Signal<Array<Member>>, leads: Signal<Boolean>) {
+    self.raid = raid
+    self.leads = leads
+  }
+
+  onGrab(mut self, member: Integer) { self.dragging = member }
+
+  // Let go on a group: on a member of it (swapped), or on a free place.
+  onDrop(mut self, group: Integer, other: Integer) {
+    const member = peek self.dragging
+    self.dragging = 0
+    if (member == 0 || member == other) { return }
+    const moved = (peek self.raid).find(each => each.index == member)
+    if (moved == nil || (moved.group == group && other == 0)) { return }
+    self.move.emit(member, group, other)
+  }
+
+  onReadyCheck(mut self) { self.readyCheck.emit() }
+  onToParty(mut self) { self.toParty.emit() }
+
+  public render(self): Template {
+    return $ltml {
+      <text $if={!self.inRaid} value={Locale.NOT_IN_RAID} textColor={Style.DIM} wrap={true} />
+      <box $else columns={1} rows={["max-content", { fr: 1 }]} gap={space(.Group)}>
+        <box columns={["max-content", "max-content"]} gap={space(.Item)} yAlign={Align.Center}>
+          <PushButton label={Locale.READY_CHECK} width={Style.WIDE_BUTTON} disabled={!self.leads}
+                      @click={self.onReadyCheck} />
+          <PushButton label={Locale.TO_PARTY} width={Style.WIDE_BUTTON} disabled={!self.leads || !self.small}
+                      @click={self.onToParty} />
+        </box>
+        <box columns={4} gap={space(.Item)} overflow={Overflow.Scroll}>
+          <GroupBox $for={group of [1, 2, 3, 4, 5, 6, 7, 8]} $key={group} raid={self.raid} group={peek group}
+                    movable={self.leads} @grab={self.onGrab} @drop={self.onDrop} />
+        </box>
+      </box>
+    }
+  }
+}

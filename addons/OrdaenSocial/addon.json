@@ -1,0 +1,1 @@
+{ "title": "Ordaen Social", "icon": "Interface/Icons/Achievement_GuildPerk_EverybodysFriend", "notes": "x", "version": "0.1.0", "loadOnDemand": true, "dependencies": { "Ordaen": "^1.0.0" } }

@@ -1,0 +1,137 @@
+-- the friends: the best friend on top with its star, the card the player's own
+surface 425,183.88 1150.25x532.25 on DIALOG clamped raised by a click
+  box 425,232.79 1150.25x483.33 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
+    box 437.75,245.54 729.5x460.08
+      box 457.75,265.54 689.5x395.68
+        box 457.75,265.54 689.5x27.27
+          box 457.75,291.98 689.5x0.83 absolute #3e2f1d
+          box 457.75,265.54 67.22x27.27 #00000059 @keyPress @pointerPress
+            box 458.58,266.38 65.56x1.67 absolute #d6a56b
+            text 470.25,272.21 42.22x15.6 "Status" #ffffff
+          box 528.31,265.54 106.11x27.27 #00000000 @keyPress @pointerPress
+            box 529.14,266.38 104.44x1.67 absolute #00000000
+            text 540.81,272.21 81.11x15.6 "Requests (1)" #a3977f
+          box 637.75,265.54 99.44x27.27 #00000000 @keyPress @pointerPress
+            box 638.58,266.38 97.78x1.67 absolute #00000000
+            text 650.25,272.21 74.44x15.6 "Ignore List" #a3977f
+        box 457.75,299.48 689.5x361.75
+          box 457.75,299.48 689.5x28.33
+            box 457.75,299.48 574.5x28.33
+              box 457.75,299.48 541.17x28.33
+                box 457.75,299.48 541.17x28.33 #00000080 input "" @change @submit
+                box 457.75,299.48 541.17x28.33 absolute
+                  text 466.08,305.84 524.5x15.6 "Search" #a3977f
+              box 998.92,299.48 33.33x28.33
+                box 998.92,299.48 33.33x28.33
+                  box 1003.92,299.48 28.33x28.33
+                    box 1003.92,299.48 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerEnter @pointerLeave @pointerPress
+                      box 1011.42,306.98 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 1 of 16
+            box 1038.92,299.48 108.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+              text 1059.19,305.84 67.78x15.6 "Add Friend" #ffd100
+          box 457.75,334.48 689.5x326.75 scrolled 0 of 0
+            box 457.75,334.48 689.5x36.67 #00000000 @keyPress @pointerPress
+              box 461.08,347.81 10x10 Interface/FriendsFrame/StatusIcon-Online
+              box 474.42,337.81 652.83x30
+                box 474.42,337.81 652.83x15.6
+                  text 474.42,337.81 42.22x15.6 "Alexei" #82c5ff
+                  text 519.97,337.81 15.56x15.6 "25" #a3977f
+                text 474.42,353.41 652.83x14.4 "Battle.net · Torgrim · Loch Modan" #a3977f
+              box 1130.58,346.14 13.33x13.33 PetJournal-FavoritesIcon
+            box 457.75,371.14 689.5x36.67 #00000000 @keyPress @pointerPress
+              box 461.08,384.48 10x10 Interface/FriendsFrame/StatusIcon-Away
+              box 474.42,374.48 666.17x30
+                box 474.42,374.48 666.17x15.6
+                  text 474.42,374.48 42.22x15.6 "Eliana" #e8dcc4
+                  text 519.97,374.48 15.56x15.6 "24" #a3977f
+                text 474.42,390.08 666.17x14.4 "Stormwind" #a3977f
+            box 457.75,407.81 689.5x36.67 #00000000 @keyPress @pointerPress
+              box 461.08,421.14 10x10 Interface/FriendsFrame/StatusIcon-Offline
+              box 474.42,411.14 666.17x30
+                box 474.42,411.14 666.17x15.6
+                  text 474.42,411.14 47.78x15.6 "Darrick" #7c848a
+                  text 525.53,411.14 15.56x15.6 "22" #a3977f
+                text 474.42,426.74 666.17x14.4 "offline" #a3977f
+            box 457.75,444.48 689.5x36.67 #00000000 @keyPress @pointerPress
+              box 461.08,457.81 10x10 Interface/FriendsFrame/StatusIcon-Offline
+              box 474.42,447.81 666.17x30
+                box 474.42,447.81 666.17x15.6
+                  text 474.42,447.81 35.56x15.6 "Irina" #7c848a
+                  text 513.31,447.81 0x0 "" #a3977f
+                text 474.42,463.41 666.17x14.4 "Battle.net · offline" #a3977f
+      box 457.75,661.23 689.5x31.07
+        box 457.75,677.89 689.5x14.4
+          text 457.75,677.89 672.83x14.4 "4 friends, 2 online" #a3977f
+    box 1167.25,245.54 400.25x460.08 border=ButtonFrameTemplateNoPortrait sides=left
+      box 1197.5,265.54 350x426.75
+        box 1197.5,265.54 350x135.4
+          box 1197.5,265.54 350x33.6
+            box 1197.5,275.68 13.33x13.33 Interface/FriendsFrame/StatusIcon-Online
+            box 1214.17,265.54 333.33x33.6
+              text 1214.17,265.54 333.33x19.2 "Ordaen#2718" #82c5ff
+              text 1214.17,284.74 333.33x14.4 "This is you" #a3977f
+          box 1197.5,305.81 350x28.33
+            text 1197.5,312.18 83.33x15.6 "Status" #a3977f
+            box 1284.17,305.81 175x28.33
+              box 1284.17,305.81 175x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
+                text 1294.17,312.18 140x15.6 "Online" #f0c860
+                box 1439.17,313.31 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+          box 1197.5,340.81 350x15.6
+            text 1197.5,340.81 83.33x15.6 "Broadcast" #a3977f
+            text 1284.17,340.81 263.33x15.6 "—" #e8dcc4
+          box 1197.5,363.07 350x15.6
+            text 1197.5,363.07 83.33x15.6 "Character" #a3977f
+            text 1284.17,363.07 263.33x15.6 "Torvald, Warrior 25 · Flamegor" #e8dcc4
+          box 1197.5,385.34 350x15.6
+            text 1197.5,385.34 83.33x15.6 "Location" #a3977f
+            text 1284.17,385.34 263.33x15.6 "Ironforge" #e8dcc4
+        box 1197.5,417.61 350x229.68
+        box 1197.5,663.96 350x28.33
+          box 1197.5,663.96 150x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+            text 1219.17,670.32 106.67x15.6 "Change Broadcast" #ffd100
+          box 1354.17,663.96 150x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+            text 1382.5,670.32 93.33x15.6 "Copy BattleTag" #ffd100
+      box 1174.5,245.54 6.67x460.08 absolute @drag @dragStart @dragStop
+    box 1558,696.12 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
+  box 425,183.88 1150.25x59.42
+    box 425,183.88 1063.58x59.42
+      box 425,183.88 137.19x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
+        box 432.25,191.12 48.92x48.92 absolute icon=Interface/Icons/Achievement_GuildPerk_EverybodysFriend cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=none
+        box 476.17,191.12 11.5x52.17 absolute border=ButtonFrameTemplateNoPortrait sides=left
+        box 492.5,194.12 51.11x45.92
+          text 494.17,201.67 47.78x15.6 "Friends" #ffd100
+          text 492.5,218.1 51.11x14.4 "2 online" #8f8470
+      box 572.19,183.88 172.75x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
+        box 579.44,191.12 48.92x48.92 absolute icon=Interface/Icons/INV_Shirt_GuildTabard_01 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=none
+        box 623.36,191.12 11.5x52.17 absolute border=ButtonFrameTemplateNoPortrait sides=left
+        box 639.69,194.12 86.67x45.92
+          text 665.25,201.67 35.56x15.6 "Guild" #a3977f
+          text 639.69,218.1 86.67x14.4 "in development" #8f8470
+      box 754.94,183.88 172.75x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
+        box 762.19,191.12 48.92x48.92 absolute icon=Interface/Icons/INV_Misc_GroupNeedMore cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=none
+        box 806.11,191.12 11.5x52.17 absolute border=ButtonFrameTemplateNoPortrait sides=left
+        box 822.44,194.12 86.67x45.92
+          text 828.56,201.67 74.44x15.6 "Communities" #a3977f
+          text 822.44,218.1 86.67x14.4 "in development" #8f8470
+      box 937.69,183.88 173.86x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
+        box 944.94,191.12 48.92x48.92 absolute icon=Interface/Icons/INV_Misc_GroupLooking cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=none
+        box 988.86,191.12 11.5x52.17 absolute border=ButtonFrameTemplateNoPortrait sides=left
+        box 1005.19,194.12 87.78x45.92
+          text 1005.19,201.67 87.78x15.6 "Recent Allies" #a3977f
+          text 1005.75,218.1 86.67x14.4 "in development" #8f8470
+      box 1121.56,183.88 124.97x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
+        box 1128.81,191.12 48.92x48.92 absolute icon=Interface/Icons/Achievement_Boss_Ragnaros cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=none
+        box 1172.72,191.12 11.5x52.17 absolute border=ButtonFrameTemplateNoPortrait sides=left
+        box 1189.06,194.12 38.89x45.92
+          text 1194.06,201.67 28.89x15.6 "Raid" #a3977f
+          text 1189.06,218.1 38.89x14.4 "3 / 40" #8f8470
+    box 1495.25,211.88 80x31.42
+      box 1495.25,211.88 80x26.67 clipped
+        box 1495.25,211.88 27.5x26.67 absolute clipped @keyPress @pointerPress
+          box 1495.25,211.88 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
+          box 1503.58,221.46 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 0 of 8
+        box 1522.75,211.88 25x26.67 absolute clipped @keyPress @pointerPress
+          box 1522.75,211.88 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 3 of 16
+          box 1529,221.46 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
+        box 1547.75,211.88 27.5x26.67 absolute clipped @keyPress @pointerPress
+          box 1547.75,211.88 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
+          box 1554,221.46 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8

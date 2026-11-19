@@ -1,0 +1,22 @@
+// Ordaen Social's page in the settings window: whether the friends' list shows those offline. Each control writes one
+// entry of the settings, at once.
+import { Component, Settings, Switch } from "Ordaen"
+import Locale from "@/locales"
+
+public struct Choices implements Plain {
+  // Friends offline stand in the list; off, they are hidden (a search still finds them).
+  offline: Boolean
+}
+
+public class GeneralPage implements Component {
+  settings: mut Settings<Choices>
+  constructor(settings: mut Settings<Choices>) {
+    self.settings = settings
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <Switch label={Locale.SETTING_OFFLINE} hint={Locale.SETTING_OFFLINE_TIP} value={mut self.settings.values.offline} />
+    }
+  }
+}
