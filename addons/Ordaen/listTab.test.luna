@@ -1,0 +1,29 @@
+// The library's ListTab: an entry of a list of pages in a column narrower than its name.
+import Test from "$test"
+import { ListTab } from "@/listTab"
+
+// A list of entries in a column as narrow as a window's list of tabs, one name longer than the column: the Russian
+// «Предметы для профессий» of the bags' tabs is.
+class Narrow {
+  public render(self): Template {
+    return $ltml {
+      <box columns={[160ui, { fr: 1 }]} width={400ui}>
+        <box columns={1}>
+          <ListTab label={"Everything the professions take"} selected={true}>
+            <text value={"12"} />
+          </ListTab>
+          <ListTab label={"All"} selected={false}>
+            <text value={"3"} />
+          </ListTab>
+        </box>
+        <text value={"Beside"} />
+      </box>
+    }
+  }
+}
+
+test "a name longer than its column wraps inside it, its count kept at the column's right, nothing past the column" {
+  Test.mount(new Narrow(), { left: 0, top: 0, width: 400, height: 120 })
+  Test.shot("the long name on two lines inside the column, its count at the column's right; «Beside» untouched")
+  Test.expect(Test.faults().length == 0)
+}
