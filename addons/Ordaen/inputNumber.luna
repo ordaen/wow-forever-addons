@@ -1,0 +1,275 @@
+// InputNumber: every number a setting takes, on its row (SettingRow), between its least and its most, in its steps.
+// The settings have no other number control. A range of at most `SLID` steps is a slider: a dark groove, the bronze
+// fill up to the value, a bronze knob; a click or a drag anywhere along it sets the value, and focused, Left and Right
+// step it, Home and End go to its ends. A wider range (a place on the screen, a size) is a field the number is typed
+// in, taken once the typing pauses (`SETTLE`), on Enter or before a step: a number past a bound is written as that
+// bound, a text that isn't a number leaves the value and turns the edge red. Either has − on its left and + on its
+// right, plain boxes on the push button's plate that the pointer and Enter or Space press, which step as CountInput's
+// do (`stride`, `stepTip`): a step, ten with Shift, a hundred with Ctrl, again and again while held, each greyed and
+// doing nothing at its bound. After the + stands the
+// value's unit: the slider shows the value in it (70%, 48 px), the field the unit's name (px). Disabled, it takes no
+// input.
+import Game from "$game"
+import { Align, Art, Drag, Edges, Keystroke, Line, Pointer, Position, Shadow, Stated, Track } from "$ltml"
+import root Ordaen from "Ordaen"
+import { STEP_WIDTH, stepTip, stride } from "@/countInput"
+import Locale from "@/locales"
+import { Component } from "@/module"
+import { SettingRow } from "@/settingRow"
+import { Tip, TipText } from "@/tip"
+
+// What a value is counted in: a share (0.7 is 70%), a size in the client's units, seconds, or a plain number.
+public enum Unit { None = "none", Percent = "percent", Px = "px", Sec = "sec" }
+
+// A range of at most this many steps is a slider; a wider one is typed in.
+const SLID = 100
+
+// The −, the slider or the field, the +, the unit.
+const ROW: Array<Track> = ["max-content", "max-content", "max-content", "max-content"]
+const LENGTH = 281.25dp
+// The knob's height: the band that takes the mouse, the groove centred in it.
+const BAND = 23.4375dp
+const GROOVE = 9.375dp
+const EDGE = 1.171875dp
+const GROOVE_TOP = (BAND - GROOVE) / 2
+const KNOB_W = 18.75dp
+// The band reaches half a knob past each end of the groove: the knob at either end lies inside it, whole to grab.
+const INSET = KNOB_W / 2
+const KNOB_H = 37.5dp
+const KNOB_SHADOW: Shadow = { color: Color.hex("#0000008c"), x: 0ui, y: 2.34375dp, size: 3.515625dp }
+const WHITE: Color = Color.hex("#ffffff")
+// The field: as high as a text box, wide enough for its digits.
+const FIELD_WIDTH = 140.625dp
+const FIELD_HEIGHT = 30.46875dp
+const FIELD_ROWS: Array<Track> = [{ fr: 1 }]
+const INK: Color = Color.hex("#e8dcc4")
+const FILL: Color = Color.hex("#00000080")
+const FIELD_EDGE: Line = { width: 1.171875dp, color: Color.hex("#3e2f1d") }
+const BAD: Line = { width: 1.171875dp, color: Color.hex("#c0463c") }
+const PADDING: Edges = { right: 11.71875dp, left: 11.71875dp }
+const DIGITS = 6
+// − and +: a push button's plate and label, the label white under the cursor or the keyboard's focus.
+const STEP_HEIGHT = 39.84375dp
+const INK_STEP: Stated<Color> = { default: Color.hex("#ffd100"), disabled: Color.hex("#808080"), hover: WHITE, focus: WHITE }
+const STEP_SHADOW: Shadow = { color: Color.hex("#000000"), x: 1.171875dp, y: -1.171875dp }
+// How long typing pauses before what is typed is taken.
+const SETTLE = 0.6
+
+// `value` on the nearest of the steps from `least`, held between `least` and `most`.
+public function stepped(value: Number, least: Number, most: Number, step: Number): Number {
+  const on = least + ((value - least) / step).round() * step
+  return least.max(most.min(on))
+}
+
+// A value as the slider shows it, in its unit.
+public function said(value: Number, unit: Unit): String {
+  match (unit) {
+    Unit.Percent => return "%d%%".format((value * 100).round())
+    .Px => return Locale.UNIT_PX.format(value.round())
+    .Sec => return Locale.UNIT_SEC.format(value)
+    .None => return String.of(value)
+  }
+}
+
+// The unit's name after a field: none for a plain number.
+function nameOf(unit: Unit): String {
+  match (unit) {
+    Unit.Percent => return "%"
+    .Px => return Locale.UNIT_PX_NAME
+    .Sec => return Locale.UNIT_SEC_NAME
+    .None => return ""
+  }
+}
+
+// The number a text is, or nothing: digits, with a minus sign and a point.
+function numberOf(text: String): Number | nil {
+  const digits = text.match("^%s*(%-?%d+%.?%d*)%s*$")
+  if (digits == nil) { return nil }
+  return digits.toNumber()
+}
+
+public class InputNumber implements Component {
+  // The value held to the range: one kept outside it (saved before the range changed) is read as its nearest end,
+  // which is what the control shows.
+  derived held: Number = self.least.max(self.most.min(self.value))
+  derived fewer: Boolean = !self.disabled && self.held > self.least
+  derived more: Boolean = !self.disabled && self.held < self.most
+  // Where the value sits along the range, from 0 to 1.
+  derived fraction: Number = self.most > self.least ? (self.held - self.least) / (self.most - self.least) : 0
+  derived fillWidth: Number<Length> = self.fraction * (LENGTH - 2 * EDGE)
+  derived knobLeft: Number<Length> = self.fraction * LENGTH
+  derived shown: String = self.sliding ? said(self.held, self.unit) : nameOf(self.unit)
+  // The field's text, and whether it is a number.
+  public state text: String
+  public derived bad: Boolean = numberOf(self.text) == nil
+  derived edge: Line = self.bad ? BAD : FIELD_EDGE
+  // − and +: the bronze plate, its pushed row while held; focused, the plate lit by its glow (the renderer lights a
+  // piece's glow on focus as under the cursor); disabled at its bound, the grey plate.
+  derived plate: Stated<Art> = {
+    default: Ordaen.art.ctl.button,
+    disabled: Ordaen.art.ctl.buttonDisabled,
+    focus: Ordaen.art.ctl.button
+  }
+  state fewerHover = false
+  state moreHover = false
+  // What is typed, waiting for the typing to pause.
+  pending: Task<nil> | nil = nil
+
+  label: Signal<String>
+  value: mut Signal<Number>
+  const least: Number
+  const most: Number
+  const step: Number
+  const unit: Unit
+  hint: Signal<String>
+  disabled: Signal<Boolean>
+  const sliding: Boolean
+  // A field shows a percent in hundredths: 70, not 0.7.
+  const scale: Number
+  const fewerTip: TipText
+  const moreTip: TipText
+  constructor(
+    label: Signal<String>,
+    value: mut Signal<Number>,
+    least: Number,
+    most: Number,
+    step: Number = 1,
+    unit: Unit = Unit.None,
+    hint: Signal<String> = "",
+    disabled: Signal<Boolean> = false
+  ) {
+    self.label = label
+    self.value = value
+    self.least = least
+    self.most = most
+    self.step = step
+    self.unit = unit
+    self.hint = hint
+    self.disabled = disabled
+    self.sliding = (most - least) / step <= SLID
+    self.scale = unit == Unit.Percent ? 100 : 1
+    self.fewerTip = stepTip(Locale.COUNT_FEWER, steps => "-" + said(steps * step, unit))
+    self.moreTip = stepTip(Locale.COUNT_MORE, steps => "+" + said(steps * step, unit))
+    self.text = String.of(peek self.held * self.scale)
+    watch (typed of self.text) { self.typed() }
+    watch (shown of self.held) { self.show(shown) }
+  }
+
+  // What was typed is a number: the value is it, on its steps and held to the bounds.
+  take(mut self, typed: String) {
+    const number = numberOf(typed)
+    if (number == nil) { return }
+    const kept = stepped(number / self.scale, self.least, self.most, self.step)
+    if (kept != peek self.value) {
+      self.value = kept
+    } else if (kept != number / self.scale) {
+      self.text = String.of(kept * self.scale)
+    }
+  }
+
+  // The value changed: the field says it, unless it already does.
+  show(mut self, value: Number) {
+    if (numberOf(peek self.text) != value * self.scale) { self.text = String.of(value * self.scale) }
+  }
+
+  // Some steps down or up, held to the range.
+  nudge(mut self, steps: Number) {
+    if (self.disabled) { return }
+    self.value = stepped(self.held + steps * self.step, self.least, self.most, self.step)
+  }
+
+  // − and +, the field's Down and Up: what is typed and not yet taken is taken first, then stepped from.
+  less(mut self) {
+    self.settle()
+    self.nudge(-stride())
+  }
+
+  raise(mut self) {
+    self.settle()
+    self.nudge(stride())
+  }
+
+  onFewerEnter(mut self) { self.fewerHover = true }
+  onFewerLeave(mut self) { self.fewerHover = false }
+  onMoreEnter(mut self) { self.moreHover = true }
+  onMoreLeave(mut self) { self.moreHover = false }
+
+  // Typing is taken once it pauses for `SETTLE`: a number on its way («1» of «150») isn't held to the bounds yet.
+  typed(mut self) {
+    if (self.pending != nil) { destroy self.pending }
+    self.pending = self.later()
+  }
+
+  async later(mut self) {
+    await Game.delay(SETTLE)
+    self.pending = nil
+    self.take(peek self.text)
+  }
+
+  // What is typed and still waiting is taken now: Enter, or a step from it.
+  settle(mut self) {
+    if (self.pending == nil) { return }
+    destroy self.pending
+    self.take(peek self.text)
+  }
+
+  onSubmit(mut self) { self.settle() }
+
+  // The value at `x` UI units along the band (the groove starts `INSET` in), held to the range and its steps.
+  setAt(mut self, x: Number<Length>) {
+    if (self.disabled) { return }
+    const t = (0).max((1).min((x - INSET) / LENGTH))
+    self.value = stepped(self.least + t * (self.most - self.least), self.least, self.most, self.step)
+  }
+
+  onClick(mut self, click: Pointer) { self.setAt(click.x) }
+  onDrag(mut self, drag: Drag) { self.setAt(drag.x) }
+
+  // Focused: Left and Right a step, Home the least, End the most.
+  onKey(mut self, stroke: Keystroke) {
+    match (stroke.key) {
+      .Left => self.nudge(-1)
+      .Right => self.nudge(1)
+      .Home => self.nudge(-(self.most - self.least) / self.step)
+      else => self.nudge((self.most - self.least) / self.step)
+    }
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <SettingRow label={self.label} hint={self.hint} disabled={self.disabled}>
+        <box columns={ROW} gap={7.03125dp} yAlign={Align.Center}>
+          <box width={STEP_WIDTH} height={STEP_HEIGHT} xAlign={Align.Center} yAlign={Align.Center}
+               background={self.plate} textColor={INK_STEP} disabled={!self.fewer} @pointerDown.repeat(.Left)={self.less}
+               @keyPress(.Enter)={self.less} @keyPress(.Space)={self.less} @pointerEnter={self.onFewerEnter}
+               @pointerLeave={self.onFewerLeave}>
+            <Tip $if={self.fewerHover} title={self.fewerTip.title} text={self.fewerTip.text} rows={self.fewerTip.rows} />
+            <text value={"-"} textShadow={STEP_SHADOW} wrap={false} />
+          </box>
+          <box $if={self.sliding} width={LENGTH + KNOB_W} height={BAND}
+               @keyPress(.Left)={self.onKey} @keyPress(.Right)={self.onKey} @keyPress(.Home)={self.onKey} @keyPress(.End)={self.onKey}
+               @pointerPress={self.onClick} @dragStart={self.onDrag} @drag={self.onDrag}>
+            <box position={Position.Absolute} left={INSET} top={GROOVE_TOP} width={LENGTH} height={GROOVE}
+                 background={Ordaen.art.ctl.groove} />
+            <box position={Position.Absolute} left={INSET + EDGE} top={GROOVE_TOP + EDGE} height={GROOVE - 2 * EDGE}
+                 width={self.fillWidth} background={Ordaen.art.ctl.sliderFill} zLevel={1} />
+            <box position={Position.Absolute} left={self.knobLeft} top={-2.34375dp} width={KNOB_W} height={KNOB_H}
+                 background={Ordaen.art.ctl.sliderKnob} shadow={KNOB_SHADOW} zLevel={2} />
+          </box>
+          <box $else width={FIELD_WIDTH} height={FIELD_HEIGHT} rows={FIELD_ROWS}>
+            <input value={mut self.text} padding={PADDING} textColor={INK} background={FILL} border={self.edge}
+                   maxLength={DIGITS} disabled={self.disabled} @submit={self.onSubmit} />
+          </box>
+          <box width={STEP_WIDTH} height={STEP_HEIGHT} xAlign={Align.Center} yAlign={Align.Center}
+               background={self.plate} textColor={INK_STEP} disabled={!self.more} @pointerDown.repeat(.Left)={self.raise}
+               @keyPress(.Enter)={self.raise} @keyPress(.Space)={self.raise} @pointerEnter={self.onMoreEnter}
+               @pointerLeave={self.onMoreLeave}>
+            <Tip $if={self.moreHover} title={self.moreTip.title} text={self.moreTip.text} rows={self.moreTip.rows} />
+            <text value={"+"} textShadow={STEP_SHADOW} wrap={false} />
+          </box>
+          <text $if={self.shown != ""} value={self.shown} textColor={WHITE} />
+        </box>
+      </SettingRow>
+    }
+  }
+}

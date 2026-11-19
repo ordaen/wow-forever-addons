@@ -1,0 +1,169 @@
+// The library's InputNumber: every number a setting takes. A small range is a slider, a wide one a field; either has
+// − and +, which step as CountInput's do (Shift ten steps, Ctrl a hundred), and shows the value's unit.
+import Game from "$game"
+import { Key } from "$ltml"
+import Test from "$test"
+import { Move } from "$test"
+import root Ordaen from "Ordaen"
+import { InputNumber, Unit } from "@/inputNumber"
+import { KeptWindow, Window, WindowTabSpec } from "@/window"
+import { WindowsPage } from "@/windowsPage"
+
+// A slider of a hundred steps and a field of eight thousand.
+class Numbers {
+  state share: Number = 0.5
+  state place: Number = 0
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={1}>
+        <InputNumber label={"Share"} value={mut self.share} least={0} most={1} step={0.01} unit={Unit.Percent} />
+        <InputNumber label={"Place"} value={mut self.place} least={-4000} most={4000} unit={Unit.Px} />
+      </box>
+    }
+  }
+}
+
+function near(a: Number, b: Number): Boolean { return (a - b).abs() < 0.0001 }
+
+test "the slider's − and + step it: a step, ten with Shift, a hundred with Ctrl, held to its ends" {
+  let page = new Numbers()
+  Test.mount(page, { left: 0, top: 0, width: 900, height: 200 })
+  Test.expect(Test.page().input().count() == 1)
+  Test.page().button("+").nth(1).click()
+  Test.expect(near(page.share, 0.51))
+  Game.input.shiftDown = (): Boolean => true
+  Test.page().button("-").nth(1).click()
+  Test.expect(near(page.share, 0.41))
+  Game.input.shiftDown = (): Boolean => false
+  Game.input.controlDown = (): Boolean => true
+  Test.page().button("+").nth(1).click()
+  Test.expect(near(page.share, 1))
+  Test.shot("the share at its most: 100%, + disabled")
+  Test.page().button("-").nth(1).click()
+  Test.expect(near(page.share, 0))
+  destroy page
+}
+
+test "the field's − and + step it too, and a number typed past a bound is the bound" {
+  let page = new Numbers()
+  Test.mount(page, { left: 0, top: 0, width: 900, height: 200 })
+  Test.page().button("+").nth(2).click()
+  Test.expect(page.place == 1)
+  Game.input.shiftDown = (): Boolean => true
+  Test.page().button("+").nth(2).click()
+  Test.expect(page.place == 11)
+  Game.input.shiftDown = (): Boolean => false
+  Game.input.controlDown = (): Boolean => true
+  Test.page().button("-").nth(2).click()
+  Test.expect(page.place == -89)
+  Test.expect(Test.page().input().value() == "-89")
+  Test.page().input().click()
+  Test.erase(6)
+  Test.type("9999")
+  // Taken once the typing pauses: a number on its way isn't held to the bounds.
+  Test.pass(0.3)
+  Test.expect(page.place == -89)
+  Test.pass(0.4)
+  Test.expect(page.place == 4000)
+  Test.shot("9999 typed: the most, 4000")
+  destroy page
+}
+
+test "Enter takes what is typed at once, and − steps from what was typed" {
+  let page = new Numbers()
+  Test.mount(page, { left: 0, top: 0, width: 900, height: 200 })
+  Test.page().input().click()
+  Test.erase(6)
+  Test.type("120")
+  Test.key(Key.Enter)
+  Test.expect(page.place == 120)
+  Test.page().input().click()
+  Test.erase(6)
+  Test.type("50")
+  Test.page().button("-").nth(2).click()
+  Test.expect(page.place == 49)
+  Test.expect(Test.page().input().value() == "49")
+  destroy page
+}
+
+test "under the cursor − and + say their steps in the value's unit, and the tip goes as the cursor leaves" {
+  let page = new Numbers()
+  Test.mount(page, { left: 0, top: 0, width: 900, height: 200 })
+  Test.page().button("+").nth(1).hover()
+  Test.expect(Test.page().text("+10%").shown())
+  Test.shot("the cursor on the slider's +: its label white, its steps in a tip")
+  Test.page().text("Place").hover()
+  Test.expect(!Test.page().text("+10%").shown())
+  Test.page().button("-").nth(2).hover()
+  Test.expect(Test.page().text("-100 px").shown())
+  destroy page
+}
+
+// The two in a window: the keyboard's focus moves in a surface.
+class Windowed {
+  state share: Number = 1
+  state place: Number = 0
+  state tabs: Array<WindowTabSpec> = [{ title: "Numbers" }]
+  state tab = 1
+  public placing: mut KeptWindow = new KeptWindow("numbers", "numbers", { x: 0ui, y: 0ui, width: 760ui, height: 300ui })
+
+  public render(self): Template {
+    return $ltml {
+      <Window shown={true} tabs={self.tabs} selected={mut self.tab} declared={mut self.placing}>
+        <box columns={1}>
+          <InputNumber label={"Share"} value={mut self.share} least={0} most={1} step={0.01} unit={Unit.Percent} />
+          <InputNumber label={"Place"} value={mut self.place} least={-4000} most={4000} unit={Unit.Px} />
+        </box>
+      </Window>
+    }
+  }
+}
+
+test "− and + are pressed from the keyboard, and each is greyed and does nothing at its bound" {
+  let page = new Windowed()
+  Test.mount(page, { left: 0, top: 0, width: 1600, height: 900, screen: true })
+  Test.expect(Test.page().button("+").nth(1).paintedWith(Ordaen.art.ctl.buttonDisabled))
+  Test.page().button("+").nth(1).click()
+  Test.expect(near(page.share, 1))
+  // The place's field has the keyboard; Shift+Tab goes back to its −.
+  Test.page().input().click()
+  Test.key(Move.Back)
+  Test.expect(Test.focused().contains("«-»"))
+  Test.shot("the place's − focused: its ring, its label white; the share's + at its bound, grey")
+  Test.key(Key.Enter)
+  Test.expect(page.place == -1)
+  Test.key(Key.Space)
+  Test.expect(page.place == -2)
+  destroy page
+}
+
+test "the unit shows: the slider's value in it, the field's name after it" {
+  let page = new Numbers()
+  Test.mount(page, { left: 0, top: 0, width: 900, height: 200 })
+  Test.expect(Test.page().text("50%").shown())
+  Test.expect(Test.page().text("px").shown())
+  destroy page
+}
+
+// The settings' «Windows» page of one window.
+class Kept {
+  public window: mut KeptWindow = new KeptWindow("main", "Bank", { x: 10ui, y: -20ui, width: 400ui, height: 300ui })
+  public const windows: mut Array<mut KeptWindow> = [self.window]
+
+  public render(self): Template {
+    return $ltml { <WindowsPage windows={mut self.windows} /> }
+  }
+}
+
+test "a window's place and size are InputNumbers: a field between − and +, in px" {
+  let page = new Kept()
+  Test.mount(page, { left: 0, top: 0, width: 1000, height: 600 })
+  Test.expect(Test.page().input().count() == 4)
+  Test.expect(Test.page().text("px").count() == 4)
+  Test.expect(Test.page().button("+").count() == 4)
+  Test.page().button("+").nth(1).click()
+  Test.expect(near((peek page.window.memory.values).x / 1ui, 11))
+  Test.shot("the window's place and size")
+  destroy page
+}

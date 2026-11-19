@@ -1,7 +1,7 @@
 // The panel's «Action bars» page in the settings window: a bar picked from the list, its own settings one
 // section under another, and for Панель 1 the forms that page it. Each control writes the settings' draft.
 import Game from "$game"
-import { Checkbox, Choice, Component, Dropdown, Section, Settings, Slider, Switch, VisibilityRows } from "Ordaen"
+import { Checkbox, Choice, Component, Dropdown, InputNumber, Section, Settings, Switch, Unit, VisibilityRows } from "Ordaen"
 import { Bar } from "@/bar"
 import { BarChoice, BarKind, BarSpec, BarsChoices, SPECS } from "@/barChoices"
 import Locale from "@/locales"
@@ -77,14 +77,16 @@ class BarEditor implements Component {
     return $ltml {
       <Switch label={Locale.BAR_ON} hint={Locale.BAR_ON_TIP} value={mut self.choice.on} />
       <Section title={Locale.SECTION_BUTTONS}>
-        <Slider label={Locale.BUTTONS} hint={Locale.BUTTONS_TIP} value={mut self.choice.buttons} least={1}
-                most={self.spec.most} />
-        <Slider label={Locale.PER_ROW} hint={Locale.PER_ROW_TIP} value={mut self.choice.perRow} least={1}
-                most={self.spec.most} />
+        <InputNumber label={Locale.BUTTONS} hint={Locale.BUTTONS_TIP} value={mut self.choice.buttons} least={1}
+                     most={self.spec.most} />
+        <InputNumber label={Locale.PER_ROW} hint={Locale.PER_ROW_TIP} value={mut self.choice.perRow} least={1}
+                     most={self.spec.most} />
       </Section>
       <Section title={Locale.SECTION_LOOK}>
-        <Slider label={Locale.SIZE} hint={Locale.SIZE_TIP} value={mut self.choice.size} least={24} most={64} />
-        <Slider label={Locale.SPACING} hint={Locale.SPACING_TIP} value={mut self.choice.spacing} least={0} most={16} />
+        <InputNumber label={Locale.SIZE} hint={Locale.SIZE_TIP} value={mut self.choice.size} least={24} most={64}
+                     unit={Unit.Px} />
+        <InputNumber label={Locale.SPACING} hint={Locale.SPACING_TIP} value={mut self.choice.spacing} least={0}
+                     most={16} unit={Unit.Px} />
         <Checkbox label={Locale.KEYS} hint={Locale.KEYS_TIP} value={mut self.choice.keys} />
       </Section>
       <VisibilityRows value={mut self.choice.visibility} />
