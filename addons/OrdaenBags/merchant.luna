@@ -10,7 +10,7 @@ import Game from "$game"
 import { Align, Art, Columns, Event, MouseButton, Overflow, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import {
-  ARTWORK, ButtonPlate, Choice, Column, Component, CountInput, Dialog, FooterCount, FooterCounts, ItemButton, KeptWindow, ModuleMemory, Money, PushButton, SECONDARY_TEXT,
+  ARTWORK, ButtonPlate, Choice, Column, Component, CountInput, Dialog, FoldCaption, FooterCount, FooterCounts, ItemButton, KeptWindow, ModuleMemory, Money, PushButton, SECONDARY_TEXT,
   Table, TableRow, ToolPick, Toolbar, Window, WindowSide, WindowTabSpec, space, tracksOf
 } from "Ordaen"
 import { SLOT } from "@/layout"
@@ -46,12 +46,12 @@ const HIGH_PRICE = 1500000
 const INK: Color = Color.hex("#e8dcc4")
 const DIM: Color = Color.hex("#a3977f")
 const RED: Color = Color.hex("#ff4040")
-const CAPTION: Color = Color.hex("#e8c35a")
 // The tabs' icons, the client's own: a merchant's coins, and the game's buyback icon.
 const VENDOR_ICON: Asset = "Interface/Icons/INV_Misc_Coin_02"
 const BUYBACK_ICON: Asset = "Interface/MerchantFrame/UI-BuyBack-Icon"
+// «Repair an item»'s hammer: the game's blacksmith's icon.
+const REPAIR_ICON: Asset = "Interface/Icons/Trade_BlackSmithing"
 const COST_ICON = 16.40625dp
-const MARK = 14.0625dp
 // A table row: an item's slot and the row's padding round it.
 const TABLE_SLOT = 28.125dp
 const TABLE_ROW: Number<Length> = TABLE_SLOT + 2 * space(.Line)
@@ -243,7 +243,6 @@ class SoldCell implements Component {
 class WareCaption implements Component {
   public toggled: Event<Tab> = new Event()
   derived title: String = "%s (%d)".format(tabName(self.tab), self.count)
-  derived mark: Art = self.folded ? Ordaen.art.ctl.markClosed : Ordaen.art.ctl.markOpen
 
   const tab: Tab
   count: Signal<Integer>
@@ -258,10 +257,8 @@ class WareCaption implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={COST} gap={space(.Line)} columnSpan={2} yAlign={Align.Center} @pointerPress={self.onToggle}
-           @keyPress(.Enter)={self.onToggle} @keyPress(.Space)={self.onToggle}>
-        <box width={MARK} height={MARK} background={self.mark} />
-        <text value={self.title} textColor={CAPTION} wrap={false} />
+      <box columnSpan={2}>
+        <FoldCaption title={self.title} folded={self.folded} @toggled={self.onToggle} />
       </box>
     }
   }
@@ -484,7 +481,7 @@ public class MerchantWindow implements Component {
       <box columns={1} gap={space(.Item)}>
         <PushButton label={self.junkLabel} width={SIDE_WIDTH} disabled={self.junkCount == 0} @click={self.onSellJunk} />
         <PushButton $if={self.guildRepair} label={Locale.REPAIR_GUILD} width={SIDE_WIDTH} @click={self.onGuildRepair} />
-        <PushButton $if={self.vendor.repairs} label={Locale.REPAIR_ONE} width={SIDE_WIDTH} @click={self.onRepairOne} />
+        <PushButton $if={self.vendor.repairs} label={Locale.REPAIR_ONE} icon={REPAIR_ICON} width={SIDE_WIDTH} @click={self.onRepairOne} />
         <PushButton $if={self.vendor.repairs} label={self.repairLabel} width={SIDE_WIDTH} plate={ButtonPlate.Accent} disabled={!self.canRepair}
                     @click={self.onRepair} />
       </box>
