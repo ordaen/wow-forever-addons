@@ -1,0 +1,73 @@
+// The profession trainer's window as the player meets it: it opens at a profession's trainer (never at a class's) in
+// place of the game's, lists what the trainer teaches as a table, leaves out what the search and the filter don't
+// keep, shows the picked service's card, and «Learn» buys what can be learned now and nothing else.
+import Client from "$client"
+import Game from "$game"
+import Test from "$test"
+import Locale from "@/locales"
+
+const SCREEN: Test.Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
+const ROBE: FileId = 132659
+const BOLT: FileId = 132889
+const SHIRT: FileId = 135022
+
+// What a tailoring trainer teaches a player of skill 60: a robe to learn now, bolts at a skill not reached, a shirt
+// known.
+function taught(): Array<Game.TrainerService> {
+  return [
+    {
+      index: 2, name: "Red Linen Robe", rank: "", icon: ROBE, status: .Available, level: 5, cost: 200,
+      description: "A robe of red linen.", skill: 40
+    },
+    {
+      index: 3, name: "Bolt of Woolen Cloth", rank: "", icon: BOLT, status: .Unavailable, level: 10, cost: 500,
+      description: "Woolen cloth woven.", skill: 75
+    },
+    {
+      index: 4, name: "Linen Shirt", rank: "", icon: SHIRT, status: .Learned, level: 1, cost: 50,
+      description: "", skill: 1
+    }
+  ]
+}
+
+test "a profession's trainer opens our window in place of the game's, its services as a table; a class's never" {
+  Game.trainer.teachesClass = (): Boolean => true
+  Client.IsTradeskillTrainer = (): Boolean => false
+  Game.trainer.services = (): Array<Game.TrainerService> => taught()
+  Test.mount(nil, SCREEN)
+  Game.trainer.open = true
+  Game.trainer.changed.emit()
+  Test.expect(!Test.page().window(Locale.TRAINER).shown())
+  Game.trainer.open = false
+  Game.trainer.teachesClass = (): Boolean => false
+  Client.IsTradeskillTrainer = (): Boolean => true
+  Game.trainer.open = true
+  Game.trainer.changed.emit()
+  const window = Test.page().window(Locale.TRAINER)
+  Test.expect(window.text("Red Linen Robe").shown() && window.text("Linen Shirt").shown())
+  Test.expect(window.text(Locale.COLUMN_SKILL).shown() && window.text(Locale.TRAINER_COUNTS.format(1, 1, 1)).shown())
+  window.input().type("bolt")
+  Test.expect(!window.text("Red Linen Robe").shown() && window.text("Bolt of Woolen Cloth").shown())
+  Game.trainer.open = false
+  Test.expect(!Test.page().window(Locale.TRAINER).shown())
+}
+
+test "«Learn» buys the picked service where it can be learned now, and nothing where it can't" {
+  Game.trainer.teachesClass = (): Boolean => false
+  Client.IsTradeskillTrainer = (): Boolean => true
+  Game.trainer.services = (): Array<Game.TrainerService> => taught()
+  const bought: Array<String> = []
+  Client.BuyTrainerService = (index: Integer): nil => bought.push(String.of(index))
+  Game.money.amount = 1000
+  Test.mount(nil, SCREEN)
+  Game.trainer.open = true
+  Game.trainer.changed.emit()
+  const window = Test.page().window(Locale.TRAINER)
+  window.text("Bolt of Woolen Cloth").click()
+  Test.expect(window.text(Locale.NEEDS_LEVEL.format(10) + " · " + Locale.NEEDS_SKILL.format(75)).shown())
+  window.button(Locale.TRAIN).click()
+  Test.expect(bought.length == 0)
+  window.text("Red Linen Robe").click()
+  window.button(Locale.TRAIN).click()
+  Test.expect(bought.join(", ") == "2")
+}

@@ -1,0 +1,183 @@
+// The merchant's window as the player meets it: it opens with the merchant in place of the game's and leaves with it;
+// the goods with their prices, what is left of them and what they cost besides; buying by the right click, a count by
+// Shift+Left-click, a dear purchase asked first; the search and the footer's count; the buyback, newest first; the
+// repairs. The client's merchant is the test's: what the window asks of it is heard.
+import Client from "$client"
+import Events from "$events"
+import Game from "$game"
+import Test from "$test"
+import root Ordaen from "Ordaen"
+import Locale from "@/locales"
+
+const SCREEN: Test.Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
+const VENDOR = "Tharynn Bouden"
+const THREAD: FileId = 132891
+const DAGGER: FileId = 135637
+const PATTERN: FileId = 134939
+const SOLD_OUT: FileId = 134400
+const ORE: FileId = 134572
+const BOOTS: FileId = 132539
+const MARK: FileId = 133784
+
+// What the test's merchant was asked to do.
+class Heard {
+  public said: mut Array<String> = []
+  public add(mut self, line: String) { self.said.push(line) }
+  public take(mut self): String {
+    const all = self.said.join(", ")
+    self.said.clear()
+    return all
+  }
+}
+
+function ware(name: String, icon: FileId, price: Number, stack: Number, available: Number, usable: Boolean,
+  extended: Boolean): Client.MerchantItemInfo {
+  return {
+    name: name, texture: icon, price: price, stackCount: stack, numAvailable: available, isPurchasable: true,
+    isUsable: usable, hasExtendedCost: extended, currencyID: nil, spellID: nil, isQuestStartItem: false
+  }
+}
+
+// A trade-supplies merchant: thread, a dagger the player can't use with two left, a pattern dear enough to be asked
+// about, one sold out, and a mark bought with two ore.
+function wareAt(index: Integer): Client.MerchantItemInfo | nil {
+  return match (index) {
+    1 => ware("Coarse Thread", THREAD, 10, 1, -1, true, false)
+    2 => ware("Gladius", DAGGER, 2000, 1, 2, false, false)
+    3 => ware("Pattern: Red Linen Robe", PATTERN, 1600000, 1, -1, true, false)
+    4 => ware("Sold Out Hat", SOLD_OUT, 50, 1, 0, true, false)
+    else => ware("Mark of Honor", MARK, 0, 1, -1, true, true)
+  }
+}
+
+function costItem(index: Number, cost: Number): (Number | String | nil, Number, String | nil, String | nil) {
+  return ORE, 2, "item:2770", "Copper Ore"
+}
+
+// Two items sold back to it, the boots last.
+function soldAt(slot: Number): (String | nil, Number | String | nil, Number, Number, Number, Boolean) {
+  if (slot == 1) { return "Copper Ore", ORE, 5, 4, -1, true }
+  return "Worn Boots", BOOTS, 12, 1, -1, true
+}
+
+function nameOf(unit: String): (String, String) {
+  return unit == "npc" ? VENDOR : "Regy", ""
+}
+
+test "the merchant's window opens with the merchant, each item with its price, and leaves with it" {
+  Client.UnitName = nameOf
+  Client.GetMerchantNumItems = (): Integer => 5
+  Client.GetMerchantItemID = (index: Number): Number | nil => 100 + index
+  Client.C_MerchantFrame.GetItemInfo = wareAt
+  Client.GetMerchantItemCostInfo = (index: Number): Number => index == 5 ? 1 : 0
+  Client.GetMerchantItemCostItem = costItem
+  Client.GetNumBuybackItems = (): Integer => 2
+  Client.GetBuybackItemInfo = soldAt
+  const heard = new Heard()
+  Client.BuybackItem = (index: Integer): nil => heard.add(`buyback ${index}`)
+  Test.mount(nil, SCREEN)
+  Events.MERCHANT_SHOW.emit()
+  const window = Test.page().window(VENDOR)
+  Test.expect(window.text("Coarse Thread").shown() && window.text("Gladius").shown() && window.text("2 left").shown())
+  // A sold-out item leaves the list; the footer counts what shows, and what the search leaves of it.
+  Test.expect(!window.text("Sold Out Hat").shown() && window.text(Locale.WARES.format(4)).shown())
+  window.input().type("thr")
+  Test.expect(window.text("Coarse Thread").shown() && !window.text("Gladius").shown())
+  Test.expect(window.text(Locale.WARES_OF.format(1, 4)).shown())
+  // The buyback: what was sold here, the newest first; a click buys it back.
+  window.text(Locale.BUYBACK).click()
+  Test.expect(window.text("Worn Boots").shown() && window.text(Locale.SOLD_COUNT.format(2)).shown())
+  window.button(BOOTS).click()
+  Test.expect(heard.take() == "buyback 2")
+  Events.MERCHANT_CLOSED.emit()
+  Test.expect(!Test.page().window(VENDOR).shown())
+}
+
+test "the right click buys one purchase, Shift+Left-click a count, and a dear purchase or one paid in items is asked first" {
+  Client.UnitName = nameOf
+  Client.GetMerchantNumItems = (): Integer => 5
+  Client.GetMerchantItemID = (index: Number): Number | nil => 100 + index
+  Client.C_MerchantFrame.GetItemInfo = wareAt
+  Client.GetMerchantItemMaxStack = (index: Number): Number => index == 1 ? 20 : 1
+  Client.GetMerchantItemCostInfo = (index: Number): Number => index == 5 ? 1 : 0
+  Client.GetMerchantItemCostItem = costItem
+  const heard = new Heard()
+  Client.BuyMerchantItem = (index: Integer, count: Integer | nil): nil => heard.add(`buy ${index} ${count ?? 0}`)
+  Game.money.amount = 10000
+  Test.mount(nil, SCREEN)
+  Events.MERCHANT_SHOW.emit()
+  const window = Test.page().window(VENDOR)
+  window.button(THREAD).rightClick()
+  Test.expect(heard.take() == "buy 1 0")
+  // Asked first: the pattern's price is past the game's asking price, the mark is paid in ore.
+  window.button(PATTERN).rightClick()
+  Test.expect(heard.take() == "")
+  Test.page().window(Locale.BUY).button(Locale.BUY).click()
+  Test.expect(heard.take() == "buy 3 0")
+  window.button(MARK).rightClick()
+  Test.expect(Test.page().window(Locale.BUY).text("2 Copper Ore").shown())
+  Test.page().window(Locale.BUY).button(Locale.CANCEL).click()
+  Test.expect(heard.take() == "")
+  // Shift: a count of the thread, three; Shift+Right-click its link.
+  Game.input.shiftDown = (): Boolean => true
+  window.button(THREAD).click()
+  const dialog = Test.page().window(Locale.HOW_MANY)
+  dialog.button("+").click()
+  dialog.button("+").click()
+  dialog.button(Locale.BUY).click()
+  Test.expect(heard.take() == "buy 1 3" && !Test.page().window(Locale.HOW_MANY).shown())
+  _ = Test.requests()
+  window.button(THREAD).rightClick()
+  Test.expect(heard.take() == "" && Test.requests().join(", ").contains("Chat.link 101"))
+}
+
+// The thread a trade good, the dagger a weapon; the rest the client hasn't loaded.
+function itemInfo(item: String | Integer): (String | nil, String | nil, Client.ItemQuality | nil, Number | nil, Number | nil,
+  String | nil, String | nil, Number | nil, String | nil, FileId | nil, Number | nil, Number | nil, Number | nil, Number | nil,
+  Number | nil, Number | nil, Boolean | nil, String | nil) {
+  if (item == 101) { return "Coarse Thread", nil, .Common, 5, 0, "Trade Goods", nil, 20, nil, THREAD, 2, 7, 0, 0, 0, 0, true, nil }
+  if (item == 102) { return "Gladius", nil, .Uncommon, 20, 15, "Weapon", nil, 1, nil, DAGGER, 400, 2, 7, 1, 0, 0, false, nil }
+  return nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil
+}
+
+test "by category each kind has its caption with its count, folded by a click; as a table, a row's right click buys" {
+  Client.UnitName = nameOf
+  Client.GetMerchantNumItems = (): Integer => 5
+  Client.GetMerchantItemID = (index: Number): Number | nil => 100 + index
+  Client.C_MerchantFrame.GetItemInfo = wareAt
+  Client.C_Item.GetItemInfo = itemInfo
+  const heard = new Heard()
+  Client.BuyMerchantItem = (index: Integer, count: Integer | nil): nil => heard.add(`buy ${index} ${count ?? 0}`)
+  Test.mount(nil, SCREEN)
+  Events.MERCHANT_SHOW.emit()
+  const window = Test.page().window(VENDOR)
+  window.button(Ordaen.art.ctl.tool.list).click()
+  Test.page().button(Locale.VIEW_CATEGORIES).click()
+  Test.expect(window.text(`${Locale.TAB_TRADE} (1)`).shown() && window.text(`${Locale.TAB_EQUIPMENT} (1)`).shown())
+  window.text(`${Locale.TAB_TRADE} (1)`).click()
+  Test.expect(!window.text("Coarse Thread").shown() && window.text("Gladius").shown())
+  // The view's button shows the view's own glyph.
+  window.button(Ordaen.art.ctl.tool.categories).click()
+  Test.page().button(Locale.VIEW_TABLE).click()
+  Test.expect(window.text(Locale.COLUMN_IN_BAGS).shown() && window.text("Trade Goods").shown())
+  window.button(THREAD).rightClick()
+  Test.expect(heard.take() == "buy 1 0")
+}
+
+test "at a merchant who repairs, «Repair all» says the cost and mends everything" {
+  Client.UnitName = nameOf
+  Client.CanMerchantRepair = (): Boolean => true
+  Client.CanGuildBankRepair = (): Boolean => false
+  Client.GetRepairAllCost = (): (Number, Boolean) => {
+    return 150, true
+  }
+  const heard = new Heard()
+  Client.RepairAllItems = (guild: Boolean | nil): nil => heard.add(`repair ${guild == true}`)
+  Game.money.amount = 10000
+  Test.mount(nil, SCREEN)
+  Events.MERCHANT_SHOW.emit()
+  const window = Test.page().window(VENDOR)
+  window.button(`${Locale.REPAIR_ALL} ${Game.money.format(150)}`).click()
+  Test.expect(heard.take() == "repair false")
+  Test.expect(!window.button(Locale.REPAIR_GUILD).shown())
+}

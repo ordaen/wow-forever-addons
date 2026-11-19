@@ -1,0 +1,163 @@
+// The merchant the player stands at, as the merchant window reads it: what it sells (each item with its price, what it
+// costs besides money, how many are left, whether the player can use it), what the player sold it this visit (its
+// buyback), and its repairs. Read from the client as the merchant opens and as the client says they changed
+// (`MERCHANT_UPDATE`, the money, the durability), heard only while it is open.
+import Client from "$client"
+import Events from "$events"
+import { Art } from "$ltml"
+import { Quality, qualityFrom } from "Ordaen"
+import { Tab, tabOf } from "@/model"
+
+// A part of what an item costs besides money: an item or a currency, its icon, how many and its name.
+public struct Cost {
+  const icon: Art | nil
+  const amount: Integer
+  const name: String
+}
+
+// One item the merchant sells, at its place in the merchant's list.
+public struct Ware {
+  const index: Integer
+  const id: Integer
+  const name: String
+  const icon: Art | nil
+  const quality: Quality
+  // The money one purchase costs (`stack` items at once), in copper: 0 for an item bought with its costs alone.
+  const price: Integer
+  const stack: Integer
+  // How many the merchant has left: -1 for no end.
+  const available: Integer
+  // The player can use it (the client's word: its class, its level), and can buy it at all.
+  const usable: Boolean
+  const purchasable: Boolean
+  const costs: Array<Cost>
+  // The most bought in one purchase (`GetMerchantItemMaxStack`).
+  const most: Integer
+  // The level it needs, and the bags' tab its kind falls in: the categories view's caption.
+  const level: Integer
+  const tab: Tab
+  const kind: String
+}
+
+// An item sold to the merchant this visit, at its place in the buyback list (the last the newest).
+public struct Sold {
+  const place: Integer
+  const name: String
+  const icon: Art | nil
+  const price: Integer
+  const count: Integer
+  const usable: Boolean
+}
+
+// The client's class of items for a recipe (`Enum.ItemClass.Recipe`), for what has none.
+const NO_CLASS = 15
+
+function iconOf(texture: Number | String | nil): Art | nil {
+  if (texture is FileId) { return texture }
+  if (texture is Asset) { return texture }
+  return nil
+}
+
+// What an item costs besides money, as the merchant's list says it.
+function costsOf(index: Integer): Array<Cost> {
+  let costs: Array<Cost> = []
+  for (part of 1..Client.GetMerchantItemCostInfo(index).floor()) {
+    const texture, value, link, name = Client.GetMerchantItemCostItem(index, part)
+    if (texture != nil) { costs.push({ icon: iconOf(texture), amount: value.floor(), name: name ?? link ?? "" }) }
+  }
+  return costs
+}
+
+// One item of the merchant's list; none where the client hasn't it (yet).
+function wareAt(index: Integer): Ware | nil {
+  const info = Client.C_MerchantFrame.GetItemInfo(index)
+  const id = Client.GetMerchantItemID(index)
+  if (info == nil || id == nil) { return nil }
+  const _, _, quality, _, level, kind, _, _, _, _, _, classId, _, _, _, _, _, _ = Client.C_Item.GetItemInfo(id.floor())
+  return {
+    index: index, id: id.floor(), name: info.name ?? "", icon: info.texture, quality: qualityFrom(quality),
+    price: info.price.floor(), stack: info.stackCount.floor().max(1), available: info.numAvailable.floor(),
+    usable: info.isUsable, purchasable: info.isPurchasable, costs: info.hasExtendedCost ? costsOf(index) : [],
+    most: Client.GetMerchantItemMaxStack(index).floor().max(1), level: (level ?? 0).floor(),
+    tab: tabOf((classId ?? NO_CLASS).floor(), nil), kind: kind ?? ""
+  }
+}
+
+public class Vendor {
+  public state open = false
+  public state name = ""
+  public state wares: Array<Ware> = []
+  public state sold: Array<Sold> = []
+  // Whether the merchant repairs; what mending everything worn and carried costs, and whether anything needs it.
+  public state repairs = false
+  public state repairCost = 0
+  public state worn = false
+  // The guild pays for the repairs where the player's rank allows it.
+  public state guildRepairs = false
+
+  constructor() {
+    Events.MERCHANT_SHOW.listen(self.onShow)
+    Events.MERCHANT_CLOSED.listen(self.onClosed)
+    watch (open of self.open) {
+      if (!open) { return }
+      Events.MERCHANT_UPDATE.listen(self.read)
+      Events.UPDATE_INVENTORY_DURABILITY.listen(self.readRepairs)
+      Events.PLAYER_MONEY.listen(self.readRepairs)
+    }
+  }
+
+  onShow(mut self) {
+    const name, _ = Client.UnitName("npc")
+    self.name = name
+    self.open = true
+    self.read()
+  }
+
+  onClosed(mut self) {
+    self.open = false
+    self.wares = []
+    self.sold = []
+  }
+
+  // Everything the merchant's window shows, read again.
+  public read(mut self) {
+    let wares: Array<Ware> = []
+    for (index of 1..Client.GetMerchantNumItems()) {
+      const ware = wareAt(index)
+      // A sold-out item leaves the list.
+      if (ware != nil && ware.available != 0) { wares.push(ware) }
+    }
+    self.wares = wares
+    let sold: Array<Sold> = []
+    for (place of 1..Client.GetNumBuybackItems()) {
+      const name, texture, price, count, _, usable = Client.GetBuybackItemInfo(place)
+      if (name != nil) {
+        sold.push({ place: place, name: name, icon: iconOf(texture), price: price.floor(), count: count.floor(), usable: usable })
+      }
+    }
+    self.sold = sold
+    self.readRepairs()
+  }
+
+  readRepairs(mut self) {
+    self.repairs = Client.CanMerchantRepair()
+    if (!(peek self.repairs)) { return }
+    const cost, worn = Client.GetRepairAllCost()
+    self.repairCost = cost.floor()
+    self.worn = worn
+    self.guildRepairs = Client.CanGuildBankRepair()
+  }
+
+  // The player's own click: one purchase of the item (`count` items of a stack the merchant sells by one; nil: the
+  // merchant's own stack), bought back, mended.
+  public buy(self, ware: Ware, count: Integer | nil) { Client.BuyMerchantItem(ware.index, count) }
+  public buyBack(self, sold: Sold) { Client.BuybackItem(sold.place) }
+  public repairAll(self, guild: Boolean) { Client.RepairAllItems(guild) }
+  // The client's repair cursor: the next item clicked, worn or carried, is mended.
+  public repairOne(self) { Client.ShowRepairCursor() }
+
+  // The window's close leaves the merchant.
+  public close(self) {
+    if (peek self.open) { Client.CloseMerchant() }
+  }
+}

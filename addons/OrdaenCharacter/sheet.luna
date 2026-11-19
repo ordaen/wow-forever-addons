@@ -6,7 +6,7 @@ import Client from "$client"
 import Game from "$game"
 import { FillDuration } from "$ltml"
 import Runtime from "$runtime"
-import { Quality } from "Ordaen"
+import { Quality, qualityFrom } from "Ordaen"
 
 // A slot of the paper doll: the client's number for it and the art of its well while nothing is worn there.
 public struct SlotSpec {
@@ -211,20 +211,6 @@ public function averageLevel(worn: Array<Worn>): Number | nil {
   return any ? sum / COUNTED : nil
 }
 
-// The client's quality as the library's slot draws it.
-function qualityOf(quality: Client.ItemQuality | nil): Quality {
-  return match (quality) {
-    .Poor => .Poor
-    .Uncommon => .Uncommon
-    .Rare => .Rare
-    .Epic => .Epic
-    .Legendary => .Legendary
-    .Artifact => .Artifact
-    .Heirloom => .Heirloom
-    else => .Common
-  }
-}
-
 function resistanceOf(school: Client.Damageclass): Integer {
   let _, value, _, _ = Client.UnitResistance("player", school)
   return value.floor()
@@ -274,7 +260,7 @@ public class ClientSheet implements Sheet {
     return {
       slot: slot,
       item: item,
-      quality: qualityOf(quality),
+      quality: qualityFrom(quality),
       level: level?.floor(),
       durability: durability,
       count: Client.GetInventoryItemCount("player", slot).floor(),

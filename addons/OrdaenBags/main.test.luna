@@ -726,15 +726,17 @@ test "a slot's item dragged onto an action bar's button: the client's cursor tak
   Test.expect(kind == "item" && id == 118 && !Client.CursorHasItem())
 }
 
-test "the right button on a slot is the client's own use of the item" {
+test "the left button on a slot is the client's own use of the item" {
   const world = new World(everyday())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
   Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
   Game.items.icon = (id: Integer): Art | nil => world.icon(id)
   Test.mount(nil, SCREEN)
   Game.bags.open = true
-  held(POTION).rightClick()
+  held(POTION).click()
   Test.expect(Test.performed().join(", ") == "item 0 3" && asked("Bags.follow true, Items.show 118"))
+  held(POTION).rightClick()
+  Test.expect(Test.performed().length == 0)
 }
 
 test "Shift+right-click puts the item's link into the chat" {
