@@ -223,6 +223,11 @@ Like EllesmereUI, but the modules load on demand. The approach and the inventory
   its root and the module that wants to be there adds to it, importing the owner's root (`import root`) and its
   contract by type alone; the owner knows only the trait it declared (`../wow-dev-tools/design/development/language/modules.md`). Dependencies
   point from the module that wants something to the one that owns it.
+- **A design is built in LunaType, not drawn in Vue:** a new window or part is made as the module itself, with our
+  real components and renderer (fake data where the game's isn't wired yet), so it is judged in game after a
+  `/reload` and on the design site through the Lua stage, from one source. A design page holds the words (behaviour,
+  rules, decisions, open questions) and embeds the stage; a Vue mock is not made for new work, and an old one is
+  replaced when its area is next worked on.
 - **Nothing Blizzard's UI does is lost:** a module that takes the place of a part of Blizzard's UI keeps everything
   that part does (dragging an item or spell to the bars, modified clicks, keybindings, Quick Keybind, tooltips,
   targeting cursors, sounds, what it hands other addons) or does it better; a loss is a bug, never a choice. What the
