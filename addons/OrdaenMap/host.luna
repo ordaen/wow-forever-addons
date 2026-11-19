@@ -1,0 +1,149 @@
+// What Map asks of the world map: OpenMap's and Blizzard's, through `openMap.lua`, and the client's `questLogOpen`.
+// `MapHost` is what Map asks; `OpenMapHost` asks the game. Everything Map places goes through here: where a pin stands
+// on the canvas, the pins' own frames, OpenMap's menu.
+import Client from "$client"
+import type { Pin } from "@/extend"
+import OpenMap from "@/openMap"
+
+// A pin placed: where it stands on the canvas, 0 to 1.
+public struct Placed {
+  pin: Pin
+  x: Number
+  y: Number
+}
+
+public trait MapHost {
+  // The map showed or hid, turned to another map, or OpenMap's view moved.
+  public const changed: Event<nil>
+  public start(mut self)
+  public stop(mut self)
+  // Whether OpenMap is there, of the API Map is written against.
+  public present(self): Boolean
+  // Whether the world map shows.
+  public shown(self): Boolean
+  // Docked: the client's `questLogOpen`, which Blizzard's map opens its side panel by.
+  public docked(self): Boolean
+  public dock(mut self, on: Boolean)
+  // Where the pin stands on the canvas, 0 to 1; nil where its zone isn't in view.
+  public place(mut self, pin: Pin): Placed | nil
+  // The pins on the canvas, each with its tooltip's lines.
+  public draw(mut self, placed: Array<Placed>, lines: Array<Array<String>>)
+  // A switch in OpenMap's menu.
+  public menuSwitch(mut self, id: String, label: String, get: () => Boolean, set: (on: Boolean) => nil)
+}
+
+// The world map's root, holding every zone: the client's uiMap of Azeroth.
+const AZEROTH = 947
+// How big a pin is on the screen, in UI units.
+const PIN_SIZE = 20
+// How far past the canvas's edges a pin still stands (the stitched view shows past the map underneath).
+const REACH: Number = 0.5
+
+public class OpenMapHost implements MapHost {
+  public const changed: Event<nil> = new Event()
+  // A zone's uiMap by its name, made the first time a pin is placed; an area's uiMap, by the area's name.
+  maps: mut Map<String, Integer> = {}
+  areas: mut Map<Integer, Integer> = {}
+  indexed = false
+  // The pins' frames, kept and used again.
+  pins: mut Array<any Client.Button> = []
+
+  public start(mut self) {
+    OpenMap.listen((): nil => {
+      self.changed.emit()
+      return nil
+    })
+  }
+
+  public stop(mut self) {
+    OpenMap.forget()
+    self.draw([], [])
+  }
+
+  public present(self): Boolean { return OpenMap.present() }
+
+  public shown(self): Boolean { return OpenMap.shownMap() != 0 }
+
+  public docked(self): Boolean { return Client.C_CVar.GetCVarBool("questLogOpen") == true }
+
+  public dock(mut self, on: Boolean) { _ = Client.C_CVar.SetCVar("questLogOpen", on ? "1" : "0") }
+
+  // The zones under Azeroth, by name: the client names an `AreaTable` zone as its uiMap.
+  index(mut self) {
+    self.indexed = true
+    for (map of Client.C_Map.GetMapChildrenInfo(AZEROTH, nil, true) ?? []) {
+      self.maps[map.name] = map.mapID.floor()
+    }
+  }
+
+  mapOf(mut self, area: Integer): Integer {
+    const known = self.areas[area]
+    if (known != nil) { return known }
+    if (!self.indexed) { self.index() }
+    const map = self.maps[Client.C_Map.GetAreaInfo(area)] ?? 0
+    self.areas[area] = map
+    return map
+  }
+
+  public place(mut self, pin: Pin): Placed | nil {
+    const shown = OpenMap.shownMap()
+    const map = self.mapOf(pin.area)
+    if (shown == 0 || map == 0) { return nil }
+    if (OpenMap.stitched()) {
+      let x, y = OpenMap.canvasOf(map, pin.x, pin.y)
+      return x != nil && y != nil ? OpenMapHost.within(pin, x, y) : nil
+    }
+    if (map == shown) { return { pin: pin, x: pin.x, y: pin.y } }
+    let left, right, top, bottom = Client.C_Map.GetMapRectOnMap(map, shown)
+    if (left == nil || right == nil || top == nil || bottom == nil) { return nil }
+    return OpenMapHost.within(pin, left + pin.x * (right - left), top + pin.y * (bottom - top))
+  }
+
+  within(pin: Pin, x: Number, y: Number): Placed | nil {
+    const near = x > -REACH && x < 1 + REACH && y > -REACH && y < 1 + REACH
+    return near ? { pin: pin, x: x, y: y } : nil
+  }
+
+  public draw(mut self, placed: Array<Placed>, lines: Array<Array<String>>) {
+    const canvas = OpenMap.canvas()
+    if (canvas == nil) { return }
+    const width = canvas.GetWidth()
+    const height = canvas.GetHeight()
+    // A pin keeps its size on the screen whatever the canvas's zoom.
+    const size = PIN_SIZE * Client.UIParent.GetEffectiveScale() / canvas.GetEffectiveScale()
+    const level = OpenMap.artTop() + 1
+    for (index, at of placed) {
+      const frame = self.pinFrame(index, canvas)
+      const said = lines[index] ?? []
+      frame.SetSize(size, size)
+      frame.ClearAllPoints()
+      frame.SetPoint("CENTER", canvas, "TOPLEFT", width * at.x, -height * at.y)
+      frame.SetFrameLevel(level)
+      frame.SetNormalTexture(at.pin.icon)
+      frame.SetScript("OnEnter", (): nil => {
+        OpenMap.tip(frame, said)
+        return nil
+      })
+      frame.Show()
+    }
+    for (index of placed.length + 1..self.pins.length) {
+      self.pins[index]?.Hide()
+    }
+  }
+
+  pinFrame(mut self, index: Integer, canvas: any Client.Frame): any Client.Button {
+    const kept = self.pins[index]
+    if (kept != nil) { return kept }
+    const made = new Client.Button(canvas)
+    made.SetScript("OnLeave", (): nil => {
+      OpenMap.untip()
+      return nil
+    })
+    self.pins.push(made)
+    return made
+  }
+
+  public menuSwitch(mut self, id: String, label: String, get: () => Boolean, set: (on: Boolean) => nil) {
+    OpenMap.menuToggle(id, label, get, set)
+  }
+}

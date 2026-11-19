@@ -1,0 +1,217 @@
+// Ordaen Quests: the player's quests in Ordaen's window, in four tabs (World, Dungeons, Raids, PvP), the list by the
+// client's headers on the left and the picked quest's page beside it; and the tracked quests' places on Ordaen Map.
+// What the player has is the client's quest log; who gives a quest, who takes it and where its objectives are is
+// QuestieDB's.
+//
+// It opens in place of the game's log: while the log isn't docked on the map (Ordaen Map's switch), the game's quest
+// log key (L) clicks Quests' own button (an override of the player's own binding, so the game's Key Bindings window
+// stays where it is changed) and the micro menu's quest log button opens it. Docked, both are the game's.
+import Client from "$client"
+import Events from "$events"
+import Game from "$game"
+import Runtime from "$runtime"
+import root Ordaen from "Ordaen"
+import { Dialog, KeptWindow, Module, PushButton, Settings, SettingsPage, Window, WindowSide, WindowTabSpec, WindowsPage, windowsTitle } from "Ordaen"
+import root Maps from "OrdaenMap"
+import { ClientQuestLog, LogQuest, QuestLog, QuestText } from "@/book"
+import { TakenClick } from "@/button"
+import { QuestData, QuestieData } from "@/data"
+import { KINDS, QuestKind } from "@/kind"
+import { PinKind, QuestPins } from "@/layers"
+import { QuestList } from "@/list"
+import Locale from "@/locales"
+import { countOf } from "@/model"
+import { QuestFacts } from "@/questie"
+import { Choices, GeneralPage } from "@/settings"
+import Style from "@/style"
+import { Act, QuestPage } from "@/view"
+
+// The button the game's quest log key clicks: the client binds a key to a button by its name.
+const TOGGLE = "OrdaenQuestsToggle"
+// The game's binding of the quest log.
+const QUEST_LOG_BINDING = "TOGGLEQUESTLOG"
+const NO_TEXT: QuestText = { story: "", task: "", experience: 0, money: 0 }
+
+// A tab's title by its kind.
+function tabTitle(kind: QuestKind): String {
+  return match (kind) {
+    .World => Locale.TAB_WORLD
+    .Dungeon => Locale.TAB_DUNGEONS
+    .Raid => Locale.TAB_RAIDS
+    .PvP => Locale.TAB_PVP
+  }
+}
+
+public class Quests implements Module, App {
+  public const title: String = "Ordaen Quests"
+  public window: mut KeptWindow = new KeptWindow("log", self.title, { x: 0ui, y: 0ui, width: Style.WIDTH, height: Style.HEIGHT })
+  public const windows: mut Array<mut KeptWindow> = [self.window]
+  public const pages: Array<SettingsPage> = [
+    { title: Locale.TAB_GENERAL, content: $ltml { <GeneralPage settings={mut self.settings} /> } },
+    { title: windowsTitle(), content: $ltml { <WindowsPage windows={mut self.windows} /> } }
+  ]
+  public settings: mut Settings<Choices> = new Settings<Choices>({ ownKey: true })
+
+  // The client's log, and QuestieDB: a test gives its own.
+  public log: mut any QuestLog = new ClientQuestLog()
+  public data: mut any QuestData = new QuestieData()
+
+  public state open = false
+  state tab = 1
+  public state quests: Array<LogQuest> = []
+  state most = 25
+  state zone = ""
+  // QuestieDB's facts of the log's quests it knows.
+  public state facts: Map<Integer, QuestFacts> = {}
+  // The quest whose page shows (0: none), its text, and the quest the player asked to abandon (0: none).
+  public state picked = 0
+  state text: QuestText = NO_TEXT
+  state abandoning = 0
+  // The headers the player folded, by their text.
+  state folded: mut Map<String, Boolean> = {}
+
+  // Docked on the map (Ordaen Map's switch): the game's log key and button are the game's.
+  derived docked: Boolean = Maps?.docked == true
+  derived ownKey: Boolean = self.settings.values.ownKey && !self.docked
+  // The log is read while something shows it: the window, or Map's pins.
+  derived reading: Boolean = self.open || Maps != nil
+  derived kind: QuestKind = KINDS[self.tab] ?? .World
+  derived tabs: Array<WindowTabSpec> = KINDS.map(kind => { title: tabTitle(kind), desc: String.of(countOf(self.quests, kind)) })
+  derived count: Integer = self.quests.length
+  derived pickedQuest: LogQuest | nil = self.quests.find(quest => quest.id == self.picked)
+  derived pickedFacts: QuestFacts | nil = self.facts[self.picked]
+  derived side: WindowSide | nil = self.pageOf(self.pickedQuest)
+  derived abandonText: String = Locale.ABANDON_ASK.format(self.quests.find(quest => quest.id == self.abandoning)?.title ?? "")
+  derived level: Integer = Game.player.level
+
+  const toggle: any Client.Frame
+  const objectives: QuestPins
+  const turnIns: QuestPins
+
+  constructor() {
+    self.objectives = new QuestPins(PinKind.Objectives, self.quests, self.facts)
+    self.turnIns = new QuestPins(PinKind.TurnIns, self.quests, self.facts)
+    self.toggle = Client.CreateFrame("Button", TOGGLE, Client.UIParent, nil)
+    Ordaen.modules.add(self)
+    self.toggle.SetScript("OnClick", (): nil => {
+      self.flip()
+      return nil
+    })
+    watch (maps of Maps) {
+      if (maps == nil) { return }
+      maps.layers.add(self.objectives)
+      maps.layers.add(self.turnIns)
+    }
+    // The log's events are heard while something reads it.
+    watch (on of self.reading) {
+      if (!on) { return }
+      self.refresh()
+      Events.QUEST_LOG_UPDATE.listen(self.refresh)
+      Events.QUEST_WATCH_LIST_CHANGED.listen(self.refresh)
+      Events.ZONE_CHANGED_NEW_AREA.listen(self.refresh)
+    }
+    watch (on of self.ownKey) { Ordaen.afterCombat(() => self.bind()) }
+    // The micro menu's button opens the window while the key does.
+    watch {
+      const frame = Game.frames.QuestLogMicroButton
+      if (frame == nil || !self.ownKey) { return }
+      const button: any Client.Frame = frame
+      _ = new TakenClick(button, () => self.flip())
+    }
+    Events.UPDATE_BINDINGS.listen(self.rebind)
+    watch (id of self.picked) { self.text = id == 0 ? NO_TEXT : self.log.text(id) }
+  }
+
+  destructor() {
+    const toggle = self.toggle
+    Ordaen.afterCombat(() => Client.ClearOverrideBindings(toggle))
+  }
+
+  // The window opens or closes: the game's key and button, and the close button.
+  public flip(mut self) { self.open = !self.open }
+
+  // The log as the client has it now, and QuestieDB's facts of the quests not read before.
+  public refresh(mut self) {
+    const quests = self.log.quests()
+    const facts: Map<Integer, QuestFacts> = {}
+    for (id, known of peek self.facts) { facts[id] = known }
+    for (quest of quests) {
+      if (facts[quest.id] == nil) {
+        const read = self.data.quest(quest.id)
+        if (read != nil) { facts[quest.id] = read }
+      }
+    }
+    self.quests = quests
+    self.facts = facts
+    self.most = self.log.most()
+    self.zone = self.log.zone()
+    const picked = peek self.picked
+    if (picked != 0 && quests.find(quest => quest.id == picked) == nil) { self.picked = 0 }
+  }
+
+  rebind(mut self) { Ordaen.afterCombat(() => self.bind()) }
+
+  // The player's own keys of the game's quest log click Quests' button while it is the player's choice; out of a
+  // fight alone, as the client takes no binding in one.
+  bind(self) {
+    Client.ClearOverrideBindings(self.toggle)
+    if (!(peek self.ownKey)) { return }
+    let first, second = Client.GetBindingKey(QUEST_LOG_BINDING)
+    if (first != nil) { Client.SetOverrideBindingClick(self.toggle, false, first, TOGGLE, "LeftButton") }
+    if (second != nil) { Client.SetOverrideBindingClick(self.toggle, false, second, TOGGLE, "LeftButton") }
+  }
+
+  // What the player asked of a quest, from its row or its page; each in the click's own call.
+  onAct(mut self, id: Integer, act: Act) {
+    match (act) {
+      .Pick => { self.picked = id }
+      .Track => {
+        const quest = (peek self.quests).find(quest => quest.id == id)
+        if (quest != nil) { self.log.track(id, !quest.tracked) }
+        self.refresh()
+      }
+      .Share => { self.log.share(id) }
+      .Abandon => { self.abandoning = id }
+      .ShowOnMap => { Client.C_Map.OpenWorldMap(nil) }
+    }
+  }
+
+  onFold(mut self, header: String) { self.folded[header] = self.folded[header] != true }
+
+  onAbandonYes(mut self) {
+    const id = peek self.abandoning
+    self.abandoning = 0
+    if (id != 0) { self.log.abandon(id) }
+  }
+
+  onAbandonNo(mut self) { self.abandoning = 0 }
+
+  onClose(mut self) { self.open = false }
+  onSettings(self) { Ordaen.toggleSettings(Runtime.Addon.of(self)) }
+
+  pageOf(self, quest: LogQuest | nil): WindowSide | nil {
+    if (quest == nil) { return nil }
+    return {
+      width: Style.PAGE,
+      content: $ltml {
+        <QuestPage quest={self.pickedQuest ?? quest} text={self.text} facts={self.pickedFacts} player={self.level} @act={self.onAct} />
+      }
+    }
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <Window $if={self.open} tabs={self.tabs} selected={mut self.tab} declared={mut self.window} withSettings={true}
+              side={self.side} @close={self.onClose} @settings={self.onSettings}>
+        <QuestList quests={self.quests} kind={self.kind} zone={self.zone} count={self.count} most={self.most}
+                   picked={self.picked} folded={self.folded} player={self.level} known={self.data.fault() == nil}
+                   @act={self.onAct} @fold={self.onFold} />
+      </Window>
+      <Dialog $if={self.abandoning != 0} width={Style.ASK} title={Locale.ABANDON}>
+        <text value={self.abandonText} wrap={true} />
+        <PushButton #buttons label={Locale.ABANDON} width={Style.ASK_BUTTON} accent={true} @click={self.onAbandonYes} />
+        <PushButton #buttons label={Locale.CANCEL} width={Style.ASK_BUTTON} @click={self.onAbandonNo} />
+      </Dialog>
+    }
+  }
+}

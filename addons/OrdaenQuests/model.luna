@@ -1,0 +1,68 @@
+// The log as the window lists it: a tab's quests under the client's headers, the player's zone first; a quest's
+// colour by its level against the player's, as the client's `GetQuestDifficultyColor` gives it.
+import { LogQuest } from "@/book"
+import { QuestKind } from "@/kind"
+
+// One header of a tab and its quests.
+public struct Group {
+  header: String
+  // The player is in that zone: it stands first, marked.
+  here: Boolean
+  quests: Array<LogQuest>
+}
+
+// The quests of a kind under their headers, in the client's order, the player's zone first.
+public function groupsOf(quests: Array<LogQuest>, kind: QuestKind, zone: String): Array<Group> {
+  const headers: Array<String> = []
+  const byHeader: Map<String, mut Array<LogQuest>> = {}
+  for (quest of quests) {
+    if (quest.kind == kind) {
+      const under = byHeader[quest.header]
+      if (under == nil) {
+        headers.push(quest.header)
+        byHeader[quest.header] = [quest]
+      } else {
+        under.push(quest)
+      }
+    }
+  }
+  const groups: Array<Group> = []
+  for (header of headers.filter(header => header == zone)) { groups.push({ header: header, here: true, quests: byHeader[header] ?? [] }) }
+  for (header of headers.filter(header => header != zone)) { groups.push({ header: header, here: false, quests: byHeader[header] ?? [] }) }
+  return groups
+}
+
+// How many of the quests are of each kind, in the tabs' order.
+public function countOf(quests: Array<LogQuest>, kind: QuestKind): Integer {
+  return quests.count(quest => quest.kind == kind)
+}
+
+// A quest's difficulty against the player's level: the client's five colours.
+public enum Difficulty { Trivial, Easy, Even, Hard, Impossible }
+
+// The levels below the player's at which a quest is still green, as the client counts them.
+const function greenRange(level: Integer): Integer {
+  if (level <= 5) { return 5 }
+  if (level <= 39) { return (level / 10).floor() + 5 }
+  if (level <= 59) { return (level / 5).floor() + 1 }
+  return 12
+}
+
+public const function difficultyOf(quest: Integer, player: Integer): Difficulty {
+  const above = quest - player
+  if (above >= 5) { return .Impossible }
+  if (above >= 3) { return .Hard }
+  if (above >= -2) { return .Even }
+  if (-above <= greenRange(player)) { return .Easy }
+  return .Trivial
+}
+
+public const function colorOf(difficulty: Difficulty): Color {
+  return match (difficulty) {
+    .Trivial => Color.hex("#808080")
+    .Easy => Color.hex("#40c040")
+    .Even => Color.hex("#ffff00")
+    .Hard => Color.hex("#ff8040")
+    .Impossible => Color.hex("#ff2020")
+  }
+}

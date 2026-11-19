@@ -1,0 +1,26 @@
+// OpenMap's public API (`OpenMapAPI`, major 1) and Blizzard's map frame it hosts in (`WorldMapFrame`), as
+// `openMap.lua` reads them: neither is declared by the client's API. OpenMap is MIT; it is called, never copied.
+import Client from "$client"
+
+// Whether OpenMap is there and of the API this reads (major 1, version 4 or later).
+public function present(): Boolean
+// The world map's canvas, where pins stand; nil before Blizzard's map is made.
+public function canvas(): any Client.Frame | nil
+// The map the world map shows (`WorldMapFrame:GetMapID()`); 0 while it doesn't show.
+public function shownMap(): Integer
+// Whether OpenMap's stitched map shows now.
+public function stitched(): Boolean
+// Where a point of a map, 0 to 1, is on the canvas while stitched: on the map the stitched view stands on, outside 0
+// to 1 where it is off it; nil where OpenMap can't say (the map isn't part of the stitched world).
+public function canvasOf(map: Integer, x: Number, y: Number): (Number | nil, Number | nil)
+// The highest frame level OpenMap's art takes on the canvas: pins stand over it.
+public function artTop(): Integer
+// `run` is called when the world map shows or hides, when the map it shows changes, and when OpenMap's view moves
+// or its stitched map comes or goes. Once; `forget` takes it away.
+public function listen(run: () => nil)
+public function forget()
+// A switch in OpenMap's menu, under «Ordaen»: what it shows comes from `get`, a click calls `set`.
+public function menuToggle(id: String, label: String, get: () => Boolean, set: (on: Boolean) => nil)
+// The game's tooltip beside a pin: its first line the title, in white, the others under it.
+public function tip(owner: any Client.Frame, lines: Array<String>)
+public function untip()

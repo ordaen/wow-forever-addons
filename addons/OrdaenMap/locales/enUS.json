@@ -1,0 +1,9 @@
+{
+  "TAB_GENERAL": "Map",
+  "SECTION_MAP": "World map",
+  "SETTING_DOCKED": "Quest log beside the map",
+  "SETTING_DOCKED_TIP": "As Blizzard has it: the quest log opens with the map, at its right. Off: the map (M) and the quest log (L) open apart.",
+  "SECTION_LAYERS": "Layers",
+  "NO_LAYERS": "No module puts pins on the map. Ordaen Quests adds its own.",
+  "NO_OPENMAP": "OpenMap isn't loaded, or is older than version 4: no pins are drawn on the map."
+}

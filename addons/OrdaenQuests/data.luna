@@ -1,0 +1,32 @@
+// What the world holds of a quest: who gives it, who takes it, where its objectives are. `QuestData` is what the
+// module asks; `QuestieData` asks QuestieDB once a quest and keeps what it said for the session (each read of
+// QuestieDB makes fresh tables, so nothing is read from it while drawing or per event).
+import Questie from "@/questie"
+import { QuestFacts } from "@/questie"
+
+public trait QuestData {
+  // Why nothing can be read (QuestieDB missing or of another contract); nil where it can be.
+  public fault(self): String | nil
+  // A quest's facts; nil for one the data doesn't know.
+  public quest(mut self, id: Integer): QuestFacts | nil
+}
+
+public class QuestieData implements QuestData {
+  known: mut Map<Integer, QuestFacts> = {}
+  // Quests asked of and not known, so they aren't asked again.
+  unknown: mut Map<Integer, Boolean> = {}
+
+  public fault(self): String | nil { return Questie.fault() }
+
+  public quest(mut self, id: Integer): QuestFacts | nil {
+    const kept = self.known[id]
+    if (kept != nil || self.unknown[id] == true) { return kept }
+    const read = Questie.quest(id)
+    if (read == nil) {
+      self.unknown[id] = true
+    } else {
+      self.known[id] = read
+    }
+    return read
+  }
+}

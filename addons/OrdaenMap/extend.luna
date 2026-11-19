@@ -1,0 +1,27 @@
+// What other modules put on the world map: the contract, imported by type alone
+// (`import type { Layer, Pin } from "OrdaenMap"`). A layer is an entry of Map's `layers` registry, added in a watch
+// that follows Map's root, so it ends when either module ends. Map places a layer's pins on OpenMap's map wherever
+// their zone is in view, and says what a pin's `lines` give while the cursor is on it.
+
+// A pin: where it stands (an `AreaTable` area, QuestieDB's and the client's zones alike, and where in it, 0 to 1
+// across and down), what it shows, and what it is a pin of (the layer's own number: a quest's id).
+public struct Pin {
+  const of: Integer
+  const area: Integer
+  const x: Number
+  const y: Number
+  const icon: Asset
+}
+
+// A set of pins on the world map. Its pins are asked while the map shows, and again when what they read changes
+// (a quest tracked, an objective done); never per frame.
+public trait Layer {
+  // Its own, stable: what the player's switch for it is kept by.
+  public const id: String
+  public const title: String
+  // What it shows, on Map's settings page under its switch.
+  public const hint: String
+  public pins(self): Array<Pin>
+  // What the pin's tooltip says, its first line its title.
+  public lines(self, pin: Pin): Array<String>
+}

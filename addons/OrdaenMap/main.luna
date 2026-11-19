@@ -1,0 +1,121 @@
+// Ordaen Map: built for OpenMap, which draws the seamless world map inside Blizzard's `WorldMapFrame`; Map draws no
+// map. It owns how the map and the quest log open (the client's `questLogOpen`: apart by default, docked as Blizzard
+// has it by the player's switch) and the pins other modules put on the map: each module adds its layers to `layers`,
+// and Map places their pins on OpenMap's map while it shows, with a switch for each on its settings page and in
+// OpenMap's menu.
+import root Ordaen from "Ordaen"
+import { Module, Settings, SettingsPage } from "Ordaen"
+import { Layer, Pin } from "@/extend"
+import { MapHost, OpenMapHost, Placed } from "@/host"
+import Locale from "@/locales"
+import { Choices, GeneralPage } from "@/settings"
+
+// A pin to draw, and what its tooltip says.
+struct Mark {
+  pin: Pin
+  lines: Array<String>
+}
+
+// OpenMap's menu switch for the docked log.
+const DOCKED_SWITCH = "docked"
+
+public class Maps implements Module, App {
+  public const title: String = "Ordaen Map"
+  // The layers on the map, added by the modules that draw them.
+  public const layers = new Registry<any Layer>()
+  public settings: mut Settings<Choices> = new Settings<Choices>({ hidden: {}, primed: false })
+  public const pages: Array<SettingsPage> = [
+    {
+      title: Locale.TAB_GENERAL,
+      content: $ltml {
+        <GeneralPage openMap={self.openMap} docked={mut self.docked} layers={self.layers} hidden={self.settings.values.hidden} @flip={self.flip} />
+      }
+    }
+  ]
+  // Docked or apart: the client's `questLogOpen`, read as the map changes and written by the switch.
+  public state docked = false
+  // OpenMap is there, of the API Map is written against: without it, nothing is drawn and the page says so.
+  state openMap = false
+  // The game's map, OpenMap and the client's setting: a test gives its own.
+  public host: mut any MapHost = new OpenMapHost()
+  // The pins of the layers the player shows, asked again when what a layer read changes.
+  derived marks: Array<Mark> {
+    const marks: Array<Mark> = []
+    for (layer of self.layers) {
+      if (self.settings.values.hidden[layer.id] != true) {
+        for (pin of layer.pins()) { marks.push({ pin: pin, lines: layer.lines(pin) }) }
+      }
+    }
+    return marks
+  }
+
+  constructor() {
+    Ordaen.modules.add(self)
+    self.docked = self.host.docked()
+    self.openMap = self.host.present()
+    // The first start sets the default, apart; after that the setting is the player's.
+    if (!self.settings.values.primed) {
+      self.settings.values.primed = true
+      if (self.docked) {
+        self.host.dock(false)
+        self.docked = false
+      }
+    }
+    watch (on of self.docked) {
+      if (on != self.host.docked()) { self.host.dock(on) }
+    }
+    self.host.changed.listen(self.onChanged)
+    self.host.start()
+    watch (marks of self.marks) { self.place(marks) }
+    watch (list of self.layers) { self.addSwitches(list) }
+  }
+
+  destructor() { self.host.stop() }
+
+  // The map showed, hid, turned or moved: the pins are placed again, and the setting read as the client has it.
+  onChanged(mut self) {
+    self.docked = self.host.docked()
+    self.place(peek self.marks)
+  }
+
+  place(mut self, marks: Array<Mark>) {
+    const placed: Array<Placed> = []
+    const lines: Array<Array<String>> = []
+    if (self.host.shown()) {
+      for (mark of marks) {
+        const at = self.host.place(mark.pin)
+        if (at != nil) {
+          placed.push(at)
+          lines.push(mark.lines)
+        }
+      }
+    }
+    self.host.draw(placed, lines)
+  }
+
+  // A layer's switch on the settings page or in OpenMap's menu.
+  public flip(mut self, id: String) {
+    self.settings.values.hidden[id] = self.settings.values.hidden[id] != true
+  }
+
+  public shows(self, id: String): Boolean { return self.settings.values.hidden[id] != true }
+
+  // OpenMap's menu: the docked switch, and one for each layer.
+  addSwitches(mut self, list: Array<any Layer>) {
+    self.host.menuSwitch(DOCKED_SWITCH, Locale.SETTING_DOCKED, () => peek self.docked, (on: Boolean): nil => {
+      self.docked = on
+      return nil
+    })
+    for (layer of list) {
+      const id = layer.id
+      self.host.menuSwitch(id, layer.title, () => self.shows(id), (on: Boolean): nil => {
+        if (on != self.shows(id)) { self.flip(id) }
+        return nil
+      })
+    }
+  }
+
+  public render(self): Template {
+    return $ltml {}
+  }
+}

@@ -1,0 +1,76 @@
+// Ordaen Map's page in the settings window: whether the quest log opens beside the map (the client's `questLogOpen`,
+// which Map keeps no copy of), and a switch for each layer other modules put on the map, its hint naming what it
+// shows. The same switches stand in OpenMap's menu, under «Ordaen».
+import { Component, Section, SettingRow, Shown, ShownToggle, Switch } from "Ordaen"
+import type { Layer } from "@/extend"
+import Locale from "@/locales"
+
+const RED: Color = Color.hex("#ff4040")
+
+public struct Choices implements Plain {
+  // The layers the player switched off, by their ids: one not named shows.
+  hidden: mut Map<String, Boolean>
+  // Whether Map has set the client's `questLogOpen` to its default once: after that it is the player's.
+  primed: Boolean
+}
+
+// One layer's row: its title, its hint, and its switch, which the page flips through its owner.
+class LayerRow implements Component {
+  // Its switch was clicked: the layer's id.
+  public flip: Event<String> = new Event()
+
+  derived state: Shown = self.on ? .On : .Off
+
+  id: Signal<String>
+  title: Signal<String>
+  hint: Signal<String>
+  on: Signal<Boolean>
+  constructor(id: Signal<String>, title: Signal<String>, hint: Signal<String>, on: Signal<Boolean>) {
+    self.id = id
+    self.title = title
+    self.hint = hint
+    self.on = on
+  }
+
+  onFlip(mut self) { self.flip.emit(self.id) }
+
+  public render(self): Template {
+    return $ltml {
+      <SettingRow label={self.title} hint={self.hint}>
+        <ShownToggle state={self.state} @flip={self.onFlip} />
+      </SettingRow>
+    }
+  }
+}
+
+public class GeneralPage implements Component {
+  // A layer's switch was clicked: its id.
+  public flip: Event<String> = new Event()
+
+  openMap: Signal<Boolean>
+  docked: mut Signal<Boolean>
+  layers: Signal<Array<any Layer>>
+  hidden: Signal<Map<String, Boolean>>
+  constructor(openMap: Signal<Boolean>, docked: mut Signal<Boolean>, layers: Signal<Array<any Layer>>, hidden: Signal<Map<String, Boolean>>) {
+    self.openMap = openMap
+    self.docked = docked
+    self.layers = layers
+    self.hidden = hidden
+  }
+
+  onFlip(mut self, id: String) { self.flip.emit(id) }
+
+  public render(self): Template {
+    return $ltml {
+      <Section title={Locale.SECTION_MAP}>
+        <text $if={!self.openMap} value={Locale.NO_OPENMAP} textColor={RED} wrap={true} />
+        <Switch label={Locale.SETTING_DOCKED} hint={Locale.SETTING_DOCKED_TIP} value={mut self.docked} />
+      </Section>
+      <Section title={Locale.SECTION_LAYERS}>
+        <text $if={self.layers.length == 0} value={Locale.NO_LAYERS} wrap={true} />
+        <LayerRow $for={layer of self.layers} id={layer.id} title={layer.title} hint={layer.hint}
+                  on={self.hidden[layer.id] != true} @flip={self.onFlip} />
+      </Section>
+    }
+  }
+}
