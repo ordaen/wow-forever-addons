@@ -33,7 +33,8 @@ function inSlot(data: Game.TooltipData): Game.ShownTip {
   return {
     shown: true, data: data, owner: frame("Button", "ContainerFrame1Item3", 1300, 200, 40, 40),
     ownerName: "ContainerFrame1Item3", placeable: true, ownerHigh: true, ownerRight: true,
-    corner: frame("Frame", "GameTooltip", 1300, 720, 200, 80), below: false, right: true
+    corner: frame("Frame", "GameTooltip", 1300, 720, 200, 80), below: false, right: true, home: Client.UIParent,
+    homeBelow: false, homeRight: true
   }
 }
 

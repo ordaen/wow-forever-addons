@@ -1,9 +1,12 @@
 // Menu: a context menu standing under the box it is written in (a list's row, a button), opened and closed by its
-// owner with `$if`. Its entries are lines of text; one with a switch shows its state, one that starts a group has a
-// rule above it, a disabled one is dim and takes no click. A click on an entry reports `pick` with its place and
-// leaves the menu to the owner (a switch's menu stays open while the owner flips it, a plain entry's closes it); a
-// click anywhere else reports `close` and goes no further: the menu is on top, so the click opens nothing under it.
-import { Align, Art, Beside, Edges, Layer, Line, Position, Side, Stated, Track } from "$ltml"
+// owner with `$if`. A title in gold over its entries where it has one (what it acts on). Its entries are lines of
+// text; one with a switch shows its state, one that starts a group has a rule above it, a disabled one is dim and
+// takes no click, one with a submenu (`more`) has a mark at its right and opens the submenu at its right while the
+// cursor is on it (until the cursor is on another entry). A click on an entry reports `pick` with its place, on a
+// submenu's entry `pickMore` with both places, and leaves the menu to the owner (a switch's menu stays open while
+// the owner flips it, a plain entry's closes it); a click anywhere else reports `close` and goes no further: the menu
+// is on top, so the click opens nothing under it.
+import { Align, Anchored, Art, Beside, Edges, Frame, Layer, Line, Place, Point, Position, Side, Stated, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import { Component } from "@/module"
 import { KNOB_OFF, KNOB_ON, KNOB_TOP, SWITCH_HEIGHT, SWITCH_KNOB, SWITCH_WIDTH, knobShown } from "@/switch"
@@ -17,7 +20,13 @@ public struct MenuEntry {
   disabled: Boolean | nil
   // It starts a group: a rule above it.
   group: Boolean | nil
+  // Its submenu's entries: it opens them beside it, and is no pick of its own.
+  more: Array<MenuEntry> | nil
 }
+
+// A submenu's mark at its entry's right.
+const MORE_MARK = "›"
+const TITLE: Color = Color.hex("#ffd100")
 
 const WIDTH = 257.8125dp
 const BACK: Color = Color.hex("#0a0806f7")
@@ -35,6 +44,8 @@ const ROW: Array<Track> = [{ fr: 1 }, "max-content"]
 // One line of the open menu.
 public class MenuItem implements Component {
   public pick: Event<Integer> = new Event()
+  // The cursor came onto it: its place, and its frame, which its submenu stands beside.
+  public enter: Event<(Integer, any Frame)> = new Event()
 
   derived enabled: Boolean = self.entry.disabled != true
   derived color: Color | Stated<Color> = self.enabled ? NAME : DIM
@@ -46,6 +57,7 @@ public class MenuItem implements Component {
   derived track: Art = self.on ? Ordaen.art.ctl.switchOn : Ordaen.art.ctl.switchOff
   derived onOpacity: Number = knobShown(self.on)
   derived offOpacity: Number = knobShown(!self.on)
+  derived opens: Boolean = self.entry.more != nil
 
   entry: Signal<MenuEntry>
   index: Signal<Integer>
@@ -58,14 +70,18 @@ public class MenuItem implements Component {
   }
 
   onClick(mut self) {
-    if (self.enabled) { self.pick.emit(self.index) }
+    if (self.enabled && !self.opens) { self.pick.emit(self.index) }
   }
+
+  onEnter(mut self, frame: any Frame) { self.enter.emit(self.index, frame) }
 
   public render(self): Template {
     return $ltml {
       <box columns={ROW} gap={11.71875dp} padding={self.padding} yAlign={Align.Center} border={self.rule}
-           background={self.light} @pointerPress={self.onClick} @keyPress(.Enter)={self.onClick} @keyPress(.Space)={self.onClick}>
+           background={self.light} @pointerPress={self.onClick} @keyPress(.Enter)={self.onClick} @keyPress(.Space)={self.onClick}
+           @pointerEnter={self.onEnter}>
         <text value={self.entry.label} textColor={self.color} wrap={false} />
+        <text $if={self.opens} value={MORE_MARK} textColor={self.color} />
         <box $if={self.switched} width={SWITCH_WIDTH} height={SWITCH_HEIGHT} background={self.track}>
           <box position={Position.Absolute} left={KNOB_OFF} top={KNOB_TOP} width={SWITCH_KNOB} height={SWITCH_KNOB}
                background={Ordaen.art.ctl.knobOff} opacity={self.offOpacity} />
@@ -80,27 +96,52 @@ public class MenuItem implements Component {
 public class Menu implements Component {
   // The place of the entry that was clicked, from 1.
   public pick: Event<Integer> = new Event()
+  // A click on a submenu's entry: the place of the entry the submenu is of, and its own place in the submenu.
+  public pickMore: Event<(Integer, Integer)> = new Event()
   // A click outside the menu.
   public close: Event<nil> = new Event()
 
+  // The entry whose submenu is open, and where the submenu stands: at that entry's right, its top with the entry's.
+  state opened = 0
+  state beside: Place = "fill"
+  derived more: Array<MenuEntry> = self.entries[self.opened]?.more ?? []
+  derived titled: Boolean = self.title != ""
+
   // The lines, each kept by its place: a line follows the entry at its place, so a switch flipped is the same line.
   entries: Signal<Array<MenuEntry>>
+  title: Signal<String>
   const width: Number<Length>
   // `width`: as wide as its longest entry needs (a list's row needs less than the settings' history).
-  constructor(entries: Signal<Array<MenuEntry>>, width: Number<Length> = WIDTH) {
+  constructor(entries: Signal<Array<MenuEntry>>, title: Signal<String> = "", width: Number<Length> = WIDTH) {
     self.entries = entries
+    self.title = title
     self.width = width
   }
 
   onPick(mut self, index: Integer) { self.pick.emit(index) }
+  onPickMore(mut self, index: Integer) { self.pickMore.emit(self.opened, index) }
   onOutside(mut self) { self.close.emit() }
+
+  // The cursor on an entry opens its submenu, and closes another's.
+  onEnter(mut self, index: Integer, frame: any Frame) {
+    const opens = (peek self.entries)[index]?.more != nil
+    self.opened = opens ? index : 0
+    if (opens) { self.beside = Anchored { point: Point.TopLeft, to: Point.TopRight, by: frame } }
+  }
 
   public render(self): Template {
     return $ltml {
       <surface layer={Layer.Tooltip} place={Beside { beside: "parent" }} width={self.width} background={BACK}
                border={EDGE} padding={PAD} columns={1} @pointerPressOutside={self.onOutside}>
+        <box $if={self.titled} padding={ITEM_PAD}>
+          <text value={self.title} textColor={TITLE} wrap={false} />
+        </box>
         <MenuItem $for={index, entry of self.entries} $key={index} entry={entry} index={index}
-                  @pick={self.onPick} />
+                  @pick={self.onPick} @enter={self.onEnter} />
+        <surface $if={self.opened > 0} layer={Layer.Tooltip} place={self.beside} clamp={true} width={WIDTH}
+                 background={BACK} border={EDGE} padding={PAD} columns={1}>
+          <MenuItem $for={index, entry of self.more} $key={index} entry={entry} index={index} @pick={self.onPickMore} />
+        </surface>
       </surface>
     }
   }

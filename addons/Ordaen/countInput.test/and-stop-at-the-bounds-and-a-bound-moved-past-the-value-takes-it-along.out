@@ -1,26 +1,22 @@
--- 3 of 1 to 5: both looks show 3
-box 0,0 300x64.33
+-- 3 of 1 to 5
+box 0,0 300x28.33
   box 0,0 75x28.33
-    box 0,0 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress @pointerUp
+    box 0,0 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
       text 7.22,6.37 8.89x15.6 "-" #ffd100
     box 28.33,6.37 18.33x15.6
       text 33.06,6.37 8.89x15.6 "3" #ffffff
-    box 51.67,0 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress @pointerUp
+    box 51.67,0 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
       text 58.89,6.37 8.89x15.6 "+" #ffd100
-  box 0,38.33 80x26
-    box 0,38.33 80x26 #00000080 input "3" @change
 
 -- + four times: 5, the most, + disabled
-box 0,0 300x64.33
+box 0,0 300x28.33
   box 0,0 75x28.33
-    box 0,0 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress @pointerUp
+    box 0,0 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
       text 7.22,6.37 8.89x15.6 "-" #ffd100
     box 28.33,6.37 18.33x15.6
       text 33.06,6.37 8.89x15.6 "5" #ffffff
-    box 51.67,0 23.33x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress @pointerUp
+    box 51.67,0 23.33x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
       text 58.89,6.37 8.89x15.6 "+" #808080
-  box 0,38.33 80x26
-    box 0,38.33 80x26 #00000080 input "5" @change
 surface 51.67,28.33 271.17x155.45 on TOOLTIP Interface\AddOns\Ordaen\media\window-wood clamped
   text 75.25,51.92 229x19.2 "More" #ffffff
   text 75.25,74.45 229x31.2 "Hold to keep stepping, up to the limit." #cbb994
@@ -34,20 +30,18 @@ surface 51.67,28.33 271.17x155.45 on TOOLTIP Interface\AddOns\Ordaen\media\windo
     text 282.03,127.92 22.22x15.6 "+10" #ffffff
   box 75.25,146.85 229x15.6
     box 75.25,146.85 193.44x15.6
-      text 75.25,146.85 93.33x15.6 "Alt+Left-click" #cbb994
+      text 75.25,146.85 100x15.6 "Ctrl+Left-click" #cbb994
     text 275.36,146.85 28.89x15.6 "+100" #ffffff
 
 -- - six times: 1, the least, - disabled
-box 0,0 300x64.33
+box 0,0 300x28.33
   box 0,0 75x28.33
-    box 0,0 23.33x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress @pointerUp
+    box 0,0 23.33x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
       text 7.22,6.37 8.89x15.6 "-" #808080
     box 28.33,6.37 18.33x15.6
       text 33.06,6.37 8.89x15.6 "1" #ffffff
-    box 51.67,0 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress @pointerUp
+    box 51.67,0 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
       text 58.89,6.37 8.89x15.6 "+" #ffd100
-  box 0,38.33 80x26
-    box 0,38.33 80x26 #00000080 input "1" @change
 surface 0,28.33 271.17x155.45 on TOOLTIP Interface\AddOns\Ordaen\media\window-wood clamped
   text 23.58,51.92 229x19.2 "Fewer" #ffffff
   text 23.58,74.45 229x31.2 "Hold to keep stepping, up to the limit." #cbb994
@@ -61,56 +55,43 @@ surface 0,28.33 271.17x155.45 on TOOLTIP Interface\AddOns\Ordaen\media\window-wo
     text 230.36,127.92 22.22x15.6 "-10" #ffffff
   box 23.58,146.85 229x15.6
     box 23.58,146.85 193.44x15.6
-      text 23.58,146.85 93.33x15.6 "Alt+Left-click" #cbb994
+      text 23.58,146.85 100x15.6 "Ctrl+Left-click" #cbb994
     text 223.69,146.85 28.89x15.6 "-100" #ffffff
 
--- 42 typed: the most, 5, written in the field
-box 0,0 300x64.33
-  box 0,0 75x28.33
-    box 0,0 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress @pointerUp
-      text 7.22,6.37 8.89x15.6 "-" #ffd100
-    box 28.33,6.37 18.33x15.6
-      text 33.06,6.37 8.89x15.6 "5" #ffffff
-    box 51.67,0 23.33x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress @pointerUp
-      text 58.89,6.37 8.89x15.6 "+" #808080
-  box 0,38.33 80x26
-    box 0,38.33 80x26 #00000080 input "5" typing @change
-
--- x typed: the value as it was, the edge red
-box 0,0 300x64.33
-  box 0,0 75x28.33
-    box 0,0 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress @pointerUp
-      text 7.22,6.37 8.89x15.6 "-" #ffd100
-    box 28.33,6.37 18.33x15.6
-      text 33.06,6.37 8.89x15.6 "5" #ffffff
-    box 51.67,0 23.33x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress @pointerUp
-      text 58.89,6.37 8.89x15.6 "+" #808080
-  box 0,38.33 80x26
-    box 0,38.33 80x26 #00000080 input "x" typing @change
-
 -- the most falls to 2: the value with it
-box 0,0 300x64.33
+box 0,0 300x28.33
   box 0,0 75x28.33
-    box 0,0 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress @pointerUp
-      text 7.22,6.37 8.89x15.6 "-" #ffd100
+    box 0,0 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+      text 7.22,6.37 8.89x15.6 "-" #ffffff
     box 28.33,6.37 18.33x15.6
       text 33.06,6.37 8.89x15.6 "2" #ffffff
-    box 51.67,0 23.33x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress @pointerUp
+    box 51.67,0 23.33x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
       text 58.89,6.37 8.89x15.6 "+" #808080
-  box 0,38.33 80x26
-    box 0,38.33 80x26 #00000080 input "2" typing @change
+surface 0,28.33 271.17x155.45 on TOOLTIP Interface\AddOns\Ordaen\media\window-wood clamped
+  text 23.58,51.92 229x19.2 "Fewer" #ffffff
+  text 23.58,74.45 229x31.2 "Hold to keep stepping, up to the limit." #cbb994
+  box 23.58,108.98 229x15.6
+    box 23.58,108.98 206.78x15.6
+      text 23.58,108.98 67.78x15.6 "Left-click" #cbb994
+    text 237.03,108.98 15.56x15.6 "-1" #ffffff
+  box 23.58,127.92 229x15.6
+    box 23.58,127.92 200.11x15.6
+      text 23.58,127.92 106.67x15.6 "Shift+Left-click" #cbb994
+    text 230.36,127.92 22.22x15.6 "-10" #ffffff
+  box 23.58,146.85 229x15.6
+    box 23.58,146.85 193.44x15.6
+      text 23.58,146.85 100x15.6 "Ctrl+Left-click" #cbb994
+    text 223.69,146.85 28.89x15.6 "-100" #ffffff
 
 -- the most under the least: the least, everything disabled
-box 0,0 300x64.33
+box 0,0 300x28.33
   box 0,0 75x28.33
-    box 0,0 23.33x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress @pointerUp
+    box 0,0 23.33x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
       text 7.22,6.37 8.89x15.6 "-" #808080
     box 28.33,6.37 18.33x15.6
       text 33.06,6.37 8.89x15.6 "1" #ffffff
-    box 51.67,0 23.33x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress @pointerUp
+    box 51.67,0 23.33x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
       text 58.89,6.37 8.89x15.6 "+" #808080
-  box 0,38.33 80x26
-    box 0,38.33 80x26 #00000080 input "1" @change
 surface 51.67,28.33 271.17x155.45 on TOOLTIP Interface\AddOns\Ordaen\media\window-wood clamped
   text 75.25,51.92 229x19.2 "More" #ffffff
   text 75.25,74.45 229x31.2 "Hold to keep stepping, up to the limit." #cbb994
@@ -124,20 +105,18 @@ surface 51.67,28.33 271.17x155.45 on TOOLTIP Interface\AddOns\Ordaen\media\windo
     text 282.03,127.92 22.22x15.6 "+10" #ffffff
   box 75.25,146.85 229x15.6
     box 75.25,146.85 193.44x15.6
-      text 75.25,146.85 93.33x15.6 "Alt+Left-click" #cbb994
+      text 75.25,146.85 100x15.6 "Ctrl+Left-click" #cbb994
     text 275.36,146.85 28.89x15.6 "+100" #ffffff
 
 -- another writes 20 where the most is 9: 9
-box 0,0 300x64.33
+box 0,0 300x28.33
   box 0,0 75x28.33
-    box 0,0 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress @pointerUp
+    box 0,0 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
       text 7.22,6.37 8.89x15.6 "-" #ffd100
     box 28.33,6.37 18.33x15.6
       text 33.06,6.37 8.89x15.6 "9" #ffffff
-    box 51.67,0 23.33x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress @pointerUp
+    box 51.67,0 23.33x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
       text 58.89,6.37 8.89x15.6 "+" #808080
-  box 0,38.33 80x26
-    box 0,38.33 80x26 #00000080 input "9" @change
 surface 51.67,28.33 271.17x155.45 on TOOLTIP Interface\AddOns\Ordaen\media\window-wood clamped
   text 75.25,51.92 229x19.2 "More" #ffffff
   text 75.25,74.45 229x31.2 "Hold to keep stepping, up to the limit." #cbb994
@@ -151,5 +130,5 @@ surface 51.67,28.33 271.17x155.45 on TOOLTIP Interface\AddOns\Ordaen\media\windo
     text 282.03,127.92 22.22x15.6 "+10" #ffffff
   box 75.25,146.85 229x15.6
     box 75.25,146.85 193.44x15.6
-      text 75.25,146.85 93.33x15.6 "Alt+Left-click" #cbb994
+      text 75.25,146.85 100x15.6 "Ctrl+Left-click" #cbb994
     text 275.36,146.85 28.89x15.6 "+100" #ffffff

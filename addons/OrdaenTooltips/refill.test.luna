@@ -23,7 +23,8 @@ function memory(corner: any Frame, owner: any Frame, addons: Integer): Game.Show
   }
   return {
     shown: true, owner: owner, ownerName: "MainMenuMicroButton", placeable: true, ownerHigh: false,
-    ownerRight: false, corner: corner, below: false, right: true, data: { plain: true, lines: lines }
+    ownerRight: false, corner: corner, below: false, right: true, home: corner, homeBelow: false, homeRight: true,
+    data: { plain: true, lines: lines }
   }
 }
 

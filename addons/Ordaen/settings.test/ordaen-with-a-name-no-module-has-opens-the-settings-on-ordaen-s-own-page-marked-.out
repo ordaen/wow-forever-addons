@@ -38,28 +38,32 @@ surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
               box 721.64,223.04 72.78x27.27 #00000000 @keyPress @pointerPress
                 box 722.47,223.88 71.11x1.67 absolute #00000000
                 text 734.14,229.71 47.78x15.6 "Windows" #a3977f
-            box 492.19,266.97 750.06x96.67
-              box 492.19,266.97 750.06x16.67 opacity=1
-                box 492.19,267.51 233.33x15.6 @pointerEnter @pointerLeave
-                  text 492.19,267.51 233.33x15.6 "Ordaen window scale" #cbb994
-                box 740.53,266.97 501.72x16.67
-                  box 740.53,266.97 200x16.67 @drag @dragStart @dragStop @keyPress @pointerPress
-                    box 740.53,271.97 200x6.67 absolute Interface\AddOns\Ordaen\media\ctl-slider row 0 of 4
-                    box 741.36,272.81 74.38x5 absolute Interface\AddOns\Ordaen\media\ctl-slider row 1 of 4
-                    box 808.86,265.31 13.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-slider-knob
-                  text 950.53,267.51 28.89x15.6 "100%" #ffffff
-              box 492.19,300.31 750.06x28.33 opacity=1
-                box 492.19,306.67 233.33x15.6 @pointerEnter @pointerLeave
-                  text 492.19,306.67 233.33x15.6 "Spacing" #cbb994
-                box 740.53,300.31 200x28.33
-                  box 740.53,300.31 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
-                    text 755.53,306.67 153.33x15.6 "Normal" #f0c860
-                    box 917.19,307.81 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-              box 492.19,345.31 750.06x18.33 opacity=1
-                box 492.19,346.67 233.33x15.6 @pointerEnter @pointerLeave
-                  text 492.19,346.67 233.33x15.6 "One-pixel lines" #cbb994
-                box 740.53,345.31 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @keyPress @pointerPress
-                  box 740.53,345.31 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=1
+            box 492.19,266.97 750.06x108.33
+              box 492.19,266.97 750.06x28.33 opacity=1
+                box 492.19,273.34 233.33x15.6 @pointerEnter @pointerLeave
+                  text 492.19,273.34 233.33x15.6 "Ordaen window scale" #cbb994
+                box 740.53,266.97 501.72x28.33
+                  box 740.53,266.97 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerUp
+                    text 747.75,273.34 8.89x15.6 "-" #ffd100
+                  box 768.86,272.81 213.33x16.67 @drag @dragStart @dragStop @keyPress @pointerPress
+                    box 775.53,277.81 200x6.67 absolute Interface\AddOns\Ordaen\media\ctl-slider row 0 of 4
+                    box 776.36,278.64 74.38x5 absolute Interface\AddOns\Ordaen\media\ctl-slider row 1 of 4
+                    box 843.86,271.14 13.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-slider-knob
+                  box 987.19,266.97 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerUp
+                    text 994.42,273.34 8.89x15.6 "+" #ffd100
+                  text 1015.53,273.34 28.89x15.6 "100%" #ffffff
+              box 492.19,311.97 750.06x28.33 opacity=1
+                box 492.19,318.34 233.33x15.6 @pointerEnter @pointerLeave
+                  text 492.19,318.34 233.33x15.6 "Spacing" #cbb994
+                box 740.53,311.97 200x28.33
+                  box 740.53,311.97 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
+                    text 755.53,318.34 153.33x15.6 "Normal" #f0c860
+                    box 917.19,319.47 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+              box 492.19,356.97 750.06x18.33 opacity=1
+                box 492.19,358.34 233.33x15.6 @pointerEnter @pointerLeave
+                  text 492.19,358.34 233.33x15.6 "One-pixel lines" #cbb994
+                box 740.53,356.97 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @keyPress @pointerPress
+                  box 740.53,356.97 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=1
       box 349.42,691.46 906.17x45
         box 349.42,708.12 906.17x28.33
           box 349.42,708.12 166.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress

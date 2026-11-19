@@ -1,15 +1,18 @@
 // What the player chooses on the tooltips' settings pages.
 
-// Where an item's tooltip shows: in the screen's corner, as the game puts it, or beside the item.
-public enum Place implements Plain { Corner = "corner", Anchor = "anchor" }
+// Where a tooltip stands: beside what it belongs to (the item, the slot, the button), or in Blizzard's place, where
+// the game puts a tooltip with no place of its own (the screen's bottom right corner unless the player moved it).
+public enum Place implements Plain { Anchor = "anchor", Blizzard = "blizzard" }
+
+// Where a kind's tooltips stand: as the general setting says, or a place of their own.
+public enum KindPlace implements Plain { Default = "default", Anchor = "anchor", Blizzard = "blizzard" }
 
 // A kind's `Lock`: held under the cursor, a tooltip of that kind locks, and stays for the cursor to come onto it.
 public struct Choices implements Plain {
-  anchorToButtons: Boolean
+  place: Place
   itemsOn: Boolean
   itemsLock: Boolean
-  itemsAnchorBags: Place
-  itemsAnchorChar: Place
+  itemsPlace: KindPlace
   itemsIlvl: Boolean
   itemsId: Boolean
   itemsCount: Boolean
@@ -17,25 +20,31 @@ public struct Choices implements Plain {
   itemsCooldown: Boolean
   spellsOn: Boolean
   spellsLock: Boolean
+  spellsPlace: KindPlace
   spellsId: Boolean
   spellsNext: Boolean
   spellsCooldown: Boolean
   aurasOn: Boolean
   aurasLock: Boolean
+  aurasPlace: KindPlace
   aurasId: Boolean
   aurasCaster: Boolean
   aurasTotal: Boolean
   playersOn: Boolean
   playersLock: Boolean
+  playersPlace: KindPlace
   playersTarget: Boolean
   playersRelation: Boolean
   npcsOn: Boolean
   npcsLock: Boolean
+  npcsPlace: KindPlace
   npcsParty: Boolean
   npcsLoot: Boolean
   npcsRep: Boolean
   objectsOn: Boolean
   objectsLock: Boolean
+  objectsPlace: KindPlace
   textsOn: Boolean
+  textsPlace: KindPlace
   textsExtra: Boolean
 }

@@ -44,9 +44,10 @@ function corner(): any Client.Frame {
 
 // The game's tooltip showing `data`.
 function showing(data: Game.TooltipData): Game.ShownTip {
+  const at = corner()
   return {
-    shown: true, data: data, placeable: false, ownerHigh: false, ownerRight: false, corner: corner(), below: false,
-    right: true
+    shown: true, data: data, placeable: false, ownerHigh: false, ownerRight: false, corner: at, below: false,
+    right: true, home: at, homeBelow: false, homeRight: true
   }
 }
 
@@ -1255,7 +1256,6 @@ test "an item's numbers follow Ordaen's number settings: dots between thousands,
   settings.button("1\194\160000\194\160000.09").click()
   Test.page().window("1.000.000,09").button("1.000.000,09").click()
   settings.button("Round to whole numbers").click()
-  settings.button("Save").click()
   Test.key(Key.Escape)
   Game.tooltip.main = showing(towerShield())
   Test.expect(reads(tip("Tower Shield"), "Tower Shield | 1.234 | 216–325 | 3/s | 78 DPS"))

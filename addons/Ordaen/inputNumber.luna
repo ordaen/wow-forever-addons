@@ -1,0 +1,359 @@
+// InputNumber: every number a setting takes, on its row (SettingRow), between its least and its most, in its steps.
+// The settings have no other number control. A range of at most `SLID` steps is a slider: a dark groove, the bronze
+// fill up to the value, a bronze knob; a click anywhere along it sets the value, a drag moves the knob at once and sets
+// the value as it rests and as it is let go (`Resting`), and focused, Left and Right step it, Home and End go to its
+// ends. A wider range (a place on the screen, a size) is a field the number is typed in, taken once the typing pauses
+// (`SETTLE`), on Enter, before a step or before anything reads the settings whole (`Keeper.finishInput`): a number past
+// a bound is written as that bound, a text that isn't a number leaves the value and turns the edge red. Either has − on
+// its left and + on its right, plain boxes on the push button's plate that the pointer and Enter or Space press, which
+// step as CountInput's do (`stride`, `stepTip`): a step, ten with Shift, a hundred with Ctrl, again and again while
+// held, each greyed and doing nothing at its bound. A key writes its step at once; held down by the pointer, the steps
+// show at once and the value takes them as they rest and as the button is let go. After the + stands the
+// value's unit: the slider shows the value in it (70%, 48 px), the field the unit's name (px). Disabled, it takes no
+// input.
+import Game from "$game"
+import { Align, Art, Drag, Edges, Keystroke, Line, Pointer, Position, Shadow, Stated, Track } from "$ltml"
+import root Ordaen from "Ordaen"
+import { STEP_WIDTH, stepTip, stride } from "@/countInput"
+import Locale from "@/locales"
+import { Component } from "@/module"
+import { Resting } from "@/rest"
+import { SettingRow } from "@/settingRow"
+import { Tip, TipText } from "@/tip"
+
+// What a value is counted in: a share (0.7 is 70%), a size in the client's units, seconds, or a plain number.
+public enum Unit { None = "none", Percent = "percent", Px = "px", Sec = "sec" }
+
+// A range of at most this many steps is a slider; a wider one is typed in.
+const SLID = 100
+
+// The −, the slider or the field, the +, the unit.
+const ROW: Array<Track> = ["max-content", "max-content", "max-content", "max-content"]
+const LENGTH = 281.25dp
+// The knob's height: the band that takes the mouse, the groove centred in it.
+const BAND = 23.4375dp
+const GROOVE = 9.375dp
+const EDGE = 1.171875dp
+const GROOVE_TOP = (BAND - GROOVE) / 2
+const KNOB_W = 18.75dp
+// The band reaches half a knob past each end of the groove: the knob at either end lies inside it, whole to grab.
+const INSET = KNOB_W / 2
+const KNOB_H = 37.5dp
+const KNOB_SHADOW: Shadow = { color: Color.hex("#0000008c"), x: 0ui, y: 2.34375dp, size: 3.515625dp }
+const WHITE: Color = Color.hex("#ffffff")
+// The field: as high as a text box, wide enough for its digits.
+const FIELD_WIDTH = 140.625dp
+const FIELD_HEIGHT = 30.46875dp
+const INK: Color = Color.hex("#e8dcc4")
+const FILL: Color = Color.hex("#00000080")
+const FIELD_EDGE: Line = { width: 1.171875dp, color: Color.hex("#3e2f1d") }
+const BAD: Line = { width: 1.171875dp, color: Color.hex("#c0463c") }
+const PADDING: Edges = { right: 11.71875dp, left: 11.71875dp }
+const DIGITS = 6
+// − and +: a push button's plate and label, the label white under the cursor or the keyboard's focus.
+const STEP_HEIGHT = 39.84375dp
+const INK_STEP: Stated<Color> = { default: Color.hex("#ffd100"), disabled: Color.hex("#808080"), hover: WHITE, focus: WHITE }
+const STEP_SHADOW: Shadow = { color: Color.hex("#000000"), x: 1.171875dp, y: -1.171875dp }
+// How long typing pauses before what is typed is taken.
+const SETTLE = 0.6
+
+// `value` on the nearest of the steps from `least`, held between `least` and `most`.
+public function stepped(value: Number, least: Number, most: Number, step: Number): Number {
+  const on = least + ((value - least) / step).round() * step
+  return least.max(most.min(on))
+}
+
+// A value as the slider shows it, in its unit.
+public function said(value: Number, unit: Unit): String {
+  match (unit) {
+    Unit.Percent => return "%d%%".format((value * 100).round())
+    .Px => return Locale.UNIT_PX.format(value.round())
+    .Sec => return Locale.UNIT_SEC.format(value)
+    .None => return String.of(value)
+  }
+}
+
+// The unit's name after a field: none for a plain number.
+function nameOf(unit: Unit): String {
+  match (unit) {
+    Unit.Percent => return "%"
+    .Px => return Locale.UNIT_PX_NAME
+    .Sec => return Locale.UNIT_SEC_NAME
+    .None => return ""
+  }
+}
+
+// The number a text is, or nothing: digits, with a minus sign and a point.
+function numberOf(text: String): Number | nil {
+  const digits = text.match("^%s*(%-?%d+%.?%d*)%s*$")
+  if (digits == nil) { return nil }
+  return digits.toNumber()
+}
+
+public class InputNumber implements Component {
+  // The value held to the range: one kept outside it (saved before the range changed) is read as its nearest end,
+  // which is what the control shows. While a drag or a held − or + is under way, it shows where that has gone.
+  derived held: Number = self.least.max(self.most.min(self.moving ?? self.value))
+  // Where a drag or a held − or + has gone and the value hasn't taken yet: it takes it as the input rests and as it ends.
+  state moving: Number | nil = nil
+  const rest: mut Resting<Number>
+  derived fewer: Boolean = !self.disabled && self.held > self.least
+  derived more: Boolean = !self.disabled && self.held < self.most
+  // Where the value sits along the range, from 0 to 1.
+  derived fraction: Number = self.most > self.least ? (self.held - self.least) / (self.most - self.least) : 0
+  derived fillWidth: Number<Length> = self.fraction * (LENGTH - 2 * EDGE)
+  derived knobLeft: Number<Length> = self.fraction * LENGTH
+  derived shown: String = self.sliding ? said(self.held, self.unit) : nameOf(self.unit)
+  // The field's text, and whether it is a number.
+  public state text: String
+  public derived bad: Boolean = numberOf(self.text) == nil
+  derived edge: Line = self.bad ? BAD : FIELD_EDGE
+  // − and +: the bronze plate, its pushed row while held; focused, the plate lit by its glow (the renderer lights a
+  // piece's glow on focus as under the cursor); disabled at its bound, the grey plate.
+  derived plate: Stated<Art> = {
+    default: Ordaen.art.ctl.button,
+    disabled: Ordaen.art.ctl.buttonDisabled,
+    focus: Ordaen.art.ctl.button
+  }
+  // Which of − (-1) and + (1) is under the cursor, 0 neither; its tip is made only as it shows.
+  state hovered = 0
+  derived tip: TipText = self.hovered < 0 ? self.stepsTip(Locale.COUNT_FEWER, "-") : self.stepsTip(Locale.COUNT_MORE, "+")
+  // What is typed, waiting for the typing to pause.
+  pending: Task<nil> | nil = nil
+
+  label: Signal<String>
+  value: mut Signal<Number>
+  const least: Number
+  const most: Number
+  const step: Number
+  const unit: Unit
+  hint: Signal<String>
+  disabled: Signal<Boolean>
+  const sliding: Boolean
+  // A field shows a percent in hundredths: 70, not 0.7.
+  const scale: Number
+  constructor(
+    label: Signal<String>,
+    value: mut Signal<Number>,
+    least: Number,
+    most: Number,
+    step: Number = 1,
+    unit: Unit = Unit.None,
+    hint: Signal<String> = "",
+    disabled: Signal<Boolean> = false
+  ) {
+    self.label = label
+    self.value = value
+    self.least = least
+    self.most = most
+    self.step = step
+    self.unit = unit
+    self.hint = hint
+    self.disabled = disabled
+    self.sliding = (most - least) / step <= SLID
+    self.scale = unit == Unit.Percent ? 100 : 1
+    self.text = ""
+    self.rest = new Resting<Number>((to: Number): nil => { self.write(to) })
+    // A field follows its value and takes what is typed; a slider shows its value as it is and has no text.
+    if (!self.sliding) {
+      self.text = String.of(peek self.held * self.scale)
+      watch (typed of self.text) { self.typed(typed) }
+      watch (shown of self.held) { self.show(shown) }
+    }
+  }
+
+  // What was typed is a number: the value is it, on its steps and held to the bounds.
+  take(mut self, typed: String) {
+    const number = numberOf(typed)
+    if (number == nil) { return }
+    const kept = stepped(number / self.scale, self.least, self.most, self.step)
+    if (kept != peek self.value) {
+      self.value = kept
+    } else if (kept != number / self.scale) {
+      self.text = String.of(kept * self.scale)
+    }
+  }
+
+  // The value changed: the field says it, unless it already does.
+  show(mut self, value: Number) {
+    if (numberOf(peek self.text) != value * self.scale) { self.text = String.of(value * self.scale) }
+  }
+
+  // What a drag or a held − or + rested at, or ended at: the value takes it, and the control shows the value again.
+  write(mut self, to: Number) {
+    self.value = to
+    self.moving = nil
+  }
+
+  // `steps` down or up from what the control shows, held to the range.
+  steppedBy(self, steps: Number): Number {
+    return stepped(self.held + steps * self.step, self.least, self.most, self.step)
+  }
+
+  // Some steps down or up, written at once (a key).
+  nudge(mut self, steps: Number) {
+    if (self.disabled) { return }
+    self.value = self.steppedBy(steps)
+  }
+
+  // A drag or a held − or + moved to `to`: shown at once, written as it rests.
+  move(mut self, to: Number) {
+    self.moving = to
+    self.rest.move(to)
+  }
+
+  // − and + by a key: what is typed and not yet taken is taken first, then stepped from.
+  less(mut self) {
+    self.settle()
+    self.nudge(-stride())
+  }
+
+  raise(mut self) {
+    self.settle()
+    self.nudge(stride())
+  }
+
+  // − and + pressed and held by the pointer: each step shown, written as the steps rest and as the button is let go.
+  lessHeld(mut self) {
+    self.settle()
+    if (self.fewer) { self.move(self.steppedBy(-stride())) }
+  }
+
+  raiseHeld(mut self) {
+    self.settle()
+    if (self.more) { self.move(self.steppedBy(stride())) }
+  }
+
+  // A held − or + let go, or a drag: the value is where it went.
+  onUp(mut self) { self.rest.end() }
+
+  onFewerEnter(mut self) { self.hovered = -1 }
+  onMoreEnter(mut self) { self.hovered = 1 }
+  onLeave(mut self) { self.hovered = 0 }
+
+  // What − or + says under the cursor: each key and how far it steps, signed, in the value's unit.
+  stepsTip(self, title: String, sign: String): TipText {
+    return stepTip(title, steps => sign + said(steps * self.step, self.unit))
+  }
+
+  // Each keystroke writes the value where the text already is one (in the range, on a step), and where it is past a
+  // bound that more digits only take further (a positive number over the most, a negative one under the least): held
+  // to that bound. What reads the value next (Save, Post) sees what was typed. Only a number on its way into the range
+  // («1» of «150», the least 100) or between steps waits: for the typing to pause (`SETTLE`), Enter or a step.
+  typed(mut self, typed: String) {
+    if (self.pending != nil) {
+      destroy self.pending
+      Ordaen.keeper.end()
+    }
+    const number = numberOf(typed)
+    if (number == nil) { return }
+    // The text is what the field writes for what the control shows (following a held − or +): nothing to take. Told
+    // by the text, as the number read back from it may differ from the one written in its last digits.
+    if (typed == String.of(peek self.held * self.scale)) { return }
+    const value = number / self.scale
+    const past = (value > self.most && value >= 0) || (value < self.least && value <= 0)
+    if (past || value == stepped(value, self.least, self.most, self.step)) {
+      self.take(typed)
+      return
+    }
+    // The input under way for the settings: whatever reads them whole first takes what is typed.
+    Ordaen.keeper.begin(() => self.settle())
+    self.pending = self.later()
+  }
+
+  async later(mut self) {
+    await Game.delay(SETTLE)
+    self.pending = nil
+    self.taken()
+  }
+
+  // What is typed and still waiting is taken now: Enter, a step from it, or the settings read whole.
+  settle(mut self) {
+    if (self.pending == nil) { return }
+    destroy self.pending
+    self.taken()
+  }
+
+  taken(mut self) {
+    self.take(peek self.text)
+    Ordaen.keeper.end()
+  }
+
+  onSubmit(mut self) { self.settle() }
+
+  // The value at `x` UI units along the band (the groove starts `INSET` in), held to the range and its steps.
+  valueAt(self, x: Number<Length>): Number {
+    const t = (0).max((1).min((x - INSET) / LENGTH))
+    return stepped(self.least + t * (self.most - self.least), self.least, self.most, self.step)
+  }
+
+  // A click is written at once; a drag moves the knob and is written as it rests and as it is let go.
+  onClick(mut self, click: Pointer) {
+    if (self.disabled || self.rest.busy()) { return }
+    self.value = self.valueAt(click.x)
+  }
+
+  onDrag(mut self, drag: Drag) {
+    if (!self.disabled) { self.move(self.valueAt(drag.x)) }
+  }
+
+  // Focused: Left and Right a step, Home the least, End the most.
+  onKey(mut self, stroke: Keystroke) {
+    match (stroke.key) {
+      .Left => self.nudge(-1)
+      .Right => self.nudge(1)
+      .Home => self.nudge(-(self.most - self.least) / self.step)
+      else => self.nudge((self.most - self.least) / self.step)
+    }
+  }
+
+  // The slider or the field: which is fixed as the control is made, so it is no `$if` that would follow a cell.
+  middle(self): Template {
+    if (self.sliding) {
+      return $ltml {
+        <box width={LENGTH + KNOB_W} height={BAND}
+             @keyPress(.Left)={self.onKey} @keyPress(.Right)={self.onKey} @keyPress(.Home)={self.onKey} @keyPress(.End)={self.onKey}
+             @pointerPress={self.onClick} @dragStart={self.onDrag} @drag={self.onDrag} @dragStop={self.onUp}>
+          <box position={Position.Absolute} left={INSET} top={GROOVE_TOP} width={LENGTH} height={GROOVE}
+               background={Ordaen.art.ctl.groove} />
+          <box position={Position.Absolute} left={INSET + EDGE} top={GROOVE_TOP + EDGE} height={GROOVE - 2 * EDGE}
+               width={self.fillWidth} background={Ordaen.art.ctl.sliderFill} zLevel={1} />
+          <box position={Position.Absolute} left={self.knobLeft} top={-2.34375dp} width={KNOB_W} height={KNOB_H}
+               background={Ordaen.art.ctl.sliderKnob} shadow={KNOB_SHADOW} zLevel={2} />
+        </box>
+      }
+    }
+    return $ltml {
+      <input value={mut self.text} width={FIELD_WIDTH} height={FIELD_HEIGHT} padding={PADDING} textColor={INK}
+             background={FILL} border={self.edge} maxLength={DIGITS} disabled={self.disabled} @submit={self.onSubmit} />
+    }
+  }
+
+  public render(self): Template {
+    const middle = self.middle()
+    return $ltml {
+      <SettingRow label={self.label} hint={self.hint} disabled={self.disabled}>
+        <box columns={ROW} gap={7.03125dp} yAlign={Align.Center}>
+          <box width={STEP_WIDTH} height={STEP_HEIGHT} xAlign={Align.Center} yAlign={Align.Center}
+               background={self.plate} textColor={INK_STEP} disabled={!self.fewer} @pointerDown.repeat(.Left)={self.lessHeld}
+               @pointerUp(.Left)={self.onUp}
+               @keyPress(.Enter)={self.less} @keyPress(.Space)={self.less} @pointerEnter={self.onFewerEnter}
+               @pointerLeave={self.onLeave}>
+            <Tip $if={self.hovered < 0} title={self.tip.title} text={self.tip.text} rows={self.tip.rows} />
+            <text value={"-"} textShadow={STEP_SHADOW} wrap={false} />
+          </box>
+          {middle}
+          <box width={STEP_WIDTH} height={STEP_HEIGHT} xAlign={Align.Center} yAlign={Align.Center}
+               background={self.plate} textColor={INK_STEP} disabled={!self.more} @pointerDown.repeat(.Left)={self.raiseHeld}
+               @pointerUp(.Left)={self.onUp}
+               @keyPress(.Enter)={self.raise} @keyPress(.Space)={self.raise} @pointerEnter={self.onMoreEnter}
+               @pointerLeave={self.onLeave}>
+            <Tip $if={self.hovered > 0} title={self.tip.title} text={self.tip.text} rows={self.tip.rows} />
+            <text value={"+"} textShadow={STEP_SHADOW} wrap={false} />
+          </box>
+          <text value={self.shown} textColor={WHITE} />
+        </box>
+      </SettingRow>
+    }
+  }
+}

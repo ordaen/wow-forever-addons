@@ -3,10 +3,10 @@
 import { Checkbox } from "@/checkbox"
 import { Choice, Dropdown } from "@/dropdown"
 import { Clock, Density, Globals, LargeNumbers, NumberFormat } from "@/globals"
+import { InputNumber, Unit } from "@/inputNumber"
 import Locale from "@/locales"
 import { Component } from "@/module"
 import { Settings } from "@/settings"
-import { Slider, Unit } from "@/slider"
 
 const DENSITIES: Array<Choice<Density>> = [
   { value: Density.Compact, label: Locale.GLOBAL_DENSITY_COMPACT },
@@ -35,8 +35,8 @@ public class ScalePage implements Component {
 
   public render(self): Template {
     return $ltml {
-      <Slider label={Locale.GLOBAL_SCALE} hint={Locale.GLOBAL_SCALE_TIP} value={mut self.globals.values.scale}
-              least={0.7} most={1.5} step={0.05} unit={Unit.Percent} />
+      <InputNumber label={Locale.GLOBAL_SCALE} hint={Locale.GLOBAL_SCALE_TIP} value={mut self.globals.values.scale}
+                   least={0.7} most={1.5} step={0.05} unit={Unit.Percent} />
       <Dropdown label={Locale.GLOBAL_DENSITY} hint={Locale.GLOBAL_DENSITY_TIP}
                 value={mut self.globals.values.density} choices={DENSITIES} />
       <Checkbox label={Locale.GLOBAL_PIXEL} hint={Locale.GLOBAL_PIXEL_TIP} value={mut self.globals.values.pixel} />
@@ -59,8 +59,8 @@ public class NumbersPage implements Component {
                 value={mut self.globals.values.numberFormat} choices={FORMATS} />
       <Checkbox label={Locale.GLOBAL_NUMBERROUND} hint={Locale.GLOBAL_NUMBERROUND_TIP}
                 value={mut self.globals.values.numberRound} />
-      <Slider label={Locale.GLOBAL_NUMBERPRECISION} hint={Locale.GLOBAL_NUMBERPRECISION_TIP}
-              value={mut self.globals.values.numberPrecision} least={0} most={3} disabled={self.rounded} />
+      <InputNumber label={Locale.GLOBAL_NUMBERPRECISION} hint={Locale.GLOBAL_NUMBERPRECISION_TIP}
+                   value={mut self.globals.values.numberPrecision} least={0} most={3} disabled={self.rounded} />
       <Dropdown label={Locale.GLOBAL_NUMBERS} hint={Locale.GLOBAL_NUMBERS_TIP}
                 value={mut self.globals.values.numbers} choices={LARGE} />
     }

@@ -20,8 +20,6 @@ const NO_TIP: TipText = { title: "", text: "", rows: [] }
 
 public class PushButton implements Component {
   public click: Event<nil> = new Event()
-  // One that repeats is let go: its clicks are over.
-  public released: Event<nil> = new Event()
 
   derived art: Art = self.disabled ? Ordaen.art.ctl.buttonDisabled : self.accent ? Ordaen.art.ctl.buttonAccent : Ordaen.art.ctl.button
   derived color: Color | Stated<Color> = self.disabled ? GREY : LABEL
@@ -68,22 +66,12 @@ public class PushButton implements Component {
     if (self.repeating) { self.click.emit() }
   }
 
-  onUp(mut self) {
-    if (self.repeats) { self.released.emit() }
-  }
-
   onEnter(mut self) { self.hovered = true }
   onLeave(mut self) { self.hovered = false }
 
   public render(self): Template {
     return $ltml {
-      <box $if={self.repeats} width={{ min: self.width }} height={HEIGHT} padding={CAPS} xAlign={Align.Center}
-           yAlign={Align.Center} background={self.art} action={self.doing} @pointerPress={self.onClick} @keyPress(.Enter)={self.onClick} @keyPress(.Space)={self.onClick}
-           @pointerDown.repeat(.Left)={self.onHeld} @pointerUp(.Left)={self.onUp} @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
-        <Tip $if={self.tipShown} title={self.tipText.title} text={self.tipText.text} rows={self.tipText.rows} />
-        <text value={self.label} textColor={self.color} textShadow={SHADOW} wrap={false} />
-      </box>
-      <box $else width={{ min: self.width }} height={HEIGHT} padding={CAPS} xAlign={Align.Center} yAlign={Align.Center}
+      <box width={{ min: self.width }} height={HEIGHT} padding={CAPS} xAlign={Align.Center} yAlign={Align.Center}
            background={self.art} action={self.doing} @pointerPress={self.onClick} @keyPress(.Enter)={self.onClick} @keyPress(.Space)={self.onClick} @pointerDown.repeat(.Left)={self.onHeld}
            @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
         <Tip $if={self.tipShown} title={self.tipText.title} text={self.tipText.text} rows={self.tipText.rows} />

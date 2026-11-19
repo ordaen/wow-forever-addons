@@ -32,11 +32,17 @@ function corner(): any Client.Frame {
   return frame("Frame", "GameTooltip", 1300, 720, 200, 80)
 }
 
+// The game's default anchor, moved in Edit Mode above the corner: its bottom right at 1500,750. A tooltip hangs there
+// by its bottom right corner.
+function home(): any Client.Frame {
+  return frame("Frame", "GameTooltipDefaultContainer", 1250, 600, 250, 150)
+}
+
 // The game's tooltip showing `data`, which the game put in the corner.
 function showing(data: Game.TooltipData): Game.ShownTip {
   return {
     shown: true, data: data, placeable: false, ownerHigh: false, ownerRight: false, corner: corner(), below: false,
-    right: true
+    right: true, home: home(), homeBelow: false, homeRight: true
   }
 }
 
@@ -155,12 +161,55 @@ test "a button's tooltip stands above the button on its left edge in the screen'
   Test.expect(near(at.bottom, 800) && near(at.left, 600))
 }
 
-test "with «Tooltips at buttons» unticked a button's tooltip stands where the game put its own" {
+test "with «Buttons and text» on Blizzard's place a button's tooltip stands at the game's default anchor" {
   Test.mount(nil, SCREEN)
-  choose("General", "Tooltips at buttons")
+  pick("Buttons and text", "Beside the object", 1, "Blizzard's place")
   Game.tooltip.main = atButton("CharacterMicroButton", text("Character Info"))
   const at = Test.page().window("Character Info").rect()
-  Test.expect(near(at.bottom, 800) && near(at.right, 1500))
+  Test.expect(near(at.bottom, 750) && near(at.right, 1500))
+}
+
+test "a kind on Default stands where the general position says: Blizzard's place, or beside the object" {
+  Test.mount(nil, SCREEN)
+  pick("Buttons and text", "Beside the object", 1, "Default")
+  Game.tooltip.main = atButton("CharacterMicroButton", text("Character Info"))
+  Test.expect(near(Test.page().window("Character Info").rect().bottom, 750))
+  // The cursor leaves the button for the settings: its tooltip goes, and stands over none of the window.
+  Game.tooltip.main = hidden()
+  Test.pass(0.3)
+  pick("General", "Blizzard's place", 1, "Beside the object")
+  Game.tooltip.main = atButton("CharacterMicroButton", text("Character Info"))
+  Test.expect(near(Test.page().window("Character Info").rect().left, 600))
+}
+
+test "a kind on Beside the object stands beside its owner though the general position is Blizzard's place" {
+  Game.units.of = (unit: String): Game.UnitInfo | nil => aUnit(false)
+  Test.mount(nil, SCREEN)
+  pick("NPCs", "Default", 1, "Beside the object")
+  Game.tooltip.main = atButton("SomeAddonButton", unitTip("Wolf"))
+  Test.expect(near(Test.page().window("Wolf").rect().left, 600))
+}
+
+test "each kind stands where Blizzard's own UI puts it: what a frame holds beside it, what is in the world in Blizzard's place" {
+  Test.mount(nil, SCREEN)
+  // Items, abilities, effects and buttons' texts beside the frame they belong to.
+  Game.tooltip.main = atButton("SomeAddonButton", sword())
+  Test.expect(near(Test.page().window("Sword").rect().left, 600))
+  Game.tooltip.main = atButton("SomeAddonButton", { kind: 1, id: 1, lines: [{ left: "Frostbolt", kind: 13 }] })
+  Test.expect(near(Test.page().window("Frostbolt").rect().left, 600))
+  Game.tooltip.main = atButton("SomeAddonButton", { kind: 7, id: 1, lines: [{ left: "Renew", kind: 0 }] })
+  Test.expect(near(Test.page().window("Renew").rect().left, 600))
+  Game.tooltip.main = atButton("SomeAddonButton", text("Some Addon"))
+  Test.expect(near(Test.page().window("Some Addon").rect().left, 600))
+  // Players, NPCs and objects as the general position says, Blizzard's place, though a frame could hold them.
+  Game.tooltip.main = atButton("SomeAddonButton", { kind: 4, lines: [{ left: "Chest", kind: 0 }] })
+  Test.expect(near(Test.page().window("Chest").rect().bottom, 750))
+  Game.units.of = (unit: String): Game.UnitInfo | nil => aUnit(false)
+  Game.tooltip.main = atButton("SomeAddonButton", unitTip("Wolf"))
+  Test.expect(near(Test.page().window("Wolf").rect().bottom, 750))
+  Game.units.of = (unit: String): Game.UnitInfo | nil => aUnit(true)
+  Game.tooltip.main = atButton("SomeAddonButton", unitTip("Jaina"))
+  Test.expect(near(Test.page().window("Jaina").rect().bottom, 750))
 }
 
 test "a tooltip the game can't place by its owner stands where the game put its own" {
@@ -170,37 +219,27 @@ test "a tooltip the game can't place by its owner stands where the game put its 
   Test.expect(near(at.bottom, 800) && near(at.right, 1500))
 }
 
-test "an item in the bags stands under its slot on its right edge in the screen's upper right, though buttons' tooltips don't" {
+test "an item in the bags stands under its slot on its right edge in the screen's upper right" {
   Test.mount(nil, SCREEN)
-  choose("General", "Tooltips at buttons")
   Game.tooltip.main = inSlot("ContainerFrame1Item3", sword())
   const at = Test.page().window("Sword").rect()
   Test.expect(near(at.top, 240) && near(at.right, 1340))
 }
 
-test "an item in the bank stands beside its slot as one in the bags does" {
+test "an item in the bank and a worn one stand beside their slots as one in the bags does" {
   Test.mount(nil, SCREEN)
-  choose("General", "Tooltips at buttons")
   Game.tooltip.main = inSlot("BankFrameItem1", sword())
   Test.expect(near(Test.page().window("Sword").rect().top, 240))
-}
-
-test "with bags' items set to the screen's corner an item in the bags stands where the game put its own" {
-  Test.mount(nil, SCREEN)
-  pick("Items", "Beside the item", 1, "In the screen's corner")
-  Game.tooltip.main = inSlot("ContainerFrame1Item3", sword())
-  const at = Test.page().window("Sword").rect()
-  Test.expect(near(at.bottom, 800) && near(at.right, 1500))
-}
-
-test "a worn item stands beside its slot of the character, and in the corner where the character's are set so" {
-  Test.mount(nil, SCREEN)
-  choose("General", "Tooltips at buttons")
   Game.tooltip.main = inSlot("CharacterHeadSlot", sword())
   Test.expect(near(Test.page().window("Sword").rect().top, 240))
-  pick("Items", "Beside the item", 2, "In the screen's corner")
-  Game.tooltip.main = inSlot("CharacterHeadSlot", sword())
-  Test.expect(near(Test.page().window("Sword").rect().bottom, 800))
+}
+
+test "with items on Blizzard's place an item in the bags stands at the game's default anchor" {
+  Test.mount(nil, SCREEN)
+  pick("Items", "Beside the object", 1, "Blizzard's place")
+  Game.tooltip.main = inSlot("ContainerFrame1Item3", sword())
+  const at = Test.page().window("Sword").rect()
+  Test.expect(near(at.bottom, 750) && near(at.right, 1500))
 }
 
 test "the tooltips beside an item stand in a column away from the corner, and the worn one beyond them" {
@@ -299,15 +338,19 @@ test "a kind's switch off greys the rest of its tab" {
 
 test "a setting changed on its tab is kept after a reload" {
   Test.mount(nil, SCREEN)
-  choose("General", "Tooltips at buttons")
+  choose("Items", "Item level")
+  pick("General", "Blizzard's place", 1, "Beside the object")
+  Ordaen.keeper.profiles.pack()
   Test.reload()
-  // Its box shows no tick.
-  Test.expect(tab("General").button("Tooltips at buttons").box(Ordaen.art.ctl.tick).opacity() == 0)
+  // Its box shows no tick; the dropdown says the choice.
+  Test.expect(tab("Items").button("Item level").box(Ordaen.art.ctl.tick).opacity() == 0)
+  Test.key(Key.Escape)
+  Test.expect(tab("General").button("Beside the object").shown())
 }
 
 test "a setting's box shows its tick before it is changed" {
   Test.mount(nil, SCREEN)
-  Test.expect(tab("General").button("Tooltips at buttons").box(Ordaen.art.ctl.tick).opacity() == 1)
+  Test.expect(tab("Items").button("Item level").box(Ordaen.art.ctl.tick).opacity() == 1)
 }
 
 // Hotkeys

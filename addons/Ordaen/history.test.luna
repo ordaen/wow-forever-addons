@@ -5,6 +5,7 @@ import Test from "$test"
 import root Ordaen from "Ordaen"
 import { ScalePage } from "@/general"
 import { Density } from "@/globals"
+import { InputNumber } from "@/inputNumber"
 import { Change, POINTS_MOST, changeText } from "@/keeper"
 import Locale from "@/locales"
 import { REST } from "@/rest"
@@ -87,6 +88,53 @@ test "an input under way is written as the window closes, and as another page is
   Ordaen.toggleNamed("profiles")
   Test.expect(Ordaen.globals.values.scale > closed)
   Test.release(nil)
+}
+
+// The scale as a field: a range of more steps than a slider takes.
+class ScaleField {
+  public render(self): Template {
+    return $ltml {
+      <InputNumber label={"Scale"} value={mut Ordaen.globals.values.scale} least={0.5} most={10} step={0.05} />
+    }
+  }
+}
+
+test "+ held shows each step at once and writes it as it is let go, one step of the history" {
+  Test.mount(new ScaleField(), PAGE)
+  const steps = Ordaen.keeper.steps
+  Test.page().button("+").hover()
+  Test.press(nil)
+  Test.pass(0.02)
+  Test.expect(Test.page().input().value() == "1.05" && Ordaen.globals.values.scale == 1)
+  // The first step rests before the button repeats (0.4 s): written then. The repeats show each step ahead of the
+  // value, which takes them as they rest.
+  Test.pass(REST + 0.05)
+  Test.expect(Ordaen.globals.values.scale == 1.05)
+  Test.pass(0.3)
+  Test.expect(Test.page().input().value() != String.of(Ordaen.globals.values.scale))
+  Test.release(nil)
+  Test.flush()
+  // Let go: the value is what the field shows, and the whole hold is one step.
+  Test.expect(Test.page().input().value() == String.of(Ordaen.globals.values.scale))
+  Test.expect(Ordaen.globals.values.scale > 1.05 && Ordaen.keeper.steps == steps + 1)
+}
+
+test "+ held, and a number typed and waiting, are written before the values are packed" {
+  Test.mount(new ScaleField(), PAGE)
+  Test.page().button("+").hover()
+  Test.press(nil)
+  Test.pass(0.02)
+  Ordaen.keeper.profiles.pack()
+  Test.expect(Ordaen.globals.values.scale == 1.05)
+  Test.release(nil)
+  Test.page().input().click()
+  Test.erase(6)
+  Test.type("1.27")
+  Test.flush()
+  // «1.27» is between steps: it waits for the typing to pause.
+  Test.expect(Ordaen.globals.values.scale == 1.05)
+  Ordaen.keeper.profiles.pack()
+  Test.expect(Ordaen.globals.values.scale > 1.2 && Test.page().input().value() != "1.27")
 }
 
 test "«Откатить» goes back to the session's start and to a savepoint, and the last change takes either back" {

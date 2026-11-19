@@ -1,6 +1,6 @@
 // The panel's tabs in the settings window. «General» switches each part on or off; each part has a tab of its own.
 // Each control writes one entry of the settings, at once.
-import { Checkbox, Choice, Component, Dropdown, Section, Settings, Slider, Switch, Unit, VisibilityRows } from "Ordaen"
+import { Checkbox, Choice, Component, Dropdown, InputNumber, Section, Settings, Switch, Unit, VisibilityRows } from "Ordaen"
 import { CharButton, CharView, Choices, Edge, Fit, MicroIcons, Outline, Places, XpBorder, XpTexture, XpView, Zone } from "@/choices"
 import Locale from "@/locales"
 
@@ -182,8 +182,8 @@ public class BottomPage implements Component {
                 choices={EDGES} disabled={self.off} />
       <Dropdown label={Locale.PANEL_FIT} hint={Locale.PANEL_FIT_TIP} value={mut self.settings.values.fit}
                 choices={FITS} disabled={self.off} />
-      <Slider label={Locale.PANEL_HEIGHT} hint={Locale.PANEL_HEIGHT_TIP} value={mut self.settings.values.height}
-              least={self.least} most={96} unit={Unit.Px} disabled={self.off} />
+      <InputNumber label={Locale.PANEL_HEIGHT} hint={Locale.PANEL_HEIGHT_TIP} value={mut self.settings.values.height}
+                   least={self.least} most={96} unit={Unit.Px} disabled={self.off} />
       <PlacesRows value={mut self.settings.values.places} disabled={self.off} />
       <VisibilityRows value={mut self.settings.values.visibility} disabled={self.off} />
     }
