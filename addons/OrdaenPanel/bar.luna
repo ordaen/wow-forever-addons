@@ -203,7 +203,7 @@ public class Bar implements Component {
     self.keys = keys
     self.paging = paging
     self.forms = forms
-    self.id = `OrdaenPanel.bar${spec.id}`
+    self.id = Bar.idOf(spec)
     self.title = Bar.titleOf(spec)
     const buttons: Array<Slot> = []
     for (index of 1..spec.most) {
@@ -327,6 +327,9 @@ public class Bar implements Component {
       frame.SetAlpha(1)
     }
   }
+
+  // What tells it from every other placed part: where the placing mode keeps it.
+  public idOf(spec: BarSpec): String { return `OrdaenPanel.bar${spec.id}` }
 
   // Its name in the placing mode and on the module's page.
   public titleOf(spec: BarSpec): String {

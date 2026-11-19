@@ -66,3 +66,20 @@ public const BARS_DEFAULTS: BarsChoices = { bars: {}, unpaged: {} }
 public function defaultChoice(spec: BarSpec, on: Boolean): BarChoice {
   return { on: on, buttons: spec.most, perRow: spec.most, size: 45, spacing: 4, keys: true, visibility: ALWAYS }
 }
+
+// Another bar's settings copied into a bar: every one but its switch, which is the bar's own, held to what the bar
+// can take (its buttons to its most, per row to its buttons). Its place isn't a setting, nor are Панель 1's forms.
+public function copied(from: BarChoice, into: BarChoice, spec: BarSpec): BarChoice {
+  const choice = from.clone()
+  choice.on = into.on
+  choice.buttons = from.buttons.min(spec.most)
+  choice.perRow = from.perRow.min(choice.buttons)
+  return choice
+}
+
+// A bar's settings back to its defaults, its switch kept.
+public function reset(choice: BarChoice, defaults: BarChoice): BarChoice {
+  const back = defaults.clone()
+  back.on = choice.on
+  return back
+}

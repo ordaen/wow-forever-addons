@@ -1,9 +1,13 @@
-// The panel's «Action bars» page in the settings window: a bar picked from the list, its own settings one
-// section under another, and for Панель 1 the forms that page it. Each control writes the settings' draft.
+// The panel's «Action bars» page in the settings window: the bars in a list on its left, each with its switch; the
+// bar picked there beside it, its name with its «…» menu (another bar's settings copied in, its own reset, its place
+// back where the panel puts it) over its own settings, one section under another, and for Панель 1 the forms that
+// page it. Each control writes the settings' draft.
 import Game from "$game"
-import { Checkbox, Choice, Component, Dropdown, InputNumber, Section, Settings, Switch, Unit, VisibilityRows } from "Ordaen"
+import { Align, Track } from "$ltml"
+import root Ordaen from "Ordaen"
+import { Checkbox, Component, InputNumber, ListTab, Memory, Menu, MenuEntry, SECONDARY_TEXT, Section, Settings, Shown, ShownToggle, Switch, TITLE_TEXT, Unit, VisibilityRows, space } from "Ordaen"
 import { Bar } from "@/bar"
-import { BarChoice, BarKind, BarSpec, BarsChoices, SPECS } from "@/barChoices"
+import { BarChoice, BarKind, BarSpec, BarsChoices, SPECS, copied, defaultChoice, reset } from "@/barChoices"
 import Locale from "@/locales"
 
 // A form of the player's class that pages Панель 1: its bonus bar and its name.
@@ -53,7 +57,55 @@ class FormRow implements Component {
   }
 }
 
-// The picked bar's settings: a copy of its choice the controls change, written into the draft as they do.
+// A bar's settings in the draft, or its defaults where the player never changed them.
+function choiceIn(values: BarsChoices, defaults: Map<String, BarChoice>, spec: BarSpec): BarChoice {
+  return values.bars[spec.id] ?? defaults[spec.id] ?? defaultChoice(spec, false)
+}
+
+// A bar's settings written into the draft: one change.
+function put(settings: mut Settings<BarsChoices>, spec: BarSpec, choice: BarChoice) {
+  const bars = (peek settings.draft).bars.clone()
+  bars[spec.id] = choice
+  settings.draft.bars = bars
+}
+
+// A bar in the page's list: its name, picked by a click, and its switch.
+class BarTab implements Component {
+  public pick: Event<BarSpec> = new Event()
+  public flip: Event<BarSpec> = new Event()
+
+  derived on: Boolean = choiceIn(self.settings.draft, self.defaults, self.spec).on
+  derived shown: Shown = self.on ? .On : .Off
+  derived selected: Boolean = self.picked == self.spec.id
+  derived off: Boolean = !self.on
+
+  const spec: BarSpec
+  const title: String
+  picked: Signal<String>
+  defaults: Signal<Map<String, BarChoice>>
+  settings: Settings<BarsChoices>
+  constructor(spec: BarSpec, picked: Signal<String>, defaults: Signal<Map<String, BarChoice>>, settings: Settings<BarsChoices>) {
+    self.spec = spec
+    self.title = Bar.titleOf(spec)
+    self.picked = picked
+    self.defaults = defaults
+    self.settings = settings
+  }
+
+  onPick(self) { self.pick.emit(self.spec) }
+  onFlip(self) { self.flip.emit(self.spec) }
+
+  public render(self): Template {
+    return $ltml {
+      <ListTab label={self.title} selected={self.selected} off={self.off} @pick={self.onPick}>
+        <ShownToggle state={self.shown} @flip={self.onFlip} />
+      </ListTab>
+    }
+  }
+}
+
+// The picked bar's settings: a copy of its choice the controls change, written into the draft as they do, and
+// taken again from the draft where something else writes it there (the «…» menu, a profile).
 class BarEditor implements Component {
   state choice: mut BarChoice
   derived paged: Boolean = self.spec.kind == BarKind.Action && self.spec.number == 1 && self.forms.length > 0
@@ -61,21 +113,26 @@ class BarEditor implements Component {
   const spec: BarSpec
   const forms: Array<Form>
   settings: mut Settings<BarsChoices>
-  constructor(spec: BarSpec, start: BarChoice, settings: mut Settings<BarsChoices>) {
+  defaults: Signal<Map<String, BarChoice>>
+  constructor(spec: BarSpec, settings: mut Settings<BarsChoices>, defaults: Signal<Map<String, BarChoice>>) {
     self.spec = spec
     self.settings = settings
+    self.defaults = defaults
     self.forms = formsOf(peek Game.player.classTag)
-    self.choice = ((peek self.settings.draft).bars[spec.id] ?? start).clone()
+    self.choice = choiceIn(peek self.settings.draft, peek self.defaults, spec).clone()
     watch (choice of self.choice) {
-      const bars = (peek self.settings.draft).bars.clone()
-      bars[self.spec.id] = choice
-      self.settings.draft.bars = bars
+      if (!choiceIn(peek self.settings.draft, peek self.defaults, self.spec).equal(choice)) {
+        put(mut self.settings, self.spec, choice)
+      }
+    }
+    watch (draft of self.settings.draft) {
+      const drafted = choiceIn(draft, peek self.defaults, self.spec)
+      if (!drafted.equal(peek self.choice)) { self.choice = drafted.clone() }
     }
   }
 
   public render(self): Template {
     return $ltml {
-      <Switch label={Locale.BAR_ON} hint={Locale.BAR_ON_TIP} value={mut self.choice.on} />
       <Section title={Locale.SECTION_BUTTONS}>
         <InputNumber label={Locale.BUTTONS} hint={Locale.BUTTONS_TIP} value={mut self.choice.buttons} least={1}
                      most={self.spec.most} />
@@ -97,11 +154,40 @@ class BarEditor implements Component {
   }
 }
 
+// What the page remembers: the bar last picked, which it opens on.
+struct PageMemory implements Plain {
+  picked: String
+}
+
+const LIST_WIDTH = 234.375dp
+const PAGE: Array<Track> = [LIST_WIDTH, { fr: 1 }]
+const HEAD: Array<Track> = [{ fr: 1 }, "max-content"]
+const MORE = 39.84375dp
+// The «…» glyph on the head's icon button.
+const MORE_GLYPH = "…"
+const INK: Color = Color.hex("#e8dcc4")
+const DIM: Color = Color.hex("#a3977f")
+// The «…» menu's entries by their place: the copy's submenu first, then these.
+const RESET_ENTRY = 2
+const PLACE_ENTRY = 3
+
 public class BarsPage implements Component {
-  state picked: String = "1"
-  derived spec: BarSpec = SPECS.find(spec => spec.id == self.picked) ?? panic("a bar picked is one of the bars")
-  derived start: BarChoice = self.defaults[self.picked] ?? panic("every bar has its defaults")
-  const choices: Array<Choice<String>> = SPECS.map(spec => ({ value: spec.id, label: Bar.titleOf(spec) }))
+  const memory: mut Memory<PageMemory> = new Memory<PageMemory>({ picked: "1" }, .Profile, "barsPage")
+  derived picked: String = self.spec.id
+  derived spec: BarSpec = SPECS.find(spec => spec.id == self.memory.values.picked) ?? SPECS[1]
+  derived title: String = Bar.titleOf(self.spec)
+  // The «…» menu: copying another bar's settings in (a submenu of every other bar, an off one marked), resetting
+  // them, the bar back where the panel puts it.
+  state menuOpen = false
+  derived others: Array<BarSpec> = SPECS.filter(spec => spec.id != self.spec.id)
+  derived entries: Array<MenuEntry> = [
+    { label: Locale.COPY_FROM, more: self.others.map(spec => ({ label: self.nameOf(spec) })) },
+    { label: Locale.RESET_BAR },
+    { label: Locale.DEFAULT_PLACE }
+  ]
+  // The bar whose settings were copied into the picked one, until another is picked.
+  state copiedFrom: String | nil = nil
+  derived fromShown: Boolean = self.copiedFrom != nil
 
   settings: mut Settings<BarsChoices>
   // Each bar's settings before the player changes them, by its id.
@@ -114,13 +200,74 @@ public class BarsPage implements Component {
     self.conflict = conflict
   }
 
+  // A bar's name in the copy's submenu: an off one says so.
+  nameOf(self, spec: BarSpec): String {
+    const title = Bar.titleOf(spec)
+    return choiceIn(self.settings.draft, self.defaults, spec).on ? title : Locale.BAR_OFF.format(title)
+  }
+
+  onPick(mut self, spec: BarSpec) {
+    self.memory.write({ picked: spec.id })
+    self.copiedFrom = nil
+  }
+
+  onFlip(mut self, spec: BarSpec) {
+    const choice = choiceIn(peek self.settings.draft, peek self.defaults, spec).clone()
+    choice.on = !choice.on
+    put(mut self.settings, spec, choice)
+  }
+
+  toggleMenu(mut self) { self.menuOpen = !self.menuOpen }
+  closeMenu(mut self) { self.menuOpen = false }
+
+  onMenu(mut self, index: Integer) {
+    const spec = peek self.spec
+    if (index == RESET_ENTRY) {
+      const now = choiceIn(peek self.settings.draft, peek self.defaults, spec)
+      put(mut self.settings, spec, reset(now, (peek self.defaults)[spec.id] ?? defaultChoice(spec, now.on)))
+      self.copiedFrom = nil
+    } else if (index == PLACE_ENTRY) {
+      Ordaen.putAt(Bar.idOf(spec), nil)
+    }
+    self.menuOpen = false
+  }
+
+  // Another bar's settings copied into the picked one, at once.
+  onCopy(mut self, entry: Integer, at: Integer) {
+    const spec = peek self.spec
+    const from = (peek self.others)[at] ?? panic("the submenu lists the other bars")
+    const draft = peek self.settings.draft
+    const defaults = peek self.defaults
+    put(mut self.settings, spec, copied(choiceIn(draft, defaults, from), choiceIn(draft, defaults, spec), spec))
+    self.copiedFrom = Bar.titleOf(from)
+    self.menuOpen = false
+  }
+
   public render(self): Template {
     return $ltml {
       <text $if={self.conflict} value={Locale.CONFLICT} />
       <text $if={Game.situation.combat} value={Locale.AFTER_COMBAT} />
-      <Dropdown label={Locale.BAR_PICK} value={mut self.picked} choices={self.choices} />
-      <BarEditor $for={spec of [self.spec]} $key={spec.id} spec={peek spec} start={peek self.start}
-                 settings={mut self.settings} />
+      <box columns={PAGE} gap={space(.Group)}>
+        <box columns={1}>
+          <BarTab $for={spec of SPECS} $key={spec.id} spec={peek spec} picked={self.picked} defaults={self.defaults}
+                  settings={self.settings} @pick={self.onPick} @flip={self.onFlip} />
+        </box>
+        <box columns={1} gap={space(.Item)}>
+          <box columns={HEAD} gap={space(.Item)} yAlign={Align.Center}>
+            <text value={self.title} textFont={.Title} textSize={TITLE_TEXT} textColor={INK} />
+            <box width={MORE} height={MORE} xAlign={Align.Center} yAlign={Align.Center} background={Ordaen.art.ctl.button}
+                 @pointerPress={self.toggleMenu} @keyPress(.Enter)={self.toggleMenu} @keyPress(.Space)={self.toggleMenu}>
+              <text value={MORE_GLYPH} textColor={INK} />
+              <Menu $if={self.menuOpen} title={self.title} entries={self.entries} @pick={self.onMenu}
+                    @pickMore={self.onCopy} @close={self.closeMenu} />
+            </box>
+          </box>
+          <text $if={self.fromShown} value={Locale.COPIED_FROM.format(self.copiedFrom ?? "")} textColor={DIM}
+                textSize={SECONDARY_TEXT} />
+          <BarEditor $for={spec of [self.spec]} $key={spec.id} spec={peek spec} settings={mut self.settings}
+                     defaults={self.defaults} />
+        </box>
+      </box>
     }
   }
 }

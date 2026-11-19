@@ -1,0 +1,165 @@
+// The «Action bars» page: a bar picked in the list, its switch there, and its «…» menu: another bar's settings
+// copied in (its place, its switch and Панель 1's forms kept, held to the bar's limits, in a fight applied as it
+// ends), its settings reset, its place back where the panel puts it.
+import Client from "$client"
+import Runtime from "$runtime"
+import Test from "$test"
+import root Ordaen from "Ordaen"
+import { Component, Settings } from "Ordaen"
+import { ActionBars, barDefaults } from "@/actionBars"
+import { Bar, buttonName } from "@/bar"
+import { BARS_DEFAULTS, BarChoice, BarsChoices, SPECS, defaultChoice } from "@/barChoices"
+import { BarsPage } from "@/barsPage"
+
+const SCREEN: Test.Page = { left: 0, top: 0, width: 1600, height: 900 }
+
+// The page and the bars it sets, on the test's own settings (kept nowhere).
+class Stand implements Component {
+  public settings: mut Settings<BarsChoices> = new Settings<BarsChoices>(BARS_DEFAULTS)
+  public state defaults: Map<String, BarChoice> = barDefaults()
+
+  public render(self): Template {
+    return $ltml {
+      <ActionBars values={self.settings.values} defaults={self.defaults} />
+      <BarsPage settings={mut self.settings} defaults={self.defaults} conflict={false} />
+    }
+  }
+}
+
+// The panel Ordaen started at login is turned off: the test's own bars are the only ones.
+function alone() {
+  const running = (peek Ordaen.modules).find(module => module.title == "Ordaen Panel")
+  if (running != nil) {
+    const addon = Runtime.Addon.of(running) ?? panic("Ordaen's module is an addon's root")
+    Ordaen.turn(addon, false)
+    Test.flush()
+  }
+}
+
+// A bar's settings as the page's draft has them.
+function drafted(stand: Stand, id: String): BarChoice {
+  const spec = SPECS.find(spec => spec.id == id) ?? panic("a bar of the panel's")
+  return stand.settings.draft.bars[id] ?? stand.defaults[id] ?? defaultChoice(spec, false)
+}
+
+// A bar's settings changed and saved, as a page left them before.
+function set(stand: mut Stand, id: String, change: (choice: mut BarChoice) => nil) {
+  const choice = drafted(stand, id).clone()
+  change(mut choice)
+  stand.settings.change((values: mut BarsChoices): nil => {
+    values.bars[id] = choice
+  })
+}
+
+// The client's button of a bar made last, by its name.
+function lastNamed(name: String, at: any Client.Frame | nil, found: any Client.Frame | nil): any Client.Frame | nil {
+  if (at == nil) { return found }
+  return lastNamed(name, Client.EnumerateFrames(at), at.GetName() == name ? at : found)
+}
+
+function button(id: String, index: Integer): any Client.Frame {
+  const name = buttonName(id, index)
+  return lastNamed(name, Client.EnumerateFrames(nil), nil) ?? panic(`the panel made ${name}`)
+}
+
+// The «…» menu's copy, from the bar the submenu names so: the last such name drawn, the list's drawn before it.
+function copyFrom(named: String) {
+  Test.page().button("…").click()
+  Test.page().text("Copy settings from").hover()
+  const found = Test.page().text(named)
+  found.nth(found.count()).click()
+}
+
+test "a bar picked in the list has its settings beside it, and its switch there turns it off" {
+  alone()
+  const stand = new Stand()
+  Test.mount(stand, SCREEN)
+  // Every bar is listed; the page opens on Action Bar 1.
+  for (spec of SPECS) { Test.expect(Test.page().text(Bar.titleOf(spec)).count() >= 1) }
+  Test.expect(Test.page().text("Action Bar 1").count() == 2)
+  Test.page().button("Action Bar 3").click()
+  Test.expect(Test.page().text("Action Bar 3").count() == 2)
+  Test.expect(Test.page().text("Action Bar 1").count() == 1)
+  // The stand-in's character shows Action Bars 1 to 3 and the pet's: the second switch on is Action Bar 2's.
+  Test.page().box(Ordaen.art.ctl.switchOn).nth(2).click()
+  Test.expect(!drafted(stand, "2").on)
+  Test.expect(drafted(stand, "3").on)
+  destroy stand
+}
+
+test "a copy takes every setting but the place, the switch and Панель 1's forms, held to the bar's most" {
+  alone()
+  const stand = new Stand()
+  Test.mount(stand, SCREEN)
+  set(mut stand, "3", (choice: mut BarChoice): nil => {
+    choice.on = false
+    choice.buttons = 12
+    choice.perRow = 12
+    choice.size = 30
+    choice.keys = false
+  })
+  stand.settings.change((values: mut BarsChoices): nil => { values.unpaged["1"] = true })
+  const place = Bar.idOf(SPECS[9])
+  Ordaen.putAt(place, { point: .Center, x: 10ui, y: 20ui })
+  Test.page().button("Pet Bar").click()
+  copyFrom("Action Bar 3 (off)")
+  const pet = drafted(stand, "pet")
+  Test.expect(pet.on)
+  Test.expect(pet.buttons == 10)
+  Test.expect(pet.perRow == 10)
+  Test.expect(pet.size == 30)
+  Test.expect(!pet.keys)
+  Test.expect(stand.settings.draft.unpaged["1"] == true)
+  Test.expect((Ordaen.moved(place)?.x ?? 0ui) == 10ui)
+  // One change, and the head says where it came from until another bar is picked.
+  Test.expect(stand.settings.changed == 1)
+  Test.expect(Test.page().text("Settings copied from Action Bar 3").shown())
+  Test.page().button("Action Bar 2").click()
+  Test.expect(!Test.page().text("Settings copied from Action Bar 3").shown())
+  Ordaen.putAt(place, nil)
+  destroy stand
+}
+
+test "a copy made in a fight changes the bar only as the fight ends" {
+  alone()
+  const stand = new Stand()
+  Test.mount(stand, SCREEN)
+  set(mut stand, "3", (choice: mut BarChoice): nil => { choice.buttons = 5 })
+  Test.page().button("Action Bar 2").click()
+  Test.combat(true)
+  copyFrom("Action Bar 3")
+  Ordaen.keeper.saveAll()
+  Test.flush()
+  Test.expect(Test.page().text("Changes apply after combat.").shown())
+  Test.expect(button("2", 6).IsShown())
+  Test.combat(false)
+  Test.flush()
+  Test.expect(!button("2", 6).IsShown())
+  destroy stand
+}
+
+test "the menu resets the bar's settings, its switch kept, and puts it back where the panel puts it" {
+  alone()
+  const stand = new Stand()
+  Test.mount(stand, SCREEN)
+  set(mut stand, "3", (choice: mut BarChoice): nil => {
+    choice.on = false
+    choice.size = 30
+    choice.keys = false
+  })
+  const place = Bar.idOf(SPECS[3])
+  Ordaen.putAt(place, { point: .Center, x: 10ui, y: 20ui })
+  Test.page().button("Action Bar 3").click()
+  Test.page().button("…").click()
+  Test.page().text("Reset settings").click()
+  const back = drafted(stand, "3")
+  Test.expect(!back.on)
+  Test.expect(back.size == 45)
+  Test.expect(back.keys)
+  Test.expect(Ordaen.moved(place) != nil)
+  Test.page().button("…").click()
+  Test.page().text("Move to default position").click()
+  Test.expect(Ordaen.moved(place) == nil)
+  Test.expect(!Test.page().text("Reset settings").shown())
+  destroy stand
+}
