@@ -7,7 +7,7 @@ import root Ordaen from "Ordaen"
 import { Module, Settings, SettingsPage } from "Ordaen"
 import { AddedToItem, AddedToObject } from "@/added"
 import { extras } from "@/buttons"
-import { Choices, Place } from "@/choices"
+import { Choices, KindPlace, Place } from "@/choices"
 import { ItemKeys, ItemLines, ObjectLines } from "@/extend"
 import { compare, item } from "@/item"
 import Locale from "@/locales"
@@ -52,6 +52,8 @@ struct Shown {
   object: String
   // It locks as the cursor stays: the main tooltip keeps the room of the lock's bar (a button's text never does).
   locks: Boolean
+  // Where its kind stands, the general place put in for the kind's «Default».
+  place: Place
 }
 
 // A locked tooltip: what was shown when it locked, and where.
@@ -69,15 +71,17 @@ const NOTHING: Model = {
 public class Tooltips implements Module, App {
   public const title: String = "Ordaen Tooltips"
 
+  // Each kind's place is where Blizzard's own UI puts it: what a frame holds (an item, an ability, an effect, a
+  // button) beside its frame, what is in the world (a player, an NPC, an object) in Blizzard's place.
   settings: mut Settings<Choices> = new Settings<Choices>({
-    anchorToButtons: true,
-    itemsOn: true, itemsAnchorBags: Place.Anchor, itemsAnchorChar: Place.Anchor, itemsIlvl: true, itemsId: false,
+    place: Place.Blizzard,
+    itemsOn: true, itemsPlace: KindPlace.Anchor, itemsIlvl: true, itemsId: false,
     itemsCount: true, itemsStack: true, itemsCooldown: true,
-    spellsOn: true, spellsId: false, spellsNext: true, spellsCooldown: true,
-    aurasOn: true, aurasId: false, aurasCaster: true, aurasTotal: true,
-    playersOn: true, playersTarget: true, playersRelation: true,
-    npcsOn: true, npcsParty: true, npcsLoot: true, npcsRep: true,
-    objectsOn: true, textsOn: true, textsExtra: true,
+    spellsOn: true, spellsPlace: KindPlace.Anchor, spellsId: false, spellsNext: true, spellsCooldown: true,
+    aurasOn: true, aurasPlace: KindPlace.Anchor, aurasId: false, aurasCaster: true, aurasTotal: true,
+    playersOn: true, playersPlace: KindPlace.Default, playersTarget: true, playersRelation: true,
+    npcsOn: true, npcsPlace: KindPlace.Default, npcsParty: true, npcsLoot: true, npcsRep: true,
+    objectsOn: true, objectsPlace: KindPlace.Default, textsOn: true, textsPlace: KindPlace.Anchor, textsExtra: true,
     itemsLock: true, spellsLock: true, aurasLock: true, playersLock: true, npcsLock: true, objectsLock: true
   })
   public const pages: Array<SettingsPage> = [
@@ -338,6 +342,26 @@ public class Tooltips implements Module, App {
     }
   }
 
+  // Where a tooltip of this kind stands: its kind's place, or the general one where the kind's is «Default».
+  placeOf(self, kind: Kind, data: Game.TooltipData): Place {
+    let chosen = self.settings.values
+    let own = match (kind) {
+      Kind.Item => chosen.itemsPlace
+      Kind.Spell => chosen.spellsPlace
+      Kind.Aura => chosen.aurasPlace
+      Kind.Object => chosen.objectsPlace
+      Kind.Text => chosen.textsPlace
+      Kind.Set => KindPlace.Default
+      Kind.Term => KindPlace.Default
+      Kind.Unit => self.aPlayer(data) ? chosen.playersPlace : chosen.npcsPlace
+    }
+    return match (own) {
+      KindPlace.Anchor => Place.Anchor
+      KindPlace.Blizzard => Place.Blizzard
+      KindPlace.Default => chosen.place
+    }
+  }
+
   // What the game's tooltip shows, read; nothing while it shows nothing, or what Ordaen Tooltips leaves to it.
   readNow(self): Shown | nil {
     let tip = Game.tooltip.main
@@ -355,9 +379,12 @@ public class Tooltips implements Module, App {
     // The hotkeys other modules give the frame it is shown for: an action button's binding.
     let told = ownerKeys(tip.ownerName, extra)
     const locks = self.locks(kind, tip.data)
+    const place = self.placeOf(kind, tip.data)
     if (told.kind != Kind.Item) {
       const object = told.kind == Kind.Object ? told.name : ""
-      return { model: told, sides: read.sides, compared: [], item: 0, link: "", object: object, locks: locks }
+      return {
+        model: told, sides: read.sides, compared: [], item: 0, link: "", object: object, locks: locks, place: place
+      }
     }
 
     // The worn items it is compared with, each under «Equipped». With one, the differences stand on the hovered
@@ -377,32 +404,20 @@ public class Tooltips implements Module, App {
     }
     return {
       model: model, sides: read.sides, compared: compared, item: tip.data.id ?? 0, link: tip.data.about ?? "",
-      object: "", locks: locks
+      object: "", locks: locks, place: place
     }
   }
 
-  // Whether the tooltip stands beside what it belongs to: a button, a slot of the bags or of the character.
-  beside(self, tip: Game.ShownTip): Boolean {
-    let chosen = self.settings.values
-    let name = tip.ownerName ?? ""
-    let place: Place = chosen.anchorToButtons ? Place.Anchor : Place.Corner
-    if (name.match("^Character.+Slot$") != nil) {
-      place = chosen.itemsAnchorChar
-    } else if (name.match("^ContainerFrame%d+Item") != nil || name.match("^Bank") != nil) {
-      place = chosen.itemsAnchorBags
-    }
-    return place == Place.Anchor && tip.placeable
-  }
-
-  // Beside its owner: above it in the screen's lower half, below it in the upper; on its right edge in the
-  // screen's right third. Otherwise where the game put its own.
+  // Beside its owner where its kind stands so and the owner is a frame it can stand by: above it in the screen's
+  // lower half, below it in the upper; on its right edge in the screen's right third. Otherwise in Blizzard's place.
   where(self): Standing {
     let tip = Game.tooltip.main
     let owner = tip.owner
-    if (owner != nil && self.beside(tip)) {
+    let place = self.read?.place ?? self.settings.values.place
+    if (owner != nil && place == Place.Anchor && tip.placeable) {
       return { by: owner, inPlace: false, below: tip.ownerHigh, right: tip.ownerRight }
     }
-    return { by: tip.corner, inPlace: true, below: tip.below, right: tip.right }
+    return blizzardPlace(tip)
   }
 
   public render(self): Template {
@@ -419,6 +434,13 @@ public class Tooltips implements Module, App {
       </TipGroup>
     }
   }
+}
+
+// Blizzard's place: where the game put its own tooltip, hanging by the same corner. For a tooltip the game gives no
+// place of its own (the world, a unit's frame, an action button), that is its default anchor: the screen's bottom
+// right corner unless the player moved it in Edit Mode.
+function blizzardPlace(tip: Game.ShownTip): Standing {
+  return { by: tip.corner, inPlace: true, below: tip.below, right: tip.right }
 }
 
 // The model with the hotkeys other modules give its owner, by the owner's name, after its own.
