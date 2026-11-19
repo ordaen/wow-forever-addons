@@ -1,0 +1,246 @@
+// A roster: the guild's members, or a community's, as every list window's (the toolbar with the search and «Показывать»,
+// the table whose headings sort it, the counts in the footer), and the card of the one picked.
+//
+// The table's columns are Blizzard's: name, level, class, zone, rank (a community's role) and note. Those online stand
+// above those offline whatever the order; an offline member's zone says when they were last online. A click picks a
+// member (its card shows beside the list); again, the card goes.
+import { Align, Position, Track } from "$ltml"
+import root Ordaen from "Ordaen"
+import { Choice, Column, Component, PushButton, SECONDARY_TEXT, TITLE_TEXT, Table, TableRow, ToolPick, Toolbar, space, tracksOf } from "Ordaen"
+import { Fact, agoHoursText, markOf, orDash, presenceText } from "@/friends"
+import Locale from "@/locales"
+import { Member, Rights } from "@/people"
+import Style from "@/style"
+
+// Who a roster shows: everyone, or those online.
+public enum Show { Everyone, Online }
+
+const SHOWS: Array<Choice<Show>> = [
+  { value: .Everyone, label: Locale.SHOW_EVERYONE },
+  { value: .Online, label: Locale.SHOW_ONLINE }
+]
+const LEVEL_WIDTH = 82.03125dp
+const CLASS_WIDTH = 117.1875dp
+const RANK_WIDTH = 140.625dp
+const GUILD_COLUMNS: Array<Column> = [
+  { title: Locale.COLUMN_NAME, width: { fr: 1 }, sortable: true },
+  { title: Locale.COLUMN_LEVEL, width: LEVEL_WIDTH, align: Align.End, sortable: true },
+  { title: Locale.COLUMN_CLASS, width: CLASS_WIDTH, sortable: true },
+  { title: Locale.COLUMN_ZONE, width: { fr: 1 }, sortable: true },
+  { title: Locale.COLUMN_RANK, width: RANK_WIDTH, sortable: true },
+  { title: Locale.COLUMN_NOTE, width: { fr: 1 }, sortable: true }
+]
+const CLUB_COLUMNS: Array<Column> = [
+  { title: Locale.COLUMN_NAME, width: { fr: 1 }, sortable: true },
+  { title: Locale.COLUMN_LEVEL, width: LEVEL_WIDTH, align: Align.End, sortable: true },
+  { title: Locale.COLUMN_CLASS, width: CLASS_WIDTH, sortable: true },
+  { title: Locale.COLUMN_ZONE, width: { fr: 1 }, sortable: true },
+  { title: Locale.COLUMN_ROLE, width: RANK_WIDTH, sortable: true },
+  { title: Locale.COLUMN_NOTE, width: { fr: 1 }, sortable: true }
+]
+const TRACKS: Array<Track> = tracksOf(GUILD_COLUMNS)
+// The columns as they are numbered from 1.
+const BY_LEVEL = 2
+const BY_CLASS = 3
+const BY_ZONE = 4
+const BY_RANK = 5
+const BY_NOTE = 6
+
+function online(member: Member): Boolean { return member.presence != .Offline }
+
+// Where a member is: the zone while online, when last online while offline.
+public function whereOf(member: Member): String {
+  if (online(member)) { return member.zone }
+  return member.away > 0 ? agoHoursText(member.away) : Locale.OFFLINE_LOWER
+}
+
+// -1 where `a` comes first, 1 where `b` does, 0 where they stand alike.
+function byText(a: String, b: String): Integer {
+  const x = a.lower()
+  const y = b.lower()
+  return x < y ? -1 : x > y ? 1 : 0
+}
+
+function byNumber(a: Integer, b: Integer): Integer { return a < b ? -1 : a > b ? 1 : 0 }
+
+function compared(column: Integer, a: Member, b: Member): Integer {
+  return match (column) {
+    BY_LEVEL => byNumber(a.level, b.level)
+    BY_CLASS => byText(a.className, b.className)
+    BY_ZONE => byText(whereOf(a), whereOf(b))
+    BY_RANK => byNumber(a.rankOrder, b.rankOrder)
+    BY_NOTE => byText(a.note, b.note)
+    else => 0
+  }
+}
+
+// Whether a member stands before another: those online first, then the column's order, then the name.
+function before(a: Member, b: Member, column: Integer, descending: Boolean): Boolean {
+  if (online(a) != online(b)) { return online(a) }
+  const order = compared(column, a, b)
+  if (order != 0) { return descending ? order > 0 : order < 0 }
+  const names = byText(a.name, b.name)
+  return column == 1 && descending ? names > 0 : names < 0
+}
+
+// Whether a member is found by what the player typed: in the name, the class, the zone, the rank or the note.
+function found(member: Member, query: String): Boolean {
+  if (query == "") { return true }
+  const text = [member.name, member.className, member.zone, member.rank, member.note].join(" ").lower()
+  return text.contains(query.lower())
+}
+
+// The members a roster shows, in its order.
+public function shownOf(members: Array<Member>, query: String, show: Show, column: Integer, descending: Boolean): Array<Member> {
+  const shown = members.filter(member => found(member, query) && (show == .Everyone || online(member)))
+  shown.sort((a, b) => before(a, b, column, descending))
+  return shown
+}
+
+// The colour of a member's name: its class's, grey while offline.
+public function nameColorOf(member: Member): Color {
+  if (!online(member)) { return Style.OFFLINE }
+  return member.classColor ?? Style.INK
+}
+
+class MemberRow implements Component {
+  public pick: Event<String> = new Event()
+
+  derived picked: Boolean = self.chosen == self.member.key
+  derived level: String = self.member.level > 0 ? String.of(self.member.level) : ""
+  derived ink: Color = online(self.member) ? Style.INK : Style.OFFLINE
+
+  member: Signal<Member>
+  chosen: Signal<String>
+  constructor(member: Signal<Member>, chosen: Signal<String>) {
+    self.member = member
+    self.chosen = chosen
+  }
+
+  onPick(self) { self.pick.emit((peek self.member).key) }
+
+  public render(self): Template {
+    return $ltml {
+      <TableRow tracks={TRACKS} selected={self.picked} @pick={self.onPick}>
+        <box columns={[Style.DOT, { fr: 1 }]} gap={space(.Line)} yAlign={Align.Center}>
+          <box width={Style.DOT} height={Style.DOT} background={markOf(self.member.presence)} />
+          <text value={self.member.name} textColor={nameColorOf(self.member)} wrap={false} />
+        </box>
+        <box xAlign={Align.End}>
+          <text value={self.level} textColor={self.ink} textFont={.Numbers} wrap={false} />
+        </box>
+        <text value={self.member.className} textColor={self.ink} wrap={false} />
+        <text value={whereOf(self.member)} textColor={Style.DIM} wrap={false} />
+        <text value={self.member.rank} textColor={self.ink} wrap={false} />
+        <text value={self.member.note} textColor={Style.DIM} wrap={false} />
+      </TableRow>
+    }
+  }
+}
+
+// The roster with its tools: the toolbar (the search, «Показывать») and the table. `guild` names its rank column
+// «Звание», a community's «Роль».
+public class MemberTable implements Component {
+  public pick: Event<String> = new Event()
+
+  state query = ""
+  state show: Show = .Everyone
+  state sorted = BY_RANK
+  state descending = false
+  derived shown: Array<Member> = shownOf(self.members, self.query, self.show, self.sorted, self.descending)
+  derived lit: Boolean = self.show != .Everyone
+
+  members: Signal<Array<Member>>
+  chosen: Signal<String>
+  const columns: Array<Column>
+  constructor(members: Signal<Array<Member>>, chosen: Signal<String>, guild: Boolean = true) {
+    self.members = members
+    self.chosen = chosen
+    self.columns = guild ? GUILD_COLUMNS : CLUB_COLUMNS
+  }
+
+  onPick(mut self, key: String) { self.pick.emit(key) }
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={1} rows={["max-content", { fr: 1 }]} gap={space(.Item)}>
+        <Toolbar search={mut self.query} placeholder={Locale.SEARCH_MEMBERS}>
+          <ToolPick value={mut self.show} choices={SHOWS} icon={Ordaen.art.ctl.tool.filter} title={Locale.SHOW} lit={self.lit} />
+        </Toolbar>
+        <box columns={1} rows={[{ fr: 1 }]}>
+          <Table columns={self.columns} sorted={mut self.sorted} descending={mut self.descending}>
+            <MemberRow $for={member of self.shown} $key={member.key} member={member} chosen={self.chosen} @pick={self.onPick} />
+          </Table>
+          <box $if={self.shown.length == 0} position={Position.Absolute} left={0ui} right={0ui} top={Style.EMPTY_TOP} xAlign={Align.Center}>
+            <text value={Locale.NOTHING_FOUND} textColor={Style.DIM} wrap={false} />
+          </box>
+        </box>
+      </box>
+    }
+  }
+}
+
+// The picked member's card: who it is, how it stands and where, its rank and notes; «Шепнуть» and «Пригласить», and in
+// the guild «Повысить» and «Понизить» where the player may.
+public class MemberCard implements Component {
+  public whisper: Event<nil> = new Event()
+  public invite: Event<nil> = new Event()
+  public promote: Event<nil> = new Event()
+  public demote: Event<nil> = new Event()
+
+  derived sub: String = Locale.CARD_CHARACTER_LEVEL.format(self.member.className, self.member.level)
+  derived status: String = self.statusOf()
+  derived canAsk: Boolean = online(self.member)
+  derived ranks: Boolean = self.rights.promote || self.rights.demote
+
+  member: Signal<Member>
+  rights: Signal<Rights>
+  rankTitle: Signal<String>
+  constructor(member: Signal<Member>, rights: Signal<Rights>, rankTitle: Signal<String>) {
+    self.member = member
+    self.rights = rights
+    self.rankTitle = rankTitle
+  }
+
+  statusOf(self): String {
+    const text = presenceText(self.member.presence)
+    return self.member.away > 0 ? `${text} · ${agoHoursText(self.member.away)}` : text
+  }
+
+  onWhisper(self) { self.whisper.emit() }
+  onInvite(self) { self.invite.emit() }
+  onPromote(self) { self.promote.emit() }
+  onDemote(self) { self.demote.emit() }
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={1} rows={["max-content", { fr: 1 }, "max-content"]} gap={space(.Group)}>
+        <box columns={1} gap={space(.Item)}>
+          <box columns={[Style.BIG_DOT, { fr: 1 }]} gap={space(.Line)} yAlign={Align.Center}>
+            <box width={Style.BIG_DOT} height={Style.BIG_DOT} background={markOf(self.member.presence)} />
+            <box columns={1}>
+              <text value={self.member.name} textColor={nameColorOf(self.member)} textSize={TITLE_TEXT} textFont={.Title} wrap={false} />
+              <text value={self.sub} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={false} />
+            </box>
+          </box>
+          <Fact label={Locale.STATUS} value={self.status} />
+          <Fact label={Locale.WHERE} value={orDash(online(self.member) ? self.member.zone : "")} />
+          <Fact $if={self.member.rank != ""} label={self.rankTitle} value={self.member.rank} />
+          <Fact label={Locale.NOTE} value={orDash(self.member.note)} />
+          <Fact $if={self.member.officerNote != ""} label={Locale.OFFICER_NOTE} value={self.member.officerNote} />
+        </box>
+        <box />
+        <box columns={1} gap={space(.Item)}>
+          <box columns={["max-content", "max-content"]} gap={space(.Item)}>
+            <PushButton label={Locale.WHISPER} width={Style.SMALL_BUTTON} disabled={!self.canAsk} @click={self.onWhisper} />
+            <PushButton label={Locale.INVITE} width={Style.SMALL_BUTTON} disabled={!self.canAsk} @click={self.onInvite} />
+          </box>
+          <box $if={self.ranks} columns={["max-content", "max-content"]} gap={space(.Item)}>
+            <PushButton label={Locale.PROMOTE} width={Style.SMALL_BUTTON} disabled={!self.rights.promote} @click={self.onPromote} />
+            <PushButton label={Locale.DEMOTE} width={Style.SMALL_BUTTON} disabled={!self.rights.demote} @click={self.onDemote} />
+          </box>
+        </box>
+      </box>
+    }
+  }
+}

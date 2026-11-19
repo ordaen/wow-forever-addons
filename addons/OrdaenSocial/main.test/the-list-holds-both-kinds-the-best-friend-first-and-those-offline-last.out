@@ -60,7 +60,7 @@ surface 425,183.88 1150.25x532.25 on DIALOG clamped raised by a click
                 text 474.42,463.41 666.17x14.4 "Battle.net · offline" #a3977f
       box 457.75,661.23 689.5x31.07
         box 457.75,677.89 689.5x14.4
-          text 457.75,677.89 672.83x14.4 "4 friends, 2 online" #a3977f
+          text 457.75,677.89 689.5x14.4 "4 friends, 2 online" #a3977f
     box 1167.25,245.54 400.25x460.08 border=ButtonFrameTemplateNoPortrait sides=left
       box 1197.5,265.54 350x426.75
         box 1197.5,265.54 350x135.4
@@ -100,30 +100,24 @@ surface 425,183.88 1150.25x532.25 on DIALOG clamped raised by a click
         box 492.5,194.12 51.11x45.92
           text 494.17,201.67 47.78x15.6 "Friends" #ffd100
           text 492.5,218.1 51.11x14.4 "2 online" #8f8470
-      box 572.19,183.88 172.75x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
+      box 572.19,183.88 137.19x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
         box 579.44,191.12 48.92x48.92 absolute icon=Interface/Icons/INV_Shirt_GuildTabard_01 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=none
         box 623.36,191.12 11.5x52.17 absolute border=ButtonFrameTemplateNoPortrait sides=left
-        box 639.69,194.12 86.67x45.92
-          text 665.25,201.67 35.56x15.6 "Guild" #a3977f
-          text 639.69,218.1 86.67x14.4 "in development" #8f8470
-      box 754.94,183.88 172.75x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
-        box 762.19,191.12 48.92x48.92 absolute icon=Interface/Icons/INV_Misc_GroupNeedMore cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=none
-        box 806.11,191.12 11.5x52.17 absolute border=ButtonFrameTemplateNoPortrait sides=left
-        box 822.44,194.12 86.67x45.92
-          text 828.56,201.67 74.44x15.6 "Communities" #a3977f
-          text 822.44,218.1 86.67x14.4 "in development" #8f8470
-      box 937.69,183.88 173.86x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
-        box 944.94,191.12 48.92x48.92 absolute icon=Interface/Icons/INV_Misc_GroupLooking cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=none
-        box 988.86,191.12 11.5x52.17 absolute border=ButtonFrameTemplateNoPortrait sides=left
-        box 1005.19,194.12 87.78x45.92
-          text 1005.19,201.67 87.78x15.6 "Recent Allies" #a3977f
-          text 1005.75,218.1 86.67x14.4 "in development" #8f8470
-      box 1121.56,183.88 124.97x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
-        box 1128.81,191.12 48.92x48.92 absolute icon=Interface/Icons/Achievement_Boss_Ragnaros cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=none
-        box 1172.72,191.12 11.5x52.17 absolute border=ButtonFrameTemplateNoPortrait sides=left
-        box 1189.06,194.12 38.89x45.92
-          text 1194.06,201.67 28.89x15.6 "Raid" #a3977f
-          text 1189.06,218.1 38.89x14.4 "3 / 40" #8f8470
+        box 639.69,194.12 51.11x45.92
+          text 647.47,201.67 35.56x15.6 "Guild" #a3977f
+          text 639.69,218.1 51.11x14.4 "2 online" #8f8470
+      box 719.39,183.88 160.53x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
+        box 726.64,191.12 48.92x48.92 absolute icon=Interface/Icons/INV_Misc_GroupNeedMore cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=none
+        box 770.56,191.12 11.5x52.17 absolute border=ButtonFrameTemplateNoPortrait sides=left
+        box 786.89,194.12 74.44x45.92
+          text 786.89,201.67 74.44x15.6 "Communities" #a3977f
+          text 798.56,218.1 51.11x14.4 "2 joined" #8f8470
+      box 889.92,183.88 173.86x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
+        box 897.17,191.12 48.92x48.92 absolute icon=Interface/Icons/INV_Misc_GroupLooking cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=none
+        box 941.08,191.12 11.5x52.17 absolute border=ButtonFrameTemplateNoPortrait sides=left
+        box 957.42,194.12 87.78x45.92
+          text 957.42,201.67 87.78x15.6 "Recent Allies" #a3977f
+          text 975.75,218.1 51.11x14.4 "2 allies" #8f8470
     box 1495.25,211.88 80x31.42
       box 1495.25,211.88 80x26.67 clipped
         box 1495.25,211.88 27.5x26.67 absolute clipped @keyPress @pointerPress

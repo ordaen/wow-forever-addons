@@ -73,6 +73,12 @@ public function agoText(seconds: Number): String {
   return Locale.AGO_DAYS.format((passed / DAY).floor())
 }
 
+// How long ago, from a number of hours the client gives (a guild member's last time online): hours, or days.
+public function agoHoursText(hours: Integer): String {
+  if (hours < 24) { return Locale.AGO_HOURS.format(hours) }
+  return Locale.AGO_DAYS.format((hours / 24).floor())
+}
+
 // What a Battle.net friend plays, by the client's code of the program.
 public function gameName(program: String): String {
   return match (program) {
@@ -216,7 +222,7 @@ public class FriendList implements Component {
 }
 
 // A line of the card: what it says on the left, its value on the right.
-class Fact implements Component {
+public class Fact implements Component {
   label: Signal<String>
   value: Signal<String>
   color: Signal<Color>
@@ -242,7 +248,7 @@ function heroText(hero: Hero): String {
   return `${hero.name}, ${hero.className} ${hero.level}${realm}`
 }
 
-function orDash(text: String): String { return text != "" ? text : Locale.DASH }
+public function orDash(text: String): String { return text != "" ? text : Locale.DASH }
 
 // The picked friend's card: who it is, how it stands, what it plays and where, the note; Шепнуть, Пригласить and
 // «Удалить» (which asks first).
