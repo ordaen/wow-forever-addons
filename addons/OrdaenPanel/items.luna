@@ -13,7 +13,7 @@ const PAIR: Array<Track> = ["max-content", "max-content"]
 
 // The game's menu's buttons before its last. With the spellbook and the talents in one window (Ordaen Spells), the
 // spellbook's button alone opens it.
-function menuOf(faced: Boolean, social: Boolean, merged: Boolean): Array<Cell> {
+function menuOf(faced: Boolean, social: Boolean, merged: Boolean, guildMerged: Boolean): Array<Cell> {
   let cells: Array<Cell> = []
   if (faced) { cells.push(Cell.Face) }
   cells.push(Cell.Menu { icon: "@/assets/micro-professions.tga", frame: Game.frames.ProfessionMicroButton, friends: false })
@@ -25,29 +25,32 @@ function menuOf(faced: Boolean, social: Boolean, merged: Boolean): Array<Cell> {
   cells.push(Cell.Menu { icon: "@/assets/micro-questlog.tga", frame: Game.frames.QuestLogMicroButton, friends: false })
   cells.push(Cell.Menu { icon: "@/assets/micro-groupfinder.tga", frame: Game.frames.LFDMicroButton, friends: false })
   cells.push(Cell.Menu { icon: "@/assets/micro-collections.tga", frame: Game.frames.CollectionsMicroButton, friends: false })
-  if (social) { pushSocial(mut cells) }
+  if (social) { pushSocial(mut cells, guildMerged) }
   // The game menu's button is the menu's last, whatever stands before it.
   cells.push(Cell.Menu { icon: "@/assets/micro-gamemenu.tga", frame: Game.frames.MainMenuMicroButton, friends: false })
   return cells
 }
 
-// Friends, with how many are online, and the guild.
-function pushSocial(cells: mut Array<Cell>) {
+// Friends, with how many are online, and the guild (unless one window holds both).
+function pushSocial(cells: mut Array<Cell>, guildMerged: Boolean) {
   cells.push(Cell.Menu { icon: "@/assets/micro-social.tga", frame: Game.frames.QuickJoinToastButton, friends: true })
-  cells.push(Cell.Menu { icon: "@/assets/micro-guildcommunities.tga", frame: Game.frames.GuildMicroButton, friends: false })
+  if (!guildMerged) {
+    cells.push(Cell.Menu { icon: "@/assets/micro-guildcommunities.tga", frame: Game.frames.GuildMicroButton, friends: false })
+  }
 }
 
 // The game's menu, left to right, the game menu's button last. The character's button is its first cell, with the
 // player's face, unless the portrait in the screen's corner stands for it; friends and guild stand in it, before the
 // game menu's button, where they sit with it.
 public class MicroLine implements Component {
-  derived cells: Array<Cell> = menuOf(self.faced, self.social, self.merged)
+  derived cells: Array<Cell> = menuOf(self.faced, self.social, self.merged, self.guildMerged)
 
   gold: Signal<Boolean>
   vertical: Signal<Boolean>
   faced: Signal<Boolean>
   social: Signal<Boolean>
   merged: Signal<Boolean>
+  guildMerged: Signal<Boolean>
   height: Signal<Number<Length>>
   face: Signal<String | nil>
   icon: Signal<Art | nil>
@@ -59,6 +62,8 @@ public class MicroLine implements Component {
     social: Signal<Boolean> = false,
     // The spellbook and the talents open one window: one button for both.
     merged: Signal<Boolean> = false,
+    // The friends and the guild open one window: the friends' button alone.
+    guildMerged: Signal<Boolean> = false,
     height: Signal<Number<Length>> = CELL_HEIGHT,
     // The character's cell: the unit whose face it shows, or the class's icon.
     face: Signal<String | nil> = "player",
@@ -69,6 +74,7 @@ public class MicroLine implements Component {
     self.faced = faced
     self.social = social
     self.merged = merged
+    self.guildMerged = guildMerged
     self.height = height
     self.face = face
     self.icon = icon
@@ -84,13 +90,21 @@ public class MicroLine implements Component {
 
 // Friends and guild on their own: the friends' cell with how many are online.
 public class SocialLine implements Component {
-  derived cells: Array<Cell> = socialOf()
+  derived cells: Array<Cell> = socialOf(self.guildMerged)
 
   gold: Signal<Boolean>
+  guildMerged: Signal<Boolean>
   vertical: Signal<Boolean>
   height: Signal<Number<Length>>
-  constructor(gold: Signal<Boolean>, vertical: Signal<Boolean> = false, height: Signal<Number<Length>> = CELL_HEIGHT) {
+  constructor(
+    gold: Signal<Boolean>,
+    // The friends and the guild open one window: the friends' button alone.
+    guildMerged: Signal<Boolean> = false,
+    vertical: Signal<Boolean> = false,
+    height: Signal<Number<Length>> = CELL_HEIGHT
+  ) {
     self.gold = gold
+    self.guildMerged = guildMerged
     self.vertical = vertical
     self.height = height
   }
@@ -100,9 +114,9 @@ public class SocialLine implements Component {
   }
 }
 
-function socialOf(): Array<Cell> {
+function socialOf(guildMerged: Boolean): Array<Cell> {
   let cells: Array<Cell> = []
-  pushSocial(mut cells)
+  pushSocial(mut cells, guildMerged)
   return cells
 }
 

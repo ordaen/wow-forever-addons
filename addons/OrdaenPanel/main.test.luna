@@ -62,6 +62,16 @@ class Spells implements Module {
   }
 }
 
+// Ordaen Social as Ordaen's modules hold it: its title.
+class Social implements Module {
+  public const title: String = "Ordaen Social"
+  public const pages: Array<SettingsPage> = []
+
+  public render(self): Template {
+    return $ltml { <box /> }
+  }
+}
+
 // One of the game's own frames the panel stands in for, hides or leaves unseen.
 function frame(name: String): any Client.Frame {
   const made = Client.CreateFrame("Button", name, Client.C_UI.GetUIParent(), nil)
@@ -229,6 +239,15 @@ test "with Ordaen Spells on, one cell opens the spellbook and the talents" {
   Test.expect(panel().box(SPELLBOOK).shown() && !panel().box(TALENTS).shown())
   destroy spells
   Test.expect(panel().box(SPELLBOOK).shown() && panel().box(TALENTS).shown())
+}
+
+test "with Ordaen Social on, the friends' cell alone opens the friends and the guild; off, the guild's comes back" {
+  Test.mount(nil, SCREEN)
+  Test.expect(panel().box(FRIENDS).shown() && panel().box(GUILD).shown())
+  const social = Ordaen.modules.add(new Social())
+  Test.expect(panel().box(FRIENDS).shown() && !panel().box(GUILD).shown())
+  destroy social
+  Test.expect(panel().box(FRIENDS).shown() && panel().box(GUILD).shown())
 }
 
 test "a bag's cell draws no edge round its icon" {
