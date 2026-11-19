@@ -94,3 +94,57 @@ test "a click outside closes the menu and reaches nothing under it" {
   Test.expect(page.beside == 1)
   destroy page
 }
+
+class Copying {
+  public state open = true
+  public state picked = 0
+  public state from = 0
+  public const entries: Array<MenuEntry> = [
+    { label: "Copy from", more: [{ label: "Bar 2" }, { label: "Bar 3" }] },
+    { label: "Reset", group: true }
+  ]
+
+  onPick(mut self, index: Integer) {
+    self.picked = index
+    self.open = false
+  }
+
+  onPickMore(mut self, index: Integer, at: Integer) {
+    self.picked = index
+    self.from = at
+    self.open = false
+  }
+
+  onClose(mut self) { self.open = false }
+
+  public render(self): Template {
+    return $ltml {
+      <box padding={8ui}>
+        <text value={"Bar 1"} />
+        <Menu $if={self.open} title={"Bar 1"} entries={self.entries} @pick={self.onPick} @pickMore={self.onPickMore}
+              @close={self.onClose} />
+      </box>
+    }
+  }
+}
+
+test "a menu's title is over its entries; an entry's submenu opens beside it on the cursor, and its pick says both places" {
+  let page = new Copying()
+  Test.mount(page, { left: 0, top: 0, width: 700, height: 300 })
+  Test.expect(Test.page().text("Bar 1").count() == 2)
+  Test.expect(!Test.page().text("Bar 3").shown())
+  // A click on the entry with a submenu picks nothing.
+  Test.page().text("Copy from").click()
+  Test.expect(page.picked == 0)
+  Test.page().text("Copy from").hover()
+  Test.expect(Test.page().text("Bar 3").shown())
+  // The cursor on another entry closes it.
+  Test.page().text("Reset").hover()
+  Test.expect(!Test.page().text("Bar 3").shown())
+  Test.page().text("Copy from").hover()
+  Test.page().text("Bar 3").click()
+  Test.expect(page.picked == 1)
+  Test.expect(page.from == 2)
+  Test.expect(!page.open)
+  destroy page
+}
