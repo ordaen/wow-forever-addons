@@ -3,7 +3,7 @@
 // profile's at once. Ordaen's own settings window stands for every window: they keep through the same `Window`.
 // Where it stands is read by its texts, which a reload's window draws anew: its tab's title (its top left) and its
 // footer's «Save» (its bottom right).
-import { Art } from "$ltml"
+import { Art, Key } from "$ltml"
 import Test from "$test"
 import root Ordaen from "Ordaen"
 import { Density } from "@/globals"
@@ -202,7 +202,8 @@ test "a number typed on the «Windows» page moves the window, and is kept" {
   Test.click(Test.field(nil), nil)
   Test.erase(6)
   Test.type("-100")
-  Test.flush()
+  // Enter takes what is typed at once (else it is taken once the typing pauses).
+  Test.key(Key.Enter)
   const moved = tab()
   Test.expect(near(moved.x, before.x - 100) && near(moved.y, before.y))
   Test.shot("the place across typed: -100, the window 100 to the left")
