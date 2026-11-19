@@ -41,7 +41,6 @@ const WHITE: Color = Color.hex("#ffffff")
 // The field: as high as a text box, wide enough for its digits.
 const FIELD_WIDTH = 140.625dp
 const FIELD_HEIGHT = 30.46875dp
-const FIELD_ROWS: Array<Track> = [{ fr: 1 }]
 const INK: Color = Color.hex("#e8dcc4")
 const FILL: Color = Color.hex("#00000080")
 const FIELD_EDGE: Line = { width: 1.171875dp, color: Color.hex("#3e2f1d") }
@@ -110,8 +109,9 @@ public class InputNumber implements Component {
     disabled: Ordaen.art.ctl.buttonDisabled,
     focus: Ordaen.art.ctl.button
   }
-  state fewerHover = false
-  state moreHover = false
+  // Which of − (-1) and + (1) is under the cursor, 0 neither; its tip is made only as it shows.
+  state hovered = 0
+  derived tip: TipText = self.hovered < 0 ? self.stepsTip(Locale.COUNT_FEWER, "-") : self.stepsTip(Locale.COUNT_MORE, "+")
   // What is typed, waiting for the typing to pause.
   pending: Task<nil> | nil = nil
 
@@ -126,8 +126,6 @@ public class InputNumber implements Component {
   const sliding: Boolean
   // A field shows a percent in hundredths: 70, not 0.7.
   const scale: Number
-  const fewerTip: TipText
-  const moreTip: TipText
   constructor(
     label: Signal<String>,
     value: mut Signal<Number>,
@@ -148,11 +146,13 @@ public class InputNumber implements Component {
     self.disabled = disabled
     self.sliding = (most - least) / step <= SLID
     self.scale = unit == Unit.Percent ? 100 : 1
-    self.fewerTip = stepTip(Locale.COUNT_FEWER, steps => "-" + said(steps * step, unit))
-    self.moreTip = stepTip(Locale.COUNT_MORE, steps => "+" + said(steps * step, unit))
-    self.text = String.of(peek self.held * self.scale)
-    watch (typed of self.text) { self.typed() }
-    watch (shown of self.held) { self.show(shown) }
+    self.text = ""
+    // A field follows its value and takes what is typed; a slider shows its value as it is and has no text.
+    if (!self.sliding) {
+      self.text = String.of(peek self.held * self.scale)
+      watch (typed of self.text) { self.typed() }
+      watch (shown of self.held) { self.show(shown) }
+    }
   }
 
   // What was typed is a number: the value is it, on its steps and held to the bounds.
@@ -189,10 +189,14 @@ public class InputNumber implements Component {
     self.nudge(stride())
   }
 
-  onFewerEnter(mut self) { self.fewerHover = true }
-  onFewerLeave(mut self) { self.fewerHover = false }
-  onMoreEnter(mut self) { self.moreHover = true }
-  onMoreLeave(mut self) { self.moreHover = false }
+  onFewerEnter(mut self) { self.hovered = -1 }
+  onMoreEnter(mut self) { self.hovered = 1 }
+  onLeave(mut self) { self.hovered = 0 }
+
+  // What − or + says under the cursor: each key and how far it steps, signed, in the value's unit.
+  stepsTip(self, title: String, sign: String): TipText {
+    return stepTip(title, steps => sign + said(steps * self.step, self.unit))
+  }
 
   // Typing is taken once it pauses for `SETTLE`: a number on its way («1» of «150») isn't held to the bounds yet.
   typed(mut self) {
@@ -235,39 +239,49 @@ public class InputNumber implements Component {
     }
   }
 
+  // The slider or the field: which is fixed as the control is made, so it is no `$if` that would follow a cell.
+  middle(self): Template {
+    if (self.sliding) {
+      return $ltml {
+        <box width={LENGTH + KNOB_W} height={BAND}
+             @keyPress(.Left)={self.onKey} @keyPress(.Right)={self.onKey} @keyPress(.Home)={self.onKey} @keyPress(.End)={self.onKey}
+             @pointerPress={self.onClick} @dragStart={self.onDrag} @drag={self.onDrag}>
+          <box position={Position.Absolute} left={INSET} top={GROOVE_TOP} width={LENGTH} height={GROOVE}
+               background={Ordaen.art.ctl.groove} />
+          <box position={Position.Absolute} left={INSET + EDGE} top={GROOVE_TOP + EDGE} height={GROOVE - 2 * EDGE}
+               width={self.fillWidth} background={Ordaen.art.ctl.sliderFill} zLevel={1} />
+          <box position={Position.Absolute} left={self.knobLeft} top={-2.34375dp} width={KNOB_W} height={KNOB_H}
+               background={Ordaen.art.ctl.sliderKnob} shadow={KNOB_SHADOW} zLevel={2} />
+        </box>
+      }
+    }
+    return $ltml {
+      <input value={mut self.text} width={FIELD_WIDTH} height={FIELD_HEIGHT} padding={PADDING} textColor={INK}
+             background={FILL} border={self.edge} maxLength={DIGITS} disabled={self.disabled} @submit={self.onSubmit} />
+    }
+  }
+
   public render(self): Template {
+    const middle = self.middle()
     return $ltml {
       <SettingRow label={self.label} hint={self.hint} disabled={self.disabled}>
         <box columns={ROW} gap={7.03125dp} yAlign={Align.Center}>
           <box width={STEP_WIDTH} height={STEP_HEIGHT} xAlign={Align.Center} yAlign={Align.Center}
                background={self.plate} textColor={INK_STEP} disabled={!self.fewer} @pointerDown.repeat(.Left)={self.less}
                @keyPress(.Enter)={self.less} @keyPress(.Space)={self.less} @pointerEnter={self.onFewerEnter}
-               @pointerLeave={self.onFewerLeave}>
-            <Tip $if={self.fewerHover} title={self.fewerTip.title} text={self.fewerTip.text} rows={self.fewerTip.rows} />
+               @pointerLeave={self.onLeave}>
+            <Tip $if={self.hovered < 0} title={self.tip.title} text={self.tip.text} rows={self.tip.rows} />
             <text value={"-"} textShadow={STEP_SHADOW} wrap={false} />
           </box>
-          <box $if={self.sliding} width={LENGTH + KNOB_W} height={BAND}
-               @keyPress(.Left)={self.onKey} @keyPress(.Right)={self.onKey} @keyPress(.Home)={self.onKey} @keyPress(.End)={self.onKey}
-               @pointerPress={self.onClick} @dragStart={self.onDrag} @drag={self.onDrag}>
-            <box position={Position.Absolute} left={INSET} top={GROOVE_TOP} width={LENGTH} height={GROOVE}
-                 background={Ordaen.art.ctl.groove} />
-            <box position={Position.Absolute} left={INSET + EDGE} top={GROOVE_TOP + EDGE} height={GROOVE - 2 * EDGE}
-                 width={self.fillWidth} background={Ordaen.art.ctl.sliderFill} zLevel={1} />
-            <box position={Position.Absolute} left={self.knobLeft} top={-2.34375dp} width={KNOB_W} height={KNOB_H}
-                 background={Ordaen.art.ctl.sliderKnob} shadow={KNOB_SHADOW} zLevel={2} />
-          </box>
-          <box $else width={FIELD_WIDTH} height={FIELD_HEIGHT} rows={FIELD_ROWS}>
-            <input value={mut self.text} padding={PADDING} textColor={INK} background={FILL} border={self.edge}
-                   maxLength={DIGITS} disabled={self.disabled} @submit={self.onSubmit} />
-          </box>
+          {middle}
           <box width={STEP_WIDTH} height={STEP_HEIGHT} xAlign={Align.Center} yAlign={Align.Center}
                background={self.plate} textColor={INK_STEP} disabled={!self.more} @pointerDown.repeat(.Left)={self.raise}
                @keyPress(.Enter)={self.raise} @keyPress(.Space)={self.raise} @pointerEnter={self.onMoreEnter}
-               @pointerLeave={self.onMoreLeave}>
-            <Tip $if={self.moreHover} title={self.moreTip.title} text={self.moreTip.text} rows={self.moreTip.rows} />
+               @pointerLeave={self.onLeave}>
+            <Tip $if={self.hovered > 0} title={self.tip.title} text={self.tip.text} rows={self.tip.rows} />
             <text value={"+"} textShadow={STEP_SHADOW} wrap={false} />
           </box>
-          <text $if={self.shown != ""} value={self.shown} textColor={WHITE} />
+          <text value={self.shown} textColor={WHITE} />
         </box>
       </SettingRow>
     }
