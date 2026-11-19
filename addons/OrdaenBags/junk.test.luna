@@ -99,6 +99,11 @@ function bags(): Test.Part {
   return Test.page().window(Locale.TITLE)
 }
 
+// The bank's window, at a banker.
+function bank(): Test.Part {
+  return Test.page().window(Locale.BANK)
+}
+
 // An item as a rule reads it.
 function goods(quality: Integer, kind: Integer, level: Integer, price: Integer, worn: String, subkind: Integer): Game.SlotItem {
   return {
@@ -346,7 +351,7 @@ test "Alt+click protects the slot, Ctrl+click sends its item, as before" {
 
 // The bank
 
-test "the bank opens in the bags' window as a tab of its own, its slots read and picked up as the bags' are" {
+test "the bank opens in a window of its own beside the bags', its slots read and picked up as the bags' are" {
   const world = new World(carried())
   world.items.push({ bag: BANK, slot: 2, id: 1206, name: "Moss Agate", icon: GEM, kind: 7 })
   Client.C_Bank.FetchPurchasedBankTabData = (kind: Client.BankType): Array<Client.BankTabData> => [{
@@ -360,13 +365,42 @@ test "the bank opens in the bags' window as a tab of its own, its slots read and
   Game.items.maxStack = (id: Integer): Integer | nil => 20
   Test.mount(nil, SCREEN)
   Game.bags.open = true
-  Test.expect(!bags().text("Bank").shown())
   Game.bankObserver.open = true
-  Test.expect(bags().text("Bank").shown() && bags().button(GEM).shown() && !bags().button(SWORD).shown())
+  // Two windows: the bags' with the bags alone, and the bank's.
+  Test.expect(bags().button(SWORD).shown() && !bags().button(GEM).shown() && !bags().text(Locale.BANK).shown())
+  Test.expect(bank().button(GEM).shown() && !bank().button(SWORD).shown())
+  _ = Test.requests()
+  Game.input.shiftDown = (): Boolean => true
+  bank().button(GEM).click()
+  Test.expect(Test.requests().join(", ").contains("Bags.pickup 6 2"))
+}
+
+test "away from the banker the bank is a tab of the bags' window: what it held, said to be a copy, not used" {
+  const world = new World(carried())
+  world.items.push({ bag: BANK, slot: 2, id: 1206, name: "Moss Agate", icon: GEM, kind: 7 })
+  Client.C_Bank.FetchPurchasedBankTabData = (kind: Client.BankType): Array<Client.BankTabData> => [{
+    ID: BANK, bankType: .Character, name: "", icon: BANK_TAB, depositFlags: .DisableAutoSort, tabCleanupConfirmation: "",
+    tabNameEditBoxHeader: ""
+  }]
+  Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
+  Game.bags.size = (bag: Integer): Integer => world.size(bag)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.items.icon = (id: Integer): Art | nil => world.icon(id)
+  Test.mount(nil, SCREEN)
+  Game.bags.open = true
+  // Not seen yet: the tab says how it will be.
+  bags().text(Locale.BANK).click()
+  Test.expect(bags().text(Locale.BANK_UNSEEN).shown())
+  bags().text(Locale.TITLE).click()
+  Game.bankObserver.open = true
+  Test.flush()
+  Game.bankObserver.open = false
+  bags().text(Locale.BANK).click()
+  Test.expect(bags().button(GEM).shown() && bags().text(Locale.BANK_COPY).shown())
   _ = Test.requests()
   Game.input.shiftDown = (): Boolean => true
   bags().button(GEM).click()
-  Test.expect(Test.requests().join(", ").contains("Bags.pickup 6 2"))
+  Test.expect(!Test.requests().join(", ").contains("Bags.pickup"))
 }
 
 test "what changes in the bank is read once the client's batch of updates ends" {
@@ -383,15 +417,15 @@ test "what changes in the bank is read once the client's batch of updates ends" 
   Test.mount(nil, SCREEN)
   Game.bags.open = true
   Game.bankObserver.open = true
-  Test.expect(!bags().button(GEM).shown())
+  Test.expect(!bank().button(GEM).shown())
   world.items.push({ bag: BANK, slot: 1, id: 1206, name: "Moss Agate", icon: GEM, kind: 7 })
   Game.bankObserver.changed.emit()
-  Test.expect(!bags().button(GEM).shown())
+  Test.expect(!bank().button(GEM).shown())
   Events.BAG_UPDATE_DELAYED.emit()
-  Test.expect(bags().button(GEM).shown())
+  Test.expect(bank().button(GEM).shown())
 }
 
-test "the bank shut, its tab goes and the bags show again" {
+test "the bank shut, its window goes and the bags' window has the bank's tab again" {
   Client.C_Bank.FetchPurchasedBankTabData = (kind: Client.BankType): Array<Client.BankTabData> => []
   const world = new World(carried())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
@@ -402,7 +436,7 @@ test "the bank shut, its tab goes and the bags show again" {
   Test.mount(nil, SCREEN)
   Game.bags.open = true
   Game.bankObserver.open = true
-  Test.expect(bags().text("Bank").shown())
+  Test.expect(!bags().text(Locale.BANK).shown() && Test.page().window(Locale.BANK).shown())
   Game.bankObserver.open = false
-  Test.expect(!bags().text("Bank").shown() && bags().button(SWORD).shown())
+  Test.expect(bags().text(Locale.BANK).shown() && bags().button(SWORD).shown())
 }

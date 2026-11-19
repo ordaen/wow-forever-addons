@@ -1,0 +1,399 @@
+// One window's body and footer, of one vault at a time: the bags' window shows the bags, or the bank's or the guild
+// bank's copy away from them; the vault's window shows the bank or the guild bank while the game has it open. Its
+// header: the search (it dims what doesn't match), the sort, «Sort the bags», the view, the bag slots (the bank's on
+// the bank's). By category: the tabs at the left with their counts, the tab's items in cards side by side in the kinds'
+// fixed order, «Free» last; a card per bag, its empty slots shown, its fill, its caption shutting it; or every slot in
+// one card. The guild bank shows the guild's tabs at the left and the tab's slots in their own order, with the tab's
+// log and the money's log as pages while it is open. The list is as high as what it holds: the window is never sized to
+// hide an item under a scroll; it scrolls only where the screen is too low for it.
+import Client from "$client"
+import Game from "$game"
+import { Align, KeyBinding, MouseButton, Overflow, Track } from "$ltml"
+import root Ordaen from "Ordaen"
+import { SECONDARY_TEXT } from "Ordaen"
+import {
+  Choice, Component, FooterCount, FooterCounts, ListTab, ModuleMemory, Money, PushButton, Tip, TipRow, ToolAct, ToolButton,
+  ToolPick, Toolbar, space
+} from "Ordaen"
+import { BANK_ICON } from "@/bank"
+import { Clicks } from "@/clicks"
+import { GuildBank, GuildPage, GuildTab, withdrawalsText } from "@/guild"
+import { JunkRules } from "@/junk"
+import { CARD_GAP, Line, Section, cardWidth, heightOf, linesOf } from "@/layout"
+import Locale from "@/locales"
+import { Grouping, KINDS, Slot, SortBy, Tab, View } from "@/model"
+import { CardLine, Filter, Shelf } from "@/rows"
+import { bagSections, countsOf, oneSection, tabName, tabSections } from "@/sections"
+import { SlotMenu } from "@/slotMenu"
+import { Stock } from "@/stock"
+import { Vault } from "@/vault"
+
+// What the module keeps of the player's choices: the tabs hidden; whether a tab with nothing in it hides; each tab's
+// grouping (by type where none is said); the junk's rules; the slot's clicks.
+public struct Choices implements Plain {
+  hidden: Array<Tab>
+  hideEmpty: Boolean
+  grouping: Map<Tab, Grouping>
+  junk: JunkRules
+  clicks: Clicks
+}
+
+// How the player left the bags' view, the profile's (`ModuleMemory`): the view and the sort the header picks. The
+// search isn't kept.
+public struct BagsView implements Plain {
+  view: View = View.Categories
+  sort: SortBy = SortBy.Bags
+}
+
+// The list of tabs at the left, and the room between it and the cards: more than between two cards, so the list reads
+// apart from them.
+public const TABS_WIDTH = 217.96875dp
+public const TABS_GAP: Number<Length> = space(.Window)
+// The room the list's scroll bar takes at its right.
+public const SCROLL_ROOM = 18.75dp
+// The least window: the list of tabs and eight slots in a card beside it.
+public const LEAST_WIDTH: Number<Length> = 2 * space(.Window) + TABS_WIDTH + TABS_GAP + cardWidth(8) + SCROLL_ROOM
+// What a window keeps above and below its list (its tab row, its header, its footer, its room): the list is never
+// higher than the screen less this.
+const AROUND_LIST = 257.8125dp
+
+const BODY: Array<Track> = ["max-content", { fr: 1 }]
+const WITH_TABS: Array<Track> = [TABS_WIDTH, { fr: 1 }]
+const FILL: Array<Track> = [{ fr: 1 }]
+const NOTED: Array<Track> = ["max-content", { fr: 1 }]
+const FOOT: Array<Track> = ["max-content", { fr: 1 }, "max-content", "max-content", "max-content"]
+const LABEL: Color = Color.hex("#a3977f")
+const COUNT: Color = Color.hex("#a3977f")
+const BUTTON = 140.625dp
+const SORTS: Array<Choice<SortBy>> = [
+  { value: SortBy.Bags, label: Locale.SORT_BAGS },
+  { value: SortBy.Quality, label: Locale.SORT_QUALITY },
+  { value: SortBy.Name, label: Locale.SORT_NAME },
+  { value: SortBy.Level, label: Locale.SORT_LEVEL },
+  { value: SortBy.Count, label: Locale.SORT_COUNT },
+  { value: SortBy.Type, label: Locale.SORT_TYPE }
+]
+// The backpack's icon of the game's, on the bag slots' button.
+const BACKPACK: FileId = 130716
+
+// The junk of a vault's slots, and what a merchant gives for it.
+public function junkIn(stock: Stock): Array<Slot> {
+  _ = stock.revision
+  return stock.all.filter(slot => slot.junk)
+}
+
+public function worthIn(junk: Array<Slot>): Integer {
+  let worth = 0
+  for (slot of junk) { worth += slot.read.price * slot.read.count }
+  return worth
+}
+
+// A tab of the list at the window's left: its name and how many items it has.
+class TabEntry implements Component {
+  public picked: Event<Tab> = new Event()
+  derived name: String = tabName(self.tab)
+  derived selected: Boolean = self.current == self.tab
+  derived count: Integer = self.counts[self.tab] ?? 0
+  derived off: Boolean = self.count == 0
+
+  const tab: Tab
+  current: Signal<Tab>
+  counts: Signal<Map<Tab, Integer>>
+  constructor(tab: Tab, current: Signal<Tab>, counts: Signal<Map<Tab, Integer>>) {
+    self.tab = tab
+    self.current = current
+    self.counts = counts
+  }
+
+  onPick(self) { self.picked.emit(self.tab) }
+
+  public render(self): Template {
+    return $ltml {
+      <ListTab label={self.name} selected={self.selected} off={self.off} @pick={self.onPick}>
+        <text value={"%d"} arguments={[self.count]} textColor={COUNT} textSize={SECONDARY_TEXT} textFont={.Numbers} />
+      </ListTab>
+    }
+  }
+}
+
+// A tab of the guild's at the window's left: its icon and name, the withdrawals a day it allows; one the player may
+// not see is dim, and away from the guild bank every tab but the one seen last.
+class GuildTabEntry implements Component {
+  public picked: Event<Integer> = new Event()
+  derived selected: Boolean = self.page == GuildPage.Items && self.current == self.tab.index
+  derived off: Boolean = !self.tab.viewable || (!self.live && !self.selected)
+  derived limit: String = withdrawalsText(self.tab)
+
+  tab: Signal<GuildTab>
+  current: Signal<Integer>
+  page: Signal<GuildPage>
+  live: Signal<Boolean>
+  constructor(tab: Signal<GuildTab>, current: Signal<Integer>, page: Signal<GuildPage>, live: Signal<Boolean>) {
+    self.tab = tab
+    self.current = current
+    self.page = page
+    self.live = live
+  }
+
+  onPick(self) {
+    if (self.tab.viewable && self.live) { self.picked.emit(self.tab.index) }
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <ListTab label={self.tab.name} icon={self.tab.icon} selected={self.selected} off={self.off} @pick={self.onPick}>
+        <text value={self.limit} textColor={COUNT} textSize={SECONDARY_TEXT} textFont={.Numbers} />
+      </ListTab>
+    }
+  }
+}
+
+public class Pane {
+  // The header's «Sort the bags»; a guild's tab, its log, its money's log picked; the footer's buttons.
+  public arrange: Event<nil> = new Event()
+  public guildTab: Event<Integer> = new Event()
+  public guildLog: Event<nil> = new Event()
+  public moneyLog: Event<nil> = new Event()
+  public sellJunk: Event<nil> = new Event()
+  public deposit: Event<nil> = new Event()
+  public withdraw: Event<nil> = new Event()
+
+  public state tab: Tab = Tab.All
+  public state search = ""
+  public state collapsed: Map<String, Boolean> = {}
+  state goldShown = false
+
+  derived isGuild: Boolean = self.vault == Vault.Guild
+  public derived isBags: Boolean = self.vault == Vault.Bags
+  derived isBank: Boolean = self.vault == Vault.Bank
+  public derived categories: Boolean = !self.isGuild && self.list.values.view == View.Categories
+  derived withList: Boolean = self.categories || self.isGuild
+  derived query: String = self.search.lower()
+  // The vault's slots, read once at least: the bank's are read at a banker alone.
+  derived stock: Stock = self.stockOf()
+  derived seen: Boolean = self.stock.total > 0
+  // Away from its vault, a copy: the window says so, and its slots are shown, not used.
+  derived copy: Boolean = !self.live && self.seen
+  derived copyText: String = self.isGuild ? Locale.GUILD_COPY : Locale.BANK_COPY
+  // The copy's note over the list, which takes the rest.
+  derived listRows: Array<Track> = self.copy ? NOTED : FILL
+  public derived counts: Map<Tab, Integer> = self.countsOf()
+  public derived tabs: Array<Tab> = self.tabsOf()
+  derived shownTab: Tab = self.tabs.any(tab => tab == self.tab) ? self.tab : Tab.All
+  public derived sections: Array<Section> = self.sectionsOf()
+  // The list's width: the body's but for the window's room, the tabs where they show, the scroll bar.
+  derived tabsRoom: Number<Length> = self.withList ? TABS_WIDTH + TABS_GAP : 0ui
+  derived listWidth: Number<Length> = self.width - 2 * space(.Window) - self.tabsRoom - SCROLL_ROOM
+  public derived lines: Array<Line> = linesOf(self.sections, self.listWidth, self.collapsed)
+  // As high as its cards, or as the screen lets it be.
+  derived cardsHeight: Number<Length> = heightOf(self.lines)
+  derived listHeight: Number<Length> = self.cardsHeight.min(Client.UIParent.GetHeight() * 1ui - AROUND_LIST)
+  derived listOverflow: Overflow | nil = self.listHeight < self.cardsHeight ? Overflow.Scroll : nil
+  public derived filter: Filter = { query: self.query, place: Game.bags.place, lit: self.isBags ? self.lit : -1 }
+  derived free: Integer = self.stock.free
+  derived fills: Map<Integer, String> = self.stock.fills
+  // The footer's counts: the free slots of the bags or the bank, and its junk where the junk is shown; the guild
+  // bank's withdrawal left today.
+  derived footCounts: Array<FooterCount> = self.footCountsOf()
+  // The junk in the shown vault: how many, and what a merchant gives for it.
+  derived junk: Array<Slot> = junkIn(self.stock)
+  derived junkCount: Integer = self.junk.count(slot => peek slot.id != 0)
+  derived junkWorth: Integer = worthIn(self.junk)
+  derived junkShown: Boolean = self.categories && self.shownTab == Tab.Junk
+  derived selling: Boolean = self.isBags && Game.bags.place == Game.BagPlace.Merchant && self.junkCount > 0
+  derived guildLive: Boolean = self.isGuild && self.live
+  derived gridShown: Boolean = !self.isGuild || !self.live || (self.guild.page == GuildPage.Items && !self.guild.loading)
+  derived guildLeft: String = self.guild.withdrawLeft < 0 ? Locale.GUILD_ANY : Game.money.format(self.guild.withdrawLeft)
+  derived goldRows: Array<TipRow> = self.gold
+  derived bankSlots: Boolean = self.isBank && self.live
+  // The view's glyphs: categories in tabs, sections side by side, one grid. Ordaen's art is read once its root is
+  // made, as the module's is.
+  views: Array<Choice<View>> = [
+    { value: View.Categories, label: Locale.VIEW_CATEGORIES, icon: Ordaen.art.ctl.tool.categories },
+    { value: View.Bags, label: Locale.VIEW_BAGS, icon: Ordaen.art.ctl.tool.table },
+    { value: View.One, label: Locale.VIEW_ONE, icon: Ordaen.art.ctl.tool.one }
+  ]
+  // What every card and slot of the list reads, and the events they tell.
+  public shelf: Shelf
+
+  const carried: Stock
+  const bank: Stock
+  const guildStock: Stock
+  const guild: GuildBank
+  vault: Signal<Vault>
+  // Whether the vault is open: the bags always, the bank at a banker, the guild bank at its vault.
+  live: Signal<Boolean>
+  list: mut ModuleMemory<BagsView>
+  choices: Signal<Choices>
+  // The window's body's width, as the player sized it.
+  width: Signal<Number<Length>>
+  lit: Signal<Integer>
+  running: Signal<Boolean>
+  gold: Signal<Array<TipRow>>
+  slotsOpen: mut Signal<Boolean>
+  bankSlotsOpen: mut Signal<Boolean>
+  constructor(
+    carried: Stock,
+    bank: Stock,
+    guildStock: Stock,
+    guild: GuildBank,
+    vault: Signal<Vault>,
+    live: Signal<Boolean>,
+    list: mut ModuleMemory<BagsView>,
+    choices: Signal<Choices>,
+    width: Signal<Number<Length>>,
+    lit: Signal<Integer>,
+    running: Signal<Boolean>,
+    gold: Signal<Array<TipRow>>,
+    slotsOpen: mut Signal<Boolean>,
+    bankSlotsOpen: mut Signal<Boolean>,
+    menu: Signal<SlotMenu | nil>,
+    useChord: Signal<KeyBinding<MouseButton>>
+  ) {
+    self.carried = carried
+    self.bank = bank
+    self.guildStock = guildStock
+    self.guild = guild
+    self.vault = vault
+    self.live = live
+    self.list = list
+    self.choices = choices
+    self.width = width
+    self.lit = lit
+    self.running = running
+    self.gold = gold
+    self.slotsOpen = slotsOpen
+    self.bankSlotsOpen = bankSlotsOpen
+    self.shelf = new Shelf(self.filter, self.free, self.collapsed, self.fills, menu, useChord, self.live)
+    self.shelf.toggled.listen(self.onToggle)
+  }
+
+  stockOf(self): Stock {
+    return match (self.vault) {
+      .Bags => self.carried
+      .Bank => self.bank
+      .Guild => self.guildStock
+    }
+  }
+
+  countsOf(self): Map<Tab, Integer> {
+    const stock = self.stock
+    _ = stock.revision
+    return countsOf(stock.all)
+  }
+
+  // «All», «New» while something is new, then the kinds' tabs but those hidden, or empty where empty ones hide.
+  tabsOf(self): Array<Tab> {
+    const choices = self.choices
+    let tabs: Array<Tab> = [Tab.All]
+    if ((self.counts[Tab.New] ?? 0) > 0) { tabs.push(Tab.New) }
+    for (kind of KINDS) {
+      const empty = (self.counts[kind] ?? 0) == 0
+      const hidden = choices.hidden.any(tab => tab == kind)
+      if (!hidden && !(choices.hideEmpty && empty)) { tabs.push(kind) }
+    }
+    return tabs
+  }
+
+  sectionsOf(self): Array<Section> {
+    const stock = self.stock
+    _ = stock.revision
+    if (self.isGuild) { return oneSection(stock.bags) }
+    return match (self.list.values.view) {
+      .Categories => tabSections(stock.all, self.shownTab, self.choices.grouping[self.shownTab] ?? .Type, self.list.values.sort)
+      .Bags => bagSections(stock.bags, stock.infos.map(info => info.name))
+      .One => oneSection(stock.bags)
+    }
+  }
+
+  footCountsOf(self): Array<FooterCount> {
+    if (self.guildLive) { return [{ label: Locale.GUILD_LEFT, value: self.guildLeft }] }
+    const free: FooterCount = { label: Locale.FOOT_FREE, value: Locale.FREE_OF.format(self.free, self.stock.total) }
+    if (!self.junkShown) { return [free] }
+    return [free, { label: Locale.FOOT_JUNK, value: Locale.JUNK_WORTH.format(self.junkCount, Game.money.format(self.junkWorth)) }]
+  }
+
+  onToggle(mut self, key: String) {
+    let collapsed: Map<String, Boolean> = {}
+    for (name, shut of peek self.collapsed) { collapsed[name] = shut }
+    collapsed[key] = collapsed[key] == true ? nil : true
+    self.collapsed = collapsed
+  }
+
+  onTab(mut self, tab: Tab) { self.tab = tab }
+  onGuildTab(self, tab: Integer) { self.guildTab.emit(tab) }
+  onGuildLog(self) { self.guildLog.emit() }
+  onMoneyLog(self) { self.moneyLog.emit() }
+  onArrange(self) { self.arrange.emit() }
+  onSellJunk(self) { self.sellJunk.emit() }
+  onDeposit(self) { self.deposit.emit() }
+  onWithdraw(self) { self.withdraw.emit() }
+  onGoldEnter(mut self) { self.goldShown = true }
+  onGoldLeave(mut self) { self.goldShown = false }
+
+  public const footer: Template = $ltml {
+    <box columns={FOOT} gap={space(.Group)} yAlign={Align.Center}>
+      <FooterCounts counts={self.footCounts} />
+      <box />
+      <PushButton $if={self.selling} label={Locale.SELL_JUNK} width={BUTTON} @click={self.onSellJunk} />
+      <box $elseif={self.guildLive} columns={2} gap={space(.Item)}>
+        <PushButton label={Locale.GUILD_DEPOSIT} width={BUTTON} @click={self.onDeposit} />
+        <PushButton label={Locale.GUILD_WITHDRAW} width={BUTTON} disabled={!self.guild.canWithdraw} @click={self.onWithdraw} />
+      </box>
+      <text $else value={Game.money.tracked} textFont={.Numbers} />
+      <Money $if={self.isGuild} amount={self.guild.money} />
+      <box $else @pointerEnter={self.onGoldEnter} @pointerLeave={self.onGoldLeave}>
+        <Money amount={Game.money.amount} />
+        <Tip $if={self.goldShown} title={Locale.GOLD} text={""} rows={self.goldRows} />
+      </box>
+    </box>
+  }
+
+  // The cards, as high as they are together.
+  const cards: Template = $ltml {
+    <box columns={1} gap={CARD_GAP} height={self.listHeight} overflow={self.listOverflow}>
+      <CardLine $for={line of self.lines} line={line} shelf={self.shelf} />
+    </box>
+  }
+
+  public const body: Template = $ltml {
+    <box rows={BODY} gap={space(.Group)}>
+      <Toolbar search={mut self.search} placeholder={Locale.SEARCH}>
+        <ToolPick value={mut self.list.values.sort} choices={SORTS} icon={Ordaen.art.ctl.tool.sort} title={Locale.SORT} />
+        <ToolAct icon={Ordaen.art.ctl.tool.arrange} title={Locale.ARRANGE} text={Locale.ARRANGE_TIP}
+                 disabled={self.running || !self.isBags} @pressed={self.onArrange} />
+        <ToolPick value={mut self.list.values.view} choices={self.views} icon={Ordaen.art.ctl.tool.categories} title={Locale.VIEW} />
+        <ToolButton $if={self.isBags} icon={BACKPACK} title={Locale.BAG_SLOTS} text={Locale.BAG_SLOTS_TIP}
+                    open={mut self.slotsOpen} tinted={false} />
+        <ToolButton $elseif={self.bankSlots} icon={BANK_ICON} title={Locale.BANK_SLOTS} text={Locale.BANK_SLOTS_TIP}
+                    open={mut self.bankSlotsOpen} tinted={false} />
+      </Toolbar>
+      <box columns={1} rows={self.listRows} gap={space(.Item)}>
+        <text $if={self.copy} value={self.copyText} textColor={LABEL} textSize={SECONDARY_TEXT} />
+        <text $if={!self.seen && !self.live} value={Locale.BANK_UNSEEN} textColor={LABEL} />
+        <box $elseif={self.withList} columns={WITH_TABS} rows={FILL} gap={TABS_GAP}>
+          <box $if={self.isGuild} columns={1} gap={2.34375dp}>
+            <GuildTabEntry $for={tab of self.guild.tabs} tab={tab} current={self.guild.tab} page={self.guild.page} live={self.live}
+                           @picked={self.onGuildTab} />
+            <ListTab $if={self.live} label={Locale.GUILD_LOG} selected={self.guild.page == GuildPage.Log} @pick={self.onGuildLog} />
+            <ListTab $if={self.live} label={Locale.GUILD_MONEY_LOG} selected={self.guild.page == GuildPage.MoneyLog}
+                     @pick={self.onMoneyLog} />
+          </box>
+          <box $else columns={1} gap={2.34375dp}>
+            <TabEntry $for={tab of self.tabs} $key={tab} tab={peek tab} current={self.shownTab} counts={self.counts} @picked={self.onTab} />
+          </box>
+          <box $if={self.gridShown} columns={1}>
+            {self.cards}
+          </box>
+          <text $elseif={self.guild.page == GuildPage.Items} value={Locale.GUILD_LOADING} textColor={LABEL} />
+          <box $else columns={1} gap={space(.Item)} overflow={Overflow.Scroll}>
+            <text $for={line of self.guild.log} value={line} wrap={true} />
+          </box>
+        </box>
+        <box $else columns={1}>
+          {self.cards}
+        </box>
+      </box>
+    </box>
+  }
+}

@@ -48,6 +48,8 @@ const SHADE: Color = Color.hex("#00000059")
 const PICKED: Color = Color.hex("#ffffff")
 const EMPTY: Color = Color.hex("#7a705f")
 const CAPTION: Color = Color.hex("#e8c35a")
+// A section's card's ground.
+const CARD: Color = Color.hex("#00000038")
 // The rims of the items' qualities, from poor to heirloom.
 const QUALITIES: Array<Color> = [
   Color.hex("#9d9d9d"), Color.hex("#6c5535"), Color.hex("#1eff00"), Color.hex("#0070dd"), Color.hex("#a335ee"),
@@ -479,10 +481,26 @@ test "the view «By bag»: a section per bag, captioned by its name and fill, it
   Test.mount(nil, SCREEN)
   Game.bags.open = true
   pick(Ordaen.art.ctl.tool.categories, "By bag")
-  Test.expect(reads(bags().text("Backpack").item(), "Backpack | 7/16"))
-  Test.expect(reads(bags().text("Linen Bag").item(), "Linen Bag | 2/6"))
+  Test.expect(reads(bags().button("Backpack"), "Backpack | 7/16"))
+  Test.expect(reads(bags().button("Linen Bag"), "Linen Bag | 2/6"))
   Test.expect(bags().button(WELL).count() == 22 && !bags().text("All").shown() && !bags().text("Free").shown())
   Test.expect(nth(1).paintedWith(HEARTH) && nth(9).paintedWith(SHIRT) && nth(18).paintedWith(RECIPE))
+}
+
+test "the window is as high as its slots, so none hides under a scroll: the last of 160 is in view" {
+  const world = new World(everyday())
+  world.sizes = [16, 36, 36, 36, 36]
+  Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
+  Game.bags.size = (bag: Integer): Integer => world.size(bag)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.items.icon = (id: Integer): Art | nil => world.icon(id)
+  Test.mount(nil, SCREEN)
+  Game.bags.open = true
+  pick(Ordaen.art.ctl.tool.categories, "One bag")
+  Test.expect(bags().button(WELL).count() == 160)
+  nth(160).hover()
+  pick(Ordaen.art.ctl.tool.one, "By bag")
+  Test.expect(bags().button(WELL).count() == 160)
 }
 
 test "the view «One bag»: every slot in one grid in the bags' order, with no caption" {
@@ -637,31 +655,29 @@ test "the search isn't kept: after a reload nothing is dimmed" {
 
 // A section's caption
 
-test "a caption clicked shuts its section, its caption alone left; clicked again it opens" {
+test "a category's caption has no mark and shuts nothing: a tab shows its items whole" {
   const world = new World(everyday())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
   Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
   Game.items.icon = (id: Integer): Art | nil => world.icon(id)
   Test.mount(nil, SCREEN)
   Game.bags.open = true
-  const caption = bags().button("Cloth")
-  Test.expect(caption.paintedWith(Ordaen.art.ctl.markOpen))
-  caption.click()
-  Test.expect(!held(CLOTH).shown() && caption.paintedWith(Ordaen.art.ctl.markClosed) && held(POTION).shown())
-  caption.click()
-  Test.expect(held(CLOTH).count() == 2 && caption.paintedWith(Ordaen.art.ctl.markOpen))
+  Test.expect(!bags().box(Ordaen.art.ctl.markOpen).shown() && !bags().button("Cloth").shown())
+  Test.page().text("Cloth").click()
+  Test.page().text("Free").click()
+  Test.expect(held(CLOTH).count() == 2 && bags().text("13").shown())
 }
 
-test "«Free»'s caption has no mark and shuts nothing" {
+test "each category is a card: its caption and its slots on a darker ground, the cards apart" {
   const world = new World(everyday())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
   Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.items.icon = (id: Integer): Art | nil => world.icon(id)
   Test.mount(nil, SCREEN)
   Game.bags.open = true
-  const caption = bags().button("Free")
-  Test.expect(caption.box(Ordaen.art.ctl.markOpen).opacity() == 0)
-  caption.click()
-  Test.expect(bags().text("13").shown())
+  Test.expect(bags().text("Cloth").item().paintedWith(CARD) && bags().text("Free").item().paintedWith(CARD))
+  Test.expect(reads(bags().text("Free").item(), "Free | 13"))
+  Test.expect(Test.faults().length == 0)
 }
 
 // A slot's clicks
@@ -1341,8 +1357,8 @@ test "a bag's fill in the view «By bag» follows its items" {
   pick(Ordaen.art.ctl.tool.categories, "By bag")
   world.take(1, 4)
   Game.bags.updated.emit(1)
-  Test.expect(reads(bags().text("Linen Bag").item(), "Linen Bag | 1/6"))
-  Test.expect(reads(bags().text("Backpack").item(), "Backpack | 7/16"))
+  Test.expect(reads(bags().button("Linen Bag"), "Linen Bag | 1/6"))
+  Test.expect(reads(bags().button("Backpack"), "Backpack | 7/16"))
 }
 
 test "a bag swapped for a larger one: its slots read anew" {
@@ -1420,14 +1436,15 @@ test "the tab picked is white, the others in ink, and one with no item shows dim
   Test.expect(bags().text("Trade goods").textColor().equal(PICKED) && bags().text("All").textColor().equal(INK))
 }
 
-test "a section's caption is gold with its mark; «Free»'s is plain, with nothing after it" {
+test "a section's caption is gold, a bag's with its mark; «Free»'s is plain" {
   const world = new World(everyday())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
   Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
   Test.mount(nil, SCREEN)
   Game.bags.open = true
-  Test.expect(bags().text("Cloth").textColor().equal(CAPTION) && bags().button("Cloth").box(Ordaen.art.ctl.markOpen).opacity() == 1)
-  Test.expect(bags().text("Free").textColor().equal(LABEL) && reads(bags().text("Free").item(), "Free"))
+  Test.expect(bags().text("Cloth").textColor().equal(CAPTION) && bags().text("Free").textColor().equal(LABEL))
+  pick(Ordaen.art.ctl.tool.categories, "By bag")
+  Test.expect(bags().text("Backpack").textColor().equal(CAPTION) && bags().button("Backpack").paintedWith(Ordaen.art.ctl.markOpen))
 }
 
 test "each item's rim is in its quality's colour" {
