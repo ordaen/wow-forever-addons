@@ -1,0 +1,216 @@
+// «Reputation»: the game's factions in its groups, which fold as the game's do (the game keeps them folded); each
+// faction a row with its name, a bar in its standing's colour with the standing on it, and what it rose this
+// session. The faction picked stands on the right: its standing, the bar with the numbers, how far to the next
+// standing, the game's description, and its switches: at war (where the game lets it), inactive, and shown on the
+// bar (the faction the game watches).
+import { Align, Art, BarFill, Overflow, TextFont } from "$ltml"
+import root Ordaen from "Ordaen"
+import { Component, SECONDARY_TEXT, Shown, ShownToggle, TITLE_TEXT } from "Ordaen"
+import Locale from "@/locales"
+import { Faction, standingColor, standingName } from "@/sheet"
+import Style from "@/style"
+
+const EXALTED = 8
+const BAR_WIDTH = 187.5dp
+const INDENT = 18.75dp
+const MARK = 18.75dp
+const CLEAR: Color = Color.hex("#00000000")
+
+// How far along its standing a faction is, from 0 to 1.
+function fractionOf(faction: Faction): Number {
+  if (faction.max <= faction.min) { return 1 }
+  return (faction.value - faction.min) / (faction.max - faction.min)
+}
+
+function barOf(faction: Faction): BarFill {
+  return { value: fractionOf(faction), color: standingColor(faction.standing) }
+}
+
+// What a faction rose since the window first read it this session.
+public function gainOf(faction: Faction, starts: Map<Integer, Integer>): Integer {
+  return faction.value - (starts[faction.id] ?? faction.value)
+}
+
+function shownOf(on: Boolean): Shown { return on ? .On : .Off }
+
+// A row of the list: a group's heading, which folds, or a faction, which is picked.
+public class FactionRow implements Component {
+  public pick: Event<Faction> = new Event()
+  public fold: Event<Faction> = new Event()
+
+  derived standing: String = standingName(self.faction.standing)
+  derived bar: BarFill = barOf(self.faction)
+  derived barShown: Boolean = !self.faction.header || self.faction.ranked
+  derived mark: Art | nil = self.faction.header ? (self.faction.collapsed ? Ordaen.art.ctl.markClosed : Ordaen.art.ctl.markOpen) : nil
+  derived indent: Number<Length> = self.faction.child ? INDENT : 0ui
+  derived gainText: String = self.gain > 0 ? `+${self.gain}` : ""
+  derived nameColor: Color = self.faction.header ? Style.GOLD : self.faction.atWar ? Style.RED : Style.INK
+  derived background: Color = self.picked ? Style.PICKED : CLEAR
+
+  faction: Signal<Faction>
+  gain: Signal<Integer>
+  picked: Signal<Boolean>
+  constructor(faction: Signal<Faction>, gain: Signal<Integer>, picked: Signal<Boolean>) {
+    self.faction = faction
+    self.gain = gain
+    self.picked = picked
+  }
+
+  onClick(self) {
+    const faction = peek self.faction
+    if (faction.header) { self.fold.emit(faction) }
+    if (!faction.header || faction.ranked) { self.pick.emit(faction) }
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={[self.indent, MARK, { fr: 1 }, BAR_WIDTH, 46.875dp]} gap={4.6875dp} height={Style.ROW}
+           yAlign={Align.Center} background={self.background} @pointerPress={self.onClick}
+           @keyPress(.Enter)={self.onClick} @keyPress(.Space)={self.onClick}>
+        <box />
+        <box width={MARK} height={MARK} background={self.mark} />
+        <text value={self.faction.name} textColor={self.nameColor} wrap={false} />
+        <box height={Style.FACTION_BAR} background={Style.TROUGH} fill={self.bar} opacity={self.barShown ? 1 : 0}
+             xAlign={Align.Center} yAlign={Align.Center}>
+          <text value={self.standing} textSize={SECONDARY_TEXT} textColor={Style.INK} wrap={false} />
+        </box>
+        <text value={self.gainText} textSize={SECONDARY_TEXT} textFont={TextFont.Numbers} textColor={Style.GREEN}
+              wrap={false} />
+      </box>
+    }
+  }
+}
+
+// A switch of the picked faction, its label on the left.
+public class FactionSwitch implements Component {
+  public flip: Event<nil> = new Event()
+
+  derived state: Shown = shownOf(self.on)
+  derived ink: Color = self.disabled ? Style.DIM : Style.INK
+
+  label: Signal<String>
+  on: Signal<Boolean>
+  disabled: Signal<Boolean>
+  constructor(label: Signal<String>, on: Signal<Boolean>, disabled: Signal<Boolean> = false) {
+    self.label = label
+    self.on = on
+    self.disabled = disabled
+  }
+
+  onFlip(self) { self.flip.emit() }
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={[{ fr: 1 }, "max-content"]} gap={4.6875dp} yAlign={Align.Center}>
+        <text value={self.label} textColor={self.ink} />
+        <ShownToggle state={self.state} disabled={self.disabled} @flip={self.onFlip} />
+      </box>
+    }
+  }
+}
+
+// The picked faction, beside the list.
+public class FactionDetail implements Component {
+  public atWar: Event<Faction> = new Event()
+  public inactive: Event<Faction> = new Event()
+  public watch: Event<Faction> = new Event()
+
+  derived standing: String = standingName(self.faction.standing)
+  derived bar: BarFill = barOf(self.faction)
+  derived numbers: String = `${self.faction.value - self.faction.min} / ${self.faction.max - self.faction.min}`
+  derived toNext: String = self.faction.standing < EXALTED ?
+    Locale.TO_NEXT.format(standingName(self.faction.standing + 1), String.of(self.faction.max - self.faction.value)) :
+    ""
+  derived gainText: String = self.gain > 0 ? `+${self.gain}` : ""
+  derived noWar: Boolean = !self.faction.canToggleAtWar || self.faction.header
+  derived noInactive: Boolean = !self.faction.canSetInactive
+
+  faction: Signal<Faction>
+  gain: Signal<Integer>
+  isInactive: Signal<Boolean>
+  constructor(faction: Signal<Faction>, gain: Signal<Integer>, isInactive: Signal<Boolean>) {
+    self.faction = faction
+    self.gain = gain
+    self.isInactive = isInactive
+  }
+
+  onAtWar(self) { self.atWar.emit(peek self.faction) }
+  onInactive(self) { self.inactive.emit(peek self.faction) }
+  onWatch(self) { self.watch.emit(peek self.faction) }
+
+  public render(self): Template {
+    return $ltml {
+      <box gap={Style.GAP}>
+        <box gap={2.34375dp}>
+          <text value={self.faction.name} textSize={TITLE_TEXT} textFont={TextFont.Title} textColor={Style.GOLD} />
+          <text value={self.standing} textColor={Style.INK} />
+        </box>
+        <box height={Style.BAR} background={Style.TROUGH} fill={self.bar} xAlign={Align.Center} yAlign={Align.Center}>
+          <text value={self.numbers} textSize={SECONDARY_TEXT} textFont={TextFont.Numbers} textColor={Style.INK}
+                wrap={false} />
+        </box>
+        <box columns={[{ fr: 1 }, "max-content"]}>
+          <text value={self.toNext} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
+          <text value={self.gainText} textSize={SECONDARY_TEXT} textFont={TextFont.Numbers} textColor={Style.GREEN} />
+        </box>
+        <text value={self.faction.description} textSize={SECONDARY_TEXT} textColor={Style.INK} />
+        <box gap={4.6875dp}>
+          <FactionSwitch label={Locale.AT_WAR} on={self.faction.atWar} disabled={self.noWar} @flip={self.onAtWar} />
+          <FactionSwitch label={Locale.INACTIVE} on={self.isInactive} disabled={self.noInactive}
+                         @flip={self.onInactive} />
+          <FactionSwitch label={Locale.WATCHED} on={self.faction.watched} @flip={self.onWatch} />
+        </box>
+      </box>
+    }
+  }
+}
+
+public class ReputationPage implements Component {
+  public pick: Event<Faction> = new Event()
+  public fold: Event<Faction> = new Event()
+  public atWar: Event<Faction> = new Event()
+  public inactive: Event<Faction> = new Event()
+  public watch: Event<Faction> = new Event()
+
+  derived picked: Faction | nil = self.factions.find(f => f.id == self.chosen && (!f.header || f.ranked))
+  derived hasPick: Boolean = self.picked != nil
+  derived pickedGain: Integer = self.picked == nil ? 0 : gainOf(self.picked ?? panic("picked"), self.starts)
+  derived shownPick: Faction = self.picked ?? self.factions[1] ?? panic("a faction is picked from the list")
+
+  factions: Signal<Array<Faction>>
+  starts: Signal<Map<Integer, Integer>>
+  chosen: Signal<Integer>
+  chosenInactive: Signal<Boolean>
+  constructor(factions: Signal<Array<Faction>>, starts: Signal<Map<Integer, Integer>>, chosen: Signal<Integer>,
+    chosenInactive: Signal<Boolean>) {
+    self.factions = factions
+    self.starts = starts
+    self.chosen = chosen
+    self.chosenInactive = chosenInactive
+  }
+
+  onPick(self, faction: Faction) { self.pick.emit(faction) }
+  onFold(self, faction: Faction) { self.fold.emit(faction) }
+  onAtWar(self, faction: Faction) { self.atWar.emit(faction) }
+  onInactive(self, faction: Faction) { self.inactive.emit(faction) }
+  onWatch(self, faction: Faction) { self.watch.emit(faction) }
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={[{ fr: 1 }, Style.SIDE]} gap={Style.GAP}>
+        <box overflow={Overflow.Scroll}>
+          <box>
+            <FactionRow $for={faction of self.factions} faction={faction} gain={gainOf(faction, self.starts)}
+                        picked={faction.id == self.chosen} @pick={self.onPick} @fold={self.onFold} />
+          </box>
+        </box>
+        <box background={Style.CARD} padding={Style.GAP}>
+          <FactionDetail $if={self.hasPick} faction={self.shownPick} gain={self.pickedGain}
+                         isInactive={self.chosenInactive} @atWar={self.onAtWar} @inactive={self.onInactive}
+                         @watch={self.onWatch} />
+          <text $else value={Locale.PICK_FACTION} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
+        </box>
+      </box>
+    }
+  }
+}

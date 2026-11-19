@@ -1,0 +1,7 @@
+{
+  "title": "Ordaen Character",
+  "icon": "Interface/Icons/INV_Chest_Plate06",
+  "notes": "The character window in one: your gear and stats, reputation, PvE, PvP and statistics.",
+  "loadOnDemand": true,
+  "dependencies": { "Ordaen": "^1.0.0" }
+}

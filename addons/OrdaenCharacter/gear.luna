@@ -1,0 +1,397 @@
+// «Character»: the paper doll and the stats. The slots stand as the game's do, eight down each side of the model and
+// the weapons along the bottom; each is the library's item slot (its tooltip, Shift+Left-click's link), with the
+// item's level in its corner and its durability under it. Left-click or a drag picks up what is worn (to the bags,
+// the bars, another slot) and lets go there what the cursor holds, as the game's own slot does. Under the model the
+// health and the resource; on the right the main stats as cards, then the rest a section at a time.
+import { Align, Art, BarFill, Event, MouseButton, Overflow, Position, TextAlign, TextFont } from "$ltml"
+import { Component, ItemButton, SECONDARY_TEXT, TITLE_TEXT, Tabs } from "Ordaen"
+import Locale from "@/locales"
+import { Choices } from "@/settings"
+import { AMMO, LEFT, RIGHT, Resource, Skill, SlotSpec, Stats, WEAPONS, Who, Worn, averageLevel } from "@/sheet"
+import Style from "@/style"
+
+// A stat as a card shows it: its name and its value.
+public struct Card {
+  const label: String
+  const value: String
+}
+
+// A group of cards under its heading.
+public struct Group {
+  const title: String
+  const cards: Array<Card>
+}
+
+// The ammo's slot is the game's small one.
+const AMMO_SIZE = 31.640625dp
+// Durability under a quarter is red, as the game's armour figure turns it.
+const WORN_OUT = 0.25
+const NOTHING: Worn = { slot: 0, item: nil, quality: .Common, level: nil, durability: nil }
+
+function percent(value: Number): String { return "%.2f%%".format(value) }
+function whole(value: Number): String { return String.of(value.floor()) }
+
+// The durability bar's colour for what is left of an item.
+public function wearColor(left: Number): Color { return left < WORN_OUT ? Style.RED : Style.GREEN }
+
+// A slot of the paper doll.
+public class GearSlot implements Component {
+  // The slot was clicked or dragged as the game's own takes it: its number.
+  public picked: Event<Integer> = new Event()
+
+  derived empty: Art | nil = self.worn.item == nil ? self.spec.empty : nil
+  derived levelText: String = self.levels && self.worn.level != nil ? String.of(self.worn.level ?? 0) : ""
+  derived wearShown: Boolean = self.wear && self.worn.durability != nil
+  derived wearFill: BarFill = self.fillOf()
+
+  spec: Signal<SlotSpec>
+  worn: Signal<Worn>
+  levels: Signal<Boolean>
+  wear: Signal<Boolean>
+  size: Signal<Number<Length>>
+  constructor(spec: Signal<SlotSpec>, worn: Signal<Worn>, levels: Signal<Boolean>, wear: Signal<Boolean>,
+    size: Signal<Number<Length>> = Style.SLOT) {
+    self.spec = spec
+    self.worn = worn
+    self.levels = levels
+    self.wear = wear
+    self.size = size
+  }
+
+  fillOf(self): BarFill {
+    const left = self.worn.durability ?? 1
+    return { value: left, color: wearColor(left) }
+  }
+
+  onPressed(self, press: Event.Press) {
+    if (press.button == MouseButton.Left) { self.picked.emit(peek self.spec.id) }
+  }
+
+  onDragged(self) { self.picked.emit(peek self.spec.id) }
+
+  public render(self): Template {
+    return $ltml {
+      <box gap={1.171875dp}>
+        <ItemButton item={self.worn.item} quality={self.worn.quality} art={self.empty} size={self.size}
+                    @pressed={self.onPressed} @dragged={self.onDragged} @dropped={self.onDragged}>
+          <box $if={self.levelText != ""} position={Position.Absolute} top={1.171875dp} right={2.34375dp}>
+            <text value={self.levelText} textSize={SECONDARY_TEXT} textFont={TextFont.Numbers} textColor={Style.INK}
+                  wrap={false} />
+          </box>
+        </ItemButton>
+        <box height={Style.WEAR} background={Style.TROUGH} fill={self.wearFill} opacity={self.wearShown ? 1 : 0} />
+      </box>
+    }
+  }
+}
+
+// A stat's card.
+public class StatCard implements Component {
+  card: Signal<Card>
+  big: Signal<Boolean>
+  constructor(card: Signal<Card>, big: Signal<Boolean> = false) {
+    self.card = card
+    self.big = big
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <box gap={2.34375dp} padding={7.03125dp} background={Style.CARD}>
+        <text value={self.card.label} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
+        <text value={self.card.value} textSize={self.big ? TITLE_TEXT : 1rem} textFont={TextFont.Numbers}
+              textColor={Style.INK} wrap={false} />
+      </box>
+    }
+  }
+}
+
+// A group's heading and its cards, four to a row.
+public class StatGroup implements Component {
+  group: Signal<Group>
+  constructor(group: Signal<Group>) {
+    self.group = group
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <box gap={4.6875dp}>
+        <text value={self.group.title} textFont={TextFont.Title} textColor={Style.GOLD} />
+        <box columns={4} gap={4.6875dp}>
+          <StatCard $for={card of self.group.cards} card={card} />
+        </box>
+      </box>
+    }
+  }
+}
+
+// One of the bars under the model: how much there is, on a full bar of the resource's colour.
+public class PoolBar implements Component {
+  derived full: BarFill = { value: 1, color: self.color }
+
+  label: Signal<String>
+  amount: Signal<Integer>
+  color: Signal<Color>
+  constructor(label: Signal<String>, amount: Signal<Integer>, color: Signal<Color>) {
+    self.label = label
+    self.amount = amount
+    self.color = color
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <box height={Style.BAR} background={Style.TROUGH} fill={self.full} xAlign={Align.Center} yAlign={Align.Center}>
+        <text value={`${self.label} ${self.amount}`} textSize={SECONDARY_TEXT} textFont={TextFont.Numbers}
+              textColor={Style.INK} wrap={false} />
+      </box>
+    }
+  }
+}
+
+// The sections under the main cards, in one order for every class.
+public enum Section { Melee, Ranged, Spells, Defense, Skills }
+const SECTIONS: Array<Section> = [.Melee, .Ranged, .Spells, .Defense, .Skills]
+
+function sectionName(section: Section): String {
+  return match (section) {
+    .Melee => Locale.SECTION_MELEE
+    .Ranged => Locale.SECTION_RANGED
+    .Spells => Locale.SECTION_SPELLS
+    .Defense => Locale.SECTION_DEFENSE
+    .Skills => Locale.SECTION_SKILLS
+  }
+}
+
+function resourceName(resource: Resource): String {
+  return match (resource) {
+    .Mana => Locale.MANA
+    .Rage => Locale.RAGE
+    .Energy => Locale.ENERGY
+    .Focus => Locale.FOCUS
+  }
+}
+
+function resourceColor(resource: Resource): Color {
+  return match (resource) {
+    .Mana => Style.MANA
+    .Rage => Style.RAGE
+    .Energy => Style.ENERGY
+    .Focus => Style.FOCUS
+  }
+}
+
+// The five main stats and the three ratings, on top.
+public function mainCards(stats: Stats): Array<Card> {
+  return [
+    { label: Locale.STRENGTH, value: String.of(stats.strength) },
+    { label: Locale.AGILITY, value: String.of(stats.agility) },
+    { label: Locale.STAMINA, value: String.of(stats.stamina) },
+    { label: Locale.INTELLECT, value: String.of(stats.intellect) },
+    { label: Locale.SPIRIT, value: String.of(stats.spirit) },
+    { label: Locale.HIT, value: percent(stats.hit) },
+    { label: Locale.CRIT, value: percent(stats.meleeCrit) },
+    { label: Locale.HASTE, value: percent(stats.haste) }
+  ]
+}
+
+// Seconds between hits, the off hand's after the main hand's where one is held.
+function speedText(stats: Stats): String {
+  const off = stats.offSpeed
+  if (stats.speed <= 0) { return Locale.NONE }
+  if (off == nil) { return "%.2f".format(stats.speed) }
+  return "%.2f / %.2f".format(stats.speed, off)
+}
+
+function dpsText(stats: Stats): String {
+  if (stats.speed <= 0) { return Locale.NONE }
+  return "%.1f".format((stats.minDamage + stats.maxDamage) / 2 / stats.speed)
+}
+
+// A section's groups of cards.
+public function groupsOf(section: Section, stats: Stats, skills: Array<Skill>): Array<Group> {
+  return match (section) {
+    .Melee => [
+      {
+        title: Locale.GROUP_MAIN_HAND,
+        cards: [
+          { label: Locale.DAMAGE, value: `${whole(stats.minDamage)} – ${whole(stats.maxDamage)}` },
+          { label: Locale.ATTACK_SPEED, value: speedText(stats) },
+          { label: Locale.DPS, value: dpsText(stats) },
+          { label: Locale.ATTACK_POWER, value: String.of(stats.attackPower) }
+        ]
+      },
+      {
+        title: Locale.GROUP_MODIFIERS,
+        cards: [{ label: Locale.HIT, value: percent(stats.hit) }, { label: Locale.CRIT_CHANCE, value: percent(stats.meleeCrit) }]
+      }
+    ]
+    .Ranged => [
+      { title: Locale.GROUP_WEAPON, cards: [{ label: Locale.RANGED_ATTACK_POWER, value: String.of(stats.rangedAttackPower) }] },
+      {
+        title: Locale.GROUP_MODIFIERS,
+        cards: [{ label: Locale.HIT, value: percent(stats.hit) }, { label: Locale.CRIT_CHANCE, value: percent(stats.rangedCrit) }]
+      }
+    ]
+    .Spells => [
+      {
+        title: Locale.GROUP_SPELL_POWER,
+        cards: [{ label: Locale.SPELL_DAMAGE, value: String.of(stats.spellDamage) }, { label: Locale.HEALING, value: String.of(stats.healing) }]
+      },
+      { title: Locale.GROUP_MODIFIERS, cards: [{ label: Locale.CRIT_CHANCE, value: percent(stats.spellCrit) }] },
+      { title: Locale.GROUP_MANA_REGEN, cards: [{ label: Locale.MANA_REGEN, value: whole(stats.regen) }] }
+    ]
+    .Defense => [
+      { title: Locale.GROUP_ARMOR, cards: [{ label: Locale.ARMOR, value: String.of(stats.armor) }] },
+      {
+        title: Locale.GROUP_AVOIDANCE,
+        cards: [
+          { label: Locale.DODGE, value: percent(stats.dodge) },
+          { label: Locale.PARRY, value: percent(stats.parry) },
+          { label: Locale.BLOCK, value: percent(stats.block) }
+        ]
+      },
+      { title: Locale.GROUP_RESISTANCES, cards: resistanceCards(stats.resistances) }
+    ]
+    .Skills => skillGroups(skills)
+  }
+}
+
+const SCHOOLS: Array<String> = [Locale.ARCANE, Locale.FIRE, Locale.FROST, Locale.NATURE, Locale.SHADOW]
+
+function resistanceCards(resistances: Array<Integer>): Array<Card> {
+  const cards: Array<Card> = []
+  for (index, school of SCHOOLS) { cards.push({ label: school, value: String.of(resistances[index] ?? 0) }) }
+  return cards
+}
+
+// A skill's value as the game writes it, its bonus after the rank: «300+5/300».
+function skillValue(skill: Skill): String {
+  if (skill.modifier != 0) { return `${skill.rank}+${skill.modifier}/${skill.max}` }
+  return `${skill.rank}/${skill.max}`
+}
+
+// The skills under the game's headings.
+function skillGroups(skills: Array<Skill>): Array<Group> {
+  const filed: Array<Filed> = []
+  let title = ""
+  for (skill of skills) {
+    if (skill.header) {
+      title = skill.name
+    } else {
+      filed.push({ title: title, card: { label: skill.name, value: skillValue(skill) } })
+    }
+  }
+  return grouped(filed)
+}
+
+// A card with the heading of the group it goes under.
+public struct Filed {
+  const title: String
+  const card: Card
+}
+
+// Cards under their headings, in order: those that follow one another under one heading make one group.
+public function grouped(filed: Array<Filed>): Array<Group> {
+  const groups: Array<Group> = []
+  let title = ""
+  let cards: Array<Card> = []
+  for (entry of filed) {
+    if (entry.title != title && cards.length > 0) {
+      groups.push({ title: title, cards: cards })
+      cards = []
+    }
+    title = entry.title
+    cards.push(entry.card)
+  }
+  if (cards.length > 0) { groups.push({ title: title, cards: cards }) }
+  return groups
+}
+
+public class GearPage implements Component {
+  // A slot clicked or dragged: its number.
+  public picked: Event<Integer> = new Event()
+
+  derived whoText: String = Locale.WHO.format(self.who.level, self.who.race, self.who.className)
+  derived levelText: String = self.levelOf()
+  derived main: Array<Card> = mainCards(self.stats)
+  derived sectionNames: Array<String> = SECTIONS.map(s => sectionName(s))
+  derived groups: Array<Group> = groupsOf(SECTIONS[self.section] ?? .Melee, self.stats, self.skills)
+  derived noGroups: Boolean = self.groups.length == 0
+  derived resource: String = resourceName(self.stats.resource)
+  derived resourceTint: Color = resourceColor(self.stats.resource)
+
+  worn: Signal<Array<Worn>>
+  who: Signal<Who>
+  stats: Signal<Stats>
+  skills: Signal<Array<Skill>>
+  usesAmmo: Signal<Boolean>
+  choices: Signal<Choices>
+  section: mut Signal<Integer>
+  constructor(worn: Signal<Array<Worn>>, who: Signal<Who>, stats: Signal<Stats>, skills: Signal<Array<Skill>>,
+    usesAmmo: Signal<Boolean>, choices: Signal<Choices>, section: mut Signal<Integer>) {
+    self.worn = worn
+    self.who = who
+    self.stats = stats
+    self.skills = skills
+    self.usesAmmo = usesAmmo
+    self.choices = choices
+    self.section = section
+  }
+
+  levelOf(self): String {
+    const level = averageLevel(self.worn)
+    return level == nil ? "" : Locale.ITEM_LEVEL.format("%.1f".format(level))
+  }
+
+  wornOf(self, slot: Integer): Worn {
+    return self.worn.find(piece => piece.slot == slot) ?? NOTHING
+  }
+
+  onPicked(self, slot: Integer) { self.picked.emit(slot) }
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={[Style.DOLL, { fr: 1 }]} gap={Style.GAP}>
+        <box rows={[{ fr: 1 }, "max-content", "max-content"]} gap={Style.GAP}>
+          <box columns={[Style.SLOT, { fr: 1 }, Style.SLOT]} gap={Style.GAP}>
+            <box gap={Style.SLOT_GAP}>
+              <GearSlot $for={spec of LEFT} spec={spec} worn={self.wornOf(spec.id)} levels={self.choices.itemLevels}
+                        wear={self.choices.durability} @picked={self.onPicked} />
+            </box>
+            <box rows={["max-content", "max-content", "max-content", { fr: 1 }]} gap={2.34375dp} xAlign={Align.Center}
+                 textAlign={TextAlign.Center} background={Style.BACK} padding={7.03125dp}>
+              <text value={self.who.name} textSize={TITLE_TEXT} textFont={TextFont.Title} textColor={Style.GOLD} />
+              <text value={self.whoText} textSize={SECONDARY_TEXT} textColor={Style.INK} />
+              <text value={self.levelText} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
+            </box>
+            <box gap={Style.SLOT_GAP}>
+              <GearSlot $for={spec of RIGHT} spec={spec} worn={self.wornOf(spec.id)} levels={self.choices.itemLevels}
+                        wear={self.choices.durability} @picked={self.onPicked} />
+            </box>
+          </box>
+          <box columns={{ each: "max-content" }} gap={Style.SLOT_GAP} xAlign={Align.Center} yAlign={Align.Start}>
+            <GearSlot $for={spec of WEAPONS} spec={spec} worn={self.wornOf(spec.id)} levels={self.choices.itemLevels}
+                      wear={self.choices.durability} @picked={self.onPicked} />
+            <GearSlot $if={self.usesAmmo} spec={AMMO} worn={self.wornOf(AMMO.id)} levels={false} wear={false}
+                      size={AMMO_SIZE} @picked={self.onPicked} />
+          </box>
+          <box gap={Style.SLOT_GAP}>
+            <PoolBar label={Locale.HEALTH} amount={self.stats.health} color={Style.HEALTH} />
+            <PoolBar label={self.resource} amount={self.stats.power} color={self.resourceTint} />
+          </box>
+        </box>
+        <box rows={["max-content", "max-content", { fr: 1 }]} gap={Style.GAP}>
+          <box columns={4} gap={4.6875dp}>
+            <StatCard $for={card of self.main} card={card} big={true} />
+          </box>
+          <Tabs tabs={self.sectionNames} selected={mut self.section} />
+          <box overflow={Overflow.Scroll}>
+            <box gap={Style.GAP}>
+              <text $if={self.noGroups} value={Locale.NO_SKILLS} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
+              <StatGroup $for={group of self.groups} group={group} />
+            </box>
+          </box>
+        </box>
+      </box>
+    }
+  }
+}

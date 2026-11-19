@@ -1,0 +1,229 @@
+// Ordaen Character: the character window, with five tabs: the character (the paper doll, the stats and the skills),
+// reputation, PvE, PvP and the statistics. It opens in place of the game's own character window: whatever shows the
+// game's (its key, C, its micro button, another addon's `ToggleCharacter`) shows ours, the game's held unseen and off
+// the screen while ours shows, and the game's tab picks ours (reputation, the skills, PvP). Closing ours closes the
+// game's. What it shows is read as it opens and again when the game says it changed, and only while it shows.
+import Client from "$client"
+import Events from "$events"
+import { Frame } from "$ltml"
+import Runtime from "$runtime"
+import root Ordaen from "Ordaen"
+import { KeptWindow, Module, Settings, SettingsPage, Window, WindowTabSpec, WindowsPage, windowsTitle } from "Ordaen"
+import { GearPage } from "@/gear"
+import Locale from "@/locales"
+import { ReputationPage } from "@/reputation"
+import { PvePage, PvpPage, StatisticsPage } from "@/samples"
+import { Choices, GeneralPage } from "@/settings"
+import { ClientSheet, Faction, Sheet, Skill, Stats, Who, Worn } from "@/sheet"
+import Style from "@/style"
+
+// The tabs, in order.
+const TAB_CHARACTER = 1
+const TAB_REPUTATION = 2
+const TAB_PVE = 3
+const TAB_PVP = 4
+// The game's character window and its pages, by the names its code gives them, with the tab of ours each opens.
+const GAME_WINDOW = "CharacterFrame"
+const SECTION_SKILLS = 5
+
+public class Character implements Module, App {
+  public const title: String = "Ordaen Character"
+  // Its window, declared: where it stands and what the player does with it, kept in the profile.
+  public window: mut KeptWindow = new KeptWindow("main", self.title, { x: 0ui, y: 0ui, width: Style.WIDTH, height: Style.HEIGHT })
+  public const windows: mut Array<mut KeptWindow> = [self.window]
+  public const pages: Array<SettingsPage> = [
+    { title: Locale.TAB_GENERAL, content: $ltml { <GeneralPage settings={mut self.settings} /> } },
+    { title: windowsTitle(), content: $ltml { <WindowsPage windows={mut self.windows} /> } }
+  ]
+
+  public settings: mut Settings<Choices> = new Settings<Choices>({ itemLevels: true, durability: true })
+  // Where the window reads the character and what its clicks ask of the game.
+  public sheet: mut any Sheet = new ClientSheet()
+
+  state open = false
+  state tab = TAB_CHARACTER
+  state section = 1
+  // The game's own window, while it shows: held unseen and off the screen.
+  state gameWindow: any Frame | nil = nil
+  game: any Client.Frame | nil = nil
+  state worn: Array<Worn> = []
+  state usesAmmo = false
+  state who: Who = { name: "", level: 0, race: "", className: "" }
+  state stats: Stats = {}
+  state skills: Array<Skill> = []
+  state factions: Array<Faction> = []
+  // Each faction's value as the window first read it this session, by the faction's number: what it rose since.
+  state starts: mut Map<Integer, Integer> = {}
+  // The faction picked, by its number (none: 0), and whether it is inactive.
+  state chosen = 0
+  state chosenInactive = false
+  derived tabs: Array<WindowTabSpec> = [
+    { title: Locale.TAB_CHARACTER },
+    { title: Locale.TAB_REPUTATION },
+    { title: Locale.TAB_PVE },
+    { title: Locale.TAB_PVP },
+    { title: Locale.TAB_STATISTICS }
+  ]
+
+  constructor() {
+    Ordaen.modules.add(self)
+    // The game's words about the character are heard while the window shows.
+    watch (opened of self.open) {
+      if (opened) {
+        Events.PLAYER_EQUIPMENT_CHANGED.listen(self.readGear)
+        Events.UPDATE_INVENTORY_DURABILITY.listen(self.readGear)
+        Events.UNIT_INVENTORY_CHANGED.listen(self.onUnitGear)
+        Events.UNIT_STATS.listen(self.onUnitStats)
+        Events.UNIT_ATTACK_POWER.listen(self.onUnitStats)
+        Events.UNIT_RESISTANCES.listen(self.onUnitStats)
+        Events.UPDATE_FACTION.listen(self.readFactions)
+        Events.SKILL_LINES_CHANGED.listen(self.readSkills)
+      }
+    }
+    self.hook(Runtime.frame(GAME_WINDOW))
+  }
+
+  // The game's character window and its pages: ours opens and closes with it, on the tab its page is. Hooked as the
+  // game names them, on their show and hide, which are rare.
+  public hook(mut self, frame: any Frame | nil) {
+    if (frame == nil) { return }
+    const window: any Client.Frame = frame
+    self.game = window
+    _ = window.HookScript("OnShow", (): nil => {
+      self.onGameShown(frame)
+      return nil
+    })
+    _ = window.HookScript("OnHide", (): nil => {
+      self.onGameHidden()
+      return nil
+    })
+    self.hookPage("PaperDollFrame", TAB_CHARACTER, nil)
+    self.hookPage("ReputationFrame", TAB_REPUTATION, nil)
+    self.hookPage("SkillsFrame", TAB_CHARACTER, SECTION_SKILLS)
+    self.hookPage("PVPRankFrame", TAB_PVP, nil)
+    if (window.IsShown()) { self.onGameShown(frame) }
+  }
+
+  // A page of the game's window: shown, ours turns to its tab (and section).
+  hookPage(mut self, name: String, tab: Integer, section: Integer | nil) {
+    const page = Runtime.frame(`${GAME_WINDOW}.${name}`) ?? Runtime.frame(name)
+    if (page == nil) { return }
+    const shown: any Client.Frame = page
+    _ = shown.HookScript("OnShow", (): nil => {
+      self.tab = tab
+      if (section != nil) { self.section = section }
+      return nil
+    })
+  }
+
+  onGameShown(mut self, frame: any Frame) {
+    self.gameWindow = frame
+    if (!(peek self.open)) {
+      self.open = true
+      self.refresh()
+    }
+  }
+
+  onGameHidden(mut self) {
+    self.gameWindow = nil
+    self.open = false
+  }
+
+  public refresh(mut self) {
+    self.readGear()
+    self.readStats()
+    self.readFactions()
+    self.readSkills()
+    self.who = self.sheet.who()
+  }
+
+  readGear(mut self) {
+    const worn: Array<Worn> = []
+    for (slot of 0..19) { worn.push(self.sheet.worn(slot)) }
+    self.worn = worn
+    self.usesAmmo = self.sheet.usesAmmo()
+  }
+
+  onUnitGear(mut self, unit: String) {
+    if (unit == "player") { self.readGear() }
+  }
+
+  readStats(mut self) { self.stats = self.sheet.stats() }
+
+  onUnitStats(mut self, unit: String) {
+    if (unit == "player") { self.readStats() }
+  }
+
+  readFactions(mut self) {
+    const factions = self.sheet.factions()
+    for (faction of factions) {
+      if ((peek self.starts)[faction.id] == nil) { self.starts[faction.id] = faction.value }
+    }
+    self.factions = factions
+    self.readChosen()
+  }
+
+  readSkills(mut self) { self.skills = self.sheet.skills() }
+
+  // Whether the picked faction is inactive: asked of it alone.
+  readChosen(mut self) {
+    const chosen = peek self.chosen
+    const faction = (peek self.factions).find(f => f.id == chosen)
+    self.chosenInactive = faction != nil && self.sheet.inactive(faction.index)
+  }
+
+  onPick(mut self, faction: Faction) {
+    self.chosen = faction.id
+    self.readChosen()
+  }
+
+  // A group's heading clicked: the game folds it or opens it, and keeps it so.
+  onFold(mut self, faction: Faction) {
+    self.sheet.fold(faction.index, faction.collapsed)
+    self.readFactions()
+  }
+
+  onAtWar(mut self, faction: Faction) {
+    self.sheet.toggleAtWar(faction.index)
+    self.readFactions()
+  }
+
+  onInactive(mut self, faction: Faction) {
+    self.sheet.setInactive(faction.index, !(peek self.chosenInactive))
+    self.readFactions()
+  }
+
+  onWatch(mut self, faction: Faction) {
+    self.sheet.watchFaction(faction.index, !faction.watched)
+    self.readFactions()
+  }
+
+  // A slot clicked or dragged: in the click's own call, as the game's slot does it.
+  onPicked(mut self, slot: Integer) { self.sheet.pickup(slot) }
+
+  // Ours closed: the game's closes with it.
+  onClose(mut self) {
+    self.open = false
+    self.game?.Hide()
+  }
+
+  onSettings(self) { Ordaen.toggleSettings(Runtime.Addon.of(self)) }
+
+  public render(self): Template {
+    return $ltml {
+      <frame $if={self.gameWindow != nil} of={self.gameWindow} opacity={0} away={true} />
+      <Window $if={self.open} tabs={self.tabs} selected={mut self.tab} declared={mut self.window} withSettings={true}
+              @close={self.onClose} @settings={self.onSettings}>
+        <GearPage $if={self.tab == TAB_CHARACTER} worn={self.worn} who={self.who} stats={self.stats}
+                  skills={self.skills} usesAmmo={self.usesAmmo} choices={self.settings.values}
+                  section={mut self.section} @picked={self.onPicked} />
+        <ReputationPage $elseif={self.tab == TAB_REPUTATION} factions={self.factions} starts={self.starts}
+                        chosen={self.chosen} chosenInactive={self.chosenInactive} @pick={self.onPick}
+                        @fold={self.onFold} @atWar={self.onAtWar} @inactive={self.onInactive} @watch={self.onWatch} />
+        <PvePage $elseif={self.tab == TAB_PVE} />
+        <PvpPage $elseif={self.tab == TAB_PVP} />
+        <StatisticsPage $else />
+      </Window>
+    }
+  }
+}

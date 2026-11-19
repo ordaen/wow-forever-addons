@@ -1,0 +1,293 @@
+// The character window as the player meets it: the game's character window shown (its key, its micro button) shows
+// ours in its place, on the tab of the game's page; the slots show what is worn and take clicks and drags as the
+// game's do; the stats, the skills and the factions show what the sheet reads, and the factions' switches ask the
+// game. The sheet is the test's own (what the window asks of it is heard); the client's sheet is held to the
+// client's answers where the stand-in has them.
+import Client from "$client"
+import Events from "$events"
+import Game from "$game"
+import { Art } from "$ltml"
+import Test from "$test"
+import root Ordaen from "Ordaen"
+import { Quality } from "Ordaen"
+import root Char from "OrdaenCharacter"
+import { wearColor } from "@/gear"
+import { ClientSheet, Faction, Sheet, Skill, Stats, Who, Worn } from "@/sheet"
+import Style from "@/style"
+
+const PAGE: Test.Page = { left: 0, top: 0, width: 1400, height: 900, screen: true }
+// A text the window always shows: its last tab.
+const WINDOW = "Statistics"
+const HELM = 12640
+const REAPER = 12784
+const HELM_ICON: Art = "Interface/Icons/INV_Helmet_41"
+const REAPER_ICON: Art = "Interface/Icons/INV_Axe_09"
+const EMPTY_FEET: Art = "Interface/PaperDoll/UI-PaperDoll-Slot-Feet"
+
+function faction(index: Integer, id: Integer, name: String, standing: Integer, value: Integer): Faction {
+  return {
+    index: index, id: id, name: name, description: `${name}'s description.`, standing: standing, value: value,
+    min: 3000, max: 9000, header: false, ranked: false, child: false, collapsed: false, atWar: false,
+    canToggleAtWar: false, canSetInactive: true, watched: false
+  }
+}
+
+function heading(index: Integer, id: Integer, name: String, collapsed: Boolean): Faction {
+  return {
+    index: index, id: id, name: name, description: "", standing: 4, value: 0, min: 0, max: 0, header: true,
+    ranked: false, child: false, collapsed: collapsed, atWar: false, canToggleAtWar: false, canSetInactive: false,
+    watched: false
+  }
+}
+
+// The test's sheet: a level 60 dwarf warrior with a helm and a two-hander, two groups of factions, and what the window
+// asks of it, heard.
+class FakeSheet implements Sheet {
+  heard: mut Array<String> = []
+  // The second group folded.
+  folded = false
+  stand = 4500
+
+  public worn(self, slot: Integer): Worn {
+    if (slot == 1) { return { slot: slot, item: HELM, quality: Quality.Epic, level: 63, durability: 0.2 } }
+    if (slot == 16) { return { slot: slot, item: REAPER, quality: Quality.Epic, level: 58, durability: 1 } }
+    return { slot: slot, item: nil, quality: Quality.Common, level: nil, durability: nil }
+  }
+
+  public usesAmmo(self): Boolean { return true }
+
+  public who(self): Who { return { name: "Regy", level: 60, race: "Dwarf", className: "Warrior" } }
+
+  public stats(self): Stats { return { strength: 312, stamina: 280, armor: 4120, attackPower: 832, meleeCrit: 20.05 } }
+
+  public factions(self): Array<Faction> {
+    const rows: Array<Faction> = [
+      heading(1, 100, "Alliance", false),
+      faction(2, 72, "Stormwind", 5, self.stand),
+      heading(3, 200, "Other", self.folded)
+    ]
+    if (!self.folded) { rows.push(faction(4, 529, "Argent Dawn", 6, 4000)) }
+    return rows
+  }
+
+  public inactive(self, index: Integer): Boolean { return false }
+
+  public skills(self): Array<Skill> {
+    return [
+      { name: "Weapon Skills", header: true, rank: 0, modifier: 0, max: 0 },
+      { name: "Maces", header: false, rank: 300, modifier: 5, max: 300 }
+    ]
+  }
+
+  public pickup(mut self, slot: Integer) { self.heard.push(`pickup ${slot}`) }
+
+  public fold(mut self, index: Integer, open: Boolean) {
+    self.heard.push(`fold ${index} ${open}`)
+    if (index == 3) { self.folded = !open }
+  }
+
+  public watchFaction(mut self, index: Integer, on: Boolean) { self.heard.push(`watch ${index} ${on}`) }
+  public toggleAtWar(mut self, index: Integer) { self.heard.push(`war ${index}`) }
+  public setInactive(mut self, index: Integer, inactive: Boolean) { self.heard.push(`inactive ${index} ${inactive}`) }
+}
+
+// The worn items' icons, as the game gives them.
+function icons(id: Integer): Art | nil { return id == HELM ? HELM_ICON : REAPER_ICON }
+
+// The game's character window, shown as its key or its micro button shows it, with the test's sheet: ours.
+function opened(sheet: mut FakeSheet): Test.Part {
+  Char.sheet = sheet
+  const game = Client.CreateFrame("Frame", "CharacterFrame", Client.UIParent, nil)
+  game.Hide()
+  Char.hook(game)
+  game.Show()
+  return Test.page().window(WINDOW)
+}
+
+// The window
+
+test "the game's character window shown shows ours, and closing ours closes the game's" {
+  Test.mount(nil, PAGE)
+  Char.sheet = new FakeSheet()
+  const game = Client.CreateFrame("Frame", "CharacterFrame", Client.UIParent, nil)
+  game.Hide()
+  Char.hook(game)
+  Test.expect(!Test.page().window(WINDOW).shown())
+  game.Show()
+  const window = Test.page().window(WINDOW)
+  Test.expect(window.text("Regy").shown())
+  window.button(Ordaen.art.ctl.corner.close).click()
+  Test.expect(!window.shown())
+  Test.expect(!game.IsShown())
+}
+
+test "the game's reputation page shown opens ours on the reputation tab" {
+  Test.mount(nil, PAGE)
+  const sheet = new FakeSheet()
+  const game = Client.CreateFrame("Frame", "CharacterFrame", Client.UIParent, nil)
+  const page = Client.CreateFrame("Frame", "ReputationFrame", game, nil)
+  page.Hide()
+  game.Hide()
+  Char.sheet = sheet
+  Char.hook(game)
+  game.Show()
+  page.Show()
+  Test.expect(Test.page().window(WINDOW).text("Stormwind").shown())
+}
+
+// The slots
+
+test "a slot shows what is worn there with its level, and an empty one its well" {
+  Test.mount(nil, PAGE)
+  Game.items.icon = icons
+  const window = opened(new FakeSheet())
+  Test.expect(window.button(HELM_ICON).text("63").shown())
+  Test.expect(window.button(REAPER_ICON).text("58").shown())
+  Test.expect(window.button(EMPTY_FEET).shown())
+  Test.expect(window.text("Average item level 7.1").shown())
+}
+
+test "a slot's item level is left out where the settings say so" {
+  Test.mount(nil, PAGE)
+  Game.items.icon = icons
+  const window = opened(new FakeSheet())
+  Char.settings.values.itemLevels = false
+  Test.expect(!window.text("63").shown())
+}
+
+test "left-click on a slot picks up what is worn there, and on an empty one lets go there what the cursor holds" {
+  Test.mount(nil, PAGE)
+  const sheet = new FakeSheet()
+  Game.items.icon = icons
+  const window = opened(mut sheet)
+  window.button(HELM_ICON).click()
+  window.button(EMPTY_FEET).click()
+  Test.expect(sheet.heard.join(", ") == "pickup 1, pickup 8")
+}
+
+test "Shift+Left-click on a slot puts the item's link into the chat and picks nothing up" {
+  Test.mount(nil, PAGE)
+  const sheet = new FakeSheet()
+  Game.items.icon = icons
+  const window = opened(mut sheet)
+  _ = Test.requests()
+  Game.input.shiftDown = (): Boolean => true
+  window.button(REAPER_ICON).click()
+  Test.expect(sheet.heard.length == 0)
+  Test.expect(Test.requests().any(asked => asked.contains(String.of(REAPER))))
+}
+
+test "right-click on a slot picks nothing up" {
+  Test.mount(nil, PAGE)
+  const sheet = new FakeSheet()
+  Game.items.icon = icons
+  const window = opened(mut sheet)
+  window.button(HELM_ICON).rightClick()
+  Test.expect(sheet.heard.length == 0)
+}
+
+// The stats
+
+test "the main stats stand as cards, and a section's tab shows its own" {
+  Test.mount(nil, PAGE)
+  Game.items.icon = icons
+  const window = opened(new FakeSheet())
+  Test.expect(window.text("312").shown())
+  Test.expect(window.text("832").shown())
+  window.button("Defense").click()
+  Test.expect(window.text("4120").shown())
+  window.button("Skills").click()
+  Test.expect(window.text("300+5/300").shown())
+}
+
+// Reputation
+
+test "a group's heading folds it in the game, and the list shows what the game then lists" {
+  Test.mount(nil, PAGE)
+  const sheet = new FakeSheet()
+  Game.items.icon = icons
+  const window = opened(mut sheet)
+  window.button("Reputation").click()
+  Test.expect(window.text("Argent Dawn").shown())
+  window.button("Other").click()
+  Test.expect(sheet.heard.join(", ") == "fold 3 false")
+  Test.expect(!window.text("Argent Dawn").shown())
+}
+
+test "a faction picked shows its standing, what is left to the next and its switches" {
+  Test.mount(nil, PAGE)
+  const sheet = new FakeSheet()
+  Game.items.icon = icons
+  const window = opened(mut sheet)
+  window.button("Reputation").click()
+  Test.expect(window.text("Pick a faction.").shown())
+  window.button("Stormwind").click()
+  Test.expect(window.text("Stormwind's description.").shown())
+  Test.expect(window.text("1500 / 6000").shown())
+  window.button("Show on the bar").click()
+  Test.expect(sheet.heard.join(", ") == "watch 2 true")
+}
+
+test "a faction the game won't let the player war with has its switch off and takes no click" {
+  Test.mount(nil, PAGE)
+  const sheet = new FakeSheet()
+  Game.items.icon = icons
+  const window = opened(mut sheet)
+  window.button("Reputation").click()
+  window.button("Stormwind").click()
+  window.button("At war").click()
+  Test.expect(sheet.heard.length == 0)
+}
+
+test "what a faction rose since the window first read it shows beside it" {
+  Test.mount(nil, PAGE)
+  const sheet = new FakeSheet()
+  Game.items.icon = icons
+  const window = opened(mut sheet)
+  window.button("Reputation").click()
+  sheet.stand = 4650
+  Events.UPDATE_FACTION.emit()
+  Test.expect(window.text("+150").shown())
+}
+
+// The client's sheet
+
+test "the client's sheet reads what is worn in a slot from the client" {
+  Test.mount(nil, PAGE)
+  Client.GetInventoryItemID = (unit: String, slot: Number): Number | nil => slot == 1 ? HELM : nil
+  const sheet = new ClientSheet()
+  const helm = sheet.worn(1)
+  Test.expect(helm.item == HELM)
+  Test.expect(sheet.worn(2).item == nil)
+}
+
+test "the game's skills page shown opens ours on the character tab's skills" {
+  Test.mount(nil, PAGE)
+  Char.sheet = new FakeSheet()
+  const game = Client.CreateFrame("Frame", "CharacterFrame", Client.UIParent, nil)
+  const page = Client.CreateFrame("Frame", "SkillsFrame", game, nil)
+  page.Hide()
+  game.Hide()
+  Char.hook(game)
+  game.Show()
+  page.Show()
+  Test.expect(Test.page().window(WINDOW).text("300+5/300").shown())
+}
+
+test "a slot's durability bar is red below a quarter, green from there" {
+  Test.expect(wearColor(0.2) == Style.RED)
+  Test.expect(wearColor(0.25) == Style.GREEN)
+}
+
+// The sample tabs
+
+test "the statistics' search keeps the statistics whose name holds it, under their categories" {
+  Test.mount(nil, PAGE)
+  const window = opened(new FakeSheet())
+  window.button("Statistics").click()
+  Test.expect(window.text("Total deaths").shown())
+  window.input().type("gold")
+  Test.expect(window.text("Total gold acquired").shown())
+  Test.expect(!window.text("Total deaths").shown())
+  Test.expect(!window.text("Combat").shown())
+}

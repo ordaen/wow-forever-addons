@@ -1,0 +1,122 @@
+// The tabs whose data the window doesn't read from the game yet: PvE (the dungeons and raids), PvP (the season's rank
+// and the kills) and the statistics. Each shows sample data, and says so on its top line, until `"$game"` has a part
+// for it (the module's report names them).
+import { Align, BarFill, Overflow, TextFont } from "$ltml"
+import { Component, SECONDARY_TEXT, TITLE_TEXT, TextField } from "Ordaen"
+import { Card, Filed, Group, StatGroup, grouped } from "@/gear"
+import Locale from "@/locales"
+import Style from "@/style"
+
+// The line every sample tab starts with.
+public class SampleNote implements Component {
+  public render(self): Template {
+    return $ltml {
+      <text value={Locale.SAMPLE} textSize={SECONDARY_TEXT} textColor={Style.YELLOW} />
+    }
+  }
+}
+
+const DUNGEONS: Array<Card> = [
+  { label: "Ragefire Chasm", value: Locale.CLEARED.format(3) },
+  { label: "The Deadmines", value: Locale.CLEARED.format(5) },
+  { label: "Wailing Caverns", value: Locale.CLEARED.format(2) },
+  { label: "Scarlet Monastery", value: Locale.CLEARED.format(8) }
+]
+const RAIDS: Array<Card> = [
+  { label: "Molten Core", value: Locale.CLEARED.format(0) },
+  { label: "Onyxia's Lair", value: Locale.CLEARED.format(0) }
+]
+
+public class PvePage implements Component {
+  const groups: Array<Group> = [{ title: Locale.DUNGEONS, cards: DUNGEONS }, { title: Locale.RAIDS, cards: RAIDS }]
+
+  public render(self): Template {
+    return $ltml {
+      <box gap={Style.GAP}>
+        <SampleNote />
+        <StatGroup $for={group of self.groups} group={group} />
+      </box>
+    }
+  }
+}
+
+const RANK_NAME = "Private"
+const RATING = 120
+const RATING_NEXT = 750
+
+public class PvpPage implements Component {
+  const bar: BarFill = { value: RATING / RATING_NEXT, color: Style.GOLD }
+  const rating: String = Locale.RATING.format(String.of(RATING), String.of(RATING_NEXT))
+  const week: Array<Group> = [
+    {
+      title: Locale.THIS_WEEK,
+      cards: [{ label: Locale.HONORABLE_KILLS, value: "42" }, { label: Locale.TODAY, value: "7" }]
+    },
+    { title: Locale.LIFETIME, cards: [{ label: Locale.HONORABLE_KILLS, value: "1318" }] }
+  ]
+
+  public render(self): Template {
+    return $ltml {
+      <box gap={Style.GAP}>
+        <SampleNote />
+        <box columns={[Style.SIDE, { fr: 1 }]} gap={Style.GAP}>
+          <box gap={4.6875dp} background={Style.CARD} padding={Style.GAP}>
+            <text value={Locale.RANK} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
+            <text value={RANK_NAME} textSize={TITLE_TEXT} textFont={TextFont.Title} textColor={Style.GOLD} />
+            <box height={Style.BAR} background={Style.TROUGH} fill={self.bar} xAlign={Align.Center} yAlign={Align.Center}>
+              <text value={self.rating} textSize={SECONDARY_TEXT} textFont={TextFont.Numbers} textColor={Style.INK}
+                    wrap={false} />
+            </box>
+          </box>
+          <box gap={Style.GAP}>
+            <StatGroup $for={group of self.week} group={group} />
+          </box>
+        </box>
+      </box>
+    }
+  }
+}
+
+// A statistic of the game's: its category, its name and its value.
+struct Statistic {
+  const category: String
+  const name: String
+  const value: String
+}
+
+const STATISTICS: Array<Statistic> = [
+  { category: "Character", name: "Total gold acquired", value: "1204" },
+  { category: "Character", name: "Mounts owned", value: "2" },
+  { category: "Combat", name: "Total damage done", value: "8 412 033" },
+  { category: "Combat", name: "Total deaths", value: "57" },
+  { category: "Quests", name: "Quests completed", value: "412" },
+  { category: "Quests", name: "Daily quests completed", value: "—" }
+]
+
+// The statistics under their categories, those whose name holds the search.
+function groupsFound(search: String): Array<Group> {
+  const needle = search.lower()
+  const found = STATISTICS.filter(s => needle == "" || s.name.lower().contains(needle))
+  return grouped(found.map(s => Filed { title: s.category, card: { label: s.name, value: s.value } }))
+}
+
+public class StatisticsPage implements Component {
+  state search = ""
+  derived groups: Array<Group> = groupsFound(self.search)
+  derived empty: Boolean = self.groups.length == 0
+
+  public render(self): Template {
+    return $ltml {
+      <box rows={["max-content", "max-content", { fr: 1 }]} gap={Style.GAP}>
+        <SampleNote />
+        <TextField label={Locale.SEARCH} value={mut self.search} />
+        <box overflow={Overflow.Scroll}>
+          <box gap={Style.GAP}>
+            <text $if={self.empty} value={Locale.NOTHING_FOUND} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
+            <StatGroup $for={group of self.groups} group={group} />
+          </box>
+        </box>
+      </box>
+    }
+  }
+}

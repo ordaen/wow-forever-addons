@@ -1,0 +1,28 @@
+// Ordaen Character's page in the settings window: what the paper doll's slots show. Each control writes one entry of
+// the settings, at once.
+import { Checkbox, Component, Settings } from "Ordaen"
+import Locale from "@/locales"
+
+// What the player chooses.
+public struct Choices implements Plain {
+  // Each slot shows its item's level in its corner.
+  itemLevels: Boolean
+  // A thin bar under each slot shows its item's durability.
+  durability: Boolean
+}
+
+public class GeneralPage implements Component {
+  settings: mut Settings<Choices>
+  constructor(settings: mut Settings<Choices>) {
+    self.settings = settings
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <Checkbox label={Locale.SETTING_ITEM_LEVELS} hint={Locale.SETTING_ITEM_LEVELS_TIP}
+                value={mut self.settings.values.itemLevels} />
+      <Checkbox label={Locale.SETTING_DURABILITY} hint={Locale.SETTING_DURABILITY_TIP}
+                value={mut self.settings.values.durability} />
+    }
+  }
+}

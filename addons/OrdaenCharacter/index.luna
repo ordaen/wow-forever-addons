@@ -1,0 +1,2 @@
+// Ordaen Character: the character window. Its root is `Character`.
+public import { Character } from "@/main"

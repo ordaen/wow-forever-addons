@@ -1,0 +1,350 @@
+// What the character window shows of the player's character, and what its clicks ask of the game: the slots and what
+// is worn in them, the stats, the factions and the skills. `"$game"` has no part for these yet (what it should gain:
+// the module's report), so `Sheet` is the window's one door to them: `ClientSheet` reads the client, a test hands
+// its own.
+import Client from "$client"
+import Game from "$game"
+import Runtime from "$runtime"
+import { Quality } from "Ordaen"
+
+// A slot of the paper doll: the client's number for it and the art of its well while nothing is worn there.
+public struct SlotSpec {
+  const id: Integer
+  const empty: Asset
+}
+
+// The slots as the game's paper doll stands them: eight down the left, eight down the right, the weapons along the
+// bottom with the ammo's small slot after the ranged one.
+public const LEFT: Array<SlotSpec> = [
+  { id: 1, empty: "Interface/PaperDoll/UI-PaperDoll-Slot-Head" },
+  { id: 2, empty: "Interface/PaperDoll/UI-PaperDoll-Slot-Neck" },
+  { id: 3, empty: "Interface/PaperDoll/UI-PaperDoll-Slot-Shoulder" },
+  { id: 15, empty: "Interface/PaperDoll/UI-PaperDoll-Slot-Chest" },
+  { id: 5, empty: "Interface/PaperDoll/UI-PaperDoll-Slot-Chest" },
+  { id: 4, empty: "Interface/PaperDoll/UI-PaperDoll-Slot-Shirt" },
+  { id: 19, empty: "Interface/PaperDoll/UI-PaperDoll-Slot-Tabard" },
+  { id: 9, empty: "Interface/PaperDoll/UI-PaperDoll-Slot-Wrists" }
+]
+public const RIGHT: Array<SlotSpec> = [
+  { id: 10, empty: "Interface/PaperDoll/UI-PaperDoll-Slot-Hands" },
+  { id: 6, empty: "Interface/PaperDoll/UI-PaperDoll-Slot-Waist" },
+  { id: 7, empty: "Interface/PaperDoll/UI-PaperDoll-Slot-Legs" },
+  { id: 8, empty: "Interface/PaperDoll/UI-PaperDoll-Slot-Feet" },
+  { id: 11, empty: "Interface/PaperDoll/UI-PaperDoll-Slot-Finger" },
+  { id: 12, empty: "Interface/PaperDoll/UI-PaperDoll-Slot-Finger" },
+  { id: 13, empty: "Interface/PaperDoll/UI-PaperDoll-Slot-Trinket" },
+  { id: 14, empty: "Interface/PaperDoll/UI-PaperDoll-Slot-Trinket" }
+]
+public const WEAPONS: Array<SlotSpec> = [
+  { id: 16, empty: "Interface/PaperDoll/UI-PaperDoll-Slot-MainHand" },
+  { id: 17, empty: "Interface/PaperDoll/UI-PaperDoll-Slot-SecondaryHand" },
+  { id: 18, empty: "Interface/PaperDoll/UI-PaperDoll-Slot-Ranged" }
+]
+public const AMMO: SlotSpec = { id: 0, empty: "Interface/PaperDoll/UI-PaperDoll-Slot-Ammo" }
+// The slots the average item level counts, as the game does: every one but the shirt, the tabard and the ammo, an
+// empty one as nought.
+const COUNTED = 17
+const SHIRT = 4
+const TABARD = 19
+
+// What is worn in a slot; `item` none for an empty one.
+public struct Worn {
+  const slot: Integer
+  const item: Integer | nil
+  const quality: Quality
+  const level: Integer | nil
+  // What is left of it, from 0 to 1; none for what doesn't wear.
+  const durability: Number | nil
+}
+
+// Who the character is, as the paper doll's top says it.
+public struct Who {
+  const name: String
+  const level: Integer
+  const race: String
+  const className: String
+}
+
+// What the character's resource bar holds.
+public enum Resource { Mana, Rage, Energy, Focus }
+
+// The character's stats as the client works them out, with every buff and item counted.
+public struct Stats {
+  strength: Integer = 0
+  agility: Integer = 0
+  stamina: Integer = 0
+  intellect: Integer = 0
+  spirit: Integer = 0
+  health: Integer = 0
+  power: Integer = 0
+  resource: Resource = Resource.Mana
+  armor: Integer = 0
+  // Arcane, fire, frost, nature and shadow, in that order.
+  resistances: Array<Integer> = [0, 0, 0, 0, 0]
+  attackPower: Integer = 0
+  rangedAttackPower: Integer = 0
+  // The main hand's damage per hit and its seconds between hits; the off hand's where one is held.
+  minDamage: Number = 0
+  maxDamage: Number = 0
+  speed: Number = 0
+  offSpeed: Number | nil = nil
+  // Chances in percent.
+  meleeCrit: Number = 0
+  rangedCrit: Number = 0
+  spellCrit: Number = 0
+  hit: Number = 0
+  haste: Number = 0
+  dodge: Number = 0
+  parry: Number = 0
+  block: Number = 0
+  spellDamage: Integer = 0
+  healing: Integer = 0
+  // Mana every five seconds while casting.
+  regen: Number = 0
+}
+
+// A row of the game's reputation list: a group's heading, or a faction with its standing (1 hated to 8 exalted) and
+// where it is between the standing's start and its end. `index` is the client's place of the row in its list as it
+// stands now: folding a group moves the rows after it.
+public struct Faction {
+  const index: Integer
+  const id: Integer
+  const name: String
+  const description: String
+  const standing: Integer
+  const value: Integer
+  const min: Integer
+  const max: Integer
+  const header: Boolean
+  // A heading that has a standing of its own.
+  const ranked: Boolean
+  const child: Boolean
+  const collapsed: Boolean
+  const atWar: Boolean
+  const canToggleAtWar: Boolean
+  const canSetInactive: Boolean
+  const watched: Boolean
+}
+
+// A row of the game's skill list: a heading, or a skill with its rank, the bonus on it and the cap for the level.
+public struct Skill {
+  const name: String
+  const header: Boolean
+  const rank: Integer
+  const modifier: Integer
+  const max: Integer
+}
+
+public trait Sheet {
+  public worn(self, slot: Integer): Worn
+  public usesAmmo(self): Boolean
+  public who(self): Who
+  public stats(self): Stats
+  public factions(self): Array<Faction>
+  // Whether a faction of the list is inactive: asked of the one the player picks.
+  public inactive(self, index: Integer): Boolean
+  public skills(self): Array<Skill>
+  // The slot clicked as the game's own slot is: what the cursor holds is equipped there, or what is worn there is
+  // taken onto the cursor (to the bags, the bars, another slot).
+  public pickup(mut self, slot: Integer)
+  public fold(mut self, index: Integer, open: Boolean)
+  public watchFaction(mut self, index: Integer, on: Boolean)
+  public toggleAtWar(mut self, index: Integer)
+  public setInactive(mut self, index: Integer, inactive: Boolean)
+}
+
+// The average item level over the counted slots, an empty one as nought; none while nothing is worn.
+public function averageLevel(worn: Array<Worn>): Number | nil {
+  let sum = 0
+  let any = false
+  for (piece of worn) {
+    const level = piece.level
+    if (level != nil && piece.slot != SHIRT && piece.slot != TABARD && piece.slot != AMMO.id) {
+      sum += level
+      any = true
+    }
+  }
+  return any ? sum / COUNTED : nil
+}
+
+// The client's quality as the library's slot draws it.
+function qualityOf(quality: Client.ItemQuality | nil): Quality {
+  return match (quality) {
+    .Poor => .Poor
+    .Uncommon => .Uncommon
+    .Rare => .Rare
+    .Epic => .Epic
+    .Legendary => .Legendary
+    .Artifact => .Artifact
+    .Heirloom => .Heirloom
+    else => .Common
+  }
+}
+
+function statOf(index: Integer): Integer {
+  let _, value, _, _ = Client.UnitStat("player", index)
+  return value.floor()
+}
+
+function resistanceOf(school: Client.Damageclass): Integer {
+  let _, value, _, _ = Client.UnitResistance("player", school)
+  return value.floor()
+}
+
+function resourceOf(kind: Client.PowerType | nil): Resource {
+  return match (kind) {
+    .Rage => .Rage
+    .Energy => .Energy
+    .Focus => .Focus
+    else => .Mana
+  }
+}
+
+// The schools a spell's damage counts: holy to arcane, as the client numbers them.
+const FIRST_SCHOOL = 2
+const LAST_SCHOOL = 7
+
+// The sheet read from the client, each time it is asked.
+public class ClientSheet implements Sheet {
+  public worn(self, slot: Integer): Worn {
+    const id = Client.GetInventoryItemID("player", slot)
+    if (id == nil) { return { slot: slot, item: nil, quality: Quality.Common, level: nil, durability: nil } }
+    const item = id.floor()
+    let _, _, quality, level, _, _, _, _, _, _, _, _, _, _, _, _, _, _ = Client.C_Item.GetItemInfo(item)
+    let left, most = Client.GetInventoryItemDurability(slot)
+    const durability = left != nil && most != nil && most > 0 ? left / most : nil
+    return { slot: slot, item: item, quality: qualityOf(quality), level: level?.floor(), durability: durability }
+  }
+
+  public usesAmmo(self): Boolean { return Client.UnitUsesAmmo("player") }
+
+  public who(self): Who {
+    let race, _, _ = Client.UnitRace("player")
+    let className, _, _ = Client.UnitClass("player")
+    return { name: Game.player.name, level: peek Game.player.level, race: race ?? "", className: className ?? "" }
+  }
+
+  public stats(self): Stats {
+    let base, positive, negative = Client.UnitAttackPower("player")
+    let rangedBase, rangedPositive, rangedNegative = Client.UnitRangedAttackPower("player")
+    let _, armor, _, _ = Client.UnitArmor("player")
+    let minDamage, maxDamage, _, _, _, _, _ = Client.UnitDamage("player")
+    let speed, offSpeed, _ = Client.UnitAttackSpeed("player")
+    let _, casting = Client.GetManaRegen()
+    let kind, _, _, _, _ = Client.UnitPowerType("player", nil)
+    let spellDamage: Number = 0
+    for (school of FIRST_SCHOOL..LAST_SCHOOL) { spellDamage = spellDamage.max(Client.GetSpellBonusDamage(school) ?? 0) }
+    return {
+      strength: statOf(1),
+      agility: statOf(2),
+      stamina: statOf(3),
+      intellect: statOf(4),
+      spirit: statOf(5),
+      health: Client.UnitHealthMax("player").floor(),
+      power: Client.UnitPowerMax("player", nil, nil).floor(),
+      resource: resourceOf(kind),
+      armor: armor.floor(),
+      resistances: [
+        resistanceOf(.Arcane),
+        resistanceOf(.Fire),
+        resistanceOf(.Frost),
+        resistanceOf(.Nature),
+        resistanceOf(.Shadow)
+      ],
+      attackPower: (base + positive + negative).floor(),
+      rangedAttackPower: (rangedBase + rangedPositive + rangedNegative).floor(),
+      minDamage: minDamage,
+      maxDamage: maxDamage,
+      speed: speed,
+      offSpeed: offSpeed,
+      meleeCrit: Client.GetCritChance(),
+      rangedCrit: Client.GetRangedCritChance(),
+      spellCrit: Client.GetSpellCritChance(),
+      hit: Client.GetHitModifier(),
+      haste: Client.GetHaste(),
+      dodge: Client.GetDodgeChance(),
+      parry: Client.GetParryChance(),
+      block: Client.GetBlockChance(),
+      spellDamage: spellDamage.floor(),
+      healing: Client.GetSpellBonusHealing().floor(),
+      regen: casting * 5
+    }
+  }
+
+  public factions(self): Array<Faction> {
+    const rows: Array<Faction> = []
+    for (index of 1..Client.C_Reputation.GetNumFactions()) {
+      const data = Client.C_Reputation.GetFactionDataByIndex(index)
+      if (data != nil) {
+        rows.push({
+          index: index,
+          id: data.factionID.floor(),
+          name: data.name,
+          description: data.description,
+          standing: data.reaction,
+          value: data.currentStanding.floor(),
+          min: data.currentReactionThreshold.floor(),
+          max: data.nextReactionThreshold.floor(),
+          header: data.isHeader,
+          ranked: data.isHeaderWithRep,
+          child: data.isChild,
+          collapsed: data.isCollapsed,
+          atWar: data.atWarWith,
+          canToggleAtWar: data.canToggleAtWar,
+          canSetInactive: data.canSetInactive,
+          watched: data.isWatched
+        })
+      }
+    }
+    return rows
+  }
+
+  public inactive(self, index: Integer): Boolean { return !Client.C_Reputation.IsFactionActive(index) }
+
+  public skills(self): Array<Skill> {
+    const rows: Array<Skill> = []
+    for (index of 1..Client.C_SkillInfo.GetNumSkillLines()) {
+      const data = Client.C_SkillInfo.GetSkillLineInfo(index)
+      if (data != nil) {
+        rows.push({
+          name: data.name,
+          header: data.isHeader,
+          rank: data.rank.floor(),
+          modifier: data.modifier.floor(),
+          max: data.maxRank.floor()
+        })
+      }
+    }
+    return rows
+  }
+
+  public pickup(mut self, slot: Integer) { Client.PickupInventoryItem(slot) }
+
+  public fold(mut self, index: Integer, open: Boolean) {
+    if (open) {
+      Client.C_Reputation.ExpandFactionHeader(index)
+    } else {
+      Client.C_Reputation.CollapseFactionHeader(index)
+    }
+  }
+
+  // The faction shown on the bar: none once the one shown is turned off (index 0, as the game's own switch does).
+  public watchFaction(mut self, index: Integer, on: Boolean) { Client.C_Reputation.SetWatchedFactionByIndex(on ? index : 0) }
+
+  public toggleAtWar(mut self, index: Integer) { Client.C_Reputation.ToggleFactionAtWar(index) }
+
+  public setInactive(mut self, index: Integer, inactive: Boolean) { Client.C_Reputation.SetFactionActive(index, !inactive) }
+}
+
+// A standing's name as the client writes it (`FACTION_STANDING_LABEL1`, hated, to `8`, exalted).
+public function standingName(standing: Integer): String {
+  return Runtime.text(`FACTION_STANDING_LABEL${standing}`) ?? ""
+}
+
+// A standing's colour as the client's reputation bar fills it (`FACTION_BAR_COLORS`); neutral's where it has none.
+const NEUTRAL: Color = { r: 0.9, g: 0.7, b: 0, a: 1 }
+public function standingColor(standing: Integer): Color {
+  const color = Client.FACTION_BAR_COLORS[standing]
+  if (color == nil) { return NEUTRAL }
+  return { r: color.r, g: color.g, b: color.b, a: 1 }
+}
