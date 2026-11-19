@@ -15,7 +15,7 @@ import { Align, Edges, Track } from "$ltml"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
 import {
-  ARTWORK, ButtonPlate, Choice, Dialog, FilterButton, FilterGroup, KeptWindow, Module, PushButton, SECONDARY_TEXT, Segmented, Settings,
+  ARTWORK, ButtonPlate, Choice, Dialog, FilterButton, FilterGroup, FooterCount, FooterCounts, KeptWindow, Module, PushButton, SECONDARY_TEXT, Segmented, Settings,
   SettingsPage, ToolPick, Toolbar, Window, WindowSide, WindowTabSpec, WindowsPage, space, switched, windowsTitle
 } from "Ordaen"
 import root Maps from "OrdaenMap"
@@ -108,12 +108,12 @@ public class Quests implements Module, App {
   ]
   public settings: mut Settings<Choices> = new Settings<Choices>({ ownKey: true })
   // The window's footer: QuestieDB's absence where it can't be read, and the count against the log's cap (red when
-  // full), dimmed.
+  // full), as label and value.
   const footer: Template = $ltml {
     <box columns={FOOT} gap={space(.Group)} yAlign={Align.Center}>
       <text $if={!self.known} value={Locale.NO_QUESTIE} textColor={RED} textSize={SECONDARY_TEXT} />
       <box $else />
-      <text value={self.counted} textColor={self.countColor} textSize={SECONDARY_TEXT} wrap={false} />
+      <FooterCounts counts={self.counted} />
     </box>
   }
 
@@ -149,8 +149,9 @@ public class Quests implements Module, App {
   derived kind: QuestKind = KINDS[self.tab] ?? .World
   derived tabs: Array<WindowTabSpec> = KINDS.map(kind => { title: tabTitle(kind), desc: String.of(countOf(self.quests, kind)), icon: tabIcon(kind) })
   derived count: Integer = self.quests.length
-  derived counted: String = Locale.COUNT.format(self.count, self.most)
-  derived countColor: Color = self.count >= self.most ? RED : DIM
+  derived counted: Array<FooterCount> = [
+    { label: Locale.FOOT_QUESTS, value: "%d/%d".format(self.count, self.most), color: self.count >= self.most ? RED : nil }
+  ]
   derived known: Boolean = self.data.fault() == nil
   derived asked: Asked = { sought: self.search.lower(), status: self.status, filter: self.filter, player: self.level }
   derived listed: Array<LogQuest> = listedOf(self.quests, self.asked, self.sort)

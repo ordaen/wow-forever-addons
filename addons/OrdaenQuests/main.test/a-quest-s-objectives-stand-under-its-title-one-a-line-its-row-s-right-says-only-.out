@@ -68,8 +68,11 @@ surface 550,192.21 614.97x515.58 on DIALOG clamped raised by a click
                     text 641.64,424.01 492.25x14.4 "Wolves slain: 5/10" #a3977f
       box 582.75,652.89 554.47x31.07
         box 582.75,669.56 554.47x14.4
-          box 582.75,676.76 463.36x0
-          text 1062.78,669.56 74.44x14.4 "Quests: 3/25" #a3977f
+          box 582.75,676.76 465.58x0
+          box 1065,669.56 72.22x14.4
+            box 1065,669.56 72.22x14.4
+              text 1065,669.56 38.89x14.4 "Quests" #a3977f
+              text 1110.56,669.56 26.67x14.4 "3/25" #e8dcc4
     box 1147.72,687.79 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 550,192.21 614.97x59.42
     box 550,192.21 528.31x59.42

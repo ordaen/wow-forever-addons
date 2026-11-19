@@ -130,7 +130,7 @@ test "each tab lists its own quests and counts them, the player's zone first" {
   window.text("Dungeons").click()
   Test.expect(window.text("Red Silk Bandanas").shown())
   Test.expect(!window.text("Elwynn Wolves").shown())
-  Test.expect(window.text("Quests: 3/25").shown())
+  Test.expect(window.text("3/25").shown())
 }
 
 test "a header folds its quests away and back" {
@@ -304,17 +304,18 @@ test "one list leaves the headers out; by title orders it" {
   Test.expect(before("Elwynn Wolves", "The Defias Brotherhood"))
 }
 
-test "the count stands in the footer, dim, and red once the log is full" {
+test "the count stands in the footer under its dim label, and red once the log is full" {
   const log = new TestLog()
   opened(mut log, new TestData())
-  const counted = Test.page().window("World").text("Quests: 3/25")
-  Test.expect(counted.textColor().equal(Color.hex("#a3977f")))
+  Test.expect(Test.page().window("World").text("Quests").textColor().equal(Color.hex("#a3977f")))
+  const counted = Test.page().window("World").text("3/25")
+  Test.expect(counted.textColor().equal(Color.hex("#e8dcc4")))
   // A list of its own: the log gives the window another list as it changes.
   const full: Array<LogQuest> = log.list.map(kept => kept)
   for (id of 1..22) { full.push(quest(200 + id, `Quest ${id}`, "Westfall", .World)) }
   log.list = full
   Quests.refresh()
-  Test.expect(Test.page().window("World").text("Quests: 25/25").textColor().equal(Color.hex("#ff4040")))
+  Test.expect(Test.page().window("World").text("25/25").textColor().equal(Color.hex("#ff4040")))
 }
 
 test "each tab has its icon, the client's own" {
