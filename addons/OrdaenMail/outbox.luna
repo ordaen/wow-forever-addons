@@ -3,7 +3,7 @@
 // cannot send yet (`canWrite`).
 import { Align, Overflow, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { Choice, Component, Memory, Money, PushButton, ToolPick, Toolbar } from "Ordaen"
+import { Choice, Component, ModuleMemory, Money, PushButton, ToolPick, Toolbar } from "Ordaen"
 import { Sent, SentState } from "@/letters"
 import Locale from "@/locales"
 import Style from "@/style"
@@ -87,8 +87,8 @@ public class SentRow implements Component {
 
 public class Outbox implements Component {
   state search = ""
-  // How the player left the list, the profile's (`Memory`); the search isn't kept.
-  public list: mut Memory<OutboxView> = new Memory<OutboxView>(OUTBOX_VIEW, .Profile, "outbox")
+  // How the player left the list, the profile's (`ModuleMemory`); the search isn't kept.
+  public list: mut ModuleMemory<OutboxView> = new ModuleMemory<OutboxView>(OUTBOX_VIEW, .Profile, "outbox")
   derived shown: Array<Sent> = self.shownOf()
   derived empty: Boolean = self.shown.length == 0
   derived waiting: Integer = self.sent.count(l => l.state == SentState.Waiting || l.state == SentState.Sending)

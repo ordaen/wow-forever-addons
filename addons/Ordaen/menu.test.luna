@@ -1,7 +1,7 @@
 // The context menu under a row: a right-click opens it, an entry reports its place, a switch shows its state and stays
 // open while the page flips it, a rule stands above a group, a disabled entry is dim and deaf, and a click outside
 // closes it without reaching what is under it.
-import { MouseButton, Pointer } from "$ltml"
+import { Event, MouseButton } from "$ltml"
 import Test from "$test"
 import { Menu, MenuEntry } from "@/menu"
 
@@ -23,7 +23,7 @@ class Rows {
     ]
   }
 
-  onRow(mut self, click: Pointer) {
+  onRow(mut self, click: Event.Press) {
     if (click.button == MouseButton.Right) { self.open = true }
   }
 

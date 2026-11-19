@@ -2,7 +2,7 @@
 // it is logged in. Each character's own entry is written as its money changes; at most `MOST` are kept, the one seen
 // longest ago let go first (a deleted character's goes that way).
 import Game from "$game"
-import { Memory, TipRow } from "Ordaen"
+import { ModuleMemory, TipRow } from "Ordaen"
 import Locale from "@/locales"
 
 const MOST = 50
@@ -23,7 +23,7 @@ public struct Purses implements Plain {
 const NONE: Purses = { characters: {} }
 
 public class Gold {
-  public memory: mut Memory<Purses> = new Memory<Purses>(NONE, .Account)
+  public memory: mut ModuleMemory<Purses> = new ModuleMemory<Purses>(NONE, .Account)
   // Every character's on this realm, this one's first, then by how much, and the total.
   public derived rows: Array<TipRow> = self.rowsOf()
 

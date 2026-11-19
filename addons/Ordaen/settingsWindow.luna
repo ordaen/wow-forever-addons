@@ -8,7 +8,6 @@ import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
 import { Dialog } from "@/dialog"
 import { BehaviourPage, NumbersPage, ScalePage } from "@/general"
-import { Input } from "@/input"
 import { POINTS_MOST, changeText, modulesText } from "@/keeper"
 import { ListTab } from "@/listTab"
 import Locale from "@/locales"
@@ -20,6 +19,7 @@ import { MAX_NAME, named } from "@/profiles"
 import { ProfilesPage } from "@/profilesPage"
 import { PushButton } from "@/pushButton"
 import { Tabs } from "@/tabs"
+import { TextField } from "@/textField"
 import { TipText } from "@/tip"
 import { SECONDARY_TEXT, space } from "@/units"
 import { KeptWindow, Window, WindowTabSpec } from "@/window"
@@ -346,7 +346,7 @@ public class SettingsWindow implements Component {
         </box>
       </Window>
       <Dialog $if={self.asksName} title={Locale.HISTORY_PROFILE_TITLE} width={ASK_WIDTH}>
-        <Input label={Locale.PROFILES_NAME} value={mut self.profileName} maxLength={MAX_NAME} />
+        <TextField label={Locale.PROFILES_NAME} value={mut self.profileName} maxLength={MAX_NAME} />
         <text $if={self.hasNameFault} value={self.nameFault} textColor={Ordaen.look.values.redText} />
         <PushButton #buttons label={Locale.CANCEL} width={140.625dp} @click={self.stopNaming} />
         <PushButton #buttons label={Locale.SAVE} width={164.0625dp} @click={self.saveProfile} />

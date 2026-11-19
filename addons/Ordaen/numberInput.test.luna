@@ -1,10 +1,10 @@
-// The library's InputNumber: every number a setting takes. A small range is a slider, a wide one a field; either has
+// The library's NumberInput: every number a setting takes. A small range is a slider, a wide one a field; either has
 // − and +, which step as CountInput's do (Shift ten steps, Ctrl a hundred), and shows the value's unit.
 import { Key } from "$ltml"
 import Test from "$test"
 import { Move } from "$test"
 import root Ordaen from "Ordaen"
-import { InputNumber, Unit } from "@/inputNumber"
+import { NumberInput, Unit } from "@/numberInput"
 import { KeptWindow, Window, WindowTabSpec } from "@/window"
 import { WindowsPage } from "@/windowsPage"
 
@@ -16,8 +16,8 @@ class Numbers {
   public render(self): Template {
     return $ltml {
       <box columns={1}>
-        <InputNumber label={"Share"} value={mut self.share} least={0} most={1} step={0.01} unit={Unit.Percent} />
-        <InputNumber label={"Place"} value={mut self.place} least={-4000} most={4000} unit={Unit.Px} />
+        <NumberInput label={"Share"} value={mut self.share} least={0} most={1} step={0.01} unit={Unit.Percent} />
+        <NumberInput label={"Place"} value={mut self.place} least={-4000} most={4000} unit={Unit.Px} />
       </box>
     }
   }
@@ -70,7 +70,7 @@ class Sized {
   state size: Number = 400
 
   public render(self): Template {
-    return $ltml { <InputNumber label={"Size"} value={mut self.size} least={100} most={8000} unit={Unit.Px} /> }
+    return $ltml { <NumberInput label={"Size"} value={mut self.size} least={100} most={8000} unit={Unit.Px} /> }
   }
 }
 
@@ -154,8 +154,8 @@ class Windowed {
     return $ltml {
       <Window shown={true} tabs={self.tabs} selected={mut self.tab} declared={mut self.placing}>
         <box columns={1}>
-          <InputNumber label={"Share"} value={mut self.share} least={0} most={1} step={0.01} unit={Unit.Percent} />
-          <InputNumber label={"Place"} value={mut self.place} least={-4000} most={4000} unit={Unit.Px} />
+          <NumberInput label={"Share"} value={mut self.share} least={0} most={1} step={0.01} unit={Unit.Percent} />
+          <NumberInput label={"Place"} value={mut self.place} least={-4000} most={4000} unit={Unit.Px} />
         </box>
       </Window>
     }

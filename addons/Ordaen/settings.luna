@@ -5,7 +5,7 @@ import root Ordaen from "Ordaen"
 import { Keeper, Sectioned } from "@/keeper"
 import { ProfileName } from "@/profiles"
 
-// What a `Settings` or a `Memory` is kept under: the addon of the root that owns it (`OrdaenPanel`), and the part
+// What a `Settings` or a `ModuleMemory` is kept under: the addon of the root that owns it (`OrdaenPanel`), and the part
 // of it where it has more than one (`Ordaen:look`); nothing for one no root owns (a test's own), which isn't kept.
 function keyOf(addon: Runtime.Addon | nil, part: String): String | nil {
   if (addon == nil) { return nil }
@@ -21,6 +21,11 @@ function keyOf(addon: Runtime.Addon | nil, part: String): String | nil {
 // (`keyOf`), packed when the game saves, before a switch of profile and before an export, never at each change; they
 // follow a switch to another profile.
 public class Settings<S: Plain> implements Sectioned {
+  // Whose a `ModuleMemory` is: the active profile's, switched with it (where the player left the windows and the
+  // lists), or the account's or this character's (a fact of the character: the profession last open, the crafting
+  // queue).
+  public enum Scope { Profile, Account, Character }
+
   public const defaults: S
   public state values: mut S
   // The values as last recorded: what a change is told from, and the step's `before` once it is made.
@@ -127,24 +132,20 @@ public class Settings<S: Plain> implements Sectioned {
   }
 }
 
-// Whose a `Memory` is: the active profile's, switched with it (where the player left the windows and the lists), or
-// the account's or this character's (a fact of the character: the profession last open, the crafting queue).
-public enum Whose { Profile, Account, Character }
-
 // What a module remembers between sessions that the player doesn't choose on a settings page, declared once with
 // its defaults: the framework reads it back as it is made and keeps every change at once, under the module's name
 // and `:<part>`. The profile's is kept in the active profile, and takes another profile's at a
 // switch; one equal to its defaults isn't kept at all. The module reads `values` and binds its entries
 // (`value={mut self.view.values.sort}`).
-public class Memory<S: Plain> {
+public class ModuleMemory<S: Plain> {
   public state values: mut S
   const defaults: S
-  const whose: Whose
+  const whose: Settings.Scope
   key: String | nil = nil
   // What is kept now, to tell a change from a value taken from the kept one.
   kept: S
 
-  constructor(defaults: S, whose: Whose = .Profile, part: String = "memory") {
+  constructor(defaults: S, whose: Settings.Scope = .Profile, part: String = "memory") {
     self.defaults = defaults
     self.whose = whose
     self.values = defaults.clone()

@@ -2,7 +2,7 @@
 // arrow. Left-click opens the menu under it, each choice with its mark (the picked one's gold), the light under the
 // cursor. Left-click on a choice picks it and closes the menu; a click anywhere else closes it. Disabled, it doesn't
 // open. A choice not built yet (`soon`) is listed dimmed, with «in development» after its name, and takes no click.
-import { Align, Art, Beside, Bounds, Edges, Layer, Line, Position, Shadow, Stated } from "$ltml"
+import { Align, Art, Beside, Bounds, ByInteractionState, Edges, Layer, Line, Position, Shadow } from "$ltml"
 import root Ordaen from "Ordaen"
 import Locale from "@/locales"
 import { Component } from "@/module"
@@ -32,7 +32,7 @@ const MENU_EDGE: Line = { width: 1.171875dp, color: Color.hex("#6c5535") }
 const MENU_PAD: Edges = { top: 7.03125dp, bottom: 7.03125dp }
 const ITEM_PAD: Edges = { top: 5.859375dp, right: 16.40625dp, bottom: 5.859375dp, left: 35.15625dp }
 const CLEAR: Color = Color.hex("#00000000")
-const LIGHT: Stated<Color> = { default: CLEAR, hover: Color.hex("#d6a56b2e"), focus: Color.hex("#d6a56b2e") }
+const LIGHT: ByInteractionState<Color> = { default: CLEAR, hover: Color.hex("#d6a56b2e"), focus: Color.hex("#d6a56b2e") }
 
 // One choice in the open menu.
 public class DropdownItem<T: Unknown> implements Component {
@@ -41,7 +41,7 @@ public class DropdownItem<T: Unknown> implements Component {
   derived mark: Art = self.value == self.choice.value ? Ordaen.art.ctl.radioOn : Ordaen.art.ctl.radio
   derived text: String = self.choice.soon == true ? self.choice.label + " — " + Locale.SOON : self.choice.label
   derived color: Color = self.choice.soon == true ? DIM : WHITE
-  derived light: Color | Stated<Color> = self.choice.soon == true ? CLEAR : LIGHT
+  derived light: Color | ByInteractionState<Color> = self.choice.soon == true ? CLEAR : LIGHT
   derived wraps: Boolean = !self.compact
 
   choice: Signal<Choice<T>>

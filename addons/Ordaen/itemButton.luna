@@ -12,7 +12,7 @@
 // take a drag for a click (a bag's slot hands its item to the client's cursor, which the bars take). With an
 // `action` the right button is the client's own (a bag's item used: `Action.UseBagItem`). Nothing runs per frame.
 import Game from "$game"
-import { Action, Align, Art, Edges, Frame, Line, MouseButton, Pointer, Position, Shadow, Stated } from "$ltml"
+import { Action, Align, Art, ByInteractionState, Edges, Event, Frame, Line, MouseButton, Position, Shadow } from "$ltml"
 import root Ordaen from "Ordaen"
 import { Component } from "@/module"
 import { SECONDARY_TEXT } from "@/units"
@@ -39,7 +39,7 @@ public struct Marker {
 
 const WELL: Color = Color.hex("#0d0a08")
 const CLEAR: Color = Color.hex("#00000000")
-const SHINE: Stated<Color> = { default: CLEAR, hover: Color.hex("#ffffff26"), focus: Color.hex("#ffffff26") }
+const SHINE: ByInteractionState<Color> = { default: CLEAR, hover: Color.hex("#ffffff26"), focus: Color.hex("#ffffff26") }
 const INK: Color = Color.hex("#ffffff")
 // The game's tint of an item the player can't use (1, 0.1, 0.1).
 const UNUSABLE: Color = Color.hex("#ff1a1a")
@@ -80,7 +80,7 @@ public class Pip implements Component {
 
 public class ItemButton implements Component {
   public pick: Event<Integer> = new Event()
-  public pressed: Event<Pointer> = new Event()
+  public pressed: Event<Event.Press> = new Event()
   public entered: Event<nil> = new Event()
   public left: Event<nil> = new Event()
   public dragged: Event<nil> = new Event()
@@ -173,7 +173,7 @@ public class ItemButton implements Component {
 
   onLeave(self) { self.left.emit() }
 
-  onClick(self, click: Pointer) {
+  onClick(self, click: Event.Press) {
     const item = self.item
     if (item != nil && click.button == MouseButton.Left && Game.input.shiftDown()) {
       Game.chat.link(item)

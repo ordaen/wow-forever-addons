@@ -3,7 +3,7 @@
 // under the cursor, with a dark drop; disabled, the grey plate and a grey label, and no click. With an `action` it
 // is a secure box: the client does the action from the player's click (a spell, an item, a macro). With a `tip`, a Tip
 // says it while the cursor is on it.
-import { Action, Align, Art, Edges, MouseButton, Pointer, Shadow, Stated } from "$ltml"
+import { Action, Align, Art, ByInteractionState, Edges, Event, MouseButton, Shadow } from "$ltml"
 import root Ordaen from "Ordaen"
 import { Component } from "@/module"
 import { Tip, TipText } from "@/tip"
@@ -13,7 +13,7 @@ const HEIGHT = 39.84375dp
 // each end, the face from 15): a quarter of the height off each end. A label longer than the width it was given
 // widens the button.
 const CAPS: Edges = { left: HEIGHT / 4, right: HEIGHT / 4 }
-const LABEL: Stated<Color> = { default: Color.hex("#ffd100"), hover: Color.hex("#ffffff"), focus: Color.hex("#ffffff") }
+const LABEL: ByInteractionState<Color> = { default: Color.hex("#ffd100"), hover: Color.hex("#ffffff"), focus: Color.hex("#ffffff") }
 const GREY: Color = Color.hex("#808080")
 const SHADOW: Shadow = { color: Color.hex("#000000"), x: 1.171875dp, y: -1.171875dp }
 const NO_TIP: TipText = { title: "", text: "", rows: [] }
@@ -22,7 +22,7 @@ public class PushButton implements Component {
   public click: Event<nil> = new Event()
 
   derived art: Art = self.disabled ? Ordaen.art.ctl.buttonDisabled : self.accent ? Ordaen.art.ctl.buttonAccent : Ordaen.art.ctl.button
-  derived color: Color | Stated<Color> = self.disabled ? GREY : LABEL
+  derived color: Color | ByInteractionState<Color> = self.disabled ? GREY : LABEL
   // Disabled, it does nothing.
   derived doing: Action | nil = self.disabled ? nil : self.action
   derived repeating: Boolean = self.repeats && !self.disabled
@@ -63,7 +63,7 @@ public class PushButton implements Component {
   }
 
   // The left button with any modifier: Shift and Ctrl make the step larger (`stride`).
-  onHeld(mut self, pointer: Pointer) {
+  onHeld(mut self, pointer: Event.Press) {
     if (self.repeating && pointer.button == MouseButton.Left) { self.click.emit() }
   }
 

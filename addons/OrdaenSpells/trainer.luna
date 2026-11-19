@@ -4,7 +4,7 @@
 import Game from "$game"
 import { Align, Overflow, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { Choice, Component, Memory, Money, PushButton, SECONDARY_TEXT, TITLE_TEXT, ToolPick, Toolbar } from "Ordaen"
+import { Choice, Component, ModuleMemory, Money, PushButton, SECONDARY_TEXT, TITLE_TEXT, ToolPick, Toolbar } from "Ordaen"
 import Locale from "@/locales"
 import Style from "@/style"
 
@@ -87,8 +87,8 @@ public class ServiceRow implements Component {
 
 public class TrainerPage implements Component {
   state search = ""
-  // How the player left the list, the profile's (`Memory`); the search isn't kept.
-  public list: mut Memory<TrainerView> = new Memory<TrainerView>(TRAINER_VIEW, .Profile, "trainer")
+  // How the player left the list, the profile's (`ModuleMemory`); the search isn't kept.
+  public list: mut ModuleMemory<TrainerView> = new ModuleMemory<TrainerView>(TRAINER_VIEW, .Profile, "trainer")
   state picked = 0
   derived shown: Array<Game.TrainerService> = self.shownOf()
   derived current: Game.TrainerService | nil = self.currentOf()

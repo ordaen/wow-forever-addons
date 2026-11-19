@@ -8,7 +8,7 @@ import Game from "$game"
 import { Action, Align, Line, Overflow, Side, Track } from "$ltml"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
-import { ARTWORK, Choice, Column, ItemId, KeptWindow, Memory, Module, PushButton, SECONDARY_TEXT, Settings, SettingsPage, Table, Tabs, ToolPick, Toolbar, Window, WindowTabSpec, WindowsPage, space, tracksOf, windowsTitle } from "Ordaen"
+import { ARTWORK, Choice, Column, ItemId, KeptWindow, Module, ModuleMemory, PushButton, SECONDARY_TEXT, Settings, SettingsPage, Table, Tabs, ToolPick, Toolbar, Window, WindowTabSpec, WindowsPage, space, tracksOf, windowsTitle } from "Ordaen"
 import root Auction from "OrdaenAuction"
 import type { PriceSource } from "OrdaenAuction"
 import { Book, written } from "@/book"
@@ -109,15 +109,15 @@ public class Professions implements Module, App {
   }
 
   public settings: mut Settings<Choices> = new Settings<Choices>({ prices: true, remember: true, showUnlearned: true })
-  public memory: mut Memory<Kept> = new Memory<Kept>(NOTHING_KEPT, .Character)
+  public memory: mut ModuleMemory<Kept> = new ModuleMemory<Kept>(NOTHING_KEPT, .Character)
   // What the profession trainers met teach, the account's: every character meets the same trainers.
-  public learning: mut Memory<Learning> = new Memory<Learning>({ recipes: {} }, .Account)
+  public learning: mut ModuleMemory<Learning> = new ModuleMemory<Learning>({ recipes: {} }, .Account)
   // The recipe book, the account's: what every character knows, and what each recipe takes and makes («Выгода»).
-  public book: mut Memory<Book> = new Memory<Book>({ recipes: {}, characters: {} }, .Account, "book")
+  public book: mut ModuleMemory<Book> = new ModuleMemory<Book>({ recipes: {}, characters: {} }, .Account, "book")
   derived written: Book = self.book.values
   derived taught: Map<String, Taught> = self.learning.values.recipes
   // How the player left the recipe list: its view, its sort and the table's order, the profile's.
-  public list: mut Memory<ListView> = new Memory<ListView>(LIST_VIEW)
+  public list: mut ModuleMemory<ListView> = new ModuleMemory<ListView>(LIST_VIEW)
   // The queue, the root's and not the window's: it runs while the window is shut.
   public crafting: mut CraftQueue
 

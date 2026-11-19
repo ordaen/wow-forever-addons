@@ -9,7 +9,7 @@
 // craft), a fight, or no reagents for the next recipe pause the profession's queue as it is: its lines keep what is
 // still to make, and the pause says why until the next click.
 import Game from "$game"
-import { Memory } from "Ordaen"
+import { ModuleMemory } from "Ordaen"
 import { Kept, MOST_COUNT, MOST_QUEUED, Pause, Queued } from "@/view"
 
 public class CraftQueue {
@@ -23,8 +23,8 @@ public class CraftQueue {
   // Why each profession's queue waits, by its skill line; one with none waits for nothing.
   public derived paused: Map<Integer, Pause> = self.memory.values.paused
 
-  memory: mut Memory<Kept>
-  constructor(memory: mut Memory<Kept>) {
+  memory: mut ModuleMemory<Kept>
+  constructor(memory: mut ModuleMemory<Kept>) {
     self.memory = memory
     Game.tradeSkill.made.listen(self.onMade)
     Game.tradeSkill.stopped.listen(self.onStopped)

@@ -1,6 +1,6 @@
 // The market's controls on a page, for the run tests: a scan's progress, a price with its age, a mode, a tree, item
 // slots and a sortable table of sales.
-import { Align, MouseButton, Pointer, Track } from "$ltml"
+import { Align, Event, MouseButton, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import { Age, Choice, Column, Component, Corner, ItemButton, Marker, Menu, MenuEntry, Money, MoneyInput, ProgressBar, Quality, Section, Segmented, SettingRow, Table, TableRow, ToolPick, Toolbar, TreeRow, space, tracksOf } from "Ordaen"
 
@@ -84,7 +84,7 @@ public class Market implements Component {
     ]
   }
 
-  onMenuBox(mut self, click: Pointer) {
+  onMenuBox(mut self, click: Event.Press) {
     if (click.button == MouseButton.Right) { self.menuOpen = true }
   }
 

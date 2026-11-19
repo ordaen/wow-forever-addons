@@ -9,12 +9,12 @@
 // rows in view. While it is shut nothing is read and the bags' events aren't heard.
 import Client from "$client"
 import Game from "$game"
-import { Align, MouseButton, Overflow, Pointer, Track } from "$ltml"
+import { Align, Event, MouseButton, Overflow, Track } from "$ltml"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
 import { SECONDARY_TEXT } from "Ordaen"
 import {
-  Choice, Component, KeptWindow, ListTab, Memory, Module, Money, Settings, SettingsPage, space, Tip, TipRow, Toolbar, windowsTitle, WindowsPage,
+  Choice, Component, KeptWindow, ListTab, ModuleMemory, Module, Money, Settings, SettingsPage, space, Tip, TipRow, Toolbar, windowsTitle, WindowsPage,
   ToolAct, ToolButton, ToolPick, Window, WindowTabSpec
 } from "Ordaen"
 import { Arranger } from "@/arrange"
@@ -41,7 +41,7 @@ public struct Kept implements Plain {
   guards: Array<Guard>
 }
 
-// How the player left the bags' view, the profile's (`Memory`): the view and the sort the header
+// How the player left the bags' view, the profile's (`ModuleMemory`): the view and the sort the header
 // picks. The search isn't kept.
 public struct BagsView implements Plain {
   view: View = View.Categories
@@ -113,7 +113,7 @@ public class Bags implements Module, App {
     { title: windowsTitle(), content: $ltml { <WindowsPage windows={mut self.windows} /> } }
   ]
   public settings: mut Settings<Choices> = new Settings<Choices>(DEFAULTS)
-  public memory: mut Memory<Kept> = new Memory<Kept>(NOTHING_KEPT, .Character)
+  public memory: mut ModuleMemory<Kept> = new ModuleMemory<Kept>(NOTHING_KEPT, .Character)
   public gold: Gold
   public arranger: mut Arranger
   public hovered: mut Hovered
@@ -146,7 +146,7 @@ public class Bags implements Module, App {
 
   public derived shown: Boolean = Game.bags.open
   // The header's picks: the view and the sort, kept in the profile as they are picked.
-  public list: mut Memory<BagsView> = new Memory<BagsView>(BAGS_VIEW, .Profile, "view")
+  public list: mut ModuleMemory<BagsView> = new ModuleMemory<BagsView>(BAGS_VIEW, .Profile, "view")
   public derived categories: Boolean = self.list.values.view == View.Categories
   derived query: String = self.search.lower()
   public derived counts: Map<Tab, Integer> = self.countsOf()
@@ -370,7 +370,7 @@ public class Bags implements Module, App {
 
   // A click on a slot: Alt protects it from sorting (or takes the protection off), Ctrl sends its item where the place
   // takes it, a plain one picks up or puts down. The right button is the client's own.
-  onPressed(mut self, slot: mut Slot, click: Pointer) {
+  onPressed(mut self, slot: mut Slot, click: Event.Press) {
     if (click.button != MouseButton.Left) { return }
     if (Game.input.altDown()) {
       self.guard(slot)

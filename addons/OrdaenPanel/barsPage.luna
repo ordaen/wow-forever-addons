@@ -5,7 +5,7 @@
 import Game from "$game"
 import { Align, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { Checkbox, Component, InputNumber, ListTab, Memory, Menu, MenuEntry, SECONDARY_TEXT, Section, Settings, Shown, ShownToggle, Switch, TITLE_TEXT, Unit, VisibilityRows, space } from "Ordaen"
+import { Checkbox, Component, ListTab, Menu, MenuEntry, ModuleMemory, NumberInput, SECONDARY_TEXT, Section, Settings, Shown, ShownToggle, Switch, TITLE_TEXT, Unit, VisibilityRows, space } from "Ordaen"
 import { Bar } from "@/bar"
 import { BarChoice, BarKind, BarSpec, BarsChoices, SPECS, copied, defaultChoice, reset } from "@/barChoices"
 import Locale from "@/locales"
@@ -139,15 +139,15 @@ class BarEditor implements Component {
   public render(self): Template {
     return $ltml {
       <Section title={Locale.SECTION_BUTTONS}>
-        <InputNumber label={Locale.BUTTONS} hint={Locale.BUTTONS_TIP} value={mut self.choice.buttons} least={1}
+        <NumberInput label={Locale.BUTTONS} hint={Locale.BUTTONS_TIP} value={mut self.choice.buttons} least={1}
                      most={self.spec.most} />
-        <InputNumber label={Locale.PER_ROW} hint={Locale.PER_ROW_TIP} value={mut self.choice.perRow} least={1}
+        <NumberInput label={Locale.PER_ROW} hint={Locale.PER_ROW_TIP} value={mut self.choice.perRow} least={1}
                      most={self.spec.most} />
       </Section>
       <Section title={Locale.SECTION_LOOK}>
-        <InputNumber label={Locale.SIZE} hint={Locale.SIZE_TIP} value={mut self.choice.size} least={24} most={64}
+        <NumberInput label={Locale.SIZE} hint={Locale.SIZE_TIP} value={mut self.choice.size} least={24} most={64}
                      unit={Unit.Px} />
-        <InputNumber label={Locale.SPACING} hint={Locale.SPACING_TIP} value={mut self.choice.spacing} least={0}
+        <NumberInput label={Locale.SPACING} hint={Locale.SPACING_TIP} value={mut self.choice.spacing} least={0}
                      most={16} unit={Unit.Px} />
         <Checkbox label={Locale.KEYS} hint={Locale.KEYS_TIP} value={mut self.choice.keys} />
       </Section>
@@ -177,7 +177,7 @@ const RESET_ENTRY = 2
 const PLACE_ENTRY = 3
 
 public class BarsPage implements Component {
-  const memory: mut Memory<PageMemory> = new Memory<PageMemory>({ picked: "1" }, .Profile, "barsPage")
+  const memory: mut ModuleMemory<PageMemory> = new ModuleMemory<PageMemory>({ picked: "1" }, .Profile, "barsPage")
   derived picked: String = self.spec.id
   derived spec: BarSpec = SPECS.find(spec => spec.id == self.memory.values.picked) ?? SPECS[1]
   derived title: String = Bar.titleOf(self.spec)

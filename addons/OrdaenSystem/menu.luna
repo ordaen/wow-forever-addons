@@ -8,7 +8,7 @@
 // would take the click meant for our «AddOns». Nothing is written on Blizzard's frames but their alpha, mouse and hit
 // insets; what is kept per button is this file's own weak table, and every widget is put back as the dress ends.
 import Client from "$client"
-import { Align, Anchored, Art, InteractionState, Layer, Point, Position, Shadow, Stated } from "$ltml"
+import { Align, Anchored, Art, ByInteractionState, InteractionState, Layer, Point, Position, Shadow } from "$ltml"
 import root Ordaen from "Ordaen"
 import { Component, reachAcross, reachDown, space } from "Ordaen"
 
@@ -27,8 +27,8 @@ const TITLE: Color = Color.hex("#ffd100")
 const ENGRAVED: Shadow = { color: Color.hex("#000000e6"), x: -1.171875dp, y: 1.171875dp }
 const LABEL: Color = Color.hex("#ffd100")
 // «AddOns», ours: its label white under the cursor and down while pressed, as a PushButton's.
-const OWN_DROP: Stated<Number<Length>> = { default: 0ui, pressed: 2.34375dp }
-const OWN_LABEL: Stated<Color> = { default: Color.hex("#ffd100"), hover: Color.hex("#ffffff"), focus: Color.hex("#ffffff") }
+const OWN_DROP: ByInteractionState<Number<Length>> = { default: 0ui, pressed: 2.34375dp }
+const OWN_LABEL: ByInteractionState<Color> = { default: Color.hex("#ffd100"), hover: Color.hex("#ffffff"), focus: Color.hex("#ffffff") }
 const LABEL_HOVER: Color = Color.hex("#ffffff")
 const SHADOW: Shadow = { color: Color.hex("#000000"), x: 1.171875dp, y: -1.171875dp }
 const GEM = 18.75dp

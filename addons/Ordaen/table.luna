@@ -6,7 +6,7 @@
 // unless the table is told another). The body is a box of rows: it scrolls where it is given a `height`, or where the
 // table is given a height (its headings, then the body in the rest of it), and a `$for` of rows in it builds only the
 // rows in view, handing on the rows that leave to the items that come in: a row follows its item's cell.
-import { Align, Art, Edges, Line, MouseButton, Overflow, Pointer, Position, Side, Stated, Track } from "$ltml"
+import { Align, Art, ByInteractionState, Edges, Event, Line, MouseButton, Overflow, Position, Side, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import { Component } from "@/module"
 import { space } from "@/units"
@@ -19,13 +19,13 @@ public struct Column {
   sortable: Boolean | nil
 }
 
-const NAME: Stated<Color> = { default: Color.hex("#cbb994"), hover: Color.hex("#ffffff"), focus: Color.hex("#ffffff") }
+const NAME: ByInteractionState<Color> = { default: Color.hex("#cbb994"), hover: Color.hex("#ffffff"), focus: Color.hex("#ffffff") }
 const PLAIN: Color = Color.hex("#a3977f")
 const GOLD: Color = Color.hex("#f0c860")
 const RULE: Line = { width: 1.171875dp, color: Color.hex("#3e2f1d"), sides: [Side.Bottom] }
 const LIGHT: Color = Color.hex("#d6a56b")
 const CLEAR: Color = Color.hex("#00000000")
-const SHADE: Stated<Color> = { default: CLEAR, hover: Color.hex("#00000033"), focus: Color.hex("#00000033") }
+const SHADE: ByInteractionState<Color> = { default: CLEAR, hover: Color.hex("#00000033"), focus: Color.hex("#00000033") }
 const BACK: Color = Color.hex("#00000040")
 const PADDING: Edges = { top: space(.Item), bottom: space(.Item) }
 const ROW_PADDING: Edges = { top: 4.6875dp, right: space(.Item), bottom: 4.6875dp, left: space(.Item) }
@@ -58,8 +58,8 @@ public class Heading implements Component {
   derived marked: Number = self.picked ? 1 : 0
   derived mark: Art = self.descending ? Ordaen.art.ctl.markDown : Ordaen.art.ctl.markUp
   derived sortable: Boolean = self.column.sortable == true
-  derived color: Color | Stated<Color> = self.picked ? GOLD : self.sortable ? NAME : PLAIN
-  derived shade: Color | Stated<Color> = self.sortable ? SHADE : CLEAR
+  derived color: Color | ByInteractionState<Color> = self.picked ? GOLD : self.sortable ? NAME : PLAIN
+  derived shade: Color | ByInteractionState<Color> = self.sortable ? SHADE : CLEAR
 
   column: Signal<Column>
   const index: Integer
@@ -112,7 +112,7 @@ public class Heading implements Component {
 public class TableRow implements Component {
   public pick: Event<MouseButton> = new Event()
 
-  derived background: Color | Stated<Color> = self.selected ? BACK : SHADE
+  derived background: Color | ByInteractionState<Color> = self.selected ? BACK : SHADE
 
   tracks: Signal<Array<Track>>
   selected: Signal<Boolean>
@@ -124,7 +124,7 @@ public class TableRow implements Component {
     self.selected = selected
   }
 
-  onClick(mut self, click: Pointer) { self.pick.emit(click.button) }
+  onClick(mut self, click: Event.Press) { self.pick.emit(click.button) }
   onKey(mut self) { self.pick.emit(.Left) }
 
   public render(self): Template {

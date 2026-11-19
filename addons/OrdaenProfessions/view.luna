@@ -11,7 +11,7 @@ public enum View implements Plain { Columns = "columns", Categories = "categorie
 // the bags can make.
 public enum SortBy implements Plain { Difficulty = "difficulty", Name = "name", Makeable = "makeable" }
 
-// How the player left the recipe list, the profile's (`Memory`): its view, its sort, and the
+// How the player left the recipe list, the profile's (`ModuleMemory`): its view, its sort, and the
 // table's order (its column from 1, and which way). The search isn't kept: a list cut short by an old search at the
 // next opening says nothing of why.
 public struct ListView implements Plain {

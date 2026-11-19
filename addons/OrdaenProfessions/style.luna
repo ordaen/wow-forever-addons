@@ -1,7 +1,7 @@
 // The professions window's look, shared by its parts: sizes at the user's scale and colours. A text's size is a step
 // of the ladder (`$ltml`'s `TextSize`).
 import Game from "$game"
-import { Bounds, Line, Shadow, Side, Stated } from "$ltml"
+import { Bounds, ByInteractionState, Line, Shadow, Side } from "$ltml"
 
 // The body. The recipes' side (the search and the lists) and the recipe's card share its width; the lists are never
 // narrower than these, which hold all but the longest names of a category and a recipe on one line, and the
@@ -27,7 +27,7 @@ public const OFF: Color = Color.hex("#7a7060")
 public const LINE: Color = Color.hex("#3e2f1d")
 public const CLEAR: Color = Color.hex("#00000000")
 // A heading under the cursor (a row that selects is the library's `SelectItem`).
-public const ROW_LIGHT: Stated<Color> = { default: CLEAR, hover: Color.hex("#d6a56b1f"), focus: Color.hex("#d6a56b1f") }
+public const ROW_LIGHT: ByInteractionState<Color> = { default: CLEAR, hover: Color.hex("#d6a56b1f"), focus: Color.hex("#d6a56b1f") }
 public const LISTS_BACK: Color = Color.hex("#0000004d")
 public const SHADOW: Shadow = { color: Color.hex("#000000"), x: 1.171875dp, y: -1.171875dp }
 // Between rows, and round an item's slot.

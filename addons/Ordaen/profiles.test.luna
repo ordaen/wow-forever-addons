@@ -7,8 +7,8 @@ import root Ordaen from "Ordaen"
 import { DEFAULTS, Density, Globals } from "@/globals"
 import { Preset, preset } from "@/look"
 import { KeptPlace } from "@/ordaen"
-import { DEFAULT_PROFILE, Picks, Profile, ProfileName, Why, picked } from "@/profiles"
-import { Memory } from "@/settings"
+import { DEFAULT_PROFILE, Profile, ProfileName, ProfilePicks, Profiles, picked } from "@/profiles"
+import { ModuleMemory } from "@/settings"
 
 // A module's settings and what a module remembers, as `develop`'s runtime kept them.
 struct Probe implements Plain {
@@ -20,7 +20,7 @@ struct Remembered implements Plain {
 }
 
 test "a character uses the profile picked for its spec, then for it, then for its class, then the account's" {
-  const picks = Picks {}
+  const picks = ProfilePicks {}
   picks.account = "Shared"
   picks.byClass["MAGE"] = "Mages"
   picks.byCharacter["Player-1"] = "Mine"
@@ -169,7 +169,7 @@ test "the parts' places are the active profile's, and the account's move into «
 }
 
 test "what a module remembers is written whole by its own method" {
-  const memory = new Memory<Remembered>(Remembered {}, .Account)
+  const memory = new ModuleMemory<Remembered>(Remembered {}, .Account)
   memory.write(Remembered { last: "Mining" })
   Test.expect(memory.values.last == "Mining")
 }
@@ -180,16 +180,16 @@ test "picks name a profile for a spec, a character, a class and the account, eac
   Test.expect(profiles.make("Account", nil) && profiles.make("Priests", nil) && profiles.make("Mine", nil))
   Test.expect(profiles.make("Tank", nil))
   profiles.use("Account")
-  Test.expect(profiles.active == "Account" && profiles.why == Why.Account)
+  Test.expect(profiles.active == "Account" && profiles.why == Profiles.Reason.Account)
   let next = profiles.edit()
   next.picks.forClass("PRIEST", "Priests")
   Test.expect(!profiles.switches(profiles.edit()) && profiles.switches(next))
   profiles.apply(next)
-  Test.expect(profiles.active == "Priests" && profiles.why == Why.Class)
+  Test.expect(profiles.active == "Priests" && profiles.why == Profiles.Reason.Class)
   next = profiles.edit()
   next.picks.forCharacter(me, "Mine")
   profiles.apply(next)
-  Test.expect(profiles.active == "Mine" && profiles.why == Why.Character)
+  Test.expect(profiles.active == "Mine" && profiles.why == Profiles.Reason.Character)
   // A specialisation the character plays now; one it doesn't play changes nothing.
   next = profiles.edit()
   next.picks.forSpec(me, 2, "Tank")
@@ -197,7 +197,7 @@ test "picks name a profile for a spec, a character, a class and the account, eac
   Test.expect(profiles.active == "Mine")
   Game.player.spec = { index: 2, id: 100, name: "Protection" }
   Test.flush()
-  Test.expect(profiles.active == "Tank" && profiles.why == Why.Spec)
+  Test.expect(profiles.active == "Tank" && profiles.why == Profiles.Reason.Spec)
   Game.player.spec = nil
   Test.flush()
   Test.expect(profiles.active == "Mine")
@@ -206,7 +206,7 @@ test "picks name a profile for a spec, a character, a class and the account, eac
   next.without("Mine")
   Test.expect(profiles.switches(next))
   profiles.apply(next)
-  Test.expect(profiles.active == "Priests" && profiles.why == Why.Class)
+  Test.expect(profiles.active == "Priests" && profiles.why == Profiles.Reason.Class)
   Test.expect(profiles.kept.profiles["Mine"] == nil && profiles.kept.picks.byCharacter[me] == nil)
   // A profile renamed: the name changes in every pick of it.
   next = profiles.edit()
@@ -227,7 +227,7 @@ test "a second character of another class follows the class's pick or the accoun
   profiles.apply(next)
   Test.expect(profiles.active == DEFAULT_PROFILE)
   Test.login({ guid: "Player-2-00000002", name: "Mage", surname: nil, classTag: "MAGE" })
-  Test.expect(Ordaen.keeper.profiles.active == "Mages" && Ordaen.keeper.profiles.why == Why.Class)
+  Test.expect(Ordaen.keeper.profiles.active == "Mages" && Ordaen.keeper.profiles.why == Profiles.Reason.Class)
   Test.login({ guid: "Player-1-00000001", name: "Player", surname: nil })
-  Test.expect(Ordaen.keeper.profiles.active == DEFAULT_PROFILE && Ordaen.keeper.profiles.why == Why.Account)
+  Test.expect(Ordaen.keeper.profiles.active == DEFAULT_PROFILE && Ordaen.keeper.profiles.why == Profiles.Reason.Account)
 }

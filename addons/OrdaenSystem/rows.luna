@@ -6,7 +6,7 @@
 // switch switches the addon, with Ctrl on a group's parent the whole group. An Ordaen module has no switch: Ordaen's
 // own is its one, and its state's text opens Ordaen's settings at it.
 import Game from "$game"
-import { Align, Art, Edges, MouseButton, Pointer, Stated, Track } from "$ltml"
+import { Align, Art, ByInteractionState, Edges, Event, MouseButton, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import { Component, Menu, MenuEntry, SECONDARY_TEXT, SWITCH_WIDTH, Shown, ShownToggle, Tip, space } from "Ordaen"
 import { AddOn, Catalog, Status, Switch, plain } from "@/catalog"
@@ -47,7 +47,7 @@ public const TABLE_COLUMNS: Array<Track> = [
 // The fold's mark (ctl.markClosed, ctl.markOpen), as TreeRow draws it: a 16 px cell, its triangle in the middle.
 const MARK = 18.75dp
 const PAD: Edges = { left: space(.Item), right: space(.Item) }
-const LIGHT: Stated<Color> = { default: Style.CLEAR, hover: Color.hex("#d6a56b1f"), focus: Color.hex("#d6a56b1f") }
+const LIGHT: ByInteractionState<Color> = { default: Style.CLEAR, hover: Color.hex("#d6a56b1f"), focus: Color.hex("#d6a56b1f") }
 const DASH = "—"
 
 // What a row's menu of quick actions offers.
@@ -116,7 +116,7 @@ public class LineRow implements Component {
   derived nowColor: Color = self.nowShare > 0 && self.nowShare >= self.hot.now ? Style.HOT : Style.INK
   derived peakColor: Color = self.peakShare > 0 && self.peakShare >= self.hot.peak ? Style.HOT : Style.INK
   derived weightColor: Color = self.loaded && self.kb > 0 && self.kb >= self.hot.memory ? Style.HOT : Style.INK
-  derived background: Color | Stated<Color> = self.line.name == self.picked ? Style.PICKED : LIGHT
+  derived background: Color | ByInteractionState<Color> = self.line.name == self.picked ? Style.PICKED : LIGHT
   derived indent: Edges = { left: self.line.child ? Style.INDENT : 0ui }
   derived notes: String = plain(self.addon?.notes ?? "")
   derived tipShown: Boolean = self.hovered && self.notes != ""
@@ -172,7 +172,7 @@ public class LineRow implements Component {
     return reason != nil && reason != "DISABLED" && (self.status?.enabled != .Off || self.module)
   }
 
-  onPick(mut self, click: Pointer) { self.choose(click.button) }
+  onPick(mut self, click: Event.Press) { self.choose(click.button) }
   // Enter or Space picks the row as a left-click does.
   onKey(mut self) { self.choose(.Left) }
 

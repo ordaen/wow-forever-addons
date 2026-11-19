@@ -4,7 +4,7 @@
 // the client's from a click alone). «Check» asks the client for them again and browses their items.
 import Game from "$game"
 import { Align, Track } from "$ltml"
-import { Column, Component, ItemButton, Memory, Money, PushButton, SECONDARY_TEXT, Table, TableRow, space, tracksOf } from "Ordaen"
+import { Column, Component, ItemButton, ModuleMemory, Money, PushButton, SECONDARY_TEXT, Table, TableRow, space, tracksOf } from "Ordaen"
 import { House, nameOf } from "@/house"
 import Locale from "@/locales"
 import { PriceKey } from "@/quote"
@@ -99,8 +99,8 @@ public struct OwnedView implements Plain {
 const OWNED_VIEW: OwnedView = {}
 
 public class OwnedPage implements Component {
-  // How the player left the list, the profile's (`Memory`).
-  public list: mut Memory<OwnedView> = new Memory<OwnedView>(OWNED_VIEW, .Profile, "owned")
+  // How the player left the list, the profile's (`ModuleMemory`).
+  public list: mut ModuleMemory<OwnedView> = new ModuleMemory<OwnedView>(OWNED_VIEW, .Profile, "owned")
   // A cancel sent from here waits for its answer.
   state sending = false
   derived rows: Array<Shown> = self.shownOf()

@@ -1,7 +1,7 @@
 // The player's choices, named: a profile holds every module's settings, and each character uses one, found by its
 // picks. Profiles are the account's, kept by Ordaen (`profiles` in the game's saved data). A section is one
 // `Settings`' values as the client packs them (CBOR, `Game.encoding`): Ordaen knows no module's type, and a module
-// decodes its own (`S.decode`). A profile also holds where the player left the windows (a `Memory` of the
+// decodes its own (`S.decode`). A profile also holds where the player left the windows (a `ModuleMemory` of the
 // profile's, packed the same way). Which modules are on, what a character remembers and data aren't in one.
 import Debug from "$debug"
 import Events from "$events"
@@ -15,7 +15,7 @@ public const DEFAULT_PROFILE: ProfileName = "Default"
 public struct Profile implements Plain {
   // Each `Settings`' values, packed, by what the `Settings` is kept under (`OrdaenPanel`, `Ordaen:look`).
   sections: mut Map<String, String> = {}
-  // Each profile's `Memory`'s values, packed, by its key (`OrdaenAuction:window:main`): where the player left a
+  // Each profile's `ModuleMemory`'s values, packed, by its key (`OrdaenAuction:window:main`): where the player left a
   // window or a list. Never in an export.
   memory: mut Map<String, String> = {}
 }
@@ -24,7 +24,7 @@ public struct Profile implements Plain {
 // of it. One that grew past it is a module's mistake, and isn't kept.
 public const MEMORY_BOUND = 512
 
-public struct Picks implements Plain {
+public struct ProfilePicks implements Plain {
   account: ProfileName = DEFAULT_PROFILE
   // By the class's tag (`MAGE`).
   byClass: mut Map<String, ProfileName> = {}
@@ -98,9 +98,9 @@ public struct Picks implements Plain {
   }
 }
 
-public struct Kept implements Plain {
+public struct SavedProfiles implements Plain {
   profiles: mut Map<String, mut Profile> = {}
-  picks: mut Picks = Picks {}
+  picks: mut ProfilePicks = ProfilePicks {}
 
   // The profile under another name, in its picks too.
   public renamed(mut self, from: String, to: String) {
@@ -125,41 +125,26 @@ public struct Kept implements Plain {
   }
 }
 
-// Who the character is, as far as the picks ask: its GUID and specialisation where the game says them.
-public struct Who {
-  character: String | nil
-  spec: Integer | nil
-  classTag: String
-}
-
-// Which rule named the profile a character uses, in the order they win.
-public enum Why { Spec = "spec", Character = "character", Class = "class", Account = "account" }
-
-public struct Pick {
-  name: ProfileName
-  why: Why
-}
-
 // The profile a character uses and the rule that names it: the one picked for its specialisation, for it, for its
 // class, or the account's.
-public function pickOf(picks: Picks, who: Who): Pick {
+public function pickOf(picks: ProfilePicks, who: Profiles.Player): Profiles.Pick {
   const character = who.character
   if (character != nil) {
     const spec = who.spec
     const bySpec = picks.bySpec[character]
     if (spec != nil && bySpec != nil) {
       const forSpec = bySpec[spec]
-      if (forSpec != nil) { return { name: forSpec, why: Why.Spec } }
+      if (forSpec != nil) { return { name: forSpec, why: Profiles.Reason.Spec } }
     }
     const own = picks.byCharacter[character]
-    if (own != nil) { return { name: own, why: Why.Character } }
+    if (own != nil) { return { name: own, why: Profiles.Reason.Character } }
   }
   const forClass = picks.byClass[who.classTag]
-  if (forClass != nil) { return { name: forClass, why: Why.Class } }
-  return { name: picks.account, why: Why.Account }
+  if (forClass != nil) { return { name: forClass, why: Profiles.Reason.Class } }
+  return { name: picks.account, why: Profiles.Reason.Account }
 }
 
-public function picked(picks: Picks, who: Who): ProfileName {
+public function picked(picks: ProfilePicks, who: Profiles.Player): ProfileName {
   return pickOf(picks, who).name
 }
 
@@ -172,11 +157,27 @@ public function named(text: String): ProfileName | nil {
 }
 
 public class Profiles {
-  public state kept: Kept
+  // Who the character is, as far as the picks ask: its GUID and specialisation where the game says them.
+  public struct Player {
+    character: String | nil
+    spec: Integer | nil
+    classTag: String
+  }
+
+  // Which rule named the profile a character uses, in the order they win.
+  public enum Reason { Spec = "spec", Character = "character", Class = "class", Account = "account" }
+
+  // The profile a character uses, and the rule that names it.
+  public struct Pick {
+    name: ProfileName
+    why: Reason
+  }
+
+  public state kept: SavedProfiles
   // The profile this character uses now: a `Settings` follows it, and takes its section anew when it changes.
   public derived active: ProfileName = picked(self.kept.picks, self.who())
   // The rule that names it, for the page to say why.
-  public derived why: Why = pickOf(self.kept.picks, self.who()).why
+  public derived why: Profiles.Reason = pickOf(self.kept.picks, self.who()).why
   // Every profile, by name: the ones kept and the account's, which is there before anything is kept in it.
   public derived names: Array<String> = self.namesOf()
   // Each `Settings` packs its values into its profile where they changed: as the game saves (`PLAYER_LOGOUT` comes
@@ -187,7 +188,7 @@ public class Profiles {
   public const finishing: Event<nil> = new Event()
 
   constructor() {
-    self.kept = load(.Account, "profiles", Kept {})
+    self.kept = load(.Account, "profiles", SavedProfiles {})
     Events.PLAYER_LOGOUT.listen(self.pack)
   }
 
@@ -198,7 +199,7 @@ public class Profiles {
   }
 
   // Who the character is as the picks ask: its GUID, its specialisation's place where it has one, its class.
-  public who(self): Who {
+  public who(self): Profiles.Player {
     return { character: Game.player.guid, spec: Game.player.spec?.index, classTag: Game.player.classTag }
   }
 
@@ -212,22 +213,22 @@ public class Profiles {
   }
 
   // The kept profiles and picks as a copy to change and hand to `apply`, every `Settings`' values packed first.
-  public edit(mut self): mut Kept {
+  public edit(mut self): mut SavedProfiles {
     self.pack()
     return self.copy()
   }
 
-  copy(self): mut Kept {
+  copy(self): mut SavedProfiles {
     return (peek self.kept).clone()
   }
 
   // Whether keeping `next` would make this character use another profile than it does.
-  public switches(self, next: Kept): Boolean {
+  public switches(self, next: SavedProfiles): Boolean {
     return picked(next.picks, self.who()) != peek self.active
   }
 
   // What the player chose, kept: a `Settings` follows a change of the active profile.
-  public apply(mut self, next: Kept) {
+  public apply(mut self, next: SavedProfiles) {
     self.kept = next
     Game.saved.store(.Account, "profiles", next)
   }
@@ -269,7 +270,7 @@ public class Profiles {
     Game.saved.forget(.Account, old)
   }
 
-  // A `Memory`'s values in a profile, unpacked for its `decode`; nil where the profile keeps none under the key.
+  // A `ModuleMemory`'s values in a profile, unpacked for its `decode`; nil where the profile keeps none under the key.
   public recalled(self, name: ProfileName, key: String): Unknown {
     const profile = (peek self.kept).profiles[name]
     if (profile == nil) { return nil }
@@ -278,7 +279,7 @@ public class Profiles {
     return Game.encoding.deserialize(raw)
   }
 
-  // A `Memory`'s values kept in the active profile; nil (its defaults) lets its entry go. Past the bound, nothing
+  // A `ModuleMemory`'s values kept in the active profile; nil (its defaults) lets its entry go. Past the bound, nothing
   // changes.
   public remember(mut self, key: String, values: Unknown | nil) {
     const packed = values == nil ? nil : Game.encoding.serialize(values)

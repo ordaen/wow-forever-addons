@@ -5,9 +5,9 @@
 // bars: the drag puts it on the client's cursor, and the bars take what the cursor holds.
 import Client from "$client"
 import Game from "$game"
-import { Align, Overflow, Stated, Track } from "$ltml"
+import { Align, ByInteractionState, Overflow, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { ARTWORK, Choice, Column, Component, Memory, SECONDARY_TEXT, Table, TableRow, Tabs, ToolPick, Toolbar, tracksOf } from "Ordaen"
+import { ARTWORK, Choice, Column, Component, ModuleMemory, SECONDARY_TEXT, Table, TableRow, Tabs, ToolPick, Toolbar, tracksOf } from "Ordaen"
 import Locale from "@/locales"
 import Style from "@/style"
 
@@ -68,7 +68,7 @@ const CELL: Array<Track> = [23.4375dp, { fr: 1 }]
 const CLEAR: Color = Color.hex("#00000000")
 const HOVER: Color = Color.hex("#ffffff0d")
 // A spell's row: lit under the cursor.
-const GROUND: Stated<Color> = { default: CLEAR, hover: HOVER, focus: HOVER }
+const GROUND: ByInteractionState<Color> = { default: CLEAR, hover: HOVER, focus: HOVER }
 const PAGE: Array<Track> = ["max-content", "max-content", { fr: 1 }]
 
 // Whether the spell stands before another in the sort's order; equal ones by name.
@@ -179,8 +179,8 @@ public class SpellTableRow implements Component {
 public class SpellbookPage implements Component {
   state tab = 1
   state search = ""
-  // How the player left the list, the profile's (`Memory`); the search isn't kept.
-  public list: mut Memory<BookView> = new Memory<BookView>(BOOK_VIEW, .Profile, "book")
+  // How the player left the list, the profile's (`ModuleMemory`); the search isn't kept.
+  public list: mut ModuleMemory<BookView> = new ModuleMemory<BookView>(BOOK_VIEW, .Profile, "book")
   derived names: Array<String> = self.namesOf()
   derived shown: Array<Game.SpellEntry> = self.shownOf()
   derived empty: Boolean = self.shown.length == 0

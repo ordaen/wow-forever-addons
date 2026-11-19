@@ -6,7 +6,7 @@
 // submenu's entry `pickMore` with both places, and leaves the menu to the owner (a switch's menu stays open while
 // the owner flips it, a plain entry's closes it); a click anywhere else reports `close` and goes no further: the menu
 // is on top, so the click opens nothing under it.
-import { Align, Anchored, Art, Beside, Edges, Frame, Layer, Line, Place, Point, Position, Side, Stated, Track } from "$ltml"
+import { Align, Anchored, Art, Beside, ByInteractionState, Edges, Frame, Layer, Line, Place, Point, Position, Side, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import { Component } from "@/module"
 import { KNOB_OFF, KNOB_ON, KNOB_TOP, SWITCH_HEIGHT, SWITCH_KNOB, SWITCH_WIDTH, knobShown } from "@/switch"
@@ -35,10 +35,10 @@ const PAD: Edges = { top: 7.03125dp, bottom: 7.03125dp }
 const ITEM_PAD: Edges = { top: 7.03125dp, right: 16.40625dp, bottom: 7.03125dp, left: 16.40625dp }
 const GROUP_PAD: Edges = { top: 14.0625dp, right: 16.40625dp, bottom: 7.03125dp, left: 16.40625dp }
 const RULE: Line = { width: 1.171875dp, color: Color.hex("#3e2f1d"), sides: [Side.Top] }
-const NAME: Stated<Color> = { default: Color.hex("#e8dcc4"), hover: Color.hex("#ffffff"), focus: Color.hex("#ffffff") }
+const NAME: ByInteractionState<Color> = { default: Color.hex("#e8dcc4"), hover: Color.hex("#ffffff"), focus: Color.hex("#ffffff") }
 const DIM: Color = Color.hex("#6f6552")
 const CLEAR: Color = Color.hex("#00000000")
-const LIGHT: Stated<Color> = { default: CLEAR, hover: Color.hex("#d6a56b2e"), focus: Color.hex("#d6a56b2e") }
+const LIGHT: ByInteractionState<Color> = { default: CLEAR, hover: Color.hex("#d6a56b2e"), focus: Color.hex("#d6a56b2e") }
 const ROW: Array<Track> = [{ fr: 1 }, "max-content"]
 
 // One line of the open menu.
@@ -48,8 +48,8 @@ public class MenuItem implements Component {
   public enter: Event<(Integer, any Frame)> = new Event()
 
   derived enabled: Boolean = self.entry.disabled != true
-  derived color: Color | Stated<Color> = self.enabled ? NAME : DIM
-  derived light: Color | Stated<Color> = self.enabled ? LIGHT : CLEAR
+  derived color: Color | ByInteractionState<Color> = self.enabled ? NAME : DIM
+  derived light: Color | ByInteractionState<Color> = self.enabled ? LIGHT : CLEAR
   derived padding: Edges = self.entry.group == true ? GROUP_PAD : ITEM_PAD
   derived rule: Line | nil = self.entry.group == true ? RULE : nil
   derived switched: Boolean = self.entry.on != nil

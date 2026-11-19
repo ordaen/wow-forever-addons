@@ -12,7 +12,7 @@ import Client from "$client"
 import Game from "$game"
 import { Align, Beside, Edges, Layer, Line, MouseButton, Overflow, Side, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { ARTWORK, Choice, Column, Component, Copper, CountInput, DropdownItem, ItemButton, ItemId, Memory, Menu, MenuEntry, Money, PushButton, SECONDARY_TEXT, SelectItem, Table, TableRow, ToolButton, ToolPick, Toolbar, ageText, space, tracksOf } from "Ordaen"
+import { ARTWORK, Choice, Column, Component, Copper, CountInput, DropdownItem, ItemButton, ItemId, Menu, MenuEntry, ModuleMemory, Money, PushButton, SECONDARY_TEXT, SelectItem, Table, TableRow, ToolButton, ToolPick, Toolbar, ageText, space, tracksOf } from "Ordaen"
 import { PriceHistory } from "@/history"
 import { House } from "@/house"
 import { ItemPanel } from "@/itemPanel"
@@ -430,8 +430,8 @@ public class BuyPage implements Component {
   state filterOpen = false
   // The filter's Tip: the level band and the quality it lets through.
   derived filterText: String = [labelOf(LEVELS, self.list.values.level), labelOf(QUALITIES, self.list.values.quality)].join(", ")
-  // How the player left the list, the profile's (`Memory`); the search isn't kept.
-  public list: mut Memory<BuyView> = new Memory<BuyView>(BUY_VIEW, .Profile, "buy")
+  // How the player left the list, the profile's (`ModuleMemory`); the search isn't kept.
+  public list: mut ModuleMemory<BuyView> = new ModuleMemory<BuyView>(BUY_VIEW, .Profile, "buy")
   state picked: PriceKey | nil = nil
   // The row whose menu shows; none.
   state menuFor: PriceKey | nil = nil

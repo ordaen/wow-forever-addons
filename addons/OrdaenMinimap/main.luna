@@ -1,6 +1,6 @@
 import Build from "$build"
 import Game from "$game"
-import { Align, Anchored, EmbedLook, Frame, Line, MouseButton, Point, Pointer, Position, Shadow } from "$ltml"
+import { Align, Anchored, EmbedLook, Event, Frame, Line, MouseButton, Point, Position, Shadow } from "$ltml"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
 import { ALWAYS, Module, Placed, Settings, SettingsPage, Tip, opacityNow, reachAcross, reachDown } from "Ordaen"
@@ -237,11 +237,11 @@ public class Minimap implements Module, App {
     self.hint = Hint.Entry
   }
 
-  onCoordsClick(mut self, click: Pointer) {
+  onCoordsClick(mut self, click: Event.Press) {
     if (click.button == MouseButton.Left && Game.input.shiftDown()) { Game.minimap.sendCoords() }
   }
 
-  onClockClick(mut self, click: Pointer) {
+  onClockClick(mut self, click: Event.Press) {
     if (click.button == MouseButton.Right) {
       Ordaen.toggleSettings(Runtime.Addon.of(self))
     } else {

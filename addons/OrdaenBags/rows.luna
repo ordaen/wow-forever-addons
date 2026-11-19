@@ -3,7 +3,7 @@
 // is lit; a new item's glow inside it until it is hovered; a lock on a protected one. Its right button is the client's
 // own use of the item (secure); every other click and the cursor's coming and going are told to the window.
 import Game from "$game"
-import { Action, Align, Pointer, Position, Shadow, Track } from "$ltml"
+import { Action, Align, Event, Position, Shadow, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import { Component, ItemButton, Quality, SECONDARY_TEXT } from "Ordaen"
 import { Cell, GAP, Row, SLOT, Section } from "@/layout"
@@ -43,7 +43,7 @@ function fits(slot: Slot, place: Game.BagPlace): Boolean {
 }
 
 class BagSlot implements Component {
-  public pressed: Event<(Slot, Pointer)> = new Event()
+  public pressed: Event<(Slot, Event.Press)> = new Event()
   // Its item dragged off it, or something dragged let go on it: what a plain click does, as the game's own slots
   // take a drag.
   public pickup: Event<Slot> = new Event()
@@ -72,7 +72,7 @@ class BagSlot implements Component {
     return !fits(slot, filter.place)
   }
 
-  onPressed(self, click: Pointer) { self.pressed.emit(self.slot, click) }
+  onPressed(self, click: Event.Press) { self.pressed.emit(self.slot, click) }
   onPickup(self) { self.pickup.emit(self.slot) }
   onEnter(self) { self.entered.emit(self.slot) }
   onLeave(self) { self.left.emit(self.slot) }
@@ -128,7 +128,7 @@ class Caption implements Component {
 
 // One place of a row.
 class Place implements Component {
-  public pressed: Event<(Slot, Pointer)> = new Event()
+  public pressed: Event<(Slot, Event.Press)> = new Event()
   public pickup: Event<Slot> = new Event()
   public entered: Event<Slot> = new Event()
   public left: Event<Slot> = new Event()
@@ -153,7 +153,7 @@ class Place implements Component {
     self.fills = fills
   }
 
-  onPressed(self, slot: Slot, click: Pointer) { self.pressed.emit(slot, click) }
+  onPressed(self, slot: Slot, click: Event.Press) { self.pressed.emit(slot, click) }
   onPickup(self, slot: Slot) { self.pickup.emit(slot) }
   onEnter(self, slot: Slot) { self.entered.emit(slot) }
   onLeave(self, slot: Slot) { self.left.emit(slot) }
@@ -177,7 +177,7 @@ class Place implements Component {
 
 // A row of the window's grid.
 public class BagRow implements Component {
-  public pressed: Event<(Slot, Pointer)> = new Event()
+  public pressed: Event<(Slot, Event.Press)> = new Event()
   public pickup: Event<Slot> = new Event()
   public entered: Event<Slot> = new Event()
   public left: Event<Slot> = new Event()
@@ -202,7 +202,7 @@ public class BagRow implements Component {
     self.fills = fills
   }
 
-  onPressed(self, slot: Slot, click: Pointer) { self.pressed.emit(slot, click) }
+  onPressed(self, slot: Slot, click: Event.Press) { self.pressed.emit(slot, click) }
   onPickup(self, slot: Slot) { self.pickup.emit(slot) }
   onEnter(self, slot: Slot) { self.entered.emit(slot) }
   onLeave(self, slot: Slot) { self.left.emit(slot) }

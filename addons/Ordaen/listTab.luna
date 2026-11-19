@@ -1,14 +1,14 @@
 // ListTab: an entry in a list of pages (the settings window's modules, a module page's bars): its icon, its name,
 // and what its slot holds at its right (a switch). The shade under the cursor; selected, a darker shade, the name
 // white and a 3 px light along its left; off, name and icon dimmed. Left-click reports `pick`.
-import { Align, Art, Edges, Position, Stated, Track } from "$ltml"
+import { Align, Art, ByInteractionState, Edges, Position, Track } from "$ltml"
 import { Component } from "@/module"
 
 const INK: Color = Color.hex("#e8dcc4")
 const WHITE: Color = Color.hex("#ffffff")
 const OFF: Color = Color.hex("#7a705f")
 const CLEAR: Color = Color.hex("#00000000")
-const SHADE: Stated<Color> = { default: CLEAR, hover: Color.hex("#00000059"), focus: Color.hex("#00000059") }
+const SHADE: ByInteractionState<Color> = { default: CLEAR, hover: Color.hex("#00000059"), focus: Color.hex("#00000059") }
 const SELECTED: Color = Color.hex("#00000040")
 // An icon that is off: darker.
 const DIM: Color = Color.hex("#999999")
@@ -23,7 +23,7 @@ public class ListTab implements Component {
 
   derived hasIcon: Boolean = self.icon != nil
   derived columns: Array<Track> = self.hasIcon ? WITH_ICON : NO_ICON
-  derived background: Color | Stated<Color> = self.selected ? SELECTED : SHADE
+  derived background: Color | ByInteractionState<Color> = self.selected ? SELECTED : SHADE
   derived color: Color = self.selected ? WHITE : self.off ? OFF : INK
   derived tint: Color = self.off ? DIM : WHITE
   // The light along the left: on every entry, clear on the others, so only colours tell the selected one.

@@ -5,7 +5,7 @@
 // a click (the client's from a click alone). «My auctions» opens their window.
 import Game from "$game"
 import { Align, Track } from "$ltml"
-import { Choice, Column, Component, Copper, CountInput, ItemButton, ItemId, Memory, Money, MoneyField, PushButton, SECONDARY_TEXT, Segmented, Table, TableRow, space, tracksOf } from "Ordaen"
+import { Choice, Column, Component, Copper, CountInput, ItemButton, ItemId, ModuleMemory, Money, MoneyField, PushButton, SECONDARY_TEXT, Segmented, Table, TableRow, space, tracksOf } from "Ordaen"
 import { PriceHistory } from "@/history"
 import { House, nameOf } from "@/house"
 import { ItemPanel } from "@/itemPanel"
@@ -110,8 +110,8 @@ public class SellPage implements Component {
   // «My auctions» was clicked: its window opens, or closes.
   public openOwned: Event<nil> = new Event()
 
-  // How the player left the list, the profile's (`Memory`).
-  public list: mut Memory<SellView> = new Memory<SellView>(SELL_VIEW, .Profile, "sell")
+  // How the player left the list, the profile's (`ModuleMemory`).
+  public list: mut ModuleMemory<SellView> = new ModuleMemory<SellView>(SELL_VIEW, .Profile, "sell")
   state picked: ItemId | nil = nil
   // Moves as the bags change: what the house takes is read again.
   state bags = 0

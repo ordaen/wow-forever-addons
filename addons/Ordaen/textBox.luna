@@ -1,4 +1,4 @@
-// TextBox: a field of many lines sunk into the page, as `Input`'s field is (dark, with a fine bronze edge), for a text
+// TextBox: a field of many lines sunk into the page, as `TextField`'s field is (dark, with a fine bronze edge), for a text
 // the player copies out or pastes in whole: each time it is shown, and each time its text is written while it shows,
 // it takes the keyboard with all its text selected, so Ctrl+C or Ctrl+V takes all of it at once. Its lines wrap at
 // its width; Enter starts a new line and Escape leaves it. What doesn't fit its height is cut at its bottom.

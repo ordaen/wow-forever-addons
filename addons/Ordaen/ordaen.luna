@@ -8,7 +8,7 @@ import Events from "$events"
 import Game from "$game"
 import { Anchored, Art, Point } from "$ltml"
 import Runtime from "$runtime"
-import { ARTWORK, Artwork } from "@/art"
+import { ARTWORK, OrdaenArt } from "@/art"
 import { DEFAULTS, Globals } from "@/globals"
 import { OwnerKeys } from "@/hotkeys"
 import { Keeper } from "@/keeper"
@@ -41,7 +41,7 @@ public class OrdaenCore implements App {
   public const icon: Art = "Interface/Icons/Trade_Engineering"
   public const title: String = "Ordaen"
   // The art everything Ordaen draws with, whatever the player chooses.
-  public const art: Artwork = ARTWORK
+  public const art: OrdaenArt = ARTWORK
   // Every `Settings` together, as the settings window sees them, with the history of their changes.
   public const keeper: mut Keeper = new Keeper()
   // The fonts, colours and bars' art the player chose: Ordaen's own settings, kept apart from `globals`.

@@ -1,14 +1,14 @@
 // Tabs: a page's tabs along its top, 4 px apart, over a 1 px line: each tab's name in the dim colour, lighter with
 // a shade under the cursor; the picked one white on a darker shade, outlined, with a 2 px light along its top
 // inside. Left-click picks a tab: the strip writes the picked tab's index into the cell it was handed.
-import { Edges, Line, Position, Side, Stated, Track } from "$ltml"
+import { ByInteractionState, Edges, Line, Position, Side, Track } from "$ltml"
 import { Component } from "@/module"
 
 const LINE: Color = Color.hex("#3e2f1d")
-const NAME: Stated<Color> = { default: Color.hex("#a3977f"), hover: Color.hex("#e8dcc4"), focus: Color.hex("#e8dcc4") }
+const NAME: ByInteractionState<Color> = { default: Color.hex("#a3977f"), hover: Color.hex("#e8dcc4"), focus: Color.hex("#e8dcc4") }
 const WHITE: Color = Color.hex("#ffffff")
 const CLEAR: Color = Color.hex("#00000000")
-const SHADE: Stated<Color> = { default: CLEAR, hover: Color.hex("#00000033"), focus: Color.hex("#00000033") }
+const SHADE: ByInteractionState<Color> = { default: CLEAR, hover: Color.hex("#00000033"), focus: Color.hex("#00000033") }
 const PICKED: Color = Color.hex("#00000059")
 // The picked tab's outline; the others keep its room with a line that draws nothing, so a tab's box is the same
 // picked or not.
@@ -20,9 +20,9 @@ const LIGHT: Color = Color.hex("#d6a56b")
 // One tab of the strip.
 public class Tab implements Component {
   derived picked: Boolean = self.selected == self.index
-  derived background: Color | Stated<Color> = self.picked ? PICKED : SHADE
+  derived background: Color | ByInteractionState<Color> = self.picked ? PICKED : SHADE
   derived border: Line = self.picked ? OUTLINE : NO_OUTLINE
-  derived color: Color | Stated<Color> = self.picked ? WHITE : NAME
+  derived color: Color | ByInteractionState<Color> = self.picked ? WHITE : NAME
   // The light along the top: there on every tab, clear on the others, so only colours tell the picked one.
   derived light: Color = self.picked ? LIGHT : CLEAR
 

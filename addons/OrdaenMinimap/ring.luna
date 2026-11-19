@@ -1,7 +1,7 @@
 // The ring: the buttons round the map. The game's own (tracking, mail, crafting orders, the expansion's page) stay
 // the game's: each lies invisible under ours, which passes its clicks and its hover on.
 import Game from "$game"
-import { Align, Art, Drag, Frame, MouseButton, Pointer, Position, Shadow } from "$ltml"
+import { Align, Art, Event, Frame, MouseButton, Position, Shadow } from "$ltml"
 import root Ordaen from "Ordaen"
 import { Component, Tip } from "Ordaen"
 import type { Hint, Minimap } from "@/main"
@@ -88,7 +88,7 @@ public class RingButton implements Component {
     }
   }
 
-  onClick(mut self, click: Pointer) {
+  onClick(mut self, click: Event.Press) {
     let frame = self.theirs
     match (self.spec.id) {
       RingId.Ordaen => { if (click.button == MouseButton.Right) { Ordaen.toggleDev() } else { Ordaen.toggleSettings(nil) } }
@@ -115,7 +115,7 @@ public class RingButton implements Component {
   }
 
   onDragStart(mut self) { self.map.startDrag(self.spec) }
-  onDrag(mut self, drag: Drag) { self.map.dragTo(drag.dx, drag.dy) }
+  onDrag(mut self, drag: Event.Drag) { self.map.dragTo(drag.dx, drag.dy) }
   onDragStop(mut self) { self.map.stopDrag(self.spec) }
 
   public render(self): Template {

@@ -3,7 +3,7 @@
 // age). The shade under the cursor; selected, a darker shade, the name white and a 3 px light along its left. Left-click
 // opens or closes a row that has children and reports `pick` on any. The owner draws a row's children under it while
 // `open`; the row itself holds no list.
-import { Align, Art, Position, Stated } from "$ltml"
+import { Align, Art, ByInteractionState, Position } from "$ltml"
 import root Ordaen from "Ordaen"
 import { Component } from "@/module"
 
@@ -11,7 +11,7 @@ const INK: Color = Color.hex("#e8dcc4")
 const WHITE: Color = Color.hex("#ffffff")
 const MARK: Color = Color.hex("#d6a56b")
 const CLEAR: Color = Color.hex("#00000000")
-const SHADE: Stated<Color> = { default: CLEAR, hover: Color.hex("#00000059"), focus: Color.hex("#00000059") }
+const SHADE: ByInteractionState<Color> = { default: CLEAR, hover: Color.hex("#00000059"), focus: Color.hex("#00000059") }
 const SELECTED: Color = Color.hex("#00000040")
 // How far each level stands in, and the room the mark has.
 const INDENT = 18.75dp
@@ -28,7 +28,7 @@ public class TreeRow implements Component {
 
   derived markLeft: Number<Length> = self.depth * INDENT
   derived gutter: Number<Length> = self.markLeft + MARK_ROOM
-  derived background: Color | Stated<Color> = self.selected ? SELECTED : SHADE
+  derived background: Color | ByInteractionState<Color> = self.selected ? SELECTED : SHADE
   derived color: Color = self.selected ? WHITE : INK
   // The light along the left is always drawn, clear when the row isn't selected; the mark's art tells it open.
   derived light: Color = self.selected ? MARK : CLEAR

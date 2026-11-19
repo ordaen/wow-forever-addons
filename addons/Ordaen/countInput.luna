@@ -2,7 +2,7 @@
 // Both bounds are required and may be cells another moves (the reagents in the bags, the stacks of an item): the
 // value never stands outside them, and where a bound moves past it the value is written back to that bound. Where the
 // most is under the least there is nothing to choose: the value is the least and the control is disabled. − and +
-// stand either side of the number, each disabled at its bound. A setting's number is an InputNumber, which steps as
+// stand either side of the number, each disabled at its bound. A setting's number is an NumberInput, which steps as
 // this does: the stepping below is both's.
 //
 // Stepping: a click steps 1, 10 with Shift held, 100 with Ctrl, held to the bounds; held down, a button steps again

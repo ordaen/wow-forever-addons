@@ -3,9 +3,9 @@
 // Combat is asked first, then transport: a fight on a flight path is a fight.
 import Game from "$game"
 import { Choice, Dropdown } from "@/dropdown"
-import { InputNumber, Unit } from "@/inputNumber"
 import Locale from "@/locales"
 import { Component } from "@/module"
+import { NumberInput, Unit } from "@/numberInput"
 import { Section } from "@/section"
 
 // A part hidden on hover is all but unseen while the cursor is away, yet the cursor still finds it.
@@ -70,7 +70,7 @@ class StateRows implements Component {
   public render(self): Template {
     return $ltml {
       <Dropdown label={self.label} value={mut self.value.visible} choices={VISIBLES} disabled={self.disabled} />
-      <InputNumber $if={self.faded} label={Locale.VISIBLE_OPACITY} hint={Locale.VISIBLE_OPACITY_TIP}
+      <NumberInput $if={self.faded} label={Locale.VISIBLE_OPACITY} hint={Locale.VISIBLE_OPACITY_TIP}
                    value={mut self.value.opacity} least={0} most={1} step={0.05} unit={Unit.Percent}
                    disabled={self.disabled} />
     }

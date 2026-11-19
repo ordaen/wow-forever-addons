@@ -5,9 +5,9 @@ import Test from "$test"
 import root Ordaen from "Ordaen"
 import { ScalePage } from "@/general"
 import { Density } from "@/globals"
-import { InputNumber } from "@/inputNumber"
 import { Change, POINTS_MOST, changeText } from "@/keeper"
 import Locale from "@/locales"
+import { NumberInput } from "@/numberInput"
 import { REST } from "@/rest"
 
 const PAGE: Test.Page = { left: 0, top: 0, width: 800, height: 400 }
@@ -103,7 +103,7 @@ test "an input under way is written as the window closes" {
 class ScaleField {
   public render(self): Template {
     return $ltml {
-      <InputNumber label={"Scale"} value={mut Ordaen.globals.values.scale} least={0.5} most={10} step={0.05} />
+      <NumberInput label={"Scale"} value={mut Ordaen.globals.values.scale} least={0.5} most={10} step={0.05} />
     }
   }
 }

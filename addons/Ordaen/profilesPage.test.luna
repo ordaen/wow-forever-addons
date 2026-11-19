@@ -6,7 +6,7 @@ import root Ordaen from "Ordaen"
 import { Density, Globals } from "@/globals"
 import Locale from "@/locales"
 import { Preset, preset } from "@/look"
-import { DEFAULT_PROFILE, Kept, Profile, Why } from "@/profiles"
+import { DEFAULT_PROFILE, Profile, Profiles, SavedProfiles } from "@/profiles"
 import { ProfilesPage } from "@/profilesPage"
 import { Shared, write } from "@/share"
 
@@ -41,7 +41,7 @@ function tick(nth: Integer) {
 }
 
 // What is kept now, to tell that a refusal changed nothing.
-function snapshot(): Kept {
+function snapshot(): SavedProfiles {
   return Ordaen.keeper.profiles.edit()
 }
 
@@ -137,15 +137,15 @@ test "a profile is picked by its dropdown, and the pick for the character, the c
 
   // The class's pick, then the character's, which wins over it, then the character's taken away.
   tick(CLASS)
-  Test.expect(page.onClass && profiles.active == "Raid" && profiles.why == Why.Class)
+  Test.expect(page.onClass && profiles.active == "Raid" && profiles.why == Profiles.Reason.Class)
   page.chosen = "Healing"
   Test.flush()
   Test.expect(!page.onClass)
   tick(CHARACTER)
-  Test.expect(page.onCharacter && profiles.active == "Healing" && profiles.why == Why.Character)
+  Test.expect(page.onCharacter && profiles.active == "Healing" && profiles.why == Profiles.Reason.Character)
   shown("«Healing» for the character, «Raid» for the class: the character's wins, the page says why")
   tick(CHARACTER)
-  Test.expect(!page.onCharacter && profiles.active == "Raid" && profiles.why == Why.Class)
+  Test.expect(!page.onCharacter && profiles.active == "Raid" && profiles.why == Profiles.Reason.Class)
 
   // The account's default: ticked for the profile that is it, and unticking it only puts the tick back.
   page.chosen = DEFAULT_PROFILE
@@ -160,14 +160,14 @@ test "a profile is picked by its dropdown, and the pick for the character, the c
   tick(CLASS)
   Test.expect(profiles.kept.picks.byClass["PRIEST"] == "Healing")
   tick(CLASS)
-  Test.expect(profiles.active == "Healing" && profiles.why == Why.Account)
+  Test.expect(profiles.active == "Healing" && profiles.why == Profiles.Reason.Account)
 
   // A specialisation: its rows show where the game says one, and the pick for it wins over the rest.
   Game.player.spec = { index: 2, id: 100, name: "Holy" }
   shown("the character plays «Holy»: a row for each specialisation, that one named")
   page.spec2 = "Raid"
   Test.flush()
-  Test.expect(profiles.active == "Raid" && profiles.why == Why.Spec)
+  Test.expect(profiles.active == "Raid" && profiles.why == Profiles.Reason.Spec)
   Test.expect(page.activeLine == Locale.PROFILES_ACTIVE_NOW.format("Raid", Locale.PROFILES_WHY_SPEC.format("Holy")))
   Game.player.spec = { index: 1, id: 101, name: "Discipline" }
   Test.flush()
@@ -206,7 +206,7 @@ test "a profile in use is renamed in every pick of it, and deleted with the char
 
   click(Test.holding("Delete", 1))
   click(Test.holding("Delete", 2))
-  Test.expect(profiles.active == "Main" && profiles.why == Why.Account && page.chosen == "Main")
+  Test.expect(profiles.active == "Main" && profiles.why == Profiles.Reason.Account && page.chosen == "Main")
   Test.expect(profiles.kept.picks.byCharacter[me] == nil && profiles.names.length == 1)
   Test.expect(page.note == Locale.PROFILES_NOTE_DELETED.format("Raiders"))
   shown("«Raiders» deleted while in use for the character: «Main» again, by the account's pick")

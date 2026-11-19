@@ -7,7 +7,7 @@
 // removed, and «Remove bought» clears every row at 0.
 import Game from "$game"
 import { Align, Track } from "$ltml"
-import { Age, Column, Component, ItemButton, ItemId, Memory, Money, PushButton, SECONDARY_TEXT, Table, TableRow, space, tracksOf } from "Ordaen"
+import { Age, Column, Component, ItemButton, ItemId, ModuleMemory, Money, PushButton, SECONDARY_TEXT, Table, TableRow, space, tracksOf } from "Ordaen"
 import { ageOf } from "@/buy"
 import { nameOf } from "@/house"
 import Locale from "@/locales"
@@ -157,8 +157,8 @@ public struct ShoppingView implements Plain {
 const SHOPPING_VIEW: ShoppingView = {}
 
 public class ShoppingPage implements Component {
-  // How the player left the list, the profile's (`Memory`).
-  public kept: mut Memory<ShoppingView> = new Memory<ShoppingView>(SHOPPING_VIEW, .Profile, "shopping")
+  // How the player left the list, the profile's (`ModuleMemory`).
+  public kept: mut ModuleMemory<ShoppingView> = new ModuleMemory<ShoppingView>(SHOPPING_VIEW, .Profile, "shopping")
   state picked: ItemId | nil = nil
   // The purchase of the row picked: its listings, then what the player's clicks buy.
   state purchase: mut Purchase | nil = nil

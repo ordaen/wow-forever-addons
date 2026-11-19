@@ -8,8 +8,8 @@ import Game from "$game"
 import { Action, Align, Edges, Overflow, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import { SECONDARY_TEXT } from "Ordaen"
-import { ARTWORK, Choice, Component, Dialog, Input, Menu, MenuEntry, Placing, PushButton, space, Tip, TipRow, Toolbar,
-  KeptWindow, Memory, TipText, ToolPick, Window, WindowSide, WindowTabSpec } from "Ordaen"
+import { ARTWORK, Choice, Component, Dialog, TextField, Menu, MenuEntry, Placing, PushButton, space, Tip, TipRow, Toolbar,
+  KeptWindow, ModuleMemory, TipText, ToolPick, Window, WindowSide, WindowTabSpec } from "Ordaen"
 import { Card } from "@/card"
 import { AddOn, Catalog, Status, plain } from "@/catalog"
 import { Age, FilterPick, Heat, Loading, Standing, Written } from "@/filter"
@@ -22,7 +22,7 @@ import Style from "@/style"
 public enum Order implements Plain { Name = "name", Now = "now", Peak = "peak", Memory = "memory" }
 public enum View implements Plain { Categories = "categories", Table = "table" }
 
-// How the player left the list, the profile's (`Memory`): whose addons it shows, the filter (a
+// How the player left the list, the profile's (`ModuleMemory`): whose addons it shows, the filter (a
 // choice in each kind, `@/filter`), the order and which way (the heaviest first for a number's column, reversed by a
 // second click on a table's heading), the view, and the addon whose card stands beside it. The search isn't kept: a
 // list cut short by an old search at the next opening says nothing of why.
@@ -107,8 +107,8 @@ public class AddOnsWindow implements Component {
   // The window as the root declares it (`System.window`); one of its own where it is made alone (a test's).
   declared: mut KeptWindow
   state search = ""
-  public list: mut Memory<ListView> = new Memory<ListView>(LIST_VIEW, .Profile, "addons")
-  public folds: mut Memory<Folded> = new Memory<Folded>(FOLDED, .Profile, "addons:folded")
+  public list: mut ModuleMemory<ListView> = new ModuleMemory<ListView>(LIST_VIEW, .Profile, "addons")
+  public folds: mut ModuleMemory<Folded> = new ModuleMemory<Folded>(FOLDED, .Profile, "addons:folded")
   // What is to be switched off once the player answers, with the question's title.
   public state asking: Array<String> = []
   // The sets' menu, and the set being saved (-1) or looked at (its place); 0: none.
@@ -575,7 +575,7 @@ public class AddOnsWindow implements Component {
           <PushButton #buttons label={Locale.DISABLE} width={BUTTON} @click={self.confirmAsk} />
         </Dialog>
         <Dialog $if={self.editing != 0} title={self.setTitle} width={SET_WIDTH}>
-          <Input label={Locale.SET_NAME} value={mut self.setName} maxLength={40} />
+          <TextField label={Locale.SET_NAME} value={mut self.setName} maxLength={40} />
           <text $if={self.setNote != ""} value={self.setNote} textColor={Style.RED} textSize={SECONDARY_TEXT} />
           <box $if={self.editing > 0} xAlign={Align.Start}>
             <PushButton label={Locale.DELETE} width={BUTTON} @click={self.deleteSet} />

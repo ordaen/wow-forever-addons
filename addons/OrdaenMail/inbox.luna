@@ -4,7 +4,7 @@
 import Game from "$game"
 import { Align, Art, Overflow, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { ARTWORK, Choice, Column, Component, ItemButton, Memory, Money, PushButton, SECONDARY_TEXT, TITLE_TEXT, Table, TableRow, Tick, ToolPick, Toolbar, tracksOf } from "Ordaen"
+import { ARTWORK, Choice, Column, Component, ItemButton, ModuleMemory, Money, PushButton, SECONDARY_TEXT, TITLE_TEXT, Table, TableRow, Tick, ToolPick, Toolbar, tracksOf } from "Ordaen"
 import { Filter, URGENT_DAYS, collectable, matches } from "@/letters"
 import Locale from "@/locales"
 import Style from "@/style"
@@ -244,8 +244,8 @@ public class Inbox implements Component {
   public giveBack: Event<Integer> = new Event()
 
   state search = ""
-  // How the player left the list, the profile's (`Memory`); the search isn't kept.
-  public list: mut Memory<InboxView> = new Memory<InboxView>(INBOX_VIEW, .Profile, "inbox")
+  // How the player left the list, the profile's (`ModuleMemory`); the search isn't kept.
+  public list: mut ModuleMemory<InboxView> = new ModuleMemory<InboxView>(INBOX_VIEW, .Profile, "inbox")
   state picked = 0
   state ticked: mut Array<Integer> = []
   state tableColumn = 1
