@@ -225,9 +225,9 @@ test "the quantity steps by one, by a hundred with Alt held, and holds to what t
   Game.auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }])
   window().button("Sell").click()
   window().text("Linen Cloth").click()
-  Game.input.altDown = (): Boolean => true
+  Game.input.controlDown = (): Boolean => true
   panel().button("+").click()
-  Game.input.altDown = (): Boolean => false
+  Game.input.controlDown = (): Boolean => false
   Test.expect(says(panel(), "Quantity", "- | 26 | +"))
   panel().button("-").click()
   Test.expect(panel().text("25").shown())
@@ -274,9 +274,9 @@ test "«Post» puts a commodity up from every stack, at the quantity, the durati
   Game.auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }])
   window().button("Sell").click()
   window().text("Linen Cloth").click()
-  Game.input.altDown = (): Boolean => true
+  Game.input.controlDown = (): Boolean => true
   panel().button("+").click()
-  Game.input.altDown = (): Boolean => false
+  Game.input.controlDown = (): Boolean => false
   panel().button("12 h").click()
   _ = Test.requests()
   panel().button("Post").click()

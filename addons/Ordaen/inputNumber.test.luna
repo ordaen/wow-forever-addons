@@ -61,12 +61,57 @@ test "the field's − and + step it too, and a number typed past a bound is the 
   Test.page().input().click()
   Test.erase(6)
   Test.type("9999")
-  // Taken once the typing pauses: a number on its way isn't held to the bounds.
-  Test.pass(0.3)
-  Test.expect(page.place == -89)
-  Test.pass(0.4)
+  // Past the most, more digits only take it further: the most at once.
+  Test.flush()
   Test.expect(page.place == 4000)
   Test.shot("9999 typed: the most, 4000")
+  destroy page
+}
+
+// A field whose least is over its first digit: 1 is on its way to 150.
+class Sized {
+  state size: Number = 400
+
+  public render(self): Template {
+    return $ltml { <InputNumber label={"Size"} value={mut self.size} least={100} most={8000} unit={Unit.Px} /> }
+  }
+}
+
+test "a number typed is the value with each key, for whatever reads it next" {
+  let page = new Numbers()
+  Test.mount(page, { left: 0, top: 0, width: 900, height: 200 })
+  Test.page().input().click()
+  Test.erase(6)
+  Test.type("120")
+  // No pause, no Enter: a frame on, what acts next (a Save, a Post) reads the value typed.
+  Test.flush()
+  Test.expect(page.place == 120)
+  Test.type("5")
+  Test.flush()
+  Test.expect(page.place == 1205)
+  destroy page
+}
+
+test "a number on its way into the range waits for the typing to pause, and is then held to the bound" {
+  let page = new Sized()
+  Test.mount(page, { left: 0, top: 0, width: 900, height: 200 })
+  Test.page().input().click()
+  Test.erase(6)
+  Test.type("1")
+  Test.flush()
+  Test.expect(page.size == 400 && Test.page().input().value() == "1")
+  Test.type("5")
+  Test.flush()
+  Test.expect(page.size == 400 && Test.page().input().value() == "15")
+  Test.type("0")
+  Test.flush()
+  Test.expect(page.size == 150)
+  Test.erase(3)
+  Test.type("2")
+  Test.pass(0.3)
+  Test.expect(page.size == 150)
+  Test.pass(0.4)
+  Test.expect(page.size == 100 && Test.page().input().value() == "100")
   destroy page
 }
 
