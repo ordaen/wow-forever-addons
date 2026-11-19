@@ -98,6 +98,8 @@ public class OrdaenCore implements App {
     watch (running of self.modules) { self.draw(running) }
     // Every text any addon draws is in the look's fonts: given once here, and again when the look's change.
     watch { Runtime.fonts(self.lookArt.fonts) }
+    // The ring round the control the keyboard has focused is the look's accent, and follows it.
+    watch { Runtime.focusColor(self.look.values.accent) }
     // A look loaded (at the start, at a switch of profile) that is a preset Ordaen doesn't offer is Ordaen's.
     watch (profile of self.keeper.profiles.active) { self.offered(profile) }
     Events.PLAYER_LEVEL_UP.listen(self.forgetTips)
