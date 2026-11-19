@@ -4,10 +4,10 @@
 // The table's columns are Blizzard's: name, level, class, zone, rank (a community's role) and note. Those online stand
 // above those offline whatever the order; an offline member's zone says when they were last online. A click picks a
 // member (its card shows beside the list); again, the card goes.
-import { Align, Position, Track } from "$ltml"
+import { Align, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { Choice, Column, Component, PushButton, SECONDARY_TEXT, TITLE_TEXT, Table, TableCell, TableRow, ToolPick, Toolbar, space, tracksOf } from "Ordaen"
-import { Fact, agoHoursText, markOf, orDash, presenceText } from "@/friends"
+import { Choice, Column, Component, Fact, PushButton, SECONDARY_TEXT, TITLE_TEXT, Table, TableCell, TableRow, ToolPick, Toolbar, hoursAgoText, space, tracksOf } from "Ordaen"
+import { markOf, orDash, presenceText } from "@/friends"
 import Locale from "@/locales"
 import { Member, Rights } from "@/people"
 import Style from "@/style"
@@ -51,7 +51,7 @@ function online(member: Member): Boolean { return member.presence != .Offline }
 // Where a member is: the zone while online, when last online while offline.
 public function whereOf(member: Member): String {
   if (online(member)) { return member.zone }
-  return member.away > 0 ? agoHoursText(member.away) : Locale.OFFLINE_LOWER
+  return member.away > 0 ? hoursAgoText(member.away) : Locale.OFFLINE_LOWER
 }
 
 // -1 where `a` comes first, 1 where `b` does, 0 where they stand alike.
@@ -122,25 +122,25 @@ class MemberRow implements Component {
   public render(self): Template {
     return $ltml {
       <TableRow tracks={TRACKS} selected={self.picked} @pick={self.onPick}>
-        <TableCell>
+        <TableCell cut={true}>
           <box columns={[Style.DOT, { fr: 1 }]} gap={space(.Line)} yAlign={Align.Center}>
             <box width={Style.DOT} height={Style.DOT} background={markOf(self.member.presence)} />
             <text value={self.member.name} textColor={nameColorOf(self.member)} wrap={false} />
           </box>
         </TableCell>
-        <TableCell align={Align.End}>
+        <TableCell align={Align.End} cut={true}>
           <text value={self.level} textColor={self.ink} textFont={.Numbers} wrap={false} />
         </TableCell>
-        <TableCell>
+        <TableCell cut={true}>
           <text value={self.member.className} textColor={self.ink} wrap={false} />
         </TableCell>
-        <TableCell>
+        <TableCell cut={true}>
           <text value={whereOf(self.member)} textColor={Style.DIM} wrap={false} />
         </TableCell>
-        <TableCell>
+        <TableCell cut={true}>
           <text value={self.member.rank} textColor={self.ink} wrap={false} />
         </TableCell>
-        <TableCell>
+        <TableCell cut={true}>
           <text value={self.member.note} textColor={Style.DIM} wrap={false} />
         </TableCell>
       </TableRow>
@@ -178,12 +178,10 @@ public class MemberTable implements Component {
           <ToolPick value={mut self.show} choices={SHOWS} icon={Ordaen.art.ctl.tool.filter} title={Locale.SHOW} lit={self.lit} />
         </Toolbar>
         <box columns={1} rows={[{ fr: 1 }]}>
-          <Table columns={self.columns} sorted={mut self.sorted} descending={mut self.descending}>
+          <Table columns={self.columns} sorted={mut self.sorted} descending={mut self.descending}
+                 empty={self.shown.length == 0 ? Locale.NOTHING_FOUND : ""}>
             <MemberRow $for={member of self.shown} $key={member.key} member={member} chosen={self.chosen} @pick={self.onPick} />
           </Table>
-          <box $if={self.shown.length == 0} position={Position.Absolute} left={0ui} right={0ui} top={Style.EMPTY_TOP} xAlign={Align.Center}>
-            <text value={Locale.NOTHING_FOUND} textColor={Style.DIM} wrap={false} />
-          </box>
         </box>
       </box>
     }
@@ -214,7 +212,7 @@ public class MemberCard implements Component {
 
   statusOf(self): String {
     const text = presenceText(self.member.presence)
-    return self.member.away > 0 ? `${text} · ${agoHoursText(self.member.away)}` : text
+    return self.member.away > 0 ? `${text} · ${hoursAgoText(self.member.away)}` : text
   }
 
   onWhisper(self) { self.whisper.emit() }

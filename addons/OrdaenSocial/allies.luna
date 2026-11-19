@@ -4,10 +4,10 @@
 //
 // A row: the ally's status mark, the name in its class's colour (grey while offline) with its level, under it the newest
 // thing done together and how long ago; a pinned ally's star at the right.
-import { Align, ByInteractionState, Edges, Overflow } from "$ltml"
+import { Align, Overflow, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { Choice, Component, PushButton, SECONDARY_TEXT, TITLE_TEXT, ToolPick, Toolbar, space } from "Ordaen"
-import { Fact, agoText, markOf, orDash, presenceText } from "@/friends"
+import { Choice, Component, Fact, PickRow, PushButton, SECONDARY_TEXT, TITLE_TEXT, ToolPick, Toolbar, agoText, space } from "Ordaen"
+import { markOf, orDash, presenceText } from "@/friends"
 import Locale from "@/locales"
 import { Show, nameColorOf } from "@/members"
 import { Ally, Meeting } from "@/people"
@@ -25,9 +25,7 @@ const SHOWS: Array<Choice<Show>> = [
   { value: .Everyone, label: Locale.SHOW_EVERYONE },
   { value: .Online, label: Locale.SHOW_ONLINE }
 ]
-const CLEAR: Color = Color.hex("#00000000")
-const ROW_SHADE: ByInteractionState<Color> = { default: CLEAR, hover: Color.hex("#00000059"), focus: Color.hex("#00000059") }
-const ROW_PAD: Edges = { top: 4.6875dp, right: space(.Line), bottom: 4.6875dp, left: space(.Line) }
+const ROW: Array<Track> = [Style.DOT, { fr: 1 }, "max-content"]
 
 function online(ally: Ally): Boolean { return ally.member.presence != .Offline }
 
@@ -65,7 +63,7 @@ public function shownOf(allies: Array<Ally>, pinned: Boolean, query: String, sho
 class AllyRow implements Component {
   public pick: Event<String> = new Event()
 
-  derived background: Color | ByInteractionState<Color> = self.chosen == self.ally.member.key ? Style.PICKED : ROW_SHADE
+  derived picked: Boolean = self.chosen == self.ally.member.key
   derived level: String = String.of(self.ally.member.level)
 
   ally: Signal<Ally>
@@ -79,9 +77,7 @@ class AllyRow implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={[Style.DOT, { fr: 1 }, "max-content"]} gap={space(.Line)} yAlign={Align.Center} padding={ROW_PAD}
-           background={self.background} @pointerPress(.Left)={self.onPick} @keyPress(.Enter)={self.onPick}
-           @keyPress(.Space)={self.onPick}>
+      <PickRow columns={ROW} picked={self.picked} @pick={self.onPick}>
         <box width={Style.DOT} height={Style.DOT} background={markOf(self.ally.member.presence)} />
         <box columns={1}>
           <box columns={["max-content", "max-content"]} gap={space(.Line)}>
@@ -91,7 +87,7 @@ class AllyRow implements Component {
           <text value={metText(self.ally)} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={false} />
         </box>
         <box $if={self.ally.pinned} width={Style.STAR} height={Style.STAR} background={Style.STAR_ICON} />
-      </box>
+      </PickRow>
     }
   }
 }

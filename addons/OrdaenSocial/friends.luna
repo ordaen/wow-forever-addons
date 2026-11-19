@@ -7,12 +7,11 @@
 // The view switch draws the same friends as a table's columns instead. Best friends stay on top whatever the sort; the
 // filter shows each kind and those online or offline. Left-click picks a friend (its card shows); again, the card is
 // the player's own.
-import Game from "$game"
-import { Align, Art, ByInteractionState, Edges, Overflow, Track } from "$ltml"
+import { Align, Art, Edges, Overflow, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import {
-  ARTWORK, ButtonPlate, Choice, Column, CompactDropdown, Component, FilterButton, FilterGroup, PushButton, SECONDARY_TEXT, TITLE_TEXT, Table,
-  TableCell, TableRow, ToolPick, Toolbar, space, switched, tracksOf
+  ARTWORK, ButtonPlate, Choice, Column, CompactDropdown, Component, Fact, FilterButton, FilterGroup, PickRow, PushButton, SECONDARY_TEXT, TITLE_TEXT, Table,
+  TableCell, TableRow, ToolPick, Toolbar, agoText, space, switched, tracksOf
 } from "Ordaen"
 import Locale from "@/locales"
 import { Friend, Hero, Ignored, Me, Presence, Request, trimmed } from "@/people"
@@ -61,13 +60,9 @@ const PRESENCES: Array<Choice<Presence>> = [
   { value: .Busy, label: Locale.BUSY },
   { value: .Offline, label: Locale.INVISIBLE }
 ]
-const CLEAR: Color = Color.hex("#00000000")
-const ROW_SHADE: ByInteractionState<Color> = { default: CLEAR, hover: Color.hex("#00000059"), focus: Color.hex("#00000059") }
-const ROW_PAD: Edges = { top: 4.6875dp, right: space(.Line), bottom: 4.6875dp, left: space(.Line) }
+const ROW: Array<Track> = [Style.DOT, { fr: 1 }, "max-content"]
+const ROW_PAD: Edges = { top: space(.Line), right: space(.Line), bottom: space(.Line), left: space(.Line) }
 const FIELD_PAD: Edges = { left: 11.71875dp, right: 11.71875dp }
-const MINUTE = 60
-const HOUR = 3600
-const DAY = 86400
 
 // What a friend is called in the list: the account's name, or the character's.
 public function titleOf(friend: Friend): String { return friend.account?.name ?? friend.hero?.name ?? "" }
@@ -95,20 +90,6 @@ public function presenceText(presence: Presence): String {
     .Busy => Locale.BUSY
     .Offline => Locale.OFFLINE
   }
-}
-
-// How long ago a moment was, as the list says it: minutes, hours or days.
-public function agoText(seconds: Number): String {
-  const passed = (Game.clock.server - seconds).max(0)
-  if (passed < HOUR) { return Locale.AGO_MINUTES.format((passed / MINUTE).floor().max(1)) }
-  if (passed < DAY) { return Locale.AGO_HOURS.format((passed / HOUR).floor()) }
-  return Locale.AGO_DAYS.format((passed / DAY).floor())
-}
-
-// How long ago, from a number of hours the client gives (a guild member's last time online): hours, or days.
-public function agoHoursText(hours: Integer): String {
-  if (hours < 24) { return Locale.AGO_HOURS.format(hours) }
-  return Locale.AGO_DAYS.format((hours / 24).floor())
 }
 
 // What a Battle.net friend plays, by the client's code of the program.
@@ -192,7 +173,6 @@ public function filterStart(offline: Boolean): mut Map<FriendFilter, Boolean> {
 class FriendRow implements Component {
   public pick: Event<String> = new Event()
 
-  derived background: Color | ByInteractionState<Color> = self.picked ? Style.PICKED : ROW_SHADE
   derived level: String = self.friend.hero != nil ? String.of(levelOf(self.friend)) : ""
   derived favorite: Boolean = self.friend.account?.favorite == true
 
@@ -207,9 +187,7 @@ class FriendRow implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={[Style.DOT, { fr: 1 }, "max-content"]} gap={space(.Line)} yAlign={Align.Center} padding={ROW_PAD}
-           background={self.background} @pointerPress(.Left)={self.onPick} @keyPress(.Enter)={self.onPick}
-           @keyPress(.Space)={self.onPick}>
+      <PickRow columns={ROW} picked={self.picked} @pick={self.onPick}>
         <box width={Style.DOT} height={Style.DOT} background={markOf(self.friend.presence)} />
         <box columns={1} overflow={Overflow.Hidden}>
           <box columns={["max-content", "max-content"]} gap={space(.Line)} yAlign={Align.Center}>
@@ -219,7 +197,7 @@ class FriendRow implements Component {
           <text value={pointsOf(self.friend)} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={false} />
         </box>
         <text value={self.level} textColor={Style.DIM} textFont={.Numbers} wrap={false} />
-      </box>
+      </PickRow>
     }
   }
 }
@@ -244,20 +222,20 @@ class FriendTableRow implements Component {
   public render(self): Template {
     return $ltml {
       <TableRow tracks={TRACKS} selected={self.picked} @pick={self.onPick}>
-        <TableCell>
+        <TableCell cut={true}>
           <box columns={[Style.DOT, "max-content", "max-content"]} gap={space(.Line)} yAlign={Align.Center}>
             <box width={Style.DOT} height={Style.DOT} background={markOf(self.friend.presence)} />
             <text value={titleOf(self.friend)} textColor={nameColorOf(self.friend)} wrap={false} />
             <box $if={self.favorite} width={Style.STAR} height={Style.STAR} background={Style.STAR_ICON} />
           </box>
         </TableCell>
-        <TableCell align={Align.End}>
+        <TableCell align={Align.End} cut={true}>
           <text value={self.level} textColor={Style.DIM} textFont={.Numbers} wrap={false} />
         </TableCell>
-        <TableCell>
+        <TableCell cut={true}>
           <text value={pointsOf(self.friend)} textColor={Style.DIM} wrap={false} />
         </TableCell>
-        <TableCell>
+        <TableCell cut={true}>
           <text value={self.friend.note} textColor={Style.DIM} wrap={false} />
         </TableCell>
       </TableRow>
@@ -317,27 +295,6 @@ public class FriendList implements Component {
           <FriendRow $for={friend of self.shown} $key={keyOf(friend)} friend={friend}
                      picked={keyOf(friend) == self.picked} @pick={self.onPick} />
         </box>
-      </box>
-    }
-  }
-}
-
-// A line of the card: what it says on the left, its value on the right.
-public class Fact implements Component {
-  label: Signal<String>
-  value: Signal<String>
-  color: Signal<Color>
-  constructor(label: Signal<String>, value: Signal<String>, color: Signal<Color> = Style.INK) {
-    self.label = label
-    self.value = value
-    self.color = color
-  }
-
-  public render(self): Template {
-    return $ltml {
-      <box columns={[117.1875dp, { fr: 1 }]} gap={space(.Line)}>
-        <text value={self.label} textColor={Style.DIM} wrap={false} />
-        <text value={self.value} textColor={self.color} wrap={true} />
       </box>
     }
   }
