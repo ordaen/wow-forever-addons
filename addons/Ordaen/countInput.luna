@@ -34,9 +34,9 @@ const SHIFTED = 10
 const CONTROLLED = 100
 
 public function stride(): Integer {
-  const held = Game.keyboard.activeModifiers
-  if (held.any(m => m == Modifier.Ctrl)) { return CONTROLLED }
-  if (held.any(m => m == Modifier.Shift)) { return SHIFTED }
+  const down = Game.keyboard.activeModifiers
+  if (down.any(m => m == Modifier.Ctrl)) { return CONTROLLED }
+  if (down.any(m => m == Modifier.Shift)) { return SHIFTED }
   return ONE
 }
 
