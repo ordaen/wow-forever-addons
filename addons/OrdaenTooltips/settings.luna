@@ -2,16 +2,17 @@
 // switch comes first; off, that kind stays the game's and its rows are greyed. Each control writes one entry of the
 // settings' draft.
 import { Checkbox, Choice, Component, Dropdown, Section, Settings, Switch } from "Ordaen"
-import { Choices, Place } from "@/choices"
+import { Choices, KindPlace, Place } from "@/choices"
 import Locale from "@/locales"
 
-const ITEMSANCHORBAGS: Array<Choice<Place>> = [
-  { value: Place.Corner, label: Locale.TOOLTIPS_ITEMSANCHORBAGS_CORNER },
-  { value: Place.Anchor, label: Locale.TOOLTIPS_ITEMSANCHORBAGS_ANCHOR }
+const PLACES: Array<Choice<Place>> = [
+  { value: Place.Anchor, label: Locale.TOOLTIPS_PLACE_ANCHOR },
+  { value: Place.Blizzard, label: Locale.TOOLTIPS_PLACE_BLIZZARD }
 ]
-const ITEMSANCHORCHAR: Array<Choice<Place>> = [
-  { value: Place.Corner, label: Locale.TOOLTIPS_ITEMSANCHORCHAR_CORNER },
-  { value: Place.Anchor, label: Locale.TOOLTIPS_ITEMSANCHORCHAR_ANCHOR }
+const KINDPLACES: Array<Choice<KindPlace>> = [
+  { value: KindPlace.Default, label: Locale.TOOLTIPS_PLACE_DEFAULT },
+  { value: KindPlace.Anchor, label: Locale.TOOLTIPS_PLACE_ANCHOR },
+  { value: KindPlace.Blizzard, label: Locale.TOOLTIPS_PLACE_BLIZZARD }
 ]
 
 public class GeneralPage implements Component {
@@ -22,8 +23,8 @@ public class GeneralPage implements Component {
 
   public render(self): Template {
     return $ltml {
-      <Checkbox label={Locale.TOOLTIPS_ANCHORTOBUTTONS} hint={Locale.TOOLTIPS_ANCHORTOBUTTONS_TIP}
-                value={mut self.settings.draft.anchorToButtons} />
+      <Dropdown label={Locale.TOOLTIPS_PLACE} hint={Locale.TOOLTIPS_PLACE_TIP} value={mut self.settings.draft.place}
+                choices={PLACES} />
     }
   }
 }
@@ -42,10 +43,8 @@ public class ItemsPage implements Component {
               value={mut self.settings.draft.itemsOn} />
       <Checkbox label={Locale.TOOLTIPS_LOCK} hint={Locale.TOOLTIPS_LOCK_TIP}
                 value={mut self.settings.draft.itemsLock} disabled={self.off} />
-      <Dropdown label={Locale.TOOLTIPS_ITEMSANCHORBAGS} hint={Locale.TOOLTIPS_ITEMSANCHORBAGS_TIP} value={mut self.settings.draft.itemsAnchorBags}
-                choices={ITEMSANCHORBAGS} disabled={self.off} />
-      <Dropdown label={Locale.TOOLTIPS_ITEMSANCHORCHAR} hint={Locale.TOOLTIPS_ITEMSANCHORCHAR_TIP} value={mut self.settings.draft.itemsAnchorChar}
-                choices={ITEMSANCHORCHAR} disabled={self.off} />
+      <Dropdown label={Locale.TOOLTIPS_PLACE} hint={Locale.TOOLTIPS_KINDPLACE_TIP} value={mut self.settings.draft.itemsPlace}
+                choices={KINDPLACES} disabled={self.off} />
       <Section title={Locale.SECTION_MORE}>
         <Checkbox label={Locale.TOOLTIPS_ITEMSILVL} hint={Locale.TOOLTIPS_ITEMSILVL_TIP}
                   value={mut self.settings.draft.itemsIlvl} disabled={self.off} />
@@ -76,6 +75,8 @@ public class SpellsPage implements Component {
               value={mut self.settings.draft.spellsOn} />
       <Checkbox label={Locale.TOOLTIPS_LOCK} hint={Locale.TOOLTIPS_LOCK_TIP}
                 value={mut self.settings.draft.spellsLock} disabled={self.off} />
+      <Dropdown label={Locale.TOOLTIPS_PLACE} hint={Locale.TOOLTIPS_KINDPLACE_TIP} value={mut self.settings.draft.spellsPlace}
+                choices={KINDPLACES} disabled={self.off} />
       <Section title={Locale.SECTION_MORE}>
         <Checkbox label={Locale.TOOLTIPS_SPELLSID} hint={Locale.TOOLTIPS_SPELLSID_TIP}
                   value={mut self.settings.draft.spellsId} disabled={self.off} />
@@ -102,6 +103,8 @@ public class AurasPage implements Component {
               value={mut self.settings.draft.aurasOn} />
       <Checkbox label={Locale.TOOLTIPS_LOCK} hint={Locale.TOOLTIPS_LOCK_TIP}
                 value={mut self.settings.draft.aurasLock} disabled={self.off} />
+      <Dropdown label={Locale.TOOLTIPS_PLACE} hint={Locale.TOOLTIPS_KINDPLACE_TIP} value={mut self.settings.draft.aurasPlace}
+                choices={KINDPLACES} disabled={self.off} />
       <Section title={Locale.SECTION_MORE}>
         <Checkbox label={Locale.TOOLTIPS_AURASID} hint={Locale.TOOLTIPS_AURASID_TIP}
                   value={mut self.settings.draft.aurasId} disabled={self.off} />
@@ -128,6 +131,8 @@ public class PlayersPage implements Component {
               value={mut self.settings.draft.playersOn} />
       <Checkbox label={Locale.TOOLTIPS_LOCK} hint={Locale.TOOLTIPS_LOCK_TIP}
                 value={mut self.settings.draft.playersLock} disabled={self.off} />
+      <Dropdown label={Locale.TOOLTIPS_PLACE} hint={Locale.TOOLTIPS_KINDPLACE_TIP} value={mut self.settings.draft.playersPlace}
+                choices={KINDPLACES} disabled={self.off} />
       <Section title={Locale.SECTION_MORE}>
         <Checkbox label={Locale.TOOLTIPS_PLAYERSTARGET} hint={Locale.TOOLTIPS_PLAYERSTARGET_TIP}
                   value={mut self.settings.draft.playersTarget} disabled={self.off} />
@@ -152,6 +157,8 @@ public class NpcsPage implements Component {
               value={mut self.settings.draft.npcsOn} />
       <Checkbox label={Locale.TOOLTIPS_LOCK} hint={Locale.TOOLTIPS_LOCK_TIP}
                 value={mut self.settings.draft.npcsLock} disabled={self.off} />
+      <Dropdown label={Locale.TOOLTIPS_PLACE} hint={Locale.TOOLTIPS_KINDPLACE_TIP} value={mut self.settings.draft.npcsPlace}
+                choices={KINDPLACES} disabled={self.off} />
       <Section title={Locale.SECTION_MORE}>
         <Checkbox label={Locale.TOOLTIPS_NPCSPARTY} hint={Locale.TOOLTIPS_NPCSPARTY_TIP}
                   value={mut self.settings.draft.npcsParty} disabled={self.off} />
@@ -178,6 +185,8 @@ public class ObjectsPage implements Component {
               value={mut self.settings.draft.objectsOn} />
       <Checkbox label={Locale.TOOLTIPS_LOCK} hint={Locale.TOOLTIPS_LOCK_TIP}
                 value={mut self.settings.draft.objectsLock} disabled={self.off} />
+      <Dropdown label={Locale.TOOLTIPS_PLACE} hint={Locale.TOOLTIPS_KINDPLACE_TIP} value={mut self.settings.draft.objectsPlace}
+                choices={KINDPLACES} disabled={self.off} />
     }
   }
 }
@@ -194,6 +203,8 @@ public class TextsPage implements Component {
     return $ltml {
       <Switch label={Locale.TOOLTIPS_TEXTSON} hint={Locale.TOOLTIPS_TEXTSON_TIP}
               value={mut self.settings.draft.textsOn} />
+      <Dropdown label={Locale.TOOLTIPS_PLACE} hint={Locale.TOOLTIPS_KINDPLACE_TIP} value={mut self.settings.draft.textsPlace}
+                choices={KINDPLACES} disabled={self.off} />
       <Checkbox label={Locale.TOOLTIPS_TEXTSEXTRA} hint={Locale.TOOLTIPS_TEXTSEXTRA_TIP}
                 value={mut self.settings.draft.textsExtra} disabled={self.off} />
     }
