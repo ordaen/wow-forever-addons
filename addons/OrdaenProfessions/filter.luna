@@ -32,7 +32,7 @@ public class Check implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={[SIZE, { fr: 1 }]} gap={11.71875dp} yAlign={Align.Center} @pointerPress={self.toggle}>
+      <box columns={[SIZE, { fr: 1 }]} gap={11.71875dp} yAlign={Align.Center} @pointerPress={self.toggle} @keyPress(.Enter)={self.toggle} @keyPress(.Space)={self.toggle}>
         <box width={SIZE} height={SIZE} background={Ordaen.art.ctl.check}>
           <box $if={self.value} position={Position.Absolute} left={0ui} top={0ui} width={SIZE} height={SIZE}
                background={Ordaen.art.ctl.tick} />

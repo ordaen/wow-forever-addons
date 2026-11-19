@@ -7,7 +7,7 @@
 // with Shift, a hundred with Ctrl, again and again while held, each disabled at its bound. After the + stands the
 // value's unit: the slider shows the value in it (70%, 48 px), the field the unit's name (px). Disabled, it takes no
 // input.
-import { Align, Drag, Edges, Key, Line, Pointer, Position, Shadow, Track } from "$ltml"
+import { Align, Drag, Edges, Keystroke, Line, Pointer, Position, Shadow, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import { STEP_WIDTH, stepTip, stride } from "@/countInput"
 import Locale from "@/locales"
@@ -31,11 +31,11 @@ const GROOVE = 9.375dp
 const EDGE = 1.171875dp
 const GROOVE_TOP = (BAND - GROOVE) / 2
 const KNOB_W = 18.75dp
+// The band reaches half a knob past each end of the groove: the knob at either end lies inside it, whole to grab.
+const INSET = KNOB_W / 2
 const KNOB_H = 37.5dp
 const KNOB_SHADOW: Shadow = { color: Color.hex("#0000008c"), x: 0ui, y: 2.34375dp, size: 3.515625dp }
 const WHITE: Color = Color.hex("#ffffff")
-// The keys the slider takes while focused: a step down or up, the least or the most.
-const KEYS: Array<Key> = [Key.Left, Key.Right, Key.Home, Key.End]
 // The field: as high as a text box, wide enough for its digits.
 const FIELD_WIDTH = 140.625dp
 const FIELD_HEIGHT = 30.46875dp
@@ -89,7 +89,7 @@ public class InputNumber implements Component {
   // Where the value sits along the range, from 0 to 1.
   derived fraction: Number = self.most > self.least ? (self.held - self.least) / (self.most - self.least) : 0
   derived fillWidth: Number<Length> = self.fraction * (LENGTH - 2 * EDGE)
-  derived knobLeft: Number<Length> = self.fraction * LENGTH - KNOB_W / 2
+  derived knobLeft: Number<Length> = self.fraction * LENGTH
   derived shown: String = self.sliding ? said(self.held, self.unit) : nameOf(self.unit)
   // The field's text, and whether it is a number.
   public state text: String
@@ -167,10 +167,10 @@ public class InputNumber implements Component {
     if (self.more) { self.nudge(stride()) }
   }
 
-  // The value at `x` UI units along the groove, held to the range and its steps.
+  // The value at `x` UI units along the band (the groove starts `INSET` in), held to the range and its steps.
   setAt(mut self, x: Number<Length>) {
     if (self.disabled) { return }
-    const t = (0).max((1).min(x / LENGTH))
+    const t = (0).max((1).min((x - INSET) / LENGTH))
     self.value = stepped(self.least + t * (self.most - self.least), self.least, self.most, self.step)
   }
 
@@ -178,9 +178,9 @@ public class InputNumber implements Component {
   onDrag(mut self, drag: Drag) { self.setAt(drag.x) }
 
   // Focused: Left and Right a step, Home the least, End the most.
-  onKey(mut self, key: Key) {
-    match (key) {
-      Key.Left => self.nudge(-1)
+  onKey(mut self, stroke: Keystroke) {
+    match (stroke.key) {
+      .Left => self.nudge(-1)
       .Right => self.nudge(1)
       .Home => self.nudge(-(self.most - self.least) / self.step)
       else => self.nudge((self.most - self.least) / self.step)
@@ -193,11 +193,12 @@ public class InputNumber implements Component {
         <box columns={ROW} gap={7.03125dp} yAlign={Align.Center}>
           <PushButton label={"-"} width={STEP_WIDTH} disabled={!self.fewer} repeats={true} tip={self.fewerTip}
                       @click={self.less} />
-          <box $if={self.sliding} width={LENGTH} height={BAND} keys={KEYS} @key={self.onKey}
+          <box $if={self.sliding} width={LENGTH + KNOB_W} height={BAND}
+               @keyPress(.Left)={self.onKey} @keyPress(.Right)={self.onKey} @keyPress(.Home)={self.onKey} @keyPress(.End)={self.onKey}
                @pointerPress={self.onClick} @dragStart={self.onDrag} @drag={self.onDrag}>
-            <box position={Position.Absolute} left={0ui} top={GROOVE_TOP} width={LENGTH} height={GROOVE}
+            <box position={Position.Absolute} left={INSET} top={GROOVE_TOP} width={LENGTH} height={GROOVE}
                  background={Ordaen.art.ctl.groove} />
-            <box position={Position.Absolute} left={EDGE} top={GROOVE_TOP + EDGE} height={GROOVE - 2 * EDGE}
+            <box position={Position.Absolute} left={INSET + EDGE} top={GROOVE_TOP + EDGE} height={GROOVE - 2 * EDGE}
                  width={self.fillWidth} background={Ordaen.art.ctl.sliderFill} zLevel={1} />
             <box position={Position.Absolute} left={self.knobLeft} top={-2.34375dp} width={KNOB_W} height={KNOB_H}
                  background={Ordaen.art.ctl.sliderKnob} shadow={KNOB_SHADOW} zLevel={2} />

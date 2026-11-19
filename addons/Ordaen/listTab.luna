@@ -51,7 +51,7 @@ public class ListTab implements Component {
   public render(self): Template {
     return $ltml {
       <box columns={self.columns} gap={11.71875dp} padding={PADDING} yAlign={Align.Center}
-           background={self.background} @pointerPress={self.onClick}>
+           background={self.background} @pointerPress={self.onClick} @keyPress(.Enter)={self.onClick} @keyPress(.Space)={self.onClick}>
         <box position={Position.Absolute} left={0ui} top={0ui} bottom={0ui} width={3.515625dp} background={self.light} />
         <box $if={self.hasIcon} width={25.78125dp} height={25.78125dp} icon={self.icon} tint={self.tint} />
         <text value={self.label} textColor={self.color} wrap={false} />

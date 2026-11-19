@@ -36,7 +36,10 @@ public const SPECS: Array<BarSpec> = [
 
 const ACTION = "ActionBarButtonTemplate"
 const PET = "PetActionButtonTemplate"
-const STANCE = "StanceButtonTemplate"
+// A stance's button does its form's spell by its attributes: the client's stance template does the game's stance
+// bar's work on a click (`StanceBar:Select`), so the secure action button's is named after it, and its click is the
+// one the button does.
+const STANCE = "StanceButtonTemplate, SecureActionButtonTemplate"
 
 // One bar's settings. Its size is the buttons' side in UI units (the client's own is 45), its spacing the room
 // between them.

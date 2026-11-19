@@ -12,6 +12,7 @@ import { BARS_DEFAULTS, BarChoice, BarsChoices, SPECS, defaultChoice } from "@/b
 const SCREEN: Test.Page = { left: 0, top: 0, width: 1600, height: 900 }
 // The stand-in's icon of the player's first form.
 const FIRST_FORM: FileId = 130001
+const SECOND_FORM: FileId = 130002
 // The stand-in's icon of the pet's spell, fourth on its bar.
 const PET_SPELL: FileId = 131004
 
@@ -179,6 +180,97 @@ test "a stance's button draws its form's icon, and no more buttons than the play
   const rect = icon.rect()
   Test.expect((rect.left + rect.right) / 2 == at.x && (rect.top + rect.bottom) / 2 == at.y)
   Test.expect(button("stance", 2).IsVisible() && !button("stance", 3).IsVisible())
+  Test.forms(0)
+}
+
+test "the client's stance and pet buttons are unseen under ours, which stand as close as the gap says; an action's seen" {
+  Test.forms(2)
+  alone()
+  const holder = new Holder()
+  holder.settings.change((values: mut BarsChoices): nil => {
+    values.bars["stance"] = changed(values, "stance", (choice: mut BarChoice): nil => {
+      choice.spacing = 0
+      choice.size = 35
+    })
+  })
+  Test.mount(new ActionBars(holder.settings.values, holder.defaults), SCREEN)
+  Test.pet(true)
+  Events.PET_BAR_UPDATE.emit()
+  Test.flush()
+  Test.expect(button("stance", 1).GetAlpha() == 0 && button("stance", 2).GetAlpha() == 0)
+  Test.expect(button("pet", 1).GetAlpha() == 0)
+  Test.expect(button("1", 1).GetAlpha() == 1)
+  // Gap 0: the second form's icon begins where the first's ends.
+  const first = Test.page().box(FIRST_FORM).rect()
+  const second = Test.page().box(SECOND_FORM).rect()
+  Test.expect(second.left - first.right == 0 && first.right - first.left == 35)
+  Test.pet(false)
+  Test.forms(0)
+}
+
+// The client's button of a bar as an action button: what the client's own code keeps on it.
+function actionButton(id: String, index: Integer): any Client.ActionButton {
+  const frame = button(id, index)
+  return frame is Client.ActionButton ? frame : panic("a bar's button is an action button")
+}
+
+test "a stance's button takes its form by its spell, clicked and by the game's stance key" {
+  Test.forms(2)
+  alone()
+  _ = Client.SetBinding("F1", "SHAPESHIFTBUTTON2", nil)
+  const holder = new Holder()
+  Test.mount(new ActionBars(holder.settings.values, holder.defaults), SCREEN)
+  Test.flush()
+  _ = Test.performed()
+  actionButton("stance", 1).Click()
+  // The stand-in's form at a place casts the spell of that number.
+  Test.expect(Test.performed().join(", ") == "spell 1")
+  Test.expect(Test.keyBound("F1"))
+  Test.expect(Test.performed().join(", ") == "spell 2")
+  Test.expect(Test.page().text("F1").shown())
+  Test.forms(0)
+}
+
+test "a form's cooldown sweeps over its button, and a form that can't be taken is dimmed" {
+  Test.forms(2)
+  alone()
+  const holder = new Holder()
+  Test.mount(new ActionBars(holder.settings.values, holder.defaults), SCREEN)
+  Test.flush()
+  Test.formCooldown(1, 10, 30)
+  Events.UPDATE_SHAPESHIFT_COOLDOWN.emit()
+  Test.flush()
+  const first = actionButton("stance", 1)
+  let start, duration = first.cooldown.GetCooldownTimes()
+  Test.expect(start == 10000 && duration == 30000)
+  // Seen: drawn over the face, not in the client's unseen button.
+  Test.expect(first.cooldown.GetParent() != first && first.cooldown.IsVisible())
+  Test.expect(Test.page().box(SECOND_FORM).opacity() == 1)
+  Test.formCastable(2, false)
+  Events.UPDATE_SHAPESHIFT_USABLE.emit()
+  Test.flush()
+  Test.expect(Test.page().box(SECOND_FORM).opacity() < 1)
+  Test.formCastable(2, true)
+  Test.formCooldown(1, 0, 0)
+  Test.forms(0)
+}
+
+test "the client's Quick Keybind mode binds our buttons' commands, and lights them while it runs" {
+  Test.forms(2)
+  alone()
+  const holder = new Holder()
+  Test.mount(new ActionBars(holder.settings.values, holder.defaults), SCREEN)
+  Test.flush()
+  const stance = actionButton("stance", 1)
+  const action = actionButton("1", 3)
+  const second = actionButton("2", 1)
+  Test.expect(stance.commandName == "SHAPESHIFTBUTTON1" && stance.index == 1)
+  Test.expect(action.commandName == "ACTIONBUTTON3" && second.commandName == "MULTIACTIONBAR1BUTTON1")
+  Test.expect(!action.QuickKeybindHighlightTexture.IsShown())
+  Client.QuickKeybindFrame.Show()
+  Test.expect(action.QuickKeybindHighlightTexture.IsShown() && stance.QuickKeybindHighlightTexture.IsShown())
+  Client.QuickKeybindFrame.Hide()
+  Test.expect(!action.QuickKeybindHighlightTexture.IsShown())
   Test.forms(0)
 }
 

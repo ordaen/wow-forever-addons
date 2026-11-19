@@ -156,7 +156,7 @@ public class ZoneBox implements Component {
                view={self.panel.xpView} />
         <text $if={self.zoneName} value={Game.location.zone} textColor={INK}
               textOutline={self.panel.outline} textShadow={self.panel.shadow} wrap={false} />
-        <box $if={self.clock} @pointerPress={self.onClock}>
+        <box $if={self.clock} @pointerPress={self.onClock} @keyPress(.Enter)={self.onClock} @keyPress(.Space)={self.onClock}>
           <text value={Game.clock.text} textColor={self.panel.clockColor}
                 textOutline={self.panel.outline} textShadow={self.panel.shadow} wrap={false} />
         </box>

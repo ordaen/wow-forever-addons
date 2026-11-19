@@ -258,7 +258,7 @@ public class Plate implements Component {
     return $ltml {
       <surface layer={Layer.Dialog} place={self.place} width={self.dressed.width} height={self.high}>
         <box $if={self.dressed.addons} position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui}
-             background={Ordaen.art.ctl.button} @pointerPress={self.onClick} @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
+             background={Ordaen.art.ctl.button} @pointerPress={self.onClick} @keyPress(.Enter)={self.onClick} @keyPress(.Space)={self.onClick} @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
           <box position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui} background={Ordaen.art.ctl.buttonLight}
                opacity={self.ownLight} />
           <box position={Position.Absolute} left={0ui} right={0ui} top={OWN_DROP} height={self.high}

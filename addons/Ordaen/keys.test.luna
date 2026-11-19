@@ -69,7 +69,7 @@ class Controls {
           <Table columns={COLUMNS} sorted={mut self.sorted} descending={mut self.descending}>
             <TableRow tracks={[{ fr: 1 }]} @pick={self.pickRow}> <text value={"a row"} /> </TableRow>
           </Table>
-          <box height={20ui} @pointerPress={self.showMenu}>
+          <box height={20ui} @pointerPress={self.showMenu} @keyPress(.Enter)={self.showMenu} @keyPress(.Space)={self.showMenu}>
             <text value={"menu"} />
             <Menu $if={self.menu} entries={ENTRIES} @pick={self.onPick} @close={self.hideMenu} />
           </box>

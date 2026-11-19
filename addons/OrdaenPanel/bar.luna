@@ -21,14 +21,14 @@ const WITH_PET = "[pet] show; hide"
 // One button of a bar: the client's own, by its name, its binding's name, and whether the client shows it (it hides
 // an action button with nothing on it, the pet's without a pet): what is drawn on it shows with it.
 public class Slot {
-  public const frame: any Client.Frame
+  public const frame: any Client.ActionButton
   public const name: String
   public const command: String
   public state shown: Boolean = false
   // Whether the slot is still there: the client's hooks stay on its frame after it ends, and hear nothing then.
   const life: mut Life = { on: true }
 
-  constructor(frame: any Client.Frame, name: String, command: String) {
+  constructor(frame: any Client.ActionButton, name: String, command: String) {
     self.frame = frame
     self.name = name
     self.command = command
@@ -70,9 +70,13 @@ public function buttonName(id: String, index: Integer): String { return `OrdaenP
 public struct Face {
   icon: Art | nil
   lit: Boolean
+  // Whether it can be done now: dimmed where it can't, as the client's own buttons are.
+  usable: Boolean
 }
 
-const BLANK: Face = { icon: nil, lit: false }
+const BLANK: Face = { icon: nil, lit: false, usable: true }
+// How faint the icon of what can't be done now is.
+const DIMMED = 0.4
 
 // A pet's command names its icon by one of the client's globals (`isToken`).
 function commandIcon(token: String): Art | nil {
@@ -93,18 +97,23 @@ function commandIcon(token: String): Art | nil {
 }
 
 // One button: the client's own, and its key's text in its top right corner while the client shows it; a stance's or
-// the pet's its face.
+// the pet's its face. A stance's and the pet's button of the client's is unseen over its face: the client's small
+// template draws its art at its own size (30, its frame 35) whatever size it is given, so it would stand out of the
+// button and apart from the next; it still takes the click and the cursor.
 public class Button implements Component {
   derived key: String = self.showKeys && self.slot.shown ? self.keys[self.slot.command] ?? "" : ""
 
   const slot: Slot
+  // Whether the button has a face of ours (a stance's, the pet's), and the client's is unseen.
+  const faced: Boolean
   keys: Signal<Map<String, String>>
   size: Signal<Number<Length>>
   showKeys: Signal<Boolean>
   face: Signal<Face>
-  constructor(slot: Slot, keys: Signal<Map<String, String>>, size: Signal<Number<Length>>, showKeys: Signal<Boolean>,
-    face: Signal<Face>) {
+  constructor(slot: Slot, faced: Boolean, keys: Signal<Map<String, String>>, size: Signal<Number<Length>>,
+    showKeys: Signal<Boolean>, face: Signal<Face>) {
     self.slot = slot
+    self.faced = faced
     self.keys = keys
     self.size = size
     self.showKeys = showKeys
@@ -115,9 +124,13 @@ public class Button implements Component {
     return $ltml {
       <box width={self.size} height={self.size}>
         <box $if={self.face.icon != nil && self.slot.shown} position={Position.Absolute} left={0ui} top={0ui}
-             width={self.size} height={self.size} background={self.face.icon} />
+             width={self.size} height={self.size} background={self.face.icon}
+             opacity={self.face.usable ? 1 : DIMMED} />
+        // The client's own cooldown sweep of the button, over its face: the client's button is unseen.
+        <embed $if={self.faced} frame={self.slot.frame.cooldown} position={Position.Absolute} left={0ui} top={0ui}
+               width={self.size} height={self.size} />
         <embed frame={self.slot.frame} position={Position.Absolute} left={0ui} top={0ui} width={self.size}
-               height={self.size} />
+               height={self.size} opacity={self.faced ? 0 : nil} />
         <box $if={self.face.lit && self.slot.shown} position={Position.Absolute} left={0ui} top={0ui}
              width={self.size} height={self.size} background={Ordaen.art.ctl.qualityRim}
              tint={Ordaen.look.values.accent} zLevel={2} />
@@ -156,6 +169,8 @@ public class Bar implements Component {
   // Each button's face on the stances' and the pet's bars, by its place: read again as the player learns or takes a
   // form, and as the pet comes, goes or changes its bar.
   state faces: Array<Face> = []
+  // Whether the bar is still there: the client's hooks on its Quick Keybind mode stay after it ends.
+  const life: mut Life = { on: true }
 
   // What tells it from every other part in the placing mode, and its name there.
   id: String
@@ -190,10 +205,15 @@ public class Bar implements Component {
     self.forms = forms
     self.id = `OrdaenPanel.bar${spec.id}`
     self.title = Bar.titleOf(spec)
-    const made: Array<Slot> = []
+    const buttons: Array<Slot> = []
     for (index of 1..spec.most) {
       const name = buttonName(spec.id, index)
       const frame = Client.CreateFrame("CheckButton", name, Client.UIParent, spec.template)
+      if (!(frame is Client.ActionButton)) { panic("the client's action button templates make check buttons") }
+      const command = `${spec.command}${index}`
+      // The binding the client's Quick Keybind mode binds while the cursor is on the button, as the game's bars give
+      // their buttons theirs.
+      frame.commandName = command
       if (spec.kind == BarKind.Action && spec.number != 1) {
         frame.SetAttribute("type", "action")
         frame.SetAttribute("action", spec.first + index - 1)
@@ -201,9 +221,23 @@ public class Bar implements Component {
         // Панель 1's, the pet's and the stances' buttons are told by their place, as the game's own are.
         frame.SetID(index)
       }
-      made.push(new Slot(frame, name, `${spec.command}${index}`))
+      if (spec.kind == BarKind.Stance) {
+        // A form is taken by its spell (`armForms`); its tooltip asks the client by its place.
+        frame.SetAttribute("type", "spell")
+        frame.index = index
+      }
+      buttons.push(new Slot(frame, name, command))
     }
-    self.slots = made
+    self.slots = buttons
+    // The client's Quick Keybind mode shows its highlight on the game's own buttons alone: ours are told as it opens
+    // and closes.
+    const life = self.life
+    _ = Client.QuickKeybindFrame.HookScript("OnShow", (): nil => {
+      if (life.on) { self.keybinding(true) }
+    })
+    _ = Client.QuickKeybindFrame.HookScript("OnHide", (): nil => {
+      if (life.on) { self.keybinding(false) }
+    })
     if (spec.kind == BarKind.Action && spec.number == 1) {
       watch (options of self.paging) {
         for (slot of peek self.slots) { Client.RegisterAttributeDriver(slot.frame, "actionpage", options) }
@@ -211,8 +245,14 @@ public class Bar implements Component {
     }
     watch (count of self.count) { self.showFirst(count) }
     if (spec.kind == BarKind.Stance) {
-      watch (count of self.forms) { self.readForms(count) }
+      watch (count of self.forms) {
+        self.readForms(count)
+        self.armForms(count)
+        self.readCooldowns()
+      }
       Events.UPDATE_SHAPESHIFT_FORM.listen(self.reform)
+      Events.UPDATE_SHAPESHIFT_USABLE.listen(self.reform)
+      Events.UPDATE_SHAPESHIFT_COOLDOWN.listen(self.readCooldowns)
     } else if (spec.kind == BarKind.Pet) {
       self.readPet()
       Events.PET_BAR_UPDATE.listen(self.readPet)
@@ -222,14 +262,36 @@ public class Bar implements Component {
 
   reform(mut self) { self.readForms(peek self.forms) }
 
-  // The stances' faces, each form's by its button's place.
+  // The stances' faces, each form's by its button's place: whether the player is in it, whether it can be taken.
   readForms(mut self, count: Integer) {
     const faces: Array<Face> = []
     for (index of 1..self.spec.most) {
-      let icon, active, _, _ = Client.GetShapeshiftFormInfo(index)
-      faces.push(index <= count ? { icon: icon, lit: active } : BLANK)
+      let icon, active, castable, _ = Client.GetShapeshiftFormInfo(index)
+      faces.push(index <= count ? { icon: icon, lit: active, usable: castable } : BLANK)
     }
     self.faces = faces
+  }
+
+  // Each form's button does its spell. Out of a fight alone, as the forms are counted: a button's attributes are
+  // protected in one.
+  armForms(self, count: Integer) {
+    for (index, slot of peek self.slots) {
+      let _, _, _, spell = Client.GetShapeshiftFormInfo(index)
+      slot.frame.SetAttribute("spell", index <= count ? spell : nil)
+    }
+  }
+
+  // Each form's cooldown, on its button's sweep.
+  readCooldowns(self) {
+    for (index, slot of peek self.slots) {
+      let start, duration, _ = Client.GetShapeshiftFormCooldown(index)
+      slot.frame.cooldown.SetCooldown(start, duration)
+    }
+  }
+
+  // The client's Quick Keybind mode opens (`true`) or closes: each button shows the mode's highlight while it runs.
+  keybinding(self, on: Boolean) {
+    for (slot of peek self.slots) { slot.frame.DoModeChange(on) }
   }
 
   petOf(mut self, unit: String) {
@@ -242,7 +304,7 @@ public class Bar implements Component {
     for (index of 1..self.spec.most) {
       let _, texture, token, active, _, _, _ = Client.GetPetActionInfo(index)
       const icon: Art | nil = texture is String ? (token ? commandIcon(texture) : texture is Asset ? texture : nil) : texture
-      faces.push({ icon: icon, lit: active })
+      faces.push({ icon: icon, lit: active, usable: true })
     }
     self.faces = faces
   }
@@ -250,6 +312,7 @@ public class Bar implements Component {
   // The client's frames can't be destroyed: hidden, they take no click and draw nothing. In a fight the client hides
   // no protected frame: they fade at once and are hidden as it ends.
   destructor() {
+    self.life.on = false
     // The frames outlive their slots, which end with the bar.
     const frames = self.slots.map(slot => slot.frame)
     const pet = self.spec.kind == BarKind.Pet
@@ -304,7 +367,7 @@ public class Bar implements Component {
       <Placed id={self.id} title={self.title} home={self.home}>
         <box columns={self.columns} gap={self.spacing} opacity={self.opacity} hoverWithin={true}
              @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
-          <Button $for={index, slot of self.drawn} slot={peek slot} keys={self.keys} size={self.size}
+          <Button $for={index, slot of self.drawn} slot={peek slot} faced={self.spec.kind != BarKind.Action} keys={self.keys} size={self.size}
                   showKeys={self.showKeys} face={self.faces[index] ?? BLANK} />
         </box>
       </Placed>

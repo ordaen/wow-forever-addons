@@ -64,7 +64,7 @@ public class DropdownItem<T: Unknown> implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box padding={ITEM_PAD} background={self.light} @pointerPress={self.onClick}>
+      <box padding={ITEM_PAD} background={self.light} @pointerPress={self.onClick} @keyPress(.Enter)={self.onClick} @keyPress(.Space)={self.onClick}>
         <box position={Position.Absolute} left={11.71875dp} top={10.546875dp} width={12.890625dp} height={12.890625dp}
              background={self.mark} />
         <text value={self.text} textColor={self.color} wrap={self.wraps} />
@@ -121,7 +121,7 @@ public class Dropdown<T: Unknown> implements Component {
         <box width={WIDTH} height={HEIGHT}>
           <box position={Position.Absolute} left={0ui} top={0ui} width={WIDTH} height={HEIGHT} padding={FACE_PAD}
                columns={[{ fr: 1 }, 18.75dp]} gap={11.71875dp} yAlign={Align.Center}
-               background={Ordaen.art.ctl.button} @pointerPress={self.toggle}>
+               background={Ordaen.art.ctl.button} @pointerPress={self.toggle} @keyPress(.Enter)={self.toggle} @keyPress(.Space)={self.toggle}>
             <text value={self.shown} textColor={GOLD} textShadow={BOLD} wrap={false} />
             <box width={18.75dp} height={18.75dp} background={Ordaen.art.ctl.dropdownArrow} shadow={ARROW_SHADOW} />
           </box>
@@ -170,7 +170,7 @@ public class CompactDropdown<T: Unknown> implements Component {
       <box width={self.width} height={HEIGHT}>
         <box position={Position.Absolute} left={0ui} top={0ui} width={self.width} height={HEIGHT}
              padding={COMPACT_FACE_PAD} columns={[{ fr: 1 }, 18.75dp]} gap={7.03125dp} yAlign={Align.Center}
-             background={Ordaen.art.ctl.button} @pointerPress={self.toggle}>
+             background={Ordaen.art.ctl.button} @pointerPress={self.toggle} @keyPress(.Enter)={self.toggle} @keyPress(.Space)={self.toggle}>
           <text value={self.shown} textColor={GOLD} wrap={false} />
           <box width={18.75dp} height={18.75dp} background={Ordaen.art.ctl.dropdownArrow} shadow={ARROW_SHADOW} />
         </box>
@@ -202,7 +202,7 @@ class ManyItem<T: Unknown> implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box padding={ITEM_PAD} background={LIGHT} @pointerPress={self.onClick}>
+      <box padding={ITEM_PAD} background={LIGHT} @pointerPress={self.onClick} @keyPress(.Enter)={self.onClick} @keyPress(.Space)={self.onClick}>
         <box position={Position.Absolute} left={9.375dp} top={8.203125dp} width={TICK} height={TICK}
              background={Ordaen.art.ctl.check}>
           <box position={Position.Absolute} left={0ui} top={0ui} width={TICK} height={TICK}
@@ -281,7 +281,7 @@ public class ManyDropdown<T: Unknown> implements Component {
         <box width={WIDTH} height={HEIGHT}>
           <box position={Position.Absolute} left={0ui} top={0ui} width={WIDTH} height={HEIGHT} padding={FACE_PAD}
                columns={[{ fr: 1 }, 18.75dp]} gap={11.71875dp} yAlign={Align.Center}
-               background={Ordaen.art.ctl.button} @pointerPress={self.toggle}>
+               background={Ordaen.art.ctl.button} @pointerPress={self.toggle} @keyPress(.Enter)={self.toggle} @keyPress(.Space)={self.toggle}>
             <text value={self.shown} textColor={self.color} wrap={false} />
             <box width={18.75dp} height={18.75dp} background={Ordaen.art.ctl.dropdownArrow} shadow={ARROW_SHADOW} />
           </box>
