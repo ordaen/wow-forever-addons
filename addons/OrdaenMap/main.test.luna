@@ -1,0 +1,107 @@
+// Ordaen Map as other modules and the player meet it: a layer added shows its pins where the map places them, a layer
+// switched off shows none, the docked switch writes the client's setting, and the first start leaves the log apart.
+// The world map is the test's own (`TestHost`): the stand-in has neither OpenMap nor Blizzard's map frame.
+import Test from "$test"
+import root Maps from "OrdaenMap"
+import { Layer, Pin } from "@/extend"
+import { MapHost, Placed } from "@/host"
+
+const PAGE: Test.Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
+
+// The world map as a test sets it: shown, every zone in view, each pin where its zone has it; what was drawn.
+class TestHost implements MapHost {
+  public const changed: Event<nil> = new Event()
+  public isDocked = false
+  public drawn: Array<Placed> = []
+  public said: Array<Array<String>> = []
+  public switches: mut Array<String> = []
+
+  public start(mut self) {}
+  public stop(mut self) {}
+  public present(self): Boolean { return true }
+  public shown(self): Boolean { return true }
+  public docked(self): Boolean { return self.isDocked }
+  public dock(mut self, on: Boolean) { self.isDocked = on }
+  public place(mut self, pin: Pin): Placed | nil { return pin.area == 40 ? { pin: pin, x: pin.x, y: pin.y } : nil }
+  public draw(mut self, placed: Array<Placed>, lines: Array<Array<String>>) {
+    self.drawn = placed
+    self.said = lines
+  }
+  public menuSwitch(mut self, id: String, label: String, get: () => Boolean, set: (on: Boolean) => nil) {
+    self.switches.push(id)
+  }
+}
+
+// A layer of two pins in Westfall (area 40) and one in a zone not in view.
+class TestLayer implements Layer {
+  public const id: String = "test.pins"
+  public const title: String = "Test pins"
+  public const hint: String = "Pins of the test"
+
+  public pins(self): Array<Pin> {
+    const icon: Asset = "Interface/GossipFrame/ActiveQuestIcon"
+    return [
+      { of: 1, area: 40, x: 0.5, y: 0.5, icon: icon },
+      { of: 2, area: 40, x: 0.25, y: 0.75, icon: icon },
+      { of: 3, area: 12, x: 0.5, y: 0.5, icon: icon }
+    ]
+  }
+
+  public lines(self, pin: Pin): Array<String> { return [`Pin ${pin.of}`] }
+}
+
+test "a layer's pins in view are drawn, each with its tooltip, and a switch is put in OpenMap's menu for it" {
+  Test.mount(nil, PAGE)
+  const host = new TestHost()
+  Maps.host = host
+  const layer = new TestLayer()
+  Maps.layers.add(layer)
+  Test.flush()
+  Test.expect(host.drawn.length == 2)
+  Test.expect((host.said[2] ?? [])[1] == "Pin 2")
+  Test.expect(host.switches.find(id => id == "test.pins") != nil)
+}
+
+test "a layer switched off draws nothing, and on again draws its pins" {
+  Test.mount(nil, PAGE)
+  const host = new TestHost()
+  Maps.host = host
+  const layer = new TestLayer()
+  Maps.layers.add(layer)
+  Test.flush()
+  Maps.flip("test.pins")
+  Test.flush()
+  Test.expect(host.drawn.length == 0)
+  Test.expect(!Maps.shows("test.pins"))
+  Maps.flip("test.pins")
+  Test.flush()
+  Test.expect(host.drawn.length == 2)
+}
+
+test "the docked switch writes the client's setting" {
+  Test.mount(nil, PAGE)
+  const host = new TestHost()
+  Maps.host = host
+  Maps.docked = true
+  Test.flush()
+  Test.expect(host.isDocked)
+  Maps.docked = false
+  Test.flush()
+  Test.expect(!host.isDocked)
+}
+
+test "the first start is kept: the log's setting is the player's after it" {
+  Test.expect(Maps.settings.values.primed)
+}
+
+test "the settings page lists each layer with its switch" {
+  Test.mount(nil, PAGE)
+  const layer = new TestLayer()
+  Maps.layers.add(layer)
+  Test.open("Ordaen")
+  Test.page().window("Ordaen").text("Map").click()
+  Test.expect(Test.page().text("Test pins").shown())
+  Test.expect(Test.page().text("Quest log beside the map").shown())
+  // The stand-in has no OpenMap.
+  Test.expect(Test.page().text("OpenMap isn't loaded, or is older than version 4: no pins are drawn on the map.").shown())
+}
