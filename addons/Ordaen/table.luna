@@ -91,7 +91,8 @@ public class Heading implements Component {
     return $ltml {
       <box padding={PADDING} xAlign={self.column.align} background={self.shade} @pointerPress={self.onClick} @keyPress(.Enter)={self.onClick} @keyPress(.Space)={self.onClick}>
         <box position={Position.Absolute} left={0ui} right={0ui} bottom={0ui} height={2.34375dp} background={self.light} />
-        <box columns={HEAD} gap={4.6875dp} yAlign={Align.Center}>
+        // The title lights with the heading, wherever on it the cursor is.
+        <box columns={HEAD} gap={4.6875dp} yAlign={Align.Center} interactionState={self.$interactionState}>
           <text value={self.column.title} textColor={self.color} wrap={false} />
           // The mark takes the triangle's own room; its cell, a triangle in its middle, reaches past it.
           <box $if={self.sortable} width={MARK_WIDTH} height={MARK_HEIGHT}>

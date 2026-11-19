@@ -8,7 +8,7 @@
 // would take the click meant for our «AddOns». Nothing is written on Blizzard's frames but their alpha, mouse and hit
 // insets; what is kept per button is this file's own weak table, and every widget is put back as the dress ends.
 import Client from "$client"
-import { Align, Anchored, Art, Layer, Point, Position, Shadow, Stated } from "$ltml"
+import { Align, Anchored, Art, InteractionState, Layer, Point, Position, Shadow, Stated } from "$ltml"
 import root Ordaen from "Ordaen"
 import { Component, space } from "Ordaen"
 
@@ -230,8 +230,9 @@ public class Plate implements Component {
 
   derived over: Boolean = self.menu.hovered == self.dressed.button
   derived down: Boolean = self.menu.held == self.dressed.button
-  derived art: Art = self.dressed.accent ? (self.down ? Ordaen.art.ctl.buttonAccentDown : Ordaen.art.ctl.buttonAccent) :
-    self.down ? Ordaen.art.ctl.buttonDown : Ordaen.art.ctl.button
+  derived art: Art = self.dressed.accent ? Ordaen.art.ctl.buttonAccent : Ordaen.art.ctl.button
+  // The plate's interaction state is the button's of Blizzard's under it, as the menu hears it.
+  derived looks: InteractionState = { hover: self.over, pressed: self.down }
   derived light: Number = self.over ? 1 : 0
   derived color: Color = self.over ? LABEL_HOVER : LABEL
   derived drop: Number<Length> = self.down ? DOWN : 0ui
@@ -267,7 +268,8 @@ public class Plate implements Component {
             />
           </box>
         </box>
-        <box $else position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui} background={self.art}>
+        <box $else position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui} background={self.art}
+             interactionState={self.looks}>
           <box position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui}
                background={Ordaen.art.ctl.buttonLight} opacity={self.light} />
           <box position={Position.Absolute} left={GEM_LEFT} top={self.gemTop} width={GEM} height={GEM}

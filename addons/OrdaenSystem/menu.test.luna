@@ -105,17 +105,33 @@ test "the cursor on a plate lights it alone, and the light goes as it leaves" {
   Test.expect(lit() == "")
 }
 
+// The push button's pushed rows drawn now, each once (a plate is drawn in three slices): the bronze plate's (1) and
+// the red one's (5).
+function pushed(): String {
+  Test.flush()
+  const rows: Array<String> = []
+  for (drawn of Test.drawn()) {
+    const file = drawn.file
+    if (file is String && file.match("[/\\]button$") != nil) {
+      const row = String.of((drawn.top * 8 + 0.5).floor())
+      if ((row == "1" || row == "5") && !rows.any(seen => seen == row)) { rows.push(row) }
+    }
+  }
+  return rows.join(", ")
+}
+
 test "a plate held down is pressed, its label lower; let go it is up again" {
   Test.mount(nil, SCREEN)
   escape()
   plate("Options").hover()
+  const up = plate("Options").text("Options").rect().top
   Test.press(nil)
-  Test.expect(plate("Options").paintedWith(Ordaen.art.ctl.buttonDown) && !plate("Log Out").paintedWith(Ordaen.art.ctl.buttonAccentDown))
+  Test.expect(pushed() == "1" && plate("Options").text("Options").rect().top > up)
   Test.release(nil)
-  Test.expect(!plate("Options").paintedWith(Ordaen.art.ctl.buttonDown))
+  Test.expect(pushed() == "")
   plate("Log Out").hover()
   Test.press(nil)
-  Test.expect(plate("Log Out").paintedWith(Ordaen.art.ctl.buttonAccentDown))
+  Test.expect(pushed() == "5")
   Test.release(nil)
 }
 
