@@ -50,8 +50,7 @@ const PADDING: Edges = { right: 11.71875dp, left: 11.71875dp }
 const DIGITS = 6
 // − and +: a push button's plate and label, the label white under the cursor or the keyboard's focus.
 const STEP_HEIGHT = 39.84375dp
-const INK_STEP: Stated<Color> = { default: Color.hex("#ffd100"), hover: WHITE, focus: WHITE }
-const GREY: Color = Color.hex("#808080")
+const INK_STEP: Stated<Color> = { default: Color.hex("#ffd100"), disabled: Color.hex("#808080"), hover: WHITE, focus: WHITE }
 const STEP_SHADOW: Shadow = { color: Color.hex("#000000"), x: 1.171875dp, y: -1.171875dp }
 // How long typing pauses before what is typed is taken.
 const SETTLE = 0.6
@@ -104,12 +103,13 @@ public class InputNumber implements Component {
   public state text: String
   public derived bad: Boolean = numberOf(self.text) == nil
   derived edge: Line = self.bad ? BAD : FIELD_EDGE
-  // − and +: the bronze plate (its glow under the cursor, its pushed row while held), the grey one at a bound.
-  derived plate: Stated<Art> = { default: Ordaen.art.ctl.button, focus: Ordaen.art.ctl.button }
-  derived fewerPlate: Art | Stated<Art> = self.fewer ? self.plate : Ordaen.art.ctl.buttonDisabled
-  derived morePlate: Art | Stated<Art> = self.more ? self.plate : Ordaen.art.ctl.buttonDisabled
-  derived fewerInk: Color | Stated<Color> = self.fewer ? INK_STEP : GREY
-  derived moreInk: Color | Stated<Color> = self.more ? INK_STEP : GREY
+  // − and +: the bronze plate, its pushed row while held; focused, the plate lit by its glow (the renderer lights a
+  // piece's glow on focus as under the cursor); disabled at its bound, the grey plate.
+  derived plate: Stated<Art> = {
+    default: Ordaen.art.ctl.button,
+    disabled: Ordaen.art.ctl.buttonDisabled,
+    focus: Ordaen.art.ctl.button
+  }
   state fewerHover = false
   state moreHover = false
   // What is typed, waiting for the typing to pause.
@@ -181,12 +181,12 @@ public class InputNumber implements Component {
   // − and +, the field's Down and Up: what is typed and not yet taken is taken first, then stepped from.
   less(mut self) {
     self.settle()
-    if (self.fewer) { self.nudge(-stride()) }
+    self.nudge(-stride())
   }
 
   raise(mut self) {
     self.settle()
-    if (self.more) { self.nudge(stride()) }
+    self.nudge(stride())
   }
 
   onFewerEnter(mut self) { self.fewerHover = true }
@@ -240,7 +240,7 @@ public class InputNumber implements Component {
       <SettingRow label={self.label} hint={self.hint} disabled={self.disabled}>
         <box columns={ROW} gap={7.03125dp} yAlign={Align.Center}>
           <box width={STEP_WIDTH} height={STEP_HEIGHT} xAlign={Align.Center} yAlign={Align.Center}
-               background={self.fewerPlate} textColor={self.fewerInk} @pointerDown.repeat(.Left)={self.less}
+               background={self.plate} textColor={INK_STEP} disabled={!self.fewer} @pointerDown.repeat(.Left)={self.less}
                @keyPress(.Enter)={self.less} @keyPress(.Space)={self.less} @pointerEnter={self.onFewerEnter}
                @pointerLeave={self.onFewerLeave}>
             <Tip $if={self.fewerHover} title={self.fewerTip.title} text={self.fewerTip.text} rows={self.fewerTip.rows} />
@@ -261,7 +261,7 @@ public class InputNumber implements Component {
                    maxLength={DIGITS} disabled={self.disabled} @submit={self.onSubmit} />
           </box>
           <box width={STEP_WIDTH} height={STEP_HEIGHT} xAlign={Align.Center} yAlign={Align.Center}
-               background={self.morePlate} textColor={self.moreInk} @pointerDown.repeat(.Left)={self.raise}
+               background={self.plate} textColor={INK_STEP} disabled={!self.more} @pointerDown.repeat(.Left)={self.raise}
                @keyPress(.Enter)={self.raise} @keyPress(.Space)={self.raise} @pointerEnter={self.onMoreEnter}
                @pointerLeave={self.onMoreLeave}>
             <Tip $if={self.moreHover} title={self.moreTip.title} text={self.moreTip.text} rows={self.moreTip.rows} />

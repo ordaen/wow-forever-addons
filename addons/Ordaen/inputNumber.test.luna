@@ -126,14 +126,15 @@ test "− and + are pressed from the keyboard, and each is greyed and does nothi
   Test.expect(Test.page().button("+").nth(1).paintedWith(Ordaen.art.ctl.buttonDisabled))
   Test.page().button("+").nth(1).click()
   Test.expect(near(page.share, 1))
-  for (i of 1..20) {
-    Test.key(Move.Next)
-    if (Test.focused().contains("«-»")) { break }
-  }
+  // The place's field has the keyboard; Shift+Tab goes back to its −.
+  Test.page().input().click()
+  Test.key(Move.Back)
+  Test.expect(Test.focused().contains("«-»"))
+  Test.shot("the place's − focused: its ring, its label white; the share's + at its bound, grey")
   Test.key(Key.Enter)
-  Test.expect(near(page.share, 0.99))
+  Test.expect(page.place == -1)
   Test.key(Key.Space)
-  Test.expect(near(page.share, 0.98))
+  Test.expect(page.place == -2)
   destroy page
 }
 
