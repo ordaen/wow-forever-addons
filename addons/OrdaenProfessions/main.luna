@@ -4,8 +4,9 @@
 // them the recipes in one of four views) and the chosen recipe beside it. The profession shown is the one the game
 // has open (it has one open at a time): a tab opens its profession through the game, and the window shows while one
 // is open. The game's own window stays open with it, unseen and off the screen: hiding it would close the profession.
+import Client from "$client"
 import Game from "$game"
-import { Action, Align, Line, Overflow, Side, Track } from "$ltml"
+import { Action, Align, Frame, Line, Overflow, Side, Track } from "$ltml"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
 import { ARTWORK, Choice, Column, ItemId, KeptWindow, Module, ModuleMemory, PushButton, SECONDARY_TEXT, Settings, SettingsPage, Table, Tabs, ToolPick, Toolbar, Window, WindowTabSpec, WindowsPage, space, tracksOf, windowsTitle } from "Ordaen"
@@ -25,6 +26,7 @@ import { Choices, GeneralPage } from "@/settings"
 import { SkillBar } from "@/skillBar"
 import { Thresholds, thresholdsOf } from "@/skillUps"
 import Style from "@/style"
+import { TRAINER_LIST, TrainerList, TrainerWindow } from "@/trainer"
 import {
   Act, before, FAVORITES, Group, Kept, LIST_VIEW, ListView, MakeMode, members, MOST_MARKED, Page, Pause, Queued, QueueAct, Seen, SortBy,
   Sorted, sorted, tableBefore, View
@@ -42,6 +44,9 @@ const LISTS: Array<Track> = [{ fr: 2 }, { fr: 3 }]
 const FRAME: Line = { width: 1.171875dp, color: Style.LINE }
 const COLUMN_RULE: Line = { width: 1.171875dp, color: Style.LINE, sides: [Side.Left] }
 const TRACK_WIDTH = 199.21875dp
+// The trainer's window: its list; the card's column widens it.
+const TRAINER_WIDTH = 656.25dp
+const TRAINER_HEIGHT = 609.375dp
 // The footer: the profession's spell, and what the page puts beside it; the queue's status and «Create next».
 const TRACK_FOOT: Array<Track> = ["max-content", { fr: 1 }]
 const QUEUE_FOOT: Array<Track> = [{ fr: 1 }, "max-content"]
@@ -89,7 +94,15 @@ public class Professions implements Module, App {
   public const title: String = "Ordaen Professions"
   // Its window, declared: where it stands and what the player does with it, kept in the profile.
   public window: mut KeptWindow = new KeptWindow("main", self.title, { x: 0ui, y: 0ui, width: Style.WIDTH, height: Style.HEIGHT })
-  public const windows: mut Array<mut KeptWindow> = [self.window]
+  public trainerWindow: mut KeptWindow = new KeptWindow("trainer", Locale.TRAINER, { x: 0ui, y: 0ui, width: TRAINER_WIDTH, height: TRAINER_HEIGHT })
+  public const windows: mut Array<mut KeptWindow> = [self.window, self.trainerWindow]
+  // How the player left the trainer's window, the profile's.
+  public trainerList: mut ModuleMemory<TrainerList> = new ModuleMemory<TrainerList>(TRAINER_LIST, .Profile, "trainer")
+  // The player stands at a profession's trainer (a class's and a pet's are Ordaen Spells' and the game's), what it
+  // teaches, and the game's own window, held away while ours shows.
+  state atTrainer = false
+  state services: Array<Game.TrainerService> = []
+  state gameTrainer: any Frame | nil = nil
   public const pages: Array<SettingsPage> = [
     { title: Locale.TAB_GENERAL, content: $ltml { <GeneralPage settings={mut self.settings} /> } },
     { title: windowsTitle(), content: $ltml { <WindowsPage windows={mut self.windows} /> } }
@@ -241,13 +254,25 @@ public class Professions implements Module, App {
     watch (values of self.settings.values) { self.showUnlearned = values.showUnlearned }
     Game.tradeSkill.shownEmpty.listen(self.onShownEmpty)
     Game.trainer.changed.listen(self.onTrainer)
+    watch (opened of Game.trainer.open) {
+      if (!opened) { self.atTrainer = false }
+    }
+    // The trainer's changes are heard while its window shows.
+    watch (shown of self.atTrainer) { Game.trainer.watch(shown) }
   }
 
-  // A profession's trainer shows, or its services change: the skill and the price of each recipe it teaches are kept.
+  // A profession's trainer shows, or its services change: the skill and the price of each recipe it teaches are kept,
+  // and its window shows them.
   onTrainer(mut self) {
     if (!Game.trainer.open || Game.trainer.teachesClass()) { return }
+    const services = Game.trainer.services()
     const now = peek self.learning.values
-    self.learning.write({ recipes: learnedFrom(now.recipes, Game.trainer.services()) })
+    self.learning.write({ recipes: learnedFrom(now.recipes, services) })
+    if (!Client.IsTradeskillTrainer()) { return }
+    self.services = services
+    self.atTrainer = true
+    // The game's window is loaded as the trainer opens: looked for again at each change until it is found.
+    if (peek self.gameTrainer == nil) { self.gameTrainer = Runtime.frame("ClassTrainerFrame") }
   }
 
   // The open profession's page of the book, as it opens and each time its list changes.
@@ -703,6 +728,10 @@ public class Professions implements Module, App {
 
   public render(self): Template {
     return $ltml {
+      <$if={self.atTrainer}>
+        <frame $if={self.gameTrainer != nil} of={self.gameTrainer} opacity={0} away={true} />
+        <TrainerWindow services={self.services} declared={mut self.trainerWindow} list={mut self.trainerList} />
+      </>
       <$if={self.isOpen}>
         <frame of={Game.frames.Professions} opacity={0} away={true} />
         <Window $if={self.drawn} tabs={self.tabs} selected={mut self.tab} asks={true} declared={mut self.window} withSettings={true}

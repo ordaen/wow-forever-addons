@@ -116,5 +116,19 @@
   "WORTH_AGE_DAYS": "%d д.",
   "WORTH_ALONE": "Только этот персонаж: включите Ordaen Alts и зайдите другими персонажами, чтобы видеть их рецепты.",
   "WORTH_UNOPENED": "Откройте профессии на %s: его рецепты ещё не записаны.",
-  "WORTH_EMPTY": "В этом режиме делать нечего."
+  "WORTH_EMPTY": "В этом режиме делать нечего.",
+  "TRAINER": "Учитель",
+  "TRAIN": "Изучить",
+  "SHOW_ALL": "Все",
+  "SHOW_AVAILABLE": "Доступно",
+  "SHOW_UNAVAILABLE": "Недоступно",
+  "SHOW_KNOWN": "Изучено",
+  "COLUMN_LEVEL": "Уровень",
+  "COLUMN_SKILL": "Навык",
+  "NEEDS_LEVEL": "Требуется уровень: %d",
+  "NEEDS_SKILL": "навык %d",
+  "KNOWN": "Изучено",
+  "TRAINER_COUNTS": "Доступно: %d. Недоступно: %d. Изучено: %d.",
+  "PICK_SERVICE": "Выберите рецепт.",
+  "NOTHING_FOUND": "Ничего не найдено."
 }

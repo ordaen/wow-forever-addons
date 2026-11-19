@@ -116,5 +116,19 @@
   "WORTH_AGE_DAYS": "%d d",
   "WORTH_ALONE": "Only this character: turn on Ordaen Alts and log in on your other characters to see theirs.",
   "WORTH_UNOPENED": "Open the professions on %s: their recipes aren't recorded yet.",
-  "WORTH_EMPTY": "Nothing to make in this mode."
+  "WORTH_EMPTY": "Nothing to make in this mode.",
+  "TRAINER": "Trainer",
+  "TRAIN": "Learn",
+  "SHOW_ALL": "All",
+  "SHOW_AVAILABLE": "Available",
+  "SHOW_UNAVAILABLE": "Unavailable",
+  "SHOW_KNOWN": "Learned",
+  "COLUMN_LEVEL": "Level",
+  "COLUMN_SKILL": "Skill",
+  "NEEDS_LEVEL": "Requires level %d",
+  "NEEDS_SKILL": "skill %d",
+  "KNOWN": "Learned",
+  "TRAINER_COUNTS": "Available: %d. Unavailable: %d. Learned: %d.",
+  "PICK_SERVICE": "Pick a recipe.",
+  "NOTHING_FOUND": "Nothing found."
 }
