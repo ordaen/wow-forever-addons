@@ -33,6 +33,7 @@ import { GUILD_ICON, GuildBank, GuildPage, GuildTab, withdrawalsText } from "@/g
 import { JUNK_RULES, JunkLists, JunkRules, LEARNED, Mark, NO_LISTS, afterSale, shareOf, teaches, withMark, withScore } from "@/junk"
 import { GAP, Row, Section, columnsIn, rowsOf } from "@/layout"
 import Locale from "@/locales"
+import { MERCHANT_VIEW, MerchantView, MerchantWindow } from "@/merchant"
 import { Grouping, KINDS, MOVED, Slot, SortBy, Tab, View } from "@/model"
 import { BagRow, Filter, Shelf } from "@/rows"
 import { bagSections, countsOf, oneSection, tabName, tabSections } from "@/sections"
@@ -40,6 +41,7 @@ import { ClicksPage, JunkPage } from "@/settings"
 import { MenuAct, SlotMenu, menuOf } from "@/slotMenu"
 import { Stock } from "@/stock"
 import { GUILD_SLOTS, Vault, pickupIn } from "@/vault"
+import { Vendor } from "@/vendor"
 
 // What the module keeps of the player's choices: the tabs hidden; whether a tab with nothing in it hides; each tab's
 // grouping (by type where none is said); the junk's rules; the slot's clicks.
@@ -80,12 +82,26 @@ struct Sale {
 // The guild's money the dialog moves: in, or out.
 enum MoneyMove { Deposit, Withdraw }
 
+// The junk of a vault's slots, and what a merchant gives for it.
+function junkIn(stock: Stock): Array<Slot> {
+  _ = stock.revision
+  return stock.all.filter(slot => slot.junk)
+}
+
+function worthIn(junk: Array<Slot>): Integer {
+  let worth = 0
+  for (slot of junk) { worth += slot.read.price * slot.read.count }
+  return worth
+}
+
 const DEFAULTS: Choices = { hidden: [], hideEmpty: false, grouping: {}, junk: JUNK_RULES, clicks: OURS }
 const NOTHING_KEPT: Kept = { guards: [] }
 // The window's body: wide enough for the tabs and ten slots, tall enough for ten rows.
 const WIDTH = 773.4375dp
 const HEIGHT = 609.375dp
 const TABS_WIDTH = 217.96875dp
+// The merchant's window: two columns of goods; its right column widens it.
+const MERCHANT_WIDTH = 796.875dp
 // The room the body's scroll bar takes at its right.
 const SCROLL_ROOM = 18.75dp
 // Junk sold at once by «Sell junk»: what the merchant's buyback keeps, so all can be bought back.
@@ -177,7 +193,11 @@ public class Bags implements Module, App {
   public window: mut KeptWindow = new KeptWindow("main", self.title, { x: 0ui, y: 0ui, width: WIDTH, height: HEIGHT })
   public slotsWindow: mut KeptWindow = new KeptWindow("slots", Locale.BAG_SLOTS, { x: 0ui, y: 0ui, width: 292.96875dp, height: 351.5625dp })
   public bankSlotsWindow: mut KeptWindow = new KeptWindow("bankSlots", Locale.BANK_SLOTS, { x: 0ui, y: 0ui, width: 292.96875dp, height: 351.5625dp })
-  public const windows: mut Array<mut KeptWindow> = [self.window, self.slotsWindow, self.bankSlotsWindow]
+  public merchantWindow: mut KeptWindow = new KeptWindow("merchant", Locale.MERCHANT, { x: 0ui, y: 0ui, width: MERCHANT_WIDTH, height: HEIGHT })
+  public const windows: mut Array<mut KeptWindow> = [self.window, self.slotsWindow, self.bankSlotsWindow, self.merchantWindow]
+  // The merchant the player stands at, and how the player left its window's list (the profile's).
+  public vendor: mut Vendor = new Vendor()
+  public merchantList: mut ModuleMemory<MerchantView> = new ModuleMemory<MerchantView>(MERCHANT_VIEW, .Profile, "merchant")
   public settings: mut Settings<Choices> = new Settings<Choices>(DEFAULTS)
   public const pages: Array<SettingsPage> = [
     { title: windowsTitle(), content: $ltml { <WindowsPage windows={mut self.windows} /> } },
@@ -256,6 +276,10 @@ public class Bags implements Module, App {
   derived junkText: String = Locale.JUNK_WORTH.format(self.junkCount, Game.money.format(self.junkWorth))
   derived junkShown: Boolean = self.categories && self.shownTab == Tab.Junk
   derived selling: Boolean = self.isBags && Game.bags.place == Game.BagPlace.Merchant && self.junkCount > 0
+  // The bags' junk, whatever the window shows: what the merchant's window sells.
+  derived carriedJunk: Array<Slot> = junkIn(self.carried)
+  derived carriedJunkCount: Integer = self.carriedJunk.count(slot => peek slot.id != 0)
+  derived carriedJunkWorth: Integer = worthIn(self.carriedJunk)
   derived gridShown: Boolean = !self.isGuild || (self.guild.page == GuildPage.Items && !self.guild.loading)
   derived guildLeft: String = self.guild.withdrawLeft < 0 ? Locale.GUILD_ANY : Game.money.format(self.guild.withdrawLeft)
   derived moneyTitle: String = self.moving == MoneyMove.Withdraw ? Locale.GUILD_WITHDRAW : Locale.GUILD_DEPOSIT
@@ -328,6 +352,10 @@ public class Bags implements Module, App {
     if (self.bankOpen) {
       const bank = Runtime.frame("BankFrame")
       if (bank != nil) { frames.push(bank) }
+    }
+    if (self.vendor.open) {
+      const merchant = Runtime.frame("MerchantFrame")
+      if (merchant != nil) { frames.push(merchant) }
     }
     // The guild bank's window is loaded as it opens: looked for again once its first slots came.
     if (self.guild.open && !self.guild.loading) {
@@ -534,17 +562,9 @@ public class Bags implements Module, App {
     return bags
   }
 
-  junkOf(self): Array<Slot> {
-    const stock = self.stock()
-    _ = stock.revision
-    return stock.all.filter(slot => slot.junk)
-  }
+  junkOf(self): Array<Slot> { return junkIn(self.stock()) }
 
-  worthOf(self): Integer {
-    let worth = 0
-    for (slot of self.junkOf()) { worth += slot.read.price * slot.read.count }
-    return worth
-  }
+  worthOf(self): Integer { return worthIn(self.junkOf()) }
 
   // A click on a slot: what the cursor holds is put down by the left button; else the chord's action in the player's
   // scheme. A container's use is the client's own secure click on its chord (`useChord`), done before this is told.
@@ -813,6 +833,8 @@ public class Bags implements Module, App {
   public render(self): Template {
     return $ltml {
       <frame $for={window of self.gameFrames} of={window} opacity={0} away={true} />
+      <MerchantWindow $if={self.vendor.open} vendor={self.vendor} declared={mut self.merchantWindow} list={mut self.merchantList}
+                      junkCount={self.carriedJunkCount} junkWorth={self.carriedJunkWorth} @sellJunk={self.sellJunk} />
       <$if={self.ever}>
         <Window tabs={self.windowTabs} selected={mut self.windowTab} declared={mut self.window} shown={self.shown}
                 withSettings={true} footer={self.footer} @close={self.onClose} @settings={self.onSettings}>

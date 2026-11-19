@@ -272,6 +272,27 @@ test "«Sell junk» shows at a merchant while there is junk, and sells it in the
   Test.expect(Test.requests().join(", ") == "Bags.send 0 1")
 }
 
+test "the merchant's window sells the bags' junk from its right column, saying what it brings" {
+  const world = new World(carried())
+  Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
+  Game.bags.size = (bag: Integer): Integer => world.size(bag)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.items.icon = (id: Integer): Art | nil => world.icon(id)
+  Game.items.maxStack = (id: Integer): Integer | nil => 20
+  Client.CanGuildBankRepair = (): Boolean => false
+  Client.UnitName = (unit: String): (String, String) => {
+    return "Tharynn", ""
+  }
+  Test.mount(nil, SCREEN)
+  // The merchant opens the bags with its window, as the game's does.
+  Game.bags.open = true
+  Game.bags.place = Game.BagPlace.Merchant
+  Events.MERCHANT_SHOW.emit()
+  _ = Test.requests()
+  Test.page().window("Tharynn").button(`${Locale.SELL_JUNK} ${Game.money.format(30)}`).click()
+  Test.expect(Test.requests().join(", ").contains("Bags.send 0 1"))
+}
+
 // The clicks
 
 test "the client's secure use stands on the scheme's chord for Use: the left in ours, the right as in the game" {
