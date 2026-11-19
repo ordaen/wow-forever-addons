@@ -15,16 +15,16 @@ box 0,0 500x76.43
         text 335.56,6.67 28.89x15.6 "Note" #a3977f
   box 0,29.77 500x46.67 scrolled 0 of 0
     box 0,29.77 500x23.33 #00000000 @keyPress @pointerPress
-      box 6.67,33.63 157.78x15.6 clipped
+      box 6.67,33.63 157.78x15.6
         text 6.67,33.63 157.78x15.6 "Ingrid" #ffffff
-      box 171.11,33.63 157.78x15.6 clipped
+      box 171.11,33.63 157.78x15.6
         text 171.11,33.63 157.78x15.6 "Stormwind" #ffffff
-      box 335.56,33.63 157.78x15.6 clipped
+      box 335.56,33.63 157.78x15.6
         text 335.56,33.63 157.78x15.6 "main" #ffffff
     box 0,53.1 500x23.33 #00000000 @keyPress @pointerPress
-      box 6.67,56.97 157.78x15.6 clipped
-        text 6.67,56.97 157.78x15.6 "Bo" #ffffff
-      box 171.11,56.97 157.78x15.6 clipped
-        text 171.11,56.97 360x15.6 "The Temple of Atal'Hakkar, deep in the Swamp of Sorrows" #ffffff
-      box 335.56,56.97 157.78x15.6 clipped
-        text 335.56,56.97 157.78x15.6 "alt" #ffffff
+      box 6.67,56.97 56.67x15.6
+        text 6.67,56.97 56.67x15.6 "Bo" #ffffff
+      box 70,56.97 360x15.6
+        text 70,56.97 360x15.6 "The Temple of Atal'Hakkar, deep in the Swamp of Sorrows" #ffffff
+      box 436.67,56.97 56.67x15.6
+        text 436.67,56.97 56.67x15.6 "alt" #ffffff
