@@ -12,7 +12,7 @@ import Events from "$events"
 import { Align, Frame } from "$ltml"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
-import { Dialog, KeptWindow, Module, PushButton, SECONDARY_TEXT, Settings, SettingsPage, Tabs, Window, WindowSide, WindowTabSpec, WindowsPage, space, windowsTitle } from "Ordaen"
+import { ButtonPlate, Dialog, KeptWindow, Module, PushButton, SECONDARY_TEXT, Settings, SettingsPage, Tabs, Window, WindowSide, WindowTabSpec, WindowsPage, space, windowsTitle } from "Ordaen"
 import { FriendCard, FriendList, IgnoreList, MyCard, RequestList, keyOf, titleOf } from "@/friends"
 import Locale from "@/locales"
 import { ClientPeople, Friend, Ignored, Me, Member, People, Presence, Request, namesAccount, trimmed } from "@/people"
@@ -103,7 +103,7 @@ public class Social implements Module, App {
       <text $elseif={self.tab == TAB_RAID && self.inRaid} value={self.raidCount} textSize={SECONDARY_TEXT} textColor={Style.DIM}
             wrap={false} />
       <box $else />
-      <PushButton $if={self.tab == TAB_RAID && self.inRaid} label={Locale.LEAVE_RAID} width={Style.WIDE_BUTTON} accent={true}
+      <PushButton $if={self.tab == TAB_RAID && self.inRaid} label={Locale.LEAVE_RAID} width={Style.WIDE_BUTTON} plate={ButtonPlate.Danger}
                   @click={self.onLeave} />
     </box>
   }
@@ -328,7 +328,7 @@ public class Social implements Module, App {
           <text value={self.removeText} textColor={Style.INK} wrap={true} />
           <text value={self.removeDetail} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={true} />
         </box>
-        <PushButton #buttons label={Locale.REMOVE} width={Style.ASK_BUTTON} accent={true} @click={self.onRemoveYes} />
+        <PushButton #buttons label={Locale.REMOVE} width={Style.ASK_BUTTON} plate={ButtonPlate.Danger} @click={self.onRemoveYes} />
         <PushButton #buttons label={Locale.CANCEL} width={Style.ASK_BUTTON} @click={self.onRemoveNo} />
       </Dialog>
       <Dialog $if={self.adding} width={Style.ASK} title={Locale.ADD_FRIEND}>

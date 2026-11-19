@@ -20,7 +20,7 @@ import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
 import { SECONDARY_TEXT } from "Ordaen"
 import {
-  Choice, Component, Dialog, KeptWindow, ListTab, ModuleMemory, Module, Money, MoneyField, PushButton, Settings, SettingsPage, space, Tip,
+  ButtonPlate, Choice, Component, Dialog, KeptWindow, ListTab, ModuleMemory, Module, Money, MoneyField, PushButton, Settings, SettingsPage, space, Tip,
   TipRow, Toolbar, windowsTitle, WindowsPage, ToolAct, ToolButton, ToolPick, Window, WindowTabSpec
 } from "Ordaen"
 import { Arranger } from "@/arrange"
@@ -860,7 +860,7 @@ public class Bags implements Module, App {
         <Dialog $if={self.moving != nil} width={DIALOG} title={self.moneyTitle}>
           <MoneyField value={mut self.amount} />
           <PushButton #buttons label={Locale.CANCEL} width={BUTTON} @click={self.onMoneyCancel} />
-          <PushButton #buttons label={self.moneyTitle} width={BUTTON} accent={true} @click={self.onMoneyMove} />
+          <PushButton #buttons label={self.moneyTitle} width={BUTTON} plate={ButtonPlate.Accent} @click={self.onMoneyMove} />
         </Dialog>
       </>
     }

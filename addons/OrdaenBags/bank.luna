@@ -7,7 +7,7 @@
 import Client from "$client"
 import Game from "$game"
 import { Align, Frame, Track } from "$ltml"
-import { Component, Dialog, KeptWindow, Money, PushButton, SECONDARY_TEXT, Window, WindowTabSpec, space } from "Ordaen"
+import { ButtonPlate, Component, Dialog, KeptWindow, Money, PushButton, SECONDARY_TEXT, Window, WindowTabSpec, space } from "Ordaen"
 import Locale from "@/locales"
 
 // The bank's bag slots, by their place among the bank's tabs (`Enum.BagIndex.Characterbanktab`).
@@ -117,7 +117,7 @@ public class BankSlotsWindow implements Component {
       <Dialog $if={self.asking} width={DIALOG} title={Locale.BANK_BUY}>
         <Money amount={self.cost} />
         <PushButton #buttons label={Locale.NO} width={BUTTON} @click={self.onNo} />
-        <PushButton #buttons label={Locale.YES} width={BUTTON} accent={true} @click={self.onYes} />
+        <PushButton #buttons label={Locale.YES} width={BUTTON} plate={ButtonPlate.Accent} @click={self.onYes} />
       </Dialog>
     }
   }

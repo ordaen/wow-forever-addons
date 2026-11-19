@@ -9,7 +9,7 @@
 import Game from "$game"
 import { Align, Art, ByInteractionState, Edges, Overflow } from "$ltml"
 import root Ordaen from "Ordaen"
-import { Choice, CompactDropdown, Component, PushButton, SECONDARY_TEXT, TITLE_TEXT, ToolPick, Toolbar, space } from "Ordaen"
+import { ButtonPlate, Choice, CompactDropdown, Component, PushButton, SECONDARY_TEXT, TITLE_TEXT, ToolPick, Toolbar, space } from "Ordaen"
 import Locale from "@/locales"
 import { Friend, Hero, Ignored, Me, Presence, Request, trimmed } from "@/people"
 import Style from "@/style"
@@ -312,7 +312,7 @@ public class FriendCard implements Component {
         <box columns={["max-content", "max-content", "max-content"]} gap={space(.Item)}>
           <PushButton label={Locale.WHISPER} width={Style.SMALL_BUTTON} disabled={!self.canWhisper} @click={self.onWhisper} />
           <PushButton label={Locale.INVITE} width={Style.SMALL_BUTTON} disabled={!self.canInvite} @click={self.onInvite} />
-          <PushButton label={Locale.REMOVE} width={Style.SMALL_BUTTON} accent={true} @click={self.onRemove} />
+          <PushButton label={Locale.REMOVE} width={Style.SMALL_BUTTON} plate={ButtonPlate.Danger} @click={self.onRemove} />
         </box>
       </box>
     }
