@@ -109,6 +109,7 @@ public class ItemButton implements Component {
   size: Signal<Number<Length>>
   action: Signal<Action | nil>
   art: Signal<Art | nil>
+  linkOnShift: Signal<Boolean>
   constructor(
     // The game's number of the item; none for an empty slot.
     item: Signal<Integer | nil>,
@@ -120,9 +121,13 @@ public class ItemButton implements Component {
     // What the client does on the player's click itself: none where the slot's clicks are its own alone.
     action: Signal<Action | nil> = nil,
     // The icon the game gave with what the slot shows (a reagent's): drawn in place of the item's, with or without one.
-    art: Signal<Art | nil> = nil
+    art: Signal<Art | nil> = nil,
+    // Whether Shift+Left-click puts the item's link into the chat; off, it is told as `pressed` (a slot whose clicks
+    // the player sets).
+    linkOnShift: Signal<Boolean> = true
   ) {
     self.art = art
+    self.linkOnShift = linkOnShift
     self.item = item
     self.count = count
     self.quality = quality
@@ -175,7 +180,7 @@ public class ItemButton implements Component {
 
   onClick(self, click: Event.Press) {
     const item = self.item
-    if (item != nil && click.button == MouseButton.Left && Game.input.shiftDown()) {
+    if (self.linkOnShift && item != nil && click.button == MouseButton.Left && Game.input.shiftDown()) {
       Game.chat.link(item)
       return
     }
