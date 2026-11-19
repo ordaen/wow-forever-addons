@@ -1,9 +1,10 @@
 // Who the social window shows, and what its clicks ask of the game: the player's friends of both kinds (Battle.net
-// accounts and characters of this realm), the requests waiting, the black list, the player's own Battle.net self, and
-// the raid. `"$game"` has no part for these yet (what it should gain: the module's report), so `People` is the window's
+// accounts and characters of this realm), the requests waiting, the black list, the player's own Battle.net self, the
+// guild, the communities and the recent allies. `"$game"` has no part for these yet (what it should gain: the module's report), so `People` is the window's
 // one door to them: `ClientPeople` reads the client, a test hands its own. Every act is called in the player's click,
 // as the client's restricted calls (status, the broadcast, invites, a ready check) want.
 import Client from "$client"
+import Locale from "@/locales"
 
 // How a friend stands: the client's four.
 public enum Presence { Online, Away, Busy, Offline }
@@ -71,21 +72,86 @@ public struct Me {
   const hero: Hero
 }
 
-// The raid's roles where Forever has them.
-public enum Role { Tank, Healer, Damage, None }
-
-// One of the raid: their place in the raid's list (`raid1` to `raid40`) and the group they stand in.
+// One of a guild or a community: a character (in a community of Battle.net accounts, the account's name and the
+// character it plays, where it plays one).
 public struct Member {
-  const index: Integer
+  // What tells it from the others of its list: the character's GUID, or its name where the client gives none.
+  const key: String
   const name: String
-  const group: Integer
   const level: Integer
+  const className: String
   const classColor: Color | nil
-  const online: Boolean
-  const dead: Boolean
-  // 2 the leader, 1 an assistant, 0 any other.
-  const rank: Integer
-  const role: Role
+  const zone: String
+  const presence: Presence
+  // Its guild rank or its role in the community, as the client names it, and the rank's order (1 the highest).
+  const rank: String
+  const rankOrder: Integer
+  const note: String
+  // The guild's officer note: empty where the player may not read it.
+  const officerNote: String
+  // How long ago it was last online, in hours; 0 while online or where the client doesn't say.
+  const away: Integer
+}
+
+// What the player may do in the guild, as the client says.
+public struct Rights {
+  const invite: Boolean
+  const promote: Boolean
+  const demote: Boolean
+}
+
+// The player's guild: its words to its members and its roster.
+public struct Guild {
+  const name: String
+  // The message of the day and the guild's information, as its officers wrote them.
+  const motd: String
+  const info: String
+  const members: Array<Member>
+  const rights: Rights
+}
+
+// A line of the guild's news: who did what, and the day.
+public struct News {
+  const who: String
+  const what: String
+  // The day of the month and the month, from 1; a sticky line (kept on top by an officer) first.
+  const day: Integer
+  const month: Integer
+  const sticky: Boolean
+}
+
+// A community the player is in: of Battle.net accounts, or of characters of this game.
+public struct Club {
+  const id: String
+  const name: String
+  const description: String
+  const broadcast: String
+  const battleNet: Boolean
+  const memberCount: Integer
+}
+
+// One of a community's streams (its channels of chat), and what it is for.
+public struct Stream {
+  const id: String
+  const name: String
+  const subject: String
+}
+
+// Something the player did with a recent ally: the server's own words of it, and when.
+public struct Meeting {
+  const text: String
+  // When it was, in seconds since 1970.
+  const when: Number
+}
+
+// One the player played with lately, as the game keeps them (`C_RecentAllies`): the character, what the player did
+// with them (the newest first), and whether the player pinned them (kept on top, and kept longer).
+public struct Ally {
+  const member: Member
+  // The character's name with its realm: what a whisper and an invite take.
+  const fullName: String
+  const meetings: Array<Meeting>
+  const pinned: Boolean
 }
 
 // The client's door to the window's people; each list read as the window opens and when the client says it changed.
@@ -94,9 +160,14 @@ public trait People {
   public requests(self): Array<Request>
   public ignored(self): Array<Ignored>
   public me(self): Me
-  public raid(self): Array<Member>
-  // The player may move the raid's members and start a ready check: the leader or an assistant.
-  public leads(self): Boolean
+  // The player's guild; none outside one.
+  public guild(self): Guild | nil
+  public news(self): Array<News>
+  // The player's communities (the guild isn't one of them), each club's members and streams.
+  public clubs(self): Array<Club>
+  public clubMembers(self, club: String): Array<Member>
+  public streams(self, club: String): Array<Stream>
+  public allies(self): Array<Ally>
   public whisper(mut self, friend: Friend)
   public invite(mut self, friend: Friend)
   public remove(mut self, friend: Friend)
@@ -108,11 +179,20 @@ public trait People {
   public setPresence(mut self, presence: Presence)
   public setBroadcast(mut self, text: String)
   public copy(mut self, text: String)
-  public readyCheck(mut self)
-  public toParty(mut self)
-  public leave(mut self)
-  // A member moved to a group: into its free place, or in place of `other` (0: none), who takes theirs.
-  public move(mut self, member: Integer, group: Integer, other: Integer)
+  // A character by its name (with its realm where it is of another): the chat's whisper opened to it, an invite to
+  // the group.
+  public whisperTo(mut self, name: String)
+  public inviteTo(mut self, name: String)
+  // The guild's own acts the client lets an addon ask, in the player's click.
+  public guildInvite(mut self, name: String)
+  public promote(mut self, name: String)
+  public demote(mut self, name: String)
+  public leaveGuild(mut self)
+  // A recent ally pinned or unpinned, by the character's GUID.
+  public pin(mut self, key: String, pinned: Boolean)
+  // The game asked for what it sends late, as the window opens: the guild's roster, the recent allies (where it
+  // hasn't them yet). Their events say when they come.
+  public ask(mut self)
 }
 
 // Whether a text the player typed names a Battle.net account (a BattleTag or an email), as the add-friend window reads
@@ -137,12 +217,88 @@ function presenceOf(online: Boolean, away: Boolean, busy: Boolean): Presence {
   return .Online
 }
 
-function roleOf(role: String): Role {
+// How a member of a club stands: the client's six, as the four of a friend.
+function clubPresenceOf(presence: Client.ClubMemberPresence): Presence {
+  return match (presence) {
+    .Online, .OnlineMobile => .Online
+    .Away => .Away
+    .Busy => .Busy
+    else => .Offline
+  }
+}
+
+// A community's role: its name and its order, the owner first.
+function roleName(role: Client.ClubRoleIdentifier | nil): String {
   return match (role) {
-    "TANK" => .Tank
-    "HEALER" => .Healer
-    "DAMAGER" => .Damage
-    else => .None
+    .Owner => Locale.ROLE_OWNER
+    .Leader => Locale.ROLE_LEADER
+    .Moderator => Locale.ROLE_MODERATOR
+    else => Locale.ROLE_MEMBER
+  }
+}
+
+function roleOrder(role: Client.ClubRoleIdentifier | nil): Integer {
+  return match (role) {
+    .Owner => 1
+    .Leader => 2
+    .Moderator => 3
+    else => 4
+  }
+}
+
+// How many hours ago a member was last online, from the client's years, months, days and hours ago (a month counted
+// as thirty days).
+function awayOf(info: Client.ClubMemberInfo): Integer {
+  const months = (info.lastOnlineYear ?? 0) * 12 + (info.lastOnlineMonth ?? 0)
+  return ((months * 30 + (info.lastOnlineDay ?? 0)) * 24 + (info.lastOnlineHour ?? 0)).floor()
+}
+
+// A member as the client gives it in a club: the guild's rank where it is the guild's, else its role.
+function memberOf(info: Client.ClubMemberInfo, officerNotes: Boolean): Member {
+  let className = ""
+  let classColor: Color | nil = nil
+  const classID = info.classID
+  const classInfo = classID != nil ? Client.C_CreatureInfo.GetClassInfo(classID) : nil
+  if (classInfo != nil) {
+    className = classInfo.className
+    classColor = classColorOf(classInfo.classFile)
+  }
+  const presence = clubPresenceOf(info.presence)
+  return {
+    key: info.guid ?? info.name ?? "", name: info.name ?? "", level: (info.level ?? 0).floor(), className: className,
+    classColor: classColor, zone: info.zone ?? "", presence: presence,
+    rank: info.guildRank ?? roleName(info.role), rankOrder: info.guildRankOrder ?? roleOrder(info.role),
+    note: info.memberNote ?? "", officerNote: officerNotes ? info.officerNote ?? "" : "",
+    away: presence == .Offline ? awayOf(info) : 0
+  }
+}
+
+// A club's members as the client lists them.
+function membersOf(club: String, officerNotes: Boolean): Array<Member> {
+  const list: Array<Member> = []
+  for (id of Client.C_Club.GetClubMembers(club, nil)) {
+    const info = Client.C_Club.GetMemberInfo(club, id)
+    if (info != nil) { list.push(memberOf(info, officerNotes)) }
+  }
+  return list
+}
+
+// A recent ally as the client keeps it.
+function allyOf(data: Client.RecentAllyData): Ally {
+  const state = data.stateData
+  const character = data.characterData
+  const classInfo = Client.C_CreatureInfo.GetClassInfo(character.classID)
+  const meetings: Array<Meeting> = data.interactionData.interactions.map(seen => Meeting { text: seen.description, when: seen.timestamp })
+  return {
+    member: {
+      key: character.guid, name: character.name, level: character.level.floor(), className: classInfo?.className ?? "",
+      classColor: classColorOf(classInfo?.classFile), zone: state.currentLocation ?? "",
+      presence: presenceOf(state.isOnline, state.isAFK, state.isDND), rank: "", rankOrder: 0,
+      note: data.interactionData.note ?? "", officerNote: "", away: 0
+    },
+    fullName: character.fullName,
+    meetings: meetings,
+    pinned: Client.C_RecentAllies.IsRecentAllyPinned(character.guid)
   }
 }
 
@@ -237,22 +393,56 @@ public class ClientPeople implements People {
     return { battleTag: info.battleTag, presence: presence, broadcast: info.customMessage, hero: hero }
   }
 
-  public raid(self): Array<Member> {
-    const list: Array<Member> = []
-    if (!Client.IsInRaid(nil)) { return list }
-    for (index of 1..Client.GetNumGroupMembers(nil)) {
-      let name, rank, group, level, _, tag, _, online, dead, _, _ = Client.GetRaidRosterInfo(index)
-      if (name == nil) { continue }
+  // The guild is a club of the client's: its roster read as the guild window's (the rank, the notes, when last
+  // online), the message of the day and the information as its own page reads them.
+  public guild(self): Guild | nil {
+    if (!Client.IsInGuild()) { return nil }
+    const club = Client.C_Club.GetGuildClubId()
+    if (club == nil) { return nil }
+    let name, _, _ = Client.GetGuildInfo("player")
+    return {
+      name: name ?? Client.C_Club.GetClubInfo(club)?.name ?? "",
+      motd: Client.C_GuildInfo.GetMOTD(),
+      info: Client.C_GuildInfo.GetInfoText(),
+      members: membersOf(club, Client.C_GuildInfo.CanViewOfficerNote()),
+      rights: { invite: Client.CanGuildInvite(), promote: Client.CanGuildPromote(), demote: Client.CanGuildDemote() }
+    }
+  }
+
+  public news(self): Array<News> {
+    const list: Array<News> = []
+    for (index of 1..Client.GetNumGuildNews().floor()) {
+      const info = Client.C_GuildInfo.GetGuildNewsInfo(index)
+      if (info == nil || info.isHeader) { continue }
       list.push({
-        index: index, name: name, group: group.floor(), level: level.floor(), classColor: classColorOf(tag),
-        online: online, dead: dead, rank: rank.floor(), role: roleOf(Client.UnitGroupRolesAssigned(`raid${index}`))
+        who: info.whoText ?? "", what: info.whatText ?? "", day: info.day.floor() + 1, month: info.month.floor() + 1,
+        sticky: info.isSticky
       })
     }
     return list
   }
 
-  public leads(self): Boolean {
-    return Client.UnitIsGroupLeader("player", nil) || Client.UnitIsGroupAssistant("player")
+  public clubs(self): Array<Club> {
+    const list: Array<Club> = []
+    for (info of Client.C_Club.GetSubscribedClubs()) {
+      if (info.clubType == .Guild || info.clubType == .Other) { continue }
+      list.push({
+        id: info.clubId, name: info.name, description: info.description, broadcast: info.broadcast,
+        battleNet: info.clubType == .BattleNet, memberCount: (info.memberCount ?? 0).floor()
+      })
+    }
+    return list
+  }
+
+  public clubMembers(self, club: String): Array<Member> { return membersOf(club, false) }
+
+  public streams(self, club: String): Array<Stream> {
+    return Client.C_Club.GetStreams(club).map(info => Stream { id: info.streamId, name: info.name, subject: info.subject })
+  }
+
+  public allies(self): Array<Ally> {
+    if (!Client.C_RecentAllies.IsSystemEnabled() || !Client.C_RecentAllies.IsRecentAllyDataReady()) { return [] }
+    return Client.C_RecentAllies.GetRecentAllies().map(data => allyOf(data))
   }
 
   // The chat's line opened to them, as the game's «Шепнуть» opens it: a character by name, a Battle.net friend by
@@ -318,17 +508,18 @@ public class ClientPeople implements People {
 
   public copy(mut self, text: String) { _ = Client.CopyToClipboard(text, nil) }
 
-  public readyCheck(mut self) { Client.C_PartyInfo.DoReadyCheck() }
+  public whisperTo(mut self, name: String) { Client.ChatFrameUtil.OpenChat(`/w ${name} `) }
+  public inviteTo(mut self, name: String) { Client.C_PartyInfo.InviteUnit(name) }
+  public guildInvite(mut self, name: String) { Client.C_GuildInfo.Invite(name) }
+  public promote(mut self, name: String) { Client.C_GuildInfo.Promote(name) }
+  public demote(mut self, name: String) { Client.C_GuildInfo.Demote(name) }
+  public leaveGuild(mut self) { Client.C_GuildInfo.Leave() }
+  public pin(mut self, key: String, pinned: Boolean) { Client.C_RecentAllies.SetRecentAllyPinned(key, pinned) }
 
-  public toParty(mut self) { Client.C_PartyInfo.ConvertToParty() }
-
-  public leave(mut self) { Client.C_PartyInfo.LeaveParty(nil) }
-
-  public move(mut self, member: Integer, group: Integer, other: Integer) {
-    if (other != 0) {
-      Client.SwapRaidSubgroup(member, other)
-    } else {
-      Client.SetRaidSubgroup(member, group)
+  public ask(mut self) {
+    if (Client.IsInGuild()) { Client.C_GuildInfo.GuildRoster() }
+    if (Client.C_RecentAllies.IsSystemEnabled() && !Client.C_RecentAllies.IsRecentAllyDataReady()) {
+      Client.C_RecentAllies.TryRequestRecentAlliesData()
     }
   }
 }

@@ -1,0 +1,205 @@
+// The recent allies tab: who the player played with lately and what they did together (the game's `C_RecentAllies`),
+// in the game's two groups, those pinned and the rest, with the toolbar of every list window (the search,
+// «Показывать», the sort), and the picked ally's card.
+//
+// A row: the ally's status mark, the name in its class's colour (grey while offline) with its level, under it the newest
+// thing done together and how long ago; a pinned ally's star at the right.
+import { Align, ByInteractionState, Edges, Overflow } from "$ltml"
+import root Ordaen from "Ordaen"
+import { Choice, Component, PushButton, SECONDARY_TEXT, TITLE_TEXT, ToolPick, Toolbar, space } from "Ordaen"
+import { Fact, agoText, markOf, orDash, presenceText } from "@/friends"
+import Locale from "@/locales"
+import { Show, nameColorOf } from "@/members"
+import { Ally, Meeting } from "@/people"
+import Style from "@/style"
+
+// How the allies are sorted in each group.
+public enum AllySort { Recent, Name, Level }
+
+const SORTS: Array<Choice<AllySort>> = [
+  { value: .Recent, label: Locale.SORT_RECENT },
+  { value: .Name, label: Locale.SORT_NAME },
+  { value: .Level, label: Locale.SORT_LEVEL }
+]
+const SHOWS: Array<Choice<Show>> = [
+  { value: .Everyone, label: Locale.SHOW_EVERYONE },
+  { value: .Online, label: Locale.SHOW_ONLINE }
+]
+const CLEAR: Color = Color.hex("#00000000")
+const ROW_SHADE: ByInteractionState<Color> = { default: CLEAR, hover: Color.hex("#00000059"), focus: Color.hex("#00000059") }
+const ROW_PAD: Edges = { top: 4.6875dp, right: space(.Line), bottom: 4.6875dp, left: space(.Line) }
+
+function online(ally: Ally): Boolean { return ally.member.presence != .Offline }
+
+// When the newest thing done together was; 0 for none.
+function lastOf(ally: Ally): Number { return ally.meetings[1]?.when ?? 0 }
+
+// The newest thing done together and how long ago.
+function metText(ally: Ally): String {
+  const last = ally.meetings[1]
+  if (last == nil) { return "" }
+  return `${last.text} · ${agoText(last.when)}`
+}
+
+function before(a: Ally, b: Ally, sort: AllySort): Boolean {
+  if (sort == .Recent && lastOf(a) != lastOf(b)) { return lastOf(a) > lastOf(b) }
+  if (sort == .Level && a.member.level != b.member.level) { return a.member.level > b.member.level }
+  return a.member.name.lower() < b.member.name.lower()
+}
+
+// Whether an ally is found by what the player typed: in the name, the class, the zone, the note or what was done.
+function found(ally: Ally, query: String): Boolean {
+  if (query == "") { return true }
+  const member = ally.member
+  const text = [member.name, member.className, member.zone, member.note, metText(ally)].join(" ").lower()
+  return text.contains(query.lower())
+}
+
+// The allies of one group (pinned or not) the list shows, in its order.
+public function shownOf(allies: Array<Ally>, pinned: Boolean, query: String, show: Show, sort: AllySort): Array<Ally> {
+  const shown = allies.filter(ally => ally.pinned == pinned && found(ally, query) && (show == .Everyone || online(ally)))
+  shown.sort((a, b) => before(a, b, sort))
+  return shown
+}
+
+class AllyRow implements Component {
+  public pick: Event<String> = new Event()
+
+  derived background: Color | ByInteractionState<Color> = self.chosen == self.ally.member.key ? Style.PICKED : ROW_SHADE
+  derived level: String = String.of(self.ally.member.level)
+
+  ally: Signal<Ally>
+  chosen: Signal<String>
+  constructor(ally: Signal<Ally>, chosen: Signal<String>) {
+    self.ally = ally
+    self.chosen = chosen
+  }
+
+  onPick(self) { self.pick.emit((peek self.ally).member.key) }
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={[Style.DOT, { fr: 1 }, "max-content"]} gap={space(.Line)} yAlign={Align.Center} padding={ROW_PAD}
+           background={self.background} @pointerPress(.Left)={self.onPick} @keyPress(.Enter)={self.onPick}
+           @keyPress(.Space)={self.onPick}>
+        <box width={Style.DOT} height={Style.DOT} background={markOf(self.ally.member.presence)} />
+        <box columns={1}>
+          <box columns={["max-content", "max-content"]} gap={space(.Line)}>
+            <text value={self.ally.member.name} textColor={nameColorOf(self.ally.member)} wrap={false} />
+            <text value={self.level} textColor={Style.DIM} textFont={.Numbers} wrap={false} />
+          </box>
+          <text value={metText(self.ally)} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={false} />
+        </box>
+        <box $if={self.ally.pinned} width={Style.STAR} height={Style.STAR} background={Style.STAR_ICON} />
+      </box>
+    }
+  }
+}
+
+// The recent allies with their tools; those pinned under «Закреплено», the rest under «Недавние союзники».
+public class AllyList implements Component {
+  public pick: Event<String> = new Event()
+
+  state query = ""
+  state show: Show = .Everyone
+  state sort: AllySort = .Recent
+  derived pinned: Array<Ally> = shownOf(self.allies, true, self.query, self.show, self.sort)
+  derived rest: Array<Ally> = shownOf(self.allies, false, self.query, self.show, self.sort)
+  derived empty: Boolean = self.pinned.length == 0 && self.rest.length == 0
+  derived lit: Boolean = self.show != .Everyone
+
+  allies: Signal<Array<Ally>>
+  chosen: Signal<String>
+  constructor(allies: Signal<Array<Ally>>, chosen: Signal<String>) {
+    self.allies = allies
+    self.chosen = chosen
+  }
+
+  onPick(self, key: String) { self.pick.emit(key) }
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={1} rows={["max-content", { fr: 1 }]} gap={space(.Item)}>
+        <Toolbar search={mut self.query} placeholder={Locale.SEARCH}>
+          <ToolPick value={mut self.show} choices={SHOWS} icon={Ordaen.art.ctl.tool.filter} title={Locale.SHOW} lit={self.lit} />
+          <ToolPick value={mut self.sort} choices={SORTS} icon={Ordaen.art.ctl.tool.sort} title={Locale.SORT} />
+        </Toolbar>
+        <box columns={1} overflow={Overflow.Scroll} yAlign={Align.Start}>
+          <text $if={self.empty} value={self.allies.length == 0 ? Locale.NO_ALLIES : Locale.NOTHING_FOUND} textColor={Style.DIM} wrap={true} />
+          <text $if={self.pinned.length > 0} value={Locale.PINNED} textColor={Style.GOLD} wrap={false} />
+          <AllyRow $for={ally of self.pinned} $key={ally.member.key} ally={ally} chosen={self.chosen} @pick={self.onPick} />
+          <text $if={self.rest.length > 0} value={Locale.TAB_ALLIES} textColor={Style.GOLD} wrap={false} />
+          <AllyRow $for={ally of self.rest} $key={ally.member.key} ally={ally} chosen={self.chosen} @pick={self.onPick} />
+        </box>
+      </box>
+    }
+  }
+}
+
+class MeetingRow implements Component {
+  meeting: Signal<Meeting>
+  constructor(meeting: Signal<Meeting>) {
+    self.meeting = meeting
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={[{ fr: 1 }, "max-content"]} gap={space(.Item)}>
+        <text value={self.meeting.text} textColor={Style.INK} wrap={true} />
+        <text value={agoText(self.meeting.when)} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={false} />
+      </box>
+    }
+  }
+}
+
+// The picked ally's card: who it is, how it stands and where, the note, every thing done together; «Шепнуть»,
+// «Пригласить», «Закрепить» (or «Открепить») and «Добавить в друзья».
+public class AllyCard implements Component {
+  public whisper: Event<nil> = new Event()
+  public invite: Event<nil> = new Event()
+  public pin: Event<nil> = new Event()
+  public befriend: Event<nil> = new Event()
+
+  derived sub: String = Locale.CARD_CHARACTER_LEVEL.format(self.ally.member.className, self.ally.member.level)
+  derived canAsk: Boolean = online(self.ally)
+
+  ally: Signal<Ally>
+  constructor(ally: Signal<Ally>) {
+    self.ally = ally
+  }
+
+  onWhisper(self) { self.whisper.emit() }
+  onInvite(self) { self.invite.emit() }
+  onPin(self) { self.pin.emit() }
+  onBefriend(self) { self.befriend.emit() }
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={1} rows={["max-content", { fr: 1 }, "max-content"]} gap={space(.Group)}>
+        <box columns={1} gap={space(.Item)}>
+          <box columns={[Style.BIG_DOT, { fr: 1 }]} gap={space(.Line)} yAlign={Align.Center}>
+            <box width={Style.BIG_DOT} height={Style.BIG_DOT} background={markOf(self.ally.member.presence)} />
+            <box columns={1}>
+              <text value={self.ally.member.name} textColor={nameColorOf(self.ally.member)} textSize={TITLE_TEXT}
+                    textFont={.Title} wrap={false} />
+              <text value={self.sub} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={false} />
+            </box>
+          </box>
+          <Fact label={Locale.STATUS} value={presenceText(self.ally.member.presence)} />
+          <Fact label={Locale.WHERE} value={orDash(self.ally.member.zone)} />
+          <Fact label={Locale.NOTE} value={orDash(self.ally.member.note)} />
+        </box>
+        <box columns={1} gap={space(.Line)} overflow={Overflow.Scroll} yAlign={Align.Start}>
+          <text value={Locale.MEETINGS} textColor={Style.DIM} wrap={false} />
+          <MeetingRow $for={meeting of self.ally.meetings} meeting={meeting} />
+        </box>
+        <box columns={["max-content", "max-content"]} gap={space(.Item)}>
+          <PushButton label={Locale.WHISPER} width={Style.SMALL_BUTTON} disabled={!self.canAsk} @click={self.onWhisper} />
+          <PushButton label={Locale.INVITE} width={Style.SMALL_BUTTON} disabled={!self.canAsk} @click={self.onInvite} />
+          <PushButton label={self.ally.pinned ? Locale.UNPIN : Locale.PIN} width={Style.SMALL_BUTTON} @click={self.onPin} />
+          <PushButton label={Locale.BEFRIEND} width={Style.SMALL_BUTTON} @click={self.onBefriend} />
+        </box>
+      </box>
+    }
+  }
+}

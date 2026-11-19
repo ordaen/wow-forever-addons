@@ -52,6 +52,8 @@ const PORTRAIT_ROOM: Array<Track> = [PORTRAIT_WIDTH, "max-content"]
 const CORNER: Anchored = { point: Point.BottomLeft }
 // Ordaen Spells' title, as its module gives it.
 const SPELLS = "Ordaen Spells"
+// Ordaen Social's title, as its module gives it.
+const SOCIAL = "Ordaen Social"
 // Down a side of the screen: one column, the zones one under another.
 const DOWN: Array<Track> = [{ fr: 1 }]
 
@@ -145,13 +147,13 @@ public class ZoneBox implements Component {
                yAlign={Align.Center}>
             <box width={PORTRAIT_WIDTH} height={1ui} />
             <MicroLine gold={self.panel.goldIcons} faced={false} social={self.social}
-                       merged={self.panel.spellsMerged} height={self.panel.inside} />
+                       merged={self.panel.spellsMerged} guildMerged={self.panel.guildMerged} height={self.panel.inside} />
           </box>
           <MicroLine $else gold={self.panel.goldIcons} vertical={self.panel.vertical} social={self.social}
-                     merged={self.panel.spellsMerged} height={self.panel.inside} face={self.panel.face}
+                     merged={self.panel.spellsMerged} guildMerged={self.panel.guildMerged} height={self.panel.inside} face={self.panel.face}
                      icon={self.panel.classIcon} />
         </>
-        <SocialLine $if={self.socialAlone} gold={self.panel.goldIcons} vertical={self.panel.vertical}
+        <SocialLine $if={self.socialAlone} gold={self.panel.goldIcons} guildMerged={self.panel.guildMerged} vertical={self.panel.vertical}
                     height={self.panel.inside} />
         <XpBar $if={self.experience} room={self.panel.inside} fill={self.panel.xpFill} bezel={self.panel.xpBezel}
                view={self.panel.xpView} />
@@ -252,6 +254,9 @@ public class Panel implements Module, App {
   // With Ordaen Spells on, its window holds the spellbook and the talents: one button opens it. Told among Ordaen's
   // modules by its title: a module needs no other module, so the panel doesn't import it.
   public derived spellsMerged: Boolean = Ordaen.modules.any(module => module.title == SPELLS)
+  // With Ordaen Social on, its window holds the friends and the guild: the friends' button alone opens it, the guild's
+  // goes (and comes back as the module is turned off).
+  public derived guildMerged: Boolean = Ordaen.modules.any(module => module.title == SOCIAL)
   derived place: Place = self.placeOf()
   // The zones: three columns across the screen, three rows down a side of it; thirds of the whole edge, or each
   // as long as its items.
@@ -403,12 +408,12 @@ public class Panel implements Module, App {
 
       <Placed $if={self.freeMicro} id={"OrdaenPanel.micromenu"} title={Locale.PANEL_MICROMENU} home={MICRO_HOME}>
         <box background={Ordaen.art.window.wood} border={Ordaen.art.frame.small} padding={space(.Item)}>
-          <MicroLine gold={self.goldIcons} merged={self.spellsMerged} face={self.face} icon={self.classIcon} />
+          <MicroLine gold={self.goldIcons} merged={self.spellsMerged} guildMerged={self.guildMerged} face={self.face} icon={self.classIcon} />
         </box>
       </Placed>
       <Placed $if={self.freeSocial} id={"OrdaenPanel.social"} title={Locale.PANEL_SOCIAL} home={SOCIAL_HOME}>
         <box background={Ordaen.art.window.wood} border={Ordaen.art.frame.small} padding={space(.Item)}>
-          <SocialLine gold={self.goldIcons} />
+          <SocialLine gold={self.goldIcons} guildMerged={self.guildMerged} />
         </box>
       </Placed>
       <Placed $if={self.freeExperience} id={"OrdaenPanel.experience"} title={Locale.PANEL_EXPERIENCE}

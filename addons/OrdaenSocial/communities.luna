@@ -1,0 +1,109 @@
+// The communities tab's own parts: the player's communities in a list (the picked one's members in the roster beside
+// it), and the picked community's card: its kind and size, its description and broadcast, and its streams.
+import { Align, ByInteractionState, Edges, Overflow } from "$ltml"
+import { Component, SECONDARY_TEXT, TITLE_TEXT, space } from "Ordaen"
+import { orDash } from "@/friends"
+import Locale from "@/locales"
+import { Club, Stream } from "@/people"
+import Style from "@/style"
+
+const CLEAR: Color = Color.hex("#00000000")
+const ROW_SHADE: ByInteractionState<Color> = { default: CLEAR, hover: Color.hex("#00000059"), focus: Color.hex("#00000059") }
+const ROW_PAD: Edges = { top: 4.6875dp, right: space(.Line), bottom: 4.6875dp, left: space(.Line) }
+
+// What a community is: of Battle.net accounts or of characters, and how many are in it.
+function kindOf(club: Club): String {
+  return Locale.CLUB_KIND.format(club.battleNet ? Locale.CLUB_BATTLE_NET : Locale.CLUB_CHARACTERS, club.memberCount)
+}
+
+class ClubRow implements Component {
+  public pick: Event<String> = new Event()
+
+  derived background: Color | ByInteractionState<Color> = self.chosen == self.club.id ? Style.PICKED : ROW_SHADE
+
+  club: Signal<Club>
+  chosen: Signal<String>
+  constructor(club: Signal<Club>, chosen: Signal<String>) {
+    self.club = club
+    self.chosen = chosen
+  }
+
+  onPick(self) { self.pick.emit((peek self.club).id) }
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={1} padding={ROW_PAD} background={self.background} @pointerPress(.Left)={self.onPick}
+           @keyPress(.Enter)={self.onPick} @keyPress(.Space)={self.onPick}>
+        <text value={self.club.name} textColor={self.club.battleNet ? Style.BATTLE_NET : Style.INK} wrap={false} />
+        <text value={kindOf(self.club)} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={false} />
+      </box>
+    }
+  }
+}
+
+// The player's communities; a click picks one.
+public class ClubList implements Component {
+  public pick: Event<String> = new Event()
+
+  clubs: Signal<Array<Club>>
+  chosen: Signal<String>
+  constructor(clubs: Signal<Array<Club>>, chosen: Signal<String>) {
+    self.clubs = clubs
+    self.chosen = chosen
+  }
+
+  onPick(self, id: String) { self.pick.emit(id) }
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={1} overflow={Overflow.Scroll} yAlign={Align.Start} background={Style.CARD_BACK}>
+        <ClubRow $for={club of self.clubs} $key={club.id} club={club} chosen={self.chosen} @pick={self.onPick} />
+      </box>
+    }
+  }
+}
+
+class StreamRow implements Component {
+  stream: Signal<Stream>
+  constructor(stream: Signal<Stream>) {
+    self.stream = stream
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={1}>
+        <text value={self.stream.name} textColor={Style.INK} wrap={false} />
+        <text $if={self.stream.subject != ""} value={self.stream.subject} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={true} />
+      </box>
+    }
+  }
+}
+
+// The picked community's card, with no member picked.
+public class ClubCard implements Component {
+  club: Signal<Club>
+  streams: Signal<Array<Stream>>
+  constructor(club: Signal<Club>, streams: Signal<Array<Stream>>) {
+    self.club = club
+    self.streams = streams
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={1} rows={["max-content", { fr: 1 }]} gap={space(.Group)}>
+        <box columns={1}>
+          <text value={self.club.name} textColor={self.club.battleNet ? Style.BATTLE_NET : Style.GOLD} textSize={TITLE_TEXT}
+                textFont={.Title} wrap={false} />
+          <text value={kindOf(self.club)} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={false} />
+        </box>
+        <box columns={1} gap={space(.Item)} overflow={Overflow.Scroll} yAlign={Align.Start}>
+          <text value={Locale.CLUB_DESCRIPTION} textColor={Style.DIM} wrap={false} />
+          <text value={orDash(self.club.description)} textColor={Style.INK} wrap={true} />
+          <text $if={self.club.broadcast != ""} value={Locale.QUOTED.format(self.club.broadcast)} textColor={Style.INK} wrap={true} />
+          <text value={Locale.STREAMS.format(self.streams.length)} textColor={Style.DIM} wrap={false} />
+          <StreamRow $for={stream of self.streams} $key={stream.id} stream={stream} />
+        </box>
+      </box>
+    }
+  }
+}

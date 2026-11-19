@@ -1,0 +1,100 @@
+// The guild tab's own parts: the guild's card beside its roster (its name and counts, the message of the day and the
+// information, «Пригласить в гильдию», «Покинуть гильдию» and the game's own guild window, where the guild's management
+// the client keeps to itself stays), and the guild's news.
+import { Align, Overflow } from "$ltml"
+import { ButtonPlate, Component, PushButton, SECONDARY_TEXT, TITLE_TEXT, space } from "Ordaen"
+import { orDash } from "@/friends"
+import Locale from "@/locales"
+import { Guild, News } from "@/people"
+import Style from "@/style"
+
+const ROW_PAD = 4.6875dp
+
+// The guild's card, with no member picked.
+public class GuildCard implements Component {
+  public invite: Event<nil> = new Event()
+  public leave: Event<nil> = new Event()
+  public gameWindow: Event<nil> = new Event()
+
+  derived online: Integer = self.guild.members.count(member => member.presence != .Offline)
+  derived counts: String = Locale.GUILD_COUNT.format(self.guild.members.length, self.online)
+
+  guild: Signal<Guild>
+  constructor(guild: Signal<Guild>) {
+    self.guild = guild
+  }
+
+  onInvite(self) { self.invite.emit() }
+  onLeave(self) { self.leave.emit() }
+  onGameWindow(self) { self.gameWindow.emit() }
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={1} rows={["max-content", { fr: 1 }, "max-content"]} gap={space(.Group)}>
+        <box columns={1}>
+          <text value={self.guild.name} textColor={Style.GOLD} textSize={TITLE_TEXT} textFont={.Title} wrap={false} />
+          <text value={self.counts} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={false} />
+        </box>
+        <box columns={1} gap={space(.Item)} overflow={Overflow.Scroll}>
+          <text value={Locale.MOTD} textColor={Style.DIM} wrap={false} />
+          <text value={orDash(self.guild.motd)} textColor={Style.INK} wrap={true} />
+          <text value={Locale.GUILD_INFO} textColor={Style.DIM} wrap={false} />
+          <text value={orDash(self.guild.info)} textColor={Style.INK} wrap={true} />
+        </box>
+        <box columns={1} gap={space(.Item)}>
+          <PushButton $if={self.guild.rights.invite} label={Locale.GUILD_INVITE} width={Style.CARD_BUTTON} @click={self.onInvite} />
+          <PushButton label={Locale.GAME_GUILD_WINDOW} width={Style.CARD_BUTTON} @click={self.onGameWindow} />
+          <PushButton label={Locale.LEAVE_GUILD} width={Style.CARD_BUTTON} plate={ButtonPlate.Danger} @click={self.onLeave} />
+        </box>
+      </box>
+    }
+  }
+}
+
+class NewsRow implements Component {
+  derived date: String = Locale.NEWS_DATE.format(self.news.day, self.news.month)
+
+  news: Signal<News>
+  constructor(news: Signal<News>) {
+    self.news = news
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={["max-content", { fr: 1 }]} gap={space(.Item)} padding={{ top: ROW_PAD, bottom: ROW_PAD }}>
+        <text value={self.date} textColor={Style.DIM} textFont={.Numbers} wrap={false} />
+        <box columns={["max-content", { fr: 1 }]} gap={space(.Line)}>
+          <text value={self.news.who} textColor={self.news.sticky ? Style.GOLD : Style.INK} wrap={false} />
+          <text value={self.news.what} textColor={Style.INK} wrap={true} />
+        </box>
+      </box>
+    }
+  }
+}
+
+// The guild's news, as the game keeps it: the sticky lines first, then the newest.
+public class NewsList implements Component {
+  derived shown: Array<News> = self.ordered()
+
+  news: Signal<Array<News>>
+  constructor(news: Signal<Array<News>>) {
+    self.news = news
+  }
+
+  ordered(self): Array<News> {
+    const list = self.news.filter(line => line.sticky)
+    for (line of self.news) {
+      if (!line.sticky) { list.push(line) }
+    }
+    return list
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={1} overflow={Overflow.Scroll} yAlign={Align.Start}>
+        <text $if={self.shown.length == 0} value={Locale.NO_NEWS} textColor={Style.DIM} />
+        <NewsRow $for={line of self.shown} news={line} />
+      </box>
+    }
+  }
+}
