@@ -7,7 +7,7 @@ import Client from "$client"
 import Game from "$game"
 import { Align, Columns, MouseButton, Overflow, Track } from "$ltml"
 import {
-  ARTWORK, ButtonPlate, Choice, Column, Component, KeptWindow, ModuleMemory, Money, PushButton, SECONDARY_TEXT, TITLE_TEXT, Table,
+  ARTWORK, ButtonPlate, Choice, Column, Component, FooterCount, FooterCounts, KeptWindow, ModuleMemory, Money, PushButton, SECONDARY_TEXT, TITLE_TEXT, Table,
   TableRow, ToolPick, Toolbar, Window, WindowSide, WindowTabSpec, space, tracksOf
 } from "Ordaen"
 import Locale from "@/locales"
@@ -214,8 +214,11 @@ public class TrainerWindow implements Component {
   derived dear: Boolean = self.price > Game.money.amount
   derived priceInk: Color = self.dear ? Style.RED : Style.INK
   derived canTrain: Boolean = self.current?.status == Game.ServiceStatus.Available && !self.dear
-  derived counts: String = Locale.TRAINER_COUNTS.format(self.count(Game.ServiceStatus.Available),
-    self.count(Game.ServiceStatus.Unavailable), self.count(Game.ServiceStatus.Learned))
+  derived counts: Array<FooterCount> = [
+    { label: Locale.SHOW_AVAILABLE, value: String.of(self.count(Game.ServiceStatus.Available)) },
+    { label: Locale.SHOW_UNAVAILABLE, value: String.of(self.count(Game.ServiceStatus.Unavailable)) },
+    { label: Locale.SHOW_KNOWN, value: String.of(self.count(Game.ServiceStatus.Learned)) }
+  ]
   derived side: WindowSide | nil = { width: CARD_WIDTH, content: self.card }
 
   services: Signal<Array<Game.TrainerService>>
@@ -270,7 +273,7 @@ public class TrainerWindow implements Component {
 
   const footer: Template = $ltml {
     <box columns={FOOT} gap={space(.Group)} yAlign={Align.Center}>
-      <text value={self.counts} textColor={Style.DIM} textSize={SECONDARY_TEXT} />
+      <FooterCounts counts={self.counts} />
       <Money amount={Game.money.amount} />
     </box>
   }

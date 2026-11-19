@@ -45,7 +45,7 @@ test "a profession's trainer opens our window in place of the game's, its servic
   Game.trainer.changed.emit()
   const window = Test.page().window(Locale.TRAINER)
   Test.expect(window.text("Red Linen Robe").shown() && window.text("Linen Shirt").shown())
-  Test.expect(window.text(Locale.COLUMN_SKILL).shown() && window.text(Locale.TRAINER_COUNTS.format(1, 1, 1)).shown())
+  Test.expect(window.text(Locale.COLUMN_SKILL).shown() && window.text(Locale.SHOW_AVAILABLE).shown() && window.text(Locale.SHOW_KNOWN).shown())
   window.input().type("bolt")
   Test.expect(!window.text("Red Linen Robe").shown() && window.text("Bolt of Woolen Cloth").shown())
   Game.trainer.open = false

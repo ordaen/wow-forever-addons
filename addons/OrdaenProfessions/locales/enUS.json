@@ -126,7 +126,6 @@
   "NEEDS_LEVEL": "Requires level %d",
   "NEEDS_SKILL": "skill %d",
   "KNOWN": "Learned",
-  "TRAINER_COUNTS": "Available: %d. Unavailable: %d. Learned: %d.",
   "PICK_SERVICE": "Pick a recipe.",
   "NOTHING_FOUND": "Nothing found."
 }
