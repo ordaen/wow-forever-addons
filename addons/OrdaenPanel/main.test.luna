@@ -861,3 +861,11 @@ test "the panel dragged to a side and then right-clicked goes back to the bottom
   panel().text(MOVER).rightClick()
   Test.expect(Test.page().text("42").shown())
 }
+
+test "the action bars' tab fits the settings window at its size: the list, the picked bar and its rows" {
+  Test.mount(nil, SCREEN)
+  const settings = tab("Action bars")
+  Test.flush()
+  Test.expect(settings.button("Pet Bar").shown())
+  Test.expect(settings.text("Buttons per row").shown())
+}

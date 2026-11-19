@@ -19,10 +19,11 @@ import { SECONDARY_TEXT, space } from "@/units"
 import { KeptWindow, Window, WindowTabSpec } from "@/window"
 import { WindowsPage } from "@/windowsPage"
 
-// The window's body at first, and the smallest it resizes to: the list, a row and the foot fit.
-const WIDTH = 1359.375dp
+// The window's body at first, and the smallest it resizes to: the list, a row and the foot fit, and no narrower than
+// the widest page needs (the action bars' page: its list of bars beside the picked bar's rows), so no page squeezes.
+const WIDTH = 1378.125dp
 const HEIGHT = 820.3125dp
-const MIN_WIDTH = 1054.6875dp
+const MIN_WIDTH = WIDTH
 const MIN_HEIGHT = 562.5dp
 // The pages that aren't a module's: Ordaen's own, its look and its profiles.
 const GENERAL = ""
