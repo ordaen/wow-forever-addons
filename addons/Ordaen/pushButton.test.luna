@@ -1,15 +1,17 @@
 // The library's PushButton holds its label inside the plate's caps: a label longer than the width it was given widens
 // the button, whatever plate it is drawn on.
-import { Align } from "$ltml"
+import { Align, Key, Layer, Point } from "$ltml"
 import Test from "$test"
-import { PushButton } from "@/pushButton"
+import { Move } from "$test"
+import root Ordaen from "Ordaen"
+import { ButtonPlate, PushButton } from "@/pushButton"
 
 class Buttons {
   public render(self): Template {
     return $ltml {
       <box rows={["max-content", "max-content", "max-content", "max-content"]} gap={8ui} xAlign={Align.Start}>
         <PushButton label={"Run the benchmarks"} width={90ui} />
-        <PushButton label={"Выйти из игры"} width={60ui} accent={true} />
+        <PushButton label={"Выйти из игры"} width={60ui} plate={ButtonPlate.Accent} />
         <PushButton label={"Перезагрузить интерфейс"} width={40ui} disabled={true} />
         <PushButton label={"OK"} width={120ui} />
       </box>
@@ -56,4 +58,33 @@ test "every push button's label stands inside its caps, a long one widening the 
   Test.expect((ok.right - ok.left - 120).abs() < 1)
   destroy page
   Test.expect(Test.blank())
+}
+
+class Asking {
+  public pressed = 0
+
+  onPress(mut self) { self.pressed += 1 }
+
+  public render(self): Template {
+    return $ltml {
+      <surface layer={Layer.Dialog} place={{ point: Point.TopLeft, x: 100ui, y: 50ui }} width={300ui} padding={10ui}>
+        <PushButton label={"Remove friend"} width={140.625dp} plate={ButtonPlate.Danger} @click={self.onPress} />
+      </surface>
+    }
+  }
+}
+
+test "a danger button is the red plate, and Enter never presses it: Space and the mouse do" {
+  let page = new Asking()
+  Test.mount(page, { left: 0, top: 0, width: 600, height: 300 })
+  Test.expect(Test.page().button("Remove friend").paintedWith(Ordaen.art.ctl.buttonAccent))
+  // The mouse presses it; the surface is the active one then, and Tab focuses it.
+  Test.page().button("Remove friend").click()
+  Test.key(Move.Next)
+  Test.expect(page.pressed == 1 && Test.focused().contains("«Remove friend»"))
+  Test.key(Key.Enter)
+  Test.expect(page.pressed == 1)
+  Test.key(Key.Space)
+  Test.expect(page.pressed == 2)
+  destroy page
 }

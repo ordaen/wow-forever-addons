@@ -7,7 +7,7 @@ import Events from "$events"
 import Game from "$game"
 import { Action, Align, Edges, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { SECONDARY_TEXT } from "Ordaen"
+import { ButtonPlate, SECONDARY_TEXT } from "Ordaen"
 import { ARTWORK, Choice, Component, Dialog, TextField, Menu, MenuEntry, Placing, PushButton, space, Tip, TipRow, Toolbar,
   KeptWindow, ModuleMemory, TipText, ToolPick, Window, WindowSide, WindowTabSpec } from "Ordaen"
 import { Card } from "@/card"
@@ -164,7 +164,7 @@ public class AddOnsWindow implements Component {
           <text value={self.waitText} textColor={Style.GOLD} textSize={SECONDARY_TEXT} wrap={false} />
           <Tip $if={self.waitTip} title={self.waitText} text={""} rows={self.waitRows} />
         </box>
-        <PushButton label={Locale.RELOAD} width={187.5dp} accent={true} disabled={self.fighting} action={RELOAD}
+        <PushButton label={Locale.RELOAD} width={187.5dp} plate={ButtonPlate.Accent} disabled={self.fighting} action={RELOAD}
                     tip={self.reloadTip} />
       </box>
     </box>

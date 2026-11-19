@@ -1,5 +1,7 @@
 // Ordaen Quests: the player's quests in Ordaen's window, in four tabs (World, Dungeons, Raids, PvP), the list by the
 // client's headers on the left and the picked quest's page beside it; and the tracked quests' places on Ordaen Map.
+// The window has a list window's shape: over the list the toolbar (the search, the switch of in progress, completed or
+// all, then the filter, the sort and the view), and in the footer the count against the log's cap.
 // What the player has is the client's quest log; who gives a quest, who takes it and where its objectives are is
 // QuestieDB's.
 //
@@ -9,9 +11,13 @@
 import Client from "$client"
 import Events from "$events"
 import Game from "$game"
+import { Align, Edges, Track } from "$ltml"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
-import { Dialog, KeptWindow, Module, PushButton, Settings, SettingsPage, Window, WindowSide, WindowTabSpec, WindowsPage, windowsTitle } from "Ordaen"
+import {
+  ARTWORK, ButtonPlate, Choice, Dialog, FilterButton, FilterGroup, KeptWindow, Module, PushButton, SECONDARY_TEXT, Segmented, Settings,
+  SettingsPage, ToolPick, Toolbar, Window, WindowSide, WindowTabSpec, WindowsPage, space, switched, windowsTitle
+} from "Ordaen"
 import root Maps from "OrdaenMap"
 import { ClientQuestLog, LogQuest, QuestLog, QuestText } from "@/book"
 import { TakenClick } from "@/button"
@@ -20,7 +26,7 @@ import { KINDS, QuestKind } from "@/kind"
 import { PinKind, QuestPins } from "@/layers"
 import { QuestList } from "@/list"
 import Locale from "@/locales"
-import { countOf } from "@/model"
+import { Asked, QuestFilter, QuestSort, QuestStatus, QuestView, countOf, listedOf } from "@/model"
 import { QuestFacts } from "@/questie"
 import { Choices, GeneralPage } from "@/settings"
 import Style from "@/style"
@@ -31,14 +37,64 @@ const TOGGLE = "OrdaenQuestsToggle"
 // The game's binding of the quest log.
 const QUEST_LOG_BINDING = "TOGGLEQUESTLOG"
 const NO_TEXT: QuestText = { story: "", task: "", experience: 0, money: 0 }
+const DIM: Color = Color.hex("#a3977f")
+const RED: Color = Color.hex("#ff4040")
+// The toolbar over the list, and the list.
+const BODY: Array<Track> = ["max-content", { fr: 1 }]
+const FOOT: Array<Track> = [{ fr: 1 }, "max-content"]
+// The status switch stands an item's step after the search.
+const AFTER_SEARCH: Edges = { left: space(.Item) }
 
-// A tab's title by its kind.
+const STATUSES: Array<Choice<QuestStatus>> = [
+  { value: QuestStatus.Progress, label: Locale.STATUS_PROGRESS },
+  { value: QuestStatus.Done, label: Locale.STATUS_DONE },
+  { value: QuestStatus.All, label: Locale.STATUS_ALL }
+]
+const FILTERS: Array<FilterGroup<QuestFilter>> = [
+  { options: [{ key: QuestFilter.Tracked, label: Locale.FILTER_TRACKED }] },
+  {
+    label: Locale.FILTER_DIFFICULTY,
+    options: [
+      { key: QuestFilter.Trivial, label: Locale.FILTER_GREY }, { key: QuestFilter.Easy, label: Locale.FILTER_GREEN },
+      { key: QuestFilter.Even, label: Locale.FILTER_YELLOW }, { key: QuestFilter.Hard, label: Locale.FILTER_ORANGE },
+      { key: QuestFilter.Impossible, label: Locale.FILTER_RED }
+    ]
+  },
+  {
+    label: Locale.FILTER_PARTY,
+    options: [{ key: QuestFilter.Solo, label: Locale.FILTER_SOLO }, { key: QuestFilter.Group, label: Locale.FILTER_GROUP }]
+  }
+]
+// The filter as the window starts: every quest shown, tracked or not.
+const FILTER_START: Map<QuestFilter, Boolean> = switched({}, [
+  QuestFilter.Trivial, QuestFilter.Easy, QuestFilter.Even, QuestFilter.Hard, QuestFilter.Impossible, QuestFilter.Solo,
+  QuestFilter.Group
+], true)
+const SORTS: Array<Choice<QuestSort>> = [
+  { value: QuestSort.Log, label: Locale.SORT_LOG },
+  { value: QuestSort.Level, label: Locale.SORT_LEVEL },
+  { value: QuestSort.Title, label: Locale.SORT_TITLE }
+]
+const VIEWS: Array<Choice<QuestView>> = [
+  { value: QuestView.Zones, label: Locale.VIEW_ZONES, icon: ARTWORK.ctl.tool.categories },
+  { value: QuestView.List, label: Locale.VIEW_LIST, icon: ARTWORK.ctl.tool.list }
+]
+
+// A tab's title and its icon (the client's own) by its kind.
 function tabTitle(kind: QuestKind): String {
   return match (kind) {
     .World => Locale.TAB_WORLD
     .Dungeon => Locale.TAB_DUNGEONS
     .Raid => Locale.TAB_RAIDS
     .PvP => Locale.TAB_PVP
+  }
+}
+function tabIcon(kind: QuestKind): Asset {
+  return match (kind) {
+    .World => "Interface/Icons/INV_Misc_Map_01"
+    .Dungeon => "Interface/Icons/INV_Misc_Bone_HumanSkull_01"
+    .Raid => "Interface/Icons/INV_Misc_Head_Dragon_01"
+    .PvP => "Interface/Icons/Ability_DualWield"
   }
 }
 
@@ -51,6 +107,15 @@ public class Quests implements Module, App {
     { title: windowsTitle(), content: $ltml { <WindowsPage windows={mut self.windows} /> } }
   ]
   public settings: mut Settings<Choices> = new Settings<Choices>({ ownKey: true })
+  // The window's footer: QuestieDB's absence where it can't be read, and the count against the log's cap (red when
+  // full), dimmed.
+  const footer: Template = $ltml {
+    <box columns={FOOT} gap={space(.Group)} yAlign={Align.Center}>
+      <text $if={!self.known} value={Locale.NO_QUESTIE} textColor={RED} textSize={SECONDARY_TEXT} />
+      <box $else />
+      <text value={self.counted} textColor={self.countColor} textSize={SECONDARY_TEXT} wrap={false} />
+    </box>
+  }
 
   // The client's log, and QuestieDB: a test gives its own.
   public log: mut any QuestLog = new ClientQuestLog()
@@ -69,6 +134,12 @@ public class Quests implements Module, App {
   state abandoning = 0
   // The headers the player folded, by their text.
   state folded: mut Map<String, Boolean> = {}
+  // The toolbar: what is sought, the status switch, the filter, the order and the view.
+  public state search = ""
+  public state status: QuestStatus = .All
+  public state filter: Map<QuestFilter, Boolean> = FILTER_START
+  public state sort: QuestSort = .Log
+  public state view: QuestView = .Zones
 
   // Docked on the map (Ordaen Map's switch): the game's log key and button are the game's.
   derived docked: Boolean = Maps?.docked == true
@@ -76,8 +147,14 @@ public class Quests implements Module, App {
   // The log is read while something shows it: the window, or Map's pins.
   derived reading: Boolean = self.open || Maps != nil
   derived kind: QuestKind = KINDS[self.tab] ?? .World
-  derived tabs: Array<WindowTabSpec> = KINDS.map(kind => { title: tabTitle(kind), desc: String.of(countOf(self.quests, kind)) })
+  derived tabs: Array<WindowTabSpec> = KINDS.map(kind => { title: tabTitle(kind), desc: String.of(countOf(self.quests, kind)), icon: tabIcon(kind) })
   derived count: Integer = self.quests.length
+  derived counted: String = Locale.COUNT.format(self.count, self.most)
+  derived countColor: Color = self.count >= self.most ? RED : DIM
+  derived known: Boolean = self.data.fault() == nil
+  derived asked: Asked = { sought: self.search.lower(), status: self.status, filter: self.filter, player: self.level }
+  derived listed: Array<LogQuest> = listedOf(self.quests, self.asked, self.sort)
+  derived kindHas: Boolean = countOf(self.quests, self.kind) > 0
   derived pickedQuest: LogQuest | nil = self.quests.find(quest => quest.id == self.picked)
   derived pickedFacts: QuestFacts | nil = self.facts[self.picked]
   derived side: WindowSide | nil = self.pageOf(self.pickedQuest)
@@ -202,14 +279,23 @@ public class Quests implements Module, App {
   public render(self): Template {
     return $ltml {
       <Window $if={self.open} tabs={self.tabs} selected={mut self.tab} declared={mut self.window} withSettings={true}
-              side={self.side} @close={self.onClose} @settings={self.onSettings}>
-        <QuestList quests={self.quests} kind={self.kind} zone={self.zone} count={self.count} most={self.most}
-                   picked={self.picked} folded={self.folded} player={self.level} known={self.data.fault() == nil}
-                   @act={self.onAct} @fold={self.onFold} />
+              side={self.side} footer={self.footer} @close={self.onClose} @settings={self.onSettings}>
+        <box rows={BODY} gap={space(.Item)}>
+          <Toolbar search={mut self.search} placeholder={Locale.SEARCH}>
+            <box padding={AFTER_SEARCH}>
+              <Segmented value={mut self.status} choices={STATUSES} />
+            </box>
+            <FilterButton values={mut self.filter} start={FILTER_START} groups={FILTERS} />
+            <ToolPick value={mut self.sort} choices={SORTS} icon={ARTWORK.ctl.tool.sort} title={Locale.SORT} />
+            <ToolPick value={mut self.view} choices={VIEWS} icon={ARTWORK.ctl.tool.categories} title={Locale.VIEW} />
+          </Toolbar>
+          <QuestList quests={self.listed} kind={self.kind} view={self.view} zone={self.zone} picked={self.picked}
+                     folded={self.folded} player={self.level} any={self.kindHas} @act={self.onAct} @fold={self.onFold} />
+        </box>
       </Window>
       <Dialog $if={self.abandoning != 0} width={Style.ASK} title={Locale.ABANDON}>
         <text value={self.abandonText} wrap={true} />
-        <PushButton #buttons label={Locale.ABANDON} width={Style.ASK_BUTTON} accent={true} @click={self.onAbandonYes} />
+        <PushButton #buttons label={Locale.ABANDON} width={Style.ASK_BUTTON} plate={ButtonPlate.Danger} @click={self.onAbandonYes} />
         <PushButton #buttons label={Locale.CANCEL} width={Style.ASK_BUTTON} @click={self.onAbandonNo} />
       </Dialog>
     }

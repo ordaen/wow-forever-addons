@@ -6,6 +6,7 @@ import Client from "$client"
 import Events from "$events"
 import Game from "$game"
 import Test from "$test"
+import root Ordaen from "Ordaen"
 import root Quests from "OrdaenQuests"
 import { LogQuest, QuestLog, QuestText } from "@/book"
 import { QuestData } from "@/data"
@@ -201,4 +202,133 @@ test "its layers stand on Ordaen Map's settings page while Map is on" {
   Test.page().window("Ordaen").text("Map").click()
   Test.expect(Test.page().text("Quest objectives").shown())
   Test.expect(Test.page().text("Turn in").shown())
+}
+
+// The quests of the world's tab, in the order their titles stand in the window.
+function before(first: String, second: String): Boolean {
+  const texts = Test.page().window("World").texts()
+  let at = 0
+  let then = 0
+  for (index, text of texts) {
+    if (text == first && at == 0) { at = index }
+    if (text == second && then == 0) { then = index }
+  }
+  return at > 0 && then > at
+}
+
+// The window's filter menu, opened from its funnel.
+function filter(): Test.Part {
+  if (!Test.page().window("Tracked only").shown()) { Test.page().window("World").button(Ordaen.art.ctl.tool.filter).click() }
+  return Test.page().window("Tracked only")
+}
+
+test "a quest's objectives stand under its title, one a line; its row's right says only «Complete» or «Failed»" {
+  const log = new TestLog()
+  log.list[3] = { objectives: [{ text: "Wolves slain: 5/10", done: false }, { text: "Pelts: 4/4", done: true }], ..quest(103, "Elwynn Wolves", "Elwynn Forest", .World) }
+  log.list[1] = { done: true, ..quest(101, "The Defias Brotherhood", "Westfall", .World) }
+  opened(mut log, new TestData())
+  const window = Test.page().window("World")
+  Test.expect(window.text("Pelts: 4/4").shown() && window.text("Wolves slain: 5/10").count() == 2)
+  Test.expect(before("Elwynn Wolves", "Wolves slain: 5/10") && before("Wolves slain: 5/10", "Pelts: 4/4"))
+  Test.expect(window.text("Complete").count() == 1)
+  Test.shot("the world's tab: a quest's objectives under its title, the done one grey; the count in the footer")
+}
+
+test "the switch beside the search shows the quests in progress, the completed ones, or all" {
+  const log = new TestLog()
+  log.list[3] = { done: true, ..quest(103, "Elwynn Wolves", "Elwynn Forest", .World) }
+  opened(mut log, new TestData())
+  const window = Test.page().window("World")
+  window.button("Completed").click()
+  Test.expect(window.text("Elwynn Wolves").shown() && !window.text("The Defias Brotherhood").shown())
+  window.button("In progress").click()
+  Test.expect(!window.text("Elwynn Wolves").shown() && window.text("The Defias Brotherhood").shown())
+  window.button("All").click()
+  Test.expect(window.text("Elwynn Wolves").shown() && window.text("The Defias Brotherhood").shown())
+}
+
+test "the search finds a quest by its title or an objective" {
+  const log = new TestLog()
+  log.list[1] = { objectives: [{ text: "Talk to Gryan Stoutmantle", done: false }], ..quest(101, "The Defias Brotherhood", "Westfall", .World) }
+  opened(mut log, new TestData())
+  const window = Test.page().window("World")
+  window.input().click()
+  Test.type("gryan")
+  Test.flush()
+  Test.expect(window.text("The Defias Brotherhood").shown() && !window.text("Elwynn Wolves").shown())
+  Test.erase(5)
+  Test.type("ELWYNN")
+  Test.flush()
+  Test.expect(!window.text("The Defias Brotherhood").shown() && window.text("Elwynn Wolves").shown())
+}
+
+test "the filter keeps the tracked quests alone, or the difficulties switched on; a tab it empties says so" {
+  const log = new TestLog()
+  log.list[3] = { tracked: true, ..quest(103, "Elwynn Wolves", "Elwynn Forest", .World) }
+  opened(mut log, new TestData())
+  const window = Test.page().window("World")
+  filter().button("Tracked only").click()
+  Test.expect(window.text("Elwynn Wolves").shown() && !window.text("The Defias Brotherhood").shown())
+  filter().button("Tracked only").click()
+  // The quests are of the player's level: yellow. The group turns every colour off, and the list says why it's empty.
+  Game.player.level = 14
+  filter().button("Difficulty").click()
+  Test.expect(!window.text("Elwynn Wolves").shown() && window.text("No quest fits the search and the filter.").shown())
+  filter().button("Yellow").click()
+  Test.expect(window.text("Elwynn Wolves").shown())
+  filter().button("Reset").click()
+  Test.expect(window.text("The Defias Brotherhood").shown() && window.text("Elwynn Wolves").shown())
+}
+
+test "a group quest passes the filter by «Group», one played alone by «Solo»" {
+  const log = new TestLog()
+  log.list[1] = { group: 3, ..quest(101, "The Defias Brotherhood", "Westfall", .World) }
+  opened(mut log, new TestData())
+  const window = Test.page().window("World")
+  filter().button("Group").click()
+  Test.expect(!window.text("The Defias Brotherhood").shown() && window.text("Elwynn Wolves").shown())
+  filter().button("Group").click()
+  filter().button("Solo").click()
+  Test.expect(window.text("The Defias Brotherhood").shown() && !window.text("Elwynn Wolves").shown())
+}
+
+test "one list leaves the headers out; by title orders it" {
+  opened(new TestLog(), new TestData())
+  const window = Test.page().window("World")
+  window.button(Ordaen.art.ctl.tool.categories).click()
+  Test.page().window("By zone").button("One list").click()
+  Test.expect(!window.text("Westfall").shown() && !window.text("you are here").shown())
+  Test.expect(before("The Defias Brotherhood", "Elwynn Wolves"))
+  window.button(Ordaen.art.ctl.tool.sort).click()
+  Test.page().window("As in the log").button("By title").click()
+  Test.expect(before("Elwynn Wolves", "The Defias Brotherhood"))
+}
+
+test "the count stands in the footer, dim, and red once the log is full" {
+  const log = new TestLog()
+  opened(mut log, new TestData())
+  const counted = Test.page().window("World").text("Quests: 3/25")
+  Test.expect(counted.textColor().equal(Color.hex("#a3977f")))
+  // A list of its own: the log gives the window another list as it changes.
+  const full: Array<LogQuest> = log.list.map(kept => kept)
+  for (id of 1..22) { full.push(quest(200 + id, `Quest ${id}`, "Westfall", .World)) }
+  log.list = full
+  Quests.refresh()
+  Test.expect(Test.page().window("World").text("Quests: 25/25").textColor().equal(Color.hex("#ff4040")))
+}
+
+test "each tab has its icon, the client's own" {
+  opened(new TestLog(), new TestData())
+  const window = Test.page().window("World")
+  Test.expect(window.button("World").paintedWith("Interface/Icons/INV_Misc_Map_01"))
+  Test.expect(window.button("Dungeons").paintedWith("Interface/Icons/INV_Misc_Bone_HumanSkull_01"))
+  Test.expect(window.button("Raids").paintedWith("Interface/Icons/INV_Misc_Head_Dragon_01"))
+  Test.expect(window.button("PvP").paintedWith("Interface/Icons/Ability_DualWield"))
+}
+
+test "«Abandon quest» in the question is the danger plate" {
+  opened(new TestLog(), new TestData())
+  Test.page().window("World").text("The Defias Brotherhood").click()
+  Test.page().window("World").button("Abandon quest").click()
+  Test.expect(Test.page().window("Abandon «The Defias Brotherhood»?").button("Abandon quest").paintedWith(Ordaen.art.ctl.buttonAccent))
 }

@@ -16,7 +16,7 @@ import { ListTab } from "@/listTab"
 import { Menu, MenuEntry } from "@/menu"
 import { Entry, SettingsPage } from "@/module"
 import { ModuleRow } from "@/moduleRow"
-import { PushButton } from "@/pushButton"
+import { ButtonPlate, PushButton } from "@/pushButton"
 import { Segmented } from "@/segmented"
 import { Switch } from "@/switch"
 import { Column, Table, TableRow, tracksOf } from "@/table"
@@ -231,11 +231,11 @@ test "a window's tab without a picture keeps its box open or closed" {
 }
 
 class Buttons {
-  state accent = false
+  state plate: ButtonPlate = .Bronze
   state disabled = false
 
   public render(self): Template {
-    return $ltml { <PushButton label={"Make"} width={140.625dp} accent={self.accent} disabled={self.disabled} /> }
+    return $ltml { <PushButton label={"Make"} width={140.625dp} plate={self.plate} disabled={self.disabled} /> }
   }
 }
 
@@ -243,7 +243,7 @@ test "a push button keeps its box disabled or accented" {
   let page = new Buttons()
   Test.mount(page, PAGE)
   holdsItsBox(Test.holding("Make", nil), [
-    () => { page.disabled = true }, () => { page.accent = true }, () => { page.disabled = false }
+    () => { page.disabled = true }, () => { page.plate = .Accent }, () => { page.disabled = false }
   ])
   destroy page
 }

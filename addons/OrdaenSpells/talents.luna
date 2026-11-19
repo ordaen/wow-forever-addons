@@ -5,7 +5,7 @@
 // client's to say (`canSpend`, `canRefund`); the page only asks.
 import Game from "$game"
 import { Align, Event, MouseButton, Position, Track } from "$ltml"
-import { Component, PushButton, SECONDARY_TEXT } from "Ordaen"
+import { ButtonPlate, Component, PushButton, SECONDARY_TEXT } from "Ordaen"
 import Locale from "@/locales"
 import Style from "@/style"
 
@@ -218,7 +218,7 @@ public class TalentsPage implements Component {
           </box>
           <text value={self.points} textColor={Style.INK} wrap={false} />
           <box xAlign={Align.End}>
-            <PushButton $if={self.waiting} label={Locale.APPLY_CHANGES} width={222.65625dp} accent={true} @click={self.onApply} />
+            <PushButton $if={self.waiting} label={Locale.APPLY_CHANGES} width={222.65625dp} plate={ButtonPlate.Accent} @click={self.onApply} />
           </box>
         </box>
       </box>

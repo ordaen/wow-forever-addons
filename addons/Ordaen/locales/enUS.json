@@ -255,5 +255,8 @@
   "VISIBLE_HOVER": "On mouseover",
   "VISIBLE_HIDE": "Hide",
   "VISIBLE_OPACITY": "Opacity",
-  "VISIBLE_OPACITY_TIP": "How visible it is while hidden. On mouseover it shows in full under the cursor."
+  "VISIBLE_OPACITY_TIP": "How visible it is while hidden. On mouseover it shows in full under the cursor.",
+  "FILTER": "Filter",
+  "FILTER_NONE": "Nothing switched on",
+  "FILTER_RESET": "Reset"
 }

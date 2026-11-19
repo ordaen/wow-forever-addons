@@ -5,7 +5,7 @@
 // a click (the client's from a click alone). «My auctions» opens their window.
 import Game from "$game"
 import { Align, Track } from "$ltml"
-import { Choice, Column, Component, Copper, CountInput, ItemButton, ItemId, ModuleMemory, Money, MoneyField, PushButton, SECONDARY_TEXT, Segmented, Table, TableRow, space, tracksOf } from "Ordaen"
+import { ButtonPlate, Choice, Column, Component, Copper, CountInput, ItemButton, ItemId, ModuleMemory, Money, MoneyField, PushButton, SECONDARY_TEXT, Segmented, Table, TableRow, space, tracksOf } from "Ordaen"
 import { PriceHistory } from "@/history"
 import { House, nameOf } from "@/house"
 import { ItemPanel } from "@/itemPanel"
@@ -280,7 +280,7 @@ public class Posting implements Component {
           <box>
             <text $if={self.hasRefused} value={self.refusedText} textColor={Style.RED} textSize={SECONDARY_TEXT} />
           </box>
-          <PushButton label={Locale.POST} width={Style.PANEL_BUTTON} accent={true} disabled={!self.canPost}
+          <PushButton label={Locale.POST} width={Style.PANEL_BUTTON} plate={ButtonPlate.Accent} disabled={!self.canPost}
                       @click={self.onPost} />
         </box>
       </ItemPanel>

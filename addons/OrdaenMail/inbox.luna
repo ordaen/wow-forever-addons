@@ -4,7 +4,7 @@
 import Game from "$game"
 import { Align, Art, Overflow, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { ARTWORK, Choice, Column, Component, ItemButton, ModuleMemory, Money, PushButton, SECONDARY_TEXT, TITLE_TEXT, Table, TableRow, Tick, ToolPick, Toolbar, tracksOf } from "Ordaen"
+import { ARTWORK, ButtonPlate, Choice, Column, Component, ItemButton, ModuleMemory, Money, PushButton, SECONDARY_TEXT, TITLE_TEXT, Table, TableRow, Tick, ToolPick, Toolbar, tracksOf } from "Ordaen"
 import { Filter, URGENT_DAYS, collectable, matches } from "@/letters"
 import Locale from "@/locales"
 import Style from "@/style"
@@ -230,7 +230,7 @@ public class LetterView implements Component {
           <box>
             <PushButton label={Locale.RETURN} width={140.625dp} disabled={!self.canAct} @click={self.onGiveBack} />
           </box>
-          <PushButton $if={!self.empty} label={self.takeLabel} width={199.21875dp} accent={true} disabled={!self.canAct}
+          <PushButton $if={!self.empty} label={self.takeLabel} width={199.21875dp} plate={ButtonPlate.Accent} disabled={!self.canAct}
                       @click={self.onCollect} />
           <PushButton $else label={Locale.DELETE} width={140.625dp} disabled={!self.canAct} />
         </box>
@@ -409,7 +409,7 @@ public class Inbox implements Component {
               <PushButton $if={self.hasTicked} label={self.tickedLabel} width={199.21875dp} disabled={!self.canAct}
                           @click={self.onCollectTicked} />
             </box>
-            <PushButton label={self.collectLabel} width={234.375dp} accent={true} disabled={self.nothingToCollect}
+            <PushButton label={self.collectLabel} width={234.375dp} plate={ButtonPlate.Accent} disabled={self.nothingToCollect}
                         @click={self.onCollectAll} />
           </box>
         </box>

@@ -430,7 +430,7 @@ test "the filter's «Learned» and «Not learned» each take theirs away" {
   Test.expect(window().text("Woolen Cape").count() == 2 && chosen() == "Woolen Cape")
 }
 
-test "an option of the filter is ticked while it is on; «Reset» turns every one back, and only then can be clicked" {
+test "an option of the filter has its switch on while it is on; «Reset» turns every one back, and only then can be clicked" {
   Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
   Game.professions.list = professions()
   Game.tradeSkill.categories = categories()
@@ -438,17 +438,17 @@ test "an option of the filter is ticked while it is on; «Reset» turns every on
   Test.mount(nil, SCREEN)
   Game.tradeSkill.open = TAILORING
   view("One list")
-  Test.expect(filter().button("Learned").paintedWith(Ordaen.art.ctl.tick) && !filter().button("Can make").paintedWith(Ordaen.art.ctl.tick))
+  Test.expect(filter().button("Learned").paintedWith(Ordaen.art.ctl.switchOn) && !filter().button("Can make").paintedWith(Ordaen.art.ctl.switchOn))
   Test.expect(filter().button("Reset").paintedWith(Ordaen.art.ctl.buttonDisabled))
   filter().button("Can make").click()
   filter().button("Raises the skill").click()
   filter().button("Learned").click()
-  Test.expect(filter().button("Can make").paintedWith(Ordaen.art.ctl.tick) && !filter().button("Learned").paintedWith(Ordaen.art.ctl.tick))
+  Test.expect(filter().button("Can make").paintedWith(Ordaen.art.ctl.switchOn) && !filter().button("Learned").paintedWith(Ordaen.art.ctl.switchOn))
   Test.expect(!filter().button("Reset").paintedWith(Ordaen.art.ctl.buttonDisabled))
   filter().button("Reset").click()
   Test.expect(lists("Linen Cloak, Woolen Bag, Brown Linen Vest, Linen Bag, Woolen Cape"))
-  Test.expect(filter().button("Learned").paintedWith(Ordaen.art.ctl.tick) && filter().button("Not learned").paintedWith(Ordaen.art.ctl.tick))
-  Test.expect(!filter().button("Can make").paintedWith(Ordaen.art.ctl.tick) && !filter().button("Raises the skill").paintedWith(Ordaen.art.ctl.tick))
+  Test.expect(filter().button("Learned").paintedWith(Ordaen.art.ctl.switchOn) && filter().button("Not learned").paintedWith(Ordaen.art.ctl.switchOn))
+  Test.expect(!filter().button("Can make").paintedWith(Ordaen.art.ctl.switchOn) && !filter().button("Raises the skill").paintedWith(Ordaen.art.ctl.switchOn))
 }
 
 test "a click anywhere but the filter's menu closes it" {
@@ -463,7 +463,7 @@ test "a click anywhere but the filter's menu closes it" {
   Test.expect(!Test.page().window("Raises the skill").shown())
 }
 
-test "the funnel's tip names the options ticked, or that none is" {
+test "the funnel's tip names the options on, or that none is" {
   Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
   Game.professions.list = professions()
   Game.tradeSkill.categories = categories()
@@ -483,7 +483,7 @@ test "the funnel's tip names the options ticked, or that none is" {
   filter().button("Not learned").click()
   window().button("Recipes").click()
   window().button(Ordaen.art.ctl.tool.filter).hover()
-  Test.expect(reads(Test.page().window("Filter"), "Filter | Nothing ticked"))
+  Test.expect(reads(Test.page().window("Filter"), "Filter | Nothing switched on"))
 }
 
 test "the funnel is lit while a filter is on" {

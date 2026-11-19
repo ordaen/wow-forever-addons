@@ -8,7 +8,7 @@ import Locale from "@/locales"
 import Looks from "@/look"
 import { Animation, BarFrame, BarTexture, Font, Hue, Look, PRESETS, Preset, presetOf } from "@/look"
 import { Component } from "@/module"
-import { PushButton } from "@/pushButton"
+import { ButtonPlate, PushButton } from "@/pushButton"
 import { Section } from "@/section"
 import { Settings } from "@/settings"
 import { SECONDARY_TEXT } from "@/units"
@@ -96,7 +96,7 @@ public class PresetRow implements Component {
           <text value={self.about} textColor={DIM} textSize={SECONDARY_TEXT} />
         </box>
         <text $if={self.inUse} value={Locale.THEMES_IN_USE} textColor={IN_USE} textSize={SECONDARY_TEXT} wrap={false} />
-        <PushButton $else label={Locale.THEMES_USE} width={175.78125dp} accent={true} @click={self.use} />
+        <PushButton $else label={Locale.THEMES_USE} width={175.78125dp} plate={ButtonPlate.Accent} @click={self.use} />
       </box>
     }
   }

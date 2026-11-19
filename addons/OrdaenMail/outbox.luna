@@ -3,7 +3,7 @@
 // cannot send yet (`canWrite`).
 import { Align, Overflow, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { Choice, Component, ModuleMemory, Money, PushButton, ToolPick, Toolbar } from "Ordaen"
+import { ButtonPlate, Choice, Component, ModuleMemory, Money, PushButton, ToolPick, Toolbar } from "Ordaen"
 import { Sent, SentState } from "@/letters"
 import Locale from "@/locales"
 import Style from "@/style"
@@ -119,7 +119,7 @@ public class Outbox implements Component {
             <ToolPick value={mut self.list.values.filter} choices={FILTERS} icon={Ordaen.art.ctl.tool.filter}
                       title={Locale.FILTER} lit={self.narrowed} />
           </Toolbar>
-          <PushButton label={Locale.WRITE} width={175.78125dp} accent={true} disabled={!self.canWrite} />
+          <PushButton label={Locale.WRITE} width={175.78125dp} plate={ButtonPlate.Accent} disabled={!self.canWrite} />
         </box>
         <box $if={self.empty} xAlign={Align.Center} yAlign={Align.Center}>
           <text value={Locale.NOTHING_SENT} textColor={Style.DIM} />
@@ -129,7 +129,7 @@ public class Outbox implements Component {
         </box>
         <box $if={self.hasWaiting} columns={FOOT} gap={9.375dp} yAlign={Align.Center}>
           <text value={self.postage} textColor={Style.DIM} />
-          <PushButton label={Locale.CONTINUE} width={199.21875dp} accent={true} disabled={true} />
+          <PushButton label={Locale.CONTINUE} width={199.21875dp} plate={ButtonPlate.Accent} disabled={true} />
         </box>
       </box>
     }

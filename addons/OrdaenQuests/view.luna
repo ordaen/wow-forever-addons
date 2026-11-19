@@ -1,11 +1,12 @@
 // The quest log's parts: a header of the list (it folds), a quest's row, and the picked quest's page.
 //
 // A row as the client's log has it: the tracking box, the level in its difficulty colour, the title, an elite quest's
-// «Группа: 3», and at the right its progress or «Готово». Left-click picks it (its page shows beside the list);
+// «Группа: 3», at the right «Готово» or «Провалено», and under the title its objectives, one a line, grey once done.
+// Left-click picks it (its page shows beside the list);
 // Shift+Left-click and its box track it or stop tracking it; Right-click opens its menu: track, share, abandon.
 import { Align, Art, ByInteractionState, Edges, Position } from "$ltml"
 import root Ordaen from "Ordaen"
-import { Component, Menu, MenuEntry, Money, PushButton, SECONDARY_TEXT, TITLE_TEXT, space } from "Ordaen"
+import { ButtonPlate, Component, Menu, MenuEntry, Money, PushButton, SECONDARY_TEXT, TITLE_TEXT, space } from "Ordaen"
 import { LogQuest, Objective, QuestText } from "@/book"
 import Locale from "@/locales"
 import { colorOf, difficultyOf } from "@/model"
@@ -19,21 +20,21 @@ const WHITE: Color = Color.hex("#ffffff")
 const GOLD: Color = Color.hex("#ffd100")
 const DIM: Color = Color.hex("#a3977f")
 const GREEN: Color = Color.hex("#40c040")
+const GREY: Color = Color.hex("#808080")
 const RED: Color = Color.hex("#ff4040")
 const CLEAR: Color = Color.hex("#00000000")
 const SHADE: ByInteractionState<Color> = { default: CLEAR, hover: Color.hex("#00000059"), focus: Color.hex("#00000059") }
 const PICKED: Color = Color.hex("#ffd1001f")
-const ROW_PAD: Edges = { top: 3.515625dp, right: space(.Line), bottom: 3.515625dp, left: space(.Panel) }
+const ROW_PAD: Edges = { top: space(.Line), right: space(.Line), bottom: space(.Line), left: space(.Panel) }
 const BOX = 14.0625dp
 // The fold mark's cell, as a tree's row has it.
 const MARK = 18.75dp
 
-// A text a quest's row ends with: its progress, «Готово», or «Провалено».
-function progressOf(quest: LogQuest): String {
+// A text a quest's row ends with: «Готово», «Провалено», or none while it is in progress (its objectives say how far).
+function stateOf(quest: LogQuest): String {
   if (quest.failed) { return Locale.FAILED }
   if (quest.done) { return Locale.DONE }
-  const left = quest.objectives.find(objective => !objective.done)
-  return left?.text ?? ""
+  return ""
 }
 
 // The header of a group: a fold mark and the header's text; «вы здесь» beside the player's zone.
@@ -72,8 +73,8 @@ public class QuestRow implements Component {
   state menuOpen = false
   derived level: String = `[${self.quest.level}${self.quest.group > 1 ? "+" : ""}]`
   derived levelColor: Color = colorOf(difficultyOf(self.quest.level, self.player))
-  derived progress: String = progressOf(self.quest)
-  derived progressColor: Color = self.quest.failed ? RED : self.quest.done ? GREEN : DIM
+  derived progress: String = stateOf(self.quest)
+  derived progressColor: Color = self.quest.failed ? RED : GREEN
   derived background: Color | ByInteractionState<Color> = self.picked ? PICKED : SHADE
   derived tick: Number = self.quest.tracked ? 1 : 0
   derived group: String = self.quest.group > 1 ? Locale.GROUP.format(self.quest.group) : ""
@@ -109,8 +110,7 @@ public class QuestRow implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={[BOX, "max-content", { fr: 1 }, "max-content", "max-content"]} gap={space(.Line)}
-           yAlign={Align.Center} padding={ROW_PAD} background={self.background}
+      <box columns={[BOX, "max-content", { fr: 1 }]} gap={space(.Line)} padding={ROW_PAD} background={self.background}
            @pointerPress(.Left)={self.onPick} @pointerPress([.Shift, .Left])={self.onTrack}
            @pointerPress(.Right)={self.onMenu} @keyPress(.Enter)={self.onPick} @keyPress(.Space)={self.onTrack}>
         <box width={BOX} height={BOX} background={Ordaen.art.ctl.check} @pointerPress.self={self.onTrack}>
@@ -118,12 +118,31 @@ public class QuestRow implements Component {
                background={Ordaen.art.ctl.tick} opacity={self.tick} />
         </box>
         <text value={self.level} textColor={self.levelColor} textFont={.Numbers} wrap={false} />
-        <text value={self.quest.title} textColor={INK} wrap={false} />
-        <text value={self.group} textColor={DIM} textSize={SECONDARY_TEXT} wrap={false} />
-        <text value={self.progress} textColor={self.progressColor} textSize={SECONDARY_TEXT} wrap={false} />
+        <box columns={1}>
+          <box columns={[{ fr: 1 }, "max-content", "max-content"]} gap={space(.Line)} yAlign={Align.Center}>
+            <text value={self.quest.title} textColor={INK} wrap={false} />
+            <text value={self.group} textColor={DIM} textSize={SECONDARY_TEXT} wrap={false} />
+            <text value={self.progress} textColor={self.progressColor} textSize={SECONDARY_TEXT} wrap={false} />
+          </box>
+          <GoalLine $for={objective of self.quest.objectives} objective={objective} />
+        </box>
         <Menu $if={self.menuOpen} entries={self.entries} title={self.quest.title} @pick={self.onEntry}
               @close={self.onClose} />
       </box>
+    }
+  }
+}
+
+// One objective under a quest's title in the list: dim ink while it is to do, grey once done.
+class GoalLine implements Component {
+  derived color: Color = self.objective.done ? GREY : DIM
+
+  objective: Signal<Objective>
+  constructor(objective: Signal<Objective>) { self.objective = objective }
+
+  public render(self): Template {
+    return $ltml {
+      <text value={self.objective.text} textColor={self.color} textSize={SECONDARY_TEXT} wrap={false} />
     }
   }
 }
@@ -222,7 +241,7 @@ public class QuestPage implements Component {
         </box>
         <box columns={["max-content", "max-content", "max-content"]} gap={space(.Item)}>
           <PushButton label={Locale.SHOW_ON_MAP} width={131.25dp} @click={self.onMap} />
-          <PushButton label={self.trackLabel} width={131.25dp} accent={true} @click={self.onTrack} />
+          <PushButton label={self.trackLabel} width={131.25dp} plate={ButtonPlate.Accent} @click={self.onTrack} />
           <PushButton label={Locale.SHARE} width={131.25dp} disabled={!self.quest.shareable} @click={self.onShare} />
         </box>
         <box columns={["max-content", { fr: 1 }]}>

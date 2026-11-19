@@ -4,7 +4,7 @@
 import Game from "$game"
 import { Align, Overflow, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { Choice, Component, ModuleMemory, Money, PushButton, SECONDARY_TEXT, TITLE_TEXT, ToolPick, Toolbar } from "Ordaen"
+import { ButtonPlate, Choice, Component, ModuleMemory, Money, PushButton, SECONDARY_TEXT, TITLE_TEXT, ToolPick, Toolbar } from "Ordaen"
 import Locale from "@/locales"
 import Style from "@/style"
 
@@ -170,7 +170,7 @@ public class TrainerPage implements Component {
               <box>
                 <Money $if={self.has} amount={self.price} />
               </box>
-              <PushButton label={Locale.LEARN} width={175.78125dp} accent={true} disabled={!self.canLearn} />
+              <PushButton label={Locale.LEARN} width={175.78125dp} plate={ButtonPlate.Accent} disabled={!self.canLearn} />
             </box>
           </box>
         </box>

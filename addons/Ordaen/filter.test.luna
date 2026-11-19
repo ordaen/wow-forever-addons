@@ -1,0 +1,104 @@
+// A list window's filter: its options are switches in rows, a press on the row flips one; a group's own switch turns
+// all of it; the funnel is lit while the filter is off where it starts, its Tip names the options on, and «Reset»
+// brings the start back.
+import Test from "$test"
+import root Ordaen from "Ordaen"
+import { FilterButton, FilterGroup, switched } from "@/filter"
+
+enum Kind { Tracked, Grey, Green, Yellow }
+
+const COLOURS: Array<Kind> = [Kind.Grey, Kind.Green, Kind.Yellow]
+const GROUPS: Array<FilterGroup<Kind>> = [
+  { options: [{ key: Kind.Tracked, label: "Tracked only" }] },
+  {
+    label: "Difficulty",
+    options: [{ key: Kind.Grey, label: "Grey" }, { key: Kind.Green, label: "Green" }, { key: Kind.Yellow, label: "Yellow" }]
+  }
+]
+const GOLD: Color = Color.hex("#f0c860")
+
+class List {
+  public state values: Map<Kind, Boolean> = switched({}, COLOURS, true)
+  const start: Map<Kind, Boolean> = switched({}, COLOURS, true)
+
+  public render(self): Template {
+    return $ltml {
+      <box width={400ui}>
+        <FilterButton values={mut self.values} start={self.start} groups={GROUPS} />
+      </box>
+    }
+  }
+}
+
+function on(list: List, kind: Kind): Boolean {
+  return list.values[kind] == true
+}
+
+// The menu, opened from the funnel where it isn't open.
+function menu(): Test.Part {
+  if (!Test.page().window("Difficulty").shown()) { Test.page().button(Ordaen.art.ctl.tool.filter).click() }
+  return Test.page().window("Difficulty")
+}
+
+// The funnel's Tip, the menu closed.
+function tip(): String {
+  if (Test.page().window("Difficulty").shown()) { Test.click({ x: 590, y: 390 }, nil) }
+  Test.page().button(Ordaen.art.ctl.tool.filter).hover()
+  return Test.page().window("Filter").texts().join(" | ")
+}
+
+test "a press on an option's row flips its switch, and the funnel is lit while the filter is off its start" {
+  let list = new List()
+  Test.mount(list, { left: 0, top: 0, width: 600, height: 400 })
+  Test.expect(!Test.page().button(Ordaen.art.ctl.tool.filter).paintedWith(GOLD))
+  Test.expect(menu().button("Grey").paintedWith(Ordaen.art.ctl.switchOn))
+  Test.expect(menu().button("Tracked only").paintedWith(Ordaen.art.ctl.switchOff))
+  Test.shot("the menu: an option of no group, then the colours under their group's switch, then «Reset» greyed")
+  menu().button("Tracked only").click()
+  Test.expect(on(list, Kind.Tracked) && menu().button("Tracked only").paintedWith(Ordaen.art.ctl.switchOn))
+  Test.click({ x: 590, y: 390 }, nil)
+  Test.expect(!Test.page().window("Difficulty").shown())
+  Test.expect(Test.page().button(Ordaen.art.ctl.tool.filter).paintedWith(GOLD))
+  destroy list
+}
+
+test "a group's switch turns all its options: on where some are off, off where all are on" {
+  let list = new List()
+  Test.mount(list, { left: 0, top: 0, width: 600, height: 400 })
+  menu().button("Green").click()
+  Test.expect(on(list, Kind.Grey) && !on(list, Kind.Green) && on(list, Kind.Yellow))
+  Test.shot("some of the colours on: the group's switch stands halfway")
+  menu().button("Difficulty").click()
+  Test.expect(COLOURS.all(kind => on(list, kind)))
+  menu().button("Difficulty").click()
+  Test.expect(COLOURS.all(kind => !on(list, kind)) && !on(list, Kind.Tracked))
+  Test.expect(menu().button("Difficulty").paintedWith(Ordaen.art.ctl.switchOff))
+  menu().button("Difficulty").click()
+  Test.expect(COLOURS.all(kind => on(list, kind)))
+  destroy list
+}
+
+test "«Reset» brings the start back, and is greyed while the filter is as it starts" {
+  let list = new List()
+  Test.mount(list, { left: 0, top: 0, width: 600, height: 400 })
+  Test.expect(menu().button("Reset").paintedWith(Ordaen.art.ctl.buttonDisabled))
+  menu().button("Tracked only").click()
+  menu().button("Yellow").click()
+  Test.expect(!menu().button("Reset").paintedWith(Ordaen.art.ctl.buttonDisabled))
+  menu().button("Reset").click()
+  Test.expect(!on(list, Kind.Tracked) && COLOURS.all(kind => on(list, kind)))
+  Test.expect(menu().button("Reset").paintedWith(Ordaen.art.ctl.buttonDisabled))
+  destroy list
+}
+
+test "the funnel's Tip names the options on, in the menu's order, or that none is" {
+  let list = new List()
+  Test.mount(list, { left: 0, top: 0, width: 600, height: 400 })
+  Test.expect(tip() == "Filter | Grey, Green, Yellow")
+  menu().button("Tracked only").click()
+  Test.expect(tip() == "Filter | Tracked only, Grey, Green, Yellow")
+  menu().button("Tracked only").click()
+  menu().button("Difficulty").click()
+  Test.expect(tip() == "Filter | Nothing switched on")
+  destroy list
+}

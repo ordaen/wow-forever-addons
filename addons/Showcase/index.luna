@@ -1,5 +1,5 @@
 // A page that uses every control of the library, for the run tests: what a settings page of a real addon does.
-import { Checkbox, Choice, Dialog, Dropdown, Module, NumberInput, PushButton, Section, SettingsPage, SettingsTab, Switch, Tabs, TextBox, TextField, Tick, Tip, Toggle, Unit, space } from "Ordaen"
+import { ButtonPlate, Checkbox, Choice, Dialog, Dropdown, Module, NumberInput, PushButton, Section, SettingsPage, SettingsTab, Switch, Tabs, TextBox, TextField, Tick, Tip, Toggle, Unit, space } from "Ordaen"
 public import { Arranged } from "@/arranged"
 public import { Market, Sale, Worth } from "@/market"
 public import { Tinted } from "@/tinted"
@@ -92,10 +92,10 @@ public class Showcase implements Module {
           <text value={self.summary} />
         </box>
         <PushButton label={"Save"} width={120ui} @click={self.onSave} />
-        <PushButton label={"Reset"} width={120ui} accent={true} disabled={self.saved == 0} @click={self.onReset} />
+        <PushButton label={"Reset"} width={120ui} plate={ButtonPlate.Accent} disabled={self.saved == 0} @click={self.onReset} />
         <Dialog $if={self.asking} width={360ui} title={"Reset"}>
           <text value={"Forget what was saved?"} />
-          <PushButton #buttons label={"Forget"} width={100ui} accent={true} @click={self.onDiscard} />
+          <PushButton #buttons label={"Forget"} width={100ui} plate={ButtonPlate.Accent} @click={self.onDiscard} />
           <PushButton #buttons label={"Keep"} width={100ui} @click={self.onKeep} />
         </Dialog>
         <Tip $if={self.hint} title={"Showcase"} text={self.summary} />

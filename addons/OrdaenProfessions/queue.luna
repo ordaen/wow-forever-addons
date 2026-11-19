@@ -5,7 +5,7 @@
 // starts the next run (the client starts a craft from nothing else), stand in the window's footer.
 import Game from "$game"
 import { Align, Art, Edges, Line, Overflow, Track } from "$ltml"
-import { Component, CountInput, ItemButton, Money, PushButton, SECONDARY_TEXT, space } from "Ordaen"
+import { ButtonPlate, Component, CountInput, ItemButton, Money, PushButton, SECONDARY_TEXT, space } from "Ordaen"
 import type { PriceSource } from "OrdaenAuction"
 import { Way, unitOf } from "@/cost"
 import Locale from "@/locales"
@@ -142,7 +142,7 @@ public class QueueRow implements Component {
                 wrap={false} />
         </box>
         <CountInput value={mut self.count} least={0} most={MOST_COUNT} step={STEP} />
-        <PushButton label={"x"} width={STEP} accent={true} @click={self.onDrop} />
+        <PushButton label={"x"} width={STEP} plate={ButtonPlate.Accent} @click={self.onDrop} />
       </box>
     }
   }
