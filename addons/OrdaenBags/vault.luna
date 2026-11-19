@@ -1,0 +1,56 @@
+// Where a slot is: the character's bags, the bank, or the guild bank. The bags and the bank are the client's
+// containers (`Game.bags` reads and picks up any container by its number: the bank's are its tabs' `ID`s); the guild
+// bank is the guild's tabs, each of `GUILD_SLOTS` slots, read and picked up through the client's own guild bank calls.
+import Client from "$client"
+import Game from "$game"
+
+public enum Vault implements Plain { Bags = "bags", Bank = "bank", Guild = "guild" }
+
+// How many slots a tab of the guild bank has (the game's `MAX_GUILDBANK_SLOTS_PER_TAB`).
+public const GUILD_SLOTS = 98
+
+// What lies in the slot, into `into`; false for an empty slot.
+public function readIn(vault: Vault, bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean {
+  return match (vault) {
+    .Guild => readGuild(bag, slot, mut into)
+    else => Game.bags.readSlot(bag, slot, mut into)
+  }
+}
+
+// The player's pick up or put down there, in the click's own call: what the cursor holds goes into the slot and what
+// lay there goes onto the cursor (into the guild bank: a deposit; out of it: a withdrawal, as the guild allows).
+public function pickupIn(vault: Vault, bag: Integer, slot: Integer) {
+  match (vault) {
+    .Guild => Client.PickupGuildBankItem(bag, slot)
+    else => Game.bags.pickup(bag, slot)
+  }
+}
+
+// A guild bank slot as a slot of the bags is read: the item by its link, its kind and level and price from the item's
+// own, its count and lock from the slot. Nothing of the guild's is new or bound to the player.
+function readGuild(tab: Integer, slot: Integer, into: mut Game.SlotItem): Boolean {
+  let icon, count, locked, _, quality = Client.GetGuildBankItemInfo(tab, slot)
+  const link = Client.GetGuildBankItemLink(tab, slot)
+  if (icon == nil || link == nil) {
+    into.id = 0
+    return false
+  }
+  let id, _, subkindName, worn, _, kind, subkind = Client.C_Item.GetItemInfoInstant(link)
+  let name, _, _, level, _, _, _, _, _, _, price, _, _, _, _, _, _, _ = Client.C_Item.GetItemInfo(link)
+  into.id = (id ?? 0).floor()
+  into.count = count.floor()
+  into.quality = quality.floor()
+  into.icon = nil
+  into.name = name ?? ""
+  into.link = link
+  into.level = (level ?? 0).floor()
+  into.kind = (kind ?? -1).floor()
+  into.subkind = (subkind ?? -1).floor()
+  into.subkindName = subkindName ?? ""
+  into.worn = worn ?? ""
+  into.bound = false
+  into.locked = locked
+  into.isNew = false
+  into.price = (price ?? 0).floor()
+  return into.id != 0
+}

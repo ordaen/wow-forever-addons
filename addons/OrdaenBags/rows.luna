@@ -1,13 +1,16 @@
 // The window's rows: a row of section captions or of slots, each place what its cell holds. A slot is the library's
 // item slot: its item, its count, its quality's rim; dimmed where the search or the place leaves it out or another bag
-// is lit; a new item's glow inside it until it is hovered; a lock on a protected one. Its right button is the client's
-// own use of the item (secure); every other click and the cursor's coming and going are told to the window.
+// is lit; a new item's glow inside it until it is hovered; a lock on a protected one; a coin on a junk one; its menu
+// under it while open. A container's slot has the client's own use of the item on its right button (secure); every
+// other click and the cursor's coming and going are told to the window through the shelf.
 import Game from "$game"
 import { Action, Align, Event, Position, Shadow, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { Component, ItemButton, Quality, SECONDARY_TEXT } from "Ordaen"
+import { Component, ItemButton, Menu, MenuEntry, Quality, SECONDARY_TEXT } from "Ordaen"
 import { Cell, GAP, Row, SLOT, Section } from "@/layout"
 import { Slot } from "@/model"
+import { SlotMenu } from "@/slotMenu"
+import { Vault } from "@/vault"
 
 const CAPTION: Color = Color.hex("#e8c35a")
 const LABEL: Color = Color.hex("#a3977f")
@@ -15,9 +18,13 @@ const NEW_GLOW: Color = Color.hex("#ffd65a")
 const SHADOW: Shadow = { color: Color.hex("#000000"), x: 1.171875dp, y: -1.171875dp }
 const MARK = 14.0625dp
 const LOCK = 16.40625dp
+const COIN = 14.0625dp
 const CAPTION_TRACKS: Array<Track> = [MARK, "max-content", { fr: 1 }]
 // The client's padlock, small, over a protected slot's top left corner.
 const PADLOCK: Atlas = "QuestSharing-Padlock"
+// The client's gold coin, a disc with its dark rim, over a junk slot's top right corner.
+const COIN_ART: Asset = "Interface/MoneyFrame/UI-GoldIcon"
+const NO_ENTRIES: Array<MenuEntry> = []
 // The classes of items crafting takes (`Enum.ItemClass`: trade goods, reagents).
 const TRADE = 7
 const REAGENT = 5
@@ -29,6 +36,40 @@ public struct Filter {
   const query: String
   const place: Game.BagPlace
   const lit: Integer
+}
+
+// What every row, place and slot of the grid reads of the window, and the events they tell it: one object, made by the
+// window and handed down.
+public class Shelf {
+  public pressed: Event<(Slot, Event.Press)> = new Event()
+  // A slot's item dragged off it, or something dragged let go on it: what a plain pick up does, as the game's own
+  // slots take a drag.
+  public pickup: Event<Slot> = new Event()
+  public entered: Event<Slot> = new Event()
+  public left: Event<Slot> = new Event()
+  public toggled: Event<String> = new Event()
+  // A line of the open menu clicked (its place), or a click outside it.
+  public picked: Event<Integer> = new Event()
+  public closed: Event<nil> = new Event()
+
+  public filter: Signal<Filter>
+  public free: Signal<Integer>
+  public collapsed: Signal<Map<String, Boolean>>
+  public fills: Signal<Map<Integer, String>>
+  public menu: Signal<SlotMenu | nil>
+  constructor(
+    filter: Signal<Filter>,
+    free: Signal<Integer>,
+    collapsed: Signal<Map<String, Boolean>>,
+    fills: Signal<Map<Integer, String>>,
+    menu: Signal<SlotMenu | nil>
+  ) {
+    self.filter = filter
+    self.free = free
+    self.collapsed = collapsed
+    self.fills = fills
+    self.menu = menu
+  }
 }
 
 // Whether the place keeps the slot's item lit: at the auction house what isn't bound, at crafting the reagents, at a
@@ -43,49 +84,53 @@ function fits(slot: Slot, place: Game.BagPlace): Boolean {
 }
 
 class BagSlot implements Component {
-  public pressed: Event<(Slot, Event.Press)> = new Event()
-  // Its item dragged off it, or something dragged let go on it: what a plain click does, as the game's own slots
-  // take a drag.
-  public pickup: Event<Slot> = new Event()
-  public entered: Event<Slot> = new Event()
-  public left: Event<Slot> = new Event()
-
   derived item: Integer | nil = self.slot.id == 0 ? nil : self.slot.id
   derived dimmed: Boolean = self.dimmedOf()
   derived count: Integer = self.slot.count
   derived quality: Quality = self.slot.quality
-  derived action: Action | nil = Action.UseBagItem { bag: self.slot.bag, slot: self.slot.index }
+  derived coin: Boolean = self.slot.junk && self.slot.id != 0
+  // A container's item is used by the client's secure click (the right button); a guild bank's has none.
+  derived action: Action | nil = self.slot.vault == Vault.Guild ? nil : Action.UseBagItem { bag: self.slot.bag, slot: self.slot.index }
+  derived menuShown: Boolean = self.shelf.menu?.slot == self.slot
+  derived menuEntries: Array<MenuEntry> = self.shelf.menu?.entries ?? NO_ENTRIES
+  derived menuTitle: String = self.shelf.menu?.title ?? ""
 
   slot: Signal<Slot>
-  filter: Signal<Filter>
-  constructor(slot: Signal<Slot>, filter: Signal<Filter>) {
+  const shelf: Shelf
+  constructor(slot: Signal<Slot>, shelf: Shelf) {
     self.slot = slot
-    self.filter = filter
+    self.shelf = shelf
   }
 
   dimmedOf(self): Boolean {
     const slot = self.slot
-    const filter = self.filter
+    const filter = self.shelf.filter
     if (filter.lit >= 0 && slot.bag != filter.lit) { return true }
     if (slot.id == 0) { return false }
     if (filter.query != "" && !slot.lower.contains(filter.query)) { return true }
     return !fits(slot, filter.place)
   }
 
-  onPressed(self, click: Event.Press) { self.pressed.emit(self.slot, click) }
-  onPickup(self) { self.pickup.emit(self.slot) }
-  onEnter(self) { self.entered.emit(self.slot) }
-  onLeave(self) { self.left.emit(self.slot) }
+  onPressed(self, click: Event.Press) { self.shelf.pressed.emit(self.slot, click) }
+  onPickup(self) { self.shelf.pickup.emit(self.slot) }
+  onEnter(self) { self.shelf.entered.emit(self.slot) }
+  onLeave(self) { self.shelf.left.emit(self.slot) }
+  onPicked(self, index: Integer) { self.shelf.picked.emit(index) }
+  onClosed(self) { self.shelf.closed.emit() }
 
   public render(self): Template {
     return $ltml {
       <ItemButton item={self.item} count={self.count} quality={self.quality} dimmed={self.dimmed} size={SLOT}
-                  action={self.action} @pressed={self.onPressed} @dragged={self.onPickup} @dropped={self.onPickup}
-                  @entered={self.onEnter} @left={self.onLeave}>
+                  action={self.action} linkOnShift={false} @pressed={self.onPressed} @dragged={self.onPickup}
+                  @dropped={self.onPickup} @entered={self.onEnter} @left={self.onLeave}>
         <box $if={self.slot.isNew} position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui}
              background={Ordaen.art.ctl.qualityRim} tint={NEW_GLOW} zLevel={2} />
         <box $if={self.slot.guarded} position={Position.Absolute} left={2.34375dp} top={2.34375dp} width={LOCK} height={LOCK}
              background={PADLOCK} zLevel={3} />
+        <box $if={self.coin} position={Position.Absolute} right={2.34375dp} top={2.34375dp} width={COIN} height={COIN}
+             background={COIN_ART} zLevel={3} />
+        <Menu $if={self.menuShown} entries={self.menuEntries} title={self.menuTitle} @pick={self.onPicked}
+              @close={self.onClosed} />
       </ItemButton>
     }
   }
@@ -93,26 +138,22 @@ class BagSlot implements Component {
 
 // A section's caption: its mark (open or shut), its name, a bag's fill after it; a click shuts or opens it.
 class Caption implements Component {
-  public toggled: Event<String> = new Event()
-
-  derived shut: Boolean = self.collapsed[self.section.key] == true
+  derived shut: Boolean = self.shelf.collapsed[self.section.key] == true
   derived mark = self.shut ? Ordaen.art.ctl.markClosed : Ordaen.art.ctl.markOpen
-  derived fill: String = self.section.bag >= 0 ? self.fills[self.section.bag] ?? "" : ""
+  derived fill: String = self.section.bag >= 0 ? self.shelf.fills[self.section.bag] ?? "" : ""
   derived plain: Boolean = self.section.free
   derived markOpacity: Number = self.plain ? 0 : 1
   derived titleColor: Color = self.plain ? LABEL : CAPTION
 
   section: Signal<Section>
-  collapsed: Signal<Map<String, Boolean>>
-  fills: Signal<Map<Integer, String>>
-  constructor(section: Signal<Section>, collapsed: Signal<Map<String, Boolean>>, fills: Signal<Map<Integer, String>>) {
+  const shelf: Shelf
+  constructor(section: Signal<Section>, shelf: Shelf) {
     self.section = section
-    self.collapsed = collapsed
-    self.fills = fills
+    self.shelf = shelf
   }
 
   onClick(self) {
-    if (!self.plain) { self.toggled.emit(self.section.key) }
+    if (!self.plain) { self.shelf.toggled.emit(self.section.key) }
   }
 
   public render(self): Template {
@@ -128,48 +169,19 @@ class Caption implements Component {
 
 // One place of a row.
 class Place implements Component {
-  public pressed: Event<(Slot, Event.Press)> = new Event()
-  public pickup: Event<Slot> = new Event()
-  public entered: Event<Slot> = new Event()
-  public left: Event<Slot> = new Event()
-  public toggled: Event<String> = new Event()
-
   const cell: Cell
-  filter: Signal<Filter>
-  free: Signal<Integer>
-  collapsed: Signal<Map<String, Boolean>>
-  fills: Signal<Map<Integer, String>>
-  constructor(
-    cell: Cell,
-    filter: Signal<Filter>,
-    free: Signal<Integer>,
-    collapsed: Signal<Map<String, Boolean>>,
-    fills: Signal<Map<Integer, String>>
-  ) {
+  const shelf: Shelf
+  constructor(cell: Cell, shelf: Shelf) {
     self.cell = cell
-    self.filter = filter
-    self.free = free
-    self.collapsed = collapsed
-    self.fills = fills
+    self.shelf = shelf
   }
-
-  onPressed(self, slot: Slot, click: Event.Press) { self.pressed.emit(slot, click) }
-  onPickup(self, slot: Slot) { self.pickup.emit(slot) }
-  onEnter(self, slot: Slot) { self.entered.emit(slot) }
-  onLeave(self, slot: Slot) { self.left.emit(slot) }
-  onToggle(self, key: String) { self.toggled.emit(key) }
 
   // What a template draws reads `self`: the cell is told by its own field.
   public render(self): Template {
     match (self.cell) {
-      .Item => return $ltml {
-        <BagSlot slot={self.cell.slot} filter={self.filter} @pressed={self.onPressed} @pickup={self.onPickup}
-                 @entered={self.onEnter} @left={self.onLeave} />
-      }
-      .Caption => return $ltml {
-        <Caption section={self.cell.section} collapsed={self.collapsed} fills={self.fills} @toggled={self.onToggle} />
-      }
-      .Free => return $ltml { <ItemButton item={nil} count={self.free} size={SLOT} /> }
+      .Item => return $ltml { <BagSlot slot={self.cell.slot} shelf={self.shelf} /> }
+      .Caption => return $ltml { <Caption section={self.cell.section} shelf={self.shelf} /> }
+      .Free => return $ltml { <ItemButton item={nil} count={self.shelf.free} size={SLOT} /> }
       .Space => return $ltml { <box /> }
     }
   }
@@ -177,43 +189,17 @@ class Place implements Component {
 
 // A row of the window's grid.
 public class BagRow implements Component {
-  public pressed: Event<(Slot, Event.Press)> = new Event()
-  public pickup: Event<Slot> = new Event()
-  public entered: Event<Slot> = new Event()
-  public left: Event<Slot> = new Event()
-  public toggled: Event<String> = new Event()
-
   row: Signal<Row>
-  filter: Signal<Filter>
-  free: Signal<Integer>
-  collapsed: Signal<Map<String, Boolean>>
-  fills: Signal<Map<Integer, String>>
-  constructor(
-    row: Signal<Row>,
-    filter: Signal<Filter>,
-    free: Signal<Integer>,
-    collapsed: Signal<Map<String, Boolean>>,
-    fills: Signal<Map<Integer, String>>
-  ) {
+  const shelf: Shelf
+  constructor(row: Signal<Row>, shelf: Shelf) {
     self.row = row
-    self.filter = filter
-    self.free = free
-    self.collapsed = collapsed
-    self.fills = fills
+    self.shelf = shelf
   }
-
-  onPressed(self, slot: Slot, click: Event.Press) { self.pressed.emit(slot, click) }
-  onPickup(self, slot: Slot) { self.pickup.emit(slot) }
-  onEnter(self, slot: Slot) { self.entered.emit(slot) }
-  onLeave(self, slot: Slot) { self.left.emit(slot) }
-  onToggle(self, key: String) { self.toggled.emit(key) }
 
   public render(self): Template {
     return $ltml {
       <box columns={self.row.tracks} gap={GAP} height={SLOT}>
-        <Place $for={cell of self.row.cells} $key={cell} cell={peek cell} filter={self.filter} free={self.free}
-               collapsed={self.collapsed} fills={self.fills} @pressed={self.onPressed} @pickup={self.onPickup}
-               @entered={self.onEnter} @left={self.onLeave} @toggled={self.onToggle} />
+        <Place $for={cell of self.row.cells} $key={cell} cell={peek cell} shelf={self.shelf} />
       </box>
     }
   }

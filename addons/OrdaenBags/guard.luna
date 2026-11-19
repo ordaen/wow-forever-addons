@@ -6,6 +6,8 @@ import root Tooltips from "OrdaenTooltips"
 import type { ItemKeys, ItemLines, Line } from "OrdaenTooltips"
 import Locale from "@/locales"
 import { Slot } from "@/model"
+import { whyText } from "@/slotMenu"
+import { Vault } from "@/vault"
 
 // A protected slot, kept for the character: where it is and the item it protects. The protection follows its item:
 // moved by hand, it goes with it; the item gone from the bags, it is dropped.
@@ -23,15 +25,19 @@ public class Hovered {
   public state slot: Slot | nil = nil
 }
 
-// The note of a protected slot.
+// The notes of the slot under the cursor: why its item is junk, and that it is protected.
 public class GuardLine implements ItemLines {
   const hovered: Hovered
   constructor(hovered: Hovered) { self.hovered = hovered }
 
   public lines(self, item: Integer, link: String): Array<Line> {
     const slot = self.hovered.slot
-    if (slot == nil || slot.id != item || !slot.guarded) { return NONE }
-    return [{ left: Locale.PROTECTED }]
+    if (slot == nil || slot.id != item) { return NONE }
+    const why = slot.why
+    if (why != nil && slot.guarded) { return [{ left: Locale.JUNK_NOTE.format(whyText(why)) }, { left: Locale.PROTECTED }] }
+    if (why != nil) { return [{ left: Locale.JUNK_NOTE.format(whyText(why)) }] }
+    if (slot.guarded) { return [{ left: Locale.PROTECTED }] }
+    return NONE
   }
 }
 
@@ -42,7 +48,7 @@ public class GuardKey implements ItemKeys {
 
   public keys(self, item: Integer, link: String): Array<String> {
     const slot = self.hovered.slot
-    if (slot == nil || slot.id != item) { return NO_KEYS }
+    if (slot == nil || slot.id != item || slot.vault != Vault.Bags) { return NO_KEYS }
     return [slot.guarded ? Locale.KEY_UNPROTECT : Locale.KEY_PROTECT]
   }
 }
