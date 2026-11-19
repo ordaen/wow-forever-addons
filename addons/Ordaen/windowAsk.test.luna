@@ -1,0 +1,55 @@
+// A tab its owner asks for: the window opens on it over the one kept and the one fixed on its settings page, and
+// turns to it while it is up.
+import Test from "$test"
+import { KeptWindow, Window, WindowTabSpec } from "@/window"
+
+class Asking {
+  state tabs: Array<WindowTabSpec> = [{ title: "Friends" }, { title: "Guild" }, { title: "Allies" }]
+  state tab = 1
+  public window: mut KeptWindow = new KeptWindow("asking", "asking", { x: 0ui, y: 0ui, width: 400ui, height: 300ui })
+  state open = false
+
+  public render(self): Template {
+    return $ltml {
+      <Window $if={self.open} tabs={self.tabs} selected={mut self.tab} declared={mut self.window}>
+        <text value={"the page"} />
+      </Window>
+    }
+  }
+}
+
+test "a window opens on the tab its owner asks for, not the one kept" {
+  let page = new Asking()
+  page.window.memory.write({ tab: 2, ..page.window.defaults })
+  Test.mount(page, { left: 0, top: 0, width: 600, height: 500 })
+  page.window.ask(3)
+  page.open = true
+  Test.flush()
+  Test.expect(page.tab == 3)
+  Test.expect((peek page.window.memory.values).tab == 3)
+}
+
+test "a tab asked for holds over the one fixed on the settings page, and the next open is the fixed one's" {
+  let page = new Asking()
+  page.window.memory.write({ openOn: 2, ..page.window.defaults })
+  Test.mount(page, { left: 0, top: 0, width: 600, height: 500 })
+  page.window.ask(3)
+  page.open = true
+  Test.flush()
+  Test.expect(page.tab == 3)
+  page.open = false
+  Test.flush()
+  page.open = true
+  Test.flush()
+  Test.expect(page.tab == 2)
+}
+
+test "a window up turns to the tab asked for" {
+  let page = new Asking()
+  Test.mount(page, { left: 0, top: 0, width: 600, height: 500 })
+  page.open = true
+  Test.flush()
+  page.window.ask(2)
+  Test.flush()
+  Test.expect(page.tab == 2)
+}

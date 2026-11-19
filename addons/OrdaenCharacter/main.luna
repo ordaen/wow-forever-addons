@@ -135,7 +135,7 @@ public class Character implements Module, App {
     if (page == nil) { return }
     const shown: any Client.Frame = page
     _ = shown.HookScript("OnShow", (): nil => {
-      self.tab = tab
+      self.window.ask(tab)
       if (section != nil) { self.section = section }
       return nil
     })

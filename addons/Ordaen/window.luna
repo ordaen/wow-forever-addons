@@ -71,6 +71,9 @@ public class KeptWindow {
   public state placing: mut Placing
   // The window's tabs' titles, as it last drew them: the settings page offers each as the tab to open on.
   public state tabs: Array<String> = []
+  // The tab its owner asks for (the game's own window opened on a page), until the window turns to it: it opens on
+  // that one, over the one kept and the one fixed on its settings page, and keeps it as the one last open.
+  public state asked: Integer | nil = nil
 
   constructor(name: String, title: String, placing: Placing, full: Boolean = false) {
     self.title = title
@@ -93,6 +96,9 @@ public class KeptWindow {
     declared.showAfter = view.showAfter.clone()
     return declared
   }
+
+  // Its owner asks for a tab: the window turns to it now, or opens on it.
+  public ask(mut self, tab: Integer) { self.asked = tab }
 }
 
 // While a shown window asks for it, the player's situation follows what it doesn't follow otherwise (a mount,
@@ -435,6 +441,8 @@ public class Window implements Component {
   derived seen: Boolean = self.shown && self.away.length == 0
   was: Array<Occasion> = []
   opened = false
+  // Turned to a tab its owner asked for, since it was last shown: what is kept and fixed is let be.
+  wasAsked = false
   constructor(
     tabs: Signal<Array<WindowTabSpec>>,
     selected: mut Signal<Integer>,
@@ -483,10 +491,23 @@ public class Window implements Component {
     watch (list of self.tabs) { self.declared.tabs = list.map((tab: WindowTabSpec) => tab.title) }
     // What is kept becomes the window's, as it is made, at a switch of profile and as its settings page changes it.
     watch (view of self.declared.memory.values) { self.recall(view) }
-    // Shown, it opens on the tab the player fixed, where there is one; otherwise on the one its owner says (the
-    // last one open this session, or the one an action asks for).
+    // A tab its owner asks for is turned to, as the window is made or while it is up; it holds over the one fixed on
+    // the settings page until the window is hidden.
+    watch (tab of self.declared.asked) {
+      if (tab == nil) { return }
+      self.declared.asked = nil
+      if (tab < 1 || tab > (peek self.tabs).length) { return }
+      self.wasAsked = true
+      self.selected = tab
+    }
+    // Shown, it opens on the tab asked for, else the tab the player fixed, where there is one; otherwise on the one
+    // its owner holds (the last one open this session).
     watch (open of self.shown) {
-      if (open) { self.openTab(true, false) }
+      if (open) {
+        self.openTab(true, false)
+      } else {
+        self.wasAsked = false
+      }
     }
     // A tab picked is kept; a window that only asks shows the game's tab, which isn't the player's to keep.
     if (!asks) {
@@ -550,7 +571,7 @@ public class Window implements Component {
   // The tab it opens on: the one fixed on its settings page, or (as it is made, or its memory is changed from
   // elsewhere) the one last open.
   openTab(mut self, showing: Boolean, first: Boolean) {
-    if (self.asks) { return }
+    if (self.asks || self.wasAsked) { return }
     const view = self.declared.used(peek self.declared.memory.values)
     if (showing && view.openOn == 0) { return }
     // Made with no tab ever picked, it leaves the one its owner holds (an action may have asked for another before

@@ -242,20 +242,10 @@ public class Social implements Module, App {
     if (page == nil) { return }
     const shown: any Client.Frame = page
     _ = shown.HookScript("OnShow", (): nil => {
-      self.askTab(tab)
+      self.window.ask(tab)
       if (sub != nil) { self.sub = sub }
       return nil
     })
-  }
-
-  // The tab the game's window or page asks for: ours turns to it, and keeps it as the one last open, which a window
-  // made anew opens on.
-  askTab(mut self, tab: Integer) {
-    self.tab = tab
-    const view = (peek self.window.memory.values).clone()
-    if (view.tab == tab) { return }
-    view.tab = tab
-    self.window.memory.write(view)
   }
 
   // The game's window shown: ours shows in its place, unless the player asked for the game's window as it is.
@@ -264,9 +254,9 @@ public class Social implements Module, App {
     if (tab == TAB_GUILD) {
       // The guild's window opens on the guild, outside one on the communities.
       self.readGuild()
-      self.askTab(peek self.guild != nil ? TAB_GUILD : TAB_COMMUNITIES)
+      self.window.ask(peek self.guild != nil ? TAB_GUILD : TAB_COMMUNITIES)
     } else if (tab != nil) {
-      self.askTab(tab)
+      self.window.ask(tab)
     }
     if (!(peek self.held).any(one => one == frame)) { self.held.push(frame) }
     if (!(peek self.open)) {
