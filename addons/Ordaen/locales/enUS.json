@@ -258,5 +258,8 @@
   "VISIBLE_OPACITY_TIP": "How visible it is while hidden. On mouseover it shows in full under the cursor.",
   "FILTER": "Filter",
   "FILTER_NONE": "Nothing switched on",
-  "FILTER_RESET": "Reset"
+  "FILTER_RESET": "Reset",
+  "AGO_MINUTES": "%d min ago",
+  "AGO_HOURS": "%d h ago",
+  "AGO_DAYS": "%d d ago"
 }

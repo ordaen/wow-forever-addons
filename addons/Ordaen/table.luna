@@ -6,18 +6,21 @@
 // as the first it built came to (a box, every row built, where the table is told its rows vary): it scrolls where it is
 // given a `height`, or where the table is given a height (its headings, then the body in the rest of it), and a `$for`
 // of rows in it builds only the rows in view, handing on the rows that leave to the items that come in: a row follows
-// its item's cell.
-import { Align, Art, ByInteractionState, Edges, Event, Line, MouseButton, Overflow, Position, Side, Track } from "$ltml"
+// its item's cell. A cell wraps unless its column says it is cut (`TableCell`); while the owner has no rows, the table
+// says what it is given as `empty` under its headings. `ToolSort` is its sort in the toolbar, with sorts no column shows.
+import { Align, Art, ByInteractionState, Edges, Event, Line, MouseButton, Overflow, Position, Side, TextAlign, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import { Component } from "@/module"
 import { space } from "@/units"
 
-// A column: its heading, its width, where its heading and its cells stand, and whether a heading click sorts by it.
+// A column: its heading (`""`: none), its width, where its heading and its cells stand (`Align.Center` too), whether a
+// heading click sorts by it, and whether its cells are cut at its edge (a note that may run long) rather than wrapped.
 public struct Column {
   title: String
   width: Track
   align: Align | nil
   sortable: Boolean | nil
+  cut: Boolean | nil
 }
 
 const NAME: ByInteractionState<Color> = { default: Color.hex("#cbb994"), hover: Color.hex("#ffffff"), focus: Color.hex("#ffffff") }
@@ -34,6 +37,8 @@ const SIDES: Edges = { left: space(.Item), right: space(.Item) }
 const HEAD: Array<Track> = ["max-content", "max-content"]
 // A row of one line of text: the text and the row's padding.
 public const ROW: Number<Length> = 32.8125dp
+// Where the text of a table with no rows stands: under its headings, a row down.
+const EMPTY_TOP: Number<Length> = 46.875dp
 // The headings, and the body in what is left of a height the table is given.
 const PARTS: Array<Track> = ["max-content", { fr: 1 }]
 // A sorted heading's mark (ctl.markUp, ctl.markDown): a triangle 8 px wide and 6 high in the middle of a 16 px cell.
@@ -145,25 +150,47 @@ public class TableRow implements Component {
   }
 }
 
-// One cell of a row: what it holds is cut at its column's edge, and asks the row for no width. A share among several
-// (`{ fr }`) is never narrower than what stands in it, and each row is laid out by itself: a long text in a bare cell
-// widens its column in its own row alone, and moves every column after it off the headings. A row of text that may run
-// long puts each cell in one.
+// One cell of a row, as its column says: where what it holds stands, and whether it is cut at the column's edge (asking
+// the row for no width) or wraps there (a text written `wrap={true}`). A share among several (`{ fr }`) is never
+// narrower than what stands in it, and each row is laid out by itself: a long text that neither wraps nor is cut widens
+// its column in its own row alone, and moves every column after it off the headings.
 public class TableCell implements Component {
+  derived overflow: Overflow | nil = self.cuts ? Overflow.Hidden : nil
+  derived cuts: Boolean = self.cut || self.column?.cut == true
+  derived xAlign: Align | nil = self.align ?? self.column?.align
+  derived textAlign: TextAlign | nil = textAlignOf(self.xAlign)
+
+  column: Signal<Column | nil>
   align: Signal<Align | nil>
+  cut: Signal<Boolean>
   constructor(
-    // Where what it holds stands: its column's `align`.
-    align: Signal<Align | nil> = nil
+    // Its column: where what it holds stands and whether it is cut.
+    column: Signal<Column | nil> = nil,
+    // Where what it holds stands, over its column's.
+    align: Signal<Align | nil> = nil,
+    // Cut at the column's edge, whatever its column says.
+    cut: Signal<Boolean> = false
   ) {
+    self.column = column
     self.align = align
+    self.cut = cut
   }
 
   public render(self): Template {
     return $ltml {
-      <box overflow={Overflow.Hidden} xAlign={self.align} yAlign={Align.Center}>
+      <box overflow={self.overflow} xAlign={self.xAlign} textAlign={self.textAlign} yAlign={Align.Center}>
         <slot />
       </box>
     }
+  }
+}
+
+// A wrapped text's lines stand where its cell does.
+function textAlignOf(align: Align | nil): TextAlign | nil {
+  return match (align) {
+    Align.Center => TextAlign.Center
+    Align.End => TextAlign.End
+    else => nil
   }
 }
 
@@ -175,6 +202,8 @@ public class Table implements Component {
   descending: mut Signal<Boolean>
   height: Signal<Number<Length> | nil>
   const rowsVary: Boolean
+  empty: Signal<String>
+  derived emptyShown: Boolean = self.empty != ""
   constructor(
     columns: Array<Column>,
     // The column the rows are ordered by, from 1; 0 for none.
@@ -184,8 +213,12 @@ public class Table implements Component {
     height: Signal<Number<Length> | nil> = nil,
     // Its rows aren't of one height: each is as high as what it holds, and every row is built. Otherwise the body is
     // a virtual list, its rows as high as the first it built came to.
-    rowsVary: Boolean = false
+    rowsVary: Boolean = false,
+    // What it says under its headings while it has no rows («Nothing found»): the owner, which knows its rows, says
+    // it while there are none; `""` says nothing.
+    empty: Signal<String> = ""
   ) {
+    self.empty = empty
     self.columns = columns
     self.sorted = sorted
     self.descending = descending
@@ -206,6 +239,9 @@ public class Table implements Component {
         <virtualList $else height={self.height}>
           <slot />
         </virtualList>
+        <box $if={self.emptyShown} position={Position.Absolute} left={0ui} right={0ui} top={EMPTY_TOP} xAlign={Align.Center}>
+          <text value={self.empty} textColor={PLAIN} wrap={true} />
+        </box>
       </box>
     }
   }

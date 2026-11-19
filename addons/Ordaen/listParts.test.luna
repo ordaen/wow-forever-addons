@@ -1,0 +1,146 @@
+// The parts lists and cards are made of: a row picked from a list, a card's lines, how long ago, a table with no rows,
+// a table's sort in the toolbar, a folding caption, a push button with a picture.
+import Game from "$game"
+import Test from "$test"
+import root Ordaen from "Ordaen"
+import { agoText, hoursAgoText } from "@/ago"
+import { Fact } from "@/fact"
+import { FoldCaption } from "@/foldCaption"
+import { PICKED_ROW, PickRow } from "@/pickRow"
+import { PushButton } from "@/pushButton"
+import { Column, Table, TableCell, TableRow, tracksOf } from "@/table"
+import { ToolSort, Toolbar, sortChoices } from "@/toolbar"
+
+const HAMMER: Asset = "Interface/Icons/Trade_BlackSmithing"
+const COLUMNS: Array<Column> = [
+  { title: "Name", width: { fr: 1 }, sortable: true },
+  { title: "", width: 40dp, sortable: true },
+  { title: "Note", width: 120dp, cut: true }
+]
+
+class Line {
+  public pick: Event<Integer> = new Event()
+
+  const index: Integer
+  name: Signal<String>
+  picked: Signal<Integer>
+  constructor(index: Integer, name: Signal<String>, picked: Signal<Integer>) {
+    self.index = index
+    self.name = name
+    self.picked = picked
+  }
+
+  onPick(mut self) { self.pick.emit(self.index) }
+
+  public render(self): Template {
+    return $ltml {
+      <PickRow columns={["max-content"]} picked={self.picked == self.index} @pick={self.onPick}>
+        <text value={self.name} />
+      </PickRow>
+    }
+  }
+}
+
+class Picking {
+  state picked = 0
+  state picks = 0
+  state folded = false
+  state clicks = 0
+
+  state names: Array<String> = ["Ally one", "Ally two"]
+
+  onPick(mut self, index: Integer) {
+    self.picked = index
+    self.picks += 1
+  }
+  onFold(mut self) { self.folded = !self.folded }
+  onClick(mut self) { self.clicks += 1 }
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={1}>
+        <Line $for={index, name of self.names} index={index} name={name} picked={self.picked} @pick={self.onPick} />
+        <Fact label={"Where"} value={"Ironforge"} />
+        <FoldCaption title={"Trade goods"} folded={self.folded} @toggled={self.onFold} />
+        <PushButton label={"Repair an item"} icon={HAMMER} width={200dp} @click={self.onClick} />
+      </box>
+    }
+  }
+}
+
+test "a row picked is gold, the other shaded only under the cursor; a click picks" {
+  let page = new Picking()
+  Test.mount(page, { left: 0, top: 0, width: 400, height: 400 })
+  Test.page().text("Ally two").click()
+  Test.expect(page.picked == 2 && page.picks == 1)
+  Test.expect(Test.page().text("Ally two").item().paintedWith(PICKED_ROW))
+  Test.expect(!Test.page().text("Ally one").item().paintedWith(PICKED_ROW))
+}
+
+test "a card's line says its label and its value; a caption folds; a button with a picture is pressed" {
+  let page = new Picking()
+  Test.mount(page, { left: 0, top: 0, width: 400, height: 400 })
+  Test.expect(Test.page().text("Where").shown() && Test.page().text("Ironforge").shown())
+  Test.page().text("Trade goods").click()
+  Test.expect(page.folded)
+  Test.expect(Test.page().button("Repair an item").paintedWith(HAMMER))
+  Test.page().button("Repair an item").click()
+  Test.expect(page.clicks == 1)
+}
+
+test "how long ago: never under a minute, then hours, then days" {
+  Game.clock.server = 1000000
+  Test.expect(agoText(1000000 - 10) == "1 min ago")
+  Test.expect(agoText(1000000 - 7200) == "2 h ago")
+  Test.expect(agoText(1000000 - 3 * 86400) == "3 d ago")
+  Test.expect(hoursAgoText(5) == "5 h ago" && hoursAgoText(50) == "2 d ago")
+}
+
+class Listing {
+  state names: Array<String> = []
+  state sorted = 0
+  state descending = false
+  state query = ""
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={1} rows={["max-content", { fr: 1 }]}>
+        <Toolbar search={mut self.query} placeholder={"Search"}>
+          <ToolSort sorted={mut self.sorted} columns={COLUMNS} title={"Sort"} more={["Class"]} />
+        </Toolbar>
+        <Table columns={COLUMNS} sorted={mut self.sorted} descending={mut self.descending} height={200dp}
+               empty={self.names.length == 0 ? "Nothing found" : ""}>
+          <TableRow $for={name of self.names} tracks={tracksOf(COLUMNS)}>
+            <TableCell column={COLUMNS[1]}>
+              <text value={name} wrap={true} />
+            </TableCell>
+            <TableCell column={COLUMNS[2]} />
+            <TableCell column={COLUMNS[3]}>
+              <text value={"a note"} wrap={false} />
+            </TableCell>
+          </TableRow>
+        </Table>
+      </box>
+    }
+  }
+}
+
+test "a table with no rows says what its owner gives, and nothing once it has rows" {
+  let page = new Listing()
+  Test.mount(page, { left: 0, top: 0, width: 500, height: 400 })
+  Test.expect(Test.page().text("Nothing found").shown())
+  page.names = ["Thrall"]
+  Test.expect(!Test.page().text("Nothing found").shown() && Test.page().text("Thrall").shown())
+}
+
+test "the toolbar's sort offers the sortable columns with a heading, then the sorts no column shows, and sorts the table" {
+  const choices = sortChoices(COLUMNS, ["Class"])
+  Test.expect(choices.length == 2 && choices[1]?.value == 1 && choices[2]?.value == 4 && choices[2]?.label == "Class")
+  let page = new Listing()
+  Test.mount(page, { left: 0, top: 0, width: 500, height: 400 })
+  Test.page().button(Ordaen.art.ctl.tool.sort).click()
+  Test.page().text("Class").click()
+  Test.expect(page.sorted == 4)
+  Test.page().text("Name").click()
+  Test.expect(page.sorted == 1)
+}

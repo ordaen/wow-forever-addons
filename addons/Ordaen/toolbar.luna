@@ -17,6 +17,7 @@ import { Align, Art, Beside, Bounds, Edges, Layer, Line, Position, Track } from 
 import root Ordaen from "Ordaen"
 import { Choice, DropdownItem } from "@/dropdown"
 import { Component } from "@/module"
+import { Column } from "@/table"
 import { Tip } from "@/tip"
 
 const SIZE = 39.84375dp
@@ -216,4 +217,42 @@ public class ToolPick<T: Unknown> implements Component {
       </ToolButton>
     }
   }
+}
+
+// ToolSort: the sort of a table as a ToolPick, the same one its headings set: a choice for each sortable column that
+// has a heading (its number, from 1), then each of `more`, a sort no column shows (a class, a role), numbered after the
+// columns. A heading clicked picks its choice here, and a choice picked here lights its heading.
+public class ToolSort implements Component {
+  sorted: mut Signal<Integer>
+  const choices: Array<Choice<Integer>>
+  title: Signal<String>
+  constructor(
+    // The table's column and choice it is sorted by, from 1; 0 for none.
+    sorted: mut Signal<Integer>,
+    columns: Array<Column>,
+    // What it sorts («Sort»): its Tip's title.
+    title: Signal<String>,
+    // Sorts no column shows, by their labels: `columns.length + 1` and on.
+    more: Array<String> = []
+  ) {
+    self.sorted = sorted
+    self.title = title
+    self.choices = sortChoices(columns, more)
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <ToolPick value={mut self.sorted} choices={self.choices} icon={Ordaen.art.ctl.tool.sort} title={self.title} />
+    }
+  }
+}
+
+// The choices of a ToolSort: the sortable columns with a heading, then the sorts no column shows.
+public function sortChoices(columns: Array<Column>, more: Array<String>): Array<Choice<Integer>> {
+  const list: Array<Choice<Integer>> = []
+  for (index, column of columns) {
+    if (column.sortable == true && column.title != "") { list.push({ value: index, label: column.title }) }
+  }
+  for (index, label of more) { list.push({ value: columns.length + index, label: label }) }
+  return list
 }
