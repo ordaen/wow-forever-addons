@@ -8,14 +8,13 @@ import Game from "$game"
 import { Action, Align, Line, Overflow, Side, Track } from "$ltml"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
-import { ARTWORK, Choice, Column, ItemId, KeptWindow, Module, ModuleMemory, PushButton, SECONDARY_TEXT, Settings, SettingsPage, Table, Tabs, ToolPick, Toolbar, Window, WindowTabSpec, WindowsPage, space, tracksOf, windowsTitle } from "Ordaen"
+import { ARTWORK, Choice, Column, FilterButton, FilterGroup, ItemId, KeptWindow, Module, ModuleMemory, PushButton, SECONDARY_TEXT, Settings, SettingsPage, Table, Tabs, ToolPick, Toolbar, Window, WindowTabSpec, WindowsPage, space, switched, tracksOf, windowsTitle } from "Ordaen"
 import root Auction from "OrdaenAuction"
 import type { PriceSource } from "OrdaenAuction"
 import { Book, written } from "@/book"
 import { Totals, makesOf, partsOf, totalsOf, yieldOf } from "@/cost"
 import { CraftQueue } from "@/crafting"
 import { RecipeDetails } from "@/details"
-import { FilterButton } from "@/filter"
 import { Learning, Taught, learnedFrom } from "@/learn"
 import Locale from "@/locales"
 import { OverviewPage, knownSpellName } from "@/overview"
@@ -81,6 +80,22 @@ const SORTS: Array<Choice<SortBy>> = [
   { value: SortBy.Name, label: Locale.SORT_NAME },
   { value: SortBy.Makeable, label: Locale.SORT_MAKEABLE }
 ]
+// The filter: the game's own options («Фильтр»).
+enum RecipeFilter { Makeable, SkillUp, Learned, Unlearned }
+const FILTERS: Array<FilterGroup<RecipeFilter>> = [
+  {
+    options: [{ key: RecipeFilter.Makeable, label: Locale.FILTER_MAKEABLE }, { key: RecipeFilter.SkillUp, label: Locale.FILTER_SKILLUP }]
+  },
+  {
+    options: [{ key: RecipeFilter.Learned, label: Locale.FILTER_LEARNED }, { key: RecipeFilter.Unlearned, label: Locale.FILTER_UNLEARNED }]
+  }
+]
+
+// The filter as the window starts it: the recipes learned shown, and the ones not learned as the settings say.
+function filterStart(unlearned: Boolean): mut Map<RecipeFilter, Boolean> {
+  return switched(switched({}, [RecipeFilter.Learned], true), [RecipeFilter.Unlearned], unlearned)
+}
+
 const NOTHING_KEPT: Kept = {
   last: 0, seen: {}, favorites: [], tracked: [], queue: [], paused: {}
 }
@@ -132,12 +147,13 @@ public class Professions implements Module, App {
   state count = 1
   state makeMode: MakeMode = MakeMode.Count
   public state search = ""
-  // The filter: the menu, and each option.
-  public state filterOpen = false
-  public state onlyMake = false
-  public state onlySkill = false
-  public state showLearned = true
-  public state showUnlearned = true
+  // The filter's options on, and each as the passing reads it.
+  public state filter: Map<RecipeFilter, Boolean> = filterStart(true)
+  derived filterStarts: Map<RecipeFilter, Boolean> = filterStart(self.settings.values.showUnlearned)
+  derived onlyMake: Boolean = self.filter[RecipeFilter.Makeable] == true
+  derived onlySkill: Boolean = self.filter[RecipeFilter.SkillUp] == true
+  derived showLearned: Boolean = self.filter[RecipeFilter.Learned] == true
+  derived showUnlearned: Boolean = self.filter[RecipeFilter.Unlearned] == true
   // The recipe whose menu is open; 0 for none.
   public state menuFor = 0
   // Every recipe the search and the filter let through, in the sort's order: worked out again when any of them
@@ -190,8 +206,6 @@ public class Professions implements Module, App {
   state hidden = false
   derived drawn: Boolean = !self.hidden
   derived isTable: Boolean = self.list.values.view == View.Table
-  // Whether any option of the filter is off what the window starts with.
-  public derived filtered: Boolean = self.onlyMake || self.onlySkill || !self.showLearned || self.showUnlearned != self.settings.values.showUnlearned
   // The same but the camp's: what the lists but the camp's page hold.
   public derived mains: Array<Game.Recipe> = self.mainsOf()
   public derived groups: Array<Group> = self.groupsOf()
@@ -238,7 +252,7 @@ public class Professions implements Module, App {
     // Another recipe chosen, or another profession open: the count starts again at one.
     watch (recipe of self.chosenRecipe) { self.count = 1 }
     watch (open of Game.tradeSkill.open) { self.count = 1 }
-    watch (values of self.settings.values) { self.showUnlearned = values.showUnlearned }
+    watch (values of self.settings.values) { self.filter = switched(peek self.filter, [RecipeFilter.Unlearned], values.showUnlearned) }
     Game.tradeSkill.shownEmpty.listen(self.onShownEmpty)
     Game.trainer.changed.listen(self.onTrainer)
   }
@@ -616,14 +630,6 @@ public class Professions implements Module, App {
     if (self.crafting.add(open, id, recipe.name, recipe.craftable)) { self.note = Locale.QUEUED_AFTER }
   }
 
-  // The filter's «Reset»: every option back to what the window starts with.
-  resetFilter(mut self) {
-    self.onlyMake = false
-    self.onlySkill = false
-    self.showLearned = true
-    self.showUnlearned = (peek self.settings.values).showUnlearned
-  }
-
   // «Create», from the button's click, where the game takes making from: the recipe joins the queue, and its run
   // starts at once where nothing waits ahead of it; else the note says it waits.
   onCreate(mut self, count: Integer) {
@@ -721,9 +727,7 @@ public class Professions implements Module, App {
             <box $else columns={GRID} rows={FILL} gap={space(.Group)}>
               <box rows={SIDE} gap={space(.Item)} width={Style.LISTS_BOUNDS}>
                 <Toolbar search={mut self.search} placeholder={Locale.SEARCH}>
-                  <FilterButton open={mut self.filterOpen} makeable={mut self.onlyMake} skillUp={mut self.onlySkill}
-                                learned={mut self.showLearned} unlearned={mut self.showUnlearned}
-                                filtered={self.filtered} @reset={self.resetFilter} />
+                  <FilterButton values={mut self.filter} start={self.filterStarts} groups={FILTERS} />
                   <ToolPick $if={!self.isTable} value={mut self.list.values.sort} choices={SORTS} icon={Ordaen.art.ctl.tool.sort}
                             title={Locale.SORT} />
                   <ToolPick $if={!self.onCamp} value={mut self.list.values.view} choices={VIEWS} icon={Ordaen.art.ctl.tool.columns}
