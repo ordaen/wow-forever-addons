@@ -373,13 +373,13 @@ surface 716.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
                 box 904.97,363.34 233.33x15.6 @pointerEnter @pointerLeave
                   text 904.97,363.34 233.33x15.6 "Height" #cbb994
                 box 1153.31,356.97 488.94x28.33
-                  box 1153.31,356.97 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+                  box 1153.31,356.97 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave
                     text 1160.53,363.34 8.89x15.6 "-" #ffd100
                   box 1181.64,362.81 213.33x16.67 @drag @dragStart @keyPress @pointerPress
                     box 1188.31,367.81 200x6.67 absolute Interface\AddOns\Ordaen\media\ctl-slider row 0 of 4
                     box 1189.14,368.64 198.33x5 absolute Interface\AddOns\Ordaen\media\ctl-slider row 1 of 4
                     box 1381.64,361.14 13.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-slider-knob
-                  box 1399.97,356.97 23.33x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+                  box 1399.97,356.97 23.33x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave
                     text 1407.19,363.34 8.89x15.6 "+" #808080
                   text 1428.31,363.34 35.56x15.6 "96 px" #ffffff
               box 904.97,401.97 737.28x295.6
@@ -464,13 +464,13 @@ surface 716.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
                   box 904.97,867.88 233.33x15.6 @pointerEnter @pointerLeave
                     text 904.97,867.88 233.33x15.6 "Opacity" #cbb994
                   box 1153.31,861.51 488.94x28.33
-                    box 1153.31,861.51 23.33x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+                    box 1153.31,861.51 23.33x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave
                       text 1160.53,867.88 8.89x15.6 "-" #808080
                     box 1181.64,867.34 213.33x16.67 @drag @dragStart @keyPress @pointerPress
                       box 1188.31,872.34 200x6.67 absolute Interface\AddOns\Ordaen\media\ctl-slider row 0 of 4
                       box 1189.14,873.18 0x5 absolute Interface\AddOns\Ordaen\media\ctl-slider row 1 of 4
                       box 1181.64,865.68 13.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-slider-knob
-                    box 1399.97,861.51 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+                    box 1399.97,861.51 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave
                       text 1407.19,867.88 8.89x15.6 "+" #ffd100
                     text 1428.31,867.88 15.56x15.6 "0%" #ffffff
       box 749.42,691.46 906.17x45

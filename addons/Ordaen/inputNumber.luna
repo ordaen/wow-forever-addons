@@ -2,19 +2,21 @@
 // The settings have no other number control. A range of at most `SLID` steps is a slider: a dark groove, the bronze
 // fill up to the value, a bronze knob; a click or a drag anywhere along it sets the value, and focused, Left and Right
 // step it, Home and End go to its ends. A wider range (a place on the screen, a size) is a field the number is typed
-// in: a number past a bound is written as that bound, a text that isn't a number leaves the value and turns the edge
-// red. Either has − on its left and + on its right, which step as CountInput's do (`stride`, `stepTip`): a step, ten
-// with Shift, a hundred with Ctrl, again and again while held, each disabled at its bound. After the + stands the
+// in, taken once the typing pauses (`SETTLE`), on Enter or before a step: a number past a bound is written as that
+// bound, a text that isn't a number leaves the value and turns the edge red. Either has − on its left and + on its
+// right, plain boxes on the push button's plate that the pointer and Enter or Space press, which step as CountInput's
+// do (`stride`, `stepTip`): a step, ten with Shift, a hundred with Ctrl, again and again while held, each greyed and
+// doing nothing at its bound. After the + stands the
 // value's unit: the slider shows the value in it (70%, 48 px), the field the unit's name (px). Disabled, it takes no
 // input.
-import { Align, Drag, Edges, Keystroke, Line, Pointer, Position, Shadow, Track } from "$ltml"
+import Game from "$game"
+import { Align, Art, Drag, Edges, Keystroke, Line, Pointer, Position, Shadow, Stated, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import { STEP_WIDTH, stepTip, stride } from "@/countInput"
 import Locale from "@/locales"
 import { Component } from "@/module"
-import { PushButton } from "@/pushButton"
 import { SettingRow } from "@/settingRow"
-import { TipText } from "@/tip"
+import { Tip, TipText } from "@/tip"
 
 // What a value is counted in: a share (0.7 is 70%), a size in the client's units, seconds, or a plain number.
 public enum Unit { None = "none", Percent = "percent", Px = "px", Sec = "sec" }
@@ -46,6 +48,13 @@ const FIELD_EDGE: Line = { width: 1.171875dp, color: Color.hex("#3e2f1d") }
 const BAD: Line = { width: 1.171875dp, color: Color.hex("#c0463c") }
 const PADDING: Edges = { right: 11.71875dp, left: 11.71875dp }
 const DIGITS = 6
+// − and +: a push button's plate and label, the label white under the cursor or the keyboard's focus.
+const STEP_HEIGHT = 39.84375dp
+const INK_STEP: Stated<Color> = { default: Color.hex("#ffd100"), hover: WHITE, focus: WHITE }
+const GREY: Color = Color.hex("#808080")
+const STEP_SHADOW: Shadow = { color: Color.hex("#000000"), x: 1.171875dp, y: -1.171875dp }
+// How long typing pauses before what is typed is taken.
+const SETTLE = 0.6
 
 // `value` on the nearest of the steps from `least`, held between `least` and `most`.
 public function stepped(value: Number, least: Number, most: Number, step: Number): Number {
@@ -95,6 +104,16 @@ public class InputNumber implements Component {
   public state text: String
   public derived bad: Boolean = numberOf(self.text) == nil
   derived edge: Line = self.bad ? BAD : FIELD_EDGE
+  // − and +: the bronze plate (its glow under the cursor, its pushed row while held), the grey one at a bound.
+  derived plate: Stated<Art> = { default: Ordaen.art.ctl.button, focus: Ordaen.art.ctl.button }
+  derived fewerPlate: Art | Stated<Art> = self.fewer ? self.plate : Ordaen.art.ctl.buttonDisabled
+  derived morePlate: Art | Stated<Art> = self.more ? self.plate : Ordaen.art.ctl.buttonDisabled
+  derived fewerInk: Color | Stated<Color> = self.fewer ? INK_STEP : GREY
+  derived moreInk: Color | Stated<Color> = self.more ? INK_STEP : GREY
+  state fewerHover = false
+  state moreHover = false
+  // What is typed, waiting for the typing to pause.
+  pending: Task<nil> | nil = nil
 
   label: Signal<String>
   value: mut Signal<Number>
@@ -132,7 +151,7 @@ public class InputNumber implements Component {
     self.fewerTip = stepTip(Locale.COUNT_FEWER, steps => "-" + said(steps * step, unit))
     self.moreTip = stepTip(Locale.COUNT_MORE, steps => "+" + said(steps * step, unit))
     self.text = String.of(peek self.held * self.scale)
-    watch (typed of self.text) { self.take(typed) }
+    watch (typed of self.text) { self.typed() }
     watch (shown of self.held) { self.show(shown) }
   }
 
@@ -159,13 +178,42 @@ public class InputNumber implements Component {
     self.value = stepped(self.held + steps * self.step, self.least, self.most, self.step)
   }
 
+  // − and +, the field's Down and Up: what is typed and not yet taken is taken first, then stepped from.
   less(mut self) {
+    self.settle()
     if (self.fewer) { self.nudge(-stride()) }
   }
 
   raise(mut self) {
+    self.settle()
     if (self.more) { self.nudge(stride()) }
   }
+
+  onFewerEnter(mut self) { self.fewerHover = true }
+  onFewerLeave(mut self) { self.fewerHover = false }
+  onMoreEnter(mut self) { self.moreHover = true }
+  onMoreLeave(mut self) { self.moreHover = false }
+
+  // Typing is taken once it pauses for `SETTLE`: a number on its way («1» of «150») isn't held to the bounds yet.
+  typed(mut self) {
+    if (self.pending != nil) { destroy self.pending }
+    self.pending = self.later()
+  }
+
+  async later(mut self) {
+    await Game.delay(SETTLE)
+    self.pending = nil
+    self.take(peek self.text)
+  }
+
+  // What is typed and still waiting is taken now: Enter, or a step from it.
+  settle(mut self) {
+    if (self.pending == nil) { return }
+    destroy self.pending
+    self.take(peek self.text)
+  }
+
+  onSubmit(mut self) { self.settle() }
 
   // The value at `x` UI units along the band (the groove starts `INSET` in), held to the range and its steps.
   setAt(mut self, x: Number<Length>) {
@@ -191,8 +239,13 @@ public class InputNumber implements Component {
     return $ltml {
       <SettingRow label={self.label} hint={self.hint} disabled={self.disabled}>
         <box columns={ROW} gap={7.03125dp} yAlign={Align.Center}>
-          <PushButton label={"-"} width={STEP_WIDTH} disabled={!self.fewer} repeats={true} tip={self.fewerTip}
-                      @click={self.less} />
+          <box width={STEP_WIDTH} height={STEP_HEIGHT} xAlign={Align.Center} yAlign={Align.Center}
+               background={self.fewerPlate} textColor={self.fewerInk} @pointerDown.repeat(.Left)={self.less}
+               @keyPress(.Enter)={self.less} @keyPress(.Space)={self.less} @pointerEnter={self.onFewerEnter}
+               @pointerLeave={self.onFewerLeave}>
+            <Tip $if={self.fewerHover} title={self.fewerTip.title} text={self.fewerTip.text} rows={self.fewerTip.rows} />
+            <text value={"-"} textShadow={STEP_SHADOW} wrap={false} />
+          </box>
           <box $if={self.sliding} width={LENGTH + KNOB_W} height={BAND}
                @keyPress(.Left)={self.onKey} @keyPress(.Right)={self.onKey} @keyPress(.Home)={self.onKey} @keyPress(.End)={self.onKey}
                @pointerPress={self.onClick} @dragStart={self.onDrag} @drag={self.onDrag}>
@@ -205,10 +258,15 @@ public class InputNumber implements Component {
           </box>
           <box $else width={FIELD_WIDTH} height={FIELD_HEIGHT} rows={FIELD_ROWS}>
             <input value={mut self.text} padding={PADDING} textColor={INK} background={FILL} border={self.edge}
-                   maxLength={DIGITS} disabled={self.disabled} />
+                   maxLength={DIGITS} disabled={self.disabled} @submit={self.onSubmit} />
           </box>
-          <PushButton label={"+"} width={STEP_WIDTH} disabled={!self.more} repeats={true} tip={self.moreTip}
-                      @click={self.raise} />
+          <box width={STEP_WIDTH} height={STEP_HEIGHT} xAlign={Align.Center} yAlign={Align.Center}
+               background={self.morePlate} textColor={self.moreInk} @pointerDown.repeat(.Left)={self.raise}
+               @keyPress(.Enter)={self.raise} @keyPress(.Space)={self.raise} @pointerEnter={self.onMoreEnter}
+               @pointerLeave={self.onMoreLeave}>
+            <Tip $if={self.moreHover} title={self.moreTip.title} text={self.moreTip.text} rows={self.moreTip.rows} />
+            <text value={"+"} textShadow={STEP_SHADOW} wrap={false} />
+          </box>
           <text $if={self.shown != ""} value={self.shown} textColor={WHITE} />
         </box>
       </SettingRow>
