@@ -2,9 +2,8 @@
 // and reset, the picks that name a profile (this character, its class, the account, each specialisation), one module's
 // section copied from another profile, and a profile given away as text and made from a text.
 //
-// Nothing here is made until the page is opened. A pick, a rename or a deletion that would make the character use
-// another profile first asks about the changes waiting to be saved; what is asked is kept as the change itself and made
-// anew after the answer, so a save that was answered with «Save» is in what is kept.
+// Nothing here is made until the page is opened. A pick, a rename or a deletion that makes the character use another
+// profile is made at once and asks nothing: every change is kept as it is made.
 import Game from "$game"
 import { Track } from "$ltml"
 import Runtime from "$runtime"
@@ -28,7 +27,7 @@ const CONFIRM_WIDTH = 567.1875dp
 // The specialisations a class has in the game: three trees.
 const SPECS = 3
 
-enum Ask { None = "none", Switch = "switch", Delete = "delete", Reset = "reset" }
+enum Ask { None = "none", Delete = "delete", Reset = "reset" }
 
 enum Use { Character = "character", Class = "class", Account = "account" }
 
@@ -186,12 +185,10 @@ public class ProfilesPage implements Component {
   derived lines: Array<Line> = self.linesOf()
   derived red: Color = Ordaen.look.values.redText
   derived asking: Boolean = self.ask != Ask.None
-  derived askingSwitch: Boolean = self.ask == Ask.Switch
   derived askingDelete: Boolean = self.ask == Ask.Delete
   derived askingReset: Boolean = self.ask == Ask.Reset
   derived hasFault: Boolean = self.fault != ""
   derived hasNote: Boolean = self.note != ""
-  derived switchAsk: String = Locale.PROFILES_UNSAVED_ASK.format(self.profiles.active)
   derived deleteAsk: String = Locale.PROFILES_DELETE_ASK.format(self.chosen)
   derived resetAsk: String = Locale.PROFILES_RESET_ASK.format(self.chosen)
   derived canCreate: Boolean = self.previewed != nil
@@ -200,10 +197,6 @@ public class ProfilesPage implements Component {
   const profiles: mut Profiles
   // What each module of the account is called, by its folder.
   const titles: Map<String, String>
-  // The change asked about, and the profile the page is on once it is made.
-  pending: ((next: mut Kept) => nil) | nil = nil
-  pendingChosen = ""
-  pendingNote = ""
 
   constructor() {
     self.profiles = Ordaen.keeper.profiles
@@ -348,50 +341,19 @@ public class ProfilesPage implements Component {
     return picks.account == self.chosen
   }
 
-  // A pick that changes what this character uses asks about the unsaved changes first; any other is made.
-  // `note` is said once it is made (nothing where it is empty).
+  // A change of what is kept, made at once: one that switches this character to another profile asks nothing, as
+  // every change is kept as it is made (`edit` packs the values first). `note` is said once it is made (nothing
+  // where it is empty).
   request(mut self, change: (next: mut Kept) => nil, chosen: String, note: String) {
     const next = self.profiles.edit()
     change(mut next)
-    if (Ordaen.keeper.unsaved > 0 && self.profiles.switches(next)) {
-      self.pending = change
-      self.pendingChosen = chosen
-      self.pendingNote = note
-      self.ask = Ask.Switch
-      return
-    }
     self.profiles.apply(next)
     self.chosen = chosen
     self.epoch += 1
     if (note != "") { self.say("", note) }
   }
 
-  // The answer to the question: the change is made anew on what is kept now.
-  finish(mut self) {
-    const change = self.pending
-    self.pending = nil
-    self.ask = Ask.None
-    if (change == nil) { return }
-    const next = self.profiles.edit()
-    change(mut next)
-    self.profiles.apply(next)
-    self.chosen = self.pendingChosen
-    self.epoch += 1
-    if (self.pendingNote != "") { self.say("", self.pendingNote) }
-  }
-
-  onSwitchSave(mut self) {
-    Ordaen.keeper.saveAll()
-    self.finish()
-  }
-
-  onSwitchDrop(mut self) {
-    Ordaen.keeper.discardAll()
-    self.finish()
-  }
-
   onCancel(mut self) {
-    self.pending = nil
     self.ask = Ask.None
     self.epoch += 1
   }
@@ -442,6 +404,8 @@ public class ProfilesPage implements Component {
     if (to == nil) { return }
     const from = self.chosen
     self.request((next: mut Kept) => next.renamed(from, to), to, Locale.PROFILES_NOTE_RENAMED.format(to))
+    // Its history and savepoints go with it.
+    Ordaen.keeper.renamed(from, to)
     self.name = ""
   }
 
@@ -459,11 +423,12 @@ public class ProfilesPage implements Component {
     self.ask = Ask.None
     const after = self.afterDelete(gone)
     self.request((next: mut Kept) => next.without(gone), after, Locale.PROFILES_NOTE_DELETED.format(gone))
+    Ordaen.keeper.dropped(gone)
   }
 
   // The profile this character would use once `gone` is.
   afterDelete(self, gone: String): String {
-    const next = self.profiles.edit()
+    const next = (peek self.profiles.kept).clone()
     next.without(gone)
     return picked(next.picks, self.profiles.who())
   }
@@ -512,20 +477,22 @@ public class ProfilesPage implements Component {
     return sections
   }
 
-  // A module's section of another profile becomes its draft; a module that isn't loaded has none, and the section goes
-  // into the profile as it is.
+  // A module's section of another profile becomes its values, all of them one step «Откатить» takes back; a module
+  // that isn't loaded has none, and the section goes into the profile as it is.
   onCopy(mut self) {
     const from = self.profiles.kept.profiles[self.source]
     const sections = self.chosenSections(from, self.copyOff)
     let copied = 0
     let kept: Array<String> = []
-    for (key, packed of sections) {
-      if (Ordaen.keeper.draft(key, Game.encoding.deserialize(packed))) {
-        copied += 1
-      } else {
-        kept.push(key)
+    Ordaen.keeper.together(() => {
+      for (key, packed of sections) {
+        if (Ordaen.keeper.copyIn(key, Game.encoding.deserialize(packed))) {
+          copied += 1
+        } else {
+          kept.push(key)
+        }
       }
-    }
+    })
     if (copied == 0 && kept.length == 0) {
       self.say(Locale.PROFILES_ERR_NOTHING, "")
       return
@@ -541,6 +508,8 @@ public class ProfilesPage implements Component {
   }
 
   onExport(mut self) {
+    // The values are packed when read packed, not at each change.
+    self.profiles.pack()
     const profile = self.profiles.kept.profiles[self.profiles.active]
     const shared = Shared { name: self.profiles.active, sections: self.chosenSections(profile, self.exportOff) }
     const made = write(shared)
@@ -649,12 +618,6 @@ public class ProfilesPage implements Component {
           </box>
           <Note $for={line of self.lines} text={line.text} color={line.color} />
         </Section>
-        <Dialog $if={self.askingSwitch} title={Locale.PROFILES_UNSAVED_TITLE} width={CONFIRM_WIDTH}>
-          <text value={self.switchAsk} textColor={INK} />
-          <PushButton #buttons label={Locale.CANCEL} width={140.625dp} @click={self.onCancel} />
-          <PushButton #buttons label={Locale.DONT_SAVE} width={175.78125dp} @click={self.onSwitchDrop} />
-          <PushButton #buttons label={Locale.SAVE} width={164.0625dp} @click={self.onSwitchSave} />
-        </Dialog>
         <Dialog $if={self.askingDelete} title={Locale.PROFILES_DELETE_TITLE} width={CONFIRM_WIDTH}>
           <text value={self.deleteAsk} textColor={INK} />
           <PushButton #buttons label={Locale.CANCEL} width={140.625dp} @click={self.onCancel} />

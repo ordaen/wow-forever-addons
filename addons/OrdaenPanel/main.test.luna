@@ -118,11 +118,10 @@ function visibility(): Test.Part {
 }
 
 // One of «Visibility»'s states, the `nth` whose dropdown shows `face` («General», «In combat», «On transport» in that
-// order), set to `choice` and saved.
+// order), set to `choice`.
 function hide(face: String, nth: Integer, choice: String) {
   const settings = visibility()
   pick(settings, face, nth, choice)
-  settings.button("Save").click()
 }
 
 // A dropdown's choice: its face, which shows the choice made, clicked, then the choice in its list (a popup that holds
@@ -154,27 +153,24 @@ function drag(from: Test.Part, path: Array<Test.Part>) {
 
 // An item of the panel put in a zone on «Bottom panel»'s tab: the `nth` of the items' dropdowns that shows `face`
 // (in the items' order: the menu, friends and guild, the experience bar, the zone's name, the time, the money, the
-// bags), and saved.
+// bags).
 function place(face: String, nth: Integer, zone: String) {
   const settings = tab("Bottom panel")
   settings.text("Screen edge").wheel(-3)
   pick(settings, face, nth, zone)
-  settings.button("Save").click()
 }
 
-// One of «Bottom panel»'s dropdowns' choices, saved.
+// One of «Bottom panel»'s dropdowns' choices.
 function bottom(face: String, among: String, choice: String) {
   const settings = tab("Bottom panel")
   choose(settings, face, among, choice)
-  settings.button("Save").click()
 }
 
 // One of the tab's switches, the `nth` (on «General»: the panel's own, then the menu's, the bars', the panel's),
-// clicked and saved.
+// clicked.
 function flip(title: String, art: Art, nth: Integer) {
   const settings = tab(title)
   settings.button(art).nth(nth).click()
-  settings.button("Save").click()
 }
 
 // What the panel holds
@@ -248,7 +244,6 @@ test "on a taller panel every cell and groove is as high as its inside, the icon
   Test.mount(nil, { left: 0, top: 0, width: 2400, height: 900, screen: true })
   const settings = tab("Bottom panel")
   drag(settings.box(Ordaen.art.ctl.sliderKnob).nth(1), [settings.text("60 px")])
-  settings.button("Save").click()
   Test.shot("tall")
 }
 
@@ -263,7 +258,6 @@ test "the character's button shows the class's icon once chosen" {
   Test.expect(!icons.any(icon => Test.page().window("42").paintedWith(icon)))
   const settings = tab("Micro menu")
   choose(settings, "Face", "Class icon", "Class icon")
-  settings.button("Save").click()
   Test.expect(icons.any(icon => Test.page().window("42").paintedWith(icon)))
 }
 
@@ -344,7 +338,6 @@ test "the panel's length is chosen on its tab: the whole edge, or as long as its
   Test.mount(nil, SCREEN)
   const settings = tab("Bottom panel")
   choose(settings, "Whole edge", "Fit the buttons", "Fit the buttons")
-  settings.button("Save").click()
   Test.expect(panel().shown() && settings.button("Fit the buttons").shown())
 }
 
@@ -421,7 +414,6 @@ test "the character's button chosen as a cell: the menu's first cell, and no por
   Test.mount(nil, SCREEN)
   const settings = tab("Micro menu")
   choose(settings, "Portrait", "Button", "Button")
-  settings.button("Save").click()
   Test.expect(!Test.page().text("42").shown())
   Test.expect(panel().box(CELL).count() == 11 && panel().box(CELL).nth(2).paintedWith(PROFESSIONS))
 }
@@ -447,7 +439,6 @@ test "the menu's icons chosen in gold are painted gold" {
   Test.expect(panel().box(PROFESSIONS).paintedWith(WHITE))
   const settings = tab("Micro menu")
   choose(settings, "Normal", "Gold", "Gold")
-  settings.button("Save").click()
   Test.expect(panel().box(PROFESSIONS).paintedWith(GOLD) && panel().box(GAME_MENU).paintedWith(GOLD))
 }
 
@@ -609,7 +600,6 @@ test "a hidden panel is drawn as faint as its opacity says" {
   pick(settings, "Show", 2, "Hide")
   // The hidden panel's opacity: the tab's second slider, clicked in its middle: half.
   settings.button(Ordaen.art.ctl.groove).nth(2).click()
-  settings.button("Save").click()
   Game.situation.combat = true
   Test.expect((panel().opacity() - 0.5).abs() < 0.01)
 }
@@ -625,7 +615,6 @@ test "a hidden panel's every part is as faint as it: the portrait, its badge and
   const settings = visibility()
   pick(settings, "Show", 2, "Hide")
   settings.button(Ordaen.art.ctl.groove).nth(2).click()
-  settings.button("Save").click()
   Game.situation.combat = true
   Test.expect((panel().opacity() - 0.5).abs() < 0.01)
   const portrait = Test.page().box(Ordaen.art.panel.cornerRim)
@@ -732,7 +721,6 @@ test "the menu's icons chosen in gold are gold off the panel too" {
   choose(settings, "Normal", "Gold", "Gold")
   settings.button("General").nth(2).click()
   settings.button(Ordaen.art.ctl.switchOn).nth(4).click()
-  settings.button("Save").click()
   Test.expect(Test.page().box(PROFESSIONS).paintedWith(GOLD) && Test.page().box(FRIENDS).paintedWith(GOLD))
 }
 
@@ -766,6 +754,14 @@ test "a height kept lower than the cells fit, from before the slider stopped at 
   Test.expect(cell.bottom <= SCREEN.height)
   // Its slider says so too, before its knob is moved.
   Test.expect(tab("Bottom panel").text("60 px").shown())
+}
+
+test "the action bars' tab opened changes nothing: no step of the settings' history" {
+  Test.mount(nil, SCREEN)
+  const steps = Ordaen.keeper.steps
+  const settings = tab("Action bars")
+  Test.flush()
+  Test.expect(settings.button("Action bars").shown() && Ordaen.keeper.steps == steps)
 }
 
 test "the panel's text outline is chosen on the bars' tab: none, thin or thick" {
@@ -812,7 +808,6 @@ test "the move mode shows a panel set never to show, and hides it again as it en
   Test.mount(nil, SCREEN)
   const settings = visibility()
   pick(settings, "Show", 1, "Hide")
-  settings.button("Save").click()
   settings.button(SETTINGS).click()
   Test.expect(panel().text(MOVER).shown())
   settings.button(SETTINGS).click()
@@ -825,16 +820,15 @@ test "the panel dragged in the move mode to the screen's left runs down it from 
   Game.player.xpMax = 10000
   Test.mount(nil, SCREEN)
   const settings = visibility()
-  // A change not saved: the drag leaves it waiting.
-  pick(settings, "Show", 1, "Hide")
+  const steps = Ordaen.keeper.steps
   settings.button(SETTINGS).click()
   // Carried over the portrait's badge, then let go over the portrait, in the screen's lower left corner: the left side
   // is nearest.
   const portrait = Test.page().window("42")
   drag(panel().text(MOVER), [portrait.text("42"), portrait.text(MOVER)])
   settings.button(SETTINGS).click()
-  // Down the side, with no experience bar; «Never» still waits to be saved.
-  Test.expect(panel().shown() && !Test.page().text(XP).shown() && settings.button("Hide").count() == 2)
+  // Down the side, with no experience bar: the drag is one step of the settings' history.
+  Test.expect(panel().shown() && !Test.page().text(XP).shown() && Ordaen.keeper.steps == steps + 1)
   Test.expect(settings.button("Left").shown())
 }
 
@@ -843,7 +837,6 @@ test "the panel right-clicked in the move mode goes back to the bottom" {
   Test.mount(nil, SCREEN)
   const settings = tab("Bottom panel")
   choose(settings, "Bottom", "Top", "Top")
-  settings.button("Save").click()
   settings.button(SETTINGS).click()
   panel().text(MOVER).rightClick()
   settings.button(SETTINGS).click()

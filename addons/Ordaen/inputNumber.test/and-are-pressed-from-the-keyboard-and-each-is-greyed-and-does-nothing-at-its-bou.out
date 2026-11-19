@@ -8,23 +8,23 @@ surface 420,281.38 760x337.25 on DIALOG clamped raised by a click
           box 452.75,357.74 233.33x15.6 @pointerEnter @pointerLeave
             text 452.75,357.74 233.33x15.6 "Share" #cbb994
           box 701.08,351.38 451.17x28.33
-            box 701.08,351.38 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave
+            box 701.08,351.38 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerUp
               text 708.31,357.74 8.89x15.6 "-" #ffd100
-            box 729.42,357.21 213.33x16.67 @drag @dragStart @keyPress @pointerPress
+            box 729.42,357.21 213.33x16.67 @drag @dragStart @dragStop @keyPress @pointerPress
               box 736.08,362.21 200x6.67 absolute Interface\AddOns\Ordaen\media\ctl-slider row 0 of 4
               box 736.92,363.04 198.33x5 absolute Interface\AddOns\Ordaen\media\ctl-slider row 1 of 4
               box 929.42,355.54 13.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-slider-knob
-            box 947.75,351.38 23.33x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave
+            box 947.75,351.38 23.33x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerUp
               text 954.97,357.74 8.89x15.6 "+" #808080
             text 976.08,357.74 28.89x15.6 "100%" #ffffff
         box 452.75,379.71 699.5x28.33 opacity=1
           box 452.75,386.07 233.33x15.6 @pointerEnter @pointerLeave
             text 452.75,386.07 233.33x15.6 "Place" #cbb994
           box 701.08,379.71 451.17x28.33
-            box 701.08,379.71 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave focus ring
+            box 701.08,379.71 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerUp focus ring
               text 708.31,386.07 8.89x15.6 "-" #ffffff
             box 729.42,383.04 100x21.67 #00000080 input "0" @change @submit
-            box 834.42,379.71 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave
+            box 834.42,379.71 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerUp
               text 841.64,386.07 8.89x15.6 "+" #ffd100
             text 862.75,386.07 15.56x15.6 "px" #ffffff
     box 1162.75,598.62 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop

@@ -663,10 +663,8 @@ test "with «Prices» off the window shows no price; on again, they are back" {
   Game.tradeSkill.open = TAILORING
   const page = settings()
   page.button("Prices").click()
-  page.button("Save").click()
   Test.expect(!window().text("Cost").shown() && reads(window().text("Coarse Thread").item(), "Coarse Thread | 0 / 1"))
   page.button("Prices").click()
-  page.button("Save").click()
   Test.expect(window().text("Cost").shown())
   page.text("Prices").hover()
   Test.expect(Test.page().window(PRICES_TIP).shown())

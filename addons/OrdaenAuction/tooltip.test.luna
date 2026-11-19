@@ -107,7 +107,6 @@ test "the price line off in the settings: the tooltip has none" {
   (Client.SlashCmdList["ORDAEN"] ?? panic("/ordaen is Ordaen's command"))("auction")
   const page = Test.page().window(SETTINGS)
   page.button("Price in item tooltips").click()
-  page.button("Save").click()
   Game.tooltip.main = hidden()
   Test.pass(0.2)
   Game.tooltip.main = showing(ore())

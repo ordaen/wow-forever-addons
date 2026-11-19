@@ -1,7 +1,7 @@
 // The panel's «Action bars» page in the settings window: the bars in a list on its left, each with its switch; the
 // bar picked there beside it, its name with its «…» menu (another bar's settings copied in, its own reset, its place
 // back where the panel puts it) over its own settings, one section under another, and for Панель 1 the forms that
-// page it. Each control writes the settings' draft.
+// page it. Each control writes the settings, at once.
 import Game from "$game"
 import { Align, Track } from "$ltml"
 import root Ordaen from "Ordaen"
@@ -44,12 +44,17 @@ class FormRow implements Component {
   constructor(form: Form, settings: mut Settings<BarsChoices>) {
     self.form = form
     self.settings = settings
-    self.on = (peek self.settings.draft).unpaged[String.of(form.bonusbar)] != true
-    watch (on of self.on) {
-      const unpaged = (peek self.settings.draft).unpaged.clone()
-      unpaged[String.of(self.form.bonusbar)] = !on
-      self.settings.draft.unpaged = unpaged
-    }
+    self.on = (peek self.settings.values).unpaged[String.of(form.bonusbar)] != true
+    watch (on of self.on) { self.write(on) }
+  }
+
+  // The switch as the settings hold it: written where it differs, so the page opening changes nothing.
+  write(mut self, on: Boolean) {
+    const key = String.of(self.form.bonusbar)
+    if (((peek self.settings.values).unpaged[key] != true) == on) { return }
+    const unpaged = (peek self.settings.values).unpaged.clone()
+    unpaged[key] = !on
+    self.settings.values.unpaged = unpaged
   }
 
   public render(self): Template {
@@ -57,16 +62,16 @@ class FormRow implements Component {
   }
 }
 
-// A bar's settings in the draft, or its defaults where the player never changed them.
+// A bar's settings in the settings, or its defaults where the player never changed them.
 function choiceIn(values: BarsChoices, defaults: Map<String, BarChoice>, spec: BarSpec): BarChoice {
   return values.bars[spec.id] ?? defaults[spec.id] ?? defaultChoice(spec, false)
 }
 
-// A bar's settings written into the draft: one change.
+// A bar's settings written into the settings: one change.
 function put(settings: mut Settings<BarsChoices>, spec: BarSpec, choice: BarChoice) {
-  const bars = (peek settings.draft).bars.clone()
+  const bars = (peek settings.values).bars.clone()
   bars[spec.id] = choice
-  settings.draft.bars = bars
+  settings.values.bars = bars
 }
 
 // A bar in the page's list: its name, picked by a click, and its switch.
@@ -74,7 +79,7 @@ class BarTab implements Component {
   public pick: Event<BarSpec> = new Event()
   public flip: Event<BarSpec> = new Event()
 
-  derived on: Boolean = choiceIn(self.settings.draft, self.defaults, self.spec).on
+  derived on: Boolean = choiceIn(self.settings.values, self.defaults, self.spec).on
   derived shown: Shown = self.on ? .On : .Off
   derived selected: Boolean = self.picked == self.spec.id
   derived off: Boolean = !self.on
@@ -104,8 +109,8 @@ class BarTab implements Component {
   }
 }
 
-// The picked bar's settings: a copy of its choice the controls change, written into the draft as they do, and
-// taken again from the draft where something else writes it there (the «…» menu, a profile).
+// The picked bar's settings: a copy of its choice the controls change, written into the settings as they do, and
+// taken again from them where something else writes it there (the «…» menu, a profile).
 class BarEditor implements Component {
   state choice: mut BarChoice
   derived paged: Boolean = self.spec.kind == BarKind.Action && self.spec.number == 1 && self.forms.length > 0
@@ -119,15 +124,15 @@ class BarEditor implements Component {
     self.settings = settings
     self.defaults = defaults
     self.forms = formsOf(peek Game.player.classTag)
-    self.choice = choiceIn(peek self.settings.draft, peek self.defaults, spec).clone()
+    self.choice = choiceIn(peek self.settings.values, peek self.defaults, spec).clone()
     watch (choice of self.choice) {
-      if (!choiceIn(peek self.settings.draft, peek self.defaults, self.spec).equal(choice)) {
+      if (!choiceIn(peek self.settings.values, peek self.defaults, self.spec).equal(choice)) {
         put(mut self.settings, self.spec, choice)
       }
     }
-    watch (draft of self.settings.draft) {
-      const drafted = choiceIn(draft, peek self.defaults, self.spec)
-      if (!drafted.equal(peek self.choice)) { self.choice = drafted.clone() }
+    watch (values of self.settings.values) {
+      const held = choiceIn(values, peek self.defaults, self.spec)
+      if (!held.equal(peek self.choice)) { self.choice = held.clone() }
     }
   }
 
@@ -203,7 +208,7 @@ public class BarsPage implements Component {
   // A bar's name in the copy's submenu: an off one says so.
   nameOf(self, spec: BarSpec): String {
     const title = Bar.titleOf(spec)
-    return choiceIn(self.settings.draft, self.defaults, spec).on ? title : Locale.BAR_OFF.format(title)
+    return choiceIn(self.settings.values, self.defaults, spec).on ? title : Locale.BAR_OFF.format(title)
   }
 
   onPick(mut self, spec: BarSpec) {
@@ -212,7 +217,7 @@ public class BarsPage implements Component {
   }
 
   onFlip(mut self, spec: BarSpec) {
-    const choice = choiceIn(peek self.settings.draft, peek self.defaults, spec).clone()
+    const choice = choiceIn(peek self.settings.values, peek self.defaults, spec).clone()
     choice.on = !choice.on
     put(mut self.settings, spec, choice)
   }
@@ -223,7 +228,7 @@ public class BarsPage implements Component {
   onMenu(mut self, index: Integer) {
     const spec = peek self.spec
     if (index == RESET_ENTRY) {
-      const now = choiceIn(peek self.settings.draft, peek self.defaults, spec)
+      const now = choiceIn(peek self.settings.values, peek self.defaults, spec)
       put(mut self.settings, spec, reset(now, (peek self.defaults)[spec.id] ?? defaultChoice(spec, now.on)))
       self.copiedFrom = nil
     } else if (index == PLACE_ENTRY) {
@@ -236,9 +241,9 @@ public class BarsPage implements Component {
   onCopy(mut self, entry: Integer, at: Integer) {
     const spec = peek self.spec
     const from = (peek self.others)[at] ?? panic("the submenu lists the other bars")
-    const draft = peek self.settings.draft
+    const values = peek self.settings.values
     const defaults = peek self.defaults
-    put(mut self.settings, spec, copied(choiceIn(draft, defaults, from), choiceIn(draft, defaults, spec), spec))
+    put(mut self.settings, spec, copied(choiceIn(values, defaults, from), choiceIn(values, defaults, spec), spec))
     self.copiedFrom = Bar.titleOf(from)
     self.menuOpen = false
   }

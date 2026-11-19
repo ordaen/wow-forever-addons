@@ -2,7 +2,7 @@
 // whether what the player does with it is kept, where it stands and how large it is (as numbers), full screen or not,
 // the tab it opens on (the one last open, or a fixed one), what hides it and after what it shows again. It is fed by the windows' declarations (`KeptWindow`)
 // and writes their memory, which the windows read: a window and its page can't disagree. What it changes is kept at
-// once, as a window moved by its tab is: it is where the window is, not a choice waiting for «Save».
+// once, as a window moved by its tab is: it is where the window is, no step of the settings' history.
 import { MouseButton, Track } from "$ltml"
 import { Checkbox } from "@/checkbox"
 import { Choice, Dropdown, ManyDropdown } from "@/dropdown"

@@ -1,13 +1,12 @@
-// The look's page: a preset chosen writes every entry of the draft, a colour changed after it is a draft that
-// differs, and «Save» and «Roll back» treat them as any other setting.
+// The look's page: a preset chosen writes every entry of the look at once, one step; a colour picked after it is
+// written as the picker rests, a step of its own; going back treats them as any other setting.
 import Game from "$game"
 import Test from "$test"
 import root Ordaen from "Ordaen"
+import Locale from "@/locales"
 import { Look, presetOf } from "@/look"
 import { LookPage } from "@/lookPage"
-
-// The middle of the accent's swatch.
-const ACCENT: Test.Point = { x: 266.67, y: 559.83 }
+import { REST } from "@/rest"
 
 function presetNow(look: Look): String {
   let preset = presetOf(look)
@@ -19,10 +18,10 @@ function state(): String {
   Test.flush()
   let file = Ordaen.lookArt.fonts.numbers
   let font = file != nil ? file : "the client's own text font"
-  return `unsaved ${Ordaen.keeper.unsaved}; the draft's preset ${presetNow(Ordaen.look.draft)}, the values' ${presetNow(Ordaen.look.values)}; numbers drawn with ${font}`
+  return `steps ${Ordaen.keeper.steps}; the look's preset ${presetNow(Ordaen.look.values)}; numbers drawn with ${font}`
 }
 
-test "a preset is chosen whole, a colour changed after it, saved and rolled back" {
+test "a preset is chosen whole, a colour changed after it, and each gone back through" {
   let page = new LookPage(mut Ordaen.look)
   Test.mount(page, { left: 0, top: 0, width: 800, height: 2600 })
   Test.note(state())
@@ -32,22 +31,28 @@ test "a preset is chosen whole, a colour changed after it, saved and rolled back
   Test.click(Test.holding("Use", nil), nil)
   Test.note(state())
 
-  // The colour the accent already has, picked again: nothing differs.
-  Test.click(ACCENT, nil)
+  // The colour the accent already has, picked again: nothing changes.
+  Test.page().button(Locale.THEME_ACCENT).click()
   Game.colorPicker.picked.emit(1, { r: 0.62, g: 0.62, b: 0.62, a: 1 })
+  Test.pass(REST * 2)
   Test.note(state())
 
-  Test.click(ACCENT, nil)
+  // Another colour: the setting takes it as the picker rests.
+  Test.page().button(Locale.THEME_ACCENT).click()
   Game.colorPicker.picked.emit(2, { r: 0, g: 0.5, b: 1, a: 1 })
+  Test.flush()
+  Test.expect(presetOf(Ordaen.look.values) != nil)
+  Test.pass(REST * 2)
+  Test.expect(Ordaen.look.values.accent.b == 1)
   Test.note(state())
-  Test.shot("Minimal chosen, then its accent changed: no preset is the draft")
+  Test.shot("Minimal chosen, then its accent changed: no preset is the look")
 
-  Ordaen.keeper.saveAll()
+  Ordaen.keeper.undo()
   Test.note(state())
 
-  Ordaen.keeper.rollbackAll()
+  Ordaen.keeper.undo()
   Test.note(state())
-  Test.shot("rolled back: Ordaen's again")
+  Test.shot("gone back: Ordaen's again")
 
   destroy page
   Test.expect(Test.blank())

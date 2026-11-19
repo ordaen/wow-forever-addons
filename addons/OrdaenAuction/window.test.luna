@@ -178,7 +178,6 @@ test "the window off in the settings: the house opens with none of it, the game'
   Test.mount(nil, SCREEN)
   const page = settings()
   page.button(WINDOW_SETTING).click()
-  page.button("Save").click()
   Game.auctionHouse.open = true
   Game.auctionHouse.opened.emit()
   Test.expect(!window().shown() && back(own))

@@ -98,20 +98,18 @@ function tab(title: String): Test.Part {
   return settings
 }
 
-// A control of the module's tab clicked and saved, and the window closed.
+// A control of the module's tab clicked, which applies at once, and the window closed.
 function choose(title: String, control: String) {
   const settings = tab(title)
   settings.button(control).click()
-  settings.button("Save").click()
   Test.key(Key.Escape)
 }
 
-// A dropdown of the module's tab, the `nth` of those that say what it says now, set to another choice and saved.
+// A dropdown of the module's tab, the `nth` of those that say what it says now, set to another choice.
 function pick(title: String, now: String, nth: Integer, choice: String) {
   const settings = tab(title)
   settings.button(now).nth(nth).click()
   Test.page().window(choice).button(choice).click()
-  settings.button("Save").click()
   Test.key(Key.Escape)
 }
 
@@ -342,6 +340,7 @@ test "a setting changed on its tab is kept after a reload" {
   Test.mount(nil, SCREEN)
   choose("Items", "Item level")
   pick("General", "Blizzard's place", 1, "Beside the object")
+  Ordaen.keeper.profiles.pack()
   Test.reload()
   // Its box shows no tick; the dropdown says the choice.
   Test.expect(tab("Items").button("Item level").box(Ordaen.art.ctl.tick).opacity() == 0)

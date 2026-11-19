@@ -2,7 +2,7 @@
 // size from the grip and full screen or not come back after a reload, and a switch of profile takes the other
 // profile's at once. Ordaen's own settings window stands for every window: they keep through the same `Window`.
 // Where it stands is read by its texts, which a reload's window draws anew: its tab's title (its top left) and its
-// footer's «Save» (its bottom right).
+// footer's «Roll back» (its bottom right).
 import { Art, Key } from "$ltml"
 import Test from "$test"
 import root Ordaen from "Ordaen"
@@ -19,7 +19,7 @@ function open() {
 }
 
 function tab(): Test.Point { return Test.holding(Ordaen.title, nil) }
-function save(): Test.Point { return Test.holding(Locale.SAVE, nil) }
+function save(): Test.Point { return Test.holding(Locale.ROLLBACK, nil) }
 
 // A drag of the mouse from `from` by (dx, dy), in steps the client's drag takes as one.
 function drag(from: Test.Point, dx: Number, dy: Number) {
@@ -102,20 +102,21 @@ test "a switch of profile takes that profile's place at once, and back, without 
   Test.expect(near(tab().x, moved.x))
 }
 
-test "a window never moved keeps nothing, and moving one leaves a settings draft waiting" {
+test "a window never moved keeps nothing, and moving one is no step of the settings' history" {
   Test.mount(nil, { left: 0, top: 0, width: 200, height: 100, screen: true })
   open()
   const name = Ordaen.keeper.profiles.active
   Test.expect(Ordaen.keeper.profiles.recalled(name, "Ordaen:window:settings") == nil)
-  Ordaen.globals.draft.density = Density.Roomy
+  const steps = Ordaen.keeper.steps
+  Ordaen.globals.values.density = Density.Roomy
   Test.flush()
-  const waiting = Ordaen.keeper.unsaved
-  Test.expect(waiting > 0)
+  Test.expect(Ordaen.keeper.steps == steps + 1)
   drag(tab(), -50, 0)
   Test.expect(Ordaen.keeper.profiles.recalled(name, "Ordaen:window:settings") != nil)
-  Test.expect(Ordaen.globals.draft.density == Density.Roomy && Ordaen.keeper.unsaved == waiting)
-  Ordaen.globals.draft.density = Ordaen.globals.values.density
+  Test.expect(Ordaen.globals.values.density == Density.Roomy && Ordaen.keeper.steps == steps + 1)
+  Ordaen.keeper.undo()
   Test.flush()
+  Test.expect(Ordaen.globals.values.density != Density.Roomy && Ordaen.keeper.steps == steps)
 }
 
 // What a module's mistake might keep: a list that grows with play.

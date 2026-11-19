@@ -110,9 +110,12 @@ public class Menu implements Component {
   // The lines, each kept by its place: a line follows the entry at its place, so a switch flipped is the same line.
   entries: Signal<Array<MenuEntry>>
   title: Signal<String>
-  constructor(entries: Signal<Array<MenuEntry>>, title: Signal<String> = "") {
+  const width: Number<Length>
+  // `width`: as wide as its longest entry needs (a list's row needs less than the settings' history).
+  constructor(entries: Signal<Array<MenuEntry>>, title: Signal<String> = "", width: Number<Length> = WIDTH) {
     self.entries = entries
     self.title = title
+    self.width = width
   }
 
   onPick(mut self, index: Integer) { self.pick.emit(index) }
@@ -128,7 +131,7 @@ public class Menu implements Component {
 
   public render(self): Template {
     return $ltml {
-      <surface layer={Layer.Tooltip} place={Beside { beside: "parent" }} width={WIDTH} background={BACK}
+      <surface layer={Layer.Tooltip} place={Beside { beside: "parent" }} width={self.width} background={BACK}
                border={EDGE} padding={PAD} columns={1} @pointerPressOutside={self.onOutside}>
         <box $if={self.titled} padding={ITEM_PAD}>
           <text value={self.title} textColor={TITLE} wrap={false} />

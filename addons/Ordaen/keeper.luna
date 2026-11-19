@@ -1,45 +1,118 @@
-// Every `Settings`' draft together, as the settings window sees them: Ordaen's root keeps one (`Ordaen.keeper`), a
-// `Settings` joins it as it is made, and hears when the drafts are saved, dropped or taken back. It keeps the profiles
-// the values are kept in.
+// Every `Settings` together, as the settings window sees them: Ordaen's root keeps one (`Ordaen.keeper`), and a
+// `Settings` that is kept enrols as it is made. Each change a `Settings` records is a step of the active profile's
+// history; «Откатить» goes back through it, to the session's start, or to a savepoint. The history, the start and
+// the savepoints live in memory for the session, never saved: each profile has its own. It keeps the profiles the
+// values are kept in.
+import Client from "$client"
+import Locale from "@/locales"
+import { plural } from "@/plural"
 import { Profiles } from "@/profiles"
 
-// What the profiles' page asks of a `Settings` it knows only by the key it is kept under: Ordaen knows no module's type,
-// and a section is read as its type by the `Settings` that owns it.
+// The most steps a profile's history keeps: the oldest goes. The session's start stays.
+public const HISTORY_MOST = 100
+// The most savepoints a profile keeps.
+public const POINTS_MOST = 10
+// The most modules a menu's entry names; the rest are counted.
+const NAMED_MOST = 3
+const PREFIX = "Ordaen "
+
+// A module's name as the settings window's list says it: its title without "Ordaen " (Ordaen Panel: Panel).
+public function moduleName(title: String): String {
+  if (title.sub(1, PREFIX.length) == PREFIX) { return title.sub(PREFIX.length + 1) }
+  return title
+}
+
+// What Ordaen knows of a module's settings, by the key it is kept under: Ordaen knows no module's type, and a
+// section is read as its type by the `Settings` that owns it.
 public trait Sectioned {
-  // How many of its settings a section (CBOR read to plain data) would change in its values.
+  // How many of its settings a snapshot or a section (read to plain data) would change in its values.
   public differs(self, raw: Unknown): Integer
-  // A section becomes its draft: it waits for «Save».
-  public draftFrom(mut self, raw: Unknown)
-  // Every value back to its default, the draft with them.
+  // Its values as they are now, a copy.
+  public snapshot(self): Unknown
+  // A snapshot or a section becomes its values: a change as any other.
+  public restore(mut self, raw: Unknown)
+  // A change written and not recorded yet (a watch records it at the next frame) is recorded now.
+  public settle(mut self)
+  // Every value back to its default.
   public reset(mut self)
+}
+
+// One step of the history: each section it changed, as it was before.
+struct Step {
+  before: mut Map<String, Unknown>
+}
+
+// Every loaded section as it was when the player pressed «Точка».
+public struct Savepoint {
+  // «Точка N»: its number in the session, and the game's time it was made at.
+  number: Integer
+  at: String
+  sections: Map<String, Unknown>
+}
+
+// A profile's ways back, for the session.
+struct Shelf {
+  steps: mut Array<mut Step> = []
+  // Each section's values before its first change.
+  start: mut Map<String, Unknown> = {}
+  points: mut Array<Savepoint> = []
+  made: Integer = 0
+}
+
+// What going back to a place would change: how many settings, and in which modules.
+public struct Change {
+  count: Integer
+  modules: Array<String>
+}
+
+// The modules a menu's entry names: three at most, then how many more.
+public function modulesText(modules: Array<String>): String {
+  const named: Array<String> = []
+  for (title of modules) {
+    if (named.length < NAMED_MOST) { named.push(title) }
+  }
+  const text = named.join(", ")
+  if (modules.length <= NAMED_MOST) { return text }
+  return Locale.HISTORY_MORE.format(text, modules.length - NAMED_MOST)
+}
+
+// «4 настройки, Панель, Ordaen».
+public function changeText(change: Change): String {
+  const counted = plural(change.count, Locale.HISTORY_SETTINGS_ONE, Locale.HISTORY_SETTINGS_FEW, Locale.HISTORY_SETTINGS_MANY)
+  return counted.format(change.count) + ", " + modulesText(change.modules)
 }
 
 public class Keeper {
   // Every `Settings`' values, by profile: a `Settings` reads the active profile's section and follows a switch.
   public const profiles: mut Profiles = new Profiles()
-  // How many entries wait to be saved, over every module.
-  public derived unsaved: Integer = self.sum()
-  // Whether there is a save to take back.
-  public state rollbackable = false
-  // A save: each `Settings` whose draft differs takes it and says so (`changed`); where one did, `saved` follows,
-  // and what the values were before is what a roll back returns to.
-  public const saving: Event<nil> = new Event()
-  public const saved: Event<nil> = new Event()
-  public const discarding: Event<nil> = new Event()
-  public const rollingBack: Event<nil> = new Event()
-  // Whether a `Settings` took its draft in the save that is running.
-  any = false
-  // How many entries of each `Settings` wait, by what it joined as.
-  state counts: mut Map<Integer, Integer> = {}
-  last = 0
-  // Every `Settings` that is kept, by its key, and who joined as it.
+  // The active profile's steps and savepoints this session: what the window's foot shows.
+  public state steps = 0
+  public state points = 0
+  // Every `Settings` that is kept, by its key; who joined as it, and the title of its module.
   sections: mut Map<String, mut any Sectioned> = {}
   owners: mut Map<String, Integer> = {}
+  titles: mut Map<String, String> = {}
+  last = 0
+  // Each profile's ways back, by its name.
+  shelves: mut Map<String, mut Shelf> = {}
+  // The input under way (a drag, a held button, typing): `finish` writes what it holds now.
+  finish: (() => nil) | nil = nil
+  // While an input is under way or a place is gone back to, what is recorded joins one step.
+  joining = false
+  joined = false
+  // Going back through a step: what it restores is no step of its own.
+  quiet = false
 
-  // A `Settings` that is kept is known by its key until it is gone.
-  public enrol(mut self, key: String, id: Integer, section: mut any Sectioned) {
+  constructor() {
+    watch (name of self.profiles.active) { self.count(name) }
+    self.profiles.finishing.listen(self.finishInput)
+  }
+
+  // A `Settings` that is kept is known by its key, and named by its module's title, until it is gone.
+  public enrol(mut self, key: String, id: Integer, title: String, section: mut any Sectioned) {
     self.sections[key] = section
     self.owners[key] = id
+    self.titles[key] = moduleName(title)
   }
 
   public withdraw(mut self, key: String, id: Integer) {
@@ -47,6 +120,12 @@ public class Keeper {
       self.sections[key] = nil
       self.owners[key] = nil
     }
+  }
+
+  // What a `Settings` is counted by.
+  public join(mut self): Integer {
+    self.last += 1
+    return self.last
   }
 
   // Whether a `Settings` is made for the key: its module is loaded.
@@ -61,52 +140,233 @@ public class Keeper {
     return section.differs(raw)
   }
 
-  // A section made the draft of its `Settings`: false where none is made for the key.
-  public draft(mut self, key: String, raw: Unknown): Boolean {
+  // The active profile's ways back, made as they are first needed.
+  shelf(mut self): mut Shelf {
+    const name = peek self.profiles.active
+    const kept = self.shelves[name]
+    if (kept != nil) { return kept }
+    const made: Shelf = {}
+    self.shelves[name] = made
+    return made
+  }
+
+  count(mut self, name: String) {
+    const shelf = self.shelves[name]
+    if (shelf == nil) {
+      self.steps = 0
+      self.points = 0
+      return
+    }
+    self.steps = shelf.steps.length
+    self.points = shelf.points.length
+  }
+
+  // A `Settings` changed: `before` is what its values were. One step, or a part of the step under way.
+  public stepped(mut self, key: String, before: Unknown) {
+    if (self.quiet) { return }
+    const shelf = self.shelf()
+    if (shelf.start[key] == nil) { shelf.start[key] = before }
+    const last = shelf.steps[shelf.steps.length]
+    if (self.joined && last != nil) {
+      if (last.before[key] == nil) { last.before[key] = before }
+    } else {
+      const step: Step = { before: {} }
+      step.before[key] = before
+      shelf.steps.push(mut step)
+      if (shelf.steps.length > HISTORY_MOST) { _ = shelf.steps.remove(1) }
+      self.joined = self.joining
+    }
+    self.count(peek self.profiles.active)
+  }
+
+  settleAll(mut self) {
+    for (_, section of self.sections) { section.settle() }
+  }
+
+  // The input under way writes what it holds, before anything reads the values whole: going back, a savepoint, the
+  // values packed (the game saving, a switch, an export), the window closed or another page shown.
+  public finishInput(mut self) {
+    const finish = self.finish
+    if (finish != nil) { finish() }
+  }
+
+  // An input starts: what it writes until it ends is one step. `finish` writes what it holds and ends it.
+  public begin(mut self, finish: () => nil) {
+    self.finishInput()
+    self.settleAll()
+    self.finish = finish
+    self.joining = true
+    self.joined = false
+  }
+
+  // The input ends: its last write joins its step.
+  public end(mut self) {
+    self.settleAll()
+    self.finish = nil
+    self.joining = false
+    self.joined = false
+  }
+
+  // What `run` changes, in every section, is one step (a profile's «Сбросить», a copy from another profile).
+  public together(mut self, run: () => nil) {
+    self.finishInput()
+    self.settleAll()
+    self.joining = true
+    self.joined = false
+    run()
+    self.settleAll()
+    self.joining = false
+    self.joined = false
+  }
+
+  // What `run` changes is no step: it is how the values are read, not the player's change (a preset Ordaen doesn't
+  // offer, read from a profile).
+  public unrecorded(mut self, run: () => nil) {
+    self.settleAll()
+    self.quiet = true
+    run()
+    self.settleAll()
+    self.quiet = false
+  }
+
+  // Every `Settings` back to its defaults, in the active profile: one step.
+  public resetAll(mut self) {
+    self.together(() => {
+      for (_, section of self.sections) { section.reset() }
+    })
+  }
+
+  // A section of another profile becomes the values of its `Settings`: false where none is made for the key.
+  public copyIn(mut self, key: String, raw: Unknown): Boolean {
     const section = self.sections[key]
     if (section == nil) { return false }
-    section.draftFrom(raw)
+    section.restore(raw)
     return true
   }
 
-  // Every `Settings` back to its defaults, in the active profile.
-  public resetAll(mut self) {
-    for (_, section of self.sections) { section.reset() }
+  // «Последнее изменение»: every setting the last step changed back to how it was before it. It is taken off the
+  // history, so pressed again it goes back through the step before.
+  public undo(mut self) {
+    self.finishInput()
+    self.settleAll()
+    const shelf = self.shelf()
+    if (shelf.steps.length == 0) { return }
+    const step = shelf.steps.remove(shelf.steps.length)
+    self.quiet = true
+    for (key, raw of step.before) {
+      const section = self.sections[key]
+      if (section != nil) {
+        section.restore(raw)
+        section.settle()
+      }
+    }
+    self.quiet = false
+    self.count(peek self.profiles.active)
   }
 
-  sum(self): Integer {
-    let total = 0
-    for (_, waiting of self.counts) { total += waiting }
-    return total
+  // Every section of `place` the values are not, restored: one step, which «Последнее изменение» takes back. A
+  // section whose module isn't loaded is left as it is.
+  goBack(mut self, place: Map<String, Unknown>) {
+    self.finishInput()
+    self.settleAll()
+    self.joining = true
+    self.joined = false
+    for (key, raw of place) {
+      const section = self.sections[key]
+      if (section != nil && section.differs(raw) > 0) {
+        section.restore(raw)
+        section.settle()
+      }
+    }
+    self.joining = false
+    self.joined = false
   }
 
-  // A `Settings` is made: what it is counted by. It says how many of its entries wait, and that it is gone.
-  public join(mut self): Integer {
-    self.last += 1
-    return self.last
+  // «Начало сессии»: every setting as it was at login or at the last `/reload`.
+  public toStart(mut self) {
+    self.goBack(self.shelf().start)
   }
 
-  public count(mut self, id: Integer, waiting: Integer) { self.counts[id] = waiting }
-  public leave(mut self, id: Integer) { self.counts[id] = 0 }
-
-  public changed(mut self) { self.any = true }
-
-  // The drafts become the values.
-  public saveAll(mut self) {
-    self.any = false
-    self.saving.emit()
-    if (!self.any) { return }
-    self.saved.emit()
-    self.rollbackable = true
+  // A savepoint gone back to, by its place in the list.
+  public toPoint(mut self, index: Integer) {
+    const point = self.shelf().points[index]
+    if (point != nil) { self.goBack(point.sections) }
   }
 
-  // The drafts go back to the values.
-  public discardAll(mut self) { self.discarding.emit() }
+  // «Точка»: every loaded section as it is now. False at the most a profile keeps.
+  public mark(mut self): Boolean {
+    self.finishInput()
+    self.settleAll()
+    const shelf = self.shelf()
+    if (shelf.points.length >= POINTS_MOST) { return false }
+    const sections: Map<String, Unknown> = {}
+    for (key, section of self.sections) { sections[key] = section.snapshot() }
+    shelf.made += 1
+    const hours, minutes = Client.GetGameTime()
+    shelf.points.push({ number: shelf.made, at: "%02d:%02d".format(hours.floor(), minutes.floor()), sections: sections })
+    self.count(peek self.profiles.active)
+    return true
+  }
 
-  // The values go back to what they were before the last save, and the drafts with them.
-  public rollbackAll(mut self) {
-    if (!peek self.rollbackable) { return }
-    self.rollingBack.emit()
-    self.rollbackable = false
+  // A savepoint let go.
+  public unmark(mut self, index: Integer) {
+    const shelf = self.shelf()
+    if (index < 1 || index > shelf.points.length) { return }
+    _ = shelf.points.remove(index)
+    self.count(peek self.profiles.active)
+  }
+
+  // The active profile's savepoints, in the order made.
+  public pointList(mut self): Array<Savepoint> {
+    return self.shelf().points
+  }
+
+  // What going back to `place` would change now.
+  public changeTo(self, place: Map<String, Unknown>): Change {
+    let count = 0
+    const modules: Array<String> = []
+    for (key, raw of place) {
+      const section = self.sections[key]
+      const changes = section == nil ? 0 : section.differs(raw)
+      if (changes > 0) {
+        count += changes
+        self.named(mut modules, key)
+      }
+    }
+    return { count: count, modules: modules }
+  }
+
+  // The modules the last step changed.
+  public lastModules(mut self): Array<String> {
+    const modules: Array<String> = []
+    const shelf = self.shelf()
+    const last = shelf.steps[shelf.steps.length]
+    if (last == nil) { return modules }
+    for (key, _ of last.before) { self.named(mut modules, key) }
+    return modules
+  }
+
+  // What going back to the session's start would change now.
+  public startChange(mut self): Change {
+    self.settleAll()
+    return self.changeTo(self.shelf().start)
+  }
+
+  named(self, modules: mut Array<String>, key: String) {
+    const title = self.titles[key] ?? key
+    if (!modules.any(each => each == title)) { modules.push(title) }
+  }
+
+  // A profile renamed keeps its ways back; deleted, they go with it.
+  public renamed(mut self, from: String, to: String) {
+    const shelf = self.shelves[from]
+    self.shelves[from] = nil
+    if (shelf != nil) { self.shelves[to] = shelf }
+    self.count(peek self.profiles.active)
+  }
+
+  public dropped(mut self, name: String) {
+    self.shelves[name] = nil
+    self.count(peek self.profiles.active)
   }
 }

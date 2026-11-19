@@ -1,6 +1,7 @@
 // Ordaen Spells' page in the settings window: the spec tabs' names and whether the class trainer's window is ours.
-// Each control writes one entry of the settings' draft. An empty name saves nothing: the tab shows the game's.
-import { Checkbox, Component, Settings } from "Ordaen"
+// Each control writes one entry of the settings as the player changes it; a name typed is written when the typing
+// rests and at Enter. An empty name keeps nothing: the tab shows the game's.
+import { Checkbox, Component, Resting, Settings } from "Ordaen"
 import Locale from "@/locales"
 import Style from "@/style"
 
@@ -14,26 +15,64 @@ public struct Choices implements Plain {
 }
 
 public class GeneralPage implements Component {
+  // What each name's field shows: the setting, or what is typed and not written yet.
+  state one: String
+  state two: String
+  const oneRest: mut Resting<String>
+  const twoRest: mut Resting<String>
+
   settings: mut Settings<Choices>
   constructor(settings: mut Settings<Choices>) {
     self.settings = settings
+    self.one = (peek self.settings.values).specOne
+    self.two = (peek self.settings.values).specTwo
+    self.oneRest = new Resting<String>((name: String): nil => {
+      self.settings.change((choices: mut Choices): nil => { choices.specOne = name })
+    })
+    self.twoRest = new Resting<String>((name: String): nil => {
+      self.settings.change((choices: mut Choices): nil => { choices.specTwo = name })
+    })
+    watch (typed of self.one) { self.typedOne(typed) }
+    watch (typed of self.two) { self.typedTwo(typed) }
+    // A name the setting takes from elsewhere (going back) shows, unless the player is typing.
+    watch { self.showOne(self.settings.values.specOne) }
+    watch { self.showTwo(self.settings.values.specTwo) }
   }
+
+  typedOne(mut self, typed: String) {
+    if (typed != (peek self.settings.values).specOne) { self.oneRest.move(typed) }
+  }
+
+  typedTwo(mut self, typed: String) {
+    if (typed != (peek self.settings.values).specTwo) { self.twoRest.move(typed) }
+  }
+
+  showOne(mut self, name: String) {
+    if (!self.oneRest.busy()) { self.one = name }
+  }
+
+  showTwo(mut self, name: String) {
+    if (!self.twoRest.busy()) { self.two = name }
+  }
+
+  enterOne(mut self) { self.oneRest.end() }
+  enterTwo(mut self) { self.twoRest.end() }
 
   public render(self): Template {
     return $ltml {
       <box columns={1} gap={7.03125dp}>
         <text value={Locale.SETTING_SPEC_ONE} textColor={Style.INK} />
         <box height={35.15625dp} rows={[{ fr: 1 }]}>
-          <input value={mut self.settings.draft.specOne} maxLength={24} padding={{ left: 11.71875dp, right: 11.71875dp }}
-                 textColor={Style.INK} background={Color.hex("#00000080")} />
+          <input value={mut self.one} maxLength={24} padding={{ left: 11.71875dp, right: 11.71875dp }}
+                 textColor={Style.INK} background={Color.hex("#00000080")} @submit={self.enterOne} />
         </box>
         <text value={Locale.SETTING_SPEC_TWO} textColor={Style.INK} />
         <box height={35.15625dp} rows={[{ fr: 1 }]}>
-          <input value={mut self.settings.draft.specTwo} maxLength={24} padding={{ left: 11.71875dp, right: 11.71875dp }}
-                 textColor={Style.INK} background={Color.hex("#00000080")} />
+          <input value={mut self.two} maxLength={24} padding={{ left: 11.71875dp, right: 11.71875dp }}
+                 textColor={Style.INK} background={Color.hex("#00000080")} @submit={self.enterTwo} />
         </box>
       </box>
-      <Checkbox label={Locale.SETTING_TRAINER} hint={Locale.SETTING_TRAINER_TIP} value={mut self.settings.draft.trainer} />
+      <Checkbox label={Locale.SETTING_TRAINER} hint={Locale.SETTING_TRAINER_TIP} value={mut self.settings.values.trainer} />
     }
   }
 }

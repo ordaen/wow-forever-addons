@@ -31,12 +31,18 @@ public struct KeptPlace implements Plain {
   y: Number<Length> | nil
 }
 
+// Where the player put each part, by the part's name: Ordaen's section `Ordaen:places` of the active profile, so going
+// back, a savepoint and a profile hold where the parts stand.
+public struct Places implements Plain {
+  parts: mut Map<String, KeptPlace> = {}
+}
+
 public class OrdaenCore implements App {
   public const icon: Art = "Interface/Icons/Trade_Engineering"
   public const title: String = "Ordaen"
   // The art everything Ordaen draws with, whatever the player chooses.
   public const art: Artwork = ARTWORK
-  // Every `Settings`' draft together, as the settings window sees them.
+  // Every `Settings` together, as the settings window sees them, with the history of their changes.
   public const keeper: mut Keeper = new Keeper()
   // The fonts, colours and bars' art the player chose: Ordaen's own settings, kept apart from `globals`.
   public const look: mut Settings<Look>
@@ -62,7 +68,7 @@ public class OrdaenCore implements App {
   // The hotkeys modules add to the tooltips of the game's frames they draw or bind (the action bars' buttons).
   public const hotkeys = new Registry<any OwnerKeys>()
   // Where the player put each part: read by a part an entry at a time, so a part follows its own place.
-  state places: mut Map<String, KeptPlace> = {}
+  const places: mut Settings<Places>
   // Which modules the player turned off: the account's, whatever each character's list of addons says.
   chosen: mut Map<String, Boolean> = {}
   // The settings window, made when it is first asked for.
@@ -81,7 +87,12 @@ public class OrdaenCore implements App {
     self.look = new Settings<Look>(preset(Preset.Ordaen), "look", mut self.keeper)
     self.globals = new Settings<Globals>(DEFAULTS, "", mut self.keeper)
     self.chosen = load<Map<String, Boolean>>(.Account, "choices", {})
-    self.places = load<Map<String, KeptPlace>>(.Account, "places", {})
+    // The account's places, kept before profiles held them, are moved into «Default» as they are first read.
+    const before = Game.saved.stored(.Account, "places")
+    if (before != nil) {
+      self.keeper.profiles.adopt("places", "Ordaen:places", Places { parts: decode<Map<String, KeptPlace>>(before, {}) })
+    }
+    self.places = new Settings<Places>(Places {}, "places", mut self.keeper)
     Runtime.command("/ordaen", (text: String) => self.command(text))
     Runtime.options(self.title, Locale.SETTINGS_OPEN, () => self.toggleSettings(nil))
     watch (running of self.modules) { self.draw(running) }
@@ -162,7 +173,8 @@ public class OrdaenCore implements App {
   offered(mut self, profile: ProfileName) {
     if (unoffered(peek self.look.values)) {
       Debug.log("the look of profile %s is a preset not offered: Ordaen's is used", profile)
-      self.look.reset()
+      // How the profile is read, not the player's change: no step.
+      self.keeper.unrecorded(() => self.look.reset())
     }
   }
 
@@ -192,19 +204,16 @@ public class OrdaenCore implements App {
   // Where the player put a part, by the part's name; nothing for one never moved. Read in a `derived`, it is
   // followed: the part moves when its place is kept anew.
   public moved(self, part: String): Anchored | nil {
-    const kept = self.places[part]
+    const kept = self.places.values.parts[part]
     if (kept == nil) { return nil }
     return { point: kept.point, to: kept.to, x: kept.x, y: kept.y }
   }
 
-  // Keep a part's place; nothing puts it back where its module says.
+  // Keep a part's place, a step of the history; nothing puts it back where its module says.
   public putAt(mut self, part: String, place: Anchored | nil) {
-    if (place == nil) {
-      self.places[part] = nil
-    } else {
-      self.places[part] = { point: place.point, to: place.to, x: place.x, y: place.y }
-    }
-    Game.saved.store(.Account, "places", peek self.places)
+    self.places.change((values: mut Places): nil => {
+      values.parts[part] = place == nil ? nil : KeptPlace { point: place.point, to: place.to, x: place.x, y: place.y }
+    })
   }
 
   // The player's choice: kept, whatever comes of it. A module turned on is on in the client's own list of addons

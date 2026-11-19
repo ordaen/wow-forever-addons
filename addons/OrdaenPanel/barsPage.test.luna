@@ -36,15 +36,15 @@ function alone() {
   }
 }
 
-// A bar's settings as the page's draft has them.
-function drafted(stand: Stand, id: String): BarChoice {
+// A bar's settings as the settings hold them.
+function chosen(stand: Stand, id: String): BarChoice {
   const spec = SPECS.find(spec => spec.id == id) ?? panic("a bar of the panel's")
-  return stand.settings.draft.bars[id] ?? stand.defaults[id] ?? defaultChoice(spec, false)
+  return stand.settings.values.bars[id] ?? stand.defaults[id] ?? defaultChoice(spec, false)
 }
 
 // A bar's settings changed and saved, as a page left them before.
 function set(stand: mut Stand, id: String, change: (choice: mut BarChoice) => nil) {
-  const choice = drafted(stand, id).clone()
+  const choice = chosen(stand, id).clone()
   change(mut choice)
   stand.settings.change((values: mut BarsChoices): nil => {
     values.bars[id] = choice
@@ -82,8 +82,8 @@ test "a bar picked in the list has its settings beside it, and its switch there 
   Test.expect(Test.page().text("Action Bar 1").count() == 1)
   // The stand-in's character shows Action Bars 1 to 3 and the pet's: the second switch on is Action Bar 2's.
   Test.page().box(Ordaen.art.ctl.switchOn).nth(2).click()
-  Test.expect(!drafted(stand, "2").on)
-  Test.expect(drafted(stand, "3").on)
+  Test.expect(!chosen(stand, "2").on)
+  Test.expect(chosen(stand, "3").on)
   destroy stand
 }
 
@@ -103,16 +103,15 @@ test "a copy takes every setting but the place, the switch and Панель 1's 
   Ordaen.putAt(place, { point: .Center, x: 10ui, y: 20ui })
   Test.page().button("Pet Bar").click()
   copyFrom("Action Bar 3 (off)")
-  const pet = drafted(stand, "pet")
+  const pet = chosen(stand, "pet")
   Test.expect(pet.on)
   Test.expect(pet.buttons == 10)
   Test.expect(pet.perRow == 10)
   Test.expect(pet.size == 30)
   Test.expect(!pet.keys)
-  Test.expect(stand.settings.draft.unpaged["1"] == true)
+  Test.expect(stand.settings.values.unpaged["1"] == true)
   Test.expect((Ordaen.moved(place)?.x ?? 0ui) == 10ui)
-  // One change, and the head says where it came from until another bar is picked.
-  Test.expect(stand.settings.changed == 1)
+  // The head says where it came from until another bar is picked.
   Test.expect(Test.page().text("Settings copied from Action Bar 3").shown())
   Test.page().button("Action Bar 2").click()
   Test.expect(!Test.page().text("Settings copied from Action Bar 3").shown())
@@ -128,7 +127,6 @@ test "a copy made in a fight changes the bar only as the fight ends" {
   Test.page().button("Action Bar 2").click()
   Test.combat(true)
   copyFrom("Action Bar 3")
-  Ordaen.keeper.saveAll()
   Test.flush()
   Test.expect(Test.page().text("Changes apply after combat.").shown())
   Test.expect(button("2", 6).IsShown())
@@ -152,7 +150,7 @@ test "the menu resets the bar's settings, its switch kept, and puts it back wher
   Test.page().button("Action Bar 3").click()
   Test.page().button("…").click()
   Test.page().text("Reset settings").click()
-  const back = drafted(stand, "3")
+  const back = chosen(stand, "3")
   Test.expect(!back.on)
   Test.expect(back.size == 45)
   Test.expect(back.keys)

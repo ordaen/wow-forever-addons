@@ -64,13 +64,13 @@ surface 420,121.38 760x657.25 on DIALOG clamped raised by a click
           box 452.75,381.61 233.33x15.6 @pointerEnter @pointerLeave
             text 452.75,381.61 233.33x15.6 "Scale" #cbb994
           box 701.08,375.24 451.17x28.33
-            box 701.08,375.24 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave
+            box 701.08,375.24 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerUp
               text 708.31,381.61 8.89x15.6 "-" #ffd100
-            box 729.42,381.07 213.33x16.67 @drag @dragStart @keyPress @pointerPress
+            box 729.42,381.07 213.33x16.67 @drag @dragStart @dragStop @keyPress @pointerPress
               box 736.08,386.07 200x6.67 absolute Interface\AddOns\Ordaen\media\ctl-slider row 0 of 4
               box 736.92,386.91 66.11x5 absolute Interface\AddOns\Ordaen\media\ctl-slider row 1 of 4
               box 796.08,379.41 13.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-slider-knob
-            box 947.75,375.24 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave
+            box 947.75,375.24 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerUp
               text 954.97,381.61 8.89x15.6 "+" #ffd100
             text 976.08,381.61 8.89x15.6 "1" #ffffff
         box 452.75,409.58 699.5x25 opacity=1

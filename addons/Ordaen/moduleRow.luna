@@ -2,6 +2,7 @@
 import { Art, Position } from "$ltml"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
+import { moduleName } from "@/keeper"
 import { ListTab } from "@/listTab"
 import { Component, Entry, Module, SettingsPage } from "@/module"
 import { knobShown } from "@/switch"
@@ -14,7 +15,6 @@ const KNOB = 30.46875dp
 const KNOB_TOP = -3.515625dp
 const KNOB_OFF = -3.515625dp
 const KNOB_ON = 17.578125dp
-const PREFIX = "Ordaen "
 
 // A module the player has, as the settings window lists it: its addon's name, title and icon from its TOC; it runs
 // while its root is among Ordaen's `modules`, and its pages are that root's.
@@ -89,11 +89,7 @@ public class ModuleRow implements Component {
     self.shown = shown
   }
 
-  nameOf(self): String {
-    let title = self.entry.title
-    if (title.sub(1, PREFIX.length) == PREFIX) { return title.sub(PREFIX.length + 1) }
-    return title
-  }
+  nameOf(self): String { return moduleName(self.entry.title) }
 
   onPick(mut self) { self.pick.emit(self.entry.folder) }
 

@@ -1,12 +1,14 @@
 // InputNumber: every number a setting takes, on its row (SettingRow), between its least and its most, in its steps.
 // The settings have no other number control. A range of at most `SLID` steps is a slider: a dark groove, the bronze
-// fill up to the value, a bronze knob; a click or a drag anywhere along it sets the value, and focused, Left and Right
-// step it, Home and End go to its ends. A wider range (a place on the screen, a size) is a field the number is typed
-// in, taken once the typing pauses (`SETTLE`), on Enter or before a step: a number past a bound is written as that
-// bound, a text that isn't a number leaves the value and turns the edge red. Either has − on its left and + on its
-// right, plain boxes on the push button's plate that the pointer and Enter or Space press, which step as CountInput's
-// do (`stride`, `stepTip`): a step, ten with Shift, a hundred with Ctrl, again and again while held, each greyed and
-// doing nothing at its bound. After the + stands the
+// fill up to the value, a bronze knob; a click anywhere along it sets the value, a drag moves the knob at once and sets
+// the value as it rests and as it is let go (`Resting`), and focused, Left and Right step it, Home and End go to its
+// ends. A wider range (a place on the screen, a size) is a field the number is typed in, taken once the typing pauses
+// (`SETTLE`), on Enter, before a step or before anything reads the settings whole (`Keeper.finishInput`): a number past
+// a bound is written as that bound, a text that isn't a number leaves the value and turns the edge red. Either has − on
+// its left and + on its right, plain boxes on the push button's plate that the pointer and Enter or Space press, which
+// step as CountInput's do (`stride`, `stepTip`): a step, ten with Shift, a hundred with Ctrl, again and again while
+// held, each greyed and doing nothing at its bound. A key writes its step at once; held down by the pointer, the steps
+// show at once and the value takes them as they rest and as the button is let go. After the + stands the
 // value's unit: the slider shows the value in it (70%, 48 px), the field the unit's name (px). Disabled, it takes no
 // input.
 import Game from "$game"
@@ -15,6 +17,7 @@ import root Ordaen from "Ordaen"
 import { STEP_WIDTH, stepTip, stride } from "@/countInput"
 import Locale from "@/locales"
 import { Component } from "@/module"
+import { Resting } from "@/rest"
 import { SettingRow } from "@/settingRow"
 import { Tip, TipText } from "@/tip"
 
@@ -89,8 +92,11 @@ function numberOf(text: String): Number | nil {
 
 public class InputNumber implements Component {
   // The value held to the range: one kept outside it (saved before the range changed) is read as its nearest end,
-  // which is what the control shows.
-  derived held: Number = self.least.max(self.most.min(self.value))
+  // which is what the control shows. While a drag or a held − or + is under way, it shows where that has gone.
+  derived held: Number = self.least.max(self.most.min(self.moving ?? self.value))
+  // Where a drag or a held − or + has gone and the value hasn't taken yet: it takes it as the input rests and as it ends.
+  state moving: Number | nil = nil
+  const rest: mut Resting<Number>
   derived fewer: Boolean = !self.disabled && self.held > self.least
   derived more: Boolean = !self.disabled && self.held < self.most
   // Where the value sits along the range, from 0 to 1.
@@ -147,6 +153,7 @@ public class InputNumber implements Component {
     self.sliding = (most - least) / step <= SLID
     self.scale = unit == Unit.Percent ? 100 : 1
     self.text = ""
+    self.rest = new Resting<Number>((to: Number): nil => { self.write(to) })
     // A field follows its value and takes what is typed; a slider shows its value as it is and has no text.
     if (!self.sliding) {
       self.text = String.of(peek self.held * self.scale)
@@ -172,13 +179,30 @@ public class InputNumber implements Component {
     if (numberOf(peek self.text) != value * self.scale) { self.text = String.of(value * self.scale) }
   }
 
-  // Some steps down or up, held to the range.
-  nudge(mut self, steps: Number) {
-    if (self.disabled) { return }
-    self.value = stepped(self.held + steps * self.step, self.least, self.most, self.step)
+  // What a drag or a held − or + rested at, or ended at: the value takes it, and the control shows the value again.
+  write(mut self, to: Number) {
+    self.value = to
+    self.moving = nil
   }
 
-  // − and +, the field's Down and Up: what is typed and not yet taken is taken first, then stepped from.
+  // `steps` down or up from what the control shows, held to the range.
+  steppedBy(self, steps: Number): Number {
+    return stepped(self.held + steps * self.step, self.least, self.most, self.step)
+  }
+
+  // Some steps down or up, written at once (a key).
+  nudge(mut self, steps: Number) {
+    if (self.disabled) { return }
+    self.value = self.steppedBy(steps)
+  }
+
+  // A drag or a held − or + moved to `to`: shown at once, written as it rests.
+  move(mut self, to: Number) {
+    self.moving = to
+    self.rest.move(to)
+  }
+
+  // − and + by a key: what is typed and not yet taken is taken first, then stepped from.
   less(mut self) {
     self.settle()
     self.nudge(-stride())
@@ -188,6 +212,20 @@ public class InputNumber implements Component {
     self.settle()
     self.nudge(stride())
   }
+
+  // − and + pressed and held by the pointer: each step shown, written as the steps rest and as the button is let go.
+  lessHeld(mut self) {
+    self.settle()
+    if (self.fewer) { self.move(self.steppedBy(-stride())) }
+  }
+
+  raiseHeld(mut self) {
+    self.settle()
+    if (self.more) { self.move(self.steppedBy(stride())) }
+  }
+
+  // A held − or + let go, or a drag: the value is where it went.
+  onUp(mut self) { self.rest.end() }
 
   onFewerEnter(mut self) { self.hovered = -1 }
   onMoreEnter(mut self) { self.hovered = 1 }
@@ -203,42 +241,61 @@ public class InputNumber implements Component {
   // to that bound. What reads the value next (Save, Post) sees what was typed. Only a number on its way into the range
   // («1» of «150», the least 100) or between steps waits: for the typing to pause (`SETTLE`), Enter or a step.
   typed(mut self, typed: String) {
-    if (self.pending != nil) { destroy self.pending }
+    if (self.pending != nil) {
+      destroy self.pending
+      Ordaen.keeper.end()
+    }
     const number = numberOf(typed)
     if (number == nil) { return }
+    // The text is what the field writes for what the control shows (following a held − or +): nothing to take. Told
+    // by the text, as the number read back from it may differ from the one written in its last digits.
+    if (typed == String.of(peek self.held * self.scale)) { return }
     const value = number / self.scale
     const past = (value > self.most && value >= 0) || (value < self.least && value <= 0)
     if (past || value == stepped(value, self.least, self.most, self.step)) {
       self.take(typed)
       return
     }
+    // The input under way for the settings: whatever reads them whole first takes what is typed.
+    Ordaen.keeper.begin(() => self.settle())
     self.pending = self.later()
   }
 
   async later(mut self) {
     await Game.delay(SETTLE)
     self.pending = nil
-    self.take(peek self.text)
+    self.taken()
   }
 
-  // What is typed and still waiting is taken now: Enter, or a step from it.
+  // What is typed and still waiting is taken now: Enter, a step from it, or the settings read whole.
   settle(mut self) {
     if (self.pending == nil) { return }
     destroy self.pending
+    self.taken()
+  }
+
+  taken(mut self) {
     self.take(peek self.text)
+    Ordaen.keeper.end()
   }
 
   onSubmit(mut self) { self.settle() }
 
   // The value at `x` UI units along the band (the groove starts `INSET` in), held to the range and its steps.
-  setAt(mut self, x: Number<Length>) {
-    if (self.disabled) { return }
+  valueAt(self, x: Number<Length>): Number {
     const t = (0).max((1).min((x - INSET) / LENGTH))
-    self.value = stepped(self.least + t * (self.most - self.least), self.least, self.most, self.step)
+    return stepped(self.least + t * (self.most - self.least), self.least, self.most, self.step)
   }
 
-  onClick(mut self, click: Pointer) { self.setAt(click.x) }
-  onDrag(mut self, drag: Drag) { self.setAt(drag.x) }
+  // A click is written at once; a drag moves the knob and is written as it rests and as it is let go.
+  onClick(mut self, click: Pointer) {
+    if (self.disabled || self.rest.busy()) { return }
+    self.value = self.valueAt(click.x)
+  }
+
+  onDrag(mut self, drag: Drag) {
+    if (!self.disabled) { self.move(self.valueAt(drag.x)) }
+  }
 
   // Focused: Left and Right a step, Home the least, End the most.
   onKey(mut self, stroke: Keystroke) {
@@ -256,7 +313,7 @@ public class InputNumber implements Component {
       return $ltml {
         <box width={LENGTH + KNOB_W} height={BAND}
              @keyPress(.Left)={self.onKey} @keyPress(.Right)={self.onKey} @keyPress(.Home)={self.onKey} @keyPress(.End)={self.onKey}
-             @pointerPress={self.onClick} @dragStart={self.onDrag} @drag={self.onDrag}>
+             @pointerPress={self.onClick} @dragStart={self.onDrag} @drag={self.onDrag} @dragStop={self.onUp}>
           <box position={Position.Absolute} left={INSET} top={GROOVE_TOP} width={LENGTH} height={GROOVE}
                background={Ordaen.art.ctl.groove} />
           <box position={Position.Absolute} left={INSET + EDGE} top={GROOVE_TOP + EDGE} height={GROOVE - 2 * EDGE}
@@ -278,7 +335,8 @@ public class InputNumber implements Component {
       <SettingRow label={self.label} hint={self.hint} disabled={self.disabled}>
         <box columns={ROW} gap={7.03125dp} yAlign={Align.Center}>
           <box width={STEP_WIDTH} height={STEP_HEIGHT} xAlign={Align.Center} yAlign={Align.Center}
-               background={self.plate} textColor={INK_STEP} disabled={!self.fewer} @pointerDown.repeat(.Left)={self.less}
+               background={self.plate} textColor={INK_STEP} disabled={!self.fewer} @pointerDown.repeat(.Left)={self.lessHeld}
+               @pointerUp(.Left)={self.onUp}
                @keyPress(.Enter)={self.less} @keyPress(.Space)={self.less} @pointerEnter={self.onFewerEnter}
                @pointerLeave={self.onLeave}>
             <Tip $if={self.hovered < 0} title={self.tip.title} text={self.tip.text} rows={self.tip.rows} />
@@ -286,7 +344,8 @@ public class InputNumber implements Component {
           </box>
           {middle}
           <box width={STEP_WIDTH} height={STEP_HEIGHT} xAlign={Align.Center} yAlign={Align.Center}
-               background={self.plate} textColor={INK_STEP} disabled={!self.more} @pointerDown.repeat(.Left)={self.raise}
+               background={self.plate} textColor={INK_STEP} disabled={!self.more} @pointerDown.repeat(.Left)={self.raiseHeld}
+               @pointerUp(.Left)={self.onUp}
                @keyPress(.Enter)={self.raise} @keyPress(.Space)={self.raise} @pointerEnter={self.onMoreEnter}
                @pointerLeave={self.onLeave}>
             <Tip $if={self.hovered > 0} title={self.tip.title} text={self.tip.text} rows={self.tip.rows} />

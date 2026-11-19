@@ -78,7 +78,7 @@ public class ActionBars implements Component, OwnerKeys {
   ) {
     self.values = values
     self.defaults = defaults
-    self.applied = peek values
+    self.applied = (peek values).clone()
     Ordaen.afterCombat(() => self.start())
     Ordaen.hotkeys.add(self)
   }
@@ -87,7 +87,7 @@ public class ActionBars implements Component, OwnerKeys {
   // fight's end.
   start(mut self) {
     self.forms = Client.GetNumShapeshiftForms()
-    self.applied = peek self.values
+    self.applied = (peek self.values).clone()
     self.ready = true
     self.bind()
     Events.UPDATE_BINDINGS.listen(self.rebind)
@@ -108,8 +108,9 @@ public class ActionBars implements Component, OwnerKeys {
     Ordaen.afterCombat(() => ActionBars.giveBack(owner, parents))
   }
 
+  // A copy: the settings' values change in place, and in a fight the bars keep what applied before it.
   apply(mut self, values: BarsChoices) {
-    self.applied = values
+    self.applied = values.clone()
     self.bind()
   }
 

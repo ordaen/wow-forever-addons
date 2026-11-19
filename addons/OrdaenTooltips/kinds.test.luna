@@ -80,15 +80,14 @@ function none(): Boolean {
   return Test.surfaces().length == 0
 }
 
-// A control of the module's tab in the settings, clicked as the player clicks it, and saved: `/ordaen`,
-// «Tooltips», the tab, the control, «Save», and the window closed.
+// A control of the module's tab in the settings, clicked as the player clicks it, which applies at once: `/ordaen`,
+// «Tooltips», the tab, the control, and the window closed.
 function choose(tab: String, control: String) {
   Test.open("/ordaen")
   const settings = Test.page().window(SETTINGS)
   settings.button("Tooltips").click()
   settings.button(tab).click()
   settings.button(control).click()
-  settings.button("Save").click()
   Test.key(Key.Escape)
 }
 
@@ -1257,7 +1256,6 @@ test "an item's numbers follow Ordaen's number settings: dots between thousands,
   settings.button("1\194\160000\194\160000.09").click()
   Test.page().window("1.000.000,09").button("1.000.000,09").click()
   settings.button("Round to whole numbers").click()
-  settings.button("Save").click()
   Test.key(Key.Escape)
   Game.tooltip.main = showing(towerShield())
   Test.expect(reads(tip("Tower Shield"), "Tower Shield | 1.234 | 216–325 | 3/s | 78 DPS"))

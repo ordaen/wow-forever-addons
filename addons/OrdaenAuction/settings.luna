@@ -1,5 +1,5 @@
 // What the player chooses for Ordaen Auction, and its tab in the settings window. Each control writes one entry of the
-// settings' draft.
+// settings, at once.
 import { Component, InputNumber, Settings, Switch, Unit } from "Ordaen"
 import Locale from "@/locales"
 
@@ -24,11 +24,11 @@ public class GeneralPage implements Component {
 
   public render(self): Template {
     return $ltml {
-      <Switch label={Locale.SCAN_ON_OPEN} hint={Locale.SCAN_ON_OPEN_TIP} value={mut self.settings.draft.scanOnOpen} />
-      <InputNumber label={Locale.CUT} hint={Locale.CUT_TIP} value={mut self.settings.draft.cut} least={0} most={20}
+      <Switch label={Locale.SCAN_ON_OPEN} hint={Locale.SCAN_ON_OPEN_TIP} value={mut self.settings.values.scanOnOpen} />
+      <InputNumber label={Locale.CUT} hint={Locale.CUT_TIP} value={mut self.settings.values.cut} least={0} most={20}
                    unit={Unit.None} />
-      <Switch label={Locale.WINDOW} hint={Locale.WINDOW_TIP} value={mut self.settings.draft.window} />
-      <Switch label={Locale.PRICE_LINE} hint={Locale.PRICE_LINE_TIP} value={mut self.settings.draft.priceLine} />
+      <Switch label={Locale.WINDOW} hint={Locale.WINDOW_TIP} value={mut self.settings.values.window} />
+      <Switch label={Locale.PRICE_LINE} hint={Locale.PRICE_LINE_TIP} value={mut self.settings.values.priceLine} />
     }
   }
 }

@@ -1,0 +1,71 @@
+// What a continuous input writes (a drag, a held − or +, a colour moved in the picker, typing): the control shows its
+// own value at once; what it is bound to takes it when the input rests `REST`, and at once when the input ends (the
+// drag let go, the button released, Enter). Every write of one input is one step of the settings' history
+// (`Keeper.begin`, `end`). One deadline per control in use, read only while it is set: nothing runs at rest, and no
+// closure is made per move.
+import Game from "$game"
+import root Ordaen from "Ordaen"
+
+// How long an input rests before what it holds is written, in seconds.
+public const REST = 0.25
+
+public class Resting<T> {
+  // When what the input holds is written, while it moves.
+  state deadline: Number | nil = nil
+  derived due: Boolean = self.deadline != nil && Game.clock.time >= (self.deadline ?? 0)
+  // What the input holds and hasn't written yet.
+  pending: T | nil = nil
+  under = false
+  const write: (value: T) => nil
+  // An input that tells no end (the game's colour picker closed with OK): its rest ends it.
+  const endsAtRest: Boolean
+
+  // `write` puts a value where the control is bound.
+  constructor(write: (value: T) => nil, endsAtRest: Boolean = false) {
+    self.write = write
+    self.endsAtRest = endsAtRest
+    watch (due of self.due) { self.rested(due) }
+  }
+
+  rested(mut self, due: Boolean) {
+    if (!due) { return }
+    if (self.endsAtRest) {
+      self.end()
+    } else {
+      self.flush()
+    }
+  }
+
+  // A control that goes while its input is under way writes what it holds.
+  destructor() { self.end() }
+
+  // Whether an input is under way: the control shows its own value, not the one it is bound to.
+  public busy(self): Boolean { return self.under }
+
+  // The input moved to `value`: written once it rests.
+  public move(mut self, value: T) {
+    self.pending = value
+    if (!self.under) {
+      self.under = true
+      Ordaen.keeper.begin(() => self.end())
+    }
+    self.deadline = (peek Game.clock.time) + REST
+  }
+
+  flush(mut self) {
+    self.deadline = nil
+    const value = self.pending
+    if (value == nil) { return }
+    self.pending = nil
+    const write = self.write
+    write(value)
+  }
+
+  // The input ended: what it holds is written now, the last part of its step.
+  public end(mut self) {
+    if (!self.under) { return }
+    self.flush()
+    self.under = false
+    Ordaen.keeper.end()
+  }
+}

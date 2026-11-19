@@ -16,16 +16,13 @@ function written(title: String) {
 test "a number is written by Ordaen's number settings" {
   written("as it starts (a space between thousands, shown _; two decimals)")
 
-  Ordaen.globals.draft.numberFormat = NumberFormat.Comma
-  Ordaen.keeper.saveAll()
+  Ordaen.globals.values.numberFormat = NumberFormat.Comma
   written("commas between thousands")
 
-  Ordaen.globals.draft.numberFormat = NumberFormat.Dot
-  Ordaen.globals.draft.numberPrecision = 1
-  Ordaen.keeper.saveAll()
+  Ordaen.globals.values.numberFormat = NumberFormat.Dot
+  Ordaen.globals.values.numberPrecision = 1
   written("dots between thousands, a comma before the decimals, one decimal")
 
-  Ordaen.globals.draft.numberRound = true
-  Ordaen.keeper.saveAll()
+  Ordaen.globals.values.numberRound = true
   written("whole numbers from 1 up")
 }

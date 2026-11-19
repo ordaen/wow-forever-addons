@@ -196,18 +196,13 @@ test "a profile in use is renamed in every pick of it, and deleted with the char
   Test.expect(profiles.active == "Raids" && page.chosen == "Raids" && profiles.kept.picks.byCharacter[me] == "Raids")
   Test.expect(page.note == Locale.PROFILES_NOTE_RENAMED.format("Raids"))
 
-  // Asked about the changes waiting first; «Cancel» leaves the name and the note unsaid.
-  Ordaen.globals.draft.density = .Roomy
+  // A change made before it asks nothing, and stays.
+  Ordaen.globals.values.density = Density.Roomy
   Test.flush()
   typeName("Raiders")
   click(Test.holding("Rename", nil))
-  Test.expect(page.askingSwitch && profiles.active == "Raids" && page.note != Locale.PROFILES_NOTE_RENAMED.format("Raiders"))
-  click(Test.holding("Cancel", nil))
-  Test.expect(profiles.active == "Raids" && page.chosen == "Raids")
-  typeName("Raiders")
-  click(Test.holding("Rename", nil))
-  click(Test.holding("Don't save", nil))
-  Test.expect(profiles.active == "Raiders" && page.note == Locale.PROFILES_NOTE_RENAMED.format("Raiders"))
+  Test.expect(!page.asking && profiles.active == "Raiders" && page.note == Locale.PROFILES_NOTE_RENAMED.format("Raiders"))
+  Test.expect(Ordaen.globals.values.density == Density.Roomy)
 
   click(Test.holding("Delete", 1))
   click(Test.holding("Delete", 2))
@@ -217,53 +212,32 @@ test "a profile in use is renamed in every pick of it, and deleted with the char
   shown("«Raiders» deleted while in use for the character: «Main» again, by the account's pick")
 }
 
-test "a pick that switches the profile asks about the changes waiting: Cancel keeps them, Don't save drops them, Save keeps them in the profile left" {
+test "a pick that switches the profile asks nothing: each change stays in the profile it was made in" {
   const page = new ProfilesPage()
   Test.mount(page, PAGE)
   const profiles = Ordaen.keeper.profiles
   typeName("Raid")
   click(Test.holding("New", nil))
-  Ordaen.globals.draft.density = .Roomy
-  Test.flush()
-  Test.expect(Ordaen.keeper.unsaved == 1)
-  tick(CHARACTER)
-  Test.expect(page.askingSwitch && profiles.active == DEFAULT_PROFILE)
-  shown("the character is to switch with a change unsaved: the question names the profile in use")
-
-  click(Test.holding("Cancel", nil))
-  Test.expect(!page.asking && profiles.active == DEFAULT_PROFILE && !page.onCharacter)
-  Test.expect(Ordaen.globals.draft.density == Density.Roomy)
-
-  tick(CHARACTER)
-  click(Test.holding("Don't save", nil))
-  Test.expect(profiles.active == "Raid" && page.onCharacter && Ordaen.keeper.unsaved == 0)
-  Test.expect(Ordaen.globals.values.density != Density.Roomy && Ordaen.globals.draft.density != Density.Roomy)
-
-  // Back with the same change, answered with «Save»: it is kept in «Raid», the profile it was made in.
-  Ordaen.globals.draft.density = .Roomy
+  Ordaen.globals.values.density = Density.Roomy
   Test.flush()
   tick(CHARACTER)
-  Test.expect(page.askingSwitch && profiles.active == "Raid")
-  click(Test.holding("Save", nil))
-  Test.expect(profiles.active == DEFAULT_PROFILE && !page.onCharacter && Ordaen.keeper.unsaved == 0)
+  Test.expect(!page.asking && profiles.active == "Raid" && page.onCharacter)
+  Test.flush()
   Test.expect(Ordaen.globals.values.density != Density.Roomy)
-  page.chosen = "Raid"
-  Test.flush()
-  tick(CHARACTER)
-  Test.expect(profiles.active == "Raid" && Ordaen.globals.values.density == Density.Roomy)
 
-  // A switch with nothing waiting is made with no question.
+  // Back to the profile the change was made in: it is there.
   tick(CHARACTER)
   Test.expect(!page.asking && profiles.active == DEFAULT_PROFILE)
+  Test.flush()
+  Test.expect(Ordaen.globals.values.density == Density.Roomy)
 }
 
-test "a section is copied from another profile as a draft that waits for Save; a module that isn't loaded keeps it as it is" {
+test "a section is copied from another profile at once, one step; a module that isn't loaded keeps it as it is" {
   const page = new ProfilesPage()
   Test.mount(page, PAGE)
   const profiles = Ordaen.keeper.profiles
   const globals: Globals = { scale: 1.25, density: Density.Compact, ..Ordaen.globals.defaults }
   Ordaen.globals.choose(globals)
-  Ordaen.keeper.saveAll()
   const next = profiles.edit()
   const own = next.profiles[DEFAULT_PROFILE] ?? Profile {}
   own.sections["OrdaenGhost"] = ghost()
@@ -280,18 +254,18 @@ test "a section is copied from another profile as a draft that waits for Save; a
   Test.expect(page.source == DEFAULT_PROFILE && page.copyKeys.length == 2)
   shown("«Raid» in use, empty: the sections of Default to copy from, each with its tick")
 
+  const steps = Ordaen.keeper.steps
   click(Test.holding("Copy", nil))
-  Test.expect(Ordaen.globals.draft.scale == 1.25 && Ordaen.globals.values.scale != 1.25)
-  Test.expect(Ordaen.keeper.unsaved > 0)
+  Test.expect(Ordaen.globals.values.scale == 1.25 && Ordaen.keeper.steps == steps + 1)
   const raid = profiles.kept.profiles["Raid"]
   Test.expect(raid != nil && raid.sections["OrdaenGhost"] == ghost())
-  shown("Copy: Ordaen's section waits in its draft; the section of a module that isn't loaded is in the profile")
-  Ordaen.keeper.saveAll()
-  Test.expect(Ordaen.globals.values.scale == 1.25)
+  shown("Copy: Ordaen's section is its values at once; the section of a module that isn't loaded is in the profile")
+  // One step, taken back whole.
+  Ordaen.keeper.undo()
+  Test.expect(Ordaen.globals.values.scale != 1.25 && Ordaen.keeper.steps == steps)
 
   // A section unticked is not copied; nothing ticked is refused.
-  Ordaen.globals.draft.scale = 2
-  Ordaen.keeper.saveAll()
+  Ordaen.globals.values.scale = 2
   page.source = DEFAULT_PROFILE
   Test.flush()
   const rows = Test.painted(Ordaen.art.ctl.check, 5)
@@ -305,9 +279,8 @@ test "a profile exports as text, imports as a new profile after a preview, and a
   const page = new ProfilesPage()
   Test.mount(page, PAGE)
   const profiles = Ordaen.keeper.profiles
-  Ordaen.globals.draft.scale = 1.5
+  Ordaen.globals.values.scale = 1.5
   Ordaen.look.choose(preset(Preset.Minimal))
-  Ordaen.keeper.saveAll()
   const next = profiles.edit()
   const own = next.profiles[DEFAULT_PROFILE] ?? Profile {}
   own.sections["OrdaenGhost"] = ghost()
@@ -342,8 +315,7 @@ test "a profile exports as text, imports as a new profile after a preview, and a
   click(Test.holding("Import", nil))
   Test.expect(page.lines.length == 2)
   // The preview counts what the text would change in the settings as they are.
-  Ordaen.globals.draft.scale = 2
-  Ordaen.keeper.saveAll()
+  Ordaen.globals.values.scale = 2
   Test.flush()
   const first = page.lines[1]
   Test.expect(first != nil && first.text == "General — " + Locale.PROFILES_PREVIEW_CHANGES.format(1))
@@ -383,8 +355,7 @@ test "Reset takes a profile back to its defaults after the question: the one in 
   const page = new ProfilesPage()
   Test.mount(page, PAGE)
   const profiles = Ordaen.keeper.profiles
-  Ordaen.globals.draft.density = .Roomy
-  Ordaen.keeper.saveAll()
+  Ordaen.globals.values.density = Density.Roomy
   typeName("Spare")
   click(Test.holding("New", nil))
   click(Test.holding("Reset", nil))
@@ -400,6 +371,8 @@ test "Reset takes a profile back to its defaults after the question: the one in 
   Test.flush()
   click(Test.holding("Reset", 1))
   click(Test.holding("Reset", 2))
-  Test.expect(Ordaen.globals.values.density != Density.Roomy && Ordaen.globals.draft.density != Density.Roomy)
+  Test.expect(Ordaen.globals.values.density != Density.Roomy)
+  // The defaults the modules hold are kept as the game saves.
+  profiles.pack()
   Test.expect(has(DEFAULT_PROFILE, "Ordaen"))
 }
