@@ -1,0 +1,6 @@
+-- one count, its value red
+box 0,0 400x34.4
+  box 10,10 380x14.4
+    box 10,10 90x14.4
+      text 10,10 38.89x14.4 "Quests" #a3977f
+      text 55.56,10 44.44x14.4 "25 / 25" #d9534f

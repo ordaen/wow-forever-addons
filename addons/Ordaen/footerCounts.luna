@@ -1,0 +1,36 @@
+// FooterCounts: a window's counts in its footer, as a tooltip's columns are: each a label in dim text and its value in
+// the numbers' font beside it, the pairs in one row a group's step apart. A value may say something by its colour (the
+// quest log full: red). A list window's footer stands it at its left.
+import { Align, TextFont } from "$ltml"
+import { Component } from "@/module"
+import { SECONDARY_TEXT, Space, space } from "@/units"
+
+const INK: Color = Color.hex("#e8dcc4")
+const DIM: Color = Color.hex("#a3977f")
+
+// One count: what it counts, and how many, written as the window says it («12», «3 / 25»).
+public struct FooterCount {
+  label: String
+  value: String
+  // The value's colour where it says something; the body's ink otherwise.
+  color: Color | nil = nil
+}
+
+public class FooterCounts implements Component {
+  counts: Signal<Array<FooterCount>>
+  constructor(counts: Signal<Array<FooterCount>>) {
+    self.counts = counts
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={{ each: "max-content" }} gap={space(Space.Group)} yAlign={Align.Center}>
+        <box $for={count of self.counts} columns={{ each: "max-content" }} gap={space(Space.Item)} yAlign={Align.Center}>
+          <text value={count.label} textSize={SECONDARY_TEXT} textColor={DIM} wrap={false} />
+          <text value={count.value} textSize={SECONDARY_TEXT} textFont={TextFont.Numbers} textColor={count.color ?? INK}
+                wrap={false} />
+        </box>
+      </box>
+    }
+  }
+}

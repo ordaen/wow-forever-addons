@@ -1,0 +1,58 @@
+// The library's CopyText: a text the player selects and copies and never changes; and FooterCounts: a footer's counts
+// as label and value pairs.
+import Test from "$test"
+import { CopyText } from "@/copyText"
+import { FooterCount, FooterCounts } from "@/footerCounts"
+
+const RED: Color = Color.hex("#d9534f")
+
+class Notice {
+  state text = "Raid on Thursday at eight."
+
+  public render(self): Template {
+    return $ltml {
+      <box padding={10ui}>
+        <CopyText value={self.text} height={60ui} />
+      </box>
+    }
+  }
+}
+
+test "a copy text takes the keyboard when clicked, and what is typed into it is put back" {
+  let page = new Notice()
+  Test.mount(page, { left: 0, top: 0, width: 300, height: 100 })
+  const field = Test.page().input()
+  field.click()
+  Test.expect(Test.keyboard())
+  Test.type("lost")
+  Test.expect(field.value() == "Raid on Thursday at eight.")
+  Test.expect(page.text == "Raid on Thursday at eight.")
+  page.text = "Raid moved to Friday."
+  Test.expect(field.value() == "Raid moved to Friday.")
+  destroy page
+}
+
+class Footer {
+  state counts: Array<FooterCount> = [{ label: "Members", value: "42" }, { label: "Online", value: "7" }]
+
+  public render(self): Template {
+    return $ltml {
+      <box padding={10ui}>
+        <FooterCounts counts={self.counts} />
+      </box>
+    }
+  }
+}
+
+test "footer counts stand as label and value pairs, in the order given, a value's colour its own" {
+  let page = new Footer()
+  Test.mount(page, { left: 0, top: 0, width: 400, height: 60 })
+  const screen = Test.page()
+  const said = screen.texts()
+  Test.expect(said.join("|") == "Members|42|Online|7")
+  Test.expect(screen.text("Members").rect().right < screen.text("42").rect().left)
+  Test.expect(screen.text("42").rect().right < screen.text("Online").rect().left)
+  page.counts = [{ label: "Quests", value: "25 / 25", color: RED }]
+  Test.shot("one count, its value red")
+  destroy page
+}
