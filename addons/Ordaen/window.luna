@@ -333,11 +333,11 @@ class CornerPlate implements Component {
       <box position={Position.Absolute} left={self.left} top={0ui} width={self.width} height={CORNER_HEIGHT}
            overflow={Overflow.Hidden} @pointerPress={self.press} @keyPress(.Enter)={self.press} @keyPress(.Space)={self.press}>
         <box position={Position.Absolute} left={0ui} top={0ui} width={PLATE_ART} height={CORNER_HEIGHT}
-             background={self.plate} stateFromParent={true} />
+             background={self.plate} />
         // Over the plate by a level: at one level the client draws either on top, and a frame the renderer's pool
         // gives back may come under the plate.
         <box position={Position.Absolute} left={self.glyphLeft} top={GLYPH_TOP} width={GLYPH} height={GLYPH}
-             background={self.glyph} stateFromParent={true} zLevel={1} />
+             background={self.glyph} zLevel={1} />
       </box>
     }
   }

@@ -39,7 +39,7 @@ public struct Marker {
 
 const WELL: Color = Color.hex("#0d0a08")
 const CLEAR: Color = Color.hex("#00000000")
-const SHINE: Stated<Color> = { default: CLEAR, hover: Color.hex("#ffffff26") }
+const SHINE: Stated<Color> = { default: CLEAR, hover: Color.hex("#ffffff26"), focus: Color.hex("#ffffff26") }
 const INK: Color = Color.hex("#ffffff")
 // The game's tint of an item the player can't use (1, 0.1, 0.1).
 const UNUSABLE: Color = Color.hex("#ff1a1a")
@@ -196,7 +196,7 @@ public class ItemButton implements Component {
              background={Ordaen.art.ctl.qualityRim} tint={self.edge.color} opacity={self.rim}
              zLevel={1} />
         <box position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui} background={SHINE}
-             stateFromParent={true} />
+        />
         <Pip $for={marker of self.markers} marker={peek marker} />
         <slot />
         <box $if={self.counted} position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui}

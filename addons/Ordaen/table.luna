@@ -19,13 +19,13 @@ public struct Column {
   sortable: Boolean | nil
 }
 
-const NAME: Stated<Color> = { default: Color.hex("#cbb994"), hover: Color.hex("#ffffff") }
+const NAME: Stated<Color> = { default: Color.hex("#cbb994"), hover: Color.hex("#ffffff"), focus: Color.hex("#ffffff") }
 const PLAIN: Color = Color.hex("#a3977f")
 const GOLD: Color = Color.hex("#f0c860")
 const RULE: Line = { width: 1.171875dp, color: Color.hex("#3e2f1d"), sides: [Side.Bottom] }
 const LIGHT: Color = Color.hex("#d6a56b")
 const CLEAR: Color = Color.hex("#00000000")
-const SHADE: Stated<Color> = { default: CLEAR, hover: Color.hex("#00000033") }
+const SHADE: Stated<Color> = { default: CLEAR, hover: Color.hex("#00000033"), focus: Color.hex("#00000033") }
 const BACK: Color = Color.hex("#00000040")
 const PADDING: Edges = { top: space(.Item), bottom: space(.Item) }
 const ROW_PADDING: Edges = { top: 4.6875dp, right: space(.Item), bottom: 4.6875dp, left: space(.Item) }
@@ -91,8 +91,8 @@ public class Heading implements Component {
     return $ltml {
       <box padding={PADDING} xAlign={self.column.align} background={self.shade} @pointerPress={self.onClick} @keyPress(.Enter)={self.onClick} @keyPress(.Space)={self.onClick}>
         <box position={Position.Absolute} left={0ui} right={0ui} bottom={0ui} height={2.34375dp} background={self.light} />
-        <box columns={HEAD} gap={4.6875dp} yAlign={Align.Center} stateFromParent={true}>
-          <text value={self.column.title} textColor={self.color} stateFromParent={true} wrap={false} />
+        <box columns={HEAD} gap={4.6875dp} yAlign={Align.Center}>
+          <text value={self.column.title} textColor={self.color} wrap={false} />
           // The mark takes the triangle's own room; its cell, a triangle in its middle, reaches past it.
           <box $if={self.sortable} width={MARK_WIDTH} height={MARK_HEIGHT}>
             <box position={Position.Absolute} left={MARK_LEFT} top={MARK_TOP} width={MARK_CELL}

@@ -228,7 +228,8 @@ public class Tube implements Component {
         <box position={Position.Absolute} left={self.inset} top={self.inset} right={self.inset} bottom={self.inset}
              columns={self.parts} rows={FILL}>
           <box />
-          <box @pointerEnter={self.onAhead} @pointerLeave={self.onOff} />
+          // Inside the tube: the cursor that leaves it is on the tube still, which hears no new enter.
+          <box @pointerEnter={self.onAhead} @pointerLeave={self.onBar} />
           <box />
         </box>
         <Tip $if={self.overBar} title={self.title} text={""} rows={self.rows} />

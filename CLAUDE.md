@@ -116,7 +116,10 @@ would have caught it is half a fix: say which check now catches it, or add one.
 11. **Design checklist before showing any design** (same rule in wow-dev-tools' CLAUDE.md): every API, declaration,
    file format or tool interface is checked against the list in `../wow-dev-tools/design/development/rules.md`
    («Design checklist»: no invalid value can be written, rules hold by construction, nothing listed by hand, no fact
-   twice, no Lua traps, one name per concept) before it goes to the user, and what the check caught is said with it.
+   twice, no Lua traps, one name per concept, a new case costs one line in one place) before it goes to the user, and
+   what the check caught is said with it. Code itself follows «Shape», «Abstractions over raw code»: a repeated
+   condition or loop is one named function, a long chain over fields means the data is shaped wrong, flags that
+   mirror each other are one value; every diff is read as a reviewer reads it before it is handed over.
    The standard is general software engineering, not WoW-addon habit.
 
 ## Game install
@@ -154,6 +157,8 @@ would have caught it is half a fix: say which check now catches it, or add one.
   the same thread.
 - **What the companion may press:** the dev addon's keys (reload, probes, bench) and the player's own keys that open
   windows (`wow_open`). Never movement, abilities or anything bot-like.
+- **The machine's one queue:** every build, test and compiler run goes through `ordaen-run` (lunatype's CLAUDE.md,
+  «The machine's one queue»): one run at a time, at three quarters of the CPU.
 - **Long work runs in the background:** builds, lints, tests, probes, watch loops and repro runs, always; keep talking
   to the user meanwhile.
 - **Subagents as lunatype's `CLAUDE.md` says:** they do the work of the goal in lunatype's `NEXT.md`, one task an

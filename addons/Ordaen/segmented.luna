@@ -7,11 +7,11 @@ import { Choice } from "@/dropdown"
 import Locale from "@/locales"
 import { Component } from "@/module"
 
-const FILL: Stated<Color> = { default: Color.hex("#0d0a08"), hover: Color.hex("#1c1610") }
+const FILL: Stated<Color> = { default: Color.hex("#0d0a08"), hover: Color.hex("#1c1610"), focus: Color.hex("#1c1610") }
 const PICKED: Color = Color.hex("#5a4428")
 const BLANK: Color = Color.hex("#0d0a08")
 const QUIET: Color = Color.hex("#a3977f")
-const NAME: Stated<Color> = { default: Color.hex("#a3977f"), hover: Color.hex("#e8dcc4") }
+const NAME: Stated<Color> = { default: Color.hex("#a3977f"), hover: Color.hex("#e8dcc4"), focus: Color.hex("#e8dcc4") }
 const WHITE: Color = Color.hex("#ffffff")
 const DIM: Color = Color.hex("#ffffff73")
 const LIGHT: Color = Color.hex("#d6a56b")
@@ -61,7 +61,7 @@ public class Segment<T: Unknown> implements Component {
       <box padding={PADDING} background={self.fill} xAlign={Align.Center}
            border={self.edge} @pointerPress={self.onClick} @keyPress(.Enter)={self.onClick} @keyPress(.Space)={self.onClick}>
         <box position={Position.Absolute} left={0ui} right={0ui} top={0ui} height={2.34375dp} background={self.light} />
-        <text value={self.text} textColor={self.color} stateFromParent={true} wrap={false} />
+        <text value={self.text} textColor={self.color} wrap={false} />
       </box>
     }
   }
