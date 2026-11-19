@@ -51,6 +51,44 @@ test "a slider's drag shows at once, is written as it rests and as it is let go,
   Test.expect(Ordaen.globals.values.scale == 1 && Ordaen.keeper.steps == steps)
 }
 
+// The scale's slider pressed and moved, not let go: whether its value is still `from`, waiting for the drag to rest.
+function dragging(from: Number): Boolean {
+  const knob = Test.painted(Ordaen.art.ctl.sliderKnob, nil)
+  Test.moveTo(knob)
+  Test.press(nil)
+  Test.moveTo({ x: knob.x + 1, y: knob.y })
+  Test.pass(0.02)
+  Test.moveTo({ x: knob.x + 40, y: knob.y })
+  Test.pass(0.02)
+  return Ordaen.globals.values.scale == from
+}
+
+test "an input under way is written before the values are packed: the game saving loses nothing" {
+  const page = new ScalePage(mut Ordaen.globals)
+  Test.mount(page, PAGE)
+  Test.expect(dragging(1))
+  Ordaen.keeper.profiles.pack()
+  Test.expect(Ordaen.globals.values.scale > 1)
+  Test.release(nil)
+  Test.reload()
+  Test.expect(Ordaen.globals.values.scale > 1)
+}
+
+test "an input under way is written as the window closes, and as another page is shown" {
+  Test.mount(nil, { left: 0, top: 0, width: 200, height: 100, screen: true })
+  open()
+  Test.expect(dragging(1))
+  Ordaen.toggleNamed("")
+  Test.expect(Ordaen.globals.values.scale > 1)
+  Test.release(nil)
+  const closed = Ordaen.globals.values.scale
+  open()
+  Test.expect(dragging(closed))
+  Ordaen.toggleNamed("profiles")
+  Test.expect(Ordaen.globals.values.scale > closed)
+  Test.release(nil)
+}
+
 test "«Откатить» goes back to the session's start and to a savepoint, and the last change takes either back" {
   Test.mount(nil, { left: 0, top: 0, width: 200, height: 100, screen: true })
   open()

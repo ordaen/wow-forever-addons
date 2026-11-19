@@ -183,6 +183,8 @@ public class Profiles {
   // before every save, a `/reload` too), before what is kept is edited (a switch of profile, a copy) and before an
   // export. A change itself is never packed. Each listener is its own call: one module's error keeps no other's.
   public const packing: Event<nil> = new Event()
+  // Before it: the input under way writes what it holds (`Keeper.finishInput`), so nothing pending is left out.
+  public const finishing: Event<nil> = new Event()
 
   constructor() {
     self.kept = load(.Account, "profiles", Kept {})
@@ -190,7 +192,10 @@ public class Profiles {
   }
 
   // Every `Settings`' values packed into their profile.
-  public pack(mut self) { self.packing.emit() }
+  public pack(mut self) {
+    self.finishing.emit()
+    self.packing.emit()
+  }
 
   // Who the character is as the picks ask: its GUID, its specialisation's place where it has one, its class.
   public who(self): Who {

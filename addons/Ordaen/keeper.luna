@@ -105,6 +105,7 @@ public class Keeper {
 
   constructor() {
     watch (name of self.profiles.active) { self.count(name) }
+    self.profiles.finishing.listen(self.finishInput)
   }
 
   // A `Settings` that is kept is known by its key, and named by its module's title, until it is gone.
@@ -182,8 +183,9 @@ public class Keeper {
     for (_, section of self.sections) { section.settle() }
   }
 
-  // The input under way writes what it holds: going back starts from it.
-  finishInput(mut self) {
+  // The input under way writes what it holds, before anything reads the values whole: going back, a savepoint, the
+  // values packed (the game saving, a switch, an export), the window closed or another page shown.
+  public finishInput(mut self) {
     const finish = self.finish
     if (finish != nil) { finish() }
   }

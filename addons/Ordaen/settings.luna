@@ -100,6 +100,7 @@ public class Settings<S: Plain> implements Sectioned {
 
   // A profile's section becomes the values: what follows them draws again. The profile left keeps its values first.
   take(mut self, profile: ProfileName, key: String) {
+    self.keeper.finishInput()
     self.pack()
     const values = S.decode(self.keeper.profiles.section(profile, key), self.defaults)
     self.recorded = values.clone()

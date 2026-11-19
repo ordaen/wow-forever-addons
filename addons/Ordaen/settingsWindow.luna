@@ -185,6 +185,7 @@ public class SettingsWindow implements Component {
   }
 
   show(mut self, page: String) {
+    Ordaen.keeper.finishInput()
     if (self.page != page) {
       self.page = page
       self.tab = 1
@@ -198,6 +199,7 @@ public class SettingsWindow implements Component {
 
   // Every change is kept as it is made: closing asks nothing.
   onClose(mut self) {
+    Ordaen.keeper.finishInput()
     self.menuOpen = false
     self.open = false
   }
