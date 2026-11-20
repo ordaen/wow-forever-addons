@@ -24,17 +24,7 @@
   "APPLY_CHANGES": "Применить изменения",
   "ACTIVATE": "Активировать",
   "SHOW_ALL": "Все",
-  "SHOW_AVAILABLE": "Доступно",
-  "SHOW_UNAVAILABLE": "Недоступно",
-  "SHOW_LEARNED": "Изучено",
-  "ORDER_LEVEL": "По уровню",
-  "ORDER_NAME": "По названию",
-  "ORDER_PRICE": "По цене",
-  "NEEDS_LEVEL": "Требуется уровень: %d",
   "PICK_SERVICE": "Выберите навык.",
-  "SUMMARY": "Доступно: %d. Недоступно: %d. Изучено: %d.",
-  "YOUR_MONEY": "Ваши деньги",
-  "LEARN": "Изучить",
   "SETTING_SPEC_ONE": "Название первой вкладки специализации",
   "SETTING_SPEC_TWO": "Название второй вкладки специализации",
   "SETTING_TRAINER": "Окно учителя классов",
@@ -47,5 +37,6 @@
   "COL_SPELL": "Заклинание",
   "COL_LINE": "Специализация",
   "COL_KIND": "Тип",
-  "COL_LEVEL": "Ур."
+  "COL_LEVEL": "Ур.",
+  "COL_SKILL": "Навык"
 }

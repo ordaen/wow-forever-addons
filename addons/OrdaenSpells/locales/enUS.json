@@ -24,17 +24,7 @@
   "APPLY_CHANGES": "Apply changes",
   "ACTIVATE": "Activate",
   "SHOW_ALL": "All",
-  "SHOW_AVAILABLE": "Available",
-  "SHOW_UNAVAILABLE": "Unavailable",
-  "SHOW_LEARNED": "Learned",
-  "ORDER_LEVEL": "By level",
-  "ORDER_NAME": "By name",
-  "ORDER_PRICE": "By price",
-  "NEEDS_LEVEL": "Requires level %d",
   "PICK_SERVICE": "Pick a skill.",
-  "SUMMARY": "Available: %d. Unavailable: %d. Learned: %d.",
-  "YOUR_MONEY": "Your money",
-  "LEARN": "Learn",
   "SETTING_SPEC_ONE": "Name of the first spec tab",
   "SETTING_SPEC_TWO": "Name of the second spec tab",
   "SETTING_TRAINER": "Class trainer window",
@@ -47,5 +37,6 @@
   "COL_SPELL": "Spell",
   "COL_LINE": "Specialization",
   "COL_KIND": "Kind",
-  "COL_LEVEL": "Level"
+  "COL_LEVEL": "Level",
+  "COL_SKILL": "Skill"
 }

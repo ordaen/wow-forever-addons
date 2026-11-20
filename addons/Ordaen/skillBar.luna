@@ -1,19 +1,33 @@
-// The profession's skill bar, hanging from the window's top line: the experience bar's fill in a dark trough with a
-// bronze rim, a notch every 10%, and on it the rank and the skill: «Apprentice · 31 / 75».
-import { Align, Art, Edges, Line, Overflow, Position, Side, Track } from "$ltml"
-import { Component, XpFill, xpFillArt } from "Ordaen"
+// SkillBar: a profession's skill, hanging from a window's top line: the experience bar's fill in a dark trough with a
+// bronze rim, a notch every 10%, and on it the rank and the skill: «Apprentice · 31 / 75». The professions' window
+// and a profession trainer's show it.
+import { Align, Art, Edges, Line, Overflow, Position, Shadow, Side, TextFont, Track } from "$ltml"
+import { XpFill, xpFillArt } from "@/look"
 import Locale from "@/locales"
-import Style from "@/style"
+import { Component } from "@/module"
 
 const HEIGHT = 35.15625dp
 const RIM = 1sp
 const PADDING: Edges = { right: RIM, bottom: RIM, left: RIM }
 const TROUGH: Color = Color.hex("#0b0805")
 const RIM_COLOR: Color = Color.hex("#3d2710")
+const WHITE: Color = Color.hex("#ffffff")
+const SHADOW: Shadow = { color: Color.hex("#000000"), x: 1.171875dp, y: -1.171875dp }
 // Ten equal cells, each but the last with a 1 px dark right edge.
 const CELLS: Array<Integer> = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 const NOTCH: Line = { width: 1.171875dp, color: Color.hex("#000000bf"), sides: [Side.Right] }
 const FILL: Array<Track> = [{ fr: 1 }]
+
+// The name of the rank a skill's most stands for: «Apprentice» at 75; none for another.
+function rankOf(most: Integer): String {
+  match (most) {
+    75 => return Locale.SKILL_RANK_75
+    150 => return Locale.SKILL_RANK_150
+    225 => return Locale.SKILL_RANK_225
+    300 => return Locale.SKILL_RANK_300
+    else => return ""
+  }
+}
 
 public class SkillBar implements Component {
   // The trough in two columns: the filled part, and the rest.
@@ -35,20 +49,10 @@ public class SkillBar implements Component {
     return (1).min(self.rank / self.most)
   }
 
-  rankOf(self, most: Integer): String {
-    match (most) {
-      75 => return Locale.RANK_75
-      150 => return Locale.RANK_150
-      225 => return Locale.RANK_225
-      300 => return Locale.RANK_300
-      else => return ""
-    }
-  }
-
   labelOf(self): String {
     if (self.rank <= 0 && self.most <= 0) { return "" }
-    let skill = "%d / %d".format(self.rank, self.most)
-    let rank = self.rankOf(self.most)
+    const skill = "%d / %d".format(self.rank, self.most)
+    const rank = rankOf(self.most)
     if (rank == "") { return skill }
     return rank + " · " + skill
   }
@@ -68,8 +72,7 @@ public class SkillBar implements Component {
           </box>
           <box position={Position.Absolute} left={0ui} right={0ui} top={0ui} bottom={0ui} xAlign={Align.Center}
                yAlign={Align.Center}>
-            <text value={self.label} textColor={Style.WHITE} textShadow={Style.SHADOW}
-                  textFont={.Numbers} wrap={false} />
+            <text value={self.label} textColor={WHITE} textShadow={SHADOW} textFont={TextFont.Numbers} wrap={false} />
           </box>
         </box>
       </box>
