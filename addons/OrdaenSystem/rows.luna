@@ -1,5 +1,6 @@
 // The list's lines: a category's caption (its mark folds it) or an addon's row, each with a switch at the right, the
-// switches of all lines one column. A row: the title with its colour codes, its state where it isn't plainly loaded,
+// switches of all lines one column. A row: a group's parent's mark (it folds the group) or the mark's room, the title
+// with its colour codes, its state where it isn't plainly loaded,
 // CPU now, CPU peak and memory (the heaviest third of each column in the accent), and the switch (three states with
 // «All characters»: on, off, on for some). A caption's switch is its whole group's: on where every addon of it is,
 // off where none is, on for some between. Hover: our Tip with the notes. Left-click picks a row for the card; the
@@ -20,11 +21,13 @@ public struct Line {
   caption: Boolean
   // The addon's folder, or the category as the client groups by it.
   name: String
-  // A caption's: how many addons it holds, and whether it is folded.
+  // A caption's: how many addons it holds. A caption's or a parent's: whether it is folded.
   count: Integer
   folded: Boolean
   // An addon under its group's parent, which stands right above it.
   child: Boolean
+  // A group's parent with members in the list: its mark folds them.
+  parent: Boolean
   // A caption's: the addons its switch switches, every one of its group (none for an addon's row).
   names: Array<String>
   // An addon's row in the table, which shows its category in a column after its title.
@@ -46,6 +49,8 @@ public const TABLE_COLUMNS: Array<Track> = [
 ]
 // The fold's mark (ctl.markClosed, ctl.markOpen), as TreeRow draws it: a 16 px cell, its triangle in the middle.
 const MARK = 18.75dp
+// An addon's title after its mark's room, a mark or none: every title at one left edge, a caption's too.
+const TITLE: Array<Track> = ["max-content", { fr: 1 }]
 const PAD: Edges = { left: 3sp, right: 3sp }
 const LIGHT: ByInteractionState<Color> = { default: Style.CLEAR, hover: Color.hex("#d6a56b1f"), focus: Color.hex("#d6a56b1f") }
 const DASH = "—"
@@ -85,6 +90,8 @@ public class LineRow implements Component {
   // The row's menu: «Load» (an addon on demand, not loaded, that can be).
   public loadNow: Event<String> = new Event()
   public fold: Event<String> = new Event()
+  // A group's parent's mark: its members folded or shown.
+  public foldGroup: Event<String> = new Event()
   // An Ordaen module's state: its page in Ordaen's settings.
   public settings: Event<String> = new Event()
 
@@ -226,6 +233,7 @@ public class LineRow implements Component {
   // Ctrl is read here, in the click's own handler.
   onCheck(mut self) { self.toggle.emit(self.line.name, Game.input.controlDown()) }
   onGroup(mut self) { self.toggleGroup.emit(self.line.names) }
+  onFoldGroup(mut self) { self.foldGroup.emit(self.line.name) }
   onSettings(mut self) { self.settings.emit(self.line.name) }
   onEnter(mut self) { self.hovered = true }
   onLeave(mut self) { self.hovered = false }
@@ -241,7 +249,10 @@ public class LineRow implements Component {
       </box>
       <box $else height={Style.ROW} columns={self.columns} gap={3sp} padding={PAD} yAlign={Align.Center}
            background={self.background} @pointerPress.self={self.onPick} @keyPress(.Enter)={self.onKey} @keyPress(.Space)={self.onKey} @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
-        <box padding={self.indent}>
+        <box columns={TITLE} gap={3sp} yAlign={Align.Center} padding={self.indent}>
+          <box $if={self.line.parent} width={MARK} height={MARK} background={self.mark} tint={Style.GOLD}
+               @pointerPress={self.onFoldGroup} @keyPress(.Enter)={self.onFoldGroup} @keyPress(.Space)={self.onFoldGroup} />
+          <box $else width={MARK} height={MARK} />
           <text value={self.title} textColor={Style.INK} wrap={.None} />
         </box>
         <box $if={self.module} @pointerPress={self.onSettings} @keyPress(.Enter)={self.onSettings} @keyPress(.Space)={self.onSettings}>
