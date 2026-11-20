@@ -4,7 +4,7 @@
 import Client from "$client"
 import Game from "$game"
 import { Art } from "$ltml"
-import { Quality, Reward, Standing, artOf, itemReward } from "Ordaen"
+import { Difficulty, Quality, Reward, Standing, artOf, difficultyOf, itemReward } from "Ordaen"
 import Locale from "@/locales"
 
 // Where the NPC's list came from: the gossip window (`GOSSIP_SHOW`), or a quest giver's greeting (`QUEST_GREETING`),
@@ -14,9 +14,6 @@ public enum Source { Gossip, Greeting }
 // What a line of the NPC's list is, in the game's order: quests to hand in, new quests, quests in progress, then
 // the plain options.
 public enum LineKind { TurnIn, RepeatTurnIn, New, Daily, Legendary, InProgress, Option }
-
-// The quest log's difficulty colours of a quest's level against the player's.
-public enum Difficulty { Trivial, Easy, Even, Hard, Impossible }
 
 // One line of the NPC's list.
 public struct Line {
@@ -85,17 +82,6 @@ const DAILY: Art = "QuestDaily"
 const LEGENDARY: Art = "QuestLegendary"
 const UNKNOWN: Asset = "Interface/Icons/INV_Misc_QuestionMark"
 
-// A quest's level against the player's, as the quest log colours it: grey where the game calls it trivial, then
-// green up to two below, yellow within two, orange from three above, red from five.
-public function difficultyOf(level: Integer, player: Integer, trivial: Boolean): Difficulty {
-  if (trivial) { return .Trivial }
-  const above = level - player
-  if (above >= 5) { return .Impossible }
-  if (above >= 3) { return .Hard }
-  if (above >= -2) { return .Even }
-  return .Easy
-}
-
 function questIcon(kind: LineKind): Art {
   return match (kind) {
     .TurnIn => TURN_IN
@@ -109,7 +95,9 @@ function questIcon(kind: LineKind): Art {
 
 function questLine(kind: LineKind, title: String, level: Integer, trivial: Boolean, id: Integer, source: Source): Line {
   return {
-    kind: kind, title: title, level: level, difficulty: difficultyOf(level, peek Game.player.level, trivial),
+    // The client's own word that it is trivial stands; else the quest log's reckoning.
+    kind: kind, title: title, level: level,
+    difficulty: trivial ? Difficulty.Trivial : difficultyOf(level, peek Game.player.level),
     icon: questIcon(kind), id: id, source: source
   }
 }
