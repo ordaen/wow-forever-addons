@@ -4,7 +4,7 @@ import Test from "$test"
 import type { Pin } from "OrdaenMap"
 import { LogQuest } from "@/book"
 import { DungeonQuests, PinKind, QuestPins } from "@/layers"
-import { Difficulty, colorOf, difficultyOf } from "@/model"
+import { Difficulty, colorOf, difficultyOf } from "Ordaen"
 import { QuestFacts } from "@/questie"
 
 function quest(id: Integer, tracked: Boolean, done: Boolean): LogQuest {

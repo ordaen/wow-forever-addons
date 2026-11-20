@@ -1,0 +1,51 @@
+// What Quests adds under a tracked quest in Ordaen Tracker, from QuestieDB: while it is to do, the zone of its
+// objectives and how many places there; once done, whom to hand it to and where. A quest QuestieDB doesn't know gets
+// no line. Its title clicked opens it in Quests' window (or docked, on the map).
+import Client from "$client"
+import Locale from "@/locales"
+import { Figure, QuestFacts, Spot } from "@/questie"
+import type { QuestLine, QuestLines } from "OrdaenTracker"
+
+// The zone's name of an `AreaTable` area, as the client names it.
+function zoneOf(area: Integer): String { return Client.C_Map.GetAreaInfo(area) }
+
+// The first place of the first figure; nil where none has one.
+function firstSpot(figures: Array<Figure>): Spot | nil {
+  const figure = figures[1]
+  return figure == nil ? nil : figure.spots[1]
+}
+
+// Where the figures stand: the first one's zone, and how many places of theirs are in it.
+function whereOf(figures: Array<Figure>): String {
+  const first = firstSpot(figures)
+  if (first == nil) { return "" }
+  let places = 0
+  for (figure of figures) { places = places + figure.spots.count(spot => spot.area == first.area) }
+  return Locale.TRACKER_WHERE.format(zoneOf(first.area), places)
+}
+
+// Whom to hand it to, and where: «Turn in: Gryan Stoutmantle · Westfall (56, 47)».
+function turnInOf(figures: Array<Figure>): String {
+  const first = figures[1]
+  const spot = firstSpot(figures)
+  if (first == nil || spot == nil) { return "" }
+  return Locale.TRACKER_TURN_IN.format(first.name, zoneOf(spot.area), (spot.x * 100).floor(), (spot.y * 100).floor())
+}
+
+public class TrackerLines implements QuestLines {
+  facts: Signal<Map<Integer, QuestFacts>>
+  const opening: (id: Integer) => Boolean
+  constructor(facts: Signal<Map<Integer, QuestFacts>>, opening: (id: Integer) => Boolean) {
+    self.facts = facts
+    self.opening = opening
+  }
+
+  public lines(self, quest: Integer, done: Boolean): Array<QuestLine> {
+    const facts = self.facts[quest]
+    if (facts == nil) { return [] }
+    const text = done ? turnInOf(facts.takers) : whereOf(facts.targets)
+    return text == "" ? [] : [{ text: text, done: done }]
+  }
+
+  public open(self, quest: Integer): Boolean { return self.opening(quest) }
+}

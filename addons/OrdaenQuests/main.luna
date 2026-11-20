@@ -17,6 +17,8 @@ import root Ordaen from "Ordaen"
 import { ARTWORK, ButtonPlate, Choice, Dialog, FilterButton, FilterGroup, FooterCount, FooterCounts, KeptWindow, Module, PushButton, SECONDARY_TEXT, Segmented, Settings, SettingsPage, ToolPick, Toolbar, Window, WindowSide, WindowTabSpec, WindowsPage, playSound, switched, windowsTitle } from "Ordaen"
 import root Maps from "OrdaenMap"
 import type { SidePanel } from "OrdaenMap"
+import root Tracker from "OrdaenTracker"
+import { TrackerLines } from "@/tracker"
 import { LogQuest, logQuests } from "@/book"
 import { TakenClick } from "@/button"
 import { QuestieData } from "@/data"
@@ -175,11 +177,13 @@ public class Quests implements Module, App {
   const objectives: QuestPins
   const turnIns: QuestPins
   const dungeonQuests: DungeonQuests
+  const trackerLines: TrackerLines
 
   constructor() {
     self.objectives = new QuestPins(PinKind.Objectives, self.quests, self.facts, self.hovered)
     self.turnIns = new QuestPins(PinKind.TurnIns, self.quests, self.facts, self.hovered)
     self.dungeonQuests = new DungeonQuests(self.quests)
+    self.trackerLines = new TrackerLines(self.facts, (id: Integer): Boolean => self.openAt(id))
     self.toggle = Client.CreateFrame("Button", TOGGLE, Client.UIParent, nil)
     Ordaen.modules.add(self)
     self.toggle.SetScript("OnClick", (): nil => {
@@ -191,6 +195,10 @@ public class Quests implements Module, App {
       maps.layers.add(self.objectives)
       maps.layers.add(self.turnIns)
       maps.dungeons.add(self.dungeonQuests)
+    }
+    watch (tracker of Tracker) {
+      if (tracker == nil) { return }
+      tracker.questLines.add(self.trackerLines)
     }
     // The log's events are heard while something reads it.
     watch (on of self.reading) {
@@ -305,6 +313,17 @@ public class Quests implements Module, App {
   }
 
   onBack(mut self) { self.picked = 0 }
+
+  // The quest asked for from the tracker: its page, in the window, or docked on the map with its panel.
+  openAt(mut self, id: Integer): Boolean {
+    self.picked = id
+    if (peek self.docked) {
+      Client.C_Map.OpenWorldMap(nil)
+    } else if (!(peek self.open)) {
+      self.flip()
+    }
+    return true
+  }
 
   // The log: the toolbar over the list. The window's body, and the docked panel's while no quest is picked.
   logBody(self): Template {

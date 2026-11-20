@@ -22,6 +22,8 @@
   "SECTION_TASKS": "Задачи",
   "SECTION_WHERE": "Где",
   "SECTION_REWARD": "Награда",
+  "TRACKER_WHERE": "%s · мест: %d",
+  "TRACKER_TURN_IN": "Сдать: %s · %s (%d, %d)",
   "ROW_TIP": "Щелчок: страница задания. Shift+щелчок: ссылка в чат. Правый щелчок: ещё.",
   "NEXT_IN_CHAIN": "Следующее в цепочке",
   "CHOICE": "На выбор",

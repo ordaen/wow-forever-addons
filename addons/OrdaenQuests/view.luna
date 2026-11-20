@@ -7,10 +7,9 @@
 import Game from "$game"
 import { Align, Art, ByInteractionState, Edges, Position, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { ButtonPlate, Component, ItemButton, Menu, MenuEntry, Money, PushButton, SECONDARY_TEXT, TITLE_LINE, TITLE_TEXT, Tip, rowShade } from "Ordaen"
+import { ButtonPlate, Component, ItemButton, Menu, MenuEntry, Money, PushButton, SECONDARY_TEXT, TITLE_LINE, TITLE_TEXT, Tip, colorOf, difficultyOf, rowShade } from "Ordaen"
 import { LogQuest } from "@/book"
 import Locale from "@/locales"
-import { colorOf, difficultyOf } from "@/model"
 import { Figure, QuestFacts } from "@/questie"
 
 // What the player asks of a quest from its row or its page. `Link`: Shift+Left-click on its title, a chat link where a
