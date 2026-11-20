@@ -4,5 +4,5 @@
   "notes": "The world map with OpenMap: the map and the quest log open apart, and quest pins from Ordaen Quests.",
   "version": "0.1.0",
   "loadOnDemand": true,
-  "dependencies": { "Ordaen": "^1.0.0" }
+  "dependencies": { "Ordaen": "^1.0.0", "OpenMap": ">=0.8.10" }
 }

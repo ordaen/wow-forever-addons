@@ -1,0 +1,14 @@
+// Blizzard's map frame OpenMap hosts in (`WorldMapFrame`), and the game's tooltip beside a pin, as `worldMap.lua`
+// reads them: the frame isn't declared by the client's API. Nothing is written to it: its scripts are hooked.
+import Client from "$client"
+
+// The world map's canvas, where pins stand; nil before Blizzard's map is made.
+public function canvas(): any Client.Frame | nil
+// The map the world map shows (`WorldMapFrame:GetMapID()`); 0 while it doesn't show.
+public function shownMap(): Integer
+// `run` is called when the world map shows or hides and when the map it shows changes. Once; `forget` takes it away.
+public function listen(run: () => nil)
+public function forget()
+// The game's tooltip beside a pin: its first line the title, in white, the others under it.
+public function tip(owner: any Client.Frame, lines: Array<String>)
+public function untip()

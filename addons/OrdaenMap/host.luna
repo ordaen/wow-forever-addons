@@ -1,9 +1,14 @@
-// What Map asks of the world map: OpenMap's and Blizzard's, through `openMap.lua`, and the client's `questLogOpen`.
-// `MapHost` is what Map asks; `OpenMapHost` asks the game. Everything Map places goes through here: where a pin stands
-// on the canvas, the pins' own frames, OpenMap's menu.
+// What Map asks of the world map: OpenMap's API, Blizzard's map frame through `worldMap.lua`, and the client's
+// `questLogOpen`. `MapHost` is what Map asks; `OpenMapHost` asks the game. Everything Map places goes through here:
+// where a pin stands on the canvas, the pins' own frames, OpenMap's menu.
 import Client from "$client"
 import type { Pin } from "@/extend"
-import OpenMap from "@/openMap"
+import WorldMap from "@/worldMap"
+import { OpenMapAPI } from "OpenMap"
+
+// The API Map is written against: major 1, from version 4 on.
+const API_MAJOR = 1
+const API_VERSION = 4
 
 // A pin placed: where it stands on the canvas, 0 to 1.
 public struct Placed {
@@ -48,21 +53,33 @@ public class OpenMapHost implements MapHost {
   // The pins' frames, kept and used again.
   pins: mut Array<any Client.Button> = []
 
+  // Who OpenMap's callbacks are registered for (CallbackHandler keys them by a table).
+  owner: Table = {}
+
   public start(mut self) {
-    OpenMap.listen((): nil => {
+    WorldMap.listen((): nil => {
       self.changed.emit()
       return nil
     })
+    if (self.present()) {
+      const heard = (event: String): nil => {
+        self.changed.emit()
+        return nil
+      }
+      OpenMapAPI.RegisterCallback(self.owner, "OpenMap_ViewChanged", heard)
+      OpenMapAPI.RegisterCallback(self.owner, "OpenMap_StitchedChanged", heard)
+    }
   }
 
   public stop(mut self) {
-    OpenMap.forget()
+    WorldMap.forget()
+    if (self.present()) { OpenMapAPI.UnregisterAllCallbacks(self.owner) }
     self.draw([], [])
   }
 
-  public present(self): Boolean { return OpenMap.present() }
+  public present(self): Boolean { return OpenMapAPI.major == API_MAJOR && OpenMapAPI.version >= API_VERSION }
 
-  public shown(self): Boolean { return OpenMap.shownMap() != 0 }
+  public shown(self): Boolean { return WorldMap.shownMap() != 0 }
 
   public docked(self): Boolean { return Client.C_CVar.GetCVarBool("questLogOpen") == true }
 
@@ -86,11 +103,13 @@ public class OpenMapHost implements MapHost {
   }
 
   public place(mut self, pin: Pin): Placed | nil {
-    const shown = OpenMap.shownMap()
+    const shown = WorldMap.shownMap()
     const map = self.mapOf(pin.area)
     if (shown == 0 || map == 0) { return nil }
-    if (OpenMap.stitched()) {
-      let x, y = OpenMap.canvasOf(map, pin.x, pin.y)
+    if (self.present() && OpenMapAPI.IsStitched()) {
+      let u, v = OpenMapAPI.WorldFromMap(map, pin.x, pin.y)
+      if (u == nil || v == nil) { return nil }
+      let x, y = OpenMapAPI.MapFromWorld(shown, u, v)
       return x != nil && y != nil ? OpenMapHost.within(pin, x, y) : nil
     }
     if (map == shown) { return { pin: pin, x: pin.x, y: pin.y } }
@@ -105,13 +124,13 @@ public class OpenMapHost implements MapHost {
   }
 
   public draw(mut self, placed: Array<Placed>, lines: Array<Array<String>>) {
-    const canvas = OpenMap.canvas()
+    const canvas = WorldMap.canvas()
     if (canvas == nil) { return }
     const width = canvas.GetWidth()
     const height = canvas.GetHeight()
     // A pin keeps its size on the screen whatever the canvas's zoom.
     const size = PIN_SIZE * Client.UIParent.GetEffectiveScale() / canvas.GetEffectiveScale()
-    const level = OpenMap.artTop() + 1
+    const level = (self.present() ? OpenMapAPI.ArtTopLevel() : 0) + 1
     for (index, at of placed) {
       const frame = self.pinFrame(index, canvas)
       const said = lines[index] ?? []
@@ -121,7 +140,7 @@ public class OpenMapHost implements MapHost {
       frame.SetFrameLevel(level)
       frame.SetNormalTexture(at.pin.icon)
       frame.SetScript("OnEnter", (): nil => {
-        OpenMap.tip(frame, said)
+        WorldMap.tip(frame, said)
         return nil
       })
       frame.Show()
@@ -136,7 +155,7 @@ public class OpenMapHost implements MapHost {
     if (kept != nil) { return kept }
     const made = new Client.Button(canvas)
     made.SetScript("OnLeave", (): nil => {
-      OpenMap.untip()
+      WorldMap.untip()
       return nil
     })
     self.pins.push(made)
@@ -144,6 +163,7 @@ public class OpenMapHost implements MapHost {
   }
 
   public menuSwitch(mut self, id: String, label: String, get: () => Boolean, set: (on: Boolean) => nil) {
-    OpenMap.menuToggle(id, label, get, set)
+    if (!self.present()) { return }
+    OpenMapAPI.RegisterMenuToggle("OrdaenMap", { id: id, label: label, get: get, set: set, tab: "show", section: "Ordaen" })
   }
 }

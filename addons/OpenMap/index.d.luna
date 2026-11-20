@@ -1,0 +1,33 @@
+// OpenMap (MIT, `third-party/openmap`), another author's addon Ordaen Map is built on: its public API (`API.lua`,
+// `docs/api.md`), as the globals it makes. It is called from the player's own install; nothing of it is copied here.
+
+// Its public API, major 1: what Ordaen Map reads of it.
+public module OpenMapAPI {
+  // The API's major version (1) and its version within it (4: the townsfolk provider).
+  public major: Integer
+  public version: Integer
+  // Whether its stitched map shows now.
+  public function IsStitched(): Boolean
+  // A point of a uiMap, 0 to 1, in the stitched world's coordinates; nil where the map isn't part of it.
+  public function WorldFromMap(map: Integer, x: Number, y: Number): (Number | nil, Number | nil)
+  // A point of the stitched world on a uiMap, 0 to 1 (outside 0 to 1 where it is off the map); nil where it can't say.
+  public function MapFromWorld(map: Integer, u: Number, v: Number): (Number | nil, Number | nil)
+  // The highest frame level its art takes on the canvas: other addons' pins stand over it.
+  public function ArtTopLevel(): Integer
+  // CallbackHandler's: `run` is called with the event's name on each of its events (`OpenMap_ViewChanged`,
+  // `OpenMap_StitchedChanged`), until `owner`'s are taken away.
+  public function RegisterCallback(owner: Table, event: String, run: (event: String) => nil)
+  public function UnregisterAllCallbacks(owner: Table)
+  // A switch in its menu, under the addon's section.
+  public function RegisterMenuToggle(addon: String, toggle: MenuToggle)
+}
+
+// A switch in OpenMap's menu: what it shows comes from `get`, a click calls `set`; `tab` and `section` say where.
+public struct MenuToggle {
+  id: String
+  label: String
+  get: () => Boolean
+  set: (on: Boolean) => nil
+  tab: String
+  section: String
+}
