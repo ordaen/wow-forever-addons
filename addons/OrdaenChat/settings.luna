@@ -1,7 +1,14 @@
 // The chat's page in the settings window: each control writes one entry of the settings, at once.
+import Game from "$game"
 import { Choice, Component, Field, NumberInput, Segmented, Settings, Switch, Unit } from "Ordaen"
 import { ChannelName, Choices } from "@/choices"
 import Locale from "@/locales"
+
+const HISTORY: Array<Choice<Game.ChatHistory>> = [
+  { value: Game.ChatHistory.All, label: Locale.HISTORY_ALL },
+  { value: Game.ChatHistory.Commands, label: Locale.HISTORY_COMMANDS },
+  { value: Game.ChatHistory.None, label: Locale.HISTORY_NONE }
+]
 
 const NAMES: Array<Choice<ChannelName>> = [
   { value: ChannelName.Number, label: Locale.CHANNEL_NUMBER },
@@ -29,6 +36,8 @@ public class ChatPage implements Component {
                    unit={Unit.None} />
       <NumberInput label={Locale.HELD} hint={Locale.HELD_TIP} value={mut self.settings.values.held} least={100} most={2000}
                    step={100} unit={Unit.None} />
+      <Switch label={Locale.INPUT_ALWAYS} hint={Locale.INPUT_ALWAYS_TIP} value={mut self.settings.values.inputAlways} />
+      <Segmented value={mut self.settings.values.history} choices={HISTORY} />
       <Switch label={Locale.PLAIN_ARROWS} hint={Locale.PLAIN_ARROWS_TIP} value={mut self.settings.values.plainArrows} />
     }
   }

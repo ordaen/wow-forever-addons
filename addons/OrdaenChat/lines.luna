@@ -42,6 +42,9 @@ public class ChatTab {
   public state partner = ""
   public state fontSize: Number = 13
   public state combatLog = false
+  // Docked with the first window (a tab of the chat's own pane), or a pane of its own; locked in place.
+  public state docked = true
+  public state locked = false
   // Its lines, oldest first; `version` moves as they change, which is what a view follows.
   public lines: mut Array<Shown> = []
   public state version = 0
@@ -61,6 +64,8 @@ public class ChatTab {
     self.partner = window.partner
     self.fontSize = window.fontSize
     self.combatLog = window.combatLog
+    self.docked = window.docked
+    self.locked = window.locked
   }
 
   // A line added, or the last one counted again where it repeats it; the oldest let go past `held`.

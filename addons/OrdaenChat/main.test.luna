@@ -3,6 +3,7 @@
 import Client from "$client"
 import Game from "$game"
 import Test from "$test"
+import root Ordaen from "Ordaen"
 import { ChatMark, say } from "Ordaen"
 import { ChatTab, Shown, linked, marks, wordsOf } from "@/lines"
 
@@ -10,11 +11,21 @@ const SCREEN: Test.Page = { left: 0, top: 0, width: 1600, height: 900, screen: t
 const WHITE: Color = Color.hex("#ffffff")
 const INPUT_HINT = "Enter: type"
 
-function window(index: Integer, name: String, partner: String): Game.ChatWindow {
+function window(index: Integer, name: String, partner: String, docked: Boolean = true): Game.ChatWindow {
+  // Hidden while its input is made, as the game parks its windows.
+  const frame = Client.CreateFrame("Frame", `ChatFrame${index}`, Client.C_UI.GetUIParent(), nil)
+  frame.Hide()
   return {
-    index: index, name: name, fontSize: 13, partner: partner, combatLog: false, docked: true, shown: true,
-    frame: Client.CreateFrame("Frame", `ChatFrame${index}`, Client.C_UI.GetUIParent(), nil)
+    index: index, name: name, fontSize: 13, partner: partner, combatLog: false, docked: docked, shown: true,
+    locked: false, frame: frame, input: input(frame)
   }
+}
+
+// A window's input, as the client's template makes it: never taking the keyboard by itself.
+function input(parent: any Client.Frame): any Client.EditBox {
+  const made = new Client.EditBox(parent)
+  made.SetAutoFocus(false)
+  return made
 }
 
 // A line said by someone, shown in the windows given.
@@ -89,11 +100,49 @@ test "a link clicked is the game's" {
   Test.expect(Test.requests().any(r => r == "Chat.click item:6948 LeftButton"))
 }
 
-test "a tab's right-click opens the game's own menu of the window" {
+test "a tab's right-click opens its menu: renamed in a box, locked, a new tab, its settings" {
   Game.chat.windows = gameWindows()
   const shown = chat()
   shown.text("General").rightClick()
-  Test.expect(Test.requests().any(r => r == "Chat.windowMenu 1"))
+  Test.page().text("Rename").click()
+  Test.page().input().type("Main")
+  Test.page().window("Cancel").button("Rename").click()
+  shown.text("General").rightClick()
+  Test.page().text("Lock").click()
+  shown.text("General").rightClick()
+  Test.page().text("New tab").click()
+  const asked = Test.requests()
+  Test.expect(asked.any(r => r.match("^Chat%.rename 1 (.*Main)$") != nil))
+  Test.expect(asked.any(r => r == "Chat.lock 1 true") && asked.any(r => r == "Chat.open New tab"))
+}
+
+test "a name's right-click opens its menu: whisper, invite, who, ignore, and the game's own" {
+  Game.chat.windows = gameWindows()
+  const shown = chat()
+  Game.chat.heard.emit(line("SAY", "|Hplayer:Jaina:7|h[Jaina]|h says: hi", "Jaina", [1]))
+  shown.text("|Hplayer:Jaina:7|h[Jaina]|h says: hi").clickLink("player:Jaina:7", .Right)
+  Test.page().text("More…").click()
+  Test.expect(Test.requests().any(r => r == "Chat.click player:Jaina:7 RightButton"))
+}
+
+test "a window the player undocked is a pane of its own" {
+  Game.chat.windows = [window(1, "General", ""), window(3, "Whisper", "Jaina", false)]
+  _ = chat()
+  Game.chat.heard.emit(line("WHISPER", "[Jaina] whispers: apart", "Jaina", [3]))
+  Test.expect(Test.page().window("[Jaina] whispers: apart").text("Jaina").shown())
+  Test.expect(!Test.page().window("General").text("Jaina").shown())
+}
+
+test "the Tabs page shows what a window shows, each turned on and off there" {
+  Game.chat.windows = gameWindows()
+  Game.chat.groups = (index: Integer): Array<Game.ChatShown> => [{ name: "SAY", shown: true }, { name: "YELL", shown: false }]
+  _ = chat()
+  Test.open("/ordaen")
+  const settings = Test.page().window("Move mode")
+  settings.button("Chat").click()
+  settings.button("Tabs").click()
+  settings.button(Ordaen.art.ctl.check).nth(2).click()
+  Test.expect(Test.requests().any(r => r == "Chat.showGroup 1 YELL true"))
 }
 
 test "the input opened in a whisper's tab whispers its partner" {

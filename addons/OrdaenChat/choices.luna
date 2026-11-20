@@ -1,4 +1,5 @@
 // What the player chooses on the chat's settings page.
+import Game from "$game"
 
 // How a channel's line names its channel: by number («[2]»), by name («[Trade]») or both («[2. Trade]»); the zone
 // after the name is left out either way.
@@ -21,6 +22,10 @@ public struct Choices implements Plain {
   kept: Integer
   // Lines each tab holds this session.
   held: Integer
-  // The arrows in the input move its cursor (off: they bring back what was sent, as Alt+arrows).
+  // The arrows alone bring back what was sent (off: Alt and the arrows do).
   plainArrows: Boolean
+  // What the input's history keeps of what is sent.
+  history: Game.ChatHistory
+  // The input always shown under the lines (off: from Enter to the line sent).
+  inputAlways: Boolean
 }
