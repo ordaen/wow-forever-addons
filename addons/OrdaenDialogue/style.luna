@@ -1,0 +1,46 @@
+// The dialogue window's look: its size, the parchment above (the game's quest parchment tinted to the native gossip
+// window's colour, dark ink only) and the dark well below, and the colours of what each says.
+import { Art, Line, Side } from "$ltml"
+import { Difficulty } from "@/read"
+
+public const WIDTH: Number<Length> = 515.625dp
+public const HEIGHT: Number<Length> = 820.3125dp
+
+public const PARCHMENT: Art = "QuestBG-Parchment"
+public const PARCHMENT_TINT: Color = Color.hex("#f2d29a")
+// The scroll's rolled ends, above and below the parchment.
+public const ROLL: Color = Color.hex("#b07a3a")
+public const ROLL_HEIGHT: Number<Length> = 14.0625dp
+public const WELL: Color = Color.hex("#00000052")
+
+// On the parchment.
+public const INK: Color = Color.hex("#160c03")
+public const INK_HEAD: Color = Color.hex("#3a1000")
+public const INK_DIM: Color = Color.hex("#6a5236")
+// In the well.
+public const TEXT: Color = Color.hex("#f0e6d0")
+public const NAME: Color = Color.hex("#ffd100")
+public const DIM: Color = Color.hex("#a3977f")
+public const RED: Color = Color.hex("#e0301e")
+public const GREEN: Color = Color.hex("#40bf40")
+public const BEST: Color = Color.hex("#40ff40")
+public const GOLD: Color = Color.hex("#ffd100")
+public const RULE: Line = { width: 1.171875dp, color: Color.hex("#3e2f1d"), sides: [Side.Top] }
+public const RULE_BELOW: Line = { width: 1.171875dp, color: Color.hex("#3e2f1d"), sides: [Side.Top, Side.Bottom] }
+public const KEYCAP: Color = Color.hex("#00000080")
+public const KEYCAP_EDGE: Line = { width: 1.171875dp, color: Color.hex("#4a3a24") }
+public const KEY_TEXT: Color = Color.hex("#c9a76a")
+public const GROUP_TAG: Color = Color.hex("#7a1e00")
+public const ICON: Number<Length> = 18.75dp
+public const REWARD_ICON: Number<Length> = 39.84375dp
+
+// The quest log's colours of a quest's level.
+public function difficultyColor(difficulty: Difficulty): Color {
+  return match (difficulty) {
+    .Trivial => Color.hex("#9d9d9d")
+    .Easy => Color.hex("#40c040")
+    .Even => Color.hex("#ffd100")
+    .Hard => Color.hex("#ff8040")
+    .Impossible => Color.hex("#ff2020")
+  }
+}

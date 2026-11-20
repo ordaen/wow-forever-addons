@@ -1,0 +1,79 @@
+// What the dialogue window is on, and what may stand over it: the page the game is on (the NPC's list, a quest's
+// details, its progress, its reward, a book), who the window's tab is, and a question asked first (a paid option, a
+// party member's escort quest, a PvP quest, a turn-in that costs money).
+import Client from "$client"
+import { Art } from "$ltml"
+import Locale from "@/locales"
+
+public enum Page { Closed, List, Detail, Progress, Reward, Book }
+
+// Who the tab is: the NPC's face, or the item's or the object's icon where the quest or the book has no NPC.
+public struct Speaker {
+  const name: String
+  const subtitle: String | nil
+  const portrait: String | nil
+  const icon: Art | nil
+}
+
+// A question asked before the game is told: Ordaen's confirm over the window.
+public enum Prompt {
+  // A gossip option that asks (`GOSSIP_CONFIRM`): its text and its price.
+  Paid { option: Integer, text: String, cost: Integer }
+  // A party member's quest shared to start (`QUEST_ACCEPT_CONFIRM`).
+  Escort { text: String }
+  // A quest that flags the player for PvP.
+  Pvp
+  // A turn-in that takes money.
+  Expensive { cost: Integer }
+}
+
+// An option the player marked to be picked on its own: by the NPC and the option's ID.
+public struct Marked implements Plain {
+  npc: Integer
+  option: Integer
+}
+
+// The most marks kept: the oldest go first.
+public const MARKS_KEPT = 200
+const BOOK_ICON: Asset = "Interface/Icons/INV_Misc_Book_09"
+const OBJECT_ICON: Asset = "Interface/Icons/INV_Scroll_03"
+
+// The NPC's number, out of its GUID (`Creature-0-1-2-3-<npc>-<spawn>`); 0 for what isn't a creature.
+public function npcOf(guid: String | nil): Integer {
+  if (guid == nil) { return 0 }
+  const kind, npc = guid.match("^(%a+)%-%d+%-%d+%-%d+%-%d+%-(%d+)%-")
+  if (kind != "Creature" || npc == nil) { return 0 }
+  return (npc.toNumber() ?? 0).floor()
+}
+
+// The NPC talked to: its name and face, and the line of its tooltip under its name where the game gives it a title
+// («Innkeeper»), which isn't its level's line.
+public function speakerOf(): Speaker {
+  const name, _ = Client.UnitName("npc")
+  if (!Client.UnitExists("npc")) { return { name: name, icon: OBJECT_ICON } }
+  return { name: name, subtitle: subtitleOf(), portrait: "npc" }
+}
+
+function subtitleOf(): String | nil {
+  const data = Client.C_TooltipInfo.GetUnit("npc", nil)
+  if (!(data is Table)) { return nil }
+  const lines = data["lines"]
+  if (!(lines is Table)) { return nil }
+  const second = lines[2]
+  if (!(second is Table)) { return nil }
+  const text = second["leftText"]
+  if (!(text is String) || text == "") { return nil }
+  const level = String.of(Client.UnitLevel("npc").floor())
+  if (text.contains(level)) { return nil }
+  return text
+}
+
+// A quest an item in the bags starts: the item's name and icon.
+public function itemSpeaker(name: String, icon: Art | nil): Speaker {
+  return { name: name, subtitle: Locale.STARTS_QUEST, icon: icon ?? OBJECT_ICON }
+}
+
+// A book or a plaque read: its name.
+public function bookSpeaker(): Speaker {
+  return { name: Client.ItemTextGetItem(), subtitle: Locale.BOOK, icon: BOOK_ICON }
+}

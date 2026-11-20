@@ -1,0 +1,205 @@
+// What each page draws. Above, on the parchment, what is said: the NPC's words, a book's pages, or a quest's title
+// (with its group's size), its text and its objectives. Below, in the well: what a quest needs (red until there's
+// enough, the money too), or its rewards: those to choose, those given anyway, and experience, reputation and money
+// in one band of columns as a tooltip's.
+import Game from "$game"
+import { Align, Side, Track } from "$ltml"
+import { Component, Money, SECONDARY_TEXT, TITLE_TEXT, Tip, space } from "Ordaen"
+import Locale from "@/locales"
+import { Need, Quest, Reward, Standing } from "@/read"
+import { RewardRow } from "@/rewards"
+import Style from "@/style"
+import { Page } from "@/talk"
+
+// A reward as its row shows it: Pawn's word on it, and whether it is the best upgrade and the dearest.
+public struct RewardView {
+  const reward: Reward
+  // Pawn's upgrade, 0.15 for 15%; 0 for none.
+  const pawn: Number
+  const best: Boolean
+  const dearest: Boolean
+}
+
+// The rows of rewards to choose: Pawn's best upgrade marked, and the dearest at a vendor.
+public function choiceViews(rewards: Array<Reward>, upgrades: Array<Number>): Array<RewardView> {
+  let best: Number = 0
+  let dearest = 0
+  for (index, reward of rewards) {
+    best = best.max(upgrades[index] ?? 0)
+    dearest = dearest.max(reward.sell)
+  }
+  let views: Array<RewardView> = []
+  for (index, reward of rewards) {
+    const pawn = upgrades[index] ?? 0
+    views.push({ reward: reward, pawn: pawn, best: pawn > 0 && pawn == best, dearest: dearest > 0 && reward.sell == dearest })
+  }
+  return views
+}
+
+// The upper zone: what is said.
+public class Said implements Component {
+  derived isQuest: Boolean = self.page == Page.Detail || self.page == Page.Progress || self.page == Page.Reward
+  derived title: String = self.quest?.title ?? ""
+  derived text: String = self.isQuest ? self.quest?.text ?? "" : self.page == Page.Book ? self.book : self.said
+  derived objectives: String = self.page == Page.Detail ? self.quest?.objectives ?? "" : ""
+  derived hasObjectives: Boolean = self.objectives != ""
+  derived group: Integer = self.isQuest ? self.quest?.group ?? 0 : 0
+  derived grouped: Boolean = self.group > 0
+  derived groupText: String = Locale.GROUP.format(self.group)
+  derived groupTip: String = Locale.GROUP_TIP.format(self.group)
+  state groupHovered = false
+
+  page: Signal<Page>
+  quest: Signal<Quest | nil>
+  said: Signal<String>
+  book: Signal<String>
+  constructor(page: Signal<Page>, quest: Signal<Quest | nil>, said: Signal<String>, book: Signal<String>) {
+    self.page = page
+    self.quest = quest
+    self.said = said
+    self.book = book
+  }
+
+  onGroupEnter(mut self) { self.groupHovered = true }
+  onGroupLeave(mut self) { self.groupHovered = false }
+
+  public render(self): Template {
+    return $ltml {
+      <box $if={self.isQuest} columns={[{ fr: 1 }, "max-content"]} gap={space(.Item)} yAlign={Align.Center}>
+        <text value={self.title} textColor={Style.INK_HEAD} textSize={TITLE_TEXT} textFont={.Title} wrap={true} />
+        <box $if={self.grouped} border={{ width: 1.171875dp, color: Style.GROUP_TAG }} padding={{ left: space(.Line), right: space(.Line) }}
+             @pointerEnter={self.onGroupEnter} @pointerLeave={self.onGroupLeave}>
+          <text value={self.groupText} textColor={Style.GROUP_TAG} textSize={SECONDARY_TEXT} wrap={false} />
+          <Tip $if={self.groupHovered} title={self.groupText} text={self.groupTip} />
+        </box>
+      </box>
+      <text value={self.text} textColor={Style.INK} wrap={true} lineHeight={1.4} />
+      <text $if={self.hasObjectives} value={Locale.OBJECTIVES} textColor={Style.INK_HEAD} textFont={.Title} />
+      <text $if={self.hasObjectives} value={self.objectives} textColor={Style.INK} wrap={true} lineHeight={1.4} />
+    }
+  }
+}
+
+// What a quest needs handed in: each item with how many the player has, red until there's enough; the money too.
+public class Needs implements Component {
+  derived needs: Array<Need> = self.quest?.needs ?? []
+  derived money: Integer = self.quest?.moneyNeeded ?? 0
+  derived paid: Boolean = self.money > 0
+  derived moneyColor: Color = self.money > Game.money.amount ? Style.RED : Style.TEXT
+
+  quest: Signal<Quest | nil>
+  constructor(quest: Signal<Quest | nil>) { self.quest = quest }
+
+  public render(self): Template {
+    return $ltml {
+      <text value={Locale.NEEDED} textColor={Style.DIM} textSize={SECONDARY_TEXT} />
+      <NeedRow $for={need of self.needs} need={need} />
+      <box $if={self.paid} columns={[{ fr: 1 }, "max-content"]} yAlign={Align.Center} padding={space(.Line)}>
+        <text value={Locale.MONEY} textColor={Style.TEXT} />
+        <Money amount={self.money} color={self.moneyColor} />
+      </box>
+    }
+  }
+}
+
+class NeedRow implements Component {
+  derived count: String = `${self.need.have}/${self.need.need}`
+  derived color: Color = self.need.have < self.need.need ? Style.RED : Style.TEXT
+
+  need: Signal<Need>
+  constructor(need: Signal<Need>) { self.need = need }
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={["max-content", { fr: 1 }, "max-content"]} gap={space(.Item)} yAlign={Align.Center} padding={space(.Line)}>
+        <box width={Style.REWARD_ICON} height={Style.REWARD_ICON} icon={self.need.icon} />
+        <text value={self.need.name} textColor={Style.TEXT} wrap={true} />
+        <text value={self.count} textColor={self.color} textFont={.Numbers} wrap={false} />
+      </box>
+    }
+  }
+}
+
+// A quest's rewards: those to choose («Choose your reward» on the reward page, «You will be able to choose» on the
+// details), those given anyway, and the band of experience, reputation and money.
+public class Rewards implements Component {
+  public choose: Event<Integer> = new Event()
+
+  derived choices: Array<RewardView> = self.views
+  derived hasChoices: Boolean = self.choices.length > 0
+  derived also: Array<Reward> = self.quest?.also ?? []
+  derived hasAlso: Boolean = self.also.length > 0
+  derived chooseTitle: String = self.pickable ? Locale.CHOOSE_REWARD : Locale.CAN_CHOOSE
+  derived alsoTitle: String = self.hasChoices ? Locale.ALSO_GET : Locale.REWARD
+  derived xp: Integer = self.quest?.xp ?? 0
+  derived money: Integer = self.quest?.money ?? 0
+  derived standings: Array<Standing> = self.quest?.standings ?? []
+  derived banded: Boolean = self.xp > 0 || self.money > 0 || self.standings.length > 0
+  derived xpText: String = Locale.XP.format(String.of(self.xp))
+  derived bandColumns: Array<Track> = bandOf(self.xp > 0, self.standings.length, self.money > 0)
+
+  quest: Signal<Quest | nil>
+  views: Signal<Array<RewardView>>
+  pickable: Signal<Boolean>
+  choice: Signal<Integer>
+  hints: Signal<Boolean>
+  pawnColumn: Signal<Boolean>
+  constructor(
+    quest: Signal<Quest | nil>,
+    views: Signal<Array<RewardView>>,
+    pickable: Signal<Boolean>,
+    choice: Signal<Integer>,
+    hints: Signal<Boolean>,
+    pawnColumn: Signal<Boolean>
+  ) {
+    self.quest = quest
+    self.views = views
+    self.pickable = pickable
+    self.choice = choice
+    self.hints = hints
+    self.pawnColumn = pawnColumn
+  }
+
+  onChoose(mut self, index: Integer) { self.choose.emit(index) }
+
+  public render(self): Template {
+    return $ltml {
+      <text $if={self.hasChoices} value={self.chooseTitle} textColor={Style.DIM} textSize={SECONDARY_TEXT} />
+      <RewardRow $for={view of self.choices} reward={view.reward} pickable={self.pickable}
+                 picked={view.reward.index == self.choice} hints={self.hints} pawnColumn={self.pawnColumn}
+                 pawn={view.pawn} best={view.best} dearest={view.dearest} @choose={self.onChoose} />
+      <text $if={self.hasAlso} value={self.alsoTitle} textColor={Style.DIM} textSize={SECONDARY_TEXT} />
+      <RewardRow $for={reward of self.also} reward={reward} />
+      <box $if={self.banded} columns={self.bandColumns} border={Style.RULE_BELOW} padding={space(.Item)} xAlign={Align.Center}
+           yAlign={Align.Center}>
+        <text $if={self.xp > 0} value={self.xpText} textColor={Style.TEXT} textSize={SECONDARY_TEXT} textFont={.Numbers}
+              wrap={false} />
+        <BandStanding $for={standing of self.standings} standing={standing} />
+        <Money $if={self.money > 0} amount={self.money} />
+      </box>
+    }
+  }
+}
+
+// The band's columns: one for each of experience, every reputation and money, of one width.
+function bandOf(xp: Boolean, standings: Integer, money: Boolean): Array<Track> {
+  let columns: Array<Track> = []
+  const count = (xp ? 1 : 0) + standings + (money ? 1 : 0)
+  for (column of 1..count) { columns.push({ fr: 1 }) }
+  return columns
+}
+
+class BandStanding implements Component {
+  derived text: String = Locale.REPUTATION.format(self.standing.amount, self.standing.name)
+
+  standing: Signal<Standing>
+  constructor(standing: Signal<Standing>) { self.standing = standing }
+
+  public render(self): Template {
+    return $ltml {
+      <box border={{ width: 1.171875dp, color: Color.hex("#3e2f1d"), sides: [Side.Left] }} xAlign={Align.Center}>
+        <text value={self.text} textColor={Style.TEXT} textSize={SECONDARY_TEXT} wrap={false} />
+      </box>
+    }
+  }
+}

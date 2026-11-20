@@ -1,0 +1,81 @@
+// The NPC's list in the well: each line with its key (1–9; past that the keycap's room alone, so the column holds),
+// its icon (the game's gossip icon, or the quest's «!» and «?», a quest in progress greyed), a quest's level in the
+// quest log's difficulty colour (a too-easy quest's title dimmed), its title, and «auto» on an option picked on its
+// own. Left-click, Enter or Space picks a line; right-click on a plain option opens its menu: «Always pick this
+// option».
+import { Track } from "$ltml"
+import { Component, Menu, MenuEntry, PickRow, SECONDARY_TEXT } from "Ordaen"
+import { Keycap } from "@/keycap"
+import Locale from "@/locales"
+import { Line, LineKind } from "@/read"
+import Style from "@/style"
+
+const COLUMNS: Array<Track> = ["max-content", "max-content", "max-content", { fr: 1 }, "max-content"]
+const GREY: Color = Color.hex("#8c8c8c")
+const WHITE: Color = Color.hex("#ffffff")
+
+// What a line's title is drawn in: a quest's gold, a quest in progress or a too-easy one dimmed, an option the ink.
+function titleColor(line: Line): Color {
+  if (line.kind == LineKind.Option) { return Style.TEXT }
+  if (line.kind == LineKind.InProgress || line.difficulty == .Trivial) { return Style.DIM }
+  return Style.NAME
+}
+
+public class OptionRow implements Component {
+  public pick: Event<Integer> = new Event()
+  public mark: Event<Integer> = new Event()
+
+  derived keyed: Boolean = self.hints
+  derived key: String = self.index <= 9 ? String.of(self.index) : ""
+  derived leveled: Boolean = self.line.level > 0
+  derived levelColor: Color = Style.difficultyColor(self.line.difficulty)
+  derived color: Color = titleColor(self.line)
+  derived iconTint: Color = self.line.kind == LineKind.InProgress ? GREY : WHITE
+  derived greyed: Boolean = self.line.kind == LineKind.InProgress
+  derived entries: Array<MenuEntry> = [{ label: Locale.ALWAYS_PICK, on: self.marked }]
+  state menuOpen = false
+
+  line: Signal<Line>
+  index: Signal<Integer>
+  hints: Signal<Boolean>
+  marked: Signal<Boolean>
+  constructor(line: Signal<Line>, index: Signal<Integer>, hints: Signal<Boolean>, marked: Signal<Boolean>) {
+    self.line = line
+    self.index = index
+    self.hints = hints
+    self.marked = marked
+  }
+
+  onPick(mut self) { self.pick.emit(peek self.index) }
+
+  // Only a plain option is marked: quests have their own settings.
+  onRight(mut self) {
+    if ((peek self.line).kind == LineKind.Option) { self.menuOpen = true }
+  }
+
+  onMenu(mut self, entry: Integer) {
+    self.menuOpen = false
+    self.mark.emit(peek self.index)
+  }
+
+  onMenuClose(mut self) { self.menuOpen = false }
+
+  public render(self): Template {
+    return $ltml {
+      <box @pointerPress(.Right)={self.onRight}>
+        <PickRow columns={COLUMNS} @pick={self.onPick}>
+          <Keycap $if={self.keyed} key={self.key} />
+          <box $else />
+          <box width={Style.ICON} height={Style.ICON} icon={self.line.icon} tint={self.iconTint} desaturate={self.greyed} />
+          <text $if={self.leveled} value={self.line.level} textColor={self.levelColor} textSize={SECONDARY_TEXT}
+                textFont={.Numbers} wrap={false} />
+          <box $else />
+          <text value={self.line.title} textColor={self.color} wrap={true} />
+          <text $if={self.marked} value={Locale.AUTO_MARK} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={false} />
+          <box $else />
+        </PickRow>
+        <Menu $if={self.menuOpen} entries={self.entries} @pick={self.onMenu} @close={self.onMenuClose} />
+      </box>
+    }
+  }
+}

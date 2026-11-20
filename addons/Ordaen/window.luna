@@ -20,11 +20,13 @@ import { Hold, kept } from "@/onScreen"
 import { ModuleMemory } from "@/settings"
 import { SECONDARY_TEXT, space } from "@/units"
 
-// One of a window's tabs: its name, a second line under it, a picture at its left end.
+// One of a window's tabs: its name, a second line under it, a picture at its left end: art, or a unit's face as the
+// game names the unit (`npc`), which follows the unit.
 public struct WindowTabSpec {
   title: String
   desc: String | nil
   icon: Art | nil
+  portrait: String | nil
 }
 
 // Where a window is: its centre from the screen's (y down), and its body's size. Its owner holds it, and the window
@@ -223,9 +225,10 @@ public class WindowTab implements Component {
   // Open or closed only its colours differ: its wood and picture lighter, its title gold.
   derived tint: Color = self.open ? WHITE : SHADE
   derived titleColor: Color = self.open ? TITLE_OPEN : TITLE_CLOSED
-  derived hasIcon: Boolean = self.tab.icon != nil
+  derived hasIcon: Boolean = self.tab.icon != nil || self.tab.portrait != nil
   derived hasDesc: Boolean = self.tab.desc != nil
   derived icon: Art | nil = self.tab.icon
+  derived portrait: String | nil = self.tab.portrait
   derived desc: String = self.tab.desc ?? ""
 
   // The picture is a square at the tab's left end, as tall as what shows of the tab: from the tab's own line
@@ -280,7 +283,7 @@ public class WindowTab implements Component {
            @dragStart={self.onGrab} @drag={self.onMove} @dragStop={self.onDrop}>
         <$if={self.hasIcon}>
           <box position={Position.Absolute} left={0ui} top={0ui} width={self.side} height={self.side}
-               icon={self.icon} tint={self.tint} border={Ordaen.art.frame.tabIconClip} />
+               icon={self.icon} portrait={self.portrait} tint={self.tint} border={Ordaen.art.frame.tabIconClip} />
           <box position={Position.Absolute} left={self.lineLeft} top={0ui} width={self.lineWidth}
                height={self.given} border={Ordaen.art.frame.tabIconLine} />
         </>

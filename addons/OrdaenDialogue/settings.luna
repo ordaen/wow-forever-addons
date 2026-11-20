@@ -1,0 +1,56 @@
+// Ordaen Dialogue's page in the settings window: the keyboard, the one-option skip, the options picked on their own,
+// and the quests accepted and handed in on their own. Each control writes one entry of the settings, at once; each
+// applies from the next NPC talked to.
+import { Checkbox, Choice, Component, Dropdown, Settings } from "Ordaen"
+import Locale from "@/locales"
+
+// What is done on its own: nothing, what the player picks in the NPC's list, or everything the NPC has.
+public enum Auto implements Plain { Off = "off", Picked = "picked", All = "all" }
+
+// What the player chooses.
+public struct Choices implements Plain {
+  // 1–9, Space, Tab and Esc are the window's while it shows.
+  keyboard: Boolean
+  // The keycaps beside the options and rewards, and the key's segment on the buttons.
+  keyHints: Boolean
+  // An NPC with one plain option and no quests doesn't open the window: the option is picked.
+  skipSingle: Boolean
+  // The options the player marked are picked as the talk starts.
+  alwaysPick: Boolean
+  autoAccept: Auto
+  autoComplete: Auto
+}
+
+public const DEFAULTS: Choices = {
+  keyboard: true, keyHints: true, skipSingle: true, alwaysPick: true, autoAccept: .Off, autoComplete: .Off
+}
+
+const AUTO_CHOICES: Array<Choice<Auto>> = [
+  { value: Auto.Off, label: Locale.AUTO_OFF },
+  { value: Auto.Picked, label: Locale.AUTO_PICKED },
+  { value: Auto.All, label: Locale.AUTO_ALL }
+]
+
+public class GeneralPage implements Component {
+  // The key hints mean nothing without the keys.
+  derived hintsOff: Boolean = !self.settings.values.keyboard
+
+  settings: mut Settings<Choices>
+  constructor(settings: mut Settings<Choices>) {
+    self.settings = settings
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <Checkbox label={Locale.SETTING_KEYBOARD} hint={Locale.SETTING_KEYBOARD_TIP} value={mut self.settings.values.keyboard} />
+      <Checkbox label={Locale.SETTING_KEY_HINTS} hint={Locale.SETTING_KEY_HINTS_TIP}
+                value={mut self.settings.values.keyHints} disabled={self.hintsOff} />
+      <Checkbox label={Locale.SETTING_SKIP} hint={Locale.SETTING_SKIP_TIP} value={mut self.settings.values.skipSingle} />
+      <Checkbox label={Locale.SETTING_ALWAYS} hint={Locale.SETTING_ALWAYS_TIP} value={mut self.settings.values.alwaysPick} />
+      <Dropdown label={Locale.SETTING_ACCEPT} hint={Locale.SETTING_ACCEPT_TIP} value={mut self.settings.values.autoAccept}
+                choices={AUTO_CHOICES} />
+      <Dropdown label={Locale.SETTING_COMPLETE} hint={Locale.SETTING_COMPLETE_TIP}
+                value={mut self.settings.values.autoComplete} choices={AUTO_CHOICES} />
+    }
+  }
+}

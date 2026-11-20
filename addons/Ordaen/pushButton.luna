@@ -4,11 +4,13 @@
 // under the cursor, with a dark drop; disabled, the grey plate and a grey label, and no click. With an `action` it
 // is a secure box: the client does the action from the player's click (a spell, an item, a macro). With a `tip`, a Tip
 // says it while the cursor is on it. With an `icon`, a picture of the game's stands before the label, or alone where the
-// label is `""` (a square button, which its `tip` names); disabled, the picture greys with the label.
-import { Action, Align, Art, ByInteractionState, Columns, Edges, Event, MouseButton, Shadow } from "$ltml"
+// label is `""` (a square button, which its `tip` names); disabled, the picture greys with the label. With a `key`, the
+// key that presses it sits in its own segment at the plate's left end, cut off by a groove.
+import { Action, Align, Art, ByInteractionState, Columns, Edges, Event, Line, MouseButton, Position, Shadow, Side } from "$ltml"
 import root Ordaen from "Ordaen"
 import { Component } from "@/module"
 import { Tip, TipText } from "@/tip"
+import { SECONDARY_TEXT } from "@/units"
 
 const HEIGHT = 39.84375dp
 // The label keeps inside the carved line round the plate's face (in the art, 14 of the 64 px a row is high in from
@@ -24,6 +26,14 @@ const ICON_GAP: Number<Length> = HEIGHT / 8
 const ICON_ROW: Columns = { each: "max-content" }
 const SHADOW: Shadow = { color: Color.hex("#000000"), x: 1.171875dp, y: -1.171875dp }
 const NO_TIP: TipText = { title: "", text: "", rows: [] }
+// The key's segment: the plate's left end inside its carved line, a groove (a dark line) at its right; the label
+// keeps past it.
+const KEY_WIDTH = 53.90625dp
+const KEY_INSET = HEIGHT / 8
+const KEYED_CAPS: Edges = { left: KEY_INSET + KEY_WIDTH + HEIGHT / 8, right: HEIGHT / 4 }
+const KEY_SHADE: Color = Color.hex("#00000038")
+const KEY_TEXT: Color = Color.hex("#c9a76a")
+const GROOVE: Line = { width: 1.171875dp, color: Color.hex("#000000cc"), sides: [Side.Right] }
 
 // The plate: bronze, or red for a button that matters or one that can't be undone.
 public enum ButtonPlate { Bronze, Accent, Danger }
@@ -42,6 +52,9 @@ public class PushButton implements Component {
   derived labelled: Boolean = self.label != ""
   derived iconed: Boolean = self.icon != nil
   derived iconTint: Color = self.disabled ? GREY : WHITE
+  derived keyed: Boolean = self.key != ""
+  derived keyOpacity: Number = self.disabled ? 0.5 : 1
+  derived padding: Edges = self.keyed ? KEYED_CAPS : CAPS
 
   label: Signal<String>
   width: Signal<Number<Length>>
@@ -51,6 +64,7 @@ public class PushButton implements Component {
   repeats: Signal<Boolean>
   tip: Signal<TipText | nil>
   icon: Signal<Art | nil>
+  key: Signal<String>
   constructor(
     label: Signal<String>,
     width: Signal<Number<Length>>,
@@ -62,9 +76,12 @@ public class PushButton implements Component {
     // What a Tip says of it under the cursor (its keys); none for none.
     tip: Signal<TipText | nil> = nil,
     // A picture before the label, or alone where the label is `""`.
-    icon: Signal<Art | nil> = nil
+    icon: Signal<Art | nil> = nil,
+    // The key that presses it, in its own segment at the plate's left end, cut off by a groove; none for none.
+    key: Signal<String> = ""
   ) {
     self.icon = icon
+    self.key = key
     self.label = label
     self.width = width
     self.plate = plate
@@ -94,10 +111,15 @@ public class PushButton implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box width={{ min: self.width }} height={HEIGHT} padding={CAPS} xAlign={Align.Center} yAlign={Align.Center}
+      <box width={{ min: self.width }} height={HEIGHT} padding={self.padding} xAlign={Align.Center} yAlign={Align.Center}
            background={self.art} action={self.doing} @pointerPress={self.onClick} @keyPress(.Enter)={self.onEnterKey} @keyPress(.Space)={self.onClick} @pointerDown.repeat={self.onHeld}
            @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
         <Tip $if={self.tipShown} title={self.tipText.title} text={self.tipText.text} rows={self.tipText.rows} />
+        <box $if={self.keyed} position={Position.Absolute} left={KEY_INSET} top={KEY_INSET} bottom={KEY_INSET}
+             width={KEY_WIDTH} background={KEY_SHADE} border={GROOVE} opacity={self.keyOpacity} xAlign={Align.Center}
+             yAlign={Align.Center}>
+          <text value={self.key} textColor={KEY_TEXT} textSize={SECONDARY_TEXT} wrap={false} />
+        </box>
         <box $if={self.iconed} columns={ICON_ROW} gap={ICON_GAP} yAlign={Align.Center}>
           <box width={ICON} height={ICON} icon={self.icon} tint={self.iconTint} />
           <text $if={self.labelled} value={self.label} textColor={self.color} textShadow={SHADOW} wrap={false} />
