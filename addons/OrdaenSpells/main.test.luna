@@ -544,6 +544,25 @@ test "Shift+Left-click on a spell's slot puts it in as the game's book does, and
   Test.expect(Test.performed().length == 0)
 }
 
+test "the pick-up's click, rebound to Ctrl, puts the spell on the cursor and casts nothing; Alt casts it on the player" {
+  Test.mount(nil, PAGE)
+  Game.spellbook.lines = lines
+  Game.spellbook.entries = spells
+  const window = book()
+  _ = Test.performed()
+  Game.input.modifiedClick = (click: Game.ModifiedClick): Boolean => click == .PickupAction
+  Test.hold([.Ctrl])
+  window.text("Rend (Rank 1)").item().button(ICON).click()
+  Test.hold([])
+  Test.expect(Client.CursorHasSpell() && Test.performed().length == 0)
+  Client.ClearCursor()
+  Game.input.modifiedClick = (click: Game.ModifiedClick): Boolean => click == .SelfCast
+  Test.hold([.Alt])
+  window.text("Rend (Rank 1)").item().button(ICON).click()
+  Test.hold([])
+  Test.expect(Test.performed().join(", ") == "spell Rend(Rank 1) player")
+}
+
 test "the cursor on a spell's slot shows the game's tooltip of the spell" {
   Test.mount(nil, PAGE)
   Game.spellbook.lines = lines

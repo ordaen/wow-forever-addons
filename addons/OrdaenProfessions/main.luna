@@ -212,7 +212,7 @@ public class Professions implements Module, App {
   derived trackName: String = knownSpellName(self.trackSpell)
   derived hasTrack: Boolean = self.trackName != ""
   derived footColumns: Array<Track> = self.hasTrack ? TRACK_FOOT : FILL
-  derived trackAction: Action | nil = Action.CastSpell { spell: self.trackName, chord: .Left }
+  derived trackAction: Action | nil = Action.CastSpell { spell: self.trackName, chord: .Left, selfCast: false }
   // The open profession's queue, in the order it was asked for; what it is doing, or why it waits; whether «Create
   // next» starts its next run.
   public derived queued: Array<Queued> = self.crafting.linesOf(Game.tradeSkill.open)

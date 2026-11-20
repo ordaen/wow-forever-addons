@@ -131,7 +131,7 @@ public class OverviewPage implements Component {
   derived spellName: String = knownSpellName(self.spell)
   derived hasSpell: Boolean = self.spellName != ""
   derived spellLabel: String = self.profession?.skillLine == FISHING ? Locale.ACTION_FISH : Locale.ACTION_DISENCHANT
-  derived spellAction: Action | nil = Action.CastSpell { spell: self.spellName, chord: .Left }
+  derived spellAction: Action | nil = Action.CastSpell { spell: self.spellName, chord: .Left, selfCast: false }
   derived counts: Array<OverviewLine> = self.countsOf()
   derived toLearn: Array<OverviewLine> = self.toLearnOf()
   derived needs: Array<OverviewLine> = self.needsOf()

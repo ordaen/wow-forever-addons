@@ -115,7 +115,7 @@ function lineName(lines: Array<Game.SpellLine>, index: Integer): String {
 // cooldown runs a shade falls over the icon, by the client's clock (nothing runs per frame). A pet's spell is cast by
 // the pet, and the right button turns its autocast, marked in the slot's corner while on.
 class SpellSlot implements Component {
-  derived cast: Action | nil = castable(self.spell) ? Action.CastSpell { spell: castName(self.spell), chord: .Left } : nil
+  derived cast: Action | nil = castable(self.spell) ? Action.CastSpell { spell: castName(self.spell), chord: .Left, selfCast: true } : nil
   derived dimmed: Boolean = !self.spell.learned
   derived cooling: Boolean = self.run != nil
   derived shade: BarFill = { duration: runOf(self.run), color: COOLING, from: FillFrom.Top }
@@ -142,12 +142,14 @@ class SpellSlot implements Component {
   onCooled(mut self) { self.read(peek self.spell) }
   onGrab(self) { pickUp(self.spell) }
 
-  // The right button on a pet's spell turns its autocast, in the player's click.
-  // Shift+Left-click puts the spell into the chat's line or the macro being written, as the game's book does; the
-  // right button turns a pet's spell's autocast.
+  // The game's book's modified clicks, as the player binds them: the link's (Shift) puts the spell into the chat's line
+  // or the macro being written, the pick-up's (Shift too, so a link wins unless rebound) takes it onto the cursor; the
+  // right button turns a pet's spell's autocast, in the player's click.
   onPressed(mut self, press: Event.Press) {
-    if (press.button == MouseButton.Left && Game.input.shiftDown()) {
+    if (press.button == MouseButton.Left && Game.input.modifiedClick(.ChatLink)) {
       Game.spellbook.link(peek self.spell)
+    } else if (press.button == MouseButton.Left && Game.input.modifiedClick(.PickupAction)) {
+      pickUp(peek self.spell)
     } else if (press.button == MouseButton.Right && self.spell.pet) {
       Game.spellbook.toggleAutoCast(peek self.spell)
       self.read(peek self.spell)
