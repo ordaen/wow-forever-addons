@@ -10,7 +10,7 @@ import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
 import { KeptWindow, Module, ModuleMemory, Settings, SettingsPage, TrainerList, TrainerView, TrainerWindow, Window, WindowTabSpec, WindowsPage, playSound, trainerListIn, windowsTitle } from "Ordaen"
 import Locale from "@/locales"
-import { Choices, GeneralPage } from "@/settings"
+import { Choices, GeneralPage, TrainerPage } from "@/settings"
 import { SpellbookPage } from "@/spellbook"
 import Style from "@/style"
 import { TalentsPage } from "@/talents"
@@ -29,10 +29,13 @@ public class Spells implements Module, App {
   public const windows: mut Array<mut KeptWindow> = [self.window, self.trainerWindow]
   public const pages: Array<SettingsPage> = [
     { title: Locale.TAB_GENERAL, content: $ltml { <GeneralPage settings={mut self.settings} /> } },
+    { title: Locale.TAB_TRAINER, content: $ltml { <TrainerPage settings={mut self.settings} /> } },
     { title: windowsTitle(), content: $ltml { <WindowsPage windows={mut self.windows} /> } }
   ]
 
-  public settings: mut Settings<Choices> = new Settings<Choices>({ specOne: "", specTwo: "", trainer: true })
+  public settings: mut Settings<Choices> = new Settings<Choices>({
+    specOne: "", specTwo: "", trainer: true, trainerView: TrainerView.List, trainerSort: 0
+  })
 
   state open = false
   state tab = 1
@@ -65,17 +68,28 @@ public class Spells implements Module, App {
   started = false
   // How wide the window's body is: the screen's, full screen.
   derived bookWidth: Number<Length> = self.window.memory.values.full ? Client.UIParent.GetWidth() * 1ui : self.window.placing.width
-  // How the player left the class trainer's list, the profile's; it opens by the trainer's categories.
+  // How the player left the class trainer's list, the profile's: its filter is kept, its view and sort are the
+  // settings' each time it opens.
   public trainerList: mut ModuleMemory<TrainerList> = new ModuleMemory<TrainerList>(trainerListIn(TrainerView.List), .Profile, "trainer")
   // The trainer that is open teaches a class's skills: asked as it opens.
   state classTrainer = false
   derived trainerShown: Boolean = self.classTrainer && self.settings.values.trainer
 
+  // A trainer opened or closed: one of a class opens in the view and sort the settings give.
+  onTrainerOpen(mut self, opened: Boolean) {
+    self.classTrainer = opened && Game.trainer.teachesClass()
+    if (!self.classTrainer) { return }
+    const settings = peek self.settings.values
+    self.trainerList.write({
+      filter: (peek self.trainerList.values).filter, view: settings.trainerView, sorted: settings.trainerSort, descending: false
+    })
+  }
+
   constructor() {
     Ordaen.modules.add(self)
     Game.trainer.changed.listen(self.onTrainer)
     Game.spellbook.changed.listen(self.onSpells)
-    watch (opened of Game.trainer.open) { self.classTrainer = opened && Game.trainer.teachesClass() }
+    watch (opened of Game.trainer.open) { self.onTrainerOpen(opened) }
     Game.talentTrees.changed.listen(self.refreshTalents)
     watch (value of self.tab) {
       self.refreshTalents()

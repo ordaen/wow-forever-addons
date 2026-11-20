@@ -270,6 +270,7 @@
   "TRAINER_VIEW_TABLE": "Table",
   "TRAINER_VIEW_LIST": "One list",
   "TRAINER_SORT": "Sort",
+  "TRAINER_ORDER": "The trainer's order",
   "TRAINER_COLUMN_LEVEL": "Level",
   "TRAINER_COLUMN_SKILL": "Skill",
   "TRAINER_COLUMN_COST": "Price",

@@ -1067,7 +1067,7 @@ test "a trainer's search nothing matches says nothing was found" {
   Test.expect(window.text("Nothing found.").shown())
 }
 
-test "the trainer's sort and filter are kept when it opens again" {
+test "the trainer's filter is kept when it opens again, and its sort is the settings' again" {
   Test.mount(nil, PAGE)
   Game.trainer.services = services
   Game.trainer.open = true
@@ -1080,7 +1080,39 @@ test "the trainer's sort and filter are kept when it opens again" {
   Test.expect(!window.shown())
   Game.trainer.open = true
   Test.expect(!window.text("Rend (Rank 1)").shown())
-  Test.expect(inOrder(window, ["Charge (Rank 2)", "Heroic Strike (Rank 3)"]))
+  Test.expect(inOrder(window, ["Heroic Strike (Rank 3)", "Charge (Rank 2)"]))
+}
+
+test "the trainer's page of the settings chooses the sort the trainer's window opens with" {
+  Test.mount(nil, PAGE)
+  Game.trainer.services = services
+  Game.trainer.open = true
+  Game.trainer.changed.emit()
+  const window = Test.page().window(TRAINER)
+  window.button(Ordaen.art.ctl.corner.gear).click()
+  Test.page().window("Name of the first spec tab").button("Trainer").click()
+  const page = Test.page().window("Sorted by")
+  page.button("The trainer's order").click()
+  Test.page().window("Available first").button("Skill").click()
+  Game.trainer.open = false
+  Game.trainer.open = true
+  Test.expect(inOrder(window, ["Charge (Rank 2)", "Heroic Strike (Rank 3)", "Rend (Rank 1)"]))
+}
+
+test "the trainer's page of the settings chooses the view the trainer's window opens with" {
+  Test.mount(nil, PAGE)
+  Game.trainer.services = services
+  Game.trainer.open = true
+  Game.trainer.changed.emit()
+  const window = Test.page().window(TRAINER)
+  Test.expect(!window.text("Level").shown())
+  window.button(Ordaen.art.ctl.corner.gear).click()
+  Test.page().window("Name of the first spec tab").button("Trainer").click()
+  Test.page().window("Opens as").button("One list").click()
+  Test.page().window("Table").button("Table").click()
+  Game.trainer.open = false
+  Game.trainer.open = true
+  Test.expect(window.text("Level").shown())
 }
 
 test "with nothing picked, the trainer asks for a pick, and the footer counts the services by what can be done with them" {
@@ -1285,7 +1317,7 @@ test "the window's settings button opens Spells' page of the settings" {
   const window = book()
   window.button(Ordaen.art.ctl.corner.gear).click()
   const settings = Test.page().window("Name of the first spec tab")
-  Test.expect(settings.text("Name of the second spec tab").shown() && settings.text("Class trainer window").shown())
+  Test.expect(settings.text("Name of the second spec tab").shown() && settings.button("Trainer").shown())
 }
 
 test "the settings' windows page lists the spellbook's window and the trainer's" {
@@ -1336,8 +1368,8 @@ test "the trainer's window switched off in the settings leaves the game's traine
   Game.trainer.open = true
   const window = Test.page().window(TRAINER)
   window.button(Ordaen.art.ctl.corner.gear).click()
-  const settings = Test.page().window("Name of the first spec tab")
+  Test.page().window("Name of the first spec tab").button("Trainer").click()
   // The checkbox beside «Class trainer window»: its well, the page's only one, names it; its label doesn't.
-  settings.button(Ordaen.art.ctl.check).click()
+  Test.page().window("Class trainer window").button(Ordaen.art.ctl.check).click()
   Test.expect(!window.shown())
 }

@@ -23,7 +23,7 @@ import { ModuleMemory } from "@/settings"
 import { SkillBar } from "@/skillBar"
 import { Column, Table, TableRow } from "@/table"
 import { TipText } from "@/tip"
-import { ToolPick, ToolSort, Toolbar } from "@/toolbar"
+import { ToolPick, ToolSort, Toolbar, sortChoices } from "@/toolbar"
 import { SECONDARY_TEXT, TITLE_LINE, TITLE_TEXT } from "@/units"
 import { KeptWindow, Window, WindowSide, WindowTabSpec } from "@/window"
 
@@ -82,7 +82,8 @@ const FILTERS: Array<FilterGroup<TrainerShow>> = [
     ]
   }
 ]
-const VIEWS: Array<Choice<TrainerView>> = [
+// The trainer's views, as its view button and an owner's settings page offer them.
+public const TRAINER_VIEWS: Array<Choice<TrainerView>> = [
   { value: TrainerView.Table, label: Locale.TRAINER_VIEW_TABLE, icon: ARTWORK.ctl.tool.table },
   { value: TrainerView.List, label: Locale.TRAINER_VIEW_LIST, icon: ARTWORK.ctl.tool.list }
 ]
@@ -95,6 +96,14 @@ const TRADE_KEYS: Array<Key> = [Key.Name, Key.Level, Key.Skill, Key.Cost, Key.St
 const NARROW = 70.3125dp
 const PRICE = 117.1875dp
 const TRACKS: Array<Track> = [{ fr: 1 }, NARROW, NARROW, PRICE]
+
+// The sorts a kind of trainer's window offers, as its sort button and an owner's settings page list them: its trainer's
+// order (0), each column, «available first».
+public function trainerSorts(noun: String, trade: Boolean): Array<Choice<Integer>> {
+  const list: Array<Choice<Integer>> = [{ value: 0, label: Locale.TRAINER_ORDER }]
+  for (choice of sortChoices(columnsOf(noun, trade), MORE_SORTS)) { list.push(choice) }
+  return list
+}
 
 function columnsOf(noun: String, trade: Boolean): Array<Column> {
   return [
@@ -608,7 +617,7 @@ public class TrainerWindow implements Component {
           <Toolbar search={mut self.search} placeholder={Locale.TRAINER_SEARCH}>
             <ToolSort sorted={mut self.list.values.sorted} columns={self.columns} title={Locale.TRAINER_SORT} more={MORE_SORTS} />
             <FilterButton values={mut self.list.values.filter} start={FILTER_START} groups={FILTERS} />
-            <ToolPick value={mut self.list.values.view} choices={VIEWS} icon={ARTWORK.ctl.tool.table} title={Locale.TRAINER_VIEW} />
+            <ToolPick value={mut self.list.values.view} choices={TRAINER_VIEWS} icon={ARTWORK.ctl.tool.table} title={Locale.TRAINER_VIEW} />
           </Toolbar>
           <box $if={self.empty} xAlign={Align.Center} yAlign={Align.Center}>
             <text value={Locale.TRAINER_NOTHING} textColor={DIM} />
