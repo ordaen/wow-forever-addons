@@ -3,8 +3,9 @@
 // Translated so far: a tooltip that is only text (a button's, any addon's), an object's (a chest, a door), a
 // spell's, a talent's, an aura's, a unit's and an item's, with the tooltips beside an item.
 import Game from "$game"
+import { BRIGHT_TEXT } from "Ordaen"
 import { aura } from "@/aura"
-import { GOLD, RED, WHITE, colorOf, tint } from "@/colors"
+import { GOLD, RED, colorOf, tint } from "@/colors"
 import { item } from "@/item"
 import Locale from "@/locales"
 import { Kind, Model, Note, TextLine, named } from "@/model"
@@ -83,7 +84,7 @@ public function plain(data: Game.TooltipData, was: Model | nil): Model | nil {
       body.push({ left: only, right: value, color: color, rightColor: valueColor, desc: desc })
     }
   }
-  let nameColor = colorOf(first.leftColor) ?? WHITE
+  let nameColor = colorOf(first.leftColor) ?? BRIGHT_TEXT
   if (was != nil && before != nil && same && before.length == body.length && was.name == title &&
       sameColor(was.nameColor, nameColor) && was.keys.length == keys.length && was.keys[1] == keys[1]) {
     return was

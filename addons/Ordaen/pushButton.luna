@@ -10,16 +10,15 @@ import { Action, Align, Art, ByInteractionState, Columns, Edges, Event, Line, Mo
 import root Ordaen from "Ordaen"
 import { Component } from "@/module"
 import { Tip, TipText } from "@/tip"
-import { SECONDARY_TEXT } from "@/units"
+import { BRIGHT_TEXT, SECONDARY_TEXT } from "@/units"
 
 const HEIGHT = 39.84375dp
 // The label keeps inside the carved line round the plate's face (in the art, 14 of the 64 px a row is high in from
 // each end, the face from 15): a quarter of the height off each end, about 10dp. A label longer than the width it
 // was given widens the button.
 const CAPS: Edges = { left: 2.5sp, right: 2.5sp }
-const LABEL: ByInteractionState<Color> = { default: Color.hex("#ffd100"), hover: Color.hex("#ffffff"), focus: Color.hex("#ffffff") }
+const LABEL: ByInteractionState<Color> = { default: Color.hex("#ffd100"), hover: BRIGHT_TEXT, focus: BRIGHT_TEXT }
 const GREY: Color = Color.hex("#808080")
-const WHITE: Color = Color.hex("#ffffff")
 // The picture: inside the plate's carved line, as the label is.
 const ICON: Number<Length> = HEIGHT / 2
 const ICON_GAP: Number<Spacing> = 1.25sp
@@ -65,7 +64,7 @@ public class PushButton implements Component {
   derived tipText: TipText = self.tip ?? NO_TIP
   derived labelled: Boolean = self.label != ""
   derived iconed: Boolean = self.icon != nil
-  derived iconTint: Color = self.disabled ? GREY : WHITE
+  derived iconTint: Color = self.disabled ? GREY : BRIGHT_TEXT
   derived keyed: Boolean = self.key != ButtonKey.None
   derived keyName: String = self.nameOfKey()
   derived spaceMarked: Boolean = self.key == ButtonKey.Space

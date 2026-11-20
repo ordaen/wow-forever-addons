@@ -7,7 +7,7 @@ import root Ordaen from "Ordaen"
 import Locale from "@/locales"
 import { Component } from "@/module"
 import { SettingRow } from "@/settingRow"
-import { BODY_LINE } from "@/units"
+import { BODY_LINE, BRIGHT_TEXT } from "@/units"
 
 // One of a dropdown's choices: the value the setting takes, and what the player reads; on a toolbar's ToolPick, the
 // glyph its button shows while it is picked (a view's).
@@ -21,7 +21,6 @@ public struct Choice<T: Unknown> {
 const WIDTH = 281.25dp
 const HEIGHT = 39.84375dp
 const GOLD: Color = Color.hex("#f0c860")
-const WHITE: Color = Color.hex("#ffffff")
 const DIM: Color = Color.hex("#ffffff73")
 // The design's 700: the same colour one pixel to the right.
 const BOLD: Shadow = { color: GOLD, x: 1.171875dp, y: 0ui }
@@ -41,7 +40,7 @@ public class DropdownItem<T: Unknown> implements Component {
 
   derived mark: Art = self.value == self.choice.value ? Ordaen.art.ctl.radioOn : Ordaen.art.ctl.radio
   derived text: String = self.choice.soon == true ? self.choice.label + " — " + Locale.SOON : self.choice.label
-  derived color: Color = self.choice.soon == true ? DIM : WHITE
+  derived color: Color = self.choice.soon == true ? DIM : BRIGHT_TEXT
   derived light: Color | ByInteractionState<Color> = self.choice.soon == true ? CLEAR : LIGHT
   derived wrap: TextWrap = self.compact ? TextWrap.None : TextWrap.Words
 
@@ -209,7 +208,7 @@ class ManyItem<T: Unknown> implements Component {
           <box position={Position.Absolute} left={0ui} top={0ui} width={TICK} height={TICK}
                background={Ordaen.art.ctl.tick} opacity={self.tick} />
         </box>
-        <text value={self.choice.label} textColor={WHITE} />
+        <text value={self.choice.label} textColor={BRIGHT_TEXT} />
       </box>
     }
   }

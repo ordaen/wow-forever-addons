@@ -5,7 +5,7 @@
 import Game from "$game"
 import { Align, Art, Bounds, ByInteractionState, Edges, Frame, Position, Shadow } from "$ltml"
 import root Ordaen from "Ordaen"
-import { Component, SECONDARY_TEXT, TIGHT_LINE } from "Ordaen"
+import { BRIGHT_TEXT, Component, SECONDARY_TEXT, TIGHT_LINE } from "Ordaen"
 
 // The least a cell is high, and where it is drawn at that: the panel with the whole menu, seven bag buttons and the
 // money still fits a 1366 x 768 screen at a UI scale of 1. A cell is a divider's width narrower on each side than
@@ -17,7 +17,6 @@ public const CELL_WIDTH: Number<Length> = CELL_HEIGHT - 2 * DIVIDER
 const FACE = 46.875dp
 const ICON = 35ui
 const GOLD: Color = Color.hex("#ffb847")
-const WHITE: Color = Color.hex("#ffffff")
 // The cell under the cursor: a warm light over the wood; pushed, a shade.
 const LIT: ByInteractionState<Color> = { default: Color.hex("#00000000"), hover: Color.hex("#ffd9a01f"), pressed: Color.hex("#00000040"), focus: Color.hex("#ffd9a01f") }
 // The friends online: a green pill in the cell's lower right, 18 px high (a line of `Secondary`) and at least as wide.
@@ -25,7 +24,9 @@ const BADGE = 21.09375dp
 const BADGE_BOUNDS: Bounds = { min: BADGE, max: nil }
 const BADGE_PAD: Edges = { right: 1sp, left: 1sp }
 // The design's bold number: a white shadow one pixel to the right.
-const BOLD: Shadow = { color: WHITE, x: 1ui, y: 0ui }
+// An icon as its file draws it.
+const UNTINTED: Color = Color.hex("#ffffff")
+const BOLD: Shadow = { color: BRIGHT_TEXT, x: 1ui, y: 0ui }
 
 // A cell's measures at its height: its width in the least cell's proportion, its icon's size and place.
 public struct CellSize {
@@ -52,7 +53,7 @@ public function cellSize(height: Number<Length>): CellSize {
 // A button of the game's menu: our icon on the cell, the game's button unseen over it.
 public class MenuCell implements Component {
   // Ordaen's art and the look's fonts: its root is there before this module loads.
-  derived tint: Color = self.gold ? GOLD : WHITE
+  derived tint: Color = self.gold ? GOLD : UNTINTED
   derived counted: Boolean = self.count > 0
   derived badgeRight: Number<Length> = self.size.width * 0.12
   derived badgeBottom: Number<Length> = self.size.height * 0.14
@@ -87,7 +88,7 @@ public class MenuCell implements Component {
         <box $if={self.counted} position={Position.Absolute} right={self.badgeRight}
              bottom={self.badgeBottom} height={BADGE} width={BADGE_BOUNDS} padding={BADGE_PAD}
              xAlign={Align.Center} yAlign={Align.Center} background={Ordaen.art.panel.countBadge} zLevel={1}>
-          <text value={"%d"} arguments={[self.count]} textSize={SECONDARY_TEXT} textColor={WHITE}
+          <text value={"%d"} arguments={[self.count]} textSize={SECONDARY_TEXT} textColor={BRIGHT_TEXT}
                 textFont={.Numbers} textShadow={BOLD} lineHeight={TIGHT_LINE} wrap={.None} />
         </box>
         <embed frame={self.frame} position={Position.Absolute} left={0ui} top={0ui} width={self.size.width}
@@ -153,7 +154,7 @@ public class BagCell implements Component {
              height={self.size.icon} icon={self.button.icon} />
         <box $if={self.counted} position={Position.Absolute} right={self.countInset} bottom={self.countBottom}
              zLevel={1}>
-          <text value={"%d"} arguments={[Game.bags.free]} textSize={SECONDARY_TEXT} textColor={WHITE}
+          <text value={"%d"} arguments={[Game.bags.free]} textSize={SECONDARY_TEXT} textColor={BRIGHT_TEXT}
                 textFont={.Numbers} textOutline={1} wrap={.None} />
         </box>
         <embed frame={self.button.frame} position={Position.Absolute} left={0ui} top={0ui} width={self.size.width}

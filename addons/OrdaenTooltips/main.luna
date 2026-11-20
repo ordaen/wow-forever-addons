@@ -4,7 +4,7 @@
 // kind stays the game's, unchanged.
 import Game from "$game"
 import root Ordaen from "Ordaen"
-import { Module, Settings, SettingsPage } from "Ordaen"
+import { BRIGHT_TEXT, Module, Settings, SettingsPage } from "Ordaen"
 import { AddedToItem, AddedToObject } from "@/added"
 import { extras } from "@/buttons"
 import { Choices, KindPlace, Place } from "@/choices"
@@ -64,7 +64,7 @@ struct Held {
 
 // What the group shows while there is nothing to show: it isn't drawn then.
 const NOTHING: Model = {
-  kind: Kind.Text, name: "", nameColor: Color.hex("#ffffff"),
+  kind: Kind.Text, name: "", nameColor: BRIGHT_TEXT,
   desc: [], info: [], facts: [], body: [], more: [], foot: [], keys: []
 }
 

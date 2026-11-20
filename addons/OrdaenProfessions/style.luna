@@ -19,7 +19,6 @@ public const LISTS_BOUNDS: Bounds = { min: LISTS_LEAST, max: nil }
 public const INK: Color = Color.hex("#e8dcc4")
 public const DIM: Color = Color.hex("#a3977f")
 public const GOLD: Color = Color.hex("#ffd100")
-public const WHITE: Color = Color.hex("#ffffff")
 public const RED: Color = Color.hex("#ff4040")
 // An unlearned recipe.
 public const OFF: Color = Color.hex("#7a7060")
