@@ -137,14 +137,14 @@ public function mainsOf(stats: Stats): Array<Main> {
   return order.map(index => all[index] ?? panic("five main stats"))
 }
 
-// The defence group's gauges: the defense skill, dodge and parry, and block with a shield.
+// The defence group's gauges: dodge and parry, block with a shield, and last the defense skill, a skill's blue as the
+// weapons' skills are.
 public function defenceOf(stats: Stats): Array<Gauge> {
-  const gauges: Array<Gauge> = [
-    measured(Locale.SECTION_DEFENSE, stats.defense, DEFENSE_CAP, String.of(stats.defense)),
-    rate(Locale.DODGE, stats.dodge, AVOIDANCE_CAP),
-    rate(Locale.PARRY, stats.parry, AVOIDANCE_CAP)
-  ]
+  const gauges: Array<Gauge> = [rate(Locale.DODGE, stats.dodge, AVOIDANCE_CAP), rate(Locale.PARRY, stats.parry, AVOIDANCE_CAP)]
   if (stats.block > 0) { gauges.push(rate(Locale.BLOCK, stats.block, AVOIDANCE_CAP)) }
+  gauges.push({
+    label: Locale.SECTION_DEFENSE, value: stats.defense, cap: DEFENSE_CAP, text: String.of(stats.defense), tone: Style.SKILL
+  })
   return gauges
 }
 
@@ -305,6 +305,30 @@ public function sectionsOf(stats: Stats, skills: Array<Skill>, classTag: String)
   return sections
 }
 
+// A straight cut in the wood, lit from above: the shaded upper edge, the depth, the lit lower lip; across (`upright`
+// false) or down its box (true, the light from the left: the shade on its left, the lip on its right).
+public class Groove implements Component {
+  upright: Signal<Boolean>
+  constructor(upright: Signal<Boolean> = false) {
+    self.upright = upright
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <box $if={self.upright} columns={[Style.CUT_LINE, Style.CUT_LINE, Style.CUT_LINE]} rows={[{ fr: 1 }]}>
+        <box background={Style.GROOVE_SHADE} />
+        <box background={Style.GROOVE_DEPTH} />
+        <box background={Style.GROOVE_LIP} />
+      </box>
+      <box $else>
+        <box height={Style.CUT_LINE} background={Style.GROOVE_SHADE} />
+        <box height={Style.CUT_LINE} background={Style.GROOVE_DEPTH} />
+        <box height={Style.CUT_LINE} background={Style.GROOVE_LIP} />
+      </box>
+    }
+  }
+}
+
 // A cut in the wood across the column, the title at its middle where it has one.
 public class Cut implements Component {
   derived titled: Boolean = self.title != ""
@@ -317,16 +341,16 @@ public class Cut implements Component {
   public render(self): Template {
     return $ltml {
       <box $if={self.titled} columns={[{ fr: 1 }, "max-content", { fr: 1 }]} gap={2.5sp} yAlign={Align.Center}>
-        <box height={Style.CUT} background={Style.GROOVE} />
+        <Groove />
         <text value={self.title} textSize={SECONDARY_TEXT} textColor={Style.DIM} wrap={.None} />
-        <box height={Style.CUT} background={Style.GROOVE} />
+        <Groove />
       </box>
-      <box $else height={Style.CUT} background={Style.GROOVE} />
+      <Groove $else />
     }
   }
 }
 
-// A gauge: the name dimmed, the channel filled up to the value's share of the cap, the value at the right.
+// A gauge: the name, the channel filled up to the value's share of the cap, the value at the right.
 public class StatGauge implements Component {
   derived fill: BarFill = { value: (self.gauge.value / self.gauge.cap).max(0).min(1), color: self.gauge.tone }
   derived ink: Color = self.gauge.value == 0 ? Style.DIM : Style.WHITE
@@ -339,8 +363,11 @@ public class StatGauge implements Component {
   public render(self): Template {
     return $ltml {
       <box columns={[Style.GAUGE_LABEL, { fr: 1 }, Style.GAUGE_VALUE]} gap={2.5sp} yAlign={Align.Center}>
-        <text value={self.gauge.label} textSize={SECONDARY_TEXT} textColor={Style.DIM} wrap={.None} />
-        <box height={Style.CHANNEL} background={Style.TROUGH} fill={self.fill} />
+        <text value={self.gauge.label} textSize={SECONDARY_TEXT} textColor={Style.WHITE} wrap={.None} />
+        <box>
+          <box height={Style.CHANNEL} background={Style.TROUGH} fill={self.fill} />
+          <box height={Style.CUT_LINE} background={Style.GROOVE_LIP} />
+        </box>
         <text value={self.gauge.text} textFont={TextFont.Numbers} textColor={self.ink} textAlign={TextAlign.End}
               wrap={.None} />
       </box>
@@ -385,10 +412,11 @@ public class StatCard implements Component {
           <box width={Style.GLYPH} height={Style.GLYPH} background={self.figure.glyph} tint={self.figure.color}
                opacity={self.glyphShade} />
         </box>
-        <box gap={1sp}>
-          <text $if={self.labelled} value={self.figure.label} textSize={SECONDARY_TEXT} textColor={Style.DIM} wrap={.None} />
-          <text value={self.figure.value} textSize={TITLE_TEXT} textFont={TextFont.Numbers} textColor={Style.WHITE}
+        <box>
+          <text $if={self.labelled} value={self.figure.label} textSize={SECONDARY_TEXT} textColor={Style.DIM} lineHeight={Style.TIGHT}
                 wrap={.None} />
+          <text value={self.figure.value} textSize={TITLE_TEXT} textFont={TextFont.Numbers} textColor={Style.WHITE}
+                lineHeight={Style.TIGHT} wrap={.None} />
         </box>
       </box>
     }

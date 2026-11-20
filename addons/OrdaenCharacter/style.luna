@@ -1,7 +1,7 @@
 // The character window's look: its size at the player's scale, the paper doll's measures and the colours of what a
 // stat, a slot or a faction says. Every gap and padding is counted in Ordaen's spacing unit (`sp`); a row is as tall as
 // its text.
-import { Edges } from "$ltml"
+import { Edges, Fr } from "$ltml"
 
 // The window's body, and the least it is drawn at (a window kept smaller, from an older save, is drawn at this).
 public const WIDTH: Number<Length> = 1400dp
@@ -18,10 +18,11 @@ public const BAR_PAD: Edges = { top: 2sp, right: 3sp, bottom: 2sp, left: 3sp }
 // The reputation tab's side, where the chosen faction stands.
 public const SIDE: Number<Length> = 328.125dp
 
-// A health or power bar, a cut in the wood, a gauge's channel and its columns (the name, the value).
+// A health or power bar, one line of a cut in the wood (three: its shade, its depth, its lit lower lip), a gauge's
+// channel and its columns (the name, the value).
 public const BAR: Number<Length> = 28dp
-public const CUT: Number<Length> = 3dp
-public const CHANNEL: Number<Length> = 5dp
+public const CUT_LINE: Number<Length> = 1dp
+public const CHANNEL: Number<Length> = 9dp
 public const GAUGE_LABEL: Number<Length> = 150dp
 public const GAUGE_VALUE: Number<Length> = 72dp
 // A card's socket, its glyph and the socket's floor, a section's padding and the room between its cards and its gauges.
@@ -52,8 +53,18 @@ public const BACK: Color = Color.hex("#00000066")
 public const CARD: Color = Color.hex("#0d0907")
 public const PICKED: Color = Color.hex("#ffd10026")
 public const TROUGH: Color = Color.hex("#000000a6")
-// A cut in the wood; a gauge's fill, a weapon skill's.
-public const GROOVE: Color = Color.hex("#000000b3")
+// A cut in the wood, lit from above: its upper edge in shade, its depth, its lower lip catching the light; a gauge's
+// fill, a skill's (a weapon's, defense).
+public const GROOVE_SHADE: Color = Color.hex("#0000008c")
+public const GROOVE_DEPTH: Color = Color.hex("#000000e6")
+public const GROOVE_LIP: Color = Color.hex("#ffdeaa38")
+// The model's backdrop, and the room between its edges and the slots drawn over it.
+public const MODEL_BACK: Color = Color.hex("#0b0805")
+public const DOLL_PAD: Edges = { top: 6sp, right: 6sp, bottom: 6sp, left: 6sp }
+// The eight slots down each side of the model, spread from its top to its bottom.
+public const SLOT_ROWS: Array<Fr> = [{ fr: 1 }, { fr: 1 }, { fr: 1 }, { fr: 1 }, { fr: 1 }, { fr: 1 }, { fr: 1 }, { fr: 1 }]
+// A card's name and value set close, each no taller than its font's own line.
+public const TIGHT: Number<Spacing> = 1sp
 public const GAUGE: Color = Color.hex("#a3864f")
 public const SKILL: Color = Color.hex("#3a68b8")
 // The schools' and the resistances' colours: armor, holy, fire, nature, frost, shadow and arcane; a stat's glyph

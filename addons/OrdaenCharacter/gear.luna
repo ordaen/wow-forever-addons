@@ -10,7 +10,7 @@ import { Component, ItemButton, SECONDARY_TEXT, TITLE_LINE, TITLE_TEXT, classCol
 import Locale from "@/locales"
 import { Choices } from "@/settings"
 import { AMMO, GearSet, LEFT, RIGHT, Resource, Skill, SlotSpec, Stats, WEAPONS, Who, Worn, averageLevel } from "@/sheet"
-import { Cut, Gauge, Main, MainStat, PoolBar, Resist, ResistColumn, Row, Section, SectionView, StatGauge, StatRow, defenceOf, defenceRows, mainsOf, resistsOf, sectionsOf, sharedGauges, sharedRows, speedsOf } from "@/stats"
+import { Cut, Gauge, Groove, Main, MainStat, PoolBar, Resist, ResistColumn, Row, Section, SectionView, StatGauge, StatRow, defenceOf, defenceRows, mainsOf, resistsOf, sectionsOf, sharedGauges, sharedRows, speedsOf } from "@/stats"
 import Style from "@/style"
 
 // The ammo's slot is the game's small one.
@@ -330,30 +330,36 @@ public class GearPage implements Component {
               <StatRow $for={row of self.speeds} row={row} />
             </box>
           </box>
-          <box columns={[Style.SLOT, { fr: 1 }, Style.SLOT]} rows={[{ fr: 1 }]} gap={3sp}>
-            <box gap={2sp}>
-              <GearSlot $for={spec of LEFT} spec={spec} worn={self.wornOf(spec.id)} levels={self.choices.itemLevels}
-                        wear={self.choices.durability} fits={self.fitsIn(spec.id)} @picked={self.onPicked}
-                        @tried={self.onTried} @flyout={self.onFlyout} />
-            </box>
-            <box rows={[{ fr: 1 }, "max-content", "max-content"]} gap={3sp} background={Style.BACK} padding={3sp}>
-              <box model={"player"} yAlign={Align.End}>
-                <Flyout $if={self.flyoutShown} items={self.fitting} @chose={self.onChose} @close={self.onCloseFlyout} />
-              </box>
-              <box columns={{ each: "max-content" }} gap={2sp} xAlign={Align.Center} yAlign={Align.Start}>
-                <GearSlot $for={spec of WEAPONS} spec={spec} worn={self.wornOf(spec.id)} levels={self.choices.itemLevels}
+          <box columns={[Style.CUT_LINE * 3, { fr: 1 }, Style.CUT_LINE * 3]} rows={[{ fr: 1 }]}>
+            <Groove upright={true} />
+            <box columns={[Style.SLOT, { fr: 1 }, Style.SLOT]} rows={[{ fr: 1 }]} gap={3sp} padding={Style.DOLL_PAD}
+                 background={Style.MODEL_BACK}>
+              <box position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui} model={"player"} />
+              <box rows={Style.SLOT_ROWS} zLevel={2}>
+                <GearSlot $for={spec of LEFT} spec={spec} worn={self.wornOf(spec.id)} levels={self.choices.itemLevels}
                           wear={self.choices.durability} fits={self.fitsIn(spec.id)} @picked={self.onPicked}
                           @tried={self.onTried} @flyout={self.onFlyout} />
-                <GearSlot $if={self.usesAmmo} spec={AMMO} worn={self.wornOf(AMMO.id)} levels={false} wear={false}
-                          fits={self.fitsIn(AMMO.id)} size={AMMO_SIZE} @picked={self.onPicked} />
               </box>
-              <text value={self.levelText} textSize={SECONDARY_TEXT} textColor={Style.DIM} xAlignSelf={Align.Center} />
+              <box rows={[{ fr: 1 }, "max-content", "max-content"]} gap={3sp} zLevel={2}>
+                <box yAlign={Align.End}>
+                  <Flyout $if={self.flyoutShown} items={self.fitting} @chose={self.onChose} @close={self.onCloseFlyout} />
+                </box>
+                <box columns={{ each: "max-content" }} gap={2sp} xAlign={Align.Center} yAlign={Align.Start}>
+                  <GearSlot $for={spec of WEAPONS} spec={spec} worn={self.wornOf(spec.id)} levels={self.choices.itemLevels}
+                            wear={self.choices.durability} fits={self.fitsIn(spec.id)} @picked={self.onPicked}
+                            @tried={self.onTried} @flyout={self.onFlyout} />
+                  <GearSlot $if={self.usesAmmo} spec={AMMO} worn={self.wornOf(AMMO.id)} levels={false} wear={false}
+                            fits={self.fitsIn(AMMO.id)} size={AMMO_SIZE} @picked={self.onPicked} />
+                </box>
+                <text value={self.levelText} textSize={SECONDARY_TEXT} textColor={Style.DIM} xAlignSelf={Align.Center} />
+              </box>
+              <box rows={Style.SLOT_ROWS} zLevel={2}>
+                <GearSlot $for={spec of RIGHT} spec={spec} worn={self.wornOf(spec.id)} levels={self.choices.itemLevels}
+                          wear={self.choices.durability} fits={self.fitsIn(spec.id)} @picked={self.onPicked}
+                          @tried={self.onTried} @flyout={self.onFlyout} />
+              </box>
             </box>
-            <box gap={2sp}>
-              <GearSlot $for={spec of RIGHT} spec={spec} worn={self.wornOf(spec.id)} levels={self.choices.itemLevels}
-                        wear={self.choices.durability} fits={self.fitsIn(spec.id)} @picked={self.onPicked}
-                        @tried={self.onTried} @flyout={self.onFlyout} />
-            </box>
+            <Groove upright={true} />
           </box>
           <box>
             <box gap={2.5sp}>
