@@ -13,6 +13,7 @@ LunaType: a typed language for addons that compiles to the Lua the game loads.
 | [OrdaenPanel](addons/OrdaenPanel) | The bottom panel: the menu, the bags, money and experience. |
 | [OrdaenProfessions](addons/OrdaenProfessions) | The professions window. |
 | [OrdaenQuests](addons/OrdaenQuests) | The quest log in four tabs, with where to go from QuestieDB. |
+| [OrdaenRadial](addons/OrdaenRadial) | Wheels of actions held on a key: windows, professions, pings, marks, emotes, travel; aimed with the mouse, in a fight too. |
 | [OrdaenTooltips](addons/OrdaenTooltips) | Tooltips. |
 | [OrdaenTracker](addons/OrdaenTracker) | The tracked quests at the screen's right, with what other modules add. |
 

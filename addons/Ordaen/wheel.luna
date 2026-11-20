@@ -1,0 +1,238 @@
+// Wheel: a ring of up to eight items round a hub, aimed by the direction the cursor went from the hub, whatever the
+// distance. What it draws: a dark round backdrop, a thin bronze line between each two items, each item a round icon
+// in a rim (larger and its rim gold where it is the one chosen) with its state as the action bars show it (its
+// cooldown's sweep, charges or a count, red out of range, blue without the power) and, for a slot of several, dots
+// with the current one lit; a gold cone from the hub towards the chosen one and its two lines gold, the chosen one's
+// name under it (or every name), the hub with ✕ (lit while letting go there would close) and a pointer turning with
+// the cursor. It opens with the items gliding out from the hub. An item that can't be used now is dimmed where it
+// stands, never taken away, so a direction stays the same item. The choice is the owner's (`chosen`, by `slotAt`): the
+// secure part (`SecureWheel`) and this art work it out by one formula, written once for each (`slotAt`, `SLOT_LUA`),
+// which a test holds to the same answers.
+import { Align, Art, FillDuration, Position } from "$ltml"
+import { Component } from "@/module"
+import { SECONDARY_TEXT } from "@/units"
+
+// Eight to a ring at most: four sides and four corners, aimed by feel.
+public const WHEEL_MOST = 8
+// Round the hub, the cursor chooses nothing (at a scale of 1).
+public const DEAD_ZONE = 30dp
+
+// The item a direction chooses: 0 in the dead zone round the hub, else the item whose slice holds the direction,
+// item 1 straight up and the rest clockwise, each slice centred on its item. `dx` right and `dy` up from the hub.
+public function slotAt(dx: Number, dy: Number, count: Integer, dead: Number): Integer {
+  if (count < 1 || dx * dx + dy * dy < dead * dead) { return 0 }
+  const share = (dx.atan2(dy) / (2 * Number.pi) + 1 + 0.5 / count) % 1
+  return ((share * count).floor() + 1).min(count)
+}
+
+// `slotAt` as the client's restricted code runs it: from `dx`, `dy`, `count` and `dead`, it sets `slot`.
+public const SLOT_LUA: String = [
+  "local slot = 0",
+  "if count > 0 and dx * dx + dy * dy >= dead * dead then",
+  "  local share = (math.atan2(dx, dy) / (2 * math.pi) + 1 + 0.5 / count) % 1",
+  "  slot = math.floor(share * count) + 1",
+  "  if slot > count then slot = count end",
+  "end"
+].join("\n")
+
+// How an item's name shows: never, the chosen one's, or every item's.
+public enum WheelNames implements Plain { Off = "off", Chosen = "chosen", Always = "always" }
+
+// One item of a ring as it is drawn.
+public struct WheelItem {
+  name: String
+  icon: Art
+  // Dimmed where it stands: it can't be used now.
+  dim: Boolean
+  // It opens a ring of its own in place.
+  menu: Boolean
+  // What its icon says as the action bars do: charges or a count (`""`: nothing); the icon tinted red out of range or
+  // blue without the power it costs (none: as it is); its cooldown's run.
+  count: String
+  tone: Color | nil
+  cooldown: FillDuration | nil
+  // A slot of several: how many, and the one it does now, as dots under it (0: none).
+  dots: Integer
+  dot: Integer
+}
+
+// An item that is a plain picture and a name, with no state.
+public function plainItem(name: String, icon: Art, dim: Boolean, menu: Boolean): WheelItem {
+  return { name: name, icon: icon, dim: dim, menu: menu, count: "", tone: nil, cooldown: nil, dots: 0, dot: 0 }
+}
+
+// Where an item stands in the wheel's box, and how it is drawn.
+public struct WheelSpot {
+  item: WheelItem
+  left: Number<Length>
+  top: Number<Length>
+  size: Number<Length>
+  chosen: Boolean
+  // Its name and its dots, under it.
+  nameTop: Number<Length>
+  named: Boolean
+  dots: Array<Boolean>
+}
+
+// A line between two items: its box (its art turned to point away from the hub) and whether it edges the chosen one.
+public struct WheelLine {
+  left: Number<Length>
+  top: Number<Length>
+  turn: Number<Angle>
+  lit: Boolean
+}
+
+// The wheel's lengths at a scale of 1.
+const RADIUS = 110dp
+const ICON = 40dp
+const ICON_CHOSEN = 48dp
+const RIM = 3dp
+const MARGIN = 40dp
+public const WHEEL_SIZE: Number<Length> = 2 * (RADIUS + MARGIN)
+const LINE_WIDTH = 2dp
+const LINE_LENGTH = 60dp
+const HUB = 40dp
+const POINTER = 16dp
+const DOT = 5dp
+
+const PLAIN: Asset = "Interface/Buttons/WHITE8X8"
+// The client's round mask: what shows of a box is a circle.
+const ROUND: Asset = "Interface/CHARACTERFRAME/TempPortraitAlphaMask"
+const CLOSE: Asset = "Interface/Buttons/UI-GroupLoot-Pass-Up"
+const ARROW: Asset = "Interface/Minimap/MiniMap-QuestArrow"
+// The lit slice: a wedge, its point at the bottom's middle and its edges to the top corners (art/pieces/wheel-cone).
+const CONE: Asset = "@/media/wheel-cone.tga"
+const BACKDROP: Color = Color.hex("#0a0806d9")
+const BRONZE: Color = Color.hex("#8c6a3f")
+const GOLD: Color = Color.hex("#ffd100")
+const NAME: Color = Color.hex("#f3e1b8")
+const COUNT: Color = Color.hex("#ffffff")
+const HUB_LIT: Color = Color.hex("#c0392b")
+const DOT_OFF: Color = Color.hex("#5a4a33")
+const DIM_OPACITY = 0.4
+
+// An item's direction: item 1 up, the rest clockwise.
+public function itemTurn(index: Integer, count: Integer): Number<Angle> {
+  return (index - 1) * 360deg / count
+}
+
+public class Wheel implements Component {
+  // Every length, by the ring's scale.
+  derived size: Number<Length> = WHEEL_SIZE * self.scale
+  derived middle: Number<Length> = self.size / 2
+  // The items glide out from the hub as the wheel opens.
+  derived radius: Number<Length> = RADIUS * self.scale * self.opening
+  derived hub: Number<Length> = HUB * self.scale
+  derived spots: Array<WheelSpot> = self.spotsOf()
+  derived lines: Array<WheelLine> = self.linesOf()
+  derived hubLit: Boolean = self.chosen == 0
+  derived pointerSpot: [Number<Length>, Number<Length>] = self.along(self.pointer, self.hub / 2 + POINTER * self.scale / 2, POINTER * self.scale)
+  derived coneTurn: Number<Angle> = itemTurn(self.chosen, (1).max(self.items.length))
+  // The cone's box: as long as the radius, as wide as its slice at the rim (a quarter turn at most), its point on the
+  // hub.
+  derived coneWidth: Number<Length> = 2 * self.radius * (180deg / (2).max(self.items.length) / 1rad).tan().min(1)
+  derived coneSpot: [Number<Length>, Number<Length>] = self.along(self.coneTurn, self.radius / 2, self.radius)
+
+  items: Signal<Array<WheelItem>>
+  chosen: Signal<Integer>
+  pointer: Signal<Number<Angle>>
+  names: Signal<WheelNames>
+  scale: Signal<Number>
+  opening: Signal<Number>
+  constructor(
+    // The ring's items, up to `WHEEL_MOST`, item 1 up and the rest clockwise.
+    items: Signal<Array<WheelItem>>,
+    // The item the cursor's direction chooses (`slotAt`): 0 for none.
+    chosen: Signal<Integer>,
+    // The cursor's direction from the hub: where the pointer turns.
+    pointer: Signal<Number<Angle>>,
+    names: Signal<WheelNames>,
+    scale: Signal<Number> = 1,
+    // How far it has opened, 0 to 1: the items' distance from the hub.
+    opening: Signal<Number> = 1
+  ) {
+    self.items = items
+    self.chosen = chosen
+    self.pointer = pointer
+    self.names = names
+    self.scale = scale
+    self.opening = opening
+  }
+
+  // A point at an angle from the wheel's middle, `out` away: its left and top for a box of `size` centred there.
+  along(self, turn: Number<Angle>, out: Number<Length>, size: Number<Length>): [Number<Length>, Number<Length>] {
+    const r = turn / 1rad
+    return [self.middle + r.sin() * out - size / 2, self.middle - r.cos() * out - size / 2]
+  }
+
+  spotsOf(self): Array<WheelSpot> {
+    const count = self.items.length
+    const spots: Array<WheelSpot> = []
+    for (index, item of self.items) {
+      const chosen = self.chosen == index
+      const size = (chosen ? ICON_CHOSEN : ICON) * self.scale
+      const at = self.along(itemTurn(index, count), self.radius, size)
+      const named = self.names == WheelNames.Always || (chosen && self.names == WheelNames.Chosen)
+      const dots: Array<Boolean> = []
+      for (dot of 1..item.dots) { dots.push(dot == item.dot) }
+      spots.push({
+        item: item, left: at[1], top: at[2], size: size, chosen: chosen, nameTop: at[2] + size + 2dp, named: named,
+        dots: dots
+      })
+    }
+    return spots
+  }
+
+  linesOf(self): Array<WheelLine> {
+    const count = self.items.length
+    const lines: Array<WheelLine> = []
+    if (count < 2) { return lines }
+    const chosen = self.chosen
+    const long = LINE_LENGTH * self.scale
+    for (index of 1..count) {
+      // The line before item `index` (between it and the one before it), half a slice back from it.
+      const turn = itemTurn(index, count) - 180deg / count
+      const before = index == 1 ? count : index - 1
+      const at = self.along(turn, self.radius, long)
+      lines.push({ left: at[1] + long / 2 - LINE_WIDTH / 2, top: at[2], turn: turn, lit: chosen == index || chosen == before })
+    }
+    return lines
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <box width={self.size} height={self.size} mouseThrough={true} background={PLAIN} tint={BACKDROP} mask={ROUND}>
+        <box $for={line of self.lines} position={Position.Absolute} left={line.left} top={line.top} width={LINE_WIDTH}
+             height={LINE_LENGTH * self.scale} background={PLAIN} tint={line.lit ? GOLD : BRONZE} rotation={line.turn}
+             zLevel={2} />
+        <box $if={self.chosen > 0} position={Position.Absolute} left={self.coneSpot[1] + self.radius / 2 - self.coneWidth / 2}
+             top={self.coneSpot[2]} width={self.coneWidth} height={self.radius} background={CONE} rotation={self.coneTurn}
+             zLevel={1} />
+        <box $for={spot of self.spots} position={Position.Absolute} left={spot.left - RIM} top={spot.top - RIM}
+             width={spot.size + 2 * RIM} height={spot.size + 2 * RIM} background={PLAIN} tint={spot.chosen ? GOLD : BRONZE}
+             mask={ROUND} opacity={spot.item.dim ? DIM_OPACITY : 1} zLevel={3}>
+          <box position={Position.Absolute} left={RIM} top={RIM} width={spot.size} height={spot.size} icon={spot.item.icon}
+               mask={ROUND} desaturate={spot.item.dim} tint={spot.item.tone} cooldown={spot.item.cooldown}
+               xAlign={Align.End} yAlign={Align.End}>
+            <text value={spot.item.count} textSize={SECONDARY_TEXT} textColor={COUNT} />
+          </box>
+        </box>
+        <box $for={spot of self.spots} position={Position.Absolute} left={spot.left - 40dp}
+             top={spot.nameTop} width={spot.size + 80dp} xAlign={Align.Center} zLevel={3}
+             opacity={spot.item.dim ? DIM_OPACITY : 1}>
+          <box columns={{ each: DOT }} gap={1sp}>
+            <box $for={lit of spot.dots} width={DOT} height={DOT} background={PLAIN} tint={lit ? GOLD : DOT_OFF} mask={ROUND} />
+          </box>
+          <text $if={spot.named} value={spot.item.name} textSize={SECONDARY_TEXT} textColor={NAME} />
+        </box>
+        <box position={Position.Absolute} left={self.middle - self.hub / 2} top={self.middle - self.hub / 2} width={self.hub}
+             height={self.hub} background={PLAIN} tint={self.hubLit ? HUB_LIT : BRONZE} mask={ROUND} zLevel={4}>
+          <box position={Position.Absolute} left={self.hub / 5} top={self.hub / 5} width={self.hub * 3 / 5}
+               height={self.hub * 3 / 5} background={CLOSE} />
+        </box>
+        <box position={Position.Absolute} left={self.pointerSpot[1]} top={self.pointerSpot[2]} width={POINTER * self.scale}
+             height={POINTER * self.scale} background={ARROW} rotation={self.pointer} zLevel={5} />
+      </box>
+    }
+  }
+}

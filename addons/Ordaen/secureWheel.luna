@@ -1,0 +1,308 @@
+// SecureWheel: a wheel's choice and its action, as the client allows them in a fight. The client lets no addon code
+// show a protected frame or change a secure button while the player fights, so both are the client's restricted code:
+// a key bound to one secure button (its press opens the wheel at the cursor, or at the screen's middle; its release
+// reads the cursor's direction over that button, by `SLOT_LUA`, and has the client click it as the chosen item, which
+// does the item's action); while open, the button takes the mouse (a left click uses an item, a right click goes back
+// a level or closes) and Escape (closes). A submenu replaces the ring in place. A slot of several does its current
+// child (cycling after each use where it cycles); a left click on it opens its children to choose one, which it then
+// remembers (or not, where it starts over). Where the wheel remembers, letting go in the middle of a submenu does the
+// item last used there. What the art shows (`Wheel`) follows the button by `slotAt`, the same formula, from the scripts
+// hooked on its click, which the client runs in a fight too; an item that is ours (`WheelAction.Ours`, a window of
+// ours) is done there, as the client does nothing for it. What is set up (the items, the keys, the size) is written
+// out of a fight; a change made in one waits for its end. A key's release missed (the game lost focus) is mended by
+// the next press, Escape or a click. Nothing runs while it is closed: the cursor is followed by a script set as it
+// opens and taken away as it closes.
+import Client from "$client"
+import root Ordaen from "Ordaen"
+import { DEAD_ZONE, SLOT_LUA } from "@/wheel"
+
+// What an item does. The client does the first four on the release, in a fight too.
+public enum WheelAction implements Plain {
+  // A spell by its name: its highest rank, a mount, a profession's window.
+  Spell { spell: String }
+  // An item of the bags or worn, by its number.
+  Item { item: Integer }
+  // A macro of the player's, by its name.
+  Macro { macro: String }
+  // A line of a macro: an emote (`/wave`), a ping (`/ping attack`), a mark (`/tm 8`), a window of the game's
+  // (`/click CharacterMicroButton`), a spell on a condition (`/cast [form:1] Maul`).
+  MacroText { text: String }
+  // It opens its own ring in place.
+  Menu
+  // A slot of several: its children stand under its place, as a submenu's do; it does the current one.
+  Slot { mode: SlotMode }
+  // Ours: the owner does it (`picked`).
+  Ours
+}
+
+// Which child a slot of several does: the one last chosen, the next after each use, or always the first.
+public enum SlotMode implements Plain { Remember = "remember", Cycle = "cycle", First = "first" }
+
+// A modifier an item is done with alone: the client reads its action only while it is held.
+public enum WheelModifier implements Plain { Shift = "shift", Ctrl = "ctrl", Alt = "alt" }
+
+// One item of a wheel by its place: `r_3` the root ring's third, `r_3_2` the second of that one's submenu.
+public struct WheelEntry {
+  path: String
+  action: WheelAction
+  // The client refuses it in a fight (a window it won't open then): dimmed, and nothing done.
+  refusesInFight: Boolean
+  // Done only with this held.
+  modifier: WheelModifier | nil
+}
+
+// How many items a ring holds, by its place (`r`, `r_3`).
+public struct WheelRing {
+  path: String
+  count: Integer
+}
+
+// How a wheel is laid out: where it opens, how large it is, whether its submenus remember.
+public struct WheelSetup {
+  // It opens at the screen's middle and not at the cursor.
+  centred: Boolean
+  scale: Number
+  remember: Boolean
+}
+
+// The place of the root ring, and of an item or a ring inside one.
+public const ROOT = "r"
+public function placeIn(ring: String, index: Integer): String { return `${ring}_${index}` }
+
+// How long the wheel takes to open, and how often an open wheel reads its items' state again.
+const OPENING_TIME = 0.2
+const STATE_EVERY = 0.2
+
+// The client's restricted code round the button's click: `self` the button, `owner` the header, `button` how it was
+// clicked (`Key` the bound key, `LeftButton`, `RightButton`, `Escape`), `down` whether it went down.
+const CHOICE: String = [
+  "if button == 'Key' and down then",
+  "  owner:SetAttribute('level', 'r')",
+  "  self:ClearAllPoints()",
+  "  if owner:GetAttribute('centred') then self:SetPoint('CENTER') else self:SetPoint('CENTER', '$cursor') end",
+  "  self:Show()",
+  "  self:SetBindingClick(true, 'ESCAPE', self, 'Escape')",
+  "  return false",
+  "end",
+  "if not self:IsShown() then return false end",
+  "local close = button == 'Escape'",
+  "if down and not close then return false end",
+  "local level = owner:GetAttribute('level') or 'r'",
+  "if button == 'RightButton' then",
+  "  if level == 'r' then close = true else owner:SetAttribute('level', owner:GetAttribute('up-' .. level)) return false end",
+  "end",
+  "if close then",
+  "  self:Hide() self:ClearBindings() owner:SetAttribute('level', 'r')",
+  "  return false",
+  "end",
+  "local count = owner:GetAttribute('count-' .. level) or 0",
+  "local dead = owner:GetAttribute('dead') or 0",
+  "local x, y = self:GetMousePosition()",
+  "local dx, dy = 0, 0",
+  "if x then dx, dy = (x - 0.5) * self:GetWidth(), (y - 0.5) * self:GetHeight() end",
+  SLOT_LUA,
+  "if slot == 0 and level ~= 'r' and owner:GetAttribute('remember') then slot = owner:GetAttribute('last-' .. level) or 0 end",
+  "if slot == 0 then",
+  "  if button == 'Key' then return false end",
+  "  self:Hide() self:ClearBindings() owner:SetAttribute('level', 'r')",
+  "  return false",
+  "end",
+  "local name = level .. '_' .. slot",
+  "if owner:GetAttribute('menu-' .. name) then owner:SetAttribute('level', name) return false end",
+  "local several = owner:GetAttribute('slot-' .. name)",
+  "if several and button == 'LeftButton' then owner:SetAttribute('level', name) return false end",
+  "if level ~= 'r' then owner:SetAttribute('last-' .. level, slot) end",
+  "if several then",
+  "  local current = owner:GetAttribute('current-' .. name) or 1",
+  "  if owner:GetAttribute('mode-' .. name) == 'cycle' then owner:SetAttribute('current-' .. name, current % several + 1) end",
+  "  name = name .. '_' .. current",
+  "elseif owner:GetAttribute('slot-' .. level) and owner:GetAttribute('mode-' .. level) ~= 'first' then",
+  "  owner:SetAttribute('current-' .. level, slot)",
+  "end",
+  "self:Hide() self:ClearBindings() owner:SetAttribute('level', 'r')",
+  "if owner:GetAttribute('fighting') == 'yes' and owner:GetAttribute('fightoff-' .. name) then return false end",
+  "owner:SetAttribute('chosen', name)",
+  "owner:SetAttribute('picks', (owner:GetAttribute('picks') or 0) + 1)",
+  "return name"
+].join("\n")
+
+// The attributes an item's action sets on the button, by its place: read only while its modifier is held, where it
+// has one (`shift-type-r_3`).
+function actionAttributes(entry: WheelEntry): Array<[String, String]> {
+  const at = entry.path
+  const held = entry.modifier
+  const before = held == nil ? "" : `${held == WheelModifier.Shift ? "shift" : held == WheelModifier.Ctrl ? "ctrl" : "alt"}-`
+  return match (entry.action) {
+    .Spell => [[`${before}type-${at}`, "spell"], [`${before}spell-${at}`, entry.action.spell]]
+    .Item => [[`${before}type-${at}`, "item"], [`${before}item-${at}`, `item:${entry.action.item}`]]
+    .Macro => [[`${before}type-${at}`, "macro"], [`${before}macro-${at}`, entry.action.macro]]
+    .MacroText => [[`${before}type-${at}`, "macro"], [`${before}macrotext-${at}`, entry.action.text]]
+    .Menu, .Slot, .Ours => []
+  }
+}
+
+public class SecureWheel {
+  // Whether the wheel is up, and the ring it shows (`r`, `r_3`).
+  public state open = false
+  public state level: String = ROOT
+  // The cursor from the wheel's middle, right and up, in the screen's units: what the art aims by.
+  public state aimX: Number = 0
+  public state aimY: Number = 0
+  // Where the wheel's middle stands, from the screen's bottom left, in its units: where the art is drawn.
+  public state middleX: Number = 0
+  public state middleY: Number = 0
+  // How far it has opened, 0 to 1, over `OPENING_TIME`; and a count that moves while it is up, every `STATE_EVERY`
+  // seconds: what an item's state (its cooldown, its range) is read again by.
+  public state opening: Number = 1
+  public state tick = 0
+  // An item used, by its place, after the client did its action: an item of ours is done by whoever hears it.
+  public const picked: Event<String> = new Event()
+
+  // The client's restricted code runs in the header's environment; the button is what the key and the mouse click.
+  const header: any Client.Frame
+  const button: any Client.Button
+  // Follows the cursor while the wheel is up: its script is set as it opens and taken away as it closes.
+  const follower: any Client.Frame
+  // The attributes written for the items last, unwritten before others are.
+  written: mut Array<String> = []
+  writtenOnHeader: mut Array<String> = []
+  picks: Integer = 0
+  openedAt: Number = 0
+  readAt: Number = 0
+
+  constructor(
+    // The button's global name: what the client's binding clicks.
+    name: String
+  ) {
+    self.header = Client.CreateFrame("Frame", nil, Client.UIParent, "SecureHandlerBaseTemplate")
+    const made = Client.CreateFrame("Button", name, Client.UIParent, "SecureActionButtonTemplate")
+    self.button = made is Client.Button ? made : panic("the client makes a Button")
+    self.follower = Client.CreateFrame("Frame", nil, Client.UIParent, nil)
+    const button = self.button
+    const header = self.header
+    _ = button.HookScript("OnClick", (frame: Unknown, how: Unknown, down: Unknown): nil => self.heard())
+    Ordaen.afterCombat(() => SecureWheel.setUp(header, button))
+  }
+
+  setUp(header: any Client.Frame, button: any Client.Button) {
+    button.Hide()
+    button.SetFrameStrata("FULLSCREEN_DIALOG")
+    button.RegisterForClicks("AnyDown", "AnyUp")
+    button.EnableMouse(true)
+    const high = Client.UIParent.GetHeight() * 2
+    const wide = Client.UIParent.GetWidth() * 2
+    button.SetSize(wide, high)
+    header.SetAttribute("level", ROOT)
+    header.SetAttribute("dead", DEAD_ZONE / 1ui)
+    Client.RegisterAttributeDriver(header, "fighting", "[combat] yes; no")
+    Client.SecureHandlerWrapScript(button, "OnClick", header, CHOICE, nil)
+  }
+
+  // The rings and their items and how the wheel is laid out, written out of a fight (in one, at its end).
+  public apply(mut self, rings: Array<WheelRing>, entries: Array<WheelEntry>, setup: WheelSetup) {
+    Ordaen.afterCombat(() => self.write(rings, entries, setup))
+  }
+
+  write(mut self, rings: Array<WheelRing>, entries: Array<WheelEntry>, setup: WheelSetup) {
+    for (name of self.written) { self.button.SetAttribute(name, nil) }
+    for (name of self.writtenOnHeader) { self.header.SetAttribute(name, nil) }
+    self.written.clear()
+    self.writtenOnHeader.clear()
+    self.header.SetAttribute("centred", setup.centred)
+    self.header.SetAttribute("remember", setup.remember)
+    self.header.SetAttribute("dead", DEAD_ZONE / 1ui * setup.scale)
+    for (ring of rings) {
+      self.onHeader(`count-${ring.path}`, ring.count)
+      const cut = ring.path.match("^(.+)_%d+$")
+      if (cut != nil) { self.onHeader(`up-${ring.path}`, cut) }
+    }
+    for (entry of entries) {
+      const action = entry.action
+      if (action == WheelAction.Menu) { self.onHeader(`menu-${entry.path}`, true) }
+      if (action is WheelAction.Slot) {
+        const children = rings.find(ring => ring.path == entry.path)
+        self.onHeader(`slot-${entry.path}`, children?.count ?? 0)
+        self.onHeader(`mode-${entry.path}`, String.of(action.mode))
+      }
+      if (entry.refusesInFight) { self.onHeader(`fightoff-${entry.path}`, true) }
+      for (pair of actionAttributes(entry)) {
+        self.button.SetAttribute(pair[1], pair[2])
+        self.written.push(pair[1])
+      }
+    }
+  }
+
+  onHeader(mut self, name: String, value: String | Integer | Boolean) {
+    self.header.SetAttribute(name, value)
+    self.writtenOnHeader.push(name)
+  }
+
+  // The child a slot of several does now, by the slot's place: the client's restricted code keeps it.
+  public current(self, path: String): Integer {
+    const kept = self.header.GetAttribute(`current-${path}`)
+    return kept is Integer ? kept : 1
+  }
+
+  // The keys that hold the wheel, by the client's names (`"CTRL-Q"`), bound over the player's own out of a fight.
+  public bind(self, keys: Array<String>) {
+    const header = self.header
+    const name = self.button.GetName() ?? panic("the button is named")
+    Ordaen.afterCombat(() => {
+      Client.ClearOverrideBindings(header)
+      for (key of keys) { Client.SetOverrideBindingClick(header, true, key, name, "Key") }
+    })
+  }
+
+  // After each click the client did: an item used, told while the wheel still reads as up (its owner knows which
+  // ring it was), then the wheel's state as its restricted code left it.
+  heard(mut self) {
+    const picks = self.header.GetAttribute("picks")
+    if (picks is Integer && picks != self.picks) {
+      self.picks = picks
+      const chosen = self.header.GetAttribute("chosen")
+      if (chosen is String) { self.picked.emit(chosen) }
+    }
+    const shown = self.button.IsShown()
+    const level = self.header.GetAttribute("level")
+    self.level = level is String ? level : ROOT
+    if (shown != self.open) {
+      self.open = shown
+      self.follow(shown)
+    }
+  }
+
+  // The cursor followed while the wheel is up, and not at all once it closes; it opens over `OPENING_TIME`.
+  follow(mut self, on: Boolean) {
+    if (!on) {
+      self.follower.SetScript("OnUpdate", nil)
+      return
+    }
+    self.openedAt = Client.GetTime()
+    self.readAt = self.openedAt
+    self.opening = 0
+    self.aim()
+    self.follower.SetScript("OnUpdate", (): nil => self.aim())
+  }
+
+  aim(mut self) {
+    const now = Client.GetTime()
+    if (self.opening < 1) { self.opening = ((now - self.openedAt) / OPENING_TIME).min(1) }
+    if (now - self.readAt >= STATE_EVERY) {
+      self.readAt = now
+      self.tick += 1
+    }
+    const scale = Client.UIParent.GetEffectiveScale()
+    const cursorX, cursorY = Client.GetCursorPosition()
+    const middleX, middleY = self.button.GetCenter()
+    if (middleX == nil || middleY == nil) { return }
+    if (middleX != self.middleX || middleY != self.middleY) {
+      self.middleX = middleX
+      self.middleY = middleY
+    }
+    const x = cursorX / scale - middleX
+    const y = cursorY / scale - middleY
+    if ((x - self.aimX).abs() < 0.5 && (y - self.aimY).abs() < 0.5) { return }
+    self.aimX = x
+    self.aimY = y
+  }
+}

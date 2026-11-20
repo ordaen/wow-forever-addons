@@ -1,0 +1,70 @@
+// What the player chooses for the wheels: each ring's items by their place, where it opens and how it names them.
+import { SlotMode, WheelModifier, WheelNames } from "Ordaen"
+
+// A window an item opens: the game's or Ordaen's.
+public enum Window implements Plain {
+  Character = "character", Spellbook = "spellbook", Talents = "talents", Quests = "quests", Map = "map"
+  Social = "social", Guild = "guild", GroupFinder = "groupFinder", Calendar = "calendar", Bags = "bags"
+  Settings = "settings", Placing = "placing"
+}
+
+// The client's ping kinds.
+public enum Ping implements Plain { Attack = "attack", Assist = "assist", Warning = "warning", OnMyWay = "onmyway" }
+
+// What an item of a ring is.
+public enum Item implements Plain {
+  // A place kept empty: its direction stays its own.
+  Empty
+  // A spell by its name (its highest rank), a mount's too.
+  Spell { spell: String }
+  // An item of the bags by its number: dimmed while the player hasn't it.
+  Bag { item: Integer }
+  // A macro of the player's, by its name.
+  Macro { macro: String }
+  Open { window: Window }
+  // A raid mark on the target (1 star to 8 skull; 0 takes it away).
+  RaidMark { mark: Integer }
+  // A world mark at the cursor (1 to 8; 0 takes them all away).
+  WorldMark { mark: Integer }
+  Pinged { ping: Ping }
+  // A line of a macro: an emote (`/wave`), a command (`/readycheck`, `/roll`, `/reload`).
+  Line { title: String, line: String, icon: Asset }
+  // Its own ring, in place: its items stand under its place (`3_1`, `3_2`).
+  Menu { title: String, icon: Asset }
+  // The player's professions, a ring of them: each opens its window.
+  Professions
+  // A slot of several: its children stand under its place, as a submenu's do; it does the current one.
+  Slot { title: String, icon: Asset, mode: SlotMode }
+  // A kind another module adds (`Radial.kinds`), by its id: what it offers now.
+  Kind { kind: String }
+}
+
+// Where a ring opens: at the cursor, or at the screen's middle.
+public enum OpensAt implements Plain { Cursor = "cursor", Middle = "middle" }
+
+public struct Ring implements Plain {
+  opensAt: OpensAt
+  names: WheelNames
+  scale: Number
+  // Letting go in the middle of a submenu does the item last used there.
+  remember: Boolean
+  // How many items each of its rings holds, by the ring's place (`""` the ring itself, `"3"` the third's submenu),
+  // and each item by its place (`"1"` to `"8"`, `"3_2"`).
+  counts: mut Map<String, Integer>
+  items: mut Map<String, Item>
+  // When an item may be used, by its place: one with none always.
+  conditions: mut Map<String, Condition>
+}
+
+public struct Choices implements Plain {
+  // The rings on the keys `ORDAEN_RADIAL_1` to `_3`, in order.
+  rings: Array<Ring>
+}
+
+// When an item may be used: a class's alone (the client's tag, `WARRIOR`), in a form alone (the stance bar's place,
+// 0 none), with a modifier held alone. An item whose condition doesn't hold is dimmed where it stands.
+public struct Condition implements Plain {
+  classTag: String | nil
+  form: Integer | nil
+  modifier: WheelModifier | nil
+}
