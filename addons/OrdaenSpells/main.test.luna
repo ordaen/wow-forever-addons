@@ -1182,7 +1182,8 @@ test "a picked spell says what changes against the rank the player has, and the 
   Game.trainer.changed.emit()
   const window = Test.page().window(TRAINER)
   window.button("Heroic Strike (Rank 3)").click()
-  Test.expect(window.text("What changes").shown() && window.text("21 → 32").shown())
+  Test.expect(window.text("What changes").shown() && window.text("21").shown() && window.text("→").shown() &&
+      window.text("32").shown())
   Test.expect(window.text("15 Rage   Melee Range").shown() && window.text("Next melee").shown())
 }
 

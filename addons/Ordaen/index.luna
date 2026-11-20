@@ -3,7 +3,7 @@
 public import { ARTWORK, OrdaenArt, reachAcross, reachDown } from "@/art"
 public import { Clock, Density, Globals, LargeNumbers, NumberFormat } from "@/globals"
 public import { Keeper } from "@/keeper"
-public import { Animation, BarFrame, BarTexture, Font, Hue, Look, LookArt, PRESETS, Preset, XpFill, hueColor, preset, presetOf, xpFillArt } from "@/look"
+public import { Animation, BarFrame, BarTexture, Font, Hue, Look, LookArt, NumbersFont, PRESETS, Preset, XpFill, hueColor, preset, presetOf, xpFillArt } from "@/look"
 public import { Copper, Hour, ItemId } from "@/market"
 public import { Component, Entry, Module, SettingsPage } from "@/module"
 public import { classColor, trimmed } from "@/names"

@@ -318,11 +318,17 @@ function numbersOf(text: String): (Array<String>, String) {
   return numbers, rest
 }
 
+// A number of the spell that changes: the player's rank's, and the service's.
+struct Change {
+  yours: String
+  next: String
+}
+
 // What changes from the rank of the spell the player has to the service's: each of its numbers that differs, «yours →
 // the new one»; nothing where the player has no rank of it, or where the two don't read alike but for their numbers
 // (never a guess).
-function changesOf(service: Game.TrainerService | nil): Array<String> {
-  const list: Array<String> = []
+function changesOf(service: Game.TrainerService | nil): Array<Change> {
+  const list: Array<Change> = []
   const spell = service?.spell
   if (service == nil || spell == nil) { return list }
   const had = rankHad(service.name, spell)
@@ -335,7 +341,7 @@ function changesOf(service: Game.TrainerService | nil): Array<String> {
   if (oldRest != nowRest || old.length != now.length) { return list }
   for (at, number of now) {
     const yours = old[at] ?? number
-    if (yours != number) { list.push(`${yours} → ${number}`) }
+    if (yours != number) { list.push({ yours: yours, next: number }) }
   }
   return list
 }
@@ -436,7 +442,7 @@ public class TrainerWindow implements Component {
   // The picked service's facts, the game's (cast time, cooldown, cost, range: its spell's tooltip lines between its name
   // and what it does), and what changes against the rank the player has.
   derived facts: Array<String> = factsOf(self.current)
-  derived changes: Array<String> = changesOf(self.current)
+  derived changes: Array<Change> = changesOf(self.current)
   derived changed: Boolean = self.changes.length > 0
   // Why «Learn» can't be pressed, on its Tip.
   derived reason: TipText | nil = self.reasonOf()
@@ -567,7 +573,12 @@ public class TrainerWindow implements Component {
         <text $if={self.noSlot} value={Locale.TRAINER_NO_SLOT} textColor={RED} textSize={SECONDARY_TEXT} />
         <text value={self.text} textColor={INK} />
         <text $if={self.changed} value={Locale.TRAINER_CHANGES} textColor={GOLD} />
-        <text $for={change of self.changes} value={change} textColor={GREEN} textFont={TextFont.Numbers} />
+        // The numbers in the numbers font, the arrow in the text's: a numbers font carries digits, not every sign.
+        <box $for={change of self.changes} columns={{ each: "max-content" }} gap={1sp}>
+          <text value={change.yours} textColor={GREEN} textFont={TextFont.Numbers} />
+          <text value={"→"} textColor={GREEN} />
+          <text value={change.next} textColor={GREEN} textFont={TextFont.Numbers} />
+        </box>
         <text $for={fact of self.facts} value={fact} textColor={DIM} textSize={SECONDARY_TEXT} />
       </box>
       <box $else columns={1} gap={2sp}>
