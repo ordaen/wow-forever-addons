@@ -6,6 +6,7 @@ import Events from "$events"
 import Game from "$game"
 import Test from "$test"
 import root Ordaen from "Ordaen"
+import { classColor } from "Ordaen"
 import root Auction from "OrdaenAuction"
 import root Mail from "OrdaenMail"
 
@@ -14,6 +15,8 @@ const PAGE: Test.Page = { left: 20, top: 20, width: 1500, height: 820, screen: t
 const MAIL = "To my characters"
 const RED: Color = Color.hex("#ff4040")
 const GREEN: Color = Color.hex("#40d060")
+// An item slot's well, empty or not.
+const SLOT_WELL: Color = Color.hex("#0d0a08")
 
 function item(place: Integer, id: Integer, name: String, count: Integer): Game.MailItem {
   return { place: place, item: id, name: name, count: count, link: `|Hitem:${id}|h[${name}]|h` }
@@ -468,7 +471,6 @@ test "«Write» opens the form; a recipient typed and «Send» puts the letter i
   _ = Test.requests()
   const window = Test.page().window(MAIL)
   window.text("Outbox").click()
-  Mail.source = .Other
   window.button("Write").click()
   window.input().nth(2).type("Regron")
   _ = Test.requests()
@@ -487,7 +489,6 @@ test "an item the game's letter takes (Right-click in the bags) comes into the f
   Game.mailObserver.opened.emit()
   const window = Test.page().window(MAIL)
   window.text("Outbox").click()
-  Mail.source = .Other
   window.button("Write").click()
   window.input().nth(2).type("Regron")
   // The stack lies locked while it is in the game's letter, and free again once the form gave it back.
@@ -514,6 +515,103 @@ test "an item the game's letter takes (Right-click in the bags) comes into the f
   _ = Test.requests()
   window.button("Send").click()
   Test.expect(asked().contains("Mailbox.send Regron Linen Cloth 2589x20"))
+}
+
+test "the form draws an empty slot, and an item from the bags let go on it goes into the letter" {
+  Test.mount(nil, PAGE)
+  Game.mailbox.letters = letters
+  Game.bags.free = 20
+  Game.mailObserver.open = true
+  Game.mailObserver.opened.emit()
+  const window = Test.page().window(MAIL)
+  window.text("Outbox").click()
+  window.button("Write").click()
+  // The four fields (to, subject, text, money) and the slot, the fourth drawn.
+  Test.expect(window.box(SLOT_WELL).count() == 5)
+  Client.C_Container.GetContainerItemInfo = (bag: Integer, slot: Integer): Client.ContainerItemInfo | nil => bag == 0 && slot >= 2 && slot <= 3 ?
+    Client.ContainerItemInfo {
+      iconFileID: 132889, stackCount: 20, isLocked: false, quality: .Common, isReadable: false, hasLoot: false,
+      hyperlink: "item:2589", isFiltered: false, hasNoValue: false, itemID: 2589, isBound: false, itemName: "Linen Cloth"
+    } :
+    nil
+  Game.bags.size = (bag: Integer): Integer => bag == 0 ? 4 : 0
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => {
+    if (bag != 0 || slot < 2 || slot > 3) { return false }
+    into.id = 2589
+    into.count = 20
+    into.locked = true
+    return true
+  }
+  Client.C_Container.PickupContainerItem(0, 2)
+  window.box(SLOT_WELL).nth(4).click()
+  Test.expect(window.text("1 in 1 letters").shown())
+  Test.expect(window.box(SLOT_WELL).count() == 6)
+  // Right-click in the bags (the item used) while the form writes: the game's letter takes it, the form after it.
+  Test.inKey(() => Client.C_Container.UseContainerItem(0, 3, nil, nil, nil))
+  Events.MAIL_SEND_INFO_UPDATE.emit()
+  Test.expect(!Client.HasSendMailItem(1))
+  Test.expect(window.text("2 in 1 letters").shown())
+}
+
+test "«To» completes against every recipient in a popover: each name in its class's colour, who it is beside it" {
+  Test.mount(nil, PAGE)
+  Game.mailbox.letters = letters
+  Game.mailObserver.open = true
+  Game.mailObserver.opened.emit()
+  Client.C_FriendList.GetNumFriends = (): Integer => 1
+  Client.C_FriendList.GetFriendInfoByIndex = (index: Integer): Client.FriendInfo | nil => {
+    return {
+      connected: true, name: "Regy", className: nil, area: nil, notes: nil, guid: "Player-1-2", level: 60, dnd: false,
+      afk: false, rafLinkType: Client.RafLinkType.None
+    }
+  }
+  Client.GetPlayerInfoByGUID = (guid: String): (String | nil, String | nil, String | nil, String | nil, Number | nil, String | nil, String | nil, Number | nil) => {
+    return nil, "WARRIOR", nil, nil, nil, nil, nil, nil
+  }
+  Mail.sender.recent.write({ names: ["Regron", "Dorn"] })
+  const window = Test.page().window(MAIL)
+  window.text("Outbox").click()
+  window.button("Write").click()
+  Test.expect(!window.text("Anyone").shown() && !window.text("Friends").shown())
+  window.input().nth(2).type("re")
+  const popover = Test.page().window("Regron")
+  Test.expect(popover.text("Friend").shown() && popover.text("Recent").shown() && !popover.text("Dorn").shown())
+  Test.expect(drawnIn(popover.text("Regy"), classColor("WARRIOR") ?? panic("a class's colour")))
+  popover.text("Regy").click()
+  Test.expect(window.input().nth(2).value() == "Regy")
+  Test.expect(!Test.page().text("Recent").shown())
+}
+
+test "«Send money» and «C.O.D.» are the form's tabs; the amount goes as cash on delivery on the second" {
+  Test.mount(nil, PAGE)
+  Game.mailbox.letters = letters
+  Game.bags.free = 20
+  Game.mailObserver.open = true
+  Game.mailObserver.opened.emit()
+  const window = Test.page().window(MAIL)
+  window.text("Outbox").click()
+  window.button("Write").click()
+  Test.expect(window.text("Send money").shown())
+  window.text("C.O.D.").click()
+  window.input().nth(2).type("Regron")
+  window.input().nth(5).click()
+  Test.erase(5)
+  Test.type("5s")
+  _ = Test.requests()
+  window.button("Send").click()
+  Test.expect(asked().contains("Mailbox.send Regron Money  0 500"))
+}
+
+test "the attachments and the postage stand on one line over «Send»; there is no «Clear»" {
+  Test.mount(nil, PAGE)
+  Game.mailbox.letters = letters
+  Game.mailObserver.open = true
+  Game.mailObserver.opened.emit()
+  const window = Test.page().window(MAIL)
+  window.text("Outbox").click()
+  window.button("Write").click()
+  Test.expect(!window.button("Clear").shown())
+  Test.shot("the form")
 }
 
 test "part of a stack is split off into an empty slot first, and the letter goes once the bags hold it" {
@@ -616,7 +714,6 @@ test "a letter that fails stops with the game's reason, and «Continue» sends i
   _ = Test.requests()
   const window = Test.page().window(MAIL)
   window.text("Outbox").click()
-  Mail.source = .Other
   window.button("Write").click()
   window.input().nth(2).type("Regron")
   window.button("Send").click()
