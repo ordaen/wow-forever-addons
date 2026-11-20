@@ -1,0 +1,138 @@
+// «Tabs», the chat's page in the settings window: what each of the game's chat windows shows and its own settings,
+// in place of Blizzard's chat settings. The windows on top, one picked; under it its name, its font's size, locked
+// or not, then each message group and each channel the character is in with whether the tab shows it, and «Close
+// tab» (not for the game's General and combat log). Every change applies at once; what a window shows is read anew
+// from the game each time.
+import Game from "$game"
+import { Align, Track } from "$ltml"
+import { ButtonPlate, Checkbox, Component, Field, NumberInput, PushButton, Section, Switch, Unit } from "Ordaen"
+import Locale from "@/locales"
+
+const MAX: "max-content" = "max-content"
+const CHIP = 90dp
+const BUTTON = 130dp
+
+// A message group's or a channel's row: its check turns it on or off in the window.
+public class ShownRow implements Component {
+  public toggled: Event<Game.ChatShown> = new Event()
+  state on: Boolean
+  const item: Game.ChatShown
+  constructor(item: Game.ChatShown) {
+    self.item = item
+    self.on = item.shown
+    watch (on of self.on) {
+      if (on != self.item.shown) { self.toggled.emit({ name: self.item.name, shown: on }) }
+    }
+  }
+
+  public render(self): Template {
+    return $ltml { <Checkbox label={self.item.name} value={mut self.on} /> }
+  }
+}
+
+// One window's chip on top.
+public class WindowChip implements Component {
+  public pick: Event<Integer> = new Event()
+  derived plate: ButtonPlate = self.picked ? ButtonPlate.Accent : ButtonPlate.Bronze
+  const window: Game.ChatWindow
+  picked: Signal<Boolean>
+  constructor(window: Game.ChatWindow, picked: Signal<Boolean>) {
+    self.window = window
+    self.picked = picked
+  }
+
+  onClick(mut self) { self.pick.emit(self.window.index) }
+
+  public render(self): Template {
+    return $ltml { <PushButton label={self.window.name} width={CHIP} plate={self.plate} @click={self.onClick} /> }
+  }
+}
+
+public class TabsPage implements Component {
+  derived chips: Array<Track> = Game.chat.windows.map(window => MAX)
+  derived chosen: Game.ChatWindow | nil = Game.chat.windows.find(window => window.index == self.window)
+  // Moved by each change of what the window shows, so what it shows is read anew.
+  state version = 0
+  derived groups: Array<Game.ChatShown> = self.version >= 0 ? Game.chat.groups(self.window) : []
+  derived channels: Array<Game.ChatShown> = self.version >= 0 ? Game.chat.channels(self.window) : []
+  derived closable: Boolean = self.window > 2
+  state name = ""
+  state size: Number = 14
+  state locked = false
+
+  window: mut Signal<Integer>
+  constructor(window: mut Signal<Integer>) {
+    self.window = window
+    // The picked window's own settings, taken as it is picked.
+    watch (chosen of self.chosen) {
+      self.name = chosen?.name ?? ""
+      self.size = chosen?.fontSize ?? 14
+      self.locked = chosen?.locked == true
+    }
+    watch (size of self.size) {
+      const chosen = peek self.chosen
+      if (chosen != nil && chosen.fontSize != size) { Game.chat.textSize(chosen.index, size) }
+    }
+    watch (locked of self.locked) {
+      const chosen = peek self.chosen
+      if (chosen != nil && chosen.locked != locked) { Game.chat.lock(chosen.index, locked) }
+    }
+  }
+
+  onPick(mut self, window: Integer) { self.window = window }
+
+  onRename(mut self) {
+    const name = peek self.name
+    if (name != "") { Game.chat.rename(peek self.window, name) }
+  }
+
+  onGroup(mut self, group: Game.ChatShown) {
+    Game.chat.showGroup(peek self.window, group.name, group.shown)
+    self.version = (peek self.version) + 1
+  }
+
+  onChannel(mut self, channel: Game.ChatShown) {
+    Game.chat.showChannel(peek self.window, channel.name, channel.shown)
+    self.version = (peek self.version) + 1
+  }
+
+  onNew(mut self) {
+    const made = Game.chat.open(Locale.TAB_NEW_NAME)
+    if (made != nil) { self.window = made }
+  }
+
+  onClose(mut self) {
+    Game.chat.close(peek self.window)
+    self.window = 1
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={1} gap={3sp}>
+        <box columns={[{ fr: 1 }, MAX]} gap={2sp} yAlign={Align.Center}>
+          <box columns={self.chips} gap={1sp}>
+            <WindowChip $for={window of Game.chat.windows} window={peek window} picked={window.index == self.window}
+                        @pick={self.onPick} />
+          </box>
+          <PushButton label={Locale.TAB_NEW} width={BUTTON} @click={self.onNew} />
+        </box>
+        <Section title={Locale.TAB_ITSELF}>
+          <box columns={[{ fr: 1 }, MAX]} gap={2sp} yAlign={Align.Center}>
+            <Field value={mut self.name} maxLength={40} placeholder={Locale.TAB_NAME} />
+            <PushButton label={Locale.TAB_RENAME} width={BUTTON} @click={self.onRename} />
+          </box>
+          <NumberInput label={Locale.TAB_FONT_SIZE} value={mut self.size} least={8} most={24} step={1} unit={Unit.None} />
+          <Switch label={Locale.TAB_LOCK} value={mut self.locked} />
+          <PushButton label={Locale.TAB_CLOSE} width={BUTTON} plate={ButtonPlate.Accent} disabled={!self.closable}
+                      @click={self.onClose} />
+        </Section>
+        <Section title={Locale.TAB_GROUPS}>
+          <ShownRow $for={group of self.groups} item={peek group} @toggled={self.onGroup} />
+        </Section>
+        <Section title={Locale.TAB_CHANNELS}>
+          <ShownRow $for={channel of self.channels} item={peek channel} @toggled={self.onChannel} />
+        </Section>
+      </box>
+    }
+  }
+}

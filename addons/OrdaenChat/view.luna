@@ -1,0 +1,87 @@
+// The chat's parts: a tab on the tab row, and a line.
+import { Align, Edges, Event, MouseButton, Overflow } from "$ltml"
+import { Component, SECONDARY_TEXT } from "Ordaen"
+import { ChatTab, Shown } from "@/lines"
+
+const INK: Color = Color.hex("#f3e1b8")
+const GOLD: Color = Color.hex("#ffd100")
+const WHISPER: Color = Color.hex("#ff80ff")
+const OPEN: Color = Color.hex("#2a1c10e6")
+const CLOSED: Color = Color.hex("#140d07b3")
+const BADGE: Color = Color.hex("#b3261e")
+const WHITE: Color = Color.hex("#ffffff")
+// The warm band under a line that names the player or a keyword.
+const MARK: Color = Color.hex("#ff9a2e33")
+const TAB_PAD: Edges = { top: 1sp, right: 3sp, bottom: 1sp, left: 3sp }
+const BADGE_PAD: Edges = { right: 1sp, left: 1sp }
+
+// A tab: its name (a whisper partner's in the whisper colour) and, while lines wait unread, their count.
+public class TabButton implements Component {
+  public pick: Event<ChatTab> = new Event()
+  public menu: Event<ChatTab> = new Event()
+
+  derived color: Color = self.whisper ? WHISPER : (self.open ? GOLD : INK)
+  derived whisper: Boolean = self.tab.partner != ""
+  derived fill: Color = self.open ? OPEN : CLOSED
+
+  tab: Signal<ChatTab>
+  open: Signal<Boolean>
+  constructor(tab: Signal<ChatTab>, open: Signal<Boolean>) {
+    self.tab = tab
+    self.open = open
+  }
+
+  onPress(mut self, press: Event.Press) {
+    if (press.button == MouseButton.Right) {
+      self.menu.emit(peek self.tab)
+    } else {
+      self.pick.emit(peek self.tab)
+    }
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={["max-content", "max-content"]} gap={1sp} padding={TAB_PAD} background={self.fill} yAlign={Align.Center}
+           @pointerPress={self.onPress}>
+        <text value={self.tab.title} textColor={self.color} wrap={.None} />
+        <box $if={self.tab.unread > 0} padding={BADGE_PAD} background={BADGE}>
+          <text value={"%d"} arguments={[self.tab.unread]} textColor={WHITE} textSize={SECONDARY_TEXT} wrap={.None} />
+        </box>
+      </box>
+    }
+  }
+}
+
+// A line: its text in its colour, dimmed where it came from the last session, on a band where it names the player,
+// gone once it faded. A secret line stands one line high, so nothing of it is measured.
+public class Row implements Component {
+  // A link of the line clicked.
+  public link: Event<Event.Link> = new Event()
+
+  derived faded: Boolean = self.line.time < self.fadeBefore
+  derived opacity: Number = self.faded ? 0 : (self.line.past ? 0.6 : 1)
+  derived band: Color | nil = self.line.marked ? MARK : nil
+
+  line: Signal<Shown>
+  // Lines said before this have faded.
+  fadeBefore: Signal<Number>
+  lineHeight: Signal<Number<Length>>
+  constructor(line: Signal<Shown>, fadeBefore: Signal<Number>, lineHeight: Signal<Number<Length>>) {
+    self.line = line
+    self.fadeBefore = fadeBefore
+    self.lineHeight = lineHeight
+  }
+
+  onLink(mut self, link: Event.Link) { self.link.emit(link) }
+
+  public render(self): Template {
+    return $ltml {
+      <box $if={self.line.secret} @linkPress={self.onLink} height={self.lineHeight} overflow={Overflow.Hidden} opacity={self.opacity}>
+        <text value={self.line.whole} secret={true} textColor={self.line.color} wrap={.None} />
+      </box>
+      <box $else opacity={self.opacity} background={self.band} @linkPress={self.onLink}>
+        <text value={self.line.whole} textColor={self.line.color} />
+      </box>
+    }
+  }
+}

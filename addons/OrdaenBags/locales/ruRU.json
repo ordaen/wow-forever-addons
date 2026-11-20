@@ -77,7 +77,7 @@
   "MENU_PROTECT": "Защитить от сортировки",
   "MENU_UNPROTECT": "Снять защиту",
   "SELL_JUNK": "Продать хлам",
-  "CHAT_CAPTION": "Инвентарь:",
+  "CHAT_CAPTION": "Инвентарь",
   "CHAT_SOLD": "продан %s за %s.",
   "CHAT_SOLD_JUNK": "продан хлам: %d за %s.",
   "CHAT_LEARNED": "%s теперь хлам: вы часто его продаёте.",

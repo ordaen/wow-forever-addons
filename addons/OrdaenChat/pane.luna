@@ -1,0 +1,274 @@
+// A pane of the chat: its tabs on a row, the open tab's lines, and its foot (the game's menu button, the input or
+// the hint that opens it, the way back to the latest lines). The chat's own pane holds the docked windows and the
+// streams; each window the player undocked is a pane of its own, holding that window alone.
+import Client from "$client"
+import Game from "$game"
+import { Align, Edges, Event, Frame, MouseButton, Overflow, Position } from "$ltml"
+import root Ordaen from "Ordaen"
+import { BODY_LINE, Component, Menu, MenuEntry, SECONDARY_TEXT } from "Ordaen"
+import { ChatTab, Shown } from "@/lines"
+import Locale from "@/locales"
+import { Row, TabButton } from "@/view"
+
+// Lines drawn at most: more than the tallest chat shows.
+const ROWS = 80
+// Lines a turn of the wheel scrolls.
+const STEP = 3
+// Seconds a line takes to fade once its time is up.
+const FADING = 3
+const HINT: Color = Color.hex("#857a66")
+const LINK: Color = Color.hex("#69ccf0")
+const MAX: "max-content" = "max-content"
+// From the frame's line to what it holds.
+const ROOM: Edges = { top: 2sp, right: 3sp, bottom: 2sp, left: 3sp }
+
+// What a tab's right-click menu offers.
+public enum TabAction { Rename = "rename", Settings = "settings", New = "new", Lock = "lock", Close = "close" }
+
+// What a player's name's right-click menu offers; `More` is the game's own menu of the player.
+public enum NameAction { Whisper = "whisper", Invite = "invite", Who = "who", Ignore = "ignore", More = "more" }
+
+const TAB_ACTIONS: Array<TabAction> = [TabAction.Rename, TabAction.Settings, TabAction.New, TabAction.Lock, TabAction.Close]
+const NAME_ACTIONS: Array<NameAction> = [NameAction.Whisper, NameAction.Invite, NameAction.Who, NameAction.Ignore, NameAction.More]
+
+// A tab's menu asked for: the tab, and what was picked.
+public struct TabPick {
+  tab: ChatTab
+  action: TabAction
+}
+
+// A name's menu asked for: the link it came from, and what was picked.
+public struct NamePick {
+  link: Event.Link
+  action: NameAction
+}
+
+// The player's name in a link (`player:Thrall-Realm:7`).
+public function nameOf(link: String): String | nil {
+  return link.match("^player:([^:]+)")
+}
+
+public class Pane implements Component {
+  public picked: Event<ChatTab> = new Event()
+  public tabPicked: Event<TabPick> = new Event()
+  public namePicked: Event<NamePick> = new Event()
+  // A link that isn't a name's, or a name's with a plain click.
+  public link: Event<Event.Link> = new Event()
+  // The hint clicked: the input opens for the open tab.
+  public hint: Event<ChatTab> = new Event()
+  public copy: Event<String> = new Event()
+
+  derived open: ChatTab | nil = self.tabs.find(tab => tab.key == self.openKey) ?? self.tabs[1]
+  // Lines scrolled back from the newest.
+  public state back = 0
+  state hovered = false
+  // The tab whose menu is open, and the name link whose menu is open.
+  state menuTab: ChatTab | nil = nil
+  state menuName: Event.Link | nil = nil
+
+  derived textSize: Number<TextSize> = (self.open?.fontSize ?? 13) * 1rem / 13
+  derived logFrame: any Frame | nil = self.logOf()
+  derived shown: Array<Shown> = self.shownOf()
+  derived fadeBefore: Number = self.fadeOf()
+  derived inputShown: Boolean = self.input != nil && (self.typing || self.inputAlways)
+  derived tabEntries: Array<MenuEntry> = self.tabEntriesOf()
+  derived nameEntries: Array<MenuEntry> = NAME_ACTIONS.map(action => MenuEntry { label: nameLabel(action), on: nil, disabled: nil, group: nil, more: nil })
+
+  tabs: Signal<Array<ChatTab>>
+  openKey: Signal<String>
+  width: Signal<Number<Length>>
+  height: Signal<Number<Length>>
+  fade: Signal<Integer>
+  input: Signal<any Frame | nil>
+  menuButton: Signal<any Frame | nil>
+  typing: Signal<Boolean>
+  inputAlways: Signal<Boolean>
+  constructor(
+    tabs: Signal<Array<ChatTab>>,
+    // The tab shown: its key.
+    openKey: Signal<String>,
+    width: Signal<Number<Length>>,
+    height: Signal<Number<Length>>,
+    fade: Signal<Integer>,
+    // The input it holds (nil: none, a hint opens the chat's), the game's menu button beside it.
+    input: Signal<any Frame | nil> = nil,
+    menuButton: Signal<any Frame | nil> = nil,
+    typing: Signal<Boolean> = false,
+    inputAlways: Signal<Boolean> = false
+  ) {
+    self.tabs = tabs
+    self.openKey = openKey
+    self.width = width
+    self.height = height
+    self.fade = fade
+    self.input = input
+    self.menuButton = menuButton
+    self.typing = typing
+    self.inputAlways = inputAlways
+  }
+
+  logOf(self): any Frame | nil {
+    const tab = self.open
+    if (tab == nil || !tab.combatLog) { return nil }
+    return Game.chat.windows.find(window => window.index == tab.window)?.frame
+  }
+
+  shownOf(self): Array<Shown> {
+    const tab = self.open
+    // The lines change in place: their version is what tells the view.
+    if (tab == nil || tab.version < 0) { return [] }
+    return tab.slice(self.back, ROWS)
+  }
+
+  // Lines older than this have faded, while the cursor is off the pane and it isn't scrolled.
+  fadeOf(self): Number {
+    if (self.fade == 0 || self.hovered || self.back > 0) { return 0 }
+    return Game.clock.server - self.fade - FADING
+  }
+
+  tabEntriesOf(self): Array<MenuEntry> {
+    const tab = self.menuTab
+    return TAB_ACTIONS.map(action => MenuEntry {
+      label: tabLabel(action), on: action == TabAction.Lock ? tab?.locked == true : nil,
+      disabled: action == TabAction.Close && (tab?.window ?? 0) <= 2, group: action == TabAction.Close, more: nil
+    })
+  }
+
+  onPick(mut self, tab: ChatTab) {
+    self.back = 0
+    self.picked.emit(tab)
+  }
+
+  // A window's tab has the chat's menu; a stream's none.
+  onMenu(mut self, tab: ChatTab) {
+    if (tab.window > 0) { self.menuTab = tab }
+  }
+
+  onTabPick(mut self, place: Integer) {
+    const tab = peek self.menuTab
+    const action = TAB_ACTIONS[place]
+    self.menuTab = nil
+    if (tab != nil && action != nil) { self.tabPicked.emit({ tab: tab, action: action }) }
+  }
+
+  onTabMenuClose(mut self) { self.menuTab = nil }
+
+  onNamePick(mut self, place: Integer) {
+    const link = peek self.menuName
+    const action = NAME_ACTIONS[place]
+    self.menuName = nil
+    if (link != nil && action != nil) { self.namePicked.emit({ link: link, action: action }) }
+  }
+
+  onNameMenuClose(mut self) { self.menuName = nil }
+
+  // A name: Alt and the left button invite the player, the right button opens the name's menu; any other link goes
+  // on.
+  onLink(mut self, link: Event.Link) {
+    if (nameOf(link.link) != nil) {
+      if (link.button == MouseButton.Right) {
+        self.menuName = link
+        return
+      }
+      if (link.button == MouseButton.Left && Client.IsAltKeyDown()) {
+        self.namePicked.emit({ link: link, action: NameAction.Invite })
+        return
+      }
+    }
+    self.link.emit(link)
+  }
+
+  onHint(mut self) {
+    const tab = peek self.open
+    if (tab != nil) { self.hint.emit(tab) }
+  }
+
+  // The wheel scrolls three lines; with Shift, to the oldest or the newest.
+  onWheel(mut self, wheel: Event.Wheel) {
+    const tab = peek self.open
+    if (tab == nil) { return }
+    const most = (0).max(tab.lines.length - 1)
+    const shift = Client.IsShiftKeyDown()
+    if (wheel.direction == .Up) {
+      self.back = shift ? most : most.min((peek self.back) + STEP)
+    } else {
+      self.back = shift ? 0 : (0).max((peek self.back) - STEP)
+    }
+  }
+
+  onLatest(mut self) { self.back = 0 }
+
+  onEnter(mut self) { self.hovered = true }
+
+  onLeave(mut self) { self.hovered = false }
+
+  onCopy(mut self) { self.copy.emit((peek self.open)?.text() ?? "") }
+
+  public render(self): Template {
+    return $ltml {
+      // The lines keep the height the player chose; the tabs' rows and the foot stand above and below them, so the pane
+      // grows as its tabs wrap.
+      <box width={self.width} rows={[MAX, MAX, MAX]} border={Ordaen.art.frame.small}
+           background={Ordaen.art.window.wood} artOrigin={true} padding={ROOM} @pointerEnter={self.onEnter}
+           @pointerLeave={self.onLeave}>
+        <box columns={[{ fr: 1 }, MAX]} yAlign={Align.End}>
+          // The tabs wrap to more rows where they don't fit the pane's width; never shortened, never scrolled.
+          <box columns={"wrap"} gap={0.5sp}>
+            <TabButton $for={tab of self.tabs} tab={tab} open={tab.key == self.open?.key} @pick={self.onPick}
+                       @menu={self.onMenu} />
+          </box>
+          <box $if={self.hovered} @pointerPress={self.onCopy}>
+            <text value={Locale.COPY} textColor={HINT} textSize={SECONDARY_TEXT} wrap={.None} />
+          </box>
+          <Menu $if={self.menuTab != nil} entries={self.tabEntries} title={self.menuTab?.title ?? ""} @pick={self.onTabPick}
+                @close={self.onTabMenuClose} />
+        </box>
+        <embed $if={self.logFrame != nil} frame={self.logFrame ?? panic("shown with the frame")} height={self.height} />
+        // The newest line stands at the bottom; older ones go up past the top, which cuts them.
+        <box $else height={self.height} overflow={Overflow.Hidden} textSize={self.textSize} @wheel={self.onWheel}>
+          <box position={Position.Absolute} left={0ui} right={0ui} bottom={0ui} columns={1}>
+            <Row $for={line of self.shown} line={line} fadeBefore={self.fadeBefore} lineHeight={Ordaen.lengthOf(BODY_LINE)}
+                 @link={self.onLink} />
+          </box>
+        </box>
+        // The game's menu button, its input (or the hint that opens it), and, while scrolled back, the way back.
+        <box columns={[MAX, { fr: 1 }, MAX]} gap={1sp} yAlign={Align.Center}>
+          <box>
+            <embed $if={self.menuButton != nil} frame={self.menuButton ?? panic("shown with the button")} />
+          </box>
+          <embed $if={self.inputShown} frame={self.input ?? panic("shown with the input")} />
+          <box $else @pointerPress={self.onHint}>
+            <text value={Locale.HINT_TYPE} textColor={HINT} wrap={.None} />
+          </box>
+          <box>
+            <box $if={self.back > 0} @pointerPress={self.onLatest}>
+              <text value={Locale.LATEST} textColor={LINK} textSize={SECONDARY_TEXT} wrap={.None} />
+            </box>
+          </box>
+          <Menu $if={self.menuName != nil} entries={self.nameEntries} title={nameOf(self.menuName?.link ?? "") ?? ""}
+                @pick={self.onNamePick} @close={self.onNameMenuClose} />
+        </box>
+      </box>
+    }
+  }
+}
+
+function tabLabel(action: TabAction): String {
+  return match (action) {
+    .Rename => Locale.TAB_RENAME
+    .Settings => Locale.TAB_SETTINGS
+    .New => Locale.TAB_NEW
+    .Lock => Locale.TAB_LOCK
+    .Close => Locale.TAB_CLOSE
+  }
+}
+
+function nameLabel(action: NameAction): String {
+  return match (action) {
+    .Whisper => Locale.NAME_WHISPER
+    .Invite => Locale.NAME_INVITE
+    .Who => Locale.NAME_WHO
+    .Ignore => Locale.NAME_IGNORE
+    .More => Locale.NAME_MORE
+  }
+}

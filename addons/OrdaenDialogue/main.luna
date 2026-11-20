@@ -36,6 +36,9 @@ function isOffer(line: Line): Boolean {
 
 function sound(kit: Integer) { _ = Client.C_Sound.PlaySound(kit, nil) }
 
+// An option picked by its place, as the game's own window picks it: a vendor's or a trainer's has no option ID.
+function pickOption(line: Line) { Client.C_GossipInfo.SelectOptionByIndex(line.order, nil, nil) }
+
 function isQuestPage(page: Page): Boolean { return page == Page.Detail || page == Page.Progress || page == Page.Reward }
 
 // The game's option that shows a quest's text at once ("1"), or lets it fade in ("0").
@@ -184,13 +187,13 @@ public class Dialogue implements Module, App {
     if (choices.alwaysPick && (peek self.source) == Source.Gossip) {
       const marked = lines.find(line => line.kind == LineKind.Option && self.isMarked(line.id))
       if (marked != nil) {
-        Client.C_GossipInfo.SelectOption(marked.id, nil, nil)
+        pickOption(marked)
         return true
       }
     }
     if (choices.skipSingle && self.onlyOption(lines)) {
       const only = lines[1] ?? panic("one line")
-      Client.C_GossipInfo.SelectOption(only.id, nil, nil)
+      pickOption(only)
       return true
     }
     return false
@@ -362,7 +365,7 @@ public class Dialogue implements Module, App {
 
   select(mut self, line: Line) {
     if (line.kind == LineKind.Option) {
-      Client.C_GossipInfo.SelectOption(line.id, nil, nil)
+      pickOption(line)
       return
     }
     sound(SOUND_SELECT)
@@ -529,7 +532,8 @@ public class Dialogue implements Module, App {
   // Right-click's «Always pick this option»: marked, or unmarked again.
   public toggleMark(mut self, index: Integer) {
     const line = (peek self.lines)[index]
-    if (line == nil || line.kind != LineKind.Option) { return }
+    // An option the client gives no ID can't be told again at the next talk: it is never marked.
+    if (line == nil || line.kind != LineKind.Option || line.id == 0) { return }
     if (self.isMarked(line.id)) {
       self.unmark(line.id)
       return
@@ -578,6 +582,9 @@ public class Dialogue implements Module, App {
   derived hints: Boolean = self.settings.values.keyboard && self.settings.values.keyHints
   derived combatNote: Boolean = self.settings.values.keyboard && Game.situation.combat
   derived isBook: Boolean = self.page == Page.Book
+  // The list's options are as wide as they are, never wrapped: it takes the room they need, which widens the window
+  // (a scrolled box would keep its width); a quest's rewards scroll.
+  derived wellOverflow: Overflow = self.listShown ? Overflow.Visible : Overflow.Scroll
   derived rows: Array<Track> = self.isBook ? [{ fr: 1 }, "max-content"] : [{ fr: 2 }, { fr: 3 }]
   derived pickable: Boolean = self.page == Page.Reward
   // The quest giver's figure, as the game's quest portrait has it: the creature the client names as the quest's giver
@@ -654,19 +661,18 @@ public class Dialogue implements Module, App {
                @keyPress.globalScope(.Digit5)={self.onKey} @keyPress.globalScope(.Digit6)={self.onKey}
                @keyPress.globalScope(.Digit7)={self.onKey} @keyPress.globalScope(.Digit8)={self.onKey}
                @keyPress.globalScope(.Digit9)={self.onKey} @keyPress.globalScope(.Space)={self.onSpace}
-               @keyPress.globalScope(.Escape)={self.onEscape} /> <box rows={["max-content", { fr: 1 }, "max-content"]}
-                                                                      padding={{ left: 4sp, right: 4sp, top: 2sp, bottom: 2sp }}>
+               @keyPress.globalScope(.Escape)={self.onEscape} />
+          <box rows={["max-content", { fr: 1 }, "max-content"]}>
             <box height={Style.ROLL_HEIGHT} background={Style.ROLL} />
             <box background={Style.PARCHMENT} tint={Style.PARCHMENT_TINT} overflow={Overflow.Scroll}
-                 padding={4sp} gap={2sp}>
+                 padding={3sp} gap={1.5sp}>
               <Said page={self.page} quest={self.quest} said={self.said} book={self.book} revealed={self.revealed}
                     figure={self.figure} />
             </box>
             <box height={Style.ROLL_HEIGHT} background={Style.ROLL} />
           </box>
-          <box $if={!self.isBook} background={Style.WELL} rows={[{ fr: 1 }, "max-content"]} gap={2sp}
-               padding={4sp}>
-            <box overflow={Overflow.Scroll} gap={1sp}>
+          <box $if={!self.isBook} rows={[{ fr: 1 }, "max-content"]} gap={1.5sp} padding={{ top: 2sp }}>
+            <box overflow={self.wellOverflow} gap={0.5sp}>
               <$if={self.listShown}>
                 <OptionRow $for={index, line of self.lines} line={line} index={index} hints={self.hints}
                            marked={self.markedAt(line)} @pick={self.pickLine} @mark={self.toggleMark} />
@@ -683,7 +689,7 @@ public class Dialogue implements Module, App {
                           tip={self.mainTip} key={self.mainKey} @click={self.main} />
             </box>
           </box>
-          <box $else padding={{ left: 4sp, right: 4sp, bottom: 4sp }} xAlign={Align.End}>
+          <box $else padding={{ top: 2sp }} xAlign={Align.End}>
             <PushButton label={Locale.CLOSE} width={199.21875dp} key={self.backKey} @click={self.close} />
           </box>
         </box>

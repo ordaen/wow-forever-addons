@@ -15,7 +15,7 @@ import Game from "$game"
 import { Event, Frame, KeyBinding, MouseButton } from "$ltml"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
-import { ButtonPlate, Dialog, KeptWindow, Module, ModuleMemory, MoneyField, PushButton, Settings, SettingsPage, TipRow, Window, WindowTabSpec, WindowsPage, windowsTitle } from "Ordaen"
+import { ButtonPlate, Dialog, KeptWindow, Module, ModuleMemory, MoneyField, PushButton, Settings, SettingsPage, TipRow, Window, WindowTabSpec, WindowsPage, say, windowsTitle } from "Ordaen"
 import { Arranger } from "@/arrange"
 import { BagLine, BagSlotsWindow } from "@/bagSlots"
 import { BANK_ICON, BankBag, BankSlotsWindow, bankInfos } from "@/bank"
@@ -69,7 +69,8 @@ const MERCHANT_WIDTH = 796.875dp
 // Junk sold at once by «Sell junk»: what the merchant's buyback keeps, so all can be bought back.
 const SAFE_SALE = 12
 
-const CAPTION: String = "|cffe8c35a"
+// The module's mark in the chat.
+const CAPTION: Color = Color.hex("#e8c35a")
 const BUTTON = 140.625dp
 const DIALOG = 375dp
 // The bags' tab of the window: the game's bag icon.
@@ -482,7 +483,7 @@ public class Bags implements Module, App {
 
   // A line of the module's in the chat, where the player keeps them.
   say(self, line: String) {
-    if (peek self.settings.values.junk.chat) { Client.print(`${CAPTION}${Locale.CHAT_CAPTION}|r ${line}`) }
+    if (peek self.settings.values.junk.chat) { say({ name: Locale.CHAT_CAPTION, color: CAPTION }, line) }
   }
 
   openMenu(mut self, slot: Slot) {

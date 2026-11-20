@@ -54,7 +54,7 @@ end
 
 function questie.quest(id)
 	local found = _G.LibQuestieDB
-	local quests, npcs, objects, items = found.QuestDB, found.NpcDB, found.ObjectDB, found.ItemDB
+	local quests, npcs, objects, items = found.Quest, found.Npc, found.Object, found.Item
 	if not quests.Exists(id) then return nil end
 	local givers, takers, targets = {}, {}, {}
 	local starts = quests.Get(id, "startedBy")

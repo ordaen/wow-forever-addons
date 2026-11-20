@@ -192,6 +192,27 @@ test "an NPC with one plain option doesn't open the window: the option is picked
   Test.expect(asked() == "option 400" && !Test.page().window("Thor").shown())
 }
 
+test "a vendor whose one option has no ID doesn't open the window: it is picked by its place, the skip on by default" {
+  Test.mount(nil, SCREEN)
+  Test.expect(Dialogue.settings.values.skipSingle)
+  Test.talk({
+    name: "Brog Hamfist", id: 151, text: "Need supplies?",
+    options: [{
+      gossipOptionID: nil, name: "I want to browse your goods.", icon: 132060, rewards: [],
+      status: Client.GossipOptionStatus.Available, flags: 0, selectOptionWhenOnlyOption: true, orderIndex: 0
+    }]
+  })
+  Test.expect(asked() == "option at 0" && !Test.page().window("Brog Hamfist").shown())
+}
+
+test "an option's text never wraps: the window widens to hold the longest" {
+  Test.mount(nil, SCREEN)
+  const long = "Tell me everything about the old roads from Goldshire to the Westfall farms, and who keeps them now."
+  Test.talk({ name: "Innkeeper Farley", id: 295, text: WORDS, options: [option(301, long, 1, TALK), option(302, "Bye.", 2, TALK)] })
+  const line = window().text(long).letters()
+  Test.expect(line.bottom - line.top < 30 && window().text(long).shown())
+}
+
 test "Shift held while talking shows the window all the same" {
   Test.mount(nil, SCREEN)
   Game.input.shiftDown = (): Boolean => true

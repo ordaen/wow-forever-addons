@@ -1,0 +1,2 @@
+// Ordaen Chat: the game's chat drawn in Ordaen's frame.
+public import { Chat } from "@/main"
