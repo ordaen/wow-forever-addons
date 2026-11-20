@@ -2091,7 +2091,7 @@ test "the card names the addon it needs that keeps it from loading" {
   open()
   flip("Ordaen")
   question("Ordaen").button(Locale.DISABLE).click()
-  row("Ordaen System").click()
+  row("Ordaen System").text("Ordaen System").click()
   Test.expect(window().text(Locale.NOT_LOADING_BECAUSE.format(Client.ADDON_DEP_DISABLED, "Ordaen")).shown())
   Test.expect(window().text(Locale.NOT_LOADING_BECAUSE.format(Client.ADDON_DEP_DISABLED, "Ordaen")).textColor().equal(Style.RED))
 }

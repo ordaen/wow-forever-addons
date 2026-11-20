@@ -8,7 +8,7 @@
 import Game from "$game"
 import { Align, Art, ByInteractionState, Edges, Event, MouseButton, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { Component, Menu, MenuEntry, SECONDARY_TEXT, SWITCH_WIDTH, Shown, ShownToggle, Tip, space } from "Ordaen"
+import { Component, Menu, MenuEntry, SECONDARY_TEXT, SWITCH_WIDTH, Shown, ShownToggle, Tip } from "Ordaen"
 import { AddOn, Catalog, Status, Switch, plain } from "@/catalog"
 import Locale from "@/locales"
 import { Load, Profiler, memory, percent } from "@/perf"
@@ -46,7 +46,7 @@ public const TABLE_COLUMNS: Array<Track> = [
 ]
 // The fold's mark (ctl.markClosed, ctl.markOpen), as TreeRow draws it: a 16 px cell, its triangle in the middle.
 const MARK = 18.75dp
-const PAD: Edges = { left: space(.Item), right: space(.Item) }
+const PAD: Edges = { left: 3sp, right: 3sp }
 const LIGHT: ByInteractionState<Color> = { default: Style.CLEAR, hover: Color.hex("#d6a56b1f"), focus: Color.hex("#d6a56b1f") }
 const DASH = "—"
 
@@ -117,7 +117,7 @@ public class LineRow implements Component {
   derived peakColor: Color = self.peakShare > 0 && self.peakShare >= self.hot.peak ? Style.HOT : Style.INK
   derived weightColor: Color = self.loaded && self.kb > 0 && self.kb >= self.hot.memory ? Style.HOT : Style.INK
   derived background: Color | ByInteractionState<Color> = self.line.name == self.picked ? Style.PICKED : LIGHT
-  derived indent: Edges = { left: self.line.child ? Style.INDENT : 0ui }
+  derived indent: Edges = { left: self.line.child ? Style.INDENT : 0sp }
   derived notes: String = plain(self.addon?.notes ?? "")
   derived tipShown: Boolean = self.hovered && self.notes != ""
   derived plainTitle: String = plain(self.title)
@@ -232,14 +232,14 @@ public class LineRow implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box $if={self.line.caption} height={Style.ROW} columns={CAPTION} gap={space(.Item)} padding={PAD} yAlign={Align.Center}
+      <box $if={self.line.caption} height={Style.ROW} columns={CAPTION} gap={3sp} padding={PAD} yAlign={Align.Center}
            @pointerPress.self={self.onPick} @keyPress(.Enter)={self.onKey} @keyPress(.Space)={self.onKey}>
         <box width={MARK} height={MARK} background={self.mark} tint={Style.GOLD} />
         <text value={self.title} textColor={Style.GOLD} textFont={.Title} wrap={false} />
         <text value={self.countText} textColor={Style.DIM} textFont={.Numbers} wrap={false} />
         <ShownToggle state={self.shown} @flip={self.onGroup} />
       </box>
-      <box $else height={Style.ROW} columns={self.columns} gap={space(.Item)} padding={PAD} yAlign={Align.Center}
+      <box $else height={Style.ROW} columns={self.columns} gap={3sp} padding={PAD} yAlign={Align.Center}
            background={self.background} @pointerPress.self={self.onPick} @keyPress(.Enter)={self.onKey} @keyPress(.Space)={self.onKey} @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
         <box padding={self.indent}>
           <text value={self.title} textColor={Style.INK} wrap={false} />

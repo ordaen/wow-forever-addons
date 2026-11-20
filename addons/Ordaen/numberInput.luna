@@ -48,7 +48,7 @@ const INK: Color = Color.hex("#e8dcc4")
 const FILL: Color = Color.hex("#00000080")
 const FIELD_EDGE: Line = { width: 1.171875dp, color: Color.hex("#3e2f1d") }
 const BAD: Line = { width: 1.171875dp, color: Color.hex("#c0463c") }
-const PADDING: Edges = { right: 11.71875dp, left: 11.71875dp }
+const PADDING: Edges = { right: 3sp, left: 3sp }
 const DIGITS = 6
 // − and +: a push button's plate and label, the label white under the cursor or the keyboard's focus.
 const STEP_HEIGHT = 39.84375dp
@@ -336,7 +336,7 @@ public class NumberInput implements Component {
     const middle = self.middle()
     return $ltml {
       <SettingRow label={self.label} hint={self.hint} disabled={self.disabled}>
-        <box columns={ROW} gap={7.03125dp} yAlign={Align.Center}>
+        <box columns={ROW} gap={2sp} yAlign={Align.Center}>
           <box width={STEP_WIDTH} height={STEP_HEIGHT} xAlign={Align.Center} yAlign={Align.Center}
                background={self.plate} textColor={INK_STEP} disabled={!self.fewer} @pointerDown.repeat={self.lessHeld}
                @pointerUp={self.onUp}

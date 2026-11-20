@@ -5,7 +5,7 @@
 import Game from "$game"
 import { Align, Art, Bounds, ByInteractionState, Edges, Frame, Position, Shadow } from "$ltml"
 import root Ordaen from "Ordaen"
-import { Component, SECONDARY_TEXT } from "Ordaen"
+import { Component, SECONDARY_TEXT, TIGHT_LINE } from "Ordaen"
 
 // The least a cell is high, and where it is drawn at that: the panel with the whole menu, seven bag buttons and the
 // money still fits a 1366 x 768 screen at a UI scale of 1. A cell is a divider's width narrower on each side than
@@ -23,7 +23,7 @@ const LIT: ByInteractionState<Color> = { default: Color.hex("#00000000"), hover:
 // The friends online: a green pill in the cell's lower right, 18 px high (a line of `Secondary`) and at least as wide.
 const BADGE = 21.09375dp
 const BADGE_BOUNDS: Bounds = { min: BADGE, max: nil }
-const BADGE_PAD: Edges = { right: 4.6875dp, left: 4.6875dp }
+const BADGE_PAD: Edges = { right: 1sp, left: 1sp }
 // The design's bold number: a white shadow one pixel to the right.
 const BOLD: Shadow = { color: WHITE, x: 1ui, y: 0ui }
 
@@ -88,7 +88,7 @@ public class MenuCell implements Component {
              bottom={self.badgeBottom} height={BADGE} width={BADGE_BOUNDS} padding={BADGE_PAD}
              xAlign={Align.Center} yAlign={Align.Center} background={Ordaen.art.panel.countBadge} zLevel={1}>
           <text value={"%d"} arguments={[self.count]} textSize={SECONDARY_TEXT} textColor={WHITE}
-                textFont={.Numbers} textShadow={BOLD} wrap={false} />
+                textFont={.Numbers} textShadow={BOLD} lineHeight={TIGHT_LINE} wrap={false} />
         </box>
         <embed frame={self.frame} position={Position.Absolute} left={0ui} top={0ui} width={self.size.width}
                height={self.size.height} opacity={0} />

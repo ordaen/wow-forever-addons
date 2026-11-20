@@ -2,7 +2,7 @@
 // two resets of what play made: the learned scores and the player's marks) and «Slot» (the eight clicks of a slot, each
 // one action, and the two schemes to start from). A chord's row that holds the last Use or the last Menu offers nothing
 // else, so no scheme leaves an item without a click to use it or to open its menu.
-import { Choice, Component, Dropdown, NumberInput, PushButton, Section, Switch, space } from "Ordaen"
+import { Choice, Component, Dropdown, NumberInput, PushButton, Section, Switch } from "Ordaen"
 import { AS_THE_GAME, CHORDS, Chord, Clicks, OURS, SlotAction, actionAt, choicesFor, chordName, withAction } from "@/clicks"
 import { JunkRules } from "@/junk"
 import Locale from "@/locales"
@@ -29,7 +29,7 @@ public class JunkPage implements Component {
       <Section title={Locale.SECTION_LEARNING}>
         <Switch label={Locale.RULE_LEARN} hint={Locale.RULE_LEARN_TIP} value={mut self.rules.learn} />
         <Switch label={Locale.RULE_CHAT} hint={Locale.RULE_CHAT_TIP} value={mut self.rules.chat} />
-        <box columns={2} gap={space(.Item)}>
+        <box columns={2} gap={3sp}>
           <PushButton label={Locale.FORGET_LEARNED} width={BUTTON} @click={self.onForgetLearned} />
           <PushButton label={Locale.FORGET_MARKS} width={BUTTON} @click={self.onForgetMarks} />
         </box>
@@ -91,7 +91,7 @@ public class ClicksPage implements Component {
         <text value={Locale.CLICKS_TIP} wrap={true} />
         <ChordRow $for={row of self.rows} $key={row.key} chord={peek row.chord} choices={peek row.choices}
                   clicks={mut self.clicks} />
-        <box columns={2} gap={space(.Item)}>
+        <box columns={2} gap={3sp}>
           <PushButton label={Locale.PRESET_OURS} width={BUTTON} @click={self.onOurs} />
           <PushButton label={Locale.PRESET_GAME} width={BUTTON} @click={self.onGame} />
         </box>

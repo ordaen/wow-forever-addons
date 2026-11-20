@@ -99,7 +99,7 @@ public class CountInput implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={STEPS} gap={7.03125dp} yAlign={Align.Center}>
+      <box columns={STEPS} gap={2sp} yAlign={Align.Center}>
         <PushButton label={"-"} width={self.step} disabled={!self.fewer} repeats={true} tip={FEWER_TIP}
                     @click={self.less} />
         <box xAlign={Align.Center} width={NUMBER_BOUNDS}>

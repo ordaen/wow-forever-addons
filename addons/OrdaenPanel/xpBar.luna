@@ -19,20 +19,20 @@ const BRUSHED: Art = xpFillArt(XpFill.Brushed)
 const TUBE_HEIGHT: Number<Length> = 25ui
 // The least a tube is high stacked under another: its values still read.
 const LEAST_HEIGHT = 16ui
-const GAP = 5ui
+const GAP = 1.5sp
 // Room enough for anything: a bar standing by itself.
 const UNBOUNDED = 1000ui
 // The shortest a tube is, with its margins: on a panel as long as its items, and the least the panel's middle gives
 // way to on a short screen.
 const LEAST: Bounds = { min: 240ui, max: nil }
-const MARGINS: Edges = { right: 32ui, left: 32ui }
+const MARGINS: Edges = { right: 11.5sp, left: 11.5sp }
 const RESTED: Color = Color.hex("#6e96d129")
 const LABEL: Color = Color.hex("#f3e7cc")
 const LABEL_SHADOW: Shadow = { color: Color.hex("#000000"), x: 1ui, y: -1ui }
 // The label's second value, in brackets: the label's ink, fainter.
 const DIMMED: Color = Color.hex("#f3e7cc8c")
 const LABEL_PARTS: Array<Track> = ["max-content", "max-content"]
-const LABEL_GAP = 4ui
+const LABEL_GAP = 1.5sp
 // The bars' carved edge: a dark line round the tube, where the bezel's ring would stand.
 const GROOVE: Line = { width: 2ui, color: Color.hex("#0a0603d9"), sides: [Side.Top, Side.Right, Side.Bottom, Side.Left] }
 const FILL: Array<Track> = [{ fr: 1 }]
@@ -262,7 +262,7 @@ public class XpBar implements Component {
   derived leveling: Boolean = Game.player.xpMax > 0
   derived watched: Boolean = Game.reputation.name != ""
   // Two tubes share the room, each no higher than one alone.
-  derived pairHeight: Number<Length> = TUBE_HEIGHT.min((self.room - GAP) / 2)
+  derived pairHeight: Number<Length> = TUBE_HEIGHT.min((self.room - Ordaen.lengthOf(GAP)) / 2)
   derived stacked: Boolean = self.leveling && self.watched && self.pairHeight >= LEAST_HEIGHT
   derived showsReputation: Boolean = self.watched && (!self.leveling || self.stacked)
   derived tubeHeight: Number<Length> = self.stacked ? self.pairHeight : TUBE_HEIGHT

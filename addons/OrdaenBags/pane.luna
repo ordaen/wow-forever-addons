@@ -10,16 +10,12 @@ import Client from "$client"
 import Game from "$game"
 import { Align, KeyBinding, MouseButton, Overflow, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { SECONDARY_TEXT } from "Ordaen"
-import {
-  Choice, Component, FooterCount, FooterCounts, ListTab, ModuleMemory, Money, PushButton, Tip, TipRow, ToolAct, ToolButton,
-  ToolPick, Toolbar, space
-} from "Ordaen"
+import { Choice, Component, FooterCount, FooterCounts, ListTab, ModuleMemory, Money, PushButton, SECONDARY_TEXT, Tip, TipRow, ToolAct, ToolButton, ToolPick, Toolbar, WINDOW_ROOM } from "Ordaen"
 import { BANK_ICON } from "@/bank"
 import { Clicks } from "@/clicks"
 import { GuildBank, GuildPage, GuildTab, withdrawalsText } from "@/guild"
 import { JunkRules } from "@/junk"
-import { CARD_GAP, Line, Section, cardWidth, heightOf, linesOf } from "@/layout"
+import { CARD_GAP, CardRoom, Line, Section, cardRoom, cardWidth, heightOf, linesOf } from "@/layout"
 import Locale from "@/locales"
 import { Grouping, KINDS, Slot, SortBy, Tab, View } from "@/model"
 import { CardLine, Filter, Shelf } from "@/rows"
@@ -48,11 +44,9 @@ public struct BagsView implements Plain {
 // The list of tabs at the left, and the room between it and the cards: more than between two cards, so the list reads
 // apart from them.
 public const TABS_WIDTH = 217.96875dp
-public const TABS_GAP: Number<Length> = space(.Window)
+public const TABS_GAP: Number<Spacing> = 8sp
 // The room the list's scroll bar takes at its right.
 public const SCROLL_ROOM = 18.75dp
-// The least window: the list of tabs and eight slots in a card beside it.
-public const LEAST_WIDTH: Number<Length> = 2 * space(.Window) + TABS_WIDTH + TABS_GAP + cardWidth(8) + SCROLL_ROOM
 // What a window keeps above and below its list (its tab row, its header, its footer, its room): the list is never
 // higher than the screen less this.
 const AROUND_LIST = 257.8125dp
@@ -182,11 +176,15 @@ public class Pane {
   derived shownTab: Tab = self.tabs.any(tab => tab == self.tab) ? self.tab : Tab.All
   public derived sections: Array<Section> = self.sectionsOf()
   // The list's width: the body's but for the window's room, the tabs where they show, the scroll bar.
-  derived tabsRoom: Number<Length> = self.withList ? TABS_WIDTH + TABS_GAP : 0ui
-  derived listWidth: Number<Length> = self.width - 2 * space(.Window) - self.tabsRoom - SCROLL_ROOM
-  public derived lines: Array<Line> = linesOf(self.sections, self.listWidth, self.collapsed)
+  derived room: CardRoom = cardRoom()
+  // The least window: the list of tabs and eight slots in a card beside it.
+  public derived leastWidth: Number<Length> =
+    Ordaen.lengthOf(2 * WINDOW_ROOM + TABS_GAP) + TABS_WIDTH + cardWidth(8, self.room) + SCROLL_ROOM
+  derived tabsRoom: Number<Length> = self.withList ? TABS_WIDTH + Ordaen.lengthOf(TABS_GAP) : 0ui
+  derived listWidth: Number<Length> = self.width - Ordaen.lengthOf(2 * WINDOW_ROOM) - self.tabsRoom - SCROLL_ROOM
+  public derived lines: Array<Line> = linesOf(self.sections, self.listWidth, self.collapsed, self.room)
   // As high as its cards, or as the screen lets it be.
-  derived cardsHeight: Number<Length> = heightOf(self.lines)
+  derived cardsHeight: Number<Length> = heightOf(self.lines, self.room)
   derived listHeight: Number<Length> = self.cardsHeight.min(Client.UIParent.GetHeight() * 1ui - AROUND_LIST)
   derived listOverflow: Overflow | nil = self.listHeight < self.cardsHeight ? Overflow.Scroll : nil
   public derived filter: Filter = { query: self.query, place: Game.bags.place, lit: self.isBags ? self.lit : -1 }
@@ -332,11 +330,11 @@ public class Pane {
   onGoldLeave(mut self) { self.goldShown = false }
 
   public const footer: Template = $ltml {
-    <box columns={FOOT} gap={space(.Group)} yAlign={Align.Center}>
+    <box columns={FOOT} gap={6sp} yAlign={Align.Center}>
       <FooterCounts counts={self.footCounts} />
       <box />
       <PushButton $if={self.selling} label={Locale.SELL_JUNK} width={BUTTON} @click={self.onSellJunk} />
-      <box $elseif={self.guildLive} columns={2} gap={space(.Item)}>
+      <box $elseif={self.guildLive} columns={2} gap={3sp}>
         <PushButton label={Locale.GUILD_DEPOSIT} width={BUTTON} @click={self.onDeposit} />
         <PushButton label={Locale.GUILD_WITHDRAW} width={BUTTON} disabled={!self.guild.canWithdraw} @click={self.onWithdraw} />
       </box>
@@ -357,7 +355,7 @@ public class Pane {
   }
 
   public const body: Template = $ltml {
-    <box rows={BODY} gap={space(.Group)}>
+    <box rows={BODY} gap={6sp}>
       <Toolbar search={mut self.search} placeholder={Locale.SEARCH}>
         <ToolPick value={mut self.list.values.sort} choices={SORTS} icon={Ordaen.art.ctl.tool.sort} title={Locale.SORT} />
         <ToolAct icon={Ordaen.art.ctl.tool.arrange} title={Locale.ARRANGE} text={Locale.ARRANGE_TIP}
@@ -368,25 +366,25 @@ public class Pane {
         <ToolButton $elseif={self.bankSlots} icon={BANK_ICON} title={Locale.BANK_SLOTS} text={Locale.BANK_SLOTS_TIP}
                     open={mut self.bankSlotsOpen} tinted={false} />
       </Toolbar>
-      <box columns={1} rows={self.listRows} gap={space(.Item)}>
+      <box columns={1} rows={self.listRows} gap={3sp}>
         <text $if={self.copy} value={self.copyText} textColor={LABEL} textSize={SECONDARY_TEXT} />
         <text $if={!self.seen && !self.live} value={Locale.BANK_UNSEEN} textColor={LABEL} />
         <box $elseif={self.withList} columns={WITH_TABS} rows={FILL} gap={TABS_GAP}>
-          <box $if={self.isGuild} columns={1} gap={2.34375dp}>
+          <box $if={self.isGuild} columns={1} gap={0.5sp}>
             <GuildTabEntry $for={tab of self.guild.tabs} tab={tab} current={self.guild.tab} page={self.guild.page} live={self.live}
                            @picked={self.onGuildTab} />
             <ListTab $if={self.live} label={Locale.GUILD_LOG} selected={self.guild.page == GuildPage.Log} @pick={self.onGuildLog} />
             <ListTab $if={self.live} label={Locale.GUILD_MONEY_LOG} selected={self.guild.page == GuildPage.MoneyLog}
                      @pick={self.onMoneyLog} />
           </box>
-          <box $else columns={1} gap={2.34375dp}>
+          <box $else columns={1} gap={0.5sp}>
             <TabEntry $for={tab of self.tabs} $key={tab} tab={peek tab} current={self.shownTab} counts={self.counts} @picked={self.onTab} />
           </box>
           <box $if={self.gridShown} columns={1}>
             {self.cards}
           </box>
           <text $elseif={self.guild.page == GuildPage.Items} value={Locale.GUILD_LOADING} textColor={LABEL} />
-          <box $else columns={1} gap={space(.Item)} overflow={Overflow.Scroll}>
+          <box $else columns={1} gap={3sp} overflow={Overflow.Scroll}>
             <text $for={line of self.guild.log} value={line} wrap={true} />
           </box>
         </box>

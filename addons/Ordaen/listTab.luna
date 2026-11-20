@@ -14,7 +14,7 @@ const SELECTED: Color = Color.hex("#00000040")
 // An icon that is off: darker.
 const DIM: Color = Color.hex("#999999")
 const LIGHT: Color = Color.hex("#d6a56b")
-const PADDING: Edges = { top: 8.203125dp, right: 14.0625dp, bottom: 8.203125dp, left: 18.75dp }
+const PADDING: Edges = { top: 2sp, right: 3.5sp, bottom: 2sp, left: 4.5sp }
 const WITH_ICON: Array<Track> = [25.78125dp, { fr: 1 }, "max-content"]
 // An entry without an icon: its name from the left.
 const NO_ICON: Array<Track> = [{ fr: 1 }, "max-content"]
@@ -51,7 +51,7 @@ public class ListTab implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={self.columns} gap={11.71875dp} padding={PADDING} yAlign={Align.Center}
+      <box columns={self.columns} gap={3sp} padding={PADDING} yAlign={Align.Center}
            background={self.background} @pointerPress={self.onClick} @keyPress(.Enter)={self.onClick} @keyPress(.Space)={self.onClick}>
         <box position={Position.Absolute} left={0ui} top={0ui} bottom={0ui} width={3.515625dp} background={self.light} />
         <box $if={self.hasIcon} width={25.78125dp} height={25.78125dp} icon={self.icon} tint={self.tint} />

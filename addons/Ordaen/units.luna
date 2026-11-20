@@ -1,23 +1,15 @@
-// The spacing ladder: every room a window keeps round and between what it shows is one of these steps, and nothing
-// else. Each a clear step from the next, so the eye reads which things belong together:
-// `Line` (4.6875dp): between the lines of one block of text (a tooltip's title, its sentences, its rows); an
-// underline stands in the middle of it, under its text.
-// `Item` (9.375dp): between the things of one group (the buttons of a row, a label and its value, the rows of a
-// list's lines); the least room anything keeps from a frame's line, which the drawn rules hold every text to.
-// `Panel` (18.75dp): inside a panel or a list's frame, from its line to what it holds.
-// `Group` (23.4375dp): between groups (the toolbar and the list under it, the list and the details beside it, the
-// body and the footer); more than a line of body text, so groups read apart.
-// `Window` (28.125dp): inside a window's frame, from its line to its content, more than any gap inside it.
-public enum Space { Line, Item, Panel, Group, Window }
+// The rhythm every window keeps: gaps, paddings and lines are counted in the spacing unit (`sp`), whose size the
+// player's density sets, so what stands apart or together reads the same in every window and at every density.
+// The body text's line is `BODY_LINE`: a row of a list is a whole number of it, and every other room a whole or half
+// number of `sp`.
+import { Density } from "@/globals"
 
-// A step of the ladder: a constant where the step is written out (`space(.Panel)` is built as a number).
-public const function space(step: Space): Number<Length> {
-  return match (step) {
-    .Line => 4.6875dp
-    .Item => 9.375dp
-    .Panel => 18.75dp
-    .Group => 23.4375dp
-    .Window => 28.125dp
+// What `1sp` is at each density: at the most compact, the body's line still clears its font's own line.
+public function spacingFor(density: Density): Number<Length> {
+  return match (density) {
+    .Compact => 3.75dp
+    .Normal => 4dp
+    .Roomy => 5dp
   }
 }
 
@@ -26,3 +18,13 @@ public const function space(step: Space): Number<Length> {
 // size.
 public const SECONDARY_TEXT: Number<TextSize> = 12rem / 13
 public const TITLE_TEXT: Number<TextSize> = 16rem / 13
+
+// The room inside a window's frame, from its line to its content: more than any gap inside it.
+public const WINDOW_ROOM: Number<Spacing> = 8sp
+
+// How high a line of each text is: the body's and a secondary text's one line of the rhythm, a title's a line and a
+// half.
+public const BODY_LINE: Number<Spacing> = 6sp
+public const TITLE_LINE: Number<Spacing> = 9sp
+// A text set on art keeps its font's own line, the least a line is: a count on an icon, a label on a plate.
+public const TIGHT_LINE: Number<Spacing> = 0sp

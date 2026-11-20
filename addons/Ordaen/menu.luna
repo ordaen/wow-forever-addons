@@ -10,6 +10,7 @@ import { Align, Anchored, Art, Beside, ByInteractionState, Edges, Frame, Layer, 
 import root Ordaen from "Ordaen"
 import { Component } from "@/module"
 import { KNOB_OFF, KNOB_ON, KNOB_TOP, SWITCH_HEIGHT, SWITCH_KNOB, SWITCH_WIDTH, knobShown } from "@/switch"
+import { BODY_LINE } from "@/units"
 
 // One line of a menu.
 public struct MenuEntry {
@@ -31,9 +32,9 @@ const TITLE: Color = Color.hex("#ffd100")
 const WIDTH = 257.8125dp
 const BACK: Color = Color.hex("#0a0806f7")
 const EDGE: Line = { width: 1.171875dp, color: Color.hex("#6c5535") }
-const PAD: Edges = { top: 7.03125dp, bottom: 7.03125dp }
-const ITEM_PAD: Edges = { top: 7.03125dp, right: 16.40625dp, bottom: 7.03125dp, left: 16.40625dp }
-const GROUP_PAD: Edges = { top: 14.0625dp, right: 16.40625dp, bottom: 7.03125dp, left: 16.40625dp }
+const PAD: Edges = { top: 2sp, bottom: 2sp }
+const ITEM_PAD: Edges = { top: 2sp, right: 4sp, bottom: 2sp, left: 4sp }
+const GROUP_PAD: Edges = { top: 3.5sp, right: 4sp, bottom: 2sp, left: 4sp }
 const RULE: Line = { width: 1.171875dp, color: Color.hex("#3e2f1d"), sides: [Side.Top] }
 const NAME: ByInteractionState<Color> = { default: Color.hex("#e8dcc4"), hover: Color.hex("#ffffff"), focus: Color.hex("#ffffff") }
 const DIM: Color = Color.hex("#6f6552")
@@ -77,7 +78,7 @@ public class MenuItem implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={ROW} gap={11.71875dp} padding={self.padding} yAlign={Align.Center} border={self.rule}
+      <box columns={ROW} gap={3sp} padding={self.padding} yAlign={Align.Center} border={self.rule}
            background={self.light} @pointerPress={self.onClick} @keyPress(.Enter)={self.onClick} @keyPress(.Space)={self.onClick}
            @pointerEnter={self.onEnter}>
         <text value={self.entry.label} textColor={self.color} wrap={false} />
@@ -131,14 +132,14 @@ public class Menu implements Component {
 
   public render(self): Template {
     return $ltml {
-      <surface layer={Layer.Tooltip} place={Beside { beside: "parent" }} width={self.width} background={BACK}
+      <surface lineHeight={BODY_LINE} layer={Layer.Tooltip} place={Beside { beside: "parent" }} width={self.width} background={BACK}
                border={EDGE} padding={PAD} columns={1} @pointerPressOutside={self.onOutside}>
         <box $if={self.titled} padding={ITEM_PAD}>
           <text value={self.title} textColor={TITLE} wrap={false} />
         </box>
         <MenuItem $for={index, entry of self.entries} $key={index} entry={entry} index={index}
                   @pick={self.onPick} @enter={self.onEnter} />
-        <surface $if={self.opened > 0} layer={Layer.Tooltip} place={self.beside} clamp={true} width={WIDTH}
+        <surface lineHeight={BODY_LINE} $if={self.opened > 0} layer={Layer.Tooltip} place={self.beside} clamp={true} width={WIDTH}
                  background={BACK} border={EDGE} padding={PAD} columns={1}>
           <MenuItem $for={index, entry of self.more} $key={index} entry={entry} index={index} @pick={self.onPickMore} />
         </surface>

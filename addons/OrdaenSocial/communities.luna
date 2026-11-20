@@ -1,7 +1,7 @@
 // The communities tab's own part: the picked community's card (its kind and size, its description and broadcast, and
 // its streams). Each community is a tab of the communities' own row, its members in the roster under it.
 import { Align, Overflow } from "$ltml"
-import { Component, SECONDARY_TEXT, TITLE_TEXT, space } from "Ordaen"
+import { Component, SECONDARY_TEXT, TITLE_LINE, TITLE_TEXT } from "Ordaen"
 import { orDash } from "@/friends"
 import Locale from "@/locales"
 import { Club, Stream } from "@/people"
@@ -39,13 +39,13 @@ public class ClubCard implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={1} rows={["max-content", { fr: 1 }]} gap={space(.Group)}>
+      <box columns={1} rows={["max-content", { fr: 1 }]} gap={6sp}>
         <box columns={1}>
-          <text value={self.club.name} textColor={self.club.battleNet ? Style.BATTLE_NET : Style.GOLD} textSize={TITLE_TEXT}
+          <text value={self.club.name} textColor={self.club.battleNet ? Style.BATTLE_NET : Style.GOLD} textSize={TITLE_TEXT} lineHeight={TITLE_LINE}
                 textFont={.Title} wrap={false} />
           <text value={kindOf(self.club)} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={false} />
         </box>
-        <box columns={1} gap={space(.Item)} overflow={Overflow.Scroll} yAlign={Align.Start}>
+        <box columns={1} gap={3sp} overflow={Overflow.Scroll} yAlign={Align.Start}>
           <text value={Locale.CLUB_DESCRIPTION} textColor={Style.DIM} wrap={false} />
           <text value={orDash(self.club.description)} textColor={Style.INK} wrap={true} />
           <text $if={self.club.broadcast != ""} value={Locale.QUOTED.format(self.club.broadcast)} textColor={Style.INK} wrap={true} />

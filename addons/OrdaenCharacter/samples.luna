@@ -2,7 +2,7 @@
 // top line, until `"$game"` has a part for it (the module's report names it).
 import { Overflow } from "$ltml"
 import root Ordaen from "Ordaen"
-import { ARTWORK, Choice, Component, SECONDARY_TEXT, ToolPick, Toolbar, space } from "Ordaen"
+import { ARTWORK, Choice, Component, SECONDARY_TEXT, ToolPick, Toolbar } from "Ordaen"
 import { Card, Filed, Group, StatGroup, grouped } from "@/gear"
 import Locale from "@/locales"
 import Style from "@/style"
@@ -72,13 +72,13 @@ public class StatisticsPage implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box rows={["max-content", "max-content", { fr: 1 }]} gap={space(.Group)}>
+      <box rows={["max-content", "max-content", { fr: 1 }]} gap={6sp}>
         <SampleNote />
         <Toolbar search={mut self.search} placeholder={Locale.SEARCH_STATS}>
           <ToolPick value={mut self.view} choices={VIEWS} icon={Ordaen.art.ctl.tool.categories} title={Locale.VIEW} />
         </Toolbar>
         <box overflow={Overflow.Scroll}>
-          <box gap={space(.Item)}>
+          <box gap={3sp}>
             <text $if={self.empty} value={Locale.NOTHING_FOUND} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
             <StatGroup $for={group of self.groups} group={group} />
           </box>

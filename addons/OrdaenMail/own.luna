@@ -1,7 +1,7 @@
 // «To my characters»: the player's other characters a letter can reach, from Ordaen Alts. With Ordaen Alts off, or
 // with no other character recorded, it says so and offers nothing.
 import { Align, Overflow } from "$ltml"
-import { Component, TITLE_TEXT } from "Ordaen"
+import { Component, TITLE_LINE, TITLE_TEXT } from "Ordaen"
 import type { Alts } from "OrdaenAlts"
 import Locale from "@/locales"
 import Style from "@/style"
@@ -39,10 +39,10 @@ public class OwnTab implements Component {
       <box $elseif={self.alone} xAlign={Align.Center} yAlign={Align.Center}>
         <text value={Locale.ALTS_ALONE} textColor={Style.DIM} />
       </box>
-      <box $else columns={1} gap={9.375dp}>
-        <text value={Locale.SEND_TO_OWN} textSize={TITLE_TEXT} textColor={Style.GOLD} />
+      <box $else columns={1} gap={2.5sp}>
+        <text value={Locale.SEND_TO_OWN} textSize={TITLE_TEXT} lineHeight={TITLE_LINE} textColor={Style.GOLD} />
         <box overflow={Overflow.Scroll}>
-          <box $for={name of self.names} $key={name} padding={{ top: 4.6875dp, bottom: 4.6875dp }}>
+          <box $for={name of self.names} $key={name} padding={{ top: 1sp, bottom: 1sp }}>
             <text value={name} textColor={Style.INK} />
           </box>
         </box>

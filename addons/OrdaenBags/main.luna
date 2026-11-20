@@ -15,9 +15,7 @@ import Game from "$game"
 import { Event, Frame, KeyBinding, MouseButton } from "$ltml"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
-import {
-  ButtonPlate, Dialog, KeptWindow, ModuleMemory, Module, MoneyField, PushButton, Settings, SettingsPage, space, TipRow, windowsTitle, WindowsPage, Window, WindowTabSpec
-} from "Ordaen"
+import { ButtonPlate, Dialog, KeptWindow, Module, ModuleMemory, MoneyField, PushButton, Settings, SettingsPage, TipRow, Window, WindowTabSpec, WindowsPage, windowsTitle } from "Ordaen"
 import { Arranger } from "@/arrange"
 import { BagLine, BagSlotsWindow } from "@/bagSlots"
 import { BANK_ICON, BankBag, BankSlotsWindow, bankInfos } from "@/bank"
@@ -29,7 +27,7 @@ import { JUNK_RULES, JunkLists, JunkRules, LEARNED, Mark, NO_LISTS, afterSale, s
 import Locale from "@/locales"
 import { MERCHANT_VIEW, MerchantView, MerchantWindow } from "@/merchant"
 import { MOVED, Slot, SortBy } from "@/model"
-import { BagsView, Choices, LEAST_WIDTH, Pane, junkIn, worthIn } from "@/pane"
+import { BagsView, Choices, Pane, junkIn, worthIn } from "@/pane"
 import { ClicksPage, JunkPage } from "@/settings"
 import { MenuAct, SlotMenu, menuOf } from "@/slotMenu"
 import { Stock } from "@/stock"
@@ -62,6 +60,8 @@ enum MoneyMove { Deposit, Withdraw }
 const DEFAULTS: Choices = { hidden: [], hideEmpty: false, grouping: {}, junk: JUNK_RULES, clicks: OURS }
 const NOTHING_KEPT: Kept = { guards: [] }
 // The window's body: wide enough for the tabs and ten slots, tall enough for ten rows.
+// Between the window and a bag's window opened beside it.
+const BESIDE: Number<Spacing> = 6sp
 const WIDTH = 773.4375dp
 const HEIGHT = 609.375dp
 // The merchant's window: two columns of goods; its right column widens it.
@@ -236,7 +236,7 @@ public class Bags implements Module, App {
     const at = peek self.window.placing
     const size = peek self.vaultWindow.memory.values
     self.vaultWindow.memory.write({
-      x: at.x - at.width / 2 - space(.Group) - size.width / 2, y: at.y - at.height / 2 + size.height / 2, ..size
+      x: at.x - at.width / 2 - Ordaen.lengthOf(BESIDE) - size.width / 2, y: at.y - at.height / 2 + size.height / 2, ..size
     })
   }
 
@@ -631,7 +631,7 @@ public class Bags implements Module, App {
     if (!open) { return }
     const at = peek beside.placing
     const size = peek slots.memory.values
-    const away = at.width / 2 + space(.Group) + size.width / 2
+    const away = at.width / 2 + Ordaen.lengthOf(BESIDE) + size.width / 2
     slots.memory.write({ x: right ? at.x + away : at.x - away, y: at.y - at.height / 2 + size.height / 2, ..size })
   }
 
@@ -652,15 +652,15 @@ public class Bags implements Module, App {
   public render(self): Template {
     return $ltml {
       <frame $for={window of self.gameFrames} of={window} opacity={0} away={true} />
-      <MerchantWindow $if={self.vendor.open} vendor={self.vendor} declared={mut self.merchantWindow} list={mut self.merchantList}
+      <MerchantWindow $if={self.vendor.open} vendor={mut self.vendor} declared={mut self.merchantWindow} list={mut self.merchantList}
                       junkCount={self.carriedJunkCount} junkWorth={self.carriedJunkWorth} @sellJunk={self.sellJunk} />
       <$if={self.ever}>
         <Window tabs={self.windowTabs} selected={mut self.windowTab} declared={mut self.window} shown={self.shown}
-                minWidth={LEAST_WIDTH} withSettings={true} footer={self.main.footer} @close={self.onClose} @settings={self.onSettings}>
+                minWidth={self.main.leastWidth} withSettings={true} footer={self.main.footer} @close={self.onClose} @settings={self.onSettings}>
           {self.main.body}
         </Window>
         <Window tabs={self.vaultTabs} selected={mut self.vaultTab} declared={mut self.vaultWindow} shown={self.atVault}
-                minWidth={LEAST_WIDTH} footer={self.side.footer} @close={self.onVaultClose}>
+                minWidth={self.side.leastWidth} footer={self.side.footer} @close={self.onVaultClose}>
           {self.side.body}
         </Window>
         <BagSlotsWindow $if={self.slotsOpen && self.shown && self.main.isBags} lines={self.bagLines} declared={mut self.slotsWindow}

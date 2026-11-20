@@ -127,7 +127,7 @@ public class MoneyLine implements Component {
   // Down a side of the screen the two stand one under the other, in the panel's middle, the money wrapping in its
   // width.
   derived columns: Array<Track> = self.vertical ? WHOLE : PAIR
-  derived gap: Number<Length> = self.vertical ? 4ui / 1.2 : 12ui / 1.2
+  derived gap: Number<Spacing> = self.vertical ? 1sp : 3.5sp
   derived across: Align = self.vertical ? Align.Center : Align.Stretch
 
   outline: Signal<Integer>

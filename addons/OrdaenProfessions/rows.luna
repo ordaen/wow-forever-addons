@@ -4,7 +4,7 @@
 // what was clicked (`Act`): the left button picks it, the right one opens its menu.
 import Game from "$game"
 import { Align, Art, Edges, Line, MouseButton, Position, Track } from "$ltml"
-import { Component, ItemButton, Money, SelectItem, TableRow, space } from "Ordaen"
+import { Component, ItemButton, Money, SelectItem, TableRow } from "Ordaen"
 import { Totals } from "@/cost"
 import { RecipeMenu } from "@/menu"
 import Style from "@/style"
@@ -12,14 +12,14 @@ import { Act, FAVORITES, Group, Kept, has, members } from "@/view"
 
 const NAME_COUNT: Array<Track> = [{ fr: 1 }, "max-content"]
 const MARKS: Array<Track> = ["max-content", "max-content"]
-const CATEGORY_PAD: Edges = { top: 8.203125dp, right: space(.Panel), bottom: 8.203125dp, left: space(.Panel) }
-const RECIPE_PAD: Edges = { top: 7.03125dp, right: space(.Panel), bottom: 7.03125dp, left: space(.Panel) }
+const CATEGORY_PAD: Edges = { top: 2sp, right: 5sp, bottom: 2sp, left: 5sp }
+const RECIPE_PAD: Edges = { top: 2sp, right: 5sp, bottom: 2sp, left: 5sp }
 // A recipe under a heading stands in past the heading's fold mark.
-const INDENT_PAD: Edges = { top: 7.03125dp, right: space(.Panel), bottom: 7.03125dp, left: space(.Panel) + 21.09375dp }
+const INDENT_PAD: Edges = { top: 2sp, right: 5sp, bottom: 2sp, left: 5sp + 5.5sp }
 const FOLD: Array<Track> = [11.71875dp, { fr: 1 }, "max-content"]
 const SLOT = 37.5dp
 const REAGENT: Array<Track> = [SLOT, { fr: 1 }, "max-content"]
-const REAGENT_PAD: Edges = { top: 3.515625dp, right: 7.03125dp, bottom: 3.515625dp }
+const REAGENT_PAD: Edges = { top: 1sp, right: 2sp, bottom: 1sp }
 // The pip of a recipe the player starred: between its name and its count.
 const STAR = 9.375dp
 const STAR_RIGHT = 53.90625dp
@@ -58,7 +58,7 @@ public class CategoryRow implements Component {
       <SelectItem selected={self.isChosen} first={self.first} columns={NAME_COUNT} padding={CATEGORY_PAD}
                   @pick={self.onClick}>
         <text value={self.group.name} textColor={self.nameColor} textShadow={Style.SHADOW} />
-        <box columns={MARKS} gap={3.515625dp} yAlign={Align.Center}>
+        <box columns={MARKS} gap={1sp} yAlign={Align.Center}>
           <text value={"%d"} arguments={[self.group.total]} textColor={Style.DIM} wrap={false}
                 textFont={.Numbers} />
           <text value={"(%d)"} arguments={[self.group.makeable]} textColor={self.makeableColor} wrap={false}
@@ -169,12 +169,12 @@ public class CategoryGroup implements Component {
   public render(self): Template {
     return $ltml {
       <box columns={1}>
-        <box columns={FOLD} gap={9.375dp} padding={CATEGORY_PAD} yAlign={Align.Center} border={Style.ROW_RULE}
+        <box columns={FOLD} gap={2.5sp} padding={CATEGORY_PAD} yAlign={Align.Center} border={Style.ROW_RULE}
              background={Style.ROW_LIGHT} @pointerPress={self.fold} @keyPress(.Enter)={self.fold} @keyPress(.Space)={self.fold}>
           <text value={self.mark} textColor={Style.DIM} wrap={false} />
           <text value={self.group.name} textColor={self.nameColor}
                 textShadow={Style.SHADOW} />
-          <box columns={MARKS} gap={3.515625dp} yAlign={Align.Center}>
+          <box columns={MARKS} gap={1sp} yAlign={Align.Center}>
             <text value={"%d"} arguments={[self.group.total]} textColor={Style.DIM} wrap={false}
                   textFont={.Numbers} />
             <text value={"(%d)"} arguments={[self.group.makeable]} textColor={self.makeableColor} wrap={false}
@@ -254,7 +254,7 @@ public class RecipeTableRow implements Component {
               <Money $if={self.hasCost} amount={self.cost} />
               <text $else value={"—"} textColor={Style.DIM} />
             </box>
-            <box xAlign={Align.End} columns={["max-content", "max-content"]} gap={2.34375dp}>
+            <box xAlign={Align.End} columns={["max-content", "max-content"]} gap={0.5sp}>
               <text $if={self.losing} value={"-"} textColor={Style.RED} />
               <Money $if={self.hasProfit} amount={self.profit} color={self.profitColor} />
               <text $else value={"—"} textColor={Style.DIM} />
@@ -286,7 +286,7 @@ public class ReagentRow implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={REAGENT} gap={9.375dp} yAlign={Align.Center} padding={REAGENT_PAD} border={self.rule}>
+      <box columns={REAGENT} gap={2.5sp} yAlign={Align.Center} padding={REAGENT_PAD} border={self.rule}>
         <ItemButton item={self.item} art={self.icon} size={SLOT} />
         <text value={self.reagent.name} textColor={Style.INK} />
         <text value={"%d / %d"} arguments={[self.reagent.have, self.reagent.need]} wrap={false} textColor={self.color}

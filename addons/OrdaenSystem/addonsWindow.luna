@@ -7,9 +7,7 @@ import Events from "$events"
 import Game from "$game"
 import { Action, Align, Edges, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { ButtonPlate, SECONDARY_TEXT } from "Ordaen"
-import { ARTWORK, Choice, Component, Dialog, TextField, Menu, MenuEntry, Placing, PushButton, space, Tip, TipRow, Toolbar,
-  KeptWindow, ModuleMemory, TipText, ToolPick, Window, WindowSide, WindowTabSpec } from "Ordaen"
+import { ARTWORK, ButtonPlate, Choice, Component, Dialog, KeptWindow, Menu, MenuEntry, ModuleMemory, Placing, PushButton, SECONDARY_TEXT, TextField, Tip, TipRow, TipText, ToolPick, Toolbar, Window, WindowSide, WindowTabSpec } from "Ordaen"
 import { Card } from "@/card"
 import { AddOn, Catalog, Status, plain } from "@/catalog"
 import { Age, FilterPick, Heat, Loading, Standing, Written } from "@/filter"
@@ -66,8 +64,8 @@ const BODY: Array<Track> = ["max-content", "max-content", { fr: 1 }, "max-conten
 const FOOT: Array<Track> = ["max-content", { fr: 1 }, "max-content"]
 const GROUP: Array<Track> = ["max-content", "max-content"]
 const STRIP: Array<Track> = [{ fr: 1 }, "max-content"]
-const HEADING: Edges = { left: space(.Item), right: space(.Item) }
-const HALF: Number<Length> = space(.Item) / 2
+const HEADING: Edges = { left: 3sp, right: 3sp }
+const HALF: Number<Spacing> = 3sp / 2
 // «Reload»: the client does it from the player's click (Forever refuses `ReloadUI` from addon code).
 const RELOAD: Action = Action.RunMacro { macro: "/reload" }
 const RELOAD_TIP: TipText = { title: Locale.RELOAD, text: Locale.IN_COMBAT, rows: [] }
@@ -150,8 +148,8 @@ public class AddOnsWindow implements Component {
           @pick={self.onPick} @toggle={self.onCardToggle} @settings={self.onSettings} />
   }
   const footer: Template = $ltml {
-    <box columns={FOOT} gap={space(.Group)} yAlign={Align.Center}>
-      <box columns={GROUP} gap={space(.Item)} yAlign={Align.Center}>
+    <box columns={FOOT} gap={6sp} yAlign={Align.Center}>
+      <box columns={GROUP} gap={3sp} yAlign={Align.Center}>
         <PushButton label={Locale.RESET} width={BUTTON} @click={self.onReset} />
         <box>
           <PushButton label={Locale.SETS} width={BUTTON} @click={self.onSets} />
@@ -159,7 +157,7 @@ public class AddOnsWindow implements Component {
         </box>
       </box>
       <box />
-      <box columns={GROUP} gap={space(.Item)} yAlign={Align.Center}>
+      <box columns={GROUP} gap={3sp} yAlign={Align.Center}>
         <box @pointerEnter={self.onWaitEnter} @pointerLeave={self.onWaitLeave}>
           <text value={self.waitText} textColor={Style.GOLD} textSize={SECONDARY_TEXT} wrap={false} />
           <Tip $if={self.waitTip} title={self.waitText} text={""} rows={self.waitRows} />
@@ -517,7 +515,7 @@ public class AddOnsWindow implements Component {
     return $ltml {
       <Window tabs={self.tabs} selected={mut self.tab} declared={mut self.declared} shown={self.shown}
               footer={self.footer} side={self.side} @close={self.onClose}>
-        <box rows={BODY} gap={space(.Item)}>
+        <box rows={BODY} gap={3sp}>
           <Toolbar search={mut self.search} placeholder={Locale.SEARCH}>
             <box padding={HEADING}>
               <text value={self.countText} textColor={Style.DIM} textFont={.Numbers} wrap={false} />
@@ -530,7 +528,7 @@ public class AddOnsWindow implements Component {
             <ToolPick value={mut self.list.values.view} choices={VIEWS} icon={Ordaen.art.ctl.tool.categories}
                       title={Locale.VIEW} />
           </Toolbar>
-          <box columns={self.columns} gap={space(.Item)} padding={HEADING} yAlign={Align.Center}>
+          <box columns={self.columns} gap={3sp} padding={HEADING} yAlign={Align.Center}>
             <box @pointerPress={self.onHeadName} @keyPress(.Enter)={self.onHeadName} @keyPress(.Space)={self.onHeadName}>
               <text value={Locale.COL_ADDON} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={false} />
             </box>
@@ -560,7 +558,7 @@ public class AddOnsWindow implements Component {
                      @toggle={self.onToggle} @toggleGroup={self.onToggleGroup} @fold={self.onFold}
                      @settings={self.onSettings} @loadNow={self.onLoadNow} />
           </virtualList>
-          <box $if={self.stepShown} columns={STRIP} gap={space(.Item)} yAlign={Align.Center}>
+          <box $if={self.stepShown} columns={STRIP} gap={3sp} yAlign={Align.Center}>
             <box xAlign={Align.End}>
               <text value={self.also} textColor={Style.INK} textSize={SECONDARY_TEXT} />
             </box>

@@ -4,7 +4,7 @@
 // never makes more than the bags make now: with nothing to make, the count and «Create» are disabled.
 import Game from "$game"
 import { Align, Track } from "$ltml"
-import { Choice, CompactDropdown, Component, CountInput, PushButton, SECONDARY_TEXT, space } from "Ordaen"
+import { Choice, CompactDropdown, Component, CountInput, PushButton, SECONDARY_TEXT } from "Ordaen"
 import Locale from "@/locales"
 import { expectedMakings } from "@/skillUps"
 import Style from "@/style"
@@ -100,11 +100,11 @@ public class MakeRow implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={MAKE} gap={space(.Item)} yAlign={Align.Center}>
+      <box columns={MAKE} gap={3sp} yAlign={Align.Center}>
         <CompactDropdown value={mut self.mode} choices={MODES} width={MODE_WIDTH} />
         <CountInput $if={self.counted} value={mut self.count} least={1} most={self.most} step={STEP} />
         <box $else />
-        <text value={self.hint} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
+        <text value={self.hint} textSize={SECONDARY_TEXT} textColor={Style.DIM} wrap={false} />
         <PushButton label={Locale.CREATE} width={128.90625dp} disabled={self.cannot} @click={self.onCreate} />
       </box>
     }

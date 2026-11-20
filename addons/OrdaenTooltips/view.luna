@@ -9,16 +9,16 @@
 import { Align, Edges, Frame, Place, Point } from "$ltml"
 import { Component, TooltipGroup } from "Ordaen"
 import { GOLD } from "@/colors"
-import { TipFrame } from "@/frame"
+import { HEADER, TipFrame } from "@/frame"
 import { Kind, Model, Opens } from "@/model"
 import { Options } from "@/options"
 import { term } from "@/term"
 import { unitOf } from "@/unit"
 
-const GAP = 4.6875dp
-// With a comparison shown the main tooltip sits this much lower, so its title lines up with the worn item's under
-// its «Equipped» header.
-const LOWERED: Edges = { top: 41.015625dp }
+const GAP = 1sp
+// With a comparison shown the main tooltip sits as much lower as the worn item's «Equipped» header is high, so their
+// titles line up.
+const LOWERED: Edges = { top: HEADER }
 const LEVEL: Edges = {}
 
 // Where a group stands by a frame of the game's.

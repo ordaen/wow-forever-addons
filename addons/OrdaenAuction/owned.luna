@@ -4,7 +4,7 @@
 // the client's from a click alone). «Check» asks the client for them again and browses their items.
 import Game from "$game"
 import { Align, Track } from "$ltml"
-import { Column, Component, ItemButton, ModuleMemory, Money, PushButton, SECONDARY_TEXT, Table, TableRow, space, tracksOf } from "Ordaen"
+import { Column, Component, ItemButton, ModuleMemory, Money, PushButton, SECONDARY_TEXT, Table, TableRow, tracksOf } from "Ordaen"
 import { House, nameOf } from "@/house"
 import Locale from "@/locales"
 import { PriceKey } from "@/quote"
@@ -65,8 +65,8 @@ class OwnedRow implements Component {
 
   public render(self): Template {
     return $ltml {
-      <TableRow tracks={TRACKS} height={Style.BUTTON_ROW}>
-        <box columns={ITEM} gap={9.375dp} yAlign={Align.Center}>
+      <TableRow tracks={TRACKS}>
+        <box columns={ITEM} gap={2.5sp} yAlign={Align.Center}>
           <ItemButton item={self.shown.item} size={Style.SLOT} />
           <box rows={LINES} overflow={.Hidden}>
             <text value={self.shown.name} textColor={self.shown.color} wrap={false} />
@@ -154,7 +154,7 @@ public class OwnedPage implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box rows={PAGE} gap={space(.Item)}>
+      <box rows={PAGE} gap={3sp}>
         <box rows={FILL} border={Style.FRAME} background={Style.LISTS_BACK}>
           <Table columns={COLUMNS} sorted={mut self.list.values.sorted} descending={mut self.list.values.descending}>
             <OwnedRow $for={row of self.rows} $key={row} shown={row} busy={Game.auctionActions.busy}
@@ -164,7 +164,7 @@ public class OwnedPage implements Component {
             </box>
           </Table>
         </box>
-        <box columns={BUTTONS} gap={space(.Group)} yAlign={Align.Center}>
+        <box columns={BUTTONS} gap={6sp} yAlign={Align.Center}>
           <PushButton label={Locale.CHECK} width={164.0625dp} @click={self.onCheck} />
           <text value={Locale.CHECK_NOTE} textColor={Style.DIM} textSize={SECONDARY_TEXT} />
         </box>

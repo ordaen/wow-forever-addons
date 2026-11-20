@@ -566,7 +566,7 @@ public class ProfilesPage implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={1} gap={21.09375dp}>
+      <box columns={1} gap={5.5sp}>
         <Section title={Locale.PROFILES_SECTION_PROFILE}>
           <Note text={self.activeLine} color={INK} />
           <ProfileDropdown label={Locale.PROFILES_PICKED} hint={Locale.PROFILES_PICKED_TIP} value={mut self.chosen}
@@ -574,7 +574,7 @@ public class ProfilesPage implements Component {
           <TextField label={Locale.PROFILES_NAME} hint={Locale.PROFILES_NAME_TIP} value={mut self.name}
                      maxLength={MAX_NAME} />
           <Checkbox label={Locale.PROFILES_BLANK} hint={Locale.PROFILES_BLANK_TIP} value={mut self.fromBlank} />
-          <box columns={BUTTONS} gap={9.375dp}>
+          <box columns={BUTTONS} gap={2.5sp}>
             <PushButton label={Locale.PROFILES_NEW} width={175.78125dp} @click={self.onNew} />
             <PushButton label={Locale.PROFILES_RENAME} width={175.78125dp} @click={self.onRename} />
             <PushButton label={Locale.PROFILES_DELETE} width={175.78125dp} disabled={self.only} @click={self.onDelete} />
@@ -588,7 +588,7 @@ public class ProfilesPage implements Component {
           <Checkbox label={Locale.PROFILES_USE_CLASS} value={mut self.onClass} />
           <Checkbox label={Locale.PROFILES_USE_ACCOUNT} hint={Locale.PROFILES_USE_ACCOUNT_TIP}
                     value={mut self.onAccount} />
-          <box $if={self.hasSpec} columns={1} gap={16.40625dp}>
+          <box $if={self.hasSpec} columns={1} gap={4sp}>
             <ProfileDropdown label={self.spec1Label} value={mut self.spec1} names={self.names} none={true} />
             <ProfileDropdown label={self.spec2Label} value={mut self.spec2} names={self.names} none={true} />
             <ProfileDropdown label={self.spec3Label} value={mut self.spec3} names={self.names} none={true} />
@@ -596,7 +596,7 @@ public class ProfilesPage implements Component {
         </Section>
         <Section title={Locale.PROFILES_COPY_SECTION}>
           <Note $if={!self.hasOthers} text={Locale.PROFILES_COPY_NONE} color={DIM} />
-          <box $else columns={1} gap={16.40625dp}>
+          <box $else columns={1} gap={4sp}>
             <ProfileDropdown label={Locale.PROFILES_COPY_FROM} value={mut self.source} names={self.others} />
             <TickRow $for={key of self.copyKeys} $key={key} key={peek key} titles={self.titles} on={true}
                      @toggled={self.onCopyTick} />
@@ -610,7 +610,7 @@ public class ProfilesPage implements Component {
           <TickRow $for={key of self.exportKeys} $key={key} key={peek key} titles={self.titles} on={true}
                    @toggled={self.onExportTick} />
           <TextBox value={mut self.text} height={128.90625dp} />
-          <box columns={BUTTONS} gap={9.375dp}>
+          <box columns={BUTTONS} gap={2.5sp}>
             <PushButton label={Locale.PROFILES_EXPORT} width={175.78125dp} @click={self.onExport} />
             <PushButton label={Locale.PROFILES_IMPORT} width={175.78125dp} @click={self.onImport} />
             <PushButton label={Locale.PROFILES_CREATE} width={175.78125dp} disabled={!self.canCreate}

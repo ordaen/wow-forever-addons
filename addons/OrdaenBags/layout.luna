@@ -3,14 +3,27 @@
 // card. A line's height is worked out here, so the list can be as high as what it holds and no item is hidden under a
 // scroll the window was sized to.
 import { Track } from "$ltml"
-import { space } from "Ordaen"
+import root Ordaen from "Ordaen"
 import { Slot } from "@/model"
 
 // A slot's size. Between two slots of a card; inside a card, round what it holds; between two cards.
 public const SLOT: Number<Length> = 43.359375dp
-public const GAP: Number<Length> = space(.Line)
-public const CARD_PAD: Number<Length> = space(.Item)
-public const CARD_GAP: Number<Length> = space(.Panel)
+public const GAP: Number<Spacing> = 1sp
+public const CARD_PAD: Number<Spacing> = 3sp
+public const CARD_GAP: Number<Spacing> = 5sp
+
+// The rooms of the cards as lengths, as the density has them now: what the cards' widths and heights are worked out
+// with.
+public struct CardRoom {
+  const gap: Number<Length>
+  const pad: Number<Length>
+  const between: Number<Length>
+}
+
+// The cards' rooms at the density the player chose; read in a `derived`, it follows the choice.
+public function cardRoom(): CardRoom {
+  return { gap: Ordaen.lengthOf(GAP), pad: Ordaen.lengthOf(CARD_PAD), between: Ordaen.lengthOf(CARD_GAP) }
+}
 // A caption's height: its mark and its name stand in it.
 public const CAPTION_HIGH: Number<Length> = 21.09375dp
 // A card with a caption is at least this many slots wide, so its caption fits.
@@ -42,13 +55,13 @@ public struct Line {
 }
 
 // How many slots a row of a card as wide as `width` holds.
-public function spanIn(width: Number<Length>): Integer {
-  return ((width - 2 * CARD_PAD + GAP) / (SLOT + GAP)).floor().max(1)
+public function spanIn(width: Number<Length>, room: CardRoom): Integer {
+  return ((width - 2 * room.pad + room.gap) / (SLOT + room.gap)).floor().max(1)
 }
 
 // How wide a card of `span` slots is, its padding with it.
-public function cardWidth(span: Integer): Number<Length> {
-  return span * SLOT + (span - 1) * GAP + 2 * CARD_PAD
+public function cardWidth(span: Integer, room: CardRoom): Number<Length> {
+  return span * SLOT + (span - 1) * room.gap + 2 * room.pad
 }
 
 function spanOf(section: Section, most: Integer): Integer {
@@ -58,47 +71,49 @@ function spanOf(section: Section, most: Integer): Integer {
 }
 
 // How high a card is: its caption, and its rows of slots unless it is shut.
-function cardHeight(section: Section, span: Integer, shut: Boolean): Number<Length> {
-  let high = 2 * CARD_PAD
+function cardHeight(section: Section, span: Integer, shut: Boolean, room: CardRoom): Number<Length> {
+  let high = 2 * room.pad
   const titled = section.title != ""
   if (titled) { high += CAPTION_HIGH }
   if (shut) { return high }
-  if (titled) { high += GAP }
+  if (titled) { high += room.gap }
   const count = section.free ? 1 : section.slots.length
   const rows = ((count + span - 1) / span).floor().max(1)
-  return high + rows * SLOT + (rows - 1) * GAP
+  return high + rows * SLOT + (rows - 1) * room.gap
 }
 
 // The lines of `sections` in a list `width` wide, those `collapsed` (by key) with their caption alone.
-public function linesOf(sections: Array<Section>, width: Number<Length>, collapsed: Map<String, Boolean>): Array<Line> {
+public function linesOf(
+  sections: Array<Section>, width: Number<Length>, collapsed: Map<String, Boolean>, room: CardRoom
+): Array<Line> {
   let lines: Array<Line> = []
   let cards: Array<Card> = []
   let tracks: Array<Track> = []
   let high: Number<Length> = 0ui
   let used: Number<Length> = 0ui
-  const most = spanIn(width)
+  const most = spanIn(width, room)
   for (section of sections) {
     const span = spanOf(section, most)
-    const wide = cardWidth(span)
-    if (cards.length > 0 && used + CARD_GAP + wide > width) {
+    const wide = cardWidth(span, room)
+    if (cards.length > 0 && used + room.between + wide > width) {
       lines.push({ cards: cards, tracks: tracks, height: high })
       cards = []
       tracks = []
       high = 0ui
       used = 0ui
     }
-    used = cards.length == 0 ? wide : used + CARD_GAP + wide
+    used = cards.length == 0 ? wide : used + room.between + wide
     cards.push({ section: section, span: span })
     tracks.push(wide)
-    high = high.max(cardHeight(section, span, section.folds && collapsed[section.key] == true))
+    high = high.max(cardHeight(section, span, section.folds && collapsed[section.key] == true, room))
   }
   if (cards.length > 0) { lines.push({ cards: cards, tracks: tracks, height: high }) }
   return lines
 }
 
 // How high the lines are together, the room between them with them.
-public function heightOf(lines: Array<Line>): Number<Length> {
+public function heightOf(lines: Array<Line>, room: CardRoom): Number<Length> {
   let high: Number<Length> = 0ui
-  for (index, line of lines) { high += index > 1 ? CARD_GAP + line.height : line.height }
+  for (index, line of lines) { high += index > 1 ? room.between + line.height : line.height }
   return high
 }

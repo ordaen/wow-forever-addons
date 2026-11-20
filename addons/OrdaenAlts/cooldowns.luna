@@ -1,7 +1,7 @@
 // «Cooldowns»: each recipe with a cooldown, per character, ready now or the hour it will be.
 import Game from "$game"
 import { Align, Overflow, Track } from "$ltml"
-import { Column, Component, Hour, SECONDARY_TEXT, Table, TableRow, space, tracksOf } from "Ordaen"
+import { Column, Component, Hour, SECONDARY_TEXT, Table, TableRow, tracksOf } from "Ordaen"
 import Locale from "@/locales"
 import { Records } from "@/records"
 import Style from "@/style"
@@ -78,7 +78,7 @@ public class Cooldowns implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box rows={self.rows} gap={space(.Group)}>
+      <box rows={self.rows} gap={6sp}>
         <text $if={self.empty} value={Locale.NO_COOLDOWNS} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
         <box overflow={Overflow.Scroll}>
           <Table columns={COLUMNS} sorted={mut self.sorted} descending={mut self.descending}>

@@ -3,7 +3,7 @@
 public const WIDTH: Number<Length> = 1054.6875dp
 public const HEIGHT: Number<Length> = 726.5625dp
 public const TRAINER_WIDTH: Number<Length> = 960.9375dp
-public const GAP: Number<Length> = 11.71875dp
+public const GAP: Number<Spacing> = 3sp
 public const LIST: Number<Length> = 539.0625dp
 
 public const INK: Color = Color.hex("#e8dcc4")

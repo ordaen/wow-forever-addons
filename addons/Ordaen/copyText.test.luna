@@ -11,7 +11,7 @@ class Notice {
 
   public render(self): Template {
     return $ltml {
-      <box padding={10ui}>
+      <box padding={2.5sp}>
         <CopyText value={self.text} />
       </box>
     }
@@ -81,7 +81,7 @@ class Footer {
 
   public render(self): Template {
     return $ltml {
-      <box padding={10ui}>
+      <box padding={3.5sp}>
         <FooterCounts counts={self.counts} />
       </box>
     }

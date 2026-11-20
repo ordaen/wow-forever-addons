@@ -1,139 +1,139 @@
 -- «Show again after» opened and «Combat» picked: the plate names it, the menu stays open
 surface 310,139.71 980x620.58 on DIALOG clamped raised by a click
   box 310,176.96 980x583.33 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
-    box 322.75,189.71 959.5x560.08
-      box 342.75,209.71 919.5x481.75
-        box 342.75,209.71 112.78x481.75
-          box 342.75,209.71 112.78x30 #00000040 @keyPress @pointerPress
-            box 342.75,209.71 2.5x30 absolute #d6a56b
-            box 356.08,215.54 18.33x18.33 icon=Interface/Icons/Trade_Engineering
-            text 382.75,216.91 54.44x15.6 "General" #ffffff
-            box 445.53,224.71 0x0
-          box 342.75,239.71 112.78x30 #00000000 @keyPress @pointerPress
-            box 342.75,239.71 2.5x30 absolute #00000000
-            box 356.08,245.54 18.33x18.33 icon=Interface/Icons/Trade_Engineering
-            text 382.75,246.91 54.44x15.6 "Themes" #e8dcc4
-            box 445.53,254.71 0x0
-          box 342.75,269.71 112.78x30 #00000000 @keyPress @pointerPress
-            box 342.75,269.71 2.5x30 absolute #00000000
-            box 356.08,275.54 18.33x18.33 icon=Interface/Icons/Trade_Engineering
-            text 382.75,276.91 54.44x15.6 "Profiles" #e8dcc4
-            box 445.53,284.71 0x0
-          box 342.75,299.71 112.78x34.4
-            text 356.08,313.04 86.11x14.4 "MODULES" #a3977f
-          box 342.75,334.11 112.78x0
-        box 472.19,209.71 790.06x481.75 #00000040
-          box 472.19,209.71 790.06x481.75 absolute scrolled 0 of 0
-            box 485.53,223.04 763.39x27.27
-              box 485.53,249.47 763.39x0.83 absolute #3e2f1d
-              box 485.53,223.04 60.56x27.27 #00000000 @keyPress @pointerPress
-                box 486.36,223.88 58.89x1.67 absolute #00000000
-                text 498.03,229.71 35.56x15.6 "Scale" #a3977f
-              box 549.42,223.04 72.78x27.27 #00000000 @keyPress @pointerPress
-                box 550.25,223.88 71.11x1.67 absolute #00000000
-                text 561.92,229.71 47.78x15.6 "Numbers" #a3977f
-              box 625.53,223.04 86.11x27.27 #00000000 @keyPress @pointerPress
-                box 626.36,223.88 84.44x1.67 absolute #00000000
-                text 638.03,229.71 61.11x15.6 "Behaviour" #a3977f
-              box 714.97,223.04 72.78x27.27 #00000059 @keyPress @pointerPress
-                box 715.81,223.88 71.11x1.67 absolute #d6a56b
-                text 727.47,229.71 47.78x15.6 "Windows" #ffffff
-            box 485.53,266.97 763.39x288.33
-              box 485.53,266.97 763.39x288.33
-                box 485.53,266.97 166.67x25.6
-                  box 485.53,266.97 166.67x25.6 #d6a56b3d clipped @keyPress @pointerPress
-                    box 485.53,266.97 1.67x25.6 absolute #f0c860
-                    text 498.86,271.97 140x15.6 "Settings" #e8dcc4
-                box 668.86,266.97 580.06x288.33
-                  box 668.86,266.97 580.06x18.33 opacity=1
-                    box 668.86,268.34 233.33x15.6 @pointerEnter @pointerLeave
-                      text 668.86,268.34 233.33x15.6 "Remember its place and size" #cbb994
-                    box 917.19,266.97 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @keyPress @pointerPress
-                      box 917.19,266.97 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=1
-                  box 668.86,291.97 580.06x18.33 opacity=1
-                    box 668.86,293.34 233.33x15.6 @pointerEnter @pointerLeave
-                      text 668.86,293.34 233.33x15.6 "Full screen" #cbb994
-                    box 917.19,291.97 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @keyPress @pointerPress
-                      box 917.19,291.97 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
-                  box 668.86,316.97 580.06x28.33 opacity=1
-                    box 668.86,323.34 233.33x15.6 @pointerEnter @pointerLeave
-                      text 668.86,323.34 233.33x15.6 "Across, from the centre" #cbb994
-                    box 917.19,316.97 331.72x28.33
-                      box 917.19,316.97 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerUp
-                        text 924.42,323.34 8.89x15.6 "-" #ffd100
-                      box 945.53,320.31 100x21.67 #00000080 input "0" @change @submit
-                      box 1050.53,316.97 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerUp
-                        text 1057.75,323.34 8.89x15.6 "+" #ffd100
-                      text 1078.86,323.34 15.56x15.6 "px" #ffffff
-                  box 668.86,351.97 580.06x28.33 opacity=1
-                    box 668.86,358.34 233.33x15.6 @pointerEnter @pointerLeave
-                      text 668.86,358.34 233.33x15.6 "Down, from the centre" #cbb994
-                    box 917.19,351.97 331.72x28.33
-                      box 917.19,351.97 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerUp
-                        text 924.42,358.34 8.89x15.6 "-" #ffd100
-                      box 945.53,355.31 100x21.67 #00000080 input "0" @change @submit
-                      box 1050.53,351.97 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerUp
-                        text 1057.75,358.34 8.89x15.6 "+" #ffd100
-                      text 1078.86,358.34 15.56x15.6 "px" #ffffff
-                  box 668.86,386.97 580.06x28.33 opacity=1
-                    box 668.86,393.34 233.33x15.6 @pointerEnter @pointerLeave
-                      text 668.86,393.34 233.33x15.6 "Width" #cbb994
-                    box 917.19,386.97 331.72x28.33
-                      box 917.19,386.97 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerUp
-                        text 924.42,393.34 8.89x15.6 "-" #ffd100
-                      box 945.53,390.31 100x21.67 #00000080 input "980" @change @submit
-                      box 1050.53,386.97 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerUp
-                        text 1057.75,393.34 8.89x15.6 "+" #ffd100
-                      text 1078.86,393.34 15.56x15.6 "px" #ffffff
-                  box 668.86,421.97 580.06x28.33 opacity=1
-                    box 668.86,428.34 233.33x15.6 @pointerEnter @pointerLeave
-                      text 668.86,428.34 233.33x15.6 "Height" #cbb994
-                    box 917.19,421.97 331.72x28.33
-                      box 917.19,421.97 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerUp
-                        text 924.42,428.34 8.89x15.6 "-" #ffd100
-                      box 945.53,425.31 100x21.67 #00000080 input "583" @change @submit
-                      box 1050.53,421.97 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerUp
-                        text 1057.75,428.34 8.89x15.6 "+" #ffd100
-                      text 1078.86,428.34 15.56x15.6 "px" #ffffff
-                  box 668.86,456.97 580.06x28.33 opacity=1
-                    box 668.86,463.34 233.33x15.6 @pointerEnter @pointerLeave
-                      text 668.86,463.34 233.33x15.6 "Opens on" #cbb994
-                    box 917.19,456.97 200x28.33
-                      box 917.19,456.97 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
-                        text 932.19,463.34 153.33x15.6 "The tab last open" #f0c860
-                        box 1093.86,464.47 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-                  box 668.86,491.97 580.06x28.33 opacity=1
-                    box 668.86,498.34 233.33x15.6 @pointerEnter @pointerLeave
-                      text 668.86,498.34 233.33x15.6 "Hide during" #cbb994
-                    box 917.19,491.97 200x28.33
-                      box 917.19,491.97 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
-                        text 932.19,498.34 153.33x15.6 "Combat" #f0c860
-                        box 1093.86,499.47 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-                  box 668.86,526.97 580.06x28.33 opacity=1
-                    box 668.86,533.34 233.33x15.6 @pointerEnter @pointerLeave
-                      text 668.86,533.34 233.33x15.6 "Show again after" #cbb994
-                    box 917.19,526.97 200x28.33
-                      box 917.19,526.97 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
-                        text 932.19,533.34 153.33x15.6 "Combat" #f0c860
-                        box 1093.86,534.47 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-      box 342.75,691.46 919.5x45
-        box 342.75,708.12 919.5x28.33
-          box 342.75,708.12 166.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-            text 395.53,714.49 61.11x15.6 "Move mode" #ffd100
-          box 526.08,715.09 487.83x14.4
-            text 526.08,715.09 487.83x14.4 "Changes apply at once" #a3977f
-          box 1030.58,708.12 231.67x28.33
-            box 1030.58,708.12 108.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-              text 1054.19,714.49 61.11x15.6 "Savepoint" #ffd100
-            box 1145.58,708.12 116.67x28.33
-              box 1145.58,708.12 116.67x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-                text 1173.36,714.49 61.11x15.6 "Roll back" #808080
+    box 323.09,190.05 958.81x559.39
+      box 345.85,212.81 913.3x477.02
+        box 345.85,212.81 112.6x477.02
+          box 345.85,212.81 112.6x29.71 #00000040 @keyPress @pointerPress
+            box 345.85,212.81 2.5x29.71 absolute #d6a56b
+            box 358.65,218.5 18.33x18.33 icon=Interface/Icons/Trade_Engineering
+            text 385.52,218.77 54.44x17.78 "General" #ffffff
+            box 448.49,227.66 0x0
+          box 345.85,242.52 112.6x29.71 #00000000 @keyPress @pointerPress
+            box 345.85,242.52 2.5x29.71 absolute #00000000
+            box 358.65,248.21 18.33x18.33 icon=Interface/Icons/Trade_Engineering
+            text 385.52,248.49 54.44x17.78 "Themes" #e8dcc4
+            box 448.49,257.38 0x0
+          box 345.85,272.23 112.6x29.71 #00000000 @keyPress @pointerPress
+            box 345.85,272.23 2.5x29.71 absolute #00000000
+            box 358.65,277.92 18.33x18.33 icon=Interface/Icons/Trade_Engineering
+            text 385.52,278.2 54.44x17.78 "Profiles" #e8dcc4
+            box 448.49,287.09 0x0
+          box 345.85,301.94 112.6x40.53
+            text 360.07,316.16 84.16x17.78 "MODULES" #a3977f
+          box 345.85,342.48 112.6x0
+        box 475.52,212.81 783.63x477.02 #00000040
+          box 475.52,212.81 783.63x477.02 absolute scrolled 0 of 0
+            box 489.74,227.03 755.19x29.99
+              box 489.74,256.19 755.19x0.83 absolute #3e2f1d
+              box 489.74,227.03 59.98x29.99 #00000000 @keyPress @pointerPress
+                box 490.57,227.86 58.31x1.67 absolute #00000000
+                text 501.95,233.55 35.56x17.78 "Scale" #a3977f
+              box 552.56,227.03 72.2x29.99 #00000000 @keyPress @pointerPress
+                box 553.39,227.86 70.53x1.67 absolute #00000000
+                text 564.77,233.55 47.78x17.78 "Numbers" #a3977f
+              box 627.61,227.03 85.53x29.99 #00000000 @keyPress @pointerPress
+                box 628.44,227.86 83.87x1.67 absolute #00000000
+                text 639.82,233.55 61.11x17.78 "Behaviour" #a3977f
+              box 715.98,227.03 72.2x29.99 #00000059 @keyPress @pointerPress
+                box 716.82,227.86 70.53x1.67 absolute #d6a56b
+                text 728.19,233.55 47.78x17.78 "Windows" #ffffff
+            box 489.74,274.09 755.19x303.27
+              box 489.74,274.09 755.19x303.27
+                box 489.74,274.09 166.67x29.16
+                  box 489.74,274.09 166.67x29.16 #d6a56b3d clipped @keyPress @pointerPress
+                    box 489.74,274.09 1.67x29.16 absolute #f0c860
+                    text 503.96,279.77 138.22x17.78 "Settings" #e8dcc4
+                box 673.47,274.09 571.46x303.27
+                  box 673.47,274.09 571.46x18.33 opacity=1
+                    box 673.47,274.36 233.33x17.78 @pointerEnter @pointerLeave
+                      text 673.47,274.36 233.33x17.78 "Remember its place and size" #cbb994
+                    box 922.45,274.09 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @keyPress @pointerPress
+                      box 922.45,274.09 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=1
+                  box 673.47,300.95 571.46x18.33 opacity=1
+                    box 673.47,301.23 233.33x17.78 @pointerEnter @pointerLeave
+                      text 673.47,301.23 233.33x17.78 "Full screen" #cbb994
+                    box 922.45,300.95 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @keyPress @pointerPress
+                      box 922.45,300.95 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
+                  box 673.47,327.82 571.46x28.33 opacity=1
+                    box 673.47,333.1 233.33x17.78 @pointerEnter @pointerLeave
+                      text 673.47,333.1 233.33x17.78 "Across, from the centre" #cbb994
+                    box 922.45,327.82 322.48x28.33
+                      box 922.45,327.82 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerUp
+                        text 929.67,333.1 8.89x17.78 "-" #ffd100
+                      box 951.47,331.15 100x21.67 #00000080 input "0" @change @submit
+                      box 1057.16,327.82 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerUp
+                        text 1064.38,333.1 8.89x17.78 "+" #ffd100
+                      text 1086.18,333.1 15.56x17.78 "px" #ffffff
+                  box 673.47,364.69 571.46x28.33 opacity=1
+                    box 673.47,369.96 233.33x17.78 @pointerEnter @pointerLeave
+                      text 673.47,369.96 233.33x17.78 "Down, from the centre" #cbb994
+                    box 922.45,364.69 322.48x28.33
+                      box 922.45,364.69 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerUp
+                        text 929.67,369.96 8.89x17.78 "-" #ffd100
+                      box 951.47,368.02 100x21.67 #00000080 input "0" @change @submit
+                      box 1057.16,364.69 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerUp
+                        text 1064.38,369.96 8.89x17.78 "+" #ffd100
+                      text 1086.18,369.96 15.56x17.78 "px" #ffffff
+                  box 673.47,401.55 571.46x28.33 opacity=1
+                    box 673.47,406.83 233.33x17.78 @pointerEnter @pointerLeave
+                      text 673.47,406.83 233.33x17.78 "Width" #cbb994
+                    box 922.45,401.55 322.48x28.33
+                      box 922.45,401.55 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerUp
+                        text 929.67,406.83 8.89x17.78 "-" #ffd100
+                      box 951.47,404.89 100x21.67 #00000080 input "980" @change @submit
+                      box 1057.16,401.55 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerUp
+                        text 1064.38,406.83 8.89x17.78 "+" #ffd100
+                      text 1086.18,406.83 15.56x17.78 "px" #ffffff
+                  box 673.47,438.42 571.46x28.33 opacity=1
+                    box 673.47,443.7 233.33x17.78 @pointerEnter @pointerLeave
+                      text 673.47,443.7 233.33x17.78 "Height" #cbb994
+                    box 922.45,438.42 322.48x28.33
+                      box 922.45,438.42 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerUp
+                        text 929.67,443.7 8.89x17.78 "-" #ffd100
+                      box 951.47,441.75 100x21.67 #00000080 input "583" @change @submit
+                      box 1057.16,438.42 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerUp
+                        text 1064.38,443.7 8.89x17.78 "+" #ffd100
+                      text 1086.18,443.7 15.56x17.78 "px" #ffffff
+                  box 673.47,475.29 571.46x28.33 opacity=1
+                    box 673.47,480.56 233.33x17.78 @pointerEnter @pointerLeave
+                      text 673.47,480.56 233.33x17.78 "Opens on" #cbb994
+                    box 922.45,475.29 200x28.33
+                      box 922.45,475.29 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
+                        text 938.09,480.56 152.53x17.78 "The tab last open" #f0c860
+                        box 1099.16,482.79 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+                  box 673.47,512.15 571.46x28.33 opacity=1
+                    box 673.47,517.43 233.33x17.78 @pointerEnter @pointerLeave
+                      text 673.47,517.43 233.33x17.78 "Hide during" #cbb994
+                    box 922.45,512.15 200x28.33
+                      box 922.45,512.15 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
+                        text 938.09,517.43 152.53x17.78 "Combat" #f0c860
+                        box 1099.16,519.65 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+                  box 673.47,549.02 571.46x28.33 opacity=1
+                    box 673.47,554.3 233.33x17.78 @pointerEnter @pointerLeave
+                      text 673.47,554.3 233.33x17.78 "Show again after" #cbb994
+                    box 922.45,549.02 200x28.33
+                      box 922.45,549.02 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
+                        text 938.09,554.3 152.53x17.78 "Combat" #f0c860
+                        box 1099.16,556.52 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+      box 345.85,689.83 913.3x45.4
+        box 345.85,706.89 913.3x28.33
+          box 345.85,706.89 166.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+            text 398.63,712.17 61.11x17.78 "Move mode" #ffd100
+          box 529.58,712.17 478.97x17.78
+            text 529.58,712.17 478.97x17.78 "Changes apply at once" #a3977f
+          box 1025.62,706.89 233.53x28.33
+            box 1025.62,706.89 108.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+              text 1049.23,712.17 61.11x17.78 "Savepoint" #ffd100
+            box 1142.48,706.89 116.67x28.33
+              box 1142.48,706.89 116.67x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+                text 1170.26,712.17 61.11x17.78 "Roll back" #808080
     box 1272.75,740.29 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 310,139.71 980x47.75
-    box 310,139.71 918.33x47.75
+    box 310,139.71 916.47x47.75
       box 310,139.71 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
-        box 328.58,149.96 77.33x34.25
-          text 346.14,159.28 42.22x15.6 "Ordaen" #ffd100
+        box 328.78,149.96 76.93x34.25
+          text 346.14,158.19 42.22x17.78 "Ordaen" #ffd100
     box 1235,156.04 55x31.42
       box 1235,156.04 55x26.67 clipped
         box 1235,156.04 27.5x26.67 absolute clipped @keyPress @pointerPress
@@ -142,16 +142,16 @@ surface 310,139.71 980x620.58 on DIALOG clamped raised by a click
         box 1262.5,156.04 27.5x26.67 absolute clipped @keyPress @pointerPress
           box 1262.5,156.04 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
           box 1268.75,165.62 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
-surface 917.19,443.51 216.67x83.47 on FULLSCREEN_DIALOG #0a0806f7
-  box 918.03,449.34 215x23.93 #d6a56b2e @keyPress @pointerPress
-    box 924.69,455.17 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 0 of 4
-      box 924.69,455.17 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=1
-    text 943.03,453.51 178.33x15.6 "Combat" #ffffff
-  box 918.03,473.27 215x23.93 #00000000 @keyPress @pointerPress
-    box 924.69,479.11 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 0 of 4
-      box 924.69,479.11 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
-    text 943.03,477.44 178.33x15.6 "Travel" #ffffff
-  box 918.03,497.21 215x23.93 #00000000 @keyPress @pointerPress
-    box 924.69,503.04 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 0 of 4
-      box 924.69,503.04 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
-    text 943.03,501.37 178.33x15.6 "Movement" #ffffff
+surface 922.45,457.04 216.67x91.98 on FULLSCREEN_DIALOG #0a0806f7
+  box 923.28,463.56 215x26.31 #d6a56b2e @keyPress @pointerPress
+    box 929.95,469.4 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 0 of 4
+      box 929.95,469.4 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=1
+    text 948.88,467.83 178.02x17.78 "Combat" #ffffff
+  box 923.28,489.87 215x26.31 #00000000 @keyPress @pointerPress
+    box 929.95,495.71 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 0 of 4
+      box 929.95,495.71 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
+    text 948.88,494.14 178.02x17.78 "Travel" #ffffff
+  box 923.28,516.19 215x26.31 #00000000 @keyPress @pointerPress
+    box 929.95,522.02 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 0 of 4
+      box 929.95,522.02 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
+    text 948.88,520.45 178.02x17.78 "Movement" #ffffff

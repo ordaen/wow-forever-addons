@@ -19,6 +19,7 @@ import { Mover } from "@/placed"
 import { ProfileName } from "@/profiles"
 import { Settings } from "@/settings"
 import { SettingsWindow } from "@/settingsWindow"
+import { spacingFor } from "@/units"
 
 // The most items' tooltips kept at once.
 const TIPS_MOST = 512
@@ -50,6 +51,9 @@ public class OrdaenCore implements App {
   public derived lookArt: LookArt = artOf(self.look.values)
   // The settings every module follows.
   public const globals: mut Settings<Globals>
+  // What `1sp` is as the player's density has it: every gap, padding and line height of every addon, given to the
+  // renderer (`Runtime.spacingUnit`).
+  public derived spacingUnit: Number<Length> = spacingFor(self.globals.values.density)
   // The dev tools' window: whether it is open.
   public state dev = false
   // The modules that run: each module's root adds itself as it is made, and goes as it is destroyed.
@@ -98,6 +102,8 @@ public class OrdaenCore implements App {
     watch (running of self.modules) { self.draw(running) }
     // Every text any addon draws is in the look's fonts: given once here, and again when the look's change.
     watch { Runtime.fonts(self.lookArt.fonts) }
+    // Every gap, padding and line height in the unit the density gives, laid out again when it changes.
+    watch { Runtime.spacingUnit(self.spacingUnit) }
     // The ring round the control the keyboard has focused is the look's accent, and follows it.
     watch { Runtime.focusColor(self.look.values.accent) }
     // A look loaded (at the start, at a switch of profile) that is a preset Ordaen doesn't offer is Ordaen's.
@@ -191,6 +197,12 @@ public class OrdaenCore implements App {
 
   // Whether the player has a module on, by its folder: Ordaen's own switch, whatever the client's list says.
   public isChosen(self, folder: String): Boolean { return self.chosen[folder] != false }
+
+  // A room in the spacing unit as a length, for a size worked out from gaps (a drawer as wide as its cells and the
+  // gaps between them); read in a derived cell, it follows the density.
+  public lengthOf(self, room: Number<Spacing>): Number<Length> { return room / 1sp * self.spacingUnit }
+  // A length measured of the art as a room in the spacing unit, for a padding that meets the art's lines.
+  public spacingOf(self, length: Number<Length>): Number<Spacing> { return length / self.spacingUnit * 1sp }
 
   // The settings window at the page of a module's folder (`""`: Ordaen's own), or closed where it shows that page.
   public toggleNamed(mut self, folder: String) {

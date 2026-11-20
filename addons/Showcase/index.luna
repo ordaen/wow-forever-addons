@@ -1,5 +1,5 @@
 // A page that uses every control of the library, for the run tests: what a settings page of a real addon does.
-import { ButtonPlate, Checkbox, Choice, Dialog, Dropdown, Module, NumberInput, PushButton, Section, SettingsPage, SettingsTab, Switch, Tabs, TextBox, TextField, Tick, Tip, Toggle, Unit, space } from "Ordaen"
+import { ButtonPlate, Checkbox, Choice, Dialog, Dropdown, Module, NumberInput, PushButton, Section, SettingsPage, SettingsTab, Switch, Tabs, TextBox, TextField, Tick, Tip, Toggle, Unit } from "Ordaen"
 public import { Arranged } from "@/arranged"
 public import { Market, Sale, Worth } from "@/market"
 public import { Tinted } from "@/tinted"
@@ -60,7 +60,7 @@ public class Showcase implements Module {
 
   public render(self): Template {
     return $ltml {
-      <box columns={1} gap={space(.Item)}>
+      <box columns={1} gap={3sp}>
         <Tabs tabs={TABS} selected={mut self.tab} />
         <SettingsTab title={"Map"} shown={self.onMap}>
           <Section title={"Map"}>

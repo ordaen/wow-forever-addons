@@ -3,7 +3,7 @@
 // the footer's quiet colour and size.
 import { Line, Side } from "$ltml"
 import { Component } from "@/module"
-import { SECONDARY_TEXT, space } from "@/units"
+import { SECONDARY_TEXT } from "@/units"
 
 const QUIET: Color = Color.hex("#857a66")
 const RULE: Line = { width: 1.171875dp, color: Color.hex("#d6a56b2e"), sides: [Side.Top] }
@@ -23,7 +23,7 @@ public class Hotkeys implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box $if={self.any} gap={space(.Line)} padding={{ top: space(.Item) }} border={RULE}>
+      <box $if={self.any} gap={2sp} padding={{ top: 3sp }} border={RULE}>
         <text $for={key of self.keys} value={key} textColor={QUIET} textSize={SECONDARY_TEXT} wrap={false} />
       </box>
     }

@@ -9,7 +9,7 @@ import Game from "$game"
 import { Action, Align, Frame, Line, Overflow, Side, Track } from "$ltml"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
-import { ARTWORK, Choice, Column, FilterButton, FilterGroup, ItemId, KeptWindow, Module, ModuleMemory, PushButton, SECONDARY_TEXT, Settings, SettingsPage, Table, Tabs, ToolPick, Toolbar, Window, WindowTabSpec, WindowsPage, space, switched, tracksOf, windowsTitle } from "Ordaen"
+import { ARTWORK, Choice, Column, FilterButton, FilterGroup, ItemId, KeptWindow, Module, ModuleMemory, PushButton, SECONDARY_TEXT, Settings, SettingsPage, Table, Tabs, ToolPick, Toolbar, Window, WindowTabSpec, WindowsPage, switched, tracksOf, windowsTitle } from "Ordaen"
 import root Auction from "OrdaenAuction"
 import type { PriceSource } from "OrdaenAuction"
 import { Book, written } from "@/book"
@@ -125,9 +125,9 @@ public class Professions implements Module, App {
   // The window's footer: the profession's own spell («Find Minerals») at its left; on the queue's page what the queue
   // is doing and «Create next». The make row is the chosen recipe's card's (`RecipeDetails`).
   const footer: Template = $ltml {
-    <box columns={self.footColumns} gap={space(.Group)} yAlign={Align.Center}>
+    <box columns={self.footColumns} gap={6sp} yAlign={Align.Center}>
       <PushButton $if={self.hasTrack} label={self.trackName} width={TRACK_WIDTH} action={self.trackAction} />
-      <box $if={self.queueShown} columns={QUEUE_FOOT} gap={space(.Group)} yAlign={Align.Center}>
+      <box $if={self.queueShown} columns={QUEUE_FOOT} gap={6sp} yAlign={Align.Center}>
         <text value={self.queueStatus} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
         <PushButton label={Locale.QUEUE_NEXT_BUTTON} width={210.9375dp} disabled={!self.queueReady}
                     @click={self.onNext} />
@@ -745,16 +745,16 @@ public class Professions implements Module, App {
           <box $if={!self.hasOpen} xAlign={Align.Center} yAlign={Align.Center}>
             <text value={Locale.PICK} textColor={Style.DIM} />
           </box>
-          <box $else rows={BODY} gap={space(.Group)}>
-            <SkillBar profession={self.profession} />
+          <box $else rows={BODY} gap={6sp}>
+            <SkillBar rank={self.profession?.rank ?? 0} most={self.profession?.max ?? 0} />
             <Tabs tabs={self.pageNames} selected={mut self.page} />
             <QueuePage $if={self.queueShown} queued={self.queued} prices={self.prices} @act={self.onQueueAct}
                        @counted={self.onQueueCount} @shop={self.onShop} />
             <OverviewPage $elseif={self.overviewShown} profession={self.profession} thresholds={self.thresholds}
                           kept={self.kept} taught={self.taught} @pick={self.openRecipe} />
             <WorthPage $elseif={self.worthShown} book={self.written} prices={self.prices} />
-            <box $else columns={GRID} rows={FILL} gap={space(.Group)}>
-              <box rows={SIDE} gap={space(.Item)} width={Style.LISTS_BOUNDS}>
+            <box $else columns={GRID} rows={FILL} gap={6sp}>
+              <box rows={SIDE} gap={3sp} width={Style.LISTS_BOUNDS}>
                 <Toolbar search={mut self.search} placeholder={Locale.SEARCH}>
                   <FilterButton values={mut self.filter} start={self.filterStarts} groups={FILTERS} />
                   <ToolPick $if={!self.isTable} value={mut self.list.values.sort} choices={SORTS} icon={Ordaen.art.ctl.tool.sort}

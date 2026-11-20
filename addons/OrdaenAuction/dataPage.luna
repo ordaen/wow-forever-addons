@@ -23,7 +23,7 @@ class Fact implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={ROW} gap={9.375dp}>
+      <box columns={ROW} gap={2.5sp}>
         <text value={self.label} textColor={Style.DIM} />
         <text value={self.value} textColor={Style.INK} wrap={false} />
       </box>
@@ -60,7 +60,7 @@ class DealtLine implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={ROW} gap={9.375dp}>
+      <box columns={ROW} gap={2.5sp}>
         <text value={self.text} textColor={Style.DIM} />
         <Money amount={self.copper} />
       </box>
@@ -95,7 +95,7 @@ public class DataPage implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box rows={["max-content"]} gap={9.375dp}>
+      <box rows={["max-content"]} gap={2.5sp}>
         <Section title={Locale.SECTION_SCANS}>
           <Fact label={Locale.LAST_FULL} value={self.last} />
           <Fact label={Locale.LAST_FULL_COUNTS} value={self.counted} />

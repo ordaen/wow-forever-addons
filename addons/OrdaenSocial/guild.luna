@@ -3,13 +3,13 @@
 // the management the client keeps to itself stays there), and the guild's news, each line's text selected and copied.
 // The counts are the footer's.
 import { Align, Overflow } from "$ltml"
-import { ButtonPlate, Component, CopyText, PushButton, TITLE_TEXT, space } from "Ordaen"
+import { ButtonPlate, Component, CopyText, PushButton, TITLE_LINE, TITLE_TEXT } from "Ordaen"
 import { orDash } from "@/friends"
 import Locale from "@/locales"
 import { Guild, News } from "@/people"
 import Style from "@/style"
 
-const ROW_PAD = 4.6875dp
+const ROW_PAD = 1sp
 
 // The guild's card, with no member picked.
 public class GuildCard implements Component {
@@ -28,15 +28,15 @@ public class GuildCard implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={1} rows={["max-content", { fr: 1 }, "max-content"]} gap={space(.Group)}>
-        <text value={self.guild.name} textColor={Style.GOLD} textSize={TITLE_TEXT} textFont={.Title} wrap={false} />
-        <box columns={1} rows={["max-content", "max-content", "max-content", { fr: 1 }]} gap={space(.Item)} overflow={Overflow.Scroll}>
+      <box columns={1} rows={["max-content", { fr: 1 }, "max-content"]} gap={6sp}>
+        <text value={self.guild.name} textColor={Style.GOLD} textSize={TITLE_TEXT} lineHeight={TITLE_LINE} textFont={.Title} wrap={false} />
+        <box columns={1} rows={["max-content", "max-content", "max-content", { fr: 1 }]} gap={3sp} overflow={Overflow.Scroll}>
           <text value={Locale.MOTD} textColor={Style.DIM} wrap={false} />
           <CopyText value={orDash(self.guild.motd)} />
           <text value={Locale.GUILD_INFO} textColor={Style.DIM} wrap={false} />
           <CopyText value={orDash(self.guild.info)} />
         </box>
-        <box columns={1} gap={space(.Item)}>
+        <box columns={1} gap={3sp}>
           <PushButton $if={self.guild.rights.invite} label={Locale.GUILD_INVITE} width={Style.CARD_BUTTON} @click={self.onInvite} />
           <PushButton $if={self.guild.rights.manage} label={Locale.GAME_GUILD_WINDOW} width={Style.CARD_BUTTON} @click={self.onGameWindow} />
           <PushButton label={Locale.LEAVE_GUILD} width={Style.CARD_BUTTON} plate={ButtonPlate.Danger} @click={self.onLeave} />
@@ -56,9 +56,9 @@ class NewsRow implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={["max-content", { fr: 1 }]} gap={space(.Item)} padding={{ top: ROW_PAD, bottom: ROW_PAD }}>
+      <box columns={["max-content", { fr: 1 }]} gap={3sp} padding={{ top: ROW_PAD, bottom: ROW_PAD }}>
         <text value={self.date} textColor={Style.DIM} textFont={.Numbers} wrap={false} />
-        <box columns={["max-content", { fr: 1 }]} gap={space(.Line)}>
+        <box columns={["max-content", { fr: 1 }]} gap={2sp}>
           <text value={self.news.who} textColor={self.news.sticky ? Style.GOLD : Style.INK} wrap={false} />
           <CopyText value={self.news.what} />
         </box>

@@ -17,7 +17,7 @@ import Game from "$game"
 import { Action, Align, Art, ByInteractionState, Edges, Event, Frame, Line, MouseButton, Position, Shadow } from "$ltml"
 import root Ordaen from "Ordaen"
 import { Component } from "@/module"
-import { SECONDARY_TEXT } from "@/units"
+import { SECONDARY_TEXT, TIGHT_LINE } from "@/units"
 
 // The game's numbers for an item's quality.
 public enum Quality {
@@ -60,7 +60,7 @@ const INK: Color = Color.hex("#ffffff")
 // The game's tint of an item the player can't use (1, 0.1, 0.1).
 const UNUSABLE: Color = Color.hex("#ff1a1a")
 const COUNT_SHADOW: Shadow = { color: Color.hex("#000000"), x: 1.171875dp, y: -1.171875dp }
-const COUNT_PAD: Edges = { right: 3.515625dp, bottom: 2.34375dp }
+const COUNT_PAD: Edges = { right: 1sp, bottom: 0.5sp }
 const EDGE = 2.34375dp
 const POOR: Line = { width: EDGE, color: Color.hex("#9d9d9d") }
 const COMMON: Line = { width: EDGE, color: Color.hex("#6c5535") }
@@ -233,7 +233,8 @@ public class ItemButton implements Component {
         <slot />
         <box $if={self.counted} position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui}
              xAlign={Align.End} yAlign={Align.End} padding={COUNT_PAD}>
-          <text value={self.count} textColor={INK} textSize={SECONDARY_TEXT} textShadow={COUNT_SHADOW} wrap={false} />
+          <text value={self.count} textColor={INK} textSize={SECONDARY_TEXT} lineHeight={TIGHT_LINE}
+                textShadow={COUNT_SHADOW} wrap={false} />
         </box>
       </box>
     }

@@ -41,12 +41,12 @@ class Rows {
 
   public render(self): Template {
     return $ltml {
-      <box columns={["max-content", "max-content"]} gap={40ui}>
-        <box padding={8ui} @pointerPress={self.onRow}>
+      <box columns={["max-content", "max-content"]} gap={14sp}>
+        <box padding={3sp} @pointerPress={self.onRow}>
           <text value={"Recipe row"} />
           <Menu $if={self.open} entries={self.entries} @pick={self.onPick} @close={self.onClose} />
         </box>
-        <box padding={8ui} @pointerPress={self.onBeside} @keyPress(.Enter)={self.onBeside} @keyPress(.Space)={self.onBeside}>
+        <box padding={3sp} @pointerPress={self.onBeside} @keyPress(.Enter)={self.onBeside} @keyPress(.Space)={self.onBeside}>
           <text value={"Beside"} />
         </box>
       </box>
@@ -119,7 +119,7 @@ class Copying {
 
   public render(self): Template {
     return $ltml {
-      <box padding={8ui}>
+      <box padding={3sp}>
         <text value={"Bar 1"} />
         <Menu $if={self.open} title={"Bar 1"} entries={self.entries} @pick={self.onPick} @pickMore={self.onPickMore}
               @close={self.onClose} />

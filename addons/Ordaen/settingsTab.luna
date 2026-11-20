@@ -16,7 +16,7 @@ public class SettingsTab implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={1} gap={16.40625dp} shown={self.shown}>
+      <box columns={1} gap={4sp} shown={self.shown}>
         <slot />
       </box>
     }

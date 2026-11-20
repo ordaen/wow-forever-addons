@@ -1,30 +1,30 @@
 -- three shared columns: the long zone cut at its edge, «alt» under «Note» as «main» is
-box 0,0 500x76.43
-  box 0,0 500x29.77 #00000040
-    box 6.67,0 157.78x28.93 #00000000 @keyPress @pointerPress
-      box 6.67,27.27 157.78x1.67 absolute #00000000
-      box 6.67,6.67 157.78x15.6
-        text 6.67,6.67 28.89x15.6 "Name" #a3977f
-    box 171.11,0 157.78x28.93 #00000000 @keyPress @pointerPress
-      box 171.11,27.27 157.78x1.67 absolute #00000000
-      box 171.11,6.67 157.78x15.6
-        text 171.11,6.67 28.89x15.6 "Zone" #a3977f
-    box 335.56,0 157.78x28.93 #00000000 @keyPress @pointerPress
-      box 335.56,27.27 157.78x1.67 absolute #00000000
-      box 335.56,6.67 157.78x15.6
-        text 335.56,6.67 28.89x15.6 "Note" #a3977f
-  box 0,29.77 500x46.67 scrolled 0 of 0
-    box 0,29.77 500x23.33 #00000000 @keyPress @pointerPress
-      box 6.67,33.63 157.78x15.6
-        text 6.67,33.63 157.78x15.6 "Ingrid" #ffffff
-      box 171.11,33.63 157.78x15.6
-        text 171.11,33.63 157.78x15.6 "Stormwind" #ffffff
-      box 335.56,33.63 157.78x15.6
-        text 335.56,33.63 157.78x15.6 "main" #ffffff
-    box 0,53.1 500x23.33 #00000000 @keyPress @pointerPress
-      box 6.67,56.97 56.67x15.6
-        text 6.67,56.97 56.67x15.6 "Bo" #ffffff
-      box 70,56.97 360x15.6
-        text 70,56.97 360x15.6 "The Temple of Atal'Hakkar, deep in the Swamp of Sorrows" #ffffff
-      box 436.67,56.97 56.67x15.6
-        text 436.67,56.97 56.67x15.6 "alt" #ffffff
+box 0,0 500x81.77
+  box 0,0 500x33.5 #00000040
+    box 8.53,0 155.29x32.67 #00000000 @keyPress @pointerPress
+      box 8.53,31 155.29x1.67 absolute #00000000
+      box 8.53,8.53 155.29x15.6
+        text 8.53,8.53 28.89x15.6 "Name" #a3977f
+    box 172.36,0 155.29x32.67 #00000000 @keyPress @pointerPress
+      box 172.36,31 155.29x1.67 absolute #00000000
+      box 172.36,8.53 155.29x15.6
+        text 172.36,8.53 28.89x15.6 "Zone" #a3977f
+    box 336.18,0 155.29x32.67 #00000000 @keyPress @pointerPress
+      box 336.18,31 155.29x1.67 absolute #00000000
+      box 336.18,8.53 155.29x15.6
+        text 336.18,8.53 28.89x15.6 "Note" #a3977f
+  box 0,33.5 500x48.27 scrolled 0 of 0
+    box 0,33.5 500x24.13 #00000000 @keyPress @pointerPress
+      box 8.53,37.77 155.29x15.6
+        text 8.53,37.77 155.29x15.6 "Ingrid" #ffffff
+      box 172.36,37.77 155.29x15.6
+        text 172.36,37.77 155.29x15.6 "Stormwind" #ffffff
+      box 336.18,37.77 155.29x15.6
+        text 336.18,37.77 155.29x15.6 "main" #ffffff
+    box 0,57.63 500x24.13 #00000000 @keyPress @pointerPress
+      box 8.53,61.9 52.93x15.6
+        text 8.53,61.9 52.93x15.6 "Bo" #ffffff
+      box 70,61.9 360x15.6
+        text 70,61.9 360x15.6 "The Temple of Atal'Hakkar, deep in the Swamp of Sorrows" #ffffff
+      box 438.53,61.9 52.93x15.6
+        text 438.53,61.9 52.93x15.6 "alt" #ffffff

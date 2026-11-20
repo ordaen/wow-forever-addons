@@ -6,7 +6,7 @@
 // thing done together and how long ago; a pinned ally's star at the right.
 import { Align, Overflow, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { Choice, Component, Fact, FilterButton, FilterGroup, PickRow, PushButton, SECONDARY_TEXT, TITLE_TEXT, ToolPick, Toolbar, agoText, space, switched } from "Ordaen"
+import { Choice, Component, Fact, FilterButton, FilterGroup, PickRow, PushButton, SECONDARY_TEXT, TITLE_LINE, TITLE_TEXT, ToolPick, Toolbar, agoText, switched } from "Ordaen"
 import { markOf, orDash, presenceText } from "@/friends"
 import Locale from "@/locales"
 import { nameColorOf } from "@/members"
@@ -126,7 +126,7 @@ class AllyRow implements Component {
       <PickRow columns={ROW} picked={self.picked} @pick={self.onPick}>
         <box width={Style.DOT} height={Style.DOT} background={markOf(self.ally.member.presence)} />
         <box columns={1}>
-          <box columns={["max-content", "max-content"]} gap={space(.Line)}>
+          <box columns={["max-content", "max-content"]} gap={2sp}>
             <text value={self.ally.member.name} textColor={nameColorOf(self.ally.member)} wrap={false} />
             <text value={self.level} textColor={Style.DIM} textFont={.Numbers} wrap={false} />
           </box>
@@ -171,7 +171,7 @@ public class AllyList implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={1} rows={["max-content", { fr: 1 }]} gap={space(.Item)}>
+      <box columns={1} rows={["max-content", { fr: 1 }]} gap={3sp}>
         <Toolbar search={mut self.query} placeholder={Locale.SEARCH}>
           <FilterButton values={mut self.filter} start={self.filterStarts} groups={self.groups} />
           <ToolPick value={mut self.sort} choices={SORTS} icon={Ordaen.art.ctl.tool.sort} title={Locale.SORT} />
@@ -196,7 +196,7 @@ class MeetingRow implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={[{ fr: 1 }, "max-content"]} gap={space(.Item)}>
+      <box columns={[{ fr: 1 }, "max-content"]} gap={3sp}>
         <text value={self.meeting.text} textColor={Style.INK} wrap={true} />
         <text value={agoText(self.meeting.when)} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={false} />
       </box>
@@ -227,12 +227,12 @@ public class AllyCard implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={1} rows={["max-content", { fr: 1 }, "max-content"]} gap={space(.Group)}>
-        <box columns={1} gap={space(.Item)}>
-          <box columns={[Style.BIG_DOT, { fr: 1 }]} gap={space(.Line)} yAlign={Align.Center}>
+      <box columns={1} rows={["max-content", { fr: 1 }, "max-content"]} gap={6sp}>
+        <box columns={1} gap={3sp}>
+          <box columns={[Style.BIG_DOT, { fr: 1 }]} gap={2sp} yAlign={Align.Center}>
             <box width={Style.BIG_DOT} height={Style.BIG_DOT} background={markOf(self.ally.member.presence)} />
             <box columns={1}>
-              <text value={self.ally.member.name} textColor={nameColorOf(self.ally.member)} textSize={TITLE_TEXT}
+              <text value={self.ally.member.name} textColor={nameColorOf(self.ally.member)} textSize={TITLE_TEXT} lineHeight={TITLE_LINE}
                     textFont={.Title} wrap={false} />
               <text value={self.sub} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={false} />
             </box>
@@ -241,11 +241,11 @@ public class AllyCard implements Component {
           <Fact label={Locale.WHERE} value={orDash(self.ally.member.zone)} />
           <Fact label={Locale.NOTE} value={orDash(self.ally.member.note)} />
         </box>
-        <box columns={1} gap={space(.Line)} overflow={Overflow.Scroll} yAlign={Align.Start}>
+        <box columns={1} gap={2sp} overflow={Overflow.Scroll} yAlign={Align.Start}>
           <text value={Locale.MEETINGS} textColor={Style.DIM} wrap={false} />
           <MeetingRow $for={meeting of self.ally.meetings} meeting={meeting} />
         </box>
-        <box columns={["max-content", "max-content"]} gap={space(.Item)}>
+        <box columns={["max-content", "max-content"]} gap={3sp}>
           <PushButton label={Locale.WHISPER} width={Style.SMALL_BUTTON} disabled={!self.canAsk} @click={self.onWhisper} />
           <PushButton label={Locale.INVITE} width={Style.SMALL_BUTTON} disabled={!self.canAsk} @click={self.onInvite} />
           <PushButton label={self.ally.pinned ? Locale.UNPIN : Locale.PIN} width={Style.SMALL_BUTTON} @click={self.onPin} />

@@ -10,7 +10,7 @@ import root Ordaen from "Ordaen"
 import { reachAcross } from "@/art"
 import { Hotkeys } from "@/hotkeys"
 import { Component } from "@/module"
-import { TITLE_TEXT, space } from "@/units"
+import { TIGHT_LINE, TITLE_LINE, TITLE_TEXT } from "@/units"
 
 const WIDTH = 367.96875dp
 const NAME: Color = Color.hex("#ffffff")
@@ -62,13 +62,13 @@ public class Tip implements Component {
 
   public render(self): Template {
     return $ltml {
-      <surface layer={Layer.Tooltip} place={BY_ITS_BOX} clamp={true} width={self.width}
+      <surface lineHeight={TIGHT_LINE} layer={Layer.Tooltip} place={BY_ITS_BOX} clamp={true} width={self.width}
                border={Ordaen.art.frame.small} background={Ordaen.art.window.wood} artOrigin={true}
-               padding={space(.Panel)} columns={1} gap={space(.Line)}>
-        <text value={self.title} textColor={NAME} textSize={TITLE_TEXT} />
+               padding={5sp} columns={1} gap={2sp}>
+        <text value={self.title} textColor={NAME} textSize={TITLE_TEXT} lineHeight={TITLE_LINE} />
         <text $if={self.hasText} value={self.text} textColor={LABEL} />
-        <box $for={row of self.rows} columns={ROW} gap={space(.Item)} yAlign={Align.Center}>
-          <box columns={MARKED} gap={space(.Line)} yAlign={Align.Center}>
+        <box $for={row of self.rows} columns={ROW} gap={3sp} yAlign={Align.Center}>
+          <box columns={MARKED} gap={2sp} yAlign={Align.Center}>
             <text value={row.label} textColor={LABEL} />
             <text $if={row.mark.text != ""} value={row.mark.text} textColor={row.mark.color} />
           </box>

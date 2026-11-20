@@ -12,7 +12,7 @@ import Client from "$client"
 import Game from "$game"
 import { Align, Beside, Edges, Layer, Line, MouseButton, Overflow, Side, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { ARTWORK, ButtonPlate, Choice, Column, Component, Copper, CountInput, DropdownItem, ItemButton, ItemId, Menu, MenuEntry, ModuleMemory, Money, PushButton, SECONDARY_TEXT, SelectItem, Table, TableRow, ToolButton, ToolPick, Toolbar, ageText, space, tracksOf } from "Ordaen"
+import { ARTWORK, BODY_LINE, ButtonPlate, Choice, Column, Component, Copper, CountInput, DropdownItem, ItemButton, ItemId, Menu, MenuEntry, ModuleMemory, Money, PushButton, SECONDARY_TEXT, SelectItem, Table, TableRow, ToolButton, ToolPick, Toolbar, ageText, tracksOf } from "Ordaen"
 import { PriceHistory } from "@/history"
 import { House } from "@/house"
 import { ItemPanel } from "@/itemPanel"
@@ -78,8 +78,8 @@ const ITEM_TRACKS: Array<Track> = tracksOf(ITEM_COLUMNS)
 const RANGE: Array<Track> = ["max-content", "max-content", "max-content"]
 // A category's name and nothing at its right; a subclass stands in under its class.
 const CATEGORY: Array<Track> = [{ fr: 1 }]
-const CLASS_PAD: Edges = { top: 7.03125dp, right: space(.Panel), bottom: 7.03125dp, left: space(.Panel) }
-const SUBCLASS_PAD: Edges = { top: 5.859375dp, right: space(.Panel), bottom: 5.859375dp, left: space(.Panel) + 16.40625dp }
+const CLASS_PAD: Edges = { top: 2sp, right: 5sp, bottom: 2sp, left: 5sp }
+const SUBCLASS_PAD: Edges = { top: 1.5sp, right: 5sp, bottom: 1.5sp, left: 5sp + 4sp }
 const LISTING_COLUMNS: Array<Column> = [
   { title: Locale.COLUMN_UNIT, width: { fr: 1 }, align: Align.End },
   { title: Locale.COLUMN_COUNT, width: 56.25dp, align: Align.End },
@@ -101,9 +101,9 @@ const PAIR: Array<Track> = [{ fr: 1 }, "max-content"]
 const MENU_WIDTH = 246.09375dp
 const MENU_BACK: Color = Color.hex("#0a0806f7")
 const MENU_EDGE: Line = { width: 1.171875dp, color: Color.hex("#6c5535") }
-const MENU_PAD: Edges = { top: 7.03125dp, bottom: 7.03125dp }
+const MENU_PAD: Edges = { top: 2sp, bottom: 2sp }
 const MENU_RULE: Line = { width: 1.171875dp, color: Color.hex("#d6a56b33"), sides: [Side.Top] }
-const AFTER_RULE: Edges = { top: 7.03125dp }
+const AFTER_RULE: Edges = { top: 2sp }
 // The most of a commodity the quantity takes: the shopping list takes more than is listed, so the listings don't bound
 // it («Buy» asks that they hold it).
 const MOST_COUNT = 999999
@@ -169,7 +169,7 @@ class FilterMenu implements Component {
 
   public render(self): Template {
     return $ltml {
-      <surface layer={Layer.Tooltip} place={Beside { beside: "parent" }} width={MENU_WIDTH} background={MENU_BACK}
+      <surface lineHeight={BODY_LINE} layer={Layer.Tooltip} place={Beside { beside: "parent" }} width={MENU_WIDTH} background={MENU_BACK}
                border={MENU_EDGE} padding={MENU_PAD} columns={1} @pointerPressOutside={self.onClose}>
         <DropdownItem $for={choice of LEVELS} choice={choice} value={self.level} compact={true}
                       @pick={self.onLevel} />
@@ -381,9 +381,9 @@ class FoundRow implements Component {
 
   public render(self): Template {
     return $ltml {
-      <TableRow tracks={self.tracks} selected={self.selected} height={Style.ITEM_ROW} @pick={self.onPick}>
+      <TableRow tracks={self.tracks} selected={self.selected} @pick={self.onPick}>
         <RowMenu $if={self.menuOpen} key={peek self.found.key} @act={self.onAct} />
-        <box columns={ITEM} gap={9.375dp} yAlign={Align.Center}>
+        <box columns={ITEM} gap={2.5sp} yAlign={Align.Center}>
           <ItemButton item={self.found.item} size={Style.SLOT} />
           <box overflow={.Hidden}>
             <text value={self.found.name} textColor={self.found.color} wrap={false} />
@@ -396,7 +396,7 @@ class FoundRow implements Component {
           <text value={"%d"} arguments={[self.found.listed]} textColor={Style.INK} />
         </box>
         <box xAlign={Align.End}>
-          <box $if={self.ranged} columns={RANGE} gap={4.6875dp} yAlign={Align.Center}>
+          <box $if={self.ranged} columns={RANGE} gap={1sp} yAlign={Align.Center}>
             <Money amount={self.found.low} />
             <text value={"–"} textColor={Style.DIM} />
             <Money amount={self.found.high} />
@@ -620,7 +620,7 @@ public class BuyPage implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={PAGE} rows={FILL} gap={space(.Item)}>
+      <box columns={PAGE} rows={FILL} gap={3sp}>
         // The categories: every item, then each class.
         <box rows={FILL} border={Style.FRAME} background={Style.LISTS_BACK}>
           <box overflow={Overflow.Scroll}>
@@ -632,9 +632,9 @@ public class BuyPage implements Component {
                            itemClass={self.itemClass} itemSubclass={self.itemSubclass} @pick={self.pickCategory} />
           </box>
         </box>
-        <box rows={SIDE} gap={space(.Item)}>
+        <box rows={SIDE} gap={3sp}>
           // The toolbar (the search, the filter), and the shopping list's window at the row's right end.
-          <box columns={TOOLS} gap={space(.Item)} yAlign={Align.Center}>
+          <box columns={TOOLS} gap={3sp} yAlign={Align.Center}>
             <Toolbar search={mut self.typed} placeholder={Locale.SEARCH} @submit={self.searchNow}>
               <ToolButton icon={Ordaen.art.ctl.tool.filter} title={Locale.FILTER} text={self.filterText}
                           open={mut self.filterOpen} lit={self.filtered}>
@@ -772,14 +772,14 @@ public class Chosen implements Component {
     return $ltml {
       <ItemPanel key={self.found.key} name={self.found.name} color={self.found.color} detail={self.detail}
                  house={self.house} prices={self.prices} history={self.history}>
-        <box rows={PANEL} gap={space(.Item)}>
+        <box rows={PANEL} gap={3sp}>
           <box rows={FILL} border={Style.FRAME} background={Style.LISTS_BACK}>
             <Table columns={LISTING_COLUMNS} sorted={mut self.listSorted} descending={mut self.listDescending}>
               <ListingRow $for={index, listing of self.listings} $key={index} listing={peek listing}
                           index={index} first={self.first} last={self.last} />
             </Table>
           </box>
-          <box columns={PAIR} gap={space(.Item)} yAlign={Align.Center}>
+          <box columns={PAIR} gap={3sp} yAlign={Align.Center}>
             <text value={Locale.QUANTITY} textColor={Style.INK} />
             <CountInput $if={self.commodity} value={mut self.count} least={1} most={MOST_COUNT} step={STEP} />
             <text $else value={self.auctionCount} textColor={Style.INK} />

@@ -56,7 +56,7 @@ class Controls {
     return $ltml {
       <Window shown={self.open} tabs={self.tabs} selected={mut self.tab} declared={mut self.placing}
               @close={self.close}>
-        <box columns={1} gap={6ui}>
+        <box columns={1} gap={2sp}>
           <Checkbox label={"Pixel"} value={mut self.pixel} />
           <Switch label={"Sounds"} value={mut self.sounds} />
           <Segmented value={mut self.side} choices={SIDES} />

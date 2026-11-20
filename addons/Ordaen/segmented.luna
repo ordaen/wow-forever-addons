@@ -17,7 +17,7 @@ const DIM: Color = Color.hex("#ffffff73")
 const LIGHT: Color = Color.hex("#d6a56b")
 const CLEAR: Color = Color.hex("#00000000")
 const EDGE: Color = Color.hex("#4a3a24")
-const PADDING: Edges = { top: 8.203125dp, right: 16.40625dp, bottom: 8.203125dp, left: 16.40625dp }
+const PADDING: Edges = { top: 2sp, right: 4sp, bottom: 2sp, left: 4sp }
 const WHOLE: Line = { width: 1.171875dp, color: EDGE }
 // The segments after the first share the one before's right line.
 const AFTER: Line = { width: 1.171875dp, color: EDGE, sides: [Side.Top, Side.Right, Side.Bottom] }

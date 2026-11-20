@@ -22,7 +22,7 @@ class AddedLine implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box $if={self.paired} columns={NAME_VALUE} gap={11.71875dp} padding={self.padding}>
+      <box $if={self.paired} columns={NAME_VALUE} gap={3sp} padding={self.padding}>
         <text value={self.line.left} textColor={self.leftColor} />
         <text value={self.right} textColor={self.rightColor} wrap={false} textFont={.Numbers} />
       </box>
@@ -44,7 +44,7 @@ class AddedLines implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box $if={self.some} gap={2.34375dp} padding={SECTION_PAD} border={RULE}>
+      <box $if={self.some} gap={0.5sp} padding={SECTION_PAD} border={RULE}>
         <AddedLine $for={line of self.lines} line={line} />
       </box>
     }

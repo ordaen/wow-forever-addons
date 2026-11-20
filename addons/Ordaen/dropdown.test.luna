@@ -20,9 +20,9 @@ class Tools {
 
   public render(self): Template {
     return $ltml {
-      <box columns={["max-content", "max-content"]} gap={40ui}>
+      <box columns={["max-content", "max-content"]} gap={14sp}>
         <CompactDropdown value={mut self.order} choices={ORDERS} width={170ui} />
-        <box padding={8ui} @pointerPress={self.onBeside} @keyPress(.Enter)={self.onBeside} @keyPress(.Space)={self.onBeside}>
+        <box padding={3sp} @pointerPress={self.onBeside} @keyPress(.Enter)={self.onBeside} @keyPress(.Space)={self.onBeside}>
           <text value={"Beside"} />
         </box>
       </box>

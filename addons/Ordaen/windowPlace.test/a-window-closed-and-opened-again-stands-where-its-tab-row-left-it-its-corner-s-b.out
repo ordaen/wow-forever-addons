@@ -1,14 +1,14 @@
 -- opened again where it was left, the cursor in its body: full screen and close at the body's top right
 surface 400,361.38 400x337.25 on DIALOG clamped raised by a click
   box 400,398.62 400x300 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
-    box 412.75,411.38 379.5x276.75
-      text 432.75,431.38 339.5x15.6 "the page" #ffffff
+    box 413.09,411.72 378.81x276.06
+      text 435.85,434.47 333.3x17.78 "the page" #ffffff
     box 782.75,678.62 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 400,361.38 400x47.75
-    box 400,361.38 338.33x47.75
+    box 400,361.38 336.47x47.75
       box 400,361.38 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
-        box 418.58,371.62 77.33x34.25
-          text 433.36,380.95 47.78x15.6 "Recipes" #ffd100
+        box 418.78,371.62 76.93x34.25
+          text 433.36,379.86 47.78x17.78 "Recipes" #ffd100
     box 745,377.71 55x31.42
       box 745,377.71 55x26.67 clipped
         box 745,377.71 27.5x26.67 absolute clipped @keyPress @pointerPress

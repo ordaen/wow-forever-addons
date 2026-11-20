@@ -9,10 +9,7 @@
 // the player's own.
 import { Align, Art, Edges, Overflow, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import {
-  ARTWORK, ButtonPlate, Choice, Column, CompactDropdown, Component, Fact, FilterButton, FilterGroup, ModuleMemory, PickRow, PushButton, SECONDARY_TEXT, TITLE_TEXT, Table,
-  TableCell, TableRow, ToolPick, ToolSort, Toolbar, agoText, space, switched, tracksOf
-} from "Ordaen"
+import { ARTWORK, ButtonPlate, Choice, Column, CompactDropdown, Component, Fact, FilterButton, FilterGroup, ModuleMemory, PickRow, PushButton, SECONDARY_TEXT, TITLE_LINE, TITLE_TEXT, Table, TableCell, TableRow, ToolPick, ToolSort, Toolbar, agoText, switched, tracksOf } from "Ordaen"
 import Locale from "@/locales"
 import { Friend, Hero, Ignored, Me, Presence, Request, trimmed } from "@/people"
 import Style from "@/style"
@@ -69,8 +66,8 @@ const PRESENCES: Array<Choice<Presence>> = [
   { value: .Offline, label: Locale.INVISIBLE }
 ]
 const ROW: Array<Track> = [Style.DOT, { fr: 1 }, "max-content"]
-const ROW_PAD: Edges = { top: space(.Line), right: space(.Line), bottom: space(.Line), left: space(.Line) }
-const FIELD_PAD: Edges = { left: 11.71875dp, right: 11.71875dp }
+const ROW_PAD: Edges = { top: 1sp, right: 2sp, bottom: 1sp, left: 2sp }
+const FIELD_PAD: Edges = { left: 3sp, right: 3sp }
 
 // What a friend is called in the list: the account's name, or the character's.
 public function titleOf(friend: Friend): String { return friend.account?.name ?? friend.hero?.name ?? "" }
@@ -218,7 +215,7 @@ class FriendRow implements Component {
       <PickRow columns={ROW} picked={self.picked} @pick={self.onPick}>
         <box width={Style.DOT} height={Style.DOT} background={markOf(self.friend.presence)} />
         <box columns={1} overflow={Overflow.Hidden}>
-          <box columns={["max-content", "max-content"]} gap={space(.Line)} yAlign={Align.Center}>
+          <box columns={["max-content", "max-content"]} gap={2sp} yAlign={Align.Center}>
             <text value={titleOf(self.friend)} textColor={nameColorOf(self.friend)} wrap={false} />
             <box $if={self.favorite} width={Style.STAR} height={Style.STAR} background={Style.STAR_ICON} />
           </box>
@@ -249,9 +246,9 @@ class FriendTableRow implements Component {
 
   public render(self): Template {
     return $ltml {
-      <TableRow tracks={TRACKS} selected={self.picked} grows={true} @pick={self.onPick}>
+      <TableRow tracks={TRACKS} selected={self.picked} @pick={self.onPick}>
         <TableCell>
-          <box columns={[Style.DOT, { fr: 1 }, "max-content"]} gap={space(.Line)} yAlign={Align.Center}>
+          <box columns={[Style.DOT, { fr: 1 }, "max-content"]} gap={2sp} yAlign={Align.Center}>
             <box width={Style.DOT} height={Style.DOT} background={markOf(self.friend.presence)} />
             <text value={titleOf(self.friend)} textColor={nameColorOf(self.friend)} />
             <box $if={self.favorite} width={Style.STAR} height={Style.STAR} background={Style.STAR_ICON} />
@@ -310,8 +307,8 @@ public class FriendList implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={1} rows={["max-content", { fr: 1 }]} gap={space(.Item)}>
-        <box columns={[{ fr: 1 }, "max-content"]} gap={space(.Item)} yAlign={Align.Center}>
+      <box columns={1} rows={["max-content", { fr: 1 }]} gap={3sp}>
+        <box columns={[{ fr: 1 }, "max-content"]} gap={3sp} yAlign={Align.Center}>
           <Toolbar search={mut self.query} placeholder={Locale.SEARCH}>
             <FilterButton values={mut self.kept.values.filter} start={self.filterStarts} groups={FILTERS} />
             <ToolSort sorted={mut self.kept.values.sorted} columns={COLUMNS} title={Locale.SORT} more={MORE_SORTS} />
@@ -388,13 +385,13 @@ public class FriendCard implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={1} rows={["max-content", { fr: 1 }, "max-content"]} gap={space(.Group)}>
-        <box columns={1} gap={space(.Item)}>
-          <box columns={[Style.BIG_DOT, { fr: 1 }]} gap={space(.Line)} yAlign={Align.Center}>
+      <box columns={1} rows={["max-content", { fr: 1 }, "max-content"]} gap={6sp}>
+        <box columns={1} gap={3sp}>
+          <box columns={[Style.BIG_DOT, { fr: 1 }]} gap={2sp} yAlign={Align.Center}>
             <box width={Style.BIG_DOT} height={Style.BIG_DOT} background={markOf(self.friend.presence)} />
             <box columns={1}>
-              <box columns={["max-content", "max-content"]} gap={space(.Line)}>
-                <text value={self.title} textColor={self.color} textSize={TITLE_TEXT} textFont={.Title} wrap={false} />
+              <box columns={["max-content", "max-content"]} gap={2sp}>
+                <text value={self.title} textColor={self.color} textSize={TITLE_TEXT} lineHeight={TITLE_LINE} textFont={.Title} wrap={false} />
                 <box $if={self.favorite} width={Style.STAR} height={Style.STAR} background={Style.STAR_ICON} />
               </box>
               <text value={self.sub} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={false} />
@@ -408,7 +405,7 @@ public class FriendCard implements Component {
           <Fact label={Locale.NOTE} value={orDash(self.friend.note)} />
         </box>
         <box />
-        <box columns={["max-content", "max-content", "max-content"]} gap={space(.Item)}>
+        <box columns={["max-content", "max-content", "max-content"]} gap={3sp}>
           <PushButton label={Locale.WHISPER} width={Style.SMALL_BUTTON} disabled={!self.canWhisper} @click={self.onWhisper} />
           <PushButton label={Locale.INVITE} width={Style.SMALL_BUTTON} disabled={!self.canInvite} @click={self.onInvite} />
           <PushButton label={Locale.REMOVE} width={Style.SMALL_BUTTON} plate={ButtonPlate.Danger} @click={self.onRemove} />
@@ -443,17 +440,17 @@ public class MyCard implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={1} rows={["max-content", { fr: 1 }, "max-content"]} gap={space(.Group)}>
-        <box columns={1} gap={space(.Item)}>
-          <box columns={[Style.BIG_DOT, { fr: 1 }]} gap={space(.Line)} yAlign={Align.Center}>
+      <box columns={1} rows={["max-content", { fr: 1 }, "max-content"]} gap={6sp}>
+        <box columns={1} gap={3sp}>
+          <box columns={[Style.BIG_DOT, { fr: 1 }]} gap={2sp} yAlign={Align.Center}>
             <box width={Style.BIG_DOT} height={Style.BIG_DOT} background={markOf(self.me.presence)} />
             <box columns={1}>
               <text value={self.connected ? self.me.battleTag : self.me.hero.name} textColor={Style.BATTLE_NET}
-                    textSize={TITLE_TEXT} textFont={.Title} wrap={false} />
+                    textSize={TITLE_TEXT} lineHeight={TITLE_LINE} textFont={.Title} wrap={false} />
               <text value={Locale.YOU} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={false} />
             </box>
           </box>
-          <box $if={self.connected} columns={[117.1875dp, { fr: 1 }]} gap={space(.Line)} yAlign={Align.Center}>
+          <box $if={self.connected} columns={[117.1875dp, { fr: 1 }]} gap={2sp} yAlign={Align.Center}>
             <text value={Locale.STATUS} textColor={Style.DIM} wrap={false} />
             <CompactDropdown value={mut self.picked} choices={PRESENCES} width={Style.WIDE_BUTTON} />
           </box>
@@ -462,7 +459,7 @@ public class MyCard implements Component {
           <Fact label={Locale.WHERE} value={orDash(self.me.hero.area)} />
         </box>
         <box />
-        <box $if={self.connected} columns={["max-content", "max-content"]} gap={space(.Item)}>
+        <box $if={self.connected} columns={["max-content", "max-content"]} gap={3sp}>
           <PushButton label={Locale.EDIT_BROADCAST} width={Style.CARD_BUTTON} @click={self.onEdit} />
           <PushButton label={Locale.COPY_BATTLE_TAG} width={Style.CARD_BUTTON} @click={self.onCopy} />
         </box>
@@ -484,7 +481,7 @@ class RequestRow implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={[{ fr: 1 }, "max-content", "max-content"]} gap={space(.Item)} yAlign={Align.Center} padding={ROW_PAD}>
+      <box columns={[{ fr: 1 }, "max-content", "max-content"]} gap={3sp} yAlign={Align.Center} padding={ROW_PAD}>
         <box columns={1}>
           <text value={self.request.name} textColor={Style.BATTLE_NET} wrap={false} />
           <text value={agoText(self.request.sent)} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={false} />
@@ -511,7 +508,7 @@ public class RequestList implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={1} gap={space(.Line)} overflow={Overflow.Scroll}>
+      <box columns={1} gap={2sp} overflow={Overflow.Scroll}>
         <text value={self.heading} textColor={Style.GOLD} wrap={false} />
         <text $if={self.requests.length == 0} value={Locale.NO_REQUESTS} textColor={Style.DIM} />
         <RequestRow $for={request of self.requests} $key={request.id} request={request} @answer={self.onAnswer} />
@@ -546,7 +543,7 @@ class IgnoredRow implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={[{ fr: 1 }, "max-content"]} gap={space(.Item)} yAlign={Align.Center} padding={ROW_PAD}>
+      <box columns={[{ fr: 1 }, "max-content"]} gap={3sp} yAlign={Align.Center} padding={ROW_PAD}>
         <text value={ignoredName(self.entry)} textColor={Style.INK} wrap={false} />
         <PushButton label={Locale.UNIGNORE} width={Style.SMALL_BUTTON} @click={self.onUnignore} />
       </box>
@@ -578,15 +575,15 @@ public class IgnoreList implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={1} rows={["max-content", { fr: 1 }, "max-content"]} gap={space(.Item)}>
-        <box columns={[{ fr: 1 }, "max-content"]} gap={space(.Item)} yAlign={Align.Center}>
+      <box columns={1} rows={["max-content", { fr: 1 }, "max-content"]} gap={3sp}>
+        <box columns={[{ fr: 1 }, "max-content"]} gap={3sp} yAlign={Align.Center}>
           <box height={Style.FIELD} rows={[{ fr: 1 }]}>
             <input value={mut self.name} maxLength={48} padding={FIELD_PAD} textColor={Style.INK}
                    background={Style.FIELD_BACK} @submit={self.onIgnore} />
           </box>
           <PushButton label={Locale.ADD_IGNORE} width={Style.WIDE_BUTTON} @click={self.onIgnore} />
         </box>
-        <box columns={1} gap={space(.Line)} overflow={Overflow.Scroll}>
+        <box columns={1} gap={2sp} overflow={Overflow.Scroll}>
           <text value={self.heading} textColor={Style.GOLD} wrap={false} />
           <text $if={self.ignored.length == 0} value={Locale.IGNORE_EMPTY} textColor={Style.DIM} />
           <IgnoredRow $for={entry of self.ignored} $key={ignoredKey(entry)} entry={entry} @unignore={self.onUnignore} />

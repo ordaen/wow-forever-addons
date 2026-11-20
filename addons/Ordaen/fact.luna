@@ -2,7 +2,6 @@
 // on the right, wrapped where it runs long. A card is a column of them.
 import { Track } from "$ltml"
 import { Component } from "@/module"
-import { space } from "@/units"
 
 const INK: Color = Color.hex("#e8dcc4")
 const DIM: Color = Color.hex("#a3977f")
@@ -20,7 +19,7 @@ public class Fact implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={COLUMNS} gap={space(.Line)}>
+      <box columns={COLUMNS} gap={2sp}>
         <text value={self.label} textColor={DIM} wrap={false} />
         <text value={self.value} textColor={self.color} wrap={true} />
       </box>

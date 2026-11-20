@@ -18,7 +18,7 @@ class Bag {
 
   public render(self): Template {
     return $ltml {
-      <box columns={["max-content", "max-content", "max-content", "max-content", "max-content", "max-content"]} gap={8ui}>
+      <box columns={["max-content", "max-content", "max-content", "max-content", "max-content", "max-content"]} gap={3sp}>
         <ItemButton item={nil} />
         <ItemButton item={6948} @pick={self.onPick} />
         <ItemButton item={2589} count={20} quality={Quality.Epic} dimmed={self.dimmed} />
@@ -72,7 +72,7 @@ class Dragged {
 
   public render(self): Template {
     return $ltml {
-      <box columns={["max-content", "max-content"]} gap={8ui}>
+      <box columns={["max-content", "max-content"]} gap={3sp}>
         <ItemButton item={6948} action={Action.UseBagItem { bag: 0, slot: 1, chord: .Left }} @dragged={self.onDragged}
                     @pressed={self.onPressed} />
         <ItemButton item={2589} @dropped={self.onDropped} @pressed={self.onPressed} />
@@ -209,7 +209,7 @@ test "an icon is drawn for each slot that has one" {
 class Worn {
   public render(self): Template {
     return $ltml {
-      <box columns={["max-content", "max-content"]} gap={8ui}>
+      <box columns={["max-content", "max-content"]} gap={3sp}>
         <ItemButton item={12640} worn={1} />
         <ItemButton item={12640} />
       </box>

@@ -2,7 +2,7 @@
 import Client from "$client"
 
 public const WIDTH: Number<Length> = 1148.4375dp
-public const HEIGHT: Number<Length> = 656.25dp
+public const HEIGHT: Number<Length> = 703.125dp
 // The card's column at the window's right.
 public const CARD: Number<Length> = 351.5625dp
 // Every line of the list, a category's caption too, is this high.
@@ -13,7 +13,7 @@ public const MEMORY: Number<Length> = 93.75dp
 // The table's category column.
 public const CATEGORY: Number<Length> = 175.78125dp
 // How far an addon under its group's parent stands in.
-public const INDENT: Number<Length> = 21.09375dp
+public const INDENT: Number<Spacing> = 5.5sp
 
 public const INK: Color = Color.hex("#e8e0d0")
 public const DIM: Color = Color.hex("#9a9080")
