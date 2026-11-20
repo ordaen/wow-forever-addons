@@ -1,0 +1,316 @@
+// The errors kept: `errors` in Ordaen Debug's own saved variable (`Game.saved`, scope `Own`: OrdaenDebugDB), which
+// WoW writes to WTF\Account\<account>\SavedVariables\OrdaenDebug.lua on /reload or logout.
+//
+//   session          increments on every load (login or /reload)
+//   sessions[n]      the client's facts in session n (kept while an error names it)
+//   errors           newest last, at most ERRORS_MAX. kind = "error" | "taint"; source = addon folder, "Blizzard" or
+//                    "other"; message, stack, locals, count, time/lastTime, session/lastSession, id
+// Read as its types at load (`read`): what doesn't fit is dropped.
+import Client from "$client"
+import Game from "$game"
+
+public const ERRORS_MAX = 100
+public const STACK_MAX_CHARS = 6000
+public const LOCALS_MAX_CHARS = 4000
+
+public enum Kind implements Plain {
+  Error = "error"
+  Taint = "taint"
+}
+
+// The client's facts in one session.
+public struct Meta implements Plain {
+  client: String | nil
+  build: String | nil
+  buildDate: String | nil
+  interface: Number | nil
+  locale: String | nil
+  core: String | nil
+}
+
+// One error (or blocked action), kept once by its message and counted when it comes back.
+public struct Entry implements Plain {
+  const id: Integer
+  const kind: Kind
+  source: String
+  const message: String
+  const stack: String | nil
+  const locals: String | nil
+  count: Integer
+  const time: String
+  lastTime: String | nil
+  const session: Integer
+  lastSession: Integer | nil
+}
+
+// What an error is recorded from: the source is found from the message and stack where none is given.
+public struct Fields {
+  message: String
+  stack: String | nil
+  locals: String | nil
+  kind: Kind | nil
+  source: String | nil
+}
+
+public struct DB implements Plain {
+  session: Integer
+  nextId: Integer
+  sessions: mut Map<Integer, Meta>
+  errors: mut Array<mut Entry>
+}
+
+// Told of an error added (isNew) or repeated. firstThisSession: true for a new error and for the first repeat in
+// this session of an error recorded in an earlier one (an error at load comes back on every /reload as a repeat).
+public type Listener = (entry: Entry, isNew: Boolean, firstThisSession: Boolean) => nil
+
+// The saved table of a first session: no session before it, no error.
+public function noErrors(): mut DB {
+  return { session: 0, nextId: 0, sessions: {}, errors: [] }
+}
+
+// What a session left in the saved table, read as the store's types: what doesn't fit is left out.
+public function read(raw: Unknown): mut DB {
+  let db = noErrors()
+  if (!(raw is Table)) {
+    return db
+  }
+  db.session = decode(raw["session"], 0)
+  db.nextId = decode(raw["nextId"], 0)
+  db.sessions = decode<Map<Integer, Meta>>(raw["sessions"], {})
+  db.errors = decode<Array<mut Entry>>(raw["errors"], [])
+  return db
+}
+
+// What the last session kept, read, and kept itself from now: the client writes it as the session ends.
+public function takeSaved(): mut DB {
+  const db = read(Game.saved.stored(Game.Scope.Own, SAVED))
+  Game.saved.store(Game.Scope.Own, SAVED, db)
+  return db
+}
+
+// The key of the errors in Ordaen Debug's own saved variable.
+public const SAVED = "errors"
+
+public function now(): String {
+  return Client.date("%Y-%m-%d %H:%M:%S", nil)
+}
+
+function truncate(text: String | nil, max: Integer): String | nil {
+  if (text != nil && text.length > max) {
+    return text.sub(1, max) + "\n...(truncated)"
+  }
+  return text
+}
+
+// The client's facts in this session, and Ordaen's version.
+public function clientMeta(): Meta {
+  let client, build, buildDate, interface, _, _ = Client.GetBuildInfo()
+  const core = Client.C_AddOns.GetAddOnMetadata("Ordaen", "Version")
+  return { client: client, build: build, buildDate: buildDate, interface: interface, locale: Client.GetLocale(), core: core ?? "?" }
+}
+
+const ADDON_PATH: Pattern = "[Aa][Dd][Dd][Oo][Nn][Ss][/\\]([^/\\:%]\"'\n]+)[/\\]"
+// Interface/FrameXML/, Interface/SharedXML/, Interface/SharedXMLBase/...
+const BLIZZARD_PATH: Pattern = "[Ii][Nn][Tt][Ee][Rr][Ff][Aa][Cc][Ee][/\\]%a*[Xx][Mm][Ll]%a*[/\\]"
+
+// The source of the first code path in text: an addon folder, "Blizzard" (Blizzard_* addons,
+// Interface/FrameXML, SharedXML...), or nil when text names none.
+function firstSource(text: String): String | nil {
+  let addonAt, _ = text.find(ADDON_PATH)
+  let blizzardAt, _ = text.find(BLIZZARD_PATH)
+  if (blizzardAt != nil) {
+    if (addonAt == nil) {
+      return "Blizzard"
+    }
+    if (blizzardAt < addonAt) {
+      return "Blizzard"
+    }
+  }
+  let found = text.captures(ADDON_PATH)
+  if (found == nil) {
+    return nil
+  }
+  const addon = found[1] ?? panic("ADDON_PATH captures the folder")
+  const blizzard, _ = addon.find("^Blizzard_")
+  if (blizzard != nil) {
+    return "Blizzard"
+  }
+  return addon
+}
+
+// The addon an error belongs to: the first addon folder (Interface/AddOns/<Name>/, any slash and case) in its
+// message, else in its stack; Blizzard's own code is "Blizzard"; "other" when neither names one.
+public function sourceOf(message: String | nil, stack: String | nil): String {
+  return firstSource(message ?? "") ?? firstSource(stack ?? "") ?? "other"
+}
+
+// Whether an error source is ours: LunaType's runtime (a seam's fault is its error) or an addon written in LunaType,
+// whose TOC names its sources (`X-LunaType-Source`, every dev build's).
+public function isOurs(source: String | nil): Boolean {
+  if (source == nil) {
+    return false
+  }
+  if (source == "LunaType") {
+    return true
+  }
+  if (!Client.C_AddOns.DoesAddOnExist(source)) {
+    return false
+  }
+  return Client.C_AddOns.GetAddOnMetadata(source, "X-LunaType-Source") != nil
+}
+
+// The saved table, taken over as the module's root is made: a new session begins in it.
+public class Errors {
+  index: mut Map<String, mut Entry> = {}
+  listeners: mut Array<Listener> = []
+
+  public db: mut DB
+  constructor(db: mut DB, meta: Meta) {
+    self.db = db
+    // Errors recorded before every addon's source was named say "other"; repeats keep the stored entry, so they
+    // are named again here, once per load.
+    for (e of self.db.errors) {
+      if (e.source == "other" && e.kind != Kind.Taint) {
+        e.source = sourceOf(e.message, e.stack)
+      }
+    }
+    self.db.session += 1
+    self.db.sessions[self.db.session] = meta
+    for (entry of self.db.errors) {
+      self.index[entry.message] = entry
+    }
+    // Sessions nothing refers to any more are forgotten.
+    let used: Map<Integer, Boolean> = {}
+    used[self.db.session] = true
+    for (entry of self.db.errors) {
+      used[entry.session] = true
+      used[entry.lastSession ?? entry.session] = true
+    }
+    let unused: Array<Integer> = []
+    for (session, _ of self.db.sessions) {
+      if (used[session] == nil) {
+        unused.push(session)
+      }
+    }
+    for (session of unused) {
+      self.db.sessions[session] = nil
+    }
+  }
+
+  public session(self): Integer {
+    return self.db.session
+  }
+
+  // The client's facts in this session.
+  public meta(self): Meta | nil {
+    return self.db.sessions[self.db.session]
+  }
+
+  // Calls `listener` whenever an error is added or repeated.
+  public onChange(mut self, listener: Listener) {
+    self.listeners.push(listener)
+  }
+
+  notify(self, entry: Entry, isNew: Boolean, firstThisSession: Boolean) {
+    for (listener of self.listeners) {
+      listener(entry, isNew, firstThisSession)
+    }
+  }
+
+  // If this message was recorded before, the repeat is counted and its entry given. Cheap enough to call first on
+  // every error, before capturing the (expensive) stack.
+  public repeatOf(mut self, message: String): Entry | nil {
+    let entry = self.index[message]
+    if (entry != nil) {
+      let firstThisSession = (entry.lastSession ?? entry.session) != self.db.session
+      entry.count += 1
+      entry.lastTime = now()
+      entry.lastSession = self.db.session
+      self.notify(entry, false, firstThisSession)
+    }
+    return entry
+  }
+
+  // Records an error: the entry, and whether it is new.
+  public add(mut self, fields: Fields): (Entry, Boolean) {
+    let message = fields.message
+    let existing = self.repeatOf(message)
+    if (existing != nil) {
+      return existing, false
+    }
+    self.db.nextId += 1
+    let entry = Entry {
+      id: self.db.nextId,
+      kind: fields.kind ?? Kind.Error,
+      source: fields.source ?? sourceOf(message, fields.stack),
+      message: message,
+      stack: truncate(fields.stack, STACK_MAX_CHARS),
+      locals: truncate(fields.locals, LOCALS_MAX_CHARS),
+      count: 1,
+      time: now(),
+      session: self.db.session
+    }
+    self.db.errors.push(mut entry)
+    self.index[message] = entry
+    const n = self.db.errors.length
+    if (n > ERRORS_MAX) {
+      const drop = n - ERRORS_MAX
+      for (i of 1..drop) {
+        const dropped = self.db.errors[i] ?? panic("an error among the dropped")
+        if (self.index[dropped.message] == dropped) {
+          self.index[dropped.message] = nil
+        }
+      }
+      for (i of 1..ERRORS_MAX) {
+        self.db.errors[i] = self.db.errors[i + drop] ?? panic("a kept error past the dropped ones")
+      }
+      for (i of 1..drop) {
+        _ = self.db.errors.pop()
+      }
+    }
+    self.notify(entry, true, true)
+    return entry, true
+  }
+
+  // How many recorded errors (and blocked actions) happened in this session: new ones and older ones that came
+  // back. Walks at most ERRORS_MAX entries.
+  public sessionCount(self): Integer {
+    let n = 0
+    for (e of self.db.errors) {
+      if ((e.lastSession ?? e.session) == self.db.session) {
+        n += 1
+      }
+    }
+    return n
+  }
+
+  // Plain-text description of one error, for the companion and bug reports.
+  public format(self, e: Entry): String {
+    let m = self.db.sessions[e.session]
+    let lastTime = e.lastTime
+    let lines: Array<String> = [
+      "%s in %s: x%d, first %s%s".format(e.kind == Kind.Taint ? "Blocked action" : "Error", e.source,
+        e.count, e.time, lastTime != nil ? ", last " + lastTime : ""),
+      "Client %s (build %s, %s), interface %s, locale %s. Ordaen %s.".format(String.of(m?.client),
+        String.of(m?.build), String.of(m?.buildDate), String.of(m?.interface), String.of(m?.locale),
+        String.of(m?.core))
+    ]
+    if (e.source != "other" && e.source != "Blizzard") {
+      lines.push("%s %s".format(e.source, String.of(Client.C_AddOns.GetAddOnMetadata(e.source, "Version"))))
+    }
+    lines.push("")
+    lines.push(e.message)
+    let stack = e.stack
+    if (stack != nil) {
+      lines.push("")
+      lines.push("-- stack:")
+      lines.push(stack)
+    }
+    let locals = e.locals
+    if (locals != nil) {
+      lines.push("-- locals:")
+      lines.push(locals)
+    }
+    return lines.join("\n")
+  }
+}

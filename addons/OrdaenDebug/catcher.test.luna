@@ -1,0 +1,47 @@
+import Game from "$game"
+import Test from "$test"
+import { Catcher } from "@/catcher"
+import { Errors, Kind, noErrors } from "@/errors"
+
+function caught(message: String, stack: String | nil) {
+  Game.errors.caught.emit({ message: message, stack: stack, locals: nil })
+}
+
+test "takes the client's handler, handing every error on, and keeps what it catches once" {
+  let errors = new Errors(noErrors(), {})
+  const catcher = new Catcher(mut errors)
+  caught("Interface/AddOns/Details/x.lua:1: boom", "the stack")
+  caught("Interface/AddOns/Details/x.lua:1: boom", nil)
+  const entry = errors.db.errors[1] ?? panic("the error is kept")
+  Test.expect(errors.db.errors.length == 1)
+  Test.expect(entry.count == 2)
+  Test.expect(entry.source == "Details")
+  Test.expect(entry.stack == "the stack")
+  // The snapshot's `asked:` lines: Always as it is made, ToAnErrorAddon once quiet.
+  catcher.quiet()
+}
+
+test "keeps a blocked action under the addon the client blames, and tells its listeners each time" {
+  let errors = new Errors(noErrors(), {})
+  let catcher = new Catcher(mut errors)
+  let heard: Array<String> = []
+  catcher.onTaint((addon: String, called: String, verb: String): nil => heard.push(`${addon} ${called} ${verb}`))
+  catcher.taint("ADDON_ACTION_BLOCKED", "Blizzard_Settings", "Minimap:SetParent")
+  catcher.taint("ADDON_ACTION_FORBIDDEN", "Details", "UNKNOWN()")
+  catcher.taint("ADDON_ACTION_FORBIDDEN", "Details", "UNKNOWN()")
+  Test.expect(heard.join(", ") == "Blizzard_Settings Minimap:SetParent() blocked, Details UNKNOWN() forbidden, Details UNKNOWN() forbidden")
+  Test.expect(errors.db.errors.length == 2)
+  Test.expect(errors.db.errors[1]?.source == "Blizzard")
+  Test.expect(errors.db.errors[1]?.kind == Kind.Taint)
+  Test.expect(errors.db.errors[2]?.message == "Details: call to UNKNOWN() was forbidden")
+  Test.expect(errors.db.errors[2]?.count == 2)
+}
+
+test "keeps a fault under the addon it names, and an error the runtime heard with its stack" {
+  let errors = new Errors(noErrors(), {})
+  let catcher = new Catcher(mut errors)
+  catcher.fault("the seam failed", "LunaType")
+  catcher.error("early", "the stack", "x = 1")
+  Test.expect(errors.db.errors[1]?.source == "LunaType")
+  Test.expect(errors.db.errors[2]?.locals == "x = 1")
+}

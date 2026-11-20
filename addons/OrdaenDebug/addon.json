@@ -1,0 +1,9 @@
+{
+  "title": "Ordaen Debug",
+  "icon": "Interface/Icons/INV_Misc_Gear_01",
+  "notes": "Catches every error and blocked action with what led to it, to report a bug in an Ordaen addon. Leave it off unless you are reporting one.",
+  "version": "0.1.0",
+  "loadOnDemand": true,
+  "defaultState": "disabled",
+  "dependencies": { "Ordaen": "^1.0.0" }
+}
