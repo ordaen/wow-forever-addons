@@ -85,6 +85,17 @@ test "the menu points the way, and abandoning asks first" {
   Test.expect(Test.talked().join(",") == "abandon 101")
 }
 
+test "a quest with an item has its button beside the title, which uses the item by the client's secure click" {
+  Test.questLog([{ id: 104, title: "The Collector", header: "Westfall", level: 12, watched: true, specialItem: 5060 }])
+  Test.mount(nil, PAGE)
+  Tracker.refresh()
+  Test.flush()
+  _ = Test.performed()
+  // The stand-in knows no icon of the item: the button is clicked where it stands, at the title's end.
+  Test.click({ x: 1566, y: 208 }, nil)
+  Test.expect(Test.performed().join(",") == "item |cffffffff|Hitem:5060::::::::|h[Item 5060]|h|r")
+}
+
 test "an objective moving on sounds as the game's tracker does" {
   logged()
   Test.mount(nil, PAGE)

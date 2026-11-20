@@ -6,9 +6,9 @@
 import Client from "$client"
 import Events from "$events"
 import Game from "$game"
-import { Edges, Layer, Place, Point, Track } from "$ltml"
+import { Action, Edges, Layer, Place, Point, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { ButtonPlate, Component, Dialog, Menu, MenuEntry, Module, PushButton, SECONDARY_TEXT, SettingsPage, colorOf, difficultyOf, playSound } from "Ordaen"
+import { ButtonPlate, Component, Dialog, ItemButton, Menu, MenuEntry, Module, PushButton, SECONDARY_TEXT, SettingsPage, colorOf, difficultyOf, playSound } from "Ordaen"
 import { QuestLine, QuestLines } from "@/extend"
 import Locale from "@/locales"
 
@@ -22,7 +22,8 @@ const WHITE: Color = Color.hex("#ffffff")
 const GREEN: Color = Color.hex("#40c040")
 const RED: Color = Color.hex("#ff2020")
 const HEAD: Array<Track> = ["max-content", "max-content", { fr: 1 }]
-const TITLE: Array<Track> = ["max-content", "max-content", { fr: 1 }, "max-content"]
+const TITLE: Array<Track> = ["max-content", "max-content", { fr: 1 }, "max-content", "max-content"]
+const ITEM = 24.375dp
 const POI = 11.71875dp
 const LINE_PAD: Edges = { left: 9sp }
 const ASK = 468.75dp
@@ -163,6 +164,8 @@ class TrackedQuest implements Component {
   derived level: String = `[${self.quest.level}]`
   derived levelColor: Color = colorOf(difficultyOf(self.quest.level, self.player))
   derived tag: String = tagText(self.quest.tag)
+  // The quest's item, used by the client's own secure click, as the game's tracker's item button uses it.
+  derived use: Action | nil = Action.UseQuestItem { quest: self.quest.id }
   derived poi: Color = self.pointed ? GOLD : DIM
   derived ending: String = self.quest.failed ? Locale.FAILED : self.quest.done ? Locale.COMPLETE : ""
   derived endingColor: Color = self.quest.failed ? RED : GREEN
@@ -214,6 +217,8 @@ class TrackedQuest implements Component {
           <text value={self.level} textColor={self.levelColor} textFont={.Numbers} wrap={.None} />
           <text value={self.quest.title} textColor={GOLD} wrap={.Cut} />
           <text value={self.tag} textColor={DIM} textSize={SECONDARY_TEXT} wrap={.None} />
+          <ItemButton $if={self.quest.item > 0} item={self.quest.item} size={ITEM} action={self.use} linkOnShift={true} />
+          <box $else />
         </box>
         <box $if={!self.quest.done && !self.quest.failed} columns={1} padding={LINE_PAD}>
           <text $for={objective of self.quest.objectives} value={`— ${objective.text}`} textColor={WHITE}
