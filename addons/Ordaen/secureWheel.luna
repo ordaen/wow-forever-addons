@@ -109,6 +109,9 @@ public class SecureWheel {
   // The cursor from the wheel's middle, right and up, in the screen's units: what the art aims by.
   public state aimX: Number = 0
   public state aimY: Number = 0
+  // Where the wheel's middle stands, from the screen's bottom left, in its units: where the art is drawn.
+  public state middleX: Number = 0
+  public state middleY: Number = 0
   // An item used, by its place, after the client did its action: an item of ours is done by whoever hears it.
   public const picked: Event<String> = new Event()
 
@@ -192,20 +195,21 @@ public class SecureWheel {
     })
   }
 
-  // After each click the client did: the wheel's state as its restricted code left it, and an item used.
+  // After each click the client did: an item used, told while the wheel still reads as up (its owner knows which
+  // ring it was), then the wheel's state as its restricted code left it.
   heard(mut self) {
+    const picks = self.header.GetAttribute("picks")
+    if (picks is Integer && picks != self.picks) {
+      self.picks = picks
+      const chosen = self.header.GetAttribute("chosen")
+      if (chosen is String) { self.picked.emit(chosen) }
+    }
     const shown = self.button.IsShown()
     const level = self.header.GetAttribute("level")
     self.level = level is String ? level : ROOT
     if (shown != self.open) {
       self.open = shown
       self.follow(shown)
-    }
-    const picks = self.header.GetAttribute("picks")
-    if (picks is Integer && picks != self.picks) {
-      self.picks = picks
-      const chosen = self.header.GetAttribute("chosen")
-      if (chosen is String) { self.picked.emit(chosen) }
     }
   }
 
@@ -224,6 +228,10 @@ public class SecureWheel {
     const cursorX, cursorY = Client.GetCursorPosition()
     const middleX, middleY = self.button.GetCenter()
     if (middleX == nil || middleY == nil) { return }
+    if (middleX != self.middleX || middleY != self.middleY) {
+      self.middleX = middleX
+      self.middleY = middleY
+    }
     const x = cursorX / scale - middleX
     const y = cursorY / scale - middleY
     if ((x - self.aimX).abs() < 0.5 && (y - self.aimY).abs() < 0.5) { return }

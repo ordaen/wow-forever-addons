@@ -172,7 +172,8 @@ public class Wheel implements Component {
                mask={ROUND} desaturate={spot.item.dim} />
         </box>
         <box $for={spot of self.spots} position={Position.Absolute} left={spot.left - 40dp}
-             top={spot.nameTop} width={spot.size + 80dp} xAlign={Align.Center} zLevel={3}>
+             top={spot.nameTop} width={spot.size + 80dp} xAlign={Align.Center} zLevel={3}
+             opacity={spot.item.dim ? DIM_OPACITY : 1}>
           <text $if={spot.named} value={spot.item.name} textSize={SECONDARY_TEXT} textColor={NAME} />
         </box>
         <box position={Position.Absolute} left={MIDDLE - HUB / 2} top={MIDDLE - HUB / 2} width={HUB} height={HUB}
