@@ -853,10 +853,11 @@ test "the scroll stands at one size, 5:3, on a long list and on a quest's page a
   const paper = page.box(Ordaen.art.window.scroll.paper).rect()
   Test.expect((paper.top - page.box(Ordaen.art.window.scroll.top).rect().bottom).abs() < 0.5)
   Test.expect((page.box(Ordaen.art.window.scroll.bottom).rect().top - paper.bottom).abs() < 0.5)
-  // The words stand on the paper: below the top roll and in from its torn sides.
+  // The words stand on the paper, clear of the rolls (a box that overlaps another at one level draws in the client's
+  // order, not the page's, and the rolls hid the words) and in from its torn sides.
   const words = page.text("Where would you like to go?").rect()
-  Test.expect(words.top >= page.box(Ordaen.art.window.scroll.top).rect().bottom - 10)
-  Test.expect(words.left >= listed.left + (listed.right - listed.left) * 0.08)
+  Test.expect(words.top >= paper.top && words.bottom <= paper.bottom)
+  Test.expect(words.left >= listed.left + (listed.right - listed.left) * 0.08 && words.right - words.left > 50)
   Events.GOSSIP_CLOSED.emit(false)
   Test.talk(innkeeper())
   Test.quest(pie())
