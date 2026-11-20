@@ -19,6 +19,14 @@ public enum Font implements Plain {
   ArialNarrow = "arialNarrow"
 }
 
+// The fonts numbers may be drawn in: those whose ten digits are equally wide (`TabularFont`, measured as the addon is
+// built), so a count never shifts as it changes. The client draws a font's own digits, never its tabular ones.
+public enum NumbersFont implements Plain {
+  PtSans = "ptSans"
+  PtSansNarrow = "ptSansNarrow"
+  ArialNarrow = "arialNarrow"
+}
+
 // What a plain bar is filled with.
 public enum BarTexture implements Plain { Flat = "flat", Blizzard = "blizzard" }
 // What fills an experience bar, and every bar that looks like it: chosen where the bar is, over the look's bar texture.
@@ -40,7 +48,7 @@ public struct Look implements Plain {
   // The text's, the titles' and the numbers' fonts.
   font: Font
   fontHeader: Font
-  fontNumbers: Font
+  fontNumbers: NumbersFont
   accent: Color
   barTexture: BarTexture
   barFrame: BarFrame
@@ -82,7 +90,7 @@ public struct Look implements Plain {
 
 // Ordaen's own look: bronze, dark wood, Ordaen's own fonts.
 const ORDAEN: Look = {
-  font: Font.FiraSans, fontHeader: Font.AlegreyaSC, fontNumbers: Font.FiraCondensed,
+  font: Font.FiraSans, fontHeader: Font.AlegreyaSC, fontNumbers: NumbersFont.PtSansNarrow,
   accent: { r: 0.72, g: 0.56, b: 0.34, a: 1 },
   barTexture: BarTexture.Flat, barFrame: BarFrame.Bezel, animation: Animation.Smooth,
   red: { r: 0.737, g: 0.004, b: 0.044, a: 1 }, redText: { r: 0.999, g: 0.631, b: 0.582, a: 1 },
@@ -118,7 +126,7 @@ public function preset(name: Preset): Look {
 
 // The look a player who chose the Blizzard preset has saved: Ordaen offers no such preset, and loads it as Ordaen's.
 const BLIZZARD: Look = {
-  font: Font.Friz, fontHeader: Font.Friz, fontNumbers: Font.ArialNarrow,
+  font: Font.Friz, fontHeader: Font.Friz, fontNumbers: NumbersFont.ArialNarrow,
   accent: { r: 1, g: 0.82, b: 0, a: 1 },
   barTexture: BarTexture.Blizzard, animation: Animation.Fast,
   ..ORDAEN
@@ -179,6 +187,15 @@ function fontFile(font: Font): Asset | nil {
   }
 }
 
+// A numbers font's file, its digits measured where it is written.
+function numbersFile(font: NumbersFont): TabularFont {
+  match (font) {
+    NumbersFont.PtSans => return "@/media/fonts/PTSans-Regular.ttf"
+    NumbersFont.PtSansNarrow => return "@/media/fonts/PTSansNarrow-Regular.ttf"
+    NumbersFont.ArialNarrow => return "Fonts/ARIALN.TTF"
+  }
+}
+
 function barFile(texture: BarTexture): Art {
   match (texture) {
     BarTexture.Flat => return "Interface/Buttons/WHITE8X8"
@@ -204,7 +221,7 @@ public function xpFillArt(fill: XpFill): Art {
 
 public function artOf(look: Look): LookArt {
   return {
-    fonts: { body: fontFile(look.font), title: fontFile(look.fontHeader), numbers: fontFile(look.fontNumbers) },
+    fonts: { body: fontFile(look.font), title: fontFile(look.fontHeader), numbers: numbersFile(look.fontNumbers) },
     bar: barFile(look.barTexture)
   }
 }

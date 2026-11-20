@@ -849,10 +849,12 @@ test "the scroll stands at one size, 5:3, on a long list and on a quest's page a
   const height = listed.bottom - listed.top
   Test.expect(page.text("Where would you like to go?").shown() && height > 150)
   Test.expect(((listed.right - listed.left) / height - 5 / 3).abs() < 0.01)
-  // The paper fills between the rolls: no gap above or below it.
+  // The paper starts where the top roll's art ends, and runs on under the bottom roll's fading edge, the roll over it.
   const paper = page.box(Ordaen.art.window.scroll.paper).rect()
+  const bottomRoll = page.box(Ordaen.art.window.scroll.bottom)
   Test.expect((paper.top - page.box(Ordaen.art.window.scroll.top).rect().bottom).abs() < 0.5)
-  Test.expect((page.box(Ordaen.art.window.scroll.bottom).rect().top - paper.bottom).abs() < 0.5)
+  Test.expect(paper.bottom > bottomRoll.rect().top + 1 && paper.bottom < bottomRoll.rect().bottom)
+  Test.expect(bottomRoll.level() > page.box(Ordaen.art.window.scroll.paper).level())
   // The words stand on the paper, clear of the rolls (a box that overlaps another at one level draws in the client's
   // order, not the page's, and the rolls hid the words) and in from its torn sides.
   const words = page.text("Where would you like to go?").rect()

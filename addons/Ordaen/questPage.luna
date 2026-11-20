@@ -50,26 +50,35 @@ public const SCROLL_WIDTH: Number<Length> = 468.75dp
 // A roll's height at that width (its 128 texels).
 const ROLL_HEIGHT: Number<Length> = 58.59375dp
 const ROLLS: Array<Track> = ["max-content", { fr: 1 }, "max-content"]
+// The bottom roll's paper that fades in over the band (its first 32 texels): the band runs on under it.
+const FADE_HEIGHT: Number<Length> = 14.6484375dp
+const UNDER_FADE: Number<Length> = ROLL_HEIGHT - FADE_HEIGHT
+// The bottom roll over the band where they overlap.
+const OVER_PAPER = 1
 // Where the text stands on the paper, in the art's measure (not the spacing setting's): in from its torn sides (80
 // texels and a little more), and a little off the rolls, whose art holds some paper of its own.
 const OFF_SIDES: Number<Length> = 46.875dp
 const OFF_ROLLS: Number<Length> = 4.6875dp
+const OFF_BOTTOM: Number<Length> = FADE_HEIGHT + OFF_ROLLS
 
 // The scroll: what is said of a quest on the parchment between its rolls. It fills the cell it stands in, the paper
-// repeated down between the rolls; what it holds scrolls past the paper's height. The text stands in the paper's box,
-// so it is drawn over the paper and never meets a roll (boxes that overlap at one level draw in the client's order).
+// repeated down between the rolls and on under the bottom roll's fading edge; what it holds scrolls past the paper's
+// height. The text stands in the paper's box, so it is drawn over the paper and never meets a roll (boxes that overlap
+// at one level draw in the client's order).
 public class Scroll implements Component {
   public render(self): Template {
     return $ltml {
       <box rows={ROLLS}>
         <box height={ROLL_HEIGHT} background={Ordaen.art.window.scroll.top} />
-        <box background={Ordaen.art.window.scroll.paper}>
-          <box position={Position.Absolute} left={OFF_SIDES} right={OFF_SIDES} top={OFF_ROLLS} bottom={OFF_ROLLS}
+        <box />
+        <box height={ROLL_HEIGHT} background={Ordaen.art.window.scroll.bottom} zLevel={OVER_PAPER} />
+        <box position={Position.Absolute} left={0dp} right={0dp} top={ROLL_HEIGHT} bottom={UNDER_FADE}
+             background={Ordaen.art.window.scroll.paper}>
+          <box position={Position.Absolute} left={OFF_SIDES} right={OFF_SIDES} top={OFF_ROLLS} bottom={OFF_BOTTOM}
                overflow={Overflow.Scroll} gap={1.5sp}>
             <slot />
           </box>
         </box>
-        <box height={ROLL_HEIGHT} background={Ordaen.art.window.scroll.bottom} />
       </box>
     }
   }

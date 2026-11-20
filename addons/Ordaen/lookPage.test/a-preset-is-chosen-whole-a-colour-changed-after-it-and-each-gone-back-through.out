@@ -1,4 +1,4 @@
-steps 0; the look's preset ordaen; numbers drawn with Interface\AddOns\Ordaen\media\fonts\FiraSansCondensed-Medium.ttf
+steps 0; the look's preset ordaen; numbers drawn with Interface\AddOns\Ordaen\media\fonts\PTSansNarrow-Regular.ttf
 -- Ordaen's preset in use
 box 0,0 800x1536.44
   box 0,0 800x101.2
@@ -39,7 +39,7 @@ box 0,0 800x1536.44
         text 0,229.61 233.33x15.6 "Number font" #cbb994
       box 248.98,223.24 200x28.33
         box 248.98,223.24 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
-          text 264.62,229.61 152.53x15.6 "Fira Sans Condensed" #f0c860
+          text 264.62,229.61 152.53x15.6 "PT Sans Narrow" #f0c860
           box 425.69,230.74 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
   box 0,267.22 800x95.02
     box 0,267.22 800x15.6
@@ -234,9 +234,9 @@ box 0,0 800x1536.44
           text 264.62,1514.48 152.53x15.6 "Orange" #f0c860
           box 425.69,1515.61 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
 
-steps 1; the look's preset minimal; numbers drawn with Interface\AddOns\Ordaen\media\fonts\FiraSansCondensed-Medium.ttf
-steps 1; the look's preset minimal; numbers drawn with Interface\AddOns\Ordaen\media\fonts\FiraSansCondensed-Medium.ttf
-steps 2; the look's preset none; numbers drawn with Interface\AddOns\Ordaen\media\fonts\FiraSansCondensed-Medium.ttf
+steps 1; the look's preset minimal; numbers drawn with Interface\AddOns\Ordaen\media\fonts\PTSansNarrow-Regular.ttf
+steps 1; the look's preset minimal; numbers drawn with Interface\AddOns\Ordaen\media\fonts\PTSansNarrow-Regular.ttf
+steps 2; the look's preset none; numbers drawn with Interface\AddOns\Ordaen\media\fonts\PTSansNarrow-Regular.ttf
 -- Minimal chosen, then its accent changed: no preset is the look
 box 0,0 800x1536.44
   box 0,0 800x101.2
@@ -278,7 +278,7 @@ box 0,0 800x1536.44
         text 0,229.61 233.33x15.6 "Number font" #cbb994
       box 248.98,223.24 200x28.33
         box 248.98,223.24 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
-          text 264.62,229.61 152.53x15.6 "Fira Sans Condensed" #f0c860
+          text 264.62,229.61 152.53x15.6 "PT Sans Narrow" #f0c860
           box 425.69,230.74 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
   box 0,267.22 800x95.02
     box 0,267.22 800x15.6
@@ -475,8 +475,8 @@ box 0,0 800x1536.44
 asked: ColorPicker.open #9e9e9e
 asked: ColorPicker.open #9e9e9e
 
-steps 1; the look's preset minimal; numbers drawn with Interface\AddOns\Ordaen\media\fonts\FiraSansCondensed-Medium.ttf
-steps 0; the look's preset ordaen; numbers drawn with Interface\AddOns\Ordaen\media\fonts\FiraSansCondensed-Medium.ttf
+steps 1; the look's preset minimal; numbers drawn with Interface\AddOns\Ordaen\media\fonts\PTSansNarrow-Regular.ttf
+steps 0; the look's preset ordaen; numbers drawn with Interface\AddOns\Ordaen\media\fonts\PTSansNarrow-Regular.ttf
 -- gone back: Ordaen's again
 box 0,0 800x1536.44
   box 0,0 800x101.2
@@ -517,7 +517,7 @@ box 0,0 800x1536.44
         text 0,229.61 233.33x15.6 "Number font" #cbb994
       box 248.98,223.24 200x28.33
         box 248.98,223.24 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
-          text 264.62,229.61 152.53x15.6 "Fira Sans Condensed" #f0c860
+          text 264.62,229.61 152.53x15.6 "PT Sans Narrow" #f0c860
           box 425.69,230.74 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
   box 0,267.22 800x95.02
     box 0,267.22 800x15.6

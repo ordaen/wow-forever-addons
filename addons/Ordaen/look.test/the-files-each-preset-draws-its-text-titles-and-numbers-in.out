@@ -1,2 +1,2 @@
-ordaen: Interface\AddOns\Ordaen\media\fonts\FiraSans-Regular.ttf; Interface\AddOns\Ordaen\media\fonts\AlegreyaSC-Medium.ttf; Interface\AddOns\Ordaen\media\fonts\FiraSansCondensed-Medium.ttf
-minimal: Interface\AddOns\Ordaen\media\fonts\FiraSans-Regular.ttf; Interface\AddOns\Ordaen\media\fonts\FiraSans-Regular.ttf; Interface\AddOns\Ordaen\media\fonts\FiraSansCondensed-Medium.ttf
+ordaen: Interface\AddOns\Ordaen\media\fonts\FiraSans-Regular.ttf; Interface\AddOns\Ordaen\media\fonts\AlegreyaSC-Medium.ttf; Interface\AddOns\Ordaen\media\fonts\PTSansNarrow-Regular.ttf
+minimal: Interface\AddOns\Ordaen\media\fonts\FiraSans-Regular.ttf; Interface\AddOns\Ordaen\media\fonts\FiraSans-Regular.ttf; Interface\AddOns\Ordaen\media\fonts\PTSansNarrow-Regular.ttf

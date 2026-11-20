@@ -6,7 +6,7 @@ import { ColorPicker } from "@/colorPicker"
 import { Choice, Dropdown } from "@/dropdown"
 import Locale from "@/locales"
 import Looks from "@/look"
-import { Animation, BarFrame, BarTexture, Font, Hue, Look, PRESETS, Preset, presetOf } from "@/look"
+import { Animation, BarFrame, BarTexture, Font, Hue, Look, NumbersFont, PRESETS, Preset, presetOf } from "@/look"
 import { Component } from "@/module"
 import { ButtonPlate, PushButton } from "@/pushButton"
 import { Section } from "@/section"
@@ -30,6 +30,11 @@ const FONTS: Array<Choice<Font>> = [
   { value: Font.PtSansNarrow, label: Locale.THEME_FONT_PTSANSNARROW },
   { value: Font.Friz, label: Locale.THEME_FONT_FRIZ },
   { value: Font.ArialNarrow, label: Locale.THEME_FONT_ARIALNARROW }
+]
+const NUMBERS_FONTS: Array<Choice<NumbersFont>> = [
+  { value: NumbersFont.PtSans, label: Locale.THEME_FONT_PTSANS },
+  { value: NumbersFont.PtSansNarrow, label: Locale.THEME_FONT_PTSANSNARROW },
+  { value: NumbersFont.ArialNarrow, label: Locale.THEME_FONT_ARIALNARROW }
 ]
 const BARS: Array<Choice<BarTexture>> = [
   { value: BarTexture.Flat, label: Locale.THEME_BAR_FLAT },
@@ -117,7 +122,7 @@ public class LookPage implements Component {
         <Section title={Locale.THEMES_FONTS}>
           <Dropdown label={Locale.THEME_FONT} value={mut self.look.values.font} choices={FONTS} />
           <Dropdown label={Locale.THEME_FONTHEADER} value={mut self.look.values.fontHeader} choices={FONTS} />
-          <Dropdown label={Locale.THEME_FONTNUMBERS} value={mut self.look.values.fontNumbers} choices={FONTS} />
+          <Dropdown label={Locale.THEME_FONTNUMBERS} value={mut self.look.values.fontNumbers} choices={NUMBERS_FONTS} />
         </Section>
         <Section title={Locale.THEMES_TEXTURES}>
           <Dropdown label={Locale.THEME_BARTEXTURE} hint={Locale.THEME_BARTEXTURE_TIP}

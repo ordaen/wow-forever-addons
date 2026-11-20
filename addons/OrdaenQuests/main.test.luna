@@ -169,7 +169,7 @@ test "a quest's scroll fills its page's height: the rolls at its top and its foo
   const top = window.box(Ordaen.art.window.scroll.top).rect()
   const paper = window.box(Ordaen.art.window.scroll.paper).rect()
   const bottom = window.box(Ordaen.art.window.scroll.bottom).rect()
-  Test.expect((paper.top - top.bottom).abs() < 0.5 && (bottom.top - paper.bottom).abs() < 0.5)
+  Test.expect((paper.top - top.bottom).abs() < 0.5 && paper.bottom > bottom.top + 1 && paper.bottom < bottom.bottom)
   // Taller than Dialogue's 5:3 scroll: it grows with the page.
   Test.expect(bottom.bottom - top.top > (top.right - top.left) * 3 / 5)
   // The title on the paper, under the top roll.

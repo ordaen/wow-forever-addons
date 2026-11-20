@@ -1,0 +1,9 @@
+{
+  "says": "The model's backdrop in OrdaenCharacter's paper doll for the orc race (gear.luna's scenes): the client's dressing-room scene, enlarged.",
+  "ships": ["addons/OrdaenCharacter/media/backdrop-orc.tga"],
+  "origin": "The client's Interface/DressUpFrame/DressUpBackground-<race>1..4 from the Forever install, stitched and cropped as the client's paper doll crops them (x 44..275, y 10..332 of the 320 x 384 mosaic) into art/sources/backdrop-orc-client.png; Real-ESRGAN anime x4, scaled to 512 x 1024 (the client's power-of-two sides; drawn back at 231 x 322's proportions).",
+  "steps": [
+    { "generate": { "workflow": "esrgan-anime-backdrop", "upload": { "1.image": "art/sources/backdrop-orc-client.png" }, "out": "art/sources/backdrop-orc.png" } },
+    { "convert": { "in": "art/sources/backdrop-orc.png", "out": "addons/OrdaenCharacter/media/backdrop-orc.tga" } }
+  ]
+}

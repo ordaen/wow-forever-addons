@@ -5,7 +5,7 @@
 // the bars, another slot) and lets go there what the cursor holds, as the game's own slot does. The game's sets stand
 // over the three columns.
 import Game from "$game"
-import { Action, Align, Art, BarFill, Edges, Event, FillFrom, Fr, Line, MouseButton, Overflow, Position, TextFont } from "$ltml"
+import { Action, Align, Art, BarFill, Edges, Event, FillFrom, Line, MouseButton, Overflow, Position, TextFont } from "$ltml"
 import { Component, ItemButton, SECONDARY_TEXT, TITLE_LINE, TITLE_TEXT, classColor } from "Ordaen"
 import Locale from "@/locales"
 import { Choices } from "@/settings"
@@ -28,20 +28,14 @@ const NO_SLOTS: Array<Integer> = []
 const NO_SETS: Array<GearSet> = []
 const NOTHING: Worn = { slot: 0, item: nil, quality: .Common, level: nil, durability: nil }
 
-// The race's scene from the game's dressing room: four files drawn whole, top left 256 x 256 texels, top right 64 x
-// 256, bottom left 256 x 128, bottom right 64 x 128, in that order on a grid of their proportions. None for a race the client has
-// no scene for (a name that makes no file's path).
-const SCENE_COLUMNS: Array<Fr> = [{ fr: 4 }, { fr: 1 }]
-const SCENE_ROWS: Array<Fr> = [{ fr: 2 }, { fr: 1 }]
-function sceneOf(race: String): Array<Asset> {
-  const pieces: Array<Asset> = []
-  if (race.length == 0) { return pieces }
-  for (at of 1..4) {
-    const file = `Interface/DressUpFrame/DressUpBackground-${race}${at}`
-    if (!(file is Asset)) { return [] }
-    pieces.push(file)
-  }
-  return pieces
+// Each race's scene from the game's dressing room, enlarged (art/pieces/backdrop-<race>.json), by the race's name in
+// the client's files; a race without one has the dark behind its model.
+const SCENES: Map<String, Asset> = {
+  Human: "@/media/backdrop-human.tga", Dwarf: "@/media/backdrop-dwarf.tga",
+  NightElf: "@/media/backdrop-nightelf.tga", Gnome: "@/media/backdrop-gnome.tga",
+  Orc: "@/media/backdrop-orc.tga", Scourge: "@/media/backdrop-scourge.tga",
+  Tauren: "@/media/backdrop-tauren.tga", Troll: "@/media/backdrop-troll.tga",
+  Skyborne: "@/media/backdrop-skyborne.tga"
 }
 
 // The durability bar's colour for what is left of an item.
@@ -234,7 +228,7 @@ public class GearPage implements Component {
 
   derived whoText: String = Locale.LEVEL_RACE.format(self.who.level, self.who.race)
   derived whoColor: Color = classColor(Game.player.classTag) ?? Style.GOLD
-  derived scene: Array<Asset> = sceneOf(self.who.scene)
+  derived scene: Asset | nil = SCENES[self.who.scene]
   derived levelText: String = self.levelOf()
   derived flyoutShown: Boolean = self.flyoutSlot != nil
   derived mains: Array<Main> = mainsOf(self.stats)
@@ -351,10 +345,8 @@ public class GearPage implements Component {
             <Groove upright={true} />
             <box columns={[Style.SLOT, { fr: 1 }, Style.SLOT]} rows={[{ fr: 1 }]} gap={3sp} padding={Style.DOLL_PAD}
                  background={Style.MODEL_BACK} overflow={Overflow.Hidden}>
-              <box $if={self.scene.length > 0} position={Position.Absolute} left={Style.SCENE_LEFT} top={0ui}
-                   width={Style.SCENE_WIDTH} height={Style.SCENE_HEIGHT} columns={SCENE_COLUMNS} rows={SCENE_ROWS}>
-                <box $for={piece of self.scene} background={piece} />
-              </box>
+              <box $if={self.scene != nil} position={Position.Absolute} left={Style.SCENE_LEFT} top={0ui}
+                   width={Style.SCENE_WIDTH} height={Style.SCENE_HEIGHT} background={self.scene} />
               <box position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui} background={Style.SCENE_VEIL} />
               <box position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui} model={"player"} />
               <box rows={Style.SLOT_ROWS} zLevel={2}>
