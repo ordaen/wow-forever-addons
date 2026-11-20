@@ -1,0 +1,147 @@
+// The chat's tabs and the lines each holds: a tab is one of the game's chat windows (its whisper windows among them)
+// or one of the communities' streams, and a line is what the game's window would show, made once as it is heard.
+import Game from "$game"
+import { ChannelName } from "@/choices"
+
+// A line as a tab shows it. `whole` is what is drawn: the time, the channel, the words with their links and «×N».
+public struct Shown implements Plain {
+  whole: String
+  color: Color
+  // When it was said (seconds since 1970): it fades that long after.
+  time: Number
+  // What tells a repeat: who said it, where, and the words.
+  repeat: String
+  count: Integer
+  // Someone else's line naming the player or one of the keywords.
+  marked: Boolean
+  // Brought back from the last session: drawn dimmed.
+  past: Boolean
+  // The client kept its words secret: drawn as the client gives them, never measured, never kept.
+  secret: Boolean
+}
+
+// What one tab keeps between sessions.
+public struct KeptTab implements Plain {
+  key: String
+  lines: Array<Shown>
+}
+
+public struct Kept implements Plain {
+  tabs: Array<KeptTab>
+}
+
+// A tab: a window's (`w<n>`) or a stream's (`s<club>:<stream>`).
+public class ChatTab {
+  public const key: String
+  public state title: String
+  // The game's window behind it (`ChatFrame<n>`), 0 for a stream's; the stream's `<club>:<stream>`, empty for a
+  // window's.
+  public const window: Integer
+  public const stream: String
+  // What the window is now: a whisper window's partner, its font's size, whether it is the combat log's.
+  public state partner = ""
+  public state fontSize: Number = 13
+  public state combatLog = false
+  // Its lines, oldest first; `version` moves as they change, which is what a view follows.
+  public lines: mut Array<Shown> = []
+  public state version = 0
+  // Lines heard while another tab was open.
+  public state unread = 0
+
+  constructor(key: String, title: String) {
+    self.key = key
+    self.title = title
+    self.window = key.sub(1, 1) == "w" ? (key.sub(2).toNumber() ?? 0).floor() : 0
+    self.stream = key.sub(1, 1) == "s" ? key.sub(2) : ""
+  }
+
+  // The window's state as the game has it now.
+  public follow(mut self, window: Game.ChatWindow) {
+    self.title = window.partner != "" ? window.partner : window.name
+    self.partner = window.partner
+    self.fontSize = window.fontSize
+    self.combatLog = window.combatLog
+  }
+
+  // A line added, or the last one counted again where it repeats it; the oldest let go past `held`.
+  public add(mut self, line: Shown, repeats: Boolean, held: Integer) {
+    const last = self.lines[self.lines.length]
+    if (repeats && !line.secret && last != nil && !last.secret && last.repeat == line.repeat) {
+      const again = line.clone()
+      again.count = last.count + 1
+      again.whole = `${line.whole} |cff9d9d9d×${again.count}|r`
+      self.lines[self.lines.length] = again
+    } else {
+      self.lines.push(line)
+      if (self.lines.length > held) { _ = self.lines.remove(1) }
+    }
+    self.version = (peek self.version) + 1
+  }
+
+  // The lines kept for the next session: the last `count` that can be kept.
+  public keptLines(self, count: Integer): Array<Shown> {
+    const keep: Array<Shown> = []
+    for (line of self.lines) {
+      if (!line.secret) {
+        const old = line.clone()
+        old.past = true
+        keep.push(old)
+      }
+    }
+    for (at of count + 1..keep.length) { _ = keep.remove(1) }
+    return keep
+  }
+
+  // Lines of the last session, before this one's.
+  public recall(mut self, lines: Array<Shown>) {
+    const now: Array<Shown> = lines.clone()
+    for (line of self.lines) { now.push(line) }
+    self.lines = now
+    self.version = (peek self.version) + 1
+  }
+
+  // The lines a view shows: `count` of them, ending `back` lines before the newest.
+  public slice(self, back: Integer, count: Integer): Array<Shown> {
+    const shown: Array<Shown> = []
+    const last = self.lines.length - back
+    for (at of (1).max(last - count + 1)..last) { shown.push(self.lines[at] ?? panic("inside the lines")) }
+    return shown
+  }
+
+  // The tab's text, to copy: each line as drawn.
+  public text(self): String {
+    return self.lines.filter(line => !line.secret).map(line => line.whole).join("\n")
+  }
+}
+
+// The channel's name as the player chose it, as a link that opens the channel: «[2. Trade]».
+public function channelOf(line: Game.ChatLine, style: ChannelName): String {
+  const name = line.channelName.match("^([^%-]-)%s*%-") ?? line.channelName
+  const shown = match (style) {
+    .Number => String.of(line.channel)
+    .Name => name
+    .Both => `${line.channel}. ${name}`
+  }
+  return `|Hchannel:CHANNEL:${line.channel}|h[${shown}]|h `
+}
+
+// The web addresses in a line's words made links the chat opens a copy box for.
+public function linked(body: String): String {
+  return body.replace("(https?://[%w%-%._~:/%?#@!%$&%%%*%+,;=]+)", "|cff69ccf0|Hordaenurl:%1|h[%1]|h|r")
+}
+
+// Whether someone else's words name the player or one of the words.
+public function marks(text: String, words: Array<String>): Boolean {
+  const lower = text.lower()
+  return words.any(word => word != "" && lower.contains(word))
+}
+
+// The keywords as the setting writes them, lower-case, the player's name first.
+public function wordsOf(keywords: String, own: String): Array<String> {
+  const words: Array<String> = [own.lower()]
+  for (word of keywords.split(",")) {
+    const trimmed = word.replace("^%s+", "").replace("%s+$", "").lower()
+    if (trimmed != "") { words.push(trimmed) }
+  }
+  return words
+}

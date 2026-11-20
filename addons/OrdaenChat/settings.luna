@@ -1,0 +1,35 @@
+// The chat's page in the settings window: each control writes one entry of the settings, at once.
+import { Choice, Component, Field, NumberInput, Segmented, Settings, Switch, Unit } from "Ordaen"
+import { ChannelName, Choices } from "@/choices"
+import Locale from "@/locales"
+
+const NAMES: Array<Choice<ChannelName>> = [
+  { value: ChannelName.Number, label: Locale.CHANNEL_NUMBER },
+  { value: ChannelName.Name, label: Locale.CHANNEL_NAME },
+  { value: ChannelName.Both, label: Locale.CHANNEL_BOTH }
+]
+
+public class ChatPage implements Component {
+  settings: mut Settings<Choices>
+  constructor(settings: mut Settings<Choices>) {
+    self.settings = settings
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <NumberInput label={Locale.WIDTH} value={mut self.settings.values.width} least={240} most={1200} step={10} unit={Unit.None} />
+      <NumberInput label={Locale.HEIGHT} value={mut self.settings.values.height} least={80} most={800} step={10} unit={Unit.None} />
+      <NumberInput label={Locale.FADE} hint={Locale.FADE_TIP} value={mut self.settings.values.fade} least={0} most={600} step={10}
+                   unit={Unit.None} />
+      <Switch label={Locale.WHISPER_TABS} hint={Locale.WHISPER_TABS_TIP} value={mut self.settings.values.whisperTabs} />
+      <Segmented value={mut self.settings.values.channelName} choices={NAMES} />
+      <Field value={mut self.settings.values.keywords} maxLength={200} placeholder={Locale.KEYWORDS} />
+      <Switch label={Locale.REPEATS} hint={Locale.REPEATS_TIP} value={mut self.settings.values.repeats} />
+      <NumberInput label={Locale.KEPT} hint={Locale.KEPT_TIP} value={mut self.settings.values.kept} least={0} most={500} step={50}
+                   unit={Unit.None} />
+      <NumberInput label={Locale.HELD} hint={Locale.HELD_TIP} value={mut self.settings.values.held} least={100} most={2000}
+                   step={100} unit={Unit.None} />
+      <Switch label={Locale.PLAIN_ARROWS} hint={Locale.PLAIN_ARROWS_TIP} value={mut self.settings.values.plainArrows} />
+    }
+  }
+}

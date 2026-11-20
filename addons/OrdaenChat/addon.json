@@ -1,0 +1,8 @@
+{
+  "title": "Ordaen Chat",
+  "icon": "Interface/Icons/INV_Letter_15",
+  "version": "1.0.0",
+  "loadOnDemand": true,
+  "dependencies": { "Ordaen": "^1.0.0" },
+  "notes": "The chat in Ordaen's frame: the game's windows and your communities' channels as tabs, links, history, fading, copying."
+}

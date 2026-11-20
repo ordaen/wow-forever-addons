@@ -1,0 +1,26 @@
+// What the player chooses on the chat's settings page.
+
+// How a channel's line names its channel: by number («[2]»), by name («[Trade]») or both («[2. Trade]»); the zone
+// after the name is left out either way.
+public enum ChannelName implements Plain { Number = "number", Name = "name", Both = "both" }
+
+public struct Choices implements Plain {
+  // The chat's size.
+  width: Number
+  height: Number
+  // Seconds a line shows before it fades; 0: lines never fade.
+  fade: Integer
+  // Each whisper partner in a tab of their own (the game's «new whispers: in a new tab»).
+  whisperTabs: Boolean
+  channelName: ChannelName
+  // Words (comma-separated) that mark someone else's line, beside the player's own name.
+  keywords: String
+  // The same sender's same words one after another are one line with «×N».
+  repeats: Boolean
+  // Lines of each tab kept after a reload; 0 keeps none.
+  kept: Integer
+  // Lines each tab holds this session.
+  held: Integer
+  // The arrows in the input move its cursor (off: they bring back what was sent, as Alt+arrows).
+  plainArrows: Boolean
+}

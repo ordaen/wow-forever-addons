@@ -1,0 +1,288 @@
+// Ordaen Chat: the game's chat in Ordaen's frame. It reads every line the game's windows would show, after every
+// addon's filters (`Game.chat.heard`), and draws them itself; the game's windows stand hidden meanwhile. Its tabs are
+// the game's windows in use (whisper windows among them, the combat log's frame held as it is) and the communities'
+// streams. The input and its menu button are the game's own, placed under the lines: sending, slash commands,
+// Shift-click links and other addons' hooks stay the game's.
+import Client from "$client"
+import Events from "$events"
+import Game from "$game"
+import { Align, Anchored, Edges, Event, Frame, Overflow, Point, Position, Track } from "$ltml"
+import root Ordaen from "Ordaen"
+import { BODY_LINE, CopyText, Dialog, Module, Placed, PushButton, SECONDARY_TEXT, Settings, SettingsPage } from "Ordaen"
+import { ChannelName, Choices } from "@/choices"
+import { ChatTab, Kept, KeptTab, Shown, channelOf, linked, marks, wordsOf } from "@/lines"
+import Locale from "@/locales"
+import { ChatPage } from "@/settings"
+import { Row, TabButton } from "@/view"
+
+// Where the chat stands until the player moves it: the screen's bottom left corner, above the panel's room.
+const HOME: Anchored = { point: Point.BottomLeft, x: 8dp, y: -76dp }
+// Lines drawn at most: more than the tallest chat shows.
+const ROWS = 80
+// Lines a turn of the wheel scrolls.
+const STEP = 3
+// Seconds a line takes to fade once its time is up.
+const FADING = 3
+const HINT: Color = Color.hex("#857a66")
+const LINK: Color = Color.hex("#69ccf0")
+const PREFIX = "ordaenurl:"
+// Where the last lines of each tab are kept between sessions.
+const HISTORY = "OrdaenChat:history"
+// What the time stamp is drawn in, before a line.
+const MAX: "max-content" = "max-content"
+// From the frame's line to what it holds.
+const ROOM: Edges = { top: 2sp, right: 3sp, bottom: 2sp, left: 3sp }
+const STAMP = "|cff9d9d9d%s|r"
+
+public class Chat implements Module, App {
+  public const title: String = "Ordaen Chat"
+  settings: mut Settings<Choices> = new Settings<Choices>({
+    width: 430, height: 190, fade: 120, whisperTabs: true, channelName: ChannelName.Both, keywords: "", repeats: true,
+    kept: 200, held: 500, plainArrows: false
+  })
+  public const pages: Array<SettingsPage> = [
+    { title: Locale.TAB_CHAT, content: $ltml { <ChatPage settings={mut self.settings} /> } }
+  ]
+
+  // The tabs in their order: the game's windows, then the streams. One made for a key is kept while the key is.
+  public state tabs: Array<mut ChatTab> = []
+  made: mut Map<String, mut ChatTab> = {}
+  public state openKey = "w1"
+  derived open: ChatTab | nil = self.tabs.find(tab => tab.key == self.openKey) ?? self.tabs[1]
+  // Lines scrolled back from the newest.
+  public state back = 0
+  state hovered = false
+  // A web address clicked: shown to copy.
+  public state address = ""
+
+  derived width: Number<Length> = self.settings.values.width * 1dp
+  derived height: Number<Length> = self.settings.values.height * 1dp
+  derived words: Array<String> = wordsOf(self.settings.values.keywords, Game.player.name)
+  derived textSize: Number<TextSize> = (self.open?.fontSize ?? 13) * 1rem / 13
+  derived combatLog: Boolean = self.open?.combatLog == true
+  derived logFrame: any Frame | nil = self.combatLog ? Game.chat.windows.find(window => window.index == self.open?.window)?.frame : nil
+  // The lines shown: the newest that fit, or older ones while scrolled.
+  derived shown: Array<Shown> = self.shownOf()
+  // Lines older than this have faded, while the cursor is off the chat and it isn't scrolled.
+  derived fadeBefore: Number = self.fadeOf()
+  derived newer: Integer = self.back
+  derived tabColumns: Array<Track> = self.tabs.map(tab => MAX)
+  derived input: any Frame | nil = Game.chat.input
+  derived menuButton: any Frame | nil = Game.chat.menuButton
+
+  constructor() {
+    Ordaen.modules.add(self)
+    Game.chat.read(true)
+    Game.chat.heard.listen(self.onLine)
+    Events.PLAYER_LOGOUT.listen(self.keep)
+    watch (windows of Game.chat.windows) { self.sync() }
+    watch (streams of Game.chat.streams) { self.sync() }
+    watch { Game.chat.whisperWindows(self.settings.values.whisperTabs) }
+    watch { Game.chat.inputArrows(self.settings.values.plainArrows) }
+    // The input opened (Enter) while a whisper's or a stream's tab is open: it speaks there.
+    watch (typing of Game.chat.typing) {
+      if (typing) { self.speakHere(false) }
+    }
+    self.recall()
+  }
+
+  destructor() {
+    self.keep()
+    Game.chat.read(false)
+  }
+
+  // The tabs made anew from the game's windows and the streams; a tab whose key stays keeps its lines.
+  sync(mut self) {
+    const tabs: Array<mut ChatTab> = []
+    for (window of peek Game.chat.windows) {
+      const tab = self.tabOf(`w${window.index}`, window.name)
+      tab.follow(window)
+      tabs.push(mut tab)
+    }
+    for (stream of peek Game.chat.streams) {
+      const tab = self.tabOf(`s${stream.club}:${stream.stream}`, stream.name)
+      tab.title = stream.name
+      tabs.push(mut tab)
+    }
+    self.tabs = tabs
+  }
+
+  tabOf(mut self, key: String, title: String): mut ChatTab {
+    const known = self.made[key]
+    if (known != nil) { return known }
+    const tab = new ChatTab(key, title)
+    self.made[key] = tab
+    return tab
+  }
+
+  // A line heard: made once as drawn, and added to each tab that shows it.
+  onLine(mut self, line: Game.ChatLine) {
+    const values = peek self.settings.values
+    const shown = self.shownLine(line, values)
+    const open = peek self.openKey
+    for (index of line.windows) { self.addTo(`w${index}`, shown, open, values) }
+    if (line.stream != "") { self.addTo(`s${line.stream}`, shown, open, values) }
+  }
+
+  addTo(mut self, key: String, line: Shown, open: String, values: Choices) {
+    // A window opened in the same call as its first line (a whisper's): its tab is made now, not after the frame.
+    if (self.made[key] == nil) { self.sync() }
+    const tab = self.made[key]
+    if (tab == nil) { return }
+    tab.add(line, values.repeats, values.held)
+    if (key != open) { tab.unread = (peek tab.unread) + 1 }
+  }
+
+  shownLine(self, line: Game.ChatLine, values: Choices): Shown {
+    if (line.secret != "") {
+      return {
+        whole: line.body, color: line.color, time: line.time, repeat: "", count: 1, marked: false, past: false, secret: true
+      }
+    }
+    const stamp = line.stamp != "" ? STAMP.format(line.stamp) : ""
+    const channel = line.channel > 0 ? channelOf(line, values.channelName) : ""
+    const own = line.sender == Game.player.name || line.sender.match("^([^%-]+)") == Game.player.name
+    return {
+      whole: `${stamp}${channel}${linked(line.body)}`, color: line.color, time: line.time,
+      repeat: `${line.kind}|${line.channel}|${line.sender}|${line.text}`, count: 1,
+      marked: line.sender != "" && !own && marks(line.text, peek self.words), past: false, secret: false
+    }
+  }
+
+  shownOf(self): Array<Shown> {
+    const tab = self.open
+    // The lines change in place: their version is what tells the view.
+    if (tab == nil || tab.version < 0) { return [] }
+    return tab.slice(self.back, ROWS)
+  }
+
+  fadeOf(self): Number {
+    const fade = self.settings.values.fade
+    if (fade == 0 || self.hovered || self.back > 0) { return 0 }
+    return Game.clock.server - fade - FADING
+  }
+
+  onPick(mut self, tab: ChatTab) {
+    self.openKey = tab.key
+    self.back = 0
+    const made = self.made[tab.key]
+    if (made != nil) { made.unread = 0 }
+    if (tab.window > 0) { Game.chat.choose(tab.window) }
+    if (peek Game.chat.typing) { self.speakHere(false) }
+  }
+
+  // A tab's menu is the game's own (rename, lock, font size, close, new window); a stream's has none.
+  onMenu(mut self, tab: ChatTab) {
+    if (tab.window > 0) { Game.chat.windowMenu(tab.window) }
+  }
+
+  // The input opened where the open tab speaks: a whisper partner, a stream's channel; elsewhere, opened only where
+  // `always` asks (the hint clicked), with the input's own kind.
+  speakHere(mut self, always: Boolean) {
+    const tab = peek self.open
+    if (tab == nil) { return }
+    const stream = Game.chat.streams.find(stream => `${stream.club}:${stream.stream}` == tab.stream)
+    if (stream != nil) {
+      Game.chat.speakIn(stream)
+      return
+    }
+    if (tab.window > 0 && (always || tab.partner != "")) { Game.chat.speak(tab.window) }
+  }
+
+  onHint(mut self) { self.speakHere(true) }
+
+  // The wheel scrolls three lines; with Shift, to the oldest or the newest.
+  onWheel(mut self, wheel: Event.Wheel) {
+    const tab = peek self.open
+    if (tab == nil) { return }
+    const most = (0).max(tab.lines.length - 1)
+    const shift = Client.IsShiftKeyDown()
+    if (wheel.direction == .Up) {
+      self.back = shift ? most : most.min((peek self.back) + STEP)
+    } else {
+      self.back = shift ? 0 : (0).max((peek self.back) - STEP)
+    }
+  }
+
+  onLatest(mut self) { self.back = 0 }
+
+  onEnter(mut self) { self.hovered = true }
+
+  onLeave(mut self) { self.hovered = false }
+
+  // A link clicked: a web address opens the copy box; any other is the game's.
+  onLink(mut self, link: Event.Link) {
+    if (link.link.sub(1, PREFIX.length) == PREFIX) {
+      self.address = link.link.sub(PREFIX.length + 1)
+      return
+    }
+    Game.chat.click(link.link, link.text, link.button)
+  }
+
+  // The open tab's text, to copy.
+  onCopy(mut self) { self.address = self.open?.text() ?? "" }
+
+  onCopyClose(mut self) { self.address = "" }
+
+  // The last lines of each tab, for the next session: written once, as the player logs out.
+  keep(mut self) {
+    const count = (peek self.settings.values).kept
+    const tabs: Array<KeptTab> = []
+    if (count > 0) {
+      for (tab of peek self.tabs) { tabs.push({ key: tab.key, lines: tab.keptLines(count) }) }
+    }
+    Game.saved.store(Game.Scope.Character, HISTORY, Kept { tabs: tabs })
+  }
+
+  recall(mut self) {
+    const kept = Kept.decode(Game.saved.stored(Game.Scope.Character, HISTORY), Kept { tabs: [] })
+    for (tab of kept.tabs) { self.tabOf(tab.key, "").recall(tab.lines) }
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <Placed id={"OrdaenChat.chat"} title={Locale.TITLE} home={HOME}>
+        <box width={self.width} height={self.height} rows={["max-content", { fr: 1 }, "max-content"]}
+             border={Ordaen.art.frame.small} background={Ordaen.art.window.wood} artOrigin={true} padding={ROOM}
+             @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
+          <box columns={[{ fr: 1 }, "max-content"]} yAlign={Align.End}>
+            <box columns={self.tabColumns} gap={0.5sp}>
+              <TabButton $for={tab of self.tabs} tab={tab} open={tab.key == self.open?.key} @pick={self.onPick}
+                         @menu={self.onMenu} />
+            </box>
+            <box $if={self.hovered} @pointerPress={self.onCopy}>
+              <text value={Locale.COPY} textColor={HINT} textSize={SECONDARY_TEXT} wrap={.None} />
+            </box>
+          </box>
+          <embed $if={self.logFrame != nil} frame={self.logFrame ?? panic("shown with the frame")} />
+          // The newest line stands at the bottom; older ones go up past the top, which cuts them.
+          <box $else overflow={Overflow.Hidden} textSize={self.textSize} @wheel={self.onWheel}>
+            <box position={Position.Absolute} left={0ui} right={0ui} bottom={0ui} columns={1}>
+              <Row $for={line of self.shown} line={line} fadeBefore={self.fadeBefore} lineHeight={Ordaen.lengthOf(BODY_LINE)}
+                   @link={self.onLink} />
+            </box>
+          </box>
+          // The game's menu button, its input (or the hint that opens it), and, while scrolled back, the way back.
+          <box columns={["max-content", { fr: 1 }, "max-content"]} gap={1sp} yAlign={Align.Center}>
+            <box>
+              <embed $if={self.menuButton != nil} frame={self.menuButton ?? panic("shown with the button")} />
+            </box>
+            <embed $if={Game.chat.typing && self.input != nil} frame={self.input ?? panic("shown with the input")} />
+            <box $else @pointerPress={self.onHint}>
+              <text value={Locale.HINT_TYPE} textColor={HINT} wrap={.None} />
+            </box>
+            <box>
+              <box $if={self.back > 0} @pointerPress={self.onLatest}>
+                <text value={Locale.LATEST} textColor={LINK} textSize={SECONDARY_TEXT} wrap={.None} />
+              </box>
+            </box>
+          </box>
+        </box>
+      </Placed>
+      <Dialog $if={self.address != ""} width={360dp} title={Locale.COPY_TITLE}>
+        <CopyText value={self.address} />
+        <PushButton #buttons label={Locale.CLOSE} width={90dp} @click={self.onCopyClose} />
+      </Dialog>
+    }
+  }
+}
