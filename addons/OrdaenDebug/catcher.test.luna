@@ -1,4 +1,3 @@
-import Debug from "$debug"
 import Test from "$test"
 import { Catcher } from "@/catcher"
 import { Errors, Kind, noErrors } from "@/errors"
@@ -46,30 +45,11 @@ test "keeps a fault under the addon it names" {
   Test.expect(errors.db.errors[1]?.source == "OrdaenCompanion")
 }
 
-// The dev addon's side of the kit, as the test's own.
-class Heard implements Debug.Kit {
-  public lines: mut Array<String> = []
-  public log(mut self, addon: String, text: String, ms: Number, kb: Number) {
-    self.lines.push(`log ${addon}: ${text}`)
-  }
-  public error(mut self, message: String, stack: String | nil, locals: String | nil) {
-    self.lines.push(`error ${message}`)
-  }
-  public tapped(mut self, domain: String, json: String) {
-    self.lines.push(`tapped ${domain}`)
-  }
-}
-
-test "the kit keeps the errors itself, and the lines and records for the dev addon until it asks, then hands them on" {
+test "the kit hands each error to the catcher" {
   let errors = new Errors(noErrors(), {})
   let catcher = new Catcher(mut errors)
   let kit = new Kit(mut catcher)
   kit.error("boom", "the stack", nil)
-  kit.log("Ordaen", "before", 1, 2)
-  kit.tapped("fault", "{}")
-  let heard = new Heard()
-  kit.relayTo(mut heard)
-  kit.log("Ordaen", "after", 1, 2)
-  Test.expect(heard.lines.join(", ") == "log Ordaen: before, tapped fault, log Ordaen: after")
   Test.expect(errors.db.errors[1]?.message == "boom")
+  Test.expect(errors.db.errors[1]?.stack == "the stack")
 }

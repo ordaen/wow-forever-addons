@@ -1,37 +1,10 @@
-// The runtime's debug kit (`Debug.attach`): every client error and fault goes to the catcher. In a dev build the
-// debug log's lines and the client tap's records come too: they are kept (the newest LINES_KEPT and RECORDS_KEPT)
-// until the dev addon takes them (`relayTo`), then handed over and dropped, and every later one goes straight to it.
+// The runtime's debug kit (`Debug.attach`): every client error and fault, those raised before Ordaen Debug loaded
+// included, goes to the catcher. A dev build's log lines and tap records are the dev addon's own kit's
+// (`Debug.attachDev`), never this one's.
 import Debug from "$debug"
 import { Catcher } from "@/catcher"
 
-const LINES_KEPT = 200
-const RECORDS_KEPT = 2000
-
-struct Line {
-  addon: String
-  text: String
-  ms: Number
-  kb: Number
-}
-
-struct Record {
-  domain: String
-  json: String
-}
-
-// The newest `max` of a list, in order: the oldest goes when one more comes.
-function bounded<T>(list: mut Array<T>, max: Integer) {
-  if (list.length > max) {
-    _ = list.remove(1)
-  }
-}
-
 public class Kit implements Debug.Kit {
-  // The dev addon's kit, once it has asked for what comes.
-  relay: mut any Debug.Kit | nil = nil
-  lines: mut Array<Line> = []
-  records: mut Array<Record> = []
-
   catcher: mut Catcher
   constructor(catcher: mut Catcher) {
     self.catcher = catcher
@@ -39,38 +12,5 @@ public class Kit implements Debug.Kit {
 
   public error(mut self, message: String, stack: String | nil, locals: String | nil) {
     self.catcher.error(message, stack, locals)
-  }
-
-  public log(mut self, addon: String, text: String, ms: Number, kb: Number) {
-    const to = self.relay
-    if (to != nil) {
-      to.log(addon, text, ms, kb)
-      return
-    }
-    self.lines.push({ addon: addon, text: text, ms: ms, kb: kb })
-    bounded(mut self.lines, LINES_KEPT)
-  }
-
-  public tapped(mut self, domain: String, json: String) {
-    const to = self.relay
-    if (to != nil) {
-      to.tapped(domain, json)
-      return
-    }
-    self.records.push({ domain: domain, json: json })
-    bounded(mut self.records, RECORDS_KEPT)
-  }
-
-  // The dev addon's kit takes the lines and the records from now, and those kept, in their order.
-  public relayTo(mut self, kit: mut any Debug.Kit) {
-    self.relay = kit
-    for (line of self.lines) {
-      kit.log(line.addon, line.text, line.ms, line.kb)
-    }
-    for (record of self.records) {
-      kit.tapped(record.domain, record.json)
-    }
-    self.lines = []
-    self.records = []
   }
 }

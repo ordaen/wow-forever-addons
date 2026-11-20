@@ -1,0 +1,12 @@
+{
+  "TAB_REPORT": "Report a bug",
+  "REPORT_SECTION": "Report a bug",
+  "REPORT_HINT": "Make the report, select its text (click it, then Ctrl+A) and copy it (Ctrl+C) into your message to the developer. It holds the errors Ordaen Debug caught, your addons and their versions, and the game's build: nothing about your character or account.",
+  "REPORT_MAKE": "Make the report",
+  "REPORT_COUNT": "Errors this session: %d. Kept from earlier sessions: %d.",
+  "REPORT_HEAD": "Ordaen bug report",
+  "REPORT_CLIENT": "Game %s (build %s), interface %s, locale %s. Ordaen %s.",
+  "REPORT_ADDONS": "Addons loaded (%d):",
+  "REPORT_ERRORS": "Errors, newest first (%d of %d):",
+  "REPORT_NO_ERRORS": "No error was caught."
+}
