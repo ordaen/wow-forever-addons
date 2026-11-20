@@ -1300,13 +1300,15 @@ test "the cursor on the gold: this character's, then this realm's others by how 
 }
 
 test "fifty characters' gold is kept, this one's among them" {
-  // Forty-nine other characters' gold, as the sessions before left it.
+  // Forty-nine other characters' gold, as the sessions before left it: written after this load has kept its own
+  // (a reload runs what waits first), so the next load reads them.
+  Test.mount(nil, SCREEN)
+  Test.flush()
   let characters: Map<String, Purse> = {}
   for (index of 1..49) {
     characters[`Player-1-${index}`] = { name: `Alt${index}`, realm: "Stand-in", copper: 100, seen: 1000 + index }
   }
   Game.saved.store(.Account, "OrdaenBags:memory", Purses { characters: characters })
-  Test.mount(nil, SCREEN)
   Test.reload()
   Game.bags.open = true
   bags().text(Game.money.format(0)).hover()
@@ -1315,13 +1317,15 @@ test "fifty characters' gold is kept, this one's among them" {
 }
 
 test "past fifty characters the one seen longest ago is forgotten" {
-  // Fifty other characters' gold, as the sessions before left it: the first seen longest ago.
+  // Fifty other characters' gold, as the sessions before left it: the first seen longest ago. Written after this load
+  // has kept its own, as above.
+  Test.mount(nil, SCREEN)
+  Test.flush()
   let characters: Map<String, Purse> = {}
   for (index of 1..50) {
     characters[`Player-1-${index}`] = { name: `Alt${index}`, realm: "Stand-in", copper: 100, seen: 1000 + index }
   }
   Game.saved.store(.Account, "OrdaenBags:memory", Purses { characters: characters })
-  Test.mount(nil, SCREEN)
   Test.reload()
   Game.bags.open = true
   bags().text(Game.money.format(0)).hover()
