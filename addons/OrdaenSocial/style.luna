@@ -7,7 +7,6 @@ public const HEIGHT: Number<Length> = 679.6875dp
 public const CARD: Number<Length> = 492.1875dp
 public const DOT: Number<Length> = 14.0625dp
 public const BIG_DOT: Number<Length> = 18.75dp
-public const FIELD: Number<Length> = 35.15625dp
 public const SEARCH: Number<Length> = 164.0625dp
 public const BUTTON: Number<Length> = 152.34375dp
 public const WIDE_BUTTON: Number<Length> = 246.09375dp
@@ -28,7 +27,6 @@ public const BATTLE_NET: Color = Color.hex("#82c5ff")
 public const OFFLINE: Color = Color.hex("#7c848a")
 public const RED: Color = Color.hex("#ff4040")
 public const CARD_BACK: Color = Color.hex("#00000040")
-public const FIELD_BACK: Color = Color.hex("#00000080")
 public const BADGE: Color = Color.hex("#b3261e")
 
 // The game's own marks of a friend's status.

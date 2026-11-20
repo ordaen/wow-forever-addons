@@ -9,9 +9,9 @@
 // the player's own.
 import { Align, Art, Edges, Overflow, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { ARTWORK, ButtonPlate, Choice, Column, CompactDropdown, Component, Fact, FilterButton, FilterGroup, ModuleMemory, PickRow, PushButton, SECONDARY_TEXT, TITLE_LINE, TITLE_TEXT, Table, TableCell, TableRow, ToolPick, ToolSort, Toolbar, agoText, switched, tracksOf } from "Ordaen"
+import { ARTWORK, ButtonPlate, Choice, Column, CompactDropdown, Component, Fact, Field, FilterButton, FilterGroup, ModuleMemory, PickRow, PushButton, SECONDARY_TEXT, TITLE_LINE, TITLE_TEXT, Table, TableCell, TableRow, ToolPick, ToolSort, Toolbar, agoText, switched, tracksOf, trimmed } from "Ordaen"
 import Locale from "@/locales"
-import { Friend, Hero, Ignored, Me, Presence, Request, trimmed } from "@/people"
+import { Friend, Hero, Ignored, Me, Presence, Request } from "@/people"
 import Style from "@/style"
 
 // The filter's options: the friends' kinds, and online or not.
@@ -67,7 +67,6 @@ const PRESENCES: Array<Choice<Presence>> = [
 ]
 const ROW: Array<Track> = [Style.DOT, { fr: 1 }, "max-content"]
 const ROW_PAD: Edges = { top: 1sp, right: 2sp, bottom: 1sp, left: 2sp }
-const FIELD_PAD: Edges = { left: 3sp, right: 3sp }
 
 // What a friend is called in the list: the account's name, or the character's.
 public function titleOf(friend: Friend): String { return friend.account?.name ?? friend.hero?.name ?? "" }
@@ -577,10 +576,7 @@ public class IgnoreList implements Component {
     return $ltml {
       <box columns={1} rows={["max-content", { fr: 1 }, "max-content"]} gap={3sp}>
         <box columns={[{ fr: 1 }, "max-content"]} gap={3sp} yAlign={Align.Center}>
-          <box height={Style.FIELD} rows={[{ fr: 1 }]}>
-            <input value={mut self.name} maxLength={48} padding={FIELD_PAD} textColor={Style.INK}
-                   background={Style.FIELD_BACK} @submit={self.onIgnore} />
-          </box>
+          <Field value={mut self.name} maxLength={48} @submit={self.onIgnore} />
           <PushButton label={Locale.ADD_IGNORE} width={Style.WIDE_BUTTON} @click={self.onIgnore} />
         </box>
         <box columns={1} gap={2sp} overflow={Overflow.Scroll}>

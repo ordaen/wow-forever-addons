@@ -4,6 +4,7 @@
 // one door to them: `ClientPeople` reads the client, a test hands its own. Every act is called in the player's click,
 // as the client's restricted calls (status, the broadcast, invites, a ready check) want.
 import Client from "$client"
+import { classColor } from "Ordaen"
 import Locale from "@/locales"
 
 // How a friend stands: the client's four.
@@ -222,17 +223,6 @@ public trait People {
 // it; anything else is a character's name.
 public function namesAccount(text: String): Boolean { return text.contains("#") || text.contains("@") }
 
-// A text as the player meant it: without the spaces before and after.
-public function trimmed(text: String): String { return text.match("^%s*(.-)%s*$") ?? "" }
-
-// A class's colour by the client's tag of it (`WARRIOR`).
-function classColorOf(tag: String | nil): Color | nil {
-  if (tag == nil) { return nil }
-  const rgb = Client.RAID_CLASS_COLORS[tag]
-  if (rgb == nil) { return nil }
-  return { r: rgb.r, g: rgb.g, b: rgb.b, a: 1 }
-}
-
 function presenceOf(online: Boolean, away: Boolean, busy: Boolean): Presence {
   if (!online) { return .Offline }
   if (busy) { return .Busy }
@@ -279,17 +269,17 @@ function awayOf(info: Client.ClubMemberInfo): Integer {
 // A member as the client gives it in a club: the guild's rank where it is the guild's, else its role.
 function memberOf(info: Client.ClubMemberInfo, officerNotes: Boolean): Member {
   let className = ""
-  let classColor: Color | nil = nil
+  let color: Color | nil = nil
   const classID = info.classID
   const classInfo = classID != nil ? Client.C_CreatureInfo.GetClassInfo(classID) : nil
   if (classInfo != nil) {
     className = classInfo.className
-    classColor = classColorOf(classInfo.classFile)
+    color = classColor(classInfo.classFile)
   }
   const presence = clubPresenceOf(info.presence)
   return {
     key: info.guid ?? info.name ?? "", name: info.name ?? "", level: (info.level ?? 0).floor(), className: className,
-    classColor: classColor, zone: info.zone ?? "", presence: presence,
+    classColor: color, zone: info.zone ?? "", presence: presence,
     rank: info.guildRank ?? roleName(info.role), rankOrder: info.guildRankOrder ?? roleOrder(info.role),
     note: info.memberNote ?? "", officerNote: officerNotes ? info.officerNote ?? "" : "",
     away: presence == .Offline ? awayOf(info) : 0
@@ -315,7 +305,7 @@ function allyOf(data: Client.RecentAllyData): Ally {
   return {
     member: {
       key: character.guid, name: character.name, level: character.level.floor(), className: classInfo?.className ?? "",
-      classColor: classColorOf(classInfo?.classFile), zone: state.currentLocation ?? "",
+      classColor: classColor(classInfo?.classFile), zone: state.currentLocation ?? "",
       presence: presenceOf(state.isOnline, state.isAFK, state.isDND), rank: "", rankOrder: 0,
       note: data.interactionData.note ?? "", officerNote: "", away: 0
     },
@@ -342,7 +332,7 @@ public class ClientPeople implements People {
         presence: presenceOf(info.connected, info.afk, info.dnd),
         note: info.notes ?? "",
         hero: {
-          name: info.name, level: info.level.floor(), className: info.className ?? "", classColor: classColorOf(tag),
+          name: info.name, level: info.level.floor(), className: info.className ?? "", classColor: classColor(tag),
           area: info.area ?? "", realm: realm ?? ""
         },
         account: nil
@@ -361,7 +351,7 @@ public class ClientPeople implements People {
     if (playsHere) {
       hero = {
         name: game.characterName ?? "", level: (game.characterLevel ?? 0).floor(), className: game.className ?? "",
-        classColor: classColorOf(game.classFilename), area: game.areaName ?? "",
+        classColor: classColor(game.classFilename), area: game.areaName ?? "",
         realm: game.realmDisplayName ?? game.realmName ?? ""
       }
     }
@@ -406,7 +396,7 @@ public class ClientPeople implements People {
     let name, _ = Client.UnitName("player")
     let className, tag, _ = Client.UnitClass("player")
     const hero: Hero = {
-      name: name, level: Client.UnitLevel("player").floor(), className: className ?? "", classColor: classColorOf(tag),
+      name: name, level: Client.UnitLevel("player").floor(), className: className ?? "", classColor: classColor(tag),
       area: Client.GetZoneText(), realm: Client.GetRealmName()
     }
     const guid = Client.UnitGUID("player")
