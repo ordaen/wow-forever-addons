@@ -117,6 +117,44 @@ test "it stands at the right under what keeps the top right corner and above wha
   Ordaen.keepBottom("OrdaenPanel", 0ui)
 }
 
+test "it lists as many quests as the settings say, the first in the log's order, on a ground as dark as they say" {
+  logged()
+  Tracker.settings.values.listed = 1
+  Tracker.settings.values.ground = 0.25
+  Test.mount(nil, PAGE)
+  Tracker.refresh()
+  Test.flush()
+  Test.expect(Test.page().text("The Defias Brotherhood").shown() && !Test.page().text("Red Silk Bandanas").shown())
+  // The count is of every tracked quest, listed or not.
+  Test.expect(Test.page().text("2/25").shown())
+  Test.expect(Test.page().box({ r: 0, g: 0, b: 0, a: 0.25 }).shown())
+}
+
+test "the placing mode shows it with no quest tracked, moves it, keeps where it was let go, and a right click sends it home" {
+  Test.questLog([])
+  Test.mount(nil, PAGE)
+  Tracker.refresh()
+  Test.flush()
+  Test.expect(!Test.page().text("Quest tracker").shown() && !Test.page().text("Quests").shown())
+  Ordaen.togglePlacing()
+  Test.flush()
+  const home = Test.surfaceHolding("Quest tracker")
+  Test.moveTo(home)
+  Test.press(nil)
+  Test.moveTo({ x: home.x - 1, y: home.y })
+  Test.pass(0.02)
+  Test.moveTo({ x: home.x - 600, y: home.y })
+  Test.pass(0.02)
+  Test.release(nil)
+  Test.pass(0.02)
+  const moved = Test.surfaceHolding("Quest tracker")
+  Test.expect(moved.x < home.x - 500 && Ordaen.moved("OrdaenTracker.quests") != nil)
+  Test.click(moved, .Right)
+  Test.flush()
+  Test.expect(Ordaen.moved("OrdaenTracker.quests") == nil && Test.surfaceHolding("Quest tracker").x == home.x)
+  Ordaen.togglePlacing()
+}
+
 test "an objective moving on sounds as the game's tracker does" {
   logged()
   Test.mount(nil, PAGE)

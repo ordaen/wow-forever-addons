@@ -2,22 +2,25 @@
 // which is kept unseen while it is on. It draws each tracked quest from the client by itself (its level, title, tag,
 // objectives); other modules add lines under a quest through `questLines` (Quests: where to go, whom to hand it to).
 // The clicks are Blizzard's tracker's: a chat link first, Shift+click untracks, a click opens the quest in the log,
-// the round button points the way to it, Right-click opens its menu.
+// the round button points the way to it, Right-click opens its menu. Its settings say how many quests it lists and how
+// dark its ground is; the placing mode moves it.
 import Client from "$client"
 import Events from "$events"
 import Game from "$game"
-import { Action, Bounds, Edges, Layer, Overflow, Place, Point, Track } from "$ltml"
+import { Action, Anchored, Bounds, Edges, Overflow, Point, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { ButtonPlate, Component, Dialog, ItemButton, Menu, MenuEntry, Module, PushButton, SECONDARY_TEXT, SettingsPage, colorOf, difficultyOf, playSound } from "Ordaen"
+import { ButtonPlate, Component, Dialog, ItemButton, Menu, MenuEntry, Module, Placed, PushButton, SECONDARY_TEXT, Settings, SettingsPage, colorOf, difficultyOf, playSound } from "Ordaen"
 import { QuestLine, QuestLines } from "@/extend"
 import Locale from "@/locales"
+import { Choices, DEFAULTS, GeneralPage } from "@/settings"
 
 // As wide as the design's tracker (360 px), never narrower.
 const WIDTH: Bounds = { min: 351.5625dp, max: nil }
 // Off the screen's right edge, and off what stands over and under it.
 const EDGE = 11.71875dp
 const GAP = 7.03125dp
-const BACK: Color = Color.hex("#0000008c")
+// The tracker's part, as the placing mode keeps where the player put it.
+const PART = "OrdaenTracker.quests"
 const PAD: Edges = { top: 3sp, right: 3sp, bottom: 3sp, left: 3sp }
 const GOLD: Color = Color.hex("#ffd100")
 const DIM: Color = Color.hex("#a3977f")
@@ -45,12 +48,25 @@ function tagText(tag: Integer | nil): String {
   }
 }
 
+// The first `count` of the quests, or all of them where there are fewer.
+function firstOf(quests: Array<Game.LogQuest>, count: Integer): Array<Game.LogQuest> {
+  const first: Array<Game.LogQuest> = []
+  for (quest of quests) {
+    if (first.length >= count) { break }
+    first.push(quest)
+  }
+  return first
+}
+
 // What a tracked quest's row asks of the tracker.
 public enum Ask { Open, Link, Untrack, SuperTrack, ShowOnMap, Share, Abandon }
 
 public class Tracker implements Module, App {
   public const title: String = "Ordaen Tracker"
-  public const pages: Array<SettingsPage> = []
+  public settings: mut Settings<Choices> = new Settings<Choices>(DEFAULTS)
+  public const pages: Array<SettingsPage> = [
+    { title: Locale.TAB_GENERAL, content: $ltml { <GeneralPage settings={mut self.settings} /> } }
+  ]
   // What the modules add under each tracked quest.
   public const questLines = new Registry<any QuestLines>()
 
@@ -68,9 +84,15 @@ public class Tracker implements Module, App {
   derived fold: String = self.folded ? "+" : "–"
   derived abandonText: String = Locale.ABANDON_ASK.format(self.quests.find(quest => quest.id == self.abandoning)?.title ?? "")
   derived level: Integer = Game.player.level
-  // Its place: along the right edge, from under what keeps the top right corner (the minimap) down to above what
-  // keeps the bottom edge (the bottom panel, a damage meter there), all of that height; it scrolls past it.
-  derived place: Place = { point: Point.TopRight, to: Point.TopRight, x: -EDGE, y: Ordaen.topRightTaken + GAP }
+  // The first of the tracked quests, as many as the settings list.
+  derived listed: Array<Game.LogQuest> = firstOf(self.quests, self.settings.values.listed)
+  derived ground: Color = { r: 0, g: 0, b: 0, a: self.settings.values.ground }
+  // Shown while it lists a quest, and in the placing mode, to be moved.
+  derived drawn: Boolean = self.quests.length > 0 || Ordaen.placing
+  // Its place while the player never moved it: along the right edge, from under what keeps the top right corner (the
+  // minimap) down to above what keeps the bottom edge (the bottom panel, a damage meter there), all of that height; it
+  // scrolls past it.
+  derived home: Anchored = { point: Point.TopRight, to: Point.TopRight, x: -EDGE, y: Ordaen.topRightTaken + GAP }
   derived height: Number<Length> = (Client.UIParent.GetHeight() * 1ui - Ordaen.topRightTaken - Ordaen.bottomTaken - 2 * GAP).max(0ui)
 
   constructor() {
@@ -143,18 +165,19 @@ public class Tracker implements Module, App {
   public render(self): Template {
     return $ltml {
       <frame of={Game.frames.ObjectiveTracker} opacity={0} away={true} />
-      <surface $if={self.quests.length > 0} layer={Layer.Screen} place={self.place} width={WIDTH} height={self.height}
-               background={BACK} padding={PAD} rows={ROWS} gap={3sp}>
-        <box columns={HEAD} gap={3sp} @pointerPress={self.onFold}>
-          <text value={Locale.QUESTS} textColor={GOLD} wrap={.None} />
-          <text value={self.count} textColor={DIM} textSize={SECONDARY_TEXT} wrap={.None} />
-          <text value={self.fold} textColor={DIM} wrap={.None} />
+      <Placed $if={self.drawn} id={PART} title={Locale.PLACE} home={self.home}>
+        <box width={WIDTH} height={self.height} background={self.ground} padding={PAD} rows={ROWS} gap={3sp}>
+          <box columns={HEAD} gap={3sp} @pointerPress={self.onFold}>
+            <text value={Locale.QUESTS} textColor={GOLD} wrap={.None} />
+            <text value={self.count} textColor={DIM} textSize={SECONDARY_TEXT} wrap={.None} />
+            <text value={self.fold} textColor={DIM} wrap={.None} />
+          </box>
+          <box $if={!self.folded} columns={1} gap={3sp} overflow={Overflow.Scroll}>
+            <TrackedQuest $for={quest of self.listed} $key={quest.id} quest={quest} lines={self.linesOf(quest)}
+                          pointed={quest.id == self.superTracked} player={self.level} @ask={self.onAsk} />
+          </box>
         </box>
-        <box $if={!self.folded} columns={1} gap={3sp} overflow={Overflow.Scroll}>
-          <TrackedQuest $for={quest of self.quests} $key={quest.id} quest={quest} lines={self.linesOf(quest)}
-                        pointed={quest.id == self.superTracked} player={self.level} @ask={self.onAsk} />
-        </box>
-      </surface>
+      </Placed>
       <Dialog $if={self.abandoning != 0} width={ASK} title={Locale.ABANDON}>
         <text value={self.abandonText} />
         <PushButton #buttons label={Locale.ABANDON} width={ASK_BUTTON} plate={ButtonPlate.Danger} @click={self.onAbandonYes} />
