@@ -60,7 +60,7 @@ class BankBagEntry implements Component {
            @pointerLeave={self.onLeave} @pointerPress={self.onPress}>
         <box width={ICON} height={ICON} background={WELL} icon={self.bag.info.icon} />
         <text value={self.bag.info.name} textColor={INK} />
-        <text value={self.fill} textColor={LABEL} textFont={.Numbers} textSize={SECONDARY_TEXT} wrap={false} />
+        <text value={self.fill} textColor={LABEL} textFont={.Numbers} textSize={SECONDARY_TEXT} wrap={.None} />
       </box>
     }
   }

@@ -206,7 +206,7 @@ class CategoryEntry implements Component {
     return $ltml {
       <box columns={1}>
         <SelectItem selected={self.whole} columns={CATEGORY} padding={CLASS_PAD} @pick={self.onClass}>
-          <text value={self.category.name} textColor={Style.GOLD} wrap={false} />
+          <text value={self.category.name} textColor={Style.GOLD} wrap={.None} />
         </SelectItem>
         <box $if={self.open} columns={1}>
           <SubclassEntry $for={sub of self.category.subclasses} $key={sub.itemSubclass} subclass={sub}
@@ -235,7 +235,7 @@ class SubclassEntry implements Component {
   public render(self): Template {
     return $ltml {
       <SelectItem selected={self.selected} columns={CATEGORY} padding={SUBCLASS_PAD} @pick={self.onPick}>
-        <text value={self.subclass.name} textColor={Style.INK} wrap={false} />
+        <text value={self.subclass.name} textColor={Style.INK} wrap={.None} />
       </SelectItem>
     }
   }
@@ -386,7 +386,7 @@ class FoundRow implements Component {
         <box columns={ITEM} gap={2.5sp} yAlign={Align.Center}>
           <ItemButton item={self.found.item} size={Style.SLOT} />
           <box overflow={.Hidden}>
-            <text value={self.found.name} textColor={self.found.color} wrap={false} />
+            <text value={self.found.name} textColor={self.found.color} wrap={.Cut} />
           </box>
         </box>
         <box yAlign={Align.Center}>
@@ -410,7 +410,7 @@ class FoundRow implements Component {
           <text value={self.share} textColor={self.shareInk} />
         </box>
         <box xAlign={Align.End}>
-          <text value={self.age} textColor={self.ageInk} wrap={false} />
+          <text value={self.age} textColor={self.ageInk} wrap={.None} />
         </box>
       </TableRow>
     }
@@ -626,7 +626,7 @@ public class BuyPage implements Component {
           <box overflow={Overflow.Scroll}>
             <SelectItem selected={self.anyClass} first={true} columns={CATEGORY} padding={CLASS_PAD}
                         @pick={self.pickAll}>
-              <text value={Locale.ALL_CLASSES} textColor={Style.GOLD} wrap={false} />
+              <text value={Locale.ALL_CLASSES} textColor={Style.GOLD} wrap={.None} />
             </SelectItem>
             <CategoryEntry $for={category of self.categories} $key={category.itemClass} category={category}
                            itemClass={self.itemClass} itemSubclass={self.itemSubclass} @pick={self.pickCategory} />
@@ -700,10 +700,10 @@ class ListingRow implements Component {
           <Money amount={self.listing.unit} />
         </box>
         <box xAlign={Align.End}>
-          <text value={"%d"} arguments={[self.listing.quantity]} textColor={Style.INK} wrap={false} />
+          <text value={"%d"} arguments={[self.listing.quantity]} textColor={Style.INK} wrap={.None} />
         </box>
         <box xAlign={Align.End}>
-          <text value={self.left} textColor={Style.INK} wrap={false} />
+          <text value={self.left} textColor={Style.INK} wrap={.None} />
         </box>
       </TableRow>
     }

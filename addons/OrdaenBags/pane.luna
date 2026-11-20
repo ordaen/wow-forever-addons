@@ -385,7 +385,7 @@ public class Pane {
           </box>
           <text $elseif={self.guild.page == GuildPage.Items} value={Locale.GUILD_LOADING} textColor={LABEL} />
           <box $else columns={1} gap={3sp} overflow={Overflow.Scroll}>
-            <text $for={line of self.guild.log} value={line} wrap={true} />
+            <text $for={line of self.guild.log} value={line} />
           </box>
         </box>
         <box $else columns={1}>

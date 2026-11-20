@@ -25,7 +25,7 @@ class Fact implements Component {
     return $ltml {
       <box columns={ROW} gap={2.5sp}>
         <text value={self.label} textColor={Style.DIM} />
-        <text value={self.value} textColor={Style.INK} wrap={false} />
+        <text value={self.value} textColor={Style.INK} wrap={.None} />
       </box>
     }
   }

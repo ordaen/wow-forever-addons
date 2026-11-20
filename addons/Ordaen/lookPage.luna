@@ -92,10 +92,10 @@ public class PresetRow implements Component {
     return $ltml {
       <box columns={PRESET_ROW} gap={3.5sp} yAlign={Align.Center}>
         <box columns={1} gap={0.5sp}>
-          <text value={self.name} textColor={WHITE} wrap={false} />
+          <text value={self.name} textColor={WHITE} wrap={.None} />
           <text value={self.about} textColor={DIM} textSize={SECONDARY_TEXT} />
         </box>
-        <text $if={self.inUse} value={Locale.THEMES_IN_USE} textColor={IN_USE} textSize={SECONDARY_TEXT} wrap={false} />
+        <text $if={self.inUse} value={Locale.THEMES_IN_USE} textColor={IN_USE} textSize={SECONDARY_TEXT} wrap={.None} />
         <PushButton $else label={Locale.THEMES_USE} width={175.78125dp} plate={ButtonPlate.Accent} @click={self.use} />
       </box>
     }

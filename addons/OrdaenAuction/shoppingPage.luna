@@ -6,7 +6,7 @@
 // as it is picked or its «Buy N» first clicked. «Search all» browses every item in one query; a row picked can be
 // removed, and «Remove bought» clears every row at 0.
 import Game from "$game"
-import { Align, Overflow, Track } from "$ltml"
+import { Align, Track } from "$ltml"
 import { Age, ButtonPlate, Column, Component, ItemButton, ItemId, ModuleMemory, Money, PushButton, SECONDARY_TEXT, Table, TableRow, tracksOf } from "Ordaen"
 import { ageOf } from "@/buy"
 import { nameOf } from "@/house"
@@ -121,15 +121,15 @@ class ShoppingRow implements Component {
         <box columns={ITEM} gap={2.5sp} yAlign={Align.Center}>
           <ItemButton item={self.row.item} size={Style.SLOT} dimmed={self.bought} />
           // Its name and what asked for it, cut at the column: a long list of what asked would push the row.
-          <box rows={["max-content", "max-content"]} overflow={Overflow.Hidden}>
-            <text value={self.name} textColor={self.color} wrap={false} />
-            <text value={self.from} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={false} />
+          <box rows={["max-content", "max-content"]}>
+            <text value={self.name} textColor={self.color} wrap={.Cut} />
+            <text value={self.from} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={.Cut} />
           </box>
         </box>
         <box rows={LINES} xAlign={Align.End}>
           <text value={"%d"} arguments={[self.row.toBuy]} textColor={self.ink} />
           <text value={Locale.HELD_OF} arguments={[self.row.held, self.row.needed]} textColor={Style.DIM}
-                textSize={SECONDARY_TEXT} wrap={false} />
+                textSize={SECONDARY_TEXT} wrap={.None} />
         </box>
         <box xAlign={Align.End}>
           <box $if={self.priced} rows={LINES} xAlign={Align.End}>
@@ -239,9 +239,9 @@ public class ShoppingPage implements Component {
       <box rows={PAGE} gap={3sp}>
         <box columns={HEAD} gap={3sp} yAlign={Align.Center}>
           <text value={Locale.HELD_HERE} textColor={Style.DIM} textSize={SECONDARY_TEXT} />
-          <text value={Locale.TOTAL_TO_BUY} textColor={Style.DIM} wrap={false} />
+          <text value={Locale.TOTAL_TO_BUY} textColor={Style.DIM} wrap={.None} />
           <box columns={PRICE} yAlign={Align.Center}>
-            <text $if={self.short} value={"~"} textColor={Style.INK} wrap={false} />
+            <text $if={self.short} value={"~"} textColor={Style.INK} wrap={.None} />
             <Money amount={self.total} />
           </box>
         </box>

@@ -72,7 +72,7 @@ public class Tip implements Component {
             <text value={row.label} textColor={LABEL} />
             <text $if={row.mark.text != ""} value={row.mark.text} textColor={row.mark.color} />
           </box>
-          <text value={row.value} textColor={NAME} wrap={false} textFont={.Numbers} />
+          <text value={row.value} textColor={NAME} wrap={.None} textFont={.Numbers} />
         </box>
         <Hotkeys keys={self.keys} />
       </surface>

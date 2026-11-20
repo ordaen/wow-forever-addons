@@ -88,7 +88,7 @@ public class ClicksPage implements Component {
   public render(self): Template {
     return $ltml {
       <Section title={Locale.SECTION_CLICKS}>
-        <text value={Locale.CLICKS_TIP} wrap={true} />
+        <text value={Locale.CLICKS_TIP} />
         <ChordRow $for={row of self.rows} $key={row.key} chord={peek row.chord} choices={peek row.choices}
                   clicks={mut self.clicks} />
         <box columns={2} gap={3sp}>

@@ -306,7 +306,7 @@ public class Minimap implements Module, App {
                  xAlign={Align.Center} yAlign={Align.Center}>
               <box @pointerEnter={self.onZoneEnter} @pointerLeave={self.onHintLeave}>
                 <text value={Game.location.zone} textColor={self.zoneColor} textShadow={ENGRAVED}
-                      wrap={false} />
+                      wrap={.None} />
                 <Tip $if={self.hint == Hint.Zone} title={self.hintTitle} text={self.hintText} keys={self.hintKeys} />
               </box>
             </box>
@@ -317,14 +317,14 @@ public class Minimap implements Module, App {
               <box $if={self.showsCoords} @pointerPress={self.onCoordsClick} @pointerEnter={self.onCoordsEnter}
                    @pointerLeave={self.onHintLeave}>
                 <text value={Game.minimap.coords} textColor={INK} textShadow={ENGRAVED}
-                      textFont={.Numbers} wrap={false} />
+                      textFont={.Numbers} wrap={.None} />
                 <Tip $if={self.hint == Hint.Coords} title={self.hintTitle} text={self.hintText} keys={self.hintKeys} />
               </box>
               <box $else width={1ui} />
               <box $if={self.settings.values.showClock} @pointerPress={self.onClockClick} @pointerEnter={self.onClockEnter}
                    @pointerLeave={self.onHintLeave}>
                 <text value={Game.clock.text} textColor={self.clockColor} textShadow={ENGRAVED}
-                      textFont={.Numbers} wrap={false} />
+                      textFont={.Numbers} wrap={.None} />
                 <Tip $if={self.hint == Hint.Clock} title={self.hintTitle} text={self.hintText} keys={self.hintKeys} />
               </box>
             </box>

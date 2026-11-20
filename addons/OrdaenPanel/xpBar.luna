@@ -237,9 +237,9 @@ public class Tube implements Component {
           // Secondary: the values with the longest standing's name fit a tube at its least.
           <box columns={LABEL_PARTS} gap={LABEL_GAP} yAlign={Align.Center}>
             <text value={self.label} textSize={SECONDARY_TEXT} textColor={LABEL} textOutline={1}
-                  textShadow={LABEL_SHADOW} wrap={false} textFont={.Numbers} />
+                  textShadow={LABEL_SHADOW} wrap={.None} textFont={.Numbers} />
             <text $if={self.hasDimmed} value={self.dimmed} textSize={SECONDARY_TEXT} textColor={DIMMED}
-                  textOutline={1} textShadow={LABEL_SHADOW} wrap={false} textFont={.Numbers} />
+                  textOutline={1} textShadow={LABEL_SHADOW} wrap={.None} textFont={.Numbers} />
           </box>
         </box>
         <box position={Position.Absolute} left={self.inset} top={self.inset} right={self.inset} bottom={self.inset}

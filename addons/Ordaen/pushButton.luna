@@ -121,13 +121,13 @@ public class PushButton implements Component {
         <Tip $if={self.tipShown} title={self.tipText.title} text={self.tipText.text} rows={self.tipText.rows} />
         <box $if={self.keyed} width={KEY_WIDTH} height={KEY_HEIGHT} background={KEY_SHADE} border={GROOVE} opacity={self.keyOpacity} xAlign={Align.Center}
              yAlign={Align.Center}>
-          <text value={self.key} textColor={KEY_TEXT} textSize={SECONDARY_TEXT} wrap={false} />
+          <text value={self.key} textColor={KEY_TEXT} textSize={SECONDARY_TEXT} wrap={.None} />
         </box>
         <box $if={self.iconed} columns={ICON_ROW} gap={ICON_GAP} yAlign={Align.Center}>
           <box width={ICON} height={ICON} icon={self.icon} tint={self.iconTint} />
-          <text $if={self.labelled} value={self.label} textColor={self.color} textShadow={SHADOW} wrap={false} />
+          <text $if={self.labelled} value={self.label} textColor={self.color} textShadow={SHADOW} wrap={.None} />
         </box>
-        <text $else value={self.label} textColor={self.color} textShadow={SHADOW} wrap={false} />
+        <text $else value={self.label} textColor={self.color} textShadow={SHADOW} wrap={.None} />
       </box>
     }
   }

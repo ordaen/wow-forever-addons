@@ -437,16 +437,16 @@ public class Mail implements Module, App {
         <OwnTab $else alts={Alts} professions={Professions} sender={mut self.sender} requests={mut self.requests} />
       </Window>
       <Dialog $if={self.asking is Ask.Pay} width={Style.ASK} title={Locale.COD_TITLE}>
-        <text value={self.askText} textColor={Style.INK} wrap={true} />
+        <text value={self.askText} textColor={Style.INK} />
         <PushButton #buttons label={Locale.PAY} width={Style.BUTTON} plate={ButtonPlate.Accent} @click={self.onPayYes} />
         <PushButton #buttons label={Locale.CANCEL} width={Style.BUTTON} @click={self.onAskNo} />
       </Dialog>
       <Dialog $if={self.asking is Ask.Short} width={Style.ASK} title={Locale.COD_TITLE}>
-        <text value={self.askText} textColor={Style.INK} wrap={true} />
+        <text value={self.askText} textColor={Style.INK} />
         <PushButton #buttons label={Locale.OKAY} width={Style.BUTTON} @click={self.onAskNo} />
       </Dialog>
       <Dialog $if={self.asking is Ask.Close} width={Style.ASK} title={Locale.CLOSE_TITLE}>
-        <text value={self.askText} textColor={Style.INK} wrap={true} />
+        <text value={self.askText} textColor={Style.INK} />
         <PushButton #buttons label={Locale.CLOSE} width={Style.BUTTON} plate={ButtonPlate.Danger} @click={self.onCloseYes} />
         <PushButton #buttons label={Locale.CANCEL} width={Style.BUTTON} @click={self.onAskNo} />
       </Dialog>

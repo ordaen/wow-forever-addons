@@ -127,10 +127,10 @@ class AllyRow implements Component {
         <box width={Style.DOT} height={Style.DOT} background={markOf(self.ally.member.presence)} />
         <box columns={1}>
           <box columns={["max-content", "max-content"]} gap={2sp}>
-            <text value={self.ally.member.name} textColor={nameColorOf(self.ally.member)} wrap={false} />
-            <text value={self.level} textColor={Style.DIM} textFont={.Numbers} wrap={false} />
+            <text value={self.ally.member.name} textColor={nameColorOf(self.ally.member)} wrap={.None} />
+            <text value={self.level} textColor={Style.DIM} textFont={.Numbers} wrap={.None} />
           </box>
-          <text value={metText(self.ally)} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={false} />
+          <text value={metText(self.ally)} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={.None} />
         </box>
         <box $if={self.ally.pinned} width={Style.STAR} height={Style.STAR} background={Style.STAR_ICON} />
       </PickRow>
@@ -177,10 +177,10 @@ public class AllyList implements Component {
           <ToolPick value={mut self.sort} choices={SORTS} icon={Ordaen.art.ctl.tool.sort} title={Locale.SORT} />
         </Toolbar>
         <box columns={1} overflow={Overflow.Scroll} yAlign={Align.Start}>
-          <text $if={self.empty} value={self.allies.length == 0 ? Locale.NO_ALLIES : Locale.NOTHING_FOUND} textColor={Style.DIM} wrap={true} />
-          <text $if={self.pinned.length > 0} value={Locale.PINNED} textColor={Style.GOLD} wrap={false} />
+          <text $if={self.empty} value={self.allies.length == 0 ? Locale.NO_ALLIES : Locale.NOTHING_FOUND} textColor={Style.DIM} />
+          <text $if={self.pinned.length > 0} value={Locale.PINNED} textColor={Style.GOLD} wrap={.None} />
           <AllyRow $for={ally of self.pinned} $key={ally.member.key} ally={ally} chosen={self.chosen} @pick={self.onPick} />
-          <text $if={self.rest.length > 0} value={Locale.TAB_ALLIES} textColor={Style.GOLD} wrap={false} />
+          <text $if={self.rest.length > 0} value={Locale.TAB_ALLIES} textColor={Style.GOLD} wrap={.None} />
           <AllyRow $for={ally of self.rest} $key={ally.member.key} ally={ally} chosen={self.chosen} @pick={self.onPick} />
         </box>
       </box>
@@ -197,8 +197,8 @@ class MeetingRow implements Component {
   public render(self): Template {
     return $ltml {
       <box columns={[{ fr: 1 }, "max-content"]} gap={3sp}>
-        <text value={self.meeting.text} textColor={Style.INK} wrap={true} />
-        <text value={agoText(self.meeting.when)} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={false} />
+        <text value={self.meeting.text} textColor={Style.INK} />
+        <text value={agoText(self.meeting.when)} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={.None} />
       </box>
     }
   }
@@ -233,8 +233,8 @@ public class AllyCard implements Component {
             <box width={Style.BIG_DOT} height={Style.BIG_DOT} background={markOf(self.ally.member.presence)} />
             <box columns={1}>
               <text value={self.ally.member.name} textColor={nameColorOf(self.ally.member)} textSize={TITLE_TEXT} lineHeight={TITLE_LINE}
-                    textFont={.Title} wrap={false} />
-              <text value={self.sub} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={false} />
+                    textFont={.Title} wrap={.None} />
+              <text value={self.sub} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={.None} />
             </box>
           </box>
           <Fact label={Locale.STATUS} value={presenceText(self.ally.member.presence)} />
@@ -242,7 +242,7 @@ public class AllyCard implements Component {
           <Fact label={Locale.NOTE} value={orDash(self.ally.member.note)} />
         </box>
         <box columns={1} gap={2sp} overflow={Overflow.Scroll} yAlign={Align.Start}>
-          <text value={Locale.MEETINGS} textColor={Style.DIM} wrap={false} />
+          <text value={Locale.MEETINGS} textColor={Style.DIM} wrap={.None} />
           <MeetingRow $for={meeting of self.ally.meetings} meeting={meeting} />
         </box>
         <box columns={["max-content", "max-content"]} gap={3sp}>

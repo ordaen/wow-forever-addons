@@ -104,7 +104,7 @@ public class CountInput implements Component {
                     @click={self.less} />
         <box xAlign={Align.Center} width={NUMBER_BOUNDS}>
           <text value={"%d"} arguments={[self.value]} textColor={WHITE}
-                textFont={.Numbers} wrap={false} />
+                textFont={.Numbers} wrap={.None} />
         </box>
         <PushButton label={"+"} width={self.step} disabled={!self.more} repeats={true} tip={MORE_TIP}
                     @click={self.raise} />

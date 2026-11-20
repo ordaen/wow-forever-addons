@@ -26,9 +26,9 @@ public class FooterCounts implements Component {
     return $ltml {
       <box columns={{ each: "max-content" }} gap={6sp} yAlign={Align.Center}>
         <box $for={count of self.counts} columns={{ each: "max-content" }} gap={3sp} yAlign={Align.Center}>
-          <text value={count.label} textSize={SECONDARY_TEXT} textColor={DIM} wrap={false} />
+          <text value={count.label} textSize={SECONDARY_TEXT} textColor={DIM} wrap={.None} />
           <text value={count.value} textSize={SECONDARY_TEXT} textFont={TextFont.Numbers} textColor={count.color ?? INK}
-                wrap={false} />
+                wrap={.None} />
         </box>
       </box>
     }

@@ -45,7 +45,7 @@ public class Age implements Component {
 
   public render(self): Template {
     return $ltml {
-      <text $if={self.shown} value={self.text} textColor={self.color} wrap={false} />
+      <text $if={self.shown} value={self.text} textColor={self.color} wrap={.None} />
     }
   }
 }

@@ -197,8 +197,8 @@ class OfferRow implements Component {
       <box columns={OFFER} gap={2sp} yAlign={Align.Center}>
         <Tick value={mut self.checked} />
         <box columns={1}>
-          <text value={self.offer.name} textColor={Style.INK} wrap={false} />
-          <text value={self.offer.why} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={false} />
+          <text value={self.offer.name} textColor={Style.INK} wrap={.None} />
+          <text value={self.offer.why} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={.None} />
         </box>
         <CountInput value={mut self.count} least={1} most={self.offer.count} disabled={!self.checked} />
       </box>
@@ -253,9 +253,9 @@ class LackRow implements Component {
     return $ltml {
       <box columns={LINE} gap={2sp} yAlign={Align.Center}>
         <box columns={1}>
-          <text value={Locale.LACKS.format(self.lack.name, self.lack.count)} textColor={Style.INK} wrap={false} />
+          <text value={Locale.LACKS.format(self.lack.name, self.lack.count)} textColor={Style.INK} wrap={.None} />
           <text value={Locale.HOLDS.format(self.lack.holderName, self.lack.held, placeText(self.lack.place))} textColor={Style.DIM}
-                textSize={SECONDARY_TEXT} wrap={false} />
+                textSize={SECONDARY_TEXT} wrap={.None} />
         </box>
         <PushButton label={self.asked ? Locale.ASKED : Locale.ASK} width={Style.BUTTON} disabled={self.asked} @click={self.onAsk} />
       </box>
@@ -279,7 +279,7 @@ class AskedRow implements Component {
         <PushButton label={Locale.SEND} width={Style.BUTTON} @click={self.onSend} />
         <PushButton label={Locale.DECLINE} width={Style.BUTTON} @click={self.onDecline} />
         <text value={Locale.ASKS.format(self.request.fromName, self.request.count, itemName(self.request.item))}
-              textColor={Style.GOLD} wrap={false} />
+              textColor={Style.GOLD} wrap={.None} />
       </box>
     }
   }

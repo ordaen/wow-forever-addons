@@ -114,13 +114,13 @@ public class FactionRow implements Component {
            @keyPress(.Enter)={self.onClick} @keyPress(.Space)={self.onClick}>
         <box />
         <box width={MARK} height={MARK} background={self.mark} />
-        <text value={self.faction.name} textColor={self.nameColor} wrap={false} />
+        <text value={self.faction.name} textColor={self.nameColor} wrap={.None} />
         <box padding={Style.BAR_PAD} background={Style.TROUGH} fill={self.bar} opacity={self.barShown ? 1 : 0}
              xAlign={Align.Center} yAlign={Align.Center}>
-          <text value={self.standing} textSize={SECONDARY_TEXT} textColor={Style.INK} wrap={false} />
+          <text value={self.standing} textSize={SECONDARY_TEXT} textColor={Style.INK} wrap={.None} />
         </box>
         <text value={self.gainText} textSize={SECONDARY_TEXT} textFont={TextFont.Numbers} textColor={Style.GREEN}
-              wrap={false} />
+              wrap={.None} />
       </box>
     }
   }
@@ -192,7 +192,7 @@ public class FactionDetail implements Component {
         </box>
         <box padding={Style.BAR_PAD} background={Style.TROUGH} fill={self.bar} xAlign={Align.Center} yAlign={Align.Center}>
           <text value={self.numbers} textSize={SECONDARY_TEXT} textFont={TextFont.Numbers} textColor={Style.INK}
-                wrap={false} />
+                wrap={.None} />
         </box>
         <box columns={[{ fr: 1 }, "max-content"]}>
           <text value={self.toNext} textSize={SECONDARY_TEXT} textColor={Style.DIM} />

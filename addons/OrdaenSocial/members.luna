@@ -23,14 +23,14 @@ const STATUS_WIDTH = 23.4375dp
 const LEVEL_WIDTH = 82.03125dp
 const RANK_WIDTH = 140.625dp
 // The status (a dot, no heading: those online always stand first), the level, the name, where they are, the rank (a
-// community's role) and the note, the one column cut at its edge; everything else wraps.
+// community's role) and the note, the one text cut at its column; everything else wraps.
 const GUILD_COLUMNS: Array<Column> = [
   { title: "", width: STATUS_WIDTH },
   { title: Locale.COLUMN_LEVEL, width: LEVEL_WIDTH, align: Align.Center, sortable: true },
   { title: Locale.COLUMN_NAME, width: { fr: 1 }, sortable: true },
   { title: Locale.COLUMN_ZONE, width: { fr: 1 }, sortable: true },
   { title: Locale.COLUMN_RANK, width: RANK_WIDTH, sortable: true },
-  { title: Locale.COLUMN_NOTE, width: { fr: 1 }, sortable: true, cut: true }
+  { title: Locale.COLUMN_NOTE, width: { fr: 1 }, sortable: true }
 ]
 const CLUB_COLUMNS: Array<Column> = [
   { title: "", width: STATUS_WIDTH },
@@ -38,7 +38,7 @@ const CLUB_COLUMNS: Array<Column> = [
   { title: Locale.COLUMN_NAME, width: { fr: 1 }, sortable: true },
   { title: Locale.COLUMN_ZONE, width: { fr: 1 }, sortable: true },
   { title: Locale.COLUMN_ROLE, width: RANK_WIDTH, sortable: true },
-  { title: Locale.COLUMN_NOTE, width: { fr: 1 }, sortable: true, cut: true }
+  { title: Locale.COLUMN_NOTE, width: { fr: 1 }, sortable: true }
 ]
 // The sorts no column shows, the toolbar's alone: `columns.length + 1` and on.
 const MORE_SORTS: Array<String> = [Locale.COLUMN_CLASS]
@@ -142,8 +142,8 @@ class MemberRow implements Component {
         <TableCell>
           <text value={self.member.rank} textColor={self.ink} />
         </TableCell>
-        <TableCell cut={true}>
-          <text value={self.member.note} textColor={Style.DIM} wrap={false} />
+        <TableCell>
+          <text value={self.member.note} textColor={Style.DIM} wrap={.Cut} />
         </TableCell>
       </TableRow>
     }
@@ -230,8 +230,8 @@ public class MemberCard implements Component {
           <box columns={[Style.BIG_DOT, { fr: 1 }]} gap={2sp} yAlign={Align.Center}>
             <box width={Style.BIG_DOT} height={Style.BIG_DOT} background={markOf(self.member.presence)} />
             <box columns={1}>
-              <text value={self.member.name} textColor={nameColorOf(self.member)} textSize={TITLE_TEXT} lineHeight={TITLE_LINE} textFont={.Title} wrap={false} />
-              <text value={self.sub} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={false} />
+              <text value={self.member.name} textColor={nameColorOf(self.member)} textSize={TITLE_TEXT} lineHeight={TITLE_LINE} textFont={.Title} wrap={.None} />
+              <text value={self.sub} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={.None} />
             </box>
           </box>
           <Fact label={Locale.STATUS} value={self.status} />

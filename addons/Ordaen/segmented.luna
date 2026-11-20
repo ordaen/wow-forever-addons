@@ -61,7 +61,7 @@ public class Segment<T: Unknown> implements Component {
       <box padding={PADDING} background={self.fill} xAlign={Align.Center}
            border={self.edge} @pointerPress={self.onClick} @keyPress(.Enter)={self.onClick} @keyPress(.Space)={self.onClick}>
         <box position={Position.Absolute} left={0ui} right={0ui} top={0ui} height={2.34375dp} background={self.light} />
-        <text value={self.text} textColor={self.color} wrap={false} />
+        <text value={self.text} textColor={self.color} wrap={.None} />
       </box>
     }
   }

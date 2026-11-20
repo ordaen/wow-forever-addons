@@ -63,11 +63,11 @@ public class GeneralPage implements Component {
   public render(self): Template {
     return $ltml {
       <Section title={Locale.SECTION_MAP}>
-        <text $if={!self.openMap} value={Locale.NO_OPENMAP} textColor={RED} wrap={true} />
+        <text $if={!self.openMap} value={Locale.NO_OPENMAP} textColor={RED} />
         <Switch label={Locale.SETTING_DOCKED} hint={Locale.SETTING_DOCKED_TIP} value={mut self.docked} />
       </Section>
       <Section title={Locale.SECTION_LAYERS}>
-        <text $if={self.layers.length == 0} value={Locale.NO_LAYERS} wrap={true} />
+        <text $if={self.layers.length == 0} value={Locale.NO_LAYERS} />
         <LayerRow $for={layer of self.layers} id={layer.id} title={layer.title} hint={layer.hint}
                   on={self.hidden[layer.id] != true} @flip={self.onFlip} />
       </Section>

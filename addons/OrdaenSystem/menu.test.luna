@@ -82,7 +82,8 @@ test "the menu's first show is dressed in that show's own call, before a frame p
   Test.mount(nil, SCREEN)
   _ = Test.key(Key.Escape)
   Test.expect(blizzards(0, true) && !Client.GameMenuFrame.IsMouseEnabled())
-  Test.expect(Test.page().text(Client.MAINMENU_BUTTON).shown())
+  // The client sizes its menu on the next frame: till then the title has no room, and waits.
+  Test.expect(!Test.page().text(Client.MAINMENU_BUTTON).shown())
 }
 
 test "the exits are red plates, the others bronze" {

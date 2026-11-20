@@ -264,7 +264,7 @@ public class ItemButton implements Component {
         <box $if={self.counted} position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui}
              xAlign={Align.End} yAlign={Align.End} padding={COUNT_PAD}>
           <text value={self.count} textColor={INK} textSize={SECONDARY_TEXT} lineHeight={TIGHT_LINE}
-                textShadow={COUNT_SHADOW} wrap={false} />
+                textShadow={COUNT_SHADOW} wrap={.None} />
         </box>
       </box>
     }

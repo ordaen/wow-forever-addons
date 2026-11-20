@@ -159,7 +159,7 @@ public class AddOnsWindow implements Component {
       <box />
       <box columns={GROUP} gap={3sp} yAlign={Align.Center}>
         <box @pointerEnter={self.onWaitEnter} @pointerLeave={self.onWaitLeave}>
-          <text value={self.waitText} textColor={Style.GOLD} textSize={SECONDARY_TEXT} wrap={false} />
+          <text value={self.waitText} textColor={Style.GOLD} textSize={SECONDARY_TEXT} wrap={.None} />
           <Tip $if={self.waitTip} title={self.waitText} text={""} rows={self.waitRows} />
         </box>
         <PushButton label={Locale.RELOAD} width={187.5dp} plate={ButtonPlate.Accent} disabled={self.fighting} action={RELOAD}
@@ -518,7 +518,7 @@ public class AddOnsWindow implements Component {
         <box rows={BODY} gap={3sp}>
           <Toolbar search={mut self.search} placeholder={Locale.SEARCH}>
             <box padding={HEADING}>
-              <text value={self.countText} textColor={Style.DIM} textFont={.Numbers} wrap={false} />
+              <text value={self.countText} textColor={Style.DIM} textFont={.Numbers} wrap={.None} />
             </box>
             <ToolPick value={mut self.list.values.everyone} choices={self.whom} icon={ARTWORK.ctl.tool.whom} title={Locale.WHO} />
             <FilterPick heat={mut self.list.values.heat} standing={mut self.list.values.standing} age={mut self.list.values.age} loading={mut self.list.values.loading}
@@ -530,22 +530,22 @@ public class AddOnsWindow implements Component {
           </Toolbar>
           <box columns={self.columns} gap={3sp} padding={HEADING} yAlign={Align.Center}>
             <box @pointerPress={self.onHeadName} @keyPress(.Enter)={self.onHeadName} @keyPress(.Space)={self.onHeadName}>
-              <text value={Locale.COL_ADDON} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={false} />
+              <text value={Locale.COL_ADDON} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={.None} />
             </box>
             <box xAlign={Align.End}>
-              <text value={self.overall} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={false} />
+              <text value={self.overall} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={.None} />
             </box>
             <text $if={self.tabled} value={Locale.COL_CATEGORY} textColor={Style.DIM} textSize={SECONDARY_TEXT}
-                  wrap={false} />
+                  wrap={.None} />
             <box xAlign={Align.End} @pointerPress={self.onHeadNow} @keyPress(.Enter)={self.onHeadNow} @keyPress(.Space)={self.onHeadNow}>
-              <text value={Locale.COL_NOW} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={false} />
+              <text value={Locale.COL_NOW} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={.None} />
             </box>
             <box xAlign={Align.End} @pointerPress={self.onHeadPeak} @keyPress(.Enter)={self.onHeadPeak} @keyPress(.Space)={self.onHeadPeak}>
-              <text value={Locale.COL_PEAK} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={false} />
+              <text value={Locale.COL_PEAK} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={.None} />
             </box>
             <box columns={GROUP} gap={HALF} xAlign={Align.End}>
               <box @pointerPress={self.onHeadMemory} @keyPress(.Enter)={self.onHeadMemory} @keyPress(.Space)={self.onHeadMemory}>
-                <text value={Locale.COL_MEMORY} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={false} />
+                <text value={Locale.COL_MEMORY} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={.None} />
               </box>
               <box width={REFRESH} height={REFRESH} background={ARTWORK.ctl.tool.refresh} tint={Style.GOLD}
                    @pointerPress={self.onRefresh} @keyPress(.Enter)={self.onRefresh} @keyPress(.Space)={self.onRefresh} />

@@ -115,7 +115,7 @@ public class NodeView implements Component {
       <box position={Position.Absolute} left={self.left} top={self.top} width={SIZE} height={SIZE}
            border={{ width: 1.171875dp, color: Style.LINE }} icon={self.node.icon} opacity={self.opacity}
            xAlign={Align.End} yAlign={Align.End} @pointerPress={self.onClick}>
-        <text value={self.rank} textSize={SECONDARY_TEXT} textColor={self.rankColor} wrap={false} />
+        <text value={self.rank} textSize={SECONDARY_TEXT} textColor={self.rankColor} wrap={.None} />
       </box>
     }
   }
@@ -145,7 +145,7 @@ public class TreeView implements Component {
   public render(self): Template {
     return $ltml {
       <box columns={1} gap={2sp} xAlign={Align.Center}>
-        <text value={self.title} textColor={Style.GOLD} wrap={false} />
+        <text value={self.title} textColor={Style.GOLD} wrap={.None} />
         <box width={self.width} height={self.height}>
           <box $for={index, segment of self.segments} $key={index} position={Position.Absolute} left={segment.left}
                top={segment.top} width={segment.width} height={segment.height}
@@ -216,7 +216,7 @@ public class TalentsPage implements Component {
           <box>
             <PushButton $if={self.waiting} label={Locale.CANCEL_CHANGES} width={222.65625dp} @click={self.onCancel} />
           </box>
-          <text value={self.points} textColor={Style.INK} wrap={false} />
+          <text value={self.points} textColor={Style.INK} wrap={.None} />
           <box xAlign={Align.End}>
             <PushButton $if={self.waiting} label={Locale.APPLY_CHANGES} width={222.65625dp} plate={ButtonPlate.Accent} @click={self.onApply} />
           </box>

@@ -46,7 +46,7 @@ public class Tab implements Component {
       <box padding={PADDING} background={self.background} border={self.border} @pointerPress={self.pick} @keyPress(.Enter)={self.pick} @keyPress(.Space)={self.pick}>
         <box position={Position.Absolute} left={1.171875dp} right={1.171875dp} top={1.171875dp} height={2.34375dp}
              background={self.light} />
-        <text value={self.label} textColor={self.color} wrap={false} />
+        <text value={self.label} textColor={self.color} wrap={.None} />
       </box>
     }
   }

@@ -20,8 +20,8 @@ public class Fact implements Component {
   public render(self): Template {
     return $ltml {
       <box columns={COLUMNS} gap={2sp}>
-        <text value={self.label} textColor={DIM} wrap={false} />
-        <text value={self.value} textColor={self.color} wrap={true} />
+        <text value={self.label} textColor={DIM} wrap={.None} />
+        <text value={self.value} textColor={self.color} />
       </box>
     }
   }
