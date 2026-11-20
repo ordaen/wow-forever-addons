@@ -192,6 +192,8 @@ addons/OrdaenDev/               the Ordaen Dev window: private (`../wow-dev-tool
                                 here so the build has it; ignored by git
 addons/OrdaenCore_Debug/        the dev addon: private (`../wow-dev-tools/addons/OrdaenCore_Debug`), a junction
                                 as OrdaenDev's; a dev build alone builds it
+addons/OrdaenApiDump/           the game API dump, which the dev addon needs: private
+                                (`../wow-dev-tools/addons/OrdaenApiDump`), a junction as OrdaenDev's
 addons/Showcase/                a page of the library's controls and a windowed module, for the tests; `"dev": true`
                                 as the dev addon's, so a release build leaves it out
 art/                            how every texture of addons/ came to be and the steps that make it again: pieces,
@@ -336,7 +338,7 @@ Loaded on demand, shared by the three repositories (they live in `../lunatype/.c
 ## Forever API dump
 
 - **Make a dump** (user, dev mode on): the dev addon's «Dump the game API» (Ordaen Dev window, Tools), then `/reload`
-  so the client writes it to disk (`WTF/.../SavedVariables/OrdaenCore_Debug.lua`).
+  so the client writes it to disk (`WTF/.../SavedVariables/OrdaenApiDump.lua`; Ordaen API Dump on in the AddOns list).
 - **Use it:** `lunatype generate api <dump> src/lib` in `../lunatype` writes the client's own API as declarations
   (`"$client"`, `"$events"`) and its interface number. What the client has and its documentation doesn't say is
   written by hand in `../lunatype/src/generate/api.overlay`.
