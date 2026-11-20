@@ -7,8 +7,7 @@ import Test from "$test"
 import root Ordaen from "Ordaen"
 import { ChatMark, FIELD_FILL, say } from "Ordaen"
 import { LEAST_WIDTH } from "@/choices"
-import { ChatTab, Shown, linked, marks, wordsOf } from "@/lines"
-import { BADGE_FILL } from "@/view"
+import { ChatTab, Kept, Shown, linked, marks, wordsOf } from "@/lines"
 import { HEARD_FILL, TOLD_FILL, WHISPERS_LEAST } from "@/whispers"
 
 const SCREEN: Test.Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
@@ -74,16 +73,19 @@ test "the open tab alone is sunk into the wood, a line between the tabs and the 
   Test.expect(shown.box(Ordaen.art.ctl.well.rim.color).count() >= 1)
 }
 
-test "a tab's count is in the numbers' font, in room for three digits: the tab keeps its width as it grows" {
+test "a tab's count is the library's badge over the tab's right end: the tab and its name never move for it" {
   Game.chat.windows = gameWindows()
   const shown = chat()
+  const name = shown.text("Jaina").rect()
   Game.chat.heard.emit(line("SAY", "[Jaina] says: one", "Jaina", [3]))
-  const badge = shown.box(BADGE_FILL)
+  const badge = shown.box(Ordaen.art.panel.countBadge)
   const one = badge.rect()
-  for (at of 1..120) { Game.chat.heard.emit(line("SAY", `[Jaina] says: ${at}`, "Jaina", [3])) }
-  Test.expect(shown.text("121").shown())
-  const many = badge.rect()
-  Test.expect(many.left == one.left && many.right == one.right)
+  for (at of 1..1200) { Game.chat.heard.emit(line("SAY", `[Jaina] says: ${at}`, "Jaina", [3])) }
+  Test.expect(shown.text("1201").shown())
+  // Wider to the left alone, its right end where it was.
+  Test.expect(badge.rect().right == one.right && badge.rect().left < one.left)
+  const now = shown.text("Jaina").rect()
+  Test.expect(now.left == name.left && now.right == name.right)
 }
 
 test "the lines keep their least width, some forty letters, however narrow the chat is chosen" {
@@ -343,6 +345,27 @@ test "an Ordaen addon writes into the chat with its mark and colour" {
   const mark: ChatMark = { name: "Inventory", color: Color.hex("#e8c35a") }
   say(mark, "sorted.")
   Test.expect(Test.printed().join("\n") == "|cffe8c35aInventory:|r sorted.")
+}
+
+test "a line kept with no sender (kept before senders were) comes back, said by nobody" {
+  const old: Map<String, Unknown> = {}
+  old["whole"] = "[Thrall] says: from before"
+  old["color"] = WHITE
+  old["time"] = 1
+  old["repeat"] = ""
+  old["count"] = 1
+  old["marked"] = false
+  old["past"] = true
+  old["secret"] = false
+  old["mine"] = false
+  const tab: Map<String, Unknown> = {}
+  tab["key"] = "w1"
+  tab["lines"] = [old]
+  const kept: Map<String, Unknown> = {}
+  kept["tabs"] = [tab]
+  const back = Kept.decode(kept, Kept { tabs: [] })
+  const lines = back.tabs[1]?.lines ?? []
+  Test.expect(lines[1]?.sender == "")
 }
 
 test "a line the client keeps secret shows one line high, never kept for the next session" {
