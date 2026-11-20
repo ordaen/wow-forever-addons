@@ -5,7 +5,7 @@
 import Game from "$game"
 import { Align, Anchored, Art, Docked, Edges, Event, Layer, Overflow, Place, Point, Position, Shadow, Side, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { BODY_LINE, BarFrame, Component, Module, Mover, Placed, Settings, SettingsPage, XpFill, opacityNow, reachAcross, reachDown, sideNear, xpFillArt } from "Ordaen"
+import { BODY_LINE, BarFrame, Component, Module, Mover, Placed, Settings, SettingsPage, XpFill, opacityNow, reachAcross, reachDown, sideNear, timeText, xpFillArt } from "Ordaen"
 import { ActionBars, barDefaults, bartenderLoaded } from "@/actionBars"
 import { BARS_DEFAULTS, BarChoice, BarsChoices } from "@/barChoices"
 import { BarsPage } from "@/barsPage"
@@ -156,7 +156,7 @@ public class ZoneBox implements Component {
         <text $if={self.zoneName} value={Game.location.zone} textColor={INK}
               textOutline={self.panel.outline} textShadow={self.panel.shadow} wrap={.None} />
         <box $if={self.clock} @pointerPress={self.onClock} @keyPress(.Enter)={self.onClock} @keyPress(.Space)={self.onClock}>
-          <text value={Game.clock.text} textColor={self.panel.clockColor}
+          <text value={timeText(Game.clock.now)} textColor={self.panel.clockColor}
                 textOutline={self.panel.outline} textShadow={self.panel.shadow} wrap={.None} />
         </box>
         <MoneyLine $if={self.money} outline={self.panel.outline} shadow={self.panel.shadow}

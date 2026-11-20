@@ -1,14 +1,18 @@
 // CopyBox: a text handed to the player to copy, over everything: a dialog with its title, the text selectable
-// (`CopyText`: a click, then Ctrl+C, as the game can't write to the clipboard) and «Close». The owner shows it while
-// it has a text to hand, and hears `close`.
+// (`CopyText`: a click, then Ctrl+C, as the game can't write to the clipboard) and «Close». A long text scrolls in a
+// room of its own height, so the box and its button stay on the screen. «Close» and Escape close it: the owner shows
+// it while it has a text to hand, and hears `close`.
+import { Overflow } from "$ltml"
 import { CopyText } from "@/copyText"
 import { Dialog } from "@/dialog"
 import Locale from "@/locales"
 import { Component } from "@/module"
 import { PushButton } from "@/pushButton"
 
-const WIDTH = 360dp
+const WIDTH = 480dp
 const BUTTON = 90dp
+// The text's room: a longer text scrolls in it.
+const ROOM = 360dp
 
 public class CopyBox implements Component {
   public close: Event<nil> = new Event()
@@ -25,7 +29,9 @@ public class CopyBox implements Component {
   public render(self): Template {
     return $ltml {
       <Dialog width={WIDTH} title={self.title}>
-        <CopyText value={self.value} />
+        <box height={ROOM} overflow={Overflow.Scroll} @keyPress.parentScope(.Escape)={self.onClose}>
+          <CopyText value={self.value} />
+        </box>
         <PushButton #buttons label={Locale.CLOSE} width={BUTTON} @click={self.onClose} />
       </Dialog>
     }

@@ -21,6 +21,10 @@ const LINK: Color = Color.hex("#69ccf0")
 const MAX: "max-content" = "max-content"
 // From the frame's line to what it holds.
 const ROOM: Edges = { top: 2sp, right: 3sp, bottom: 2sp, left: 3sp }
+// «Copy»'s room in the frame's corner.
+const COPY_PAD: Edges = { top: 1sp, right: 2sp, bottom: 1sp, left: 2sp }
+// The frame stands over the tabs' feet.
+const BODY_LEVEL = 5
 
 // What a tab's right-click menu offers.
 public enum TabAction { Rename = "rename", Settings = "settings", New = "new", Lock = "lock", Close = "close" }
@@ -206,47 +210,50 @@ public class Pane implements Component {
 
   public render(self): Template {
     return $ltml {
-      // The lines keep the height the player chose; the tabs' rows and the foot stand above and below them, so the pane
-      // grows as its tabs wrap.
-      <box width={self.width} rows={[MAX, MAX, MAX]} border={Ordaen.art.frame.small}
-           background={Ordaen.art.window.wood} artOrigin={true} padding={ROOM} @pointerEnter={self.onEnter}
-           @pointerLeave={self.onLeave}>
-        <box columns={[{ fr: 1 }, MAX]} yAlign={Align.End}>
+      // The tabs' rows stand on the frame's top line, their feet behind it; the lines keep the height the player chose,
+      // the foot under them, so the pane grows as its tabs wrap.
+      <box width={self.width} rows={[MAX, MAX]}>
+        <box columns={1}>
           // The tabs wrap to more rows where they don't fit the pane's width; never shortened, never scrolled.
-          <box columns={"wrap"} gap={0.5sp}>
+          <box columns={"wrap"} gap={3.5sp}>
             <TabButton $for={tab of self.tabs} tab={tab} open={tab.key == self.open?.key} @pick={self.onPick}
                        @menu={self.onMenu} />
-          </box>
-          <box $if={self.hovered} @pointerPress={self.onCopy}>
-            <text value={Locale.COPY} textColor={HINT} textSize={SECONDARY_TEXT} wrap={.None} />
           </box>
           <Menu $if={self.menuTab != nil} entries={self.tabEntries} title={self.menuTab?.title ?? ""} @pick={self.onTabPick}
                 @close={self.onTabMenuClose} />
         </box>
-        <embed $if={self.logFrame != nil} frame={self.logFrame ?? panic("shown with the frame")} height={self.height} />
-        // The newest line stands at the bottom; older ones go up past the top, which cuts them.
-        <box $else height={self.height} overflow={Overflow.Hidden} textSize={self.textSize} @wheel={self.onWheel}>
-          <box position={Position.Absolute} left={0ui} right={0ui} bottom={0ui} columns={1}>
-            <Row $for={line of self.shown} line={line} fadeBefore={self.fadeBefore} lineHeight={Ordaen.lengthOf(BODY_LINE)}
-                 @link={self.onLink} />
-          </box>
-        </box>
-        // The game's menu button, its input (or the hint that opens it), and, while scrolled back, the way back.
-        <box columns={[MAX, { fr: 1 }, MAX]} gap={1sp} yAlign={Align.Center}>
-          <box>
-            <embed $if={self.menuButton != nil} frame={self.menuButton ?? panic("shown with the button")} />
-          </box>
-          <embed $if={self.inputShown} frame={self.input ?? panic("shown with the input")} />
-          <box $else @pointerPress={self.onHint}>
-            <text value={Locale.HINT_TYPE} textColor={HINT} wrap={.None} />
-          </box>
-          <box>
-            <box $if={self.back > 0} @pointerPress={self.onLatest}>
-              <text value={Locale.LATEST} textColor={LINK} textSize={SECONDARY_TEXT} wrap={.None} />
+        <box rows={[MAX, MAX]} border={Ordaen.art.frame.small} background={Ordaen.art.window.wood} artOrigin={true}
+             padding={ROOM} zLevel={BODY_LEVEL} @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
+          <embed $if={self.logFrame != nil} frame={self.logFrame ?? panic("shown with the frame")} height={self.height} />
+          // The newest line stands at the bottom; older ones go up past the top, which cuts them.
+          <box $else height={self.height} overflow={Overflow.Hidden} textSize={self.textSize} @wheel={self.onWheel}>
+            <box position={Position.Absolute} left={0ui} right={0ui} bottom={0ui} columns={1}>
+              <Row $for={line of self.shown} line={line} fadeBefore={self.fadeBefore} lineHeight={Ordaen.lengthOf(BODY_LINE)}
+                   @link={self.onLink} />
             </box>
           </box>
-          <Menu $if={self.menuName != nil} entries={self.nameEntries} title={nameOf(self.menuName?.link ?? "") ?? ""}
-                @pick={self.onNamePick} @close={self.onNameMenuClose} />
+          // The game's menu button, its input (or the hint that opens it), and, while scrolled back, the way back.
+          <box columns={[MAX, { fr: 1 }, MAX]} gap={1sp} yAlign={Align.Center}>
+            <box>
+              <embed $if={self.menuButton != nil} frame={self.menuButton ?? panic("shown with the button")} />
+            </box>
+            <embed $if={self.inputShown} frame={self.input ?? panic("shown with the input")} />
+            <box $else @pointerPress={self.onHint}>
+              <text value={Locale.HINT_TYPE} textColor={HINT} wrap={.None} />
+            </box>
+            <box>
+              <box $if={self.back > 0} @pointerPress={self.onLatest}>
+                <text value={Locale.LATEST} textColor={LINK} textSize={SECONDARY_TEXT} wrap={.None} />
+              </box>
+            </box>
+            <Menu $if={self.menuName != nil} entries={self.nameEntries} title={nameOf(self.menuName?.link ?? "") ?? ""}
+                  @pick={self.onNamePick} @close={self.onNameMenuClose} />
+          </box>
+          // «Copy» stands in the frame's top right corner, over the lines, while the cursor is on them: it moves nothing.
+          <box $if={self.hovered} position={Position.Absolute} top={0ui} right={0ui} padding={COPY_PAD} zLevel={2}
+               @pointerPress={self.onCopy}>
+            <text value={Locale.COPY} textColor={HINT} textSize={SECONDARY_TEXT} wrap={.None} />
+          </box>
         </box>
       </box>
     }

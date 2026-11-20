@@ -10,13 +10,14 @@ import Game from "$game"
 import { Anchored, Event, Point } from "$ltml"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
-import { CopyBox, Dialog, Field, Module, Placed, PushButton, Settings, SettingsPage } from "Ordaen"
-import { ChannelName, Choices } from "@/choices"
-import { ChatTab, Kept, KeptTab, Shown, channelOf, linked, marks, wordsOf } from "@/lines"
+import { CopyBox, Dialog, Field, KeptWindow, Module, Placed, PushButton, Settings, SettingsPage, timeText } from "Ordaen"
+import { ChannelName, Choices, LEAST_WIDTH } from "@/choices"
+import { ChatTab, Kept, KeptTab, Shown, channelOf, linked, marks, talkKey, wordsOf } from "@/lines"
 import Locale from "@/locales"
 import { NamePick, Pane, TabPick, nameOf } from "@/pane"
 import { ChatPage } from "@/settings"
 import { TabsPage } from "@/tabsPage"
+import { Whispers } from "@/whispers"
 
 // Where the chat stands until the player moves it: the screen's bottom left corner, above the panel's room.
 const HOME: Anchored = { point: Point.BottomLeft, x: 8dp, y: -76dp }
@@ -25,14 +26,21 @@ const UNDOCKED: Anchored = { point: Point.BottomLeft, x: 8dp, y: -300dp }
 const PREFIX = "ordaenurl:"
 // Where the last lines of each tab are kept between sessions.
 const HISTORY = "OrdaenChat:history"
-// What the time stamp is drawn in, before a line.
-const STAMP = "|cff9d9d9d%s|r"
+// The time stamp before a line: in brackets, the muted colour.
+const STAMP = "|cff9d9d9d[%s]|r "
 const BUTTON = 90dp
+// The chat's tab of the whispers, which opens the whisper window.
+const WHISPERS = "talks"
+// The whispers' kinds (the client's `ChatTypeInfo` keys): a character's, a Battle.net friend's, what the player
+// whispered, and the away and busy answers; the conversation is the sender's (the one told, for what was told).
+const TOLD: Array<String> = ["WHISPER_INFORM", "BN_WHISPER_INFORM"]
+const HEARD: Array<String> = ["WHISPER", "BN_WHISPER", "AFK", "DND"]
+const BATTLE_NET: Array<String> = ["BN_WHISPER", "BN_WHISPER_INFORM"]
 
 public class Chat implements Module, App {
   public const title: String = "Ordaen Chat"
   settings: mut Settings<Choices> = new Settings<Choices>({
-    width: 430, height: 190, fade: 120, whisperTabs: true, channelName: ChannelName.Both, keywords: "", repeats: true,
+    width: 430, height: 190, fade: 120, channelName: ChannelName.Both, keywords: "", repeats: true,
     kept: 200, held: 500, plainArrows: false, history: Game.ChatHistory.All, inputAlways: false
   })
   // The window the «Tabs» page shows.
@@ -53,8 +61,16 @@ public class Chat implements Module, App {
   // The tab being renamed, and its name meanwhile.
   state renaming: ChatTab | nil = nil
   state newName = ""
+  // The whisper conversations, the one last spoken in first; the chat's tab of them, its count their unread lines;
+  // the whisper window, open or not, and its conversation open.
+  public state talks: Array<ChatTab> = []
+  whispersTab: mut ChatTab = new ChatTab(WHISPERS, Locale.WHISPERS)
+  public state talking = false
+  public state talkOpen = ""
+  whisperWindow: mut KeptWindow = new KeptWindow("whispers", Locale.WHISPERS, { x: 0ui, y: 0ui, width: 520dp, height: 330dp })
 
-  derived width: Number<Length> = self.settings.values.width * 1dp
+  // Never under the least: a width kept from before stands at it.
+  derived width: Number<Length> = self.settings.values.width.max(LEAST_WIDTH) * 1dp
   derived height: Number<Length> = self.settings.values.height * 1dp
   derived fade: Integer = self.settings.values.fade
   derived inputAlways: Boolean = self.settings.values.inputAlways
@@ -68,7 +84,8 @@ public class Chat implements Module, App {
     Events.PLAYER_LOGOUT.listen(self.keep)
     watch (windows of Game.chat.windows) { self.sync() }
     watch (streams of Game.chat.streams) { self.sync() }
-    watch { Game.chat.whisperWindows(self.settings.values.whisperTabs) }
+    // Whispers are the whisper window's: the game opens no window of its own for them.
+    Game.chat.whisperWindows(false)
     watch { Game.chat.inputArrows(self.settings.values.plainArrows) }
     watch { Game.chat.inputHistory(self.settings.values.history) }
     watch { Game.chat.inputShown(self.settings.values.inputAlways) }
@@ -103,6 +120,7 @@ public class Chat implements Module, App {
       // A tab once, however often the game names its stream.
       if (!tabs.any(other => other.key == tab.key)) { tabs.push(tab) }
     }
+    tabs.push(self.whispersTab)
     self.tabs = tabs
     self.undocked = undocked
   }
@@ -119,6 +137,11 @@ public class Chat implements Module, App {
   onLine(mut self, line: Game.ChatLine) {
     const values = peek self.settings.values
     const shown = self.shownLine(line, values)
+    const told = TOLD.any(kind => kind == line.kind)
+    if (line.sender != "" && (told || HEARD.any(kind => kind == line.kind))) {
+      self.onWhisper(talkKey(line.sender, BATTLE_NET.any(kind => kind == line.kind)), shown, !told, values)
+      return
+    }
     const open = peek self.openKey
     for (index of line.windows) { self.addTo(`w${index}`, shown, open, values) }
     if (line.stream != "") { self.addTo(`s${line.stream}`, shown, open, values) }
@@ -134,23 +157,83 @@ public class Chat implements Module, App {
     if (key != open && peek tab.docked) { tab.unread = (peek tab.unread) + 1 }
   }
 
+  // A whisper: its conversation's, which goes first in the list; heard while that conversation isn't the one open in
+  // the shown window, it waits unread there and on the chat's tab of the whispers.
+  onWhisper(mut self, key: String, line: Shown, heard: Boolean, values: Choices) {
+    const talk = self.talkOf(key)
+    talk.add(line, values.repeats, values.held)
+    if (heard && !(peek self.talking && peek self.talkOpen == key)) { talk.unread = (peek talk.unread) + 1 }
+    self.countUnread()
+  }
+
+  // A conversation, made where there is none, put first in the list.
+  talkOf(mut self, key: String): mut ChatTab {
+    const talk = self.tabOf(key, "")
+    const talks: Array<ChatTab> = [talk]
+    for (other of peek self.talks) {
+      if (other.key != key) { talks.push(other) }
+    }
+    self.talks = talks
+    return talk
+  }
+
+  countUnread(mut self) {
+    let unread = 0
+    for (talk of peek self.talks) { unread += peek talk.unread }
+    self.whispersTab.unread = unread
+  }
+
+  // The whisper window opened on a conversation (the one last open, or the first), whose lines are read then.
+  openTalk(mut self, key: String) {
+    self.talking = true
+    self.talkOpen = key != "" ? key : ((peek self.talks)[1]?.key ?? "")
+    const talk = self.made[peek self.talkOpen]
+    if (talk != nil) { talk.unread = 0 }
+    self.countUnread()
+  }
+
+  onTalk(mut self, talk: ChatTab) { self.openTalk(talk.key) }
+
+  onTalkClose(mut self) { self.talking = false }
+
+  onTalkStart(mut self, name: String) { self.openTalk(self.talkOf(talkKey(name, false)).key) }
+
+  // A conversation closed: its lines go with it.
+  onTalkForget(mut self, talk: ChatTab) {
+    self.made[talk.key] = nil
+    self.talks = (peek self.talks).filter(other => other.key != talk.key)
+    if (peek self.talkOpen == talk.key) { self.talkOpen = (peek self.talks)[1]?.key ?? "" }
+    self.countUnread()
+  }
+
+  // The words typed in a conversation, sent in the key's own call.
+  onTalkSend(mut self, text: String) {
+    const talk = self.made[peek self.talkOpen]
+    if (talk != nil) { _ = Game.chat.whisper(talk.partner, text, talk.battleNet) }
+  }
+
   shownLine(self, line: Game.ChatLine, values: Choices): Shown {
     if (line.secret != "") {
       return {
         whole: line.body, color: line.color, time: line.time, repeat: "", count: 1, marked: false, past: false, secret: true
       }
     }
-    const stamp = line.stamp != "" ? STAMP.format(line.stamp) : ""
+    // The time where the game shows the chat's times, written as every time of Ordaen's is.
+    const stamp = line.stamp != "" ? STAMP.format(timeText(Game.clock.timeAt(line.time.floor()))) : ""
     const channel = line.channel > 0 ? channelOf(line, values.channelName) : ""
     const own = line.sender == Game.player.name || line.sender.match("^([^%-]+)") == Game.player.name
     return {
-      whole: `${stamp}${channel}${linked(line.body)}`, color: line.color, time: line.time,
+      whole: `${stamp}${channel}${linked(line.plain)}`, color: line.color, time: line.time,
       repeat: `${line.kind}|${line.channel}|${line.sender}|${line.text}`, count: 1,
       marked: line.sender != "" && !own && marks(line.text, peek self.words), past: false, secret: false
     }
   }
 
   onPick(mut self, tab: ChatTab) {
+    if (tab.key == WHISPERS) {
+      self.openTalk(peek self.talkOpen)
+      return
+    }
     self.openKey = tab.key
     const made = self.made[tab.key]
     if (made != nil) { made.unread = 0 }
@@ -222,7 +305,7 @@ public class Chat implements Module, App {
     const name = nameOf(pick.link.link)
     if (name == nil) { return }
     match (pick.action) {
-      .Whisper => { Client.ChatFrameUtil.SendTell(name, nil) }
+      .Whisper => { self.onTalkStart(name) }
       .Invite => { Client.C_PartyInfo.InviteUnit(name) }
       .Who => { Client.C_FriendList.SendWho(`n-"${name}"`, nil, nil) }
       .Ignore => { _ = Client.C_FriendList.AddIgnore(name) }
@@ -242,7 +325,13 @@ public class Chat implements Module, App {
 
   recall(mut self) {
     const kept = Kept.decode(Game.saved.stored(Game.Scope.Character, HISTORY), Kept { tabs: [] })
-    for (tab of kept.tabs) { self.tabOf(tab.key, "").recall(tab.lines) }
+    const talks: Array<ChatTab> = []
+    for (tab of kept.tabs) {
+      const made = self.tabOf(tab.key, "")
+      made.recall(tab.lines)
+      if (made.talk) { talks.push(made) }
+    }
+    self.talks = talks
   }
 
   public render(self): Template {
@@ -258,6 +347,9 @@ public class Chat implements Module, App {
               @tabPicked={self.onTab} @namePicked={self.onName} @link={self.onLink} @hint={self.onHint}
               @copy={self.onCopy} />
       </Placed>
+      <Whispers $if={self.talking} talks={self.talks} openKey={self.talkOpen} declared={mut self.whisperWindow}
+                @close={self.onTalkClose} @picked={self.onTalk} @forget={self.onTalkForget} @start={self.onTalkStart}
+                @send={self.onTalkSend} @link={self.onLink} />
       <CopyBox $if={self.copied != ""} title={Locale.COPY_TITLE} value={self.copied} @close={self.onCopyClose} />
       <Dialog $if={self.renaming != nil} width={300dp} title={Locale.TAB_RENAME}>
         <Field value={mut self.newName} maxLength={40} placeholder={Locale.TAB_NAME} />

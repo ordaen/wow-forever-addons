@@ -199,8 +199,19 @@ public struct WindowSide {
   content: Template
 }
 // The smallest body unless the window names one: room for the tab row and a few lines.
-const MIN_W = 375dp
+public const WINDOW_MIN_WIDTH = 375dp
 const MIN_H = 234.375dp
+
+// A window tab's height down to the line it stands on (the tab's art above it included), and how far its foot reaches
+// past that line: what a row of tabs outside a window (the chat's) lays out by, the foot behind the line of the box
+// under the row.
+public function tabAboveLine(): Number<Length> {
+  return TAB + Ordaen.art.frame.tab.reach.top * Ordaen.art.frame.tab.scale * 1ui
+}
+
+public function tabFoot(): Number<Length> {
+  return Ordaen.art.frame.tab.curves.flare * Ordaen.art.frame.tab.scale * 1ui
+}
 // The body stands over the tabs' feet.
 const BODY_LEVEL = 5
 
@@ -281,6 +292,11 @@ public class WindowTab implements Component {
   pick(mut self) {
     if (!self.isLocked) { self.picked.emit(self.index) }
   }
+  // The left button picks, as a tab of the game's own takes its left button alone: the right is its owner's (the
+  // chat's tab menu).
+  onPress(mut self, press: Event.Press) {
+    if (press.button == .Left) { self.pick() }
+  }
   onEnter(mut self) { self.hovered = true }
   onLeave(mut self) { self.hovered = false }
   onGrab(mut self) { self.grab.emit() }
@@ -290,7 +306,7 @@ public class WindowTab implements Component {
   public render(self): Template {
     return $ltml {
       <box width={self.bounds} height={self.height} border={Ordaen.art.frame.tab} background={Ordaen.art.window.wood}
-           tint={self.tint} padding={self.padding} rows={BODY_ROWS} opacity={self.opacity} @pointerPress={self.pick} @keyPress(.Enter)={self.pick} @keyPress(.Space)={self.pick}
+           tint={self.tint} padding={self.padding} rows={BODY_ROWS} opacity={self.opacity} @pointerPress={self.onPress} @keyPress(.Enter)={self.pick} @keyPress(.Space)={self.pick}
            @dragStart={self.onGrab} @drag={self.onMove} @dragStop={self.onDrop}>
         <box $if={self.isLocked} position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui}
              @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
@@ -394,7 +410,7 @@ public class Window implements Component {
   // The tab row's height: the design's, from a tab's own line down to the body, and the tab's art above its line.
   derived tabHeight: Number<Length> = self.tabHeightOf() + Ordaen.art.frame.tab.reach.top * Ordaen.art.frame.tab.scale * 1ui
   // A tab's height: down to the inner side of the body's top line, which stands over its foot.
-  derived lineTop: Number<Length> = Ordaen.art.frame.tab.curves.flare * Ordaen.art.frame.tab.scale * 1ui
+  derived lineTop: Number<Length> = tabFoot()
   derived tabWhole: Number<Length> = self.tabHeight + self.lineTop
   derived columns: Array<Track> = self.tabColumns()
   derived place: Place = self.placeOf()
@@ -469,7 +485,7 @@ public class Window implements Component {
     // The window as its module declares it (`KeptWindow`): where it stands and what is kept of it.
     declared: mut KeptWindow,
     // Follows what it is given: a least width worked out from `sp` changes with the density.
-    minWidth: Signal<Number<Length>> = MIN_W,
+    minWidth: Signal<Number<Length>> = WINDOW_MIN_WIDTH,
     minHeight: Number<Length> = MIN_H,
     maxWidth: Number<Length> | nil = nil,
     maxHeight: Number<Length> | nil = nil,

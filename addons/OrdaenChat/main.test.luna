@@ -2,9 +2,11 @@
 // input under them. The fake game's chat hands it lines (`Game.chat.heard.emit`), its windows and its streams.
 import Client from "$client"
 import Game from "$game"
+import { Key } from "$ltml"
 import Test from "$test"
 import root Ordaen from "Ordaen"
 import { ChatMark, say } from "Ordaen"
+import { LEAST_WIDTH } from "@/choices"
 import { ChatTab, Shown, linked, marks, wordsOf } from "@/lines"
 
 const SCREEN: Test.Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
@@ -29,9 +31,9 @@ function input(parent: any Client.Frame): any Client.EditBox {
 }
 
 // A line said by someone, shown in the windows given.
-function line(kind: String, body: String, sender: String, windows: Array<Integer>, channel: Integer = 0, channelName: String = ""): Game.ChatLine {
+function line(kind: String, body: String, sender: String, windows: Array<Integer>, channel: Integer = 0, channelName: String = ""): mut Game.ChatLine {
   return {
-    kind: kind, event: `CHAT_MSG_${kind}`, body: body, text: body, sender: sender, guid: "", lineId: 1, channel: channel,
+    kind: kind, event: `CHAT_MSG_${kind}`, body: body, plain: body, text: body, sender: sender, guid: "", lineId: 1, channel: channel,
     channelName: channelName, stream: "", color: WHITE, time: Game.clock.server, stamp: "", windows: windows, secret: ""
   }
 }
@@ -56,11 +58,11 @@ test "the chat reads the game's lines and shows them in the window's tab, the in
 test "a line for another tab waits there, counted, until the tab is opened" {
   Game.chat.windows = gameWindows()
   const shown = chat()
-  Game.chat.heard.emit(line("WHISPER", "[Jaina] whispers: psst", "Jaina", [3]))
-  Test.expect(!shown.text("[Jaina] whispers: psst").shown())
+  Game.chat.heard.emit(line("SAY", "[Jaina] says: psst", "Jaina", [3]))
+  Test.expect(!shown.text("[Jaina] says: psst").shown())
   Test.expect(shown.text("1").shown())
   shown.text("Jaina").click()
-  Test.expect(shown.text("[Jaina] whispers: psst").shown())
+  Test.expect(shown.text("[Jaina] says: psst").shown())
   Test.expect(Test.requests().any(r => r == "Chat.choose 3"))
 }
 
@@ -90,6 +92,65 @@ test "the open tab's lines open in a box to copy" {
   shown.text("[Thrall] says: one").hover()
   shown.text("Copy").click()
   Test.expect(Test.page().window("Close").texts().any(t => t == "[Thrall] says: one"))
+}
+
+// A long tab's text: the box stays on the screen, its text selectable in a field, and it closes by its button and
+// by Escape.
+test "the copy box holds a long tab's text on the screen and closes by its button and by Escape" {
+  Game.chat.windows = gameWindows()
+  const shown = chat()
+  for (at of 1..200) { Game.chat.heard.emit(line("SAY", `[Thrall] says: line ${at}`, "Thrall", [1])) }
+  shown.text("[Thrall] says: line 200").hover()
+  shown.text("Copy").click()
+  const box = Test.page().window("Close")
+  Test.expect(box.texts().any(t => t.contains("[Thrall] says: line 1\n[Thrall] says: line 2\n")))
+  box.button("Close").click()
+  Test.expect(!Test.page().window("Close").shown())
+  shown.text("[Thrall] says: line 200").hover()
+  shown.text("Copy").click()
+  Test.expect(Test.page().window("Close").shown())
+  _ = Test.key(Key.Escape)
+  Test.expect(!Test.page().window("Close").shown())
+}
+
+test "«Copy» shows in the frame's corner while the cursor is on the lines, and moves no tab" {
+  Game.chat.windows = playersWindows()
+  const shown = chat()
+  Game.chat.heard.emit(line("SAY", "[Thrall] says: one", "Thrall", [1]))
+  const before = shown.text("Каналы").rect()
+  Test.expect(!shown.text("Copy").shown())
+  shown.text("[Thrall] says: one").hover()
+  Test.expect(shown.text("Copy").shown())
+  const after = shown.text("Каналы").rect()
+  Test.expect(after.left == before.left && after.top == before.top)
+}
+
+test "the chat's tabs are the window tabs of Ordaen's windows, a right-click opening the menu alone" {
+  Game.chat.windows = gameWindows()
+  const shown = chat()
+  Test.expect(shown.button("General").paintedWith(Ordaen.art.window.wood))
+  Game.chat.heard.emit(line("SAY", "[Thrall] says: here", "Thrall", [1]))
+  shown.text("Whispers").rightClick()
+  shown.text("General").rightClick()
+  Test.expect(!Test.requests().any(r => r == "Chat.choose 1"))
+  Test.expect(Test.page().text("Rename").shown())
+}
+
+test "the chat is never narrower than a window's least body, 375 dp" {
+  Test.expect(LEAST_WIDTH == 375)
+  Game.chat.windows = gameWindows()
+  const shown = chat()
+  Test.open("/ordaen")
+  const settings = Test.page().window("Move mode")
+  settings.button("Chat").click()
+  const width = settings.input().nth(1)
+  width.click()
+  Test.erase(10)
+  Test.type("240")
+  _ = Test.key(Key.Enter)
+  // 375 dp, 266 of the screen's units here (190 dp are 135).
+  const drawn = shown.rect()
+  Test.expect(drawn.right - drawn.left >= 266)
 }
 
 test "a link clicked is the game's" {
@@ -128,8 +189,8 @@ test "a name's right-click opens its menu: whisper, invite, who, ignore, and the
 test "a window the player undocked is a pane of its own" {
   Game.chat.windows = [window(1, "General", ""), window(3, "Whisper", "Jaina", false)]
   _ = chat()
-  Game.chat.heard.emit(line("WHISPER", "[Jaina] whispers: apart", "Jaina", [3]))
-  Test.expect(Test.page().window("[Jaina] whispers: apart").text("Jaina").shown())
+  Game.chat.heard.emit(line("SAY", "[Jaina] says: apart", "Jaina", [3]))
+  Test.expect(Test.page().window("[Jaina] says: apart").text("Jaina").shown())
   Test.expect(!Test.page().window("General").text("Jaina").shown())
 }
 
@@ -189,7 +250,7 @@ test "a line the client keeps secret shows one line high, never kept for the nex
   const shown = chat()
   const secret = line("SAY", "", "Boss", [1])
   Game.chat.heard.emit({
-    kind: "SAY", event: "CHAT_MSG_SAY", body: Test.secretText(), text: "", sender: "", guid: "", lineId: 1, channel: 0,
+    kind: "SAY", event: "CHAT_MSG_SAY", body: Test.secretText(), plain: "", text: "", sender: "", guid: "", lineId: 1, channel: 0,
     channelName: "", stream: "", color: WHITE, time: Game.clock.server, stamp: "", windows: [1], secret: "text"
   })
   Game.chat.heard.emit(line("SAY", "[Thrall] says: after", "Thrall", [1]))
@@ -260,4 +321,55 @@ test "a stream the game lists twice is one tab" {
   Game.chat.streams = [{ club: "1", stream: "1", name: "test" }, { club: "1", stream: "1", name: "test" }]
   const shown = chat()
   Test.expect(shown.texts().filter(t => t == "test").length == 1)
+}
+
+test "whispers are the whisper window's: a conversation a person, unread until opened, answered in its own line" {
+  Game.chat.windows = [window(1, "General", "")]
+  const shown = chat()
+  Game.chat.heard.emit(line("WHISPER", "[Jaina] whispers: psst", "Jaina", [1]))
+  Test.expect(!shown.text("[Jaina] whispers: psst").shown())
+  Test.expect(shown.text("1").shown())
+  shown.text("Whispers").click()
+  const talks = Test.page().window("Whisper to: name, Enter")
+  Test.expect(talks.text("[Jaina] whispers: psst").shown())
+  Test.expect(!shown.text("1").shown() && !talks.text("1").shown())
+  talks.input().nth(2).type("hello")
+  _ = Test.key(Key.Enter)
+  Test.expect(Test.requests().any(r => r == "Chat.whisper Jaina hello false"))
+  // Another person's whisper: a conversation of their own, first in the list, waiting unread.
+  Game.chat.heard.emit(line("WHISPER", "[Thrall] whispers: lok'tar", "Thrall", [1]))
+  Test.expect(talks.text("Thrall").rect().top < talks.text("Jaina").rect().top)
+  Test.expect(talks.text("1").shown() && !talks.text("[Thrall] whispers: lok'tar").shown())
+  talks.text("Thrall").click()
+  Test.expect(talks.text("[Thrall] whispers: lok'tar").shown())
+  // A name typed starts one; Escape closes the window.
+  talks.input().nth(1).type("Anduin")
+  _ = Test.key(Key.Enter)
+  Test.expect(talks.text("Anduin").shown())
+  _ = Test.key(Key.Escape)
+  Test.expect(!Test.page().window("Whisper to: name, Enter").shown())
+}
+
+// The game's line as it gives it: its body, and the same line plain.
+test "a line shows the name bare, no «says:»: the colour tells the kind, the time before it in brackets, muted" {
+  Game.chat.windows = gameWindows()
+  const shown = chat()
+  Game.clock.hours24 = true
+  const said = line("SAY", "|Hplayer:Thrall:7|h[Thrall]|h says: Hello", "Thrall", [1])
+  said.plain = "|Hplayer:Thrall:7|hThrall|h: Hello"
+  said.stamp = "12:04 "
+  said.time = 12 * 3600 + 4 * 60
+  Game.chat.heard.emit(said)
+  Test.expect(shown.text("|cff9d9d9d[12:04]|r |Hplayer:Thrall:7|hThrall|h: Hello").shown())
+}
+
+test "the chat's times are written by the clock's 24-hour mode, as every time of Ordaen's" {
+  Game.chat.windows = gameWindows()
+  const shown = chat()
+  Game.clock.hours24 = false
+  const said = line("SAY", "Hello", "Thrall", [1])
+  said.stamp = "15:30 "
+  said.time = 15 * 3600 + 30 * 60
+  Game.chat.heard.emit(said)
+  Test.expect(shown.text("|cff9d9d9d[3:30 PM]|r Hello").shown())
 }

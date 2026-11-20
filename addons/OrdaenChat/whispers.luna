@@ -1,0 +1,179 @@
+// The whisper window, as WoW Instant Messenger keeps whispers: one conversation a person (a character, or a Battle.net
+// friend), listed newest first with their unread count, each its own history and its own line to type in. A name
+// typed at the list's top starts a conversation; a conversation's «×» closes it, its history with it.
+import Game from "$game"
+import { Align, Edges, Event, Overflow, Position } from "$ltml"
+import root Ordaen from "Ordaen"
+import { BODY_LINE, Component, Field, KeptWindow, SECONDARY_TEXT, Window, WindowTabSpec } from "Ordaen"
+import { ChatTab, Shown } from "@/lines"
+import Locale from "@/locales"
+import { Row } from "@/view"
+
+// Lines drawn at most, and a turn of the wheel.
+const ROWS = 80
+const STEP = 3
+const MAX: "max-content" = "max-content"
+// The list's width.
+const LIST = 168.75dp
+const WHISPER: Color = Color.hex("#ff80ff")
+const BATTLE_NET: Color = Color.hex("#00fff6")
+const PICKED: Color = Color.hex("#2a1c10e6")
+const HINT: Color = Color.hex("#857a66")
+const BADGE: Color = Color.hex("#b3261e")
+const WHITE: Color = Color.hex("#ffffff")
+const ROW_PAD: Edges = { top: 1sp, right: 2sp, bottom: 1sp, left: 2sp }
+const BADGE_PAD: Edges = { right: 1sp, left: 1sp }
+
+// A conversation in the list: the person's name in the whisper colour (a Battle.net friend's in theirs), the lines
+// waiting unread, and «×».
+public class TalkRow implements Component {
+  public pick: Event<ChatTab> = new Event()
+  public forget: Event<ChatTab> = new Event()
+
+  derived color: Color = self.talk.battleNet ? BATTLE_NET : WHISPER
+  derived fill: Color | nil = self.open ? PICKED : nil
+
+  talk: Signal<ChatTab>
+  open: Signal<Boolean>
+  constructor(talk: Signal<ChatTab>, open: Signal<Boolean>) {
+    self.talk = talk
+    self.open = open
+  }
+
+  onPick(mut self) { self.pick.emit(peek self.talk) }
+
+  onForget(mut self) { self.forget.emit(peek self.talk) }
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={[{ fr: 1 }, MAX, MAX]} gap={1sp} padding={ROW_PAD} background={self.fill} yAlign={Align.Center}
+           @pointerPress={self.onPick} @keyPress(.Enter)={self.onPick} @keyPress(.Space)={self.onPick}>
+        <text value={self.talk.title} textColor={self.color} wrap={.None} />
+        <box padding={BADGE_PAD} background={BADGE} opacity={self.talk.unread > 0 ? 1 : 0}>
+          <text value={"%d"} arguments={[self.talk.unread]} textColor={WHITE} textSize={SECONDARY_TEXT} wrap={.None} />
+        </box>
+        <box padding={BADGE_PAD} @pointerPress.self={self.onForget}>
+          <text value={"×"} textColor={HINT} wrap={.None} />
+        </box>
+      </box>
+    }
+  }
+}
+
+public class Whispers implements Component {
+  public close: Event<nil> = new Event()
+  public picked: Event<ChatTab> = new Event()
+  public forget: Event<ChatTab> = new Event()
+  // A name typed to whisper to.
+  public start: Event<String> = new Event()
+  // The words typed in the open conversation, Enter pressed: in the key's own call, where the client sends them.
+  public send: Event<String> = new Event()
+  public link: Event<Event.Link> = new Event()
+
+  state windowTab = 1
+  state name = ""
+  state draft = ""
+  // Lines scrolled back from the newest.
+  state back = 0
+  // What was typed in each conversation and not sent, kept while another is open.
+  drafts: mut Map<String, String> = {}
+  derived tabs: Array<WindowTabSpec> = [{ title: Locale.WHISPERS }]
+  derived open: ChatTab | nil = self.talks.find(talk => talk.key == self.openKey)
+  derived shown: Array<Shown> = self.shownOf()
+  derived empty: Boolean = self.open == nil
+
+  talks: Signal<Array<ChatTab>>
+  openKey: Signal<String>
+  declared: mut KeptWindow
+  constructor(talks: Signal<Array<ChatTab>>, openKey: Signal<String>, declared: mut KeptWindow) {
+    self.talks = talks
+    self.openKey = openKey
+    self.declared = declared
+    watch (key of self.openKey) { self.turnTo(key) }
+  }
+
+  // Another conversation opened: what was typed in the last is kept, this one's brought back.
+  turnTo(mut self, key: String) {
+    self.back = 0
+    self.draft = self.drafts[key] ?? ""
+  }
+
+  shownOf(self): Array<Shown> {
+    const talk = self.open
+    // The lines change in place: their version is what tells the view.
+    if (talk == nil || talk.version < 0) { return [] }
+    return talk.slice(self.back, ROWS)
+  }
+
+  onClose(mut self) { self.close.emit() }
+
+  onPick(mut self, talk: ChatTab) {
+    self.drafts[peek self.openKey] = peek self.draft
+    self.picked.emit(talk)
+  }
+
+  onForget(mut self, talk: ChatTab) {
+    self.drafts[talk.key] = nil
+    self.forget.emit(talk)
+  }
+
+  onStart(mut self) {
+    const name = (peek self.name).replace("^%s+", "").replace("%s+$", "")
+    self.name = ""
+    if (name != "") { self.start.emit(name) }
+  }
+
+  onSend(mut self) {
+    const text = peek self.draft
+    if (text == "" || peek self.empty) { return }
+    self.draft = ""
+    self.drafts[peek self.openKey] = nil
+    self.back = 0
+    self.send.emit(text)
+  }
+
+  onLink(mut self, link: Event.Link) { self.link.emit(link) }
+
+  // The wheel scrolls three lines; with Shift, to the oldest or the newest.
+  onWheel(mut self, wheel: Event.Wheel) {
+    const talk = peek self.open
+    if (talk == nil) { return }
+    const most = (0).max(talk.lines.length - 1)
+    const shift = Game.input.shiftDown()
+    if (wheel.direction == .Up) {
+      self.back = shift ? most : most.min((peek self.back) + STEP)
+    } else {
+      self.back = shift ? 0 : (0).max((peek self.back) - STEP)
+    }
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <Window tabs={self.tabs} selected={mut self.windowTab} declared={mut self.declared} @close={self.onClose}>
+        <box columns={[LIST, { fr: 1 }]} rows={[{ fr: 1 }]} gap={3sp}>
+          <box rows={[MAX, { fr: 1 }]} gap={2sp}>
+            <Field value={mut self.name} maxLength={60} placeholder={Locale.WHISPER_TO} @submit={self.onStart} />
+            <box columns={1} overflow={Overflow.Scroll}>
+              <TalkRow $for={talk of self.talks} $key={talk.key} talk={talk} open={talk.key == self.openKey}
+                       @pick={self.onPick} @forget={self.onForget} />
+            </box>
+          </box>
+          <box rows={[{ fr: 1 }, MAX]} gap={2sp}>
+            // The newest line at the bottom; older ones go up past the top, which cuts them.
+            <box overflow={Overflow.Hidden} @wheel={self.onWheel}>
+              <box position={Position.Absolute} left={0ui} right={0ui} bottom={0ui} columns={1}>
+                <Row $for={line of self.shown} line={line} fadeBefore={0} lineHeight={Ordaen.lengthOf(BODY_LINE)}
+                     @link={self.onLink} />
+              </box>
+              <box $if={self.empty} xAlign={Align.Center} yAlign={Align.Center}>
+                <text value={Locale.WHISPER_NONE} textColor={HINT} wrap={.None} />
+              </box>
+            </box>
+            <Field value={mut self.draft} maxLength={255} placeholder={Locale.WHISPER_TYPE} disabled={self.empty}
+                   @submit={self.onSend} />
+          </box>
+        </box>
+      </Window>
+    }
+  }
+}
