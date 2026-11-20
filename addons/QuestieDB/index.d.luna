@@ -1,0 +1,8 @@
+// QuestieDB (GPLv3), another author's addon Ordaen Quests reads the world's quests from: its public API, as the
+// globals it makes. It is called from the player's own install; nothing of its code or data is copied here.
+
+// Its public API.
+public module LibQuestieDB {
+  // Whether its data answers to contract `n` (it holds a range of them), and where not, its own message.
+  public function RequireContract(n: Integer): (Boolean, String | nil)
+}

@@ -3,6 +3,10 @@
 // QuestieDB makes fresh tables, so nothing is read from it while drawing or per event).
 import Questie from "@/questie"
 import { QuestFacts } from "@/questie"
+import { LibQuestieDB } from "QuestieDB"
+
+// The contract of QuestieDB's data this module is written against.
+const CONTRACT = 4
 
 public trait QuestData {
   // Why nothing can be read (QuestieDB missing or of another contract); nil where it can be.
@@ -16,11 +20,14 @@ public class QuestieData implements QuestData {
   // Quests asked of and not known, so they aren't asked again.
   unknown: mut Map<Integer, Boolean> = {}
 
-  public fault(self): String | nil { return Questie.fault() }
+  public fault(self): String | nil {
+    let fits, said = LibQuestieDB.RequireContract(CONTRACT)
+    return fits ? nil : said ?? "QuestieDB's contract doesn't match"
+  }
 
   public quest(mut self, id: Integer): QuestFacts | nil {
     const kept = self.known[id]
-    if (kept != nil || self.unknown[id] == true) { return kept }
+    if (kept != nil || self.unknown[id] == true || self.fault() != nil) { return kept }
     const read = Questie.quest(id)
     if (read == nil) {
       self.unknown[id] = true
