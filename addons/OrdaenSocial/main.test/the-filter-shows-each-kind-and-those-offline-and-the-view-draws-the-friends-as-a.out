@@ -67,7 +67,7 @@ surface 425,183.88 1155.76x532.25 on DIALOG clamped raised by a click
                   box 469.38,392.86 194.1x17.78
                     box 469.38,392.86 194.1x17.78
                       box 469.38,396.75 10x10 Interface/FriendsFrame/StatusIcon-Online
-                      text 485.07,392.86 159.39x17.78 "Alexei" #82c5ff
+                      text 485.07,392.86 159.39x17.78 "Alexei" #c79c6e
                       box 650.15,395.09 13.33x13.33 friendslist-favorite
                   box 672.02,392.86 58.33x17.78
                     text 714.79,392.86 15.56x17.78 "25" #a3977f right

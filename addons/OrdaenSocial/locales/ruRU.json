@@ -25,6 +25,7 @@
   "GAME_APP": "Приложение Battle.net",
   "CARD_BATTLE_NET": "%s · друг Battle.net",
   "CARD_CHARACTER": "%s, %d-й уровень · %s",
+  "ROW_LEVEL": "%d ур.",
   "QUOTED": "«%s»",
   "STATUS": "Статус",
   "PLAYS": "Играет",

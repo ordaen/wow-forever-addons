@@ -319,6 +319,35 @@ test "the best friend's star stands after the name, never over it" {
   Test.expect(star.left >= name.right)
 }
 
+test "a friend's row: the mark beside the name's line, the level after the name in its class colour, one size of icon" {
+  Test.mount(nil, PAGE)
+  Game.friends.list = friends
+  Game.friends.requests = requests
+  Game.friends.ignored = ignoredOnes
+  Game.friends.battleNetSelf = battleNetSelf
+  Game.guild.roster = guildRoster
+  Game.guild.motd = guildMotd
+  Game.guild.news = guildNews
+  Game.guild.newsFilters = newsFilters
+  Game.communities.clubs = clubs
+  Game.communities.members = clubMembers
+  Game.communities.streams = streams
+  Game.recentAllies.list = allies
+  Game.recentAllies.categories = allyCategories
+  const window = opened(new FakePeople())
+  const row = window.text("Alexei").item()
+  const name = window.text("Alexei").rect()
+  const mark = row.box("Interface/FriendsFrame/StatusIcon-Online").rect()
+  const star = row.box("friendslist-favorite").rect()
+  const level = row.text("25lvl").rect()
+  // The mark stands beside the name's line, its middle the line's, not the row's two lines'.
+  Test.expect(((mark.top + mark.bottom) / 2 - (name.top + name.bottom) / 2).abs() < 1)
+  // The level right after the name, on its line (the name's class colour: the snapshots, which no part reads).
+  Test.expect(level.left >= name.right && level.left - name.right < 10 && level.top == name.top)
+  // The star is the mark's size: the name's line's height.
+  Test.expect(star.bottom - star.top == mark.bottom - mark.top && star.bottom - star.top >= name.bottom - name.top - 1)
+}
+
 test "the filter shows each kind and those offline, and the view draws the friends as a table" {
   Test.mount(nil, PAGE)
   Game.friends.list = friends
