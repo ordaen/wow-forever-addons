@@ -16,6 +16,8 @@ const TRIES = 3
 public enum Stop { Done = "done", Full = "full", Closed = "closed" }
 
 public class Collector {
+  // A letter about to be taken from: its money or an attachment.
+  public taking: Event<Game.MailLetter> = new Event()
   // While it runs, the list takes no clicks.
   public state running = false
   // What it took this visit to the mailbox: the money, and the stacks.
@@ -75,6 +77,7 @@ public class Collector {
       if (!self.wanted(letter)) { continue }
       if (letter.copper > 0) {
         self.ask(`${keyOf(letter)}/money`)
+        self.taking.emit(letter)
         Game.mailbox.takeMoney(letter.index)
         self.money += letter.copper
         return
@@ -87,6 +90,7 @@ public class Collector {
         const name = `${keyOf(letter)}/${item.place}`
         if (self.skipped[name] == true) { continue }
         self.ask(name)
+        self.taking.emit(letter)
         Game.mailbox.takeItem(letter.index, item.place)
         self.stacks += 1
         return

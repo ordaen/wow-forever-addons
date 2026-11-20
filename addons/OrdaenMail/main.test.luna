@@ -6,6 +6,7 @@ import Events from "$events"
 import Game from "$game"
 import Test from "$test"
 import root Ordaen from "Ordaen"
+import root Auction from "OrdaenAuction"
 import root Mail from "OrdaenMail"
 
 const PAGE: Test.Page = { left: 20, top: 20, width: 1500, height: 820, screen: true }
@@ -290,6 +291,26 @@ test "«Take all» takes the money first and leaves cash on delivery and game ma
   Game.mailbox.letters = (): Array<Game.MailLetter> => letters().filter(l => l.index != 1)
   Game.mailObserver.changed.emit()
   Test.expect(asked() == "Mailbox.takeItem 2 1")
+}
+
+test "«Take all» writes the house's sale into Ordaen Auction's ledger once, from its invoice" {
+  Client.GetInboxInvoiceInfo = (index: Number): (String | nil, String | nil, String | nil, Number | nil, Number | nil, Number | nil, Number | nil, Number | nil, Number | nil, Number | nil, Number | nil) => {
+    if (index == 1) { return "seller", "Linen Cloth", nil, 12500, nil, nil, nil, nil, nil, nil, 20 }
+    return nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil
+  }
+  Test.mount(nil, PAGE)
+  const auction = Auction ?? panic("Ordaen Auction is on")
+  const before, copperBefore = auction.ledger.total(.Sold)
+  Game.mailbox.letters = letters
+  Game.mailbox.waiting = (): Integer => 4
+  Game.bags.free = 20
+  Game.mailObserver.open = true
+  Game.mailObserver.opened.emit()
+  const window = Test.page().window(MAIL)
+  window.button("Take all (2)").click()
+  window.button("Take all (2)").click()
+  const after, copperAfter = auction.ledger.total(.Sold)
+  Test.expect(after == before + 1 && copperAfter == copperBefore + 12500)
 }
 
 test "«Inventory is full» stops taking; «can't carry any more» skips that attachment" {

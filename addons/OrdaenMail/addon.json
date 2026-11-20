@@ -6,6 +6,7 @@
   "dependencies": {
     "Ordaen": "^1.0.0",
     "OrdaenAlts": "^1.0.0",
+    "OrdaenAuction": "^1.0.0",
     "OrdaenProfessions": "^1.0.0"
   }
 }

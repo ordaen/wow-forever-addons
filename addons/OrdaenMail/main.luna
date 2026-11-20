@@ -10,6 +10,7 @@ import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
 import { ButtonPlate, Dialog, FooterCount, FooterCounts, GamePass, GameWindowButton, KeptWindow, Module, ModuleMemory, PushButton, Settings, SettingsPage, Window, WindowSide, WindowTabSpec, WindowsPage, windowsTitle } from "Ordaen"
 import root Alts from "OrdaenAlts"
+import root Auction from "OrdaenAuction"
 import root Professions from "OrdaenProfessions"
 import { Collector } from "@/collector"
 import { Compose } from "@/compose"
@@ -82,6 +83,8 @@ public class Mail implements Module, App {
   // A letter whose cash on delivery was paid: the rest of it is taken once the inbox is read again.
   paid = ""
   recheck: Task<nil> | nil = nil
+  // The auction house's letters already written into the ledger this visit, by key.
+  ledgered: mut Array<String> = []
   // `blockTrades` as the player had it, while ours is set.
   tradesBefore: String | nil = nil
 
@@ -112,10 +115,27 @@ public class Mail implements Module, App {
     Game.mailObserver.opened.listen(self.onOpened)
     Game.mailObserver.changed.listen(self.refresh)
     Game.mailObserver.sent.listen(self.onSent)
+    self.collector.taking.listen(self.noteTaken)
     watch (open of Game.mailObserver.open) {
       if (!open) { self.onMailClosed() }
     }
     if (peek Game.mailObserver.open) { self.onOpened() }
+  }
+
+  // A letter of the auction house's taken from: written into Ordaen Auction's sales ledger once (its invoice, a sale or
+  // a purchase; an auction back unsold where it has none), while Ordaen Auction is on.
+  noteTaken(mut self, letter: Game.MailLetter) {
+    if (letter.kind != Game.MailKind.Auction) { return }
+    const auction = Auction
+    const key = keyOf(letter)
+    if (auction == nil || self.ledgered.any(k => k == key)) { return }
+    self.ledgered.push(key)
+    const kind, item, other, bid, _, _, _, _, _, _, many = Client.GetInboxInvoiceInfo(letter.index)
+    if (kind != nil) {
+      auction.ledger.record({ kind: kind, item: item ?? "", other: other, copper: (bid ?? 0).floor(), count: (many ?? 1).floor() })
+      return
+    }
+    for (attached of letter.items) { auction.ledger.expired(attached.name, attached.count) }
   }
 
   outboxDesc(self): String {
@@ -139,6 +159,7 @@ public class Mail implements Module, App {
   // The mailbox opened: the window shows on «Outbox» where letters wait to go, else on «Inbox»; the game's window held.
   onOpened(mut self) {
     self.closed = false
+    self.ledgered = []
     self.collector.reset()
     self.picked = 0
     self.ticked = []
@@ -229,7 +250,10 @@ public class Mail implements Module, App {
     match (act) {
       .TakeItem => self.take(letter, act.place)
       .TryOn => { _ = Client.DressUpItemLink(act.link) }
-      .TakeMoney => Game.mailbox.takeMoney(letter.index)
+      .TakeMoney => {
+        self.noteTaken(letter)
+        Game.mailbox.takeMoney(letter.index)
+      }
       .TakeAll => {
         const first = letter.items[1]
         if (letter.cod > 0 && first != nil) {
@@ -251,6 +275,7 @@ public class Mail implements Module, App {
   take(mut self, letter: Game.MailLetter, place: Integer) {
     play("IG_MAINMENU_OPTION_CHECKBOX_ON")
     if (letter.cod == 0) {
+      self.noteTaken(letter)
       Game.mailbox.takeItem(letter.index, place)
       return
     }
