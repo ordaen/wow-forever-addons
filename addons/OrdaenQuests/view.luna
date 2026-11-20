@@ -153,9 +153,9 @@ public class QuestRow implements Component {
           </box>
           <text $if={self.ended} value={self.progress} textColor={self.progressColor} textSize={SECONDARY_TEXT}
                 lineHeight={TIGHT_LINE} />
-          <box $else columns={1} gap={GOAL_GAP}>
+          <$else>
             <GoalLine $for={objective of self.quest.objectives} objective={objective} />
-          </box>
+          </>
         </box>
         <Menu $if={self.menuOpen} entries={self.entries} title={self.quest.title} @pick={self.onEntry}
               @close={self.onClose} />
