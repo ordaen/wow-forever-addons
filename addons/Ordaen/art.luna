@@ -1,6 +1,6 @@
 // Ordaen's art: the pictures and the measures everything Ordaen draws is made of, the same whatever the player
 // chooses. What the player chooses of the look (fonts, colours, a bar's fill) is Ordaen's settings (look.luna).
-import { Art, ArtBorder, Corners, Curves, Line, Piece, Radius, Reach, Side } from "$ltml"
+import { Art, ArtBorder, Corners, Curves, Line, Piece, Radius, Reach, Side, Tile } from "$ltml"
 
 // Ordaen's art, by what it is for (`Ordaen.art`); each part is read through its types (`OrdaenArt.Window`).
 public struct OrdaenArt {
@@ -257,7 +257,7 @@ public const ARTWORK: OrdaenArt = {
     cornerRim: "@/media/portrait-rim.tga",
     badge: "@/media/level-badge.tga",
     slotEdge: { width: 1ui, color: Color.hex("#6c5535") },
-    xpSteel: { file: "@/media/xp-fill-steel.tga", width: 1024, height: 32, tile: true },
+    xpSteel: { file: "@/media/xp-fill-steel.tga", width: 1024, height: 32, tile: Tile.Across },
     wood: WOOD,
     edge: { nineSlice: FRAME, art: FRAME, width: 3, scale: 0.5, inset: -1.5, reach: REACH, sides: [Side.Top], curves: CURVES, lineStart: 10 },
     countBadge: { file: "@/media/panel-count-badge.tga", width: 128, height: 64, cap: 32, capHeight: 0.5 },

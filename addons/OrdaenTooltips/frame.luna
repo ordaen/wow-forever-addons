@@ -3,7 +3,7 @@
 // body, what there is more of, the footer, what other modules add, the hotkeys. A rule only between two present sections, none between the
 // title and the body. As wide as its title and its band (they never wrap), 314 px at least; the body wraps at that
 // width.
-import { Align, Art, BarFill, Beside, Cursor, Edges, Layer, Line, Piece, Position, Side, TextFont, Track } from "$ltml"
+import { Align, Art, BarFill, Beside, Cursor, Edges, Layer, Line, Piece, Position, Side, TextFont, Tile, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import { Component, Hotkeys, SECONDARY_TEXT, TIGHT_LINE, TITLE_TEXT } from "Ordaen"
 import { GREEN, RED } from "@/colors"
@@ -79,7 +79,7 @@ const BAR_GOLD: Color = Color.hex("#d6a56b80")
 // What opens something is underlined while the tooltip is locked, dashed and dim, and its tooltip stands beside
 // it. The underline stands half the gap between the lines under its text: it moves with that gap.
 const UNDERLINE: Color = Color.hex("#ffd10080")
-public const DASH: Piece = { file: "@/assets/dash.tga", width: 8, height: 1, tile: true }
+public const DASH: Piece = { file: "@/assets/dash.tga", width: 8, height: 1, tile: Tile.Across }
 const UNDERLINE_HEIGHT: Number<Length> = 1.171875dp
 // A compared tooltip's header («Equipped») over its title: the main tooltip beside it stands as much lower, so the
 // titles are level.
