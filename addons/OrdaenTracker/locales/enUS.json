@@ -15,11 +15,5 @@
   "TAG_PVP": "(PvP)",
   "TAG_RAID": "(Raid)",
   "TAG_DUNGEON": "(Dungeon)",
-  "TAG_ELITE": "(Elite)",
-  "TAB_GENERAL": "General",
-  "LISTED": "Quests listed",
-  "LISTED_TIP": "How many tracked quests to show, in the log's order. The rest show once there is room.",
-  "GROUND": "Background opacity",
-  "GROUND_TIP": "How dark the background under the list is. 0%: no background.",
-  "PLACE": "Quest tracker"
+  "TAG_ELITE": "(Elite)"
 }
