@@ -4,10 +4,12 @@
 // by its item out of a fight and is dimmed and does nothing in one; the settings' tab puts an item in a place, and
 // «Back to the preset» takes it away.
 import Client from "$client"
+import { SpellChargeInfo, SpellCooldownInfo } from "$client"
 import Events from "$events"
 import Test from "$test"
 import root Radial from "OrdaenRadial"
-import { Item } from "@/choices"
+import { Item, Ring } from "@/choices"
+import { RadialKind, RadialOffer } from "@/kinds"
 
 const SCREEN: Test.Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
 const MIDDLE: Test.Point = { x: 800, y: 450 }
@@ -15,6 +17,7 @@ const FAR = 120
 
 // The first ring on F, the marks' on G; the screen drawn.
 function start() {
+  _ = Client.SetBinding("H", "ORDAEN_RADIAL_3")
   _ = Client.SetBinding("F", "ORDAEN_RADIAL_1")
   _ = Client.SetBinding("G", "ORDAEN_RADIAL_2")
   Events.UPDATE_BINDINGS.emit()
@@ -100,6 +103,7 @@ test "the settings' tab puts an item in a place, and the preset takes it back" {
   Test.open("/ordaen")
   const settings = Test.page().window("Move mode")
   settings.button("Radial").click()
+  settings.text("Key").wheel(-10)
   settings.input().nth(2).type("Find Herbs")
   settings.button("Put it there").click()
   const radial = Radial
@@ -108,4 +112,117 @@ test "the settings' tab puts an item in a place, and the preset takes it back" {
   settings.button("Back to the preset").click()
   const again = radial.settings.values.rings[1] ?? panic("the first ring")
   Test.expect(again.items["1"] is Item.Menu)
+}
+
+// One ring of the player's changed as `edit` changes it.
+function editRing(index: Integer, edit: (ring: mut Ring) => nil) {
+  const rings = Radial.settings.values.rings.clone()
+  const ring = (rings[index] ?? panic("a ring for each key")).clone()
+  edit(mut ring)
+  rings[index] = ring
+  Radial.settings.values.rings = rings
+  Test.flush()
+}
+
+// A kind of another module's: the next junk to sell, an item of the bags.
+class Junk implements RadialKind {
+  public const id: String = "junk"
+  public const title: String = "The next junk"
+  public offer(self): RadialOffer {
+    return { name: "Broken Fang", icon: "Interface/Icons/INV_Misc_QuestionMark", action: .Item { item: 4875 }, dim: false }
+  }
+}
+
+test "a spell dropped from the spellbook goes in the place chosen" {
+  start()
+  Client.C_Spell.GetSpellName = (id: String | Integer): String | nil => id == 2383 ? "Find Herbs" : nil
+  Test.open("/ordaen")
+  const settings = Test.page().window("Move mode")
+  settings.button("Radial").click()
+  settings.text("Key").wheel(-10)
+  Client.C_Spell.PickupSpell(2383)
+  settings.button("Drop a spell, an item or a macro here: it goes in the place").click()
+  const first = Radial.settings.values.rings[1] ?? panic("the first ring")
+  Test.expect(first.items["1"] is Item.Spell)
+  Test.expect(!Client.CursorHasSpell())
+}
+
+test "a kind another module adds offers its item on the wheel, in a fight too" {
+  start()
+  const junk = new Junk()
+  _ = Radial.kinds.add(junk)
+  editRing(2, (ring: mut Ring): nil => { ring.items["1"] = .Kind { kind: "junk" } })
+  Test.combat(true)
+  hold("G", 0, -FAR)
+  Test.expect(Test.page().texts().join(", ") == "Broken Fang")
+  _ = Test.releaseBound("G")
+  Test.expect(Test.performed().join(", ") == "item item:4875")
+  Test.combat(false)
+}
+
+test "an item of another class is dimmed and does nothing; one held to a modifier needs it" {
+  start()
+  Client.UnitClass = (unit: String): (String | nil, String | nil, Number | nil) => { return "Warrior", "WARRIOR", 1 }
+  editRing(3, (ring: mut Ring): nil => {
+    ring.conditions["1"] = { classTag: "MAGE", form: nil, modifier: nil }
+    ring.conditions["2"] = { classTag: nil, form: nil, modifier: .Shift }
+  })
+  hold("H", 0, -FAR)
+  Test.expect(Test.page().text("Attack").opacity() < 0.5)
+  _ = Test.releaseBound("H")
+  Test.expect(Test.performed().length == 0)
+  hold("H", FAR, 0)
+  Test.hold([.Shift])
+  _ = Test.releaseBound("H")
+  Test.hold([])
+  Test.expect(Test.performed().join(", ") == "macro /ping assist")
+}
+
+test "a spell shows its charges and its cooldown's sweep; a macro its own icon" {
+  start()
+  Client.C_Spell.GetSpellTexture = (spell: String | Integer): (FileId | nil, FileId | nil, FileId | nil) => { return 136065, nil, nil }
+  Client.C_Spell.GetSpellCharges = (spell: String | Integer): SpellChargeInfo | nil => {
+    currentCharges: 2, maxCharges: 3, cooldownStartTime: 0, cooldownDuration: 0, chargeModRate: 1, isActive: true
+  }
+  Client.C_Spell.GetSpellCooldown = (spell: String | Integer): SpellCooldownInfo | nil => {
+    startTime: 5, duration: 30, isEnabled: true, isActive: true, modRate: 1, activeCategory: nil
+  }
+  Client.GetMacroInfo = (which: String | Integer): (String | nil, FileId | nil, String | nil) => { return "Heal me", 134400, "/cast Heal" }
+  editRing(3, (ring: mut Ring): nil => {
+    ring.items["1"] = .Spell { spell: "Charge" }
+    ring.items["2"] = .Macro { macro: "Heal me" }
+  })
+  const told = Test.calls(() => hold("H", 0, -FAR))
+  Test.expect(told.contains("SetCooldown=1"))
+  Test.expect(Test.page().text("2").shown())
+  Test.expect(Test.drawn().any(drawn => drawn.file == 134400))
+  _ = Test.releaseBound("H")
+}
+
+test "a ring's size and its submenus' memory are chosen on the tab" {
+  start()
+  Test.open("/ordaen")
+  const settings = Test.page().window("Move mode")
+  settings.button("Radial").click()
+  settings.button("+").click()
+  settings.button("Submenus remember").click()
+  const first = Radial.settings.values.rings[1] ?? panic("the first ring")
+  Test.expect(first.scale > 1)
+  Test.expect(first.remember)
+}
+
+test "an item from the bags and a macro dropped go in the place chosen" {
+  start()
+  Client.GetCursorInfo = (): (String | nil, Unknown, Unknown, Unknown) => { return "item", 6948, "item:6948", nil }
+  Client.GetMacroInfo = (which: String | Integer): (String | nil, FileId | nil, String | nil) => { return "Heal me", 134400, "" }
+  Test.open("/ordaen")
+  const settings = Test.page().window("Move mode")
+  settings.button("Radial").click()
+  settings.text("Key").wheel(-10)
+  const drop = "Drop a spell, an item or a macro here: it goes in the place"
+  settings.button(drop).click()
+  Test.expect((Radial.settings.values.rings[1] ?? panic("the first ring")).items["1"] is Item.Bag)
+  Client.GetCursorInfo = (): (String | nil, Unknown, Unknown, Unknown) => { return "macro", 3, nil, nil }
+  settings.button(drop).click()
+  Test.expect((Radial.settings.values.rings[1] ?? panic("the first ring")).items["1"] is Item.Macro)
 }

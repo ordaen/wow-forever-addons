@@ -1,0 +1,22 @@
+// Kinds of items other modules add to the wheels (`Radial.kinds`): Bags' «the next junk to sell», Professions'
+// «disenchant the next». Each says what it offers now, which the wheel follows (it reads cells: a new offer is
+// written to the wheel out of a fight).
+import { Art } from "$ltml"
+import { WheelAction } from "Ordaen"
+
+public struct RadialOffer {
+  name: String
+  icon: Art
+  // What the client does for it (an item, a spell, a line of a macro), in a fight too.
+  action: WheelAction
+  // Nothing to do now: dimmed where it stands.
+  dim: Boolean
+}
+
+public trait RadialKind {
+  // What the rings keep it by.
+  public const id: String
+  // What the settings' catalogue calls it.
+  public const title: String
+  public offer(self): RadialOffer
+}

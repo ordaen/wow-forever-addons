@@ -1,8 +1,10 @@
 // What each kind of item is on the wheel: what it shows (its name, its icon, whether it can be used now) and what it
 // does (the client's action, or ours).
 import Client from "$client"
-import { WheelAction, WheelItem } from "Ordaen"
+import { FillDuration } from "$ltml"
+import { WheelAction, WheelItem, plainItem } from "Ordaen"
 import { Item, Ping, Window } from "@/choices"
+import { RadialOffer } from "@/kinds"
 import Locale from "@/locales"
 
 const QUESTION: Asset = "Interface/Icons/INV_Misc_QuestionMark"
@@ -62,30 +64,68 @@ function bagCount(item: Integer): Number {
   return Client.C_Item.GetItemCount(item, nil, nil, nil, nil)
 }
 
-// How an item is drawn.
-public function shown(item: Item): WheelItem {
+const OUT_OF_RANGE: Color = Color.hex("#ff4040")
+const NO_POWER: Color = Color.hex("#4060ff")
+// A cooldown shorter than this is the global one: no sweep for it.
+const GLOBAL_COOLDOWN = 1.5
+
+// A cooldown's run as the box takes it; none where there is none, or it is the global one.
+function running(start: Number | nil, length: Number | nil): FillDuration | nil {
+  if (start == nil || length == nil || length <= GLOBAL_COOLDOWN || start <= 0) { return nil }
+  return { start: start, length: length }
+}
+
+// A spell as the action bars show it: its charges, red out of range of the target, blue without the power, its
+// cooldown; dimmed where the spellbook hasn't it.
+function spellShown(spell: String): WheelItem {
+  const icon = spellIcon(spell)
+  const charges = Client.C_Spell.GetSpellCharges(spell)
+  const usable, noPower = Client.C_Spell.IsSpellUsable(spell)
+  const inRange = Client.C_Spell.IsSpellInRange(spell, "target")
+  const cooldown = Client.C_Spell.GetSpellCooldown(spell)
+  return {
+    name: spell, icon: icon ?? QUESTION, dim: icon == nil || !usable && !noPower, menu: false,
+    count: charges != nil && charges.maxCharges > 1 ? String.of(charges.currentCharges) : "",
+    tone: inRange == false ? OUT_OF_RANGE : noPower ? NO_POWER : nil,
+    cooldown: running(cooldown?.startTime, cooldown?.duration), dots: 0, dot: 0
+  }
+}
+
+// An item of the bags: how many the player holds, red out of range of the target, its cooldown; dimmed while the
+// player hasn't it.
+function bagShown(item: Integer): WheelItem {
+  const count = bagCount(item)
+  const inRange = Client.C_Item.IsItemInRange(item, "target")
+  const start, length, _ = Client.C_Item.GetItemCooldown(item)
+  return {
+    name: Client.C_Item.GetItemNameByID(item) ?? String.of(item), icon: Client.C_Item.GetItemIconByID(item) ?? QUESTION,
+    dim: count < 1, menu: false, count: count > 1 ? String.of(count.floor()) : "",
+    tone: inRange == false ? OUT_OF_RANGE : nil, cooldown: running(start, length), dots: 0, dot: 0
+  }
+}
+
+// A macro of the player's: its own icon; dimmed where the player has none so named.
+function macroShown(macro: String): WheelItem {
+  const name, icon, _ = Client.GetMacroInfo(macro)
+  return plainItem(macro, icon ?? QUESTION, name == nil, false)
+}
+
+// How an item is drawn; a kind of another module's as it offers now (none: not loaded).
+public function shown(item: Item, offer: RadialOffer | nil): WheelItem {
   return match (item) {
-    .Empty => { name: "", icon: QUESTION, dim: true, menu: false }
-    .Spell => {
-      name: item.spell,
-      icon: spellIcon(item.spell) ?? QUESTION,
-      dim: spellIcon(item.spell) == nil,
-      menu: false
-    }
-    .Bag => {
-      name: Client.C_Item.GetItemNameByID(item.item) ?? String.of(item.item),
-      icon: Client.C_Item.GetItemIconByID(item.item) ?? QUESTION,
-      dim: bagCount(item.item) < 1,
-      menu: false
-    }
-    .Macro => { name: item.macro, icon: QUESTION, dim: false, menu: false }
-    .Open => { name: opening(item.window).title, icon: opening(item.window).icon, dim: false, menu: false }
-    .RaidMark => { name: Locale.MARK.format(item.mark), icon: markIcon(item.mark), dim: false, menu: false }
-    .WorldMark => { name: Locale.WORLD_MARK.format(item.mark), icon: markIcon(item.mark), dim: false, menu: false }
-    .Pinged => { name: pingTitle(item.ping), icon: "Interface/Icons/Ability_Hunter_MarkedForDeath", dim: false, menu: false }
-    .Line => { name: item.title, icon: item.icon, dim: false, menu: false }
-    .Menu => { name: item.title, icon: item.icon, dim: false, menu: true }
-    .Professions => { name: Locale.RING_PROFESSIONS, icon: QUESTION, dim: true, menu: false }
+    .Empty => plainItem("", QUESTION, true, false)
+    .Spell => spellShown(item.spell)
+    .Bag => bagShown(item.item)
+    .Macro => macroShown(item.macro)
+    .Open => plainItem(opening(item.window).title, opening(item.window).icon, false, false)
+    .RaidMark => plainItem(Locale.MARK.format(item.mark), markIcon(item.mark), false, false)
+    .WorldMark => plainItem(Locale.WORLD_MARK.format(item.mark), markIcon(item.mark), false, false)
+    .Pinged => plainItem(pingTitle(item.ping), "Interface/Icons/Ability_Hunter_MarkedForDeath", false, false)
+    .Line => plainItem(item.title, item.icon, false, false)
+    .Menu => plainItem(item.title, item.icon, false, true)
+    .Slot => plainItem(item.title, item.icon, false, false)
+    .Professions => plainItem(Locale.RING_PROFESSIONS, QUESTION, true, false)
+    .Kind => offer != nil ? plainItem(offer.name, offer.icon, offer.dim, false) : plainItem(item.kind, QUESTION, true, false)
   }
 }
 
@@ -104,8 +144,8 @@ function pingWord(ping: Ping): String {
   }
 }
 
-// What an item does.
-public function actionOf(item: Item): WheelAction {
+// What an item does; a kind of another module's what it offers now (none: nothing).
+public function actionOf(item: Item, offer: RadialOffer | nil): WheelAction {
   return match (item) {
     .Empty, .Professions => WheelAction.Ours
     .Spell => .Spell { spell: item.spell }
@@ -117,6 +157,21 @@ public function actionOf(item: Item): WheelAction {
     .Pinged => .MacroText { text: `/ping ${pingWord(item.ping)}` }
     .Line => .MacroText { text: item.line }
     .Menu => WheelAction.Menu
+    .Slot => .Slot { mode: item.mode }
+    .Kind => offer?.action ?? WheelAction.Ours
+  }
+}
+
+// An action done only in a form (the stance bar's place): the client's macro conditional before what it does.
+public function inForm(action: WheelAction, form: Integer): WheelAction {
+  const when = `[form:${form}]`
+  return match (action) {
+    .Spell => .MacroText { text: `/cast ${when} ${action.spell}` }
+    .Item => .MacroText { text: `/use ${when} item:${action.item}` }
+    // A macro of the player's says its own conditions.
+    .Macro => action
+    .MacroText => .MacroText { text: action.text.replace("^(/%S+)", (verb: String): String => `${verb} ${when}`) }
+    .Menu, .Slot, .Ours => action
   }
 }
 

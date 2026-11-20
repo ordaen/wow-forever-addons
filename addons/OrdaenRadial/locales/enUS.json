@@ -70,5 +70,21 @@
   "ITEM_TEXT_TIP": "A spell's or a macro's name, an item's number, a mark's number, a submenu's title, a macro's line",
   "PUT": "Put it there",
   "RESET_RING": "Back to the preset",
-  "RESET_ALL": "All rings back"
+  "RESET_ALL": "All rings back",
+  "KIND_SLOT_CYCLE": "Slot: the next after each use",
+  "KIND_SLOT_REMEMBER": "Slot: the one last chosen",
+  "KIND_SLOT_FIRST": "Slot: always the first",
+  "MODIFIER_NONE": "None",
+  "MODIFIER_SHIFT": "Shift",
+  "MODIFIER_CTRL": "Ctrl",
+  "MODIFIER_ALT": "Alt",
+  "SCALE": "Size",
+  "REMEMBER": "Submenus remember",
+  "REMEMBER_TIP": "Letting go in the middle of a submenu does the item last used there",
+  "CONDITION_CLASS": "Only for the class",
+  "CONDITION_CLASS_TIP": "The game's tag (WARRIOR, MAGE); empty for every class",
+  "CONDITION_FORM": "Only in the form",
+  "CONDITION_FORM_TIP": "Its place on the stance bar (0: none); empty for any",
+  "CONDITION_MODIFIER": "Only with",
+  "DROP": "Drop a spell, an item or a macro here: it goes in the place"
 }

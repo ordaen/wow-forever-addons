@@ -2,8 +2,10 @@
 // client's Key Bindings window binds it), each of its places given an item from the catalogue, and «Back to the
 // preset» for the ring or for all. A change applies at once; out of a fight the wheel takes it, in one at its end.
 import Client from "$client"
-import { Choice, Component, Dropdown, Fact, PushButton, Section, Settings, TextField, WheelNames } from "Ordaen"
-import { Choices, Item, OpensAt, Ping, Ring, Window } from "@/choices"
+import { Align, Line } from "$ltml"
+import { Checkbox, Choice, Component, Dropdown, Fact, NumberInput, PushButton, Section, Settings, SlotMode, TextField, Unit, WheelModifier, WheelNames } from "Ordaen"
+import { Choices, Condition, Item, OpensAt, Ping, Ring, Window } from "@/choices"
+import { RadialKind } from "@/kinds"
 import Locale from "@/locales"
 import { preset, presetRing } from "@/preset"
 
@@ -49,9 +51,13 @@ public const CATALOGUE: Array<Choice<String>> = [
   { value: "onmyway", label: Locale.PING_ON_MY_WAY },
   { value: "mark", label: Locale.KIND_MARK },
   { value: "worldMark", label: Locale.KIND_WORLD_MARK },
-  { value: "line", label: Locale.KIND_LINE }
+  { value: "line", label: Locale.KIND_LINE },
+  { value: "slotCycle", label: Locale.KIND_SLOT_CYCLE },
+  { value: "slotRemember", label: Locale.KIND_SLOT_REMEMBER },
+  { value: "slotFirst", label: Locale.KIND_SLOT_FIRST }
 ]
 
+const DROP_EDGE: Line = { width: 1dp, color: Color.hex("#6c5535") }
 const MENU_ICON: Asset = "Interface/Icons/INV_Misc_Bag_07"
 const LINE_ICON: Asset = "Interface/Icons/INV_Misc_Note_01"
 
@@ -84,26 +90,79 @@ public function itemOf(kind: String, text: String): Item {
     "bags" => .Open { window: Window.Bags }
     "settings" => .Open { window: Window.Settings }
     "placing" => .Open { window: Window.Placing }
-    else => Item.Empty
+    "slotCycle" => .Slot { title: text, icon: MENU_ICON, mode: SlotMode.Cycle }
+    "slotRemember" => .Slot { title: text, icon: MENU_ICON, mode: SlotMode.Remember }
+    "slotFirst" => .Slot { title: text, icon: MENU_ICON, mode: SlotMode.First }
+    else => kind.sub(1, 5) == "kind:" ? Item.Kind { kind: kind.sub(6) } : Item.Empty
   }
 }
 
+const MODIFIERS: Array<Choice<String>> = [
+  { value: "", label: Locale.MODIFIER_NONE },
+  { value: "shift", label: Locale.MODIFIER_SHIFT },
+  { value: "ctrl", label: Locale.MODIFIER_CTRL },
+  { value: "alt", label: Locale.MODIFIER_ALT }
+]
+
+// A condition from what the tab's fields say; none where they say nothing.
+public function conditionOf(classTag: String, form: String, modifier: String): Condition | nil {
+  const tag = classTag.upper()
+  const number = form.toNumber()
+  const held: WheelModifier | nil = match (modifier) {
+    "shift" => WheelModifier.Shift
+    "ctrl" => WheelModifier.Ctrl
+    "alt" => WheelModifier.Alt
+    else => nil
+  }
+  if (tag == "" && number == nil && held == nil) { return nil }
+  return { classTag: tag == "" ? nil : tag, form: number?.floor(), modifier: held }
+}
+
+// What the cursor holds, as an item of a ring: a spell (by its name), an item of the bags, a macro of the player's;
+// none for anything else.
+public function heldItem(): Item | nil {
+  const kind, first, _, spellId = Client.GetCursorInfo()
+  if (kind == "spell" && spellId is Integer) {
+    const name = Client.C_Spell.GetSpellName(spellId)
+    return name != nil ? Item.Spell { spell: name } : nil
+  }
+  if (kind == "item" && first is Integer) { return .Bag { item: first } }
+  if (kind == "macro" && first is Integer) {
+    const name, _, _ = Client.GetMacroInfo(first)
+    return name != nil ? Item.Macro { macro: name } : nil
+  }
+  return nil
+}
+
 public class RingsPage implements Component {
-  // The ring and the place being given an item, and the item.
+  // The ring and the place being given an item, the item and its condition.
   state ring = 1
   state place = "1"
   state kind = "spell"
   state text = ""
+  state classTag = ""
+  state form = ""
+  state modifier = ""
   state opensAt: OpensAt = OpensAt.Cursor
   state names: WheelNames = WheelNames.Chosen
+  state scale: Number = 1
+  state remember = false
   derived keys: String = self.keysOf()
+  // The catalogue, with the kinds other modules add as the page is made.
+  const catalogue: Array<Choice<String>>
 
   settings: mut Settings<Choices>
-  constructor(settings: mut Settings<Choices>) {
+  constructor(settings: mut Settings<Choices>, kinds: Signal<Array<any RadialKind>>) {
     self.settings = settings
+    const all: Array<Choice<String>> = []
+    for (choice of CATALOGUE) { all.push(choice) }
+    for (kind of peek kinds) { all.push({ value: `kind:${kind.id}`, label: kind.title }) }
+    self.catalogue = all
     watch (ring of self.ring) { self.load(ring) }
     watch (opensAt of self.opensAt) { self.change((r: mut Ring): nil => { r.opensAt = opensAt }) }
     watch (names of self.names) { self.change((r: mut Ring): nil => { r.names = names }) }
+    watch (scale of self.scale) { self.change((r: mut Ring): nil => { r.scale = scale }) }
+    watch (remember of self.remember) { self.change((r: mut Ring): nil => { r.remember = remember }) }
   }
 
   load(mut self, index: Integer) {
@@ -111,6 +170,8 @@ public class RingsPage implements Component {
     if (ring == nil) { return }
     self.opensAt = ring.opensAt
     self.names = ring.names
+    self.scale = ring.scale
+    self.remember = ring.remember
   }
 
   // The chosen ring changed as `edit` changes it, unless it is already so.
@@ -132,18 +193,31 @@ public class RingsPage implements Component {
     return second == nil ? first : `${first}, ${second}`
   }
 
-  // The item chosen put in the place chosen.
-  put(mut self) {
-    const item = itemOf(self.kind, self.text)
+  // An item put in the place chosen, on the condition the fields say.
+  putItem(mut self, item: Item) {
     const place = self.place
+    const condition = conditionOf(self.classTag, self.form, self.modifier)
     self.change((r: mut Ring): nil => {
       r.items[place] = item
-      // A place past the ring's count grows it; a submenu starts with no items.
+      r.conditions[place] = condition
+      // A place past the ring's count grows it; a submenu or a slot starts with no items.
       const ring = place.match("^(.+)_%d+$") ?? ""
       const index = (place.match("(%d+)$") ?? "0").toNumber() ?? 0
       if ((r.counts[ring] ?? 0) < index) { r.counts[ring] = index.floor() }
-      if (item is Item.Menu && r.counts[place] == nil) { r.counts[place] = 0 }
+      if ((item is Item.Menu || item is Item.Slot) && r.counts[place] == nil) { r.counts[place] = 0 }
     })
+  }
+
+  // The catalogue's item chosen put in the place chosen.
+  put(mut self) { self.putItem(itemOf(self.kind, self.text)) }
+
+  // What the cursor holds (a spell from the spellbook, an item from the bags, a macro), let go here: put in the place
+  // chosen, and the cursor emptied.
+  dropped(mut self) {
+    const item = heldItem()
+    if (item == nil) { return }
+    self.putItem(item)
+    Client.ClearCursor()
   }
 
   resetRing(mut self) {
@@ -151,12 +225,19 @@ public class RingsPage implements Component {
     self.change((r: mut Ring): nil => {
       r.opensAt = fresh.opensAt
       r.names = fresh.names
+      r.scale = fresh.scale
+      r.remember = fresh.remember
       r.counts = fresh.counts.clone()
       r.items = fresh.items.clone()
+      r.conditions = fresh.conditions.clone()
     })
+    self.load(peek self.ring)
   }
 
-  resetAll(mut self) { self.settings.values.rings = preset().rings }
+  resetAll(mut self) {
+    self.settings.values.rings = preset().rings
+    self.load(peek self.ring)
+  }
 
   public render(self): Template {
     return $ltml {
@@ -165,12 +246,21 @@ public class RingsPage implements Component {
         <Fact label={Locale.RING_KEY} value={self.keys} />
         <Dropdown label={Locale.OPENS_AT} value={mut self.opensAt} choices={OPENS} />
         <Dropdown label={Locale.NAMES} value={mut self.names} choices={NAMES} />
+        <NumberInput label={Locale.SCALE} value={mut self.scale} least={0.6} most={1.6} step={0.05} unit={Unit.Percent} />
+        <Checkbox label={Locale.REMEMBER} hint={Locale.REMEMBER_TIP} value={mut self.remember} />
       </Section>
       <Section title={Locale.SECTION_ITEM}>
         <TextField label={Locale.PLACE} hint={Locale.PLACE_TIP} value={mut self.place} />
-        <Dropdown label={Locale.KIND} value={mut self.kind} choices={CATALOGUE} />
+        <Dropdown label={Locale.KIND} value={mut self.kind} choices={self.catalogue} />
         <TextField label={Locale.ITEM_TEXT} hint={Locale.ITEM_TEXT_TIP} value={mut self.text} />
+        <TextField label={Locale.CONDITION_CLASS} hint={Locale.CONDITION_CLASS_TIP} value={mut self.classTag} />
+        <TextField label={Locale.CONDITION_FORM} hint={Locale.CONDITION_FORM_TIP} value={mut self.form} />
+        <Dropdown label={Locale.CONDITION_MODIFIER} value={mut self.modifier} choices={MODIFIERS} />
         <PushButton label={Locale.PUT} width={160dp} @click={self.put} />
+        <box padding={{ top: 3sp, bottom: 3sp }} border={DROP_EDGE} xAlign={Align.Center} @drop={self.dropped}
+             @pointerPress={self.dropped}>
+          <text value={Locale.DROP} />
+        </box>
       </Section>
       <Section title={Locale.SECTION_PRESET}>
         <PushButton label={Locale.RESET_RING} width={160dp} @click={self.resetRing} />
