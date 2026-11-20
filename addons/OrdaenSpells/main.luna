@@ -8,15 +8,13 @@ import Game from "$game"
 import { Frame } from "$ltml"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
-import { KeptWindow, Module, ModuleMemory, Settings, SettingsPage, TrainerList, TrainerView, TrainerWindow, Window, WindowTabSpec, WindowsPage, windowsTitle } from "Ordaen"
+import { KeptWindow, Module, ModuleMemory, Settings, SettingsPage, TrainerList, TrainerView, TrainerWindow, Window, WindowTabSpec, WindowsPage, trainerListIn, windowsTitle } from "Ordaen"
 import Locale from "@/locales"
 import { Choices, GeneralPage } from "@/settings"
 import { SpellbookPage } from "@/spellbook"
 import Style from "@/style"
 import { TalentsPage } from "@/talents"
 
-// A class trainer's window opens by the trainer's categories, every service shown.
-const TRAINER_LIST: TrainerList = { view: TrainerView.List }
 // The trainer's tab: the class trainer's book.
 const TRAINER_TAB: WindowTabSpec = { title: Locale.TAB_TRAINER, desc: nil, icon: "Interface/Icons/INV_Misc_Book_09" }
 
@@ -54,8 +52,8 @@ public class Spells implements Module, App {
   ]
   // How wide the window's body is: the screen's, full screen.
   derived bookWidth: Number<Length> = self.window.memory.values.full ? Client.UIParent.GetWidth() * 1ui : self.window.placing.width
-  // How the player left the class trainer's list, the profile's.
-  public trainerList: mut ModuleMemory<TrainerList> = new ModuleMemory<TrainerList>(TRAINER_LIST, .Profile, "trainer")
+  // How the player left the class trainer's list, the profile's; it opens by the trainer's categories.
+  public trainerList: mut ModuleMemory<TrainerList> = new ModuleMemory<TrainerList>(trainerListIn(TrainerView.List), .Profile, "trainer")
   // The trainer that is open teaches a class's skills: asked as it opens.
   state classTrainer = false
   derived trainerShown: Boolean = self.classTrainer && self.settings.values.trainer

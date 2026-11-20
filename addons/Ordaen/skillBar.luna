@@ -2,8 +2,8 @@
 // bronze rim, a notch every 10%, and on it the rank and the skill: «Apprentice · 31 / 75». The professions' window
 // and a profession trainer's show it.
 import { Align, Art, Edges, Line, Overflow, Position, Shadow, Side, TextFont, Track } from "$ltml"
-import { XpFill, xpFillArt } from "@/look"
 import Locale from "@/locales"
+import { XpFill, xpFillArt } from "@/look"
 import { Component } from "@/module"
 
 const HEIGHT = 35.15625dp

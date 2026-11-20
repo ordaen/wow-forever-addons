@@ -36,32 +36,57 @@ surface 425,173.04 750x553.92 on DIALOG clamped raised by a click
               box 1115.82,283.24 28.33x28.33
                 box 1115.82,283.24 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerEnter @pointerLeave @pointerPress
                   box 1123.32,290.74 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 2 of 16
-        box 460.85,318.69 683.3x374.67 scrolled 0 of 0
+        box 460.85,318.69 683.3x349.78 scrolled 0 of 0
           box 460.85,318.69 221.13x41.24 #00000000 @dragStart
-            box 465.12,325.97 26.67x26.67 icon=Interface/Icons/INV_Misc_Note_01
+            box 465.12,325.97 26.67x26.67 #0d0a08 opacity=1 secure @dragStart @drop @pointerEnter @pointerLeave @pointerPress
+              box 465.12,325.97 26.67x26.67 absolute icon=Interface/Icons/INV_Misc_Note_01
+              box 465.12,325.97 26.67x26.67 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
+              box 465.12,325.97 26.67x26.67 absolute #00000000
             box 498.89,321.53 178.82x35.56
               text 498.89,321.53 178.82x17.78 "Find Treasure" #e8dcc4
               text 498.89,339.31 178.82x17.78 "General. Active. Level 1" #a3977f
           box 691.94,318.69 221.13x41.24 #00000000 @dragStart
-            box 696.2,325.97 26.67x26.67 icon=Interface/Icons/INV_Misc_Note_01
+            box 696.2,325.97 26.67x26.67 #0d0a08 opacity=1 secure @dragStart @drop @pointerEnter @pointerLeave @pointerPress
+              box 696.2,325.97 26.67x26.67 absolute icon=Interface/Icons/INV_Misc_Note_01
+              box 696.2,325.97 26.67x26.67 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
+              box 696.2,325.97 26.67x26.67 absolute #00000000
             box 729.98,321.53 178.82x35.56
               text 729.98,321.53 178.82x17.78 "Heroic Strike (Rank 2)" #e8dcc4
               text 729.98,339.31 178.82x17.78 "Warrior. Active. Level 8" #a3977f
           box 923.02,318.69 221.13x41.24 #00000000 @dragStart
-            box 927.29,325.97 26.67x26.67 icon=Interface/Icons/INV_Misc_Note_01
+            box 927.29,325.97 26.67x26.67 #0d0a08 opacity=1 secure @dragStart @drop @pointerEnter @pointerLeave @pointerPress
+              box 927.29,325.97 26.67x26.67 absolute icon=Interface/Icons/INV_Misc_Note_01
+              box 927.29,325.97 26.67x26.67 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
+              box 927.29,325.97 26.67x26.67 absolute #00000000
             box 961.06,321.53 178.82x35.56
               text 961.06,321.53 178.82x17.78 "Mortal Strike" #e8dcc4
               text 961.06,339.31 178.82x17.78 "Arms. Active. Level 40" #a3977f
           box 460.85,364.2 221.13x41.24 #00000000 @dragStart
-            box 465.12,371.49 26.67x26.67 icon=Interface/Icons/INV_Misc_Note_01
+            box 465.12,371.49 26.67x26.67 #0d0a08 opacity=1 @dragStart @drop @pointerEnter @pointerLeave @pointerPress
+              box 465.12,371.49 26.67x26.67 absolute icon=Interface/Icons/INV_Misc_Note_01
+              box 465.12,371.49 26.67x26.67 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
+              box 465.12,371.49 26.67x26.67 absolute #00000000
             box 498.89,367.04 178.82x35.56
               text 498.89,367.04 178.82x17.78 "Parry" #e8dcc4
               text 498.89,384.82 178.82x17.78 "Warrior. Passive. Level 6" #a3977f
           box 691.94,364.2 221.13x41.24 #00000000 @dragStart
-            box 696.2,371.49 26.67x26.67 icon=Interface/Icons/INV_Misc_Note_01
+            box 696.2,371.49 26.67x26.67 #0d0a08 opacity=1 secure @dragStart @drop @pointerEnter @pointerLeave @pointerPress
+              box 696.2,371.49 26.67x26.67 absolute icon=Interface/Icons/INV_Misc_Note_01
+              box 696.2,371.49 26.67x26.67 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
+              box 696.2,371.49 26.67x26.67 absolute #00000000
             box 729.98,367.04 178.82x35.56
               text 729.98,367.04 178.82x17.78 "Rend (Rank 1)" #e8dcc4
               text 729.98,384.82 178.82x17.78 "Warrior. Active. Level 4" #a3977f
+        box 460.85,675.58 683.3x17.78
+          box 460.85,675.58 49.64x17.78
+            text 460.85,675.58 32.22x17.78 "Shown" #a3977f
+            text 501.61,675.58 8.89x17.78 "5" #e8dcc4
+          box 527.56,675.58 98.53x17.78
+            text 527.56,675.58 81.11x17.78 "Active spells" #a3977f
+            text 617.21,675.58 8.89x17.78 "4" #e8dcc4
+          box 643.16,675.58 104.09x17.78
+            text 643.16,675.58 86.67x17.78 "Passive spells" #a3977f
+            text 738.36,675.58 8.89x17.78 "1" #e8dcc4
     box 1157.75,706.96 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 425,173.04 750x47.75
     box 425,173.04 661.47x47.75

@@ -9,7 +9,7 @@ import Game from "$game"
 import { Action, Align, Frame, Line, Overflow, Side, Track } from "$ltml"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
-import { ARTWORK, Choice, Column, FilterButton, FilterGroup, ItemId, KeptWindow, Module, ModuleMemory, PushButton, SECONDARY_TEXT, Settings, SettingsPage, SkillBar, Table, Tabs, ToolPick, Toolbar, TrainerList, TrainerWindow, Window, WindowTabSpec, WindowsPage, switched, tracksOf, windowsTitle } from "Ordaen"
+import { ARTWORK, Choice, Column, FilterButton, FilterGroup, ItemId, KeptWindow, Module, ModuleMemory, PushButton, SECONDARY_TEXT, Settings, SettingsPage, SkillBar, Table, Tabs, ToolPick, Toolbar, TrainerList, TrainerView, TrainerWindow, Window, WindowTabSpec, WindowsPage, switched, tracksOf, trainerListIn, windowsTitle } from "Ordaen"
 import root Auction from "OrdaenAuction"
 import type { PriceSource } from "OrdaenAuction"
 import { Book, written } from "@/book"
@@ -31,8 +31,6 @@ import {
 import { WorthPage } from "@/worth"
 
 const FILL: Array<Track> = [{ fr: 1 }]
-// How a profession trainer's window opens: in the table, every service shown.
-const TRAINER_LIST: TrainerList = {}
 // The trainer's tab: the client's book of a trade.
 const TRAINER_TAB: WindowTabSpec = { title: Locale.TRAINER, desc: nil, icon: "Interface/Icons/INV_Misc_Book_11" }
 // The skill bar, the page tabs, and the recipes' side with the chosen recipe in the rest.
@@ -114,7 +112,7 @@ public class Professions implements Module, App {
   public trainerWindow: mut KeptWindow = new KeptWindow("trainer", Locale.TRAINER, { x: 0ui, y: 0ui, width: TRAINER_WIDTH, height: TRAINER_HEIGHT })
   public const windows: mut Array<mut KeptWindow> = [self.window, self.trainerWindow]
   // How the player left the trainer's window, the profile's.
-  public trainerList: mut ModuleMemory<TrainerList> = new ModuleMemory<TrainerList>(TRAINER_LIST, .Profile, "trainer")  // The player stands at a profession's trainer (a class's and a pet's are Ordaen Spells' and the game's), what it
+  public trainerList: mut ModuleMemory<TrainerList> = new ModuleMemory<TrainerList>(trainerListIn(TrainerView.Table), .Profile, "trainer") // The player stands at a profession's trainer (a class's and a pet's are Ordaen Spells' and the game's), what it
   // teaches, and the game's own window, held away while ours shows.
   state atTrainer = false
   state services: Array<Game.TrainerService> = []

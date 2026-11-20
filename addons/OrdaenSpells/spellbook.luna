@@ -5,9 +5,9 @@
 // bars: the drag puts it on the client's cursor, and the bars take what the cursor holds.
 import Client from "$client"
 import Game from "$game"
-import { Align, ByInteractionState, Overflow, Track } from "$ltml"
+import { Action, Align, ByInteractionState, Overflow, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { ARTWORK, Choice, Column, Component, ModuleMemory, SECONDARY_TEXT, Table, TableRow, Tabs, ToolPick, Toolbar, tracksOf } from "Ordaen"
+import { ARTWORK, Choice, Column, Component, FooterCount, FooterCounts, ItemButton, ModuleMemory, SECONDARY_TEXT, Table, TableRow, Tabs, ToolPick, Toolbar, tracksOf } from "Ordaen"
 import Locale from "@/locales"
 import Style from "@/style"
 
@@ -69,7 +69,7 @@ const CLEAR: Color = Color.hex("#00000000")
 const HOVER: Color = Color.hex("#ffffff0d")
 // A spell's row: lit under the cursor.
 const GROUND: ByInteractionState<Color> = { default: CLEAR, hover: HOVER, focus: HOVER }
-const PAGE: Array<Track> = ["max-content", "max-content", { fr: 1 }]
+const PAGE: Array<Track> = ["max-content", "max-content", { fr: 1 }, "max-content"]
 
 // Whether the spell stands before another in the sort's order; equal ones by name.
 function before(a: Game.SpellEntry, b: Game.SpellEntry, by: SortBy): Boolean {
@@ -104,6 +104,39 @@ function lineName(lines: Array<Game.SpellLine>, index: Integer): String {
   return ""
 }
 
+// A spell's slot, in its row of either view: its icon; a click casts it (the client's own secure button, by the
+// rank's name), Shift+Left-click links it, the cursor shows its tooltip, and a drag takes it onto the client's cursor
+// for the bars. A passive spell is cast by nothing and goes on no bar.
+class SpellSlot implements Component {
+  derived cast: Action | nil = self.spell.passive ? nil : Action.CastSpell { spell: castName(self.spell) }
+
+  spell: Signal<Game.SpellEntry>
+  const size: Number<Length>
+  constructor(spell: Signal<Game.SpellEntry>, size: Number<Length>) {
+    self.spell = spell
+    self.size = size
+  }
+
+  onGrab(self) { pickUp(self.spell) }
+
+  public render(self): Template {
+    return $ltml {
+      <ItemButton item={nil} art={self.spell.icon} spell={self.spell.id} action={self.cast} size={self.size} @dragged={self.onGrab} />
+    }
+  }
+}
+
+// A spell dragged (by its slot or anywhere on its row) onto the client's cursor, for the bars; a passive one goes on
+// no bar.
+function pickUp(spell: Game.SpellEntry) {
+  if (!spell.passive) { Client.C_Spell.PickupSpell(spell.id) }
+}
+
+// The name the client casts a spell by: a rank's own, «Charge(Rank 2)», so a click casts the rank clicked.
+function castName(spell: Game.SpellEntry): String {
+  return spell.rank == "" ? spell.name : "%s(%s)".format(spell.name, spell.rank)
+}
+
 public class SpellRow implements Component {
   derived title: String = self.spell.rank == "" ? self.spell.name : "%s (%s)".format(self.spell.name, self.spell.rank)
   derived kind: String = self.spell.passive ? Locale.PASSIVE : Locale.ACTIVE
@@ -121,16 +154,13 @@ public class SpellRow implements Component {
     self.all = all
   }
 
-  // The drag takes the spell onto the client's cursor; a passive one goes on no bar.
-  onGrab(self) {
-    if (!self.spell.passive) { Client.C_Spell.PickupSpell(self.spell.id) }
-  }
+  onGrab(self) { pickUp(self.spell) }
 
   public render(self): Template {
     return $ltml {
       <box columns={ROW} gap={2.5sp} yAlign={Align.Center} padding={{ top: 1sp, bottom: 1sp, left: 1.5sp, right: 1.5sp }}
            background={GROUND} @dragStart={self.onGrab}>
-        <box width={37.5dp} height={37.5dp} border={{ width: 1.171875dp, color: Style.LINE }} icon={self.spell.icon} />
+        <SpellSlot spell={self.spell} size={37.5dp} />
         <box columns={1}>
           <text value={self.title} textColor={Style.INK} wrap={false} />
           <text value={self.detail} textSize={SECONDARY_TEXT} textColor={Style.DIM} wrap={false} />
@@ -155,15 +185,13 @@ public class SpellTableRow implements Component {
     self.lines = lines
   }
 
-  onGrab(self) {
-    if (!self.spell.passive) { Client.C_Spell.PickupSpell(self.spell.id) }
-  }
+  onGrab(self) { pickUp(self.spell) }
 
   public render(self): Template {
     return $ltml {
       <TableRow tracks={TRACKS}>
         <box columns={CELL} gap={2sp} yAlign={Align.Center} @dragStart={self.onGrab}>
-          <box width={23.4375dp} height={23.4375dp} border={{ width: 1.171875dp, color: Style.LINE }} icon={self.spell.icon} />
+          <SpellSlot spell={self.spell} size={23.4375dp} />
           <text value={self.title} textColor={Style.INK} wrap={false} />
         </box>
         <text value={self.line} textColor={Style.DIM} wrap={false} />
@@ -188,6 +216,12 @@ public class SpellbookPage implements Component {
   derived tabled: Boolean = self.list.values.layout == BookLayout.Table
   derived narrowed: Boolean = self.list.values.kinds != Kinds.All
   derived columns: Array<Track> = columnsFor(self.width, Ordaen.lengthOf(ACROSS))
+  // The footer: how many spells the list shows, and of them how many are active and passive.
+  derived counts: Array<FooterCount> = [
+    { label: Locale.COUNT_SHOWN, value: String.of(self.shown.length) },
+    { label: Locale.COUNT_ACTIVE, value: String.of(self.shown.count(spell => !spell.passive)) },
+    { label: Locale.COUNT_PASSIVE, value: String.of(self.shown.count(spell => spell.passive)) }
+  ]
 
   spells: Signal<Array<Game.SpellEntry>>
   lines: Signal<Array<Game.SpellLine>>
@@ -254,6 +288,7 @@ public class SpellbookPage implements Component {
         <box $else overflow={Overflow.Scroll} columns={self.columns} gap={{ columns: ACROSS, rows: DOWN }}>
           <SpellRow $for={spell of self.shown} $key={spell.id} spell={spell} lines={self.lines} all={self.all} />
         </box>
+        <FooterCounts counts={self.counts} />
       </box>
     }
   }

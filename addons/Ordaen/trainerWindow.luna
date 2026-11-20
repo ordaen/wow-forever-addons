@@ -37,11 +37,17 @@ const FILTER_START: Map<TrainerShow, Boolean> = switched({}, [TrainerShow.Availa
 // sort it is ordered by (0: the trainer's order) and its way. The search isn't kept. Each kind opens in its own view
 // (`TrainerList { view: .List }` for a class trainer's categories).
 public struct TrainerList implements Plain {
-  // Every service shown (`FILTER_START`, written out: a struct made in another addon copies its defaults there).
-  filter: Map<TrainerShow, Boolean> = { [TrainerShow.Available]: true, [TrainerShow.Unavailable]: true, [TrainerShow.Known]: true }
+  filter: Map<TrainerShow, Boolean> = FILTER_START
   view: TrainerView = TrainerView.Table
   sorted: Integer = 0
   descending: Boolean = false
+}
+
+// How a kind of trainer's window opens: in its view, every service shown. Made here, where the defaults are: a
+// `TrainerList` written in another addon's file reads them wrong (the compiler copies a default that names this file's
+// constant or an enum's member, and the copy misses both).
+public function trainerListIn(view: TrainerView): TrainerList {
+  return { view: view }
 }
 
 // What a sort orders by; a trainer's kind lays its columns out as one of these each.

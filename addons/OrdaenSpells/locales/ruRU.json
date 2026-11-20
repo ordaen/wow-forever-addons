@@ -38,5 +38,8 @@
   "COL_LINE": "Специализация",
   "COL_KIND": "Тип",
   "COL_LEVEL": "Ур.",
-  "COL_SKILL": "Навык"
+  "COL_SKILL": "Навык",
+  "COUNT_SHOWN": "Показано",
+  "COUNT_ACTIVE": "Активных",
+  "COUNT_PASSIVE": "Пассивных"
 }

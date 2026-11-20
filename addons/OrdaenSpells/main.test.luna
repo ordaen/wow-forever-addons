@@ -510,6 +510,52 @@ test "a passive spell dragged puts nothing on the cursor" {
   Test.expect(!Client.CursorHasSpell())
 }
 
+test "a click on a spell's slot casts the rank clicked, the client's own doing; a passive one's casts nothing" {
+  Test.mount(nil, PAGE)
+  Game.spellbook.lines = lines
+  Game.spellbook.entries = spells
+  const window = book()
+  _ = Test.performed()
+  window.text("Rend (Rank 1)").item().button(ICON).click()
+  Test.expect(Test.performed().join(", ") == "spell Rend(Rank 1)")
+  window.text("Parry").item().button(ICON).click()
+  Test.expect(Test.performed().length == 0)
+}
+
+test "Shift+Left-click on a spell's slot links it into the chat" {
+  Test.mount(nil, PAGE)
+  Game.spellbook.lines = lines
+  Game.spellbook.entries = spells
+  const window = book()
+  _ = Test.requests()
+  _ = Test.performed()
+  Test.hold([.Shift])
+  Game.input.shiftDown = (): Boolean => true
+  window.text("Rend (Rank 1)").item().button(ICON).click()
+  Test.hold([])
+  Test.expect(Test.requests().any(r => r == "Chat.linkSpell 772"))
+}
+
+test "the cursor on a spell's slot shows the game's tooltip of the spell" {
+  Test.mount(nil, PAGE)
+  Game.spellbook.lines = lines
+  Game.spellbook.entries = spells
+  const window = book()
+  _ = Test.requests()
+  window.text("Mortal Strike").item().button(ICON).hover()
+  Test.expect(Test.requests().any(r => r == "Items.showSpell 12294"))
+}
+
+test "the spellbook's footer counts the spells shown, the active and the passive ones" {
+  Test.mount(nil, PAGE)
+  Game.spellbook.lines = lines
+  Game.spellbook.entries = spells
+  const window = book()
+  Test.expect(window.texts().join(" | ").contains("Shown | 5 | Active spells | 4 | Passive spells | 1"))
+  window.input().type("strike")
+  Test.expect(window.texts().join(" | ").contains("Shown | 2 | Active spells | 2 | Passive spells | 0"))
+}
+
 // The talents
 
 test "a spec's tab shows its talent trees, each with the points spent in it" {

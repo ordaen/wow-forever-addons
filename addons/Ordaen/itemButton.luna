@@ -11,7 +11,8 @@
 // do. Every click, of an empty slot too, is told as `pressed` (a bag's slot picks up and puts down there). Dragged
 // with the left button it tells `dragged`, and something dragged let go on it `dropped`, as the game's own slots
 // take a drag for a click (a bag's slot hands its item to the client's cursor, which the bars take). With an
-// `action` its chord is the client's own (a bag's item used: `Action.UseBagItem`). Nothing runs per frame.
+// `action` its chord is the client's own (a bag's item used: `Action.UseBagItem`). A slot of a spell (`spell`) shows
+// the spell's tooltip and links the spell. Nothing runs per frame.
 import Client from "$client"
 import Game from "$game"
 import { Action, Align, Art, ByInteractionState, Edges, Event, Frame, Line, MouseButton, Position, Shadow } from "$ltml"
@@ -127,6 +128,7 @@ public class ItemButton implements Component {
   art: Signal<Art | nil>
   linkOnShift: Signal<Boolean>
   worn: Signal<Integer | nil>
+  spell: Signal<Integer | nil>
   constructor(
     // The game's number of the item; none for an empty slot.
     item: Signal<Integer | nil>,
@@ -144,8 +146,12 @@ public class ItemButton implements Component {
     linkOnShift: Signal<Boolean> = true,
     // The player's own slot it is (the client's number for it: 1 the head): its tooltip is the worn item's, as the
     // game's paper doll shows it, never the item's by its number (which the game compares with what is worn: itself).
-    worn: Signal<Integer | nil> = nil
+    worn: Signal<Integer | nil> = nil,
+    // The spell it shows, in place of an item (a spellbook's slot, its icon the `art`): its tooltip and its link are
+    // the spell's, as the game's spellbook gives them.
+    spell: Signal<Integer | nil> = nil
   ) {
+    self.spell = spell
     self.art = art
     self.linkOnShift = linkOnShift
     self.worn = worn
@@ -195,7 +201,10 @@ public class ItemButton implements Component {
   onEnter(self, frame: any Frame) {
     const item = self.item
     const worn = self.worn
-    if (item != nil && worn != nil) {
+    const spell = self.spell
+    if (spell != nil) {
+      Game.items.showSpell(frame, spell)
+    } else if (item != nil && worn != nil) {
       Game.items.showWorn(frame, worn)
     } else if (item != nil) {
       Game.items.show(frame, item)
@@ -207,7 +216,13 @@ public class ItemButton implements Component {
 
   onClick(self, click: Event.Press) {
     const item = self.item
-    if (self.linkOnShift && item != nil && click.button == MouseButton.Left && Game.input.shiftDown()) {
+    const spell = self.spell
+    const linking = self.linkOnShift && click.button == MouseButton.Left && Game.input.shiftDown()
+    if (linking && spell != nil) {
+      Game.chat.linkSpell(spell)
+      return
+    }
+    if (linking && item != nil) {
       Game.chat.link(item)
       return
     }
