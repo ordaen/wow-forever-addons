@@ -10,7 +10,7 @@
 // which a test holds to the same answers.
 import { Align, Art, FillDuration, Position } from "$ltml"
 import { Component } from "@/module"
-import { BRIGHT_TEXT, SECONDARY_TEXT } from "@/units"
+import { SECONDARY_TEXT } from "@/units"
 
 // Eight to a ring at most: four sides and four corners, aimed by feel.
 public const WHEEL_MOST = 8
@@ -106,6 +106,7 @@ const BACKDROP: Color = Color.hex("#0a0806d9")
 const BRONZE: Color = Color.hex("#8c6a3f")
 const GOLD: Color = Color.hex("#ffd100")
 const NAME: Color = Color.hex("#f3e1b8")
+const COUNT: Color = Color.hex("#ffffff")
 const HUB_LIT: Color = Color.hex("#c0392b")
 const DOT_OFF: Color = Color.hex("#5a4a33")
 const DIM_OPACITY = 0.4
@@ -213,7 +214,7 @@ public class Wheel implements Component {
           <box position={Position.Absolute} left={RIM} top={RIM} width={spot.size} height={spot.size} icon={spot.item.icon}
                mask={ROUND} desaturate={spot.item.dim} tint={spot.item.tone} cooldown={spot.item.cooldown}
                xAlign={Align.End} yAlign={Align.End}>
-            <text value={spot.item.count} textSize={SECONDARY_TEXT} textColor={BRIGHT_TEXT} />
+            <text value={spot.item.count} textSize={SECONDARY_TEXT} textColor={COUNT} />
           </box>
         </box>
         <box $for={spot of self.spots} position={Position.Absolute} left={spot.left - 40dp}

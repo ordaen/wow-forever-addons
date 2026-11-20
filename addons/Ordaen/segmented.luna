@@ -6,13 +6,13 @@ import { Align, ByInteractionState, Edges, Line, Position, Side, Track } from "$
 import { Choice } from "@/dropdown"
 import Locale from "@/locales"
 import { Component } from "@/module"
-import { BRIGHT_TEXT } from "@/units"
 
 const FILL: ByInteractionState<Color> = { default: Color.hex("#0d0a08"), hover: Color.hex("#1c1610"), focus: Color.hex("#1c1610") }
 const PICKED: Color = Color.hex("#5a4428")
 const BLANK: Color = Color.hex("#0d0a08")
 const QUIET: Color = Color.hex("#a3977f")
 const NAME: ByInteractionState<Color> = { default: Color.hex("#a3977f"), hover: Color.hex("#e8dcc4"), focus: Color.hex("#e8dcc4") }
+const WHITE: Color = Color.hex("#ffffff")
 const DIM: Color = Color.hex("#ffffff73")
 const LIGHT: Color = Color.hex("#d6a56b")
 const CLEAR: Color = Color.hex("#00000000")
@@ -30,7 +30,7 @@ public class Segment<T: Unknown> implements Component {
   derived soon: Boolean = self.choice.soon == true
   derived text: String = self.soon ? self.choice.label + " — " + Locale.SOON : self.choice.label
   derived still: Boolean = self.soon || self.disabled
-  derived color: Color | ByInteractionState<Color> = self.soon ? DIM : self.picked ? BRIGHT_TEXT : self.still ? QUIET : NAME
+  derived color: Color | ByInteractionState<Color> = self.soon ? DIM : self.picked ? WHITE : self.still ? QUIET : NAME
   derived fill: Color | ByInteractionState<Color> = self.picked ? PICKED : self.still ? BLANK : FILL
   derived edge: Line = self.first ? WHOLE : AFTER
   // The light along the top: on every segment, clear on the others, so only colours tell the picked one.

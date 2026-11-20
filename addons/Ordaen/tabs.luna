@@ -4,10 +4,11 @@
 // strip is given counts, each tab shows its own after its name on a dark pill (a log's sub-tabs: the quests of each).
 import { Align, ByInteractionState, Edges, Line, Position, Side, Track } from "$ltml"
 import { Component } from "@/module"
-import { BRIGHT_TEXT, SECONDARY_TEXT } from "@/units"
+import { SECONDARY_TEXT } from "@/units"
 
 const LINE: Color = Color.hex("#3e2f1d")
 const NAME: ByInteractionState<Color> = { default: Color.hex("#a3977f"), hover: Color.hex("#e8dcc4"), focus: Color.hex("#e8dcc4") }
+const WHITE: Color = Color.hex("#ffffff")
 const CLEAR: Color = Color.hex("#00000000")
 const SHADE: ByInteractionState<Color> = { default: CLEAR, hover: Color.hex("#00000033"), focus: Color.hex("#00000033") }
 const PICKED: Color = Color.hex("#00000059")
@@ -28,7 +29,7 @@ public class Tab implements Component {
   derived picked: Boolean = self.selected == self.index
   derived background: Color | ByInteractionState<Color> = self.picked ? PICKED : SHADE
   derived border: Line = self.picked ? OUTLINE : NO_OUTLINE
-  derived color: Color | ByInteractionState<Color> = self.picked ? BRIGHT_TEXT : NAME
+  derived color: Color | ByInteractionState<Color> = self.picked ? WHITE : NAME
   // The light along the top: there on every tab, clear on the others, so only colours tell the picked one.
   derived light: Color = self.picked ? LIGHT : CLEAR
   derived counted: Boolean = self.count != nil

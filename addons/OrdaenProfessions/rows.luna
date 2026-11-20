@@ -4,7 +4,7 @@
 // what was clicked (`Act`): the left button picks it, the right one opens its menu.
 import Game from "$game"
 import { Align, Art, Edges, Line, MouseButton, Position, Track } from "$ltml"
-import { BRIGHT_TEXT, Component, ItemButton, Money, SelectItem, TableRow } from "Ordaen"
+import { Component, ItemButton, Money, SelectItem, TableRow } from "Ordaen"
 import { Totals } from "@/cost"
 import { RecipeMenu } from "@/menu"
 import Style from "@/style"
@@ -120,7 +120,7 @@ public class RecipeRow implements Component {
       <SelectItem selected={self.isChosen} color={self.tint} first={self.first} columns={NAME_COUNT}
                   padding={self.padding} @pick={self.onClick}>
         <text value={self.recipe.name} textColor={self.color} textShadow={Style.SHADOW} />
-        <text value={self.count} textColor={BRIGHT_TEXT} wrap={.None} textFont={.Numbers} />
+        <text value={self.count} textColor={Style.WHITE} wrap={.None} textFont={.Numbers} />
         <box $if={self.starred} position={Position.Absolute} right={STAR_RIGHT} top={STAR_TOP} width={STAR}
              height={STAR} background={Style.GOLD} />
         <RecipeMenu $if={self.menuOpen} recipe={self.recipe} kept={self.kept} @act={self.onAct} />
@@ -206,7 +206,7 @@ public class RecipeTableRow implements Component {
   derived cost: Integer = self.totals?.cost ?? 0
   derived profit: Integer = (self.totals?.profit ?? 0).abs()
   derived losing: Boolean = (self.totals?.profit ?? 0) < 0
-  derived profitColor: Color = self.losing ? Style.RED : BRIGHT_TEXT
+  derived profitColor: Color = self.losing ? Style.RED : Style.WHITE
 
   recipe: Signal<Game.Recipe>
   tracks: Signal<Array<Track>>
@@ -247,7 +247,7 @@ public class RecipeTableRow implements Component {
         <TableRow tracks={self.tracks} selected={self.isChosen} @pick={self.onPick}>
           <text value={self.recipe.name} textColor={self.color} textShadow={Style.SHADOW} wrap={.None} />
           <box xAlign={Align.End}>
-            <text value={self.count} textColor={BRIGHT_TEXT} wrap={.None} textFont={.Numbers} />
+            <text value={self.count} textColor={Style.WHITE} wrap={.None} textFont={.Numbers} />
           </box>
           <$if={self.priced}>
             <box xAlign={Align.End}>

@@ -10,7 +10,7 @@
 import Client from "$client"
 import { Align, Anchored, Art, ByInteractionState, InteractionState, Layer, Point, Position, Shadow } from "$ltml"
 import root Ordaen from "Ordaen"
-import { BRIGHT_TEXT, Component, TIGHT_LINE, reachAcross, reachDown } from "Ordaen"
+import { Component, TIGHT_LINE, reachAcross, reachDown } from "Ordaen"
 
 // The dress's head, from its top: the frame's band, a gap, the title's line, a gap, the carved groove, the gap to
 // Blizzard's first button.
@@ -28,8 +28,8 @@ const ENGRAVED: Shadow = { color: Color.hex("#000000e6"), x: -1.171875dp, y: 1.1
 const LABEL: Color = Color.hex("#ffd100")
 // «AddOns», ours: its label white under the cursor and down while pressed, as a PushButton's.
 const OWN_DROP: ByInteractionState<Number<Length>> = { default: 0ui, pressed: 2.34375dp }
-const OWN_LABEL: ByInteractionState<Color> = { default: Color.hex("#ffd100"), hover: BRIGHT_TEXT, focus: BRIGHT_TEXT }
-const LABEL_HOVER: Color = BRIGHT_TEXT
+const OWN_LABEL: ByInteractionState<Color> = { default: Color.hex("#ffd100"), hover: Color.hex("#ffffff"), focus: Color.hex("#ffffff") }
+const LABEL_HOVER: Color = Color.hex("#ffffff")
 const SHADOW: Shadow = { color: Color.hex("#000000"), x: 1.171875dp, y: -1.171875dp }
 const GEM = 18.75dp
 const GEM_LEFT = 14.0625dp

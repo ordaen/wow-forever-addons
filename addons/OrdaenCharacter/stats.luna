@@ -3,7 +3,7 @@
 // A gauge is a stat with a cap the player works towards (hit, crit, a weapon's skill), a line one without (attack
 // speed, penetration), a card one of a section's main numbers (attack power, damage a second, a school's spell damage).
 import { Align, BarFill, FillFrom, Piece, Position, TextAlign, TextFont } from "$ltml"
-import { BRIGHT_TEXT, Component, SECONDARY_TEXT, TITLE_TEXT, Tip } from "Ordaen"
+import { Component, SECONDARY_TEXT, TITLE_TEXT, Tip } from "Ordaen"
 import Locale from "@/locales"
 import { Skill, Stats, WANDS } from "@/sheet"
 import Style from "@/style"
@@ -357,7 +357,7 @@ public class Cut implements Component {
 // A gauge: the name, the channel filled up to the value's share of the cap, the value at the right.
 public class StatGauge implements Component {
   derived fill: BarFill = { value: (self.gauge.value / self.gauge.cap).max(0).min(1), color: self.gauge.tone }
-  derived ink: Color = self.gauge.value == 0 ? Style.DIM : BRIGHT_TEXT
+  derived ink: Color = self.gauge.value == 0 ? Style.DIM : Style.WHITE
 
   gauge: Signal<Gauge>
   constructor(gauge: Signal<Gauge>) {
@@ -367,7 +367,7 @@ public class StatGauge implements Component {
   public render(self): Template {
     return $ltml {
       <box columns={[Style.GAUGE_LABEL, { fr: 1 }, Style.GAUGE_VALUE]} gap={2.5sp} yAlign={Align.Center}>
-        <text value={self.gauge.label} textSize={SECONDARY_TEXT} textColor={BRIGHT_TEXT} wrap={.None} />
+        <text value={self.gauge.label} textSize={SECONDARY_TEXT} textColor={Style.WHITE} wrap={.None} />
         <box>
           <box height={Style.CHANNEL} background={Style.TROUGH} fill={self.fill} />
           <box height={Style.CUT_LINE} background={Style.GROOVE_LIP} />
@@ -381,7 +381,7 @@ public class StatGauge implements Component {
 
 // A line: the name on the left, the value on the right with its unit dimmed after it.
 public class StatRow implements Component {
-  derived ink: Color = self.row.value == "0" ? Style.DIM : BRIGHT_TEXT
+  derived ink: Color = self.row.value == "0" ? Style.DIM : Style.WHITE
 
   row: Signal<Row>
   constructor(row: Signal<Row>) {
@@ -419,7 +419,7 @@ public class StatCard implements Component {
         <box>
           <text $if={self.labelled} value={self.figure.label} textSize={SECONDARY_TEXT} textColor={Style.DIM} lineHeight={Style.TIGHT}
                 wrap={.None} />
-          <text value={self.figure.value} textSize={TITLE_TEXT} textFont={TextFont.Numbers} textColor={BRIGHT_TEXT}
+          <text value={self.figure.value} textSize={TITLE_TEXT} textFont={TextFont.Numbers} textColor={Style.WHITE}
                 lineHeight={Style.TIGHT} wrap={.None} />
         </box>
       </box>
@@ -475,7 +475,7 @@ public class MainStat implements Component {
       <box gap={0.5sp} xAlign={Align.Center} padding={Style.MAIN_PAD} @pointerEnter={self.onEnter}
            @pointerLeave={self.onLeave}>
         <text value={String.of(self.main.value)} textSize={Style.MAIN_TEXT} textFont={TextFont.Numbers}
-              textColor={BRIGHT_TEXT} wrap={.None} />
+              textColor={Style.WHITE} wrap={.None} />
         <text value={self.main.short} textSize={SECONDARY_TEXT} textColor={Style.DIM} wrap={.None} />
         <Tip $if={self.hovered} title={self.tipTitle} text={self.main.tip} />
       </box>
@@ -486,7 +486,7 @@ public class MainStat implements Component {
 // A resistance's column: the value, the bar filling from the bottom, the picture under it.
 public class ResistColumn implements Component {
   derived fill: BarFill = { value: (self.resist.value / self.resist.cap).min(1), color: self.resist.color, from: FillFrom.Bottom }
-  derived ink: Color = self.resist.value == 0 ? Style.DIM : BRIGHT_TEXT
+  derived ink: Color = self.resist.value == 0 ? Style.DIM : Style.WHITE
 
   resist: Signal<Resist>
   constructor(resist: Signal<Resist>) {
@@ -528,7 +528,7 @@ public class PoolBar implements Component {
       <box height={Style.BAR} background={Style.TROUGH} xAlign={Align.Center} yAlign={Align.Center}>
         <box position={Position.Absolute} top={0ui} right={0ui} bottom={0ui} left={0ui} fill={self.full} />
         <box zLevel={2}>
-          <text value={self.amount} textSize={SECONDARY_TEXT} textFont={TextFont.Numbers} textColor={BRIGHT_TEXT}
+          <text value={self.amount} textSize={SECONDARY_TEXT} textFont={TextFont.Numbers} textColor={Style.WHITE}
                 wrap={.None} />
         </box>
         <box $if={self.regained} position={Position.Absolute} top={0ui} right={6dp} bottom={0ui} yAlign={Align.Center}

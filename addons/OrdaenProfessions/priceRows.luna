@@ -4,7 +4,7 @@
 // «Left to buy», «Sale» («doesn't sell» for what makes no item), «Profit» (red under nought), and how old the
 // oldest price taken is, in its age's colour; «—» where a part has no price.
 import { Align, Art, Edges, Line, Side, Track } from "$ltml"
-import { BRIGHT_TEXT, Component, ItemButton, Money, SECONDARY_TEXT, ageText } from "Ordaen"
+import { Component, ItemButton, Money, SECONDARY_TEXT, ageText } from "Ordaen"
 import { PartPrice, Totals, Way } from "@/cost"
 import Locale from "@/locales"
 import Style from "@/style"
@@ -137,7 +137,7 @@ public class TotalsBlock implements Component {
   derived sale: Integer = self.totals.sale ?? 0
   derived profit: Integer = (self.totals.profit ?? 0).abs()
   derived losing: Boolean = (self.totals.profit ?? 0) < 0
-  derived profitColor: Color = self.losing ? Style.RED : BRIGHT_TEXT
+  derived profitColor: Color = self.losing ? Style.RED : Style.WHITE
   derived age: String = ageLine(self.totals.oldest)
   derived aged: Boolean = self.age != ""
   derived ageColor: Color = self.ageColorOf()

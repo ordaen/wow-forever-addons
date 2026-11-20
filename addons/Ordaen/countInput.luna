@@ -13,8 +13,8 @@ import Locale from "@/locales"
 import { Component } from "@/module"
 import { PushButton } from "@/pushButton"
 import { TipText } from "@/tip"
-import { BRIGHT_TEXT } from "@/units"
 
+const WHITE: Color = Color.hex("#ffffff")
 // The −, the number, the +. The number's room is as wide as its digits as the font draws them, two at least: it
 // widens past them for a third.
 const STEPS: Array<Track> = ["max-content", "max-content", "max-content"]
@@ -103,7 +103,7 @@ public class CountInput implements Component {
         <PushButton label={"-"} width={self.step} disabled={!self.fewer} repeats={true} tip={FEWER_TIP}
                     @click={self.less} />
         <box xAlign={Align.Center} width={NUMBER_BOUNDS}>
-          <text value={"%d"} arguments={[self.value]} textColor={BRIGHT_TEXT}
+          <text value={"%d"} arguments={[self.value]} textColor={WHITE}
                 textFont={.Numbers} wrap={.None} />
         </box>
         <PushButton label={"+"} width={self.step} disabled={!self.more} repeats={true} tip={MORE_TIP}

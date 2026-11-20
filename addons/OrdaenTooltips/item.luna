@@ -4,8 +4,7 @@
 // own beside it.
 import Game from "$game"
 import Ordaen from "Ordaen"
-import { BRIGHT_TEXT } from "Ordaen"
-import { GOLD, GREEN, GREY, RED, YELLOW, colorOf } from "@/colors"
+import { GOLD, GREEN, GREY, RED, WHITE, YELLOW, colorOf } from "@/colors"
 import Locale from "@/locales"
 import { Fact, Kind, Model, Note, Opens, Part, TextLine, iconOf, named, namedWith } from "@/model"
 import { Options } from "@/options"
@@ -107,7 +106,7 @@ function withNote(model: Model, note: Note): Model {
 public function item(data: Game.TooltipData, options: Options): ItemRead | nil {
   let id = data.id
   let name: String | nil = nil
-  let nameColor = BRIGHT_TEXT
+  let nameColor = WHITE
   let desc: Array<Part> = []
   let info: Array<Part> = []
   let facts: Array<Fact> = []
@@ -151,7 +150,7 @@ public function item(data: Game.TooltipData, options: Options): ItemRead | nil {
       nested = true
     } else if (kind == ITEM_NAME) {
       name = left
-      nameColor = line.quality ?? BRIGHT_TEXT
+      nameColor = line.quality ?? WHITE
     } else if (kind == ITEM_SLOT) {
       let right = clean(line.right)
       if (left != nil) { desc.push({ text: left, color: line.validSlot == false ? RED : nil }) }

@@ -9,7 +9,7 @@ import Events from "$events"
 import Game from "$game"
 import { Action, Anchored, Bounds, Edges, FillDuration, Overflow, Point, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { BRIGHT_TEXT, ButtonPlate, Component, Dialog, ItemButton, Menu, MenuEntry, Module, Placed, PushButton, SECONDARY_TEXT, Settings, SettingsPage, playSound, questLevelColor } from "Ordaen"
+import { ButtonPlate, Component, Dialog, ItemButton, Menu, MenuEntry, Module, Placed, PushButton, SECONDARY_TEXT, Settings, SettingsPage, playSound, questLevelColor } from "Ordaen"
 import { QuestLine, QuestLines } from "@/extend"
 import Locale from "@/locales"
 import { Choices, DEFAULTS, GeneralPage } from "@/settings"
@@ -24,6 +24,7 @@ const PART = "OrdaenTracker.quests"
 const PAD: Edges = { top: 3sp, right: 3sp, bottom: 3sp, left: 3sp }
 const GOLD: Color = Color.hex("#ffd100")
 const DIM: Color = Color.hex("#a3977f")
+const WHITE: Color = Color.hex("#ffffff")
 const GREEN: Color = Color.hex("#40c040")
 const RED: Color = Color.hex("#ff2020")
 // Its head, then its quests in the rest of its height.
@@ -289,7 +290,7 @@ class TrackedQuest implements Component {
           <box $else />
         </box>
         <box $if={!self.quest.done && !self.quest.failed} columns={1} padding={LINE_PAD}>
-          <text $for={objective of self.quest.objectives} value={`— ${objective.text}`} textColor={BRIGHT_TEXT}
+          <text $for={objective of self.quest.objectives} value={`— ${objective.text}`} textColor={WHITE}
                 textSize={SECONDARY_TEXT} />
         </box>
         <box $if={self.ending != ""} padding={LINE_PAD}>

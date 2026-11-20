@@ -5,9 +5,9 @@
 // right button is left to what holds it.
 import { Align, Art, ByInteractionState, Edges, Event, Position, Track } from "$ltml"
 import { Component } from "@/module"
-import { BRIGHT_TEXT } from "@/units"
 
 const INK: Color = Color.hex("#e8dcc4")
+const WHITE: Color = Color.hex("#ffffff")
 const OFF: Color = Color.hex("#7a705f")
 const CLEAR: Color = Color.hex("#00000000")
 const SHADE: ByInteractionState<Color> = { default: CLEAR, hover: Color.hex("#00000059"), focus: Color.hex("#00000059") }
@@ -26,8 +26,8 @@ public class ListTab implements Component {
   derived hasIcon: Boolean = self.icon != nil
   derived columns: Array<Track> = self.hasIcon ? WITH_ICON : NO_ICON
   derived background: Color | ByInteractionState<Color> = self.selected ? SELECTED : SHADE
-  derived color: Color = self.selected ? BRIGHT_TEXT : self.off ? OFF : INK
-  derived tint: Color = self.off ? DIM : BRIGHT_TEXT
+  derived color: Color = self.selected ? WHITE : self.off ? OFF : INK
+  derived tint: Color = self.off ? DIM : WHITE
   // The light along the left: on every entry, clear on the others, so only colours tell the selected one.
   derived light: Color = self.selected ? LIGHT : CLEAR
 

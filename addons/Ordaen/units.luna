@@ -13,12 +13,9 @@ public function spacingFor(density: Density): Number<Length> {
   }
 }
 
-// The brightest text: a name or a value picked out, a label under the cursor or picked. A warm off-white, never pure
-// white, which glares on the dark wood and breaks up on an OLED panel's pixels.
-public const BRIGHT_TEXT: Color = Color.hex("#f0e6d2")
-
-// The text sizes besides the body's: a description, a hint, a detail under a name, a tab's subtitle; and a window's or
-// a tooltip's title. Hierarchy is shown by colour, a border or a gap before a size.
+// The text sizes besides the body's (`1rem`, a text that names none): a description, a hint, a detail under a name,
+// a tab's subtitle; and a window's or a tooltip's title. Hierarchy is shown by colour, a border or a gap before a
+// size.
 public const SECONDARY_TEXT: Number<TextSize> = 12rem / 13
 public const TITLE_TEXT: Number<TextSize> = 16rem / 13
 
