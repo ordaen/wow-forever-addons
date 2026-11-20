@@ -185,6 +185,15 @@ test "a quest QuestieDB doesn't know has no «Where»" {
   Test.expect(!Test.page().window("World").text("Where").shown())
 }
 
+test "the question to abandon a quest names the items abandoning it destroys" {
+  const log = standing()
+  log[3] = { abandonItems: [2041], ..quest(103, "Elwynn Wolves", "Elwynn Forest") }
+  opened(log)
+  Test.page().window("World").text("Elwynn Wolves").click()
+  Test.page().window("World").button("Abandon quest").click()
+  Test.expect(Test.page().text("Items from this quest that will be destroyed: item 2041").shown())
+}
+
 test "abandoning asks first, and only «Abandon quest» in the question abandons" {
   opened(standing())
   Test.page().window("World").text("The Defias Brotherhood").click()

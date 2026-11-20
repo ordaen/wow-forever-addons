@@ -15,6 +15,7 @@
   "SHARE": "Share",
   "ABANDON": "Abandon quest",
   "ABANDON_ASK": "Abandon «%s»?",
+  "ABANDON_ITEMS": "Items from this quest that will be destroyed: %s",
   "CANCEL": "Cancel",
   "BACK": "Back to the list",
   "SHOW_ON_MAP": "Show on map",

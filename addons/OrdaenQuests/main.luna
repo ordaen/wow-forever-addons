@@ -132,6 +132,8 @@ public class Quests implements Module, App {
   public state hovered = 0
   state text: Game.QuestText = NO_TEXT
   state abandoning = 0
+  // The items abandoning it destroys, by name: the question says them, as the game's does.
+  state abandonItems: Array<String> = []
   // The headers the player folded, by their text.
   state folded: mut Map<String, Boolean> = {}
   // The toolbar: what is sought, the status switch, the filter, the order and the view.
@@ -271,7 +273,10 @@ public class Quests implements Module, App {
       .Link => { if (!Game.chat.linkQuest(id)) { self.onAct(id, .Track) } }
       .SuperTrack => { Game.questLog.superTrack(id) }
       .Share => { Game.questLog.share(id) }
-      .Abandon => { self.abandoning = id }
+      .Abandon => {
+        self.abandonItems = Game.questLog.abandonItems(id)
+        self.abandoning = id
+      }
       .ShowOnMap => { Client.C_Map.OpenWorldMap(nil) }
     }
   }
@@ -340,6 +345,7 @@ public class Quests implements Module, App {
       </surface>
       <Dialog $if={self.abandoning != 0} width={Style.ASK} title={Locale.ABANDON}>
         <text value={self.abandonText} />
+        <text $if={self.abandonItems.length > 0} value={Locale.ABANDON_ITEMS.format(self.abandonItems.join(", "))} />
         <PushButton #buttons label={Locale.ABANDON} width={Style.ASK_BUTTON} plate={ButtonPlate.Danger} @click={self.onAbandonYes} />
         <PushButton #buttons label={Locale.CANCEL} width={Style.ASK_BUTTON} @click={self.onAbandonNo} />
       </Dialog>
