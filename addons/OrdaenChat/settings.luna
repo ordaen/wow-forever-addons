@@ -1,7 +1,7 @@
 // The chat's page in the settings window: each control writes one entry of the settings, at once.
 import Game from "$game"
 import { Choice, Component, Field, NumberInput, Segmented, Settings, Switch, Unit } from "Ordaen"
-import { ChannelName, Choices, LEAST_WIDTH } from "@/choices"
+import { ChannelName, Choices, LEAST_HEIGHT, LEAST_WIDTH } from "@/choices"
 import Locale from "@/locales"
 
 const HISTORY: Array<Choice<Game.ChatHistory>> = [
@@ -25,7 +25,7 @@ public class ChatPage implements Component {
   public render(self): Template {
     return $ltml {
       <NumberInput label={Locale.WIDTH} value={mut self.settings.values.width} least={LEAST_WIDTH} most={1200} step={10} unit={Unit.None} />
-      <NumberInput label={Locale.HEIGHT} value={mut self.settings.values.height} least={80} most={800} step={10} unit={Unit.None} />
+      <NumberInput label={Locale.HEIGHT} value={mut self.settings.values.height} least={LEAST_HEIGHT} most={800} step={10} unit={Unit.None} />
       <NumberInput label={Locale.FADE} hint={Locale.FADE_TIP} value={mut self.settings.values.fade} least={0} most={600} step={10}
                    unit={Unit.None} />
       <Segmented value={mut self.settings.values.channelName} choices={NAMES} />

@@ -107,13 +107,13 @@ test "a tab's count is the library's badge over the tab's right end: the tab and
   Test.expect(now.left == name.left && now.right == name.right)
 }
 
-test "the lines keep their least width, some forty letters, however narrow the chat is chosen" {
+test "the lines keep their least width, some sixty letters, however narrow the chat is chosen" {
   Game.chat.windows = playersWindows()
   const shown = chat("Общий")
-  Game.chat.heard.emit(line("SAY", "[Thrall] says: a line long enough to fill the whole width of the lines and more", "Thrall", [1]))
-  // 320 dp, 227 of the screen's units here (190 dp are 135).
-  const said = shown.text("[Thrall] says: a line long enough to fill the whole width of the lines and more").rect()
-  Test.expect(said.right - said.left >= 220)
+  Game.chat.heard.emit(line("SAY", "[Thrall] says: a line long enough to fill the whole width of the lines and more, and then some more again", "Thrall", [1]))
+  // 480 dp, 341 of the screen's units here (190 dp are 135).
+  const said = shown.text("[Thrall] says: a line long enough to fill the whole width of the lines and more, and then some more again").rect()
+  Test.expect(said.right - said.left >= 335)
 }
 
 test "a line for another tab waits there, counted, until the tab is opened" {
@@ -198,6 +198,37 @@ test "the chat's tabs are a sidebar at its left, one a row, a right-click openin
   now.text("General").rightClick()
   Test.expect(!Test.requests().any(r => r == "Chat.choose 1"))
   Test.expect(Test.page().text("Rename").shown())
+}
+
+// A drag of the mouse from `from` by (dx, dy), in steps the client's drag takes as one.
+function drag(from: Test.Point, dx: Number, dy: Number) {
+  Test.moveTo(from)
+  Test.press(nil)
+  Test.moveTo({ x: from.x + 1, y: from.y })
+  Test.pass(0.05)
+  Test.moveTo({ x: from.x + dx, y: from.y + dy })
+  Test.pass(0.05)
+  Test.release(nil)
+  Test.flush()
+}
+
+// Each size is measured after the grip is let go: the settings' size, kept.
+test "the grip in the chat's top right corner grows it right and up, never below its least, and the size is kept" {
+  Game.chat.windows = gameWindows()
+  const shown = chat()
+  const before = shown.rect()
+  drag(Test.painted(Ordaen.art.ctl.grip, nil), 80, -60)
+  const grown = shown.rect()
+  // It stands by its bottom left: that stays, the other sides go out.
+  Test.expect(grown.left == before.left && (grown.bottom - before.bottom).abs() < 0.5)
+  Test.expect(grown.right > before.right + 50 && grown.top < before.top - 40)
+  // The grip followed the cursor: off it, it shows its plain art again.
+  Test.moveTo({ x: 1500, y: 100 })
+  Test.flush()
+  drag(Test.painted(Ordaen.art.ctl.grip, nil), -2000, 2000)
+  const least = shown.rect()
+  // The lines' least, 480 dp (341 of the screen's units here), and the tabs beside them.
+  Test.expect(least.right < grown.right && least.right - least.left >= 341)
 }
 
 test "the chat is never narrower than a window's least body, 375 dp" {
