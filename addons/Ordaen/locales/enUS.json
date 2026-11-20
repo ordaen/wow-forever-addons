@@ -261,5 +261,6 @@
   "FILTER_RESET": "Reset",
   "AGO_MINUTES": "%d min ago",
   "AGO_HOURS": "%d h ago",
-  "AGO_DAYS": "%d d ago"
+  "AGO_DAYS": "%d d ago",
+  "GAME_WINDOW": "Blizzard window"
 }

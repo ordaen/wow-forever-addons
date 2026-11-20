@@ -261,5 +261,6 @@
   "FILTER_RESET": "Сбросить",
   "AGO_MINUTES": "%d мин. назад",
   "AGO_HOURS": "%d ч назад",
-  "AGO_DAYS": "%d дн. назад"
+  "AGO_DAYS": "%d дн. назад",
+  "GAME_WINDOW": "Окно Blizzard"
 }
