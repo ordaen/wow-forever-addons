@@ -499,3 +499,12 @@ test "the reputation's filter keeps the factions at war alone, and says nothing 
   Test.expect(!window.text("Stormwind").shown())
   Test.expect(window.text("Nothing found.").shown())
 }
+
+test "a window kept narrower than the stats need, from an older save, is drawn wide enough for them" {
+  Test.mount(nil, PAGE)
+  Game.items.icon = icons
+  Char.window.memory.write({ width: 1054.6875dp, height: 726.5625dp, ..Char.window.defaults })
+  const window = opened(new FakeSheet())
+  Test.expect(window.text("STR").shown())
+  Test.expect(window.text("Attack power").count() == 1)
+}
