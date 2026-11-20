@@ -16,8 +16,6 @@ public struct Choice<T: Unknown> {
   label: String
   soon: Boolean | nil
   icon: Art | nil
-  // A count after its label, on a badge (a segment's: the quests of a kind).
-  badge: Integer | nil
 }
 
 const WIDTH = 281.25dp
