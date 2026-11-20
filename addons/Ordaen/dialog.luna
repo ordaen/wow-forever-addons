@@ -6,8 +6,7 @@ import { Align, Edges, Layer, Position, Shadow } from "$ltml"
 import root Ordaen from "Ordaen"
 import { reachAcross } from "@/art"
 import { Component } from "@/module"
-import { TITLE_LINE, TITLE_TEXT } from "@/units"
-import { BODY_LINE } from "@/units"
+import { BODY_LINE, TITLE_LINE, TITLE_TEXT } from "@/units"
 
 const TITLE: Color = Color.hex("#ffd100")
 const SHADOW: Shadow = { color: Color.hex("#000000b3"), x: 1.171875dp, y: -1.171875dp }

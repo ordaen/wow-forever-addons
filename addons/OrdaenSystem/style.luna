@@ -2,7 +2,7 @@
 import Client from "$client"
 
 public const WIDTH: Number<Length> = 1148.4375dp
-public const HEIGHT: Number<Length> = 656.25dp
+public const HEIGHT: Number<Length> = 703.125dp
 // The card's column at the window's right.
 public const CARD: Number<Length> = 351.5625dp
 // Every line of the list, a category's caption too, is this high.

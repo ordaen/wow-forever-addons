@@ -10,8 +10,7 @@ import root Ordaen from "Ordaen"
 import { reachAcross } from "@/art"
 import { Hotkeys } from "@/hotkeys"
 import { Component } from "@/module"
-import { TITLE_LINE, TITLE_TEXT } from "@/units"
-import { TIGHT_LINE } from "@/units"
+import { TIGHT_LINE, TITLE_LINE, TITLE_TEXT } from "@/units"
 
 const WIDTH = 367.96875dp
 const NAME: Color = Color.hex("#ffffff")

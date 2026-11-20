@@ -10,8 +10,7 @@
 import Client from "$client"
 import { Align, Anchored, Art, ByInteractionState, InteractionState, Layer, Point, Position, Shadow } from "$ltml"
 import root Ordaen from "Ordaen"
-import { Component, reachAcross, reachDown } from "Ordaen"
-import { TIGHT_LINE } from "Ordaen"
+import { Component, TIGHT_LINE, reachAcross, reachDown } from "Ordaen"
 
 // The dress's head, from its top: the frame's band, a gap, the title's line, a gap, the carved groove, the gap to
 // Blizzard's first button.

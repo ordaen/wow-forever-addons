@@ -8,7 +8,7 @@ import Locale from "@/locales"
 // («Shopping list», «My auctions»).
 public const WIDTH: Number<Length> = 1242.1875dp
 public const HEIGHT: Number<Length> = 820.3125dp
-public const SIDE_WIDTH: Number<Length> = 703.125dp
+public const SIDE_WIDTH: Number<Length> = 773.4375dp
 // An item's slot in a row, and the chosen item's.
 public const SLOT: Number<Length> = 28.125dp
 public const BIG_SLOT: Number<Length> = 46.875dp

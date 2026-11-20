@@ -6,7 +6,7 @@
 // as it is picked or its «Buy N» first clicked. «Search all» browses every item in one query; a row picked can be
 // removed, and «Remove bought» clears every row at 0.
 import Game from "$game"
-import { Align, Track } from "$ltml"
+import { Align, Overflow, Track } from "$ltml"
 import { Age, ButtonPlate, Column, Component, ItemButton, ItemId, ModuleMemory, Money, PushButton, SECONDARY_TEXT, Table, TableRow, tracksOf } from "Ordaen"
 import { ageOf } from "@/buy"
 import { nameOf } from "@/house"
@@ -120,7 +120,8 @@ class ShoppingRow implements Component {
       <TableRow tracks={TRACKS} selected={self.selected} @pick={self.onPick}>
         <box columns={ITEM} gap={2.5sp} yAlign={Align.Center}>
           <ItemButton item={self.row.item} size={Style.SLOT} dimmed={self.bought} />
-          <box rows={["max-content", "max-content"]}>
+          // Its name and what asked for it, cut at the column: a long list of what asked would push the row.
+          <box rows={["max-content", "max-content"]} overflow={Overflow.Hidden}>
             <text value={self.name} textColor={self.color} wrap={false} />
             <text value={self.from} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={false} />
           </box>

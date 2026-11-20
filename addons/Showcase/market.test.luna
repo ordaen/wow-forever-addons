@@ -9,7 +9,7 @@ test "the third tab of the page holds the market's controls" {
   // The showcase made and added to Ordaen's modules: Ordaen draws it on the screen, which the page is.
   const page = new Showcase()
   const added = Ordaen.modules.add(page)
-  Test.mount(nil, { left: 100, top: 50, width: 700, height: 700, screen: true })
+  Test.mount(nil, { left: 100, top: 50, width: 700, height: 760, screen: true })
 
   Test.click(Test.holding("Market", nil), nil)
   Test.shot("the third tab clicked: the market's rows, the sales table under them")

@@ -104,7 +104,7 @@ public class MakeRow implements Component {
         <CompactDropdown value={mut self.mode} choices={MODES} width={MODE_WIDTH} />
         <CountInput $if={self.counted} value={mut self.count} least={1} most={self.most} step={STEP} />
         <box $else />
-        <text value={self.hint} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
+        <text value={self.hint} textSize={SECONDARY_TEXT} textColor={Style.DIM} wrap={false} />
         <PushButton label={Locale.CREATE} width={128.90625dp} disabled={self.cannot} @click={self.onCreate} />
       </box>
     }

@@ -12,7 +12,7 @@ import Client from "$client"
 import Game from "$game"
 import { Align, Beside, Edges, Layer, Line, MouseButton, Overflow, Side, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { ARTWORK, ButtonPlate, Choice, Column, Component, Copper, CountInput, DropdownItem, ItemButton, ItemId, Menu, MenuEntry, ModuleMemory, Money, PushButton, SECONDARY_TEXT, SelectItem, Table, TableRow, ToolButton, ToolPick, Toolbar, ageText, tracksOf } from "Ordaen"
+import { ARTWORK, BODY_LINE, ButtonPlate, Choice, Column, Component, Copper, CountInput, DropdownItem, ItemButton, ItemId, Menu, MenuEntry, ModuleMemory, Money, PushButton, SECONDARY_TEXT, SelectItem, Table, TableRow, ToolButton, ToolPick, Toolbar, ageText, tracksOf } from "Ordaen"
 import { PriceHistory } from "@/history"
 import { House } from "@/house"
 import { ItemPanel } from "@/itemPanel"
@@ -22,7 +22,6 @@ import { PriceKey, PriceSource, Quote } from "@/quote"
 import { ShoppingList } from "@/shopping"
 import Style from "@/style"
 import { leftText } from "@/style"
-import { BODY_LINE } from "Ordaen"
 
 // One item the house showed, as its row draws it.
 public struct Found {

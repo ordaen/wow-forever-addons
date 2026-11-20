@@ -4,10 +4,9 @@
 // next kind, a click anywhere else closes it. The button is lit while any kind narrows the list.
 import { Beside, Edges, Layer, Line } from "$ltml"
 import root Ordaen from "Ordaen"
-import { Choice, Component, DropdownItem, SECONDARY_TEXT, ToolButton } from "Ordaen"
+import { BODY_LINE, Choice, Component, DropdownItem, SECONDARY_TEXT, ToolButton } from "Ordaen"
 import Locale from "@/locales"
 import Style from "@/style"
-import { BODY_LINE } from "Ordaen"
 
 // Performance: every addon, or the ten heaviest by CPU now.
 public enum Heat implements Plain { All = "all", Heavy = "heavy" }
