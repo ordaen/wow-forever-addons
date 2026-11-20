@@ -1,9 +1,16 @@
-// What Map asks of the world map: OpenMap's and Blizzard's, through `openMap.lua`, and the client's `questLogOpen`.
-// `MapHost` is what Map asks; `OpenMapHost` asks the game. Everything Map places goes through here: where a pin stands
-// on the canvas, the pins' own frames, OpenMap's menu.
+// What Map asks of the world map: OpenMap's API, Blizzard's map frame through `worldMap.lua`, and the client's
+// `questLogOpen`. While it runs, OpenMap's townsfolk come from QuestieDB. `MapHost` is what Map asks; `OpenMapHost` asks the game. Everything Map places goes through here:
+// where a pin stands on the canvas, the pins' own frames, OpenMap's menu.
 import Client from "$client"
-import type { Pin } from "@/extend"
-import OpenMap from "@/openMap"
+import { mapOfArea } from "@/areas"
+import type { Pin, SidePanel } from "@/extend"
+import WorldMap from "@/worldMap"
+import { OpenMapAPI } from "OpenMap"
+import { LibQuestieDB } from "QuestieDB"
+
+// The API Map is written against: major 1, from version 4 on.
+const API_MAJOR = 1
+const API_VERSION = 4
 
 // A pin placed: where it stands on the canvas, 0 to 1.
 public struct Placed {
@@ -15,6 +22,8 @@ public struct Placed {
 public trait MapHost {
   // The map showed or hid, turned to another map, or OpenMap's view moved.
   public const changed: Event<nil>
+  // A drawn pin clicked: its place in what `draw` was given (from 1), and whether Shift was held.
+  public const pressed: Event<(Integer, Boolean)>
   public start(mut self)
   public stop(mut self)
   // Whether OpenMap is there, of the API Map is written against.
@@ -30,67 +39,72 @@ public trait MapHost {
   public draw(mut self, placed: Array<Placed>, lines: Array<Array<String>>)
   // A switch in OpenMap's menu.
   public menuSwitch(mut self, id: String, label: String, get: () => Boolean, set: (on: Boolean) => nil)
+  // Ordaen's section of a dungeon's card: `run` gives its title and lines for the dungeon's map and instances.
+  public dungeonSection(mut self, run: (map: Integer, names: Array<String>) => Array<String>)
+  // The map's side panel while it shows; nil while it doesn't.
+  public sidePanel(self): SidePanel | nil
 }
 
-// The world map's root, holding every zone: the client's uiMap of Azeroth.
-const AZEROTH = 947
 // How big a pin is on the screen, in UI units.
 const PIN_SIZE = 20
+// How much larger a lit pin is drawn.
+const LIT_SCALE: Number = 1.5
 // How far past the canvas's edges a pin still stands (the stitched view shows past the map underneath).
 const REACH: Number = 0.5
 
 public class OpenMapHost implements MapHost {
   public const changed: Event<nil> = new Event()
-  // A zone's uiMap by its name, made the first time a pin is placed; an area's uiMap, by the area's name.
-  maps: mut Map<String, Integer> = {}
-  areas: mut Map<Integer, Integer> = {}
-  indexed = false
+  public const pressed: Event<(Integer, Boolean)> = new Event()
   // The pins' frames, kept and used again.
   pins: mut Array<any Client.Button> = []
 
+  // Who OpenMap's callbacks are registered for (CallbackHandler keys them by a table).
+  owner: Table = {}
+
   public start(mut self) {
-    OpenMap.listen((): nil => {
+    WorldMap.listen((): nil => {
       self.changed.emit()
       return nil
     })
+    if (self.present()) {
+      const heard = (event: String): nil => {
+        self.changed.emit()
+        return nil
+      }
+      OpenMapAPI.RegisterCallback(self.owner, "OpenMap_ViewChanged", heard)
+      OpenMapAPI.RegisterCallback(self.owner, "OpenMap_StitchedChanged", heard)
+      // Read as Quests reads it: contract 4.
+      let held, _ = LibQuestieDB.RequireContract(4)
+      if (held) { WorldMap.townsfolk(mapOfArea) }
+    }
   }
 
   public stop(mut self) {
-    OpenMap.forget()
+    WorldMap.forget()
+    if (self.present()) {
+      OpenMapAPI.UnregisterAllCallbacks(self.owner)
+      WorldMap.noTownsfolk()
+      WorldMap.noDungeonSection()
+    }
     self.draw([], [])
   }
 
-  public present(self): Boolean { return OpenMap.present() }
+  public present(self): Boolean { return OpenMapAPI.major == API_MAJOR && OpenMapAPI.version >= API_VERSION }
 
-  public shown(self): Boolean { return OpenMap.shownMap() != 0 }
+  public shown(self): Boolean { return WorldMap.shownMap() != 0 }
 
   public docked(self): Boolean { return Client.C_CVar.GetCVarBool("questLogOpen") == true }
 
   public dock(mut self, on: Boolean) { _ = Client.C_CVar.SetCVar("questLogOpen", on ? "1" : "0") }
 
-  // The zones under Azeroth, by name: the client names an `AreaTable` zone as its uiMap.
-  index(mut self) {
-    self.indexed = true
-    for (map of Client.C_Map.GetMapChildrenInfo(AZEROTH, nil, true) ?? []) {
-      self.maps[map.name] = map.mapID.floor()
-    }
-  }
-
-  mapOf(mut self, area: Integer): Integer {
-    const known = self.areas[area]
-    if (known != nil) { return known }
-    if (!self.indexed) { self.index() }
-    const map = self.maps[Client.C_Map.GetAreaInfo(area)] ?? 0
-    self.areas[area] = map
-    return map
-  }
-
   public place(mut self, pin: Pin): Placed | nil {
-    const shown = OpenMap.shownMap()
-    const map = self.mapOf(pin.area)
+    const shown = WorldMap.shownMap()
+    const map = mapOfArea[pin.area] ?? 0
     if (shown == 0 || map == 0) { return nil }
-    if (OpenMap.stitched()) {
-      let x, y = OpenMap.canvasOf(map, pin.x, pin.y)
+    if (self.present() && OpenMapAPI.IsStitched()) {
+      let u, v = OpenMapAPI.WorldFromMap(map, pin.x, pin.y)
+      if (u == nil || v == nil) { return nil }
+      let x, y = OpenMapAPI.MapFromWorld(shown, u, v)
       return x != nil && y != nil ? OpenMapHost.within(pin, x, y) : nil
     }
     if (map == shown) { return { pin: pin, x: pin.x, y: pin.y } }
@@ -105,23 +119,24 @@ public class OpenMapHost implements MapHost {
   }
 
   public draw(mut self, placed: Array<Placed>, lines: Array<Array<String>>) {
-    const canvas = OpenMap.canvas()
+    const canvas = WorldMap.canvas()
     if (canvas == nil) { return }
     const width = canvas.GetWidth()
     const height = canvas.GetHeight()
     // A pin keeps its size on the screen whatever the canvas's zoom.
     const size = PIN_SIZE * Client.UIParent.GetEffectiveScale() / canvas.GetEffectiveScale()
-    const level = OpenMap.artTop() + 1
+    const level = (self.present() ? OpenMapAPI.ArtTopLevel() : 0) + 1
     for (index, at of placed) {
       const frame = self.pinFrame(index, canvas)
       const said = lines[index] ?? []
-      frame.SetSize(size, size)
+      const drawnSize = at.pin.lit ? size * LIT_SCALE : size
+      frame.SetSize(drawnSize, drawnSize)
       frame.ClearAllPoints()
       frame.SetPoint("CENTER", canvas, "TOPLEFT", width * at.x, -height * at.y)
-      frame.SetFrameLevel(level)
+      frame.SetFrameLevel(at.pin.lit ? level + 1 : level)
       frame.SetNormalTexture(at.pin.icon)
       frame.SetScript("OnEnter", (): nil => {
-        OpenMap.tip(frame, said)
+        WorldMap.tip(frame, said)
         return nil
       })
       frame.Show()
@@ -135,8 +150,13 @@ public class OpenMapHost implements MapHost {
     const kept = self.pins[index]
     if (kept != nil) { return kept }
     const made = new Client.Button(canvas)
+    // The frame stands for the index-th pin drawn, whichever pin that is now.
+    made.SetScript("OnClick", (): nil => {
+      self.pressed.emit(index, Client.IsShiftKeyDown())
+      return nil
+    })
     made.SetScript("OnLeave", (): nil => {
-      OpenMap.untip()
+      WorldMap.untip()
       return nil
     })
     self.pins.push(made)
@@ -144,6 +164,16 @@ public class OpenMapHost implements MapHost {
   }
 
   public menuSwitch(mut self, id: String, label: String, get: () => Boolean, set: (on: Boolean) => nil) {
-    OpenMap.menuToggle(id, label, get, set)
+    if (!self.present()) { return }
+    OpenMapAPI.RegisterMenuToggle("OrdaenMap", { id: id, label: label, get: get, set: set, tab: "show", section: "Ordaen" })
+  }
+
+  public dungeonSection(mut self, run: (map: Integer, names: Array<String>) => Array<String>) {
+    if (self.present()) { WorldMap.dungeonSection(run) }
+  }
+
+  public sidePanel(self): SidePanel | nil {
+    let frame, width, height = WorldMap.sidePanel()
+    return frame == nil ? nil : { frame: frame, width: width, height: height }
   }
 }

@@ -1,3 +1,3 @@
 // Ordaen Map: the world map's opening and the pins other modules put on it, on OpenMap. Its root is `Maps`.
-public import { Layer, Pin } from "@/extend"
+public import { DungeonSection, Layer, Pin, SidePanel } from "@/extend"
 public import { Maps } from "@/main"

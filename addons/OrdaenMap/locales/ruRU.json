@@ -2,6 +2,7 @@
   "TAB_GENERAL": "Карта",
   "SECTION_MAP": "Карта мира",
   "SETTING_DOCKED": "Журнал заданий рядом с картой",
+  "DUNGEON_CARD": "Ordaen",
   "SETTING_DOCKED_TIP": "Как у Blizzard: журнал открывается вместе с картой, справа от неё. Выключено: карта (М) и журнал (L) открываются отдельно.",
   "SECTION_LAYERS": "Слои",
   "NO_LAYERS": "Ни один модуль не ставит метки на карту. Свои добавляет Ordaen Quests.",

@@ -1,0 +1,32 @@
+// A quest's difficulty against the player's level, and its colour, as the client's `GetQuestDifficultyColor` gives
+// it: the quest log's and the tracker's levels.
+
+// The client's five colours.
+public enum Difficulty { Trivial, Easy, Even, Hard, Impossible }
+
+// The levels below the player's at which a quest is still green, as the client counts them.
+const function greenRange(level: Integer): Integer {
+  if (level <= 5) { return 5 }
+  if (level <= 39) { return (level / 10).floor() + 5 }
+  if (level <= 59) { return (level / 5).floor() + 1 }
+  return 12
+}
+
+public const function difficultyOf(quest: Integer, player: Integer): Difficulty {
+  const above = quest - player
+  if (above >= 5) { return .Impossible }
+  if (above >= 3) { return .Hard }
+  if (above >= -2) { return .Even }
+  if (-above <= greenRange(player)) { return .Easy }
+  return .Trivial
+}
+
+public const function colorOf(difficulty: Difficulty): Color {
+  return match (difficulty) {
+    .Trivial => Color.hex("#808080")
+    .Easy => Color.hex("#40c040")
+    .Even => Color.hex("#ffff00")
+    .Hard => Color.hex("#ff8040")
+    .Impossible => Color.hex("#ff2020")
+  }
+}

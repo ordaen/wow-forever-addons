@@ -1,68 +1,48 @@
 // The quest log as the player meets it: the game's quest log key and the micro menu's button open it, its tabs sort
 // the quests by the client's tag, a quest's page says where to go, and what the player does with a quest reaches the
-// client's log. The client's log and QuestieDB are the test's own (`TestLog`, `TestData`): the stand-in has neither
-// `C_QuestLog`'s tags and watches nor QuestieDB.
+// client's log. The client's log is the stand-in's (`Test.questLog`), QuestieDB the stand-in's as the test fills it
+// (`Test.questieDB`): it knows the first quest alone.
 import Client from "$client"
 import Events from "$events"
 import Game from "$game"
 import Test from "$test"
 import root Ordaen from "Ordaen"
 import root Quests from "OrdaenQuests"
-import { LogQuest, QuestLog, QuestText } from "@/book"
-import { QuestData } from "@/data"
-import { QuestKind, kindOfTag } from "@/kind"
-import { QuestFacts } from "@/questie"
+import root Tracker from "OrdaenTracker"
+import { kindOfTag } from "@/kind"
 
 const PAGE: Test.Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
 
-function quest(id: Integer, title: String, header: String, kind: QuestKind): LogQuest {
-  return {
-    id: id, title: title, level: 14, header: header, kind: kind, done: false, failed: false, tracked: false, group: 0,
-    shareable: false, objectives: [{ text: "Wolves slain: 5/10", done: false }]
-  }
+function quest(id: Integer, title: String, header: String): Test.LogQuest {
+  return { id: id, title: title, header: header, level: 14, objectives: [{ text: "Wolves slain: 5/10" }] }
 }
 
-// The client's log as a test sets it, and what the player asked of it.
-class TestLog implements QuestLog {
-  public list: mut Array<LogQuest> = [
-    quest(101, "The Defias Brotherhood", "Westfall", .World),
-    quest(102, "Red Silk Bandanas", "The Deadmines", .Dungeon),
-    quest(103, "Elwynn Wolves", "Elwynn Forest", .World)
+// The player's log: two quests of the world, one of a dungeon.
+function standing(): mut Array<Test.LogQuest> {
+  return [
+    { story: "Gryan asks you to look into Westfall.", xp: 420, ..quest(101, "The Defias Brotherhood", "Westfall") },
+    { tag: 81, ..quest(102, "Red Silk Bandanas", "The Deadmines") },
+    quest(103, "Elwynn Wolves", "Elwynn Forest")
   ]
-  public tracked: mut Array<Integer> = []
-  public abandoned = 0
-  public shared = 0
-
-  public quests(self): Array<LogQuest> { return self.list }
-  public most(self): Integer { return 25 }
-  public zone(self): String { return "Elwynn Forest" }
-  public text(self, id: Integer): QuestText { return { story: "Gryan asks you to look into Westfall.", task: "", experience: 420, money: 0 } }
-  public track(mut self, id: Integer, on: Boolean) { if (on) { self.tracked.push(id) } }
-  public share(mut self, id: Integer) { self.shared = id }
-  public abandon(mut self, id: Integer) { self.abandoned = id }
 }
 
-// QuestieDB as a test sets it: it knows the first quest alone.
-class TestData implements QuestData {
-  public fault(self): String | nil { return nil }
-  public quest(mut self, id: Integer): QuestFacts | nil {
-    if (id != 101) { return nil }
-    return {
-      name: "The Defias Brotherhood", level: 14, zone: 40, next: 0, targets: [],
-      givers: [{ name: "Gryan Stoutmantle", spots: [{ area: 40, x: 0.56, y: 0.47 }] }],
-      takers: [{ name: "Gryan Stoutmantle", spots: [{ area: 40, x: 0.56, y: 0.47 }] }]
-    }
-  }
-}
-
-// The module with the test's log and data, its window open.
-function opened(log: mut TestLog, data: mut TestData) {
+// The module with this log, its window open; QuestieDB knows the first quest, given and taken back by Gryan.
+function opened(log: Array<Test.LogQuest>) {
+  Test.questieDB(
+    {
+      [101]: { name: "The Defias Brotherhood", questLevel: 14, zoneOrSort: 40, startedBy: [[234]], finishedBy: [[234]],
+               nextQuestInChain: 166 },
+      [166]: { name: "The Defias Brotherhood, part two", zoneOrSort: 40 }
+    },
+    { [234]: { name: "Gryan Stoutmantle", spawns: { [40]: [[56, 47]] } } },
+    {}
+  )
+  Test.questLog(log)
   Test.mount(nil, PAGE)
-  Quests.log = log
-  Quests.data = data
   Quests.flip()
   Quests.refresh()
   Test.flush()
+  _ = Test.talked()
 }
 
 test "a quest's tab is the client's tag: dungeon, raid, battleground, else the world" {
@@ -101,7 +81,8 @@ test "the micro menu's quest log button opens the window, and has the game's cli
   Test.mount(nil, PAGE)
   const button = Client.CreateFrame("Button", "QuestLogMicroButton", Client.UIParent, nil)
   button.SetSize(30, 40)
-  button.SetPoint("CENTER", Client.UIParent, "CENTER", 0, 0)
+  // Where the game's micro menu stands, clear of the window it opens.
+  button.SetPoint("BOTTOMRIGHT", Client.UIParent, "BOTTOMRIGHT", -160, 4)
   let gameClicks = 0
   button.SetScript("OnClick", (): nil => {
     gameClicks += 1
@@ -119,7 +100,7 @@ test "the micro menu's quest log button opens the window, and has the game's cli
 }
 
 test "each tab lists its own quests and counts them, the player's zone first" {
-  opened(new TestLog(), new TestData())
+  opened(standing())
   const window = Test.page().window("World")
   Test.expect(window.text("Elwynn Wolves").shown())
   Test.expect(window.text("The Defias Brotherhood").shown())
@@ -134,7 +115,7 @@ test "each tab lists its own quests and counts them, the player's zone first" {
 }
 
 test "a header folds its quests away and back" {
-  opened(new TestLog(), new TestData())
+  opened(standing())
   const window = Test.page().window("World")
   window.text("Westfall").click()
   Test.expect(!window.text("The Defias Brotherhood").shown())
@@ -143,57 +124,133 @@ test "a header folds its quests away and back" {
 }
 
 test "Shift+Left-click on a quest tracks it" {
-  const log = new TestLog()
-  opened(mut log, new TestData())
+  opened(standing())
   Test.hold([.Shift])
   Test.page().window("World").text("Elwynn Wolves").click()
   Test.hold([])
-  Test.expect(log.tracked.length == 1 && log.tracked[1] == 103)
+  Test.expect(Test.talked().join(",") == "watch 103")
 }
 
 test "a quest picked shows its page, with where its giver stands from QuestieDB" {
-  opened(new TestLog(), new TestData())
+  opened(standing())
   Test.page().window("World").text("The Defias Brotherhood").click()
   const window = Test.page().window("World")
   Test.expect(window.text("Gryan asks you to look into Westfall.").shown())
   Test.expect(window.text("Gryan Stoutmantle (56, 47)").count() == 2)
   Test.expect(window.text("420").shown())
+  // The chain: the quest after it, by QuestieDB's name.
+  Test.expect(window.text("Next in chain").shown() && window.text("The Defias Brotherhood, part two").shown())
+}
+
+test "a quest's page shows the items it gives, and under «Choose one of» those the player picks one of" {
+  const log = standing()
+  log[3] = { rewards: [{ item: 1001, count: 3 }], choices: [{ item: 1002 }, { item: 1003 }], ..quest(103, "Elwynn Wolves", "Elwynn Forest") }
+  opened(log)
+  Test.page().window("World").text("Elwynn Wolves").click()
+  const window = Test.page().window("World")
+  Test.expect(window.text("Rewards").shown() && window.text("Choose one of").shown())
+  Test.expect(window.text("3").shown())
+}
+
+test "a quest under the cursor has its tooltip, and its pins on the map lit while it is there" {
+  opened(standing())
+  const row = Test.page().window("World").text("The Defias Brotherhood")
+  row.hover()
+  Test.expect(Test.page().text("Click: its page. Shift+click: its link in the chat. Right-click: more.").shown())
+  Test.expect(Quests.hovered == 101)
+  Test.page().window("World").text("Quests").hover()
+  Test.expect(Quests.hovered == 0)
+}
+
+test "docked, the map open, the log stands over the map's side panel; a quest picked there shows its page and the way back" {
+  opened(standing())
+  Quests.flip()
+  Test.flush()
+  // Docked as the map's own toggle docks it: the client's setting.
+  _ = Client.C_CVar.SetCVar("questLogOpen", "1")
+  Client.C_Map.OpenWorldMap(1436)
+  Test.flush()
+  Test.expect(Test.page().text("Red Silk Bandanas").shown() || Test.page().text("The Defias Brotherhood").shown())
+  Test.page().text("The Defias Brotherhood").click()
+  Test.expect(Test.page().text("Back to the list").shown())
+  Test.page().text("Back to the list").click()
+  Test.expect(!Test.page().text("Back to the list").shown())
+  Client.WorldMapFrame.Hide()
+  Test.flush()
+  Test.expect(!Test.page().text("The Defias Brotherhood").shown())
+}
+
+test "in the tracker a quest to do says where, and its title opens its page in the window" {
+  const log = standing()
+  log[1] = { watched: true, story: "Gryan asks you to look into Westfall.", ..quest(101, "The Defias Brotherhood", "Westfall") }
+  opened(log)
+  Quests.flip()
+  Test.flush()
+  const tracker = Tracker ?? panic("Ordaen Tracker")
+  tracker.refresh()
+  Test.flush()
+  // QuestieDB places its giver alone: as a target it knows none, so the line is the turn-in's once done.
+  Test.expect(Test.page().text("The Defias Brotherhood").shown())
+  Test.page().text("The Defias Brotherhood").click()
+  Test.flush()
+  Test.expect(Quests.open && Quests.picked == 101)
+}
+
+test "a quest's page shows its giver's figure beside the title, where the client names one" {
+  const log = standing()
+  log[3] = { portraitGiver: 1491, ..quest(103, "Elwynn Wolves", "Elwynn Forest") }
+  opened(log)
+  const drawn = Test.calls(() => {
+    Test.page().window("World").text("Elwynn Wolves").click()
+    Test.flush()
+    return nil
+  })
+  Test.expect(drawn.contains("SetDisplayInfo=1"))
 }
 
 test "a quest QuestieDB doesn't know has no «Where»" {
-  opened(new TestLog(), new TestData())
+  opened(standing())
   Test.page().window("World").text("Elwynn Wolves").click()
   Test.expect(!Test.page().window("World").text("Where").shown())
 }
 
+test "the question to abandon a quest names the items abandoning it destroys" {
+  const log = standing()
+  log[3] = { abandonItems: [2041], ..quest(103, "Elwynn Wolves", "Elwynn Forest") }
+  opened(log)
+  Test.page().window("World").text("Elwynn Wolves").click()
+  Test.page().window("World").button("Abandon quest").click()
+  Test.expect(Test.page().text("Items from this quest that will be destroyed: item 2041").shown())
+}
+
 test "abandoning asks first, and only «Abandon quest» in the question abandons" {
-  const log = new TestLog()
-  opened(mut log, new TestData())
+  opened(standing())
   Test.page().window("World").text("The Defias Brotherhood").click()
   Test.page().window("World").button("Abandon quest").click()
-  Test.expect(log.abandoned == 0)
+  Test.expect(Test.talked().length == 0)
   const asked = Test.page().window("Abandon «The Defias Brotherhood»?")
   asked.button("Cancel").click()
-  Test.expect(log.abandoned == 0)
+  Test.expect(Test.talked().length == 0)
   Test.page().window("World").button("Abandon quest").click()
   Test.page().window("Abandon «The Defias Brotherhood»?").button("Abandon quest").click()
-  Test.expect(log.abandoned == 101)
+  Test.expect(Test.talked().join(",") == "abandon 101")
+  // The client's log no longer has it, and the window follows.
+  Test.flush()
+  Test.expect(!Test.page().window("World").text("The Defias Brotherhood").shown())
 }
 
 test "a quest that can't be shared has its button greyed: a click shares nothing" {
-  const log = new TestLog()
-  opened(mut log, new TestData())
+  opened(standing())
   Test.page().window("World").text("The Defias Brotherhood").click()
   Test.page().window("World").button("Share").click()
-  Test.expect(log.shared == 0)
+  Test.expect(Test.talked().length == 0)
 }
 
 test "Right-click on a quest opens its menu, and «Track» there tracks it" {
-  const log = new TestLog()
-  opened(mut log, new TestData())
+  opened(standing())
   Test.page().window("World").text("Elwynn Wolves").rightClick()
   Test.page().window("Abandon quest").button("Track").click()
-  Test.expect(log.tracked.length == 1 && log.tracked[1] == 103)
+  Test.expect(Test.talked().join(",") == "watch 103")
 }
 
 test "its layers stand on Ordaen Map's settings page while Map is on" {
@@ -223,10 +280,10 @@ function filter(): Test.Part {
 }
 
 test "a quest's objectives stand under its title, one a line; its row's right says only «Complete» or «Failed»" {
-  const log = new TestLog()
-  log.list[3] = { objectives: [{ text: "Wolves slain: 5/10", done: false }, { text: "Pelts: 4/4", done: true }], ..quest(103, "Elwynn Wolves", "Elwynn Forest", .World) }
-  log.list[1] = { done: true, ..quest(101, "The Defias Brotherhood", "Westfall", .World) }
-  opened(mut log, new TestData())
+  const log = standing()
+  log[3] = { objectives: [{ text: "Wolves slain: 5/10" }, { text: "Pelts: 4/4", done: true }], ..quest(103, "Elwynn Wolves", "Elwynn Forest") }
+  log[1] = { complete: true, ..quest(101, "The Defias Brotherhood", "Westfall") }
+  opened(log)
   const window = Test.page().window("World")
   Test.expect(window.text("Pelts: 4/4").shown() && window.text("Wolves slain: 5/10").count() == 2)
   Test.expect(before("Elwynn Wolves", "Wolves slain: 5/10") && before("Wolves slain: 5/10", "Pelts: 4/4"))
@@ -235,9 +292,9 @@ test "a quest's objectives stand under its title, one a line; its row's right sa
 }
 
 test "the switch beside the search shows the quests in progress, the completed ones, or all" {
-  const log = new TestLog()
-  log.list[3] = { done: true, ..quest(103, "Elwynn Wolves", "Elwynn Forest", .World) }
-  opened(mut log, new TestData())
+  const log = standing()
+  log[3] = { complete: true, ..quest(103, "Elwynn Wolves", "Elwynn Forest") }
+  opened(log)
   const window = Test.page().window("World")
   window.button("Completed").click()
   Test.expect(window.text("Elwynn Wolves").shown() && !window.text("The Defias Brotherhood").shown())
@@ -248,9 +305,9 @@ test "the switch beside the search shows the quests in progress, the completed o
 }
 
 test "the search finds a quest by its title or an objective" {
-  const log = new TestLog()
-  log.list[1] = { objectives: [{ text: "Talk to Gryan Stoutmantle", done: false }], ..quest(101, "The Defias Brotherhood", "Westfall", .World) }
-  opened(mut log, new TestData())
+  const log = standing()
+  log[1] = { objectives: [{ text: "Talk to Gryan Stoutmantle" }], ..quest(101, "The Defias Brotherhood", "Westfall") }
+  opened(log)
   const window = Test.page().window("World")
   window.input().click()
   Test.type("gryan")
@@ -263,9 +320,9 @@ test "the search finds a quest by its title or an objective" {
 }
 
 test "the filter keeps the tracked quests alone, or the difficulties switched on; a tab it empties says so" {
-  const log = new TestLog()
-  log.list[3] = { tracked: true, ..quest(103, "Elwynn Wolves", "Elwynn Forest", .World) }
-  opened(mut log, new TestData())
+  const log = standing()
+  log[3] = { watched: true, ..quest(103, "Elwynn Wolves", "Elwynn Forest") }
+  opened(log)
   const window = Test.page().window("World")
   filter().button("Tracked only").click()
   Test.expect(window.text("Elwynn Wolves").shown() && !window.text("The Defias Brotherhood").shown())
@@ -281,9 +338,9 @@ test "the filter keeps the tracked quests alone, or the difficulties switched on
 }
 
 test "a group quest passes the filter by «Group», one played alone by «Solo»" {
-  const log = new TestLog()
-  log.list[1] = { group: 3, ..quest(101, "The Defias Brotherhood", "Westfall", .World) }
-  opened(mut log, new TestData())
+  const log = standing()
+  log[1] = { group: 3, ..quest(101, "The Defias Brotherhood", "Westfall") }
+  opened(log)
   const window = Test.page().window("World")
   filter().button("Group").click()
   Test.expect(!window.text("The Defias Brotherhood").shown() && window.text("Elwynn Wolves").shown())
@@ -293,7 +350,7 @@ test "a group quest passes the filter by «Group», one played alone by «Solo»
 }
 
 test "one list leaves the headers out; by title orders it" {
-  opened(new TestLog(), new TestData())
+  opened(standing())
   const window = Test.page().window("World")
   window.button(Ordaen.art.ctl.tool.categories).click()
   Test.page().window("By zone").button("One list").click()
@@ -305,21 +362,20 @@ test "one list leaves the headers out; by title orders it" {
 }
 
 test "the count stands in the footer under its dim label, and red once the log is full" {
-  const log = new TestLog()
-  opened(mut log, new TestData())
+  const log = standing()
+  opened(log)
   Test.expect(Test.page().window("World").text("Quests").textColor().equal(Color.hex("#a3977f")))
   const counted = Test.page().window("World").text("3/25")
   Test.expect(counted.textColor().equal(Color.hex("#e8dcc4")))
-  // A list of its own: the log gives the window another list as it changes.
-  const full: Array<LogQuest> = log.list.map(kept => kept)
-  for (id of 1..22) { full.push(quest(200 + id, `Quest ${id}`, "Westfall", .World)) }
-  log.list = full
-  Quests.refresh()
+  for (id of 1..22) { log.push(quest(200 + id, `Quest ${id}`, "Westfall")) }
+  // The client says its log changed.
+  Test.questLog(log)
+  Test.flush()
   Test.expect(Test.page().window("World").text("25/25").textColor().equal(Color.hex("#ff4040")))
 }
 
 test "each tab has its icon, the client's own" {
-  opened(new TestLog(), new TestData())
+  opened(standing())
   const window = Test.page().window("World")
   Test.expect(window.button("World").paintedWith("Interface/Icons/INV_Misc_Map_01"))
   Test.expect(window.button("Dungeons").paintedWith("Interface/Icons/INV_Misc_Bone_HumanSkull_01"))
@@ -328,8 +384,38 @@ test "each tab has its icon, the client's own" {
 }
 
 test "«Abandon quest» in the question is the danger plate" {
-  opened(new TestLog(), new TestData())
+  opened(standing())
   Test.page().window("World").text("The Defias Brotherhood").click()
   Test.page().window("World").button("Abandon quest").click()
   Test.expect(Test.page().window("Abandon «The Defias Brotherhood»?").button("Abandon quest").paintedWith(Ordaen.art.ctl.buttonAccent))
+}
+
+test "Shift+Left-click on a title puts its chat link where a chat line is open, and tracks nothing then" {
+  opened(standing())
+  Game.chat.linkQuest = (id: Integer): Boolean => id == 103
+  Test.hold([.Shift])
+  Test.page().window("World").text("Elwynn Wolves").click()
+  Test.hold([])
+  Test.expect(Test.talked().length == 0)
+}
+
+test "the window's opening and closing, and a quest tracked, sound as the game's log does" {
+  opened(standing())
+  Test.expect(Test.sounds()[1] == 844)
+  Test.hold([.Shift])
+  Test.page().window("World").text("Elwynn Wolves").click()
+  Test.hold([])
+  const tracked = Test.sounds()
+  Test.expect(tracked.length == 1 && tracked[1] == 856)
+  Quests.flip()
+  Test.flush()
+  const closed = Test.sounds()
+  Test.expect(closed.length == 1 && closed[1] == 845)
+}
+
+test "«Show the way» in a quest's menu has the client point the way to it" {
+  opened(standing())
+  Test.page().window("World").text("Elwynn Wolves").rightClick()
+  Test.page().window("Abandon quest").button("Show the way").click()
+  Test.expect(Test.talked().join(",") == "super-track 103")
 }

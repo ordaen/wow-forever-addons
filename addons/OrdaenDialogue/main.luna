@@ -97,6 +97,8 @@ public class Dialogue implements Module, App {
   state fromList = false
   // A quest with no NPC (an item's, an object's): declining closes the window.
   state alone = false
+  // The open quest's giver the client names (`GetQuestPortraitGiver`), by display ID; 0 for none.
+  state giver = 0
   // What the next quest page is answered with on its own: accepted, or handed in.
   state acceptNext = false
   state completeNext = false
@@ -238,6 +240,8 @@ public class Dialogue implements Module, App {
         self.speaker = speakerOf()
       }
     }
+    let giver, _, _, _, _ = Client.GetQuestPortraitGiver()
+    self.giver = giver.floor()
     self.quest = questOf(Client.GetQuestText())
     self.show(.Detail)
   }
@@ -576,8 +580,9 @@ public class Dialogue implements Module, App {
   derived isBook: Boolean = self.page == Page.Book
   derived rows: Array<Track> = self.isBook ? [{ fr: 1 }, "max-content"] : [{ fr: 2 }, { fr: 3 }]
   derived pickable: Boolean = self.page == Page.Reward
-  // The quest giver's figure: an NPC's, never an item's or an object's quest.
-  public derived figure: Boolean = !self.alone && self.speaker.portrait != nil
+  // The quest giver's figure, as the game's quest portrait has it: the creature the client names as the quest's giver
+  // (by its display ID), else the NPC talked to; none for an item's or an object's quest that names none.
+  public derived figure: String | Integer | nil = self.giver > 0 ? self.giver : !self.alone && self.speaker.portrait != nil ? "npc" : nil
   derived rewardViews: Array<RewardView> = choiceViews(self.quest?.choices ?? [], self.upgrades())
   derived backLabel: String = match (self.page) {
     .Detail => self.fromList ? Locale.BACK : Locale.DECLINE

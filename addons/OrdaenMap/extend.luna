@@ -1,7 +1,10 @@
+import Client from "$client"
+
 // What other modules put on the world map: the contract, imported by type alone
 // (`import type { Layer, Pin } from "OrdaenMap"`). A layer is an entry of Map's `layers` registry, added in a watch
 // that follows Map's root, so it ends when either module ends. Map places a layer's pins on OpenMap's map wherever
-// their zone is in view, and says what a pin's `lines` give while the cursor is on it.
+// their zone is in view, and says what a pin's `lines` give while the cursor is on it. Pins that would stand on one
+// another are drawn as one, its tooltip saying each one's lines; a click on it is the first one's layer's.
 
 // A pin: where it stands (an `AreaTable` area, QuestieDB's and the client's zones alike, and where in it, 0 to 1
 // across and down), what it shows, and what it is a pin of (the layer's own number: a quest's id).
@@ -11,6 +14,8 @@ public struct Pin {
   const x: Number
   const y: Number
   const icon: Asset
+  // Drawn larger, over the others: the pin of what the player points at elsewhere (a quest under the cursor in the log).
+  const lit: Boolean = false
 }
 
 // A set of pins on the world map. Its pins are asked while the map shows, and again when what they read changes
@@ -24,4 +29,21 @@ public trait Layer {
   public pins(self): Array<Pin>
   // What the pin's tooltip says, its first line its title.
   public lines(self, pin: Pin): Array<String>
+  // The player clicked the pin, with Shift held or not.
+  public press(self, pin: Pin, shift: Boolean)
+}
+
+// The map's side panel while it shows, docked (Blizzard's quest log, `WorldMapFrame.QuestLog`): the frame and its size
+// in UI units. Quests draws its log over exactly that rectangle, a level above it, taking its clicks.
+public struct SidePanel {
+  const frame: any Client.Frame
+  const width: Number
+  const height: Number
+}
+
+// What a module says on a dungeon's card on OpenMap's map (Quests: the log's quests of that dungeon): an entry of Map's
+// `dungeons`, added as a layer is. Map's section of the card holds every entry's lines, under its title.
+public trait DungeonSection {
+  // Its lines for a dungeon of these instances (their names, the client's); none where it has nothing to say.
+  public lines(self, names: Array<String>): Array<String>
 }

@@ -1,0 +1,47 @@
+// Questie draws what Quests draws: with both on, Ordaen asks once which to keep, and keeps the answer.
+import Client from "$client"
+import Test from "$test"
+import root Ordaen from "Ordaen"
+
+const PAGE: Test.Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
+const ASKED = "Questie draws what Ordaen Quests draws. Keep one?"
+
+// Questie installed and on, as the session starts.
+function withQuestie() {
+  Test.addon({ name: "Questie", title: "Questie" })
+  Test.reload()
+  Test.mount(nil, PAGE)
+  Test.flush()
+}
+
+test "without Questie nothing is asked" {
+  Test.mount(nil, PAGE)
+  Test.flush()
+  Test.expect(!Test.page().text(ASKED).shown())
+}
+
+test "with Questie on, Ordaen asks which to keep" {
+  withQuestie()
+  Test.expect(Test.page().text(ASKED).shown())
+  Test.shot("Ordaen asks which of Questie and Ordaen Quests to keep")
+}
+
+test "«Questie» turns Quests off, and the question isn't asked again" {
+  withQuestie()
+  Test.page().button("Questie").click()
+  Test.flush()
+  Test.expect(!Ordaen.isChosen("OrdaenQuests"))
+  Test.reload()
+  Test.flush()
+  Test.expect(!Test.page().text(ASKED).shown())
+}
+
+test "«Ordaen» turns Questie off for this character and offers the reload" {
+  withQuestie()
+  Test.page().button("Ordaen").click()
+  Test.flush()
+  let player, _ = Client.UnitName("player")
+  Test.expect(Client.C_AddOns.GetAddOnEnableState("Questie", player) == Client.AddOnEnableState.None)
+  Test.expect(Test.page().text("Questie is off from the next reload.").shown())
+  Test.expect(Ordaen.isChosen("OrdaenQuests"))
+}

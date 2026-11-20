@@ -4,18 +4,25 @@
 // «Группа: 3», at the right «Готово» or «Провалено», and under the title its objectives, one a line, grey once done.
 // Left-click picks it (its page shows beside the list);
 // Shift+Left-click and its box track it or stop tracking it; Right-click opens its menu: track, share, abandon.
-import { Align, Art, ByInteractionState, Edges, Position } from "$ltml"
+import Game from "$game"
+import { Align, Art, ByInteractionState, Edges, Position, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { ButtonPlate, Component, Menu, MenuEntry, Money, PushButton, SECONDARY_TEXT, TITLE_LINE, TITLE_TEXT, rowShade } from "Ordaen"
-import { LogQuest, Objective, QuestText } from "@/book"
+import { ButtonPlate, Component, ItemButton, Menu, MenuEntry, Money, PushButton, SECONDARY_TEXT, TITLE_LINE, TITLE_TEXT, Tip, colorOf, difficultyOf, rowShade } from "Ordaen"
+import { LogQuest } from "@/book"
 import Locale from "@/locales"
-import { colorOf, difficultyOf } from "@/model"
 import { Figure, QuestFacts } from "@/questie"
 
-// What the player asks of a quest from its row or its page.
-public enum Act { Pick, Track, Share, Abandon, ShowOnMap }
+// What the player asks of a quest from its row or its page. `Link`: Shift+Left-click on its title, a chat link where a
+// chat line is open, else tracking (the game's order).
+public enum Act { Pick, Track, Link, Share, Abandon, ShowOnMap, SuperTrack, Hover, Unhover }
 
 const INK: Color = Color.hex("#e8dcc4")
+// The giver's figure beside a quest's title, as the game's quest portrait shows it (Dialogue's size).
+const GIVER_WIDTH = 70.3125dp
+const GIVER_HEIGHT = 93.75dp
+// A quest's reward items: slots in a row, as many as it gives.
+const REWARD = 37.5dp
+const REWARD_ROW: Array<Track> = ["max-content", "max-content", "max-content", "max-content", "max-content", "max-content"]
 const WHITE: Color = Color.hex("#ffffff")
 const GOLD: Color = Color.hex("#ffd100")
 const DIM: Color = Color.hex("#a3977f")
@@ -68,6 +75,9 @@ public class QuestRow implements Component {
   public act: Event<(Integer, Act)> = new Event()
 
   state menuOpen = false
+  state hovered = false
+  // Its tooltip, saying what the player's clicks on it do.
+  derived tipShown: Boolean = self.hovered && !self.menuOpen
   derived level: String = `[${self.quest.level}${self.quest.group > 1 ? "+" : ""}]`
   derived levelColor: Color = colorOf(difficultyOf(self.quest.level, self.player))
   derived progress: String = stateOf(self.quest)
@@ -77,6 +87,7 @@ public class QuestRow implements Component {
   derived group: String = self.quest.group > 1 ? Locale.GROUP.format(self.quest.group) : ""
   derived entries: Array<MenuEntry> = [
     { label: self.quest.tracked ? Locale.UNTRACK : Locale.TRACK },
+    { label: Locale.SUPER_TRACK },
     { label: Locale.SHARE, disabled: !self.quest.shareable },
     { label: Locale.ABANDON, group: true }
   ]
@@ -92,14 +103,24 @@ public class QuestRow implements Component {
 
   onPick(mut self) { self.act.emit(self.quest.id, Act.Pick) }
   onTrack(mut self) { self.act.emit(self.quest.id, Act.Track) }
+  onLink(mut self) { self.act.emit(self.quest.id, Act.Link) }
   onMenu(mut self) { self.menuOpen = true }
   onClose(mut self) { self.menuOpen = false }
+  onEnter(mut self) {
+    self.hovered = true
+    self.act.emit(self.quest.id, Act.Hover)
+  }
+  onLeave(mut self) {
+    self.hovered = false
+    self.act.emit(self.quest.id, Act.Unhover)
+  }
 
   onEntry(mut self, index: Integer) {
     self.menuOpen = false
     const act = match (index) {
       1 => Act.Track
-      2 => Act.Share
+      2 => Act.SuperTrack
+      3 => Act.Share
       else => Act.Abandon
     }
     self.act.emit(self.quest.id, act)
@@ -108,8 +129,10 @@ public class QuestRow implements Component {
   public render(self): Template {
     return $ltml {
       <box columns={[BOX, "max-content", { fr: 1 }]} gap={2sp} padding={ROW_PAD} background={self.background}
-           @pointerPress(.Left)={self.onPick} @pointerPress([.Shift, .Left])={self.onTrack}
-           @pointerPress(.Right)={self.onMenu} @keyPress(.Enter)={self.onPick} @keyPress(.Space)={self.onTrack}>
+           @pointerPress(.Left)={self.onPick} @pointerPress([.Shift, .Left])={self.onLink}
+           @pointerPress(.Right)={self.onMenu} @keyPress(.Enter)={self.onPick} @keyPress(.Space)={self.onTrack}
+           @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
+        <Tip $if={self.tipShown} title={self.quest.title} text={Locale.ROW_TIP} />
         <box width={BOX} height={BOX} background={Ordaen.art.ctl.check} @pointerPress.self={self.onTrack}>
           <box position={Position.Absolute} left={0ui} top={0ui} width={BOX} height={BOX}
                background={Ordaen.art.ctl.tick} opacity={self.tick} />
@@ -134,8 +157,8 @@ public class QuestRow implements Component {
 class GoalLine implements Component {
   derived color: Color = self.objective.done ? GREY : DIM
 
-  objective: Signal<Objective>
-  constructor(objective: Signal<Objective>) { self.objective = objective }
+  objective: Signal<Game.QuestObjective>
+  constructor(objective: Signal<Game.QuestObjective>) { self.objective = objective }
 
   public render(self): Template {
     return $ltml {
@@ -148,8 +171,8 @@ class GoalLine implements Component {
 class ObjectiveLine implements Component {
   derived color: Color = self.objective.done ? DIM : WHITE
 
-  objective: Signal<Objective>
-  constructor(objective: Signal<Objective>) { self.objective = objective }
+  objective: Signal<Game.QuestObjective>
+  constructor(objective: Signal<Game.QuestObjective>) { self.objective = objective }
 
   public render(self): Template {
     return $ltml {
@@ -197,13 +220,15 @@ public class QuestPage implements Component {
   derived known: Boolean = self.facts != nil
   derived giver: String = whoOf(self.facts?.givers ?? [])
   derived taker: String = whoOf(self.facts?.takers ?? [])
-  derived gives: Boolean = self.text.experience > 0 || self.text.money > 0
+  derived chain: String = self.facts?.nextName ?? ""
+  derived gives: Boolean = self.text.experience > 0 || self.text.money > 0 || self.text.rewards.length > 0 ||
+    self.text.choices.length > 0
 
   quest: Signal<LogQuest>
-  text: Signal<QuestText>
+  text: Signal<Game.QuestText>
   facts: Signal<QuestFacts | nil>
   player: Signal<Integer>
-  constructor(quest: Signal<LogQuest>, text: Signal<QuestText>, facts: Signal<QuestFacts | nil>, player: Signal<Integer>) {
+  constructor(quest: Signal<LogQuest>, text: Signal<Game.QuestText>, facts: Signal<QuestFacts | nil>, player: Signal<Integer>) {
     self.quest = quest
     self.text = text
     self.facts = facts
@@ -218,7 +243,10 @@ public class QuestPage implements Component {
   public render(self): Template {
     return $ltml {
       <box columns={1} gap={3sp}>
-        <text value={self.title} textColor={self.color} textSize={TITLE_TEXT} lineHeight={TITLE_LINE} textFont={.Title} />
+        <box columns={[{ fr: 1 }, "max-content"]} gap={3sp}>
+          <text value={self.title} textColor={self.color} textSize={TITLE_TEXT} lineHeight={TITLE_LINE} textFont={.Title} />
+          <box $if={self.text.giver > 0} width={GIVER_WIDTH} height={GIVER_HEIGHT} model={self.text.giver} />
+        </box>
         <text $if={self.text.story != ""} value={self.text.story} textColor={INK} lineHeight={7sp} />
         <text value={Locale.SECTION_TASKS} textColor={GOLD} />
         <text $if={self.text.task != ""} value={self.text.task} textColor={INK} />
@@ -227,6 +255,7 @@ public class QuestPage implements Component {
           <text value={Locale.SECTION_WHERE} textColor={GOLD} />
           <WhereLine $if={self.giver != ""} label={Locale.GIVER} value={self.giver} />
           <WhereLine $if={self.taker != ""} label={Locale.TAKER} value={self.taker} />
+          <WhereLine $if={self.chain != ""} label={Locale.NEXT_IN_CHAIN} value={self.chain} />
         </box>
         <box $if={self.gives} columns={1} gap={2sp}>
           <text value={Locale.SECTION_REWARD} textColor={GOLD} />
@@ -234,6 +263,13 @@ public class QuestPage implements Component {
           <box $if={self.text.money > 0} columns={[93.75dp, { fr: 1 }]} gap={3sp}>
             <text value={Locale.MONEY} textColor={DIM} textSize={SECONDARY_TEXT} />
             <Money amount={self.text.money} />
+          </box>
+          <box $if={self.text.rewards.length > 0} columns={REWARD_ROW} gap={3sp}>
+            <ItemButton $for={reward of self.text.rewards} item={reward.item} count={reward.count} size={REWARD} />
+          </box>
+          <text $if={self.text.choices.length > 0} value={Locale.CHOICE} textColor={DIM} textSize={SECONDARY_TEXT} />
+          <box $if={self.text.choices.length > 0} columns={REWARD_ROW} gap={3sp}>
+            <ItemButton $for={choice of self.text.choices} item={choice.item} count={choice.count} size={REWARD} />
           </box>
         </box>
         <box columns={["max-content", "max-content", "max-content"]} gap={3sp}>

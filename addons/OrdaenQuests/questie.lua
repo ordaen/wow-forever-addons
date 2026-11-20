@@ -5,26 +5,11 @@ local name = ...
 
 local questie = {}
 
--- The contract this reader is written against.
-local CONTRACT = 4
 -- Spots kept of one NPC or object, and NPCs or objects kept of one list: a creature with hundreds of spawns, an item
 -- dropped by dozens, stay bounded.
 local SPOTS_MOST = 40
 local FIGURES_MOST = 12
 
-local function lib()
-	local found = _G.LibQuestieDB
-	if type(found) ~= "table" or type(found.RequireContract) ~= "function" then return nil end
-	return found
-end
-
-function questie.fault()
-	local found = lib()
-	if not found then return "QuestieDB isn't loaded" end
-	local ok, message = found.RequireContract(CONTRACT)
-	if not ok then return message or "QuestieDB's contract doesn't match" end
-	return nil
-end
 
 -- Its spawns `{ [area] = { { x, y }, ... } }`, 0 to 100, as spots 0 to 1.
 local function spotsOf(spawns)
@@ -68,8 +53,7 @@ local function addTargets(into, db, list)
 end
 
 function questie.quest(id)
-	local found = lib()
-	if not found or questie.fault() then return nil end
+	local found = _G.LibQuestieDB
 	local quests, npcs, objects, items = found.QuestDB, found.NpcDB, found.ObjectDB, found.ItemDB
 	if not quests.Exists(id) then return nil end
 	local givers, takers, targets = {}, {}, {}
@@ -109,6 +93,7 @@ function questie.quest(id)
 		takers = takers,
 		targets = targets,
 		next = type(next) == "number" and next or 0,
+		nextName = type(next) == "number" and next > 0 and type(quests.Get(next, "name")) == "string" and quests.Get(next, "name") or "",
 	}
 end
 

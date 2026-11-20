@@ -1,5 +1,6 @@
 // The log as the window lists it: a tab's quests under the client's headers, the player's zone first; a quest's
-// colour by its level against the player's, as the client's `GetQuestDifficultyColor` gives it.
+// difficulty by its level against the player's (the library's `difficultyOf`).
+import { Difficulty, difficultyOf } from "Ordaen"
 import { LogQuest } from "@/book"
 import { QuestKind } from "@/kind"
 
@@ -37,35 +38,6 @@ public function countOf(quests: Array<LogQuest>, kind: QuestKind): Integer {
   return quests.count(quest => quest.kind == kind)
 }
 
-// A quest's difficulty against the player's level: the client's five colours.
-public enum Difficulty { Trivial, Easy, Even, Hard, Impossible }
-
-// The levels below the player's at which a quest is still green, as the client counts them.
-const function greenRange(level: Integer): Integer {
-  if (level <= 5) { return 5 }
-  if (level <= 39) { return (level / 10).floor() + 5 }
-  if (level <= 59) { return (level / 5).floor() + 1 }
-  return 12
-}
-
-public const function difficultyOf(quest: Integer, player: Integer): Difficulty {
-  const above = quest - player
-  if (above >= 5) { return .Impossible }
-  if (above >= 3) { return .Hard }
-  if (above >= -2) { return .Even }
-  if (-above <= greenRange(player)) { return .Easy }
-  return .Trivial
-}
-
-public const function colorOf(difficulty: Difficulty): Color {
-  return match (difficulty) {
-    .Trivial => Color.hex("#808080")
-    .Easy => Color.hex("#40c040")
-    .Even => Color.hex("#ffff00")
-    .Hard => Color.hex("#ff8040")
-    .Impossible => Color.hex("#ff2020")
-  }
-}
 
 // The filter's options: only the tracked quests; each difficulty; a quest played alone or with a group.
 public enum QuestFilter { Tracked, Trivial, Easy, Even, Hard, Impossible, Solo, Group }

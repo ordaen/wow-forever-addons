@@ -1,26 +1,28 @@
-// What the world holds of a quest: who gives it, who takes it, where its objectives are. `QuestData` is what the
-// module asks; `QuestieData` asks QuestieDB once a quest and keeps what it said for the session (each read of
-// QuestieDB makes fresh tables, so nothing is read from it while drawing or per event).
+// What the world holds of a quest: who gives it, who takes it, where its objectives are. `QuestieData` asks QuestieDB
+// once a quest and keeps what it said for the session (each read of QuestieDB makes fresh tables, so nothing is read
+// from it while drawing or per event).
 import Questie from "@/questie"
 import { QuestFacts } from "@/questie"
+import { LibQuestieDB } from "QuestieDB"
 
-public trait QuestData {
-  // Why nothing can be read (QuestieDB missing or of another contract); nil where it can be.
-  public fault(self): String | nil
-  // A quest's facts; nil for one the data doesn't know.
-  public quest(mut self, id: Integer): QuestFacts | nil
-}
+// The contract of QuestieDB's data this module is written against.
+const CONTRACT = 4
 
-public class QuestieData implements QuestData {
+public class QuestieData {
   known: mut Map<Integer, QuestFacts> = {}
   // Quests asked of and not known, so they aren't asked again.
   unknown: mut Map<Integer, Boolean> = {}
 
-  public fault(self): String | nil { return Questie.fault() }
+  // Why nothing can be read (QuestieDB of another contract, its own message); nil where it can be.
+  public fault(self): String | nil {
+    let fits, said = LibQuestieDB.RequireContract(CONTRACT)
+    return fits ? nil : said ?? "QuestieDB's contract doesn't match"
+  }
 
+  // A quest's facts; nil for one QuestieDB doesn't know (Forever's newest).
   public quest(mut self, id: Integer): QuestFacts | nil {
     const kept = self.known[id]
-    if (kept != nil || self.unknown[id] == true) { return kept }
+    if (kept != nil || self.unknown[id] == true || self.fault() != nil) { return kept }
     const read = Questie.quest(id)
     if (read == nil) {
       self.unknown[id] = true

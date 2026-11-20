@@ -1,9 +1,11 @@
 // Ordaen Map as other modules and the player meet it: a layer added shows its pins where the map places them, a layer
 // switched off shows none, the docked switch writes the client's setting, and the first start leaves the log apart.
-// The world map is the test's own (`TestHost`): the stand-in has neither OpenMap nor Blizzard's map frame.
+// The world map is the test's own (`TestHost`): the stand-in has no Blizzard map frame. OpenMap is installed, as the
+// player has it, and Map needs it.
+import Client from "$client"
 import Test from "$test"
 import root Maps from "OrdaenMap"
-import { Layer, Pin } from "@/extend"
+import { DungeonSection, Layer, Pin, SidePanel } from "@/extend"
 import { MapHost, Placed } from "@/host"
 
 const PAGE: Test.Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
@@ -11,6 +13,7 @@ const PAGE: Test.Page = { left: 0, top: 0, width: 1600, height: 900, screen: tru
 // The world map as a test sets it: shown, every zone in view, each pin where its zone has it; what was drawn.
 class TestHost implements MapHost {
   public const changed: Event<nil> = new Event()
+  public const pressed: Event<(Integer, Boolean)> = new Event()
   public isDocked = false
   public drawn: Array<Placed> = []
   public said: Array<Array<String>> = []
@@ -30,6 +33,44 @@ class TestHost implements MapHost {
   public menuSwitch(mut self, id: String, label: String, get: () => Boolean, set: (on: Boolean) => nil) {
     self.switches.push(id)
   }
+  public dungeonSection(mut self, run: (map: Integer, names: Array<String>) => Array<String>) {}
+  public sidePanel(self): SidePanel | nil { return nil }
+}
+
+test "docked, the map's side panel is given while the map shows, its size the client's; apart, none" {
+  Test.mount(nil, PAGE)
+  Maps.docked = true
+  Test.flush()
+  Client.C_Map.OpenWorldMap(1436)
+  Test.flush()
+  const side = Maps.side ?? panic("the side panel")
+  Test.expect(side.width == 330 && side.height == 668)
+  Maps.docked = false
+  Test.flush()
+  Test.expect(Maps.side == nil)
+}
+
+// What a dungeon's card says: the instance's name, where one of the test's.
+class TestSection implements DungeonSection {
+  public lines(self, names: Array<String>): Array<String> {
+    return names.filter(name => name == "The Deadmines").map(name => `In ${name}`)
+  }
+}
+
+test "a dungeon's card on OpenMap's map has Map's section: its title, then each entry's lines; none where none has any" {
+  Test.mount(nil, PAGE)
+  Maps.dungeons.add(new TestSection())
+  Test.flush()
+  Test.expect(Test.dungeonCard(1581, ["The Deadmines"]).join(",") == "Ordaen,In The Deadmines")
+  Test.expect(Test.dungeonCard(1, ["Ragefire Chasm"]).length == 0)
+}
+
+test "OpenMap's townsfolk come from QuestieDB's NPCs, each on its area's map" {
+  Test.questieDB({}, { [1430]: { name: "Kurran Steele", zoneID: 40, npcFlags: 16 } }, {})
+  Test.reload()
+  Test.mount(nil, PAGE)
+  Test.expect(Test.townsfolkMap(1430) == 1436)
+  Test.expect(Test.townsfolkMap(99) == 0)
 }
 
 // A layer of two pins in Westfall (area 40) and one in a zone not in view.
@@ -48,6 +89,62 @@ class TestLayer implements Layer {
   }
 
   public lines(self, pin: Pin): Array<String> { return [`Pin ${pin.of}`] }
+
+  // A pin clicked has the client point the way to its quest; with Shift, stop watching it (as Quests' do).
+  public press(self, pin: Pin, shift: Boolean) {
+    if (shift) {
+      _ = Client.C_QuestLog.RemoveQuestWatch(pin.of)
+    } else {
+      Client.C_SuperTrack.SetSuperTrackedQuestID(pin.of)
+    }
+  }
+}
+
+// Two quests' pins on one spot, a third beside them, lit.
+class CrowdLayer implements Layer {
+  public const id: String = "test.crowd"
+  public const title: String = "Crowd"
+  public const hint: String = "Pins on one spot"
+
+  public pins(self): Array<Pin> {
+    const icon: Asset = "Interface/GossipFrame/ActiveQuestIcon"
+    return [
+      { of: 1, area: 40, x: 0.5, y: 0.5, icon: icon },
+      { of: 2, area: 40, x: 0.505, y: 0.5, icon: icon },
+      { of: 3, area: 40, x: 0.25, y: 0.25, icon: icon, lit: true }
+    ]
+  }
+
+  public lines(self, pin: Pin): Array<String> { return [`Pin ${pin.of}`] }
+  public press(self, pin: Pin, shift: Boolean) {}
+}
+
+test "pins on one spot are drawn as one, its tooltip saying each; a lit pin is drawn first" {
+  Test.mount(nil, PAGE)
+  const host = new TestHost()
+  Maps.host = host
+  Maps.layers.add(new CrowdLayer())
+  Test.flush()
+  Test.expect(host.drawn.length == 2)
+  Test.expect((host.drawn[1] ?? panic("a pin")).pin.of == 3)
+  Test.expect((host.said[2] ?? []).join(",") == "Pin 1,Pin 2")
+}
+
+test "a pin clicked is its layer's, with Shift or without" {
+  Test.mount(nil, PAGE)
+  const host = new TestHost()
+  Maps.host = host
+  const layer = new TestLayer()
+  Maps.layers.add(layer)
+  Test.questLog([
+    { id: 1, title: "First", header: "Westfall", watched: true },
+    { id: 2, title: "Second", header: "Westfall", watched: true }
+  ])
+  Test.flush()
+  _ = Test.talked()
+  host.pressed.emit(2, false)
+  host.pressed.emit(1, true)
+  Test.expect(Test.talked().join(",") == "super-track 2,unwatch 1")
 }
 
 test "a layer's pins in view are drawn, each with its tooltip, and a switch is put in OpenMap's menu for it" {
@@ -102,6 +199,24 @@ test "the settings page lists each layer with its switch" {
   Test.page().window("Ordaen").text("Map").click()
   Test.expect(Test.page().text("Test pins").shown())
   Test.expect(Test.page().text("Quest log beside the map").shown())
-  // The stand-in has no OpenMap.
-  Test.expect(Test.page().text("OpenMap isn't loaded, or is older than version 4: no pins are drawn on the map.").shown())
+  // OpenMap is installed, of the API Map reads.
+  Test.expect(!Test.page().text("OpenMap isn't loaded, or is older than version 4: no pins are drawn on the map.").shown())
+}
+
+test "the game's map places a layer's pins of the zone it shows, the zone found by the area's own map" {
+  Test.mount(nil, PAGE)
+  Maps.layers.add(new TestLayer())
+  // Westfall: area 40's map. The pin of area 12 stands on Elwynn Forest's, off this one.
+  Client.C_Map.OpenWorldMap(1436)
+  Test.flush()
+  // A frame a pin placed: the two of Westfall, none of the other.
+  Test.expect(Client.WorldMapFrame.GetCanvas().GetNumChildren() == 2)
+}
+
+test "without OpenMap the client doesn't load Map, and says OpenMap is missing" {
+  Test.uninstall("OpenMap")
+  Test.reload()
+  let loads, why = Client.C_AddOns.LoadAddOn("OrdaenMap")
+  Test.expect(loads != true)
+  Test.expect(why == "DEP_MISSING")
 }

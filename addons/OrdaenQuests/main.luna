@@ -11,16 +11,19 @@
 import Client from "$client"
 import Events from "$events"
 import Game from "$game"
-import { Align, Edges, Track } from "$ltml"
+import { Align, Edges, Layer, Place, Point, Track } from "$ltml"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
-import { ARTWORK, ButtonPlate, Choice, Dialog, FilterButton, FilterGroup, FooterCount, FooterCounts, KeptWindow, Module, PushButton, SECONDARY_TEXT, Segmented, Settings, SettingsPage, ToolPick, Toolbar, Window, WindowSide, WindowTabSpec, WindowsPage, switched, windowsTitle } from "Ordaen"
+import { ARTWORK, ButtonPlate, Choice, Dialog, FilterButton, FilterGroup, FooterCount, FooterCounts, KeptWindow, Module, PushButton, SECONDARY_TEXT, Segmented, Settings, SettingsPage, ToolPick, Toolbar, Window, WindowSide, WindowTabSpec, WindowsPage, playSound, switched, windowsTitle } from "Ordaen"
 import root Maps from "OrdaenMap"
-import { ClientQuestLog, LogQuest, QuestLog, QuestText } from "@/book"
+import type { SidePanel } from "OrdaenMap"
+import root Tracker from "OrdaenTracker"
+import { TrackerLines } from "@/tracker"
+import { LogQuest, logQuests } from "@/book"
 import { TakenClick } from "@/button"
-import { QuestData, QuestieData } from "@/data"
+import { QuestieData } from "@/data"
 import { KINDS, QuestKind } from "@/kind"
-import { PinKind, QuestPins } from "@/layers"
+import { DungeonQuests, PinKind, QuestPins } from "@/layers"
 import { QuestList } from "@/list"
 import Locale from "@/locales"
 import { Asked, QuestFilter, QuestSort, QuestStatus, QuestView, countOf, listedOf } from "@/model"
@@ -33,11 +36,12 @@ import { Act, QuestPage } from "@/view"
 const TOGGLE = "OrdaenQuestsToggle"
 // The game's binding of the quest log.
 const QUEST_LOG_BINDING = "TOGGLEQUESTLOG"
-const NO_TEXT: QuestText = { story: "", task: "", experience: 0, money: 0 }
+const NO_TEXT: Game.QuestText = { story: "", task: "", experience: 0, money: 0, rewards: [], choices: [], giver: 0 }
 const DIM: Color = Color.hex("#a3977f")
 const RED: Color = Color.hex("#ff4040")
 // The toolbar over the list, and the list.
 const BODY: Array<Track> = ["max-content", { fr: 1 }]
+const FILL: Array<Track> = [{ fr: 1 }]
 const FOOT: Array<Track> = [{ fr: 1 }, "max-content"]
 // The status switch stands an item's step after the search.
 const AFTER_SEARCH: Edges = { left: 3sp }
@@ -114,9 +118,8 @@ public class Quests implements Module, App {
     </box>
   }
 
-  // The client's log, and QuestieDB: a test gives its own.
-  public log: mut any QuestLog = new ClientQuestLog()
-  public data: mut any QuestData = new QuestieData()
+  // What QuestieDB says of the log's quests, read once a quest.
+  data: mut QuestieData = new QuestieData()
 
   public state open = false
   state tab = 1
@@ -127,8 +130,12 @@ public class Quests implements Module, App {
   public state facts: Map<Integer, QuestFacts> = {}
   // The quest whose page shows (0: none), its text, and the quest the player asked to abandon (0: none).
   public state picked = 0
-  state text: QuestText = NO_TEXT
+  // The quest under the cursor in the list (0: none): its pins on the map are lit.
+  public state hovered = 0
+  state text: Game.QuestText = NO_TEXT
   state abandoning = 0
+  // The items abandoning it destroys, by name: the question says them, as the game's does.
+  state abandonItems: Array<String> = []
   // The headers the player folded, by their text.
   state folded: mut Map<String, Boolean> = {}
   // The toolbar: what is sought, the status switch, the filter, the order and the view.
@@ -155,6 +162,13 @@ public class Quests implements Module, App {
   derived kindHas: Boolean = countOf(self.quests, self.kind) > 0
   derived pickedQuest: LogQuest | nil = self.quests.find(quest => quest.id == self.picked)
   derived pickedFacts: QuestFacts | nil = self.facts[self.picked]
+  // The picked quest as a list of one, or none: the docked panel's page.
+  derived pickedList: Array<LogQuest> = self.pickedQuest == nil ? [] : [self.pickedQuest ?? panic("a quest")]
+  // Docked on the map while it shows: the side panel Quests' log stands over, where, and how big.
+  derived dockedSide: SidePanel | nil = Maps?.side
+  derived dockedPlace: Place = { point: Point.TopLeft, to: Point.TopLeft, by: self.dockedSide?.frame }
+  derived dockedWidth: Number<Length> = (self.dockedSide?.width ?? 0) * 1ui
+  derived dockedHeight: Number<Length> = (self.dockedSide?.height ?? 0) * 1ui
   derived side: WindowSide | nil = self.pageOf(self.pickedQuest)
   derived abandonText: String = Locale.ABANDON_ASK.format(self.quests.find(quest => quest.id == self.abandoning)?.title ?? "")
   derived level: Integer = Game.player.level
@@ -162,10 +176,14 @@ public class Quests implements Module, App {
   const toggle: any Client.Frame
   const objectives: QuestPins
   const turnIns: QuestPins
+  const dungeonQuests: DungeonQuests
+  const trackerLines: TrackerLines
 
   constructor() {
-    self.objectives = new QuestPins(PinKind.Objectives, self.quests, self.facts)
-    self.turnIns = new QuestPins(PinKind.TurnIns, self.quests, self.facts)
+    self.objectives = new QuestPins(PinKind.Objectives, self.quests, self.facts, self.hovered)
+    self.turnIns = new QuestPins(PinKind.TurnIns, self.quests, self.facts, self.hovered)
+    self.dungeonQuests = new DungeonQuests(self.quests)
+    self.trackerLines = new TrackerLines(self.facts, (id: Integer): Boolean => self.openAt(id))
     self.toggle = Client.CreateFrame("Button", TOGGLE, Client.UIParent, nil)
     Ordaen.modules.add(self)
     self.toggle.SetScript("OnClick", (): nil => {
@@ -176,6 +194,11 @@ public class Quests implements Module, App {
       if (maps == nil) { return }
       maps.layers.add(self.objectives)
       maps.layers.add(self.turnIns)
+      maps.dungeons.add(self.dungeonQuests)
+    }
+    watch (tracker of Tracker) {
+      if (tracker == nil) { return }
+      tracker.questLines.add(self.trackerLines)
     }
     // The log's events are heard while something reads it.
     watch (on of self.reading) {
@@ -194,7 +217,7 @@ public class Quests implements Module, App {
       _ = new TakenClick(button, () => self.flip())
     }
     Events.UPDATE_BINDINGS.listen(self.rebind)
-    watch (id of self.picked) { self.text = id == 0 ? NO_TEXT : self.log.text(id) }
+    watch (id of self.picked) { self.text = id == 0 ? NO_TEXT : Game.questLog.text(id) }
   }
 
   destructor() {
@@ -203,11 +226,14 @@ public class Quests implements Module, App {
   }
 
   // The window opens or closes: the game's key and button, and the close button.
-  public flip(mut self) { self.open = !self.open }
+  public flip(mut self) {
+    self.open = !self.open
+    playSound(self.open ? "IG_QUEST_LOG_OPEN" : "IG_QUEST_LOG_CLOSE")
+  }
 
   // The log as the client has it now, and QuestieDB's facts of the quests not read before.
   public refresh(mut self) {
-    const quests = self.log.quests()
+    const quests = logQuests()
     const facts: Map<Integer, QuestFacts> = {}
     for (id, known of peek self.facts) { facts[id] = known }
     for (quest of quests) {
@@ -218,8 +244,8 @@ public class Quests implements Module, App {
     }
     self.quests = quests
     self.facts = facts
-    self.most = self.log.most()
-    self.zone = self.log.zone()
+    self.most = Game.questLog.most()
+    self.zone = Game.questLog.zone()
     const picked = peek self.picked
     if (picked != 0 && quests.find(quest => quest.id == picked) == nil) { self.picked = 0 }
   }
@@ -240,13 +266,25 @@ public class Quests implements Module, App {
   onAct(mut self, id: Integer, act: Act) {
     match (act) {
       .Pick => { self.picked = id }
+      .Hover => { self.hovered = id }
+      .Unhover => { if (peek self.hovered == id) { self.hovered = 0 } }
       .Track => {
         const quest = (peek self.quests).find(quest => quest.id == id)
-        if (quest != nil) { self.log.track(id, !quest.tracked) }
+        if (quest != nil) {
+          Game.questLog.track(id, !quest.tracked)
+          // The checkbox's own sound, as the game's log plays it.
+          playSound(quest.tracked ? "IG_MAINMENU_OPTION_CHECKBOX_OFF" : "IG_MAINMENU_OPTION_CHECKBOX_ON")
+        }
         self.refresh()
       }
-      .Share => { self.log.share(id) }
-      .Abandon => { self.abandoning = id }
+      // The game's order: a chat link where a chat line is open, else tracking.
+      .Link => { if (!Game.chat.linkQuest(id)) { self.onAct(id, .Track) } }
+      .SuperTrack => { Game.questLog.superTrack(id) }
+      .Share => { Game.questLog.share(id) }
+      .Abandon => {
+        self.abandonItems = Game.questLog.abandonItems(id)
+        self.abandoning = id
+      }
       .ShowOnMap => { Client.C_Map.OpenWorldMap(nil) }
     }
   }
@@ -256,7 +294,7 @@ public class Quests implements Module, App {
   onAbandonYes(mut self) {
     const id = peek self.abandoning
     self.abandoning = 0
-    if (id != 0) { self.log.abandon(id) }
+    if (id != 0) { Game.questLog.abandon(id) }
   }
 
   onAbandonNo(mut self) { self.abandoning = 0 }
@@ -274,25 +312,59 @@ public class Quests implements Module, App {
     }
   }
 
+  onBack(mut self) { self.picked = 0 }
+
+  // The quest asked for from the tracker: its page, in the window, or docked on the map with its panel.
+  openAt(mut self, id: Integer): Boolean {
+    self.picked = id
+    if (peek self.docked) {
+      Client.C_Map.OpenWorldMap(nil)
+    } else if (!(peek self.open)) {
+      self.flip()
+    }
+    return true
+  }
+
+  // The log: the toolbar over the list. The window's body, and the docked panel's while no quest is picked.
+  logBody(self): Template {
+    return $ltml {
+      <box rows={BODY} gap={3sp}>
+        <Toolbar search={mut self.search} placeholder={Locale.SEARCH}>
+          <box padding={AFTER_SEARCH}>
+            <Segmented value={mut self.status} choices={STATUSES} />
+          </box>
+          <FilterButton values={mut self.filter} start={FILTER_START} groups={FILTERS} />
+          <ToolPick value={mut self.sort} choices={SORTS} icon={ARTWORK.ctl.tool.sort} title={Locale.SORT} />
+          <ToolPick value={mut self.view} choices={VIEWS} icon={ARTWORK.ctl.tool.categories} title={Locale.VIEW} />
+        </Toolbar>
+        <QuestList quests={self.listed} kind={self.kind} view={self.view} zone={self.zone} picked={self.picked}
+                   folded={self.folded} player={self.level} any={self.kindHas} @act={self.onAct} @fold={self.onFold} />
+      </box>
+    }
+  }
+
+  // The window; and docked, the log over the map's side panel, in exactly its rectangle, where a quest picked shows
+  // its page with the way back to the list, as Blizzard's panel does.
   public render(self): Template {
     return $ltml {
       <Window $if={self.open} tabs={self.tabs} selected={mut self.tab} declared={mut self.window} withSettings={true}
               side={self.side} footer={self.footer} @close={self.onClose} @settings={self.onSettings}>
-        <box rows={BODY} gap={3sp}>
-          <Toolbar search={mut self.search} placeholder={Locale.SEARCH}>
-            <box padding={AFTER_SEARCH}>
-              <Segmented value={mut self.status} choices={STATUSES} />
-            </box>
-            <FilterButton values={mut self.filter} start={FILTER_START} groups={FILTERS} />
-            <ToolPick value={mut self.sort} choices={SORTS} icon={ARTWORK.ctl.tool.sort} title={Locale.SORT} />
-            <ToolPick value={mut self.view} choices={VIEWS} icon={ARTWORK.ctl.tool.categories} title={Locale.VIEW} />
-          </Toolbar>
-          <QuestList quests={self.listed} kind={self.kind} view={self.view} zone={self.zone} picked={self.picked}
-                     folded={self.folded} player={self.level} any={self.kindHas} @act={self.onAct} @fold={self.onFold} />
-        </box>
+        {self.logBody()}
       </Window>
+      <surface $if={self.dockedSide != nil} layer={Layer.Dialog} place={self.dockedPlace}
+               width={self.dockedWidth} height={self.dockedHeight} background={Style.DOCKED_BACK}
+               padding={Style.DOCKED_PAD} columns={1}>
+        <box $if={self.pickedQuest == nil} rows={FILL}>
+          {self.logBody()}
+        </box>
+        <box $if={self.pickedQuest != nil} rows={BODY} gap={3sp}>
+          <PushButton label={Locale.BACK} width={Style.ASK_BUTTON} @click={self.onBack} />
+          <QuestPage $for={quest of self.pickedList} quest={quest} text={self.text} facts={self.pickedFacts} player={self.level} @act={self.onAct} />
+        </box>
+      </surface>
       <Dialog $if={self.abandoning != 0} width={Style.ASK} title={Locale.ABANDON}>
         <text value={self.abandonText} />
+        <text $if={self.abandonItems.length > 0} value={Locale.ABANDON_ITEMS.format(self.abandonItems.join(", "))} />
         <PushButton #buttons label={Locale.ABANDON} width={Style.ASK_BUTTON} plate={ButtonPlate.Danger} @click={self.onAbandonYes} />
         <PushButton #buttons label={Locale.CANCEL} width={Style.ASK_BUTTON} @click={self.onAbandonNo} />
       </Dialog>

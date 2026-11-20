@@ -1,0 +1,8 @@
+{
+  "title": "Ordaen Tracker",
+  "icon": "Interface/Icons/INV_Misc_Note_01",
+  "notes": "The tracked quests at the screen's right in Ordaen's look, with what other modules add to each.",
+  "version": "0.1.0",
+  "loadOnDemand": true,
+  "dependencies": { "Ordaen": "^1.0.0" }
+}

@@ -1,0 +1,237 @@
+// Ordaen Tracker: the tracked quests at the screen's right in Ordaen's look, in place of the game's objective tracker,
+// which is kept unseen while it is on. It draws each tracked quest from the client by itself (its level, title, tag,
+// objectives); other modules add lines under a quest through `questLines` (Quests: where to go, whom to hand it to).
+// The clicks are Blizzard's tracker's: a chat link first, Shift+click untracks, a click opens the quest in the log,
+// the round button points the way to it, Right-click opens its menu.
+import Client from "$client"
+import Events from "$events"
+import Game from "$game"
+import { Action, Edges, Layer, Place, Point, Track } from "$ltml"
+import root Ordaen from "Ordaen"
+import { ButtonPlate, Component, Dialog, ItemButton, Menu, MenuEntry, Module, PushButton, SECONDARY_TEXT, SettingsPage, colorOf, difficultyOf, playSound } from "Ordaen"
+import { QuestLine, QuestLines } from "@/extend"
+import Locale from "@/locales"
+
+const WIDTH = 281.25dp
+const PLACE: Place = { point: Point.TopRight, to: Point.TopRight, x: -23.4375dp, y: 234.375dp }
+const BACK: Color = Color.hex("#0000008c")
+const PAD: Edges = { top: 3sp, right: 3sp, bottom: 3sp, left: 3sp }
+const GOLD: Color = Color.hex("#ffd100")
+const DIM: Color = Color.hex("#a3977f")
+const WHITE: Color = Color.hex("#ffffff")
+const GREEN: Color = Color.hex("#40c040")
+const RED: Color = Color.hex("#ff2020")
+const HEAD: Array<Track> = ["max-content", "max-content", { fr: 1 }]
+const TITLE: Array<Track> = ["max-content", "max-content", { fr: 1 }, "max-content", "max-content"]
+const ITEM = 24.375dp
+const POI = 11.71875dp
+const LINE_PAD: Edges = { left: 9sp }
+const ASK = 468.75dp
+const ASK_BUTTON = 140.625dp
+
+// The client's quest tags as Forever writes them after a tracked quest's title (`GetQuestTagText`).
+function tagText(tag: Integer | nil): String {
+  return match (tag ?? 0) {
+    1 => Locale.TAG_GROUP
+    41 => Locale.TAG_PVP
+    62 => Locale.TAG_RAID
+    81 => Locale.TAG_DUNGEON
+    else => ""
+  }
+}
+
+// What a tracked quest's row asks of the tracker.
+public enum Ask { Open, Link, Untrack, SuperTrack, ShowOnMap, Share, Abandon }
+
+public class Tracker implements Module, App {
+  public const title: String = "Ordaen Tracker"
+  public const pages: Array<SettingsPage> = []
+  // What the modules add under each tracked quest.
+  public const questLines = new Registry<any QuestLines>()
+
+  // The tracked quests, in the log's order; the one the client points the way to; the log's size.
+  public state quests: Array<Game.LogQuest> = []
+  public state superTracked = 0
+  state most = 25
+  state folded = false
+  // The quest the player asked to abandon (0: none).
+  state abandoning = 0
+  // Every objective's text, to hear progress roll forward.
+  state heard: Map<Integer, String> = {}
+
+  derived count: String = `${self.quests.length}/${self.most}`
+  derived fold: String = self.folded ? "+" : "–"
+  derived abandonText: String = Locale.ABANDON_ASK.format(self.quests.find(quest => quest.id == self.abandoning)?.title ?? "")
+  derived level: Integer = Game.player.level
+
+  constructor() {
+    Ordaen.modules.add(self)
+    self.refresh()
+    Events.QUEST_LOG_UPDATE.listen(self.refresh)
+    Events.QUEST_WATCH_LIST_CHANGED.listen(self.refresh)
+    Events.SUPER_TRACKING_CHANGED.listen(self.refresh)
+  }
+
+  // The tracked quests as the client has them now; an objective that moved on sounds as the game's tracker does.
+  public refresh(mut self) {
+    const tracked = Game.questLog.quests().filter(quest => quest.tracked)
+    const heard: Map<Integer, String> = {}
+    let rolled = false
+    const before = peek self.heard
+    for (quest of tracked) {
+      const now = quest.objectives.map(objective => objective.text).join("|")
+      heard[quest.id] = now
+      const was = before[quest.id]
+      if (was != nil && was != now) { rolled = true }
+    }
+    if (rolled) { playSound("UI_QUEST_ROLLING_FORWARD_01") }
+    self.heard = heard
+    self.quests = tracked
+    self.superTracked = Game.questLog.superTracked()
+    self.most = Game.questLog.most()
+  }
+
+  onFold(mut self) { self.folded = !self.folded }
+
+  onAsk(mut self, id: Integer, ask: Ask) {
+    match (ask) {
+      .Open => { self.open(id) }
+      // Shift+click, the game's order: a chat link where a chat line is open, else it stops tracking it.
+      .Link => { if (!Game.chat.linkQuest(id)) { Game.questLog.track(id, false) } }
+      .Untrack => { Game.questLog.track(id, false) }
+      .SuperTrack => { Game.questLog.superTrack(peek self.superTracked == id ? 0 : id) }
+      .ShowOnMap => { Client.C_Map.OpenWorldMap(nil) }
+      .Share => { Game.questLog.share(id) }
+      .Abandon => { self.abandoning = id }
+    }
+  }
+
+  // The quest in the log: the first module that opens it, else the game's map with its log.
+  open(self, id: Integer) {
+    for (entry of self.questLines) {
+      if (entry.open(id)) { return }
+    }
+    Client.C_Map.OpenWorldMap(nil)
+  }
+
+  onAbandonYes(mut self) {
+    const id = peek self.abandoning
+    self.abandoning = 0
+    if (id != 0) { Game.questLog.abandon(id) }
+  }
+
+  onAbandonNo(mut self) { self.abandoning = 0 }
+
+  // The lines the modules add under a quest.
+  public linesOf(self, quest: Game.LogQuest): Array<QuestLine> {
+    const lines: Array<QuestLine> = []
+    for (entry of self.questLines) {
+      for (line of entry.lines(quest.id, quest.done)) { lines.push(line) }
+    }
+    return lines
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <frame of={Game.frames.ObjectiveTracker} opacity={0} away={true} />
+      <surface $if={self.quests.length > 0} layer={Layer.Screen} place={PLACE} width={WIDTH} background={BACK}
+               padding={PAD} columns={1} gap={3sp}>
+        <box columns={HEAD} gap={3sp} @pointerPress={self.onFold}>
+          <text value={Locale.QUESTS} textColor={GOLD} wrap={.None} />
+          <text value={self.count} textColor={DIM} textSize={SECONDARY_TEXT} wrap={.None} />
+          <text value={self.fold} textColor={DIM} wrap={.None} />
+        </box>
+        <box $if={!self.folded} columns={1} gap={3sp}>
+          <TrackedQuest $for={quest of self.quests} $key={quest.id} quest={quest} lines={self.linesOf(quest)}
+                        pointed={quest.id == self.superTracked} player={self.level} @ask={self.onAsk} />
+        </box>
+      </surface>
+      <Dialog $if={self.abandoning != 0} width={ASK} title={Locale.ABANDON}>
+        <text value={self.abandonText} />
+        <PushButton #buttons label={Locale.ABANDON} width={ASK_BUTTON} plate={ButtonPlate.Danger} @click={self.onAbandonYes} />
+        <PushButton #buttons label={Locale.CANCEL} width={ASK_BUTTON} @click={self.onAbandonNo} />
+      </Dialog>
+    }
+  }
+}
+
+// One tracked quest: the round button that points the way, its level and title, its tag; its objectives, or that it
+// is done or failed; the lines the modules add.
+class TrackedQuest implements Component {
+  public ask: Event<(Integer, Ask)> = new Event()
+  state menuOpen = false
+
+  derived level: String = `[${self.quest.level}]`
+  derived levelColor: Color = colorOf(difficultyOf(self.quest.level, self.player))
+  derived tag: String = tagText(self.quest.tag)
+  // The quest's item, used by the client's own secure click, as the game's tracker's item button uses it.
+  derived use: Action | nil = Action.UseQuestItem { quest: self.quest.id }
+  derived poi: Color = self.pointed ? GOLD : DIM
+  derived ending: String = self.quest.failed ? Locale.FAILED : self.quest.done ? Locale.COMPLETE : ""
+  derived endingColor: Color = self.quest.failed ? RED : GREEN
+  derived entries: Array<MenuEntry> = [
+    { label: self.pointed ? Locale.UNSUPER_TRACK : Locale.SUPER_TRACK },
+    { label: Locale.OPEN_IN_LOG },
+    { label: Locale.SHOW_ON_MAP },
+    { label: Locale.UNTRACK },
+    { label: Locale.SHARE, disabled: !self.quest.shareable },
+    { label: Locale.ABANDON, group: true }
+  ]
+
+  quest: Signal<Game.LogQuest>
+  lines: Signal<Array<QuestLine>>
+  pointed: Signal<Boolean>
+  player: Signal<Integer>
+  constructor(quest: Signal<Game.LogQuest>, lines: Signal<Array<QuestLine>>, pointed: Signal<Boolean>, player: Signal<Integer>) {
+    self.quest = quest
+    self.lines = lines
+    self.pointed = pointed
+    self.player = player
+  }
+
+  onOpen(mut self) { self.ask.emit(self.quest.id, Ask.Open) }
+  onShift(mut self) { self.ask.emit(self.quest.id, Ask.Link) }
+  onPoint(mut self) { self.ask.emit(self.quest.id, Ask.SuperTrack) }
+  onMenu(mut self) { self.menuOpen = true }
+  onClose(mut self) { self.menuOpen = false }
+
+  onEntry(mut self, index: Integer) {
+    self.menuOpen = false
+    const ask = match (index) {
+      1 => Ask.SuperTrack
+      2 => Ask.Open
+      3 => Ask.ShowOnMap
+      4 => Ask.Untrack
+      5 => Ask.Share
+      else => Ask.Abandon
+    }
+    self.ask.emit(self.quest.id, ask)
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={1} gap={1sp}>
+        <box columns={TITLE} gap={2sp} @pointerPress(.Left)={self.onOpen} @pointerPress([.Shift, .Left])={self.onShift}
+             @pointerPress(.Right)={self.onMenu}>
+          <box width={POI} height={POI} background={self.poi} @pointerPress.self={self.onPoint} />
+          <text value={self.level} textColor={self.levelColor} textFont={.Numbers} wrap={.None} />
+          <text value={self.quest.title} textColor={GOLD} wrap={.Cut} />
+          <text value={self.tag} textColor={DIM} textSize={SECONDARY_TEXT} wrap={.None} />
+          <ItemButton $if={self.quest.item > 0} item={self.quest.item} size={ITEM} action={self.use} linkOnShift={true} />
+          <box $else />
+        </box>
+        <box $if={!self.quest.done && !self.quest.failed} columns={1} padding={LINE_PAD}>
+          <text $for={objective of self.quest.objectives} value={`— ${objective.text}`} textColor={WHITE}
+                textSize={SECONDARY_TEXT} />
+        </box>
+        <box $if={self.ending != ""} padding={LINE_PAD}>
+          <text value={self.ending} textColor={self.endingColor} textSize={SECONDARY_TEXT} />
+        </box>
+        <box columns={1} padding={LINE_PAD}>
+          <text $for={line of self.lines} value={line.text} textColor={line.done ? GREEN : DIM} textSize={SECONDARY_TEXT} />
+        </box>
+        <Menu $if={self.menuOpen} entries={self.entries} title={self.quest.title} @pick={self.onEntry} @close={self.onClose} />
+      </box>
+    }
+  }
+}

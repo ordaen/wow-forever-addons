@@ -8,11 +8,14 @@ LunaType: a typed language for addons that compiles to the Lua the game loads.
 | [Ordaen](addons/Ordaen) | Ordaen Core: what every module builds on, the controls, the settings window and the look, with its art. |
 | [OrdaenAlts](addons/OrdaenAlts) | Your characters' professions, recipes and what they hold. |
 | [OrdaenAuction](addons/OrdaenAuction) | Auction prices, the house window and the shopping list. |
+| [OrdaenMap](addons/OrdaenMap) | The world map with OpenMap: the map and the quest log apart or docked, other modules' pins, dungeon cards, townsfolk from QuestieDB. |
 | [OrdaenMinimap](addons/OrdaenMinimap) | The minimap in Ordaen's frame: zone, coordinates and clock, its buttons round it, and a drawer for other addons' buttons. |
 | [OrdaenPanel](addons/OrdaenPanel) | The bottom panel: the menu, the bags, money and experience. |
 | [OrdaenProfessions](addons/OrdaenProfessions) | The professions window. |
+| [OrdaenQuests](addons/OrdaenQuests) | The quest log in four tabs, with where to go from QuestieDB. |
 | [OrdaenRadial](addons/OrdaenRadial) | Wheels of actions held on a key: windows, professions, pings, marks, emotes, travel; aimed with the mouse, in a fight too. |
 | [OrdaenTooltips](addons/OrdaenTooltips) | Tooltips. |
+| [OrdaenTracker](addons/OrdaenTracker) | The tracked quests at the screen's right, with what other modules add. |
 
 A module is loaded when the player first turns it on; one that is off costs nothing.
 

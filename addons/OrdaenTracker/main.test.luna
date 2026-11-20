@@ -1,0 +1,111 @@
+// The tracker as the player meets it: the tracked quests at the screen's right in place of the game's tracker, with
+// what other modules add, and Blizzard's tracker's clicks. The client's log is the stand-in's (`Test.questLog`).
+import Client from "$client"
+import Game from "$game"
+import Test from "$test"
+import root Tracker from "OrdaenTracker"
+import { QuestLine, QuestLines } from "@/extend"
+
+const PAGE: Test.Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
+
+function logged() {
+  Test.questLog([
+    { id: 101, title: "The Defias Brotherhood", header: "Westfall", level: 14, watched: true,
+      objectives: [{ text: "Talk to Gryan Stoutmantle" }] },
+    { id: 102, title: "Red Silk Bandanas", header: "The Deadmines", level: 17, tag: 81, watched: true, complete: true },
+    { id: 103, title: "Elwynn Wolves", header: "Elwynn Forest", level: 5 }
+  ])
+}
+
+// What a module adds: where to go while a quest is to do, whom to hand it to once done; it opens quest 101 alone.
+class Where implements QuestLines {
+  public lines(self, quest: Integer, done: Boolean): Array<QuestLine> {
+    return done ? [{ text: "Turn in: Gryan", done: true }] : [{ text: "Westfall · 2 places" }]
+  }
+  public open(self, quest: Integer): Boolean {
+    if (quest != 101) { return false }
+    Client.C_SuperTrack.SetSuperTrackedQuestID(quest)
+    return true
+  }
+}
+
+test "the tracked quests stand at the right with their level, tag and objectives, the game's tracker unseen" {
+  logged()
+  const own = new Client.Frame(Client.UIParent)
+  Game.frames.ObjectiveTracker = own
+  Test.mount(nil, PAGE)
+  Tracker.refresh()
+  Test.flush()
+  Test.expect(Test.page().text("The Defias Brotherhood").shown() && Test.page().text("[14]").shown())
+  Test.expect(Test.page().text("— Talk to Gryan Stoutmantle").shown())
+  Test.expect(Test.page().text("(Dungeon)").shown() && Test.page().text("Ready to turn in").shown())
+  Test.expect(!Test.page().text("Elwynn Wolves").shown())
+  Test.expect(Test.page().text("2/25").shown())
+  Test.expect(own.GetAlpha() == 0)
+}
+
+test "a module's lines stand under each quest: where to go, or whom to hand it to" {
+  logged()
+  Test.mount(nil, PAGE)
+  Tracker.questLines.add(new Where())
+  Tracker.refresh()
+  Test.flush()
+  Test.expect(Test.page().text("Westfall · 2 places").shown() && Test.page().text("Turn in: Gryan").shown())
+}
+
+test "a title's click opens the quest where a module does; Shift+click links it, else untracks it" {
+  logged()
+  Test.mount(nil, PAGE)
+  Tracker.questLines.add(new Where())
+  Tracker.refresh()
+  Test.flush()
+  _ = Test.talked()
+  Test.page().text("The Defias Brotherhood").click()
+  Test.expect(Test.talked().join(",") == "super-track 101")
+  // No chat line open: Shift+click stops tracking it.
+  Test.hold([.Shift])
+  Test.page().text("Red Silk Bandanas").click()
+  Test.hold([])
+  Test.expect(Test.talked().join(",") == "unwatch 102")
+}
+
+test "the menu points the way, and abandoning asks first" {
+  logged()
+  Test.mount(nil, PAGE)
+  Tracker.refresh()
+  Test.flush()
+  _ = Test.talked()
+  Test.page().text("The Defias Brotherhood").rightClick()
+  Test.page().window("Abandon quest").button("Show the way").click()
+  Test.expect(Test.talked().join(",") == "super-track 101")
+  Test.page().text("The Defias Brotherhood").rightClick()
+  Test.page().window("Abandon quest").button("Abandon quest").click()
+  Test.expect(Test.talked().length == 0)
+  Test.page().window("Abandon «The Defias Brotherhood»?").button("Abandon quest").click()
+  Test.expect(Test.talked().join(",") == "abandon 101")
+}
+
+test "a quest with an item has its button beside the title, which uses the item by the client's secure click" {
+  Test.questLog([{ id: 104, title: "The Collector", header: "Westfall", level: 12, watched: true, specialItem: 5060 }])
+  Test.mount(nil, PAGE)
+  Tracker.refresh()
+  Test.flush()
+  _ = Test.performed()
+  // The stand-in knows no icon of the item: the button is clicked where it stands, at the title's end.
+  Test.click({ x: 1566, y: 208 }, nil)
+  Test.expect(Test.performed().join(",") == "item |cffffffff|Hitem:5060::::::::|h[Item 5060]|h|r")
+}
+
+test "an objective moving on sounds as the game's tracker does" {
+  logged()
+  Test.mount(nil, PAGE)
+  Tracker.refresh()
+  _ = Test.sounds()
+  Test.questLog([
+    { id: 101, title: "The Defias Brotherhood", header: "Westfall", level: 14, watched: true,
+      objectives: [{ text: "Talk to Gryan Stoutmantle", done: true }, { text: "Defias slain: 1/10" }] }
+  ])
+  Tracker.refresh()
+  const played = Test.sounds()
+  Test.expect(played.length == 1 && played[1] == 26905)
+}
