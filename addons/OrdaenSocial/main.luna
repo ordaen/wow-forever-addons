@@ -9,20 +9,19 @@
 // the day, the information and the notes) stays the game's: the guild's card opens the game's own window, shown as it
 // is until it closes. What the window shows is read as it opens and again when the game says it changed, and only
 // while it shows.
-import Build from "$build"
 import Client from "$client"
 import Events from "$events"
 import { Align, Frame } from "$ltml"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
-import { ButtonPlate, Dialog, FooterCount, FooterCounts, KeptWindow, Module, PushButton, SECONDARY_TEXT, Settings, SettingsPage, Tabs, Window, WindowSide, WindowTabSpec, WindowsPage, windowsTitle } from "Ordaen"
-import { AllyCard, AllyList } from "@/allies"
+import { ButtonPlate, Dialog, FooterCount, FooterCounts, GamePass, GameWindowButton, KeptWindow, Module, ModuleMemory, PushButton, SECONDARY_TEXT, Settings, SettingsPage, Tabs, Window, WindowSide, WindowTabSpec, WindowsPage, windowsTitle } from "Ordaen"
+import { AllyCard, AllyFilter, AllyList, allyFilterStart, categoriesOf } from "@/allies"
 import { ClubCard } from "@/communities"
-import { FriendCard, FriendList, IgnoreList, MyCard, RequestList, keyOf, titleOf } from "@/friends"
+import { FRIENDS_KEPT, FriendCard, FriendList, FriendsKept, IgnoreList, MyCard, RequestList, keyOf, titleOf } from "@/friends"
 import { GuildCard, NewsList } from "@/guild"
 import Locale from "@/locales"
 import { MemberCard, MemberTable } from "@/members"
-import { Ally, ClientPeople, Club, Friend, Guild, Ignored, Me, Member, News, People, Presence, Request, Rights, Stream, namesAccount, trimmed } from "@/people"
+import { Ally, AllyCategory, ClientPeople, Club, Friend, Guild, Ignored, Me, Member, News, People, Presence, Request, Rights, Stream, namesAccount, trimmed } from "@/people"
 import { Choices, GeneralPage } from "@/settings"
 import Style from "@/style"
 
@@ -71,6 +70,8 @@ public class Social implements Module, App {
     { title: windowsTitle(), content: $ltml { <WindowsPage windows={mut self.windows} /> } }
   ]
   public settings: mut Settings<Choices> = new Settings<Choices>({ offline: true })
+  // How the player left the friends' list: its view, its sort and its filter, the profile's.
+  public friendsList: mut ModuleMemory<FriendsKept> = new ModuleMemory<FriendsKept>(FRIENDS_KEPT, .Profile, "friends")
   // Where the window reads its people and what its clicks ask of the game: a test hands its own.
   public people: mut any People = new ClientPeople()
 
@@ -84,7 +85,7 @@ public class Social implements Module, App {
   // The game's guild and communities window once its addon has loaded, and the game's window the player asked for as
   // it is, until it closes.
   communities: any Client.Frame | nil = nil
-  state passing: any Frame | nil = nil
+  pass: mut GamePass = new GamePass()
   addonHeard: Handle | nil = nil
   state friends: Array<Friend> = []
   state requests: Array<Request> = []
@@ -96,6 +97,9 @@ public class Social implements Module, App {
   state clubMembers: Array<Member> = []
   state streams: Array<Stream> = []
   state allies: Array<Ally> = []
+  // The recent allies' filter: the categories asked of the game, and online or not.
+  state allyFilter: Map<AllyFilter, Boolean> = allyFilterStart()
+  derived allyCategories: Array<AllyCategory> | nil = categoriesOf(self.allyFilter)
   // The friend whose card shows, by `keyOf` (none: the player's own card); the guild member's, the community's
   // member's, the ally's, by their keys (none: the guild's card, the community's, no card). The community shown: its
   // tab's place.
@@ -147,7 +151,7 @@ public class Social implements Module, App {
   const footer: Template = $ltml {
     <box columns={[{ fr: 1 }, "max-content"]} yAlign={Align.Center}>
       <FooterCounts counts={self.counts} />
-      <PushButton $if={Build.dev} label={Locale.GAME_WINDOW_DEV} width={Style.BUTTON} @click={self.onGameCompare} />
+      <GameWindowButton @click={self.onGameCompare} />
     </box>
   }
 
@@ -185,6 +189,8 @@ public class Social implements Module, App {
       Events.CLUB_STREAM_REMOVED.listen(self.onClubChanged)
       Events.CLUB_STREAM_UPDATED.listen(self.onClubChanged)
       Events.RECENT_ALLIES_CACHE_UPDATE.listen(self.readAllies)
+      // The recent allies asked for again as the filter's categories change.
+      watch { self.allies = self.people.allies(self.allyCategories) }
       // The picked community's members and streams, read as it is picked; its member's card goes.
       watch (id of self.clubId) {
         self.clubMember = ""
@@ -250,7 +256,7 @@ public class Social implements Module, App {
 
   // The game's window shown: ours shows in its place, unless the player asked for the game's window as it is.
   onGameShown(mut self, frame: any Frame, tab: Integer | nil) {
-    if (peek self.passing == frame) { return }
+    if (self.pass.passes(frame)) { return }
     if (tab == TAB_GUILD) {
       // The guild's window opens on the guild, outside one on the communities.
       self.readGuild()
@@ -267,10 +273,7 @@ public class Social implements Module, App {
   }
 
   onGameHidden(mut self, frame: any Frame) {
-    if (peek self.passing == frame) {
-      self.passing = nil
-      return
-    }
+    if (self.pass.hidden(frame)) { return }
     self.held = (peek self.held).filter(one => one != frame)
     if ((peek self.held).length == 0) { self.open = false }
   }
@@ -293,7 +296,7 @@ public class Social implements Module, App {
   readGuild(mut self) { self.guild = self.people.guild() }
   readNews(mut self) { self.news = self.people.news() }
   readClubs(mut self) { self.clubs = self.people.clubs() }
-  readAllies(mut self) { self.allies = self.people.allies() }
+  readAllies(mut self) { self.allies = self.people.allies(peek self.allyCategories) }
 
   readClub(mut self, id: String) {
     self.clubMembers = id == "" ? [] : self.people.clubMembers(id)
@@ -473,10 +476,8 @@ public class Social implements Module, App {
 
   // The game's window as it is: ours closes, the game's shows until it closes.
   showGame(mut self, frame: any Frame) {
-    const window: any Client.Frame = frame
     self.onClose()
-    self.passing = frame
-    Client.ShowUIPanel(window)
+    self.pass.pass(frame)
   }
 
   onAllyWhisper(mut self) {
@@ -573,7 +574,7 @@ public class Social implements Module, App {
         <box $if={self.tab == TAB_FRIENDS} columns={1} rows={["max-content", { fr: 1 }]} gap={3sp}>
           <Tabs tabs={self.subTabs} selected={mut self.sub} />
           <FriendList $if={self.sub == SUB_STATUS} friends={self.friends} picked={self.picked}
-                      offline={self.settings.values.offline} @pick={self.onPick} @add={self.onAdd} />
+                      offline={self.settings.values.offline} kept={mut self.friendsList} @pick={self.onPick} @add={self.onAdd} />
           <RequestList $elseif={self.sub == SUB_REQUESTS} requests={self.requests} @answer={self.onAnswer} />
           <IgnoreList $else ignored={self.ignored} @ignore={self.onIgnore} @unignore={self.onUnignore} />
         </box>
@@ -593,7 +594,8 @@ public class Social implements Module, App {
         <box $elseif={self.tab == TAB_COMMUNITIES} xAlign={Align.Center} yAlign={Align.Center}>
           <text value={Locale.NO_COMMUNITIES} textColor={Style.DIM} wrap={false} />
         </box>
-        <AllyList $else allies={self.allies} chosen={self.ally} @pick={self.onPickAlly} />
+        <AllyList $else allies={self.allies} chosen={self.ally} filter={mut self.allyFilter}
+                  categories={peek self.people.allyCategories()} @pick={self.onPickAlly} />
       </Window>
       <Dialog $if={self.removing != nil} width={Style.ASK} title={Locale.REMOVE_FRIEND}>
         <box columns={1} gap={2sp}>

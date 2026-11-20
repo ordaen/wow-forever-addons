@@ -9,21 +9,13 @@
 // the player's own.
 import { Align, Art, Edges, Overflow, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { ARTWORK, ButtonPlate, Choice, Column, CompactDropdown, Component, Fact, FilterButton, FilterGroup, PickRow, PushButton, SECONDARY_TEXT, TITLE_LINE, TITLE_TEXT, Table, TableCell, TableRow, ToolPick, Toolbar, agoText, switched, tracksOf } from "Ordaen"
+import { ARTWORK, ButtonPlate, Choice, Column, CompactDropdown, Component, Fact, FilterButton, FilterGroup, ModuleMemory, PickRow, PushButton, SECONDARY_TEXT, TITLE_LINE, TITLE_TEXT, Table, TableCell, TableRow, ToolPick, ToolSort, Toolbar, agoText, switched, tracksOf } from "Ordaen"
 import Locale from "@/locales"
 import { Friend, Hero, Ignored, Me, Presence, Request, trimmed } from "@/people"
 import Style from "@/style"
 
-// How the list is sorted, below the best friends.
-public enum Sort { Status, Name, Level }
-
-const SORTS: Array<Choice<Sort>> = [
-  { value: .Status, label: Locale.SORT_STATUS },
-  { value: .Name, label: Locale.SORT_NAME },
-  { value: .Level, label: Locale.SORT_LEVEL }
-]
 // The filter's options: the friends' kinds, and online or not.
-public enum FriendFilter { BattleNet, Characters, Online, Offline }
+public enum FriendFilter implements Plain { BattleNet = "battleNet", Characters = "characters", Online = "online", Offline = "offline" }
 
 const FILTERS: Array<FilterGroup<FriendFilter>> = [
   {
@@ -35,20 +27,36 @@ const FILTERS: Array<FilterGroup<FriendFilter>> = [
 ]
 
 // How the list is drawn: rows of two lines, or a table's columns.
-public enum FriendView { List, Table }
+public enum FriendView implements Plain { List = "list", Table = "table" }
 
 const VIEWS: Array<Choice<FriendView>> = [
   { value: FriendView.List, label: Locale.VIEW_LIST, icon: ARTWORK.ctl.tool.list },
   { value: FriendView.Table, label: Locale.VIEW_TABLE, icon: ARTWORK.ctl.tool.table }
 ]
-const LEVEL_WIDTH = 58.59375dp
+const LEVEL_WIDTH = 82.03125dp
+// The table's columns; the name, the level and where sort the list (`ToolSort`), in the table and in the rows alike.
 const COLUMNS: Array<Column> = [
-  { title: Locale.COLUMN_NAME, width: { fr: 1 } },
-  { title: Locale.COLUMN_LEVEL, width: LEVEL_WIDTH, align: Align.End },
-  { title: Locale.WHERE, width: { fr: 1 } },
+  { title: Locale.COLUMN_NAME, width: { fr: 1 }, sortable: true },
+  { title: Locale.COLUMN_LEVEL, width: LEVEL_WIDTH, align: Align.End, sortable: true },
+  { title: Locale.WHERE, width: { fr: 1 }, sortable: true },
   { title: Locale.COLUMN_NOTE, width: { fr: 1 } }
 ]
 const TRACKS: Array<Track> = tracksOf(COLUMNS)
+// The sorts, by the table's column from 1, and the one no column shows: those online first.
+const BY_LEVEL = 2
+const BY_WHERE = 3
+const BY_STATUS = 5
+const MORE_SORTS: Array<String> = [Locale.SORT_STATUS]
+
+// How the player left the friends' list, the profile's (`ModuleMemory`): its view, its sort and which way, and the
+// filter (empty until the list first starts it from the settings). The search isn't kept.
+public struct FriendsKept implements Plain {
+  view: FriendView = FriendView.List
+  sorted: Integer = BY_STATUS
+  descending: Boolean = false
+  filter: Map<FriendFilter, Boolean> = {}
+}
+public const FRIENDS_KEPT: FriendsKept = {}
 
 // The status the player picks: the game's four.
 const PRESENCES: Array<Choice<Presence>> = [
@@ -129,14 +137,34 @@ function online(friend: Friend): Boolean { return friend.presence != .Offline }
 
 function levelOf(friend: Friend): Integer { return friend.hero?.level ?? 0 }
 
-// Whether a friend comes before another: best friends first, then the sort.
-function before(a: Friend, b: Friend, sort: Sort): Boolean {
+function whereOf(friend: Friend): String { return (friend.hero?.area ?? "").lower() }
+
+// Below 0 where the first text comes first, above 0 where the second does, 0 where they are the same.
+function textOrder(a: String, b: String): Integer {
+  if (a == b) { return 0 }
+  return a < b ? -1 : 1
+}
+
+// How two friends stand by the sort, each sort's own way first: names and places from A, the highest level, those
+// online.
+function sortOrder(a: Friend, b: Friend, sorted: Integer): Integer {
+  return match (sorted) {
+    BY_LEVEL => levelOf(b) - levelOf(a)
+    BY_WHERE => textOrder(whereOf(a), whereOf(b))
+    BY_STATUS => (online(a) ? 0 : 1) - (online(b) ? 0 : 1)
+    else => 0
+  }
+}
+
+// Whether a friend comes before another: best friends first whichever way, then the sort (turned round where the
+// player turned it), then the name.
+function before(a: Friend, b: Friend, sorted: Integer, descending: Boolean): Boolean {
   const aFavorite = a.account?.favorite == true
   const bFavorite = b.account?.favorite == true
   if (aFavorite != bFavorite) { return aFavorite }
-  if (sort == .Status && online(a) != online(b)) { return online(a) }
-  if (sort == .Level && levelOf(a) != levelOf(b)) { return levelOf(a) > levelOf(b) }
-  return titleOf(a).lower() < titleOf(b).lower()
+  let order = sortOrder(a, b, sorted)
+  if (order == 0) { order = textOrder(titleOf(a).lower(), titleOf(b).lower()) }
+  return descending ? order > 0 : order < 0
 }
 
 // Whether a friend is found by what the player typed: in the names, the BattleTag, the zone or the note.
@@ -156,9 +184,9 @@ function passes(friend: Friend, filter: Map<FriendFilter, Boolean>, query: Strin
 }
 
 // The friends the list shows, in its order.
-public function shownOf(friends: Array<Friend>, query: String, sort: Sort, filter: Map<FriendFilter, Boolean>): Array<Friend> {
-  const shown = friends.filter(friend => found(friend, query) && passes(friend, filter, query))
-  shown.sort((a, b) => before(a, b, sort))
+public function shownOf(friends: Array<Friend>, query: String, kept: FriendsKept): Array<Friend> {
+  const shown = friends.filter(friend => found(friend, query) && passes(friend, kept.filter, query))
+  shown.sort((a, b) => before(a, b, kept.sorted, kept.descending))
   return shown
 }
 
@@ -247,24 +275,31 @@ public class FriendList implements Component {
   public add: Event<nil> = new Event()
 
   state query = ""
-  state sort: Sort = .Status
-  state view: FriendView = .List
-  state filter: Map<FriendFilter, Boolean> = filterStart(true)
-  // The table's headings sort nothing: the sort is the toolbar's, as in the list.
-  state sorted = 0
-  state descending = false
   derived filterStarts: Map<FriendFilter, Boolean> = filterStart(self.offline)
-  derived shown: Array<Friend> = shownOf(self.friends, self.query, self.sort, self.filter)
+  derived shown: Array<Friend> = shownOf(self.friends, self.query, self.kept.values)
+  // The settings' «offline» as last heard: a change of it switches the kept filter's, the first hearing doesn't.
+  offlineHeard: Boolean | nil = nil
 
   friends: Signal<Array<Friend>>
   picked: Signal<String>
   offline: Signal<Boolean>
-  constructor(friends: Signal<Array<Friend>>, picked: Signal<String>, offline: Signal<Boolean>) {
+  kept: mut ModuleMemory<FriendsKept>
+  constructor(friends: Signal<Array<Friend>>, picked: Signal<String>, offline: Signal<Boolean>, kept: mut ModuleMemory<FriendsKept>) {
     self.friends = friends
     self.picked = picked
     self.offline = offline
-    // Those offline as the settings say, now and whenever they change.
-    watch (shows of self.offline) { self.filter = switched(peek self.filter, [FriendFilter.Offline], shows) }
+    self.kept = kept
+    watch (shows of self.offline) { self.onOffline(shows) }
+  }
+
+  // The filter starts as the settings say where none is kept, and follows a change of them.
+  onOffline(mut self, shows: Boolean) {
+    const now = peek self.kept.values
+    const first = self.offlineHeard == nil
+    self.offlineHeard = shows
+    if (first && now.filter[FriendFilter.Online] != nil) { return }
+    const filter = first ? filterStart(shows) : switched(now.filter, [FriendFilter.Offline], shows)
+    self.kept.write({ filter: filter, ..now })
   }
 
   onPick(mut self, key: String) { self.pick.emit(key) }
@@ -275,14 +310,14 @@ public class FriendList implements Component {
       <box columns={1} rows={["max-content", { fr: 1 }]} gap={3sp}>
         <box columns={[{ fr: 1 }, "max-content"]} gap={3sp} yAlign={Align.Center}>
           <Toolbar search={mut self.query} placeholder={Locale.SEARCH}>
-            <FilterButton values={mut self.filter} start={self.filterStarts} groups={FILTERS} />
-            <ToolPick value={mut self.sort} choices={SORTS} icon={Ordaen.art.ctl.tool.sort} title={Locale.SORT} />
-            <ToolPick value={mut self.view} choices={VIEWS} icon={Ordaen.art.ctl.tool.columns} title={Locale.VIEW} />
+            <FilterButton values={mut self.kept.values.filter} start={self.filterStarts} groups={FILTERS} />
+            <ToolSort sorted={mut self.kept.values.sorted} columns={COLUMNS} title={Locale.SORT} more={MORE_SORTS} />
+            <ToolPick value={mut self.kept.values.view} choices={VIEWS} icon={Ordaen.art.ctl.tool.columns} title={Locale.VIEW} />
           </Toolbar>
           <PushButton label={Locale.ADD_FRIEND} width={Style.BUTTON} @click={self.onAdd} />
         </box>
-        <box $if={self.view == .Table} columns={1} rows={[{ fr: 1 }]}>
-          <Table columns={COLUMNS} sorted={mut self.sorted} descending={mut self.descending} rowsVary={true}>
+        <box $if={self.kept.values.view == .Table} columns={1} rows={[{ fr: 1 }]}>
+          <Table columns={COLUMNS} sorted={mut self.kept.values.sorted} descending={mut self.kept.values.descending} rowsVary={true}>
             <FriendTableRow $for={friend of self.shown} $key={keyOf(friend)} friend={friend}
                             picked={keyOf(friend) == self.picked} @pick={self.onPick} />
           </Table>

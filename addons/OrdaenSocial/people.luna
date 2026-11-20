@@ -147,6 +147,23 @@ public struct Meeting {
   const when: Number
 }
 
+// The game's categories of what was done with a recent ally (`RecentAlliesInteractionCategoryFilter`): the recent
+// allies' filter, the game telling which ally falls in which (`C_RecentAllies.SearchRecentAllies`).
+public enum AllyCategory { Professions, PvP, Raiding, Dungeons, Delves, Questing }
+
+public const ALLY_CATEGORIES: Array<AllyCategory> = [.Professions, .PvP, .Raiding, .Dungeons, .Delves, .Questing]
+
+function clientCategoryOf(category: AllyCategory): Client.RecentAlliesInteractionCategoryFilter {
+  return match (category) {
+    .Professions => .Professions
+    .PvP => .PvP
+    .Raiding => .Raiding
+    .Dungeons => .Dungeons
+    .Delves => .Delves
+    .Questing => .Questing
+  }
+}
+
 // One the player played with lately, as the game keeps them (`C_RecentAllies`): the character, what the player did
 // with them (the newest first), and whether the player pinned them (kept on top, and kept longer).
 public struct Ally {
@@ -170,7 +187,10 @@ public trait People {
   public clubs(self): Array<Club>
   public clubMembers(self, club: String): Array<Member>
   public streams(self, club: String): Array<Stream>
-  public allies(self): Array<Ally>
+  // The recent allies: all of them (nil), or those of these categories alone.
+  public allies(self, categories: Array<AllyCategory> | nil): Array<Ally>
+  // The categories the game sorts recent allies into here.
+  public allyCategories(self): Array<AllyCategory>
   public whisper(mut self, friend: Friend)
   public invite(mut self, friend: Friend)
   public remove(mut self, friend: Friend)
@@ -449,9 +469,19 @@ public class ClientPeople implements People {
     return Client.C_Club.GetStreams(club).map(info => Stream { id: info.streamId, name: info.name, subject: info.subject })
   }
 
-  public allies(self): Array<Ally> {
+  public allies(self, categories: Array<AllyCategory> | nil): Array<Ally> {
     if (!Client.C_RecentAllies.IsSystemEnabled() || !Client.C_RecentAllies.IsRecentAllyDataReady()) { return [] }
-    return Client.C_RecentAllies.GetRecentAllies().map(data => allyOf(data))
+    if (categories == nil) { return Client.C_RecentAllies.GetRecentAllies().map(data => allyOf(data)) }
+    if (categories.length == 0) { return [] }
+    const search: Client.RecentAlliesSearchInfo = {
+      searchText: "", isOnline: true, isDND: true, isAFK: true, isOffline: true,
+      interactionCategoryFilters: categories.map(category => clientCategoryOf(category))
+    }
+    return Client.C_RecentAllies.SearchRecentAllies(search).map(data => allyOf(data))
+  }
+
+  public allyCategories(self): Array<AllyCategory> {
+    return ALLY_CATEGORIES.filter(category => Client.C_RecentAllies.IsInteractionCategoryFilterSupportedForCurrentGameType(clientCategoryOf(category)))
   }
 
   // The chat's line opened to them, as the game's «Шепнуть» opens it: a character by name, a Battle.net friend by

@@ -1,0 +1,46 @@
+// A window that takes the place of one of the game's own lets the game's through once, as it is, to compare the two:
+// `GameWindowButton`, a development build's footer button («Blizzard window»), asks for it, and `GamePass` lets it
+// through: ours closes, the game's shows until it closes, and the next time the game shows it ours takes its place
+// again. The owner's hook on the game window's show asks `passes` first, its hook on the hide `hidden`.
+import Build from "$build"
+import Client from "$client"
+import { Frame } from "$ltml"
+import Locale from "@/locales"
+import { Component } from "@/module"
+import { PushButton } from "@/pushButton"
+
+// The button's width: its label in either language.
+const BUTTON_WIDTH = 152.34375dp
+
+public class GamePass {
+  // The game's window let through, until it hides.
+  passing: any Frame | nil = nil
+
+  // Whether the game's window, shown, is the one let through: ours stays shut.
+  public passes(self, frame: any Frame): Boolean { return self.passing == frame }
+
+  // The game's window hidden: let through no more. Whether it was the one let through (its hide isn't ours to follow).
+  public hidden(mut self, frame: any Frame): Boolean {
+    if (self.passing != frame) { return false }
+    self.passing = nil
+    return true
+  }
+
+  // The game's window shown as it is; its owner closes its own first.
+  public pass(mut self, frame: any Frame) {
+    const window: any Client.Frame = frame
+    self.passing = frame
+    Client.ShowUIPanel(window)
+  }
+}
+
+// The footer's button that asks for the game's window: drawn in a development build alone.
+public class GameWindowButton implements Component {
+  public click: Event<nil> = new Event()
+
+  onClick(self) { self.click.emit() }
+
+  public render(self): Template {
+    return $ltml { <PushButton $if={Build.dev} label={Locale.GAME_WINDOW} width={BUTTON_WIDTH} @click={self.onClick} /> }
+  }
+}

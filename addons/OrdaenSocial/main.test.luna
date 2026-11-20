@@ -12,7 +12,7 @@ import { Key } from "$ltml"
 import Test from "$test"
 import root Ordaen from "Ordaen"
 import root Social from "OrdaenSocial"
-import { Ally, Club, Friend, Guild, Hero, Ignored, Me, Member, News, People, Presence, Request, Stream } from "@/people"
+import { Ally, AllyCategory, Club, Friend, Guild, Hero, Ignored, Me, Member, News, People, Presence, Request, Stream } from "@/people"
 
 const PAGE: Test.Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
 // A text the window always shows: its last tab.
@@ -118,15 +118,18 @@ class FakePeople implements People {
     return [{ id: "1", name: "General", subject: "Everything" }, { id: "2", name: "Catches", subject: "" }]
   }
 
-  public allies(self): Array<Ally> {
-    return [
-      {
-        member: member("Gunnar", 25, "Shaman", "Redridge", .Online, "", 0, ""), fullName: "Gunnar-Flamegor",
-        meetings: [{ text: "Completed the Deadmines together", when: Game.clock.server - 7200 }, { text: "Traded", when: Game.clock.server - 259200 }], pinned: self.pinned
-      },
-      { member: member("Astrid", 21, "Druid", "", .Offline, "", 0, ""), fullName: "Astrid-Flamegor", meetings: [], pinned: false }
-    ]
+  // Gunnar did a dungeon with the player: the game finds him among the dungeons; Astrid did nothing of either.
+  public allies(self, categories: Array<AllyCategory> | nil): Array<Ally> {
+    const gunnar: Ally = {
+      member: member("Gunnar", 25, "Shaman", "Redridge", .Online, "", 0, ""), fullName: "Gunnar-Flamegor",
+      meetings: [{ text: "Completed the Deadmines together", when: Game.clock.server - 7200 }, { text: "Traded", when: Game.clock.server - 259200 }],
+      pinned: self.pinned
+    }
+    if (categories != nil) { return categories.any(category => category == .Dungeons) ? [gunnar] : [] }
+    return [gunnar, { member: member("Astrid", 21, "Druid", "", .Offline, "", 0, ""), fullName: "Astrid-Flamegor", meetings: [], pinned: false }]
   }
+
+  public allyCategories(self): Array<AllyCategory> { return [.PvP, .Dungeons] }
 
   public whisper(mut self, friend: Friend) { self.heard.push(`whisper ${friend.hero?.name ?? ""}`) }
   public invite(mut self, friend: Friend) { self.heard.push(`invite ${friend.hero?.name ?? ""}`) }
@@ -257,6 +260,48 @@ test "the filter shows each kind and those offline, and the view draws the frien
   Test.shot("the friends as a table: name with the star, level, where, note")
   window.text("Eliana").click()
   Test.expect(window.button("Whisper").shown())
+}
+
+// The friends' names as the list shows them, in its order, joined by «, ».
+function friendsOrder(window: Test.Part): String {
+  return window.texts().filter(text => text == "Alexei" || text == "Irina" || text == "Eliana" || text == "Darrick").join(", ")
+}
+
+function sortBy(window: Test.Part, choice: String) {
+  window.button(Ordaen.art.ctl.tool.sort).click()
+  Test.page().window("Online first").button(choice).click()
+}
+
+test "the sort is the table's: its headings and the toolbar's sort set one order, the best friend on top in every one" {
+  Test.mount(nil, PAGE)
+  const window = opened(new FakePeople())
+  Test.expect(friendsOrder(window) == "Alexei, Eliana, Darrick, Irina")
+  sortBy(window, "Level")
+  Test.expect(friendsOrder(window) == "Alexei, Eliana, Darrick, Irina")
+  sortBy(window, "Name")
+  Test.expect(friendsOrder(window) == "Alexei, Darrick, Eliana, Irina")
+  window.button(Ordaen.art.ctl.tool.list).click()
+  Test.page().text("Table").click()
+  // The heading of the sort picked in the list; clicked, the order turns round, the best friend still on top.
+  window.button("Name").click()
+  Test.expect(friendsOrder(window) == "Alexei, Irina, Eliana, Darrick")
+  window.button("Level").click()
+  Test.expect(friendsOrder(window) == "Alexei, Eliana, Darrick, Irina")
+}
+
+test "the friends' view, sort and filter are there after a reload" {
+  Test.mount(nil, PAGE)
+  const window = opened(new FakePeople())
+  sortBy(window, "Name")
+  window.button(Ordaen.art.ctl.tool.filter).click()
+  Test.page().text("Offline").click()
+  Test.key(Key.Escape)
+  window.button(Ordaen.art.ctl.tool.list).click()
+  Test.page().text("Table").click()
+  Test.reload()
+  const again = opened(new FakePeople())
+  Test.expect(again.text("Level").shown())
+  Test.expect(friendsOrder(again) == "Alexei, Eliana")
 }
 
 test "a development build's footer button shows the game's own window of the tab, as it is, until it closes" {
@@ -521,7 +566,22 @@ test "the recent allies: those pinned first; an ally's card pins, whispers by fu
   Test.shot("the recent allies: an ally's card with what was done together")
 }
 
-test "an offline ally can't be whispered or invited, and «Show» hides them" {
+test "the allies' filter offers the game's categories here, and asks the game for the allies of those on" {
+  Test.mount(nil, PAGE)
+  const window = opened(new FakePeople())
+  window.text("Recent Allies").click()
+  window.button(Ordaen.art.ctl.tool.filter).click()
+  Test.expect(Test.page().text("Dungeons").shown() && !Test.page().text("Raiding").shown())
+  // PvP switched off: the dungeons alone asked for, and Gunnar did one.
+  Test.page().text("PvP").click()
+  Test.expect(window.text("Gunnar").shown() && !window.text("Astrid").shown())
+  Test.page().text("Dungeons").click()
+  Test.expect(!window.text("Gunnar").shown())
+  Test.page().text("Reset").click()
+  Test.expect(window.text("Gunnar").shown() && window.text("Astrid").shown())
+}
+
+test "an offline ally can't be whispered or invited, and the filter hides them" {
   Test.mount(nil, PAGE)
   const people = new FakePeople()
   const window = opened(mut people)
@@ -531,7 +591,7 @@ test "an offline ally can't be whispered or invited, and «Show» hides them" {
   window.button("Invite").click()
   Test.expect(people.heard.length == 0)
   window.button(Ordaen.art.ctl.tool.filter).click()
-  Test.page().text("Online only").click()
+  Test.page().window("Dungeons").text("Offline").click()
   // Her card stays; her row goes.
   Test.expect(window.text("Astrid").count() == 1)
 }
