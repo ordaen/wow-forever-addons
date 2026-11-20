@@ -15,7 +15,7 @@ import Game from "$game"
 import { Align, Edges, Layer, Place, Point, Track } from "$ltml"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
-import { ARTWORK, ButtonPlate, Choice, CompactDropdown, Dialog, FilterButton, FilterGroup, FooterCount, FooterCounts, KeptWindow, Module, PushButton, SECONDARY_TEXT, Settings, SettingsPage, Tabs, ToolPick, Toolbar, Window, WindowSide, WindowTabSpec, WindowsPage, playSound, switched, windowsTitle } from "Ordaen"
+import { ARTWORK, ButtonPlate, Choice, CompactDropdown, Dialog, FilterButton, FilterGroup, FooterCount, FooterCounts, KeptWindow, Module, ModuleMemory, PushButton, SECONDARY_TEXT, Settings, SettingsPage, Tabs, ToolPick, Toolbar, Window, WindowSide, WindowTabSpec, WindowsPage, playSound, windowsTitle } from "Ordaen"
 import root Maps from "OrdaenMap"
 import type { SidePanel } from "OrdaenMap"
 import root Tracker from "OrdaenTracker"
@@ -26,7 +26,7 @@ import { KINDS, QuestKind } from "@/kind"
 import { DungeonQuests, PinKind, QuestPins } from "@/layers"
 import { QuestList } from "@/list"
 import Locale from "@/locales"
-import { Asked, QuestFilter, QuestSort, QuestStatus, QuestView, countOf, listedOf } from "@/model"
+import { Asked, FILTER_START, Folds, ListChoices, QuestFilter, QuestSort, QuestStatus, QuestView, countOf, foldedOnce, listedOf } from "@/model"
 import { QuestFacts } from "@/questie"
 import { Choices, GeneralPage } from "@/settings"
 import Style from "@/style"
@@ -70,11 +70,6 @@ const FILTERS: Array<FilterGroup<QuestFilter>> = [
     options: [{ key: QuestFilter.Solo, label: Locale.FILTER_SOLO }, { key: QuestFilter.Group, label: Locale.FILTER_GROUP }]
   }
 ]
-// The filter as the window starts: every quest shown, tracked or not.
-const FILTER_START: Map<QuestFilter, Boolean> = switched({}, [
-  QuestFilter.Trivial, QuestFilter.Easy, QuestFilter.Even, QuestFilter.Hard, QuestFilter.Impossible, QuestFilter.Solo,
-  QuestFilter.Group
-], true)
 const SORTS: Array<Choice<QuestSort>> = [
   { value: QuestSort.Log, label: Locale.SORT_LOG },
   { value: QuestSort.Level, label: Locale.SORT_LEVEL },
@@ -145,14 +140,11 @@ public class Quests implements Module, App {
   state abandoning = 0
   // The items abandoning it destroys, by name: the question says them, as the game's does.
   state abandonItems: Array<String> = []
-  // The headers the player folded, by their text.
-  state folded: mut Map<String, Boolean> = {}
-  // The toolbar: what is sought, the status switch, the filter, the order and the view.
+  // The headers the player folded, the character's.
+  public folds: mut ModuleMemory<Folds> = new ModuleMemory<Folds>({}, .Character, "folds")
+  // The toolbar: what is sought, and how the player left the rest of it, the profile's.
   public state search = ""
-  public state status: QuestStatus = .All
-  public state filter: Map<QuestFilter, Boolean> = FILTER_START
-  public state sort: QuestSort = .Log
-  public state view: QuestView = .Zones
+  public list: mut ModuleMemory<ListChoices> = new ModuleMemory<ListChoices>({}, .Profile, "list")
 
   // Docked on the map (Ordaen Map's switch): the game's log key and button are the game's.
   derived docked: Boolean = Maps?.docked == true
@@ -168,8 +160,10 @@ public class Quests implements Module, App {
     { label: Locale.FOOT_QUESTS, value: "%d/%d".format(self.count, self.most), color: self.count >= self.most ? RED : nil }
   ]
   derived known: Boolean = self.data.fault() == nil
-  derived asked: Asked = { sought: self.search.lower(), status: self.status, filter: self.filter, player: self.level }
-  derived listed: Array<LogQuest> = listedOf(self.quests, self.asked, self.sort)
+  derived asked: Asked = {
+    sought: self.search.lower(), status: self.list.values.status, filter: self.list.values.filter, player: self.level
+  }
+  derived listed: Array<LogQuest> = listedOf(self.quests, self.asked, self.list.values.sort)
   derived kindHas: Boolean = countOf(self.quests, self.kind) > 0
   derived pickedQuest: LogQuest | nil = self.quests.find(quest => quest.id == self.picked)
   derived pickedFacts: QuestFacts | nil = self.facts[self.picked]
@@ -300,7 +294,7 @@ public class Quests implements Module, App {
     }
   }
 
-  onFold(mut self, header: String) { self.folded[header] = self.folded[header] != true }
+  onFold(mut self, header: String) { self.folds.write(foldedOnce(peek self.folds.values, header, peek self.quests)) }
 
   onAbandonYes(mut self) {
     const id = peek self.abandoning
@@ -343,14 +337,14 @@ public class Quests implements Module, App {
         <Tabs tabs={KIND_TITLES} selected={mut self.tab} counts={self.kindsCounted} />
         <Toolbar search={mut self.search} placeholder={Locale.SEARCH}>
           <box padding={AFTER_SEARCH}>
-            <CompactDropdown value={mut self.status} choices={STATUSES} width={STATUS_WIDTH} />
+            <CompactDropdown value={mut self.list.values.status} choices={STATUSES} width={STATUS_WIDTH} />
           </box>
-          <FilterButton values={mut self.filter} start={FILTER_START} groups={FILTERS} />
-          <ToolPick value={mut self.sort} choices={SORTS} icon={ARTWORK.ctl.tool.sort} title={Locale.SORT} />
-          <ToolPick value={mut self.view} choices={VIEWS} icon={ARTWORK.ctl.tool.categories} title={Locale.VIEW} />
+          <FilterButton values={mut self.list.values.filter} start={FILTER_START} groups={FILTERS} />
+          <ToolPick value={mut self.list.values.sort} choices={SORTS} icon={ARTWORK.ctl.tool.sort} title={Locale.SORT} />
+          <ToolPick value={mut self.list.values.view} choices={VIEWS} icon={ARTWORK.ctl.tool.categories} title={Locale.VIEW} />
         </Toolbar>
-        <QuestList quests={self.listed} kind={self.kind} view={self.view} zone={self.zone} picked={self.picked}
-                   folded={self.folded} player={self.level} any={self.kindHas} @act={self.onAct} @fold={self.onFold} />
+        <QuestList quests={self.listed} kind={self.kind} view={self.list.values.view} zone={self.zone} picked={self.picked}
+                   folded={self.folds.values.headers} player={self.level} any={self.kindHas} @act={self.onAct} @fold={self.onFold} />
       </box>
     }
   }
