@@ -11,7 +11,7 @@ import Game from "$game"
 import { Align, Event, Key, Overflow, Position, Track } from "$ltml"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
-import { ButtonPlate, Dialog, KeptWindow, Module, Money, PushButton, SECONDARY_TEXT, Settings, SettingsPage, TipText, Window, WindowTabSpec, WindowsPage, windowsTitle } from "Ordaen"
+import { ButtonKey, ButtonPlate, Dialog, KeptWindow, Module, Money, PushButton, SECONDARY_TEXT, Settings, SettingsPage, TipText, Window, WindowTabSpec, WindowsPage, windowsTitle } from "Ordaen"
 import { OptionRow } from "@/list"
 import Locale from "@/locales"
 import { Needs, RewardView, Rewards, Said, choiceViews } from "@/pages"
@@ -100,8 +100,6 @@ public class Dialogue implements Module, App {
   state fromList = false
   // A quest with no NPC (an item's, an object's): declining closes the window.
   state alone = false
-  // The open quest's giver the client names (`GetQuestPortraitGiver`), by display ID; 0 for none.
-  state giver = 0
   // What the next quest page is answered with on its own: accepted, or handed in.
   state acceptNext = false
   state completeNext = false
@@ -243,8 +241,6 @@ public class Dialogue implements Module, App {
         self.speaker = speakerOf()
       }
     }
-    let giver, _, _, _, _ = Client.GetQuestPortraitGiver()
-    self.giver = giver.floor()
     self.quest = questOf(Client.GetQuestText())
     self.show(.Detail)
   }
@@ -585,11 +581,10 @@ public class Dialogue implements Module, App {
   // The list's options are as wide as they are, never wrapped: it takes the room they need, which widens the window
   // (a scrolled box would keep its width); a quest's rewards scroll.
   derived wellOverflow: Overflow = self.listShown ? Overflow.Visible : Overflow.Scroll
+  // A quest's needs and rewards stand at the well's foot, right over the buttons that act on them.
+  derived wellAlign: Align = self.listShown ? Align.Start : Align.End
   derived rows: Array<Track> = self.isBook ? [{ fr: 1 }, "max-content"] : [{ fr: 2 }, { fr: 3 }]
   derived pickable: Boolean = self.page == Page.Reward
-  // The quest giver's figure, as the game's quest portrait has it: the creature the client names as the quest's giver
-  // (by its display ID), else the NPC talked to; none for an item's or an object's quest that names none.
-  public derived figure: String | Integer | nil = self.giver > 0 ? self.giver : !self.alone && self.speaker.portrait != nil ? "npc" : nil
   derived rewardViews: Array<RewardView> = choiceViews(self.quest?.choices ?? [], self.upgrades())
   derived backLabel: String = match (self.page) {
     .Detail => self.fromList ? Locale.BACK : Locale.DECLINE
@@ -603,8 +598,8 @@ public class Dialogue implements Module, App {
   }
   derived mainOff: Boolean = self.mainOffNow()
   derived mainTip: TipText | nil = self.mainOff ? { title: self.mainLabel, text: self.page == Page.Progress ? Locale.NOT_READY : Locale.PICK_A_REWARD, rows: [] } : nil
-  derived backKey: String = self.hints ? Locale.KEY_ESC : ""
-  derived mainKey: String = self.hints ? Locale.KEY_SPACE : ""
+  derived backKey: ButtonKey = self.hints ? ButtonKey.Named { name: Locale.KEY_ESC } : ButtonKey.None
+  derived mainKey: ButtonKey = self.hints ? ButtonKey.Space : ButtonKey.None
   derived promptText: String = self.promptTextNow()
   derived promptCost: Integer = self.promptCostNow()
   derived prompted: Boolean = self.prompt != nil
@@ -666,13 +661,12 @@ public class Dialogue implements Module, App {
             <box height={Style.ROLL_HEIGHT} background={Style.ROLL} />
             <box background={Style.PARCHMENT} tint={Style.PARCHMENT_TINT} overflow={Overflow.Scroll}
                  padding={3sp} gap={1.5sp}>
-              <Said page={self.page} quest={self.quest} said={self.said} book={self.book} revealed={self.revealed}
-                    figure={self.figure} />
+              <Said page={self.page} quest={self.quest} said={self.said} book={self.book} revealed={self.revealed} />
             </box>
             <box height={Style.ROLL_HEIGHT} background={Style.ROLL} />
           </box>
           <box $if={!self.isBook} rows={[{ fr: 1 }, "max-content"]} gap={1.5sp} padding={{ top: 2sp }}>
-            <box overflow={self.wellOverflow} gap={0.5sp}>
+            <box overflow={self.wellOverflow} gap={0.5sp} yAlign={self.wellAlign}>
               <$if={self.listShown}>
                 <OptionRow $for={index, line of self.lines} line={line} index={index} hints={self.hints}
                            marked={self.markedAt(line)} @pick={self.pickLine} @mark={self.toggleMark} />

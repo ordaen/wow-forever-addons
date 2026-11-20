@@ -36,9 +36,21 @@ const KEYED_COLUMNS: Columns = [KEY_WIDTH, { fr: 1 }]
 const KEY_SHADE: Color = Color.hex("#00000038")
 const KEY_TEXT: Color = Color.hex("#c9a76a")
 const GROOVE: Line = { width: 1.171875dp, color: Color.hex("#000000cc"), sides: [Side.Right] }
+// The space bar's mark «⎵», drawn as its three strokes (no texture of it: general/art-needed).
+const SPACE_WIDTH = 18.75dp
+const SPACE_HEIGHT = 5.859375dp
+const SPACE_STROKES: Line = { width: 1.7578125dp, color: KEY_TEXT, sides: [Side.Left, Side.Bottom, Side.Right] }
 
 // The plate: bronze, or red for a button that matters or one that can't be undone.
 public enum ButtonPlate { Bronze, Accent, Danger }
+
+// The key that presses a button, drawn in its segment: by its name («Esc»), or the space bar by its mark «⎵» (its
+// name is wider than the segment in many languages); none for none.
+public enum ButtonKey {
+  Named { name: String }
+  Space
+  None
+}
 
 public class PushButton implements Component {
   public click: Event<nil> = new Event()
@@ -54,7 +66,9 @@ public class PushButton implements Component {
   derived labelled: Boolean = self.label != ""
   derived iconed: Boolean = self.icon != nil
   derived iconTint: Color = self.disabled ? GREY : WHITE
-  derived keyed: Boolean = self.key != ""
+  derived keyed: Boolean = self.key != ButtonKey.None
+  derived keyName: String = self.nameOfKey()
+  derived spaceMarked: Boolean = self.key == ButtonKey.Space
   derived keyOpacity: Number = self.disabled ? 0.5 : 1
   derived padding: Edges = self.keyed ? KEYED_CAPS : CAPS
   derived columns: Columns | nil = self.keyed ? KEYED_COLUMNS : nil
@@ -67,7 +81,7 @@ public class PushButton implements Component {
   repeats: Signal<Boolean>
   tip: Signal<TipText | nil>
   icon: Signal<Art | nil>
-  key: Signal<String>
+  key: Signal<ButtonKey>
   constructor(
     label: Signal<String>,
     width: Signal<Number<Length>>,
@@ -80,8 +94,8 @@ public class PushButton implements Component {
     tip: Signal<TipText | nil> = nil,
     // A picture before the label, or alone where the label is `""`.
     icon: Signal<Art | nil> = nil,
-    // The key that presses it, in its own segment at the plate's left end, cut off by a groove; none for none.
-    key: Signal<String> = ""
+    // The key that presses it, in its own segment at the plate's left end, cut off by a groove.
+    key: Signal<ButtonKey> = ButtonKey.None
   ) {
     self.icon = icon
     self.key = key
@@ -109,6 +123,11 @@ public class PushButton implements Component {
     if (self.repeating && pointer.button == MouseButton.Left) { self.click.emit() }
   }
 
+  nameOfKey(self): String {
+    const key = self.key
+    return key is ButtonKey.Named ? key.name : ""
+  }
+
   onEnter(mut self) { self.hovered = true }
   onLeave(mut self) { self.hovered = false }
 
@@ -121,7 +140,8 @@ public class PushButton implements Component {
         <Tip $if={self.tipShown} title={self.tipText.title} text={self.tipText.text} rows={self.tipText.rows} />
         <box $if={self.keyed} width={KEY_WIDTH} height={KEY_HEIGHT} background={KEY_SHADE} border={GROOVE} opacity={self.keyOpacity} xAlign={Align.Center}
              yAlign={Align.Center}>
-          <text value={self.key} textColor={KEY_TEXT} textSize={SECONDARY_TEXT} wrap={.None} />
+          <box $if={self.spaceMarked} width={SPACE_WIDTH} height={SPACE_HEIGHT} border={SPACE_STROKES} />
+          <text $else value={self.keyName} textColor={KEY_TEXT} textSize={SECONDARY_TEXT} wrap={.None} />
         </box>
         <box $if={self.iconed} columns={ICON_ROW} gap={ICON_GAP} yAlign={Align.Center}>
           <box width={ICON} height={ICON} icon={self.icon} tint={self.iconTint} />
