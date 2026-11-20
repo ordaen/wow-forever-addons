@@ -77,7 +77,7 @@ public class Row implements Component {
   public render(self): Template {
     return $ltml {
       <box $if={self.line.secret} @linkPress={self.onLink} height={self.lineHeight} overflow={Overflow.Hidden} opacity={self.opacity}>
-        <text value={self.line.whole} textColor={self.line.color} wrap={.None} />
+        <text value={self.line.whole} secret={true} textColor={self.line.color} wrap={.None} />
       </box>
       <box $else opacity={self.opacity} background={self.band} @linkPress={self.onLink}>
         <text value={self.line.whole} textColor={self.line.color} />
