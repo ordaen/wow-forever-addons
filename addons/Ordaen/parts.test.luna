@@ -59,7 +59,9 @@ function movesAndGoesBack(index: Integer): Boolean {
   const title = placing()[index]
   if (title == nil) { return true }
   const home = Test.surfaceHolding(title)
-  const across: Test.Point = home.x < 800 ? { x: 1500, y: 450 } : { x: 100, y: 450 }
+  // Half the screen's width towards its middle, at its middle's height: off the parts at its sides and edges (the
+  // tracker along the right, the chat at the bottom left), whose movers would take the right click.
+  const across: Test.Point = { x: home.x < 800 ? home.x + 500 : home.x - 500, y: 450 }
   dragged(home, across)
   const moved = Test.surfaceHolding(title)
   Test.click(moved, .Right)
