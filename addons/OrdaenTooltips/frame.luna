@@ -5,7 +5,7 @@
 // width.
 import { Align, Art, BarFill, Beside, Cursor, Edges, Layer, Line, Piece, Position, Side, TextFont, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { Component, Hotkeys, SECONDARY_TEXT, TIGHT_LINE, TITLE_LINE, TITLE_TEXT } from "Ordaen"
+import { Component, Hotkeys, SECONDARY_TEXT, TIGHT_LINE, TITLE_TEXT } from "Ordaen"
 import { GREEN, RED } from "@/colors"
 import Locale from "@/locales"
 import { Compared, Fact, Glyph, Model, Opens, Part, Picture, TextLine } from "@/model"
@@ -64,8 +64,10 @@ const COMPARED_MARK = 11.71875dp
 // A text at its own width, the rest of its row empty.
 const OWN_WIDTH: Array<Track> = ["max-content", { fr: 1 }]
 public const SECTION_PAD: Edges = { top: SECTION, bottom: SECTION }
-// The hotkeys, last before the bar, keep a section's room under them (`Hotkeys` keeps it over them).
+// The hotkeys, last in a tooltip that has no bar, keep a section's room under them (`Hotkeys` keeps it over them);
+// before the bar, the bar's own room is all there is between them.
 const KEYS_PAD: Edges = { bottom: SECTION }
+const NO_KEYS_PAD: Edges = {}
 // The lock's bar: the tooltip's last section, a dark track that gold fills as the lock charges, in a hundred steps;
 // quiet, never louder than the text. Its row is as high as the line that stands there once locked, so nothing
 // moves when the lock lands.
@@ -544,7 +546,7 @@ public class TipFrame implements Component {
             <box icon={self.icon} portrait={self.face} />
           </box>
           <box gap={LINE} yAlign={Align.Center}>
-            <text value={self.model.name} textColor={self.model.nameColor} textSize={TITLE_TEXT} lineHeight={TITLE_LINE} wrap={.None}
+            <text value={self.model.name} textColor={self.model.nameColor} textSize={TITLE_TEXT} lineHeight={TIGHT_LINE} wrap={.None}
                   textFont={.Title} />
             <box $if={self.hasDesc} columns={self.descColumns} height={21.09375dp} yAlign={Align.Center}>
               <PartText $for={index, part of self.model.desc} part={part} index={index} color={LABEL}
@@ -595,7 +597,7 @@ public class TipFrame implements Component {
         </box>
         // What other modules add, after the footer: the main tooltip's owner fills it.
         <slot />
-        <box $if={self.hasKeys} padding={KEYS_PAD}>
+        <box $if={self.hasKeys} padding={self.locks ? NO_KEYS_PAD : KEYS_PAD}>
           <Hotkeys keys={self.model.keys} />
         </box>
         <box $if={self.locks} padding={BAR_PAD}>
