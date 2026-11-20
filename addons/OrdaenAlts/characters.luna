@@ -9,10 +9,10 @@ import Style from "@/style"
 
 const COLUMNS: Array<Column> = [
   { title: Locale.COL_NAME, width: { fr: 2 }, sortable: true },
-  { title: Locale.COL_LEVEL, width: 65.625dp, align: Align.End, sortable: true },
+  { title: Locale.COL_LEVEL, width: 75dp, align: Align.End, sortable: true },
   { title: Locale.COL_GOLD, width: 140.625dp, align: Align.End, sortable: true },
   { title: Locale.COL_PROFESSIONS, width: { fr: 3 } },
-  { title: Locale.COL_BAGS, width: 112.5dp, align: Align.End, sortable: true },
+  { title: Locale.COL_BAGS, width: 125dp, align: Align.End, sortable: true },
   { title: Locale.COL_SEEN, width: 105.46875dp, align: Align.End, sortable: true },
   { title: Locale.COL_BANK, width: 138.28125dp },
   { title: Locale.COL_MAIL, width: 150dp },
