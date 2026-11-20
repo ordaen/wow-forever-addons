@@ -19,14 +19,14 @@ const ICON = 35ui
 const GOLD: Color = Color.hex("#ffb847")
 // The cell under the cursor: a warm light over the wood; pushed, a shade.
 const LIT: ByInteractionState<Color> = { default: Color.hex("#00000000"), hover: Color.hex("#ffd9a01f"), pressed: Color.hex("#00000040"), focus: Color.hex("#ffd9a01f") }
-// The friends online: a green pill in the cell's lower right, 18 px high (a line of `Secondary`) and at least as wide.
-const BADGE = 21.09375dp
-const BADGE_BOUNDS: Bounds = { min: BADGE, max: nil }
-const BADGE_PAD: Edges = { right: 1sp, left: 1sp }
-// The design's bold number: a white shadow one pixel to the right.
+// The friends online: a green pill in the cell's lower right, as high as its number and a little room round it, and
+// at least as wide.
+const BADGE_BOUNDS: Bounds = { min: 21.09375dp, max: nil }
+const BADGE_PAD: Edges = { top: 0.5sp, right: 1sp, bottom: 0.5sp, left: 1sp }
+// The design's bold number: a shadow of its own colour one pixel to the right.
+const BOLD: Shadow = { color: BRIGHT_TEXT, x: 1ui, y: 0ui }
 // An icon as its file draws it.
 const UNTINTED: Color = Color.hex("#ffffff")
-const BOLD: Shadow = { color: BRIGHT_TEXT, x: 1ui, y: 0ui }
 
 // A cell's measures at its height: its width in the least cell's proportion, its icon's size and place.
 public struct CellSize {
@@ -86,7 +86,7 @@ public class MenuCell implements Component {
              height={self.size.icon} background={self.icon} desaturate={self.gold} tint={self.tint}
         />
         <box $if={self.counted} position={Position.Absolute} right={self.badgeRight}
-             bottom={self.badgeBottom} height={BADGE} width={BADGE_BOUNDS} padding={BADGE_PAD}
+             bottom={self.badgeBottom} width={BADGE_BOUNDS} padding={BADGE_PAD}
              xAlign={Align.Center} yAlign={Align.Center} background={Ordaen.art.panel.countBadge} zLevel={1}>
           <text value={"%d"} arguments={[self.count]} textSize={SECONDARY_TEXT} textColor={BRIGHT_TEXT}
                 textFont={.Numbers} textShadow={BOLD} lineHeight={TIGHT_LINE} wrap={.None} />

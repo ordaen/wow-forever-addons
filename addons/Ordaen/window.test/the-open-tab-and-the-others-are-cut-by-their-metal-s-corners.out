@@ -6,15 +6,15 @@ surface 600,275.54 400x348.92 on DIALOG clamped raised by a click
     box 982.75,604.46 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 600,275.54 400x59.42
     box 600,275.54 336.47x59.42
-      box 600,275.54 160.93x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
+      box 600,275.54 166.48x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
         box 607.25,282.79 48.92x48.92 absolute icon=Interface/Icons/Trade_Tailoring cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=none
         box 651.17,282.79 11.5x52.17 absolute border=UI-Frame-Metal-CornerTopLeft sides=left
-        box 667.7,285.79 74.44x45.92
-          text 667.7,290.26 74.44x17.78 "Professions" #ffd100
-          text 667.7,309.46 74.44x17.78 "Tailoring 75" #8f8470
-      box 770.88,275.54 114.5x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
-        box 789.67,285.79 76.93x45.92
-          text 804.24,299.86 47.78x17.78 "Recipes" #a3977f
+        box 667.7,285.79 80x45.92
+          text 667.7,290.26 80x17.78 "Professions" #ffd100
+          text 667.7,309.46 80x17.78 "Tailoring 75" #8f8470
+      box 776.44,275.54 114.5x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
+        box 795.22,285.79 76.93x45.92
+          text 807.58,299.86 52.22x17.78 "Recipes" #a3977f
     box 945,303.54 55x31.42
       box 945,303.54 55x26.67 clipped
         box 945,303.54 27.5x26.67 absolute clipped @keyPress @pointerPress
@@ -32,15 +32,15 @@ surface 600,275.54 400x348.92 on DIALOG clamped raised by a click
     box 982.75,604.46 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 600,275.54 400x59.42
     box 600,275.54 336.47x59.42
-      box 600,275.54 160.93x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
+      box 600,275.54 166.48x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
         box 607.25,282.79 48.92x48.92 absolute icon=Interface/Icons/Trade_Tailoring cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=none
         box 651.17,282.79 11.5x52.17 absolute border=UI-Frame-Metal-CornerTopLeft sides=left
-        box 667.7,285.79 74.44x45.92
-          text 667.7,290.26 74.44x17.78 "Professions" #a3977f
-          text 667.7,309.46 74.44x17.78 "Tailoring 75" #8f8470
-      box 770.88,275.54 114.5x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
-        box 789.67,285.79 76.93x45.92
-          text 804.24,299.86 47.78x17.78 "Recipes" #ffd100
+        box 667.7,285.79 80x45.92
+          text 667.7,290.26 80x17.78 "Professions" #a3977f
+          text 667.7,309.46 80x17.78 "Tailoring 75" #8f8470
+      box 776.44,275.54 114.5x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
+        box 795.22,285.79 76.93x45.92
+          text 807.58,299.86 52.22x17.78 "Recipes" #ffd100
     box 945,303.54 55x31.42
       box 945,303.54 55x26.67 clipped
         box 945,303.54 27.5x26.67 absolute clipped @keyPress @pointerPress

@@ -8,7 +8,7 @@ surface 400,361.38 400x337.25 on DIALOG clamped raised by a click
     box 400,361.38 336.47x47.75
       box 400,361.38 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
         box 418.78,371.62 76.93x34.25
-          text 433.36,379.86 47.78x17.78 "Recipes" #ffd100
+          text 431.14,379.86 52.22x17.78 "Recipes" #ffd100
     box 745,377.71 55x31.42
       box 745,377.71 55x26.67 clipped
         box 745,377.71 27.5x26.67 absolute clipped @keyPress @pointerPress
