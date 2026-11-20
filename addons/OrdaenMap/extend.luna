@@ -1,3 +1,5 @@
+import Client from "$client"
+
 // What other modules put on the world map: the contract, imported by type alone
 // (`import type { Layer, Pin } from "OrdaenMap"`). A layer is an entry of Map's `layers` registry, added in a watch
 // that follows Map's root, so it ends when either module ends. Map places a layer's pins on OpenMap's map wherever
@@ -29,6 +31,14 @@ public trait Layer {
   public lines(self, pin: Pin): Array<String>
   // The player clicked the pin, with Shift held or not.
   public press(self, pin: Pin, shift: Boolean)
+}
+
+// The map's side panel while it shows, docked (Blizzard's quest log, `WorldMapFrame.QuestLog`): the frame and its size
+// in UI units. Quests draws its log over exactly that rectangle, a level above it, taking its clicks.
+public struct SidePanel {
+  const frame: any Client.Frame
+  const width: Number
+  const height: Number
 }
 
 // What a module says on a dungeon's card on OpenMap's map (Quests: the log's quests of that dungeon): an entry of Map's

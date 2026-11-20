@@ -7,7 +7,11 @@ public function canvas(): any Client.Frame | nil
 // The map the world map shows (`WorldMapFrame:GetMapID()`); 0 while it doesn't show.
 public function shownMap(): Integer
 // `run` is called when the world map shows or hides and when the map it shows changes. Once; `forget` takes it away.
+// `run` is also called as the map's side panel shows, hides or changes size.
 public function listen(run: () => nil)
+// The map's side panel (`WorldMapFrame.QuestLog`, Blizzard's quest log) while it shows, and its width and height in
+// UI units; nil and 0 while it doesn't.
+public function sidePanel(): (any Client.Frame | nil, Number, Number)
 public function forget()
 // The game's tooltip beside a pin: its first line the title, in white, the others under it.
 public function tip(owner: any Client.Frame, lines: Array<String>)

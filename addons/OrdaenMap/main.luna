@@ -5,7 +5,7 @@
 // OpenMap's menu.
 import root Ordaen from "Ordaen"
 import { Module, Settings, SettingsPage } from "Ordaen"
-import { DungeonSection, Layer, Pin } from "@/extend"
+import { DungeonSection, Layer, Pin, SidePanel } from "@/extend"
 import { MapHost, OpenMapHost, Placed } from "@/host"
 import Locale from "@/locales"
 import { Choices, GeneralPage } from "@/settings"
@@ -62,6 +62,8 @@ public class Maps implements Module, App {
   state openMap = false
   // The game's map, OpenMap and the client's setting: a test gives its own.
   public state host: mut any MapHost = new OpenMapHost()
+  // The map's side panel while it shows (docked, the map open): Quests draws its log over it.
+  public state side: SidePanel | nil = nil
   // The marks drawn, in the host's order: what a click on one goes to.
   drawn: Array<Mark> = []
   // The pins of the layers the player shows, asked again when what a layer read changes.
@@ -106,6 +108,7 @@ public class Maps implements Module, App {
   // The map showed, hid, turned or moved: the pins are placed again, and the setting read as the client has it.
   onChanged(mut self) {
     self.docked = self.host.docked()
+    self.side = self.host.sidePanel()
     self.place(peek self.marks)
   }
 

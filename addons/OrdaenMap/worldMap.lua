@@ -40,7 +40,21 @@ function worldMap.listen(run)
 		map:HookScript("OnShow", heard)
 		map:HookScript("OnHide", heard)
 		client.hooksecurefunc(map, "OnMapChanged", heard)
+		local log = map.QuestLog
+		if type(log) == "table" and log.HookScript then
+			log:HookScript("OnShow", heard)
+			log:HookScript("OnHide", heard)
+			log:HookScript("OnSizeChanged", heard)
+		end
 	end
+end
+
+-- The map's side panel (`WorldMapFrame.QuestLog`) while it shows, and its size in UI units; nil and 0 while it doesn't.
+function worldMap.sidePanel()
+	local map = frame()
+	local log = map and map.QuestLog
+	if type(log) ~= "table" or not log.IsVisible or not log:IsVisible() then return nil, 0, 0 end
+	return log, log:GetWidth(), log:GetHeight()
 end
 
 function worldMap.forget()

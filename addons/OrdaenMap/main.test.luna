@@ -5,7 +5,7 @@
 import Client from "$client"
 import Test from "$test"
 import root Maps from "OrdaenMap"
-import { DungeonSection, Layer, Pin } from "@/extend"
+import { DungeonSection, Layer, Pin, SidePanel } from "@/extend"
 import { MapHost, Placed } from "@/host"
 
 const PAGE: Test.Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
@@ -34,6 +34,20 @@ class TestHost implements MapHost {
     self.switches.push(id)
   }
   public dungeonSection(mut self, run: (map: Integer, names: Array<String>) => Array<String>) {}
+  public sidePanel(self): SidePanel | nil { return nil }
+}
+
+test "docked, the map's side panel is given while the map shows, its size the client's; apart, none" {
+  Test.mount(nil, PAGE)
+  Maps.docked = true
+  Test.flush()
+  Client.C_Map.OpenWorldMap(1436)
+  Test.flush()
+  const side = Maps.side ?? panic("the side panel")
+  Test.expect(side.width == 330 && side.height == 668)
+  Maps.docked = false
+  Test.flush()
+  Test.expect(Maps.side == nil)
 }
 
 // What a dungeon's card says: the instance's name, where one of the test's.

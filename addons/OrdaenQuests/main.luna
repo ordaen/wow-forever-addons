@@ -11,11 +11,12 @@
 import Client from "$client"
 import Events from "$events"
 import Game from "$game"
-import { Align, Edges, Track } from "$ltml"
+import { Align, Edges, Layer, Place, Point, Track } from "$ltml"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
 import { ARTWORK, ButtonPlate, Choice, Dialog, FilterButton, FilterGroup, FooterCount, FooterCounts, KeptWindow, Module, PushButton, SECONDARY_TEXT, Segmented, Settings, SettingsPage, ToolPick, Toolbar, Window, WindowSide, WindowTabSpec, WindowsPage, playSound, switched, windowsTitle } from "Ordaen"
 import root Maps from "OrdaenMap"
+import type { SidePanel } from "OrdaenMap"
 import { LogQuest, logQuests } from "@/book"
 import { TakenClick } from "@/button"
 import { QuestieData } from "@/data"
@@ -38,6 +39,7 @@ const DIM: Color = Color.hex("#a3977f")
 const RED: Color = Color.hex("#ff4040")
 // The toolbar over the list, and the list.
 const BODY: Array<Track> = ["max-content", { fr: 1 }]
+const FILL: Array<Track> = [{ fr: 1 }]
 const FOOT: Array<Track> = [{ fr: 1 }, "max-content"]
 // The status switch stands an item's step after the search.
 const AFTER_SEARCH: Edges = { left: 3sp }
@@ -156,6 +158,13 @@ public class Quests implements Module, App {
   derived kindHas: Boolean = countOf(self.quests, self.kind) > 0
   derived pickedQuest: LogQuest | nil = self.quests.find(quest => quest.id == self.picked)
   derived pickedFacts: QuestFacts | nil = self.facts[self.picked]
+  // The picked quest as a list of one, or none: the docked panel's page.
+  derived pickedList: Array<LogQuest> = self.pickedQuest == nil ? [] : [self.pickedQuest ?? panic("a quest")]
+  // Docked on the map while it shows: the side panel Quests' log stands over, where, and how big.
+  derived dockedSide: SidePanel | nil = Maps?.side
+  derived dockedPlace: Place = { point: Point.TopLeft, to: Point.TopLeft, by: self.dockedSide?.frame }
+  derived dockedWidth: Number<Length> = (self.dockedSide?.width ?? 0) * 1ui
+  derived dockedHeight: Number<Length> = (self.dockedSide?.height ?? 0) * 1ui
   derived side: WindowSide | nil = self.pageOf(self.pickedQuest)
   derived abandonText: String = Locale.ABANDON_ASK.format(self.quests.find(quest => quest.id == self.abandoning)?.title ?? "")
   derived level: Integer = Game.player.level
@@ -290,23 +299,45 @@ public class Quests implements Module, App {
     }
   }
 
+  onBack(mut self) { self.picked = 0 }
+
+  // The log: the toolbar over the list. The window's body, and the docked panel's while no quest is picked.
+  logBody(self): Template {
+    return $ltml {
+      <box rows={BODY} gap={3sp}>
+        <Toolbar search={mut self.search} placeholder={Locale.SEARCH}>
+          <box padding={AFTER_SEARCH}>
+            <Segmented value={mut self.status} choices={STATUSES} />
+          </box>
+          <FilterButton values={mut self.filter} start={FILTER_START} groups={FILTERS} />
+          <ToolPick value={mut self.sort} choices={SORTS} icon={ARTWORK.ctl.tool.sort} title={Locale.SORT} />
+          <ToolPick value={mut self.view} choices={VIEWS} icon={ARTWORK.ctl.tool.categories} title={Locale.VIEW} />
+        </Toolbar>
+        <QuestList quests={self.listed} kind={self.kind} view={self.view} zone={self.zone} picked={self.picked}
+                   folded={self.folded} player={self.level} any={self.kindHas} @act={self.onAct} @fold={self.onFold} />
+      </box>
+    }
+  }
+
+  // The window; and docked, the log over the map's side panel, in exactly its rectangle, where a quest picked shows
+  // its page with the way back to the list, as Blizzard's panel does.
   public render(self): Template {
     return $ltml {
       <Window $if={self.open} tabs={self.tabs} selected={mut self.tab} declared={mut self.window} withSettings={true}
               side={self.side} footer={self.footer} @close={self.onClose} @settings={self.onSettings}>
-        <box rows={BODY} gap={3sp}>
-          <Toolbar search={mut self.search} placeholder={Locale.SEARCH}>
-            <box padding={AFTER_SEARCH}>
-              <Segmented value={mut self.status} choices={STATUSES} />
-            </box>
-            <FilterButton values={mut self.filter} start={FILTER_START} groups={FILTERS} />
-            <ToolPick value={mut self.sort} choices={SORTS} icon={ARTWORK.ctl.tool.sort} title={Locale.SORT} />
-            <ToolPick value={mut self.view} choices={VIEWS} icon={ARTWORK.ctl.tool.categories} title={Locale.VIEW} />
-          </Toolbar>
-          <QuestList quests={self.listed} kind={self.kind} view={self.view} zone={self.zone} picked={self.picked}
-                     folded={self.folded} player={self.level} any={self.kindHas} @act={self.onAct} @fold={self.onFold} />
-        </box>
+        {self.logBody()}
       </Window>
+      <surface $if={self.dockedSide != nil} layer={Layer.Dialog} place={self.dockedPlace}
+               width={self.dockedWidth} height={self.dockedHeight} background={Style.DOCKED_BACK}
+               padding={Style.DOCKED_PAD} columns={1}>
+        <box $if={self.pickedQuest == nil} rows={FILL}>
+          {self.logBody()}
+        </box>
+        <box $if={self.pickedQuest != nil} rows={BODY} gap={3sp}>
+          <PushButton label={Locale.BACK} width={Style.ASK_BUTTON} @click={self.onBack} />
+          <QuestPage $for={quest of self.pickedList} quest={quest} text={self.text} facts={self.pickedFacts} player={self.level} @act={self.onAct} />
+        </box>
+      </surface>
       <Dialog $if={self.abandoning != 0} width={Style.ASK} title={Locale.ABANDON}>
         <text value={self.abandonText} />
         <PushButton #buttons label={Locale.ABANDON} width={Style.ASK_BUTTON} plate={ButtonPlate.Danger} @click={self.onAbandonYes} />

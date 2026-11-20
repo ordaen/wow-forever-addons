@@ -161,6 +161,24 @@ test "a quest under the cursor has its tooltip, and its pins on the map lit whil
   Test.expect(Quests.hovered == 0)
 }
 
+test "docked, the map open, the log stands over the map's side panel; a quest picked there shows its page and the way back" {
+  opened(standing())
+  Quests.flip()
+  Test.flush()
+  // Docked as the map's own toggle docks it: the client's setting.
+  _ = Client.C_CVar.SetCVar("questLogOpen", "1")
+  Client.C_Map.OpenWorldMap(1436)
+  Test.flush()
+  Test.expect(Test.page().text("Red Silk Bandanas").shown() || Test.page().text("The Defias Brotherhood").shown())
+  Test.page().text("The Defias Brotherhood").click()
+  Test.expect(Test.page().text("Back to the list").shown())
+  Test.page().text("Back to the list").click()
+  Test.expect(!Test.page().text("Back to the list").shown())
+  Client.WorldMapFrame.Hide()
+  Test.flush()
+  Test.expect(!Test.page().text("The Defias Brotherhood").shown())
+}
+
 test "a quest QuestieDB doesn't know has no «Where»" {
   opened(standing())
   Test.page().window("World").text("Elwynn Wolves").click()

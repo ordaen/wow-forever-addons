@@ -1,8 +1,12 @@
 // The quest log's measures at the player's scale: the window's body, its page beside the list, and the abandon
-// question.
+// question, and the docked panel over the map's side panel (its size the side panel's).
+import { Edges } from "$ltml"
 
 public const WIDTH: Number<Length> = 703.125dp
 public const HEIGHT: Number<Length> = 656.25dp
 public const PAGE: Number<Length> = 492.1875dp
 public const ASK: Number<Length> = 468.75dp
 public const ASK_BUTTON: Number<Length> = 140.625dp
+// The docked panel: a window's dark body over Blizzard's log, nothing of it showing through.
+public const DOCKED_BACK: Color = Color.hex("#0a0806f7")
+public const DOCKED_PAD: Edges = { top: 3sp, right: 3sp, bottom: 3sp, left: 3sp }
