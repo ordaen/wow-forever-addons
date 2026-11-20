@@ -115,6 +115,13 @@ function pick(window: Test.Part, button: Art, among: String, choice: String) {
   Test.page().window(among).button(choice).click()
 }
 
+// What another addon hears of the spellbook through the interface's registry of events.
+class Heard {
+  said: mut Array<String> = []
+  onShow(mut self) { self.said.push("shown") }
+  onHide(mut self) { self.said.push("hidden") }
+}
+
 // The spellbook opened by its command.
 function book(): Test.Part {
   Test.open("/spellbook")
@@ -522,7 +529,7 @@ test "a click on a spell's slot casts the rank clicked, the client's own doing; 
   Test.expect(Test.performed().length == 0)
 }
 
-test "Shift+Left-click on a spell's slot links it into the chat" {
+test "Shift+Left-click on a spell's slot links it into the chat, and casts nothing" {
   Test.mount(nil, PAGE)
   Game.spellbook.lines = lines
   Game.spellbook.entries = spells
@@ -534,6 +541,7 @@ test "Shift+Left-click on a spell's slot links it into the chat" {
   window.text("Rend (Rank 1)").item().button(ICON).click()
   Test.hold([])
   Test.expect(Test.requests().any(r => r == "Chat.linkSpell 772"))
+  Test.expect(Test.performed().length == 0)
 }
 
 test "the cursor on a spell's slot shows the game's tooltip of the spell" {
@@ -544,6 +552,76 @@ test "the cursor on a spell's slot shows the game's tooltip of the spell" {
   _ = Test.requests()
   window.text("Mortal Strike").item().button(ICON).hover()
   Test.expect(Test.requests().any(r => r == "Items.showSpell 12294"))
+}
+
+test "a spell not learned yet is dimmed, cast by nothing and put on no bar" {
+  Test.mount(nil, PAGE)
+  Game.spellbook.lines = lines
+  Game.spellbook.entries = (): Array<Game.SpellEntry> => [
+    { id: 100, name: "Charge", rank: "", icon: ICON, level: 4, passive: false, line: 2, learned: false }
+  ]
+  const window = book()
+  Test.expect(drawnIn(window.text("Charge"), DIM))
+  _ = Test.performed()
+  window.text("Charge").item().button(ICON).click()
+  Test.expect(Test.performed().length == 0)
+  drag("Charge")
+  Test.expect(!Client.CursorHasSpell())
+}
+
+test "a spell cooling down is shaded by the client's clock until the client says it is ready" {
+  Test.mount(nil, PAGE)
+  Game.spellbook.lines = lines
+  Game.spellbook.entries = spells
+  let running = true
+  Game.spellbook.cooldown = (spell: Game.SpellEntry): Game.SpellRun | nil => running && spell.id == 772 ? { start: 10, length: 6 } : nil
+  const window = book()
+  const shaded = Color.hex("#0000004d")
+  Test.expect(window.text("Rend (Rank 1)").item().paintedWith(shaded) && !window.text("Parry").item().paintedWith(shaded))
+  running = false
+  Game.spellbook.cooldownsChanged.emit()
+  Test.expect(!window.text("Rend (Rank 1)").item().paintedWith(shaded))
+}
+
+test "the pet's book is a tab of its own; the right button on a pet's spell turns its autocast, marked while on" {
+  Test.mount(nil, PAGE)
+  Game.spellbook.lines = lines
+  Game.spellbook.entries = spells
+  Game.spellbook.petBook = (): String | nil => "Demon"
+  Game.spellbook.petEntries = (): Array<Game.SpellEntry> => [
+    { id: 3716, name: "Torment", rank: "", icon: SWORD, level: 10, passive: false, line: 0, pet: true, slot: 1 }
+  ]
+  let auto = false
+  Game.spellbook.autoCast = (spell: Game.SpellEntry): Boolean | nil => spell.pet ? auto : nil
+  const window = book()
+  Test.expect(!window.text("Torment").shown())
+  window.button("Demon").click()
+  Test.expect(window.text("Torment").shown() && !window.text("Rend (Rank 1)").shown())
+  const gold = Color.hex("#ffd100")
+  Test.expect(!window.text("Torment").item().paintedWith(gold))
+  _ = Test.requests()
+  auto = true
+  window.text("Torment").item().button(SWORD).rightClick()
+  Test.expect(Test.requests().any(r => r == "Spellbook.toggleAutoCast 3716"))
+  Test.expect(window.text("Torment").item().paintedWith(gold))
+}
+
+test "opened and closed by its command, the spellbook plays the game's sounds and tells other addons" {
+  Test.mount(nil, PAGE)
+  const played: Array<Integer> = []
+  Client.PlaySound = (kit: Integer, channel: String | nil, once: Boolean | nil): (Boolean | nil, Unknown) => {
+    played.push(kit)
+    return true, nil
+  }
+  const heard = new Heard()
+  Client.EventRegistry.RegisterCallback("PlayerSpellsFrame.SpellBookFrame.Show", (owner: Unknown): nil => heard.onShow(), heard)
+  Client.EventRegistry.RegisterCallback("PlayerSpellsFrame.SpellBookFrame.Hide", (owner: Unknown): nil => heard.onHide(), heard)
+  _ = book()
+  Test.expect(heard.said.join(", ") == "shown")
+  Test.expect(played.length == 1 && played[1] == Client.SOUNDKIT["UI_CLASS_TALENT_OPEN_WINDOW"])
+  Test.open("/spellbook")
+  Test.expect(heard.said.join(", ") == "shown, hidden")
+  Test.expect(played.length == 2 && played[2] == Client.SOUNDKIT["UI_CLASS_TALENT_CLOSE_WINDOW"])
 }
 
 test "the spellbook's footer counts the spells shown, the active and the passive ones" {

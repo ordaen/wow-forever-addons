@@ -5,9 +5,9 @@
 // bars: the drag puts it on the client's cursor, and the bars take what the cursor holds.
 import Client from "$client"
 import Game from "$game"
-import { Action, Align, ByInteractionState, Overflow, Track } from "$ltml"
+import { Action, Align, BarFill, ByInteractionState, Event, FillDuration, FillFrom, MouseButton, Overflow, Position, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { ARTWORK, Choice, Column, Component, FooterCount, FooterCounts, ItemButton, ModuleMemory, SECONDARY_TEXT, Table, TableRow, Tabs, ToolPick, Toolbar, tracksOf } from "Ordaen"
+import { ARTWORK, Choice, Column, Component, Corner, FooterCount, FooterCounts, ItemButton, Marker, ModuleMemory, SECONDARY_TEXT, Table, TableRow, Tabs, ToolPick, Toolbar, tracksOf } from "Ordaen"
 import Locale from "@/locales"
 import Style from "@/style"
 
@@ -69,6 +69,11 @@ const CLEAR: Color = Color.hex("#00000000")
 const HOVER: Color = Color.hex("#ffffff0d")
 // A spell's row: lit under the cursor.
 const GROUND: ByInteractionState<Color> = { default: CLEAR, hover: HOVER, focus: HOVER }
+// The shade a cooldown lets fall over a spell's icon, and the mark of a pet's spell it casts by itself.
+const COOLING: Color = Color.hex("#000000a6")
+// A spell cooling down is dimmed under the shade, as the game's buttons are.
+const DIMMED: Color = Color.hex("#0000004d")
+const AUTOCAST: Array<Marker> = [{ corner: Corner.TopRight, color: Color.hex("#ffd100") }]
 const PAGE: Array<Track> = ["max-content", "max-content", { fr: 1 }, "max-content"]
 
 // Whether the spell stands before another in the sort's order; equal ones by name.
@@ -106,30 +111,70 @@ function lineName(lines: Array<Game.SpellLine>, index: Integer): String {
 
 // A spell's slot, in its row of either view: its icon; a click casts it (the client's own secure button, by the
 // rank's name), Shift+Left-click links it, the cursor shows its tooltip, and a drag takes it onto the client's cursor
-// for the bars. A passive spell is cast by nothing and goes on no bar.
+// for the bars. A passive spell, and one not learned yet (dimmed), is cast by nothing and goes on no bar. While its
+// cooldown runs a shade falls over the icon, by the client's clock (nothing runs per frame). A pet's spell is cast by
+// the pet, and the right button turns its autocast, marked in the slot's corner while on.
 class SpellSlot implements Component {
-  derived cast: Action | nil = self.spell.passive ? nil : Action.CastSpell { spell: castName(self.spell) }
+  derived cast: Action | nil = castable(self.spell) ? Action.CastSpell { spell: castName(self.spell), chord: .Left } : nil
+  derived dimmed: Boolean = !self.spell.learned
+  derived cooling: Boolean = self.run != nil
+  derived shade: BarFill = { duration: runOf(self.run), color: COOLING, from: FillFrom.Top }
+  derived marks: Array<Marker> = self.auto == true ? AUTOCAST : []
+  // The cooldown running, and the pet's autocast: read as the spell comes and as the client says they changed.
+  state run: Game.SpellRun | nil = nil
+  state auto: Boolean | nil = nil
 
   spell: Signal<Game.SpellEntry>
   const size: Number<Length>
   constructor(spell: Signal<Game.SpellEntry>, size: Number<Length>) {
     self.spell = spell
     self.size = size
+    Game.spellbook.cooldownsChanged.listen(self.onCooled)
+    Game.spellbook.changed.listen(self.onCooled)
+    watch (shown of self.spell) { self.read(shown) }
   }
 
+  read(mut self, spell: Game.SpellEntry) {
+    self.run = Game.spellbook.cooldown(spell)
+    self.auto = Game.spellbook.autoCast(spell)
+  }
+
+  onCooled(mut self) { self.read(peek self.spell) }
   onGrab(self) { pickUp(self.spell) }
+
+  // The right button on a pet's spell turns its autocast, in the player's click.
+  onPressed(mut self, press: Event.Press) {
+    if (press.button == MouseButton.Right && self.spell.pet) {
+      Game.spellbook.toggleAutoCast(peek self.spell)
+      self.read(peek self.spell)
+    }
+  }
 
   public render(self): Template {
     return $ltml {
-      <ItemButton item={nil} art={self.spell.icon} spell={self.spell.id} action={self.cast} size={self.size} @dragged={self.onGrab} />
+      <ItemButton item={nil} art={self.spell.icon} spell={self.spell.id} action={self.cast} size={self.size} dimmed={self.dimmed}
+                  markers={self.marks} @dragged={self.onGrab} @pressed={self.onPressed}>
+        <box $if={self.cooling} position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui} background={DIMMED}
+             fill={self.shade} zLevel={1} />
+      </ItemButton>
     }
   }
 }
 
-// A spell dragged (by its slot or anywhere on its row) onto the client's cursor, for the bars; a passive one goes on
-// no bar.
+// A cooldown as the fill that runs by the clock.
+function runOf(run: Game.SpellRun | nil): FillDuration | nil {
+  return run == nil ? nil : { start: run.start, length: run.length }
+}
+
+// Whether a click casts the spell, and a drag puts it on a bar: a spell learned that isn't passive.
+function castable(spell: Game.SpellEntry): Boolean {
+  return spell.learned && !spell.passive
+}
+
+// A spell dragged (by its slot or anywhere on its row) onto the client's cursor, for the bars; one that can't be cast
+// goes on no bar.
 function pickUp(spell: Game.SpellEntry) {
-  if (!spell.passive) { Client.C_Spell.PickupSpell(spell.id) }
+  if (castable(spell)) { Client.C_Spell.PickupSpell(spell.id) }
 }
 
 // The name the client casts a spell by: a rank's own, «Charge(Rank 2)», so a click casts the rank clicked.
@@ -140,6 +185,7 @@ function castName(spell: Game.SpellEntry): String {
 public class SpellRow implements Component {
   derived title: String = self.spell.rank == "" ? self.spell.name : "%s (%s)".format(self.spell.name, self.spell.rank)
   derived kind: String = self.spell.passive ? Locale.PASSIVE : Locale.ACTIVE
+  derived ink: Color = self.spell.learned ? Style.INK : Style.DIM
   derived detail: String = self.all ?
     Locale.SPELL_DETAIL.format(lineName(self.lines, self.spell.line), self.kind, self.spell.level) :
     Locale.SPELL_KIND.format(self.kind, self.spell.level)
@@ -162,7 +208,7 @@ public class SpellRow implements Component {
            background={GROUND} @dragStart={self.onGrab}>
         <SpellSlot spell={self.spell} size={37.5dp} />
         <box columns={1}>
-          <text value={self.title} textColor={Style.INK} wrap={false} />
+          <text value={self.title} textColor={self.ink} wrap={false} />
           <text value={self.detail} textSize={SECONDARY_TEXT} textColor={Style.DIM} wrap={false} />
         </box>
       </box>
@@ -177,6 +223,7 @@ public class SpellTableRow implements Component {
   derived kind: String = self.spell.passive ? Locale.PASSIVE : Locale.ACTIVE
   derived line: String = lineName(self.lines, self.spell.line)
   derived level: String = String.of(self.spell.level)
+  derived ink: Color = self.spell.learned ? Style.INK : Style.DIM
 
   spell: Signal<Game.SpellEntry>
   lines: Signal<Array<Game.SpellLine>>
@@ -192,7 +239,7 @@ public class SpellTableRow implements Component {
       <TableRow tracks={TRACKS}>
         <box columns={CELL} gap={2sp} yAlign={Align.Center} @dragStart={self.onGrab}>
           <SpellSlot spell={self.spell} size={23.4375dp} />
-          <text value={self.title} textColor={Style.INK} wrap={false} />
+          <text value={self.title} textColor={self.ink} wrap={false} />
         </box>
         <text value={self.line} textColor={Style.DIM} wrap={false} />
         <text value={self.kind} textColor={Style.DIM} wrap={false} />
@@ -223,19 +270,34 @@ public class SpellbookPage implements Component {
     { label: Locale.COUNT_PASSIVE, value: String.of(self.shown.count(spell => spell.passive)) }
   ]
 
+  // The pet's book: its own tab, last, named by the pet's kind, while the player has a pet with spells.
+  derived petTab: Integer = self.petBook == nil ? 0 : self.lines.length + 2
+
   spells: Signal<Array<Game.SpellEntry>>
   lines: Signal<Array<Game.SpellLine>>
   // How wide the page is: how many columns of spells it holds.
   width: Signal<Number<Length>>
-  constructor(spells: Signal<Array<Game.SpellEntry>>, lines: Signal<Array<Game.SpellLine>>, width: Signal<Number<Length>>) {
+  pets: Signal<Array<Game.SpellEntry>>
+  petBook: Signal<String | nil>
+  constructor(
+    spells: Signal<Array<Game.SpellEntry>>,
+    lines: Signal<Array<Game.SpellLine>>,
+    width: Signal<Number<Length>>,
+    pets: Signal<Array<Game.SpellEntry>> = [],
+    petBook: Signal<String | nil> = nil
+  ) {
     self.spells = spells
     self.lines = lines
     self.width = width
+    self.pets = pets
+    self.petBook = petBook
   }
 
   namesOf(self): Array<String> {
     const list: Array<String> = [Locale.TAB_ALL]
     for (line of self.lines) { list.push(line.name) }
+    const pet = self.petBook
+    if (pet != nil) { list.push(pet) }
     return list
   }
 
@@ -249,8 +311,9 @@ public class SpellbookPage implements Component {
   shownOf(self): Array<Game.SpellEntry> {
     const list: Array<Game.SpellEntry> = []
     const sought = self.search.lower()
-    const wanted = self.tab == 1 ? 0 : (self.lines[self.tab - 1]?.index ?? 0)
-    for (spell of self.spells) {
+    const onPets = self.tab == self.petTab
+    const wanted = self.tab == 1 || onPets ? 0 : (self.lines[self.tab - 1]?.index ?? 0)
+    for (spell of onPets ? self.pets : self.spells) {
       if ((wanted == 0 || spell.line == wanted) && kept(spell, self.list.values.kinds) &&
           (sought == "" || spell.name.lower().contains(sought))) {
         list.push(spell)
