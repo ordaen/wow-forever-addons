@@ -1,66 +1,15 @@
-// The communities tab's own parts: the player's communities in a list (the picked one's members in the roster beside
-// it), and the picked community's card: its kind and size, its description and broadcast, and its streams.
-import { Align, ByInteractionState, Edges, Overflow } from "$ltml"
+// The communities tab's own part: the picked community's card (its kind and size, its description and broadcast, and
+// its streams). Each community is a tab of the communities' own row, its members in the roster under it.
+import { Align, Overflow } from "$ltml"
 import { Component, SECONDARY_TEXT, TITLE_LINE, TITLE_TEXT } from "Ordaen"
 import { orDash } from "@/friends"
 import Locale from "@/locales"
 import { Club, Stream } from "@/people"
 import Style from "@/style"
 
-const CLEAR: Color = Color.hex("#00000000")
-const ROW_SHADE: ByInteractionState<Color> = { default: CLEAR, hover: Color.hex("#00000059"), focus: Color.hex("#00000059") }
-const ROW_PAD: Edges = { top: 1sp, right: 2sp, bottom: 1sp, left: 2sp }
-
 // What a community is: of Battle.net accounts or of characters, and how many are in it.
 function kindOf(club: Club): String {
   return Locale.CLUB_KIND.format(club.battleNet ? Locale.CLUB_BATTLE_NET : Locale.CLUB_CHARACTERS, club.memberCount)
-}
-
-class ClubRow implements Component {
-  public pick: Event<String> = new Event()
-
-  derived background: Color | ByInteractionState<Color> = self.chosen == self.club.id ? Style.PICKED : ROW_SHADE
-
-  club: Signal<Club>
-  chosen: Signal<String>
-  constructor(club: Signal<Club>, chosen: Signal<String>) {
-    self.club = club
-    self.chosen = chosen
-  }
-
-  onPick(self) { self.pick.emit((peek self.club).id) }
-
-  public render(self): Template {
-    return $ltml {
-      <box columns={1} padding={ROW_PAD} background={self.background} @pointerPress(.Left)={self.onPick}
-           @keyPress(.Enter)={self.onPick} @keyPress(.Space)={self.onPick}>
-        <text value={self.club.name} textColor={self.club.battleNet ? Style.BATTLE_NET : Style.INK} wrap={false} />
-        <text value={kindOf(self.club)} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={false} />
-      </box>
-    }
-  }
-}
-
-// The player's communities; a click picks one.
-public class ClubList implements Component {
-  public pick: Event<String> = new Event()
-
-  clubs: Signal<Array<Club>>
-  chosen: Signal<String>
-  constructor(clubs: Signal<Array<Club>>, chosen: Signal<String>) {
-    self.clubs = clubs
-    self.chosen = chosen
-  }
-
-  onPick(self, id: String) { self.pick.emit(id) }
-
-  public render(self): Template {
-    return $ltml {
-      <box columns={1} overflow={Overflow.Scroll} yAlign={Align.Start} background={Style.CARD_BACK}>
-        <ClubRow $for={club of self.clubs} $key={club.id} club={club} chosen={self.chosen} @pick={self.onPick} />
-      </box>
-    }
-  }
 }
 
 class StreamRow implements Component {

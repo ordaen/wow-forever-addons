@@ -21,9 +21,6 @@
   "BUSY": "Busy",
   "OFFLINE": "Offline",
   "INVISIBLE": "Appear Offline",
-  "AGO_MINUTES": "%d min ago",
-  "AGO_HOURS": "%d h ago",
-  "AGO_DAYS": "%d d ago",
   "GAME_WOW": "World of Warcraft",
   "GAME_APP": "Battle.net App",
   "CARD_BATTLE_NET": "%s · Battle.net friend",
@@ -76,7 +73,6 @@
   "COMMUNITIES_COUNT": "%d joined",
   "ALLIES_COUNT": "%d allies",
   "FOOT_ALLIES": "Recent allies",
-  "GUILD_COUNT": "%d members, %d online",
   "SHOW": "Show",
   "SHOW_EVERYONE": "Everyone",
   "SHOW_ONLINE": "Online only",
@@ -116,5 +112,10 @@
   "MEETINGS": "Recent activity",
   "PIN": "Pin",
   "UNPIN": "Unpin",
-  "BEFRIEND": "Add Friend"
+  "BEFRIEND": "Add Friend",
+  "VIEW": "View",
+  "VIEW_LIST": "List",
+  "VIEW_TABLE": "Table",
+  "FILTER_CHARACTERS": "Characters",
+  "GAME_WINDOW_DEV": "Blizzard window"
 }

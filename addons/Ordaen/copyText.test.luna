@@ -11,11 +11,55 @@ class Notice {
 
   public render(self): Template {
     return $ltml {
-      <box padding={3.5sp}>
-        <CopyText value={self.text} height={60ui} />
+      <box padding={2.5sp}>
+        <CopyText value={self.text} />
       </box>
     }
   }
+}
+
+// A copy text in a narrow column, and one in a share of a track below it.
+class Card {
+  state long = "Raid on Thursday at eight, then the dungeon run, and the bank opens on Sunday."
+  state short = "Be kind."
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={1} rows={["max-content", { fr: 1 }]} width={120ui} height={200ui}>
+        <CopyText value={self.long} />
+        <CopyText value={self.short} />
+      </box>
+    }
+  }
+}
+
+test "a copy text is a text: its letters drawn as one, no field's art" {
+  let page = new Notice()
+  Test.mount(page, { left: 0, top: 0, width: 300, height: 100 })
+  const screen = Test.page()
+  Test.expect(screen.text("Raid on Thursday at eight.").shown())
+  Test.expect(screen.input().shown())
+  // The field's own letters are clear: the text is drawn once, by the text.
+  Test.expect(!screen.input().paintedWith(Color.hex("#e8dcc4")))
+  Test.expect(screen.text("Raid on Thursday at eight.").count() == 1)
+  destroy page
+}
+
+test "a copy text is as high as its wrapped lines, and fills a track's share" {
+  let page = new Card()
+  Test.mount(page, { left: 0, top: 0, width: 300, height: 300 })
+  const screen = Test.page()
+  const long = screen.text("Raid on Thursday at eight, then the dungeon run, and the bank opens on Sunday.").rect()
+  const short = screen.text("Be kind.").rect()
+  // Wrapped at 120: several lines, as high as they are.
+  Test.expect(long.bottom - long.top > (short.bottom - short.top) * 2)
+  // The second field stands over the rest of the column, down to its bottom.
+  const second = screen.input().nth(2).rect()
+  Test.expect(second.top >= long.bottom)
+  Test.expect(second.bottom - second.top > 200 - (long.bottom - long.top) - 2)
+  const first = screen.input().nth(1).rect()
+  Test.expect(first.bottom - first.top <= long.bottom - long.top + 1)
+  destroy page
 }
 
 test "a copy text takes the keyboard when clicked, and what is typed into it is put back" {

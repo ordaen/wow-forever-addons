@@ -33,8 +33,9 @@ public struct CellSize {
   height: Number<Length>
   icon: Number<Length>
   iconLeft: Number<Length>
-  // The icon sits a pixel lower while its cell is pushed.
-  iconTop: ByInteractionState<Number<Length>>
+  // One place, pressed or not: the game's button over the icon takes the press, and an icon that followed the cursor
+  // would take the mouse from that button.
+  iconTop: Number<Length>
   face: Number<Length>
 }
 
@@ -42,10 +43,9 @@ public function cellSize(height: Number<Length>): CellSize {
   const scale = height / CELL_HEIGHT
   const width = CELL_WIDTH * scale
   const icon = ICON * scale
-  const top = (height - icon) / 2
   return {
     width: width, height: height, icon: icon, iconLeft: (width - icon) / 2,
-    iconTop: { default: top, pressed: top + 1.171875dp }, face: FACE * scale
+    iconTop: (height - icon) / 2, face: FACE * scale
   }
 }
 

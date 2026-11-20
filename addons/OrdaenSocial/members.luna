@@ -1,13 +1,13 @@
-// A roster: the guild's members, or a community's, as every list window's (the toolbar with the search and «Показывать»,
-// the table whose headings sort it, the counts in the footer), and the card of the one picked.
+// A roster: the guild's members, or a community's, as every list window's (the toolbar with the search, «Показывать» and
+// the sort its headings share, which sorts by class too, the counts in the footer), and the card of the one picked.
 //
-// The table's columns are Blizzard's: name, level, class, zone, rank (a community's role) and note. Those online stand
+// The table's columns: status, level, name, zone, rank (a community's role) and note. Those online stand
 // above those offline whatever the order; an offline member's zone says when they were last online. A click picks a
 // member (its card shows beside the list); again, the card goes.
-import { Align, Position, Track } from "$ltml"
+import { Align, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { Choice, Column, Component, PushButton, SECONDARY_TEXT, TITLE_LINE, TITLE_TEXT, Table, TableRow, ToolPick, Toolbar, tracksOf } from "Ordaen"
-import { Fact, agoHoursText, markOf, orDash, presenceText } from "@/friends"
+import { Choice, Column, Component, Fact, PushButton, SECONDARY_TEXT, TITLE_LINE, TITLE_TEXT, Table, TableCell, TableRow, ToolPick, ToolSort, Toolbar, hoursAgoText, tracksOf } from "Ordaen"
+import { markOf, orDash, presenceText } from "@/friends"
 import Locale from "@/locales"
 import { Member, Rights } from "@/people"
 import Style from "@/style"
@@ -19,39 +19,44 @@ const SHOWS: Array<Choice<Show>> = [
   { value: .Everyone, label: Locale.SHOW_EVERYONE },
   { value: .Online, label: Locale.SHOW_ONLINE }
 ]
+const STATUS_WIDTH = 23.4375dp
 const LEVEL_WIDTH = 82.03125dp
-const CLASS_WIDTH = 117.1875dp
 const RANK_WIDTH = 140.625dp
+// The status (a dot, no heading: those online always stand first), the level, the name, where they are, the rank (a
+// community's role) and the note, the one column cut at its edge; everything else wraps.
 const GUILD_COLUMNS: Array<Column> = [
+  { title: "", width: STATUS_WIDTH },
+  { title: Locale.COLUMN_LEVEL, width: LEVEL_WIDTH, align: Align.Center, sortable: true },
   { title: Locale.COLUMN_NAME, width: { fr: 1 }, sortable: true },
-  { title: Locale.COLUMN_LEVEL, width: LEVEL_WIDTH, align: Align.End, sortable: true },
-  { title: Locale.COLUMN_CLASS, width: CLASS_WIDTH, sortable: true },
   { title: Locale.COLUMN_ZONE, width: { fr: 1 }, sortable: true },
   { title: Locale.COLUMN_RANK, width: RANK_WIDTH, sortable: true },
-  { title: Locale.COLUMN_NOTE, width: { fr: 1 }, sortable: true }
+  { title: Locale.COLUMN_NOTE, width: { fr: 1 }, sortable: true, cut: true }
 ]
 const CLUB_COLUMNS: Array<Column> = [
+  { title: "", width: STATUS_WIDTH },
+  { title: Locale.COLUMN_LEVEL, width: LEVEL_WIDTH, align: Align.Center, sortable: true },
   { title: Locale.COLUMN_NAME, width: { fr: 1 }, sortable: true },
-  { title: Locale.COLUMN_LEVEL, width: LEVEL_WIDTH, align: Align.End, sortable: true },
-  { title: Locale.COLUMN_CLASS, width: CLASS_WIDTH, sortable: true },
   { title: Locale.COLUMN_ZONE, width: { fr: 1 }, sortable: true },
   { title: Locale.COLUMN_ROLE, width: RANK_WIDTH, sortable: true },
-  { title: Locale.COLUMN_NOTE, width: { fr: 1 }, sortable: true }
+  { title: Locale.COLUMN_NOTE, width: { fr: 1 }, sortable: true, cut: true }
 ]
+// The sorts no column shows, the toolbar's alone: `columns.length + 1` and on.
+const MORE_SORTS: Array<String> = [Locale.COLUMN_CLASS]
 const TRACKS: Array<Track> = tracksOf(GUILD_COLUMNS)
-// The columns as they are numbered from 1.
+// The columns as they are numbered from 1, then the toolbar's own sorts.
 const BY_LEVEL = 2
-const BY_CLASS = 3
+const BY_NAME = 3
 const BY_ZONE = 4
 const BY_RANK = 5
 const BY_NOTE = 6
+const BY_CLASS = 7
 
 function online(member: Member): Boolean { return member.presence != .Offline }
 
 // Where a member is: the zone while online, when last online while offline.
 public function whereOf(member: Member): String {
   if (online(member)) { return member.zone }
-  return member.away > 0 ? agoHoursText(member.away) : Locale.OFFLINE_LOWER
+  return member.away > 0 ? hoursAgoText(member.away) : Locale.OFFLINE_LOWER
 }
 
 // -1 where `a` comes first, 1 where `b` does, 0 where they stand alike.
@@ -80,7 +85,7 @@ function before(a: Member, b: Member, column: Integer, descending: Boolean): Boo
   const order = compared(column, a, b)
   if (order != 0) { return descending ? order > 0 : order < 0 }
   const names = byText(a.name, b.name)
-  return column == 1 && descending ? names > 0 : names < 0
+  return column == BY_NAME && descending ? names > 0 : names < 0
 }
 
 // Whether a member is found by what the player typed: in the name, the class, the zone, the rank or the note.
@@ -122,17 +127,24 @@ class MemberRow implements Component {
   public render(self): Template {
     return $ltml {
       <TableRow tracks={TRACKS} selected={self.picked} @pick={self.onPick}>
-        <box columns={[Style.DOT, { fr: 1 }]} gap={2sp} yAlign={Align.Center}>
+        <TableCell>
           <box width={Style.DOT} height={Style.DOT} background={markOf(self.member.presence)} />
-          <text value={self.member.name} textColor={nameColorOf(self.member)} wrap={false} />
-        </box>
-        <box xAlign={Align.End}>
-          <text value={self.level} textColor={self.ink} textFont={.Numbers} wrap={false} />
-        </box>
-        <text value={self.member.className} textColor={self.ink} wrap={false} />
-        <text value={whereOf(self.member)} textColor={Style.DIM} wrap={false} />
-        <text value={self.member.rank} textColor={self.ink} wrap={false} />
-        <text value={self.member.note} textColor={Style.DIM} wrap={false} />
+        </TableCell>
+        <TableCell align={Align.Center}>
+          <text value={self.level} textColor={self.ink} textFont={.Numbers} />
+        </TableCell>
+        <TableCell>
+          <text value={self.member.name} textColor={nameColorOf(self.member)} />
+        </TableCell>
+        <TableCell>
+          <text value={whereOf(self.member)} textColor={Style.DIM} />
+        </TableCell>
+        <TableCell>
+          <text value={self.member.rank} textColor={self.ink} />
+        </TableCell>
+        <TableCell cut={true}>
+          <text value={self.member.note} textColor={Style.DIM} wrap={false} />
+        </TableCell>
       </TableRow>
     }
   }
@@ -166,14 +178,13 @@ public class MemberTable implements Component {
       <box columns={1} rows={["max-content", { fr: 1 }]} gap={3sp}>
         <Toolbar search={mut self.query} placeholder={Locale.SEARCH_MEMBERS}>
           <ToolPick value={mut self.show} choices={SHOWS} icon={Ordaen.art.ctl.tool.filter} title={Locale.SHOW} lit={self.lit} />
+          <ToolSort sorted={mut self.sorted} columns={self.columns} title={Locale.SORT} more={MORE_SORTS} />
         </Toolbar>
         <box columns={1} rows={[{ fr: 1 }]}>
-          <Table columns={self.columns} sorted={mut self.sorted} descending={mut self.descending}>
+          <Table columns={self.columns} sorted={mut self.sorted} descending={mut self.descending} rowsVary={true}
+                 empty={self.shown.length == 0 ? Locale.NOTHING_FOUND : ""}>
             <MemberRow $for={member of self.shown} $key={member.key} member={member} chosen={self.chosen} @pick={self.onPick} />
           </Table>
-          <box $if={self.shown.length == 0} position={Position.Absolute} left={0ui} right={0ui} top={Style.EMPTY_TOP} xAlign={Align.Center}>
-            <text value={Locale.NOTHING_FOUND} textColor={Style.DIM} wrap={false} />
-          </box>
         </box>
       </box>
     }
@@ -204,7 +215,7 @@ public class MemberCard implements Component {
 
   statusOf(self): String {
     const text = presenceText(self.member.presence)
-    return self.member.away > 0 ? `${text} · ${agoHoursText(self.member.away)}` : text
+    return self.member.away > 0 ? `${text} · ${hoursAgoText(self.member.away)}` : text
   }
 
   onWhisper(self) { self.whisper.emit() }

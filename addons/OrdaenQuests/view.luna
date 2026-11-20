@@ -6,7 +6,7 @@
 // Shift+Left-click and its box track it or stop tracking it; Right-click opens its menu: track, share, abandon.
 import { Align, Art, ByInteractionState, Edges, Position } from "$ltml"
 import root Ordaen from "Ordaen"
-import { ButtonPlate, Component, Menu, MenuEntry, Money, PushButton, SECONDARY_TEXT, TITLE_LINE, TITLE_TEXT } from "Ordaen"
+import { ButtonPlate, Component, Menu, MenuEntry, Money, PushButton, SECONDARY_TEXT, TITLE_LINE, TITLE_TEXT, rowShade } from "Ordaen"
 import { LogQuest, Objective, QuestText } from "@/book"
 import Locale from "@/locales"
 import { colorOf, difficultyOf } from "@/model"
@@ -22,9 +22,6 @@ const DIM: Color = Color.hex("#a3977f")
 const GREEN: Color = Color.hex("#40c040")
 const GREY: Color = Color.hex("#808080")
 const RED: Color = Color.hex("#ff4040")
-const CLEAR: Color = Color.hex("#00000000")
-const SHADE: ByInteractionState<Color> = { default: CLEAR, hover: Color.hex("#00000059"), focus: Color.hex("#00000059") }
-const PICKED: Color = Color.hex("#ffd1001f")
 const ROW_PAD: Edges = { top: 2sp, right: 2sp, bottom: 2sp, left: 5sp }
 const BOX = 14.0625dp
 // The fold mark's cell, as a tree's row has it.
@@ -57,7 +54,7 @@ public class HeaderRow implements Component {
   public render(self): Template {
     return $ltml {
       <box columns={["max-content", "max-content", { fr: 1 }]} gap={2sp} yAlign={Align.Center}
-           padding={{ top: 2sp, bottom: 2sp }} background={SHADE}
+           padding={{ top: 2sp, bottom: 2sp }} background={rowShade(false)}
            @pointerPress={self.onFold} @keyPress(.Enter)={self.onFold} @keyPress(.Space)={self.onFold}>
         <box width={MARK} height={MARK} background={self.mark} tint={DIM} />
         <text value={self.header} textColor={GOLD} wrap={false} />
@@ -75,7 +72,7 @@ public class QuestRow implements Component {
   derived levelColor: Color = colorOf(difficultyOf(self.quest.level, self.player))
   derived progress: String = stateOf(self.quest)
   derived progressColor: Color = self.quest.failed ? RED : GREEN
-  derived background: Color | ByInteractionState<Color> = self.picked ? PICKED : SHADE
+  derived background: Color | ByInteractionState<Color> = rowShade(self.picked)
   derived tick: Number = self.quest.tracked ? 1 : 0
   derived group: String = self.quest.group > 1 ? Locale.GROUP.format(self.quest.group) : ""
   derived entries: Array<MenuEntry> = [

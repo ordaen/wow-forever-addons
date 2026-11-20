@@ -1,0 +1,28 @@
+// Fact: a line of a card: what it says on the left, dim, in a column of one width for every line of the card, its value
+// on the right, wrapped where it runs long. A card is a column of them.
+import { Track } from "$ltml"
+import { Component } from "@/module"
+
+const INK: Color = Color.hex("#e8dcc4")
+const DIM: Color = Color.hex("#a3977f")
+const COLUMNS: Array<Track> = [117.1875dp, { fr: 1 }]
+
+public class Fact implements Component {
+  label: Signal<String>
+  value: Signal<String>
+  color: Signal<Color>
+  constructor(label: Signal<String>, value: Signal<String>, color: Signal<Color> = INK) {
+    self.label = label
+    self.value = value
+    self.color = color
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={COLUMNS} gap={2sp}>
+        <text value={self.label} textColor={DIM} wrap={false} />
+        <text value={self.value} textColor={self.color} wrap={true} />
+      </box>
+    }
+  }
+}

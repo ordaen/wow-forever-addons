@@ -1,28 +1,28 @@
 // CopyText: a text the player reads, and selects and copies (Ctrl+C), and never changes: a guild's message of the
-// day, its information, a code to hand on. It reads as body text (no field's well); a click puts the cursor in it and
-// the mouse or Shift and the arrows mark a part of it. Its lines wrap at its width; what doesn't fit its height is cut
-// at its bottom.
-import { Overflow } from "$ltml"
+// day, its information, a code to hand on. It is a `<text>` in the layout's flow: its lines wrap at its width, it is
+// as high as they are, and a share of a track (`{ fr: 1 }`) makes it as high as the track. Over the text stands a
+// read-only field as large as it, whose own letters are clear: a click puts the cursor in it and the mouse or Shift
+// and the arrows mark a part of it, over the text's letters, which stand where the field's would.
+import { Overflow, Position } from "$ltml"
 import { Component } from "@/module"
 
 const INK: Color = Color.hex("#e8dcc4")
+// The field's letters: there to be selected and copied, drawn by the text under them.
+const CLEAR: Color = Color.hex("#00000000")
 
 public class CopyText implements Component {
   value: Signal<String>
-  height: Signal<Number<Length>>
-  constructor(
-    value: Signal<String>,
-    // As high as this; as wide as where it stands.
-    height: Signal<Number<Length>>
-  ) {
+  constructor(value: Signal<String>) {
     self.value = value
-    self.height = height
   }
 
   public render(self): Template {
     return $ltml {
-      <input value={self.value} readOnly={true} height={self.height} textColor={INK} overflow={Overflow.Hidden}
-             multiline={true} />
+      <box overflow={Overflow.Hidden}>
+        <text value={self.value} textColor={INK} />
+        <input value={self.value} readOnly={true} multiline={true} textColor={CLEAR} position={Position.Absolute}
+               left={0dp} top={0dp} right={0dp} bottom={0dp} />
+      </box>
     }
   }
 }

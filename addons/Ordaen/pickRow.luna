@@ -1,0 +1,47 @@
+// PickRow: one row of a list the player picks from (a friend, an ally, a quest): what it holds laid out in its
+// `columns`, a shade under the cursor and the keyboard's focus, a gold one while it is the picked row. A left click,
+// Enter or Space reports `pick`; what is picked is the owner's, which says so through `picked`.
+import { Align, ByInteractionState, Edges, Track } from "$ltml"
+import { Component } from "@/module"
+
+const CLEAR: Color = Color.hex("#00000000")
+const SHADE: ByInteractionState<Color> = { default: CLEAR, hover: Color.hex("#00000059"), focus: Color.hex("#00000059") }
+// The picked row's gold.
+public const PICKED_ROW: Color = Color.hex("#ffd10026")
+const PADDING: Edges = { top: 2sp, right: 2sp, bottom: 2sp, left: 2sp }
+
+// A pickable row's background, for a row that hears more than a pick and draws its own box (a quest's, which Shift
+// tracks and the right button opens a menu of): the gold while picked, else the shade under the cursor and the focus.
+public function rowShade(picked: Boolean): Color | ByInteractionState<Color> { return picked ? PICKED_ROW : SHADE }
+
+public class PickRow implements Component {
+  public pick: Event<nil> = new Event()
+
+  derived background: Color | ByInteractionState<Color> = rowShade(self.picked)
+
+  columns: Signal<Array<Track>>
+  picked: Signal<Boolean>
+  padding: Signal<Edges>
+  constructor(
+    // Its columns: one track for each thing it holds.
+    columns: Signal<Array<Track>>,
+    picked: Signal<Boolean> = false,
+    padding: Signal<Edges> = PADDING
+  ) {
+    self.columns = columns
+    self.picked = picked
+    self.padding = padding
+  }
+
+  onPick(mut self) { self.pick.emit() }
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={self.columns} gap={2sp} yAlign={Align.Center} padding={self.padding}
+           background={self.background} @pointerPress(.Left)={self.onPick} @keyPress(.Enter)={self.onPick}
+           @keyPress(.Space)={self.onPick}>
+        <slot />
+      </box>
+    }
+  }
+}

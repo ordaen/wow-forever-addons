@@ -21,9 +21,6 @@
   "BUSY": "Не беспокоить",
   "OFFLINE": "Не в сети",
   "INVISIBLE": "Невидимый",
-  "AGO_MINUTES": "%d мин. назад",
-  "AGO_HOURS": "%d ч назад",
-  "AGO_DAYS": "%d дн. назад",
   "GAME_WOW": "World of Warcraft",
   "GAME_APP": "Приложение Battle.net",
   "CARD_BATTLE_NET": "%s · друг Battle.net",
@@ -76,7 +73,6 @@
   "COMMUNITIES_COUNT": "%d в списке",
   "ALLIES_COUNT": "%d союзников",
   "FOOT_ALLIES": "Недавние союзники",
-  "GUILD_COUNT": "Участников: %d, в сети: %d",
   "SHOW": "Показывать",
   "SHOW_EVERYONE": "Всех",
   "SHOW_ONLINE": "Только в сети",
@@ -116,5 +112,10 @@
   "MEETINGS": "Недавние действия",
   "PIN": "Закрепить",
   "UNPIN": "Открепить",
-  "BEFRIEND": "В друзья"
+  "BEFRIEND": "В друзья",
+  "VIEW": "Вид",
+  "VIEW_LIST": "Список",
+  "VIEW_TABLE": "Таблица",
+  "FILTER_CHARACTERS": "Персонажи",
+  "GAME_WINDOW_DEV": "Окно Blizzard"
 }

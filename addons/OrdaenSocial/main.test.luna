@@ -45,6 +45,7 @@ class FakePeople implements People {
   heard: mut Array<String> = []
   removed = false
   inGuild = true
+  manages = true
   pinned = true
   asked = 0
 
@@ -85,9 +86,9 @@ class FakePeople implements People {
       members: [
         member("Torvald", 25, "Warrior", "Ironforge", .Online, "Guild Master", 1, "the founder"),
         member("Ingrid", 24, "Priest", "Stormwind", .Online, "Officer", 2, "heals"),
-        member("Branna", 27, "Mage", "Darnassus", .Offline, "Member", 3, "")
+        member("Branna", 27, "Mage", "Darnassus", .Offline, "Member", 3, "keeps the bank; ask her before taking anything from its second tab")
       ],
-      rights: { invite: true, promote: true, demote: true }
+      rights: { invite: true, promote: true, demote: true, manage: self.manages }
     }
   }
 
@@ -233,7 +234,45 @@ test "the list holds both kinds, the best friend first and those offline last" {
   Test.expect(window.text("Battle.net · Torgrim · Loch Modan").shown())
   Test.expect(window.text("Eliana").shown())
   Test.expect(window.text("Battle.net · offline").shown())
-  Test.shot("the friends: the best friend on top with its star, the card the player's own")
+  // The best friend's star: the game's own friends list's, after the name.
+  Test.expect(window.text("Alexei").item().paintedWith("friendslist-favorite"))
+  Test.shot("the friends: the best friend on top with its star, the levels at the right, the card the player's own")
+}
+
+test "the filter shows each kind and those offline, and the view draws the friends as a table" {
+  Test.mount(nil, PAGE)
+  const window = opened(new FakePeople())
+  window.button(Ordaen.art.ctl.tool.filter).click()
+  Test.page().text("Battle.net").nth(1).click()
+  Test.expect(!window.text("Alexei").shown() && window.text("Eliana").shown())
+  Test.page().text("Offline").click()
+  Test.expect(!window.text("Darrick").shown())
+  Test.page().text("Reset").click()
+  Test.expect(window.text("Alexei").shown() && window.text("Darrick").shown())
+  Test.key(Key.Escape)
+  // The view's switch shows the view it is on.
+  window.button(Ordaen.art.ctl.tool.list).click()
+  Test.page().text("Table").click()
+  Test.expect(window.text("Level").shown() && window.text("tanks at night").shown())
+  Test.shot("the friends as a table: name with the star, level, where, note")
+  window.text("Eliana").click()
+  Test.expect(window.button("Whisper").shown())
+}
+
+test "a development build's footer button shows the game's own window of the tab, as it is, until it closes" {
+  Test.mount(nil, PAGE)
+  const people = new FakePeople()
+  Social.people = people
+  const game = Client.CreateFrame("Frame", "FriendsFrame", Client.UIParent, nil)
+  game.Hide()
+  Social.hook(game, nil)
+  game.Show()
+  Test.page().window(WINDOW).button("Blizzard window").click()
+  Test.expect(!Test.page().window(WINDOW).shown())
+  Test.expect(game.IsShown() && game.GetAlpha() == 1)
+  game.Hide()
+  game.Show()
+  Test.expect(Test.page().window(WINDOW).text("Alexei").shown())
 }
 
 test "a friend picked shows their card, whose buttons ask the game in the click" {
@@ -341,9 +380,9 @@ test "the guild's roster: those online first, a heading sorts it, «Show» keeps
   window.text("Guild").click()
   Test.expect(window.text("Guild Master").shown() && window.text("Branna").shown())
   Test.expect(window.text("2 d ago").shown())
-  Test.expect(window.text("3 members, 2 online").shown())
-  // The footer's counts, as label and value pairs.
+  // The counts are the footer's alone, as label and value pairs: the guild's card says none.
   Test.expect(window.text("Members").shown() && window.text("Online").shown())
+  Test.expect(window.text("3").shown() && window.text("2").shown())
   // The message of the day is a text to copy: what is typed into it is put back.
   const fields = window.input()
   for (at of 1..fields.count()) {
@@ -353,7 +392,7 @@ test "the guild's roster: those online first, a heading sorts it, «Show» keeps
   Test.type("x")
   Test.expect(fieldSays(window, "Raid on Friday"))
   Test.key(Key.Escape)
-  Test.shot("the guild: its roster by rank, the guild's card beside it")
+  Test.shot("the guild: its roster by rank, Branna's long note cut at its column, every row's columns under the headings, the guild's card beside it")
   // By level, the highest last: those online still above Branna.
   window.text("Level").click()
   Test.expect(window.texts().find(text => text == "Ingrid") != nil)
@@ -363,6 +402,30 @@ test "the guild's roster: those online first, a heading sorts it, «Show» keeps
   // The search: the first field drawn, before the guild's message and information.
   window.input().nth(1).type("heals")
   Test.expect(window.text("Ingrid").shown() && !window.text("Torvald").shown())
+}
+
+// Where a text first stands among those a part says, in the order drawn.
+function placeOf(part: Test.Part, text: String): Integer {
+  for (at, said of part.texts()) {
+    if (said == text) { return at }
+  }
+  return 0
+}
+
+test "the guild's toolbar sorts as its headings do, and by class, which no column shows" {
+  Test.mount(nil, PAGE)
+  const window = opened(new FakePeople())
+  window.text("Guild").click()
+  Test.expect(!window.text("Class").shown())
+  // By rank: the Guild Master first.
+  Test.expect(placeOf(window, "Torvald") < placeOf(window, "Ingrid"))
+  window.button(Ordaen.art.ctl.tool.sort).click()
+  Test.page().text("Class").click()
+  // By class: the Priest before the Warrior.
+  Test.expect(placeOf(window, "Ingrid") < placeOf(window, "Torvald"))
+  // A heading sorts the toolbar's way too: by name.
+  window.text("Name").click()
+  Test.expect(placeOf(window, "Ingrid") < placeOf(window, "Torvald"))
 }
 
 test "a guild member's card whispers, invites, promotes and demotes in the click" {
@@ -407,10 +470,19 @@ test "the guild's news: the sticky line first" {
   const window = opened(new FakePeople())
   window.text("Guild").click()
   window.text("News").click()
-  const texts = window.texts()
-  const founded = texts.find(text => text == "founded the guild")
-  Test.expect(founded != nil && window.text("crafted [Copper Chain Vest]").shown())
+  // What each line says is a text to copy.
+  Test.expect(window.input().nth(1).value() == "founded the guild")
+  Test.expect(fieldSays(window, "crafted [Copper Chain Vest]"))
   Test.expect(window.text("02.11").shown())
+}
+
+test "«Guild Management» shows only to a player who may manage the guild" {
+  Test.mount(nil, PAGE)
+  const people = new FakePeople()
+  people.manages = false
+  const window = opened(mut people)
+  window.text("Guild").click()
+  Test.expect(!window.button("Guild Management").shown() && window.button("Leave Guild").shown())
 }
 
 // The communities
@@ -422,7 +494,7 @@ test "the communities: the first one's members and streams, another picked shows
   window.text("Communities").click()
   Test.expect(window.text("Halvar").shown() && window.text("Owner").shown())
   Test.expect(window.text("Channels (2)").shown() && window.text("Everything").shown())
-  Test.shot("the communities: the list, the picked one's members and its card")
+  Test.shot("the communities: a tab each, the first one's members under them and its card")
   window.text("Halvar").click()
   window.button("Whisper").click()
   Test.expect(people.heard.join(", ") == "whisper Halvar")

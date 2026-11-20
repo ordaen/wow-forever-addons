@@ -1,13 +1,13 @@
-// The window's rows: a row of section captions or of slots, each place what its cell holds. A slot is the library's
-// item slot: its item, its count, its quality's rim; dimmed where the search or the place leaves it out or another bag
-// is lit; a new item's glow inside it until it is hovered; a lock on a protected one; a coin on a junk one; its menu
-// under it while open. A container's slot has the client's own use of the item on the scheme's chord for Use (secure);
-// every other click and the cursor's coming and going are told to the window through the shelf.
+// The window's list: its lines of cards, each card a section's caption and slots. A slot is the library's item slot:
+// its item, its count, its quality's rim; dimmed where the search or the place leaves it out or another bag is lit; a
+// new item's glow inside it until it is hovered; a lock on a protected one; a coin on a junk one; its menu under it
+// while open. A container's slot has the client's own use of the item on the scheme's chord for Use (secure) while its
+// vault is open; every other click and the cursor's coming and going are told to the window through the shelf.
 import Game from "$game"
-import { Action, Align, Event, KeyBinding, MouseButton, Position, Shadow, Track } from "$ltml"
+import { Action, Align, Event, KeyBinding, MouseButton, Overflow, Position, Shadow, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import { Component, ItemButton, Menu, MenuEntry, Quality, SECONDARY_TEXT } from "Ordaen"
-import { Cell, GAP, Row, SLOT, Section } from "@/layout"
+import { CAPTION_HIGH, CARD_GAP, CARD_PAD, Card, GAP, Line, SLOT, Section } from "@/layout"
 import { Slot } from "@/model"
 import { SlotMenu } from "@/slotMenu"
 import { Vault } from "@/vault"
@@ -15,11 +15,14 @@ import { Vault } from "@/vault"
 const CAPTION: Color = Color.hex("#e8c35a")
 const LABEL: Color = Color.hex("#a3977f")
 const NEW_GLOW: Color = Color.hex("#ffd65a")
+// A card's ground: darker than the window's, so each section reads as one.
+const CARD: Color = Color.hex("#00000038")
 const SHADOW: Shadow = { color: Color.hex("#000000"), x: 1.171875dp, y: -1.171875dp }
 const MARK = 14.0625dp
 const LOCK = 16.40625dp
 const COIN = 14.0625dp
-const CAPTION_TRACKS: Array<Track> = [MARK, "max-content", { fr: 1 }]
+const MARKED_TRACKS: Array<Track> = [MARK, "max-content", { fr: 1 }]
+const CAPTION_TRACKS: Array<Track> = ["max-content", { fr: 1 }]
 // The client's padlock, small, over a protected slot's top left corner.
 const PADLOCK: Atlas = "QuestSharing-Padlock"
 // The client's gold coin, a disc with its dark rim, over a junk slot's top right corner.
@@ -59,13 +62,16 @@ public class Shelf {
   public menu: Signal<SlotMenu | nil>
   // The chord a container's slot is used by (the client's secure click).
   public useChord: Signal<KeyBinding<MouseButton>>
+  // Whether the slots' vault is open: shut (the bank away from a banker), they are its copy, shown and not used.
+  public live: Signal<Boolean>
   constructor(
     filter: Signal<Filter>,
     free: Signal<Integer>,
     collapsed: Signal<Map<String, Boolean>>,
     fills: Signal<Map<Integer, String>>,
     menu: Signal<SlotMenu | nil>,
-    useChord: Signal<KeyBinding<MouseButton>>
+    useChord: Signal<KeyBinding<MouseButton>>,
+    live: Signal<Boolean>
   ) {
     self.filter = filter
     self.free = free
@@ -73,6 +79,7 @@ public class Shelf {
     self.fills = fills
     self.menu = menu
     self.useChord = useChord
+    self.live = live
   }
 }
 
@@ -93,8 +100,11 @@ class BagSlot implements Component {
   derived count: Integer = self.slot.count
   derived quality: Quality = self.slot.quality
   derived coin: Boolean = self.slot.junk && self.slot.id != 0
-  // A container's item is used by the client's secure click, on the scheme's chord for Use; a guild bank's has none.
-  derived action: Action | nil = self.slot.vault == Vault.Guild ? nil : Action.UseBagItem { bag: self.slot.bag, slot: self.slot.index, chord: self.shelf.useChord }
+  // A container's item is used by the client's secure click, on the scheme's chord for Use; a guild bank's has none,
+  // nor a copy of a vault that isn't open.
+  derived action: Action | nil = self.slot.vault == Vault.Guild || !self.shelf.live ? nil : Action.UseBagItem {
+    bag: self.slot.bag, slot: self.slot.index, chord: self.shelf.useChord
+  }
   derived menuShown: Boolean = self.shelf.menu?.slot == self.slot
   derived menuEntries: Array<MenuEntry> = self.shelf.menu?.entries ?? NO_ENTRIES
   derived menuTitle: String = self.shelf.menu?.title ?? ""
@@ -140,14 +150,15 @@ class BagSlot implements Component {
   }
 }
 
-// A section's caption: its mark (open or shut), its name, a bag's fill after it; a click shuts or opens it.
+// A section's caption: its name, a bag's fill after it; a bag's section has its mark (open or shut) before its name,
+// and a click shuts or opens it. «Free»'s name is plain.
 class Caption implements Component {
   derived shut: Boolean = self.shelf.collapsed[self.section.key] == true
   derived mark = self.shut ? Ordaen.art.ctl.markClosed : Ordaen.art.ctl.markOpen
   derived fill: String = self.section.bag >= 0 ? self.shelf.fills[self.section.bag] ?? "" : ""
-  derived plain: Boolean = self.section.free
-  derived markOpacity: Number = self.plain ? 0 : 1
-  derived titleColor: Color = self.plain ? LABEL : CAPTION
+  derived folds: Boolean = self.section.folds
+  derived columns: Array<Track> = self.folds ? MARKED_TRACKS : CAPTION_TRACKS
+  derived titleColor: Color = self.section.free ? LABEL : CAPTION
 
   section: Signal<Section>
   const shelf: Shelf
@@ -157,13 +168,18 @@ class Caption implements Component {
   }
 
   onClick(self) {
-    if (!self.plain) { self.shelf.toggled.emit(self.section.key) }
+    if (self.folds) { self.shelf.toggled.emit(self.section.key) }
   }
 
   public render(self): Template {
     return $ltml {
-      <box columns={CAPTION_TRACKS} gap={GAP} yAlign={Align.End} @pointerPress={self.onClick} @keyPress(.Enter)={self.onClick} @keyPress(.Space)={self.onClick}>
-        <box width={MARK} height={MARK} background={self.mark} opacity={self.markOpacity} />
+      <box $if={self.folds} columns={self.columns} gap={3sp} height={CAPTION_HIGH} yAlign={Align.Center}
+           overflow={Overflow.Hidden} @pointerPress={self.onClick} @keyPress(.Enter)={self.onClick} @keyPress(.Space)={self.onClick}>
+        <box width={MARK} height={MARK} background={self.mark} />
+        <text value={self.section.title} textColor={self.titleColor} textShadow={SHADOW} wrap={false} />
+        <text value={self.fill} textColor={LABEL} textSize={SECONDARY_TEXT} textFont={.Numbers} wrap={false} />
+      </box>
+      <box $else columns={self.columns} gap={3sp} height={CAPTION_HIGH} yAlign={Align.Center} overflow={Overflow.Hidden}>
         <text value={self.section.title} textColor={self.titleColor} textShadow={SHADOW} wrap={false} />
         <text value={self.fill} textColor={LABEL} textSize={SECONDARY_TEXT} textFont={.Numbers} wrap={false} />
       </box>
@@ -171,39 +187,52 @@ class Caption implements Component {
   }
 }
 
-// One place of a row.
-class Place implements Component {
-  const cell: Cell
-  const shelf: Shelf
-  constructor(cell: Cell, shelf: Shelf) {
-    self.cell = cell
-    self.shelf = shelf
-  }
+// A section as a card: a darker ground, its caption, its slots in rows as wide as the card; a shut one its caption
+// alone.
+class SectionCard implements Component {
+  derived titled: Boolean = self.card.section.title != ""
+  derived shut: Boolean = self.card.section.folds && self.shelf.collapsed[self.card.section.key] == true
+  derived free: Boolean = self.card.section.free
+  derived span: Integer = self.card.span
+  derived slots: Array<Slot> = self.card.section.slots
+  derived section: Section = self.card.section
 
-  // What a template draws reads `self`: the cell is told by its own field.
-  public render(self): Template {
-    match (self.cell) {
-      .Item => return $ltml { <BagSlot slot={self.cell.slot} shelf={self.shelf} /> }
-      .Caption => return $ltml { <Caption section={self.cell.section} shelf={self.shelf} /> }
-      .Free => return $ltml { <ItemButton item={nil} count={self.shelf.free} size={SLOT} /> }
-      .Space => return $ltml { <box /> }
-    }
-  }
-}
-
-// A row of the window's grid.
-public class BagRow implements Component {
-  row: Signal<Row>
+  card: Signal<Card>
   const shelf: Shelf
-  constructor(row: Signal<Row>, shelf: Shelf) {
-    self.row = row
+  constructor(card: Signal<Card>, shelf: Shelf) {
+    self.card = card
     self.shelf = shelf
   }
 
   public render(self): Template {
     return $ltml {
-      <box columns={self.row.tracks} gap={GAP} height={SLOT}>
-        <Place $for={cell of self.row.cells} $key={cell} cell={peek cell} shelf={self.shelf} />
+      <box columns={1} gap={GAP} padding={CARD_PAD} background={CARD}>
+        <Caption $if={self.titled} section={self.section} shelf={self.shelf} />
+        <box $if={!self.shut} columns={self.span} gap={GAP}>
+          <ItemButton $if={self.free} item={nil} count={self.shelf.free} size={SLOT} />
+          <BagSlot $for={slot of self.slots} $key={slot} slot={slot} shelf={self.shelf} />
+        </box>
+      </box>
+    }
+  }
+}
+
+// A line of cards side by side, each as high as itself.
+public class CardLine implements Component {
+  derived tracks: Array<Track> = self.line.tracks
+  derived cards: Array<Card> = self.line.cards
+
+  line: Signal<Line>
+  const shelf: Shelf
+  constructor(line: Signal<Line>, shelf: Shelf) {
+    self.line = line
+    self.shelf = shelf
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={self.tracks} gap={CARD_GAP} yAlign={Align.Start}>
+        <SectionCard $for={card of self.cards} $key={card.section.key} card={card} shelf={self.shelf} />
       </box>
     }
   }

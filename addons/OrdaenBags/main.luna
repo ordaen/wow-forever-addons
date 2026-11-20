@@ -1,54 +1,38 @@
-// Ordaen Bags: every bag in one window, in place of the game's bag windows, and the bank and the guild bank in the same
-// window while the game has them open, each a tab of the window with its icon. The window shows while the game has its
-// bags, its bank or its guild bank open, and the game's own windows of those are held unseen and off the screen
-// meanwhile; its close shuts them. Its header: the search (it dims what doesn't match), the sort, «Sort the bags», the
-// view, the bag slots (the bank's on the bank's tab); its corner's settings plate opens the module's place in the
-// settings window. Three views of the bags and the bank: by category (the tabs at the left with their counts, the tab's
-// items in sections side by side in the kinds' fixed order, «Free» last), a section per bag (its empty slots shown, its
-// fill), and every slot in one grid. The guild bank shows the guild's tabs at the left and the tab's slots in their own
-// order, with the tab's log and the money's log as pages. Junk is a category decided once for all three (`@/junk`): a
-// coin on its slots, the «Junk» tab, the tooltip's note of why; at a merchant «Sell junk» sells it. A slot's clicks are
-// the player's scheme (`@/clicks`), and its menu holds every action on the item. Its footer: the free slots of the
-// total, the currencies the player follows, the gold (the cursor on it: every character's gold and the total); the
-// guild's gold and what the player may take of it on the guild bank's tab. The window keeps its size whatever it shows;
-// the body scrolls, building only the rows in view. While it is shut nothing is read and no event of it is heard.
+// Ordaen Bags: every bag in one window, in place of the game's bag windows. At a banker or the guild's vault the bank or
+// the guild bank is a window of its own beside the bags'; away from them, each is a tab of the bags' window with its
+// icon, showing what it held when the player last saw it this session. The bags' window shows while the game has its
+// bags, its bank or its guild bank open, the vault's while it has the bank or the guild bank open, and the game's own
+// windows of those are held unseen and off the screen meanwhile; a close shuts them. Each window's body is a pane
+// (`@/pane`): the header, the views, the list of cards, the footer; its corner's settings plate opens the module's place
+// in the settings window. Junk is a category decided once for all three views (`@/junk`): a coin on its slots, the
+// «Junk» tab, the tooltip's note of why; at a merchant «Sell junk» sells it. A slot's clicks are the player's scheme
+// (`@/clicks`), and its menu holds every action on the item. A window is at least eight slots wide beside its tabs, and
+// at least as high as its list: no item hides under a scroll. While it is shut nothing is read and no event of it is
+// heard.
 import Client from "$client"
 import Events from "$events"
 import Game from "$game"
-import { Align, Event, Frame, KeyBinding, MouseButton, Overflow, Track } from "$ltml"
+import { Event, Frame, KeyBinding, MouseButton } from "$ltml"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
-import { SECONDARY_TEXT, WINDOW_ROOM } from "Ordaen"
-import { ButtonPlate, Choice, Component, Dialog, FooterCount, FooterCounts, KeptWindow, ListTab, ModuleMemory, Module, Money, MoneyField, PushButton, Settings, SettingsPage, Tip, TipRow, Toolbar, windowsTitle, WindowsPage, ToolAct, ToolButton, ToolPick, Window, WindowTabSpec } from "Ordaen"
+import { ButtonPlate, Dialog, KeptWindow, ModuleMemory, Module, MoneyField, PushButton, Settings, SettingsPage, TipRow, windowsTitle, WindowsPage, Window, WindowTabSpec } from "Ordaen"
 import { Arranger } from "@/arrange"
 import { BagLine, BagSlotsWindow } from "@/bagSlots"
 import { BANK_ICON, BankBag, BankSlotsWindow, bankInfos } from "@/bank"
-import { Clicks, OURS, SlotAction, actionAt, chordOf, useBinding } from "@/clicks"
+import { OURS, SlotAction, actionAt, chordOf, useBinding } from "@/clicks"
 import { Gold } from "@/gold"
 import { Guard, GuardTips, Hovered } from "@/guard"
-import { GUILD_ICON, GuildBank, GuildPage, GuildTab, withdrawalsText } from "@/guild"
+import { GUILD_ICON, GuildBank } from "@/guild"
 import { JUNK_RULES, JunkLists, JunkRules, LEARNED, Mark, NO_LISTS, afterSale, shareOf, teaches, withMark, withScore } from "@/junk"
-import { GAP, GridRoom, Row, SECTION_GAP, Section, columnsIn, rowsOf } from "@/layout"
 import Locale from "@/locales"
 import { MERCHANT_VIEW, MerchantView, MerchantWindow } from "@/merchant"
-import { Grouping, KINDS, MOVED, Slot, SortBy, Tab, View } from "@/model"
-import { BagRow, Filter, Shelf } from "@/rows"
-import { bagSections, countsOf, oneSection, tabName, tabSections } from "@/sections"
+import { MOVED, Slot, SortBy } from "@/model"
+import { BagsView, Choices, Pane, junkIn, worthIn } from "@/pane"
 import { ClicksPage, JunkPage } from "@/settings"
 import { MenuAct, SlotMenu, menuOf } from "@/slotMenu"
 import { Stock } from "@/stock"
 import { GUILD_SLOTS, Vault, pickupIn } from "@/vault"
 import { Vendor } from "@/vendor"
-
-// What the module keeps of the player's choices: the tabs hidden; whether a tab with nothing in it hides; each tab's
-// grouping (by type where none is said); the junk's rules; the slot's clicks.
-public struct Choices implements Plain {
-  hidden: Array<Tab>
-  hideEmpty: Boolean
-  grouping: Map<Tab, Grouping>
-  junk: JunkRules
-  clicks: Clicks
-}
 
 // What the module remembers for the character: the protected slots, one at most for each slot of the bags.
 // Where the window stands is the window's own (`Window`, the profile's).
@@ -56,12 +40,6 @@ public struct Kept implements Plain {
   guards: Array<Guard>
 }
 
-// How the player left the bags' view, the profile's (`ModuleMemory`): the view and the sort the header
-// picks. The search isn't kept.
-public struct BagsView implements Plain {
-  view: View = View.Categories
-  sort: SortBy = SortBy.Bags
-}
 const BAGS_VIEW: BagsView = {}
 
 // A sale by hand at a merchant, noted as the player's click sells: the next update of its bag says whether it sold.
@@ -79,112 +57,23 @@ struct Sale {
 // The guild's money the dialog moves: in, or out.
 enum MoneyMove { Deposit, Withdraw }
 
-// The junk of a vault's slots, and what a merchant gives for it.
-function junkIn(stock: Stock): Array<Slot> {
-  _ = stock.revision
-  return stock.all.filter(slot => slot.junk)
-}
-
-function worthIn(junk: Array<Slot>): Integer {
-  let worth = 0
-  for (slot of junk) { worth += slot.read.price * slot.read.count }
-  return worth
-}
-
 const DEFAULTS: Choices = { hidden: [], hideEmpty: false, grouping: {}, junk: JUNK_RULES, clicks: OURS }
 const NOTHING_KEPT: Kept = { guards: [] }
 // The window's body: wide enough for the tabs and ten slots, tall enough for ten rows.
+// Between the window and a bag's window opened beside it.
+const BESIDE: Number<Spacing> = 6sp
 const WIDTH = 773.4375dp
 const HEIGHT = 609.375dp
-const TABS_WIDTH = 217.96875dp
 // The merchant's window: two columns of goods; its right column widens it.
 const MERCHANT_WIDTH = 796.875dp
-// The room the body's scroll bar takes at its right.
-const SCROLL_ROOM = 18.75dp
-// Between the tabs' list and the grid, and between the window and a bag's window opened beside it.
-const TABS_GAP = 6sp
 // Junk sold at once by «Sell junk»: what the merchant's buyback keeps, so all can be bought back.
 const SAFE_SALE = 12
 
-const BODY: Array<Track> = ["max-content", { fr: 1 }]
-const WITH_TABS: Array<Track> = [TABS_WIDTH, { fr: 1 }]
-const FILL: Array<Track> = [{ fr: 1 }]
-const FOOT: Array<Track> = ["max-content", { fr: 1 }, "max-content", "max-content", "max-content"]
-const LABEL: Color = Color.hex("#a3977f")
-const COUNT: Color = Color.hex("#a3977f")
 const CAPTION: String = "|cffe8c35a"
 const BUTTON = 140.625dp
 const DIALOG = 375dp
-const SORTS: Array<Choice<SortBy>> = [
-  { value: SortBy.Bags, label: Locale.SORT_BAGS },
-  { value: SortBy.Quality, label: Locale.SORT_QUALITY },
-  { value: SortBy.Name, label: Locale.SORT_NAME },
-  { value: SortBy.Level, label: Locale.SORT_LEVEL },
-  { value: SortBy.Count, label: Locale.SORT_COUNT },
-  { value: SortBy.Type, label: Locale.SORT_TYPE }
-]
-// The backpack's icon of the game's, on the bag slots' button and the bags' tab.
-const BACKPACK: FileId = 130716
 // The bags' tab of the window: the game's bag icon.
 const BAGS_ICON: Asset = "Interface/Icons/INV_Misc_Bag_08"
-
-// A tab of the list at the window's left: its name and how many items it has.
-class TabEntry implements Component {
-  public picked: Event<Tab> = new Event()
-  derived name: String = tabName(self.tab)
-  derived selected: Boolean = self.current == self.tab
-  derived count: Integer = self.counts[self.tab] ?? 0
-  derived off: Boolean = self.count == 0
-
-  const tab: Tab
-  current: Signal<Tab>
-  counts: Signal<Map<Tab, Integer>>
-  constructor(tab: Tab, current: Signal<Tab>, counts: Signal<Map<Tab, Integer>>) {
-    self.tab = tab
-    self.current = current
-    self.counts = counts
-  }
-
-  onPick(self) { self.picked.emit(self.tab) }
-
-  public render(self): Template {
-    return $ltml {
-      <ListTab label={self.name} selected={self.selected} off={self.off} @pick={self.onPick}>
-        <text value={"%d"} arguments={[self.count]} textColor={COUNT} textSize={SECONDARY_TEXT} textFont={.Numbers} />
-      </ListTab>
-    }
-  }
-}
-
-// A tab of the guild's at the window's left: its icon and name, the withdrawals a day it allows; one the player may
-// not see is dim.
-class GuildTabEntry implements Component {
-  public picked: Event<Integer> = new Event()
-  derived selected: Boolean = self.page == GuildPage.Items && self.current == self.tab.index
-  derived off: Boolean = !self.tab.viewable
-  derived limit: String = withdrawalsText(self.tab)
-
-  tab: Signal<GuildTab>
-  current: Signal<Integer>
-  page: Signal<GuildPage>
-  constructor(tab: Signal<GuildTab>, current: Signal<Integer>, page: Signal<GuildPage>) {
-    self.tab = tab
-    self.current = current
-    self.page = page
-  }
-
-  onPick(self) {
-    if (self.tab.viewable) { self.picked.emit(self.tab.index) }
-  }
-
-  public render(self): Template {
-    return $ltml {
-      <ListTab label={self.tab.name} icon={self.tab.icon} selected={self.selected} off={self.off} @pick={self.onPick}>
-        <text value={self.limit} textColor={COUNT} textSize={SECONDARY_TEXT} textFont={.Numbers} />
-      </ListTab>
-    }
-  }
-}
 
 public class Bags implements Module, App {
   public const title: String = "Ordaen Bags"
@@ -193,7 +82,11 @@ public class Bags implements Module, App {
   public slotsWindow: mut KeptWindow = new KeptWindow("slots", Locale.BAG_SLOTS, { x: 0ui, y: 0ui, width: 292.96875dp, height: 351.5625dp })
   public bankSlotsWindow: mut KeptWindow = new KeptWindow("bankSlots", Locale.BANK_SLOTS, { x: 0ui, y: 0ui, width: 292.96875dp, height: 351.5625dp })
   public merchantWindow: mut KeptWindow = new KeptWindow("merchant", Locale.MERCHANT, { x: 0ui, y: 0ui, width: MERCHANT_WIDTH, height: HEIGHT })
-  public const windows: mut Array<mut KeptWindow> = [self.window, self.slotsWindow, self.bankSlotsWindow, self.merchantWindow]
+  // The bank's or the guild bank's window while the game has it open.
+  public vaultWindow: mut KeptWindow = new KeptWindow("vault", Locale.BANK, { x: 0ui, y: 0ui, width: WIDTH, height: HEIGHT })
+  public const windows: mut Array<mut KeptWindow> = [
+    self.window, self.vaultWindow, self.slotsWindow, self.bankSlotsWindow, self.merchantWindow
+  ]
   // The merchant the player stands at, and how the player left its window's list (the profile's).
   public vendor: mut Vendor = new Vendor()
   public merchantList: mut ModuleMemory<MerchantView> = new ModuleMemory<MerchantView>(MERCHANT_VIEW, .Profile, "merchant")
@@ -220,13 +113,9 @@ public class Bags implements Module, App {
   bankDirty = false
   sale: Sale | nil = nil
 
-  public state tab: Tab = Tab.All
-  public state search = ""
-  public state collapsed: Map<String, Boolean> = {}
   public state slotsOpen = false
   public state bankSlotsOpen = false
   public state lit = -1
-  public state goldShown = false
   // The slot whose menu is open, with its lines.
   public state menu: SlotMenu | nil = nil
   // The guild's money dialog, and what it holds.
@@ -237,62 +126,38 @@ public class Bags implements Module, App {
 
   public derived bankOpen: Boolean = Game.bankObserver.open
   public derived shown: Boolean = Game.bags.open || self.bankOpen || self.guild.open
-  // The window's tabs: the bags, and the bank and the guild bank while they are open.
+  // At the bank or the guild's vault: it has a window of its own, and the bags' window shows the bags alone.
+  public derived atVault: Boolean = self.bankOpen || self.guild.open
+  derived vaultOpen: Vault = self.bankOpen ? Vault.Bank : Vault.Guild
+  // The bags' window's tabs: the bags; away from the vaults, the bank and the guild bank seen this session.
   public derived vaults: Array<Vault> = self.vaultsOf()
   public state windowTab = 1
   public derived vault: Vault = self.vaults[self.windowTab] ?? Vault.Bags
   derived windowTabs: Array<WindowTabSpec> = self.vaults.map(vault => self.tabSpec(vault))
-  derived isGuild: Boolean = self.vault == Vault.Guild
-  derived isBags: Boolean = self.vault == Vault.Bags
-  derived isBank: Boolean = self.vault == Vault.Bank
+  derived live: Boolean = self.liveIn(self.vault)
+  // The vault's window: its one tab, the bank's or the guild bank's.
+  state vaultTab = 1
+  derived vaultTabs: Array<WindowTabSpec> = [self.tabSpec(self.vaultOpen)]
+  derived mainWidth: Number<Length> = self.window.placing.width
+  derived vaultWidth: Number<Length> = self.vaultWindow.placing.width
   // The game's own windows held unseen while ours stands in their place.
   derived gameFrames: Array<any Frame> = self.gameFramesOf()
   // The header's picks: the view and the sort, kept in the profile as they are picked.
   public list: mut ModuleMemory<BagsView> = new ModuleMemory<BagsView>(BAGS_VIEW, .Profile, "view")
-  public derived categories: Boolean = !self.isGuild && self.list.values.view == View.Categories
-  derived withList: Boolean = self.categories || self.isGuild
-  derived query: String = self.search.lower()
-  public derived counts: Map<Tab, Integer> = self.countsOf()
-  public derived tabs: Array<Tab> = self.tabsOf()
-  derived shownTab: Tab = self.tabs.any(tab => tab == self.tab) ? self.tab : Tab.All
-  public derived sections: Array<Section> = self.sectionsOf()
-  // The grid's width: the body's but for the window's room, the tabs where they show, the scroll bar.
-  derived gridRoom: GridRoom = { gap: Ordaen.lengthOf(GAP), sectionGap: Ordaen.lengthOf(SECTION_GAP) }
-  public derived columns: Integer = columnsIn(self.gridWidth(), self.gridRoom)
-  public derived rows: Array<Row> = rowsOf(self.sections, self.columns, self.collapsed, self.gridRoom)
-  public derived filter: Filter = { query: self.query, place: Game.bags.place, lit: self.isBags ? self.lit : -1 }
-  derived free: Integer = self.stock().free
-  derived fills: Map<Integer, String> = self.stock().fills
   // The chord a container's slot is used by, the client's own secure click.
   derived useChord: KeyBinding<MouseButton> = useBinding(self.settings.values.clicks)
-  // The footer's counts: the free slots of the bags or the bank, and its junk where the junk is shown; the guild
-  // bank's withdrawal left today.
-  derived footCounts: Array<FooterCount> = self.footCountsOf()
   derived bagLines: Array<BagLine> = self.bagLinesOf()
   derived bankBags: Array<BankBag> = self.bankBagsOf()
   derived goldRows: Array<TipRow> = self.gold.rows
-  derived sortName: String = SORTS.find(choice => choice.value == self.list.values.sort)?.label ?? ""
-  // The junk in the shown vault: how many, and what a merchant gives for it.
-  derived junkCount: Integer = self.junkOf().count(slot => peek slot.id != 0)
-  derived junkWorth: Integer = self.worthOf()
-  derived junkShown: Boolean = self.categories && self.shownTab == Tab.Junk
-  derived selling: Boolean = self.isBags && Game.bags.place == Game.BagPlace.Merchant && self.junkCount > 0
+  derived running: Boolean = self.arranger.running
   // The bags' junk, whatever the window shows: what the merchant's window sells.
   derived carriedJunk: Array<Slot> = junkIn(self.carried)
   derived carriedJunkCount: Integer = self.carriedJunk.count(slot => peek slot.id != 0)
   derived carriedJunkWorth: Integer = worthIn(self.carriedJunk)
-  derived gridShown: Boolean = !self.isGuild || (self.guild.page == GuildPage.Items && !self.guild.loading)
-  derived guildLeft: String = self.guild.withdrawLeft < 0 ? Locale.GUILD_ANY : Game.money.format(self.guild.withdrawLeft)
   derived moneyTitle: String = self.moving == MoneyMove.Withdraw ? Locale.GUILD_WITHDRAW : Locale.GUILD_DEPOSIT
-  // The view's glyphs: categories in tabs, sections side by side, one grid. Ordaen's art is read once its root is
-  // made, as this one is.
-  views: Array<Choice<View>> = [
-    { value: View.Categories, label: Locale.VIEW_CATEGORIES, icon: Ordaen.art.ctl.tool.categories },
-    { value: View.Bags, label: Locale.VIEW_BAGS, icon: Ordaen.art.ctl.tool.table },
-    { value: View.One, label: Locale.VIEW_ONE, icon: Ordaen.art.ctl.tool.one }
-  ]
-  // What every row, place and slot of the grid reads, and the events they tell.
-  shelf: Shelf
+  // The bags' window's body, and the vault's.
+  public main: Pane
+  public side: Pane
 
   constructor() {
     self.gold = new Gold()
@@ -300,20 +165,23 @@ public class Bags implements Module, App {
     self.hovered = new Hovered()
     self.tips = new GuardTips(self.hovered)
     self.guild = new GuildBank()
-    self.shelf = new Shelf(self.filter, self.free, self.collapsed, self.fills, self.menu, self.useChord)
+    self.main = new Pane(
+      self.carried, self.bank, self.vaultGuild, self.guild, self.vault, self.live, mut self.list, self.settings.values,
+      self.mainWidth, self.lit, self.running, self.goldRows, mut self.slotsOpen, mut self.bankSlotsOpen, self.menu, self.useChord
+    )
+    self.side = new Pane(
+      self.carried, self.bank, self.vaultGuild, self.guild, self.vaultOpen, self.atVault, mut self.list, self.settings.values,
+      self.vaultWidth, self.lit, self.running, self.goldRows, mut self.slotsOpen, mut self.bankSlotsOpen, self.menu, self.useChord
+    )
     Ordaen.modules.add(self)
     Game.bags.updated.listen(self.onUpdated)
     Game.bankObserver.changed.listen(self.onBankChanged)
     self.guild.slots.listen(self.readGuild)
-    self.shelf.pressed.listen(self.onPressed)
-    self.shelf.pickup.listen(self.onPickup)
-    self.shelf.entered.listen(self.onEnter)
-    self.shelf.left.listen(self.onLeave)
-    self.shelf.toggled.listen(self.onToggle)
-    self.shelf.picked.listen(self.onMenuPick)
-    self.shelf.closed.listen(self.onMenuClose)
-    watch (open of self.slotsOpen) { self.placeSlots(open, mut self.slotsWindow) }
-    watch (open of self.bankSlotsOpen) { self.placeSlots(open, mut self.bankSlotsWindow) }
+    self.hear(self.main)
+    self.hear(self.side)
+    watch (open of self.atVault) { self.onVault(open) }
+    watch (open of self.slotsOpen) { self.placeSlots(open, mut self.slotsWindow, self.window, true) }
+    watch (open of self.bankSlotsOpen) { self.placeSlots(open, mut self.bankSlotsWindow, self.vaultWindow, false) }
     watch (open of Game.bags.open) { self.onOpen(open) }
     watch (open of self.bankOpen) { self.onBank(open) }
     watch (open of self.guild.open) { self.onGuild(open) }
@@ -325,11 +193,51 @@ public class Bags implements Module, App {
     Game.bags.follow(false)
   }
 
+  // The bank's tab always (it says how to see it until the bank was read); the guild bank's once a tab of it was read.
   vaultsOf(self): Array<Vault> {
     let vaults: Array<Vault> = [Vault.Bags]
-    if (self.bankOpen) { vaults.push(Vault.Bank) }
-    if (self.guild.open) { vaults.push(Vault.Guild) }
+    if (self.atVault) { return vaults }
+    vaults.push(Vault.Bank)
+    if (self.vaultGuild.total > 0) { vaults.push(Vault.Guild) }
     return vaults
+  }
+
+  // Whether the vault's slots are the game's as they are: the bags always, the bank and the guild bank while open.
+  liveIn(self, vault: Vault): Boolean {
+    return match (vault) {
+      .Bags => true
+      .Bank => self.bankOpen
+      .Guild => self.guild.open
+    }
+  }
+
+  // What a pane tells: its slots' clicks and the cursor, its header's and its footer's buttons.
+  hear(mut self, pane: Pane) {
+    pane.shelf.pressed.listen(self.onPressed)
+    pane.shelf.pickup.listen(self.onPickup)
+    pane.shelf.entered.listen(self.onEnter)
+    pane.shelf.left.listen(self.onLeave)
+    pane.shelf.picked.listen(self.onMenuPick)
+    pane.shelf.closed.listen(self.onMenuClose)
+    pane.arrange.listen(self.arrange)
+    pane.guildTab.listen(self.onGuildTab)
+    pane.guildLog.listen(self.onGuildLog)
+    pane.moneyLog.listen(self.onMoneyLog)
+    pane.sellJunk.listen(self.sellJunk)
+    pane.deposit.listen(self.onDeposit)
+    pane.withdraw.listen(self.onWithdraw)
+  }
+
+  // At the bank or the guild's vault the bags' window shows the bags, and the vault's window stands at its left,
+  // level with its top, at the size it was left at.
+  onVault(mut self, open: Boolean) {
+    self.windowTab = 1
+    if (!open) { return }
+    const at = peek self.window.placing
+    const size = peek self.vaultWindow.memory.values
+    self.vaultWindow.memory.write({
+      x: at.x - at.width / 2 - Ordaen.lengthOf(BESIDE) - size.width / 2, y: at.y - at.height / 2 + size.height / 2, ..size
+    })
   }
 
   tabSpec(self, vault: Vault): WindowTabSpec {
@@ -337,13 +245,6 @@ public class Bags implements Module, App {
       .Bags => { title: Locale.TITLE, desc: nil, icon: BAGS_ICON }
       .Bank => { title: Locale.BANK, desc: nil, icon: BANK_ICON }
       .Guild => { title: Locale.GUILD_BANK, desc: nil, icon: GUILD_ICON }
-    }
-  }
-
-  // The vault's tab picked.
-  focus(mut self, vault: Vault) {
-    for (index, each of peek self.vaults) {
-      if (each == vault) { self.windowTab = index }
     }
   }
 
@@ -366,23 +267,6 @@ public class Bags implements Module, App {
     return frames
   }
 
-  // The shown vault's slots.
-  stock(self): Stock {
-    return match (self.vault) {
-      .Bags => self.carried
-      .Bank => self.bank
-      .Guild => self.vaultGuild
-    }
-  }
-
-  stockOf(self, vault: Vault): Stock {
-    return match (vault) {
-      .Bags => self.carried
-      .Bank => self.bank
-      .Guild => self.vaultGuild
-    }
-  }
-
   byCount(self): Boolean { return peek self.list.values.sort == SortBy.Count }
 
   // The bags opened: everything read anew and followed while they are; shut, nothing is heard.
@@ -399,16 +283,14 @@ public class Bags implements Module, App {
     self.readAll()
   }
 
-  // The bank opened: its tab shows, read now and again after each batch of the client's updates while it is open.
+  // The bank opened: its window shows, read now and again after each batch of the client's updates while it is open.
   onBank(mut self, open: Boolean) {
     if (!open) {
       self.bankSlotsOpen = false
-      self.windowTab = 1
       return
     }
     self.ever = true
     self.readBank()
-    self.focus(.Bank)
     Events.BAG_UPDATE_DELAYED.listen(self.onBatch)
   }
 
@@ -427,12 +309,10 @@ public class Bags implements Module, App {
 
   onGuild(mut self, open: Boolean) {
     if (!open) {
-      self.windowTab = 1
       self.moving = nil
       return
     }
     self.ever = true
-    self.focus(.Guild)
   }
 
   // The guild bank's shown tab came: its slots read, in their own order.
@@ -503,41 +383,6 @@ public class Bags implements Module, App {
     for (slot of self.carried.all) { slot.guarded = self.guardedIn(guards, slot) }
   }
 
-  countsOf(self): Map<Tab, Integer> {
-    const stock = self.stock()
-    _ = stock.revision
-    return countsOf(stock.all)
-  }
-
-  // «All», «New» while something is new, then the kinds' tabs but those hidden, or empty where empty ones hide.
-  tabsOf(self): Array<Tab> {
-    const choices = self.settings.values
-    let tabs: Array<Tab> = [Tab.All]
-    if ((self.counts[Tab.New] ?? 0) > 0) { tabs.push(Tab.New) }
-    for (kind of KINDS) {
-      const empty = (self.counts[kind] ?? 0) == 0
-      const hidden = choices.hidden.any(tab => tab == kind)
-      if (!hidden && !(choices.hideEmpty && empty)) { tabs.push(kind) }
-    }
-    return tabs
-  }
-
-  sectionsOf(self): Array<Section> {
-    const stock = self.stock()
-    _ = stock.revision
-    if (self.isGuild) { return oneSection(stock.bags) }
-    return match (self.list.values.view) {
-      .Categories => tabSections(stock.all, self.shownTab, self.settings.values.grouping[self.shownTab] ?? .Type, self.list.values.sort)
-      .Bags => bagSections(stock.bags, stock.infos.map(info => info.name))
-      .One => oneSection(stock.bags)
-    }
-  }
-
-  gridWidth(self): Number<Length> {
-    const tabs: Number<Length> = self.withList ? TABS_WIDTH + Ordaen.lengthOf(TABS_GAP) : 0ui
-    return self.window.placing.width - Ordaen.lengthOf(2 * WINDOW_ROOM) - tabs - SCROLL_ROOM
-  }
-
   bagLinesOf(self): Array<BagLine> {
     _ = self.carried.revision
     let lines: Array<BagLine> = []
@@ -563,14 +408,12 @@ public class Bags implements Module, App {
     return bags
   }
 
-  junkOf(self): Array<Slot> { return junkIn(self.stock()) }
-
-  worthOf(self): Integer { return worthIn(self.junkOf()) }
-
   // A click on a slot: what the cursor holds is put down by the left button; else the chord's action in the player's
   // scheme. A container's use is the client's own secure click on its chord (`useChord`), done before this is told.
+  // A copy's slot (its vault shut) takes no click: only its vault's own are the game's.
   onPressed(mut self, slot: mut Slot, click: Event.Press) {
     self.menu = nil
+    if (!self.liveIn(slot.vault)) { return }
     if (click.button == MouseButton.Left && Client.CursorHasItem()) {
       pickupIn(slot.vault, slot.bag, slot.index)
       return
@@ -707,7 +550,9 @@ public class Bags implements Module, App {
 
   // A slot's item dragged off it, or what is dragged let go on it: picked up or put down there, as a plain click
   // does. The client's cursor holds what is picked up: an action bar's button takes it where it is let go.
-  onPickup(self, slot: Slot) { pickupIn(slot.vault, slot.bag, slot.index) }
+  onPickup(self, slot: Slot) {
+    if (self.liveIn(slot.vault)) { pickupIn(slot.vault, slot.bag, slot.index) }
+  }
 
   // An item's slot protected, or no more: an empty slot has nothing to protect.
   public guard(mut self, slot: Slot) {
@@ -740,15 +585,6 @@ public class Bags implements Module, App {
   onLeave(mut self, slot: Slot) {
     if (peek self.hovered.slot == slot) { self.hovered.slot = nil }
   }
-
-  onToggle(mut self, key: String) {
-    let collapsed: Map<String, Boolean> = {}
-    for (name, shut of peek self.collapsed) { collapsed[name] = shut }
-    collapsed[key] = collapsed[key] == true ? nil : true
-    self.collapsed = collapsed
-  }
-
-  onTab(mut self, tab: Tab) { self.tab = tab }
 
   onGuildTab(mut self, tab: Integer) {
     self.guild.page = .Items
@@ -789,53 +625,29 @@ public class Bags implements Module, App {
   onSlotsClosed(mut self) { self.slotsOpen = false }
   onBankSlotsClosed(mut self) { self.bankSlotsOpen = false }
 
-  // A window of bag slots opens beside the window, at its right, level with its top, at the size it was left at.
-  placeSlots(mut self, open: Boolean, slots: mut KeptWindow) {
+  // A window of bag slots opens beside its window, level with its top, at the size it was left at: the bags' at the
+  // bags' window's right, the bank's at the bank's window's left.
+  placeSlots(mut self, open: Boolean, slots: mut KeptWindow, beside: KeptWindow, right: Boolean) {
     if (!open) { return }
-    const at = peek self.window.placing
+    const at = peek beside.placing
     const size = peek slots.memory.values
-    slots.memory.write({
-      x: at.x + at.width / 2 + Ordaen.lengthOf(TABS_GAP) + size.width / 2, y: at.y - at.height / 2 + size.height / 2,
-      ..size
-    })
+    const away = at.width / 2 + Ordaen.lengthOf(BESIDE) + size.width / 2
+    slots.memory.write({ x: right ? at.x + away : at.x - away, y: at.y - at.height / 2 + size.height / 2, ..size })
   }
 
-  onGoldEnter(mut self) { self.goldShown = true }
-  onGoldLeave(mut self) { self.goldShown = false }
-
-  // The window's close shuts the game's bags, and leaves the bank and the guild bank, which hides it.
+  // The bags' window's close shuts the game's bags, and leaves the bank and the guild bank, which hides it.
   onClose(mut self) {
     Game.bags.close()
+    self.onVaultClose()
+  }
+
+  // The vault's window's close leaves the bank or the guild bank.
+  onVaultClose(mut self) {
     if (peek self.bankOpen) { Client.C_Bank.CloseBankFrame() }
     self.guild.close()
   }
 
   onSettings(self) { Ordaen.toggleSettings(Runtime.Addon.of(self)) }
-
-  footCountsOf(self): Array<FooterCount> {
-    if (self.isGuild) { return [{ label: Locale.GUILD_LEFT, value: self.guildLeft }] }
-    const free: FooterCount = { label: Locale.FOOT_FREE, value: Locale.FREE_OF.format(self.free, self.stock().total) }
-    if (!self.junkShown) { return [free] }
-    return [free, { label: Locale.FOOT_JUNK, value: Locale.JUNK_WORTH.format(self.junkCount, Game.money.format(self.junkWorth)) }]
-  }
-
-  const footer: Template = $ltml {
-    <box columns={FOOT} gap={6sp} yAlign={Align.Center}>
-      <FooterCounts counts={self.footCounts} />
-      <box />
-      <PushButton $if={self.selling} label={Locale.SELL_JUNK} width={BUTTON} @click={self.sellJunk} />
-      <box $elseif={self.isGuild} columns={2} gap={3sp}>
-        <PushButton label={Locale.GUILD_DEPOSIT} width={BUTTON} @click={self.onDeposit} />
-        <PushButton label={Locale.GUILD_WITHDRAW} width={BUTTON} disabled={!self.guild.canWithdraw} @click={self.onWithdraw} />
-      </box>
-      <text $else value={Game.money.tracked} textFont={.Numbers} />
-      <Money $if={self.isGuild} amount={self.guild.money} />
-      <box $else @pointerEnter={self.onGoldEnter} @pointerLeave={self.onGoldLeave}>
-        <Money amount={Game.money.amount} />
-        <Tip $if={self.goldShown} title={Locale.GOLD} text={""} rows={self.goldRows} />
-      </box>
-    </box>
-  }
 
   public render(self): Template {
     return $ltml {
@@ -844,45 +656,14 @@ public class Bags implements Module, App {
                       junkCount={self.carriedJunkCount} junkWorth={self.carriedJunkWorth} @sellJunk={self.sellJunk} />
       <$if={self.ever}>
         <Window tabs={self.windowTabs} selected={mut self.windowTab} declared={mut self.window} shown={self.shown}
-                withSettings={true} footer={self.footer} @close={self.onClose} @settings={self.onSettings}>
-          <box rows={BODY} gap={6sp}>
-            <Toolbar search={mut self.search} placeholder={Locale.SEARCH}>
-              <ToolPick value={mut self.list.values.sort} choices={SORTS} icon={Ordaen.art.ctl.tool.sort} title={Locale.SORT} />
-              <ToolAct icon={Ordaen.art.ctl.tool.arrange} title={Locale.ARRANGE} text={Locale.ARRANGE_TIP}
-                       disabled={self.arranger.running || !self.isBags} @pressed={self.arrange} />
-              <ToolPick value={mut self.list.values.view} choices={self.views} icon={Ordaen.art.ctl.tool.categories} title={Locale.VIEW} />
-              <ToolButton $if={self.isBags} icon={BACKPACK} title={Locale.BAG_SLOTS} text={Locale.BAG_SLOTS_TIP}
-                          open={mut self.slotsOpen} tinted={false} />
-              <ToolButton $elseif={self.isBank} icon={BANK_ICON} title={Locale.BANK_SLOTS} text={Locale.BANK_SLOTS_TIP}
-                          open={mut self.bankSlotsOpen} tinted={false} />
-            </Toolbar>
-            <box $if={self.withList} columns={WITH_TABS} rows={FILL} gap={6sp}>
-              <box $if={self.isGuild} columns={1} gap={0.5sp}>
-                <GuildTabEntry $for={tab of self.guild.tabs} tab={tab} current={self.guild.tab} page={self.guild.page}
-                               @picked={self.onGuildTab} />
-                <ListTab label={Locale.GUILD_LOG} selected={self.guild.page == GuildPage.Log} @pick={self.onGuildLog} />
-                <ListTab label={Locale.GUILD_MONEY_LOG} selected={self.guild.page == GuildPage.MoneyLog} @pick={self.onMoneyLog} />
-              </box>
-              <box $else columns={1} gap={0.5sp}>
-                <TabEntry $for={tab of self.tabs} $key={tab} tab={peek tab} current={self.shownTab}
-                          counts={self.counts} @picked={self.onTab} />
-              </box>
-              <virtualList $if={self.gridShown} gap={GAP}>
-                <BagRow $for={row of self.rows} row={row} shelf={self.shelf} />
-              </virtualList>
-              <box $elseif={self.guild.page == GuildPage.Items} columns={1}>
-                <text value={Locale.GUILD_LOADING} textColor={LABEL} />
-              </box>
-              <box $else columns={1} gap={3sp} overflow={Overflow.Scroll}>
-                <text $for={line of self.guild.log} value={line} wrap={true} />
-              </box>
-            </box>
-            <virtualList $else gap={GAP}>
-              <BagRow $for={row of self.rows} row={row} shelf={self.shelf} />
-            </virtualList>
-          </box>
+                minWidth={self.main.leastWidth} withSettings={true} footer={self.main.footer} @close={self.onClose} @settings={self.onSettings}>
+          {self.main.body}
         </Window>
-        <BagSlotsWindow $if={self.slotsOpen && self.shown && self.isBags} lines={self.bagLines} declared={mut self.slotsWindow}
+        <Window tabs={self.vaultTabs} selected={mut self.vaultTab} declared={mut self.vaultWindow} shown={self.atVault}
+                minWidth={self.side.leastWidth} footer={self.side.footer} @close={self.onVaultClose}>
+          {self.side.body}
+        </Window>
+        <BagSlotsWindow $if={self.slotsOpen && self.shown && self.main.isBags} lines={self.bagLines} declared={mut self.slotsWindow}
                         @close={self.onSlotsClosed} @lit={self.onLit} />
         <BankSlotsWindow $if={self.bankSlotsOpen && self.bankOpen} bags={self.bankBags} declared={mut self.bankSlotsWindow}
                          @close={self.onBankSlotsClosed} />

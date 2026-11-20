@@ -6,7 +6,7 @@ import Test from "$test"
 import Wow from "LunaTypeRenderer"
 import { Age } from "@/age"
 import { Money } from "@/money"
-import { Column, Table, TableRow, tracksOf } from "@/table"
+import { Column, Table, TableCell, TableRow, tracksOf } from "@/table"
 
 public struct Sale {
   name: String
@@ -187,6 +187,56 @@ test "a body given a height scrolls past it, the headings stay" {
   Test.wheel(-3)
   Test.shot("the wheel turned down over the rows: they have moved up under the headings")
 
+  destroy page
+  Test.expect(Test.blank())
+}
+
+const SHARED: Array<Column> = [
+  { title: "Name", width: { fr: 1 } },
+  { title: "Zone", width: { fr: 1 } },
+  { title: "Note", width: { fr: 1 } }
+]
+const SHARED_TRACKS: Array<Track> = tracksOf(SHARED)
+
+// Three columns that share the width, a row whose zone runs far past its column.
+class Shared {
+  public state sorted = 0
+  public state descending = false
+
+  public render(self): Template {
+    return $ltml {
+      <Table columns={SHARED} sorted={mut self.sorted} descending={mut self.descending}>
+        <TableRow tracks={SHARED_TRACKS}>
+          <TableCell>
+            <text value={"Ingrid"} wrap={false} />
+          </TableCell>
+          <TableCell>
+            <text value={"Stormwind"} wrap={false} />
+          </TableCell>
+          <TableCell>
+            <text value={"main"} wrap={false} />
+          </TableCell>
+        </TableRow>
+        <TableRow tracks={SHARED_TRACKS}>
+          <TableCell>
+            <text value={"Bo"} wrap={false} />
+          </TableCell>
+          <TableCell>
+            <text value={"The Temple of Atal'Hakkar, deep in the Swamp of Sorrows"} wrap={false} />
+          </TableCell>
+          <TableCell>
+            <text value={"alt"} wrap={false} />
+          </TableCell>
+        </TableRow>
+      </Table>
+    }
+  }
+}
+
+test "a long text in a cell is cut at its column, and every row's columns stand under the headings" {
+  let page = new Shared()
+  Test.mount(page, { left: 0, top: 0, width: 500, height: 300 })
+  Test.shot("three shared columns: the long zone cut at its edge, «alt» under «Note» as «main» is")
   destroy page
   Test.expect(Test.blank())
 }
