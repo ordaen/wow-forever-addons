@@ -30,11 +30,11 @@ public class GuildCard implements Component {
   public render(self): Template {
     return $ltml {
       <box columns={1} rows={["max-content", { fr: 1 }, "max-content"]} gap={6sp}>
-        <text value={self.guild.name} textColor={Style.GOLD} textSize={TITLE_TEXT} lineHeight={TITLE_LINE} textFont={.Title} wrap={false} />
+        <text value={self.guild.name} textColor={Style.GOLD} textSize={TITLE_TEXT} lineHeight={TITLE_LINE} textFont={.Title} wrap={.None} />
         <box columns={1} rows={["max-content", "max-content", "max-content", { fr: 1 }]} gap={3sp} overflow={Overflow.Scroll}>
-          <text value={Locale.MOTD} textColor={Style.DIM} wrap={false} />
+          <text value={Locale.MOTD} textColor={Style.DIM} wrap={.None} />
           <CopyText value={orDash(self.guild.motd)} />
-          <text value={Locale.GUILD_INFO} textColor={Style.DIM} wrap={false} />
+          <text value={Locale.GUILD_INFO} textColor={Style.DIM} wrap={.None} />
           <CopyText value={orDash(self.guild.info)} />
         </box>
         <box columns={1} gap={3sp}>
@@ -82,9 +82,9 @@ class NewsRow implements Component {
     return $ltml {
       <box columns={["max-content", { fr: 1 }]} gap={3sp} padding={{ top: ROW_PAD, bottom: ROW_PAD }}
            @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
-        <text value={self.date} textColor={Style.DIM} textFont={.Numbers} wrap={false} />
+        <text value={self.date} textColor={Style.DIM} textFont={.Numbers} wrap={.None} />
         <box columns={["max-content", "max-content", { fr: 1 }]} gap={2sp} yAlign={Align.Center}>
-          <text value={self.news.who} textColor={self.news.sticky ? Style.GOLD : Style.INK} wrap={false} />
+          <text value={self.news.who} textColor={self.news.sticky ? Style.GOLD : Style.INK} wrap={.None} />
           <ItemButton $if={self.item} item={self.news.subject} size={Style.NEWS_ITEM} />
           <box $else />
           <CopyText value={self.news.what} />

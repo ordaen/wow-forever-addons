@@ -39,31 +39,31 @@ surface 425,183.88 1155.76x532.25 on DIALOG clamped raised by a click
           box 460.85,344.03 683.3x301.63 scrolled 0 of 0
             box 460.85,344.03 683.3x46.93 #00000000 @keyPress @pointerPress
               box 466.54,362.5 10x10 Interface/FriendsFrame/StatusIcon-Online
-              box 482.23,349.72 634.99x35.56 clipped
+              box 482.23,349.72 634.99x35.56
                 box 482.23,349.72 634.99x17.78
-                  text 482.23,349.72 42.22x17.78 "Alexei" #82c5ff
-                  box 530.14,351.94 13.33x13.33 friendslist-favorite
+                  text 482.23,349.72 615.97x17.78 "Alexei" #82c5ff
+                  box 1103.88,351.94 13.33x13.33 friendslist-favorite
                 text 482.23,367.5 634.99x17.78 "Battle.net · Torgrim · Loch Modan" #a3977f
               text 1122.91,358.61 15.56x17.78 "25" #a3977f
             box 460.85,390.96 683.3x46.93 #00000000 @keyPress @pointerPress
               box 466.54,409.43 10x10 Interface/FriendsFrame/StatusIcon-Away
-              box 482.23,396.65 634.99x35.56 clipped
+              box 482.23,396.65 634.99x35.56
                 box 482.23,396.65 634.99x17.78
-                  text 482.23,396.65 42.22x17.78 "Eliana" #c79c6e
+                  text 482.23,396.65 629.3x17.78 "Eliana" #c79c6e
                 text 482.23,414.43 634.99x17.78 "Stormwind" #a3977f
               text 1122.91,405.54 15.56x17.78 "24" #a3977f
             box 460.85,437.9 683.3x46.93 #00000000 @keyPress @pointerPress
               box 466.54,456.36 10x10 Interface/FriendsFrame/StatusIcon-Offline
-              box 482.23,443.59 634.99x35.56 clipped
+              box 482.23,443.59 634.99x35.56
                 box 482.23,443.59 634.99x17.78
-                  text 482.23,443.59 47.78x17.78 "Darrick" #7c848a
+                  text 482.23,443.59 629.3x17.78 "Darrick" #7c848a
                 text 482.23,461.36 634.99x17.78 "offline" #a3977f
               text 1122.91,452.48 15.56x17.78 "22" #a3977f
             box 460.85,484.83 683.3x46.93 #00000000 @keyPress @pointerPress
               box 466.54,503.3 10x10 Interface/FriendsFrame/StatusIcon-Offline
-              box 482.23,490.52 650.54x35.56 clipped
+              box 482.23,490.52 650.54x35.56
                 box 482.23,490.52 650.54x17.78
-                  text 482.23,490.52 35.56x17.78 "Irina" #7c848a
+                  text 482.23,490.52 644.86x17.78 "Irina" #7c848a
                 text 482.23,508.3 650.54x17.78 "Battle.net · offline" #a3977f
               text 1138.46,508.3 0x0 "" #a3977f
       box 460.85,645.66 683.3x45.4

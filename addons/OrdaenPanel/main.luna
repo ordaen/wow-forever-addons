@@ -154,10 +154,10 @@ public class ZoneBox implements Component {
         <XpBar $if={self.experience} room={self.panel.inside} fill={self.panel.xpFill} bezel={self.panel.xpBezel}
                view={self.panel.xpView} />
         <text $if={self.zoneName} value={Game.location.zone} textColor={INK}
-              textOutline={self.panel.outline} textShadow={self.panel.shadow} wrap={false} />
+              textOutline={self.panel.outline} textShadow={self.panel.shadow} wrap={.None} />
         <box $if={self.clock} @pointerPress={self.onClock} @keyPress(.Enter)={self.onClock} @keyPress(.Space)={self.onClock}>
           <text value={Game.clock.text} textColor={self.panel.clockColor}
-                textOutline={self.panel.outline} textShadow={self.panel.shadow} wrap={false} />
+                textOutline={self.panel.outline} textShadow={self.panel.shadow} wrap={.None} />
         </box>
         <MoneyLine $if={self.money} outline={self.panel.outline} shadow={self.panel.shadow}
                    vertical={self.panel.vertical} />
@@ -396,7 +396,7 @@ public class Panel implements Module, App {
           <box position={Position.Absolute} left={86.7ui} top={5.3ui} width={36ui} height={36ui}
                background={Ordaen.art.panel.badge} xAlign={Align.Center} yAlign={Align.Center} zLevel={1}>
             <text value={"%d"} arguments={[Game.player.level]} textColor={Ordaen.look.values.accent}
-                  wrap={false} />
+                  wrap={.None} />
           </box>
           // The panel's corner: in the placing mode it takes the panel to another side too. It shows only while the
           // panel is at the bottom, where a right click would put it: it hears none.

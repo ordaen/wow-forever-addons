@@ -15,7 +15,7 @@ const HAMMER: Asset = "Interface/Icons/Trade_BlackSmithing"
 const COLUMNS: Array<Column> = [
   { title: "Name", width: { fr: 1 }, sortable: true },
   { title: "", width: 40dp, sortable: true },
-  { title: "Note", width: 120dp, cut: true }
+  { title: "Note", width: 120dp }
 ]
 
 class Line {
@@ -112,11 +112,11 @@ class Listing {
                empty={self.names.length == 0 ? "Nothing found" : ""}>
           <TableRow $for={name of self.names} tracks={tracksOf(COLUMNS)}>
             <TableCell column={COLUMNS[1]}>
-              <text value={name} wrap={true} />
+              <text value={name} />
             </TableCell>
             <TableCell column={COLUMNS[2]} />
             <TableCell column={COLUMNS[3]}>
-              <text value={"a note"} wrap={false} />
+              <text value={"a note"} wrap={.None} />
             </TableCell>
           </TableRow>
         </Table>

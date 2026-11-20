@@ -1,5 +1,5 @@
 // Keycap: the key that picks a line or a reward, in a small dark cap; as big as a reward's icon where it stands
-// beside one. An empty key keeps the cap's room alone, so the column holds.
+// beside one. An empty key keeps the cap's width alone, so the column holds.
 import { Align } from "$ltml"
 import { Component, SECONDARY_TEXT, TIGHT_LINE } from "Ordaen"
 import Style from "@/style"
@@ -21,9 +21,9 @@ public class Keycap implements Component {
       <box $if={self.shown} width={self.size} height={self.size} background={Style.KEYCAP} border={Style.KEYCAP_EDGE}
            xAlign={Align.Center} yAlign={Align.Center}>
         <text value={self.key} textColor={Style.KEY_TEXT} textSize={SECONDARY_TEXT} textFont={.Numbers} lineHeight={TIGHT_LINE}
-              wrap={false} />
+              wrap={.None} />
       </box>
-      <box $else width={self.size} height={self.size} />
+      <box $else width={self.size} />
     }
   }
 }

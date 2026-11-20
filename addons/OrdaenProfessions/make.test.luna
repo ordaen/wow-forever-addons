@@ -44,12 +44,16 @@ function window(): Test.Part {
   return Test.page().window("Overview")
 }
 
-// The make row as it reads: the mode, the count with − and + (none by «All»), what it comes to, «Create».
+// The make row as it reads: the mode, the count with − and + (none by «All»), «Create», and under them what it comes
+// to (none said by «Quantity»).
 function row(): String {
   let read: Array<String> = []
+  let created = false
   for (shown of window().texts()) {
     if (read.length > 0 || MODES.any(name => name == shown)) { read.push(shown) }
-    if (shown == "Create") { break }
+    if (created) { break }
+    created = shown == "Create"
+    if (created && read[1] == "Quantity") { break }
   }
   return read.join(" | ")
 }
@@ -165,14 +169,14 @@ test "«Raise skill»: the count is points, and beside it about how many makings
   Test.mount(nil, SCREEN)
   Game.tradeSkill.open = TAILORING
   mode("Quantity", "Raise skill")
-  Test.expect(reads("Raise skill | - | 1 | + | ≈ 1 pcs. | Create"))
+  Test.expect(reads("Raise skill | - | 1 | + | Create | ≈ 1 pcs."))
   // Ten points from 31: four while the cloak is orange, then (60 - 35) / (60 - skill) makings a point.
   times(9, "+")
-  Test.expect(reads("Raise skill | - | 10 | + | ≈ 11 pcs. | Create"))
+  Test.expect(reads("Raise skill | - | 10 | + | Create | ≈ 11 pcs."))
   // The bolt is green at 31: ten points take 18 makings.
   window().text("Bolt of Linen Cloth").click()
   times(9, "+")
-  Test.expect(reads("Raise skill | - | 10 | + | ≈ 18 pcs. | Create"))
+  Test.expect(reads("Raise skill | - | 10 | + | Create | ≈ 18 pcs."))
 }
 
 test "«Raise skill» makes what it takes" {
@@ -216,9 +220,9 @@ test "«Raise skill» says the skill won't rise where the recipe turns grey firs
   Test.hold([.Shift])
   times(2, "+")
   Test.hold([])
-  Test.expect(reads("Raise skill | - | 21 | + | Skill won't rise | Create") && off("Create"))
+  Test.expect(reads("Raise skill | - | 21 | + | Create | Skill won't rise") && off("Create"))
   times(2, "-")
-  Test.expect(reads("Raise skill | - | 19 | + | ≈ 89 pcs. | Create") && !off("Create"))
+  Test.expect(reads("Raise skill | - | 19 | + | Create | ≈ 89 pcs.") && !off("Create"))
 }
 
 test "«Raise skill» of a recipe the client's table hasn't says the skill won't rise" {
@@ -229,7 +233,7 @@ test "«Raise skill» of a recipe the client's table hasn't says the skill won't
   Test.mount(nil, SCREEN)
   Game.tradeSkill.open = TAILORING
   mode("Quantity", "Raise skill")
-  Test.expect(reads("Raise skill | - | 1 | + | Skill won't rise | Create") && off("Create"))
+  Test.expect(reads("Raise skill | - | 1 | + | Create | Skill won't rise") && off("Create"))
 }
 
 test "«Raise skill» counts up to the points left before the rank's most; the skill rising brings it down" {
@@ -257,9 +261,9 @@ test "the skill reaching the rank's most: the skill won't rise" {
   Game.tradeSkill.open = TAILORING
   mode("Quantity", "Raise skill")
   Game.professions.list = professions(59)
-  Test.expect(reads("Raise skill | - | 1 | + | ≈ 25 pcs. | Create"))
+  Test.expect(reads("Raise skill | - | 1 | + | Create | ≈ 25 pcs."))
   Game.professions.list = [{ skillLine: TAILORING, name: "Tailoring", icon: 136249, rank: 50, max: 50, kind: Game.ProfessionKind.Crafting }]
-  Test.expect(reads("Raise skill | - | 1 | + | Skill won't rise | Create"))
+  Test.expect(reads("Raise skill | - | 1 | + | Create | Skill won't rise"))
 }
 
 // By «All»
@@ -272,7 +276,7 @@ test "«All»: no count; what the bags make, said and made" {
   Test.mount(nil, SCREEN)
   Game.tradeSkill.open = TAILORING
   mode("Quantity", "All")
-  Test.expect(reads("All | 5 pcs. | Create"))
+  Test.expect(reads("All | Create | 5 pcs."))
   _ = Test.requests()
   window().button("Create").click()
   Test.expect(asked("TradeSkill.craft 2387 5"))
@@ -287,9 +291,9 @@ test "«All» follows the bags; with nothing to make «Create» is off" {
   Game.tradeSkill.open = TAILORING
   mode("Quantity", "All")
   Game.tradeSkill.recipes = recipes(2)
-  Test.expect(reads("All | 2 pcs. | Create") && !off("Create"))
+  Test.expect(reads("All | Create | 2 pcs.") && !off("Create"))
   Game.tradeSkill.recipes = recipes(0)
-  Test.expect(reads("All | 0 pcs. | Create") && off("Create"))
+  Test.expect(reads("All | Create | 0 pcs.") && off("Create"))
 }
 
 test "the mode picked stays for another recipe" {
@@ -301,7 +305,7 @@ test "the mode picked stays for another recipe" {
   Game.tradeSkill.open = TAILORING
   mode("Quantity", "All")
   window().text("Bolt of Linen Cloth").click()
-  Test.expect(reads("All | 9 pcs. | Create"))
+  Test.expect(reads("All | Create | 9 pcs."))
   mode("All", "Quantity")
   Test.expect(reads("Quantity | - | 1 | + | Create"))
 }

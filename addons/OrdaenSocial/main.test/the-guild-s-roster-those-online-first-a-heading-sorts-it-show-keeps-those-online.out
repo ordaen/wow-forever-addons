@@ -80,7 +80,7 @@ surface 425,183.88 1055.76x532.25 on DIALOG clamped raised by a click
                     text 719.51,383.98 149.52x17.78 "Ironforge" #a3977f
                   box 877.56,383.98 100x17.78
                     text 877.56,383.98 100x17.78 "Guild Master" #e8dcc4
-                  box 986.09,383.98 149.52x17.78 clipped
+                  box 986.09,383.98 149.52x17.78
                     text 986.09,383.98 149.52x17.78 "the founder" #a3977f
                 box 460.85,406.02 683.3x26.31 #00000000 @keyPress @pointerPress
                   box 469.38,414.18 16.67x10
@@ -93,7 +93,7 @@ surface 425,183.88 1055.76x532.25 on DIALOG clamped raised by a click
                     text 719.51,410.29 149.52x17.78 "Stormwind" #a3977f
                   box 877.56,410.29 100x17.78
                     text 877.56,410.29 100x17.78 "Officer" #e8dcc4
-                  box 986.09,410.29 149.52x17.78 clipped
+                  box 986.09,410.29 149.52x17.78
                     text 986.09,410.29 149.52x17.78 "heals" #a3977f
                 box 460.85,432.33 683.3x26.31 #00000000 @keyPress @pointerPress
                   box 469.38,440.49 16.67x10
@@ -106,8 +106,8 @@ surface 425,183.88 1055.76x532.25 on DIALOG clamped raised by a click
                     text 719.51,436.6 149.52x17.78 "2 d ago" #a3977f
                   box 877.56,436.6 100x17.78
                     text 877.56,436.6 100x17.78 "Member" #7c848a
-                  box 986.09,436.6 149.52x17.78 clipped
-                    text 986.09,436.6 432.22x17.78 "keeps the bank; ask her before taking anything from its second tab" #a3977f
+                  box 986.09,436.6 149.52x17.78
+                    text 986.09,436.6 149.52x17.78 "keeps the bank; ask her before taking anything from its second tab" #a3977f
       box 460.85,645.66 683.3x45.4
         box 460.85,662.73 683.3x28.33
           box 460.85,668 569.08x17.78

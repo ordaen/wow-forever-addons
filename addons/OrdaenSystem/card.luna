@@ -48,9 +48,9 @@ public class NamedLink implements Component {
   public render(self): Template {
     return $ltml {
       <box columns={PAIR} gap={3sp} @pointerPress={self.onClick} @keyPress(.Enter)={self.onClick} @keyPress(.Space)={self.onClick}>
-        <text value={self.named.title} textColor={LINK} wrap={false} />
+        <text value={self.named.title} textColor={LINK} wrap={.None} />
         <box xAlign={Align.End}>
-          <text value={self.named.state} textColor={self.named.color} textSize={SECONDARY_TEXT} wrap={false} />
+          <text value={self.named.state} textColor={self.named.color} textSize={SECONDARY_TEXT} wrap={.None} />
         </box>
       </box>
     }

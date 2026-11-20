@@ -139,7 +139,7 @@ public class QueueRow implements Component {
         <box width={SLOT} height={SLOT} border={Style.BRONZE} icon={self.icon} />
         <box @pointerPress={self.onOpen} @keyPress(.Enter)={self.onOpen} @keyPress(.Space)={self.onOpen}>
           <text value={self.line.name} textColor={self.color} textShadow={Style.SHADOW}
-                wrap={false} />
+                wrap={.None} />
         </box>
         <CountInput value={mut self.count} least={0} most={MOST_COUNT} step={STEP} />
         <PushButton label={"x"} width={STEP} plate={ButtonPlate.Accent} @click={self.onDrop} />
@@ -204,24 +204,24 @@ public class NeedRow implements Component {
     return $ltml {
       <box columns={self.columns} gap={3sp} yAlign={Align.Center} padding={NEED_PAD} border={Style.ROW_RULE}>
         <ItemButton item={self.item} art={self.icon} size={32.8125dp} />
-        <text value={self.need.name} textColor={Style.INK} wrap={false} />
+        <text value={self.need.name} textColor={Style.INK} wrap={.None} />
         <box xAlign={Align.End}>
           <text value={"%d"} arguments={[self.need.need]} textColor={Style.INK}
-                textFont={.Numbers} wrap={false} />
+                textFont={.Numbers} wrap={.None} />
         </box>
         <box xAlign={Align.End}>
           <text value={"%d"} arguments={[self.need.have]} textColor={Style.INK}
-                textFont={.Numbers} wrap={false} />
+                textFont={.Numbers} wrap={.None} />
         </box>
         <box xAlign={Align.End}>
           <text value={self.missing} textColor={self.missingColor}
-                textFont={.Numbers} wrap={false} />
+                textFont={.Numbers} wrap={.None} />
         </box>
         <$if={self.priced}>
           <box xAlign={Align.End}>
             <Money $if={self.hasPrice} amount={self.copper} />
           </box>
-          <text $if={self.lacks} value={self.way} textColor={self.wayColor} wrap={false} />
+          <text $if={self.lacks} value={self.way} textColor={self.wayColor} wrap={.None} />
           <box $else />
         </>
       </box>
@@ -288,19 +288,19 @@ public class QueuePage implements Component {
                 <box />
                 <box />
                 <box xAlign={Align.End}>
-                  <text value={Locale.QUEUE_NEED} textColor={Style.DIM} wrap={false} />
+                  <text value={Locale.QUEUE_NEED} textColor={Style.DIM} wrap={.None} />
                 </box>
                 <box xAlign={Align.End}>
-                  <text value={Locale.QUEUE_HAVE} textColor={Style.DIM} wrap={false} />
+                  <text value={Locale.QUEUE_HAVE} textColor={Style.DIM} wrap={.None} />
                 </box>
                 <box xAlign={Align.End}>
-                  <text value={Locale.QUEUE_MISSING} textColor={Style.DIM} wrap={false} />
+                  <text value={Locale.QUEUE_MISSING} textColor={Style.DIM} wrap={.None} />
                 </box>
                 <$if={self.priced}>
                   <box xAlign={Align.End}>
-                    <text value={Locale.QUEUE_PRICE} textColor={Style.DIM} wrap={false} />
+                    <text value={Locale.QUEUE_PRICE} textColor={Style.DIM} wrap={.None} />
                   </box>
-                  <text value={Locale.PRICE_BEST} textColor={Style.DIM} wrap={false} />
+                  <text value={Locale.PRICE_BEST} textColor={Style.DIM} wrap={.None} />
                 </>
               </box>
               <NeedRow $for={entry of self.entries} $key={entry.need.name} entry={entry} priced={self.priced} />

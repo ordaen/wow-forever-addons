@@ -172,19 +172,19 @@ public class LetterRow implements Component {
           <Tick value={mut self.checked} />
           <box width={ICON} height={ICON} icon={kindIcon(self.letter.kind)} />
           <box columns={1}>
-            <text value={self.letter.subject} textColor={self.subjectInk} wrap={false} />
-            <text value={senderOf(self.letter)} textSize={SECONDARY_TEXT} textColor={Style.DIM} wrap={false} />
+            <text value={self.letter.subject} textColor={self.subjectInk} wrap={.None} />
+            <text value={senderOf(self.letter)} textSize={SECONDARY_TEXT} textColor={Style.DIM} wrap={.None} />
           </box>
           <box columns={{ each: "max-content" }} gap={1sp} yAlign={Align.Center}>
             <ItemButton $for={item of self.shownItems} $key={item.place} item={item.item} count={item.count} size={SMALL}
                         mail={[self.letter.index, item.place]} />
-            <text $if={self.hasMore} value={"+%d"} arguments={[self.more]} textColor={Style.DIM} wrap={false} />
+            <text $if={self.hasMore} value={"+%d"} arguments={[self.more]} textColor={Style.DIM} wrap={.None} />
             <Money $if={self.hasMoney} amount={self.letter.copper} />
-            <text $if={self.hasCod} value={Locale.COD} textColor={Style.ORANGE} wrap={false} />
+            <text $if={self.hasCod} value={Locale.COD} textColor={Style.ORANGE} wrap={.None} />
             <Money $if={self.hasCod} amount={self.letter.cod} color={Style.ORANGE} />
           </box>
           <box xAlign={Align.End}>
-            <text value={daysText(self.letter)} textColor={daysColor(self.letter)} wrap={false} />
+            <text value={daysText(self.letter)} textColor={daysColor(self.letter)} wrap={.None} />
           </box>
         </PickRow>
         <Tip $if={self.hovered} title={senderOf(self.letter)} text={self.letter.subject} rows={self.rows} keys={ROW_KEYS} />
@@ -215,10 +215,10 @@ public class LetterTableRow implements Component {
   public render(self): Template {
     return $ltml {
       <TableRow tracks={TRACKS} selected={self.on} @pick={self.onPick}>
-        <TableCell cut={true}> <text value={self.letter.subject} textColor={Style.INK} wrap={false} /> </TableCell>
-        <TableCell cut={true}> <text value={senderOf(self.letter)} textColor={Style.DIM} wrap={false} /> </TableCell>
-        <TableCell cut={true}> <text value={attachedText(self.letter)} textColor={Style.DIM} wrap={false} /> </TableCell>
-        <TableCell align={Align.End}> <text value={daysText(self.letter)} textColor={daysColor(self.letter)} wrap={false} /> </TableCell>
+        <TableCell> <text value={self.letter.subject} textColor={Style.INK} wrap={.Cut} /> </TableCell>
+        <TableCell> <text value={senderOf(self.letter)} textColor={Style.DIM} wrap={.Cut} /> </TableCell>
+        <TableCell> <text value={attachedText(self.letter)} textColor={Style.DIM} wrap={.Cut} /> </TableCell>
+        <TableCell align={Align.End}> <text value={daysText(self.letter)} textColor={daysColor(self.letter)} wrap={.None} /> </TableCell>
       </TableRow>
     }
   }

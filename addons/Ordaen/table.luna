@@ -6,20 +6,20 @@
 // as the first it built came to (a box, every row built, where the table is told its rows vary): it scrolls where it is
 // given a `height`, or where the table is given a height (its headings, then the body in the rest of it), and a `$for`
 // of rows in it builds only the rows in view, handing on the rows that leave to the items that come in: a row follows
-// its item's cell. A cell wraps unless its column says it is cut (`TableCell`); while the owner has no rows, the table
+// its item's cell. A cell's texts wrap at its column unless they say they are cut (`wrap={.Cut}`); while the owner
+// has no rows, the table
 // says what it is given as `empty` under its headings. `ToolSort` is its sort in the toolbar, with sorts no column shows.
 import { Align, Art, ByInteractionState, Edges, Event, Line, MouseButton, Overflow, Position, Side, TextAlign, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import { Component } from "@/module"
 
 // A column: its heading (`""`: none), its width, where its heading and its cells stand (`Align.Center` too), whether a
-// heading click sorts by it, and whether its cells are cut at its edge (a note that may run long) rather than wrapped.
+// heading click sorts by it.
 public struct Column {
   title: String
   width: Track
   align: Align | nil
   sortable: Boolean | nil
-  cut: Boolean | nil
 }
 
 const NAME: ByInteractionState<Color> = { default: Color.hex("#cbb994"), hover: Color.hex("#ffffff"), focus: Color.hex("#ffffff") }
@@ -100,7 +100,7 @@ public class Heading implements Component {
         <box position={Position.Absolute} left={0ui} right={0ui} bottom={0ui} height={2.34375dp} background={self.light} />
         // The title lights with the heading, wherever on it the cursor is.
         <box columns={HEAD} gap={1sp} yAlign={Align.Center} interactionState={self.$interactionState}>
-          <text value={self.column.title} textColor={self.color} wrap={false} />
+          <text value={self.column.title} textColor={self.color} wrap={.None} />
           // The mark takes the triangle's own room; its cell, a triangle in its middle, reaches past it.
           <box $if={self.sortable} width={MARK_WIDTH} height={MARK_HEIGHT}>
             <box position={Position.Absolute} left={MARK_LEFT} top={MARK_TOP} width={MARK_CELL}
@@ -146,35 +146,27 @@ public class TableRow implements Component {
   }
 }
 
-// One cell of a row, as its column says: where what it holds stands, and whether it is cut at the column's edge (asking
-// the row for no width) or wraps there (a text written `wrap={true}`). A share among several (`{ fr }`) is never
-// narrower than what stands in it, and each row is laid out by itself: a long text that neither wraps nor is cut widens
-// its column in its own row alone, and moves every column after it off the headings.
+// One cell of a row, as its column says: where what it holds stands. Nothing in it stands past its column: a text
+// wraps there, or is cut there where it says so (`wrap={.Cut}`).
 public class TableCell implements Component {
-  derived overflow: Overflow | nil = self.cuts ? Overflow.Hidden : nil
-  derived cuts: Boolean = self.cut || self.column?.cut == true
   derived xAlign: Align | nil = self.align ?? self.column?.align
   derived textAlign: TextAlign | nil = textAlignOf(self.xAlign)
 
   column: Signal<Column | nil>
   align: Signal<Align | nil>
-  cut: Signal<Boolean>
   constructor(
-    // Its column: where what it holds stands and whether it is cut.
+    // Its column: where what it holds stands.
     column: Signal<Column | nil> = nil,
     // Where what it holds stands, over its column's.
-    align: Signal<Align | nil> = nil,
-    // Cut at the column's edge, whatever its column says.
-    cut: Signal<Boolean> = false
+    align: Signal<Align | nil> = nil
   ) {
     self.column = column
     self.align = align
-    self.cut = cut
   }
 
   public render(self): Template {
     return $ltml {
-      <box overflow={self.overflow} xAlign={self.xAlign} textAlign={self.textAlign} yAlign={Align.Center}>
+      <box xAlign={self.xAlign} textAlign={self.textAlign} yAlign={Align.Center}>
         <slot />
       </box>
     }
@@ -236,7 +228,7 @@ public class Table implements Component {
           <slot />
         </virtualList>
         <box $if={self.emptyShown} position={Position.Absolute} left={0ui} right={0ui} top={EMPTY_TOP} xAlign={Align.Center}>
-          <text value={self.empty} textColor={PLAIN} wrap={true} />
+          <text value={self.empty} textColor={PLAIN} />
         </box>
       </box>
     }

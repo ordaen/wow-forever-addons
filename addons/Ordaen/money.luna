@@ -21,7 +21,7 @@ public class Money implements Component {
 
   public render(self): Template {
     return $ltml {
-      <text value={self.text} textColor={self.color} wrap={false} />
+      <text value={self.text} textColor={self.color} wrap={.None} />
     }
   }
 }

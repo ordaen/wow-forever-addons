@@ -214,8 +214,8 @@ public class SpellRow implements Component {
            background={GROUND} @dragStart={self.onGrab}>
         <SpellSlot spell={self.spell} size={37.5dp} />
         <box columns={1}>
-          <text value={self.title} textColor={self.ink} wrap={false} />
-          <text value={self.detail} textSize={SECONDARY_TEXT} textColor={Style.DIM} wrap={false} />
+          <text value={self.title} textColor={self.ink} wrap={.None} />
+          <text value={self.detail} textSize={SECONDARY_TEXT} textColor={Style.DIM} wrap={.None} />
         </box>
       </box>
     }
@@ -245,12 +245,12 @@ public class SpellTableRow implements Component {
       <TableRow tracks={TRACKS}>
         <box columns={CELL} gap={2sp} yAlign={Align.Center} @dragStart={self.onGrab}>
           <SpellSlot spell={self.spell} size={23.4375dp} />
-          <text value={self.title} textColor={self.ink} wrap={false} />
+          <text value={self.title} textColor={self.ink} wrap={.None} />
         </box>
-        <text value={self.line} textColor={Style.DIM} wrap={false} />
-        <text value={self.kind} textColor={Style.DIM} wrap={false} />
+        <text value={self.line} textColor={Style.DIM} wrap={.None} />
+        <text value={self.kind} textColor={Style.DIM} wrap={.None} />
         <box xAlign={Align.End}>
-          <text value={self.level} textColor={Style.DIM} textFont={.Numbers} wrap={false} />
+          <text value={self.level} textColor={Style.DIM} textFont={.Numbers} wrap={.None} />
         </box>
       </TableRow>
     }

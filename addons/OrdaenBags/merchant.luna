@@ -172,7 +172,7 @@ class CostTag implements Component {
   public render(self): Template {
     return $ltml {
       <box columns={COST} gap={0.5sp} yAlign={Align.Center}>
-        <text value={"%d"} arguments={[self.amount]} textColor={INK} textFont={.Numbers} wrap={false} />
+        <text value={"%d"} arguments={[self.amount]} textColor={INK} textFont={.Numbers} wrap={.None} />
         <box width={COST_ICON} height={COST_ICON} icon={self.icon} />
       </box>
     }
@@ -204,14 +204,14 @@ class WareCell implements Component {
           <box $if={self.ware.quest} position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui}
                background={QUEST_BANG} />
         </ItemButton>
-        <box columns={1} overflow={Overflow.Hidden}>
-          <text value={self.ware.name} textColor={self.nameColor} wrap={false} />
+        <box columns={1}>
+          <text value={self.ware.name} textColor={self.nameColor} wrap={.Cut} />
           <box columns={PRICE} gap={2sp} yAlign={Align.Center}>
             <Money $if={self.priced} amount={self.ware.price} color={self.priceColor} />
             <box $else />
             <CostTag $for={cost of self.ware.costs} icon={cost.icon} amount={cost.amount} />
           </box>
-          <text value={self.stock} textColor={DIM} textSize={SECONDARY_TEXT} wrap={false} />
+          <text value={self.stock} textColor={DIM} textSize={SECONDARY_TEXT} wrap={.Cut} />
         </box>
       </box>
     }
@@ -234,8 +234,8 @@ class SoldCell implements Component {
       <box columns={CELL} gap={3sp} yAlign={Align.Center}>
         <ItemButton item={nil} art={self.sold.icon} count={self.sold.count} size={SLOT} linkOnShift={false}
                     @pressed={self.onPressed} />
-        <box columns={1} overflow={Overflow.Hidden}>
-          <text value={self.sold.name} textColor={self.nameColor} wrap={false} />
+        <box columns={1}>
+          <text value={self.sold.name} textColor={self.nameColor} wrap={.Cut} />
           <Money amount={self.sold.price} />
         </box>
       </box>
@@ -290,18 +290,14 @@ class WareTableRow implements Component {
         <box columns={TABLE_CELL} gap={3sp} yAlign={Align.Center}>
           <ItemButton item={self.ware.id} art={self.ware.icon} count={self.ware.stack} quality={self.ware.quality}
                       size={TABLE_SLOT} linkOnShift={false} @pressed={self.onSlot} />
-          <box overflow={Overflow.Hidden}>
-            <text value={self.ware.name} textColor={self.nameColor} wrap={false} />
-          </box>
+          <text value={self.ware.name} textColor={self.nameColor} wrap={.Cut} />
         </box>
-        <box overflow={Overflow.Hidden}>
-          <text value={self.ware.kind} textColor={DIM} wrap={false} />
+        <text value={self.ware.kind} textColor={DIM} wrap={.Cut} />
+        <box xAlign={Align.End}>
+          <text value={"%d"} arguments={[self.ware.level]} textColor={INK} textFont={.Numbers} wrap={.None} />
         </box>
         <box xAlign={Align.End}>
-          <text value={"%d"} arguments={[self.ware.level]} textColor={INK} textFont={.Numbers} wrap={false} />
-        </box>
-        <box xAlign={Align.End}>
-          <text value={"%d"} arguments={[self.carried]} textColor={INK} textFont={.Numbers} wrap={false} />
+          <text value={"%d"} arguments={[self.carried]} textColor={INK} textFont={.Numbers} wrap={.None} />
         </box>
         <box xAlign={Align.End}>
           <Money amount={self.ware.price} color={self.priceColor} />
@@ -503,7 +499,7 @@ public class MerchantWindow implements Component {
   const column: Template = $ltml {
     <box rows={SIDE} gap={3sp}>
       <box columns={PAIR} gap={3sp}>
-        <text value={Locale.YOUR_MONEY} textColor={DIM} wrap={false} />
+        <text value={Locale.YOUR_MONEY} textColor={DIM} wrap={.None} />
         <Money amount={Game.money.amount} />
       </box>
       <box columns={1} gap={3sp}>
@@ -511,7 +507,7 @@ public class MerchantWindow implements Component {
           <CostTag $for={held of self.vendor.currencies} icon={held.icon} amount={held.amount} />
         </box>
         <box $if={self.hasLastSold} columns={1} gap={2sp}>
-          <text value={Locale.LAST_SOLD} textColor={DIM} textSize={SECONDARY_TEXT} wrap={false} />
+          <text value={Locale.LAST_SOLD} textColor={DIM} textSize={SECONDARY_TEXT} wrap={.None} />
           <SoldCell $for={sold of self.lastSold} $key={sold.place} sold={sold} @pressed={self.onSold} />
         </box>
       </box>

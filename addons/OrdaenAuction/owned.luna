@@ -69,8 +69,8 @@ class OwnedRow implements Component {
         <box columns={ITEM} gap={2.5sp} yAlign={Align.Center}>
           <ItemButton item={self.shown.item} size={Style.SLOT} />
           <box rows={LINES} overflow={.Hidden}>
-            <text value={self.shown.name} textColor={self.shown.color} wrap={false} />
-            <text value={self.lowest} textColor={self.lowestColor} textSize={SECONDARY_TEXT} wrap={false} />
+            <text value={self.shown.name} textColor={self.shown.color} wrap={.None} />
+            <text value={self.lowest} textColor={self.lowestColor} textSize={SECONDARY_TEXT} wrap={.None} />
           </box>
         </box>
         <box xAlign={Align.End}>

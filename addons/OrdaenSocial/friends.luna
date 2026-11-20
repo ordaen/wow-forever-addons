@@ -222,21 +222,21 @@ class FriendRow implements Component {
            @pointerPress(.Left)={self.onPick} @pointerPress(.Right)={self.onMenu} @keyPress(.Enter)={self.onPick}
            @keyPress(.Space)={self.onPick}>
         <box width={Style.DOT} height={Style.DOT} background={markOf(self.friend.presence)} />
-        <box columns={1} overflow={Overflow.Hidden}>
-          <box columns={["max-content", "max-content"]} gap={2sp} yAlign={Align.Center}>
-            <text value={titleOf(self.friend)} textColor={nameColorOf(self.friend)} wrap={false} />
+        <box columns={1}>
+          <box columns={[{ fr: 1 }, "max-content"]} gap={2sp} yAlign={Align.Center}>
+            <text value={titleOf(self.friend)} textColor={nameColorOf(self.friend)} wrap={.Cut} />
             <box $if={self.favorite} width={Style.STAR} height={Style.STAR} background={Style.STAR_ICON} />
           </box>
-          <text value={pointsOf(self.friend)} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={false} />
+          <text value={pointsOf(self.friend)} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={.Cut} />
         </box>
-        <text value={self.level} textColor={Style.DIM} textFont={.Numbers} wrap={false} />
+        <text value={self.level} textColor={Style.DIM} textFont={.Numbers} wrap={.None} />
       </box>
     }
   }
 }
 
 // A friend as a row of the table: the name (the star after a best friend's), the level, where it is or what it plays,
-// and the note, the note alone cut at its column. A right click opens the game's menu of it.
+// and the note, the one text cut at its column. A right click opens the game's menu of it.
 class FriendTableRow implements Component {
   public pick: Event<String> = new Event()
   public menu: Event<String> = new Event()
@@ -275,8 +275,8 @@ class FriendTableRow implements Component {
         <TableCell>
           <text value={pointsOf(self.friend)} textColor={Style.DIM} />
         </TableCell>
-        <TableCell cut={true}>
-          <text value={self.friend.note} textColor={Style.DIM} wrap={false} />
+        <TableCell>
+          <text value={self.friend.note} textColor={Style.DIM} wrap={.Cut} />
         </TableCell>
       </TableRow>
     }
@@ -412,13 +412,13 @@ public class FriendCard implements Component {
             <box width={Style.BIG_DOT} height={Style.BIG_DOT} background={markOf(self.friend.presence)} />
             <box columns={1}>
               <box columns={["max-content", "max-content"]} gap={2sp}>
-                <text value={self.title} textColor={self.color} textSize={TITLE_TEXT} lineHeight={TITLE_LINE} textFont={.Title} wrap={false} />
+                <text value={self.title} textColor={self.color} textSize={TITLE_TEXT} lineHeight={TITLE_LINE} textFont={.Title} wrap={.None} />
                 <box $if={self.favorite} width={Style.STAR} height={Style.STAR} background={Style.STAR_ICON} />
               </box>
-              <text value={self.sub} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={false} />
+              <text value={self.sub} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={.None} />
             </box>
           </box>
-          <text $if={self.broadcast != ""} value={Locale.QUOTED.format(self.broadcast)} textColor={Style.INK} wrap={true} />
+          <text $if={self.broadcast != ""} value={Locale.QUOTED.format(self.broadcast)} textColor={Style.INK} />
           <Fact label={Locale.STATUS} value={self.status} />
           <Fact $if={self.plays != ""} label={Locale.PLAYS} value={self.plays} />
           <Fact $if={self.hero != ""} label={self.heroLabel} value={self.hero} />
@@ -468,12 +468,12 @@ public class MyCard implements Component {
             <box width={Style.BIG_DOT} height={Style.BIG_DOT} background={markOf(self.me.presence)} />
             <box columns={1}>
               <text value={self.connected ? self.me.battleTag : self.me.hero.name} textColor={Style.BATTLE_NET}
-                    textSize={TITLE_TEXT} lineHeight={TITLE_LINE} textFont={.Title} wrap={false} />
-              <text value={Locale.YOU} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={false} />
+                    textSize={TITLE_TEXT} lineHeight={TITLE_LINE} textFont={.Title} wrap={.None} />
+              <text value={Locale.YOU} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={.None} />
             </box>
           </box>
           <box $if={self.connected} columns={[117.1875dp, { fr: 1 }]} gap={2sp} yAlign={Align.Center}>
-            <text value={Locale.STATUS} textColor={Style.DIM} wrap={false} />
+            <text value={Locale.STATUS} textColor={Style.DIM} wrap={.None} />
             <CompactDropdown value={mut self.picked} choices={PRESENCES} width={Style.WIDE_BUTTON} />
           </box>
           <Fact $if={self.connected} label={Locale.BROADCAST} value={orDash(self.me.broadcast)} />
@@ -505,8 +505,8 @@ class RequestRow implements Component {
     return $ltml {
       <box columns={[{ fr: 1 }, "max-content", "max-content"]} gap={3sp} yAlign={Align.Center} padding={ROW_PAD}>
         <box columns={1}>
-          <text value={self.request.name} textColor={Style.BATTLE_NET} wrap={false} />
-          <text value={agoText(self.request.sent)} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={false} />
+          <text value={self.request.name} textColor={Style.BATTLE_NET} wrap={.None} />
+          <text value={agoText(self.request.sent)} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={.None} />
         </box>
         <PushButton label={Locale.ACCEPT} width={Style.SMALL_BUTTON} @click={self.onAccept} />
         <PushButton label={Locale.DECLINE} width={Style.SMALL_BUTTON} @click={self.onDecline} />
@@ -531,7 +531,7 @@ public class RequestList implements Component {
   public render(self): Template {
     return $ltml {
       <box columns={1} gap={2sp} overflow={Overflow.Scroll}>
-        <text value={self.heading} textColor={Style.GOLD} wrap={false} />
+        <text value={self.heading} textColor={Style.GOLD} wrap={.None} />
         <text $if={self.requests.length == 0} value={Locale.NO_REQUESTS} textColor={Style.DIM} />
         <RequestRow $for={request of self.requests} $key={request.id} request={request} @answer={self.onAnswer} />
       </box>
@@ -566,7 +566,7 @@ class IgnoredRow implements Component {
   public render(self): Template {
     return $ltml {
       <box columns={[{ fr: 1 }, "max-content"]} gap={3sp} yAlign={Align.Center} padding={ROW_PAD}>
-        <text value={ignoredName(self.entry)} textColor={Style.INK} wrap={false} />
+        <text value={ignoredName(self.entry)} textColor={Style.INK} wrap={.None} />
         <PushButton label={Locale.UNIGNORE} width={Style.SMALL_BUTTON} @click={self.onUnignore} />
       </box>
     }
@@ -603,11 +603,11 @@ public class IgnoreList implements Component {
           <PushButton label={Locale.ADD_IGNORE} width={Style.WIDE_BUTTON} @click={self.onIgnore} />
         </box>
         <box columns={1} gap={2sp} overflow={Overflow.Scroll}>
-          <text value={self.heading} textColor={Style.GOLD} wrap={false} />
+          <text value={self.heading} textColor={Style.GOLD} wrap={.None} />
           <text $if={self.ignored.length == 0} value={Locale.IGNORE_EMPTY} textColor={Style.DIM} />
           <IgnoredRow $for={entry of self.ignored} $key={ignoredKey(entry)} entry={entry} @unignore={self.onUnignore} />
         </box>
-        <text value={Locale.IGNORE_HINT} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={true} />
+        <text value={Locale.IGNORE_HINT} textColor={Style.DIM} textSize={SECONDARY_TEXT} />
       </box>
     }
   }

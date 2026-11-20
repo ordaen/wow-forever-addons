@@ -69,7 +69,7 @@ public class PricedReagentRow implements Component {
           <text value={self.price.name} textColor={Style.INK} />
         </box>
         <box padding={NEXT} border={self.rule} yAlign={Align.Center}>
-          <text value={"%d / %d"} arguments={[self.price.have, self.price.need]} wrap={false} textColor={self.color}
+          <text value={"%d / %d"} arguments={[self.price.have, self.price.need]} wrap={.None} textColor={self.color}
                 textFont={.Numbers} />
         </box>
         <box padding={NEXT} border={self.rule} yAlign={Align.Center}>
@@ -85,7 +85,7 @@ public class PricedReagentRow implements Component {
           </box>
         </box>
         <box padding={LAST} border={self.rule} yAlign={Align.Center}>
-          <text value={self.best} textColor={self.bestColor} wrap={false} />
+          <text value={self.best} textColor={self.bestColor} wrap={.None} />
         </box>
       </>
     }
@@ -106,13 +106,13 @@ public class PriceTable implements Component {
         <box padding={NEXT} />
         <box padding={NEXT} />
         <box padding={NEXT}>
-          <text value={Locale.PRICE_AUCTION} textSize={SECONDARY_TEXT} textColor={Style.DIM} wrap={false} />
+          <text value={Locale.PRICE_AUCTION} textSize={SECONDARY_TEXT} textColor={Style.DIM} wrap={.None} />
         </box>
         <box padding={NEXT}>
-          <text value={Locale.PRICE_VENDOR} textSize={SECONDARY_TEXT} textColor={Style.DIM} wrap={false} />
+          <text value={Locale.PRICE_VENDOR} textSize={SECONDARY_TEXT} textColor={Style.DIM} wrap={.None} />
         </box>
         <box padding={LAST}>
-          <text value={Locale.PRICE_BEST} textSize={SECONDARY_TEXT} textColor={Style.DIM} wrap={false} />
+          <text value={Locale.PRICE_BEST} textSize={SECONDARY_TEXT} textColor={Style.DIM} wrap={.None} />
         </box>
         <PricedReagentRow $for={index, part of self.parts} price={part} index={index} />
       </box>

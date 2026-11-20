@@ -217,7 +217,7 @@ test "the micro menu's guild button shows ours on the guild, and again closes it
   const window = Test.page().window(WINDOW)
   Test.expect(window.shown() && fieldSays(window, "Raid on Friday"))
   Runtime.press(Client.GuildMicroButton, .Left)
-  Test.expect(!Test.page().window(WINDOW).shown())}
+  Test.expect(!Test.page().window(WINDOW).shown()) }
 
 test "the game's guild window, hooked as its addon loads, shows ours on the guild; outside one on the communities" {
   Test.mount(nil, PAGE)

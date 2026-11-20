@@ -65,19 +65,19 @@ public class CharacterRow implements Component {
   public render(self): Template {
     return $ltml {
       <TableRow tracks={self.tracks}>
-        <text value={self.line.name} textColor={self.name} wrap={false} />
+        <text value={self.line.name} textColor={self.name} />
         <box xAlign={Align.End}>
-          <text value={"%d"} arguments={[self.line.level]} textColor={Style.INK} wrap={false} />
+          <text value={"%d"} arguments={[self.line.level]} textColor={Style.INK} wrap={.None} />
         </box>
         <box xAlign={Align.End}>
           <Money amount={self.line.money} />
         </box>
         <text value={self.line.professions} textColor={Style.DIM} />
         <box xAlign={Align.End}>
-          <text value={self.bags} textColor={Style.INK} wrap={false} />
+          <text value={self.bags} textColor={Style.INK} wrap={.None} />
         </box>
         <box xAlign={Align.End}>
-          <text value={self.seenText} textColor={self.seen} wrap={false} />
+          <text value={self.seenText} textColor={self.seen} wrap={.None} />
         </box>
         <text value={self.line.bank} textColor={Style.DIM} />
         <text value={self.line.mail} textColor={self.mail} />

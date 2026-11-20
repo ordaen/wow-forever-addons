@@ -110,25 +110,25 @@ public class FilterPick implements Component {
         <surface lineHeight={BODY_LINE} $if={self.open} layer={Layer.Tooltip} place={Beside { beside: "parent" }} width={WIDTH}
                  background={BACK} border={EDGE} padding={PAD} columns={1} @pointerPressOutside={self.close}>
           <box padding={HEADING}>
-            <text value={Locale.FILTER_PERFORMANCE} textColor={Style.GOLD} textSize={SECONDARY_TEXT} wrap={false} />
+            <text value={Locale.FILTER_PERFORMANCE} textColor={Style.GOLD} textSize={SECONDARY_TEXT} wrap={.None} />
           </box>
           <DropdownItem $for={choice of HEATS} choice={choice} value={self.heat} compact={true} @pick={self.onHeat} />
           <box padding={HEADING}>
-            <text value={Locale.FILTER_STATE} textColor={Style.GOLD} textSize={SECONDARY_TEXT} wrap={false} />
+            <text value={Locale.FILTER_STATE} textColor={Style.GOLD} textSize={SECONDARY_TEXT} wrap={.None} />
           </box>
           <DropdownItem $for={choice of STANDINGS} choice={choice} value={self.standing} compact={true}
                         @pick={self.onStanding} />
           <box padding={HEADING}>
-            <text value={Locale.FILTER_VERSION} textColor={Style.GOLD} textSize={SECONDARY_TEXT} wrap={false} />
+            <text value={Locale.FILTER_VERSION} textColor={Style.GOLD} textSize={SECONDARY_TEXT} wrap={.None} />
           </box>
           <DropdownItem $for={choice of AGES} choice={choice} value={self.age} compact={true} @pick={self.onAge} />
           <box padding={HEADING}>
-            <text value={Locale.FILTER_LOADING} textColor={Style.GOLD} textSize={SECONDARY_TEXT} wrap={false} />
+            <text value={Locale.FILTER_LOADING} textColor={Style.GOLD} textSize={SECONDARY_TEXT} wrap={.None} />
           </box>
           <DropdownItem $for={choice of LOADINGS} choice={choice} value={self.loading} compact={true}
                         @pick={self.onLoading} />
           <box padding={HEADING}>
-            <text value={Locale.FILTER_RUNTIME} textColor={Style.GOLD} textSize={SECONDARY_TEXT} wrap={false} />
+            <text value={Locale.FILTER_RUNTIME} textColor={Style.GOLD} textSize={SECONDARY_TEXT} wrap={.None} />
           </box>
           <DropdownItem $for={choice of WRITTEN} choice={choice} value={self.written} compact={true}
                         @pick={self.onWritten} />

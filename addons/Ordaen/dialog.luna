@@ -48,7 +48,7 @@ public class Dialog implements Component {
           </box>
           <box $if={self.titled} position={Position.Absolute} left={0ui} right={0ui} top={16.40625dp}
                xAlign={Align.Center}>
-            <text value={self.title} textColor={TITLE} textSize={TITLE_TEXT} lineHeight={TITLE_LINE} textShadow={SHADOW} wrap={false} />
+            <text value={self.title} textColor={TITLE} textSize={TITLE_TEXT} lineHeight={TITLE_LINE} textShadow={SHADOW} wrap={.None} />
           </box>
         </box>
       </surface>

@@ -110,7 +110,7 @@ public class GearSlot implements Component {
                fill={self.coolFill} />
           <box $if={self.levelText != ""} position={Position.Absolute} top={1.171875dp} right={2.34375dp}>
             <text value={self.levelText} textSize={SECONDARY_TEXT} textFont={TextFont.Numbers} textColor={Style.INK}
-                  wrap={false} />
+                  wrap={.None} />
           </box>
           <box $if={self.fits} position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui}
                border={FITS} background={FITS_GLOW} zLevel={2} />
@@ -143,7 +143,7 @@ public class StatCard implements Component {
            @pointerLeave={self.onLeave}>
         <text value={self.card.label} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
         <text value={self.card.value} textSize={self.big ? TITLE_TEXT : 1rem} textFont={TextFont.Numbers}
-              textColor={Style.INK} wrap={false} />
+              textColor={Style.INK} wrap={.None} />
         <Tip $if={self.tipShown} title={self.tipTitle} text={self.card.tip} />
       </box>
     }
@@ -196,7 +196,7 @@ public class PoolBar implements Component {
       <box padding={Style.BAR_PAD} background={Style.TROUGH} fill={self.full} xAlign={Align.Center} yAlign={Align.Center}
            @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
         <text value={`${self.label} ${self.amount}`} textSize={SECONDARY_TEXT} textFont={TextFont.Numbers}
-              textColor={Style.INK} wrap={false} />
+              textColor={Style.INK} wrap={.None} />
         <Tip $if={self.tipShown} title={self.tipTitle} text={self.tip} />
       </box>
     }
@@ -391,7 +391,7 @@ public class SetChip implements Component {
     return $ltml {
       <box padding={CHIP_PAD} background={Style.CARD} border={self.edge} @pointerPress={self.onClick}
            @keyPress(.Enter)={self.onClick} @keyPress(.Space)={self.onClick}>
-        <text value={self.label} textSize={SECONDARY_TEXT} textColor={self.ink} wrap={false} />
+        <text value={self.label} textSize={SECONDARY_TEXT} textColor={self.ink} wrap={.None} />
       </box>
     }
   }

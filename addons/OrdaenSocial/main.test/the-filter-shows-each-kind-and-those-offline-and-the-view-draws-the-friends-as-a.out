@@ -73,7 +73,7 @@ surface 425,183.88 1155.76x532.25 on DIALOG clamped raised by a click
                     text 714.79,392.86 15.56x17.78 "25" #a3977f right
                   box 738.88,383.98 194.1x35.56
                     text 738.88,383.98 194.1x35.56 "Battle.net · Torgrim · Loch Modan" #a3977f
-                  box 941.52,392.86 194.1x17.78 clipped
+                  box 941.52,392.86 194.1x17.78
                     text 941.52,392.86 194.1x17.78 "tanks at night" #a3977f
                 box 460.85,423.8 683.3x26.31 #00000000 @keyPress @pointerPress
                   box 469.38,428.06 194.1x17.78
@@ -84,7 +84,7 @@ surface 425,183.88 1155.76x532.25 on DIALOG clamped raised by a click
                     text 714.79,428.06 15.56x17.78 "24" #a3977f right
                   box 738.88,428.06 194.1x17.78
                     text 738.88,428.06 194.1x17.78 "Stormwind" #a3977f
-                  box 941.52,436.95 194.1x0 clipped
+                  box 941.52,436.95 194.1x0
                     text 941.52,436.95 194.1x0 "" #a3977f
                 box 460.85,450.11 683.3x26.31 #00000000 @keyPress @pointerPress
                   box 469.38,454.38 194.1x17.78
@@ -95,7 +95,7 @@ surface 425,183.88 1155.76x532.25 on DIALOG clamped raised by a click
                     text 714.79,454.38 15.56x17.78 "22" #a3977f right
                   box 738.88,454.38 194.1x17.78
                     text 738.88,454.38 194.1x17.78 "offline" #a3977f
-                  box 941.52,454.38 194.1x17.78 clipped
+                  box 941.52,454.38 194.1x17.78
                     text 941.52,454.38 194.1x17.78 "smith" #a3977f
                 box 460.85,476.42 683.3x26.31 #00000000 @keyPress @pointerPress
                   box 469.38,480.69 194.1x17.78
@@ -106,7 +106,7 @@ surface 425,183.88 1155.76x532.25 on DIALOG clamped raised by a click
                     text 730.35,489.58 0x0 "" #a3977f
                   box 738.88,480.69 194.1x17.78
                     text 738.88,480.69 194.1x17.78 "Battle.net · offline" #a3977f
-                  box 941.52,489.58 194.1x0 clipped
+                  box 941.52,489.58 194.1x0
                     text 941.52,489.58 194.1x0 "" #a3977f
       box 460.85,645.66 683.3x45.4
         box 460.85,662.73 683.3x28.33

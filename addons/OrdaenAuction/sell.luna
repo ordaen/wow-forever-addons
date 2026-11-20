@@ -79,7 +79,7 @@ class OfferedRow implements Component {
         <box columns={ITEM} gap={2.5sp} yAlign={Align.Center}>
           <ItemButton item={self.offered.item} size={Style.SLOT} />
           <box overflow={.Hidden}>
-            <text value={self.offered.name} textColor={self.offered.color} wrap={false} />
+            <text value={self.offered.name} textColor={self.offered.color} wrap={.None} />
           </box>
         </box>
         <box xAlign={Align.End}>
@@ -93,7 +93,7 @@ class OfferedRow implements Component {
           <Money $if={self.offered.vendor != nil} amount={self.vendor} />
           <text $else value={"—"} textColor={Style.DIM} />
         </box>
-        <text value={self.better} textColor={self.betterInk} wrap={false} />
+        <text value={self.better} textColor={self.betterInk} wrap={.None} />
       </TableRow>
     }
   }
@@ -182,7 +182,7 @@ public class SellPage implements Component {
         <box rows={SIDE} gap={3sp}>
           // The row over the bags' items: «My auctions» at its right end.
           <box columns={TOOLS} gap={3sp} yAlign={Align.Center}>
-            <text value={Locale.SELLABLE} textColor={Style.DIM} wrap={false} />
+            <text value={Locale.SELLABLE} textColor={Style.DIM} wrap={.None} />
             <PushButton label={Locale.PAGE_OWNED} width={Style.OPENER} @click={self.onOpenOwned} />
           </box>
           <box rows={FILL} border={Style.FRAME} background={Style.LISTS_BACK}>

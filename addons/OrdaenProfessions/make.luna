@@ -1,7 +1,7 @@
 // The make row, at the foot of the chosen recipe's card while the recipe is learned: how many (a count, the skill points to gain,
 // or all the bags allow), the count with − and + unless «All» (one at least; by «Quantity» what the bags make now;
-// by «Raise skill» the points left before the rank's most), what that comes to in small dim text, and «Create», which
-// never makes more than the bags make now: with nothing to make, the count and «Create» are disabled.
+// by «Raise skill» the points left before the rank's most) and «Create», which never makes more than the bags make
+// now: with nothing to make, the count and «Create» are disabled. Under it, what that comes to in small dim text.
 import Game from "$game"
 import { Align, Track } from "$ltml"
 import { Choice, CompactDropdown, Component, CountInput, PushButton, SECONDARY_TEXT } from "Ordaen"
@@ -10,7 +10,7 @@ import { expectedMakings } from "@/skillUps"
 import Style from "@/style"
 import { MakeMode } from "@/view"
 
-// The mode, the count with its − and +, what it comes to, «Create».
+// The mode, the count with its − and +, the room left, «Create»; what it comes to on a line of its own.
 const MAKE: Array<Track> = ["max-content", "max-content", { fr: 1 }, "max-content"]
 const STEP = 32.8125dp
 const MODE_WIDTH = 164.0625dp
@@ -104,8 +104,9 @@ public class MakeRow implements Component {
         <CompactDropdown value={mut self.mode} choices={MODES} width={MODE_WIDTH} />
         <CountInput $if={self.counted} value={mut self.count} least={1} most={self.most} step={STEP} />
         <box $else />
-        <text value={self.hint} textSize={SECONDARY_TEXT} textColor={Style.DIM} wrap={false} />
+        <box />
         <PushButton label={Locale.CREATE} width={128.90625dp} disabled={self.cannot} @click={self.onCreate} />
+        <text value={self.hint} textSize={SECONDARY_TEXT} textColor={Style.DIM} columnSpan={4} />
       </box>
     }
   }

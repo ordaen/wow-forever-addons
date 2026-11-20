@@ -135,7 +135,7 @@ public class Button implements Component {
              width={self.size} height={self.size} background={Ordaen.art.ctl.qualityRim}
              tint={Ordaen.look.values.accent} zLevel={2} />
         <box position={Position.Absolute} left={0ui} top={0ui} right={0ui} xAlign={Align.End} padding={0.5sp} zLevel={2}>
-          <text value={self.key} textColor={INK} textSize={SECONDARY_TEXT} textShadow={KEY_SHADOW} wrap={false} />
+          <text value={self.key} textColor={INK} textSize={SECONDARY_TEXT} textShadow={KEY_SHADOW} wrap={.None} />
         </box>
       </box>
     }

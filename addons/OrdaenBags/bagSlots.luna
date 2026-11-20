@@ -48,7 +48,7 @@ class BagEntry implements Component {
            @pointerLeave={self.onLeave}>
         <box width={ICON} height={ICON} background={WELL} icon={self.line.info.icon} />
         <text value={self.line.info.name} textColor={INK} />
-        <text value={self.fill} textColor={LABEL} textFont={.Numbers} textSize={SECONDARY_TEXT} wrap={false} />
+        <text value={self.fill} textColor={LABEL} textFont={.Numbers} textSize={SECONDARY_TEXT} wrap={.None} />
       </box>
     }
   }

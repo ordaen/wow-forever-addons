@@ -4,9 +4,9 @@
 // while open. A container's slot has the client's own use of the item on the scheme's chord for Use (secure) while its
 // vault is open; every other click and the cursor's coming and going are told to the window through the shelf.
 import Game from "$game"
-import { Action, Align, Event, KeyBinding, MouseButton, Overflow, Position, Shadow, Track } from "$ltml"
+import { Action, Align, Event, KeyBinding, MouseButton, Position, Shadow, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { Component, ItemButton, Menu, MenuEntry, Quality, SECONDARY_TEXT } from "Ordaen"
+import { Component, ItemButton, Menu, MenuEntry, Quality, SECONDARY_TEXT, TIGHT_LINE } from "Ordaen"
 import { CAPTION_HIGH, CARD_GAP, CARD_PAD, Card, GAP, Line, SLOT, Section } from "@/layout"
 import { Slot } from "@/model"
 import { SlotMenu } from "@/slotMenu"
@@ -173,15 +173,15 @@ class Caption implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box $if={self.folds} columns={self.columns} gap={3sp} height={CAPTION_HIGH} yAlign={Align.Center}
-           overflow={Overflow.Hidden} @pointerPress={self.onClick} @keyPress(.Enter)={self.onClick} @keyPress(.Space)={self.onClick}>
+      <box $if={self.folds} columns={self.columns} gap={3sp} height={CAPTION_HIGH} lineHeight={TIGHT_LINE} yAlign={Align.Center}
+           @pointerPress={self.onClick} @keyPress(.Enter)={self.onClick} @keyPress(.Space)={self.onClick}>
         <box width={MARK} height={MARK} background={self.mark} />
-        <text value={self.section.title} textColor={self.titleColor} textShadow={SHADOW} wrap={false} />
-        <text value={self.fill} textColor={LABEL} textSize={SECONDARY_TEXT} textFont={.Numbers} wrap={false} />
+        <text value={self.section.title} textColor={self.titleColor} textShadow={SHADOW} wrap={.Cut} />
+        <text value={self.fill} textColor={LABEL} textSize={SECONDARY_TEXT} textFont={.Numbers} wrap={.None} />
       </box>
-      <box $else columns={self.columns} gap={3sp} height={CAPTION_HIGH} yAlign={Align.Center} overflow={Overflow.Hidden}>
-        <text value={self.section.title} textColor={self.titleColor} textShadow={SHADOW} wrap={false} />
-        <text value={self.fill} textColor={LABEL} textSize={SECONDARY_TEXT} textFont={.Numbers} wrap={false} />
+      <box $else columns={self.columns} gap={3sp} height={CAPTION_HIGH} lineHeight={TIGHT_LINE} yAlign={Align.Center}>
+        <text value={self.section.title} textColor={self.titleColor} textShadow={SHADOW} wrap={.Cut} />
+        <text value={self.fill} textColor={LABEL} textSize={SECONDARY_TEXT} textFont={.Numbers} wrap={.None} />
       </box>
     }
   }

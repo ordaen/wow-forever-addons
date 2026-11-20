@@ -24,8 +24,8 @@ public struct CardRoom {
 public function cardRoom(): CardRoom {
   return { gap: Ordaen.lengthOf(GAP), pad: Ordaen.lengthOf(CARD_PAD), between: Ordaen.lengthOf(CARD_GAP) }
 }
-// A caption's height: its mark and its name stand in it.
-public const CAPTION_HIGH: Number<Length> = 21.09375dp
+// A caption's height: its mark and its name, on its font's own line, stand in it.
+public const CAPTION_HIGH: Number<Length> = 22.5dp
 // A card with a caption is at least this many slots wide, so its caption fits.
 const CAPTION_SPAN = 4
 

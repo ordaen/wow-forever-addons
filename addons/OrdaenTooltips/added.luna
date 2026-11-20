@@ -24,7 +24,7 @@ class AddedLine implements Component {
     return $ltml {
       <box $if={self.paired} columns={NAME_VALUE} gap={3sp} padding={self.padding}>
         <text value={self.line.left} textColor={self.leftColor} />
-        <text value={self.right} textColor={self.rightColor} wrap={false} textFont={.Numbers} />
+        <text value={self.right} textColor={self.rightColor} wrap={.None} textFont={.Numbers} />
       </box>
       <box $else padding={self.padding}>
         <text value={self.line.left} textColor={self.leftColor} />

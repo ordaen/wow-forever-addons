@@ -264,7 +264,7 @@ public class Plate implements Component {
                opacity={self.ownLight} />
           <box position={Position.Absolute} left={0ui} right={0ui} top={OWN_DROP} height={self.high}
                xAlign={Align.Center} yAlign={Align.Center}>
-            <text value={self.dressed.label} textColor={OWN_LABEL} textShadow={SHADOW} wrap={false}
+            <text value={self.dressed.label} textColor={OWN_LABEL} textShadow={SHADOW} wrap={.None}
             />
           </box>
         </box>
@@ -276,7 +276,7 @@ public class Plate implements Component {
                background={Ordaen.art.ctl.newGem} opacity={self.gem} zLevel={1} />
           <box position={Position.Absolute} left={0ui} right={0ui} top={self.drop} height={self.high}
                xAlign={Align.Center} yAlign={Align.Center}>
-            <text value={self.dressed.label} textColor={self.color} textShadow={SHADOW} wrap={false} />
+            <text value={self.dressed.label} textColor={self.color} textShadow={SHADOW} wrap={.None} />
           </box>
         </box>
       </surface>
@@ -310,9 +310,10 @@ public class MenuDress implements Component {
         <surface lineHeight={TIGHT_LINE} layer={Layer.Dialog} place={{ point: Point.Bottom, to: Point.Bottom, by: Client.GameMenuFrame }}
                  width={self.wide} height={self.high} border={Ordaen.art.frame.small}
                  background={Ordaen.art.window.wood} artOrigin={true} ownsGaps={true}>
-          <box position={Position.Absolute} left={GROOVE_SIDE} right={GROOVE_SIDE} top={TITLE_TOP}
-               xAlign={Align.Center}>
-            <text value={Client.MAINMENU_BUTTON} textColor={TITLE} textShadow={ENGRAVED} wrap={false} />
+          // The client sizes its menu on the frame after its first show: the title waits for the room.
+          <box $if={self.menu.width > 0ui} position={Position.Absolute} left={GROOVE_SIDE} right={GROOVE_SIDE}
+               top={TITLE_TOP} xAlign={Align.Center}>
+            <text value={Client.MAINMENU_BUTTON} textColor={TITLE} textShadow={ENGRAVED} wrap={.None} />
           </box>
           <box position={Position.Absolute} left={GROOVE_SIDE} right={GROOVE_SIDE} top={GROOVE_TOP} height={GROOVE}
                background={Ordaen.art.ctl.carved} />
