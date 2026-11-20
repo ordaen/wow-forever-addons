@@ -1,21 +1,21 @@
 -- four long tabs on a body given 330: the window as wide as the tabs and the group, none over another
 surface 635,331.38 762x237.25 on DIALOG clamped raised by a click
-  box 635,368.62 762x200 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
+  box 635,368.62 762x200 absolute Interface\AddOns\Ordaen\media\window-wood border=UI-Frame-Metal-CornerTopLeft
     box 648.09,381.72 740.81x176.06
       text 670.85,404.47 695.3x17.78 "the page" #ffffff
     box 1379.75,548.62 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 635,331.38 762x47.75
     box 635,331.38 673.47x47.75
-      box 635,331.38 157.57x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
+      box 635,331.38 157.57x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
         box 653.78,341.62 120x34.25
           text 653.78,349.86 120x17.78 "The first long tab" #ffd100
-      box 802.52,331.38 164.23x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
+      box 802.52,331.38 164.23x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
         box 821.31,341.62 126.67x34.25
           text 821.31,349.86 126.67x17.78 "The second long tab" #a3977f
-      box 976.71,331.38 157.57x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
+      box 976.71,331.38 157.57x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
         box 995.49,341.62 120x34.25
           text 995.49,349.86 120x17.78 "The third long tab" #a3977f
-      box 1144.23,331.38 164.23x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
+      box 1144.23,331.38 164.23x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
         box 1163.02,341.62 126.67x34.25
           text 1163.02,349.86 126.67x17.78 "The fourth long tab" #a3977f
     box 1317,347.71 80x31.42

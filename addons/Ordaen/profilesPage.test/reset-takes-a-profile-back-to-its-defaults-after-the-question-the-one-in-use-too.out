@@ -88,7 +88,7 @@ box 0,0 760x733.93
       box 267.78,705.6 125x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
         text 309.17,711.97 42.22x15.6 "Create" #808080
 surface 0,0 1600x900 on DIALOG #0000008c
-  box 593.58,361.82 412.83x176.36 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
+  box 593.58,361.82 412.83x176.36 Interface\AddOns\Ordaen\media\window-wood border=UI-Frame-Metal-CornerTopLeft
     text 628.72,418.29 347.56x44.44 "Reset every setting of profile «Spare» to its default?" #e8dcc4
     box 628.72,476.96 347.56x28.33
       box 628.72,476.96 113.11x0

@@ -1,6 +1,6 @@
 -- the form
 surface 500,175.54 1055.76x548.92 on DIALOG clamped raised by a click
-  box 500,224.46 1055.76x500 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
+  box 500,224.46 1055.76x500 absolute Interface\AddOns\Ordaen\media\window-wood border=UI-Frame-Metal-CornerTopLeft
     box 513.09,237.55 578.81x476.06
       box 535.85,260.31 533.3x393.68
         box 535.85,260.31 533.3x28.33
@@ -38,7 +38,7 @@ surface 500,175.54 1055.76x548.92 on DIALOG clamped raised by a click
               text 649.98,676.34 8.89x17.78 "0" #e8dcc4
           box 954.93,671.06 114.22x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
             text 962.04,676.34 100x17.78 "Blizzard window" #ffd100
-    box 1091.91,237.55 455.76x476.06 border=ButtonFrameTemplateNoPortrait sides=left
+    box 1091.91,237.55 455.76x476.06 border=UI-Frame-Metal-CornerTopLeft sides=left
       box 1124.91,260.31 400x439.08
         box 1124.91,260.31 400x28.33
           text 1124.91,265.59 300x17.78 "Write" #ffd100
@@ -88,15 +88,15 @@ surface 500,175.54 1055.76x548.92 on DIALOG clamped raised by a click
     box 1538.51,704.46 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 500,175.54 1055.76x59.42
     box 500,175.54 967.23x59.42
-      box 500,175.54 114.5x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
+      box 500,175.54 114.5x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
         box 518.78,185.79 76.93x45.92
           text 539.47,190.26 35.56x17.78 "Inbox" #a3977f
           text 528.92,209.46 56.67x17.78 "0 letters" #8f8470
-      box 624.46,175.54 114.5x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
+      box 624.46,175.54 114.5x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
         box 643.24,185.79 76.93x45.92
           text 660.59,190.26 42.22x17.78 "Outbox" #ffd100
           text 662.26,209.46 38.89x17.78 "0 sent" #8f8470
-      box 748.91,175.54 144.23x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
+      box 748.91,175.54 144.23x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
         box 767.69,185.79 106.67x45.92
           text 767.69,199.86 106.67x17.78 "To my characters" #a3977f
     box 1475.76,203.54 80x31.42

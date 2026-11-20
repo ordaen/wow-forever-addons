@@ -1,7 +1,7 @@
 open: /spellbook
 -- the table, by level from the highest
 surface 425,173.04 750x553.92 on DIALOG clamped raised by a click
-  box 425,210.29 750x516.67 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
+  box 425,210.29 750x516.67 absolute Interface\AddOns\Ordaen\media\window-wood border=UI-Frame-Metal-CornerTopLeft
     box 438.09,223.39 728.81x492.73
       box 460.85,246.14 683.3x447.22
         box 460.85,246.14 683.3x29.99
@@ -129,13 +129,13 @@ surface 425,173.04 750x553.92 on DIALOG clamped raised by a click
     box 1157.75,706.96 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 425,173.04 750x47.75
     box 425,173.04 661.47x47.75
-      box 425,173.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
+      box 425,173.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
         box 443.78,183.29 76.93x34.25
           text 461.14,191.53 42.22x17.78 "Spells" #ffd100
-      box 549.46,173.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
+      box 549.46,173.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
         box 568.24,183.29 76.93x34.25
           text 582.82,191.53 47.78x17.78 "Primary" #a3977f
-      box 673.91,173.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
+      box 673.91,173.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
         box 692.69,183.29 76.93x34.25
           text 700.61,191.53 61.11x17.78 "Secondary" #a3977f
     box 1095,189.37 80x31.42

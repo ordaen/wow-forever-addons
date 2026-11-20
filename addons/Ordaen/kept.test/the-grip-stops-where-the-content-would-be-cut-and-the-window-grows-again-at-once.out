@@ -1,6 +1,6 @@
 -- sized down past what it holds: held at its content's least size, the footer under the block
 surface 400,131.38 566.7x533.01 on DIALOG clamped raised by a click
-  box 400,168.62 566.7x495.76 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
+  box 400,168.62 566.7x495.76 absolute Interface\AddOns\Ordaen\media\window-wood border=UI-Frame-Metal-CornerTopLeft
     box 413.09,181.72 545.51x471.82
       box 435.85,204.47 500x400 Interface\AddOns\Ordaen\media\window-wood
       box 435.85,604.47 500x34.84
@@ -8,7 +8,7 @@ surface 400,131.38 566.7x533.01 on DIALOG clamped raised by a click
     box 949.45,644.39 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 400,131.38 566.7x47.75
     box 400,131.38 503.17x47.75
-      box 400,131.38 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
+      box 400,131.38 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
         box 418.78,141.62 76.93x34.25
           text 433.36,149.86 47.78x17.78 "Crowded" #ffd100
     box 911.7,147.71 55x31.42

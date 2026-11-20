@@ -1,7 +1,7 @@
 key: ESCAPE → none
 -- titles at one edge
 surface 391.67,175.54 816.67x548.92 on DIALOG clamped raised by a click
-  box 391.67,224.46 816.67x500 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
+  box 391.67,224.46 816.67x500 absolute Interface\AddOns\Ordaen\media\window-wood border=UI-Frame-Metal-CornerTopLeft
     box 404.76,237.55 795.48x476.06
       box 427.52,260.31 749.97x393.68
         box 427.52,260.31 749.97x28.33
@@ -173,9 +173,9 @@ surface 391.67,175.54 816.67x548.92 on DIALOG clamped raised by a click
     box 1191.08,704.46 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 391.67,175.54 816.67x59.42
     box 391.67,175.54 753.13x59.42
-      box 391.67,175.54 128.71x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
-        box 398.92,182.79 48.92x48.92 absolute icon=Interface/Icons/INV_Misc_Wrench_01 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=none
-        box 442.83,182.79 11.5x52.17 absolute border=ButtonFrameTemplateNoPortrait sides=left
+      box 391.67,175.54 128.71x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
+        box 398.92,182.79 48.92x48.92 absolute icon=Interface/Icons/INV_Misc_Wrench_01 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=none
+        box 442.83,182.79 11.5x52.17 absolute border=UI-Frame-Metal-CornerTopLeft sides=left
         box 459.37,185.79 42.22x45.92
           text 459.37,190.26 42.22x17.78 "AddOns" #ffd100
           text 461.03,209.46 38.89x17.78 "6 of 6" #8f8470

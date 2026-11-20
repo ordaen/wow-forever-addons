@@ -20,7 +20,7 @@ key: TAB → #7 «Small» (keys:ENTER,SPACE)
 key: ENTER → #0 > #1 «Small» (keys:ENTER,SPACE)
 -- the dropdown opened by Enter: the focus in its list
 surface 420,121.38 760x657.25 on DIALOG clamped raised by a click
-  box 420,158.62 760x620 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
+  box 420,158.62 760x620 absolute Interface\AddOns\Ordaen\media\window-wood border=UI-Frame-Metal-CornerTopLeft
     box 433.09,171.72 738.81x596.06
       box 455.85,194.47 693.3x550.55
         box 455.85,194.47 693.3x18.33 opacity=1
@@ -98,10 +98,10 @@ surface 420,121.38 760x657.25 on DIALOG clamped raised by a click
     box 1162.75,758.62 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 420,121.38 760x47.75
     box 420,121.38 696.47x47.75
-      box 420,121.38 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
+      box 420,121.38 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
         box 438.78,131.62 76.93x34.25
           text 450.03,139.86 54.44x17.78 "Controls" #ffd100
-      box 544.46,121.38 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
+      box 544.46,121.38 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
         box 563.24,131.62 76.93x34.25
           text 587.26,139.86 28.89x17.78 "More" #a3977f
     box 1125,137.71 55x31.42
