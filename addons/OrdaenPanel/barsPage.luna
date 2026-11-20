@@ -164,7 +164,7 @@ struct PageMemory implements Plain {
   picked: String
 }
 
-const LIST_WIDTH = 234.375dp
+const LIST_WIDTH = 225dp
 const PAGE: Array<Track> = [LIST_WIDTH, { fr: 1 }]
 const HEAD: Array<Track> = [{ fr: 1 }, "max-content"]
 const MORE = 39.84375dp

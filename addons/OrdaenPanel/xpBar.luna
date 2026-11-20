@@ -19,7 +19,7 @@ const BRUSHED: Art = xpFillArt(XpFill.Brushed)
 const TUBE_HEIGHT: Number<Length> = 25ui
 // The least a tube is high stacked under another: its values still read.
 const LEAST_HEIGHT = 16ui
-const GAP = 2sp
+const GAP = 1.5sp
 // Room enough for anything: a bar standing by itself.
 const UNBOUNDED = 1000ui
 // The shortest a tube is, with its margins: on a panel as long as its items, and the least the panel's middle gives
