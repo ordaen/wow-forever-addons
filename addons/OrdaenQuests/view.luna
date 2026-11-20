@@ -13,8 +13,9 @@ import Locale from "@/locales"
 import { colorOf, difficultyOf } from "@/model"
 import { Figure, QuestFacts } from "@/questie"
 
-// What the player asks of a quest from its row or its page.
-public enum Act { Pick, Track, Share, Abandon, ShowOnMap }
+// What the player asks of a quest from its row or its page. `Link`: Shift+Left-click on its title, a chat link where a
+// chat line is open, else tracking (the game's order).
+public enum Act { Pick, Track, Link, Share, Abandon, ShowOnMap, SuperTrack }
 
 const INK: Color = Color.hex("#e8dcc4")
 const WHITE: Color = Color.hex("#ffffff")
@@ -78,6 +79,7 @@ public class QuestRow implements Component {
   derived group: String = self.quest.group > 1 ? Locale.GROUP.format(self.quest.group) : ""
   derived entries: Array<MenuEntry> = [
     { label: self.quest.tracked ? Locale.UNTRACK : Locale.TRACK },
+    { label: Locale.SUPER_TRACK },
     { label: Locale.SHARE, disabled: !self.quest.shareable },
     { label: Locale.ABANDON, group: true }
   ]
@@ -93,6 +95,7 @@ public class QuestRow implements Component {
 
   onPick(mut self) { self.act.emit(self.quest.id, Act.Pick) }
   onTrack(mut self) { self.act.emit(self.quest.id, Act.Track) }
+  onLink(mut self) { self.act.emit(self.quest.id, Act.Link) }
   onMenu(mut self) { self.menuOpen = true }
   onClose(mut self) { self.menuOpen = false }
 
@@ -100,7 +103,8 @@ public class QuestRow implements Component {
     self.menuOpen = false
     const act = match (index) {
       1 => Act.Track
-      2 => Act.Share
+      2 => Act.SuperTrack
+      3 => Act.Share
       else => Act.Abandon
     }
     self.act.emit(self.quest.id, act)
@@ -109,7 +113,7 @@ public class QuestRow implements Component {
   public render(self): Template {
     return $ltml {
       <box columns={[BOX, "max-content", { fr: 1 }]} gap={2sp} padding={ROW_PAD} background={self.background}
-           @pointerPress(.Left)={self.onPick} @pointerPress([.Shift, .Left])={self.onTrack}
+           @pointerPress(.Left)={self.onPick} @pointerPress([.Shift, .Left])={self.onLink}
            @pointerPress(.Right)={self.onMenu} @keyPress(.Enter)={self.onPick} @keyPress(.Space)={self.onTrack}>
         <box width={BOX} height={BOX} background={Ordaen.art.ctl.check} @pointerPress.self={self.onTrack}>
           <box position={Position.Absolute} left={0ui} top={0ui} width={BOX} height={BOX}

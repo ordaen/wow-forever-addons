@@ -14,7 +14,7 @@ import Game from "$game"
 import { Align, Edges, Track } from "$ltml"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
-import { ARTWORK, ButtonPlate, Choice, Dialog, FilterButton, FilterGroup, FooterCount, FooterCounts, KeptWindow, Module, PushButton, SECONDARY_TEXT, Segmented, Settings, SettingsPage, ToolPick, Toolbar, Window, WindowSide, WindowTabSpec, WindowsPage, switched, windowsTitle } from "Ordaen"
+import { ARTWORK, ButtonPlate, Choice, Dialog, FilterButton, FilterGroup, FooterCount, FooterCounts, KeptWindow, Module, PushButton, SECONDARY_TEXT, Segmented, Settings, SettingsPage, ToolPick, Toolbar, Window, WindowSide, WindowTabSpec, WindowsPage, playSound, switched, windowsTitle } from "Ordaen"
 import root Maps from "OrdaenMap"
 import { LogQuest, logQuests } from "@/book"
 import { TakenClick } from "@/button"
@@ -202,7 +202,10 @@ public class Quests implements Module, App {
   }
 
   // The window opens or closes: the game's key and button, and the close button.
-  public flip(mut self) { self.open = !self.open }
+  public flip(mut self) {
+    self.open = !self.open
+    playSound(self.open ? "IG_QUEST_LOG_OPEN" : "IG_QUEST_LOG_CLOSE")
+  }
 
   // The log as the client has it now, and QuestieDB's facts of the quests not read before.
   public refresh(mut self) {
@@ -241,9 +244,16 @@ public class Quests implements Module, App {
       .Pick => { self.picked = id }
       .Track => {
         const quest = (peek self.quests).find(quest => quest.id == id)
-        if (quest != nil) { Game.questLog.track(id, !quest.tracked) }
+        if (quest != nil) {
+          Game.questLog.track(id, !quest.tracked)
+          // The checkbox's own sound, as the game's log plays it.
+          playSound(quest.tracked ? "IG_MAINMENU_OPTION_CHECKBOX_OFF" : "IG_MAINMENU_OPTION_CHECKBOX_ON")
+        }
         self.refresh()
       }
+      // The game's order: a chat link where a chat line is open, else tracking.
+      .Link => { if (!Game.chat.linkQuest(id)) { self.onAct(id, .Track) } }
+      .SuperTrack => { Game.questLog.superTrack(id) }
       .Share => { Game.questLog.share(id) }
       .Abandon => { self.abandoning = id }
       .ShowOnMap => { Client.C_Map.OpenWorldMap(nil) }

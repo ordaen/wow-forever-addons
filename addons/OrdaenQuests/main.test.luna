@@ -76,7 +76,8 @@ test "the micro menu's quest log button opens the window, and has the game's cli
   Test.mount(nil, PAGE)
   const button = Client.CreateFrame("Button", "QuestLogMicroButton", Client.UIParent, nil)
   button.SetSize(30, 40)
-  button.SetPoint("CENTER", Client.UIParent, "CENTER", 0, 0)
+  // Where the game's micro menu stands, clear of the window it opens.
+  button.SetPoint("BOTTOMRIGHT", Client.UIParent, "BOTTOMRIGHT", -160, 4)
   let gameClicks = 0
   button.SetScript("OnClick", (): nil => {
     gameClicks += 1
@@ -305,4 +306,34 @@ test "«Abandon quest» in the question is the danger plate" {
   Test.page().window("World").text("The Defias Brotherhood").click()
   Test.page().window("World").button("Abandon quest").click()
   Test.expect(Test.page().window("Abandon «The Defias Brotherhood»?").button("Abandon quest").paintedWith(Ordaen.art.ctl.buttonAccent))
+}
+
+test "Shift+Left-click on a title puts its chat link where a chat line is open, and tracks nothing then" {
+  opened(standing())
+  Game.chat.linkQuest = (id: Integer): Boolean => id == 103
+  Test.hold([.Shift])
+  Test.page().window("World").text("Elwynn Wolves").click()
+  Test.hold([])
+  Test.expect(Test.talked().length == 0)
+}
+
+test "the window's opening and closing, and a quest tracked, sound as the game's log does" {
+  opened(standing())
+  Test.expect(Test.sounds()[1] == 844)
+  Test.hold([.Shift])
+  Test.page().window("World").text("Elwynn Wolves").click()
+  Test.hold([])
+  const tracked = Test.sounds()
+  Test.expect(tracked.length == 1 && tracked[1] == 856)
+  Quests.flip()
+  Test.flush()
+  const closed = Test.sounds()
+  Test.expect(closed.length == 1 && closed[1] == 845)
+}
+
+test "«Show the way» in a quest's menu has the client point the way to it" {
+  opened(standing())
+  Test.page().window("World").text("Elwynn Wolves").rightClick()
+  Test.page().window("Abandon quest").button("Show the way").click()
+  Test.expect(Test.talked().join(",") == "super-track 103")
 }
