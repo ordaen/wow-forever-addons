@@ -23,12 +23,11 @@ public const WHITE: Color = Color.hex("#ffffff")
 public const RED: Color = Color.hex("#ff4040")
 // An unlearned recipe.
 public const OFF: Color = Color.hex("#7a7060")
-// The lists' frame and the rule between their columns.
+// A card's frame (the overview's, the queue's).
 public const LINE: Color = Color.hex("#3e2f1d")
 public const CLEAR: Color = Color.hex("#00000000")
 // A heading under the cursor (a row that selects is the library's `SelectItem`).
 public const ROW_LIGHT: ByInteractionState<Color> = { default: CLEAR, hover: Color.hex("#d6a56b1f"), focus: Color.hex("#d6a56b1f") }
-public const LISTS_BACK: Color = Color.hex("#0000004d")
 public const SHADOW: Shadow = { color: Color.hex("#000000"), x: 1.171875dp, y: -1.171875dp }
 // Between rows, and round an item's slot.
 public const ROW_RULE: Line = { width: 1.171875dp, color: Color.hex("#d6a56b14"), sides: [Side.Top] }

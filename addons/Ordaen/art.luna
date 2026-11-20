@@ -57,7 +57,16 @@ public struct OrdaenArt {
     arrange: Art
   }
 
+  // The well a scrolled list sits in: sunk into the wood, its rim the line round it and its floor darker than the
+  // wood; the rows are cut at the rim's inner edge.
+  public struct Well {
+    rim: Line
+    floor: Color
+  }
+
   public struct Controls {
+    // A scrolled list's well (`ScrolledList`).
+    well: Well
     tick: Art
     check: Art
     button: Art
@@ -175,6 +184,7 @@ public const ARTWORK: OrdaenArt = {
   },
   window: { wood: WOOD, marble: "Interface/FrameGeneral/UI-Background-Marble" },
   ctl: {
+    well: { rim: { width: 1.171875dp, color: Color.hex("#3e2f1d") }, floor: Color.hex("#0000004d") },
     // The checkbox, drawn whole: the well (the light ring over it under the cursor), and the tick.
     check: { file: "@/media/ctl-check.tga", width: 64, height: 256, rows: 4, normal: 0, glow: 1 },
     tick: { file: "@/media/ctl-check.tga", width: 64, height: 256, rows: 4, normal: 2 },

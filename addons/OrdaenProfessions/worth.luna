@@ -342,7 +342,7 @@ public class WorthPage implements Component {
                 textColor={Style.DIM} />
           <text $if={self.noPrices} value={Locale.NO_PRICES} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
         </box>
-        <box rows={[{ fr: 1 }]} border={{ width: 1.171875dp, color: Style.LINE }} background={Style.LISTS_BACK}>
+        <box rows={[{ fr: 1 }]}>
           <Table columns={COLUMNS} sorted={mut self.sorted} descending={mut self.descending}>
             <WorthLine $for={row of self.rows} worth={row} chosen={self.chosen} @pick={self.onPick} />
           </Table>

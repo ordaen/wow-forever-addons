@@ -185,7 +185,7 @@ public class SellPage implements Component {
             <text value={Locale.SELLABLE} textColor={Style.DIM} wrap={.None} />
             <PushButton label={Locale.PAGE_OWNED} width={Style.OPENER} @click={self.onOpenOwned} />
           </box>
-          <box rows={FILL} border={Style.FRAME} background={Style.LISTS_BACK}>
+          <box rows={FILL}>
             <Table columns={COLUMNS} sorted={mut self.list.values.sorted} descending={mut self.list.values.descending}>
               <OfferedRow $for={row of self.rows} $key={row.item} offered={row}
                           selected={self.picked == row.item} @pick={self.onPick} />

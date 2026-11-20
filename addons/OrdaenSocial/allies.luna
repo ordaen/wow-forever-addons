@@ -5,9 +5,9 @@
 // A row: the ally's status mark, the name in its class's colour (grey while offline) with its level, under it the newest
 // thing done together and how long ago; a pinned ally's star at the right.
 import { AllyCategory, Meeting, RecentAlly } from "$game"
-import { Align, ByInteractionState, Edges, Overflow, Track } from "$ltml"
+import { Align, ByInteractionState, Edges, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { Choice, Component, Fact, FilterButton, FilterGroup, PushButton, SECONDARY_TEXT, TITLE_LINE, TITLE_TEXT, ToolPick, Toolbar, agoText, rowShade, switched } from "Ordaen"
+import { Choice, Component, Fact, FilterButton, FilterGroup, PushButton, SECONDARY_TEXT, ScrolledList, TITLE_LINE, TITLE_TEXT, ToolPick, Toolbar, agoText, rowShade, switched } from "Ordaen"
 import { markOf, orDash, presenceText } from "@/friends"
 import Locale from "@/locales"
 import { nameColorOf } from "@/members"
@@ -192,7 +192,7 @@ public class AllyList implements Component {
           <FilterButton values={mut self.filter} start={self.filterStarts} groups={self.groups} />
           <ToolPick value={mut self.sort} choices={SORTS} icon={Ordaen.art.ctl.tool.sort} title={Locale.SORT} />
         </Toolbar>
-        <box columns={1} overflow={Overflow.Scroll} yAlign={Align.Start}>
+        <ScrolledList columns={1} yAlign={Align.Start}>
           <text $if={self.empty} value={self.allies.length == 0 ? Locale.NO_ALLIES : Locale.NOTHING_FOUND} textColor={Style.DIM} />
           <text $if={self.pinned.length > 0} value={Locale.PINNED} textColor={Style.GOLD} wrap={.None} />
           <AllyRow $for={ally of self.pinned} $key={ally.member.key} ally={ally} chosen={self.chosen} @pick={self.onPick}
@@ -200,7 +200,7 @@ public class AllyList implements Component {
           <text $if={self.rest.length > 0} value={Locale.TAB_ALLIES} textColor={Style.GOLD} wrap={.None} />
           <AllyRow $for={ally of self.rest} $key={ally.member.key} ally={ally} chosen={self.chosen} @pick={self.onPick}
                    @menu={self.onMenu} />
-        </box>
+        </ScrolledList>
       </box>
     }
   }
@@ -276,10 +276,10 @@ public class AllyCard implements Component {
           <Fact $if={self.daysLeft > 0} label={Locale.PIN_LASTS} value={self.pinText} color={self.pinColor} />
           <Fact label={Locale.NOTE} value={orDash(self.ally.member.note)} />
         </box>
-        <box columns={1} gap={2sp} overflow={Overflow.Scroll} yAlign={Align.Start}>
+        <ScrolledList columns={1} gap={2sp} yAlign={Align.Start}>
           <text value={Locale.MEETINGS} textColor={Style.DIM} wrap={.None} />
           <MeetingRow $for={meeting of self.ally.meetings} meeting={meeting} />
-        </box>
+        </ScrolledList>
         <box columns={["max-content", "max-content"]} gap={3sp}>
           <PushButton label={Locale.WHISPER} width={Style.SMALL_BUTTON} disabled={!self.canAsk} @click={self.onWhisper} />
           <PushButton label={Locale.INVITE} width={Style.SMALL_BUTTON} disabled={!self.canAsk} @click={self.onInvite} />

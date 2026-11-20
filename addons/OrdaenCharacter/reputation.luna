@@ -3,9 +3,9 @@
 // session. The faction picked stands on the right: its standing, the bar with the numbers, how far to the next
 // standing, the game's description, and its switches: at war (where the game lets it), inactive, and shown on the
 // bar (the faction the game watches).
-import { Align, Art, BarFill, Overflow, TextFont } from "$ltml"
+import { Align, Art, BarFill, TextFont } from "$ltml"
 import root Ordaen from "Ordaen"
-import { Choice, Component, SECONDARY_TEXT, Shown, ShownToggle, TITLE_LINE, TITLE_TEXT, ToolPick, Toolbar } from "Ordaen"
+import { Choice, Component, SECONDARY_TEXT, ScrolledList, Shown, ShownToggle, TITLE_LINE, TITLE_TEXT, ToolPick, Toolbar } from "Ordaen"
 import Locale from "@/locales"
 import { Faction, standingColor, standingName } from "@/sheet"
 import Style from "@/style"
@@ -256,13 +256,11 @@ public class ReputationPage implements Component {
             <ToolPick value={mut self.show} choices={SHOWS} icon={Ordaen.art.ctl.tool.filter} title={Locale.SHOW}
                       lit={self.narrowed} />
           </Toolbar>
-          <box overflow={Overflow.Scroll}>
-            <box>
-              <text $if={self.none} value={Locale.NOTHING_FOUND} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
-              <FactionRow $for={faction of self.listed} faction={faction} gain={gainOf(faction, self.starts)}
-                          picked={faction.id == self.chosen} @pick={self.onPick} @fold={self.onFold} />
-            </box>
-          </box>
+          <ScrolledList>
+            <text $if={self.none} value={Locale.NOTHING_FOUND} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
+            <FactionRow $for={faction of self.listed} faction={faction} gain={gainOf(faction, self.starts)}
+                        picked={faction.id == self.chosen} @pick={self.onPick} @fold={self.onFold} />
+          </ScrolledList>
         </box>
         <box background={Style.CARD} padding={5sp}>
           <FactionDetail $if={self.hasPick} faction={self.shownPick} gain={self.pickedGain}

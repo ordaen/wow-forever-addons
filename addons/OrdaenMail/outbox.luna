@@ -6,7 +6,7 @@
 import Game from "$game"
 import { Align, Overflow, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { ARTWORK, ButtonPlate, Choice, Column, Component, FoldCaption, ItemButton, ModuleMemory, Money, PickRow, PushButton, SECONDARY_TEXT, Table, TableCell, TableRow, ToolPick, ToolSort, Toolbar, tracksOf } from "Ordaen"
+import { ARTWORK, ButtonPlate, Choice, Column, Component, FoldCaption, ItemButton, ModuleMemory, Money, PickRow, PushButton, SECONDARY_TEXT, ScrolledList, Table, TableCell, TableRow, ToolPick, ToolSort, Toolbar, tracksOf } from "Ordaen"
 import { Sent, SentState, View, waits } from "@/letters"
 import Locale from "@/locales"
 import Style from "@/style"
@@ -310,15 +310,15 @@ public class Outbox implements Component {
         <box $if={self.empty} xAlign={Align.Center} yAlign={Align.Center}>
           <text value={Locale.NOTHING_SENT} textColor={Style.DIM} />
         </box>
-        <box $elseif={self.inList} columns={1} overflow={Overflow.Scroll}>
+        <ScrolledList $elseif={self.inList} columns={1}>
           <SentRow $for={letter of self.shown} $key={letter.number} letter={letter} picked={self.picked} @pick={self.onPick} />
-        </box>
-        <box $elseif={self.inGroups} columns={1} gap={2sp} overflow={Overflow.Scroll}>
+        </ScrolledList>
+        <ScrolledList $elseif={self.inGroups} columns={1} gap={2sp}>
           <box $for={group of self.groups} $key={group.to} columns={1} gap={1sp}>
             <ToCaption group={group} folded={self.folded} @fold={self.onFold} />
             <SentRow $for={letter of group.letters} $key={letter.number} letter={letter} picked={self.picked} @pick={self.onPick} />
           </box>
-        </box>
+        </ScrolledList>
         <Table $else columns={COLUMNS} sorted={mut self.list.values.sorted} descending={mut self.list.values.descending} rowsVary={true}>
           <SentTableRow $for={letter of self.shown} $key={letter.number} letter={letter} picked={self.picked} @pick={self.onPick} />
         </Table>

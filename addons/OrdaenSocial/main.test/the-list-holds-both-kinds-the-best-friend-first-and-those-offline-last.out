@@ -36,35 +36,37 @@ surface 425,183.88 1155.76x532.25 on DIALOG clamped raised by a click
                       box 1006.45,314.66 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 4 of 16
             box 1035.82,307.16 108.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
               text 1056.09,312.44 67.78x17.78 "Add Friend" #ffd100
-          box 460.85,344.03 683.3x301.63 scrolled 0 of 0
-            box 460.85,344.03 683.3x52.62 #00000000 @keyPress @pointerPress
-              box 466.54,349.72 17.78x17.78 Interface/FriendsFrame/StatusIcon-Online
-              box 490.01,349.72 648.46x17.78
-                text 490.01,349.72 42.22x17.78 "Alexei" #c79c6e
-                text 537.92,349.72 35.56x17.78 "25lvl" #a3977f
-                box 579.16,349.72 17.78x17.78 friendslist-favorite
-              box 466.54,382.07 17.78x0
-              text 490.01,373.19 648.46x17.78 "Battle.net · Torgrim · Loch Modan" #a3977f
-            box 460.85,396.65 683.3x52.62 #00000000 @keyPress @pointerPress
-              box 466.54,402.34 17.78x17.78 Interface/FriendsFrame/StatusIcon-Away
-              box 490.01,402.34 648.46x17.78
-                text 490.01,402.34 42.22x17.78 "Eliana" #c79c6e
-                text 537.92,402.34 35.56x17.78 "24lvl" #a3977f
-              box 466.54,434.7 17.78x0
-              text 490.01,425.81 648.46x17.78 "Stormwind" #a3977f
-            box 460.85,449.27 683.3x52.62 #00000000 @keyPress @pointerPress
-              box 466.54,454.96 17.78x17.78 Interface/FriendsFrame/StatusIcon-Offline
-              box 490.01,454.96 648.46x17.78
-                text 490.01,454.96 47.78x17.78 "Darrick" #7c848a
-                text 543.47,454.96 35.56x17.78 "22lvl" #a3977f
-              box 466.54,487.32 17.78x0
-              text 490.01,478.43 648.46x17.78 "offline" #a3977f
-            box 460.85,501.9 683.3x52.62 #00000000 @keyPress @pointerPress
-              box 466.54,507.59 17.78x17.78 Interface/FriendsFrame/StatusIcon-Offline
-              box 490.01,507.59 648.46x17.78
-                text 490.01,507.59 35.56x17.78 "Irina" #7c848a
-              box 466.54,539.94 17.78x0
-              text 490.01,531.05 648.46x17.78 "Battle.net · offline" #a3977f
+          box 460.85,344.03 683.3x301.63 #0000004d
+            box 461.68,344.86 681.63x0
+            box 461.68,344.86 681.63x299.96 scrolled 0 of 0
+              box 470.22,353.4 664.57x52.62 #00000000 @keyPress @pointerPress
+                box 475.91,359.09 17.78x17.78 Interface/FriendsFrame/StatusIcon-Online
+                box 499.37,359.09 629.72x17.78
+                  text 499.37,359.09 42.22x17.78 "Alexei" #c79c6e
+                  text 547.28,359.09 35.56x17.78 "25lvl" #a3977f
+                  box 588.53,359.09 17.78x17.78 friendslist-favorite
+                box 475.91,391.44 17.78x0
+                text 499.37,382.55 629.72x17.78 "Battle.net · Torgrim · Loch Modan" #a3977f
+              box 470.22,406.02 664.57x52.62 #00000000 @keyPress @pointerPress
+                box 475.91,411.71 17.78x17.78 Interface/FriendsFrame/StatusIcon-Away
+                box 499.37,411.71 629.72x17.78
+                  text 499.37,411.71 42.22x17.78 "Eliana" #c79c6e
+                  text 547.28,411.71 35.56x17.78 "24lvl" #a3977f
+                box 475.91,444.06 17.78x0
+                text 499.37,435.18 629.72x17.78 "Stormwind" #a3977f
+              box 470.22,458.64 664.57x52.62 #00000000 @keyPress @pointerPress
+                box 475.91,464.33 17.78x17.78 Interface/FriendsFrame/StatusIcon-Offline
+                box 499.37,464.33 629.72x17.78
+                  text 499.37,464.33 47.78x17.78 "Darrick" #7c848a
+                  text 552.84,464.33 35.56x17.78 "22lvl" #a3977f
+                box 475.91,496.69 17.78x0
+                text 499.37,487.8 629.72x17.78 "offline" #a3977f
+              box 470.22,511.26 664.57x52.62 #00000000 @keyPress @pointerPress
+                box 475.91,516.95 17.78x17.78 Interface/FriendsFrame/StatusIcon-Offline
+                box 499.37,516.95 629.72x17.78
+                  text 499.37,516.95 35.56x17.78 "Irina" #7c848a
+                box 475.91,549.31 17.78x0
+                text 499.37,540.42 629.72x17.78 "Battle.net · offline" #a3977f
       box 460.85,645.66 683.3x45.4
         box 460.85,662.73 683.3x28.33
           box 460.85,668 569.08x17.78

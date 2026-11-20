@@ -9,9 +9,10 @@
 // its item's cell. A cell's texts wrap at its column unless they say they are cut (`wrap={.Cut}`); while the owner
 // has no rows, the table
 // says what it is given as `empty` under its headings. `ToolSort` is its sort in the toolbar, with sorts no column shows.
-import { Align, Art, ByInteractionState, Edges, Event, Line, MouseButton, Overflow, Position, Side, TextAlign, Track } from "$ltml"
+import { Align, Art, ByInteractionState, Edges, Event, Line, MouseButton, Position, Side, TextAlign, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import { Component } from "@/module"
+import { ScrolledList } from "@/scrolledList"
 
 // A column: its heading (`""`: none), its width, where its heading and its cells stand (`Align.Center` too), whether a
 // heading click sorts by it.
@@ -40,8 +41,8 @@ const HEAD: Array<Track> = ["max-content", "max-content"]
 public const ROW: Number<Length> = 32.8125dp
 // Where the text of a table with no rows stands: under its headings, a row down.
 const EMPTY_TOP: Number<Length> = 46.875dp
-// The headings, and the body in what is left of a height the table is given.
-const PARTS: Array<Track> = ["max-content", { fr: 1 }]
+// The well fills what the table is given; its headings stay over its rows as they scroll.
+const FILLED: Array<Track> = [{ fr: 1 }]
 // A sorted heading's mark (ctl.markUp, ctl.markDown): a triangle 8 px wide and 6 high in the middle of a 16 px cell.
 const MARK_WIDTH = 9.375dp
 const MARK_HEIGHT = 7.03125dp
@@ -197,7 +198,8 @@ public class Table implements Component {
     // The column the rows are ordered by, from 1; 0 for none.
     sorted: mut Signal<Integer>,
     descending: mut Signal<Boolean>,
-    // The body's height: it scrolls past it. None: as high as its rows, or the rest of a height the table is given.
+    // The table's height, its headings and its well's rim in it: its rows scroll past it. None: the rest of the room
+    // its box gives it.
     height: Signal<Number<Length> | nil> = nil,
     // Its rows aren't of one height: each is as high as what it holds, and every row is built. Otherwise the body is
     // a virtual list, its rows as high as the first it built came to.
@@ -216,17 +218,14 @@ public class Table implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={1} rows={PARTS}>
-        <box columns={self.tracks} gap={3sp} padding={SIDES} background={BACK} border={RULE}>
-          <Heading $for={index, column of self.columns} column={column} index={index} sorted={mut self.sorted}
-                   descending={mut self.descending} />
-        </box>
-        <box $if={self.rowsVary} columns={1} height={self.height} overflow={Overflow.Scroll}>
+      <box columns={1} rows={FILLED}>
+        <ScrolledList columns={1} height={self.height} virtual={!self.rowsVary}>
+          <box #head columns={self.tracks} gap={3sp} padding={SIDES} background={BACK} border={RULE}>
+            <Heading $for={index, column of self.columns} column={column} index={index} sorted={mut self.sorted}
+                     descending={mut self.descending} />
+          </box>
           <slot />
-        </box>
-        <virtualList $else height={self.height}>
-          <slot />
-        </virtualList>
+        </ScrolledList>
         <box $if={self.emptyShown} position={Position.Absolute} left={0ui} right={0ui} top={EMPTY_TOP} xAlign={Align.Center}>
           <text value={self.empty} textColor={PLAIN} />
         </box>

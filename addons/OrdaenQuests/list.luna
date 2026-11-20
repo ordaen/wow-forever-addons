@@ -1,8 +1,7 @@
 // A tab's list: the quests the search, the status switch and the filter let through, under the client's headers (the
 // player's zone first; a header folds) or as one list. A tab with no quest says so, and one whose quests are all
 // left out says that.
-import { Overflow } from "$ltml"
-import { Component } from "Ordaen"
+import { Component, ScrolledList } from "Ordaen"
 import { LogQuest } from "@/book"
 import { QuestKind } from "@/kind"
 import Locale from "@/locales"
@@ -99,7 +98,7 @@ public class QuestList implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={1} overflow={Overflow.Scroll}>
+      <ScrolledList columns={1}>
         <text $if={self.empty} value={self.emptyText} textColor={DIM} />
         <box $elseif={self.inZones} columns={1}>
           <GroupRows $for={group of self.groups} $key={group.header} group={group} picked={self.picked}
@@ -109,7 +108,7 @@ public class QuestList implements Component {
           <QuestRow $for={quest of self.flat} $key={quest.id} quest={quest} picked={quest.id == self.picked}
                     player={self.player} @act={self.onAct} />
         </box>
-      </box>
+      </ScrolledList>
     }
   }
 }
