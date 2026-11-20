@@ -38,12 +38,13 @@ public struct ListView implements Plain {
 }
 const LIST_VIEW: ListView = {}
 
-// The categories the player folded, the profile's as the list's view is, in the order folded: kept so the list
-// opens after a reload as the player left it. A memory of its own, so a long category's name can never take the
-// filters past a memory's bound with it; at most `FOLDED_MOST` names, the earliest folded let go first, and a
-// category no addon has any more let go as the window opens.
+// The categories and the groups' parents the player folded, the profile's as the list's view is, in the order folded:
+// kept so the list opens after a reload as the player left it. A memory of its own, so a long category's name can
+// never take the filters past a memory's bound with it; at most `FOLDED_MOST` names of each, the earliest folded let
+// go first, and a category or a parent no addon has any more let go as the window opens.
 public struct Folded implements Plain {
   categories: Array<String> = []
+  parents: Array<String> = []
 }
 const FOLDED: Folded = {}
 public const FOLDED_MOST = 8
@@ -73,6 +74,20 @@ const CONFIRM_WIDTH = 539.0625dp
 // The set's dialog: room for its name's row, the label and the field.
 const SET_WIDTH = 820.3125dp
 const BUTTON = 140.625dp
+
+// An addon of a parent's group (`## Group`), the parent itself aside.
+function isUnder(addon: AddOn, parent: String): Boolean { return addon.group == parent && addon.name != parent }
+
+// A fold's names with `name` folded, or opened where it was folded; past `FOLDED_MOST`, the earliest folded opens.
+function flipped(kept: Array<String>, name: String): Array<String> {
+  const next = kept.filter(held => held != name)
+  if (next.length == kept.length) { next.push(name) }
+  const capped: Array<String> = []
+  for (index, held of next) {
+    if (index > next.length - FOLDED_MOST) { capped.push(held) }
+  }
+  return capped
+}
 
 // The value of the column `order` sorts by.
 function weightOf(order: Order, name: String, profiler: Profiler): Number {
@@ -273,7 +288,9 @@ public class AddOnsWindow implements Component {
     const list: Array<Line> = []
     if (self.list.values.view == .Table) {
       for (addon of self.visible) {
-        list.push({ caption: false, name: addon.name, count: 0, folded: false, child: false, names: [], tabled: true })
+        list.push({
+          caption: false, name: addon.name, count: 0, folded: false, child: false, parent: false, names: [], tabled: true
+        })
       }
       return list
     }
@@ -305,18 +322,26 @@ public class AddOnsWindow implements Component {
       const members = byCategory[category] ?? []
       const folded = self.folds.values.categories.any(name => name == category)
       list.push({
-        caption: true, name: category, count: members.length, folded: folded, child: false, names: groups[category] ?? [],
-        tabled: false
+        caption: true, name: category, count: members.length, folded: folded, child: false, parent: false,
+        names: groups[category] ?? [], tabled: false
       })
       if (!folded) {
         const here: Map<String, Boolean> = {}
         for (addon of members) { here[addon.name] = true }
         for (addon of members) {
           if (addon.group == "" || addon.group == addon.name || here[addon.group] != true) {
-            list.push({ caption: false, name: addon.name, count: 0, folded: false, child: false, names: [], tabled: false })
-            for (member of members) {
-              if (member.group == addon.name && member.name != addon.name) {
-                list.push({ caption: false, name: member.name, count: 0, folded: false, child: true, names: [], tabled: false })
+            const under = members.filter(member => isUnder(member, addon.name))
+            const shut = under.length > 0 && self.folds.values.parents.any(name => name == addon.name)
+            list.push({
+              caption: false, name: addon.name, count: 0, folded: shut, child: false, parent: under.length > 0, names: [],
+              tabled: false
+            })
+            if (!shut) {
+              for (member of under) {
+                list.push({
+                  caption: false, name: member.name, count: 0, folded: false, child: true, parent: false, names: [],
+                  tabled: false
+                })
               }
             }
           }
@@ -369,23 +394,30 @@ public class AddOnsWindow implements Component {
 
   // A caption clicked: folded, or opened where it was folded; past `FOLDED_MOST`, the earliest folded opens.
   onFold(mut self, category: String) {
-    const kept = (peek self.folds.values).categories
-    const next = kept.filter(name => name != category)
-    if (next.length == kept.length) { next.push(category) }
-    const capped: Array<String> = []
-    for (index, name of next) {
-      if (index > next.length - FOLDED_MOST) { capped.push(name) }
-    }
-    self.folds.values.categories = capped
+    self.folds.values.categories = flipped((peek self.folds.values).categories, category)
   }
 
-  // The folded categories no addon has any more (each addon of one taken out of the folder) are let go.
+  // A group's parent's mark clicked: its members folded under it, or shown again; as captions are, at most
+  // `FOLDED_MOST`.
+  onFoldGroup(mut self, parent: String) {
+    self.folds.values.parents = flipped((peek self.folds.values).parents, parent)
+  }
+
+  // The folded categories and parents no addon has any more (each addon of one taken out of the folder) are let go.
   dropGone(mut self) {
-    const present: Map<String, Boolean> = {}
-    for (addon of peek self.catalog.addons) { present[addon.category] = true }
-    const kept = (peek self.folds.values).categories
-    if (kept.all(name => present[name] == true)) { return }
-    self.folds.values.categories = kept.filter(name => present[name] == true)
+    const categories: Map<String, Boolean> = {}
+    const names: Map<String, Boolean> = {}
+    for (addon of peek self.catalog.addons) {
+      categories[addon.category] = true
+      names[addon.name] = true
+    }
+    const kept = peek self.folds.values
+    if (!kept.categories.all(name => categories[name] == true)) {
+      self.folds.values.categories = kept.categories.filter(name => categories[name] == true)
+    }
+    if (!kept.parents.all(name => names[name] == true)) {
+      self.folds.values.parents = kept.parents.filter(name => names[name] == true)
+    }
   }
 
   onSettings(self, name: String) { Ordaen.toggleNamed(name) }
@@ -555,7 +587,7 @@ public class AddOnsWindow implements Component {
           <virtualList>
             <LineRow $for={line of self.lines} line={line} catalog={self.catalog} profiler={self.profiler}
                      hot={self.hot} picked={self.list.values.picked} framework={self.framework} @pick={self.onPick}
-                     @toggle={self.onToggle} @toggleGroup={self.onToggleGroup} @fold={self.onFold}
+                     @toggle={self.onToggle} @toggleGroup={self.onToggleGroup} @fold={self.onFold} @foldGroup={self.onFoldGroup}
                      @settings={self.onSettings} @loadNow={self.onLoadNow} />
           </virtualList>
           <box $if={self.stepShown} columns={STRIP} gap={3sp} yAlign={Align.Center}>

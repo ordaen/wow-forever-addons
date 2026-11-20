@@ -941,6 +941,32 @@ test "Ctrl on a parent switches every addon of its group, however many" {
   Test.expect(switchOff(row("Rack")) && switchOff(row("Shelf")) && switchOff(row("Hook")) && switchOn(row("Crate")))
 }
 
+test "a parent with addons of its group folds them by its mark; an addon with none has no mark" {
+  Test.addon({ name: "Rack", title: "Rack", category: "Store" })
+  Test.addon({ name: "Shelf", title: "Shelf", group: "Rack", category: "Store" })
+  Test.addon({ name: "Crate", title: "Crate", category: "Store" })
+  Test.mount(nil, SCREEN)
+  open()
+  Test.expect(row("Rack").paintedWith(Ordaen.art.ctl.markOpen) && window().text("Shelf").shown())
+  Test.expect(!row("Crate").paintedWith(Ordaen.art.ctl.markOpen) && !row("Crate").paintedWith(Ordaen.art.ctl.markClosed))
+  row("Rack").box(Ordaen.art.ctl.markOpen).click()
+  Test.expect(row("Rack").paintedWith(Ordaen.art.ctl.markClosed) && !window().text("Shelf").shown())
+  Test.reload()
+  open()
+  Test.expect(!window().text("Shelf").shown())
+  row("Rack").box(Ordaen.art.ctl.markClosed).click()
+  Test.expect(window().text("Shelf").shown())
+}
+
+test "every title stands at one left edge: a caption's, a parent's and a row with no mark" {
+  Test.addon({ name: "Rack", title: "Rack", category: "Store" })
+  Test.addon({ name: "Shelf", title: "Shelf", group: "Rack", category: "Store" })
+  Test.addon({ name: "Crate", title: "Crate", category: "Store" })
+  Test.mount(nil, SCREEN)
+  open()
+  Test.shot("titles at one edge")
+}
+
 test "a caption's switch switches its whole group off where all of it is on, after the question" {
   const world = new World(everyday())
   Client.C_AddOns.GetNumAddOns = () => world.count()
