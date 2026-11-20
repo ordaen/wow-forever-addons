@@ -208,6 +208,15 @@ test "a quest's page shows its giver's figure beside the title, where the client
   Test.expect(drawn.contains("SetDisplayInfo=1"))
 }
 
+test "the window opened as the player opens it lists the log's quests, Map on and OpenMap's art not built yet" {
+  Test.questLog(standing())
+  Test.mount(nil, PAGE)
+  Test.flush()
+  Quests.flip()
+  Test.flush()
+  Test.expect(Test.page().window("World").text("The Defias Brotherhood").shown())
+}
+
 test "a quest QuestieDB doesn't know has no «Where»" {
   opened(standing())
   Test.page().window("World").text("Elwynn Wolves").click()

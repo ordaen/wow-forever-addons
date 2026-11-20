@@ -125,7 +125,8 @@ public class OpenMapHost implements MapHost {
     const height = canvas.GetHeight()
     // A pin keeps its size on the screen whatever the canvas's zoom.
     const size = PIN_SIZE * Client.UIParent.GetEffectiveScale() / canvas.GetEffectiveScale()
-    const level = (self.present() ? OpenMapAPI.ArtTopLevel() : 0) + 1
+    // Above OpenMap's art; none built yet (nil), above the canvas alone.
+    const level = (self.present() ? OpenMapAPI.ArtTopLevel() ?? 0 : 0) + 1
     for (index, at of placed) {
       const frame = self.pinFrame(index, canvas)
       const said = lines[index] ?? []
