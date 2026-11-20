@@ -300,7 +300,7 @@ public class GearPage implements Component {
           <SetOf $for={set of self.sets} set={set} disabled={Game.situation.combat} @use={self.onUseSet} />
           <SetChip label={Locale.SAVE_SET} disabled={Game.situation.combat} @click={self.onSaveSet} />
         </box>
-        <box columns={[Style.LEFT, Style.DOLL, { fr: 1 }]} rows={[{ fr: 1 }]} gap={6sp}>
+        <box columns={[Style.LEFT, Style.DOLL, { fr: 1, min: Style.RIGHT_LEAST }]} rows={[{ fr: 1 }]} gap={6sp}>
           <box gap={2.5sp}>
             <box gap={2sp} padding={Style.SECTION_PAD}>
               <box gap={0.5sp}>
@@ -336,8 +336,7 @@ public class GearPage implements Component {
                         wear={self.choices.durability} fits={self.fitsIn(spec.id)} @picked={self.onPicked}
                         @tried={self.onTried} @flyout={self.onFlyout} />
             </box>
-            <box rows={[{ fr: 1 }, "max-content", "max-content"]} gap={3sp} xAlign={Align.Center}
-                 background={Style.BACK} padding={3sp}>
+            <box rows={[{ fr: 1 }, "max-content", "max-content"]} gap={3sp} background={Style.BACK} padding={3sp}>
               <box model={"player"} yAlign={Align.End}>
                 <Flyout $if={self.flyoutShown} items={self.fitting} @chose={self.onChose} @close={self.onCloseFlyout} />
               </box>
@@ -348,7 +347,7 @@ public class GearPage implements Component {
                 <GearSlot $if={self.usesAmmo} spec={AMMO} worn={self.wornOf(AMMO.id)} levels={false} wear={false}
                           fits={self.fitsIn(AMMO.id)} size={AMMO_SIZE} @picked={self.onPicked} />
               </box>
-              <text value={self.levelText} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
+              <text value={self.levelText} textSize={SECONDARY_TEXT} textColor={Style.DIM} xAlignSelf={Align.Center} />
             </box>
             <box gap={2sp}>
               <GearSlot $for={spec of RIGHT} spec={spec} worn={self.wornOf(spec.id)} levels={self.choices.itemLevels}

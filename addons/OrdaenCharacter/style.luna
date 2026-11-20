@@ -3,6 +3,7 @@
 // its text.
 import { Edges } from "$ltml"
 
+// The window's body, and the least it is drawn at (a window kept smaller, from an older save, is drawn at this).
 public const WIDTH: Number<Length> = 1400dp
 public const HEIGHT: Number<Length> = 848dp
 // The three columns: the bars and defence on the left, the paper doll (the slots' columns and the model between
@@ -21,10 +22,14 @@ public const SIDE: Number<Length> = 328.125dp
 public const BAR: Number<Length> = 28dp
 public const CUT: Number<Length> = 3dp
 public const CHANNEL: Number<Length> = 5dp
-public const GAUGE_LABEL: Number<Length> = 110dp
+public const GAUGE_LABEL: Number<Length> = 150dp
 public const GAUGE_VALUE: Number<Length> = 72dp
-// A card's socket, a section's padding and the room between its cards and its gauges.
+// A card's socket, its glyph and the socket's floor, a section's padding and the room between its cards and its gauges.
 public const SOCKET: Number<Length> = 44dp
+public const GLYPH: Number<Length> = 28dp
+public const SOCKET_FLOOR: Color = Color.hex("#00000073")
+// The least the stats' column is wide: what its main stats, cards and gauges need whole.
+public const RIGHT_LEAST: Number<Length> = 440dp
 public const SECTION_PAD: Edges = { top: 2.5sp, right: 2.5sp, bottom: 2.5sp, left: 2.5sp }
 public const CARDS_PAD: Edges = { bottom: 2sp }
 // A main stat's room and its number's size.
@@ -51,7 +56,10 @@ public const TROUGH: Color = Color.hex("#000000a6")
 public const GROOVE: Color = Color.hex("#000000b3")
 public const GAUGE: Color = Color.hex("#a3864f")
 public const SKILL: Color = Color.hex("#3a68b8")
-// The resistances' colours: armor, fire, nature, frost, shadow and arcane.
+// The schools' and the resistances' colours: armor, holy, fire, nature, frost, shadow and arcane; a stat's glyph
+// (attack power, damage a second).
+public const HOLY: Color = Color.hex("#e8d98a")
+public const STAT: Color = Color.hex("#c9a24e")
 public const ARMOR: Color = Color.hex("#b8b2a2")
 public const FIRE: Color = Color.hex("#c9692f")
 public const NATURE: Color = Color.hex("#59a84b")
