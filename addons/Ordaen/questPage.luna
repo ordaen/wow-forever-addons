@@ -116,6 +116,8 @@ public struct Reward {
   const sell: Integer
   // Its place among the quest's choices (`GetQuestReward(index)`); 0 for what is given.
   const index: Integer
+  // A currency's number, whose tooltip its slot shows (with the count); none for anything else.
+  const currency: Integer | nil = nil
 }
 
 // A reputation a quest raises.
@@ -488,7 +490,7 @@ class RewardCells implements Component {
       <Keycap $if={self.keyed} key={self.key} size={REWARD_ICON} />
       <box $else />
       <ItemButton item={self.reward.item} count={self.reward.count} quality={self.reward.quality} art={self.reward.icon}
-                  size={REWARD_ICON} @pressed={self.onSlot} />
+                  currency={self.reward.currency} size={REWARD_ICON} @pressed={self.onSlot} />
       <box gap={0.25sp}>
         <text value={self.reward.name} textColor={self.nameColor} wrap={.None} />
         <text $if={self.hasDetail} value={self.reward.detail} textColor={self.detailColor} textSize={SECONDARY_TEXT}
