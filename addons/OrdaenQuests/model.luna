@@ -38,7 +38,6 @@ public function countOf(quests: Array<LogQuest>, kind: QuestKind): Integer {
   return quests.count(quest => quest.kind == kind)
 }
 
-
 // The filter's options: only the tracked quests; each difficulty; a quest played alone or with a group.
 public enum QuestFilter { Tracked, Trivial, Easy, Even, Hard, Impossible, Solo, Group }
 

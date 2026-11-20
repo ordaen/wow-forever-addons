@@ -8,7 +8,7 @@
 import Game from "$game"
 import { Align, Art, ByInteractionState, Edges, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { BODY_LINE, ButtonPlate, Component, Experience, Menu, MenuEntry, Money, PushButton, XP_MARK_SMALL, Reward, RewardView, Rewards, SCROLL_DIM, SCROLL_HEAD, SCROLL_INK, SECONDARY_TEXT, Scroll, SettingRow, Shown, SwitchFace, TIGHT_LINE, TITLE_TEXT, Tip, choiceViews, colorOf, difficultyOf, logReward, rowShade } from "Ordaen"
+import { BODY_LINE, ButtonPlate, Component, Experience, Menu, MenuEntry, Money, PushButton, Reward, RewardView, Rewards, SCROLL_DIM, SCROLL_HEAD, SCROLL_INK, SECONDARY_TEXT, Scroll, SettingRow, Shown, SwitchFace, TIGHT_LINE, TITLE_TEXT, Tip, XP_MARK_SMALL, choiceViews, colorOf, difficultyOf, logReward, rowShade } from "Ordaen"
 import { LogQuest } from "@/book"
 import Locale from "@/locales"
 import { Figure, QuestFacts } from "@/questie"
@@ -207,7 +207,7 @@ class GoalLine implements Component {
   // The list's small lines; the page's are the body's size.
   small: Signal<Boolean>
   constructor(objective: Signal<Game.QuestObjective>, todoColor: Signal<Color> = DIM, doneColor: Signal<Color> = GREY,
-              small: Signal<Boolean> = true) {
+    small: Signal<Boolean> = true) {
     self.objective = objective
     self.todoColor = todoColor
     self.doneColor = doneColor

@@ -1,9 +1,9 @@
 // What the world holds of a quest: who gives it, who takes it, where its objectives are. `QuestieData` asks QuestieDB
 // once a quest and keeps what it said for the session (each read of QuestieDB makes fresh tables, so nothing is read
 // from it while drawing or per event).
+import { LibQuestieDB } from "QuestieDB"
 import Questie from "@/questie"
 import { QuestFacts } from "@/questie"
-import { LibQuestieDB } from "QuestieDB"
 
 // The contract of QuestieDB's data this module is written against.
 const CONTRACT = 4

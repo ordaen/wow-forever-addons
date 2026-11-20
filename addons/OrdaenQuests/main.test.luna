@@ -31,7 +31,7 @@ function opened(log: Array<Test.LogQuest>) {
   Test.questieDB(
     {
       [101]: { name: "The Defias Brotherhood", questLevel: 14, zoneOrSort: 40, startedBy: [[234]], finishedBy: [[234]],
-               nextQuestInChain: 166 },
+        nextQuestInChain: 166 },
       [166]: { name: "The Defias Brotherhood, part two", zoneOrSort: 40 }
     },
     { [234]: { name: "Gryan Stoutmantle", spawns: { [40]: [[56, 47]] } } },

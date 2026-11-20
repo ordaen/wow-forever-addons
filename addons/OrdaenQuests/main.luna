@@ -19,7 +19,6 @@ import { ARTWORK, ButtonPlate, Choice, CompactDropdown, Dialog, FilterButton, Fi
 import root Maps from "OrdaenMap"
 import type { SidePanel } from "OrdaenMap"
 import root Tracker from "OrdaenTracker"
-import { TrackerLines } from "@/tracker"
 import { LogQuest, logQuests } from "@/book"
 import { TakenClick } from "@/button"
 import { QuestieData } from "@/data"
@@ -31,6 +30,7 @@ import { Asked, QuestFilter, QuestSort, QuestStatus, QuestView, countOf, listedO
 import { QuestFacts } from "@/questie"
 import { Choices, GeneralPage } from "@/settings"
 import Style from "@/style"
+import { TrackerLines } from "@/tracker"
 import { Act, QuestPage } from "@/view"
 
 // The button the game's quest log key clicks: the client binds a key to a button by its name.

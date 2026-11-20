@@ -286,7 +286,7 @@ public class Experience implements Component {
   mark: Signal<Number<Length>>
   color: Signal<Color>
   constructor(amount: Signal<Integer>, textSize: Signal<Number<TextSize>> = 1rem, mark: Signal<Number<Length>> = XP_MARK_SIZE,
-              color: Signal<Color> = WELL_TEXT) {
+    color: Signal<Color> = WELL_TEXT) {
     self.amount = amount
     self.textSize = textSize
     self.mark = mark
