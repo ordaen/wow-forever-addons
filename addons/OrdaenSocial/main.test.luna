@@ -908,3 +908,25 @@ test "the characters last seen are capped, go when not seen for long or no longe
   const capped = seenAfter(many, list, now) ?? panic("capped")
   Test.expect(capped["Friend#1"] != nil && capped["Friend#200"] != nil && capped["Friend#201"] == nil)
 }
+
+// The friends a session later: Alexei gone offline.
+function friendsLater(): Array<Friend> {
+  return friends().map((friend: Friend): Friend => {
+    if (friend.account?.battleTag != "Drake#2145") { return friend }
+    return Friend { index: friend.index, presence: .Offline, note: friend.note, hero: nil, account: friend.account }
+  })
+}
+
+test "an offline Battle.net friend shows the character last seen, after a reload" {
+  Test.mount(nil, PAGE)
+  Game.friends.list = friends
+  Game.friends.requests = requests
+  Game.friends.ignored = ignoredOnes
+  Game.friends.battleNetSelf = battleNetSelf
+  _ = opened(new FakePeople())
+  Test.reload()
+  Game.friends.list = friendsLater
+  const window = opened(new FakePeople())
+  Test.expect(Social.seen.values.heroes["Drake#2145"] != nil)
+  Test.expect(window.texts().find(text => text.contains("Torgrim")) != nil)
+}
