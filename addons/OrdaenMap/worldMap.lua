@@ -100,7 +100,8 @@ end
 -- caller has checked.
 function worldMap.townsfolk(maps)
 	local db = client.LibQuestieDB
-	local npcs, objects = db.NpcDB, db.ObjectDB
+	-- Its entities by name (`LibQuestieDB.Npc`), as its API sets them.
+	local npcs, objects = db.Npc, db.Object
 	client.OpenMapAPI.RegisterTownsfolkProvider("OrdaenMap", {
 		db = {
 			NPCPointers = npcs.GetAllIds(true),
