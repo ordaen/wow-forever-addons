@@ -1,6 +1,5 @@
 // The profession's skill bar, hanging from the window's top line: the experience bar's fill in a dark trough with a
 // bronze rim, a notch every 10%, and on it the rank and the skill: «Apprentice · 31 / 75».
-import Game from "$game"
 import { Align, Art, Edges, Line, Overflow, Position, Side, Track } from "$ltml"
 import { Component, XpFill, xpFillArt } from "Ordaen"
 import Locale from "@/locales"
@@ -23,15 +22,17 @@ public class SkillBar implements Component {
   // The experience bar's fill as it starts.
   const fill: Art = xpFillArt(XpFill.Brushed)
 
-  profession: Signal<Game.Profession | nil>
-  constructor(profession: Signal<Game.Profession | nil>) {
-    self.profession = profession
+  // The player's skill and the most it goes to now: the open profession's, a trainer's.
+  rank: Signal<Integer>
+  most: Signal<Integer>
+  constructor(rank: Signal<Integer>, most: Signal<Integer>) {
+    self.rank = rank
+    self.most = most
   }
 
   shareOf(self): Number {
-    let profession = self.profession
-    if (profession == nil || profession.max <= 0) { return 0 }
-    return (1).min(profession.rank / profession.max)
+    if (self.most <= 0) { return 0 }
+    return (1).min(self.rank / self.most)
   }
 
   rankOf(self, most: Integer): String {
@@ -45,10 +46,9 @@ public class SkillBar implements Component {
   }
 
   labelOf(self): String {
-    let profession = self.profession
-    if (profession == nil) { return "" }
-    let skill = "%d / %d".format(profession.rank, profession.max)
-    let rank = self.rankOf(profession.max)
+    if (self.rank <= 0 && self.most <= 0) { return "" }
+    let skill = "%d / %d".format(self.rank, self.most)
+    let rank = self.rankOf(self.most)
     if (rank == "") { return skill }
     return rank + " · " + skill
   }

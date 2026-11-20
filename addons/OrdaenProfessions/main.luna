@@ -746,7 +746,7 @@ public class Professions implements Module, App {
             <text value={Locale.PICK} textColor={Style.DIM} />
           </box>
           <box $else rows={BODY} gap={6sp}>
-            <SkillBar profession={self.profession} />
+            <SkillBar rank={self.profession?.rank ?? 0} most={self.profession?.max ?? 0} />
             <Tabs tabs={self.pageNames} selected={mut self.page} />
             <QueuePage $if={self.queueShown} queued={self.queued} prices={self.prices} @act={self.onQueueAct}
                        @counted={self.onQueueCount} @shop={self.onShop} />

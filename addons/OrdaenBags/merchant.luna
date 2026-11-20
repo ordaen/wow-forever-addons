@@ -1,18 +1,17 @@
 // The merchant's window, in place of the game's while a merchant is open: two tabs, the merchant's goods and what the
-// player sold it this visit (its buyback), and the right column beside them, always there: the player's money, «Sell
-// junk» with what the bags' junk brings, the repairs where the merchant repairs. The goods: every item at once in two
-// columns that scroll (no pages), by the merchant's list, by category, or as a table; the search, the sort and the
-// filter dim nothing but leave out what doesn't fit; the footer counts what shows. An item's right click buys one
-// purchase, Shift+Left-click asks how many, Shift+Right-click puts its link into the chat; a price at or past the game's
-// asking price (15 gold) or one paid in items or currencies is asked first, as the game asks. The buyback's click buys
-// the item back.
+// player sold it this visit (its buyback), and the right column beside them, always there: the player's money and the
+// merchant's currencies, the item sold last while the goods show, «Sell junk» with what the bags' junk brings, the
+// repairs where the merchant repairs («Repair an item» lit while the cursor mends). The goods: every item at once in two
+// columns that scroll (no pages), by the merchant's list, by category, or as a table, a quest's item marked with the
+// game's «!»; the search, the sort and the filter dim nothing but leave out what doesn't fit; the footer counts what
+// shows. An item's left click or drag puts it onto the cursor, its right click buys one purchase, Shift+Left-click asks
+// how many, Shift+Right-click puts its link into the chat, Ctrl tries it on, Alt is the client's modified click; a price
+// at or past the game's asking price (15 gold) or one paid in items or currencies is asked first, as the game asks (one
+// that can't be refunded says so). The buyback's click buys the item back.
 import Game from "$game"
-import { Align, Art, Columns, Event, MouseButton, Overflow, Track } from "$ltml"
+import { Align, Art, Columns, Event, MouseButton, Overflow, Position, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import {
-  ARTWORK, ButtonPlate, Choice, Column, Component, CountInput, Dialog, FoldCaption, FooterCount, FooterCounts, ItemButton, KeptWindow, ModuleMemory, Money, PushButton, SECONDARY_TEXT,
-  Table, TableRow, ToolPick, Toolbar, Window, WindowSide, WindowTabSpec, tracksOf
-} from "Ordaen"
+import { ARTWORK, ButtonPlate, Choice, Column, Component, CountInput, Dialog, FoldCaption, FooterCount, FooterCounts, ItemButton, KeptWindow, ModuleMemory, Money, PushButton, SECONDARY_TEXT, Table, TableRow, ToolPick, Toolbar, Window, WindowSide, WindowTabSpec, tracksOf } from "Ordaen"
 import { SLOT } from "@/layout"
 import Locale from "@/locales"
 import { KINDS, Tab } from "@/model"
@@ -51,6 +50,8 @@ const VENDOR_ICON: Asset = "Interface/Icons/INV_Misc_Coin_02"
 const BUYBACK_ICON: Asset = "Interface/MerchantFrame/UI-BuyBack-Icon"
 // «Repair an item»'s hammer: the game's blacksmith's icon.
 const REPAIR_ICON: Asset = "Interface/Icons/Trade_BlackSmithing"
+// The game's «!» over the icon of an item that starts a quest (`TEXTURE_ITEM_QUEST_BANG`).
+const QUEST_BANG: Asset = "Interface/ContainerFrame/UI-Icon-QuestBang"
 const COST_ICON = 16.40625dp
 // A table row: an item's slot and the row's padding round it.
 const TABLE_SLOT = 28.125dp
@@ -181,6 +182,7 @@ class CostTag implements Component {
 // One of the merchant's items: its slot, its name, its price and what it costs besides, and what is left of it.
 class WareCell implements Component {
   public pressed: Event<(Ware, Event.Press)> = new Event()
+  public dragged: Event<Ware> = new Event()
 
   derived dear: Boolean = self.ware.price > Game.money.amount
   derived priceColor: Color = self.dear ? RED : INK
@@ -192,12 +194,16 @@ class WareCell implements Component {
   constructor(ware: Signal<Ware>) { self.ware = ware }
 
   onPressed(self, click: Event.Press) { self.pressed.emit(self.ware, click) }
+  onDragged(self) { self.dragged.emit(self.ware) }
 
   public render(self): Template {
     return $ltml {
       <box columns={CELL} gap={3sp} yAlign={Align.Center}>
         <ItemButton item={self.ware.id} art={self.ware.icon} count={self.ware.stack} quality={self.ware.quality}
-                    size={SLOT} linkOnShift={false} @pressed={self.onPressed} />
+                    size={SLOT} linkOnShift={false} @pressed={self.onPressed} @dragged={self.onDragged}>
+          <box $if={self.ware.quest} position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui}
+               background={QUEST_BANG} />
+        </ItemButton>
         <box columns={1} overflow={Overflow.Hidden}>
           <text value={self.ware.name} textColor={self.nameColor} wrap={false} />
           <box columns={PRICE} gap={2sp} yAlign={Align.Center}>
@@ -338,16 +344,24 @@ public class MerchantWindow implements Component {
   derived guildRepair: Boolean = self.vendor.repairs && self.vendor.guildRepairs && self.vendor.worn
   derived askTitle: String = self.askTitleOf()
   derived askCosts: String = self.askCostsOf()
+  // A purchase paid in items or currencies that the merchant won't take back: said as it is asked, as the game does.
+  derived askFinal: Boolean = self.askFinalOf()
+  // «Repair an item» lit while the cursor mends.
+  derived repairPlate: ButtonPlate = self.vendor.repairing ? ButtonPlate.Accent : ButtonPlate.Bronze
+  // The item sold last, under the goods (the game's buyback slot): a click buys it back.
+  derived lastSold: Array<Sold> = self.buying && self.vendor.sold.length > 0 ? [self.vendor.sold[self.vendor.sold.length] ?? panic("within the buyback")] : []
+  derived hasLastSold: Boolean = self.lastSold.length > 0
+  derived hasCurrencies: Boolean = self.vendor.currencies.length > 0
   derived countMost: Integer = self.counting == nil ? 1 : mostFor(self.counting ?? panic("counting"), Game.money.amount)
   derived countPrice: Integer = self.counting == nil ? 0 : moneyFor(self.counting ?? panic("counting"), self.count)
 
-  vendor: Vendor
+  vendor: mut Vendor
   declared: mut KeptWindow
   list: mut ModuleMemory<MerchantView>
   junkCount: Signal<Integer>
   junkWorth: Signal<Integer>
   constructor(
-    vendor: Vendor,
+    vendor: mut Vendor,
     declared: mut KeptWindow,
     list: mut ModuleMemory<MerchantView>,
     junkCount: Signal<Integer>,
@@ -402,27 +416,43 @@ public class MerchantWindow implements Component {
     return price > 0 ? Locale.ASK_BUY.format(named, Game.money.format(price)) : Locale.ASK_BUY_COSTS.format(named)
   }
 
+  askFinalOf(self): Boolean {
+    const asking = self.asking
+    return asking != nil && !asking.ware.refundable && asking.ware.costs.length > 0
+  }
+
   askCostsOf(self): String {
     const asking = self.asking
     if (asking == nil) { return "" }
     return asking.ware.costs.map(cost => `${cost.amount} ${cost.name}`).join(", ")
   }
 
-  // A click on an item, in the player's own call: Right buys one purchase (asked first where the game asks),
-  // Shift+Right links it, Shift+Left asks how many.
+  // A click on an item, in the player's own call: Left puts it onto the cursor (bought as it is put into a bag), Right
+  // buys one purchase (asked first where the game asks), Shift+Right links it, Shift+Left asks how many, Ctrl tries it
+  // on, Alt is the client's modified click.
   onWare(mut self, ware: Ware, click: Event.Press) {
     const shift = Game.input.shiftDown()
-    if (click.button == MouseButton.Right) {
+    if (Game.input.controlDown()) {
+      self.vendor.dressUp(ware)
+    } else if (Game.input.altDown()) {
+      self.vendor.modifiedClick(ware)
+    } else if (click.button == MouseButton.Right) {
       if (shift) {
         Game.chat.link(ware.id)
       } else {
         self.purchase(ware, nil)
       }
-    } else if (click.button == MouseButton.Left && shift && ware.most > 1) {
-      self.count = 1
-      self.counting = ware
+    } else if (click.button == MouseButton.Left && shift) {
+      if (ware.most > 1) {
+        self.count = 1
+        self.counting = ware
+      }
+    } else if (click.button == MouseButton.Left) {
+      self.vendor.pickUp(ware)
     }
   }
+
+  onDragged(self, ware: Ware) { self.vendor.pickUp(ware) }
 
   onWareRow(mut self, ware: Ware, button: MouseButton) {
     if (button == MouseButton.Right) { self.purchase(ware, nil) }
@@ -466,7 +496,7 @@ public class MerchantWindow implements Component {
   onSellJunk(self) { self.sellJunk.emit() }
   onRepair(self) { self.vendor.repairAll(false) }
   onGuildRepair(self) { self.vendor.repairAll(true) }
-  onRepairOne(self) { self.vendor.repairOne() }
+  onRepairOne(mut self) { self.vendor.repairOne() }
   onClose(self) { self.vendor.close() }
 
   // The right column: the money at the top, the buttons at the bottom, the repairs last.
@@ -476,11 +506,19 @@ public class MerchantWindow implements Component {
         <text value={Locale.YOUR_MONEY} textColor={DIM} wrap={false} />
         <Money amount={Game.money.amount} />
       </box>
-      <box />
+      <box columns={1} gap={3sp}>
+        <box $if={self.hasCurrencies} columns={PRICE} gap={3sp} yAlign={Align.Center}>
+          <CostTag $for={held of self.vendor.currencies} icon={held.icon} amount={held.amount} />
+        </box>
+        <box $if={self.hasLastSold} columns={1} gap={2sp}>
+          <text value={Locale.LAST_SOLD} textColor={DIM} textSize={SECONDARY_TEXT} wrap={false} />
+          <SoldCell $for={sold of self.lastSold} $key={sold.place} sold={sold} @pressed={self.onSold} />
+        </box>
+      </box>
       <box columns={1} gap={3sp}>
         <PushButton label={self.junkLabel} width={SIDE_WIDTH} disabled={self.junkCount == 0} @click={self.onSellJunk} />
         <PushButton $if={self.guildRepair} label={Locale.REPAIR_GUILD} width={SIDE_WIDTH} @click={self.onGuildRepair} />
-        <PushButton $if={self.vendor.repairs} label={Locale.REPAIR_ONE} icon={REPAIR_ICON} width={SIDE_WIDTH} @click={self.onRepairOne} />
+        <PushButton $if={self.vendor.repairs} label={Locale.REPAIR_ONE} icon={REPAIR_ICON} width={SIDE_WIDTH} plate={self.repairPlate} @click={self.onRepairOne} />
         <PushButton $if={self.vendor.repairs} label={self.repairLabel} width={SIDE_WIDTH} plate={ButtonPlate.Accent} disabled={!self.canRepair}
                     @click={self.onRepair} />
       </box>
@@ -511,11 +549,11 @@ public class MerchantWindow implements Component {
           <box $elseif={self.grouped} columns={2} gap={3sp} overflow={Overflow.Scroll}>
             <$for={tab of self.groups}>
               <WareCaption tab={peek tab} count={self.countIn(tab)} folded={self.folded[tab] == true} @toggled={self.onToggle} />
-              <WareCell $for={ware of self.inGroup(tab)} $key={ware.index} ware={ware} @pressed={self.onWare} />
+              <WareCell $for={ware of self.inGroup(tab)} $key={ware.index} ware={ware} @pressed={self.onWare} @dragged={self.onDragged} />
             </>
           </box>
           <box $else columns={2} gap={3sp} overflow={Overflow.Scroll}>
-            <WareCell $for={ware of self.shown} $key={ware.index} ware={ware} @pressed={self.onWare} />
+            <WareCell $for={ware of self.shown} $key={ware.index} ware={ware} @pressed={self.onWare} @dragged={self.onDragged} />
           </box>
         </box>
         <box $else columns={2} gap={3sp} overflow={Overflow.Scroll}>
@@ -525,6 +563,7 @@ public class MerchantWindow implements Component {
       <Dialog $if={self.asking != nil} width={DIALOG} title={Locale.MERCHANT}>
         <text value={self.askTitle} textColor={INK} />
         <text value={self.askCosts} textColor={DIM} />
+        <text $if={self.askFinal} value={Locale.NO_REFUND} textColor={RED} />
         <PushButton #buttons label={Locale.CANCEL} width={BUTTON} @click={self.onAskCancel} />
         <PushButton #buttons label={Locale.BUY} width={BUTTON} plate={ButtonPlate.Accent} @click={self.onAsked} />
       </Dialog>

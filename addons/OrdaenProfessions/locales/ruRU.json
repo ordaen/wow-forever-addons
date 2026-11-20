@@ -127,5 +127,8 @@
   "NEEDS_SKILL": "навык %d",
   "KNOWN": "Изучено",
   "PICK_SERVICE": "Выберите рецепт.",
-  "NOTHING_FOUND": "Ничего не найдено."
+  "NOTHING_FOUND": "Ничего не найдено.",
+  "CONFIRM_PROFESSION": "Изучить %s? Это займёт одну из двух ваших профессий.",
+  "NO_PROFESSION_SLOT": "Вы уже знаете две профессии.",
+  "CANCEL": "Отмена"
 }

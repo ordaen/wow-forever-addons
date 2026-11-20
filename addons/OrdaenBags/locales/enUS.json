@@ -146,5 +146,7 @@
   "BUY": "Buy",
   "HOW_MANY": "How many?",
   "ASK_BUY": "Buy %s for %s?",
-  "ASK_BUY_COSTS": "Buy %s?"
+  "ASK_BUY_COSTS": "Buy %s?",
+  "NO_REFUND": "This purchase can't be refunded.",
+  "LAST_SOLD": "Last sold"
 }

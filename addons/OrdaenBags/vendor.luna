@@ -37,6 +37,11 @@ public struct Ware {
   const level: Integer
   const tab: Tab
   const kind: String
+  // It starts a quest (the game's «!» over its icon); the purchase can be refunded (one paid in items or currencies
+  // that can't is said so as it is asked); its link (the dressing room's, the chat's).
+  const quest: Boolean
+  const refundable: Boolean
+  const link: String | nil
 }
 
 // An item sold to the merchant this visit, at its place in the buyback list (the last the newest).
@@ -79,8 +84,20 @@ function wareAt(index: Integer): Ware | nil {
     price: info.price.floor(), stack: info.stackCount.floor().max(1), available: info.numAvailable.floor(),
     usable: info.isUsable, purchasable: info.isPurchasable, costs: info.hasExtendedCost ? costsOf(index) : [],
     most: Client.GetMerchantItemMaxStack(index).floor().max(1), level: (level ?? 0).floor(),
-    tab: tabOf((classId ?? NO_CLASS).floor(), nil), kind: kind ?? ""
+    tab: tabOf((classId ?? NO_CLASS).floor(), nil), kind: kind ?? "", quest: info.isQuestStartItem,
+    refundable: Client.C_MerchantFrame.IsMerchantItemRefundable(index), link: Client.GetMerchantItemLink(index)
   }
+}
+
+// What the merchant takes besides money that the player holds (`GetMerchantCurrencies`): each with its icon and how
+// many the player has.
+function currenciesOf(): Array<Cost> {
+  let held: Array<Cost> = []
+  for (id of Client.C_MerchantFrame.GetMerchantCurrencies() ?? []) {
+    const info = Client.C_CurrencyInfo.GetCurrencyInfo(id)
+    if (info != nil) { held.push({ icon: info.iconFileID, amount: info.quantity.floor(), name: info.name }) }
+  }
+  return held
 }
 
 public class Vendor {
@@ -94,6 +111,10 @@ public class Vendor {
   public state worn = false
   // The guild pays for the repairs where the player's rank allows it.
   public state guildRepairs = false
+  // The client's cursor mends the next item clicked (`InRepairMode`).
+  public state repairing = false
+  // The currencies the merchant takes, as the player holds them.
+  public state currencies: Array<Cost> = []
 
   constructor() {
     Events.MERCHANT_SHOW.listen(self.onShow)
@@ -103,8 +124,12 @@ public class Vendor {
       Events.MERCHANT_UPDATE.listen(self.read)
       Events.UPDATE_INVENTORY_DURABILITY.listen(self.readRepairs)
       Events.PLAYER_MONEY.listen(self.readRepairs)
+      Events.CURSOR_CHANGED.listen(self.readRepairs)
+      Events.CURRENCY_DISPLAY_UPDATE.listen(self.readCurrencies)
     }
   }
+
+  readCurrencies(mut self) { self.currencies = currenciesOf() }
 
   onShow(mut self) {
     const name, _ = Client.UnitName("npc")
@@ -117,6 +142,8 @@ public class Vendor {
     self.open = false
     self.wares = []
     self.sold = []
+    self.currencies = []
+    self.repairing = false
   }
 
   // Everything the merchant's window shows, read again.
@@ -136,10 +163,12 @@ public class Vendor {
       }
     }
     self.sold = sold
+    self.readCurrencies()
     self.readRepairs()
   }
 
   readRepairs(mut self) {
+    self.repairing = Client.InRepairMode()
     self.repairs = Client.CanMerchantRepair()
     if (!(peek self.repairs)) { return }
     const cost, worn = Client.GetRepairAllCost()
@@ -153,8 +182,25 @@ public class Vendor {
   public buy(self, ware: Ware, count: Integer | nil) { Client.BuyMerchantItem(ware.index, count) }
   public buyBack(self, sold: Sold) { Client.BuybackItem(sold.place) }
   public repairAll(self, guild: Boolean) { Client.RepairAllItems(guild) }
-  // The client's repair cursor: the next item clicked, worn or carried, is mended.
-  public repairOne(self) { Client.ShowRepairCursor() }
+  // The client's repair cursor: the next item clicked, worn or carried, is mended; again, the cursor is back.
+  public repairOne(mut self) {
+    if (Client.InRepairMode()) {
+      Client.HideRepairCursor()
+    } else {
+      Client.ShowRepairCursor()
+    }
+    self.repairing = Client.InRepairMode()
+  }
+  // The item onto the client's cursor, bought as it is put into a bag.
+  public pickUp(self, ware: Ware) { Client.PickupMerchantItem(ware.index) }
+  // The item tried on in the dressing room (Ctrl+click), and any other modified click as the client's own buttons take
+  // it (the player's bindings).
+  public dressUp(self, ware: Ware) {
+    if (ware.link != nil) { _ = Client.DressUpItemLink(ware.link) }
+  }
+  public modifiedClick(self, ware: Ware) {
+    if (ware.link != nil) { _ = Client.HandleModifiedItemClick(ware.link) }
+  }
 
   // The window's close leaves the merchant.
   public close(self) {
