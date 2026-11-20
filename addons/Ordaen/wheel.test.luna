@@ -1,0 +1,201 @@
+// The wheel: the art and the client's restricted code choose by one formula; a key held opens it at the cursor and
+// its release does the item the cursor went towards, in a fight too; a release in the middle leaves it up for the
+// mouse, a left click uses, a right click goes back or closes, Escape closes; a submenu replaces the ring; an item the
+// client refuses in a fight does nothing then; an item of ours is told; a missed release is mended by the next press;
+// what is set up in a fight waits for its end. The art draws the items with the chosen one's name, dims what can't be
+// used, and lights the hub in the middle.
+import Client from "$client"
+import { MouseButton } from "$ltml"
+import Test from "$test"
+import { ROOT, SecureWheel, WheelAction, WheelEntry, WheelRing, placeIn } from "@/secureWheel"
+import { SLOT_LUA, Wheel, WheelItem, WheelNames, slotAt } from "@/wheel"
+
+const RUN_SLOT: String = [
+  "local dx, dy = self:GetAttribute('dx'), self:GetAttribute('dy')",
+  "local count, dead = self:GetAttribute('count'), self:GetAttribute('dead')",
+  SLOT_LUA,
+  "self:SetAttribute('slot', slot)"
+].join("\n")
+
+test "the art and the restricted code choose the same item for every direction" {
+  const header = Client.CreateFrame("Frame", nil, Client.UIParent, "SecureHandlerBaseTemplate")
+  for (count of 1..8) {
+    for (step of 0..72) {
+      const turn = step * 5 * Number.pi / 180
+      for (far of [10, 80]) {
+        const dx = turn.sin() * far
+        const dy = turn.cos() * far
+        header.SetAttribute("dx", dx)
+        header.SetAttribute("dy", dy)
+        header.SetAttribute("count", count)
+        header.SetAttribute("dead", 30)
+        Client.SecureHandlerExecute(header, RUN_SLOT)
+        Test.expect(header.GetAttribute("slot") == slotAt(dx, dy, count, 30))
+      }
+    }
+  }
+  Test.expect(slotAt(0, 50, 4, 30) == 1)
+  Test.expect(slotAt(50, 0, 4, 30) == 2)
+  Test.expect(slotAt(0, -50, 4, 30) == 3)
+  Test.expect(slotAt(-50, 0, 4, 30) == 4)
+  Test.expect(slotAt(5, 5, 4, 30) == 0)
+}
+
+// A wheel of four: up a spell, right a menu of two (up a wave, down a window of ours), down an item the client
+// refuses in a fight, left a line of a macro.
+class Held {
+  public const wheel: mut SecureWheel = new SecureWheel("OrdaenWheelTest")
+  public state used: mut Array<String> = []
+  constructor() {
+    const rings: Array<WheelRing> = [{ path: ROOT, count: 4 }, { path: "r_2", count: 2 }]
+    const entries: Array<WheelEntry> = [
+      { path: placeIn(ROOT, 1), action: .Spell { spell: "Find Herbs" }, refusesInFight: false },
+      { path: placeIn(ROOT, 2), action: WheelAction.Menu, refusesInFight: false },
+      { path: placeIn("r_2", 1), action: .MacroText { text: "/wave" }, refusesInFight: false },
+      { path: placeIn("r_2", 2), action: WheelAction.Ours, refusesInFight: false },
+      { path: placeIn(ROOT, 3), action: .Item { item: 6948 }, refusesInFight: true },
+      { path: placeIn(ROOT, 4), action: .MacroText { text: "/tm 8" }, refusesInFight: false }
+    ]
+    self.wheel.apply(rings, entries, false)
+    self.wheel.bind(["F"])
+    self.wheel.picked.listen(self.onPick)
+  }
+  onPick(mut self, path: String) { self.used.push(path) }
+}
+
+const MIDDLE: Test.Point = { x: 500, y: 400 }
+
+// A click where the cursor is.
+function clickHere(button: MouseButton | nil) {
+  Test.press(button)
+  Test.release(button)
+}
+
+// The key held at the wheel's middle, the cursor moved by `x` right and `y` down, the key let go.
+function flick(x: Number, y: Number) {
+  Test.moveTo(MIDDLE)
+  Test.holdBound("F")
+  Test.flush()
+  Test.moveTo({ x: MIDDLE.x + x, y: MIDDLE.y + y })
+  Test.releaseBound("F")
+}
+
+test "a key held and let go towards an item does it, in a fight too" {
+  const held = new Held()
+  Test.flush()
+  Test.combat(true)
+  flick(0, -100)
+  Test.expect(Test.performed().join(", ") == "spell Find Herbs")
+  Test.expect(!held.wheel.open)
+  flick(-100, 0)
+  Test.expect(Test.performed().join(", ") == "macro /tm 8")
+  Test.combat(false)
+}
+
+test "the art follows the cursor while the wheel is up" {
+  const held = new Held()
+  Test.flush()
+  Test.moveTo(MIDDLE)
+  Test.holdBound("F")
+  Test.expect(held.wheel.open)
+  Test.flush()
+  Test.moveTo({ x: MIDDLE.x, y: MIDDLE.y - 60 })
+  Test.pass(0.05)
+  Test.expect(held.wheel.aimY > 50 && held.wheel.aimX.abs() < 1)
+  Test.releaseBound("F")
+  Test.expect(!held.wheel.open)
+}
+
+test "a submenu replaces the ring, and its item of ours is told" {
+  const held = new Held()
+  Test.flush()
+  Test.combat(true)
+  flick(100, 0)
+  Test.expect(held.wheel.open && held.wheel.level == "r_2")
+  Test.expect(Test.performed().length == 0)
+  Test.moveTo({ x: MIDDLE.x, y: MIDDLE.y + 100 })
+  clickHere(nil)
+  Test.expect(!held.wheel.open)
+  Test.expect(held.used.join(", ") == "r_2_2")
+  Test.combat(false)
+}
+
+test "a release in the middle keeps the wheel up; a right click goes back, then closes; Escape closes" {
+  const held = new Held()
+  Test.flush()
+  flick(3, 3)
+  Test.expect(held.wheel.open)
+  Test.moveTo({ x: MIDDLE.x + 100, y: MIDDLE.y })
+  clickHere(nil)
+  Test.expect(held.wheel.level == "r_2")
+  clickHere(.Right)
+  Test.expect(held.wheel.open && held.wheel.level == ROOT)
+  clickHere(.Right)
+  Test.expect(!held.wheel.open)
+  flick(3, 3)
+  Test.expect(held.wheel.open)
+  _ = Test.keyBound("ESCAPE")
+  Test.expect(!held.wheel.open)
+  Test.expect(Test.performed().length == 0)
+}
+
+test "an item the client refuses in a fight does nothing then" {
+  const held = new Held()
+  Test.flush()
+  Test.combat(true)
+  flick(0, 100)
+  Test.expect(Test.performed().length == 0)
+  Test.combat(false)
+  flick(0, 100)
+  Test.expect(Test.performed().join(", ") == "item item:6948")
+}
+
+test "a release the game missed is mended by the next press" {
+  const held = new Held()
+  Test.flush()
+  Test.moveTo(MIDDLE)
+  Test.holdBound("F")
+  Test.expect(held.wheel.open)
+  Test.flush()
+  flick(0, -100)
+  Test.expect(Test.performed().join(", ") == "spell Find Herbs")
+  Test.expect(!held.wheel.open)
+}
+
+test "what is set up in a fight waits for its end" {
+  Test.combat(true)
+  const held = new Held()
+  Test.flush()
+  flick(0, -100)
+  Test.expect(Test.performed().length == 0)
+  Test.combat(false)
+  Test.flush()
+  flick(0, -100)
+  Test.expect(Test.performed().join(", ") == "spell Find Herbs")
+}
+
+const QUESTION: Asset = "Interface/Icons/INV_Misc_QuestionMark"
+
+class Drawn {
+  public state items: Array<WheelItem> = [
+    { name: "Character", icon: QUESTION, dim: false, menu: false },
+    { name: "Talents", icon: QUESTION, dim: true, menu: false },
+    { name: "Marks", icon: QUESTION, dim: false, menu: true }
+  ]
+  public state chosen = 1
+  public state pointer: Number<Angle> = 0deg
+  public state names: WheelNames = WheelNames.Chosen
+  public render(self): Template {
+    return $ltml { <Wheel items={self.items} chosen={self.chosen} pointer={self.pointer} names={self.names} /> }
+  }
+}
+
+test "the art names the chosen item, every item where asked, and none in the middle" {
+  const page = new Drawn()
+  Test.mount(page, { left: 0, top: 0, width: 400, height: 400 })
+  Test.expect(Test.page().texts().join(", ") == "Character")
+  page.chosen = 0
+  Test.expect(Test.page().texts().length == 0)
+  page.names = WheelNames.Always
+  Test.expect(Test.page().texts().join(", ") == "Character, Talents, Marks")
+}
