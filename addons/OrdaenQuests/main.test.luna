@@ -152,19 +152,18 @@ test "Shift+Left-click on a quest tracks it" {
   Test.expect(Test.talked().join(",") == "watch 103")
 }
 
-test "a quest picked shows its page, with where its giver stands from QuestieDB" {
+test "a quest picked shows its page and the next quest of its chain; who gives and completes it is the map's" {
   opened(standing())
   Test.page().window("World").text("The Defias Brotherhood").click()
   const window = Test.page().window("World")
   Test.expect(window.text("Gryan asks you to look into Westfall.").shown())
-  Test.expect(window.text("Gryan Stoutmantle (56, 47)").count() == 2)
   Test.expect(window.text("420").shown())
-  // The chain: the quest after it, by QuestieDB's name.
-  Test.expect(window.text("Next quest").shown() && window.text("The Defias Brotherhood, part two").shown())
-  // Who completes it first, then who gives it, then the next; no heading over them; the labels in one column.
-  const taker = window.text("Completed by").rect()
-  Test.expect(taker.top < window.text("Given by").rect().top && !window.text("Where").shown())
-  Test.expect((window.text("Given by").rect().left - taker.left).abs() < 0.5)
+  // The chain: the quest after it, by QuestieDB's name, under the parchment in the well's colours.
+  const next = window.text("The Defias Brotherhood, part two")
+  Test.expect(window.text("Next quest").shown() && next.textColor().equal(Color.hex("#f0e6d0")))
+  Test.expect(next.rect().top > window.text("Objectives").rect().bottom)
+  // The giver and the turn-in aren't named on the page.
+  Test.expect(!window.text("Gryan Stoutmantle (56, 47)").shown() && !window.text("Gryan Stoutmantle").shown())
 }
 
 test "the tracking switch stands at the page's right edge, over Abandon's" {
@@ -319,10 +318,10 @@ test "the window opened as the player opens it lists the log's quests, Map on an
   Test.expect(Test.page().window("World").text("The Defias Brotherhood").shown())
 }
 
-test "a quest QuestieDB doesn't know has no lines of who gives and completes it" {
+test "a quest QuestieDB knows no next quest of has no line under its parchment" {
   opened(standing())
   Test.page().window("World").text("Elwynn Wolves").click()
-  Test.expect(!Test.page().window("World").text("Completed by").shown())
+  Test.expect(!Test.page().window("World").text("Next quest").shown())
 }
 
 test "the question to abandon a quest names the items abandoning it destroys" {
@@ -639,15 +638,6 @@ test "an objective that says the task again stands once on the page, not dark th
   window.text("Elwynn Wolves").click()
   // Once in the list's row, once on the page.
   Test.expect(window.text("Speak to Marshal Dughan.").count() == 2)
-}
-
-test "where the giver and the turn-in stand is under the parchment, in the well's colours" {
-  opened(standing())
-  const window = Test.page().window("World")
-  window.text("The Defias Brotherhood").click()
-  const giver = window.text("Gryan Stoutmantle (56, 47)").nth(1)
-  Test.expect(giver.textColor().equal(Color.hex("#f0e6d0")))
-  Test.expect(giver.rect().top > window.text("Objectives").rect().bottom)
 }
 
 test "the parchment's muted ink holds 6:1 against it" {
