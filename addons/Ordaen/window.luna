@@ -18,6 +18,7 @@ import { reachAcross } from "@/art"
 import { Component } from "@/module"
 import { Hold, kept } from "@/onScreen"
 import { ModuleMemory } from "@/settings"
+import { Tip } from "@/tip"
 import { BODY_LINE, SECONDARY_TEXT, WINDOW_ROOM } from "@/units"
 
 // One of a window's tabs: its name, a second line under it, a picture at its left end: art, or a unit's face as the
@@ -27,6 +28,9 @@ public struct WindowTabSpec {
   desc: String | nil
   icon: Art | nil
   portrait: String | nil
+  // Why the tab can't be opened yet (a second spec not had: the client's words); a locked tab is dimmed, takes no
+  // click, and says this in its Tip.
+  locked: String | nil = nil
 }
 
 // Where a window is: its centre from the screen's (y down), and its body's size. Its owner holds it, and the window
@@ -229,6 +233,12 @@ public class WindowTab implements Component {
   derived icon: Art | nil = self.tab.icon
   derived portrait: String | nil = self.tab.portrait
   derived desc: String = self.tab.desc ?? ""
+  derived isLocked: Boolean = self.tab.locked != nil
+  derived lockText: String = self.tab.locked ?? ""
+  // Only a locked tab says an opacity: every other draws as it always has.
+  derived opacity: Number | nil = self.isLocked ? 0.5 : nil
+  state hovered = false
+  derived tipShown: Boolean = self.hovered && self.isLocked
 
   // The picture is a square at the tab's left end, as tall as what shows of the tab: from the tab's own line
   // down to the body's line, which the tab stands behind. Everything here is measured from the tab's line, where
@@ -269,8 +279,10 @@ public class WindowTab implements Component {
   }
 
   pick(mut self) {
-    self.picked.emit(self.index)
+    if (!self.isLocked) { self.picked.emit(self.index) }
   }
+  onEnter(mut self) { self.hovered = true }
+  onLeave(mut self) { self.hovered = false }
   onGrab(mut self) { self.grab.emit() }
   onMove(mut self, drag: Event.Drag) { self.move.emit(drag) }
   onDrop(mut self) { self.drop.emit() }
@@ -278,8 +290,12 @@ public class WindowTab implements Component {
   public render(self): Template {
     return $ltml {
       <box width={self.bounds} height={self.height} border={Ordaen.art.frame.tab} background={Ordaen.art.window.wood}
-           tint={self.tint} padding={self.padding} rows={BODY_ROWS} @pointerPress={self.pick} @keyPress(.Enter)={self.pick} @keyPress(.Space)={self.pick}
+           tint={self.tint} padding={self.padding} rows={BODY_ROWS} opacity={self.opacity} @pointerPress={self.pick} @keyPress(.Enter)={self.pick} @keyPress(.Space)={self.pick}
            @dragStart={self.onGrab} @drag={self.onMove} @dragStop={self.onDrop}>
+        <box $if={self.isLocked} position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui}
+             @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
+          <Tip $if={self.tipShown} title={self.tab.title} text={self.lockText} />
+        </box>
         <$if={self.hasIcon}>
           <box position={Position.Absolute} left={0ui} top={0ui} width={self.side} height={self.side}
                icon={self.icon} portrait={self.portrait} tint={self.tint} border={Ordaen.art.frame.tabIconClip} />

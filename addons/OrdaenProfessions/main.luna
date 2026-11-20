@@ -9,7 +9,7 @@ import Game from "$game"
 import { Action, Align, Frame, Line, Overflow, Side, Track } from "$ltml"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
-import { ARTWORK, Choice, Column, FilterButton, FilterGroup, ItemId, KeptWindow, Module, ModuleMemory, PushButton, SECONDARY_TEXT, Settings, SettingsPage, Table, Tabs, ToolPick, Toolbar, Window, WindowTabSpec, WindowsPage, switched, tracksOf, windowsTitle } from "Ordaen"
+import { ARTWORK, Choice, Column, FilterButton, FilterGroup, ItemId, KeptWindow, Module, ModuleMemory, PushButton, SECONDARY_TEXT, Settings, SettingsPage, SkillBar, Table, Tabs, ToolPick, Toolbar, TrainerList, TrainerView, TrainerWindow, Window, WindowTabSpec, WindowsPage, switched, tracksOf, trainerListIn, windowsTitle } from "Ordaen"
 import root Auction from "OrdaenAuction"
 import type { PriceSource } from "OrdaenAuction"
 import { Book, written } from "@/book"
@@ -23,10 +23,8 @@ import { QueueItem, Use, needsOf, usesOf } from "@/published"
 import { Need, QueuePage } from "@/queue"
 import { CategoryGroup, CategoryRow, RecipeRow, RecipeTableRow } from "@/rows"
 import { Choices, GeneralPage } from "@/settings"
-import { SkillBar } from "@/skillBar"
 import { Thresholds, thresholdsOf } from "@/skillUps"
 import Style from "@/style"
-import { TRAINER_LIST, TrainerList, TrainerWindow } from "@/trainer"
 import {
   Act, before, FAVORITES, Group, Kept, LIST_VIEW, ListView, MakeMode, members, MOST_MARKED, Page, Pause, Queued, QueueAct, Seen, SortBy,
   Sorted, sorted, tableBefore, View
@@ -34,6 +32,8 @@ import {
 import { WorthPage } from "@/worth"
 
 const FILL: Array<Track> = [{ fr: 1 }]
+// The trainer's tab: the client's book of a trade.
+const TRAINER_TAB: WindowTabSpec = { title: Locale.TRAINER, desc: nil, icon: "Interface/Icons/INV_Misc_Book_11" }
 // The skill bar, the page tabs, and the recipes' side with the chosen recipe in the rest.
 const BODY: Array<Track> = ["max-content", "max-content", { fr: 1 }]
 // The recipes' side and the card share the width alike, the side never narrower than its lists' least; the
@@ -115,8 +115,7 @@ public class Professions implements Module, App {
   public trainerWindow: mut KeptWindow = new KeptWindow("trainer", Locale.TRAINER, { x: 0ui, y: 0ui, width: TRAINER_WIDTH, height: TRAINER_HEIGHT })
   public const windows: mut Array<mut KeptWindow> = [self.window, self.trainerWindow]
   // How the player left the trainer's window, the profile's.
-  public trainerList: mut ModuleMemory<TrainerList> = new ModuleMemory<TrainerList>(TRAINER_LIST, .Profile, "trainer")
-  // The player stands at a profession's trainer (a class's and a pet's are Ordaen Spells' and the game's), what it
+  public trainerList: mut ModuleMemory<TrainerList> = new ModuleMemory<TrainerList>(trainerListIn(TrainerView.Table), .Profile, "trainer") // The player stands at a profession's trainer (a class's and a pet's are Ordaen Spells' and the game's), what it
   // teaches, and the game's own window, held away while ours shows.
   state atTrainer = false
   state services: Array<Game.TrainerService> = []
@@ -213,7 +212,7 @@ public class Professions implements Module, App {
   derived trackName: String = knownSpellName(self.trackSpell)
   derived hasTrack: Boolean = self.trackName != ""
   derived footColumns: Array<Track> = self.hasTrack ? TRACK_FOOT : FILL
-  derived trackAction: Action | nil = Action.CastSpell { spell: self.trackName }
+  derived trackAction: Action | nil = Action.CastSpell { spell: self.trackName, chord: .Left, selfCast: false }
   // The open profession's queue, in the order it was asked for; what it is doing, or why it waits; whether «Create
   // next» starts its next run.
   public derived queued: Array<Queued> = self.crafting.linesOf(Game.tradeSkill.open)
@@ -746,7 +745,8 @@ public class Professions implements Module, App {
     return $ltml {
       <$if={self.atTrainer}>
         <frame $if={self.gameTrainer != nil} of={self.gameTrainer} opacity={0} away={true} />
-        <TrainerWindow services={self.services} declared={mut self.trainerWindow} list={mut self.trainerList} />
+        <TrainerWindow services={self.services} declared={mut self.trainerWindow} list={mut self.trainerList}
+                       tabSpec={TRAINER_TAB} noun={Locale.COLUMN_RECIPE} pickText={Locale.PICK_SERVICE} trade={true} @settings={self.onSettings} />
       </>
       <$if={self.isOpen}>
         <frame of={Game.frames.Professions} opacity={0} away={true} />

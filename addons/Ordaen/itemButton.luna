@@ -12,7 +12,8 @@
 // do. Every click, of an empty slot too, is told as `pressed` (a bag's slot picks up and puts down there). Dragged
 // with the left button it tells `dragged`, and something dragged let go on it `dropped`, as the game's own slots
 // take a drag for a click (a bag's slot hands its item to the client's cursor, which the bars take). With an
-// `action` its chord is the client's own (a bag's item used: `Action.UseBagItem`). Nothing runs per frame.
+// `action` its chord is the client's own (a bag's item used: `Action.UseBagItem`). A slot of a spell (`spell`) shows
+// the spell's tooltip and links the spell. Nothing runs per frame.
 import Client from "$client"
 import Game from "$game"
 import { Action, Align, Art, ByInteractionState, Edges, Event, Frame, Line, MouseButton, Position, Shadow } from "$ltml"
@@ -100,7 +101,7 @@ public class Pip implements Component {
   public render(self): Template {
     return $ltml {
       <box position={Position.Absolute} left={self.left} right={self.right} top={self.top} bottom={self.bottom}
-           width={PIP} height={PIP} background={self.marker.color} border={PIP_EDGE} />
+           width={PIP} height={PIP} background={self.marker.color} border={PIP_EDGE} zLevel={2} />
     }
   }
 }
@@ -138,6 +139,7 @@ public class ItemButton implements Component {
   art: Signal<Art | nil>
   linkOnShift: Signal<Boolean>
   worn: Signal<Integer | nil>
+  spell: Signal<Integer | nil>
   mail: Signal<[Integer, Integer] | nil>
   constructor(
     // The game's number of the item; none for an empty slot.
@@ -159,8 +161,12 @@ public class ItemButton implements Component {
     worn: Signal<Integer | nil> = nil,
     // The attachment of a letter of the open mailbox it shows (the letter's place in the inbox, the attachment's in
     // the letter): its tooltip is the game's of that attachment, as the game's open letter shows it.
-    mail: Signal<[Integer, Integer] | nil> = nil
+    mail: Signal<[Integer, Integer] | nil> = nil,
+    // The spell it shows, in place of an item (a spellbook's slot, its icon the `art`): its tooltip and its link are
+    // the spell's, as the game's spellbook gives them.
+    spell: Signal<Integer | nil> = nil
   ) {
+    self.spell = spell
     self.mail = mail
     self.art = art
     self.linkOnShift = linkOnShift
@@ -207,8 +213,11 @@ public class ItemButton implements Component {
   onEnter(self, frame: any Frame) {
     const item = self.item
     const worn = self.worn
+    const spell = self.spell
     const mail = self.mail
-    if (item != nil && mail != nil) {
+    if (spell != nil) {
+      Game.items.showSpell(frame, spell)
+    } else if (item != nil && mail != nil) {
       Game.items.showMail(frame, mail[1], mail[2])
     } else if (item != nil && worn != nil) {
       Game.items.showWorn(frame, worn)
@@ -222,7 +231,13 @@ public class ItemButton implements Component {
 
   onClick(self, click: Event.Press) {
     const item = self.item
-    if (self.linkOnShift && item != nil && click.button == MouseButton.Left && Game.input.shiftDown()) {
+    const spell = self.spell
+    const linking = self.linkOnShift && click.button == MouseButton.Left && Game.input.shiftDown()
+    if (linking && spell != nil) {
+      Game.chat.linkSpell(spell)
+      return
+    }
+    if (linking && item != nil) {
       Game.chat.link(item)
       return
     }

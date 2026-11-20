@@ -1,0 +1,8 @@
+// playSound: one of the game's interface sounds, by its kit's name as the client names it (`SOUNDKIT`), played where
+// the game's own window plays it (a window opened, a tab turned). A kit the client hasn't plays nothing.
+import Client from "$client"
+
+public function playSound(kit: String) {
+  const id = Client.SOUNDKIT[kit]
+  if (id != nil) { _ = Client.PlaySound(id, nil, nil) }
+}

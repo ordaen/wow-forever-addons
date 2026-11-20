@@ -26,9 +26,8 @@ const RED: Color = Color.hex("#ff4040")
 const GREEN: Color = Color.hex("#40d060")
 // An arrow of a tree that leads to a talent with no rank.
 const LINE: Color = Color.hex("#4a3a24")
-// A service's row: picked, and not.
-const PICKED: Color = Color.hex("#ffd10026")
-const BACK: Color = Color.hex("#00000066")
+// A picked service's line.
+const LIT: Color = Color.hex("#00000040")
 
 function lines(): Array<Game.SpellLine> {
   return [{ index: 1, name: "General" }, { index: 2, name: "Warrior" }, { index: 3, name: "Arms" }]
@@ -114,6 +113,13 @@ function inOrder(part: Test.Part, wanted: Array<String>): Boolean {
 function pick(window: Test.Part, button: Art, among: String, choice: String) {
   window.button(button).click()
   Test.page().window(among).button(choice).click()
+}
+
+// What another addon hears of the spellbook through the interface's registry of events.
+class Heard {
+  said: mut Array<String> = []
+  onShow(mut self) { self.said.push("shown") }
+  onHide(mut self) { self.said.push("hidden") }
 }
 
 // The spellbook opened by its command.
@@ -511,6 +517,142 @@ test "a passive spell dragged puts nothing on the cursor" {
   Test.expect(!Client.CursorHasSpell())
 }
 
+test "a click on a spell's slot casts the rank clicked, the client's own doing; a passive one's casts nothing" {
+  Test.mount(nil, PAGE)
+  Game.spellbook.lines = lines
+  Game.spellbook.entries = spells
+  const window = book()
+  _ = Test.performed()
+  window.text("Rend (Rank 1)").item().button(ICON).click()
+  Test.expect(Test.performed().join(", ") == "spell Rend(Rank 1)")
+  window.text("Parry").item().button(ICON).click()
+  Test.expect(Test.performed().length == 0)
+}
+
+test "Shift+Left-click on a spell's slot puts it in as the game's book does, and casts nothing" {
+  Test.mount(nil, PAGE)
+  Game.spellbook.lines = lines
+  Game.spellbook.entries = spells
+  const window = book()
+  _ = Test.requests()
+  _ = Test.performed()
+  Test.hold([.Shift])
+  Game.input.shiftDown = (): Boolean => true
+  window.text("Rend (Rank 1)").item().button(ICON).click()
+  Test.hold([])
+  Test.expect(Test.requests().any(r => r == "Spellbook.link 772"))
+  Test.expect(Test.performed().length == 0)
+}
+
+test "the pick-up's click, rebound to Ctrl, puts the spell on the cursor and casts nothing; Alt casts it on the player" {
+  Test.mount(nil, PAGE)
+  Game.spellbook.lines = lines
+  Game.spellbook.entries = spells
+  const window = book()
+  _ = Test.performed()
+  Game.input.modifiedClick = (click: Game.ModifiedClick): Boolean => click == .PickupAction
+  Test.hold([.Ctrl])
+  window.text("Rend (Rank 1)").item().button(ICON).click()
+  Test.hold([])
+  Test.expect(Client.CursorHasSpell() && Test.performed().length == 0)
+  Client.ClearCursor()
+  Game.input.modifiedClick = (click: Game.ModifiedClick): Boolean => click == .SelfCast
+  Test.hold([.Alt])
+  window.text("Rend (Rank 1)").item().button(ICON).click()
+  Test.hold([])
+  Test.expect(Test.performed().join(", ") == "spell Rend(Rank 1) player")
+}
+
+test "the cursor on a spell's slot shows the game's tooltip of the spell" {
+  Test.mount(nil, PAGE)
+  Game.spellbook.lines = lines
+  Game.spellbook.entries = spells
+  const window = book()
+  _ = Test.requests()
+  window.text("Mortal Strike").item().button(ICON).hover()
+  Test.expect(Test.requests().any(r => r == "Items.showSpell 12294"))
+}
+
+test "a spell not learned yet is dimmed, cast by nothing and put on no bar" {
+  Test.mount(nil, PAGE)
+  Game.spellbook.lines = lines
+  Game.spellbook.entries = (): Array<Game.SpellEntry> => [
+    { id: 100, name: "Charge", rank: "", icon: ICON, level: 4, passive: false, line: 2, learned: false }
+  ]
+  const window = book()
+  Test.expect(drawnIn(window.text("Charge"), DIM))
+  _ = Test.performed()
+  window.text("Charge").item().button(ICON).click()
+  Test.expect(Test.performed().length == 0)
+  drag("Charge")
+  Test.expect(!Client.CursorHasSpell())
+}
+
+test "a spell cooling down is shaded by the client's clock until the client says it is ready" {
+  Test.mount(nil, PAGE)
+  Game.spellbook.lines = lines
+  Game.spellbook.entries = spells
+  let running = true
+  Game.spellbook.cooldown = (spell: Game.SpellEntry): Game.SpellRun | nil => running && spell.id == 772 ? { start: 10, length: 6 } : nil
+  const window = book()
+  const shaded = Color.hex("#0000004d")
+  Test.expect(window.text("Rend (Rank 1)").item().paintedWith(shaded) && !window.text("Parry").item().paintedWith(shaded))
+  running = false
+  Game.spellbook.cooldownsChanged.emit()
+  Test.expect(!window.text("Rend (Rank 1)").item().paintedWith(shaded))
+}
+
+test "the pet's book is a tab of its own; the right button on a pet's spell turns its autocast, marked while on" {
+  Test.mount(nil, PAGE)
+  Game.spellbook.lines = lines
+  Game.spellbook.entries = spells
+  Game.spellbook.petBook = (): String | nil => "Demon"
+  Game.spellbook.petEntries = (): Array<Game.SpellEntry> => [
+    { id: 3716, name: "Torment", rank: "", icon: SWORD, level: 10, passive: false, line: 0, pet: true, slot: 1 }
+  ]
+  let auto = false
+  Game.spellbook.autoCast = (spell: Game.SpellEntry): Boolean | nil => spell.pet ? auto : nil
+  const window = book()
+  Test.expect(!window.text("Torment").shown())
+  window.button("Demon").click()
+  Test.expect(window.text("Torment").shown() && !window.text("Rend (Rank 1)").shown())
+  const gold = Color.hex("#ffd100")
+  Test.expect(!window.text("Torment").item().paintedWith(gold))
+  _ = Test.requests()
+  auto = true
+  window.text("Torment").item().button(SWORD).rightClick()
+  Test.expect(Test.requests().any(r => r == "Spellbook.toggleAutoCast 3716"))
+  Test.expect(window.text("Torment").item().paintedWith(gold))
+}
+
+test "opened and closed by its command, the spellbook plays the game's sounds and tells other addons" {
+  Test.mount(nil, PAGE)
+  const played: Array<Integer> = []
+  Client.PlaySound = (kit: Integer, channel: String | nil, once: Boolean | nil): (Boolean | nil, Unknown) => {
+    played.push(kit)
+    return true, nil
+  }
+  const heard = new Heard()
+  Client.EventRegistry.RegisterCallback("PlayerSpellsFrame.SpellBookFrame.Show", (owner: Unknown): nil => heard.onShow(), heard)
+  Client.EventRegistry.RegisterCallback("PlayerSpellsFrame.SpellBookFrame.Hide", (owner: Unknown): nil => heard.onHide(), heard)
+  _ = book()
+  Test.expect(heard.said.join(", ") == "shown")
+  Test.expect(played.length == 1 && played[1] == Client.SOUNDKIT["UI_CLASS_TALENT_OPEN_WINDOW"])
+  Test.open("/spellbook")
+  Test.expect(heard.said.join(", ") == "shown, hidden")
+  Test.expect(played.length == 2 && played[2] == Client.SOUNDKIT["UI_CLASS_TALENT_CLOSE_WINDOW"])
+}
+
+test "the spellbook's footer counts the spells shown, the active and the passive ones" {
+  Test.mount(nil, PAGE)
+  Game.spellbook.lines = lines
+  Game.spellbook.entries = spells
+  const window = book()
+  Test.expect(window.texts().join(" | ").contains("Shown | 5 | Active spells | 4 | Passive spells | 1"))
+  window.input().type("strike")
+  Test.expect(window.texts().join(" | ").contains("Shown | 2 | Active spells | 2 | Passive spells | 0"))
+}
+
 // The talents
 
 test "a spec's tab shows its talent trees, each with the points spent in it" {
@@ -741,6 +883,19 @@ test "the second spec's tab is the active one when the game says the player has 
   Test.expect(window.button("Activate").shown())
 }
 
+test "a second spec not had is dimmed, opens nothing, and its tooltip says where it is learned" {
+  Test.mount(nil, PAGE)
+  Game.talentTrees.groups = (): Integer => 1
+  Game.spellbook.lines = lines
+  Game.spellbook.entries = spells
+  const window = book()
+  Test.expect(window.text(BOOK).opacity() < 0.6)
+  window.button(BOOK).click()
+  Test.expect(Test.page().text("Find Treasure").shown())
+  Test.page().button(BOOK).hover()
+  Test.expect(Test.page().text("The second specialization is learned from your class trainer.").shown())
+}
+
 // The trainer
 
 test "the trainer's window shows while the game's class trainer is open" {
@@ -766,16 +921,15 @@ test "the game is asked for its words on the trainer while the trainer's window 
   Test.expect(Test.requests().any(r => r == "Trainer.watch false"))
 }
 
-test "the trainer's window shut by the player stays shut, and shows again when the trainer speaks again" {
+test "the trainer's window's close leaves the trainer, as the game's does" {
   Test.mount(nil, PAGE)
   Game.trainer.services = services
+  const left: Array<String> = []
+  Client.CloseTrainer = (): nil => left.push("closed")
   Game.trainer.open = true
   Game.trainer.changed.emit()
-  const window = Test.page().window(TRAINER)
-  window.button(Ordaen.art.ctl.corner.close).click()
-  Test.expect(!window.shown())
-  Game.trainer.changed.emit()
-  Test.expect(window.shown())
+  Test.page().window(TRAINER).button(Ordaen.art.ctl.corner.close).click()
+  Test.expect(left.length == 1)
 }
 
 test "a trainer that teaches no class opens no window of ours" {
@@ -815,60 +969,77 @@ test "a service learned for free shows no price" {
   Game.trainer.open = true
   Game.trainer.changed.emit()
   const window = Test.page().window(TRAINER)
-  Test.expect(window.text("Rend (Rank 1)").item().texts().join(" | ") == "Rend (Rank 1) | Requires level 4")
+  Test.expect(window.text("Rend (Rank 1)").item().texts().join(" | ") == "Rend (Rank 1) | Learned")
 }
 
-test "a level the player hasn't reached is red, one reached dim" {
+test "a name is never red: what a service needs is, while unmet; a learned one is dim" {
+  Test.mount(nil, PAGE)
+  Game.trainer.services = services
+  Game.trainer.open = true
+  Game.trainer.changed.emit()
+  const window = Test.page().window(TRAINER)
+  Test.expect(drawnIn(window.text("Charge (Rank 2)"), INK) && drawnIn(window.text("Requires level 50"), RED))
+  Test.expect(drawnIn(window.text("Heroic Strike (Rank 3)"), INK) && drawnIn(window.text("Requires level 8"), DIM))
+  Test.expect(drawnIn(window.text("Rend (Rank 1)"), DIM))
+}
+
+test "in the table a class trainer's columns are the skill, its rank, the level and the price; an unmet level red" {
   Test.mount(nil, PAGE)
   Game.player.level = 20
   Game.trainer.services = services
   Game.trainer.open = true
   Game.trainer.changed.emit()
   const window = Test.page().window(TRAINER)
-  Test.expect(drawnIn(window.text("Requires level 50"), RED))
-  Test.expect(drawnIn(window.text("Requires level 8"), DIM))
+  pick(window, Ordaen.art.ctl.tool.list, "One list", "Table")
+  Test.expect(window.text("Skill").shown() && window.text("Rank").shown() && window.text("Price").shown())
+  Test.expect(window.text("Charge").item().texts().join(" | ") == "Charge | Rank 2 | 50 | 9g 0s 0c")
+  Test.expect(drawnIn(window.text("50"), RED) && drawnIn(window.text("8"), INK))
 }
 
-test "the level a service needs turns dim once the player reaches it" {
+test "what a service needs turns dim once the trainer says it can be learned" {
   Test.mount(nil, PAGE)
-  Game.player.level = 20
   Game.trainer.services = services
   Game.trainer.open = true
   Game.trainer.changed.emit()
   const window = Test.page().window(TRAINER)
-  Game.player.level = 50
+  Game.trainer.services = (): Array<Game.TrainerService> => services().map(service => Game.TrainerService { status: .Available, ..service })
+  Game.trainer.changed.emit()
   Test.expect(drawnIn(window.text("Requires level 50"), DIM))
 }
 
-test "the services stand by the level they need at first" {
+test "the services stand in the trainer's order at first" {
   Test.mount(nil, PAGE)
   Game.trainer.services = services
   Game.trainer.open = true
   Game.trainer.changed.emit()
-  Test.expect(inOrder(Test.page().window(TRAINER), ["Rend (Rank 1)", "Heroic Strike (Rank 3)", "Charge (Rank 2)"]))
+  Test.expect(inOrder(Test.page().window(TRAINER), ["Heroic Strike (Rank 3)", "Charge (Rank 2)", "Rend (Rank 1)"]))
 }
 
-test "sorted by name, the services stand by name" {
+test "sorted by the skill's name, the services stand by name" {
   Test.mount(nil, PAGE)
   Game.trainer.services = services
   Game.trainer.open = true
   Game.trainer.changed.emit()
   const window = Test.page().window(TRAINER)
-  pick(window, Ordaen.art.ctl.tool.sort, "By price", "By name")
+  pick(window, Ordaen.art.ctl.tool.sort, "Available first", "Skill")
   Test.expect(inOrder(window, ["Charge (Rank 2)", "Heroic Strike (Rank 3)", "Rend (Rank 1)"]))
 }
 
-test "sorted by price, the cheapest services stand first" {
+test "sorted by level, by price or available first, the services stand so" {
   Test.mount(nil, PAGE)
   Game.trainer.services = services
   Game.trainer.open = true
   Game.trainer.changed.emit()
   const window = Test.page().window(TRAINER)
-  pick(window, Ordaen.art.ctl.tool.sort, "By price", "By price")
+  pick(window, Ordaen.art.ctl.tool.sort, "Available first", "Level")
   Test.expect(inOrder(window, ["Rend (Rank 1)", "Heroic Strike (Rank 3)", "Charge (Rank 2)"]))
+  pick(window, Ordaen.art.ctl.tool.sort, "Available first", "Price")
+  Test.expect(inOrder(window, ["Rend (Rank 1)", "Heroic Strike (Rank 3)", "Charge (Rank 2)"]))
+  pick(window, Ordaen.art.ctl.tool.sort, "Available first", "Available first")
+  Test.expect(inOrder(window, ["Heroic Strike (Rank 3)", "Charge (Rank 2)", "Rend (Rank 1)"]))
 }
 
-test "services of one level, or of one price, stand by name" {
+test "services alike in the sort stand in the trainer's order" {
   Test.mount(nil, PAGE)
   Game.trainer.services = (): Array<Game.TrainerService> => [
     { index: 1, name: "Rend", rank: "", icon: nil, status: Game.ServiceStatus.Available, level: 4, cost: 100, description: "" },
@@ -877,25 +1048,21 @@ test "services of one level, or of one price, stand by name" {
   Game.trainer.open = true
   Game.trainer.changed.emit()
   const window = Test.page().window(TRAINER)
-  Test.expect(inOrder(window, ["Charge", "Rend"]))
-  pick(window, Ordaen.art.ctl.tool.sort, "By price", "By price")
-  Test.expect(inOrder(window, ["Charge", "Rend"]))
+  pick(window, Ordaen.art.ctl.tool.sort, "Available first", "Price")
+  Test.expect(inOrder(window, ["Rend", "Charge"]))
 }
 
-test "the filter keeps the services available, unavailable or learned" {
+test "the filter's switches keep the services available, unavailable or learned" {
   Test.mount(nil, PAGE)
   Game.trainer.services = services
   Game.trainer.open = true
   Game.trainer.changed.emit()
   const window = Test.page().window(TRAINER)
-  pick(window, Ordaen.art.ctl.tool.filter, "Unavailable", "Available")
-  Test.expect(window.text("Heroic Strike (Rank 3)").shown() && !window.text("Charge (Rank 2)").shown() && !window.text("Rend (Rank 1)").shown())
-  pick(window, Ordaen.art.ctl.tool.filter, "Unavailable", "Unavailable")
-  Test.expect(window.text("Charge (Rank 2)").shown() && !window.text("Heroic Strike (Rank 3)").shown() && !window.text("Rend (Rank 1)").shown())
-  pick(window, Ordaen.art.ctl.tool.filter, "Unavailable", "Learned")
-  Test.expect(window.text("Rend (Rank 1)").shown() && !window.text("Heroic Strike (Rank 3)").shown() && !window.text("Charge (Rank 2)").shown())
-  pick(window, Ordaen.art.ctl.tool.filter, "Unavailable", "All")
-  Test.expect(window.text("Rend (Rank 1)").shown() && window.text("Heroic Strike (Rank 3)").shown() && window.text("Charge (Rank 2)").shown())
+  window.button(Ordaen.art.ctl.tool.filter).click()
+  Test.page().window("Reset").button("Learned").click()
+  Test.expect(!window.text("Rend (Rank 1)").shown() && window.text("Charge (Rank 2)").shown())
+  Test.page().window("Reset").button("Unavailable").click()
+  Test.expect(!window.text("Charge (Rank 2)").shown() && window.text("Heroic Strike (Rank 3)").shown())
 }
 
 test "the trainer's search keeps the services whose names hold it, in any case" {
@@ -919,23 +1086,55 @@ test "a trainer's search nothing matches says nothing was found" {
   Test.expect(window.text("Nothing found.").shown())
 }
 
-test "the trainer's sort and filter are kept when it opens again" {
+test "the trainer's filter is kept when it opens again, and its sort is the settings' again" {
   Test.mount(nil, PAGE)
   Game.trainer.services = services
   Game.trainer.open = true
   Game.trainer.changed.emit()
   const window = Test.page().window(TRAINER)
-  pick(window, Ordaen.art.ctl.tool.sort, "By price", "By name")
-  pick(window, Ordaen.art.ctl.tool.filter, "Unavailable", "Available")
+  pick(window, Ordaen.art.ctl.tool.sort, "Available first", "Skill")
+  window.button(Ordaen.art.ctl.tool.filter).click()
+  Test.page().window("Reset").button("Learned").click()
   Game.trainer.open = false
   Test.expect(!window.shown())
   Game.trainer.open = true
-  Test.expect(!window.text("Charge (Rank 2)").shown())
-  pick(window, Ordaen.art.ctl.tool.filter, "Unavailable", "All")
+  Test.expect(!window.text("Rend (Rank 1)").shown())
+  Test.expect(inOrder(window, ["Heroic Strike (Rank 3)", "Charge (Rank 2)"]))
+}
+
+test "the trainer's page of the settings chooses the sort the trainer's window opens with" {
+  Test.mount(nil, PAGE)
+  Game.trainer.services = services
+  Game.trainer.open = true
+  Game.trainer.changed.emit()
+  const window = Test.page().window(TRAINER)
+  window.button(Ordaen.art.ctl.corner.gear).click()
+  Test.page().window("Name of the first spec tab").button("Trainer").click()
+  const page = Test.page().window("Sorted by")
+  page.button("The trainer's order").click()
+  Test.page().window("Available first").button("Skill").click()
+  Game.trainer.open = false
+  Game.trainer.open = true
   Test.expect(inOrder(window, ["Charge (Rank 2)", "Heroic Strike (Rank 3)", "Rend (Rank 1)"]))
 }
 
-test "with nothing picked, the trainer asks for a pick and counts the services by what can be done with them" {
+test "the trainer's page of the settings chooses the view the trainer's window opens with" {
+  Test.mount(nil, PAGE)
+  Game.trainer.services = services
+  Game.trainer.open = true
+  Game.trainer.changed.emit()
+  const window = Test.page().window(TRAINER)
+  Test.expect(!window.text("Level").shown())
+  window.button(Ordaen.art.ctl.corner.gear).click()
+  Test.page().window("Name of the first spec tab").button("Trainer").click()
+  Test.page().window("Opens as").button("One list").click()
+  Test.page().window("Table").button("Table").click()
+  Game.trainer.open = false
+  Game.trainer.open = true
+  Test.expect(window.text("Level").shown())
+}
+
+test "with nothing picked, the trainer asks for a pick, and the footer counts the services by what can be done with them" {
   Test.mount(nil, PAGE)
   Game.trainer.services = (): Array<Game.TrainerService> => [
     { index: 1, name: "A", rank: "", icon: nil, status: Game.ServiceStatus.Available, level: 1, cost: 0, description: "" },
@@ -949,7 +1148,57 @@ test "with nothing picked, the trainer asks for a pick and counts the services b
   Game.trainer.changed.emit()
   const window = Test.page().window(TRAINER)
   Test.expect(window.text("Pick a skill.").shown())
-  Test.expect(window.text("Available: 1. Unavailable: 2. Learned: 3.").shown())
+  Test.expect(window.texts().join(" | ").contains("Available | 1 | Unavailable | 2 | Learned | 3"))
+}
+
+test "with nothing picked, the card is the trainer's: its greeting, the services by kind and what the available cost together" {
+  Test.mount(nil, PAGE)
+  Game.trainer.services = services
+  Game.trainer.greeting = (): String => "Hail, warrior."
+  Game.trainer.open = true
+  Game.trainer.changed.emit()
+  const window = Test.page().window(TRAINER)
+  Test.expect(window.text("Hail, warrior.").shown())
+  Test.expect(window.text("Available: 1").shown() && window.text("Unavailable: 1").shown() && window.text("Learned: 1").shown())
+  Test.expect(window.texts().join(" | ").contains("All available, together: | 0g 4s 0c"))
+}
+
+test "a picked spell says what changes against the rank the player has, and the game's facts of it" {
+  Test.mount(nil, PAGE)
+  Game.trainer.services = (): Array<Game.TrainerService> => [
+    {
+      index: 1, name: "Heroic Strike", rank: "Rank 3", icon: SWORD, status: Game.ServiceStatus.Available, level: 8, cost: 400,
+      description: "A strong attack that deals 32 more damage.", spell: 285
+    }
+  ]
+  Game.spellbook.entries = (): Array<Game.SpellEntry> => [
+    { id: 284, name: "Heroic Strike", rank: "Rank 2", icon: SWORD, level: 4, passive: false, line: 2 }
+  ]
+  Game.spells.description = (id: Integer): String | nil => id == 284 ? "Deals 21 more damage." : "Deals 32 more damage."
+  Game.spells.tooltip = (id: Integer): Game.TooltipData | nil => {
+    return { lines: [{ left: "Heroic Strike", kind: 0 }, { left: "15 Rage", right: "Melee Range", kind: 0 }, { left: "Next melee", kind: 0 }] }
+  }
+  Game.trainer.open = true
+  Game.trainer.changed.emit()
+  const window = Test.page().window(TRAINER)
+  window.button("Heroic Strike (Rank 3)").click()
+  Test.expect(window.text("What changes").shown() && window.text("21 → 32").shown())
+  Test.expect(window.text("15 Rage   Melee Range").shown() && window.text("Next melee").shown())
+}
+
+test "Learn greyed says why on its Tip: a level not reached, not enough money, already learned" {
+  Test.mount(nil, PAGE)
+  Game.player.level = 20
+  Game.trainer.services = services
+  Game.trainer.open = true
+  Game.trainer.changed.emit()
+  const window = Test.page().window(TRAINER)
+  window.button("Charge (Rank 2)").click()
+  window.button("Learn").hover()
+  Test.expect(Test.page().text("Requires level 50").count() >= 1)
+  window.button("Rend (Rank 1)").click()
+  window.button("Learn").hover()
+  Test.expect(Test.page().texts().join(" | ").contains("Learn | Learned"))
 }
 
 test "a service clicked shows its name, its description and its price beside the list" {
@@ -959,7 +1208,7 @@ test "a service clicked shows its name, its description and its price beside the
   Game.trainer.changed.emit()
   const window = Test.page().window(TRAINER)
   window.button("Heroic Strike (Rank 3)").click()
-  Test.expect(window.text("Heroic Strike").shown() && window.text("A strong attack.").shown())
+  Test.expect(window.text("Heroic Strike (Rank 3)").count() == 2 && window.text("A strong attack.").shown())
   Test.expect(window.text("0g 4s 0c").count() == 2)
   Test.expect(!window.text("Pick a skill.").shown())
 }
@@ -970,10 +1219,10 @@ test "the picked service's row is lit" {
   Game.trainer.open = true
   Game.trainer.changed.emit()
   const window = Test.page().window(TRAINER)
-  Test.expect(!window.text("Heroic Strike (Rank 3)").item().paintedWith(PICKED))
+  Test.expect(!window.text("Heroic Strike (Rank 3)").item().paintedWith(LIT))
   window.button("Heroic Strike (Rank 3)").click()
-  Test.expect(window.text("Heroic Strike (Rank 3)").item().paintedWith(PICKED))
-  Test.expect(!window.text("Charge (Rank 2)").item().paintedWith(PICKED))
+  Test.expect(window.text("Requires level 8").nth(1).item().paintedWith(LIT))
+  Test.expect(!window.text("Charge (Rank 2)").item().paintedWith(LIT))
 }
 
 test "the picked service clicked again is let go" {
@@ -1029,18 +1278,10 @@ test "the count of the services follows what the trainer says" {
   Game.trainer.open = true
   Game.trainer.changed.emit()
   const window = Test.page().window(TRAINER)
-  Test.expect(window.text("Available: 1. Unavailable: 1. Learned: 1.").shown())
+  Test.expect(window.texts().join(" | ").contains("Available | 1 | Unavailable | 1 | Learned | 1"))
   Game.trainer.services = (): Array<Game.TrainerService> => []
   Game.trainer.changed.emit()
-  Test.expect(window.text("Available: 0. Unavailable: 0. Learned: 0.").shown())
-}
-
-test "a row not picked stands on the list's dark ground" {
-  Test.mount(nil, PAGE)
-  Game.trainer.services = services
-  Game.trainer.open = true
-  Game.trainer.changed.emit()
-  Test.expect(Test.page().window(TRAINER).text("Charge (Rank 2)").item().paintedWith(BACK))
+  Test.expect(window.texts().join(" | ").contains("Available | 0 | Unavailable | 0 | Learned | 0"))
 }
 
 test "a price of all the player's money is in ink" {
@@ -1067,17 +1308,25 @@ test "a price the player can't pay is red, one they can in ink" {
   Game.trainer.changed.emit()
   const window = Test.page().window(TRAINER)
   Test.expect(drawnIn(window.text("9g 0s 0c"), RED))
-  Test.expect(drawnIn(window.text("0g 4s 0c"), INK))
+  Test.expect(drawnIn(window.text("Heroic Strike (Rank 3)").item().text("0g 4s 0c"), INK))
 }
 
-test "Learn is switched off: the game gives no way to buy a service" {
+test "Learn buys the picked service where it can be learned and paid for, and is greyed otherwise" {
   Test.mount(nil, PAGE)
   Game.trainer.services = services
+  const bought: Array<Integer> = []
+  Client.BuyTrainerService = (index: Integer): nil => bought.push(index)
   Game.trainer.open = true
   Game.trainer.changed.emit()
   const window = Test.page().window(TRAINER)
   window.button("Heroic Strike (Rank 3)").click()
   Test.expect(window.button("Learn").paintedWith(Ordaen.art.ctl.buttonDisabled))
+  Game.money.amount = 1000
+  window.button("Learn").click()
+  Test.expect(bought.length == 1 && bought[1] == 1)
+  window.button("Charge (Rank 2)").click()
+  window.button("Learn").click()
+  Test.expect(bought.length == 1)
 }
 
 // Settings
@@ -1087,7 +1336,7 @@ test "the window's settings button opens Spells' page of the settings" {
   const window = book()
   window.button(Ordaen.art.ctl.corner.gear).click()
   const settings = Test.page().window("Name of the first spec tab")
-  Test.expect(settings.text("Name of the second spec tab").shown() && settings.text("Class trainer window").shown())
+  Test.expect(settings.text("Name of the second spec tab").shown() && settings.button("Trainer").shown())
 }
 
 test "the settings' windows page lists the spellbook's window and the trainer's" {
@@ -1138,8 +1387,8 @@ test "the trainer's window switched off in the settings leaves the game's traine
   Game.trainer.open = true
   const window = Test.page().window(TRAINER)
   window.button(Ordaen.art.ctl.corner.gear).click()
-  const settings = Test.page().window("Name of the first spec tab")
+  Test.page().window("Name of the first spec tab").button("Trainer").click()
   // The checkbox beside «Class trainer window»: its well, the page's only one, names it; its label doesn't.
-  settings.button(Ordaen.art.ctl.check).click()
+  Test.page().window("Class trainer window").button(Ordaen.art.ctl.check).click()
   Test.expect(!window.shown())
 }
