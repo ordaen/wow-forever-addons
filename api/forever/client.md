@@ -135,6 +135,12 @@ at the end. Commits are lunatype's unless named `dev` (wow-dev-tools). What tool
   `SetPropagateKeyboardInput` is refused in a fight. A key no frame keeps runs the player's binding (Escape:
   `TOGGLEGAMEMENU`). Known: 0fb1843, 8884ea8. Stand-in: `Frame:SetPropagateKeyboardInput`, the key's path,
   `SetBinding("ESCAPE", "TOGGLEGAMEMENU")` (`client.lua`); `client_test.lua` «Keys».
+- **Enter and `/` open the chat's input** (the bindings `OPENCHAT` and `OPENCHATSLASH`, `ChatFrameUtil.OpenChat`):
+  `ActivateChat` shows the edit box, gives it the keyboard, raises it to the `DIALOG` strata and makes it opaque; the
+  classic style opens the first window's, the IM style the window's own. The box is 32 high (FloatingChatFrame.xml);
+  one embedded with no height is drawn 0 high and still takes the keys. Known: Blizzard_FrameXML's
+  `Bindings_Camelot.xml` and `ChatFrameUtil.lua` (1.60.1-70959), the game (Enter showing nothing, typing blind sent).
+  Stand-in: `OpenChat`, `chatFrame`'s edit box, `SetBinding("ENTER", "OPENCHAT")` (`client.lua`).
 - **The keyboard's frames hear the key alone ("I"), the bindings the key with its modifiers ("CTRL-I").** Known:
   dca2901. Stand-in: `Client.pressBound`, `IsControlKeyDown` (`client.lua`), `Test.chord`.
 - **The client reads Alt, Ctrl and Shift from the real keyboard:** a modifier posted to the window never counts.
