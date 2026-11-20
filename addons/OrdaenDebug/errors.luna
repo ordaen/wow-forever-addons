@@ -109,6 +109,7 @@ public function clientMeta(): Meta {
   return { client: client, build: build, buildDate: buildDate, interface: interface, locale: Client.GetLocale(), core: core ?? "?" }
 }
 
+const FAULT_PREFIX = "LunaType: "
 const ADDON_PATH: Pattern = "[Aa][Dd][Dd][Oo][Nn][Ss][/\\]([^/\\:%]\"'\n]+)[/\\]"
 // Interface/FrameXML/, Interface/SharedXML/, Interface/SharedXMLBase/...
 const BLIZZARD_PATH: Pattern = "[Ii][Nn][Tt][Ee][Rr][Ff][Aa][Cc][Ee][/\\]%a*[Xx][Mm][Ll]%a*[/\\]"
@@ -141,6 +142,10 @@ function firstSource(text: String): String | nil {
 // The addon an error belongs to: the first addon folder (Interface/AddOns/<Name>/, any slash and case) in its
 // message, else in its stack; Blizzard's own code is "Blizzard"; "other" when neither names one.
 public function sourceOf(message: String | nil, stack: String | nil): String {
+  // A fault of LunaType's (`Debug.fault`): "LunaType: <seam>: <text>".
+  if ((message ?? "").sub(1, FAULT_PREFIX.length) == FAULT_PREFIX) {
+    return "LunaType"
+  }
   return firstSource(message ?? "") ?? firstSource(stack ?? "") ?? "other"
 }
 

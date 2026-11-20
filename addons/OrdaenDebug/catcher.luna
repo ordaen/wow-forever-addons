@@ -1,11 +1,10 @@
-// The error catcher: every Lua error in the game (any addon, Blizzard's UI, a file's load) and every blocked or
-// forbidden protected action is recorded in `Errors`. The errors come from `Game.errors`, which hands each on to the
-// handler the client had (BugGrabber's where it is installed, else Blizzard's), so the player's error addon keeps
-// working; a dev addon that shows the errors itself leaves Blizzard's popup out (`quiet`). Repeats only bump a
-// counter; nothing runs while no error comes.
+// The error catcher: every Lua error in the game (any addon, Blizzard's UI, a file's load), every fault of
+// LunaType's, and every blocked or forbidden protected action is recorded in `Errors`. The errors come from the
+// runtime's kit (`kit.luna`): the runtime holds the client's error handler from its first file, reads a message's
+// stack and locals the first time alone, and hands each error on to the handler the client had, so the player's error
+// addon keeps working. Repeats only bump a counter; nothing runs while no error comes.
 import Client from "$client"
 import Events from "$events"
-import Game from "$game"
 import { Errors, Kind } from "@/errors"
 
 // Told of each blocked or forbidden action as the client reports it, repeats too: the addon it blames, the function
@@ -18,31 +17,16 @@ public class Catcher {
   errors: mut Errors
   constructor(errors: mut Errors) {
     self.errors = errors
-    Game.errors.caught.listen(self.caught)
-    Game.errors.begin(Game.HandOn.Always)
     Events.ADDON_ACTION_BLOCKED.listen(self.onBlocked)
     Events.ADDON_ACTION_FORBIDDEN.listen(self.onForbidden)
-  }
-
-  // Blizzard's popup is left out from now, BugGrabber's handler still handed each error: the dev addon shows the
-  // errors itself, and the popup plays a sound and reopens on every error.
-  public quiet(self) {
-    Game.errors.begin(Game.HandOn.ToAnErrorAddon)
   }
 
   public onTaint(mut self, listener: TaintListener) {
     self.taintListeners.push(listener)
   }
 
-  // An error the client's handler was given; its stack and locals came with its first time this session.
-  caught(mut self, error: Game.CaughtError) {
-    if (self.errors.repeatOf(error.message) == nil) {
-      _ = self.errors.add({ message: error.message, stack: error.stack, locals: error.locals, kind: nil, source: nil })
-    }
-  }
-
-  // An error heard elsewhere (the runtime's, kept before the handler was in place), with its stack and locals.
-  public error(mut self, message: String, stack: String, locals: String) {
+  // An error or a fault the runtime caught: the stack and the locals with a message's first time this session.
+  public error(mut self, message: String, stack: String | nil, locals: String | nil) {
     if (self.errors.repeatOf(message) == nil) {
       _ = self.errors.add({ message: message, stack: stack, locals: locals, kind: nil, source: nil })
     }

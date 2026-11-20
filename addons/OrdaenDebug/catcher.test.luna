@@ -1,24 +1,26 @@
-import Game from "$game"
+import Debug from "$debug"
 import Test from "$test"
 import { Catcher } from "@/catcher"
 import { Errors, Kind, noErrors } from "@/errors"
+import { Kit } from "@/kit"
 
-function caught(message: String, stack: String | nil) {
-  Game.errors.caught.emit({ message: message, stack: stack, locals: nil })
-}
-
-test "takes the client's handler, handing every error on, and keeps what it catches once" {
+test "keeps an error once, its stack from the first time, and counts what comes back" {
   let errors = new Errors(noErrors(), {})
-  const catcher = new Catcher(mut errors)
-  caught("Interface/AddOns/Details/x.lua:1: boom", "the stack")
-  caught("Interface/AddOns/Details/x.lua:1: boom", nil)
+  let catcher = new Catcher(mut errors)
+  catcher.error("Interface/AddOns/Details/x.lua:1: boom", "the stack", "x = 1")
+  catcher.error("Interface/AddOns/Details/x.lua:1: boom", nil, nil)
   const entry = errors.db.errors[1] ?? panic("the error is kept")
   Test.expect(errors.db.errors.length == 1)
   Test.expect(entry.count == 2)
   Test.expect(entry.source == "Details")
   Test.expect(entry.stack == "the stack")
-  // The snapshot's `asked:` lines: Always as it is made, ToAnErrorAddon once quiet.
-  catcher.quiet()
+}
+
+test "a fault of LunaType's is LunaType's" {
+  let errors = new Errors(noErrors(), {})
+  let catcher = new Catcher(mut errors)
+  catcher.error("LunaType: AuctionScan: no results", nil, nil)
+  Test.expect(errors.db.errors[1]?.source == "LunaType")
 }
 
 test "keeps a blocked action under the addon the client blames, and tells its listeners each time" {
@@ -37,11 +39,37 @@ test "keeps a blocked action under the addon the client blames, and tells its li
   Test.expect(errors.db.errors[2]?.count == 2)
 }
 
-test "keeps a fault under the addon it names, and an error the runtime heard with its stack" {
+test "keeps a fault under the addon it names" {
   let errors = new Errors(noErrors(), {})
   let catcher = new Catcher(mut errors)
-  catcher.fault("the seam failed", "LunaType")
-  catcher.error("early", "the stack", "x = 1")
-  Test.expect(errors.db.errors[1]?.source == "LunaType")
-  Test.expect(errors.db.errors[2]?.locals == "x = 1")
+  catcher.fault("the seam failed", "OrdaenCompanion")
+  Test.expect(errors.db.errors[1]?.source == "OrdaenCompanion")
+}
+
+// The dev addon's side of the kit, as the test's own.
+class Heard implements Debug.Kit {
+  public lines: mut Array<String> = []
+  public log(mut self, addon: String, text: String, ms: Number, kb: Number) {
+    self.lines.push(`log ${addon}: ${text}`)
+  }
+  public error(mut self, message: String, stack: String | nil, locals: String | nil) {
+    self.lines.push(`error ${message}`)
+  }
+  public tapped(mut self, domain: String, json: String) {
+    self.lines.push(`tapped ${domain}`)
+  }
+}
+
+test "the kit keeps the errors itself, and the lines and records for the dev addon until it asks, then hands them on" {
+  let errors = new Errors(noErrors(), {})
+  let catcher = new Catcher(mut errors)
+  let kit = new Kit(mut catcher)
+  kit.error("boom", "the stack", nil)
+  kit.log("Ordaen", "before", 1, 2)
+  kit.tapped("fault", "{}")
+  let heard = new Heard()
+  kit.relayTo(mut heard)
+  kit.log("Ordaen", "after", 1, 2)
+  Test.expect(heard.lines.join(", ") == "log Ordaen: before, tapped fault, log Ordaen: after")
+  Test.expect(errors.db.errors[1]?.message == "boom")
 }
