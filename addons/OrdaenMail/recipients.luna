@@ -34,7 +34,7 @@ public function own(alts: Alts | nil): Array<Recipient> {
   if (alts == nil) { return list }
   for (who, character of alts.characters) {
     if (who != alts.current && alts.reaches(who)) {
-      list.push({ name: character.name, level: character.level, online: false, color: nil, group: "" })
+      list.push({ name: character.name, level: character.level, online: false, color: classColor(character.classTag), group: "" })
     }
   }
   list.sort(byOnline)
@@ -46,7 +46,8 @@ public function friends(): Array<Recipient> {
   for (index of 1..Client.C_FriendList.GetNumFriends()) {
     const info = Client.C_FriendList.GetFriendInfoByIndex(index)
     if (info != nil) {
-      list.push({ name: info.name, level: info.level.floor(), online: info.connected, color: nil, group: "" })
+      const _, tag, _, _, _, _, _, _ = Client.GetPlayerInfoByGUID(info.guid)
+      list.push({ name: info.name, level: info.level.floor(), online: info.connected, color: classColor(tag), group: "" })
     }
   }
   list.sort(byOnline)
@@ -76,7 +77,9 @@ public function communities(): Array<Recipient> {
         const name = info?.name
         if (info != nil && name != nil && !info.isSelf) {
           const online = info.presence != Client.ClubMemberPresence.Offline && info.presence != Client.ClubMemberPresence.Unknown
-          list.push({ name: name, level: (info.level ?? 0).floor(), online: online, color: nil, group: club.name })
+          const classID = info.classID
+          const known = classID != nil ? Client.C_CreatureInfo.GetClassInfo(classID) : nil
+          list.push({ name: name, level: (info.level ?? 0).floor(), online: online, color: classColor(known?.classFile), group: club.name })
         }
       }
     }

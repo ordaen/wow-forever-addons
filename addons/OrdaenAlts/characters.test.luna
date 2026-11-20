@@ -8,6 +8,7 @@ import { Key } from "$ltml"
 import Test from "$test"
 import root Ordaen from "Ordaen"
 import { Copper, Hour } from "Ordaen"
+import root Alts from "OrdaenAlts"
 import { Character, CharacterId, Kept } from "@/character"
 import Locale from "@/locales"
 
@@ -260,6 +261,12 @@ test "a character played again is written down anew: its name, level, realm and 
   window().button(Locale.COL_SEEN).click()
   Test.expect(order(["Player", "Aria"]) == "Player, Aria")
 }
+
+test "the character being played is written down with its class, for others to colour it by" {
+  Test.mount(nil, SCREEN)
+  recorded([alt("Aria", 30, 10)], alt("Player", 10, 5))
+  Test.expect(Game.player.classTag != "")
+  Test.expect(Alts.characters[CharacterId.of(PLAYER)]?.classTag == Game.player.classTag) }
 
 test "the table is in the names' order, and a heading sorts by its column, a second click the other way" {
   Game.clock.server = START

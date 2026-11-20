@@ -43,6 +43,8 @@ public struct Character implements Plain {
   name: String = ""
   realm: String = ""
   faction: Faction = .Neutral
+  // Its class, by the game's own word for it (`MAGE`); empty for a record kept before it was written down.
+  classTag: String = ""
   level: Integer = 1
   money: Copper = 0
   // When it was last played.

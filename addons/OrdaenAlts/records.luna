@@ -16,11 +16,12 @@ function written(
     found.name = name
     found.realm = realm
     found.faction = faction
+    found.classTag = Game.player.classTag
     found.seen = now
     return found
   }
   makeRoom(mut characters, who)
-  const made = Character { name: name, realm: realm, faction: faction, seen: now, mailExpires: nil }
+  const made = Character { name: name, realm: realm, faction: faction, classTag: Game.player.classTag, seen: now, mailExpires: nil }
   characters[who] = made
   return made
 }
