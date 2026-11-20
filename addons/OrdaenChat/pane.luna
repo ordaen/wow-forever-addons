@@ -237,42 +237,42 @@ public class Pane implements Component {
 
   public render(self): Template {
     return $ltml {
-      // The tabs a sidebar at the frame's left, one a row, a line down between them and the lines; the lines at least
-      // the height the player chose and never lower than the tabs, the foot under them. As wide as the player chose,
-      // or as the tabs and the lines' least need.
-      <box width={{ min: self.width, max: nil }} columns={[MAX, MAX, { fr: 1 }]} gap={2sp}
-           border={Ordaen.art.frame.small} background={Ordaen.art.window.wood} artOrigin={true} padding={ROOM}
-           @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
-        <box columns={1}>
+      // The tabs a sidebar on the world at the frame's left, one a row; the lines in the window's frame and wood, at
+      // least the height the player chose and never lower than the tabs, the foot under them. As wide as the player
+      // chose, or as the tabs and the lines' least need.
+      <box width={{ min: self.width, max: nil }} columns={[MAX, { fr: 1 }]}>
+        <box columns={1} yAlignSelf={Align.Start}>
           <TabButton $for={tab of self.tabs} tab={tab} open={tab.key == self.open?.key} @pick={self.onPick}
                      @menu={self.onMenu} />
           <Menu $if={self.menuTab != nil} entries={self.tabEntries} title={self.menuTab?.title ?? ""} @pick={self.onTabPick}
                 @close={self.onTabMenuClose} />
         </box>
-        <box width={Ordaen.art.ctl.well.rim.width} background={Ordaen.art.ctl.well.rim.color} yAlignSelf={Align.Stretch} />
-        <box width={{ min: LINES_LEAST, max: nil }} rows={self.rows} yAlignSelf={Align.Stretch}>
-          <embed $if={self.logFrame != nil} frame={self.logFrame ?? panic("shown with the frame")} />
-          // The newest line stands at the bottom; older ones go up past the top, which cuts them.
-          <box $else overflow={Overflow.Hidden} textSize={self.textSize} mouseThrough={self.clickThrough} @wheel={self.onWheel}>
-            <box position={Position.Absolute} left={0ui} right={0ui} bottom={0ui} columns={1}>
-              <Row $for={line of self.shown} line={line} fadeBefore={self.fadeBefore} lineHeight={Ordaen.lengthOf(BODY_LINE)}
-                   @link={self.onLink} />
-            </box>
-          </box>
-          // The game's input while it is open, in a field's floor and edge, and, while scrolled back, the way back.
-          <box columns={[{ fr: 1 }, MAX]} gap={1sp} yAlign={Align.Center}>
-            <box>
-              <box $if={self.inputShown} background={FIELD_FILL} border={FIELD_EDGE} padding={INPUT_PAD}>
-                <embed frame={self.input ?? panic("shown with the input")} height={GAME_INPUT} />
+        <box columns={1} yAlignSelf={Align.Stretch} border={Ordaen.art.frame.small} background={Ordaen.art.window.wood}
+             artOrigin={true} padding={ROOM} @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
+          <box width={{ min: LINES_LEAST, max: nil }} rows={self.rows} yAlignSelf={Align.Stretch}>
+            <embed $if={self.logFrame != nil} frame={self.logFrame ?? panic("shown with the frame")} />
+            // The newest line stands at the bottom; older ones go up past the top, which cuts them.
+            <box $else overflow={Overflow.Hidden} textSize={self.textSize} mouseThrough={self.clickThrough} @wheel={self.onWheel}>
+              <box position={Position.Absolute} left={0ui} right={0ui} bottom={0ui} columns={1}>
+                <Row $for={line of self.shown} line={line} fadeBefore={self.fadeBefore} lineHeight={Ordaen.lengthOf(BODY_LINE)}
+                     @link={self.onLink} />
               </box>
             </box>
-            <box>
-              <box $if={self.back > 0} @pointerPress={self.onLatest}>
-                <text value={Locale.LATEST} textColor={LINK} textSize={SECONDARY_TEXT} wrap={.None} />
+            // The game's input while it is open, in a field's floor and edge, and, while scrolled back, the way back.
+            <box columns={[{ fr: 1 }, MAX]} gap={1sp} yAlign={Align.Center}>
+              <box>
+                <box $if={self.inputShown} background={FIELD_FILL} border={FIELD_EDGE} padding={INPUT_PAD}>
+                  <embed frame={self.input ?? panic("shown with the input")} height={GAME_INPUT} />
+                </box>
               </box>
+              <box>
+                <box $if={self.back > 0} @pointerPress={self.onLatest}>
+                  <text value={Locale.LATEST} textColor={LINK} textSize={SECONDARY_TEXT} wrap={.None} />
+                </box>
+              </box>
+              <Menu $if={self.menuName != nil} entries={self.nameEntries} title={nameOf(self.menuName?.link ?? "") ?? ""}
+                    @pick={self.onNamePick} @close={self.onNameMenuClose} />
             </box>
-            <Menu $if={self.menuName != nil} entries={self.nameEntries} title={nameOf(self.menuName?.link ?? "") ?? ""}
-                  @pick={self.onNamePick} @close={self.onNameMenuClose} />
           </box>
         </box>
       </box>

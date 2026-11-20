@@ -63,27 +63,46 @@ test "the chat reads the game's lines and shows them in the window's tab, nothin
   Test.expect(shown.texts().join(",") == "General,Jaina,Whispers,[Thrall] says: Hello")
 }
 
-test "the open tab alone is sunk into the wood, a line between the tabs and the lines" {
+test "the lines and the open tab alone are in the window's wood: the other tabs stand on the world" {
   Game.chat.windows = gameWindows()
   const shown = chat()
-  const well = shown.box(Ordaen.art.ctl.well.floor)
-  Test.expect(well.count() == 1 && well.texts().any(t => t == "General"))
+  const name = shown.text("General").rect()
+  // The lines' frame and the open tab's.
+  Test.expect(shown.box(Ordaen.art.window.wood).count() == 2)
+  Test.expect(inWood(shown, "General") && !inWood(shown, "Jaina"))
   shown.text("Jaina").click()
-  Test.expect(well.count() == 1 && well.texts().any(t => t == "Jaina"))
-  Test.expect(shown.box(Ordaen.art.ctl.well.rim.color).count() >= 1)
+  Test.expect(inWood(shown, "Jaina") && !inWood(shown, "General"))
+  // A tab keeps its place, open or not.
+  Test.expect(shown.text("General").rect().left == name.left)
+}
+
+// Whether a text stands in one of the window's wood boxes.
+function inWood(shown: Test.Part, text: String): Boolean {
+  const at = shown.text(text).rect()
+  const wood = shown.box(Ordaen.art.window.wood)
+  for (n of 1..wood.count()) {
+    const box = wood.nth(n).rect()
+    if (box.left <= at.left && box.right >= at.right && box.top <= at.top && box.bottom >= at.bottom) { return true }
+  }
+  return false
 }
 
 test "a tab's count is the library's badge over the tab's right end: the tab and its name never move for it" {
   Game.chat.windows = gameWindows()
   const shown = chat()
   const name = shown.text("Jaina").rect()
+  Game.chat.heard.emit(line("SAY", "[Thrall] says: here", "Thrall", [1]))
   Game.chat.heard.emit(line("SAY", "[Jaina] says: one", "Jaina", [3]))
+  const lines = shown.text("[Thrall] says: here").rect()
   const badge = shown.box(Ordaen.art.panel.countBadge)
   const one = badge.rect()
   for (at of 1..1200) { Game.chat.heard.emit(line("SAY", `[Jaina] says: ${at}`, "Jaina", [3])) }
   Test.expect(shown.text("1201").shown())
   // Wider to the left alone, its right end where it was.
-  Test.expect(badge.rect().right == one.right && badge.rect().left < one.left)
+  const many = badge.rect()
+  Test.expect(shown.text("[Thrall] says: here").rect().left == lines.left)
+  Test.expect((many.right - one.right).abs() < 0.01)
+  Test.expect(many.left < one.left)
   const now = shown.text("Jaina").rect()
   Test.expect(now.left == name.left && now.right == name.right)
 }
