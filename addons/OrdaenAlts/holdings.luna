@@ -1,8 +1,8 @@
 // «Items»: a search across every character: per item the total and each holder by place. An item's name is the game's,
 // asked once per item the first time a search needs it and kept while the tab shows.
-import { Align, Edges, Overflow, Track } from "$ltml"
+import { Align, Edges, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { Component, ItemButton, ItemId, SECONDARY_TEXT } from "Ordaen"
+import { Component, ItemButton, ItemId, SECONDARY_TEXT, ScrolledList } from "Ordaen"
 import { Held, Place } from "@/character"
 import Locale from "@/locales"
 import { Records } from "@/records"
@@ -107,14 +107,14 @@ public class Holdings implements Component {
                  textColor={Style.INK} background={Color.hex("#00000080")} />
         </box>
         <text $if={self.empty} value={Locale.NOTHING_FOUND} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
-        <box $else overflow={Overflow.Scroll}>
+        <ScrolledList $else>
           <box $for={entry of self.entries} $key={entry.id} columns={ROW} gap={3sp} yAlign={Align.Center}
                padding={{ top: 1sp, bottom: 1sp }}>
             <ItemButton item={entry.id} count={entry.total} />
             <text value={entry.name} textColor={Style.INK} />
             <text value={entry.holders} textColor={Style.DIM} />
           </box>
-        </box>
+        </ScrolledList>
       </box>
     }
   }

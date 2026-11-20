@@ -31,7 +31,7 @@ function opened(log: Array<Test.LogQuest>) {
   Test.questieDB(
     {
       [101]: { name: "The Defias Brotherhood", questLevel: 14, zoneOrSort: 40, startedBy: [[234]], finishedBy: [[234]],
-               nextQuestInChain: 166 },
+        nextQuestInChain: 166 },
       [166]: { name: "The Defias Brotherhood, part two", zoneOrSort: 40 }
     },
     { [234]: { name: "Gryan Stoutmantle", spawns: { [40]: [[56, 47]] } } },
@@ -137,7 +137,7 @@ test "a quest picked shows its page, with where its giver stands from QuestieDB"
   const window = Test.page().window("World")
   Test.expect(window.text("Gryan asks you to look into Westfall.").shown())
   Test.expect(window.text("Gryan Stoutmantle (56, 47)").count() == 2)
-  Test.expect(window.text("420 experience").shown())
+  Test.expect(window.text("420").shown())
   // The chain: the quest after it, by QuestieDB's name.
   Test.expect(window.text("Next in chain").shown() && window.text("The Defias Brotherhood, part two").shown())
 }
@@ -232,10 +232,10 @@ test "Abandon is the page's accent button and stands at the right, after the oth
   opened(standing())
   const window = Test.page().window("World")
   window.text("The Defias Brotherhood").click()
-  const abandon = window.button("Abandon quest").rect()
+  const abandon = window.button("Abandon").rect()
   const share = window.button("Share").rect()
   Test.expect(abandon.left > share.right + 50 && abandon.top == share.top)
-  Test.expect(window.button("Abandon quest").paintedWith(Ordaen.art.ctl.buttonAccent))
+  Test.expect(window.button("Abandon").paintedWith(Ordaen.art.ctl.buttonAccent))
   Test.expect(!window.button("Share").paintedWith(Ordaen.art.ctl.buttonAccent))
 }
 
@@ -275,20 +275,20 @@ test "the question to abandon a quest names the items abandoning it destroys" {
   log[3] = { abandonItems: [2041], ..quest(103, "Elwynn Wolves", "Elwynn Forest") }
   opened(log)
   Test.page().window("World").text("Elwynn Wolves").click()
-  Test.page().window("World").button("Abandon quest").click()
+  Test.page().window("World").button("Abandon").click()
   Test.expect(Test.page().text("Items from this quest that will be destroyed: item 2041").shown())
 }
 
 test "abandoning asks first, and only «Abandon quest» in the question abandons" {
   opened(standing())
   Test.page().window("World").text("The Defias Brotherhood").click()
-  Test.page().window("World").button("Abandon quest").click()
+  Test.page().window("World").button("Abandon").click()
   Test.expect(Test.talked().length == 0)
   const asked = Test.page().window("Abandon «The Defias Brotherhood»?")
   asked.button("Cancel").click()
   Test.expect(Test.talked().length == 0)
-  Test.page().window("World").button("Abandon quest").click()
-  Test.page().window("Abandon «The Defias Brotherhood»?").button("Abandon quest").click()
+  Test.page().window("World").button("Abandon").click()
+  Test.page().window("Abandon «The Defias Brotherhood»?").button("Abandon").click()
   Test.expect(Test.talked().join(",") == "abandon 101")
   // The client's log no longer has it, and the window follows.
   Test.flush()
@@ -305,7 +305,7 @@ test "a quest that can't be shared has its button greyed: a click shares nothing
 test "Right-click on a quest opens its menu, and «Track» there tracks it" {
   opened(standing())
   Test.page().window("World").text("Elwynn Wolves").rightClick()
-  Test.page().window("Abandon quest").button("Track").click()
+  Test.page().window("Abandon").button("Track").click()
   Test.expect(Test.talked().join(",") == "watch 103")
 }
 
@@ -341,7 +341,7 @@ test "a quest's objectives stand under its title, one a line; its row's right sa
   log[1] = { complete: true, ..quest(101, "The Defias Brotherhood", "Westfall") }
   opened(log)
   const window = Test.page().window("World")
-  Test.expect(window.text("Pelts").shown() && window.text("Wolves slain").count() == 2 && window.text("5/10").count() == 2)
+  Test.expect(window.text("Pelts").shown() && window.text("Wolves slain").shown() && window.text("5/10").shown())
   Test.expect(before("Elwynn Wolves", "Wolves slain") && before("Wolves slain", "Pelts"))
   Test.expect(window.text("Complete").count() == 1)
   Test.shot("the world's tab: a quest's objectives under its title, the done one grey; the count in the footer")
@@ -454,8 +454,8 @@ test "the window's one tab is «Quests» with the game's quest log book; its kin
 test "«Abandon quest» in the question is the danger plate" {
   opened(standing())
   Test.page().window("World").text("The Defias Brotherhood").click()
-  Test.page().window("World").button("Abandon quest").click()
-  Test.expect(Test.page().window("Abandon «The Defias Brotherhood»?").button("Abandon quest").paintedWith(Ordaen.art.ctl.buttonAccent))
+  Test.page().window("World").button("Abandon").click()
+  Test.expect(Test.page().window("Abandon «The Defias Brotherhood»?").button("Abandon").paintedWith(Ordaen.art.ctl.buttonAccent))
 }
 
 test "Shift+Left-click on a title puts its chat link where a chat line is open, and tracks nothing then" {
@@ -484,6 +484,109 @@ test "the window's opening and closing, and a quest tracked, sound as the game's
 test "«Show the way» in a quest's menu has the client point the way to it" {
   opened(standing())
   Test.page().window("World").text("Elwynn Wolves").rightClick()
-  Test.page().window("Abandon quest").button("Show the way").click()
+  Test.page().window("Abandon").button("Show the way").click()
   Test.expect(Test.talked().join(",") == "super-track 103")
+}
+
+test "a wrapped objective's lines sit at the text's own line; two objectives keep their gap" {
+  const log = standing()
+  log[3] = { objectives: [
+    { text: "Gray forest wolves slain in the hills east of Goldshire and the woods past it, down to the river: 0/50" },
+    { text: "Pelts: 1/4" }
+  ], ..quest(103, "Elwynn Wolves", "Elwynn Forest") }
+  opened(log)
+  const window = Test.page().window("World")
+  const long = window.text("Gray forest wolves slain in the hills east of Goldshire and the woods past it, down to the river").letters()
+  const next = window.text("Pelts").letters()
+  const line = next.bottom - next.top
+  // Two lines or more, each no taller than a line of letters and a little; the next objective a gap further.
+  Test.expect(long.bottom - long.top > line * 1.5 && long.bottom - long.top < line * 2.6 * 1.3)
+  Test.expect(next.top - long.bottom > 1 && next.top - long.bottom < line)
+}
+
+test "a header says how many of its quests are complete of all at its right" {
+  const log = standing()
+  log[1] = { complete: true, ..quest(101, "The Defias Brotherhood", "Westfall") }
+  opened(log)
+  const window = Test.page().window("World")
+  Test.expect(window.text("1/1").shown() && window.text("0/1").shown())
+  Test.expect(window.text("1/1").rect().left > window.text("Westfall").rect().right)
+}
+
+test "the level's brackets are muted, its number in its difficulty colour" {
+  opened(standing())
+  const window = Test.page().window("World")
+  Test.expect(window.text("[").nth(1).textColor().equal(Color.hex("#a3977f")))
+  Test.expect(window.text("]").nth(1).textColor().equal(Color.hex("#a3977f")))
+  Test.expect(!window.text("14").nth(1).textColor().equal(Color.hex("#a3977f")))
+}
+
+test "a complete quest says so under its title, in place of its objectives" {
+  const log = standing()
+  log[3] = { complete: true, objectives: [{ text: "Pelts: 4/4", done: true }], ..quest(103, "Elwynn Wolves", "Elwynn Forest") }
+  opened(log)
+  const window = Test.page().window("World")
+  const title = window.text("Elwynn Wolves").rect()
+  const ready = window.text("Complete").rect()
+  Test.expect(ready.top >= title.bottom && ready.left <= title.left + 1)
+  Test.expect(!window.text("Pelts").shown())
+}
+
+test "a quest's experience and money stand at its title's right, a bullet between, the experience with its mark" {
+  const log = standing()
+  log[3] = { xp: 735, money: 150, ..quest(103, "Elwynn Wolves", "Elwynn Forest") }
+  opened(log)
+  const window = Test.page().window("World")
+  const title = window.text("Elwynn Wolves").rect()
+  Test.expect(window.text("735").rect().left > title.right && window.text("•").shown())
+  Test.expect(window.text("•").rect().left > window.text("735").rect().right)
+  Test.expect(window.box("GarrMission_CurrencyIcon-Xp").shown())
+}
+
+test "the page's experience and money are larger than a secondary text" {
+  const log = standing()
+  log[3] = { xp: 735, money: 150, rewards: [{ item: 1001 }], ..quest(103, "Elwynn Wolves", "Elwynn Forest") }
+  opened(log)
+  const window = Test.page().window("World")
+  window.text("Elwynn Wolves").click()
+  // The list's row has its own at a secondary text's size; the page's band is a third larger.
+  const row = window.text("735").nth(1).letters()
+  const page = window.text("735").nth(2).letters()
+  Test.expect(page.bottom - page.top > (row.bottom - row.top) * 1.2)
+}
+
+test "the abandon button says only «Abandon»" {
+  opened(standing())
+  const window = Test.page().window("World")
+  window.text("The Defias Brotherhood").click()
+  Test.expect(window.button("Abandon").shown() && !window.text("Abandon quest").shown())
+}
+
+test "an objective that says the task again stands once on the page, not dark then muted" {
+  const log = standing()
+  log[3] = { task: "Speak to Marshal Dughan.", objectives: [{ text: "Speak to Marshal Dughan.", done: true }],
+    ..quest(103, "Elwynn Wolves", "Elwynn Forest") }
+  opened(log)
+  const window = Test.page().window("World")
+  window.text("Elwynn Wolves").click()
+  // Once in the list's row, once on the page.
+  Test.expect(window.text("Speak to Marshal Dughan.").count() == 2)
+}
+
+test "where the giver and the turn-in stand is under the parchment, in the well's colours" {
+  opened(standing())
+  const window = Test.page().window("World")
+  window.text("The Defias Brotherhood").click()
+  const giver = window.text("Gryan Stoutmantle (56, 47)").nth(1)
+  Test.expect(giver.textColor().equal(Color.hex("#f0e6d0")))
+  Test.expect(giver.rect().top > window.text("Objectives").rect().bottom)
+}
+
+test "the parchment's muted ink holds 6:1 against it" {
+  const log = standing()
+  log[3] = { objectives: [{ text: "Pelts: 4/4", done: true }], ..quest(103, "Elwynn Wolves", "Elwynn Forest") }
+  opened(log)
+  const window = Test.page().window("World")
+  window.text("Elwynn Wolves").click()
+  Test.expect(window.text("Pelts").nth(2).textColor().equal(Color.hex("#4a3520")))
 }

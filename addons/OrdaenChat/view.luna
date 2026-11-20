@@ -1,28 +1,27 @@
 // The chat's parts: a tab on the tab row, and a line.
-import { Align, Edges, Event, MouseButton, Overflow } from "$ltml"
-import { Component, SECONDARY_TEXT } from "Ordaen"
+import { Edges, Event, Overflow, Position } from "$ltml"
+import { Component, SECONDARY_TEXT, WindowTab, WindowTabSpec, tabAboveLine, tabFoot } from "Ordaen"
 import { ChatTab, Shown } from "@/lines"
 
-const INK: Color = Color.hex("#f3e1b8")
-const GOLD: Color = Color.hex("#ffd100")
-const WHISPER: Color = Color.hex("#ff80ff")
-const OPEN: Color = Color.hex("#2a1c10e6")
-const CLOSED: Color = Color.hex("#140d07b3")
 const BADGE: Color = Color.hex("#b3261e")
 const WHITE: Color = Color.hex("#ffffff")
 // The warm band under a line that names the player or a keyword.
 const MARK: Color = Color.hex("#ff9a2e33")
-const TAB_PAD: Edges = { top: 1sp, right: 3sp, bottom: 1sp, left: 3sp }
 const BADGE_PAD: Edges = { right: 1sp, left: 1sp }
+// The badge in the tab's top right corner, inside its metal.
+const BADGE_INSET = 4.6875dp
 
-// A tab: its name (a whisper partner's in the whisper colour) and, while lines wait unread, their count.
+// A tab: the window tab of Ordaen's windows (its name on the tab's metal and wood, no picture), standing on the line
+// of the pane's frame with its foot behind it, and, while lines wait unread, their count in a badge beside its name.
+// The left button picks it, the right opens its menu.
 public class TabButton implements Component {
   public pick: Event<ChatTab> = new Event()
   public menu: Event<ChatTab> = new Event()
 
-  derived color: Color = self.whisper ? WHISPER : (self.open ? GOLD : INK)
-  derived whisper: Boolean = self.tab.partner != ""
-  derived fill: Color = self.open ? OPEN : CLOSED
+  derived spec: WindowTabSpec = { title: self.tab.title }
+  // The window tab's place among its tabs: the one, open or not.
+  derived selected: Integer = self.open ? 1 : 0
+  derived height: Number<Length> = tabAboveLine() + tabFoot()
 
   tab: Signal<ChatTab>
   open: Signal<Boolean>
@@ -31,20 +30,19 @@ public class TabButton implements Component {
     self.open = open
   }
 
-  onPress(mut self, press: Event.Press) {
-    if (press.button == MouseButton.Right) {
-      self.menu.emit(peek self.tab)
-    } else {
-      self.pick.emit(peek self.tab)
-    }
-  }
+  onPick(mut self, place: Integer) { self.pick.emit(peek self.tab) }
+
+  onMenu(mut self) { self.menu.emit(peek self.tab) }
 
   public render(self): Template {
     return $ltml {
-      <box columns={["max-content", "max-content"]} gap={1sp} padding={TAB_PAD} background={self.fill} yAlign={Align.Center}
-           @pointerPress={self.onPress}>
-        <text value={self.tab.title} textColor={self.color} wrap={.None} />
-        <box $if={self.tab.unread > 0} padding={BADGE_PAD} background={BADGE}>
+      // As high as the tab down to the line; the tab hangs its foot below, behind the frame's line.
+      <box height={tabAboveLine()} @pointerPress(.Right)={self.onMenu}>
+        <box position={Position.Absolute} left={0ui} right={0ui} top={0ui} columns={["max-content"]}>
+          <WindowTab tab={self.spec} index={1} selected={self.selected} height={self.height} @picked={self.onPick} />
+        </box>
+        <box $if={self.tab.unread > 0} position={Position.Absolute} right={BADGE_INSET} top={BADGE_INSET} padding={BADGE_PAD}
+             background={BADGE} zLevel={1} mouseThrough={true}>
           <text value={"%d"} arguments={[self.tab.unread]} textColor={WHITE} textSize={SECONDARY_TEXT} wrap={.None} />
         </box>
       </box>

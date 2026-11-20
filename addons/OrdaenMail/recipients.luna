@@ -1,20 +1,56 @@
-// Who a letter can go to, by the list «To» picks first: the player's characters (Ordaen Alts'), friends, the guild,
-// the character communities, or anyone (free text, the recent recipients as hints). Each list is read from the game as
-// it is opened, a name matched from its start; names are never split on spaces (Forever's surnames).
+// Who a letter can go to: the player's characters (Ordaen Alts'), friends, the guild, the character communities and
+// the recent recipients, all in one list, each name once (where it stands first). Each is read from the game, a name
+// matched from its start; names are never split on spaces (Forever's surnames).
 import Client from "$client"
 import { classColor } from "Ordaen"
 import type { Alts } from "OrdaenAlts"
 
-public enum Source implements Plain { Own = "own", Friends = "friends", Guild = "guild", Communities = "communities", Other = "other" }
+// Who a recipient is to the player.
+public enum Source { Own, Friend, Guild, Community, Recent }
 
 // One who can be written to: a name as the game takes it, the level, whether online, the class's colour where known,
-// and the heading it stands under (a community's name).
+// who it is to the player, and the community it stands in (a community's member alone).
 public struct Recipient {
   name: String
   level: Integer
   online: Boolean
   color: Color | nil
+  source: Source
   group: String
+}
+
+// Every recipient the player knows, own characters first, then friends, the guild, the communities and the recent
+// recipients; a name known twice stands where it comes first.
+public function everyone(alts: Alts | nil, recent: Array<String>): Array<Recipient> {
+  const list: Array<Recipient> = []
+  const seen: Map<String, Boolean> = {}
+  const add = (from: Array<Recipient>) => {
+    for (who of from) {
+      if (seen[who.name] == nil) {
+        seen[who.name] = true
+        list.push(who)
+      }
+    }
+  }
+  add(own(alts))
+  add(friends())
+  add(guild())
+  add(communities())
+  add(recent.map(name => {
+    const one: Recipient = { name: name, level: 0, online: false, color: nil, source: .Recent, group: "" }
+    return one
+  }))
+  return list
+}
+
+// The first `most` recipients whose names begin with what was typed.
+public function matching(list: Array<Recipient>, typed: String, most: Integer): Array<Recipient> {
+  const found: Array<Recipient> = []
+  for (who of list) {
+    if (found.length >= most) { break }
+    if (starts(who.name, typed)) { found.push(who) }
+  }
+  return found
 }
 
 // Whether a name begins with what was typed, of any case.
@@ -34,7 +70,7 @@ public function own(alts: Alts | nil): Array<Recipient> {
   if (alts == nil) { return list }
   for (who, character of alts.characters) {
     if (who != alts.current && alts.reaches(who)) {
-      list.push({ name: character.name, level: character.level, online: false, color: classColor(character.classTag), group: "" })
+      list.push({ name: character.name, level: character.level, online: false, color: classColor(character.classTag), source: .Own, group: "" })
     }
   }
   list.sort(byOnline)
@@ -47,7 +83,7 @@ public function friends(): Array<Recipient> {
     const info = Client.C_FriendList.GetFriendInfoByIndex(index)
     if (info != nil) {
       const _, tag, _, _, _, _, _, _ = Client.GetPlayerInfoByGUID(info.guid)
-      list.push({ name: info.name, level: info.level.floor(), online: info.connected, color: classColor(tag), group: "" })
+      list.push({ name: info.name, level: info.level.floor(), online: info.connected, color: classColor(tag), source: .Friend, group: "" })
     }
   }
   list.sort(byOnline)
@@ -60,7 +96,7 @@ public function guild(): Array<Recipient> {
   for (index of 1..count) {
     const name, _, _, level, _, _, _, _, online, _, tag = Client.GetGuildRosterInfo(index)
     if (name != nil) {
-      list.push({ name: name, level: (level ?? 0).floor(), online: online == true, color: classColor(tag), group: "" })
+      list.push({ name: name, level: (level ?? 0).floor(), online: online == true, color: classColor(tag), source: .Guild, group: "" })
     }
   }
   list.sort(byOnline)
@@ -79,7 +115,7 @@ public function communities(): Array<Recipient> {
           const online = info.presence != Client.ClubMemberPresence.Offline && info.presence != Client.ClubMemberPresence.Unknown
           const classID = info.classID
           const known = classID != nil ? Client.C_CreatureInfo.GetClassInfo(classID) : nil
-          list.push({ name: name, level: (info.level ?? 0).floor(), online: online, color: classColor(known?.classFile), group: club.name })
+          list.push({ name: name, level: (info.level ?? 0).floor(), online: online, color: classColor(known?.classFile), source: .Community, group: club.name })
         }
       }
     }

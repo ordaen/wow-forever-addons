@@ -2,11 +2,11 @@
 // `questLogOpen`. While it runs, OpenMap's townsfolk come from QuestieDB. `MapHost` is what Map asks; `OpenMapHost` asks the game. Everything Map places goes through here:
 // where a pin stands on the canvas, the pins' own frames, OpenMap's menu.
 import Client from "$client"
+import { OpenMapAPI } from "OpenMap"
+import { LibQuestieDB } from "QuestieDB"
 import { mapOfArea } from "@/areas"
 import type { Pin, SidePanel } from "@/extend"
 import WorldMap from "@/worldMap"
-import { OpenMapAPI } from "OpenMap"
-import { LibQuestieDB } from "QuestieDB"
 
 // The API Map is written against: major 1, from version 4 on.
 const API_MAJOR = 1

@@ -1,0 +1,41 @@
+// Ordaen Auras: the character's buffs and debuffs, and what each one changes in its stats, for other modules to read
+// (Ordaen Character's stat tooltips). Read when the client says the character's auras changed, never per frame.
+import Game from "$game"
+import root Ordaen from "Ordaen"
+import { Module, SettingsPage } from "Ordaen"
+import { Active, changesOf } from "@/changes"
+
+public class Auras implements Module, App {
+  public const title: String = "Ordaen Auras"
+  public const pages: Array<SettingsPage> = []
+  // The character's auras that change a stat, the helpful ones first, each in the client's order.
+  public state active: Array<Active> = []
+
+  constructor() {
+    Ordaen.modules.add(self)
+    Game.auras.watch(true)
+    Game.auras.changed.listen(self.refresh)
+    self.refresh()
+  }
+
+  destructor() {
+    Game.auras.watch(false)
+  }
+
+  // The character's auras as the client has them now.
+  public refresh(mut self) {
+    const level = Game.player.level
+    const list: Array<Active> = []
+    for (aura of Game.auras.player()) {
+      const changes = changesOf(aura.spell, aura.stacks, aura.points, level)
+      if (changes.length > 0) {
+        list.push({ spell: aura.spell, harmful: aura.harmful, stacks: aura.stacks, changes: changes })
+      }
+    }
+    self.active = list
+  }
+
+  public render(self): Template {
+    return $ltml {}
+  }
+}

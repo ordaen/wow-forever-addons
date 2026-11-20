@@ -8,7 +8,7 @@ import Game from "$game"
 import { Frame } from "$ltml"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
-import { KeptWindow, Module, ModuleMemory, Settings, SettingsPage, TrainerList, TrainerView, TrainerWindow, Window, WindowTabSpec, WindowsPage, playSound, trainerListIn, windowsTitle } from "Ordaen"
+import { KeptWindow, Module, ModuleMemory, Settings, SettingsPage, TrainerList, TrainerView, TrainerWindow, Window, WindowTabSpec, WindowsPage, playSound, windowsTitle } from "Ordaen"
 import Locale from "@/locales"
 import { Choices, GeneralPage, TrainerPage } from "@/settings"
 import { SpellbookPage } from "@/spellbook"
@@ -70,7 +70,7 @@ public class Spells implements Module, App {
   derived bookWidth: Number<Length> = self.window.memory.values.full ? Client.UIParent.GetWidth() * 1ui : self.window.placing.width
   // How the player left the class trainer's list, the profile's: its filter is kept, its view and sort are the
   // settings' each time it opens.
-  public trainerList: mut ModuleMemory<TrainerList> = new ModuleMemory<TrainerList>(trainerListIn(TrainerView.List), .Profile, "trainer")
+  public trainerList: mut ModuleMemory<TrainerList> = new ModuleMemory<TrainerList>({ view: TrainerView.List }, .Profile, "trainer")
   // The trainer that is open teaches a class's skills: asked as it opens.
   state classTrainer = false
   derived trainerShown: Boolean = self.classTrainer && self.settings.values.trainer

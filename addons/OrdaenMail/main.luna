@@ -21,7 +21,6 @@ import Locale from "@/locales"
 import { Outbox, SentView } from "@/outbox"
 import { OwnTab, Requests } from "@/own"
 import Pawn from "@/pawn"
-import { Source } from "@/recipients"
 import { Sender } from "@/sender"
 import { Choices, GeneralPage } from "@/settings"
 import Style from "@/style"
@@ -73,8 +72,6 @@ public class Mail implements Module, App {
   state sentPicked = 0
   state writing = false
   state writeTo = ""
-  // The list «To» picks from, kept for the session.
-  state source: Source = Source.Own
   state asking: Ask | nil = nil
   // The player shut the window while the mailbox stays open.
   state closed = false
@@ -310,7 +307,6 @@ public class Mail implements Module, App {
   // «Reply»: the form, to the sender.
   reply(mut self, letter: Game.MailLetter) {
     self.writeTo = letter.sender
-    self.source = .Other
     self.writing = true
     self.window.ask(TAB_OUTBOX)
   }
@@ -343,7 +339,6 @@ public class Mail implements Module, App {
 
   onWriteAgain(mut self, to: String) {
     self.writeTo = to
-    self.source = .Other
     self.writing = true
   }
 
@@ -413,7 +408,7 @@ public class Mail implements Module, App {
       return {
         width: Style.SIDE,
         content: $ltml {
-          <Compose source={mut self.source} sender={mut self.sender} alts={Alts} to={peek self.writeTo} @closed={self.onComposeClosed} />
+          <Compose sender={mut self.sender} alts={Alts} to={peek self.writeTo} @closed={self.onComposeClosed} />
         }
       }
     }

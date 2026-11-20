@@ -1,0 +1,66 @@
+// A list that scrolls, drawn as a well: a box sunk into the wood, its rim the look's line round it and its floor
+// darker than the wood, and inside the rim the rows, which scroll and are cut at the rim's inner edge. Its one padding
+// is the scrolling box's, so it scrolls with the rows: a row scrolled out is cut at the rim, never at the padding. A
+// part that stays while the rows scroll (a table's headings) is its slot `head`, over the rows inside the rim, at the
+// rows' sides. Every list that scrolls is one; no module draws its own.
+import { Align, Columns, Edges, Gaps, Overflow, Size, Track } from "$ltml"
+import root Ordaen from "Ordaen"
+import { Component } from "@/module"
+
+// The room between the rim and what the well holds: the least room a text keeps from a frame's line, and an item's step.
+const INSIDE = 3sp
+// The head keeps the rows' sides: what stands in it stands over what stands in the rows.
+const HEAD_SIDES: Edges = { left: INSIDE, right: INSIDE }
+// The head as high as it is, the rows the rest.
+const PARTS: Array<Track> = ["max-content", { fr: 1 }]
+
+public class ScrolledList implements Component {
+  derived rim = Ordaen.art.ctl.well.rim
+  derived floor = Ordaen.art.ctl.well.floor
+
+  columns: Signal<Columns | nil>
+  rows: Signal<Array<Track> | nil>
+  gap: Signal<Number<Spacing> | Gaps | nil>
+  yAlign: Signal<Align | nil>
+  height: Signal<Number<Length> | nil>
+  width: Signal<Size | nil>
+  const virtual: Boolean
+  constructor(
+    // Its rows' grid: one column where none is said.
+    columns: Signal<Columns | nil> = nil,
+    rows: Signal<Array<Track> | nil> = nil,
+    gap: Signal<Number<Spacing> | Gaps | nil> = nil,
+    yAlign: Signal<Align | nil> = nil,
+    // The well's height, its rim in it: it scrolls past it. None: the rest of the room its box gives it.
+    height: Signal<Number<Length> | nil> = nil,
+    // The well's width, its rim in it. None: the width of its cell.
+    width: Signal<Size | nil> = nil,
+    // Its rows are of one height: a virtual list, which builds only the rows in view.
+    virtual: Boolean = false
+  ) {
+    self.columns = columns
+    self.rows = rows
+    self.gap = gap
+    self.yAlign = yAlign
+    self.height = height
+    self.width = width
+    self.virtual = virtual
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <box rows={PARTS} width={self.width} height={self.height} border={self.rim} background={self.floor}>
+        <box padding={HEAD_SIDES}>
+          <slot #head />
+        </box>
+        <virtualList $if={self.virtual} padding={INSIDE}>
+          <slot />
+        </virtualList>
+        <box $else columns={self.columns} rows={self.rows} gap={self.gap} yAlign={self.yAlign} padding={INSIDE}
+             overflow={Overflow.Scroll}>
+          <slot />
+        </box>
+      </box>
+    }
+  }
+}

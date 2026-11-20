@@ -177,11 +177,11 @@ test "a table in a row that shares takes what is left, its body scrolls, and of 
   Test.expect(Test.blank())
 }
 
-test "a body given a height scrolls past it, the headings stay" {
+test "a table given a height scrolls its rows past it, the headings stay" {
   let page = new Sales()
   Test.mount(page, { left: 0, top: 0, width: 500, height: 300 })
-  page.height = 40ui
-  Test.shot("the body 40 high: the first row and part of the next, the headings over them")
+  page.height = 80ui
+  Test.shot("the table 80 high: the headings, the first row and part of the next under them")
 
   Test.moveTo(Test.holding("Copper Bar", nil))
   Test.wheel(-3)

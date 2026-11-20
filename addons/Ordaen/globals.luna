@@ -3,7 +3,8 @@
 public enum Density implements Plain { Compact = "compact", Normal = "normal", Roomy = "roomy" }
 public enum NumberFormat implements Plain { Space = "space", Comma = "comma", Dot = "dot" }
 public enum LargeNumbers implements Plain { Full = "full", Short = "short" }
-public enum Clock implements Plain { H24 = "24", H12 = "12" }
+// How a time of day is written: the client's own 24-hour mode (`Game.clock.hours24`), which «Time format» sets.
+public enum Clock { H24 = "24", H12 = "12" }
 
 public struct Globals implements Plain {
   // Ordaen's windows, on top of the game's UI scale.
@@ -16,10 +17,9 @@ public struct Globals implements Plain {
   numberPrecision: Integer
   numbers: LargeNumbers
   sounds: Boolean
-  clock: Clock
 }
 
 public const DEFAULTS: Globals = {
   scale: 1, density: Density.Normal, pixel: true, numberFormat: NumberFormat.Space, numberRound: false,
-  numberPrecision: 2, numbers: LargeNumbers.Short, sounds: true, clock: Clock.H24
+  numberPrecision: 2, numbers: LargeNumbers.Short, sounds: true
 }

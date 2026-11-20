@@ -14,6 +14,8 @@ const SCREEN: Test.Page = { left: 0, top: 0, width: 1600, height: 900, screen: t
 const WORDS = "Welcome to the Goldshire inn, traveller!"
 const INN: FileId = 132052
 const TALK: FileId = 132053
+// The flight master's icon: an option that leads somewhere.
+const TAXI: FileId = 132057
 
 function option(id: Integer, name: String, order: Integer, icon: FileId): Client.GossipOptionUIInfo {
   return {
@@ -41,7 +43,7 @@ function innkeeper(): Test.Npc {
 
 // A flight master with one plain option.
 function flightMaster(): Test.Npc {
-  return { name: "Thor", id: 523, text: "The gryphons are ready.", options: [option(400, "Show me where I can fly.", 1, TALK)] }
+  return { name: "Thor", id: 523, text: "The gryphons are ready.", options: [option(400, "Show me where I can fly.", 1, TAXI)] }
 }
 
 // A quest's page: two rewards to choose (the second not the player's to wear), money and experience.
@@ -186,6 +188,12 @@ test "a quest picked from the list keeps the talk: the gossip's close that goes 
 
 // The one-option skip
 
+test "an NPC whose one option is a line of talk shows it: only an option that leads somewhere is skipped" {
+  Test.mount(nil, SCREEN)
+  Test.talk({ name: "Daniel", id: 247229, text: "What does Brother Paxton need now?", options: [option(134486, "What are professions?", 0, TALK)] })
+  Test.expect(asked() == "" && Test.page().window("Daniel").shown())
+}
+
 test "an NPC with one plain option doesn't open the window: the option is picked" {
   Test.mount(nil, SCREEN)
   Test.talk(flightMaster())
@@ -220,10 +228,10 @@ test "Shift held while talking shows the window all the same" {
   Test.expect(asked() == "" && Test.page().window("Thor").shown())
 }
 
-test "the server wanting the window (ForceGossip) shows it" {
+test "a vendor the client says ForceGossip of, as Forever's says of every vendor, is skipped all the same" {
   Test.mount(nil, SCREEN)
-  Test.talk({ name: "Thor", id: 523, options: [option(400, "Show me where I can fly.", 1, TALK)], forceGossip: true })
-  Test.expect(asked() == "" && Test.page().window("Thor").shown())
+  Test.talk({ name: "Thor", id: 523, options: [option(400, "Show me where I can fly.", 0, TAXI)], forceGossip: true })
+  Test.expect(asked() == "option 400" && !Test.page().window("Thor").shown())
 }
 
 test "with the skip off the window shows" {
@@ -307,7 +315,7 @@ test "the details: title, text, objectives, the rewards to choose, money and exp
   Events.QUEST_DETAIL.emit(nil)
   Test.expect(window().text("A Pie for Maggie").shown() && window().text("Bring Maggie 6 chunks of boar meat.").shown())
   Test.expect(window().text("You will be able to choose").shown() && window().text("Cook's Gloves").shown())
-  Test.expect(window().text("450 experience").shown())
+  Test.expect(window().text("450").shown())
   window().button("Accept").click()
   Test.expect(asked() == "accept")
 }
@@ -773,4 +781,69 @@ test "the NPC's title under its name is the plain line of its tooltip, never its
   Events.GOSSIP_CLOSED.emit(false)
   Test.talk({ name: "Thor", id: 523, text: "The gryphons are ready.", level: 30 })
   Test.expect(!window().text("Level 30").shown() && Dialogue.speaker.subtitle == nil)
+}
+
+// Many options: a Stormwind guard's
+
+// A guard's directions: seventeen places.
+function guard(): Test.Npc {
+  let options: Array<Client.GossipOptionUIInfo> = []
+  for (index of 1..17) { options.push(option(500 + index, `Place ${index}`, index - 1, TALK)) }
+  return { name: "Stormwind City Guard", id: 68, text: "Where would you like to go?", options: options }
+}
+
+test "many options flow into columns of nine, the window wider and never past the screen's foot" {
+  Test.mount(nil, SCREEN)
+  Test.talk(guard())
+  const page = Test.page().window("Stormwind City Guard")
+  const first = page.text("Place 1").rect()
+  const ninth = page.text("Place 9").rect()
+  const tenth = page.text("Place 10").rect()
+  Test.expect(tenth.left > first.right && (tenth.top - first.top).abs() < 1 && ninth.top > first.top)
+  Test.expect(page.text("Place 17").rect().bottom < 900)
+}
+
+test "the window widens for the columns: the last one stands inside it" {
+  Test.mount(nil, SCREEN)
+  Test.talk(guard())
+  const page = Test.page().window("Stormwind City Guard")
+  Test.expect(page.text("Place 17").rect().right <= page.rect().right)
+}
+
+test "the tenth line's key is 0, and it picks the line" {
+  Test.mount(nil, SCREEN)
+  let options: Array<Client.GossipOptionUIInfo> = []
+  for (index of 1..10) { options.push(option(500 + index, `Place ${index}`, index - 1, TALK)) }
+  Test.talk({ name: "Stormwind City Guard", id: 68, text: "Where would you like to go?", options: options })
+  Test.expect(Test.page().window("Stormwind City Guard").text("0").shown() && Test.keyBound("0"))
+  Test.expect(asked() == "option 510")
+}
+
+test "every option has a key: the digits, 0, then letters past them, which pick their line" {
+  Test.mount(nil, SCREEN)
+  Test.talk(guard())
+  const page = Test.page().window("Stormwind City Guard")
+  Test.expect(page.text("0").shown() && page.text("Q").shown() && page.text("I").shown())
+  _ = Test.keyBound("Q")
+  Test.expect(asked() == "option 511")
+}
+
+test "the letters aren't the window's for a list the digits reach" {
+  Test.mount(nil, SCREEN)
+  Test.talk(innkeeper())
+  Test.expect(!Test.keyBound("Q"))
+}
+
+test "the scroll stands at its one size, on a long list and on a quest's page alike" {
+  Test.mount(nil, SCREEN)
+  Test.talk(guard())
+  const page = Test.page().window("Stormwind City Guard")
+  const listed = page.box("QuestBG-Parchment").rect()
+  Test.expect(page.text("Where would you like to go?").shown() && listed.bottom - listed.top > 150)
+  Events.GOSSIP_CLOSED.emit(false)
+  Test.talk(innkeeper())
+  Test.quest(pie())
+  Events.QUEST_DETAIL.emit(nil)
+  const quest = window().box("QuestBG-Parchment").rect()
+  Test.expect((listed.bottom - listed.top - (quest.bottom - quest.top)).abs() < 0.5)
 }

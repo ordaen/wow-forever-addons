@@ -1,0 +1,32 @@
+// A list that scrolls is a well: its rim round the rows, its floor under them, and the rows cut at the rim's inner
+// edge as they scroll out.
+import Test from "$test"
+import root Ordaen from "Ordaen"
+import { ScrolledList } from "@/scrolledList"
+
+class Rows {
+  state names: Array<String> = ["Row 1", "Row 2", "Row 3", "Row 4", "Row 5", "Row 6", "Row 7", "Row 8", "Row 9", "Row 10"]
+
+  public render(self): Template {
+    return $ltml {
+      <box rows={[{ fr: 1 }]} padding={3sp}>
+        <ScrolledList columns={1} height={100dp}>
+          <box $for={name of self.names} height={28dp}>
+            <text value={name} />
+          </box>
+        </ScrolledList>
+      </box>
+    }
+  }
+}
+
+test "the well's rim stands round the list and its rows are cut at the rim's inner edge" {
+  Test.mount(new Rows(), { left: 100, top: 100, width: 300, height: 200 })
+  // The floor is the look's; the scrolling box stands inside the rim (in by its width on every side: the shot), so
+  // what it cuts is cut at the rim's inner edge.
+  Test.expect(Test.page().paintedWith(Ordaen.art.ctl.well.floor))
+  Test.shot("at the top")
+  Test.page().text("Row 2").wheel(-1)
+  // Scrolled: a row half out at the top is cut at the rim's inner edge, the rim drawn whole over nothing.
+  Test.shot("scrolled")
+}

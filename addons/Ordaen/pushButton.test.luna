@@ -61,6 +61,63 @@ test "every push button's label stands inside its caps, a long one widening the 
   Test.expect(Test.blank())
 }
 
+// A row of buttons as a quest's page has them, in ruRU: each as wide as its label, the row as wide as its buttons.
+class ButtonRow {
+  public render(self): Template {
+    return $ltml {
+      <box columns={["max-content", "max-content", { fr: 1 }, "max-content"]} gap={3sp}>
+        <PushButton label={"Показать на карте"} width={131.25dp} />
+        <PushButton label={"Поделиться"} width={131.25dp} />
+        <box />
+        <PushButton label={"Отказаться от задания"} width={131.25dp} plate={ButtonPlate.Accent} />
+      </box>
+    }
+  }
+}
+
+// The row in a box of a fixed width it doesn't fit in.
+class Fixed {
+  public render(self): Template {
+    return $ltml { <box width={300ui}> <ButtonRow /> </box> }
+  }
+}
+
+// The row in a window sized by what it holds, given less room than the row needs.
+class Grown {
+  public render(self): Template {
+    return $ltml {
+      <surface layer={Layer.Dialog} place={{ point: Point.TopLeft, x: 20ui, y: 20ui }} width={300ui} padding={3.5sp}>
+        <box rows={["max-content", "max-content"]}>
+          <text value={"Задание"} />
+          <ButtonRow />
+        </box>
+      </surface>
+    }
+  }
+}
+
+test "a box of a fixed width narrower than what it holds needs is a fault that names it and how much it lacks" {
+  let page = new Fixed()
+  Test.mount(page, { left: 0, top: 0, width: 800, height: 300 })
+  Test.shot("the row past its box of 300")
+  const said = Test.faults().join("\n")
+  const short, _ = said.find("300 wide is")
+  Test.expect(short != nil)
+  destroy page
+}
+
+test "a window given less room than a row of buttons needs grows to hold it" {
+  let page = new Grown()
+  Test.mount(page, { left: 0, top: 0, width: 800, height: 300 })
+  Test.expect(fits("Показать на карте"))
+  Test.expect(fits("Поделиться"))
+  Test.expect(fits("Отказаться от задания"))
+  const window = Test.page().text("Задание")
+  Test.expect(Test.page().button("Отказаться от задания").rect().right > window.rect().left + 300)
+  Test.expect(Test.faults().length == 0)
+  destroy page
+}
+
 class Asking {
   public pressed = 0
 

@@ -1,9 +1,14 @@
 // What the player chooses on the chat's settings page.
 import Game from "$game"
+import { WINDOW_MIN_WIDTH } from "Ordaen"
 
 // How a channel's line names its channel: by number («[2]»), by name («[Trade]») or both («[2. Trade]»); the zone
 // after the name is left out either way.
 public enum ChannelName implements Plain { Number = "number", Name = "name", Both = "both" }
+
+// The chat's least width (in dp): a window's least body, Ordaen's `WINDOW_MIN_WIDTH`, which holds two of its tabs and
+// the «Copy» beside them.
+public const LEAST_WIDTH: Integer = (WINDOW_MIN_WIDTH / 1dp).ceil()
 
 public struct Choices implements Plain {
   // The chat's size.
@@ -11,8 +16,6 @@ public struct Choices implements Plain {
   height: Number
   // Seconds a line shows before it fades; 0: lines never fade.
   fade: Integer
-  // Each whisper partner in a tab of their own (the game's «new whispers: in a new tab»).
-  whisperTabs: Boolean
   channelName: ChannelName
   // Words (comma-separated) that mark someone else's line, beside the player's own name.
   keywords: String

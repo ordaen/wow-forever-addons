@@ -9,9 +9,9 @@
 // at or past the game's asking price (15 gold) or one paid in items or currencies is asked first, as the game asks (one
 // that can't be refunded says so). The buyback's click buys the item back.
 import Game from "$game"
-import { Align, Art, Columns, Event, MouseButton, Overflow, Position, Track } from "$ltml"
+import { Align, Art, Columns, Event, MouseButton, Position, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { ARTWORK, ButtonPlate, Choice, Column, Component, CountInput, Dialog, FoldCaption, FooterCount, FooterCounts, ItemButton, KeptWindow, ModuleMemory, Money, PushButton, SECONDARY_TEXT, Table, TableRow, ToolPick, Toolbar, Window, WindowSide, WindowTabSpec, tracksOf } from "Ordaen"
+import { ARTWORK, ButtonPlate, Choice, Column, Component, CountInput, Dialog, FoldCaption, FooterCount, FooterCounts, ItemButton, KeptWindow, ModuleMemory, Money, PushButton, SECONDARY_TEXT, ScrolledList, Table, TableRow, ToolPick, Toolbar, Window, WindowSide, WindowTabSpec, tracksOf } from "Ordaen"
 import { SLOT } from "@/layout"
 import Locale from "@/locales"
 import { KINDS, Tab } from "@/model"
@@ -542,19 +542,19 @@ public class MerchantWindow implements Component {
               <WareTableRow $for={ware of self.shown} $key={ware.index} ware={ware} @pressed={self.onWareRow} />
             </Table>
           </box>
-          <box $elseif={self.grouped} columns={2} gap={3sp} overflow={Overflow.Scroll}>
+          <ScrolledList $elseif={self.grouped} columns={2} gap={3sp}>
             <$for={tab of self.groups}>
               <WareCaption tab={peek tab} count={self.countIn(tab)} folded={self.folded[tab] == true} @toggled={self.onToggle} />
               <WareCell $for={ware of self.inGroup(tab)} $key={ware.index} ware={ware} @pressed={self.onWare} @dragged={self.onDragged} />
             </>
-          </box>
-          <box $else columns={2} gap={3sp} overflow={Overflow.Scroll}>
+          </ScrolledList>
+          <ScrolledList $else columns={2} gap={3sp}>
             <WareCell $for={ware of self.shown} $key={ware.index} ware={ware} @pressed={self.onWare} @dragged={self.onDragged} />
-          </box>
+          </ScrolledList>
         </box>
-        <box $else columns={2} gap={3sp} overflow={Overflow.Scroll}>
+        <ScrolledList $else columns={2} gap={3sp}>
           <SoldCell $for={sold of self.sold} $key={sold.place} sold={sold} @pressed={self.onSold} />
-        </box>
+        </ScrolledList>
       </Window>
       <Dialog $if={self.asking != nil} width={DIALOG} title={Locale.MERCHANT}>
         <text value={self.askTitle} textColor={INK} />

@@ -41,6 +41,11 @@ at the end. Commits are lunatype's unless named `dev` (wow-dev-tools). What tool
 - **The client reads an addon's whole saved-variables file at every login** (a 26 MB file: about 230 ms and 60 MB of
   Lua heap) and writes it on `/reload` or logout. Known: dev eaf28a9 (2026-11-14); skill `debug-in-game`. Not held by
   the stand-in.
+- **The Key Bindings window lists an addon's binding only under the `category` its `Bindings.xml` gives it**
+  (`<Binding name="X" category="Title">`); one with a `header` alone isn't listed. Known: OpenMap and
+  ForeverDungeonJournal, which name a category, are listed; Ordaen Radial's header-only ones weren't (the user,
+  2026-11-20). Stand-in: `Client.listedBindings`, `GetBinding` (`client.lua`, `host.lua`); lunatype
+  `tests/layout/Pages/global.test.luna`.
 - **The client reads an addon's `Bindings.xml` from its folder by itself;** each binding's body runs on its key.
   Known: 0fdbf8b. Stand-in: `Host.bindings` (`host.lua`), `Test.keyBound`; wow-dev-tools `Keys.test.luna`.
 
@@ -130,6 +135,12 @@ at the end. Commits are lunatype's unless named `dev` (wow-dev-tools). What tool
   `SetPropagateKeyboardInput` is refused in a fight. A key no frame keeps runs the player's binding (Escape:
   `TOGGLEGAMEMENU`). Known: 0fb1843, 8884ea8. Stand-in: `Frame:SetPropagateKeyboardInput`, the key's path,
   `SetBinding("ESCAPE", "TOGGLEGAMEMENU")` (`client.lua`); `client_test.lua` «Keys».
+- **Enter and `/` open the chat's input** (the bindings `OPENCHAT` and `OPENCHATSLASH`, `ChatFrameUtil.OpenChat`):
+  `ActivateChat` shows the edit box, gives it the keyboard, raises it to the `DIALOG` strata and makes it opaque; the
+  classic style opens the first window's, the IM style the window's own. The box is 32 high (FloatingChatFrame.xml);
+  one embedded with no height is drawn 0 high and still takes the keys. Known: Blizzard_FrameXML's
+  `Bindings_Camelot.xml` and `ChatFrameUtil.lua` (1.60.1-70959), the game (Enter showing nothing, typing blind sent).
+  Stand-in: `OpenChat`, `chatFrame`'s edit box, `SetBinding("ENTER", "OPENCHAT")` (`client.lua`).
 - **The keyboard's frames hear the key alone ("I"), the bindings the key with its modifiers ("CTRL-I").** Known:
   dca2901. Stand-in: `Client.pressBound`, `IsControlKeyDown` (`client.lua`), `Test.chord`.
 - **The client reads Alt, Ctrl and Shift from the real keyboard:** a modifier posted to the window never counts.
@@ -184,6 +195,11 @@ What a tooltip's data holds: [`tooltip-data.md`](tooltip-data.md).
 
 ## Events and data
 
+- **`C_GossipInfo.ForceGossip()` is true for an ordinary vendor:** its one option («I want to browse your goods»,
+  `selectOptionWhenOnlyOption` false, `orderIndex` 0) comes with `GOSSIP_SHOW` after
+  `PLAYER_INTERACTION_MANAGER_FRAME_SHOW(3)`, and `ForceGossip` says true. Known: the play records of 2026-11-20
+  (Stormwind's vendors 1285, 1289). Held by the stand-in (`Test.Npc.forceGossip` true unless a test says).
+
 - **`TRADE_SKILL_LIST_UPDATE` after `TRADE_SKILL_SHOW` may come before the list:** `GetAllRecipeIDs` gives none at
   the first. Known: session 445 (da2daef). Not held by the stand-in.
 - **A profession opened while another is open (`OpenTradeSkill`) is shown before its lists come:** at its
@@ -208,6 +224,13 @@ What a tooltip's data holds: [`tooltip-data.md`](tooltip-data.md).
   place).
 - **`C_Map.GetPlayerMapPosition` gives a new table each call** (`Vector2D`). Known: 0f3d2c4. Stand-in:
   `C_Map.GetPlayerMapPosition` (`client.lua`).
+- **The letter being written takes items only while the send page shows (`SetSendMailShowing(true)`):** an item
+  on the cursor goes in with `ClickSendMailItemButton(place)` or, with no place, into the first empty one (Blizzard's
+  `SendMailAttachmentButton_OnDropAny`), and a bag item used (Right-click) goes in too; each change is told with
+  `MAIL_SEND_INFO_UPDATE`, and `GetSendMailItem`'s fourth value is the stack's count. Known: Blizzard's
+  `MailFrame.lua` of build 70959. Stand-in: `ClickSendMailItemButton`, `UseContainerItem` (`client.lua`). The
+  event's timing (at once or a frame later) is not confirmed; `lunatype test` delivers the stand-in's events to no
+  `"$events"` listener (a test emits it).
 - **`GetMaxPlayerLevel` is 60 and the client still names the last level's experience figure at the cap.** Known:
   2962a90. Stand-in: `GetMaxPlayerLevel`, `IsXPUserDisabled` (`client.lua`). The figure at the cap is not held.
 

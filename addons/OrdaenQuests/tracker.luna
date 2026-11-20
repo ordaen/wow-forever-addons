@@ -2,9 +2,9 @@
 // objectives and how many places there; once done, whom to hand it to and where. A quest QuestieDB doesn't know gets
 // no line. Its title clicked opens it in Quests' window (or docked, on the map).
 import Client from "$client"
+import type { QuestLine, QuestLines } from "OrdaenTracker"
 import Locale from "@/locales"
 import { Figure, QuestFacts, Spot } from "@/questie"
-import type { QuestLine, QuestLines } from "OrdaenTracker"
 
 // The zone's name of an `AreaTable` area, as the client names it.
 function zoneOf(area: Integer): String { return Client.C_Map.GetAreaInfo(area) }

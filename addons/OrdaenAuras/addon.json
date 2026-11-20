@@ -1,0 +1,8 @@
+{
+  "title": "Ordaen Auras",
+  "icon": "Interface/Icons/Spell_Holy_WordFortitude",
+  "notes": "Your buffs and debuffs, and what each one changes in your stats.",
+  "version": "0.1.0",
+  "loadOnDemand": true,
+  "dependencies": { "Ordaen": "^1.0.0" }
+}

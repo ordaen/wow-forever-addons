@@ -272,8 +272,8 @@ test "the game's sets stand over the columns: one clicked is put on, and «+» s
   const sheet = new FakeSheet()
   Game.items.icon = icons
   const window = opened(mut sheet)
-  Test.expect(window.text("Tank").textColor() == Style.GOLD)
-  Test.expect(window.text("Fury").textColor() == Style.RED)
+  Test.expect(window.text("Tank").textColor().equal(Style.GOLD))
+  Test.expect(window.text("Fury").textColor().equal(Style.RED))
   window.button("Fury").click()
   window.button("+ Save set").click()
   Test.expect(sheet.heard.join(", ") == "set 1, save Set 3")
@@ -297,7 +297,8 @@ test "a main stat under the cursor shows its name and the game's words on it" {
   Game.items.icon = icons
   const window = opened(new FakeSheet())
   window.text("312").hover()
-  Test.expect(window.text("Increases your attack power with melee weapons.").shown())
+  const tip = Test.page().window("Increases your attack power with melee weapons.")
+  Test.expect(tip.text("Strength 312").shown())
 }
 
 // The stats
@@ -473,7 +474,7 @@ test "the statistics as one list stand under no category" {
   const window = opened(new FakeSheet())
   window.button("Statistics").click()
   window.button(Ordaen.art.ctl.tool.categories).click()
-  window.button("One list").click()
+  Test.page().window("One list").text("One list").click()
   Test.expect(window.text("Total deaths").shown())
   Test.expect(!window.text("Combat").shown())
 }
@@ -495,7 +496,16 @@ test "the reputation's filter keeps the factions at war alone, and says nothing 
   const window = opened(new FakeSheet())
   window.button("Reputation").click()
   window.button(Ordaen.art.ctl.tool.filter).click()
-  window.button("At war").click()
+  Test.page().window("At war").text("At war").click()
   Test.expect(!window.text("Stormwind").shown())
   Test.expect(window.text("Nothing found.").shown())
+}
+
+test "a window kept narrower than the stats need, from an older save, is drawn wide enough for them" {
+  Test.mount(nil, PAGE)
+  Game.items.icon = icons
+  Char.window.memory.write({ width: 1054.6875dp, height: 726.5625dp, ..Char.window.defaults })
+  const window = opened(new FakeSheet())
+  Test.expect(window.text("STR").shown())
+  Test.expect(window.text("Attack power").count() == 1)
 }

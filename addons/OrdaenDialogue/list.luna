@@ -1,9 +1,9 @@
-// The NPC's list in the well: each line with its key (1–9; past that the keycap's room alone, so the column holds),
+// The NPC's list in the well: each line with its key (`LINE_KEYS`; past those the keycap's room alone),
 // its icon (the game's gossip icon, or the quest's «!» and «?», a quest in progress greyed), a quest's level in the
 // quest log's difficulty colour (a too-easy quest's title dimmed), its title, and «auto» on an option picked on its
 // own. Left-click, Enter or Space picks a line; right-click on a plain option opens its menu: «Always pick this
 // option».
-import { Track } from "$ltml"
+import { Key, Track } from "$ltml"
 import { Component, Keycap, Menu, MenuEntry, PickRow, SECONDARY_TEXT } from "Ordaen"
 import Locale from "@/locales"
 import { Line, LineKind } from "@/read"
@@ -11,6 +11,73 @@ import Style from "@/style"
 
 // The title as wide as it is, never wrapped (the window widens to hold the longest); «auto» right after it.
 const COLUMNS: Array<Track> = ["max-content", "max-content", "max-content", "max-content", "max-content"]
+// A key that picks a line, and its name on the keycap.
+public struct LineKey {
+  const key: Key
+  const name: String
+}
+
+// The lines' keys in order: the digits 1–9 and 0, then the letters of the keyboard's top and bottom rows, leaving out
+// the middle row (A, S, D: walking) and W; a key past the ninth is the window's only while a line has it.
+public const LINE_KEYS: Array<LineKey> = [
+  { key: Key.Digit1, name: "1" }, { key: Key.Digit2, name: "2" }, { key: Key.Digit3, name: "3" },
+  { key: Key.Digit4, name: "4" }, { key: Key.Digit5, name: "5" }, { key: Key.Digit6, name: "6" },
+  { key: Key.Digit7, name: "7" }, { key: Key.Digit8, name: "8" }, { key: Key.Digit9, name: "9" },
+  { key: Key.Digit0, name: "0" }, { key: Key.Q, name: "Q" }, { key: Key.E, name: "E" }, { key: Key.R, name: "R" },
+  { key: Key.T, name: "T" }, { key: Key.Y, name: "Y" }, { key: Key.U, name: "U" }, { key: Key.I, name: "I" },
+  { key: Key.O, name: "O" }, { key: Key.P, name: "P" }, { key: Key.Z, name: "Z" }, { key: Key.X, name: "X" },
+  { key: Key.C, name: "C" }, { key: Key.V, name: "V" }, { key: Key.B, name: "B" }, { key: Key.N, name: "N" },
+  { key: Key.M, name: "M" }
+]
+// The keys always the window's while it hears keys: 1–9, which pick a quest's reward too.
+const ALWAYS_KEYS = 9
+
+// The keys the window hears for that many lines: the first nine, and one a line past them.
+public function keysFor(lines: Integer): Array<LineKey> {
+  let keys: Array<LineKey> = []
+  for (index, lineKey of LINE_KEYS) {
+    if (index <= lines.max(ALWAYS_KEYS)) { keys.push(lineKey) }
+  }
+  return keys
+}
+
+// The name of the key of the line at that place; "" past the keys.
+public function keyName(index: Integer): String { return LINE_KEYS[index]?.name ?? "" }
+
+// The place of the line a key picks; 0 for a key that picks none.
+public function placeOf(key: Key): Integer {
+  for (index, lineKey of LINE_KEYS) {
+    if (lineKey.key == key) { return index }
+  }
+  return 0
+}
+
+// The most lines a column of the list holds: past it they flow into the next column, the window widening.
+public const COLUMN_LINES = 9
+
+// A line of the list with its place among the lines, which its key and a pick go by.
+public struct Placed {
+  const line: Line
+  const index: Integer
+}
+
+// The lines in columns of as many as the most a column holds lets them be even, each column top to bottom.
+public function columnsOf(lines: Array<Line>): Array<Array<Placed>> {
+  const count = ((lines.length + COLUMN_LINES - 1) / COLUMN_LINES).floor().max(1)
+  const tall = ((lines.length + count - 1) / count).floor()
+  let columns: Array<Array<Placed>> = []
+  let column: Array<Placed> = []
+  for (index, line of lines) {
+    column.push({ line: line, index: index })
+    if (column.length == tall) {
+      columns.push(column)
+      column = []
+    }
+  }
+  if (column.length > 0) { columns.push(column) }
+  return columns
+}
+
 const GREY: Color = Color.hex("#8c8c8c")
 const WHITE: Color = Color.hex("#ffffff")
 
@@ -26,7 +93,7 @@ public class OptionRow implements Component {
   public mark: Event<Integer> = new Event()
 
   derived keyed: Boolean = self.hints
-  derived key: String = self.index <= 9 ? String.of(self.index) : ""
+  derived key: String = keyName(self.index)
   derived leveled: Boolean = self.line.level > 0
   derived levelColor: Color = Style.difficultyColor(self.line.difficulty)
   derived color: Color = titleColor(self.line)

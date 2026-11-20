@@ -5,7 +5,7 @@
 import Client from "$client"
 import { GuildNews, GuildRoster, NewsFilter, NewsKind } from "$game"
 import { Align, Overflow } from "$ltml"
-import { ButtonPlate, Component, CopyText, FilterButton, FilterGroup, FilterOption, ItemButton, PushButton, TITLE_LINE, TITLE_TEXT, Tip, TipText } from "Ordaen"
+import { ButtonPlate, Component, CopyText, FilterButton, FilterGroup, FilterOption, ItemButton, PushButton, ScrolledList, TITLE_LINE, TITLE_TEXT, Tip, TipText } from "Ordaen"
 import { orDash } from "@/friends"
 import Locale from "@/locales"
 import Style from "@/style"
@@ -158,10 +158,10 @@ public class NewsList implements Component {
           <box />
           <FilterButton values={mut self.picked} start={self.start} groups={self.groups} />
         </box>
-        <box columns={1} overflow={Overflow.Scroll} yAlign={Align.Start}>
+        <ScrolledList columns={1} yAlign={Align.Start}>
           <text $if={self.shown.length == 0} value={Locale.NO_NEWS} textColor={Style.DIM} />
           <NewsRow $for={line of self.shown} news={line} />
-        </box>
+        </ScrolledList>
       </box>
     }
   }

@@ -1,16 +1,16 @@
 // What Quests puts on Ordaen Map, and the colours of its levels: a tracked quest's objectives while it is to do, its
 // turn-in once done, nothing of a quest not tracked or not known to QuestieDB.
 import Test from "$test"
+import { Difficulty, colorOf, difficultyOf } from "Ordaen"
 import type { Pin } from "OrdaenMap"
 import { LogQuest } from "@/book"
 import { DungeonQuests, PinKind, QuestPins } from "@/layers"
-import { Difficulty, colorOf, difficultyOf } from "Ordaen"
 import { QuestFacts } from "@/questie"
 
 function quest(id: Integer, tracked: Boolean, done: Boolean): LogQuest {
   return {
     id: id, title: `Quest ${id}`, level: 10, header: "Westfall", kind: .World, done: done, failed: false,
-    tracked: tracked, group: 0, shareable: false,
+    tracked: tracked, group: 0, shareable: false, xp: 0, money: 0,
     objectives: [{ text: "Wolves slain: 5/10", done: false }, { text: "Bears slain: 2/2", done: true }]
   }
 }

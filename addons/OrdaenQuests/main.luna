@@ -19,7 +19,6 @@ import { ARTWORK, ButtonPlate, Choice, CompactDropdown, Dialog, FilterButton, Fi
 import root Maps from "OrdaenMap"
 import type { SidePanel } from "OrdaenMap"
 import root Tracker from "OrdaenTracker"
-import { TrackerLines } from "@/tracker"
 import { LogQuest, logQuests } from "@/book"
 import { TakenClick } from "@/button"
 import { QuestieData } from "@/data"
@@ -31,6 +30,7 @@ import { Asked, QuestFilter, QuestSort, QuestStatus, QuestView, countOf, listedO
 import { QuestFacts } from "@/questie"
 import { Choices, GeneralPage } from "@/settings"
 import Style from "@/style"
+import { TrackerLines } from "@/tracker"
 import { Act, QuestPage } from "@/view"
 
 // The button the game's quest log key clicks: the client binds a key to a button by its name.
@@ -103,6 +103,9 @@ function tabTitle(kind: QuestKind): String {
   }
 }
 
+// The sub-tabs' titles, in `KINDS`' order.
+const KIND_TITLES: Array<String> = KINDS.map(kind => tabTitle(kind))
+
 public class Quests implements Module, App {
   public const title: String = "Ordaen Quests"
   public window: mut KeptWindow = new KeptWindow("log", self.title, { x: 0ui, y: 0ui, width: Style.WIDTH, height: Style.HEIGHT })
@@ -159,7 +162,6 @@ public class Quests implements Module, App {
   derived kind: QuestKind = KINDS[self.tab] ?? .World
   // One tab, the log's; its kinds are sub-tabs, each with its count.
   derived tabs: Array<WindowTabSpec> = [{ title: Locale.TAB_QUESTS, desc: String.of(self.quests.length), icon: TAB_ICON }]
-  derived kindNames: Array<String> = KINDS.map(kind => tabTitle(kind))
   derived kindsCounted: Array<Integer> = kindCounts(self.quests)
   derived count: Integer = self.quests.length
   derived counted: Array<FooterCount> = [
@@ -338,7 +340,7 @@ public class Quests implements Module, App {
   logBody(self): Template {
     return $ltml {
       <box rows={LOG_ROWS} gap={3sp}>
-        <Tabs tabs={self.kindNames} selected={mut self.tab} counts={self.kindsCounted} />
+        <Tabs tabs={KIND_TITLES} selected={mut self.tab} counts={self.kindsCounted} />
         <Toolbar search={mut self.search} placeholder={Locale.SEARCH}>
           <box padding={AFTER_SEARCH}>
             <CompactDropdown value={mut self.status} choices={STATUSES} width={STATUS_WIDTH} />

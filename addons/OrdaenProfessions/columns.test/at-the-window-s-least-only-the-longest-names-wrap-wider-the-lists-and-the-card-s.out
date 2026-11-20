@@ -1,28 +1,28 @@
 -- the window at its least: the longest category and recipe wrap, every other name on one line
-surface 325,133.88 925.86x548.49 on DIALOG clamped raised by a click
-  box 325,182.79 925.86x499.57 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
-    box 338.09,195.89 904.67x475.63
-      box 360.85,218.64 859.16x421.59
-        box 360.85,218.64 859.16x25 #3d2710
-          box 363.69,218.64 853.47x22.16 #0b0805 clipped
-            box 363.69,218.64 853.47x22.16 absolute
-              box 363.69,218.64 352.77x22.16 Interface\AddOns\Ordaen\media\xp-fill-brushed
-              box 716.46,218.64 500.7x22.16
-            box 363.69,218.64 853.47x22.16 absolute
-              box 363.69,218.64 85.35x22.16
-              box 449.04,218.64 85.35x22.16
-              box 534.39,218.64 85.35x22.16
-              box 619.73,218.64 85.35x22.16
-              box 705.08,218.64 85.35x22.16
-              box 790.43,218.64 85.35x22.16
-              box 875.77,218.64 85.35x22.16
-              box 961.12,218.64 85.35x22.16
-              box 1046.47,218.64 85.35x22.16
-              box 1131.81,218.64 85.35x22.16
-            box 363.69,218.64 853.47x22.16 absolute
-              text 724.32,220.83 132.22x17.78 "Apprentice · 31 / 75" #ffffff
-        box 360.85,260.71 859.16x29.99
-          box 360.85,289.86 859.16x0.83 absolute #3e2f1d
+surface 325,133.88 932.72x548.49 on DIALOG clamped raised by a click
+  box 325,182.79 932.72x499.57 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
+    box 338.09,195.89 911.53x475.63
+      box 360.85,218.64 866.02x421.59
+        box 360.85,218.64 866.02x25 #3d2710
+          box 363.69,218.64 860.33x22.16 #0b0805 clipped
+            box 363.69,218.64 860.33x22.16 absolute
+              box 363.69,218.64 355.6x22.16 Interface\AddOns\Ordaen\media\xp-fill-brushed
+              box 719.3,218.64 504.73x22.16
+            box 363.69,218.64 860.33x22.16 absolute
+              box 363.69,218.64 86.03x22.16
+              box 449.73,218.64 86.03x22.16
+              box 535.76,218.64 86.03x22.16
+              box 621.79,218.64 86.03x22.16
+              box 707.83,218.64 86.03x22.16
+              box 793.86,218.64 86.03x22.16
+              box 879.89,218.64 86.03x22.16
+              box 965.93,218.64 86.03x22.16
+              box 1051.96,218.64 86.03x22.16
+              box 1137.99,218.64 86.03x22.16
+            box 363.69,218.64 860.33x22.16 absolute
+              text 727.75,220.83 132.22x17.78 "Apprentice · 31 / 75" #ffffff
+        box 360.85,260.71 866.02x29.99
+          box 360.85,289.86 866.02x0.83 absolute #3e2f1d
           box 360.85,260.71 72.2x29.99 #00000059 @keyPress @pointerPress
             box 361.68,261.54 70.53x1.67 absolute #d6a56b
             text 373.06,267.23 47.78x17.78 "Recipes" #ffffff
@@ -35,129 +35,133 @@ surface 325,133.88 925.86x548.49 on DIALOG clamped raised by a click
           box 580.43,260.71 78.87x29.99 #00000000 @keyPress @pointerPress
             box 581.26,261.54 77.2x1.67 absolute #00000000
             text 592.64,267.23 54.44x17.78 "Worth it" #a3977f
-        box 360.85,307.76 859.16x332.47
-          box 360.85,307.76 501.67x332.47
-            box 360.85,307.76 501.67x28.33
-              box 360.85,307.76 399.6x28.33
-                box 360.85,307.76 399.6x28.33 #00000080 input "" @change @submit
-                box 360.85,307.76 399.6x28.33 absolute
-                  text 369.38,313.04 382.53x17.78 "Search by name or reagent" #a3977f
-              box 760.45,307.76 102.07x28.33
-                box 760.45,307.76 34.02x28.33
-                  box 766.14,307.76 28.33x28.33
-                    box 766.14,307.76 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerEnter @pointerLeave @pointerPress
-                      box 773.64,315.26 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 0 of 16
-                box 794.47,307.76 34.02x28.33
-                  box 800.16,307.76 28.33x28.33
-                    box 800.16,307.76 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerEnter @pointerLeave @pointerPress
-                      box 807.66,315.26 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 1 of 16
-                box 828.49,307.76 34.02x28.33
-                  box 834.18,307.76 28.33x28.33
-                    box 834.18,307.76 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerEnter @pointerLeave @pointerPress
-                      box 841.68,315.26 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 2 of 16
-            box 360.85,344.63 501.67x295.6 #0000004d
-              box 361.68,345.46 216.67x293.93 scrolled 0 of 0
-                box 361.68,345.46 216.67x29.16 #d6a56b3d clipped @keyPress @pointerPress
-                  box 361.68,345.46 1.67x29.16 absolute #f0c860
-                  text 375.91,351.15 147.16x17.78 "Cloth armour" #ffd100
-                  box 530.17,351.15 33.96x17.78
-                    text 530.17,351.15 8.89x17.78 "3" #a3977f
-                    text 541.91,351.15 22.22x17.78 "(3)" #ffffff
-                box 361.68,374.62 216.67x47.77 #00000000 clipped @keyPress @pointerPress
-                  text 375.91,381.14 147.16x35.56 "Bags, quivers and pouches" #ffd100
-                  box 530.17,390.03 33.96x17.78
-                    text 530.17,390.03 8.89x17.78 "1" #a3977f
-                    text 541.91,390.03 22.22x17.78 "(1)" #ffffff
-              box 578.35,345.46 283.33x293.93 scrolled 0 of 0
-                box 579.18,345.46 282.5x46.93 #ff80403d clipped @keyPress @pointerPress
-                  box 579.18,345.46 1.67x46.93 absolute #ff8040
-                  text 593.41,351.15 224.72x35.56 "Enchanted Runecloth Robe of Long Nights" #ff8040
-                  text 825.24,360.04 22.22x17.78 "[1]" #ffffff
-                box 579.18,392.4 282.5x29.99 #00000000 clipped @keyPress @pointerPress
-                  text 593.41,398.92 224.72x17.78 "Linen Cloak" #ff8040
-                  text 825.24,398.92 22.22x17.78 "[1]" #ffffff
-                box 579.18,422.39 282.5x29.99 #00000000 clipped @keyPress @pointerPress
-                  text 593.41,428.91 224.72x17.78 "Rich Purple Silk Shirt" #ff8040
-                  text 825.24,428.91 22.22x17.78 "[1]" #ffffff
-          box 879.58,307.76 340.42x332.47 Interface/FrameGeneral/UI-Background-Marble
-            box 894.64,322.82 310.31x72.53
-              box 894.64,337.42 43.33x43.33 icon=Interface/Icons/INV_Misc_Note_01
-              box 952.19,322.82 252.76x72.53
-                text 952.19,322.82 252.76x53.33 "Enchanted Runecloth Robe of Long Nights" #ffffff
-                text 952.19,377.57 252.76x17.78 "Always raises the skill" #ff8040
-            text 894.64,403.89 310.31x0 "" #e8dcc4
-            text 894.64,412.42 310.31x0 "" #a3977f
-            box 894.64,420.95 310.31x0 scrolled 0 of 23.47
-              box 894.64,420.95 310.31x23.47
-                box 894.64,420.95 26.67x23.47
-                box 921.31,420.95 127.29x23.47
-                box 1048.59,420.95 7.11x23.47
-                box 1055.71,420.95 51.56x23.47
-                  text 1062.82,423.8 44.44x17.78 "Auction" #a3977f
-                box 1107.26,420.95 58.22x23.47
-                  text 1114.37,423.8 51.11x17.78 "Merchant" #a3977f
-                box 1165.48,420.95 39.47x23.47
-                  text 1172.59,423.8 26.67x17.78 "Best" #a3977f
-            box 894.64,429.49 310.31x106.08
-              box 894.64,429.49 310.31x106.08
-                text 894.64,438.85 220.67x17.78 "Cost" #a3977f
-                text 1123.84,438.85 81.11x17.78 "0g 0s 0c" #e8dcc4
-                text 894.64,465.16 220.67x17.78 "Left to buy" #a3977f
-                text 1123.84,465.16 81.11x17.78 "0g 0s 0c" #e8dcc4
-                text 894.64,491.48 220.67x17.78 "Sale" #a3977f
-                text 1123.84,491.48 81.11x17.78 "doesn't sell" #a3977f
-                text 894.64,517.79 220.67x17.78 "Profit" #a3977f
-                text 1123.84,517.79 81.11x17.78 "—" #a3977f
-            box 894.64,544.1 310.31x27.14
-              box 894.64,553.46 146.62x17.78
-                text 894.64,553.46 106.42x17.78 "Favorite" #e8dcc4
-                box 1009.59,554.02 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 0 of 4 @keyPress @pointerPress
-                  box 1007.09,551.52 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2 opacity=1
-                  box 1022.09,551.52 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=0
-              box 1058.33,553.46 146.62x17.78
-                text 1058.33,553.46 106.42x17.78 "Track" #e8dcc4
-                box 1173.28,554.02 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 0 of 4 @keyPress @pointerPress
-                  box 1170.78,551.52 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2 opacity=1
-                  box 1185.78,551.52 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=0
-            box 894.64,579.78 310.31x36.87
-              box 894.64,579.78 116.67x28.33
-                box 894.64,579.78 116.67x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
-                  text 904.59,585.05 80.58x17.78 "Quantity" #f0c860
-                  box 990.86,587.28 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-              box 1019.84,579.78 76.38x28.33
-                box 1019.84,579.78 23.33x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-                  text 1027.06,585.05 8.89x17.78 "-" #808080
-                box 1048.86,585.05 18.33x17.78
-                  text 1053.58,585.05 8.89x17.78 "1" #ffffff
-                box 1072.88,579.78 23.33x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-                  text 1080.11,585.05 8.89x17.78 "+" #808080
-              box 1104.75,593.94 0x0
-              box 1113.28,579.78 91.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-                text 1138.01,585.05 42.22x17.78 "Create" #ffd100
-              text 894.64,616.64 310.31x0 "" #a3977f
-      box 360.85,640.23 859.16x17.07
-        box 360.85,657.3 859.16x0
-          box 360.85,657.3 859.16x0
-    box 1233.61,662.36 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
-  box 325,133.88 925.86x59.42
-    box 325,133.88 837.32x59.42
+        box 360.85,307.76 866.02x332.47
+          box 360.85,307.76 508.53x332.47
+            box 360.85,307.76 508.53x28.33
+              box 360.85,307.76 406.47x28.33
+                box 360.85,307.76 406.47x28.33 #00000080 input "" @change @submit
+                box 360.85,307.76 406.47x28.33 absolute
+                  text 369.38,313.04 389.4x17.78 "Search by name or reagent" #a3977f
+              box 767.32,307.76 102.07x28.33
+                box 767.32,307.76 34.02x28.33
+                  box 773.01,307.76 28.33x28.33
+                    box 773.01,307.76 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerEnter @pointerLeave @pointerPress
+                      box 780.51,315.26 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 0 of 16
+                box 801.34,307.76 34.02x28.33
+                  box 807.03,307.76 28.33x28.33
+                    box 807.03,307.76 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerEnter @pointerLeave @pointerPress
+                      box 814.53,315.26 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 1 of 16
+                box 835.36,307.76 34.02x28.33
+                  box 841.05,307.76 28.33x28.33
+                    box 841.05,307.76 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerEnter @pointerLeave @pointerPress
+                      box 848.55,315.26 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 2 of 16
+            box 360.85,344.63 508.53x295.6
+              box 360.85,344.63 216.67x295.6 #0000004d
+                box 361.68,345.46 215x0
+                box 361.68,345.46 215x293.93 scrolled 0 of 0
+                  box 370.22,354 197.93x29.16 #d6a56b3d clipped @keyPress @pointerPress
+                    box 370.22,354 1.67x29.16 absolute #f0c860
+                    text 384.44,359.69 128.42x17.78 "Cloth armour" #ffd100
+                    box 519.97,359.69 33.96x17.78
+                      text 519.97,359.69 8.89x17.78 "3" #a3977f
+                      text 531.71,359.69 22.22x17.78 "(3)" #ffffff
+                  box 370.22,383.15 197.93x47.77 #00000000 clipped @keyPress @pointerPress
+                    text 384.44,389.68 128.42x35.56 "Bags, quivers and pouches" #ffd100
+                    box 519.97,398.56 33.96x17.78
+                      text 519.97,398.56 8.89x17.78 "1" #a3977f
+                      text 531.71,398.56 22.22x17.78 "(1)" #ffffff
+              box 586.05,344.63 283.33x295.6 #0000004d
+                box 586.88,345.46 281.67x0
+                box 586.88,345.46 281.67x293.93 scrolled 0 of 0
+                  box 595.42,354 264.6x46.93 #ff80403d clipped @keyPress @pointerPress
+                    box 595.42,354 1.67x46.93 absolute #ff8040
+                    text 609.64,359.69 206.82x35.56 "Enchanted Runecloth Robe of Long Nights" #ff8040
+                    text 823.57,368.58 22.22x17.78 "[1]" #ffffff
+                  box 595.42,400.93 264.6x29.99 #00000000 clipped @keyPress @pointerPress
+                    text 609.64,407.45 206.82x17.78 "Linen Cloak" #ff8040
+                    text 823.57,407.45 22.22x17.78 "[1]" #ffffff
+                  box 595.42,430.92 264.6x29.99 #00000000 clipped @keyPress @pointerPress
+                    text 609.64,437.44 206.82x17.78 "Rich Purple Silk Shirt" #ff8040
+                    text 823.57,437.44 22.22x17.78 "[1]" #ffffff
+          box 886.45,307.76 340.42x332.47 Interface/FrameGeneral/UI-Background-Marble
+            box 901.51,322.82 310.31x72.53
+              box 901.51,337.42 43.33x43.33 icon=Interface/Icons/INV_Misc_Note_01
+              box 959.06,322.82 252.76x72.53
+                text 959.06,322.82 252.76x53.33 "Enchanted Runecloth Robe of Long Nights" #ffffff
+                text 959.06,377.57 252.76x17.78 "Always raises the skill" #ff8040
+            text 901.51,403.89 310.31x0 "" #e8dcc4
+            text 901.51,412.42 310.31x0 "" #a3977f
+            box 901.51,420.95 310.31x0 scrolled 0 of 23.47
+              box 901.51,420.95 310.31x23.47
+                box 901.51,420.95 26.67x23.47
+                box 928.17,420.95 127.29x23.47
+                box 1055.46,420.95 7.11x23.47
+                box 1062.57,420.95 51.56x23.47
+                  text 1069.68,423.8 44.44x17.78 "Auction" #a3977f
+                box 1114.13,420.95 58.22x23.47
+                  text 1121.24,423.8 51.11x17.78 "Merchant" #a3977f
+                box 1172.35,420.95 39.47x23.47
+                  text 1179.46,423.8 26.67x17.78 "Best" #a3977f
+            box 901.51,429.49 310.31x106.08
+              box 901.51,429.49 310.31x106.08
+                text 901.51,438.85 220.67x17.78 "Cost" #a3977f
+                text 1130.71,438.85 81.11x17.78 "0g 0s 0c" #e8dcc4
+                text 901.51,465.16 220.67x17.78 "Left to buy" #a3977f
+                text 1130.71,465.16 81.11x17.78 "0g 0s 0c" #e8dcc4
+                text 901.51,491.48 220.67x17.78 "Sale" #a3977f
+                text 1130.71,491.48 81.11x17.78 "doesn't sell" #a3977f
+                text 901.51,517.79 220.67x17.78 "Profit" #a3977f
+                text 1130.71,517.79 81.11x17.78 "—" #a3977f
+            box 901.51,544.1 310.31x27.14
+              box 901.51,553.46 146.62x17.78
+                text 901.51,553.46 106.42x17.78 "Favorite" #e8dcc4
+                box 1016.46,554.02 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 0 of 4 @keyPress @pointerPress
+                  box 1013.96,551.52 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2 opacity=1
+                  box 1028.96,551.52 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=0
+              box 1065.19,553.46 146.62x17.78
+                text 1065.19,553.46 106.42x17.78 "Track" #e8dcc4
+                box 1180.15,554.02 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 0 of 4 @keyPress @pointerPress
+                  box 1177.65,551.52 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2 opacity=1
+                  box 1192.65,551.52 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=0
+            box 901.51,579.78 310.31x36.87
+              box 901.51,579.78 116.67x28.33
+                box 901.51,579.78 116.67x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
+                  text 911.46,585.05 80.58x17.78 "Quantity" #f0c860
+                  box 997.73,587.28 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+              box 1026.71,579.78 76.38x28.33
+                box 1026.71,579.78 23.33x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+                  text 1033.93,585.05 8.89x17.78 "-" #808080
+                box 1055.73,585.05 18.33x17.78
+                  text 1060.45,585.05 8.89x17.78 "1" #ffffff
+                box 1079.75,579.78 23.33x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+                  text 1086.97,585.05 8.89x17.78 "+" #808080
+              box 1111.62,593.94 0x0
+              box 1120.15,579.78 91.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+                text 1144.87,585.05 42.22x17.78 "Create" #ffd100
+              text 901.51,616.64 310.31x0 "" #a3977f
+      box 360.85,640.23 866.02x17.07
+        box 360.85,657.3 866.02x0
+          box 360.85,657.3 866.02x0
+    box 1240.47,662.36 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
+  box 325,133.88 932.72x59.42
+    box 325,133.88 844.19x59.42
       box 325,133.88 147.59x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
         box 332.25,141.12 48.92x48.92 absolute icon=136249 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=none
         box 376.17,141.12 11.5x52.17 absolute border=ButtonFrameTemplateNoPortrait sides=left
         box 392.7,144.12 61.11x45.92
           text 392.7,148.59 61.11x17.78 "Tailoring" #ffd100
           text 401.03,167.79 44.44x17.78 "31 / 75" #8f8470
-    box 1170.86,161.88 80x31.42
-      box 1170.86,161.88 80x26.67 clipped
-        box 1170.86,161.88 27.5x26.67 absolute clipped @keyPress @pointerPress
-          box 1170.86,161.88 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
-          box 1179.19,171.46 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 0 of 8
-        box 1198.36,161.88 25x26.67 absolute clipped @keyPress @pointerPress
-          box 1198.36,161.88 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 3 of 16
-          box 1204.61,171.46 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
-        box 1223.36,161.88 27.5x26.67 absolute clipped @keyPress @pointerPress
-          box 1223.36,161.88 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
-          box 1229.61,171.46 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
+    box 1177.72,161.88 80x31.42
+      box 1177.72,161.88 80x26.67 clipped
+        box 1177.72,161.88 27.5x26.67 absolute clipped @keyPress @pointerPress
+          box 1177.72,161.88 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
+          box 1186.06,171.46 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 0 of 8
+        box 1205.22,161.88 25x26.67 absolute clipped @keyPress @pointerPress
+          box 1205.22,161.88 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 3 of 16
+          box 1211.47,171.46 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
+        box 1230.22,161.88 27.5x26.67 absolute clipped @keyPress @pointerPress
+          box 1230.22,161.88 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
+          box 1236.47,171.46 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
 
 -- the window widened: no name wraps, the lists and the card wider alike
 surface 325,133.88 1275x548.49 on DIALOG clamped raised by a click
@@ -216,30 +220,34 @@ surface 325,133.88 1275x548.49 on DIALOG clamped raised by a click
                   box 928.13,307.76 28.33x28.33
                     box 928.13,307.76 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerEnter @pointerLeave @pointerPress
                       box 935.63,315.26 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 2 of 16
-            box 360.85,344.63 595.62x295.6 #0000004d
-              box 361.68,345.46 237.58x293.93 scrolled 0 of 0
-                box 361.68,345.46 237.58x29.16 #d6a56b3d clipped @keyPress @pointerPress
-                  box 361.68,345.46 1.67x29.16 absolute #f0c860
-                  text 375.91,351.15 168.07x17.78 "Cloth armour" #ffd100
-                  box 551.09,351.15 33.96x17.78
-                    text 551.09,351.15 8.89x17.78 "3" #a3977f
-                    text 562.82,351.15 22.22x17.78 "(3)" #ffffff
-                box 361.68,374.62 237.58x29.99 #00000000 clipped @keyPress @pointerPress
-                  text 375.91,381.14 168.07x17.78 "Bags, quivers and pouches" #ffd100
-                  box 551.09,381.14 33.96x17.78
-                    text 551.09,381.14 8.89x17.78 "1" #a3977f
-                    text 562.82,381.14 22.22x17.78 "(1)" #ffffff
-              box 599.26,345.46 356.37x293.93 scrolled 0 of 0
-                box 600.1,345.46 355.54x29.16 #ff80403d clipped @keyPress @pointerPress
-                  box 600.1,345.46 1.67x29.16 absolute #ff8040
-                  text 614.32,351.15 297.76x17.78 "Enchanted Runecloth Robe of Long Nights" #ff8040
-                  text 919.19,351.15 22.22x17.78 "[1]" #ffffff
-                box 600.1,374.62 355.54x29.99 #00000000 clipped @keyPress @pointerPress
-                  text 614.32,381.14 297.76x17.78 "Linen Cloak" #ff8040
-                  text 919.19,381.14 22.22x17.78 "[1]" #ffffff
-                box 600.1,404.61 355.54x29.99 #00000000 clipped @keyPress @pointerPress
-                  text 614.32,411.13 297.76x17.78 "Rich Purple Silk Shirt" #ff8040
-                  text 919.19,411.13 22.22x17.78 "[1]" #ffffff
+            box 360.85,344.63 595.62x295.6
+              box 360.85,344.63 234.83x295.6 #0000004d
+                box 361.68,345.46 233.17x0
+                box 361.68,345.46 233.17x293.93 scrolled 0 of 0
+                  box 370.22,354 216.1x29.16 #d6a56b3d clipped @keyPress @pointerPress
+                    box 370.22,354 1.67x29.16 absolute #f0c860
+                    text 384.44,359.69 146.59x17.78 "Cloth armour" #ffd100
+                    box 538.14,359.69 33.96x17.78
+                      text 538.14,359.69 8.89x17.78 "3" #a3977f
+                      text 549.87,359.69 22.22x17.78 "(3)" #ffffff
+                  box 370.22,383.15 216.1x47.77 #00000000 clipped @keyPress @pointerPress
+                    text 384.44,389.68 146.59x35.56 "Bags, quivers and pouches" #ffd100
+                    box 538.14,398.56 33.96x17.78
+                      text 538.14,398.56 8.89x17.78 "1" #a3977f
+                      text 549.87,398.56 22.22x17.78 "(1)" #ffffff
+              box 604.22,344.63 352.25x295.6 #0000004d
+                box 605.05,345.46 350.58x0
+                box 605.05,345.46 350.58x293.93 scrolled 0 of 0
+                  box 613.58,354 333.52x29.16 #ff80403d clipped @keyPress @pointerPress
+                    box 613.58,354 1.67x29.16 absolute #ff8040
+                    text 627.81,359.69 275.74x17.78 "Enchanted Runecloth Robe of Long Nights" #ff8040
+                    text 910.66,359.69 22.22x17.78 "[1]" #ffffff
+                  box 613.58,383.15 333.52x29.99 #00000000 clipped @keyPress @pointerPress
+                    text 627.81,389.68 275.74x17.78 "Linen Cloak" #ff8040
+                    text 910.66,389.68 22.22x17.78 "[1]" #ffffff
+                  box 613.58,413.14 333.52x29.99 #00000000 clipped @keyPress @pointerPress
+                    text 627.81,419.66 275.74x17.78 "Rich Purple Silk Shirt" #ff8040
+                    text 910.66,419.66 22.22x17.78 "[1]" #ffffff
           box 973.53,307.76 595.62x332.47 Interface/FrameGeneral/UI-Background-Marble
             box 988.59,322.82 565.51x45.87
               box 988.59,324.09 43.33x43.33 icon=Interface/Icons/INV_Misc_Note_01

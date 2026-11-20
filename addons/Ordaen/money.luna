@@ -10,18 +10,21 @@ public class Money implements Component {
 
   amount: Signal<Integer>
   color: Signal<Color>
+  textSize: Signal<Number<TextSize>>
   constructor(
     // In copper.
     amount: Signal<Integer>,
-    color: Signal<Color> = INK
+    color: Signal<Color> = INK,
+    textSize: Signal<Number<TextSize>> = 1rem
   ) {
     self.amount = amount
     self.color = color
+    self.textSize = textSize
   }
 
   public render(self): Template {
     return $ltml {
-      <text value={self.text} textColor={self.color} wrap={.None} />
+      <text value={self.text} textColor={self.color} textSize={self.textSize} wrap={.None} />
     }
   }
 }

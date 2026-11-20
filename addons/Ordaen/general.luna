@@ -1,5 +1,6 @@
 // Ordaen's own page in the settings window: the settings every module follows, on three tabs. Each control writes
 // one entry of them, at once.
+import Game from "$game"
 import { Checkbox } from "@/checkbox"
 import { Choice, Dropdown } from "@/dropdown"
 import { Clock, Density, Globals, LargeNumbers, NumberFormat } from "@/globals"
@@ -68,15 +69,25 @@ public class NumbersPage implements Component {
 }
 
 public class BehaviourPage implements Component {
+  // The time format as the control shows it: the client's 24-hour mode, which it follows and which a pick sets.
+  state clock: Clock = Clock.H24
+
   globals: mut Settings<Globals>
   constructor(globals: mut Settings<Globals>) {
     self.globals = globals
+    watch (on of Game.clock.hours24) { self.clock = on ? Clock.H24 : Clock.H12 }
+    watch (picked of self.clock) { self.pick(picked) }
+  }
+
+  pick(mut self, picked: Clock) {
+    const on = picked == Clock.H24
+    if (on != peek Game.clock.hours24) { Game.clock.useHours24(on) }
   }
 
   public render(self): Template {
     return $ltml {
       <Checkbox label={Locale.GLOBAL_SOUNDS} hint={Locale.GLOBAL_SOUNDS_TIP} value={mut self.globals.values.sounds} />
-      <Dropdown label={Locale.GLOBAL_CLOCK} hint={Locale.GLOBAL_CLOCK_TIP} value={mut self.globals.values.clock}
+      <Dropdown label={Locale.GLOBAL_CLOCK} hint={Locale.GLOBAL_CLOCK_TIP} value={mut self.clock}
                 choices={CLOCKS} />
     }
   }

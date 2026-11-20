@@ -2,7 +2,7 @@
 // big numbers, then sections parted by cuts in the wood, each its cards first, then its gauges, then its plain lines.
 // A gauge is a stat with a cap the player works towards (hit, crit, a weapon's skill), a line one without (attack
 // speed, penetration), a card one of a section's main numbers (attack power, damage a second, a school's spell damage).
-import { Align, Art, BarFill, FillFrom, Position, TextAlign, TextFont } from "$ltml"
+import { Align, BarFill, FillFrom, Piece, Position, TextAlign, TextFont } from "$ltml"
 import { Component, SECONDARY_TEXT, TITLE_TEXT, Tip } from "Ordaen"
 import Locale from "@/locales"
 import { Skill, Stats, WANDS } from "@/sheet"
@@ -24,11 +24,13 @@ public struct Row {
   const unit: String = ""
 }
 
-// One of a section's main numbers: its picture in the socket, its name over its value; `lit` the section's lead.
+// One of a section's main numbers: its glyph in the socket in its colour, its name over its value; `lit` the
+// section's lead, its glyph bright.
 public struct Figure {
   const label: String
   const value: String
-  const art: Art
+  const glyph: Piece
+  const color: Color
   const lit: Boolean = false
 }
 
@@ -41,12 +43,12 @@ public struct Section {
 }
 
 // A resistance's column: its value, its bar against the cap (the value that stops three quarters of a level 63
-// boss's damage), its colour and its picture.
+// boss's damage), its colour and its glyph.
 public struct Resist {
   const value: Integer
   const cap: Integer
   const color: Color
-  const art: Art
+  const glyph: Piece
 }
 
 // One of the five main stats: its value, its name in three letters, and what the game's sheet says of it.
@@ -69,22 +71,23 @@ const HASTE_CAP = 20
 const ARMOR_CAP = 17265
 const RESISTANCE_CAP = 315
 
-// The pictures: the client's own icons.
-const ATTACK_POWER_ART: Art = "Interface/Icons/Ability_Warrior_BattleShout"
-const DAMAGE_ART: Art = "Interface/Icons/Ability_MeleeDamage"
-const RANGED_POWER_ART: Art = "Interface/Icons/Ability_Marksmanship"
-const RANGED_DAMAGE_ART: Art = "Interface/Icons/Ability_Hunter_RunningShot"
-const HOLY_HEALING_ART: Art = "Interface/Icons/Spell_Holy_FlashHeal"
-const NATURE_HEALING_ART: Art = "Interface/Icons/Spell_Nature_HealingTouch"
-// Holy, fire, nature, frost, shadow and arcane: the client's schools 2 to 7.
-const SCHOOL_ART: Array<Art> = [
-  "Interface/Icons/Spell_Holy_HolyBolt",
-  "Interface/Icons/Spell_Fire_FlameBolt",
-  "Interface/Icons/Spell_Nature_Lightning",
-  "Interface/Icons/Spell_Frost_FrostBolt02",
-  "Interface/Icons/Spell_Shadow_ShadowBolt",
-  "Interface/Icons/Spell_Nature_StarFall"
-]
+// The glyphs (art/pieces/character-glyphs.json): a column of 64-texel cells, white, tinted where they are drawn: holy,
+// fire, nature, frost, shadow and arcane (the client's schools 2 to 7), then heal, power, damage and armor.
+const GLYPH_FILE: Asset = "@/media/character-glyphs.tga"
+const function glyphPieces(): Array<Piece> {
+  let list: Array<Piece> = []
+  for (row of 0..9) { list.push({ file: GLYPH_FILE, width: 64, height: 1024, rows: 16, normal: row }) }
+  return list
+}
+const GLYPHS: Array<Piece> = glyphPieces()
+function glyph(row: Integer): Piece { return GLYPHS[row] ?? panic("ten glyphs") }
+const HEAL_GLYPH = 7
+const POWER_GLYPH = 8
+const DAMAGE_GLYPH = 9
+const ARMOR_GLYPH = 10
+// The schools' colours, holy to arcane, as the resistances and the spells' cards wear them.
+const SCHOOL_COLORS: Array<Color> = [Style.HOLY, Style.FIRE, Style.NATURE, Style.FROST, Style.SHADOW, Style.ARCANE]
+function schoolColor(school: Integer): Color { return SCHOOL_COLORS[school - 1] ?? panic("six schools") }
 const HOLY = 2
 const FIRE = 3
 const NATURE = 4
@@ -134,14 +137,14 @@ public function mainsOf(stats: Stats): Array<Main> {
   return order.map(index => all[index] ?? panic("five main stats"))
 }
 
-// The defence group's gauges: the defense skill, dodge and parry, and block with a shield.
+// The defence group's gauges: dodge and parry, block with a shield, and last the defense skill, a skill's blue as the
+// weapons' skills are.
 public function defenceOf(stats: Stats): Array<Gauge> {
-  const gauges: Array<Gauge> = [
-    measured(Locale.SECTION_DEFENSE, stats.defense, DEFENSE_CAP, String.of(stats.defense)),
-    rate(Locale.DODGE, stats.dodge, AVOIDANCE_CAP),
-    rate(Locale.PARRY, stats.parry, AVOIDANCE_CAP)
-  ]
+  const gauges: Array<Gauge> = [rate(Locale.DODGE, stats.dodge, AVOIDANCE_CAP), rate(Locale.PARRY, stats.parry, AVOIDANCE_CAP)]
   if (stats.block > 0) { gauges.push(rate(Locale.BLOCK, stats.block, AVOIDANCE_CAP)) }
+  gauges.push({
+    label: Locale.SECTION_DEFENSE, value: stats.defense, cap: DEFENSE_CAP, text: String.of(stats.defense), tone: Style.SKILL
+  })
   return gauges
 }
 
@@ -162,12 +165,12 @@ public function speedsOf(stats: Stats): Array<Row> {
 public function resistsOf(stats: Stats): Array<Resist> {
   const r = stats.resistances
   return [
-    { value: stats.armor, cap: ARMOR_CAP, color: Style.ARMOR, art: "Interface/Icons/Spell_Holy_DevotionAura" },
-    { value: r[2] ?? 0, cap: RESISTANCE_CAP, color: Style.FIRE, art: "Interface/Icons/Spell_Fire_FireArmor" },
-    { value: r[4] ?? 0, cap: RESISTANCE_CAP, color: Style.NATURE, art: "Interface/Icons/Spell_Nature_ResistNature" },
-    { value: r[3] ?? 0, cap: RESISTANCE_CAP, color: Style.FROST, art: "Interface/Icons/Spell_Frost_FrostArmor02" },
-    { value: r[5] ?? 0, cap: RESISTANCE_CAP, color: Style.SHADOW, art: "Interface/Icons/Spell_Shadow_AntiShadow" },
-    { value: r[1] ?? 0, cap: RESISTANCE_CAP, color: Style.ARCANE, art: "Interface/Icons/Spell_Nature_StarFall" }
+    { value: stats.armor, cap: ARMOR_CAP, color: Style.ARMOR, glyph: glyph(ARMOR_GLYPH) },
+    { value: r[2] ?? 0, cap: RESISTANCE_CAP, color: Style.FIRE, glyph: glyph(FIRE - 1) },
+    { value: r[4] ?? 0, cap: RESISTANCE_CAP, color: Style.NATURE, glyph: glyph(NATURE - 1) },
+    { value: r[3] ?? 0, cap: RESISTANCE_CAP, color: Style.FROST, glyph: glyph(FROST - 1) },
+    { value: r[5] ?? 0, cap: RESISTANCE_CAP, color: Style.SHADOW, glyph: glyph(SHADOW - 1) },
+    { value: r[1] ?? 0, cap: RESISTANCE_CAP, color: Style.ARCANE, glyph: glyph(ARCANE - 1) }
   ]
 }
 
@@ -227,8 +230,8 @@ function melee(stats: Stats, skills: Array<Skill>): Section {
   return {
     title: Locale.SECTION_MELEE,
     cards: [
-      { label: Locale.ATTACK_POWER, value: String.of(stats.attackPower), art: ATTACK_POWER_ART },
-      { label: Locale.DPS, value: tenths(meleeDps(stats)), art: DAMAGE_ART }
+      { label: Locale.ATTACK_POWER, value: String.of(stats.attackPower), glyph: glyph(POWER_GLYPH), color: Style.STAT },
+      { label: Locale.DPS, value: tenths(meleeDps(stats)), glyph: glyph(DAMAGE_GLYPH), color: Style.STAT }
     ],
     gauges: joined([
       rate(Locale.HIT, stats.meleeHit, MELEE_HIT_CAP),
@@ -255,8 +258,8 @@ function ranged(stats: Stats, skills: Array<Skill>): Section | nil {
   return {
     title: Locale.SECTION_RANGED,
     cards: [
-      { label: Locale.ATTACK_POWER, value: String.of(stats.rangedAttackPower), art: RANGED_POWER_ART },
-      { label: Locale.DPS, value: tenths(rangedDps(stats)), art: RANGED_DAMAGE_ART }
+      { label: Locale.ATTACK_POWER, value: String.of(stats.rangedAttackPower), glyph: glyph(POWER_GLYPH), color: Style.STAT },
+      { label: Locale.DPS, value: tenths(rangedDps(stats)), glyph: glyph(DAMAGE_GLYPH), color: Style.STAT }
     ],
     gauges: joined([rate(Locale.HIT, stats.rangedHit, MELEE_HIT_CAP), rate(Locale.CRIT, stats.rangedCrit, CRIT_CAP)], skillGauges([skill], skills)),
     rows: [speed]
@@ -272,10 +275,10 @@ function spells(stats: Stats, classTag: String): Section | nil {
   schools.sort((a, b) => (stats.schoolDamage[a - 1] ?? 0) > (stats.schoolDamage[b - 1] ?? 0))
   const cards: Array<Figure> = []
   for (index, school of schools) {
-    cards.push({ label: "", value: String.of(stats.schoolDamage[school - 1] ?? 0), art: SCHOOL_ART[school - 1] ?? panic("six schools"), lit: index == 1 })
+    cards.push({ label: "", value: String.of(stats.schoolDamage[school - 1] ?? 0), glyph: glyph(school - 1), color: schoolColor(school), lit: index == 1 })
   }
   if (casting.heals != 0) {
-    cards.push({ label: "", value: String.of(stats.healing), art: casting.heals == HOLY ? HOLY_HEALING_ART : NATURE_HEALING_ART })
+    cards.push({ label: "", value: String.of(stats.healing), glyph: glyph(HEAL_GLYPH), color: schoolColor(casting.heals) })
   }
   return {
     title: Locale.SECTION_SPELLS,
@@ -302,6 +305,30 @@ public function sectionsOf(stats: Stats, skills: Array<Skill>, classTag: String)
   return sections
 }
 
+// A straight cut in the wood, lit from above: the shaded upper edge, the depth, the lit lower lip; across (`upright`
+// false) or down its box (true, the light from the left: the shade on its left, the lip on its right).
+public class Groove implements Component {
+  upright: Signal<Boolean>
+  constructor(upright: Signal<Boolean> = false) {
+    self.upright = upright
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <box $if={self.upright} columns={[Style.CUT_LINE, Style.CUT_LINE, Style.CUT_LINE]} rows={[{ fr: 1 }]}>
+        <box background={Style.GROOVE_SHADE} />
+        <box background={Style.GROOVE_DEPTH} />
+        <box background={Style.GROOVE_LIP} />
+      </box>
+      <box $else>
+        <box height={Style.CUT_LINE} background={Style.GROOVE_SHADE} />
+        <box height={Style.CUT_LINE} background={Style.GROOVE_DEPTH} />
+        <box height={Style.CUT_LINE} background={Style.GROOVE_LIP} />
+      </box>
+    }
+  }
+}
+
 // A cut in the wood across the column, the title at its middle where it has one.
 public class Cut implements Component {
   derived titled: Boolean = self.title != ""
@@ -314,16 +341,16 @@ public class Cut implements Component {
   public render(self): Template {
     return $ltml {
       <box $if={self.titled} columns={[{ fr: 1 }, "max-content", { fr: 1 }]} gap={2.5sp} yAlign={Align.Center}>
-        <box height={Style.CUT} background={Style.GROOVE} />
+        <Groove />
         <text value={self.title} textSize={SECONDARY_TEXT} textColor={Style.DIM} wrap={.None} />
-        <box height={Style.CUT} background={Style.GROOVE} />
+        <Groove />
       </box>
-      <box $else height={Style.CUT} background={Style.GROOVE} />
+      <Groove $else />
     }
   }
 }
 
-// A gauge: the name dimmed, the channel filled up to the value's share of the cap, the value at the right.
+// A gauge: the name, the channel filled up to the value's share of the cap, the value at the right.
 public class StatGauge implements Component {
   derived fill: BarFill = { value: (self.gauge.value / self.gauge.cap).max(0).min(1), color: self.gauge.tone }
   derived ink: Color = self.gauge.value == 0 ? Style.DIM : Style.WHITE
@@ -336,8 +363,11 @@ public class StatGauge implements Component {
   public render(self): Template {
     return $ltml {
       <box columns={[Style.GAUGE_LABEL, { fr: 1 }, Style.GAUGE_VALUE]} gap={2.5sp} yAlign={Align.Center}>
-        <text value={self.gauge.label} textSize={SECONDARY_TEXT} textColor={Style.DIM} wrap={.None} />
-        <box height={Style.CHANNEL} background={Style.TROUGH} fill={self.fill} />
+        <text value={self.gauge.label} textSize={SECONDARY_TEXT} textColor={Style.WHITE} wrap={.None} />
+        <box>
+          <box height={Style.CHANNEL} background={Style.TROUGH} fill={self.fill} />
+          <box height={Style.CUT_LINE} background={Style.GROOVE_LIP} />
+        </box>
         <text value={self.gauge.text} textFont={TextFont.Numbers} textColor={self.ink} textAlign={TextAlign.End}
               wrap={.None} />
       </box>
@@ -368,7 +398,7 @@ public class StatRow implements Component {
 // A card: a dark field, the picture in its socket on the left, the name over the value beside it.
 public class StatCard implements Component {
   derived labelled: Boolean = self.figure.label != ""
-  derived socket: Number = self.figure.lit ? 1 : 0.6
+  derived glyphShade: Number = self.figure.lit ? 1 : 0.7
 
   figure: Signal<Figure>
   constructor(figure: Signal<Figure>) {
@@ -378,11 +408,15 @@ public class StatCard implements Component {
   public render(self): Template {
     return $ltml {
       <box columns={[Style.SOCKET, { fr: 1 }]} gap={2.5sp} padding={2sp} background={Style.CARD} yAlign={Align.Center}>
-        <box width={Style.SOCKET} height={Style.SOCKET} background={self.figure.art} opacity={self.socket} />
-        <box gap={1sp}>
-          <text $if={self.labelled} value={self.figure.label} textSize={SECONDARY_TEXT} textColor={Style.DIM} wrap={.None} />
-          <text value={self.figure.value} textSize={TITLE_TEXT} textFont={TextFont.Numbers} textColor={Style.WHITE}
+        <box width={Style.SOCKET} height={Style.SOCKET} background={Style.SOCKET_FLOOR} xAlign={Align.Center} yAlign={Align.Center}>
+          <box width={Style.GLYPH} height={Style.GLYPH} background={self.figure.glyph} tint={self.figure.color}
+               opacity={self.glyphShade} />
+        </box>
+        <box>
+          <text $if={self.labelled} value={self.figure.label} textSize={SECONDARY_TEXT} textColor={Style.DIM} lineHeight={Style.TIGHT}
                 wrap={.None} />
+          <text value={self.figure.value} textSize={TITLE_TEXT} textFont={TextFont.Numbers} textColor={Style.WHITE}
+                lineHeight={Style.TIGHT} wrap={.None} />
         </box>
       </box>
     }
@@ -461,7 +495,7 @@ public class ResistColumn implements Component {
         <text value={String.of(self.resist.value)} textSize={SECONDARY_TEXT} textFont={TextFont.Numbers}
               textColor={self.ink} wrap={.None} />
         <box width={Style.RESIST_WIDTH} height={Style.RESIST_HEIGHT} background={Style.TROUGH} fill={self.fill} />
-        <box width={Style.RESIST_ICON} height={Style.RESIST_ICON} background={self.resist.art} />
+        <box width={Style.RESIST_ICON} height={Style.RESIST_ICON} background={self.resist.glyph} tint={self.resist.color} />
       </box>
     }
   }

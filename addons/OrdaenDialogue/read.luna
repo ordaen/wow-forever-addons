@@ -31,7 +31,19 @@ public struct Line {
   const id: Integer
   // An option's place, which picks it as the game's own window does (`SelectOptionByIndex`); 0 for a quest.
   const order: Integer = 0
+  // An option that leads somewhere (a vendor's goods, a trainer, a flight, the bank, an inn), not a line of talk:
+  // what the one-option skip picks.
+  const leads: Boolean = false
   const source: Source
+}
+
+// The game's icon of a line of talk (`GossipGossipIcon`); a vendor's, a trainer's, a banker's, an inn's and the like
+// are their own.
+const TALK_ICON = 132053
+
+// Whether an option leads somewhere: not the talk icon, and no quest's or film's flag (`flags` 1, 4) on it.
+function leadsSomewhere(option: Client.GossipOptionUIInfo): Boolean {
+  return option.icon != TALK_ICON && option.flags == 0
 }
 
 // What a quest needs handed in: an item with how many the player has and how many it takes.
@@ -72,7 +84,6 @@ const NEW: Art = "QuestNormal"
 const DAILY: Art = "QuestDaily"
 const LEGENDARY: Art = "QuestLegendary"
 const UNKNOWN: Asset = "Interface/Icons/INV_Misc_QuestionMark"
-
 
 // A quest's level against the player's, as the quest log colours it: grey where the game calls it trivial, then
 // green up to two below, yellow within two, orange from three above, red from five.
@@ -153,7 +164,8 @@ public function gossipLines(): Array<Line> {
   for (option of options) {
     lines.push({
       kind: .Option, title: option.name, level: 0, difficulty: .Even, icon: option.overrideIconID ?? option.icon,
-      id: (option.gossipOptionID ?? 0).floor(), order: option.orderIndex.floor(), source: .Gossip
+      id: (option.gossipOptionID ?? 0).floor(), order: option.orderIndex.floor(), leads: leadsSomewhere(option),
+      source: .Gossip
     })
   }
   return inOrder(mut lines)
