@@ -7,7 +7,7 @@
 import Client from "$client"
 import Events from "$events"
 import Game from "$game"
-import { Action, Anchored, Bounds, Edges, Overflow, Point, Track } from "$ltml"
+import { Action, Anchored, Bounds, Edges, FillDuration, Overflow, Point, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import { ButtonPlate, Component, Dialog, ItemButton, Menu, MenuEntry, Module, Placed, PushButton, SECONDARY_TEXT, Settings, SettingsPage, colorOf, difficultyOf, playSound } from "Ordaen"
 import { QuestLine, QuestLines } from "@/extend"
@@ -58,6 +58,14 @@ function firstOf(quests: Array<Game.LogQuest>, count: Integer): Array<Game.LogQu
   return first
 }
 
+// Whether one of the quests has its special item.
+function hasItem(quests: Array<Game.LogQuest>): Boolean {
+  for (quest of quests) {
+    if (quest.item > 0) { return true }
+  }
+  return false
+}
+
 // What a tracked quest's row asks of the tracker.
 public enum Ask { Open, Link, Untrack, SuperTrack, ShowOnMap, Share, Abandon }
 
@@ -79,6 +87,8 @@ public class Tracker implements Module, App {
   state abandoning = 0
   // Every objective's text, to hear progress roll forward.
   state heard: Map<Integer, String> = {}
+  // The cooldown running on each tracked quest's item, by the quest.
+  state cooldowns: Map<Integer, FillDuration> = {}
 
   derived count: String = `${self.quests.length}/${self.most}`
   derived fold: String = self.folded ? "+" : "–"
@@ -101,6 +111,7 @@ public class Tracker implements Module, App {
     Events.QUEST_LOG_UPDATE.listen(self.refresh)
     Events.QUEST_WATCH_LIST_CHANGED.listen(self.refresh)
     Events.SUPER_TRACKING_CHANGED.listen(self.refresh)
+    Events.BAG_UPDATE_COOLDOWN.listen(self.readCooldowns)
   }
 
   // The tracked quests as the client has them now; an objective that moved on sounds as the game's tracker does.
@@ -120,6 +131,21 @@ public class Tracker implements Module, App {
     self.quests = tracked
     self.superTracked = Game.questLog.superTracked()
     self.most = Game.questLog.most()
+    self.readCooldowns()
+  }
+
+  // The cooldowns running on the tracked quests' items, as the client says one started or ended
+  // (`BAG_UPDATE_COOLDOWN`, which every use of an item or a spell sends: nothing is read while no quest has an item).
+  readCooldowns(mut self) {
+    const quests = peek self.quests
+    // A quest without its item draws no button: what is kept of it stays unread.
+    if (!hasItem(quests)) { return }
+    const running: Map<Integer, FillDuration> = {}
+    for (quest of quests) {
+      const cooldown = quest.item > 0 ? Game.questLog.itemCooldown(quest.id) : nil
+      if (cooldown != nil) { running[quest.id] = cooldown }
+    }
+    self.cooldowns = running
   }
 
   onFold(mut self) { self.folded = !self.folded }
@@ -174,7 +200,8 @@ public class Tracker implements Module, App {
           </box>
           <box $if={!self.folded} columns={1} gap={3sp} overflow={Overflow.Scroll}>
             <TrackedQuest $for={quest of self.listed} $key={quest.id} quest={quest} lines={self.linesOf(quest)}
-                          pointed={quest.id == self.superTracked} player={self.level} @ask={self.onAsk} />
+                          pointed={quest.id == self.superTracked} player={self.level} cooldown={self.cooldowns[quest.id]}
+                          @ask={self.onAsk} />
           </box>
         </box>
       </Placed>
@@ -214,11 +241,20 @@ class TrackedQuest implements Component {
   lines: Signal<Array<QuestLine>>
   pointed: Signal<Boolean>
   player: Signal<Integer>
-  constructor(quest: Signal<Game.LogQuest>, lines: Signal<Array<QuestLine>>, pointed: Signal<Boolean>, player: Signal<Integer>) {
+  // The cooldown running on its item, its button's sweep.
+  cooldown: Signal<FillDuration | nil>
+  constructor(
+    quest: Signal<Game.LogQuest>,
+    lines: Signal<Array<QuestLine>>,
+    pointed: Signal<Boolean>,
+    player: Signal<Integer>,
+    cooldown: Signal<FillDuration | nil>
+  ) {
     self.quest = quest
     self.lines = lines
     self.pointed = pointed
     self.player = player
+    self.cooldown = cooldown
   }
 
   onOpen(mut self) { self.ask.emit(self.quest.id, Ask.Open) }
@@ -249,7 +285,8 @@ class TrackedQuest implements Component {
           <text value={self.level} textColor={self.levelColor} textFont={.Numbers} wrap={.None} />
           <text value={self.quest.title} textColor={GOLD} wrap={.Cut} />
           <text value={self.tag} textColor={DIM} textSize={SECONDARY_TEXT} wrap={.None} />
-          <ItemButton $if={self.quest.item > 0} item={self.quest.item} size={ITEM} action={self.use} linkOnShift={true} />
+          <ItemButton $if={self.quest.item > 0} item={self.quest.item} size={ITEM} action={self.use} linkOnShift={true}
+                      cooldown={self.cooldown} />
           <box $else />
         </box>
         <box $if={!self.quest.done && !self.quest.failed} columns={1} padding={LINE_PAD}>
