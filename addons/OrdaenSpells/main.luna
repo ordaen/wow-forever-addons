@@ -70,7 +70,7 @@ public class Spells implements Module, App {
   derived bookWidth: Number<Length> = self.window.memory.values.full ? Client.UIParent.GetWidth() * 1ui : self.window.placing.width
   // How the player left the class trainer's list, the profile's: its filter is kept, its view and sort are the
   // settings' each time it opens.
-  public trainerList: mut ModuleMemory<TrainerList> = new ModuleMemory<TrainerList>({ view: TrainerView.List },.Profile, "trainer")
+  public trainerList: mut ModuleMemory<TrainerList> = new ModuleMemory<TrainerList>({ view: TrainerView.List }, .Profile, "trainer")
   // The trainer that is open teaches a class's skills: asked as it opens.
   state classTrainer = false
   derived trainerShown: Boolean = self.classTrainer && self.settings.values.trainer

@@ -113,7 +113,7 @@ public class Professions implements Module, App {
   public trainerWindow: mut KeptWindow = new KeptWindow("trainer", Locale.TRAINER, { x: 0ui, y: 0ui, width: TRAINER_WIDTH, height: TRAINER_HEIGHT })
   public const windows: mut Array<mut KeptWindow> = [self.window, self.trainerWindow]
   // How the player left the trainer's window, the profile's.
-  public trainerList: mut ModuleMemory<TrainerList> = new ModuleMemory<TrainerList>({ view: TrainerView.Table },.Profile, "trainer") // The player stands at a profession's trainer (a class's and a pet's are Ordaen Spells' and the game's), what it
+  public trainerList: mut ModuleMemory<TrainerList> = new ModuleMemory<TrainerList>({ view: TrainerView.Table }, .Profile, "trainer") // The player stands at a profession's trainer (a class's and a pet's are Ordaen Spells' and the game's), what it
   // teaches, and the game's own window, held away while ours shows.
   state atTrainer = false
   state services: Array<Game.TrainerService> = []

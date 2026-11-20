@@ -565,7 +565,7 @@ test "the abandon button says only «Abandon»" {
 test "an objective that says the task again stands once on the page, not dark then muted" {
   const log = standing()
   log[3] = { task: "Speak to Marshal Dughan.", objectives: [{ text: "Speak to Marshal Dughan.", done: true }],
-             ..quest(103, "Elwynn Wolves", "Elwynn Forest") }
+    ..quest(103, "Elwynn Wolves", "Elwynn Forest") }
   opened(log)
   const window = Test.page().window("World")
   window.text("Elwynn Wolves").click()
