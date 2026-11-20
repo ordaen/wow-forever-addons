@@ -10,7 +10,8 @@ import Locale from "@/locales"
 import { Line, LineKind } from "@/read"
 import Style from "@/style"
 
-const COLUMNS: Array<Track> = ["max-content", "max-content", "max-content", { fr: 1 }, "max-content"]
+// The title as wide as it is, never wrapped (the window widens to hold the longest); «auto» right after it.
+const COLUMNS: Array<Track> = ["max-content", "max-content", "max-content", "max-content", "max-content"]
 const GREY: Color = Color.hex("#8c8c8c")
 const WHITE: Color = Color.hex("#ffffff")
 
@@ -70,7 +71,7 @@ public class OptionRow implements Component {
           <text $if={self.leveled} value={self.line.level} textColor={self.levelColor} textSize={SECONDARY_TEXT}
                 textFont={.Numbers} wrap={.None} />
           <box $else />
-          <text value={self.line.title} textColor={self.color} />
+          <text value={self.line.title} textColor={self.color} wrap={.None} />
           <text $if={self.marked} value={Locale.AUTO_MARK} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={.None} />
           <box $else />
         </PickRow>
