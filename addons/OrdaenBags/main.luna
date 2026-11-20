@@ -652,7 +652,7 @@ public class Bags implements Module, App {
   public render(self): Template {
     return $ltml {
       <frame $for={window of self.gameFrames} of={window} opacity={0} away={true} />
-      <MerchantWindow $if={self.vendor.open} vendor={self.vendor} declared={mut self.merchantWindow} list={mut self.merchantList}
+      <MerchantWindow $if={self.vendor.open} vendor={mut self.vendor} declared={mut self.merchantWindow} list={mut self.merchantList}
                       junkCount={self.carriedJunkCount} junkWorth={self.carriedJunkWorth} @sellJunk={self.sellJunk} />
       <$if={self.ever}>
         <Window tabs={self.windowTabs} selected={mut self.windowTab} declared={mut self.window} shown={self.shown}
