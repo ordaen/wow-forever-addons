@@ -20,7 +20,7 @@ import { LogQuest, logQuests } from "@/book"
 import { TakenClick } from "@/button"
 import { QuestieData } from "@/data"
 import { KINDS, QuestKind } from "@/kind"
-import { PinKind, QuestPins } from "@/layers"
+import { DungeonQuests, PinKind, QuestPins } from "@/layers"
 import { QuestList } from "@/list"
 import Locale from "@/locales"
 import { Asked, QuestFilter, QuestSort, QuestStatus, QuestView, countOf, listedOf } from "@/model"
@@ -163,10 +163,12 @@ public class Quests implements Module, App {
   const toggle: any Client.Frame
   const objectives: QuestPins
   const turnIns: QuestPins
+  const dungeonQuests: DungeonQuests
 
   constructor() {
     self.objectives = new QuestPins(PinKind.Objectives, self.quests, self.facts, self.hovered)
     self.turnIns = new QuestPins(PinKind.TurnIns, self.quests, self.facts, self.hovered)
+    self.dungeonQuests = new DungeonQuests(self.quests)
     self.toggle = Client.CreateFrame("Button", TOGGLE, Client.UIParent, nil)
     Ordaen.modules.add(self)
     self.toggle.SetScript("OnClick", (): nil => {
@@ -177,6 +179,7 @@ public class Quests implements Module, App {
       if (maps == nil) { return }
       maps.layers.add(self.objectives)
       maps.layers.add(self.turnIns)
+      maps.dungeons.add(self.dungeonQuests)
     }
     // The log's events are heard while something reads it.
     watch (on of self.reading) {

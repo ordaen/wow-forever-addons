@@ -5,7 +5,7 @@
 // OpenMap's menu.
 import root Ordaen from "Ordaen"
 import { Module, Settings, SettingsPage } from "Ordaen"
-import { Layer, Pin } from "@/extend"
+import { DungeonSection, Layer, Pin } from "@/extend"
 import { MapHost, OpenMapHost, Placed } from "@/host"
 import Locale from "@/locales"
 import { Choices, GeneralPage } from "@/settings"
@@ -45,6 +45,8 @@ public class Maps implements Module, App {
   public const title: String = "Ordaen Map"
   // The layers on the map, added by the modules that draw them.
   public const layers = new Registry<any Layer>()
+  // What the modules say on a dungeon's card.
+  public const dungeons = new Registry<any DungeonSection>()
   public settings: mut Settings<Choices> = new Settings<Choices>({ hidden: {}, primed: false })
   public const pages: Array<SettingsPage> = [
     {
@@ -94,6 +96,7 @@ public class Maps implements Module, App {
       host.pressed.listen(self.onPressed)
     }
     self.host.start()
+    self.host.dungeonSection((map: Integer, names: Array<String>) => self.cardOf(map, names))
     watch (marks of self.marks) { self.place(marks) }
     watch (list of self.layers) { self.addSwitches(list) }
   }
@@ -129,6 +132,17 @@ public class Maps implements Module, App {
     }
     self.drawn = drawn
     self.host.draw(placed, lines)
+  }
+
+  // Map's section of a dungeon's card: its title, then each entry's lines; none where no entry has any.
+  public cardOf(self, map: Integer, names: Array<String>): Array<String> {
+    const said: Array<String> = []
+    for (section of self.dungeons) {
+      for (line of section.lines(names)) { said.push(line) }
+    }
+    if (said.length == 0) { return said }
+    said.insert(1, Locale.DUNGEON_CARD)
+    return said
   }
 
   // A drawn pin clicked: its layer's.

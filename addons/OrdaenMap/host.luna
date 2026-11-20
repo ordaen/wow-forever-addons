@@ -1,11 +1,12 @@
 // What Map asks of the world map: OpenMap's API, Blizzard's map frame through `worldMap.lua`, and the client's
-// `questLogOpen`. `MapHost` is what Map asks; `OpenMapHost` asks the game. Everything Map places goes through here:
+// `questLogOpen`. While it runs, OpenMap's townsfolk come from QuestieDB. `MapHost` is what Map asks; `OpenMapHost` asks the game. Everything Map places goes through here:
 // where a pin stands on the canvas, the pins' own frames, OpenMap's menu.
 import Client from "$client"
 import { mapOfArea } from "@/areas"
 import type { Pin } from "@/extend"
 import WorldMap from "@/worldMap"
 import { OpenMapAPI } from "OpenMap"
+import { LibQuestieDB } from "QuestieDB"
 
 // The API Map is written against: major 1, from version 4 on.
 const API_MAJOR = 1
@@ -38,6 +39,8 @@ public trait MapHost {
   public draw(mut self, placed: Array<Placed>, lines: Array<Array<String>>)
   // A switch in OpenMap's menu.
   public menuSwitch(mut self, id: String, label: String, get: () => Boolean, set: (on: Boolean) => nil)
+  // Ordaen's section of a dungeon's card: `run` gives its title and lines for the dungeon's map and instances.
+  public dungeonSection(mut self, run: (map: Integer, names: Array<String>) => Array<String>)
 }
 
 // How big a pin is on the screen, in UI units.
@@ -68,12 +71,19 @@ public class OpenMapHost implements MapHost {
       }
       OpenMapAPI.RegisterCallback(self.owner, "OpenMap_ViewChanged", heard)
       OpenMapAPI.RegisterCallback(self.owner, "OpenMap_StitchedChanged", heard)
+      // Read as Quests reads it: contract 4.
+      let held, _ = LibQuestieDB.RequireContract(4)
+      if (held) { WorldMap.townsfolk(mapOfArea) }
     }
   }
 
   public stop(mut self) {
     WorldMap.forget()
-    if (self.present()) { OpenMapAPI.UnregisterAllCallbacks(self.owner) }
+    if (self.present()) {
+      OpenMapAPI.UnregisterAllCallbacks(self.owner)
+      WorldMap.noTownsfolk()
+      WorldMap.noDungeonSection()
+    }
     self.draw([], [])
   }
 
@@ -154,5 +164,9 @@ public class OpenMapHost implements MapHost {
   public menuSwitch(mut self, id: String, label: String, get: () => Boolean, set: (on: Boolean) => nil) {
     if (!self.present()) { return }
     OpenMapAPI.RegisterMenuToggle("OrdaenMap", { id: id, label: label, get: get, set: set, tab: "show", section: "Ordaen" })
+  }
+
+  public dungeonSection(mut self, run: (map: Integer, names: Array<String>) => Array<String>) {
+    if (self.present()) { WorldMap.dungeonSection(run) }
   }
 }

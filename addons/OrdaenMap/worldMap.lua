@@ -63,4 +63,43 @@ function worldMap.untip()
 	client.GameTooltip:Hide()
 end
 
+-- Ordaen's section of a dungeon's card in OpenMap: `run(mapID, names)` gives its title and lines as one list (none
+-- for no section), which OpenMap takes as a title and a list.
+function worldMap.dungeonSection(run)
+	client.OpenMapAPI.RegisterDungeonSection("OrdaenMap", function(info)
+		local names = {}
+		for i, instance in ipairs(info.instances or {}) do names[i] = instance.name end
+		local said = run(info.mapID or 0, names)
+		if #said == 0 then return nil end
+		local lines = {}
+		for i = 2, #said do lines[i - 1] = said[i] end
+		return said[1], lines
+	end)
+end
+
+function worldMap.noDungeonSection()
+	client.OpenMapAPI.RegisterDungeonSection("OrdaenMap", nil)
+end
+
+-- OpenMap's townsfolk (vendors, trainers, rares, mailboxes) from QuestieDB's NPCs and objects, in Questie's shape, so
+-- they stay where Questie is off; the zone of an area by `maps` (Map's generated table). Contract 4 of it, as the
+-- caller has checked.
+function worldMap.townsfolk(maps)
+	local db = client.LibQuestieDB
+	local npcs, objects = db.NpcDB, db.ObjectDB
+	client.OpenMapAPI.RegisterTownsfolkProvider("OrdaenMap", {
+		db = {
+			NPCPointers = npcs.GetAllIds(true),
+			npcFlags = db.Enum.npcFlags,
+			QueryNPCSingle = function(id, field) return npcs.Get(id, field) end,
+			QueryObjectSingle = function(id, field) return objects.Get(id, field) end,
+		},
+		zones = { GetUiMapIdByAreaId = function(_, area) return maps[area] end },
+	})
+end
+
+function worldMap.noTownsfolk()
+	client.OpenMapAPI.RegisterTownsfolkProvider("OrdaenMap", nil)
+end
+
 LunaType.addon(name)["worldMap"] = worldMap

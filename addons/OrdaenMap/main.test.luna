@@ -5,7 +5,7 @@
 import Client from "$client"
 import Test from "$test"
 import root Maps from "OrdaenMap"
-import { Layer, Pin } from "@/extend"
+import { DungeonSection, Layer, Pin } from "@/extend"
 import { MapHost, Placed } from "@/host"
 
 const PAGE: Test.Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
@@ -33,6 +33,30 @@ class TestHost implements MapHost {
   public menuSwitch(mut self, id: String, label: String, get: () => Boolean, set: (on: Boolean) => nil) {
     self.switches.push(id)
   }
+  public dungeonSection(mut self, run: (map: Integer, names: Array<String>) => Array<String>) {}
+}
+
+// What a dungeon's card says: the instance's name, where one of the test's.
+class TestSection implements DungeonSection {
+  public lines(self, names: Array<String>): Array<String> {
+    return names.filter(name => name == "The Deadmines").map(name => `In ${name}`)
+  }
+}
+
+test "a dungeon's card on OpenMap's map has Map's section: its title, then each entry's lines; none where none has any" {
+  Test.mount(nil, PAGE)
+  Maps.dungeons.add(new TestSection())
+  Test.flush()
+  Test.expect(Test.dungeonCard(1581, ["The Deadmines"]).join(",") == "Ordaen,In The Deadmines")
+  Test.expect(Test.dungeonCard(1, ["Ragefire Chasm"]).length == 0)
+}
+
+test "OpenMap's townsfolk come from QuestieDB's NPCs, each on its area's map" {
+  Test.questieDB({}, { [1430]: { name: "Kurran Steele", zoneID: 40, npcFlags: 16 } }, {})
+  Test.reload()
+  Test.mount(nil, PAGE)
+  Test.expect(Test.townsfolkMap(1430) == 1436)
+  Test.expect(Test.townsfolkMap(99) == 0)
 }
 
 // A layer of two pins in Westfall (area 40) and one in a zone not in view.

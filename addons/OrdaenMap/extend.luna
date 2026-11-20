@@ -30,3 +30,10 @@ public trait Layer {
   // The player clicked the pin, with Shift held or not.
   public press(self, pin: Pin, shift: Boolean)
 }
+
+// What a module says on a dungeon's card on OpenMap's map (Quests: the log's quests of that dungeon): an entry of Map's
+// `dungeons`, added as a layer is. Map's section of the card holds every entry's lines, under its title.
+public trait DungeonSection {
+  // Its lines for a dungeon of these instances (their names, the client's); none where it has nothing to say.
+  public lines(self, names: Array<String>): Array<String>
+}

@@ -12,3 +12,12 @@ public function forget()
 // The game's tooltip beside a pin: its first line the title, in white, the others under it.
 public function tip(owner: any Client.Frame, lines: Array<String>)
 public function untip()
+// Ordaen's section of a dungeon's card in OpenMap (`RegisterDungeonSection`): `run` is given the dungeon's map and its
+// instances' names, and gives the section's title then its lines, or none for no section. `noDungeonSection` takes it
+// off.
+public function dungeonSection(run: (map: Integer, names: Array<String>) => Array<String>)
+public function noDungeonSection()
+// OpenMap's townsfolk from QuestieDB's NPCs and objects (`RegisterTownsfolkProvider`), each zone's map by its area
+// from `maps`; called where QuestieDB holds contract 4. `noTownsfolk` takes them off.
+public function townsfolk(maps: Map<Integer, Integer>)
+public function noTownsfolk()

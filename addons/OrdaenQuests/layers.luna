@@ -1,11 +1,25 @@
-// What Quests puts on Ordaen Map: where the tracked quests' objectives are, and whom to hand a tracked quest that is
-// done. Each pin is a spot QuestieDB knows; a quest it doesn't know has none. Both are added to Map's `layers` while
+// What Quests puts on Ordaen Map: where the tracked quests' objectives are, whom to hand a tracked quest that is
+// done, and a dungeon's quests on its card. Each pin is a spot QuestieDB knows; a quest it doesn't know has none. Both are added to Map's `layers` while
 // Map is on, by the root.
 import Game from "$game"
-import type { Layer, Pin } from "OrdaenMap"
+import type { DungeonSection, Layer, Pin } from "OrdaenMap"
 import { LogQuest } from "@/book"
 import Locale from "@/locales"
 import { Figure, QuestFacts } from "@/questie"
+
+// The log's quests of a dungeon on its card on the map: those under its instance's header, «[level] title».
+public class DungeonQuests implements DungeonSection {
+  quests: Signal<Array<LogQuest>>
+  constructor(quests: Signal<Array<LogQuest>>) { self.quests = quests }
+
+  public lines(self, names: Array<String>): Array<String> {
+    const lines: Array<String> = []
+    for (quest of self.quests) {
+      if (names.find(name => name == quest.header) != nil) { lines.push(`[${quest.level}] ${quest.title}`) }
+    }
+    return lines
+  }
+}
 
 // Which of a tracked quest's places a layer shows.
 public enum PinKind {
