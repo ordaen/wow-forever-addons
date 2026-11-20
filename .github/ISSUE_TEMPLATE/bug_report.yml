@@ -11,10 +11,13 @@ body:
         - Ordaen
         - OrdaenAlts
         - OrdaenAuction
+        - OrdaenMap
         - OrdaenMinimap
         - OrdaenPanel
         - OrdaenProfessions
+        - OrdaenQuests
         - OrdaenTooltips
+        - OrdaenTracker
         - Not sure
     validations:
       required: true

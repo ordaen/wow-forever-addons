@@ -1,0 +1,19 @@
+// What other modules add to the tracker: the contract, imported by type alone
+// (`import type { QuestLines } from "OrdaenTracker"`). An entry of the tracker's `questLines` registry, added in a
+// watch that follows the tracker's root, so it ends when either module ends. Without the tracker, Blizzard's stays and
+// nothing is added.
+
+// A line under a tracked quest's objectives: its text, and whether it is said as done (a turn-in).
+public struct QuestLine {
+  const text: String
+  const done: Boolean = false
+}
+
+public trait QuestLines {
+  // Its lines for the tracked quest, done or not; none for a quest it knows nothing of. Asked as the tracker draws
+  // the quest and again as what it read changes, never per frame.
+  public lines(self, quest: Integer, done: Boolean): Array<QuestLine>
+  // The player asked for the quest in the log (its title clicked, «Open in the log»): true where this entry opened
+  // it.
+  public open(self, quest: Integer): Boolean
+}

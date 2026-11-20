@@ -1,0 +1,19 @@
+{
+  "QUESTS": "Quests",
+  "SUPER_TRACK": "Show the way",
+  "UNSUPER_TRACK": "Stop showing the way",
+  "OPEN_IN_LOG": "Open in the log",
+  "SHOW_ON_MAP": "Show on the map",
+  "UNTRACK": "Untrack",
+  "SHARE": "Share",
+  "ABANDON": "Abandon quest",
+  "ABANDON_ASK": "Abandon «%s»?",
+  "CANCEL": "Cancel",
+  "COMPLETE": "Ready to turn in",
+  "FAILED": "Failed",
+  "TAG_GROUP": "(Group)",
+  "TAG_PVP": "(PvP)",
+  "TAG_RAID": "(Raid)",
+  "TAG_DUNGEON": "(Dungeon)",
+  "TAG_ELITE": "(Elite)"
+}
