@@ -147,11 +147,20 @@ test "«Copy» shows in the frame's corner while the cursor is on the lines, and
   Test.expect(after.left == before.left && after.top == before.top)
 }
 
-test "the chat's tabs are the window tabs of Ordaen's windows, a right-click opening the menu alone" {
-  Game.chat.windows = gameWindows()
+test "the chat's tabs are a sidebar at its left, one a row, a right-click opening the menu alone" {
+  Game.chat.windows = playersWindows()
   const shown = chat()
-  Test.expect(shown.button("General").paintedWith(Ordaen.art.window.wood))
   Game.chat.heard.emit(line("SAY", "[Thrall] says: here", "Thrall", [1]))
+  // Each tab under the one before, from the same left edge, and the lines to the right of them all.
+  const names = ["Общий", "Журнал", "Гильдия", "Каналы", "Whispers"]
+  for (at of 2..names.length) {
+    const above = shown.text(names[at - 1] ?? "").rect()
+    const below = shown.text(names[at] ?? "").rect()
+    Test.expect(below.top >= above.bottom && below.left == above.left)
+  }
+  Test.expect(shown.text("[Thrall] says: here").rect().left > shown.text("Whispers").rect().right)
+  Game.chat.windows = gameWindows()
+  Test.pass(0.1)
   shown.text("Whispers").rightClick()
   shown.text("General").rightClick()
   Test.expect(!Test.requests().any(r => r == "Chat.choose 1"))
@@ -311,13 +320,18 @@ function plain(words: String): Shown {
   return { whole: words, color: WHITE, time: 0, repeat: words, count: 1, marked: false, past: false, secret: false }
 }
 
-test "tabs that don't fit the chat's width wrap to another row, none of them shortened" {
+test "the chat is never lower than its tabs, the whispers' among them: the lines take the room they leave" {
   Game.chat.windows = [
-    window(1, "General", ""), window(3, "Trade and services", ""), window(4, "Guild officers", "")
+    window(1, "General", ""), window(2, "Log", ""), window(3, "Guild", ""), window(4, "Trade", ""), window(5, "Officers", ""),
+    window(6, "Party", ""), window(7, "Raid", ""), window(8, "Market", ""), window(9, "Friends", "")
   ]
   const shown = chat()
-  Test.expect(shown.text("Guild officers").rect().top > shown.text("General").rect().top)
-  Test.expect(shown.text("Trade and services").shown())
+  // The chat's height is 190 dp, 135 of the screen's units: the tabs stand taller, and the input's hint under the
+  // lines stands no higher than the last tab's foot.
+  const first = shown.text("General").rect()
+  const last = shown.text("Whispers").rect()
+  Test.expect(last.bottom - first.top > 135)
+  Test.expect(shown.text(INPUT_HINT).rect().bottom >= last.bottom)
 }
 
 // The windows and streams of the player's game: General, the combat log, Guild, Channels, two communities.
@@ -325,7 +339,7 @@ function playersWindows(): Array<Game.ChatWindow> {
   return [window(1, "Общий", ""), window(2, "Журнал", ""), window(3, "Гильдия", ""), window(4, "Каналы", "")]
 }
 
-test "with the player's tabs wrapping, the lines keep their room and the input's hint stands under them" {
+test "with the player's tabs, the lines keep their room and the input's hint stands under them" {
   Game.chat.windows = playersWindows()
   Game.chat.streams = [{ club: "1", stream: "1", name: "test" }, { club: "2", stream: "1", name: "Test" }]
   const shown = chat()
@@ -334,8 +348,8 @@ test "with the player's tabs wrapping, the lines keep their room and the input's
   const hint = shown.text(INPUT_HINT).rect()
   Test.expect(shown.text("[Thrall] says: still here").shown())
   Test.expect(hint.top > said.top)
-  // The lines keep the chat's height (190 dp, 135 of the screen's units here) under the last row of tabs.
-  Test.expect(hint.top - shown.text("Test").rect().bottom >= 130)
+  // The lines keep the chat's height (190 dp, 135 of the screen's units here).
+  Test.expect(hint.top - shown.rect().top >= 130)
 }
 
 test "a stream the game lists twice is one tab" {

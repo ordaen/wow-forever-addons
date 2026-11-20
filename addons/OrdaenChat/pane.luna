@@ -3,7 +3,7 @@
 // streams; each window the player undocked is a pane of its own, holding that window alone.
 import Client from "$client"
 import Game from "$game"
-import { Align, Edges, Event, Frame, MouseButton, Overflow, Position } from "$ltml"
+import { Align, Edges, Event, Frame, MouseButton, Overflow, Position, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import { BODY_LINE, Component, Menu, MenuEntry, SECONDARY_TEXT } from "Ordaen"
 import { ChatTab, Shown } from "@/lines"
@@ -27,8 +27,6 @@ const GAME_INPUT = 32ui
 const ROOM: Edges = { top: 2sp, right: 3sp, bottom: 2sp, left: 3sp }
 // «Copy»'s room in the frame's corner.
 const COPY_PAD: Edges = { top: 1sp, right: 2sp, bottom: 1sp, left: 2sp }
-// The frame stands over the tabs' feet.
-const BODY_LEVEL = 5
 
 // What a tab's right-click menu offers.
 public enum TabAction { Rename = "rename", Settings = "settings", New = "new", Lock = "lock", Close = "close" }
@@ -74,6 +72,8 @@ public class Pane implements Component {
   state menuTab: ChatTab | nil = nil
   state menuName: Event.Link | nil = nil
 
+  // The lines' row: the height the player chose at least, more where the tabs stand taller; the foot's under it.
+  derived rows: Array<Track> = [{ fr: 1, min: self.height }, MAX]
   derived textSize: Number<TextSize> = (self.open?.fontSize ?? 13) * 1rem / 13
   derived logFrame: any Frame | nil = self.logOf()
   derived shown: Array<Shown> = self.shownOf()
@@ -214,23 +214,21 @@ public class Pane implements Component {
 
   public render(self): Template {
     return $ltml {
-      // The tabs' rows stand on the frame's top line, their feet behind it; the lines keep the height the player chose,
-      // the foot under them, so the pane grows as its tabs wrap.
-      <box width={self.width} rows={[MAX, MAX]}>
+      // The tabs a sidebar at the frame's left, one a row; the lines at its right, at least the height the player
+      // chose and never lower than the tabs, the foot under them.
+      <box width={self.width} columns={[MAX, { fr: 1 }]} gap={2sp} border={Ordaen.art.frame.small}
+           background={Ordaen.art.window.wood} artOrigin={true} padding={ROOM} @pointerEnter={self.onEnter}
+           @pointerLeave={self.onLeave}>
         <box columns={1}>
-          // The tabs wrap to more rows where they don't fit the pane's width; never shortened, never scrolled.
-          <box columns={"wrap"} gap={3.5sp}>
-            <TabButton $for={tab of self.tabs} tab={tab} open={tab.key == self.open?.key} @pick={self.onPick}
-                       @menu={self.onMenu} />
-          </box>
+          <TabButton $for={tab of self.tabs} tab={tab} open={tab.key == self.open?.key} @pick={self.onPick}
+                     @menu={self.onMenu} />
           <Menu $if={self.menuTab != nil} entries={self.tabEntries} title={self.menuTab?.title ?? ""} @pick={self.onTabPick}
                 @close={self.onTabMenuClose} />
         </box>
-        <box rows={[MAX, MAX]} border={Ordaen.art.frame.small} background={Ordaen.art.window.wood} artOrigin={true}
-             padding={ROOM} zLevel={BODY_LEVEL} @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
-          <embed $if={self.logFrame != nil} frame={self.logFrame ?? panic("shown with the frame")} height={self.height} />
+        <box rows={self.rows} yAlignSelf={Align.Stretch}>
+          <embed $if={self.logFrame != nil} frame={self.logFrame ?? panic("shown with the frame")} />
           // The newest line stands at the bottom; older ones go up past the top, which cuts them.
-          <box $else height={self.height} overflow={Overflow.Hidden} textSize={self.textSize} @wheel={self.onWheel}>
+          <box $else overflow={Overflow.Hidden} textSize={self.textSize} @wheel={self.onWheel}>
             <box position={Position.Absolute} left={0ui} right={0ui} bottom={0ui} columns={1}>
               <Row $for={line of self.shown} line={line} fadeBefore={self.fadeBefore} lineHeight={Ordaen.lengthOf(BODY_LINE)}
                    @link={self.onLink} />
