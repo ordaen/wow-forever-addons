@@ -18,7 +18,8 @@ import { SECONDARY_TEXT, TIGHT_LINE, TITLE_TEXT } from "@/units"
 // On the parchment.
 public const SCROLL_INK: Color = Color.hex("#160c03")
 public const SCROLL_HEAD: Color = Color.hex("#3a1000")
-public const SCROLL_DIM: Color = Color.hex("#6a5236")
+// The muted ink: still 6:1 on the tinted parchment (≈#d9bb85), the weakest monitor's least; lighter than the ink.
+public const SCROLL_DIM: Color = Color.hex("#4a3520")
 // In the well.
 public const WELL_TEXT: Color = Color.hex("#f0e6d0")
 public const WELL_DIM: Color = Color.hex("#a3977f")

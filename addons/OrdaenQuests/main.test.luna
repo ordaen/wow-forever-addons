@@ -561,3 +561,32 @@ test "the abandon button says only «Abandon»" {
   window.text("The Defias Brotherhood").click()
   Test.expect(window.button("Abandon").shown() && !window.text("Abandon quest").shown())
 }
+
+test "an objective that says the task again stands once on the page, not dark then muted" {
+  const log = standing()
+  log[3] = { task: "Speak to Marshal Dughan.", objectives: [{ text: "Speak to Marshal Dughan.", done: true }],
+             ..quest(103, "Elwynn Wolves", "Elwynn Forest") }
+  opened(log)
+  const window = Test.page().window("World")
+  window.text("Elwynn Wolves").click()
+  // Once in the list's row, once on the page.
+  Test.expect(window.text("Speak to Marshal Dughan.").count() == 2)
+}
+
+test "where the giver and the turn-in stand is under the parchment, in the well's colours" {
+  opened(standing())
+  const window = Test.page().window("World")
+  window.text("The Defias Brotherhood").click()
+  const giver = window.text("Gryan Stoutmantle (56, 47)").nth(1)
+  Test.expect(giver.textColor().equal(Color.hex("#f0e6d0")))
+  Test.expect(giver.rect().top > window.text("Objectives").rect().bottom)
+}
+
+test "the parchment's muted ink holds 6:1 against it" {
+  const log = standing()
+  log[3] = { objectives: [{ text: "Pelts: 4/4", done: true }], ..quest(103, "Elwynn Wolves", "Elwynn Forest") }
+  opened(log)
+  const window = Test.page().window("World")
+  window.text("Elwynn Wolves").click()
+  Test.expect(window.text("Pelts").nth(2).textColor().equal(Color.hex("#4a3520")))
+}
