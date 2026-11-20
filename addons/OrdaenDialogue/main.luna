@@ -11,7 +11,7 @@ import Game from "$game"
 import { Align, Event, Overflow, Position, Track } from "$ltml"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
-import { ButtonKey, ButtonPlate, Dialog, KeptWindow, Module, Money, PushButton, Reward, RewardView, Rewards, SCROLL_HEIGHT, SCROLL_WIDTH, SECONDARY_TEXT, Scroll, Settings, SettingsPage, TipText, Window, WindowTabSpec, WindowsPage, choiceViews, windowsTitle } from "Ordaen"
+import { ButtonKey, ButtonPlate, Dialog, KeptWindow, Module, Money, PushButton, Reward, RewardView, Rewards, SCROLL_WIDTH, SECONDARY_TEXT, Scroll, Settings, SettingsPage, TipText, Window, WindowTabSpec, WindowsPage, choiceViews, windowsTitle } from "Ordaen"
 import { LineKey, OptionRow, Placed, columnsOf, keysFor, placeOf } from "@/list"
 import Locale from "@/locales"
 import { Needs, Said } from "@/pages"
@@ -46,6 +46,9 @@ const INSTANT_TEXT = "instantQuestText"
 // The game's pace: 70 letters a second (`QUEST_DESCRIPTION_GRADIENT_CPS`), let in a tenth of a second at a time.
 const FADE_STEP = 0.1
 const FADE_LETTERS = 7
+// The scroll's height on every page, 5:3 at its width: a short greeting and a long quest alike (a long one scrolls).
+const SCROLL_HEIGHT: Number<Length> = 281.25dp
+const FILL: Array<Track> = [{ fr: 1 }]
 
 // The end of the word at `at` or after it (a byte before a space, or the text's end): a text cut there wraps as the
 // whole does, and never inside a letter.
@@ -568,8 +571,8 @@ public class Dialogue implements Module, App {
   derived wellOverflow: Overflow = self.listShown ? Overflow.Visible : Overflow.Scroll
   // A quest's needs and rewards stand at the well's foot, right over the buttons that act on them.
   derived wellAlign: Align = self.listShown ? Align.Start : Align.End
-  // The scroll at its one size (a picture of one fits it), what is under it the rest.
-  derived rows: Array<Track> = [SCROLL_HEIGHT, { fr: 1 }]
+  // The scroll at its one size, what is under it the rest.
+  derived rows: Array<Track> = ["max-content", { fr: 1 }]
   // The list's lines in columns, as many as their count needs; the window widens for each.
   derived optionColumns: Array<Array<Placed>> = columnsOf(self.lines)
   derived listColumns: Array<Track> = self.optionColumns.map((column): Track => "max-content")
@@ -646,7 +649,7 @@ public class Dialogue implements Module, App {
           <box $for={lineKey of self.lineKeys} position={Position.Absolute} left={0ui} top={0ui} width={0ui} height={0ui}
                @keyPress.globalScope(lineKey.key)={self.onKey} />
           <box xAlign={Align.Center}>
-            <box width={SCROLL_WIDTH} height={SCROLL_HEIGHT} rows={[{ fr: 1 }]}>
+            <box width={SCROLL_WIDTH} height={SCROLL_HEIGHT} rows={FILL}>
               <Scroll>
                 <Said page={self.page} quest={self.quest} said={self.said} book={self.book} revealed={self.revealed} />
               </Scroll>

@@ -834,16 +834,33 @@ test "the letters aren't the window's for a list the digits reach" {
   Test.expect(!Test.keyBound("Q"))
 }
 
-test "the scroll stands at its one size, on a long list and on a quest's page alike" {
+// The scroll from its top roll's top to its bottom roll's foot.
+function scrollOf(page: Test.Part): Test.Rect {
+  const top = page.box(Ordaen.art.window.scroll.top).rect()
+  const bottom = page.box(Ordaen.art.window.scroll.bottom).rect()
+  return { left: top.left, right: top.right, top: top.top, bottom: bottom.bottom }
+}
+
+test "the scroll stands at one size, 5:3, on a long list and on a quest's page alike" {
   Test.mount(nil, SCREEN)
   Test.talk(guard())
   const page = Test.page().window("Stormwind City Guard")
-  const listed = page.box("QuestBG-Parchment").rect()
-  Test.expect(page.text("Where would you like to go?").shown() && listed.bottom - listed.top > 150)
+  const listed = scrollOf(page)
+  const height = listed.bottom - listed.top
+  Test.expect(page.text("Where would you like to go?").shown() && height > 150)
+  Test.expect(((listed.right - listed.left) / height - 5 / 3).abs() < 0.01)
+  // The paper fills between the rolls: no gap above or below it.
+  const paper = page.box(Ordaen.art.window.scroll.paper).rect()
+  Test.expect((paper.top - page.box(Ordaen.art.window.scroll.top).rect().bottom).abs() < 0.5)
+  Test.expect((page.box(Ordaen.art.window.scroll.bottom).rect().top - paper.bottom).abs() < 0.5)
+  // The words stand on the paper: below the top roll and in from its torn sides.
+  const words = page.text("Where would you like to go?").rect()
+  Test.expect(words.top >= page.box(Ordaen.art.window.scroll.top).rect().bottom - 10)
+  Test.expect(words.left >= listed.left + (listed.right - listed.left) * 0.08)
   Events.GOSSIP_CLOSED.emit(false)
   Test.talk(innkeeper())
   Test.quest(pie())
   Events.QUEST_DETAIL.emit(nil)
-  const quest = window().box("QuestBG-Parchment").rect()
+  const quest = scrollOf(window())
   Test.expect((listed.bottom - listed.top - (quest.bottom - quest.top)).abs() < 0.5)
 }

@@ -1,0 +1,57 @@
+{
+  "says": "Variants of dialogue-scroll-01's plain-rolls seed 301 (art/sources/dialogue/scroll-plain-rolls-301.png), redrawn by img2img at three strengths. None ships.",
+  "workflow": "flux-schnell-img2img",
+  "seed": "6.seed",
+  "set": {
+    "2.text": "an open blank parchment scroll seen straight from the front, filling the frame, the paper rolled into a thick cylinder along the whole top edge and along the whole bottom edge, aged cream paper with faint stains, soft even lighting, fantasy game UI asset, isolated on a pure black background, no text, no writing",
+    "6.steps": 8
+  },
+  "items": [
+    {
+      "name": "redrawn-light",
+      "set": {
+        "6.denoise": 0.45
+      },
+      "upload": {
+        "4.image": "art/sources/dialogue/scroll-plain-rolls-301.png"
+      },
+      "seeds": [
+        401,
+        402,
+        403,
+        404
+      ]
+    },
+    {
+      "name": "redrawn-strong",
+      "set": {
+        "6.denoise": 0.62
+      },
+      "upload": {
+        "4.image": "art/sources/dialogue/scroll-plain-rolls-301.png"
+      },
+      "seeds": [
+        411,
+        412,
+        413,
+        414
+      ]
+    },
+    {
+      "name": "redrawn-warm",
+      "set": {
+        "6.denoise": 0.55,
+        "2.text": "an open blank parchment scroll seen straight from the front, filling the frame, the paper rolled into a thick cylinder along the whole top edge and along the whole bottom edge, warm golden tan aged parchment with darker worn edges and soft shading inside the rolls, soft even lighting, fantasy game UI asset, isolated on a pure black background, no text, no writing"
+      },
+      "upload": {
+        "4.image": "art/sources/dialogue/scroll-plain-rolls-301.png"
+      },
+      "seeds": [
+        421,
+        422,
+        423,
+        424
+      ]
+    }
+  ]
+}

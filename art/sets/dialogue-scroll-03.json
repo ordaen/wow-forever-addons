@@ -1,0 +1,56 @@
+{
+  "says": "dialogue-scroll-01's plain-rolls at its seed 301 and its neighbours, the prompt changed: thicker rolls, darker paper, cleaner paper, warmer paper. darker-aged seed 306 ships, as the piece scroll (its rolls and its paper band).",
+  "workflow": "flux-schnell",
+  "seed": "5.seed",
+  "set": {
+    "4.width": 1040,
+    "4.height": 624,
+    "5.steps": 4
+  },
+  "items": [
+    {
+      "name": "thick-rolls",
+      "set": {
+        "2.text": "an open blank parchment scroll seen straight from the front, filling the frame, the paper rolled into a very thick heavy cylinder along the whole top edge and along the whole bottom edge, the spiral of the roll visible at each end, aged cream paper with faint stains, soft even lighting, fantasy game UI asset, isolated on a pure black background, no text, no writing"
+      },
+      "seeds": [
+        301,
+        305,
+        306
+      ]
+    },
+    {
+      "name": "darker-aged",
+      "set": {
+        "2.text": "an open blank parchment scroll seen straight from the front, filling the frame, the paper rolled into a thick cylinder along the whole top edge and along the whole bottom edge, old darker tan parchment with brown stains and slightly burnt edges, soft even lighting, fantasy game UI asset, isolated on a pure black background, no text, no writing"
+      },
+      "seeds": [
+        301,
+        305,
+        306
+      ]
+    },
+    {
+      "name": "clean-paper",
+      "set": {
+        "2.text": "an open blank parchment scroll seen straight from the front, filling the frame, the paper rolled into a thick cylinder along the whole top edge and along the whole bottom edge, smooth clean light cream paper with an even surface and only faint grain, soft even lighting, fantasy game UI asset, isolated on a pure black background, no text, no writing"
+      },
+      "seeds": [
+        301,
+        305,
+        306
+      ]
+    },
+    {
+      "name": "warm-gold",
+      "set": {
+        "2.text": "an open blank parchment scroll seen straight from the front, filling the frame, the paper rolled into a thick cylinder along the whole top edge and along the whole bottom edge, warm golden parchment glowing softly, rich shading inside the rolls, soft even lighting, fantasy game UI asset, isolated on a pure black background, no text, no writing"
+      },
+      "seeds": [
+        301,
+        305,
+        306
+      ]
+    }
+  ]
+}

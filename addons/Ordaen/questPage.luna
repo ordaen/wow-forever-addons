@@ -5,8 +5,9 @@
 // dearest one's in gold), then experience, reputation and money in one band of columns as a tooltip's.
 import Client from "$client"
 import Game from "$game"
-import { Align, Art, Event, Line, MouseButton, Overflow, Side, TextAlign, Track } from "$ltml"
+import { Align, Art, Event, Line, MouseButton, Overflow, Position, Side, TextAlign, Track } from "$ltml"
 import Runtime from "$runtime"
+import root Ordaen from "Ordaen"
 import { ItemButton, Quality, qualityFrom, usableItem } from "@/itemButton"
 import Locale from "@/locales"
 import { Component } from "@/module"
@@ -29,10 +30,6 @@ public const WELL_GOLD: Color = Color.hex("#ffd100")
 public const WELL_RULE: Line = { width: 1.171875dp, color: Color.hex("#3e2f1d"), sides: [Side.Top] }
 public const REWARD_ICON: Number<Length> = 39.84375dp
 
-const PARCHMENT: Art = "QuestBG-Parchment"
-const PARCHMENT_TINT: Color = Color.hex("#f2d29a")
-const ROLL: Color = Color.hex("#b07a3a")
-const ROLL_HEIGHT: Number<Length> = 14.0625dp
 const BEST: Color = Color.hex("#40ff40")
 const RULE_BELOW: Line = { width: 1.171875dp, color: Color.hex("#3e2f1d"), sides: [Side.Top, Side.Bottom] }
 const KEYCAP: Color = Color.hex("#00000080")
@@ -48,21 +45,29 @@ const ARROW = 14.0625dp
 // The arrow's room and the word, the word at the column's end.
 const PAWN_CELLS: Array<Track> = [ARROW, { fr: 1 }]
 
-// The scroll's one size, its rolled ends in it: where it stands at a fixed size (Dialogue's page), one picture of a
-// scroll fits it; what it holds scrolls past its height.
+// The scroll's width, its art's (1024 texels): where it stands, it is about as wide, its rolls barely stretched.
 public const SCROLL_WIDTH: Number<Length> = 468.75dp
-public const SCROLL_HEIGHT: Number<Length> = 281.25dp
+// A roll's height at that width (its 128 texels).
+const ROLL_HEIGHT: Number<Length> = 58.59375dp
+const ROLLS: Array<Track> = ["max-content", { fr: 1 }, "max-content"]
+// Where the text stands on the art, in its measure (not the spacing setting's): off the rolls (their 94 texels and a
+// little more) and the paper's torn sides (80 texels and a little more).
+const OFF_ROLLS: Number<Length> = 50.625dp
+const OFF_SIDES: Number<Length> = 46.875dp
 
-// The scroll: what is said of a quest on the parchment between its rolled ends; it scrolls past its height.
+// The scroll: what is said of a quest on the parchment between its rolls. It fills the cell it stands in, the paper
+// repeated down between the rolls; what it holds scrolls past the paper's height.
 public class Scroll implements Component {
   public render(self): Template {
     return $ltml {
-      <box rows={["max-content", { fr: 1 }, "max-content"]}>
-        <box height={ROLL_HEIGHT} background={ROLL} />
-        <box background={PARCHMENT} tint={PARCHMENT_TINT} overflow={Overflow.Scroll} padding={3sp} gap={1.5sp}>
+      <box rows={ROLLS}>
+        <box height={ROLL_HEIGHT} background={Ordaen.art.window.scroll.top} />
+        <box background={Ordaen.art.window.scroll.paper} />
+        <box height={ROLL_HEIGHT} background={Ordaen.art.window.scroll.bottom} />
+        <box position={Position.Absolute} left={OFF_SIDES} right={OFF_SIDES} top={OFF_ROLLS} bottom={OFF_ROLLS}
+             overflow={Overflow.Scroll} gap={1.5sp}>
           <slot />
         </box>
-        <box height={ROLL_HEIGHT} background={ROLL} />
       </box>
     }
   }

@@ -1,0 +1,25 @@
+{
+  "says": "The scroll of a quest's page (Ordaen questPage.luna, Scroll; Ordaen.art.window.scroll): its top roll and its bottom roll, and between them a band of paper with its torn sides that repeats down, so the scroll grows to any height. Each 1024 texels wide, drawn at the scroll's width.",
+  "ships": ["addons/Ordaen/media/scroll-top.tga", "addons/Ordaen/media/scroll-paper.tga", "addons/Ordaen/media/scroll-bottom.tga"],
+  "origin": "FLUX.1 [schnell] (set dialogue-scroll-03, darker-aged, seed 306), keyed off its black ground at its own 5:3, then cut: the rolls with the paper just past them, and a band of paper under the top roll mirrored onto itself.",
+  "steps": [
+    {
+      "generate": {
+        "workflow": "flux-schnell",
+        "set": {
+          "2.text": "an open blank parchment scroll seen straight from the front, filling the frame, the paper rolled into a thick cylinder along the whole top edge and along the whole bottom edge, old darker tan parchment with brown stains and slightly burnt edges, soft even lighting, fantasy game UI asset, isolated on a pure black background, no text, no writing",
+          "4.width": 1040,
+          "4.height": 624,
+          "5.steps": 4,
+          "5.seed": 306
+        },
+        "out": "art/sources/dialogue/scroll-darker-aged-306.png"
+      }
+    },
+    { "key": { "in": "art/sources/dialogue/scroll-darker-aged-306.png", "out": "art/out/scroll-keyed.png", "width": 1024, "height": 614 } },
+    { "crop": { "in": "art/out/scroll-keyed.png", "out": "addons/Ordaen/media/scroll-top.tga", "x": 0, "y": 0, "width": 1024, "height": 128 } },
+    { "crop": { "in": "art/out/scroll-keyed.png", "out": "addons/Ordaen/media/scroll-bottom.tga", "x": 0, "y": 486, "width": 1024, "height": 128 } },
+    { "crop": { "in": "art/out/scroll-keyed.png", "out": "art/out/scroll-band.png", "x": 0, "y": 128, "width": 1024, "height": 128 } },
+    { "mirror": { "in": "art/out/scroll-band.png", "out": "addons/Ordaen/media/scroll-paper.tga" } }
+  ]
+}

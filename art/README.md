@@ -37,7 +37,7 @@ again; `origin` then says why and the shipped file is the source.
 | Step | Does |
 |---|---|
 | `generate` | runs `workflows/<workflow>.json` on ComfyUI with the inputs `set` names (`<node id>.<input>`), the pictures `upload` names sent to its inputs; its `out` is kept in `sources/` and is generated only when missing |
-| `key` | a picture on pure black keyed out (alpha from the brightest channel, `lo` 18 clear to `hi` 60 opaque, colours divided back), trimmed to its subject, squared and scaled to `size` |
+| `key` | a picture on pure black keyed out (alpha from the brightest channel, `lo` 18 clear to `hi` 60 opaque, colours divided back), trimmed to its subject, then squared and scaled to `size` (128 when none is named), or, with `width` and `height` in place of `size`, stretched to fill them (a texture of power-of-two sides the client stretches back to the subject's shape) |
 | `matte` | `width` x `height` of two shots of a page, on `black` and on `white`: alpha from their difference |
 | `fit` | an icon's glyph scaled to its set's optical size (`target` of the canvas, its longest side at most `cap`, times `scale`), centred on a clear `size` square |
 | `convert` | a picture as PNG or TGA |

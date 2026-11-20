@@ -1,0 +1,56 @@
+{
+  "says": "Dialogue's scroll: a whole open scroll at 5:3, its rolled ends at the top and the bottom, on black to be keyed. None ships; plain-rolls seed 301 is what dialogue-scroll-02 and dialogue-scroll-03 vary.",
+  "workflow": "flux-schnell",
+  "seed": "5.seed",
+  "set": {
+    "4.width": 1040,
+    "4.height": 624,
+    "5.steps": 4
+  },
+  "items": [
+    {
+      "name": "plain-rolls",
+      "set": {
+        "2.text": "an open blank parchment scroll seen straight from the front, filling the frame, the paper rolled into a thick cylinder along the whole top edge and along the whole bottom edge, aged cream paper with faint stains, soft even lighting, fantasy game UI asset, isolated on a pure black background, no text, no writing"
+      },
+      "seeds": [
+        301,
+        302,
+        303
+      ]
+    },
+    {
+      "name": "wooden-rods",
+      "set": {
+        "2.text": "an open blank parchment scroll seen straight from the front, filling the frame, the paper wound around a dark polished wooden rod at the top and another at the bottom, the rods' turned ends showing at both sides, aged warm parchment, soft even lighting, fantasy game UI asset, isolated on a pure black background, no text, no writing"
+      },
+      "seeds": [
+        311,
+        312,
+        313
+      ]
+    },
+    {
+      "name": "gold-caps",
+      "set": {
+        "2.text": "an open blank parchment scroll seen straight from the front, filling the frame, the paper rolled at the top and the bottom around rods with ornate gold end caps, rich aged parchment with darker burnt edges, soft even lighting, high fantasy game UI asset, isolated on a pure black background, no text, no writing"
+      },
+      "seeds": [
+        321,
+        322,
+        323
+      ]
+    },
+    {
+      "name": "worn-curls",
+      "set": {
+        "2.text": "an open blank old parchment scroll seen straight from the front, filling the frame, its top and bottom edges curling over into loose rolls, worn torn sides, warm tan paper with fibres and faint water stains, soft even lighting, fantasy game UI asset, isolated on a pure black background, no text, no writing"
+      },
+      "seeds": [
+        331,
+        332,
+        333
+      ]
+    }
+  ]
+}
