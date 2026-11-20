@@ -79,6 +79,9 @@ const BAR_GOLD: Color = Color.hex("#d6a56b80")
 const UNDERLINE: Color = Color.hex("#ffd10080")
 public const DASH: Piece = { file: "@/assets/dash.tga", width: 8, height: 1, tile: true }
 const UNDERLINE_HEIGHT: Number<Length> = 1.171875dp
+// A compared tooltip's header («Equipped») over its title: the main tooltip beside it stands as much lower, so the
+// titles are level.
+public const HEADER: Number<Spacing> = 10.5sp
 // Where the underline stands under its text: half the line's gap below, which the density sizes.
 function underText(): Number<Length> {
   return -(Ordaen.lengthOf(LINE) / 2 + UNDERLINE_HEIGHT)
@@ -397,6 +400,7 @@ public class TipFrame implements Component {
   derived width: Number<Length> = self.side ? SIDE_WIDTH : WIDTH
   derived hasHeader: Boolean = self.model.header != nil
   derived header: String = self.model.header ?? ""
+  derived headerHigh: Number<Length> = Ordaen.lengthOf(HEADER)
   // The picture by the title: an icon, or a unit's face.
   derived hasIcon: Boolean = self.pictured()
   derived icon: Art | nil = self.iconArt()
@@ -528,7 +532,7 @@ public class TipFrame implements Component {
       <box width={"min-content"} padding={INSIDE} border={Ordaen.art.frame.small}
            background={Ordaen.art.window.wood}>
         <box width={self.width} height={0ui} />
-        <box $if={self.hasHeader} height={41.015625dp} gap={2sp}>
+        <box $if={self.hasHeader} height={self.headerHigh} gap={2sp}>
           <box xAlign={Align.Center}>
             <text value={self.header} textColor={HEADING} wrap={false} />
           </box>
