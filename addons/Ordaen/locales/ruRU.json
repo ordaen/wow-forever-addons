@@ -295,5 +295,12 @@
   "TRAINER_TOGETHER": "Всё доступное вместе:",
   "TRAINER_NEEDS_LEVEL_SHORT": "Требуется %d-й уровень",
   "TRAINER_TOO_DEAR": "Недостаточно денег",
-  "TRAINER_PICK_FIRST": "Выберите навык"
+  "TRAINER_PICK_FIRST": "Выберите навык",
+  "CONFLICT_TITLE": "Два аддона рисуют одно и то же",
+  "CONFLICT_ASK": "%s рисует то же, что и %s. Оставить одно?",
+  "CONFLICT_ORDAEN": "Ordaen: %s выключается для этого персонажа, нужна перезагрузка.",
+  "CONFLICT_OTHER": "%s: выключаются %s.",
+  "CONFLICT_RELOAD": "%s выключен со следующей перезагрузки.",
+  "CONFLICT_RELOAD_NOW": "Перезагрузить",
+  "CONFLICT_LATER": "Позже"
 }

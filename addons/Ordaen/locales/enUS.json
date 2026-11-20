@@ -295,5 +295,12 @@
   "TRAINER_TOGETHER": "All available, together:",
   "TRAINER_NEEDS_LEVEL_SHORT": "Requires level %d",
   "TRAINER_TOO_DEAR": "Not enough money",
-  "TRAINER_PICK_FIRST": "Pick a service"
+  "TRAINER_PICK_FIRST": "Pick a service",
+  "CONFLICT_TITLE": "Two addons draw the same",
+  "CONFLICT_ASK": "%s draws what %s draws. Keep one?",
+  "CONFLICT_ORDAEN": "Ordaen: %s is turned off for this character, after a reload.",
+  "CONFLICT_OTHER": "%s: %s turned off.",
+  "CONFLICT_RELOAD": "%s is off from the next reload.",
+  "CONFLICT_RELOAD_NOW": "Reload",
+  "CONFLICT_LATER": "Later"
 }

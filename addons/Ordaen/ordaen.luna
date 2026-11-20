@@ -9,6 +9,7 @@ import Game from "$game"
 import { Anchored, Art, Point } from "$ltml"
 import Runtime from "$runtime"
 import { ARTWORK, OrdaenArt } from "@/art"
+import { Conflict, ConflictQuestion } from "@/conflicts"
 import { DEFAULTS, Globals } from "@/globals"
 import { OwnerKeys } from "@/hotkeys"
 import { Keeper } from "@/keeper"
@@ -84,6 +85,8 @@ public class OrdaenCore implements App {
   tipCount = 0
   // Moves each time `tips` is emptied: what read a tooltip through `itemTip` reads it again.
   public state tipsAge = 0
+  // The other addons that draw what modules draw, whose question waits to be drawn (`askWaiting`).
+  unasked: mut Array<Conflict> = []
   // What waits for the player's fight to end (`afterCombat`), in the order asked.
   waiting: mut Array<() => nil> = []
 
@@ -175,6 +178,7 @@ public class OrdaenCore implements App {
         Runtime.mount(module, Runtime.screen())
       }
     }
+    if (running.length > 0) { self.askWaiting() }
   }
 
   // The look a profile holds, as it is read: one of a preset Ordaen doesn't offer is Ordaen's, kept so.
@@ -253,7 +257,7 @@ public class OrdaenCore implements App {
   // The modules the player has (each addon that needs Ordaen) run but those the player turned off, as the client's
   // list of addons has them: a start never changes that list. A module the list has off is refused by the client
   // and tried again at the next start; one the player turned off is left unloaded, wherever the list has it.
-  start(self) {
+  start(mut self) {
     const own = Runtime.Addon.of(self)
     if (own == nil) { return }
     for (addon of own.dependents()) {
@@ -267,6 +271,55 @@ public class OrdaenCore implements App {
       const refused = addon.load()
       if (refused != nil) { Debug.log("module %s: not made, the client says %s", addon.name, refused.reason) }
     }
+    self.askConflicts(own.dependents())
+  }
+
+  // Each other addon loaded that draws what modules on draw, and was never answered since it came: the player is
+  // asked to keep one. One that is off now forgets its answer, so it is asked again when it comes back.
+  askConflicts(mut self, modules: Array<Runtime.Addon>) {
+    const answered = load<Map<String, Boolean>>(.Account, "conflicts", {})
+    let asking: Map<String, Runtime.Addon> = {}
+    const running = modules.filter(module => self.chosen[module.name] != false)
+    for (module of running) {
+      for (other of module.conflicts()) {
+        let loaded, _ = Client.C_AddOns.IsAddOnLoaded(other.name)
+        if (!loaded) {
+          answered[other.name] = nil
+        } else if (answered[other.name] == nil) {
+          asking[other.name] = other
+        }
+      }
+    }
+    Game.saved.store(.Account, "conflicts", answered)
+    for (name, other of asking) {
+      const conflict: Conflict = {
+        other: other,
+        modules: running.filter(module => module.conflicts().any(one => one.name == name))
+      }
+      Debug.log("%s draws what %d modules draw: the player is asked", name, conflict.modules.length)
+      self.unasked.push(conflict)
+    }
+  }
+
+  // The questions waiting, drawn as the modules they are of are: nothing is drawn while Ordaen's root is being made.
+  askWaiting(mut self) {
+    const waiting = self.unasked
+    self.unasked = []
+    for (conflict of waiting) {
+      Runtime.mount(new ConflictQuestion(conflict, (kept: Boolean): nil => {
+        self.conflictAnswered(conflict, kept)
+        return nil
+      }), Runtime.screen())
+    }
+  }
+
+  // The player's answer, kept: Ordaen kept (the other addon is off from the reload), or the other (its modules off).
+  conflictAnswered(mut self, conflict: Conflict, kept: Boolean) {
+    const answered = load<Map<String, Boolean>>(.Account, "conflicts", {})
+    answered[conflict.other.name] = kept
+    Game.saved.store(.Account, "conflicts", answered)
+    if (kept) { return }
+    for (module of conflict.modules) { self.turn(module, false) }
   }
 
   // `/ordaen` opens the settings, `/ordaen <module>` on that module's page: its folder or its name in the list, in
