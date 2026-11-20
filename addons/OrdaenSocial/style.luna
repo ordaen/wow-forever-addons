@@ -41,3 +41,6 @@ public const OFFLINE_ICON: Asset = "Interface/FriendsFrame/StatusIcon-Offline"
 // A best friend's star after the name: the game's own friends list's.
 public const STAR_ICON: Atlas = "friendslist-favorite"
 public const STAR: Number<Length> = 18.75dp
+// A friends list row's icons, the status glyph and the star alike: as high as the name's line (17.78 units), as the
+// game's own list has them (16 and 17).
+public const ROW_ICON: Number<Length> = 25dp

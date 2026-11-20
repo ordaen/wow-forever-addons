@@ -1,9 +1,10 @@
 // The friends tab's parts: the list of both kinds of friends in one (with its sort, search and «Добавить друга»), the
 // card beside it (the picked friend's, or the player's own), the requests waiting, and the black list.
 //
-// A row: the friend's status mark, the name (a Battle.net account's in Battle.net blue, a character's in its class
-// colour, grey while offline) with a best friend's star after it, and under it «Battle.net» first for an account, then
-// the character and the zone, the game it plays, or when it was last seen; the character's level at the row's right.
+// A row: the friend's status mark beside the name's line; the name (in the class colour of the character played, a
+// Battle.net account playing none in Battle.net blue, grey while offline), the character's level right after it
+// («25lvl») and a best friend's star; under it «Battle.net» first for an account, then the character and the zone,
+// the game it plays, or when it was last seen. The mark and the star are one size, the name's line's height.
 // The view switch draws the same friends as a table's columns instead. Best friends stay on top whatever the sort; the
 // filter shows each kind and those online or offline. Left-click picks a friend (its card shows); again, the card is
 // the player's own.
@@ -65,7 +66,7 @@ const PRESENCES: Array<Choice<Presence>> = [
   { value: .Busy, label: Locale.BUSY },
   { value: .Offline, label: Locale.INVISIBLE }
 ]
-const ROW: Array<Track> = [Style.DOT, { fr: 1 }, "max-content"]
+const ROW: Array<Track> = [Style.ROW_ICON, { fr: 1 }]
 const ROW_PAD: Edges = { top: 1sp, right: 2sp, bottom: 1sp, left: 2sp }
 // A friend's row's padding: a pickable row's (`PickRow`'s).
 const PICK_PAD: Edges = { top: 2sp, right: 2sp, bottom: 2sp, left: 2sp }
@@ -109,8 +110,9 @@ public function gameName(program: String): String {
 
 function nameColorOf(friend: Friend): Color {
   if (friend.presence == .Offline) { return Style.OFFLINE }
-  if (friend.account != nil) { return Style.BATTLE_NET }
-  return classColor(friend.hero?.classFile) ?? Style.INK
+  const heroColor = classColor(friend.hero?.classFile)
+  if (heroColor != nil) { return heroColor }
+  return friend.account != nil ? Style.BATTLE_NET : Style.INK
 }
 
 // The second line's points: «Battle.net» first for an account, then the character and its zone, the game, or when it
@@ -202,7 +204,7 @@ class FriendRow implements Component {
   public pick: Event<String> = new Event()
   public menu: Event<String> = new Event()
 
-  derived level: String = self.friend.hero != nil ? String.of(levelOf(self.friend)) : ""
+  derived level: String = self.friend.hero != nil ? Locale.ROW_LEVEL.format(levelOf(self.friend)) : ""
   derived favorite: Boolean = self.friend.account?.favorite == true
   derived background: Color | ByInteractionState<Color> = rowShade(self.picked)
 
@@ -221,15 +223,14 @@ class FriendRow implements Component {
       <box columns={ROW} gap={2sp} yAlign={Align.Center} padding={PICK_PAD} background={self.background}
            @pointerPress(.Left)={self.onPick} @pointerPress(.Right)={self.onMenu} @keyPress(.Enter)={self.onPick}
            @keyPress(.Space)={self.onPick}>
-        <box width={Style.DOT} height={Style.DOT} background={markOf(self.friend.presence)} />
-        <box columns={1}>
-          <box columns={[{ fr: 1 }, "max-content"]} gap={2sp} yAlign={Align.Center}>
-            <text value={titleOf(self.friend)} textColor={nameColorOf(self.friend)} wrap={.Cut} />
-            <box $if={self.favorite} width={Style.STAR} height={Style.STAR} background={Style.STAR_ICON} />
-          </box>
-          <text value={pointsOf(self.friend)} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={.Cut} />
+        <box width={Style.ROW_ICON} height={Style.ROW_ICON} background={markOf(self.friend.presence)} />
+        <box columns={{ each: "max-content" }} gap={2sp} yAlign={Align.Center}>
+          <text value={titleOf(self.friend)} textColor={nameColorOf(self.friend)} wrap={.Cut} />
+          <text $if={self.level != ""} value={self.level} textColor={Style.DIM} textFont={.Numbers} wrap={.None} />
+          <box $if={self.favorite} width={Style.ROW_ICON} height={Style.ROW_ICON} background={Style.STAR_ICON} />
         </box>
-        <text value={self.level} textColor={Style.DIM} textFont={.Numbers} wrap={.None} />
+        <box />
+        <text value={pointsOf(self.friend)} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={.Cut} />
       </box>
     }
   }

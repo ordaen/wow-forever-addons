@@ -25,6 +25,7 @@
   "GAME_APP": "Battle.net App",
   "CARD_BATTLE_NET": "%s · Battle.net friend",
   "CARD_CHARACTER": "%s, level %d · %s",
+  "ROW_LEVEL": "%dlvl",
   "QUOTED": "“%s”",
   "STATUS": "Status",
   "PLAYS": "Playing",
