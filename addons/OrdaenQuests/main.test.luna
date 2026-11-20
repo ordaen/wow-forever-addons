@@ -209,9 +209,9 @@ test "a quest's scroll fills its page's height: the rolls at its top and its foo
   const title = window.text("The Defias Brotherhood").nth(2).rect()
   Test.expect(title.top >= top.bottom - 10 && (title.left - paper.left) / (paper.right - paper.left) > 0.115)
   // It fills the page, whatever the text's size and however much the quest says: what stands under it starts right
-  // under its foot, and a quest of three lines (with no QuestieDB lines under it, whose room it takes too) has a scroll
-  // at least as tall, its foot well past its words.
-  const under = window.text("Gryan Stoutmantle (56, 47)").nth(1).rect()
+  // under its foot (the next quest of its chain), and a quest of three lines (with no next quest under it, whose room
+  // it takes too) has a scroll at least as tall, its foot well past its words.
+  const under = window.text("Next quest").rect()
   Test.expect(under.top >= bottom.bottom && under.top - bottom.bottom < 40)
   window.text("Elwynn Wolves").click()
   const short = window.box(Ordaen.art.window.scroll.bottom).rect()
