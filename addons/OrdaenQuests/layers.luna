@@ -1,6 +1,7 @@
 // What Quests puts on Ordaen Map: where the tracked quests' objectives are, and whom to hand a tracked quest that is
 // done. Each pin is a spot QuestieDB knows; a quest it doesn't know has none. Both are added to Map's `layers` while
 // Map is on, by the root.
+import Game from "$game"
 import type { Layer, Pin } from "OrdaenMap"
 import { LogQuest } from "@/book"
 import Locale from "@/locales"
@@ -25,10 +26,18 @@ public class QuestPins implements Layer {
   const kind: PinKind
   quests: Signal<Array<LogQuest>>
   facts: Signal<Map<Integer, QuestFacts>>
-  constructor(kind: PinKind, quests: Signal<Array<LogQuest>>, facts: Signal<Map<Integer, QuestFacts>>) {
+  hovered: Signal<Integer>
+  constructor(
+    kind: PinKind,
+    quests: Signal<Array<LogQuest>>,
+    facts: Signal<Map<Integer, QuestFacts>>,
+    // The quest under the cursor in the log (0: none): its pins are lit.
+    hovered: Signal<Integer> = 0
+  ) {
     self.kind = kind
     self.quests = quests
     self.facts = facts
+    self.hovered = hovered
     self.id = kind == .Objectives ? "quests.objectives" : "quests.turnIns"
     self.title = kind == .Objectives ? Locale.LAYER_OBJECTIVES : Locale.LAYER_TURN_INS
     self.hint = kind == .Objectives ? Locale.LAYER_OBJECTIVES_TIP : Locale.LAYER_TURN_INS_TIP
@@ -50,7 +59,9 @@ public class QuestPins implements Layer {
       const facts = self.facts[quest.id]
       if (facts != nil) {
         for (figure of self.figuresOf(quest, facts)) {
-          for (spot of figure.spots) { pins.push({ of: quest.id, area: spot.area, x: spot.x, y: spot.y, icon: icon }) }
+          for (spot of figure.spots) {
+            pins.push({ of: quest.id, area: spot.area, x: spot.x, y: spot.y, icon: icon, lit: quest.id == self.hovered })
+          }
         }
       }
     }
@@ -67,5 +78,14 @@ public class QuestPins implements Layer {
       if (!objective.done) { lines.push(objective.text) }
     }
     return lines
+  }
+
+  // As the game's map has its quest pins: a click points the way to the quest, Shift+click stops tracking it.
+  public press(self, pin: Pin, shift: Boolean) {
+    if (shift) {
+      Game.questLog.track(pin.of, false)
+    } else {
+      Game.questLog.superTrack(pin.of)
+    }
   }
 }

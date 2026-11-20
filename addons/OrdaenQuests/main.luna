@@ -126,6 +126,8 @@ public class Quests implements Module, App {
   public state facts: Map<Integer, QuestFacts> = {}
   // The quest whose page shows (0: none), its text, and the quest the player asked to abandon (0: none).
   public state picked = 0
+  // The quest under the cursor in the list (0: none): its pins on the map are lit.
+  public state hovered = 0
   state text: Game.QuestText = NO_TEXT
   state abandoning = 0
   // The headers the player folded, by their text.
@@ -163,8 +165,8 @@ public class Quests implements Module, App {
   const turnIns: QuestPins
 
   constructor() {
-    self.objectives = new QuestPins(PinKind.Objectives, self.quests, self.facts)
-    self.turnIns = new QuestPins(PinKind.TurnIns, self.quests, self.facts)
+    self.objectives = new QuestPins(PinKind.Objectives, self.quests, self.facts, self.hovered)
+    self.turnIns = new QuestPins(PinKind.TurnIns, self.quests, self.facts, self.hovered)
     self.toggle = Client.CreateFrame("Button", TOGGLE, Client.UIParent, nil)
     Ordaen.modules.add(self)
     self.toggle.SetScript("OnClick", (): nil => {
@@ -242,6 +244,8 @@ public class Quests implements Module, App {
   onAct(mut self, id: Integer, act: Act) {
     match (act) {
       .Pick => { self.picked = id }
+      .Hover => { self.hovered = id }
+      .Unhover => { if (peek self.hovered == id) { self.hovered = 0 } }
       .Track => {
         const quest = (peek self.quests).find(quest => quest.id == id)
         if (quest != nil) {

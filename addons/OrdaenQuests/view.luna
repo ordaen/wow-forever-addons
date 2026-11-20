@@ -7,7 +7,7 @@
 import Game from "$game"
 import { Align, Art, ByInteractionState, Edges, Position, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { ButtonPlate, Component, ItemButton, Menu, MenuEntry, Money, PushButton, SECONDARY_TEXT, TITLE_LINE, TITLE_TEXT, rowShade } from "Ordaen"
+import { ButtonPlate, Component, ItemButton, Menu, MenuEntry, Money, PushButton, SECONDARY_TEXT, TITLE_LINE, TITLE_TEXT, Tip, rowShade } from "Ordaen"
 import { LogQuest } from "@/book"
 import Locale from "@/locales"
 import { colorOf, difficultyOf } from "@/model"
@@ -15,7 +15,7 @@ import { Figure, QuestFacts } from "@/questie"
 
 // What the player asks of a quest from its row or its page. `Link`: Shift+Left-click on its title, a chat link where a
 // chat line is open, else tracking (the game's order).
-public enum Act { Pick, Track, Link, Share, Abandon, ShowOnMap, SuperTrack }
+public enum Act { Pick, Track, Link, Share, Abandon, ShowOnMap, SuperTrack, Hover, Unhover }
 
 const INK: Color = Color.hex("#e8dcc4")
 // A quest's reward items: slots in a row, as many as it gives.
@@ -73,6 +73,9 @@ public class QuestRow implements Component {
   public act: Event<(Integer, Act)> = new Event()
 
   state menuOpen = false
+  state hovered = false
+  // Its tooltip, saying what the player's clicks on it do.
+  derived tipShown: Boolean = self.hovered && !self.menuOpen
   derived level: String = `[${self.quest.level}${self.quest.group > 1 ? "+" : ""}]`
   derived levelColor: Color = colorOf(difficultyOf(self.quest.level, self.player))
   derived progress: String = stateOf(self.quest)
@@ -101,6 +104,14 @@ public class QuestRow implements Component {
   onLink(mut self) { self.act.emit(self.quest.id, Act.Link) }
   onMenu(mut self) { self.menuOpen = true }
   onClose(mut self) { self.menuOpen = false }
+  onEnter(mut self) {
+    self.hovered = true
+    self.act.emit(self.quest.id, Act.Hover)
+  }
+  onLeave(mut self) {
+    self.hovered = false
+    self.act.emit(self.quest.id, Act.Unhover)
+  }
 
   onEntry(mut self, index: Integer) {
     self.menuOpen = false
@@ -117,7 +128,9 @@ public class QuestRow implements Component {
     return $ltml {
       <box columns={[BOX, "max-content", { fr: 1 }]} gap={2sp} padding={ROW_PAD} background={self.background}
            @pointerPress(.Left)={self.onPick} @pointerPress([.Shift, .Left])={self.onLink}
-           @pointerPress(.Right)={self.onMenu} @keyPress(.Enter)={self.onPick} @keyPress(.Space)={self.onTrack}>
+           @pointerPress(.Right)={self.onMenu} @keyPress(.Enter)={self.onPick} @keyPress(.Space)={self.onTrack}
+           @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
+        <Tip $if={self.tipShown} title={self.quest.title} text={Locale.ROW_TIP} />
         <box width={BOX} height={BOX} background={Ordaen.art.ctl.check} @pointerPress.self={self.onTrack}>
           <box position={Position.Absolute} left={0ui} top={0ui} width={BOX} height={BOX}
                background={Ordaen.art.ctl.tick} opacity={self.tick} />

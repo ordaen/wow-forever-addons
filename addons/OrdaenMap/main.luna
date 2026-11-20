@@ -10,14 +10,36 @@ import { MapHost, OpenMapHost, Placed } from "@/host"
 import Locale from "@/locales"
 import { Choices, GeneralPage } from "@/settings"
 
-// A pin to draw, and what its tooltip says.
+// A pin to draw, what its tooltip says, and the layer a click on it goes to.
 struct Mark {
   pin: Pin
   lines: Array<String>
+  layer: any Layer
 }
+
+// How near, on the canvas (0 to 1), a pin stands to one drawn before it to be drawn as that one.
+const CLUSTER: Number = 0.015
 
 // OpenMap's menu switch for the docked log.
 const DOCKED_SWITCH = "docked"
+
+// The marks, the lit ones first.
+function litFirst(marks: Array<Mark>): Array<Mark> {
+  const ordered: Array<Mark> = marks.filter(mark => mark.pin.lit)
+  if (ordered.length == 0) { return marks }
+  for (mark of marks) {
+    if (!mark.pin.lit) { ordered.push(mark) }
+  }
+  return ordered
+}
+
+// The placed pin (from 1) that one placed at `at` stands on; 0 for none.
+function nearestOf(placed: Array<Placed>, at: Placed): Integer {
+  for (index, other of placed) {
+    if ((other.x - at.x).abs() < CLUSTER && (other.y - at.y).abs() < CLUSTER) { return index }
+  }
+  return 0
+}
 
 public class Maps implements Module, App {
   public const title: String = "Ordaen Map"
@@ -37,13 +59,15 @@ public class Maps implements Module, App {
   // OpenMap is there, of the API Map is written against: without it, nothing is drawn and the page says so.
   state openMap = false
   // The game's map, OpenMap and the client's setting: a test gives its own.
-  public host: mut any MapHost = new OpenMapHost()
+  public state host: mut any MapHost = new OpenMapHost()
+  // The marks drawn, in the host's order: what a click on one goes to.
+  drawn: Array<Mark> = []
   // The pins of the layers the player shows, asked again when what a layer read changes.
   derived marks: Array<Mark> {
     const marks: Array<Mark> = []
     for (layer of self.layers) {
       if (self.settings.values.hidden[layer.id] != true) {
-        for (pin of layer.pins()) { marks.push({ pin: pin, lines: layer.lines(pin) }) }
+        for (pin of layer.pins()) { marks.push({ pin: pin, lines: layer.lines(pin), layer: layer }) }
       }
     }
     return marks
@@ -64,7 +88,11 @@ public class Maps implements Module, App {
     watch (on of self.docked) {
       if (on != self.host.docked()) { self.host.dock(on) }
     }
-    self.host.changed.listen(self.onChanged)
+    // Heard of the host Map has now: a test gives its own.
+    watch (host of self.host) {
+      host.changed.listen(self.onChanged)
+      host.pressed.listen(self.onPressed)
+    }
     self.host.start()
     watch (marks of self.marks) { self.place(marks) }
     watch (list of self.layers) { self.addSwitches(list) }
@@ -78,19 +106,35 @@ public class Maps implements Module, App {
     self.place(peek self.marks)
   }
 
+  // The marks in view placed and drawn; one standing on a pin drawn before it adds its lines to that one's tooltip.
+  // A lit one goes first, so it is the one drawn.
   place(mut self, marks: Array<Mark>) {
     const placed: Array<Placed> = []
-    const lines: Array<Array<String>> = []
+    const lines: Array<mut Array<String>> = []
+    const drawn: Array<Mark> = []
     if (self.host.shown()) {
-      for (mark of marks) {
+      for (mark of litFirst(marks)) {
         const at = self.host.place(mark.pin)
         if (at != nil) {
-          placed.push(at)
-          lines.push(mark.lines)
+          const near = nearestOf(placed, at)
+          if (near == 0) {
+            placed.push(at)
+            lines.push(mark.lines.map(line => line))
+            drawn.push(mark)
+          } else {
+            for (line of mark.lines) { lines[near]?.push(line) }
+          }
         }
       }
     }
+    self.drawn = drawn
     self.host.draw(placed, lines)
+  }
+
+  // A drawn pin clicked: its layer's.
+  onPressed(mut self, index: Integer, shift: Boolean) {
+    const mark = self.drawn[index]
+    if (mark != nil) { mark.layer.press(mark.pin, shift) }
   }
 
   // A layer's switch on the settings page or in OpenMap's menu.

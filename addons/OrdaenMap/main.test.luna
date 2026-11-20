@@ -13,6 +13,7 @@ const PAGE: Test.Page = { left: 0, top: 0, width: 1600, height: 900, screen: tru
 // The world map as a test sets it: shown, every zone in view, each pin where its zone has it; what was drawn.
 class TestHost implements MapHost {
   public const changed: Event<nil> = new Event()
+  public const pressed: Event<(Integer, Boolean)> = new Event()
   public isDocked = false
   public drawn: Array<Placed> = []
   public said: Array<Array<String>> = []
@@ -50,6 +51,62 @@ class TestLayer implements Layer {
   }
 
   public lines(self, pin: Pin): Array<String> { return [`Pin ${pin.of}`] }
+
+  // A pin clicked has the client point the way to its quest; with Shift, stop watching it (as Quests' do).
+  public press(self, pin: Pin, shift: Boolean) {
+    if (shift) {
+      _ = Client.C_QuestLog.RemoveQuestWatch(pin.of)
+    } else {
+      Client.C_SuperTrack.SetSuperTrackedQuestID(pin.of)
+    }
+  }
+}
+
+// Two quests' pins on one spot, a third beside them, lit.
+class CrowdLayer implements Layer {
+  public const id: String = "test.crowd"
+  public const title: String = "Crowd"
+  public const hint: String = "Pins on one spot"
+
+  public pins(self): Array<Pin> {
+    const icon: Asset = "Interface/GossipFrame/ActiveQuestIcon"
+    return [
+      { of: 1, area: 40, x: 0.5, y: 0.5, icon: icon },
+      { of: 2, area: 40, x: 0.505, y: 0.5, icon: icon },
+      { of: 3, area: 40, x: 0.25, y: 0.25, icon: icon, lit: true }
+    ]
+  }
+
+  public lines(self, pin: Pin): Array<String> { return [`Pin ${pin.of}`] }
+  public press(self, pin: Pin, shift: Boolean) {}
+}
+
+test "pins on one spot are drawn as one, its tooltip saying each; a lit pin is drawn first" {
+  Test.mount(nil, PAGE)
+  const host = new TestHost()
+  Maps.host = host
+  Maps.layers.add(new CrowdLayer())
+  Test.flush()
+  Test.expect(host.drawn.length == 2)
+  Test.expect((host.drawn[1] ?? panic("a pin")).pin.of == 3)
+  Test.expect((host.said[2] ?? []).join(",") == "Pin 1,Pin 2")
+}
+
+test "a pin clicked is its layer's, with Shift or without" {
+  Test.mount(nil, PAGE)
+  const host = new TestHost()
+  Maps.host = host
+  const layer = new TestLayer()
+  Maps.layers.add(layer)
+  Test.questLog([
+    { id: 1, title: "First", header: "Westfall", watched: true },
+    { id: 2, title: "Second", header: "Westfall", watched: true }
+  ])
+  Test.flush()
+  _ = Test.talked()
+  host.pressed.emit(2, false)
+  host.pressed.emit(1, true)
+  Test.expect(Test.talked().join(",") == "super-track 2,unwatch 1")
 }
 
 test "a layer's pins in view are drawn, each with its tooltip, and a switch is put in OpenMap's menu for it" {

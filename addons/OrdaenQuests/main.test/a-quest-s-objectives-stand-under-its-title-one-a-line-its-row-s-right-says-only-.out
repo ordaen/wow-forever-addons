@@ -40,7 +40,7 @@ surface 550,192.21 617.91x515.58 on DIALOG clamped raised by a click
                 text 604.87,322.02 87.78x17.78 "Elwynn Forest" #ffd100
                 text 698.34,322.02 438.72x17.78 "you are here" #a3977f
               box 585.85,345.49 551.21x64.71
-                box 585.85,345.49 551.21x64.71 #00000000 @keyPress @pointerPress
+                box 585.85,345.49 551.21x64.71 #00000000 @keyPress @pointerEnter @pointerLeave @pointerPress
                   box 600.07,351.17 10x10 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @pointerPress
                     box 600.07,351.17 10x10 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
                   text 615.76,351.17 28.89x17.78 "[14]" #ff2020
@@ -56,7 +56,7 @@ surface 550,192.21 617.91x515.58 on DIALOG clamped raised by a click
                 box 585.85,418.11 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-marks row 3 of 8
                 text 604.87,415.89 54.44x17.78 "Westfall" #ffd100
               box 585.85,439.35 551.21x46.93
-                box 585.85,439.35 551.21x46.93 #00000000 @keyPress @pointerPress
+                box 585.85,439.35 551.21x46.93 #00000000 @keyPress @pointerEnter @pointerLeave @pointerPress
                   box 600.07,445.04 10x10 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @pointerPress
                     box 600.07,445.04 10x10 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
                   text 615.76,445.04 28.89x17.78 "[14]" #ff2020

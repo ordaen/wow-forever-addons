@@ -21,6 +21,8 @@ public struct Placed {
 public trait MapHost {
   // The map showed or hid, turned to another map, or OpenMap's view moved.
   public const changed: Event<nil>
+  // A drawn pin clicked: its place in what `draw` was given (from 1), and whether Shift was held.
+  public const pressed: Event<(Integer, Boolean)>
   public start(mut self)
   public stop(mut self)
   // Whether OpenMap is there, of the API Map is written against.
@@ -40,11 +42,14 @@ public trait MapHost {
 
 // How big a pin is on the screen, in UI units.
 const PIN_SIZE = 20
+// How much larger a lit pin is drawn.
+const LIT_SCALE: Number = 1.5
 // How far past the canvas's edges a pin still stands (the stitched view shows past the map underneath).
 const REACH: Number = 0.5
 
 public class OpenMapHost implements MapHost {
   public const changed: Event<nil> = new Event()
+  public const pressed: Event<(Integer, Boolean)> = new Event()
   // The pins' frames, kept and used again.
   pins: mut Array<any Client.Button> = []
 
@@ -112,10 +117,11 @@ public class OpenMapHost implements MapHost {
     for (index, at of placed) {
       const frame = self.pinFrame(index, canvas)
       const said = lines[index] ?? []
-      frame.SetSize(size, size)
+      const drawnSize = at.pin.lit ? size * LIT_SCALE : size
+      frame.SetSize(drawnSize, drawnSize)
       frame.ClearAllPoints()
       frame.SetPoint("CENTER", canvas, "TOPLEFT", width * at.x, -height * at.y)
-      frame.SetFrameLevel(level)
+      frame.SetFrameLevel(at.pin.lit ? level + 1 : level)
       frame.SetNormalTexture(at.pin.icon)
       frame.SetScript("OnEnter", (): nil => {
         WorldMap.tip(frame, said)
@@ -132,6 +138,11 @@ public class OpenMapHost implements MapHost {
     const kept = self.pins[index]
     if (kept != nil) { return kept }
     const made = new Client.Button(canvas)
+    // The frame stands for the index-th pin drawn, whichever pin that is now.
+    made.SetScript("OnClick", (): nil => {
+      self.pressed.emit(index, Client.IsShiftKeyDown())
+      return nil
+    })
     made.SetScript("OnLeave", (): nil => {
       WorldMap.untip()
       return nil

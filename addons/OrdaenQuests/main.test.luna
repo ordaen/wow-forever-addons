@@ -151,6 +151,16 @@ test "a quest's page shows the items it gives, and under «Choose one of» those
   Test.expect(window.text("3").shown())
 }
 
+test "a quest under the cursor has its tooltip, and its pins on the map lit while it is there" {
+  opened(standing())
+  const row = Test.page().window("World").text("The Defias Brotherhood")
+  row.hover()
+  Test.expect(Test.page().text("Click: its page. Shift+click: its link in the chat. Right-click: more.").shown())
+  Test.expect(Quests.hovered == 101)
+  Test.page().window("World").text("Quests").hover()
+  Test.expect(Quests.hovered == 0)
+}
+
 test "a quest QuestieDB doesn't know has no «Where»" {
   opened(standing())
   Test.page().window("World").text("Elwynn Wolves").click()
