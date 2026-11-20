@@ -236,3 +236,28 @@ test "tabs that don't fit the chat's width wrap to another row, none of them sho
   Test.expect(shown.text("Guild officers").rect().top > shown.text("General").rect().top)
   Test.expect(shown.text("Trade and services").shown())
 }
+
+// The windows and streams of the player's game: General, the combat log, Guild, Channels, two communities.
+function playersWindows(): Array<Game.ChatWindow> {
+  return [window(1, "Общий", ""), window(2, "Журнал", ""), window(3, "Гильдия", ""), window(4, "Каналы", "")]
+}
+
+test "with the player's tabs wrapping, the lines keep their room and the input's hint stands under them" {
+  Game.chat.windows = playersWindows()
+  Game.chat.streams = [{ club: "1", stream: "1", name: "test" }, { club: "2", stream: "1", name: "Test" }]
+  const shown = chat()
+  Game.chat.heard.emit(line("SAY", "[Thrall] says: still here", "Thrall", [1]))
+  const said = shown.text("[Thrall] says: still here").rect()
+  const hint = shown.text(INPUT_HINT).rect()
+  Test.expect(shown.text("[Thrall] says: still here").shown())
+  Test.expect(hint.top > said.top)
+  // The lines keep the chat's height (190 dp, 135 of the screen's units here) under the last row of tabs.
+  Test.expect(hint.top - shown.text("Test").rect().bottom >= 130)
+}
+
+test "a stream the game lists twice is one tab" {
+  Game.chat.windows = playersWindows()
+  Game.chat.streams = [{ club: "1", stream: "1", name: "test" }, { club: "1", stream: "1", name: "test" }]
+  const shown = chat()
+  Test.expect(shown.texts().filter(t => t == "test").length == 1)
+}

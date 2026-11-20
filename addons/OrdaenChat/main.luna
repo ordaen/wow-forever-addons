@@ -100,7 +100,8 @@ public class Chat implements Module, App {
     for (stream of peek Game.chat.streams) {
       const tab = self.tabOf(`s${stream.club}:${stream.stream}`, stream.name)
       tab.title = stream.name
-      tabs.push(tab)
+      // A tab once, however often the game names its stream.
+      if (!tabs.any(other => other.key == tab.key)) { tabs.push(tab) }
     }
     self.tabs = tabs
     self.undocked = undocked

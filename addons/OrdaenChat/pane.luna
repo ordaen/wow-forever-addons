@@ -206,7 +206,9 @@ public class Pane implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box width={self.width} height={self.height} rows={[MAX, { fr: 1 }, MAX]} border={Ordaen.art.frame.small}
+      // The lines keep the height the player chose; the tabs' rows and the foot stand above and below them, so the pane
+      // grows as its tabs wrap.
+      <box width={self.width} rows={[MAX, MAX, MAX]} border={Ordaen.art.frame.small}
            background={Ordaen.art.window.wood} artOrigin={true} padding={ROOM} @pointerEnter={self.onEnter}
            @pointerLeave={self.onLeave}>
         <box columns={[{ fr: 1 }, MAX]} yAlign={Align.End}>
@@ -221,9 +223,9 @@ public class Pane implements Component {
           <Menu $if={self.menuTab != nil} entries={self.tabEntries} title={self.menuTab?.title ?? ""} @pick={self.onTabPick}
                 @close={self.onTabMenuClose} />
         </box>
-        <embed $if={self.logFrame != nil} frame={self.logFrame ?? panic("shown with the frame")} />
+        <embed $if={self.logFrame != nil} frame={self.logFrame ?? panic("shown with the frame")} height={self.height} />
         // The newest line stands at the bottom; older ones go up past the top, which cuts them.
-        <box $else overflow={Overflow.Hidden} textSize={self.textSize} @wheel={self.onWheel}>
+        <box $else height={self.height} overflow={Overflow.Hidden} textSize={self.textSize} @wheel={self.onWheel}>
           <box position={Position.Absolute} left={0ui} right={0ui} bottom={0ui} columns={1}>
             <Row $for={line of self.shown} line={line} fadeBefore={self.fadeBefore} lineHeight={Ordaen.lengthOf(BODY_LINE)}
                  @link={self.onLink} />
