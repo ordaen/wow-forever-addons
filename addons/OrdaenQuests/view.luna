@@ -8,7 +8,7 @@
 import Game from "$game"
 import { Align, Art, ByInteractionState, Edges, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { BODY_LINE, ButtonPlate, Component, Experience, Menu, MenuEntry, Money, PushButton, Reward, RewardView, Rewards, SCROLL_DIM, SCROLL_HEAD, SCROLL_INK, SECONDARY_TEXT, Scroll, SettingRow, Shown, SwitchFace, TIGHT_LINE, TITLE_TEXT, Tip, WELL_DIM, WELL_TEXT, XP_MARK_SMALL, choiceViews, logReward, questLevelColor, rowShade } from "Ordaen"
+import { BODY_LINE, ButtonPlate, Component, Experience, Menu, MenuEntry, Money, PushButton, Reward, RewardView, Rewards, SCROLL_DIM, SCROLL_HEAD, SCROLL_INK, SECONDARY_TEXT, Scroll, Shown, SwitchFace, TIGHT_LINE, TITLE_TEXT, Tip, WELL_DIM, WELL_TEXT, XP_MARK_SMALL, choiceViews, logReward, questLevelColor, rowShade } from "Ordaen"
 import { LogQuest } from "@/book"
 import Locale from "@/locales"
 import { Figure, QuestFacts } from "@/questie"
@@ -243,24 +243,11 @@ function countOf(text: String): String {
   return count
 }
 
-// A line of the page's «Где»: what it is, and who and where.
-class WhereLine implements Component {
-  label: Signal<String>
-  value: Signal<String>
-  constructor(label: Signal<String>, value: Signal<String>) {
-    self.label = label
-    self.value = value
-  }
-
-  public render(self): Template {
-    return $ltml {
-      <box columns={[93.75dp, { fr: 1 }]} gap={3sp}>
-        <text value={self.label} textColor={WELL_DIM} />
-        <text value={self.value} textColor={WELL_TEXT} />
-      </box>
-    }
-  }
-}
+// The lines under the scroll (QuestieDB's), each its label and who or what: the labels in one column as wide as the
+// longest, so none is cut.
+const WHERE_COLUMNS: Array<Track> = ["max-content", { fr: 1 }]
+// The tracking switch's row: its label at the start, the switch at the page's right edge, over the Abandon button.
+const LABEL_THEN_SWITCH: Array<Track> = [{ fr: 1 }, "max-content"]
 
 // Who a list of figures is, and where the first stands: «Гриан Стаутмантл (56, 47)».
 function whoOf(figures: Array<Figure>): String {
@@ -278,7 +265,6 @@ function whoOf(figures: Array<Figure>): String {
 public class QuestPage implements Component {
   public act: Event<(Integer, Act)> = new Event()
 
-  derived title: String = `[${self.quest.level}] ${self.quest.title}`
   derived tracking: Shown = self.quest.tracked ? Shown.On : Shown.Off
   // Its objectives under the task: one that says the task again (a quest without counted objectives, whose one
   // objective is the task's own text) isn't said twice.
@@ -310,26 +296,28 @@ public class QuestPage implements Component {
     return $ltml {
       <box rows={[{ fr: 1 }, "max-content", "max-content", "max-content", "max-content"]} gap={1.5sp}>
         <Scroll>
-          <text value={self.title} textColor={SCROLL_HEAD} textSize={TITLE_TEXT} lineHeight={TIGHT_LINE} textFont={.Title} />
+          <text value={self.quest.title} textColor={SCROLL_HEAD} textSize={TITLE_TEXT} lineHeight={TIGHT_LINE} textFont={.Title} />
           <text $if={self.text.story != ""} value={self.text.story} textColor={SCROLL_INK} lineHeight={BODY_LINE} />
           <text value={Locale.SECTION_TASKS} textColor={SCROLL_HEAD} textFont={.Title} />
           <text $if={self.text.task != ""} value={self.text.task} textColor={SCROLL_INK} lineHeight={BODY_LINE} />
           <GoalLine $for={objective of self.goals} objective={objective} todoColor={SCROLL_INK}
                     doneColor={SCROLL_DIM} small={false} />
         </Scroll>
-        <box $if={self.known} columns={1} gap={1sp}>
-          <text value={Locale.SECTION_WHERE} textColor={WELL_DIM} textSize={SECONDARY_TEXT} />
-          <WhereLine $if={self.giver != ""} label={Locale.GIVER} value={self.giver} />
-          <WhereLine $if={self.taker != ""} label={Locale.TAKER} value={self.taker} />
-          <WhereLine $if={self.chain != ""} label={Locale.NEXT_IN_CHAIN} value={self.chain} />
+        <box $if={self.known} columns={WHERE_COLUMNS} gap={1sp}>
+          <text $if={self.taker != ""} value={Locale.TAKER} textColor={WELL_DIM} />
+          <text $if={self.taker != ""} value={self.taker} textColor={WELL_TEXT} />
+          <text $if={self.giver != ""} value={Locale.GIVER} textColor={WELL_DIM} />
+          <text $if={self.giver != ""} value={self.giver} textColor={WELL_TEXT} />
+          <text $if={self.chain != ""} value={Locale.NEXT_IN_CHAIN} textColor={WELL_DIM} />
+          <text $if={self.chain != ""} value={self.chain} textColor={WELL_TEXT} />
         </box>
         <box gap={0.5sp}>
           <Rewards views={self.choiceRows} also={self.givenRows} xp={self.text.experience} money={self.text.money} />
         </box>
-        <box @pointerPress={self.onTrack} @keyPress(.Enter)={self.onTrack} @keyPress(.Space)={self.onTrack}>
-          <SettingRow label={Locale.TRACK}>
-            <SwitchFace state={self.tracking} />
-          </SettingRow>
+        <box columns={LABEL_THEN_SWITCH} yAlign={Align.Center} @pointerPress={self.onTrack} @keyPress(.Enter)={self.onTrack}
+             @keyPress(.Space)={self.onTrack}>
+          <text value={Locale.TRACK} textColor={WELL_TEXT} />
+          <SwitchFace state={self.tracking} />
         </box>
         <box columns={["max-content", "max-content", { fr: 1 }, "max-content"]} gap={3sp}>
           <PushButton label={Locale.SHOW_ON_MAP} width={BUTTON} @click={self.onMap} />
