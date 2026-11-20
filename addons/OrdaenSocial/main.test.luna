@@ -11,6 +11,7 @@ import Events from "$events"
 import Game from "$game"
 import { AllyCategory, Club, ClubStream, Friend, GuildNews, GuildRoster, Hero, Member, NewsFilter, Presence, RecentAlly } from "$game"
 import { Key } from "$ltml"
+import Runtime from "$runtime"
 import Test from "$test"
 import root Ordaen from "Ordaen"
 import root Social from "OrdaenSocial"
@@ -206,6 +207,17 @@ test "the game's friends window shown shows ours, and closing ours closes the ga
   Test.expect(!window.shown())
   Test.expect(!game.IsShown())
 }
+
+// The panel off, the game's micro menu stands: its guild button loads the game's guild window, which shows ours.
+test "the micro menu's guild button shows ours on the guild, and again closes it" {
+  Test.mount(nil, PAGE)
+  Game.guild.roster = guildRoster
+  Game.guild.motd = guildMotd
+  Runtime.press(Client.GuildMicroButton, .Left)
+  const window = Test.page().window(WINDOW)
+  Test.expect(window.shown() && fieldSays(window, "Raid on Friday"))
+  Runtime.press(Client.GuildMicroButton, .Left)
+  Test.expect(!Test.page().window(WINDOW).shown())}
 
 test "the game's guild window, hooked as its addon loads, shows ours on the guild; outside one on the communities" {
   Test.mount(nil, PAGE)
