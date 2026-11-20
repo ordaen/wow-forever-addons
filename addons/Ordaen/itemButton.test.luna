@@ -217,6 +217,20 @@ class Worn {
   }
 }
 
+class Mailed {
+  public render(self): Template {
+    return $ltml { <ItemButton item={2589} mail={[2, 3]} /> }
+  }
+}
+
+test "a letter's attachment's tooltip is the game's of that attachment, not the item's by its number" {
+  let page = new Mailed()
+  Test.mount(page, { left: 0, top: 0, width: 600, height: 200 })
+  _ = Test.requests()
+  Test.moveTo({ x: 16, y: 16 })
+  Test.expect(Test.requests().join(", ") == "Items.showMail 2 3")
+}
+
 test "a worn item's tooltip is its slot's, which the game compares with nothing; an item's elsewhere is the item's" {
   let page = new Worn()
   Test.mount(page, { left: 0, top: 0, width: 600, height: 200 })

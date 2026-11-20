@@ -5,7 +5,8 @@
 // with no item draws the well alone. Dimmed (by a search) it draws at 35%. An item the client says the player
 // can't use has its icon tinted red.
 // Under the cursor the light of the other controls over the icon, and the game's own tooltip of the item beside it
-// (of a slot the player wears, `worn`, that slot's: compared with nothing; Ordaen's tooltips draw it where they are
+// (of a slot the player wears, `worn`, that slot's: compared with nothing; of a letter's attachment, `mail`, the
+// game's of it; Ordaen's tooltips draw it where they are
 // on), gone when the cursor leaves; `entered` and `left` are told. Left-click reports
 // `pick` with the item's number; Shift+Left-click puts the item's link into the chat instead, as the game's own slots
 // do. Every click, of an empty slot too, is told as `pressed` (a bag's slot picks up and puts down there). Dragged
@@ -127,6 +128,7 @@ public class ItemButton implements Component {
   art: Signal<Art | nil>
   linkOnShift: Signal<Boolean>
   worn: Signal<Integer | nil>
+  mail: Signal<[Integer, Integer] | nil>
   constructor(
     // The game's number of the item; none for an empty slot.
     item: Signal<Integer | nil>,
@@ -144,8 +146,12 @@ public class ItemButton implements Component {
     linkOnShift: Signal<Boolean> = true,
     // The player's own slot it is (the client's number for it: 1 the head): its tooltip is the worn item's, as the
     // game's paper doll shows it, never the item's by its number (which the game compares with what is worn: itself).
-    worn: Signal<Integer | nil> = nil
+    worn: Signal<Integer | nil> = nil,
+    // The attachment of a letter of the open mailbox it shows (the letter's place in the inbox, the attachment's in
+    // the letter): its tooltip is the game's of that attachment, as the game's open letter shows it.
+    mail: Signal<[Integer, Integer] | nil> = nil
   ) {
+    self.mail = mail
     self.art = art
     self.linkOnShift = linkOnShift
     self.worn = worn
@@ -195,7 +201,10 @@ public class ItemButton implements Component {
   onEnter(self, frame: any Frame) {
     const item = self.item
     const worn = self.worn
-    if (item != nil && worn != nil) {
+    const mail = self.mail
+    if (item != nil && mail != nil) {
+      Game.items.showMail(frame, mail[1], mail[2])
+    } else if (item != nil && worn != nil) {
       Game.items.showWorn(frame, worn)
     } else if (item != nil) {
       Game.items.show(frame, item)

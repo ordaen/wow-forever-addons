@@ -1,0 +1,86 @@
+// Who a letter can go to, by the list «To» picks first: the player's characters (Ordaen Alts'), friends, the guild,
+// the character communities, or anyone (free text, the recent recipients as hints). Each list is read from the game as
+// it is opened, a name matched from its start; names are never split on spaces (Forever's surnames).
+import Client from "$client"
+import { classColor } from "Ordaen"
+import type { Alts } from "OrdaenAlts"
+
+public enum Source implements Plain { Own = "own", Friends = "friends", Guild = "guild", Communities = "communities", Other = "other" }
+
+// One who can be written to: a name as the game takes it, the level, whether online, the class's colour where known,
+// and the heading it stands under (a community's name).
+public struct Recipient {
+  name: String
+  level: Integer
+  online: Boolean
+  color: Color | nil
+  group: String
+}
+
+// Whether a name begins with what was typed, of any case.
+public function starts(name: String, typed: String): Boolean {
+  return typed == "" || name.lower().sub(1, typed.length) == typed.lower()
+}
+
+function byOnline(a: Recipient, b: Recipient): Boolean {
+  if (a.group != b.group) { return a.group < b.group }
+  if (a.online != b.online) { return a.online }
+  return a.name < b.name
+}
+
+// The player's other characters a letter reaches; none while Ordaen Alts is off.
+public function own(alts: Alts | nil): Array<Recipient> {
+  const list: Array<Recipient> = []
+  if (alts == nil) { return list }
+  for (who, character of alts.characters) {
+    if (who != alts.current && alts.reaches(who)) {
+      list.push({ name: character.name, level: character.level, online: false, color: nil, group: "" })
+    }
+  }
+  list.sort(byOnline)
+  return list
+}
+
+public function friends(): Array<Recipient> {
+  const list: Array<Recipient> = []
+  for (index of 1..Client.C_FriendList.GetNumFriends()) {
+    const info = Client.C_FriendList.GetFriendInfoByIndex(index)
+    if (info != nil) {
+      list.push({ name: info.name, level: info.level.floor(), online: info.connected, color: nil, group: "" })
+    }
+  }
+  list.sort(byOnline)
+  return list
+}
+
+public function guild(): Array<Recipient> {
+  const list: Array<Recipient> = []
+  const count, _ = Client.GetNumGuildMembers()
+  for (index of 1..count) {
+    const name, _, _, level, _, _, _, _, online, _, tag = Client.GetGuildRosterInfo(index)
+    if (name != nil) {
+      list.push({ name: name, level: (level ?? 0).floor(), online: online == true, color: classColor(tag), group: "" })
+    }
+  }
+  list.sort(byOnline)
+  return list
+}
+
+// The members of every character community the player is in (not Battle.net ones), each under its community's name.
+public function communities(): Array<Recipient> {
+  const list: Array<Recipient> = []
+  for (club of Client.C_Club.GetSubscribedClubs()) {
+    if (club.clubType == Client.ClubType.Character) {
+      for (member of Client.C_Club.GetClubMembers(club.clubId, nil)) {
+        const info = Client.C_Club.GetMemberInfo(club.clubId, member)
+        const name = info?.name
+        if (info != nil && name != nil && !info.isSelf) {
+          const online = info.presence != Client.ClubMemberPresence.Offline && info.presence != Client.ClubMemberPresence.Unknown
+          list.push({ name: name, level: (info.level ?? 0).floor(), online: online, color: nil, group: club.name })
+        }
+      }
+    }
+  }
+  list.sort(byOnline)
+  return list
+}

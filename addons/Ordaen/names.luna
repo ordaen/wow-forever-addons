@@ -1,0 +1,14 @@
+// What people's names and the player's words are read with: a class's colour by the client's tag of it, a text as the
+// player meant it.
+import Client from "$client"
+
+// A class's colour by the client's tag of it (`WARRIOR`); none for a tag the client doesn't colour.
+public function classColor(tag: String | nil): Color | nil {
+  if (tag == nil) { return nil }
+  const rgb = Client.RAID_CLASS_COLORS[tag]
+  if (rgb == nil) { return nil }
+  return { r: rgb.r, g: rgb.g, b: rgb.b, a: 1 }
+}
+
+// A text as the player meant it: without the spaces before and after.
+public function trimmed(text: String): String { return text.match("^%s*(.-)%s*$") ?? "" }

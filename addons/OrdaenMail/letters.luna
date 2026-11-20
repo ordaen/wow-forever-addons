@@ -1,27 +1,23 @@
-// What the mailbox holds, as the window shows it: a letter, what is attached to it, what was sent, and the ways the
-// inbox is narrowed.
+// What the mailbox holds, as the window shows it: a letter, the ways the inbox is narrowed, the letters going out and
+// gone, and how a letter of more than twelve stacks is cut into several.
 import Game from "$game"
 
 // A letter whose row says this many days left or fewer is shown red.
 public const URGENT_DAYS = 3
+// The places of a letter being written (`ATTACHMENTS_MAX_SEND`).
+public const PLACES = 12
+// The game's longest subject; a letter's «(2/3)» stands within it.
+public const SUBJECT_MOST = 64
+// What is kept of the letters gone and of the recent recipients, the oldest dropped.
+public const HISTORY_MOST = 100
+public const QUEUE_MOST = 50
+public const RECIPIENTS_MOST = 20
 
 public enum Filter implements Plain { All = "all", Players = "players", Auction = "auction", System = "system", Money = "money", Items = "items" }
 
-public enum SentState { Waiting = "waiting", Sending = "sending", Sent = "sent", Stopped = "stopped" }
+public enum View implements Plain { List = "list", Categories = "categories", Table = "table" }
 
-// A letter of «Sent»: waiting to go, or gone.
-public struct Sent {
-  number: Integer
-  subject: String
-  to: String
-  items: Integer
-  copper: Integer
-  state: SentState
-  // Why it stopped; empty otherwise.
-  why: String
-}
-
-// Whether a letter passes the filter and the search (a part of its subject or its sender).
+// Whether a letter passes the filter and the search (a part of its subject, its sender or an item's name).
 public function matches(letter: Game.MailLetter, filter: Filter, search: String): Boolean {
   const kept = match (filter) {
     Filter.All => true
@@ -34,10 +30,75 @@ public function matches(letter: Game.MailLetter, filter: Filter, search: String)
   if (!kept) { return false }
   if (search == "") { return true }
   const sought = search.lower()
-  return letter.subject.lower().contains(sought) || letter.sender.lower().contains(sought)
+  return letter.subject.lower().contains(sought) || letter.sender.lower().contains(sought) ||
+    letter.items.any(i => i.name.lower().contains(sought))
 }
 
-// How many letters «Collect all» would open: those with money or items and nothing to pay.
-public function collectable(letters: Array<Game.MailLetter>): Integer {
-  return letters.count(l => l.cod == 0 && (l.copper > 0 || l.items.length > 0))
+// Whether «Take all» opens the letter: it holds money or items, asks nothing to be paid, and isn't a game master's
+// (those are opened by hand, as the game's own «Open all» leaves them).
+public function collectable(letter: Game.MailLetter): Boolean {
+  return letter.cod == 0 && !letter.gm && (letter.copper > 0 || letter.items.length > 0)
+}
+
+// A letter's name among the others while the inbox shifts under it (taken letters go, new ones come): its sender and
+// subject.
+public function keyOf(letter: Game.MailLetter): String { return `${letter.sender}\n${letter.subject}` }
+
+public enum SentState implements Plain { Waiting = "waiting", Sending = "sending", Sent = "sent", Stopped = "stopped" }
+
+// An item a letter going out carries, by its number and how many.
+public struct SentItem implements Plain {
+  item: Integer = 0
+  count: Integer = 0
+}
+
+// A letter of «Outbox»: waiting to go, or gone.
+public struct Sent implements Plain {
+  number: Integer = 0
+  to: String = ""
+  subject: String = ""
+  body: String = ""
+  items: Array<SentItem> = []
+  copper: Integer = 0
+  cod: Integer = 0
+  state: SentState = SentState.Waiting
+  // Why it stopped; empty otherwise.
+  why: String = ""
+  // When it was put into the queue, and when it went: the realm's seconds.
+  at: Integer = 0
+}
+
+// A letter not yet gone and not stopped: waiting, or on its way.
+public function waits(letter: Sent): Boolean { return letter.state == SentState.Waiting || letter.state == SentState.Sending }
+
+// What is kept of the outbox, per character: the letters waiting (to survive a closed mailbox and a reload) and the
+// last letters gone, each capped; the next letter's number.
+public struct Kept implements Plain {
+  queue: Array<Sent> = []
+  history: Array<Sent> = []
+  next: Integer = 1
+}
+
+// The recent recipients, account-wide: the newest first.
+public struct Recent implements Plain {
+  names: Array<String> = []
+}
+
+// The subject with its letter's place among several, «(2/3)», kept within the game's length.
+public function numbered(subject: String, place: Integer, of: Integer): String {
+  if (of == 1) { return subject }
+  const mark = ` (${place}/${of})`
+  return subject.sub(1, SUBJECT_MOST - mark.length) + mark
+}
+
+// How many letters stacks go out as: twelve a letter, one for none.
+public function lettersFor(stacks: Integer): Integer { return (1).max(((stacks + PLACES - 1) / PLACES).floor()) }
+
+// A name put first among the recent recipients, once, the list kept to its cap.
+public function remembered(names: Array<String>, name: String): Array<String> {
+  const list: Array<String> = [name]
+  for (one of names) {
+    if (one != name && list.length < RECIPIENTS_MOST) { list.push(one) }
+  }
+  return list
 }

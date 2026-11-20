@@ -1,22 +1,44 @@
-// Ordaen Mail: the mailbox in one window with three tabs: the inbox, the letters sent, and the player's own
-// characters. The window shows while the mailbox is open; the letters are read from the client as the mailbox opens
-// and each time it is read again. The client's declarations hold no call that takes mail, returns it, deletes it or
-// sends it, so the window reads and shows and its buttons for those are drawn disabled (`CAN_ACT`).
+// Ordaen Mail: the mailbox in one window with three tabs: the inbox, the letters going out and gone, and the player's
+// own characters. The window shows while the mailbox is open, drawn in the place of the game's `MailFrame`, which stays
+// open underneath unseen and without the mouse (the mailbox's interaction lives on it) and is given back when the game
+// hides it; walking away closes both. The letters are read from the game as the mailbox opens and each time it reads
+// its inbox again; the server's letters past those shown are asked for again while more wait.
+import Client from "$client"
 import Game from "$game"
+import { Align, Frame } from "$ltml"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
-import { KeptWindow, Module, Settings, SettingsPage, Window, WindowTabSpec, WindowsPage, windowsTitle } from "Ordaen"
+import { ButtonPlate, Dialog, FooterCount, FooterCounts, GamePass, GameWindowButton, KeptWindow, Module, PushButton, Settings, SettingsPage, Window, WindowSide, WindowTabSpec, WindowsPage, windowsTitle } from "Ordaen"
 import root Alts from "OrdaenAlts"
-import { Inbox } from "@/inbox"
-import { Sent } from "@/letters"
+import { Collector } from "@/collector"
+import { Compose } from "@/compose"
+import { Inbox, RowClick } from "@/inbox"
+import { LetterAct, LetterView } from "@/letter"
+import { Sent, SentState, keyOf, waits } from "@/letters"
 import Locale from "@/locales"
-import { Outbox } from "@/outbox"
+import { Outbox, SentView } from "@/outbox"
 import { OwnTab } from "@/own"
+import { Source } from "@/recipients"
+import { Sender } from "@/sender"
 import { Choices, GeneralPage } from "@/settings"
 import Style from "@/style"
 
-// Whether anything the client's declarations lack is there: taking, returning, deleting and sending mail.
-const CAN_ACT = false
+const TAB_INBOX = 1
+const TAB_OUTBOX = 2
+const GAME_WINDOW = "MailFrame"
+// How long before the server is asked again for the letters past those shown (it refills about every minute; it may be
+// asked every 15 seconds at most).
+const RECHECK = 15
+
+// A question waiting for the player's answer.
+public enum Ask {
+  // Cash on delivery to pay before the letter's item (or every item) is taken.
+  Pay { index: Integer, place: Integer, copper: Integer }
+  // Not enough money for the cash on delivery.
+  Short { copper: Integer }
+  // The mailbox closed with letters still waiting to go.
+  Close { waiting: Integer }
+}
 
 public class Mail implements Module, App {
   public const title: String = "Ordaen Mail"
@@ -29,51 +51,380 @@ public class Mail implements Module, App {
   ]
 
   public settings: mut Settings<Choices> = new Settings<Choices>({ keepFree: 0, blockTrades: false })
+  public collector: mut Collector = new Collector()
+  public sender: mut Sender = new Sender()
+  pass: mut GamePass = new GamePass()
 
-  state tab = 1
-  // The letters the inbox shows, and how many the server says wait in all.
+  state tab = TAB_INBOX
   state letters: Array<Game.MailLetter> = []
   state total = 0
-  state sent: Array<Sent> = []
+  // The letter opened (its place in the inbox; 0 none), its text, and the letters ticked.
+  state picked = 0
+  state text = ""
+  state ticked: Array<Integer> = []
+  // «Outbox»'s picked letter, and whether the form is open (with the recipient it opens with).
+  state sentPicked = 0
+  state writing = false
+  state writeTo = ""
+  // The list «To» picks from, kept for the session.
+  state source: Source = Source.Own
+  state asking: Ask | nil = nil
   // The player shut the window while the mailbox stays open.
   state closed = false
+  // The game's mailbox window, held unseen while ours shows.
+  state held: Array<any Frame> = []
+  // A letter whose cash on delivery was paid: the rest of it is taken once the inbox is read again.
+  paid = ""
+  recheck: Task<nil> | nil = nil
+  // `blockTrades` as the player had it, while ours is set.
+  tradesBefore: String | nil = nil
+
   derived open: Boolean = Game.mailObserver.open && !self.closed
+  derived queue: Array<Sent> = self.sender.memory.values.queue
+  derived history: Array<Sent> = self.sender.memory.values.history
+  derived waiting: Integer = self.queue.count(waits)
   derived tabs: Array<WindowTabSpec> = [
-    { title: Locale.TAB_INBOX.format(self.letters.length) },
-    { title: Locale.TAB_SENT },
-    { title: Locale.TAB_OWN }
+    { title: Locale.TAB_INBOX, desc: Locale.LETTERS_COUNT.format(self.total), icon: nil },
+    { title: Locale.TAB_SENT, desc: self.outboxDesc(), icon: nil },
+    { title: Locale.TAB_OWN, desc: nil, icon: nil }
   ]
+  derived current: Game.MailLetter | nil = self.letters.find(l => l.index == self.picked)
+  derived sentCurrent: Sent | nil = self.queue.find(l => l.number == self.sentPicked) ?? self.history.find(l => l.number == self.sentPicked)
+  derived side: WindowSide | nil = self.sideOf()
+  derived counts: Array<FooterCount> = self.countsOf()
+  derived busy: Boolean = self.collector.running
+  derived askText: String = self.askTextOf()
+  const footer: Template = $ltml {
+    <box columns={[{ fr: 1 }, "max-content"]} yAlign={Align.Center}>
+      <FooterCounts counts={self.counts} />
+      <GameWindowButton @click={self.onGameWindow} />
+    </box>
+  }
 
   constructor() {
     Ordaen.modules.add(self)
     Game.mailObserver.opened.listen(self.onOpened)
     Game.mailObserver.changed.listen(self.refresh)
-    if (peek Game.mailObserver.open) { self.refresh() }
+    Game.mailObserver.sent.listen(self.onSent)
+    watch (open of Game.mailObserver.open) {
+      if (!open) { self.onMailClosed() }
+    }
+    if (peek Game.mailObserver.open) { self.onOpened() }
+  }
+
+  outboxDesc(self): String {
+    return self.waiting > 0 ? Locale.WAITING_COUNT.format(self.waiting) : Locale.SENT_COUNT.format(self.history.length)
+  }
+
+  countsOf(self): Array<FooterCount> {
+    if (self.tab == TAB_OUTBOX) {
+      return [
+        { label: Locale.COUNT_WAITING, value: String.of(self.waiting) },
+        { label: Locale.COUNT_SENT, value: String.of(self.history.length) }
+      ]
+    }
+    const list: Array<FooterCount> = [{ label: Locale.COUNT_LETTERS, value: "%d / %d".format(self.letters.length, self.total) }]
+    if (self.collector.money > 0) { list.push({ label: Locale.COUNT_TAKEN_MONEY, value: Game.money.format(self.collector.money) }) }
+    if (self.collector.stacks > 0) { list.push({ label: Locale.COUNT_TAKEN_ITEMS, value: String.of(self.collector.stacks) }) }
+    if (self.collector.stopped == .Full) { list.push({ label: Locale.BAGS_FULL, value: "", color: Style.RED }) }
+    return list
+  }
+
+  // The mailbox opened: the window shows on «Outbox» where letters wait to go, else on «Inbox»; the game's window held.
+  onOpened(mut self) {
+    self.closed = false
+    self.collector.reset()
+    self.picked = 0
+    self.ticked = []
+    const game = Runtime.frame(GAME_WINDOW)
+    if (game != nil && !self.pass.passes(game)) { self.held = [game] }
+    if ((peek self.queue).any(l => l.state != SentState.Sent)) { self.window.ask(TAB_OUTBOX) }
+    self.blockTrades(true)
+    self.refresh()
+  }
+
+  onMailClosed(mut self) {
+    self.collector.stop(.Closed)
+    self.sender.closed()
+    self.held = []
+    self.writing = false
+    self.asking = nil
+    self.blockTrades(false)
+    if (self.recheck != nil) { destroy self.recheck }
+  }
+
+  // «Don't accept trades at the mailbox»: the game's own setting, put back as the mailbox closes.
+  blockTrades(mut self, on: Boolean) {
+    if (on && (peek self.settings.values).blockTrades) {
+      self.tradesBefore = Client.C_CVar.GetCVar("blockTrades")
+      _ = Client.C_CVar.SetCVar("blockTrades", "1")
+    } else if (!on && self.tradesBefore != nil) {
+      _ = Client.C_CVar.SetCVar("blockTrades", self.tradesBefore)
+      self.tradesBefore = nil
+    }
   }
 
   public refresh(mut self) {
     self.letters = Game.mailbox.letters()
-
     self.total = Game.mailbox.waiting()
+    const letters = peek self.letters
+    self.ticked = (peek self.ticked).filter(i => letters.any(l => l.index == i))
+    if (self.paid != "") {
+      const key = self.paid
+      self.paid = ""
+      const letter = letters.find(l => keyOf(l) == key)
+      if (letter != nil) { self.takeFrom([letter]) }
+    }
+    if (peek self.total > letters.length && self.recheck == nil) { self.recheck = self.checkLater() }
   }
 
-  onOpened(mut self) {
-    self.closed = false
-    self.refresh()
+  // More letters wait than the server shows: asked for again a little later, where the game lets it.
+  async checkLater(mut self) {
+    await Game.delay(RECHECK)
+    self.recheck = nil
+    if (peek Game.mailObserver.open && peek self.total > (peek self.letters).length) { _ = Game.mailbox.check() }
   }
 
-  onClose(mut self) { self.closed = true }
+  onSent(mut self) { play("IG_ABILITY_PAGE_TURN") }
+
+  // Everything taken from these letters, one thing at a time, the bag slots the setting keeps left free.
+  takeFrom(mut self, letters: Array<Game.MailLetter>) {
+    self.collector.start(letters, (peek self.settings.values).keepFree.floor())
+  }
+
+  onRowClicked(mut self, index: Integer, click: RowClick) {
+    const letter = (peek self.letters).find(l => l.index == index)
+    if (letter == nil) { return }
+    match (click) {
+      .Open => self.openLetter(index)
+      .Take => {
+        if (letter.cod == 0) { self.takeFrom([letter]) }
+      }
+      .Return => {
+        if (letter.kind == Game.MailKind.Player && !letter.deletable) { Game.mailbox.giveBack(index) }
+      }
+    }
+  }
+
+  openLetter(mut self, index: Integer) {
+    if (peek self.picked == index) {
+      self.picked = 0
+      play("IG_SPELLBOOK_CLOSE")
+      return
+    }
+    self.picked = index
+    self.text = Game.mailbox.text(index)
+    play("IG_SPELLBOOK_OPEN")
+  }
+
+  onLetterAct(mut self, act: LetterAct) {
+    const letter = peek self.current
+    if (letter == nil) { return }
+    match (act) {
+      .TakeItem => self.take(letter, act.place)
+      .TryOn => { _ = Client.DressUpItemLink(act.link) }
+      .TakeMoney => Game.mailbox.takeMoney(letter.index)
+      .TakeAll => {
+        const first = letter.items[1]
+        if (letter.cod > 0 && first != nil) {
+          self.take(letter, first.place)
+        } else {
+          self.takeFrom([letter])
+        }
+      }
+      .GiveBack => {
+        Game.mailbox.giveBack(letter.index)
+        self.picked = 0
+      }
+      .Reply => self.reply(letter)
+      .Delete => self.delete(letter)
+    }
+  }
+
+  // An attachment taken; with cash on delivery the player is asked to pay first (or told the money is short).
+  take(mut self, letter: Game.MailLetter, place: Integer) {
+    play("IG_MAINMENU_OPTION_CHECKBOX_ON")
+    if (letter.cod == 0) {
+      Game.mailbox.takeItem(letter.index, place)
+      return
+    }
+    if (letter.cod > Client.GetMoney()) {
+      self.asking = .Short { copper: letter.cod }
+      return
+    }
+    self.asking = .Pay { index: letter.index, place: place, copper: letter.cod }
+  }
+
+  onPayYes(mut self) {
+    const ask = peek self.asking
+    self.asking = nil
+    if (!(ask is Ask.Pay)) { return }
+    const letter = (peek self.letters).find(l => l.index == ask.index)
+    if (letter == nil) { return }
+    Game.mailbox.takeItem(ask.index, ask.place)
+    self.paid = keyOf(letter)
+  }
+
+  onAskNo(mut self) { self.asking = nil }
+
+  // A letter that holds nothing more goes: only where the inbox still has it at its place (letters shift as mail
+  // arrives).
+  delete(mut self, letter: Game.MailLetter) {
+    const now = Game.mailbox.letters().find(l => l.index == letter.index)
+    if (now == nil || keyOf(now) != keyOf(letter) || now.copper > 0 || now.items.length > 0) { return }
+    Game.mailbox.delete(letter.index)
+    self.picked = 0
+  }
+
+  // «Reply»: the form, to the sender.
+  reply(mut self, letter: Game.MailLetter) {
+    self.writeTo = letter.sender
+    self.source = .Other
+    self.writing = true
+    self.window.ask(TAB_OUTBOX)
+  }
+
+  onTakeAll(mut self, letters: Array<Game.MailLetter>) { self.takeFrom(letters) }
+
+  onTakeTicked(mut self) {
+    const ticked = peek self.ticked
+    self.takeFrom((peek self.letters).filter(l => ticked.any(i => i == l.index)))
+    self.ticked = []
+  }
+
+  // The ticked players' letters go back to their senders, from the last up (the places before stay as they are).
+  onReturnTicked(mut self) {
+    const ticked = peek self.ticked
+    const letters = (peek self.letters).filter(l => ticked.any(i => i == l.index) && l.kind == Game.MailKind.Player && !l.deletable)
+    for (index of letters.length..1 step -1) { Game.mailbox.giveBack((letters[index] ?? panic("within")).index) }
+    self.ticked = []
+  }
+
+  onSentPick(mut self, number: Integer) {
+    self.sentPicked = number
+    self.writing = false
+  }
+
+  onWrite(mut self) {
+    self.writeTo = ""
+    self.writing = true
+  }
+
+  onWriteAgain(mut self, to: String) {
+    self.writeTo = to
+    self.source = .Other
+    self.writing = true
+  }
+
+  onComposeClosed(mut self) { self.writing = false }
+
+  onRemoveSent(mut self, number: Integer) {
+    self.sender.remove(number)
+    self.sentPicked = 0
+  }
+
+  onStop(mut self) { self.sender.pause() }
+  onResume(mut self) { self.sender.resume() }
+
+  // Ours closed by the player: with letters waiting to go, asked first. The game's mailbox closes with it.
+  onClose(mut self) {
+    const waiting = peek self.waiting
+    if (waiting > 0) {
+      self.asking = .Close { waiting: waiting }
+      return
+    }
+    self.closeMail()
+  }
+
+  onCloseYes(mut self) {
+    self.asking = nil
+    self.closeMail()
+  }
+
+  closeMail(mut self) {
+    self.closed = true
+    play("IG_CHARACTER_INFO_CLOSE")
+    Client.CloseMail()
+  }
 
   onSettings(self) { Ordaen.toggleSettings(Runtime.Addon.of(self)) }
 
-  public render(self): Template {
-    return $ltml {
-      <Window $if={self.open} tabs={self.tabs} selected={mut self.tab} declared={mut self.window} withSettings={true}
-              @close={self.onClose} @settings={self.onSettings}>
-        <Inbox $if={self.tab == 1} letters={self.letters} total={self.total} canAct={CAN_ACT} />
-        <Outbox $elseif={self.tab == 2} sent={self.sent} canWrite={CAN_ACT} />
-        <OwnTab $else alts={Alts} />
-      </Window>
+  // A development build's footer button: the game's own mailbox window, as it is.
+  onGameWindow(mut self) {
+    const game = Runtime.frame(GAME_WINDOW)
+    if (game == nil) { return }
+    self.closed = true
+    self.held = []
+    self.pass.pass(game)
+  }
+
+  askTextOf(self): String {
+    const ask = self.asking
+    return match (ask) {
+      nil => ""
+      Ask.Pay => Locale.PAY_ASK.format(Game.money.format(ask.copper))
+      Ask.Short => Locale.PAY_SHORT.format(Game.money.format(ask.copper))
+      Ask.Close => Locale.CLOSE_ASK.format(ask.waiting)
     }
   }
+
+  sideOf(self): WindowSide | nil {
+    if (self.tab == TAB_INBOX) {
+      const letter = self.current
+      if (letter == nil) { return nil }
+      return {
+        width: Style.SIDE,
+        content: $ltml { <LetterView letter={self.current ?? panic("tested")} text={self.text} busy={self.busy} @act={self.onLetterAct} /> }
+      }
+    }
+    if (self.tab != TAB_OUTBOX) { return nil }
+    if (self.writing) {
+      return {
+        width: Style.SIDE,
+        content: $ltml {
+          <Compose source={mut self.source} sender={mut self.sender} alts={Alts} to={peek self.writeTo} @closed={self.onComposeClosed} />
+        }
+      }
+    }
+    if (self.sentCurrent == nil) { return nil }
+    return {
+      width: Style.SIDE,
+      content: $ltml { <SentView letter={self.sentCurrent ?? panic("tested")} @remove={self.onRemoveSent} @again={self.onWriteAgain} /> }
+    }
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <frame $for={game of self.held} of={game} opacity={0} away={true} />
+      <Window $if={self.open} tabs={self.tabs} selected={mut self.tab} declared={mut self.window} withSettings={true}
+              side={self.side} footer={self.footer} @close={self.onClose} @settings={self.onSettings}>
+        <Inbox $if={self.tab == TAB_INBOX} letters={self.letters} picked={self.picked} ticked={mut self.ticked} busy={self.busy}
+               @clicked={self.onRowClicked} @takeAll={self.onTakeAll} @takeTicked={self.onTakeTicked}
+               @returnTicked={self.onReturnTicked} />
+        <Outbox $elseif={self.tab == TAB_OUTBOX} queue={self.queue} history={self.history} picked={self.sentPicked}
+                @pick={self.onSentPick} @write={self.onWrite} @stop={self.onStop} @resume={self.onResume} />
+        <OwnTab $else alts={Alts} />
+      </Window>
+      <Dialog $if={self.asking is Ask.Pay} width={Style.ASK} title={Locale.COD_TITLE}>
+        <text value={self.askText} textColor={Style.INK} wrap={true} />
+        <PushButton #buttons label={Locale.PAY} width={Style.BUTTON} plate={ButtonPlate.Accent} @click={self.onPayYes} />
+        <PushButton #buttons label={Locale.CANCEL} width={Style.BUTTON} @click={self.onAskNo} />
+      </Dialog>
+      <Dialog $if={self.asking is Ask.Short} width={Style.ASK} title={Locale.COD_TITLE}>
+        <text value={self.askText} textColor={Style.INK} wrap={true} />
+        <PushButton #buttons label={Locale.OKAY} width={Style.BUTTON} @click={self.onAskNo} />
+      </Dialog>
+      <Dialog $if={self.asking is Ask.Close} width={Style.ASK} title={Locale.CLOSE_TITLE}>
+        <text value={self.askText} textColor={Style.INK} wrap={true} />
+        <PushButton #buttons label={Locale.CLOSE} width={Style.BUTTON} plate={ButtonPlate.Danger} @click={self.onCloseYes} />
+        <PushButton #buttons label={Locale.CANCEL} width={Style.BUTTON} @click={self.onAskNo} />
+      </Dialog>
+    }
+  }
+}
+
+// One of the game's interface sounds, by its kit's name, as the game's mailbox window plays it.
+function play(kit: String) {
+  const id = Client.SOUNDKIT[kit]
+  if (id != nil) { _ = Client.PlaySound(id, nil, nil) }
 }

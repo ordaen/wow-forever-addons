@@ -1,0 +1,134 @@
+// Taking from several letters at once («Take all», the ticked letters, Shift+click on one): one thing at a time,
+// paced by the game. It takes a letter's money or one attachment, then waits until the inbox is read anew
+// (`changed`), a short ceiling of time at most, and goes on with what the inbox then holds. The letters are named by
+// their sender and subject, as the inbox shifts under them. «Inventory is full» stops it; «can't carry any more» skips
+// that attachment; one that won't come after a few tries is skipped, never looped on. Cash on delivery and a game
+// master's letters are never taken by it; the free bag slots the setting keeps are left free (money still comes).
+import Game from "$game"
+import { collectable, keyOf } from "@/letters"
+
+// How long the game is given to answer before the next thing is asked.
+const CEILING = 2
+// Tries of one attachment before it is skipped.
+const TRIES = 3
+
+// Why taking stopped.
+public enum Stop { Done = "done", Full = "full", Closed = "closed" }
+
+public class Collector {
+  // While it runs, the list takes no clicks.
+  public state running = false
+  // What it took this visit to the mailbox: the money, and the stacks.
+  public state money = 0
+  public state stacks = 0
+  public state stopped: Stop | nil = nil
+  // The letters it takes from; none: every letter «Take all» opens.
+  targets: Array<String> = []
+  // Attachments skipped (`key/place`) and the tries of the one asked last.
+  skipped: mut Map<String, Boolean> = {}
+  asked = ""
+  tries = 0
+  waiting: Task<nil> | nil = nil
+  // The free bag slots it leaves.
+  keepFree = 0
+
+  constructor() {
+    Game.mailObserver.changed.listen(self.onChanged)
+    Game.mailObserver.refused.listen(self.onRefused)
+    Game.mailObserver.failed.listen(self.onFailed)
+  }
+
+  // Takes from these letters, as they now stand, leaving that many bag slots free.
+  public start(mut self, letters: Array<Game.MailLetter>, keepFree: Integer) {
+    self.keepFree = keepFree
+    self.targets = letters.map(keyOf)
+    self.skipped = {}
+    self.asked = ""
+    self.tries = 0
+    self.stopped = nil
+    self.running = true
+    self.step()
+  }
+
+  public stop(mut self, why: Stop) {
+    if (!(peek self.running)) { return }
+    self.running = false
+    self.stopped = why
+    if (self.waiting != nil) { destroy self.waiting }
+  }
+
+  // A new visit to the mailbox: nothing taken yet.
+  public reset(mut self) {
+    self.money = 0
+    self.stacks = 0
+    self.stopped = nil
+  }
+
+  wanted(self, letter: Game.MailLetter): Boolean {
+    return collectable(letter) && self.targets.any(k => k == keyOf(letter))
+  }
+
+  // The next thing to take, asked of the game; stopped where nothing is left.
+  step(mut self) {
+    if (!(peek self.running)) { return }
+    for (letter of Game.mailbox.letters()) {
+      if (!self.wanted(letter)) { continue }
+      if (letter.copper > 0) {
+        self.ask(`${keyOf(letter)}/money`)
+        Game.mailbox.takeMoney(letter.index)
+        self.money += letter.copper
+        return
+      }
+      if (peek Game.bags.free <= self.keepFree) {
+        self.stop(.Full)
+        return
+      }
+      for (item of letter.items) {
+        const name = `${keyOf(letter)}/${item.place}`
+        if (self.skipped[name] == true) { continue }
+        self.ask(name)
+        Game.mailbox.takeItem(letter.index, item.place)
+        self.stacks += 1
+        return
+      }
+    }
+    self.stop(.Done)
+  }
+
+  ask(mut self, name: String) {
+    if (name == self.asked) {
+      self.tries += 1
+      if (self.tries >= TRIES) { self.skipped[name] = true }
+    } else {
+      self.asked = name
+      self.tries = 1
+    }
+    if (self.waiting != nil) { destroy self.waiting }
+    self.waiting = self.ceiling()
+  }
+
+  async ceiling(mut self) {
+    await Game.delay(CEILING)
+    self.waiting = nil
+    self.step()
+  }
+
+  // The inbox read anew: what was asked came, or the inbox refreshed; the next thing is asked.
+  onChanged(mut self) {
+    if (!(peek self.running)) { return }
+    self.step()
+  }
+
+  onRefused(mut self, message: String) {
+    if (!(peek self.running)) { return }
+    if (message == Game.strings.inventoryFull) {
+      self.stop(.Full)
+    } else if (message == Game.strings.itemMaxCount) {
+      self.skipped[self.asked] = true
+    }
+  }
+
+  onFailed(mut self) {
+    if (peek self.running) { self.skipped[self.asked] = true }
+  }
+}

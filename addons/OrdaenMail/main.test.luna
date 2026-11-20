@@ -1,910 +1,501 @@
 // The mail window as the player meets it: the game opens the mailbox, the window lists its letters, and the player
-// picks, ticks, filters, searches and changes the view. The root is drawn on the screen as Ordaen draws it; the inbox
-// is also mounted alone, where what its buttons ask for is heard.
+// opens, takes, returns, deletes, writes and sends. What the window asks of the game is heard as `Test.requests()`;
+// the game's answers are emitted on the mail observer.
+import Client from "$client"
+import Events from "$events"
 import Game from "$game"
-import { Art } from "$ltml"
 import Test from "$test"
 import root Ordaen from "Ordaen"
-import { ARTWORK } from "Ordaen"
-import type { Alts } from "OrdaenAlts"
 import root Mail from "OrdaenMail"
-import { Inbox } from "@/inbox"
-import { Sent, SentState } from "@/letters"
-import { OwnTab } from "@/own"
 
-const PAGE: Test.Page = { left: 20, top: 20, width: 1300, height: 720, screen: true }
-const AREA: Test.Page = { left: 20, top: 20, width: 1000, height: 600 }
+const PAGE: Test.Page = { left: 20, top: 20, width: 1500, height: 820, screen: true }
 // A text the mail window always shows: its third tab.
 const MAIL = "To my characters"
-// The colours a text is to be drawn in.
 const RED: Color = Color.hex("#ff4040")
-const DIM: Color = Color.hex("#a3977f")
-const ORANGE: Color = Color.hex("#ff9a30")
 const GREEN: Color = Color.hex("#40d060")
-const INK: Color = Color.hex("#e8dcc4")
-const GOLD: Color = Color.hex("#ffd100")
+
+function item(place: Integer, id: Integer, name: String, count: Integer): Game.MailItem {
+  return { place: place, item: id, name: name, count: count, link: `|Hitem:${id}|h[${name}]|h` }
+}
+
+function letter(index: Integer, kind: Game.MailKind, subject: String, sender: String, copper: Integer, cod: Integer, days: Number, items: Array<Game.MailItem>): Game.MailLetter {
+  return {
+    index: index, kind: kind, subject: subject, sender: sender, copper: copper, cod: cod, days: days, items: items,
+    read: false, returned: false, gm: false, deletable: kind != Game.MailKind.Player
+  }
+}
 
 function letters(): Array<Game.MailLetter> {
   return [
-    {
-      index: 1, kind: Game.MailKind.Auction, subject: "Auction successful: Linen Cloth", sender: "Auction House", copper: 12500,
-      cod: 0, days: 29, items: []
-    },
-    {
-      index: 2, kind: Game.MailKind.Player, subject: "Bolts for you", sender: "Regy", copper: 0, cod: 0, days: 2,
-      items: [{ item: 2589, name: "Linen Cloth", count: 20 }, { item: 2592, name: "Wool Cloth", count: 5 }]
-    },
-    {
-      index: 3, kind: Game.MailKind.Player, subject: "Pay for the sword", sender: "Dorn", copper: 0, cod: 40000, days: 10,
-      items: [{ item: 12, name: "Sword", count: 1 }]
-    },
-    { index: 4, kind: Game.MailKind.System, subject: "Welcome", sender: "", copper: 0, cod: 0, days: 30, items: [] }
+    letter(1, .Auction, "Auction successful: Linen Cloth", "Auction House", 12500, 0, 29, []),
+    letter(2, .Player, "Bolts for you", "Regy", 0, 0, 2, [item(1, 2589, "Linen Cloth", 20), item(3, 2592, "Wool Cloth", 5)]),
+    letter(3, .Player, "Pay for the sword", "Dorn", 0, 40000, 10, [item(1, 12, "Sword", 1)]),
+    letter(4, .System, "Welcome", "", 0, 0, 30, [])
   ]
 }
 
 // Whether a text is drawn in this colour.
 function drawnIn(part: Test.Part, color: Color): Boolean {
   const ink = part.textColor()
-  return (ink.r * 255).round() == (color.r * 255).round() &&
-    (ink.g * 255).round() == (color.g * 255).round() &&
+  return (ink.r * 255).round() == (color.r * 255).round() && (ink.g * 255).round() == (color.g * 255).round() &&
     (ink.b * 255).round() == (color.b * 255).round()
 }
 
-// A choice picked from a toolbar button's list: the button by the glyph it shows, then the choice in the list that
-// holds `among`.
-function pick(window: Test.Part, button: Art, among: String, choice: String) {
-  window.button(button).click()
-  Test.page().window(among).button(choice).click()
-}
-
-function filter(window: Test.Part, choice: String) {
-  pick(window, Ordaen.art.ctl.tool.filter, "With items", choice)
-}
-
-// The subjects of the rows the list shows, in order.
-function subjects(window: Test.Part): Array<String> {
-  return letters().map(l => l.subject).filter(s => window.text(s).shown())
-}
-
-// Whether both texts are shown in the part, the first drawn before the second.
-function before(part: Test.Part, first: String, second: String): Boolean {
-  const texts = part.texts()
-  let a = 0
-  let b = 0
-  for (i, text of texts) {
-    if (text == first && a == 0) { a = i }
-    if (text == second && b == 0) { b = i }
-  }
-  return a > 0 && b > 0 && a < b
-}
-
-// What the inbox's buttons asked for.
-class Heard {
-  collected: String = ""
-  times: Integer = 0
-  returned: Integer = 0
-  constructor(inbox: Inbox) {
-    inbox.collect.listen(self.onCollect)
-    inbox.giveBack.listen(self.onGiveBack)
-  }
-
-  onCollect(mut self, list: Array<Integer>) {
-    self.collected = list.map(i => String.of(i)).join(",")
-    self.times += 1
-  }
-
-  onGiveBack(mut self, index: Integer) { self.returned = index }
-}
-
-// The cells a component under test is given.
-class Fixture {
-  state letters: Array<Game.MailLetter> = letters()
-  state total = 4
-  state yes = true
-  state alts: Alts | nil = nil
-}
+// What was asked of the game since last asked, as one line.
+function asked(): String { return Test.requests().join(", ") }
 
 // The window
 
-test "the mail window shows once the game opens the mailbox" {
+test "the mail window shows once the game opens the mailbox, and goes when it closes" {
   Test.mount(nil, PAGE)
   Game.mailbox.letters = letters
   Test.expect(!Test.page().window(MAIL).shown())
   Game.mailObserver.open = true
   Game.mailObserver.opened.emit()
-  Test.expect(Test.page().window(MAIL).text("Bolts for you").shown())
-}
-
-test "the mail window goes when the mailbox closes" {
-  Test.mount(nil, PAGE)
-  Game.mailbox.letters = letters
-  Game.mailObserver.open = true
-  Game.mailObserver.opened.emit()
   const window = Test.page().window(MAIL)
+  Test.expect(window.text("Bolts for you").shown())
   Game.mailObserver.open = false
   Test.expect(!window.shown())
 }
 
-test "the window shut by the player stays shut, and shows again when the mailbox is opened again" {
+test "the game's mailbox window stays open underneath, unseen and without the mouse, while ours shows" {
+  const game = Client.CreateFrame("Frame", "MailFrame", Client.UIParent, nil)
+  game.SetSize(300, 400)
+  game.Show()
   Test.mount(nil, PAGE)
   Game.mailbox.letters = letters
   Game.mailObserver.open = true
   Game.mailObserver.opened.emit()
-  const window = Test.page().window(MAIL)
-  window.button(Ordaen.art.ctl.corner.close).click()
-  Test.expect(!window.shown())
-  Game.mailObserver.opened.emit()
-  Test.expect(window.shown())
+  Test.flush()
+  Test.expect(game.IsShown() && game.GetAlpha() == 0 && !game.IsMouseEnabled())
 }
 
-test "the inbox tab counts the letters" {
-  Test.mount(nil, PAGE)
-  Game.mailbox.letters = letters
-  Game.mailObserver.open = true
-  Game.mailObserver.opened.emit()
-  const window = Test.page().window(MAIL)
-  Test.expect(window.text("Inbox (4)").shown())
-}
-
-test "the list follows the letters the game reports while the mailbox is open" {
-  Test.mount(nil, PAGE)
-  Game.mailbox.letters = letters
-  Game.mailObserver.open = true
-  Game.mailObserver.opened.emit()
-  const window = Test.page().window(MAIL)
-  Game.mailbox.letters = (): Array<Game.MailLetter> => [
-    { index: 5, kind: Game.MailKind.Player, subject: "Ore", sender: "Kel", copper: 0, cod: 0, days: 5, items: [] },
-    { index: 6, kind: Game.MailKind.Player, subject: "Wool", sender: "Kel", copper: 0, cod: 0, days: 5, items: [] }
-  ]
-  Game.mailObserver.changed.emit()
-  Test.expect(!window.text("Bolts for you").shown())
-  Test.expect(window.text("Ore").shown())
-  Test.expect(window.text("Inbox (2)").shown())
-}
-
-test "the inbox says how many letters the mailbox holds when more wait than are shown" {
-  Test.mount(nil, PAGE)
-  Game.mailbox.letters = letters
-  Game.mailbox.waiting = (): Integer => 6
-  Game.mailObserver.open = true
-  Game.mailObserver.opened.emit()
-  Test.expect(Test.page().window(MAIL).text("Letters in the mailbox: 6").shown())
-}
-
-test "the inbox says nothing of letters waiting when it shows them all" {
+test "the inbox tab counts the letters, the footer the letters shown of those waiting" {
   Test.mount(nil, PAGE)
   Game.mailbox.letters = letters
   Game.mailbox.waiting = (): Integer => 4
+  Game.bags.free = 20
   Game.mailObserver.open = true
   Game.mailObserver.opened.emit()
+  _ = Test.requests()
   const window = Test.page().window(MAIL)
-  Test.expect(!window.text("Letters in the mailbox: 4").shown())
+  Test.expect(window.text("4 letters").shown())
+  Test.expect(window.text("4 / 4").shown())
+}
+
+test "while more letters wait than the server shows, it is asked again a little later" {
+  Test.mount(nil, PAGE)
+  Game.mailbox.letters = letters
+  Game.mailbox.waiting = (): Integer => 60
+  Game.mailObserver.open = true
+  Game.mailObserver.opened.emit()
+  _ = Test.requests()
+  Test.pass(16)
+  Test.expect(asked().contains("Mailbox.check"))
 }
 
 // A letter's row
 
-test "each letter's row shows its subject, its sender and the days left" {
+test "each row says its subject, its sender, what it carries and the days left" {
   Test.mount(nil, PAGE)
   Game.mailbox.letters = letters
+  Game.mailbox.waiting = (): Integer => 4
+  Game.bags.free = 20
   Game.mailObserver.open = true
   Game.mailObserver.opened.emit()
+  _ = Test.requests()
   const window = Test.page().window(MAIL)
-  const row = window.text("Bolts for you").item()
-  Test.expect(row.text("Regy").shown())
-  Test.expect(row.text("2 d").shown())
-}
-
-test "each row says its subject, its sender, what it carries and the days left, and nothing else" {
-  Test.mount(nil, PAGE)
-  Game.mailbox.letters = letters
-  Game.mailObserver.open = true
-  Game.mailObserver.opened.emit()
-  const window = Test.page().window(MAIL)
-  Test.expect(window.text("Auction successful: Linen Cloth").item().texts().join(" | ") == "Auction successful: Linen Cloth | Auction House | 1g 25s 0c | 29 d")
-  Test.expect(window.text("Bolts for you").item().texts().join(" | ") == "Bolts for you | Regy | +1 | 2 d")
-  Test.expect(window.text("Pay for the sword").item().texts().join(" | ") == "Pay for the sword | Dorn | Cash on delivery | 10 d")
-  Test.expect(window.text("Welcome").item().texts().join(" | ") == "Welcome | System | 30 d")
-}
-
-test "the rows stand in the order the mailbox holds the letters" {
-  Test.mount(nil, PAGE)
-  Game.mailbox.letters = letters
-  Game.mailObserver.open = true
-  Game.mailObserver.opened.emit()
-  const window = Test.page().window(MAIL)
-  Test.expect(before(window, "Auction successful: Linen Cloth", "Bolts for you"))
-  Test.expect(before(window, "Bolts for you", "Pay for the sword"))
-  Test.expect(before(window, "Pay for the sword", "Welcome"))
-}
-
-test "a letter that says three days left is red, one that says four dim" {
-  Test.mount(nil, PAGE)
-  Game.mailbox.letters = (): Array<Game.MailLetter> => [
-    { index: 1, kind: Game.MailKind.Player, subject: "Going", sender: "Kel", copper: 0, cod: 0, days: 3.9, items: [] },
-    { index: 2, kind: Game.MailKind.Player, subject: "Staying", sender: "Kel", copper: 0, cod: 0, days: 4, items: [] }
-  ]
-  Game.mailObserver.open = true
-  Game.mailObserver.opened.emit()
-  const window = Test.page().window(MAIL)
-  Test.expect(drawnIn(window.text("Going").item().text("3 d"), RED))
-  Test.expect(drawnIn(window.text("Staying").item().text("4 d"), DIM))
-}
-
-test "days left are red under three days" {
-  Test.mount(nil, PAGE)
-  Game.mailbox.letters = letters
-  Game.mailObserver.open = true
-  Game.mailObserver.opened.emit()
-  const window = Test.page().window(MAIL)
+  Test.expect(window.text("Bolts for you").item().text("Regy").shown())
+  Test.expect(window.text("Pay for the sword").item().text("Cash on delivery").shown())
+  Test.expect(window.text("Welcome").item().text("System").shown())
   Test.expect(drawnIn(window.text("Bolts for you").item().text("2 d"), RED))
 }
 
-test "days left are dim well past three days" {
+test "the search finds a letter by an item it carries" {
   Test.mount(nil, PAGE)
   Game.mailbox.letters = letters
+  Game.mailbox.waiting = (): Integer => 4
+  Game.bags.free = 20
   Game.mailObserver.open = true
   Game.mailObserver.opened.emit()
-  const window = Test.page().window(MAIL)
-  Test.expect(drawnIn(window.text("Pay for the sword").item().text("10 d"), DIM))
-}
-
-test "a letter with less than a day left says so" {
-  Test.mount(nil, PAGE)
-  Game.mailbox.letters = (): Array<Game.MailLetter> => [
-    { index: 1, kind: Game.MailKind.Player, subject: "Soon gone", sender: "Kel", copper: 0, cod: 0, days: 0.5, items: [] }
-  ]
-  Game.mailObserver.open = true
-  Game.mailObserver.opened.emit()
-  Test.expect(Test.page().window(MAIL).text("Soon gone").item().text("< 1 d").shown())
-}
-
-test "a letter with a day left says one day" {
-  Test.mount(nil, PAGE)
-  Game.mailbox.letters = (): Array<Game.MailLetter> => [
-    { index: 1, kind: Game.MailKind.Player, subject: "Nearly gone", sender: "Kel", copper: 0, cod: 0, days: 1, items: [] }
-  ]
-  Game.mailObserver.open = true
-  Game.mailObserver.opened.emit()
-  Test.expect(Test.page().window(MAIL).text("Nearly gone").item().text("1 d").shown())
-}
-
-test "a letter to pay for says cash on delivery, in orange" {
-  Test.mount(nil, PAGE)
-  Game.mailbox.letters = letters
-  Game.mailObserver.open = true
-  Game.mailObserver.opened.emit()
-  const window = Test.page().window(MAIL)
-  const cod = window.text("Pay for the sword").item().text("Cash on delivery")
-  Test.expect(drawnIn(cod, ORANGE))
-  Test.expect(!window.text("Bolts for you").item().text("Cash on delivery").shown())
-}
-
-test "a row shows the money its letter carries" {
-  Test.mount(nil, PAGE)
-  Game.mailbox.letters = letters
-  Game.mailObserver.open = true
-  Game.mailObserver.opened.emit()
-  const window = Test.page().window(MAIL)
-  Test.expect(window.text("Auction successful: Linen Cloth").item().text("1g 25s 0c").shown())
-}
-
-test "a row with several items says how many more there are" {
-  Test.mount(nil, PAGE)
-  Game.mailbox.letters = letters
-  Game.mailObserver.open = true
-  Game.mailObserver.opened.emit()
-  const window = Test.page().window(MAIL)
-  Test.expect(window.text("Bolts for you").item().text("+1").shown())
-  Test.expect(!window.text("Pay for the sword").item().text("+0").shown())
-}
-
-test "a letter from the game names the System as its sender" {
-  Test.mount(nil, PAGE)
-  Game.mailbox.letters = letters
-  Game.mailObserver.open = true
-  Game.mailObserver.opened.emit()
-  const window = Test.page().window(MAIL)
-  Test.expect(window.text("Welcome").item().text("System").shown())
-}
-
-// The letter picked
-
-test "with no letter picked the window asks for one" {
-  Test.mount(nil, PAGE)
-  Game.mailbox.letters = letters
-  Game.mailObserver.open = true
-  Game.mailObserver.opened.emit()
-  const window = Test.page().window(MAIL)
-  Test.expect(window.text("Pick a letter.").shown())
-}
-
-test "a letter clicked shows beside the list with its sender and the days left" {
-  Test.mount(nil, PAGE)
-  Game.mailbox.letters = letters
-  Game.mailObserver.open = true
-  Game.mailObserver.opened.emit()
-  const window = Test.page().window(MAIL)
-  window.button("Bolts for you").click()
-  Test.expect(window.text("From Regy. Left: 2 d").shown())
-  Test.expect(!window.text("Pick a letter.").shown())
-}
-
-test "the picked letter clicked again is let go" {
-  Test.mount(nil, PAGE)
-  Game.mailbox.letters = letters
-  Game.mailObserver.open = true
-  Game.mailObserver.opened.emit()
-  const window = Test.page().window(MAIL)
-  window.button("Bolts for you").click()
-  window.button("Bolts for you").click()
-  Test.expect(window.text("Pick a letter.").shown())
-}
-
-test "the picked letter shows each item attached with its count, and the game's tooltip on it" {
-  Test.mount(nil, PAGE)
-  Game.mailbox.letters = letters
-  Game.mailObserver.open = true
-  Game.mailObserver.opened.emit()
-  const window = Test.page().window(MAIL)
-  window.button("Bolts for you").click()
   _ = Test.requests()
-  window.button("20").hover()
-  Test.expect(Test.requests().any(r => r == "Items.show 2589"))
-  window.button("5").hover()
-  Test.expect(Test.requests().any(r => r == "Items.show 2592"))
+  const window = Test.page().window(MAIL)
+  window.input().type("wool")
+  Test.expect(window.text("Bolts for you").shown())
+  Test.expect(!window.text("Welcome").shown())
 }
 
-test "the picked letter shows the money it carries" {
+test "the view by kind puts the letters under their kinds' captions with the counts, which fold" {
   Test.mount(nil, PAGE)
   Game.mailbox.letters = letters
+  Game.mailbox.waiting = (): Integer => 4
+  Game.bags.free = 20
   Game.mailObserver.open = true
   Game.mailObserver.opened.emit()
+  _ = Test.requests()
   const window = Test.page().window(MAIL)
-  window.button("Auction successful: Linen Cloth").click()
-  Test.expect(window.text("Money").shown())
-  Test.expect(window.text("1g 25s 0c").count() == 2)
+  window.button(Ordaen.art.ctl.tool.list).click()
+  Test.page().window("By kind").button("By kind").click()
+  Test.expect(window.text("From players (2)").shown())
+  window.text("From players (2)").click()
+  Test.expect(!window.text("Bolts for you").shown())
 }
 
-test "a letter to pay for says how much, and offers to pay and collect" {
-  Test.mount(nil, PAGE)
-  Game.mailbox.letters = letters
-  Game.mailObserver.open = true
-  Game.mailObserver.opened.emit()
-  const window = Test.page().window(MAIL)
-  window.button("Pay for the sword").click()
-  Test.expect(window.text("4g 0s 0c").shown())
-  Test.expect(window.text("Cash on delivery").count() == 2)
-  Test.expect(window.button("Pay and collect").shown())
-}
+// Opening, taking, returning
 
-test "a letter with something attached offers to collect it" {
+test "a click opens the letter beside the list: its text read, its items as rewards, the game's sound" {
+  let played = 0
+  Client.PlaySound = (kit: Integer, channel: String | nil, once: Boolean | nil): (Boolean | nil, Unknown) => {
+    played += 1
+    return true, nil
+  }
   Test.mount(nil, PAGE)
   Game.mailbox.letters = letters
+  Game.mailbox.waiting = (): Integer => 4
+  Game.bags.free = 20
   Game.mailObserver.open = true
   Game.mailObserver.opened.emit()
+  _ = Test.requests()
   const window = Test.page().window(MAIL)
-  window.button("Bolts for you").click()
-  Test.expect(window.button("Collect all").shown())
+  window.text("Bolts for you").click()
+  Test.expect(asked().contains("Mailbox.text 2"))
+  Test.expect(window.text("Wool Cloth").shown())
+  Test.expect(window.button("Take all").shown())
   Test.expect(window.button("Return").shown())
-  Test.expect(!window.button("Delete").shown())
+  Test.expect(played == 1)
 }
 
-test "a letter with nothing attached offers to delete it in place of collecting" {
+test "an attachment clicked is taken from its place" {
   Test.mount(nil, PAGE)
   Game.mailbox.letters = letters
+  Game.mailbox.waiting = (): Integer => 4
+  Game.bags.free = 20
   Game.mailObserver.open = true
   Game.mailObserver.opened.emit()
+  _ = Test.requests()
   const window = Test.page().window(MAIL)
-  window.button("Welcome").click()
-  Test.expect(window.button("Delete").shown())
-  Test.expect(!window.button("Collect all").shown())
+  window.text("Bolts for you").click()
+  _ = Test.requests()
+  window.text("Wool Cloth").click()
+  Test.expect(asked().contains("Mailbox.takeItem 2 3"))
 }
 
-// Collecting
-
-test "Collect all counts the letters with money or items and nothing to pay" {
+test "Shift+click on a row takes everything from it, one thing at a time as the game reads the inbox again" {
   Test.mount(nil, PAGE)
   Game.mailbox.letters = letters
+  Game.mailbox.waiting = (): Integer => 4
+  Game.bags.free = 20
   Game.mailObserver.open = true
   Game.mailObserver.opened.emit()
+  _ = Test.requests()
   const window = Test.page().window(MAIL)
-  Test.expect(window.button("Collect all (2)").shown())
-}
-
-test "Collect all counts only the letters the filter keeps" {
-  Test.mount(nil, PAGE)
-  Game.mailbox.letters = letters
-  Game.mailObserver.open = true
-  Game.mailObserver.opened.emit()
-  const window = Test.page().window(MAIL)
-  filter(window, "From players")
-  Test.expect(window.button("Collect all (1)").shown())
-}
-
-test "Collect all asks for the letters with money or items and nothing to pay" {
-  const fixture = new Fixture()
-  const inbox = new Inbox(fixture.letters, fixture.total, fixture.yes)
-  Test.mount(inbox, AREA)
-  const heard = new Heard(inbox)
-  Test.page().button("Collect all (2)").click()
-  Test.expect(heard.collected == "1,2")
-}
-
-test "Collect all asks only for the letters the filter keeps" {
-  const fixture = new Fixture()
-  const inbox = new Inbox(fixture.letters, fixture.total, fixture.yes)
-  Test.mount(inbox, AREA)
-  const heard = new Heard(inbox)
-  filter(Test.page(), "With money")
-  Test.page().button("Collect all (1)").click()
-  Test.expect(heard.collected == "1")
-}
-
-test "a picked letter's Collect all asks for that letter alone" {
-  const fixture = new Fixture()
-  const inbox = new Inbox(fixture.letters, fixture.total, fixture.yes)
-  Test.mount(inbox, AREA)
-  const heard = new Heard(inbox)
-  Test.page().button("Bolts for you").click()
-  Test.page().button("Collect all").click()
-  Test.expect(heard.collected == "2")
-}
-
-test "a picked letter's Return asks for that letter to go back" {
-  const fixture = new Fixture()
-  const inbox = new Inbox(fixture.letters, fixture.total, fixture.yes)
-  Test.mount(inbox, AREA)
-  const heard = new Heard(inbox)
-  Test.page().button("Pay for the sword").click()
-  Test.page().button("Return").click()
-  Test.expect(heard.returned == 3)
-}
-
-test "where the game takes no mail, Collect all asks for nothing" {
-  const fixture = new Fixture()
-  fixture.yes = false
-  const inbox = new Inbox(fixture.letters, fixture.total, fixture.yes)
-  Test.mount(inbox, AREA)
-  const heard = new Heard(inbox)
-  Test.page().button("Collect all (2)").click()
-  Test.page().button("Bolts for you").click()
-  Test.page().button("Collect all").click()
-  Test.expect(heard.times == 0)
-}
-
-// Ticking
-
-test "no letter is ticked as the mailbox opens" {
-  Test.mount(nil, PAGE)
-  Game.mailbox.letters = letters
-  Game.mailObserver.open = true
-  Game.mailObserver.opened.emit()
-  const window = Test.page().window(MAIL)
-  for (n of 0..4) { Test.expect(!window.button(`Collect (${n})`).shown()) }
-}
-
-test "a ticked box offers its letter to collect" {
-  Test.mount(nil, PAGE)
-  Game.mailbox.letters = letters
-  Game.mailObserver.open = true
-  Game.mailObserver.opened.emit()
-  const window = Test.page().window(MAIL)
-  window.text("Bolts for you").item().button(Ordaen.art.ctl.check).click()
-  Test.expect(window.button("Collect (1)").shown())
-}
-
-test "a box ticked again lets its letter go" {
-  Test.mount(nil, PAGE)
-  Game.mailbox.letters = letters
-  Game.mailObserver.open = true
-  Game.mailObserver.opened.emit()
-  const window = Test.page().window(MAIL)
-  const tick = window.text("Bolts for you").item().button(Ordaen.art.ctl.check)
-  tick.click()
-  tick.click()
-  Test.expect(!window.button("Collect (1)").shown())
-}
-
-test "a box unticked leaves the others ticked" {
-  Test.mount(nil, PAGE)
-  Game.mailbox.letters = letters
-  Game.mailObserver.open = true
-  Game.mailObserver.opened.emit()
-  const window = Test.page().window(MAIL)
-  window.text("Auction successful: Linen Cloth").item().button(Ordaen.art.ctl.check).click()
-  window.text("Bolts for you").item().button(Ordaen.art.ctl.check).click()
-  window.text("Auction successful: Linen Cloth").item().button(Ordaen.art.ctl.check).click()
-  Test.expect(window.button("Collect (1)").shown())
-}
-
-test "Shift on a box ticks every letter from the last ticked" {
-  Test.mount(nil, PAGE)
-  Game.mailbox.letters = letters
-  Game.mailObserver.open = true
-  Game.mailObserver.opened.emit()
-  const window = Test.page().window(MAIL)
-  window.text("Bolts for you").item().button(Ordaen.art.ctl.check).click()
   Game.input.shiftDown = (): Boolean => true
-  window.text("Welcome").item().button(Ordaen.art.ctl.check).click()
-  Test.expect(window.button("Collect (3)").shown())
+  window.text("Bolts for you").click()
+  Game.input.shiftDown = (): Boolean => false
+  Game.input.controlDown = (): Boolean => false
+  Test.expect(asked() == "Mailbox.takeItem 2 1")
+  Game.mailbox.letters = (): Array<Game.MailLetter> => [letter(2, .Player, "Bolts for you", "Regy", 0, 0, 2, [item(3, 2592, "Wool Cloth", 5)])]
+  Game.mailObserver.changed.emit()
+  Test.expect(asked() == "Mailbox.takeItem 2 3")
 }
 
-test "Shift ticks the range upward as well" {
+test "«Take all» takes the money first and leaves cash on delivery and game masters' letters" {
   Test.mount(nil, PAGE)
   Game.mailbox.letters = letters
+  Game.mailbox.waiting = (): Integer => 4
+  Game.bags.free = 20
   Game.mailObserver.open = true
   Game.mailObserver.opened.emit()
+  _ = Test.requests()
   const window = Test.page().window(MAIL)
-  window.text("Welcome").item().button(Ordaen.art.ctl.check).click()
-  Game.input.shiftDown = (): Boolean => true
-  window.text("Bolts for you").item().button(Ordaen.art.ctl.check).click()
-  Test.expect(window.button("Collect (3)").shown())
+  window.button("Take all (2)").click()
+  Test.expect(asked() == "Mailbox.takeMoney 1")
+  Game.mailbox.letters = (): Array<Game.MailLetter> => letters().filter(l => l.index != 1)
+  Game.mailObserver.changed.emit()
+  Test.expect(asked() == "Mailbox.takeItem 2 1")
 }
 
-test "a box Shift ticked is unticked by a click" {
+test "«Inventory is full» stops taking; «can't carry any more» skips that attachment" {
   Test.mount(nil, PAGE)
   Game.mailbox.letters = letters
+  Game.mailbox.waiting = (): Integer => 4
+  Game.bags.free = 20
   Game.mailObserver.open = true
   Game.mailObserver.opened.emit()
+  _ = Test.requests()
+  const window = Test.page().window(MAIL)
+  window.button("Take all (2)").click()
+  _ = Test.requests()
+  Game.mailbox.letters = (): Array<Game.MailLetter> => letters().filter(l => l.index != 1)
+  Game.mailObserver.changed.emit()
+  Test.expect(asked() == "Mailbox.takeItem 2 1")
+  Game.mailObserver.refused.emit(Game.strings.itemMaxCount)
+  Game.mailObserver.changed.emit()
+  Test.expect(asked() == "Mailbox.takeItem 2 3")
+  Game.mailObserver.refused.emit(Game.strings.inventoryFull)
+  Game.mailObserver.changed.emit()
+  Test.expect(asked() == "")
+  Test.expect(window.text("Bags are full").shown())
+}
+
+test "taking leaves the bag slots the setting keeps free" {
+  Test.mount(nil, PAGE)
+  Game.mailbox.letters = letters
+  Game.mailbox.waiting = (): Integer => 4
+  Game.bags.free = 20
+  Game.mailObserver.open = true
+  Game.mailObserver.opened.emit()
+  _ = Test.requests()
+  const window = Test.page().window(MAIL)
+  Game.bags.free = 0
+  Game.input.shiftDown = (): Boolean => true
+  window.text("Bolts for you").click()
+  Game.input.shiftDown = (): Boolean => false
+  Game.input.controlDown = (): Boolean => false
+  Test.expect(asked() == "")
+}
+
+test "an attachment that won't come is skipped after a few tries, never asked forever" {
+  Test.mount(nil, PAGE)
+  Game.mailbox.letters = letters
+  Game.mailbox.waiting = (): Integer => 4
+  Game.bags.free = 20
+  Game.mailObserver.open = true
+  Game.mailObserver.opened.emit()
+  _ = Test.requests()
+  const window = Test.page().window(MAIL)
+  Game.input.shiftDown = (): Boolean => true
+  window.text("Bolts for you").click()
+  Game.input.shiftDown = (): Boolean => false
+  Game.input.controlDown = (): Boolean => false
+  Game.mailObserver.changed.emit()
+  Game.mailObserver.changed.emit()
+  Game.mailObserver.changed.emit()
+  Test.expect(asked().contains("Mailbox.takeItem 2 3"))
+}
+
+test "Ctrl+click returns a player's letter, and never the world's" {
+  Test.mount(nil, PAGE)
+  Game.mailbox.letters = letters
+  Game.mailbox.waiting = (): Integer => 4
+  Game.bags.free = 20
+  Game.mailObserver.open = true
+  Game.mailObserver.opened.emit()
+  _ = Test.requests()
+  const window = Test.page().window(MAIL)
+  Game.input.controlDown = (): Boolean => true
+  window.text("Bolts for you").click()
+  window.text("Welcome").click()
+  Game.input.shiftDown = (): Boolean => false
+  Game.input.controlDown = (): Boolean => false
+  Test.expect(asked() == "Mailbox.giveBack 2")
+}
+
+test "cash on delivery asks before paying, and takes once paid" {
+  Client.GetMoney = (): Number => 100000
+  Test.mount(nil, PAGE)
+  Game.mailbox.letters = letters
+  Game.mailbox.waiting = (): Integer => 4
+  Game.bags.free = 20
+  Game.mailObserver.open = true
+  Game.mailObserver.opened.emit()
+  _ = Test.requests()
+  const window = Test.page().window(MAIL)
+  window.text("Pay for the sword").click()
+  window.button("Pay and take").click()
+  const ask = Test.page().window("Pay 4g 0s 0c to take this letter's items?")
+  _ = Test.requests()
+  ask.button("Pay").click()
+  Test.expect(asked() == "Mailbox.takeItem 3 1")
+}
+
+test "cash on delivery the player can't pay says so and takes nothing" {
+  Client.GetMoney = (): Number => 10
+  Test.mount(nil, PAGE)
+  Game.mailbox.letters = letters
+  Game.mailbox.waiting = (): Integer => 4
+  Game.bags.free = 20
+  Game.mailObserver.open = true
+  Game.mailObserver.opened.emit()
+  _ = Test.requests()
+  const window = Test.page().window(MAIL)
+  window.text("Pay for the sword").click()
+  _ = Test.requests()
+  window.button("Pay and take").click()
+  Test.expect(Test.page().window("You don't have the 4g 0s 0c this letter asks.").shown())
+  Test.expect(asked() == "")
+}
+
+test "a letter that holds nothing offers «Delete», and deletes it only while it is still there" {
+  Test.mount(nil, PAGE)
+  Game.mailbox.letters = letters
+  Game.mailbox.waiting = (): Integer => 4
+  Game.bags.free = 20
+  Game.mailObserver.open = true
+  Game.mailObserver.opened.emit()
+  _ = Test.requests()
+  const window = Test.page().window(MAIL)
+  window.text("Welcome").click()
+  _ = Test.requests()
+  window.button("Delete").click()
+  Test.expect(asked() == "Mailbox.delete 4")
+}
+
+test "ticked letters are taken or returned together from the footer; Shift ticks the range" {
+  Test.mount(nil, PAGE)
+  Game.mailbox.letters = letters
+  Game.mailbox.waiting = (): Integer => 4
+  Game.bags.free = 20
+  Game.mailObserver.open = true
+  Game.mailObserver.opened.emit()
+  _ = Test.requests()
   const window = Test.page().window(MAIL)
   window.text("Auction successful: Linen Cloth").item().button(Ordaen.art.ctl.check).click()
   Game.input.shiftDown = (): Boolean => true
   window.text("Pay for the sword").item().button(Ordaen.art.ctl.check).click()
   Game.input.shiftDown = (): Boolean => false
-  window.text("Bolts for you").item().button(Ordaen.art.ctl.check).click()
-  Test.expect(window.button("Collect (2)").shown())
+  Game.input.controlDown = (): Boolean => false
+  Test.expect(window.button("Take (3)").shown())
 }
 
-test "Shift on a box with none ticked ticks that letter alone" {
+// Sending
+
+test "«Write» opens the form; a recipient typed and «Send» puts the letter into the queue, which sends it" {
+  Test.mount(nil, PAGE)
+  Game.mailbox.letters = letters
+  Game.mailbox.waiting = (): Integer => 4
+  Game.bags.free = 20
+  Game.mailObserver.open = true
+  Game.mailObserver.opened.emit()
+  _ = Test.requests()
+  const window = Test.page().window(MAIL)
+  window.text("Outbox").click()
+  Mail.source = .Other
+  window.button("Write").click()
+  window.input().nth(2).type("Regron")
+  _ = Test.requests()
+  window.button("Send").click()
+  Test.expect(asked().contains("Mailbox.send Regron Money"))
+  Test.expect(window.text("Sending").shown())
+  Game.mailObserver.sent.emit()
+  Test.expect(drawnIn(window.text("Regron").item().text("Sent"), GREEN))
+}
+
+test "an item the game's letter takes (Right-click in the bags) comes into the form as its stack, and goes with the letter" {
+  Test.mount(nil, PAGE)
+  Game.mailbox.letters = letters
+  Game.bags.free = 20
+  Game.mailObserver.open = true
+  Game.mailObserver.opened.emit()
+  const window = Test.page().window(MAIL)
+  window.text("Outbox").click()
+  Mail.source = .Other
+  window.button("Write").click()
+  window.input().nth(2).type("Regron")
+  // The stack lies locked while it is in the game's letter, and free again once the form gave it back.
+  let inLetter = true
+  Game.bags.size = (bag: Integer): Integer => bag == 0 ? 4 : 0
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => {
+    if (bag != 0 || slot != 2) { return false }
+    into.id = 2589
+    into.count = 20
+    into.locked = inLetter
+    return true
+  }
+  Client.GetSendMailItem = (place: Integer): (String | nil, Number | nil, Number | nil, Number | nil, Number | nil) => {
+    if (place == 1) { return "Linen Cloth", 2589, 1, 20, 1 }
+    return nil, nil, nil, nil, nil
+  }
+  Client.C_Item.GetItemNameByID = (id: String | Integer): String | nil => id == 2589 ? "Linen Cloth" : nil
+  Events.MAIL_SEND_INFO_UPDATE.emit()
+  Client.GetSendMailItem = (place: Integer): (String | nil, Number | nil, Number | nil, Number | nil, Number | nil) => {
+    return nil, nil, nil, nil, nil
+  }
+  Test.expect(window.text("1 in 1 letters").shown())
+  inLetter = false
+  _ = Test.requests()
+  window.button("Send").click()
+  Test.expect(asked().contains("Mailbox.send Regron Linen Cloth 2589x20"))
+}
+
+test "«Don't accept trades at the mailbox» sets the game's own setting while it is open, and puts it back" {
+  let said = ""
+  Client.C_CVar.GetCVar = (name: String): String | nil => "0"
+  Client.C_CVar.SetCVar = (name: String, value: String | nil): Boolean => {
+    said += `${name}=${value ?? ""};`
+    return true
+  }
+  Test.mount(nil, PAGE)
+  Mail.settings.values.blockTrades = true
+  Game.mailbox.letters = letters
+  Game.mailObserver.open = true
+  Game.mailObserver.opened.emit()
+  Game.mailObserver.open = false
+  Test.flush()
+  Test.expect(said == "blockTrades=1;blockTrades=0;")
+}
+
+test "«Reply» opens the form to the letter's sender" {
   Test.mount(nil, PAGE)
   Game.mailbox.letters = letters
   Game.mailObserver.open = true
   Game.mailObserver.opened.emit()
   const window = Test.page().window(MAIL)
-  Game.input.shiftDown = (): Boolean => true
-  window.text("Pay for the sword").item().button(Ordaen.art.ctl.check).click()
-  Test.expect(window.button("Collect (1)").shown())
+  window.text("Bolts for you").click()
+  window.button("Reply").click()
+  Test.expect(window.input().nth(2).value() == "Regy")
 }
 
-test "the ticked letters' Collect asks for them" {
-  const fixture = new Fixture()
-  const inbox = new Inbox(fixture.letters, fixture.total, fixture.yes)
-  Test.mount(inbox, AREA)
-  const heard = new Heard(inbox)
-  Test.page().text("Welcome").item().button(Ordaen.art.ctl.check).click()
-  Test.page().text("Bolts for you").item().button(Ordaen.art.ctl.check).click()
-  Test.page().button("Collect (2)").click()
-  Test.expect(heard.collected == "4,2")
-}
-
-// Filters and the search
-
-test "the filter From players keeps the letters from players" {
+test "a letter that fails stops with the game's reason, and «Continue» sends it again" {
   Test.mount(nil, PAGE)
   Game.mailbox.letters = letters
+  Game.mailbox.waiting = (): Integer => 4
+  Game.bags.free = 20
   Game.mailObserver.open = true
   Game.mailObserver.opened.emit()
+  _ = Test.requests()
   const window = Test.page().window(MAIL)
-  filter(window, "From players")
-  Test.expect(subjects(window).join(" | ") == "Bolts for you | Pay for the sword")
+  window.text("Outbox").click()
+  Mail.source = .Other
+  window.button("Write").click()
+  window.input().nth(2).type("Regron")
+  window.button("Send").click()
+  Game.mailObserver.refused.emit("Cannot find player")
+  Game.mailObserver.failed.emit()
+  Test.expect(window.text("Stopped: Cannot find player").shown())
+  _ = Test.requests()
+  window.button("Continue").click()
+  Test.expect(asked().contains("Mailbox.send Regron"))
 }
 
-test "the filter Auction house keeps the auction house's letters" {
+test "closing the window with letters waiting asks first" {
   Test.mount(nil, PAGE)
   Game.mailbox.letters = letters
+  Game.mailbox.waiting = (): Integer => 4
+  Game.bags.free = 20
   Game.mailObserver.open = true
   Game.mailObserver.opened.emit()
+  _ = Test.requests()
   const window = Test.page().window(MAIL)
-  filter(window, "Auction house")
-  Test.expect(subjects(window).join(" | ") == "Auction successful: Linen Cloth")
+  Mail.sender.memory.write({ queue: [{ number: 1, to: "Regron", subject: "Ore", state: .Waiting }], history: [], next: 2 })
+  window.button(Ordaen.art.ctl.corner.close).click()
+  Test.expect(Test.page().window("Close the mailbox?").shown())
 }
 
-test "the filter System keeps the game's own letters" {
+test "the mailbox closed stops the queue there; the next mailbox opens on «Outbox» with «Continue»" {
   Test.mount(nil, PAGE)
   Game.mailbox.letters = letters
+  Game.mailbox.waiting = (): Integer => 4
+  Game.bags.free = 20
   Game.mailObserver.open = true
   Game.mailObserver.opened.emit()
+  _ = Test.requests()
   const window = Test.page().window(MAIL)
-  filter(window, "System")
-  Test.expect(subjects(window).join(" | ") == "Welcome")
-}
-
-test "the filter With money keeps the letters that carry money" {
-  Test.mount(nil, PAGE)
-  Game.mailbox.letters = letters
+  Mail.sender.memory.write({ queue: [{ number: 1, to: "Regron", subject: "Ore", state: .Sending }], history: [], next: 2 })
+  Game.mailObserver.open = false
+  Test.flush()
   Game.mailObserver.open = true
   Game.mailObserver.opened.emit()
-  const window = Test.page().window(MAIL)
-  filter(window, "With money")
-  Test.expect(subjects(window).join(" | ") == "Auction successful: Linen Cloth")
-}
-
-test "the filter With items keeps the letters that carry items" {
-  Test.mount(nil, PAGE)
-  Game.mailbox.letters = letters
-  Game.mailObserver.open = true
-  Game.mailObserver.opened.emit()
-  const window = Test.page().window(MAIL)
-  filter(window, "With items")
-  Test.expect(subjects(window).join(" | ") == "Bolts for you | Pay for the sword")
-}
-
-test "the filter All brings every letter back" {
-  Test.mount(nil, PAGE)
-  Game.mailbox.letters = letters
-  Game.mailObserver.open = true
-  Game.mailObserver.opened.emit()
-  const window = Test.page().window(MAIL)
-  filter(window, "With money")
-  filter(window, "All")
-  Test.expect(subjects(window).length == 4)
-}
-
-test "the search keeps the letters whose subject holds it, in any case" {
-  Test.mount(nil, PAGE)
-  Game.mailbox.letters = letters
-  Game.mailObserver.open = true
-  Game.mailObserver.opened.emit()
-  const window = Test.page().window(MAIL)
-  window.input().type("SWORD")
-  Test.expect(subjects(window).join(" | ") == "Pay for the sword")
-}
-
-test "the search keeps the letters whose sender holds it" {
-  Test.mount(nil, PAGE)
-  Game.mailbox.letters = letters
-  Game.mailObserver.open = true
-  Game.mailObserver.opened.emit()
-  const window = Test.page().window(MAIL)
-  window.input().type("regy")
-  Test.expect(subjects(window).join(" | ") == "Bolts for you")
-}
-
-test "a search nothing holds says nothing was found" {
-  Test.mount(nil, PAGE)
-  Game.mailbox.letters = letters
-  Game.mailObserver.open = true
-  Game.mailObserver.opened.emit()
-  const window = Test.page().window(MAIL)
-  window.input().type("zzz")
-  Test.expect(window.text("Nothing found.").shown())
-  Test.expect(subjects(window).length == 0)
-}
-
-// The views
-
-test "by kind shows each kind under its caption with its count" {
-  Test.mount(nil, PAGE)
-  Game.mailbox.letters = letters
-  Game.mailObserver.open = true
-  Game.mailObserver.opened.emit()
-  const window = Test.page().window(MAIL)
-  pick(window, ARTWORK.ctl.tool.list, "By kind", "By kind")
-  Test.expect(before(window, "Auction house (1)", "Auction successful: Linen Cloth"))
-  Test.expect(before(window, "Auction successful: Linen Cloth", "From players (2)"))
-  Test.expect(before(window, "From players (2)", "Bolts for you"))
-  Test.expect(before(window, "Pay for the sword", "System (1)"))
-  Test.expect(before(window, "System (1)", "Welcome"))
-}
-
-test "by kind leaves out a kind the filter keeps none of" {
-  Test.mount(nil, PAGE)
-  Game.mailbox.letters = letters
-  Game.mailObserver.open = true
-  Game.mailObserver.opened.emit()
-  const window = Test.page().window(MAIL)
-  filter(window, "From players")
-  pick(window, ARTWORK.ctl.tool.list, "By kind", "By kind")
-  Test.expect(window.text("From players (2)").shown())
-  Test.expect(!window.text("System (0)").shown())
-  Test.expect(!window.text("Auction house (0)").shown())
-}
-
-test "the table says in words what each letter carries" {
-  Test.mount(nil, PAGE)
-  Game.mailbox.letters = letters
-  Game.mailObserver.open = true
-  Game.mailObserver.opened.emit()
-  const window = Test.page().window(MAIL)
-  pick(window, ARTWORK.ctl.tool.list, "By kind", "Table")
-  Test.expect(window.text("Items: 2").shown())
-  Test.expect(window.text("Items: 1, Cash on delivery").shown())
-  Test.expect(window.text("Auction successful: Linen Cloth").item().text("1g 25s 0c").shown())
-  Test.expect(window.text("Welcome").item().text("System").shown())
-}
-
-test "the table's days left are red under three days" {
-  Test.mount(nil, PAGE)
-  Game.mailbox.letters = letters
-  Game.mailObserver.open = true
-  Game.mailObserver.opened.emit()
-  const window = Test.page().window(MAIL)
-  pick(window, ARTWORK.ctl.tool.list, "By kind", "Table")
-  Test.expect(drawnIn(window.text("Bolts for you").item().text("2 d"), RED))
-  Test.expect(drawnIn(window.text("Welcome").item().text("30 d"), DIM))
-}
-
-test "the table is sorted by subject, and a heading clicked again reverses it" {
-  Test.mount(nil, PAGE)
-  Game.mailbox.letters = letters
-  Game.mailObserver.open = true
-  Game.mailObserver.opened.emit()
-  const window = Test.page().window(MAIL)
-  pick(window, ARTWORK.ctl.tool.list, "By kind", "Table")
-  Test.expect(before(window, "Auction successful: Linen Cloth", "Bolts for you"))
-  Test.expect(before(window, "Bolts for you", "Pay for the sword"))
-  Test.expect(before(window, "Pay for the sword", "Welcome"))
-  window.button("Subject").click()
-  Test.expect(before(window, "Welcome", "Pay for the sword"))
-  Test.expect(before(window, "Bolts for you", "Auction successful: Linen Cloth"))
-}
-
-test "the table sorts by sender, and by the days left" {
-  Test.mount(nil, PAGE)
-  Game.mailbox.letters = letters
-  Game.mailObserver.open = true
-  Game.mailObserver.opened.emit()
-  const window = Test.page().window(MAIL)
-  pick(window, ARTWORK.ctl.tool.list, "By kind", "Table")
-  window.button("From").click()
-  // The System's letter, whose sender is empty, first; then «Auction House», «Dorn», «Regy».
-  Test.expect(before(window, "Welcome", "Auction successful: Linen Cloth"))
-  Test.expect(before(window, "Auction successful: Linen Cloth", "Pay for the sword"))
-  Test.expect(before(window, "Pay for the sword", "Bolts for you"))
-  window.button("Left").click()
-  Test.expect(before(window, "Bolts for you", "Pay for the sword"))
-  Test.expect(before(window, "Pay for the sword", "Auction successful: Linen Cloth"))
-  Test.expect(before(window, "Auction successful: Linen Cloth", "Welcome"))
-}
-
-test "the view and the filter the player picked are kept when the inbox is shown again" {
-  Test.mount(nil, PAGE)
-  Game.mailbox.letters = letters
-  Game.mailObserver.open = true
-  Game.mailObserver.opened.emit()
-  const window = Test.page().window(MAIL)
-  filter(window, "From players")
-  pick(window, ARTWORK.ctl.tool.list, "By kind", "By kind")
-  window.button("Sent").click()
-  window.button("Inbox (4)").click()
-  Test.expect(window.text("From players (2)").shown())
-  Test.expect(!window.text("Welcome").shown())
-}
-
-// Sent
-
-function sent(): Array<Sent> {
-  return [
-    { number: 1, subject: "Reagents (1/2)", to: "Regy", items: 12, copper: 0, state: SentState.Sent, why: "" },
-    { number: 2, subject: "Reagents (2/2)", to: "Regy", items: 3, copper: 100, state: SentState.Stopped, why: "Mailbox closed" },
-    { number: 3, subject: "Herbs", to: "Kel", items: 0, copper: 0, state: SentState.Waiting, why: "" }
-  ]
-}
-
-test "a letter sent says so, in green" {
-  Test.mount(nil, PAGE)
-  Game.mailbox.letters = letters
-  Game.mailObserver.open = true
-  Game.mailObserver.opened.emit()
-  Mail.sent = sent()
-  const window = Test.page().window(MAIL)
-  window.button("Sent").click()
-  const row = window.text("Reagents (1/2)").item()
-  Test.expect(row.texts().join(" | ") == "1 | Reagents (1/2) | Regy | Items: 12 | Sent")
-  Test.expect(drawnIn(row.text("Sent"), GREEN))
-}
-
-test "a letter stopped says why, in red" {
-  Test.mount(nil, PAGE)
-  Game.mailbox.letters = letters
-  Game.mailObserver.open = true
-  Game.mailObserver.opened.emit()
-  Mail.sent = sent()
-  const window = Test.page().window(MAIL)
-  window.button("Sent").click()
-  const row = window.text("Reagents (2/2)").item()
-  Test.expect(row.texts().join(" | ") == "2 | Reagents (2/2) | Regy | Items: 3 | 0g 1s 0c | Stopped: Mailbox closed")
-  Test.expect(drawnIn(row.text("Stopped: Mailbox closed"), RED))
-}
-
-test "a letter waiting to go says so, and the footer counts the letters waiting" {
-  Test.mount(nil, PAGE)
-  Game.mailbox.letters = letters
-  Game.mailObserver.open = true
-  Game.mailObserver.opened.emit()
-  Mail.sent = sent()
-  const window = Test.page().window(MAIL)
-  window.button("Sent").click()
-  Test.expect(window.text("Herbs").item().texts().join(" | ") == "3 | Herbs | Kel | Waiting")
-  Test.expect(window.text("Letters waiting: 1").shown())
-}
-
-test "with no letter sent the tab says so" {
-  Test.mount(nil, PAGE)
-  Game.mailbox.letters = letters
-  Game.mailObserver.open = true
-  Game.mailObserver.opened.emit()
-  const window = Test.page().window(MAIL)
-  window.button("Sent").click()
-  Test.expect(window.text("No letters sent yet.").shown())
-  Test.expect(!window.text("Letters waiting: 0").shown())
-}
-
-test "the sent letters' filter keeps the stopped ones" {
-  Test.mount(nil, PAGE)
-  Game.mailbox.letters = letters
-  Game.mailObserver.open = true
-  Game.mailObserver.opened.emit()
-  Mail.sent = sent()
-  const window = Test.page().window(MAIL)
-  window.button("Sent").click()
-  pick(window, Ordaen.art.ctl.tool.filter, "Stopped", "Stopped")
-  Test.expect(window.text("Reagents (2/2)").shown())
-  Test.expect(!window.text("Reagents (1/2)").shown())
-  Test.expect(!window.text("Herbs").shown())
-}
-
-test "the sent letters' search keeps those whose recipient holds it" {
-  Test.mount(nil, PAGE)
-  Game.mailbox.letters = letters
-  Game.mailObserver.open = true
-  Game.mailObserver.opened.emit()
-  Mail.sent = sent()
-  const window = Test.page().window(MAIL)
-  window.button("Sent").click()
-  window.input().type("KEL")
-  Test.expect(window.text("Herbs").shown())
-  Test.expect(!window.text("Reagents (1/2)").shown())
-}
-
-// To my characters
-
-test "the own characters' tab says so when Ordaen Alts is off" {
-  const fixture = new Fixture()
-  Test.mount(new OwnTab(fixture.alts), AREA)
-  Test.expect(Test.page().text("Ordaen Alts is off: no other characters to send to.").shown())
-}
-
-test "the own characters' tab says so when no other character is recorded" {
-  Test.mount(nil, PAGE)
-  Game.mailbox.letters = letters
-  Game.mailObserver.open = true
-  Game.mailObserver.opened.emit()
-  const window = Test.page().window(MAIL)
-  window.button(MAIL).click()
-  Test.expect(window.text("No other character on this realm and side is recorded.").shown())
-}
-
-// Settings
-
-test "the window's settings button opens Mail's page of the settings" {
-  Test.mount(nil, PAGE)
-  Game.mailbox.letters = letters
-  Game.mailObserver.open = true
-  Game.mailObserver.opened.emit()
-  const window = Test.page().window(MAIL)
-  window.button(Ordaen.art.ctl.corner.gear).click()
-  Test.expect(Test.page().window("Refuse trades at the mailbox").text("Free bag slots to keep").shown())
-}
-
-// Colours
-
-test "a row's subject is drawn in ink and its sender dim" {
-  Test.mount(nil, PAGE)
-  Game.mailbox.letters = letters
-  Game.mailObserver.open = true
-  Game.mailObserver.opened.emit()
-  const row = Test.page().window(MAIL).text("Bolts for you").item()
-  Test.expect(drawnIn(row.text("Bolts for you"), INK))
-  Test.expect(drawnIn(row.text("Regy"), DIM))
-}
-
-test "by kind, each kind's caption is gold" {
-  Test.mount(nil, PAGE)
-  Game.mailbox.letters = letters
-  Game.mailObserver.open = true
-  Game.mailObserver.opened.emit()
-  const window = Test.page().window(MAIL)
-  pick(window, ARTWORK.ctl.tool.list, "By kind", "By kind")
-  Test.expect(drawnIn(window.text("From players (2)"), GOLD))
+  Test.expect(window.text("Stopped: mailbox closed").shown())
+  Test.expect(window.button("Continue").shown())
 }
