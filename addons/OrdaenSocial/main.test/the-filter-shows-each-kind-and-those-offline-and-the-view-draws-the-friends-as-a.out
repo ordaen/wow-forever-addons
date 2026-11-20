@@ -317,68 +317,74 @@ surface 425,183.88 1150.25x532.25 on DIALOG clamped raised by a click
           box 457.75,334.48 689.5x312.82
             box 457.75,334.48 689.5x312.82
               box 457.75,334.48 689.5x29.77 #00000040
-                box 464.42,334.48 204.83x28.93 #00000000 @keyPress @pointerPress
-                  box 464.42,361.74 204.83x1.67 absolute #00000000
-                  box 464.42,341.14 204.83x15.6
-                    text 464.42,341.14 28.89x15.6 "Name" #a3977f
-                box 675.92,334.48 41.67x28.93 #00000000 @keyPress @pointerPress
-                  box 675.92,361.74 41.67x1.67 absolute #00000000
-                  box 678.69,341.14 38.89x15.6
-                    text 678.69,341.14 35.56x15.6 "Level" #a3977f
-                box 724.25,334.48 204.83x28.93 #00000000 @keyPress @pointerPress
-                  box 724.25,361.74 204.83x1.67 absolute #00000000
-                  box 724.25,341.14 204.83x15.6
-                    text 724.25,341.14 54.44x15.6 "Location" #a3977f
-                box 935.75,334.48 204.83x28.93 #00000000 @keyPress @pointerPress
-                  box 935.75,361.74 204.83x1.67 absolute #00000000
-                  box 935.75,341.14 204.83x15.6
-                    text 935.75,341.14 28.89x15.6 "Note" #a3977f
+                box 464.42,334.48 199.28x28.93 #00000000 @keyPress @pointerPress
+                  box 464.42,361.74 199.28x1.67 absolute #00000000
+                  box 464.42,341.14 199.28x15.6
+                    text 464.42,341.14 28.89x15.6 "Name" #cbb994
+                    box 496.64,346.44 6.67x5
+                      box 493.31,342.28 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
+                box 670.36,334.48 58.33x28.93 #00000000 @keyPress @pointerPress
+                  box 670.36,361.74 58.33x1.67 absolute #00000000
+                  box 683.14,341.14 45.56x15.6
+                    text 683.14,341.14 35.56x15.6 "Level" #cbb994
+                    box 722.03,346.44 6.67x5
+                      box 718.69,342.28 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
+                box 735.36,334.48 199.28x28.93 #00000000 @keyPress @pointerPress
+                  box 735.36,361.74 199.28x1.67 absolute #00000000
+                  box 735.36,341.14 199.28x15.6
+                    text 735.36,341.14 54.44x15.6 "Location" #cbb994
+                    box 793.14,346.44 6.67x5
+                      box 789.81,342.28 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
+                box 941.31,334.48 199.28x28.93 #00000000 @keyPress @pointerPress
+                  box 941.31,361.74 199.28x1.67 absolute #00000000
+                  box 941.31,341.14 199.28x15.6
+                    text 941.31,341.14 28.89x15.6 "Note" #a3977f
               box 457.75,364.24 689.5x283.05 scrolled 0 of 0
                 box 457.75,364.24 689.5x37.87 #00000000 @keyPress @pointerPress
-                  box 464.42,375.38 204.83x15.6
-                    box 464.42,375.38 204.83x15.6
+                  box 464.42,375.38 199.28x15.6
+                    box 464.42,375.38 199.28x15.6
                       box 464.42,378.18 10x10 Interface/FriendsFrame/StatusIcon-Online
-                      text 477.75,375.38 174.83x15.6 "Alexei" #82c5ff
-                      box 655.92,376.51 13.33x13.33 friendslist-favorite
-                  box 675.92,375.38 41.67x15.6
-                    text 702.03,375.38 15.56x15.6 "25" #a3977f right
-                  box 724.25,367.57 204.83x31.2
-                    text 724.25,367.57 204.83x31.2 "Battle.net · Torgrim · Loch Modan" #a3977f
-                  box 935.75,375.38 204.83x15.6 clipped
-                    text 935.75,375.38 204.83x15.6 "tanks at night" #a3977f
+                      text 477.75,375.38 169.28x15.6 "Alexei" #82c5ff
+                      box 650.36,376.51 13.33x13.33 friendslist-favorite
+                  box 670.36,375.38 58.33x15.6
+                    text 713.14,375.38 15.56x15.6 "25" #a3977f right
+                  box 735.36,367.57 199.28x31.2
+                    text 735.36,367.57 199.28x31.2 "Battle.net · Torgrim · Loch Modan" #a3977f
+                  box 941.31,375.38 199.28x15.6 clipped
+                    text 941.31,375.38 199.28x15.6 "tanks at night" #a3977f
                 box 457.75,402.11 689.5x22.27 #00000000 @keyPress @pointerPress
-                  box 464.42,405.44 204.83x15.6
-                    box 464.42,405.44 204.83x15.6
+                  box 464.42,405.44 199.28x15.6
+                    box 464.42,405.44 199.28x15.6
                       box 464.42,408.24 10x10 Interface/FriendsFrame/StatusIcon-Away
-                      text 477.75,405.44 188.17x15.6 "Eliana" #e8dcc4
-                  box 675.92,405.44 41.67x15.6
-                    text 702.03,405.44 15.56x15.6 "24" #a3977f right
-                  box 724.25,405.44 204.83x15.6
-                    text 724.25,405.44 204.83x15.6 "Stormwind" #a3977f
-                  box 935.75,413.24 204.83x0 clipped
-                    text 935.75,413.24 204.83x0 "" #a3977f
+                      text 477.75,405.44 182.61x15.6 "Eliana" #e8dcc4
+                  box 670.36,405.44 58.33x15.6
+                    text 713.14,405.44 15.56x15.6 "24" #a3977f right
+                  box 735.36,405.44 199.28x15.6
+                    text 735.36,405.44 199.28x15.6 "Stormwind" #a3977f
+                  box 941.31,413.24 199.28x0 clipped
+                    text 941.31,413.24 199.28x0 "" #a3977f
                 box 457.75,424.38 689.5x22.27 #00000000 @keyPress @pointerPress
-                  box 464.42,427.71 204.83x15.6
-                    box 464.42,427.71 204.83x15.6
+                  box 464.42,427.71 199.28x15.6
+                    box 464.42,427.71 199.28x15.6
                       box 464.42,430.51 10x10 Interface/FriendsFrame/StatusIcon-Offline
-                      text 477.75,427.71 188.17x15.6 "Darrick" #7c848a
-                  box 675.92,427.71 41.67x15.6
-                    text 702.03,427.71 15.56x15.6 "22" #a3977f right
-                  box 724.25,427.71 204.83x15.6
-                    text 724.25,427.71 204.83x15.6 "offline" #a3977f
-                  box 935.75,427.71 204.83x15.6 clipped
-                    text 935.75,427.71 204.83x15.6 "smith" #a3977f
+                      text 477.75,427.71 182.61x15.6 "Darrick" #7c848a
+                  box 670.36,427.71 58.33x15.6
+                    text 713.14,427.71 15.56x15.6 "22" #a3977f right
+                  box 735.36,427.71 199.28x15.6
+                    text 735.36,427.71 199.28x15.6 "offline" #a3977f
+                  box 941.31,427.71 199.28x15.6 clipped
+                    text 941.31,427.71 199.28x15.6 "smith" #a3977f
                 box 457.75,446.64 689.5x22.27 #00000000 @keyPress @pointerPress
-                  box 464.42,449.97 204.83x15.6
-                    box 464.42,449.97 204.83x15.6
+                  box 464.42,449.97 199.28x15.6
+                    box 464.42,449.97 199.28x15.6
                       box 464.42,452.77 10x10 Interface/FriendsFrame/StatusIcon-Offline
-                      text 477.75,449.97 188.17x15.6 "Irina" #7c848a
-                  box 675.92,457.77 41.67x0
-                    text 717.58,457.77 0x0 "" #a3977f
-                  box 724.25,449.97 204.83x15.6
-                    text 724.25,449.97 204.83x15.6 "Battle.net · offline" #a3977f
-                  box 935.75,457.77 204.83x0 clipped
-                    text 935.75,457.77 204.83x0 "" #a3977f
+                      text 477.75,449.97 182.61x15.6 "Irina" #7c848a
+                  box 670.36,457.77 58.33x0
+                    text 728.69,457.77 0x0 "" #a3977f
+                  box 735.36,449.97 199.28x15.6
+                    text 735.36,449.97 199.28x15.6 "Battle.net · offline" #a3977f
+                  box 941.31,457.77 199.28x0 clipped
+                    text 941.31,457.77 199.28x0 "" #a3977f
       box 457.75,647.29 689.5x45
         box 457.75,663.96 689.5x28.33
           box 457.75,670.93 575.33x14.4

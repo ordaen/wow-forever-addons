@@ -1,16 +1,16 @@
 // The recent allies tab: who the player played with lately and what they did together (the game's `C_RecentAllies`),
-// in the game's two groups, those pinned and the rest, with the toolbar of every list window (the search,
-// «Показывать», the sort), and the picked ally's card.
+// in the game's two groups, those pinned and the rest, with the toolbar of every list window (the search, the filter
+// of what was done together and of those online, the sort), and the picked ally's card.
 //
 // A row: the ally's status mark, the name in its class's colour (grey while offline) with its level, under it the newest
 // thing done together and how long ago; a pinned ally's star at the right.
 import { Align, Overflow, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { Choice, Component, Fact, PickRow, PushButton, SECONDARY_TEXT, TITLE_TEXT, ToolPick, Toolbar, agoText, space } from "Ordaen"
+import { Choice, Component, Fact, FilterButton, FilterGroup, PickRow, PushButton, SECONDARY_TEXT, TITLE_TEXT, ToolPick, Toolbar, agoText, space, switched } from "Ordaen"
 import { markOf, orDash, presenceText } from "@/friends"
 import Locale from "@/locales"
-import { Show, nameColorOf } from "@/members"
-import { Ally, Meeting } from "@/people"
+import { nameColorOf } from "@/members"
+import { ALLY_CATEGORIES, Ally, AllyCategory, Meeting } from "@/people"
 import Style from "@/style"
 
 // How the allies are sorted in each group.
@@ -21,13 +21,59 @@ const SORTS: Array<Choice<AllySort>> = [
   { value: .Name, label: Locale.SORT_NAME },
   { value: .Level, label: Locale.SORT_LEVEL }
 ]
-const SHOWS: Array<Choice<Show>> = [
-  { value: .Everyone, label: Locale.SHOW_EVERYONE },
-  { value: .Online, label: Locale.SHOW_ONLINE }
-]
 const ROW: Array<Track> = [Style.DOT, { fr: 1 }, "max-content"]
+// The filter: the game's categories of what was done together (`AllyCategory`), and online or not.
+public enum AllyFilter { Professions, PvP, Raiding, Dungeons, Delves, Questing, Online, Offline }
+
+const PRESENCE_FILTER: FilterGroup<AllyFilter> = {
+  options: [{ key: AllyFilter.Online, label: Locale.ONLINE }, { key: AllyFilter.Offline, label: Locale.OFFLINE }]
+}
+
+function filterOf(category: AllyCategory): AllyFilter {
+  return match (category) {
+    .Professions => AllyFilter.Professions
+    .PvP => AllyFilter.PvP
+    .Raiding => AllyFilter.Raiding
+    .Dungeons => AllyFilter.Dungeons
+    .Delves => AllyFilter.Delves
+    .Questing => AllyFilter.Questing
+  }
+}
+
+function labelOf(category: AllyCategory): String {
+  return match (category) {
+    .Professions => Locale.CATEGORY_PROFESSIONS
+    .PvP => Locale.CATEGORY_PVP
+    .Raiding => Locale.CATEGORY_RAIDING
+    .Dungeons => Locale.CATEGORY_DUNGEONS
+    .Delves => Locale.CATEGORY_DELVES
+    .Questing => Locale.CATEGORY_QUESTING
+  }
+}
+
+// The filter's menus: the categories the game offers here (none where it offers none), then online or not.
+function filterGroups(categories: Array<AllyCategory>): Array<FilterGroup<AllyFilter>> {
+  if (categories.length == 0) { return [PRESENCE_FILTER] }
+  return [{ options: categories.map(category => { key: filterOf(category), label: labelOf(category) }) }, PRESENCE_FILTER]
+}
+
+// The filter as it starts: everything on.
+public function allyFilterStart(): mut Map<AllyFilter, Boolean> {
+  return switched(switched({}, ALLY_CATEGORIES.map(category => filterOf(category)), true), [AllyFilter.Online, AllyFilter.Offline], true)
+}
+
+// The categories the game is asked for: those switched on, or nil (every ally) while all of them are.
+public function categoriesOf(filter: Map<AllyFilter, Boolean>): Array<AllyCategory> | nil {
+  const on = ALLY_CATEGORIES.filter(category => filter[filterOf(category)] == true)
+  return on.length == ALLY_CATEGORIES.length ? nil : on
+}
 
 function online(ally: Ally): Boolean { return ally.member.presence != .Offline }
+
+// Whether the filter's presence lets an ally through (the categories are the game's to apply).
+function passes(ally: Ally, filter: Map<AllyFilter, Boolean>): Boolean {
+  return filter[online(ally) ? AllyFilter.Online : AllyFilter.Offline] == true
+}
 
 // When the newest thing done together was; 0 for none.
 function lastOf(ally: Ally): Number { return ally.meetings[1]?.when ?? 0 }
@@ -54,8 +100,8 @@ function found(ally: Ally, query: String): Boolean {
 }
 
 // The allies of one group (pinned or not) the list shows, in its order.
-public function shownOf(allies: Array<Ally>, pinned: Boolean, query: String, show: Show, sort: AllySort): Array<Ally> {
-  const shown = allies.filter(ally => ally.pinned == pinned && found(ally, query) && (show == .Everyone || online(ally)))
+function shownOf(allies: Array<Ally>, pinned: Boolean, query: String, filter: Map<AllyFilter, Boolean>, sort: AllySort): Array<Ally> {
+  const shown = allies.filter(ally => ally.pinned == pinned && found(ally, query) && passes(ally, filter))
   shown.sort((a, b) => before(a, b, sort))
   return shown
 }
@@ -92,23 +138,33 @@ class AllyRow implements Component {
   }
 }
 
-// The recent allies with their tools; those pinned under «Закреплено», the rest under «Недавние союзники».
+// The recent allies with their tools; those pinned under «Закреплено», the rest under «Недавние союзники». The
+// filter is its owner's, which asks the game for the allies of the categories switched on.
 public class AllyList implements Component {
   public pick: Event<String> = new Event()
 
   state query = ""
-  state show: Show = .Everyone
   state sort: AllySort = .Recent
-  derived pinned: Array<Ally> = shownOf(self.allies, true, self.query, self.show, self.sort)
-  derived rest: Array<Ally> = shownOf(self.allies, false, self.query, self.show, self.sort)
+  derived filterStarts: Map<AllyFilter, Boolean> = allyFilterStart()
+  derived pinned: Array<Ally> = shownOf(self.allies, true, self.query, self.filter, self.sort)
+  derived rest: Array<Ally> = shownOf(self.allies, false, self.query, self.filter, self.sort)
   derived empty: Boolean = self.pinned.length == 0 && self.rest.length == 0
-  derived lit: Boolean = self.show != .Everyone
 
   allies: Signal<Array<Ally>>
   chosen: Signal<String>
-  constructor(allies: Signal<Array<Ally>>, chosen: Signal<String>) {
+  filter: mut Signal<Map<AllyFilter, Boolean>>
+  const groups: Array<FilterGroup<AllyFilter>>
+  constructor(
+    allies: Signal<Array<Ally>>,
+    chosen: Signal<String>,
+    filter: mut Signal<Map<AllyFilter, Boolean>>,
+    // The categories the game offers here: the filter's first menu.
+    categories: Array<AllyCategory>
+  ) {
     self.allies = allies
     self.chosen = chosen
+    self.filter = filter
+    self.groups = filterGroups(categories)
   }
 
   onPick(self, key: String) { self.pick.emit(key) }
@@ -117,7 +173,7 @@ public class AllyList implements Component {
     return $ltml {
       <box columns={1} rows={["max-content", { fr: 1 }]} gap={space(.Item)}>
         <Toolbar search={mut self.query} placeholder={Locale.SEARCH}>
-          <ToolPick value={mut self.show} choices={SHOWS} icon={Ordaen.art.ctl.tool.filter} title={Locale.SHOW} lit={self.lit} />
+          <FilterButton values={mut self.filter} start={self.filterStarts} groups={self.groups} />
           <ToolPick value={mut self.sort} choices={SORTS} icon={Ordaen.art.ctl.tool.sort} title={Locale.SORT} />
         </Toolbar>
         <box columns={1} overflow={Overflow.Scroll} yAlign={Align.Start}>

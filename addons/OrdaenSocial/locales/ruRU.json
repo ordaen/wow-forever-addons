@@ -117,5 +117,10 @@
   "VIEW_LIST": "Список",
   "VIEW_TABLE": "Таблица",
   "FILTER_CHARACTERS": "Персонажи",
-  "GAME_WINDOW_DEV": "Окно Blizzard"
+  "CATEGORY_PROFESSIONS": "Профессии",
+  "CATEGORY_PVP": "PvP",
+  "CATEGORY_RAIDING": "Рейды",
+  "CATEGORY_DUNGEONS": "Подземелья",
+  "CATEGORY_DELVES": "Вылазки",
+  "CATEGORY_QUESTING": "Задания"
 }

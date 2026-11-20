@@ -117,5 +117,10 @@
   "VIEW_LIST": "List",
   "VIEW_TABLE": "Table",
   "FILTER_CHARACTERS": "Characters",
-  "GAME_WINDOW_DEV": "Blizzard window"
+  "CATEGORY_PROFESSIONS": "Professions",
+  "CATEGORY_PVP": "PvP",
+  "CATEGORY_RAIDING": "Raiding",
+  "CATEGORY_DUNGEONS": "Dungeons",
+  "CATEGORY_DELVES": "Delves",
+  "CATEGORY_QUESTING": "Questing"
 }
