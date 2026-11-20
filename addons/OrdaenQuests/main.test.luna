@@ -137,19 +137,29 @@ test "a quest picked shows its page, with where its giver stands from QuestieDB"
   const window = Test.page().window("World")
   Test.expect(window.text("Gryan asks you to look into Westfall.").shown())
   Test.expect(window.text("Gryan Stoutmantle (56, 47)").count() == 2)
-  Test.expect(window.text("420").shown())
+  Test.expect(window.text("420 experience").shown())
   // The chain: the quest after it, by QuestieDB's name.
   Test.expect(window.text("Next in chain").shown() && window.text("The Defias Brotherhood, part two").shown())
 }
 
-test "a quest's page shows the items it gives, and under «Choose one of» those the player picks one of" {
+test "a quest's page shows its rewards as Dialogue's quest page does: those to choose, those given, at its foot" {
   const log = standing()
   log[3] = { rewards: [{ item: 1001, count: 3 }], choices: [{ item: 1002 }, { item: 1003 }], ..quest(103, "Elwynn Wolves", "Elwynn Forest") }
   opened(log)
   Test.page().window("World").text("Elwynn Wolves").click()
   const window = Test.page().window("World")
-  Test.expect(window.text("Rewards").shown() && window.text("Choose one of").shown())
+  Test.expect(window.text("You will be able to choose").shown() && window.text("You will also receive").shown())
   Test.expect(window.text("3").shown())
+  // Under the scroll: below the quest's objectives, above its buttons.
+  Test.expect(window.text("You will be able to choose").rect().top > window.text("Objectives").rect().bottom)
+  Test.expect(window.text("You will also receive").rect().bottom < window.button("Share").rect().top)
+}
+
+test "a quest's title stands in Dialogue's title type on the scroll, its lines tight" {
+  opened(standing())
+  Test.page().window("World").text("The Defias Brotherhood").click()
+  const title = Test.page().window("World").text("[14] The Defias Brotherhood")
+  Test.expect(title.shown() && title.rect().bottom - title.rect().top < 40)
 }
 
 test "a quest under the cursor has its tooltip, and its pins on the map lit while it is there" {
@@ -196,7 +206,7 @@ test "in the tracker a quest to do says where, and its title opens its page in t
   Test.expect(Quests.open && Quests.picked == 101)
 }
 
-test "a quest's page shows its giver's figure beside the title, where the client names one" {
+test "a quest's page draws no figure, as Dialogue's quest page, even where the client names its giver" {
   const log = standing()
   log[3] = { portraitGiver: 1491, ..quest(103, "Elwynn Wolves", "Elwynn Forest") }
   opened(log)
@@ -205,7 +215,44 @@ test "a quest's page shows its giver's figure beside the title, where the client
     Test.flush()
     return nil
   })
-  Test.expect(drawn.contains("SetDisplayInfo=1"))
+  Test.expect(!drawn.contains("SetDisplayInfo"))
+}
+
+test "the list's rows have no tracking box: a quest is tracked by the page's switch" {
+  opened(standing())
+  const window = Test.page().window("World")
+  Test.expect(!window.box(Ordaen.art.ctl.check).shown())
+  window.text("Elwynn Wolves").click()
+  _ = Test.talked()
+  window.text("Track").click()
+  Test.expect(Test.talked().join(",") == "watch 103")
+}
+
+test "Abandon is the page's accent button and stands at the right, after the others" {
+  opened(standing())
+  const window = Test.page().window("World")
+  window.text("The Defias Brotherhood").click()
+  const abandon = window.button("Abandon quest").rect()
+  const share = window.button("Share").rect()
+  Test.expect(abandon.left > share.right + 50 && abandon.top == share.top)
+  Test.expect(window.button("Abandon quest").paintedWith(Ordaen.art.ctl.buttonAccent))
+  Test.expect(!window.button("Share").paintedWith(Ordaen.art.ctl.buttonAccent))
+}
+
+test "a long objective wraps on the page, its count standing at the right of the line" {
+  const log = standing()
+  log[3] = { objectives: [{ text: "Gray forest wolves slain in the hills east of Goldshire and the woods past it: 0/50" }], ..quest(103, "Elwynn Wolves", "Elwynn Forest") }
+  opened(log)
+  const window = Test.page().window("World")
+  window.text("Elwynn Wolves").click()
+  const what = window.text("Gray forest wolves slain in the hills east of Goldshire and the woods past it")
+  const count = window.text("0/50")
+  Test.expect(what.count() == 2 && count.count() == 2)
+  // The list's line and the page's: both wrap, the count after the words.
+  for (n of 1..2) {
+    const words = what.nth(n).rect()
+    Test.expect(words.bottom - words.top > 25 && count.nth(n).rect().left > words.right)
+  }
 }
 
 test "the window opened as the player opens it lists the log's quests, Map on and OpenMap's art not built yet" {
@@ -294,8 +341,8 @@ test "a quest's objectives stand under its title, one a line; its row's right sa
   log[1] = { complete: true, ..quest(101, "The Defias Brotherhood", "Westfall") }
   opened(log)
   const window = Test.page().window("World")
-  Test.expect(window.text("Pelts: 4/4").shown() && window.text("Wolves slain: 5/10").count() == 2)
-  Test.expect(before("Elwynn Wolves", "Wolves slain: 5/10") && before("Wolves slain: 5/10", "Pelts: 4/4"))
+  Test.expect(window.text("Pelts").shown() && window.text("Wolves slain").count() == 2 && window.text("5/10").count() == 2)
+  Test.expect(before("Elwynn Wolves", "Wolves slain") && before("Wolves slain", "Pelts"))
   Test.expect(window.text("Complete").count() == 1)
   Test.shot("the world's tab: a quest's objectives under its title, the done one grey; the count in the footer")
 }

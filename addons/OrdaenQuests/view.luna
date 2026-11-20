@@ -1,13 +1,13 @@
 // The quest log's parts: a header of the list (it folds), a quest's row, and the picked quest's page.
 //
-// A row as the client's log has it: the tracking box, the level in its difficulty colour, the title, an elite quest's
-// «Группа: 3», at the right «Готово» or «Провалено», and under the title its objectives, one a line, grey once done.
-// Left-click picks it (its page shows beside the list);
-// Shift+Left-click and its box track it or stop tracking it; Right-click opens its menu: track, share, abandon.
+// A row as the client's log has it: the level in its difficulty colour, the title, an elite quest's «Группа: 3», at
+// the right «Готово» or «Провалено», and under the title its objectives, each wrapped with its count at the right,
+// grey once done. Left-click picks it (its page shows beside the list); Shift+Left-click and Space track it or stop
+// tracking it; Right-click opens its menu: track, share, abandon.
 import Game from "$game"
-import { Align, Art, ByInteractionState, Edges, Position, Track } from "$ltml"
+import { Align, Art, ByInteractionState, Edges } from "$ltml"
 import root Ordaen from "Ordaen"
-import { ButtonPlate, Component, ItemButton, Menu, MenuEntry, Money, PushButton, SECONDARY_TEXT, TITLE_LINE, TITLE_TEXT, Tip, colorOf, difficultyOf, rowShade } from "Ordaen"
+import { BODY_LINE, ButtonPlate, Component, Menu, MenuEntry, PushButton, Reward, RewardView, Rewards, SCROLL_DIM, SCROLL_HEAD, SCROLL_INK, SECONDARY_TEXT, Scroll, SettingRow, Shown, SwitchFace, TIGHT_LINE, TITLE_TEXT, Tip, choiceViews, colorOf, difficultyOf, logReward, rowShade } from "Ordaen"
 import { LogQuest } from "@/book"
 import Locale from "@/locales"
 import { Figure, QuestFacts } from "@/questie"
@@ -17,20 +17,13 @@ import { Figure, QuestFacts } from "@/questie"
 public enum Act { Pick, Track, Link, Share, Abandon, ShowOnMap, SuperTrack, Hover, Unhover }
 
 const INK: Color = Color.hex("#e8dcc4")
-// The giver's figure beside a quest's title, as the game's quest portrait shows it (Dialogue's size).
-const GIVER_WIDTH = 70.3125dp
-const GIVER_HEIGHT = 93.75dp
-// A quest's reward items: slots in a row, as many as it gives.
-const REWARD = 37.5dp
-const REWARD_ROW: Array<Track> = ["max-content", "max-content", "max-content", "max-content", "max-content", "max-content"]
-const WHITE: Color = Color.hex("#ffffff")
 const GOLD: Color = Color.hex("#ffd100")
 const DIM: Color = Color.hex("#a3977f")
 const GREEN: Color = Color.hex("#40c040")
 const GREY: Color = Color.hex("#808080")
 const RED: Color = Color.hex("#ff4040")
 const ROW_PAD: Edges = { top: 2sp, right: 2sp, bottom: 2sp, left: 5sp }
-const BOX = 14.0625dp
+const BUTTON = 131.25dp
 // The fold mark's cell, as a tree's row has it.
 const MARK = 18.75dp
 
@@ -83,7 +76,6 @@ public class QuestRow implements Component {
   derived progress: String = stateOf(self.quest)
   derived progressColor: Color = self.quest.failed ? RED : GREEN
   derived background: Color | ByInteractionState<Color> = rowShade(self.picked)
-  derived tick: Number = self.quest.tracked ? 1 : 0
   derived group: String = self.quest.group > 1 ? Locale.GROUP.format(self.quest.group) : ""
   derived entries: Array<MenuEntry> = [
     { label: self.quest.tracked ? Locale.UNTRACK : Locale.TRACK },
@@ -128,15 +120,11 @@ public class QuestRow implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={[BOX, "max-content", { fr: 1 }]} gap={2sp} padding={ROW_PAD} background={self.background}
+      <box columns={["max-content", { fr: 1 }]} gap={2sp} padding={ROW_PAD} background={self.background}
            @pointerPress(.Left)={self.onPick} @pointerPress([.Shift, .Left])={self.onLink}
            @pointerPress(.Right)={self.onMenu} @keyPress(.Enter)={self.onPick} @keyPress(.Space)={self.onTrack}
            @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
         <Tip $if={self.tipShown} title={self.quest.title} text={Locale.ROW_TIP} />
-        <box width={BOX} height={BOX} background={Ordaen.art.ctl.check} @pointerPress.self={self.onTrack}>
-          <box position={Position.Absolute} left={0ui} top={0ui} width={BOX} height={BOX}
-               background={Ordaen.art.ctl.tick} opacity={self.tick} />
-        </box>
         <text value={self.level} textColor={self.levelColor} textFont={.Numbers} wrap={.None} />
         <box columns={1}>
           <box columns={[{ fr: 1 }, "max-content", "max-content"]} gap={2sp} yAlign={Align.Center}>
@@ -153,32 +141,55 @@ public class QuestRow implements Component {
   }
 }
 
-// One objective under a quest's title in the list: dim ink while it is to do, grey once done.
+// An objective's text as the client gives it («Defias slain: 3/10»): what is to be done, and its count; a text
+// without a count is all what.
+public function goalParts(text: String): (String, String) {
+  const what, count = text.match("^(.-):%s*(%d+%s*/%s*%d+)$")
+  if (what == nil || count == nil) { return text, "" }
+  return what, count
+}
+
+// One objective: what is to be done, wrapped, and its count at the right; `color` while to do, `doneColor` once done.
 class GoalLine implements Component {
-  derived color: Color = self.objective.done ? GREY : DIM
+  derived what: String = whatOf(self.objective.text)
+  derived count: String = countOf(self.objective.text)
+  derived color: Color = self.objective.done ? self.doneColor : self.todoColor
 
   objective: Signal<Game.QuestObjective>
-  constructor(objective: Signal<Game.QuestObjective>) { self.objective = objective }
+  todoColor: Signal<Color>
+  doneColor: Signal<Color>
+  // The list's small lines; the page's are the body's size.
+  small: Signal<Boolean>
+  constructor(objective: Signal<Game.QuestObjective>, todoColor: Signal<Color> = DIM, doneColor: Signal<Color> = GREY,
+              small: Signal<Boolean> = true) {
+    self.objective = objective
+    self.todoColor = todoColor
+    self.doneColor = doneColor
+    self.small = small
+  }
 
   public render(self): Template {
     return $ltml {
-      <text value={self.objective.text} textColor={self.color} textSize={SECONDARY_TEXT} wrap={.None} />
+      <box $if={self.small} columns={[{ fr: 1 }, "max-content"]} gap={2sp}>
+        <text value={self.what} textColor={self.color} textSize={SECONDARY_TEXT} />
+        <text value={self.count} textColor={self.color} textSize={SECONDARY_TEXT} textFont={.Numbers} wrap={.None} />
+      </box>
+      <box $else columns={[{ fr: 1 }, "max-content"]} gap={2sp}>
+        <text value={self.what} textColor={self.color} lineHeight={BODY_LINE} />
+        <text value={self.count} textColor={self.color} textFont={.Numbers} wrap={.None} />
+      </box>
     }
   }
 }
 
-// One objective on a quest's page: white while it is to do, grey once done.
-class ObjectiveLine implements Component {
-  derived color: Color = self.objective.done ? DIM : WHITE
+function whatOf(text: String): String {
+  const what, _ = goalParts(text)
+  return what
+}
 
-  objective: Signal<Game.QuestObjective>
-  constructor(objective: Signal<Game.QuestObjective>) { self.objective = objective }
-
-  public render(self): Template {
-    return $ltml {
-      <text value={`— ${self.objective.text}`} textColor={self.color} />
-    }
-  }
+function countOf(text: String): String {
+  const _, count = goalParts(text)
+  return count
 }
 
 // A line of the page's «Где»: what it is, and who and where.
@@ -193,8 +204,8 @@ class WhereLine implements Component {
   public render(self): Template {
     return $ltml {
       <box columns={[93.75dp, { fr: 1 }]} gap={3sp}>
-        <text value={self.label} textColor={DIM} textSize={SECONDARY_TEXT} />
-        <text value={self.value} textColor={INK} textSize={SECONDARY_TEXT} />
+        <text value={self.label} textColor={SCROLL_DIM} />
+        <text value={self.value} textColor={SCROLL_INK} />
       </box>
     }
   }
@@ -209,20 +220,21 @@ function whoOf(figures: Array<Figure>): String {
   return `${first.name} (${(spot.x * 100).floor()}, ${(spot.y * 100).floor()})`
 }
 
-// The picked quest's page: its title, its story, its objectives, where its giver and its turn-in are (QuestieDB's),
-// what it gives, and its buttons. Abandoning asks first.
+// The picked quest's page, as Dialogue's quest page: on the scroll its title, its story, its objectives (each wrapped,
+// its count at the right), where its giver and its turn-in are (QuestieDB's); under it what it gives, the library's
+// reward rows and band; then its tracking switch and its buttons, Abandon the accent one at the right. Abandoning
+// asks first.
 public class QuestPage implements Component {
   public act: Event<(Integer, Act)> = new Event()
 
-  derived color: Color = colorOf(difficultyOf(self.quest.level, self.player))
   derived title: String = `[${self.quest.level}] ${self.quest.title}`
-  derived trackLabel: String = self.quest.tracked ? Locale.UNTRACK : Locale.TRACK
+  derived tracking: Shown = self.quest.tracked ? Shown.On : Shown.Off
   derived known: Boolean = self.facts != nil
   derived giver: String = whoOf(self.facts?.givers ?? [])
   derived taker: String = whoOf(self.facts?.takers ?? [])
   derived chain: String = self.facts?.nextName ?? ""
-  derived gives: Boolean = self.text.experience > 0 || self.text.money > 0 || self.text.rewards.length > 0 ||
-    self.text.choices.length > 0
+  derived choiceRows: Array<RewardView> = choiceViews(rewardsOf(self.text.choices, true), [])
+  derived givenRows: Array<Reward> = rewardsOf(self.text.rewards, false)
 
   quest: Signal<LogQuest>
   text: Signal<Game.QuestText>
@@ -242,47 +254,41 @@ public class QuestPage implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={1} gap={3sp}>
-        <box columns={[{ fr: 1 }, "max-content"]} gap={3sp}>
-          <text value={self.title} textColor={self.color} textSize={TITLE_TEXT} lineHeight={TITLE_LINE} textFont={.Title} />
-          <box $if={self.text.giver > 0} width={GIVER_WIDTH} height={GIVER_HEIGHT} model={self.text.giver} />
-        </box>
-        <text $if={self.text.story != ""} value={self.text.story} textColor={INK} lineHeight={7sp} />
-        <text value={Locale.SECTION_TASKS} textColor={GOLD} />
-        <text $if={self.text.task != ""} value={self.text.task} textColor={INK} />
-        <ObjectiveLine $for={objective of self.quest.objectives} objective={objective} />
-        <box $if={self.known} columns={1} gap={2sp}>
-          <text value={Locale.SECTION_WHERE} textColor={GOLD} />
+      <box rows={[{ fr: 1 }, "max-content", "max-content", "max-content"]} gap={1.5sp}>
+        <Scroll>
+          <text value={self.title} textColor={SCROLL_HEAD} textSize={TITLE_TEXT} lineHeight={TIGHT_LINE} textFont={.Title} />
+          <text $if={self.text.story != ""} value={self.text.story} textColor={SCROLL_INK} lineHeight={BODY_LINE} />
+          <text value={Locale.SECTION_TASKS} textColor={SCROLL_HEAD} textFont={.Title} />
+          <text $if={self.text.task != ""} value={self.text.task} textColor={SCROLL_INK} lineHeight={BODY_LINE} />
+          <GoalLine $for={objective of self.quest.objectives} objective={objective} todoColor={SCROLL_INK}
+                    doneColor={SCROLL_DIM} small={false} />
+          <text $if={self.known} value={Locale.SECTION_WHERE} textColor={SCROLL_HEAD} textFont={.Title} />
           <WhereLine $if={self.giver != ""} label={Locale.GIVER} value={self.giver} />
           <WhereLine $if={self.taker != ""} label={Locale.TAKER} value={self.taker} />
           <WhereLine $if={self.chain != ""} label={Locale.NEXT_IN_CHAIN} value={self.chain} />
+        </Scroll>
+        <box gap={0.5sp}>
+          <Rewards views={self.choiceRows} also={self.givenRows} xp={self.text.experience} money={self.text.money} />
         </box>
-        <box $if={self.gives} columns={1} gap={2sp}>
-          <text value={Locale.SECTION_REWARD} textColor={GOLD} />
-          <WhereLine $if={self.text.experience > 0} label={Locale.EXPERIENCE} value={String.of(self.text.experience)} />
-          <box $if={self.text.money > 0} columns={[93.75dp, { fr: 1 }]} gap={3sp}>
-            <text value={Locale.MONEY} textColor={DIM} textSize={SECONDARY_TEXT} />
-            <Money amount={self.text.money} />
-          </box>
-          <box $if={self.text.rewards.length > 0} columns={REWARD_ROW} gap={3sp}>
-            <ItemButton $for={reward of self.text.rewards} item={reward.item} count={reward.count} size={REWARD} />
-          </box>
-          <text $if={self.text.choices.length > 0} value={Locale.CHOICE} textColor={DIM} textSize={SECONDARY_TEXT} />
-          <box $if={self.text.choices.length > 0} columns={REWARD_ROW} gap={3sp}>
-            <ItemButton $for={choice of self.text.choices} item={choice.item} count={choice.count} size={REWARD} />
-          </box>
+        <box @pointerPress={self.onTrack} @keyPress(.Enter)={self.onTrack} @keyPress(.Space)={self.onTrack}>
+          <SettingRow label={Locale.TRACK}>
+            <SwitchFace state={self.tracking} />
+          </SettingRow>
         </box>
-        <box columns={["max-content", "max-content", "max-content"]} gap={3sp}>
-          <PushButton label={Locale.SHOW_ON_MAP} width={131.25dp} @click={self.onMap} />
-          <PushButton label={self.trackLabel} width={131.25dp} plate={ButtonPlate.Accent} @click={self.onTrack} />
-          <PushButton label={Locale.SHARE} width={131.25dp} disabled={!self.quest.shareable} @click={self.onShare} />
-        </box>
-        <box columns={["max-content", { fr: 1 }]}>
-          <box @pointerPress={self.onAbandon} @keyPress(.Enter)={self.onAbandon} @keyPress(.Space)={self.onAbandon}>
-            <text value={Locale.ABANDON} textColor={DIM} textSize={SECONDARY_TEXT} wrap={.None} />
-          </box>
+        <box columns={["max-content", "max-content", { fr: 1 }, "max-content"]} gap={3sp}>
+          <PushButton label={Locale.SHOW_ON_MAP} width={BUTTON} @click={self.onMap} />
+          <PushButton label={Locale.SHARE} width={BUTTON} disabled={!self.quest.shareable} @click={self.onShare} />
+          <box />
+          <PushButton label={Locale.ABANDON} width={BUTTON} plate={ButtonPlate.Accent} @click={self.onAbandon} />
         </box>
       </box>
     }
   }
+}
+
+// A quest's items as the reward rows show them: the choices numbered by their place, what is given anyway 0.
+function rewardsOf(items: Array<Game.QuestItem>, chosen: Boolean): Array<Reward> {
+  let rows: Array<Reward> = []
+  for (index, item of items) { rows.push(logReward(item.item, item.count, chosen ? index : 0)) }
+  return rows
 }
