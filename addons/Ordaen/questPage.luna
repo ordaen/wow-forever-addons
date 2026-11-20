@@ -48,6 +48,11 @@ const ARROW = 14.0625dp
 // The arrow's room and the word, the word at the column's end.
 const PAWN_CELLS: Array<Track> = [ARROW, { fr: 1 }]
 
+// The scroll's one size, its rolled ends in it: where it stands at a fixed size (Dialogue's page), one picture of a
+// scroll fits it; what it holds scrolls past its height.
+public const SCROLL_WIDTH: Number<Length> = 468.75dp
+public const SCROLL_HEIGHT: Number<Length> = 281.25dp
+
 // The scroll: what is said of a quest on the parchment between its rolled ends; it scrolls past its height.
 public class Scroll implements Component {
   public render(self): Template {

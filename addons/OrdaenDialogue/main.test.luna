@@ -782,3 +782,68 @@ test "the NPC's title under its name is the plain line of its tooltip, never its
   Test.talk({ name: "Thor", id: 523, text: "The gryphons are ready.", level: 30 })
   Test.expect(!window().text("Level 30").shown() && Dialogue.speaker.subtitle == nil)
 }
+
+// Many options: a Stormwind guard's
+
+// A guard's directions: seventeen places.
+function guard(): Test.Npc {
+  let options: Array<Client.GossipOptionUIInfo> = []
+  for (index of 1..17) { options.push(option(500 + index, `Place ${index}`, index - 1, TALK)) }
+  return { name: "Stormwind City Guard", id: 68, text: "Where would you like to go?", options: options }
+}
+
+test "many options flow into columns of nine, the window wider and never past the screen's foot" {
+  Test.mount(nil, SCREEN)
+  Test.talk(guard())
+  const page = Test.page().window("Stormwind City Guard")
+  const first = page.text("Place 1").rect()
+  const ninth = page.text("Place 9").rect()
+  const tenth = page.text("Place 10").rect()
+  Test.expect(tenth.left > first.right && (tenth.top - first.top).abs() < 1 && ninth.top > first.top)
+  Test.expect(page.text("Place 17").rect().bottom < 900)
+}
+
+test "the window widens for the columns: the last one stands inside it" {
+  Test.mount(nil, SCREEN)
+  Test.talk(guard())
+  const page = Test.page().window("Stormwind City Guard")
+  Test.expect(page.text("Place 17").rect().right <= page.rect().right)
+}
+
+test "the tenth line's key is 0, and it picks the line" {
+  Test.mount(nil, SCREEN)
+  let options: Array<Client.GossipOptionUIInfo> = []
+  for (index of 1..10) { options.push(option(500 + index, `Place ${index}`, index - 1, TALK)) }
+  Test.talk({ name: "Stormwind City Guard", id: 68, text: "Where would you like to go?", options: options })
+  Test.expect(Test.page().window("Stormwind City Guard").text("0").shown() && Test.keyBound("0"))
+  Test.expect(asked() == "option 510")
+}
+
+test "every option has a key: the digits, 0, then letters past them, which pick their line" {
+  Test.mount(nil, SCREEN)
+  Test.talk(guard())
+  const page = Test.page().window("Stormwind City Guard")
+  Test.expect(page.text("0").shown() && page.text("Q").shown() && page.text("I").shown())
+  _ = Test.keyBound("Q")
+  Test.expect(asked() == "option 511")
+}
+
+test "the letters aren't the window's for a list the digits reach" {
+  Test.mount(nil, SCREEN)
+  Test.talk(innkeeper())
+  Test.expect(!Test.keyBound("Q"))
+}
+
+test "the scroll stands at its one size, on a long list and on a quest's page alike" {
+  Test.mount(nil, SCREEN)
+  Test.talk(guard())
+  const page = Test.page().window("Stormwind City Guard")
+  const listed = page.box("QuestBG-Parchment").rect()
+  Test.expect(page.text("Where would you like to go?").shown() && listed.bottom - listed.top > 150)
+  Events.GOSSIP_CLOSED.emit(false)
+  Test.talk(innkeeper())
+  Test.quest(pie())
+  Events.QUEST_DETAIL.emit(nil)
+  const quest = window().box("QuestBG-Parchment").rect()
+  Test.expect((listed.bottom - listed.top - (quest.bottom - quest.top)).abs() < 0.5)
+}
