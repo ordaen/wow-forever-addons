@@ -1,4 +1,4 @@
-// Ordaen Character: the character window, with three tabs: the character (the paper doll, the stats and the skills),
+// Ordaen Character: the character window, with four tabs: the character (the paper doll and the stats), the skills,
 // reputation and the statistics; PvE and PvP are windows of their own, from the micro menu. It opens in place of the
 // game's own character window: whatever shows the game's (its key, C, its micro button, another addon's
 // `ToggleCharacter`) shows ours, the game's held unseen and off the screen while ours shows, and the game's tab picks
@@ -10,6 +10,7 @@ import { Frame } from "$ltml"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
 import { KeptWindow, Module, SECONDARY_TEXT, Settings, SettingsPage, Window, WindowTabSpec, WindowsPage, windowsTitle } from "Ordaen"
+import { SkillsPage } from "@/cards"
 import { GearPage } from "@/gear"
 import Locale from "@/locales"
 import { FactionShow, ReputationPage, factionsCount } from "@/reputation"
@@ -20,14 +21,15 @@ import Style from "@/style"
 
 // The tabs, in order.
 const TAB_CHARACTER = 1
-const TAB_REPUTATION = 2
-const TAB_STATISTICS = 3
+const TAB_SKILLS = 2
+const TAB_REPUTATION = 3
+const TAB_STATISTICS = 4
 // The game's character window and its pages, by the names its code gives them, with the tab of ours each opens.
 const GAME_WINDOW = "CharacterFrame"
-const SECTION_SKILLS = 5
 // The tabs' pictures: the game's character window's side tabs (`CHARACTER_MODE_TAB_ICONS`), and a tabard for the
-// character, where the game draws the portrait.
+// character, where the game draws the portrait, and a book for the skills.
 const CHARACTER_ICON: Asset = "Interface/ICONS/INV_Shirt_GuildTabard_01"
+const SKILLS_ICON: Asset = "Interface/ICONS/INV_Misc_Book_11"
 const REPUTATION_ICON: Asset = "Interface/ICONS/INV_SideTab_Reputation2_c60"
 const STATISTICS_ICON: Asset = "Interface/ICONS/INV_SideTab_Stats_c60"
 
@@ -47,7 +49,6 @@ public class Character implements Module, App {
 
   state open = false
   state tab = TAB_CHARACTER
-  state section = 1
   // The game's own window, while it shows: held unseen and off the screen.
   state gameWindow: any Frame | nil = nil
   game: any Client.Frame | nil = nil
@@ -81,6 +82,7 @@ public class Character implements Module, App {
   // Each tab's picture is the game's own for it.
   derived tabs: Array<WindowTabSpec> = [
     { title: Locale.TAB_CHARACTER, icon: CHARACTER_ICON },
+    { title: Locale.TAB_SKILLS, icon: SKILLS_ICON },
     { title: Locale.TAB_REPUTATION, icon: REPUTATION_ICON },
     { title: Locale.TAB_STATISTICS, icon: STATISTICS_ICON }
   ]
@@ -123,20 +125,19 @@ public class Character implements Module, App {
       self.onGameHidden()
       return nil
     })
-    self.hookPage("PaperDollFrame", TAB_CHARACTER, nil)
-    self.hookPage("ReputationFrame", TAB_REPUTATION, nil)
-    self.hookPage("SkillsFrame", TAB_CHARACTER, SECTION_SKILLS)
+    self.hookPage("PaperDollFrame", TAB_CHARACTER)
+    self.hookPage("ReputationFrame", TAB_REPUTATION)
+    self.hookPage("SkillsFrame", TAB_SKILLS)
     if (window.IsShown()) { self.onGameShown(frame) }
   }
 
-  // A page of the game's window: shown, ours turns to its tab (and section).
-  hookPage(mut self, name: String, tab: Integer, section: Integer | nil) {
+  // A page of the game's window: shown, ours turns to its tab.
+  hookPage(mut self, name: String, tab: Integer) {
     const page = Runtime.frame(`${GAME_WINDOW}.${name}`) ?? Runtime.frame(name)
     if (page == nil) { return }
     const shown: any Client.Frame = page
     _ = shown.HookScript("OnShow", (): nil => {
       self.window.ask(tab)
-      if (section != nil) { self.section = section }
       return nil
     })
   }
@@ -293,10 +294,11 @@ public class Character implements Module, App {
               footer={self.footer} @close={self.onClose} @settings={self.onSettings}>
         <GearPage $if={self.tab == TAB_CHARACTER} worn={self.worn} who={self.who} stats={self.stats}
                   skills={self.skills} usesAmmo={self.usesAmmo} choices={self.settings.values}
-                  section={mut self.section} fitsSlots={self.fitsSlots} sets={self.sets}
+                  fitsSlots={self.fitsSlots} sets={self.sets}
                   flyoutSlot={self.flyoutSlot} fitting={self.fitting} @picked={self.onPicked} @tried={self.onTried}
                   @flyout={self.onFlyout} @chose={self.onChose} @closeFlyout={self.onCloseFlyout}
                   @useSet={self.onUseSet} @saveSet={self.onSaveSet} />
+        <SkillsPage $elseif={self.tab == TAB_SKILLS} skills={self.skills} />
         <ReputationPage $elseif={self.tab == TAB_REPUTATION} factions={self.factions} starts={self.starts}
                         chosen={self.chosen} chosenInactive={self.chosenInactive} search={mut self.factionSearch}
                         show={mut self.factionShow} @pick={self.onPick}

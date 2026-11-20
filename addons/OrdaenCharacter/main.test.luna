@@ -25,6 +25,10 @@ const REAPER_ICON: Art = "Interface/Icons/INV_Axe_09"
 const EMPTY_FEET: Art = "Interface/PaperDoll/UI-PaperDoll-Slot-Feet"
 const OTHER_HELM = 16866
 const OTHER_ICON: Art = "Interface/Icons/INV_Helmet_01"
+// The client's skill lines of maces, swords and wands.
+const MACES = 54
+const SWORDS = 43
+const WANDS = 228
 
 function faction(index: Integer, id: Integer, name: String, standing: Integer, value: Integer): Faction {
   return {
@@ -39,6 +43,14 @@ function heading(index: Integer, id: Integer, name: String, collapsed: Boolean):
     index: index, id: id, name: name, description: "", standing: 4, value: 0, min: 0, max: 0, header: true,
     ranked: false, child: false, collapsed: collapsed, atWar: false, canToggleAtWar: false, canSetInactive: false,
     watched: false
+  }
+}
+
+// The test's warrior's stats: a two-handed mace.
+function warrior(): Stats {
+  return {
+    strength: 312, stamina: 280, armor: 4120, attackPower: 832, meleeCrit: 20.05, speed: 3.8, mainSkill: MACES,
+    tips: { primary: ["Increases your attack power with melee weapons."] }
   }
 }
 
@@ -60,12 +72,10 @@ class FakeSheet implements Sheet {
 
   public who(self): Who { return { name: "Regy", level: 60, race: "Dwarf", className: "Warrior" } }
 
-  public stats(self): Stats {
-    return {
-      strength: 312, stamina: 280, armor: 4120, attackPower: 832, meleeCrit: 20.05,
-      tips: { primary: ["Increases your attack power with melee weapons."] }
-    }
-  }
+  // What the sheet says of the stats, made anew at each read as the client's sheet makes them: a test may put
+  // others in.
+  figures: () => Stats = warrior
+  public stats(self): Stats { return self.figures() }
 
   public factions(self): Array<Faction> {
     const rows: Array<Faction> = [
@@ -82,7 +92,9 @@ class FakeSheet implements Sheet {
   public skills(self): Array<Skill> {
     return [
       { name: "Weapon Skills", header: true, rank: 0, modifier: 0, max: 0 },
-      { name: "Maces", header: false, rank: 300, modifier: 5, max: 300 }
+      { id: MACES, name: "Maces", header: false, rank: 300, modifier: 5, max: 300 },
+      { id: SWORDS, name: "Swords", header: false, rank: 290, modifier: 0, max: 300 },
+      { id: WANDS, name: "Wands", header: false, rank: 300, modifier: 0, max: 300 }
     ]
   }
 
@@ -255,7 +267,7 @@ test "a slot's flyout with nothing for it says so, and Close shuts it" {
   Test.expect(!window.text("From your bags").shown())
 }
 
-test "the game's sets stand under the doll: one clicked is put on, and «+» saves what is worn as the next" {
+test "the game's sets stand over the columns: one clicked is put on, and «+» saves what is worn as the next" {
   Test.mount(nil, PAGE)
   const sheet = new FakeSheet()
   Game.items.icon = icons
@@ -280,26 +292,87 @@ test "the slot what the cursor holds goes in is lit, the others not; a locked it
   Test.expect(window.button(REAPER_ICON).opacity() == 1)
 }
 
-test "a stat's card under the cursor shows the game's words on it" {
+test "a main stat under the cursor shows its name and the game's words on it" {
   Test.mount(nil, PAGE)
   Game.items.icon = icons
   const window = opened(new FakeSheet())
-  window.text("Strength").hover()
+  window.text("312").hover()
   Test.expect(window.text("Increases your attack power with melee weapons.").shown())
 }
 
 // The stats
 
-test "the main stats stand as cards, and a section's tab shows its own" {
+test "every stat stands in view: the main stats, defence, and the melee section's cards, gauges and lines" {
   Test.mount(nil, PAGE)
   Game.items.icon = icons
   const window = opened(new FakeSheet())
   Test.expect(window.text("312").shown())
-  Test.expect(window.text("832").shown())
-  window.button("Defense").click()
+  Test.expect(window.text("STR").shown())
   Test.expect(window.text("4120").shown())
+  Test.expect(window.text("832").shown())
+  Test.expect(window.text("20.05%").shown())
+  Test.expect(window.text("Expertise").shown())
+  Test.expect(window.text("Attack speed").shown())
+  Test.expect(window.text("3.80").shown())
+}
+
+test "the weapon held has its skill as a gauge, its bonus counted in; the skills' tab lists every skill" {
+  Test.mount(nil, PAGE)
+  Game.items.icon = icons
+  const window = opened(new FakeSheet())
+  Test.expect(window.text("Maces").shown())
+  Test.expect(window.text("305").shown())
   window.button("Skills").click()
   Test.expect(window.text("300+5/300").shown())
+}
+
+test "two hands swing together: the attack speed is both at once, and two of a kind share one skill's gauge" {
+  Test.mount(nil, PAGE)
+  Game.items.icon = icons
+  const sheet = new FakeSheet()
+  sheet.figures = (): Stats => Stats { speed: 2.7, offSpeed: 1.8, mainSkill: SWORDS, offSkill: SWORDS }
+  const window = opened(mut sheet)
+  Char.readStats()
+  Test.expect(window.text("1.08").shown())
+  Test.expect(window.text("Swords").count() == 1)
+}
+
+test "a shield adds block to defence and the damage a block stops under it; without one neither shows" {
+  Test.mount(nil, PAGE)
+  Game.items.icon = icons
+  const sheet = new FakeSheet()
+  const window = opened(mut sheet)
+  Test.expect(!window.text("Damage Blocked").shown())
+  sheet.figures = (): Stats => Stats { block: 21.5, blockValue: 142 }
+  Char.readStats()
+  Test.expect(window.text("21.50%").shown())
+  Test.expect(window.text("Damage Blocked").shown())
+  Test.expect(window.text("142").shown())
+}
+
+test "a wand's section is its skill and its damage a second, no attack power" {
+  Test.mount(nil, PAGE)
+  Game.items.icon = icons
+  const sheet = new FakeSheet()
+  sheet.figures = (): Stats => Stats { intellect: 246, rangedSkill: WANDS, rangedSpeed: 1.5, rangedMinDamage: 92, rangedMaxDamage: 171 }
+  const window = opened(mut sheet)
+  Char.readStats()
+  Test.expect(window.text("Wands").shown())
+  Test.expect(window.text("87.7").shown())
+  Test.expect(window.text("Attack power").count() == 1)
+}
+
+test "a druid's energy stands under its mana, with what each regains" {
+  Test.mount(nil, PAGE)
+  Game.items.icon = icons
+  const sheet = new FakeSheet()
+  sheet.figures = (): Stats => Stats { power: 5240, restingRegen: 76, energy: 100, energyRegen: 10 }
+  const window = opened(mut sheet)
+  Char.readStats()
+  Test.expect(window.text("5240").shown())
+  Test.expect(window.text("+76/5 s").shown())
+  Test.expect(window.text("100").shown())
+  Test.expect(window.text("+10/s").shown())
 }
 
 // Reputation

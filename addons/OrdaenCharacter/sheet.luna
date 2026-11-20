@@ -131,10 +131,64 @@ public struct Stats {
   healing: Integer = 0
   // Mana every five seconds while casting.
   regen: Number = 0
+  // Mana every five seconds outside casting: the mana bar's regeneration.
+  restingRegen: Number = 0
   // The five main stats' base, without what buffs and items add or take: the tooltip's «312 (300+12)».
   bases: Array<Integer> = [0, 0, 0, 0, 0]
   tips: StatTips = {}
+  // Hit by kind, in percent: the one rating's share plus what talents and items give that kind, as the game's own
+  // sheet adds them.
+  meleeHit: Number = 0
+  rangedHit: Number = 0
+  spellHit: Number = 0
+  // The boss's dodge taken away, in percent; armor penetration and spell penetration as the client counts them.
+  expertise: Number = 0
+  armorPenetration: Integer = 0
+  spellPenetration: Integer = 0
+  // The defense skill with its bonus, the damage a block stops, and the share of a level 63 boss's blows armor stops.
+  defense: Integer = 0
+  blockValue: Integer = 0
+  armorReduction: Number = 0
+  // Each school's spell damage: holy, fire, nature, frost, shadow and arcane, the client's schools 2 to 7.
+  schoolDamage: Array<Integer> = [0, 0, 0, 0, 0, 0]
+  // The off hand's damage per hit, and the ranged weapon's with its seconds between shots.
+  offMinDamage: Number = 0
+  offMaxDamage: Number = 0
+  rangedMinDamage: Number = 0
+  rangedMaxDamage: Number = 0
+  rangedSpeed: Number = 0
+  // A druid's energy beside its mana (none for the others) and what it regains a second.
+  energy: Integer = 0
+  energyRegen: Number = 0
+  // Running and swimming, in percent of the game's base speeds.
+  runSpeed: Number = 100
+  swimSpeed: Number = 100
+  // The skill line of what each hand and the ranged slot hold (`SkillLineAttributes.skillID`), none where nothing is
+  // held or the ranged slot holds a relic.
+  mainSkill: Integer | nil = nil
+  offSkill: Integer | nil = nil
+  rangedSkill: Integer | nil = nil
 }
+
+// The client's skill line of each weapon kind, by the item's subclass (`WEAPON_SUBCLASS_TO_SKILL_ID`).
+const WEAPON_SKILLS: Map<Integer, Integer> = {
+  [0]: 44, [1]: 172, [2]: 45, [3]: 46, [4]: 54, [5]: 160, [6]: 229, [7]: 43, [8]: 55, [10]: 136, [13]: 473, [15]: 173,
+  [16]: 176, [18]: 226, [19]: 228
+}
+// The wands' skill line: a wand's damage is its own, no attack power counts in it.
+public const WANDS = 228
+// The client's item class of weapons.
+const WEAPON_CLASS = 2
+// The combat ratings' numbers for hit (`CR_HIT_MELEE`, `CR_HIT_RANGED`, `CR_HIT_SPELL`).
+const RATING_HIT_MELEE = 6
+const RATING_HIT_RANGED = 7
+const RATING_HIT_SPELL = 8
+// Energy's number among the client's powers (`Enum.PowerType.Energy`), which `GetPowerRegenForPowerType` takes as a
+// plain number.
+const ENERGY_POWER = 3
+// The game's base speeds, yards a second.
+const RUN_BASE = 7
+const SWIM_BASE = 4.722222
 
 // A row of the game's reputation list: a group's heading, or a faction with its standing (1 hated to 8 exalted) and
 // where it is between the standing's start and its end. `index` is the client's place of the row in its list as it
@@ -161,6 +215,8 @@ public struct Faction {
 
 // A row of the game's skill list: a heading, or a skill with its rank, the bonus on it and the cap for the level.
 public struct Skill {
+  // The client's skill line (`skillID`): what a weapon's kind names.
+  const id: Integer = 0
   const name: String
   const header: Boolean
   const rank: Integer
@@ -238,6 +294,15 @@ function breakdown(natural: Integer, up: Integer, down: Integer): String {
 // One of the client's own texts by its name; empty where it has none.
 function said(key: String): String {
   return Runtime.text(key) ?? ""
+}
+
+// The skill line of the weapon a slot holds; none for an empty slot or what is no weapon (a shield, a book).
+function weaponSkill(slot: Integer): Integer | nil {
+  const id = Client.GetInventoryItemID("player", slot)
+  if (id == nil) { return nil }
+  let _, _, _, _, _, kind, subclass = Client.C_Item.GetItemInfoInstant(id.floor())
+  if (kind != WEAPON_CLASS || subclass == nil) { return nil }
+  return WEAPON_SKILLS[subclass.floor()]
 }
 
 // Attack power a point of damage per second takes, as the game's tooltip divides it (`ATTACK_POWER_MAGIC_NUMBER`).
@@ -344,7 +409,39 @@ public class ClientSheet implements Sheet {
     }
     const attackTip = Runtime.text(`${Game.player.classTag}_MELEE_ATTACK_POWER_TOOLTIP`) ?? said("MELEE_ATTACK_POWER_TOOLTIP")
     const reduction = Client.C_PaperDollInfo.GetArmorEffectiveness(armor, Client.UnitEffectiveLevel("player")) * 100
+    let _, _, offMin, offMax, _, _, _ = Client.UnitDamage("player")
+    let rangedSpeed, rangedMin, rangedMax, _, _, _ = Client.UnitRangedDamage("player")
+    let defenseBase, defenseBonus = Client.UnitDefenseSkill("player")
+    let expertise, _, _ = Client.GetExpertise()
+    let _, runSpeed, _, swimSpeed = Client.GetUnitSpeed("player")
+    let energyRegen, _ = Client.GetPowerRegenForPowerType(ENERGY_POWER)
+    const schoolDamage: Array<Integer> = []
+    for (school of FIRST_SCHOOL..LAST_SCHOOL) { schoolDamage.push((Client.GetSpellBonusDamage(school) ?? 0).floor()) }
+    const relic = Client.UnitHasRelicSlot("player")
     return {
+      restingRegen: resting * 5,
+      meleeHit: (Client.GetCombatRatingBonus(RATING_HIT_MELEE) ?? 0) + hit,
+      rangedHit: (Client.GetCombatRatingBonus(RATING_HIT_RANGED) ?? 0) + Client.GetRangedHitModifier(),
+      spellHit: (Client.GetCombatRatingBonus(RATING_HIT_SPELL) ?? 0) + Client.GetSpellHitModifier(),
+      expertise: expertise,
+      armorPenetration: Client.GetArmorPenetration().floor(),
+      spellPenetration: Client.GetSpellPenetration().floor(),
+      defense: (defenseBase + defenseBonus).floor(),
+      blockValue: Client.GetShieldBlock().floor(),
+      armorReduction: reduction,
+      schoolDamage: schoolDamage,
+      offMinDamage: offMin,
+      offMaxDamage: offMax,
+      rangedMinDamage: rangedMin,
+      rangedMaxDamage: rangedMax,
+      rangedSpeed: rangedSpeed,
+      energy: Game.player.classTag == "DRUID" ? Client.UnitPowerMax("player", Client.PowerType.Energy, nil).floor() : 0,
+      energyRegen: energyRegen,
+      runSpeed: runSpeed / RUN_BASE * 100,
+      swimSpeed: swimSpeed / SWIM_BASE * 100,
+      mainSkill: weaponSkill(16),
+      offSkill: weaponSkill(17),
+      rangedSkill: relic ? nil : weaponSkill(18),
       strength: primary[1] ?? 0,
       agility: primary[2] ?? 0,
       stamina: primary[3] ?? 0,
@@ -430,6 +527,7 @@ public class ClientSheet implements Sheet {
       const data = Client.C_SkillInfo.GetSkillLineInfo(index)
       if (data != nil) {
         rows.push({
+          id: data.skillID.floor(),
           name: data.name,
           header: data.isHeader,
           rank: data.rank.floor(),

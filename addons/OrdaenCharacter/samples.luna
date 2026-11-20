@@ -3,7 +3,7 @@
 import { Overflow } from "$ltml"
 import root Ordaen from "Ordaen"
 import { ARTWORK, Choice, Component, SECONDARY_TEXT, ToolPick, Toolbar } from "Ordaen"
-import { Card, Filed, Group, StatGroup, grouped } from "@/gear"
+import { Card, Filed, Group, StatGroup, grouped } from "@/cards"
 import Locale from "@/locales"
 import Style from "@/style"
 
