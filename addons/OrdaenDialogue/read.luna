@@ -245,10 +245,35 @@ function itemReward(kind: String, index: Integer): Reward {
   }
 }
 
-// What a quest gives besides its items to choose: its items, spells learned, a title, a skill's points.
+// A currency the quest gives, to choose (its place among the choices) or anyway (0).
+function currencyReward(info: Client.QuestRewardCurrencyInfo, index: Integer): Reward {
+  return {
+    kind: .Currency, name: info.name, icon: artOf(info.texture), count: info.totalRewardAmount.floor(),
+    quality: QUALITIES[info.quality.floor() + 1] ?? .Common, item: nil, link: Client.C_CurrencyInfo.GetCurrencyLink(info.currencyID, nil),
+    detail: "", unusable: false, sell: 0, index: index
+  }
+}
+
+// A choice at its place: an item, or a currency where the client says the place holds one.
+function choiceReward(index: Integer): Reward {
+  if (Client.GetQuestItemInfoLootType("choice", index) == CURRENCY_LOOT) {
+    const info = Client.C_QuestOffer.GetQuestRewardCurrencyInfo("choice", index)
+    if (info != nil) { return currencyReward(info, index) }
+  }
+  return itemReward("choice", index)
+}
+
+// A currency's quality as the client numbers it (`Enum.ItemQuality`, from 0), in the order of its numbers.
+const QUALITIES: Array<Quality> = [.Poor, .Common, .Uncommon, .Rare, .Epic, .Legendary, .Artifact, .Heirloom]
+
+// `GetQuestItemInfoLootType` of a currency (0 is an item).
+const CURRENCY_LOOT = 1
+
+// What a quest gives besides its items to choose: its items and currencies, spells learned, a title, a skill's points.
 function givenRewards(questID: Integer): Array<Reward> {
   let given: Array<Reward> = []
   for (index of 1..Client.GetNumQuestRewards()) { given.push(itemReward("reward", index)) }
+  for (info of Client.C_QuestInfoSystem.GetQuestRewardCurrencies(questID) ?? []) { given.push(currencyReward(info, 0)) }
   for (spell of Client.C_QuestInfoSystem.GetQuestRewardSpells(questID) ?? []) {
     const info = Client.C_QuestInfoSystem.GetQuestRewardSpellInfo(questID, spell)
     if (info != nil && !info.isSpellLearned) {
@@ -285,14 +310,26 @@ function standingsOf(): Array<Standing> {
   return standings
 }
 
-// What a quest needs handed in, with how many of each the player has.
+// What a quest needs handed in, with how many of each the player has: its items (none where the quest hides them, nor
+// one it hides) and its currencies.
 function needsOf(): Array<Need> {
   let needs: Array<Need> = []
-  for (index of 1..Client.GetNumQuestItems()) {
-    const name, texture, count, _, _, itemID = Client.GetQuestItemInfo("required", index)
-    const item = itemID != nil ? itemID.floor() : nil
-    const have = item != nil ? Client.C_Item.GetItemCount(item, nil, nil, nil, nil).floor() : 0
-    needs.push({ name: name ?? "", icon: artOf(texture), item: item, have: have, need: count.floor() })
+  if (!Client.C_QuestOffer.GetHideRequiredItems()) {
+    for (index of 1..Client.GetNumQuestItems()) {
+      if (!Client.IsQuestItemHidden(index)) {
+        const name, texture, count, _, _, itemID = Client.GetQuestItemInfo("required", index)
+        const item = itemID != nil ? itemID.floor() : nil
+        const have = item != nil ? Client.C_Item.GetItemCount(item, nil, nil, nil, nil).floor() : 0
+        needs.push({ name: name ?? "", icon: artOf(texture), item: item, have: have, need: count.floor() })
+      }
+    }
+  }
+  for (index of 1..Client.GetNumQuestCurrencies().floor()) {
+    const info = Client.C_QuestOffer.GetQuestRequiredCurrencyInfo(index)
+    if (info != nil) {
+      const held = Client.C_CurrencyInfo.GetCurrencyInfo(info.currencyID)?.quantity ?? 0
+      needs.push({ name: info.name, icon: artOf(info.texture), item: nil, have: held.floor(), need: info.requiredAmount.floor() })
+    }
   }
   return needs
 }
@@ -301,7 +338,7 @@ function needsOf(): Array<Need> {
 public function questOf(text: String): Quest {
   const id = Client.GetQuestID().floor()
   let choices: Array<Reward> = []
-  for (index of 1..Client.GetNumQuestChoices()) { choices.push(itemReward("choice", index)) }
+  for (index of 1..Client.GetNumQuestChoices()) { choices.push(choiceReward(index)) }
   return {
     id: id, title: Client.GetTitleText(), text: text, objectives: Client.GetObjectiveText(),
     group: Client.GetSuggestedGroupSize().floor(), choices: choices, also: givenRewards(id),

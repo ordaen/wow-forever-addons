@@ -36,6 +36,23 @@ function isOffer(line: Line): Boolean {
 
 function sound(kit: Integer) { _ = Client.C_Sound.PlaySound(kit, nil) }
 
+function isQuestPage(page: Page): Boolean { return page == Page.Detail || page == Page.Progress || page == Page.Reward }
+
+// The game's option that shows a quest's text at once ("1"), or lets it fade in ("0").
+const INSTANT_TEXT = "instantQuestText"
+// The game's pace: 70 letters a second (`QUEST_DESCRIPTION_GRADIENT_CPS`), let in a tenth of a second at a time.
+const FADE_STEP = 0.1
+const FADE_LETTERS = 7
+
+// The end of the word at `at` or after it (a byte before a space, or the text's end): a text cut there wraps as the
+// whole does, and never inside a letter.
+function wordEnd(text: String, at: Integer): Integer {
+  for (stop of at..text.length) {
+    if (text.sub(stop + 1, stop + 1) == " ") { return stop }
+  }
+  return text.length
+}
+
 // The number a key of the row above the letters stands for; 0 for any other key.
 function digitOf(key: Key): Integer {
   return match (key) {
@@ -93,6 +110,10 @@ public class Dialogue implements Module, App {
   upgradeOf: (link: String) => Number | nil = (link: String): Number | nil => Pawn.upgrade(link)
   pawnLoaded: () => Boolean = (): Boolean => Pawn.present()
   public state pawnShown = false
+  // How much of the quest's text shows as it fades in, as the game's own window lets it in (`instantQuestText` "0"):
+  // bytes to a word's end, -1 for all of it. Its steps run only while it fades in.
+  public state revealed = -1
+  fading: Task<nil> | nil = nil
 
   derived shown: Boolean = self.page != Page.Closed
   derived listShown: Boolean = self.page == Page.List
@@ -452,9 +473,41 @@ public class Dialogue implements Module, App {
       self.pawnShown = self.pawnLoaded()
     }
     self.page = page
+    self.fadeIn(page)
+  }
+
+  // A quest's page lets its text in at the game's pace, unless the game's option shows it at once.
+  fadeIn(mut self, page: Page) {
+    self.stopFading()
+    const text = (peek self.quest)?.text ?? ""
+    if (!isQuestPage(page) || text == "" || Client.C_CVar.GetCVar(INSTANT_TEXT) != "0") { return }
+    self.revealed = 0
+    self.fading = self.fade(text)
+  }
+
+  async fade(mut self, text: String) {
+    let shown = 0
+    // Each step lets in at least a letter: the text is in at most as many steps as it has.
+    for (step of 1..text.length) {
+      await Game.delay(FADE_STEP)
+      shown = wordEnd(text, shown + FADE_LETTERS)
+      if (shown >= text.length) { break }
+      self.revealed = shown
+    }
+    self.revealed = -1
+    self.fading = nil
+  }
+
+  stopFading(mut self) {
+    if (self.fading != nil) {
+      destroy self.fading
+      self.fading = nil
+    }
+    self.revealed = -1
   }
 
   hide(mut self) {
+    self.stopFading()
     self.page = .Closed
     self.prompt = nil
     self.fromList = false
@@ -523,6 +576,8 @@ public class Dialogue implements Module, App {
   derived isBook: Boolean = self.page == Page.Book
   derived rows: Array<Track> = self.isBook ? [{ fr: 1 }, "max-content"] : [{ fr: 2 }, { fr: 3 }]
   derived pickable: Boolean = self.page == Page.Reward
+  // The quest giver's figure: an NPC's, never an item's or an object's quest.
+  public derived figure: Boolean = !self.alone && self.speaker.portrait != nil
   derived rewardViews: Array<RewardView> = choiceViews(self.quest?.choices ?? [], self.upgrades())
   derived backLabel: String = match (self.page) {
     .Detail => self.fromList ? Locale.BACK : Locale.DECLINE
@@ -594,13 +649,13 @@ public class Dialogue implements Module, App {
                @keyPress.globalScope(.Digit5)={self.onKey} @keyPress.globalScope(.Digit6)={self.onKey}
                @keyPress.globalScope(.Digit7)={self.onKey} @keyPress.globalScope(.Digit8)={self.onKey}
                @keyPress.globalScope(.Digit9)={self.onKey} @keyPress.globalScope(.Space)={self.onSpace}
-               @keyPress.globalScope(.Escape)={self.onEscape} />
-          <box rows={["max-content", { fr: 1 }, "max-content"]}
-               padding={{ left: 4sp, right: 4sp, top: 2sp, bottom: 2sp }}>
+               @keyPress.globalScope(.Escape)={self.onEscape} /> <box rows={["max-content", { fr: 1 }, "max-content"]}
+                                                                      padding={{ left: 4sp, right: 4sp, top: 2sp, bottom: 2sp }}>
             <box height={Style.ROLL_HEIGHT} background={Style.ROLL} />
             <box background={Style.PARCHMENT} tint={Style.PARCHMENT_TINT} overflow={Overflow.Scroll}
                  padding={4sp} gap={2sp}>
-              <Said page={self.page} quest={self.quest} said={self.said} book={self.book} />
+              <Said page={self.page} quest={self.quest} said={self.said} book={self.book} revealed={self.revealed}
+                    figure={self.figure} />
             </box>
             <box height={Style.ROLL_HEIGHT} background={Style.ROLL} />
           </box>

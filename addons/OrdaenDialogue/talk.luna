@@ -46,13 +46,17 @@ public function npcOf(guid: String | nil): Integer {
   return (npc.toNumber() ?? 0).floor()
 }
 
-// The NPC talked to: its name and face, and the line of its tooltip under its name where the game gives it a title
-// («Innkeeper»), which isn't its level's line.
+// The NPC talked to: its name and face, and its title («Innkeeper»). The client has no call for an NPC's title
+// (`UnitPVPName` gives the name, the creature calls its type): it is the line of the unit's tooltip under its name,
+// a plain line (`TooltipDataLineType.None`), not the level's (`UnitLevel`) or the type's.
 public function speakerOf(): Speaker {
   const name, _ = Client.UnitName("npc")
   if (!Client.UnitExists("npc")) { return { name: name, icon: OBJECT_ICON } }
   return { name: name, subtitle: subtitleOf(), portrait: "npc" }
 }
+
+// `TooltipDataLineType.None`: a line that is none of the unit's name, level or type.
+const PLAIN_LINE = 0
 
 function subtitleOf(): String | nil {
   const data = Client.C_TooltipInfo.GetUnit("npc", nil)
@@ -63,6 +67,9 @@ function subtitleOf(): String | nil {
   if (!(second is Table)) { return nil }
   const text = second["leftText"]
   if (!(text is String) || text == "") { return nil }
+  const kind = second["type"]
+  if (kind is Number) { return kind == PLAIN_LINE ? text : nil }
+  // A line the client gives no type: the level's has the level in it.
   const level = String.of(Client.UnitLevel("npc").floor())
   if (text.contains(level)) { return nil }
   return text

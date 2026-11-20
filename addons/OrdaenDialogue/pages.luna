@@ -3,7 +3,7 @@
 // enough, the money too), or its rewards: those to choose, those given anyway, and experience, reputation and money
 // in one band of columns as a tooltip's.
 import Game from "$game"
-import { Align, Side, Track } from "$ltml"
+import { Align, Position, Side, Track } from "$ltml"
 import { BODY_LINE, Component, Money, SECONDARY_TEXT, TITLE_LINE, TITLE_TEXT, Tip } from "Ordaen"
 import Locale from "@/locales"
 import { Need, Quest, Reward, Standing } from "@/read"
@@ -48,16 +48,33 @@ public class Said implements Component {
   derived groupText: String = Locale.GROUP.format(self.group)
   derived groupTip: String = Locale.GROUP_TIP.format(self.group)
   state groupHovered = false
+  derived revealing: Boolean = self.isQuest && self.revealed >= 0
+  derived shownText: String = self.revealing ? self.text.sub(1, self.revealed) : ""
+  // The whole text keeps its room while it fades in, its lines where they will stand.
+  derived wholeOpacity: Number = self.revealing ? 0 : 1
 
   page: Signal<Page>
   quest: Signal<Quest | nil>
   said: Signal<String>
   book: Signal<String>
-  constructor(page: Signal<Page>, quest: Signal<Quest | nil>, said: Signal<String>, book: Signal<String>) {
+  // How much of a quest's text shows as it fades in, in bytes to a word's end; -1: all of it.
+  revealed: Signal<Integer>
+  // The NPC's figure beside a quest's page.
+  figure: Signal<Boolean>
+  constructor(
+    page: Signal<Page>,
+    quest: Signal<Quest | nil>,
+    said: Signal<String>,
+    book: Signal<String>,
+    revealed: Signal<Integer> = -1,
+    figure: Signal<Boolean> = false
+  ) {
     self.page = page
     self.quest = quest
     self.said = said
     self.book = book
+    self.revealed = revealed
+    self.figure = figure
   }
 
   onGroupEnter(mut self) { self.groupHovered = true }
@@ -65,15 +82,25 @@ public class Said implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box $if={self.isQuest} columns={[{ fr: 1 }, "max-content"]} gap={2sp} yAlign={Align.Center}>
+      <box $if={self.isQuest} columns={[{ fr: 1 }, "max-content", "max-content"]} gap={2sp} yAlign={Align.Center}>
         <text value={self.title} textColor={Style.INK_HEAD} textSize={TITLE_TEXT} lineHeight={TITLE_LINE} textFont={.Title} wrap={true} />
         <box $if={self.grouped} border={{ width: 1.171875dp, color: Style.GROUP_TAG }} padding={{ left: 1sp, right: 1sp }}
              @pointerEnter={self.onGroupEnter} @pointerLeave={self.onGroupLeave}>
           <text value={self.groupText} textColor={Style.GROUP_TAG} textSize={SECONDARY_TEXT} wrap={false} />
           <Tip $if={self.groupHovered} title={self.groupText} text={self.groupTip} />
         </box>
+        <box $else />
+        <box $if={self.figure} width={Style.FIGURE_WIDTH} height={Style.FIGURE_HEIGHT} model={"npc"} />
+        <box $else />
       </box>
-      <text value={self.text} textColor={Style.INK} wrap={true} lineHeight={BODY_LINE} />
+      <box>
+        <box opacity={self.wholeOpacity}>
+          <text value={self.text} textColor={Style.INK} wrap={true} lineHeight={BODY_LINE} />
+        </box>
+        <box $if={self.revealing} position={Position.Absolute} left={0ui} top={0ui} right={0ui}>
+          <text value={self.shownText} textColor={Style.INK} wrap={true} lineHeight={BODY_LINE} />
+        </box>
+      </box>
       <text $if={self.hasObjectives} value={Locale.OBJECTIVES} textColor={Style.INK_HEAD} textFont={.Title} />
       <text $if={self.hasObjectives} value={self.objectives} textColor={Style.INK} wrap={true} lineHeight={BODY_LINE} />
     }

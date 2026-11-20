@@ -631,3 +631,91 @@ test "a reward's slot shows the item's tooltip, and Shift+click puts its link in
   Game.input.shiftDown = (): Boolean => false
   Test.expect(Test.requests().join(", ").contains("1001") && Dialogue.choice == 0)
 }
+
+// Currencies, reputation, the giver's figure, the text's fade-in, the NPC's title
+
+test "a currency to choose and one given are rewards; one needed has how much the player has" {
+  Test.mount(nil, SCREEN)
+  Test.talk(innkeeper())
+  Test.quest({
+    id: 30, title: "Tokens", completable: true,
+    choices: [
+      { name: "Cook's Gloves", icon: "Interface/Icons/INV_Gauntlets_04", item: 1001 },
+      { name: "Honor Token", icon: "Interface/Icons/INV_Misc_Coin_01", item: 61, count: 3, currency: true }
+    ],
+    currencies: [{ id: 62, name: "Stormwind Seal", icon: "Interface/Icons/INV_Misc_Coin_02", amount: 2 }],
+    needCurrencies: [{ id: 63, name: "Marks of Honor", icon: "Interface/Icons/INV_Misc_Coin_03", amount: 5, held: 2 }]
+  })
+  Events.QUEST_COMPLETE.emit()
+  Test.expect(window().text("Honor Token").shown() && window().text("Stormwind Seal").shown())
+  window().text("Honor Token").click()
+  window().button("Complete").click()
+  Test.expect(asked() == "reward 2")
+  Events.QUEST_PROGRESS.emit()
+  Test.expect(window().text("Marks of Honor").shown() && window().text("2/5").shown())
+}
+
+test "a required item the quest hides isn't listed, nor any where the quest hides them all" {
+  Test.mount(nil, SCREEN)
+  Test.talk(innkeeper())
+  Test.quest({
+    id: 31, title: "Hidden",
+    required: [
+      { name: "Secret Note", icon: "Interface/Icons/INV_Misc_Note_01", item: 770, hidden: true },
+      { name: "Boar Meat", icon: "Interface/Icons/INV_Misc_Food_14", item: 769 }
+    ]
+  })
+  Events.QUEST_PROGRESS.emit()
+  Test.expect(!window().text("Secret Note").shown() && window().text("Boar Meat").shown())
+  Test.quest({ id: 31, title: "Hidden", hideRequired: true, required: [{ name: "Boar Meat", icon: "Interface/Icons/INV_Misc_Food_14", item: 769 }] })
+  Events.QUEST_PROGRESS.emit()
+  Test.expect(!window().text("Boar Meat").shown())
+}
+
+test "the reputation a quest offers stands in the band by the faction's name" {
+  Test.mount(nil, SCREEN)
+  Test.talk(innkeeper())
+  Test.quest({ id: 32, title: "Friends", reputations: [{ id: 72, name: "Stormwind", amount: 250 }] })
+  Events.QUEST_DETAIL.emit(nil)
+  Test.expect(window().texts().join("|").contains("Stormwind"))
+}
+
+test "a quest from an NPC has its figure beside the title; one from an item has none" {
+  Test.mount(nil, SCREEN)
+  Test.talk(innkeeper())
+  Test.quest(pie())
+  Events.QUEST_DETAIL.emit(nil)
+  Test.expect(Dialogue.figure)
+  window().button("Accept").click()
+  Events.QUEST_FINISHED.emit()
+  Events.GOSSIP_CLOSED.emit(false)
+  Events.QUEST_DETAIL.emit(4000)
+  Test.expect(!Dialogue.figure)
+}
+
+test "a quest's text fades in at the game's pace, a word at a time; the game's option shows it at once" {
+  Test.mount(nil, SCREEN)
+  Test.talk(innkeeper())
+  Test.quest(pie())
+  Events.QUEST_DETAIL.emit(nil)
+  const whole = "Maggie bakes the best pies in Elwynn."
+  Test.expect(window().text(whole).opacity() == 0)
+  Test.pass(0.1)
+  Test.expect(window().text("Maggie bakes").shown())
+  Test.pass(1)
+  Test.expect(window().text(whole).opacity() == 1 && !window().text("Maggie bakes").shown())
+  window().button("Accept").click()
+  Events.QUEST_FINISHED.emit()
+  Test.cvar("instantQuestText", "1")
+  Events.QUEST_DETAIL.emit(nil)
+  Test.expect(window().text(whole).opacity() == 1 && !window().text("Maggie bakes").shown())
+}
+
+test "the NPC's title under its name is the plain line of its tooltip, never its level's" {
+  Test.mount(nil, SCREEN)
+  Test.talk({ name: "Innkeeper Farley", id: 295, text: WORDS, title: "Innkeeper", level: 30 })
+  Test.expect(window().text("Innkeeper").shown())
+  Events.GOSSIP_CLOSED.emit(false)
+  Test.talk({ name: "Thor", id: 523, text: "The gryphons are ready.", level: 30 })
+  Test.expect(!window().text("Level 30").shown() && Dialogue.speaker.subtitle == nil)
+}
