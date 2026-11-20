@@ -5,7 +5,8 @@ surface 400,131.38 566.7x533.01 on DIALOG clamped raised by a click
       box 435.85,204.47 500x400 Interface\AddOns\Ordaen\media\window-wood
       box 435.85,604.47 500x34.84
         text 435.85,621.54 500x17.78 "the footer" #ffffff
-    box 949.45,644.39 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
+    box 949.45,644.39 13.33x13.33 absolute
+      box 949.45,644.39 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 400,131.38 566.7x47.75
     box 400,131.38 503.17x47.75
       box 400,131.38 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress

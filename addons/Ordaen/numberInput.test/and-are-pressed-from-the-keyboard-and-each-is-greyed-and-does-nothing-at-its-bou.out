@@ -27,7 +27,8 @@ surface 420,281.38 760x337.25 on DIALOG clamped raised by a click
             box 839.54,382.81 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerUp
               text 846.76,388.09 8.89x17.78 "+" #ffd100
             text 868.56,388.09 15.56x17.78 "px" #f0e6d2
-    box 1162.75,598.62 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
+    box 1162.75,598.62 13.33x13.33 absolute
+      box 1162.75,598.62 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 420,281.38 760x47.75
     box 420,281.38 696.47x47.75
       box 420,281.38 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
