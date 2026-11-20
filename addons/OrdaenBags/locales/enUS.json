@@ -77,7 +77,7 @@
   "MENU_PROTECT": "Protect from sorting",
   "MENU_UNPROTECT": "Remove the protection",
   "SELL_JUNK": "Sell junk",
-  "CHAT_CAPTION": "Inventory:",
+  "CHAT_CAPTION": "Inventory",
   "CHAT_SOLD": "sold %s for %s.",
   "CHAT_SOLD_JUNK": "sold junk: %d for %s.",
   "CHAT_LEARNED": "%s is junk now: you often sell it.",
