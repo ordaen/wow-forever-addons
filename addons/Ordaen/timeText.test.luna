@@ -8,10 +8,10 @@ const SCREEN: Test.Page = { left: 0, top: 0, width: 1600, height: 900, screen: t
 
 test "a time of day is written by the client's 24-hour mode: noon twelve in the afternoon, midnight in the morning" {
   Game.clock.hours24 = true
-  Test.expect(timeText({ hour: 15, minute: 7 }) == "15:07" && timeText({ hour: 0, minute: 5 }) == "00:05")
+  Test.expect(timeText(15 * 60 + 7) == "15:07" && timeText(5) == "00:05")
   Game.clock.hours24 = false
-  Test.expect(timeText({ hour: 15, minute: 7 }) == "3:07 PM")
-  Test.expect(timeText({ hour: 12, minute: 0 }) == "12:00 PM" && timeText({ hour: 0, minute: 0 }) == "12:00 AM")
+  Test.expect(timeText(15 * 60 + 7) == "3:07 PM")
+  Test.expect(timeText(12 * 60) == "12:00 PM" && timeText(0) == "12:00 AM")
 }
 
 test "«Time format» shows the client's mode and sets it" {
