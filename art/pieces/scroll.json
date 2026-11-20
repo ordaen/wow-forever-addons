@@ -1,7 +1,7 @@
 {
   "says": "The scroll of a quest's page (Ordaen questPage.luna, Scroll; Ordaen.art.window.scroll): its top roll and its bottom roll, and between them a band of paper with its torn sides that repeats down, so the scroll grows to any height. Each 1024 texels wide, drawn at the scroll's width.",
   "ships": ["addons/Ordaen/media/scroll-top.tga", "addons/Ordaen/media/scroll-paper.tga", "addons/Ordaen/media/scroll-bottom.tga"],
-  "origin": "FLUX.1 [schnell] (set dialogue-scroll-03, darker-aged, seed 306), keyed off its black ground at its own 5:3, then cut: the rolls with the paper just past them, and a band of paper under the top roll mirrored onto itself.",
+  "origin": "FLUX.1 [schnell] (set dialogue-scroll-03, darker-aged, seed 306), keyed off its black ground at its own 5:3, then cut: the rolls with the paper just past them, and a band of paper under the top roll mirrored onto itself. The band begins where the top roll's art ends; the bottom roll's 32 rows of paper fade in from clear, laid over the band, so neither join shows a seam.",
   "steps": [
     {
       "generate": {
@@ -18,7 +18,8 @@
     },
     { "key": { "in": "art/sources/dialogue/scroll-darker-aged-306.png", "out": "art/out/scroll-keyed.png", "width": 1024, "height": 614 } },
     { "crop": { "in": "art/out/scroll-keyed.png", "out": "addons/Ordaen/media/scroll-top.tga", "x": 0, "y": 0, "width": 1024, "height": 128 } },
-    { "crop": { "in": "art/out/scroll-keyed.png", "out": "addons/Ordaen/media/scroll-bottom.tga", "x": 0, "y": 486, "width": 1024, "height": 128 } },
+    { "crop": { "in": "art/out/scroll-keyed.png", "out": "art/out/scroll-bottom-cut.png", "x": 0, "y": 486, "width": 1024, "height": 128 } },
+    { "fade": { "in": "art/out/scroll-bottom-cut.png", "out": "addons/Ordaen/media/scroll-bottom.tga", "rows": 32 } },
     { "crop": { "in": "art/out/scroll-keyed.png", "out": "art/out/scroll-band.png", "x": 0, "y": 128, "width": 1024, "height": 128 } },
     { "mirror": { "in": "art/out/scroll-band.png", "out": "addons/Ordaen/media/scroll-paper.tga" } }
   ]
