@@ -37,7 +37,6 @@ public class ChatPage implements Component {
                    step={100} unit={Unit.None} />
       <Switch label={Locale.INPUT_ALWAYS} hint={Locale.INPUT_ALWAYS_TIP} value={mut self.settings.values.inputAlways} />
       <Segmented value={mut self.settings.values.history} choices={HISTORY} />
-      <Switch label={Locale.PLAIN_ARROWS} hint={Locale.PLAIN_ARROWS_TIP} value={mut self.settings.values.plainArrows} />
     }
   }
 }

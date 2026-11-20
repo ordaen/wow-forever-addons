@@ -1,28 +1,106 @@
 // The whisper window, as WoW Instant Messenger keeps whispers: one conversation a person (a character, or a Battle.net
 // friend), listed newest first with their unread count, each its own history and its own line to type in. A name
-// typed at the list's top starts a conversation; a conversation's «×» closes it, its history with it.
+// typed at the list's top starts a conversation; a conversation's «×» closes it, its history with it. A conversation
+// is drawn as WhisperMessenger draws it: each line a bubble, the other's on the left and the player's on the right, at
+// most three quarters of the width; lines of one side close in time stand together, the group's time under its last.
 import Game from "$game"
-import { Align, Edges, Event, Overflow, Position } from "$ltml"
+import { Align, Edges, Event, Overflow, Position, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { BODY_LINE, Component, Field, KeptWindow, SECONDARY_TEXT, Window, WindowTabSpec } from "Ordaen"
+import { BODY_LINE, Component, Field, KeptWindow, SECONDARY_TEXT, Window, WindowTabSpec, timeText } from "Ordaen"
 import { ChatTab, Shown } from "@/lines"
 import Locale from "@/locales"
-import { Row } from "@/view"
+import { Badge } from "@/view"
 
 // Lines drawn at most, and a turn of the wheel.
 const ROWS = 80
 const STEP = 3
 const MAX: "max-content" = "max-content"
-// The list's width.
-const LIST = 168.75dp
+// The list's width (its field's «Whisper to: name, Enter» whole), and the window's least: the list and a conversation
+// whose bubbles hold a few words a line.
+const LIST = 240dp
+public const WHISPERS_LEAST = 600dp
+// The bubbles' floors (WhisperMessenger's warm look, on the wood): what is heard dark brown, what the player told
+// copper; their words light on both.
+public const HEARD_FILL: Color = Color.hex("#3d2e24e6")
+public const TOLD_FILL: Color = Color.hex("#8c4d2ed6")
+const INK: Color = Color.hex("#e8dcc4")
+const BUBBLE_PAD: Edges = { top: 2sp, right: 3sp, bottom: 2sp, left: 3sp }
+// Room above a bubble: little inside a group, more where a group starts.
+const IN_GROUP: Edges = { top: 1sp }
+const NEW_GROUP: Edges = { top: 3sp }
+// Lines of one side this close (seconds) stand in one group.
+const GROUP_SECONDS = 120
+// A bubble's width against the rest of its row: three quarters.
+const HEARD_COLUMNS: Array<Track> = [{ fr: 3 }, { fr: 1 }]
+const TOLD_COLUMNS: Array<Track> = [{ fr: 1 }, { fr: 3 }]
+
+// A line as a bubble: whether it starts its group (room above it) and ends it (its time under it).
+public struct Bubbled {
+  line: Shown
+  starts: Boolean
+  ends: Boolean
+}
+
+// Two lines in one group: of one side, the second said soon after the first.
+function together(first: Shown | nil, second: Shown | nil): Boolean {
+  return first != nil && second != nil && first.mine == second.mine && second.time - first.time <= GROUP_SECONDS
+}
+
+// The lines as bubbles, each told where its group starts and ends.
+function bubblesOf(lines: Array<Shown>): Array<Bubbled> {
+  const bubbles: Array<Bubbled> = []
+  for (index, line of lines) {
+    bubbles.push({ line: line, starts: !together(lines[index - 1], line), ends: !together(line, lines[index + 1]) })
+  }
+  return bubbles
+}
+
+// A line of a conversation: its words on a bubble at its side, its group's time under the group's last. A secret line
+// stands one line high, so nothing of it is measured.
+public class Bubble implements Component {
+  public link: Event<Event.Link> = new Event()
+
+  derived mine: Boolean = self.item.line.mine
+  derived columns: Array<Track> = self.mine ? TOLD_COLUMNS : HEARD_COLUMNS
+  derived side: Align = self.mine ? Align.End : Align.Start
+  derived fill: Color = self.mine ? TOLD_FILL : HEARD_FILL
+  derived above: Edges = self.item.starts ? NEW_GROUP : IN_GROUP
+  derived time: String = timeText(Game.clock.timeAt(self.item.line.time.floor()))
+
+  item: Signal<Bubbled>
+  lineHeight: Signal<Number<Length>>
+  constructor(item: Signal<Bubbled>, lineHeight: Signal<Number<Length>>) {
+    self.item = item
+    self.lineHeight = lineHeight
+  }
+
+  onLink(mut self, link: Event.Link) { self.link.emit(link) }
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={self.columns} padding={self.above}>
+        // The player's own stands in the second column: the first is the room on its left.
+        <box $if={self.mine} />
+        <box columns={1} gap={0.5sp}>
+          <box xAlignSelf={self.side} padding={BUBBLE_PAD} background={self.fill} @linkPress={self.onLink}>
+            <box $if={self.item.line.secret} height={self.lineHeight} overflow={Overflow.Hidden}>
+              <text value={self.item.line.whole} secret={true} textColor={INK} wrap={.None} />
+            </box>
+            <text $else value={self.item.line.whole} textColor={INK} />
+          </box>
+          <text $if={self.item.ends} value={self.time} xAlignSelf={self.side} textColor={HINT} textFont={.Numbers}
+                textSize={SECONDARY_TEXT} wrap={.None} />
+        </box>
+      </box>
+    }
+  }
+}
 const WHISPER: Color = Color.hex("#ff80ff")
 const BATTLE_NET: Color = Color.hex("#00fff6")
 const PICKED: Color = Color.hex("#2a1c10e6")
 const HINT: Color = Color.hex("#857a66")
-const BADGE: Color = Color.hex("#b3261e")
-const WHITE: Color = Color.hex("#ffffff")
 const ROW_PAD: Edges = { top: 1sp, right: 2sp, bottom: 1sp, left: 2sp }
-const BADGE_PAD: Edges = { right: 1sp, left: 1sp }
+const CLOSE_PAD: Edges = { right: 1sp, left: 1sp }
 
 // A conversation in the list: the person's name in the whisper colour (a Battle.net friend's in theirs), the lines
 // waiting unread, and «×».
@@ -49,10 +127,11 @@ public class TalkRow implements Component {
       <box columns={[{ fr: 1 }, MAX, MAX]} gap={1sp} padding={ROW_PAD} background={self.fill} yAlign={Align.Center}
            @pointerPress={self.onPick} @keyPress(.Enter)={self.onPick} @keyPress(.Space)={self.onPick}>
         <text value={self.talk.title} textColor={self.color} wrap={.None} />
-        <box padding={BADGE_PAD} background={BADGE} opacity={self.talk.unread > 0 ? 1 : 0}>
-          <text value={"%d"} arguments={[self.talk.unread]} textColor={WHITE} textSize={SECONDARY_TEXT} wrap={.None} />
+        // The badge's room is kept while nothing waits: the «×» stands still.
+        <box opacity={self.talk.unread > 0 ? 1 : 0}>
+          <Badge count={self.talk.unread} />
         </box>
-        <box padding={BADGE_PAD} @pointerPress.self={self.onForget}>
+        <box padding={CLOSE_PAD} @pointerPress.self={self.onForget}>
           <text value={"×"} textColor={HINT} wrap={.None} />
         </box>
       </box>
@@ -80,6 +159,7 @@ public class Whispers implements Component {
   derived tabs: Array<WindowTabSpec> = [{ title: Locale.WHISPERS }]
   derived open: ChatTab | nil = self.talks.find(talk => talk.key == self.openKey)
   derived shown: Array<Shown> = self.shownOf()
+  derived bubbles: Array<Bubbled> = bubblesOf(self.shown)
   derived empty: Boolean = self.open == nil
 
   talks: Signal<Array<ChatTab>>
@@ -149,7 +229,8 @@ public class Whispers implements Component {
 
   public render(self): Template {
     return $ltml {
-      <Window tabs={self.tabs} selected={mut self.windowTab} declared={mut self.declared} @close={self.onClose}>
+      <Window tabs={self.tabs} selected={mut self.windowTab} declared={mut self.declared} minWidth={WHISPERS_LEAST}
+              @close={self.onClose}>
         <box columns={[LIST, { fr: 1 }]} rows={[{ fr: 1 }]} gap={3sp}>
           <box rows={[MAX, { fr: 1 }]} gap={2sp}>
             <Field value={mut self.name} maxLength={60} placeholder={Locale.WHISPER_TO} @submit={self.onStart} />
@@ -162,8 +243,7 @@ public class Whispers implements Component {
             // The newest line at the bottom; older ones go up past the top, which cuts them.
             <box overflow={Overflow.Hidden} @wheel={self.onWheel}>
               <box position={Position.Absolute} left={0ui} right={0ui} bottom={0ui} columns={1}>
-                <Row $for={line of self.shown} line={line} fadeBefore={0} lineHeight={Ordaen.lengthOf(BODY_LINE)}
-                     @link={self.onLink} />
+                <Bubble $for={item of self.bubbles} item={item} lineHeight={Ordaen.lengthOf(BODY_LINE)} @link={self.onLink} />
               </box>
               <box $if={self.empty} xAlign={Align.Center} yAlign={Align.Center}>
                 <text value={Locale.WHISPER_NONE} textColor={HINT} wrap={.None} />

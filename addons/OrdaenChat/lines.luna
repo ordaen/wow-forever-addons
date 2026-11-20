@@ -18,6 +18,8 @@ public struct Shown implements Plain {
   past: Boolean
   // The client kept its words secret: drawn as the client gives them, never measured, never kept.
   secret: Boolean
+  // The player's own (a whisper told): a conversation draws it on its right.
+  mine: Boolean
 }
 
 // What one tab keeps between sessions.
@@ -125,10 +127,15 @@ public class ChatTab {
     for (at of (1).max(last - count + 1)..last) { shown.push(self.lines[at] ?? panic("inside the lines")) }
     return shown
   }
+}
 
-  // The tab's text, to copy: each line as drawn.
-  public text(self): String {
-    return self.lines.filter(line => !line.secret).map(line => line.whole).join("\n")
+// A whisper as its conversation shows it: the words alone, their web addresses links (its bubble says whose it is and
+// when); a secret one as the client gives it.
+public function talkLine(line: Game.ChatLine, mine: Boolean): Shown {
+  const secret = line.secret != ""
+  return {
+    whole: secret ? line.body : linked(line.text), color: line.color, time: line.time,
+    repeat: secret ? "" : `${line.kind}|${line.text}`, count: 1, marked: false, past: false, secret: secret, mine: mine
   }
 }
 

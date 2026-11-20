@@ -1,8 +1,8 @@
 // Ordaen Chat: the game's chat in Ordaen's frame. It reads every line the game's windows would show, after every
 // addon's filters (`Game.chat.heard`), and draws them itself; the game's windows stand hidden meanwhile. Its tabs are
 // the game's windows docked with the first (whisper windows among them, the combat log's frame held as it is) and the
-// communities' streams; each window the player undocked is a pane of its own. The input and its menu button are the
-// game's own, placed under the lines: sending, slash commands, Shift-click links and other addons' hooks stay the
+// communities' streams; each window the player undocked is a pane of its own. The input is the game's own, dressed as
+// ours and placed under the lines: sending, slash commands, Shift-click links and other addons' hooks stay the
 // game's. A tab's right-click menu and the «Tabs» page are ours, over the game's own window settings.
 import Client from "$client"
 import Events from "$events"
@@ -12,12 +12,12 @@ import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
 import { CopyBox, Dialog, Field, KeptWindow, Module, Placed, PushButton, Settings, SettingsPage, timeText } from "Ordaen"
 import { ChannelName, Choices, LEAST_WIDTH } from "@/choices"
-import { ChatTab, Kept, KeptTab, Shown, channelOf, linked, marks, talkKey, wordsOf } from "@/lines"
+import { ChatTab, Kept, KeptTab, Shown, channelOf, linked, marks, talkKey, talkLine, wordsOf } from "@/lines"
 import Locale from "@/locales"
 import { NamePick, Pane, TabPick, nameOf } from "@/pane"
 import { ChatPage } from "@/settings"
 import { TabsPage } from "@/tabsPage"
-import { Whispers } from "@/whispers"
+import { WHISPERS_LEAST, Whispers } from "@/whispers"
 
 // Where the chat stands until the player moves it: the screen's bottom left corner, above the panel's room.
 const HOME: Anchored = { point: Point.BottomLeft, x: 8dp, y: -76dp }
@@ -41,7 +41,7 @@ public class Chat implements Module, App {
   public const title: String = "Ordaen Chat"
   settings: mut Settings<Choices> = new Settings<Choices>({
     width: 430, height: 190, fade: 120, channelName: ChannelName.Both, keywords: "", repeats: true,
-    kept: 200, held: 500, plainArrows: false, history: Game.ChatHistory.All, inputAlways: false
+    kept: 200, held: 500, history: Game.ChatHistory.All, inputAlways: false
   })
   // The window the «Tabs» page shows.
   state editing = 1
@@ -56,7 +56,7 @@ public class Chat implements Module, App {
   public state tabs: Array<ChatTab> = []
   public state undocked: Array<ChatTab> = []
   public state openKey = "w1"
-  // A web address clicked, or a tab's text: shown to copy.
+  // A web address clicked: shown to copy.
   public state copied = ""
   // The tab being renamed, and its name meanwhile.
   state renaming: ChatTab | nil = nil
@@ -67,7 +67,7 @@ public class Chat implements Module, App {
   whispersTab: mut ChatTab = new ChatTab(WHISPERS, Locale.WHISPERS)
   public state talking = false
   public state talkOpen = ""
-  whisperWindow: mut KeptWindow = new KeptWindow("whispers", Locale.WHISPERS, { x: 0ui, y: 0ui, width: 520dp, height: 330dp })
+  whisperWindow: mut KeptWindow = new KeptWindow("whispers", Locale.WHISPERS, { x: 0ui, y: 0ui, width: WHISPERS_LEAST, height: 330dp })
 
   // Never under the least: a width kept from before stands at it.
   derived width: Number<Length> = self.settings.values.width.max(LEAST_WIDTH) * 1dp
@@ -86,12 +86,11 @@ public class Chat implements Module, App {
     watch (streams of Game.chat.streams) { self.sync() }
     // Whispers are the whisper window's: the game opens no window of its own for them.
     Game.chat.whisperWindows(false)
-    watch { Game.chat.inputArrows(self.settings.values.plainArrows) }
     watch { Game.chat.inputHistory(self.settings.values.history) }
     watch { Game.chat.inputShown(self.settings.values.inputAlways) }
     // The input opened (Enter) while a whisper's or a stream's tab is open: it speaks there.
     watch (typing of Game.chat.typing) {
-      if (typing) { self.speakHere(false) }
+      if (typing) { self.speakHere() }
     }
     self.recall()
   }
@@ -136,12 +135,12 @@ public class Chat implements Module, App {
   // A line heard: made once as drawn, and added to each tab that shows it.
   onLine(mut self, line: Game.ChatLine) {
     const values = peek self.settings.values
-    const shown = self.shownLine(line, values)
     const told = TOLD.any(kind => kind == line.kind)
     if (line.sender != "" && (told || HEARD.any(kind => kind == line.kind))) {
-      self.onWhisper(talkKey(line.sender, BATTLE_NET.any(kind => kind == line.kind)), shown, !told, values)
+      self.onWhisper(talkKey(line.sender, BATTLE_NET.any(kind => kind == line.kind)), talkLine(line, told), !told, values)
       return
     }
+    const shown = self.shownLine(line, values)
     const open = peek self.openKey
     for (index of line.windows) { self.addTo(`w${index}`, shown, open, values) }
     if (line.stream != "") { self.addTo(`s${line.stream}`, shown, open, values) }
@@ -215,7 +214,8 @@ public class Chat implements Module, App {
   shownLine(self, line: Game.ChatLine, values: Choices): Shown {
     if (line.secret != "") {
       return {
-        whole: line.body, color: line.color, time: line.time, repeat: "", count: 1, marked: false, past: false, secret: true
+        whole: line.body, color: line.color, time: line.time, repeat: "", count: 1, marked: false, past: false, secret: true,
+        mine: false
       }
     }
     // The time where the game shows the chat's times, written as every time of Ordaen's is.
@@ -225,7 +225,7 @@ public class Chat implements Module, App {
     return {
       whole: `${stamp}${channel}${linked(line.plain)}`, color: line.color, time: line.time,
       repeat: `${line.kind}|${line.channel}|${line.sender}|${line.text}`, count: 1,
-      marked: line.sender != "" && !own && marks(line.text, peek self.words), past: false, secret: false
+      marked: line.sender != "" && !own && marks(line.text, peek self.words), past: false, secret: false, mine: false
     }
   }
 
@@ -238,26 +238,24 @@ public class Chat implements Module, App {
     const made = self.made[tab.key]
     if (made != nil) { made.unread = 0 }
     if (tab.window > 0) { Game.chat.choose(tab.window) }
-    if (peek Game.chat.typing) { self.speakTo(tab, false) }
+    if (peek Game.chat.typing) { self.speakTo(tab) }
   }
 
-  // The input opened where the open tab speaks: a whisper partner, a stream's channel; elsewhere, opened only where
-  // `always` asks (the hint clicked), with the input's own kind.
-  speakHere(mut self, always: Boolean) {
+  // The input, opened, speaks where the open tab speaks: a whisper partner, a stream's channel; elsewhere, in the
+  // input's own kind.
+  speakHere(mut self) {
     const tab = peek self.open
-    if (tab != nil) { self.speakTo(tab, always) }
+    if (tab != nil) { self.speakTo(tab) }
   }
 
-  speakTo(mut self, tab: ChatTab, always: Boolean) {
+  speakTo(mut self, tab: ChatTab) {
     const stream = Game.chat.streams.find(stream => `${stream.club}:${stream.stream}` == tab.stream)
     if (stream != nil) {
       Game.chat.speakIn(stream)
       return
     }
-    if (tab.window > 0 && (always || tab.partner != "")) { Game.chat.speak(tab.window) }
+    if (tab.window > 0 && tab.partner != "") { Game.chat.speak(tab.window) }
   }
-
-  onHint(mut self, tab: ChatTab) { self.speakTo(tab, true) }
 
   // A link clicked: a web address opens the copy box; any other is the game's.
   onLink(mut self, link: Event.Link) {
@@ -267,8 +265,6 @@ public class Chat implements Module, App {
     }
     Game.chat.click(link.link, link.text, link.button)
   }
-
-  onCopy(mut self, text: String) { self.copied = text }
 
   onCopyClose(mut self) { self.copied = "" }
 
@@ -338,14 +334,12 @@ public class Chat implements Module, App {
     return $ltml {
       <Placed id={"OrdaenChat.chat"} title={Locale.TITLE} home={HOME}>
         <Pane tabs={self.tabs} openKey={self.open?.key ?? ""} width={self.width} height={self.height} fade={self.fade}
-              input={Game.chat.input} menuButton={Game.chat.menuButton} typing={Game.chat.typing}
-              inputAlways={self.inputAlways} @picked={self.onPick} @tabPicked={self.onTab} @namePicked={self.onName}
-              @link={self.onLink} @hint={self.onHint} @copy={self.onCopy} />
+              input={Game.chat.input} typing={Game.chat.typing} inputAlways={self.inputAlways} @picked={self.onPick}
+              @tabPicked={self.onTab} @namePicked={self.onName} @link={self.onLink} />
       </Placed>
       <Placed $for={tab of self.undocked} id={`OrdaenChat.${(peek tab).key}`} title={Locale.TITLE} home={UNDOCKED}>
         <Pane tabs={[tab]} openKey={tab.key} width={self.width} height={self.height} fade={self.fade}
-              @tabPicked={self.onTab} @namePicked={self.onName} @link={self.onLink} @hint={self.onHint}
-              @copy={self.onCopy} />
+              @tabPicked={self.onTab} @namePicked={self.onName} @link={self.onLink} />
       </Placed>
       <Whispers $if={self.talking} talks={self.talks} openKey={self.talkOpen} declared={mut self.whisperWindow}
                 @close={self.onTalkClose} @picked={self.onTalk} @forget={self.onTalkForget} @start={self.onTalkStart}

@@ -6,8 +6,9 @@ import { Component } from "@/module"
 
 const INK: Color = Color.hex("#e8dcc4")
 const DIM: Color = Color.hex("#a3977f")
-const FILL: Color = Color.hex("#0d0a08")
-const EDGE: Line = { width: 1.171875dp, color: Color.hex("#4a3a24") }
+// The field's floor and its edge: what a field of the client's placed in a page is dressed in too (the chat's input).
+public const FIELD_FILL: Color = Color.hex("#0d0a08")
+public const FIELD_EDGE: Line = { width: 1.171875dp, color: Color.hex("#4a3a24") }
 const PADDING: Edges = { right: 2.5sp, left: 2.5sp }
 // A line of text and its padding.
 public const FIELD_HEIGHT: Number<Length> = 35.15625dp
@@ -40,7 +41,7 @@ public class Field implements Component {
   public render(self): Template {
     return $ltml {
       <box height={FIELD_HEIGHT} rows={[{ fr: 1 }]}>
-        <input value={mut self.value} maxLength={self.maxLength} padding={PADDING} background={FILL} border={EDGE}
+        <input value={mut self.value} maxLength={self.maxLength} padding={PADDING} background={FIELD_FILL} border={FIELD_EDGE}
                textColor={INK} disabled={self.disabled} @submit={self.onSubmit} />
         <box $if={self.empty} position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui} padding={PADDING}
              yAlign={Align.Center} mouseThrough={true}>
