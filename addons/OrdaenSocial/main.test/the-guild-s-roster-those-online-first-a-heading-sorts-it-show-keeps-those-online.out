@@ -14,19 +14,23 @@ surface 425,183.88 1055.76x532.25 on DIALOG clamped raised by a click
             text 542.55,275.16 28.89x17.78 "News" #a3977f
         box 460.85,307.16 683.3x338.49
           box 460.85,307.16 683.3x28.33
-            box 460.85,307.16 615.26x28.33
-              box 460.85,307.16 615.26x28.33 #00000080 input "" @change @submit
-              box 460.85,307.16 615.26x28.33 absolute
-                text 469.38,312.44 598.19x17.78 "Search by name, zone, rank or note" #a3977f
-            box 1076.11,307.16 68.04x28.33
+            box 460.85,307.16 581.23x28.33
+              box 460.85,307.16 581.23x28.33 #00000080 input "" @change @submit
+              box 460.85,307.16 581.23x28.33 absolute
+                text 469.38,312.44 564.17x17.78 "Search by name, zone, rank or note" #a3977f
+            box 1042.08,307.16 102.07x28.33
+              box 1042.08,307.16 34.02x28.33
+                box 1047.77,307.16 28.33x28.33
+                  box 1047.77,307.16 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerEnter @pointerLeave @pointerPress
+                    box 1055.27,314.66 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 0 of 16
               box 1076.11,307.16 34.02x28.33
                 box 1081.79,307.16 28.33x28.33
                   box 1081.79,307.16 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerEnter @pointerLeave @pointerPress
-                    box 1089.29,314.66 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 0 of 16
+                    box 1089.29,314.66 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 1 of 16
               box 1110.13,307.16 34.02x28.33
                 box 1115.82,307.16 28.33x28.33
                   box 1115.82,307.16 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerEnter @pointerLeave @pointerPress
-                    box 1123.32,314.66 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 1 of 16
+                    box 1123.32,314.66 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 2 of 16
           box 460.85,344.03 683.3x301.63
             box 460.85,344.03 683.3x301.63
               box 460.85,344.03 683.3x35.68 #00000040

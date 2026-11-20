@@ -2,8 +2,8 @@
 // and what level: the client tells nothing of an offline account's characters. Kept in the account's saved variables
 // (every character of the account sees the same friends), by BattleTag (the account's number changes each session),
 // at most `SEEN_MOST` of them; one not seen for `SEEN_DAYS` days, or no longer a friend, goes.
-import { ModuleMemory } from "Ordaen"
 import { Friend, Hero } from "$game"
+import { ModuleMemory } from "Ordaen"
 
 const SEEN_MOST = 200
 const SEEN_DAYS = 180
@@ -84,13 +84,8 @@ public function withSeen(friends: Array<Friend>, kept: Map<String, SeenHero>): A
   })
 }
 
-// The saved list and its upkeep.
-public class SeenFriends {
-  public memory: mut ModuleMemory<SeenHeroes> = new ModuleMemory<SeenHeroes>(SEEN_HEROES, .Account, "seen")
-
-  // The friends just read: written down where anything changed.
-  public note(mut self, friends: Array<Friend>, now: Number) {
-    const next = seenAfter((peek self.memory.values).heroes, friends, now)
-    if (next != nil) { self.memory.write({ heroes: next }) }
-  }
+// The friends just read, written down in the saved list where anything changed.
+public function noteSeen(memory: mut ModuleMemory<SeenHeroes>, friends: Array<Friend>, now: Number) {
+  const next = seenAfter((peek memory.values).heroes, friends, now)
+  if (next != nil) { memory.write({ heroes: next }) }
 }

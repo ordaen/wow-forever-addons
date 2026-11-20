@@ -12,6 +12,7 @@
 import Client from "$client"
 import Events from "$events"
 import Game from "$game"
+import { BattleNetSelf, Friend, FriendRequest, Ignored, Presence } from "$game"
 import { Align, Frame } from "$ltml"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
@@ -22,9 +23,8 @@ import { FRIENDS_KEPT, FriendCard, FriendList, FriendsKept, IgnoreList, MyCard, 
 import { GuildCard, NewsList } from "@/guild"
 import Locale from "@/locales"
 import { MemberCard, MemberTable } from "@/members"
-import { BattleNetSelf, Friend, FriendRequest, Ignored, Presence } from "$game"
 import { Ally, AllyCategory, ClientPeople, Club, Guild, Member, News, NewsFilter, People, Rights, Stream, namesAccount } from "@/people"
-import { SeenFriends, withSeen } from "@/seen"
+import { SEEN_HEROES, SeenHeroes, noteSeen, withSeen } from "@/seen"
 import { Choices, GeneralPage } from "@/settings"
 import Style from "@/style"
 
@@ -80,7 +80,7 @@ public class Social implements Module, App {
   // them: a test hands its own. The friends are `"$game"`'s.
   public people: mut any People = new ClientPeople()
   // The character each Battle.net friend was last seen on, the account's.
-  seen: mut SeenFriends = new SeenFriends()
+  public seen: mut ModuleMemory<SeenHeroes> = new ModuleMemory<SeenHeroes>(SEEN_HEROES, .Account, "seen")
 
   public state open = false
   public state tab: Integer = TAB_FRIENDS
@@ -97,7 +97,7 @@ public class Social implements Module, App {
   // The friends as the client gives them; as the window shows them, an offline Battle.net friend with the character
   // last seen.
   state read: Array<Friend> = []
-  derived friends: Array<Friend> = withSeen(self.read, self.seen.memory.values.heroes)
+  derived friends: Array<Friend> = withSeen(self.read, self.seen.values.heroes)
   state requests: Array<FriendRequest> = []
   state ignored: Array<Ignored> = []
   state me: BattleNetSelf = NO_ME
@@ -173,6 +173,8 @@ public class Social implements Module, App {
 
   constructor() {
     Ordaen.modules.add(self)
+    // The friends read: the characters Battle.net friends play here written down.
+    watch (friends of self.read) { noteSeen(mut self.seen, friends, Client.GetServerTime()) }
     // The game's words about the people shown are heard while the window shows.
     watch (opened of self.open) {
       if (!opened) { return }
@@ -308,11 +310,7 @@ public class Social implements Module, App {
   }
 
   // The friends read, and the characters Battle.net friends play here written down.
-  readFriends(mut self) {
-    const friends = Game.friends.list()
-    self.read = friends
-    self.seen.note(friends, Game.clock.server)
-  }
+  readFriends(mut self) { self.read = Game.friends.list() }
 
   readRequests(mut self) { self.requests = Game.friends.requests() }
   readIgnored(mut self) { self.ignored = Game.friends.ignored() }

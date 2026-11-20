@@ -308,16 +308,14 @@ public class MemberCard implements Component {
           <Fact $if={self.member.rank != ""} label={self.rankTitle} value={self.member.rank} />
           <Fact label={Locale.NOTE} value={orDash(self.member.note)} />
           <Fact $if={self.member.officerNote != ""} label={Locale.OFFICER_NOTE} value={self.member.officerNote} />
-          <Fact $if={self.member.professions != ""} label={Locale.COLUMN_PROFESSIONS} value={self.member.professions} />
-          <Fact $if={self.member.achievementPoints > 0} label={Locale.COLUMN_ACHIEVEMENTS} value={String.of(self.member.achievementPoints)} />
         </box>
         <box />
         <box columns={1} gap={3sp}>
-          <box columns={["max-content", "max-content", "max-content"]} gap={3sp}>
+          <box columns={["max-content", "max-content"]} gap={3sp}>
             <PushButton label={Locale.WHISPER} width={Style.SMALL_BUTTON} disabled={!self.canAsk} @click={self.onWhisper} />
             <PushButton label={Locale.INVITE} width={Style.SMALL_BUTTON} disabled={!self.canAsk} @click={self.onInvite} />
-            <PushButton label={Locale.MORE} width={Style.MENU_BUTTON} @click={self.onMenu} />
           </box>
+          <PushButton label={Locale.MORE} width={Style.MENU_BUTTON} @click={self.onMenu} />
           <box $if={self.ranks} columns={["max-content", "max-content"]} gap={3sp}>
             <PushButton label={Locale.PROMOTE} width={Style.SMALL_BUTTON} disabled={!self.rights.promote} @click={self.onPromote} />
             <PushButton label={Locale.DEMOTE} width={Style.SMALL_BUTTON} disabled={!self.rights.demote} @click={self.onDemote} />

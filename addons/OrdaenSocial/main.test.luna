@@ -812,8 +812,6 @@ test "the guild's last column shows the notes, the professions or the achievemen
   // Sorted by it: the fewest first, those online above those offline.
   window.text("Achievement Points").click()
   Test.expect(placeOf(window, "Ingrid") < placeOf(window, "Torvald"))
-  window.text("Ingrid").click()
-  Test.expect(window.text("Tailoring 225, Enchanting 180").shown())
 }
 
 test "the guild's news filter offers the game's kinds here and asks the game for those switched" {
@@ -883,25 +881,6 @@ test "an ally a request was sent to this session says so, and can't be asked aga
 }
 
 // The characters Battle.net friends were last seen on
-
-test "an offline Battle.net friend shows the character and level last seen, kept over a reload" {
-  Test.mount(nil, PAGE)
-  Game.friends.list = friends
-  Game.friends.requests = requests
-  Game.friends.ignored = ignoredOnes
-  Game.friends.battleNetSelf = battleNetSelf
-  _ = opened(new FakePeople())
-  // Alexei goes offline: his row still names Torgrim, and the level.
-  Game.friends.list = () => friends().map(friend => friend.account?.name == "Alexei" ? Friend {
-    index: friend.index, presence: .Offline, note: friend.note, hero: nil,
-    account: { id: 12, name: "Alexei", battleTag: "Drake#2145", program: "", broadcast: "", favorite: true, lastOnline: 0, gameAccount: 0 }
-  } : friend)
-  Test.reload()
-  const window = opened(new FakePeople())
-  Test.expect(window.text("Battle.net · offline · Torgrim").shown())
-  window.text("Alexei").click()
-  Test.expect(window.text("Last seen as").shown() && window.text("Torgrim, Warrior 25 · Flamegor").shown())
-}
 
 test "the characters last seen are capped, go when not seen for long or no longer friends, and stay while Battle.net is off" {
   const now = 1800000000

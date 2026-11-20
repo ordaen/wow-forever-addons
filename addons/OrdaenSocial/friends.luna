@@ -7,11 +7,11 @@
 // The view switch draws the same friends as a table's columns instead. Best friends stay on top whatever the sort; the
 // filter shows each kind and those online or offline. Left-click picks a friend (its card shows); again, the card is
 // the player's own.
+import { BattleNetSelf, Friend, FriendRequest, Hero, Ignored, Presence } from "$game"
 import { Align, Art, ByInteractionState, Edges, MouseButton, Overflow, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import { ARTWORK, ButtonPlate, Choice, Column, CompactDropdown, Component, Fact, Field, FilterButton, FilterGroup, ModuleMemory, PushButton, SECONDARY_TEXT, TITLE_LINE, TITLE_TEXT, Table, TableCell, TableRow, ToolPick, ToolSort, Toolbar, agoText, classColor, rowShade, switched, tracksOf, trimmed } from "Ordaen"
 import Locale from "@/locales"
-import { BattleNetSelf, Friend, FriendRequest, Hero, Ignored, Presence } from "$game"
 import Style from "@/style"
 
 // The filter's options: the friends' kinds, and online or not.
