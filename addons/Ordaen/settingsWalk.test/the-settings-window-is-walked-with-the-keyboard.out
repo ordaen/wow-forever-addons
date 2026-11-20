@@ -159,7 +159,7 @@ surface 310,139.71 980x620.58 on DIALOG clamped raised by a click
                     text 489.74,471.02 233.33x17.78 "Number font" #cbb994
                   box 738.72,465.74 200x28.33
                     box 738.72,465.74 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
-                      text 754.36,471.02 152.53x17.78 "Fira Sans Condensed" #f0c860
+                      text 754.36,471.02 152.53x17.78 "PT Sans Narrow" #f0c860
                       box 915.43,473.24 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
               box 489.74,509.72 755.19x97.2
                 box 489.74,509.72 755.19x17.78

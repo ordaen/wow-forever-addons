@@ -65,10 +65,21 @@ test "the files each preset draws its text, titles and numbers in" {
   }
 }
 
+// Numbers are drawn only in a font whose digits are equally wide: a look saved with another for them (Fira Sans
+// Condensed) loads with the default's, as every value the look's settings read (`settings.luna`) that doesn't fit.
+test "a look saved with numbers in a font of unequal digits loads them in the default's" {
+  const saved: Map<String, Unknown> = {}
+  saved["fontNumbers"] = "firaCondensed"
+  saved["font"] = "philosopher"
+  const look = Ordaen.Look.decode(saved, Ordaen.preset(Ordaen.Preset.Ordaen))
+  Test.expect(look.fontNumbers == Ordaen.NumbersFont.PtSansNarrow)
+  Test.expect(look.font == Ordaen.Font.Philosopher)
+}
+
 // The Blizzard preset isn't offered: a player who chose it has its look saved, and it loads as Ordaen's.
 test "a look saved as the Blizzard preset loads as Ordaen's" {
   let blizzard: Ordaen.Look = {
-    font: Ordaen.Font.Friz, fontHeader: Ordaen.Font.Friz, fontNumbers: Ordaen.Font.ArialNarrow,
+    font: Ordaen.Font.Friz, fontHeader: Ordaen.Font.Friz, fontNumbers: Ordaen.NumbersFont.ArialNarrow,
     accent: Color.hex("#ffd100"), barTexture: Ordaen.BarTexture.Blizzard, animation: Ordaen.Animation.Fast,
     ..Ordaen.preset(Ordaen.Preset.Ordaen)
   }
