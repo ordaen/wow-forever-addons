@@ -181,3 +181,94 @@ test "at a merchant who repairs, «Repair all» says the cost and mends everythi
   Test.expect(heard.take() == "repair false")
   Test.expect(!window.button(Locale.REPAIR_GUILD).shown())
 }
+
+// The pattern starts a quest; the mark is paid in ore and can't be refunded.
+function questWareAt(index: Integer): Client.MerchantItemInfo | nil {
+  const info = wareAt(index)
+  if (info == nil || index != 3) { return info }
+  return { isQuestStartItem: true, ..info }
+}
+
+test "an item that starts a quest has the game's mark; Left puts it onto the cursor, Ctrl tries it on, Alt is the client's click" {
+  Client.UnitName = nameOf
+  Client.GetMerchantNumItems = (): Integer => 5
+  Client.GetMerchantItemID = (index: Number): Number | nil => 100 + index
+  Client.GetMerchantItemLink = (index: Number): String | nil => `item:${100 + index}`
+  Client.C_MerchantFrame.GetItemInfo = questWareAt
+  const heard = new Heard()
+  Client.PickupMerchantItem = (index: Integer): nil => heard.add(`pickup ${index}`)
+  Client.DressUpItemLink = (link: String): Boolean => {
+    heard.add(`dress ${link}`)
+    return true
+  }
+  Client.HandleModifiedItemClick = (link: String): Boolean => {
+    heard.add(`modified ${link}`)
+    return true
+  }
+  Test.mount(nil, SCREEN)
+  Events.MERCHANT_SHOW.emit()
+  const window = Test.page().window(VENDOR)
+  Test.expect(window.box("Interface/ContainerFrame/UI-Icon-QuestBang").count() == 1)
+  window.button(THREAD).click()
+  Test.expect(heard.take() == "pickup 1")
+  Game.input.controlDown = (): Boolean => true
+  window.button(DAGGER).click()
+  Test.expect(heard.take() == "dress item:102")
+  Game.input.controlDown = (): Boolean => false
+  Game.input.altDown = (): Boolean => true
+  window.button(DAGGER).click()
+  Test.expect(heard.take() == "modified item:102")
+}
+
+test "a purchase paid in items that can't be refunded says so as it is asked" {
+  Client.UnitName = nameOf
+  Client.GetMerchantNumItems = (): Integer => 5
+  Client.GetMerchantItemID = (index: Number): Number | nil => 100 + index
+  Client.C_MerchantFrame.GetItemInfo = wareAt
+  Client.GetMerchantItemCostInfo = (index: Number): Number => index == 5 ? 1 : 0
+  Client.GetMerchantItemCostItem = costItem
+  Client.C_MerchantFrame.IsMerchantItemRefundable = (index: Integer): Boolean => index != 5
+  Test.mount(nil, SCREEN)
+  Events.MERCHANT_SHOW.emit()
+  Test.page().window(VENDOR).button(MARK).rightClick()
+  Test.expect(Test.page().window(Locale.BUY).text(Locale.NO_REFUND).shown())
+  Test.page().window(Locale.BUY).button(Locale.CANCEL).click()
+  Client.C_MerchantFrame.IsMerchantItemRefundable = (index: Integer): Boolean => true
+  Events.MERCHANT_UPDATE.emit()
+  Test.page().window(VENDOR).button(MARK).rightClick()
+  Test.expect(!Test.page().window(Locale.BUY).text(Locale.NO_REFUND).shown())
+}
+
+test "the merchant's currencies show with the money, the last item sold under the goods, «Repair an item» lit while mending" {
+  Client.UnitName = nameOf
+  Client.GetNumBuybackItems = (): Integer => 2
+  Client.GetBuybackItemInfo = soldAt
+  Client.C_MerchantFrame.GetMerchantCurrencies = (): Array<Number> | nil => [1901]
+  Client.C_CurrencyInfo.GetCurrencyInfo = (id: Number): Client.CurrencyInfo | nil => {
+    return {
+      name: "Honor", description: "", currencyID: id, isHeader: false, isHeaderExpanded: false, currencyListDepth: 0,
+      isTypeUnused: false, isShowInBackpack: false, quantity: 750, trackedQuantity: 0, iconFileID: MARK, maxQuantity: 0,
+      canEarnPerWeek: false, quantityEarnedThisWeek: 0, isTradeable: false, quality: .Common, maxWeeklyQuantity: 0,
+      totalEarned: 0, discovered: true, useTotalEarnedForMaxQty: false, isAccountWide: false, isAccountTransferable: false,
+      transferPercentage: nil, rechargingCycleDurationMS: 0, rechargingAmountPerCycle: 0
+    }
+  }
+  const heard = new Heard()
+  Client.BuybackItem = (index: Integer): nil => heard.add(`buyback ${index}`)
+  Client.CanMerchantRepair = (): Boolean => true
+  Client.GetRepairAllCost = (): (Number, Boolean) => {
+    return 150, true
+  }
+  Test.mount(nil, SCREEN)
+  Events.MERCHANT_SHOW.emit()
+  const window = Test.page().window(VENDOR)
+  Test.expect(window.text("750").shown() && window.box(MARK).shown())
+  Test.expect(window.text(Locale.LAST_SOLD).shown() && window.text("Worn Boots").shown())
+  window.button(BOOTS).click()
+  Test.expect(heard.take() == "buyback 2")
+  Test.expect(!window.button(Locale.REPAIR_ONE).paintedWith(Ordaen.art.ctl.buttonAccent))
+  window.button(Locale.REPAIR_ONE).click()
+  Test.expect(window.button(Locale.REPAIR_ONE).paintedWith(Ordaen.art.ctl.buttonAccent))
+  window.button(Locale.REPAIR_ONE).click()
+  Test.expect(!window.button(Locale.REPAIR_ONE).paintedWith(Ordaen.art.ctl.buttonAccent))
+}
