@@ -4,7 +4,7 @@
 // own. Left-click, Enter or Space picks a line; right-click on a plain option opens its menu: «Always pick this
 // option».
 import { Key, Track } from "$ltml"
-import { Component, Keycap, Menu, MenuEntry, PickRow, SECONDARY_TEXT } from "Ordaen"
+import { Component, Keycap, Menu, MenuEntry, PickRow, SECONDARY_TEXT, colorOf } from "Ordaen"
 import Locale from "@/locales"
 import { Line, LineKind } from "@/read"
 import Style from "@/style"
@@ -95,7 +95,7 @@ public class OptionRow implements Component {
   derived keyed: Boolean = self.hints
   derived key: String = keyName(self.index)
   derived leveled: Boolean = self.line.level > 0
-  derived levelColor: Color = Style.difficultyColor(self.line.difficulty)
+  derived levelColor: Color = colorOf(self.line.difficulty)
   derived color: Color = titleColor(self.line)
   derived iconTint: Color = self.line.kind == LineKind.InProgress ? GREY : WHITE
   derived greyed: Boolean = self.line.kind == LineKind.InProgress

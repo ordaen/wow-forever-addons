@@ -2,7 +2,6 @@
 // below are the library's quest page (`Scroll`, the `SCROLL_` and `WELL_` colours), shared with Quests' log.
 import { Line } from "$ltml"
 import { SCROLL_DIM, SCROLL_HEAD, SCROLL_INK, WELL_DIM, WELL_GOLD, WELL_GREEN, WELL_RED, WELL_RULE, WELL_TEXT } from "Ordaen"
-import { Difficulty } from "@/read"
 
 public const WIDTH: Number<Length> = 515.625dp
 public const HEIGHT: Number<Length> = 820.3125dp
@@ -21,14 +20,3 @@ public const GOLD: Color = WELL_GOLD
 public const RULE: Line = WELL_RULE
 public const GROUP_TAG: Color = Color.hex("#7a1e00")
 public const ICON: Number<Length> = 18.75dp
-
-// The quest log's colours of a quest's level.
-public function difficultyColor(difficulty: Difficulty): Color {
-  return match (difficulty) {
-    .Trivial => Color.hex("#9d9d9d")
-    .Easy => Color.hex("#40c040")
-    .Even => Color.hex("#ffd100")
-    .Hard => Color.hex("#ff8040")
-    .Impossible => Color.hex("#ff2020")
-  }
-}
