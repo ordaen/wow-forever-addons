@@ -1,8 +1,8 @@
 -- the window at its least: the longest category and recipe wrap, every other name on one line
-surface 325,133.88 925.86x539.96 on DIALOG clamped raised by a click
-  box 325,182.79 925.86x491.04 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
-    box 338.09,195.89 904.67x467.1
-      box 360.85,218.64 859.16x413.06
+surface 325,133.88 925.86x548.49 on DIALOG clamped raised by a click
+  box 325,182.79 925.86x499.57 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
+    box 338.09,195.89 904.67x475.63
+      box 360.85,218.64 859.16x421.59
         box 360.85,218.64 859.16x25 #3d2710
           box 363.69,218.64 853.47x22.16 #0b0805 clipped
             box 363.69,218.64 853.47x22.16 absolute
@@ -35,8 +35,8 @@ surface 325,133.88 925.86x539.96 on DIALOG clamped raised by a click
           box 580.43,260.71 78.87x29.99 #00000000 @keyPress @pointerPress
             box 581.26,261.54 77.2x1.67 absolute #00000000
             text 592.64,267.23 54.44x17.78 "Worth it" #a3977f
-        box 360.85,307.76 859.16x323.93
-          box 360.85,307.76 501.67x323.93
+        box 360.85,307.76 859.16x332.47
+          box 360.85,307.76 501.67x332.47
             box 360.85,307.76 501.67x28.33
               box 360.85,307.76 399.6x28.33
                 box 360.85,307.76 399.6x28.33 #00000080 input "" @change @submit
@@ -55,8 +55,8 @@ surface 325,133.88 925.86x539.96 on DIALOG clamped raised by a click
                   box 834.18,307.76 28.33x28.33
                     box 834.18,307.76 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerEnter @pointerLeave @pointerPress
                       box 841.68,315.26 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 2 of 16
-            box 360.85,344.63 501.67x287.07 #0000004d
-              box 361.68,345.46 216.67x285.4 scrolled 0 of 0
+            box 360.85,344.63 501.67x295.6 #0000004d
+              box 361.68,345.46 216.67x293.93 scrolled 0 of 0
                 box 361.68,345.46 216.67x29.16 #d6a56b3d clipped @keyPress @pointerPress
                   box 361.68,345.46 1.67x29.16 absolute #f0c860
                   text 375.91,351.15 147.16x17.78 "Cloth armour" #ffd100
@@ -68,7 +68,7 @@ surface 325,133.88 925.86x539.96 on DIALOG clamped raised by a click
                   box 530.17,390.03 33.96x17.78
                     text 530.17,390.03 8.89x17.78 "1" #a3977f
                     text 541.91,390.03 22.22x17.78 "(1)" #ffffff
-              box 578.35,345.46 283.33x285.4 scrolled 0 of 0
+              box 578.35,345.46 283.33x293.93 scrolled 0 of 0
                 box 579.18,345.46 282.5x46.93 #ff80403d clipped @keyPress @pointerPress
                   box 579.18,345.46 1.67x46.93 absolute #ff8040
                   text 593.41,351.15 224.72x35.56 "Enchanted Runecloth Robe of Long Nights" #ff8040
@@ -79,7 +79,7 @@ surface 325,133.88 925.86x539.96 on DIALOG clamped raised by a click
                 box 579.18,422.39 282.5x29.99 #00000000 clipped @keyPress @pointerPress
                   text 593.41,428.91 224.72x17.78 "Rich Purple Silk Shirt" #ff8040
                   text 825.24,428.91 22.22x17.78 "[1]" #ffffff
-          box 879.58,307.76 340.42x323.93 Interface/FrameGeneral/UI-Background-Marble
+          box 879.58,307.76 340.42x332.47 Interface/FrameGeneral/UI-Background-Marble
             box 894.64,322.82 310.31x72.53
               box 894.64,337.42 43.33x43.33 icon=Interface/Icons/INV_Misc_Note_01
               box 952.19,322.82 252.76x72.53
@@ -119,7 +119,7 @@ surface 325,133.88 925.86x539.96 on DIALOG clamped raised by a click
                 box 1173.28,554.02 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 0 of 4 @keyPress @pointerPress
                   box 1170.78,551.52 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2 opacity=1
                   box 1185.78,551.52 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=0
-            box 894.64,579.78 310.31x28.33
+            box 894.64,579.78 310.31x36.87
               box 894.64,579.78 116.67x28.33
                 box 894.64,579.78 116.67x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
                   text 904.59,585.05 80.58x17.78 "Quantity" #f0c860
@@ -131,13 +131,14 @@ surface 325,133.88 925.86x539.96 on DIALOG clamped raised by a click
                   text 1053.58,585.05 8.89x17.78 "1" #ffffff
                 box 1072.88,579.78 23.33x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
                   text 1080.11,585.05 8.89x17.78 "+" #808080
-              text 1104.75,593.94 0x0 "" #a3977f
+              box 1104.75,593.94 0x0
               box 1113.28,579.78 91.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
                 text 1138.01,585.05 42.22x17.78 "Create" #ffd100
-      box 360.85,631.7 859.16x17.07
-        box 360.85,648.76 859.16x0
-          box 360.85,648.76 859.16x0
-    box 1233.61,653.83 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
+              text 894.64,616.64 310.31x0 "" #a3977f
+      box 360.85,640.23 859.16x17.07
+        box 360.85,657.3 859.16x0
+          box 360.85,657.3 859.16x0
+    box 1233.61,662.36 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 325,133.88 925.86x59.42
     box 325,133.88 837.32x59.42
       box 325,133.88 147.59x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
@@ -159,10 +160,10 @@ surface 325,133.88 925.86x539.96 on DIALOG clamped raised by a click
           box 1229.61,171.46 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
 
 -- the window widened: no name wraps, the lists and the card wider alike
-surface 325,133.88 1275x539.96 on DIALOG clamped raised by a click
-  box 325,182.79 1275x491.04 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
-    box 338.09,195.89 1253.81x467.1
-      box 360.85,218.64 1208.3x413.06
+surface 325,133.88 1275x548.49 on DIALOG clamped raised by a click
+  box 325,182.79 1275x499.57 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
+    box 338.09,195.89 1253.81x475.63
+      box 360.85,218.64 1208.3x421.59
         box 360.85,218.64 1208.3x25 #3d2710
           box 363.69,218.64 1202.61x22.16 #0b0805 clipped
             box 363.69,218.64 1202.61x22.16 absolute
@@ -195,8 +196,8 @@ surface 325,133.88 1275x539.96 on DIALOG clamped raised by a click
           box 580.43,260.71 78.87x29.99 #00000000 @keyPress @pointerPress
             box 581.26,261.54 77.2x1.67 absolute #00000000
             text 592.64,267.23 54.44x17.78 "Worth it" #a3977f
-        box 360.85,307.76 1208.3x323.93
-          box 360.85,307.76 595.62x323.93
+        box 360.85,307.76 1208.3x332.47
+          box 360.85,307.76 595.62x332.47
             box 360.85,307.76 595.62x28.33
               box 360.85,307.76 493.55x28.33
                 box 360.85,307.76 493.55x28.33 #00000080 input "" @change @submit
@@ -215,8 +216,8 @@ surface 325,133.88 1275x539.96 on DIALOG clamped raised by a click
                   box 928.13,307.76 28.33x28.33
                     box 928.13,307.76 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerEnter @pointerLeave @pointerPress
                       box 935.63,315.26 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 2 of 16
-            box 360.85,344.63 595.62x287.07 #0000004d
-              box 361.68,345.46 237.58x285.4 scrolled 0 of 0
+            box 360.85,344.63 595.62x295.6 #0000004d
+              box 361.68,345.46 237.58x293.93 scrolled 0 of 0
                 box 361.68,345.46 237.58x29.16 #d6a56b3d clipped @keyPress @pointerPress
                   box 361.68,345.46 1.67x29.16 absolute #f0c860
                   text 375.91,351.15 168.07x17.78 "Cloth armour" #ffd100
@@ -228,7 +229,7 @@ surface 325,133.88 1275x539.96 on DIALOG clamped raised by a click
                   box 551.09,381.14 33.96x17.78
                     text 551.09,381.14 8.89x17.78 "1" #a3977f
                     text 562.82,381.14 22.22x17.78 "(1)" #ffffff
-              box 599.26,345.46 356.37x285.4 scrolled 0 of 0
+              box 599.26,345.46 356.37x293.93 scrolled 0 of 0
                 box 600.1,345.46 355.54x29.16 #ff80403d clipped @keyPress @pointerPress
                   box 600.1,345.46 1.67x29.16 absolute #ff8040
                   text 614.32,351.15 297.76x17.78 "Enchanted Runecloth Robe of Long Nights" #ff8040
@@ -239,7 +240,7 @@ surface 325,133.88 1275x539.96 on DIALOG clamped raised by a click
                 box 600.1,404.61 355.54x29.99 #00000000 clipped @keyPress @pointerPress
                   text 614.32,411.13 297.76x17.78 "Rich Purple Silk Shirt" #ff8040
                   text 919.19,411.13 22.22x17.78 "[1]" #ffffff
-          box 973.53,307.76 595.62x323.93 Interface/FrameGeneral/UI-Background-Marble
+          box 973.53,307.76 595.62x332.47 Interface/FrameGeneral/UI-Background-Marble
             box 988.59,322.82 565.51x45.87
               box 988.59,324.09 43.33x43.33 icon=Interface/Icons/INV_Misc_Note_01
               box 1046.14,322.82 507.95x45.87
@@ -279,7 +280,7 @@ surface 325,133.88 1275x539.96 on DIALOG clamped raised by a click
                 box 1522.43,554.02 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 0 of 4 @keyPress @pointerPress
                   box 1519.93,551.52 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2 opacity=1
                   box 1534.93,551.52 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=0
-            box 988.59,579.78 565.51x28.33
+            box 988.59,579.78 565.51x36.87
               box 988.59,579.78 116.67x28.33
                 box 988.59,579.78 116.67x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
                   text 998.54,585.05 80.58x17.78 "Quantity" #f0c860
@@ -291,13 +292,14 @@ surface 325,133.88 1275x539.96 on DIALOG clamped raised by a click
                   text 1147.53,585.05 8.89x17.78 "1" #ffffff
                 box 1166.83,579.78 23.33x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
                   text 1174.06,585.05 8.89x17.78 "+" #808080
-              text 1198.7,593.94 255.19x0 "" #a3977f
+              box 1198.7,593.94 255.19x0
               box 1462.43,579.78 91.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
                 text 1487.15,585.05 42.22x17.78 "Create" #ffd100
-      box 360.85,631.7 1208.3x17.07
-        box 360.85,648.76 1208.3x0
-          box 360.85,648.76 1208.3x0
-    box 1582.75,653.83 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
+              text 988.59,616.64 565.51x0 "" #a3977f
+      box 360.85,640.23 1208.3x17.07
+        box 360.85,657.3 1208.3x0
+          box 360.85,657.3 1208.3x0
+    box 1582.75,662.36 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 325,133.88 1275x59.42
     box 325,133.88 1186.47x59.42
       box 325,133.88 147.59x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress

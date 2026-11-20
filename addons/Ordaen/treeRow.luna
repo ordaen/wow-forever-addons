@@ -68,7 +68,7 @@ public class TreeRow implements Component {
           <box $if={!self.leaf} position={Position.Absolute} left={self.markLeft} top={MARK_TOP} width={MARK_CELL}
                height={MARK_CELL} background={self.mark} tint={MARK} />
         </box>
-        <text value={self.label} textColor={self.color} wrap={false} />
+        <text value={self.label} textColor={self.color} wrap={.None} />
         <box>
           <slot />
         </box>

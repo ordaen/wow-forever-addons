@@ -179,15 +179,15 @@ class RewardCells implements Component {
       <ItemButton item={self.reward.item} count={self.reward.count} quality={self.reward.quality} art={self.reward.icon}
                   size={Style.REWARD_ICON} @pressed={self.onSlot} />
       <box gap={0.25sp}>
-        <text value={self.reward.name} textColor={self.nameColor} wrap={false} />
+        <text value={self.reward.name} textColor={self.nameColor} wrap={.None} />
         <text $if={self.hasDetail} value={self.reward.detail} textColor={self.detailColor} textSize={SECONDARY_TEXT}
-              wrap={false} />
+              wrap={.None} />
       </box>
       <box $if={self.pawnColumn} columns={PAWN_CELLS} gap={1sp} yAlign={Align.Center}
            @pointerEnter={self.onPawnEnter} @pointerLeave={self.onPawnLeave}>
         <box width={ARROW} height={ARROW} background={UPGRADE} opacity={self.best ? 1 : 0} />
         <text value={self.pawnWord} textColor={self.pawnColor} textSize={SECONDARY_TEXT} textFont={.Numbers}
-              textAlign={TextAlign.End} wrap={false} />
+              textAlign={TextAlign.End} wrap={.None} />
         <Tip $if={self.pawnTipShown} title={"Pawn"} text={self.pawnTip} />
       </box>
       <box xAlign={Align.End}>

@@ -44,7 +44,7 @@ public class Field implements Component {
                textColor={INK} disabled={self.disabled} @submit={self.onSubmit} />
         <box $if={self.empty} position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui} padding={PADDING}
              yAlign={Align.Center} mouseThrough={true}>
-          <text value={self.placeholder} textColor={DIM} wrap={false} />
+          <text value={self.placeholder} textColor={DIM} wrap={.None} />
         </box>
       </box>
     }

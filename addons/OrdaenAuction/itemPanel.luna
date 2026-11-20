@@ -191,8 +191,8 @@ public class ItemPanel implements Component {
         <box columns={HEAD} gap={3sp} yAlign={Align.Center}>
           <ItemButton item={self.item} size={Style.BIG_SLOT} />
           <box gap={0.5sp} overflow={.Hidden}>
-            <text value={self.name} textColor={self.color} textSize={TITLE_TEXT} lineHeight={TITLE_LINE} wrap={false} />
-            <text value={self.detail} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={false} />
+            <text value={self.name} textColor={self.color} textSize={TITLE_TEXT} lineHeight={TITLE_LINE} />
+            <text value={self.detail} textColor={Style.DIM} textSize={SECONDARY_TEXT} />
           </box>
         </box>
         <PriceChart key={self.key} history={self.history} />

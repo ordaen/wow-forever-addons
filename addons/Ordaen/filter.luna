@@ -75,7 +75,7 @@ class FilterLine<K: Unknown> implements Component {
     return $ltml {
       <box columns={LINE} gap={5sp} yAlign={Align.Center} @pointerPress={self.onFlip}
            @keyPress(.Enter)={self.onFlip} @keyPress(.Space)={self.onFlip}>
-        <text value={self.option.label} textColor={INK} wrap={false} />
+        <text value={self.option.label} textColor={INK} wrap={.None} />
         <SwitchFace state={self.state} />
       </box>
     }
@@ -110,7 +110,7 @@ class FilterSection<K: Unknown> implements Component {
       <box columns={1} gap={3sp} padding={self.padding} border={self.rule}>
         <box $if={self.titled} columns={LINE} gap={5sp} yAlign={Align.Center} @pointerPress={self.onFlipAll}
              @keyPress(.Enter)={self.onFlipAll} @keyPress(.Space)={self.onFlipAll}>
-          <text value={self.title} textColor={GOLD} wrap={false} />
+          <text value={self.title} textColor={GOLD} wrap={.None} />
           <SwitchFace state={self.state} />
         </box>
         <FilterLine $for={option of self.group.options} option={option} on={self.values[option.key] == true}

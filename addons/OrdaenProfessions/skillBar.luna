@@ -69,7 +69,7 @@ public class SkillBar implements Component {
           <box position={Position.Absolute} left={0ui} right={0ui} top={0ui} bottom={0ui} xAlign={Align.Center}
                yAlign={Align.Center}>
             <text value={self.label} textColor={Style.WHITE} textShadow={Style.SHADOW}
-                  textFont={.Numbers} wrap={false} />
+                  textFont={.Numbers} wrap={.None} />
           </box>
         </box>
       </box>

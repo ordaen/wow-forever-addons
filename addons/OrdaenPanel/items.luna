@@ -1,7 +1,7 @@
 // The panel's items that are rows of cells or of text: the game's menu, friends and guild, the money, the bags. Each
 // is drawn in its zone of the panel, or standing free where the player put it.
 import Game from "$game"
-import { Align, Art, Shadow, Track } from "$ltml"
+import { Align, Art, Shadow, TextWrap, Track } from "$ltml"
 import { Component } from "Ordaen"
 import { CELL_HEIGHT } from "@/cells"
 import { Cell, CellGroup } from "@/group"
@@ -148,9 +148,9 @@ public class MoneyLine implements Component {
     return $ltml {
       <box columns={self.columns} gap={self.gap} xAlign={self.across} yAlign={Align.Center}>
         <text value={self.money} textColor={INK} textOutline={self.outline}
-              textShadow={self.shadow} wrap={self.vertical} />
+              textShadow={self.shadow} wrap={self.vertical ? TextWrap.Words : TextWrap.None} />
         <text $if={self.tracks} value={Game.money.tracked} textColor={INK}
-              textOutline={self.outline} textShadow={self.shadow} wrap={false} />
+              textOutline={self.outline} textShadow={self.shadow} wrap={.None} />
       </box>
     }
   }

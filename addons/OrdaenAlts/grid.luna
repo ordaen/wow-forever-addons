@@ -77,7 +77,7 @@ public class Grid implements Component {
       <box overflow={Overflow.Scroll}>
         <box columns={self.tracks} gap={3sp}>
           <box $for={cell of self.cells} $key={cell} xAlign={cell.align}>
-            <text value={cell.text} textColor={cell.color} wrap={false} />
+            <text value={cell.text} textColor={cell.color} wrap={.None} />
           </box>
         </box>
       </box>

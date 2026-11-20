@@ -72,8 +72,8 @@ public class NameRow implements Component {
     return $ltml {
       <PickRow columns={NAME_ROW} @pick={self.onPick}>
         <box width={DOT} height={DOT} background={self.dot} />
-        <text value={self.who.name} textColor={self.ink} wrap={false} />
-        <text value={"%d"} arguments={[self.who.level]} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={false} />
+        <text value={self.who.name} textColor={self.ink} wrap={.None} />
+        <text value={"%d"} arguments={[self.who.level]} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={.None} />
       </PickRow>
     }
   }

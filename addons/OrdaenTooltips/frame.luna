@@ -167,7 +167,7 @@ public class TermText implements Component {
   public render(self): Template {
     return $ltml {
       <box>
-        <text value={self.text} textColor={self.color} textSize={self.size} wrap={false}
+        <text value={self.text} textColor={self.color} textSize={self.size} wrap={.None}
               textFont={self.font} />
         <box $if={self.lit} position={Position.Absolute} left={0ui} right={0ui} bottom={underText()} height={UNDERLINE_HEIGHT}
              background={DASH} tint={UNDERLINE} />
@@ -208,7 +208,7 @@ public class PartText implements Component {
   public render(self): Template {
     return $ltml {
       // In the numbers' font: the client's own for texts has no middle dot.
-      <text $if={self.notFirst} value={" · "} textColor={self.color} textSize={SECONDARY_TEXT} wrap={false}
+      <text $if={self.notFirst} value={" · "} textColor={self.color} textSize={SECONDARY_TEXT} wrap={.None}
             textFont={.Numbers} />
       <TermText text={self.part.text} color={self.own} size={SECONDARY_TEXT} opens={self.part.opens} locked={self.locked}>
         <box #opened={opens}>
@@ -282,7 +282,7 @@ public class FactCell implements Component {
             </box>
           </box>
           <box>
-            <text value={self.fact.text} textColor={self.color} wrap={false} />
+            <text value={self.fact.text} textColor={self.color} wrap={.None} />
             <box $if={self.lit} position={Position.Absolute} left={0ui} right={0ui} bottom={underText()} height={UNDERLINE_HEIGHT}
                  background={DASH} tint={UNDERLINE} />
           </box>
@@ -336,12 +336,12 @@ public class Row implements Component {
         // A value, in the numbers' font; a compared one (an item's stat: it opens nothing) with its difference after
         // it, the mark art (no font carries it) tinted as the difference's text.
         <box $if={self.hasCompared} columns={COMPARED} gap={COMPARED_GAP} yAlign={Align.Center}>
-          <text value={self.right} textColor={self.line.rightColor} textSize={self.line.size} wrap={false}
+          <text value={self.right} textColor={self.line.rightColor} textSize={self.line.size} wrap={.None}
                 textFont={.Numbers} />
-          <text value={self.comparedBy} textColor={self.comparedColor} textSize={self.line.size} wrap={false}
+          <text value={self.comparedBy} textColor={self.comparedColor} textSize={self.line.size} wrap={.None}
                 textFont={.Numbers} />
           <box width={COMPARED_MARK} height={COMPARED_MARK} background={self.comparedMark} tint={self.comparedColor} />
-          <text value={")"} textColor={self.comparedColor} textSize={self.line.size} wrap={false} textFont={.Numbers} />
+          <text value={")"} textColor={self.comparedColor} textSize={self.line.size} wrap={.None} textFont={.Numbers} />
         </box>
         <TermText $if={self.valueOpening} text={self.right} color={self.line.rightColor} size={self.line.size}
                   opens={self.line.valueOpens} locked={self.locked} font={.Numbers}>
@@ -350,7 +350,7 @@ public class Row implements Component {
           </box>
         </TermText>
         <text $if={self.plainValue} value={self.right} textColor={self.line.rightColor} textSize={self.line.size}
-              wrap={false} textFont={.Numbers} />
+              wrap={.None} textFont={.Numbers} />
       </box>
       <box $else padding={self.line.padding}>
         <box $if={self.opening} columns={OWN_WIDTH}>
@@ -534,7 +534,7 @@ public class TipFrame implements Component {
         <box width={self.width} height={0ui} />
         <box $if={self.hasHeader} height={self.headerHigh} gap={2sp}>
           <box xAlign={Align.Center}>
-            <text value={self.header} textColor={HEADING} wrap={false} />
+            <text value={self.header} textColor={HEADING} wrap={.None} />
           </box>
           <box height={2.34375dp} border={GROOVE} />
         </box>
@@ -544,7 +544,7 @@ public class TipFrame implements Component {
             <box icon={self.icon} portrait={self.face} />
           </box>
           <box gap={LINE} yAlign={Align.Center}>
-            <text value={self.model.name} textColor={self.model.nameColor} textSize={TITLE_TEXT} lineHeight={TITLE_LINE} wrap={false}
+            <text value={self.model.name} textColor={self.model.nameColor} textSize={TITLE_TEXT} lineHeight={TITLE_LINE} wrap={.None}
                   textFont={.Title} />
             <box $if={self.hasDesc} columns={self.descColumns} height={21.09375dp} yAlign={Align.Center}>
               <PartText $for={index, part of self.model.desc} part={part} index={index} color={LABEL}
@@ -600,7 +600,7 @@ public class TipFrame implements Component {
         </box>
         <box $if={self.locks} padding={BAR_PAD}>
           <box height={BAR_ROW} yAlign={Align.Center}>
-            <text $if={self.locked} value={Locale.LOCKED_HINT} textColor={QUIET} textSize={SECONDARY_TEXT} wrap={false} />
+            <text $if={self.locked} value={Locale.LOCKED_HINT} textColor={QUIET} textSize={SECONDARY_TEXT} wrap={.None} />
             <box $else height={BAR_HEIGHT} background={self.track} fill={self.filled} />
           </box>
         </box>

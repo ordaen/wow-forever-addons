@@ -81,7 +81,7 @@ public class MenuItem implements Component {
       <box columns={ROW} gap={3sp} padding={self.padding} yAlign={Align.Center} border={self.rule}
            background={self.light} @pointerPress={self.onClick} @keyPress(.Enter)={self.onClick} @keyPress(.Space)={self.onClick}
            @pointerEnter={self.onEnter}>
-        <text value={self.entry.label} textColor={self.color} wrap={false} />
+        <text value={self.entry.label} textColor={self.color} />
         <text $if={self.opens} value={MORE_MARK} textColor={self.color} />
         <box $if={self.switched} width={SWITCH_WIDTH} height={SWITCH_HEIGHT} background={self.track}>
           <box position={Position.Absolute} left={KNOB_OFF} top={KNOB_TOP} width={SWITCH_KNOB} height={SWITCH_KNOB}
@@ -135,7 +135,7 @@ public class Menu implements Component {
       <surface lineHeight={BODY_LINE} layer={Layer.Tooltip} place={Beside { beside: "parent" }} width={self.width} background={BACK}
                border={EDGE} padding={PAD} columns={1} @pointerPressOutside={self.onOutside}>
         <box $if={self.titled} padding={ITEM_PAD}>
-          <text value={self.title} textColor={TITLE} wrap={false} />
+          <text value={self.title} textColor={TITLE} />
         </box>
         <MenuItem $for={index, entry of self.entries} $key={index} entry={entry} index={index}
                   @pick={self.onPick} @enter={self.onEnter} />

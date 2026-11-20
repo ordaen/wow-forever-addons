@@ -83,10 +83,10 @@ public class Said implements Component {
   public render(self): Template {
     return $ltml {
       <box $if={self.isQuest} columns={[{ fr: 1 }, "max-content", "max-content"]} gap={2sp} yAlign={Align.Center}>
-        <text value={self.title} textColor={Style.INK_HEAD} textSize={TITLE_TEXT} lineHeight={TITLE_LINE} textFont={.Title} wrap={true} />
+        <text value={self.title} textColor={Style.INK_HEAD} textSize={TITLE_TEXT} lineHeight={TITLE_LINE} textFont={.Title} />
         <box $if={self.grouped} border={{ width: 1.171875dp, color: Style.GROUP_TAG }} padding={{ left: 1sp, right: 1sp }}
              @pointerEnter={self.onGroupEnter} @pointerLeave={self.onGroupLeave}>
-          <text value={self.groupText} textColor={Style.GROUP_TAG} textSize={SECONDARY_TEXT} wrap={false} />
+          <text value={self.groupText} textColor={Style.GROUP_TAG} textSize={SECONDARY_TEXT} wrap={.None} />
           <Tip $if={self.groupHovered} title={self.groupText} text={self.groupTip} />
         </box>
         <box $else />
@@ -95,14 +95,14 @@ public class Said implements Component {
       </box>
       <box>
         <box opacity={self.wholeOpacity}>
-          <text value={self.text} textColor={Style.INK} wrap={true} lineHeight={BODY_LINE} />
+          <text value={self.text} textColor={Style.INK} lineHeight={BODY_LINE} />
         </box>
         <box $if={self.revealing} position={Position.Absolute} left={0ui} top={0ui} right={0ui}>
-          <text value={self.shownText} textColor={Style.INK} wrap={true} lineHeight={BODY_LINE} />
+          <text value={self.shownText} textColor={Style.INK} lineHeight={BODY_LINE} />
         </box>
       </box>
       <text $if={self.hasObjectives} value={Locale.OBJECTIVES} textColor={Style.INK_HEAD} textFont={.Title} />
-      <text $if={self.hasObjectives} value={self.objectives} textColor={Style.INK} wrap={true} lineHeight={BODY_LINE} />
+      <text $if={self.hasObjectives} value={self.objectives} textColor={Style.INK} lineHeight={BODY_LINE} />
     }
   }
 }
@@ -140,8 +140,8 @@ class NeedRow implements Component {
     return $ltml {
       <box columns={["max-content", { fr: 1 }, "max-content"]} gap={2sp} yAlign={Align.Center} padding={1sp}>
         <box width={Style.REWARD_ICON} height={Style.REWARD_ICON} icon={self.need.icon} />
-        <text value={self.need.name} textColor={Style.TEXT} wrap={true} />
-        <text value={self.count} textColor={self.color} textFont={.Numbers} wrap={false} />
+        <text value={self.need.name} textColor={Style.TEXT} />
+        <text value={self.count} textColor={self.color} textFont={.Numbers} wrap={.None} />
       </box>
     }
   }
@@ -200,7 +200,7 @@ public class Rewards implements Component {
       <box $if={self.banded} columns={self.bandColumns} border={Style.RULE_BELOW} padding={2sp} xAlign={Align.Center}
            yAlign={Align.Center}>
         <text $if={self.xp > 0} value={self.xpText} textColor={Style.TEXT} textSize={SECONDARY_TEXT} textFont={.Numbers}
-              wrap={false} />
+              wrap={.None} />
         <BandStanding $for={standing of self.standings} standing={standing} />
         <Money $if={self.money > 0} amount={self.money} />
       </box>
@@ -225,7 +225,7 @@ class BandStanding implements Component {
   public render(self): Template {
     return $ltml {
       <box border={{ width: 1.171875dp, color: Color.hex("#3e2f1d"), sides: [Side.Left] }} xAlign={Align.Center}>
-        <text value={self.text} textColor={Style.TEXT} textSize={SECONDARY_TEXT} wrap={false} />
+        <text value={self.text} textColor={Style.TEXT} textSize={SECONDARY_TEXT} wrap={.None} />
       </box>
     }
   }

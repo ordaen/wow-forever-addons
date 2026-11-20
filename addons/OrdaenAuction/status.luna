@@ -63,7 +63,7 @@ public class Status implements Component {
         <text $elseif={self.waiting} value={Locale.WAITING} textColor={Style.AMBER} textSize={SECONDARY_TEXT} />
         <text $elseif={self.fault != nil} value={self.faultText} textColor={Style.RED} textSize={SECONDARY_TEXT} />
         <text $else value={self.prices} textColor={Style.DIM} textSize={SECONDARY_TEXT} />
-        <text $if={self.wait > 0} value={self.next} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={false} />
+        <text $if={self.wait > 0} value={self.next} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={.None} />
         <PushButton $else label={Locale.SCAN} width={152.34375dp} disabled={self.scanner.reading || self.waiting}
                     @click={self.onScan} />
       </box>

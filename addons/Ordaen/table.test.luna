@@ -208,24 +208,24 @@ class Shared {
       <Table columns={SHARED} sorted={mut self.sorted} descending={mut self.descending}>
         <TableRow tracks={SHARED_TRACKS}>
           <TableCell>
-            <text value={"Ingrid"} wrap={false} />
+            <text value={"Ingrid"} wrap={.None} />
           </TableCell>
           <TableCell>
-            <text value={"Stormwind"} wrap={false} />
+            <text value={"Stormwind"} wrap={.None} />
           </TableCell>
           <TableCell>
-            <text value={"main"} wrap={false} />
+            <text value={"main"} wrap={.None} />
           </TableCell>
         </TableRow>
         <TableRow tracks={SHARED_TRACKS}>
           <TableCell>
-            <text value={"Bo"} wrap={false} />
+            <text value={"Bo"} wrap={.None} />
           </TableCell>
           <TableCell>
-            <text value={"The Temple of Atal'Hakkar, deep in the Swamp of Sorrows"} wrap={false} />
+            <text value={"The Temple of Atal'Hakkar, deep in the Swamp of Sorrows"} wrap={.Cut} />
           </TableCell>
           <TableCell>
-            <text value={"alt"} wrap={false} />
+            <text value={"alt"} wrap={.None} />
           </TableCell>
         </TableRow>
       </Table>

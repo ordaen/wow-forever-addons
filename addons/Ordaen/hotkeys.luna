@@ -24,7 +24,7 @@ public class Hotkeys implements Component {
   public render(self): Template {
     return $ltml {
       <box $if={self.any} gap={2sp} padding={{ top: 3sp }} border={RULE}>
-        <text $for={key of self.keys} value={key} textColor={QUIET} textSize={SECONDARY_TEXT} wrap={false} />
+        <text $for={key of self.keys} value={key} textColor={QUIET} textSize={SECONDARY_TEXT} wrap={.None} />
       </box>
     }
   }

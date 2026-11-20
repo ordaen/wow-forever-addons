@@ -57,8 +57,8 @@ public class HeaderRow implements Component {
            padding={{ top: 2sp, bottom: 2sp }} background={rowShade(false)}
            @pointerPress={self.onFold} @keyPress(.Enter)={self.onFold} @keyPress(.Space)={self.onFold}>
         <box width={MARK} height={MARK} background={self.mark} tint={DIM} />
-        <text value={self.header} textColor={GOLD} wrap={false} />
-        <text $if={self.here} value={Locale.HERE} textColor={DIM} textSize={SECONDARY_TEXT} wrap={false} />
+        <text value={self.header} textColor={GOLD} wrap={.None} />
+        <text $if={self.here} value={Locale.HERE} textColor={DIM} textSize={SECONDARY_TEXT} wrap={.None} />
       </box>
     }
   }
@@ -114,12 +114,12 @@ public class QuestRow implements Component {
           <box position={Position.Absolute} left={0ui} top={0ui} width={BOX} height={BOX}
                background={Ordaen.art.ctl.tick} opacity={self.tick} />
         </box>
-        <text value={self.level} textColor={self.levelColor} textFont={.Numbers} wrap={false} />
+        <text value={self.level} textColor={self.levelColor} textFont={.Numbers} wrap={.None} />
         <box columns={1}>
           <box columns={[{ fr: 1 }, "max-content", "max-content"]} gap={2sp} yAlign={Align.Center}>
-            <text value={self.quest.title} textColor={INK} wrap={false} />
-            <text value={self.group} textColor={DIM} textSize={SECONDARY_TEXT} wrap={false} />
-            <text value={self.progress} textColor={self.progressColor} textSize={SECONDARY_TEXT} wrap={false} />
+            <text value={self.quest.title} textColor={INK} wrap={.None} />
+            <text value={self.group} textColor={DIM} textSize={SECONDARY_TEXT} wrap={.None} />
+            <text value={self.progress} textColor={self.progressColor} textSize={SECONDARY_TEXT} wrap={.None} />
           </box>
           <GoalLine $for={objective of self.quest.objectives} objective={objective} />
         </box>
@@ -139,7 +139,7 @@ class GoalLine implements Component {
 
   public render(self): Template {
     return $ltml {
-      <text value={self.objective.text} textColor={self.color} textSize={SECONDARY_TEXT} wrap={false} />
+      <text value={self.objective.text} textColor={self.color} textSize={SECONDARY_TEXT} wrap={.None} />
     }
   }
 }
@@ -243,7 +243,7 @@ public class QuestPage implements Component {
         </box>
         <box columns={["max-content", { fr: 1 }]}>
           <box @pointerPress={self.onAbandon} @keyPress(.Enter)={self.onAbandon} @keyPress(.Space)={self.onAbandon}>
-            <text value={Locale.ABANDON} textColor={DIM} textSize={SECONDARY_TEXT} wrap={false} />
+            <text value={Locale.ABANDON} textColor={DIM} textSize={SECONDARY_TEXT} wrap={.None} />
           </box>
         </box>
       </box>

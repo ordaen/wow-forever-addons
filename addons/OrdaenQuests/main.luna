@@ -292,7 +292,7 @@ public class Quests implements Module, App {
         </box>
       </Window>
       <Dialog $if={self.abandoning != 0} width={Style.ASK} title={Locale.ABANDON}>
-        <text value={self.abandonText} wrap={true} />
+        <text value={self.abandonText} />
         <PushButton #buttons label={Locale.ABANDON} width={Style.ASK_BUTTON} plate={ButtonPlate.Danger} @click={self.onAbandonYes} />
         <PushButton #buttons label={Locale.CANCEL} width={Style.ASK_BUTTON} @click={self.onAbandonNo} />
       </Dialog>

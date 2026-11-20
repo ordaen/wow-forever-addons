@@ -2,7 +2,7 @@
 // arrow. Left-click opens the menu under it, each choice with its mark (the picked one's gold), the light under the
 // cursor. Left-click on a choice picks it and closes the menu; a click anywhere else closes it. Disabled, it doesn't
 // open. A choice not built yet (`soon`) is listed dimmed, with «in development» after its name, and takes no click.
-import { Align, Art, Beside, Bounds, ByInteractionState, Edges, Layer, Line, Position, Shadow } from "$ltml"
+import { Align, Art, Beside, Bounds, ByInteractionState, Edges, Layer, Line, Position, Shadow, TextWrap } from "$ltml"
 import root Ordaen from "Ordaen"
 import Locale from "@/locales"
 import { Component } from "@/module"
@@ -43,7 +43,7 @@ public class DropdownItem<T: Unknown> implements Component {
   derived text: String = self.choice.soon == true ? self.choice.label + " — " + Locale.SOON : self.choice.label
   derived color: Color = self.choice.soon == true ? DIM : WHITE
   derived light: Color | ByInteractionState<Color> = self.choice.soon == true ? CLEAR : LIGHT
-  derived wraps: Boolean = !self.compact
+  derived wrap: TextWrap = self.compact ? TextWrap.None : TextWrap.Words
 
   choice: Signal<Choice<T>>
   value: Signal<T>
@@ -68,7 +68,7 @@ public class DropdownItem<T: Unknown> implements Component {
       <box padding={ITEM_PAD} background={self.light} @pointerPress={self.onClick} @keyPress(.Enter)={self.onClick} @keyPress(.Space)={self.onClick}>
         <box position={Position.Absolute} left={11.71875dp} top={10.546875dp} width={12.890625dp} height={12.890625dp}
              background={self.mark} />
-        <text value={self.text} textColor={self.color} wrap={self.wraps} />
+        <text value={self.text} textColor={self.color} wrap={self.wrap} />
       </box>
     }
   }
@@ -123,7 +123,7 @@ public class Dropdown<T: Unknown> implements Component {
           <box position={Position.Absolute} left={0ui} top={0ui} width={WIDTH} height={HEIGHT} padding={FACE_PAD}
                columns={[{ fr: 1 }, 18.75dp]} gap={3sp} yAlign={Align.Center}
                background={Ordaen.art.ctl.button} @pointerPress={self.toggle} @keyPress(.Enter)={self.toggle} @keyPress(.Space)={self.toggle}>
-            <text value={self.shown} textColor={GOLD} textShadow={BOLD} wrap={false} />
+            <text value={self.shown} textColor={GOLD} textShadow={BOLD} wrap={.None} />
             <box width={18.75dp} height={18.75dp} background={Ordaen.art.ctl.dropdownArrow} shadow={ARROW_SHADOW} />
           </box>
           <surface lineHeight={BODY_LINE} $if={self.open} layer={Layer.Tooltip} place={Beside { beside: "parent" }} width={WIDTH + 23.4375dp}
@@ -172,7 +172,7 @@ public class CompactDropdown<T: Unknown> implements Component {
         <box position={Position.Absolute} left={0ui} top={0ui} width={self.width} height={HEIGHT}
              padding={COMPACT_FACE_PAD} columns={[{ fr: 1 }, 18.75dp]} gap={2sp} yAlign={Align.Center}
              background={Ordaen.art.ctl.button} @pointerPress={self.toggle} @keyPress(.Enter)={self.toggle} @keyPress(.Space)={self.toggle}>
-          <text value={self.shown} textColor={GOLD} wrap={false} />
+          <text value={self.shown} textColor={GOLD} wrap={.None} />
           <box width={18.75dp} height={18.75dp} background={Ordaen.art.ctl.dropdownArrow} shadow={ARROW_SHADOW} />
         </box>
         <surface lineHeight={BODY_LINE} $if={self.open} layer={Layer.Tooltip} place={Beside { beside: "parent" }} width={self.listBounds}
@@ -283,7 +283,7 @@ public class ManyDropdown<T: Unknown> implements Component {
           <box position={Position.Absolute} left={0ui} top={0ui} width={WIDTH} height={HEIGHT} padding={FACE_PAD}
                columns={[{ fr: 1 }, 18.75dp]} gap={3sp} yAlign={Align.Center}
                background={Ordaen.art.ctl.button} @pointerPress={self.toggle} @keyPress(.Enter)={self.toggle} @keyPress(.Space)={self.toggle}>
-            <text value={self.shown} textColor={self.color} wrap={false} />
+            <text value={self.shown} textColor={self.color} wrap={.None} />
             <box width={18.75dp} height={18.75dp} background={Ordaen.art.ctl.dropdownArrow} shadow={ARROW_SHADOW} />
           </box>
           <surface lineHeight={BODY_LINE} $if={self.open} layer={Layer.Tooltip} place={Beside { beside: "parent" }} width={WIDTH + 23.4375dp}

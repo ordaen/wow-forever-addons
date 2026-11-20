@@ -343,7 +343,7 @@ public class NumberInput implements Component {
                @keyPress(.Enter)={self.less} @keyPress(.Space)={self.less} @pointerEnter={self.onFewerEnter}
                @pointerLeave={self.onLeave}>
             <Tip $if={self.hovered < 0} title={self.tip.title} text={self.tip.text} rows={self.tip.rows} />
-            <text value={"-"} textShadow={STEP_SHADOW} wrap={false} />
+            <text value={"-"} textShadow={STEP_SHADOW} wrap={.None} />
           </box>
           {middle}
           <box width={STEP_WIDTH} height={STEP_HEIGHT} xAlign={Align.Center} yAlign={Align.Center}
@@ -352,7 +352,7 @@ public class NumberInput implements Component {
                @keyPress(.Enter)={self.raise} @keyPress(.Space)={self.raise} @pointerEnter={self.onMoreEnter}
                @pointerLeave={self.onLeave}>
             <Tip $if={self.hovered > 0} title={self.tip.title} text={self.tip.text} rows={self.tip.rows} />
-            <text value={"+"} textShadow={STEP_SHADOW} wrap={false} />
+            <text value={"+"} textShadow={STEP_SHADOW} wrap={.None} />
           </box>
           <text value={self.shown} textColor={WHITE} />
         </box>

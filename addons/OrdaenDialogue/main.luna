@@ -684,7 +684,7 @@ public class Dialogue implements Module, App {
         </box>
       </Window>
       <Dialog $if={self.prompted} width={421.875dp}>
-        <text value={self.promptText} textColor={Style.TEXT} wrap={true} />
+        <text value={self.promptText} textColor={Style.TEXT} />
         <Money $if={self.promptCost > 0} amount={self.promptCost} />
         <PushButton #buttons label={Locale.CANCEL} width={140.625dp} @click={self.cancelPrompt} />
         <PushButton #buttons label={Locale.YES} width={140.625dp} plate={ButtonPlate.Accent} @click={self.confirmPrompt} />

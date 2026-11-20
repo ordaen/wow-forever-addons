@@ -584,22 +584,22 @@ public class Social implements Module, App {
           <NewsList $else news={self.news} />
         </box>
         <box $elseif={self.tab == TAB_GUILD} xAlign={Align.Center} yAlign={Align.Center}>
-          <text value={Locale.NO_GUILD} textColor={Style.DIM} wrap={false} />
+          <text value={Locale.NO_GUILD} textColor={Style.DIM} wrap={.None} />
         </box>
         <box $elseif={self.tab == TAB_COMMUNITIES && self.clubs.length > 0} columns={1} rows={["max-content", { fr: 1 }]} gap={3sp}>
           <Tabs tabs={self.clubNames} selected={mut self.clubTab} />
           <MemberTable members={self.clubMembers} chosen={self.clubMember} guild={false} @pick={self.onPickClubMember} />
         </box>
         <box $elseif={self.tab == TAB_COMMUNITIES} xAlign={Align.Center} yAlign={Align.Center}>
-          <text value={Locale.NO_COMMUNITIES} textColor={Style.DIM} wrap={false} />
+          <text value={Locale.NO_COMMUNITIES} textColor={Style.DIM} wrap={.None} />
         </box>
         <AllyList $else allies={self.allies} chosen={self.ally} filter={mut self.allyFilter}
                   categories={peek self.people.allyCategories()} @pick={self.onPickAlly} />
       </Window>
       <Dialog $if={self.removing != nil} width={Style.ASK} title={Locale.REMOVE_FRIEND}>
         <box columns={1} gap={2sp}>
-          <text value={self.removeText} textColor={Style.INK} wrap={true} />
-          <text value={self.removeDetail} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={true} />
+          <text value={self.removeText} textColor={Style.INK} />
+          <text value={self.removeDetail} textColor={Style.DIM} textSize={SECONDARY_TEXT} />
         </box>
         <PushButton #buttons label={Locale.REMOVE} width={Style.ASK_BUTTON} plate={ButtonPlate.Danger} @click={self.onRemoveYes} />
         <PushButton #buttons label={Locale.CANCEL} width={Style.ASK_BUTTON} @click={self.onRemoveNo} />
@@ -607,7 +607,7 @@ public class Social implements Module, App {
       <Dialog $if={self.adding} width={Style.ASK} title={Locale.ADD_FRIEND}>
         <box columns={1} gap={2sp}>
           <Field value={mut self.addText} maxLength={64} @submit={self.onAddYes} />
-          <text value={self.addRule} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={true} />
+          <text value={self.addRule} textColor={Style.DIM} textSize={SECONDARY_TEXT} />
         </box>
         <PushButton #buttons label={Locale.SEND_REQUEST} width={Style.ASK_BUTTON} disabled={trimmed(self.addText) == ""}
                     @click={self.onAddYes} />
@@ -616,7 +616,7 @@ public class Social implements Module, App {
       <Dialog $if={self.editing} width={Style.ASK} title={Locale.BROADCAST}>
         <box columns={1} gap={2sp} xAlign={Align.End}>
           <Field value={mut self.draft} maxLength={BROADCAST_MOST} @submit={self.onBroadcastYes} />
-          <text value={self.broadcastCount} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={false} />
+          <text value={self.broadcastCount} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={.None} />
         </box>
         <PushButton #buttons label={Locale.UPDATE} width={Style.ASK_BUTTON} @click={self.onBroadcastYes} />
         <PushButton #buttons label={Locale.CANCEL} width={Style.ASK_BUTTON} @click={self.onBroadcastNo} />
@@ -624,14 +624,14 @@ public class Social implements Module, App {
       <Dialog $if={self.inviting} width={Style.ASK} title={Locale.GUILD_INVITE}>
         <box columns={1} gap={2sp}>
           <Field value={mut self.inviteText} maxLength={NAME_MOST} @submit={self.onGuildInviteYes} />
-          <text value={Locale.GUILD_INVITE_RULE} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={true} />
+          <text value={Locale.GUILD_INVITE_RULE} textColor={Style.DIM} textSize={SECONDARY_TEXT} />
         </box>
         <PushButton #buttons label={Locale.INVITE} width={Style.ASK_BUTTON} disabled={trimmed(self.inviteText) == ""}
                     @click={self.onGuildInviteYes} />
         <PushButton #buttons label={Locale.CANCEL} width={Style.ASK_BUTTON} @click={self.onGuildInviteNo} />
       </Dialog>
       <Dialog $if={self.leaving} width={Style.ASK} title={Locale.LEAVE_GUILD}>
-        <text value={self.leaveText} textColor={Style.INK} wrap={true} />
+        <text value={self.leaveText} textColor={Style.INK} />
         <PushButton #buttons label={Locale.LEAVE_GUILD} width={Style.ASK_BUTTON} plate={ButtonPlate.Danger} @click={self.onLeaveYes} />
         <PushButton #buttons label={Locale.CANCEL} width={Style.ASK_BUTTON} @click={self.onLeaveNo} />
       </Dialog>

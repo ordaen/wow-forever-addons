@@ -140,8 +140,8 @@ public class WorthLine implements Component {
   public render(self): Template {
     return $ltml {
       <TableRow tracks={TRACKS} selected={self.picked} @pick={self.onPick}>
-        <text value={self.worth.name} textColor={Style.WHITE} wrap={false} />
-        <text value={self.who} textColor={Style.DIM} wrap={false} />
+        <text value={self.worth.name} textColor={Style.WHITE} wrap={.None} />
+        <text value={self.who} textColor={Style.DIM} wrap={.None} />
         <box xAlign={Align.End}>
           <Money $if={self.hasCost} amount={self.cost} />
           <text $else value={NONE} textColor={Style.DIM} />

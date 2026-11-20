@@ -99,16 +99,16 @@ public class SentRow implements Component {
   public render(self): Template {
     return $ltml {
       <PickRow columns={ROW} picked={self.on} @pick={self.onPick}>
-        <text value={"%d"} arguments={[self.letter.number]} textColor={Style.DIM} wrap={false} />
+        <text value={"%d"} arguments={[self.letter.number]} textColor={Style.DIM} wrap={.None} />
         <box columns={1}>
-          <text value={self.letter.subject} textColor={Style.INK} wrap={false} />
-          <text value={self.letter.to} textSize={SECONDARY_TEXT} textColor={Style.DIM} wrap={false} />
+          <text value={self.letter.subject} textColor={Style.INK} wrap={.None} />
+          <text value={self.letter.to} textSize={SECONDARY_TEXT} textColor={Style.DIM} wrap={.None} />
         </box>
         <box columns={{ each: "max-content" }} gap={1sp} yAlign={Align.Center}>
-          <text value={itemsText(self.letter)} textColor={Style.DIM} wrap={false} />
+          <text value={itemsText(self.letter)} textColor={Style.DIM} wrap={.None} />
           <Money $if={self.hasMoney} amount={self.letter.copper} />
         </box>
-        <text value={stateText(self.letter)} textColor={stateColor(self.letter.state)} wrap={false} />
+        <text value={stateText(self.letter)} textColor={stateColor(self.letter.state)} wrap={.None} />
       </PickRow>
     }
   }
@@ -131,11 +131,11 @@ public class SentTableRow implements Component {
   public render(self): Template {
     return $ltml {
       <TableRow tracks={TRACKS} selected={self.on} @pick={self.onPick}>
-        <TableCell> <text value={"%d"} arguments={[self.letter.number]} textColor={Style.DIM} wrap={false} /> </TableCell>
-        <TableCell cut={true}> <text value={self.letter.subject} textColor={Style.INK} wrap={false} /> </TableCell>
-        <TableCell cut={true}> <text value={self.letter.to} textColor={Style.DIM} wrap={false} /> </TableCell>
-        <TableCell cut={true}> <text value={itemsText(self.letter)} textColor={Style.DIM} wrap={false} /> </TableCell>
-        <TableCell cut={true}> <text value={stateText(self.letter)} textColor={stateColor(self.letter.state)} wrap={false} /> </TableCell>
+        <TableCell> <text value={"%d"} arguments={[self.letter.number]} textColor={Style.DIM} wrap={.None} /> </TableCell>
+        <TableCell> <text value={self.letter.subject} textColor={Style.INK} wrap={.Cut} /> </TableCell>
+        <TableCell> <text value={self.letter.to} textColor={Style.DIM} wrap={.Cut} /> </TableCell>
+        <TableCell> <text value={itemsText(self.letter)} textColor={Style.DIM} wrap={.Cut} /> </TableCell>
+        <TableCell> <text value={stateText(self.letter)} textColor={stateColor(self.letter.state)} wrap={.Cut} /> </TableCell>
       </TableRow>
     }
   }

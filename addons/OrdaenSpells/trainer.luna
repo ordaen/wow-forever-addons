@@ -76,8 +76,8 @@ public class ServiceRow implements Component {
            padding={{ top: 1sp, bottom: 1sp, left: 2sp, right: 2sp }} @pointerPress={self.onPick} @keyPress(.Enter)={self.onPick} @keyPress(.Space)={self.onPick}>
         <box width={32.8125dp} height={32.8125dp} icon={self.service.icon} tint={self.tint} />
         <box columns={1}>
-          <text value={self.title} textColor={Style.INK} wrap={false} />
-          <text value={self.need} textSize={SECONDARY_TEXT} textColor={self.needColor} wrap={false} />
+          <text value={self.title} textColor={Style.INK} wrap={.None} />
+          <text value={self.need} textSize={SECONDARY_TEXT} textColor={self.needColor} wrap={.None} />
         </box>
         <Money $if={!self.free} amount={self.service.cost} color={self.affordable} />
       </box>
@@ -163,7 +163,7 @@ public class TrainerPage implements Component {
           <box />
           <box columns={1} gap={2sp}>
             <box columns={FOOT} gap={2.5sp}>
-              <text value={Locale.YOUR_MONEY} textColor={Style.DIM} wrap={false} />
+              <text value={Locale.YOUR_MONEY} textColor={Style.DIM} wrap={.None} />
               <Money amount={Game.money.amount} />
             </box>
             <box columns={FOOT} gap={2.5sp} yAlign={Align.Center}>

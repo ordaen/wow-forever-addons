@@ -2,7 +2,7 @@
 // screen's layer that holds a `Mover`. A free part is a `Placed`: drawn at its saved place, or where its module says
 // while it was never moved. A part held to a side of the screen (the bottom panel) draws its own surface, holds a
 // `Mover` itself and goes to the side nearest where it is let go (`sideNear`).
-import { Align, Anchored, Event, Layer, Line, MouseButton, Place, Position, Side } from "$ltml"
+import { Align, Anchored, Event, Layer, Line, MouseButton, Place, Position, Side, TextAlign } from "$ltml"
 import root Ordaen from "Ordaen"
 import { Component } from "@/module"
 import { Hold, kept } from "@/onScreen"
@@ -45,7 +45,7 @@ public class Mover implements Component {
       <box $if={Ordaen.placing} position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui} zLevel={20}
            background={SHADE} border={OUTLINE} xAlign={Align.Center} yAlign={Align.Center}
            @dragStart={self.onGrab} @drag={self.onDrag} @dragStop={self.onDrop} @pointerPress={self.onClick}>
-        <text value={self.title} textColor={GOLD} wrap={false} />
+        <text value={self.title} textColor={GOLD} textAlign={TextAlign.Center} />
       </box>
     }
   }

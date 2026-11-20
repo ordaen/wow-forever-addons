@@ -68,10 +68,10 @@ public class OptionRow implements Component {
           <box $else />
           <box width={Style.ICON} height={Style.ICON} icon={self.line.icon} tint={self.iconTint} desaturate={self.greyed} />
           <text $if={self.leveled} value={self.line.level} textColor={self.levelColor} textSize={SECONDARY_TEXT}
-                textFont={.Numbers} wrap={false} />
+                textFont={.Numbers} wrap={.None} />
           <box $else />
-          <text value={self.line.title} textColor={self.color} wrap={true} />
-          <text $if={self.marked} value={Locale.AUTO_MARK} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={false} />
+          <text value={self.line.title} textColor={self.color} />
+          <text $if={self.marked} value={Locale.AUTO_MARK} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={.None} />
           <box $else />
         </PickRow>
         <Menu $if={self.menuOpen} entries={self.entries} @pick={self.onMenu} @close={self.onMenuClose} />

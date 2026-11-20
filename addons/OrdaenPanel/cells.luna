@@ -88,7 +88,7 @@ public class MenuCell implements Component {
              bottom={self.badgeBottom} height={BADGE} width={BADGE_BOUNDS} padding={BADGE_PAD}
              xAlign={Align.Center} yAlign={Align.Center} background={Ordaen.art.panel.countBadge} zLevel={1}>
           <text value={"%d"} arguments={[self.count]} textSize={SECONDARY_TEXT} textColor={WHITE}
-                textFont={.Numbers} textShadow={BOLD} lineHeight={TIGHT_LINE} wrap={false} />
+                textFont={.Numbers} textShadow={BOLD} lineHeight={TIGHT_LINE} wrap={.None} />
         </box>
         <embed frame={self.frame} position={Position.Absolute} left={0ui} top={0ui} width={self.size.width}
                height={self.size.height} opacity={0} />
@@ -154,7 +154,7 @@ public class BagCell implements Component {
         <box $if={self.counted} position={Position.Absolute} right={self.countInset} bottom={self.countBottom}
              zLevel={1}>
           <text value={"%d"} arguments={[Game.bags.free]} textSize={SECONDARY_TEXT} textColor={WHITE}
-                textFont={.Numbers} textOutline={1} wrap={false} />
+                textFont={.Numbers} textOutline={1} wrap={.None} />
         </box>
         <embed frame={self.button.frame} position={Position.Absolute} left={0ui} top={0ui} width={self.size.width}
                height={self.size.height} opacity={0} />

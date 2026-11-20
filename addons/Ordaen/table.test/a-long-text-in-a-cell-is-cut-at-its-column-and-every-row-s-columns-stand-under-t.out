@@ -22,9 +22,9 @@ box 0,0 500x81.77
       box 336.18,37.77 155.29x15.6
         text 336.18,37.77 155.29x15.6 "main" #ffffff
     box 0,57.63 500x24.13 #00000000 @keyPress @pointerPress
-      box 8.53,61.9 52.93x15.6
-        text 8.53,61.9 52.93x15.6 "Bo" #ffffff
-      box 70,61.9 360x15.6
-        text 70,61.9 360x15.6 "The Temple of Atal'Hakkar, deep in the Swamp of Sorrows" #ffffff
-      box 438.53,61.9 52.93x15.6
-        text 438.53,61.9 52.93x15.6 "alt" #ffffff
+      box 8.53,61.9 155.29x15.6
+        text 8.53,61.9 155.29x15.6 "Bo" #ffffff
+      box 172.36,61.9 155.29x15.6
+        text 172.36,61.9 155.29x15.6 "The Temple of Atal'Hakkar, deep in the Swamp of Sorrows" #ffffff
+      box 336.18,61.9 155.29x15.6
+        text 336.18,61.9 155.29x15.6 "alt" #ffffff

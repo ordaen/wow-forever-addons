@@ -150,20 +150,18 @@ class ServiceTableRow implements Component {
       <TableRow tracks={TRACKS} selected={self.selected} @pick={self.onPick}>
         <box columns={NAMED} gap={3sp} yAlign={Align.Center}>
           <box width={ICON} height={ICON} icon={self.service.icon} @pointerEnter={self.onEnter} />
-          <box overflow={Overflow.Hidden}>
-            <text value={self.title} textColor={self.ink} wrap={false} />
-          </box>
+          <text value={self.title} textColor={self.ink} wrap={.Cut} />
         </box>
         <box xAlign={Align.End}>
-          <text value={"%d"} arguments={[self.service.level]} textColor={Style.INK} textFont={.Numbers} wrap={false} />
+          <text value={"%d"} arguments={[self.service.level]} textColor={Style.INK} textFont={.Numbers} wrap={.None} />
         </box>
         <box xAlign={Align.End}>
-          <text value={self.skill} textColor={Style.INK} textFont={.Numbers} wrap={false} />
+          <text value={self.skill} textColor={Style.INK} textFont={.Numbers} wrap={.None} />
         </box>
         <box xAlign={Align.End}>
           <Money $if={self.priced} amount={self.service.cost} color={self.costInk} />
           <text $else value={self.service.status == Game.ServiceStatus.Learned ? Locale.KNOWN : "—"} textColor={Style.DIM}
-                wrap={false} />
+                wrap={.None} />
         </box>
       </TableRow>
     }
@@ -197,9 +195,9 @@ class ServiceLine implements Component {
            padding={{ top: 2sp, bottom: 2sp, left: 3sp, right: 3sp }}
            @pointerPress={self.onPick} @keyPress(.Enter)={self.onPick} @keyPress(.Space)={self.onPick}>
         <box width={ICON} height={ICON} icon={self.service.icon} @pointerEnter={self.onEnter} />
-        <box columns={1} overflow={Overflow.Hidden}>
-          <text value={self.title} textColor={self.ink} wrap={false} />
-          <text value={self.needs} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={false} />
+        <box columns={1}>
+          <text value={self.title} textColor={self.ink} wrap={.Cut} />
+          <text value={self.needs} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={.Cut} />
         </box>
         <Money $if={self.priced} amount={self.service.cost} color={self.costInk} />
       </box>

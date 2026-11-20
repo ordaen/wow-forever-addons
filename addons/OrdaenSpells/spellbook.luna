@@ -132,8 +132,8 @@ public class SpellRow implements Component {
            background={GROUND} @dragStart={self.onGrab}>
         <box width={37.5dp} height={37.5dp} border={{ width: 1.171875dp, color: Style.LINE }} icon={self.spell.icon} />
         <box columns={1}>
-          <text value={self.title} textColor={Style.INK} wrap={false} />
-          <text value={self.detail} textSize={SECONDARY_TEXT} textColor={Style.DIM} wrap={false} />
+          <text value={self.title} textColor={Style.INK} wrap={.None} />
+          <text value={self.detail} textSize={SECONDARY_TEXT} textColor={Style.DIM} wrap={.None} />
         </box>
       </box>
     }
@@ -164,12 +164,12 @@ public class SpellTableRow implements Component {
       <TableRow tracks={TRACKS}>
         <box columns={CELL} gap={2sp} yAlign={Align.Center} @dragStart={self.onGrab}>
           <box width={23.4375dp} height={23.4375dp} border={{ width: 1.171875dp, color: Style.LINE }} icon={self.spell.icon} />
-          <text value={self.title} textColor={Style.INK} wrap={false} />
+          <text value={self.title} textColor={Style.INK} wrap={.None} />
         </box>
-        <text value={self.line} textColor={Style.DIM} wrap={false} />
-        <text value={self.kind} textColor={Style.DIM} wrap={false} />
+        <text value={self.line} textColor={Style.DIM} wrap={.None} />
+        <text value={self.kind} textColor={Style.DIM} wrap={.None} />
         <box xAlign={Align.End}>
-          <text value={self.level} textColor={Style.DIM} textFont={.Numbers} wrap={false} />
+          <text value={self.level} textColor={Style.DIM} textFont={.Numbers} wrap={.None} />
         </box>
       </TableRow>
     }

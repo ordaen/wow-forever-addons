@@ -59,9 +59,9 @@ public class CategoryRow implements Component {
                   @pick={self.onClick}>
         <text value={self.group.name} textColor={self.nameColor} textShadow={Style.SHADOW} />
         <box columns={MARKS} gap={1sp} yAlign={Align.Center}>
-          <text value={"%d"} arguments={[self.group.total]} textColor={Style.DIM} wrap={false}
+          <text value={"%d"} arguments={[self.group.total]} textColor={Style.DIM} wrap={.None}
                 textFont={.Numbers} />
-          <text value={"(%d)"} arguments={[self.group.makeable]} textColor={self.makeableColor} wrap={false}
+          <text value={"(%d)"} arguments={[self.group.makeable]} textColor={self.makeableColor} wrap={.None}
                 textFont={.Numbers} />
         </box>
       </SelectItem>
@@ -120,7 +120,7 @@ public class RecipeRow implements Component {
       <SelectItem selected={self.isChosen} color={self.tint} first={self.first} columns={NAME_COUNT}
                   padding={self.padding} @pick={self.onClick}>
         <text value={self.recipe.name} textColor={self.color} textShadow={Style.SHADOW} />
-        <text value={self.count} textColor={Style.WHITE} wrap={false} textFont={.Numbers} />
+        <text value={self.count} textColor={Style.WHITE} wrap={.None} textFont={.Numbers} />
         <box $if={self.starred} position={Position.Absolute} right={STAR_RIGHT} top={STAR_TOP} width={STAR}
              height={STAR} background={Style.GOLD} />
         <RecipeMenu $if={self.menuOpen} recipe={self.recipe} kept={self.kept} @act={self.onAct} />
@@ -171,13 +171,13 @@ public class CategoryGroup implements Component {
       <box columns={1}>
         <box columns={FOLD} gap={2.5sp} padding={CATEGORY_PAD} yAlign={Align.Center} border={Style.ROW_RULE}
              background={Style.ROW_LIGHT} @pointerPress={self.fold} @keyPress(.Enter)={self.fold} @keyPress(.Space)={self.fold}>
-          <text value={self.mark} textColor={Style.DIM} wrap={false} />
+          <text value={self.mark} textColor={Style.DIM} wrap={.None} />
           <text value={self.group.name} textColor={self.nameColor}
                 textShadow={Style.SHADOW} />
           <box columns={MARKS} gap={1sp} yAlign={Align.Center}>
-            <text value={"%d"} arguments={[self.group.total]} textColor={Style.DIM} wrap={false}
+            <text value={"%d"} arguments={[self.group.total]} textColor={Style.DIM} wrap={.None}
                   textFont={.Numbers} />
-            <text value={"(%d)"} arguments={[self.group.makeable]} textColor={self.makeableColor} wrap={false}
+            <text value={"(%d)"} arguments={[self.group.makeable]} textColor={self.makeableColor} wrap={.None}
                   textFont={.Numbers} />
           </box>
         </box>
@@ -245,9 +245,9 @@ public class RecipeTableRow implements Component {
     return $ltml {
       <box columns={1}>
         <TableRow tracks={self.tracks} selected={self.isChosen} @pick={self.onPick}>
-          <text value={self.recipe.name} textColor={self.color} textShadow={Style.SHADOW} wrap={false} />
+          <text value={self.recipe.name} textColor={self.color} textShadow={Style.SHADOW} wrap={.None} />
           <box xAlign={Align.End}>
-            <text value={self.count} textColor={Style.WHITE} wrap={false} textFont={.Numbers} />
+            <text value={self.count} textColor={Style.WHITE} wrap={.None} textFont={.Numbers} />
           </box>
           <$if={self.priced}>
             <box xAlign={Align.End}>
@@ -289,7 +289,7 @@ public class ReagentRow implements Component {
       <box columns={REAGENT} gap={2.5sp} yAlign={Align.Center} padding={REAGENT_PAD} border={self.rule}>
         <ItemButton item={self.item} art={self.icon} size={SLOT} />
         <text value={self.reagent.name} textColor={Style.INK} />
-        <text value={"%d / %d"} arguments={[self.reagent.have, self.reagent.need]} wrap={false} textColor={self.color}
+        <text value={"%d / %d"} arguments={[self.reagent.have, self.reagent.need]} wrap={.None} textColor={self.color}
               textFont={.Numbers} />
       </box>
     }

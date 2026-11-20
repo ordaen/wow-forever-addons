@@ -235,30 +235,30 @@ public class LineRow implements Component {
       <box $if={self.line.caption} height={Style.ROW} columns={CAPTION} gap={3sp} padding={PAD} yAlign={Align.Center}
            @pointerPress.self={self.onPick} @keyPress(.Enter)={self.onKey} @keyPress(.Space)={self.onKey}>
         <box width={MARK} height={MARK} background={self.mark} tint={Style.GOLD} />
-        <text value={self.title} textColor={Style.GOLD} textFont={.Title} wrap={false} />
-        <text value={self.countText} textColor={Style.DIM} textFont={.Numbers} wrap={false} />
+        <text value={self.title} textColor={Style.GOLD} textFont={.Title} wrap={.None} />
+        <text value={self.countText} textColor={Style.DIM} textFont={.Numbers} wrap={.None} />
         <ShownToggle state={self.shown} @flip={self.onGroup} />
       </box>
       <box $else height={Style.ROW} columns={self.columns} gap={3sp} padding={PAD} yAlign={Align.Center}
            background={self.background} @pointerPress.self={self.onPick} @keyPress(.Enter)={self.onKey} @keyPress(.Space)={self.onKey} @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
         <box padding={self.indent}>
-          <text value={self.title} textColor={Style.INK} wrap={false} />
+          <text value={self.title} textColor={Style.INK} wrap={.None} />
         </box>
         <box $if={self.module} @pointerPress={self.onSettings} @keyPress(.Enter)={self.onSettings} @keyPress(.Space)={self.onSettings}>
-          <text value={self.said} textColor={self.stateColor} textSize={SECONDARY_TEXT} wrap={false} />
+          <text value={self.said} textColor={self.stateColor} textSize={SECONDARY_TEXT} wrap={.None} />
         </box>
         <box $else>
-          <text value={self.said} textColor={self.stateColor} textSize={SECONDARY_TEXT} wrap={false} />
+          <text value={self.said} textColor={self.stateColor} textSize={SECONDARY_TEXT} wrap={.None} />
         </box>
-        <text $if={self.line.tabled} value={self.category} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={false} />
+        <text $if={self.line.tabled} value={self.category} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={.None} />
         <box xAlign={Align.End}>
-          <text value={self.now} textColor={self.nowColor} textFont={.Numbers} wrap={false} />
-        </box>
-        <box xAlign={Align.End}>
-          <text value={self.peak} textColor={self.peakColor} textFont={.Numbers} wrap={false} />
+          <text value={self.now} textColor={self.nowColor} textFont={.Numbers} wrap={.None} />
         </box>
         <box xAlign={Align.End}>
-          <text value={self.weight} textColor={self.weightColor} textFont={.Numbers} wrap={false} />
+          <text value={self.peak} textColor={self.peakColor} textFont={.Numbers} wrap={.None} />
+        </box>
+        <box xAlign={Align.End}>
+          <text value={self.weight} textColor={self.weightColor} textFont={.Numbers} wrap={.None} />
         </box>
         <ShownToggle $if={!self.module} state={self.shown} @flip={self.onCheck} />
         <box $else />
