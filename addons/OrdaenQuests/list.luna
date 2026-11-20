@@ -35,7 +35,8 @@ class GroupRows implements Component {
   public render(self): Template {
     return $ltml {
       <box columns={1}>
-        <HeaderRow header={self.group.header} here={self.group.here} folded={!self.open} @fold={self.onFold} />
+        <HeaderRow header={self.group.header} here={self.group.here} folded={!self.open} quests={self.group.quests}
+                   @fold={self.onFold} />
         <box $if={self.open} columns={1}>
           <QuestRow $for={quest of self.group.quests} $key={quest.id} quest={quest} picked={quest.id == self.picked}
                     player={self.player} @act={self.onAct} />

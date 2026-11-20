@@ -14,7 +14,7 @@
   "SUPER_TRACK": "Show the way",
   "UNTRACK": "Untrack",
   "SHARE": "Share",
-  "ABANDON": "Abandon quest",
+  "ABANDON": "Abandon",
   "ABANDON_ASK": "Abandon «%s»?",
   "ABANDON_ITEMS": "Items from this quest that will be destroyed: %s",
   "CANCEL": "Cancel",

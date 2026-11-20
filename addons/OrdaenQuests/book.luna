@@ -1,4 +1,5 @@
 // What the player has: the client's quest log (`Game.questLog`), each quest with the tab it belongs to.
+import Client from "$client"
 import Game from "$game"
 import { QuestKind, kindOfTag } from "@/kind"
 
@@ -18,6 +19,9 @@ public struct LogQuest {
   // The player can share it now: the client lets it be shared, and the player is in a group.
   shareable: Boolean
   objectives: Array<Game.QuestObjective>
+  // The experience and the money (copper) it gives; 0 for none.
+  xp: Integer
+  money: Integer
 }
 
 // The log's quests, in the client's order.
@@ -25,6 +29,7 @@ public function logQuests(): Array<LogQuest> {
   return Game.questLog.quests().map(quest => LogQuest {
     id: quest.id, title: quest.title, level: quest.level, header: quest.header, kind: kindOfTag(quest.tag),
     done: quest.done, failed: quest.failed, tracked: quest.tracked, group: quest.group, shareable: quest.shareable,
-    objectives: quest.objectives
+    objectives: quest.objectives, xp: Client.GetQuestLogRewardXP(quest.id).floor(),
+    money: Client.GetQuestLogRewardMoney(quest.id).floor()
   })
 }

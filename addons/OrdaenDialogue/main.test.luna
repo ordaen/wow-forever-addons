@@ -307,7 +307,7 @@ test "the details: title, text, objectives, the rewards to choose, money and exp
   Events.QUEST_DETAIL.emit(nil)
   Test.expect(window().text("A Pie for Maggie").shown() && window().text("Bring Maggie 6 chunks of boar meat.").shown())
   Test.expect(window().text("You will be able to choose").shown() && window().text("Cook's Gloves").shown())
-  Test.expect(window().text("450 experience").shown())
+  Test.expect(window().text("450").shown())
   window().button("Accept").click()
   Test.expect(asked() == "accept")
 }

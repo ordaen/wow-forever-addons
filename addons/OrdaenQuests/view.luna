@@ -1,13 +1,14 @@
 // The quest log's parts: a header of the list (it folds), a quest's row, and the picked quest's page.
 //
-// A row as the client's log has it: the level in its difficulty colour, the title, an elite quest's «Группа: 3», at
-// the right «Готово» or «Провалено», and under the title its objectives, each wrapped with its count at the right,
-// grey once done. Left-click picks it (its page shows beside the list); Shift+Left-click and Space track it or stop
-// tracking it; Right-click opens its menu: track, share, abandon.
+// A row as the client's log has it: the level in its difficulty colour between muted brackets, the title, an elite
+// quest's «Группа: 3», at the title's right the experience and money it gives; under the title its objectives, each
+// wrapped at the text's own line with its count at the right, grey once done, or «Готово» / «Провалено» in their
+// place. Left-click picks it (its page shows beside the list); Shift+Left-click and Space track it or stop tracking
+// it; Right-click opens its menu: track, share, abandon.
 import Game from "$game"
-import { Align, Art, ByInteractionState, Edges } from "$ltml"
+import { Align, Art, ByInteractionState, Edges, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { BODY_LINE, ButtonPlate, Component, Menu, MenuEntry, PushButton, Reward, RewardView, Rewards, SCROLL_DIM, SCROLL_HEAD, SCROLL_INK, SECONDARY_TEXT, Scroll, SettingRow, Shown, SwitchFace, TIGHT_LINE, TITLE_TEXT, Tip, choiceViews, colorOf, difficultyOf, logReward, rowShade } from "Ordaen"
+import { BODY_LINE, ButtonPlate, Component, Experience, Menu, MenuEntry, Money, PushButton, XP_MARK_SMALL, Reward, RewardView, Rewards, SCROLL_DIM, SCROLL_HEAD, SCROLL_INK, SECONDARY_TEXT, Scroll, SettingRow, Shown, SwitchFace, TIGHT_LINE, TITLE_TEXT, Tip, choiceViews, colorOf, difficultyOf, logReward, rowShade } from "Ordaen"
 import { LogQuest } from "@/book"
 import Locale from "@/locales"
 import { Figure, QuestFacts } from "@/questie"
@@ -24,6 +25,12 @@ const GREY: Color = Color.hex("#808080")
 const RED: Color = Color.hex("#ff4040")
 const ROW_PAD: Edges = { top: 2sp, right: 2sp, bottom: 2sp, left: 5sp }
 const BUTTON = 131.25dp
+// The level's brackets in the muted colour around its number.
+const LEVEL_CELLS: Array<Track> = ["max-content", "max-content", "max-content"]
+const GAIN_CELLS: Array<Track> = ["max-content", "max-content", "max-content"]
+const HEADER_PAD: Edges = { top: 2sp, right: 2sp, bottom: 2sp }
+// Between two objectives of a quest: what a wrapped one's lines don't have.
+const GOAL_GAP = 1sp
 // The fold mark's cell, as a tree's row has it.
 const MARK = 18.75dp
 
@@ -34,31 +41,37 @@ function stateOf(quest: LogQuest): String {
   return ""
 }
 
-// The header of a group: a fold mark and the header's text; «вы здесь» beside the player's zone.
+// The header of a group: a fold mark and the header's text; «вы здесь» beside the player's zone; at the right how
+// many of its quests are complete of all of them, «1/3».
 public class HeaderRow implements Component {
   public fold: Event<String> = new Event()
 
   derived mark: Art = self.folded ? Ordaen.art.ctl.markClosed : Ordaen.art.ctl.markOpen
+  derived counter: String = `${self.quests.filter(quest => quest.done).length}/${self.quests.length}`
 
   header: Signal<String>
   here: Signal<Boolean>
   folded: Signal<Boolean>
-  constructor(header: Signal<String>, here: Signal<Boolean>, folded: Signal<Boolean>) {
+  quests: Signal<Array<LogQuest>>
+  constructor(header: Signal<String>, here: Signal<Boolean>, folded: Signal<Boolean>, quests: Signal<Array<LogQuest>>) {
     self.header = header
     self.here = here
     self.folded = folded
+    self.quests = quests
   }
 
   onFold(mut self) { self.fold.emit(self.header) }
 
   public render(self): Template {
     return $ltml {
-      <box columns={["max-content", "max-content", { fr: 1 }]} gap={2sp} yAlign={Align.Center}
-           padding={{ top: 2sp, bottom: 2sp }} background={rowShade(false)}
+      <box columns={["max-content", "max-content", { fr: 1 }, "max-content"]} gap={2sp} yAlign={Align.Center}
+           padding={HEADER_PAD} background={rowShade(false)}
            @pointerPress={self.onFold} @keyPress(.Enter)={self.onFold} @keyPress(.Space)={self.onFold}>
         <box width={MARK} height={MARK} background={self.mark} tint={DIM} />
         <text value={self.header} textColor={GOLD} wrap={.None} />
         <text $if={self.here} value={Locale.HERE} textColor={DIM} textSize={SECONDARY_TEXT} wrap={.None} />
+        <box $else />
+        <text value={self.counter} textColor={DIM} textSize={SECONDARY_TEXT} textFont={.Numbers} wrap={.None} />
       </box>
     }
   }
@@ -71,7 +84,9 @@ public class QuestRow implements Component {
   state hovered = false
   // Its tooltip, saying what the player's clicks on it do.
   derived tipShown: Boolean = self.hovered && !self.menuOpen
-  derived level: String = `[${self.quest.level}${self.quest.group > 1 ? "+" : ""}]`
+  derived level: String = `${self.quest.level}${self.quest.group > 1 ? "+" : ""}`
+  // Complete or failed: said under the title in place of its objectives.
+  derived ended: Boolean = self.progress != ""
   derived levelColor: Color = colorOf(difficultyOf(self.quest.level, self.player))
   derived progress: String = stateOf(self.quest)
   derived progressColor: Color = self.quest.failed ? RED : GREEN
@@ -125,17 +140,48 @@ public class QuestRow implements Component {
            @pointerPress(.Right)={self.onMenu} @keyPress(.Enter)={self.onPick} @keyPress(.Space)={self.onTrack}
            @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
         <Tip $if={self.tipShown} title={self.quest.title} text={Locale.ROW_TIP} />
-        <text value={self.level} textColor={self.levelColor} textFont={.Numbers} wrap={.None} />
-        <box columns={1}>
+        <box columns={LEVEL_CELLS}>
+          <text value={"["} textColor={DIM} textFont={.Numbers} wrap={.None} />
+          <text value={self.level} textColor={self.levelColor} textFont={.Numbers} wrap={.None} />
+          <text value={"]"} textColor={DIM} textFont={.Numbers} wrap={.None} />
+        </box>
+        <box columns={1} gap={GOAL_GAP}>
           <box columns={[{ fr: 1 }, "max-content", "max-content"]} gap={2sp} yAlign={Align.Center}>
             <text value={self.quest.title} textColor={INK} wrap={.None} />
             <text value={self.group} textColor={DIM} textSize={SECONDARY_TEXT} wrap={.None} />
-            <text value={self.progress} textColor={self.progressColor} textSize={SECONDARY_TEXT} wrap={.None} />
+            <Gains xp={self.quest.xp} money={self.quest.money} />
           </box>
-          <GoalLine $for={objective of self.quest.objectives} objective={objective} />
+          <text $if={self.ended} value={self.progress} textColor={self.progressColor} textSize={SECONDARY_TEXT}
+                lineHeight={TIGHT_LINE} />
+          <box $else columns={1} gap={GOAL_GAP}>
+            <GoalLine $for={objective of self.quest.objectives} objective={objective} />
+          </box>
         </box>
         <Menu $if={self.menuOpen} entries={self.entries} title={self.quest.title} @pick={self.onEntry}
               @close={self.onClose} />
+      </box>
+    }
+  }
+}
+
+// What a quest gives, at its title's right: its experience and its money, «• » between them; nothing where it gives
+// neither.
+class Gains implements Component {
+  derived both: Boolean = self.xp > 0 && self.money > 0
+
+  xp: Signal<Integer>
+  money: Signal<Integer>
+  constructor(xp: Signal<Integer>, money: Signal<Integer>) {
+    self.xp = xp
+    self.money = money
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={GAIN_CELLS} gap={1sp} yAlign={Align.Center}>
+        <Experience $if={self.xp > 0} amount={self.xp} textSize={SECONDARY_TEXT} mark={XP_MARK_SMALL} color={DIM} />
+        <text $if={self.both} value={"•"} textColor={DIM} textSize={SECONDARY_TEXT} wrap={.None} />
+        <Money $if={self.money > 0} amount={self.money} color={DIM} textSize={SECONDARY_TEXT} />
       </box>
     }
   }
@@ -171,12 +217,13 @@ class GoalLine implements Component {
   public render(self): Template {
     return $ltml {
       <box $if={self.small} columns={[{ fr: 1 }, "max-content"]} gap={2sp}>
-        <text value={self.what} textColor={self.color} textSize={SECONDARY_TEXT} />
-        <text value={self.count} textColor={self.color} textSize={SECONDARY_TEXT} textFont={.Numbers} wrap={.None} />
+        <text value={self.what} textColor={self.color} textSize={SECONDARY_TEXT} lineHeight={TIGHT_LINE} />
+        <text value={self.count} textColor={self.color} textSize={SECONDARY_TEXT} textFont={.Numbers} lineHeight={TIGHT_LINE}
+              wrap={.None} />
       </box>
       <box $else columns={[{ fr: 1 }, "max-content"]} gap={2sp}>
-        <text value={self.what} textColor={self.color} lineHeight={BODY_LINE} />
-        <text value={self.count} textColor={self.color} textFont={.Numbers} wrap={.None} />
+        <text value={self.what} textColor={self.color} lineHeight={TIGHT_LINE} />
+        <text value={self.count} textColor={self.color} textFont={.Numbers} lineHeight={TIGHT_LINE} wrap={.None} />
       </box>
     }
   }
