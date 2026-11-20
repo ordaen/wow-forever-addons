@@ -3,9 +3,9 @@
 // in parts it from its neighbours (`group.luna`). A cell fills the panel's inside from edge to edge, as high as it
 // is; everything on it keeps its proportions to the cell's least size.
 import Game from "$game"
-import { Align, Art, Bounds, ByInteractionState, Edges, Frame, Position, Shadow } from "$ltml"
+import { Art, ByInteractionState, Frame, Position } from "$ltml"
 import root Ordaen from "Ordaen"
-import { Component, SECONDARY_TEXT, TIGHT_LINE } from "Ordaen"
+import { Component, CountBadge, SECONDARY_TEXT } from "Ordaen"
 
 // The least a cell is high, and where it is drawn at that: the panel with the whole menu, seven bag buttons and the
 // money still fits a 1366 x 768 screen at a UI scale of 1. A cell is a divider's width narrower on each side than
@@ -20,12 +20,6 @@ const GOLD: Color = Color.hex("#ffb847")
 const WHITE: Color = Color.hex("#ffffff")
 // The cell under the cursor: a warm light over the wood; pushed, a shade.
 const LIT: ByInteractionState<Color> = { default: Color.hex("#00000000"), hover: Color.hex("#ffd9a01f"), pressed: Color.hex("#00000040"), focus: Color.hex("#ffd9a01f") }
-// The friends online: a green pill in the cell's lower right, 18 px high (a line of `Secondary`) and at least as wide.
-const BADGE = 21.09375dp
-const BADGE_BOUNDS: Bounds = { min: BADGE, max: nil }
-const BADGE_PAD: Edges = { right: 1sp, left: 1sp }
-// The design's bold number: a white shadow one pixel to the right.
-const BOLD: Shadow = { color: WHITE, x: 1ui, y: 0ui }
 
 // A cell's measures at its height: its width in the least cell's proportion, its icon's size and place.
 public struct CellSize {
@@ -84,11 +78,9 @@ public class MenuCell implements Component {
         <box position={Position.Absolute} left={self.size.iconLeft} top={self.size.iconTop} width={self.size.icon}
              height={self.size.icon} background={self.icon} desaturate={self.gold} tint={self.tint}
         />
-        <box $if={self.counted} position={Position.Absolute} right={self.badgeRight}
-             bottom={self.badgeBottom} height={BADGE} width={BADGE_BOUNDS} padding={BADGE_PAD}
-             xAlign={Align.Center} yAlign={Align.Center} background={Ordaen.art.panel.countBadge} zLevel={1}>
-          <text value={"%d"} arguments={[self.count]} textSize={SECONDARY_TEXT} textColor={WHITE}
-                textFont={.Numbers} textShadow={BOLD} lineHeight={TIGHT_LINE} wrap={.None} />
+        <box $if={self.counted} position={Position.Absolute} right={self.badgeRight} bottom={self.badgeBottom}
+             zLevel={1}>
+          <CountBadge count={self.count} />
         </box>
         <embed frame={self.frame} position={Position.Absolute} left={0ui} top={0ui} width={self.size.width}
                height={self.size.height} opacity={0} />
