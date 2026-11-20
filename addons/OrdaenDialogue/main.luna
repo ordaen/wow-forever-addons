@@ -11,7 +11,7 @@ import Game from "$game"
 import { Align, Event, Key, Overflow, Position, Track } from "$ltml"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
-import { ButtonPlate, Dialog, KeptWindow, Module, Money, PushButton, SECONDARY_TEXT, Settings, SettingsPage, TipText, Window, WindowTabSpec, WindowsPage, space, windowsTitle } from "Ordaen"
+import { ButtonPlate, Dialog, KeptWindow, Module, Money, PushButton, SECONDARY_TEXT, Settings, SettingsPage, TipText, Window, WindowTabSpec, WindowsPage, windowsTitle } from "Ordaen"
 import { OptionRow } from "@/list"
 import Locale from "@/locales"
 import { Needs, RewardView, Rewards, Said, choiceViews } from "@/pages"
@@ -587,7 +587,7 @@ public class Dialogue implements Module, App {
       <frame $if={self.shown} of={Game.frames.ItemText} opacity={0} away={true} />
       <Window $if={self.shown} tabs={self.tabs} selected={mut self.tab} declared={mut self.window} withSettings={true}
               @close={self.close} @settings={self.onSettings}>
-        <box rows={self.rows} gap={0ui}>
+        <box rows={self.rows} gap={0sp}>
           <box $if={self.keysOn} position={Position.Absolute} left={0ui} top={0ui} width={0ui} height={0ui}
                @keyPress.globalScope(.Digit1)={self.onKey} @keyPress.globalScope(.Digit2)={self.onKey}
                @keyPress.globalScope(.Digit3)={self.onKey} @keyPress.globalScope(.Digit4)={self.onKey}
@@ -596,17 +596,17 @@ public class Dialogue implements Module, App {
                @keyPress.globalScope(.Digit9)={self.onKey} @keyPress.globalScope(.Space)={self.onSpace}
                @keyPress.globalScope(.Escape)={self.onEscape} />
           <box rows={["max-content", { fr: 1 }, "max-content"]}
-               padding={{ left: space(.Panel), right: space(.Panel), top: space(.Item), bottom: space(.Item) }}>
+               padding={{ left: 4sp, right: 4sp, top: 2sp, bottom: 2sp }}>
             <box height={Style.ROLL_HEIGHT} background={Style.ROLL} />
             <box background={Style.PARCHMENT} tint={Style.PARCHMENT_TINT} overflow={Overflow.Scroll}
-                 padding={space(.Panel)} gap={space(.Item)}>
+                 padding={4sp} gap={2sp}>
               <Said page={self.page} quest={self.quest} said={self.said} book={self.book} />
             </box>
             <box height={Style.ROLL_HEIGHT} background={Style.ROLL} />
           </box>
-          <box $if={!self.isBook} background={Style.WELL} rows={[{ fr: 1 }, "max-content"]} gap={space(.Item)}
-               padding={space(.Panel)}>
-            <box overflow={Overflow.Scroll} gap={space(.Line)}>
+          <box $if={!self.isBook} background={Style.WELL} rows={[{ fr: 1 }, "max-content"]} gap={2sp}
+               padding={4sp}>
+            <box overflow={Overflow.Scroll} gap={1sp}>
               <$if={self.listShown}>
                 <OptionRow $for={index, line of self.lines} line={line} index={index} hints={self.hints}
                            marked={self.markedAt(line)} @pick={self.pickLine} @mark={self.toggleMark} />
@@ -623,7 +623,7 @@ public class Dialogue implements Module, App {
                           tip={self.mainTip} key={self.mainKey} @click={self.main} />
             </box>
           </box>
-          <box $else padding={{ left: space(.Panel), right: space(.Panel), bottom: space(.Panel) }} xAlign={Align.End}>
+          <box $else padding={{ left: 4sp, right: 4sp, bottom: 4sp }} xAlign={Align.End}>
             <PushButton label={Locale.CLOSE} width={199.21875dp} key={self.backKey} @click={self.close} />
           </box>
         </box>

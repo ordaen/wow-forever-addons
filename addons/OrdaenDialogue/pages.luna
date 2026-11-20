@@ -4,7 +4,7 @@
 // in one band of columns as a tooltip's.
 import Game from "$game"
 import { Align, Side, Track } from "$ltml"
-import { Component, Money, SECONDARY_TEXT, TITLE_TEXT, Tip, space } from "Ordaen"
+import { BODY_LINE, Component, Money, SECONDARY_TEXT, TITLE_LINE, TITLE_TEXT, Tip } from "Ordaen"
 import Locale from "@/locales"
 import { Need, Quest, Reward, Standing } from "@/read"
 import { RewardRow } from "@/rewards"
@@ -65,17 +65,17 @@ public class Said implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box $if={self.isQuest} columns={[{ fr: 1 }, "max-content"]} gap={space(.Item)} yAlign={Align.Center}>
-        <text value={self.title} textColor={Style.INK_HEAD} textSize={TITLE_TEXT} textFont={.Title} wrap={true} />
-        <box $if={self.grouped} border={{ width: 1.171875dp, color: Style.GROUP_TAG }} padding={{ left: space(.Line), right: space(.Line) }}
+      <box $if={self.isQuest} columns={[{ fr: 1 }, "max-content"]} gap={2sp} yAlign={Align.Center}>
+        <text value={self.title} textColor={Style.INK_HEAD} textSize={TITLE_TEXT} lineHeight={TITLE_LINE} textFont={.Title} wrap={true} />
+        <box $if={self.grouped} border={{ width: 1.171875dp, color: Style.GROUP_TAG }} padding={{ left: 1sp, right: 1sp }}
              @pointerEnter={self.onGroupEnter} @pointerLeave={self.onGroupLeave}>
           <text value={self.groupText} textColor={Style.GROUP_TAG} textSize={SECONDARY_TEXT} wrap={false} />
           <Tip $if={self.groupHovered} title={self.groupText} text={self.groupTip} />
         </box>
       </box>
-      <text value={self.text} textColor={Style.INK} wrap={true} lineHeight={1.4} />
+      <text value={self.text} textColor={Style.INK} wrap={true} lineHeight={BODY_LINE} />
       <text $if={self.hasObjectives} value={Locale.OBJECTIVES} textColor={Style.INK_HEAD} textFont={.Title} />
-      <text $if={self.hasObjectives} value={self.objectives} textColor={Style.INK} wrap={true} lineHeight={1.4} />
+      <text $if={self.hasObjectives} value={self.objectives} textColor={Style.INK} wrap={true} lineHeight={BODY_LINE} />
     }
   }
 }
@@ -94,7 +94,7 @@ public class Needs implements Component {
     return $ltml {
       <text value={Locale.NEEDED} textColor={Style.DIM} textSize={SECONDARY_TEXT} />
       <NeedRow $for={need of self.needs} need={need} />
-      <box $if={self.paid} columns={[{ fr: 1 }, "max-content"]} yAlign={Align.Center} padding={space(.Line)}>
+      <box $if={self.paid} columns={[{ fr: 1 }, "max-content"]} yAlign={Align.Center} padding={1sp}>
         <text value={Locale.MONEY} textColor={Style.TEXT} />
         <Money amount={self.money} color={self.moneyColor} />
       </box>
@@ -111,7 +111,7 @@ class NeedRow implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={["max-content", { fr: 1 }, "max-content"]} gap={space(.Item)} yAlign={Align.Center} padding={space(.Line)}>
+      <box columns={["max-content", { fr: 1 }, "max-content"]} gap={2sp} yAlign={Align.Center} padding={1sp}>
         <box width={Style.REWARD_ICON} height={Style.REWARD_ICON} icon={self.need.icon} />
         <text value={self.need.name} textColor={Style.TEXT} wrap={true} />
         <text value={self.count} textColor={self.color} textFont={.Numbers} wrap={false} />
@@ -170,7 +170,7 @@ public class Rewards implements Component {
                  pawn={view.pawn} best={view.best} dearest={view.dearest} @choose={self.onChoose} />
       <text $if={self.hasAlso} value={self.alsoTitle} textColor={Style.DIM} textSize={SECONDARY_TEXT} />
       <RewardRow $for={reward of self.also} reward={reward} />
-      <box $if={self.banded} columns={self.bandColumns} border={Style.RULE_BELOW} padding={space(.Item)} xAlign={Align.Center}
+      <box $if={self.banded} columns={self.bandColumns} border={Style.RULE_BELOW} padding={2sp} xAlign={Align.Center}
            yAlign={Align.Center}>
         <text $if={self.xp > 0} value={self.xpText} textColor={Style.TEXT} textSize={SECONDARY_TEXT} textFont={.Numbers}
               wrap={false} />

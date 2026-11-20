@@ -7,7 +7,7 @@
 import Client from "$client"
 import Game from "$game"
 import { Align, Event, MouseButton, TextAlign, Track } from "$ltml"
-import { Component, ItemButton, Money, PickRow, Quality, SECONDARY_TEXT, Tip, space } from "Ordaen"
+import { Component, ItemButton, Money, PickRow, Quality, SECONDARY_TEXT, Tip } from "Ordaen"
 import { Keycap } from "@/keycap"
 import Locale from "@/locales"
 import { Reward } from "@/read"
@@ -115,7 +115,7 @@ public class RewardRow implements Component {
                      pawnTip={self.pawnTip} best={self.best} priced={self.priced} priceColor={self.priceColor}
                      @slot={self.onSlot} @pawnEnter={self.onPawnEnter} @pawnLeave={self.onPawnLeave} />
       </PickRow>
-      <box $else columns={self.columns} gap={space(.Line)} yAlign={Align.Center} padding={space(.Line)}>
+      <box $else columns={self.columns} gap={1sp} yAlign={Align.Center} padding={1sp}>
         <RewardCells reward={self.reward} keyed={false} key={""} nameColor={self.nameColor}
                      detailColor={self.detailColor} hasDetail={self.hasDetail} pawnColumn={self.pawnColumn}
                      pawnWord={self.pawnWord} pawnColor={self.pawnColor} pawnTipShown={self.pawnTipShown}
@@ -178,12 +178,12 @@ class RewardCells implements Component {
       <box $else />
       <ItemButton item={self.reward.item} count={self.reward.count} quality={self.reward.quality} art={self.reward.icon}
                   size={Style.REWARD_ICON} @pressed={self.onSlot} />
-      <box gap={1.171875dp}>
+      <box gap={0.25sp}>
         <text value={self.reward.name} textColor={self.nameColor} wrap={false} />
         <text $if={self.hasDetail} value={self.reward.detail} textColor={self.detailColor} textSize={SECONDARY_TEXT}
               wrap={false} />
       </box>
-      <box $if={self.pawnColumn} columns={PAWN_CELLS} gap={space(.Line)} yAlign={Align.Center}
+      <box $if={self.pawnColumn} columns={PAWN_CELLS} gap={1sp} yAlign={Align.Center}
            @pointerEnter={self.onPawnEnter} @pointerLeave={self.onPawnLeave}>
         <box width={ARROW} height={ARROW} background={UPGRADE} opacity={self.best ? 1 : 0} />
         <text value={self.pawnWord} textColor={self.pawnColor} textSize={SECONDARY_TEXT} textFont={.Numbers}

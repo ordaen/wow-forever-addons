@@ -30,7 +30,8 @@ const NO_TIP: TipText = { title: "", text: "", rows: [] }
 // keeps past it.
 const KEY_WIDTH = 53.90625dp
 const KEY_INSET = HEIGHT / 8
-const KEYED_CAPS: Edges = { left: KEY_INSET + KEY_WIDTH + HEIGHT / 8, right: HEIGHT / 4 }
+// The label's room past the segment and its groove, as CAPS is the carved line's: the inset, the segment, the inset.
+const KEYED_CAPS: Edges = { left: 16sp, right: 2.5sp }
 const KEY_SHADE: Color = Color.hex("#00000038")
 const KEY_TEXT: Color = Color.hex("#c9a76a")
 const GROOVE: Line = { width: 1.171875dp, color: Color.hex("#000000cc"), sides: [Side.Right] }
