@@ -13,6 +13,19 @@
           }
         ]
       }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "lunatype hook post-tool-use 2>/dev/null || true",
+            "timeout": 10,
+            "onFailure": "continue"
+          }
+        ]
+      }
     ]
   }
 }
