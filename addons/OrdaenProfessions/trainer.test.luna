@@ -4,6 +4,7 @@
 import Client from "$client"
 import Game from "$game"
 import Test from "$test"
+import root Ordaen from "Ordaen"
 import Locale from "@/locales"
 
 const SCREEN: Test.Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
@@ -37,7 +38,8 @@ test "a profession's trainer opens our window in place of the game's, its servic
   Test.mount(nil, SCREEN)
   Game.trainer.open = true
   Game.trainer.changed.emit()
-  Test.expect(!Test.page().window(Locale.TRAINER).shown())
+  // Spells shows its own window at a class trainer; ours, with its recipes, isn't there.
+  Test.expect(!Test.page().window(Locale.COLUMN_RECIPE).shown())
   Game.trainer.open = false
   Game.trainer.teachesClass = (): Boolean => false
   Client.IsTradeskillTrainer = (): Boolean => true
@@ -70,4 +72,67 @@ test "«Learn» buys the picked service where it can be learned now, and nothing
   window.text("Red Linen Robe").click()
   window.button(Locale.TRAIN).click()
   Test.expect(bought.join(", ") == "2")
+}
+
+test "the filter's switches on the toolbar's right keep what is learned now, what can't be yet and what is known" {
+  Game.trainer.teachesClass = (): Boolean => false
+  Client.IsTradeskillTrainer = (): Boolean => true
+  Game.trainer.services = (): Array<Game.TrainerService> => taught()
+  Test.mount(nil, SCREEN)
+  Game.trainer.open = true
+  Game.trainer.changed.emit()
+  const window = Test.page().window(Locale.TRAINER)
+  window.button(Ordaen.art.ctl.tool.filter).click()
+  Test.page().window("Reset").button(Locale.SHOW_KNOWN).click()
+  Test.expect(!window.text("Linen Shirt").shown() && window.text("Red Linen Robe").shown())
+  Test.page().window("Reset").button(Locale.SHOW_AVAILABLE).click()
+  Test.expect(!window.text("Red Linen Robe").shown() && window.text("Bolt of Woolen Cloth").shown())
+}
+
+test "the trainer's skill bar shows its rank of the most; the list stands under the trainer's categories, folded by a click; a service's tooltip is the game's" {
+  Game.trainer.teachesClass = (): Boolean => false
+  Client.IsTradeskillTrainer = (): Boolean => true
+  Game.trainer.services = (): Array<Game.TrainerService> => taught().map(service => Game.TrainerService { category: service.index == 3 ? "Cloth" : "Robes", ..service })
+  Game.trainer.skill = (): Game.TrainerSkill | nil => Game.TrainerSkill { rank: 60, most: 75, added: 0 }
+  Test.mount(nil, SCREEN)
+  Game.trainer.open = true
+  Game.trainer.changed.emit()
+  const window = Test.page().window(Locale.TRAINER)
+  Test.expect(window.text(Locale.RANK_75 + " · 60 / 75").shown())
+  window.button(Ordaen.art.ctl.tool.table).click()
+  Test.page().button(Locale.VIEW_LIST).click()
+  Test.expect(window.text("Robes (2)").shown() && window.text("Cloth (1)").shown())
+  window.text("Robes (2)").click()
+  Test.expect(!window.text("Red Linen Robe").shown() && window.text("Bolt of Woolen Cloth").shown())
+  _ = Test.requests()
+  window.box(BOLT).hover()
+  Test.expect(Test.requests().join(", ").contains("Items.showService 3"))
+}
+
+test "a new profession is asked first, and greyed while two are known" {
+  Game.trainer.teachesClass = (): Boolean => false
+  Client.IsTradeskillTrainer = (): Boolean => true
+  Game.trainer.services = (): Array<Game.TrainerService> => [
+    { index: 1, name: "Tailoring", rank: "Apprentice", icon: ROBE, status: .Available, level: 5, cost: 10, description: "", skill: nil, profession: true }
+  ]
+  const bought: Array<String> = []
+  Client.BuyTrainerService = (index: Integer): nil => bought.push(String.of(index))
+  Game.money.amount = 1000
+  Test.mount(nil, SCREEN)
+  Game.trainer.open = true
+  Game.trainer.changed.emit()
+  const window = Test.page().window(Locale.TRAINER)
+  window.text("Tailoring (Apprentice)").click()
+  window.button(Locale.TRAIN).click()
+  Test.expect(bought.length == 0)
+  const asked = Test.page().window(Locale.CONFIRM_PROFESSION.format("Tailoring"))
+  asked.button(Locale.TRAIN).click()
+  Test.expect(bought.join(", ") == "1")
+  Client.GetProfessions = (): (Integer | nil, Integer | nil, Integer | nil, Integer | nil, Integer | nil, Integer | nil) => {
+    return 1, 2, nil, nil, nil, nil
+  }
+  Game.trainer.changed.emit()
+  Test.expect(window.text(Locale.NO_PROFESSION_SLOT).shown())
+  window.button(Locale.TRAIN).click()
+  Test.expect(bought.length == 1 && !Test.page().window(Locale.CONFIRM_PROFESSION.format("Tailoring")).shown())
 }
