@@ -99,6 +99,21 @@ test "a quest with an item has its button beside the title, which uses the item 
   Test.expect(Test.performed().join(",") == "item |cffffffff|Hitem:5060::::::::|h[Item 5060]|h|r")
 }
 
+test "a quest's item shows its cooldown's sweep while one runs, and none while none does" {
+  Test.questLog([{ id: 104, title: "The Collector", header: "Westfall", level: 12, watched: true, specialItem: 5060 }])
+  Test.mount(nil, PAGE)
+  Tracker.refresh()
+  Test.flush()
+  const before = Test.calls(() => Test.flush())
+  Test.expect(!before.contains("SetCooldown=1"))
+  Test.questLog([
+    { id: 104, title: "The Collector", header: "Westfall", level: 12, watched: true, specialItem: 5060,
+      itemCooldown: { start: 100, length: 30 } }
+  ])
+  const told = Test.calls(() => Test.flush())
+  Test.expect(told.contains("SetCooldown=1"))
+}
+
 test "it stands at the right under what keeps the top right corner and above what keeps the bottom, all that height" {
   logged()
   Test.mount(nil, PAGE)
