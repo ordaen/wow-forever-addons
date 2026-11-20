@@ -108,6 +108,16 @@ test "the settings page lists each layer with its switch" {
   Test.expect(!Test.page().text("OpenMap isn't loaded, or is older than version 4: no pins are drawn on the map.").shown())
 }
 
+test "the game's map places a layer's pins of the zone it shows, the zone found by the area's own map" {
+  Test.mount(nil, PAGE)
+  Maps.layers.add(new TestLayer())
+  // Westfall: area 40's map. The pin of area 12 stands on Elwynn Forest's, off this one.
+  Client.C_Map.OpenWorldMap(1436)
+  Test.flush()
+  // A frame a pin placed: the two of Westfall, none of the other.
+  Test.expect(Client.WorldMapFrame.GetCanvas().GetNumChildren() == 2)
+}
+
 test "without OpenMap the client doesn't load Map, and says OpenMap is missing" {
   Test.uninstall("OpenMap")
   Test.reload()

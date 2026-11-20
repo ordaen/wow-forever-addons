@@ -4,9 +4,11 @@
 local name = ...
 
 local worldMap = {}
+-- The client's globals as the runtime reads them (the game's `_G`).
+local client = LunaType.client
 
 local function frame()
-	local found = _G.WorldMapFrame
+	local found = client.WorldMapFrame
 	if type(found) == "table" and found.GetCanvas then return found end
 	return nil
 end
@@ -37,7 +39,7 @@ function worldMap.listen(run)
 		hooked = true
 		map:HookScript("OnShow", heard)
 		map:HookScript("OnHide", heard)
-		hooksecurefunc(map, "OnMapChanged", heard)
+		client.hooksecurefunc(map, "OnMapChanged", heard)
 	end
 end
 
@@ -46,19 +48,19 @@ function worldMap.forget()
 end
 
 function worldMap.tip(owner, lines)
-	GameTooltip:SetOwner(owner, "ANCHOR_RIGHT")
+	client.GameTooltip:SetOwner(owner, "ANCHOR_RIGHT")
 	for i, line in ipairs(lines) do
 		if i == 1 then
-			GameTooltip:AddLine(line, 1, 1, 1)
+			client.GameTooltip:AddLine(line, 1, 1, 1)
 		else
-			GameTooltip:AddLine(line, 0.8, 0.8, 0.8, true)
+			client.GameTooltip:AddLine(line, 0.8, 0.8, 0.8, true)
 		end
 	end
-	GameTooltip:Show()
+	client.GameTooltip:Show()
 end
 
 function worldMap.untip()
-	GameTooltip:Hide()
+	client.GameTooltip:Hide()
 end
 
 LunaType.addon(name)["worldMap"] = worldMap

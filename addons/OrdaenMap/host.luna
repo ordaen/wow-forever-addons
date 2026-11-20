@@ -2,6 +2,7 @@
 // `questLogOpen`. `MapHost` is what Map asks; `OpenMapHost` asks the game. Everything Map places goes through here:
 // where a pin stands on the canvas, the pins' own frames, OpenMap's menu.
 import Client from "$client"
+import { mapOfArea } from "@/areas"
 import type { Pin } from "@/extend"
 import WorldMap from "@/worldMap"
 import { OpenMapAPI } from "OpenMap"
@@ -37,8 +38,6 @@ public trait MapHost {
   public menuSwitch(mut self, id: String, label: String, get: () => Boolean, set: (on: Boolean) => nil)
 }
 
-// The world map's root, holding every zone: the client's uiMap of Azeroth.
-const AZEROTH = 947
 // How big a pin is on the screen, in UI units.
 const PIN_SIZE = 20
 // How far past the canvas's edges a pin still stands (the stitched view shows past the map underneath).
@@ -46,10 +45,6 @@ const REACH: Number = 0.5
 
 public class OpenMapHost implements MapHost {
   public const changed: Event<nil> = new Event()
-  // A zone's uiMap by its name, made the first time a pin is placed; an area's uiMap, by the area's name.
-  maps: mut Map<String, Integer> = {}
-  areas: mut Map<Integer, Integer> = {}
-  indexed = false
   // The pins' frames, kept and used again.
   pins: mut Array<any Client.Button> = []
 
@@ -85,26 +80,9 @@ public class OpenMapHost implements MapHost {
 
   public dock(mut self, on: Boolean) { _ = Client.C_CVar.SetCVar("questLogOpen", on ? "1" : "0") }
 
-  // The zones under Azeroth, by name: the client names an `AreaTable` zone as its uiMap.
-  index(mut self) {
-    self.indexed = true
-    for (map of Client.C_Map.GetMapChildrenInfo(AZEROTH, nil, true) ?? []) {
-      self.maps[map.name] = map.mapID.floor()
-    }
-  }
-
-  mapOf(mut self, area: Integer): Integer {
-    const known = self.areas[area]
-    if (known != nil) { return known }
-    if (!self.indexed) { self.index() }
-    const map = self.maps[Client.C_Map.GetAreaInfo(area)] ?? 0
-    self.areas[area] = map
-    return map
-  }
-
   public place(mut self, pin: Pin): Placed | nil {
     const shown = WorldMap.shownMap()
-    const map = self.mapOf(pin.area)
+    const map = mapOfArea[pin.area] ?? 0
     if (shown == 0 || map == 0) { return nil }
     if (self.present() && OpenMapAPI.IsStitched()) {
       let u, v = OpenMapAPI.WorldFromMap(map, pin.x, pin.y)
