@@ -252,7 +252,7 @@ public class LineRow implements Component {
         <box columns={TITLE} gap={3sp} yAlign={Align.Center} padding={self.indent}>
           <box $if={self.line.parent} width={MARK} height={MARK} background={self.mark} tint={Style.GOLD}
                @pointerPress={self.onFoldGroup} @keyPress(.Enter)={self.onFoldGroup} @keyPress(.Space)={self.onFoldGroup} />
-          <box $else width={MARK} height={MARK} />
+          <box $else width={MARK} />
           <text value={self.title} textColor={Style.INK} wrap={.None} />
         </box>
         <box $if={self.module} @pointerPress={self.onSettings} @keyPress(.Enter)={self.onSettings} @keyPress(.Space)={self.onSettings}>
