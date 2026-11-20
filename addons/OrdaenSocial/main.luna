@@ -14,14 +14,14 @@ import Events from "$events"
 import { Align, Frame } from "$ltml"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
-import { ButtonPlate, Dialog, FooterCount, FooterCounts, GamePass, GameWindowButton, KeptWindow, Module, ModuleMemory, PushButton, SECONDARY_TEXT, Settings, SettingsPage, Tabs, Window, WindowSide, WindowTabSpec, WindowsPage, windowsTitle } from "Ordaen"
+import { ButtonPlate, Dialog, Field, FooterCount, FooterCounts, GamePass, GameWindowButton, KeptWindow, Module, ModuleMemory, PushButton, SECONDARY_TEXT, Settings, SettingsPage, Tabs, Window, WindowSide, WindowTabSpec, WindowsPage, trimmed, windowsTitle } from "Ordaen"
 import { AllyCard, AllyFilter, AllyList, allyFilterStart, categoriesOf } from "@/allies"
 import { ClubCard } from "@/communities"
 import { FRIENDS_KEPT, FriendCard, FriendList, FriendsKept, IgnoreList, MyCard, RequestList, keyOf, titleOf } from "@/friends"
 import { GuildCard, NewsList } from "@/guild"
 import Locale from "@/locales"
 import { MemberCard, MemberTable } from "@/members"
-import { Ally, AllyCategory, ClientPeople, Club, Friend, Guild, Ignored, Me, Member, News, People, Presence, Request, Rights, Stream, namesAccount, trimmed } from "@/people"
+import { Ally, AllyCategory, ClientPeople, Club, Friend, Guild, Ignored, Me, Member, News, People, Presence, Request, Rights, Stream, namesAccount } from "@/people"
 import { Choices, GeneralPage } from "@/settings"
 import Style from "@/style"
 
@@ -52,7 +52,6 @@ const NAME_MOST = 48
 const NO_ME: Me = { battleTag: "", presence: .Online, broadcast: "", hero: { name: "", level: 0, className: "", classColor: nil, area: "", realm: "" } }
 const NO_RIGHTS: Rights = { invite: false, promote: false, demote: false, manage: false }
 const GUILD_SUBS: Array<String> = [Locale.SUB_ROSTER, Locale.SUB_NEWS]
-const FIELD_PAD = 3sp
 
 function onlineOf(members: Array<Member>): Integer { return members.count(member => member.presence != .Offline) }
 
@@ -607,10 +606,7 @@ public class Social implements Module, App {
       </Dialog>
       <Dialog $if={self.adding} width={Style.ASK} title={Locale.ADD_FRIEND}>
         <box columns={1} gap={2sp}>
-          <box height={Style.FIELD} rows={[{ fr: 1 }]}>
-            <input value={mut self.addText} maxLength={64} padding={{ left: FIELD_PAD, right: FIELD_PAD }}
-                   textColor={Style.INK} background={Style.FIELD_BACK} @submit={self.onAddYes} />
-          </box>
+          <Field value={mut self.addText} maxLength={64} @submit={self.onAddYes} />
           <text value={self.addRule} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={true} />
         </box>
         <PushButton #buttons label={Locale.SEND_REQUEST} width={Style.ASK_BUTTON} disabled={trimmed(self.addText) == ""}
@@ -619,10 +615,7 @@ public class Social implements Module, App {
       </Dialog>
       <Dialog $if={self.editing} width={Style.ASK} title={Locale.BROADCAST}>
         <box columns={1} gap={2sp} xAlign={Align.End}>
-          <box height={Style.FIELD} rows={[{ fr: 1 }]}>
-            <input value={mut self.draft} maxLength={BROADCAST_MOST} padding={{ left: FIELD_PAD, right: FIELD_PAD }}
-                   textColor={Style.INK} background={Style.FIELD_BACK} @submit={self.onBroadcastYes} />
-          </box>
+          <Field value={mut self.draft} maxLength={BROADCAST_MOST} @submit={self.onBroadcastYes} />
           <text value={self.broadcastCount} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={false} />
         </box>
         <PushButton #buttons label={Locale.UPDATE} width={Style.ASK_BUTTON} @click={self.onBroadcastYes} />
@@ -630,10 +623,7 @@ public class Social implements Module, App {
       </Dialog>
       <Dialog $if={self.inviting} width={Style.ASK} title={Locale.GUILD_INVITE}>
         <box columns={1} gap={2sp}>
-          <box height={Style.FIELD} rows={[{ fr: 1 }]}>
-            <input value={mut self.inviteText} maxLength={NAME_MOST} padding={{ left: FIELD_PAD, right: FIELD_PAD }}
-                   textColor={Style.INK} background={Style.FIELD_BACK} @submit={self.onGuildInviteYes} />
-          </box>
+          <Field value={mut self.inviteText} maxLength={NAME_MOST} @submit={self.onGuildInviteYes} />
           <text value={Locale.GUILD_INVITE_RULE} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={true} />
         </box>
         <PushButton #buttons label={Locale.INVITE} width={Style.ASK_BUTTON} disabled={trimmed(self.inviteText) == ""}

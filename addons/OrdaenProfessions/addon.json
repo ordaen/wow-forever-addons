@@ -1,5 +1,6 @@
 {
   "title": "Ordaen Professions",
+  "version": "1.0.0",
   "icon": "Interface/Icons/Trade_BlackSmithing",
   "notes": "The professions window.",
   "loadOnDemand": true,

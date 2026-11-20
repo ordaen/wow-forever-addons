@@ -1,18 +1,24 @@
-// «Outbox»: the letters sent and the ones waiting to go, one row each: its number, subject, recipient, what it holds
-// and its state. The search and the filter narrow the list; «Write» opens the form, which the client's declarations
-// cannot send yet (`canWrite`).
+// «Outbox»: the queue and the letters gone in one list, a row each: its number, subject, recipient and when, the items
+// and money, and its state (Waiting, Sending… gold, Sent green, Stopped red with why). Over it the search, the filter
+// (all, waiting, sent, stopped), the sort (newest first, by number, by recipient, by state), the view (one list, by
+// recipient under captions that fold, a table) and «Write». While letters wait, a bar under the list: «Stop» at the
+// left, «Continue» at the right in the accent, the postage still to pay beside it.
+import Game from "$game"
 import { Align, Overflow, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { ButtonPlate, Choice, Component, ModuleMemory, Money, PushButton, ToolPick, Toolbar } from "Ordaen"
-import { Sent, SentState } from "@/letters"
+import { ARTWORK, ButtonPlate, Choice, Column, Component, FoldCaption, ItemButton, ModuleMemory, Money, PickRow, PushButton, SECONDARY_TEXT, Table, TableCell, TableRow, ToolPick, ToolSort, Toolbar, tracksOf } from "Ordaen"
+import { Sent, SentState, View, waits } from "@/letters"
 import Locale from "@/locales"
 import Style from "@/style"
 
 public enum SentFilter implements Plain { All = "all", Waiting = "waiting", Sent = "sent", Stopped = "stopped" }
 
-// How the player left the outbox's list: its filter.
+// How the player left the outbox's list: its filter, its view and its sort.
 public struct OutboxView implements Plain {
   filter: SentFilter = SentFilter.All
+  view: View = View.List
+  sorted: Integer = 0
+  descending: Boolean = false
 }
 const OUTBOX_VIEW: OutboxView = {}
 
@@ -22,11 +28,25 @@ const FILTERS: Array<Choice<SentFilter>> = [
   { value: SentFilter.Sent, label: Locale.SENT_SENT },
   { value: SentFilter.Stopped, label: Locale.SENT_STOPPED }
 ]
-const ROW: Array<Track> = [35.15625dp, { fr: 3 }, { fr: 2 }, "max-content", 281.25dp]
+const VIEWS: Array<Choice<View>> = [
+  { value: View.List, label: Locale.VIEW_LIST, icon: ARTWORK.ctl.tool.list },
+  { value: View.Categories, label: Locale.VIEW_BY_RECIPIENT, icon: ARTWORK.ctl.tool.categories },
+  { value: View.Table, label: Locale.VIEW_TABLE, icon: ARTWORK.ctl.tool.table }
+]
+const COLUMNS: Array<Column> = [
+  { title: Locale.COL_NUMBER, width: 46.875dp, sortable: true },
+  { title: Locale.COL_SUBJECT, width: { fr: 3 } },
+  { title: Locale.COL_TO, width: { fr: 2 }, sortable: true },
+  { title: Locale.COL_ATTACHED, width: 152.34375dp },
+  { title: Locale.COL_STATE, width: 164.0625dp, sortable: true }
+]
+const TRACKS: Array<Track> = tracksOf(COLUMNS)
+const ROW: Array<Track> = [35.15625dp, { fr: 1 }, "max-content", "max-content"]
+const TOP: Array<Track> = [{ fr: 1 }, "max-content"]
 const PAGE: Array<Track> = ["max-content", { fr: 1 }, "max-content"]
-const FOOT: Array<Track> = [{ fr: 1 }, "max-content"]
+const BAR: Array<Track> = ["max-content", { fr: 1 }, "max-content", "max-content"]
 
-function stateColor(state: SentState): Color {
+public function stateColor(state: SentState): Color {
   return match (state) {
     SentState.Waiting => Style.DIM
     SentState.Sending => Style.GOLD
@@ -35,7 +55,7 @@ function stateColor(state: SentState): Color {
   }
 }
 
-function stateText(letter: Sent): String {
+public function stateText(letter: Sent): String {
   return match (letter.state) {
     SentState.Waiting => Locale.STATE_WAITING
     SentState.Sending => Locale.STATE_SENDING
@@ -44,10 +64,14 @@ function stateText(letter: Sent): String {
   }
 }
 
+public function itemsText(letter: Sent): String {
+  return letter.items.length == 0 ? "" : Locale.ITEMS_COUNT.format(letter.items.length)
+}
+
 function passes(letter: Sent, filter: SentFilter, search: String): Boolean {
   const kept = match (filter) {
     SentFilter.All => true
-    SentFilter.Waiting => letter.state == SentState.Waiting || letter.state == SentState.Sending
+    SentFilter.Waiting => waits(letter)
     SentFilter.Sent => letter.state == SentState.Sent
     SentFilter.Stopped => letter.state == SentState.Stopped
   }
@@ -58,79 +82,254 @@ function passes(letter: Sent, filter: SentFilter, search: String): Boolean {
 }
 
 public class SentRow implements Component {
-  derived color: Color = stateColor(self.letter.state)
-  derived state: String = stateText(self.letter)
-  derived items: String = self.letter.items == 0 ? "" : Locale.ITEMS_COUNT.format(self.letter.items)
+  public pick: Event<Integer> = new Event()
+
+  derived on: Boolean = self.picked == self.letter.number
   derived hasMoney: Boolean = self.letter.copper > 0
+
+  letter: Signal<Sent>
+  picked: Signal<Integer>
+  constructor(letter: Signal<Sent>, picked: Signal<Integer>) {
+    self.letter = letter
+    self.picked = picked
+  }
+
+  onPick(mut self) { self.pick.emit(self.letter.number) }
+
+  public render(self): Template {
+    return $ltml {
+      <PickRow columns={ROW} picked={self.on} @pick={self.onPick}>
+        <text value={"%d"} arguments={[self.letter.number]} textColor={Style.DIM} wrap={false} />
+        <box columns={1}>
+          <text value={self.letter.subject} textColor={Style.INK} wrap={false} />
+          <text value={self.letter.to} textSize={SECONDARY_TEXT} textColor={Style.DIM} wrap={false} />
+        </box>
+        <box columns={{ each: "max-content" }} gap={1sp} yAlign={Align.Center}>
+          <text value={itemsText(self.letter)} textColor={Style.DIM} wrap={false} />
+          <Money $if={self.hasMoney} amount={self.letter.copper} />
+        </box>
+        <text value={stateText(self.letter)} textColor={stateColor(self.letter.state)} wrap={false} />
+      </PickRow>
+    }
+  }
+}
+
+public class SentTableRow implements Component {
+  public pick: Event<Integer> = new Event()
+
+  derived on: Boolean = self.picked == self.letter.number
+
+  letter: Signal<Sent>
+  picked: Signal<Integer>
+  constructor(letter: Signal<Sent>, picked: Signal<Integer>) {
+    self.letter = letter
+    self.picked = picked
+  }
+
+  onPick(mut self) { self.pick.emit(self.letter.number) }
+
+  public render(self): Template {
+    return $ltml {
+      <TableRow tracks={TRACKS} selected={self.on} @pick={self.onPick}>
+        <TableCell> <text value={"%d"} arguments={[self.letter.number]} textColor={Style.DIM} wrap={false} /> </TableCell>
+        <TableCell cut={true}> <text value={self.letter.subject} textColor={Style.INK} wrap={false} /> </TableCell>
+        <TableCell cut={true}> <text value={self.letter.to} textColor={Style.DIM} wrap={false} /> </TableCell>
+        <TableCell cut={true}> <text value={itemsText(self.letter)} textColor={Style.DIM} wrap={false} /> </TableCell>
+        <TableCell cut={true}> <text value={stateText(self.letter)} textColor={stateColor(self.letter.state)} wrap={false} /> </TableCell>
+      </TableRow>
+    }
+  }
+}
+
+// The letters to one recipient, under their caption.
+public struct ToGroup {
+  to: String
+  title: String
+  letters: Array<Sent>
+}
+
+public class ToCaption implements Component {
+  public fold: Event<String> = new Event()
+
+  derived shut: Boolean = self.folded[self.group.to] == true
+
+  group: Signal<ToGroup>
+  folded: Signal<Map<String, Boolean>>
+  constructor(group: Signal<ToGroup>, folded: Signal<Map<String, Boolean>>) {
+    self.group = group
+    self.folded = folded
+  }
+
+  onToggle(mut self) { self.fold.emit(self.group.to) }
+
+  public render(self): Template {
+    return $ltml { <FoldCaption title={self.group.title} folded={self.shut} @toggled={self.onToggle} /> }
+  }
+}
+
+// A letter of «Outbox» picked, beside the list: its subject, recipient, state, items and money; «Remove» for one still
+// waiting, «Write again» to the same recipient.
+public class SentView implements Component {
+  public remove: Event<Integer> = new Event()
+  public again: Event<String> = new Event()
+
+  derived removable: Boolean = self.letter.state == SentState.Waiting || self.letter.state == SentState.Stopped
+  derived hasMoney: Boolean = self.letter.copper > 0
+  derived hasCod: Boolean = self.letter.cod > 0
 
   letter: Signal<Sent>
   constructor(letter: Signal<Sent>) {
     self.letter = letter
   }
 
+  onRemove(mut self) { self.remove.emit(self.letter.number) }
+  onAgain(mut self) { self.again.emit(self.letter.to) }
+
   public render(self): Template {
     return $ltml {
-      <box columns={ROW} gap={2.5sp} yAlign={Align.Center}
-           padding={{ top: 1.5sp, bottom: 1.5sp, left: 2sp, right: 2sp }} background={Style.BACK}>
-        <text value={"%d"} arguments={[self.letter.number]} textColor={Style.DIM} wrap={false} />
-        <text value={self.letter.subject} textColor={Style.INK} wrap={false} />
-        <text value={self.letter.to} textColor={Style.DIM} wrap={false} />
-        <box gap={2sp} yAlign={Align.Center}>
-          <text value={self.items} textColor={Style.DIM} wrap={false} />
-          <Money $if={self.hasMoney} amount={self.letter.copper} />
+      <box rows={["max-content", { fr: 1 }, "max-content"]} gap={2sp}>
+        <box columns={1} gap={1sp}>
+          <text value={self.letter.subject} textColor={Style.GOLD} />
+          <text value={Locale.TO_NAME.format(self.letter.to)} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
+          <text value={stateText(self.letter)} textColor={stateColor(self.letter.state)} />
         </box>
-        <text value={self.state} textColor={self.color} wrap={false} />
+        <box columns={1} gap={2sp} overflow={Overflow.Scroll}>
+          <box columns={[46.875dp, 46.875dp, 46.875dp, 46.875dp, 46.875dp, 46.875dp]} gap={1sp}>
+            <ItemButton $for={index, item of self.letter.items} $key={index} item={item.item} count={item.count} />
+          </box>
+          <box $if={self.hasMoney} columns={[{ fr: 1 }, "max-content"]}>
+            <text value={Locale.MONEY} textColor={Style.DIM} />
+            <Money amount={self.letter.copper} />
+          </box>
+          <box $if={self.hasCod} columns={[{ fr: 1 }, "max-content"]}>
+            <text value={Locale.COD_AMOUNT} textColor={Style.ORANGE} />
+            <Money amount={self.letter.cod} color={Style.ORANGE} />
+          </box>
+        </box>
+        <box columns={["max-content", { fr: 1 }, "max-content"]} gap={2sp} border={Style.RULE} padding={{ top: 2sp }}>
+          <PushButton $if={self.removable} label={Locale.REMOVE} width={Style.BUTTON} @click={self.onRemove} />
+          <box $else />
+          <box />
+          <PushButton label={Locale.WRITE_AGAIN} width={Style.BUTTON} plate={ButtonPlate.Accent} @click={self.onAgain} />
+        </box>
       </box>
     }
   }
 }
 
 public class Outbox implements Component {
+  public pick: Event<Integer> = new Event()
+  public write: Event<nil> = new Event()
+  public stop: Event<nil> = new Event()
+  public resume: Event<nil> = new Event()
+
   state search = ""
   // How the player left the list, the profile's (`ModuleMemory`); the search isn't kept.
   public list: mut ModuleMemory<OutboxView> = new ModuleMemory<OutboxView>(OUTBOX_VIEW, .Profile, "outbox")
+  state folded: mut Map<String, Boolean> = {}
+  derived all: Array<Sent> = self.allOf()
   derived shown: Array<Sent> = self.shownOf()
+  derived groups: Array<ToGroup> = self.groupsOf()
   derived empty: Boolean = self.shown.length == 0
-  derived waiting: Integer = self.sent.count(l => l.state == SentState.Waiting || l.state == SentState.Sending)
-  derived hasWaiting: Boolean = self.waiting > 0
-  derived postage: String = Locale.WAITING_LETTERS.format(self.waiting)
+  derived waiting: Integer = self.queue.count(waits)
+  derived stopped: Integer = self.queue.count(l => l.state == SentState.Stopped)
+  derived hasQueue: Boolean = self.queue.length > 0
+  derived postage: Integer = self.postageOf()
+  derived inList: Boolean = self.list.values.view == View.List
+  derived inGroups: Boolean = self.list.values.view == View.Categories
   derived narrowed: Boolean = self.list.values.filter != SentFilter.All
 
-  sent: Signal<Array<Sent>>
-  canWrite: Signal<Boolean>
-  constructor(sent: Signal<Array<Sent>>, canWrite: Signal<Boolean>) {
-    self.sent = sent
-    self.canWrite = canWrite
+  queue: Signal<Array<Sent>>
+  history: Signal<Array<Sent>>
+  picked: Signal<Integer>
+  constructor(queue: Signal<Array<Sent>>, history: Signal<Array<Sent>>, picked: Signal<Integer>) {
+    self.queue = queue
+    self.history = history
+    self.picked = picked
+  }
+
+  // The queue's letters then those gone, the newest first.
+  allOf(self): Array<Sent> {
+    const list: Array<Sent> = []
+    for (index of self.queue.length..1 step -1) { list.push(self.queue[index] ?? panic("within the queue")) }
+    for (letter of self.history) { list.push(letter) }
+    return list
   }
 
   shownOf(self): Array<Sent> {
-    const list: Array<Sent> = []
-    for (letter of self.sent) {
-      if (passes(letter, self.list.values.filter, self.search)) { list.push(letter) }
+    const filter = self.list.values.filter
+    const search = self.search
+    const list = self.all.filter(l => passes(l, filter, search))
+    const column = self.list.values.sorted
+    const down = self.list.values.descending
+    if (column == 0) { return list }
+    list.sort((a, b) => {
+      if (column == 1) { return down ? a.number > b.number : a.number < b.number }
+      if (column == 3) { return down ? a.to > b.to : a.to < b.to }
+      return down ? stateText(a) > stateText(b) : stateText(a) < stateText(b)
+    })
+    return list
+  }
+
+  groupsOf(self): Array<ToGroup> {
+    const list: Array<ToGroup> = []
+    for (letter of self.shown) {
+      if (!list.any(g => g.to == letter.to)) {
+        const part = self.shown.filter(l => l.to == letter.to)
+        list.push({ to: letter.to, title: "%s (%d)".format(letter.to, part.length), letters: self.folded[letter.to] == true ? [] : part })
+      }
     }
     return list
   }
 
+  // What the letters not yet gone will cost.
+  postageOf(self): Integer {
+    let total = 0
+    for (letter of self.queue) { total += Game.mailbox.postage(letter.items.length) }
+    return total
+  }
+
+  onPick(mut self, number: Integer) { self.pick.emit(number) }
+  onFold(mut self, to: String) { self.folded[to] = !(self.folded[to] == true) }
+  onWrite(mut self) { self.write.emit() }
+  onStop(mut self) { self.stop.emit() }
+  onResume(mut self) { self.resume.emit() }
+
   public render(self): Template {
     return $ltml {
       <box rows={PAGE} gap={2.5sp}>
-        <box columns={FOOT} gap={2.5sp} yAlign={Align.Center}>
-          <Toolbar search={mut self.search} placeholder={Locale.SEARCH}>
+        <box columns={TOP} gap={2sp} yAlign={Align.Center}>
+          <Toolbar search={mut self.search} placeholder={Locale.SEARCH_SENT}>
             <ToolPick value={mut self.list.values.filter} choices={FILTERS} icon={Ordaen.art.ctl.tool.filter}
                       title={Locale.FILTER} lit={self.narrowed} />
+            <ToolSort sorted={mut self.list.values.sorted} columns={COLUMNS} title={Locale.SORT} />
+            <ToolPick value={mut self.list.values.view} choices={VIEWS} icon={Ordaen.art.ctl.tool.columns} title={Locale.VIEW} />
           </Toolbar>
-          <PushButton label={Locale.WRITE} width={175.78125dp} plate={ButtonPlate.Accent} disabled={!self.canWrite} />
+          <PushButton label={Locale.WRITE} width={Style.BUTTON} plate={ButtonPlate.Accent} @click={self.onWrite} />
         </box>
         <box $if={self.empty} xAlign={Align.Center} yAlign={Align.Center}>
           <text value={Locale.NOTHING_SENT} textColor={Style.DIM} />
         </box>
-        <box $else overflow={Overflow.Scroll}>
-          <SentRow $for={letter of self.shown} $key={letter.number} letter={letter} />
+        <box $elseif={self.inList} columns={1} overflow={Overflow.Scroll}>
+          <SentRow $for={letter of self.shown} $key={letter.number} letter={letter} picked={self.picked} @pick={self.onPick} />
         </box>
-        <box $if={self.hasWaiting} columns={FOOT} gap={2.5sp} yAlign={Align.Center}>
-          <text value={self.postage} textColor={Style.DIM} />
-          <PushButton label={Locale.CONTINUE} width={199.21875dp} plate={ButtonPlate.Accent} disabled={true} />
+        <box $elseif={self.inGroups} columns={1} gap={2sp} overflow={Overflow.Scroll}>
+          <box $for={group of self.groups} $key={group.to} columns={1} gap={1sp}>
+            <ToCaption group={group} folded={self.folded} @fold={self.onFold} />
+            <SentRow $for={letter of group.letters} $key={letter.number} letter={letter} picked={self.picked} @pick={self.onPick} />
+          </box>
         </box>
+        <Table $else columns={COLUMNS} sorted={mut self.list.values.sorted} descending={mut self.list.values.descending} rowsVary={true}>
+          <SentTableRow $for={letter of self.shown} $key={letter.number} letter={letter} picked={self.picked} @pick={self.onPick} />
+        </Table>
+        <box $if={self.hasQueue} columns={BAR} gap={2sp} yAlign={Align.Center}>
+          <PushButton label={Locale.STOP} width={Style.BUTTON} disabled={self.waiting == 0} @click={self.onStop} />
+          <box />
+          <Money amount={self.postage} />
+          <PushButton label={Locale.CONTINUE} width={Style.BUTTON} plate={ButtonPlate.Accent} disabled={self.stopped == 0}
+                      @click={self.onResume} />
+        </box>
+        <box $else />
       </box>
     }
   }

@@ -19,6 +19,7 @@ import { RecipeDetails } from "@/details"
 import { Learning, Taught, learnedFrom } from "@/learn"
 import Locale from "@/locales"
 import { OverviewPage, knownSpellName } from "@/overview"
+import { QueueItem, Use, needsOf, usesOf } from "@/published"
 import { Need, QueuePage } from "@/queue"
 import { CategoryGroup, CategoryRow, RecipeRow, RecipeTableRow } from "@/rows"
 import { Choices, GeneralPage } from "@/settings"
@@ -101,6 +102,8 @@ function filterStart(unlearned: Boolean): mut Map<RecipeFilter, Boolean> {
   return switched(switched({}, [RecipeFilter.Learned], true), [RecipeFilter.Unlearned], unlearned)
 }
 
+const NO_USES: Array<Use> = []
+
 const NOTHING_KEPT: Kept = {
   last: 0, seen: {}, favorites: [], tracked: [], queue: [], paused: {}
 }
@@ -142,6 +145,10 @@ public class Professions implements Module, App {
   // The recipe book, the account's: what every character knows, and what each recipe takes and makes («Выгода»).
   public book: mut ModuleMemory<Book> = new ModuleMemory<Book>({ recipes: {}, characters: {} }, .Account, "book")
   derived written: Book = self.book.values
+  // Every known recipe by the items it takes, for `uses`.
+  derived usedBy: Map<Integer, Array<Use>> = usesOf(self.written)
+  // What this character's craft queue takes, every line still to make together: another module's read.
+  public derived queue: Array<QueueItem> = needsOf(self.written, self.crafting.lines)
   derived taught: Map<String, Taught> = self.learning.values.recipes
   // How the player left the recipe list: its view, its sort and the table's order, the profile's.
   public list: mut ModuleMemory<ListView> = new ModuleMemory<ListView>(LIST_VIEW)
@@ -273,6 +280,9 @@ public class Professions implements Module, App {
     // The trainer's changes are heard while its window shows.
     watch (shown of self.atTrainer) { Game.trainer.watch(shown) }
   }
+
+  // The recipes of every character's book that take an item: another module's read.
+  public uses(self, item: Integer): Array<Use> { return self.usedBy[item] ?? NO_USES }
 
   // A profession's trainer shows, or its services change: the skill and the price of each recipe it teaches are kept,
   // and its window shows them.

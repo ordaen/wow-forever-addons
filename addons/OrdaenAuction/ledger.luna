@@ -1,5 +1,5 @@
 // The sales ledger: a row for each of the house's mail the player takes (a sale, a purchase, an auction back unsold),
-// written through the root's `ledger` by whoever reads the mail; no addon does yet, so «Data» counts none. Saved with
+// written through the root's `ledger` by whoever reads the mail (Ordaen Mail, as each such letter is taken from). Saved with
 // the module's data, at most `MOST` rows, none older than 90 days: older rows say nothing of the market now.
 import Game from "$game"
 import { Hour } from "Ordaen"

@@ -1,16 +1,25 @@
-// The mail window's look: its size at the player's scale and the colours of what a letter says. A text's size is a
-// step of the ladder (`$ltml`'s `TextSize`).
+// The mail window's look: its size at the player's scale, the side's width, the buttons', and the colours of what a
+// letter says. Gaps are the spacing ladder's steps (`space`).
+import { Edges, Line, Side } from "$ltml"
 
-public const WIDTH: Number<Length> = 1406.25dp
+public const WIDTH: Number<Length> = 843.75dp
 public const HEIGHT: Number<Length> = 703.125dp
-public const LIST: Number<Length> = 726.5625dp
-public const GAP: Number<Spacing> = 3sp
+// The picked letter's side, and the form's.
+public const SIDE: Number<Length> = 562.5dp
+public const BUTTON: Number<Length> = 140.625dp
+public const WIDE_BUTTON: Number<Length> = 234.375dp
+public const ASK: Number<Length> = 468.75dp
 
 public const INK: Color = Color.hex("#e8dcc4")
 public const DIM: Color = Color.hex("#a3977f")
+public const FAINT: Color = Color.hex("#5a5040")
 public const GOLD: Color = Color.hex("#ffd100")
 public const RED: Color = Color.hex("#ff4040")
 public const GREEN: Color = Color.hex("#40d060")
 public const ORANGE: Color = Color.hex("#ff9a30")
-public const BACK: Color = Color.hex("#00000066")
-public const PICKED: Color = Color.hex("#ffd10026")
+
+public const FIELD_BACK: Color = Color.hex("#0d0a08")
+public const FIELD_EDGE: Line = { width: 1.171875dp, color: Color.hex("#4a3a24") }
+public const FIELD_PAD: Edges = { top: 2sp, right: 2.5sp, bottom: 2sp, left: 2.5sp }
+// The rule over a side's footer.
+public const RULE: Line = { width: 1.171875dp, color: Color.hex("#3e2f1d"), sides: [Side.Top] }

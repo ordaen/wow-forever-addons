@@ -1,0 +1,6 @@
+// Pawn's public API (`PawnGetItemData`, `PawnIsItemAnUpgrade`, Pawn 2.14 for Forever), as `pawn.lua` reads it: how much
+// an item would raise the player's best scale. Pawn is called from the player's own install; nothing of it is copied here.
+
+// The share an item raises the scale it helps most (0.15 for 15%); nil where it is no upgrade, Pawn isn't loaded, or
+// the item isn't known to the client yet.
+public function upgrade(link: String): Number | nil

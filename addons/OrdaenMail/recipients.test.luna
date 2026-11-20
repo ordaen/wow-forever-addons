@@ -1,0 +1,73 @@
+// Who a letter can go to, as the game tells it: friends, the guild and the character communities, each name in its
+// class's colour, the online first, a name matched from its start.
+import Client from "$client"
+import Test from "$test"
+import { classColor } from "Ordaen"
+import { communities, friends, guild, starts } from "@/recipients"
+
+function friend(name: String, guid: String, online: Boolean): Client.FriendInfo {
+  return {
+    connected: online, name: name, className: nil, area: nil, notes: nil, guid: guid, level: 60, dnd: false, afk: false,
+    rafLinkType: Client.RafLinkType.None
+  }
+}
+
+function sameColor(a: Color | nil, b: Color | nil): Boolean {
+  if (a == nil || b == nil) { return a == b }
+  return a.equal(b)
+}
+
+test "a name is matched from its start, of any case, and the whole of a surname" {
+  Test.expect(starts("Regy Ironsight", "reg"))
+  Test.expect(starts("Regy Ironsight", ""))
+  Test.expect(!starts("Regy Ironsight", "iron"))
+}
+
+test "friends come online first, each in its class's colour" {
+  Client.C_FriendList.GetNumFriends = (): Integer => 2
+  Client.C_FriendList.GetFriendInfoByIndex = (index: Integer): Client.FriendInfo | nil =>
+  index == 1 ? friend("Aria", "Player-1-2", false) : friend("Dorn", "Player-1-3", true)
+  Client.GetPlayerInfoByGUID = (guid: String): (String | nil, String | nil, String | nil, String | nil, Number | nil, String | nil, String | nil, Number | nil) => {
+    return nil, guid == "Player-1-3" ? "WARRIOR" : "MAGE", nil, nil, nil, nil, nil, nil
+  }
+  const list = friends()
+  Test.expect(list.map(who => who.name).join(", ") == "Dorn, Aria")
+  Test.expect(sameColor(list[1]?.color, classColor("WARRIOR")))
+  Test.expect(sameColor(list[2]?.color, classColor("MAGE")))
+}
+
+test "the guild's members come in their classes' colours" {
+  Client.GetNumGuildMembers = (): (Integer, Integer) => {
+    return 1, 1
+  }
+  Client.GetGuildRosterInfo = (index: Integer): (String | nil, String | nil, Number | nil, Number | nil, String | nil, String | nil, String | nil, String | nil, Boolean | nil, Number | nil, String | nil) => {
+    return "Regy", nil, nil, 42, nil, nil, nil, nil, true, nil, "PRIEST"
+  }
+  const list = guild()
+  Test.expect(list.length == 1 && list[1]?.level == 42 && list[1]?.online == true)
+  Test.expect(sameColor(list[1]?.color, classColor("PRIEST")))
+}
+
+test "a character community's members stand under its name, in their classes' colours, without the player" {
+  Client.C_Club.GetSubscribedClubs = (): Array<Client.ClubInfo> => [
+    { clubId: "7", name: "Crafters", shortName: nil, description: "", broadcast: "", clubType: Client.ClubType.Character, avatarId: 0,
+      memberCount: nil, favoriteTimeStamp: nil, joinTime: nil, socialQueueingEnabled: nil, crossFaction: nil }
+  ]
+  Client.C_Club.GetClubMembers = (clubId: String, streamId: String | nil): Array<Unknown> => [1, 2]
+  Client.C_Club.GetMemberInfo = (clubId: String, member: Unknown): Client.ClubMemberInfo | nil => {
+    const me = member == 1
+    return {
+      isSelf: me, memberId: member, name: me ? "Player" : "Wren", role: nil, presence: Client.ClubMemberPresence.Online, clubType: nil,
+      guid: nil, bnetAccountId: nil, memberNote: nil, officerNote: nil, classID: 4, race: nil, level: 20, zone: nil,
+      achievementPoints: nil, profession1ID: nil, profession1Rank: nil, profession1Name: nil, profession2ID: nil,
+      profession2Rank: nil, profession2Name: nil, lastOnlineYear: nil, lastOnlineMonth: nil, lastOnlineDay: nil,
+      lastOnlineHour: nil, guildRank: nil, guildRankOrder: nil, isRemoteChat: nil, overallDungeonScore: nil, faction: nil,
+      timerunningSeasonID: nil, discordInfo: nil
+    }
+  }
+  Client.C_CreatureInfo.GetClassInfo = (classID: Number): Client.ClassInfo | nil =>
+  { className: "Rogue", classFile: "ROGUE", classID: classID }
+  const list = communities()
+  Test.expect(list.length == 1 && list[1]?.name == "Wren" && list[1]?.group == "Crafters")
+  Test.expect(sameColor(list[1]?.color, classColor("ROGUE")))
+}

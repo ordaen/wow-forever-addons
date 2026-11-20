@@ -1,0 +1,61 @@
+// A letter of more than twelve stacks goes out as several, and what the queue keeps.
+import Game from "$game"
+import Test from "$test"
+import { lettersFor, numbered, remembered } from "@/letters"
+import { Sender } from "@/sender"
+
+function stacks(count: Integer): Array<Game.MailStack> {
+  const list: Array<Game.MailStack> = []
+  for (index of 1..count) { list.push({ bag: 0, slot: index, item: 2589, count: 20 }) }
+  return list
+}
+
+test "twelve stacks go in a letter; thirteen in two, the subject numbered within the game's length" {
+  Test.expect(lettersFor(0) == 1 && lettersFor(12) == 1 && lettersFor(13) == 2 && lettersFor(25) == 3)
+  Test.expect(numbered("Cloth", 1, 1) == "Cloth")
+  Test.expect(numbered("Cloth", 2, 3) == "Cloth (2/3)")
+  Test.expect(numbered("x".rep(70), 1, 2).length == 64)
+}
+
+test "the recent recipients are the newest first, each once, twenty at most" {
+  let names: Array<String> = []
+  for (index of 1..25) { names = remembered(names, `N${index}`) }
+  Test.expect(names.length == 20 && names[1] == "N25")
+  Test.expect(remembered(names, "N10")[1] == "N10" && remembered(names, "N10").length == 20)
+}
+
+test "a letter of thirteen stacks is queued as two; the money goes with the first, cash on delivery with none" {
+  Game.mailObserver.open = true
+  const sender = new Sender()
+  sender.put("Regron", "Cloth", "", stacks(13), 500, 900)
+  const queue = sender.memory.values.queue
+  Test.expect(queue.length == 2)
+  Test.expect((queue[1] ?? panic("first")).subject == "Cloth (1/2)" && (queue[1] ?? panic("first")).copper == 500)
+  Test.expect((queue[2] ?? panic("second")).items.length == 1 && (queue[2] ?? panic("second")).cod == 0)
+  Test.expect(sender.recent.values.names[1] == "Regron")
+}
+
+test "the queue sends one letter at a time: the next goes once the game says the last went" {
+  Game.mailObserver.open = true
+  const sender = new Sender()
+  _ = Test.requests()
+  sender.put("Regron", "Cloth", "", stacks(13), 0, 0)
+  Test.expect(Test.requests().filter(r => r.contains("Mailbox.send")).length == 1)
+  Game.mailObserver.sent.emit()
+  Test.expect(Test.requests().filter(r => r.contains("Mailbox.send")).length == 1)
+  Game.mailObserver.sent.emit()
+  Test.expect(sender.memory.values.queue.length == 0 && sender.memory.values.history.length == 2)
+}
+
+test "nothing goes while the mailbox is shut; a letter the game didn't answer stops" {
+  Game.mailObserver.open = false
+  const sender = new Sender()
+  _ = Test.requests()
+  sender.put("Regron", "Ore", "", [], 0, 0)
+  Test.expect(!Test.requests().any(r => r.contains("Mailbox.send")))
+  Game.mailObserver.open = true
+  sender.resume()
+  Test.expect(sender.busy())
+  Test.pass(11)
+  Test.expect(!sender.busy() && (sender.memory.values.queue[1] ?? panic("one")).why == "the game didn't answer")
+}

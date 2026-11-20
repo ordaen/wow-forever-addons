@@ -1,0 +1,302 @@
+// «Write»: the form beside «Outbox». «To» picks its list first (the player's characters while Ordaen Alts is on,
+// friends, the guild, the communities, anyone) and then a name in it, matched from its start (a list's alone take only
+// a name of it; «Anyone» is free text with the recent recipients as hints); the subject (empty: the first item's name
+// or «Money»), the text; the attachments, six a row and twelve a letter (more go out as several letters, «Letter 2»
+// over the next), filled by dragging an item onto a slot or by the game's own ways into the letter being written
+// (Right-click in the bags: the form takes the item from the game's letter); a slot clicked gives its item back. Then
+// money or cash on delivery; the footer: the attachments and letters, the postage, «Clear» and «Send», greyed until a
+// recipient is picked.
+import Client from "$client"
+import Events from "$events"
+import Game from "$game"
+import { Align, Overflow, Track } from "$ltml"
+import { ButtonPlate, Choice, CompactDropdown, Component, Fact, Field, ItemButton, MoneyField, PickRow, PushButton, SECONDARY_TEXT, Segmented, trimmed } from "Ordaen"
+import type { Alts } from "OrdaenAlts"
+import { PLACES, SUBJECT_MOST, lettersFor } from "@/letters"
+import Locale from "@/locales"
+import { Recipient, Source, communities, friends, guild, own, starts } from "@/recipients"
+import { Sender, stackOf } from "@/sender"
+import Style from "@/style"
+
+// The most cash on delivery the game takes (`MAX_COD_AMOUNT`, in gold).
+const COD_MOST = 10000 * 10000
+// How many names the list under «To» shows.
+const SHOWN_NAMES = 6
+const SLOT = 46.875dp
+const SLOTS: Array<Track> = [SLOT, SLOT, SLOT, SLOT, SLOT, SLOT]
+const NAME_ROW: Array<Track> = [9.375dp, { fr: 1 }, "max-content"]
+const TO_ROW: Array<Track> = ["max-content", { fr: 1 }]
+const FOOT: Array<Track> = [{ fr: 1 }, "max-content", "max-content"]
+const DOT = 7.03125dp
+
+public enum Paid implements Plain { Money = "money", Cod = "cod" }
+
+const PAID: Array<Choice<Paid>> = [{ value: Paid.Money, label: Locale.SEND_MONEY }, { value: Paid.Cod, label: Locale.COD_AMOUNT }]
+const WITH_OWN: Array<Choice<Source>> = [
+  { value: Source.Own, label: Locale.TO_OWN },
+  { value: Source.Friends, label: Locale.TO_FRIENDS },
+  { value: Source.Guild, label: Locale.TO_GUILD },
+  { value: Source.Communities, label: Locale.TO_COMMUNITIES },
+  { value: Source.Other, label: Locale.TO_OTHER }
+]
+const WITHOUT_OWN: Array<Choice<Source>> = [
+  { value: Source.Friends, label: Locale.TO_FRIENDS },
+  { value: Source.Guild, label: Locale.TO_GUILD },
+  { value: Source.Communities, label: Locale.TO_COMMUNITIES },
+  { value: Source.Other, label: Locale.TO_OTHER }
+]
+
+// One letter's slots of the form: its heading where there are several, and its stacks (with the empty slot to fill
+// after the last).
+public struct LetterSlots {
+  number: Integer
+  title: String
+  stacks: Array<Game.MailStack | nil>
+}
+
+// A name under «To»: a dot, green while online, the name in its class's colour, the level.
+public class NameRow implements Component {
+  public pick: Event<String> = new Event()
+
+  derived dot: Color = self.who.online ? Style.GREEN : Style.FAINT
+  derived ink: Color = self.who.color ?? Style.INK
+
+  who: Signal<Recipient>
+  constructor(who: Signal<Recipient>) {
+    self.who = who
+  }
+
+  onPick(mut self) { self.pick.emit(self.who.name) }
+
+  public render(self): Template {
+    return $ltml {
+      <PickRow columns={NAME_ROW} @pick={self.onPick}>
+        <box width={DOT} height={DOT} background={self.dot} />
+        <text value={self.who.name} textColor={self.ink} wrap={false} />
+        <text value={"%d"} arguments={[self.who.level]} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={false} />
+      </PickRow>
+    }
+  }
+}
+
+// One slot of the form: a stack, or the empty slot to fill.
+public class FormSlot implements Component {
+  public remove: Event<Game.MailStack> = new Event()
+  public dropped: Event<nil> = new Event()
+
+  derived item: Integer | nil = self.stack?.item
+  derived count: Integer = self.stack?.count ?? 1
+
+  stack: Signal<Game.MailStack | nil>
+  constructor(stack: Signal<Game.MailStack | nil>) {
+    self.stack = stack
+  }
+
+  onPick(mut self) {
+    const stack = self.stack
+    if (stack != nil) { self.remove.emit(stack) }
+  }
+
+  onDrop(mut self) { self.dropped.emit() }
+
+  public render(self): Template {
+    return $ltml {
+      <ItemButton item={self.item} count={self.count} size={SLOT} @pick={self.onPick} @dropped={self.onDrop}
+                  @pressed={self.onDrop} />
+    }
+  }
+}
+
+public class Compose implements Component {
+  // The form closed (its ✕, or its letters put into the queue).
+  public closed: Event<nil> = new Event()
+
+  state to = ""
+  // The name picked from a list; a list's name must be one.
+  state picked = ""
+  state subject = ""
+  state body = ""
+  state paid: Paid = Paid.Money
+  state copper = 0
+  state stacks: mut Array<Game.MailStack> = []
+  state names: Array<Recipient> = []
+  derived shown: Array<Recipient> = self.namesOf()
+  derived listing: Boolean = self.source != Source.Other && self.picked != self.to && self.shown.length > 0
+  derived letters: Integer = lettersFor(self.stacks.length)
+  derived slots: Array<LetterSlots> = self.slotsOf()
+  derived postage: Integer = self.postageOf()
+  derived attached: String = Locale.ATTACHED_LETTERS.format(self.stacks.length, self.letters)
+  derived chosen: Boolean = self.source == Source.Other ? trimmed(self.to) != "" : self.picked != "" && self.picked == self.to
+  derived codTooHigh: Boolean = self.paid == Paid.Cod && self.copper > COD_MOST
+  derived codSplit: Boolean = self.paid == Paid.Cod && self.copper > 0 && self.letters > 1
+  derived ready: Boolean = self.chosen && !self.codTooHigh && !self.codSplit
+  derived choices: Array<Choice<Source>> = self.alts != nil ? WITH_OWN : WITHOUT_OWN
+
+  // The list «To» picks from: the session's, the window's to keep.
+  source: mut Signal<Source>
+  const sender: mut Sender
+  alts: Signal<Alts | nil>
+  constructor(source: mut Signal<Source>, sender: mut Sender, alts: Signal<Alts | nil>, to: String = "") {
+    self.source = source
+    self.sender = sender
+    self.alts = alts
+    self.to = to
+    self.picked = to
+    if (self.alts == nil && peek self.source == Source.Own) { self.source = Source.Friends }
+    watch (from of self.source) { self.names = self.read(from) }
+    // What the game's letter takes (an item Right-clicked in the bags, one dropped on a slot) comes into the form.
+    Events.MAIL_SEND_INFO_UPDATE.listen(self.absorb)
+    Game.mailbox.writing(true)
+  }
+
+  destructor() {
+    Game.mailbox.writing(false)
+  }
+
+  read(self, from: Source): Array<Recipient> {
+    return match (from) {
+      Source.Own => own(peek self.alts)
+      Source.Friends => friends()
+      Source.Guild => guild()
+      Source.Communities => communities()
+      Source.Other => (peek self.sender.recent.values).names.map(n => {
+        const one: Recipient = { name: n, level: 0, online: false, color: nil, group: "" }
+        return one
+      })
+    }
+  }
+
+  namesOf(self): Array<Recipient> {
+    const typed = trimmed(self.to)
+    const list: Array<Recipient> = []
+    for (who of self.names) {
+      if (list.length < SHOWN_NAMES && starts(who.name, typed)) { list.push(who) }
+    }
+    return list
+  }
+
+  slotsOf(self): Array<LetterSlots> {
+    const list: Array<LetterSlots> = []
+    const count = lettersFor(self.stacks.length + 1)
+    for (number of 1..count) {
+      const stacks: Array<Game.MailStack | nil> = []
+      for (index of ((number - 1) * PLACES + 1)..(number * PLACES).min(self.stacks.length + 1)) {
+        stacks.push(self.stacks[index])
+      }
+      list.push({ number: number, title: count > 1 ? Locale.LETTER_NUMBER.format(number) : "", stacks: stacks })
+    }
+    return list
+  }
+
+  postageOf(self): Integer {
+    let total = 0
+    for (number of 1..self.letters) {
+      total += Game.mailbox.postage((self.stacks.length - (number - 1) * PLACES).min(PLACES).max(0))
+    }
+    return total
+  }
+
+  onPickName(mut self, name: String) {
+    self.to = name
+    self.picked = name
+  }
+
+  // The game's letter took items: each comes into the form as the stack it lies in (locked while in the letter), and
+  // goes back from the game's letter to the bags.
+  absorb(mut self) {
+    if (self.sender.busy()) { return }
+    for (place of 1..PLACES) {
+      const _, item, _, count, _ = Client.GetSendMailItem(place)
+      if (item != nil) {
+        const stack = stackOf(item.floor(), (count ?? 1).floor(), true, peek self.stacks)
+        if (stack != nil) { self.stacks.push(stack) }
+        Client.ClickSendMailItemButton(place, true)
+      }
+    }
+  }
+
+  // An item let go on a slot: into the game's letter, and from there into the form.
+  onDrop(mut self) {
+    if (!Client.CursorHasItem()) { return }
+    Client.ClickSendMailItemButton(nil, nil)
+    self.absorb()
+  }
+
+  onRemove(mut self, stack: Game.MailStack) {
+    self.stacks = (peek self.stacks).filter(s => s.bag != stack.bag || s.slot != stack.slot)
+  }
+
+  onClear(mut self) {
+    self.to = ""
+    self.picked = ""
+    self.subject = ""
+    self.body = ""
+    self.copper = 0
+    self.paid = Paid.Money
+    self.stacks = []
+  }
+
+  onClose(mut self) { self.closed.emit() }
+
+  // «Send»: the letters into the queue, which sends them one after another; the form closes.
+  onSend(mut self) {
+    if (!(peek self.ready)) { return }
+    const stacks = peek self.stacks
+    const subject = trimmed(peek self.subject)
+    const first = stacks[1]
+    const named = subject != "" ? subject : first != nil ? Client.C_Item.GetItemNameByID(first.item) ?? Locale.MONEY : Locale.MONEY
+    const cod = peek self.paid == Paid.Cod ? peek self.copper : 0
+    const copper = peek self.paid == Paid.Money ? peek self.copper : 0
+    self.sender.put(trimmed(peek self.to), named.sub(1, SUBJECT_MOST), peek self.body, stacks, copper, cod)
+    self.closed.emit()
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <box rows={["max-content", { fr: 1 }, "max-content"]} gap={2sp}>
+        <box columns={[{ fr: 1 }, "max-content"]} yAlign={Align.Center}>
+          <text value={Locale.WRITE} textColor={Style.GOLD} />
+          <PushButton label={Locale.CLOSE} width={Style.BUTTON} @click={self.onClose} />
+        </box>
+        <box columns={1} gap={2sp} overflow={Overflow.Scroll}>
+          <box columns={TO_ROW} gap={2sp} yAlign={Align.Center}>
+            <CompactDropdown value={mut self.source} choices={peek self.choices} width={175.78125dp} />
+            <Field value={mut self.to} maxLength={64} placeholder={Locale.TO} />
+          </box>
+          <box $if={self.listing} columns={1}>
+            <NameRow $for={who of self.shown} $key={who.name} who={who} @pick={self.onPickName} />
+          </box>
+          <Field value={mut self.subject} maxLength={SUBJECT_MOST} placeholder={Locale.SUBJECT} />
+          <box height={93.75dp} rows={[{ fr: 1 }]}>
+            <input value={mut self.body} multiline={true} maxLength={500} padding={Style.FIELD_PAD}
+                   background={Style.FIELD_BACK} border={Style.FIELD_EDGE} textColor={Style.INK} />
+          </box>
+          <box $for={letter of self.slots} $key={letter.number} columns={1} gap={1sp}>
+            <text $if={letter.title != ""} value={letter.title} textColor={Style.DIM} textSize={SECONDARY_TEXT} />
+            <box columns={SLOTS} gap={1sp}>
+              <FormSlot $for={index, stack of letter.stacks} $key={index} stack={stack} @remove={self.onRemove}
+                        @dropped={self.onDrop} />
+            </box>
+          </box>
+          <box columns={["max-content", "max-content"]} gap={2sp} yAlign={Align.Center}>
+            <Segmented value={mut self.paid} choices={PAID} />
+            <MoneyField value={mut self.copper} />
+          </box>
+          <text $if={self.codTooHigh} value={Locale.COD_TOO_HIGH} textColor={Style.RED} textSize={SECONDARY_TEXT} />
+          <text $if={self.codSplit} value={Locale.COD_ONE_LETTER} textColor={Style.RED} textSize={SECONDARY_TEXT} />
+        </box>
+        <box columns={1} gap={2sp} border={Style.RULE} padding={{ top: 2sp }}>
+          <Fact label={Locale.ATTACHMENTS} value={self.attached} />
+          <box columns={FOOT} gap={2sp} yAlign={Align.Center}>
+            <box>
+              <PushButton label={Locale.CLEAR} width={Style.BUTTON} @click={self.onClear} />
+            </box>
+            <Fact label={Locale.POSTAGE} value={Game.money.format(self.postage)} />
+            <PushButton label={Locale.SEND} width={Style.BUTTON} plate={ButtonPlate.Accent} disabled={!self.ready}
+                        @click={self.onSend} />
+          </box>
+        </box>
+      </box>
+    }
+  }
+}

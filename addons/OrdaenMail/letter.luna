@@ -1,0 +1,175 @@
+// The opened letter, beside the inbox: its subject, the sender and the days left, its text (to select and copy), each
+// attachment as a reward is shown (its name in its quality's colour, its kind and slot under it, the stack's sell
+// price; Left-click takes it, Shift+Left-click links it, Ctrl+Left-click tries it on), the money (Left-click takes it),
+// cash on delivery in orange. The buttons as everywhere: «Return» at the left for what can go back, «Reply», and at the
+// right «Take all» in the accent («Pay and take» with cash on delivery); a letter that holds nothing more offers
+// «Delete».
+import Client from "$client"
+import Game from "$game"
+import { Align, Overflow, Track } from "$ltml"
+import Runtime from "$runtime"
+import { ButtonPlate, Component, CopyText, ItemButton, Money, PickRow, PushButton, SECONDARY_TEXT, TITLE_TEXT, UNUSABLE, usableItem } from "Ordaen"
+import { daysText, senderOf } from "@/inbox"
+import Locale from "@/locales"
+import Style from "@/style"
+
+const SLOT = 42.1875dp
+// The green the game's tooltips give a gain.
+const RAISE: Color = Color.hex("#1eff00")
+const REWARD: Array<Track> = [SLOT, { fr: 1 }, "max-content"]
+const MONEY: Array<Track> = [{ fr: 1 }, "max-content"]
+const FOOT: Array<Track> = ["max-content", "max-content", { fr: 1 }, "max-content"]
+const PARTS: Array<Track> = ["max-content", { fr: 1 }, "max-content"]
+
+// What a letter's action asks.
+public enum LetterAct {
+  TakeItem { place: Integer }
+  TryOn { link: String }
+  TakeMoney
+  TakeAll
+  GiveBack
+  Reply
+  Delete
+}
+
+// One attachment as a reward: its slot, its name in its quality's colour with its kind and slot under it, the stack's
+// sell price.
+public class Attachment implements Component {
+  public act: Event<LetterAct> = new Event()
+
+  derived info: AttachmentInfo = infoOf(self.item.item)
+  derived usable: Boolean = usableItem(self.item.item)
+  // How much it would raise the player's best Pawn scale, as «+n%»; empty where it is none.
+  derived raise: String = raiseText(self.upgrade(self.item.link))
+
+  item: Signal<Game.MailItem>
+  index: Signal<Integer>
+  upgrade: (link: String) => Number | nil
+  constructor(item: Signal<Game.MailItem>, index: Signal<Integer>, upgrade: (link: String) => Number | nil) {
+    self.item = item
+    self.index = index
+    self.upgrade = upgrade
+  }
+
+  // Left-click takes it; with Ctrl it is tried on (Shift's link is the slot's own).
+  onPick(mut self) {
+    if (Game.input.shiftDown()) { return }
+    if (Game.input.controlDown()) {
+      self.act.emit(.TryOn { link: self.item.link })
+      return
+    }
+    self.act.emit(.TakeItem { place: self.item.place })
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <PickRow columns={REWARD} @pick={self.onPick}>
+        <ItemButton item={self.item.item} count={self.item.count} size={SLOT} mail={[self.index, self.item.place]} />
+        <box columns={1}>
+          <text value={self.item.name} textColor={self.info.color} wrap={false} />
+          <text value={self.info.kind} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={false} />
+          <text $if={!self.usable} value={Locale.CANT_USE} textColor={UNUSABLE} textSize={SECONDARY_TEXT} wrap={false} />
+          <text $if={self.raise != ""} value={self.raise} textColor={RAISE} textSize={SECONDARY_TEXT} wrap={false} />
+        </box>
+        <Money $if={self.info.price > 0} amount={self.info.price * self.item.count} />
+      </PickRow>
+    }
+  }
+}
+
+// What the client says of an item: its quality's colour, its kind and slot, what a merchant gives for one.
+public struct AttachmentInfo {
+  color: Color
+  kind: String
+  price: Integer
+}
+
+// Pawn's share as the player reads it: «+15%»; empty for none.
+public function raiseText(share: Number | nil): String {
+  if (share == nil || share <= 0) { return "" }
+  return `+${(share * 100).round()}%`
+}
+
+function infoOf(item: Integer): AttachmentInfo {
+  const _, _, quality, _, _, kind, subkind, _, slot, _, price, _, _, _, _, _, _, _ = Client.C_Item.GetItemInfo(item)
+  let color = Style.INK
+  if (quality != nil) {
+    const r, g, b, _ = Client.C_Item.GetItemQualityColor(quality)
+    color = { r: r, g: g, b: b, a: 1 }
+  }
+  const worn = slot != nil && slot != "" ? Runtime.text(slot) : nil
+  const parts: Array<String> = []
+  if (worn != nil) { parts.push(worn) }
+  if (subkind != nil && subkind != "") { parts.push(subkind) } else if (kind != nil) { parts.push(kind) }
+  return { color: color, kind: parts.join(", "), price: (price ?? 0).floor() }
+}
+
+public class LetterView implements Component {
+  public act: Event<LetterAct> = new Event()
+
+  derived hasMoney: Boolean = self.letter.copper > 0
+  derived hasCod: Boolean = self.letter.cod > 0
+  derived holds: Boolean = self.hasMoney || self.letter.items.length > 0
+  derived takeLabel: String = self.hasCod ? Locale.PAY_AND_TAKE : Locale.TAKE
+  derived returnable: Boolean = self.letter.kind == Game.MailKind.Player && !self.letter.deletable && !self.letter.returned
+  derived replies: Boolean = self.letter.kind == Game.MailKind.Player
+  derived from: String = Locale.FROM_DAYS.format(senderOf(self.letter), daysText(self.letter))
+  derived hasText: Boolean = self.text != ""
+
+  letter: Signal<Game.MailLetter>
+  text: Signal<String>
+  busy: Signal<Boolean>
+  upgrade: (link: String) => Number | nil
+  constructor(
+    letter: Signal<Game.MailLetter>,
+    text: Signal<String>,
+    busy: Signal<Boolean>,
+    upgrade: (link: String) => Number | nil
+  ) {
+    self.letter = letter
+    self.text = text
+    self.busy = busy
+    self.upgrade = upgrade
+  }
+
+  onAct(mut self, act: LetterAct) { self.act.emit(act) }
+  onTakeMoney(mut self) { self.act.emit(.TakeMoney) }
+  onTakeAll(mut self) { self.act.emit(.TakeAll) }
+  onGiveBack(mut self) { self.act.emit(.GiveBack) }
+  onReply(mut self) { self.act.emit(.Reply) }
+  onDelete(mut self) { self.act.emit(.Delete) }
+
+  public render(self): Template {
+    return $ltml {
+      <box rows={PARTS} gap={2sp}>
+        <box columns={1} gap={1sp}>
+          <text value={self.letter.subject} textSize={TITLE_TEXT} textColor={Style.GOLD} />
+          <text value={self.from} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
+        </box>
+        <box columns={1} gap={2sp} overflow={Overflow.Scroll}>
+          <CopyText $if={self.hasText} value={self.text} />
+          <Attachment $for={item of self.letter.items} $key={item.place} item={item} index={self.letter.index}
+                      upgrade={self.upgrade} @act={self.onAct} />
+          <PickRow $if={self.hasMoney} columns={MONEY} @pick={self.onTakeMoney}>
+            <text value={Locale.MONEY} textColor={Style.DIM} wrap={false} />
+            <Money amount={self.letter.copper} />
+          </PickRow>
+          <box $if={self.hasCod} columns={MONEY} padding={{ left: 1sp, right: 1sp }}>
+            <text value={Locale.COD_AMOUNT} textColor={Style.ORANGE} wrap={false} />
+            <Money amount={self.letter.cod} color={Style.ORANGE} />
+          </box>
+        </box>
+        <box columns={FOOT} gap={2sp} yAlign={Align.Center} border={Style.RULE} padding={{ top: 2sp }}>
+          <PushButton $if={self.returnable} label={Locale.RETURN} width={Style.BUTTON} disabled={self.busy} @click={self.onGiveBack} />
+          <box $else />
+          <PushButton $if={self.replies} label={Locale.REPLY} width={Style.BUTTON} @click={self.onReply} />
+          <box $else />
+          <box />
+          <PushButton $if={self.holds} label={self.takeLabel} width={Style.WIDE_BUTTON} plate={ButtonPlate.Accent} disabled={self.busy}
+                      @click={self.onTakeAll} />
+          <PushButton $else label={Locale.DELETE} width={Style.BUTTON} disabled={self.busy} @click={self.onDelete} />
+        </box>
+      </box>
+    }
+  }
+}
