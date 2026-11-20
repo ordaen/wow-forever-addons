@@ -1,0 +1,130 @@
+// Lists of cards under headings: the skills tab's and the statistics'. A card is a name and a value; under the cursor
+// the game's own words on it, where it has some.
+import { Overflow, TextFont } from "$ltml"
+import { Component, SECONDARY_TEXT, TITLE_LINE, Tip } from "Ordaen"
+import Locale from "@/locales"
+import { Skill } from "@/sheet"
+import Style from "@/style"
+
+// A stat as a card shows it: its name and its value.
+public struct Card {
+  const label: String
+  const value: String
+  // What the game's paper doll says of it under its name and value: its tooltip's text.
+  const tip: String = ""
+}
+
+// A group of cards under its heading.
+public struct Group {
+  const title: String
+  const cards: Array<Card>
+}
+
+// A card with the heading of the group it goes under.
+public struct Filed {
+  const title: String
+  const card: Card
+}
+
+// Cards under their headings, in order: those that follow one another under one heading make one group.
+public function grouped(filed: Array<Filed>): Array<Group> {
+  const groups: Array<Group> = []
+  let title = ""
+  let cards: Array<Card> = []
+  for (entry of filed) {
+    if (entry.title != title && cards.length > 0) {
+      groups.push({ title: title, cards: cards })
+      cards = []
+    }
+    title = entry.title
+    cards.push(entry.card)
+  }
+  if (cards.length > 0) { groups.push({ title: title, cards: cards }) }
+  return groups
+}
+
+// A skill's value as the game writes it, its bonus after the rank: «300+5/300».
+function skillValue(skill: Skill): String {
+  if (skill.modifier != 0) { return `${skill.rank}+${skill.modifier}/${skill.max}` }
+  return `${skill.rank}/${skill.max}`
+}
+
+// The skills under the game's headings.
+public function skillGroups(skills: Array<Skill>): Array<Group> {
+  const filed: Array<Filed> = []
+  let title = ""
+  for (skill of skills) {
+    if (skill.header) {
+      title = skill.name
+    } else {
+      filed.push({ title: title, card: { label: skill.name, value: skillValue(skill) } })
+    }
+  }
+  return grouped(filed)
+}
+
+// A card of a list; under the cursor the game's own words on it, as its paper doll's tooltip says them.
+public class ListCard implements Component {
+  state hovered = false
+  derived tipShown: Boolean = self.hovered && self.card.tip != ""
+  derived tipTitle: String = `${self.card.label} ${self.card.value}`
+
+  card: Signal<Card>
+  constructor(card: Signal<Card>) {
+    self.card = card
+  }
+
+  onEnter(mut self) { self.hovered = true }
+  onLeave(mut self) { self.hovered = false }
+
+  public render(self): Template {
+    return $ltml {
+      <box gap={2sp} padding={3sp} background={Style.BACK} @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
+        <text value={self.card.label} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
+        <text value={self.card.value} textFont={TextFont.Numbers} textColor={Style.INK} wrap={.None} />
+        <Tip $if={self.tipShown} title={self.tipTitle} text={self.card.tip} />
+      </box>
+    }
+  }
+}
+
+// A group's heading and its cards, four to a row.
+public class StatGroup implements Component {
+  group: Signal<Group>
+  constructor(group: Signal<Group>) {
+    self.group = group
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <box gap={3sp}>
+        <text $if={self.group.title != ""} value={self.group.title} lineHeight={TITLE_LINE} textFont={TextFont.Title} textColor={Style.GOLD} />
+        <box columns={4} gap={2sp}>
+          <ListCard $for={card of self.group.cards} card={card} />
+        </box>
+      </box>
+    }
+  }
+}
+
+// The skills tab: every skill the character has, under the game's headings.
+public class SkillsPage implements Component {
+  derived groups: Array<Group> = skillGroups(self.skills)
+  derived none: Boolean = self.groups.length == 0
+
+  skills: Signal<Array<Skill>>
+  constructor(skills: Signal<Array<Skill>>) {
+    self.skills = skills
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <box overflow={Overflow.Scroll}>
+        <box gap={6sp}>
+          <text $if={self.none} value={Locale.NO_SKILLS} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
+          <StatGroup $for={group of self.groups} group={group} />
+        </box>
+      </box>
+    }
+  }
+}

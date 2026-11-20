@@ -1,30 +1,63 @@
 // The character window's look: its size at the player's scale, the paper doll's measures and the colours of what a
-// stat, a slot or a faction says. Every gap and padding is a step of Ordaen's ladder (`space`); a row is as tall as
+// stat, a slot or a faction says. Every gap and padding is counted in Ordaen's spacing unit (`sp`); a row is as tall as
 // its text.
 import { Edges } from "$ltml"
 
-public const WIDTH: Number<Length> = 1054.6875dp
-public const HEIGHT: Number<Length> = 726.5625dp
-// The paper doll: the slots' columns and the model between them.
-public const DOLL: Number<Length> = 445.3125dp
+public const WIDTH: Number<Length> = 1400dp
+public const HEIGHT: Number<Length> = 848dp
+// The three columns: the bars and defence on the left, the paper doll (the slots' columns and the model between
+// them) in the middle, the stats on the right.
+public const LEFT: Number<Length> = 344dp
+public const DOLL: Number<Length> = 470dp
 public const SLOT: Number<Length> = 46.875dp
 // The durability bar under a slot.
 public const WEAR: Number<Length> = 3.515625dp
-// Round the text a bar shows (health, a faction's standing): the bar is as tall as it.
+// Round the text a bar shows (a faction's standing): the bar is as tall as it.
 public const BAR_PAD: Edges = { top: 2sp, right: 3sp, bottom: 2sp, left: 3sp }
 // The reputation tab's side, where the chosen faction stands.
 public const SIDE: Number<Length> = 328.125dp
 
+// A health or power bar, a cut in the wood, a gauge's channel and its columns (the name, the value).
+public const BAR: Number<Length> = 28dp
+public const CUT: Number<Length> = 3dp
+public const CHANNEL: Number<Length> = 5dp
+public const GAUGE_LABEL: Number<Length> = 110dp
+public const GAUGE_VALUE: Number<Length> = 72dp
+// A card's socket, a section's padding and the room between its cards and its gauges.
+public const SOCKET: Number<Length> = 44dp
+public const SECTION_PAD: Edges = { top: 2.5sp, right: 2.5sp, bottom: 2.5sp, left: 2.5sp }
+public const CARDS_PAD: Edges = { bottom: 2sp }
+// A main stat's room and its number's size.
+public const MAIN_PAD: Edges = { top: 2.5sp, bottom: 2.5sp }
+public const MAIN_TEXT: Number<TextSize> = 26rem / 13
+// A resistance's bar and its picture.
+public const RESIST_WIDTH: Number<Length> = 20dp
+public const RESIST_HEIGHT: Number<Length> = 84dp
+public const RESIST_ICON: Number<Length> = 20dp
+
 public const INK: Color = Color.hex("#e8dcc4")
 public const DIM: Color = Color.hex("#a3977f")
+public const WHITE: Color = Color.hex("#ffffff")
 public const GOLD: Color = Color.hex("#ffd100")
 public const RED: Color = Color.hex("#ff4040")
 public const YELLOW: Color = Color.hex("#ffd040")
 public const GREEN: Color = Color.hex("#40d060")
 public const BACK: Color = Color.hex("#00000066")
-public const CARD: Color = Color.hex("#0000004d")
+// A card: a plain dark field, opaque.
+public const CARD: Color = Color.hex("#0d0907")
 public const PICKED: Color = Color.hex("#ffd10026")
 public const TROUGH: Color = Color.hex("#000000a6")
+// A cut in the wood; a gauge's fill, a weapon skill's.
+public const GROOVE: Color = Color.hex("#000000b3")
+public const GAUGE: Color = Color.hex("#a3864f")
+public const SKILL: Color = Color.hex("#3a68b8")
+// The resistances' colours: armor, fire, nature, frost, shadow and arcane.
+public const ARMOR: Color = Color.hex("#b8b2a2")
+public const FIRE: Color = Color.hex("#c9692f")
+public const NATURE: Color = Color.hex("#59a84b")
+public const FROST: Color = Color.hex("#5f9fcf")
+public const SHADOW: Color = Color.hex("#8a6bc4")
+public const ARCANE: Color = Color.hex("#c27bc0")
 // The flyout over the model.
 public const FLYOUT: Color = Color.hex("#000000d9")
 public const HEALTH: Color = Color.hex("#1d9a2a")

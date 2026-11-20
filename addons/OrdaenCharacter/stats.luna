@@ -1,0 +1,504 @@
+// The character's stats as the window shows them, every number in view and none behind a tooltip: the main stats as
+// big numbers, then sections parted by cuts in the wood, each its cards first, then its gauges, then its plain lines.
+// A gauge is a stat with a cap the player works towards (hit, crit, a weapon's skill), a line one without (attack
+// speed, penetration), a card one of a section's main numbers (attack power, damage a second, a school's spell damage).
+import { Align, Art, BarFill, FillFrom, Position, TextAlign, TextFont } from "$ltml"
+import { Component, SECONDARY_TEXT, TITLE_TEXT, Tip } from "Ordaen"
+import Locale from "@/locales"
+import { Skill, Stats, WANDS } from "@/sheet"
+import Style from "@/style"
+
+// A stat with a cap: its name, its value against the cap, the value as written and the fill's colour.
+public struct Gauge {
+  const label: String
+  const value: Number
+  const cap: Number
+  const text: String
+  const tone: Color
+}
+
+// A stat on a line of its own: its name, its value and a unit after it.
+public struct Row {
+  const label: String
+  const value: String
+  const unit: String = ""
+}
+
+// One of a section's main numbers: its picture in the socket, its name over its value; `lit` the section's lead.
+public struct Figure {
+  const label: String
+  const value: String
+  const art: Art
+  const lit: Boolean = false
+}
+
+// A section of the right column: its title on the cut over it, its cards, its gauges and its lines.
+public struct Section {
+  const title: String
+  const cards: Array<Figure>
+  const gauges: Array<Gauge>
+  const rows: Array<Row>
+}
+
+// A resistance's column: its value, its bar against the cap (the value that stops three quarters of a level 63
+// boss's damage), its colour and its picture.
+public struct Resist {
+  const value: Integer
+  const cap: Integer
+  const color: Color
+  const art: Art
+}
+
+// One of the five main stats: its value, its name in three letters, and what the game's sheet says of it.
+public struct Main {
+  const value: Integer
+  const short: String
+  const label: String
+  const tip: String
+}
+
+// The caps: hit against a boss (melee and ranged, spells), crit, expertise, defense (a level 63 boss can't crit),
+// dodge, parry and block, haste; the armor and a resistance that stop three quarters of a level 63 boss's damage.
+const MELEE_HIT_CAP = 9
+const SPELL_HIT_CAP = 17
+const CRIT_CAP = 40
+const EXPERTISE_CAP = 6.5
+const DEFENSE_CAP = 440
+const AVOIDANCE_CAP = 30
+const HASTE_CAP = 20
+const ARMOR_CAP = 17265
+const RESISTANCE_CAP = 315
+
+// The pictures: the client's own icons.
+const ATTACK_POWER_ART: Art = "Interface/Icons/Ability_Warrior_BattleShout"
+const DAMAGE_ART: Art = "Interface/Icons/Ability_MeleeDamage"
+const RANGED_POWER_ART: Art = "Interface/Icons/Ability_Marksmanship"
+const RANGED_DAMAGE_ART: Art = "Interface/Icons/Ability_Hunter_RunningShot"
+const HOLY_HEALING_ART: Art = "Interface/Icons/Spell_Holy_FlashHeal"
+const NATURE_HEALING_ART: Art = "Interface/Icons/Spell_Nature_HealingTouch"
+// Holy, fire, nature, frost, shadow and arcane: the client's schools 2 to 7.
+const SCHOOL_ART: Array<Art> = [
+  "Interface/Icons/Spell_Holy_HolyBolt",
+  "Interface/Icons/Spell_Fire_FlameBolt",
+  "Interface/Icons/Spell_Nature_Lightning",
+  "Interface/Icons/Spell_Frost_FrostBolt02",
+  "Interface/Icons/Spell_Shadow_ShadowBolt",
+  "Interface/Icons/Spell_Nature_StarFall"
+]
+const HOLY = 2
+const FIRE = 3
+const NATURE = 4
+const FROST = 5
+const SHADOW = 6
+const ARCANE = 7
+
+// A class's damage schools and the school it heals with (none: 0), by its tag.
+struct Casting {
+  const schools: Array<Integer>
+  const heals: Integer
+}
+const CASTING: Map<String, Casting> = {
+  MAGE: { schools: [FIRE, FROST, ARCANE], heals: 0 },
+  WARLOCK: { schools: [SHADOW, FIRE], heals: 0 },
+  PRIEST: { schools: [SHADOW, HOLY], heals: HOLY },
+  DRUID: { schools: [NATURE, ARCANE], heals: NATURE },
+  SHAMAN: { schools: [NATURE, FIRE, FROST], heals: NATURE },
+  PALADIN: { schools: [HOLY], heals: HOLY }
+}
+
+function percent(value: Number): String { return "%.2f%%".format(value) }
+function seconds(value: Number): String { return "%.2f".format(value) }
+function tenths(value: Number): String { return "%.1f".format(value) }
+
+function measured(label: String, value: Number, cap: Number, text: String): Gauge {
+  return { label: label, value: value, cap: cap, text: text, tone: Style.GAUGE }
+}
+
+function rate(label: String, value: Number, cap: Number): Gauge { return measured(label, value, cap, percent(value)) }
+
+// The five main stats, the class's own first (the greatest of strength, agility and intellect), then stamina, then the
+// rest in the game's order.
+public function mainsOf(stats: Stats): Array<Main> {
+  const all: Array<Main> = [
+    { value: stats.strength, short: Locale.STRENGTH_SHORT, label: Locale.STRENGTH, tip: stats.tips.primary[1] ?? "" },
+    { value: stats.agility, short: Locale.AGILITY_SHORT, label: Locale.AGILITY, tip: stats.tips.primary[2] ?? "" },
+    { value: stats.stamina, short: Locale.STAMINA_SHORT, label: Locale.STAMINA, tip: stats.tips.primary[3] ?? "" },
+    { value: stats.intellect, short: Locale.INTELLECT_SHORT, label: Locale.INTELLECT, tip: stats.tips.primary[4] ?? "" },
+    { value: stats.spirit, short: Locale.SPIRIT_SHORT, label: Locale.SPIRIT, tip: stats.tips.primary[5] ?? "" }
+  ]
+  const lead = stats.intellect > stats.strength.max(stats.agility) ? 4 : stats.agility > stats.strength ? 2 : 1
+  const order: Array<Integer> = [lead, 3]
+  for (index of 1..5) {
+    if (index != lead && index != 3) { order.push(index) }
+  }
+  return order.map(index => all[index] ?? panic("five main stats"))
+}
+
+// The defence group's gauges: the defense skill, dodge and parry, and block with a shield.
+public function defenceOf(stats: Stats): Array<Gauge> {
+  const gauges: Array<Gauge> = [
+    measured(Locale.SECTION_DEFENSE, stats.defense, DEFENSE_CAP, String.of(stats.defense)),
+    rate(Locale.DODGE, stats.dodge, AVOIDANCE_CAP),
+    rate(Locale.PARRY, stats.parry, AVOIDANCE_CAP)
+  ]
+  if (stats.block > 0) { gauges.push(rate(Locale.BLOCK, stats.block, AVOIDANCE_CAP)) }
+  return gauges
+}
+
+// Under the defence gauges: the damage a block stops, with a shield.
+public function defenceRows(stats: Stats): Array<Row> {
+  return stats.block > 0 ? [{ label: Locale.BLOCK_VALUE, value: String.of(stats.blockValue) }] : []
+}
+
+// The movement speeds, in percent of the game's base.
+public function speedsOf(stats: Stats): Array<Row> {
+  return [
+    { label: Locale.RUN_SPEED, value: String.of(stats.runSpeed.round()), unit: "%" },
+    { label: Locale.SWIM_SPEED, value: String.of(stats.swimSpeed.round()), unit: "%" }
+  ]
+}
+
+// Armor and the five schools' resistances, each against what stops three quarters of a boss's damage.
+public function resistsOf(stats: Stats): Array<Resist> {
+  const r = stats.resistances
+  return [
+    { value: stats.armor, cap: ARMOR_CAP, color: Style.ARMOR, art: "Interface/Icons/Spell_Holy_DevotionAura" },
+    { value: r[2] ?? 0, cap: RESISTANCE_CAP, color: Style.FIRE, art: "Interface/Icons/Spell_Fire_FireArmor" },
+    { value: r[4] ?? 0, cap: RESISTANCE_CAP, color: Style.NATURE, art: "Interface/Icons/Spell_Nature_ResistNature" },
+    { value: r[3] ?? 0, cap: RESISTANCE_CAP, color: Style.FROST, art: "Interface/Icons/Spell_Frost_FrostArmor02" },
+    { value: r[5] ?? 0, cap: RESISTANCE_CAP, color: Style.SHADOW, art: "Interface/Icons/Spell_Shadow_AntiShadow" },
+    { value: r[1] ?? 0, cap: RESISTANCE_CAP, color: Style.ARCANE, art: "Interface/Icons/Spell_Nature_StarFall" }
+  ]
+}
+
+// Under the main stats, shared by every section: haste (one rating in Forever) and armor penetration.
+public function sharedGauges(stats: Stats): Array<Gauge> { return [rate(Locale.HASTE, stats.haste, HASTE_CAP)] }
+public function sharedRows(stats: Stats): Array<Row> {
+  return [{ label: Locale.ARMOR_PENETRATION, value: String.of(stats.armorPenetration) }]
+}
+
+// The skill gauges of the weapons a section holds: one a skill (two swords share one), in blue up to the cap.
+function skillGauges(ids: Array<Integer | nil>, skills: Array<Skill>): Array<Gauge> {
+  const gauges: Array<Gauge> = []
+  const seen: Array<Integer> = []
+  for (id of ids) {
+    if (id != nil && !seen.any(s => s == id)) {
+      seen.push(id)
+      const skill = skills.find(s => s.id == id)
+      if (skill != nil) {
+        const value = skill.rank + skill.modifier
+        gauges.push({ label: skill.name, value: value, cap: skill.max, text: String.of(value), tone: Style.SKILL })
+      }
+    }
+  }
+  return gauges
+}
+
+// Two lists of gauges, one after the other.
+function joined(first: Array<Gauge>, then: Array<Gauge>): Array<Gauge> {
+  const all: Array<Gauge> = []
+  for (g of first) { all.push(g) }
+  for (g of then) { all.push(g) }
+  return all
+}
+
+// The time between two swings of both hands together: two hands swing 1/main + 1/off times a second.
+function swingOf(stats: Stats): Number {
+  const off = stats.offSpeed
+  if (off == nil || off <= 0) { return stats.speed }
+  return 1 / (1 / stats.speed + 1 / off)
+}
+
+function meleeDps(stats: Stats): Number {
+  if (stats.speed <= 0) { return 0 }
+  const main = (stats.minDamage + stats.maxDamage) / 2 / stats.speed
+  const off = stats.offSpeed
+  if (off == nil || off <= 0) { return main }
+  return main + (stats.offMinDamage + stats.offMaxDamage) / 2 / off
+}
+
+function rangedDps(stats: Stats): Number {
+  if (stats.rangedSpeed <= 0) { return 0 }
+  return (stats.rangedMinDamage + stats.rangedMaxDamage) / 2 / stats.rangedSpeed
+}
+
+function melee(stats: Stats, skills: Array<Skill>): Section {
+  const rows: Array<Row> = stats.speed > 0 ? [{ label: Locale.ATTACK_SPEED, value: seconds(swingOf(stats)), unit: Locale.SECONDS }] : []
+  return {
+    title: Locale.SECTION_MELEE,
+    cards: [
+      { label: Locale.ATTACK_POWER, value: String.of(stats.attackPower), art: ATTACK_POWER_ART },
+      { label: Locale.DPS, value: tenths(meleeDps(stats)), art: DAMAGE_ART }
+    ],
+    gauges: joined([
+      rate(Locale.HIT, stats.meleeHit, MELEE_HIT_CAP),
+      rate(Locale.CRIT, stats.meleeCrit, CRIT_CAP),
+      rate(Locale.EXPERTISE, stats.expertise, EXPERTISE_CAP)
+    ], skillGauges([stats.mainSkill, stats.offSkill], skills)),
+    rows: rows
+  }
+}
+
+// The ranged weapon's section; a wand's is its skill and its damage a second alone (no attack power counts in it).
+function ranged(stats: Stats, skills: Array<Skill>): Section | nil {
+  const skill = stats.rangedSkill
+  if (skill == nil) { return nil }
+  const speed: Row = { label: Locale.ATTACK_SPEED, value: seconds(stats.rangedSpeed), unit: Locale.SECONDS }
+  if (skill == WANDS) {
+    return {
+      title: Locale.SECTION_RANGED,
+      cards: [],
+      gauges: skillGauges([skill], skills),
+      rows: [{ label: Locale.DPS, value: tenths(rangedDps(stats)) }, speed]
+    }
+  }
+  return {
+    title: Locale.SECTION_RANGED,
+    cards: [
+      { label: Locale.ATTACK_POWER, value: String.of(stats.rangedAttackPower), art: RANGED_POWER_ART },
+      { label: Locale.DPS, value: tenths(rangedDps(stats)), art: RANGED_DAMAGE_ART }
+    ],
+    gauges: joined([rate(Locale.HIT, stats.rangedHit, MELEE_HIT_CAP), rate(Locale.CRIT, stats.rangedCrit, CRIT_CAP)], skillGauges([skill], skills)),
+    rows: [speed]
+  }
+}
+
+// The spells of a class that casts: a card per school its damage spells use, the greatest first and lit, then its
+// healing where it heals; spell hit and crit; penetration and the mana regained while casting.
+function spells(stats: Stats, classTag: String): Section | nil {
+  const casting = CASTING[classTag]
+  if (casting == nil) { return nil }
+  const schools = casting.schools.map(school => school)
+  schools.sort((a, b) => (stats.schoolDamage[a - 1] ?? 0) > (stats.schoolDamage[b - 1] ?? 0))
+  const cards: Array<Figure> = []
+  for (index, school of schools) {
+    cards.push({ label: "", value: String.of(stats.schoolDamage[school - 1] ?? 0), art: SCHOOL_ART[school - 1] ?? panic("six schools"), lit: index == 1 })
+  }
+  if (casting.heals != 0) {
+    cards.push({ label: "", value: String.of(stats.healing), art: casting.heals == HOLY ? HOLY_HEALING_ART : NATURE_HEALING_ART })
+  }
+  return {
+    title: Locale.SECTION_SPELLS,
+    cards: cards,
+    gauges: [rate(Locale.HIT, stats.spellHit, SPELL_HIT_CAP), rate(Locale.CRIT, stats.spellCrit, CRIT_CAP)],
+    rows: [
+      { label: Locale.SPELL_PENETRATION, value: String.of(stats.spellPenetration) },
+      { label: Locale.CASTING_REGEN, value: String.of(stats.regen.floor()), unit: Locale.PER_FIVE }
+    ]
+  }
+}
+
+// The right column's sections in the order the class reads them: a caster's spells first, then melee and ranged;
+// anyone else's melee and ranged, then their spells.
+public function sectionsOf(stats: Stats, skills: Array<Skill>, classTag: String): Array<Section> {
+  const sections: Array<Section> = []
+  const magic = spells(stats, classTag)
+  const caster = stats.intellect > stats.strength.max(stats.agility)
+  if (caster && magic != nil) { sections.push(magic) }
+  sections.push(melee(stats, skills))
+  const shooting = ranged(stats, skills)
+  if (shooting != nil) { sections.push(shooting) }
+  if (!caster && magic != nil) { sections.push(magic) }
+  return sections
+}
+
+// A cut in the wood across the column, the title at its middle where it has one.
+public class Cut implements Component {
+  derived titled: Boolean = self.title != ""
+
+  title: Signal<String>
+  constructor(title: Signal<String> = "") {
+    self.title = title
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <box $if={self.titled} columns={[{ fr: 1 }, "max-content", { fr: 1 }]} gap={2.5sp} yAlign={Align.Center}>
+        <box height={Style.CUT} background={Style.GROOVE} />
+        <text value={self.title} textSize={SECONDARY_TEXT} textColor={Style.DIM} wrap={.None} />
+        <box height={Style.CUT} background={Style.GROOVE} />
+      </box>
+      <box $else height={Style.CUT} background={Style.GROOVE} />
+    }
+  }
+}
+
+// A gauge: the name dimmed, the channel filled up to the value's share of the cap, the value at the right.
+public class StatGauge implements Component {
+  derived fill: BarFill = { value: (self.gauge.value / self.gauge.cap).max(0).min(1), color: self.gauge.tone }
+  derived ink: Color = self.gauge.value == 0 ? Style.DIM : Style.WHITE
+
+  gauge: Signal<Gauge>
+  constructor(gauge: Signal<Gauge>) {
+    self.gauge = gauge
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={[Style.GAUGE_LABEL, { fr: 1 }, Style.GAUGE_VALUE]} gap={2.5sp} yAlign={Align.Center}>
+        <text value={self.gauge.label} textSize={SECONDARY_TEXT} textColor={Style.DIM} wrap={.None} />
+        <box height={Style.CHANNEL} background={Style.TROUGH} fill={self.fill} />
+        <text value={self.gauge.text} textFont={TextFont.Numbers} textColor={self.ink} textAlign={TextAlign.End}
+              wrap={.None} />
+      </box>
+    }
+  }
+}
+
+// A line: the name on the left, the value on the right with its unit dimmed after it.
+public class StatRow implements Component {
+  derived ink: Color = self.row.value == "0" ? Style.DIM : Style.WHITE
+
+  row: Signal<Row>
+  constructor(row: Signal<Row>) {
+    self.row = row
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={[{ fr: 1 }, "max-content", "max-content"]} gap={1sp} yAlign={Align.Center}>
+        <text value={self.row.label} textSize={SECONDARY_TEXT} textColor={Style.INK} wrap={.None} />
+        <text value={self.row.value} textFont={TextFont.Numbers} textColor={self.ink} wrap={.None} />
+        <text value={self.row.unit} textSize={SECONDARY_TEXT} textColor={Style.DIM} wrap={.None} />
+      </box>
+    }
+  }
+}
+
+// A card: a dark field, the picture in its socket on the left, the name over the value beside it.
+public class StatCard implements Component {
+  derived labelled: Boolean = self.figure.label != ""
+  derived socket: Number = self.figure.lit ? 1 : 0.6
+
+  figure: Signal<Figure>
+  constructor(figure: Signal<Figure>) {
+    self.figure = figure
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={[Style.SOCKET, { fr: 1 }]} gap={2.5sp} padding={2sp} background={Style.CARD} yAlign={Align.Center}>
+        <box width={Style.SOCKET} height={Style.SOCKET} background={self.figure.art} opacity={self.socket} />
+        <box gap={1sp}>
+          <text $if={self.labelled} value={self.figure.label} textSize={SECONDARY_TEXT} textColor={Style.DIM} wrap={.None} />
+          <text value={self.figure.value} textSize={TITLE_TEXT} textFont={TextFont.Numbers} textColor={Style.WHITE}
+                wrap={.None} />
+        </box>
+      </box>
+    }
+  }
+}
+
+// A section: its cut and title, then a padded group of its cards, its gauges set a little further off, its lines.
+public class SectionView implements Component {
+  derived columns: Integer = self.section.cards.length.max(2)
+  derived carded: Boolean = self.section.cards.length > 0
+
+  section: Signal<Section>
+  constructor(section: Signal<Section>) {
+    self.section = section
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <box gap={2.5sp}>
+        <Cut title={self.section.title} />
+        <box gap={2sp} padding={Style.SECTION_PAD}>
+          <box $if={self.carded} columns={self.columns} gap={2.5sp} padding={Style.CARDS_PAD}>
+            <StatCard $for={card of self.section.cards} figure={card} />
+          </box>
+          <box gap={1.5sp}>
+            <StatGauge $for={g of self.section.gauges} gauge={g} />
+          </box>
+          <box gap={0.5sp}>
+            <StatRow $for={row of self.section.rows} row={row} />
+          </box>
+        </box>
+      </box>
+    }
+  }
+}
+
+// A main stat: the big number over its three letters, its full name and the game's words on it under the cursor.
+public class MainStat implements Component {
+  state hovered = false
+  derived tipTitle: String = `${self.main.label} ${self.main.value}`
+
+  main: Signal<Main>
+  constructor(main: Signal<Main>) {
+    self.main = main
+  }
+
+  onEnter(mut self) { self.hovered = true }
+  onLeave(mut self) { self.hovered = false }
+
+  public render(self): Template {
+    return $ltml {
+      <box gap={0.5sp} xAlign={Align.Center} padding={Style.MAIN_PAD} @pointerEnter={self.onEnter}
+           @pointerLeave={self.onLeave}>
+        <text value={String.of(self.main.value)} textSize={Style.MAIN_TEXT} textFont={TextFont.Numbers}
+              textColor={Style.WHITE} wrap={.None} />
+        <text value={self.main.short} textSize={SECONDARY_TEXT} textColor={Style.DIM} wrap={.None} />
+        <Tip $if={self.hovered} title={self.tipTitle} text={self.main.tip} />
+      </box>
+    }
+  }
+}
+
+// A resistance's column: the value, the bar filling from the bottom, the picture under it.
+public class ResistColumn implements Component {
+  derived fill: BarFill = { value: (self.resist.value / self.resist.cap).min(1), color: self.resist.color, from: FillFrom.Bottom }
+  derived ink: Color = self.resist.value == 0 ? Style.DIM : Style.WHITE
+
+  resist: Signal<Resist>
+  constructor(resist: Signal<Resist>) {
+    self.resist = resist
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <box gap={1sp} xAlign={Align.Center}>
+        <text value={String.of(self.resist.value)} textSize={SECONDARY_TEXT} textFont={TextFont.Numbers}
+              textColor={self.ink} wrap={.None} />
+        <box width={Style.RESIST_WIDTH} height={Style.RESIST_HEIGHT} background={Style.TROUGH} fill={self.fill} />
+        <box width={Style.RESIST_ICON} height={Style.RESIST_ICON} background={self.resist.art} />
+      </box>
+    }
+  }
+}
+
+// A pool's bar: full in its colour, the amount at its middle and what it regains at its right.
+public class PoolBar implements Component {
+  derived full: BarFill = { value: self.filled, color: self.color }
+  derived regained: Boolean = self.regen != ""
+
+  amount: Signal<String>
+  color: Signal<Color>
+  regen: Signal<String>
+  // How much of the bar is full: rage is empty out of a fight.
+  filled: Signal<Number>
+  constructor(amount: Signal<String>, color: Signal<Color>, regen: Signal<String> = "", filled: Signal<Number> = 1) {
+    self.amount = amount
+    self.color = color
+    self.regen = regen
+    self.filled = filled
+  }
+
+  // The fill lies under the texts: a box of its own, first.
+  public render(self): Template {
+    return $ltml {
+      <box height={Style.BAR} background={Style.TROUGH} xAlign={Align.Center} yAlign={Align.Center}>
+        <box position={Position.Absolute} top={0ui} right={0ui} bottom={0ui} left={0ui} fill={self.full} />
+        <box zLevel={2}>
+          <text value={self.amount} textSize={SECONDARY_TEXT} textFont={TextFont.Numbers} textColor={Style.WHITE}
+                wrap={.None} />
+        </box>
+        <box $if={self.regained} position={Position.Absolute} top={0ui} right={6dp} bottom={0ui} yAlign={Align.Center}
+             zLevel={2}>
+          <text value={self.regen} textSize={SECONDARY_TEXT} textFont={TextFont.Numbers} textColor={Style.INK}
+                wrap={.None} />
+        </box>
+      </box>
+    }
+  }
+}
