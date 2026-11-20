@@ -1,7 +1,7 @@
-// Ordaen Spells' page in the settings window: the spec tabs' names and whether the class trainer's window is ours.
+// Ordaen Spells' pages in the settings window: the spec tabs' names, and the class trainer's window.
 // Each control writes one entry of the settings as the player changes it; a name typed is written when the typing
 // rests and at Enter. An empty name keeps nothing: the tab shows the game's.
-import { Checkbox, Component, Resting, Settings } from "Ordaen"
+import { Checkbox, Choice, Component, Dropdown, Resting, Settings, TRAINER_VIEWS, TrainerView, trainerSorts } from "Ordaen"
 import Locale from "@/locales"
 import Style from "@/style"
 
@@ -12,6 +12,9 @@ public struct Choices implements Plain {
   specTwo: String
   // The class trainer is drawn by this module; off, it is the game's.
   trainer: Boolean
+  // The view and the sort (its place among the trainer's sorts, 0 its own order) the class trainer's window opens with.
+  trainerView: TrainerView
+  trainerSort: Integer
 }
 
 public class GeneralPage implements Component {
@@ -72,7 +75,28 @@ public class GeneralPage implements Component {
                  textColor={Style.INK} background={Color.hex("#00000080")} @submit={self.enterTwo} />
         </box>
       </box>
+    }
+  }
+}
+
+// The «Trainer» page: whether the class trainer's window is ours, and the view and sort it opens with. What the
+// window's own buttons change lasts until it closes.
+public class TrainerPage implements Component {
+  // The class trainer's sorts, as its sort button lists them.
+  const sorts: Array<Choice<Integer>> = trainerSorts(Locale.COL_SKILL, false)
+
+  settings: mut Settings<Choices>
+  constructor(settings: mut Settings<Choices>) {
+    self.settings = settings
+  }
+
+  public render(self): Template {
+    return $ltml {
       <Checkbox label={Locale.SETTING_TRAINER} hint={Locale.SETTING_TRAINER_TIP} value={mut self.settings.values.trainer} />
+      <Dropdown label={Locale.SETTING_TRAINER_VIEW} hint={Locale.SETTING_TRAINER_VIEW_TIP}
+                value={mut self.settings.values.trainerView} choices={TRAINER_VIEWS} />
+      <Dropdown label={Locale.SETTING_TRAINER_SORT} hint={Locale.SETTING_TRAINER_SORT_TIP}
+                value={mut self.settings.values.trainerSort} choices={self.sorts} />
     }
   }
 }
