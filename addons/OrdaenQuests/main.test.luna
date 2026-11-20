@@ -191,10 +191,18 @@ test "a quest's scroll fills its page's height: the rolls at its top and its foo
   const paper = window.box(Ordaen.art.window.scroll.paper).rect()
   const bottom = window.box(Ordaen.art.window.scroll.bottom).rect()
   Test.expect((paper.top - top.bottom).abs() < 0.5 && paper.bottom > bottom.top + 1 && paper.bottom < bottom.bottom)
-  // Taller than Dialogue's 5:3 scroll: it grows with the page.
-  Test.expect(bottom.bottom - top.top > (top.right - top.left) * 3 / 5)
   // The title on the paper, under the top roll.
   Test.expect(window.text("[14] The Defias Brotherhood").rect().top >= top.bottom - 10)
+  // It fills the page, whatever the text's size and however much the quest says: what stands under it starts right
+  // under its foot, and a quest of three lines (with no QuestieDB lines under it, whose room it takes too) has a scroll
+  // at least as tall, its foot well past its words.
+  const under = window.text("Gryan Stoutmantle (56, 47)").nth(1).rect()
+  Test.expect(under.top >= bottom.bottom && under.top - bottom.bottom < 40)
+  window.text("Elwynn Wolves").click()
+  const short = window.box(Ordaen.art.window.scroll.bottom).rect()
+  Test.expect(short.bottom >= bottom.bottom - 0.5)
+  // Its words: the title, the heading, one objective under it.
+  Test.expect(short.top > window.text("Objectives").rect().bottom + 60)
 }
 
 test "a quest under the cursor has its tooltip, and its pins on the map lit while it is there" {
