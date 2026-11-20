@@ -1,0 +1,96 @@
+// The character each Battle.net friend was last seen playing here, so an offline friend's row and card still say who
+// and what level: the client tells nothing of an offline account's characters. Kept in the account's saved variables
+// (every character of the account sees the same friends), by BattleTag (the account's number changes each session),
+// at most `SEEN_MOST` of them; one not seen for `SEEN_DAYS` days, or no longer a friend, goes.
+import { ModuleMemory } from "Ordaen"
+import { Friend, Hero } from "$game"
+
+const SEEN_MOST = 200
+const SEEN_DAYS = 180
+const DAY = 86400
+
+// A character a friend was seen on, and when (seconds since 1970).
+public struct SeenHero implements Plain {
+  name: String = ""
+  level: Integer = 0
+  className: String = ""
+  classFile: String = ""
+  realm: String = ""
+  at: Number = 0
+}
+
+public struct SeenHeroes implements Plain {
+  heroes: Map<String, SeenHero> = {}
+}
+public const SEEN_HEROES: SeenHeroes = {}
+
+function seenOf(hero: Hero, now: Number): SeenHero {
+  return { name: hero.name, level: hero.level, className: hero.className, classFile: hero.classFile, realm: hero.realm, at: now }
+}
+
+function same(a: SeenHero, b: SeenHero): Boolean {
+  return a.name == b.name && a.level == b.level && a.realm == b.realm && a.classFile == b.classFile
+}
+
+// What is kept after the friends were read at `now`: those playing here written down, those no longer friends and those
+// not seen for long gone, the oldest gone past the cap. Nil where nothing changed (nothing to write). A list with no
+// account (Battle.net off) drops nobody.
+public function seenAfter(kept: Map<String, SeenHero>, friends: Array<Friend>, now: Number): Map<String, SeenHero> | nil {
+  const next: Map<String, SeenHero> = {}
+  let changed = false
+  const accounts = friends.filter(friend => friend.account != nil)
+  const tags: Map<String, Boolean> = {}
+  for (friend of accounts) {
+    const tag = friend.account?.battleTag ?? ""
+    tags[tag] = true
+    const hero = friend.hero
+    const before = kept[tag]
+    if (hero != nil && (before == nil || !same(before, seenOf(hero, now)))) {
+      next[tag] = seenOf(hero, now)
+      changed = true
+    } else if (before != nil) {
+      next[tag] = before
+    }
+  }
+  for (tag, seen of kept) {
+    if (next[tag] != nil) { continue }
+    if (accounts.length == 0) { next[tag] = seen } else { changed = true }
+  }
+  for (tag, seen of next) {
+    if (now - seen.at > SEEN_DAYS * DAY) {
+      next[tag] = nil
+      changed = true
+    }
+  }
+  const tagsKept: Array<String> = []
+  for (tag, _ of next) { tagsKept.push(tag) }
+  if (tagsKept.length > SEEN_MOST) {
+    tagsKept.sort((a: String, b: String) => (next[a]?.at ?? 0) > (next[b]?.at ?? 0))
+    for (at of SEEN_MOST + 1..tagsKept.length) { next[tagsKept[at] ?? ""] = nil }
+    changed = true
+  }
+  return changed ? next : nil
+}
+
+// The friends as the window shows them: an offline Battle.net friend with the character last seen, where one was.
+public function withSeen(friends: Array<Friend>, kept: Map<String, SeenHero>): Array<Friend> {
+  return friends.map(friend => {
+    const account = friend.account
+    if (account == nil || friend.hero != nil) { return friend }
+    const seen = kept[account.battleTag]
+    if (seen == nil) { return friend }
+    const hero: Hero = { name: seen.name, level: seen.level, className: seen.className, classFile: seen.classFile, area: "", realm: seen.realm }
+    return Friend { index: friend.index, presence: friend.presence, note: friend.note, hero: hero, account: account }
+  })
+}
+
+// The saved list and its upkeep.
+public class SeenFriends {
+  public memory: mut ModuleMemory<SeenHeroes> = new ModuleMemory<SeenHeroes>(SEEN_HEROES, .Account, "seen")
+
+  // The friends just read: written down where anything changed.
+  public note(mut self, friends: Array<Friend>, now: Number) {
+    const next = seenAfter((peek self.memory.values).heroes, friends, now)
+    if (next != nil) { self.memory.write({ heroes: next }) }
+  }
+}

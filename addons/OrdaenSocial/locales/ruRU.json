@@ -122,5 +122,16 @@
   "CATEGORY_RAIDING": "Рейды",
   "CATEGORY_DUNGEONS": "Подземелья",
   "CATEGORY_DELVES": "Вылазки",
-  "CATEGORY_QUESTING": "Задания"
+  "CATEGORY_QUESTING": "Задания",
+  "LAST_SEEN_AS": "Был в игре как",
+  "MORE": "···",
+  "COLUMN_PROFESSIONS": "Профессии",
+  "COLUMN_ACHIEVEMENTS": "Очки достижений",
+  "EXTRA_COLUMN": "Последний столбец",
+  "NEWS_ENCOUNTER": "Повержен гильдией.",
+  "PIN_LASTS": "Закреплен еще",
+  "PIN_DAYS_LEFT": "%d дн.",
+  "REQUEST_SENT": "Запрос отправлен",
+  "SET_NOTE": "Добавить заметку",
+  "SAVE": "Сохранить"
 }

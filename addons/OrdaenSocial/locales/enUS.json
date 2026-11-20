@@ -122,5 +122,16 @@
   "CATEGORY_RAIDING": "Raiding",
   "CATEGORY_DUNGEONS": "Dungeons",
   "CATEGORY_DELVES": "Delves",
-  "CATEGORY_QUESTING": "Questing"
+  "CATEGORY_QUESTING": "Questing",
+  "LAST_SEEN_AS": "Last seen as",
+  "MORE": "···",
+  "COLUMN_PROFESSIONS": "Professions",
+  "COLUMN_ACHIEVEMENTS": "Achievement Points",
+  "EXTRA_COLUMN": "Last Column",
+  "NEWS_ENCOUNTER": "Defeated by the guild.",
+  "PIN_LASTS": "Pinned for",
+  "PIN_DAYS_LEFT": "%d d",
+  "REQUEST_SENT": "Request Sent",
+  "SET_NOTE": "Set Note",
+  "SAVE": "Save"
 }

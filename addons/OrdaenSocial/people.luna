@@ -1,77 +1,11 @@
-// Who the social window shows, and what its clicks ask of the game: the player's friends of both kinds (Battle.net
-// accounts and characters of this realm), the requests waiting, the black list, the player's own Battle.net self, the
-// guild, the communities and the recent allies. `"$game"` has no part for these yet (what it should gain: the module's report), so `People` is the window's
-// one door to them: `ClientPeople` reads the client, a test hands its own. Every act is called in the player's click,
-// as the client's restricted calls (status, the broadcast, invites, a ready check) want.
+// Who the social window shows besides the friends (`"$game"`'s friends part: both kinds, the requests, the black list,
+// the player's Battle.net self), and what its clicks ask of the game: the guild, the communities and the recent
+// allies. `"$game"` has no part for these, so `People` is the window's door to them: `ClientPeople` reads the client,
+// a test hands its own. Every act is called in the player's click, as the client's restricted calls want.
 import Client from "$client"
+import { Friend, Presence } from "$game"
 import { classColor } from "Ordaen"
 import Locale from "@/locales"
-
-// How a friend stands: the client's four.
-public enum Presence { Online, Away, Busy, Offline }
-
-// A character in the game: a friend of this realm, or the one a Battle.net friend plays.
-public struct Hero {
-  const name: String
-  const level: Integer
-  const className: String
-  // The class's colour, as the raid frames give it; none where the client doesn't say the class.
-  const classColor: Color | nil
-  const area: String
-  const realm: String
-}
-
-// A Battle.net friend's account.
-public struct Account {
-  const id: Number
-  // The account's name as the client gives it (a token the client shows as the name), and the BattleTag.
-  const name: String
-  const battleTag: String
-  // What it plays: the client's code of the program (`WoW`, `App`, `BSAp`, ...); empty while offline.
-  const program: String
-  // The friend's broadcast, its «Объявление».
-  const broadcast: String
-  // A best friend: kept on top of the list.
-  const favorite: Boolean
-  // When it was last online, in seconds since 1970; 0 while online or where the client doesn't say.
-  const lastOnline: Number
-  // The World of Warcraft account it plays a character of this game on: 0 for none.
-  const gameAccount: Number
-}
-
-// One friend of the player's: a character of this realm (`account` none), or a Battle.net friend (`hero` the
-// character it plays in this game, while it does).
-public struct Friend {
-  // Its place in the client's list of its kind.
-  const index: Integer
-  const presence: Presence
-  const note: String
-  const hero: Hero | nil
-  const account: Account | nil
-}
-
-// A friend request waiting for the player's answer.
-public struct Request {
-  const id: Number
-  const name: String
-  // When it was sent, in seconds since 1970.
-  const sent: Number
-}
-
-// One on the black list: a character ignored (by its place in the client's list), or a Battle.net account blocked.
-public enum Ignored {
-  Character { index: Integer, name: String }
-  Account { id: Number, name: String }
-}
-
-// The player as their Battle.net friends see them.
-public struct Me {
-  // The BattleTag; empty while Battle.net is off.
-  const battleTag: String
-  const presence: Presence
-  const broadcast: String
-  const hero: Hero
-}
 
 // One of a guild or a community: a character (in a community of Battle.net accounts, the account's name and the
 // character it plays, where it plays one).
@@ -92,6 +26,10 @@ public struct Member {
   const officerNote: String
   // How long ago it was last online, in hours; 0 while online or where the client doesn't say.
   const away: Integer
+  // A guild member's achievement points and professions with their skill («Tailoring 225, Enchanting 180»), as the
+  // guild window's extra column shows them: 0 and empty where the client doesn't say.
+  const achievementPoints: Integer
+  const professions: String
 }
 
 // What the player may do in the guild, as the client says.
@@ -114,10 +52,17 @@ public struct Guild {
   const rights: Rights
 }
 
+// The kinds of the guild's news, by the client's numbers (`NEWS_ITEM_LOOTED`, ...).
+public enum NewsKind { GuildAchievement = 0, Achievement = 1, Encounter = 2, Looted = 3, Crafted = 4, Bought = 5, GuildLevel = 6, Founded = 7, LegendaryLooted = 8, Event = 9 }
+
 // A line of the guild's news: who did what, and the day.
 public struct News {
   const who: String
+  // What was done: an item's link where an item was looted, crafted or bought; a boss's name; an achievement's.
   const what: String
+  const kind: NewsKind
+  // What it is of: the item's, the achievement's or the encounter's number.
+  const subject: Integer
   // The day of the month and the month, from 1; a sticky line (kept on top by an officer) first.
   const day: Integer
   const month: Integer
@@ -173,17 +118,31 @@ public struct Ally {
   const fullName: String
   const meetings: Array<Meeting>
   const pinned: Boolean
+  // When the pin runs out, in seconds since 1970: 0 where it isn't pinned or never runs out.
+  const pinExpires: Number
+  // A friend request was sent them this session.
+  const requestSent: Boolean
+}
+
+// The guild's news filter: a kind of the client's (`GUILD_NEWS_FILTERn`'s number), its name in the game's words, and
+// whether it is shown.
+public struct NewsFilter {
+  const kind: Integer
+  const label: String
+  const shown: Boolean
 }
 
 // The client's door to the window's people; each list read as the window opens and when the client says it changed.
 public trait People {
-  public friends(self): Array<Friend>
-  public requests(self): Array<Request>
-  public ignored(self): Array<Ignored>
-  public me(self): Me
-  // The player's guild; none outside one.
-  public guild(self): Guild | nil
+  // The player's guild; none outside one. Its message of the day is the client's to give in the player's input alone:
+  // `motd` is what the window last read.
+  public guild(self, motd: String): Guild | nil
+  // The message of the day, read in the player's input (the client gives it then alone).
+  public motd(mut self): String
   public news(self): Array<News>
+  // The news filter's kinds the game offers here, each shown or not; one set shown or not.
+  public newsFilters(self): Array<NewsFilter>
+  public filterNews(mut self, kind: Integer, shown: Boolean)
   // The player's communities (the guild isn't one of them), each club's members and streams.
   public clubs(self): Array<Club>
   public clubMembers(self, club: String): Array<Member>
@@ -192,17 +151,16 @@ public trait People {
   public allies(self, categories: Array<AllyCategory> | nil): Array<Ally>
   // The categories the game sorts recent allies into here.
   public allyCategories(self): Array<AllyCategory>
+  // The chat's line opened to a friend.
   public whisper(mut self, friend: Friend)
-  public invite(mut self, friend: Friend)
-  public remove(mut self, friend: Friend)
-  public answer(mut self, request: Request, accept: Boolean)
-  public ignore(mut self, name: String)
-  public unignore(mut self, entry: Ignored)
-  // A BattleTag or an email makes a Battle.net friend, a character's name a friend of this realm.
-  public addFriend(mut self, text: String)
-  public setPresence(mut self, presence: Presence)
-  public setBroadcast(mut self, text: String)
   public copy(mut self, text: String)
+  // The game's own right-click menus, at the cursor, in the player's click: a guild member's (target, whisper, invite,
+  // promote, demote, remove, the notes, report), a community member's, a recent ally's (report, ignore, note). A
+  // member by its club (empty: the guild) and its key.
+  public memberMenu(mut self, club: String, key: String)
+  public allyMenu(mut self, ally: Ally)
+  // A recent ally's note, by the character's GUID.
+  public noteAlly(mut self, key: String, note: String)
   // A character by its name (with its realm where it is of another): the chat's whisper opened to it, an invite to
   // the group.
   public whisperTo(mut self, name: String)
@@ -282,7 +240,51 @@ function memberOf(info: Client.ClubMemberInfo, officerNotes: Boolean): Member {
     classColor: color, zone: info.zone ?? "", presence: presence,
     rank: info.guildRank ?? roleName(info.role), rankOrder: info.guildRankOrder ?? roleOrder(info.role),
     note: info.memberNote ?? "", officerNote: officerNotes ? info.officerNote ?? "" : "",
-    away: presence == .Offline ? awayOf(info) : 0
+    away: presence == .Offline ? awayOf(info) : 0, achievementPoints: (info.achievementPoints ?? 0).floor(),
+    professions: professionsOf(info)
+  }
+}
+
+// A member's professions with their skill, as the guild window's profession column writes them: «Tailoring 225».
+function professionsOf(info: Client.ClubMemberInfo): String {
+  const parts: Array<String> = []
+  const first = info.profession1Name
+  if (first != nil) { parts.push(`${first} ${(info.profession1Rank ?? 0).floor()}`) }
+  const second = info.profession2Name
+  if (second != nil) { parts.push(`${second} ${(info.profession2Rank ?? 0).floor()}`) }
+  return parts.join(", ")
+}
+
+// The club's member of that key (its GUID, else its name), as the client gives it now.
+function clubMemberInfo(club: String, key: String): Client.ClubMemberInfo | nil {
+  for (id of Client.C_Club.GetClubMembers(club, nil)) {
+    const info = Client.C_Club.GetMemberInfo(club, id)
+    if (info != nil && (info.guid ?? info.name) == key) { return info }
+  }
+  return nil
+}
+
+// The guild news filter's kinds, by the client's numbers (its window's boxes), each named in the game's words.
+const NEWS_FILTERS: Array<NewsFilter> = [
+  { kind: 1, label: Client.GUILD_NEWS_FILTER1, shown: true },
+  { kind: 2, label: Client.GUILD_NEWS_FILTER2, shown: true },
+  { kind: 3, label: Client.GUILD_NEWS_FILTER3, shown: true },
+  { kind: 4, label: Client.GUILD_NEWS_FILTER4, shown: true },
+  { kind: 5, label: Client.GUILD_NEWS_FILTER5, shown: true },
+  { kind: 6, label: Client.GUILD_NEWS_FILTER6, shown: true },
+  { kind: 9, label: Client.GUILD_NEWS_FILTER9, shown: true }
+]
+
+// Whether the client's filter shows a kind: its values one after another, by the kind's number.
+function newsShown(kind: Integer, ...shown: Boolean): Boolean { return shown[kind] ?? false }
+
+// Whether the game offers a kind of the news' filter here, as its own filter window hides those it doesn't.
+function newsKindOffered(kind: Integer): Boolean {
+  return match (kind) {
+    1 => Client.C_AchievementInfo.AreGuildAchievementsEnabled()
+    2 => Client.CanShowAchievementUI()
+    3 => Client.C_GuildInfo.IsEncounterGuildNewsEnabled()
+    else => true
   }
 }
 
@@ -307,115 +309,68 @@ function allyOf(data: Client.RecentAllyData): Ally {
       key: character.guid, name: character.name, level: character.level.floor(), className: classInfo?.className ?? "",
       classColor: classColor(classInfo?.classFile), zone: state.currentLocation ?? "",
       presence: presenceOf(state.isOnline, state.isAFK, state.isDND), rank: "", rankOrder: 0,
-      note: data.interactionData.note ?? "", officerNote: "", away: 0
+      note: data.interactionData.note ?? "", officerNote: "", away: 0, achievementPoints: 0, professions: ""
     },
     fullName: character.fullName,
     meetings: meetings,
-    pinned: Client.C_RecentAllies.IsRecentAllyPinned(character.guid)
+    pinned: Client.C_RecentAllies.IsRecentAllyPinned(character.guid),
+    pinExpires: state.pinExpirationDate ?? 0,
+    requestSent: state.friendRequestSentThisSession
   }
 }
 
+// The news' kind as the client numbers it; an unknown number is the guild's event, which names no item.
+function newsKindOf(number: Integer): NewsKind {
+  return match (number) {
+    0 => .GuildAchievement
+    1 => .Achievement
+    2 => .Encounter
+    3 => .Looted
+    4 => .Crafted
+    5 => .Bought
+    6 => .GuildLevel
+    7 => .Founded
+    8 => .LegendaryLooted
+    else => .Event
+  }
+}
+
+// The menu of a club's member, by the club's kind, as the communities' roster picks it.
+function memberMenuOf(kind: Client.ClubType): Client.UnitPopupMenu {
+  if (kind == .Guild) { return "COMMUNITIES_GUILD_MEMBER" }
+  if (kind == .BattleNet) { return "COMMUNITIES_MEMBER" }
+  return "COMMUNITIES_WOW_MEMBER"
+}
+
+function allyMenuOf(online: Boolean): Client.UnitPopupMenu {
+  if (online) { return "RECENT_ALLY" }
+  return "RECENT_ALLY_OFFLINE"
+}
+
+// The game's own right-click menu of a member of a club, as its communities' roster opens it.
+function openMemberMenu(club: String, info: Client.ClubMemberInfo) {
+  const clubInfo = Client.C_Club.GetClubInfo(club)
+  if (clubInfo == nil) { return }
+  const guild = clubInfo.clubType == .Guild
+  Client.UnitPopup_OpenMenu(memberMenuOf(clubInfo.clubType), {
+    name: info.name, guid: info.guid, bnetIDAccount: nil, battleTag: nil, friendsList: nil, isOffline: nil,
+    isSelf: info.isSelf, isMobile: info.presence == .OnlineMobile, isGuildMember: guild, clubMemberInfo: info,
+    clubInfo: clubInfo, clubPrivileges: Client.C_Club.GetClubPrivileges(club),
+    clubAssignableRoles: Client.C_Club.GetAssignableRoles(club, info.memberId), recentAllyData: nil
+  })
+}
+
 public class ClientPeople implements People {
-  public friends(self): Array<Friend> {
-    const list: Array<Friend> = []
-    let accounts, _ = Client.BNGetNumFriends()
-    for (index of 1..accounts.floor()) {
-      const friend = ClientPeople.account(index)
-      if (friend != nil) { list.push(friend) }
-    }
-    for (index of 1..Client.C_FriendList.GetNumFriends()) {
-      const info = Client.C_FriendList.GetFriendInfoByIndex(index)
-      if (info == nil) { continue }
-      let _, tag, _, _, _, _, realm, _ = Client.GetPlayerInfoByGUID(info.guid)
-      list.push({
-        index: index,
-        presence: presenceOf(info.connected, info.afk, info.dnd),
-        note: info.notes ?? "",
-        hero: {
-          name: info.name, level: info.level.floor(), className: info.className ?? "", classColor: classColor(tag),
-          area: info.area ?? "", realm: realm ?? ""
-        },
-        account: nil
-      })
-    }
-    return list
-  }
-
-  // A Battle.net friend by their place in the client's list.
-  account(index: Integer): Friend | nil {
-    const info = Client.C_BattleNet.GetFriendAccountInfo(index, nil)
-    if (info == nil) { return nil }
-    const game = info.gameAccountInfo
-    const playsHere = game.isOnline && game.clientProgram == "WoW" && game.characterName != nil && game.playerGuid != nil
-    let hero: Hero | nil = nil
-    if (playsHere) {
-      hero = {
-        name: game.characterName ?? "", level: (game.characterLevel ?? 0).floor(), className: game.className ?? "",
-        classColor: classColor(game.classFilename), area: game.areaName ?? "",
-        realm: game.realmDisplayName ?? game.realmName ?? ""
-      }
-    }
-    return {
-      index: index,
-      presence: presenceOf(game.isOnline, info.isAFK || game.isGameAFK, info.isDND || game.isGameBusy),
-      note: info.note,
-      hero: hero,
-      account: {
-        id: info.bnetAccountID, name: info.accountName, battleTag: info.battleTag,
-        program: game.isOnline ? game.clientProgram : "", broadcast: info.customMessage, favorite: info.isFavorite,
-        lastOnline: game.isOnline ? 0 : info.lastOnlineTime, gameAccount: playsHere ? game.gameAccountID : 0
-      }
-    }
-  }
-
-  public requests(self): Array<Request> {
-    const list: Array<Request> = []
-    for (index of 1..Client.BNGetNumFriendInvites().floor()) {
-      const info = Client.C_BattleNet.GetFriendInviteInfo(index)
-      if (info == nil) { continue }
-      const name = info.accountName
-      list.push({ id: info.inviteID, name: name is String ? name : "", sent: info.creationTimestamp })
-    }
-    return list
-  }
-
-  public ignored(self): Array<Ignored> {
-    const list: Array<Ignored> = []
-    for (index of 1..Client.C_FriendList.GetNumIgnores()) {
-      const name = Client.C_FriendList.GetIgnoreName(index)
-      if (name != nil) { list.push(Ignored.Character { index: index, name: name }) }
-    }
-    for (index of 1..Client.BNGetNumBlocked().floor()) {
-      let id, name = Client.BNGetBlockedInfo(index)
-      list.push(Ignored.Account { id: id, name: name })
-    }
-    return list
-  }
-
-  public me(self): Me {
-    let name, _ = Client.UnitName("player")
-    let className, tag, _ = Client.UnitClass("player")
-    const hero: Hero = {
-      name: name, level: Client.UnitLevel("player").floor(), className: className ?? "", classColor: classColor(tag),
-      area: Client.GetZoneText(), realm: Client.GetRealmName()
-    }
-    const guid = Client.UnitGUID("player")
-    const info = guid == nil ? nil : Client.C_BattleNet.GetAccountInfoByGUID(guid)
-    if (info == nil) { return { battleTag: "", presence: .Online, broadcast: "", hero: hero } }
-    const presence: Presence = info.appearOffline ? .Offline : presenceOf(true, info.isAFK, info.isDND)
-    return { battleTag: info.battleTag, presence: presence, broadcast: info.customMessage, hero: hero }
-  }
-
   // The guild is a club of the client's: its roster read as the guild window's (the rank, the notes, when last
-  // online), the message of the day and the information as its own page reads them.
-  public guild(self): Guild | nil {
+  // online, the achievement points and professions), the information as its own page reads it.
+  public guild(self, motd: String): Guild | nil {
     if (!Client.IsInGuild()) { return nil }
     const club = Client.C_Club.GetGuildClubId()
     if (club == nil) { return nil }
     let name, _, _ = Client.GetGuildInfo("player")
     return {
       name: name ?? Client.C_Club.GetClubInfo(club)?.name ?? "",
-      motd: Client.C_GuildInfo.GetMOTD(),
+      motd: motd,
       info: Client.C_GuildInfo.GetInfoText(),
       members: membersOf(club, Client.C_GuildInfo.CanViewOfficerNote()),
       rights: {
@@ -434,12 +389,22 @@ public class ClientPeople implements People {
       const info = Client.C_GuildInfo.GetGuildNewsInfo(index)
       if (info == nil || info.isHeader) { continue }
       list.push({
-        who: info.whoText ?? "", what: info.whatText ?? "", day: info.day.floor() + 1, month: info.month.floor() + 1,
-        sticky: info.isSticky
+        who: info.whoText ?? "", what: info.whatText ?? "", kind: newsKindOf(info.newsType.floor()),
+        subject: info.newsDataID.floor(), day: info.day.floor() + 1, month: info.month.floor() + 1, sticky: info.isSticky
       })
     }
     return list
   }
+
+  public motd(mut self): String { return Client.IsInGuild() ? Client.C_GuildInfo.GetMOTD() : "" }
+
+  public newsFilters(self): Array<NewsFilter> {
+    return NEWS_FILTERS.filter(filter => newsKindOffered(filter.kind)).map(filter => NewsFilter {
+      kind: filter.kind, label: filter.label, shown: newsShown(filter.kind, ...Client.GetGuildNewsFilters())
+    })
+  }
+
+  public filterNews(mut self, kind: Integer, shown: Boolean) { Client.SetGuildNewsFilter(kind, shown ? 1 : 0) }
 
   public clubs(self): Array<Club> {
     const list: Array<Club> = []
@@ -481,61 +446,28 @@ public class ClientPeople implements People {
     if (to != nil) { Client.ChatFrameUtil.OpenChat(`/w ${to} `) }
   }
 
-  // A character asked to the group; a Battle.net friend's character through Battle.net, as the game's list does.
-  public invite(mut self, friend: Friend) {
-    const account = friend.account
-    if (account != nil) {
-      if (account.gameAccount != 0) { Client.C_BattleNet.InviteFriend(account.gameAccount) }
-      return
-    }
-    const hero = friend.hero
-    if (hero != nil) { Client.C_PartyInfo.InviteUnit(hero.name) }
-  }
-
-  public remove(mut self, friend: Friend) {
-    const account = friend.account
-    if (account != nil) {
-      Client.BNRemoveFriend(account.id)
-      return
-    }
-    Client.C_FriendList.RemoveFriendByIndex(friend.index)
-  }
-
-  public answer(mut self, request: Request, accept: Boolean) {
-    if (accept) {
-      Client.BNAcceptFriendInvite(request.id)
-    } else {
-      Client.BNDeclineFriendInvite(request.id)
-    }
-  }
-
-  public ignore(mut self, name: String) { _ = Client.C_FriendList.AddIgnore(name) }
-
-  public unignore(mut self, entry: Ignored) {
-    match (entry) {
-      .Character => Client.C_FriendList.DelIgnoreByIndex(entry.index)
-      .Account => Client.C_BattleNet.SetBlocked(entry.id, false)
-    }
-  }
-
-  public addFriend(mut self, text: String) {
-    if (namesAccount(text)) {
-      Client.BNSendFriendInvite(text, "")
-    } else {
-      Client.C_FriendList.AddFriend(text, nil)
-    }
-  }
-
-  // The game's four: away and busy are flags of their own, invisible is appearing offline.
-  public setPresence(mut self, presence: Presence) {
-    Client.C_BattleNet.SetAppearOffline(presence == .Offline)
-    Client.C_BattleNet.SetAFK(presence == .Away)
-    Client.C_BattleNet.SetDND(presence == .Busy)
-  }
-
-  public setBroadcast(mut self, text: String) { _ = Client.C_BattleNet.SetCustomMessage(text) }
-
   public copy(mut self, text: String) { _ = Client.CopyToClipboard(text, nil) }
+
+  public memberMenu(mut self, club: String, key: String) {
+    const id = club != "" ? club : Client.C_Club.GetGuildClubId() ?? ""
+    if (id == "") { return }
+    const info = clubMemberInfo(id, key)
+    if (info != nil) { openMemberMenu(id, info) }
+  }
+
+  // As the game's recent allies open it: online or offline.
+  public allyMenu(mut self, ally: Ally) {
+    const data = Client.C_RecentAllies.GetRecentAllies().find(one => one.characterData.guid == ally.member.key)
+    if (data == nil) { return }
+    const online = data.stateData.isOnline
+    Client.UnitPopup_OpenMenu(allyMenuOf(online), {
+      name: data.characterData.fullName, guid: data.characterData.guid, bnetIDAccount: nil, battleTag: nil,
+      friendsList: nil, isOffline: !online, isSelf: nil, isMobile: nil, isGuildMember: nil, clubMemberInfo: nil,
+      clubInfo: nil, clubPrivileges: nil, clubAssignableRoles: nil, recentAllyData: data
+    })
+  }
+
+  public noteAlly(mut self, key: String, note: String) { Client.C_RecentAllies.SetRecentAllyNote(key, note) }
 
   public whisperTo(mut self, name: String) { Client.ChatFrameUtil.OpenChat(`/w ${name} `) }
   public inviteTo(mut self, name: String) { Client.C_PartyInfo.InviteUnit(name) }

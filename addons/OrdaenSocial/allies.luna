@@ -4,9 +4,9 @@
 //
 // A row: the ally's status mark, the name in its class's colour (grey while offline) with its level, under it the newest
 // thing done together and how long ago; a pinned ally's star at the right.
-import { Align, Overflow, Track } from "$ltml"
+import { Align, ByInteractionState, Edges, Overflow, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { Choice, Component, Fact, FilterButton, FilterGroup, PickRow, PushButton, SECONDARY_TEXT, TITLE_LINE, TITLE_TEXT, ToolPick, Toolbar, agoText, switched } from "Ordaen"
+import { Choice, Component, Fact, FilterButton, FilterGroup, PushButton, SECONDARY_TEXT, TITLE_LINE, TITLE_TEXT, ToolPick, Toolbar, agoText, rowShade, switched } from "Ordaen"
 import { markOf, orDash, presenceText } from "@/friends"
 import Locale from "@/locales"
 import { nameColorOf } from "@/members"
@@ -22,6 +22,11 @@ const SORTS: Array<Choice<AllySort>> = [
   { value: .Level, label: Locale.SORT_LEVEL }
 ]
 const ROW: Array<Track> = [Style.DOT, { fr: 1 }, "max-content"]
+// A pickable row's padding (`PickRow`'s).
+const PICK_PAD: Edges = { top: 2sp, right: 2sp, bottom: 2sp, left: 2sp }
+const DAY = 86400
+// The days before a pin runs out that the game warns of.
+const PIN_WARNING_DAYS = 5
 // The filter: the game's categories of what was done together (`AllyCategory`), and online or not.
 public enum AllyFilter { Professions, PvP, Raiding, Dungeons, Delves, Questing, Online, Offline }
 
@@ -106,11 +111,14 @@ function shownOf(allies: Array<Ally>, pinned: Boolean, query: String, filter: Ma
   return shown
 }
 
+// An ally as a row: a left click, Enter or Space picks it, a right click opens the game's menu of it.
 class AllyRow implements Component {
   public pick: Event<String> = new Event()
+  public menu: Event<String> = new Event()
 
   derived picked: Boolean = self.chosen == self.ally.member.key
   derived level: String = String.of(self.ally.member.level)
+  derived background: Color | ByInteractionState<Color> = rowShade(self.picked)
 
   ally: Signal<Ally>
   chosen: Signal<String>
@@ -120,10 +128,13 @@ class AllyRow implements Component {
   }
 
   onPick(self) { self.pick.emit((peek self.ally).member.key) }
+  onMenu(self) { self.menu.emit((peek self.ally).member.key) }
 
   public render(self): Template {
     return $ltml {
-      <PickRow columns={ROW} picked={self.picked} @pick={self.onPick}>
+      <box columns={ROW} gap={2sp} yAlign={Align.Center} padding={PICK_PAD} background={self.background}
+           @pointerPress(.Left)={self.onPick} @pointerPress(.Right)={self.onMenu} @keyPress(.Enter)={self.onPick}
+           @keyPress(.Space)={self.onPick}>
         <box width={Style.DOT} height={Style.DOT} background={markOf(self.ally.member.presence)} />
         <box columns={1}>
           <box columns={["max-content", "max-content"]} gap={2sp}>
@@ -133,7 +144,7 @@ class AllyRow implements Component {
           <text value={metText(self.ally)} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={false} />
         </box>
         <box $if={self.ally.pinned} width={Style.STAR} height={Style.STAR} background={Style.STAR_ICON} />
-      </PickRow>
+      </box>
     }
   }
 }
@@ -142,6 +153,7 @@ class AllyRow implements Component {
 // filter is its owner's, which asks the game for the allies of the categories switched on.
 public class AllyList implements Component {
   public pick: Event<String> = new Event()
+  public menu: Event<String> = new Event()
 
   state query = ""
   state sort: AllySort = .Recent
@@ -168,6 +180,7 @@ public class AllyList implements Component {
   }
 
   onPick(self, key: String) { self.pick.emit(key) }
+  onMenu(self, key: String) { self.menu.emit(key) }
 
   public render(self): Template {
     return $ltml {
@@ -179,9 +192,11 @@ public class AllyList implements Component {
         <box columns={1} overflow={Overflow.Scroll} yAlign={Align.Start}>
           <text $if={self.empty} value={self.allies.length == 0 ? Locale.NO_ALLIES : Locale.NOTHING_FOUND} textColor={Style.DIM} wrap={true} />
           <text $if={self.pinned.length > 0} value={Locale.PINNED} textColor={Style.GOLD} wrap={false} />
-          <AllyRow $for={ally of self.pinned} $key={ally.member.key} ally={ally} chosen={self.chosen} @pick={self.onPick} />
+          <AllyRow $for={ally of self.pinned} $key={ally.member.key} ally={ally} chosen={self.chosen} @pick={self.onPick}
+                   @menu={self.onMenu} />
           <text $if={self.rest.length > 0} value={Locale.TAB_ALLIES} textColor={Style.GOLD} wrap={false} />
-          <AllyRow $for={ally of self.rest} $key={ally.member.key} ally={ally} chosen={self.chosen} @pick={self.onPick} />
+          <AllyRow $for={ally of self.rest} $key={ally.member.key} ally={ally} chosen={self.chosen} @pick={self.onPick}
+                   @menu={self.onMenu} />
         </box>
       </box>
     }
@@ -204,26 +219,42 @@ class MeetingRow implements Component {
   }
 }
 
-// The picked ally's card: who it is, how it stands and where, the note, every thing done together; «Шепнуть»,
-// «Пригласить», «Закрепить» (or «Открепить») and «Добавить в друзья».
+// How long a pin lasts, in whole days from `now` (one at the least while it lasts); 0 where it never runs out.
+public function pinDaysLeft(ally: Ally, now: Number): Integer {
+  if (!ally.pinned || ally.pinExpires == 0) { return 0 }
+  return (1).max(((ally.pinExpires - now) / DAY).ceil())
+}
+
+// The picked ally's card: who it is, how it stands and where, how long its pin lasts (red in the days the game warns
+// of), the note (changed in its dialog), every thing done together; «Шепнуть», «Пригласить», «Закрепить» (or
+// «Открепить»), «Добавить в друзья» («Запрос отправлен» once sent) and ⋮, the game's own menu of the ally.
 public class AllyCard implements Component {
   public whisper: Event<nil> = new Event()
   public invite: Event<nil> = new Event()
   public pin: Event<nil> = new Event()
   public befriend: Event<nil> = new Event()
+  public note: Event<nil> = new Event()
+  public menu: Event<nil> = new Event()
 
   derived sub: String = Locale.CARD_CHARACTER_LEVEL.format(self.ally.member.className, self.ally.member.level)
   derived canAsk: Boolean = online(self.ally)
+  derived daysLeft: Integer = pinDaysLeft(self.ally, self.now)
+  derived pinText: String = Locale.PIN_DAYS_LEFT.format(self.daysLeft)
+  derived pinColor: Color = self.daysLeft <= PIN_WARNING_DAYS ? Style.RED : Style.INK
 
   ally: Signal<Ally>
-  constructor(ally: Signal<Ally>) {
+  now: Signal<Integer>
+  constructor(ally: Signal<Ally>, now: Signal<Integer>) {
     self.ally = ally
+    self.now = now
   }
 
   onWhisper(self) { self.whisper.emit() }
   onInvite(self) { self.invite.emit() }
   onPin(self) { self.pin.emit() }
   onBefriend(self) { self.befriend.emit() }
+  onNote(self) { self.note.emit() }
+  onMenu(self) { self.menu.emit() }
 
   public render(self): Template {
     return $ltml {
@@ -239,6 +270,7 @@ public class AllyCard implements Component {
           </box>
           <Fact label={Locale.STATUS} value={presenceText(self.ally.member.presence)} />
           <Fact label={Locale.WHERE} value={orDash(self.ally.member.zone)} />
+          <Fact $if={self.daysLeft > 0} label={Locale.PIN_LASTS} value={self.pinText} color={self.pinColor} />
           <Fact label={Locale.NOTE} value={orDash(self.ally.member.note)} />
         </box>
         <box columns={1} gap={2sp} overflow={Overflow.Scroll} yAlign={Align.Start}>
@@ -249,7 +281,10 @@ public class AllyCard implements Component {
           <PushButton label={Locale.WHISPER} width={Style.SMALL_BUTTON} disabled={!self.canAsk} @click={self.onWhisper} />
           <PushButton label={Locale.INVITE} width={Style.SMALL_BUTTON} disabled={!self.canAsk} @click={self.onInvite} />
           <PushButton label={self.ally.pinned ? Locale.UNPIN : Locale.PIN} width={Style.SMALL_BUTTON} @click={self.onPin} />
-          <PushButton label={Locale.BEFRIEND} width={Style.SMALL_BUTTON} @click={self.onBefriend} />
+          <PushButton label={self.ally.requestSent ? Locale.REQUEST_SENT : Locale.BEFRIEND} width={Style.SMALL_BUTTON}
+                      disabled={self.ally.requestSent} @click={self.onBefriend} />
+          <PushButton label={Locale.SET_NOTE} width={Style.SMALL_BUTTON} @click={self.onNote} />
+          <PushButton label={Locale.MORE} width={Style.MENU_BUTTON} @click={self.onMenu} />
         </box>
       </box>
     }
