@@ -1,0 +1,181 @@
+// The wheels' tab in the settings window: a ring chosen, where it opens and how it names its items, its key (the
+// client's Key Bindings window binds it), each of its places given an item from the catalogue, and «Back to the
+// preset» for the ring or for all. A change applies at once; out of a fight the wheel takes it, in one at its end.
+import Client from "$client"
+import { Choice, Component, Dropdown, Fact, PushButton, Section, Settings, TextField, WheelNames } from "Ordaen"
+import { Choices, Item, OpensAt, Ping, Ring, Window } from "@/choices"
+import Locale from "@/locales"
+import { preset, presetRing } from "@/preset"
+
+const RINGS: Array<Choice<Integer>> = [
+  { value: 1, label: Locale.RING_FIRST },
+  { value: 2, label: Locale.RING_SECOND },
+  { value: 3, label: Locale.RING_THIRD }
+]
+const OPENS: Array<Choice<OpensAt>> = [
+  { value: OpensAt.Cursor, label: Locale.OPENS_CURSOR },
+  { value: OpensAt.Middle, label: Locale.OPENS_MIDDLE }
+]
+const NAMES: Array<Choice<WheelNames>> = [
+  { value: WheelNames.Off, label: Locale.NAMES_OFF },
+  { value: WheelNames.Chosen, label: Locale.NAMES_CHOSEN },
+  { value: WheelNames.Always, label: Locale.NAMES_ALWAYS }
+]
+
+// What can stand in a place: the catalogue, by a name of its own; a spell, an item, a macro and a submenu take the
+// text written beside it.
+public const CATALOGUE: Array<Choice<String>> = [
+  { value: "empty", label: Locale.KIND_EMPTY },
+  { value: "spell", label: Locale.KIND_SPELL },
+  { value: "item", label: Locale.KIND_ITEM },
+  { value: "macro", label: Locale.KIND_MACRO },
+  { value: "menu", label: Locale.KIND_MENU },
+  { value: "professions", label: Locale.RING_PROFESSIONS },
+  { value: "character", label: Locale.WINDOW_CHARACTER },
+  { value: "spellbook", label: Locale.WINDOW_SPELLBOOK },
+  { value: "talents", label: Locale.WINDOW_TALENTS },
+  { value: "quests", label: Locale.WINDOW_QUESTS },
+  { value: "map", label: Locale.WINDOW_MAP },
+  { value: "social", label: Locale.WINDOW_SOCIAL },
+  { value: "guild", label: Locale.WINDOW_GUILD },
+  { value: "groupFinder", label: Locale.WINDOW_GROUP_FINDER },
+  { value: "calendar", label: Locale.WINDOW_CALENDAR },
+  { value: "bags", label: Locale.WINDOW_BAGS },
+  { value: "settings", label: Locale.WINDOW_SETTINGS },
+  { value: "placing", label: Locale.WINDOW_PLACING },
+  { value: "attack", label: Locale.PING_ATTACK },
+  { value: "assist", label: Locale.PING_ASSIST },
+  { value: "warning", label: Locale.PING_WARNING },
+  { value: "onmyway", label: Locale.PING_ON_MY_WAY },
+  { value: "mark", label: Locale.KIND_MARK },
+  { value: "worldMark", label: Locale.KIND_WORLD_MARK },
+  { value: "line", label: Locale.KIND_LINE }
+]
+
+const MENU_ICON: Asset = "Interface/Icons/INV_Misc_Bag_07"
+const LINE_ICON: Asset = "Interface/Icons/INV_Misc_Note_01"
+
+// The item a catalogue's entry makes, with the text written beside it.
+public function itemOf(kind: String, text: String): Item {
+  const number = text.toNumber()
+  const whole = number != nil ? number.floor() : 0
+  return match (kind) {
+    "spell" => .Spell { spell: text }
+    "item" => .Bag { item: whole }
+    "macro" => .Macro { macro: text }
+    "menu" => .Menu { title: text, icon: MENU_ICON }
+    "professions" => Item.Professions
+    "mark" => .RaidMark { mark: whole }
+    "worldMark" => .WorldMark { mark: whole }
+    "line" => .Line { title: text, line: text, icon: LINE_ICON }
+    "attack" => .Pinged { ping: Ping.Attack }
+    "assist" => .Pinged { ping: Ping.Assist }
+    "warning" => .Pinged { ping: Ping.Warning }
+    "onmyway" => .Pinged { ping: Ping.OnMyWay }
+    "character" => .Open { window: Window.Character }
+    "spellbook" => .Open { window: Window.Spellbook }
+    "talents" => .Open { window: Window.Talents }
+    "quests" => .Open { window: Window.Quests }
+    "map" => .Open { window: Window.Map }
+    "social" => .Open { window: Window.Social }
+    "guild" => .Open { window: Window.Guild }
+    "groupFinder" => .Open { window: Window.GroupFinder }
+    "calendar" => .Open { window: Window.Calendar }
+    "bags" => .Open { window: Window.Bags }
+    "settings" => .Open { window: Window.Settings }
+    "placing" => .Open { window: Window.Placing }
+    else => Item.Empty
+  }
+}
+
+public class RingsPage implements Component {
+  // The ring and the place being given an item, and the item.
+  state ring = 1
+  state place = "1"
+  state kind = "spell"
+  state text = ""
+  state opensAt: OpensAt = OpensAt.Cursor
+  state names: WheelNames = WheelNames.Chosen
+  derived keys: String = self.keysOf()
+
+  settings: mut Settings<Choices>
+  constructor(settings: mut Settings<Choices>) {
+    self.settings = settings
+    watch (ring of self.ring) { self.load(ring) }
+    watch (opensAt of self.opensAt) { self.change((r: mut Ring): nil => { r.opensAt = opensAt }) }
+    watch (names of self.names) { self.change((r: mut Ring): nil => { r.names = names }) }
+  }
+
+  load(mut self, index: Integer) {
+    const ring = (peek self.settings.values).rings[index]
+    if (ring == nil) { return }
+    self.opensAt = ring.opensAt
+    self.names = ring.names
+  }
+
+  // The chosen ring changed as `edit` changes it, unless it is already so.
+  change(mut self, edit: (ring: mut Ring) => nil) {
+    const rings = (peek self.settings.values).rings.clone()
+    const index = peek self.ring
+    const held = rings[index]
+    if (held == nil) { return }
+    const ring = held.clone()
+    edit(mut ring)
+    if (ring.equal(held)) { return }
+    rings[index] = ring
+    self.settings.values.rings = rings
+  }
+
+  keysOf(self): String {
+    const first, second = Client.GetBindingKey(`ORDAEN_RADIAL_${self.ring}`)
+    if (first == nil) { return Locale.KEY_NONE }
+    return second == nil ? first : `${first}, ${second}`
+  }
+
+  // The item chosen put in the place chosen.
+  put(mut self) {
+    const item = itemOf(self.kind, self.text)
+    const place = self.place
+    self.change((r: mut Ring): nil => {
+      r.items[place] = item
+      // A place past the ring's count grows it; a submenu starts with no items.
+      const ring = place.match("^(.+)_%d+$") ?? ""
+      const index = (place.match("(%d+)$") ?? "0").toNumber() ?? 0
+      if ((r.counts[ring] ?? 0) < index) { r.counts[ring] = index.floor() }
+      if (item is Item.Menu && r.counts[place] == nil) { r.counts[place] = 0 }
+    })
+  }
+
+  resetRing(mut self) {
+    const fresh = presetRing(peek self.ring)
+    self.change((r: mut Ring): nil => {
+      r.opensAt = fresh.opensAt
+      r.names = fresh.names
+      r.counts = fresh.counts.clone()
+      r.items = fresh.items.clone()
+    })
+  }
+
+  resetAll(mut self) { self.settings.values.rings = preset().rings }
+
+  public render(self): Template {
+    return $ltml {
+      <Section title={Locale.SECTION_RING}>
+        <Dropdown label={Locale.RING} value={mut self.ring} choices={RINGS} />
+        <Fact label={Locale.RING_KEY} value={self.keys} />
+        <Dropdown label={Locale.OPENS_AT} value={mut self.opensAt} choices={OPENS} />
+        <Dropdown label={Locale.NAMES} value={mut self.names} choices={NAMES} />
+      </Section>
+      <Section title={Locale.SECTION_ITEM}>
+        <TextField label={Locale.PLACE} hint={Locale.PLACE_TIP} value={mut self.place} />
+        <Dropdown label={Locale.KIND} value={mut self.kind} choices={CATALOGUE} />
+        <TextField label={Locale.ITEM_TEXT} hint={Locale.ITEM_TEXT_TIP} value={mut self.text} />
+        <PushButton label={Locale.PUT} width={160dp} @click={self.put} />
+      </Section>
+      <Section title={Locale.SECTION_PRESET}>
+        <PushButton label={Locale.RESET_RING} width={160dp} @click={self.resetRing} />
+        <PushButton label={Locale.RESET_ALL} width={160dp} @click={self.resetAll} />
+      </Section>
+    }
+  }
+}

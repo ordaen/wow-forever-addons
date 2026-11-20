@@ -1,0 +1,173 @@
+// Ordaen Radial: wheels of actions held on a key. Each ring of the player's stands on a key of its own (the client's
+// Key Bindings window lists them under «Ordaen Radial»); held, its wheel opens at the cursor, and the direction the
+// mouse goes picks an item, done as the key is let go, in a fight too (Ordaen's `SecureWheel`). The art (Ordaen's
+// `Wheel`) follows the same choice by the same formula while the wheel is up, and nothing runs while it is closed.
+import Client from "$client"
+import Events from "$events"
+import Game from "$game"
+import { Anchored, Layer, NamedKey, Point } from "$ltml"
+import root Ordaen from "Ordaen"
+import {
+  DEAD_ZONE, Module, ROOT, SecureWheel, Settings, SettingsPage, Wheel, WheelEntry, WheelItem, WheelNames, WheelRing,
+  slotAt
+} from "Ordaen"
+import { Choices, Item, Ring, Window } from "@/choices"
+import { actionOf, refusesInFight, shown } from "@/items"
+import Locale from "@/locales"
+import { preset } from "@/preset"
+import { RingsPage } from "@/settings"
+
+// The keys the rings stand on, the first ring's first: the player's own, from the client's Key Bindings window.
+const RING_1: NamedKey = { name: "ORDAEN_RADIAL_1", label: "Radial menu", key: nil }
+const RING_2: NamedKey = { name: "ORDAEN_RADIAL_2", label: "Radial menu: marks", key: nil }
+const RING_3: NamedKey = { name: "ORDAEN_RADIAL_3", label: "Radial menu: pings", key: nil }
+public const RING_KEYS: Array<String> = ["ORDAEN_RADIAL_1", "ORDAEN_RADIAL_2", "ORDAEN_RADIAL_3"]
+
+// A ring's place inside the client's wheel: `""` the ring itself (`r`), `"3_2"` (`r_3_2`).
+public function wheelPlace(place: String): String { return place == "" ? ROOT : `${ROOT}_${place}` }
+public function placeOf(wheelPath: String): String { return wheelPath == ROOT ? "" : wheelPath.sub(ROOT.length + 2) }
+
+// A ring as the wheel shows it: its rings and items, a ring of professions made of those the player has.
+public struct Laid {
+  rings: Array<WheelRing>
+  entries: Array<WheelEntry>
+  items: Map<String, Item>
+  counts: Map<String, Integer>
+}
+
+public function laidOut(ring: Ring): Laid {
+  const counts: Map<String, Integer> = {}
+  const items: Map<String, Item> = {}
+  for (place, count of ring.counts) { counts[place] = count }
+  for (place, item of ring.items) {
+    if (item == Item.Professions) {
+      // The ring this stands in holds the player's professions in its place.
+      const cut = place.match("^(.+)_%d+$") ?? ""
+      const known = Game.professions.list
+      counts[cut] = known.length
+      for (index, one of known) { items[cut == "" ? String.of(index) : `${cut}_${index}`] = .Spell { spell: one.name } }
+    } else if (items[place] == nil) {
+      items[place] = item
+    }
+  }
+  const rings: Array<WheelRing> = []
+  for (place, count of counts) { rings.push({ path: wheelPlace(place), count: count }) }
+  const entries: Array<WheelEntry> = []
+  for (place, item of items) {
+    entries.push({ path: wheelPlace(place), action: actionOf(item), refusesInFight: refusesInFight(item) })
+  }
+  return { rings: rings, entries: entries, items: items, counts: counts }
+}
+
+public class Radial implements Module, App {
+  public const title: String = "Ordaen Radial"
+
+  settings: mut Settings<Choices> = new Settings<Choices>(preset())
+  public const pages: Array<SettingsPage> = [
+    { title: Locale.TAB_RINGS, content: $ltml { <RingsPage settings={mut self.settings} /> } }
+  ]
+  // A secure wheel for each ring's key.
+  public const wheels: mut Array<mut SecureWheel> = [
+    new SecureWheel("OrdaenRadial1"), new SecureWheel("OrdaenRadial2"), new SecureWheel("OrdaenRadial3")
+  ]
+  // Each ring as the wheel shows it, followed as the settings and the professions change.
+  derived laids: Array<Laid> = self.settings.values.rings.map(ring => laidOut(ring))
+
+  // The ring that is up (0: none), the ring of it shown, and what the cursor chooses there.
+  public derived up: Integer = self.upOf()
+  derived wheel: SecureWheel | nil = self.wheels[self.up]
+  derived level: String = self.wheel?.level ?? ROOT
+  public derived shownItems: Array<WheelItem> = self.itemsOf()
+  public derived chosen: Integer = self.chosenOf()
+  derived pointer: Number<Angle> = self.pointerOf()
+  derived names: WheelNames = self.settings.values.rings[self.up]?.names ?? WheelNames.Chosen
+  derived place: Anchored = {
+    point: Point.Center, to: Point.BottomLeft, x: (self.wheel?.middleX ?? 0) * 1ui, y: -(self.wheel?.middleY ?? 0) * 1ui
+  }
+
+  constructor() {
+    Ordaen.modules.add(self)
+    for (wheel of self.wheels) { wheel.picked.listen(self.onPick) }
+    watch (laids of self.laids) { self.apply(laids) }
+    self.bind()
+    Events.UPDATE_BINDINGS.listen(self.bind)
+  }
+
+  upOf(self): Integer {
+    for (index, wheel of self.wheels) {
+      if (wheel.open) { return index }
+    }
+    return 0
+  }
+
+  chosenOf(self): Integer {
+    const wheel = self.wheel
+    if (wheel == nil) { return 0 }
+    return slotAt(wheel.aimX, wheel.aimY, self.shownItems.length, DEAD_ZONE / 1ui)
+  }
+
+  pointerOf(self): Number<Angle> {
+    const wheel = self.wheel
+    if (wheel == nil) { return 0rad }
+    return wheel.aimX.atan2(wheel.aimY) * 1rad
+  }
+
+  itemsOf(self): Array<WheelItem> {
+    const ring = self.laids[self.up]
+    if (ring == nil) { return [] }
+    const place = placeOf(self.level)
+    const count = ring.counts[place] ?? 0
+    const fighting = Game.situation.combat
+    const items: Array<WheelItem> = []
+    for (index of 1..count) {
+      const item = ring.items[place == "" ? String.of(index) : `${place}_${index}`] ?? Item.Empty
+      const drawn = shown(item)
+      items.push({ name: drawn.name, icon: drawn.icon, dim: drawn.dim || fighting && refusesInFight(item), menu: drawn.menu })
+    }
+    return items
+  }
+
+  apply(mut self, laids: Array<Laid>) {
+    for (index, wheel of self.wheels) {
+      const laid = laids[index]
+      const centred = self.settings.values.rings[index]?.opensAt == .Middle
+      if (laid != nil) { wheel.apply(laid.rings, laid.entries, centred) }
+    }
+  }
+
+  // The keys the player gave each ring, bound to its wheel (out of a fight: in one, as it ends).
+  bind(self) {
+    for (index, wheel of self.wheels) {
+      const command = RING_KEYS[index] ?? panic("a key for each wheel")
+      const first, second = Client.GetBindingKey(command)
+      const keys: Array<String> = []
+      if (first != nil) { keys.push(first) }
+      if (second != nil) { keys.push(second) }
+      wheel.bind(keys)
+    }
+  }
+
+  // An item used: one of ours is done here (the client did the rest).
+  onPick(self, path: String) {
+    const ring = self.laids[self.up]
+    if (ring == nil) { return }
+    const item = ring.items[placeOf(path)]
+    if (item is Item.Open) {
+      if (item.window == Window.Settings) { Ordaen.toggleSettings(nil) }
+      if (item.window == Window.Placing) { Ordaen.togglePlacing() }
+    }
+  }
+
+  // A key heard by its binding's body: only before the wheels' own bindings stand (they take the key from it).
+  heard(self) {}
+
+  public render(self): Template {
+    return $ltml {
+      <box @keyDown.globalScope(RING_1)={self.heard} @keyDown.globalScope(RING_2)={self.heard}
+           @keyDown.globalScope(RING_3)={self.heard} />
+      <surface $if={self.up > 0} layer={Layer.Dialog} place={self.place}>
+        <Wheel items={self.shownItems} chosen={self.chosen} pointer={self.pointer} names={self.names} />
+      </surface>
+    }
+  }
+}

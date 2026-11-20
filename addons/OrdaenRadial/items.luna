@@ -1,0 +1,127 @@
+// What each kind of item is on the wheel: what it shows (its name, its icon, whether it can be used now) and what it
+// does (the client's action, or ours).
+import Client from "$client"
+import { WheelAction, WheelItem } from "Ordaen"
+import { Item, Ping, Window } from "@/choices"
+import Locale from "@/locales"
+
+const QUESTION: Asset = "Interface/Icons/INV_Misc_QuestionMark"
+
+// A window: its name, its icon, and how it is opened (a line of a macro the client runs, in a fight too; none: ours).
+struct Opening {
+  title: String
+  icon: Asset
+  line: String | nil
+}
+
+function opening(window: Window): Opening {
+  return match (window) {
+    .Character => { title: Locale.WINDOW_CHARACTER, icon: "Interface/Icons/INV_Chest_Cloth_17", line: "/click CharacterMicroButton" }
+    .Spellbook => { title: Locale.WINDOW_SPELLBOOK, icon: "Interface/Icons/INV_Misc_Book_09", line: "/click SpellbookMicroButton" }
+    .Talents => { title: Locale.WINDOW_TALENTS, icon: "Interface/Icons/Ability_Marksmanship", line: "/click TalentMicroButton" }
+    .Quests => { title: Locale.WINDOW_QUESTS, icon: "Interface/Icons/INV_Misc_Book_08", line: "/click QuestLogMicroButton" }
+    .Map => { title: Locale.WINDOW_MAP, icon: "Interface/Icons/INV_Misc_Map_01", line: "/run ToggleWorldMap()" }
+    .Social => { title: Locale.WINDOW_SOCIAL, icon: "Interface/Icons/INV_Letter_15", line: "/run ToggleFriendsFrame()" }
+    .Guild => { title: Locale.WINDOW_GUILD, icon: "Interface/Icons/INV_Shirt_GuildTabard_01", line: "/click GuildMicroButton" }
+    .GroupFinder => { title: Locale.WINDOW_GROUP_FINDER, icon: "Interface/Icons/INV_Misc_GroupLooking", line: "/click LFDMicroButton" }
+    .Calendar => { title: Locale.WINDOW_CALENDAR, icon: "Interface/Icons/INV_Misc_Note_02", line: "/run ToggleCalendar()" }
+    .Bags => { title: Locale.WINDOW_BAGS, icon: "Interface/Icons/INV_Misc_Bag_08", line: "/run ToggleAllBags()" }
+    .Settings => { title: Locale.WINDOW_SETTINGS, icon: "Interface/Icons/Trade_Engineering", line: nil }
+    .Placing => { title: Locale.WINDOW_PLACING, icon: "Interface/Icons/Ability_Hunter_Pathfinding", line: nil }
+  }
+}
+
+function pingTitle(ping: Ping): String {
+  return match (ping) {
+    .Attack => Locale.PING_ATTACK
+    .Assist => Locale.PING_ASSIST
+    .Warning => Locale.PING_WARNING
+    .OnMyWay => Locale.PING_ON_MY_WAY
+  }
+}
+
+const MARK_ICONS: Array<Asset> = [
+  "Interface/TargetingFrame/UI-RaidTargetingIcon_1", "Interface/TargetingFrame/UI-RaidTargetingIcon_2",
+  "Interface/TargetingFrame/UI-RaidTargetingIcon_3", "Interface/TargetingFrame/UI-RaidTargetingIcon_4",
+  "Interface/TargetingFrame/UI-RaidTargetingIcon_5", "Interface/TargetingFrame/UI-RaidTargetingIcon_6",
+  "Interface/TargetingFrame/UI-RaidTargetingIcon_7", "Interface/TargetingFrame/UI-RaidTargetingIcon_8"
+]
+const CLEAR: Asset = "Interface/Buttons/UI-GroupLoot-Pass-Up"
+
+function markIcon(mark: Integer): Asset {
+  return MARK_ICONS[mark] ?? CLEAR
+}
+
+// The client's icon of a spell the player has, by its name; none where the spellbook hasn't it.
+function spellIcon(spell: String): FileId | nil {
+  const icon, _, _ = Client.C_Spell.GetSpellTexture(spell)
+  return icon
+}
+
+function bagCount(item: Integer): Number {
+  return Client.C_Item.GetItemCount(item, nil, nil, nil, nil)
+}
+
+// How an item is drawn.
+public function shown(item: Item): WheelItem {
+  return match (item) {
+    .Empty => { name: "", icon: QUESTION, dim: true, menu: false }
+    .Spell => {
+      name: item.spell,
+      icon: spellIcon(item.spell) ?? QUESTION,
+      dim: spellIcon(item.spell) == nil,
+      menu: false
+    }
+    .Bag => {
+      name: Client.C_Item.GetItemNameByID(item.item) ?? String.of(item.item),
+      icon: Client.C_Item.GetItemIconByID(item.item) ?? QUESTION,
+      dim: bagCount(item.item) < 1,
+      menu: false
+    }
+    .Macro => { name: item.macro, icon: QUESTION, dim: false, menu: false }
+    .Open => { name: opening(item.window).title, icon: opening(item.window).icon, dim: false, menu: false }
+    .RaidMark => { name: Locale.MARK.format(item.mark), icon: markIcon(item.mark), dim: false, menu: false }
+    .WorldMark => { name: Locale.WORLD_MARK.format(item.mark), icon: markIcon(item.mark), dim: false, menu: false }
+    .Pinged => { name: pingTitle(item.ping), icon: "Interface/Icons/Ability_Hunter_MarkedForDeath", dim: false, menu: false }
+    .Line => { name: item.title, icon: item.icon, dim: false, menu: false }
+    .Menu => { name: item.title, icon: item.icon, dim: false, menu: true }
+    .Professions => { name: Locale.RING_PROFESSIONS, icon: QUESTION, dim: true, menu: false }
+  }
+}
+
+function openAction(window: Window): WheelAction {
+  const line = opening(window).line
+  return line != nil ? WheelAction.MacroText { text: line } : WheelAction.Ours
+}
+
+// The word `/ping` takes for a kind.
+function pingWord(ping: Ping): String {
+  return match (ping) {
+    .Attack => "attack"
+    .Assist => "assist"
+    .Warning => "warning"
+    .OnMyWay => "onmyway"
+  }
+}
+
+// What an item does.
+public function actionOf(item: Item): WheelAction {
+  return match (item) {
+    .Empty, .Professions => WheelAction.Ours
+    .Spell => .Spell { spell: item.spell }
+    .Bag => .Item { item: item.item }
+    .Macro => .Macro { macro: item.macro }
+    .Open => openAction(item.window)
+    .RaidMark => .MacroText { text: `/tm ${item.mark}` }
+    .WorldMark => .MacroText { text: item.mark == 0 ? "/cwm all" : `/wm ${item.mark}` }
+    .Pinged => .MacroText { text: `/ping ${pingWord(item.ping)}` }
+    .Line => .MacroText { text: item.line }
+    .Menu => WheelAction.Menu
+  }
+}
+
+// What the client refuses in a fight: the windows of ours that change what a fight locks (placing the frames, the
+// settings that bind keys).
+public function refusesInFight(item: Item): Boolean {
+  return item is Item.Open && (item.window == Window.Placing || item.window == Window.Settings)
+}

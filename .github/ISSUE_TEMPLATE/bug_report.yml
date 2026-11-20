@@ -14,6 +14,7 @@ body:
         - OrdaenMinimap
         - OrdaenPanel
         - OrdaenProfessions
+        - OrdaenRadial
         - OrdaenTooltips
         - Not sure
     validations:

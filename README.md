@@ -11,6 +11,7 @@ LunaType: a typed language for addons that compiles to the Lua the game loads.
 | [OrdaenMinimap](addons/OrdaenMinimap) | The minimap in Ordaen's frame: zone, coordinates and clock, its buttons round it, and a drawer for other addons' buttons. |
 | [OrdaenPanel](addons/OrdaenPanel) | The bottom panel: the menu, the bags, money and experience. |
 | [OrdaenProfessions](addons/OrdaenProfessions) | The professions window. |
+| [OrdaenRadial](addons/OrdaenRadial) | Wheels of actions held on a key: windows, professions, pings, marks, emotes, travel; aimed with the mouse, in a fight too. |
 | [OrdaenTooltips](addons/OrdaenTooltips) | Tooltips. |
 
 A module is loaded when the player first turns it on; one that is off costs nothing.

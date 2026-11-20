@@ -1,0 +1,7 @@
+{
+  "title": "Ordaen Radial",
+  "icon": "Interface/Icons/Ability_Hunter_Pathfinding",
+  "loadOnDemand": true,
+  "dependencies": { "Ordaen": "^1.0.0" },
+  "notes": "Wheels of actions held on a key: windows, professions, pings, marks, emotes, travel; aimed with the mouse, in a fight too."
+}
