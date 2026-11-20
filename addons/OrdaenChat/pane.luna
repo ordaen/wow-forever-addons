@@ -30,13 +30,16 @@ const ROOM: Edges = { top: 2sp, right: 3sp, bottom: 2sp, left: 3sp }
 // The input's field: its text in from the edge as a field's is.
 const INPUT_PAD: Edges = { right: 1sp, left: 1sp }
 
-// What a tab's right-click menu offers.
-public enum TabAction { Rename = "rename", Settings = "settings", New = "new", Lock = "lock", Close = "close" }
+// What a tab's right-click menu offers: the mouse through its lines or not (the game's «Make uninteractable»), a docked
+// window undocked, an undocked one docked again.
+public enum TabAction {
+  Rename = "rename", Settings = "settings", New = "new", Lock = "lock"
+  Interactable = "interactable", Undock = "undock", Dock = "dock", Close = "close"
+}
 
 // What a player's name's right-click menu offers; `More` is the game's own menu of the player.
 public enum NameAction { Whisper = "whisper", Invite = "invite", Who = "who", Ignore = "ignore", More = "more" }
 
-const TAB_ACTIONS: Array<TabAction> = [TabAction.Rename, TabAction.Settings, TabAction.New, TabAction.Lock, TabAction.Close]
 const NAME_ACTIONS: Array<NameAction> = [NameAction.Whisper, NameAction.Invite, NameAction.Who, NameAction.Ignore, NameAction.More]
 
 // A tab's menu asked for: the tab, and what was picked.
@@ -49,6 +52,15 @@ public struct TabPick {
 public struct NamePick {
   link: Event.Link
   action: NameAction
+}
+
+// What a tab's menu offers it: undocking a docked window but the first, docking an undocked one.
+function actionsOf(tab: ChatTab | nil): Array<TabAction> {
+  const actions: Array<TabAction> = [.Rename, .Settings, .New, .Lock, .Interactable]
+  if (tab != nil && tab.docked && tab.window > 1) { actions.push(.Undock) }
+  if (tab != nil && !tab.docked) { actions.push(.Dock) }
+  actions.push(.Close)
+  return actions
 }
 
 // The player's name in a link (`player:Thrall-Realm:7`).
@@ -78,7 +90,10 @@ public class Pane implements Component {
   derived shown: Array<Shown> = self.shownOf()
   derived fadeBefore: Number = self.fadeOf()
   derived inputShown: Boolean = self.input != nil && (self.typing || self.inputAlways)
+  derived tabActions: Array<TabAction> = actionsOf(self.menuTab)
   derived tabEntries: Array<MenuEntry> = self.tabEntriesOf()
+  // The open tab's lines let the mouse through (the game's «Make uninteractable»).
+  derived clickThrough: Boolean = self.open?.uninteractable == true
   derived nameEntries: Array<MenuEntry> = NAME_ACTIONS.map(action => MenuEntry { label: nameLabel(action), on: nil, disabled: nil, group: nil, more: nil })
 
   tabs: Signal<Array<ChatTab>>
@@ -109,6 +124,25 @@ public class Pane implements Component {
     self.input = input
     self.typing = typing
     self.inputAlways = inputAlways
+    Game.chat.scrolled.listen(self.onScrolled)
+  }
+
+  // The chat's keys scroll the game's chosen window: the pane whose open tab is it scrolls a line, a page (as many
+  // lines as its height holds) or to an end.
+  onScrolled(mut self, window: Integer, scroll: Game.ChatScroll) {
+    const tab = peek self.open
+    if (tab == nil || tab.window != window) { return }
+    const most = (0).max(tab.lines.length - 1)
+    const page = ((peek self.height) / Ordaen.lengthOf(BODY_LINE)).floor().max(1)
+    const back = peek self.back
+    self.back = match (scroll) {
+      .LineUp => most.min(back + 1)
+      .LineDown => (0).max(back - 1)
+      .PageUp => most.min(back + page)
+      .PageDown => (0).max(back - page)
+      .Top => most
+      .Bottom => 0
+    }
   }
 
   logOf(self): any Frame | nil {
@@ -132,8 +166,8 @@ public class Pane implements Component {
 
   tabEntriesOf(self): Array<MenuEntry> {
     const tab = self.menuTab
-    return TAB_ACTIONS.map(action => MenuEntry {
-      label: tabLabel(action), on: action == TabAction.Lock ? tab?.locked == true : nil,
+    return self.tabActions.map(action => MenuEntry {
+      label: tabLabel(action, tab?.uninteractable == true), on: action == TabAction.Lock ? tab?.locked == true : nil,
       disabled: action == TabAction.Close && (tab?.window ?? 0) <= 2, group: action == TabAction.Close, more: nil
     })
   }
@@ -150,7 +184,7 @@ public class Pane implements Component {
 
   onTabPick(mut self, place: Integer) {
     const tab = peek self.menuTab
-    const action = TAB_ACTIONS[place]
+    const action = (peek self.tabActions)[place]
     self.menuTab = nil
     if (tab != nil && action != nil) { self.tabPicked.emit({ tab: tab, action: action }) }
   }
@@ -219,7 +253,7 @@ public class Pane implements Component {
         <box width={{ min: LINES_LEAST, max: nil }} rows={self.rows} yAlignSelf={Align.Stretch}>
           <embed $if={self.logFrame != nil} frame={self.logFrame ?? panic("shown with the frame")} />
           // The newest line stands at the bottom; older ones go up past the top, which cuts them.
-          <box $else overflow={Overflow.Hidden} textSize={self.textSize} @wheel={self.onWheel}>
+          <box $else overflow={Overflow.Hidden} textSize={self.textSize} mouseThrough={self.clickThrough} @wheel={self.onWheel}>
             <box position={Position.Absolute} left={0ui} right={0ui} bottom={0ui} columns={1}>
               <Row $for={line of self.shown} line={line} fadeBefore={self.fadeBefore} lineHeight={Ordaen.lengthOf(BODY_LINE)}
                    @link={self.onLink} />
@@ -246,12 +280,16 @@ public class Pane implements Component {
   }
 }
 
-function tabLabel(action: TabAction): String {
+// An entry's words: the game's own where its tab menu has them (undock, the mouse through the lines or not).
+function tabLabel(action: TabAction, uninteractable: Boolean): String {
   return match (action) {
     .Rename => Locale.TAB_RENAME
     .Settings => Locale.TAB_SETTINGS
     .New => Locale.TAB_NEW
     .Lock => Locale.TAB_LOCK
+    .Interactable => uninteractable ? Client.MAKE_INTERACTABLE : Client.MAKE_UNINTERACTABLE
+    .Undock => Client.UNDOCK_WINDOW
+    .Dock => Locale.TAB_DOCK
     .Close => Locale.TAB_CLOSE
   }
 }

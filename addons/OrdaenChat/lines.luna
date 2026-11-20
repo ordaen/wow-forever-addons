@@ -20,6 +20,8 @@ public struct Shown implements Plain {
   secret: Boolean
   // The player's own (a whisper told): a conversation draws it on its right.
   mine: Boolean
+  // Who said it (their GUID; empty for none): a player reported has their lines taken away.
+  sender: String
 }
 
 // What one tab keeps between sessions.
@@ -55,6 +57,8 @@ public class ChatTab {
   // Docked with the first window (a tab of the chat's own pane), or a pane of its own; locked in place.
   public state docked = true
   public state locked = false
+  // The mouse goes through its lines: its links take no click.
+  public state uninteractable = false
   // Its lines, oldest first; `version` moves as they change, which is what a view follows.
   public lines: mut Array<Shown> = []
   public state version = 0
@@ -81,6 +85,15 @@ public class ChatTab {
     self.combatLog = window.combatLog
     self.docked = window.docked
     self.locked = window.locked
+    self.uninteractable = window.uninteractable
+  }
+
+  // A sender's lines taken away (a player reported).
+  public forgetSender(mut self, guid: String) {
+    const kept = self.lines.filter(line => line.sender != guid)
+    if (kept.length == self.lines.length) { return }
+    self.lines = kept
+    self.version = (peek self.version) + 1
   }
 
   // A line added, or the last one counted again where it repeats it; the oldest let go past `held`.
@@ -135,7 +148,8 @@ public function talkLine(line: Game.ChatLine, mine: Boolean): Shown {
   const secret = line.secret != ""
   return {
     whole: secret ? line.body : linked(line.text), color: line.color, time: line.time,
-    repeat: secret ? "" : `${line.kind}|${line.text}`, count: 1, marked: false, past: false, secret: secret, mine: mine
+    repeat: secret ? "" : `${line.kind}|${line.text}`, count: 1, marked: false, past: false, secret: secret, mine: mine,
+    sender: line.guid
   }
 }
 

@@ -3,14 +3,17 @@
 // or not, then each message group and each channel the character is in with whether the tab shows it, and «Close
 // tab» (not for the game's General and combat log). Every change applies at once; what a window shows is read anew
 // from the game each time.
+import Client from "$client"
 import Game from "$game"
 import { Align, Track } from "$ltml"
-import { ButtonPlate, Checkbox, Component, Field, NumberInput, PushButton, Section, Switch, Unit } from "Ordaen"
+import { ButtonPlate, Checkbox, Component, Dialog, Field, NumberInput, PushButton, Section, Switch, Unit } from "Ordaen"
 import Locale from "@/locales"
 
 const MAX: "max-content" = "max-content"
 const CHIP = 90dp
 const BUTTON = 130dp
+// Room for its two buttons and the question in a few lines.
+const RESET_DIALOG = 420dp
 
 // A message group's or a channel's row: its check turns it on or off in the window.
 public class ShownRow implements Component {
@@ -59,6 +62,7 @@ public class TabsPage implements Component {
   state name = ""
   state size: Number = 14
   state locked = false
+  state resetting = false
 
   window: mut Signal<Integer>
   constructor(window: mut Signal<Integer>) {
@@ -106,16 +110,31 @@ public class TabsPage implements Component {
     self.window = 1
   }
 
+  // «Reset Chat Windows» asks first, as Blizzard's does: every window goes back to the game's own.
+  onResetAsk(mut self) { self.resetting = true }
+  onResetCancel(mut self) { self.resetting = false }
+  onReset(mut self) {
+    self.resetting = false
+    Game.chat.resetWindows()
+    self.window = 1
+  }
+
   public render(self): Template {
     return $ltml {
       <box columns={1} gap={3sp}>
-        <box columns={[{ fr: 1 }, MAX]} gap={2sp} yAlign={Align.Center}>
+        <box columns={[{ fr: 1 }, MAX, MAX]} gap={2sp} yAlign={Align.Center}>
           <box columns={self.chips} gap={1sp}>
             <WindowChip $for={window of Game.chat.windows} window={peek window} picked={window.index == self.window}
                         @pick={self.onPick} />
           </box>
           <PushButton label={Locale.TAB_NEW} width={BUTTON} @click={self.onNew} />
+          <PushButton label={Client.RESET_ALL_WINDOWS} width={BUTTON} @click={self.onResetAsk} />
         </box>
+        <Dialog $if={self.resetting} width={RESET_DIALOG} title={Client.RESET_ALL_WINDOWS}>
+          <text value={Locale.TAB_RESET_ASK} />
+          <PushButton #buttons label={Locale.CANCEL} width={BUTTON} @click={self.onResetCancel} />
+          <PushButton #buttons label={Client.RESET_ALL_WINDOWS} width={BUTTON} plate={ButtonPlate.Accent} @click={self.onReset} />
+        </Dialog>
         <Section title={Locale.TAB_ITSELF}>
           <box columns={[{ fr: 1 }, MAX]} gap={2sp} yAlign={Align.Center}>
             <Field value={mut self.name} maxLength={40} placeholder={Locale.TAB_NAME} />

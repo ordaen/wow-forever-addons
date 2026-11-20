@@ -34,6 +34,8 @@
   "TAB_NEW": "New tab",
   "TAB_NEW_NAME": "New tab",
   "TAB_LOCK": "Lock",
+  "TAB_DOCK": "Dock with the chat",
+  "TAB_RESET_ASK": "Every chat window goes back to the game's own: its tabs, names, positions and what each shows.",
   "TAB_CLOSE": "Close tab",
   "TAB_NAME": "Name",
   "TAB_ITSELF": "Tab",
