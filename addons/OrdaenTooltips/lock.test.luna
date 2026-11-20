@@ -6,6 +6,9 @@ import Client from "$client"
 import Game from "$game"
 import { Key } from "$ltml"
 import Test from "$test"
+import root Ordaen from "Ordaen"
+import root Tooltips from "OrdaenTooltips"
+import { ItemKeys } from "@/extend"
 import { DASH } from "@/frame"
 
 const SCREEN: Test.Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
@@ -131,6 +134,34 @@ test "a tooltip charged in full locks: its hint in the bar's place, and its clos
   Test.pass(CHARGED)
   Test.expect(reads(locked(), `Sword | ${LOCKED}`))
   Test.expect(locked().button(CLOSE).shown() && !locked().box(TRACK).shown())
+}
+
+// A hotkey another module has for every item.
+class Keyed implements ItemKeys {
+  public keys(self, item: Integer, link: String): Array<String> { return ["Alt+Left-click: hold"] }
+}
+
+test "a locked tooltip's hint stands a section under its hotkeys, as under any section" {
+  Test.mount(new Elsewhere(), SCREEN)
+  const added = Tooltips.keys.add(new Keyed())
+  Game.tooltip.main = inSlot(sword())
+  Test.pass(CHARGED)
+  const key = locked().text("Alt+Left-click: hold").rect()
+  const hint = locked().text(LOCKED).rect()
+  // A section is 3sp; the hint stands in the middle of the bar's row, which is a little higher than it.
+  const section = Ordaen.lengthOf(3sp) / 1ui
+  Test.expect(hint.top - key.bottom < 1.5 * section)
+  destroy added
+}
+
+test "a tooltip's title, one line, is as high as its letters: no line height round it" {
+  Test.mount(new Elsewhere(), SCREEN)
+  Game.tooltip.main = inSlot(sword())
+  Test.pass(0.1)
+  const title = Test.page().window("Sword").text("Sword")
+  const box = title.rect()
+  const letters = title.letters()
+  Test.expect((box.bottom - box.top) - (letters.bottom - letters.top) < 0.5)
 }
 
 test "a locked tooltip stays once the game's is gone" {
