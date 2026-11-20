@@ -59,15 +59,15 @@ public class Said implements Component {
   book: Signal<String>
   // How much of a quest's text shows as it fades in, in bytes to a word's end; -1: all of it.
   revealed: Signal<Integer>
-  // The NPC's figure beside a quest's page.
-  figure: Signal<Boolean>
+  // The giver's figure beside a quest's page: a unit (`npc`) or a creature's display ID; none without one.
+  figure: Signal<String | Integer | nil>
   constructor(
     page: Signal<Page>,
     quest: Signal<Quest | nil>,
     said: Signal<String>,
     book: Signal<String>,
     revealed: Signal<Integer> = -1,
-    figure: Signal<Boolean> = false
+    figure: Signal<String | Integer | nil> = nil
   ) {
     self.page = page
     self.quest = quest
@@ -90,7 +90,7 @@ public class Said implements Component {
           <Tip $if={self.groupHovered} title={self.groupText} text={self.groupTip} />
         </box>
         <box $else />
-        <box $if={self.figure} width={Style.FIGURE_WIDTH} height={Style.FIGURE_HEIGHT} model={"npc"} />
+        <box $if={self.figure != nil} width={Style.FIGURE_WIDTH} height={Style.FIGURE_HEIGHT} model={self.figure} />
         <box $else />
       </box>
       <box>

@@ -36,7 +36,7 @@ import { Act, QuestPage } from "@/view"
 const TOGGLE = "OrdaenQuestsToggle"
 // The game's binding of the quest log.
 const QUEST_LOG_BINDING = "TOGGLEQUESTLOG"
-const NO_TEXT: Game.QuestText = { story: "", task: "", experience: 0, money: 0, rewards: [], choices: [] }
+const NO_TEXT: Game.QuestText = { story: "", task: "", experience: 0, money: 0, rewards: [], choices: [], giver: 0 }
 const DIM: Color = Color.hex("#a3977f")
 const RED: Color = Color.hex("#ff4040")
 // The toolbar over the list, and the list.

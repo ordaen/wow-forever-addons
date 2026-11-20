@@ -685,12 +685,23 @@ test "a quest from an NPC has its figure beside the title; one from an item has 
   Test.talk(innkeeper())
   Test.quest(pie())
   Events.QUEST_DETAIL.emit(nil)
-  Test.expect(Dialogue.figure)
+  Test.expect(Dialogue.figure == "npc")
   window().button("Accept").click()
   Events.QUEST_FINISHED.emit()
   Events.GOSSIP_CLOSED.emit(false)
   Events.QUEST_DETAIL.emit(4000)
-  Test.expect(!Dialogue.figure)
+  Test.expect(Dialogue.figure == nil)
+}
+
+test "a quest whose giver the client names shows that creature, by its display ID, even from an item" {
+  Test.mount(nil, SCREEN)
+  Test.quest({ portraitGiver: 1491, ..pie() })
+  const drawn = Test.calls(() => {
+    Events.QUEST_DETAIL.emit(4000)
+    Test.flush()
+    return nil
+  })
+  Test.expect(Dialogue.figure == 1491 && drawn.contains("SetDisplayInfo=1"))
 }
 
 test "a quest's text fades in at the game's pace, a word at a time; the game's option shows it at once" {

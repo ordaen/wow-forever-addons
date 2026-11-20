@@ -17,6 +17,9 @@ import { Figure, QuestFacts } from "@/questie"
 public enum Act { Pick, Track, Link, Share, Abandon, ShowOnMap, SuperTrack, Hover, Unhover }
 
 const INK: Color = Color.hex("#e8dcc4")
+// The giver's figure beside a quest's title, as the game's quest portrait shows it (Dialogue's size).
+const GIVER_WIDTH = 70.3125dp
+const GIVER_HEIGHT = 93.75dp
 // A quest's reward items: slots in a row, as many as it gives.
 const REWARD = 37.5dp
 const REWARD_ROW: Array<Track> = ["max-content", "max-content", "max-content", "max-content", "max-content", "max-content"]
@@ -240,7 +243,10 @@ public class QuestPage implements Component {
   public render(self): Template {
     return $ltml {
       <box columns={1} gap={3sp}>
-        <text value={self.title} textColor={self.color} textSize={TITLE_TEXT} lineHeight={TITLE_LINE} textFont={.Title} />
+        <box columns={[{ fr: 1 }, "max-content"]} gap={3sp}>
+          <text value={self.title} textColor={self.color} textSize={TITLE_TEXT} lineHeight={TITLE_LINE} textFont={.Title} />
+          <box $if={self.text.giver > 0} width={GIVER_WIDTH} height={GIVER_HEIGHT} model={self.text.giver} />
+        </box>
         <text $if={self.text.story != ""} value={self.text.story} textColor={INK} lineHeight={7sp} />
         <text value={Locale.SECTION_TASKS} textColor={GOLD} />
         <text $if={self.text.task != ""} value={self.text.task} textColor={INK} />

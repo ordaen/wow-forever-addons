@@ -196,6 +196,18 @@ test "in the tracker a quest to do says where, and its title opens its page in t
   Test.expect(Quests.open && Quests.picked == 101)
 }
 
+test "a quest's page shows its giver's figure beside the title, where the client names one" {
+  const log = standing()
+  log[3] = { portraitGiver: 1491, ..quest(103, "Elwynn Wolves", "Elwynn Forest") }
+  opened(log)
+  const drawn = Test.calls(() => {
+    Test.page().window("World").text("Elwynn Wolves").click()
+    Test.flush()
+    return nil
+  })
+  Test.expect(drawn.contains("SetDisplayInfo=1"))
+}
+
 test "a quest QuestieDB doesn't know has no «Where»" {
   opened(standing())
   Test.page().window("World").text("Elwynn Wolves").click()
