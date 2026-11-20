@@ -180,12 +180,16 @@ public function sharedRows(stats: Stats): Array<Row> {
   return [{ label: Locale.ARMOR_PENETRATION, value: String.of(stats.armorPenetration) }]
 }
 
-// The skill gauges of the weapons a section holds: one a skill (two swords share one), in blue up to the cap.
-function skillGauges(ids: Array<Integer | nil>, skills: Array<Skill>): Array<Gauge> {
+// The skill gauges of the weapons a section holds, the main hand's and the other's where each holds one: one a skill
+// (two swords share one), in blue up to the cap.
+function skillGauges(main: Integer | nil, other: Integer | nil, skills: Array<Skill>): Array<Gauge> {
+  const ids: Array<Integer> = []
+  if (main != nil) { ids.push(main) }
+  if (other != nil) { ids.push(other) }
   const gauges: Array<Gauge> = []
   const seen: Array<Integer> = []
   for (id of ids) {
-    if (id != nil && !seen.any(s => s == id)) {
+    if (!seen.any(s => s == id)) {
       seen.push(id)
       const skill = skills.find(s => s.id == id)
       if (skill != nil) {
@@ -237,7 +241,7 @@ function melee(stats: Stats, skills: Array<Skill>): Section {
       rate(Locale.HIT, stats.meleeHit, MELEE_HIT_CAP),
       rate(Locale.CRIT, stats.meleeCrit, CRIT_CAP),
       rate(Locale.EXPERTISE, stats.expertise, EXPERTISE_CAP)
-    ], skillGauges([stats.mainSkill, stats.offSkill], skills)),
+    ], skillGauges(stats.mainSkill, stats.offSkill, skills)),
     rows: rows
   }
 }
@@ -251,7 +255,7 @@ function ranged(stats: Stats, skills: Array<Skill>): Section | nil {
     return {
       title: Locale.SECTION_RANGED,
       cards: [],
-      gauges: skillGauges([skill], skills),
+      gauges: skillGauges(skill, nil, skills),
       rows: [{ label: Locale.DPS, value: tenths(rangedDps(stats)) }, speed]
     }
   }
@@ -261,7 +265,7 @@ function ranged(stats: Stats, skills: Array<Skill>): Section | nil {
       { label: Locale.ATTACK_POWER, value: String.of(stats.rangedAttackPower), glyph: glyph(POWER_GLYPH), color: Style.STAT },
       { label: Locale.DPS, value: tenths(rangedDps(stats)), glyph: glyph(DAMAGE_GLYPH), color: Style.STAT }
     ],
-    gauges: joined([rate(Locale.HIT, stats.rangedHit, MELEE_HIT_CAP), rate(Locale.CRIT, stats.rangedCrit, CRIT_CAP)], skillGauges([skill], skills)),
+    gauges: joined([rate(Locale.HIT, stats.rangedHit, MELEE_HIT_CAP), rate(Locale.CRIT, stats.rangedCrit, CRIT_CAP)], skillGauges(skill, nil, skills)),
     rows: [speed]
   }
 }
