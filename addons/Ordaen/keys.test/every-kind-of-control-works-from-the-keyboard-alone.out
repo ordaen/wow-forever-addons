@@ -40,7 +40,7 @@ surface 420,121.38 760x657.25 on DIALOG clamped raised by a click
             text 468.06,248.49 28.89x17.78 "Left" #a3977f
           box 509.16,241.96 59.14x30.82 #5a4428 @keyPress @pointerPress
             box 509.16,241.96 59.14x1.67 absolute #d6a56b
-            text 520.54,248.49 35.56x17.78 "Right" #ffffff
+            text 520.54,248.49 35.56x17.78 "Right" #f0e6d2
         box 455.85,278.48 693.3x29.99
           box 455.85,307.63 693.3x0.83 absolute #3e2f1d
           box 455.85,278.48 46.64x29.99 #00000000 @keyPress @pointerPress
@@ -48,7 +48,7 @@ surface 420,121.38 760x657.25 on DIALOG clamped raised by a click
             text 468.06,285 22.22x17.78 "One" #a3977f
           box 505.34,278.48 46.64x29.99 #00000059 @keyPress @pointerPress
             box 506.17,279.31 44.98x1.67 absolute #d6a56b
-            text 517.55,285 22.22x17.78 "Two" #ffffff
+            text 517.55,285 22.22x17.78 "Two" #f0e6d2
         box 455.85,314.15 693.3x28.33 opacity=1
           box 455.85,319.43 233.33x17.78 @pointerEnter @pointerLeave
             text 455.85,319.43 233.33x17.78 "Size" #cbb994
@@ -72,7 +72,7 @@ surface 420,121.38 760x657.25 on DIALOG clamped raised by a click
               box 800.52,386.36 13.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-slider-knob
             box 952.87,382.2 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerUp
               text 960.09,387.47 8.89x17.78 "+" #ffd100
-            text 981.89,387.47 8.89x17.78 "1" #ffffff
+            text 981.89,387.47 8.89x17.78 "1" #f0e6d2
         box 455.85,416.22 693.3x25 opacity=1
           box 455.85,419.83 233.33x17.78 @pointerEnter @pointerLeave
             text 455.85,419.83 233.33x17.78 "Price" #cbb994
@@ -115,10 +115,10 @@ surface 420,121.38 760x657.25 on DIALOG clamped raised by a click
 surface 704.83,342.49 216.67x65.67 on FULLSCREEN_DIALOG #0a0806f7
   box 705.66,349.01 215x26.31 #d6a56b2e @keyPress @pointerPress focus ring
     box 713.99,356.51 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 1 of 2
-    text 731.26,353.27 178.02x17.78 "Small" #ffffff
+    text 731.26,353.27 178.02x17.78 "Small" #f0e6d2
   box 705.66,375.32 215x26.31 #00000000 @keyPress @pointerPress
     box 713.99,382.82 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
-    text 731.26,379.59 178.02x17.78 "Large" #ffffff
+    text 731.26,379.59 178.02x17.78 "Large" #f0e6d2
 
 key: DOWN → #0 > #2 «Large» (keys:ENTER,SPACE)
 key: ENTER → #7 «Large» (keys:ENTER,SPACE)

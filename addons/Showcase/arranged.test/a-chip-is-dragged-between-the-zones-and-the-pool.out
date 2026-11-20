@@ -36,7 +36,7 @@ box 0,0 600x126.4
       box 7.94,95.5 66.51x22.96 #5a4428 opacity=0.8 @dragStart @dragStop @pointerEnter @pointerLeave
         text 17.31,99.18 47.78x15.6 "Friends" #f3e1b8
 surface 100,176.4 271.17x94.65 on TOOLTIP Interface\AddOns\Ordaen\media\window-wood clamped
-  text 124.47,200.87 227.22x26.67 "Clock" #ffffff
+  text 124.47,200.87 227.22x26.67 "Clock" #f0e6d2
   text 124.47,233.23 227.22x15.6 "The time of day." #cbb994
 
 -- the clock dragged and let go where it was: nothing moves

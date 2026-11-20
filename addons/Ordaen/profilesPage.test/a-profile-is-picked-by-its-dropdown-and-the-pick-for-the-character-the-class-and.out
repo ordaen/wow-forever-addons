@@ -81,13 +81,13 @@ box 0,0 760x647.09
 surface 258.98,92.29 216.67x91.98 on FULLSCREEN_DIALOG #0a0806f7
   box 259.81,98.81 215x26.31 #00000000 @keyPress @pointerPress
     box 268.14,106.31 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
-    text 285.41,103.08 178.02x17.78 "Default" #ffffff
+    text 285.41,103.08 178.02x17.78 "Default" #f0e6d2
   box 259.81,125.12 215x26.31 #00000000 @keyPress @pointerPress
     box 268.14,132.62 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 1 of 2
-    text 285.41,129.39 178.02x17.78 "Healing" #ffffff
+    text 285.41,129.39 178.02x17.78 "Healing" #f0e6d2
   box 259.81,151.43 215x26.31 #00000000 @keyPress @pointerPress
     box 268.14,158.93 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
-    text 285.41,155.7 178.02x17.78 "Raid" #ffffff
+    text 285.41,155.7 178.02x17.78 "Raid" #f0e6d2
 
 -- «Healing» for the character, «Raid» for the class: the character's wins, the page says why
 box 0,0 760x620.11

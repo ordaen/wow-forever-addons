@@ -7,12 +7,12 @@ box 0,0 800x1536.44
       box 50.76,7.38 749.24x0.83 Interface\AddOns\Ordaen\media\ctl-rule
     box 0,26.98 800x31.42
       box 0,26.98 665.04x31.42
-        text 0,26.98 665.04x15.6 "Ordaen" #ffffff
+        text 0,26.98 665.04x15.6 "Ordaen" #f0e6d2
         text 0,44 665.04x14.4 "Blizzard's look in our style: bronze, dark wood, our own fonts" #a3977f
       text 675,35.49 125x14.4 "In use" #a6e39a
     box 0,69.78 800x31.42
       box 0,69.78 665.04x31.42
-        text 0,69.78 665.04x15.6 "Minimal" #ffffff
+        text 0,69.78 665.04x15.6 "Minimal" #f0e6d2
         text 0,86.8 665.04x14.4 "Flat, fine lines, hardly any textures or animations" #a3977f
       box 675,71.32 125x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
         text 726.39,77.69 22.22x15.6 "Use" #ffd100
@@ -245,13 +245,13 @@ box 0,0 800x1536.44
       box 50.76,7.38 749.24x0.83 Interface\AddOns\Ordaen\media\ctl-rule
     box 0,26.98 800x31.42
       box 0,26.98 665.04x31.42
-        text 0,26.98 665.04x15.6 "Ordaen" #ffffff
+        text 0,26.98 665.04x15.6 "Ordaen" #f0e6d2
         text 0,44 665.04x14.4 "Blizzard's look in our style: bronze, dark wood, our own fonts" #a3977f
       box 675,28.52 125x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
         text 726.39,34.89 22.22x15.6 "Use" #ffd100
     box 0,69.78 800x31.42
       box 0,69.78 665.04x31.42
-        text 0,69.78 665.04x15.6 "Minimal" #ffffff
+        text 0,69.78 665.04x15.6 "Minimal" #f0e6d2
         text 0,86.8 665.04x14.4 "Flat, fine lines, hardly any textures or animations" #a3977f
       box 675,71.32 125x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
         text 726.39,77.69 22.22x15.6 "Use" #ffd100
@@ -485,12 +485,12 @@ box 0,0 800x1536.44
       box 50.76,7.38 749.24x0.83 Interface\AddOns\Ordaen\media\ctl-rule
     box 0,26.98 800x31.42
       box 0,26.98 665.04x31.42
-        text 0,26.98 665.04x15.6 "Ordaen" #ffffff
+        text 0,26.98 665.04x15.6 "Ordaen" #f0e6d2
         text 0,44 665.04x14.4 "Blizzard's look in our style: bronze, dark wood, our own fonts" #a3977f
       text 675,35.49 125x14.4 "In use" #a6e39a
     box 0,69.78 800x31.42
       box 0,69.78 665.04x31.42
-        text 0,69.78 665.04x15.6 "Minimal" #ffffff
+        text 0,69.78 665.04x15.6 "Minimal" #f0e6d2
         text 0,86.8 665.04x14.4 "Flat, fine lines, hardly any textures or animations" #a3977f
       box 675,71.32 125x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
         text 726.39,77.69 22.22x15.6 "Use" #ffd100

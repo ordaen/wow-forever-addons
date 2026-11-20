@@ -65,6 +65,6 @@ box 0,0 760x594.64
       box 0,566.31 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
         text 41.39,572.68 42.22x15.6 "Export" #ffd100
       box 132.11,566.31 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-        text 173.5,572.68 42.22x15.6 "Import" #ffffff
+        text 173.5,572.68 42.22x15.6 "Import" #f0e6d2
       box 264.22,566.31 125x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
         text 305.61,572.68 42.22x15.6 "Create" #808080

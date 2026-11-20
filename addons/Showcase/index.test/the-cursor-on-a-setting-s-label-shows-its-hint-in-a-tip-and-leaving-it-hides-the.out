@@ -7,7 +7,7 @@ box 0,0 700x391.72
       text 12.21,6.52 22.22x15.6 "Map" #a3977f
     box 49.49,0 66.64x27.81 #00000059 @keyPress @pointerPress
       box 50.32,0.83 64.98x1.67 absolute #d6a56b
-      text 61.7,6.52 42.22x15.6 "Drawer" #ffffff
+      text 61.7,6.52 42.22x15.6 "Drawer" #f0e6d2
     box 118.98,0 66.64x27.81 #00000000 @keyPress @pointerPress
       box 119.81,0.83 64.98x1.67 absolute #00000000
       text 131.19,6.52 42.22x15.6 "Market" #a3977f
@@ -49,7 +49,7 @@ box 0,0 700x391.72
   box 0,363.39 700x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
     text 332.22,369.76 35.56x15.6 "Reset" #808080
 surface 100,129.46 271.17x110.25 on TOOLTIP Interface\AddOns\Ordaen\media\window-wood clamped
-  text 124.47,153.93 227.22x26.67 "Button drawer" #ffffff
+  text 124.47,153.93 227.22x26.67 "Button drawer" #f0e6d2
   text 124.47,186.28 227.22x31.2 "Other addons' buttons in one place." #cbb994
 
 -- the cursor away: the tip is gone
@@ -61,7 +61,7 @@ box 0,0 700x391.72
       text 12.21,6.52 22.22x15.6 "Map" #a3977f
     box 49.49,0 66.64x27.81 #00000059 @keyPress @pointerPress
       box 50.32,0.83 64.98x1.67 absolute #d6a56b
-      text 61.7,6.52 42.22x15.6 "Drawer" #ffffff
+      text 61.7,6.52 42.22x15.6 "Drawer" #f0e6d2
     box 118.98,0 66.64x27.81 #00000000 @keyPress @pointerPress
       box 119.81,0.83 64.98x1.67 absolute #00000000
       text 131.19,6.52 42.22x15.6 "Market" #a3977f
