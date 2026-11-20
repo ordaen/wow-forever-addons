@@ -160,7 +160,19 @@ test "a quest picked shows its page, with where its giver stands from QuestieDB"
   Test.expect(window.text("Gryan Stoutmantle (56, 47)").count() == 2)
   Test.expect(window.text("420").shown())
   // The chain: the quest after it, by QuestieDB's name.
-  Test.expect(window.text("Next in chain").shown() && window.text("The Defias Brotherhood, part two").shown())
+  Test.expect(window.text("Next quest").shown() && window.text("The Defias Brotherhood, part two").shown())
+  // Who completes it first, then who gives it, then the next; no heading over them; the labels in one column.
+  const taker = window.text("Completed by").rect()
+  Test.expect(taker.top < window.text("Given by").rect().top && !window.text("Where").shown())
+  Test.expect((window.text("Given by").rect().left - taker.left).abs() < 0.5)
+}
+
+test "the tracking switch stands at the page's right edge, over Abandon's" {
+  opened(standing())
+  Test.page().window("World").text("The Defias Brotherhood").click()
+  const window = Test.page().window("World")
+  const face = window.box(Ordaen.art.ctl.switchOff).rect()
+  Test.expect((face.right - window.button("Abandon").rect().right).abs() < 1)
 }
 
 test "a quest's page shows its rewards as Dialogue's quest page does: those to choose, those given, at its foot" {
@@ -176,11 +188,14 @@ test "a quest's page shows its rewards as Dialogue's quest page does: those to c
   Test.expect(window.text("You will also receive").rect().bottom < window.button("Share").rect().top)
 }
 
-test "a quest's title stands in Dialogue's title type on the scroll, its lines tight" {
+test "a quest's title stands in Dialogue's title type on the scroll, its lines tight, without its level" {
   opened(standing())
   Test.page().window("World").text("The Defias Brotherhood").click()
-  const title = Test.page().window("World").text("[14] The Defias Brotherhood")
+  const window = Test.page().window("World")
+  // The list's row, then the page's.
+  const title = window.text("The Defias Brotherhood").nth(2)
   Test.expect(title.shown() && title.rect().bottom - title.rect().top < 40)
+  Test.expect(!window.text("[14] The Defias Brotherhood").shown())
 }
 
 test "a quest's scroll fills its page's height: the rolls at its top and its foot, the paper repeated between them" {
@@ -191,8 +206,9 @@ test "a quest's scroll fills its page's height: the rolls at its top and its foo
   const paper = window.box(Ordaen.art.window.scroll.paper).rect()
   const bottom = window.box(Ordaen.art.window.scroll.bottom).rect()
   Test.expect((paper.top - top.bottom).abs() < 0.5 && paper.bottom > bottom.top + 1 && paper.bottom < bottom.bottom)
-  // The title on the paper, under the top roll.
-  Test.expect(window.text("[14] The Defias Brotherhood").rect().top >= top.bottom - 10)
+  // The title on the paper, under the top roll, and clear of the paper's torn sides by a margin.
+  const title = window.text("The Defias Brotherhood").nth(2).rect()
+  Test.expect(title.top >= top.bottom - 10 && (title.left - paper.left) / (paper.right - paper.left) > 0.115)
   // It fills the page, whatever the text's size and however much the quest says: what stands under it starts right
   // under its foot, and a quest of three lines (with no QuestieDB lines under it, whose room it takes too) has a scroll
   // at least as tall, its foot well past its words.
@@ -311,10 +327,10 @@ test "the window opened as the player opens it lists the log's quests, Map on an
   Test.expect(Test.page().window("World").text("The Defias Brotherhood").shown())
 }
 
-test "a quest QuestieDB doesn't know has no «Where»" {
+test "a quest QuestieDB doesn't know has no lines of who gives and completes it" {
   opened(standing())
   Test.page().window("World").text("Elwynn Wolves").click()
-  Test.expect(!Test.page().window("World").text("Where").shown())
+  Test.expect(!Test.page().window("World").text("Completed by").shown())
 }
 
 test "the question to abandon a quest names the items abandoning it destroys" {

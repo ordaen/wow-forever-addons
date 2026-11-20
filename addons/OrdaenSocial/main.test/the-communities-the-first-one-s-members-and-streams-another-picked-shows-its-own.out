@@ -1,13 +1,13 @@
 -- the communities: a tab each, the first one's members under them and its card
 surface 425,183.88 1055.76x532.25 on DIALOG clamped raised by a click
-  box 425,232.79 1055.76x483.33 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
+  box 425,232.79 1055.76x483.33 absolute Interface\AddOns\Ordaen\media\window-wood border=UI-Frame-Metal-CornerTopLeft
     box 438.09,245.89 728.81x459.39
       box 460.85,268.64 683.3x377.02
         box 460.85,268.64 683.3x29.99
           box 460.85,297.8 683.3x0.83 absolute #3e2f1d
           box 460.85,268.64 112.2x29.99 #00000059 @keyPress @pointerPress
             box 461.68,269.47 110.53x1.67 absolute #d6a56b
-            text 473.06,275.16 87.78x17.78 "Night Fishers" #ffffff
+            text 473.06,275.16 87.78x17.78 "Night Fishers" #f0e6d2
           box 575.89,268.64 151.09x29.99 #00000000 @keyPress @pointerPress
             box 576.73,269.47 149.42x1.67 absolute #00000000
             text 588.11,275.16 126.67x17.78 "Smiths of Ironforge" #a3977f
@@ -103,7 +103,7 @@ surface 425,183.88 1055.76x532.25 on DIALOG clamped raised by a click
               text 587.21,668 8.89x17.78 "1" #e8dcc4
           box 1029.93,662.73 114.22x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
             text 1037.04,668 100x17.78 "Blizzard window" #ffd100
-    box 1166.91,245.89 305.76x459.39 border=ButtonFrameTemplateNoPortrait sides=left
+    box 1166.91,245.89 305.76x459.39 border=UI-Frame-Metal-CornerTopLeft sides=left
       box 1199.91,268.64 250x422.42
         box 1199.91,268.64 250x44.44
           text 1199.91,268.64 250x26.67 "Night Fishers" #82c5ff
@@ -122,27 +122,27 @@ surface 425,183.88 1055.76x532.25 on DIALOG clamped raised by a click
     box 1463.51,696.12 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 425,183.88 1055.76x59.42
     box 425,183.88 967.23x59.42
-      box 425,183.88 137.59x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
-        box 432.25,191.12 48.92x48.92 absolute icon=Interface/Icons/Achievement_GuildPerk_EverybodysFriend cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=none
-        box 476.17,191.12 11.5x52.17 absolute border=ButtonFrameTemplateNoPortrait sides=left
+      box 425,183.88 137.59x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
+        box 432.25,191.12 48.92x48.92 absolute icon=Interface/Icons/Achievement_GuildPerk_EverybodysFriend cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=none
+        box 476.17,191.12 11.5x52.17 absolute border=UI-Frame-Metal-CornerTopLeft sides=left
         box 492.7,194.12 51.11x45.92
           text 494.37,198.59 47.78x17.78 "Friends" #a3977f
           text 492.7,217.79 51.11x17.78 "2 online" #8f8470
-      box 572.55,183.88 137.59x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
-        box 579.8,191.12 48.92x48.92 absolute icon=Interface/Icons/INV_Shirt_GuildTabard_01 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=none
-        box 623.72,191.12 11.5x52.17 absolute border=ButtonFrameTemplateNoPortrait sides=left
+      box 572.55,183.88 137.59x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
+        box 579.8,191.12 48.92x48.92 absolute icon=Interface/Icons/INV_Shirt_GuildTabard_01 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=none
+        box 623.72,191.12 11.5x52.17 absolute border=UI-Frame-Metal-CornerTopLeft sides=left
         box 640.25,194.12 51.11x45.92
           text 648.03,198.59 35.56x17.78 "Guild" #a3977f
           text 640.25,217.79 51.11x17.78 "2 online" #8f8470
-      box 720.1,183.88 160.93x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
-        box 727.35,191.12 48.92x48.92 absolute icon=Interface/Icons/INV_Misc_GroupNeedMore cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=none
-        box 771.27,191.12 11.5x52.17 absolute border=ButtonFrameTemplateNoPortrait sides=left
+      box 720.1,183.88 160.93x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
+        box 727.35,191.12 48.92x48.92 absolute icon=Interface/Icons/INV_Misc_GroupNeedMore cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=none
+        box 771.27,191.12 11.5x52.17 absolute border=UI-Frame-Metal-CornerTopLeft sides=left
         box 787.8,194.12 74.44x45.92
           text 787.8,198.59 74.44x17.78 "Communities" #ffd100
           text 799.47,217.79 51.11x17.78 "2 joined" #8f8470
-      box 890.98,183.88 174.26x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
-        box 898.23,191.12 48.92x48.92 absolute icon=Interface/Icons/INV_Misc_GroupLooking cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=none
-        box 942.15,191.12 11.5x52.17 absolute border=ButtonFrameTemplateNoPortrait sides=left
+      box 890.98,183.88 174.26x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
+        box 898.23,191.12 48.92x48.92 absolute icon=Interface/Icons/INV_Misc_GroupLooking cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=none
+        box 942.15,191.12 11.5x52.17 absolute border=UI-Frame-Metal-CornerTopLeft sides=left
         box 958.68,194.12 87.78x45.92
           text 958.68,198.59 87.78x17.78 "Recent Allies" #a3977f
           text 977.02,217.79 51.11x17.78 "2 allies" #8f8470
