@@ -1,0 +1,454 @@
+// A quest's page as the game's quest windows show it, the pieces Dialogue's quest page and Quests' log share: the
+// scroll (the game's quest parchment tinted to the native gossip window's colour between its rolled ends, dark ink
+// only) and, under it in the dark well, its rewards: a row each (its key where it is picked by one, its slot, its name
+// in its quality's colour with its slot and type under it, Pawn's column while Pawn is loaded, its sell price, the
+// dearest one's in gold), then experience, reputation and money in one band of columns as a tooltip's.
+import Client from "$client"
+import Game from "$game"
+import { Align, Art, Event, Line, MouseButton, Overflow, Side, TextAlign, Track } from "$ltml"
+import Runtime from "$runtime"
+import { ItemButton, Quality, qualityFrom, usableItem } from "@/itemButton"
+import Locale from "@/locales"
+import { Component } from "@/module"
+import { Money } from "@/money"
+import { PickRow } from "@/pickRow"
+import { Tip } from "@/tip"
+import { SECONDARY_TEXT, TIGHT_LINE } from "@/units"
+
+// On the parchment.
+public const SCROLL_INK: Color = Color.hex("#160c03")
+public const SCROLL_HEAD: Color = Color.hex("#3a1000")
+public const SCROLL_DIM: Color = Color.hex("#6a5236")
+// In the well.
+public const WELL_TEXT: Color = Color.hex("#f0e6d0")
+public const WELL_DIM: Color = Color.hex("#a3977f")
+public const WELL_RED: Color = Color.hex("#e0301e")
+public const WELL_GREEN: Color = Color.hex("#40bf40")
+public const WELL_GOLD: Color = Color.hex("#ffd100")
+public const WELL_RULE: Line = { width: 1.171875dp, color: Color.hex("#3e2f1d"), sides: [Side.Top] }
+public const REWARD_ICON: Number<Length> = 39.84375dp
+
+const PARCHMENT: Art = "QuestBG-Parchment"
+const PARCHMENT_TINT: Color = Color.hex("#f2d29a")
+const ROLL: Color = Color.hex("#b07a3a")
+const ROLL_HEIGHT: Number<Length> = 14.0625dp
+const BEST: Color = Color.hex("#40ff40")
+const RULE_BELOW: Line = { width: 1.171875dp, color: Color.hex("#3e2f1d"), sides: [Side.Top, Side.Bottom] }
+const KEYCAP: Color = Color.hex("#00000080")
+const KEYCAP_EDGE: Line = { width: 1.171875dp, color: Color.hex("#4a3a24") }
+const KEY_TEXT: Color = Color.hex("#c9a76a")
+const KEYCAP_SMALL = 25.78125dp
+const PAWN_WIDTH = 70.3125dp
+const WITH_PAWN: Array<Track> = ["max-content", "max-content", { fr: 1 }, PAWN_WIDTH, "max-content"]
+const NO_PAWN: Array<Track> = ["max-content", "max-content", { fr: 1 }, "max-content"]
+// The game's green arrow of an upgrade, before the best one's word.
+const UPGRADE: Atlas = "bags-greenarrow"
+const ARROW = 14.0625dp
+// The arrow's room and the word, the word at the column's end.
+const PAWN_CELLS: Array<Track> = [ARROW, { fr: 1 }]
+
+// The scroll: what is said of a quest on the parchment between its rolled ends; it scrolls past its height.
+public class Scroll implements Component {
+  public render(self): Template {
+    return $ltml {
+      <box rows={["max-content", { fr: 1 }, "max-content"]}>
+        <box height={ROLL_HEIGHT} background={ROLL} />
+        <box background={PARCHMENT} tint={PARCHMENT_TINT} overflow={Overflow.Scroll} padding={3sp} gap={1.5sp}>
+          <slot />
+        </box>
+        <box height={ROLL_HEIGHT} background={ROLL} />
+      </box>
+    }
+  }
+}
+
+// A picture the client gave: a file's number or a path.
+public function artOf(texture: Number | String | nil): Art | nil {
+  if (texture is String) {
+    if (texture is Asset) { return texture }
+    if (texture is Atlas) { return texture }
+    return nil
+  }
+  if (texture is Number) {
+    const id = texture.floor()
+    if (id is FileId) { return id }
+  }
+  return nil
+}
+
+public enum RewardKind { Item, Currency, Spell, Title, Skill }
+
+// A reward, to choose or given: an item as the game names it (its slot and type under it, red where the player can't
+// wear it; its sell price), a spell learned, a title, a currency, a skill's points.
+public struct Reward {
+  const kind: RewardKind
+  const name: String
+  const icon: Art | nil
+  const count: Integer
+  const quality: Quality
+  const item: Integer | nil
+  const link: String | nil
+  const detail: String
+  const unusable: Boolean
+  // The item's sell price at a vendor, all of the count; 0 where it sells for nothing.
+  const sell: Integer
+  // Its place among the quest's choices (`GetQuestReward(index)`); 0 for what is given.
+  const index: Integer
+}
+
+// A reputation a quest raises.
+public struct Standing {
+  const name: String
+  const amount: Integer
+}
+
+// An item's second line: its slot as the game names it and its type («Waist · Leather»).
+function itemDetail(subType: String | nil, slot: String | nil): String {
+  const slotName = slot != nil && slot != "" ? Runtime.text(slot) ?? "" : ""
+  const kind = subType ?? ""
+  if (slotName != "" && kind != "") { return `${slotName} · ${kind}` }
+  return slotName != "" ? slotName : kind
+}
+
+// An item a quest gives, as the quest's own window names it (its name, icon and link, whether the player can use it),
+// with what the item's own data adds: its quality, its slot and type, its sell price.
+public function itemReward(
+  item: Integer | nil, count: Integer, name: String, icon: Art | nil, usable: Boolean, link: String | nil, index: Integer
+): Reward {
+  let quality = Quality.Common
+  let detail = ""
+  let sell = 0
+  if (item != nil) {
+    const _, _, itemQuality, _, _, _, subType, _, slot, _, price, _, _, _, _, _, _, _ = Client.C_Item.GetItemInfo(item)
+    quality = qualityFrom(itemQuality)
+    detail = itemDetail(subType, slot)
+    sell = (price ?? 0).floor() * count.max(1)
+  }
+  return {
+    kind: .Item, name: name, icon: icon, count: count, quality: quality, item: item, link: link, detail: detail,
+    unusable: !usable, sell: sell, index: index
+  }
+}
+
+// An item a quest in the log gives, all of it read from the item's own data.
+public function logReward(item: Integer, count: Integer, index: Integer): Reward {
+  const name, link, _, _, _, _, _, _, _, texture, _, _, _, _, _, _, _, _ = Client.C_Item.GetItemInfo(item)
+  return itemReward(item, count, name ?? "", artOf(texture), usableItem(item), link, index)
+}
+
+// An item's name in its quality's colour, the game's.
+public function qualityColor(quality: Quality): Color {
+  return match (quality) {
+    .Poor => Color.hex("#9d9d9d")
+    .Common => WELL_TEXT
+    .Uncommon => Color.hex("#1eff00")
+    .Rare => Color.hex("#0070dd")
+    .Epic => Color.hex("#a335ee")
+    .Legendary => Color.hex("#ff8000")
+    .Artifact => Color.hex("#e6cc80")
+    .Heirloom => Color.hex("#00ccff")
+  }
+}
+
+// Pawn's word on a reward: «+8%»; nothing for no upgrade.
+public function pawnText(percent: Number | nil): String {
+  if (percent == nil || percent <= 0) { return "" }
+  return `+${(percent * 100).round()}%`
+}
+
+// Keycap: the key that picks a line or a reward, in a small dark cap; as big as a reward's icon where it stands
+// beside one. An empty key keeps the cap's width alone, so the column holds.
+public class Keycap implements Component {
+  derived shown: Boolean = self.key != ""
+
+  key: Signal<String>
+  size: Signal<Number<Length>>
+  constructor(key: Signal<String>, size: Signal<Number<Length>> = KEYCAP_SMALL) {
+    self.key = key
+    self.size = size
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <box $if={self.shown} width={self.size} height={self.size} background={KEYCAP} border={KEYCAP_EDGE}
+           xAlign={Align.Center} yAlign={Align.Center}>
+        <text value={self.key} textColor={KEY_TEXT} textSize={SECONDARY_TEXT} textFont={.Numbers} lineHeight={TIGHT_LINE}
+              wrap={.None} />
+      </box>
+      <box $else width={self.size} />
+    }
+  }
+}
+
+// A reward as its row shows it: Pawn's word on it, and whether it is the best upgrade and the dearest.
+public struct RewardView {
+  const reward: Reward
+  // Pawn's upgrade, 0.15 for 15%; 0 for none.
+  const pawn: Number
+  const best: Boolean
+  const dearest: Boolean
+}
+
+// The rows of rewards to choose: Pawn's best upgrade marked, and the dearest at a vendor.
+public function choiceViews(rewards: Array<Reward>, upgrades: Array<Number>): Array<RewardView> {
+  let best: Number = 0
+  let dearest = 0
+  for (index, reward of rewards) {
+    best = best.max(upgrades[index] ?? 0)
+    dearest = dearest.max(reward.sell)
+  }
+  let views: Array<RewardView> = []
+  for (index, reward of rewards) {
+    const pawn = upgrades[index] ?? 0
+    views.push({ reward: reward, pawn: pawn, best: pawn > 0 && pawn == best, dearest: dearest > 0 && reward.sell == dearest })
+  }
+  return views
+}
+
+// A quest's rewards: those to choose («Choose your reward» where they are chosen, «You will be able to choose»
+// before), those given anyway, and the band of experience, reputation and money.
+public class Rewards implements Component {
+  public choose: Event<Integer> = new Event()
+
+  derived hasChoices: Boolean = self.views.length > 0
+  derived hasAlso: Boolean = self.also.length > 0
+  derived chooseTitle: String = self.pickable ? Locale.QUEST_CHOOSE_REWARD : Locale.QUEST_CAN_CHOOSE
+  derived alsoTitle: String = self.hasChoices ? Locale.QUEST_ALSO_GET : Locale.QUEST_REWARD
+  derived banded: Boolean = self.xp > 0 || self.money > 0 || self.standings.length > 0
+  derived xpText: String = Locale.QUEST_XP.format(String.of(self.xp))
+  derived bandColumns: Array<Track> = bandOf(self.xp > 0, self.standings.length, self.money > 0)
+
+  views: Signal<Array<RewardView>>
+  also: Signal<Array<Reward>>
+  xp: Signal<Integer>
+  money: Signal<Integer>
+  standings: Signal<Array<Standing>>
+  pickable: Signal<Boolean>
+  choice: Signal<Integer>
+  hints: Signal<Boolean>
+  pawnColumn: Signal<Boolean>
+  constructor(
+    views: Signal<Array<RewardView>>,
+    also: Signal<Array<Reward>>,
+    xp: Signal<Integer>,
+    money: Signal<Integer>,
+    standings: Signal<Array<Standing>> = [],
+    pickable: Signal<Boolean> = false,
+    choice: Signal<Integer> = 0,
+    hints: Signal<Boolean> = false,
+    pawnColumn: Signal<Boolean> = false
+  ) {
+    self.views = views
+    self.also = also
+    self.xp = xp
+    self.money = money
+    self.standings = standings
+    self.pickable = pickable
+    self.choice = choice
+    self.hints = hints
+    self.pawnColumn = pawnColumn
+  }
+
+  onChoose(mut self, index: Integer) { self.choose.emit(index) }
+
+  public render(self): Template {
+    return $ltml {
+      <text $if={self.hasChoices} value={self.chooseTitle} textColor={WELL_DIM} textSize={SECONDARY_TEXT} />
+      <RewardRow $for={view of self.views} reward={view.reward} pickable={self.pickable}
+                 picked={view.reward.index == self.choice} hints={self.hints} pawnColumn={self.pawnColumn}
+                 pawn={view.pawn} best={view.best} dearest={view.dearest} @choose={self.onChoose} />
+      <text $if={self.hasAlso} value={self.alsoTitle} textColor={WELL_DIM} textSize={SECONDARY_TEXT} />
+      <RewardRow $for={reward of self.also} reward={reward} />
+      <box $if={self.banded} columns={self.bandColumns} border={RULE_BELOW} padding={2sp} xAlign={Align.Center}
+           yAlign={Align.Center}>
+        <text $if={self.xp > 0} value={self.xpText} textColor={WELL_TEXT} textSize={SECONDARY_TEXT} textFont={.Numbers}
+              wrap={.None} />
+        <BandStanding $for={standing of self.standings} standing={standing} />
+        <Money $if={self.money > 0} amount={self.money} />
+      </box>
+    }
+  }
+}
+
+// The band's columns: one for each of experience, every reputation and money, of one width.
+function bandOf(xp: Boolean, standings: Integer, money: Boolean): Array<Track> {
+  let columns: Array<Track> = []
+  const count = (xp ? 1 : 0) + standings + (money ? 1 : 0)
+  for (column of 1..count) { columns.push({ fr: 1 }) }
+  return columns
+}
+
+class BandStanding implements Component {
+  derived text: String = Locale.QUEST_REPUTATION.format(self.standing.amount, self.standing.name)
+
+  standing: Signal<Standing>
+  constructor(standing: Signal<Standing>) { self.standing = standing }
+
+  public render(self): Template {
+    return $ltml {
+      <box border={{ width: 1.171875dp, color: Color.hex("#3e2f1d"), sides: [Side.Left] }} xAlign={Align.Center}>
+        <text value={self.text} textColor={WELL_TEXT} textSize={SECONDARY_TEXT} wrap={.None} />
+      </box>
+    }
+  }
+}
+
+// A quest's reward, one to a row and never wrapped: its key where it is picked by one (as big as its icon), its slot
+// (the item's icon, its tooltip under the cursor, Shift+Left-click its link into the chat, Ctrl+Left-click tried on),
+// its name in its quality's colour with its slot and type under it (dimmed, red where the player can't wear it), Pawn's
+// column while Pawn is loaded (how much better than what is worn, the best with the game's green arrow; empty for no
+// upgrade) and its sell price, the dearest one's in gold. A reward to choose is a row the player picks (click, its
+// key, or the keyboard's focus and Enter); one given is a row alone.
+public class RewardRow implements Component {
+  public choose: Event<Integer> = new Event()
+
+  derived columns: Array<Track> = self.pawnColumn ? WITH_PAWN : NO_PAWN
+  derived keyed: Boolean = self.hints && self.pickable
+  derived key: String = self.reward.index <= 9 ? String.of(self.reward.index) : ""
+  derived nameColor: Color = qualityColor(self.reward.quality)
+  derived detailColor: Color = self.reward.unusable ? WELL_RED : WELL_DIM
+  derived hasDetail: Boolean = self.reward.detail != ""
+  derived pawnWord: String = pawnText(self.pawn)
+  derived pawnColor: Color = self.best ? BEST : WELL_GREEN
+  derived priced: Boolean = self.reward.sell > 0
+  derived priceColor: Color = self.dearest ? WELL_GOLD : WELL_DIM
+  state pawnHovered = false
+  derived pawnTipShown: Boolean = self.pawnHovered && self.pawnWord != ""
+  derived pawnTip: String = Locale.QUEST_PAWN_TIP.format(((self.pawn ?? 0) * 100).round())
+
+  reward: Signal<Reward>
+  pickable: Signal<Boolean>
+  picked: Signal<Boolean>
+  hints: Signal<Boolean>
+  pawnColumn: Signal<Boolean>
+  pawn: Signal<Number | nil>
+  best: Signal<Boolean>
+  dearest: Signal<Boolean>
+  constructor(
+    reward: Signal<Reward>,
+    // A reward to choose on the page where it is chosen.
+    pickable: Signal<Boolean> = false,
+    picked: Signal<Boolean> = false,
+    hints: Signal<Boolean> = false,
+    pawnColumn: Signal<Boolean> = false,
+    pawn: Signal<Number | nil> = nil,
+    best: Signal<Boolean> = false,
+    dearest: Signal<Boolean> = false
+  ) {
+    self.reward = reward
+    self.pickable = pickable
+    self.picked = picked
+    self.hints = hints
+    self.pawnColumn = pawnColumn
+    self.pawn = pawn
+    self.best = best
+    self.dearest = dearest
+  }
+
+  // A plain click picks; one with Shift or Ctrl is the slot's (a link, a try-on), never a pick.
+  onPick(mut self) {
+    if (peek self.pickable && !Game.input.shiftDown() && !Game.input.controlDown()) {
+      self.choose.emit((peek self.reward).index)
+    }
+  }
+
+  // Ctrl+click on the slot tries the item on, as the game's own reward does; Shift's link the slot puts in the chat
+  // itself.
+  onSlot(mut self, press: Event.Press) {
+    const link = (peek self.reward).link
+    if (press.button == MouseButton.Left && Game.input.controlDown() && link != nil) { _ = Client.DressUpItemLink(link) }
+  }
+
+  onPawnEnter(mut self) { self.pawnHovered = true }
+  onPawnLeave(mut self) { self.pawnHovered = false }
+
+  public render(self): Template {
+    return $ltml {
+      <PickRow $if={self.pickable} columns={self.columns} picked={self.picked} @pick={self.onPick}>
+        <RewardCells reward={self.reward} keyed={self.keyed} key={self.key} nameColor={self.nameColor}
+                     detailColor={self.detailColor} hasDetail={self.hasDetail} pawnColumn={self.pawnColumn}
+                     pawnWord={self.pawnWord} pawnColor={self.pawnColor} pawnTipShown={self.pawnTipShown}
+                     pawnTip={self.pawnTip} best={self.best} priced={self.priced} priceColor={self.priceColor}
+                     @slot={self.onSlot} @pawnEnter={self.onPawnEnter} @pawnLeave={self.onPawnLeave} />
+      </PickRow>
+      <box $else columns={self.columns} gap={1sp} yAlign={Align.Center} padding={1sp}>
+        <RewardCells reward={self.reward} keyed={false} key={""} nameColor={self.nameColor}
+                     detailColor={self.detailColor} hasDetail={self.hasDetail} pawnColumn={self.pawnColumn}
+                     pawnWord={self.pawnWord} pawnColor={self.pawnColor} pawnTipShown={self.pawnTipShown}
+                     pawnTip={self.pawnTip} best={self.best} priced={self.priced} priceColor={self.priceColor}
+                     @slot={self.onSlot} @pawnEnter={self.onPawnEnter} @pawnLeave={self.onPawnLeave} />
+      </box>
+    }
+  }
+}
+
+// A reward row's cells, the same in a row picked from and in one given.
+class RewardCells implements Component {
+  public slot: Event<Event.Press> = new Event()
+  public pawnEnter: Event<nil> = new Event()
+  public pawnLeave: Event<nil> = new Event()
+
+  reward: Signal<Reward>
+  keyed: Signal<Boolean>
+  key: Signal<String>
+  nameColor: Signal<Color>
+  detailColor: Signal<Color>
+  hasDetail: Signal<Boolean>
+  pawnColumn: Signal<Boolean>
+  pawnWord: Signal<String>
+  pawnColor: Signal<Color>
+  pawnTipShown: Signal<Boolean>
+  pawnTip: Signal<String>
+  best: Signal<Boolean>
+  priced: Signal<Boolean>
+  priceColor: Signal<Color>
+  constructor(
+    reward: Signal<Reward>, keyed: Signal<Boolean>, key: Signal<String>, nameColor: Signal<Color>,
+    detailColor: Signal<Color>, hasDetail: Signal<Boolean>, pawnColumn: Signal<Boolean>, pawnWord: Signal<String>,
+    pawnColor: Signal<Color>, pawnTipShown: Signal<Boolean>, pawnTip: Signal<String>, best: Signal<Boolean>, priced: Signal<Boolean>,
+    priceColor: Signal<Color>
+  ) {
+    self.reward = reward
+    self.keyed = keyed
+    self.key = key
+    self.nameColor = nameColor
+    self.detailColor = detailColor
+    self.hasDetail = hasDetail
+    self.pawnColumn = pawnColumn
+    self.pawnWord = pawnWord
+    self.pawnColor = pawnColor
+    self.pawnTipShown = pawnTipShown
+    self.pawnTip = pawnTip
+    self.best = best
+    self.priced = priced
+    self.priceColor = priceColor
+  }
+
+  onSlot(mut self, press: Event.Press) { self.slot.emit(press) }
+  onPawnEnter(mut self) { self.pawnEnter.emit() }
+  onPawnLeave(mut self) { self.pawnLeave.emit() }
+
+  public render(self): Template {
+    return $ltml {
+      <Keycap $if={self.keyed} key={self.key} size={REWARD_ICON} />
+      <box $else />
+      <ItemButton item={self.reward.item} count={self.reward.count} quality={self.reward.quality} art={self.reward.icon}
+                  size={REWARD_ICON} @pressed={self.onSlot} />
+      <box gap={0.25sp}>
+        <text value={self.reward.name} textColor={self.nameColor} wrap={.None} />
+        <text $if={self.hasDetail} value={self.reward.detail} textColor={self.detailColor} textSize={SECONDARY_TEXT}
+              wrap={.None} />
+      </box>
+      <box $if={self.pawnColumn} columns={PAWN_CELLS} gap={1sp} yAlign={Align.Center}
+           @pointerEnter={self.onPawnEnter} @pointerLeave={self.onPawnLeave}>
+        <box width={ARROW} height={ARROW} background={UPGRADE} opacity={self.best ? 1 : 0} />
+        <text value={self.pawnWord} textColor={self.pawnColor} textSize={SECONDARY_TEXT} textFont={.Numbers}
+              textAlign={TextAlign.End} wrap={.None} />
+        <Tip $if={self.pawnTipShown} title={"Pawn"} text={self.pawnTip} />
+      </box>
+      <box xAlign={Align.End}>
+        <Money $if={self.priced} amount={self.reward.sell} color={self.priceColor} />
+      </box>
+    }
+  }
+}
