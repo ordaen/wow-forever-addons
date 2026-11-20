@@ -33,11 +33,12 @@ Development happens on Windows: the game runs there and the repo lives on the Wi
 1. **Node** (for the commit hook): `npm install` in this checkout.
 2. **The compiler:** clone `lunatype` next to this repo (`../lunatype`) and install Zig 0.17. `zig build -j16` there
    builds the compiler and writes a build of these addons to `../lunatype/zig-out/addons`.
-3. **The private dev addons** (`../wow-dev-tools`, cloned next to this repo): two junctions in `addons`, ignored by
+3. **The private dev addons** (`../wow-dev-tools`, cloned next to this repo): three junctions in `addons`, ignored by
    git, so a dev build builds and links them with the rest (a `--release` build refuses the dev addon), from this
    checkout's root in `cmd`:
-   `mklink /J addons\OrdaenDev ..\wow-dev-tools\modules\OrdaenDev` and
-   `mklink /J addons\OrdaenCore_Debug ..\wow-dev-tools\addons\OrdaenCore_Debug`. A junction is removed with
+   `mklink /J addons\OrdaenDev ..\wow-dev-tools\modules\OrdaenDev`,
+   `mklink /J addons\OrdaenCore_Debug ..\wow-dev-tools\addons\OrdaenCore_Debug` and
+   `mklink /J addons\OrdaenApiDump ..\wow-dev-tools\addons\OrdaenApiDump`. A junction is removed with
    `rmdir`, which leaves what it points to as it is.
 4. **Lua 5.1 for the run tests** is the compiler's own; another is named with
    `zig build -Dlua=<command>`.

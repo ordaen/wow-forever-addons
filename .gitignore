@@ -13,6 +13,8 @@ __pycache__/
 addons/OrdaenDev
 # the dev addon (wow-dev-tools/addons/OrdaenCore_Debug), linked here the same way: a dev build builds and links it
 addons/OrdaenCore_Debug
+# the API dump (wow-dev-tools/addons/OrdaenApiDump), which the dev addon needs: linked the same way
+addons/OrdaenApiDump
 
 # the compiler's caches
 .lunatype-fmt

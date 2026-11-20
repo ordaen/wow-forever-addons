@@ -68,10 +68,11 @@ jobs:
           sparse-checkout: |
             modules
             addons
-      # The two dev addons, as README's setup links them: the suite builds and tests them with the addons.
+      # The dev addons, as README's setup links them: the suite builds and tests them with the addons.
       - run: |
           ln -s "$GITHUB_WORKSPACE/wow-dev-tools/modules/OrdaenDev" wow-forever-addons/addons/OrdaenDev
           ln -s "$GITHUB_WORKSPACE/wow-dev-tools/addons/OrdaenCore_Debug" wow-forever-addons/addons/OrdaenCore_Debug
+          ln -s "$GITHUB_WORKSPACE/wow-dev-tools/addons/OrdaenApiDump" wow-forever-addons/addons/OrdaenApiDump
       - uses: mlugg/setup-zig@v2
         with:
           version: 0.17.1
