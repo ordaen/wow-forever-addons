@@ -70,7 +70,7 @@ class FakeSheet implements Sheet {
 
   public usesAmmo(self): Boolean { return true }
 
-  public who(self): Who { return { name: "Regy", level: 60, race: "Dwarf", className: "Warrior" } }
+  public who(self): Who { return { name: "Regy", level: 60, race: "Dwarf", className: "Warrior", scene: "Dwarf" } }
 
   // What the sheet says of the stats, made anew at each read as the client's sheet makes them: a test may put
   // others in.
@@ -508,4 +508,12 @@ test "a window kept narrower than the stats need, from an older save, is drawn w
   const window = opened(new FakeSheet())
   Test.expect(window.text("STR").shown())
   Test.expect(window.text("Attack power").count() == 1)
+}
+
+test "the model stands in its race's scene from the game's dressing room, all four pieces" {
+  Test.mount(nil, PAGE)
+  Game.items.icon = icons
+  const window = opened(new FakeSheet())
+  Test.expect(window.paintedWith("Interface/DressUpFrame/DressUpBackground-Dwarf1"))
+  Test.expect(window.paintedWith("Interface/DressUpFrame/DressUpBackground-Dwarf4"))
 }
