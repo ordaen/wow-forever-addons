@@ -529,7 +529,7 @@ test "a click on a spell's slot casts the rank clicked, the client's own doing; 
   Test.expect(Test.performed().length == 0)
 }
 
-test "Shift+Left-click on a spell's slot links it into the chat, and casts nothing" {
+test "Shift+Left-click on a spell's slot puts it in as the game's book does, and casts nothing" {
   Test.mount(nil, PAGE)
   Game.spellbook.lines = lines
   Game.spellbook.entries = spells
@@ -540,7 +540,7 @@ test "Shift+Left-click on a spell's slot links it into the chat, and casts nothi
   Game.input.shiftDown = (): Boolean => true
   window.text("Rend (Rank 1)").item().button(ICON).click()
   Test.hold([])
-  Test.expect(Test.requests().any(r => r == "Chat.linkSpell 772"))
+  Test.expect(Test.requests().any(r => r == "Spellbook.link 772"))
   Test.expect(Test.performed().length == 0)
 }
 

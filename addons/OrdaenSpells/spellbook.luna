@@ -143,8 +143,12 @@ class SpellSlot implements Component {
   onGrab(self) { pickUp(self.spell) }
 
   // The right button on a pet's spell turns its autocast, in the player's click.
+  // Shift+Left-click puts the spell into the chat's line or the macro being written, as the game's book does; the
+  // right button turns a pet's spell's autocast.
   onPressed(mut self, press: Event.Press) {
-    if (press.button == MouseButton.Right && self.spell.pet) {
+    if (press.button == MouseButton.Left && Game.input.shiftDown()) {
+      Game.spellbook.link(peek self.spell)
+    } else if (press.button == MouseButton.Right && self.spell.pet) {
       Game.spellbook.toggleAutoCast(peek self.spell)
       self.read(peek self.spell)
     }
@@ -152,7 +156,7 @@ class SpellSlot implements Component {
 
   public render(self): Template {
     return $ltml {
-      <ItemButton item={nil} art={self.spell.icon} spell={self.spell.id} action={self.cast} size={self.size} dimmed={self.dimmed}
+      <ItemButton item={nil} art={self.spell.icon} spell={self.spell.id} action={self.cast} size={self.size} dimmed={self.dimmed} linkOnShift={false}
                   markers={self.marks} @dragged={self.onGrab} @pressed={self.onPressed}>
         <box $if={self.cooling} position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui} background={DIMMED}
              fill={self.shade} zLevel={1} />
