@@ -1,5 +1,12 @@
 // A quest's difficulty against the player's level, and its colour, as the client's `GetQuestDifficultyColor` gives
 // it: the quest log's and the tracker's levels.
+import root Ordaen from "Ordaen"
+
+// A quest's level in its difficulty's colour, or in `plain` while the player has the game's colours off
+// (`Ordaen.questColors`), as the game's own log and tracker draw it.
+public function questLevelColor(quest: Integer, player: Integer, plain: Color): Color {
+  return Ordaen.questColors ? colorOf(difficultyOf(quest, player)) : plain
+}
 
 // The client's five colours.
 public enum Difficulty { Trivial, Easy, Even, Hard, Impossible }

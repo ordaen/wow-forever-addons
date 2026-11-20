@@ -45,6 +45,18 @@ test "the tracked quests stand at the right with their level, tag and objectives
   Test.expect(own.GetAlpha() == 0)
 }
 
+test "a level is in its difficulty colour, or in the title's gold while the game's difficulty colours are off" {
+  logged()
+  Test.mount(nil, PAGE)
+  Tracker.refresh()
+  Test.flush()
+  const gold = Color.hex("#ffd100")
+  Test.expect(!Test.page().text("[14]").textColor().equal(gold))
+  Test.cvar("showQuestDifficultyColor", "0")
+  Test.flush()
+  Test.expect(Test.page().text("[14]").textColor().equal(gold))
+}
+
 test "a module's lines stand under each quest: where to go, or whom to hand it to" {
   logged()
   Test.mount(nil, PAGE)

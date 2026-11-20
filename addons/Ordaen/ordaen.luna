@@ -24,6 +24,7 @@ import { spacingFor } from "@/units"
 
 // The most items' tooltips kept at once.
 const TIPS_MOST = 512
+const QUEST_COLORS = "showQuestDifficultyColor"
 
 // Where the player put a part, as it is kept: a point of it, the screen's point it stands by, and how far from it.
 public struct KeptPlace implements Plain {
@@ -98,6 +99,9 @@ public class OrdaenCore implements App {
   public state tipsAge = 0
   // The other addons that draw what modules draw, whose question waits to be drawn (`askWaiting`).
   unasked: mut Array<Conflict> = []
+  // The game's setting that colours a quest's level by its difficulty (`showQuestDifficultyColor`, in the world map's
+  // filter menu): the quest log's and the tracker's levels follow it, as the game's own do.
+  public state questColors: Boolean = Client.C_CVar.GetCVarBool(QUEST_COLORS) == true
   // What waits for the player's fight to end (`afterCombat`), in the order asked.
   waiting: mut Array<() => nil> = []
 
@@ -124,6 +128,7 @@ public class OrdaenCore implements App {
     watch (profile of self.keeper.profiles.active) { self.offered(profile) }
     Events.PLAYER_LEVEL_UP.listen(self.forgetTips)
     Events.SKILL_LINES_CHANGED.listen(self.forgetTips)
+    Events.CVAR_UPDATE.listen(self.onSetting)
     watch (fighting of Game.situation.combat) {
       if (!fighting) { self.combatEnded() }
     }
@@ -181,6 +186,11 @@ public class OrdaenCore implements App {
     self.tips = {}
     self.tipCount = 0
     self.tipsAge += 1
+  }
+
+  // A setting of the game's changed: the one Ordaen follows read again.
+  onSetting(mut self, name: String, value: String) {
+    if (name == QUEST_COLORS) { self.questColors = value == "1" }
   }
 
   // Each module that runs and isn't drawn yet, drawn on the screen as a module's root is: what it draws ends with it.

@@ -9,7 +9,7 @@ import Events from "$events"
 import Game from "$game"
 import { Action, Anchored, Bounds, Edges, FillDuration, Overflow, Point, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { ButtonPlate, Component, Dialog, ItemButton, Menu, MenuEntry, Module, Placed, PushButton, SECONDARY_TEXT, Settings, SettingsPage, colorOf, difficultyOf, playSound } from "Ordaen"
+import { ButtonPlate, Component, Dialog, ItemButton, Menu, MenuEntry, Module, Placed, PushButton, SECONDARY_TEXT, Settings, SettingsPage, playSound, questLevelColor } from "Ordaen"
 import { QuestLine, QuestLines } from "@/extend"
 import Locale from "@/locales"
 import { Choices, DEFAULTS, GeneralPage } from "@/settings"
@@ -221,7 +221,7 @@ class TrackedQuest implements Component {
   state menuOpen = false
 
   derived level: String = `[${self.quest.level}]`
-  derived levelColor: Color = colorOf(difficultyOf(self.quest.level, self.player))
+  derived levelColor: Color = questLevelColor(self.quest.level, self.player, GOLD)
   derived tag: String = tagText(self.quest.tag)
   // The quest's item, used by the client's own secure click, as the game's tracker's item button uses it.
   derived use: Action | nil = Action.UseQuestItem { quest: self.quest.id }
