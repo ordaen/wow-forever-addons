@@ -20,12 +20,12 @@ surface 325,133.88 932.72x548.49 on DIALOG clamped raised by a click
               box 1051.96,218.64 86.03x22.16
               box 1137.99,218.64 86.03x22.16
             box 363.69,218.64 860.33x22.16 absolute
-              text 727.75,220.83 132.22x17.78 "Apprentice · 31 / 75" #ffffff
+              text 727.75,220.83 132.22x17.78 "Apprentice · 31 / 75" #f0e6d2
         box 360.85,260.71 866.02x29.99
           box 360.85,289.86 866.02x0.83 absolute #3e2f1d
           box 360.85,260.71 72.2x29.99 #00000059 @keyPress @pointerPress
             box 361.68,261.54 70.53x1.67 absolute #d6a56b
-            text 373.06,267.23 47.78x17.78 "Recipes" #ffffff
+            text 373.06,267.23 47.78x17.78 "Recipes" #f0e6d2
           box 435.89,260.71 59.98x29.99 #00000000 @keyPress @pointerPress
             box 436.73,261.54 58.31x1.67 absolute #00000000
             text 448.11,267.23 35.56x17.78 "Queue" #a3977f
@@ -76,18 +76,18 @@ surface 325,133.88 932.72x548.49 on DIALOG clamped raised by a click
                   box 595.42,354 264.6x46.93 #ff80403d clipped @keyPress @pointerPress
                     box 595.42,354 1.67x46.93 absolute #ff8040
                     text 609.64,359.69 206.82x35.56 "Enchanted Runecloth Robe of Long Nights" #ff8040
-                    text 823.57,368.58 22.22x17.78 "[1]" #ffffff
+                    text 823.57,368.58 22.22x17.78 "[1]" #f0e6d2
                   box 595.42,400.93 264.6x29.99 #00000000 clipped @keyPress @pointerPress
                     text 609.64,407.45 206.82x17.78 "Linen Cloak" #ff8040
-                    text 823.57,407.45 22.22x17.78 "[1]" #ffffff
+                    text 823.57,407.45 22.22x17.78 "[1]" #f0e6d2
                   box 595.42,430.92 264.6x29.99 #00000000 clipped @keyPress @pointerPress
                     text 609.64,437.44 206.82x17.78 "Rich Purple Silk Shirt" #ff8040
-                    text 823.57,437.44 22.22x17.78 "[1]" #ffffff
+                    text 823.57,437.44 22.22x17.78 "[1]" #f0e6d2
           box 886.45,307.76 340.42x332.47 Interface/FrameGeneral/UI-Background-Marble
             box 901.51,322.82 310.31x72.53
               box 901.51,337.42 43.33x43.33 icon=Interface/Icons/INV_Misc_Note_01
               box 959.06,322.82 252.76x72.53
-                text 959.06,322.82 252.76x53.33 "Enchanted Runecloth Robe of Long Nights" #ffffff
+                text 959.06,322.82 252.76x53.33 "Enchanted Runecloth Robe of Long Nights" #f0e6d2
                 text 959.06,377.57 252.76x17.78 "Always raises the skill" #ff8040
             text 901.51,403.89 310.31x0 "" #e8dcc4
             text 901.51,412.42 310.31x0 "" #a3977f
@@ -132,7 +132,7 @@ surface 325,133.88 932.72x548.49 on DIALOG clamped raised by a click
                 box 1026.71,579.78 23.33x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
                   text 1033.93,585.05 8.89x17.78 "-" #808080
                 box 1055.73,585.05 18.33x17.78
-                  text 1060.45,585.05 8.89x17.78 "1" #ffffff
+                  text 1060.45,585.05 8.89x17.78 "1" #f0e6d2
                 box 1079.75,579.78 23.33x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
                   text 1086.97,585.05 8.89x17.78 "+" #808080
               box 1111.62,593.94 0x0
@@ -185,12 +185,12 @@ surface 325,133.88 1275x548.49 on DIALOG clamped raised by a click
               box 1325.78,218.64 120.26x22.16
               box 1446.04,218.64 120.26x22.16
             box 363.69,218.64 1202.61x22.16 absolute
-              text 898.89,220.83 132.22x17.78 "Apprentice · 31 / 75" #ffffff
+              text 898.89,220.83 132.22x17.78 "Apprentice · 31 / 75" #f0e6d2
         box 360.85,260.71 1208.3x29.99
           box 360.85,289.86 1208.3x0.83 absolute #3e2f1d
           box 360.85,260.71 72.2x29.99 #00000059 @keyPress @pointerPress
             box 361.68,261.54 70.53x1.67 absolute #d6a56b
-            text 373.06,267.23 47.78x17.78 "Recipes" #ffffff
+            text 373.06,267.23 47.78x17.78 "Recipes" #f0e6d2
           box 435.89,260.71 59.98x29.99 #00000000 @keyPress @pointerPress
             box 436.73,261.54 58.31x1.67 absolute #00000000
             text 448.11,267.23 35.56x17.78 "Queue" #a3977f
@@ -241,18 +241,18 @@ surface 325,133.88 1275x548.49 on DIALOG clamped raised by a click
                   box 613.58,354 333.52x29.16 #ff80403d clipped @keyPress @pointerPress
                     box 613.58,354 1.67x29.16 absolute #ff8040
                     text 627.81,359.69 275.74x17.78 "Enchanted Runecloth Robe of Long Nights" #ff8040
-                    text 910.66,359.69 22.22x17.78 "[1]" #ffffff
+                    text 910.66,359.69 22.22x17.78 "[1]" #f0e6d2
                   box 613.58,383.15 333.52x29.99 #00000000 clipped @keyPress @pointerPress
                     text 627.81,389.68 275.74x17.78 "Linen Cloak" #ff8040
-                    text 910.66,389.68 22.22x17.78 "[1]" #ffffff
+                    text 910.66,389.68 22.22x17.78 "[1]" #f0e6d2
                   box 613.58,413.14 333.52x29.99 #00000000 clipped @keyPress @pointerPress
                     text 627.81,419.66 275.74x17.78 "Rich Purple Silk Shirt" #ff8040
-                    text 910.66,419.66 22.22x17.78 "[1]" #ffffff
+                    text 910.66,419.66 22.22x17.78 "[1]" #f0e6d2
           box 973.53,307.76 595.62x332.47 Interface/FrameGeneral/UI-Background-Marble
             box 988.59,322.82 565.51x45.87
               box 988.59,324.09 43.33x43.33 icon=Interface/Icons/INV_Misc_Note_01
               box 1046.14,322.82 507.95x45.87
-                text 1046.14,322.82 507.95x26.67 "Enchanted Runecloth Robe of Long Nights" #ffffff
+                text 1046.14,322.82 507.95x26.67 "Enchanted Runecloth Robe of Long Nights" #f0e6d2
                 text 1046.14,350.91 507.95x17.78 "Always raises the skill" #ff8040
             text 988.59,377.22 565.51x0 "" #e8dcc4
             text 988.59,385.75 565.51x0 "" #a3977f
@@ -297,7 +297,7 @@ surface 325,133.88 1275x548.49 on DIALOG clamped raised by a click
                 box 1113.79,579.78 23.33x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
                   text 1121.01,585.05 8.89x17.78 "-" #808080
                 box 1142.81,585.05 18.33x17.78
-                  text 1147.53,585.05 8.89x17.78 "1" #ffffff
+                  text 1147.53,585.05 8.89x17.78 "1" #f0e6d2
                 box 1166.83,579.78 23.33x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
                   text 1174.06,585.05 8.89x17.78 "+" #808080
               box 1198.7,593.94 255.19x0

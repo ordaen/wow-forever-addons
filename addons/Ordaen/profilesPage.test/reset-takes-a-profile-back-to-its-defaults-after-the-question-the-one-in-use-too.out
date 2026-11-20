@@ -29,7 +29,7 @@ box 0,0 760x733.93
       box 267.78,173.98 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
         text 309.17,180.34 42.22x15.6 "Delete" #ffd100
       box 401.67,173.98 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-        text 446.39,180.34 35.56x15.6 "Reset" #ffffff
+        text 446.39,180.34 35.56x15.6 "Reset" #f0e6d2
   box 0,221.87 760x113.27
     box 0,221.87 760x15.6
       text 0,221.87 47.78x15.6 "Use for" #e8c35a

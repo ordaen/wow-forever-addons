@@ -2,7 +2,7 @@
 box 0,0 600x28.64 opacity=1
   box 0,0 72.2x28.64 #5a4428 @keyPress @pointerPress
     box 0,0 72.2x1.67 absolute #d6a56b
-    text 12.21,6.52 47.78x15.6 "Auction" #ffffff
+    text 12.21,6.52 47.78x15.6 "Auction" #f0e6d2
   box 72.2,0 78.03x28.64 #0d0a08 @keyPress @pointerPress
     box 72.2,0 78.03x1.67 absolute #00000000
     text 83.58,6.52 54.44x15.6 "Merchant" #a3977f
@@ -17,7 +17,7 @@ box 0,0 600x28.64 opacity=1
 box 0,0 600x28.64 opacity=1
   box 0,0 72.2x28.64 #5a4428 @keyPress @pointerPress
     box 0,0 72.2x1.67 absolute #d6a56b
-    text 12.21,6.52 47.78x15.6 "Auction" #ffffff
+    text 12.21,6.52 47.78x15.6 "Auction" #f0e6d2
   box 72.2,0 78.03x28.64 #1c1610 @keyPress @pointerPress
     box 72.2,0 78.03x1.67 absolute #00000000
     text 83.58,6.52 54.44x15.6 "Merchant" #e8dcc4
@@ -35,7 +35,7 @@ box 0,0 600x28.64 opacity=1
     text 12.21,6.52 47.78x15.6 "Auction" #a3977f
   box 72.2,0 78.03x28.64 #5a4428 @keyPress @pointerPress
     box 72.2,0 78.03x1.67 absolute #d6a56b
-    text 83.58,6.52 54.44x15.6 "Merchant" #ffffff
+    text 83.58,6.52 54.44x15.6 "Merchant" #f0e6d2
   box 150.23,0 136.92x28.64 #0d0a08 @keyPress @pointerPress
     box 150.23,0 136.92x1.67 absolute #00000000
     text 161.61,6.52 113.33x15.6 "From what is held" #a3977f
@@ -50,7 +50,7 @@ box 0,0 600x28.64 opacity=1
     text 12.21,6.52 47.78x15.6 "Auction" #a3977f
   box 72.2,0 78.03x28.64 #5a4428 @keyPress @pointerPress
     box 72.2,0 78.03x1.67 absolute #d6a56b
-    text 83.58,6.52 54.44x15.6 "Merchant" #ffffff
+    text 83.58,6.52 54.44x15.6 "Merchant" #f0e6d2
   box 150.23,0 136.92x28.64 #0d0a08 @keyPress @pointerPress
     box 150.23,0 136.92x1.67 absolute #00000000
     text 161.61,6.52 113.33x15.6 "From what is held" #a3977f
@@ -65,7 +65,7 @@ box 0,0 600x28.64 opacity=0.45
     text 12.21,6.52 47.78x15.6 "Auction" #a3977f
   box 72.2,0 78.03x28.64 #5a4428 @keyPress @pointerPress
     box 72.2,0 78.03x1.67 absolute #d6a56b
-    text 83.58,6.52 54.44x15.6 "Merchant" #ffffff
+    text 83.58,6.52 54.44x15.6 "Merchant" #f0e6d2
   box 150.23,0 136.92x28.64 #0d0a08 @keyPress @pointerPress
     box 150.23,0 136.92x1.67 absolute #00000000
     text 161.61,6.52 113.33x15.6 "From what is held" #a3977f

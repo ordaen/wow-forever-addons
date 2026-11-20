@@ -20,7 +20,7 @@ surface 325,133.88 950x632.25 on DIALOG clamped raised by a click
               box 1065.78,218.64 87.76x22.16
               box 1153.54,218.64 87.76x22.16
             box 363.69,218.64 877.61x22.16 absolute
-              text 736.39,220.83 132.22x17.78 "Apprentice · 31 / 75" #ffffff
+              text 736.39,220.83 132.22x17.78 "Apprentice · 31 / 75" #f0e6d2
         box 360.85,260.71 883.3x29.99
           box 360.85,289.86 883.3x0.83 absolute #3e2f1d
           box 360.85,260.71 72.2x29.99 #00000000 @keyPress @pointerPress
@@ -37,12 +37,12 @@ surface 325,133.88 950x632.25 on DIALOG clamped raised by a click
             text 567.08,267.23 54.44x17.78 "Overview" #a3977f
           box 636.58,260.71 78.87x29.99 #00000059 @keyPress @pointerPress
             box 637.42,261.54 77.2x1.67 absolute #d6a56b
-            text 648.79,267.23 54.44x17.78 "Worth it" #ffffff
+            text 648.79,267.23 54.44x17.78 "Worth it" #f0e6d2
         box 360.85,307.76 883.3x416.23
           box 360.85,307.76 883.3x30.82 opacity=1
             box 360.85,307.76 137.76x30.82 #5a4428 @keyPress @pointerPress
               box 360.85,307.76 137.76x1.67 absolute #d6a56b
-              text 373.06,314.29 113.33x17.78 "Auction → auction" #ffffff
+              text 373.06,314.29 113.33x17.78 "Auction → auction" #f0e6d2
             box 498.61,307.76 91.37x30.82 #0d0a08 @keyPress @pointerPress
               box 498.61,307.76 91.37x1.67 absolute #00000000
               text 509.98,314.29 67.78x17.78 "→ merchant" #a3977f
@@ -109,39 +109,39 @@ surface 325,133.88 950x632.25 on DIALOG clamped raised by a click
                           box 1216.25,385.02 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 1 of 8 opacity=0
                 box 361.68,409.94 881.63x276.35 scrolled 0 of 0
                   box 370.22,418.48 864.57x26.31 #00000040 @keyPress @pointerPress
-                    text 378.75,422.74 271.1x17.78 "Linen Cloak" #ffffff
+                    text 378.75,422.74 271.1x17.78 "Linen Cloak" #f0e6d2
                     text 658.38,422.74 125x17.78 "Player, Tailoring" #a3977f
                     box 791.92,422.74 75x17.78
                       text 805.81,422.74 61.11x17.78 "0g 1s 15c" #e8dcc4
                     box 875.45,422.74 75x17.78
                       text 889.34,422.74 61.11x17.78 "0g 4s 75c" #e8dcc4
                     box 958.98,422.74 75x17.78
-                      text 972.87,422.74 61.11x17.78 "0g 3s 60c" #ffffff
+                      text 972.87,422.74 61.11x17.78 "0g 3s 60c" #f0e6d2
                     box 1042.52,422.74 41.67x17.78
-                      text 1061.96,422.74 22.22x17.78 "313" #ffffff
+                      text 1061.96,422.74 22.22x17.78 "313" #f0e6d2
                     box 1092.72,422.74 50x17.78
                       text 1120.49,422.74 22.22x17.78 "0 h" #a3977f
                     box 1151.25,422.74 75x17.78
-                      text 1217.36,422.74 8.89x17.78 "0" #ffffff
+                      text 1217.36,422.74 8.89x17.78 "0" #f0e6d2
                   box 370.22,444.79 864.57x26.31 #00000000 @keyPress @pointerPress
-                    text 378.75,449.05 271.1x17.78 "Bolt of Linen Cloth" #ffffff
+                    text 378.75,449.05 271.1x17.78 "Bolt of Linen Cloth" #f0e6d2
                     text 658.38,449.05 125x17.78 "Player, Tailoring" #a3977f
                     box 791.92,449.05 75x17.78
                       text 805.81,449.05 61.11x17.78 "0g 0s 40c" #e8dcc4
                     box 875.45,449.05 75x17.78
                       text 889.34,449.05 61.11x17.78 "0g 0s 95c" #e8dcc4
                     box 958.98,449.05 75x17.78
-                      text 972.87,449.05 61.11x17.78 "0g 0s 55c" #ffffff
+                      text 972.87,449.05 61.11x17.78 "0g 0s 55c" #f0e6d2
                     box 1042.52,449.05 41.67x17.78
-                      text 1061.96,449.05 22.22x17.78 "137" #ffffff
+                      text 1061.96,449.05 22.22x17.78 "137" #f0e6d2
                     box 1092.72,449.05 50x17.78
                       text 1120.49,449.05 22.22x17.78 "0 h" #a3977f
                     box 1151.25,449.05 75x17.78
-                      text 1217.36,449.05 8.89x17.78 "2" #ffffff
+                      text 1217.36,449.05 8.89x17.78 "2" #f0e6d2
           box 360.85,695.66 883.3x28.33
             text 360.85,709.83 733.3x0 "" #a3977f
             box 1094.15,695.66 150x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-              text 1103.04,700.94 132.22x17.78 "To the shopping list" #ffffff
+              text 1103.04,700.94 132.22x17.78 "To the shopping list" #f0e6d2
       box 360.85,723.99 883.3x17.07
         box 360.85,741.06 883.3x0
           box 360.85,741.06 883.3x0

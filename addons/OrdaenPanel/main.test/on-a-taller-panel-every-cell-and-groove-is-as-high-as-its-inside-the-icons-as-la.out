@@ -8,203 +8,203 @@ surface 908,743.22 584x45 on MEDIUM clamped
     box 908,743.22 45x45
       embed 908,743.22 45x45 absolute frame=OrdaenPanelBar1Button1
       box 908,743.22 45x2.84 absolute
-        text 951.58,744.64 0x0 "" #ffffff
+        text 951.58,744.64 0x0 "" #f0e6d2
     box 957,743.22 45x45
       embed 957,743.22 45x45 absolute frame=OrdaenPanelBar1Button2
       box 957,743.22 45x2.84 absolute
-        text 1000.58,744.64 0x0 "" #ffffff
+        text 1000.58,744.64 0x0 "" #f0e6d2
     box 1006,743.22 45x45
       embed 1006,743.22 45x45 absolute frame=OrdaenPanelBar1Button3
       box 1006,743.22 45x2.84 absolute
-        text 1049.58,744.64 0x0 "" #ffffff
+        text 1049.58,744.64 0x0 "" #f0e6d2
     box 1055,743.22 45x45
       embed 1055,743.22 45x45 absolute frame=OrdaenPanelBar1Button4
       box 1055,743.22 45x2.84 absolute
-        text 1098.58,744.64 0x0 "" #ffffff
+        text 1098.58,744.64 0x0 "" #f0e6d2
     box 1104,743.22 45x45
       embed 1104,743.22 45x45 absolute frame=OrdaenPanelBar1Button5
       box 1104,743.22 45x2.84 absolute
-        text 1147.58,744.64 0x0 "" #ffffff
+        text 1147.58,744.64 0x0 "" #f0e6d2
     box 1153,743.22 45x45
       embed 1153,743.22 45x45 absolute frame=OrdaenPanelBar1Button6
       box 1153,743.22 45x2.84 absolute
-        text 1196.58,744.64 0x0 "" #ffffff
+        text 1196.58,744.64 0x0 "" #f0e6d2
     box 1202,743.22 45x45
       embed 1202,743.22 45x45 absolute frame=OrdaenPanelBar1Button7
       box 1202,743.22 45x2.84 absolute
-        text 1245.58,744.64 0x0 "" #ffffff
+        text 1245.58,744.64 0x0 "" #f0e6d2
     box 1251,743.22 45x45
       embed 1251,743.22 45x45 absolute frame=OrdaenPanelBar1Button8
       box 1251,743.22 45x2.84 absolute
-        text 1294.58,744.64 0x0 "" #ffffff
+        text 1294.58,744.64 0x0 "" #f0e6d2
     box 1300,743.22 45x45
       embed 1300,743.22 45x45 absolute frame=OrdaenPanelBar1Button9
       box 1300,743.22 45x2.84 absolute
-        text 1343.58,744.64 0x0 "" #ffffff
+        text 1343.58,744.64 0x0 "" #f0e6d2
     box 1349,743.22 45x45
       embed 1349,743.22 45x45 absolute frame=OrdaenPanelBar1Button10
       box 1349,743.22 45x2.84 absolute
-        text 1392.58,744.64 0x0 "" #ffffff
+        text 1392.58,744.64 0x0 "" #f0e6d2
     box 1398,743.22 45x45
       embed 1398,743.22 45x45 absolute frame=OrdaenPanelBar1Button11
       box 1398,743.22 45x2.84 absolute
-        text 1441.58,744.64 0x0 "" #ffffff
+        text 1441.58,744.64 0x0 "" #f0e6d2
     box 1447,743.22 45x45
       embed 1447,743.22 45x45 absolute frame=OrdaenPanelBar1Button12
       box 1447,743.22 45x2.84 absolute
-        text 1490.58,744.64 0x0 "" #ffffff
+        text 1490.58,744.64 0x0 "" #f0e6d2
 surface 908,692.53 584x45 on MEDIUM clamped
   box 908,692.53 584x45 opacity=1 @pointerEnter @pointerLeave
     box 908,692.53 45x45
       embed 908,692.53 45x45 absolute frame=OrdaenPanelBar2Button1
       box 908,692.53 45x2.84 absolute
-        text 951.58,693.95 0x0 "" #ffffff
+        text 951.58,693.95 0x0 "" #f0e6d2
     box 957,692.53 45x45
       embed 957,692.53 45x45 absolute frame=OrdaenPanelBar2Button2
       box 957,692.53 45x2.84 absolute
-        text 1000.58,693.95 0x0 "" #ffffff
+        text 1000.58,693.95 0x0 "" #f0e6d2
     box 1006,692.53 45x45
       embed 1006,692.53 45x45 absolute frame=OrdaenPanelBar2Button3
       box 1006,692.53 45x2.84 absolute
-        text 1049.58,693.95 0x0 "" #ffffff
+        text 1049.58,693.95 0x0 "" #f0e6d2
     box 1055,692.53 45x45
       embed 1055,692.53 45x45 absolute frame=OrdaenPanelBar2Button4
       box 1055,692.53 45x2.84 absolute
-        text 1098.58,693.95 0x0 "" #ffffff
+        text 1098.58,693.95 0x0 "" #f0e6d2
     box 1104,692.53 45x45
       embed 1104,692.53 45x45 absolute frame=OrdaenPanelBar2Button5
       box 1104,692.53 45x2.84 absolute
-        text 1147.58,693.95 0x0 "" #ffffff
+        text 1147.58,693.95 0x0 "" #f0e6d2
     box 1153,692.53 45x45
       embed 1153,692.53 45x45 absolute frame=OrdaenPanelBar2Button6
       box 1153,692.53 45x2.84 absolute
-        text 1196.58,693.95 0x0 "" #ffffff
+        text 1196.58,693.95 0x0 "" #f0e6d2
     box 1202,692.53 45x45
       embed 1202,692.53 45x45 absolute frame=OrdaenPanelBar2Button7
       box 1202,692.53 45x2.84 absolute
-        text 1245.58,693.95 0x0 "" #ffffff
+        text 1245.58,693.95 0x0 "" #f0e6d2
     box 1251,692.53 45x45
       embed 1251,692.53 45x45 absolute frame=OrdaenPanelBar2Button8
       box 1251,692.53 45x2.84 absolute
-        text 1294.58,693.95 0x0 "" #ffffff
+        text 1294.58,693.95 0x0 "" #f0e6d2
     box 1300,692.53 45x45
       embed 1300,692.53 45x45 absolute frame=OrdaenPanelBar2Button9
       box 1300,692.53 45x2.84 absolute
-        text 1343.58,693.95 0x0 "" #ffffff
+        text 1343.58,693.95 0x0 "" #f0e6d2
     box 1349,692.53 45x45
       embed 1349,692.53 45x45 absolute frame=OrdaenPanelBar2Button10
       box 1349,692.53 45x2.84 absolute
-        text 1392.58,693.95 0x0 "" #ffffff
+        text 1392.58,693.95 0x0 "" #f0e6d2
     box 1398,692.53 45x45
       embed 1398,692.53 45x45 absolute frame=OrdaenPanelBar2Button11
       box 1398,692.53 45x2.84 absolute
-        text 1441.58,693.95 0x0 "" #ffffff
+        text 1441.58,693.95 0x0 "" #f0e6d2
     box 1447,692.53 45x45
       embed 1447,692.53 45x45 absolute frame=OrdaenPanelBar2Button12
       box 1447,692.53 45x2.84 absolute
-        text 1490.58,693.95 0x0 "" #ffffff
+        text 1490.58,693.95 0x0 "" #f0e6d2
 surface 908,641.84 584x45 on MEDIUM clamped
   box 908,641.84 584x45 opacity=1 @pointerEnter @pointerLeave
     box 908,641.84 45x45
       embed 908,641.84 45x45 absolute frame=OrdaenPanelBar3Button1
       box 908,641.84 45x2.84 absolute
-        text 951.58,643.26 0x0 "" #ffffff
+        text 951.58,643.26 0x0 "" #f0e6d2
     box 957,641.84 45x45
       embed 957,641.84 45x45 absolute frame=OrdaenPanelBar3Button2
       box 957,641.84 45x2.84 absolute
-        text 1000.58,643.26 0x0 "" #ffffff
+        text 1000.58,643.26 0x0 "" #f0e6d2
     box 1006,641.84 45x45
       embed 1006,641.84 45x45 absolute frame=OrdaenPanelBar3Button3
       box 1006,641.84 45x2.84 absolute
-        text 1049.58,643.26 0x0 "" #ffffff
+        text 1049.58,643.26 0x0 "" #f0e6d2
     box 1055,641.84 45x45
       embed 1055,641.84 45x45 absolute frame=OrdaenPanelBar3Button4
       box 1055,641.84 45x2.84 absolute
-        text 1098.58,643.26 0x0 "" #ffffff
+        text 1098.58,643.26 0x0 "" #f0e6d2
     box 1104,641.84 45x45
       embed 1104,641.84 45x45 absolute frame=OrdaenPanelBar3Button5
       box 1104,641.84 45x2.84 absolute
-        text 1147.58,643.26 0x0 "" #ffffff
+        text 1147.58,643.26 0x0 "" #f0e6d2
     box 1153,641.84 45x45
       embed 1153,641.84 45x45 absolute frame=OrdaenPanelBar3Button6
       box 1153,641.84 45x2.84 absolute
-        text 1196.58,643.26 0x0 "" #ffffff
+        text 1196.58,643.26 0x0 "" #f0e6d2
     box 1202,641.84 45x45
       embed 1202,641.84 45x45 absolute frame=OrdaenPanelBar3Button7
       box 1202,641.84 45x2.84 absolute
-        text 1245.58,643.26 0x0 "" #ffffff
+        text 1245.58,643.26 0x0 "" #f0e6d2
     box 1251,641.84 45x45
       embed 1251,641.84 45x45 absolute frame=OrdaenPanelBar3Button8
       box 1251,641.84 45x2.84 absolute
-        text 1294.58,643.26 0x0 "" #ffffff
+        text 1294.58,643.26 0x0 "" #f0e6d2
     box 1300,641.84 45x45
       embed 1300,641.84 45x45 absolute frame=OrdaenPanelBar3Button9
       box 1300,641.84 45x2.84 absolute
-        text 1343.58,643.26 0x0 "" #ffffff
+        text 1343.58,643.26 0x0 "" #f0e6d2
     box 1349,641.84 45x45
       embed 1349,641.84 45x45 absolute frame=OrdaenPanelBar3Button10
       box 1349,641.84 45x2.84 absolute
-        text 1392.58,643.26 0x0 "" #ffffff
+        text 1392.58,643.26 0x0 "" #f0e6d2
     box 1398,641.84 45x45
       embed 1398,641.84 45x45 absolute frame=OrdaenPanelBar3Button11
       box 1398,641.84 45x2.84 absolute
-        text 1441.58,643.26 0x0 "" #ffffff
+        text 1441.58,643.26 0x0 "" #f0e6d2
     box 1447,641.84 45x45
       embed 1447,641.84 45x45 absolute frame=OrdaenPanelBar3Button12
       box 1447,641.84 45x2.84 absolute
-        text 1490.58,643.26 0x0 "" #ffffff
+        text 1490.58,643.26 0x0 "" #f0e6d2
 surface 957,591.15 486x45 on MEDIUM clamped
   box 957,591.15 486x45 opacity=1 @pointerEnter @pointerLeave
     box 957,591.15 45x45
       embed 957,591.15 45x45 absolute frame=OrdaenPanelBarpetButton1Cooldown
       embed 957,591.15 45x45 absolute frame=OrdaenPanelBarpetButton1 opacity=0
       box 957,591.15 45x2.84 absolute
-        text 1000.58,592.57 0x0 "" #ffffff
+        text 1000.58,592.57 0x0 "" #f0e6d2
     box 1006,591.15 45x45
       embed 1006,591.15 45x45 absolute frame=OrdaenPanelBarpetButton2Cooldown
       embed 1006,591.15 45x45 absolute frame=OrdaenPanelBarpetButton2 opacity=0
       box 1006,591.15 45x2.84 absolute
-        text 1049.58,592.57 0x0 "" #ffffff
+        text 1049.58,592.57 0x0 "" #f0e6d2
     box 1055,591.15 45x45
       embed 1055,591.15 45x45 absolute frame=OrdaenPanelBarpetButton3Cooldown
       embed 1055,591.15 45x45 absolute frame=OrdaenPanelBarpetButton3 opacity=0
       box 1055,591.15 45x2.84 absolute
-        text 1098.58,592.57 0x0 "" #ffffff
+        text 1098.58,592.57 0x0 "" #f0e6d2
     box 1104,591.15 45x45
       embed 1104,591.15 45x45 absolute frame=OrdaenPanelBarpetButton4Cooldown
       embed 1104,591.15 45x45 absolute frame=OrdaenPanelBarpetButton4 opacity=0
       box 1104,591.15 45x2.84 absolute
-        text 1147.58,592.57 0x0 "" #ffffff
+        text 1147.58,592.57 0x0 "" #f0e6d2
     box 1153,591.15 45x45
       embed 1153,591.15 45x45 absolute frame=OrdaenPanelBarpetButton5Cooldown
       embed 1153,591.15 45x45 absolute frame=OrdaenPanelBarpetButton5 opacity=0
       box 1153,591.15 45x2.84 absolute
-        text 1196.58,592.57 0x0 "" #ffffff
+        text 1196.58,592.57 0x0 "" #f0e6d2
     box 1202,591.15 45x45
       embed 1202,591.15 45x45 absolute frame=OrdaenPanelBarpetButton6Cooldown
       embed 1202,591.15 45x45 absolute frame=OrdaenPanelBarpetButton6 opacity=0
       box 1202,591.15 45x2.84 absolute
-        text 1245.58,592.57 0x0 "" #ffffff
+        text 1245.58,592.57 0x0 "" #f0e6d2
     box 1251,591.15 45x45
       embed 1251,591.15 45x45 absolute frame=OrdaenPanelBarpetButton7Cooldown
       embed 1251,591.15 45x45 absolute frame=OrdaenPanelBarpetButton7 opacity=0
       box 1251,591.15 45x2.84 absolute
-        text 1294.58,592.57 0x0 "" #ffffff
+        text 1294.58,592.57 0x0 "" #f0e6d2
     box 1300,591.15 45x45
       embed 1300,591.15 45x45 absolute frame=OrdaenPanelBarpetButton8Cooldown
       embed 1300,591.15 45x45 absolute frame=OrdaenPanelBarpetButton8 opacity=0
       box 1300,591.15 45x2.84 absolute
-        text 1343.58,592.57 0x0 "" #ffffff
+        text 1343.58,592.57 0x0 "" #f0e6d2
     box 1349,591.15 45x45
       embed 1349,591.15 45x45 absolute frame=OrdaenPanelBarpetButton9Cooldown
       embed 1349,591.15 45x45 absolute frame=OrdaenPanelBarpetButton9 opacity=0
       box 1349,591.15 45x2.84 absolute
-        text 1392.58,592.57 0x0 "" #ffffff
+        text 1392.58,592.57 0x0 "" #f0e6d2
     box 1398,591.15 45x45
       embed 1398,591.15 45x45 absolute frame=OrdaenPanelBarpetButton10Cooldown
       embed 1398,591.15 45x45 absolute frame=OrdaenPanelBarpetButton10 opacity=0
       box 1398,591.15 45x2.84 absolute
-        text 1441.58,592.57 0x0 "" #ffffff
+        text 1441.58,592.57 0x0 "" #f0e6d2
 surface 0,796.75 2400x103.25 on MEDIUM Interface\AddOns\Ordaen\media\window-wood opacity=1
   box 0,811 985.56x89
     box 0,811 985.56x89
@@ -330,7 +330,7 @@ surface 710,139.71 980x620.58 on DIALOG clamped raised by a click
             box 745.85,342.48 125.38x29.71 #00000040 @keyPress @pointerPress
               box 745.85,342.48 2.5x29.71 absolute #d6a56b
               box 758.65,348.16 18.33x18.33 icon=Interface/Icons/INV_Drink_13
-              text 785.52,348.44 35.56x17.78 "Panel" #ffffff
+              text 785.52,348.44 35.56x17.78 "Panel" #f0e6d2
               box 829.61,349 31.67x16.67
                 box 829.61,349 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 1 of 4 @keyPress @pointerPress
                   box 827.11,346.5 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2 opacity=0
@@ -350,7 +350,7 @@ surface 710,139.71 980x620.58 on DIALOG clamped raised by a click
                 text 1084.82,233.55 28.89x17.78 "Bars" #a3977f
               box 1128.76,227.03 105.53x29.99 #00000059 @keyPress @pointerPress
                 box 1129.59,227.86 103.87x1.67 absolute #d6a56b
-                text 1140.97,233.55 81.11x17.78 "Bottom panel" #ffffff
+                text 1140.97,233.55 81.11x17.78 "Bottom panel" #f0e6d2
               box 1237.14,227.03 98.87x29.99 #00000000 @keyPress @pointerPress
                 box 1237.97,227.86 97.2x1.67 absolute #00000000
                 text 1249.35,233.55 74.44x17.78 "Action bars" #a3977f
@@ -381,7 +381,7 @@ surface 710,139.71 980x620.58 on DIALOG clamped raised by a click
                     box 1380.52,369.05 13.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-slider-knob
                   box 1399.54,364.89 23.33x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerUp
                     text 1406.76,370.16 8.89x17.78 "+" #808080
-                  text 1428.56,370.16 35.56x17.78 "96 px" #ffffff
+                  text 1428.56,370.16 35.56x17.78 "96 px" #f0e6d2
               box 902.52,410.29 742.41x295.76
                 box 902.52,410.29 742.41x17.78
                   text 902.52,410.29 35.56x17.78 "Items" #e8c35a
@@ -472,7 +472,7 @@ surface 710,139.71 980x620.58 on DIALOG clamped raised by a click
                       box 1180.52,875.56 13.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-slider-knob
                     box 1399.54,871.4 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerUp
                       text 1406.76,876.68 8.89x17.78 "+" #ffd100
-                    text 1428.56,876.68 15.56x17.78 "0%" #ffffff
+                    text 1428.56,876.68 15.56x17.78 "0%" #f0e6d2
       box 745.85,689.83 913.3x45.4
         box 745.85,706.89 913.3x28.33
           box 745.85,706.89 166.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress

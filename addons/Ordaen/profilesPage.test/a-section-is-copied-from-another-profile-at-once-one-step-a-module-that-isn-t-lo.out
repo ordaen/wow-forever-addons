@@ -164,7 +164,7 @@ box 0,0 760x750.2
           box 248,437 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=1
       box 0,466 760x28.33
         box 0,466 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-          text 48.06,472.37 28.89x15.6 "Copy" #ffffff
+          text 48.06,472.37 28.89x15.6 "Copy" #f0e6d2
   box 0,509 760x241.2
     box 0,509 760x15.6
       text 0,509 35.56x15.6 "Share" #e8c35a

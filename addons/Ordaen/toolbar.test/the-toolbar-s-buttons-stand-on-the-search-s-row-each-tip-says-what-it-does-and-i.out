@@ -42,10 +42,10 @@ box 0,0 400x28.33
 surface 337.64,28.33 175x65.67 on FULLSCREEN_DIALOG #0a0806f7
   box 338.48,34.86 173.33x26.31 #00000000 @keyPress @pointerPress
     box 346.81,42.36 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 1 of 2
-    text 364.08,39.12 136.36x17.78 "By difficulty" #ffffff
+    text 364.08,39.12 136.36x17.78 "By difficulty" #f0e6d2
   box 338.48,61.17 173.33x26.31 #00000000 @keyPress @pointerPress
     box 346.81,68.67 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
-    text 364.08,65.43 136.36x17.78 "By name" #ffffff
+    text 364.08,65.43 136.36x17.78 "By name" #f0e6d2
 
 -- a filter on: the funnel gold, the view's button the list's glyph
 box 0,0 400x28.33

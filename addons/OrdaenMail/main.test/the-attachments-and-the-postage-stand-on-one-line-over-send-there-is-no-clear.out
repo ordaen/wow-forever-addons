@@ -23,7 +23,7 @@ surface 500,175.54 1055.76x548.92 on DIALOG clamped raised by a click
                   box 935.13,260.31 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerEnter @pointerLeave @pointerPress
                     box 942.63,267.81 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 4 of 16
           box 969.15,260.31 100x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-            text 1001.37,265.59 35.56x17.78 "Write" #ffffff
+            text 1001.37,265.59 35.56x17.78 "Write" #f0e6d2
         box 535.85,295.75 533.3x351.13
           text 736.39,462.43 132.22x17.78 "No letters sent yet." #a3977f
         box 535.85,653.99 533.3x0
@@ -67,7 +67,7 @@ surface 500,175.54 1055.76x548.92 on DIALOG clamped raised by a click
               box 1124.91,496.24 400x0.83 absolute #3e2f1d
               box 1124.91,467.09 92.2x29.99 #00000059 @keyPress @pointerPress
                 box 1125.74,467.92 90.53x1.67 absolute #d6a56b
-                text 1137.12,473.61 67.78x17.78 "Send money" #ffffff
+                text 1137.12,473.61 67.78x17.78 "Send money" #f0e6d2
               box 1219.96,467.09 66.64x29.99 #00000000 @keyPress @pointerPress
                 box 1220.79,467.92 64.98x1.67 absolute #00000000
                 text 1232.17,473.61 42.22x17.78 "C.O.D." #a3977f
