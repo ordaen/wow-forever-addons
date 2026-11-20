@@ -197,10 +197,11 @@ public class Dialogue implements Module, App {
     return false
   }
 
-  // The one-option skip: one plain option and no quests. `C_GossipInfo.ForceGossip()` isn't asked: Forever's client
-  // gives true for an ordinary vendor, whose menu the skip is for.
+  // The one-option skip: one option that leads somewhere (a vendor's goods, a trainer, a flight), no quests; a line
+  // of talk always shows. `C_GossipInfo.ForceGossip()` isn't asked: Forever's client gives true for an ordinary
+  // vendor, whose menu the skip is for.
   onlyOption(self, lines: Array<Line>): Boolean {
-    return (peek self.source) == Source.Gossip && lines.length == 1 && !lines.any(isQuest)
+    return (peek self.source) == Source.Gossip && lines.length == 1 && lines.all(line => line.leads)
   }
 
   // The game says how many quests the log holds and how many it takes.
