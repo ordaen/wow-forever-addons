@@ -66,6 +66,28 @@ test "a line for another tab waits there, counted, until the tab is opened" {
   Test.expect(Test.requests().any(r => r == "Chat.choose 3"))
 }
 
+// The game opens its input as `ChatFrameUtil.ActivateChat` does (shown, the keyboard's) and tells it typing: it
+// stands in the chat's foot, under the lines, as high as the game makes it.
+test "Enter shows the input line, on the screen, in the chat's frame" {
+  Game.chat.windows = gameWindows()
+  const box = input(Client.CreateFrame("Frame", nil, Client.C_UI.GetUIParent(), nil))
+  box.Hide()
+  Game.chat.input = box
+  _ = chat()
+  Game.chat.heard.emit(line("SAY", "[Thrall] says: here", "Thrall", [1]))
+  // The hint goes as the input shows: the chat is found by its line.
+  const shown = Test.page().window("[Thrall] says: here")
+  box.Show()
+  box.SetFocus()
+  Game.chat.typing = true
+  Test.pass(0.01)
+  const frame = shown.rect()
+  const middle = Test.centre(box)
+  Test.expect(box.IsVisible() && box.GetHeight() >= 20)
+  Test.expect(middle.x > frame.left && middle.x < frame.right && middle.y > frame.top && middle.y < frame.bottom)
+  Test.expect(middle.y > shown.text("[Thrall] says: here").rect().bottom)
+}
+
 test "a channel's line is named by its number and name, the zone left out" {
   Game.chat.windows = gameWindows()
   const shown = chat()

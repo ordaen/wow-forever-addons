@@ -19,6 +19,10 @@ const FADING = 3
 const HINT: Color = Color.hex("#857a66")
 const LINK: Color = Color.hex("#69ccf0")
 const MAX: "max-content" = "max-content"
+// The game's own frames, as high as its templates make them (FloatingChatFrame.xml): an embed is the size it is
+// given, and the foot's row has nothing else to give it a height while the input shows.
+const GAME_BUTTON = 32ui
+const GAME_INPUT = 32ui
 // From the frame's line to what it holds.
 const ROOM: Edges = { top: 2sp, right: 3sp, bottom: 2sp, left: 3sp }
 // «Copy»'s room in the frame's corner.
@@ -235,9 +239,10 @@ public class Pane implements Component {
           // The game's menu button, its input (or the hint that opens it), and, while scrolled back, the way back.
           <box columns={[MAX, { fr: 1 }, MAX]} gap={1sp} yAlign={Align.Center}>
             <box>
-              <embed $if={self.menuButton != nil} frame={self.menuButton ?? panic("shown with the button")} />
+              <embed $if={self.menuButton != nil} frame={self.menuButton ?? panic("shown with the button")} width={GAME_BUTTON}
+                     height={GAME_BUTTON} />
             </box>
-            <embed $if={self.inputShown} frame={self.input ?? panic("shown with the input")} />
+            <embed $if={self.inputShown} frame={self.input ?? panic("shown with the input")} height={GAME_INPUT} />
             <box $else @pointerPress={self.onHint}>
               <text value={Locale.HINT_TYPE} textColor={HINT} wrap={.None} />
             </box>
