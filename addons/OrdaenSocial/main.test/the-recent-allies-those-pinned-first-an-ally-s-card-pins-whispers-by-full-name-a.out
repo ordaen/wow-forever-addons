@@ -58,7 +58,7 @@ surface 425,183.88 1055.76x532.25 on DIALOG clamped raised by a click
           box 1199.91,374.24 250x17.78
             text 1199.91,374.24 83.33x17.78 "Note" #a3977f
             text 1288.93,374.24 160.98x17.78 "—" #e8dcc4
-        box 1199.91,409.09 250x199.71 scrolled 0 of 0
+        box 1199.91,409.09 250x162.84 scrolled 0 of 0
           text 1199.91,409.09 250x17.78 "Recent activity" #a3977f
           box 1199.91,432.55 250x35.56
             text 1199.91,432.55 197.02x35.56 "Completed the Deadmines together" #e8dcc4
@@ -66,15 +66,19 @@ surface 425,183.88 1055.76x532.25 on DIALOG clamped raised by a click
           box 1199.91,473.8 250x17.78
             text 1199.91,473.8 197.02x17.78 "Traded" #e8dcc4
             text 1405.47,473.8 44.44x17.78 "3 d ago" #a3977f
-        box 1199.91,625.86 250x65.2
+        box 1199.91,588.99 250x102.07
+          box 1199.91,588.99 91.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+            text 1221.86,594.27 47.78x17.78 "Whisper" #ffd100
+          box 1300.11,588.99 91.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+            text 1324.83,594.27 42.22x17.78 "Invite" #ffd100
           box 1199.91,625.86 91.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-            text 1221.86,631.14 47.78x17.78 "Whisper" #ffd100
+            text 1234.63,631.14 22.22x17.78 "Pin" #ffd100
           box 1300.11,625.86 91.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-            text 1324.83,631.14 42.22x17.78 "Invite" #ffd100
+            text 1312.06,631.14 67.78x17.78 "Add Friend" #ffd100
           box 1199.91,662.73 91.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-            text 1234.63,668 22.22x17.78 "Pin" #ffd100
+            text 1218.52,668 54.44x17.78 "Set Note" #ffd100
           box 1300.11,662.73 91.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-            text 1312.06,668 67.78x17.78 "Add Friend" #ffd100
+            text 1334.83,668 22.22x17.78 "···" #ffd100
       box 1174.16,245.89 6.67x459.39 absolute @drag @dragStart @dragStop
     box 1463.51,696.12 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 425,183.88 1055.76x59.42

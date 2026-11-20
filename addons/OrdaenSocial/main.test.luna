@@ -3,16 +3,20 @@
 // friends' list holds both kinds, best friends on top; a friend picked shows their card, whose buttons ask the game;
 // removing asks first; requests are answered; the black list is added to and taken from; the guild's roster sorts,
 // filters and searches, its member's card asks the game, its card invites and leaves; the communities show the picked
-// one's members and streams; the recent allies are pinned and befriended. The door to the client is the test's own
-// (what the window asks of it is heard).
+// one's members and streams; the recent allies are pinned and befriended. The friends, the guild, the communities and
+// the recent allies are `"$game"`'s, answered by the test (what the window asks of them is the fake game's requests);
+// the door to the chat, the group and the clipboard is the test's own (what the window asks of it is heard).
 import Client from "$client"
 import Events from "$events"
 import Game from "$game"
+import { AllyCategory, Club, ClubStream, Friend, GuildNews, GuildRoster, Hero, Member, NewsFilter, Presence, RecentAlly } from "$game"
 import { Key } from "$ltml"
+import Runtime from "$runtime"
 import Test from "$test"
 import root Ordaen from "Ordaen"
 import root Social from "OrdaenSocial"
-import { Ally, AllyCategory, Club, Friend, Guild, Hero, Ignored, Me, Member, News, People, Presence, Request, Stream } from "@/people"
+import { People } from "@/people"
+import { SeenHero, seenAfter } from "@/seen"
 
 const PAGE: Test.Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
 // A text the window always shows: its last tab.
@@ -28,148 +32,135 @@ function fieldSays(part: Test.Part, text: String): Boolean {
 }
 
 function hero(name: String, level: Integer, area: String): Hero {
-  return { name: name, level: level, className: "Warrior", classColor: nil, area: area, realm: "Flamegor" }
+  return { name: name, level: level, className: "Warrior", classFile: "WARRIOR", area: area, realm: "Flamegor" }
 }
 
 function member(name: String, level: Integer, className: String, zone: String, presence: Presence, rank: String, order: Integer, note: String): Member {
   return {
-    key: name, name: name, level: level, className: className, classColor: nil, zone: zone, presence: presence, rank: rank,
-    rankOrder: order, note: note, officerNote: "", away: presence == .Offline ? 50 : 0
+    key: name, name: name, level: level, className: className, classFile: "", zone: zone, presence: presence, rank: rank,
+    rankOrder: order, note: note, officerNote: "", away: presence == .Offline ? 50 : 0, achievementPoints: level * 10,
+    professions: name == "Ingrid" ? "Tailoring 225, Enchanting 180" : ""
   }
 }
 
-// The test's door: two Battle.net friends (one a best friend playing here, one offline), two characters (one
-// offline), a request, one ignored; a guild of three (one offline) whose ranks the player may change, two lines of its
-// news; two communities; two recent allies, one pinned.
+// The friends as the game gives them: two Battle.net friends (one a best friend playing here, one offline), two
+// characters (one offline).
+function friends(): Array<Friend> {
+  return [
+    {
+      index: 1, presence: .Offline, note: "", hero: nil,
+      account: {
+        id: 11, name: "Irina", battleTag: "Iris#5512", program: "", broadcast: "", favorite: false, lastOnline: 0,
+        gameAccount: 0
+      }
+    },
+    {
+      index: 2, presence: .Online, note: "tanks at night", hero: hero("Torgrim", 25, "Loch Modan"),
+      account: {
+        id: 12, name: "Alexei", battleTag: "Drake#2145", program: "WoW", broadcast: "LFG Deadmines",
+        favorite: true, lastOnline: 0, gameAccount: 7
+      }
+    },
+    { index: 1, presence: .Away, note: "", hero: hero("Eliana", 24, "Stormwind"), account: nil },
+    { index: 2, presence: .Offline, note: "smith", hero: hero("Darrick", 22, ""), account: nil }
+  ]
+}
+
+// The rest the game's friends part answers each test with: a request, one ignored, the player's Battle.net self.
+function requests(): Array<Game.FriendRequest> { return [{ id: 31, name: "Ulfric#1111", sent: 0 }] }
+function ignoredOnes(): Array<Game.Ignored> { return [Game.Ignored.Character { index: 1, name: "Rudegnome" }] }
+
+function battleNetSelf(): Game.BattleNetSelf {
+  return { battleTag: "Ordaen#2718", presence: .Online, broadcast: "", hero: hero("Torvald", 25, "Ironforge") }
+}
+
+// What the window asked of the game's parts since last asked, as one line.
+function askedGame(): String { return Test.requests().join(", ") }
+
+// The guild: three (one offline) whose ranks the player may change and who may manage the guild, or not; none.
+function guildOf(motd: String, manages: Boolean): GuildRoster {
+  return {
+    name: "Iron Vow", motd: motd, info: "Be kind to the new ones.",
+    members: [
+      member("Torvald", 25, "Warrior", "Ironforge", .Online, "Guild Master", 1, "the founder"),
+      member("Ingrid", 24, "Priest", "Stormwind", .Online, "Officer", 2, "heals"),
+      member("Branna", 27, "Mage", "Darnassus", .Offline, "Member", 3, "keeps the bank; ask her before taking anything from its second tab")
+    ],
+    rights: { invite: true, promote: true, demote: true, manage: manages }
+  }
+}
+
+function guildRoster(motd: String): GuildRoster | nil { return guildOf(motd, true) }
+function guildUnmanaged(motd: String): GuildRoster | nil { return guildOf(motd, false) }
+function noGuild(motd: String): GuildRoster | nil { return nil }
+function guildMotd(): String { return "Raid on Friday" }
+
+// Three lines of the guild's news, one sticky, and the news' filter of three kinds.
+function guildNews(): Array<GuildNews> {
+  return [
+    { who: "Ingrid", what: "crafted [Copper Chain Vest]", kind: .Crafted, subject: 3471, day: 12, month: 11, sticky: false },
+    { who: "Branna", what: "earned [Level 20]", kind: .Achievement, subject: 7, day: 10, month: 11, sticky: false },
+    { who: "Torvald", what: "founded the guild", kind: .Founded, subject: 0, day: 2, month: 11, sticky: true }
+  ]
+}
+
+function newsFilters(): Array<NewsFilter> {
+  return [
+    { kind: 2, label: "Achievements", shown: true }, { kind: 3, label: "Dungeon Encounters", shown: true },
+    { kind: 6, label: "Epic Items Crafted", shown: true }
+  ]
+}
+
+// Two communities, each with its members and two streams.
+function clubs(): Array<Club> {
+  return [
+    { id: "c1", name: "Night Fishers", description: "We fish at night.", broadcast: "Tonight at nine", battleNet: true, memberCount: 2 },
+    { id: "c2", name: "Smiths of Ironforge", description: "", broadcast: "", battleNet: false, memberCount: 1 }
+  ]
+}
+
+function clubMembers(club: String): Array<Member> {
+  if (club == "c2") { return [member("Bjorn", 25, "Paladin", "Ironforge", .Online, "Owner", 1, "")] }
+  return [
+    member("Halvar", 23, "Hunter", "Wetlands", .Online, "Owner", 1, "the best rod"),
+    member("Sigrun", 20, "Rogue", "", .Offline, "Member", 4, "")
+  ]
+}
+
+function streams(club: String): Array<ClubStream> {
+  return [{ id: "1", name: "General", subject: "Everything" }, { id: "2", name: "Catches", subject: "" }]
+}
+
+// Two recent allies: Gunnar, pinned or not, did a dungeon with the player (the game finds him among the dungeons);
+// Astrid did nothing of either.
+function alliesOf(categories: Array<AllyCategory> | nil, pinned: Boolean): Array<RecentAlly> {
+  const gunnar: RecentAlly = {
+    member: member("Gunnar", 25, "Shaman", "Redridge", .Online, "", 0, ""), fullName: "Gunnar-Flamegor",
+    meetings: [{ text: "Completed the Deadmines together", when: Game.clock.server - 7200 }, { text: "Traded", when: Game.clock.server - 259200 }],
+    pinned: pinned, pinExpires: pinned ? Game.clock.server + 3 * 86400 + 60 : 0, requestSent: false
+  }
+  if (categories != nil) { return categories.any(category => category == .Dungeons) ? [gunnar] : [] }
+  return [
+    gunnar,
+    {
+      member: member("Astrid", 21, "Druid", "", .Offline, "", 0, ""), fullName: "Astrid-Flamegor", meetings: [], pinned: false,
+      pinExpires: 0, requestSent: true
+    }
+  ]
+}
+
+function allies(categories: Array<AllyCategory> | nil): Array<RecentAlly> { return alliesOf(categories, true) }
+function alliesUnpinned(categories: Array<AllyCategory> | nil): Array<RecentAlly> { return alliesOf(categories, false) }
+function allyCategories(): Array<AllyCategory> { return [.PvP, .Dungeons] }
+
+// The test's door to the chat, the group and the clipboard: what it is asked is heard.
 class FakePeople implements People {
   heard: mut Array<String> = []
-  removed = false
-  inGuild = true
-  manages = true
-  pinned = true
-  asked = 0
-
-  public friends(self): Array<Friend> {
-    const list: Array<Friend> = [
-      {
-        index: 1, presence: .Offline, note: "", hero: nil,
-        account: {
-          id: 11, name: "Irina", battleTag: "Iris#5512", program: "", broadcast: "", favorite: false, lastOnline: 0,
-          gameAccount: 0
-        }
-      },
-      {
-        index: 2, presence: .Online, note: "tanks at night", hero: hero("Torgrim", 25, "Loch Modan"),
-        account: {
-          id: 12, name: "Alexei", battleTag: "Drake#2145", program: "WoW", broadcast: "LFG Deadmines",
-          favorite: true, lastOnline: 0, gameAccount: 7
-        }
-      },
-      { index: 1, presence: .Away, note: "", hero: hero("Eliana", 24, "Stormwind"), account: nil },
-      { index: 2, presence: .Offline, note: "smith", hero: hero("Darrick", 22, ""), account: nil }
-    ]
-    if (self.removed) { _ = list.remove(3) }
-    return list
-  }
-
-  public requests(self): Array<Request> { return [{ id: 31, name: "Ulfric#1111", sent: 0 }] }
-  public ignored(self): Array<Ignored> { return [Ignored.Character { index: 1, name: "Rudegnome" }] }
-
-  public me(self): Me {
-    return { battleTag: "Ordaen#2718", presence: .Online, broadcast: "", hero: hero("Torvald", 25, "Ironforge") }
-  }
-
-  public guild(self): Guild | nil {
-    if (!self.inGuild) { return nil }
-    return {
-      name: "Iron Vow", motd: "Raid on Friday", info: "Be kind to the new ones.",
-      members: [
-        member("Torvald", 25, "Warrior", "Ironforge", .Online, "Guild Master", 1, "the founder"),
-        member("Ingrid", 24, "Priest", "Stormwind", .Online, "Officer", 2, "heals"),
-        member("Branna", 27, "Mage", "Darnassus", .Offline, "Member", 3, "keeps the bank; ask her before taking anything from its second tab")
-      ],
-      rights: { invite: true, promote: true, demote: true, manage: self.manages }
-    }
-  }
-
-  public news(self): Array<News> {
-    return [
-      { who: "Ingrid", what: "crafted [Copper Chain Vest]", day: 12, month: 11, sticky: false },
-      { who: "Torvald", what: "founded the guild", day: 2, month: 11, sticky: true }
-    ]
-  }
-
-  public clubs(self): Array<Club> {
-    return [
-      { id: "c1", name: "Night Fishers", description: "We fish at night.", broadcast: "Tonight at nine", battleNet: true, memberCount: 2 },
-      { id: "c2", name: "Smiths of Ironforge", description: "", broadcast: "", battleNet: false, memberCount: 1 }
-    ]
-  }
-
-  public clubMembers(self, club: String): Array<Member> {
-    if (club == "c2") { return [member("Bjorn", 25, "Paladin", "Ironforge", .Online, "Owner", 1, "")] }
-    return [
-      member("Halvar", 23, "Hunter", "Wetlands", .Online, "Owner", 1, "the best rod"),
-      member("Sigrun", 20, "Rogue", "", .Offline, "Member", 4, "")
-    ]
-  }
-
-  public streams(self, club: String): Array<Stream> {
-    return [{ id: "1", name: "General", subject: "Everything" }, { id: "2", name: "Catches", subject: "" }]
-  }
-
-  // Gunnar did a dungeon with the player: the game finds him among the dungeons; Astrid did nothing of either.
-  public allies(self, categories: Array<AllyCategory> | nil): Array<Ally> {
-    const gunnar: Ally = {
-      member: member("Gunnar", 25, "Shaman", "Redridge", .Online, "", 0, ""), fullName: "Gunnar-Flamegor",
-      meetings: [{ text: "Completed the Deadmines together", when: Game.clock.server - 7200 }, { text: "Traded", when: Game.clock.server - 259200 }],
-      pinned: self.pinned
-    }
-    if (categories != nil) { return categories.any(category => category == .Dungeons) ? [gunnar] : [] }
-    return [gunnar, { member: member("Astrid", 21, "Druid", "", .Offline, "", 0, ""), fullName: "Astrid-Flamegor", meetings: [], pinned: false }]
-  }
-
-  public allyCategories(self): Array<AllyCategory> { return [.PvP, .Dungeons] }
 
   public whisper(mut self, friend: Friend) { self.heard.push(`whisper ${friend.hero?.name ?? ""}`) }
-  public invite(mut self, friend: Friend) { self.heard.push(`invite ${friend.hero?.name ?? ""}`) }
-
-  public remove(mut self, friend: Friend) {
-    self.heard.push(`remove ${friend.hero?.name ?? ""}`)
-    self.removed = true
-  }
-
-  public answer(mut self, request: Request, accept: Boolean) { self.heard.push(`answer ${request.id} ${accept}`) }
-  public ignore(mut self, name: String) { self.heard.push(`ignore ${name}`) }
-
-  public unignore(mut self, entry: Ignored) {
-    match (entry) {
-      .Character => self.heard.push(`unignore ${entry.name}`)
-      .Account => self.heard.push(`unblock ${entry.id}`)
-    }
-  }
-
-  public addFriend(mut self, text: String) { self.heard.push(`add ${text}`) }
-  public setPresence(mut self, presence: Presence) { self.heard.push(`presence ${presence}`) }
-  public setBroadcast(mut self, text: String) { self.heard.push(`broadcast ${text}`) }
   public copy(mut self, text: String) { self.heard.push(`copy ${text}`) }
   public whisperTo(mut self, name: String) { self.heard.push(`whisper ${name}`) }
   public inviteTo(mut self, name: String) { self.heard.push(`invite ${name}`) }
-  public guildInvite(mut self, name: String) { self.heard.push(`guild invite ${name}`) }
-  public promote(mut self, name: String) { self.heard.push(`promote ${name}`) }
-  public demote(mut self, name: String) { self.heard.push(`demote ${name}`) }
-
-  public leaveGuild(mut self) {
-    self.heard.push("leave guild")
-    self.inGuild = false
-  }
-
-  public pin(mut self, key: String, pinned: Boolean) {
-    self.heard.push(`pin ${key} ${pinned}`)
-    self.pinned = pinned
-  }
-
-  public ask(mut self) { self.asked += 1 }
 }
 
 // The game's friends window, shown as its key or its micro button shows it, with the test's door: ours.
@@ -179,6 +170,8 @@ function opened(people: mut FakePeople): Test.Part {
   game.Hide()
   Social.hook(game, nil)
   game.Show()
+  // What the window asks of the game as it opens is no test's own.
+  _ = Test.requests()
   return Test.page().window(WINDOW)
 }
 
@@ -186,6 +179,19 @@ function opened(people: mut FakePeople): Test.Part {
 
 test "the game's friends window shown shows ours, and closing ours closes the game's" {
   Test.mount(nil, PAGE)
+  Game.friends.list = friends
+  Game.friends.requests = requests
+  Game.friends.ignored = ignoredOnes
+  Game.friends.battleNetSelf = battleNetSelf
+  Game.guild.roster = guildRoster
+  Game.guild.motd = guildMotd
+  Game.guild.news = guildNews
+  Game.guild.newsFilters = newsFilters
+  Game.communities.clubs = clubs
+  Game.communities.members = clubMembers
+  Game.communities.streams = streams
+  Game.recentAllies.list = allies
+  Game.recentAllies.categories = allyCategories
   const people = new FakePeople()
   Social.people = people
   const game = Client.CreateFrame("Frame", "FriendsFrame", Client.UIParent, nil)
@@ -196,14 +202,38 @@ test "the game's friends window shown shows ours, and closing ours closes the ga
   const window = Test.page().window(WINDOW)
   Test.expect(window.text("Friends").shown())
   // What the game sends late is asked for once, as the window opens.
-  Test.expect(people.asked == 1)
+  Test.expect(askedGame() == "Guild.ask, RecentAllies.ask")
   window.button(Ordaen.art.ctl.corner.close).click()
   Test.expect(!window.shown())
   Test.expect(!game.IsShown())
 }
 
+// The panel off, the game's micro menu stands: its guild button loads the game's guild window, which shows ours.
+test "the micro menu's guild button shows ours on the guild, and again closes it" {
+  Test.mount(nil, PAGE)
+  Game.guild.roster = guildRoster
+  Game.guild.motd = guildMotd
+  Runtime.press(Client.GuildMicroButton, .Left)
+  const window = Test.page().window(WINDOW)
+  Test.expect(window.shown() && fieldSays(window, "Raid on Friday"))
+  Runtime.press(Client.GuildMicroButton, .Left)
+  Test.expect(!Test.page().window(WINDOW).shown()) }
+
 test "the game's guild window, hooked as its addon loads, shows ours on the guild; outside one on the communities" {
   Test.mount(nil, PAGE)
+  Game.friends.list = friends
+  Game.friends.requests = requests
+  Game.friends.ignored = ignoredOnes
+  Game.friends.battleNetSelf = battleNetSelf
+  Game.guild.roster = guildRoster
+  Game.guild.motd = guildMotd
+  Game.guild.news = guildNews
+  Game.guild.newsFilters = newsFilters
+  Game.communities.clubs = clubs
+  Game.communities.members = clubMembers
+  Game.communities.streams = streams
+  Game.recentAllies.list = allies
+  Game.recentAllies.categories = allyCategories
   const people = new FakePeople()
   Social.people = people
   const game = Client.CreateFrame("Frame", "CommunitiesFrame", Client.UIParent, nil)
@@ -214,13 +244,26 @@ test "the game's guild window, hooked as its addon loads, shows ours on the guil
   Test.expect(fieldSays(window, "Raid on Friday"))
   window.button(Ordaen.art.ctl.corner.close).click()
   Test.expect(!game.IsShown())
-  people.inGuild = false
+  Game.guild.roster = noGuild
   game.Show()
   Test.expect(Test.page().window(WINDOW).text("We fish at night.").shown())
 }
 
 test "the raid isn't a tab of the window" {
   Test.mount(nil, PAGE)
+  Game.friends.list = friends
+  Game.friends.requests = requests
+  Game.friends.ignored = ignoredOnes
+  Game.friends.battleNetSelf = battleNetSelf
+  Game.guild.roster = guildRoster
+  Game.guild.motd = guildMotd
+  Game.guild.news = guildNews
+  Game.guild.newsFilters = newsFilters
+  Game.communities.clubs = clubs
+  Game.communities.members = clubMembers
+  Game.communities.streams = streams
+  Game.recentAllies.list = allies
+  Game.recentAllies.categories = allyCategories
   const window = opened(new FakePeople())
   Test.expect(!window.text("Raid").shown())
   Test.expect(window.text("Guild").shown() && window.text("Communities").shown())
@@ -230,6 +273,19 @@ test "the raid isn't a tab of the window" {
 
 test "the list holds both kinds, the best friend first and those offline last" {
   Test.mount(nil, PAGE)
+  Game.friends.list = friends
+  Game.friends.requests = requests
+  Game.friends.ignored = ignoredOnes
+  Game.friends.battleNetSelf = battleNetSelf
+  Game.guild.roster = guildRoster
+  Game.guild.motd = guildMotd
+  Game.guild.news = guildNews
+  Game.guild.newsFilters = newsFilters
+  Game.communities.clubs = clubs
+  Game.communities.members = clubMembers
+  Game.communities.streams = streams
+  Game.recentAllies.list = allies
+  Game.recentAllies.categories = allyCategories
   const window = opened(new FakePeople())
   const texts = window.texts()
   const alexei = texts.find(text => text == "Alexei")
@@ -244,6 +300,19 @@ test "the list holds both kinds, the best friend first and those offline last" {
 
 test "the best friend's star stands after the name, never over it" {
   Test.mount(nil, PAGE)
+  Game.friends.list = friends
+  Game.friends.requests = requests
+  Game.friends.ignored = ignoredOnes
+  Game.friends.battleNetSelf = battleNetSelf
+  Game.guild.roster = guildRoster
+  Game.guild.motd = guildMotd
+  Game.guild.news = guildNews
+  Game.guild.newsFilters = newsFilters
+  Game.communities.clubs = clubs
+  Game.communities.members = clubMembers
+  Game.communities.streams = streams
+  Game.recentAllies.list = allies
+  Game.recentAllies.categories = allyCategories
   const window = opened(new FakePeople())
   const name = window.text("Alexei").rect()
   const star = window.text("Alexei").item().box("friendslist-favorite").rect()
@@ -252,6 +321,19 @@ test "the best friend's star stands after the name, never over it" {
 
 test "the filter shows each kind and those offline, and the view draws the friends as a table" {
   Test.mount(nil, PAGE)
+  Game.friends.list = friends
+  Game.friends.requests = requests
+  Game.friends.ignored = ignoredOnes
+  Game.friends.battleNetSelf = battleNetSelf
+  Game.guild.roster = guildRoster
+  Game.guild.motd = guildMotd
+  Game.guild.news = guildNews
+  Game.guild.newsFilters = newsFilters
+  Game.communities.clubs = clubs
+  Game.communities.members = clubMembers
+  Game.communities.streams = streams
+  Game.recentAllies.list = allies
+  Game.recentAllies.categories = allyCategories
   const window = opened(new FakePeople())
   window.button(Ordaen.art.ctl.tool.filter).click()
   Test.page().text("Battle.net").nth(1).click()
@@ -282,6 +364,19 @@ function sortBy(window: Test.Part, choice: String) {
 
 test "the sort is the table's: its headings and the toolbar's sort set one order, the best friend on top in every one" {
   Test.mount(nil, PAGE)
+  Game.friends.list = friends
+  Game.friends.requests = requests
+  Game.friends.ignored = ignoredOnes
+  Game.friends.battleNetSelf = battleNetSelf
+  Game.guild.roster = guildRoster
+  Game.guild.motd = guildMotd
+  Game.guild.news = guildNews
+  Game.guild.newsFilters = newsFilters
+  Game.communities.clubs = clubs
+  Game.communities.members = clubMembers
+  Game.communities.streams = streams
+  Game.recentAllies.list = allies
+  Game.recentAllies.categories = allyCategories
   const window = opened(new FakePeople())
   Test.expect(friendsOrder(window) == "Alexei, Eliana, Darrick, Irina")
   sortBy(window, "Level")
@@ -299,6 +394,19 @@ test "the sort is the table's: its headings and the toolbar's sort set one order
 
 test "the friends' view, sort and filter are there after a reload" {
   Test.mount(nil, PAGE)
+  Game.friends.list = friends
+  Game.friends.requests = requests
+  Game.friends.ignored = ignoredOnes
+  Game.friends.battleNetSelf = battleNetSelf
+  Game.guild.roster = guildRoster
+  Game.guild.motd = guildMotd
+  Game.guild.news = guildNews
+  Game.guild.newsFilters = newsFilters
+  Game.communities.clubs = clubs
+  Game.communities.members = clubMembers
+  Game.communities.streams = streams
+  Game.recentAllies.list = allies
+  Game.recentAllies.categories = allyCategories
   const window = opened(new FakePeople())
   sortBy(window, "Name")
   window.button(Ordaen.art.ctl.tool.filter).click()
@@ -314,6 +422,19 @@ test "the friends' view, sort and filter are there after a reload" {
 
 test "a development build's footer button shows the game's own window of the tab, as it is, until it closes" {
   Test.mount(nil, PAGE)
+  Game.friends.list = friends
+  Game.friends.requests = requests
+  Game.friends.ignored = ignoredOnes
+  Game.friends.battleNetSelf = battleNetSelf
+  Game.guild.roster = guildRoster
+  Game.guild.motd = guildMotd
+  Game.guild.news = guildNews
+  Game.guild.newsFilters = newsFilters
+  Game.communities.clubs = clubs
+  Game.communities.members = clubMembers
+  Game.communities.streams = streams
+  Game.recentAllies.list = allies
+  Game.recentAllies.categories = allyCategories
   const people = new FakePeople()
   Social.people = people
   const game = Client.CreateFrame("Frame", "FriendsFrame", Client.UIParent, nil)
@@ -330,13 +451,27 @@ test "a development build's footer button shows the game's own window of the tab
 
 test "a friend picked shows their card, whose buttons ask the game in the click" {
   Test.mount(nil, PAGE)
+  Game.friends.list = friends
+  Game.friends.requests = requests
+  Game.friends.ignored = ignoredOnes
+  Game.friends.battleNetSelf = battleNetSelf
+  Game.guild.roster = guildRoster
+  Game.guild.motd = guildMotd
+  Game.guild.news = guildNews
+  Game.guild.newsFilters = newsFilters
+  Game.communities.clubs = clubs
+  Game.communities.members = clubMembers
+  Game.communities.streams = streams
+  Game.recentAllies.list = allies
+  Game.recentAllies.categories = allyCategories
   const people = new FakePeople()
   const window = opened(mut people)
   window.text("Eliana").click()
   Test.expect(window.text("Stormwind").shown())
   window.button("Whisper").click()
   window.button("Invite").click()
-  Test.expect(people.heard.join(", ") == "whisper Eliana, invite Eliana")
+  Test.expect(people.heard.join(", ") == "whisper Eliana")
+  Test.expect(askedGame() == "Friends.invite Eliana")
   // Picked again: the player's own card.
   window.text("Eliana").nth(1).click()
   Test.expect(window.text("This is you").shown())
@@ -344,16 +479,42 @@ test "a friend picked shows their card, whose buttons ask the game in the click"
 
 test "an offline friend can't be whispered or invited" {
   Test.mount(nil, PAGE)
+  Game.friends.list = friends
+  Game.friends.requests = requests
+  Game.friends.ignored = ignoredOnes
+  Game.friends.battleNetSelf = battleNetSelf
+  Game.guild.roster = guildRoster
+  Game.guild.motd = guildMotd
+  Game.guild.news = guildNews
+  Game.guild.newsFilters = newsFilters
+  Game.communities.clubs = clubs
+  Game.communities.members = clubMembers
+  Game.communities.streams = streams
+  Game.recentAllies.list = allies
+  Game.recentAllies.categories = allyCategories
   const people = new FakePeople()
   const window = opened(mut people)
   window.text("Darrick").click()
   window.button("Whisper").click()
   window.button("Invite").click()
-  Test.expect(people.heard.length == 0)
+  Test.expect(people.heard.length == 0 && askedGame() == "")
 }
 
 test "removing a friend asks first, and only the yes removes" {
   Test.mount(nil, PAGE)
+  Game.friends.list = friends
+  Game.friends.requests = requests
+  Game.friends.ignored = ignoredOnes
+  Game.friends.battleNetSelf = battleNetSelf
+  Game.guild.roster = guildRoster
+  Game.guild.motd = guildMotd
+  Game.guild.news = guildNews
+  Game.guild.newsFilters = newsFilters
+  Game.communities.clubs = clubs
+  Game.communities.members = clubMembers
+  Game.communities.streams = streams
+  Game.recentAllies.list = allies
+  Game.recentAllies.categories = allyCategories
   const people = new FakePeople()
   const window = opened(mut people)
   window.text("Eliana").click()
@@ -361,16 +522,31 @@ test "removing a friend asks first, and only the yes removes" {
   const ask = Test.page().window("Remove Eliana from your friends?")
   Test.expect(ask.text("The character leaves your friends list.").shown())
   ask.button("Cancel").click()
-  Test.expect(people.heard.length == 0)
+  Test.expect(askedGame() == "")
   window.button("Remove").click()
+  // The game's list as it is once she is gone.
+  Game.friends.list = () => friends().filter(friend => friend.hero?.name != "Eliana")
   Test.page().window("Remove Eliana from your friends?").button("Remove").click()
-  Test.expect(people.heard.join(", ") == "remove Eliana")
+  Test.expect(askedGame() == "Friends.remove Eliana")
   Test.expect(!window.text("Eliana").shown())
   Test.expect(window.text("This is you").shown())
 }
 
 test "the search finds by name, note and BattleTag" {
   Test.mount(nil, PAGE)
+  Game.friends.list = friends
+  Game.friends.requests = requests
+  Game.friends.ignored = ignoredOnes
+  Game.friends.battleNetSelf = battleNetSelf
+  Game.guild.roster = guildRoster
+  Game.guild.motd = guildMotd
+  Game.guild.news = guildNews
+  Game.guild.newsFilters = newsFilters
+  Game.communities.clubs = clubs
+  Game.communities.members = clubMembers
+  Game.communities.streams = streams
+  Game.recentAllies.list = allies
+  Game.recentAllies.categories = allyCategories
   const window = opened(new FakePeople())
   window.input().type("smith")
   Test.expect(window.text("Darrick").shown())
@@ -379,6 +555,19 @@ test "the search finds by name, note and BattleTag" {
 
 test "add friend sends what is typed, and says which kind it makes" {
   Test.mount(nil, PAGE)
+  Game.friends.list = friends
+  Game.friends.requests = requests
+  Game.friends.ignored = ignoredOnes
+  Game.friends.battleNetSelf = battleNetSelf
+  Game.guild.roster = guildRoster
+  Game.guild.motd = guildMotd
+  Game.guild.news = guildNews
+  Game.guild.newsFilters = newsFilters
+  Game.communities.clubs = clubs
+  Game.communities.members = clubMembers
+  Game.communities.streams = streams
+  Game.recentAllies.list = allies
+  Game.recentAllies.categories = allyCategories
   const people = new FakePeople()
   const window = opened(mut people)
   window.button("Add Friend").click()
@@ -387,11 +576,24 @@ test "add friend sends what is typed, and says which kind it makes" {
   add.input().type("Drake#2145")
   Test.expect(add.text("A BattleTag or an email: a Battle.net friend request is sent.").shown())
   add.button("Send Request").click()
-  Test.expect(people.heard.join(", ") == "add Drake#2145")
+  Test.expect(askedGame() == "Friends.add Drake#2145")
 }
 
 test "the player's own card changes the broadcast in its dialog" {
   Test.mount(nil, PAGE)
+  Game.friends.list = friends
+  Game.friends.requests = requests
+  Game.friends.ignored = ignoredOnes
+  Game.friends.battleNetSelf = battleNetSelf
+  Game.guild.roster = guildRoster
+  Game.guild.motd = guildMotd
+  Game.guild.news = guildNews
+  Game.guild.newsFilters = newsFilters
+  Game.communities.clubs = clubs
+  Game.communities.members = clubMembers
+  Game.communities.streams = streams
+  Game.recentAllies.list = allies
+  Game.recentAllies.categories = allyCategories
   const people = new FakePeople()
   const window = opened(mut people)
   Test.expect(window.text("Ordaen#2718").shown())
@@ -400,21 +602,47 @@ test "the player's own card changes the broadcast in its dialog" {
   Test.expect(dialog.text("0 / 127").shown())
   dialog.input().type("  Raid at eight ")
   dialog.button("Update").click()
-  Test.expect(people.heard.join(", ") == "broadcast Raid at eight")
+  Test.expect(askedGame() == "Friends.setBroadcast Raid at eight")
 }
 
 test "a request is accepted or declined" {
   Test.mount(nil, PAGE)
+  Game.friends.list = friends
+  Game.friends.requests = requests
+  Game.friends.ignored = ignoredOnes
+  Game.friends.battleNetSelf = battleNetSelf
+  Game.guild.roster = guildRoster
+  Game.guild.motd = guildMotd
+  Game.guild.news = guildNews
+  Game.guild.newsFilters = newsFilters
+  Game.communities.clubs = clubs
+  Game.communities.members = clubMembers
+  Game.communities.streams = streams
+  Game.recentAllies.list = allies
+  Game.recentAllies.categories = allyCategories
   const people = new FakePeople()
   const window = opened(mut people)
   window.text("Requests (1)").click()
   window.button("Accept").click()
   window.button("Decline").click()
-  Test.expect(people.heard.join(", ") == "answer 31 true, answer 31 false")
+  Test.expect(askedGame() == "Friends.answer 31 true, Friends.answer 31 false")
 }
 
 test "the black list takes a name and gives one back" {
   Test.mount(nil, PAGE)
+  Game.friends.list = friends
+  Game.friends.requests = requests
+  Game.friends.ignored = ignoredOnes
+  Game.friends.battleNetSelf = battleNetSelf
+  Game.guild.roster = guildRoster
+  Game.guild.motd = guildMotd
+  Game.guild.news = guildNews
+  Game.guild.newsFilters = newsFilters
+  Game.communities.clubs = clubs
+  Game.communities.members = clubMembers
+  Game.communities.streams = streams
+  Game.recentAllies.list = allies
+  Game.recentAllies.categories = allyCategories
   const people = new FakePeople()
   const window = opened(mut people)
   window.text("Ignore List").click()
@@ -422,13 +650,26 @@ test "the black list takes a name and gives one back" {
   window.input().type("Goldseller")
   window.button("Add to Ignore List").click()
   window.text("Rudegnome").item().button("Remove").click()
-  Test.expect(people.heard.join(", ") == "ignore Goldseller, unignore Rudegnome")
+  Test.expect(askedGame() == "Friends.ignore Goldseller, Friends.unignore Rudegnome")
 }
 
 // The guild
 
 test "the guild's roster: those online first, a heading sorts it, «Show» keeps those online, the search finds a note" {
   Test.mount(nil, PAGE)
+  Game.friends.list = friends
+  Game.friends.requests = requests
+  Game.friends.ignored = ignoredOnes
+  Game.friends.battleNetSelf = battleNetSelf
+  Game.guild.roster = guildRoster
+  Game.guild.motd = guildMotd
+  Game.guild.news = guildNews
+  Game.guild.newsFilters = newsFilters
+  Game.communities.clubs = clubs
+  Game.communities.members = clubMembers
+  Game.communities.streams = streams
+  Game.recentAllies.list = allies
+  Game.recentAllies.categories = allyCategories
   const window = opened(new FakePeople())
   window.text("Guild").click()
   Test.expect(window.text("Guild Master").shown() && window.text("Branna").shown())
@@ -467,6 +708,19 @@ function placeOf(part: Test.Part, text: String): Integer {
 
 test "the guild's toolbar sorts as its headings do, and by class, which no column shows" {
   Test.mount(nil, PAGE)
+  Game.friends.list = friends
+  Game.friends.requests = requests
+  Game.friends.ignored = ignoredOnes
+  Game.friends.battleNetSelf = battleNetSelf
+  Game.guild.roster = guildRoster
+  Game.guild.motd = guildMotd
+  Game.guild.news = guildNews
+  Game.guild.newsFilters = newsFilters
+  Game.communities.clubs = clubs
+  Game.communities.members = clubMembers
+  Game.communities.streams = streams
+  Game.recentAllies.list = allies
+  Game.recentAllies.categories = allyCategories
   const window = opened(new FakePeople())
   window.text("Guild").click()
   Test.expect(!window.text("Class").shown())
@@ -483,6 +737,19 @@ test "the guild's toolbar sorts as its headings do, and by class, which no colum
 
 test "a guild member's card whispers, invites, promotes and demotes in the click" {
   Test.mount(nil, PAGE)
+  Game.friends.list = friends
+  Game.friends.requests = requests
+  Game.friends.ignored = ignoredOnes
+  Game.friends.battleNetSelf = battleNetSelf
+  Game.guild.roster = guildRoster
+  Game.guild.motd = guildMotd
+  Game.guild.news = guildNews
+  Game.guild.newsFilters = newsFilters
+  Game.communities.clubs = clubs
+  Game.communities.members = clubMembers
+  Game.communities.streams = streams
+  Game.recentAllies.list = allies
+  Game.recentAllies.categories = allyCategories
   const people = new FakePeople()
   const window = opened(mut people)
   window.text("Guild").click()
@@ -492,7 +759,8 @@ test "a guild member's card whispers, invites, promotes and demotes in the click
   window.button("Invite").click()
   window.button("Promote").click()
   window.button("Demote").click()
-  Test.expect(people.heard.join(", ") == "whisper Ingrid, invite Ingrid, promote Ingrid, demote Ingrid")
+  Test.expect(people.heard.join(", ") == "whisper Ingrid, invite Ingrid")
+  Test.expect(askedGame() == "Guild.promote Ingrid, Guild.demote Ingrid")
   // Picked again: the guild's card.
   window.text("Ingrid").nth(1).click()
   Test.expect(window.text("Iron Vow").shown())
@@ -500,6 +768,19 @@ test "a guild member's card whispers, invites, promotes and demotes in the click
 
 test "the guild's card invites by name and asks before leaving" {
   Test.mount(nil, PAGE)
+  Game.friends.list = friends
+  Game.friends.requests = requests
+  Game.friends.ignored = ignoredOnes
+  Game.friends.battleNetSelf = battleNetSelf
+  Game.guild.roster = guildRoster
+  Game.guild.motd = guildMotd
+  Game.guild.news = guildNews
+  Game.guild.newsFilters = newsFilters
+  Game.communities.clubs = clubs
+  Game.communities.members = clubMembers
+  Game.communities.streams = streams
+  Game.recentAllies.list = allies
+  Game.recentAllies.categories = allyCategories
   const people = new FakePeople()
   const window = opened(mut people)
   window.text("Guild").click()
@@ -511,15 +792,30 @@ test "the guild's card invites by name and asks before leaving" {
   window.button("Leave Guild").click()
   const ask = Test.page().window("Leave Iron Vow?")
   ask.button("Cancel").click()
-  Test.expect(people.heard.join(", ") == "guild invite Ulfric")
+  Test.expect(askedGame() == "Guild.invite Ulfric")
   window.button("Leave Guild").click()
+  // The game's guild as it is once the player has left it.
+  Game.guild.roster = noGuild
   Test.page().window("Leave Iron Vow?").button("Leave Guild").click()
-  Test.expect(people.heard.join(", ") == "guild invite Ulfric, leave guild")
+  Test.expect(askedGame() == "Guild.leave")
   Test.expect(window.text("You aren't in a guild.").shown())
 }
 
 test "the guild's news: the sticky line first" {
   Test.mount(nil, PAGE)
+  Game.friends.list = friends
+  Game.friends.requests = requests
+  Game.friends.ignored = ignoredOnes
+  Game.friends.battleNetSelf = battleNetSelf
+  Game.guild.roster = guildRoster
+  Game.guild.motd = guildMotd
+  Game.guild.news = guildNews
+  Game.guild.newsFilters = newsFilters
+  Game.communities.clubs = clubs
+  Game.communities.members = clubMembers
+  Game.communities.streams = streams
+  Game.recentAllies.list = allies
+  Game.recentAllies.categories = allyCategories
   const window = opened(new FakePeople())
   window.text("Guild").click()
   window.text("News").click()
@@ -531,8 +827,21 @@ test "the guild's news: the sticky line first" {
 
 test "«Guild Management» shows only to a player who may manage the guild" {
   Test.mount(nil, PAGE)
+  Game.friends.list = friends
+  Game.friends.requests = requests
+  Game.friends.ignored = ignoredOnes
+  Game.friends.battleNetSelf = battleNetSelf
+  Game.guild.roster = guildRoster
+  Game.guild.motd = guildMotd
+  Game.guild.news = guildNews
+  Game.guild.newsFilters = newsFilters
+  Game.communities.clubs = clubs
+  Game.communities.members = clubMembers
+  Game.communities.streams = streams
+  Game.recentAllies.list = allies
+  Game.recentAllies.categories = allyCategories
   const people = new FakePeople()
-  people.manages = false
+  Game.guild.roster = guildUnmanaged
   const window = opened(mut people)
   window.text("Guild").click()
   Test.expect(!window.button("Guild Management").shown() && window.button("Leave Guild").shown())
@@ -542,6 +851,19 @@ test "«Guild Management» shows only to a player who may manage the guild" {
 
 test "the communities: the first one's members and streams, another picked shows its own" {
   Test.mount(nil, PAGE)
+  Game.friends.list = friends
+  Game.friends.requests = requests
+  Game.friends.ignored = ignoredOnes
+  Game.friends.battleNetSelf = battleNetSelf
+  Game.guild.roster = guildRoster
+  Game.guild.motd = guildMotd
+  Game.guild.news = guildNews
+  Game.guild.newsFilters = newsFilters
+  Game.communities.clubs = clubs
+  Game.communities.members = clubMembers
+  Game.communities.streams = streams
+  Game.recentAllies.list = allies
+  Game.recentAllies.categories = allyCategories
   const people = new FakePeople()
   const window = opened(mut people)
   window.text("Communities").click()
@@ -559,6 +881,19 @@ test "the communities: the first one's members and streams, another picked shows
 
 test "the recent allies: those pinned first; an ally's card pins, whispers by full name and befriends" {
   Test.mount(nil, PAGE)
+  Game.friends.list = friends
+  Game.friends.requests = requests
+  Game.friends.ignored = ignoredOnes
+  Game.friends.battleNetSelf = battleNetSelf
+  Game.guild.roster = guildRoster
+  Game.guild.motd = guildMotd
+  Game.guild.news = guildNews
+  Game.guild.newsFilters = newsFilters
+  Game.communities.clubs = clubs
+  Game.communities.members = clubMembers
+  Game.communities.streams = streams
+  Game.recentAllies.list = allies
+  Game.recentAllies.categories = allyCategories
   const people = new FakePeople()
   const window = opened(mut people)
   window.text("Recent Allies").click()
@@ -568,14 +903,30 @@ test "the recent allies: those pinned first; an ally's card pins, whispers by fu
   Test.expect(window.text("Traded").shown())
   window.button("Whisper").click()
   window.button("Add Friend").click()
+  // The game's allies as they are once he is unpinned.
+  Game.recentAllies.list = alliesUnpinned
   window.button("Unpin").click()
-  Test.expect(people.heard.join(", ") == "whisper Gunnar-Flamegor, add Gunnar-Flamegor, pin Gunnar false")
+  Test.expect(people.heard.join(", ") == "whisper Gunnar-Flamegor")
+  Test.expect(askedGame() == "Friends.add Gunnar-Flamegor, RecentAllies.pin Gunnar false")
   Test.expect(!window.text("Pinned").shown() && window.button("Pin").shown())
   Test.shot("the recent allies: an ally's card with what was done together")
 }
 
 test "the allies' filter offers the game's categories here, and asks the game for the allies of those on" {
   Test.mount(nil, PAGE)
+  Game.friends.list = friends
+  Game.friends.requests = requests
+  Game.friends.ignored = ignoredOnes
+  Game.friends.battleNetSelf = battleNetSelf
+  Game.guild.roster = guildRoster
+  Game.guild.motd = guildMotd
+  Game.guild.news = guildNews
+  Game.guild.newsFilters = newsFilters
+  Game.communities.clubs = clubs
+  Game.communities.members = clubMembers
+  Game.communities.streams = streams
+  Game.recentAllies.list = allies
+  Game.recentAllies.categories = allyCategories
   const window = opened(new FakePeople())
   window.text("Recent Allies").click()
   window.button(Ordaen.art.ctl.tool.filter).click()
@@ -591,6 +942,19 @@ test "the allies' filter offers the game's categories here, and asks the game fo
 
 test "an offline ally can't be whispered or invited, and the filter hides them" {
   Test.mount(nil, PAGE)
+  Game.friends.list = friends
+  Game.friends.requests = requests
+  Game.friends.ignored = ignoredOnes
+  Game.friends.battleNetSelf = battleNetSelf
+  Game.guild.roster = guildRoster
+  Game.guild.motd = guildMotd
+  Game.guild.news = guildNews
+  Game.guild.newsFilters = newsFilters
+  Game.communities.clubs = clubs
+  Game.communities.members = clubMembers
+  Game.communities.streams = streams
+  Game.recentAllies.list = allies
+  Game.recentAllies.categories = allyCategories
   const people = new FakePeople()
   const window = opened(mut people)
   window.text("Recent Allies").click()
@@ -606,6 +970,19 @@ test "an offline ally can't be whispered or invited, and the filter hides them" 
 
 test "«Guild Management» shows the game's own guild window as it is, until it closes; the next one shown is ours" {
   Test.mount(nil, PAGE)
+  Game.friends.list = friends
+  Game.friends.requests = requests
+  Game.friends.ignored = ignoredOnes
+  Game.friends.battleNetSelf = battleNetSelf
+  Game.guild.roster = guildRoster
+  Game.guild.motd = guildMotd
+  Game.guild.news = guildNews
+  Game.guild.newsFilters = newsFilters
+  Game.communities.clubs = clubs
+  Game.communities.members = clubMembers
+  Game.communities.streams = streams
+  Game.recentAllies.list = allies
+  Game.recentAllies.categories = allyCategories
   const people = new FakePeople()
   const window = opened(mut people)
   const game = Client.CreateFrame("Frame", "CommunitiesFrame", Client.UIParent, nil)
@@ -618,4 +995,273 @@ test "«Guild Management» shows the game's own guild window as it is, until it 
   game.Hide()
   game.Show()
   Test.expect(fieldSays(Test.page().window(WINDOW), "Raid on Friday"))
+}
+
+// The game's own menus
+
+test "a friend's right click and the card's ⋮ open the game's own menu of the friend" {
+  Test.mount(nil, PAGE)
+  Game.friends.list = friends
+  Game.friends.requests = requests
+  Game.friends.ignored = ignoredOnes
+  Game.friends.battleNetSelf = battleNetSelf
+  Game.guild.roster = guildRoster
+  Game.guild.motd = guildMotd
+  Game.guild.news = guildNews
+  Game.guild.newsFilters = newsFilters
+  Game.communities.clubs = clubs
+  Game.communities.members = clubMembers
+  Game.communities.streams = streams
+  Game.recentAllies.list = allies
+  Game.recentAllies.categories = allyCategories
+  const window = opened(new FakePeople())
+  _ = askedGame()
+  window.text("Eliana").rightClick()
+  // A right click opens the menu and picks nobody: the player's own card stays.
+  Test.expect(window.text("This is you").shown())
+  window.text("Alexei").click()
+  window.button("···").click()
+  Test.expect(askedGame() == "Friends.menu Eliana, Friends.menu Drake#2145")
+}
+
+test "a guild member's and a community member's right click and the card's ⋮ open the game's own menu of the member" {
+  Test.mount(nil, PAGE)
+  Game.friends.list = friends
+  Game.friends.requests = requests
+  Game.friends.ignored = ignoredOnes
+  Game.friends.battleNetSelf = battleNetSelf
+  Game.guild.roster = guildRoster
+  Game.guild.motd = guildMotd
+  Game.guild.news = guildNews
+  Game.guild.newsFilters = newsFilters
+  Game.communities.clubs = clubs
+  Game.communities.members = clubMembers
+  Game.communities.streams = streams
+  Game.recentAllies.list = allies
+  Game.recentAllies.categories = allyCategories
+  const people = new FakePeople()
+  const window = opened(mut people)
+  window.text("Guild").click()
+  window.text("Branna").rightClick()
+  window.text("Ingrid").click()
+  window.button("···").click()
+  window.text("Communities").click()
+  window.text("Halvar").rightClick()
+  Test.expect(askedGame() == "Guild.menu Branna, Guild.menu Ingrid, Communities.menu c1 Halvar")
+}
+
+test "an ally's right click and the card's ⋮ open the game's own menu of the ally" {
+  Test.mount(nil, PAGE)
+  Game.friends.list = friends
+  Game.friends.requests = requests
+  Game.friends.ignored = ignoredOnes
+  Game.friends.battleNetSelf = battleNetSelf
+  Game.guild.roster = guildRoster
+  Game.guild.motd = guildMotd
+  Game.guild.news = guildNews
+  Game.guild.newsFilters = newsFilters
+  Game.communities.clubs = clubs
+  Game.communities.members = clubMembers
+  Game.communities.streams = streams
+  Game.recentAllies.list = allies
+  Game.recentAllies.categories = allyCategories
+  const people = new FakePeople()
+  const window = opened(mut people)
+  window.text("Recent Allies").click()
+  window.text("Astrid").rightClick()
+  window.text("Gunnar").click()
+  window.button("···").click()
+  Test.expect(askedGame() == "RecentAllies.menu Astrid-Flamegor, RecentAllies.menu Gunnar-Flamegor")
+}
+
+// The guild's extra column and news
+
+test "the guild's last column shows the notes, the professions or the achievement points, and sorts by what it shows" {
+  Test.mount(nil, PAGE)
+  Game.friends.list = friends
+  Game.friends.requests = requests
+  Game.friends.ignored = ignoredOnes
+  Game.friends.battleNetSelf = battleNetSelf
+  Game.guild.roster = guildRoster
+  Game.guild.motd = guildMotd
+  Game.guild.news = guildNews
+  Game.guild.newsFilters = newsFilters
+  Game.communities.clubs = clubs
+  Game.communities.members = clubMembers
+  Game.communities.streams = streams
+  Game.recentAllies.list = allies
+  Game.recentAllies.categories = allyCategories
+  const window = opened(new FakePeople())
+  window.text("Guild").click()
+  window.button(Ordaen.art.ctl.tool.columns).click()
+  Test.page().text("Professions").click()
+  Test.expect(window.text("Tailoring 225, Enchanting 180").shown() && !window.text("heals").shown())
+  window.button(Ordaen.art.ctl.tool.columns).click()
+  Test.page().text("Achievement Points").click()
+  Test.expect(window.text("240").shown() && window.text("Achievement Points").shown())
+  // Sorted by it: the fewest first, those online above those offline.
+  window.text("Achievement Points").click()
+  Test.expect(placeOf(window, "Ingrid") < placeOf(window, "Torvald"))
+}
+
+test "the guild's news filter offers the game's kinds here and asks the game for those switched" {
+  Test.mount(nil, PAGE)
+  Game.friends.list = friends
+  Game.friends.requests = requests
+  Game.friends.ignored = ignoredOnes
+  Game.friends.battleNetSelf = battleNetSelf
+  Game.guild.roster = guildRoster
+  Game.guild.motd = guildMotd
+  Game.guild.news = guildNews
+  Game.guild.newsFilters = newsFilters
+  Game.communities.clubs = clubs
+  Game.communities.members = clubMembers
+  Game.communities.streams = streams
+  Game.recentAllies.list = allies
+  Game.recentAllies.categories = allyCategories
+  const people = new FakePeople()
+  const window = opened(mut people)
+  window.text("Guild").click()
+  window.text("News").click()
+  window.button(Ordaen.art.ctl.tool.filter).click()
+  Test.expect(Test.page().text("Dungeon Encounters").shown() && !Test.page().text("Guild Achievements").shown())
+  Test.page().text("Epic Items Crafted").click()
+  Test.expect(askedGame() == "Guild.filterNews 6 false")
+}
+
+test "a line of the guild's news has its tooltip: an achievement's name and description, an item's own button" {
+  Client.GetAchievementInfo = (id: Integer): (Number | nil, String | nil, Number | nil, Boolean | nil, Number | nil, Number | nil, Number | nil, String | nil, Number | nil, FileId | nil, String | nil, Boolean | nil, Boolean | nil, String | nil) => {
+    return id, "Level 20", 10, true, 11, 10, 26, "Reach level 20.", 0, nil, nil, false, false, nil
+  }
+  Test.mount(nil, PAGE)
+  Game.friends.list = friends
+  Game.friends.requests = requests
+  Game.friends.ignored = ignoredOnes
+  Game.friends.battleNetSelf = battleNetSelf
+  Game.guild.roster = guildRoster
+  Game.guild.motd = guildMotd
+  Game.guild.news = guildNews
+  Game.guild.newsFilters = newsFilters
+  Game.communities.clubs = clubs
+  Game.communities.members = clubMembers
+  Game.communities.streams = streams
+  Game.recentAllies.list = allies
+  Game.recentAllies.categories = allyCategories
+  const window = opened(new FakePeople())
+  window.text("Guild").click()
+  window.text("News").click()
+  window.text("Branna").hover()
+  Test.expect(Test.page().text("Reach level 20.").shown())
+  Test.expect(window.text("Ingrid").item().paintedWith("Interface/Icons/INV_Misc_QuestionMark") || window.text("Ingrid").shown())
+}
+
+// The recent allies' pin and note
+
+test "a pinned ally's card says how long the pin lasts, in red as the game warns; the note is set in its dialog" {
+  Test.mount(nil, PAGE)
+  Game.friends.list = friends
+  Game.friends.requests = requests
+  Game.friends.ignored = ignoredOnes
+  Game.friends.battleNetSelf = battleNetSelf
+  Game.guild.roster = guildRoster
+  Game.guild.motd = guildMotd
+  Game.guild.news = guildNews
+  Game.guild.newsFilters = newsFilters
+  Game.communities.clubs = clubs
+  Game.communities.members = clubMembers
+  Game.communities.streams = streams
+  Game.recentAllies.list = allies
+  Game.recentAllies.categories = allyCategories
+  const people = new FakePeople()
+  const window = opened(mut people)
+  window.text("Recent Allies").click()
+  window.text("Gunnar").click()
+  Test.expect(window.text("Pinned for").shown() && window.text("4 d").shown())
+  window.button("Set Note").click()
+  const dialog = Test.page().window("Save")
+  dialog.input().type(" tank ")
+  dialog.button("Save").click()
+  Test.expect(askedGame() == "RecentAllies.setNote Gunnar tank")
+}
+
+test "an ally a request was sent to this session says so, and can't be asked again" {
+  Test.mount(nil, PAGE)
+  Game.friends.list = friends
+  Game.friends.requests = requests
+  Game.friends.ignored = ignoredOnes
+  Game.friends.battleNetSelf = battleNetSelf
+  Game.guild.roster = guildRoster
+  Game.guild.motd = guildMotd
+  Game.guild.news = guildNews
+  Game.guild.newsFilters = newsFilters
+  Game.communities.clubs = clubs
+  Game.communities.members = clubMembers
+  Game.communities.streams = streams
+  Game.recentAllies.list = allies
+  Game.recentAllies.categories = allyCategories
+  const window = opened(new FakePeople())
+  window.text("Recent Allies").click()
+  window.text("Astrid").click()
+  window.button("Request Sent").click()
+  Test.expect(askedGame() == "")
+}
+
+// The characters Battle.net friends were last seen on
+
+test "the characters last seen are capped, go when not seen for long or no longer friends, and stay while Battle.net is off" {
+  const now = 1800000000
+  const old: SeenHero = { name: "Old", level: 10, className: "Mage", classFile: "MAGE", realm: "Flamegor", at: now - 200 * 86400 }
+  const kept: Map<String, SeenHero> = {}
+  kept["Old#1"] = old
+  kept["Gone#2"] = { name: "Gone", level: 5, className: "", classFile: "", realm: "", at: now }
+  kept["Drake#2145"] = { name: "Torgrim", level: 25, className: "Warrior", classFile: "WARRIOR", realm: "Flamegor", at: now }
+  // Battle.net off: no account in the list, nobody dropped (but the one too old).
+  const off = seenAfter(kept, [], now) ?? panic("the old one goes")
+  Test.expect(off["Gone#2"] != nil && off["Old#1"] == nil)
+  // The list read: Irina isn't seen playing, Alexei is as before; Gone and Old aren't friends.
+  const read = seenAfter(kept, friends(), now) ?? panic("the others go")
+  Test.expect(read["Drake#2145"] != nil && read["Gone#2"] == nil && read["Old#1"] == nil && read["Iris#5512"] == nil)
+  // Nothing changed: nothing to write.
+  Test.expect(seenAfter(read, friends(), now) == nil)
+  // At most two hundred: the oldest go.
+  const many: Map<String, SeenHero> = {}
+  const list: Array<Friend> = []
+  for (at of 1..205) {
+    const tag = `Friend#${at}`
+    many[tag] = { name: "A", level: 1, className: "", classFile: "", realm: "", at: now - at }
+    list.push({ index: at, presence: .Offline, note: "", hero: nil, account: { id: at, name: "A", battleTag: tag, program: "", broadcast: "", favorite: false, lastOnline: 0, gameAccount: 0 } })
+  }
+  const capped = seenAfter(many, list, now) ?? panic("capped")
+  Test.expect(capped["Friend#1"] != nil && capped["Friend#200"] != nil && capped["Friend#201"] == nil)
+}
+
+// The friends a session later: Alexei gone offline.
+function friendsLater(): Array<Friend> {
+  return friends().map((friend: Friend): Friend => {
+    if (friend.account?.battleTag != "Drake#2145") { return friend }
+    return Friend { index: friend.index, presence: .Offline, note: friend.note, hero: nil, account: friend.account }
+  })
+}
+
+test "an offline Battle.net friend shows the character last seen, after a reload" {
+  Test.mount(nil, PAGE)
+  Game.friends.list = friends
+  Game.friends.requests = requests
+  Game.friends.ignored = ignoredOnes
+  Game.friends.battleNetSelf = battleNetSelf
+  Game.guild.roster = guildRoster
+  Game.guild.motd = guildMotd
+  Game.guild.news = guildNews
+  Game.guild.newsFilters = newsFilters
+  Game.communities.clubs = clubs
+  Game.communities.members = clubMembers
+  Game.communities.streams = streams
+  Game.recentAllies.list = allies
+  Game.recentAllies.categories = allyCategories
+  _ = opened(new FakePeople())
+  Test.reload()
+  Game.friends.list = friendsLater
+  const window = opened(new FakePeople())
+  Test.expect(Social.seen.values.heroes["Drake#2145"] != nil)
+  Test.expect(window.texts().find(text => text.contains("Torgrim")) != nil)
 }

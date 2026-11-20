@@ -7,11 +7,11 @@
 // The view switch draws the same friends as a table's columns instead. Best friends stay on top whatever the sort; the
 // filter shows each kind and those online or offline. Left-click picks a friend (its card shows); again, the card is
 // the player's own.
-import { Align, Art, Edges, Overflow, Track } from "$ltml"
+import { BattleNetSelf, Friend, FriendRequest, Hero, Ignored, Presence } from "$game"
+import { Align, Art, ByInteractionState, Edges, MouseButton, Overflow, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { ARTWORK, ButtonPlate, Choice, Column, CompactDropdown, Component, Fact, Field, FilterButton, FilterGroup, ModuleMemory, PickRow, PushButton, SECONDARY_TEXT, TITLE_LINE, TITLE_TEXT, Table, TableCell, TableRow, ToolPick, ToolSort, Toolbar, agoText, switched, tracksOf, trimmed } from "Ordaen"
+import { ARTWORK, ButtonPlate, Choice, Column, CompactDropdown, Component, Fact, Field, FilterButton, FilterGroup, ModuleMemory, PushButton, SECONDARY_TEXT, TITLE_LINE, TITLE_TEXT, Table, TableCell, TableRow, ToolPick, ToolSort, Toolbar, agoText, classColor, rowShade, switched, tracksOf, trimmed } from "Ordaen"
 import Locale from "@/locales"
-import { Friend, Hero, Ignored, Me, Presence, Request } from "@/people"
 import Style from "@/style"
 
 // The filter's options: the friends' kinds, and online or not.
@@ -67,6 +67,8 @@ const PRESENCES: Array<Choice<Presence>> = [
 ]
 const ROW: Array<Track> = [Style.DOT, { fr: 1 }, "max-content"]
 const ROW_PAD: Edges = { top: 1sp, right: 2sp, bottom: 1sp, left: 2sp }
+// A friend's row's padding: a pickable row's (`PickRow`'s).
+const PICK_PAD: Edges = { top: 2sp, right: 2sp, bottom: 2sp, left: 2sp }
 
 // What a friend is called in the list: the account's name, or the character's.
 public function titleOf(friend: Friend): String { return friend.account?.name ?? friend.hero?.name ?? "" }
@@ -108,11 +110,11 @@ public function gameName(program: String): String {
 function nameColorOf(friend: Friend): Color {
   if (friend.presence == .Offline) { return Style.OFFLINE }
   if (friend.account != nil) { return Style.BATTLE_NET }
-  return friend.hero?.classColor ?? Style.INK
+  return classColor(friend.hero?.classFile) ?? Style.INK
 }
 
 // The second line's points: «Battle.net» first for an account, then the character and its zone, the game, or when it
-// was last seen.
+// was last seen (an account's, with the character it was last seen on here).
 function pointsOf(friend: Friend): String {
   const points: Array<String> = []
   const account = friend.account
@@ -120,6 +122,7 @@ function pointsOf(friend: Friend): String {
   const hero = friend.hero
   if (friend.presence == .Offline) {
     points.push(Locale.OFFLINE_LOWER)
+    if (account != nil && hero != nil) { points.push(hero.name) }
     if (account != nil && account.lastOnline > 0) { points.push(agoText(account.lastOnline)) }
   } else if (account != nil && hero != nil) {
     points.push(hero.name)
@@ -194,11 +197,14 @@ public function filterStart(offline: Boolean): mut Map<FriendFilter, Boolean> {
   return switched(switched({}, [FriendFilter.BattleNet, FriendFilter.Characters, FriendFilter.Online], true), [FriendFilter.Offline], offline)
 }
 
+// A friend as a row of the list: a left click, Enter or Space picks it, a right click opens the game's menu of it.
 class FriendRow implements Component {
   public pick: Event<String> = new Event()
+  public menu: Event<String> = new Event()
 
   derived level: String = self.friend.hero != nil ? String.of(levelOf(self.friend)) : ""
   derived favorite: Boolean = self.friend.account?.favorite == true
+  derived background: Color | ByInteractionState<Color> = rowShade(self.picked)
 
   friend: Signal<Friend>
   picked: Signal<Boolean>
@@ -208,10 +214,13 @@ class FriendRow implements Component {
   }
 
   onPick(mut self) { self.pick.emit(keyOf(self.friend)) }
+  onMenu(mut self) { self.menu.emit(keyOf(self.friend)) }
 
   public render(self): Template {
     return $ltml {
-      <PickRow columns={ROW} picked={self.picked} @pick={self.onPick}>
+      <box columns={ROW} gap={2sp} yAlign={Align.Center} padding={PICK_PAD} background={self.background}
+           @pointerPress(.Left)={self.onPick} @pointerPress(.Right)={self.onMenu} @keyPress(.Enter)={self.onPick}
+           @keyPress(.Space)={self.onPick}>
         <box width={Style.DOT} height={Style.DOT} background={markOf(self.friend.presence)} />
         <box columns={1}>
           <box columns={[{ fr: 1 }, "max-content"]} gap={2sp} yAlign={Align.Center}>
@@ -221,15 +230,16 @@ class FriendRow implements Component {
           <text value={pointsOf(self.friend)} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={.Cut} />
         </box>
         <text value={self.level} textColor={Style.DIM} textFont={.Numbers} wrap={.None} />
-      </PickRow>
+      </box>
     }
   }
 }
 
 // A friend as a row of the table: the name (the star after a best friend's), the level, where it is or what it plays,
-// and the note, the one text cut at its column.
+// and the note, the one text cut at its column. A right click opens the game's menu of it.
 class FriendTableRow implements Component {
   public pick: Event<String> = new Event()
+  public menu: Event<String> = new Event()
 
   derived level: String = self.friend.hero != nil ? String.of(levelOf(self.friend)) : ""
   derived favorite: Boolean = self.friend.account?.favorite == true
@@ -241,7 +251,13 @@ class FriendTableRow implements Component {
     self.picked = picked
   }
 
-  onPick(mut self) { self.pick.emit(keyOf(self.friend)) }
+  onPick(mut self, button: MouseButton) {
+    if (button == .Right) {
+      self.menu.emit(keyOf(self.friend))
+    } else {
+      self.pick.emit(keyOf(self.friend))
+    }
+  }
 
   public render(self): Template {
     return $ltml {
@@ -271,6 +287,7 @@ class FriendTableRow implements Component {
 // view) and «Добавить друга» beside it.
 public class FriendList implements Component {
   public pick: Event<String> = new Event()
+  public menu: Event<String> = new Event()
   public add: Event<nil> = new Event()
 
   state query = ""
@@ -302,6 +319,7 @@ public class FriendList implements Component {
   }
 
   onPick(mut self, key: String) { self.pick.emit(key) }
+  onMenu(mut self, key: String) { self.menu.emit(key) }
   onAdd(mut self) { self.add.emit() }
 
   public render(self): Template {
@@ -318,13 +336,13 @@ public class FriendList implements Component {
         <box $if={self.kept.values.view == .Table} columns={1} rows={[{ fr: 1 }]}>
           <Table columns={COLUMNS} sorted={mut self.kept.values.sorted} descending={mut self.kept.values.descending} rowsVary={true}>
             <FriendTableRow $for={friend of self.shown} $key={keyOf(friend)} friend={friend}
-                            picked={keyOf(friend) == self.picked} @pick={self.onPick} />
+                            picked={keyOf(friend) == self.picked} @pick={self.onPick} @menu={self.onMenu} />
           </Table>
         </box>
         <box $else columns={1} overflow={Overflow.Scroll}>
           <text $if={self.shown.length == 0} value={Locale.NOTHING_FOUND} textColor={Style.DIM} />
           <FriendRow $for={friend of self.shown} $key={keyOf(friend)} friend={friend}
-                     picked={keyOf(friend) == self.picked} @pick={self.onPick} />
+                     picked={keyOf(friend) == self.picked} @pick={self.onPick} @menu={self.onMenu} />
         </box>
       </box>
     }
@@ -339,12 +357,14 @@ function heroText(hero: Hero): String {
 
 public function orDash(text: String): String { return text != "" ? text : Locale.DASH }
 
-// The picked friend's card: who it is, how it stands, what it plays and where, the note; Шепнуть, Пригласить and
-// «Удалить» (which asks first).
+// The picked friend's card: who it is, how it stands, what it plays and where (an offline Battle.net friend: the
+// character last seen on), the note; Шепнуть, Пригласить, «Удалить» (which asks first) and ⋮, the game's own menu
+// of the friend.
 public class FriendCard implements Component {
   public whisper: Event<nil> = new Event()
   public invite: Event<nil> = new Event()
   public remove: Event<nil> = new Event()
+  public menu: Event<nil> = new Event()
 
   derived title: String = titleOf(self.friend)
   derived color: Color = nameColorOf(self.friend)
@@ -353,6 +373,7 @@ public class FriendCard implements Component {
   derived status: String = self.statusOf()
   derived plays: String = self.friend.account != nil && online(self.friend) ? gameName(self.friend.account?.program ?? "") : ""
   derived hero: String = self.friend.hero != nil ? heroText(self.friend.hero ?? panic("tested")) : ""
+  derived heroLabel: String = self.friend.account != nil && !online(self.friend) ? Locale.LAST_SEEN_AS : Locale.CHARACTER
   derived where: String = online(self.friend) ? orDash(self.friend.hero?.area ?? "") : Locale.DASH
   derived broadcast: String = self.friend.account?.broadcast ?? ""
   derived canWhisper: Boolean = online(self.friend)
@@ -381,6 +402,7 @@ public class FriendCard implements Component {
   onWhisper(mut self) { self.whisper.emit() }
   onInvite(mut self) { self.invite.emit() }
   onRemove(mut self) { self.remove.emit() }
+  onMenu(mut self) { self.menu.emit() }
 
   public render(self): Template {
     return $ltml {
@@ -399,15 +421,16 @@ public class FriendCard implements Component {
           <text $if={self.broadcast != ""} value={Locale.QUOTED.format(self.broadcast)} textColor={Style.INK} />
           <Fact label={Locale.STATUS} value={self.status} />
           <Fact $if={self.plays != ""} label={Locale.PLAYS} value={self.plays} />
-          <Fact $if={self.hero != ""} label={Locale.CHARACTER} value={self.hero} />
+          <Fact $if={self.hero != ""} label={self.heroLabel} value={self.hero} />
           <Fact label={Locale.WHERE} value={self.where} />
           <Fact label={Locale.NOTE} value={orDash(self.friend.note)} />
         </box>
         <box />
-        <box columns={["max-content", "max-content", "max-content"]} gap={3sp}>
+        <box columns={["max-content", "max-content", "max-content", "max-content"]} gap={3sp}>
           <PushButton label={Locale.WHISPER} width={Style.SMALL_BUTTON} disabled={!self.canWhisper} @click={self.onWhisper} />
           <PushButton label={Locale.INVITE} width={Style.SMALL_BUTTON} disabled={!self.canInvite} @click={self.onInvite} />
           <PushButton label={Locale.REMOVE} width={Style.SMALL_BUTTON} plate={ButtonPlate.Danger} @click={self.onRemove} />
+          <PushButton label={Locale.MORE} width={Style.MENU_BUTTON} @click={self.onMenu} />
         </box>
       </box>
     }
@@ -425,8 +448,8 @@ public class MyCard implements Component {
   state picked: Presence = .Online
   derived connected: Boolean = self.me.battleTag != ""
 
-  me: Signal<Me>
-  constructor(me: Signal<Me>) {
+  me: Signal<BattleNetSelf>
+  constructor(me: Signal<BattleNetSelf>) {
     self.me = me
     watch (now of self.me) { self.picked = now.presence }
     watch (chosen of self.picked) {
@@ -454,7 +477,7 @@ public class MyCard implements Component {
             <CompactDropdown value={mut self.picked} choices={PRESENCES} width={Style.WIDE_BUTTON} />
           </box>
           <Fact $if={self.connected} label={Locale.BROADCAST} value={orDash(self.me.broadcast)} />
-          <Fact label={Locale.CHARACTER} value={heroText(self.me.hero)} color={self.me.hero.classColor ?? Style.INK} />
+          <Fact label={Locale.CHARACTER} value={heroText(self.me.hero)} color={classColor(self.me.hero.classFile) ?? Style.INK} />
           <Fact label={Locale.WHERE} value={orDash(self.me.hero.area)} />
         </box>
         <box />
@@ -468,10 +491,10 @@ public class MyCard implements Component {
 }
 
 class RequestRow implements Component {
-  public answer: Event<(Request, Boolean)> = new Event()
+  public answer: Event<(FriendRequest, Boolean)> = new Event()
 
-  request: Signal<Request>
-  constructor(request: Signal<Request>) {
+  request: Signal<FriendRequest>
+  constructor(request: Signal<FriendRequest>) {
     self.request = request
   }
 
@@ -494,16 +517,16 @@ class RequestRow implements Component {
 
 // The requests received: Принять or Отклонить each.
 public class RequestList implements Component {
-  public answer: Event<(Request, Boolean)> = new Event()
+  public answer: Event<(FriendRequest, Boolean)> = new Event()
 
   derived heading: String = Locale.RECEIVED.format(self.requests.length)
 
-  requests: Signal<Array<Request>>
-  constructor(requests: Signal<Array<Request>>) {
+  requests: Signal<Array<FriendRequest>>
+  constructor(requests: Signal<Array<FriendRequest>>) {
     self.requests = requests
   }
 
-  onAnswer(mut self, request: Request, accept: Boolean) { self.answer.emit(request, accept) }
+  onAnswer(mut self, request: FriendRequest, accept: Boolean) { self.answer.emit(request, accept) }
 
   public render(self): Template {
     return $ltml {

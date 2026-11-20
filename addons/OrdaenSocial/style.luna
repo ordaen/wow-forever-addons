@@ -11,6 +11,10 @@ public const SEARCH: Number<Length> = 164.0625dp
 public const BUTTON: Number<Length> = 152.34375dp
 public const WIDE_BUTTON: Number<Length> = 246.09375dp
 public const SMALL_BUTTON: Number<Length> = 128.90625dp
+// The item of a line of the guild's news, its tooltip the game's.
+public const NEWS_ITEM: Number<Length> = 23.4375dp
+// A card's «⋮»: the rest of what can be done, the game's own menu.
+public const MENU_BUTTON: Number<Length> = 46.875dp
 // The player's own card's two buttons, side by side in it.
 public const CARD_BUTTON: Number<Length> = 210.9375dp
 public const ASK: Number<Length> = 515.625dp

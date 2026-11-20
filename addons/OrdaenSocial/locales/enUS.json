@@ -84,10 +84,6 @@
   "COLUMN_RANK": "Rank",
   "COLUMN_ROLE": "Role",
   "COLUMN_NOTE": "Note",
-  "ROLE_OWNER": "Owner",
-  "ROLE_LEADER": "Leader",
-  "ROLE_MODERATOR": "Moderator",
-  "ROLE_MEMBER": "Member",
   "CARD_CHARACTER_LEVEL": "%s, level %d",
   "OFFICER_NOTE": "Officer note",
   "PROMOTE": "Promote",
@@ -122,5 +118,16 @@
   "CATEGORY_RAIDING": "Raiding",
   "CATEGORY_DUNGEONS": "Dungeons",
   "CATEGORY_DELVES": "Delves",
-  "CATEGORY_QUESTING": "Questing"
+  "CATEGORY_QUESTING": "Questing",
+  "LAST_SEEN_AS": "Last seen as",
+  "MORE": "···",
+  "COLUMN_PROFESSIONS": "Professions",
+  "COLUMN_ACHIEVEMENTS": "Achievement Points",
+  "EXTRA_COLUMN": "Last Column",
+  "NEWS_ENCOUNTER": "Defeated by the guild.",
+  "PIN_LASTS": "Pinned for",
+  "PIN_DAYS_LEFT": "%d d",
+  "REQUEST_SENT": "Request Sent",
+  "SET_NOTE": "Set Note",
+  "SAVE": "Save"
 }

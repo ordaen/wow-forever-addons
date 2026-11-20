@@ -11,6 +11,8 @@
 // while it shows.
 import Client from "$client"
 import Events from "$events"
+import Game from "$game"
+import { AllyCategory, BattleNetSelf, Club, ClubStream, Friend, FriendRequest, GuildNews, GuildRights, GuildRoster, Ignored, Member, NewsFilter, Presence, RecentAlly } from "$game"
 import { Align, Frame } from "$ltml"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
@@ -21,7 +23,8 @@ import { FRIENDS_KEPT, FriendCard, FriendList, FriendsKept, IgnoreList, MyCard, 
 import { GuildCard, NewsList } from "@/guild"
 import Locale from "@/locales"
 import { MemberCard, MemberTable } from "@/members"
-import { Ally, AllyCategory, ClientPeople, Club, Friend, Guild, Ignored, Me, Member, News, People, Presence, Request, Rights, Stream, namesAccount } from "@/people"
+import { ClientPeople, People, namesAccount } from "@/people"
+import { SEEN_HEROES, SeenHeroes, noteSeen, withSeen } from "@/seen"
 import { Choices, GeneralPage } from "@/settings"
 import Style from "@/style"
 
@@ -49,8 +52,10 @@ const COMMUNITIES_WINDOW = "CommunitiesFrame"
 // The most the game's broadcast holds (`FriendsFrameBroadcastInput`'s letters), and a character's name.
 const BROADCAST_MOST = 127
 const NAME_MOST = 48
-const NO_ME: Me = { battleTag: "", presence: .Online, broadcast: "", hero: { name: "", level: 0, className: "", classColor: nil, area: "", realm: "" } }
-const NO_RIGHTS: Rights = { invite: false, promote: false, demote: false, manage: false }
+const NO_ME: BattleNetSelf = { battleTag: "", presence: .Online, broadcast: "", hero: { name: "", level: 0, className: "", classFile: "", area: "", realm: "" } }
+// The most a recent ally's note holds (`RecentAlliesNoteEditBox`'s letters).
+const NOTE_MOST = 48
+const NO_RIGHTS: GuildRights = { invite: false, promote: false, demote: false, manage: false }
 const GUILD_SUBS: Array<String> = [Locale.SUB_ROSTER, Locale.SUB_NEWS]
 
 function onlineOf(members: Array<Member>): Integer { return members.count(member => member.presence != .Offline) }
@@ -71,8 +76,11 @@ public class Social implements Module, App {
   public settings: mut Settings<Choices> = new Settings<Choices>({ offline: true })
   // How the player left the friends' list: its view, its sort and its filter, the profile's.
   public friendsList: mut ModuleMemory<FriendsKept> = new ModuleMemory<FriendsKept>(FRIENDS_KEPT, .Profile, "friends")
-  // Where the window reads its people and what its clicks ask of the game: a test hands its own.
+  // What the window's clicks ask of the chat, the group and the clipboard: a test hands its own. The friends, the
+  // guild, the communities and the recent allies are `"$game"`'s.
   public people: mut any People = new ClientPeople()
+  // The character each Battle.net friend was last seen on, the account's.
+  public seen: mut ModuleMemory<SeenHeroes> = new ModuleMemory<SeenHeroes>(SEEN_HEROES, .Account, "seen")
 
   public state open = false
   public state tab: Integer = TAB_FRIENDS
@@ -86,16 +94,22 @@ public class Social implements Module, App {
   communities: any Client.Frame | nil = nil
   pass: mut GamePass = new GamePass()
   addonHeard: Handle | nil = nil
-  state friends: Array<Friend> = []
-  state requests: Array<Request> = []
+  // The friends as the client gives them; as the window shows them, an offline Battle.net friend with the character
+  // last seen.
+  state read: Array<Friend> = []
+  derived friends: Array<Friend> = withSeen(self.read, self.seen.values.heroes)
+  state requests: Array<FriendRequest> = []
   state ignored: Array<Ignored> = []
-  state me: Me = NO_ME
-  state guild: Guild | nil = nil
-  state news: Array<News> = []
+  state me: BattleNetSelf = NO_ME
+  // The guild's message of the day: the client gives it in the player's input alone, and says it anew (`GUILD_MOTD`).
+  state motd = ""
+  state guild: GuildRoster | nil = nil
+  state news: Array<GuildNews> = []
+  state newsFilters: Array<NewsFilter> = []
   state clubs: Array<Club> = []
   state clubMembers: Array<Member> = []
-  state streams: Array<Stream> = []
-  state allies: Array<Ally> = []
+  state streams: Array<ClubStream> = []
+  state allies: Array<RecentAlly> = []
   // The recent allies' filter: the categories asked of the game, and online or not.
   state allyFilter: Map<AllyFilter, Boolean> = allyFilterStart()
   derived allyCategories: Array<AllyCategory> | nil = categoriesOf(self.allyFilter)
@@ -118,16 +132,19 @@ public class Social implements Module, App {
   state inviting = false
   state inviteText = ""
   state leaving = false
+  // The recent ally's note dialog, while it shows, and what is typed in it.
+  state noting = false
+  state noteText = ""
 
   derived pickedFriend: Friend | nil = self.picked == "" ? nil : self.friends.find(friend => keyOf(friend) == self.picked)
   derived guildMembers: Array<Member> = self.guild?.members ?? []
-  derived rights: Rights = self.guild?.rights ?? NO_RIGHTS
+  derived rights: GuildRights = self.guild?.rights ?? NO_RIGHTS
   derived pickedMember: Member | nil = self.member == "" ? nil : self.guildMembers.find(one => one.key == self.member)
   derived chosenClub: Club | nil = self.clubs[self.clubTab] ?? self.clubs[1]
   derived clubNames: Array<String> = self.clubs.map(one => one.name)
   derived clubId: String = self.chosenClub?.id ?? ""
   derived pickedClubMember: Member | nil = self.clubMember == "" ? nil : self.clubMembers.find(one => one.key == self.clubMember)
-  derived pickedAlly: Ally | nil = self.ally == "" ? nil : self.allies.find(one => one.member.key == self.ally)
+  derived pickedAlly: RecentAlly | nil = self.ally == "" ? nil : self.allies.find(one => one.member.key == self.ally)
   // The friends online, of the list as it was read (the window reads it while it shows, and shows nothing else).
   derived onlineCount: Integer = self.friends.count(friend => friend.presence != .Offline)
   derived guildOnline: Integer = onlineOf(self.guildMembers)
@@ -156,6 +173,8 @@ public class Social implements Module, App {
 
   constructor() {
     Ordaen.modules.add(self)
+    // The friends read: the characters Battle.net friends play here written down.
+    watch (friends of self.read) { noteSeen(mut self.seen, friends, Client.GetServerTime()) }
     // The game's words about the people shown are heard while the window shows.
     watch (opened of self.open) {
       if (!opened) { return }
@@ -174,7 +193,7 @@ public class Social implements Module, App {
       Events.BN_CUSTOM_MESSAGE_CHANGED.listen(self.readMe)
       Events.GUILD_ROSTER_UPDATE.listen(self.readGuild)
       Events.PLAYER_GUILD_UPDATE.listen(self.readGuild)
-      Events.GUILD_MOTD.listen(self.readGuild)
+      Events.GUILD_MOTD.listen(self.onMotd)
       Events.GUILD_NEWS_UPDATE.listen(self.readNews)
       Events.INITIAL_CLUBS_LOADED.listen(self.readClubs)
       Events.CLUB_ADDED.listen(self.readClubs)
@@ -189,7 +208,7 @@ public class Social implements Module, App {
       Events.CLUB_STREAM_UPDATED.listen(self.onClubChanged)
       Events.RECENT_ALLIES_CACHE_UPDATE.listen(self.readAllies)
       // The recent allies asked for again as the filter's categories change.
-      watch { self.allies = self.people.allies(self.allyCategories) }
+      watch { self.allies = Game.recentAllies.list(self.allyCategories) }
       // The picked community's members and streams, read as it is picked; its member's card goes.
       watch (id of self.clubId) {
         self.clubMember = ""
@@ -230,6 +249,8 @@ public class Social implements Module, App {
     const window: any Client.Frame = frame
     self.games.push(window)
     _ = window.HookScript("OnShow", (): nil => {
+      // In the key's or the click's own call: the message of the day, which the client gives then alone.
+      if (!(peek self.open) && !self.pass.passes(frame)) { self.motd = Game.guild.motd() }
       self.onGameShown(frame, tab)
       return nil
     })
@@ -267,7 +288,8 @@ public class Social implements Module, App {
     if (!(peek self.open)) {
       self.open = true
       // In the key's or the click's own call, as the client's restricted calls want.
-      self.people.ask()
+      Game.guild.ask()
+      Game.recentAllies.ask()
     }
   }
 
@@ -288,18 +310,29 @@ public class Social implements Module, App {
     self.readAllies()
   }
 
-  readFriends(mut self) { self.friends = self.people.friends() }
-  readRequests(mut self) { self.requests = self.people.requests() }
-  readIgnored(mut self) { self.ignored = self.people.ignored() }
-  readMe(mut self) { self.me = self.people.me() }
-  readGuild(mut self) { self.guild = self.people.guild() }
-  readNews(mut self) { self.news = self.people.news() }
-  readClubs(mut self) { self.clubs = self.people.clubs() }
-  readAllies(mut self) { self.allies = self.people.allies(peek self.allyCategories) }
+  // The friends read, and the characters Battle.net friends play here written down.
+  readFriends(mut self) { self.read = Game.friends.list() }
+
+  readRequests(mut self) { self.requests = Game.friends.requests() }
+  readIgnored(mut self) { self.ignored = Game.friends.ignored() }
+  readMe(mut self) { self.me = Game.friends.battleNetSelf() }
+  readGuild(mut self) { self.guild = Game.guild.roster(peek self.motd) }
+
+  onMotd(mut self, text: String) {
+    self.motd = text
+    self.readGuild()
+  }
+
+  readNews(mut self) {
+    self.news = Game.guild.news()
+    self.newsFilters = Game.guild.newsFilters()
+  }
+  readClubs(mut self) { self.clubs = Game.communities.clubs() }
+  readAllies(mut self) { self.allies = Game.recentAllies.list(peek self.allyCategories) }
 
   readClub(mut self, id: String) {
-    self.clubMembers = id == "" ? [] : self.people.clubMembers(id)
-    self.streams = id == "" ? [] : self.people.streams(id)
+    self.clubMembers = id == "" ? [] : Game.communities.members(id)
+    self.streams = id == "" ? [] : Game.communities.streams(id)
   }
 
   // A community's members or streams changed: read again where it is the one shown.
@@ -338,7 +371,18 @@ public class Social implements Module, App {
 
   onInvite(mut self) {
     const friend = peek self.pickedFriend
-    if (friend != nil) { self.people.invite(friend) }
+    if (friend != nil) { Game.friends.invite(friend) }
+  }
+
+  // The game's own menu of a friend: a row's right click, the card's ⋮.
+  onFriendMenu(mut self, key: String) {
+    const friend = (peek self.friends).find(one => keyOf(one) == key)
+    if (friend != nil) { Game.friends.menu(friend) }
+  }
+
+  onCardMenu(mut self) {
+    const friend = peek self.pickedFriend
+    if (friend != nil) { Game.friends.menu(friend) }
   }
 
   onRemove(mut self) { self.removing = peek self.pickedFriend }
@@ -347,7 +391,7 @@ public class Social implements Module, App {
     const friend = peek self.removing
     self.removing = nil
     if (friend == nil) { return }
-    self.people.remove(friend)
+    Game.friends.remove(friend)
     self.picked = ""
     self.readFriends()
   }
@@ -355,7 +399,7 @@ public class Social implements Module, App {
   onRemoveNo(mut self) { self.removing = nil }
 
   onPresence(mut self, presence: Presence) {
-    self.people.setPresence(presence)
+    Game.friends.setPresence(presence)
     self.readMe()
   }
 
@@ -366,7 +410,7 @@ public class Social implements Module, App {
 
   onBroadcastYes(mut self) {
     self.editing = false
-    self.people.setBroadcast(trimmed(peek self.draft))
+    Game.friends.setBroadcast(trimmed(peek self.draft))
     self.readMe()
   }
 
@@ -383,24 +427,24 @@ public class Social implements Module, App {
     const text = trimmed(peek self.addText)
     if (text == "") { return }
     self.adding = false
-    self.people.addFriend(text)
+    Game.friends.add(text)
   }
 
   onAddNo(mut self) { self.adding = false }
 
-  onAnswer(mut self, request: Request, accept: Boolean) {
-    self.people.answer(request, accept)
+  onAnswer(mut self, request: FriendRequest, accept: Boolean) {
+    Game.friends.answer(request, accept)
     self.readRequests()
     self.readFriends()
   }
 
   onIgnore(mut self, name: String) {
-    self.people.ignore(name)
+    Game.friends.ignore(name)
     self.readIgnored()
   }
 
   onUnignore(mut self, entry: Ignored) {
-    self.people.unignore(entry)
+    Game.friends.unignore(entry)
     self.readIgnored()
   }
 
@@ -418,15 +462,39 @@ public class Social implements Module, App {
   onPromote(mut self) {
     const one = peek self.pickedMember
     if (one == nil) { return }
-    self.people.promote(one.name)
+    Game.guild.promote(one.name)
     self.readGuild()
   }
 
   onDemote(mut self) {
     const one = peek self.pickedMember
     if (one == nil) { return }
-    self.people.demote(one.name)
+    Game.guild.demote(one.name)
     self.readGuild()
+  }
+
+  // The game's own menu of a guild member (its promote, demote, remove and notes among its entries) or of a
+  // community's: a row's right click, the card's ⋮.
+  onGuildMenu(mut self, key: String) { Game.guild.menu(key) }
+
+  onClubMenu(mut self, key: String) {
+    const club = peek self.clubId
+    if (club != "") { Game.communities.menu(club, key) }
+  }
+
+  onMemberCardMenu(mut self) {
+    const member = peek self.pickedMember
+    if (member != nil) {
+      self.onGuildMenu(member.key)
+      return
+    }
+    const one = peek self.pickedClubMember
+    if (one != nil) { self.onClubMenu(one.key) }
+  }
+
+  onNewsFilter(mut self, kind: Integer, shown: Boolean) {
+    Game.guild.filterNews(kind, shown)
+    self.newsFilters = Game.guild.newsFilters()
   }
 
   onGuildInvite(mut self) {
@@ -438,7 +506,7 @@ public class Social implements Module, App {
     const name = trimmed(peek self.inviteText)
     if (name == "") { return }
     self.inviting = false
-    self.people.guildInvite(name)
+    Game.guild.invite(name)
   }
 
   onGuildInviteNo(mut self) { self.inviting = false }
@@ -446,7 +514,7 @@ public class Social implements Module, App {
 
   onLeaveYes(mut self) {
     self.leaving = false
-    self.people.leaveGuild()
+    Game.guild.leave()
     self.member = ""
     self.readGuild()
   }
@@ -492,14 +560,43 @@ public class Social implements Module, App {
   onAllyPin(mut self) {
     const one = peek self.pickedAlly
     if (one == nil) { return }
-    self.people.pin(one.member.key, !one.pinned)
+    Game.recentAllies.pin(one.member.key, !one.pinned)
     self.readAllies()
   }
 
   onAllyBefriend(mut self) {
     const one = peek self.pickedAlly
-    if (one != nil) { self.people.addFriend(one.fullName) }
+    if (one == nil) { return }
+    Game.friends.add(one.fullName)
+    self.readAllies()
   }
+
+  onAllyMenu(mut self, key: String) {
+    const one = (peek self.allies).find(ally => ally.member.key == key)
+    if (one != nil) { Game.recentAllies.menu(one) }
+  }
+
+  onAllyCardMenu(mut self) {
+    const one = peek self.pickedAlly
+    if (one != nil) { Game.recentAllies.menu(one) }
+  }
+
+  onAllyNote(mut self) {
+    const one = peek self.pickedAlly
+    if (one == nil) { return }
+    self.noteText = one.member.note
+    self.noting = true
+  }
+
+  onAllyNoteYes(mut self) {
+    const one = peek self.pickedAlly
+    self.noting = false
+    if (one == nil) { return }
+    Game.recentAllies.setNote(one.member.key, trimmed(peek self.noteText))
+    self.readAllies()
+  }
+
+  onAllyNoteNo(mut self) { self.noting = false }
 
   // Ours closed: the game's closes with it.
   onClose(mut self) {
@@ -525,7 +622,7 @@ public class Social implements Module, App {
       width: Style.CARD,
       content: $ltml {
         <FriendCard $if={self.pickedFriend != nil} friend={self.pickedFriend ?? panic("tested")} @whisper={self.onWhisper}
-                    @invite={self.onInvite} @remove={self.onRemove} />
+                    @invite={self.onInvite} @remove={self.onRemove} @menu={self.onCardMenu} />
         <MyCard $else me={self.me} @presence={self.onPresence} @edit={self.onEditBroadcast} @copy={self.onCopyTag} />
       }
     }
@@ -537,7 +634,7 @@ public class Social implements Module, App {
       content: $ltml {
         <MemberCard $if={self.pickedMember != nil} member={self.pickedMember ?? panic("tested")} rights={self.rights}
                     rankTitle={Locale.COLUMN_RANK} @whisper={self.onMemberWhisper} @invite={self.onMemberInvite}
-                    @promote={self.onPromote} @demote={self.onDemote} />
+                    @promote={self.onPromote} @demote={self.onDemote} @menu={self.onMemberCardMenu} />
         <GuildCard $else guild={self.guild ?? panic("tested")} @invite={self.onGuildInvite} @leave={self.onLeave}
                    @gameWindow={self.onGameGuild} />
       }
@@ -549,7 +646,8 @@ public class Social implements Module, App {
       width: Style.SIDE_CARD,
       content: $ltml {
         <MemberCard $if={self.pickedClubMember != nil} member={self.pickedClubMember ?? panic("tested")} rights={NO_RIGHTS}
-                    rankTitle={Locale.COLUMN_ROLE} @whisper={self.onMemberWhisper} @invite={self.onMemberInvite} />
+                    rankTitle={Locale.COLUMN_ROLE} @whisper={self.onMemberWhisper} @invite={self.onMemberInvite}
+                    @menu={self.onMemberCardMenu} />
         <ClubCard $else club={self.chosenClub ?? panic("tested")} streams={self.streams} />
       }
     }
@@ -559,8 +657,9 @@ public class Social implements Module, App {
     return {
       width: Style.SIDE_CARD,
       content: $ltml {
-        <AllyCard ally={self.pickedAlly ?? panic("tested")} @whisper={self.onAllyWhisper} @invite={self.onAllyInvite}
-                  @pin={self.onAllyPin} @befriend={self.onAllyBefriend} />
+        <AllyCard ally={self.pickedAlly ?? panic("tested")} now={Game.clock.server} @whisper={self.onAllyWhisper}
+                  @invite={self.onAllyInvite} @pin={self.onAllyPin} @befriend={self.onAllyBefriend} @note={self.onAllyNote}
+                  @menu={self.onAllyCardMenu} />
       }
     }
   }
@@ -573,28 +672,30 @@ public class Social implements Module, App {
         <box $if={self.tab == TAB_FRIENDS} columns={1} rows={["max-content", { fr: 1 }]} gap={3sp}>
           <Tabs tabs={self.subTabs} selected={mut self.sub} />
           <FriendList $if={self.sub == SUB_STATUS} friends={self.friends} picked={self.picked}
-                      offline={self.settings.values.offline} kept={mut self.friendsList} @pick={self.onPick} @add={self.onAdd} />
+                      offline={self.settings.values.offline} kept={mut self.friendsList} @pick={self.onPick} @add={self.onAdd}
+                      @menu={self.onFriendMenu} />
           <RequestList $elseif={self.sub == SUB_REQUESTS} requests={self.requests} @answer={self.onAnswer} />
           <IgnoreList $else ignored={self.ignored} @ignore={self.onIgnore} @unignore={self.onUnignore} />
         </box>
         <box $elseif={self.tab == TAB_GUILD && self.guild != nil} columns={1} rows={["max-content", { fr: 1 }]} gap={3sp}>
           <Tabs tabs={GUILD_SUBS} selected={mut self.guildSub} />
           <MemberTable $if={self.guildSub == SUB_ROSTER} members={self.guildMembers} chosen={self.member}
-                       @pick={self.onPickMember} />
-          <NewsList $else news={self.news} />
+                       @pick={self.onPickMember} @menu={self.onGuildMenu} />
+          <NewsList $else news={self.news} filters={self.newsFilters} @filter={self.onNewsFilter} />
         </box>
         <box $elseif={self.tab == TAB_GUILD} xAlign={Align.Center} yAlign={Align.Center}>
           <text value={Locale.NO_GUILD} textColor={Style.DIM} wrap={.None} />
         </box>
         <box $elseif={self.tab == TAB_COMMUNITIES && self.clubs.length > 0} columns={1} rows={["max-content", { fr: 1 }]} gap={3sp}>
           <Tabs tabs={self.clubNames} selected={mut self.clubTab} />
-          <MemberTable members={self.clubMembers} chosen={self.clubMember} guild={false} @pick={self.onPickClubMember} />
+          <MemberTable members={self.clubMembers} chosen={self.clubMember} guild={false} @pick={self.onPickClubMember}
+                       @menu={self.onClubMenu} />
         </box>
         <box $elseif={self.tab == TAB_COMMUNITIES} xAlign={Align.Center} yAlign={Align.Center}>
           <text value={Locale.NO_COMMUNITIES} textColor={Style.DIM} wrap={.None} />
         </box>
         <AllyList $else allies={self.allies} chosen={self.ally} filter={mut self.allyFilter}
-                  categories={peek self.people.allyCategories()} @pick={self.onPickAlly} />
+                  categories={peek Game.recentAllies.categories()} @pick={self.onPickAlly} @menu={self.onAllyMenu} />
       </Window>
       <Dialog $if={self.removing != nil} width={Style.ASK} title={Locale.REMOVE_FRIEND}>
         <box columns={1} gap={2sp}>
@@ -629,6 +730,11 @@ public class Social implements Module, App {
         <PushButton #buttons label={Locale.INVITE} width={Style.ASK_BUTTON} disabled={trimmed(self.inviteText) == ""}
                     @click={self.onGuildInviteYes} />
         <PushButton #buttons label={Locale.CANCEL} width={Style.ASK_BUTTON} @click={self.onGuildInviteNo} />
+      </Dialog>
+      <Dialog $if={self.noting} width={Style.ASK} title={Locale.SET_NOTE}>
+        <Field value={mut self.noteText} maxLength={NOTE_MOST} @submit={self.onAllyNoteYes} />
+        <PushButton #buttons label={Locale.SAVE} width={Style.ASK_BUTTON} @click={self.onAllyNoteYes} />
+        <PushButton #buttons label={Locale.CANCEL} width={Style.ASK_BUTTON} @click={self.onAllyNoteNo} />
       </Dialog>
       <Dialog $if={self.leaving} width={Style.ASK} title={Locale.LEAVE_GUILD}>
         <text value={self.leaveText} textColor={Style.INK} />

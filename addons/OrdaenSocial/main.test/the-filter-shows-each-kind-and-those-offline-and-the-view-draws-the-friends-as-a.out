@@ -73,18 +73,18 @@ surface 425,183.88 1155.76x532.25 on DIALOG clamped raised by a click
                     text 714.79,392.86 15.56x17.78 "25" #a3977f right
                   box 738.88,383.98 194.1x35.56
                     text 738.88,383.98 194.1x35.56 "Battle.net · Torgrim · Loch Modan" #a3977f
-                  box 941.52,392.86 194.1x17.78 clipped
+                  box 941.52,392.86 194.1x17.78
                     text 941.52,392.86 194.1x17.78 "tanks at night" #a3977f
                 box 460.85,423.8 683.3x26.31 #00000000 @keyPress @pointerPress
                   box 469.38,428.06 194.1x17.78
                     box 469.38,428.06 194.1x17.78
                       box 469.38,431.95 10x10 Interface/FriendsFrame/StatusIcon-Away
-                      text 485.07,428.06 172.72x17.78 "Eliana" #e8dcc4
+                      text 485.07,428.06 172.72x17.78 "Eliana" #c79c6e
                   box 672.02,428.06 58.33x17.78
                     text 714.79,428.06 15.56x17.78 "24" #a3977f right
                   box 738.88,428.06 194.1x17.78
                     text 738.88,428.06 194.1x17.78 "Stormwind" #a3977f
-                  box 941.52,436.95 194.1x0 clipped
+                  box 941.52,436.95 194.1x0
                     text 941.52,436.95 194.1x0 "" #a3977f
                 box 460.85,450.11 683.3x26.31 #00000000 @keyPress @pointerPress
                   box 469.38,454.38 194.1x17.78
@@ -95,7 +95,7 @@ surface 425,183.88 1155.76x532.25 on DIALOG clamped raised by a click
                     text 714.79,454.38 15.56x17.78 "22" #a3977f right
                   box 738.88,454.38 194.1x17.78
                     text 738.88,454.38 194.1x17.78 "offline" #a3977f
-                  box 941.52,454.38 194.1x17.78 clipped
+                  box 941.52,454.38 194.1x17.78
                     text 941.52,454.38 194.1x17.78 "smith" #a3977f
                 box 460.85,476.42 683.3x26.31 #00000000 @keyPress @pointerPress
                   box 469.38,480.69 194.1x17.78
@@ -106,7 +106,7 @@ surface 425,183.88 1155.76x532.25 on DIALOG clamped raised by a click
                     text 730.35,489.58 0x0 "" #a3977f
                   box 738.88,480.69 194.1x17.78
                     text 738.88,480.69 194.1x17.78 "Battle.net · offline" #a3977f
-                  box 941.52,489.58 194.1x0 clipped
+                  box 941.52,489.58 194.1x0
                     text 941.52,489.58 194.1x0 "" #a3977f
       box 460.85,645.66 683.3x45.4
         box 460.85,662.73 683.3x28.33
@@ -138,7 +138,7 @@ surface 425,183.88 1155.76x532.25 on DIALOG clamped raised by a click
             text 1288.93,358.49 260.98x17.78 "—" #e8dcc4
           box 1199.91,384.8 350x17.78
             text 1199.91,384.8 83.33x17.78 "Character" #a3977f
-            text 1288.93,384.8 260.98x17.78 "Torvald, Warrior 25 · Flamegor" #e8dcc4
+            text 1288.93,384.8 260.98x17.78 "Torvald, Warrior 25 · Flamegor" #c79c6e
           box 1199.91,411.11 350x17.78
             text 1199.91,411.11 83.33x17.78 "Location" #a3977f
             text 1288.93,411.11 260.98x17.78 "Ironforge" #e8dcc4
