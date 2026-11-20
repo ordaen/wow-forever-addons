@@ -16,9 +16,9 @@ import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
 import { ARTWORK, ButtonPlate, Choice, Dialog, FilterButton, FilterGroup, FooterCount, FooterCounts, KeptWindow, Module, PushButton, SECONDARY_TEXT, Segmented, Settings, SettingsPage, ToolPick, Toolbar, Window, WindowSide, WindowTabSpec, WindowsPage, switched, windowsTitle } from "Ordaen"
 import root Maps from "OrdaenMap"
-import { ClientQuestLog, LogQuest, QuestLog, QuestText } from "@/book"
+import { LogQuest, logQuests } from "@/book"
 import { TakenClick } from "@/button"
-import { QuestData, QuestieData } from "@/data"
+import { QuestieData } from "@/data"
 import { KINDS, QuestKind } from "@/kind"
 import { PinKind, QuestPins } from "@/layers"
 import { QuestList } from "@/list"
@@ -33,7 +33,7 @@ import { Act, QuestPage } from "@/view"
 const TOGGLE = "OrdaenQuestsToggle"
 // The game's binding of the quest log.
 const QUEST_LOG_BINDING = "TOGGLEQUESTLOG"
-const NO_TEXT: QuestText = { story: "", task: "", experience: 0, money: 0 }
+const NO_TEXT: Game.QuestText = { story: "", task: "", experience: 0, money: 0 }
 const DIM: Color = Color.hex("#a3977f")
 const RED: Color = Color.hex("#ff4040")
 // The toolbar over the list, and the list.
@@ -114,9 +114,8 @@ public class Quests implements Module, App {
     </box>
   }
 
-  // The client's log, and QuestieDB: a test gives its own.
-  public log: mut any QuestLog = new ClientQuestLog()
-  public data: mut any QuestData = new QuestieData()
+  // What QuestieDB says of the log's quests, read once a quest.
+  data: mut QuestieData = new QuestieData()
 
   public state open = false
   state tab = 1
@@ -127,7 +126,7 @@ public class Quests implements Module, App {
   public state facts: Map<Integer, QuestFacts> = {}
   // The quest whose page shows (0: none), its text, and the quest the player asked to abandon (0: none).
   public state picked = 0
-  state text: QuestText = NO_TEXT
+  state text: Game.QuestText = NO_TEXT
   state abandoning = 0
   // The headers the player folded, by their text.
   state folded: mut Map<String, Boolean> = {}
@@ -194,7 +193,7 @@ public class Quests implements Module, App {
       _ = new TakenClick(button, () => self.flip())
     }
     Events.UPDATE_BINDINGS.listen(self.rebind)
-    watch (id of self.picked) { self.text = id == 0 ? NO_TEXT : self.log.text(id) }
+    watch (id of self.picked) { self.text = id == 0 ? NO_TEXT : Game.questLog.text(id) }
   }
 
   destructor() {
@@ -207,7 +206,7 @@ public class Quests implements Module, App {
 
   // The log as the client has it now, and QuestieDB's facts of the quests not read before.
   public refresh(mut self) {
-    const quests = self.log.quests()
+    const quests = logQuests()
     const facts: Map<Integer, QuestFacts> = {}
     for (id, known of peek self.facts) { facts[id] = known }
     for (quest of quests) {
@@ -218,8 +217,8 @@ public class Quests implements Module, App {
     }
     self.quests = quests
     self.facts = facts
-    self.most = self.log.most()
-    self.zone = self.log.zone()
+    self.most = Game.questLog.most()
+    self.zone = Game.questLog.zone()
     const picked = peek self.picked
     if (picked != 0 && quests.find(quest => quest.id == picked) == nil) { self.picked = 0 }
   }
@@ -242,10 +241,10 @@ public class Quests implements Module, App {
       .Pick => { self.picked = id }
       .Track => {
         const quest = (peek self.quests).find(quest => quest.id == id)
-        if (quest != nil) { self.log.track(id, !quest.tracked) }
+        if (quest != nil) { Game.questLog.track(id, !quest.tracked) }
         self.refresh()
       }
-      .Share => { self.log.share(id) }
+      .Share => { Game.questLog.share(id) }
       .Abandon => { self.abandoning = id }
       .ShowOnMap => { Client.C_Map.OpenWorldMap(nil) }
     }
@@ -256,7 +255,7 @@ public class Quests implements Module, App {
   onAbandonYes(mut self) {
     const id = peek self.abandoning
     self.abandoning = 0
-    if (id != 0) { self.log.abandon(id) }
+    if (id != 0) { Game.questLog.abandon(id) }
   }
 
   onAbandonNo(mut self) { self.abandoning = 0 }

@@ -4,10 +4,11 @@
 // «Группа: 3», at the right «Готово» or «Провалено», and under the title its objectives, one a line, grey once done.
 // Left-click picks it (its page shows beside the list);
 // Shift+Left-click and its box track it or stop tracking it; Right-click opens its menu: track, share, abandon.
+import Game from "$game"
 import { Align, Art, ByInteractionState, Edges, Position } from "$ltml"
 import root Ordaen from "Ordaen"
 import { ButtonPlate, Component, Menu, MenuEntry, Money, PushButton, SECONDARY_TEXT, TITLE_LINE, TITLE_TEXT, rowShade } from "Ordaen"
-import { LogQuest, Objective, QuestText } from "@/book"
+import { LogQuest } from "@/book"
 import Locale from "@/locales"
 import { colorOf, difficultyOf } from "@/model"
 import { Figure, QuestFacts } from "@/questie"
@@ -134,8 +135,8 @@ public class QuestRow implements Component {
 class GoalLine implements Component {
   derived color: Color = self.objective.done ? GREY : DIM
 
-  objective: Signal<Objective>
-  constructor(objective: Signal<Objective>) { self.objective = objective }
+  objective: Signal<Game.QuestObjective>
+  constructor(objective: Signal<Game.QuestObjective>) { self.objective = objective }
 
   public render(self): Template {
     return $ltml {
@@ -148,8 +149,8 @@ class GoalLine implements Component {
 class ObjectiveLine implements Component {
   derived color: Color = self.objective.done ? DIM : WHITE
 
-  objective: Signal<Objective>
-  constructor(objective: Signal<Objective>) { self.objective = objective }
+  objective: Signal<Game.QuestObjective>
+  constructor(objective: Signal<Game.QuestObjective>) { self.objective = objective }
 
   public render(self): Template {
     return $ltml {
@@ -200,10 +201,10 @@ public class QuestPage implements Component {
   derived gives: Boolean = self.text.experience > 0 || self.text.money > 0
 
   quest: Signal<LogQuest>
-  text: Signal<QuestText>
+  text: Signal<Game.QuestText>
   facts: Signal<QuestFacts | nil>
   player: Signal<Integer>
-  constructor(quest: Signal<LogQuest>, text: Signal<QuestText>, facts: Signal<QuestFacts | nil>, player: Signal<Integer>) {
+  constructor(quest: Signal<LogQuest>, text: Signal<Game.QuestText>, facts: Signal<QuestFacts | nil>, player: Signal<Integer>) {
     self.quest = quest
     self.text = text
     self.facts = facts

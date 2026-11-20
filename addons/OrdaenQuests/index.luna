@@ -1,5 +1,4 @@
 // Ordaen Quests: the quest log in four tabs, and the tracked quests' places on Ordaen Map. Its root is `Quests`.
-public import { LogQuest, Objective, QuestLog, QuestText } from "@/book"
-public import { QuestData } from "@/data"
+public import { LogQuest } from "@/book"
 public import { QuestKind } from "@/kind"
 public import { Quests } from "@/main"
