@@ -184,6 +184,11 @@ What a tooltip's data holds: [`tooltip-data.md`](tooltip-data.md).
 
 ## Events and data
 
+- **`C_GossipInfo.ForceGossip()` is true for an ordinary vendor:** its one option («I want to browse your goods»,
+  `selectOptionWhenOnlyOption` false, `orderIndex` 0) comes with `GOSSIP_SHOW` after
+  `PLAYER_INTERACTION_MANAGER_FRAME_SHOW(3)`, and `ForceGossip` says true. Known: the play records of 2026-11-20
+  (Stormwind's vendors 1285, 1289). Held by the stand-in (`Test.Npc.forceGossip` true unless a test says).
+
 - **`TRADE_SKILL_LIST_UPDATE` after `TRADE_SKILL_SHOW` may come before the list:** `GetAllRecipeIDs` gives none at
   the first. Known: session 445 (da2daef). Not held by the stand-in.
 - **A profession opened while another is open (`OpenTradeSkill`) is shown before its lists come:** at its
