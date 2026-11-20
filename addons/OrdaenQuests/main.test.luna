@@ -349,6 +349,23 @@ test "abandoning asks first, and only «Abandon quest» in the question abandons
   Test.expect(!Test.page().window("World").text("The Defias Brotherhood").shown())
 }
 
+test "«Show on map» opens the map where the quest leads, its pins shown until the map hides; unknown to QuestieDB, the map" {
+  opened(standing())
+  const window = Test.page().window("World")
+  window.text("The Defias Brotherhood").click()
+  window.button("Show on map").click()
+  Test.flush()
+  // QuestieDB knows no objective of it: its zone, Westfall (area 40), on Westfall's map.
+  Test.expect(Client.WorldMapFrame.GetMapID() == 1436 && Quests.shownOnMap == 101)
+  Client.WorldMapFrame.Hide()
+  Test.flush()
+  Test.expect(Quests.shownOnMap == 0)
+  window.text("Elwynn Wolves").click()
+  window.button("Show on map").click()
+  Test.flush()
+  Test.expect(Client.WorldMapFrame.IsShown() && Quests.shownOnMap == 0)
+}
+
 test "a quest that can't be shared has its button greyed: a click shares nothing" {
   opened(standing())
   Test.page().window("World").text("The Defias Brotherhood").click()
