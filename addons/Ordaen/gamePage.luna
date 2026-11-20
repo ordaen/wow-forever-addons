@@ -6,9 +6,9 @@ import Game from "$game"
 import { Align, Event, Key, Track } from "$ltml"
 import { Checkbox } from "@/checkbox"
 import { Dialog } from "@/dialog"
-import { Choice, Dropdown } from "@/dropdown"
-import { CVarWrite, GamePage, GameRow } from "@/gameCatalogue"
-import { BindingEntry, GameSettings, Keeping, sameValue, textOf } from "@/gameSettings"
+import { Choice, Dropdown, ManyDropdown } from "@/dropdown"
+import { CVarWrite, GameOption, GamePage, GameRow } from "@/gameCatalogue"
+import { BindingEntry, GameSettings, Keeping, optionsOf, sameValue, textOf } from "@/gameSettings"
 import { GameWindowButton } from "@/gameWindow"
 import Locale from "@/locales"
 import { Component } from "@/module"
@@ -44,19 +44,29 @@ function hintOf(tip: String, keeping: Keeping): String {
 }
 
 // The index of the option whose writes the client holds, 0 for none.
-function pickedOf(options: Array<Choice<Integer>>, row: GameRow, client: Map<String, String>): Integer {
-  if (!(row is GameRow.Choice)) { return 0 }
-  for (index, offered of row.options) {
+function pickedOf(options: Array<GameOption>, client: Map<String, String>): Integer {
+  for (index, offered of options) {
     if (offered.writes.all(w => sameValue(client[w.cvar], w.value))) { return index }
   }
   return 0
 }
 
-// One row of a page: a heading, a checkbox, a dropdown, a slider or an action's keys, as the catalogue says.
+// The indices of the ticks the client holds ticked.
+function tickedOf(ticks: Array<String>, client: Map<String, String>): Array<Integer> {
+  const list: Array<Integer> = []
+  for (index, name of ticks) {
+    if (sameValue(client[name], "1")) { list.push(index) }
+  }
+  return list
+}
+
+// One row of a page: a heading, a checkbox, a dropdown (of options, of the client's list, of ticks), a slider or an
+// action's keys, as the catalogue says.
 public class GameRowView implements Component {
   state ticked = false
   state picked = 0
   state amount: Number = 0
+  state tickedSet: Array<Integer> = []
   derived disabled: Boolean = self.refused || !self.game.settings.values.on || (self.secure && Game.situation.combat)
 
   const row: GameRow
@@ -65,6 +75,10 @@ public class GameRowView implements Component {
   const label: String
   const hint: String
   const choices: Array<Choice<Integer>>
+  // A dropdown's options, the catalogue's or the client's list's; a ticks' settings, and what none ticked says.
+  const options: Array<GameOption>
+  const ticks: Array<String>
+  const none: String
   const least: Number
   const most: Number
   const step: Number
@@ -85,6 +99,9 @@ public class GameRowView implements Component {
     let secure = false
     let action = ""
     const choices: Array<Choice<Integer>> = []
+    let options: Array<GameOption> = []
+    const ticks: Array<String> = []
+    let none = ""
     if (row is GameRow.Heading) {
       label = textOf(row.label)
     } else if (row is GameRow.Toggle) {
@@ -103,7 +120,34 @@ public class GameRowView implements Component {
       hint = hintOf(row.tip, keeping)
       refused = keeping == .Refused
       secure = row.options.any(o => o.writes.any(w => game.held(w.cvar)))
-      for (index, offered of row.options) { choices.push({ value: index, label: textOf(offered.label), soon: nil, icon: nil }) }
+      options = row.options
+      for (index, offered of options) { choices.push({ value: index, label: textOf(offered.label), soon: nil, icon: nil }) }
+    } else if (row is GameRow.Listed) {
+      kind = "choice"
+      label = textOf(row.label)
+      const keeping = game.keeping(row.cvar)
+      hint = hintOf(row.tip, keeping)
+      refused = keeping == .Refused
+      secure = game.held(row.cvar)
+      const listed: Array<GameOption> = []
+      for (index, given of optionsOf(row.source, peek game.client)) {
+        listed.push({ label: given[2], writes: [{ cvar: row.cvar, value: given[1] }] })
+        choices.push({ value: index, label: given[2], soon: nil, icon: nil })
+      }
+      options = listed
+    } else if (row is GameRow.Ticks) {
+      kind = "ticks"
+      label = textOf(row.label)
+      const first = row.ticks[1]
+      const keeping = game.keeping(first == nil ? "" : first.setting)
+      hint = hintOf(row.tip, keeping)
+      refused = keeping == .Refused
+      secure = row.ticks.any(t => game.held(t.setting))
+      none = textOf(row.none)
+      for (index, tick of row.ticks) {
+        ticks.push(tick.setting)
+        choices.push({ value: index, label: textOf(tick.label), soon: nil, icon: nil })
+      }
     } else if (row is GameRow.Slider) {
       kind = "slider"
       label = textOf(row.label)
@@ -122,6 +166,9 @@ public class GameRowView implements Component {
     self.label = label
     self.hint = hint
     self.choices = choices
+    self.options = options
+    self.ticks = ticks
+    self.none = none
     self.least = least
     self.most = most
     self.step = step
@@ -134,6 +181,7 @@ public class GameRowView implements Component {
     watch (ticked of self.ticked) { self.tickedTo(ticked) }
     watch (picked of self.picked) { self.pickedTo(picked) }
     watch (amount of self.amount) { self.amountTo(amount) }
+    watch (tickedSet of self.tickedSet) { self.tickedSetTo(tickedSet) }
   }
 
   show(mut self) {
@@ -141,8 +189,10 @@ public class GameRowView implements Component {
     const client = self.game.client
     if (row is GameRow.Toggle) {
       self.ticked = sameValue(client[row.cvar], row.on)
-    } else if (row is GameRow.Choice) {
-      self.picked = pickedOf(self.choices, row, client)
+    } else if (row is GameRow.Choice || row is GameRow.Listed) {
+      self.picked = pickedOf(self.options, client)
+    } else if (row is GameRow.Ticks) {
+      self.tickedSet = tickedOf(self.ticks, client)
     } else if (row is GameRow.Slider) {
       self.amount = (client[row.cvar] ?? "").toNumber() ?? row.least
     }
@@ -156,11 +206,20 @@ public class GameRowView implements Component {
   }
 
   pickedTo(mut self, picked: Integer) {
-    const row = self.row
-    if (!(row is GameRow.Choice)) { return }
-    const offered = row.options[picked]
-    if (offered == nil || picked == pickedOf(self.choices, row, peek self.game.client)) { return }
+    const offered = self.options[picked]
+    if (offered == nil || picked == pickedOf(self.options, peek self.game.client)) { return }
     self.game.write(offered.writes)
+  }
+
+  // Each tick that differs from the client's written.
+  tickedSetTo(mut self, tickedSet: Array<Integer>) {
+    const client = peek self.game.client
+    const writes: Array<CVarWrite> = []
+    for (index, name of self.ticks) {
+      const value = tickedSet.any(t => t == index) ? "1" : "0"
+      if (!sameValue(client[name], value)) { writes.push({ cvar: name, value: value }) }
+    }
+    if (writes.length > 0) { self.game.write(writes) }
   }
 
   amountTo(mut self, amount: Number) {
@@ -181,6 +240,8 @@ public class GameRowView implements Component {
         <Checkbox $case={"toggle"} label={self.label} hint={self.hint} value={mut self.ticked} disabled={self.disabled} />
         <Dropdown $case={"choice"} label={self.label} hint={self.hint} value={mut self.picked} choices={self.choices}
                   disabled={self.disabled} />
+        <ManyDropdown $case={"ticks"} label={self.label} hint={self.hint} value={mut self.tickedSet} choices={self.choices}
+                      none={self.none} disabled={self.disabled} />
         <NumberInput $case={"slider"} label={self.label} hint={self.hint} value={mut self.amount} least={self.least}
                      most={self.most} step={self.step} disabled={self.disabled} />
         <KeyRow $case={"key"} action={self.action} game={mut self.game} />
@@ -353,8 +414,15 @@ public class BindingsPage implements Component {
     self.game.answer(held() + name)
   }
 
+  // A mouse button the game binds: the middle and the side buttons (the left and the right press the page).
   onPress(mut self, press: Event.Press) {
-    if (press.button == .Middle) { self.game.answer(held() + "BUTTON3") }
+    const key = match (press.button) {
+      .Middle => "BUTTON3"
+      .Back => "BUTTON4"
+      .Forward => "BUTTON5"
+      else => ""
+    }
+    if (key != "") { self.game.answer(held() + key) }
   }
 
   onWheel(mut self, wheel: Event.Wheel) {

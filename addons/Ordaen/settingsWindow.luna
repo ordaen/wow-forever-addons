@@ -7,6 +7,7 @@ import { Align, Art, Edges, Overflow, Position, Track } from "$ltml"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
 import { Dialog } from "@/dialog"
+import { Choice, Dropdown } from "@/dropdown"
 import { GAME_PAGES } from "@/gameCatalogue"
 import { BindingsPage, GamePageView } from "@/gamePage"
 import { textOf } from "@/gameSettings"
@@ -61,6 +62,12 @@ const BACK_ROW: Array<Track> = ["max-content", "max-content"]
 // The game's own settings' entry in the list: a gear, as the game's Options.
 const GAME_ICON: Art = "Interface/Icons/INV_Misc_Gear_01"
 
+function choicesOf(pages: Array<SettingsPage>): Array<Choice<Integer>> {
+  const list: Array<Choice<Integer>> = []
+  for (index, page of pages) { list.push({ value: index, label: page.title, soon: nil, icon: nil }) }
+  return list
+}
+
 public class SettingsWindow implements Component {
   // The window, declared: where it stands and what the player does with it, kept in the profile.
   public window: mut KeptWindow = new KeptWindow("settings", Locale.WINDOW_SETTINGS, { x: 0ui, y: 0ui, width: WIDTH, height: HEIGHT })
@@ -74,6 +81,8 @@ public class SettingsWindow implements Component {
   ]
   // The game's own settings: each of its pages, then its key bindings.
   const gamePages: Array<SettingsPage> = self.gamePagesOf()
+  // The game's pages are more than a row of tabs holds: they are picked from a dropdown, as the game's list.
+  const gameChoices: Array<Choice<Integer>> = choicesOf(self.gamePages)
 
   state open = false
   // The page shown: Ordaen's own, its look, or a module's folder; and its tab.
@@ -364,7 +373,8 @@ public class SettingsWindow implements Component {
               <ProfilesPage $elseif={self.onProfiles} />
               <text $elseif={self.isOff} value={Locale.MODULE_OFF} textColor={DIM} />
               <$else>
-                <Tabs $if={self.hasTabs} tabs={self.names} selected={mut self.tab} />
+                <Dropdown $if={self.onGame} label={Locale.LIST_GAME} value={mut self.tab} choices={self.gameChoices} />
+                <Tabs $elseif={self.hasTabs} tabs={self.names} selected={mut self.tab} />
                 <box columns={1} gap={6sp}>
                   {self.content}
                 </box>

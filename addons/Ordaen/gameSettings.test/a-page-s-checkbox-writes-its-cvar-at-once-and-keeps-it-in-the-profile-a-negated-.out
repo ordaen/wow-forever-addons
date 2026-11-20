@@ -186,6 +186,17 @@ box 0,537.29 1100x18.33
       text 0,538.66 233.33x15.6 "SMART_PIVOT" #cbb994
     box 248.98,537.29 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @keyPress @pointerPress
       box 248.98,537.29 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=1
+surface 5.69,663.44 305.78x182.52 on MEDIUM clamped
+  box 5.69,663.44 305.78x182.52 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @pointerEnter @pointerLeave
+    box 24.47,679.38 273.21x0
+      box 24.47,679.38 273.21x0
+    box 24.47,679.38 273.21x135.11 clipped @wheel
+      box 24.47,814.49 273.21x0 absolute
+    box 24.47,814.49 273.21x17.78
+      box 24.47,823.38 0x0
+      box 27.32,814.49 267.52x17.78 @pointerPress
+        text 27.32,814.49 267.52x17.78 "Enter: type" #857a66
+      box 297.68,823.38 0x0
 surface 1323.67,0 276.33x326.33 on MEDIUM clamped
   box 1323.67,0 276.33x326.33 opacity=1
     box 1343.92,20.25 230.83x283.58 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @pointerEnter @pointerLeave

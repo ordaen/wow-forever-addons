@@ -4,9 +4,15 @@
 // A label, a hint and a choice's name are the client's own texts by their names (`CONTROLS_LABEL`), read as the page
 // draws; a name the client hasn't is shown as it is written (a sample time, «32x32»).
 //
-// A control writes CVars and nothing else, so a profile keeps a page whole by keeping those CVars: a choice that
-// writes several (status text: `statusTextDisplay` and `statusText`) is one option of several writes, and a slider
-// that moves another with it (mouse look speed: the pitch at half the yaw) names it with its ratio.
+// A control writes settings and nothing else, so a profile keeps a page whole by keeping those settings: a choice
+// that writes several (status text: `statusTextDisplay` and `statusText`) is one option of several writes, and a
+// slider that moves another with it (mouse look speed: the pitch at half the yaw) names it with its ratio.
+//
+// A setting is a CVar by its name; a bit of a bitfield CVar, `<cvar>#<bit>`; or, where the client keeps it behind
+// functions of its own, a name that starts with `@` (`GameSettings.readSetting` reads each): `@windowSize` (the game
+// window's size, `1920x1080`), `@voice.output` and `@voice.input` (the voice chat's devices, by their ids),
+// `@voice.outputVolume`, `@voice.inputVolume`, and `@caa.spec.<setting>` (the combat audio alerts' setting of the
+// specialisation, by `Enum.CombatAudioAlertSpecSetting`).
 
 // One of the client's settings set to a value, as `SetCVar` takes it.
 public struct CVarWrite {
@@ -26,6 +32,12 @@ public struct Follower {
   const ratio: Number
 }
 
+// One tick of several: the setting it writes 1 or 0, and its name.
+public struct Tick {
+  const setting: String
+  const label: String
+}
+
 // One row of a page of the game's settings.
 public enum GameRow {
   Heading { label: String }
@@ -34,8 +46,24 @@ public enum GameRow {
   // A dropdown: the option whose writes the client holds is shown.
   Choice { label: String, tip: String, options: Array<GameOption> }
   Slider { label: String, tip: String, cvar: String, least: Number, most: Number, step: Number, followers: Array<Follower> }
+  // A dropdown of several ticks, each a setting written 1 or 0 and its name; `none` is what the plate says with none
+  // ticked.
+  Ticks { label: String, tip: String, ticks: Array<Tick>, none: String }
+  // A dropdown whose options the client lists while the game runs (its monitors, its sound devices).
+  Listed { label: String, tip: String, cvar: String, source: OptionSource }
   // One of the game's key bindings, by its action, where a page names it (the interact key).
   Key { action: String }
+}
+
+// What the client lists for a `Listed` row's options.
+public enum OptionSource {
+  Monitors
+  WindowSizes
+  Adapters
+  AudioOutputs
+  VoiceOutputs
+  VoiceInputs
+  TtsVoices
 }
 
 // A page of the game's settings: its name (the client's) and its rows.
@@ -89,6 +117,31 @@ const function linked(cvar: String, label: String, tip: String, least: Number, m
 }
 
 const function key(action: String): GameRow { return .Key { action: action } }
+
+// Ticks over a bitfield CVar: each a bit by its place (`GetCVarBitfield`), the setting `<cvar>#<bit>`.
+const function mask(cvar: String, label: String, tip: String, none: String, bits: Array<[Integer, String]>): GameRow {
+  const list: Array<Tick> = []
+  for (bit of bits) { list.push({ setting: cvar + "#" + String.of(bit[1]), label: bit[2] }) }
+  return .Ticks { label: label, tip: tip, ticks: list, none: none }
+}
+
+// Ticks each a CVar of its own.
+const function flags(label: String, tip: String, none: String, cvars: Array<[String, String]>): GameRow {
+  const list: Array<Tick> = []
+  for (flag of cvars) { list.push({ setting: flag[1], label: flag[2] }) }
+  return .Ticks { label: label, tip: tip, ticks: list, none: none }
+}
+
+const function listed(cvar: String, label: String, tip: String, source: OptionSource): GameRow {
+  return .Listed { label: label, tip: tip, cvar: cvar, source: source }
+}
+
+// A dropdown of numbered options, each its value and its name.
+const function numbered(cvar: String, label: String, tip: String, names: Array<String>, first: Integer): GameRow {
+  const list: Array<[String, String]> = []
+  for (index, name of names) { list.push([String.of(first + index - 1), name]) }
+  return pick(cvar, label, tip, list)
+}
 
 // The camera's following styles, offered for click-to-move and for the camera.
 const FOLLOWING: Array<[String, String]> = [["1", "CAMERA_SMART"], ["4", "CAMERA_SMARTER"], ["2", "CAMERA_ALWAYS"], ["0", "CAMERA_NEVER"]]
@@ -246,10 +299,19 @@ public const NAMEPLATES: GamePage = {
     check("nameplateUseClassColorForFriendlyPlayerUnitNames", "UNIT_NAMEPLATES_FRIENDLY_PLAYER_NAME_USE_CLASS_COLOR", "OPTION_TOOLTIP_UNIT_NAMEPLATES_FRIENDLY_PLAYER_NAME_USE_CLASS_COLOR"),
     check("nameplateShowFriendlyNpcs", "UNIT_NAMEPLATES_SHOW_FRIENDLY_NPCS", "UNIT_NAMEPLATES_SHOW_FRIENDLY_NPCS_TOOLTIP"),
     check("nameplateShowOffscreen", "UNIT_NAMEPLATES_SHOW_OFFSCREEN", "UNIT_NAMEPLATES_SHOW_OFFSCREEN_TOOLTIP"),
-    slider("nameplateSize", "UNIT_NAMEPLATES_GLOBAL_SCALE", "OPTION_TOOLTIP_UNIT_NAMEPLATES_GLOBAL_SCALE", 1, 3, 1),
-    slider("nameplateAuraScale", "UNIT_NAMEPLATES_DEBUFF_SCALE", "OPTION_TOOLTIP_UNIT_NAMEPLATES_DEBUFF_SCALE", 0.5, 2, 0.1),
+    mask("nameplateStackingTypes", "UNIT_NAMEPLATES_ENABLE_STACKING", "UNIT_NAMEPLATES_ENABLE_STACKING_TOOLTIP", "UNIT_NAMEPLATES_STACK_NONE", [[1, "UNIT_NAMEPLATES_STACK_ENEMY_UNITS"], [2, "UNIT_NAMEPLATES_STACK_FRIENDLY_UNITS"]]),
+    slider("nameplateSize", "UNIT_NAMEPLATES_GLOBAL_SCALE", "UNIT_NAMEPLATES_GLOBAL_SCALE_TOOLTIP", 1, 5, 1),
+    slider("nameplateAuraScale", "UNIT_NAMEPLATES_DEBUFF_SCALE", "UNIT_NAMEPLATES_DEBUFF_SCALE_TOOLTIP", 0.7, 1.4, 0.1),
     pick("nameplateStyle", "UNIT_NAMEPLATES_STYLE", "UNIT_NAMEPLATES_STYLE_TOOLTIP", [["1", "UNIT_NAMEPLATES_STYLE_THIN"], ["0", "UNIT_NAMEPLATES_STYLE_MODERN"], ["2", "UNIT_NAMEPLATES_STYLE_BLOCK"], ["4", "UNIT_NAMEPLATES_STYLE_CAST_FOCUS"]]),
-    slider("nameplateDebuffPadding", "UNIT_NAMEPLATES_DEBUFF_PADDING", "OPTION_TOOLTIP_UNIT_NAMEPLATES_DEBUFF_PADDING", 0, 10, 1)
+    mask("nameplateInfoDisplay", "UNIT_NAMEPLATES_INFO_DISPLAY", "UNIT_NAMEPLATES_INFO_DISPLAY_TOOLTIP", "UNIT_NAMEPLATES_INFO_DISPLAY_NONE", [[1, "UNIT_NAMEPLATES_INFO_DISPLAY_CURRENT_HEALTH_PERCENT"], [2, "UNIT_NAMEPLATES_INFO_DISPLAY_CURRENT_HEALTH_VALUE"], [3, "UNIT_NAMEPLATES_INFO_DISPLAY_RARITY_ICON"]]),
+    mask("nameplateCastBarDisplay", "UNIT_NAMEPLATES_CAST_BAR_DISPLAY", "UNIT_NAMEPLATES_CAST_BAR_DISPLAY_TOOLTIP", "UNIT_NAMEPLATES_CAST_BAR_DISPLAY_NONE", [[1, "UNIT_NAMEPLATES_CAST_BAR_DISPLAY_SPELL_NAME"], [2, "UNIT_NAMEPLATES_CAST_BAR_DISPLAY_SPELL_ICON"], [3, "UNIT_NAMEPLATES_CAST_BAR_DISPLAY_SPELL_TARGET"], [4, "UNIT_NAMEPLATES_CAST_BAR_DISPLAY_HIGHLIGHT_IMPORTANT_CASTS"], [5, "UNIT_NAMEPLATES_CAST_BAR_DISPLAY_HIGHLIGHT_WHEN_CAST_TARGET"]]),
+    mask("nameplateThreatDisplay", "UNIT_NAMEPLATES_THREAT_DISPLAY", "UNIT_NAMEPLATES_THREAT_DISPLAY_TOOLTIP", "UNIT_NAMEPLATES_THREAT_DISPLAY_NONE", [[1, "UNIT_NAMEPLATES_THREAT_DISPLAY_PROGRESSIVE"], [2, "UNIT_NAMEPLATES_THREAT_DISPLAY_FLASH"], [3, "UNIT_NAMEPLATES_THREAT_DISPLAY_HEALTHBAR_COLOR"]]),
+    mask("nameplateEnemyNpcAuraDisplay", "UNIT_NAMEPLATES_ENEMY_NPC_AURA_DISPLAY", "UNIT_NAMEPLATES_ENEMY_NPC_AURA_DISPLAY_TOOLTIP", "UNIT_NAMEPLATES_ENEMY_NPC_AURA_DISPLAY_NONE", [[1, "UNIT_NAMEPLATES_ENEMY_NPC_AURA_DISPLAY_BUFFS"], [2, "UNIT_NAMEPLATES_ENEMY_NPC_AURA_DISPLAY_DEBUFFS"], [3, "UNIT_NAMEPLATES_ENEMY_NPC_AURA_DISPLAY_CROWD_CONTROL"]]),
+    mask("nameplateEnemyPlayerAuraDisplay", "UNIT_NAMEPLATES_ENEMY_PLAYER_AURA_DISPLAY", "UNIT_NAMEPLATES_ENEMY_PLAYER_AURA_DISPLAY_TOOLTIP", "UNIT_NAMEPLATES_ENEMY_PLAYER_AURA_DISPLAY_NONE", [[1, "UNIT_NAMEPLATES_ENEMY_PLAYER_AURA_DISPLAY_BUFFS"], [2, "UNIT_NAMEPLATES_ENEMY_PLAYER_AURA_DISPLAY_DEBUFFS"], [3, "UNIT_NAMEPLATES_ENEMY_PLAYER_AURA_DISPLAY_BIG_DEBUFF"]]),
+    mask("nameplateFriendlyPlayerAuraDisplay", "UNIT_NAMEPLATES_FRIENDLY_PLAYER_AURA_DISPLAY", "UNIT_NAMEPLATES_FRIENDLY_PLAYER_AURA_DISPLAY_TOOLTIP", "UNIT_NAMEPLATES_FRIENDLY_PLAYER_AURA_DISPLAY_NONE", [[1, "UNIT_NAMEPLATES_FRIENDLY_PLAYER_AURA_DISPLAY_BUFFS"], [2, "UNIT_NAMEPLATES_FRIENDLY_PLAYER_AURA_DISPLAY_DEBUFFS"], [3, "UNIT_NAMEPLATES_FRIENDLY_PLAYER_AURA_DISPLAY_BIG_DEBUFF"]]),
+    slider("nameplateDebuffPadding", "UNIT_NAMEPLATES_DEBUFF_PADDING", "UNIT_NAMEPLATES_DEBUFF_PADDING_TOOLTIP", 0, 50, 1),
+    mask("nameplateSimplifiedTypes", "UNIT_NAMEPLATES_SIMPLIFIED", "UNIT_NAMEPLATES_SIMPLIFIED_TOOLTIP", "UNIT_NAMEPLATES_SIMPLIFIED_NONE", [[1, "UNIT_NAMEPLATES_SIMPLIFIED_MINIONS"], [2, "UNIT_NAMEPLATES_SIMPLIFIED_MINUS_MOBS"], [3, "UNIT_NAMEPLATES_SIMPLIFIED_FRIENDLY_PLAYERS"], [4, "UNIT_NAMEPLATES_SIMPLIFIED_FRIENDLY_NPCS"]]),
+    flags("UNIT_NAMEPLATES_CLASS_COLOR", "UNIT_NAMEPLATES_CLASS_COLOR_TOOLTIP", "UNIT_NAMEPLATES_CLASS_COLOR_NONE", [["nameplateShowFriendlyClassColor", "UNIT_NAMEPLATES_CLASS_COLOR_FRIENDLY"], ["nameplateShowClassColor", "UNIT_NAMEPLATES_CLASS_COLOR_ENEMY"]])
   ]
 }
 
@@ -294,9 +356,22 @@ public const ACCESSIBILITY: GamePage = {
 public const GRAPHICS: GamePage = {
   label: "GRAPHICS_LABEL",
   rows: [
-    pick("LowLatencyMode", "LOW_LATENCY_MODE", "OPTION_TOOLTIP_LOW_LATENCY_MODE", [["0", "VIDEO_OPTIONS_DISABLED"], ["1", "VIDEO_OPTIONS_BUILTIN"], ["2", "VIDEO_OPTIONS_BUILTIN_BOOST"]]),
-    slider("cameraFov", "FIELD_OF_VIEW", "OPTION_TOOLTIP_FIELD_OF_VIEW", 50, 90, 1),
+    listed("gxMonitor", "PRIMARY_MONITOR", "OPTION_TOOLTIP_PRIMARY_MONITOR", .Monitors),
+    pick("gxMaximize", "DISPLAY_MODE", "OPTION_TOOLTIP_DISPLAY_MODE", [["1", "VIDEO_OPTIONS_WINDOWED_FULLSCREEN"], ["0", "VIDEO_OPTIONS_WINDOWED"]]),
+    listed("@windowSize", "WINDOW_SIZE", "OPTION_TOOLTIP_WINDOW_SIZE", .WindowSizes),
+    slider("RenderScale", "RENDER_SCALE", "OPTION_TOOLTIP_RENDER_SCALE", 0.33, 2, 0.01),
+    check("useUiScale", "USE_UISCALE", "OPTION_TOOLTIP_USE_UISCALE"),
+    slider("uiscale", "UI_SCALE", "OPTION_TOOLTIP_UI_SCALE", 0.65, 1.15, 0.01),
+    pick("vsync", "VERTICAL_SYNC", "OPTION_TOOLTIP_VERTICAL_SYNC", ON_OFF),
+    pick("NotchedDisplayMode", "NOTCH_MODE", "OPTION_TOOLTIP_NOTCH_MODE", [["0", "NOTCH_MODE_OVERLAP"], ["1", "NOTCH_MODE_SHIFT_UI"], ["2", "NOTCH_MODE_WINDOW_BELOW"]]),
+    pick("LowLatencyMode", "LOW_LATENCY_MODE", "OPTION_TOOLTIP_LOW_LATENCY_MODE", [["0", "GX_ADAPTER_AUTO_DETECT"], ["1", "VIDEO_OPTIONS_DISABLED"], ["2", "VIDEO_OPTIONS_BUILTIN"], ["3", "VIDEO_OPTIONS_NVIDIA_REFLEX"], ["4", "VIDEO_OPTIONS_NVIDIA_REFLEX_BOOST"], ["5", "VIDEO_OPTIONS_INTEL_XELL"]]),
+    pick("ffxAntiAliasingMode", "ANTIALIASING", "OPTION_TOOLTIP_ANTIALIASING", [["0", "VIDEO_OPTIONS_NONE"], ["1", "ANTIALIASING_FXAA_LOW"], ["2", "ANTIALIASING_FXAA_HIGH"], ["3", "ANTIALIASING_CMAA"]]),
+    pick("MSAAQuality", "MSAA_LABEL", "OPTION_TOOLTIP_MULTISAMPLING", [["0", "VIDEO_OPTIONS_NONE"], ["1", "2x"], ["2", "4x"], ["3", "8x"]]),
+    pick("msaaAlphaTest", "MULTISAMPLE_ALPHA_TEST", "OPTION_TOOLTIP_MULTISAMPLE_ALPHA_TEST", ON_OFF),
+    slider("cameraFov", "CAMERA_FOV", "OPTION_TOOLTIP_CAMERA_FOV", 50, 90, 5),
+    check("RAIDsettingsEnabled", "RAID_SETTINGS_ENABLED", "RAID_SETTINGS_ENABLED_TOOLTIP"),
     slider("graphicsQuality", "BASE_GRAPHICS_QUALITY", "OPTION_TOOLTIP_GRAPHICS_QUALITY", 1, 10, 1),
+    slider("raidGraphicsQuality", "SETTINGS_RAID_GRAPHICS_QUALITY", "OPTION_TOOLTIP_GRAPHICS_QUALITY", 1, 10, 1),
     pick("graphicsShadowQuality", "SHADOW_QUALITY", "OPTION_TOOLTIP_SHADOW_QUALITY", [["0", "VIDEO_OPTIONS_LOW"], ["1", "VIDEO_OPTIONS_FAIR"], ["2", "VIDEO_OPTIONS_MEDIUM"], ["3", "VIDEO_OPTIONS_HIGH"], ["4", "VIDEO_OPTIONS_ULTRA"], ["5", "VIDEO_OPTIONS_ULTRA_HIGH"]]),
     pick("graphicsLiquidDetail", "LIQUID_DETAIL", "OPTION_TOOLTIP_LIQUID_DETAIL", [["0", "VIDEO_OPTIONS_LOW"], ["1", "VIDEO_OPTIONS_FAIR"], ["2", "VIDEO_OPTIONS_MEDIUM"], ["3", "VIDEO_OPTIONS_HIGH"]]),
     pick("graphicsParticleDensity", "PARTICLE_DENSITY", "OPTION_TOOLTIP_PARTICLE_DENSITY", QUALITY_5),
@@ -311,9 +386,21 @@ public const GRAPHICS: GamePage = {
     slider("graphicsEnvironmentDetail", "ENVIRONMENT_DETAIL", "OPTION_TOOLTIP_ENVIRONMENT_DETAIL", 0, 9, 1),
     slider("graphicsGroundClutter", "GROUND_CLUTTER", "OPTION_TOOLTIP_GROUND_CLUTTER", 0, 9, 1),
     heading("ADVANCED_LABEL"),
+    pick("gxTripleBuffer", "TRIPLE_BUFFER", "OPTION_TOOLTIP_TRIPLE_BUFFER", ON_OFF),
     pick("textureFilteringMode", "ANISOTROPIC", "OPTION_TOOLTIP_ANISOTROPIC", [["0", "VIDEO_OPTIONS_BILINEAR"], ["1", "VIDEO_OPTIONS_TRILINEAR"], ["2", "VIDEO_OPTIONS_2XANISOTROPIC"], ["3", "VIDEO_OPTIONS_4XANISOTROPIC"], ["4", "VIDEO_OPTIONS_8XANISOTROPIC"], ["5", "VIDEO_OPTIONS_16XANISOTROPIC"]]),
     pick("ResampleQuality", "RESAMPLE_QUALITY", "OPTION_TOOLTIP_RESAMPLE_QUALITY", [["0", "RESAMPLE_QUALITY_POINT"], ["1", "RESAMPLE_QUALITY_BILINEAR"], ["2", "RESAMPLE_QUALITY_BICUBIC"], ["3", "RESAMPLE_QUALITY_FSR"]]),
+    pick("shadowrt", "RT_SHADOW_QUALITY", "OPTION_TOOLTIP_RT_SHADOW_QUALITY", [["0", "VIDEO_OPTIONS_DISABLED"], ["1", "VIDEO_OPTIONS_FAIR"], ["2", "VIDEO_OPTIONS_MEDIUM"], ["3", "VIDEO_OPTIONS_HIGH"]]),
+    pick("vrsValar", "VRS_MODE", "OPTION_TOOLTIP_VRS_MODE", ON_OFF),
+    pick("gxapi", "GXAPI", "OPTION_TOOLTIP_GXAPI", [["auto", "GX_ADAPTER_AUTO_DETECT"], ["D3D11", "GXAPI_D3D11"], ["D3D12", "GXAPI_D3D12"]]),
     pick("physicsLevel", "PHYSICS_INTERACTION", "OPTION_TOOLTIP_PHYSICS_INTERACTION", [["0", "NO_ENVIRONMENT_INTERACTION"], ["1", "PLAYER_ONLY_INTERACTION"], ["2", "PLAYER_AND_NPC_INTERACTION"]]),
+    listed("gxAdapter", "GRAPHICS_CARD", "OPTION_TOOLTIP_GRAPHICS_CARD", .Adapters),
+    check("useMaxFPS", "MAXFPS_CHECK", ""),
+    slider("maxFPS", "MAXFPS", "", 8, 200, 1),
+    check("useMaxFPSBk", "MAXFPSBK_CHECK", ""),
+    slider("maxFPSBk", "MAXFPSBK", "", 8, 200, 1),
+    check("useTargetFPS", "TARGETFPS", ""),
+    slider("targetFPS", "TARGETFPS", "", 8, 200, 1),
+    slider("ResampleSharpness", "RESAMPLE_SHARPNESS", "OPTION_TOOLTIP_SHARPNESS", 0, 2, 0.1),
     slider("Contrast", "OPTION_CONTRAST", "OPTION_TOOLTIP_CONTRAST", 0, 100, 1),
     slider("Brightness", "OPTIONS_BRIGHTNESS", "OPTION_TOOLTIP_BRIGHTNESS", 0, 100, 1),
     slider("Gamma", "GAMMA", "OPTION_TOOLTIP_GAMMA", 0.3, 2.8, 0.1)
@@ -324,6 +411,7 @@ public const AUDIO: GamePage = {
   label: "AUDIO_LABEL",
   rows: [
     check("Sound_EnableAllSound", "ENABLE_SOUND", "OPTION_TOOLTIP_ENABLE_SOUND"),
+    listed("Sound_OutputDriverIndex", "AUDIO_OUTPUT_DEVICE", "OPTION_TOOLTIP_AUDIO_OUTPUT", .AudioOutputs),
     slider("Sound_MasterVolume", "MASTER_VOLUME", "OPTION_TOOLTIP_MASTER_VOLUME", 0, 1, 0.05),
     slider("Sound_MusicVolume", "MUSIC_VOLUME", "OPTION_TOOLTIP_MUSIC_VOLUME", 0, 1, 0.05),
     slider("Sound_SFXVolume", "FX_VOLUME", "OPTION_TOOLTIP_FX_VOLUME", 0, 1, 0.05),
@@ -340,7 +428,129 @@ public const AUDIO: GamePage = {
     check("Sound_EnableSoundWhenGameIsInBG", "ENABLE_BGSOUND", "OPTION_TOOLTIP_ENABLE_BGSOUND"),
     check("Sound_EnableReverb", "ENABLE_REVERB", "OPTION_TOOLTIP_ENABLE_REVERB"),
     check("Sound_EnablePositionalLowPassFilter", "ENABLE_SOFTWARE_HRTF", "OPTION_TOOLTIP_ENABLE_SOFTWARE_HRTF"),
-    slider("Sound_NumChannels", "AUDIO_CHANNELS", "OPTION_TOOLTIP_AUDIO_CHANNELS", 32, 128, 32)
+    slider("Sound_NumChannels", "AUDIO_CHANNELS", "OPTION_TOOLTIP_AUDIO_CHANNELS", 32, 128, 32),
+    pick("Sound_MaxCacheSizeInBytes", "AUDIO_CACHE_SIZE", "OPTION_TOOLTIP_AUDIO_CACHE_SIZE", [["67108864", "64 MB"], ["134217728", "128 MB"]]),
+    heading("CHAT_VOICE"),
+    listed("@voice.output", "VOICE_CHAT_OUTPUT_DEVICE", "OPTION_TOOLTIP_VOICE_OUTPUT", .VoiceOutputs),
+    slider("@voice.outputVolume", "VOICE_CHAT_VOLUME", "OPTION_TOOLTIP_VOICE_OUTPUT_VOLUME", 0, 100, 1),
+    slider("VoiceChatMasterVolumeScale", "VOICE_CHAT_DUCKING_SCALE", "VOICE_CHAT_AUDIO_DUCKING", 0, 1, 0.01),
+    listed("@voice.input", "VOICE_CHAT_MIC_DEVICE", "OPTION_TOOLTIP_VOICE_INPUT", .VoiceInputs),
+    slider("@voice.inputVolume", "VOICE_CHAT_MIC_VOLUME", "OPTION_TOOLTIP_VOICE_INPUT_VOLUME", 0, 100, 1),
+    pick("VoiceChatMode", "VOICE_CHAT_MODE", "", [["0", "PUSH_TO_TALK"], ["1", "OPEN_MIC"]])
+  ]
+}
+
+public const GAMEPAD: GamePage = {
+  label: "GAMEPAD_LABEL",
+  rows: [
+    flagged("InputDeviceInterfaceStyle", "ENABLE_GAMEPAD_UI", "OPTION_TOOLTIP_ENABLE_GAMEPAD_UI", "1", "0"),
+    heading("CAMERA_LABEL"),
+    slider("GamePadCameraYawSpeed", "GAMEPAD_YAW_SPEED", "GAMEPAD_YAW_SPEED_TOOLTIP", 0.5, 5, 0.1),
+    slider("GamePadCameraPitchSpeed", "GAMEPAD_PITCH_SPEED", "GAMEPAD_PITCH_SPEED_TOOLTIP", 0.5, 5, 0.1),
+    check("gamepadInvertYaw", "INVERT_GAMEPAD_YAW", "OPTION_TOOLTIP_INVERT_GAMEPAD_YAW"),
+    check("gamepadInvertPitch", "INVERT_GAMEPAD_PITCH", "OPTION_TOOLTIP_INVERT_GAMEPAD_PITCH"),
+    check("GamepadCameraFollowOnStick", "GAMEPAD_FOLLOW_CAMERA", "OPTION_TOOLTIP_GAMEPAD_FOLLOW_CAMERA"),
+    slider("GamepadCameraFollowPitchOffset", "GAMEPAD_FOLLOW_CAMERA_PITCH_OFFSET", "OPTION_TOOLTIP_GAMEPAD_FOLLOW_CAMERA_PITCH_OFFSET", 0, 45, 1),
+    pick("GamePadTurnWithCamera", "GAMEPAD_TURN_WITH_CAMERA", "", [["0", "GAMEPAD_TURN_WITH_CAMERA_OPTION_MOVING"], ["1", "GAMEPAD_TURN_WITH_CAMERA_OPTION_MOVING_COMBAT"], ["3", "GAMEPAD_TURN_WITH_CAMERA_OPTION_MOVING_COMBAT_CASTING"], ["2", "GAMEPAD_TURN_WITH_CAMERA_OPTION_ALWAYS"]]),
+    slider("GamePadFaceMovementMaxAngle", "GAMEPAD_MOVEMENT_FACE_ANGLE", "OPTION_TOOLTIP_GAMEPAD_MOVEMENT_FACE_ANGLE", 0, 180, 1),
+    slider("GamePadFaceMovementMaxAngleCombat", "GAMEPAD_MOVEMENT_FACE_ANGLE_COMBAT", "OPTION_TOOLTIP_GAMEPAD_MOVEMENT_FACE_ANGLE_COMBAT", 0, 180, 1),
+    slider("GamePadBackPedalThreshold", "GAMEPAD_BACK_PEDAL_THRESHOLD", "OPTION_TOOLTIP_GAMEPAD_BACK_PEDAL_THRESHOLD", 0, 1, 0.05),
+    slider("GamePadRunThreshold", "GAMEPAD_RUN_THRESHOLD", "OPTION_TOOLTIP_GAMEPAD_RUN_THRESHOLD", 0, 1, 0.1),
+    check("GamePadFaceMovementMount", "GAMEPAD_FACE_MOVEMENT_MOUNTED", "OPTION_TOOLTIP_GAMEPAD_FACE_MOVEMENT_MOUNTED"),
+    check("GamePadFaceMovementSwimming", "GAMEPAD_FACE_MOVEMENT_SWIMMING", "OPTION_TOOLTIP_GAMEPAD_FACE_MOVEMENT_SWIMMING"),
+    check("GamepadShowPersistentInputLegend", "GAMEPAD_SHOW_LEGEND", "OPTION_TOOLTIP_GAMEPAD_SHOW_LEGEND"),
+    heading("GAMEPAD_MODIFIER_LABEL"),
+    check("GamepadHudModifierUsesToggle", "GAMEPAD_MODIFIER_TOGGLE", "OPTIONS_TOOLTIP_GAMEPAD_MODIFIER_TOGGLE"),
+    heading("FOCUS_MODIFICATIONS_HEADER"),
+    pick("GamepadFocusStateColor", "FOCUS_GLOW_COLOR", "OPTION_TOOLTIP_FOCUS_GLOW_COLOR", [["1", "COLOR_GOLD"], ["2", "COLOR_BLACK"], ["3", "COLOR_BLUE"]]),
+    slider("GamepadFocusStateOpacity", "FOCUS_OPACITY", "OPTION_TOOLTIP_FOCUS_OPACITY", 0, 1, 0.05),
+    heading("ACTIONBARS_LABEL"),
+    numbered("GamepadPossessBarOverride", "GAMEPAD_POSSESS_BAR_OVERRIDE", "OPTIONS_TOOLTIP_GAMEPAD_POSSESS_BAR_OVERRIDE", BAR_PAGES_POSSESS, 1),
+    numbered("GamepadStanceBarOverride", "GAMEPAD_STANCE_BAR_OVERRIDE", "OPTIONS_TOOLTIP_GAMEPAD_STANCE_BAR_OVERRIDE", BAR_PAGES_STANCE, 1),
+    heading("TARGETING_HEADER"),
+    check("GamepadUsePartyTargeting", "GAMEPAD_PARTY_TARGETING_TOGGLE", "GAMEPAD_PARTY_TARGETING_TOGGLE_TOOLTIP"),
+    check("GamepadSwapTargetModifiers", "GAMEPAD_SWAP_TARGET_MODIFIERS", "GAMEPAD_SWAP_TARGET_MODIFIERS_TOOLTIP"),
+    check("GamepadSwapFriendlyTargetActions", "GAMEPAD_SWAP_FRIENDLY_TARGET_ACTIONS", "GAMEPAD_SWAP_FRIENDLY_TARGET_ACTIONS_TOOLTIP"),
+    check("GamepadSwapHostileTargetActions", "GAMEPAD_SWAP_HOSTILE_TARGET_ACTIONS", "GAMEPAD_SWAP_HOSTILE_TARGET_ACTIONS_TOOLTIP"),
+    heading("RAID_TARGETING_OPTIONS"),
+    check("GamepadRaidTargetingHoverMode", "RAID_TARGETING_OPTIONS_HOVER_MODE", "OPTIONS_TOOLTIP_RAID_TARGETING_OPTIONS_HOVER_MODE")
+  ]
+}
+
+// The gamepad's bar pages, as the client's options name them: the possess bar's starts with its own page.
+const BAR_PAGES_STANCE: Array<String> = ["GAMEPAD_STANCE_BAR_NONE", "GAMEPAD_BAR_PAGE1_LEFT", "GAMEPAD_BAR_PAGE1_RIGHT", "GAMEPAD_BAR_PAGE1_BOTTOM", "GAMEPAD_BAR_PAGE2_TOP", "GAMEPAD_BAR_PAGE2_LEFT", "GAMEPAD_BAR_PAGE2_RIGHT", "GAMEPAD_BAR_PAGE2_BOTTOM", "GAMEPAD_BAR_PAGE3_TOP", "GAMEPAD_BAR_PAGE3_LEFT", "GAMEPAD_BAR_PAGE3_RIGHT", "GAMEPAD_BAR_PAGE3_BOTTOM"]
+const BAR_PAGES_POSSESS: Array<String> = ["GAMEPAD_POSSESS_BAR_SPECIAL_PAGE", "GAMEPAD_BAR_PAGE1_LEFT", "GAMEPAD_BAR_PAGE1_RIGHT", "GAMEPAD_BAR_PAGE1_BOTTOM", "GAMEPAD_BAR_PAGE2_TOP", "GAMEPAD_BAR_PAGE2_LEFT", "GAMEPAD_BAR_PAGE2_RIGHT", "GAMEPAD_BAR_PAGE2_BOTTOM", "GAMEPAD_BAR_PAGE3_TOP", "GAMEPAD_BAR_PAGE3_LEFT", "GAMEPAD_BAR_PAGE3_RIGHT", "GAMEPAD_BAR_PAGE3_BOTTOM"]
+// The combat audio alerts' choices: a percent's steps from off, a party's thresholds, a pulse's.
+const EVERY_PERCENT: Array<String> = ["LOC_OPTION_OFF", "10%", "20%", "30%", "40%", "50%"]
+const UNDER_PERCENT: Array<String> = ["LOC_OPTION_OFF", "100%", "90%", "80%", "70%", "60%", "50%", "40%", "30%", "20%", "10%"]
+const PULSE_PERCENT: Array<String> = ["LOC_OPTION_OFF", "90%", "80%", "70%", "60%", "50%", "40%", "30%", "20%", "10%"]
+const CAST_STATES: Array<String> = ["LOC_OPTION_OFF", "CAA_SAY_CASTS_START_OF_CAST", "CAA_SAY_CASTS_END_OF_CAST"]
+
+// The combat audio alerts (Audio Assist): every setting is a CVar of the client's, the class's resources' the
+// specialisation's (`@caa.spec.<setting>`).
+public const AUDIO_ASSIST: GamePage = {
+  label: "ACCESSIBILITY_AUDIO_LABEL",
+  rows: [
+    heading("CHAT_TTS_LABEL"),
+    check("speechToText", "ENABLE_SPEECH_TO_TEXT_TRANSCRIPTION", "OPTION_TOOLTIP_ENABLE_SPEECH_TO_TEXT_TRANSCRIPTION"),
+    check("textToSpeech", "ENABLE_TEXT_TO_SPEECH", "OPTION_TOOLTIP_ENABLE_TEXT_TO_SPEECH"),
+    check("remoteTextToSpeech", "ENABLE_REMOTE_TEXT_TO_SPEECH", "OPTION_TOOLTIP_ENABLE_REMOTE_TEXT_TO_SPEECH"),
+    heading("CAA_COMBAT_AUDIO_ALERTS_LABEL"),
+    check("CAAEnabled", "CAA_ENABLE_COMBAT_AUDIO_ALERTS", "CAA_ENABLE_COMBAT_AUDIO_ALERTS_TOOLTIP"),
+    listed("CAAVoice", "CAA_SPEAKER_VOICE_LABEL", "", .TtsVoices),
+    slider("CAASpeed", "CAA_SPEAKER_SPEED_LABEL", "", -10, 10, 1),
+    slider("CAAVolume", "CAA_SPEAKER_VOLUME_LABEL", "", 0, 100, 1),
+    check("CAASayCombatStart", "CAA_SAY_COMBAT_START_LABEL", ""),
+    check("CAASayCombatEnd", "CAA_SAY_COMBAT_END_LABEL", ""),
+    numbered("CAAPlayerHealthPercent", "CAA_SAY_PLAYER_HEALTH_LABEL", "", EVERY_PERCENT, 0),
+    numbered("CAAPlayerHealthFormat", "CAA_SAY_PLAYER_HEALTH_FORMAT_LABEL", "", ["1", "2", "3", "4", "5", "6"], 0),
+    listed("CAAPlayerHealthVoice", "CAA_VOICE_LABEL", "", .TtsVoices),
+    slider("CAAPlayerHealthThrottle", "CAA_SAY_PLAYER_HEALTH_THROTTLE_LABEL", "", 0, 5, 0.5),
+    slider("CAAPlayerHealthVolume", "CAA_VOLUME_LABEL", "", 0, 100, 1),
+    numbered("CAAPulsePlayerHealthPercent", "CAA_PULSE_PLAYER_HEALTH_LABEL", "", PULSE_PERCENT, 0),
+    slider("CAAPulsePlayerHealthVolume", "CAA_VOLUME_LABEL", "", 0, 100, 1),
+    check("CAASayTargetName", "CAA_SAY_TARGET_NAME_LABEL", "CAA_SAY_TARGET_NAME_TOOLTIP"),
+    numbered("@caa.spec.8", "CAA_SAY_IF_TARGETED_LABEL", "", ["LOC_OPTION_OFF", "CAA_SAY_IF_TARGETED_FORMAT_AGGRO", "CAA_SAY_IF_TARGETED_FORMAT_TARGETED_NO_NAME", "CAA_SAY_IF_TARGETED_FORMAT_TARGETED"], 0),
+    numbered("CAATargetDeathBehavior", "CAA_WHEN_TARGET_DIES_LABEL", "", ["CAA_WHEN_TARGET_DIES_USE_FORMAT", "CAA_WHEN_TARGET_DIES_VOICE_TARGET_DEAD"], 0),
+    numbered("CAATargetHealthPercent", "CAA_SAY_TARGET_HEALTH_LABEL", "", EVERY_PERCENT, 0),
+    numbered("CAATargetHealthFormat", "CAA_SAY_TARGET_HEALTH_FORMAT_LABEL", "", ["1", "2", "3", "4", "5", "6", "7", "8", "9"], 0),
+    listed("CAATargetHealthVoice", "CAA_VOICE_LABEL", "", .TtsVoices),
+    slider("CAATargetHealthThrottle", "CAA_SAY_TARGET_HEALTH_THROTTLE_LABEL", "", 0, 5, 0.5),
+    slider("CAATargetHealthVolume", "CAA_VOLUME_LABEL", "", 0, 100, 1),
+    numbered("CAAPartyHealthPercent", "CAA_SAY_PARTY_HEALTH_LABEL", "", UNDER_PERCENT, 0),
+    slider("CAAPartyHealthFrequency", "CAA_SAY_PARTY_HEALTH_FREQUENCY_LABEL", "", -10, 10, 1),
+    listed("CAAPartyHealthVoice", "CAA_VOICE_LABEL", "", .TtsVoices),
+    slider("CAAPartyHealthVolume", "CAA_VOLUME_LABEL", "", 0, 100, 1),
+    numbered("@caa.spec.0", "CAA_SAY_PLAYER_RESOURCE_LABEL", "", EVERY_PERCENT, 0),
+    numbered("@caa.spec.1", "CAA_SAY_PLAYER_RESOURCE_FORMAT_LABEL", "", ["1", "2", "3", "4", "5", "6"], 0),
+    listed("@caa.spec.2", "CAA_VOICE_LABEL", "", .TtsVoices),
+    slider("CAAResource1Throttle", "CAA_SAY_PLAYER_RESOURCE_THROTTLE_LABEL", "", 0, 5, 0.5),
+    slider("@caa.spec.3", "CAA_VOLUME_LABEL", "", 0, 100, 1),
+    numbered("@caa.spec.4", "CAA_SAY_PLAYER_RESOURCE_LABEL", "", EVERY_PERCENT, 0),
+    numbered("@caa.spec.5", "CAA_SAY_PLAYER_RESOURCE_FORMAT_LABEL", "", ["1", "2", "3", "4", "5", "6"], 0),
+    listed("@caa.spec.6", "CAA_VOICE_LABEL", "", .TtsVoices),
+    slider("CAAResource2Throttle", "CAA_SAY_PLAYER_RESOURCE_THROTTLE_LABEL", "", 0, 5, 0.5),
+    slider("@caa.spec.7", "CAA_VOLUME_LABEL", "", 0, 100, 1),
+    numbered("CAAPlayerCastMode", "CAA_SAY_PLAYER_CASTS_LABEL", "", CAST_STATES, 0),
+    numbered("CAAPlayerCastFormat", "CAA_SAY_PLAYER_CASTS_FORMAT_LABEL", "", ["1", "2", "3", "4", "5"], 0),
+    listed("CAAPlayerCastVoice", "CAA_VOICE_LABEL", "", .TtsVoices),
+    slider("CAAPlayerCastMinTime", "CAA_SAY_PLAYER_CASTS_MIN_CAST_TIME_LABEL", "", 0, 5, 0.5),
+    slider("CAAPlayerCastThrottle", "CAA_SAY_PLAYER_CASTS_THROTTLE_LABEL", "", 0, 5, 0.5),
+    slider("CAAPlayerCastVolume", "CAA_VOLUME_LABEL", "", 0, 100, 1),
+    numbered("CAATargetCastMode", "CAA_SAY_TARGET_CASTS_LABEL", "", CAST_STATES, 0),
+    numbered("CAATargetCastFormat", "CAA_SAY_TARGET_CASTS_FORMAT_LABEL", "", ["1", "2", "3", "4", "5", "6", "7"], 0),
+    listed("CAATargetCastVoice", "CAA_VOICE_LABEL", "", .TtsVoices),
+    slider("CAATargetCastMinTime", "CAA_SAY_TARGET_CASTS_MIN_CAST_TIME_LABEL", "", 0, 5, 0.5),
+    slider("CAATargetCastThrottle", "CAA_SAY_TARGET_CASTS_THROTTLE_LABEL", "", 0, 5, 0.5),
+    slider("CAATargetCastVolume", "CAA_VOLUME_LABEL", "", 0, 100, 1),
+    numbered("CAAInterruptCast", "CAA_SAY_TARGET_CASTS_INTERRUPT_LABEL", "", ["LOC_OPTION_OFF", "CAA_SAY_TARGET_CASTS_INTERRUPT_TEXT"], 0),
+    numbered("CAAInterruptCastSuccess", "CAA_SAY_TARGET_CASTS_INTERRUPT_SUCCESS_LABEL", "", ["LOC_OPTION_OFF", "CAA_SAY_TARGET_CAST_INTERRUPT_SUCCESS_TEXT"], 0),
+    check("CAASayYourDebuffs", "CAA_SAY_YOUR_DEBUFFS_LABEL", "CAA_SAY_YOUR_DEBUFFS_TOOLTIP"),
+    numbered("CAASayYourDebuffsFormat", "CAA_SAY_YOUR_DEBUFFS_FORMAT_LABEL", "", ["1", "2"], 0),
+    listed("CAASayYourDebuffsVoice", "CAA_VOICE_LABEL", "", .TtsVoices),
+    slider("CAASayYourDebuffsMinDuration", "CAA_SAY_YOUR_DEBUFFS_MIN_DURATION_LABEL", "", 0, 5, 0.5),
+    slider("CAASayYourDebuffsVolume", "CAA_VOLUME_LABEL", "", 0, 100, 1),
+    numbered("CAADebuffSelfAlert", "CAA_DEBUFF_SELF_ALERT_LABEL", "", ["LOC_OPTION_OFF", "CAA_DEBUFF_SELF_ALERT_FORMAT_DEBUFF_TYPE"], 0)
   ]
 }
 
@@ -364,7 +574,7 @@ public const PRESET: GamePage = {
 }
 
 // Every page, in the game's order: the game's settings, then the system's.
-public const GAME_PAGES: Array<GamePage> = [CONTROLS, INTERFACE, ACTION_BARS, COMBAT, SOCIAL, NAMEPLATES, ACCESSIBILITY, PRESET, GRAPHICS, AUDIO, NETWORK]
+public const GAME_PAGES: Array<GamePage> = [CONTROLS, INTERFACE, ACTION_BARS, COMBAT, SOCIAL, NAMEPLATES, ACCESSIBILITY, AUDIO_ASSIST, GAMEPAD, PRESET, GRAPHICS, AUDIO, NETWORK]
 
 // Every CVar a page writes, once each, in the order the pages name them: what a profile keeps and applies, in that
 // order (the graphics' overall quality before the qualities it sets).
@@ -391,6 +601,10 @@ const function namesOf(row: GameRow): Array<String> {
   } else if (row is GameRow.Slider) {
     list.push(row.cvar)
     for (follower of row.followers) { list.push(follower.cvar) }
+  } else if (row is GameRow.Listed) {
+    list.push(row.cvar)
+  } else if (row is GameRow.Ticks) {
+    for (tick of row.ticks) { list.push(tick.setting) }
   } else if (row is GameRow.Choice) {
     for (offered of row.options) {
       for (written of offered.writes) {

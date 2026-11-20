@@ -4,6 +4,17 @@ box 0,0 0x0
   embed 0,0 0x0 frame=none opacity=0
   embed 0,0 0x0 frame=none opacity=0
 box 0,0 1600x0 @keyDown
+surface 5.69,663.44 305.78x182.52 on MEDIUM clamped
+  box 5.69,663.44 305.78x182.52 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @pointerEnter @pointerLeave
+    box 24.47,679.38 273.21x0
+      box 24.47,679.38 273.21x0
+    box 24.47,679.38 273.21x135.11 clipped @wheel
+      box 24.47,814.49 273.21x0 absolute
+    box 24.47,814.49 273.21x17.78
+      box 24.47,823.38 0x0
+      box 27.32,814.49 267.52x17.78 @pointerPress
+        text 27.32,814.49 267.52x17.78 "Enter: type" #857a66
+      box 297.68,823.38 0x0
 surface 1323.67,0 276.33x326.33 on MEDIUM clamped
   box 1323.67,0 276.33x326.33 opacity=1
     box 1343.92,20.25 230.83x283.58 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @pointerEnter @pointerLeave
@@ -292,3 +303,11 @@ surface 0,0 1600x900 on DIALOG #0000008c
           text 929.7,479.93 35.56x17.78 "Apply" #ffd100
     box 569.17,388.03 466.67x26.67 absolute
       text 749.17,388.03 106.67x26.67 "Game settings" #ffd100
+asked: Chat.inputHistory all
+asked: Chat.whisperWindows true
+asked: Chat.inputArrows false
+asked: Chat.inputShown false
+asked: Chat.inputHistory all
+asked: Chat.whisperWindows true
+asked: Chat.inputArrows false
+asked: Chat.inputShown false

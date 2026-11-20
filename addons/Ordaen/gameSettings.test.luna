@@ -3,11 +3,12 @@
 // bindings bound, kept and applied over the client's set in use; Esc → Options opening Ordaen's window.
 import Client from "$client"
 import Events from "$events"
+import { MouseButton } from "$ltml"
 import Test from "$test"
 import root Ordaen from "Ordaen"
-import { CONTROLS, GRAPHICS } from "@/gameCatalogue"
-import { BindingsPage, GamePageView } from "@/gamePage"
-import { Keeping } from "@/gameSettings"
+import { AUDIO, CONTROLS, GAME_CVARS, GRAPHICS, GamePage, GameRow, NAMEPLATES } from "@/gameCatalogue"
+import { BindingsPage, GamePageView, GameRowView } from "@/gamePage"
+import { GameValues, Keeping, readSetting, textOf } from "@/gameSettings"
 import Locale from "@/locales"
 import { ProfileName } from "@/profiles"
 
@@ -25,10 +26,25 @@ function switchTo(name: ProfileName) {
   Test.flush()
 }
 
+test "every setting the pages write, the client has" {
+  let missing = 0
+  for (name of GAME_CVARS) {
+    if (readSetting(name) == nil) {
+      Test.note(`missing: ${name}`)
+      missing += 1
+    }
+  }
+  Test.expect(missing == 0)
+}
+
 test "a profile that never held the game's settings takes them as the game has them, changing none" {
   Test.mount(nil, SCREEN)
+  // The login's profile took them as Ordaen loaded; one that never held them (as before Ordaen kept them) takes them
+  // as they are now, set elsewhere in the meantime.
+  Test.expect(Ordaen.game.settings.values.taken)
   Test.cvar("autoLootDefault", "1")
-  switchTo("Raid")
+  Ordaen.game.settings.change((v: mut GameValues): nil => { v.taken = false })
+  Test.flush()
   const values = Ordaen.game.settings.values
   Test.expect(values.taken)
   Test.expect(values.cvars["autoLootDefault"] == "1")
@@ -158,6 +174,66 @@ test "a key is bound on the bindings page, kept into the set in use and in the p
   Test.expect(Ordaen.game.settings.values.bindings["JUMP"] == nil)
 }
 
+test "a mouse's side buttons bind as the game names them, a modifier held with them" {
+  const page = new BindingsPage(mut Ordaen.game)
+  Test.mount(page, PAGE)
+  Ordaen.game.ask("JUMP", 1)
+  Test.flush()
+  Test.page().text(Locale.GAME_PRESS_KEY.format(textOf("BINDING_NAME_JUMP"))).hover()
+  Test.press(MouseButton.Back)
+  Test.release(MouseButton.Back)
+  const back, _ = Client.GetBindingKey("JUMP")
+  Test.expect(back == "BUTTON4")
+  Ordaen.game.ask("JUMP", 1)
+  Test.flush()
+  Test.page().text(Locale.GAME_PRESS_KEY.format(textOf("BINDING_NAME_JUMP"))).hover()
+  Test.press(MouseButton.Forward)
+  Test.release(MouseButton.Forward)
+  const forward, _ = Client.GetBindingKey("JUMP")
+  Test.expect(forward == "BUTTON5")
+}
+
+test "a bitfield's bits, a device of the client's list, the window's size and an alert of the specialisation are each written as the client takes it" {
+  Ordaen.game.write([
+    { cvar: "nameplateInfoDisplay#2", value: "1" },
+    { cvar: "@voice.output", value: "speakers" },
+    { cvar: "@windowSize", value: "1280x720" },
+    { cvar: "@caa.spec.8", value: "2" }
+  ])
+  Test.expect(Client.C_CVar.GetCVarBitfield("nameplateInfoDisplay", 2) == true)
+  Test.expect(Client.C_CVar.GetCVarBitfield("nameplateInfoDisplay", 1) == false)
+  Test.expect(readSetting("@voice.output") == "speakers")
+  Test.expect(readSetting("@windowSize") == "1280x720")
+  Test.expect(readSetting("@caa.spec.8") == "2")
+  const kept = Ordaen.game.settings.values.cvars
+  Test.expect(kept["nameplateInfoDisplay#2"] == "1")
+  Test.expect(kept["@voice.output"] == "speakers")
+  // Another bit of the same CVar changed by the client: the page follows it.
+  _ = Client.C_CVar.SetCVarBitfield("nameplateInfoDisplay", 3, true)
+  Events.CVAR_UPDATE.emit("nameplateInfoDisplay", Client.C_CVar.GetCVar("nameplateInfoDisplay") ?? "")
+  Test.expect(Ordaen.game.client["nameplateInfoDisplay#3"] == "1")
+  _ = Client.C_CVar.SetCVarBitfield("nameplateInfoDisplay", 3, false)
+  Events.CVAR_UPDATE.emit("nameplateInfoDisplay", Client.C_CVar.GetCVar("nameplateInfoDisplay") ?? "")
+  Test.expect(Client.C_CVar.GetCVarBitfield("nameplateInfoDisplay", 3) == false)
+  Test.expect(readSetting("nameplateInfoDisplay#3") == "0")
+  Test.expect(Ordaen.game.client["nameplateInfoDisplay#3"] == "0")
+  // The row shows the ticks the client holds (the stand-in hasn't the ticks' texts: their names would be cut short).
+  const ticks = NAMEPLATES.rows.filter(r => r is GameRow.Ticks && r.label == "UNIT_NAMEPLATES_INFO_DISPLAY")[1]
+  if (ticks == nil) {
+    Test.expect(false)
+    return
+  }
+  const row = new GameRowView(ticks, mut Ordaen.game)
+  Test.expect(row.tickedSet.length == 1 && row.tickedSet[1] == 2)
+}
+
+test "a dropdown of the client's list offers what the client lists: its sound devices, its voices" {
+  const listed: GamePage = { label: "", rows: AUDIO.rows.filter(r => r is GameRow.Listed) }
+  const page = new GamePageView(listed, mut Ordaen.game)
+  Test.mount(page, PAGE)
+  Test.shot("audio: the output device, the voice chat's devices")
+}
+
 test "the character's own set of bindings: taken as the client's window takes it, the account's back after asking" {
   const page = new BindingsPage(mut Ordaen.game)
   Test.mount(page, PAGE)
@@ -171,10 +247,12 @@ test "the character's own set of bindings: taken as the client's window takes it
 
 test "the game's settings window shown opens Ordaen's at the game's pages; off, the game's stays" {
   Test.mount(nil, SCREEN)
-  const panel = Client.CreateFrame("Frame", "SettingsPanel", nil, nil)
-  panel.Hide()
+  const panel = Client.SettingsPanel
+  if (panel == nil) {
+    Test.expect(false)
+    return
+  }
   Events.ADDON_LOADED.emit("Blizzard_Settings", false)
-  Test.expect(Ordaen.game.hooked)
   Client.ShowUIPanel(panel)
   Test.flush()
   Test.expect(!panel.IsShown())

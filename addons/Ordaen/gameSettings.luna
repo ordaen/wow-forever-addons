@@ -12,11 +12,12 @@
 // While it is on, the game's settings window (Esc → Options) opens Ordaen's at the game's pages; a development build's
 // footer button lets the game's window through, as it is.
 import Client from "$client"
+import { CombatAudioAlertSpecSetting, VoiceAudioDevice, vector2 } from "$client"
 import Events from "$events"
 import { Frame } from "$ltml"
 import Runtime from "$runtime"
 import { Dialog } from "@/dialog"
-import { CVarWrite, GAME_CVARS, GAME_PAGES, GamePage, GameRow } from "@/gameCatalogue"
+import { CVarWrite, GAME_CVARS, GAME_PAGES, GamePage, GameRow, OptionSource } from "@/gameCatalogue"
 import { GamePass } from "@/gameWindow"
 import { Keeper } from "@/keeper"
 import Locale from "@/locales"
@@ -34,6 +35,8 @@ const GAME_WINDOW = "SettingsPanel"
 const GAME_ADDON = "Blizzard_Settings"
 // The most changes the question before a switch lists; the rest are counted.
 const LISTED_MOST = 12
+// The combat audio alerts' settings of the specialisation, by their numbers (`@caa.spec.<n>`, from 0).
+const SPEC_SETTINGS: Array<CombatAudioAlertSpecSetting> = [.Resource1Percent, .Resource1Format, .Resource1Voice, .Resource1Volume, .Resource2Percent, .Resource2Format, .Resource2Voice, .Resource2Volume, .SayIfTargeted]
 const DIM: Color = Color.hex("#a3977f")
 const ASK_WIDTH = 656.25dp
 
@@ -89,10 +92,165 @@ function labelsOf(pages: Array<GamePage>): Map<String, String> {
         for (offered of row.options) {
           for (written of offered.writes) { labels[written.cvar] = row.label }
         }
+      } else if (row is GameRow.Listed) {
+        labels[row.cvar] = row.label
+      } else if (row is GameRow.Ticks) {
+        for (tick of row.ticks) { labels[tick.setting] = tick.label }
       }
     }
   }
   return labels
+}
+
+// The device of a list the voice chat uses now.
+function activeDevice(devices: Array<VoiceAudioDevice> | nil): String | nil {
+  if (devices == nil) { return nil }
+  for (device of devices) {
+    if (device.isActive) { return device.deviceID }
+  }
+  return nil
+}
+
+// A size of the game window as its setting writes it, `1920x1080`.
+function sizeText(size: vector2): String {
+  return String.of(size.x.floor()) + "x" + String.of(size.y.floor())
+}
+
+// The combat audio alerts' setting of the specialisation named `@caa.spec.<n>`, or nil.
+function specSettingOf(name: String): CombatAudioAlertSpecSetting | nil {
+  const number = name.match("^@caa%.spec%.(%d+)$")
+  if (number == nil) { return nil }
+  return SPEC_SETTINGS[(number.toNumber() ?? 0).floor() + 1]
+}
+
+// A bit of a bitfield CVar named `<cvar>#<bit>`: the CVar and the bit, or nil.
+function bitOf(name: String): (String | nil, Integer) {
+  const cvar, bit = name.match("^(.+)#(%d+)$")
+  if (cvar == nil || bit == nil) { return nil, 0 }
+  return cvar, (bit.toNumber() ?? 0).floor()
+}
+
+// A setting's value as the client has it (the catalogue says what a name is), or nil where the client has none.
+public function readSetting(name: String): String | nil {
+  const cvar, bit = bitOf(name)
+  if (cvar != nil) {
+    const on = Client.C_CVar.GetCVarBitfield(cvar, bit)
+    return on == nil ? nil : (on ? "1" : "0")
+  }
+  const spec = specSettingOf(name)
+  if (spec != nil) { return String.of(Client.C_CombatAudioAlert.GetSpecSetting(spec)) }
+  if (name == "@windowSize") { return sizeText(Client.C_VideoOptions.GetCurrentGameWindowSize()) }
+  if (name == "@voice.output") { return activeDevice(Client.C_VoiceChat.GetAvailableOutputDevices()) }
+  if (name == "@voice.input") { return activeDevice(Client.C_VoiceChat.GetAvailableInputDevices()) }
+  if (name == "@voice.outputVolume") {
+    const volume = Client.C_VoiceChat.GetOutputVolume()
+    return volume == nil ? nil : String.of(volume)
+  }
+  if (name == "@voice.inputVolume") {
+    const volume = Client.C_VoiceChat.GetInputVolume()
+    return volume == nil ? nil : String.of(volume)
+  }
+  return Client.C_CVar.GetCVar(name)
+}
+
+// A setting written as the client takes it: whether it took it.
+public function writeSetting(name: String, value: String): Boolean {
+  const cvar, bit = bitOf(name)
+  if (cvar != nil) { return Client.C_CVar.SetCVarBitfield(cvar, bit, value == "1") }
+  const spec = specSettingOf(name)
+  if (spec != nil) { return Client.C_CombatAudioAlert.SetSpecSetting(spec, value.toNumber() ?? 0) }
+  if (name == "@windowSize") {
+    const width, height = value.match("^(%d+)x(%d+)$")
+    if (width == nil || height == nil) { return false }
+    Client.C_VideoOptions.SetGameWindowSize(width.toNumber() ?? 0, height.toNumber() ?? 0)
+    return true
+  }
+  if (name == "@voice.output") {
+    Client.C_VoiceChat.SetOutputDevice(value)
+    return true
+  }
+  if (name == "@voice.input") {
+    Client.C_VoiceChat.SetInputDevice(value)
+    return true
+  }
+  if (name == "@voice.outputVolume") {
+    Client.C_VoiceChat.SetOutputVolume(value.toNumber() ?? 0)
+    return true
+  }
+  if (name == "@voice.inputVolume") {
+    Client.C_VoiceChat.SetInputVolume(value.toNumber() ?? 0)
+    return true
+  }
+  return Client.C_CVar.SetCVar(name, value)
+}
+
+// The bitfield CVar a bit's setting is of, or nil.
+function bitfieldOf(name: String): String | nil {
+  const cvar, _ = bitOf(name)
+  return cvar
+}
+
+// Whether a setting is behind the client's functions (`@`).
+function isSpecial(name: String): Boolean {
+  const at, _ = name.find("^@")
+  return at != nil
+}
+
+function bitsOf(names: Array<String>): Map<String, Array<String>> {
+  const bits: Map<String, Array<String>> = {}
+  for (name of names) {
+    const cvar = bitfieldOf(name)
+    if (cvar != nil && bits[cvar] == nil) { bits[cvar] = names.filter(other => bitfieldOf(other) == cvar) }
+  }
+  return bits
+}
+
+// The CVar a setting is kept in, where it is one or a bit of one: nil for one behind the client's functions.
+function cvarOf(name: String): String | nil {
+  const cvar = bitfieldOf(name)
+  if (cvar != nil) { return cvar }
+  return isSpecial(name) ? nil : name
+}
+
+// The options a `Listed` row offers, as the client lists them now: each its value and its name.
+public function optionsOf(source: OptionSource, client: Map<String, String>): Array<[String, String]> {
+  const list: Array<[String, String]> = []
+  if (source == .Monitors) {
+    list.push(["0", textOf("VIDEO_OPTIONS_MONITOR_PRIMARY")])
+    for (index of 2..Client.GetMonitorCount().floor()) {
+      const name, _ = Client.GetMonitorName(index)
+      list.push([String.of(index - 1), name])
+    }
+  } else if (source == .WindowSizes) {
+    const fullscreen = sameValue(client["gxMaximize"], "1")
+    if (fullscreen) { list.push(["0x0", textOf("DEFAULT")]) }
+    const monitor = (client["gxMonitor"] ?? "0").toNumber() ?? 0
+    for (size of Client.C_VideoOptions.GetGameWindowSizes(monitor, fullscreen)) {
+      const text = sizeText(size)
+      list.push([text, text])
+    }
+  } else if (source == .Adapters) {
+    list.push(["", textOf("GX_ADAPTER_AUTO_DETECT")])
+    for (adapter of Client.C_VideoOptions.GetGxAdapterInfo()) {
+      if (adapter.isExternal) {
+        list.push([adapter.name, textOf("GX_ADAPTER_EXTERNAL").format(adapter.name)])
+      } else if (adapter.isLowPower) {
+        list.push([adapter.name, textOf("GX_ADAPTER_LOW_POWER").format(adapter.name)])
+      } else {
+        list.push([adapter.name, adapter.name])
+      }
+    }
+  } else if (source == .AudioOutputs) {
+    for (index of 1..Client.Sound_GameSystem_GetNumOutputDrivers().floor()) {
+      list.push([String.of(index - 1), Client.Sound_GameSystem_GetOutputDriverNameByIndex(index - 1)])
+    }
+  } else if (source == .VoiceOutputs || source == .VoiceInputs) {
+    const devices = source == .VoiceOutputs ? Client.C_VoiceChat.GetAvailableOutputDevices() : Client.C_VoiceChat.GetAvailableInputDevices()
+    for (device of devices ?? []) { list.push([device.deviceID, device.displayName]) }
+  } else {
+    for (voice of Client.C_VoiceChat.GetTtsVoices()) { list.push([String.of(voice.voiceID), voice.name]) }
+  }
+  return list
 }
 
 // One of the client's texts by its name, or the name itself where the client has none.
@@ -150,6 +308,8 @@ public class GameSettings implements Component {
   public const pass: mut GamePass = new GamePass()
   const keeper: mut Keeper
   const labels: Map<String, String>
+  // The bits the pages tick of each bitfield CVar, by the CVar.
+  const bits: Map<String, Array<String>>
   // The client's list of actions, read once it is first asked for.
   entries: Array<BindingEntry> | nil = nil
   // The values an apply waits with, and whether the first values (the login's) are applied.
@@ -163,6 +323,7 @@ public class GameSettings implements Component {
   constructor(keeper: mut Keeper) {
     self.keeper = keeper
     self.labels = labelsOf(GAME_PAGES)
+    self.bits = bitsOf(GAME_CVARS)
     self.settings = new Settings<GameValues>(GameValues {}, "game", mut keeper)
     self.client = self.readCVars()
     self.characterSet = Client.GetCurrentBindingSet() == CHARACTER_SET
@@ -174,11 +335,11 @@ public class GameSettings implements Component {
     watch (values of self.settings.values) { self.follow(values) }
   }
 
-  // The client's value of each CVar of the pages.
+  // The client's value of each setting of the pages.
   readCVars(self): mut Map<String, String> {
     const read: Map<String, String> = {}
     for (name of GAME_CVARS) {
-      const value = Client.C_CVar.GetCVar(name)
+      const value = readSetting(name)
       if (value != nil) { read[name] = value }
     }
     return read
@@ -234,8 +395,17 @@ public class GameSettings implements Component {
     self.characterSet = Client.GetCurrentBindingSet() == CHARACTER_SET
   }
 
+  // A CVar the client changed: its value, or its bits' where the pages tick them one by one.
   updated(mut self, name: String, value: String) {
-    if ((peek self.client)[name] != nil && !sameValue((peek self.client)[name], value)) { self.client[name] = value }
+    const now = peek self.client
+    if (now[name] != nil) {
+      if (!sameValue(now[name], value)) { self.client[name] = value }
+      return
+    }
+    for (bitName of self.bits[name] ?? []) {
+      const read = readSetting(bitName)
+      if (read != nil && read != now[bitName]) { self.client[bitName] = read }
+    }
   }
 
   bindingsUpdated(mut self) {
@@ -244,7 +414,9 @@ public class GameSettings implements Component {
 
   // Where the client keeps a CVar, or that it refuses it to an addon.
   public keeping(self, name: String): Keeping {
-    const _, _, account, character, locked, _, readOnly = Client.C_CVar.GetCVarInfo(name)
+    const cvar = cvarOf(name)
+    if (cvar == nil) { return .Game }
+    const _, _, account, character, locked, _, readOnly = Client.C_CVar.GetCVarInfo(cvar)
     if (locked || readOnly) { return .Refused }
     if (character) { return .Character }
     if (account) { return .Account }
@@ -253,12 +425,17 @@ public class GameSettings implements Component {
 
   // Whether the client holds a CVar while the player fights.
   public held(self, name: String): Boolean {
-    const _, _, _, _, _, secure, _ = Client.C_CVar.GetCVarInfo(name)
+    const cvar = cvarOf(name)
+    if (cvar == nil) { return false }
+    const _, _, _, _, _, secure, _ = Client.C_CVar.GetCVarInfo(cvar)
     return secure
   }
 
-  defaultOf(self, name: String): String {
-    return Client.C_CVar.GetCVarDefault(name) ?? ""
+  // A setting's default, where the client says it: a CVar's. A bit's or one behind the client's functions has none
+  // (a profile keeps it as it is, and leaves it be where it doesn't hold it).
+  defaultOf(self, name: String): String | nil {
+    if (bitfieldOf(name) != nil || isSpecial(name)) { return nil }
+    return Client.C_CVar.GetCVarDefault(name)
   }
 
   // The values of a profile met: off, nothing; never taken, the game's taken; else applied where they differ, at login
@@ -312,8 +489,8 @@ public class GameSettings implements Component {
     const list: Array<GameChange> = []
     const now = peek self.client
     for (name of GAME_CVARS) {
-      if (self.keeping(name) != .Refused) {
-        const target = values.cvars[name] ?? self.defaultOf(name)
+      const target = values.cvars[name] ?? self.defaultOf(name)
+      if (target != nil && self.keeping(name) != .Refused) {
         const current = now[name] ?? ""
         if (!sameValue(current, target)) {
           list.push({ label: textOf(self.labels[name] ?? name), from: current, to: target })
@@ -342,11 +519,9 @@ public class GameSettings implements Component {
       return
     }
     for (name of GAME_CVARS) {
-      if (self.keeping(name) != .Refused) {
-        const target = values.cvars[name] ?? self.defaultOf(name)
-        if (!sameValue((peek self.client)[name], target) && Client.C_CVar.SetCVar(name, target)) {
-          self.client[name] = target
-        }
+      const target = values.cvars[name] ?? self.defaultOf(name)
+      if (target != nil && self.keeping(name) != .Refused && !sameValue((peek self.client)[name], target) && writeSetting(name, target)) {
+        self.client[name] = target
       }
     }
     const bound = self.bindingsNow()
@@ -379,7 +554,7 @@ public class GameSettings implements Component {
   public write(mut self, writes: Array<CVarWrite>) {
     const kept: Map<String, String> = {}
     for (written of writes) {
-      if (Client.C_CVar.SetCVar(written.cvar, written.value)) {
+      if (writeSetting(written.cvar, written.value)) {
         self.client[written.cvar] = written.value
         kept[written.cvar] = written.value
       }
@@ -440,8 +615,10 @@ public class GameSettings implements Component {
   public resetDefaults(mut self) {
     if (Client.InCombatLockdown()) { return }
     for (name of GAME_CVARS) {
-      if (self.keeping(name) != .Refused && Client.C_CVar.SetCVar(name, self.defaultOf(name))) {
-        self.client[name] = self.defaultOf(name)
+      const cvar = cvarOf(name)
+      const target = cvar == nil ? nil : Client.C_CVar.GetCVarDefault(cvar)
+      if (cvar != nil && target != nil && self.keeping(name) != .Refused && Client.C_CVar.SetCVar(cvar, target)) {
+        self.client[name] = readSetting(name)
       }
     }
     Client.LoadBindings(DEFAULT_SET)
