@@ -62,31 +62,33 @@ surface 550,192.21 500x515.58 on DIALOG clamped raised by a click
                 text 698.34,361.37 320.81x17.78 "you are here" #a3977f
               box 585.85,384.84 433.3x64.71
                 box 585.85,384.84 433.3x64.71 #00000000 @keyPress @pointerEnter @pointerLeave @pointerPress
-                  box 600.07,390.53 10x10 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @pointerPress
-                    box 600.07,390.53 10x10 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
-                  text 615.76,390.53 28.89x17.78 "[14]" #ff2020
-                  box 650.34,390.53 363.12x53.33
-                    box 650.34,390.53 363.12x17.78
-                      text 650.34,390.53 351.74x17.78 "Elwynn Wolves" #e8dcc4
+                  text 600.07,390.53 28.89x17.78 "[14]" #ff2020
+                  box 634.65,390.53 378.81x53.33
+                    box 634.65,390.53 378.81x17.78
+                      text 634.65,390.53 367.43x17.78 "Elwynn Wolves" #e8dcc4
                       text 1007.77,399.42 0x0 "" #a3977f
                       text 1013.46,399.42 0x0 "" #40c040
-                    text 650.34,408.31 363.12x17.78 "Wolves slain: 5/10" #a3977f
-                    text 650.34,426.09 363.12x17.78 "Pelts: 4/4" #808080
+                    box 634.65,408.31 378.81x17.78
+                      text 634.65,408.31 346.46x17.78 "Wolves slain" #a3977f
+                      text 986.79,408.31 26.67x17.78 "5/10" #a3977f
+                    box 634.65,426.09 378.81x17.78
+                      text 634.65,426.09 352.01x17.78 "Pelts" #808080
+                      text 992.35,426.09 21.11x17.78 "4/4" #808080
             box 585.85,449.55 433.3x76.09
               box 585.85,449.55 433.3x29.16 #00000000 @keyPress @pointerPress
                 box 585.85,457.46 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-marks row 3 of 8
                 text 604.87,455.24 54.44x17.78 "Westfall" #ffd100
               box 585.85,478.71 433.3x46.93
                 box 585.85,478.71 433.3x46.93 #00000000 @keyPress @pointerEnter @pointerLeave @pointerPress
-                  box 600.07,484.4 10x10 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @pointerPress
-                    box 600.07,484.4 10x10 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
-                  text 615.76,484.4 28.89x17.78 "[14]" #ff2020
-                  box 650.34,484.4 363.12x35.56
-                    box 650.34,484.4 363.12x17.78
-                      text 650.34,484.4 300.63x17.78 "The Defias Brotherhood" #e8dcc4
+                  text 600.07,484.4 28.89x17.78 "[14]" #ff2020
+                  box 634.65,484.4 378.81x35.56
+                    box 634.65,484.4 378.81x17.78
+                      text 634.65,484.4 316.32x17.78 "The Defias Brotherhood" #e8dcc4
                       text 956.66,493.29 0x0 "" #a3977f
                       text 962.35,484.4 51.11x17.78 "Complete" #40c040
-                    text 650.34,502.17 363.12x17.78 "Wolves slain: 5/10" #a3977f
+                    box 634.65,502.17 378.81x17.78
+                      text 634.65,502.17 346.46x17.78 "Wolves slain" #a3977f
+                      text 986.79,502.17 26.67x17.78 "5/10" #a3977f
       box 585.85,647.88 433.3x34.84
         box 585.85,664.95 433.3x17.78
           box 585.85,673.84 318.81x0

@@ -6,9 +6,8 @@ import Events from "$events"
 import Game from "$game"
 import Test from "$test"
 import root Ordaen from "Ordaen"
-import { ROW_HOVER } from "Ordaen"
+import { ROW_HOVER, pawnText } from "Ordaen"
 import root Dialogue from "OrdaenDialogue"
-import { pawnText } from "@/rewards"
 import { Auto } from "@/settings"
 
 const SCREEN: Test.Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }

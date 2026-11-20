@@ -4,8 +4,7 @@
 import Client from "$client"
 import Game from "$game"
 import { Art } from "$ltml"
-import Runtime from "$runtime"
-import { Quality, qualityFrom } from "Ordaen"
+import { Quality, Reward, Standing, artOf, itemReward } from "Ordaen"
 import Locale from "@/locales"
 
 // Where the NPC's list came from: the gossip window (`GOSSIP_SHOW`), or a quest giver's greeting (`QUEST_GREETING`),
@@ -35,26 +34,6 @@ public struct Line {
   const source: Source
 }
 
-public enum RewardKind { Item, Currency, Spell, Title, Skill }
-
-// A reward, to choose or given: an item as the game names it (its slot and type under it, red where the player can't
-// wear it; its sell price), a spell learned, a title, a currency, a skill's points.
-public struct Reward {
-  const kind: RewardKind
-  const name: String
-  const icon: Art | nil
-  const count: Integer
-  const quality: Quality
-  const item: Integer | nil
-  const link: String | nil
-  const detail: String
-  const unusable: Boolean
-  // The item's sell price at a vendor, all of the count; 0 where it sells for nothing.
-  const sell: Integer
-  // Its place among the quest's choices (`GetQuestReward(index)`); 0 for what is given.
-  const index: Integer
-}
-
 // What a quest needs handed in: an item with how many the player has and how many it takes.
 public struct Need {
   const name: String
@@ -62,12 +41,6 @@ public struct Need {
   const item: Integer | nil
   const have: Integer
   const need: Integer
-}
-
-// A reputation a quest raises.
-public struct Standing {
-  const name: String
-  const amount: Integer
 }
 
 // What the client says of the quest a quest giver shows.
@@ -100,19 +73,6 @@ const DAILY: Art = "QuestDaily"
 const LEGENDARY: Art = "QuestLegendary"
 const UNKNOWN: Asset = "Interface/Icons/INV_Misc_QuestionMark"
 
-// A picture the client gave: a file's number or a path.
-public function artOf(texture: Number | String | nil): Art | nil {
-  if (texture is String) {
-    if (texture is Asset) { return texture }
-    if (texture is Atlas) { return texture }
-    return nil
-  }
-  if (texture is Number) {
-    const id = texture.floor()
-    if (id is FileId) { return id }
-  }
-  return nil
-}
 
 // A quest's level against the player's, as the quest log colours it: grey where the game calls it trivial, then
 // green up to two below, yellow within two, orange from three above, red from five.
@@ -217,32 +177,12 @@ public function greetingLines(): Array<Line> {
   return inOrder(mut lines)
 }
 
-// An item's second line: its slot as the game names it and its type («Waist · Leather»).
-function itemDetail(subType: String | nil, slot: String | nil): String {
-  const slotName = slot != nil && slot != "" ? Runtime.text(slot) ?? "" : ""
-  const kind = subType ?? ""
-  if (slotName != "" && kind != "") { return `${slotName} · ${kind}` }
-  return slotName != "" ? slotName : kind
-}
-
 // A quest's item of a kind (`choice`, `reward`) at its place.
-function itemReward(kind: String, index: Integer): Reward {
+function questItem(kind: String, index: Integer): Reward {
   const name, texture, count, _, usable, itemID = Client.GetQuestItemInfo(kind, index)
   const item = itemID != nil ? itemID.floor() : nil
-  const link = Client.GetQuestItemLink(kind, index)
-  let quality = Quality.Common
-  let detail = ""
-  let sell = 0
-  if (item != nil) {
-    const _, _, itemQuality, _, _, _, subType, _, slot, _, price, _, _, _, _, _, _, _ = Client.C_Item.GetItemInfo(item)
-    quality = qualityFrom(itemQuality)
-    detail = itemDetail(subType, slot)
-    sell = (price ?? 0).floor() * count.floor().max(1)
-  }
-  return {
-    kind: .Item, name: name ?? "", icon: artOf(texture), count: count.floor(), quality: quality, item: item, link: link,
-    detail: detail, unusable: !usable, sell: sell, index: kind == "choice" ? index : 0
-  }
+  return itemReward(item, count.floor(), name ?? "", artOf(texture), usable, Client.GetQuestItemLink(kind, index),
+    kind == "choice" ? index : 0)
 }
 
 // A currency the quest gives, to choose (its place among the choices) or anyway (0).
@@ -260,7 +200,7 @@ function choiceReward(index: Integer): Reward {
     const info = Client.C_QuestOffer.GetQuestRewardCurrencyInfo("choice", index)
     if (info != nil) { return currencyReward(info, index) }
   }
-  return itemReward("choice", index)
+  return questItem("choice", index)
 }
 
 // A currency's quality as the client numbers it (`Enum.ItemQuality`, from 0), in the order of its numbers.
@@ -272,7 +212,7 @@ const CURRENCY_LOOT = 1
 // What a quest gives besides its items to choose: its items and currencies, spells learned, a title, a skill's points.
 function givenRewards(questID: Integer): Array<Reward> {
   let given: Array<Reward> = []
-  for (index of 1..Client.GetNumQuestRewards()) { given.push(itemReward("reward", index)) }
+  for (index of 1..Client.GetNumQuestRewards()) { given.push(questItem("reward", index)) }
   for (info of Client.C_QuestInfoSystem.GetQuestRewardCurrencies(questID) ?? []) { given.push(currencyReward(info, 0)) }
   for (spell of Client.C_QuestInfoSystem.GetQuestRewardSpells(questID) ?? []) {
     const info = Client.C_QuestInfoSystem.GetQuestRewardSpellInfo(questID, spell)

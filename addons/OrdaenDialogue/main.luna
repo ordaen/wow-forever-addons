@@ -11,12 +11,12 @@ import Game from "$game"
 import { Align, Event, Key, Overflow, Position, Track } from "$ltml"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
-import { ButtonKey, ButtonPlate, Dialog, KeptWindow, Module, Money, PushButton, SECONDARY_TEXT, Settings, SettingsPage, TipText, Window, WindowTabSpec, WindowsPage, windowsTitle } from "Ordaen"
+import { ButtonKey, ButtonPlate, Dialog, KeptWindow, Module, Money, PushButton, Reward, RewardView, Rewards, SECONDARY_TEXT, Scroll, Settings, SettingsPage, TipText, Window, WindowTabSpec, WindowsPage, choiceViews, windowsTitle } from "Ordaen"
 import { OptionRow } from "@/list"
 import Locale from "@/locales"
-import { Needs, RewardView, Rewards, Said, choiceViews } from "@/pages"
+import { Needs, Said } from "@/pages"
 import Pawn from "@/pawn"
-import { Line, LineKind, Quest, Reward, Source, bookPage, gossipLines, greetingLines, questOf } from "@/read"
+import { Line, LineKind, Quest, Source, bookPage, gossipLines, greetingLines, questOf } from "@/read"
 import { Auto, Choices, DEFAULTS, GeneralPage } from "@/settings"
 import Style from "@/style"
 import { MARKS_KEPT, Marked, Page, Prompt, Speaker, bookSpeaker, itemSpeaker, npcOf, speakerOf } from "@/talk"
@@ -657,14 +657,9 @@ public class Dialogue implements Module, App {
                @keyPress.globalScope(.Digit7)={self.onKey} @keyPress.globalScope(.Digit8)={self.onKey}
                @keyPress.globalScope(.Digit9)={self.onKey} @keyPress.globalScope(.Space)={self.onSpace}
                @keyPress.globalScope(.Escape)={self.onEscape} />
-          <box rows={["max-content", { fr: 1 }, "max-content"]}>
-            <box height={Style.ROLL_HEIGHT} background={Style.ROLL} />
-            <box background={Style.PARCHMENT} tint={Style.PARCHMENT_TINT} overflow={Overflow.Scroll}
-                 padding={3sp} gap={1.5sp}>
-              <Said page={self.page} quest={self.quest} said={self.said} book={self.book} revealed={self.revealed} />
-            </box>
-            <box height={Style.ROLL_HEIGHT} background={Style.ROLL} />
-          </box>
+          <Scroll>
+            <Said page={self.page} quest={self.quest} said={self.said} book={self.book} revealed={self.revealed} />
+          </Scroll>
           <box $if={!self.isBook} rows={[{ fr: 1 }, "max-content"]} gap={1.5sp} padding={{ top: 2sp }}>
             <box overflow={self.wellOverflow} gap={0.5sp} yAlign={self.wellAlign}>
               <$if={self.listShown}>
@@ -672,7 +667,8 @@ public class Dialogue implements Module, App {
                            marked={self.markedAt(line)} @pick={self.pickLine} @mark={self.toggleMark} />
               </>
               <Needs $elseif={self.page == Page.Progress} quest={self.quest} />
-              <Rewards $else quest={self.quest} views={self.rewardViews} pickable={self.pickable} choice={self.choice}
+              <Rewards $else views={self.rewardViews} also={self.quest?.also ?? []} xp={self.quest?.xp ?? 0}
+                       money={self.quest?.money ?? 0} standings={self.quest?.standings ?? []} pickable={self.pickable} choice={self.choice}
                        hints={self.hints} pawnColumn={self.pawnShown} @choose={self.choose} />
             </box>
             <text $if={self.combatNote} value={Locale.KEYS_IN_COMBAT} textColor={Style.DIM} textSize={SECONDARY_TEXT} />
