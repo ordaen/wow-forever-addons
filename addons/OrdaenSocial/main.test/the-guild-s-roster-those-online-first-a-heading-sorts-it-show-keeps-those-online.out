@@ -6,12 +6,12 @@ surface 425,183.88 1055.76x532.25 on DIALOG clamped raised by a click
       box 460.85,268.64 683.3x377.02
         box 460.85,268.64 683.3x29.99
           box 460.85,297.8 683.3x0.83 absolute #3e2f1d
-          box 460.85,268.64 66.64x29.99 #00000059 @keyPress @pointerPress
-            box 461.68,269.47 64.98x1.67 absolute #d6a56b
-            text 473.06,275.16 42.22x17.78 "Roster" #f0e6d2
-          box 530.34,268.64 53.31x29.99 #00000000 @keyPress @pointerPress
-            box 531.17,269.47 51.64x1.67 absolute #00000000
-            text 542.55,275.16 28.89x17.78 "News" #a3977f
+          box 460.85,268.64 68.87x29.99 #00000059 @keyPress @pointerPress
+            box 461.68,269.47 67.2x1.67 absolute #d6a56b
+            text 473.06,275.16 44.44x17.78 "Roster" #f0e6d2
+          box 532.56,268.64 55.53x29.99 #00000000 @keyPress @pointerPress
+            box 533.39,269.47 53.87x1.67 absolute #00000000
+            text 544.77,275.16 31.11x17.78 "News" #a3977f
         box 460.85,307.16 683.3x338.49
           box 460.85,307.16 683.3x28.33
             box 460.85,307.16 581.23x28.33
@@ -42,40 +42,40 @@ surface 425,183.88 1055.76x532.25 on DIALOG clamped raised by a click
                         text 478.75,353.4 0x0 "" #a3977f
                     box 503.95,344.86 58.33x34.84 #00000000 @keyPress @pointerPress
                       box 503.95,378.04 58.33x1.67 absolute #00000000
-                      box 510.58,353.4 45.07x17.78
-                        text 510.58,353.4 35.56x17.78 "Level" #cbb994
-                        box 548.98,359.79 6.67x5
-                          box 545.65,355.62 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
+                      box 509.47,353.4 47.29x17.78
+                        text 509.47,353.4 37.78x17.78 "Level" #cbb994
+                        box 550.09,359.79 6.67x5
+                          box 546.76,355.62 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
                     box 570.82,344.86 143.28x34.84 #00000000 @keyPress @pointerPress
                       box 570.82,378.04 143.28x1.67 absolute #00000000
                       box 570.82,353.4 143.28x17.78
-                        text 570.82,353.4 28.89x17.78 "Name" #cbb994
-                        box 602.55,359.79 6.67x5
-                          box 599.22,355.62 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
+                        text 570.82,353.4 31.11x17.78 "Name" #cbb994
+                        box 604.77,359.79 6.67x5
+                          box 601.44,355.62 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
                     box 722.63,344.86 143.28x34.84 #00000000 @keyPress @pointerPress
                       box 722.63,378.04 143.28x1.67 absolute #00000000
                       box 722.63,353.4 143.28x17.78
-                        text 722.63,353.4 28.89x17.78 "Zone" #cbb994
-                        box 754.36,359.79 6.67x5
-                          box 751.03,355.62 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
+                        text 722.63,353.4 31.11x17.78 "Zone" #cbb994
+                        box 756.58,359.79 6.67x5
+                          box 753.25,355.62 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
                     box 874.44,344.86 100x34.84 #00000000 @keyPress @pointerPress
                       box 874.44,378.04 100x1.67 absolute #d6a56b
                       box 874.44,353.4 100x17.78
-                        text 874.44,353.4 28.89x17.78 "Rank" #f0c860
-                        box 906.17,359.79 6.67x5
-                          box 902.84,355.62 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=1
+                        text 874.44,353.4 31.11x17.78 "Rank" #f0c860
+                        box 908.39,359.79 6.67x5
+                          box 905.06,355.62 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=1
                     box 982.97,344.86 143.28x34.84 #00000000 @keyPress @pointerPress
                       box 982.97,378.04 143.28x1.67 absolute #00000000
                       box 982.97,353.4 143.28x17.78
-                        text 982.97,353.4 28.89x17.78 "Note" #cbb994
-                        box 1014.71,359.79 6.67x5
-                          box 1011.37,355.62 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
+                        text 982.97,353.4 31.11x17.78 "Note" #cbb994
+                        box 1016.93,359.79 6.67x5
+                          box 1013.59,355.62 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
                 box 461.68,380.54 681.63x264.28 scrolled 0 of 0
                   box 470.22,389.08 664.57x26.31 #00000000 @keyPress @pointerPress
                     box 478.75,397.23 16.67x10
                       box 478.75,397.23 10x10 Interface/FriendsFrame/StatusIcon-Online
                     box 503.95,393.34 58.33x17.78
-                      text 525.34,393.34 15.56x17.78 "25" #e8dcc4 centred
+                      text 524.78,393.34 16.67x17.78 "25" #e8dcc4 centred
                     box 570.82,393.34 143.28x17.78
                       text 570.82,393.34 143.28x17.78 "Torvald" #e8dcc4
                     box 722.63,393.34 143.28x17.78
@@ -88,7 +88,7 @@ surface 425,183.88 1055.76x532.25 on DIALOG clamped raised by a click
                     box 478.75,423.54 16.67x10
                       box 478.75,423.54 10x10 Interface/FriendsFrame/StatusIcon-Online
                     box 503.95,419.65 58.33x17.78
-                      text 525.34,419.65 15.56x17.78 "24" #e8dcc4 centred
+                      text 524.78,419.65 16.67x17.78 "24" #e8dcc4 centred
                     box 570.82,419.65 143.28x17.78
                       text 570.82,419.65 143.28x17.78 "Ingrid" #e8dcc4
                     box 722.63,419.65 143.28x17.78
@@ -101,7 +101,7 @@ surface 425,183.88 1055.76x532.25 on DIALOG clamped raised by a click
                     box 478.75,449.85 16.67x10
                       box 478.75,449.85 10x10 Interface/FriendsFrame/StatusIcon-Offline
                     box 503.95,445.96 58.33x17.78
-                      text 525.34,445.96 15.56x17.78 "27" #7c848a centred
+                      text 524.78,445.96 16.67x17.78 "27" #7c848a centred
                     box 570.82,445.96 143.28x17.78
                       text 570.82,445.96 143.28x17.78 "Branna" #7c848a
                     box 722.63,445.96 143.28x17.78
@@ -112,15 +112,15 @@ surface 425,183.88 1055.76x532.25 on DIALOG clamped raised by a click
                       text 982.97,445.96 143.28x17.78 "keeps the bank; ask her before taking anything from its second tab" #a3977f
       box 460.85,645.66 683.3x45.4
         box 460.85,662.73 683.3x28.33
-          box 460.85,668 569.08x17.78
-            box 460.85,668 61.87x17.78
-              text 460.85,668 44.44x17.78 "Members" #a3977f
-              text 513.83,668 8.89x17.78 "3" #e8dcc4
-            box 539.78,668 56.31x17.78
-              text 539.78,668 38.89x17.78 "Online" #a3977f
-              text 587.21,668 8.89x17.78 "2" #e8dcc4
-          box 1029.93,662.73 114.22x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-            text 1037.04,668 100x17.78 "Blizzard window" #ffd100
+          box 460.85,668 561.3x17.78
+            box 460.85,668 65.2x17.78
+              text 460.85,668 47.78x17.78 "Members" #a3977f
+              text 517.16,668 8.89x17.78 "3" #e8dcc4
+            box 543.12,668 58.53x17.78
+              text 543.12,668 41.11x17.78 "Online" #a3977f
+              text 592.76,668 8.89x17.78 "2" #e8dcc4
+          box 1022.15,662.73 122x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+            text 1029.26,668 107.78x17.78 "Blizzard window" #ffd100
     box 1166.91,245.89 305.76x459.39 border=UI-Frame-Metal-CornerTopLeft sides=left
       box 1199.91,268.64 250x422.42
         text 1199.91,268.64 250x26.67 "Iron Vow" #ffd100
@@ -135,39 +135,39 @@ surface 425,183.88 1055.76x532.25 on DIALOG clamped raised by a click
             box 1199.91,391.31 250x180.62 absolute input "Be kind to the new ones." lines
         box 1199.91,588.99 250x102.07
           box 1199.91,588.99 250x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-            text 1274.91,594.27 100x17.78 "Invite to Guild" #ffd100
+            text 1271.02,594.27 107.78x17.78 "Invite to Guild" #ffd100
           box 1199.91,625.86 250x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-            text 1271.58,631.14 106.67x17.78 "Guild Management" #ffd100
+            text 1267.69,631.14 114.44x17.78 "Guild Management" #ffd100
           box 1199.91,662.73 250x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-            text 1287.69,668 74.44x17.78 "Leave Guild" #ffd100
+            text 1284.91,668 80x17.78 "Leave Guild" #ffd100
       box 1174.16,245.89 6.67x459.39 absolute @drag @dragStart @dragStop
     box 1463.51,696.12 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 425,183.88 1055.76x59.42
     box 425,183.88 967.23x59.42
-      box 425,183.88 137.59x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
+      box 425,183.88 140.93x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
         box 432.25,191.12 48.92x48.92 absolute icon=Interface/Icons/Achievement_GuildPerk_EverybodysFriend cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=none
         box 476.17,191.12 11.5x52.17 absolute border=UI-Frame-Metal-CornerTopLeft sides=left
-        box 492.7,194.12 51.11x45.92
-          text 494.37,198.59 47.78x17.78 "Friends" #a3977f
-          text 492.7,217.79 51.11x17.78 "2 online" #8f8470
-      box 572.55,183.88 137.59x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
-        box 579.8,191.12 48.92x48.92 absolute icon=Interface/Icons/INV_Shirt_GuildTabard_01 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=none
-        box 623.72,191.12 11.5x52.17 absolute border=UI-Frame-Metal-CornerTopLeft sides=left
-        box 640.25,194.12 51.11x45.92
-          text 648.03,198.59 35.56x17.78 "Guild" #ffd100
-          text 640.25,217.79 51.11x17.78 "2 online" #8f8470
-      box 720.1,183.88 160.93x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
-        box 727.35,191.12 48.92x48.92 absolute icon=Interface/Icons/INV_Misc_GroupNeedMore cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=none
-        box 771.27,191.12 11.5x52.17 absolute border=UI-Frame-Metal-CornerTopLeft sides=left
-        box 787.8,194.12 74.44x45.92
-          text 787.8,198.59 74.44x17.78 "Communities" #a3977f
-          text 799.47,217.79 51.11x17.78 "2 joined" #8f8470
-      box 890.98,183.88 174.26x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
-        box 898.23,191.12 48.92x48.92 absolute icon=Interface/Icons/INV_Misc_GroupLooking cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=none
-        box 942.15,191.12 11.5x52.17 absolute border=UI-Frame-Metal-CornerTopLeft sides=left
-        box 958.68,194.12 87.78x45.92
-          text 958.68,198.59 87.78x17.78 "Recent Allies" #a3977f
-          text 977.02,217.79 51.11x17.78 "2 allies" #8f8470
+        box 492.7,194.12 54.44x45.92
+          text 493.81,198.59 52.22x17.78 "Friends" #a3977f
+          text 492.7,217.79 54.44x17.78 "2 online" #8f8470
+      box 575.88,183.88 140.93x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
+        box 583.13,191.12 48.92x48.92 absolute icon=Interface/Icons/INV_Shirt_GuildTabard_01 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=none
+        box 627.05,191.12 11.5x52.17 absolute border=UI-Frame-Metal-CornerTopLeft sides=left
+        box 643.58,194.12 54.44x45.92
+          text 651.92,198.59 37.78x17.78 "Guild" #ffd100
+          text 643.58,217.79 54.44x17.78 "2 online" #8f8470
+      box 726.77,183.88 166.48x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
+        box 734.02,191.12 48.92x48.92 absolute icon=Interface/Icons/INV_Misc_GroupNeedMore cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=none
+        box 777.93,191.12 11.5x52.17 absolute border=UI-Frame-Metal-CornerTopLeft sides=left
+        box 794.47,194.12 80x45.92
+          text 794.47,198.59 80x17.78 "Communities" #a3977f
+          text 807.24,217.79 54.44x17.78 "2 joined" #8f8470
+      box 903.21,183.88 179.82x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
+        box 910.46,191.12 48.92x48.92 absolute icon=Interface/Icons/INV_Misc_GroupLooking cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=none
+        box 954.37,191.12 11.5x52.17 absolute border=UI-Frame-Metal-CornerTopLeft sides=left
+        box 970.91,194.12 93.33x45.92
+          text 970.91,198.59 93.33x17.78 "Recent Allies" #a3977f
+          text 990.35,217.79 54.44x17.78 "2 allies" #8f8470
     box 1400.76,211.88 80x31.42
       box 1400.76,211.88 80x26.67 clipped
         box 1400.76,211.88 27.5x26.67 absolute clipped @keyPress @pointerPress
