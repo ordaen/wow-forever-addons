@@ -347,17 +347,25 @@ test "a quest's objectives stand under its title, one a line; its row's right sa
   Test.shot("the world's tab: a quest's objectives under its title, the done one grey; the count in the footer")
 }
 
-test "the switch beside the search shows the quests in progress, the completed ones, or all" {
+test "the select beside the search shows the quests in progress, the completed ones, or all" {
   const log = standing()
   log[3] = { complete: true, ..quest(103, "Elwynn Wolves", "Elwynn Forest") }
   opened(log)
   const window = Test.page().window("World")
-  window.button("Completed").click()
+  // A select: only the picked choice shows until it is opened.
+  Test.expect(window.text("All").shown() && !window.text("Completed").shown())
+  window.text("All").click()
+  Test.page().text("Completed").click()
   Test.expect(window.text("Elwynn Wolves").shown() && !window.text("The Defias Brotherhood").shown())
-  window.button("In progress").click()
+  window.text("Completed").click()
+  Test.page().text("In progress").click()
   Test.expect(!window.text("Elwynn Wolves").shown() && window.text("The Defias Brotherhood").shown())
-  window.button("All").click()
-  Test.expect(window.text("Elwynn Wolves").shown() && window.text("The Defias Brotherhood").shown())
+}
+
+test "the search field takes the toolbar's width but its tools, as the professions window's" {
+  opened(standing())
+  const field = Test.page().window("World").input().rect()
+  Test.expect(field.right - field.left > 200)
 }
 
 test "the search finds a quest by its title or an objective" {
@@ -437,6 +445,8 @@ test "the window's one tab is «Quests» with the game's quest log book; its kin
   // Two quests of the world, one of a dungeon, none of a raid or PvP.
   Test.expect(window.text("World").shown() && window.text("2").shown() && window.text("1").shown())
   Test.expect(window.text("0").count() == 2)
+  // The professions window's inner tabs: the picked one with its light along the top, not a segmented strip.
+  Test.expect(window.box(Color.hex("#d6a56b")).shown() && !window.box(Color.hex("#5a4428")).shown())
   window.text("Dungeons").click()
   Test.expect(window.text("Red Silk Bandanas").shown() && !window.text("Elwynn Wolves").shown())
 }

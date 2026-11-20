@@ -1,7 +1,8 @@
 // Ordaen Quests: the player's quests in Ordaen's window, in four tabs (World, Dungeons, Raids, PvP), the list by the
 // client's headers on the left and the picked quest's page beside it; and the tracked quests' places on Ordaen Map.
-// The window has a list window's shape: over the list the toolbar (the search, the switch of in progress, completed or
-// all, then the filter, the sort and the view), and in the footer the count against the log's cap.
+// The window has a list window's shape: over the list its kinds' tabs with their counts and the toolbar (the search,
+// the select of in progress, completed or all, then the filter, the sort and the view), and in the footer the count
+// against the log's cap.
 // What the player has is the client's quest log; who gives a quest, who takes it and where its objectives are is
 // QuestieDB's.
 //
@@ -14,7 +15,7 @@ import Game from "$game"
 import { Align, Edges, Layer, Place, Point, Track } from "$ltml"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
-import { ARTWORK, ButtonPlate, Choice, Dialog, FilterButton, FilterGroup, FooterCount, FooterCounts, KeptWindow, Module, PushButton, SECONDARY_TEXT, Segmented, Settings, SettingsPage, ToolPick, Toolbar, Window, WindowSide, WindowTabSpec, WindowsPage, playSound, switched, windowsTitle } from "Ordaen"
+import { ARTWORK, ButtonPlate, Choice, CompactDropdown, Dialog, FilterButton, FilterGroup, FooterCount, FooterCounts, KeptWindow, Module, PushButton, SECONDARY_TEXT, Settings, SettingsPage, Tabs, ToolPick, Toolbar, Window, WindowSide, WindowTabSpec, WindowsPage, playSound, switched, windowsTitle } from "Ordaen"
 import root Maps from "OrdaenMap"
 import type { SidePanel } from "OrdaenMap"
 import root Tracker from "OrdaenTracker"
@@ -45,8 +46,9 @@ const FILL: Array<Track> = [{ fr: 1 }]
 // The log: its kinds' sub-tabs, the toolbar, the list.
 const LOG_ROWS: Array<Track> = ["max-content", "max-content", { fr: 1 }]
 const FOOT: Array<Track> = [{ fr: 1 }, "max-content"]
-// The status switch stands an item's step after the search.
+// The status select stands an item's step after the search, as wide as its longest choice.
 const AFTER_SEARCH: Edges = { left: 3sp }
+const STATUS_WIDTH = 164.0625dp
 
 const STATUSES: Array<Choice<QuestStatus>> = [
   { value: QuestStatus.Progress, label: Locale.STATUS_PROGRESS },
@@ -86,11 +88,9 @@ const VIEWS: Array<Choice<QuestView>> = [
 // The window's one tab: the game's quest log book.
 const TAB_ICON: Asset = "Interface/QuestFrame/UI-QuestLog-BookIcon"
 
-// The kinds' sub-tabs, by their place in `KINDS`, each with how many quests of the log are of it.
-function kindChoices(quests: Array<LogQuest>): Array<Choice<Integer>> {
-  const choices: Array<Choice<Integer>> = []
-  for (index, kind of KINDS) { choices.push({ value: index, label: tabTitle(kind), badge: countOf(quests, kind) }) }
-  return choices
+// How many quests of the log are of each kind, in `KINDS`' order: the sub-tabs' counts.
+function kindCounts(quests: Array<LogQuest>): Array<Integer> {
+  return KINDS.map(kind => countOf(quests, kind))
 }
 
 // A sub-tab's title by its kind.
@@ -159,7 +159,8 @@ public class Quests implements Module, App {
   derived kind: QuestKind = KINDS[self.tab] ?? .World
   // One tab, the log's; its kinds are sub-tabs, each with its count.
   derived tabs: Array<WindowTabSpec> = [{ title: Locale.TAB_QUESTS, desc: String.of(self.quests.length), icon: TAB_ICON }]
-  derived kinds: Array<Choice<Integer>> = kindChoices(self.quests)
+  derived kindNames: Array<String> = KINDS.map(kind => tabTitle(kind))
+  derived kindsCounted: Array<Integer> = kindCounts(self.quests)
   derived count: Integer = self.quests.length
   derived counted: Array<FooterCount> = [
     { label: Locale.FOOT_QUESTS, value: "%d/%d".format(self.count, self.most), color: self.count >= self.most ? RED : nil }
@@ -337,10 +338,10 @@ public class Quests implements Module, App {
   logBody(self): Template {
     return $ltml {
       <box rows={LOG_ROWS} gap={3sp}>
-        <Segmented value={mut self.tab} choices={self.kinds} />
+        <Tabs tabs={self.kindNames} selected={mut self.tab} counts={self.kindsCounted} />
         <Toolbar search={mut self.search} placeholder={Locale.SEARCH}>
           <box padding={AFTER_SEARCH}>
-            <Segmented value={mut self.status} choices={STATUSES} />
+            <CompactDropdown value={mut self.status} choices={STATUSES} width={STATUS_WIDTH} />
           </box>
           <FilterButton values={mut self.filter} start={FILTER_START} groups={FILTERS} />
           <ToolPick value={mut self.sort} choices={SORTS} icon={ARTWORK.ctl.tool.sort} title={Locale.SORT} />
