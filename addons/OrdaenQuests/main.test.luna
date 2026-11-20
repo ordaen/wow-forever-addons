@@ -135,6 +135,16 @@ test "a quest picked shows its page, with where its giver stands from QuestieDB"
   Test.expect(window.text("420").shown())
 }
 
+test "a quest's page shows the items it gives, and under «Choose one of» those the player picks one of" {
+  const log = standing()
+  log[3] = { rewards: [{ item: 1001, count: 3 }], choices: [{ item: 1002 }, { item: 1003 }], ..quest(103, "Elwynn Wolves", "Elwynn Forest") }
+  opened(log)
+  Test.page().window("World").text("Elwynn Wolves").click()
+  const window = Test.page().window("World")
+  Test.expect(window.text("Rewards").shown() && window.text("Choose one of").shown())
+  Test.expect(window.text("3").shown())
+}
+
 test "a quest QuestieDB doesn't know has no «Where»" {
   opened(standing())
   Test.page().window("World").text("Elwynn Wolves").click()
