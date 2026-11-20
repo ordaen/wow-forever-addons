@@ -1,10 +1,79 @@
-// «To my characters»: the player's other characters a letter can reach, from Ordaen Alts. With Ordaen Alts off, or
-// with no other character recorded, it says so and offers nothing.
-import { Align, Overflow } from "$ltml"
-import { Component, TITLE_LINE, TITLE_TEXT } from "Ordaen"
-import type { Alts } from "OrdaenAlts"
+// «To my characters»: quick send and requests between the player's characters, from Ordaen Alts (who they are, what
+// each knows and holds) and Ordaen Professions (what an item is used in, what the queue takes). Each reachable
+// character has a row of what the bags hold that its professions use, each ticked, and «Send to Regron (3)» puts one
+// letter into the queue. «Requests» lists what this character's queue lacks and who holds it; «Ask» keeps a request,
+// which the holder meets at its next mailbox with «Send» (the letter made from it) and «Decline». With Ordaen Alts off,
+// no other character, or Ordaen Professions off, it says so and offers nothing.
+import Client from "$client"
+import Game from "$game"
+import { Align, Overflow, Track } from "$ltml"
+import { Component, ItemId, ModuleMemory, PushButton, SECONDARY_TEXT, TITLE_LINE, TITLE_TEXT, Tick, classColor } from "Ordaen"
+import { RecipeId } from "OrdaenAlts"
+import type { Alts, Place } from "OrdaenAlts"
+import type { Professions, QueueItem, Use } from "OrdaenProfessions"
+import { PLACES } from "@/letters"
 import Locale from "@/locales"
+import { Sender } from "@/sender"
 import Style from "@/style"
+
+// The most requests kept, account-wide: one past it isn't kept.
+public const REQUESTS_MOST = 50
+const OFFER: Array<Track> = ["max-content", { fr: 1 }, "max-content"]
+const LINE: Array<Track> = [{ fr: 1 }, "max-content"]
+
+// One of the bags' items a character's professions use: how many the bags hold, and which professions.
+public struct Offer {
+  item: Integer
+  name: String
+  count: Integer
+  why: String
+}
+
+// A reachable character and what the bags hold for it.
+public struct OwnRow {
+  who: String
+  name: String
+  color: Color | nil
+  offers: Array<Offer>
+}
+
+// A request between two of the player's characters: who asks (by GUID, with its name as it was), who holds it, the
+// item and how many.
+public struct Request implements Plain {
+  number: Integer = 0
+  from: String = ""
+  fromName: String = ""
+  to: String = ""
+  item: Integer = 0
+  count: Integer = 0
+}
+
+public struct Requests implements Plain {
+  list: Array<Request> = []
+  next: Integer = 1
+}
+
+// What this character's queue lacks of an item, and one character who holds it.
+public struct Lack {
+  item: Integer
+  name: String
+  count: Integer
+  holder: String
+  holderName: String
+  held: Integer
+  place: Place
+}
+
+function itemName(item: Integer): String { return Client.C_Item.GetItemNameByID(item) ?? String.of(item) }
+
+function placeText(place: Place): String {
+  return match (place) {
+    .Bags => Locale.PLACE_BAGS
+    .Bank => Locale.PLACE_BANK
+    .Mail => Locale.PLACE_MAIL
+    .Auctions => Locale.PLACE_AUCTIONS
+  }
+}
 
 // The names of the characters the one being played can send to, by name.
 public function reachableNames(alts: Alts): Array<String> {
@@ -16,14 +85,217 @@ public function reachableNames(alts: Alts): Array<String> {
   return names
 }
 
+// One of the player's other characters a letter reaches.
+public struct Kin {
+  who: String
+  name: String
+  classTag: String
+}
+
+// A kin's holding of an item, and where.
+public struct Holding {
+  who: String
+  place: Place
+  count: Integer
+}
+
+// The characters the one being played can send to.
+public function kinOf(alts: Alts): Array<Kin> {
+  const kin: Array<Kin> = []
+  for (who, character of alts.characters) {
+    if (who != alts.current && alts.reaches(who)) { kin.push({ who: who, name: character.name, classTag: character.classTag }) }
+  }
+  return kin
+}
+
+// Per kin, what the bags hold that a recipe it knows takes: `uses` the recipes that take an item, `knows` whether a
+// character knows a recipe.
+public function ownRows(
+  kin: Array<Kin>, held: Map<Integer, Integer>, uses: (item: Integer) => Array<Use>, knows: (who: String, recipe: Integer) => Boolean
+): Array<OwnRow> {
+  const rows: Array<OwnRow> = []
+  for (one of kin) {
+    const offers: Array<Offer> = []
+    for (item, count of held) {
+      const why: Array<String> = []
+      for (use of uses(item)) {
+        if (knows(one.who, use.recipe) && !why.any(name => name == use.profession)) { why.push(use.profession) }
+      }
+      if (why.length > 0) { offers.push({ item: item, name: itemName(item), count: count, why: why.join(", ") }) }
+    }
+    offers.sort((a, b) => a.name < b.name)
+    rows.push({ who: one.who, name: one.name, color: classColor(one.classTag), offers: offers })
+  }
+  rows.sort((a, b) => a.name < b.name)
+  return rows
+}
+
+// What the queue takes past what the bags hold, each with the kin who holds the most of it.
+public function lacksOf(
+  kin: Array<Kin>, queue: Array<QueueItem>, held: Map<Integer, Integer>, holders: (item: Integer) => Array<Holding>
+): Array<Lack> {
+  const lacks: Array<Lack> = []
+  for (need of queue) {
+    const short = need.count - (held[need.item] ?? 0)
+    if (short > 0) {
+      let best: Lack | nil = nil
+      for (holder of holders(need.item)) {
+        const one = kin.find(k => k.who == holder.who)
+        if (one != nil && (best == nil || holder.count > best.held)) {
+          best = {
+            item: need.item, name: itemName(need.item), count: short, holder: one.who, holderName: one.name,
+            held: holder.count, place: holder.place
+          }
+        }
+      }
+      if (best != nil) { lacks.push(best) }
+    }
+  }
+  return lacks
+}
+
+// The bags' whole stacks of the items, up to a letter's places.
+function stacksOf(items: Array<Integer>): Array<Game.MailStack> {
+  const stacks: Array<Game.MailStack> = []
+  let slot = Game.SlotItem {
+    id: 0, count: 0, quality: 0, icon: nil, name: "", link: "", level: 0, kind: 0, subkind: 0, subkindName: "", worn: "",
+    bound: false, locked: false, isNew: false, price: 0
+  }
+  for (bag of 0..Game.bags.last) {
+    for (place of 1..Game.bags.size(bag)) {
+      if (stacks.length < PLACES && Game.bags.readSlot(bag, place, mut slot) && !slot.locked && items.any(id => id == slot.id)) {
+        stacks.push({ bag: bag, slot: place, item: slot.id, count: slot.count })
+      }
+    }
+  }
+  return stacks
+}
+
+class OfferRow implements Component {
+  // The item, and whether it goes now.
+  public toggled: Event<(Integer, Boolean)> = new Event()
+  state checked = true
+
+  offer: Signal<Offer>
+  constructor(offer: Signal<Offer>) {
+    self.offer = offer
+    watch (on of self.checked) { self.toggled.emit(self.offer.item, on) }
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={OFFER} gap={2sp} yAlign={Align.Center}>
+        <Tick value={mut self.checked} />
+        <box columns={1}>
+          <text value={self.offer.name} textColor={Style.INK} wrap={false} />
+          <text value={self.offer.why} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={false} />
+        </box>
+        <text value={String.of(self.offer.count)} textColor={Style.INK} />
+      </box>
+    }
+  }
+}
+
+class CharacterOffers implements Component {
+  public send: Event<OwnRow> = new Event()
+  public toggled: Event<(String, Boolean)> = new Event()
+
+  derived ticked: Integer = self.row.offers.filter(offer => self.off[`${self.row.who}:${offer.item}`] != true).length
+  derived label: String = Locale.OWN_SEND.format(self.row.name, self.ticked)
+
+  row: Signal<OwnRow>
+  off: Signal<Map<String, Boolean>>
+  constructor(row: Signal<OwnRow>, off: Signal<Map<String, Boolean>>) {
+    self.row = row
+    self.off = off
+  }
+
+  onToggle(mut self, item: Integer, on: Boolean) { self.toggled.emit(`${self.row.who}:${item}`, on) }
+  onSend(mut self) { self.send.emit(self.row) }
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={1} gap={1sp}>
+        <text value={self.row.name} textColor={self.row.color ?? Style.INK} />
+        <text $if={self.row.offers.length == 0} value={Locale.OWN_NOTHING} textColor={Style.DIM} textSize={SECONDARY_TEXT} />
+        <OfferRow $for={offer of self.row.offers} $key={offer.item} offer={offer} @toggled={self.onToggle} />
+        <box $if={self.row.offers.length > 0} xAlign={Align.End}>
+          <PushButton label={self.label} width={Style.WIDE_BUTTON} disabled={self.ticked == 0} @click={self.onSend} />
+        </box>
+      </box>
+    }
+  }
+}
+
+class LackRow implements Component {
+  public ask: Event<Lack> = new Event()
+
+  lack: Signal<Lack>
+  asked: Signal<Boolean>
+  constructor(lack: Signal<Lack>, asked: Signal<Boolean>) {
+    self.lack = lack
+    self.asked = asked
+  }
+
+  onAsk(mut self) { self.ask.emit(self.lack) }
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={LINE} gap={2sp} yAlign={Align.Center}>
+        <box columns={1}>
+          <text value={Locale.LACKS.format(self.lack.name, self.lack.count)} textColor={Style.INK} wrap={false} />
+          <text value={Locale.HOLDS.format(self.lack.holderName, self.lack.held, placeText(self.lack.place))} textColor={Style.DIM}
+                textSize={SECONDARY_TEXT} wrap={false} />
+        </box>
+        <PushButton label={self.asked ? Locale.ASKED : Locale.ASK} width={Style.BUTTON} disabled={self.asked} @click={self.onAsk} />
+      </box>
+    }
+  }
+}
+
+class AskedRow implements Component {
+  public send: Event<Request> = new Event()
+  public decline: Event<Request> = new Event()
+
+  request: Signal<Request>
+  constructor(request: Signal<Request>) { self.request = request }
+
+  onSend(mut self) { self.send.emit(self.request) }
+  onDecline(mut self) { self.decline.emit(self.request) }
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={["max-content", "max-content", { fr: 1 }]} gap={2sp} yAlign={Align.Center}>
+        <PushButton label={Locale.SEND} width={Style.BUTTON} @click={self.onSend} />
+        <PushButton label={Locale.DECLINE} width={Style.BUTTON} @click={self.onDecline} />
+        <text value={Locale.ASKS.format(self.request.fromName, self.request.count, itemName(self.request.item))}
+              textColor={Style.GOLD} wrap={false} />
+      </box>
+    }
+  }
+}
+
 public class OwnTab implements Component {
-  derived off: Boolean = self.alts == nil
+  // The rows unticked, by «who:item».
+  state off: Map<String, Boolean> = {}
+  derived noAlts: Boolean = self.alts == nil
   derived names: Array<String> = self.namesOf()
-  derived alone: Boolean = !self.off && self.names.length == 0
+  derived alone: Boolean = !self.noAlts && self.names.length == 0
+  derived noProfessions: Boolean = !self.noAlts && !self.alone && self.professions == nil
+  derived rows: Array<OwnRow> = self.rowsOf()
+  derived lacks: Array<Lack> = self.lacksOfNow()
+  derived me: String = self.alts?.current ?? ""
+  derived toMe: Array<Request> = self.requests.values.list.filter(request => request.to == self.me)
 
   alts: Signal<Alts | nil>
-  constructor(alts: Signal<Alts | nil>) {
+  professions: Signal<Professions | nil>
+  sender: mut Sender
+  requests: mut ModuleMemory<Requests>
+  constructor(alts: Signal<Alts | nil>, professions: Signal<Professions | nil>, sender: mut Sender, requests: mut ModuleMemory<Requests>) {
     self.alts = alts
+    self.professions = professions
+    self.sender = sender
+    self.requests = requests
   }
 
   namesOf(self): Array<String> {
@@ -31,20 +303,94 @@ public class OwnTab implements Component {
     return alts == nil ? [] : reachableNames(alts)
   }
 
+  rowsOf(self): Array<OwnRow> {
+    const alts = self.alts
+    const professions = self.professions
+    if (alts == nil || professions == nil) { return [] }
+    const knows = (who: String, recipe: Integer): Boolean => alts.knowers(RecipeId.of(recipe)).any(knower => knower.who == who)
+    return ownRows(kinOf(alts), Game.bags.holdings() ?? {}, (item: Integer): Array<Use> => professions.uses(item), knows)
+  }
+
+  lacksOfNow(self): Array<Lack> {
+    const alts = self.alts
+    const professions = self.professions
+    if (alts == nil || professions == nil) { return [] }
+    const holders = (item: Integer): Array<Holding> =>
+    alts.holders(ItemId.of(item)).map(held => Holding { who: held.who, place: held.place, count: held.count })
+    return lacksOf(kinOf(alts), professions.queue, Game.bags.holdings() ?? {}, holders)
+  }
+
+  isAsked(self, lack: Lack): Boolean {
+    return self.requests.values.list.any(r => r.from == self.me && r.to == lack.holder && r.item == lack.item)
+  }
+
+  onToggle(mut self, key: String, on: Boolean) {
+    const before = peek self.off
+    if ((before[key] != true) == on) { return }
+    const next = before.clone()
+    next[key] = !on
+    self.off = next
+  }
+
+  onSend(mut self, row: OwnRow) {
+    const off = peek self.off
+    const items = row.offers.filter(offer => off[`${row.who}:${offer.item}`] != true).map(offer => offer.item)
+    const stacks = stacksOf(items)
+    if (stacks.length == 0) { return }
+    self.sender.put(row.name, Locale.OWN_SUBJECT, "", stacks, 0, 0)
+  }
+
+  onAsk(mut self, lack: Lack) {
+    const values = peek self.requests.values
+    if (values.list.length >= REQUESTS_MOST) { return }
+    const alts = peek self.alts
+    if (alts == nil) { return }
+    const mine = alts.characters[alts.current]
+    const request: Request = {
+      number: values.next, from: peek self.me, fromName: mine?.name ?? "", to: lack.holder, item: lack.item, count: lack.count
+    }
+    const list = values.list.clone()
+    list.push(request)
+    self.requests.write({ list: list, next: values.next + 1 })
+  }
+
+  drop(mut self, request: Request) {
+    const values = peek self.requests.values
+    self.requests.write({ list: values.list.filter(r => r.number != request.number), next: values.next })
+  }
+
+  // «Send»: the letter made from the request (its count split off a stack where none is that size), and the request
+  // gone.
+  onAnswer(mut self, request: Request) {
+    self.sender.put(request.fromName, Locale.OWN_SUBJECT, "", [{ bag: 0, slot: 0, item: request.item, count: request.count }], 0, 0)
+    self.drop(request)
+  }
+
+  onDecline(mut self, request: Request) { self.drop(request) }
+
   public render(self): Template {
     return $ltml {
-      <box $if={self.off} xAlign={Align.Center} yAlign={Align.Center}>
-        <text value={Locale.ALTS_OFF} textColor={Style.DIM} />
-      </box>
-      <box $elseif={self.alone} xAlign={Align.Center} yAlign={Align.Center}>
-        <text value={Locale.ALTS_ALONE} textColor={Style.DIM} />
-      </box>
-      <box $else columns={1} gap={2.5sp}>
-        <text value={Locale.SEND_TO_OWN} textSize={TITLE_TEXT} lineHeight={TITLE_LINE} textColor={Style.GOLD} />
-        <box overflow={Overflow.Scroll}>
-          <box $for={name of self.names} $key={name} padding={{ top: 1sp, bottom: 1sp }}>
-            <text value={name} textColor={Style.INK} />
-          </box>
+      <box columns={1} rows={["max-content", { fr: 1 }]} gap={3sp}>
+        <box columns={1} gap={1sp}>
+          <AskedRow $for={request of self.toMe} $key={request.number} request={request} @send={self.onAnswer}
+                    @decline={self.onDecline} />
+        </box>
+        <box $if={self.noAlts} xAlign={Align.Center} yAlign={Align.Center}>
+          <text value={Locale.ALTS_OFF} textColor={Style.DIM} />
+        </box>
+        <box $elseif={self.alone} xAlign={Align.Center} yAlign={Align.Center}>
+          <text value={Locale.ALTS_ALONE} textColor={Style.DIM} />
+        </box>
+        <box $elseif={self.noProfessions} xAlign={Align.Center} yAlign={Align.Center}>
+          <text value={Locale.PROFESSIONS_OFF} textColor={Style.DIM} />
+        </box>
+        <box $else columns={1} gap={3sp} overflow={Overflow.Scroll}>
+          <text value={Locale.SEND_TO_OWN} textSize={TITLE_TEXT} lineHeight={TITLE_LINE} textColor={Style.GOLD} />
+          <CharacterOffers $for={row of self.rows} $key={row.who} row={row} off={self.off} @send={self.onSend}
+                           @toggled={self.onToggle} />
+          <text value={Locale.REQUESTS} textSize={TITLE_TEXT} lineHeight={TITLE_LINE} textColor={Style.GOLD} />
+          <text $if={self.lacks.length == 0} value={Locale.REQUESTS_NONE} textColor={Style.DIM} textSize={SECONDARY_TEXT} />
+          <LackRow $for={lack of self.lacks} $key={lack.item} lack={lack} asked={self.isAsked(lack)} @ask={self.onAsk} />
         </box>
       </box>
     }

@@ -8,8 +8,9 @@ import Game from "$game"
 import { Align, Frame } from "$ltml"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
-import { ButtonPlate, Dialog, FooterCount, FooterCounts, GamePass, GameWindowButton, KeptWindow, Module, PushButton, Settings, SettingsPage, Window, WindowSide, WindowTabSpec, WindowsPage, windowsTitle } from "Ordaen"
+import { ButtonPlate, Dialog, FooterCount, FooterCounts, GamePass, GameWindowButton, KeptWindow, Module, ModuleMemory, PushButton, Settings, SettingsPage, Window, WindowSide, WindowTabSpec, WindowsPage, windowsTitle } from "Ordaen"
 import root Alts from "OrdaenAlts"
+import root Professions from "OrdaenProfessions"
 import { Collector } from "@/collector"
 import { Compose } from "@/compose"
 import { Inbox, RowClick } from "@/inbox"
@@ -17,7 +18,7 @@ import { LetterAct, LetterView } from "@/letter"
 import { Sent, SentState, keyOf, waits } from "@/letters"
 import Locale from "@/locales"
 import { Outbox, SentView } from "@/outbox"
-import { OwnTab } from "@/own"
+import { OwnTab, Requests } from "@/own"
 import Pawn from "@/pawn"
 import { Source } from "@/recipients"
 import { Sender } from "@/sender"
@@ -54,6 +55,8 @@ public class Mail implements Module, App {
   public settings: mut Settings<Choices> = new Settings<Choices>({ keepFree: 0, blockTrades: false })
   public collector: mut Collector = new Collector()
   public sender: mut Sender = new Sender()
+  // The requests between the player's characters, the account's: the player's own lists, so saved (at most 50).
+  public requests: mut ModuleMemory<Requests> = new ModuleMemory<Requests>({}, .Account, "requests")
   pass: mut GamePass = new GamePass()
   // How much an item would raise the player's best scale: Pawn's, where the player has it.
   public upgrade: (link: String) => Number | nil = Pawn.upgrade
@@ -406,7 +409,7 @@ public class Mail implements Module, App {
                @returnTicked={self.onReturnTicked} />
         <Outbox $elseif={self.tab == TAB_OUTBOX} queue={self.queue} history={self.history} picked={self.sentPicked}
                 @pick={self.onSentPick} @write={self.onWrite} @stop={self.onStop} @resume={self.onResume} />
-        <OwnTab $else alts={Alts} />
+        <OwnTab $else alts={Alts} professions={Professions} sender={mut self.sender} requests={mut self.requests} />
       </Window>
       <Dialog $if={self.asking is Ask.Pay} width={Style.ASK} title={Locale.COD_TITLE}>
         <text value={self.askText} textColor={Style.INK} wrap={true} />

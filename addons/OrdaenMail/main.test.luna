@@ -532,6 +532,31 @@ test "part of a stack is split off into an empty slot first, and the letter goes
   Test.expect(asked().contains("Mailbox.send Regron Cloth 2589x5"))
 }
 
+test "a request to this character stands at the top of «To my characters»: «Send» queues its letter, «Decline» drops it" {
+  Test.mount(nil, PAGE)
+  Game.mailbox.letters = letters
+  Game.bags.free = 20
+  Client.C_Item.GetItemNameByID = (id: String | Integer): String | nil => id == 2841 ? "Bronze Bar" : nil
+  Mail.requests.write({
+    list: [
+      { number: 1, from: "Player-1-9", fromName: "Regy", to: Game.player.guid, item: 2841, count: 12 },
+      { number: 2, from: "Player-1-9", fromName: "Regy", to: Game.player.guid, item: 2841, count: 3 },
+      { number: 3, from: "Player-1-9", fromName: "Regy", to: "Player-1-7", item: 2841, count: 5 }
+    ],
+    next: 4
+  })
+  Game.mailObserver.open = true
+  Game.mailObserver.opened.emit()
+  const window = Test.page().window(MAIL)
+  window.text(MAIL).click()
+  Test.expect(window.text("Regy asks: 12 Bronze Bar").shown())
+  Test.expect(!window.text("Regy asks: 5 Bronze Bar").shown())
+  window.text("Regy asks: 12 Bronze Bar").item().button("Send").click()
+  Test.expect((peek Mail.sender.memory.values).queue.any(sent => sent.to == "Regy" && sent.items.any(i => i.item == 2841 && i.count == 12)))
+  window.text("Regy asks: 3 Bronze Bar").item().button("Decline").click()
+  Test.expect((peek Mail.requests.values).list.map(r => String.of(r.number)).join(",") == "3")
+}
+
 test "«Don't accept trades at the mailbox» sets the game's own setting while it is open, and puts it back" {
   let said = ""
   Client.C_CVar.GetCVar = (name: String): String | nil => "0"
