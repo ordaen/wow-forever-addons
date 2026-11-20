@@ -46,6 +46,16 @@ public function qualityFrom(quality: Client.ItemQuality | nil): Quality {
   }
 }
 
+// Whether the player can use the item, as the client says in its tooltip: no requirement marked unmet (level, class,
+// skill, reputation), no slot or kind marked as not the player's. Read again when the kept tooltips are let go (a
+// level-up, a skill changed).
+public function usableItem(item: Integer): Boolean {
+  _ = Ordaen.tipsAge
+  const data = Ordaen.itemTip(item)
+  if (data == nil) { return true }
+  return !data.lines.any(line => line.usable == false || line.validSlot == false || line.validType == false)
+}
+
 public enum Corner { TopLeft = "topLeft", TopRight = "topRight", BottomLeft = "bottomLeft" }
 
 // A pip a module puts on an item's corner.
@@ -59,7 +69,7 @@ const CLEAR: Color = Color.hex("#00000000")
 const SHINE: ByInteractionState<Color> = { default: CLEAR, hover: Color.hex("#ffffff26"), focus: Color.hex("#ffffff26") }
 const INK: Color = Color.hex("#ffffff")
 // The game's tint of an item the player can't use (1, 0.1, 0.1).
-const UNUSABLE: Color = Color.hex("#ff1a1a")
+public const UNUSABLE: Color = Color.hex("#ff1a1a")
 const COUNT_SHADOW: Shadow = { color: Color.hex("#000000"), x: 1.171875dp, y: -1.171875dp }
 const COUNT_PAD: Edges = { right: 1sp, bottom: 0.5sp }
 const EDGE = 2.34375dp
@@ -175,11 +185,7 @@ public class ItemButton implements Component {
   usableOf(self): Boolean {
     const item = self.item
     if (item == nil) { return true }
-    // Read again when the kept tooltips are let go (a level-up, a skill changed).
-    _ = Ordaen.tipsAge
-    const data = Ordaen.itemTip(item)
-    if (data == nil) { return true }
-    return !data.lines.any(line => line.usable == false || line.validSlot == false || line.validType == false)
+    return usableItem(item)
   }
 
   edgeOf(self): Line {

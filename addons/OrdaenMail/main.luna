@@ -18,6 +18,7 @@ import { Sent, SentState, keyOf, waits } from "@/letters"
 import Locale from "@/locales"
 import { Outbox, SentView } from "@/outbox"
 import { OwnTab } from "@/own"
+import Pawn from "@/pawn"
 import { Source } from "@/recipients"
 import { Sender } from "@/sender"
 import { Choices, GeneralPage } from "@/settings"
@@ -54,6 +55,8 @@ public class Mail implements Module, App {
   public collector: mut Collector = new Collector()
   public sender: mut Sender = new Sender()
   pass: mut GamePass = new GamePass()
+  // How much an item would raise the player's best scale: Pawn's, where the player has it.
+  public upgrade: (link: String) => Number | nil = Pawn.upgrade
 
   state tab = TAB_INBOX
   state letters: Array<Game.MailLetter> = []
@@ -374,7 +377,7 @@ public class Mail implements Module, App {
       if (letter == nil) { return nil }
       return {
         width: Style.SIDE,
-        content: $ltml { <LetterView letter={self.current ?? panic("tested")} text={self.text} busy={self.busy} @act={self.onLetterAct} /> }
+        content: $ltml { <LetterView letter={self.current ?? panic("tested")} text={self.text} busy={self.busy} upgrade={self.upgrade} @act={self.onLetterAct} /> }
       }
     }
     if (self.tab != TAB_OUTBOX) { return nil }

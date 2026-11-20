@@ -180,6 +180,45 @@ test "an attachment clicked is taken from its place" {
   Test.expect(asked().contains("Mailbox.takeItem 2 3"))
 }
 
+test "Ctrl+click on an attachment tries it on and takes nothing" {
+  let tried = ""
+  Client.DressUpItemLink = (link: String): Boolean => {
+    tried = link
+    return true
+  }
+  Test.mount(nil, PAGE)
+  Game.mailbox.letters = letters
+  Game.mailbox.waiting = (): Integer => 4
+  Game.bags.free = 20
+  Game.mailObserver.open = true
+  Game.mailObserver.opened.emit()
+  const window = Test.page().window(MAIL)
+  window.text("Pay for the sword").click()
+  _ = Test.requests()
+  Game.input.controlDown = (): Boolean => true
+  window.text("Sword").click()
+  Game.input.controlDown = (): Boolean => false
+  Test.expect(tried == "|Hitem:12|h[Sword]|h")
+  Test.expect(!asked().contains("Mailbox.takeItem"))
+}
+
+test "an attachment the player can't use says so in red; one Pawn rates says by how much it raises the best scale" {
+  Game.items.tooltip = (id: Integer): Game.TooltipData | nil => id == 2592 ? { lines: [{ left: "Requires Level 57", kind: 0, usable: false }] } : nil
+  Mail.upgrade = (link: String): Number | nil => link.contains("Linen") ? 0.153 : nil
+  Test.mount(nil, PAGE)
+  Game.mailbox.letters = letters
+  Game.mailbox.waiting = (): Integer => 4
+  Game.bags.free = 20
+  Game.mailObserver.open = true
+  Game.mailObserver.opened.emit()
+  const window = Test.page().window(MAIL)
+  window.text("Bolts for you").click()
+  Test.expect(window.text("Wool Cloth").item().text("You can't use this").shown())
+  Test.expect(!window.text("Linen Cloth").item().text("You can't use this").shown())
+  Test.expect(window.text("Linen Cloth").item().text("+15%").shown())
+  Test.expect(!window.text("Wool Cloth").item().text("+15%").shown())
+}
+
 test "Shift+click on a row takes everything from it, one thing at a time as the game reads the inbox again" {
   Test.mount(nil, PAGE)
   Game.mailbox.letters = letters

@@ -53,6 +53,7 @@
   "SETTING_BLOCK_TRADES": "Refuse trades at the mailbox",
   "SETTING_BLOCK_TRADES_TIP": "Trade requests are refused while the mailbox is open.",
   "TAKE": "Take all",
+  "CANT_USE": "You can't use this",
   "TAKE_ALL": "Take all (%d)",
   "PAY_AND_TAKE": "Pay and take",
   "REPLY": "Reply",

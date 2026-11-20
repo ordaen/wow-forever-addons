@@ -8,12 +8,14 @@ import Client from "$client"
 import Game from "$game"
 import { Align, Overflow, Track } from "$ltml"
 import Runtime from "$runtime"
-import { ButtonPlate, Component, CopyText, ItemButton, Money, PickRow, PushButton, SECONDARY_TEXT, TITLE_TEXT } from "Ordaen"
+import { ButtonPlate, Component, CopyText, ItemButton, Money, PickRow, PushButton, SECONDARY_TEXT, TITLE_TEXT, UNUSABLE, usableItem } from "Ordaen"
 import { daysText, senderOf } from "@/inbox"
 import Locale from "@/locales"
 import Style from "@/style"
 
 const SLOT = 42.1875dp
+// The green the game's tooltips give a gain.
+const RAISE: Color = Color.hex("#1eff00")
 const REWARD: Array<Track> = [SLOT, { fr: 1 }, "max-content"]
 const MONEY: Array<Track> = [{ fr: 1 }, "max-content"]
 const FOOT: Array<Track> = ["max-content", "max-content", { fr: 1 }, "max-content"]
@@ -36,12 +38,17 @@ public class Attachment implements Component {
   public act: Event<LetterAct> = new Event()
 
   derived info: AttachmentInfo = infoOf(self.item.item)
+  derived usable: Boolean = usableItem(self.item.item)
+  // How much it would raise the player's best Pawn scale, as «+n%»; empty where it is none.
+  derived raise: String = raiseText(self.upgrade(self.item.link))
 
   item: Signal<Game.MailItem>
   index: Signal<Integer>
-  constructor(item: Signal<Game.MailItem>, index: Signal<Integer>) {
+  upgrade: (link: String) => Number | nil
+  constructor(item: Signal<Game.MailItem>, index: Signal<Integer>, upgrade: (link: String) => Number | nil) {
     self.item = item
     self.index = index
+    self.upgrade = upgrade
   }
 
   // Left-click takes it; with Ctrl it is tried on (Shift's link is the slot's own).
@@ -61,6 +68,8 @@ public class Attachment implements Component {
         <box columns={1}>
           <text value={self.item.name} textColor={self.info.color} wrap={false} />
           <text value={self.info.kind} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={false} />
+          <text $if={!self.usable} value={Locale.CANT_USE} textColor={UNUSABLE} textSize={SECONDARY_TEXT} wrap={false} />
+          <text $if={self.raise != ""} value={self.raise} textColor={RAISE} textSize={SECONDARY_TEXT} wrap={false} />
         </box>
         <Money $if={self.info.price > 0} amount={self.info.price * self.item.count} />
       </PickRow>
@@ -73,6 +82,12 @@ public struct AttachmentInfo {
   color: Color
   kind: String
   price: Integer
+}
+
+// Pawn's share as the player reads it: «+15%»; empty for none.
+public function raiseText(share: Number | nil): String {
+  if (share == nil || share <= 0) { return "" }
+  return `+${(share * 100).round()}%`
 }
 
 function infoOf(item: Integer): AttachmentInfo {
@@ -104,10 +119,17 @@ public class LetterView implements Component {
   letter: Signal<Game.MailLetter>
   text: Signal<String>
   busy: Signal<Boolean>
-  constructor(letter: Signal<Game.MailLetter>, text: Signal<String>, busy: Signal<Boolean>) {
+  upgrade: (link: String) => Number | nil
+  constructor(
+    letter: Signal<Game.MailLetter>,
+    text: Signal<String>,
+    busy: Signal<Boolean>,
+    upgrade: (link: String) => Number | nil
+  ) {
     self.letter = letter
     self.text = text
     self.busy = busy
+    self.upgrade = upgrade
   }
 
   onAct(mut self, act: LetterAct) { self.act.emit(act) }
@@ -127,7 +149,7 @@ public class LetterView implements Component {
         <box columns={1} gap={2sp} overflow={Overflow.Scroll}>
           <CopyText $if={self.hasText} value={self.text} />
           <Attachment $for={item of self.letter.items} $key={item.place} item={item} index={self.letter.index}
-                      @act={self.onAct} />
+                      upgrade={self.upgrade} @act={self.onAct} />
           <PickRow $if={self.hasMoney} columns={MONEY} @pick={self.onTakeMoney}>
             <text value={Locale.MONEY} textColor={Style.DIM} wrap={false} />
             <Money amount={self.letter.copper} />
