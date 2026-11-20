@@ -8,7 +8,7 @@
 import Game from "$game"
 import { Align, Art, ByInteractionState, Edges, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { BODY_LINE, ButtonPlate, Component, Experience, Menu, MenuEntry, Money, PushButton, Reward, RewardView, Rewards, SCROLL_DIM, SCROLL_HEAD, SCROLL_INK, SECONDARY_TEXT, Scroll, SettingRow, Shown, SwitchFace, TIGHT_LINE, TITLE_TEXT, Tip, WELL_DIM, WELL_TEXT, XP_MARK_SMALL, choiceViews, colorOf, difficultyOf, logReward, rowShade } from "Ordaen"
+import { BODY_LINE, ButtonPlate, Component, Experience, Menu, MenuEntry, Money, PushButton, Reward, RewardView, Rewards, SCROLL_DIM, SCROLL_HEAD, SCROLL_INK, SECONDARY_TEXT, Scroll, SettingRow, Shown, SwitchFace, TIGHT_LINE, TITLE_TEXT, Tip, WELL_DIM, WELL_TEXT, XP_MARK_SMALL, choiceViews, logReward, questLevelColor, rowShade } from "Ordaen"
 import { LogQuest } from "@/book"
 import Locale from "@/locales"
 import { Figure, QuestFacts } from "@/questie"
@@ -18,6 +18,8 @@ import { Figure, QuestFacts } from "@/questie"
 public enum Act { Pick, Track, Link, Share, Abandon, ShowOnMap, SuperTrack, Hover, Unhover }
 
 const INK: Color = Color.hex("#e8dcc4")
+// What the player's clicks on a quest's row do, in its tooltip.
+const ROW_KEYS: Array<String> = [Locale.ROW_KEY_PAGE, Locale.ROW_KEY_LINK, Locale.ROW_KEY_MENU]
 const GOLD: Color = Color.hex("#ffd100")
 const DIM: Color = Color.hex("#a3977f")
 const GREEN: Color = Color.hex("#40c040")
@@ -82,12 +84,14 @@ public class QuestRow implements Component {
 
   state menuOpen = false
   state hovered = false
-  // Its tooltip, saying what the player's clicks on it do.
+  // Its tooltip, as the game's log's: what is left to do (the quest's task), or that it is done or failed, and what the
+  // player's clicks on it do. The task is asked of the client while the tooltip shows.
   derived tipShown: Boolean = self.hovered && !self.menuOpen
+  derived tipText: String = self.ended ? self.progress : Game.questLog.text(self.quest.id).task
   derived level: String = `${self.quest.level}${self.quest.group > 1 ? "+" : ""}`
   // Complete or failed: said under the title in place of its objectives.
   derived ended: Boolean = self.progress != ""
-  derived levelColor: Color = colorOf(difficultyOf(self.quest.level, self.player))
+  derived levelColor: Color = questLevelColor(self.quest.level, self.player, INK)
   derived progress: String = stateOf(self.quest)
   derived progressColor: Color = self.quest.failed ? RED : GREEN
   derived background: Color | ByInteractionState<Color> = rowShade(self.picked)
@@ -139,7 +143,7 @@ public class QuestRow implements Component {
            @pointerPress(.Left)={self.onPick} @pointerPress([.Shift, .Left])={self.onLink}
            @pointerPress(.Right)={self.onMenu} @keyPress(.Enter)={self.onPick} @keyPress(.Space)={self.onTrack}
            @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
-        <Tip $if={self.tipShown} title={self.quest.title} text={Locale.ROW_TIP} />
+        <Tip $if={self.tipShown} title={self.quest.title} text={self.tipText} keys={ROW_KEYS} />
         <box columns={LEVEL_CELLS}>
           <text value={"["} textColor={DIM} textFont={.Numbers} wrap={.None} />
           <text value={self.level} textColor={self.levelColor} textFont={.Numbers} wrap={.None} />

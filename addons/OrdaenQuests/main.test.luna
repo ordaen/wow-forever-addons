@@ -177,10 +177,14 @@ test "a quest's scroll fills its page's height: the rolls at its top and its foo
 }
 
 test "a quest under the cursor has its tooltip, and its pins on the map lit while it is there" {
-  opened(standing())
+  const log = standing()
+  log[1] = { task: "Find Gryan in Sentinel Hill.", ..log[1] ?? panic("a quest") }
+  opened(log)
   const row = Test.page().window("World").text("The Defias Brotherhood")
   row.hover()
-  Test.expect(Test.page().text("Click: its page. Shift+click: its link in the chat. Right-click: more.").shown())
+  // As the game's log's: its task, then what the clicks do.
+  Test.expect(Test.page().text("Find Gryan in Sentinel Hill.").shown())
+  Test.expect(Test.page().text("Left-click: open the quest").shown() && Test.page().text("Right-click: more").shown())
   Test.expect(Quests.hovered == 101)
   Test.page().window("World").text("In the log").hover()
   Test.expect(Quests.hovered == 0)
@@ -533,6 +537,19 @@ test "the level's brackets are muted, its number in its difficulty colour" {
   Test.expect(window.text("[").nth(1).textColor().equal(Color.hex("#a3977f")))
   Test.expect(window.text("]").nth(1).textColor().equal(Color.hex("#a3977f")))
   Test.expect(!window.text("14").nth(1).textColor().equal(Color.hex("#a3977f")))
+}
+
+test "with the game's difficulty colours off (the world map's filter), a level is in the title's colour, and back" {
+  opened(standing())
+  const window = Test.page().window("World")
+  const coloured = window.text("14").nth(1).textColor()
+  Test.expect(!coloured.equal(Color.hex("#e8dcc4")))
+  Test.cvar("showQuestDifficultyColor", "0")
+  Test.flush()
+  Test.expect(window.text("14").nth(1).textColor().equal(Color.hex("#e8dcc4")))
+  Test.cvar("showQuestDifficultyColor", "1")
+  Test.flush()
+  Test.expect(window.text("14").nth(1).textColor().equal(coloured))
 }
 
 test "a complete quest says so under its title, in place of its objectives" {
