@@ -4,5 +4,6 @@
   "notes": "The quest log in four tabs (World, Dungeons, Raids, PvP), with where to go from QuestieDB, and the tracked quests on Ordaen Map.",
   "version": "0.1.0",
   "loadOnDemand": true,
-  "dependencies": { "Ordaen": "^1.0.0", "OrdaenMap": "^0.1.0", "QuestieDB": ">=1.1.3" }
+  "dependencies": { "Ordaen": "^1.0.0", "OrdaenMap": "^0.1.0", "QuestieDB": ">=1.1.3" },
+  "conflicts": ["Questie"]
 }
