@@ -78,7 +78,7 @@ class ButtonRow {
 // The row in a box of a fixed width it doesn't fit in.
 class Fixed {
   public render(self): Template {
-    return $ltml { <box width={300ui}><ButtonRow /></box> }
+    return $ltml { <box width={300ui}> <ButtonRow /> </box> }
   }
 }
 
