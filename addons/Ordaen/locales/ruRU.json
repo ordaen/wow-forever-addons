@@ -286,5 +286,13 @@
   "SKILL_RANK_225": "Умелец",
   "SKILL_RANK_300": "Мастер",
   "TRAINER_AVAILABLE_FIRST": "Сначала доступные",
-  "TRAINER_COLUMN_RANK": "Ранг"
+  "TRAINER_COLUMN_RANK": "Ранг",
+  "TRAINER_CHANGES": "Что изменится",
+  "TRAINER_COUNT_AVAILABLE": "Доступно: %d",
+  "TRAINER_COUNT_UNAVAILABLE": "Недоступно: %d",
+  "TRAINER_COUNT_KNOWN": "Изучено: %d",
+  "TRAINER_TOGETHER": "Всё доступное вместе:",
+  "TRAINER_NEEDS_LEVEL_SHORT": "Требуется %d-й уровень",
+  "TRAINER_TOO_DEAR": "Недостаточно денег",
+  "TRAINER_PICK_FIRST": "Выберите навык"
 }

@@ -1100,6 +1100,56 @@ test "with nothing picked, the trainer asks for a pick, and the footer counts th
   Test.expect(window.texts().join(" | ").contains("Available | 1 | Unavailable | 2 | Learned | 3"))
 }
 
+test "with nothing picked, the card is the trainer's: its greeting, the services by kind and what the available cost together" {
+  Test.mount(nil, PAGE)
+  Game.trainer.services = services
+  Game.trainer.greeting = (): String => "Hail, warrior."
+  Game.trainer.open = true
+  Game.trainer.changed.emit()
+  const window = Test.page().window(TRAINER)
+  Test.expect(window.text("Hail, warrior.").shown())
+  Test.expect(window.text("Available: 1").shown() && window.text("Unavailable: 1").shown() && window.text("Learned: 1").shown())
+  Test.expect(window.texts().join(" | ").contains("All available, together: | 0g 4s 0c"))
+}
+
+test "a picked spell says what changes against the rank the player has, and the game's facts of it" {
+  Test.mount(nil, PAGE)
+  Game.trainer.services = (): Array<Game.TrainerService> => [
+    {
+      index: 1, name: "Heroic Strike", rank: "Rank 3", icon: SWORD, status: Game.ServiceStatus.Available, level: 8, cost: 400,
+      description: "A strong attack that deals 32 more damage.", spell: 285
+    }
+  ]
+  Game.spellbook.entries = (): Array<Game.SpellEntry> => [
+    { id: 284, name: "Heroic Strike", rank: "Rank 2", icon: SWORD, level: 4, passive: false, line: 2 }
+  ]
+  Game.spells.description = (id: Integer): String | nil => id == 284 ? "Deals 21 more damage." : "Deals 32 more damage."
+  Game.spells.tooltip = (id: Integer): Game.TooltipData | nil => {
+    return { lines: [{ left: "Heroic Strike", kind: 0 }, { left: "15 Rage", right: "Melee Range", kind: 0 }, { left: "Next melee", kind: 0 }] }
+  }
+  Game.trainer.open = true
+  Game.trainer.changed.emit()
+  const window = Test.page().window(TRAINER)
+  window.button("Heroic Strike (Rank 3)").click()
+  Test.expect(window.text("What changes").shown() && window.text("21 → 32").shown())
+  Test.expect(window.text("15 Rage   Melee Range").shown() && window.text("Next melee").shown())
+}
+
+test "Learn greyed says why on its Tip: a level not reached, not enough money, already learned" {
+  Test.mount(nil, PAGE)
+  Game.player.level = 20
+  Game.trainer.services = services
+  Game.trainer.open = true
+  Game.trainer.changed.emit()
+  const window = Test.page().window(TRAINER)
+  window.button("Charge (Rank 2)").click()
+  window.button("Learn").hover()
+  Test.expect(Test.page().text("Requires level 50").count() >= 1)
+  window.button("Rend (Rank 1)").click()
+  window.button("Learn").hover()
+  Test.expect(Test.page().texts().join(" | ").contains("Learn | Learned"))
+}
+
 test "a service clicked shows its name, its description and its price beside the list" {
   Test.mount(nil, PAGE)
   Game.trainer.services = services
@@ -1207,7 +1257,7 @@ test "a price the player can't pay is red, one they can in ink" {
   Game.trainer.changed.emit()
   const window = Test.page().window(TRAINER)
   Test.expect(drawnIn(window.text("9g 0s 0c"), RED))
-  Test.expect(drawnIn(window.text("0g 4s 0c"), INK))
+  Test.expect(drawnIn(window.text("Heroic Strike (Rank 3)").item().text("0g 4s 0c"), INK))
 }
 
 test "Learn buys the picked service where it can be learned and paid for, and is greyed otherwise" {

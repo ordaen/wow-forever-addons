@@ -286,5 +286,13 @@
   "SKILL_RANK_225": "Expert",
   "SKILL_RANK_300": "Artisan",
   "TRAINER_AVAILABLE_FIRST": "Available first",
-  "TRAINER_COLUMN_RANK": "Rank"
+  "TRAINER_COLUMN_RANK": "Rank",
+  "TRAINER_CHANGES": "What changes",
+  "TRAINER_COUNT_AVAILABLE": "Available: %d",
+  "TRAINER_COUNT_UNAVAILABLE": "Unavailable: %d",
+  "TRAINER_COUNT_KNOWN": "Learned: %d",
+  "TRAINER_TOGETHER": "All available, together:",
+  "TRAINER_NEEDS_LEVEL_SHORT": "Requires level %d",
+  "TRAINER_TOO_DEAR": "Not enough money",
+  "TRAINER_PICK_FIRST": "Pick a service"
 }

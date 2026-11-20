@@ -22,6 +22,7 @@ import { ButtonPlate, PushButton } from "@/pushButton"
 import { ModuleMemory } from "@/settings"
 import { SkillBar } from "@/skillBar"
 import { Column, Table, TableRow } from "@/table"
+import { TipText } from "@/tip"
 import { ToolPick, ToolSort, Toolbar } from "@/toolbar"
 import { SECONDARY_TEXT, TITLE_LINE, TITLE_TEXT } from "@/units"
 import { KeptWindow, Window, WindowSide, WindowTabSpec } from "@/window"
@@ -58,6 +59,7 @@ const DIM: Color = Color.hex("#a3977f")
 const GOLD: Color = Color.hex("#ffd100")
 const RED: Color = Color.hex("#ff4040")
 const CLEAR: Color = Color.hex("#00000000")
+const GREEN: Color = Color.hex("#40d060")
 // A picked line, as a picked table row is shaded.
 const PICKED: Color = Color.hex("#00000040")
 const ICON = 28.125dp
@@ -278,6 +280,79 @@ class ServiceLine implements Component {
   }
 }
 
+// What every service that can be learned now costs together.
+function availableCost(services: Array<Game.TrainerService>): Integer {
+  let total = 0
+  for (service of services) {
+    if (service.status == Game.ServiceStatus.Available) { total += service.cost }
+  }
+  return total
+}
+
+// The game's facts of the service's spell: its tooltip's lines after its name, the line of what it does left out (the
+// card says that itself), each as «left   right».
+function factsOf(service: Game.TrainerService | nil): Array<String> {
+  const list: Array<String> = []
+  const spell = service?.spell
+  if (service == nil || spell == nil) { return list }
+  const tip = Game.spells.tooltip(spell)
+  if (tip == nil) { return list }
+  for (at, line of tip.lines) {
+    const left = line.left ?? ""
+    const right = line.right ?? ""
+    if (at > 1 && left != service.description && (left != "" || right != "")) {
+      list.push(right == "" ? left : `${left}   ${right}`)
+    }
+  }
+  return list
+}
+
+// The numbers of a text, in order, and the text with each number taken out: two ranks of one spell read the same
+// but for their numbers.
+function numbersOf(text: String): (Array<String>, String) {
+  const numbers: Array<String> = []
+  const rest = text.replace("(%d+%.?%d*)", (number: String): String => {
+    numbers.push(number)
+    return "#"
+  })
+  return numbers, rest
+}
+
+// What changes from the rank of the spell the player has to the service's: each of its numbers that differs, «yours →
+// the new one»; nothing where the player has no rank of it, or where the two don't read alike but for their numbers
+// (never a guess).
+function changesOf(service: Game.TrainerService | nil): Array<String> {
+  const list: Array<String> = []
+  const spell = service?.spell
+  if (service == nil || spell == nil) { return list }
+  const had = rankHad(service.name, spell)
+  if (had == nil) { return list }
+  const was = Game.spells.description(had)
+  const next = Game.spells.description(spell)
+  if (was == nil || next == nil) { return list }
+  const old, oldRest = numbersOf(was)
+  const now, nowRest = numbersOf(next)
+  if (oldRest != nowRest || old.length != now.length) { return list }
+  for (at, number of now) {
+    const yours = old[at] ?? number
+    if (yours != number) { list.push(`${yours} → ${number}`) }
+  }
+  return list
+}
+
+// The spell of the highest rank the player has of a spell by its name, another than the one taught.
+function rankHad(name: String, taught: Integer): Integer | nil {
+  let best = 0
+  let level = -1
+  for (entry of Game.spellbook.entries()) {
+    if (entry.name == name && entry.learned && entry.id != taught && entry.level > level) {
+      best = entry.id
+      level = entry.level
+    }
+  }
+  return level < 0 ? nil : best
+}
+
 // Whether the player has a profession slot free: two main professions known fill both.
 function slotFree(): Boolean {
   const _, second, _, _, _, _ = Client.GetProfessions()
@@ -349,6 +424,22 @@ public class TrainerWindow implements Component {
     { label: Locale.TRAINER_KNOWN, value: String.of(self.count(Game.ServiceStatus.Learned)) }
   ]
   derived side: WindowSide | nil = { width: CARD_WIDTH, content: self.card }
+  // Nothing picked: the trainer's card, its greeting, what it teaches by what can be done with it, and what all that
+  // can be learned now costs together.
+  derived greeting: String = self.greetingOf()
+  derived together: Integer = availableCost(self.services)
+  derived countLines: Array<String> = [
+    Locale.TRAINER_COUNT_AVAILABLE.format(self.count(Game.ServiceStatus.Available)),
+    Locale.TRAINER_COUNT_UNAVAILABLE.format(self.count(Game.ServiceStatus.Unavailable)),
+    Locale.TRAINER_COUNT_KNOWN.format(self.count(Game.ServiceStatus.Learned))
+  ]
+  // The picked service's facts, the game's (cast time, cooldown, cost, range: its spell's tooltip lines between its name
+  // and what it does), and what changes against the rank the player has.
+  derived facts: Array<String> = factsOf(self.current)
+  derived changes: Array<String> = changesOf(self.current)
+  derived changed: Boolean = self.changes.length > 0
+  // Why «Learn» can't be pressed, on its Tip.
+  derived reason: TipText | nil = self.reasonOf()
 
   services: Signal<Array<Game.TrainerService>>
   declared: mut KeptWindow
@@ -382,6 +473,27 @@ public class TrainerWindow implements Component {
   }
 
   count(self, status: Game.ServiceStatus): Integer { return self.services.count(service => service.status == status) }
+
+  greetingOf(self): String {
+    _ = self.services.length
+    return Game.trainer.greeting()
+  }
+
+  // The reason on «Learn»'s Tip while it can't be pressed; none while it can.
+  reasonOf(self): TipText | nil {
+    if (self.canTrain) { return nil }
+    return { title: Locale.TRAINER_TRAIN, text: self.reasonText(), rows: [] }
+  }
+
+  reasonText(self): String {
+    const current = self.current
+    if (current == nil) { return Locale.TRAINER_PICK_FIRST }
+    if (current.status == Game.ServiceStatus.Learned) { return Locale.TRAINER_KNOWN }
+    if (current.level > Game.player.level) { return Locale.TRAINER_NEEDS_LEVEL_SHORT.format(current.level) }
+    if (self.dear) { return Locale.TRAINER_TOO_DEAR }
+    if (self.noSlot) { return Locale.TRAINER_NO_SLOT }
+    return Locale.TRAINER_UNAVAILABLE
+  }
 
   shownOf(self): Array<Game.TrainerService> {
     const view = self.list.values
@@ -454,16 +566,26 @@ public class TrainerWindow implements Component {
         <text value={self.needs} textColor={DIM} textSize={SECONDARY_TEXT} />
         <text $if={self.noSlot} value={Locale.TRAINER_NO_SLOT} textColor={RED} textSize={SECONDARY_TEXT} />
         <text value={self.text} textColor={INK} />
+        <text $if={self.changed} value={Locale.TRAINER_CHANGES} textColor={GOLD} />
+        <text $for={change of self.changes} value={change} textColor={GREEN} textFont={TextFont.Numbers} />
+        <text $for={fact of self.facts} value={fact} textColor={DIM} textSize={SECONDARY_TEXT} />
       </box>
-      <box $else columns={1}>
+      <box $else columns={1} gap={2sp}>
+        <text $if={self.greeting != ""} value={self.greeting} textColor={INK} />
         <text value={self.pickText} textColor={DIM} />
+        <text $for={line of self.countLines} value={line} textColor={DIM} textSize={SECONDARY_TEXT} />
+        <box columns={PAIR} gap={3sp} yAlign={Align.Center}>
+          <text value={Locale.TRAINER_TOGETHER} textColor={DIM} textSize={SECONDARY_TEXT} />
+          <Money amount={self.together} />
+        </box>
       </box>
       <box />
       <box columns={PAIR} gap={3sp} yAlign={Align.Center}>
         <box>
           <Money $if={self.has} amount={self.price} color={self.priceInk} />
         </box>
-        <PushButton label={Locale.TRAINER_TRAIN} width={TRAIN_WIDTH} plate={ButtonPlate.Accent} disabled={!self.canTrain} @click={self.onTrain} />
+        <PushButton label={Locale.TRAINER_TRAIN} width={TRAIN_WIDTH} plate={ButtonPlate.Accent} disabled={!self.canTrain} tip={self.reason}
+                    @click={self.onTrain} />
       </box>
     </box>
   }
