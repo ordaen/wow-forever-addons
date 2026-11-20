@@ -34,10 +34,55 @@ function dragged(from: Test.Point, to: Test.Point) {
   Test.pass(0.02)
 }
 
-test "in the placing mode every part the modules draw on the screen is shaded with its name, moves and goes back" {
+// The placing mode on the screen with every part drawn; the parts' titles, each once (a part may hold a mover in more
+// than one surface).
+function placing(): Array<String> {
   Test.mount(nil, SCREEN)
   Ordaen.togglePlacing()
   Test.flush()
+  const titles: Array<String> = []
+  const seen: Map<String, Boolean> = {}
+  for (part of Ordaen.parts) {
+    if (seen[part.id] != true) {
+      seen[part.id] = true
+      titles.push(part.title)
+    }
+  }
+  return titles
+}
+
+// The tests below that drag a part, one a part: dragging every part in one test runs past a test's limit.
+const PARTS_DRAGGED = 9
+
+// The part at `index`, dragged across the screen, moves, and right-clicked goes back; with fewer parts, nothing to do.
+function movesAndGoesBack(index: Integer): Boolean {
+  const title = placing()[index]
+  if (title == nil) { return true }
+  const home = Test.surfaceHolding(title)
+  const across: Test.Point = home.x < 800 ? { x: 1500, y: 450 } : { x: 100, y: 450 }
+  dragged(home, across)
+  const moved = Test.surfaceHolding(title)
+  Test.click(moved, .Right)
+  Test.pass(0.02)
+  return apart(home, moved) > 100 && apart(home, Test.surfaceHolding(title)) < 1
+}
+
+test "every part the placing mode has is dragged by a test below" {
+  Test.expect(placing().length <= PARTS_DRAGGED)
+}
+
+test "in the placing mode the first part moves and goes back" { Test.expect(movesAndGoesBack(1)) }
+test "in the placing mode the second part moves and goes back" { Test.expect(movesAndGoesBack(2)) }
+test "in the placing mode the third part moves and goes back" { Test.expect(movesAndGoesBack(3)) }
+test "in the placing mode the fourth part moves and goes back" { Test.expect(movesAndGoesBack(4)) }
+test "in the placing mode the fifth part moves and goes back" { Test.expect(movesAndGoesBack(5)) }
+test "in the placing mode the sixth part moves and goes back" { Test.expect(movesAndGoesBack(6)) }
+test "in the placing mode the seventh part moves and goes back" { Test.expect(movesAndGoesBack(7)) }
+test "in the placing mode the eighth part moves and goes back" { Test.expect(movesAndGoesBack(8)) }
+test "in the placing mode the ninth part moves and goes back" { Test.expect(movesAndGoesBack(9)) }
+
+test "in the placing mode every part the modules draw on the screen is shaded with its name" {
+  _ = placing()
   const names: Map<String, Boolean> = {}
   for (part of Ordaen.parts) { names[part.title] = true }
   Test.expect(modules() == 0 || Ordaen.parts.length > 0)
@@ -47,26 +92,5 @@ test "in the placing mode every part the modules draw on the screen is shaded wi
     if (shown.layer == Layer.Screen) {
       Test.expect(shown.texts.any(text => names[text] == true))
     }
-  }
-
-  // Each part, once (a part may hold a mover in more than one surface): dragged across the screen it moves,
-  // right-clicked it goes back.
-  const titles: Array<String> = []
-  const seen: Map<String, Boolean> = {}
-  for (part of Ordaen.parts) {
-    if (seen[part.id] != true) {
-      seen[part.id] = true
-      titles.push(part.title)
-    }
-  }
-  for (title of titles) {
-    const home = Test.surfaceHolding(title)
-    const across: Test.Point = home.x < 800 ? { x: 1500, y: 450 } : { x: 100, y: 450 }
-    dragged(home, across)
-    const moved = Test.surfaceHolding(title)
-    Test.expect(apart(home, moved) > 100)
-    Test.click(moved, .Right)
-    Test.pass(0.02)
-    Test.expect(apart(home, Test.surfaceHolding(title)) < 1)
   }
 }
