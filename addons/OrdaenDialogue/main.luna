@@ -1,0 +1,694 @@
+// Ordaen Dialogue: talking to NPCs and quest givers in one window. Blizzard's `GossipFrame`, `QuestFrame` and
+// `ItemTextFrame` stay the owners and keep running (other addons hook them); while ours shows they stand away, unseen
+// and taking no mouse. Ours shows on the game's word (`GOSSIP_SHOW`, `QUEST_GREETING`, `QUEST_DETAIL`,
+// `QUEST_PROGRESS`, `QUEST_COMPLETE`, `ITEM_TEXT_READY`) and goes on its word (`GOSSIP_CLOSED`, `QUEST_FINISHED`,
+// `ITEM_TEXT_CLOSED`: walking away too). Every action is the game's own call, in the player's click or key. What is
+// done on its own (the one-option skip, the options marked, quests accepted and handed in) happens as the talk starts,
+// never with Shift held, and prints nothing.
+import Client from "$client"
+import Events from "$events"
+import Game from "$game"
+import { Align, Event, Key, Overflow, Position, Track } from "$ltml"
+import Runtime from "$runtime"
+import root Ordaen from "Ordaen"
+import { ButtonPlate, Dialog, KeptWindow, Module, Money, PushButton, SECONDARY_TEXT, Settings, SettingsPage, TipText, Window, WindowTabSpec, WindowsPage, windowsTitle } from "Ordaen"
+import { OptionRow } from "@/list"
+import Locale from "@/locales"
+import { Needs, RewardView, Rewards, Said, choiceViews } from "@/pages"
+import Pawn from "@/pawn"
+import { Line, LineKind, Quest, Reward, Source, bookPage, gossipLines, greetingLines, questOf } from "@/read"
+import { Auto, Choices, DEFAULTS, GeneralPage } from "@/settings"
+import Style from "@/style"
+import { MARKS_KEPT, Marked, Page, Prompt, Speaker, bookSpeaker, itemSpeaker, npcOf, speakerOf } from "@/talk"
+
+// The game's sounds of its own windows (`SOUNDKIT`).
+const SOUND_OPEN = 875
+const SOUND_CLOSE = 876
+const SOUND_SELECT = 877
+const SOUND_CANCEL = 879
+const MARKS_KEY = "alwaysPick"
+
+function isQuest(line: Line): Boolean { return line.kind != LineKind.Option }
+function isTurnIn(line: Line): Boolean { return line.kind == LineKind.TurnIn || line.kind == LineKind.RepeatTurnIn }
+function isOffer(line: Line): Boolean {
+  return line.kind == LineKind.New || line.kind == LineKind.Daily || line.kind == LineKind.Legendary
+}
+
+function sound(kit: Integer) { _ = Client.C_Sound.PlaySound(kit, nil) }
+
+function isQuestPage(page: Page): Boolean { return page == Page.Detail || page == Page.Progress || page == Page.Reward }
+
+// The game's option that shows a quest's text at once ("1"), or lets it fade in ("0").
+const INSTANT_TEXT = "instantQuestText"
+// The game's pace: 70 letters a second (`QUEST_DESCRIPTION_GRADIENT_CPS`), let in a tenth of a second at a time.
+const FADE_STEP = 0.1
+const FADE_LETTERS = 7
+
+// The end of the word at `at` or after it (a byte before a space, or the text's end): a text cut there wraps as the
+// whole does, and never inside a letter.
+function wordEnd(text: String, at: Integer): Integer {
+  for (stop of at..text.length) {
+    if (text.sub(stop + 1, stop + 1) == " ") { return stop }
+  }
+  return text.length
+}
+
+// The number a key of the row above the letters stands for; 0 for any other key.
+function digitOf(key: Key): Integer {
+  return match (key) {
+    .Digit1 => 1
+    .Digit2 => 2
+    .Digit3 => 3
+    .Digit4 => 4
+    .Digit5 => 5
+    .Digit6 => 6
+    .Digit7 => 7
+    .Digit8 => 8
+    .Digit9 => 9
+    else => 0
+  }
+}
+
+public class Dialogue implements Module, App {
+  public const title: String = "Ordaen Dialogue"
+  public window: mut KeptWindow = new KeptWindow("main", self.title, { x: -560ui, y: -40ui, width: Style.WIDTH, height: Style.HEIGHT })
+  public const windows: mut Array<mut KeptWindow> = [self.window]
+  public const pages: Array<SettingsPage> = [
+    { title: Locale.TAB_GENERAL, content: $ltml { <GeneralPage settings={mut self.settings} /> } },
+    { title: windowsTitle(), content: $ltml { <WindowsPage windows={mut self.windows} /> } }
+  ]
+  public settings: mut Settings<Choices> = new Settings<Choices>(DEFAULTS)
+
+  public state page: Page = .Closed
+  public state source: Source = .Gossip
+  public state lines: Array<Line> = []
+  public state said = ""
+  public state quest: Quest | nil = nil
+  public state book = ""
+  // The reward picked, by its place among the choices; 0: none yet.
+  public state choice = 0
+  public state speaker: Speaker = { name: "" }
+  public state prompt: Prompt | nil = nil
+  // The marked options, kept for the account.
+  public state marks: Array<Marked> = []
+  // The NPC talked to, for its marks.
+  state npc = 0
+  // The quest page came from the NPC's list: back and Esc go there.
+  state fromList = false
+  // A quest with no NPC (an item's, an object's): declining closes the window.
+  state alone = false
+  // What the next quest page is answered with on its own: accepted, or handed in.
+  state acceptNext = false
+  state completeNext = false
+  // Walking the NPC's quests one at a time as the talk starts («All»): the list's return goes on with the next.
+  state walking = false
+  // The quests tried on their own this talk: never tried twice.
+  tried: mut Array<Integer> = []
+  // Shift was held as the talk started: nothing is done on its own.
+  state held = false
+  // How much better each reward is than what is worn, by Pawn: a test's answer stands in its place.
+  upgradeOf: (link: String) => Number | nil = (link: String): Number | nil => Pawn.upgrade(link)
+  pawnLoaded: () => Boolean = (): Boolean => Pawn.present()
+  public state pawnShown = false
+  // How much of the quest's text shows as it fades in, as the game's own window lets it in (`instantQuestText` "0"):
+  // bytes to a word's end, -1 for all of it. Its steps run only while it fades in.
+  public state revealed = -1
+  fading: Task<nil> | nil = nil
+
+  derived shown: Boolean = self.page != Page.Closed
+  derived listShown: Boolean = self.page == Page.List
+  derived tabs: Array<WindowTabSpec> = [
+    { title: self.speaker.name, desc: self.speaker.subtitle, icon: self.speaker.icon, portrait: self.speaker.portrait }
+  ]
+
+  constructor() {
+    Ordaen.modules.add(self)
+    self.marks = decode<Array<Marked>>(Game.saved.stored(.Own, MARKS_KEY), [])
+    Events.GOSSIP_SHOW.listen(self.onGossip)
+    Events.GOSSIP_CLOSED.listen(self.onGossipClosed)
+    Events.GOSSIP_CONFIRM.listen(self.onConfirm)
+    Events.GOSSIP_CONFIRM_CANCEL.listen(self.onConfirmCancel)
+    Events.QUEST_GREETING.listen(self.onGreeting)
+    Events.QUEST_DETAIL.listen(self.onDetail)
+    Events.QUEST_PROGRESS.listen(self.onProgress)
+    Events.QUEST_COMPLETE.listen(self.onComplete)
+    Events.QUEST_FINISHED.listen(self.onQuestFinished)
+    Events.QUEST_ACCEPT_CONFIRM.listen(self.onEscort)
+    Events.ITEM_TEXT_BEGIN.listen(self.onBookBegin)
+    Events.ITEM_TEXT_READY.listen(self.onBookPage)
+    Events.ITEM_TEXT_CLOSED.listen(self.onBookClosed)
+    // A reward's sell price may come after the page: the page is read again.
+    watch (on of self.shown) {
+      if (on) { Events.GET_ITEM_INFO_RECEIVED.listen(self.onItemInfo) }
+    }
+  }
+
+  // ——— The talk starting: the NPC's list, or what is done on its own first.
+
+  onGossip(mut self, kit: String | nil) { self.startList(.Gossip) }
+  onGreeting(mut self) { self.startList(.Greeting) }
+
+  startList(mut self, source: Source) {
+    const fresh = !(peek self.walking) && !(peek self.shown)
+    if (fresh) {
+      self.held = Game.input.shiftDown()
+      self.tried.clear()
+      self.npc = npcOf(Client.UnitGUID("npc"))
+      self.speaker = speakerOf()
+    }
+    self.source = source
+    self.said = source == Source.Gossip ? Client.C_GossipInfo.GetText() : Client.GetGreetingText()
+    const lines = source == Source.Gossip ? gossipLines() : greetingLines()
+    self.lines = lines
+    self.alone = false
+    if (!(peek self.held) && self.actAlone(lines, fresh)) { return }
+    self.walking = false
+    self.show(.List)
+  }
+
+  // What is done on its own as the talk starts, and as the list comes back while the NPC's quests are walked; true
+  // where something was picked (the game answers with its next page).
+  actAlone(mut self, lines: Array<Line>, fresh: Boolean): Boolean {
+    const choices = peek self.settings.values
+    if (choices.autoComplete == Auto.All) {
+      const turnIn = lines.find(line => isTurnIn(line) && !self.tried.any(id => id == line.id))
+      if (turnIn != nil) { return self.walk(turnIn, false) }
+    }
+    if (choices.autoAccept == Auto.All && !self.logFull()) {
+      const offer = lines.find(line => isOffer(line) && !self.tried.any(id => id == line.id))
+      if (offer != nil) { return self.walk(offer, true) }
+    }
+    if (!fresh) { return false }
+    if (choices.alwaysPick && (peek self.source) == Source.Gossip) {
+      const marked = lines.find(line => line.kind == LineKind.Option && self.isMarked(line.id))
+      if (marked != nil) {
+        Client.C_GossipInfo.SelectOption(marked.id, nil, nil)
+        return true
+      }
+    }
+    if (choices.skipSingle && self.onlyOption(lines)) {
+      const only = lines[1] ?? panic("one line")
+      Client.C_GossipInfo.SelectOption(only.id, nil, nil)
+      return true
+    }
+    return false
+  }
+
+  // The one-option skip: one plain option, no quests, and the server doesn't want the window.
+  onlyOption(self, lines: Array<Line>): Boolean {
+    return (peek self.source) == Source.Gossip && lines.length == 1 && !lines.any(isQuest) &&
+      !Client.C_GossipInfo.ForceGossip()
+  }
+
+  // The game says how many quests the log holds and how many it takes.
+  logFull(self): Boolean {
+    const _, quests = Client.C_QuestLog.GetNumQuestLogEntries()
+    return quests >= Client.C_QuestLog.GetMaxNumQuestsCanAccept()
+  }
+
+  // One quest of the walk: picked, and its pages answered on their own.
+  walk(mut self, line: Line, accepting: Boolean): Boolean {
+    self.tried.push(line.id)
+    self.walking = true
+    if (accepting) { self.acceptNext = true } else { self.completeNext = true }
+    self.select(line)
+    return true
+  }
+
+  // ——— The game's pages.
+
+  onDetail(mut self, startItem: Number | nil) {
+    if (peek self.acceptNext) {
+      self.acceptNext = false
+      const quest = questOf(Client.GetQuestText())
+      // A quest the game asks about (PvP) isn't accepted on its own: its page shows.
+      if (!quest.pvp) {
+        if (quest.autoAccepted) { Client.AcknowledgeAutoAcceptQuest() } else { Client.AcceptQuest() }
+        return
+      }
+    }
+    const item = startItem != nil && startItem > 0 ? startItem.floor() : nil
+    if (!(peek self.shown)) {
+      self.fromList = false
+      self.alone = item != nil || !Client.UnitExists("npc")
+      if (item != nil) {
+        const name = Client.C_Item.GetItemNameByID(item)
+        self.speaker = itemSpeaker(name ?? "", Game.items.icon(item))
+      } else {
+        self.speaker = speakerOf()
+      }
+    }
+    self.quest = questOf(Client.GetQuestText())
+    self.show(.Detail)
+  }
+
+  onProgress(mut self) {
+    if (peek self.completeNext) {
+      if (Client.IsQuestCompletable()) {
+        Client.CompleteQuest()
+        return
+      }
+      self.completeNext = false
+      self.walking = false
+    }
+    self.quest = questOf(Client.GetProgressText())
+    self.show(.Progress)
+  }
+
+  onComplete(mut self) {
+    self.choice = 0
+    const choices = Client.GetNumQuestChoices()
+    if (peek self.completeNext) {
+      self.completeNext = false
+      // A reward to choose is the player's: its page shows, and the walk stops.
+      if (choices <= 1) {
+        Client.GetQuestReward(choices)
+        return
+      }
+      self.walking = false
+    }
+    if (choices == 1) { self.choice = 1 }
+    self.quest = questOf(Client.GetRewardText())
+    self.show(.Reward)
+  }
+
+  onItemInfo(mut self, item: Number, fine: Boolean) {
+    const page = peek self.page
+    if (page == Page.Detail || page == Page.Reward) { self.quest = questOf((peek self.quest)?.text ?? "") }
+  }
+
+  // ——— Books: every page read as it opens, then shown as one.
+
+  onBookBegin(mut self) { self.book = "" }
+
+  onBookPage(mut self) {
+    const page = bookPage()
+    const before = peek self.book
+    self.book = before == "" ? page : `${before}\n\n${page}`
+    if (Client.ItemTextHasNextPage()) {
+      Client.ItemTextNextPage()
+      return
+    }
+    self.speaker = bookSpeaker()
+    self.show(.Book)
+  }
+
+  onBookClosed(mut self) {
+    if (peek self.page == Page.Book) { self.hide() }
+  }
+
+  // ——— The game closing its windows.
+
+  onGossipClosed(mut self, continuing: Boolean) {
+    if (continuing) { return }
+    self.walking = false
+    if (peek self.page == Page.List) { self.hide() }
+  }
+
+  onQuestFinished(mut self) {
+    // While the NPC's quests are walked the list comes back after each.
+    if (peek self.walking) { return }
+    const page = peek self.page
+    if (page != Page.List && page != Page.Book) { self.hide() }
+  }
+
+  // ——— What is asked first.
+
+  onConfirm(mut self, option: Number, text: String, cost: Number) {
+    Client.StaticPopup_Hide("GOSSIP_CONFIRM")
+    // An option that asks is never picked on its own again.
+    self.unmark(option.floor())
+    self.prompt = .Paid { option: option.floor(), text: text, cost: cost.floor() }
+  }
+
+  onConfirmCancel(mut self) { self.prompt = nil }
+
+  onEscort(mut self, who: String, quest: String, from: Number) {
+    Client.StaticPopup_Hide("QUEST_ACCEPT")
+    self.prompt = .Escort { text: Locale.ESCORT.format(who, quest) }
+  }
+
+  public confirmPrompt(mut self) {
+    const prompt = peek self.prompt
+    self.prompt = nil
+    if (prompt == nil) { return }
+    match (prompt) {
+      .Paid => Client.C_GossipInfo.SelectOption(prompt.option, "", true)
+      .Escort => Client.ConfirmAcceptQuest()
+      .Pvp => self.acceptQuest()
+      .Expensive => Client.GetQuestReward(peek self.choice)
+    }
+  }
+
+  public cancelPrompt(mut self) { self.prompt = nil }
+
+  // ——— The player's actions.
+
+  // A line of the NPC's list, by its place.
+  public pickLine(mut self, index: Integer) {
+    const line = (peek self.lines)[index]
+    if (line == nil) { return }
+    const shift = Game.input.shiftDown()
+    const choices = peek self.settings.values
+    if (isOffer(line) && choices.autoAccept != Auto.Off && !shift) { self.acceptNext = true }
+    if (isTurnIn(line) && choices.autoComplete != Auto.Off && !shift) { self.completeNext = true }
+    self.fromList = isQuest(line)
+    self.select(line)
+  }
+
+  select(mut self, line: Line) {
+    if (line.kind == LineKind.Option) {
+      Client.C_GossipInfo.SelectOption(line.id, nil, nil)
+      return
+    }
+    sound(SOUND_SELECT)
+    const active = !isOffer(line)
+    if (line.source == Source.Gossip) {
+      if (active) { Client.C_GossipInfo.SelectActiveQuest(line.id) } else { Client.C_GossipInfo.SelectAvailableQuest(line.id) }
+    } else if (active) {
+      Client.SelectActiveQuest(line.id)
+    } else {
+      Client.SelectAvailableQuest(line.id)
+    }
+  }
+
+  // The page's main action (Space, the accent button): on the list its first line.
+  public main(mut self) {
+    match (peek self.page) {
+      .List => self.pickLine(1)
+      .Detail => self.accept()
+      .Progress => self.proceed()
+      .Reward => self.finish()
+      else => {}
+    }
+  }
+
+  // Back (Esc, the left button): from a quest picked in the list, the list; else the page is declined or closed.
+  public back(mut self) {
+    const page = peek self.page
+    if (page == Page.List || page == Page.Book) {
+      self.close()
+      return
+    }
+    if (peek self.fromList) {
+      sound(SOUND_CANCEL)
+      self.page = .List
+      return
+    }
+    if (page == Page.Detail) { Client.DeclineQuest() }
+    self.close()
+  }
+
+  public accept(mut self) {
+    const quest = peek self.quest
+    if (quest == nil) { return }
+    if (quest.pvp) {
+      self.prompt = .Pvp
+      return
+    }
+    self.acceptQuest()
+  }
+
+  acceptQuest(mut self) {
+    const quest = peek self.quest
+    if (quest != nil && quest.autoAccepted) { Client.AcknowledgeAutoAcceptQuest() } else { Client.AcceptQuest() }
+  }
+
+  public proceed(mut self) {
+    if (!Client.IsQuestCompletable()) { return }
+    Client.CompleteQuest()
+    sound(SOUND_OPEN)
+  }
+
+  public finish(mut self) {
+    const quest = peek self.quest
+    if (quest == nil) { return }
+    const choice = peek self.choice
+    if (quest.choices.length > 1 && choice == 0) {
+      Client.QuestChooseRewardError()
+      return
+    }
+    const picked = quest.choices.length == 1 ? 1 : choice
+    self.choice = picked
+    if (quest.moneyNeeded > 0) {
+      self.prompt = .Expensive { cost: quest.moneyNeeded }
+      return
+    }
+    Client.GetQuestReward(picked)
+  }
+
+  // A reward to choose, by its place; on the reward page alone.
+  public choose(mut self, index: Integer) {
+    const quest = peek self.quest
+    if (peek self.page != Page.Reward || quest == nil || index > quest.choices.length) { return }
+    self.choice = index
+  }
+
+  // A key of 1–9: a line of the list, or a reward to choose.
+  public pickNumber(mut self, number: Integer) {
+    if (peek self.page == Page.List) {
+      self.pickLine(number)
+    } else {
+      self.choose(number)
+    }
+  }
+
+  // The window closed (its ✕, Escape on the list or a book): the game's window is told, as its own close does.
+  public close(mut self) {
+    const page = peek self.page
+    self.hide()
+    sound(SOUND_CLOSE)
+    if (page == Page.Book) {
+      Client.CloseItemText()
+    } else if (page == Page.List && (peek self.source) == Source.Gossip) {
+      Client.C_GossipInfo.CloseGossip()
+    } else {
+      Client.CloseQuest()
+    }
+  }
+
+  show(mut self, page: Page) {
+    if (!(peek self.shown)) {
+      sound(SOUND_OPEN)
+      self.pawnShown = self.pawnLoaded()
+    }
+    self.page = page
+    self.fadeIn(page)
+  }
+
+  // A quest's page lets its text in at the game's pace, unless the game's option shows it at once.
+  fadeIn(mut self, page: Page) {
+    self.stopFading()
+    const text = (peek self.quest)?.text ?? ""
+    if (!isQuestPage(page) || text == "" || Client.C_CVar.GetCVar(INSTANT_TEXT) != "0") { return }
+    self.revealed = 0
+    self.fading = self.fade(text)
+  }
+
+  async fade(mut self, text: String) {
+    let shown = 0
+    // Each step lets in at least a letter: the text is in at most as many steps as it has.
+    for (step of 1..text.length) {
+      await Game.delay(FADE_STEP)
+      shown = wordEnd(text, shown + FADE_LETTERS)
+      if (shown >= text.length) { break }
+      self.revealed = shown
+    }
+    self.revealed = -1
+    self.fading = nil
+  }
+
+  stopFading(mut self) {
+    if (self.fading != nil) {
+      destroy self.fading
+      self.fading = nil
+    }
+    self.revealed = -1
+  }
+
+  hide(mut self) {
+    self.stopFading()
+    self.page = .Closed
+    self.prompt = nil
+    self.fromList = false
+    self.acceptNext = false
+    self.completeNext = false
+  }
+
+  // ——— The marks.
+
+  public isMarked(self, option: Integer): Boolean {
+    const npc = peek self.npc
+    return (peek self.marks).any(mark => mark.npc == npc && mark.option == option)
+  }
+
+  // Right-click's «Always pick this option»: marked, or unmarked again.
+  public toggleMark(mut self, index: Integer) {
+    const line = (peek self.lines)[index]
+    if (line == nil || line.kind != LineKind.Option) { return }
+    if (self.isMarked(line.id)) {
+      self.unmark(line.id)
+      return
+    }
+    let marks = (peek self.marks).clone()
+    marks.push({ npc: peek self.npc, option: line.id })
+    if (marks.length > MARKS_KEPT) { _ = marks.remove(1) }
+    self.keepMarks(marks)
+  }
+
+  unmark(mut self, option: Integer) {
+    const npc = peek self.npc
+    const marks = (peek self.marks).filter(mark => !(mark.npc == npc && mark.option == option))
+    if (marks.length != (peek self.marks).length) { self.keepMarks(marks) }
+  }
+
+  keepMarks(mut self, marks: Array<Marked>) {
+    self.marks = marks
+    Game.saved.store(.Own, MARKS_KEY, marks)
+  }
+
+  // ——— Rewards' worth by Pawn.
+
+  public upgrade(self, reward: Reward): Number | nil {
+    const link = reward.link
+    if (!(peek self.pawnShown) || link == nil) { return nil }
+    return self.upgradeOf(link)
+  }
+
+  onSettings(self) { Ordaen.toggleSettings(Runtime.Addon.of(self)) }
+
+  // ——— Keys: heard in the whole game while the window shows and the keyboard is on, out of a fight (the client's
+  // bindings wait for its end); every other key stays the game's.
+
+  onKey(mut self, stroke: Event.Keystroke) {
+    const number = digitOf(stroke.key)
+    if (number > 0) { self.pickNumber(number) }
+  }
+
+  onSpace(mut self) { self.main() }
+  onEscape(mut self) { self.back() }
+
+  // ——— What the window draws.
+
+  derived keysOn: Boolean = self.settings.values.keyboard && !Game.situation.combat && self.prompt == nil
+  derived hints: Boolean = self.settings.values.keyboard && self.settings.values.keyHints
+  derived combatNote: Boolean = self.settings.values.keyboard && Game.situation.combat
+  derived isBook: Boolean = self.page == Page.Book
+  derived rows: Array<Track> = self.isBook ? [{ fr: 1 }, "max-content"] : [{ fr: 2 }, { fr: 3 }]
+  derived pickable: Boolean = self.page == Page.Reward
+  // The quest giver's figure: an NPC's, never an item's or an object's quest.
+  public derived figure: Boolean = !self.alone && self.speaker.portrait != nil
+  derived rewardViews: Array<RewardView> = choiceViews(self.quest?.choices ?? [], self.upgrades())
+  derived backLabel: String = match (self.page) {
+    .Detail => self.fromList ? Locale.BACK : Locale.DECLINE
+    .Book => Locale.CLOSE
+    else => Locale.BACK
+  }
+  derived mainLabel: String = match (self.page) {
+    .Detail => Locale.ACCEPT
+    .Progress => Locale.CONTINUE
+    else => Locale.COMPLETE
+  }
+  derived mainOff: Boolean = self.mainOffNow()
+  derived mainTip: TipText | nil = self.mainOff ? { title: self.mainLabel, text: self.page == Page.Progress ? Locale.NOT_READY : Locale.PICK_A_REWARD, rows: [] } : nil
+  derived backKey: String = self.hints ? Locale.KEY_ESC : ""
+  derived mainKey: String = self.hints ? Locale.KEY_SPACE : ""
+  derived promptText: String = self.promptTextNow()
+  derived promptCost: Integer = self.promptCostNow()
+  derived prompted: Boolean = self.prompt != nil
+  state tab = 1
+
+  mainOffNow(self): Boolean {
+    const quest = self.quest
+    if (quest == nil) { return false }
+    if (self.page == Page.Progress) { return !quest.completable }
+    if (self.page == Page.Reward) { return quest.choices.length > 1 && self.choice == 0 }
+    return false
+  }
+
+  promptTextNow(self): String {
+    const prompt = self.prompt
+    if (prompt == nil) { return "" }
+    return match (prompt) {
+      .Paid => prompt.text
+      .Escort => prompt.text
+      .Pvp => Locale.PVP_CONFIRM
+      .Expensive => Locale.EXPENSIVE_CONFIRM.format(Game.money.format(prompt.cost))
+    }
+  }
+
+  promptCostNow(self): Integer {
+    const prompt = self.prompt
+    if (prompt is Prompt.Paid) { return prompt.cost }
+    if (prompt is Prompt.Expensive) { return prompt.cost }
+    return 0
+  }
+
+  upgrades(self): Array<Number> {
+    const quest = self.quest
+    if (quest == nil || !self.pawnShown) { return [] }
+    return quest.choices.map(reward => self.upgrade(reward) ?? 0)
+  }
+
+  // Whether the line at that place is marked, followed as the marks change.
+  public markedAt(self, line: Line): Boolean {
+    return line.kind == LineKind.Option && self.marks.any(mark => mark.npc == self.npc && mark.option == line.id)
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <frame $if={self.shown} of={Game.frames.Gossip} opacity={0} away={true} />
+      <frame $if={self.shown} of={Game.frames.Quest} opacity={0} away={true} />
+      <frame $if={self.shown} of={Game.frames.ItemText} opacity={0} away={true} />
+      <Window $if={self.shown} tabs={self.tabs} selected={mut self.tab} declared={mut self.window} withSettings={true}
+              @close={self.close} @settings={self.onSettings}>
+        <box rows={self.rows} gap={0sp}>
+          <box $if={self.keysOn} position={Position.Absolute} left={0ui} top={0ui} width={0ui} height={0ui}
+               @keyPress.globalScope(.Digit1)={self.onKey} @keyPress.globalScope(.Digit2)={self.onKey}
+               @keyPress.globalScope(.Digit3)={self.onKey} @keyPress.globalScope(.Digit4)={self.onKey}
+               @keyPress.globalScope(.Digit5)={self.onKey} @keyPress.globalScope(.Digit6)={self.onKey}
+               @keyPress.globalScope(.Digit7)={self.onKey} @keyPress.globalScope(.Digit8)={self.onKey}
+               @keyPress.globalScope(.Digit9)={self.onKey} @keyPress.globalScope(.Space)={self.onSpace}
+               @keyPress.globalScope(.Escape)={self.onEscape} /> <box rows={["max-content", { fr: 1 }, "max-content"]}
+                                                                      padding={{ left: 4sp, right: 4sp, top: 2sp, bottom: 2sp }}>
+            <box height={Style.ROLL_HEIGHT} background={Style.ROLL} />
+            <box background={Style.PARCHMENT} tint={Style.PARCHMENT_TINT} overflow={Overflow.Scroll}
+                 padding={4sp} gap={2sp}>
+              <Said page={self.page} quest={self.quest} said={self.said} book={self.book} revealed={self.revealed}
+                    figure={self.figure} />
+            </box>
+            <box height={Style.ROLL_HEIGHT} background={Style.ROLL} />
+          </box>
+          <box $if={!self.isBook} background={Style.WELL} rows={[{ fr: 1 }, "max-content"]} gap={2sp}
+               padding={4sp}>
+            <box overflow={Overflow.Scroll} gap={1sp}>
+              <$if={self.listShown}>
+                <OptionRow $for={index, line of self.lines} line={line} index={index} hints={self.hints}
+                           marked={self.markedAt(line)} @pick={self.pickLine} @mark={self.toggleMark} />
+              </>
+              <Needs $elseif={self.page == Page.Progress} quest={self.quest} />
+              <Rewards $else quest={self.quest} views={self.rewardViews} pickable={self.pickable} choice={self.choice}
+                       hints={self.hints} pawnColumn={self.pawnShown} @choose={self.choose} />
+            </box>
+            <text $if={self.combatNote} value={Locale.KEYS_IN_COMBAT} textColor={Style.DIM} textSize={SECONDARY_TEXT} />
+            <box $if={!self.listShown} columns={["max-content", { fr: 1 }, "max-content"]}>
+              <PushButton label={self.backLabel} width={199.21875dp} key={self.backKey} @click={self.back} />
+              <box />
+              <PushButton label={self.mainLabel} width={199.21875dp} plate={ButtonPlate.Accent} disabled={self.mainOff}
+                          tip={self.mainTip} key={self.mainKey} @click={self.main} />
+            </box>
+          </box>
+          <box $else padding={{ left: 4sp, right: 4sp, bottom: 4sp }} xAlign={Align.End}>
+            <PushButton label={Locale.CLOSE} width={199.21875dp} key={self.backKey} @click={self.close} />
+          </box>
+        </box>
+      </Window>
+      <Dialog $if={self.prompted} width={421.875dp}>
+        <text value={self.promptText} textColor={Style.TEXT} wrap={true} />
+        <Money $if={self.promptCost > 0} amount={self.promptCost} />
+        <PushButton #buttons label={Locale.CANCEL} width={140.625dp} @click={self.cancelPrompt} />
+        <PushButton #buttons label={Locale.YES} width={140.625dp} plate={ButtonPlate.Accent} @click={self.confirmPrompt} />
+      </Dialog>
+    }
+  }
+}

@@ -1,0 +1,721 @@
+// Ordaen Dialogue as the player meets it, on the stand-in client: the NPC's list, a quest's pages, books, the
+// questions asked first, the keys, and what is done on its own. The NPC, the quest page and the book are the
+// stand-in's (`Test.talk`, `Test.quest`, `Test.book`); what the window asked of the client is `Test.talked()`.
+import Client from "$client"
+import Events from "$events"
+import Game from "$game"
+import Test from "$test"
+import root Ordaen from "Ordaen"
+import root Dialogue from "OrdaenDialogue"
+import { pawnText } from "@/rewards"
+import { Auto } from "@/settings"
+
+const SCREEN: Test.Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
+const WORDS = "Welcome to the Goldshire inn, traveller!"
+const INN: FileId = 132052
+const TALK: FileId = 132053
+
+function option(id: Integer, name: String, order: Integer, icon: FileId): Client.GossipOptionUIInfo {
+  return {
+    gossipOptionID: id, name: name, icon: icon, rewards: [], status: Client.GossipOptionStatus.Available, flags: 0,
+    selectOptionWhenOnlyOption: false, orderIndex: order
+  }
+}
+
+function gossipQuest(id: Integer, title: String, level: Integer, complete: Boolean): Client.GossipQuestUIInfo {
+  return {
+    title: title, questLevel: level, isTrivial: false, isComplete: complete, isLegendary: false, isIgnored: false,
+    questID: id, isImportant: false, isMeta: false, questInfoID: 0
+  }
+}
+
+// The innkeeper: her words, a quest to hand in, a new one, one in progress, and two plain options.
+function innkeeper(): Test.Npc {
+  return {
+    name: "Innkeeper Farley", id: 295, text: WORDS,
+    active: [gossipQuest(10, "Lost Necklaces", 12, false), gossipQuest(11, "A Parcel for Farley", 8, true)],
+    available: [gossipQuest(20, "Rats in the Cellar", 4, false)],
+    options: [option(301, "Tell me about Goldshire.", 2, TALK), option(300, "Make this inn your home.", 1, INN)]
+  }
+}
+
+// A flight master with one plain option.
+function flightMaster(): Test.Npc {
+  return { name: "Thor", id: 523, text: "The gryphons are ready.", options: [option(400, "Show me where I can fly.", 1, TALK)] }
+}
+
+// A quest's page: two rewards to choose (the second not the player's to wear), money and experience.
+function pie(): Test.QuestPage {
+  return {
+    id: 20, title: "A Pie for Maggie", text: "Maggie bakes the best pies in Elwynn.",
+    objectives: "Bring Maggie 6 chunks of boar meat.", progress: "Have you got the meat?",
+    reward: "Thank you! Take one of these.",
+    choices: [
+      { name: "Cook's Gloves", icon: "Interface/Icons/INV_Gauntlets_04", item: 1001 },
+      { name: "Courier Boots", icon: "Interface/Icons/INV_Boots_01", item: 1002, usable: false }
+    ],
+    required: [{ name: "Boar Meat", icon: "Interface/Icons/INV_Misc_Food_14", item: 769, count: 6 }],
+    money: 75, xp: 450
+  }
+}
+
+function window(): Test.Part { return Test.page().window("Innkeeper Farley") }
+
+function asked(): String { return Test.talked().join(", ") }
+
+// The list
+
+test "the NPC's list: her words, then the quests to hand in, the new ones, those in progress, then her options" {
+  Test.mount(nil, SCREEN)
+  Test.talk(innkeeper())
+  Test.expect(window().text(WORDS).shown())
+  const titles = ["A Parcel for Farley", "Rats in the Cellar", "Lost Necklaces", "Make this inn your home.", "Tell me about Goldshire."]
+  const drawn = window().texts().filter(text => titles.any(title => title == text))
+  Test.expect(drawn.join(" | ") == titles.join(" | "))
+}
+
+test "each line has its key, and a quest its level" {
+  Test.mount(nil, SCREEN)
+  Test.talk(innkeeper())
+  Test.expect(window().text("A Parcel for Farley").item().texts().join(" ") == "1 8 A Parcel for Farley")
+  Test.expect(window().text("Make this inn your home.").item().texts().join(" ") == "4 Make this inn your home.")
+}
+
+test "the game's own gossip window stands away while ours shows, and is back after" {
+  const own = Client.CreateFrame("Frame", "GossipFrame", Client.UIParent, nil)
+  own.SetSize(300, 400)
+  own.SetPoint("TOPLEFT", Client.UIParent, "TOPLEFT", 16, -116)
+  Game.frames.Gossip = own
+  Test.mount(nil, SCREEN)
+  Test.talk(innkeeper())
+  Test.flush()
+  Test.expect(own.GetAlpha() == 0)
+  Events.GOSSIP_CLOSED.emit(false)
+  Test.flush()
+  Test.expect(own.GetAlpha() == 1 && !window().shown())
+}
+
+test "a click on an option picks it by the game's own call" {
+  Test.mount(nil, SCREEN)
+  Test.talk(innkeeper())
+  window().text("Make this inn your home.").click()
+  Test.expect(asked() == "option 300")
+}
+
+test "a click on a quest picks it: one to hand in as active, a new one as available" {
+  Test.mount(nil, SCREEN)
+  Test.talk(innkeeper())
+  window().text("A Parcel for Farley").click()
+  window().text("Rats in the Cellar").click()
+  Test.expect(asked() == "active 11, available 20")
+}
+
+test "the keys: 1–9 pick a line, Space the first" {
+  Test.mount(nil, SCREEN)
+  Test.talk(innkeeper())
+  Test.flush()
+  _ = Test.keyBound("4")
+  _ = Test.keyBound("SPACE")
+  Test.expect(asked() == "option 300, active 11")
+}
+
+test "the keys are the game's again once the window closes" {
+  Test.mount(nil, SCREEN)
+  Test.talk(innkeeper())
+  Events.GOSSIP_CLOSED.emit(false)
+  Test.flush()
+  _ = Test.keyBound("4")
+  Test.expect(asked() == "")
+}
+
+test "in a fight the keys are the game's, and the window says so" {
+  Test.mount(nil, SCREEN)
+  Test.talk(innkeeper())
+  Test.combat(true)
+  Test.flush()
+  _ = Test.keyBound("4")
+  Test.expect(asked() == "" && window().text("In a fight the keys are the game's: use the mouse.").shown())
+}
+
+test "with the keyboard off no key is the window's, and no keycap shows" {
+  Test.mount(nil, SCREEN)
+  Dialogue.settings.values.keyboard = false
+  Test.talk(innkeeper())
+  Test.flush()
+  _ = Test.keyBound("4")
+  Test.expect(asked() == "" && window().text("Make this inn your home.").item().texts().join(" ") == "Make this inn your home.")
+}
+
+test "with the key hints off the keys still work, unseen" {
+  Test.mount(nil, SCREEN)
+  Dialogue.settings.values.keyHints = false
+  Test.talk(innkeeper())
+  Test.flush()
+  _ = Test.keyBound("4")
+  Test.expect(asked() == "option 300" && window().text("Make this inn your home.").item().texts().join(" ") == "Make this inn your home.")
+}
+
+test "Escape on the list closes the window and the talk" {
+  Test.mount(nil, SCREEN)
+  Test.talk(innkeeper())
+  Test.flush()
+  _ = Test.keyBound("ESCAPE")
+  Test.expect(!window().shown() && asked() == "close gossip")
+}
+
+test "the window's ✕ closes the talk too" {
+  Test.mount(nil, SCREEN)
+  Test.talk(innkeeper())
+  window().button(Ordaen.art.ctl.corner.close).click()
+  Test.expect(!window().shown() && asked() == "close gossip")
+}
+
+test "walking away closes the window: the game's close" {
+  Test.mount(nil, SCREEN)
+  Test.talk(innkeeper())
+  Events.GOSSIP_CLOSED.emit(false)
+  Test.expect(!window().shown())
+}
+
+test "a quest picked from the list keeps the talk: the gossip's close that goes on leaves the window up" {
+  Test.mount(nil, SCREEN)
+  Test.talk(innkeeper())
+  Events.GOSSIP_CLOSED.emit(true)
+  Test.expect(window().shown())
+}
+
+// The one-option skip
+
+test "an NPC with one plain option doesn't open the window: the option is picked" {
+  Test.mount(nil, SCREEN)
+  Test.talk(flightMaster())
+  Test.expect(asked() == "option 400" && !Test.page().window("Thor").shown())
+}
+
+test "Shift held while talking shows the window all the same" {
+  Test.mount(nil, SCREEN)
+  Game.input.shiftDown = (): Boolean => true
+  Test.talk(flightMaster())
+  Test.expect(asked() == "" && Test.page().window("Thor").shown())
+}
+
+test "the server wanting the window (ForceGossip) shows it" {
+  Test.mount(nil, SCREEN)
+  Test.talk({ name: "Thor", id: 523, options: [option(400, "Show me where I can fly.", 1, TALK)], forceGossip: true })
+  Test.expect(asked() == "" && Test.page().window("Thor").shown())
+}
+
+test "with the skip off the window shows" {
+  Test.mount(nil, SCREEN)
+  Dialogue.settings.values.skipSingle = false
+  Test.talk(flightMaster())
+  Test.expect(asked() == "" && Test.page().window("Thor").shown())
+}
+
+// Options picked on their own
+
+test "right-click an option to always pick it: «auto» shows, and the next talk picks it" {
+  Test.mount(nil, SCREEN)
+  Test.talk(innkeeper())
+  window().text("Tell me about Goldshire.").rightClick()
+  Test.page().text("Always pick this option").click()
+  Test.expect(window().text("Tell me about Goldshire.").item().texts().join(" ") == "5 Tell me about Goldshire. auto")
+  Events.GOSSIP_CLOSED.emit(false)
+  Test.talk(innkeeper())
+  Test.expect(asked() == "option 301" && !window().shown())
+}
+
+test "Shift shows the list over a marked option, and a mark is taken away the same way" {
+  Test.mount(nil, SCREEN)
+  Test.talk(innkeeper())
+  window().text("Tell me about Goldshire.").rightClick()
+  Test.page().text("Always pick this option").click()
+  Events.GOSSIP_CLOSED.emit(false)
+  Game.input.shiftDown = (): Boolean => true
+  Test.talk(innkeeper())
+  Game.input.shiftDown = (): Boolean => false
+  Game.input.controlDown = (): Boolean => false
+  Test.expect(asked() == "" && window().shown())
+  window().text("Tell me about Goldshire.").rightClick()
+  Test.page().text("Always pick this option").click()
+  Test.expect(Dialogue.marks.length == 0)
+}
+
+test "the marks are kept for the account" {
+  Test.mount(nil, SCREEN)
+  Test.talk(innkeeper())
+  window().text("Tell me about Goldshire.").rightClick()
+  Test.page().text("Always pick this option").click()
+  Test.reload()
+  Test.expect(Dialogue.marks.length == 1 && (Dialogue.marks[1]?.option ?? 0) == 301 && (Dialogue.marks[1]?.npc ?? 0) == 295)
+}
+
+test "with marked options off the list shows" {
+  Test.mount(nil, SCREEN)
+  Test.talk(innkeeper())
+  window().text("Tell me about Goldshire.").rightClick()
+  Test.page().text("Always pick this option").click()
+  Events.GOSSIP_CLOSED.emit(false)
+  Dialogue.settings.values.alwaysPick = false
+  Test.talk(innkeeper())
+  Test.expect(asked() == "" && window().shown())
+}
+
+test "a quest can't be marked: its right-click opens nothing" {
+  Test.mount(nil, SCREEN)
+  Test.talk(innkeeper())
+  window().text("Rats in the Cellar").rightClick()
+  Test.expect(!Test.page().text("Always pick this option").shown())
+}
+
+test "an option that asks to confirm is never picked on its own again" {
+  Test.mount(nil, SCREEN)
+  Test.talk(innkeeper())
+  window().text("Make this inn your home.").rightClick()
+  Test.page().text("Always pick this option").click()
+  Events.GOSSIP_CONFIRM.emit(300, "Make this inn your home?", 0)
+  Test.expect(Dialogue.marks.length == 0)
+}
+
+// A quest's pages
+
+test "the details: title, text, objectives, the rewards to choose, money and experience; Accept accepts" {
+  Test.mount(nil, SCREEN)
+  Test.talk(innkeeper())
+  Test.quest(pie())
+  Events.QUEST_DETAIL.emit(nil)
+  Test.expect(window().text("A Pie for Maggie").shown() && window().text("Bring Maggie 6 chunks of boar meat.").shown())
+  Test.expect(window().text("You will be able to choose").shown() && window().text("Cook's Gloves").shown())
+  Test.expect(window().text("450 experience").shown())
+  window().button("Accept").click()
+  Test.expect(asked() == "accept")
+}
+
+test "a quest opened from the list goes back to the list with Back and Escape" {
+  Test.mount(nil, SCREEN)
+  Test.talk(innkeeper())
+  Test.quest(pie())
+  window().text("Rats in the Cellar").click()
+  Events.GOSSIP_CLOSED.emit(true)
+  Events.QUEST_DETAIL.emit(nil)
+  window().button("Back").click()
+  Test.expect(window().text(WORDS).shown())
+  window().text("Rats in the Cellar").click()
+  Events.QUEST_DETAIL.emit(nil)
+  Test.flush()
+  _ = Test.keyBound("ESCAPE")
+  Test.expect(window().text(WORDS).shown() && asked() == "available 20, available 20")
+}
+
+test "a quest with no list is declined: the window closes" {
+  Test.mount(nil, SCREEN)
+  Test.talk(innkeeper())
+  Events.GOSSIP_CLOSED.emit(false)
+  Test.quest(pie())
+  Events.QUEST_DETAIL.emit(nil)
+  window().button("Decline").click()
+  Test.expect(asked() == "decline, close quest" && !window().shown())
+}
+
+test "a quest that flags for PvP asks first" {
+  Test.mount(nil, SCREEN)
+  Test.talk(innkeeper())
+  Test.quest({ id: 21, title: "Battle!", pvp: true })
+  Events.QUEST_DETAIL.emit(nil)
+  window().button("Accept").click()
+  Test.expect(asked() == "" && Test.page().text("Accepting this quest flags you for PvP.").shown())
+  Test.page().button("Yes").click()
+  Test.expect(asked() == "accept")
+}
+
+test "the game's own accepted quest is acknowledged" {
+  Test.mount(nil, SCREEN)
+  Test.talk(innkeeper())
+  Test.quest({ id: 22, title: "Given", autoAccepted: true })
+  Events.QUEST_DETAIL.emit(nil)
+  window().button("Accept").click()
+  Test.expect(asked() == "acknowledge")
+}
+
+test "progress: what's needed, red until there's enough; Continue only once it can be done" {
+  Test.mount(nil, SCREEN)
+  Test.talk(innkeeper())
+  Test.quest(pie())
+  Events.QUEST_PROGRESS.emit()
+  Test.expect(window().text("0/6").shown() && window().text("Boar Meat").shown())
+  window().button("Continue").click()
+  Test.expect(asked() == "")
+  Test.quest({ id: 20, title: "A Pie for Maggie", completable: true })
+  Events.QUEST_PROGRESS.emit()
+  window().button("Continue").click()
+  Test.expect(asked() == "complete")
+}
+
+test "a turn-in that takes money lists it with what's needed" {
+  Test.mount(nil, SCREEN)
+  Test.talk(innkeeper())
+  Test.quest({ id: 23, title: "Dues", moneyNeeded: 500 })
+  Events.QUEST_PROGRESS.emit()
+  Test.expect(window().text("Money").shown())
+}
+
+test "the reward: Complete waits for a choice; 2 picks the second, Complete takes it" {
+  Test.mount(nil, SCREEN)
+  Test.talk(innkeeper())
+  Test.quest(pie())
+  Events.QUEST_COMPLETE.emit()
+  Test.expect(window().text("Choose your reward").shown())
+  window().button("Complete").click()
+  Test.expect(asked() == "")
+  Test.flush()
+  _ = Test.keyBound("2")
+  window().button("Complete").click()
+  Test.expect(asked() == "reward 2")
+}
+
+test "a click on a reward picks it" {
+  Test.mount(nil, SCREEN)
+  Test.talk(innkeeper())
+  Test.quest(pie())
+  Events.QUEST_COMPLETE.emit()
+  window().text("Cook's Gloves").click()
+  Test.expect(Dialogue.choice == 1)
+}
+
+test "Ctrl+click on a reward's slot tries it on and picks nothing" {
+  let tried = ""
+  Client.DressUpItemLink = (link: String): Boolean => {
+    tried = link
+    return true
+  }
+  Test.mount(nil, SCREEN)
+  Test.talk(innkeeper())
+  Test.quest(pie())
+  Events.QUEST_COMPLETE.emit()
+  Game.input.controlDown = (): Boolean => true
+  window().button("Interface/Icons/INV_Boots_01").click()
+  Game.input.shiftDown = (): Boolean => false
+  Game.input.controlDown = (): Boolean => false
+  Test.expect(tried == "item:1002" && Dialogue.choice == 0)
+}
+
+test "a reward the player can't wear says so in red" {
+  Test.mount(nil, SCREEN)
+  Test.talk(innkeeper())
+  Test.quest(pie())
+  Events.QUEST_COMPLETE.emit()
+  const quest = Dialogue.quest ?? panic("the reward page shows a quest")
+  Test.expect(quest.choices[2]?.unusable == true && quest.choices[1]?.unusable == false)
+}
+
+test "one reward to choose is picked already" {
+  Test.mount(nil, SCREEN)
+  Test.talk(innkeeper())
+  Test.quest({ id: 24, title: "One", choices: [{ name: "Cook's Gloves", icon: "Interface/Icons/INV_Gauntlets_04", item: 1001 }] })
+  Events.QUEST_COMPLETE.emit()
+  window().button("Complete").click()
+  Test.expect(asked() == "reward 1")
+}
+
+test "a turn-in that takes money asks first, with the price" {
+  Test.mount(nil, SCREEN)
+  Test.talk(innkeeper())
+  Test.quest({ id: 23, title: "Dues", moneyNeeded: 500 })
+  Events.QUEST_COMPLETE.emit()
+  window().button("Complete").click()
+  Test.expect(asked() == "")
+  Test.page().button("Yes").click()
+  Test.expect(asked() == "reward 0")
+}
+
+test "the sell price: the dearest reward's in gold" {
+  Client.C_Item.GetItemInfo = (item: String | Integer): (String | nil, String | nil, Client.ItemQuality | nil, Number | nil, Number | nil, String | nil, String | nil, Number | nil, String | nil, FileId | nil, Number | nil, Number | nil, Number | nil, Number | nil, Number | nil, Number | nil, Boolean | nil, String | nil) => {
+    return nil, nil, Client.ItemQuality.Uncommon, nil, nil, nil, "Leather", nil, "INVTYPE_HAND", nil, item == 1001 ? 40 : 55, nil, nil, nil, nil, nil, nil, nil
+  }
+  Test.mount(nil, SCREEN)
+  Test.talk(innkeeper())
+  Test.quest(pie())
+  Events.QUEST_COMPLETE.emit()
+  Test.expect((Dialogue.rewardViews[2]?.dearest ?? false) && !(Dialogue.rewardViews[1]?.dearest ?? true))
+  Test.expect(window().text("Courier Boots").item().texts().any(text => text.contains("Leather")))
+}
+
+test "Pawn's column, while Pawn is loaded: the best upgrade with its arrow" {
+  Test.mount(nil, SCREEN)
+  Dialogue.pawnLoaded = (): Boolean => true
+  Dialogue.upgradeOf = (link: String): Number | nil => link == "item:1001" ? 0.08 : 0.03
+  Test.talk(innkeeper())
+  Test.quest(pie())
+  Events.QUEST_COMPLETE.emit()
+  Test.expect(pawnText(0.08) == "+8%")
+  Test.expect(window().text("+8%").shown() && window().text("+3%").shown())
+}
+
+test "without Pawn there is no column" {
+  Test.mount(nil, SCREEN)
+  Test.talk(innkeeper())
+  Test.quest(pie())
+  Events.QUEST_COMPLETE.emit()
+  Test.expect(!window().text("+8%").shown() && !Dialogue.pawnShown)
+}
+
+test "a group quest says its group's size" {
+  Test.mount(nil, SCREEN)
+  Test.talk(innkeeper())
+  Test.quest({ id: 25, title: "Hogger", group: 3 })
+  Events.QUEST_DETAIL.emit(nil)
+  Test.expect(window().text("Group: 3").shown())
+}
+
+test "a quest an item starts: the tab is the item, and declining closes" {
+  Client.C_Item.GetItemNameByID = (item: String | Integer): String | nil => "Bloodstained Note"
+  Test.mount(nil, SCREEN)
+  Test.quest(pie())
+  Events.QUEST_DETAIL.emit(1327)
+  Test.expect(Test.page().window("Bloodstained Note").shown())
+  Test.page().window("Bloodstained Note").button("Decline").click()
+  Test.expect(asked() == "decline, close quest" && !Test.page().window("Bloodstained Note").shown())
+}
+
+test "the quest window's close from the game closes ours" {
+  Test.mount(nil, SCREEN)
+  Test.talk(innkeeper())
+  Events.GOSSIP_CLOSED.emit(true)
+  Test.quest(pie())
+  Events.QUEST_DETAIL.emit(nil)
+  Events.QUEST_FINISHED.emit()
+  Test.expect(!window().shown())
+}
+
+// Questions asked first
+
+test "a paid option asks in Ordaen's dialog with its price, and Yes picks it confirmed" {
+  Test.mount(nil, SCREEN)
+  Test.talk(innkeeper())
+  Events.GOSSIP_CONFIRM.emit(300, "Rent the best room?", 5000)
+  Test.expect(Test.page().text("Rent the best room?").shown())
+  Test.page().button("Yes").click()
+  Test.expect(asked() == "option 300 confirmed")
+}
+
+test "a party member's escort quest asks, and Yes accepts it" {
+  Test.mount(nil, SCREEN)
+  Events.QUEST_ACCEPT_CONFIRM.emit("Reggie", "Guard the Caravan", 0)
+  Test.expect(Test.page().text("Reggie offers to start the quest «Guard the Caravan».").shown())
+  Test.page().button("Yes").click()
+  Test.expect(asked() == "confirm accept")
+}
+
+// Quests accepted and handed in on their own
+
+test "auto-accept «Picked»: the quest picked is accepted without its page" {
+  Test.mount(nil, SCREEN)
+  Dialogue.settings.values.autoAccept = Auto.Picked
+  Test.talk(innkeeper())
+  Test.quest(pie())
+  window().text("Rats in the Cellar").click()
+  Events.GOSSIP_CLOSED.emit(true)
+  Events.QUEST_DETAIL.emit(nil)
+  Test.expect(asked() == "available 20, accept" && !window().text("A Pie for Maggie").shown())
+}
+
+test "auto-accept «All»: every quest offered is accepted as the talk starts, then the list shows" {
+  Test.mount(nil, SCREEN)
+  Dialogue.settings.values.autoAccept = Auto.All
+  Test.quest(pie())
+  Test.talk(innkeeper())
+  Test.expect(!window().shown())
+  Events.QUEST_DETAIL.emit(nil)
+  Events.QUEST_FINISHED.emit()
+  Test.talk(innkeeper())
+  Test.expect(asked() == "available 20, accept" && window().shown())
+}
+
+test "auto-accept «All» accepts nothing while the quest log is full" {
+  Client.C_QuestLog.GetNumQuestLogEntries = (): (Number, Number) => {
+    return 25, 25
+  }
+  Test.mount(nil, SCREEN)
+  Dialogue.settings.values.autoAccept = Auto.All
+  Test.talk(innkeeper())
+  Test.expect(asked() == "" && window().shown())
+}
+
+test "auto-complete «All» hands in what is done, but stops on a reward to choose" {
+  Test.mount(nil, SCREEN)
+  Dialogue.settings.values.autoComplete = Auto.All
+  Test.quest({ id: 11, title: "A Parcel for Farley", completable: true, choices: pie().choices })
+  Test.talk(innkeeper())
+  Events.QUEST_PROGRESS.emit()
+  Events.QUEST_COMPLETE.emit()
+  Test.expect(asked() == "active 11, complete" && window().text("Choose your reward").shown())
+}
+
+test "auto-complete «Picked» hands in the quest picked, its single reward taken" {
+  Test.mount(nil, SCREEN)
+  Dialogue.settings.values.autoComplete = Auto.Picked
+  Test.quest({ id: 11, title: "A Parcel for Farley", completable: true, choices: [{ name: "Bread", icon: "Interface/Icons/INV_Misc_Food_11", item: 4540 }] })
+  Test.talk(innkeeper())
+  window().text("A Parcel for Farley").click()
+  Events.QUEST_PROGRESS.emit()
+  Events.QUEST_COMPLETE.emit()
+  Test.expect(asked() == "active 11, complete, reward 1")
+}
+
+test "Shift held while talking accepts and hands in nothing on its own" {
+  Test.mount(nil, SCREEN)
+  Dialogue.settings.values.autoAccept = Auto.All
+  Dialogue.settings.values.autoComplete = Auto.All
+  Game.input.shiftDown = (): Boolean => true
+  Test.talk(innkeeper())
+  Test.expect(asked() == "" && window().shown())
+}
+
+// Books
+
+test "a book: every page read as it opens and shown at once; Escape closes it" {
+  Test.mount(nil, SCREEN)
+  Test.book("Mary's Diary", ["Page one.", "Page two.", "Page three."])
+  Test.expect(Test.page().window("Mary's Diary").text("Page one.\n\nPage two.\n\nPage three.").shown())
+  Test.flush()
+  _ = Test.keyBound("ESCAPE")
+  Test.expect(asked() == "close book" && !Test.page().window("Mary's Diary").shown())
+}
+
+// Sounds
+
+test "the window opens and closes with the game's own sounds" {
+  const sounds: Array<String> = []
+  Client.C_Sound.PlaySound = (kit: Number, kind: Unknown, a: Boolean | nil, b: Boolean | nil, c: Number | nil, d: Number | nil): (Boolean | nil, Unknown) => {
+    sounds.push(String.of(kit))
+    return true, nil
+  }
+  Test.mount(nil, SCREEN)
+  Test.talk(innkeeper())
+  Test.flush()
+  _ = Test.keyBound("ESCAPE")
+  Test.expect(sounds.join(" ") == "875 876")
+}
+
+// A quest giver's greeting
+
+test "a quest giver's greeting: its quests by their place, picked as the game's own greeting picks them" {
+  Client.GetGreetingText = (): String => "Greetings, citizen."
+  Client.GetNumAvailableQuests = (): Number => 1
+  Client.GetAvailableTitle = (index: Number): (String | nil, Boolean) => {
+    return "Wanted: Hogger", false
+  }
+  Client.GetAvailableLevel = (index: Integer): Number => 11
+  Test.mount(nil, SCREEN)
+  Test.talk({ name: "Marshal Dughan", id: 240 })
+  Events.GOSSIP_CLOSED.emit(true)
+  Events.QUEST_GREETING.emit()
+  const marshal = Test.page().window("Marshal Dughan")
+  Test.expect(marshal.text("Greetings, citizen.").shown())
+  marshal.text("Wanted: Hogger").click()
+  Test.expect(asked() == "available 1")
+}
+
+// A reward's slot
+
+test "a reward's slot shows the item's tooltip, and Shift+click puts its link in the chat" {
+  Test.mount(nil, SCREEN)
+  Test.talk(innkeeper())
+  Test.quest(pie())
+  Events.QUEST_COMPLETE.emit()
+  _ = Test.requests()
+  window().button("Interface/Icons/INV_Gauntlets_04").hover()
+  Test.expect(Test.requests().join(", ").contains("1001"))
+  Game.input.shiftDown = (): Boolean => true
+  window().button("Interface/Icons/INV_Gauntlets_04").click()
+  Game.input.shiftDown = (): Boolean => false
+  Test.expect(Test.requests().join(", ").contains("1001") && Dialogue.choice == 0)
+}
+
+// Currencies, reputation, the giver's figure, the text's fade-in, the NPC's title
+
+test "a currency to choose and one given are rewards; one needed has how much the player has" {
+  Test.mount(nil, SCREEN)
+  Test.talk(innkeeper())
+  Test.quest({
+    id: 30, title: "Tokens", completable: true,
+    choices: [
+      { name: "Cook's Gloves", icon: "Interface/Icons/INV_Gauntlets_04", item: 1001 },
+      { name: "Honor Token", icon: "Interface/Icons/INV_Misc_Coin_01", item: 61, count: 3, currency: true }
+    ],
+    currencies: [{ id: 62, name: "Stormwind Seal", icon: "Interface/Icons/INV_Misc_Coin_02", amount: 2 }],
+    needCurrencies: [{ id: 63, name: "Marks of Honor", icon: "Interface/Icons/INV_Misc_Coin_03", amount: 5, held: 2 }]
+  })
+  Events.QUEST_COMPLETE.emit()
+  Test.expect(window().text("Honor Token").shown() && window().text("Stormwind Seal").shown())
+  window().text("Honor Token").click()
+  window().button("Complete").click()
+  Test.expect(asked() == "reward 2")
+  Events.QUEST_PROGRESS.emit()
+  Test.expect(window().text("Marks of Honor").shown() && window().text("2/5").shown())
+}
+
+test "a required item the quest hides isn't listed, nor any where the quest hides them all" {
+  Test.mount(nil, SCREEN)
+  Test.talk(innkeeper())
+  Test.quest({
+    id: 31, title: "Hidden",
+    required: [
+      { name: "Secret Note", icon: "Interface/Icons/INV_Misc_Note_01", item: 770, hidden: true },
+      { name: "Boar Meat", icon: "Interface/Icons/INV_Misc_Food_14", item: 769 }
+    ]
+  })
+  Events.QUEST_PROGRESS.emit()
+  Test.expect(!window().text("Secret Note").shown() && window().text("Boar Meat").shown())
+  Test.quest({ id: 31, title: "Hidden", hideRequired: true, required: [{ name: "Boar Meat", icon: "Interface/Icons/INV_Misc_Food_14", item: 769 }] })
+  Events.QUEST_PROGRESS.emit()
+  Test.expect(!window().text("Boar Meat").shown())
+}
+
+test "the reputation a quest offers stands in the band by the faction's name" {
+  Test.mount(nil, SCREEN)
+  Test.talk(innkeeper())
+  Test.quest({ id: 32, title: "Friends", reputations: [{ id: 72, name: "Stormwind", amount: 250 }] })
+  Events.QUEST_DETAIL.emit(nil)
+  Test.expect(window().texts().join("|").contains("Stormwind"))
+}
+
+test "a quest from an NPC has its figure beside the title; one from an item has none" {
+  Test.mount(nil, SCREEN)
+  Test.talk(innkeeper())
+  Test.quest(pie())
+  Events.QUEST_DETAIL.emit(nil)
+  Test.expect(Dialogue.figure)
+  window().button("Accept").click()
+  Events.QUEST_FINISHED.emit()
+  Events.GOSSIP_CLOSED.emit(false)
+  Events.QUEST_DETAIL.emit(4000)
+  Test.expect(!Dialogue.figure)
+}
+
+test "a quest's text fades in at the game's pace, a word at a time; the game's option shows it at once" {
+  Test.mount(nil, SCREEN)
+  Test.talk(innkeeper())
+  Test.quest(pie())
+  Events.QUEST_DETAIL.emit(nil)
+  const whole = "Maggie bakes the best pies in Elwynn."
+  Test.expect(window().text(whole).opacity() == 0)
+  Test.pass(0.1)
+  Test.expect(window().text("Maggie bakes").shown())
+  Test.pass(1)
+  Test.expect(window().text(whole).opacity() == 1 && !window().text("Maggie bakes").shown())
+  window().button("Accept").click()
+  Events.QUEST_FINISHED.emit()
+  Test.cvar("instantQuestText", "1")
+  Events.QUEST_DETAIL.emit(nil)
+  Test.expect(window().text(whole).opacity() == 1 && !window().text("Maggie bakes").shown())
+}
+
+test "the NPC's title under its name is the plain line of its tooltip, never its level's" {
+  Test.mount(nil, SCREEN)
+  Test.talk({ name: "Innkeeper Farley", id: 295, text: WORDS, title: "Innkeeper", level: 30 })
+  Test.expect(window().text("Innkeeper").shown())
+  Events.GOSSIP_CLOSED.emit(false)
+  Test.talk({ name: "Thor", id: 523, text: "The gryphons are ready.", level: 30 })
+  Test.expect(!window().text("Level 30").shown() && Dialogue.speaker.subtitle == nil)
+}

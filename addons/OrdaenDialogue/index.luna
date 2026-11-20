@@ -1,0 +1,2 @@
+// Ordaen Dialogue: talking to NPCs and quest givers in one window. Its root is `Dialogue`.
+public import { Dialogue } from "@/main"

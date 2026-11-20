@@ -1,0 +1,8 @@
+{
+  "title": "Ordaen Dialogue",
+  "icon": "Interface/Icons/INV_Misc_Note_01",
+  "notes": "Talking to NPCs and quest givers in one window: the scroll on the parchment, keys for every choice, the one-option skip, quests accepted and handed in on their own.",
+  "version": "0.1.0",
+  "loadOnDemand": true,
+  "dependencies": { "Ordaen": "^1.0.0" }
+}

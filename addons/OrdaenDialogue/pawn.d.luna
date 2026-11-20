@@ -1,0 +1,8 @@
+// Pawn's API (`PawnGetItemData`, `PawnIsItemAnUpgrade`), as `pawn.lua` reads it: another addon's, which the client's
+// declarations don't hold. Every call into it is a protected one: its API may change.
+
+// Whether Pawn is loaded and has the two functions.
+public function present(): Boolean
+// How much better than what the player wears the item is by the best of Pawn's scales (0.15: 15%); nil where it is no
+// upgrade, or Pawn can't say.
+public function upgrade(link: String): Number | nil

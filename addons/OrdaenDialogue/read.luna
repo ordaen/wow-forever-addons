@@ -1,0 +1,352 @@
+// What the client says of a talk, read into the dialogue's own data: the NPC's list (the gossip window's, or a quest
+// giver's greeting), a quest's page (its texts, what it needs, its rewards) and a book's pages. Nothing here keeps
+// anything: each is read as the game tells that it changed.
+import Client from "$client"
+import Game from "$game"
+import { Art } from "$ltml"
+import Runtime from "$runtime"
+import { Quality, qualityFrom } from "Ordaen"
+import Locale from "@/locales"
+
+// Where the NPC's list came from: the gossip window (`GOSSIP_SHOW`), or a quest giver's greeting (`QUEST_GREETING`),
+// whose quests are picked by their place.
+public enum Source { Gossip, Greeting }
+
+// What a line of the NPC's list is, in the game's order: quests to hand in, new quests, quests in progress, then
+// the plain options.
+public enum LineKind { TurnIn, RepeatTurnIn, New, Daily, Legendary, InProgress, Option }
+
+// The quest log's difficulty colours of a quest's level against the player's.
+public enum Difficulty { Trivial, Easy, Even, Hard, Impossible }
+
+// One line of the NPC's list.
+public struct Line {
+  const kind: LineKind
+  const title: String
+  // A quest's level; 0 for a plain option.
+  const level: Integer
+  const difficulty: Difficulty
+  const icon: Art
+  // What picks it: a gossip option's ID, a gossip quest's ID, or a greeting quest's place.
+  const id: Integer
+  const source: Source
+}
+
+public enum RewardKind { Item, Currency, Spell, Title, Skill }
+
+// A reward, to choose or given: an item as the game names it (its slot and type under it, red where the player can't
+// wear it; its sell price), a spell learned, a title, a currency, a skill's points.
+public struct Reward {
+  const kind: RewardKind
+  const name: String
+  const icon: Art | nil
+  const count: Integer
+  const quality: Quality
+  const item: Integer | nil
+  const link: String | nil
+  const detail: String
+  const unusable: Boolean
+  // The item's sell price at a vendor, all of the count; 0 where it sells for nothing.
+  const sell: Integer
+  // Its place among the quest's choices (`GetQuestReward(index)`); 0 for what is given.
+  const index: Integer
+}
+
+// What a quest needs handed in: an item with how many the player has and how many it takes.
+public struct Need {
+  const name: String
+  const icon: Art | nil
+  const item: Integer | nil
+  const have: Integer
+  const need: Integer
+}
+
+// A reputation a quest raises.
+public struct Standing {
+  const name: String
+  const amount: Integer
+}
+
+// What the client says of the quest a quest giver shows.
+public struct Quest {
+  const id: Integer
+  const title: String
+  // The page's text: the description (details), what the NPC says of it (progress), the thanks (reward).
+  const text: String
+  const objectives: String
+  const group: Integer
+  const choices: Array<Reward>
+  const also: Array<Reward>
+  const money: Integer
+  const xp: Integer
+  const standings: Array<Standing>
+  const needs: Array<Need>
+  const moneyNeeded: Integer
+  const completable: Boolean
+  // Accepting it flags the player for PvP: asked first, as the game's own window asks.
+  const pvp: Boolean
+  // The game accepts it itself (`QuestGetAutoAccept`): there is nothing to decline, its accept acknowledges.
+  const autoAccepted: Boolean
+}
+
+// The game's quest icons.
+const TURN_IN: Art = "QuestTurnin"
+const REPEAT_TURN_IN: Art = "QuestRepeatableTurnin"
+const NEW: Art = "QuestNormal"
+const DAILY: Art = "QuestDaily"
+const LEGENDARY: Art = "QuestLegendary"
+const UNKNOWN: Asset = "Interface/Icons/INV_Misc_QuestionMark"
+
+// A picture the client gave: a file's number or a path.
+public function artOf(texture: Number | String | nil): Art | nil {
+  if (texture is String) {
+    if (texture is Asset) { return texture }
+    if (texture is Atlas) { return texture }
+    return nil
+  }
+  if (texture is Number) {
+    const id = texture.floor()
+    if (id is FileId) { return id }
+  }
+  return nil
+}
+
+// A quest's level against the player's, as the quest log colours it: grey where the game calls it trivial, then
+// green up to two below, yellow within two, orange from three above, red from five.
+public function difficultyOf(level: Integer, player: Integer, trivial: Boolean): Difficulty {
+  if (trivial) { return .Trivial }
+  const above = level - player
+  if (above >= 5) { return .Impossible }
+  if (above >= 3) { return .Hard }
+  if (above >= -2) { return .Even }
+  return .Easy
+}
+
+function questIcon(kind: LineKind): Art {
+  return match (kind) {
+    .TurnIn => TURN_IN
+    .InProgress => TURN_IN
+    .RepeatTurnIn => REPEAT_TURN_IN
+    .Daily => DAILY
+    .Legendary => LEGENDARY
+    else => NEW
+  }
+}
+
+function questLine(kind: LineKind, title: String, level: Integer, trivial: Boolean, id: Integer, source: Source): Line {
+  return {
+    kind: kind, title: title, level: level, difficulty: difficultyOf(level, peek Game.player.level, trivial),
+    icon: questIcon(kind), id: id, source: source
+  }
+}
+
+// A new quest's kind by how often it may be done.
+function offerKind(frequency: Number | nil, legendary: Boolean): LineKind {
+  if (legendary) { return .Legendary }
+  if (frequency != nil && frequency > 0) { return .Daily }
+  return .New
+}
+
+// A quest in the player's log: to hand in, blue where it may be done again, or in progress.
+function activeKind(complete: Boolean, repeatable: Boolean): LineKind {
+  if (!complete) { return .InProgress }
+  return repeatable ? .RepeatTurnIn : .TurnIn
+}
+
+// The order the list shows its kinds in.
+function rank(kind: LineKind): Integer {
+  return match (kind) {
+    .TurnIn, .RepeatTurnIn => 1
+    .New, .Daily, .Legendary => 2
+    .InProgress => 3
+    .Option => 4
+  }
+}
+
+function inOrder(lines: mut Array<Line>): Array<Line> {
+  let ordered: Array<Line> = []
+  for (step of 1..4) {
+    for (line of lines) {
+      if (rank(line.kind) == step) { ordered.push(line) }
+    }
+  }
+  return ordered
+}
+
+// The gossip window's list: its quests, then its options in the game's order.
+public function gossipLines(): Array<Line> {
+  let lines: Array<Line> = []
+  for (quest of Client.C_GossipInfo.GetActiveQuests()) {
+    const kind = activeKind(quest.isComplete == true, quest.repeatable == true || (quest.frequency ?? 0) > 0)
+    lines.push(questLine(kind, quest.title, quest.questLevel.floor(), quest.isTrivial, quest.questID.floor(), .Gossip))
+  }
+  for (quest of Client.C_GossipInfo.GetAvailableQuests()) {
+    const kind = quest.repeatable == true ? LineKind.Daily : offerKind(quest.frequency, quest.isLegendary)
+    lines.push(questLine(kind, quest.title, quest.questLevel.floor(), quest.isTrivial, quest.questID.floor(), .Gossip))
+  }
+  let options: Array<Client.GossipOptionUIInfo> = []
+  for (given of Client.C_GossipInfo.GetOptions()) { options.push(given) }
+  options.sort((a, b) => a.orderIndex < b.orderIndex)
+  for (option of options) {
+    const id = option.gossipOptionID
+    if (id != nil) {
+      lines.push({
+        kind: .Option, title: option.name, level: 0, difficulty: .Even, icon: option.overrideIconID ?? option.icon,
+        id: id.floor(), source: .Gossip
+      })
+    }
+  }
+  return inOrder(mut lines)
+}
+
+// A quest giver's greeting: its quests in progress and to hand in, then the new ones, each by its place.
+public function greetingLines(): Array<Line> {
+  let lines: Array<Line> = []
+  for (index of 1..Client.GetNumActiveQuests().floor()) {
+    const title, complete = Client.GetActiveTitle(index)
+    const kind = activeKind(complete, false)
+    const level = Client.GetActiveLevel(index).floor()
+    lines.push(questLine(kind, title ?? "", level, Client.IsActiveQuestTrivial(index), index, .Greeting))
+  }
+  for (index of 1..Client.GetNumAvailableQuests().floor()) {
+    const title, _ = Client.GetAvailableTitle(index)
+    const trivial, frequency, repeatable, legendary, _, _, _, _ = Client.GetAvailableQuestInfo(index)
+    const kind = repeatable ? LineKind.Daily : offerKind(frequency, legendary)
+    lines.push(questLine(kind, title ?? "", Client.GetAvailableLevel(index).floor(), trivial, index, .Greeting))
+  }
+  return inOrder(mut lines)
+}
+
+// An item's second line: its slot as the game names it and its type («Waist · Leather»).
+function itemDetail(subType: String | nil, slot: String | nil): String {
+  const slotName = slot != nil && slot != "" ? Runtime.text(slot) ?? "" : ""
+  const kind = subType ?? ""
+  if (slotName != "" && kind != "") { return `${slotName} · ${kind}` }
+  return slotName != "" ? slotName : kind
+}
+
+// A quest's item of a kind (`choice`, `reward`) at its place.
+function itemReward(kind: String, index: Integer): Reward {
+  const name, texture, count, _, usable, itemID = Client.GetQuestItemInfo(kind, index)
+  const item = itemID != nil ? itemID.floor() : nil
+  const link = Client.GetQuestItemLink(kind, index)
+  let quality = Quality.Common
+  let detail = ""
+  let sell = 0
+  if (item != nil) {
+    const _, _, itemQuality, _, _, _, subType, _, slot, _, price, _, _, _, _, _, _, _ = Client.C_Item.GetItemInfo(item)
+    quality = qualityFrom(itemQuality)
+    detail = itemDetail(subType, slot)
+    sell = (price ?? 0).floor() * count.floor().max(1)
+  }
+  return {
+    kind: .Item, name: name ?? "", icon: artOf(texture), count: count.floor(), quality: quality, item: item, link: link,
+    detail: detail, unusable: !usable, sell: sell, index: kind == "choice" ? index : 0
+  }
+}
+
+// A currency the quest gives, to choose (its place among the choices) or anyway (0).
+function currencyReward(info: Client.QuestRewardCurrencyInfo, index: Integer): Reward {
+  return {
+    kind: .Currency, name: info.name, icon: artOf(info.texture), count: info.totalRewardAmount.floor(),
+    quality: QUALITIES[info.quality.floor() + 1] ?? .Common, item: nil, link: Client.C_CurrencyInfo.GetCurrencyLink(info.currencyID, nil),
+    detail: "", unusable: false, sell: 0, index: index
+  }
+}
+
+// A choice at its place: an item, or a currency where the client says the place holds one.
+function choiceReward(index: Integer): Reward {
+  if (Client.GetQuestItemInfoLootType("choice", index) == CURRENCY_LOOT) {
+    const info = Client.C_QuestOffer.GetQuestRewardCurrencyInfo("choice", index)
+    if (info != nil) { return currencyReward(info, index) }
+  }
+  return itemReward("choice", index)
+}
+
+// A currency's quality as the client numbers it (`Enum.ItemQuality`, from 0), in the order of its numbers.
+const QUALITIES: Array<Quality> = [.Poor, .Common, .Uncommon, .Rare, .Epic, .Legendary, .Artifact, .Heirloom]
+
+// `GetQuestItemInfoLootType` of a currency (0 is an item).
+const CURRENCY_LOOT = 1
+
+// What a quest gives besides its items to choose: its items and currencies, spells learned, a title, a skill's points.
+function givenRewards(questID: Integer): Array<Reward> {
+  let given: Array<Reward> = []
+  for (index of 1..Client.GetNumQuestRewards()) { given.push(itemReward("reward", index)) }
+  for (info of Client.C_QuestInfoSystem.GetQuestRewardCurrencies(questID) ?? []) { given.push(currencyReward(info, 0)) }
+  for (spell of Client.C_QuestInfoSystem.GetQuestRewardSpells(questID) ?? []) {
+    const info = Client.C_QuestInfoSystem.GetQuestRewardSpellInfo(questID, spell)
+    if (info != nil && !info.isSpellLearned) {
+      given.push({
+        kind: .Spell, name: info.name, icon: info.texture, count: 1, quality: .Common, item: nil, link: nil,
+        detail: Locale.SPELL_LEARN, unusable: false, sell: 0, index: 0
+      })
+    }
+  }
+  const title = Client.GetRewardTitle()
+  if (title != nil && title != "") {
+    given.push({
+      kind: .Title, name: title, icon: UNKNOWN, count: 1, quality: .Common, item: nil, link: nil,
+      detail: Locale.TITLE_REWARD, unusable: false, sell: 0, index: 0
+    })
+  }
+  const skill, skillIcon, points = Client.GetRewardSkillPoints()
+  if (skill != nil && points != nil && points > 0) {
+    given.push({
+      kind: .Skill, name: Locale.SKILL_POINTS.format(points.floor(), skill), icon: skillIcon ?? UNKNOWN, count: 1,
+      quality: .Common, item: nil, link: nil, detail: "", unusable: false, sell: 0, index: 0
+    })
+  }
+  return given
+}
+
+// The reputations the quest raises, by the factions' names.
+function standingsOf(): Array<Standing> {
+  let standings: Array<Standing> = []
+  for (reward of Client.C_QuestOffer.GetQuestOfferMajorFactionReputationRewards() ?? []) {
+    const faction = Client.C_Reputation.GetFactionDataByID(reward.factionID)
+    if (faction != nil) { standings.push({ name: faction.name, amount: reward.rewardAmount.floor() }) }
+  }
+  return standings
+}
+
+// What a quest needs handed in, with how many of each the player has: its items (none where the quest hides them, nor
+// one it hides) and its currencies.
+function needsOf(): Array<Need> {
+  let needs: Array<Need> = []
+  if (!Client.C_QuestOffer.GetHideRequiredItems()) {
+    for (index of 1..Client.GetNumQuestItems()) {
+      if (!Client.IsQuestItemHidden(index)) {
+        const name, texture, count, _, _, itemID = Client.GetQuestItemInfo("required", index)
+        const item = itemID != nil ? itemID.floor() : nil
+        const have = item != nil ? Client.C_Item.GetItemCount(item, nil, nil, nil, nil).floor() : 0
+        needs.push({ name: name ?? "", icon: artOf(texture), item: item, have: have, need: count.floor() })
+      }
+    }
+  }
+  for (index of 1..Client.GetNumQuestCurrencies().floor()) {
+    const info = Client.C_QuestOffer.GetQuestRequiredCurrencyInfo(index)
+    if (info != nil) {
+      const held = Client.C_CurrencyInfo.GetCurrencyInfo(info.currencyID)?.quantity ?? 0
+      needs.push({ name: info.name, icon: artOf(info.texture), item: nil, have: held.floor(), need: info.requiredAmount.floor() })
+    }
+  }
+  return needs
+}
+
+// The page a quest giver shows, with its text: the details' description, the progress' words or the reward's thanks.
+public function questOf(text: String): Quest {
+  const id = Client.GetQuestID().floor()
+  let choices: Array<Reward> = []
+  for (index of 1..Client.GetNumQuestChoices()) { choices.push(choiceReward(index)) }
+  return {
+    id: id, title: Client.GetTitleText(), text: text, objectives: Client.GetObjectiveText(),
+    group: Client.GetSuggestedGroupSize().floor(), choices: choices, also: givenRewards(id),
+    money: Client.GetRewardMoney().floor(), xp: Client.GetRewardXP().floor(), standings: standingsOf(), needs: needsOf(),
+    moneyNeeded: Client.GetQuestMoneyToGet().floor(), completable: Client.IsQuestCompletable(),
+    pvp: Client.QuestFlagsPVP(), autoAccepted: Client.QuestGetAutoAccept()
+  }
+}
+
+// A book's pages, every one read: the client turns to the next while it has one, each turn another `ITEM_TEXT_READY`.
+public function bookPage(): String { return Client.ItemTextGetText() }

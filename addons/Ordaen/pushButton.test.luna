@@ -4,6 +4,7 @@ import { Align, Key, Layer, Point } from "$ltml"
 import Test from "$test"
 import { Move } from "$test"
 import root Ordaen from "Ordaen"
+import { Density } from "@/globals"
 import { ButtonPlate, PushButton } from "@/pushButton"
 
 class Buttons {
@@ -86,5 +87,44 @@ test "a danger button is the red plate, and Enter never presses it: Space and th
   Test.expect(page.pressed == 1)
   Test.key(Key.Space)
   Test.expect(page.pressed == 2)
+  destroy page
+}
+
+class Keyed {
+  public render(self): Template {
+    return $ltml {
+      // As narrow as its label lets it: the label stands right at its room's start.
+      <box columns={["max-content"]} xAlign={Align.Start}>
+        <PushButton label={"Decline"} width={1dp} key={"Esc"} />
+      </box>
+    }
+  }
+}
+
+// Whether the key's segment stands inside the plate, its key in it, and the label past its groove by the room the
+// segment has from the plate's end (one spacing both), clear of the caps.
+function keyedFits(): Boolean {
+  const plate = Test.page().button("Decline").rect()
+  const segment = Test.page().box(Color.hex("#00000038")).rect()
+  const key = Test.page().text("Esc").letters()
+  const label = Test.page().text("Decline").letters()
+  const cap = (plate.bottom - plate.top) / 4
+  const inset = segment.left - plate.left
+  return inset > 0 && segment.top >= plate.top && segment.bottom <= plate.bottom &&
+    key.left >= segment.left && key.right <= segment.right && (label.left - segment.right - inset).abs() < 0.5 &&
+    label.right <= plate.right - cap + 0.5
+}
+
+test "a keyed button's label stands past the key's segment at every spacing" {
+  let page = new Keyed()
+  Test.mount(page, { left: 0, top: 0, width: 600, height: 300 })
+  Test.expect(keyedFits())
+  Ordaen.globals.values.density = Density.Compact
+  Test.flush()
+  Test.expect(keyedFits())
+  Ordaen.globals.values.density = Density.Roomy
+  Test.flush()
+  Test.expect(keyedFits())
+  Ordaen.globals.values.density = Density.Normal
   destroy page
 }
