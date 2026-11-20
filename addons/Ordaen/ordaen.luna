@@ -10,6 +10,7 @@ import { Anchored, Art, Point } from "$ltml"
 import Runtime from "$runtime"
 import { ARTWORK, OrdaenArt } from "@/art"
 import { Conflict, ConflictQuestion } from "@/conflicts"
+import { GameSettings } from "@/gameSettings"
 import { DEFAULTS, Globals } from "@/globals"
 import { OwnerKeys } from "@/hotkeys"
 import { Keeper } from "@/keeper"
@@ -19,7 +20,7 @@ import { Module } from "@/module"
 import { Mover } from "@/placed"
 import { ProfileName } from "@/profiles"
 import { Settings } from "@/settings"
-import { SettingsWindow } from "@/settingsWindow"
+import { GAME_PAGE, SettingsWindow } from "@/settingsWindow"
 import { spacingFor } from "@/units"
 
 // The most items' tooltips kept at once.
@@ -52,6 +53,8 @@ public class OrdaenCore implements App {
   public derived lookArt: LookArt = artOf(self.look.values)
   // The settings every module follows.
   public const globals: mut Settings<Globals>
+  // The game's own settings and key bindings, kept in the profile.
+  public const game: mut GameSettings
   // What `1sp` is as the player's density has it: every gap, padding and line height of every addon, given to the
   // renderer (`Runtime.spacingUnit`).
   public derived spacingUnit: Number<Length> = spacingFor(self.globals.values.density)
@@ -100,6 +103,9 @@ public class OrdaenCore implements App {
       self.keeper.profiles.adopt("places", "Ordaen:places", Places { parts: decode<Map<String, KeptPlace>>(before, {}) })
     }
     self.places = new Settings<Places>(Places {}, "places", mut self.keeper)
+    self.game = new GameSettings(mut self.keeper)
+    // The game's settings window asked for: Ordaen's opens at the game's pages in its place.
+    self.game.asked.listen(self.openGame)
     Runtime.command("/ordaen", (text: String) => self.command(text))
     Runtime.options(self.title, Locale.SETTINGS_OPEN, () => self.toggleSettings(nil))
     watch (running of self.modules) { self.draw(running) }
@@ -210,13 +216,23 @@ public class OrdaenCore implements App {
 
   // The settings window at the page of a module's folder (`""`: Ordaen's own), or closed where it shows that page.
   public toggleNamed(mut self, folder: String) {
-    if (self.window == nil) {
-      const made = new SettingsWindow()
-      Runtime.mount(made, Runtime.screen())
-      self.window = made
-    }
     Debug.log("the settings window asked for, page %s", folder == "" ? "none" : folder)
-    self.window?.toggle(folder)
+    self.settingsWindow().toggle(folder)
+  }
+
+  // The settings window open at the game's pages, whatever it showed.
+  openGame(mut self) {
+    self.settingsWindow().openAt(GAME_PAGE)
+  }
+
+  // The settings window, made and drawn the first time it is asked for.
+  settingsWindow(mut self): mut SettingsWindow {
+    const kept = self.window
+    if (kept != nil) { return kept }
+    const made = new SettingsWindow()
+    Runtime.mount(made, Runtime.screen())
+    self.window = made
+    return made
   }
 
   // Where the player put a part, by the part's name; nothing for one never moved. Read in a `derived`, it is

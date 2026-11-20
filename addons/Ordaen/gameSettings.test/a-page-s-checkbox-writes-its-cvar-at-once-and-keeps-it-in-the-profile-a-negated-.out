@@ -1,0 +1,462 @@
+-- the controls' page: the profile's switch, the game's defaults, the rows
+box 0,0 1100x28.33
+  box 0,5 802.04x18.33 opacity=1
+    box 0,6.37 233.33x15.6 @pointerEnter @pointerLeave
+      text 0,6.37 233.33x15.6 "Keep in the profile" #cbb994
+    box 248.98,5 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @keyPress @pointerPress
+      box 248.98,5 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=1
+  box 810.58,0 166.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+    text 850.02,6.37 87.78x15.6 "Game defaults" #ffd100
+  box 985.78,0 114.22x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+    text 992.89,6.37 100x15.6 "Blizzard window" #ffd100
+box 0,28.33 1100x18.33
+  box 0,28.33 1100x18.33 opacity=1
+    box 0,29.7 233.33x15.6 @pointerEnter @pointerLeave
+      text 0,29.7 233.33x15.6 "GAMEFIELD_DESELECT_TEXT" #cbb994
+    box 248.98,28.33 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @keyPress @pointerPress
+      box 248.98,28.33 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
+box 0,46.67 1100x18.33
+  box 0,46.67 1100x18.33 opacity=1
+    box 0,48.03 233.33x15.6 @pointerEnter @pointerLeave
+      text 0,48.03 233.33x15.6 "CLEAR_AFK" #cbb994
+    box 248.98,46.67 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @keyPress @pointerPress
+      box 248.98,46.67 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=1
+box 0,65 1100x18.33
+  box 0,65 1100x18.33 opacity=1
+    box 0,66.37 233.33x15.6 @pointerEnter @pointerLeave
+      text 0,66.37 233.33x15.6 "INTERACT_ON_LEFT_CLICK_TEXT" #cbb994
+    box 248.98,65 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @keyPress @pointerPress
+      box 248.98,65 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
+box 0,83.33 1100x18.33
+  box 0,83.33 1100x18.33 opacity=1
+    box 0,84.7 233.33x15.6 @pointerEnter @pointerLeave
+      text 0,84.7 233.33x15.6 "LOOT_UNDER_MOUSE_TEXT" #cbb994
+    box 248.98,83.33 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @keyPress @pointerPress
+      box 248.98,83.33 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
+box 0,101.67 1100x18.33
+  box 0,101.67 1100x18.33 opacity=1
+    box 0,103.03 233.33x15.6 @pointerEnter @pointerLeave
+      text 0,103.03 233.33x15.6 "AUTO_LOOT_DEFAULT_TEXT" #cbb994
+    box 248.98,101.67 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @keyPress @pointerPress
+      box 248.98,101.67 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=1
+box 0,120 1100x18.33
+  box 0,120 1100x18.33 opacity=1
+    box 0,121.37 233.33x15.6 @pointerEnter @pointerLeave
+      text 0,121.37 233.33x15.6 "ENABLE_INTERACT_TEXT" #cbb994
+    box 248.98,120 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @keyPress @pointerPress
+      box 248.98,120 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
+box 0,138.33 1100x28.33
+  box 0,138.33 1100x28.33
+    text 0,144.7 816.27x15.6 "BINDING_NAME_INTERACTTARGET" #ffffff
+    box 824.8,138.33 133.33x28.33 @pointerPress
+      box 824.8,138.33 133.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+        text 887.02,144.7 8.89x15.6 "—" #ffd100
+    box 966.67,138.33 133.33x28.33 @pointerPress
+      box 966.67,138.33 133.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+        text 1028.89,144.7 8.89x15.6 "—" #ffd100
+box 0,166.67 1100x18.33
+  box 0,166.67 1100x18.33 opacity=1
+    box 0,168.03 233.33x15.6 @pointerEnter @pointerLeave
+      text 0,168.03 233.33x15.6 "ENABLE_INTERACT_SOUND_OPTION" #cbb994
+    box 248.98,166.67 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @keyPress @pointerPress
+      box 248.98,166.67 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
+box 0,185 1100x26.98
+  box 0,185 1100x26.98
+    text 0,196.38 1100x15.6 "MOUSE_LABEL" #e8dcc4
+box 0,211.98 1100x18.33
+  box 0,211.98 1100x18.33 opacity=1
+    box 0,213.34 233.33x15.6 @pointerEnter @pointerLeave
+      text 0,213.34 233.33x15.6 "LOCK_CURSOR" #cbb994
+    box 248.98,211.98 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @keyPress @pointerPress
+      box 248.98,211.98 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
+box 0,230.31 1100x18.33
+  box 0,230.31 1100x18.33 opacity=1
+    box 0,231.68 233.33x15.6 @pointerEnter @pointerLeave
+      text 0,231.68 233.33x15.6 "INVERT_MOUSE" #cbb994
+    box 248.98,230.31 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @keyPress @pointerPress
+      box 248.98,230.31 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
+box 0,248.64 1100x28.33
+  box 0,248.64 1100x28.33 opacity=1
+    box 0,255.01 233.33x15.6 @pointerEnter @pointerLeave
+      text 0,255.01 233.33x15.6 "MOUSE_LOOK_SPEED" #cbb994
+    box 248.98,248.64 851.02x28.33
+      box 248.98,248.64 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerUp
+        text 256.2,255.01 8.89x15.6 "-" #ffd100
+      box 278,254.48 213.33x16.67 @drag @dragStart @dragStop @keyPress @pointerPress
+        box 284.67,259.48 200x6.67 absolute Interface\AddOns\Ordaen\media\ctl-slider row 0 of 4
+        box 285.5,260.31 99.17x5 absolute Interface\AddOns\Ordaen\media\ctl-slider row 1 of 4
+        box 378,252.81 13.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-slider-knob
+      box 497.02,248.64 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerUp
+        text 504.24,255.01 8.89x15.6 "+" #ffd100
+      text 526.04,255.01 22.22x15.6 "180" #ffffff
+box 0,276.98 1100x18.33
+  box 0,276.98 1100x18.33 opacity=1
+    box 0,278.34 233.33x15.6 @pointerEnter @pointerLeave
+      text 0,278.34 233.33x15.6 "ENABLE_MOUSE_SPEED" #cbb994
+    box 248.98,276.98 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @keyPress @pointerPress
+      box 248.98,276.98 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
+box 0,295.31 1100x28.33
+  box 0,295.31 1100x28.33 opacity=1
+    box 0,301.68 233.33x15.6 @pointerEnter @pointerLeave
+      text 0,301.68 233.33x15.6 "MOUSE_SENSITIVITY" #cbb994
+    box 248.98,295.31 851.02x28.33
+      box 248.98,295.31 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerUp
+        text 256.2,301.68 8.89x15.6 "-" #ffd100
+      box 278,301.14 213.33x16.67 @drag @dragStart @dragStop @keyPress @pointerPress
+        box 284.67,306.14 200x6.67 absolute Interface\AddOns\Ordaen\media\ctl-slider row 0 of 4
+        box 285.5,306.98 110.19x5 absolute Interface\AddOns\Ordaen\media\ctl-slider row 1 of 4
+        box 389.11,299.48 13.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-slider-knob
+      box 497.02,295.31 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerUp
+        text 504.24,301.68 8.89x15.6 "+" #ffd100
+      text 526.04,301.68 8.89x15.6 "1" #ffffff
+box 0,323.64 1100x18.33
+  box 0,323.64 1100x18.33 opacity=1
+    box 0,325.01 233.33x15.6 @pointerEnter @pointerLeave
+      text 0,325.01 233.33x15.6 "CLICK_TO_MOVE" #cbb994
+    box 248.98,323.64 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @keyPress @pointerPress
+      box 248.98,323.64 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
+box 0,341.98 1100x28.33
+  box 0,341.98 1100x28.33 opacity=1
+    box 0,348.34 233.33x15.6 @pointerEnter @pointerLeave
+      text 0,348.34 233.33x15.6 "CAMERA_CTM_FOLLOWING_STYLE" #cbb994
+    box 248.98,341.98 200x28.33
+      box 248.98,341.98 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
+        text 264.62,348.34 152.53x15.6 "CAMERA_SMARTER" #f0c860
+        box 425.69,349.48 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+box 0,370.31 1100x26.98
+  box 0,370.31 1100x26.98
+    text 0,381.69 1100x15.6 "CAMERA_LABEL" #e8dcc4
+box 0,397.29 1100x18.33
+  box 0,397.29 1100x18.33 opacity=1
+    box 0,398.66 233.33x15.6 @pointerEnter @pointerLeave
+      text 0,398.66 233.33x15.6 "WATER_COLLISION" #cbb994
+    box 248.98,397.29 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @keyPress @pointerPress
+      box 248.98,397.29 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
+box 0,415.62 1100x28.33
+  box 0,415.62 1100x28.33 opacity=1
+    box 0,421.99 233.33x15.6 @pointerEnter @pointerLeave
+      text 0,421.99 233.33x15.6 "AUTO_FOLLOW_SPEED" #cbb994
+    box 248.98,415.62 851.02x28.33
+      box 248.98,415.62 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerUp
+        text 256.2,421.99 8.89x15.6 "-" #ffd100
+      box 278,421.46 213.33x16.67 @drag @dragStart @dragStop @keyPress @pointerPress
+        box 284.67,426.46 200x6.67 absolute Interface\AddOns\Ordaen\media\ctl-slider row 0 of 4
+        box 285.5,427.29 99.17x5 absolute Interface\AddOns\Ordaen\media\ctl-slider row 1 of 4
+        box 378,419.79 13.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-slider-knob
+      box 497.02,415.62 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerUp
+        text 504.24,421.99 8.89x15.6 "+" #ffd100
+      text 526.04,421.99 22.22x15.6 "180" #ffffff
+box 0,443.96 1100x28.33
+  box 0,443.96 1100x28.33 opacity=1
+    box 0,450.32 233.33x15.6 @pointerEnter @pointerLeave
+      text 0,450.32 233.33x15.6 "CAMERA_FOLLOWING_STYLE" #cbb994
+    box 248.98,443.96 200x28.33
+      box 248.98,443.96 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
+        text 264.62,450.32 152.53x15.6 "CAMERA_NEVER" #f0c860
+        box 425.69,451.46 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+box 0,472.29 1100x28.33
+  box 0,472.29 1100x28.33 opacity=1
+    box 0,478.66 233.33x15.6 @pointerEnter @pointerLeave
+      text 0,478.66 233.33x15.6 "MAX_FOLLOW_DIST" #cbb994
+    box 248.98,472.29 851.02x28.33
+      box 248.98,472.29 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerUp
+        text 256.2,478.66 8.89x15.6 "-" #ffd100
+      box 278,478.12 213.33x16.67 @drag @dragStart @dragStop @keyPress @pointerPress
+        box 284.67,483.12 200x6.67 absolute Interface\AddOns\Ordaen\media\ctl-slider row 0 of 4
+        box 285.5,483.96 178.5x5 absolute Interface\AddOns\Ordaen\media\ctl-slider row 1 of 4
+        box 458,476.46 13.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-slider-knob
+      box 497.02,472.29 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerUp
+        text 504.24,478.66 8.89x15.6 "+" #ffd100
+      text 526.04,478.66 22.22x15.6 "1.9" #ffffff
+box 0,500.62 1100x18.33
+  box 0,500.62 1100x18.33 opacity=1
+    box 0,501.99 233.33x15.6 @pointerEnter @pointerLeave
+      text 0,501.99 233.33x15.6 "FOLLOW_TERRAIN" #cbb994
+    box 248.98,500.62 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @keyPress @pointerPress
+      box 248.98,500.62 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
+box 0,518.96 1100x18.33
+  box 0,518.96 1100x18.33 opacity=1
+    box 0,520.32 233.33x15.6 @pointerEnter @pointerLeave
+      text 0,520.32 233.33x15.6 "HEAD_BOB" #cbb994
+    box 248.98,518.96 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @keyPress @pointerPress
+      box 248.98,518.96 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
+box 0,537.29 1100x18.33
+  box 0,537.29 1100x18.33 opacity=1
+    box 0,538.66 233.33x15.6 @pointerEnter @pointerLeave
+      text 0,538.66 233.33x15.6 "SMART_PIVOT" #cbb994
+    box 248.98,537.29 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @keyPress @pointerPress
+      box 248.98,537.29 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=1
+surface 1323.67,0 276.33x326.33 on MEDIUM clamped
+  box 1323.67,0 276.33x326.33 opacity=1
+    box 1343.92,20.25 230.83x283.58 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @pointerEnter @pointerLeave
+      embed 1352.67,54 218.33x218.33 absolute frame=none
+      box 1352.67,29 218.33x25 absolute Interface\AddOns\Ordaen\media\window-wood
+        box 1417.94,31.78 87.78x17.78 @pointerEnter @pointerLeave
+          text 1417.94,31.78 87.78x17.78 "Elwynn Forest" #1aff1a
+      box 1352.67,272.33 218.33x25 absolute Interface\AddOns\Ordaen\media\window-wood
+        box 1361.2,276.78 165.71x17.78 @pointerEnter @pointerLeave @pointerPress
+          text 1361.2,276.78 165.71x17.78 "42.1, 63.0" #f3e1b8
+        box 1526.91,276.78 35.56x17.78 @pointerEnter @pointerLeave @pointerPress
+          text 1526.91,276.78 35.56x17.78 "12:30" #f3e1b8
+      box 1323.67,103.87 28.33x28.33 absolute Interface\AddOns\Ordaen\media\minimap-ring row 0 of 4 opacity=0 @drag @dragStart @dragStop @pointerEnter @pointerLeave @pointerPress
+        box 1331.17,111.79 13.33x12.5 ui-hud-minimap-tracking-up
+      box 1323.67,194.13 28.33x28.33 absolute Interface\AddOns\Ordaen\media\minimap-ring row 0 of 4 opacity=0 @drag @dragStart @dragStop @pointerEnter @pointerLeave @pointerPress
+        box 1328.67,199.13 18.33x18.33 icon=Interface/Icons/Trade_Engineering cut by Interface\AddOns\Ordaen\media\face-round-mask
+    box 1323.67,0 0x0 absolute opacity=0
+surface 508,779.22 584x45 on MEDIUM clamped
+  box 508,779.22 584x45 opacity=1 @pointerEnter @pointerLeave
+    box 508,779.22 45x45
+      embed 508,779.22 45x45 absolute frame=OrdaenPanelBar1Button1
+      box 508,779.22 45x2.84 absolute
+        text 551.58,780.64 0x0 "" #ffffff
+    box 557,779.22 45x45
+      embed 557,779.22 45x45 absolute frame=OrdaenPanelBar1Button2
+      box 557,779.22 45x2.84 absolute
+        text 600.58,780.64 0x0 "" #ffffff
+    box 606,779.22 45x45
+      embed 606,779.22 45x45 absolute frame=OrdaenPanelBar1Button3
+      box 606,779.22 45x2.84 absolute
+        text 649.58,780.64 0x0 "" #ffffff
+    box 655,779.22 45x45
+      embed 655,779.22 45x45 absolute frame=OrdaenPanelBar1Button4
+      box 655,779.22 45x2.84 absolute
+        text 698.58,780.64 0x0 "" #ffffff
+    box 704,779.22 45x45
+      embed 704,779.22 45x45 absolute frame=OrdaenPanelBar1Button5
+      box 704,779.22 45x2.84 absolute
+        text 747.58,780.64 0x0 "" #ffffff
+    box 753,779.22 45x45
+      embed 753,779.22 45x45 absolute frame=OrdaenPanelBar1Button6
+      box 753,779.22 45x2.84 absolute
+        text 796.58,780.64 0x0 "" #ffffff
+    box 802,779.22 45x45
+      embed 802,779.22 45x45 absolute frame=OrdaenPanelBar1Button7
+      box 802,779.22 45x2.84 absolute
+        text 845.58,780.64 0x0 "" #ffffff
+    box 851,779.22 45x45
+      embed 851,779.22 45x45 absolute frame=OrdaenPanelBar1Button8
+      box 851,779.22 45x2.84 absolute
+        text 894.58,780.64 0x0 "" #ffffff
+    box 900,779.22 45x45
+      embed 900,779.22 45x45 absolute frame=OrdaenPanelBar1Button9
+      box 900,779.22 45x2.84 absolute
+        text 943.58,780.64 0x0 "" #ffffff
+    box 949,779.22 45x45
+      embed 949,779.22 45x45 absolute frame=OrdaenPanelBar1Button10
+      box 949,779.22 45x2.84 absolute
+        text 992.58,780.64 0x0 "" #ffffff
+    box 998,779.22 45x45
+      embed 998,779.22 45x45 absolute frame=OrdaenPanelBar1Button11
+      box 998,779.22 45x2.84 absolute
+        text 1041.58,780.64 0x0 "" #ffffff
+    box 1047,779.22 45x45
+      embed 1047,779.22 45x45 absolute frame=OrdaenPanelBar1Button12
+      box 1047,779.22 45x2.84 absolute
+        text 1090.58,780.64 0x0 "" #ffffff
+surface 508,728.53 584x45 on MEDIUM clamped
+  box 508,728.53 584x45 opacity=1 @pointerEnter @pointerLeave
+    box 508,728.53 45x45
+      embed 508,728.53 45x45 absolute frame=OrdaenPanelBar2Button1
+      box 508,728.53 45x2.84 absolute
+        text 551.58,729.95 0x0 "" #ffffff
+    box 557,728.53 45x45
+      embed 557,728.53 45x45 absolute frame=OrdaenPanelBar2Button2
+      box 557,728.53 45x2.84 absolute
+        text 600.58,729.95 0x0 "" #ffffff
+    box 606,728.53 45x45
+      embed 606,728.53 45x45 absolute frame=OrdaenPanelBar2Button3
+      box 606,728.53 45x2.84 absolute
+        text 649.58,729.95 0x0 "" #ffffff
+    box 655,728.53 45x45
+      embed 655,728.53 45x45 absolute frame=OrdaenPanelBar2Button4
+      box 655,728.53 45x2.84 absolute
+        text 698.58,729.95 0x0 "" #ffffff
+    box 704,728.53 45x45
+      embed 704,728.53 45x45 absolute frame=OrdaenPanelBar2Button5
+      box 704,728.53 45x2.84 absolute
+        text 747.58,729.95 0x0 "" #ffffff
+    box 753,728.53 45x45
+      embed 753,728.53 45x45 absolute frame=OrdaenPanelBar2Button6
+      box 753,728.53 45x2.84 absolute
+        text 796.58,729.95 0x0 "" #ffffff
+    box 802,728.53 45x45
+      embed 802,728.53 45x45 absolute frame=OrdaenPanelBar2Button7
+      box 802,728.53 45x2.84 absolute
+        text 845.58,729.95 0x0 "" #ffffff
+    box 851,728.53 45x45
+      embed 851,728.53 45x45 absolute frame=OrdaenPanelBar2Button8
+      box 851,728.53 45x2.84 absolute
+        text 894.58,729.95 0x0 "" #ffffff
+    box 900,728.53 45x45
+      embed 900,728.53 45x45 absolute frame=OrdaenPanelBar2Button9
+      box 900,728.53 45x2.84 absolute
+        text 943.58,729.95 0x0 "" #ffffff
+    box 949,728.53 45x45
+      embed 949,728.53 45x45 absolute frame=OrdaenPanelBar2Button10
+      box 949,728.53 45x2.84 absolute
+        text 992.58,729.95 0x0 "" #ffffff
+    box 998,728.53 45x45
+      embed 998,728.53 45x45 absolute frame=OrdaenPanelBar2Button11
+      box 998,728.53 45x2.84 absolute
+        text 1041.58,729.95 0x0 "" #ffffff
+    box 1047,728.53 45x45
+      embed 1047,728.53 45x45 absolute frame=OrdaenPanelBar2Button12
+      box 1047,728.53 45x2.84 absolute
+        text 1090.58,729.95 0x0 "" #ffffff
+surface 508,677.84 584x45 on MEDIUM clamped
+  box 508,677.84 584x45 opacity=1 @pointerEnter @pointerLeave
+    box 508,677.84 45x45
+      embed 508,677.84 45x45 absolute frame=OrdaenPanelBar3Button1
+      box 508,677.84 45x2.84 absolute
+        text 551.58,679.26 0x0 "" #ffffff
+    box 557,677.84 45x45
+      embed 557,677.84 45x45 absolute frame=OrdaenPanelBar3Button2
+      box 557,677.84 45x2.84 absolute
+        text 600.58,679.26 0x0 "" #ffffff
+    box 606,677.84 45x45
+      embed 606,677.84 45x45 absolute frame=OrdaenPanelBar3Button3
+      box 606,677.84 45x2.84 absolute
+        text 649.58,679.26 0x0 "" #ffffff
+    box 655,677.84 45x45
+      embed 655,677.84 45x45 absolute frame=OrdaenPanelBar3Button4
+      box 655,677.84 45x2.84 absolute
+        text 698.58,679.26 0x0 "" #ffffff
+    box 704,677.84 45x45
+      embed 704,677.84 45x45 absolute frame=OrdaenPanelBar3Button5
+      box 704,677.84 45x2.84 absolute
+        text 747.58,679.26 0x0 "" #ffffff
+    box 753,677.84 45x45
+      embed 753,677.84 45x45 absolute frame=OrdaenPanelBar3Button6
+      box 753,677.84 45x2.84 absolute
+        text 796.58,679.26 0x0 "" #ffffff
+    box 802,677.84 45x45
+      embed 802,677.84 45x45 absolute frame=OrdaenPanelBar3Button7
+      box 802,677.84 45x2.84 absolute
+        text 845.58,679.26 0x0 "" #ffffff
+    box 851,677.84 45x45
+      embed 851,677.84 45x45 absolute frame=OrdaenPanelBar3Button8
+      box 851,677.84 45x2.84 absolute
+        text 894.58,679.26 0x0 "" #ffffff
+    box 900,677.84 45x45
+      embed 900,677.84 45x45 absolute frame=OrdaenPanelBar3Button9
+      box 900,677.84 45x2.84 absolute
+        text 943.58,679.26 0x0 "" #ffffff
+    box 949,677.84 45x45
+      embed 949,677.84 45x45 absolute frame=OrdaenPanelBar3Button10
+      box 949,677.84 45x2.84 absolute
+        text 992.58,679.26 0x0 "" #ffffff
+    box 998,677.84 45x45
+      embed 998,677.84 45x45 absolute frame=OrdaenPanelBar3Button11
+      box 998,677.84 45x2.84 absolute
+        text 1041.58,679.26 0x0 "" #ffffff
+    box 1047,677.84 45x45
+      embed 1047,677.84 45x45 absolute frame=OrdaenPanelBar3Button12
+      box 1047,677.84 45x2.84 absolute
+        text 1090.58,679.26 0x0 "" #ffffff
+surface 557,627.15 486x45 on MEDIUM clamped
+  box 557,627.15 486x45 opacity=1 @pointerEnter @pointerLeave
+    box 557,627.15 45x45
+      embed 557,627.15 45x45 absolute frame=OrdaenPanelBarpetButton1Cooldown
+      embed 557,627.15 45x45 absolute frame=OrdaenPanelBarpetButton1 opacity=0
+      box 557,627.15 45x2.84 absolute
+        text 600.58,628.57 0x0 "" #ffffff
+    box 606,627.15 45x45
+      embed 606,627.15 45x45 absolute frame=OrdaenPanelBarpetButton2Cooldown
+      embed 606,627.15 45x45 absolute frame=OrdaenPanelBarpetButton2 opacity=0
+      box 606,627.15 45x2.84 absolute
+        text 649.58,628.57 0x0 "" #ffffff
+    box 655,627.15 45x45
+      embed 655,627.15 45x45 absolute frame=OrdaenPanelBarpetButton3Cooldown
+      embed 655,627.15 45x45 absolute frame=OrdaenPanelBarpetButton3 opacity=0
+      box 655,627.15 45x2.84 absolute
+        text 698.58,628.57 0x0 "" #ffffff
+    box 704,627.15 45x45
+      embed 704,627.15 45x45 absolute frame=OrdaenPanelBarpetButton4Cooldown
+      embed 704,627.15 45x45 absolute frame=OrdaenPanelBarpetButton4 opacity=0
+      box 704,627.15 45x2.84 absolute
+        text 747.58,628.57 0x0 "" #ffffff
+    box 753,627.15 45x45
+      embed 753,627.15 45x45 absolute frame=OrdaenPanelBarpetButton5Cooldown
+      embed 753,627.15 45x45 absolute frame=OrdaenPanelBarpetButton5 opacity=0
+      box 753,627.15 45x2.84 absolute
+        text 796.58,628.57 0x0 "" #ffffff
+    box 802,627.15 45x45
+      embed 802,627.15 45x45 absolute frame=OrdaenPanelBarpetButton6Cooldown
+      embed 802,627.15 45x45 absolute frame=OrdaenPanelBarpetButton6 opacity=0
+      box 802,627.15 45x2.84 absolute
+        text 845.58,628.57 0x0 "" #ffffff
+    box 851,627.15 45x45
+      embed 851,627.15 45x45 absolute frame=OrdaenPanelBarpetButton7Cooldown
+      embed 851,627.15 45x45 absolute frame=OrdaenPanelBarpetButton7 opacity=0
+      box 851,627.15 45x2.84 absolute
+        text 894.58,628.57 0x0 "" #ffffff
+    box 900,627.15 45x45
+      embed 900,627.15 45x45 absolute frame=OrdaenPanelBarpetButton8Cooldown
+      embed 900,627.15 45x45 absolute frame=OrdaenPanelBarpetButton8 opacity=0
+      box 900,627.15 45x2.84 absolute
+        text 943.58,628.57 0x0 "" #ffffff
+    box 949,627.15 45x45
+      embed 949,627.15 45x45 absolute frame=OrdaenPanelBarpetButton9Cooldown
+      embed 949,627.15 45x45 absolute frame=OrdaenPanelBarpetButton9 opacity=0
+      box 949,627.15 45x2.84 absolute
+        text 992.58,628.57 0x0 "" #ffffff
+    box 998,627.15 45x45
+      embed 998,627.15 45x45 absolute frame=OrdaenPanelBarpetButton10Cooldown
+      embed 998,627.15 45x45 absolute frame=OrdaenPanelBarpetButton10 opacity=0
+      box 998,627.15 45x2.84 absolute
+        text 1041.58,628.57 0x0 "" #ffffff
+surface 0,832.75 1600x67.25 on MEDIUM Interface\AddOns\Ordaen\media\window-wood opacity=1
+  box 0,847 545.53x53
+    box 0,847 545.53x53
+      box 0,873 128x1
+      box 136.53,847 409x53
+        box 136.53,847 49.67x53
+          box 136.53,847 49.67x53 #00000000
+            box 143.87,856 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-professions
+            embed 136.53,847 49.67x53 absolute frame=none opacity=0
+        box 186.2,847 51.33x53
+          box 186.2,847 1.67x53 #0a0603d9
+          box 187.87,847 49.67x53 #00000000
+            box 195.2,856 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-spellbookabilities
+            embed 187.87,847 49.67x53 absolute frame=none opacity=0
+        box 237.53,847 51.33x53
+          box 237.53,847 1.67x53 #0a0603d9
+          box 239.2,847 49.67x53 #00000000
+            box 246.53,856 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-legacy
+            embed 239.2,847 49.67x53 absolute frame=none opacity=0
+        box 288.87,847 51.33x53
+          box 288.87,847 1.67x53 #0a0603d9
+          box 290.53,847 49.67x53 #00000000
+            box 297.87,856 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-questlog
+            embed 290.53,847 49.67x53 absolute frame=none opacity=0
+        box 340.2,847 51.33x53
+          box 340.2,847 1.67x53 #0a0603d9
+          box 341.87,847 49.67x53 #00000000
+            box 349.2,856 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-groupfinder
+            embed 341.87,847 49.67x53 absolute frame=none opacity=0
+        box 391.53,847 51.33x53
+          box 391.53,847 1.67x53 #0a0603d9
+          box 393.2,847 49.67x53 #00000000
+            box 400.53,856 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-collections
+            embed 393.2,847 49.67x53 absolute frame=none opacity=0
+        box 442.87,847 51.33x53
+          box 442.87,847 1.67x53 #0a0603d9
+          box 444.53,847 49.67x53 #00000000
+            box 451.87,856 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-social
+            embed 444.53,847 49.67x53 absolute frame=none opacity=0
+        box 494.2,847 51.33x53
+          box 494.2,847 1.67x53 #0a0603d9
+          box 495.87,847 49.67x53 #00000000
+            box 503.2,856 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-gamemenu
+            embed 495.87,847 49.67x53 absolute frame=none opacity=0
+  box 545.53,873.5 527.23x0
+    box 545.53,873.5 527.23x0
+  box 1072.77,864.61 527.23x17.78
+    box 1527.07,864.61 64.4x17.78
+      text 1527.07,864.61 54.44x17.78 "0g 0s 0c" #e8dcc4
+    box 1600,873.5 0x0
+surface 0,776 128x124 on MEDIUM face:player cut by Interface\AddOns\Ordaen\media\portrait-mask opacity=1
+  embed 0,776 128x124 absolute frame=none opacity=0
+  box 0,776 128x124 absolute Interface\AddOns\Ordaen\media\portrait-rim
+  box 86.7,781.3 36x36 absolute Interface\AddOns\Ordaen\media\level-badge
+    text 100.26,790.41 8.89x17.78 "1" #b88f57

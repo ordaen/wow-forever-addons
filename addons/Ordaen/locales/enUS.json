@@ -302,5 +302,20 @@
   "CONFLICT_OTHER": "%s: %s turned off.",
   "CONFLICT_RELOAD": "%s is off from the next reload.",
   "CONFLICT_RELOAD_NOW": "Reload",
-  "CONFLICT_LATER": "Later"
+  "CONFLICT_LATER": "Later",
+  "LIST_GAME": "Game",
+  "GAME_KEEP": "Keep in the profile",
+  "GAME_KEEP_TIP": "The profile keeps the game's settings and key bindings, and sets them at login and when you switch to it. Off, the game keeps its own, and Esc → Options opens the game's window.",
+  "GAME_DEFAULTS": "Game defaults",
+  "GAME_WAITING": "Applies when the fight ends.",
+  "GAME_KEPT_GAME": "Kept on this computer.",
+  "GAME_KEPT_ACCOUNT": "Kept on the server for the account.",
+  "GAME_KEPT_CHARACTER": "Kept on the server for this character.",
+  "GAME_KEPT_REFUSED": "The game doesn't let addons change it.",
+  "GAME_PRESS_KEY": "Press a key for «%s». Esc: cancel.",
+  "GAME_CHANGES_TITLE": "Game settings",
+  "GAME_CHANGES_TEXT": "The profile sets %d of the game's settings differently:",
+  "GAME_CHANGES_MORE": "and %d more",
+  "GAME_KEEP_GAME": "Keep the current ones",
+  "GAME_APPLY": "Apply"
 }

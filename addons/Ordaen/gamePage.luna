@@ -1,0 +1,391 @@
+// The game's own settings drawn in Ordaen's settings window: a page of the game's (`gameCatalogue`) as our rows, and
+// the key bindings. Every control shows what the client has now and writes it at once, kept in the active profile
+// (`GameSettings`). A CVar's hint says where the client keeps it; one the client refuses an addon, or holds in a
+// fight while the player fights, is disabled.
+import Game from "$game"
+import { Align, Event, Key, Track } from "$ltml"
+import { Checkbox } from "@/checkbox"
+import { Dialog } from "@/dialog"
+import { Choice, Dropdown } from "@/dropdown"
+import { CVarWrite, GamePage, GameRow } from "@/gameCatalogue"
+import { BindingEntry, GameSettings, Keeping, sameValue, textOf } from "@/gameSettings"
+import { GameWindowButton } from "@/gameWindow"
+import Locale from "@/locales"
+import { Component } from "@/module"
+import { NumberInput } from "@/numberInput"
+import { PushButton } from "@/pushButton"
+import { SECONDARY_TEXT } from "@/units"
+
+const DIM: Color = Color.hex("#a3977f")
+const HEADING: Color = Color.hex("#e8dcc4")
+const TOP: Array<Track> = [{ fr: 1 }, "max-content", "max-content"]
+const KEY_ROW: Array<Track> = [{ fr: 1 }, 187.5dp, 187.5dp]
+const KEY_WIDTH = 187.5dp
+// A row of the bindings' list, a heading's as an action's: the list's rows are of one height.
+const ROW_HEIGHT = 46.875dp
+// The bindings' list in view: the page's room under the window's tabs and the set's checkbox.
+const LIST_HEIGHT = 515.625dp
+// The keys that are only held with another: never bound alone.
+const MODIFIERS: Array<String> = ["LSHIFT", "RSHIFT", "LCTRL", "RCTRL", "LALT", "RALT", "LMETA", "RMETA"]
+
+// What the hint adds of where the client keeps a CVar.
+function keepingText(keeping: Keeping): String {
+  return match (keeping) {
+    .Game => Locale.GAME_KEPT_GAME
+    .Account => Locale.GAME_KEPT_ACCOUNT
+    .Character => Locale.GAME_KEPT_CHARACTER
+    .Refused => Locale.GAME_KEPT_REFUSED
+  }
+}
+
+function hintOf(tip: String, keeping: Keeping): String {
+  const said = tip == "" ? "" : textOf(tip)
+  return said == "" ? keepingText(keeping) : said + "\n\n" + keepingText(keeping)
+}
+
+// The index of the option whose writes the client holds, 0 for none.
+function pickedOf(options: Array<Choice<Integer>>, row: GameRow, client: Map<String, String>): Integer {
+  if (!(row is GameRow.Choice)) { return 0 }
+  for (index, offered of row.options) {
+    if (offered.writes.all(w => sameValue(client[w.cvar], w.value))) { return index }
+  }
+  return 0
+}
+
+// One row of a page: a heading, a checkbox, a dropdown, a slider or an action's keys, as the catalogue says.
+public class GameRowView implements Component {
+  state ticked = false
+  state picked = 0
+  state amount: Number = 0
+  derived disabled: Boolean = self.refused || !self.game.settings.values.on || (self.secure && Game.situation.combat)
+
+  const row: GameRow
+  game: mut GameSettings
+  const kind: String
+  const label: String
+  const hint: String
+  const choices: Array<Choice<Integer>>
+  const least: Number
+  const most: Number
+  const step: Number
+  const refused: Boolean
+  const secure: Boolean
+  const action: String
+
+  constructor(row: GameRow, game: mut GameSettings) {
+    self.row = row
+    self.game = game
+    let kind = "heading"
+    let label = ""
+    let hint = ""
+    let least: Number = 0
+    let most: Number = 1
+    let step: Number = 1
+    let refused = false
+    let secure = false
+    let action = ""
+    const choices: Array<Choice<Integer>> = []
+    if (row is GameRow.Heading) {
+      label = textOf(row.label)
+    } else if (row is GameRow.Toggle) {
+      kind = "toggle"
+      label = textOf(row.label)
+      const keeping = game.keeping(row.cvar)
+      hint = hintOf(row.tip, keeping)
+      refused = keeping == .Refused
+      secure = game.held(row.cvar)
+    } else if (row is GameRow.Choice) {
+      kind = "choice"
+      label = textOf(row.label)
+      const firstOption = row.options[1]
+      const firstWrite = firstOption == nil ? nil : firstOption.writes[1]
+      const keeping = game.keeping(firstWrite?.cvar ?? "")
+      hint = hintOf(row.tip, keeping)
+      refused = keeping == .Refused
+      secure = row.options.any(o => o.writes.any(w => game.held(w.cvar)))
+      for (index, offered of row.options) { choices.push({ value: index, label: textOf(offered.label), soon: nil, icon: nil }) }
+    } else if (row is GameRow.Slider) {
+      kind = "slider"
+      label = textOf(row.label)
+      const keeping = game.keeping(row.cvar)
+      hint = hintOf(row.tip, keeping)
+      refused = keeping == .Refused
+      secure = game.held(row.cvar)
+      least = row.least
+      most = row.most
+      step = row.step
+    } else {
+      kind = "key"
+      action = row.action
+    }
+    self.kind = kind
+    self.label = label
+    self.hint = hint
+    self.choices = choices
+    self.least = least
+    self.most = most
+    self.step = step
+    self.refused = refused
+    self.secure = secure
+    self.action = action
+    // What the client has is shown, and what the player chooses is written: each side follows the other, and a value
+    // equal to the client's writes nothing.
+    watch { self.show() }
+    watch (ticked of self.ticked) { self.tickedTo(ticked) }
+    watch (picked of self.picked) { self.pickedTo(picked) }
+    watch (amount of self.amount) { self.amountTo(amount) }
+  }
+
+  show(mut self) {
+    const row = self.row
+    const client = self.game.client
+    if (row is GameRow.Toggle) {
+      self.ticked = sameValue(client[row.cvar], row.on)
+    } else if (row is GameRow.Choice) {
+      self.picked = pickedOf(self.choices, row, client)
+    } else if (row is GameRow.Slider) {
+      self.amount = (client[row.cvar] ?? "").toNumber() ?? row.least
+    }
+  }
+
+  tickedTo(mut self, ticked: Boolean) {
+    const row = self.row
+    if (!(row is GameRow.Toggle)) { return }
+    if (ticked == sameValue((peek self.game.client)[row.cvar], row.on)) { return }
+    self.game.write([{ cvar: row.cvar, value: ticked ? row.on : row.off }])
+  }
+
+  pickedTo(mut self, picked: Integer) {
+    const row = self.row
+    if (!(row is GameRow.Choice)) { return }
+    const offered = row.options[picked]
+    if (offered == nil || picked == pickedOf(self.choices, row, peek self.game.client)) { return }
+    self.game.write(offered.writes)
+  }
+
+  amountTo(mut self, amount: Number) {
+    const row = self.row
+    if (!(row is GameRow.Slider)) { return }
+    if (sameValue((peek self.game.client)[row.cvar], String.of(amount))) { return }
+    const writes: Array<CVarWrite> = [{ cvar: row.cvar, value: String.of(amount) }]
+    for (follower of row.followers) { writes.push({ cvar: follower.cvar, value: String.of(amount * follower.ratio) }) }
+    self.game.write(writes)
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <box $match={self.kind}>
+        <box $case={"heading"} padding={{ top: 4sp }}>
+          <text value={self.label} textColor={HEADING} textFont={.Title} />
+        </box>
+        <Checkbox $case={"toggle"} label={self.label} hint={self.hint} value={mut self.ticked} disabled={self.disabled} />
+        <Dropdown $case={"choice"} label={self.label} hint={self.hint} value={mut self.picked} choices={self.choices}
+                  disabled={self.disabled} />
+        <NumberInput $case={"slider"} label={self.label} hint={self.hint} value={mut self.amount} least={self.least}
+                     most={self.most} step={self.step} disabled={self.disabled} />
+        <KeyRow $case={"key"} action={self.action} game={mut self.game} />
+      </box>
+    }
+  }
+}
+
+// A page of the game's settings: whether Ordaen keeps them in the profile, the game's defaults back, the game's own
+// window (a development build's), and the page's rows.
+public class GamePageView implements Component {
+  const page: GamePage
+  game: mut GameSettings
+  constructor(page: GamePage, game: mut GameSettings) {
+    self.page = page
+    self.game = game
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <GameTop game={mut self.game} />
+      <GameRowView $for={row of self.page.rows} row={peek row} game={mut self.game} />
+    }
+  }
+}
+
+// What every page of the game's has at its top.
+public class GameTop implements Component {
+  state kept = true
+  derived waiting: Boolean = self.game.waiting
+  derived fighting: Boolean = Game.situation.combat
+
+  game: mut GameSettings
+  constructor(game: mut GameSettings) {
+    self.game = game
+    watch { self.kept = self.game.settings.values.on }
+    watch (kept of self.kept) { if (kept != (peek self.game.settings.values).on) { self.game.turn(kept) } }
+  }
+
+  onReset(mut self) { self.game.resetDefaults() }
+  onGameWindow(mut self) { self.game.showGame() }
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={TOP} gap={3sp} yAlign={Align.Center}>
+        <Checkbox label={Locale.GAME_KEEP} hint={Locale.GAME_KEEP_TIP} value={mut self.kept} />
+        <PushButton label={Locale.GAME_DEFAULTS} width={234.375dp} disabled={self.fighting} @click={self.onReset} />
+        <GameWindowButton @click={self.onGameWindow} />
+      </box>
+      <text $if={self.waiting} value={Locale.GAME_WAITING} textColor={DIM} textSize={SECONDARY_TEXT} />
+    }
+  }
+}
+
+// An action's two keys, as the client's window shows them: a click on one waits for the key to bind there, a right
+// click unbinds it.
+public class KeyRow implements Component {
+  derived keys: Array<String> = self.game.keys[self.action] ?? []
+  derived first: String = keyText(self.keys[1])
+  derived second: String = keyText(self.keys[2])
+  derived label: String = textOf("BINDING_NAME_" + self.action)
+  derived fighting: Boolean = Game.situation.combat
+
+  // A row of the bindings' list is handed another action as the list scrolls.
+  action: Signal<String>
+  game: mut GameSettings
+  constructor(action: Signal<String>, game: mut GameSettings) {
+    self.action = action
+    self.game = game
+    self.game.wantKeys()
+  }
+
+  onFirst(mut self) { self.game.ask(self.action, 1) }
+  onSecond(mut self) { self.game.ask(self.action, 2) }
+  clearFirst(mut self) { self.game.unbind(self.action, 1) }
+  clearSecond(mut self) { self.game.unbind(self.action, 2) }
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={KEY_ROW} gap={3sp} yAlign={Align.Center}>
+        <text value={self.label} />
+        <box @pointerPress(.Right)={self.clearFirst}>
+          <PushButton label={self.first} width={KEY_WIDTH} disabled={self.fighting} @click={self.onFirst} />
+        </box>
+        <box @pointerPress(.Right)={self.clearSecond}>
+          <PushButton label={self.second} width={KEY_WIDTH} disabled={self.fighting} @click={self.onSecond} />
+        </box>
+      </box>
+    }
+  }
+}
+
+// A key as the player reads it; a dash for none.
+function keyText(key: String | nil): String {
+  if (key == nil) { return "—" }
+  return textOf("KEY_" + key) == "KEY_" + key ? key : textOf("KEY_" + key)
+}
+
+// One row of the bindings' list: a category's heading, or an action and its keys.
+public class BindingRow implements Component {
+  derived heading: Boolean = self.entry.heading
+  derived title: String = textOf(self.entry.category)
+  derived action: String = self.entry.action
+
+  entry: Signal<BindingEntry>
+  game: mut GameSettings
+  constructor(entry: Signal<BindingEntry>, game: mut GameSettings) {
+    self.entry = entry
+    self.game = game
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <box height={ROW_HEIGHT} yAlign={Align.Center}>
+        <text $if={self.heading} value={self.title} textColor={HEADING} textFont={.Title} />
+        <KeyRow $else action={self.action} game={mut self.game} />
+      </box>
+    }
+  }
+}
+
+// The key bindings: whether the character keeps its own set, every action of the client's list under its category,
+// and, while a key is asked for, what to press.
+public class BindingsPage implements Component {
+  state own = false
+  state confirming = false
+  derived asking: Boolean = self.game.capture != ""
+  derived askText: String = Locale.GAME_PRESS_KEY.format(textOf("BINDING_NAME_" + self.game.capture))
+  derived fighting: Boolean = Game.situation.combat
+
+  game: mut GameSettings
+  const entries: Array<BindingEntry>
+  constructor(game: mut GameSettings) {
+    self.game = game
+    self.entries = game.actions()
+    game.wantKeys()
+    watch { self.own = self.game.characterSet }
+    watch (own of self.own) { self.ownTo(own) }
+  }
+
+  // Leaving the character's own set asks first: the account's keys take the place of its.
+  ownTo(mut self, own: Boolean) {
+    if (own == (peek self.game.characterSet)) { return }
+    if (own) {
+      self.game.useCharacterSet(true)
+      return
+    }
+    self.confirming = true
+  }
+
+  onConfirm(mut self) {
+    self.confirming = false
+    self.game.useCharacterSet(false)
+  }
+
+  onCancel(mut self) {
+    self.confirming = false
+    self.own = true
+  }
+
+  // The key pressed while one is asked for: bound with the modifiers held. Escape stops asking; a modifier alone
+  // waits for the key held with it.
+  onKey(mut self, stroke: Event.Keystroke) {
+    const name = String.of(stroke.key)
+    if (stroke.key == Key.Escape) {
+      self.game.ask("", 0)
+      return
+    }
+    if (MODIFIERS.any(m => m == name)) { return }
+    self.game.answer(held() + name)
+  }
+
+  onPress(mut self, press: Event.Press) {
+    if (press.button == .Middle) { self.game.answer(held() + "BUTTON3") }
+  }
+
+  onWheel(mut self, wheel: Event.Wheel) {
+    self.game.answer(held() + (wheel.direction == .Up ? "MOUSEWHEELUP" : "MOUSEWHEELDOWN"))
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <Checkbox label={textOf("CHARACTER_SPECIFIC_KEYBINDINGS")} hint={textOf("CHARACTER_SPECIFIC_KEYBINDING_TOOLTIP")}
+                value={mut self.own} disabled={self.fighting} />
+      <box $if={self.asking} padding={3sp} @keyDown.parentScope={self.onKey} @pointerPress={self.onPress}
+           @wheel={self.onWheel}>
+        <text value={self.askText} textColor={HEADING} />
+      </box>
+      <virtualList height={LIST_HEIGHT}>
+        <BindingRow $for={entry of self.entries} entry={entry} game={mut self.game} />
+      </virtualList>
+      <Dialog $if={self.confirming} title={textOf("SETTINGS_KEYBINDINGS_LABEL")} width={562.5dp}>
+        <text value={textOf("CONFIRM_DELETING_CHARACTER_SPECIFIC_BINDINGS")} />
+        <PushButton #buttons label={Locale.CANCEL} width={140.625dp} @click={self.onCancel} />
+        <PushButton #buttons label={textOf("OKAY")} width={140.625dp} @click={self.onConfirm} />
+      </Dialog>
+    }
+  }
+}
+
+// The modifiers held, as the client writes them before a key.
+function held(): String {
+  let text = ""
+  if (Game.input.altDown()) { text += "ALT-" }
+  if (Game.input.controlDown()) { text += "CTRL-" }
+  if (Game.input.shiftDown()) { text += "SHIFT-" }
+  return text
+}

@@ -1,0 +1,530 @@
+// The game's own settings, kept per Ordaen profile as the modules' settings are: the CVars the game's pages write
+// (`gameCatalogue`) and every key binding. A profile keeps what it sets apart from the game's defaults, and the
+// keys of every action bound; it is applied at login and at a switch of profile, a switch showing first what it
+// changes. Nothing of it changes in a fight: an apply waits for the fight's end. A profile that never held the game's
+// settings takes them as the game has them, so installing Ordaen changes nothing.
+//
+// The client keeps a CVar in its own config, on the server for the account or for the character, or refuses an addon
+// one (read-only, locked): the page says which (`keeping`), and a refused one is never kept nor applied. The client keeps
+// the bindings in the account's set or the character's (`GetCurrentBindingSet`): a profile's keys are applied over the
+// set in use and kept into it, and the player's choice of set is left as it is.
+//
+// While it is on, the game's settings window (Esc → Options) opens Ordaen's at the game's pages; a development build's
+// footer button lets the game's window through, as it is.
+import Client from "$client"
+import Events from "$events"
+import { Frame } from "$ltml"
+import Runtime from "$runtime"
+import { Dialog } from "@/dialog"
+import { CVarWrite, GAME_CVARS, GAME_PAGES, GamePage, GameRow } from "@/gameCatalogue"
+import { GamePass } from "@/gameWindow"
+import { Keeper } from "@/keeper"
+import Locale from "@/locales"
+import { Component } from "@/module"
+import { PushButton } from "@/pushButton"
+import { Settings } from "@/settings"
+import { SECONDARY_TEXT } from "@/units"
+
+// The client's sets of bindings (`Enum.BindingSet`).
+const DEFAULT_SET = 0
+const ACCOUNT_SET = 1
+const CHARACTER_SET = 2
+// The game's settings window, and the addon that makes it.
+const GAME_WINDOW = "SettingsPanel"
+const GAME_ADDON = "Blizzard_Settings"
+// The most changes the question before a switch lists; the rest are counted.
+const LISTED_MOST = 12
+const DIM: Color = Color.hex("#a3977f")
+const ASK_WIDTH = 656.25dp
+
+public struct GameValues implements Plain {
+  // Whether Ordaen keeps the game's settings in this profile: off, the game's are its own, and its window opens.
+  on: Boolean = true
+  // Whether the profile holds the game's settings yet: one that doesn't takes them as the game has them.
+  taken: Boolean = false
+  // Each CVar the profile sets apart from the client's default.
+  cvars: mut Map<String, String> = {}
+  // The keys of every action bound, by the action.
+  bindings: mut Map<String, Array<String>> = {}
+}
+
+// Where the client keeps a CVar, as the page says it.
+public enum Keeping { Game = "game", Account = "account", Character = "character", Refused = "refused" }
+
+// What applying a profile would change: a setting's or an action's, from what the game has to what the profile holds.
+public struct GameChange {
+  const label: String
+  const from: String
+  const to: String
+}
+
+// One row of the client's list of actions to bind: an action under its category, or a category's heading.
+public struct BindingEntry {
+  const action: String
+  const category: String
+  const heading: Boolean
+}
+
+// Whether two values of a CVar are the same: as numbers where both are (the client writes `0.5` as `0.500000` at
+// times), else as texts.
+public function sameValue(a: String | nil, b: String | nil): Boolean {
+  if (a == b) { return true }
+  if (a == nil || b == nil) { return false }
+  const x = a.toNumber()
+  const y = b.toNumber()
+  return x != nil && y != nil && (x - y).abs() < 0.0001
+}
+
+// Each CVar's label on its page, for the changes listed before a switch.
+function labelsOf(pages: Array<GamePage>): Map<String, String> {
+  const labels: Map<String, String> = {}
+  for (page of pages) {
+    for (row of page.rows) {
+      if (row is GameRow.Toggle) {
+        labels[row.cvar] = row.label
+      } else if (row is GameRow.Slider) {
+        labels[row.cvar] = row.label
+        for (follower of row.followers) { labels[follower.cvar] = row.label }
+      } else if (row is GameRow.Choice) {
+        for (offered of row.options) {
+          for (written of offered.writes) { labels[written.cvar] = row.label }
+        }
+      }
+    }
+  }
+  return labels
+}
+
+// One of the client's texts by its name, or the name itself where the client has none.
+public function textOf(name: String): String {
+  return Runtime.text(name) ?? name
+}
+
+function keysOf(action: String): Array<String> {
+  const first, second = Client.GetBindingKey(action)
+  const list: Array<String> = []
+  if (first != nil) { list.push(first) }
+  if (second != nil) { list.push(second) }
+  return list
+}
+
+function firstOf(changes: Array<GameChange>, most: Integer): Array<GameChange> {
+  const list: Array<GameChange> = []
+  for (change of changes) {
+    if (list.length >= most) { break }
+    list.push(change)
+  }
+  return list
+}
+
+function sameKeys(a: Array<String>, b: Array<String>): Boolean {
+  if (a.length != b.length) { return false }
+  for (i of 1..a.length) {
+    if (a[i] != b[i]) { return false }
+  }
+  return true
+}
+
+public class GameSettings implements Component {
+  // The game's settings the active profile holds.
+  public const settings: mut Settings<GameValues>
+  // Each CVar of the pages as the client has it now.
+  public state client: mut Map<String, String> = {}
+  // Each action's keys as the client has them now: read once the bindings are first asked for.
+  public state keys: mut Map<String, Array<String>> = {}
+  // The action whose key is asked for (`""`: none), and which of its two.
+  public state capture = ""
+  captureSlot = 1
+  // Whether the character's own set of bindings is in use.
+  public state characterSet = false
+  // An apply that waits for the player's fight to end.
+  public state waiting = false
+  // What the profile switched to would change, asked before it is applied.
+  public state changes: Array<GameChange> = []
+  derived asking: Boolean = self.changes.length > 0
+  derived listed: Array<GameChange> = firstOf(self.changes, LISTED_MOST)
+  derived more: String = self.changes.length > LISTED_MOST ? Locale.GAME_CHANGES_MORE.format(self.changes.length - LISTED_MOST) : ""
+  derived question: String = Locale.GAME_CHANGES_TEXT.format(self.changes.length)
+  // The game's own settings window shown, asked to be Ordaen's instead.
+  public const asked: Event<nil> = new Event()
+  public const pass: mut GamePass = new GamePass()
+  const keeper: mut Keeper
+  const labels: Map<String, String>
+  // The client's list of actions, read once it is first asked for.
+  entries: Array<BindingEntry> | nil = nil
+  // The values an apply waits with, and whether the first values (the login's) are applied.
+  pending: GameValues | nil = nil
+  started = false
+  // Whether the keys are followed: once a page shows them.
+  keysRead = false
+  hooked = false
+  mounted = false
+
+  constructor(keeper: mut Keeper) {
+    self.keeper = keeper
+    self.labels = labelsOf(GAME_PAGES)
+    self.settings = new Settings<GameValues>(GameValues {}, "game", mut keeper)
+    self.client = self.readCVars()
+    self.characterSet = Client.GetCurrentBindingSet() == CHARACTER_SET
+    Events.CVAR_UPDATE.listen(self.updated)
+    Events.UPDATE_BINDINGS.listen(self.bindingsUpdated)
+    Events.PLAYER_REGEN_ENABLED.listen(self.fightEnded)
+    Events.ADDON_LOADED.listen(self.loaded)
+    self.hook()
+    watch (values of self.settings.values) { self.follow(values) }
+  }
+
+  // The client's value of each CVar of the pages.
+  readCVars(self): mut Map<String, String> {
+    const read: Map<String, String> = {}
+    for (name of GAME_CVARS) {
+      const value = Client.C_CVar.GetCVar(name)
+      if (value != nil) { read[name] = value }
+    }
+    return read
+  }
+
+  // The client's list of actions to bind, read once.
+  public actions(mut self): Array<BindingEntry> {
+    const known = self.entries
+    if (known != nil) { return known }
+    const list: Array<BindingEntry> = []
+    for (index of 1..Client.GetNumBindings().floor()) {
+      const action, category, _, _ = Client.GetBinding(index)
+      const at, _ = action.find("^HEADER_")
+      const heading = at != nil
+      list.push({ action: action, category: category ?? "", heading: heading })
+    }
+    self.entries = list
+    return list
+  }
+
+  // The keys of every action bound, as the client has them.
+  bindingsNow(mut self): mut Map<String, Array<String>> {
+    const bound: Map<String, Array<String>> = {}
+    for (entry of self.actions()) {
+      if (!entry.heading) {
+        const keys = keysOf(entry.action)
+        if (keys.length > 0) { bound[entry.action] = keys }
+      }
+    }
+    return bound
+  }
+
+  // The keys are first shown: read, and followed from then on.
+  public wantKeys(mut self) {
+    if (!self.keysRead) { self.readKeys() }
+  }
+
+  // An action's key at `slot` asked for: the next key the player presses binds there (`answer`); `""` asks none.
+  public ask(mut self, action: String, slot: Integer) {
+    self.capture = action
+    self.captureSlot = slot
+  }
+
+  public answer(mut self, key: String) {
+    const action = peek self.capture
+    self.capture = ""
+    if (action != "") { self.bind(action, self.captureSlot, key) }
+  }
+
+  readKeys(mut self) {
+    self.keysRead = true
+    self.keys = self.bindingsNow()
+    self.characterSet = Client.GetCurrentBindingSet() == CHARACTER_SET
+  }
+
+  updated(mut self, name: String, value: String) {
+    if ((peek self.client)[name] != nil && !sameValue((peek self.client)[name], value)) { self.client[name] = value }
+  }
+
+  bindingsUpdated(mut self) {
+    if (self.keysRead) { self.readKeys() }
+  }
+
+  // Where the client keeps a CVar, or that it refuses it to an addon.
+  public keeping(self, name: String): Keeping {
+    const _, _, account, character, locked, _, readOnly = Client.C_CVar.GetCVarInfo(name)
+    if (locked || readOnly) { return .Refused }
+    if (character) { return .Character }
+    if (account) { return .Account }
+    return .Game
+  }
+
+  // Whether the client holds a CVar while the player fights.
+  public held(self, name: String): Boolean {
+    const _, _, _, _, _, secure, _ = Client.C_CVar.GetCVarInfo(name)
+    return secure
+  }
+
+  defaultOf(self, name: String): String {
+    return Client.C_CVar.GetCVarDefault(name) ?? ""
+  }
+
+  // The values of a profile met: off, nothing; never taken, the game's taken; else applied where they differ, at login
+  // at once, after a switch once the player has seen what changes.
+  follow(mut self, values: GameValues) {
+    const first = !self.started
+    self.started = true
+    if (!values.on) { return }
+    // What the client has now: a CVar another window or addon changed tells no addon at all times.
+    self.client = self.readCVars()
+    if (!values.taken) {
+      self.take()
+      return
+    }
+    const changes = self.changesOf(values)
+    if (changes.length == 0) { return }
+    if (first) {
+      self.apply(values)
+      return
+    }
+    self.changes = changes
+    self.show()
+  }
+
+  // The game's settings as they are, kept in the active profile as how it is read, not as a change of the player's.
+  take(mut self) {
+    const kept = self.keptNow()
+    const bound = self.bindingsNow()
+    self.keeper.unrecorded(() => self.settings.change((v: mut GameValues): nil => {
+      v.taken = true
+      v.cvars = {}
+      for (name, value of kept) { v.cvars[name] = value }
+      v.bindings = {}
+      for (action, keys of bound) { v.bindings[action] = keys }
+    }))
+  }
+
+  // Each CVar the client has apart from its default, of those an addon may change.
+  keptNow(self): Map<String, String> {
+    const kept: Map<String, String> = {}
+    const now = peek self.client
+    for (name of GAME_CVARS) {
+      const value = now[name]
+      if (value != nil && self.keeping(name) != .Refused && !sameValue(value, self.defaultOf(name))) { kept[name] = value }
+    }
+    return kept
+  }
+
+  // What applying `values` would change, the CVars in the pages' order, then the actions.
+  public changesOf(mut self, values: GameValues): Array<GameChange> {
+    const list: Array<GameChange> = []
+    const now = peek self.client
+    for (name of GAME_CVARS) {
+      if (self.keeping(name) != .Refused) {
+        const target = values.cvars[name] ?? self.defaultOf(name)
+        const current = now[name] ?? ""
+        if (!sameValue(current, target)) {
+          list.push({ label: textOf(self.labels[name] ?? name), from: current, to: target })
+        }
+      }
+    }
+    const bound = self.bindingsNow()
+    for (entry of self.actions()) {
+      if (!entry.heading) {
+        const want = values.bindings[entry.action] ?? []
+        const have = bound[entry.action] ?? []
+        if (!sameKeys(want, have)) {
+          list.push({ label: textOf("BINDING_NAME_" + entry.action), from: have.join(", "), to: want.join(", ") })
+        }
+      }
+    }
+    return list
+  }
+
+  // A profile's values given to the client: every CVar it sets (the rest at their defaults) and its keys over the set
+  // of bindings in use, kept into it. In a fight, nothing: it waits for the fight's end.
+  apply(mut self, values: GameValues) {
+    if (Client.InCombatLockdown()) {
+      self.pending = values
+      self.waiting = true
+      return
+    }
+    for (name of GAME_CVARS) {
+      if (self.keeping(name) != .Refused) {
+        const target = values.cvars[name] ?? self.defaultOf(name)
+        if (!sameValue((peek self.client)[name], target) && Client.C_CVar.SetCVar(name, target)) {
+          self.client[name] = target
+        }
+      }
+    }
+    const bound = self.bindingsNow()
+    let changed = false
+    for (entry of self.actions()) {
+      if (!entry.heading) {
+        const want = values.bindings[entry.action] ?? []
+        const have = bound[entry.action] ?? []
+        if (!sameKeys(want, have)) {
+          for (key of have) { _ = Client.SetBinding(key, nil, nil) }
+          for (key of want) { _ = Client.SetBinding(key, entry.action, nil) }
+          changed = true
+        }
+      }
+    }
+    if (changed) { Client.SaveBindings(Client.GetCurrentBindingSet()) }
+    if (self.keysRead) { self.readKeys() }
+  }
+
+  fightEnded(mut self) {
+    const pending = self.pending
+    if (pending == nil) { return }
+    self.pending = nil
+    self.waiting = false
+    self.apply(pending)
+  }
+
+  // The player's change on a page: each CVar written, and kept in the profile apart from its default. A CVar the
+  // client holds in a fight isn't written in one (its control is disabled then).
+  public write(mut self, writes: Array<CVarWrite>) {
+    const kept: Map<String, String> = {}
+    for (written of writes) {
+      if (Client.C_CVar.SetCVar(written.cvar, written.value)) {
+        self.client[written.cvar] = written.value
+        kept[written.cvar] = written.value
+      }
+    }
+    self.settings.change((v: mut GameValues): nil => {
+      for (name, value of kept) {
+        v.cvars[name] = sameValue(value, self.defaultOf(name)) ? nil : value
+      }
+    })
+  }
+
+  // A key bound to an action in place of its key at `slot` (1 or 2); the key leaves the action that held it.
+  public bind(mut self, action: String, slot: Integer, key: String) {
+    if (Client.InCombatLockdown()) { return }
+    const have = keysOf(action)
+    const old = have[slot]
+    if (old != nil) { _ = Client.SetBinding(old, nil, nil) }
+    _ = Client.SetBinding(key, action, nil)
+    self.keepBindings()
+  }
+
+  // An action's key at `slot` unbound.
+  public unbind(mut self, action: String, slot: Integer) {
+    if (Client.InCombatLockdown()) { return }
+    const old = keysOf(action)[slot]
+    if (old == nil) { return }
+    _ = Client.SetBinding(old, nil, nil)
+    self.keepBindings()
+  }
+
+  // The bindings as they are now kept by the client into the set in use, and in the profile.
+  keepBindings(mut self) {
+    Client.SaveBindings(Client.GetCurrentBindingSet())
+    self.readKeys()
+    const bound = peek self.keys
+    self.settings.change((v: mut GameValues): nil => {
+      v.bindings = {}
+      for (action, keys of bound) { v.bindings[action] = keys }
+    })
+  }
+
+  // The character's own set of bindings, or the account's: the client's choice, as its window makes it. Leaving the
+  // character's set loads the account's over it.
+  public useCharacterSet(mut self, on: Boolean) {
+    if (Client.InCombatLockdown()) { return }
+    if (on) {
+      Client.SaveBindings(ACCOUNT_SET)
+      Client.LoadBindings(CHARACTER_SET)
+      Client.SaveBindings(CHARACTER_SET)
+    } else {
+      Client.LoadBindings(ACCOUNT_SET)
+      Client.SaveBindings(ACCOUNT_SET)
+    }
+    self.keepBindings()
+  }
+
+  // Every CVar back to the game's default and the game's default keys over the set in use: kept so in the profile.
+  public resetDefaults(mut self) {
+    if (Client.InCombatLockdown()) { return }
+    for (name of GAME_CVARS) {
+      if (self.keeping(name) != .Refused && Client.C_CVar.SetCVar(name, self.defaultOf(name))) {
+        self.client[name] = self.defaultOf(name)
+      }
+    }
+    Client.LoadBindings(DEFAULT_SET)
+    Client.SaveBindings(Client.GetCurrentBindingSet())
+    self.readKeys()
+    const bound = peek self.keys
+    self.settings.change((v: mut GameValues): nil => {
+      v.cvars = {}
+      v.bindings = {}
+      for (action, keys of bound) { v.bindings[action] = keys }
+    })
+  }
+
+  // Ordaen keeps the game's settings in this profile, or leaves them to the game.
+  public turn(mut self, on: Boolean) {
+    self.settings.change((v: mut GameValues): nil => { v.on = on })
+  }
+
+  // The question's answers: the profile's values applied, or the game's kept in the profile in their place.
+  onApply(mut self) {
+    self.changes = []
+    self.apply(peek self.settings.values)
+  }
+
+  onKeep(mut self) {
+    self.changes = []
+    self.take()
+  }
+
+  // The question is drawn on the screen the first time it is asked.
+  show(mut self) {
+    if (self.mounted) { return }
+    self.mounted = true
+    Runtime.mount(self, Runtime.screen())
+  }
+
+  // The game's settings window, hooked once its addon has loaded: shown while Ordaen keeps the game's settings, it
+  // closes and Ordaen's opens in its place, unless the player asked for it as it is.
+  hook(mut self) {
+    if (self.hooked) { return }
+    const panel = Runtime.frame(GAME_WINDOW)
+    if (panel == nil) { return }
+    self.hooked = true
+    const window: any Client.Frame = panel
+    _ = window.HookScript("OnShow", (): nil => {
+      self.gameShown(panel)
+      return nil
+    })
+    _ = window.HookScript("OnHide", (): nil => {
+      _ = self.pass.hidden(panel)
+      return nil
+    })
+  }
+
+  loaded(mut self, name: String) {
+    if (name == GAME_ADDON) { self.hook() }
+  }
+
+  gameShown(mut self, panel: any Frame) {
+    if (self.pass.passes(panel) || !(peek self.settings.values).on) { return }
+    const window: any Client.Frame = panel
+    Client.HideUIPanel(window)
+    self.asked.emit()
+  }
+
+  // A development build's footer button: the game's own settings window, as it is.
+  public showGame(mut self) {
+    const panel = Runtime.frame(GAME_WINDOW)
+    if (panel != nil) { self.pass.pass(panel) }
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <Dialog $if={self.asking} title={Locale.GAME_CHANGES_TITLE} width={ASK_WIDTH}>
+        <text value={self.question} />
+        <box columns={1} gap={1sp}>
+          <text $for={change of self.listed} value={`${change.label}: ${change.from} → ${change.to}`}
+                textColor={DIM} textSize={SECONDARY_TEXT} />
+          <text $if={self.more != ""} value={self.more} textColor={DIM} textSize={SECONDARY_TEXT} />
+        </box>
+        <PushButton #buttons label={Locale.GAME_KEEP_GAME} width={234.375dp} @click={self.onKeep} />
+        <PushButton #buttons label={Locale.GAME_APPLY} width={164.0625dp} @click={self.onApply} />
+      </Dialog>
+    }
+  }
+}

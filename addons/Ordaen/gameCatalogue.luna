@@ -1,0 +1,404 @@
+// The game's own settings, as its settings window (`SettingsPanel`) offers them on Forever, page by page: what each
+// control shows and which of the client's settings (CVars) it writes. Read from Blizzard's settings definitions of
+// the build (`Blizzard_SettingsDefinitions_Frame`, `_Shared`, with Forever's overrides), and kept in their order.
+// A label, a hint and a choice's name are the client's own texts by their names (`CONTROLS_LABEL`), read as the page
+// draws; a name the client hasn't is shown as it is written (a sample time, «32x32»).
+//
+// A control writes CVars and nothing else, so a profile keeps a page whole by keeping those CVars: a choice that
+// writes several (status text: `statusTextDisplay` and `statusText`) is one option of several writes, and a slider
+// that moves another with it (mouse look speed: the pitch at half the yaw) names it with its ratio.
+
+// One of the client's settings set to a value, as `SetCVar` takes it.
+public struct CVarWrite {
+  const cvar: String
+  const value: String
+}
+
+// One option of a choice: its name, and what picking it writes.
+public struct GameOption {
+  const label: String
+  const writes: Array<CVarWrite>
+}
+
+// A CVar a slider moves with its own: at its value times `ratio`.
+public struct Follower {
+  const cvar: String
+  const ratio: Number
+}
+
+// One row of a page of the game's settings.
+public enum GameRow {
+  Heading { label: String }
+  // A checkbox: `on` while the CVar holds that value, `off` written when unticked.
+  Toggle { label: String, tip: String, cvar: String, on: String, off: String }
+  // A dropdown: the option whose writes the client holds is shown.
+  Choice { label: String, tip: String, options: Array<GameOption> }
+  Slider { label: String, tip: String, cvar: String, least: Number, most: Number, step: Number, followers: Array<Follower> }
+  // One of the game's key bindings, by its action, where a page names it (the interact key).
+  Key { action: String }
+}
+
+// A page of the game's settings: its name (the client's) and its rows.
+public struct GamePage {
+  const label: String
+  const rows: Array<GameRow>
+}
+
+const function heading(label: String): GameRow { return .Heading { label: label } }
+
+const function check(cvar: String, label: String, tip: String): GameRow {
+  return .Toggle { label: label, tip: tip, cvar: cvar, on: "1", off: "0" }
+}
+
+// A checkbox ticked while its CVar is off (sticky targeting: `deselectOnClick` 0).
+const function negated(cvar: String, label: String, tip: String): GameRow {
+  return .Toggle { label: label, tip: tip, cvar: cvar, on: "0", off: "1" }
+}
+
+// A checkbox over a CVar of more than two values: `on` and `off` are what it writes.
+const function flagged(cvar: String, label: String, tip: String, on: String, off: String): GameRow {
+  return .Toggle { label: label, tip: tip, cvar: cvar, on: on, off: off }
+}
+
+// A dropdown over one CVar: each option its value and its name.
+const function pick(cvar: String, label: String, tip: String, options: Array<[String, String]>): GameRow {
+  const list: Array<GameOption> = []
+  for (given of options) {
+    list.push({ label: given[2], writes: [{ cvar: cvar, value: given[1] }] })
+  }
+  return .Choice { label: label, tip: tip, options: list }
+}
+
+// A dropdown whose options write several CVars.
+const function choice(label: String, tip: String, options: Array<GameOption>): GameRow {
+  return .Choice { label: label, tip: tip, options: options }
+}
+
+const function option(label: String, writes: Array<CVarWrite>): GameOption {
+  return { label: label, writes: writes }
+}
+
+const function write(cvar: String, value: String): CVarWrite { return { cvar: cvar, value: value } }
+
+const function slider(cvar: String, label: String, tip: String, least: Number, most: Number, step: Number): GameRow {
+  return .Slider { label: label, tip: tip, cvar: cvar, least: least, most: most, step: step, followers: [] }
+}
+
+const function linked(cvar: String, label: String, tip: String, least: Number, most: Number, step: Number, follower: String, ratio: Number): GameRow {
+  return .Slider { label: label, tip: tip, cvar: cvar, least: least, most: most, step: step, followers: [{ cvar: follower, ratio: ratio }] }
+}
+
+const function key(action: String): GameRow { return .Key { action: action } }
+
+// The camera's following styles, offered for click-to-move and for the camera.
+const FOLLOWING: Array<[String, String]> = [["1", "CAMERA_SMART"], ["4", "CAMERA_SMARTER"], ["2", "CAMERA_ALWAYS"], ["0", "CAMERA_NEVER"]]
+// A quality of the graphics' advanced settings, from its lowest.
+const QUALITY_5: Array<[String, String]> = [["0", "VIDEO_OPTIONS_LOW"], ["1", "VIDEO_OPTIONS_FAIR"], ["2", "VIDEO_OPTIONS_MEDIUM"], ["3", "VIDEO_OPTIONS_HIGH"], ["4", "VIDEO_OPTIONS_ULTRA"]]
+const ON_OFF: Array<[String, String]> = [["0", "VIDEO_OPTIONS_DISABLED"], ["1", "VIDEO_OPTIONS_ENABLED"]]
+
+public const CONTROLS: GamePage = {
+  label: "CONTROLS_LABEL",
+  rows: [
+    negated("deselectOnClick", "GAMEFIELD_DESELECT_TEXT", "OPTION_TOOLTIP_GAMEFIELD_DESELECT"),
+    check("autoClearAFK", "CLEAR_AFK", "OPTION_TOOLTIP_CLEAR_AFK"),
+    check("interactOnLeftClick", "INTERACT_ON_LEFT_CLICK_TEXT", "OPTION_TOOLTIP_INTERACT_ON_LEFT_CLICK"),
+    check("lootUnderMouse", "LOOT_UNDER_MOUSE_TEXT", "OPTION_TOOLTIP_LOOT_UNDER_MOUSE"),
+    check("autoLootDefault", "AUTO_LOOT_DEFAULT_TEXT", "OPTION_TOOLTIP_AUTO_LOOT_DEFAULT"),
+    flagged("softTargetInteract", "ENABLE_INTERACT_TEXT", "OPTION_TOOLTIP_ENABLE_INTERACT", "3", "1"),
+    key("INTERACTTARGET"),
+    check("softTargettingInteractKeySound", "ENABLE_INTERACT_SOUND_OPTION", "ENABLE_INTERACT_SOUND_OPTION_TOOLTIP"),
+    heading("MOUSE_LABEL"),
+    check("ClipCursor", "LOCK_CURSOR", "OPTION_TOOLTIP_LOCK_CURSOR"),
+    check("mouseInvertPitch", "INVERT_MOUSE", "OPTION_TOOLTIP_INVERT_MOUSE"),
+    linked("cameraYawMoveSpeed", "MOUSE_LOOK_SPEED", "OPTION_TOOLTIP_MOUSE_LOOK_SPEED", 90, 270, 10, "cameraPitchMoveSpeed", 0.5),
+    check("enableMouseSpeed", "ENABLE_MOUSE_SPEED", "OPTION_TOOLTIP_MOUSE_SENSITIVITY"),
+    slider("mouseSpeed", "MOUSE_SENSITIVITY", "OPTION_TOOLTIP_MOUSE_SENSITIVITY", 0.5, 1.4, 0.05),
+    check("autointeract", "CLICK_TO_MOVE", "OPTION_TOOLTIP_CLICK_TO_MOVE"),
+    pick("cameraSmoothTrackingStyle", "CAMERA_CTM_FOLLOWING_STYLE", "OPTION_TOOLTIP_CTM_CAMERA_FOLLOWING_STYLE", FOLLOWING),
+    heading("CAMERA_LABEL"),
+    check("cameraWaterCollision", "WATER_COLLISION", "OPTION_TOOLTIP_WATER_COLLISION"),
+    linked("cameraYawSmoothSpeed", "AUTO_FOLLOW_SPEED", "OPTION_TOOLTIP_AUTO_FOLLOW_SPEED", 90, 270, 10, "cameraPitchSmoothSpeed", 0.25),
+    pick("cameraSmoothStyle", "CAMERA_FOLLOWING_STYLE", "OPTION_TOOLTIP_CAMERA_FOLLOWING_STYLE", FOLLOWING),
+    slider("cameraDistanceMaxZoomFactor", "MAX_FOLLOW_DIST", "OPTION_TOOLTIP_MAX_FOLLOW_DIST", 1, 2, 0.1),
+    check("cameraTerrainTilt", "FOLLOW_TERRAIN", "OPTION_TOOLTIP_FOLLOW_TERRAIN"),
+    check("cameraBobbing", "HEAD_BOB", "OPTION_TOOLTIP_HEAD_BOB"),
+    check("cameraPivot", "SMART_PIVOT", "")
+  ]
+}
+
+public const INTERFACE: GamePage = {
+  label: "INTERFACE_LABEL",
+  rows: [
+    heading("DISPLAY_LABEL"),
+    check("showInGameNavigation", "SHOW_IN_GAME_NAVIGATION", "OPTION_TOOLTIP_SHOW_IN_GAME_NAVIGATION"),
+    check("showTutorials", "SHOW_TUTORIALS", "OPTION_TOOLTIP_SHOW_TUTORIALS"),
+    pick("Outline", "OBJECT_NPC_OUTLINE", "OPTION_TOOLTIP_OBJECT_NPC_OUTLINE", [["0", "OBJECT_NPC_OUTLINE_DISABLED"], ["1", "OBJECT_NPC_OUTLINE_MODE_ONE"], ["2", "OBJECT_NPC_OUTLINE_MODE_TWO"], ["3", "OBJECT_NPC_OUTLINE_MODE_THREE"]]),
+    choice("STATUSTEXT_LABEL", "OPTION_TOOLTIP_STATUS_TEXT_DISPLAY", [
+      option("STATUS_TEXT_VALUE", [write("statusTextDisplay", "NUMERIC"), write("statusText", "1")]),
+      option("STATUS_TEXT_PERCENT", [write("statusTextDisplay", "PERCENT"), write("statusText", "1")]),
+      option("STATUS_TEXT_BOTH", [write("statusTextDisplay", "BOTH"), write("statusText", "1")]),
+      option("NONE", [write("statusTextDisplay", "NONE"), write("statusText", "0")])
+    ]),
+    check("chatBubbles", "CHAT_BUBBLES_TEXT", "OPTION_TOOLTIP_CHAT_BUBBLES"),
+    check("chatBubblesParty", "PARTY_CHAT_BUBBLES_TEXT", "OPTION_TOOLTIP_PARTY_CHAT_BUBBLES"),
+    check("chatBubblesRaid", "RAID_CHAT_BUBBLES_TEXT", "OPTION_TOOLTIP_RAID_CHAT_BUBBLES"),
+    check("ReplaceOtherPlayerPortraits", "REPLACE_OTHER_PLAYER_PORTRAITS", "OPTION_TOOLTIP_REPLACE_OTHER_PLAYER_PORTRAITS"),
+    check("ReplaceMyPlayerPortrait", "REPLACE_MY_PLAYER_PORTRAIT", "OPTION_TOOLTIP_REPLACE_MY_PLAYER_PORTRAIT"),
+    heading("TOAST_SETTINGS_LABEL"),
+    check("showLoadingScreenTips", "SHOW_TIPOFTHEDAY_TEXT", "OPTION_TOOLTIP_SHOW_TIPOFTHEDAY"),
+    check("instantQuestText", "SHOW_QUEST_FADING_TEXT", "OPTION_TOOLTIP_SHOW_QUEST_FADING"),
+    check("displayFreeBagSlots", "DISPLAY_FREE_BAG_SLOTS", "OPTION_TOOLTIP_DISPLAY_FREE_BAG_SLOTS"),
+    heading("RAID_FRAMES_LABEL"),
+    check("raidFramesDisplayIncomingHeals", "COMPACT_UNIT_FRAME_PROFILE_DISPLAYHEALPREDICTION", "OPTION_TOOLTIP_COMPACT_UNIT_FRAME_PROFILE_DISPLAYHEALPREDICTION"),
+    check("raidFramesDisplayPowerBars", "COMPACT_UNIT_FRAME_PROFILE_DISPLAYPOWERBAR", "OPTION_TOOLTIP_COMPACT_UNIT_FRAME_PROFILE_DISPLAYPOWERBAR"),
+    check("raidFramesDisplayOnlyHealerPowerBars", "COMPACT_UNIT_FRAME_PROFILE_DISPLAYONLYHEALERPOWERBARS", "OPTION_TOOLTIP_COMPACT_UNIT_FRAME_PROFILE_DISPLAYONLYHEALERPOWERBARS"),
+    check("raidFramesDisplayAggroHighlight", "COMPACT_UNIT_FRAME_PROFILE_DISPLAYAGGROHIGHLIGHT", "OPTION_TOOLTIP_COMPACT_UNIT_FRAME_PROFILE_DISPLAYAGGROHIGHLIGHT"),
+    check("raidFramesDisplayClassColor", "COMPACT_UNIT_FRAME_PROFILE_USECLASSCOLORS", "OPTION_TOOLTIP_COMPACT_UNIT_FRAME_PROFILE_USECLASSCOLORS"),
+    check("raidOptionDisplayPets", "COMPACT_UNIT_FRAME_PROFILE_DISPLAYPETS", "OPTION_TOOLTIP_COMPACT_UNIT_FRAME_PROFILE_DISPLAYPETS"),
+    check("raidOptionDisplayMainTankAndAssist", "COMPACT_UNIT_FRAME_PROFILE_DISPLAYMAINTANKANDASSIST", "OPTION_TOOLTIP_COMPACT_UNIT_FRAME_PROFILE_DISPLAYMAINTANKANDASSIST"),
+    check("raidFramesDisplayDebuffs", "COMPACT_UNIT_FRAME_PROFILE_DISPLAYNONBOSSDEBUFFS", "OPTION_TOOLTIP_COMPACT_UNIT_FRAME_PROFILE_DISPLAYNONBOSSDEBUFFS"),
+    check("raidFramesDisplayLargerRoleSpecificDebuffs", "COMPACT_UNIT_FRAME_PROFILE_DISPLAY_ROLE_DEBUFFS_LARGER", "OPTION_TOOLTIP_COMPACT_UNIT_FRAME_PROFILE_DISPLAY_ROLE_DEBUFFS_LARGER"),
+    check("raidFramesDisplayOnlyDispellableDebuffs", "COMPACT_UNIT_FRAME_PROFILE_DISPLAYONLYDISPELLABLEDEBUFFS", "OPTION_TOOLTIP_COMPACT_UNIT_FRAME_PROFILE_DISPLAYONLYDISPELLABLEDEBUFFS"),
+    check("raidFramesCenterBigDefensive", "COMPACT_UNIT_FRAME_PROFILE_SHOW_BIG_DEFENSIVES", "OPTION_TOOLTIP_COMPACT_UNIT_FRAME_PROFILE_SHOW_BIG_DEFENSIVES"),
+    pick("raidFramesDispelIndicatorType", "COMPACT_UNIT_FRAME_PROFILE_DISPELLABLE_INDICATOR_TYPE", "OPTION_TOOLTIP_COMPACT_UNIT_FRAME_PROFILE_DISPELLABLE_INDICATOR_TYPE", [["0", "COMPACT_UNIT_FRAME_PROFILE_DISPELLABLE_INDICATOR_TYPE_DISABLED"], ["1", "COMPACT_UNIT_FRAME_PROFILE_DISPELLABLE_INDICATOR_TYPE_ME"], ["2", "COMPACT_UNIT_FRAME_PROFILE_DISPELLABLE_INDICATOR_TYPE_ALL"]]),
+    pick("raidFramesDispelIndicatorOverlay", "COMPACT_UNIT_FRAME_PROFILE_DISPLAY_DISPEL_OVERLAY", "OPTION_TOOLTIP_COMPACT_UNIT_FRAME_PROFILE_DISPLAY_DISPEL_OVERLAY", [["0", "COMPACT_UNIT_FRAME_PROFILE_DISPELLABLE_OVERLAY_TYPE_DISABLED"], ["1", "COMPACT_UNIT_FRAME_PROFILE_DISPELLABLE_OVERLAY_TYPE_DEBUFF_COLOR"], ["2", "COMPACT_UNIT_FRAME_PROFILE_DISPELLABLE_OVERLAY_TYPE_BLACK"]]),
+    check("raidFramesDispelIndicatorOverlayAnimation", "COMPACT_UNIT_FRAME_PROFILE_DISPLAY_DISPEL_OVERLAY_FLASHING_ANIMATION", "OPTION_TOOLTIP_COMPACT_UNIT_FRAME_PROFILE_DISPLAY_DISPEL_OVERLAY_FLASHING_ANIMATION"),
+    check("raidFramesDispelIndicatorAnimatedBorder", "COMPACT_UNIT_FRAME_PROFILE_DISPLAY_DISPEL_OVERLAY_ANIMATED_BORDER", "OPTION_TOOLTIP_COMPACT_UNIT_FRAME_PROFILE_DISPLAY_DISPEL_OVERLAY_ANIMATED_BORDER"),
+    pick("raidFramesHealthText", "COMPACT_UNIT_FRAME_PROFILE_HEALTHTEXT", "OPTION_TOOLTIP_COMPACT_UNIT_FRAME_PROFILE_HEALTHTEXT", [["none", "COMPACT_UNIT_FRAME_PROFILE_HEALTHTEXT_NONE"], ["health", "COMPACT_UNIT_FRAME_PROFILE_HEALTHTEXT_HEALTH"], ["losthealth", "COMPACT_UNIT_FRAME_PROFILE_HEALTHTEXT_LOSTHEALTH"], ["perc", "COMPACT_UNIT_FRAME_PROFILE_HEALTHTEXT_PERC"]]),
+    heading("PVP_FRAMES_LABEL"),
+    check("pvpFramesDisplayPowerBars", "PVP_COMPACT_UNIT_FRAME_PROFILE_DISPLAYPOWERBAR", "OPTION_TOOLTIP_PVP_COMPACT_UNIT_FRAME_PROFILE_DISPLAYPOWERBAR"),
+    check("pvpFramesDisplayOnlyHealerPowerBars", "PVP_COMPACT_UNIT_FRAME_PROFILE_DISPLAYONLYHEALERPOWERBARS", "OPTION_TOOLTIP_PVP_COMPACT_UNIT_FRAME_PROFILE_DISPLAYONLYHEALERPOWERBARS"),
+    check("pvpFramesDisplayClassColor", "PVP_COMPACT_UNIT_FRAME_PROFILE_USECLASSCOLORS", "OPTION_TOOLTIP_PVP_COMPACT_UNIT_FRAME_PROFILE_USECLASSCOLORS"),
+    check("pvpOptionDisplayPets", "PVP_COMPACT_UNIT_FRAME_PROFILE_DISPLAYPETS", "OPTION_TOOLTIP_PVP_COMPACT_UNIT_FRAME_PROFILE_DISPLAYPETS"),
+    pick("pvpFramesHealthText", "PVP_COMPACT_UNIT_FRAME_PROFILE_HEALTHTEXT", "OPTION_TOOLTIP_PVP_COMPACT_UNIT_FRAME_PROFILE_HEALTHTEXT", [["none", "COMPACT_UNIT_FRAME_PROFILE_HEALTHTEXT_NONE"], ["health", "COMPACT_UNIT_FRAME_PROFILE_HEALTHTEXT_HEALTH"], ["losthealth", "COMPACT_UNIT_FRAME_PROFILE_HEALTHTEXT_LOSTHEALTH"], ["perc", "COMPACT_UNIT_FRAME_PROFILE_HEALTHTEXT_PERC"]]),
+    heading("SETTINGS_MAP_COORDS_SECTION"),
+    check("worldMapShowPlayerCoords", "SETTINGS_PLAYER_MAP_COORDS", "SETTINGS_PLAYER_MAP_COORDS_TOOLTIP"),
+    check("worldMapShowCursorCoords", "SETTINGS_CURSOR_MAP_COORDS", "SETTINGS_CURSOR_MAP_COORDS_TOOLTIP"),
+    check("minimapShowPlayerCoords", "SETTINGS_MINIMAP_PLAYER_COORDS", "SETTINGS_MINIMAP_PLAYER_COORDS_TOOLTIP"),
+    check("coordsByTenths", "SETTINGS_COORDS_BY_TENTHS", "SETTINGS_COORDS_BY_TENTHS_TOOLTIP")
+  ]
+}
+
+public const ACTION_BARS: GamePage = {
+  label: "ACTIONBARS_LABEL",
+  rows: [
+    check("lockActionBars", "LOCK_ACTIONBAR_TEXT", "OPTION_TOOLTIP_LOCK_ACTIONBAR"),
+    check("countdownForCooldowns", "COUNTDOWN_FOR_COOLDOWNS_TEXT", "OPTION_TOOLTIP_COUNTDOWN_FOR_COOLDOWNS")
+  ]
+}
+
+public const COMBAT: GamePage = {
+  label: "COMBAT_LABEL",
+  rows: [
+    check("nameplateShowSelf", "DISPLAY_PERSONAL_RESOURCE", "OPTION_TOOLTIP_DISPLAY_PERSONAL_RESOURCE"),
+    check("occludedSilhouettePlayer", "SHOW_SILHOUETTE_OPTION", "OPTION_TOOLTIP_SHOW_SILHOUETTE"),
+    check("showTargetOfTarget", "SHOW_TARGET_OF_TARGET_TEXT", "OPTION_TOOLTIP_SHOW_TARGET_OF_TARGET"),
+    check("doNotFlashLowHealthWarning", "FLASH_LOW_HEALTH_WARNING", "OPTION_TOOLTIP_FLASH_LOW_HEALTH_WARNING"),
+    check("lossOfControl", "LOSS_OF_CONTROL", "OPTION_TOOLTIP_LOSS_OF_CONTROL"),
+    check("enableFloatingCombatText", "SHOW_COMBAT_TEXT_TEXT", "OPTION_TOOLTIP_SHOW_COMBAT_TEXT"),
+    pick("floatingCombatTextFloatMode_v2", "COMBAT_TEXT_FLOAT_MODE_LABEL", "OPTION_TOOLTIP_COMBAT_TEXT_MODE", [["1", "COMBAT_TEXT_SCROLL_UP"], ["2", "COMBAT_TEXT_SCROLL_DOWN"], ["3", "COMBAT_TEXT_SCROLL_ARC"]]),
+    check("enableMouseoverCast", "ENABLE_MOUSEOVER_CAST", "OPTION_TOOLTIP_ENABLE_MOUSEOVER_CAST"),
+    check("autoSelfCast", "AUTO_SELF_CAST_TEXT", "OPTION_TOOLTIP_AUTO_SELF_CAST"),
+    pick("empowerTapControls", "SETTING_EMPOWERED_SPELL_INPUT", "SETTING_EMPOWERED_SPELL_INPUT_TOOLTIP", [["0", "SETTING_EMPOWERED_SPELL_INPUT_HOLD_OPTION"], ["1", "SETTING_EMPOWERED_SPELL_INPUT_TAP_OPTION"]]),
+    slider("spellActivationOverlayOpacity", "SPELL_ALERT_OPACITY", "OPTION_TOOLTIP_SPELL_ALERT_OPACITY", 0, 1, 0.05),
+    check("ActionButtonUseKeyHeldSpell", "PRESS_AND_HOLD_CASTING_OPTION", "PRESS_AND_HOLD_CASTING_OPTION_TOOLTIP"),
+    flagged("softTargetEnemy", "ACTION_TARGETING_OPTION", "OPTION_TOOLTIP_ACTION_TARGETING", "3", "1"),
+    check("autoRangedCombat", "AUTO_RANGED_COMBAT_TEXT", "OPTION_TOOLTIP_AUTO_RANGED_COMBAT")
+  ]
+}
+
+public const SOCIAL: GamePage = {
+  label: "SOCIAL_LABEL",
+  rows: [
+    check("profanityFilter", "PROFANITY_FILTER", "OPTION_TOOLTIP_PROFANITY_FILTER"),
+    check("guildMemberNotify", "GUILDMEMBER_ALERT", "OPTION_TOOLTIP_GUILDMEMBER_ALERT"),
+    check("blockTrades", "BLOCK_TRADES", "OPTION_TOOLTIP_BLOCK_TRADES"),
+    check("restrictCalendarInvites", "RESTRICT_CALENDAR_INVITES", "OPTION_TOOLTIP_RESTRICT_CALENDAR_INVITES"),
+    check("blockChannelInvites", "BLOCK_CHAT_CHANNEL_INVITE", "OPTION_TOOLTIP_BLOCK_CHAT_CHANNEL_INVITE"),
+    check("showToastOnline", "SHOW_TOAST_ONLINE_TEXT", "OPTION_TOOLTIP_SHOW_TOAST_ONLINE"),
+    check("showToastOffline", "SHOW_TOAST_OFFLINE_TEXT", "OPTION_TOOLTIP_SHOW_TOAST_OFFLINE"),
+    check("showToastFriendRequest", "SHOW_TOAST_FRIEND_REQUEST_TEXT", "OPTION_TOOLTIP_SHOW_TOAST_FRIEND_REQUEST"),
+    check("autoAcceptQuickJoinRequests", "AUTO_ACCEPT_QUICK_JOIN_TEXT", "OPTION_TOOLTIP_AUTO_ACCEPT_QUICK_JOIN"),
+    pick("chatStyle", "CHAT_STYLE", "OPTION_TOOLTIP_CHAT_STYLE", [["im", "IM_STYLE"], ["classic", "CLASSIC_STYLE"]]),
+    pick("whisperMode", "WHISPER_MODE", "OPTION_TOOLTIP_WHISPER_MODE", [["popout", "CONVERSATION_MODE_POPOUT"], ["inline", "CONVERSATION_MODE_INLINE"], ["popout_and_inline", "CONVERSATION_MODE_POPOUT_AND_INLINE"]]),
+    pick("showTimestamps", "TIMESTAMPS_LABEL", "OPTION_TOOLTIP_TIMESTAMPS", [["none", "TIMESTAMP_FORMAT_NONE"], ["%I:%M ", "03:27"], ["%I:%M:%S ", "03:27:32"], ["%I:%M %p ", "03:27 PM"], ["%I:%M:%S %p ", "03:27:32 PM"], ["%H:%M ", "15:27"], ["%H:%M:%S ", "15:27:32"]])
+  ]
+}
+
+public const NAMEPLATES: GamePage = {
+  label: "NAMEPLATE_OPTIONS_LABEL",
+  rows: [
+    heading("NAMES_LABEL"),
+    check("UnitNameOwn", "UNIT_NAME_OWN", "OPTION_TOOLTIP_UNIT_NAME_OWN"),
+    check("UnitNameNonCombatCreatureName", "UNIT_NAME_NONCOMBAT_CREATURE", "OPTION_TOOLTIP_UNIT_NAME_NONCOMBAT_CREATURE"),
+    check("UnitNameFriendlyPlayerName", "UNIT_NAME_FRIENDLY", "OPTION_TOOLTIP_UNIT_NAME_FRIENDLY"),
+    check("UnitNameFriendlyMinionName", "UNIT_NAME_FRIENDLY_MINIONS", "OPTION_TOOLTIP_UNIT_NAME_FRIENDLY_MINIONS"),
+    check("UnitNameEnemyPlayerName", "UNIT_NAME_ENEMY", "OPTION_TOOLTIP_UNIT_NAME_ENEMY"),
+    check("UnitNameEnemyMinionName", "UNIT_NAME_ENEMY_MINIONS", "OPTION_TOOLTIP_UNIT_NAME_ENEMY_MINIONS"),
+    heading("NAMEPLATES_LABEL"),
+    check("nameplateShowAll", "UNIT_NAMEPLATES_AUTOMODE", "OPTION_TOOLTIP_UNIT_NAMEPLATES_AUTOMODE"),
+    check("nameplateShowEnemies", "UNIT_NAMEPLATES_SHOW_ENEMIES", "OPTION_TOOLTIP_UNIT_NAMEPLATES_SHOW_ENEMIES"),
+    check("nameplateShowEnemyMinions", "UNIT_NAMEPLATES_SHOW_ENEMY_MINIONS", "OPTION_TOOLTIP_UNIT_NAMEPLATES_SHOW_ENEMY_MINIONS"),
+    check("nameplateShowEnemyMinus", "UNIT_NAMEPLATES_SHOW_ENEMY_MINUS", "OPTION_TOOLTIP_UNIT_NAMEPLATES_SHOW_ENEMY_MINUS"),
+    check("nameplateShowFriendlyPlayers", "UNIT_NAMEPLATES_SHOW_FRIENDS", "OPTION_TOOLTIP_UNIT_NAMEPLATES_SHOW_FRIENDS"),
+    check("nameplateShowFriendlyPlayerMinions", "UNIT_NAMEPLATES_SHOW_FRIENDLY_MINIONS", "OPTION_TOOLTIP_UNIT_NAMEPLATES_SHOW_FRIENDLY_MINIONS"),
+    check("nameplateShowOnlyNameForFriendlyPlayerUnits", "UNIT_NAMEPLATES_FRIENDLY_PLAYER_SHOW_ONLY_NAME", "OPTION_TOOLTIP_UNIT_NAMEPLATES_FRIENDLY_PLAYER_SHOW_ONLY_NAME"),
+    check("nameplateUseClassColorForFriendlyPlayerUnitNames", "UNIT_NAMEPLATES_FRIENDLY_PLAYER_NAME_USE_CLASS_COLOR", "OPTION_TOOLTIP_UNIT_NAMEPLATES_FRIENDLY_PLAYER_NAME_USE_CLASS_COLOR"),
+    check("nameplateShowFriendlyNpcs", "UNIT_NAMEPLATES_SHOW_FRIENDLY_NPCS", "UNIT_NAMEPLATES_SHOW_FRIENDLY_NPCS_TOOLTIP"),
+    check("nameplateShowOffscreen", "UNIT_NAMEPLATES_SHOW_OFFSCREEN", "UNIT_NAMEPLATES_SHOW_OFFSCREEN_TOOLTIP"),
+    slider("nameplateSize", "UNIT_NAMEPLATES_GLOBAL_SCALE", "OPTION_TOOLTIP_UNIT_NAMEPLATES_GLOBAL_SCALE", 1, 3, 1),
+    slider("nameplateAuraScale", "UNIT_NAMEPLATES_DEBUFF_SCALE", "OPTION_TOOLTIP_UNIT_NAMEPLATES_DEBUFF_SCALE", 0.5, 2, 0.1),
+    pick("nameplateStyle", "UNIT_NAMEPLATES_STYLE", "UNIT_NAMEPLATES_STYLE_TOOLTIP", [["1", "UNIT_NAMEPLATES_STYLE_THIN"], ["0", "UNIT_NAMEPLATES_STYLE_MODERN"], ["2", "UNIT_NAMEPLATES_STYLE_BLOCK"], ["4", "UNIT_NAMEPLATES_STYLE_CAST_FOCUS"]]),
+    slider("nameplateDebuffPadding", "UNIT_NAMEPLATES_DEBUFF_PADDING", "OPTION_TOOLTIP_UNIT_NAMEPLATES_DEBUFF_PADDING", 0, 10, 1)
+  ]
+}
+
+public const ACCESSIBILITY: GamePage = {
+  label: "ACCESSIBILITY_GENERAL_LABEL",
+  rows: [
+    check("enableMovePad", "MOVE_PAD", "OPTION_TOOLTIP_MOVE_PAD"),
+    check("overrideScreenFlash", "ALTERNATE_SCREEN_EFFECTS", "OPTION_TOOLTIP_ALTERNATE_SCREEN_EFFECTS"),
+    slider("WorldTextMinSize", "MINIMUM_CHARACTER_NAME_SIZE_TEXT", "OPTION_TOOLTIP_MINIMUM_CHARACTER_NAME_SIZE", 0, 64, 2),
+    choice("MOTION_SICKNESS_CHECKBOX", "OPTION_TOOLTIP_MOTION_SICKNESS_CHECKBOX", [
+      option("VIDEO_OPTIONS_DISABLED", [write("CameraKeepCharacterCentered", "1"), write("CameraReduceUnexpectedMovement", "0")]),
+      option("VIDEO_OPTIONS_ENABLED", [write("CameraKeepCharacterCentered", "0"), write("CameraReduceUnexpectedMovement", "1")])
+    ]),
+    choice("ADJUST_MOTION_SICKNESS_SHAKE", "OPTION_TOOLTIP_ADJUST_MOTION_SICKNESS_SHAKE", [
+      option("SHAKE_INTENSITY_NONE", [write("ShakeStrengthCamera", "0"), write("ShakeStrengthUI", "0")]),
+      option("SHAKE_INTENSITY_REDUCED", [write("ShakeStrengthCamera", "0.25"), write("ShakeStrengthUI", "0.25")]),
+      option("SHAKE_INTENSITY_FULL", [write("ShakeStrengthCamera", "1"), write("ShakeStrengthUI", "1")])
+    ]),
+    pick("cursorSizePreferred", "CURSOR_SIZE", "CURSOR_SIZE_TOOLTIP", [["-1", "CURSOR_SIZE_DEFAULT"], ["0", "32x32"], ["1", "48x48"], ["2", "64x64"], ["3", "96x96"], ["4", "128x128"]]),
+    choice("TARGET_TOOLTIP_OPTION", "OPTION_TOOLTIP_TARGET_TOOLTIP", [
+      option("VIDEO_OPTIONS_DISABLED", [write("SoftTargetTooltipEnemy", "0"), write("SoftTargetTooltipInteract", "0")]),
+      option("VIDEO_OPTIONS_ENABLED", [write("SoftTargetTooltipEnemy", "1"), write("SoftTargetTooltipInteract", "1")])
+    ]),
+    choice("INTERACT_ICONS_OPTION", "OPTION_TOOLTIP_INTERACT_ICONS", [
+      option("INTERACT_ICONS_DEFAULT", [write("SoftTargetIconEnemy", "0"), write("SoftTargetIconInteract", "1"), write("SoftTargetIconGameObject", "0"), write("SoftTargetLowPriorityIcons", "0")]),
+      option("INTERACT_ICONS_SHOW_ALL", [write("SoftTargetIconEnemy", "1"), write("SoftTargetIconInteract", "1"), write("SoftTargetIconGameObject", "1"), write("SoftTargetLowPriorityIcons", "1")]),
+      option("INTERACT_ICONS_SHOW_NONE", [write("SoftTargetIconEnemy", "0"), write("SoftTargetIconInteract", "0"), write("SoftTargetIconGameObject", "0"), write("SoftTargetLowPriorityIcons", "0")])
+    ]),
+    heading("COLORBLIND_LABEL"),
+    check("colorblindMode", "USE_COLORBLIND_MODE", "OPTION_TOOLTIP_USE_COLORBLIND_MODE"),
+    pick("colorblindSimulator", "COLORBLIND_FILTER", "OPTION_TOOLTIP_COLORBLIND_FILTER", [["0", "COLORBLIND_OPTION_NONE"], ["1", "COLORBLIND_OPTION_PROTANOPIA"], ["2", "COLORBLIND_OPTION_DEUTERANOPIA"], ["3", "COLORBLIND_OPTION_TRITANOPIA"]]),
+    slider("colorblindWeaknessFactor", "ADJUST_COLORBLIND_STRENGTH", "OPTION_TOOLTIP_ADJUST_COLORBLIND_STRENGTH", 0, 1, 0.05),
+    heading("CINEMATIC_SUBTITLES_OPTIONS_HEADER"),
+    check("movieSubtitle", "CINEMATIC_SUBTITLES", "OPTION_TOOLTIP_CINEMATIC_SUBTITLES"),
+    heading("SCREEN_NARRATOR"),
+    check("accessibilityScreenNarrationEnabled", "ENABLE_SCREEN_NARRATOR", "OPTION_TOOLTIP_ENABLE_SCREEN_NARRATOR"),
+    slider("accessibilityScreenNarrationSpeechRate", "SCREEN_NARRATOR_SPEECH_RATE", "OPTION_TOOLTIP_SCREEN_NARRATOR_SPEECH_RATE", -10, 10, 1),
+    slider("accessibilityScreenNarrationSpeechVolume", "SCREEN_NARRATOR_SPEECH_VOLUME", "OPTION_TOOLTIP_SCREEN_NARRATOR_SPEECH_VOLUME", 0, 100, 1)
+  ]
+}
+
+public const GRAPHICS: GamePage = {
+  label: "GRAPHICS_LABEL",
+  rows: [
+    pick("LowLatencyMode", "LOW_LATENCY_MODE", "OPTION_TOOLTIP_LOW_LATENCY_MODE", [["0", "VIDEO_OPTIONS_DISABLED"], ["1", "VIDEO_OPTIONS_BUILTIN"], ["2", "VIDEO_OPTIONS_BUILTIN_BOOST"]]),
+    slider("cameraFov", "FIELD_OF_VIEW", "OPTION_TOOLTIP_FIELD_OF_VIEW", 50, 90, 1),
+    slider("graphicsQuality", "BASE_GRAPHICS_QUALITY", "OPTION_TOOLTIP_GRAPHICS_QUALITY", 1, 10, 1),
+    pick("graphicsShadowQuality", "SHADOW_QUALITY", "OPTION_TOOLTIP_SHADOW_QUALITY", [["0", "VIDEO_OPTIONS_LOW"], ["1", "VIDEO_OPTIONS_FAIR"], ["2", "VIDEO_OPTIONS_MEDIUM"], ["3", "VIDEO_OPTIONS_HIGH"], ["4", "VIDEO_OPTIONS_ULTRA"], ["5", "VIDEO_OPTIONS_ULTRA_HIGH"]]),
+    pick("graphicsLiquidDetail", "LIQUID_DETAIL", "OPTION_TOOLTIP_LIQUID_DETAIL", [["0", "VIDEO_OPTIONS_LOW"], ["1", "VIDEO_OPTIONS_FAIR"], ["2", "VIDEO_OPTIONS_MEDIUM"], ["3", "VIDEO_OPTIONS_HIGH"]]),
+    pick("graphicsParticleDensity", "PARTICLE_DENSITY", "OPTION_TOOLTIP_PARTICLE_DENSITY", QUALITY_5),
+    pick("graphicsSSAO", "SSAO_LABEL", "OPTION_TOOLTIP_SSAO", [["0", "VIDEO_OPTIONS_DISABLED"], ["1", "VIDEO_OPTIONS_LOW"], ["2", "VIDEO_OPTIONS_MEDIUM"], ["3", "VIDEO_OPTIONS_HIGH"], ["4", "VIDEO_OPTIONS_ULTRA"]]),
+    pick("graphicsDepthEffects", "DEPTH_EFFECTS", "OPTION_TOOLTIP_DEPTH_EFFECTS", [["0", "VIDEO_OPTIONS_DISABLED"], ["1", "VIDEO_OPTIONS_LOW"], ["2", "VIDEO_OPTIONS_MEDIUM"], ["3", "VIDEO_OPTIONS_HIGH"]]),
+    pick("graphicsComputeEffects", "COMPUTE_EFFECTS", "OPTION_TOOLTIP_COMPUTE_EFFECTS", QUALITY_5),
+    pick("graphicsOutlineMode", "OUTLINE_MODE", "OPTION_TOOLTIP_OUTLINE_MODE", [["0", "VIDEO_OPTIONS_DISABLED"], ["1", "VIDEO_OPTIONS_MEDIUM"], ["2", "VIDEO_OPTIONS_HIGH"]]),
+    pick("graphicsTextureResolution", "TEXTURE_DETAIL", "OPTION_TOOLTIP_TEXTURE_DETAIL", [["0", "VIDEO_OPTIONS_LOW"], ["1", "VIDEO_OPTIONS_FAIR"], ["2", "VIDEO_OPTIONS_HIGH"]]),
+    pick("graphicsSpellDensity", "SPELL_DENSITY", "OPTION_TOOLTIP_SPELL_DENSITY", [["0", "VIDEO_OPTIONS_SFX_DENSITY_MIN"], ["1", "VIDEO_OPTIONS_SFX_DENSITY_REDUCED"], ["2", "VIDEO_OPTIONS_SFX_DENSITY_FULL"]]),
+    pick("graphicsProjectedTextures", "PROJECTED_TEXTURES", "OPTION_TOOLTIP_PROJECTED_TEXTURES", ON_OFF),
+    slider("graphicsViewDistance", "FARCLIP", "OPTION_TOOLTIP_FARCLIP", 0, 9, 1),
+    slider("graphicsEnvironmentDetail", "ENVIRONMENT_DETAIL", "OPTION_TOOLTIP_ENVIRONMENT_DETAIL", 0, 9, 1),
+    slider("graphicsGroundClutter", "GROUND_CLUTTER", "OPTION_TOOLTIP_GROUND_CLUTTER", 0, 9, 1),
+    heading("ADVANCED_LABEL"),
+    pick("textureFilteringMode", "ANISOTROPIC", "OPTION_TOOLTIP_ANISOTROPIC", [["0", "VIDEO_OPTIONS_BILINEAR"], ["1", "VIDEO_OPTIONS_TRILINEAR"], ["2", "VIDEO_OPTIONS_2XANISOTROPIC"], ["3", "VIDEO_OPTIONS_4XANISOTROPIC"], ["4", "VIDEO_OPTIONS_8XANISOTROPIC"], ["5", "VIDEO_OPTIONS_16XANISOTROPIC"]]),
+    pick("ResampleQuality", "RESAMPLE_QUALITY", "OPTION_TOOLTIP_RESAMPLE_QUALITY", [["0", "RESAMPLE_QUALITY_POINT"], ["1", "RESAMPLE_QUALITY_BILINEAR"], ["2", "RESAMPLE_QUALITY_BICUBIC"], ["3", "RESAMPLE_QUALITY_FSR"]]),
+    pick("physicsLevel", "PHYSICS_INTERACTION", "OPTION_TOOLTIP_PHYSICS_INTERACTION", [["0", "NO_ENVIRONMENT_INTERACTION"], ["1", "PLAYER_ONLY_INTERACTION"], ["2", "PLAYER_AND_NPC_INTERACTION"]]),
+    slider("Contrast", "OPTION_CONTRAST", "OPTION_TOOLTIP_CONTRAST", 0, 100, 1),
+    slider("Brightness", "OPTIONS_BRIGHTNESS", "OPTION_TOOLTIP_BRIGHTNESS", 0, 100, 1),
+    slider("Gamma", "GAMMA", "OPTION_TOOLTIP_GAMMA", 0.3, 2.8, 0.1)
+  ]
+}
+
+public const AUDIO: GamePage = {
+  label: "AUDIO_LABEL",
+  rows: [
+    check("Sound_EnableAllSound", "ENABLE_SOUND", "OPTION_TOOLTIP_ENABLE_SOUND"),
+    slider("Sound_MasterVolume", "MASTER_VOLUME", "OPTION_TOOLTIP_MASTER_VOLUME", 0, 1, 0.05),
+    slider("Sound_MusicVolume", "MUSIC_VOLUME", "OPTION_TOOLTIP_MUSIC_VOLUME", 0, 1, 0.05),
+    slider("Sound_SFXVolume", "FX_VOLUME", "OPTION_TOOLTIP_FX_VOLUME", 0, 1, 0.05),
+    slider("Sound_AmbienceVolume", "AMBIENCE_VOLUME", "OPTION_TOOLTIP_AMBIENCE_VOLUME", 0, 1, 0.05),
+    slider("Sound_DialogVolume", "DIALOG_VOLUME", "OPTION_TOOLTIP_DIALOG_VOLUME", 0, 1, 0.05),
+    check("Sound_EnableMusic", "ENABLE_MUSIC", "OPTION_TOOLTIP_ENABLE_MUSIC"),
+    check("Sound_ZoneMusicNoDelay", "ENABLE_MUSIC_LOOPING", "OPTION_TOOLTIP_ENABLE_MUSIC_LOOPING"),
+    check("Sound_EnableSFX", "ENABLE_SOUNDFX", "OPTION_TOOLTIP_ENABLE_SOUNDFX"),
+    check("Sound_EnablePetSounds", "ENABLE_PET_SOUNDS", "OPTION_TOOLTIP_ENABLE_PET_SOUNDS"),
+    check("Sound_EnableEmoteSounds", "ENABLE_EMOTE_SOUNDS", "OPTION_TOOLTIP_ENABLE_EMOTE_SOUNDS"),
+    check("Sound_EnableDialog", "ENABLE_DIALOG", "OPTION_TOOLTIP_ENABLE_DIALOG"),
+    check("Sound_EnableErrorSpeech", "ENABLE_ERROR_SPEECH", "OPTION_TOOLTIP_ENABLE_ERROR_SPEECH"),
+    check("Sound_EnableAmbience", "ENABLE_AMBIENCE", "OPTION_TOOLTIP_ENABLE_AMBIENCE"),
+    check("Sound_EnableSoundWhenGameIsInBG", "ENABLE_BGSOUND", "OPTION_TOOLTIP_ENABLE_BGSOUND"),
+    check("Sound_EnableReverb", "ENABLE_REVERB", "OPTION_TOOLTIP_ENABLE_REVERB"),
+    check("Sound_EnablePositionalLowPassFilter", "ENABLE_SOFTWARE_HRTF", "OPTION_TOOLTIP_ENABLE_SOFTWARE_HRTF"),
+    slider("Sound_NumChannels", "AUDIO_CHANNELS", "OPTION_TOOLTIP_AUDIO_CHANNELS", 32, 128, 32)
+  ]
+}
+
+public const NETWORK: GamePage = {
+  label: "NETWORK_LABEL",
+  rows: [
+    check("advancedCombatLogging", "ADVANCED_COMBAT_LOGGING", "OPTION_TOOLTIP_ADVANCED_COMBAT_LOGGING"),
+    check("disableServerNagle", "OPTIMIZE_NETWORK_SPEED", "OPTION_TOOLTIP_OPTIMIZE_NETWORK_SPEED"),
+    check("useIPv6", "USEIPV6", "OPTION_TOOLTIP_USEIPV6")
+  ]
+}
+
+// Forever's own page (the experience's preset): what Classic or Enhanced chose, each changed on its own.
+public const PRESET: GamePage = {
+  label: "PRESET_LABEL",
+  rows: [
+    check("combinedBags", "USE_COMBINED_BAGS_TEXT", "OPTION_TOOLTIP_USE_COMBINED_BAGS"),
+    check("questPOI", "OPTIONS_MENU_QUEST_POIS_TEXT", "OPTIONS_MENU_QUEST_POIS_TOOLTIP"),
+    check("showToastWindow", "SHOW_TOAST_WINDOW_TEXT", "OPTION_TOOLTIP_SHOW_TOAST_WINDOW")
+  ]
+}
+
+// Every page, in the game's order: the game's settings, then the system's.
+public const GAME_PAGES: Array<GamePage> = [CONTROLS, INTERFACE, ACTION_BARS, COMBAT, SOCIAL, NAMEPLATES, ACCESSIBILITY, PRESET, GRAPHICS, AUDIO, NETWORK]
+
+// Every CVar a page writes, once each, in the order the pages name them: what a profile keeps and applies, in that
+// order (the graphics' overall quality before the qualities it sets).
+public const function cvarsOf(pages: Array<GamePage>): Array<String> {
+  const list: Array<String> = []
+  const seen: Map<String, Boolean> = {}
+  for (page of pages) {
+    for (row of page.rows) {
+      for (name of namesOf(row)) {
+        if (seen[name] == nil) {
+          seen[name] = true
+          list.push(name)
+        }
+      }
+    }
+  }
+  return list
+}
+
+const function namesOf(row: GameRow): Array<String> {
+  const list: Array<String> = []
+  if (row is GameRow.Toggle) {
+    list.push(row.cvar)
+  } else if (row is GameRow.Slider) {
+    list.push(row.cvar)
+    for (follower of row.followers) { list.push(follower.cvar) }
+  } else if (row is GameRow.Choice) {
+    for (offered of row.options) {
+      for (written of offered.writes) {
+        if (!list.any(n => n == written.cvar)) { list.push(written.cvar) }
+      }
+    }
+  }
+  return list
+}
+
+public const GAME_CVARS: Array<String> = cvarsOf(GAME_PAGES)

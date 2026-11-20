@@ -1,0 +1,186 @@
+// The game's own settings kept per profile: taken from the game at first, written by the pages' controls, applied at
+// login and at a switch (after its question), held while the player fights, back to the game's defaults; the key
+// bindings bound, kept and applied over the client's set in use; Esc → Options opening Ordaen's window.
+import Client from "$client"
+import Events from "$events"
+import Test from "$test"
+import root Ordaen from "Ordaen"
+import { CONTROLS, GRAPHICS } from "@/gameCatalogue"
+import { BindingsPage, GamePageView } from "@/gamePage"
+import { Keeping } from "@/gameSettings"
+import Locale from "@/locales"
+import { ProfileName } from "@/profiles"
+
+const PAGE: Test.Page = { left: 10, top: 10, width: 1100, height: 1400 }
+const SCREEN: Test.Page = { left: 0, top: 0, width: 1600, height: 1000, screen: true }
+
+function cvar(name: String): String {
+  return Client.C_CVar.GetCVar(name) ?? ""
+}
+
+// A second profile, made and switched to: it takes the game's settings as they are.
+function switchTo(name: ProfileName) {
+  _ = Ordaen.keeper.profiles.make(name, nil)
+  Ordaen.keeper.profiles.use(name)
+  Test.flush()
+}
+
+test "a profile that never held the game's settings takes them as the game has them, changing none" {
+  Test.mount(nil, SCREEN)
+  Test.cvar("autoLootDefault", "1")
+  switchTo("Raid")
+  const values = Ordaen.game.settings.values
+  Test.expect(values.taken)
+  Test.expect(values.cvars["autoLootDefault"] == "1")
+  // A CVar at its default isn't kept: the profile holds what it sets apart.
+  Test.expect(values.cvars["autoClearAFK"] == nil)
+  Test.expect(cvar("autoLootDefault") == "1")
+  Test.expect(!Ordaen.game.asking)
+}
+
+test "a page's checkbox writes its CVar at once and keeps it in the profile; a negated one writes the other value" {
+  const page = new GamePageView(CONTROLS, mut Ordaen.game)
+  Test.mount(page, PAGE)
+  // The stand-in has none of the client's texts: a label is its text's name.
+  Test.page().button("AUTO_LOOT_DEFAULT_TEXT").click()
+  Test.expect(cvar("autoLootDefault") == "1")
+  Test.expect(Ordaen.game.settings.values.cvars["autoLootDefault"] == "1")
+  // Sticky targeting is ticked while `deselectOnClick` is off.
+  Test.page().button("GAMEFIELD_DESELECT_TEXT").click()
+  Test.expect(cvar("deselectOnClick") == "0")
+  // Back to its default: nothing kept for it.
+  Test.page().button("GAMEFIELD_DESELECT_TEXT").click()
+  Test.expect(Ordaen.game.settings.values.cvars["deselectOnClick"] == nil)
+  Test.shot("the controls' page: the profile's switch, the game's defaults, the rows")
+}
+
+test "a slider moves the CVar that follows it: the mouse look's pitch at half its yaw" {
+  Ordaen.game.write([{ cvar: "cameraYawMoveSpeed", value: "240" }, { cvar: "cameraPitchMoveSpeed", value: "120" }])
+  Test.expect(cvar("cameraPitchMoveSpeed") == "120")
+  const page = new GamePageView(CONTROLS, mut Ordaen.game)
+  Test.mount(page, PAGE)
+  Test.shot("the mouse look speed shows 240")
+}
+
+test "a switch to a profile that sets the game otherwise asks first: applied, or the game's kept in its place" {
+  Test.mount(nil, SCREEN)
+  switchTo("Raid")
+  Ordaen.game.write([{ cvar: "Sound_MusicVolume", value: "0.1" }])
+  Ordaen.keeper.profiles.use("Default")
+  Test.flush()
+  Test.expect(Ordaen.game.asking)
+  Test.expect(cvar("Sound_MusicVolume") == "0.1")
+  Test.shot("the question: what the profile changes, from what the game has to what it holds")
+  Test.page().button(Locale.GAME_APPLY).click()
+  Test.expect(cvar("Sound_MusicVolume") == "0.4")
+  Test.expect(!Ordaen.game.asking)
+
+  // Back to «Raid», keeping the game's: «Raid» holds them from now on.
+  Ordaen.keeper.profiles.use("Raid")
+  Test.flush()
+  Test.page().button(Locale.GAME_KEEP_GAME).click()
+  Test.expect(cvar("Sound_MusicVolume") == "0.4")
+  Test.expect(Ordaen.game.settings.values.cvars["Sound_MusicVolume"] == nil)
+}
+
+test "at login the profile's settings are applied as they are, with no question" {
+  Test.mount(nil, SCREEN)
+  Ordaen.game.write([{ cvar: "showTimestamps", value: "%H:%M " }])
+  Ordaen.keeper.profiles.pack()
+  // The game's own window changed it in the meantime (another addon, another computer).
+  _ = Client.C_CVar.SetCVar("showTimestamps", "none")
+  Test.reload()
+  Test.flush()
+  Test.expect(cvar("showTimestamps") == "%H:%M ")
+  Test.expect(!Ordaen.game.asking)
+}
+
+test "in a fight an apply waits for the fight's end, and the page says so" {
+  Test.mount(nil, SCREEN)
+  switchTo("Raid")
+  Ordaen.game.write([{ cvar: "nameplateShowEnemies", value: "0" }])
+  Ordaen.keeper.profiles.use("Default")
+  Test.flush()
+  Test.combat(true)
+  Test.page().button(Locale.GAME_APPLY).click()
+  Test.expect(cvar("nameplateShowEnemies") == "0")
+  Test.expect(Ordaen.game.waiting)
+  Test.combat(false)
+  Events.PLAYER_REGEN_ENABLED.emit()
+  Test.flush()
+  Test.expect(cvar("nameplateShowEnemies") == "1")
+  Test.expect(!Ordaen.game.waiting)
+}
+
+test "a CVar the client holds in a fight has its control disabled then; where the client keeps each is said" {
+  Test.expect(Ordaen.game.keeping("autoLootDefault") == Keeping.Account)
+  Test.expect(Ordaen.game.keeping("lockActionBars") == Keeping.Character)
+  Test.expect(Ordaen.game.keeping("Sound_MusicVolume") == Keeping.Game)
+  Test.expect(Ordaen.game.keeping("portal") == Keeping.Refused)
+  Test.expect(Ordaen.game.held("nameplateShowEnemies"))
+  Test.combat(true)
+  const page = new GamePageView(GRAPHICS, mut Ordaen.game)
+  Test.mount(page, PAGE)
+  Test.shot("graphics in a fight: the game's defaults disabled")
+  Test.combat(false)
+}
+
+test "the game's defaults: every CVar back, the default keys over the set in use, the profile keeping none apart" {
+  Ordaen.game.write([{ cvar: "Sound_MusicVolume", value: "0.1" }, { cvar: "autoLootDefault", value: "1" }])
+  _ = Client.SetBinding("F", "JUMP", nil)
+  Ordaen.game.resetDefaults()
+  Test.expect(cvar("Sound_MusicVolume") == "0.4")
+  Test.expect(cvar("autoLootDefault") == "0")
+  const first, _ = Client.GetBindingKey("JUMP")
+  Test.expect(first == nil)
+  let kept = 0
+  for (name, _ of Ordaen.game.settings.values.cvars) {
+    Test.note(`still kept: ${name}`)
+    kept += 1
+  }
+  Test.expect(kept == 0)
+}
+
+test "a key is bound on the bindings page, kept into the set in use and in the profile, and applied at a switch" {
+  const page = new BindingsPage(mut Ordaen.game)
+  Test.mount(page, PAGE)
+  Ordaen.game.ask("JUMP", 1)
+  Test.flush()
+  Test.shot("asking for Jump's key")
+  Ordaen.game.answer("SPACE")
+  const first, _ = Client.GetBindingKey("JUMP")
+  Test.expect(first == "SPACE")
+  const kept = Ordaen.game.settings.values.bindings["JUMP"] ?? []
+  Test.expect(kept[1] == "SPACE")
+  Ordaen.game.unbind("JUMP", 1)
+  const none, _ = Client.GetBindingKey("JUMP")
+  Test.expect(none == nil)
+  Test.expect(Ordaen.game.settings.values.bindings["JUMP"] == nil)
+}
+
+test "the character's own set of bindings: taken as the client's window takes it, the account's back after asking" {
+  const page = new BindingsPage(mut Ordaen.game)
+  Test.mount(page, PAGE)
+  Test.expect(Client.GetCurrentBindingSet() == 1)
+  Ordaen.game.useCharacterSet(true)
+  Test.expect(Client.GetCurrentBindingSet() == 2)
+  Test.expect(Ordaen.game.characterSet)
+  Ordaen.game.useCharacterSet(false)
+  Test.expect(Client.GetCurrentBindingSet() == 1)
+}
+
+test "the game's settings window shown opens Ordaen's at the game's pages; off, the game's stays" {
+  Test.mount(nil, SCREEN)
+  const panel = Client.CreateFrame("Frame", "SettingsPanel", nil, nil)
+  panel.Hide()
+  Events.ADDON_LOADED.emit("Blizzard_Settings", false)
+  Test.expect(Ordaen.game.hooked)
+  Client.ShowUIPanel(panel)
+  Test.flush()
+  Test.expect(!panel.IsShown())
+  Test.expect(Test.page().window(Locale.LIST_GAME).shown())
+  Ordaen.game.turn(false)
+  Client.ShowUIPanel(panel)
+  Test.flush()
+  Test.expect(panel.IsShown())
+}

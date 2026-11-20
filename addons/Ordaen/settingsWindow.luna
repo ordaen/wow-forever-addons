@@ -3,10 +3,13 @@
 // tab's rows, which are the module's own. Every change applies at once: the foot's «Точка» makes
 // a savepoint, and «Откатить» goes back to the step before the last change, to the session's start or to a savepoint.
 // Closing asks nothing.
-import { Align, Edges, Overflow, Position, Track } from "$ltml"
+import { Align, Art, Edges, Overflow, Position, Track } from "$ltml"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
 import { Dialog } from "@/dialog"
+import { GAME_PAGES } from "@/gameCatalogue"
+import { BindingsPage, GamePageView } from "@/gamePage"
+import { textOf } from "@/gameSettings"
 import { BehaviourPage, NumbersPage, ScalePage } from "@/general"
 import { POINTS_MOST, changeText, modulesText } from "@/keeper"
 import { ListTab } from "@/listTab"
@@ -35,6 +38,8 @@ const MIN_HEIGHT = 562.5dp
 const GENERAL = ""
 const LOOK = "look"
 const PROFILES = "profiles"
+// The game's own settings, a page of their own.
+public const GAME_PAGE = "game"
 
 // The question of a savepoint's profile name: as wide as its field, the room round it and its frame.
 const ASK_WIDTH = 567.1875dp
@@ -53,6 +58,8 @@ const HEADING: Edges = { top: 5sp, right: 5sp, bottom: 3sp, left: 5sp }
 // The footer: the placing mode at its left, a hint, «Точка» and «Откатить» at its right.
 const FOOT: Array<Track> = ["max-content", { fr: 1 }, "max-content"]
 const BACK_ROW: Array<Track> = ["max-content", "max-content"]
+// The game's own settings' entry in the list: a gear, as the game's Options.
+const GAME_ICON: Art = "Interface/Icons/INV_Misc_Gear_01"
 
 public class SettingsWindow implements Component {
   // The window, declared: where it stands and what the player does with it, kept in the profile.
@@ -65,6 +72,8 @@ public class SettingsWindow implements Component {
     { title: Locale.GLOBAL_TAB_BEHAVIOR, content: $ltml { <BehaviourPage globals={mut Ordaen.globals} /> } },
     { title: Locale.WINDOWS_TAB, content: $ltml { <WindowsPage windows={mut self.windows} /> } }
   ]
+  // The game's own settings: each of its pages, then its key bindings.
+  const gamePages: Array<SettingsPage> = self.gamePagesOf()
 
   state open = false
   // The page shown: Ordaen's own, its look, or a module's folder; and its tab.
@@ -109,6 +118,7 @@ public class SettingsWindow implements Component {
   derived onGeneral: Boolean = self.page == GENERAL
   derived onLook: Boolean = self.page == LOOK
   derived onProfiles: Boolean = self.page == PROFILES
+  derived onGame: Boolean = self.page == GAME_PAGE
   // The module whose page is shown, where it is a module's.
   derived entry: any Entry | nil = self.entryOf()
   derived isOff: Boolean = self.offNow()
@@ -134,9 +144,19 @@ public class SettingsWindow implements Component {
   }
 
   pagesOf(self): Array<SettingsPage> {
+    if (self.page == GAME_PAGE) { return self.gamePages }
     let entry = self.entry
     if (entry == nil) { return self.pages }
     return entry.pages
+  }
+
+  gamePagesOf(self): Array<SettingsPage> {
+    const list: Array<SettingsPage> = []
+    for (page of GAME_PAGES) {
+      list.push({ title: textOf(page.label), content: $ltml { <GamePageView page={page} game={mut Ordaen.game} /> } })
+    }
+    list.push({ title: textOf("SETTINGS_KEYBINDINGS_LABEL"), content: $ltml { <BindingsPage game={mut Ordaen.game} /> } })
+    return list
   }
 
   namesOf(self): Array<String> {
@@ -178,11 +198,17 @@ public class SettingsWindow implements Component {
   }
 
   known(self, page: String): Boolean {
-    if (page == GENERAL || page == LOOK || page == PROFILES) { return true }
+    if (page == GENERAL || page == LOOK || page == PROFILES || page == GAME_PAGE) { return true }
     for (entry of self.entries) {
       if (entry.folder == page) { return true }
     }
     return false
+  }
+
+  // The window open at a page, whatever it showed.
+  public openAt(mut self, page: String) {
+    self.show(page)
+    self.open = true
   }
 
   show(mut self, page: String) {
@@ -196,6 +222,7 @@ public class SettingsWindow implements Component {
   pickGeneral(mut self) { self.show(GENERAL) }
   pickLook(mut self) { self.show(LOOK) }
   pickProfiles(mut self) { self.show(PROFILES) }
+  pickGame(mut self) { self.show(GAME_PAGE) }
   onPick(mut self, folder: String) { self.show(folder) }
 
   // Every change is kept as it is made: closing asks nothing.
@@ -322,6 +349,7 @@ public class SettingsWindow implements Component {
                      @pick={self.pickLook} />
             <ListTab label={Locale.LIST_PROFILES} icon={Ordaen.icon} selected={self.onProfiles}
                      @pick={self.pickProfiles} />
+            <ListTab label={Locale.LIST_GAME} icon={GAME_ICON} selected={self.onGame} @pick={self.pickGame} />
             <box padding={HEADING}>
               <text value={self.heading} textColor={DIM} textSize={SECONDARY_TEXT} textFont={.Numbers} />
             </box>
