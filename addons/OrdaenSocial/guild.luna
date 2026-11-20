@@ -3,11 +3,11 @@
 // the management the client keeps to itself stays there), and the guild's news, each line's text selected and copied.
 // The counts are the footer's.
 import Client from "$client"
+import { GuildNews, GuildRoster, NewsFilter, NewsKind } from "$game"
 import { Align, Overflow } from "$ltml"
 import { ButtonPlate, Component, CopyText, FilterButton, FilterGroup, FilterOption, ItemButton, PushButton, TITLE_LINE, TITLE_TEXT, Tip, TipText } from "Ordaen"
 import { orDash } from "@/friends"
 import Locale from "@/locales"
-import { Guild, News, NewsFilter, NewsKind } from "@/people"
 import Style from "@/style"
 
 const ROW_PAD = 1sp
@@ -18,8 +18,8 @@ public class GuildCard implements Component {
   public leave: Event<nil> = new Event()
   public gameWindow: Event<nil> = new Event()
 
-  guild: Signal<Guild>
-  constructor(guild: Signal<Guild>) {
+  guild: Signal<GuildRoster>
+  constructor(guild: Signal<GuildRoster>) {
     self.guild = guild
   }
 
@@ -54,7 +54,7 @@ function ofItem(kind: NewsKind): Boolean {
 
 // What a line's tooltip says, as the game's guild news says it: an achievement's name and description, a boss and
 // where it fell. Nothing for an item's (the item's own button shows the game's) or for the rest.
-function tipOf(news: News): TipText | nil {
+function tipOf(news: GuildNews): TipText | nil {
   if (news.kind == .Achievement || news.kind == .GuildAchievement) {
     let _, name, _, _, _, _, _, description, _, _, _, _, _, _ = Client.GetAchievementInfo(news.subject)
     if (name == nil) { return nil }
@@ -70,8 +70,8 @@ class NewsRow implements Component {
   derived item: Boolean = ofItem(self.news.kind)
   derived tip: TipText | nil = self.hovered ? tipOf(self.news) : nil
 
-  news: Signal<News>
-  constructor(news: Signal<News>) {
+  news: Signal<GuildNews>
+  constructor(news: Signal<GuildNews>) {
     self.news = news
   }
 
@@ -120,14 +120,14 @@ public class NewsList implements Component {
   public filter: Event<(Integer, Boolean)> = new Event()
 
   state picked: Map<Integer, Boolean> = {}
-  derived shown: Array<News> = self.ordered()
+  derived shown: Array<GuildNews> = self.ordered()
   derived start: Map<Integer, Boolean> = allShown(self.filters)
 
-  news: Signal<Array<News>>
+  news: Signal<Array<GuildNews>>
   filters: Signal<Array<NewsFilter>>
   // The kinds the game offers here, as the list is made: the game's own, which don't change.
   const groups: Array<FilterGroup<Integer>>
-  constructor(news: Signal<Array<News>>, filters: Signal<Array<NewsFilter>>) {
+  constructor(news: Signal<Array<GuildNews>>, filters: Signal<Array<NewsFilter>>) {
     self.news = news
     self.filters = filters
     self.groups = filterGroups(peek filters)
@@ -143,7 +143,7 @@ public class NewsList implements Component {
     }
   }
 
-  ordered(self): Array<News> {
+  ordered(self): Array<GuildNews> {
     const list = self.news.filter(line => line.sticky)
     for (line of self.news) {
       if (!line.sticky) { list.push(line) }

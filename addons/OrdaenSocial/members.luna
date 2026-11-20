@@ -4,12 +4,12 @@
 // The table's columns: status, level, name, zone, rank (a community's role) and note. Those online stand
 // above those offline whatever the order; an offline member's zone says when they were last online. A click picks a
 // member (its card shows beside the list); again, the card goes.
+import { GuildRights, Member } from "$game"
 import { Align, MouseButton, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { Choice, Column, Component, Fact, PushButton, SECONDARY_TEXT, TITLE_LINE, TITLE_TEXT, Table, TableCell, TableRow, ToolPick, ToolSort, Toolbar, hoursAgoText, tracksOf } from "Ordaen"
+import { Choice, Column, Component, Fact, PushButton, SECONDARY_TEXT, TITLE_LINE, TITLE_TEXT, Table, TableCell, TableRow, ToolPick, ToolSort, Toolbar, classColor, hoursAgoText, tracksOf } from "Ordaen"
 import { markOf, orDash, presenceText } from "@/friends"
 import Locale from "@/locales"
-import { Member, Rights } from "@/people"
 import Style from "@/style"
 
 // Who a roster shows: everyone, or those online.
@@ -138,7 +138,7 @@ public function shownOf(members: Array<Member>, query: String, show: Show, colum
 // The colour of a member's name: its class's, grey while offline.
 public function nameColorOf(member: Member): Color {
   if (!online(member)) { return Style.OFFLINE }
-  return member.classColor ?? Style.INK
+  return classColor(member.classFile) ?? Style.INK
 }
 
 // A member as a row: a click picks it, a right click opens the game's menu of it.
@@ -273,9 +273,9 @@ public class MemberCard implements Component {
   derived ranks: Boolean = self.rights.promote || self.rights.demote
 
   member: Signal<Member>
-  rights: Signal<Rights>
+  rights: Signal<GuildRights>
   rankTitle: Signal<String>
-  constructor(member: Signal<Member>, rights: Signal<Rights>, rankTitle: Signal<String>) {
+  constructor(member: Signal<Member>, rights: Signal<GuildRights>, rankTitle: Signal<String>) {
     self.member = member
     self.rights = rights
     self.rankTitle = rankTitle

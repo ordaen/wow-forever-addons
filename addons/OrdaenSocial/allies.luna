@@ -4,14 +4,17 @@
 //
 // A row: the ally's status mark, the name in its class's colour (grey while offline) with its level, under it the newest
 // thing done together and how long ago; a pinned ally's star at the right.
+import { AllyCategory, Meeting, RecentAlly } from "$game"
 import { Align, ByInteractionState, Edges, Overflow, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import { Choice, Component, Fact, FilterButton, FilterGroup, PushButton, SECONDARY_TEXT, TITLE_LINE, TITLE_TEXT, ToolPick, Toolbar, agoText, rowShade, switched } from "Ordaen"
 import { markOf, orDash, presenceText } from "@/friends"
 import Locale from "@/locales"
 import { nameColorOf } from "@/members"
-import { ALLY_CATEGORIES, Ally, AllyCategory, Meeting } from "@/people"
 import Style from "@/style"
+
+// The game's categories of what was done together, in the filter's order.
+const ALLY_CATEGORIES: Array<AllyCategory> = [.Professions, .PvP, .Raiding, .Dungeons, .Delves, .Questing]
 
 // How the allies are sorted in each group.
 public enum AllySort { Recent, Name, Level }
@@ -73,31 +76,31 @@ public function categoriesOf(filter: Map<AllyFilter, Boolean>): Array<AllyCatego
   return on.length == ALLY_CATEGORIES.length ? nil : on
 }
 
-function online(ally: Ally): Boolean { return ally.member.presence != .Offline }
+function online(ally: RecentAlly): Boolean { return ally.member.presence != .Offline }
 
 // Whether the filter's presence lets an ally through (the categories are the game's to apply).
-function passes(ally: Ally, filter: Map<AllyFilter, Boolean>): Boolean {
+function passes(ally: RecentAlly, filter: Map<AllyFilter, Boolean>): Boolean {
   return filter[online(ally) ? AllyFilter.Online : AllyFilter.Offline] == true
 }
 
 // When the newest thing done together was; 0 for none.
-function lastOf(ally: Ally): Number { return ally.meetings[1]?.when ?? 0 }
+function lastOf(ally: RecentAlly): Number { return ally.meetings[1]?.when ?? 0 }
 
 // The newest thing done together and how long ago.
-function metText(ally: Ally): String {
+function metText(ally: RecentAlly): String {
   const last = ally.meetings[1]
   if (last == nil) { return "" }
   return `${last.text} · ${agoText(last.when)}`
 }
 
-function before(a: Ally, b: Ally, sort: AllySort): Boolean {
+function before(a: RecentAlly, b: RecentAlly, sort: AllySort): Boolean {
   if (sort == .Recent && lastOf(a) != lastOf(b)) { return lastOf(a) > lastOf(b) }
   if (sort == .Level && a.member.level != b.member.level) { return a.member.level > b.member.level }
   return a.member.name.lower() < b.member.name.lower()
 }
 
 // Whether an ally is found by what the player typed: in the name, the class, the zone, the note or what was done.
-function found(ally: Ally, query: String): Boolean {
+function found(ally: RecentAlly, query: String): Boolean {
   if (query == "") { return true }
   const member = ally.member
   const text = [member.name, member.className, member.zone, member.note, metText(ally)].join(" ").lower()
@@ -105,7 +108,7 @@ function found(ally: Ally, query: String): Boolean {
 }
 
 // The allies of one group (pinned or not) the list shows, in its order.
-function shownOf(allies: Array<Ally>, pinned: Boolean, query: String, filter: Map<AllyFilter, Boolean>, sort: AllySort): Array<Ally> {
+function shownOf(allies: Array<RecentAlly>, pinned: Boolean, query: String, filter: Map<AllyFilter, Boolean>, sort: AllySort): Array<RecentAlly> {
   const shown = allies.filter(ally => ally.pinned == pinned && found(ally, query) && passes(ally, filter))
   shown.sort((a, b) => before(a, b, sort))
   return shown
@@ -120,9 +123,9 @@ class AllyRow implements Component {
   derived level: String = String.of(self.ally.member.level)
   derived background: Color | ByInteractionState<Color> = rowShade(self.picked)
 
-  ally: Signal<Ally>
+  ally: Signal<RecentAlly>
   chosen: Signal<String>
-  constructor(ally: Signal<Ally>, chosen: Signal<String>) {
+  constructor(ally: Signal<RecentAlly>, chosen: Signal<String>) {
     self.ally = ally
     self.chosen = chosen
   }
@@ -158,16 +161,16 @@ public class AllyList implements Component {
   state query = ""
   state sort: AllySort = .Recent
   derived filterStarts: Map<AllyFilter, Boolean> = allyFilterStart()
-  derived pinned: Array<Ally> = shownOf(self.allies, true, self.query, self.filter, self.sort)
-  derived rest: Array<Ally> = shownOf(self.allies, false, self.query, self.filter, self.sort)
+  derived pinned: Array<RecentAlly> = shownOf(self.allies, true, self.query, self.filter, self.sort)
+  derived rest: Array<RecentAlly> = shownOf(self.allies, false, self.query, self.filter, self.sort)
   derived empty: Boolean = self.pinned.length == 0 && self.rest.length == 0
 
-  allies: Signal<Array<Ally>>
+  allies: Signal<Array<RecentAlly>>
   chosen: Signal<String>
   filter: mut Signal<Map<AllyFilter, Boolean>>
   const groups: Array<FilterGroup<AllyFilter>>
   constructor(
-    allies: Signal<Array<Ally>>,
+    allies: Signal<Array<RecentAlly>>,
     chosen: Signal<String>,
     filter: mut Signal<Map<AllyFilter, Boolean>>,
     // The categories the game offers here: the filter's first menu.
@@ -220,7 +223,7 @@ class MeetingRow implements Component {
 }
 
 // How long a pin lasts, in whole days from `now` (one at the least while it lasts); 0 where it never runs out.
-public function pinDaysLeft(ally: Ally, now: Number): Integer {
+public function pinDaysLeft(ally: RecentAlly, now: Number): Integer {
   if (!ally.pinned || ally.pinExpires == 0) { return 0 }
   return (1).max(((ally.pinExpires - now) / DAY).ceil())
 }
@@ -242,9 +245,9 @@ public class AllyCard implements Component {
   derived pinText: String = Locale.PIN_DAYS_LEFT.format(self.daysLeft)
   derived pinColor: Color = self.daysLeft <= PIN_WARNING_DAYS ? Style.RED : Style.INK
 
-  ally: Signal<Ally>
+  ally: Signal<RecentAlly>
   now: Signal<Integer>
-  constructor(ally: Signal<Ally>, now: Signal<Integer>) {
+  constructor(ally: Signal<RecentAlly>, now: Signal<Integer>) {
     self.ally = ally
     self.now = now
   }

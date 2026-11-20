@@ -12,7 +12,7 @@
 import Client from "$client"
 import Events from "$events"
 import Game from "$game"
-import { BattleNetSelf, Friend, FriendRequest, Ignored, Presence } from "$game"
+import { AllyCategory, BattleNetSelf, Club, ClubStream, Friend, FriendRequest, GuildNews, GuildRights, GuildRoster, Ignored, Member, NewsFilter, Presence, RecentAlly } from "$game"
 import { Align, Frame } from "$ltml"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
@@ -23,7 +23,7 @@ import { FRIENDS_KEPT, FriendCard, FriendList, FriendsKept, IgnoreList, MyCard, 
 import { GuildCard, NewsList } from "@/guild"
 import Locale from "@/locales"
 import { MemberCard, MemberTable } from "@/members"
-import { Ally, AllyCategory, ClientPeople, Club, Guild, Member, News, NewsFilter, People, Rights, Stream, namesAccount } from "@/people"
+import { ClientPeople, People, namesAccount } from "@/people"
 import { SEEN_HEROES, SeenHeroes, noteSeen, withSeen } from "@/seen"
 import { Choices, GeneralPage } from "@/settings"
 import Style from "@/style"
@@ -55,7 +55,7 @@ const NAME_MOST = 48
 const NO_ME: BattleNetSelf = { battleTag: "", presence: .Online, broadcast: "", hero: { name: "", level: 0, className: "", classFile: "", area: "", realm: "" } }
 // The most a recent ally's note holds (`RecentAlliesNoteEditBox`'s letters).
 const NOTE_MOST = 48
-const NO_RIGHTS: Rights = { invite: false, promote: false, demote: false, manage: false }
+const NO_RIGHTS: GuildRights = { invite: false, promote: false, demote: false, manage: false }
 const GUILD_SUBS: Array<String> = [Locale.SUB_ROSTER, Locale.SUB_NEWS]
 
 function onlineOf(members: Array<Member>): Integer { return members.count(member => member.presence != .Offline) }
@@ -76,8 +76,8 @@ public class Social implements Module, App {
   public settings: mut Settings<Choices> = new Settings<Choices>({ offline: true })
   // How the player left the friends' list: its view, its sort and its filter, the profile's.
   public friendsList: mut ModuleMemory<FriendsKept> = new ModuleMemory<FriendsKept>(FRIENDS_KEPT, .Profile, "friends")
-  // Where the window reads the guild, the communities and the recent allies and what its clicks ask of the game about
-  // them: a test hands its own. The friends are `"$game"`'s.
+  // What the window's clicks ask of the chat, the group and the clipboard: a test hands its own. The friends, the
+  // guild, the communities and the recent allies are `"$game"`'s.
   public people: mut any People = new ClientPeople()
   // The character each Battle.net friend was last seen on, the account's.
   public seen: mut ModuleMemory<SeenHeroes> = new ModuleMemory<SeenHeroes>(SEEN_HEROES, .Account, "seen")
@@ -103,13 +103,13 @@ public class Social implements Module, App {
   state me: BattleNetSelf = NO_ME
   // The guild's message of the day: the client gives it in the player's input alone, and says it anew (`GUILD_MOTD`).
   state motd = ""
-  state guild: Guild | nil = nil
-  state news: Array<News> = []
+  state guild: GuildRoster | nil = nil
+  state news: Array<GuildNews> = []
   state newsFilters: Array<NewsFilter> = []
   state clubs: Array<Club> = []
   state clubMembers: Array<Member> = []
-  state streams: Array<Stream> = []
-  state allies: Array<Ally> = []
+  state streams: Array<ClubStream> = []
+  state allies: Array<RecentAlly> = []
   // The recent allies' filter: the categories asked of the game, and online or not.
   state allyFilter: Map<AllyFilter, Boolean> = allyFilterStart()
   derived allyCategories: Array<AllyCategory> | nil = categoriesOf(self.allyFilter)
@@ -138,13 +138,13 @@ public class Social implements Module, App {
 
   derived pickedFriend: Friend | nil = self.picked == "" ? nil : self.friends.find(friend => keyOf(friend) == self.picked)
   derived guildMembers: Array<Member> = self.guild?.members ?? []
-  derived rights: Rights = self.guild?.rights ?? NO_RIGHTS
+  derived rights: GuildRights = self.guild?.rights ?? NO_RIGHTS
   derived pickedMember: Member | nil = self.member == "" ? nil : self.guildMembers.find(one => one.key == self.member)
   derived chosenClub: Club | nil = self.clubs[self.clubTab] ?? self.clubs[1]
   derived clubNames: Array<String> = self.clubs.map(one => one.name)
   derived clubId: String = self.chosenClub?.id ?? ""
   derived pickedClubMember: Member | nil = self.clubMember == "" ? nil : self.clubMembers.find(one => one.key == self.clubMember)
-  derived pickedAlly: Ally | nil = self.ally == "" ? nil : self.allies.find(one => one.member.key == self.ally)
+  derived pickedAlly: RecentAlly | nil = self.ally == "" ? nil : self.allies.find(one => one.member.key == self.ally)
   // The friends online, of the list as it was read (the window reads it while it shows, and shows nothing else).
   derived onlineCount: Integer = self.friends.count(friend => friend.presence != .Offline)
   derived guildOnline: Integer = onlineOf(self.guildMembers)
@@ -208,7 +208,7 @@ public class Social implements Module, App {
       Events.CLUB_STREAM_UPDATED.listen(self.onClubChanged)
       Events.RECENT_ALLIES_CACHE_UPDATE.listen(self.readAllies)
       // The recent allies asked for again as the filter's categories change.
-      watch { self.allies = self.people.allies(self.allyCategories) }
+      watch { self.allies = Game.recentAllies.list(self.allyCategories) }
       // The picked community's members and streams, read as it is picked; its member's card goes.
       watch (id of self.clubId) {
         self.clubMember = ""
@@ -250,7 +250,7 @@ public class Social implements Module, App {
     self.games.push(window)
     _ = window.HookScript("OnShow", (): nil => {
       // In the key's or the click's own call: the message of the day, which the client gives then alone.
-      if (!(peek self.open) && !self.pass.passes(frame)) { self.motd = self.people.motd() }
+      if (!(peek self.open) && !self.pass.passes(frame)) { self.motd = Game.guild.motd() }
       self.onGameShown(frame, tab)
       return nil
     })
@@ -288,7 +288,8 @@ public class Social implements Module, App {
     if (!(peek self.open)) {
       self.open = true
       // In the key's or the click's own call, as the client's restricted calls want.
-      self.people.ask()
+      Game.guild.ask()
+      Game.recentAllies.ask()
     }
   }
 
@@ -315,7 +316,7 @@ public class Social implements Module, App {
   readRequests(mut self) { self.requests = Game.friends.requests() }
   readIgnored(mut self) { self.ignored = Game.friends.ignored() }
   readMe(mut self) { self.me = Game.friends.battleNetSelf() }
-  readGuild(mut self) { self.guild = self.people.guild(peek self.motd) }
+  readGuild(mut self) { self.guild = Game.guild.roster(peek self.motd) }
 
   onMotd(mut self, text: String) {
     self.motd = text
@@ -323,15 +324,15 @@ public class Social implements Module, App {
   }
 
   readNews(mut self) {
-    self.news = self.people.news()
-    self.newsFilters = self.people.newsFilters()
+    self.news = Game.guild.news()
+    self.newsFilters = Game.guild.newsFilters()
   }
-  readClubs(mut self) { self.clubs = self.people.clubs() }
-  readAllies(mut self) { self.allies = self.people.allies(peek self.allyCategories) }
+  readClubs(mut self) { self.clubs = Game.communities.clubs() }
+  readAllies(mut self) { self.allies = Game.recentAllies.list(peek self.allyCategories) }
 
   readClub(mut self, id: String) {
-    self.clubMembers = id == "" ? [] : self.people.clubMembers(id)
-    self.streams = id == "" ? [] : self.people.streams(id)
+    self.clubMembers = id == "" ? [] : Game.communities.members(id)
+    self.streams = id == "" ? [] : Game.communities.streams(id)
   }
 
   // A community's members or streams changed: read again where it is the one shown.
@@ -461,24 +462,24 @@ public class Social implements Module, App {
   onPromote(mut self) {
     const one = peek self.pickedMember
     if (one == nil) { return }
-    self.people.promote(one.name)
+    Game.guild.promote(one.name)
     self.readGuild()
   }
 
   onDemote(mut self) {
     const one = peek self.pickedMember
     if (one == nil) { return }
-    self.people.demote(one.name)
+    Game.guild.demote(one.name)
     self.readGuild()
   }
 
   // The game's own menu of a guild member (its promote, demote, remove and notes among its entries) or of a
   // community's: a row's right click, the card's ⋮.
-  onGuildMenu(mut self, key: String) { self.people.memberMenu("", key) }
+  onGuildMenu(mut self, key: String) { Game.guild.menu(key) }
 
   onClubMenu(mut self, key: String) {
     const club = peek self.clubId
-    if (club != "") { self.people.memberMenu(club, key) }
+    if (club != "") { Game.communities.menu(club, key) }
   }
 
   onMemberCardMenu(mut self) {
@@ -492,8 +493,8 @@ public class Social implements Module, App {
   }
 
   onNewsFilter(mut self, kind: Integer, shown: Boolean) {
-    self.people.filterNews(kind, shown)
-    self.newsFilters = self.people.newsFilters()
+    Game.guild.filterNews(kind, shown)
+    self.newsFilters = Game.guild.newsFilters()
   }
 
   onGuildInvite(mut self) {
@@ -505,7 +506,7 @@ public class Social implements Module, App {
     const name = trimmed(peek self.inviteText)
     if (name == "") { return }
     self.inviting = false
-    self.people.guildInvite(name)
+    Game.guild.invite(name)
   }
 
   onGuildInviteNo(mut self) { self.inviting = false }
@@ -513,7 +514,7 @@ public class Social implements Module, App {
 
   onLeaveYes(mut self) {
     self.leaving = false
-    self.people.leaveGuild()
+    Game.guild.leave()
     self.member = ""
     self.readGuild()
   }
@@ -559,7 +560,7 @@ public class Social implements Module, App {
   onAllyPin(mut self) {
     const one = peek self.pickedAlly
     if (one == nil) { return }
-    self.people.pin(one.member.key, !one.pinned)
+    Game.recentAllies.pin(one.member.key, !one.pinned)
     self.readAllies()
   }
 
@@ -572,12 +573,12 @@ public class Social implements Module, App {
 
   onAllyMenu(mut self, key: String) {
     const one = (peek self.allies).find(ally => ally.member.key == key)
-    if (one != nil) { self.people.allyMenu(one) }
+    if (one != nil) { Game.recentAllies.menu(one) }
   }
 
   onAllyCardMenu(mut self) {
     const one = peek self.pickedAlly
-    if (one != nil) { self.people.allyMenu(one) }
+    if (one != nil) { Game.recentAllies.menu(one) }
   }
 
   onAllyNote(mut self) {
@@ -591,7 +592,7 @@ public class Social implements Module, App {
     const one = peek self.pickedAlly
     self.noting = false
     if (one == nil) { return }
-    self.people.noteAlly(one.member.key, trimmed(peek self.noteText))
+    Game.recentAllies.setNote(one.member.key, trimmed(peek self.noteText))
     self.readAllies()
   }
 
@@ -694,7 +695,7 @@ public class Social implements Module, App {
           <text value={Locale.NO_COMMUNITIES} textColor={Style.DIM} wrap={false} />
         </box>
         <AllyList $else allies={self.allies} chosen={self.ally} filter={mut self.allyFilter}
-                  categories={peek self.people.allyCategories()} @pick={self.onPickAlly} @menu={self.onAllyMenu} />
+                  categories={peek Game.recentAllies.categories()} @pick={self.onPickAlly} @menu={self.onAllyMenu} />
       </Window>
       <Dialog $if={self.removing != nil} width={Style.ASK} title={Locale.REMOVE_FRIEND}>
         <box columns={1} gap={2sp}>

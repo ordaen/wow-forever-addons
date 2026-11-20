@@ -1,10 +1,10 @@
 // The communities tab's own part: the picked community's card (its kind and size, its description and broadcast, and
 // its streams). Each community is a tab of the communities' own row, its members in the roster under it.
+import { Club, ClubStream } from "$game"
 import { Align, Overflow } from "$ltml"
 import { Component, SECONDARY_TEXT, TITLE_LINE, TITLE_TEXT } from "Ordaen"
 import { orDash } from "@/friends"
 import Locale from "@/locales"
-import { Club, Stream } from "@/people"
 import Style from "@/style"
 
 // What a community is: of Battle.net accounts or of characters, and how many are in it.
@@ -13,8 +13,8 @@ function kindOf(club: Club): String {
 }
 
 class StreamRow implements Component {
-  stream: Signal<Stream>
-  constructor(stream: Signal<Stream>) {
+  stream: Signal<ClubStream>
+  constructor(stream: Signal<ClubStream>) {
     self.stream = stream
   }
 
@@ -31,8 +31,8 @@ class StreamRow implements Component {
 // The picked community's card, with no member picked.
 public class ClubCard implements Component {
   club: Signal<Club>
-  streams: Signal<Array<Stream>>
-  constructor(club: Signal<Club>, streams: Signal<Array<Stream>>) {
+  streams: Signal<Array<ClubStream>>
+  constructor(club: Signal<Club>, streams: Signal<Array<ClubStream>>) {
     self.club = club
     self.streams = streams
   }
