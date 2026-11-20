@@ -9,7 +9,7 @@ bench round settles a question. Each fact gives its number and how it was measur
 - **Machine and settings:** RTX 5080, 32 logical cores; 1280×720, lowest graphics preset, uncapped frame rate, vsync
   off. At these settings frames are CPU-bound (see [CPU or GPU](#cpu-or-gpu)). Idle frame: about 1.8 ms.
 - **Code:** the bench build profile (`ordaen watch --profile bench`: stripped like release, `*.dev.lua` kept),
-  OrdaenCore_Debug disabled.
+  Ordaen Companion disabled.
 - **Probes:** `addons/OrdaenBench/bench/probes.lua`, run with `/obench probes`. Plain WoW calls, no framework.
   Each variant works on 1000 objects made beforehand; a series is 60 calls, 5 of them warm-up and not counted; the
   collector is stopped around each timed call. Results are kept only in `OrdaenBenchDB.probes`, never in the bench

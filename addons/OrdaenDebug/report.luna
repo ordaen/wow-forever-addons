@@ -1,0 +1,89 @@
+// «Report a bug»: one text the player copies into a message to the developer. The game's build and Ordaen's version,
+// every addon loaded with its version, and the errors kept (the newest REPORT_ERRORS, newest first), each as
+// `Errors.format` writes it. Made when the player asks, never while playing.
+import Client from "$client"
+import { Component, CopyText, PushButton, Section } from "Ordaen"
+import { Errors } from "@/errors"
+import Locale from "@/locales"
+
+// The errors a report holds: enough for the developer, short enough for a message.
+const REPORT_ERRORS = 20
+const BUTTON = 140dp
+
+// Every addon the client has loaded: its folder and its version.
+function addonLines(): Array<String> {
+  let lines: Array<String> = []
+  const count = Client.C_AddOns.GetNumAddOns()
+  for (i of 1..count) {
+    const loaded, _ = Client.C_AddOns.IsAddOnLoaded(i)
+    if (loaded) {
+      const name, _, _, _, _, _ = Client.C_AddOns.GetAddOnInfo(i)
+      lines.push("%s %s".format(name, Client.C_AddOns.GetAddOnMetadata(i, "Version") ?? "?"))
+    }
+  }
+  return lines
+}
+
+// The report's text, as it stands now.
+public function report(errors: Errors): String {
+  const meta = errors.meta()
+  let lines = [
+    Locale.REPORT_HEAD,
+    Locale.REPORT_CLIENT.format(String.of(meta?.client), String.of(meta?.build), String.of(meta?.interface),
+      String.of(meta?.locale), String.of(meta?.core)),
+    ""
+  ]
+  const addons = addonLines()
+  lines.push(Locale.REPORT_ADDONS.format(addons.length))
+  for (line of addons) {
+    lines.push(line)
+  }
+  lines.push("")
+  const kept = errors.db.errors
+  if (kept.length == 0) {
+    lines.push(Locale.REPORT_NO_ERRORS)
+  } else {
+    const shown = kept.length.min(REPORT_ERRORS)
+    lines.push(Locale.REPORT_ERRORS.format(shown, kept.length))
+    for (n of 1..shown) {
+      const entry = kept[kept.length - n + 1] ?? panic("an error among the newest")
+      lines.push("")
+      lines.push(errors.format(entry))
+    }
+  }
+  return lines.join("\n")
+}
+
+// The module's tab: what the report holds, the count, the button that makes it, and its text to copy.
+public class ReportPage implements Component {
+  state text = ""
+  // The errors kept are plain data: counted as the page is made and as a report is.
+  state count = ""
+
+  errors: Errors
+  constructor(errors: Errors) {
+    self.errors = errors
+    self.count = self.counted()
+  }
+
+  counted(self): String {
+    const session = self.errors.sessionCount()
+    return Locale.REPORT_COUNT.format(session, self.errors.db.errors.length - session)
+  }
+
+  make(mut self) {
+    self.count = self.counted()
+    self.text = report(self.errors)
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <Section title={Locale.REPORT_SECTION}>
+        <text value={Locale.REPORT_HINT} />
+        <text value={self.count} />
+        <PushButton label={Locale.REPORT_MAKE} width={BUTTON} @click={self.make} />
+        <CopyText $if={self.text != ""} value={self.text} />
+      </Section>
+    }
+  }
+}

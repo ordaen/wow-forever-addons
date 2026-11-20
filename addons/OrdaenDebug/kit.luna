@@ -1,0 +1,16 @@
+// The runtime's debug kit (`Debug.attach`): every client error and fault, those raised before Ordaen Debug loaded
+// included, goes to the catcher. A dev build's log lines and tap records are the dev addon's own kit's
+// (`Debug.attachDev`), never this one's.
+import Debug from "$debug"
+import { Catcher } from "@/catcher"
+
+public class Kit implements Debug.Kit {
+  catcher: mut Catcher
+  constructor(catcher: mut Catcher) {
+    self.catcher = catcher
+  }
+
+  public error(mut self, message: String, stack: String | nil, locals: String | nil) {
+    self.catcher.error(message, stack, locals)
+  }
+}

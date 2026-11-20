@@ -9,10 +9,9 @@ __pycache__/
 
 # the previous code, kept locally for reference while the framework is rebuilt (design site: development/framework)
 
-# the Ordaen Dev window: a private module (wow-dev-tools/modules/OrdaenDev), linked here so the build builds it
-addons/OrdaenDev
-# the dev addon (wow-dev-tools/addons/OrdaenCore_Debug), linked here the same way: a dev build builds and links it
-addons/OrdaenCore_Debug
+# the dev addon Ordaen Companion, a private module (wow-dev-tools/addons/OrdaenCompanion), linked here so the build
+# builds it
+addons/OrdaenCompanion
 # the API dump (wow-dev-tools/addons/OrdaenApiDump), which the dev addon needs: linked the same way
 addons/OrdaenApiDump
 

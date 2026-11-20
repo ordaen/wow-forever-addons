@@ -33,11 +33,10 @@ Development happens on Windows: the game runs there and the repo lives on the Wi
 1. **Node** (for the commit hook): `npm install` in this checkout.
 2. **The compiler:** clone `lunatype` next to this repo (`../lunatype`) and install Zig 0.17. `zig build -j16` there
    builds the compiler and writes a build of these addons to `../lunatype/zig-out/addons`.
-3. **The private dev addons** (`../wow-dev-tools`, cloned next to this repo): three junctions in `addons`, ignored by
-   git, so a dev build builds and links them with the rest (a `--release` build refuses the dev addon), from this
+3. **The private dev addons** (`../wow-dev-tools`, cloned next to this repo): two junctions in `addons`, ignored by
+   git, so a dev build builds and links them with the rest (a `--release` build leaves them out), from this
    checkout's root in `cmd`:
-   `mklink /J addons\OrdaenDev ..\wow-dev-tools\modules\OrdaenDev`,
-   `mklink /J addons\OrdaenCore_Debug ..\wow-dev-tools\addons\OrdaenCore_Debug` and
+   `mklink /J addons\OrdaenCompanion ..\wow-dev-tools\addons\OrdaenCompanion` and
    `mklink /J addons\OrdaenApiDump ..\wow-dev-tools\addons\OrdaenApiDump`. A junction is removed with
    `rmdir`, which leaves what it points to as it is.
 4. **Lua 5.1 for the run tests** is the compiler's own; another is named with
@@ -76,19 +75,19 @@ adds itself to `Ordaen.modules` as it is made.
 
 ### The real Forever API
 
-The client's API is read from a dump the dev addon makes in the game («Dump the game API» in the Ordaen Dev window,
-then `/reload`). `lunatype generate api <dump> src/lib` in `../lunatype` writes it as declarations, which the
+The client's API is read from a dump the dev addon Ordaen API Dump makes in the game («Dump game API» in the Ordaen
+Dev window, then `/reload`; `SavedVariables\OrdaenApiDump.lua`). `lunatype generate api <dump> src/lib` in `../lunatype` writes it as declarations, which the
 game's side is typed against: a name the client doesn't have is a finding.
 
 ### Debugging in game
 
 Players never have errors collected: Lua errors go to BugSack (if installed) or Blizzard's default handler.
 
-Maintainers have a **development mode**: the dev-only addon `OrdaenCore_Debug` ("Ordaen Core - Debug": its own
-error catcher, logs, state dumps, the game API dump and the live channel to the companion app). It lives in the
+Maintainers have a **development mode**: the dev-only module `OrdaenCompanion` ("Ordaen Companion": the Ordaen Dev
+window, its own error catcher, logs, state dumps and the live channel to the companion app). It lives in the
 private `wow-dev-tools` repo, next to the companion app, and is never shipped. Its data goes to one file, which WoW
 writes on `/reload` or logout:
-`C:\Program Files (x86)\World of Warcraft\_forever_\WTF\Account\<account>\SavedVariables\OrdaenCore_Debug.lua`.
+`C:\Program Files (x86)\World of Warcraft\_forever_\WTF\Account\<account>\SavedVariables\OrdaenCompanion.lua`.
 
 Addons cannot reach the network, so there is no telemetry. To report a bug, a player installs
 [BugSack](https://www.curseforge.com/wow/addons/bugsack), reproduces the problem, and pastes the error into the

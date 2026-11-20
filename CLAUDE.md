@@ -28,7 +28,7 @@ simpler code and leaner code conflict, choose leaner, or ask the user. A perform
 - **Hooks only on rarely called functions,** with cheap bodies. Expensive work in a hook (`debugstack`, re-applying a
   layout) is rate-limited or cached.
 - **Dependencies:** no library unless Blizzard's API can't do it. Ordaen Core stays small; dev-only code lives in
-  `OrdaenCore_Debug`, which players never load.
+  `OrdaenCompanion`, which players never load.
 - **Measure, don't guess:** before merging a feature into `develop`, check its memory and CPU in the Ordaen Companion
   (Performance tab; Claude reads it with `wow_perf`). What the debug kit measures is left out of release builds, so
   code never uses its results. Mention the numbers when handing work over.
@@ -54,7 +54,7 @@ and the game's host are the `lunatype` repository (`../lunatype`).
   write) and Ordaen through `Ordaen`; `"$client"` and `"$events"`, the client's own API, are any addon's to import
   (`../wow-dev-tools/design/development/language/game.md`), for what `"$game"` has no part for.
 - **Plain Lua beside a declaration** (`name.d.luna` with `name.lua`) is for what isn't LunaType's to say: another
-  addon's own API (`OrdaenDev/dev`), generated data (`OrdaenTooltips/talents`).
+  addon's own API, generated data (`OrdaenTooltips/talents`).
 - **One way to write a file:** `lunatype fmt addons`.
 
 ## Preventing bugs (applies to every session)
@@ -172,7 +172,7 @@ would have caught it is half a fix: say which check now catches it, or add one.
 - Line endings: LF everywhere via `.gitattributes`.
 - commitlint (`commitlint.config.mjs`) holds the commit rules, enforced by the husky `commit-msg` hook and in CI (PR title + PR commits).
 - Versioning: release-please manifest mode (`release-please-config.json`, `.release-please-manifest.json`), one component per addon, tags `<Addon>-vX.Y.Z`. Its components are six folders of `addons/` (`OrdaenBags`, `OrdaenChat`, `OrdaenCore`, `OrdaenMinimap`, `OrdaenQoL`, `OrdaenTooltips`), of which three don't exist; each addon's `addon.json` carries its `version`, which the TOC gets.
-- Quality: the lunatype suite (`zig build -j16 test -Daddons=<checkout>/addons` in `../lunatype`); manual testing in game with dev mode (Ordaen Core - Debug).
+- Quality: the lunatype suite (`zig build -j16 test -Daddons=<checkout>/addons` in `../lunatype`); manual testing in game with dev mode (Ordaen Companion).
 - **Forever's game:** only the nine original classes (no Death Knight, Monk, Demon Hunter or Evoker; their strings in the
   dump are retail leftovers). Forever sells junk at vendors itself, so we offer no sell-junk button; the automatic sell
   when a merchant opens is ours and approved.
@@ -188,12 +188,11 @@ addons/Ordaen/                  Ordaen Core: what every addon builds on (Compone
                                 (art.luna, media/) and the look the player chooses (look.luna)
 addons/Ordaen<Name>/            a module: its index.luna gives its root, a class that implements Module;
                                 locales/, assets/
-addons/OrdaenDev/               the Ordaen Dev window: private (`../wow-dev-tools/modules/OrdaenDev`), a junction
-                                here so the build has it; ignored by git
-addons/OrdaenCore_Debug/        the dev addon: private (`../wow-dev-tools/addons/OrdaenCore_Debug`), a junction
-                                as OrdaenDev's; a dev build alone builds it
+addons/OrdaenCompanion/         the dev addon Ordaen Companion, a module (the Ordaen Dev window among its parts):
+                                private (`../wow-dev-tools/addons/OrdaenCompanion`), a junction here so the build has
+                                it; ignored by git
 addons/OrdaenApiDump/           the game API dump, which the dev addon needs: private
-                                (`../wow-dev-tools/addons/OrdaenApiDump`), a junction as OrdaenDev's
+                                (`../wow-dev-tools/addons/OrdaenApiDump`), a junction as OrdaenCompanion's
 addons/Showcase/                a page of the library's controls and a windowed module, for the tests; `"dev": true`
                                 as the dev addon's, so a release build leaves it out
 art/                            how every texture of addons/ came to be and the steps that make it again: pieces,
@@ -314,7 +313,7 @@ pages (`development/framework`) say what Ordaen adds to it, and which parts of i
 - **What a module calls** is the language's, the framework's (`Ordaen`, the library) and `"$game"`, never the
   runtime's internals.
 - **Debugging is opt-in development mode.** `Debug.log(...)` (`import Debug from "$debug"`) is in dev builds only.
-  With the dev addon loaded (`OrdaenCore_Debug`, in `../wow-dev-tools`; it needs no other addon) the lines go to its
+  With the dev addon loaded (`OrdaenCompanion`, in `../wow-dev-tools`; a module of Ordaen) the lines go to its
   log and its inspector describes the boxes the host draws; without it they go nowhere. Players don't have it.
 - **The companion runs whenever the game does.** The dev addon captures, measures and sends over the strip; the
   companion stores, shows and exposes it to Claude (the MCP server `ordaen`; skill `debug-in-game`).

@@ -1,0 +1,35 @@
+// Ordaen Debug: what a player turns on to report a bug. Off by default; its switch is its row in Ordaen's settings,
+// and its tab there makes the report (`report.luna`). While on, Ordaen loads it at login with its other modules. It is the runtime's debug kit (`kit.luna`): every error and fault, and every blocked action
+// (`catcher.luna`), kept across sessions (`errors.luna`), those raised before it loaded included. Ordaen Companion,
+// the developer's dev addon, needs it and streams what it catches.
+import Debug from "$debug"
+import root Ordaen from "Ordaen"
+import { Module, SettingsPage } from "Ordaen"
+import { Catcher } from "@/catcher"
+import { Errors, clientMeta, takeSaved } from "@/errors"
+import { Kit } from "@/kit"
+import Locale from "@/locales"
+import { ReportPage } from "@/report"
+
+public class DebugModule implements Module, App {
+  public const title: String = "Ordaen Debug"
+  public errors: mut Errors
+  public catcher: mut Catcher
+  public kit: mut Kit
+  // Its one tab: «Report a bug».
+  public const pages: Array<SettingsPage> = [
+    { title: Locale.TAB_REPORT, content: $ltml { <ReportPage errors={self.errors} /> } }
+  ]
+
+  constructor() {
+    self.errors = new Errors(takeSaved(), clientMeta())
+    self.catcher = new Catcher(mut self.errors)
+    self.kit = new Kit(mut self.catcher)
+    Debug.attach(mut self.kit)
+    Ordaen.modules.add(self)
+  }
+
+  public render(self): Template {
+    return $ltml { <box /> }
+  }
+}

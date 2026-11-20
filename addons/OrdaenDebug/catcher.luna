@@ -1,0 +1,80 @@
+// The error catcher: every Lua error in the game (any addon, Blizzard's UI, a file's load), every fault of
+// LunaType's, and every blocked or forbidden protected action is recorded in `Errors`. The errors come from the
+// runtime's kit (`kit.luna`): the runtime holds the client's error handler from its first file, reads a message's
+// stack and locals the first time alone, and hands each error on to the handler the client had, so the player's error
+// addon keeps working. Repeats only bump a counter; nothing runs while no error comes.
+import Client from "$client"
+import Events from "$events"
+import { Errors, Kind } from "@/errors"
+
+// Told of each blocked or forbidden action as the client reports it, repeats too: the addon it blames, the function
+// with its parentheses, "blocked" or "forbidden".
+public type TaintListener = (addon: String, called: String, verb: String) => nil
+
+public class Catcher {
+  taintListeners: mut Array<TaintListener> = []
+
+  errors: mut Errors
+  constructor(errors: mut Errors) {
+    self.errors = errors
+    Events.ADDON_ACTION_BLOCKED.listen(self.onBlocked)
+    Events.ADDON_ACTION_FORBIDDEN.listen(self.onForbidden)
+  }
+
+  public onTaint(mut self, listener: TaintListener) {
+    self.taintListeners.push(listener)
+  }
+
+  // An error or a fault the runtime caught: the stack and the locals with a message's first time this session.
+  public error(mut self, message: String, stack: String | nil, locals: String | nil) {
+    if (self.errors.repeatOf(message) == nil) {
+      _ = self.errors.add({ message: message, stack: stack, locals: locals, kind: nil, source: nil })
+    }
+  }
+
+  // A failure that raised nothing, of the addon `source`.
+  public fault(mut self, message: String, source: String) {
+    if (self.errors.repeatOf(message) == nil) {
+      _ = self.errors.add({ message: message, stack: nil, locals: nil, kind: Kind.Error, source: source })
+    }
+  }
+
+  onBlocked(mut self, isTainted: String, function_: String) {
+    self.taint("ADDON_ACTION_BLOCKED", isTainted, function_)
+  }
+
+  onForbidden(mut self, isTainted: String, function_: String) {
+    self.taint("ADDON_ACTION_FORBIDDEN", isTainted, function_)
+  }
+
+  // Records a blocked or forbidden protected action (ADDON_ACTION_BLOCKED / _FORBIDDEN), each one the client
+  // reports: whatever made it, the player saw the client's dialog or message for it.
+  public taint(mut self, event: String, addon: String | nil, func: String | nil) {
+    let verb = event == "ADDON_ACTION_FORBIDDEN" ? "forbidden" : "blocked"
+    // The client names the function with its parentheses or without ("UNKNOWN()", "Minimap:SetParent").
+    let called = String.of(func)
+    const closed, _ = called.find("%)$")
+    if (closed == nil) {
+      called = called + "()"
+    }
+    let message = "%s: call to %s was %s".format(String.of(addon), called, verb)
+    for (listener of self.taintListeners) {
+      listener(String.of(addon), called, verb)
+    }
+    if (self.errors.repeatOf(message) == nil) {
+      // The addon WoW blames: its folder name, "Blizzard" for Blizzard_*, else "other".
+      let source = "other"
+      if (addon != nil) {
+        let found = addon.captures("^([%w_%-%.]+)$")
+        if (found != nil) {
+          source = found[1] ?? panic("the pattern captures the whole name")
+        }
+      }
+      const blizzard, _ = source.find("^Blizzard_")
+      if (blizzard != nil) {
+        source = "Blizzard"
+      }
+      _ = self.errors.add({ message: message, stack: Client.debugstack(2), locals: nil, kind: Kind.Taint, source: source })
+    }
+  }
+}
