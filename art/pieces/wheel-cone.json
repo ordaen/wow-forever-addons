@@ -1,0 +1,10 @@
+{
+  "says": "The radial wheel's lit slice (Ordaen/wheel.luna, CONE): a wedge with its point at the bottom's middle and its edges to the top corners, gold, faint at the point and brightest towards the rim with a soft outer edge. The wheel's box stretches it to the chosen slice's width and turns it towards the item.",
+  "ships": [
+    "addons/Ordaen/media/wheel-cone.tga"
+  ],
+  "origin": "Drawn by wow-dev-tools `design/scripts/wheel-cone.mjs` (a page of one clipped radial gradient), shot at 2x on black and on white with `design/scripts/shot.mjs --width 128 --height 128 --scale 2` (`?bg=black`, `bg=white`), then matted.",
+  "steps": [
+    { "matte": { "black": "art/sources/wheel-cone-black.png", "white": "art/sources/wheel-cone-white.png", "out": "addons/Ordaen/media/wheel-cone.tga", "width": 256, "height": 256 } }
+  ]
+}
