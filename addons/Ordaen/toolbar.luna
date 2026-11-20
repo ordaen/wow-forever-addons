@@ -67,7 +67,7 @@ public class Toolbar implements Component {
                  border={FIELD_EDGE} @submit={self.onSubmit} />
           <box $if={!self.searching} position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui}
                padding={FIELD_PAD} yAlign={Align.Center} mouseThrough={true}>
-            <text value={self.placeholder} textColor={DIM} wrap={.None} />
+            <text value={self.placeholder} textColor={DIM} wrap={.Cut} />
           </box>
         </box>
         <box columns={TOOLS} yAlign={Align.Center}>
