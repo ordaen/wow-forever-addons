@@ -6,7 +6,7 @@ import Client from "$client"
 import Game from "$game"
 import { Align, Edges, Event, Frame, MouseButton, Overflow, Position, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { BODY_LINE, Component, FIELD_EDGE, FIELD_FILL, Menu, MenuEntry, SECONDARY_TEXT } from "Ordaen"
+import { BODY_LINE, Component, FIELD_EDGE, FIELD_FILL, GripCorner, Menu, MenuEntry, SECONDARY_TEXT, SizeGrip } from "Ordaen"
 import { ChatTab, Shown } from "@/lines"
 import Locale from "@/locales"
 import { Row, TabButton } from "@/view"
@@ -19,9 +19,9 @@ const STEP = 3
 const FADING = 3
 const LINK: Color = Color.hex("#69ccf0")
 const MAX: "max-content" = "max-content"
-// The lines' least width: some forty letters of the body's font, so a line doesn't break every few words. The chat
+// The lines' least width: some sixty letters of the body's font, so a line doesn't break every few words. The chat
 // stands wider than the player chose where its tabs and this need it.
-const LINES_LEAST = 320dp
+const LINES_LEAST = 480dp
 // The game's input, as high as its template makes it (FloatingChatFrame.xml): an embed is the size it is given, and
 // the foot's row has nothing else to give it a height while the input shows.
 const GAME_INPUT = 32ui
@@ -74,6 +74,10 @@ public class Pane implements Component {
   public namePicked: Event<NamePick> = new Event()
   // A link that isn't a name's, or a name's with a plain click.
   public link: Event<Event.Link> = new Event()
+  // The grip in the lines' top right corner, taken, dragged and let go.
+  public sizeGrab: Event<Event.Drag> = new Event()
+  public size: Event<Event.Drag> = new Event()
+  public sizeDrop: Event<nil> = new Event()
 
   derived open: ChatTab | nil = self.tabs.find(tab => tab.key == self.openKey) ?? self.tabs[1]
   // Lines scrolled back from the newest.
@@ -231,48 +235,56 @@ public class Pane implements Component {
 
   onLatest(mut self) { self.back = 0 }
 
+  onSizeGrab(mut self, drag: Event.Drag) { self.sizeGrab.emit(drag) }
+  onSize(mut self, drag: Event.Drag) { self.size.emit(drag) }
+  onSizeDrop(mut self) { self.sizeDrop.emit() }
+
   onEnter(mut self) { self.hovered = true }
 
   onLeave(mut self) { self.hovered = false }
 
   public render(self): Template {
     return $ltml {
-      // The tabs a sidebar at the frame's left, one a row, a line down between them and the lines; the lines at least
-      // the height the player chose and never lower than the tabs, the foot under them. As wide as the player chose,
-      // or as the tabs and the lines' least need.
-      <box width={{ min: self.width, max: nil }} columns={[MAX, MAX, { fr: 1 }]} gap={2sp}
-           border={Ordaen.art.frame.small} background={Ordaen.art.window.wood} artOrigin={true} padding={ROOM}
-           @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
-        <box columns={1}>
+      // The tabs a sidebar on the world at the frame's left, one a row; the lines in the window's frame and wood, at
+      // least the height the player chose and never lower than the tabs, the foot under them. As wide as the player
+      // chose, or as the tabs and the lines' least need.
+      <box width={{ min: self.width, max: nil }} columns={[MAX, { fr: 1 }]}>
+        <box columns={1} yAlignSelf={Align.Start}>
           <TabButton $for={tab of self.tabs} tab={tab} open={tab.key == self.open?.key} @pick={self.onPick}
                      @menu={self.onMenu} />
           <Menu $if={self.menuTab != nil} entries={self.tabEntries} title={self.menuTab?.title ?? ""} @pick={self.onTabPick}
                 @close={self.onTabMenuClose} />
         </box>
-        <box width={Ordaen.art.ctl.well.rim.width} background={Ordaen.art.ctl.well.rim.color} yAlignSelf={Align.Stretch} />
-        <box width={{ min: LINES_LEAST, max: nil }} rows={self.rows} yAlignSelf={Align.Stretch}>
-          <embed $if={self.logFrame != nil} frame={self.logFrame ?? panic("shown with the frame")} />
-          // The newest line stands at the bottom; older ones go up past the top, which cuts them.
-          <box $else overflow={Overflow.Hidden} textSize={self.textSize} mouseThrough={self.clickThrough} @wheel={self.onWheel}>
-            <box position={Position.Absolute} left={0ui} right={0ui} bottom={0ui} columns={1}>
-              <Row $for={line of self.shown} line={line} fadeBefore={self.fadeBefore} lineHeight={Ordaen.lengthOf(BODY_LINE)}
-                   @link={self.onLink} />
-            </box>
+        <box columns={1} yAlignSelf={Align.Stretch} border={Ordaen.art.frame.small} background={Ordaen.art.window.wood}
+             artOrigin={true} padding={ROOM} @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
+          // The chat stands by its bottom left: it grows to the right and up, by the grip in this corner.
+          <box position={Position.Absolute} top={0ui} right={0ui} zLevel={3}>
+            <SizeGrip corner={GripCorner.TopRight} @grab={self.onSizeGrab} @drag={self.onSize} @drop={self.onSizeDrop} />
           </box>
-          // The game's input while it is open, in a field's floor and edge, and, while scrolled back, the way back.
-          <box columns={[{ fr: 1 }, MAX]} gap={1sp} yAlign={Align.Center}>
-            <box>
-              <box $if={self.inputShown} background={FIELD_FILL} border={FIELD_EDGE} padding={INPUT_PAD}>
-                <embed frame={self.input ?? panic("shown with the input")} height={GAME_INPUT} />
+          <box width={{ min: LINES_LEAST, max: nil }} rows={self.rows} yAlignSelf={Align.Stretch}>
+            <embed $if={self.logFrame != nil} frame={self.logFrame ?? panic("shown with the frame")} />
+            // The newest line stands at the bottom; older ones go up past the top, which cuts them.
+            <box $else overflow={Overflow.Hidden} textSize={self.textSize} mouseThrough={self.clickThrough} @wheel={self.onWheel}>
+              <box position={Position.Absolute} left={0ui} right={0ui} bottom={0ui} columns={1}>
+                <Row $for={line of self.shown} line={line} fadeBefore={self.fadeBefore} lineHeight={Ordaen.lengthOf(BODY_LINE)}
+                     @link={self.onLink} />
               </box>
             </box>
-            <box>
-              <box $if={self.back > 0} @pointerPress={self.onLatest}>
-                <text value={Locale.LATEST} textColor={LINK} textSize={SECONDARY_TEXT} wrap={.None} />
+            // The game's input while it is open, in a field's floor and edge, and, while scrolled back, the way back.
+            <box columns={[{ fr: 1 }, MAX]} gap={1sp} yAlign={Align.Center}>
+              <box>
+                <box $if={self.inputShown} background={FIELD_FILL} border={FIELD_EDGE} padding={INPUT_PAD}>
+                  <embed frame={self.input ?? panic("shown with the input")} height={GAME_INPUT} />
+                </box>
               </box>
+              <box>
+                <box $if={self.back > 0} @pointerPress={self.onLatest}>
+                  <text value={Locale.LATEST} textColor={LINK} textSize={SECONDARY_TEXT} wrap={.None} />
+                </box>
+              </box>
+              <Menu $if={self.menuName != nil} entries={self.nameEntries} title={nameOf(self.menuName?.link ?? "") ?? ""}
+                    @pick={self.onNamePick} @close={self.onNameMenuClose} />
             </box>
-            <Menu $if={self.menuName != nil} entries={self.nameEntries} title={nameOf(self.menuName?.link ?? "") ?? ""}
-                  @pick={self.onNamePick} @close={self.onNameMenuClose} />
           </box>
         </box>
       </box>

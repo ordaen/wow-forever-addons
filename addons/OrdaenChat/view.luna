@@ -1,55 +1,24 @@
-// The chat's parts: a count's badge, a tab of its sidebar, and a line.
-import { Align, Edges, Event, Line, Overflow, Position } from "$ltml"
+// The chat's parts: a tab of its sidebar and a line.
+import { Align, Edges, Event, Overflow, Position } from "$ltml"
 import root Ordaen from "Ordaen"
-import { BRIGHT_TEXT, Component, ListTab, SECONDARY_TEXT } from "Ordaen"
+import { Component, CountBadge, ListTab } from "Ordaen"
 import { ChatTab, Shown } from "@/lines"
 
-public const BADGE_FILL: Color = Color.hex("#b3261e")
-const CLEAR: Color = Color.hex("#00000000")
 // The warm band under a line that names the player or a keyword.
 const MARK: Color = Color.hex("#ff9a2e33")
-const BADGE_PAD: Edges = { right: 1sp, left: 1sp }
-// The room a count keeps: three digits, so the tab keeps its width as the count grows; a count past 999 takes its own.
-const ROOM = "888"
-const MOST_IN_ROOM = 999
-
-// The count of lines waiting unread: white on red, in the numbers' font, at the right of room for three digits, so
-// what holds it keeps its width as the count grows; a count past 999 takes its own.
-public class Badge implements Component {
-  derived room: String = self.count > MOST_IN_ROOM ? String.of(self.count) : ROOM
-
-  count: Signal<Integer>
-  constructor(count: Signal<Integer>) {
-    self.count = count
-  }
-
-  public render(self): Template {
-    return $ltml {
-      <box padding={BADGE_PAD} background={BADGE_FILL}>
-        <box opacity={0}>
-          <text value={self.room} textFont={.Numbers} textSize={SECONDARY_TEXT} wrap={.None} />
-        </box>
-        <box position={Position.Absolute} top={0ui} right={0ui} bottom={0ui} left={0ui} padding={BADGE_PAD}
-             xAlign={Align.End} yAlign={Align.Center}>
-          <text value={"%d"} arguments={[self.count]} textColor={BRIGHT_TEXT} textFont={.Numbers} textSize={SECONDARY_TEXT}
-                wrap={.None} />
-        </box>
-      </box>
-    }
-  }
-}
+// The count's place: over the tab's right end, a little in from its edge.
+const BADGE_SPOT: Edges = { right: 1sp }
 
 // A tab: an entry of the chat's sidebar, the library's list tab (its name, the shade under the cursor, the open one
-// white with the light along its left), and, while lines wait unread, their count's badge at its right. The open
-// one is sunk into the wood as a well is (its rim and its darker floor); the others stand on the wood itself, an
-// unseen rim of the same width keeping every tab the same size. The left button picks it, the right opens its menu.
+// white with the light along its left), and, while lines wait unread, their count's badge over its right end, out
+// of the flow: nothing moves as the count comes, grows or goes. The open one stands in the window's frame and wood,
+// as the lines do; the others stand on the world beside them, nothing behind them. The left button picks it, the
+// right opens its menu.
 public class TabButton implements Component {
   public pick: Event<ChatTab> = new Event()
   public menu: Event<ChatTab> = new Event()
 
   derived unread: Boolean = self.tab.unread > 0
-  derived rim: Line = self.open ? Ordaen.art.ctl.well.rim : { width: Ordaen.art.ctl.well.rim.width, color: CLEAR, sides: nil }
-  derived floor: Color | nil = self.open ? Ordaen.art.ctl.well.floor : nil
 
   tab: Signal<ChatTab>
   open: Signal<Boolean>
@@ -64,10 +33,17 @@ public class TabButton implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={1} border={self.rim} background={self.floor} @pointerPress(.Right)={self.onMenu}>
-        <ListTab label={self.tab.title} selected={self.open} @pick={self.onPick}>
-          <Badge $if={self.unread} count={self.tab.unread} />
-        </ListTab>
+      <box columns={1} @pointerPress(.Right)={self.onMenu}>
+        // The open one in the window's frame and wood, laid behind it out of the flow: every tab one size.
+        <box $if={self.open} position={Position.Absolute} top={0ui} right={0ui} bottom={0ui} left={0ui}
+             border={Ordaen.art.frame.small} background={Ordaen.art.window.wood} artOrigin={true} />
+        <box zLevel={1}>
+          <ListTab label={self.tab.title} selected={self.open} @pick={self.onPick} />
+        </box>
+        <box $if={self.unread} position={Position.Absolute} top={0ui} right={0ui} bottom={0ui} padding={BADGE_SPOT}
+             yAlign={Align.Center} zLevel={2}>
+          <CountBadge count={self.tab.unread} />
+        </box>
       </box>
     }
   }

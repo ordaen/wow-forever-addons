@@ -3,7 +3,8 @@ surface 635,331.38 762x237.25 on DIALOG clamped raised by a click
   box 635,368.62 762x200 absolute Interface\AddOns\Ordaen\media\window-wood border=UI-Frame-Metal-CornerTopLeft
     box 648.09,381.72 740.81x176.06
       text 670.85,404.47 695.3x17.78 "the page" #ffffff
-    box 1379.75,548.62 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
+    box 1379.75,548.62 13.33x13.33 absolute
+      box 1379.75,548.62 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 635,331.38 762x47.75
     box 635,331.38 673.47x47.75
       box 635,331.38 157.57x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress

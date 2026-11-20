@@ -7,8 +7,7 @@ import Test from "$test"
 import root Ordaen from "Ordaen"
 import { ChatMark, FIELD_FILL, say } from "Ordaen"
 import { LEAST_WIDTH } from "@/choices"
-import { ChatTab, Shown, linked, marks, wordsOf } from "@/lines"
-import { BADGE_FILL } from "@/view"
+import { ChatTab, Kept, Shown, linked, marks, wordsOf } from "@/lines"
 import { HEARD_FILL, TOLD_FILL, WHISPERS_LEAST } from "@/whispers"
 
 const SCREEN: Test.Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
@@ -64,35 +63,57 @@ test "the chat reads the game's lines and shows them in the window's tab, nothin
   Test.expect(shown.texts().join(",") == "General,Jaina,Whispers,[Thrall] says: Hello")
 }
 
-test "the open tab alone is sunk into the wood, a line between the tabs and the lines" {
+test "the lines and the open tab alone are in the window's wood: the other tabs stand on the world" {
   Game.chat.windows = gameWindows()
   const shown = chat()
-  const well = shown.box(Ordaen.art.ctl.well.floor)
-  Test.expect(well.count() == 1 && well.texts().any(t => t == "General"))
+  const name = shown.text("General").rect()
+  // The lines' frame and the open tab's.
+  Test.expect(shown.box(Ordaen.art.window.wood).count() == 2)
+  Test.expect(inWood(shown, "General") && !inWood(shown, "Jaina"))
   shown.text("Jaina").click()
-  Test.expect(well.count() == 1 && well.texts().any(t => t == "Jaina"))
-  Test.expect(shown.box(Ordaen.art.ctl.well.rim.color).count() >= 1)
+  Test.expect(inWood(shown, "Jaina") && !inWood(shown, "General"))
+  // A tab keeps its place, open or not.
+  Test.expect(shown.text("General").rect().left == name.left)
 }
 
-test "a tab's count is in the numbers' font, in room for three digits: the tab keeps its width as it grows" {
+// Whether a text stands in one of the window's wood boxes.
+function inWood(shown: Test.Part, text: String): Boolean {
+  const at = shown.text(text).rect()
+  const wood = shown.box(Ordaen.art.window.wood)
+  for (n of 1..wood.count()) {
+    const box = wood.nth(n).rect()
+    if (box.left <= at.left && box.right >= at.right && box.top <= at.top && box.bottom >= at.bottom) { return true }
+  }
+  return false
+}
+
+test "a tab's count is the library's badge over the tab's right end: the tab and its name never move for it" {
   Game.chat.windows = gameWindows()
   const shown = chat()
+  const name = shown.text("Jaina").rect()
+  Game.chat.heard.emit(line("SAY", "[Thrall] says: here", "Thrall", [1]))
   Game.chat.heard.emit(line("SAY", "[Jaina] says: one", "Jaina", [3]))
-  const badge = shown.box(BADGE_FILL)
+  const lines = shown.text("[Thrall] says: here").rect()
+  const badge = shown.box(Ordaen.art.panel.countBadge)
   const one = badge.rect()
-  for (at of 1..120) { Game.chat.heard.emit(line("SAY", `[Jaina] says: ${at}`, "Jaina", [3])) }
-  Test.expect(shown.text("121").shown())
+  for (at of 1..1200) { Game.chat.heard.emit(line("SAY", `[Jaina] says: ${at}`, "Jaina", [3])) }
+  Test.expect(shown.text("1201").shown())
+  // Wider to the left alone, its right end where it was.
   const many = badge.rect()
-  Test.expect(many.left == one.left && many.right == one.right)
+  Test.expect(shown.text("[Thrall] says: here").rect().left == lines.left)
+  Test.expect((many.right - one.right).abs() < 0.01)
+  Test.expect(many.left < one.left)
+  const now = shown.text("Jaina").rect()
+  Test.expect(now.left == name.left && now.right == name.right)
 }
 
-test "the lines keep their least width, some forty letters, however narrow the chat is chosen" {
+test "the lines keep their least width, some sixty letters, however narrow the chat is chosen" {
   Game.chat.windows = playersWindows()
   const shown = chat("Общий")
-  Game.chat.heard.emit(line("SAY", "[Thrall] says: a line long enough to fill the whole width of the lines and more", "Thrall", [1]))
-  // 320 dp, 227 of the screen's units here (190 dp are 135).
-  const said = shown.text("[Thrall] says: a line long enough to fill the whole width of the lines and more").rect()
-  Test.expect(said.right - said.left >= 220)
+  Game.chat.heard.emit(line("SAY", "[Thrall] says: a line long enough to fill the whole width of the lines and more, and then some more again", "Thrall", [1]))
+  // 480 dp, 341 of the screen's units here (190 dp are 135).
+  const said = shown.text("[Thrall] says: a line long enough to fill the whole width of the lines and more, and then some more again").rect()
+  Test.expect(said.right - said.left >= 335)
 }
 
 test "a line for another tab waits there, counted, until the tab is opened" {
@@ -177,6 +198,37 @@ test "the chat's tabs are a sidebar at its left, one a row, a right-click openin
   now.text("General").rightClick()
   Test.expect(!Test.requests().any(r => r == "Chat.choose 1"))
   Test.expect(Test.page().text("Rename").shown())
+}
+
+// A drag of the mouse from `from` by (dx, dy), in steps the client's drag takes as one.
+function drag(from: Test.Point, dx: Number, dy: Number) {
+  Test.moveTo(from)
+  Test.press(nil)
+  Test.moveTo({ x: from.x + 1, y: from.y })
+  Test.pass(0.05)
+  Test.moveTo({ x: from.x + dx, y: from.y + dy })
+  Test.pass(0.05)
+  Test.release(nil)
+  Test.flush()
+}
+
+// Each size is measured after the grip is let go: the settings' size, kept.
+test "the grip in the chat's top right corner grows it right and up, never below its least, and the size is kept" {
+  Game.chat.windows = gameWindows()
+  const shown = chat()
+  const before = shown.rect()
+  drag(Test.painted(Ordaen.art.ctl.grip, nil), 80, -60)
+  const grown = shown.rect()
+  // It stands by its bottom left: that stays, the other sides go out.
+  Test.expect(grown.left == before.left && (grown.bottom - before.bottom).abs() < 0.5)
+  Test.expect(grown.right > before.right + 50 && grown.top < before.top - 40)
+  // The grip followed the cursor: off it, it shows its plain art again.
+  Test.moveTo({ x: 1500, y: 100 })
+  Test.flush()
+  drag(Test.painted(Ordaen.art.ctl.grip, nil), -2000, 2000)
+  const least = shown.rect()
+  // The lines' least, 480 dp (341 of the screen's units here), and the tabs beside them.
+  Test.expect(least.right < grown.right && least.right - least.left >= 341)
 }
 
 test "the chat is never narrower than a window's least body, 375 dp" {
@@ -343,6 +395,27 @@ test "an Ordaen addon writes into the chat with its mark and colour" {
   const mark: ChatMark = { name: "Inventory", color: Color.hex("#e8c35a") }
   say(mark, "sorted.")
   Test.expect(Test.printed().join("\n") == "|cffe8c35aInventory:|r sorted.")
+}
+
+test "a line kept with no sender (kept before senders were) comes back, said by nobody" {
+  const old: Map<String, Unknown> = {}
+  old["whole"] = "[Thrall] says: from before"
+  old["color"] = WHITE
+  old["time"] = 1
+  old["repeat"] = ""
+  old["count"] = 1
+  old["marked"] = false
+  old["past"] = true
+  old["secret"] = false
+  old["mine"] = false
+  const tab: Map<String, Unknown> = {}
+  tab["key"] = "w1"
+  tab["lines"] = [old]
+  const kept: Map<String, Unknown> = {}
+  kept["tabs"] = [tab]
+  const back = Kept.decode(kept, Kept { tabs: [] })
+  const lines = back.tabs[1]?.lines ?? []
+  Test.expect(lines[1]?.sender == "")
 }
 
 test "a line the client keeps secret shows one line high, never kept for the next session" {

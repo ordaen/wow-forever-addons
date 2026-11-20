@@ -141,7 +141,8 @@ surface 425,183.88 1055.76x532.25 on DIALOG clamped raised by a click
           box 1199.91,662.73 250x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
             text 1287.69,668 74.44x17.78 "Leave Guild" #ffd100
       box 1174.16,245.89 6.67x459.39 absolute @drag @dragStart @dragStop
-    box 1463.51,696.12 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
+    box 1463.51,696.12 13.33x13.33 absolute
+      box 1463.51,696.12 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 425,183.88 1055.76x59.42
     box 425,183.88 967.23x59.42
       box 425,183.88 137.59x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress

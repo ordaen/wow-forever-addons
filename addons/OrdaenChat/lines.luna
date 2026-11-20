@@ -20,8 +20,9 @@ public struct Shown implements Plain {
   secret: Boolean
   // The player's own (a whisper told): a conversation draws it on its right.
   mine: Boolean
-  // Who said it (their GUID; empty for none): a player reported has their lines taken away.
-  sender: String
+  // Who said it (their GUID; empty for none): a player reported has their lines taken away. A line kept without one
+  // was said by nobody known.
+  sender: String = ""
 }
 
 // What one tab keeps between sessions.

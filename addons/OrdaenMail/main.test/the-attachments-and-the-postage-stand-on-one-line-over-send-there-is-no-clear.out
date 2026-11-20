@@ -85,7 +85,8 @@ surface 500,175.54 1055.76x548.92 on DIALOG clamped raised by a click
             box 1424.91,671.06 100x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
               text 1460.47,676.34 28.89x17.78 "Send" #808080
       box 1099.16,237.55 6.67x476.06 absolute @drag @dragStart @dragStop
-    box 1538.51,704.46 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
+    box 1538.51,704.46 13.33x13.33 absolute
+      box 1538.51,704.46 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 500,175.54 1055.76x59.42
     box 500,175.54 967.23x59.42
       box 500,175.54 114.5x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress

@@ -1,0 +1,29 @@
+// CountBadge: a count on its pill (the art's `countBadge`): white digits in the numbers' font, round for one digit,
+// as wide as more need. What holds it places it, out of the flow, over a corner or an edge of what it counts.
+import { Align, Bounds, Edges, Shadow } from "$ltml"
+import root Ordaen from "Ordaen"
+import { Component } from "@/module"
+import { BRIGHT_TEXT, SECONDARY_TEXT, TIGHT_LINE } from "@/units"
+
+const HIGH = 21.09375dp
+// Never narrower than high: round for one digit.
+const WIDE: Bounds = { min: HIGH, max: nil }
+const PAD: Edges = { right: 1sp, left: 1sp }
+const BOLD: Shadow = { color: BRIGHT_TEXT, x: 1ui, y: 0ui }
+
+public class CountBadge implements Component {
+  count: Signal<Integer>
+  constructor(count: Signal<Integer>) {
+    self.count = count
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <box height={HIGH} width={WIDE} padding={PAD} xAlign={Align.Center} yAlign={Align.Center}
+           background={Ordaen.art.panel.countBadge}>
+        <text value={"%d"} arguments={[self.count]} textSize={SECONDARY_TEXT} textColor={BRIGHT_TEXT} textFont={.Numbers}
+              textShadow={BOLD} lineHeight={TIGHT_LINE} wrap={.None} />
+      </box>
+    }
+  }
+}

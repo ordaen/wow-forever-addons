@@ -76,7 +76,8 @@ surface 310,139.71 980x620.58 on DIALOG clamped raised by a click
             box 1136.08,702.63 116.67x28.33
               box 1136.08,702.63 116.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
                 text 1163.86,705.68 61.11x22.22 "Roll back" #f0e6d2
-    box 1272.75,740.29 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
+    box 1272.75,740.29 13.33x13.33 absolute
+      box 1272.75,740.29 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 310,139.71 980x47.75
     box 310,139.71 914.33x47.75
       box 310,139.71 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress

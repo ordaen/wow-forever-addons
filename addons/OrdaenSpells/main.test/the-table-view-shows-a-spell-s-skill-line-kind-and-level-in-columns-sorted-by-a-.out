@@ -126,7 +126,8 @@ surface 425,173.04 750x553.92 on DIALOG clamped raised by a click
           box 643.16,675.58 104.09x17.78
             text 643.16,675.58 86.67x17.78 "Passive spells" #a3977f
             text 738.36,675.58 8.89x17.78 "1" #e8dcc4
-    box 1157.75,706.96 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
+    box 1157.75,706.96 13.33x13.33 absolute
+      box 1157.75,706.96 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 425,173.04 750x47.75
     box 425,173.04 661.47x47.75
       box 425,173.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress

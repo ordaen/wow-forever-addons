@@ -170,7 +170,8 @@ surface 391.67,175.54 816.67x548.92 on DIALOG clamped raised by a click
               text 1035.62,685.22 0x0 "" #f0c860
             box 1044.15,671.06 133.33x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 secure @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
               text 1089.71,676.34 42.22x17.78 "Reload" #ffd100
-    box 1191.08,704.46 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
+    box 1191.08,704.46 13.33x13.33 absolute
+      box 1191.08,704.46 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 391.67,175.54 816.67x59.42
     box 391.67,175.54 753.13x59.42
       box 391.67,175.54 128.71x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
