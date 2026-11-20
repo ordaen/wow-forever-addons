@@ -220,10 +220,10 @@ test "Shift held while talking shows the window all the same" {
   Test.expect(asked() == "" && Test.page().window("Thor").shown())
 }
 
-test "the server wanting the window (ForceGossip) shows it" {
+test "a vendor the client says ForceGossip of, as Forever's says of every vendor, is skipped all the same" {
   Test.mount(nil, SCREEN)
-  Test.talk({ name: "Thor", id: 523, options: [option(400, "Show me where I can fly.", 1, TALK)], forceGossip: true })
-  Test.expect(asked() == "" && Test.page().window("Thor").shown())
+  Test.talk({ name: "Thor", id: 523, options: [option(400, "Show me where I can fly.", 0, TALK)], forceGossip: true })
+  Test.expect(asked() == "option 400" && !Test.page().window("Thor").shown())
 }
 
 test "with the skip off the window shows" {
