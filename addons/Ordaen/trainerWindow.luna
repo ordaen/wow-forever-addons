@@ -44,13 +44,6 @@ public struct TrainerList implements Plain {
   descending: Boolean = false
 }
 
-// How a kind of trainer's window opens: in its view, every service shown. Made here, where the defaults are: a
-// `TrainerList` written in another addon's file reads them wrong (the compiler copies a default that names this file's
-// constant or an enum's member, and the copy misses both).
-public function trainerListIn(view: TrainerView): TrainerList {
-  return { view: view }
-}
-
 // What a sort orders by; a trainer's kind lays its columns out as one of these each.
 enum Key { Name, Rank, Level, Skill, Cost, Status }
 
