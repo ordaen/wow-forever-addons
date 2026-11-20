@@ -140,6 +140,7 @@ public class ItemButton implements Component {
   linkOnShift: Signal<Boolean>
   worn: Signal<Integer | nil>
   spell: Signal<Integer | nil>
+  currency: Signal<Integer | nil>
   mail: Signal<[Integer, Integer] | nil>
   constructor(
     // The game's number of the item; none for an empty slot.
@@ -164,8 +165,12 @@ public class ItemButton implements Component {
     mail: Signal<[Integer, Integer] | nil> = nil,
     // The spell it shows, in place of an item (a spellbook's slot, its icon the `art`): its tooltip and its link are
     // the spell's, as the game's spellbook gives them.
-    spell: Signal<Integer | nil> = nil
+    spell: Signal<Integer | nil> = nil,
+    // The currency it shows, in place of an item (a quest's currency reward, its icon the `art`): its tooltip is the
+    // game's of the currency, with the `count`.
+    currency: Signal<Integer | nil> = nil
   ) {
+    self.currency = currency
     self.spell = spell
     self.mail = mail
     self.art = art
@@ -215,8 +220,11 @@ public class ItemButton implements Component {
     const worn = self.worn
     const spell = self.spell
     const mail = self.mail
+    const currency = self.currency
     if (spell != nil) {
       Game.items.showSpell(frame, spell)
+    } else if (currency != nil) {
+      Game.items.showCurrency(frame, currency, self.count)
     } else if (item != nil && mail != nil) {
       Game.items.showMail(frame, mail[1], mail[2])
     } else if (item != nil && worn != nil) {
