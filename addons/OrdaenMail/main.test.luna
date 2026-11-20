@@ -141,6 +141,44 @@ test "the view by kind puts the letters under their kinds' captions with the cou
   Test.expect(!window.text("Bolts for you").shown())
 }
 
+// The subjects in the window, in its order.
+function order(window: Test.Part): String {
+  const subjects = ["Auction successful: Linen Cloth", "Bolts for you", "Pay for the sword", "Welcome"]
+  return window.texts().filter(text => subjects.any(subject => subject == text)).join(", ")
+}
+
+test "the table sorts by a heading, a second click the other way" {
+  Test.mount(nil, PAGE)
+  Game.mailbox.letters = letters
+  Game.mailbox.waiting = (): Integer => 4
+  Game.bags.free = 20
+  Game.mailObserver.open = true
+  Game.mailObserver.opened.emit()
+  _ = Test.requests()
+  const window = Test.page().window(MAIL)
+  window.button(Ordaen.art.ctl.tool.list).click()
+  Test.page().window("Table").button("Table").click()
+  window.text("Left").click()
+  Test.expect(order(window) == "Bolts for you, Pay for the sword, Auction successful: Linen Cloth, Welcome")
+  window.text("Left").click()
+  Test.expect(order(window) == "Welcome, Auction successful: Linen Cloth, Pay for the sword, Bolts for you")
+}
+
+test "a row's tooltip names the sender, each attachment with its count, the money and the keys" {
+  Test.mount(nil, PAGE)
+  Game.mailbox.letters = letters
+  Game.mailbox.waiting = (): Integer => 4
+  Game.bags.free = 20
+  Game.mailObserver.open = true
+  Game.mailObserver.opened.emit()
+  _ = Test.requests()
+  const window = Test.page().window(MAIL)
+  window.text("Bolts for you").hover()
+  const tip = Test.page().window("Wool Cloth")
+  Test.expect(tip.text("Linen Cloth").item().text("20").shown())
+  Test.expect(tip.text("Wool Cloth").item().text("5").shown())
+}
+
 // Opening, taking, returning
 
 test "a click opens the letter beside the list: its text read, its items as rewards, the game's sound" {
