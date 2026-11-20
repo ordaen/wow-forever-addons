@@ -3,7 +3,7 @@
 // streams; each window the player undocked is a pane of its own, holding that window alone.
 import Client from "$client"
 import Game from "$game"
-import { Align, Edges, Event, Frame, MouseButton, Overflow, Position, Track } from "$ltml"
+import { Align, Edges, Event, Frame, MouseButton, Overflow, Position } from "$ltml"
 import root Ordaen from "Ordaen"
 import { BODY_LINE, Component, Menu, MenuEntry, SECONDARY_TEXT } from "Ordaen"
 import { ChatTab, Shown } from "@/lines"
@@ -70,7 +70,6 @@ public class Pane implements Component {
   derived logFrame: any Frame | nil = self.logOf()
   derived shown: Array<Shown> = self.shownOf()
   derived fadeBefore: Number = self.fadeOf()
-  derived tabColumns: Array<Track> = self.tabs.map(tab => MAX)
   derived inputShown: Boolean = self.input != nil && (self.typing || self.inputAlways)
   derived tabEntries: Array<MenuEntry> = self.tabEntriesOf()
   derived nameEntries: Array<MenuEntry> = NAME_ACTIONS.map(action => MenuEntry { label: nameLabel(action), on: nil, disabled: nil, group: nil, more: nil })
@@ -211,7 +210,8 @@ public class Pane implements Component {
            background={Ordaen.art.window.wood} artOrigin={true} padding={ROOM} @pointerEnter={self.onEnter}
            @pointerLeave={self.onLeave}>
         <box columns={[{ fr: 1 }, MAX]} yAlign={Align.End}>
-          <box columns={self.tabColumns} gap={0.5sp}>
+          // The tabs wrap to more rows where they don't fit the pane's width; never shortened, never scrolled.
+          <box columns={"wrap"} gap={0.5sp}>
             <TabButton $for={tab of self.tabs} tab={tab} open={tab.key == self.open?.key} @pick={self.onPick}
                        @menu={self.onMenu} />
           </box>

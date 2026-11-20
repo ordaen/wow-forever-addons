@@ -227,3 +227,12 @@ test "someone's line naming a keyword is marked" {
 function plain(words: String): Shown {
   return { whole: words, color: WHITE, time: 0, repeat: words, count: 1, marked: false, past: false, secret: false }
 }
+
+test "tabs that don't fit the chat's width wrap to another row, none of them shortened" {
+  Game.chat.windows = [
+    window(1, "General", ""), window(3, "Trade and services", ""), window(4, "Guild officers", "")
+  ]
+  const shown = chat()
+  Test.expect(shown.text("Guild officers").rect().top > shown.text("General").rect().top)
+  Test.expect(shown.text("Trade and services").shown())
+}
