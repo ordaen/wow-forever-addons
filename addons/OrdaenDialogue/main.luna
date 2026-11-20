@@ -8,11 +8,11 @@
 import Client from "$client"
 import Events from "$events"
 import Game from "$game"
-import { Align, Event, Key, Overflow, Position, Track } from "$ltml"
+import { Align, Event, Overflow, Position, Track } from "$ltml"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
-import { ButtonKey, ButtonPlate, Dialog, KeptWindow, Module, Money, PushButton, Reward, RewardView, Rewards, SECONDARY_TEXT, Scroll, Settings, SettingsPage, TipText, Window, WindowTabSpec, WindowsPage, choiceViews, windowsTitle } from "Ordaen"
-import { OptionRow } from "@/list"
+import { ButtonKey, ButtonPlate, Dialog, KeptWindow, Module, Money, PushButton, Reward, RewardView, Rewards, SCROLL_HEIGHT, SCROLL_WIDTH, SECONDARY_TEXT, Scroll, Settings, SettingsPage, TipText, Window, WindowTabSpec, WindowsPage, choiceViews, windowsTitle } from "Ordaen"
+import { LineKey, OptionRow, Placed, columnsOf, keysFor, placeOf } from "@/list"
 import Locale from "@/locales"
 import { Needs, Said } from "@/pages"
 import Pawn from "@/pawn"
@@ -54,22 +54,6 @@ function wordEnd(text: String, at: Integer): Integer {
     if (text.sub(stop + 1, stop + 1) == " ") { return stop }
   }
   return text.length
-}
-
-// The number a key of the row above the letters stands for; 0 for any other key.
-function digitOf(key: Key): Integer {
-  return match (key) {
-    .Digit1 => 1
-    .Digit2 => 2
-    .Digit3 => 3
-    .Digit4 => 4
-    .Digit5 => 5
-    .Digit6 => 6
-    .Digit7 => 7
-    .Digit8 => 8
-    .Digit9 => 9
-    else => 0
-  }
 }
 
 public class Dialogue implements Module, App {
@@ -566,8 +550,8 @@ public class Dialogue implements Module, App {
   // bindings wait for its end); every other key stays the game's.
 
   onKey(mut self, stroke: Event.Keystroke) {
-    const number = digitOf(stroke.key)
-    if (number > 0) { self.pickNumber(number) }
+    const place = placeOf(stroke.key)
+    if (place > 0) { self.pickNumber(place) }
   }
 
   onSpace(mut self) { self.main() }
@@ -584,7 +568,13 @@ public class Dialogue implements Module, App {
   derived wellOverflow: Overflow = self.listShown ? Overflow.Visible : Overflow.Scroll
   // A quest's needs and rewards stand at the well's foot, right over the buttons that act on them.
   derived wellAlign: Align = self.listShown ? Align.Start : Align.End
-  derived rows: Array<Track> = self.isBook ? [{ fr: 1 }, "max-content"] : [{ fr: 2 }, { fr: 3 }]
+  // The scroll at its one size (a picture of one fits it), what is under it the rest.
+  derived rows: Array<Track> = [SCROLL_HEIGHT, { fr: 1 }]
+  // The list's lines in columns, as many as their count needs; the window widens for each.
+  derived optionColumns: Array<Array<Placed>> = columnsOf(self.lines)
+  derived listColumns: Array<Track> = self.optionColumns.map((column): Track => "max-content")
+  // The keys the window hears: 1–9, and on the list one for each line past them.
+  derived lineKeys: Array<LineKey> = self.keysOn ? keysFor(self.listShown ? self.lines.length : 0) : []
   derived pickable: Boolean = self.page == Page.Reward
   derived rewardViews: Array<RewardView> = choiceViews(self.quest?.choices ?? [], self.upgrades())
   derived backLabel: String = match (self.page) {
@@ -652,21 +642,24 @@ public class Dialogue implements Module, App {
               @close={self.close} @settings={self.onSettings}>
         <box rows={self.rows} gap={0sp}>
           <box $if={self.keysOn} position={Position.Absolute} left={0ui} top={0ui} width={0ui} height={0ui}
-               @keyPress.globalScope(.Digit1)={self.onKey} @keyPress.globalScope(.Digit2)={self.onKey}
-               @keyPress.globalScope(.Digit3)={self.onKey} @keyPress.globalScope(.Digit4)={self.onKey}
-               @keyPress.globalScope(.Digit5)={self.onKey} @keyPress.globalScope(.Digit6)={self.onKey}
-               @keyPress.globalScope(.Digit7)={self.onKey} @keyPress.globalScope(.Digit8)={self.onKey}
-               @keyPress.globalScope(.Digit9)={self.onKey} @keyPress.globalScope(.Space)={self.onSpace}
-               @keyPress.globalScope(.Escape)={self.onEscape} />
-          <Scroll>
-            <Said page={self.page} quest={self.quest} said={self.said} book={self.book} revealed={self.revealed} />
-          </Scroll>
+               @keyPress.globalScope(.Space)={self.onSpace} @keyPress.globalScope(.Escape)={self.onEscape} />
+          <box $for={lineKey of self.lineKeys} position={Position.Absolute} left={0ui} top={0ui} width={0ui} height={0ui}
+               @keyPress.globalScope(lineKey.key)={self.onKey} />
+          <box xAlign={Align.Center}>
+            <box width={SCROLL_WIDTH} height={SCROLL_HEIGHT} rows={[{ fr: 1 }]}>
+              <Scroll>
+                <Said page={self.page} quest={self.quest} said={self.said} book={self.book} revealed={self.revealed} />
+              </Scroll>
+            </box>
+          </box>
           <box $if={!self.isBook} rows={[{ fr: 1 }, "max-content"]} gap={1.5sp} padding={{ top: 2sp }}>
             <box overflow={self.wellOverflow} gap={0.5sp} yAlign={self.wellAlign}>
-              <$if={self.listShown}>
-                <OptionRow $for={index, line of self.lines} line={line} index={index} hints={self.hints}
-                           marked={self.markedAt(line)} @pick={self.pickLine} @mark={self.toggleMark} />
-              </>
+              <box $if={self.listShown} columns={self.listColumns} gap={2sp}>
+                <box $for={column of self.optionColumns} gap={0.5sp}>
+                  <OptionRow $for={placed of column} line={placed.line} index={placed.index} hints={self.hints}
+                             marked={self.markedAt(placed.line)} @pick={self.pickLine} @mark={self.toggleMark} />
+                </box>
+              </box>
               <Needs $elseif={self.page == Page.Progress} quest={self.quest} />
               <Rewards $else views={self.rewardViews} also={self.quest?.also ?? []} xp={self.quest?.xp ?? 0}
                        money={self.quest?.money ?? 0} standings={self.quest?.standings ?? []} pickable={self.pickable} choice={self.choice}
