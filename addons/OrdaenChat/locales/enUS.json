@@ -1,9 +1,7 @@
 {
   "TITLE": "Chat",
   "TAB_CHAT": "Chat",
-  "HINT_TYPE": "Enter: type",
   "LATEST": "To the latest",
-  "COPY": "Copy",
   "COPY_TITLE": "Copy: select and press Ctrl+C",
   "CLOSE": "Close",
   "WIDTH": "Width",
@@ -25,8 +23,6 @@
   "KEPT_TIP": "The last lines of each tab come back after a reload, dimmed. 0: none.",
   "HELD": "Lines each tab holds",
   "HELD_TIP": "Older lines go once a tab holds this many.",
-  "PLAIN_ARROWS": "Arrows bring back what you sent",
-  "PLAIN_ARROWS_TIP": "Off, Alt and the arrows do, and the arrows alone move the cursor.",
   "INPUT_ALWAYS": "Input always shown",
   "INPUT_ALWAYS_TIP": "Off, the input shows from Enter until the line is sent.",
   "HISTORY_ALL": "History: everything",

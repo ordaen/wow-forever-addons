@@ -5,13 +5,14 @@ import Game from "$game"
 import { Key } from "$ltml"
 import Test from "$test"
 import root Ordaen from "Ordaen"
-import { ChatMark, say } from "Ordaen"
+import { ChatMark, FIELD_FILL, say } from "Ordaen"
 import { LEAST_WIDTH } from "@/choices"
 import { ChatTab, Shown, linked, marks, wordsOf } from "@/lines"
+import { BADGE_FILL } from "@/view"
+import { HEARD_FILL, TOLD_FILL, WHISPERS_LEAST } from "@/whispers"
 
 const SCREEN: Test.Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
 const WHITE: Color = Color.hex("#ffffff")
-const INPUT_HINT = "Enter: type"
 
 function window(index: Integer, name: String, partner: String, docked: Boolean = true): Game.ChatWindow {
   // Hidden while its input is made, as the game parks its windows.
@@ -41,18 +42,57 @@ function line(kind: String, body: String, sender: String, windows: Array<Integer
 // The game's General and a whisper window.
 function gameWindows(): Array<Game.ChatWindow> { return [window(1, "General", ""), window(3, "Whisper", "Jaina")] }
 
-// The chat mounted.
-function chat(): Test.Part {
-  Test.mount(nil, SCREEN)
-  return Test.page().window(INPUT_HINT)
+// A whisper heard (or told, by the player): its words alone are what its bubble shows.
+function whisper(sender: String, words: String, told: Boolean = false): mut Game.ChatLine {
+  const said = line(told ? "WHISPER_INFORM" : "WHISPER", `[${sender}] whispers: ${words}`, sender, [1])
+  said.text = words
+  return said
 }
 
-test "the chat reads the game's lines and shows them in the window's tab, the input's hint under them" {
+// The chat mounted, found by its first tab.
+function chat(first: String = "General"): Test.Part {
+  Test.mount(nil, SCREEN)
+  return Test.page().window(first)
+}
+
+test "the chat reads the game's lines and shows them in the window's tab, nothing under them until Enter" {
   Game.chat.windows = gameWindows()
   const shown = chat()
   Game.chat.heard.emit(line("SAY", "[Thrall] says: Hello", "Thrall", [1]))
   Test.expect(shown.text("[Thrall] says: Hello").shown())
-  Test.expect(shown.text(INPUT_HINT).shown())
+  // Its three tabs and the line: no hint, no button of the game's, no «Copy».
+  Test.expect(shown.texts().join(",") == "General,Jaina,Whispers,[Thrall] says: Hello")
+}
+
+test "the open tab alone is sunk into the wood, a line between the tabs and the lines" {
+  Game.chat.windows = gameWindows()
+  const shown = chat()
+  const well = shown.box(Ordaen.art.ctl.well.floor)
+  Test.expect(well.count() == 1 && well.texts().any(t => t == "General"))
+  shown.text("Jaina").click()
+  Test.expect(well.count() == 1 && well.texts().any(t => t == "Jaina"))
+  Test.expect(shown.box(Ordaen.art.ctl.well.rim.color).count() >= 1)
+}
+
+test "a tab's count is in the numbers' font, in room for three digits: the tab keeps its width as it grows" {
+  Game.chat.windows = gameWindows()
+  const shown = chat()
+  Game.chat.heard.emit(line("SAY", "[Jaina] says: one", "Jaina", [3]))
+  const badge = shown.box(BADGE_FILL)
+  const one = badge.rect()
+  for (at of 1..120) { Game.chat.heard.emit(line("SAY", `[Jaina] says: ${at}`, "Jaina", [3])) }
+  Test.expect(shown.text("121").shown())
+  const many = badge.rect()
+  Test.expect(many.left == one.left && many.right == one.right)
+}
+
+test "the lines keep their least width, some forty letters, however narrow the chat is chosen" {
+  Game.chat.windows = playersWindows()
+  const shown = chat("Общий")
+  Game.chat.heard.emit(line("SAY", "[Thrall] says: a line long enough to fill the whole width of the lines and more", "Thrall", [1]))
+  // 320 dp, 227 of the screen's units here (190 dp are 135).
+  const said = shown.text("[Thrall] says: a line long enough to fill the whole width of the lines and more").rect()
+  Test.expect(said.right - said.left >= 220)
 }
 
 test "a line for another tab waits there, counted, until the tab is opened" {
@@ -75,7 +115,6 @@ test "Enter shows the input line, on the screen, in the chat's frame" {
   Game.chat.input = box
   _ = chat()
   Game.chat.heard.emit(line("SAY", "[Thrall] says: here", "Thrall", [1]))
-  // The hint goes as the input shows: the chat is found by its line.
   const shown = Test.page().window("[Thrall] says: here")
   box.Show()
   box.SetFocus()
@@ -86,6 +125,8 @@ test "Enter shows the input line, on the screen, in the chat's frame" {
   Test.expect(box.IsVisible() && box.GetHeight() >= 20)
   Test.expect(middle.x > frame.left && middle.x < frame.right && middle.y > frame.top && middle.y < frame.bottom)
   Test.expect(middle.y > shown.text("[Thrall] says: here").rect().bottom)
+  // It stands in a field's floor and edge, the chat's own look.
+  Test.expect(shown.box(FIELD_FILL).count() == 1)
 }
 
 test "a channel's line is named by its number and name, the zone left out" {
@@ -107,49 +148,19 @@ test "a web address in a line is a link of the chat's own" {
   Test.expect(linked("see https://a.io/x?y=1 now") == "see |cff69ccf0|Hordaenurl:https://a.io/x?y=1|h[https://a.io/x?y=1]|h|r now")
 }
 
-test "the open tab's lines open in a box to copy" {
+test "a web address clicked opens a box to copy it, closed by Escape" {
   Game.chat.windows = gameWindows()
   const shown = chat()
-  Game.chat.heard.emit(line("SAY", "[Thrall] says: one", "Thrall", [1]))
-  shown.text("[Thrall] says: one").hover()
-  shown.text("Copy").click()
-  Test.expect(Test.page().window("Close").texts().any(t => t == "[Thrall] says: one"))
-}
-
-// A long tab's text: the box stays on the screen, its text selectable in a field, and it closes by its button and
-// by Escape.
-test "the copy box holds a long tab's text on the screen and closes by its button and by Escape" {
-  Game.chat.windows = gameWindows()
-  const shown = chat()
-  for (at of 1..200) { Game.chat.heard.emit(line("SAY", `[Thrall] says: line ${at}`, "Thrall", [1])) }
-  shown.text("[Thrall] says: line 200").hover()
-  shown.text("Copy").click()
-  const box = Test.page().window("Close")
-  Test.expect(box.texts().any(t => t.contains("[Thrall] says: line 1\n[Thrall] says: line 2\n")))
-  box.button("Close").click()
-  Test.expect(!Test.page().window("Close").shown())
-  shown.text("[Thrall] says: line 200").hover()
-  shown.text("Copy").click()
+  Game.chat.heard.emit(line("SAY", "see https://a.io/x", "Thrall", [1]))
+  shown.text(linked("see https://a.io/x")).clickLink("ordaenurl:https://a.io/x", nil)
   Test.expect(Test.page().window("Close").shown())
   _ = Test.key(Key.Escape)
   Test.expect(!Test.page().window("Close").shown())
 }
 
-test "«Copy» shows in the frame's corner while the cursor is on the lines, and moves no tab" {
-  Game.chat.windows = playersWindows()
-  const shown = chat()
-  Game.chat.heard.emit(line("SAY", "[Thrall] says: one", "Thrall", [1]))
-  const before = shown.text("Каналы").rect()
-  Test.expect(!shown.text("Copy").shown())
-  shown.text("[Thrall] says: one").hover()
-  Test.expect(shown.text("Copy").shown())
-  const after = shown.text("Каналы").rect()
-  Test.expect(after.left == before.left && after.top == before.top)
-}
-
 test "the chat's tabs are a sidebar at its left, one a row, a right-click opening the menu alone" {
   Game.chat.windows = playersWindows()
-  const shown = chat()
+  const shown = chat("Общий")
   Game.chat.heard.emit(line("SAY", "[Thrall] says: here", "Thrall", [1]))
   // Each tab under the one before, from the same left edge, and the lines to the right of them all.
   const names = ["Общий", "Журнал", "Гильдия", "Каналы", "Whispers"]
@@ -161,8 +172,9 @@ test "the chat's tabs are a sidebar at its left, one a row, a right-click openin
   Test.expect(shown.text("[Thrall] says: here").rect().left > shown.text("Whispers").rect().right)
   Game.chat.windows = gameWindows()
   Test.pass(0.1)
-  shown.text("Whispers").rightClick()
-  shown.text("General").rightClick()
+  const now = Test.page().window("General")
+  now.text("Whispers").rightClick()
+  now.text("General").rightClick()
   Test.expect(!Test.requests().any(r => r == "Chat.choose 1"))
   Test.expect(Test.page().text("Rename").shown())
 }
@@ -170,7 +182,8 @@ test "the chat's tabs are a sidebar at its left, one a row, a right-click openin
 test "the chat is never narrower than a window's least body, 375 dp" {
   Test.expect(LEAST_WIDTH == 375)
   Game.chat.windows = gameWindows()
-  const shown = chat()
+  // Found by a tab the settings window doesn't name.
+  const shown = chat("Jaina")
   Test.open("/ordaen")
   const settings = Test.page().window("Move mode")
   settings.button("Chat").click()
@@ -317,7 +330,7 @@ test "someone's line naming a keyword is marked" {
 }
 
 function plain(words: String): Shown {
-  return { whole: words, color: WHITE, time: 0, repeat: words, count: 1, marked: false, past: false, secret: false }
+  return { whole: words, color: WHITE, time: 0, repeat: words, count: 1, marked: false, past: false, secret: false, mine: false }
 }
 
 test "the chat is never lower than its tabs, the whispers' among them: the lines take the room they leave" {
@@ -326,12 +339,12 @@ test "the chat is never lower than its tabs, the whispers' among them: the lines
     window(6, "Party", ""), window(7, "Raid", ""), window(8, "Market", ""), window(9, "Friends", "")
   ]
   const shown = chat()
-  // The chat's height is 190 dp, 135 of the screen's units: the tabs stand taller, and the input's hint under the
-  // lines stands no higher than the last tab's foot.
+  // The chat's height is 190 dp, 135 of the screen's units: the tabs stand taller, and the frame reaches past the last
+  // tab's foot.
   const first = shown.text("General").rect()
   const last = shown.text("Whispers").rect()
   Test.expect(last.bottom - first.top > 135)
-  Test.expect(shown.text(INPUT_HINT).rect().bottom >= last.bottom)
+  Test.expect(shown.rect().bottom >= last.bottom)
 }
 
 // The windows and streams of the player's game: General, the combat log, Guild, Channels, two communities.
@@ -339,51 +352,83 @@ function playersWindows(): Array<Game.ChatWindow> {
   return [window(1, "Общий", ""), window(2, "Журнал", ""), window(3, "Гильдия", ""), window(4, "Каналы", "")]
 }
 
-test "with the player's tabs, the lines keep their room and the input's hint stands under them" {
+test "with the player's tabs, the lines keep their room, the newest at their foot" {
   Game.chat.windows = playersWindows()
   Game.chat.streams = [{ club: "1", stream: "1", name: "test" }, { club: "2", stream: "1", name: "Test" }]
-  const shown = chat()
+  const shown = chat("Общий")
   Game.chat.heard.emit(line("SAY", "[Thrall] says: still here", "Thrall", [1]))
   const said = shown.text("[Thrall] says: still here").rect()
-  const hint = shown.text(INPUT_HINT).rect()
-  Test.expect(shown.text("[Thrall] says: still here").shown())
-  Test.expect(hint.top > said.top)
   // The lines keep the chat's height (190 dp, 135 of the screen's units here).
-  Test.expect(hint.top - shown.rect().top >= 130)
+  Test.expect(said.bottom - shown.rect().top >= 130)
 }
 
 test "a stream the game lists twice is one tab" {
   Game.chat.windows = playersWindows()
   Game.chat.streams = [{ club: "1", stream: "1", name: "test" }, { club: "1", stream: "1", name: "test" }]
-  const shown = chat()
+  const shown = chat("Общий")
   Test.expect(shown.texts().filter(t => t == "test").length == 1)
 }
 
 test "whispers are the whisper window's: a conversation a person, unread until opened, answered in its own line" {
   Game.chat.windows = [window(1, "General", "")]
   const shown = chat()
-  Game.chat.heard.emit(line("WHISPER", "[Jaina] whispers: psst", "Jaina", [1]))
-  Test.expect(!shown.text("[Jaina] whispers: psst").shown())
+  Game.chat.heard.emit(whisper("Jaina", "psst"))
+  Test.expect(!shown.text("psst").shown())
   Test.expect(shown.text("1").shown())
   shown.text("Whispers").click()
   const talks = Test.page().window("Whisper to: name, Enter")
-  Test.expect(talks.text("[Jaina] whispers: psst").shown())
+  Test.expect(talks.text("psst").shown())
   Test.expect(!shown.text("1").shown() && !talks.text("1").shown())
   talks.input().nth(2).type("hello")
   _ = Test.key(Key.Enter)
   Test.expect(Test.requests().any(r => r == "Chat.whisper Jaina hello false"))
   // Another person's whisper: a conversation of their own, first in the list, waiting unread.
-  Game.chat.heard.emit(line("WHISPER", "[Thrall] whispers: lok'tar", "Thrall", [1]))
+  Game.chat.heard.emit(whisper("Thrall", "lok'tar"))
   Test.expect(talks.text("Thrall").rect().top < talks.text("Jaina").rect().top)
-  Test.expect(talks.text("1").shown() && !talks.text("[Thrall] whispers: lok'tar").shown())
+  Test.expect(talks.text("1").shown() && !talks.text("lok'tar").shown())
   talks.text("Thrall").click()
-  Test.expect(talks.text("[Thrall] whispers: lok'tar").shown())
+  Test.expect(talks.text("lok'tar").shown())
   // A name typed starts one; Escape closes the window.
   talks.input().nth(1).type("Anduin")
   _ = Test.key(Key.Enter)
   Test.expect(talks.text("Anduin").shown())
   _ = Test.key(Key.Escape)
   Test.expect(!Test.page().window("Whisper to: name, Enter").shown())
+}
+
+test "a conversation is bubbles: the other's on the left, the player's on the right, a group's time under its last" {
+  Game.chat.windows = [window(1, "General", "")]
+  Game.clock.hours24 = true
+  const shown = chat()
+  const first = whisper("Jaina", "hi")
+  first.time = 12 * 3600
+  const second = whisper("Jaina", "are you there?")
+  second.time = 12 * 3600 + 30
+  const answer = whisper("Jaina", "yes", true)
+  answer.time = 12 * 3600 + 60
+  Game.chat.heard.emit(first)
+  Game.chat.heard.emit(second)
+  Game.chat.heard.emit(answer)
+  shown.text("Whispers").click()
+  const talks = Test.page().window("Whisper to: name, Enter")
+  const heard = talks.text("hi").rect()
+  const told = talks.text("yes").rect()
+  // Hers start at the conversation's left, his end at its right; each side on its own floor.
+  Test.expect(heard.left < told.left && talks.text("are you there?").rect().left == heard.left)
+  Test.expect(talks.box(HEARD_FILL).count() == 2 && talks.box(TOLD_FILL).count() == 1)
+  // Her two lines are one group: its time once, under the second; then his.
+  Test.expect(talks.texts().filter(t => t == "12:00").length == 1 && talks.texts().filter(t => t == "12:01").length == 1)
+  Test.expect(talks.text("12:00").rect().top > talks.text("are you there?").rect().bottom)
+}
+
+test "the whisper window is never narrower than its list and a conversation of a few words a line" {
+  Test.expect(WHISPERS_LEAST == 600dp)
+  Game.chat.windows = [window(1, "General", "")]
+  const shown = chat()
+  shown.text("Whispers").click()
+  // 600 dp, 426 of the screen's units here (190 dp are 135).
+  const talks = Test.page().window("Whisper to: name, Enter").rect()
+  Test.expect(talks.right - talks.left >= 426)
 }
 
 // The game's line as it gives it: its body, and the same line plain.
