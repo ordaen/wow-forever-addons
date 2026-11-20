@@ -1,0 +1,32 @@
+// A time of day is written by the client's 24-hour mode, and Ordaen's «Time format» is that mode: it shows it and
+// sets it, keeping no copy of its own.
+import Game from "$game"
+import Test from "$test"
+import { timeText } from "@/timeText"
+
+const SCREEN: Test.Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
+
+test "a time of day is written by the client's 24-hour mode: noon twelve in the afternoon, midnight in the morning" {
+  Game.clock.hours24 = true
+  Test.expect(timeText({ hour: 15, minute: 7 }) == "15:07" && timeText({ hour: 0, minute: 5 }) == "00:05")
+  Game.clock.hours24 = false
+  Test.expect(timeText({ hour: 15, minute: 7 }) == "3:07 PM")
+  Test.expect(timeText({ hour: 12, minute: 0 }) == "12:00 PM" && timeText({ hour: 0, minute: 0 }) == "12:00 AM")
+}
+
+test "«Time format» shows the client's mode and sets it" {
+  Game.clock.hours24 = true
+  Test.mount(nil, SCREEN)
+  Test.open("/ordaen")
+  const settings = Test.page().window("Move mode")
+  settings.button("Behaviour").click()
+  Test.expect(settings.text("24-hour").shown())
+  settings.text("24-hour").click()
+  Test.page().text("12-hour").click()
+  Test.expect(Test.requests().any(r => r == "Clock.useHours24 false"))
+  Test.expect(!Game.clock.hours24)
+  // The client's mode turned in its own options: the page follows it.
+  Game.clock.hours24 = true
+  Test.pass(0.1)
+  Test.expect(settings.text("24-hour").shown())
+}

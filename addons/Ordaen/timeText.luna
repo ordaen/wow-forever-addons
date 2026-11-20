@@ -1,0 +1,8 @@
+// A time of day as every module writes it: by the client's 24-hour mode (`Game.clock.hours24`, the clock's own
+// option, which Ordaen's «Time format» sets), «15:07» or «3:07 PM». Read in a cell, it follows the mode.
+import Game from "$game"
+
+public function timeText(time: Game.WallTime): String {
+  if (Game.clock.hours24) { return "%02d:%02d".format(time.hour, time.minute) }
+  return "%d:%02d %s".format((time.hour + 11) % 12 + 1, time.minute, time.hour < 12 ? "AM" : "PM")
+}

@@ -3,7 +3,7 @@ import Game from "$game"
 import { Align, Anchored, EmbedLook, Event, Frame, Line, MouseButton, Point, Position, Shadow } from "$ltml"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
-import { ALWAYS, Module, Placed, Settings, SettingsPage, Tip, opacityNow, reachAcross, reachDown } from "Ordaen"
+import { ALWAYS, Module, Placed, Settings, SettingsPage, Tip, opacityNow, reachAcross, reachDown, timeText } from "Ordaen"
 import { DrawerEntry } from "@/drawer"
 import Locale from "@/locales"
 import { BUTTON, DRAWER_BUTTON, RING, ROOM, RingButton, RingId, RingSpec } from "@/ring"
@@ -266,7 +266,7 @@ public class Minimap implements Module, App {
     return match (self.hint) {
       Hint.Zone => Game.location.realZone
       Hint.Coords => Game.minimap.coords
-      Hint.Clock => Game.clock.text
+      Hint.Clock => timeText(Game.clock.now)
       Hint.Ordaen => Ordaen.title
       Hint.Drawer => Locale.DRAWER_TITLE
       Hint.Entry => self.entryName
@@ -333,7 +333,7 @@ public class Minimap implements Module, App {
               <box $else width={1ui} />
               <box $if={self.settings.values.showClock} @pointerPress={self.onClockClick} @pointerEnter={self.onClockEnter}
                    @pointerLeave={self.onHintLeave}>
-                <text value={Game.clock.text} textColor={self.clockColor} textShadow={ENGRAVED}
+                <text value={timeText(Game.clock.now)} textColor={self.clockColor} textShadow={ENGRAVED}
                       textFont={.Numbers} wrap={.None} />
                 <Tip $if={self.hint == Hint.Clock} title={self.hintTitle} text={self.hintText} keys={self.hintKeys} />
               </box>
