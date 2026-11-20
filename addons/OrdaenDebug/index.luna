@@ -1,3 +1,3 @@
 public import { Catcher, TaintListener } from "@/catcher"
-public import { Kit } from "@/kit"
 public import { DB, Entry, Errors, Fields, Kind, Listener, Meta, isOurs, noErrors, sourceOf } from "@/errors"
+public import { Kit } from "@/kit"
