@@ -58,12 +58,12 @@ public const TROUGH: Color = Color.hex("#000000a6")
 public const GROOVE_SHADE: Color = Color.hex("#0000008c")
 public const GROOVE_DEPTH: Color = Color.hex("#000000e6")
 public const GROOVE_LIP: Color = Color.hex("#ffdeaa38")
-// The model's backdrop: the race's scene from the game's dressing room (four pieces, 320 x 384 texels together), as
+// The model's backdrop: the race's scene from the game's dressing room (231 x 322 texels as the client crops it), as
 // tall as the model's column at the window's own size and in its own proportions, centred and cut at the column's
 // sides; a veil over it so the slots read; the dark where no scene is. Then the room between the column's edges and the
 // slots drawn over it.
 public const SCENE_HEIGHT: Number<Length> = 800dp
-public const SCENE_WIDTH: Number<Length> = SCENE_HEIGHT * 320 / 384
+public const SCENE_WIDTH: Number<Length> = SCENE_HEIGHT * 231 / 322
 public const SCENE_LEFT: Number<Length> = (DOLL - SCENE_WIDTH) / 2
 public const SCENE_VEIL: Color = Color.hex("#00000059")
 public const MODEL_BACK: Color = Color.hex("#0b0805")

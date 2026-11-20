@@ -510,10 +510,10 @@ test "a window kept narrower than the stats need, from an older save, is drawn w
   Test.expect(window.text("Attack power").count() == 1)
 }
 
-test "the model stands in its race's scene from the game's dressing room, all four pieces" {
+test "the model stands in its race's scene from the game's dressing room, enlarged" {
   Test.mount(nil, PAGE)
   Game.items.icon = icons
   const window = opened(new FakeSheet())
-  Test.expect(window.paintedWith("Interface/DressUpFrame/DressUpBackground-Dwarf1"))
-  Test.expect(window.paintedWith("Interface/DressUpFrame/DressUpBackground-Dwarf4"))
+  Test.expect(window.paintedWith("@/media/backdrop-dwarf.tga"))
+  Test.expect(!window.paintedWith("@/media/backdrop-human.tga"))
 }
