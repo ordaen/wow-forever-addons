@@ -15,7 +15,7 @@ at the end. Commits are lunatype's unless named `dev` (wow-dev-tools). What tool
 - **`## LoadFirst` is read only from Blizzard's own addons' TOCs.** Other addons load in the order of their names
   (whatever their case), each after the addons it needs; so the build loads a dev addon first through `!<name>`, an
   addon of one empty file that needs it. Known: b4bf242, dev 6d7c41d (2026-11-15). Stand-in: `Host.clientOrder`
-  (`host.lua`); `tests/run/app.out` (OrdaenDev and Showcase in their names' place), `tests/hostless/Tool`.
+  (`host.lua`); `tests/run/app.out` (OrdaenCompanion and Showcase in their names' place), `tests/hostless/Tool`.
 - **An addon whose `## Dependencies` names one that is off or missing doesn't load:** its files don't run, no
   `ADDON_LOADED`, and `LoadAddOn` gives false with `DISABLED`, `DEP_DISABLED`, `MISSING`, `DEP_MISSING` or
   `NOT_DEMAND_LOADED`. The runtime `LunaType` turned off takes every addon of ours with it. Known: dev 5deb18c (the
