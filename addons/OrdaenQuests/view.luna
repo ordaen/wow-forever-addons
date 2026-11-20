@@ -8,7 +8,7 @@
 import Game from "$game"
 import { Align, Art, ByInteractionState, Edges, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { BODY_LINE, ButtonPlate, Component, Experience, Menu, MenuEntry, Money, PushButton, Reward, RewardView, Rewards, SCROLL_DIM, SCROLL_HEAD, SCROLL_INK, SECONDARY_TEXT, Scroll, SettingRow, Shown, SwitchFace, TIGHT_LINE, TITLE_TEXT, Tip, XP_MARK_SMALL, choiceViews, colorOf, difficultyOf, logReward, rowShade } from "Ordaen"
+import { BODY_LINE, ButtonPlate, Component, Experience, Menu, MenuEntry, Money, PushButton, Reward, RewardView, Rewards, SCROLL_DIM, SCROLL_HEAD, SCROLL_INK, SECONDARY_TEXT, Scroll, SettingRow, Shown, SwitchFace, TIGHT_LINE, TITLE_TEXT, Tip, WELL_DIM, WELL_TEXT, XP_MARK_SMALL, choiceViews, colorOf, difficultyOf, logReward, rowShade } from "Ordaen"
 import { LogQuest } from "@/book"
 import Locale from "@/locales"
 import { Figure, QuestFacts } from "@/questie"
@@ -251,8 +251,8 @@ class WhereLine implements Component {
   public render(self): Template {
     return $ltml {
       <box columns={[93.75dp, { fr: 1 }]} gap={3sp}>
-        <text value={self.label} textColor={SCROLL_DIM} />
-        <text value={self.value} textColor={SCROLL_INK} />
+        <text value={self.label} textColor={WELL_DIM} />
+        <text value={self.value} textColor={WELL_TEXT} />
       </box>
     }
   }
@@ -276,6 +276,9 @@ public class QuestPage implements Component {
 
   derived title: String = `[${self.quest.level}] ${self.quest.title}`
   derived tracking: Shown = self.quest.tracked ? Shown.On : Shown.Off
+  // Its objectives under the task: one that says the task again (a quest without counted objectives, whose one
+  // objective is the task's own text) isn't said twice.
+  derived goals: Array<Game.QuestObjective> = self.quest.objectives.filter(objective => objective.text != self.text.task)
   derived known: Boolean = self.facts != nil
   derived giver: String = whoOf(self.facts?.givers ?? [])
   derived taker: String = whoOf(self.facts?.takers ?? [])
@@ -301,19 +304,21 @@ public class QuestPage implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box rows={[{ fr: 1 }, "max-content", "max-content", "max-content"]} gap={1.5sp}>
+      <box rows={[{ fr: 1 }, "max-content", "max-content", "max-content", "max-content"]} gap={1.5sp}>
         <Scroll>
           <text value={self.title} textColor={SCROLL_HEAD} textSize={TITLE_TEXT} lineHeight={TIGHT_LINE} textFont={.Title} />
           <text $if={self.text.story != ""} value={self.text.story} textColor={SCROLL_INK} lineHeight={BODY_LINE} />
           <text value={Locale.SECTION_TASKS} textColor={SCROLL_HEAD} textFont={.Title} />
           <text $if={self.text.task != ""} value={self.text.task} textColor={SCROLL_INK} lineHeight={BODY_LINE} />
-          <GoalLine $for={objective of self.quest.objectives} objective={objective} todoColor={SCROLL_INK}
+          <GoalLine $for={objective of self.goals} objective={objective} todoColor={SCROLL_INK}
                     doneColor={SCROLL_DIM} small={false} />
-          <text $if={self.known} value={Locale.SECTION_WHERE} textColor={SCROLL_HEAD} textFont={.Title} />
+        </Scroll>
+        <box $if={self.known} columns={1} gap={1sp}>
+          <text value={Locale.SECTION_WHERE} textColor={WELL_DIM} textSize={SECONDARY_TEXT} />
           <WhereLine $if={self.giver != ""} label={Locale.GIVER} value={self.giver} />
           <WhereLine $if={self.taker != ""} label={Locale.TAKER} value={self.taker} />
           <WhereLine $if={self.chain != ""} label={Locale.NEXT_IN_CHAIN} value={self.chain} />
-        </Scroll>
+        </box>
         <box gap={0.5sp}>
           <Rewards views={self.choiceRows} also={self.givenRows} xp={self.text.experience} money={self.text.money} />
         </box>
