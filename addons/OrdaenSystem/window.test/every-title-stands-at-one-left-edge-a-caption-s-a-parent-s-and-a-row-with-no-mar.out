@@ -52,7 +52,7 @@ surface 391.67,175.54 816.67x548.92 on DIALOG clamped raised by a click
                 box 1149.78,323.49 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=1
           box 427.52,345.15 749.97x21.67 #00000000 @keyPress @pointerEnter @pointerLeave @pointerPress
             box 436.05,347.1 475.23x17.78
-              box 436.05,349.32 13.33x13.33
+              box 436.05,355.99 13.33x0
               text 457.92,347.1 453.37x17.78 "Crate" #e8e0d0
             box 919.82,355.99 0x0
               text 919.82,355.99 0x0 "" #9a9080
@@ -82,7 +82,7 @@ surface 391.67,175.54 816.67x548.92 on DIALOG clamped raised by a click
                 box 1149.78,366.82 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=1
           box 427.52,388.49 749.97x21.67 #00000000 @keyPress @pointerEnter @pointerLeave @pointerPress
             box 436.05,390.43 475.23x17.78
-              box 451.69,392.65 13.33x13.33
+              box 451.69,399.32 13.33x0
               text 473.56,390.43 437.72x17.78 "Shelf" #e8e0d0
             box 919.82,399.32 0x0
               text 919.82,399.32 0x0 "" #9a9080
@@ -119,7 +119,7 @@ surface 391.67,175.54 816.67x548.92 on DIALOG clamped raised by a click
                 box 1149.78,431.82 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=1
           box 427.52,453.49 749.97x21.67 #00000000 @keyPress @pointerEnter @pointerLeave @pointerPress
             box 436.05,455.43 400.79x17.78
-              box 451.69,457.65 13.33x13.33
+              box 451.69,464.32 13.33x0
               text 473.56,455.43 363.28x17.78 "Ordaen System" #e8e0d0
             box 845.37,455.43 74.44x17.78 @keyPress @pointerPress
               text 845.37,455.43 74.44x17.78 "on in Ordaen" #9a9080
@@ -139,7 +139,7 @@ surface 391.67,175.54 816.67x548.92 on DIALOG clamped raised by a click
                 box 1149.78,475.15 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=1
           box 427.52,496.82 749.97x21.67 #00000000 @keyPress @pointerEnter @pointerLeave @pointerPress
             box 436.05,498.76 475.23x17.78
-              box 436.05,500.99 13.33x13.33
+              box 436.05,507.65 13.33x0
               text 457.92,498.76 453.37x17.78 "LunaType" #e8e0d0
             box 919.82,507.65 0x0
               text 919.82,507.65 0x0 "" #9a9080
