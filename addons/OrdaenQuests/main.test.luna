@@ -10,6 +10,7 @@ import root Ordaen from "Ordaen"
 import root Quests from "OrdaenQuests"
 import root Tracker from "OrdaenTracker"
 import { kindOfTag } from "@/kind"
+import { QuestSort } from "@/model"
 
 const PAGE: Test.Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
 
@@ -121,6 +122,26 @@ test "a header folds its quests away and back" {
   Test.expect(!window.text("The Defias Brotherhood").shown())
   window.text("Westfall").click()
   Test.expect(window.text("The Defias Brotherhood").shown())
+}
+
+test "the toolbar's choices and the folded headers are there after a /reload; the search isn't" {
+  opened(standing())
+  Test.page().window("World").text("Westfall").click()
+  Test.expect(Quests.folds.values.headers["Westfall"] == true)
+  Quests.list.values.sort = QuestSort.Title
+  Quests.search = "wolves"
+  Test.reload()
+  // The stand-in's log starts anew with the load; the player's is the same.
+  Test.questLog(standing())
+  Quests.flip()
+  Quests.refresh()
+  Test.flush()
+  Test.expect(Quests.list.values.sort == QuestSort.Title && Quests.search == "")
+  Test.expect(Quests.folds.values.headers["Westfall"] == true)
+  const window = Test.page().window("World")
+  Test.expect(window.text("Westfall").shown())
+  Test.expect(!window.text("The Defias Brotherhood").shown())
+  Test.expect(window.text("Elwynn Wolves").shown())
 }
 
 test "Shift+Left-click on a quest tracks it" {

@@ -1,6 +1,6 @@
 // The log as the window lists it: a tab's quests under the client's headers, the player's zone first; a quest's
 // difficulty by its level against the player's (the library's `difficultyOf`).
-import { Difficulty, difficultyOf } from "Ordaen"
+import { Difficulty, difficultyOf, switched } from "Ordaen"
 import { LogQuest } from "@/book"
 import { QuestKind } from "@/kind"
 
@@ -39,7 +39,22 @@ public function countOf(quests: Array<LogQuest>, kind: QuestKind): Integer {
 }
 
 // The filter's options: only the tracked quests; each difficulty; a quest played alone or with a group.
-public enum QuestFilter { Tracked, Trivial, Easy, Even, Hard, Impossible, Solo, Group }
+public enum QuestFilter implements Plain {
+  Tracked = "tracked"
+  Trivial = "trivial"
+  Easy = "easy"
+  Even = "even"
+  Hard = "hard"
+  Impossible = "impossible"
+  Solo = "solo"
+  Group = "group"
+}
+
+// The filter as the window starts: every quest shown, tracked or not.
+public const FILTER_START: Map<QuestFilter, Boolean> = switched({}, [
+  QuestFilter.Trivial, QuestFilter.Easy, QuestFilter.Even, QuestFilter.Hard, QuestFilter.Impossible, QuestFilter.Solo,
+  QuestFilter.Group
+], true)
 
 // The option a quest's difficulty passes by.
 const function difficultyFilter(difficulty: Difficulty): QuestFilter {
@@ -53,11 +68,37 @@ const function difficultyFilter(difficulty: Difficulty): QuestFilter {
 }
 
 // The switch beside the search: the quests still to do, the completed ones, or all.
-public enum QuestStatus { Progress, Done, All }
+public enum QuestStatus implements Plain { Progress = "progress", Done = "done", All = "all" }
 // How a header's quests are ordered: as the log has them, by level, by title.
-public enum QuestSort { Log, Level, Title }
+public enum QuestSort implements Plain { Log = "log", Level = "level", Title = "title" }
 // The list under the headers, or one list.
-public enum QuestView { Zones, List }
+public enum QuestView implements Plain { Zones = "zones", List = "list" }
+
+// How the player left the list's toolbar, the profile's: the status switch, the filter, the order and the view. The
+// search isn't kept.
+public struct ListChoices implements Plain {
+  status: QuestStatus = QuestStatus.All
+  filter: Map<QuestFilter, Boolean> = FILTER_START
+  sort: QuestSort = QuestSort.Log
+  view: QuestView = QuestView.Zones
+}
+
+// The headers the player folded, by their text, the character's (whose log they are): only those its log has, so
+// it holds no more than the log's headers.
+public struct Folds implements Plain {
+  headers: Map<String, Boolean> = {}
+}
+
+// The folds after the player folds or opens `header`: the log's other headers as they were.
+public function foldedOnce(folds: Folds, header: String, quests: Array<LogQuest>): Folds {
+  const headers: Map<String, Boolean> = {}
+  for (quest of quests) {
+    const name = quest.header
+    const was = folds.headers[name] == true
+    if (name == header ? !was : was) { headers[name] = true }
+  }
+  return { headers: headers }
+}
 
 // What the window asks of the log: the search (lower case), the status switch, the filter's options on, and the
 // player's level the difficulties are of.
