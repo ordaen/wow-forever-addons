@@ -28,7 +28,11 @@ function standing(): mut Array<Test.LogQuest> {
 // The module with this log, its window open; QuestieDB knows the first quest, given and taken back by Gryan.
 function opened(log: Array<Test.LogQuest>) {
   Test.questieDB(
-    { [101]: { name: "The Defias Brotherhood", questLevel: 14, zoneOrSort: 40, startedBy: [[234]], finishedBy: [[234]] } },
+    {
+      [101]: { name: "The Defias Brotherhood", questLevel: 14, zoneOrSort: 40, startedBy: [[234]], finishedBy: [[234]],
+               nextQuestInChain: 166 },
+      [166]: { name: "The Defias Brotherhood, part two", zoneOrSort: 40 }
+    },
     { [234]: { name: "Gryan Stoutmantle", spawns: { [40]: [[56, 47]] } } },
     {}
   )
@@ -133,6 +137,8 @@ test "a quest picked shows its page, with where its giver stands from QuestieDB"
   Test.expect(window.text("Gryan asks you to look into Westfall.").shown())
   Test.expect(window.text("Gryan Stoutmantle (56, 47)").count() == 2)
   Test.expect(window.text("420").shown())
+  // The chain: the quest after it, by QuestieDB's name.
+  Test.expect(window.text("Next in chain").shown() && window.text("The Defias Brotherhood, part two").shown())
 }
 
 test "a quest's page shows the items it gives, and under «Choose one of» those the player picks one of" {

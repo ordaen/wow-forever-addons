@@ -93,6 +93,7 @@ function questie.quest(id)
 		takers = takers,
 		targets = targets,
 		next = type(next) == "number" and next or 0,
+		nextName = type(next) == "number" and next > 0 and type(quests.Get(next, "name")) == "string" and quests.Get(next, "name") or "",
 	}
 end
 

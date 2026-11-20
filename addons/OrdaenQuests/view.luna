@@ -205,6 +205,7 @@ public class QuestPage implements Component {
   derived known: Boolean = self.facts != nil
   derived giver: String = whoOf(self.facts?.givers ?? [])
   derived taker: String = whoOf(self.facts?.takers ?? [])
+  derived chain: String = self.facts?.nextName ?? ""
   derived gives: Boolean = self.text.experience > 0 || self.text.money > 0 || self.text.rewards.length > 0 ||
     self.text.choices.length > 0
 
@@ -236,6 +237,7 @@ public class QuestPage implements Component {
           <text value={Locale.SECTION_WHERE} textColor={GOLD} />
           <WhereLine $if={self.giver != ""} label={Locale.GIVER} value={self.giver} />
           <WhereLine $if={self.taker != ""} label={Locale.TAKER} value={self.taker} />
+          <WhereLine $if={self.chain != ""} label={Locale.NEXT_IN_CHAIN} value={self.chain} />
         </box>
         <box $if={self.gives} columns={1} gap={2sp}>
           <text value={Locale.SECTION_REWARD} textColor={GOLD} />

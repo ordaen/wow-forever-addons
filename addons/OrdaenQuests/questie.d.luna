@@ -27,6 +27,8 @@ public struct QuestFacts {
   targets: Array<Figure>
   // The quest after it in its chain; 0 for none.
   next: Integer
+  // That quest's name; "" for none, or one QuestieDB doesn't name.
+  nextName: String
 }
 
 // The quest's facts; nil for a quest QuestieDB doesn't know (Forever's newest). Asked only where its contract is the
