@@ -20,7 +20,7 @@ function window(index: Integer, name: String, partner: String, docked: Boolean =
   frame.Hide()
   return {
     index: index, name: name, fontSize: 13, partner: partner, combatLog: false, docked: docked, shown: true,
-    locked: false, frame: frame, input: input(frame)
+    locked: false, uninteractable: false, frame: frame, input: input(frame)
   }
 }
 
@@ -221,6 +221,49 @@ test "a tab's right-click opens its menu: renamed in a box, locked, a new tab, i
   Test.expect(asked.any(r => r == "Chat.lock 1 true") && asked.any(r => r == "Chat.open New tab"))
 }
 
+test "a tab's menu makes its window uninteractable, undocks a docked one (never the first) and docks one apart" {
+  Game.chat.windows = [window(1, "General", ""), window(3, "Whisper", "Jaina"), window(4, "Trade", "", false)]
+  const shown = chat()
+  shown.text("General").rightClick()
+  Test.expect(!Test.page().text("Undock Window").shown())
+  Test.page().text("Make Uninteractable").click()
+  shown.text("Jaina").rightClick()
+  Test.page().text("Undock Window").click()
+  Test.page().window("Trade").text("Trade").rightClick()
+  Test.page().text("Dock with the chat").click()
+  const asked = Test.requests()
+  Test.expect(asked.any(r => r == "Chat.interactable 1 false"))
+  Test.expect(asked.any(r => r == "Chat.undock 3") && asked.any(r => r == "Chat.dock 4"))
+}
+
+test "the chat's keys scroll the window the game has chosen: a line, a page, an end" {
+  Game.chat.windows = gameWindows()
+  const shown = chat()
+  for (at of 1..100) { Game.chat.heard.emit(line("SAY", `line ${at}`, "Thrall", [1])) }
+  // Another window's keys leave this one be.
+  Game.chat.scrolled.emit(3, .Top)
+  Test.expect(shown.text("line 100").shown())
+  Game.chat.scrolled.emit(1, .LineUp)
+  Test.expect(!shown.text("line 100").shown() && shown.text("line 99").shown())
+  Game.chat.scrolled.emit(1, .PageUp)
+  Test.expect(!shown.text("line 99").shown())
+  Game.chat.scrolled.emit(1, .Top)
+  Test.expect(shown.text("line 1").shown())
+  Game.chat.scrolled.emit(1, .Bottom)
+  Test.expect(shown.text("line 100").shown())
+}
+
+test "a player reported has their lines taken away" {
+  Game.chat.windows = gameWindows()
+  const shown = chat()
+  const rude = line("SAY", "[Grub] says: rude", "Grub", [1])
+  rude.guid = "Player-1-0001"
+  Game.chat.heard.emit(rude)
+  Game.chat.heard.emit(line("SAY", "[Thrall] says: fine", "Thrall", [1]))
+  Game.chat.playerReported.emit("Player-1-0001")
+  Test.expect(!shown.text("[Grub] says: rude").shown() && shown.text("[Thrall] says: fine").shown())
+}
+
 test "a name's right-click opens its menu: whisper, invite, who, ignore, and the game's own" {
   Game.chat.windows = gameWindows()
   const shown = chat()
@@ -248,6 +291,19 @@ test "the Tabs page shows what a window shows, each turned on and off there" {
   settings.button("Tabs").click()
   settings.button(Ordaen.art.ctl.check).nth(2).click()
   Test.expect(Test.requests().any(r => r == "Chat.showGroup 1 YELL true"))
+}
+
+test "the Tabs page resets every chat window once the player says so, never at the first click" {
+  Game.chat.windows = gameWindows()
+  _ = chat()
+  Test.open("/ordaen")
+  const settings = Test.page().window("Move mode")
+  settings.button("Chat").click()
+  settings.button("Tabs").click()
+  settings.button("Reset Chat Windows").click()
+  Test.expect(!Test.requests().any(r => r == "Chat.resetWindows"))
+  Test.page().window("Cancel").button("Reset Chat Windows").click()
+  Test.expect(Test.requests().any(r => r == "Chat.resetWindows"))
 }
 
 test "the input opened in a whisper's tab whispers its partner" {
@@ -330,7 +386,7 @@ test "someone's line naming a keyword is marked" {
 }
 
 function plain(words: String): Shown {
-  return { whole: words, color: WHITE, time: 0, repeat: words, count: 1, marked: false, past: false, secret: false, mine: false }
+  return { whole: words, color: WHITE, time: 0, repeat: words, count: 1, marked: false, past: false, secret: false, mine: false, sender: "" }
 }
 
 test "the chat is never lower than its tabs, the whispers' among them: the lines take the room they leave" {

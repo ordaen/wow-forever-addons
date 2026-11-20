@@ -81,6 +81,7 @@ public class Chat implements Module, App {
     Ordaen.modules.add(self)
     Game.chat.read(true)
     Game.chat.heard.listen(self.onLine)
+    Game.chat.playerReported.listen(self.onReported)
     Events.PLAYER_LOGOUT.listen(self.keep)
     watch (windows of Game.chat.windows) { self.sync() }
     watch (streams of Game.chat.streams) { self.sync() }
@@ -144,6 +145,12 @@ public class Chat implements Module, App {
     const open = peek self.openKey
     for (index of line.windows) { self.addTo(`w${index}`, shown, open, values) }
     if (line.stream != "") { self.addTo(`s${line.stream}`, shown, open, values) }
+  }
+
+  // A player reported: their lines go from every tab and conversation, as the game's windows take them away.
+  onReported(mut self, guid: String) {
+    if (guid == "") { return }
+    for (_, tab of self.made) { tab.forgetSender(guid) }
   }
 
   addTo(mut self, key: String, line: Shown, open: String, values: Choices) {
@@ -215,7 +222,7 @@ public class Chat implements Module, App {
     if (line.secret != "") {
       return {
         whole: line.body, color: line.color, time: line.time, repeat: "", count: 1, marked: false, past: false, secret: true,
-        mine: false
+        mine: false, sender: line.guid
       }
     }
     // The time where the game shows the chat's times, written as every time of Ordaen's is.
@@ -225,7 +232,8 @@ public class Chat implements Module, App {
     return {
       whole: `${stamp}${channel}${linked(line.plain)}`, color: line.color, time: line.time,
       repeat: `${line.kind}|${line.channel}|${line.sender}|${line.text}`, count: 1,
-      marked: line.sender != "" && !own && marks(line.text, peek self.words), past: false, secret: false, mine: false
+      marked: line.sender != "" && !own && marks(line.text, peek self.words), past: false, secret: false, mine: false,
+      sender: line.guid
     }
   }
 
@@ -268,7 +276,8 @@ public class Chat implements Module, App {
 
   onCopyClose(mut self) { self.copied = "" }
 
-  // A tab's menu: rename (a box asks the name), its page of the settings, a new tab, lock, close.
+  // A tab's menu: rename (a box asks the name), its page of the settings, a new tab, lock, the mouse through its lines
+  // or not, undock or dock, close.
   onTab(mut self, pick: TabPick) {
     const window = pick.tab.window
     match (pick.action) {
@@ -282,6 +291,9 @@ public class Chat implements Module, App {
       }
       .New => { _ = Game.chat.open(Locale.TAB_NEW_NAME) }
       .Lock => { Game.chat.lock(window, !pick.tab.locked) }
+      .Interactable => { Game.chat.interactable(window, pick.tab.uninteractable) }
+      .Undock => { Game.chat.undock(window) }
+      .Dock => { Game.chat.dock(window) }
       .Close => { Game.chat.close(window) }
     }
   }
