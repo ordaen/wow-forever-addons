@@ -495,6 +495,43 @@ test "an item the game's letter takes (Right-click in the bags) comes into the f
   Test.expect(asked().contains("Mailbox.send Regron Linen Cloth 2589x20"))
 }
 
+test "part of a stack is split off into an empty slot first, and the letter goes once the bags hold it" {
+  Test.mount(nil, PAGE)
+  Game.mailbox.letters = letters
+  Game.bags.free = 20
+  Game.mailObserver.open = true
+  Game.mailObserver.opened.emit()
+  // Twenty Linen Cloth in 0/2, the rest empty; once split, five lie in 0/1.
+  let split = false
+  Game.bags.size = (bag: Integer): Integer => bag == 0 ? 4 : 0
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => {
+    if (bag != 0) { return false }
+    into.id = 2589
+    into.locked = false
+    if (slot == 2) {
+      into.count = split ? 15 : 20
+      return true
+    }
+    if (slot == 1 && split) {
+      into.count = 5
+      return true
+    }
+    return false
+  }
+  let asks = ""
+  Game.bags.split = (fromBag: Integer, fromSlot: Integer, count: Integer, toBag: Integer, toSlot: Integer): Boolean => {
+    asks = `${fromBag}/${fromSlot} ${count} into ${toBag}/${toSlot}`
+    return true
+  }
+  _ = Test.requests()
+  Mail.sender.put("Regron", "Cloth", "", [{ bag: 0, slot: 2, item: 2589, count: 5 }], 0, 0)
+  Test.expect(asks == "0/2 5 into 0/1")
+  Test.expect(!asked().contains("Mailbox.send"))
+  split = true
+  Game.bags.changed.emit()
+  Test.expect(asked().contains("Mailbox.send Regron Cloth 2589x5"))
+}
+
 test "«Don't accept trades at the mailbox» sets the game's own setting while it is open, and puts it back" {
   let said = ""
   Client.C_CVar.GetCVar = (name: String): String | nil => "0"
