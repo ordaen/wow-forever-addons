@@ -1,14 +1,13 @@
 // One way every Ordaen addon writes into the chat: its mark (its name, in its colour) and the line, printed as the
 // chat prints any line, so Ordaen Chat's window and the game's show it alike.
 import Game from "$game"
+import { BRIGHT_TEXT } from "@/units"
 
 // What an addon's lines begin with: its name and its colour.
 public struct ChatMark {
   const name: String
   const color: Color
 }
-
-const WHITE: Color = Color.hex("#ffffff")
 
 // A colour as the chat's codes write it (`ffe8c35a`).
 function codeOf(color: Color): String {
@@ -17,5 +16,5 @@ function codeOf(color: Color): String {
 
 // The line in the chat after the addon's mark: `Inventory: [Rabbit's Foot]: not junk.`
 public function say(mark: ChatMark, line: String) {
-  Game.chat.print(`|c${codeOf(mark.color)}${mark.name}:|r ${line}`, WHITE)
+  Game.chat.print(`|c${codeOf(mark.color)}${mark.name}:|r ${line}`, BRIGHT_TEXT)
 }

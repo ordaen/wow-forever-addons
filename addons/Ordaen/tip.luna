@@ -10,10 +10,10 @@ import root Ordaen from "Ordaen"
 import { reachAcross } from "@/art"
 import { Hotkeys } from "@/hotkeys"
 import { Component } from "@/module"
-import { TIGHT_LINE, TITLE_LINE, TITLE_TEXT } from "@/units"
+import { BRIGHT_TEXT, TIGHT_LINE, TITLE_LINE, TITLE_TEXT } from "@/units"
 
 const WIDTH = 367.96875dp
-const NAME: Color = Color.hex("#ffffff")
+const NAME: Color = BRIGHT_TEXT
 const LABEL: Color = Color.hex("#cbb994")
 const BY_ITS_BOX: Beside = { beside: "parent" }
 const ROW: Array<Track> = [{ fr: 1 }, "max-content"]
@@ -32,7 +32,7 @@ public struct TipMark {
 public struct TipRow {
   const label: String
   const value: String
-  const mark: TipMark = { text: "", color: { r: 1, g: 1, b: 1, a: 1 } }
+  const mark: TipMark = { text: "", color: BRIGHT_TEXT }
 }
 
 // What a control's Tip says, for a control that draws its own (a push button): its name, its text and its rows.

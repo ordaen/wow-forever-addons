@@ -5,13 +5,13 @@ import { Align, Art, Edges, Line, Overflow, Position, Shadow, Side, TextFont, Tr
 import Locale from "@/locales"
 import { XpFill, xpFillArt } from "@/look"
 import { Component } from "@/module"
+import { BRIGHT_TEXT } from "@/units"
 
 const HEIGHT = 35.15625dp
 const RIM = 1sp
 const PADDING: Edges = { right: RIM, bottom: RIM, left: RIM }
 const TROUGH: Color = Color.hex("#0b0805")
 const RIM_COLOR: Color = Color.hex("#3d2710")
-const WHITE: Color = Color.hex("#ffffff")
 const SHADOW: Shadow = { color: Color.hex("#000000"), x: 1.171875dp, y: -1.171875dp }
 // Ten equal cells, each but the last with a 1 px dark right edge.
 const CELLS: Array<Integer> = [1, 2, 3, 4, 5, 6, 7, 8, 9]
@@ -72,7 +72,7 @@ public class SkillBar implements Component {
           </box>
           <box position={Position.Absolute} left={0ui} right={0ui} top={0ui} bottom={0ui} xAlign={Align.Center}
                yAlign={Align.Center}>
-            <text value={self.label} textColor={WHITE} textShadow={SHADOW} textFont={TextFont.Numbers} wrap={.None} />
+            <text value={self.label} textColor={BRIGHT_TEXT} textShadow={SHADOW} textFont={TextFont.Numbers} wrap={.None} />
           </box>
         </box>
       </box>

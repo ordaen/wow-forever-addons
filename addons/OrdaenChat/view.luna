@@ -1,11 +1,10 @@
 // The chat's parts: a count's badge, a tab of its sidebar, and a line.
 import { Align, Edges, Event, Line, Overflow, Position } from "$ltml"
 import root Ordaen from "Ordaen"
-import { Component, ListTab, SECONDARY_TEXT } from "Ordaen"
+import { BRIGHT_TEXT, Component, ListTab, SECONDARY_TEXT } from "Ordaen"
 import { ChatTab, Shown } from "@/lines"
 
 public const BADGE_FILL: Color = Color.hex("#b3261e")
-const WHITE: Color = Color.hex("#ffffff")
 const CLEAR: Color = Color.hex("#00000000")
 // The warm band under a line that names the player or a keyword.
 const MARK: Color = Color.hex("#ff9a2e33")
@@ -32,7 +31,7 @@ public class Badge implements Component {
         </box>
         <box position={Position.Absolute} top={0ui} right={0ui} bottom={0ui} left={0ui} padding={BADGE_PAD}
              xAlign={Align.End} yAlign={Align.Center}>
-          <text value={"%d"} arguments={[self.count]} textColor={WHITE} textFont={.Numbers} textSize={SECONDARY_TEXT}
+          <text value={"%d"} arguments={[self.count]} textColor={BRIGHT_TEXT} textFont={.Numbers} textSize={SECONDARY_TEXT}
                 wrap={.None} />
         </box>
       </box>

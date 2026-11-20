@@ -8,6 +8,7 @@ import Game from "$game"
 import { Art } from "$ltml"
 import Test from "$test"
 import root Ordaen from "Ordaen"
+import { BRIGHT_TEXT } from "Ordaen"
 import { Purse, Purses } from "@/gold"
 import Locale from "@/locales"
 
@@ -45,7 +46,7 @@ const LABEL: Color = Color.hex("#a3977f")
 const INK: Color = Color.hex("#e8dcc4")
 const SHADE: Color = Color.hex("#00000059")
 // A tab: the one picked, and one with no item. A section's caption.
-const PICKED: Color = Color.hex("#ffffff")
+const PICKED: Color = BRIGHT_TEXT
 const EMPTY: Color = Color.hex("#7a705f")
 const CAPTION: Color = Color.hex("#e8c35a")
 // A section's card's ground.

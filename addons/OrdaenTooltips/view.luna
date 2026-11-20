@@ -7,7 +7,7 @@
 // always the one at the frame; the others follow it in one row, lined up on the edge that faces the frame, so no
 // tooltip floats off it.
 import { Align, Edges, Frame, Place, Point } from "$ltml"
-import { Component, TooltipGroup } from "Ordaen"
+import { BRIGHT_TEXT, Component, TooltipGroup } from "Ordaen"
 import { GOLD } from "@/colors"
 import { HEADER, TipFrame } from "@/frame"
 import { Kind, Model, Opens } from "@/model"
@@ -35,7 +35,7 @@ public struct Standing {
 
 // What stands in an opened tooltip's place while it opens nothing.
 const NOTHING: Model = {
-  kind: Kind.Text, name: "", nameColor: Color.hex("#ffffff"),
+  kind: Kind.Text, name: "", nameColor: BRIGHT_TEXT,
   desc: [], info: [], facts: [], body: [], more: [], foot: [], keys: []
 }
 

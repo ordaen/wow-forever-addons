@@ -11,9 +11,8 @@ import { Component } from "@/module"
 import { ButtonPlate, PushButton } from "@/pushButton"
 import { Section } from "@/section"
 import { Settings } from "@/settings"
-import { SECONDARY_TEXT } from "@/units"
+import { BRIGHT_TEXT, SECONDARY_TEXT } from "@/units"
 
-const WHITE: Color = Color.hex("#ffffff")
 const DIM: Color = Color.hex("#a3977f")
 const IN_USE: Color = Color.hex("#a6e39a")
 const PRESET_ROW: Array<Track> = [{ fr: 1 }, 175.78125dp]
@@ -97,7 +96,7 @@ public class PresetRow implements Component {
     return $ltml {
       <box columns={PRESET_ROW} gap={3.5sp} yAlign={Align.Center}>
         <box columns={1} gap={0.5sp}>
-          <text value={self.name} textColor={WHITE} wrap={.None} />
+          <text value={self.name} textColor={BRIGHT_TEXT} wrap={.None} />
           <text value={self.about} textColor={DIM} textSize={SECONDARY_TEXT} />
         </box>
         <text $if={self.inUse} value={Locale.THEMES_IN_USE} textColor={IN_USE} textSize={SECONDARY_TEXT} wrap={.None} />
