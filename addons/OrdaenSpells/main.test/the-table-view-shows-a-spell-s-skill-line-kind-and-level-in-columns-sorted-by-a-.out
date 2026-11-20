@@ -8,7 +8,7 @@ surface 425,173.04 750x553.92 on DIALOG clamped raised by a click
           box 460.85,275.3 683.3x0.83 absolute #3e2f1d
           box 460.85,246.14 46.64x29.99 #00000059 @keyPress @pointerPress focus ring
             box 461.68,246.97 44.98x1.67 absolute #d6a56b
-            text 473.06,252.66 22.22x17.78 "All" #ffffff
+            text 473.06,252.66 22.22x17.78 "All" #f0e6d2
           box 510.34,246.14 72.2x29.99 #00000000 @keyPress @pointerPress
             box 511.17,246.97 70.53x1.67 absolute #00000000
             text 522.55,252.66 47.78x17.78 "General" #a3977f

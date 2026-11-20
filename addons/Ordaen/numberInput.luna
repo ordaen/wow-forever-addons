@@ -20,6 +20,7 @@ import { Component } from "@/module"
 import { Resting } from "@/rest"
 import { SettingRow } from "@/settingRow"
 import { Tip, TipText } from "@/tip"
+import { BRIGHT_TEXT } from "@/units"
 
 // What a value is counted in: a share (0.7 is 70%), a size in the client's units, seconds, or a plain number.
 public enum Unit { None = "none", Percent = "percent", Px = "px", Sec = "sec" }
@@ -40,7 +41,6 @@ const KNOB_W = 18.75dp
 const INSET = KNOB_W / 2
 const KNOB_H = 37.5dp
 const KNOB_SHADOW: Shadow = { color: Color.hex("#0000008c"), x: 0ui, y: 2.34375dp, size: 3.515625dp }
-const WHITE: Color = Color.hex("#ffffff")
 // The field: as high as a text box, wide enough for its digits.
 const FIELD_WIDTH = 140.625dp
 const FIELD_HEIGHT = 30.46875dp
@@ -52,7 +52,7 @@ const PADDING: Edges = { right: 3sp, left: 3sp }
 const DIGITS = 6
 // − and +: a push button's plate and label, the label white under the cursor or the keyboard's focus.
 const STEP_HEIGHT = 39.84375dp
-const INK_STEP: ByInteractionState<Color> = { default: Color.hex("#ffd100"), disabled: Color.hex("#808080"), hover: WHITE, focus: WHITE }
+const INK_STEP: ByInteractionState<Color> = { default: Color.hex("#ffd100"), disabled: Color.hex("#808080"), hover: BRIGHT_TEXT, focus: BRIGHT_TEXT }
 const STEP_SHADOW: Shadow = { color: Color.hex("#000000"), x: 1.171875dp, y: -1.171875dp }
 // How long typing pauses before what is typed is taken.
 const SETTLE = 0.6
@@ -354,7 +354,7 @@ public class NumberInput implements Component {
             <Tip $if={self.hovered > 0} title={self.tip.title} text={self.tip.text} rows={self.tip.rows} />
             <text value={"+"} textShadow={STEP_SHADOW} wrap={.None} />
           </box>
-          <text value={self.shown} textColor={WHITE} />
+          <text value={self.shown} textColor={BRIGHT_TEXT} />
         </box>
       </SettingRow>
     }

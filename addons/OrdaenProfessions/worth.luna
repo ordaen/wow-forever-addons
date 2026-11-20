@@ -5,7 +5,7 @@
 import Client from "$client"
 import Game from "$game"
 import { Align, MouseButton, Track } from "$ltml"
-import { Choice, Column, Component, Hour, ItemId, Money, PushButton, SECONDARY_TEXT, Segmented, Table, TableRow, tracksOf } from "Ordaen"
+import { BRIGHT_TEXT, Choice, Column, Component, Hour, ItemId, Money, PushButton, SECONDARY_TEXT, Segmented, Table, TableRow, tracksOf } from "Ordaen"
 import root Alts from "OrdaenAlts"
 import root Auction from "OrdaenAuction"
 import type { PriceKey, PriceSource } from "OrdaenAuction"
@@ -122,7 +122,7 @@ public class WorthLine implements Component {
   derived sale: Integer = self.worth.sale ?? 0
   derived hasProfit: Boolean = self.worth.profit != nil
   derived profit: Integer = self.worth.profit ?? 0
-  derived profitColor: Color = self.profit < 0 ? Style.RED : Style.WHITE
+  derived profitColor: Color = self.profit < 0 ? Style.RED : BRIGHT_TEXT
   derived percent: String = self.worth.percent == nil ? NONE : String.of(self.worth.percent)
   derived age: String = ageText(self.worth.age)
   derived can: String = String.of(self.worth.can)
@@ -140,7 +140,7 @@ public class WorthLine implements Component {
   public render(self): Template {
     return $ltml {
       <TableRow tracks={TRACKS} selected={self.picked} @pick={self.onPick}>
-        <text value={self.worth.name} textColor={Style.WHITE} wrap={.None} />
+        <text value={self.worth.name} textColor={BRIGHT_TEXT} wrap={.None} />
         <text value={self.who} textColor={Style.DIM} wrap={.None} />
         <box xAlign={Align.End}>
           <Money $if={self.hasCost} amount={self.cost} />
@@ -155,13 +155,13 @@ public class WorthLine implements Component {
           <text $else value={NONE} textColor={Style.DIM} />
         </box>
         <box xAlign={Align.End}>
-          <text value={self.percent} textColor={Style.WHITE} textFont={.Numbers} />
+          <text value={self.percent} textColor={BRIGHT_TEXT} textFont={.Numbers} />
         </box>
         <box xAlign={Align.End}>
           <text value={self.age} textColor={Style.DIM} textFont={.Numbers} />
         </box>
         <box xAlign={Align.End}>
-          <text value={self.can} textColor={Style.WHITE} textFont={.Numbers} />
+          <text value={self.can} textColor={BRIGHT_TEXT} textFont={.Numbers} />
         </box>
       </TableRow>
     }

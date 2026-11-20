@@ -23,7 +23,7 @@ box 0,0 760x594.64
         box 248.98,130.04 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
     box 0,159.76 760x28.33
       box 0,159.76 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-        text 51.39,166.12 22.22x15.6 "New" #ffffff
+        text 51.39,166.12 22.22x15.6 "New" #f0e6d2
       box 132.11,159.76 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
         text 173.5,166.12 42.22x15.6 "Rename" #ffd100
       box 264.22,159.76 125x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
@@ -94,7 +94,7 @@ box 0,0 760x647.09
         box 248.98,130.04 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
     box 0,159.76 760x28.33
       box 0,159.76 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-        text 51.39,166.12 22.22x15.6 "New" #ffffff
+        text 51.39,166.12 22.22x15.6 "New" #f0e6d2
       box 132.11,159.76 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
         text 173.5,166.12 42.22x15.6 "Rename" #ffd100
       box 264.22,159.76 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
@@ -177,7 +177,7 @@ box 0,0 760x647.09
       box 0,159.76 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
         text 51.39,166.12 22.22x15.6 "New" #ffd100
       box 132.11,159.76 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-        text 173.5,166.12 42.22x15.6 "Rename" #ffffff
+        text 173.5,166.12 42.22x15.6 "Rename" #f0e6d2
       box 264.22,159.76 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
         text 305.61,166.12 42.22x15.6 "Delete" #ffd100
       box 396.33,159.76 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
@@ -260,7 +260,7 @@ box 0,0 760x647.09
       box 132.11,159.76 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
         text 173.5,166.12 42.22x15.6 "Rename" #ffd100
       box 264.22,159.76 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-        text 305.61,166.12 42.22x15.6 "Delete" #ffffff
+        text 305.61,166.12 42.22x15.6 "Delete" #f0e6d2
       box 396.33,159.76 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
         text 441.06,166.12 35.56x15.6 "Reset" #ffd100
     text 0,199.47 760x15.6 "This is the account default. Pick another profile as the account default first." #ffa194
@@ -341,7 +341,7 @@ box 0,0 760x620.11
       box 132.11,159.76 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
         text 173.5,166.12 42.22x15.6 "Rename" #ffd100
       box 264.22,159.76 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-        text 305.61,166.12 42.22x15.6 "Delete" #ffffff
+        text 305.61,166.12 42.22x15.6 "Delete" #f0e6d2
       box 396.33,159.76 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
         text 441.06,166.12 35.56x15.6 "Reset" #ffd100
   box 0,203.73 760x104.73

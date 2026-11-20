@@ -3,14 +3,13 @@
 import { Align, Bounds, Edges, Shadow } from "$ltml"
 import root Ordaen from "Ordaen"
 import { Component } from "@/module"
-import { SECONDARY_TEXT, TIGHT_LINE } from "@/units"
+import { BRIGHT_TEXT, SECONDARY_TEXT, TIGHT_LINE } from "@/units"
 
-const WHITE: Color = Color.hex("#ffffff")
 const HIGH = 21.09375dp
 // Never narrower than high: round for one digit.
 const WIDE: Bounds = { min: HIGH, max: nil }
 const PAD: Edges = { right: 1sp, left: 1sp }
-const BOLD: Shadow = { color: WHITE, x: 1ui, y: 0ui }
+const BOLD: Shadow = { color: BRIGHT_TEXT, x: 1ui, y: 0ui }
 
 public class CountBadge implements Component {
   count: Signal<Integer>
@@ -22,7 +21,7 @@ public class CountBadge implements Component {
     return $ltml {
       <box height={HIGH} width={WIDE} padding={PAD} xAlign={Align.Center} yAlign={Align.Center}
            background={Ordaen.art.panel.countBadge}>
-        <text value={"%d"} arguments={[self.count]} textSize={SECONDARY_TEXT} textColor={WHITE} textFont={.Numbers}
+        <text value={"%d"} arguments={[self.count]} textSize={SECONDARY_TEXT} textColor={BRIGHT_TEXT} textFont={.Numbers}
               textShadow={BOLD} lineHeight={TIGHT_LINE} wrap={.None} />
       </box>
     }

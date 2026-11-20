@@ -10,7 +10,7 @@ box 0,0 700x718.87
       text 61.7,6.52 42.22x15.6 "Drawer" #a3977f
     box 118.98,0 66.64x27.81 #00000059 @keyPress @pointerPress
       box 119.81,0.83 64.98x1.67 absolute #d6a56b
-      text 131.19,6.52 42.22x15.6 "Market" #ffffff
+      text 131.19,6.52 42.22x15.6 "Market" #f0e6d2
   box 0,36.34 700x584.66
     box 0,36.34 700x584.66
       box 0,36.34 700x281.11
@@ -44,7 +44,7 @@ box 0,0 700x718.87
           box 248.98,190.14 451.02x28.64 opacity=1
             box 248.98,190.14 72.2x28.64 #5a4428 @keyPress @pointerPress
               box 248.98,190.14 72.2x1.67 absolute #d6a56b
-              text 261.19,196.67 47.78x15.6 "Auction" #ffffff
+              text 261.19,196.67 47.78x15.6 "Auction" #f0e6d2
             box 321.18,190.14 78.03x28.64 #0d0a08 @keyPress @pointerPress
               box 321.18,190.14 78.03x1.67 absolute #00000000
               text 332.56,196.67 54.44x15.6 "Merchant" #a3977f
@@ -61,13 +61,13 @@ box 0,0 700x718.87
               box 248.98,230.17 33.33x33.33 absolute #00000000
               box 248.98,230.17 5.83x5.83 absolute #ffd100
               box 248.98,230.17 33.33x33.33 absolute
-                text 270.58,247.68 8.89x14.4 "5" #ffffff
+                text 270.58,247.68 8.89x14.4 "5" #f0e6d2
             box 290.84,230.17 33.33x33.33 #0d0a08 opacity=1 @dragStart @drop @pointerEnter @pointerLeave @pointerPress
               box 290.84,230.17 33.33x33.33 absolute
               box 290.84,230.17 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
               box 290.84,230.17 33.33x33.33 absolute #00000000
               box 290.84,230.17 33.33x33.33 absolute
-                text 306.89,247.68 14.44x14.4 "20" #ffffff
+                text 306.89,247.68 14.44x14.4 "20" #f0e6d2
             box 332.71,230.17 33.33x33.33 #0d0a08 opacity=1 @dragStart @drop @pointerEnter @pointerLeave @pointerPress
               box 332.71,230.17 33.33x33.33 absolute
               box 332.71,230.17 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0

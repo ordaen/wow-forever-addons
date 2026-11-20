@@ -3,7 +3,8 @@
 // reaction's colour, its role and what kind of creature it is, the level against the player's, elite or rare, its
 // faction, the quests it is part of, whose loot it is and the player's standing with its faction.
 import Game from "$game"
-import { GOLD, GREEN, GREY, LABEL, RED, WHITE, YELLOW, colorOf, hex } from "@/colors"
+import { BRIGHT_TEXT } from "Ordaen"
+import { GOLD, GREEN, GREY, LABEL, RED, YELLOW, colorOf, hex } from "@/colors"
 import Locale from "@/locales"
 import { Fact, Glyph, Kind, Model, Note, Opens, Part, Picture, TextLine, named, side } from "@/model"
 import { Options } from "@/options"
@@ -40,7 +41,7 @@ function titledName(name: String, titled: String | nil, color: Color): String {
 function player(token: String, who: Game.UnitInfo, options: Options): Model | nil {
   let name = who.name
   if (name == nil) { return nil }
-  let color = (options.classNames ? who.classColor : nil) ?? WHITE
+  let color = (options.classNames ? who.classColor : nil) ?? BRIGHT_TEXT
   let desc: Array<Part> = []
   let info: Array<Part> = []
   let facts: Array<Fact> = []
@@ -106,7 +107,7 @@ function player(token: String, who: Game.UnitInfo, options: Options): Model | ni
 }
 
 function npc(who: Game.UnitInfo, name: String, data: Game.TooltipData, options: Options): Model {
-  let nameColor = WHITE
+  let nameColor = BRIGHT_TEXT
   let reaction = who.reactionColor
   if (options.npcsLoot && who.tapped) {
     nameColor = GREY
@@ -194,7 +195,7 @@ public function unit(data: Game.TooltipData, options: Options): Model | nil {
       if (text != nil) { body.push({ left: text, color: colorOf(line.leftColor) }) }
     }
     return {
-      kind: Kind.Unit, name: name, nameColor: WHITE,
+      kind: Kind.Unit, name: name, nameColor: BRIGHT_TEXT,
       desc: [], info: [], facts: [], body: body, more: [], foot: [], keys: []
     }
   }

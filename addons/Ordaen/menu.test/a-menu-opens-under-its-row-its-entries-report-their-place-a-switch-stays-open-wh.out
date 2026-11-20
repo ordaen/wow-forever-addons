@@ -32,7 +32,7 @@ surface 0,32.67 183.33x134.77 on FULLSCREEN_DIALOG #0a0806f7
   box 0.83,68.34 181.67x29.16 #00000000 @keyPress @pointerEnter @pointerPress
     text 12.21,74.03 150.38x17.78 "Create [0]" #6f6552
   box 0.83,97.5 181.67x34.26 #d6a56b2e @keyPress @pointerEnter @pointerPress
-    text 12.21,108.29 118.71x17.78 "Favorite" #ffffff
+    text 12.21,108.29 118.71x17.78 "Favorite" #f0e6d2
     box 139.46,108.84 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 1 of 4
       box 136.96,106.34 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2 opacity=0
       box 151.96,106.34 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=1

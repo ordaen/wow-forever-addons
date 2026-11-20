@@ -56,9 +56,10 @@ const UNDER_FADE: Number<Length> = ROLL_HEIGHT - FADE_HEIGHT
 // The bottom roll over the band where they overlap.
 const OVER_PAPER = 1
 // Where the text stands on the paper, in the art's measure (not the spacing setting's): in from its torn sides (80
-// texels and a little more), and a little off the rolls, whose art holds some paper of its own.
-const OFF_SIDES: Number<Length> = 46.875dp
-const OFF_ROLLS: Number<Length> = 4.6875dp
+// texels) and a margin past them as wide as a line is high, and off the rolls by half that, whose art holds some paper
+// of its own.
+const OFF_SIDES: Number<Length> = 60.9375dp
+const OFF_ROLLS: Number<Length> = 11.71875dp
 const OFF_BOTTOM: Number<Length> = FADE_HEIGHT + OFF_ROLLS
 
 // The scroll: what is said of a quest on the parchment between its rolls. It fills the cell it stands in, the paper

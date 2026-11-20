@@ -31,7 +31,7 @@ box 0,0 700x584.66
       box 248.98,153.8 451.02x28.64 opacity=1
         box 248.98,153.8 72.2x28.64 #5a4428 @keyPress @pointerPress
           box 248.98,153.8 72.2x1.67 absolute #d6a56b
-          text 261.19,160.32 47.78x15.6 "Auction" #ffffff
+          text 261.19,160.32 47.78x15.6 "Auction" #f0e6d2
         box 321.18,153.8 78.03x28.64 #0d0a08 @keyPress @pointerPress
           box 321.18,153.8 78.03x1.67 absolute #00000000
           text 332.56,160.32 54.44x15.6 "Merchant" #a3977f
@@ -48,13 +48,13 @@ box 0,0 700x584.66
           box 248.98,193.82 33.33x33.33 absolute #00000000
           box 248.98,193.82 5.83x5.83 absolute #ffd100
           box 248.98,193.82 33.33x33.33 absolute
-            text 270.58,211.33 8.89x14.4 "5" #ffffff
+            text 270.58,211.33 8.89x14.4 "5" #f0e6d2
         box 290.84,193.82 33.33x33.33 #0d0a08 opacity=1 @dragStart @drop @pointerEnter @pointerLeave @pointerPress
           box 290.84,193.82 33.33x33.33 absolute
           box 290.84,193.82 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
           box 290.84,193.82 33.33x33.33 absolute #00000000
           box 290.84,193.82 33.33x33.33 absolute
-            text 306.89,211.33 14.44x14.4 "20" #ffffff
+            text 306.89,211.33 14.44x14.4 "20" #f0e6d2
         box 332.71,193.82 33.33x33.33 #0d0a08 opacity=1 @dragStart @drop @pointerEnter @pointerLeave @pointerPress
           box 332.71,193.82 33.33x33.33 absolute
           box 332.71,193.82 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
@@ -179,7 +179,7 @@ box 0,0 700x584.66
       box 248.98,153.8 451.02x28.64 opacity=1
         box 248.98,153.8 72.2x28.64 #5a4428 @keyPress @pointerPress
           box 248.98,153.8 72.2x1.67 absolute #d6a56b
-          text 261.19,160.32 47.78x15.6 "Auction" #ffffff
+          text 261.19,160.32 47.78x15.6 "Auction" #f0e6d2
         box 321.18,153.8 78.03x28.64 #0d0a08 @keyPress @pointerPress
           box 321.18,153.8 78.03x1.67 absolute #00000000
           text 332.56,160.32 54.44x15.6 "Merchant" #a3977f
@@ -196,13 +196,13 @@ box 0,0 700x584.66
           box 248.98,193.82 33.33x33.33 absolute #00000000
           box 248.98,193.82 5.83x5.83 absolute #ffd100
           box 248.98,193.82 33.33x33.33 absolute
-            text 270.58,211.33 8.89x14.4 "5" #ffffff
+            text 270.58,211.33 8.89x14.4 "5" #f0e6d2
         box 290.84,193.82 33.33x33.33 #0d0a08 opacity=1 @dragStart @drop @pointerEnter @pointerLeave @pointerPress
           box 290.84,193.82 33.33x33.33 absolute
           box 290.84,193.82 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
           box 290.84,193.82 33.33x33.33 absolute #00000000
           box 290.84,193.82 33.33x33.33 absolute
-            text 306.89,211.33 14.44x14.4 "20" #ffffff
+            text 306.89,211.33 14.44x14.4 "20" #f0e6d2
         box 332.71,193.82 33.33x33.33 #0d0a08 opacity=1 @dragStart @drop @pointerEnter @pointerLeave @pointerPress
           box 332.71,193.82 33.33x33.33 absolute
           box 332.71,193.82 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
@@ -326,7 +326,7 @@ box 0,0 700x584.66
       box 248.98,153.8 451.02x28.64 opacity=1
         box 248.98,153.8 72.2x28.64 #5a4428 @keyPress @pointerPress
           box 248.98,153.8 72.2x1.67 absolute #d6a56b
-          text 261.19,160.32 47.78x15.6 "Auction" #ffffff
+          text 261.19,160.32 47.78x15.6 "Auction" #f0e6d2
         box 321.18,153.8 78.03x28.64 #0d0a08 @keyPress @pointerPress
           box 321.18,153.8 78.03x1.67 absolute #00000000
           text 332.56,160.32 54.44x15.6 "Merchant" #a3977f
@@ -343,13 +343,13 @@ box 0,0 700x584.66
           box 248.98,193.82 33.33x33.33 absolute #00000000
           box 248.98,193.82 5.83x5.83 absolute #ffd100
           box 248.98,193.82 33.33x33.33 absolute
-            text 270.58,211.33 8.89x14.4 "5" #ffffff
+            text 270.58,211.33 8.89x14.4 "5" #f0e6d2
         box 290.84,193.82 33.33x33.33 #0d0a08 opacity=1 @dragStart @drop @pointerEnter @pointerLeave @pointerPress
           box 290.84,193.82 33.33x33.33 absolute
           box 290.84,193.82 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
           box 290.84,193.82 33.33x33.33 absolute #00000000
           box 290.84,193.82 33.33x33.33 absolute
-            text 306.89,211.33 14.44x14.4 "20" #ffffff
+            text 306.89,211.33 14.44x14.4 "20" #f0e6d2
         box 332.71,193.82 33.33x33.33 #0d0a08 opacity=1 @dragStart @drop @pointerEnter @pointerLeave @pointerPress
           box 332.71,193.82 33.33x33.33 absolute
           box 332.71,193.82 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
@@ -472,7 +472,7 @@ box 0,0 700x584.66
       box 248.98,153.8 451.02x28.64 opacity=1
         box 248.98,153.8 72.2x28.64 #5a4428 @keyPress @pointerPress
           box 248.98,153.8 72.2x1.67 absolute #d6a56b
-          text 261.19,160.32 47.78x15.6 "Auction" #ffffff
+          text 261.19,160.32 47.78x15.6 "Auction" #f0e6d2
         box 321.18,153.8 78.03x28.64 #0d0a08 @keyPress @pointerPress
           box 321.18,153.8 78.03x1.67 absolute #00000000
           text 332.56,160.32 54.44x15.6 "Merchant" #a3977f
@@ -489,13 +489,13 @@ box 0,0 700x584.66
           box 248.98,193.82 33.33x33.33 absolute #00000000
           box 248.98,193.82 5.83x5.83 absolute #ffd100
           box 248.98,193.82 33.33x33.33 absolute
-            text 270.58,211.33 8.89x14.4 "5" #ffffff
+            text 270.58,211.33 8.89x14.4 "5" #f0e6d2
         box 290.84,193.82 33.33x33.33 #0d0a08 opacity=1 @dragStart @drop @pointerEnter @pointerLeave @pointerPress
           box 290.84,193.82 33.33x33.33 absolute
           box 290.84,193.82 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
           box 290.84,193.82 33.33x33.33 absolute #00000000
           box 290.84,193.82 33.33x33.33 absolute
-            text 306.89,211.33 14.44x14.4 "20" #ffffff
+            text 306.89,211.33 14.44x14.4 "20" #f0e6d2
         box 332.71,193.82 33.33x33.33 #0d0a08 opacity=1 @dragStart @drop @pointerEnter @pointerLeave @pointerPress
           box 332.71,193.82 33.33x33.33 absolute
           box 332.71,193.82 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
@@ -621,7 +621,7 @@ box 0,0 700x584.66
           text 261.19,160.32 47.78x15.6 "Auction" #a3977f
         box 321.18,153.8 78.03x28.64 #5a4428 @keyPress @pointerPress
           box 321.18,153.8 78.03x1.67 absolute #d6a56b
-          text 332.56,160.32 54.44x15.6 "Merchant" #ffffff
+          text 332.56,160.32 54.44x15.6 "Merchant" #f0e6d2
         box 399.21,153.8 162.48x28.64 #0d0a08 @keyPress @pointerPress
           box 399.21,153.8 162.48x1.67 absolute #00000000
           text 410.59,160.32 138.89x15.6 "Held — in development" #ffffff
@@ -635,13 +635,13 @@ box 0,0 700x584.66
           box 248.98,193.82 33.33x33.33 absolute #00000000
           box 248.98,193.82 5.83x5.83 absolute #ffd100
           box 248.98,193.82 33.33x33.33 absolute
-            text 270.58,211.33 8.89x14.4 "5" #ffffff
+            text 270.58,211.33 8.89x14.4 "5" #f0e6d2
         box 290.84,193.82 33.33x33.33 #0d0a08 opacity=1 @dragStart @drop @pointerEnter @pointerLeave @pointerPress
           box 290.84,193.82 33.33x33.33 absolute
           box 290.84,193.82 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
           box 290.84,193.82 33.33x33.33 absolute #00000000
           box 290.84,193.82 33.33x33.33 absolute
-            text 306.89,211.33 14.44x14.4 "20" #ffffff
+            text 306.89,211.33 14.44x14.4 "20" #f0e6d2
         box 332.71,193.82 33.33x33.33 #0d0a08 opacity=1 @dragStart @drop @pointerEnter @pointerLeave @pointerPress
           box 332.71,193.82 33.33x33.33 absolute
           box 332.71,193.82 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
@@ -767,7 +767,7 @@ box 0,0 700x584.66
           text 261.19,160.32 47.78x15.6 "Auction" #a3977f
         box 321.18,153.8 78.03x28.64 #5a4428 @keyPress @pointerPress
           box 321.18,153.8 78.03x1.67 absolute #d6a56b
-          text 332.56,160.32 54.44x15.6 "Merchant" #ffffff
+          text 332.56,160.32 54.44x15.6 "Merchant" #f0e6d2
         box 399.21,153.8 162.48x28.64 #0d0a08 @keyPress @pointerPress
           box 399.21,153.8 162.48x1.67 absolute #00000000
           text 410.59,160.32 138.89x15.6 "Held — in development" #ffffff
@@ -781,13 +781,13 @@ box 0,0 700x584.66
           box 248.98,193.82 33.33x33.33 absolute #00000000
           box 248.98,193.82 5.83x5.83 absolute #ffd100
           box 248.98,193.82 33.33x33.33 absolute
-            text 270.58,211.33 8.89x14.4 "5" #ffffff
+            text 270.58,211.33 8.89x14.4 "5" #f0e6d2
         box 290.84,193.82 33.33x33.33 #0d0a08 opacity=1 @dragStart @drop @pointerEnter @pointerLeave @pointerPress
           box 290.84,193.82 33.33x33.33 absolute
           box 290.84,193.82 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
           box 290.84,193.82 33.33x33.33 absolute #ffffff26
           box 290.84,193.82 33.33x33.33 absolute
-            text 306.89,211.33 14.44x14.4 "20" #ffffff
+            text 306.89,211.33 14.44x14.4 "20" #f0e6d2
         box 332.71,193.82 33.33x33.33 #0d0a08 opacity=1 @dragStart @drop @pointerEnter @pointerLeave @pointerPress
           box 332.71,193.82 33.33x33.33 absolute
           box 332.71,193.82 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
@@ -914,7 +914,7 @@ box 0,0 700x563.37
           text 261.19,160.32 47.78x15.6 "Auction" #a3977f
         box 321.18,153.8 78.03x28.64 #5a4428 @keyPress @pointerPress
           box 321.18,153.8 78.03x1.67 absolute #d6a56b
-          text 332.56,160.32 54.44x15.6 "Merchant" #ffffff
+          text 332.56,160.32 54.44x15.6 "Merchant" #f0e6d2
         box 399.21,153.8 162.48x28.64 #0d0a08 @keyPress @pointerPress
           box 399.21,153.8 162.48x1.67 absolute #00000000
           text 410.59,160.32 138.89x15.6 "Held — in development" #ffffff
@@ -928,13 +928,13 @@ box 0,0 700x563.37
           box 248.98,193.82 33.33x33.33 absolute #00000000
           box 248.98,193.82 5.83x5.83 absolute #ffd100
           box 248.98,193.82 33.33x33.33 absolute
-            text 270.58,211.33 8.89x14.4 "5" #ffffff
+            text 270.58,211.33 8.89x14.4 "5" #f0e6d2
         box 290.84,193.82 33.33x33.33 #0d0a08 opacity=1 @dragStart @drop @pointerEnter @pointerLeave @pointerPress
           box 290.84,193.82 33.33x33.33 absolute
           box 290.84,193.82 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
           box 290.84,193.82 33.33x33.33 absolute #00000000
           box 290.84,193.82 33.33x33.33 absolute
-            text 306.89,211.33 14.44x14.4 "20" #ffffff
+            text 306.89,211.33 14.44x14.4 "20" #f0e6d2
         box 332.71,193.82 33.33x33.33 #0d0a08 opacity=1 @dragStart @drop @pointerEnter @pointerLeave @pointerPress
           box 332.71,193.82 33.33x33.33 absolute
           box 332.71,193.82 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
@@ -1055,7 +1055,7 @@ box 0,0 700x563.37
           text 261.19,160.32 47.78x15.6 "Auction" #a3977f
         box 321.18,153.8 78.03x28.64 #5a4428 @keyPress @pointerPress
           box 321.18,153.8 78.03x1.67 absolute #d6a56b
-          text 332.56,160.32 54.44x15.6 "Merchant" #ffffff
+          text 332.56,160.32 54.44x15.6 "Merchant" #f0e6d2
         box 399.21,153.8 162.48x28.64 #0d0a08 @keyPress @pointerPress
           box 399.21,153.8 162.48x1.67 absolute #00000000
           text 410.59,160.32 138.89x15.6 "Held — in development" #ffffff
@@ -1069,13 +1069,13 @@ box 0,0 700x563.37
           box 248.98,193.82 33.33x33.33 absolute #00000000
           box 248.98,193.82 5.83x5.83 absolute #ffd100
           box 248.98,193.82 33.33x33.33 absolute
-            text 270.58,211.33 8.89x14.4 "5" #ffffff
+            text 270.58,211.33 8.89x14.4 "5" #f0e6d2
         box 290.84,193.82 33.33x33.33 #0d0a08 opacity=1 @dragStart @drop @pointerEnter @pointerLeave @pointerPress
           box 290.84,193.82 33.33x33.33 absolute
           box 290.84,193.82 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
           box 290.84,193.82 33.33x33.33 absolute #00000000
           box 290.84,193.82 33.33x33.33 absolute
-            text 306.89,211.33 14.44x14.4 "20" #ffffff
+            text 306.89,211.33 14.44x14.4 "20" #f0e6d2
         box 332.71,193.82 33.33x33.33 #0d0a08 opacity=1 @dragStart @drop @pointerEnter @pointerLeave @pointerPress
           box 332.71,193.82 33.33x33.33 absolute
           box 332.71,193.82 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
@@ -1196,7 +1196,7 @@ box 0,0 700x563.37
           text 261.19,160.32 47.78x15.6 "Auction" #a3977f
         box 321.18,153.8 78.03x28.64 #5a4428 @keyPress @pointerPress
           box 321.18,153.8 78.03x1.67 absolute #d6a56b
-          text 332.56,160.32 54.44x15.6 "Merchant" #ffffff
+          text 332.56,160.32 54.44x15.6 "Merchant" #f0e6d2
         box 399.21,153.8 162.48x28.64 #0d0a08 @keyPress @pointerPress
           box 399.21,153.8 162.48x1.67 absolute #00000000
           text 410.59,160.32 138.89x15.6 "Held — in development" #ffffff
@@ -1210,13 +1210,13 @@ box 0,0 700x563.37
           box 248.98,193.82 33.33x33.33 absolute #00000000
           box 248.98,193.82 5.83x5.83 absolute #ffd100
           box 248.98,193.82 33.33x33.33 absolute
-            text 270.58,211.33 8.89x14.4 "5" #ffffff
+            text 270.58,211.33 8.89x14.4 "5" #f0e6d2
         box 290.84,193.82 33.33x33.33 #0d0a08 opacity=1 @dragStart @drop @pointerEnter @pointerLeave @pointerPress
           box 290.84,193.82 33.33x33.33 absolute
           box 290.84,193.82 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
           box 290.84,193.82 33.33x33.33 absolute #00000000
           box 290.84,193.82 33.33x33.33 absolute
-            text 306.89,211.33 14.44x14.4 "20" #ffffff
+            text 306.89,211.33 14.44x14.4 "20" #f0e6d2
         box 332.71,193.82 33.33x33.33 #0d0a08 opacity=1 @dragStart @drop @pointerEnter @pointerLeave @pointerPress
           box 332.71,193.82 33.33x33.33 absolute
           box 332.71,193.82 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
@@ -1337,7 +1337,7 @@ box 0,0 700x563.37
           text 261.19,160.32 47.78x15.6 "Auction" #a3977f
         box 321.18,153.8 78.03x28.64 #5a4428 @keyPress @pointerPress
           box 321.18,153.8 78.03x1.67 absolute #d6a56b
-          text 332.56,160.32 54.44x15.6 "Merchant" #ffffff
+          text 332.56,160.32 54.44x15.6 "Merchant" #f0e6d2
         box 399.21,153.8 162.48x28.64 #0d0a08 @keyPress @pointerPress
           box 399.21,153.8 162.48x1.67 absolute #00000000
           text 410.59,160.32 138.89x15.6 "Held — in development" #ffffff
@@ -1351,13 +1351,13 @@ box 0,0 700x563.37
           box 248.98,193.82 33.33x33.33 absolute #00000000
           box 248.98,193.82 5.83x5.83 absolute #ffd100
           box 248.98,193.82 33.33x33.33 absolute
-            text 270.58,211.33 8.89x14.4 "5" #ffffff
+            text 270.58,211.33 8.89x14.4 "5" #f0e6d2
         box 290.84,193.82 33.33x33.33 #0d0a08 opacity=1 @dragStart @drop @pointerEnter @pointerLeave @pointerPress
           box 290.84,193.82 33.33x33.33 absolute
           box 290.84,193.82 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
           box 290.84,193.82 33.33x33.33 absolute #00000000
           box 290.84,193.82 33.33x33.33 absolute
-            text 306.89,211.33 14.44x14.4 "20" #ffffff
+            text 306.89,211.33 14.44x14.4 "20" #f0e6d2
         box 332.71,193.82 33.33x33.33 #0d0a08 opacity=1 @dragStart @drop @pointerEnter @pointerLeave @pointerPress
           box 332.71,193.82 33.33x33.33 absolute
           box 332.71,193.82 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
@@ -1478,7 +1478,7 @@ box 0,0 700x563.37
           text 261.19,160.32 47.78x15.6 "Auction" #a3977f
         box 321.18,153.8 78.03x28.64 #5a4428 @keyPress @pointerPress
           box 321.18,153.8 78.03x1.67 absolute #d6a56b
-          text 332.56,160.32 54.44x15.6 "Merchant" #ffffff
+          text 332.56,160.32 54.44x15.6 "Merchant" #f0e6d2
         box 399.21,153.8 162.48x28.64 #0d0a08 @keyPress @pointerPress
           box 399.21,153.8 162.48x1.67 absolute #00000000
           text 410.59,160.32 138.89x15.6 "Held — in development" #ffffff
@@ -1492,13 +1492,13 @@ box 0,0 700x563.37
           box 248.98,193.82 33.33x33.33 absolute #00000000
           box 248.98,193.82 5.83x5.83 absolute #ffd100
           box 248.98,193.82 33.33x33.33 absolute
-            text 270.58,211.33 8.89x14.4 "5" #ffffff
+            text 270.58,211.33 8.89x14.4 "5" #f0e6d2
         box 290.84,193.82 33.33x33.33 #0d0a08 opacity=1 @dragStart @drop @pointerEnter @pointerLeave @pointerPress
           box 290.84,193.82 33.33x33.33 absolute
           box 290.84,193.82 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
           box 290.84,193.82 33.33x33.33 absolute #00000000
           box 290.84,193.82 33.33x33.33 absolute
-            text 306.89,211.33 14.44x14.4 "20" #ffffff
+            text 306.89,211.33 14.44x14.4 "20" #f0e6d2
         box 332.71,193.82 33.33x33.33 #0d0a08 opacity=1 @dragStart @drop @pointerEnter @pointerLeave @pointerPress
           box 332.71,193.82 33.33x33.33 absolute
           box 332.71,193.82 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
@@ -1619,7 +1619,7 @@ box 0,0 700x563.37
           text 261.19,160.32 47.78x15.6 "Auction" #a3977f
         box 321.18,153.8 78.03x28.64 #5a4428 @keyPress @pointerPress
           box 321.18,153.8 78.03x1.67 absolute #d6a56b
-          text 332.56,160.32 54.44x15.6 "Merchant" #ffffff
+          text 332.56,160.32 54.44x15.6 "Merchant" #f0e6d2
         box 399.21,153.8 162.48x28.64 #0d0a08 @keyPress @pointerPress
           box 399.21,153.8 162.48x1.67 absolute #00000000
           text 410.59,160.32 138.89x15.6 "Held — in development" #ffffff
@@ -1633,13 +1633,13 @@ box 0,0 700x563.37
           box 248.98,193.82 33.33x33.33 absolute #00000000
           box 248.98,193.82 5.83x5.83 absolute #ffd100
           box 248.98,193.82 33.33x33.33 absolute
-            text 270.58,211.33 8.89x14.4 "5" #ffffff
+            text 270.58,211.33 8.89x14.4 "5" #f0e6d2
         box 290.84,193.82 33.33x33.33 #0d0a08 opacity=1 @dragStart @drop @pointerEnter @pointerLeave @pointerPress
           box 290.84,193.82 33.33x33.33 absolute
           box 290.84,193.82 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
           box 290.84,193.82 33.33x33.33 absolute #00000000
           box 290.84,193.82 33.33x33.33 absolute
-            text 306.89,211.33 14.44x14.4 "20" #ffffff
+            text 306.89,211.33 14.44x14.4 "20" #f0e6d2
         box 332.71,193.82 33.33x33.33 #0d0a08 opacity=1 @dragStart @drop @pointerEnter @pointerLeave @pointerPress
           box 332.71,193.82 33.33x33.33 absolute
           box 332.71,193.82 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
@@ -1730,7 +1730,7 @@ surface 248.98,433.62 183.33x105.61 on FULLSCREEN_DIALOG #0a0806f7
   box 249.81,469.3 181.67x29.16 #00000000 @keyPress @pointerEnter @pointerPress
     text 261.19,474.99 150.38x17.78 "Create [0]" #6f6552
   box 249.81,498.46 181.67x34.26 #d6a56b2e @keyPress @pointerEnter @pointerPress
-    text 261.19,509.24 118.71x17.78 "Favorite" #ffffff
+    text 261.19,509.24 118.71x17.78 "Favorite" #f0e6d2
     box 388.43,509.8 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 1 of 4
       box 385.93,507.3 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2 opacity=0
       box 400.93,507.3 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=1

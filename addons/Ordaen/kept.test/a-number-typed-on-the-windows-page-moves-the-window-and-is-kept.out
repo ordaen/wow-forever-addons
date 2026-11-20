@@ -8,7 +8,7 @@ surface 210,139.71 980x620.58 on DIALOG clamped raised by a click
           box 245.85,212.81 112.6x29.71 #00000040 @keyPress @pointerPress
             box 245.85,212.81 2.5x29.71 absolute #d6a56b
             box 258.65,218.5 18.33x18.33 icon=Interface/Icons/Trade_Engineering
-            text 285.52,218.77 54.44x17.78 "General" #ffffff
+            text 285.52,218.77 54.44x17.78 "General" #f0e6d2
             box 348.49,227.66 0x0
           box 245.85,242.52 112.6x29.71 #00000000 @keyPress @pointerPress
             box 245.85,242.52 2.5x29.71 absolute #00000000
@@ -38,7 +38,7 @@ surface 210,139.71 980x620.58 on DIALOG clamped raised by a click
                 text 539.82,233.55 61.11x17.78 "Behaviour" #a3977f
               box 615.98,227.03 72.2x29.99 #00000059 @keyPress @pointerPress
                 box 616.82,227.86 70.53x1.67 absolute #d6a56b
-                text 628.19,233.55 47.78x17.78 "Windows" #ffffff
+                text 628.19,233.55 47.78x17.78 "Windows" #f0e6d2
             box 389.74,274.09 755.19x303.27
               box 389.74,274.09 755.19x303.27
                 box 389.74,274.09 166.67x29.16
@@ -65,7 +65,7 @@ surface 210,139.71 980x620.58 on DIALOG clamped raised by a click
                       box 851.47,331.15 100x21.67 #00000080 input "-100" @change @submit
                       box 957.16,327.82 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerUp
                         text 964.38,333.1 8.89x17.78 "+" #ffd100
-                      text 986.18,333.1 15.56x17.78 "px" #ffffff
+                      text 986.18,333.1 15.56x17.78 "px" #f0e6d2
                   box 573.47,364.69 571.46x28.33 opacity=1
                     box 573.47,369.96 233.33x17.78 @pointerEnter @pointerLeave
                       text 573.47,369.96 233.33x17.78 "Down, from the centre" #cbb994
@@ -75,7 +75,7 @@ surface 210,139.71 980x620.58 on DIALOG clamped raised by a click
                       box 851.47,368.02 100x21.67 #00000080 input "0" @change @submit
                       box 957.16,364.69 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerUp
                         text 964.38,369.96 8.89x17.78 "+" #ffd100
-                      text 986.18,369.96 15.56x17.78 "px" #ffffff
+                      text 986.18,369.96 15.56x17.78 "px" #f0e6d2
                   box 573.47,401.55 571.46x28.33 opacity=1
                     box 573.47,406.83 233.33x17.78 @pointerEnter @pointerLeave
                       text 573.47,406.83 233.33x17.78 "Width" #cbb994
@@ -85,7 +85,7 @@ surface 210,139.71 980x620.58 on DIALOG clamped raised by a click
                       box 851.47,404.89 100x21.67 #00000080 input "980" @change @submit
                       box 957.16,401.55 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerUp
                         text 964.38,406.83 8.89x17.78 "+" #ffd100
-                      text 986.18,406.83 15.56x17.78 "px" #ffffff
+                      text 986.18,406.83 15.56x17.78 "px" #f0e6d2
                   box 573.47,438.42 571.46x28.33 opacity=1
                     box 573.47,443.7 233.33x17.78 @pointerEnter @pointerLeave
                       text 573.47,443.7 233.33x17.78 "Height" #cbb994
@@ -95,7 +95,7 @@ surface 210,139.71 980x620.58 on DIALOG clamped raised by a click
                       box 851.47,441.75 100x21.67 #00000080 input "583" @change @submit
                       box 957.16,438.42 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerUp
                         text 964.38,443.7 8.89x17.78 "+" #ffd100
-                      text 986.18,443.7 15.56x17.78 "px" #ffffff
+                      text 986.18,443.7 15.56x17.78 "px" #f0e6d2
                   box 573.47,475.29 571.46x28.33 opacity=1
                     box 573.47,480.56 233.33x17.78 @pointerEnter @pointerLeave
                       text 573.47,480.56 233.33x17.78 "Opens on" #cbb994

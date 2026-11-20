@@ -3,7 +3,6 @@
 public const RED: Color = Color.hex("#ff4040")
 public const GOLD: Color = Color.hex("#ffd100")
 public const YELLOW: Color = Color.hex("#ffd100")
-public const WHITE: Color = Color.hex("#ffffff")
 public const GREEN: Color = Color.hex("#1eff00")
 public const GREY: Color = Color.hex("#808080")
 // A label: quieter than the body.

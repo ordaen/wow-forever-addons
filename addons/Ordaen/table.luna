@@ -13,6 +13,7 @@ import { Align, Art, ByInteractionState, Edges, Event, Line, MouseButton, Positi
 import root Ordaen from "Ordaen"
 import { Component } from "@/module"
 import { ScrolledList } from "@/scrolledList"
+import { BRIGHT_TEXT } from "@/units"
 
 // A column: its heading (`""`: none), its width, where its heading and its cells stand (`Align.Center` too), whether a
 // heading click sorts by it.
@@ -23,7 +24,7 @@ public struct Column {
   sortable: Boolean | nil
 }
 
-const NAME: ByInteractionState<Color> = { default: Color.hex("#cbb994"), hover: Color.hex("#ffffff"), focus: Color.hex("#ffffff") }
+const NAME: ByInteractionState<Color> = { default: Color.hex("#cbb994"), hover: BRIGHT_TEXT, focus: BRIGHT_TEXT }
 const PLAIN: Color = Color.hex("#a3977f")
 const GOLD: Color = Color.hex("#f0c860")
 const RULE: Line = { width: 1.171875dp, color: Color.hex("#3e2f1d"), sides: [Side.Bottom] }

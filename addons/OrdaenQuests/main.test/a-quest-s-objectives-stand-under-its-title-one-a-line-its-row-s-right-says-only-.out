@@ -1,15 +1,15 @@
 -- the world's tab: a quest's objectives under its title, the done one grey; the count in the footer
 surface 550,192.21 500x515.58 on DIALOG clamped raised by a click
-  box 550,241.12 500x466.67 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
+  box 550,241.12 500x466.67 absolute Interface\AddOns\Ordaen\media\window-wood border=UI-Frame-Metal-CornerTopLeft
     box 563.09,254.22 478.81x442.73
       box 585.85,276.97 433.3x370.91
         box 585.85,276.97 433.3x29.99
           box 585.85,306.13 433.3x0.83 absolute #3e2f1d
           box 585.85,276.97 80.24x29.99 #00000059 @keyPress @pointerPress
             box 586.68,277.81 78.58x1.67 absolute #d6a56b
-            text 598.06,283.5 35.56x17.78 "World" #ffffff
+            text 598.06,283.5 35.56x17.78 "World" #f0e6d2
             box 639.31,283.5 14.58x17.78 #00000099
-              text 642.15,283.5 8.89x17.78 "2" #ffffff
+              text 642.15,283.5 8.89x17.78 "2" #f0e6d2
           box 668.94,276.97 99.13x29.99 #00000000 @keyPress @pointerPress
             box 669.77,277.81 97.47x1.67 absolute #00000000
             text 681.15,283.5 54.44x17.78 "Dungeons" #a3977f
@@ -103,9 +103,9 @@ surface 550,192.21 500x515.58 on DIALOG clamped raised by a click
     box 1032.75,687.79 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 550,192.21 500x59.42
     box 550,192.21 411.47x59.42
-      box 550,192.21 128.71x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
-        box 557.25,199.46 48.92x48.92 absolute icon=Interface/QuestFrame/UI-QuestLog-BookIcon cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=none
-        box 601.17,199.46 11.5x52.17 absolute border=ButtonFrameTemplateNoPortrait sides=left
+      box 550,192.21 128.71x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
+        box 557.25,199.46 48.92x48.92 absolute icon=Interface/QuestFrame/UI-QuestLog-BookIcon cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=none
+        box 601.17,199.46 11.5x52.17 absolute border=UI-Frame-Metal-CornerTopLeft sides=left
         box 617.7,202.46 42.22x45.92
           text 617.7,206.93 42.22x17.78 "Quests" #ffd100
           text 634.37,226.13 8.89x17.78 "3" #8f8470

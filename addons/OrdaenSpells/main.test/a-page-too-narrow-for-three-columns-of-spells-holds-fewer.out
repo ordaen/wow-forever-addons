@@ -4,7 +4,7 @@ box 0,0 600x287.39
     box 0,26.98 600x0.83 absolute #3e2f1d
     box 0,0 46.64x27.81 #00000059 @keyPress @pointerPress
       box 0.83,0.83 44.98x1.67 absolute #d6a56b
-      text 12.21,6.52 22.22x15.6 "All" #ffffff
+      text 12.21,6.52 22.22x15.6 "All" #f0e6d2
     box 49.49,0 72.2x27.81 #00000000 @keyPress @pointerPress
       box 50.32,0.83 70.53x1.67 absolute #00000000
       text 61.7,6.52 47.78x15.6 "General" #a3977f

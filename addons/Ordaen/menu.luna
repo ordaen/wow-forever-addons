@@ -10,7 +10,7 @@ import { Align, Anchored, Art, Beside, ByInteractionState, Edges, Frame, Layer, 
 import root Ordaen from "Ordaen"
 import { Component } from "@/module"
 import { KNOB_OFF, KNOB_ON, KNOB_TOP, SWITCH_HEIGHT, SWITCH_KNOB, SWITCH_WIDTH, knobShown } from "@/switch"
-import { BODY_LINE } from "@/units"
+import { BODY_LINE, BRIGHT_TEXT } from "@/units"
 
 // One line of a menu.
 public struct MenuEntry {
@@ -36,7 +36,7 @@ const PAD: Edges = { top: 2sp, bottom: 2sp }
 const ITEM_PAD: Edges = { top: 2sp, right: 4sp, bottom: 2sp, left: 4sp }
 const GROUP_PAD: Edges = { top: 3.5sp, right: 4sp, bottom: 2sp, left: 4sp }
 const RULE: Line = { width: 1.171875dp, color: Color.hex("#3e2f1d"), sides: [Side.Top] }
-const NAME: ByInteractionState<Color> = { default: Color.hex("#e8dcc4"), hover: Color.hex("#ffffff"), focus: Color.hex("#ffffff") }
+const NAME: ByInteractionState<Color> = { default: Color.hex("#e8dcc4"), hover: BRIGHT_TEXT, focus: BRIGHT_TEXT }
 const DIM: Color = Color.hex("#6f6552")
 const CLEAR: Color = Color.hex("#00000000")
 const LIGHT: ByInteractionState<Color> = { default: CLEAR, hover: Color.hex("#d6a56b2e"), focus: Color.hex("#d6a56b2e") }

@@ -7,7 +7,7 @@ surface 310,139.71 980x620.58 on DIALOG clamped raised by a click
           box 352.25,219.21 122.56x36.44 #00000040 @keyPress @pointerPress
             box 352.25,219.21 2.5x36.44 absolute #d6a56b
             box 368.25,228.26 18.33x18.33 icon=Interface/Icons/Trade_Engineering
-            text 397.25,226.32 54.44x22.22 "General" #ffffff
+            text 397.25,226.32 54.44x22.22 "General" #f0e6d2
             box 462.36,237.43 0x0
           box 352.25,255.65 122.56x36.44 #00000000 @keyPress @pointerPress
             box 352.25,255.65 2.5x36.44 absolute #00000000
@@ -28,7 +28,7 @@ surface 310,139.71 980x620.58 on DIALOG clamped raised by a click
               box 513.92,273.43 721.06x0.83 absolute #3e2f1d
               box 513.92,236.99 65.67x37.28 #00000059 @keyPress @pointerPress
                 box 514.75,237.82 64x1.67 absolute #d6a56b
-                text 528.97,244.93 35.56x22.22 "Scale" #ffffff
+                text 528.97,244.93 35.56x22.22 "Scale" #f0e6d2
               box 583.14,236.99 77.89x37.28 #00000000 @keyPress @pointerPress
                 box 583.97,237.82 76.22x1.67 absolute #00000000
                 text 598.19,244.93 47.78x22.22 "Numbers" #a3977f
@@ -51,7 +51,7 @@ surface 310,139.71 980x620.58 on DIALOG clamped raised by a click
                     box 872.25,299.76 13.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-slider-knob
                   box 1017.69,295.6 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerUp
                     text 1024.92,298.65 8.89x22.22 "+" #ffd100
-                  text 1048.14,298.65 28.89x22.22 "100%" #ffffff
+                  text 1048.14,298.65 28.89x22.22 "100%" #f0e6d2
               box 513.92,345.26 721.06x28.33 opacity=1
                 box 513.92,348.32 233.33x22.22 @pointerEnter @pointerLeave
                   text 513.92,348.32 233.33x22.22 "Spacing" #cbb994
@@ -75,7 +75,7 @@ surface 310,139.71 980x620.58 on DIALOG clamped raised by a click
               text 1040.69,705.68 61.11x22.22 "Savepoint" #ffd100
             box 1136.08,702.63 116.67x28.33
               box 1136.08,702.63 116.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-                text 1163.86,705.68 61.11x22.22 "Roll back" #ffffff
+                text 1163.86,705.68 61.11x22.22 "Roll back" #f0e6d2
     box 1272.75,740.29 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 310,139.71 980x47.75
     box 310,139.71 914.33x47.75

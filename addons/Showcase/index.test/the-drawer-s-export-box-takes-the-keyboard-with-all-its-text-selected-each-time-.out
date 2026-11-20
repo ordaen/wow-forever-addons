@@ -7,7 +7,7 @@ box 0,0 700x391.72
       text 12.21,6.52 22.22x15.6 "Map" #a3977f
     box 49.49,0 66.64x27.81 #00000059 @keyPress @pointerPress
       box 50.32,0.83 64.98x1.67 absolute #d6a56b
-      text 61.7,6.52 42.22x15.6 "Drawer" #ffffff
+      text 61.7,6.52 42.22x15.6 "Drawer" #f0e6d2
     box 118.98,0 66.64x27.81 #00000000 @keyPress @pointerPress
       box 119.81,0.83 64.98x1.67 absolute #00000000
       text 131.19,6.52 42.22x15.6 "Market" #a3977f
@@ -59,7 +59,7 @@ box 0,0 700x391.72
       text 12.21,6.52 22.22x15.6 "Map" #a3977f
     box 49.49,0 66.64x27.81 #00000059 @keyPress @pointerPress
       box 50.32,0.83 64.98x1.67 absolute #d6a56b
-      text 61.7,6.52 42.22x15.6 "Drawer" #ffffff
+      text 61.7,6.52 42.22x15.6 "Drawer" #f0e6d2
     box 118.98,0 66.64x27.81 #00000000 @keyPress @pointerPress
       box 119.81,0.83 64.98x1.67 absolute #00000000
       text 131.19,6.52 42.22x15.6 "Market" #a3977f
