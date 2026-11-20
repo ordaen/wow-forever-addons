@@ -158,7 +158,7 @@ test "a quest under the cursor has its tooltip, and its pins on the map lit whil
   row.hover()
   Test.expect(Test.page().text("Click: its page. Shift+click: its link in the chat. Right-click: more.").shown())
   Test.expect(Quests.hovered == 101)
-  Test.page().window("World").text("Quests").hover()
+  Test.page().window("World").text("In the log").hover()
   Test.expect(Quests.hovered == 0)
 }
 
@@ -206,6 +206,15 @@ test "a quest's page shows its giver's figure beside the title, where the client
     return nil
   })
   Test.expect(drawn.contains("SetDisplayInfo=1"))
+}
+
+test "the window opened as the player opens it lists the log's quests, Map on and OpenMap's art not built yet" {
+  Test.questLog(standing())
+  Test.mount(nil, PAGE)
+  Test.flush()
+  Quests.flip()
+  Test.flush()
+  Test.expect(Test.page().window("World").text("The Defias Brotherhood").shown())
 }
 
 test "a quest QuestieDB doesn't know has no «Where»" {
@@ -364,7 +373,7 @@ test "one list leaves the headers out; by title orders it" {
 test "the count stands in the footer under its dim label, and red once the log is full" {
   const log = standing()
   opened(log)
-  Test.expect(Test.page().window("World").text("Quests").textColor().equal(Color.hex("#a3977f")))
+  Test.expect(Test.page().window("World").text("In the log").textColor().equal(Color.hex("#a3977f")))
   const counted = Test.page().window("World").text("3/25")
   Test.expect(counted.textColor().equal(Color.hex("#e8dcc4")))
   for (id of 1..22) { log.push(quest(200 + id, `Quest ${id}`, "Westfall")) }
@@ -374,13 +383,15 @@ test "the count stands in the footer under its dim label, and red once the log i
   Test.expect(Test.page().window("World").text("25/25").textColor().equal(Color.hex("#ff4040")))
 }
 
-test "each tab has its icon, the client's own" {
+test "the window's one tab is «Quests» with the game's quest log book; its kinds are sub-tabs, each with its count" {
   opened(standing())
   const window = Test.page().window("World")
-  Test.expect(window.button("World").paintedWith("Interface/Icons/INV_Misc_Map_01"))
-  Test.expect(window.button("Dungeons").paintedWith("Interface/Icons/INV_Misc_Bone_HumanSkull_01"))
-  Test.expect(window.button("Raids").paintedWith("Interface/Icons/INV_Misc_Head_Dragon_01"))
-  Test.expect(window.button("PvP").paintedWith("Interface/Icons/Ability_DualWield"))
+  Test.expect(window.button("Interface/QuestFrame/UI-QuestLog-BookIcon").shown())
+  // Two quests of the world, one of a dungeon, none of a raid or PvP.
+  Test.expect(window.text("World").shown() && window.text("2").shown() && window.text("1").shown())
+  Test.expect(window.text("0").count() == 2)
+  window.text("Dungeons").click()
+  Test.expect(window.text("Red Silk Bandanas").shown() && !window.text("Elwynn Wolves").shown())
 }
 
 test "«Abandon quest» in the question is the danger plate" {

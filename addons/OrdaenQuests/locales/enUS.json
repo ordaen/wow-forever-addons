@@ -1,10 +1,11 @@
 {
   "TAB_GENERAL": "Quests",
+  "TAB_QUESTS": "Quests",
   "TAB_WORLD": "World",
   "TAB_DUNGEONS": "Dungeons",
   "TAB_RAIDS": "Raids",
   "TAB_PVP": "PvP",
-  "FOOT_QUESTS": "Quests",
+  "FOOT_QUESTS": "In the log",
   "HERE": "you are here",
   "GROUP": "Group: %d",
   "DONE": "Complete",

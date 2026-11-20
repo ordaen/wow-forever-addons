@@ -13,7 +13,8 @@ public module OpenMapAPI {
   // A point of the stitched world on a uiMap, 0 to 1 (outside 0 to 1 where it is off the map); nil where it can't say.
   public function MapFromWorld(map: Integer, u: Number, v: Number): (Number | nil, Number | nil)
   // The highest frame level its art takes on the canvas: other addons' pins stand over it.
-  public function ArtTopLevel(): Integer
+  // The frame level the stitched art reaches; nil until OpenMap has built its stitched map.
+  public function ArtTopLevel(): Integer | nil
   // CallbackHandler's: `run` is called with the event's name on each of its events (`OpenMap_ViewChanged`,
   // `OpenMap_StitchedChanged`), until `owner`'s are taken away.
   public function RegisterCallback(owner: Table, event: String, run: (event: String) => nil)

@@ -3,6 +3,7 @@
 import Client from "$client"
 import Game from "$game"
 import Test from "$test"
+import root Ordaen from "Ordaen"
 import root Tracker from "OrdaenTracker"
 import { QuestLine, QuestLines } from "@/extend"
 
@@ -92,8 +93,28 @@ test "a quest with an item has its button beside the title, which uses the item 
   Test.flush()
   _ = Test.performed()
   // The stand-in knows no icon of the item: the button is clicked where it stands, at the title's end.
-  Test.click({ x: 1566, y: 208 }, nil)
+  const title = Test.page().text("The Collector").rect()
+  const whole = Test.page().window("Quests").rect()
+  Test.click({ x: whole.right - 16, y: (title.top + title.bottom) / 2 }, nil)
   Test.expect(Test.performed().join(",") == "item |cffffffff|Hitem:5060::::::::|h[Item 5060]|h|r")
+}
+
+test "it stands at the right under what keeps the top right corner and above what keeps the bottom, all that height" {
+  logged()
+  Test.mount(nil, PAGE)
+  Tracker.refresh()
+  Test.flush()
+  const free = Test.page().window("Quests").rect()
+  // As wide as the design's tracker at the least, and the screen's height but its gaps.
+  Test.expect(free.right - free.left >= 249 && free.bottom - free.top > 880)
+  // The minimap at home, the bottom panel: the room each keeps.
+  Ordaen.keepTopRight("OrdaenMinimap", 300ui)
+  Ordaen.keepBottom("OrdaenPanel", 100ui)
+  Test.flush()
+  const kept = Test.page().window("Quests").rect()
+  Test.expect(kept.top > free.top + 200 && kept.bottom < free.bottom - 60)
+  Ordaen.keepTopRight("OrdaenMinimap", 0ui)
+  Ordaen.keepBottom("OrdaenPanel", 0ui)
 }
 
 test "an objective moving on sounds as the game's tracker does" {

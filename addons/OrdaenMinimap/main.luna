@@ -36,6 +36,9 @@ const RULE_ABOVE: Line = { width: 2.34375dp, color: RULE, sides: ["top"] }
 
 // Where the map stands until the player moves it: the screen's top right corner.
 const HOME: Anchored = { point: Point.TopRight }
+const FOLDER = "OrdaenMinimap"
+// The map's part, as the placing mode keeps where the player put it.
+const PART = "OrdaenMinimap.map"
 
 public class Minimap implements Module, App {
   public const title: String = "Ordaen Minimap"
@@ -117,9 +120,16 @@ public class Minimap implements Module, App {
     Game.minimap.square(true)
     Game.minimap.wheelZoom()
     Ordaen.modules.add(self)
+    // The room it keeps down from the screen's top right corner while it stands at home there: what stands along the
+    // right edge (the tracker) starts under it.
+    watch {
+      const home = self.shown && Ordaen.moved(PART) == nil
+      Ordaen.keepTopRight(FOLDER, home ? self.wholeHeight : 0ui)
+    }
   }
 
   destructor() {
+    Ordaen.keepTopRight(FOLDER, 0ui)
     Game.minimap.square(false)
   }
 
@@ -291,7 +301,7 @@ public class Minimap implements Module, App {
       // (the zoom buttons as the cursor comes onto the map) puts nothing in sight and nothing under the cursor.
       <frame $for={part of self.hidden} of={part} shown={false} away={true} />
 
-      <Placed $if={self.shown} id={"OrdaenMinimap.map"} title={Locale.MINIMAP_TITLE} home={HOME}>
+      <Placed $if={self.shown} id={PART} title={Locale.MINIMAP_TITLE} home={HOME}>
         // The room round the frame holds the ring and takes no mouse: a click there reaches the world. The cursor
         // is on the minimap while it is on the frame or on a ring button, which stand in the frame's box.
         <box width={self.wholeWidth} height={self.wholeHeight} opacity={self.opacity}>

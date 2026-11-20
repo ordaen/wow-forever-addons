@@ -1,10 +1,11 @@
 {
   "TAB_GENERAL": "Задания",
+  "TAB_QUESTS": "Задания",
   "TAB_WORLD": "Мир",
   "TAB_DUNGEONS": "Подземелья",
   "TAB_RAIDS": "Рейды",
   "TAB_PVP": "PvP",
-  "FOOT_QUESTS": "Задания",
+  "FOOT_QUESTS": "В журнале",
   "HERE": "вы здесь",
   "GROUP": "Группа: %d",
   "DONE": "Готово",
