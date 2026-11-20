@@ -1,2 +1,4 @@
-// Ordaen Professions: one window for the character's professions.
+// Ordaen Professions: one window for the character's professions. Another module reads `uses(item)` and `queue` of
+// the root (`import root Professions from "OrdaenProfessions"`), and the types they answer with.
 public import { Professions } from "@/main"
+public import { QueueItem, Use } from "@/published"

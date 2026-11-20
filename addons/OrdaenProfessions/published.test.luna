@@ -1,0 +1,35 @@
+// What Ordaen Professions answers other modules: the recipes of the book that take an item, and what the queue takes.
+import Test from "$test"
+import { Book } from "@/book"
+import { needsOf, usesOf } from "@/published"
+
+// Two characters: one a blacksmith (a bronze axe of two bars and a stone), one an engineer (a tube of three bars).
+function book(): Book {
+  return {
+    recipes: {
+      [2738]: { name: "Copper Axe", makes: 3, least: 1, most: 1, parts: [{ item: 2841, count: 2 }, { item: 2836, count: 1 }] },
+      [3926]: { name: "Bronze Tube", makes: 4, least: 1, most: 1, parts: [{ item: 2841, count: 3 }] }
+    },
+    characters: {
+      ["Player-1-1"]: { name: "Regy", realm: "R", professions: { [164]: { name: "Blacksmithing", recipes: [2738] } } },
+      ["Player-1-2"]: { name: "Regron", realm: "R", professions: { [202]: { name: "Engineering", recipes: [3926] } } }
+    }
+  }
+}
+
+test "an item's uses are every recipe of the book that takes it, with its profession and count" {
+  const uses = usesOf(book())
+  const bars = (uses[2841] ?? []).map(use => `${use.profession} ${use.recipe} x${use.count}`)
+  bars.sort((a, b) => a < b)
+  Test.expect(bars.join(", ") == "Blacksmithing 2738 x2, Engineering 3926 x3")
+  Test.expect((uses[2836] ?? []).length == 1)
+  Test.expect(uses[9999] == nil)
+}
+
+test "the queue takes each reagent of its lines times their counts, together by item" {
+  const needs = needsOf(book(), [
+    { skillLine: 164, recipe: 2738, name: "Copper Axe", count: 2 },
+    { skillLine: 202, recipe: 3926, name: "Bronze Tube", count: 1 }
+  ])
+  Test.expect(needs.map(need => `${need.item}x${need.count}`).join(", ") == "2841x7, 2836x2")
+}
