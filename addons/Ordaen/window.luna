@@ -202,16 +202,6 @@ public struct WindowSide {
 public const WINDOW_MIN_WIDTH = 375dp
 const MIN_H = 234.375dp
 
-// A window tab's height down to the line it stands on (the tab's art above it included), and how far its foot reaches
-// past that line: what a row of tabs outside a window (the chat's) lays out by, the foot behind the line of the box
-// under the row.
-public function tabAboveLine(): Number<Length> {
-  return TAB + Ordaen.art.frame.tab.reach.top * Ordaen.art.frame.tab.scale * 1ui
-}
-
-public function tabFoot(): Number<Length> {
-  return Ordaen.art.frame.tab.curves.flare * Ordaen.art.frame.tab.scale * 1ui
-}
 // The body stands over the tabs' feet.
 const BODY_LEVEL = 5
 
@@ -410,7 +400,7 @@ public class Window implements Component {
   // The tab row's height: the design's, from a tab's own line down to the body, and the tab's art above its line.
   derived tabHeight: Number<Length> = self.tabHeightOf() + Ordaen.art.frame.tab.reach.top * Ordaen.art.frame.tab.scale * 1ui
   // A tab's height: down to the inner side of the body's top line, which stands over its foot.
-  derived lineTop: Number<Length> = tabFoot()
+  derived lineTop: Number<Length> = Ordaen.art.frame.tab.curves.flare * Ordaen.art.frame.tab.scale * 1ui
   derived tabWhole: Number<Length> = self.tabHeight + self.lineTop
   derived columns: Array<Track> = self.tabColumns()
   derived place: Place = self.placeOf()
