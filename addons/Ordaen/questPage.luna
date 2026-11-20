@@ -13,7 +13,7 @@ import { Component } from "@/module"
 import { Money } from "@/money"
 import { PickRow } from "@/pickRow"
 import { Tip } from "@/tip"
-import { SECONDARY_TEXT, TIGHT_LINE } from "@/units"
+import { SECONDARY_TEXT, TIGHT_LINE, TITLE_TEXT } from "@/units"
 
 // On the parchment.
 public const SCROLL_INK: Color = Color.hex("#160c03")
@@ -215,7 +215,6 @@ public class Rewards implements Component {
   derived chooseTitle: String = self.pickable ? Locale.QUEST_CHOOSE_REWARD : Locale.QUEST_CAN_CHOOSE
   derived alsoTitle: String = self.hasChoices ? Locale.QUEST_ALSO_GET : Locale.QUEST_REWARD
   derived banded: Boolean = self.xp > 0 || self.money > 0 || self.standings.length > 0
-  derived xpText: String = Locale.QUEST_XP.format(String.of(self.xp))
   derived bandColumns: Array<Track> = bandOf(self.xp > 0, self.standings.length, self.money > 0)
 
   views: Signal<Array<RewardView>>
@@ -261,10 +260,44 @@ public class Rewards implements Component {
       <RewardRow $for={reward of self.also} reward={reward} />
       <box $if={self.banded} columns={self.bandColumns} border={RULE_BELOW} padding={2sp} xAlign={Align.Center}
            yAlign={Align.Center}>
-        <text $if={self.xp > 0} value={self.xpText} textColor={WELL_TEXT} textSize={SECONDARY_TEXT} textFont={.Numbers}
-              wrap={.None} />
+        <Experience $if={self.xp > 0} amount={self.xp} textSize={TITLE_TEXT} mark={XP_MARK_LARGE} />
         <BandStanding $for={standing of self.standings} standing={standing} />
-        <Money $if={self.money > 0} amount={self.money} />
+        <Money $if={self.money > 0} amount={self.money} textSize={TITLE_TEXT} />
+      </box>
+    }
+  }
+}
+
+// The client's own mark of experience (a mission's currency), before an amount of it.
+const XP_MARK: Atlas = "GarrMission_CurrencyIcon-Xp"
+// The mark beside the body's letters, beside a secondary text's, and beside a title's.
+public const XP_MARK_SIZE: Number<Length> = 18.75dp
+public const XP_MARK_SMALL: Number<Length> = 16.40625dp
+const XP_MARK_LARGE: Number<Length> = 23.4375dp
+
+// An amount of experience a quest gives: the client's mark of it, then the number, in one line; the mark says what
+// the number is.
+public class Experience implements Component {
+  derived text: String = String.of(self.amount)
+
+  amount: Signal<Integer>
+  textSize: Signal<Number<TextSize>>
+  // The mark's side: as high as the letters of `textSize`.
+  mark: Signal<Number<Length>>
+  color: Signal<Color>
+  constructor(amount: Signal<Integer>, textSize: Signal<Number<TextSize>> = 1rem, mark: Signal<Number<Length>> = XP_MARK_SIZE,
+              color: Signal<Color> = WELL_TEXT) {
+    self.amount = amount
+    self.textSize = textSize
+    self.mark = mark
+    self.color = color
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={["max-content", "max-content"]} gap={1sp} yAlign={Align.Center}>
+        <box width={self.mark} height={self.mark} background={XP_MARK} />
+        <text value={self.text} textColor={self.color} textSize={self.textSize} textFont={.Numbers} wrap={.None} />
       </box>
     }
   }
