@@ -48,8 +48,13 @@ public class Spells implements Module, App {
   derived tabs: Array<WindowTabSpec> = [
     { title: Locale.TAB_SPELLS },
     { title: self.settings.values.specOne == "" ? Locale.TAB_MAIN : self.settings.values.specOne },
-    { title: self.settings.values.specTwo == "" ? Locale.TAB_SECOND : self.settings.values.specTwo }
+    {
+      title: self.settings.values.specTwo == "" ? Locale.TAB_SECOND : self.settings.values.specTwo,
+      locked: self.specGroups < 2 ? Locale.SPEC_LOCKED : nil
+    }
   ]
+  // How many spec groups the player has: the second spec's tab is dimmed until it is learned.
+  state specGroups = 2
   // How wide the window's body is: the screen's, full screen.
   derived bookWidth: Number<Length> = self.window.memory.values.full ? Client.UIParent.GetWidth() * 1ui : self.window.placing.width
   // How the player left the class trainer's list, the profile's; it opens by the trainer's categories.
@@ -88,6 +93,7 @@ public class Spells implements Module, App {
   public refresh(mut self) {
     self.spells = Game.spellbook.entries()
     self.lines = Game.spellbook.lines()
+    self.specGroups = Game.talentTrees.groups()
     self.refreshTalents()
   }
 

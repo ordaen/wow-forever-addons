@@ -786,6 +786,19 @@ test "the second spec's tab is the active one when the game says the player has 
   Test.expect(window.button("Activate").shown())
 }
 
+test "a second spec not had is dimmed, opens nothing, and its tooltip says where it is learned" {
+  Test.mount(nil, PAGE)
+  Game.talentTrees.groups = (): Integer => 1
+  Game.spellbook.lines = lines
+  Game.spellbook.entries = spells
+  const window = book()
+  Test.expect(window.text(BOOK).opacity() < 0.6)
+  window.button(BOOK).click()
+  Test.expect(Test.page().text("Find Treasure").shown())
+  Test.page().button(BOOK).hover()
+  Test.expect(Test.page().text("The second specialization is learned from your class trainer.").shown())
+}
+
 // The trainer
 
 test "the trainer's window shows while the game's class trainer is open" {

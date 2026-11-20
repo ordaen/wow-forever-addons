@@ -41,5 +41,6 @@
   "COL_SKILL": "Skill",
   "COUNT_SHOWN": "Shown",
   "COUNT_ACTIVE": "Active spells",
-  "COUNT_PASSIVE": "Passive spells"
+  "COUNT_PASSIVE": "Passive spells",
+  "SPEC_LOCKED": "The second specialization is learned from your class trainer."
 }
