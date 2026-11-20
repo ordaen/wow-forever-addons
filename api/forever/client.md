@@ -213,6 +213,13 @@ What a tooltip's data holds: [`tooltip-data.md`](tooltip-data.md).
   place).
 - **`C_Map.GetPlayerMapPosition` gives a new table each call** (`Vector2D`). Known: 0f3d2c4. Stand-in:
   `C_Map.GetPlayerMapPosition` (`client.lua`).
+- **The letter being written takes items only while the send page shows (`SetSendMailShowing(true)`):** an item
+  on the cursor goes in with `ClickSendMailItemButton(place)` or, with no place, into the first empty one (Blizzard's
+  `SendMailAttachmentButton_OnDropAny`), and a bag item used (Right-click) goes in too; each change is told with
+  `MAIL_SEND_INFO_UPDATE`, and `GetSendMailItem`'s fourth value is the stack's count. Known: Blizzard's
+  `MailFrame.lua` of build 70959. Stand-in: `ClickSendMailItemButton`, `UseContainerItem` (`client.lua`). The
+  event's timing (at once or a frame later) is not confirmed; `lunatype test` delivers the stand-in's events to no
+  `"$events"` listener (a test emits it).
 - **`GetMaxPlayerLevel` is 60 and the client still names the last level's experience figure at the cap.** Known:
   2962a90. Stand-in: `GetMaxPlayerLevel`, `IsXPUserDisabled` (`client.lua`). The figure at the cap is not held.
 

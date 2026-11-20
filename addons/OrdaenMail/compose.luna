@@ -1,65 +1,67 @@
-// «Write»: the form beside «Outbox». «To» picks its list first (the player's characters while Ordaen Alts is on,
-// friends, the guild, the communities, anyone) and then a name in it, matched from its start (a list's alone take only
-// a name of it; «Anyone» is free text with the recent recipients as hints); the subject (empty: the first item's name
-// or «Money»), the text; the attachments, six a row and twelve a letter (more go out as several letters, «Letter 2»
-// over the next), filled by dragging an item onto a slot or by the game's own ways into the letter being written
-// (Right-click in the bags: the form takes the item from the game's letter); a slot clicked gives its item back. Then
-// money or cash on delivery; the footer: the attachments and letters, the postage, «Clear» and «Send», greyed until a
-// recipient is picked.
+// «Write»: the form beside «Outbox». «To» takes any name, and completes it against every recipient the player knows
+// (own characters, friends, the guild, the communities, the recent recipients), matched from its start: the names that
+// match stand in a popover under the field, each in its class's colour with who it is beside it, and a click puts one
+// in the field. Then the subject (empty: the first item's name or «Money»), the text; the attachments, six a row and
+// twelve a letter (more go out as several letters, «Letter 2» over the next), an empty slot always after the last,
+// filled by letting an item go on a slot or by the game's own ways into the letter being written (Right-click in the
+// bags: the form takes the item from the game's letter); a slot clicked gives its item back. Then «Send money» or
+// «C.O.D.», the window's inner tabs over the amount; the footer: the attachments and letters and the postage on one
+// line, and «Send» under them, greyed until a recipient is typed.
 import Client from "$client"
 import Events from "$events"
 import Game from "$game"
-import { Align, Overflow, Track } from "$ltml"
-import { ButtonPlate, Choice, CompactDropdown, Component, Fact, Field, ItemButton, MoneyField, PickRow, PushButton, SECONDARY_TEXT, Segmented, trimmed } from "Ordaen"
+import { Align, Beside, Bounds, Layer, Overflow, Track } from "$ltml"
+import { ButtonPlate, Component, Fact, Field, ItemButton, MoneyField, PickRow, PushButton, SECONDARY_TEXT, Tabs, trimmed } from "Ordaen"
 import type { Alts } from "OrdaenAlts"
 import { PLACES, SUBJECT_MOST, lettersFor } from "@/letters"
 import Locale from "@/locales"
-import { Recipient, Source, communities, friends, guild, own, starts } from "@/recipients"
+import { Recipient, Source, everyone, matching } from "@/recipients"
 import { Sender, stackOf } from "@/sender"
 import Style from "@/style"
 
 // The most cash on delivery the game takes (`MAX_COD_AMOUNT`, in gold).
 const COD_MOST = 10000 * 10000
-// How many names the list under «To» shows.
-const SHOWN_NAMES = 6
+// How many names the popover under «To» shows.
+const SHOWN_NAMES = 8
 const SLOT = 46.875dp
 const SLOTS: Array<Track> = [SLOT, SLOT, SLOT, SLOT, SLOT, SLOT]
-const NAME_ROW: Array<Track> = [9.375dp, { fr: 1 }, "max-content"]
-const TO_ROW: Array<Track> = ["max-content", { fr: 1 }]
-const FOOT: Array<Track> = [{ fr: 1 }, "max-content", "max-content"]
+const NAME_ROW: Array<Track> = [9.375dp, { fr: 1 }, "max-content", "max-content"]
+const FOOT: Array<Track> = [{ fr: 1 }, "max-content"]
 const DOT = 7.03125dp
+const POPOVER: Bounds = { min: 351.5625dp, max: nil }
+// «Send money» and «C.O.D.», the tabs' places.
+const PAID_TABS: Array<String> = [Locale.SEND_MONEY, Locale.COD_TAB]
+const COD_TAB = 2
 
-public enum Paid implements Plain { Money = "money", Cod = "cod" }
-
-const PAID: Array<Choice<Paid>> = [{ value: Paid.Money, label: Locale.SEND_MONEY }, { value: Paid.Cod, label: Locale.COD_AMOUNT }]
-const WITH_OWN: Array<Choice<Source>> = [
-  { value: Source.Own, label: Locale.TO_OWN },
-  { value: Source.Friends, label: Locale.TO_FRIENDS },
-  { value: Source.Guild, label: Locale.TO_GUILD },
-  { value: Source.Communities, label: Locale.TO_COMMUNITIES },
-  { value: Source.Other, label: Locale.TO_OTHER }
-]
-const WITHOUT_OWN: Array<Choice<Source>> = [
-  { value: Source.Friends, label: Locale.TO_FRIENDS },
-  { value: Source.Guild, label: Locale.TO_GUILD },
-  { value: Source.Communities, label: Locale.TO_COMMUNITIES },
-  { value: Source.Other, label: Locale.TO_OTHER }
-]
-
-// One letter's slots of the form: its heading where there are several, and its stacks (with the empty slot to fill
-// after the last).
+// One letter's slots of the form: its heading where there are several, its stacks, and whether the empty slot to fill
+// stands after them (the last letter's, while it has room).
 public struct LetterSlots {
   number: Integer
   title: String
-  stacks: Array<Game.MailStack | nil>
+  stacks: Array<Game.MailStack>
+  open: Boolean
 }
 
-// A name under «To»: a dot, green while online, the name in its class's colour, the level.
+// Who a recipient is to the player, as the popover names it: a community's member by the community's name.
+function whoOf(who: Recipient): String {
+  return match (who.source) {
+    Source.Own => Locale.WHO_OWN
+    Source.Friend => Locale.WHO_FRIEND
+    Source.Guild => Locale.WHO_GUILD
+    Source.Community => who.group
+    Source.Recent => Locale.WHO_RECENT
+  }
+}
+
+// A name in the popover under «To»: a dot, green while online, the name in its class's colour, the level, and who it
+// is to the player.
 public class NameRow implements Component {
   public pick: Event<String> = new Event()
 
   derived dot: Color = self.who.online ? Style.GREEN : Style.FAINT
   derived ink: Color = self.who.color ?? Style.INK
+  derived level: String = self.who.level > 0 ? String.of(self.who.level) : ""
+  derived kind: String = whoOf(self.who)
 
   who: Signal<Recipient>
   constructor(who: Signal<Recipient>) {
@@ -73,29 +75,28 @@ public class NameRow implements Component {
       <PickRow columns={NAME_ROW} @pick={self.onPick}>
         <box width={DOT} height={DOT} background={self.dot} />
         <text value={self.who.name} textColor={self.ink} wrap={.None} />
-        <text value={"%d"} arguments={[self.who.level]} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={.None} />
+        <text value={self.level} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={.None} />
+        <text value={self.kind} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={.None} />
       </PickRow>
     }
   }
 }
 
-// One slot of the form: a stack, or the empty slot to fill.
+// One stack's slot of the form (the empty slot after the last is a bare `ItemButton`).
 public class FormSlot implements Component {
   public remove: Event<Game.MailStack> = new Event()
   public dropped: Event<nil> = new Event()
 
-  derived item: Integer | nil = self.stack?.item
-  derived count: Integer = self.stack?.count ?? 1
+  // As the slot takes it: an item or none.
+  derived item: Integer | nil = self.stack.item
+  derived count: Integer = self.stack.count
 
-  stack: Signal<Game.MailStack | nil>
-  constructor(stack: Signal<Game.MailStack | nil>) {
+  stack: Signal<Game.MailStack>
+  constructor(stack: Signal<Game.MailStack>) {
     self.stack = stack
   }
 
-  onPick(mut self) {
-    const stack = self.stack
-    if (stack != nil) { self.remove.emit(stack) }
-  }
+  onPick(mut self) { self.remove.emit(self.stack) }
 
   onDrop(mut self) { self.dropped.emit() }
 
@@ -112,38 +113,34 @@ public class Compose implements Component {
   public closed: Event<nil> = new Event()
 
   state to = ""
-  // The name picked from a list; a list's name must be one.
+  // The name last put into «To» from the popover: the popover stays shut while the field holds it.
   state picked = ""
   state subject = ""
   state body = ""
-  state paid: Paid = Paid.Money
+  state paidTab = 1
   state copper = 0
   state stacks: mut Array<Game.MailStack> = []
   state names: Array<Recipient> = []
-  derived shown: Array<Recipient> = self.namesOf()
-  derived listing: Boolean = self.source != Source.Other && self.picked != self.to && self.shown.length > 0
+  derived typed: String = trimmed(self.to)
+  derived shown: Array<Recipient> = matching(self.names, self.typed, SHOWN_NAMES)
+  derived listing: Boolean = self.typed != "" && self.picked != self.to && self.shown.length > 0
+  derived cod: Boolean = self.paidTab == COD_TAB
   derived letters: Integer = lettersFor(self.stacks.length)
   derived slots: Array<LetterSlots> = self.slotsOf()
   derived postage: Integer = self.postageOf()
   derived attached: String = Locale.ATTACHED_LETTERS.format(self.stacks.length, self.letters)
-  derived chosen: Boolean = self.source == Source.Other ? trimmed(self.to) != "" : self.picked != "" && self.picked == self.to
-  derived codTooHigh: Boolean = self.paid == Paid.Cod && self.copper > COD_MOST
-  derived codSplit: Boolean = self.paid == Paid.Cod && self.copper > 0 && self.letters > 1
-  derived ready: Boolean = self.chosen && !self.codTooHigh && !self.codSplit
-  derived choices: Array<Choice<Source>> = self.alts != nil ? WITH_OWN : WITHOUT_OWN
+  derived codTooHigh: Boolean = self.cod && self.copper > COD_MOST
+  derived codSplit: Boolean = self.cod && self.copper > 0 && self.letters > 1
+  derived ready: Boolean = self.typed != "" && !self.codTooHigh && !self.codSplit
 
-  // The list «To» picks from: the session's, the window's to keep.
-  source: mut Signal<Source>
   const sender: mut Sender
   alts: Signal<Alts | nil>
-  constructor(source: mut Signal<Source>, sender: mut Sender, alts: Signal<Alts | nil>, to: String = "") {
-    self.source = source
+  constructor(sender: mut Sender, alts: Signal<Alts | nil>, to: String = "") {
     self.sender = sender
     self.alts = alts
     self.to = to
     self.picked = to
-    if (self.alts == nil && peek self.source == Source.Own) { self.source = Source.Friends }
-    watch (from of self.source) { self.names = self.read(from) }
+    watch (known of self.alts) { self.names = everyone(known, (peek self.sender.recent.values).names) }
     // What the game's letter takes (an item Right-clicked in the bags, one dropped on a slot) comes into the form.
     Events.MAIL_SEND_INFO_UPDATE.listen(self.absorb)
     Game.mailbox.writing(true)
@@ -153,37 +150,20 @@ public class Compose implements Component {
     Game.mailbox.writing(false)
   }
 
-  read(self, from: Source): Array<Recipient> {
-    return match (from) {
-      Source.Own => own(peek self.alts)
-      Source.Friends => friends()
-      Source.Guild => guild()
-      Source.Communities => communities()
-      Source.Other => (peek self.sender.recent.values).names.map(n => {
-        const one: Recipient = { name: n, level: 0, online: false, color: nil, group: "" }
-        return one
-      })
-    }
-  }
-
-  namesOf(self): Array<Recipient> {
-    const typed = trimmed(self.to)
-    const list: Array<Recipient> = []
-    for (who of self.names) {
-      if (list.length < SHOWN_NAMES && starts(who.name, typed)) { list.push(who) }
-    }
-    return list
-  }
-
+  // The letters' slots: twelve stacks a letter, and the empty slot after the last stack.
   slotsOf(self): Array<LetterSlots> {
     const list: Array<LetterSlots> = []
-    const count = lettersFor(self.stacks.length + 1)
+    const total = self.stacks.length
+    const count = lettersFor(total + 1)
     for (number of 1..count) {
-      const stacks: Array<Game.MailStack | nil> = []
-      for (index of ((number - 1) * PLACES + 1)..(number * PLACES).min(self.stacks.length + 1)) {
-        stacks.push(self.stacks[index])
+      const stacks: Array<Game.MailStack> = []
+      for (index of ((number - 1) * PLACES + 1)..(number * PLACES).min(total)) {
+        stacks.push(self.stacks[index] ?? panic("a place within the stacks"))
       }
-      list.push({ number: number, title: count > 1 ? Locale.LETTER_NUMBER.format(number) : "", stacks: stacks })
+      list.push({
+        number: number, title: count > 1 ? Locale.LETTER_NUMBER.format(number) : "", stacks: stacks,
+        open: number == count
+      })
     }
     return list
   }
@@ -226,16 +206,6 @@ public class Compose implements Component {
     self.stacks = (peek self.stacks).filter(s => s.bag != stack.bag || s.slot != stack.slot)
   }
 
-  onClear(mut self) {
-    self.to = ""
-    self.picked = ""
-    self.subject = ""
-    self.body = ""
-    self.copper = 0
-    self.paid = Paid.Money
-    self.stacks = []
-  }
-
   onClose(mut self) { self.closed.emit() }
 
   // «Send»: the letters into the queue, which sends them one after another; the form closes.
@@ -245,9 +215,10 @@ public class Compose implements Component {
     const subject = trimmed(peek self.subject)
     const first = stacks[1]
     const named = subject != "" ? subject : first != nil ? Client.C_Item.GetItemNameByID(first.item) ?? Locale.MONEY : Locale.MONEY
-    const cod = peek self.paid == Paid.Cod ? peek self.copper : 0
-    const copper = peek self.paid == Paid.Money ? peek self.copper : 0
-    self.sender.put(trimmed(peek self.to), named.sub(1, SUBJECT_MOST), peek self.body, stacks, copper, cod)
+    const amount = peek self.copper
+    const cod = peek self.cod ? amount : 0
+    const copper = peek self.cod ? 0 : amount
+    self.sender.put(peek self.typed, named.sub(1, SUBJECT_MOST), peek self.body, stacks, copper, cod)
     self.closed.emit()
   }
 
@@ -259,12 +230,12 @@ public class Compose implements Component {
           <PushButton label={Locale.CLOSE} width={Style.BUTTON} @click={self.onClose} />
         </box>
         <box columns={1} gap={2sp} overflow={Overflow.Scroll}>
-          <box columns={TO_ROW} gap={2sp} yAlign={Align.Center}>
-            <CompactDropdown value={mut self.source} choices={peek self.choices} width={175.78125dp} />
+          <box columns={1}>
             <Field value={mut self.to} maxLength={64} placeholder={Locale.TO} />
-          </box>
-          <box $if={self.listing} columns={1}>
-            <NameRow $for={who of self.shown} $key={who.name} who={who} @pick={self.onPickName} />
+            <surface $if={self.listing} layer={Layer.Tooltip} place={Beside { beside: "parent" }} width={POPOVER}
+                     background={Style.FIELD_BACK} border={Style.FIELD_EDGE} columns={1}>
+              <NameRow $for={who of self.shown} $key={who.name} who={who} @pick={self.onPickName} />
+            </surface>
           </box>
           <Field value={mut self.subject} maxLength={SUBJECT_MOST} placeholder={Locale.SUBJECT} />
           <box height={93.75dp} rows={[{ fr: 1 }]}>
@@ -276,22 +247,24 @@ public class Compose implements Component {
             <box columns={SLOTS} gap={1sp}>
               <FormSlot $for={index, stack of letter.stacks} $key={index} stack={stack} @remove={self.onRemove}
                         @dropped={self.onDrop} />
+              <ItemButton $if={letter.open} item={nil} size={SLOT} @dropped={self.onDrop} @pressed={self.onDrop} />
             </box>
           </box>
-          <box columns={["max-content", "max-content"]} gap={2sp} yAlign={Align.Center}>
-            <Segmented value={mut self.paid} choices={PAID} />
-            <MoneyField value={mut self.copper} />
+          <box columns={1} gap={2sp}>
+            <Tabs tabs={PAID_TABS} selected={mut self.paidTab} />
+            <box columns={["max-content"]}>
+              <MoneyField value={mut self.copper} />
+            </box>
           </box>
           <text $if={self.codTooHigh} value={Locale.COD_TOO_HIGH} textColor={Style.RED} textSize={SECONDARY_TEXT} />
           <text $if={self.codSplit} value={Locale.COD_ONE_LETTER} textColor={Style.RED} textSize={SECONDARY_TEXT} />
         </box>
         <box columns={1} gap={2sp} border={Style.RULE} padding={{ top: 2sp }}>
-          <Fact label={Locale.ATTACHMENTS} value={self.attached} />
           <box columns={FOOT} gap={2sp} yAlign={Align.Center}>
-            <box>
-              <PushButton label={Locale.CLEAR} width={Style.BUTTON} @click={self.onClear} />
-            </box>
+            <Fact label={Locale.ATTACHMENTS} value={self.attached} />
             <Fact label={Locale.POSTAGE} value={Game.money.format(self.postage)} />
+          </box>
+          <box columns={1} xAlign={Align.End}>
             <PushButton label={Locale.SEND} width={Style.BUTTON} plate={ButtonPlate.Accent} disabled={!self.ready}
                         @click={self.onSend} />
           </box>
