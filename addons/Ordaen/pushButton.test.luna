@@ -5,7 +5,7 @@ import Test from "$test"
 import { Move } from "$test"
 import root Ordaen from "Ordaen"
 import { Density } from "@/globals"
-import { ButtonPlate, PushButton } from "@/pushButton"
+import { ButtonKey, ButtonPlate, PushButton } from "@/pushButton"
 
 class Buttons {
   public render(self): Template {
@@ -95,7 +95,7 @@ class Keyed {
     return $ltml {
       // As narrow as its label lets it: the label stands right at its room's start.
       <box columns={["max-content"]} xAlign={Align.Start}>
-        <PushButton label={"Decline"} width={1dp} key={"Esc"} />
+        <PushButton label={"Decline"} width={1dp} key={ButtonKey.Named { name: "Esc" }} />
       </box>
     }
   }

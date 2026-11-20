@@ -4,7 +4,7 @@
 // in one band of columns as a tooltip's.
 import Game from "$game"
 import { Align, Position, Side, Track } from "$ltml"
-import { BODY_LINE, Component, Money, SECONDARY_TEXT, TITLE_LINE, TITLE_TEXT, Tip } from "Ordaen"
+import { BODY_LINE, Component, Money, SECONDARY_TEXT, TIGHT_LINE, TITLE_TEXT, Tip } from "Ordaen"
 import Locale from "@/locales"
 import { Need, Quest, Reward, Standing } from "@/read"
 import { RewardRow } from "@/rewards"
@@ -59,22 +59,18 @@ public class Said implements Component {
   book: Signal<String>
   // How much of a quest's text shows as it fades in, in bytes to a word's end; -1: all of it.
   revealed: Signal<Integer>
-  // The giver's figure beside a quest's page: a unit (`npc`) or a creature's display ID; none without one.
-  figure: Signal<String | Integer | nil>
   constructor(
     page: Signal<Page>,
     quest: Signal<Quest | nil>,
     said: Signal<String>,
     book: Signal<String>,
-    revealed: Signal<Integer> = -1,
-    figure: Signal<String | Integer | nil> = nil
+    revealed: Signal<Integer> = -1
   ) {
     self.page = page
     self.quest = quest
     self.said = said
     self.book = book
     self.revealed = revealed
-    self.figure = figure
   }
 
   onGroupEnter(mut self) { self.groupHovered = true }
@@ -82,15 +78,13 @@ public class Said implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box $if={self.isQuest} columns={[{ fr: 1 }, "max-content", "max-content"]} gap={2sp} yAlign={Align.Center}>
-        <text value={self.title} textColor={Style.INK_HEAD} textSize={TITLE_TEXT} lineHeight={TITLE_LINE} textFont={.Title} />
+      <box $if={self.isQuest} columns={[{ fr: 1 }, "max-content"]} gap={2sp} yAlign={Align.Center}>
+        <text value={self.title} textColor={Style.INK_HEAD} textSize={TITLE_TEXT} lineHeight={TIGHT_LINE} textFont={.Title} />
         <box $if={self.grouped} border={{ width: 1.171875dp, color: Style.GROUP_TAG }} padding={{ left: 1sp, right: 1sp }}
              @pointerEnter={self.onGroupEnter} @pointerLeave={self.onGroupLeave}>
           <text value={self.groupText} textColor={Style.GROUP_TAG} textSize={SECONDARY_TEXT} wrap={.None} />
           <Tip $if={self.groupHovered} title={self.groupText} text={self.groupTip} />
         </box>
-        <box $else />
-        <box $if={self.figure != nil} width={Style.FIGURE_WIDTH} height={Style.FIGURE_HEIGHT} model={self.figure} />
         <box $else />
       </box>
       <box>

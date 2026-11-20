@@ -32,9 +32,6 @@ public const KEY_TEXT: Color = Color.hex("#c9a76a")
 public const GROUP_TAG: Color = Color.hex("#7a1e00")
 public const ICON: Number<Length> = 18.75dp
 public const REWARD_ICON: Number<Length> = 39.84375dp
-// The NPC's figure beside a quest's title, as the game's own quest portrait stands beside its window.
-public const FIGURE_WIDTH: Number<Length> = 70.3125dp
-public const FIGURE_HEIGHT: Number<Length> = 93.75dp
 
 // The quest log's colours of a quest's level.
 public function difficultyColor(difficulty: Difficulty): Color {
