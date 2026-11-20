@@ -1,0 +1,32 @@
+// The tracker's tab in the settings window: how many quests it lists and how dark its ground is. Each control writes
+// one entry of the settings, at once; where it stands is the placing mode's.
+import { Component, NumberInput, Settings, Unit } from "Ordaen"
+import Locale from "@/locales"
+
+// The most quests the client tracks (`MAX_WATCHABLE_QUESTS`).
+const MOST_TRACKED = 25
+
+public struct Choices implements Plain {
+  // The most quests it lists, the first of the tracked; the rest wait until one before them goes.
+  listed: Integer
+  // How opaque its ground is, from 0 to 1.
+  ground: Number
+}
+
+public const DEFAULTS: Choices = { listed: MOST_TRACKED, ground: 0.55 }
+
+public class GeneralPage implements Component {
+  settings: mut Settings<Choices>
+  constructor(settings: mut Settings<Choices>) {
+    self.settings = settings
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <NumberInput label={Locale.LISTED} hint={Locale.LISTED_TIP} value={mut self.settings.values.listed} least={1}
+                   most={MOST_TRACKED} />
+      <NumberInput label={Locale.GROUND} hint={Locale.GROUND_TIP} value={mut self.settings.values.ground} least={0}
+                   most={1} step={0.05} unit={Unit.Percent} />
+    }
+  }
+}

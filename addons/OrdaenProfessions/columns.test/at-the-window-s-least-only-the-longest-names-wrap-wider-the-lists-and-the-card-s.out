@@ -1,6 +1,6 @@
 -- the window at its least: the longest category and recipe wrap, every other name on one line
 surface 325,133.88 932.72x548.49 on DIALOG clamped raised by a click
-  box 325,182.79 932.72x499.57 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
+  box 325,182.79 932.72x499.57 absolute Interface\AddOns\Ordaen\media\window-wood border=UI-Frame-Metal-CornerTopLeft
     box 338.09,195.89 911.53x475.63
       box 360.85,218.64 866.02x421.59
         box 360.85,218.64 866.02x25 #3d2710
@@ -145,9 +145,9 @@ surface 325,133.88 932.72x548.49 on DIALOG clamped raised by a click
     box 1240.47,662.36 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 325,133.88 932.72x59.42
     box 325,133.88 844.19x59.42
-      box 325,133.88 147.59x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
-        box 332.25,141.12 48.92x48.92 absolute icon=136249 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=none
-        box 376.17,141.12 11.5x52.17 absolute border=ButtonFrameTemplateNoPortrait sides=left
+      box 325,133.88 147.59x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
+        box 332.25,141.12 48.92x48.92 absolute icon=136249 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=none
+        box 376.17,141.12 11.5x52.17 absolute border=UI-Frame-Metal-CornerTopLeft sides=left
         box 392.7,144.12 61.11x45.92
           text 392.7,148.59 61.11x17.78 "Tailoring" #ffd100
           text 401.03,167.79 44.44x17.78 "31 / 75" #8f8470
@@ -165,7 +165,7 @@ surface 325,133.88 932.72x548.49 on DIALOG clamped raised by a click
 
 -- the window widened: no name wraps, the lists and the card wider alike
 surface 325,133.88 1275x548.49 on DIALOG clamped raised by a click
-  box 325,182.79 1275x499.57 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
+  box 325,182.79 1275x499.57 absolute Interface\AddOns\Ordaen\media\window-wood border=UI-Frame-Metal-CornerTopLeft
     box 338.09,195.89 1253.81x475.63
       box 360.85,218.64 1208.3x421.59
         box 360.85,218.64 1208.3x25 #3d2710
@@ -310,9 +310,9 @@ surface 325,133.88 1275x548.49 on DIALOG clamped raised by a click
     box 1582.75,662.36 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 325,133.88 1275x59.42
     box 325,133.88 1186.47x59.42
-      box 325,133.88 147.59x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
-        box 332.25,141.12 48.92x48.92 absolute icon=136249 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=none
-        box 376.17,141.12 11.5x52.17 absolute border=ButtonFrameTemplateNoPortrait sides=left
+      box 325,133.88 147.59x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
+        box 332.25,141.12 48.92x48.92 absolute icon=136249 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=none
+        box 376.17,141.12 11.5x52.17 absolute border=UI-Frame-Metal-CornerTopLeft sides=left
         box 392.7,144.12 61.11x45.92
           text 392.7,148.59 61.11x17.78 "Tailoring" #ffd100
           text 401.03,167.79 44.44x17.78 "31 / 75" #8f8470

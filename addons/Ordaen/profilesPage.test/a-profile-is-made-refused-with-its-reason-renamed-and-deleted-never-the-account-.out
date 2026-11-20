@@ -392,7 +392,7 @@ box 0,0 760x620.11
       box 264.22,591.78 125x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
         text 305.61,598.14 42.22x15.6 "Create" #808080
 surface 0,0 1600x900 on DIALOG #0000008c
-  box 593.58,374.8 412.83x150.41 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
+  box 593.58,374.8 412.83x150.41 Interface\AddOns\Ordaen\media\window-wood border=UI-Frame-Metal-CornerTopLeft
     text 623.74,422.02 357.51x35.56 "Delete profile «Raiding»? Characters that use it switch to the next profile in order." #e8dcc4
     box 623.74,468.96 357.51x28.33
       box 623.74,468.96 126.62x0

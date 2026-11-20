@@ -862,7 +862,7 @@ box 0,0 700x407.32
   box 0,378.99 700x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
     text 332.22,385.36 35.56x15.6 "Reset" #ffffff
 surface 0,0 1600x900 on DIALOG #0000008c
-  box 615.25,383.69 369.5x132.63 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
+  box 615.25,383.69 369.5x132.63 Interface\AddOns\Ordaen\media\window-wood border=UI-Frame-Metal-CornerTopLeft
     text 645.41,430.91 314.18x17.78 "Forget what was saved?" #ffffff
     box 645.41,460.07 314.18x28.33
       box 645.41,460.07 99.96x0
@@ -925,7 +925,7 @@ box 0,0 700x407.32
   box 0,378.99 700x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
     text 332.22,385.36 35.56x15.6 "Reset" #ffd100
 surface 0,0 1600x900 on DIALOG #0000008c
-  box 615.25,383.69 369.5x132.63 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
+  box 615.25,383.69 369.5x132.63 Interface\AddOns\Ordaen\media\window-wood border=UI-Frame-Metal-CornerTopLeft
     text 645.41,430.91 314.18x17.78 "Forget what was saved?" #ffffff
     box 645.41,460.07 314.18x28.33
       box 645.41,460.07 99.96x0

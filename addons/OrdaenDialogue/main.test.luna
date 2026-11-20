@@ -677,6 +677,11 @@ test "a currency to choose and one given are rewards; one needed has how much th
   })
   Events.QUEST_COMPLETE.emit()
   Test.expect(window().text("Honor Token").shown() && window().text("Stormwind Seal").shown())
+  // Under the cursor, a currency's slot has the game's tooltip of the currency, with how much is given.
+  window().button("Interface/Icons/INV_Misc_Coin_01").hover()
+  Test.expect(Test.requests().any(r => r == "Items.showCurrency 61 3"))
+  window().button("Interface/Icons/INV_Misc_Coin_02").hover()
+  Test.expect(Test.requests().any(r => r == "Items.showCurrency 62 2"))
   window().text("Honor Token").click()
   window().button("Complete").click()
   Test.expect(asked() == "reward 2")

@@ -202,7 +202,7 @@ function currencyReward(info: Client.QuestRewardCurrencyInfo, index: Integer): R
   return {
     kind: .Currency, name: info.name, icon: artOf(info.texture), count: info.totalRewardAmount.floor(),
     quality: QUALITIES[info.quality.floor() + 1] ?? .Common, item: nil, link: Client.C_CurrencyInfo.GetCurrencyLink(info.currencyID, nil),
-    detail: "", unusable: false, sell: 0, index: index
+    detail: "", unusable: false, sell: 0, index: index, currency: info.currencyID.floor()
   }
 }
 

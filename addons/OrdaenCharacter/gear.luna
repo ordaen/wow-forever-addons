@@ -347,14 +347,16 @@ public class GearPage implements Component {
                  background={Style.MODEL_BACK} overflow={Overflow.Hidden}>
               <box $if={self.scene != nil} position={Position.Absolute} left={Style.SCENE_LEFT} top={0ui}
                    width={Style.SCENE_WIDTH} height={Style.SCENE_HEIGHT} background={self.scene} />
-              <box position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui} background={Style.SCENE_VEIL} />
-              <box position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui} model={"player"} />
-              <box rows={Style.SLOT_ROWS} zLevel={2}>
+              <box position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui} background={Style.SCENE_VEIL}
+                   zLevel={1} />
+              <box position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui} model={"player"}
+                   zLevel={2} />
+              <box rows={Style.SLOT_ROWS} zLevel={3}>
                 <GearSlot $for={spec of LEFT} spec={spec} worn={self.wornOf(spec.id)} levels={self.choices.itemLevels}
                           wear={self.choices.durability} fits={self.fitsIn(spec.id)} @picked={self.onPicked}
                           @tried={self.onTried} @flyout={self.onFlyout} />
               </box>
-              <box rows={[{ fr: 1 }, "max-content", "max-content"]} gap={3sp} zLevel={2}>
+              <box rows={[{ fr: 1 }, "max-content", "max-content"]} gap={3sp} zLevel={3}>
                 <box yAlign={Align.End}>
                   <Flyout $if={self.flyoutShown} items={self.fitting} @chose={self.onChose} @close={self.onCloseFlyout} />
                 </box>
@@ -367,7 +369,7 @@ public class GearPage implements Component {
                 </box>
                 <text value={self.levelText} textSize={SECONDARY_TEXT} textColor={Style.DIM} xAlignSelf={Align.Center} />
               </box>
-              <box rows={Style.SLOT_ROWS} zLevel={2}>
+              <box rows={Style.SLOT_ROWS} zLevel={3}>
                 <GearSlot $for={spec of RIGHT} spec={spec} worn={self.wornOf(spec.id)} levels={self.choices.itemLevels}
                           wear={self.choices.durability} fits={self.fitsIn(spec.id)} @picked={self.onPicked}
                           @tried={self.onTried} @flyout={self.onFlyout} />

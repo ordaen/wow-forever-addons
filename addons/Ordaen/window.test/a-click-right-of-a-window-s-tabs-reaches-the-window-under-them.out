@@ -1,13 +1,13 @@
 -- Beta clicked through the room right of Gamma's tab
 box 0,0 10x0
 surface 600,331.38 400x437.25 on DIALOG clamped raised by a click
-  box 600,368.62 400x400 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
+  box 600,368.62 400x400 absolute Interface\AddOns\Ordaen\media\window-wood border=UI-Frame-Metal-CornerTopLeft
     box 613.09,381.72 378.81x376.06
       box 635.85,404.47 333.3x330.55 #30302a @keyPress @pointerPress
     box 982.75,748.62 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 600,331.38 400x47.75
     box 600,331.38 336.47x47.75
-      box 600,331.38 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
+      box 600,331.38 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
         box 618.78,341.62 76.93x34.25
           text 642.81,349.86 28.89x17.78 "Beta" #ffd100
     box 945,347.71 55x31.42
@@ -19,13 +19,13 @@ surface 600,331.38 400x437.25 on DIALOG clamped raised by a click
           box 972.5,347.71 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
           box 978.75,357.29 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
 surface 750,451.38 400x237.25 on DIALOG clamped raised by a click
-  box 750,488.62 400x200 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
+  box 750,488.62 400x200 absolute Interface\AddOns\Ordaen\media\window-wood border=UI-Frame-Metal-CornerTopLeft
     box 763.09,501.72 378.81x176.06
       box 785.85,524.48 333.3x130.55 #30302a @keyPress @pointerPress
     box 1132.75,668.62 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 750,451.38 400x47.75
     box 750,451.38 336.47x47.75
-      box 750,451.38 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
+      box 750,451.38 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
         box 768.78,461.62 76.93x34.25
           text 789.47,469.86 35.56x17.78 "Gamma" #ffd100
     box 1095,467.71 55x31.42

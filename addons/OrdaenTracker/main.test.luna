@@ -99,6 +99,21 @@ test "a quest with an item has its button beside the title, which uses the item 
   Test.expect(Test.performed().join(",") == "item |cffffffff|Hitem:5060::::::::|h[Item 5060]|h|r")
 }
 
+test "a quest's item shows its cooldown's sweep while one runs, and none while none does" {
+  Test.questLog([{ id: 104, title: "The Collector", header: "Westfall", level: 12, watched: true, specialItem: 5060 }])
+  Test.mount(nil, PAGE)
+  Tracker.refresh()
+  Test.flush()
+  const before = Test.calls(() => Test.flush())
+  Test.expect(!before.contains("SetCooldown=1"))
+  Test.questLog([
+    { id: 104, title: "The Collector", header: "Westfall", level: 12, watched: true, specialItem: 5060,
+      itemCooldown: { start: 100, length: 30 } }
+  ])
+  const told = Test.calls(() => Test.flush())
+  Test.expect(told.contains("SetCooldown=1"))
+}
+
 test "it stands at the right under what keeps the top right corner and above what keeps the bottom, all that height" {
   logged()
   Test.mount(nil, PAGE)
@@ -115,6 +130,44 @@ test "it stands at the right under what keeps the top right corner and above wha
   Test.expect(kept.top > free.top + 200 && kept.bottom < free.bottom - 60)
   Ordaen.keepTopRight("OrdaenMinimap", 0ui)
   Ordaen.keepBottom("OrdaenPanel", 0ui)
+}
+
+test "it lists as many quests as the settings say, the first in the log's order, on a ground as dark as they say" {
+  logged()
+  Tracker.settings.values.listed = 1
+  Tracker.settings.values.ground = 0.25
+  Test.mount(nil, PAGE)
+  Tracker.refresh()
+  Test.flush()
+  Test.expect(Test.page().text("The Defias Brotherhood").shown() && !Test.page().text("Red Silk Bandanas").shown())
+  // The count is of every tracked quest, listed or not.
+  Test.expect(Test.page().text("2/25").shown())
+  Test.expect(Test.page().box({ r: 0, g: 0, b: 0, a: 0.25 }).shown())
+}
+
+test "the placing mode shows it with no quest tracked, moves it, keeps where it was let go, and a right click sends it home" {
+  Test.questLog([])
+  Test.mount(nil, PAGE)
+  Tracker.refresh()
+  Test.flush()
+  Test.expect(!Test.page().text("Quest tracker").shown() && !Test.page().text("Quests").shown())
+  Ordaen.togglePlacing()
+  Test.flush()
+  const home = Test.surfaceHolding("Quest tracker")
+  Test.moveTo(home)
+  Test.press(nil)
+  Test.moveTo({ x: home.x - 1, y: home.y })
+  Test.pass(0.02)
+  Test.moveTo({ x: home.x - 600, y: home.y })
+  Test.pass(0.02)
+  Test.release(nil)
+  Test.pass(0.02)
+  const moved = Test.surfaceHolding("Quest tracker")
+  Test.expect(moved.x < home.x - 500 && Ordaen.moved("OrdaenTracker.quests") != nil)
+  Test.click(moved, .Right)
+  Test.flush()
+  Test.expect(Ordaen.moved("OrdaenTracker.quests") == nil && Test.surfaceHolding("Quest tracker").x == home.x)
+  Ordaen.togglePlacing()
 }
 
 test "an objective moving on sounds as the game's tracker does" {

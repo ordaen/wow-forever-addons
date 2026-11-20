@@ -305,7 +305,7 @@ surface 0,776 128x124 on MEDIUM face:player cut by Interface\AddOns\Ordaen\media
   box 86.7,781.3 36x36 absolute Interface\AddOns\Ordaen\media\level-badge
     text 100.26,790.41 8.89x17.78 "1" #b88f57
 surface 710,139.71 980x620.58 on DIALOG clamped raised by a click
-  box 710,176.96 980x583.33 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
+  box 710,176.96 980x583.33 absolute Interface\AddOns\Ordaen\media\window-wood border=UI-Frame-Metal-CornerTopLeft
     box 723.09,190.05 958.81x559.39
       box 745.85,212.81 913.3x477.02
         box 745.85,212.81 125.38x477.02
@@ -488,7 +488,7 @@ surface 710,139.71 980x620.58 on DIALOG clamped raised by a click
     box 1672.75,740.29 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 710,139.71 980x47.75
     box 710,139.71 916.47x47.75
-      box 710,139.71 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
+      box 710,139.71 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
         box 728.78,149.96 76.93x34.25
           text 746.14,158.19 42.22x17.78 "Ordaen" #ffd100
     box 1635,156.04 55x31.42

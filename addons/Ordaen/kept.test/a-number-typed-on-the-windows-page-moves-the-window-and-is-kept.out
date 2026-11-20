@@ -1,7 +1,7 @@
 key: ENTER → none
 -- the place across typed: -100, the window 100 to the left
 surface 210,139.71 980x620.58 on DIALOG clamped raised by a click
-  box 210,176.96 980x583.33 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
+  box 210,176.96 980x583.33 absolute Interface\AddOns\Ordaen\media\window-wood border=UI-Frame-Metal-CornerTopLeft
     box 223.09,190.05 958.81x559.39
       box 245.85,212.81 913.3x477.02
         box 245.85,212.81 112.6x477.02
@@ -132,7 +132,7 @@ surface 210,139.71 980x620.58 on DIALOG clamped raised by a click
     box 1172.75,740.29 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 210,139.71 980x47.75
     box 210,139.71 916.47x47.75
-      box 210,139.71 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
+      box 210,139.71 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
         box 228.78,149.96 76.93x34.25
           text 246.14,158.19 42.22x17.78 "Ordaen" #ffd100
     box 1135,156.04 55x31.42
