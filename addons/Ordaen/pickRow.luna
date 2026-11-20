@@ -5,7 +5,9 @@ import { Align, ByInteractionState, Edges, Track } from "$ltml"
 import { Component } from "@/module"
 
 const CLEAR: Color = Color.hex("#00000000")
-const SHADE: ByInteractionState<Color> = { default: CLEAR, hover: Color.hex("#00000059"), focus: Color.hex("#00000059") }
+// A light shade: the rows stand on dark wood, where a dark one barely shows.
+public const ROW_HOVER: Color = Color.hex("#ffffff24")
+const SHADE: ByInteractionState<Color> = { default: CLEAR, hover: ROW_HOVER, focus: ROW_HOVER }
 // The picked row's gold.
 public const PICKED_ROW: Color = Color.hex("#ffd10026")
 const PADDING: Edges = { top: 2sp, right: 2sp, bottom: 2sp, left: 2sp }
