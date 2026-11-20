@@ -1,6 +1,6 @@
 // «Cooldowns»: each recipe with a cooldown, per character, ready now or the hour it will be.
 import Game from "$game"
-import { Align, Overflow, Track } from "$ltml"
+import { Align, Track } from "$ltml"
 import { Column, Component, Hour, SECONDARY_TEXT, Table, TableRow, tracksOf } from "Ordaen"
 import Locale from "@/locales"
 import { Records } from "@/records"
@@ -80,17 +80,15 @@ public class Cooldowns implements Component {
     return $ltml {
       <box rows={self.rows} gap={6sp}>
         <text $if={self.empty} value={Locale.NO_COOLDOWNS} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
-        <box overflow={Overflow.Scroll}>
-          <Table columns={COLUMNS} sorted={mut self.sorted} descending={mut self.descending}>
-            <TableRow $for={wait of self.ordered} $key={wait} tracks={TRACKS}>
-              <text value={wait.recipe} textColor={Style.INK} />
-              <text value={wait.who} textColor={Style.INK} wrap={.None} />
-              <box xAlign={Align.End}>
-                <text value={wait.text} textColor={wait.color} wrap={.None} />
-              </box>
-            </TableRow>
-          </Table>
-        </box>
+        <Table columns={COLUMNS} sorted={mut self.sorted} descending={mut self.descending}>
+          <TableRow $for={wait of self.ordered} $key={wait} tracks={TRACKS}>
+            <text value={wait.recipe} textColor={Style.INK} />
+            <text value={wait.who} textColor={Style.INK} wrap={.None} />
+            <box xAlign={Align.End}>
+              <text value={wait.text} textColor={wait.color} wrap={.None} />
+            </box>
+          </TableRow>
+        </Table>
       </box>
     }
   }

@@ -10,9 +10,9 @@
 // row right-clicked: its menu (`RowMenu`).
 import Client from "$client"
 import Game from "$game"
-import { Align, Beside, Edges, Layer, Line, MouseButton, Overflow, Side, Track } from "$ltml"
+import { Align, Beside, Edges, Layer, Line, MouseButton, Side, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { ARTWORK, BODY_LINE, ButtonPlate, Choice, Column, Component, Copper, CountInput, DropdownItem, ItemButton, ItemId, Menu, MenuEntry, ModuleMemory, Money, PushButton, SECONDARY_TEXT, SelectItem, Table, TableRow, ToolButton, ToolPick, Toolbar, ageText, tracksOf } from "Ordaen"
+import { ARTWORK, BODY_LINE, ButtonPlate, Choice, Column, Component, Copper, CountInput, DropdownItem, ItemButton, ItemId, Menu, MenuEntry, ModuleMemory, Money, PushButton, SECONDARY_TEXT, ScrolledList, SelectItem, Table, TableRow, ToolButton, ToolPick, Toolbar, ageText, tracksOf } from "Ordaen"
 import { PriceHistory } from "@/history"
 import { House } from "@/house"
 import { ItemPanel } from "@/itemPanel"
@@ -622,16 +622,14 @@ public class BuyPage implements Component {
     return $ltml {
       <box columns={PAGE} rows={FILL} gap={3sp}>
         // The categories: every item, then each class.
-        <box rows={FILL} border={Style.FRAME} background={Style.LISTS_BACK}>
-          <box overflow={Overflow.Scroll}>
-            <SelectItem selected={self.anyClass} first={true} columns={CATEGORY} padding={CLASS_PAD}
-                        @pick={self.pickAll}>
-              <text value={Locale.ALL_CLASSES} textColor={Style.GOLD} wrap={.None} />
-            </SelectItem>
-            <CategoryEntry $for={category of self.categories} $key={category.itemClass} category={category}
-                           itemClass={self.itemClass} itemSubclass={self.itemSubclass} @pick={self.pickCategory} />
-          </box>
-        </box>
+        <ScrolledList>
+          <SelectItem selected={self.anyClass} first={true} columns={CATEGORY} padding={CLASS_PAD}
+                      @pick={self.pickAll}>
+            <text value={Locale.ALL_CLASSES} textColor={Style.GOLD} wrap={.None} />
+          </SelectItem>
+          <CategoryEntry $for={category of self.categories} $key={category.itemClass} category={category}
+                         itemClass={self.itemClass} itemSubclass={self.itemSubclass} @pick={self.pickCategory} />
+        </ScrolledList>
         <box rows={SIDE} gap={3sp}>
           // The toolbar (the search, the filter), and the shopping list's window at the row's right end.
           <box columns={TOOLS} gap={3sp} yAlign={Align.Center}>
@@ -645,7 +643,7 @@ public class BuyPage implements Component {
             </Toolbar>
             <PushButton label={Locale.PAGE_SHOPPING} width={Style.OPENER} @click={self.onOpenList} />
           </box>
-          <box rows={FILL} border={Style.FRAME} background={Style.LISTS_BACK}>
+          <box rows={FILL}>
             <Table $if={self.byItem} columns={ITEM_COLUMNS} sorted={mut self.list.values.sorted} descending={mut self.list.values.descending}>
               <FoundRow $for={row of self.rows} $key={row.item} found={row} selected={self.picked == row.key}
                         wanted={self.shopping.needed[row.item] != nil} tracks={ITEM_TRACKS}
@@ -773,7 +771,7 @@ public class Chosen implements Component {
       <ItemPanel key={self.found.key} name={self.found.name} color={self.found.color} detail={self.detail}
                  house={self.house} prices={self.prices} history={self.history}>
         <box rows={PANEL} gap={3sp}>
-          <box rows={FILL} border={Style.FRAME} background={Style.LISTS_BACK}>
+          <box rows={FILL}>
             <Table columns={LISTING_COLUMNS} sorted={mut self.listSorted} descending={mut self.listDescending}>
               <ListingRow $for={index, listing of self.listings} $key={index} listing={peek listing}
                           index={index} first={self.first} last={self.last} />

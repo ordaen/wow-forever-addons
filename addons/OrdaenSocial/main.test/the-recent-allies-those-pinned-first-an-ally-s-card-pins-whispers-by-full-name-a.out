@@ -17,22 +17,24 @@ surface 425,183.88 1055.76x532.25 on DIALOG clamped raised by a click
               box 1115.82,268.64 28.33x28.33
                 box 1115.82,268.64 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerEnter @pointerLeave @pointerPress
                   box 1123.32,276.14 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 1 of 16
-        box 460.85,305.51 683.3x340.15 scrolled 0 of 0
-          text 460.85,305.51 683.3x17.78 "Recent Allies" #ffd100
-          box 460.85,323.29 683.3x46.93 #ffd10026 @keyPress @pointerPress
-            box 466.54,341.75 10x10 Interface/FriendsFrame/StatusIcon-Online
-            box 482.23,328.97 650.54x35.56
-              box 482.23,328.97 650.54x17.78
-                text 482.23,328.97 42.22x17.78 "Gunnar" #e8dcc4
-                text 530.14,328.97 15.56x17.78 "25" #a3977f
-              text 482.23,346.75 650.54x17.78 "Completed the Deadmines together · 2 h ago" #a3977f
-          box 460.85,370.22 683.3x29.16 #00000000 @keyPress @pointerPress
-            box 466.54,379.8 10x10 Interface/FriendsFrame/StatusIcon-Offline
-            box 482.23,375.91 650.54x17.78
-              box 482.23,375.91 650.54x17.78
-                text 482.23,375.91 42.22x17.78 "Astrid" #7c848a
-                text 530.14,375.91 15.56x17.78 "21" #a3977f
-              text 482.23,393.69 650.54x0 "" #a3977f
+        box 460.85,305.51 683.3x340.15 #0000004d
+          box 461.68,306.34 681.63x0
+          box 461.68,306.34 681.63x338.48 scrolled 0 of 0
+            text 470.22,314.88 664.57x17.78 "Recent Allies" #ffd100
+            box 470.22,332.65 664.57x46.93 #ffd10026 @keyPress @pointerPress
+              box 475.91,351.12 10x10 Interface/FriendsFrame/StatusIcon-Online
+              box 491.59,338.34 631.81x35.56
+                box 491.59,338.34 631.81x17.78
+                  text 491.59,338.34 42.22x17.78 "Gunnar" #e8dcc4
+                  text 539.51,338.34 15.56x17.78 "25" #a3977f
+                text 491.59,356.12 631.81x17.78 "Completed the Deadmines together · 2 h ago" #a3977f
+            box 470.22,379.59 664.57x29.16 #00000000 @keyPress @pointerPress
+              box 475.91,389.16 10x10 Interface/FriendsFrame/StatusIcon-Offline
+              box 491.59,385.27 631.81x17.78
+                box 491.59,385.27 631.81x17.78
+                  text 491.59,385.27 42.22x17.78 "Astrid" #7c848a
+                  text 539.51,385.27 15.56x17.78 "21" #a3977f
+                text 491.59,403.05 631.81x0 "" #a3977f
       box 460.85,645.66 683.3x45.4
         box 460.85,662.73 683.3x28.33
           box 460.85,668 569.08x17.78
@@ -58,14 +60,16 @@ surface 425,183.88 1055.76x532.25 on DIALOG clamped raised by a click
           box 1199.91,374.24 250x17.78
             text 1199.91,374.24 83.33x17.78 "Note" #a3977f
             text 1288.93,374.24 160.98x17.78 "—" #e8dcc4
-        box 1199.91,409.09 250x162.84 scrolled 0 of 0
-          text 1199.91,409.09 250x17.78 "Recent activity" #a3977f
-          box 1199.91,432.55 250x35.56
-            text 1199.91,432.55 197.02x35.56 "Completed the Deadmines together" #e8dcc4
-            text 1405.47,432.55 44.44x17.78 "2 h ago" #a3977f
-          box 1199.91,473.8 250x17.78
-            text 1199.91,473.8 197.02x17.78 "Traded" #e8dcc4
-            text 1405.47,473.8 44.44x17.78 "3 d ago" #a3977f
+        box 1199.91,409.09 250x162.84 #0000004d
+          box 1200.74,409.92 248.33x0
+          box 1200.74,409.92 248.33x161.17 scrolled 0 of 0
+            text 1209.28,418.45 231.27x17.78 "Recent activity" #a3977f
+            box 1209.28,441.92 231.27x35.56
+              text 1209.28,441.92 178.29x35.56 "Completed the Deadmines together" #e8dcc4
+              text 1396.1,441.92 44.44x17.78 "2 h ago" #a3977f
+            box 1209.28,483.16 231.27x17.78
+              text 1209.28,483.16 178.29x17.78 "Traded" #e8dcc4
+              text 1396.1,483.16 44.44x17.78 "3 d ago" #a3977f
         box 1199.91,588.99 250x102.07
           box 1199.91,588.99 91.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
             text 1221.86,594.27 47.78x17.78 "Whisper" #ffd100

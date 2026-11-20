@@ -10,7 +10,7 @@ import Client from "$client"
 import Game from "$game"
 import { Align, KeyBinding, MouseButton, Overflow, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { Choice, Component, FooterCount, FooterCounts, ListTab, ModuleMemory, Money, PushButton, SECONDARY_TEXT, Tip, TipRow, ToolAct, ToolButton, ToolPick, Toolbar, WINDOW_ROOM } from "Ordaen"
+import { Choice, Component, FooterCount, FooterCounts, ListTab, ModuleMemory, Money, PushButton, SECONDARY_TEXT, ScrolledList, Tip, TipRow, ToolAct, ToolButton, ToolPick, Toolbar, WINDOW_ROOM } from "Ordaen"
 import { BANK_ICON } from "@/bank"
 import { Clicks } from "@/clicks"
 import { GuildBank, GuildPage, GuildTab, withdrawalsText } from "@/guild"
@@ -384,9 +384,9 @@ public class Pane {
             {self.cards}
           </box>
           <text $elseif={self.guild.page == GuildPage.Items} value={Locale.GUILD_LOADING} textColor={LABEL} />
-          <box $else columns={1} gap={3sp} overflow={Overflow.Scroll}>
+          <ScrolledList $else columns={1} gap={3sp}>
             <text $for={line of self.guild.log} value={line} />
-          </box>
+          </ScrolledList>
         </box>
         <box $else columns={1}>
           {self.cards}

@@ -6,9 +6,9 @@
 // letter; Shift+click on a checkbox ticks the range from the last ticked. While letters are being taken the list takes
 // no clicks.
 import Game from "$game"
-import { Align, Art, Overflow, Track } from "$ltml"
+import { Align, Art, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { ARTWORK, ButtonPlate, Choice, Column, Component, FoldCaption, ItemButton, ModuleMemory, Money, PickRow, PushButton, SECONDARY_TEXT, Table, TableCell, TableRow, Tick, Tip, TipRow, ToolPick, ToolSort, Toolbar, tracksOf } from "Ordaen"
+import { ARTWORK, ButtonPlate, Choice, Column, Component, FoldCaption, ItemButton, ModuleMemory, Money, PickRow, PushButton, SECONDARY_TEXT, ScrolledList, Table, TableCell, TableRow, Tick, Tip, TipRow, ToolPick, ToolSort, Toolbar, tracksOf } from "Ordaen"
 import { Filter, URGENT_DAYS, View, collectable, matches } from "@/letters"
 import Locale from "@/locales"
 import Style from "@/style"
@@ -360,17 +360,17 @@ public class Inbox implements Component {
         <box $if={self.empty} xAlign={Align.Center} yAlign={Align.Center}>
           <text value={Locale.NOTHING_FOUND} textColor={Style.DIM} />
         </box>
-        <box $elseif={self.inList} columns={1} overflow={Overflow.Scroll}>
+        <ScrolledList $elseif={self.inList} columns={1}>
           <LetterRow $for={letter of self.shown} $key={letter.index} letter={letter} picked={self.picked}
                      ticked={self.ticked} busy={self.busy} @clicked={self.onClicked} @tick={self.onTick} />
-        </box>
-        <box $elseif={self.inGroups} columns={1} gap={2sp} overflow={Overflow.Scroll}>
+        </ScrolledList>
+        <ScrolledList $elseif={self.inGroups} columns={1} gap={2sp}>
           <box $for={group of self.groups} $key={group.kind} columns={1} gap={1sp}>
             <KindCaption group={group} folded={self.folded} @fold={self.onFold} />
             <LetterRow $for={letter of group.letters} $key={letter.index} letter={letter} picked={self.picked}
                        ticked={self.ticked} busy={self.busy} @clicked={self.onClicked} @tick={self.onTick} />
           </box>
-        </box>
+        </ScrolledList>
         <Table $else columns={COLUMNS} sorted={mut self.list.values.sorted} descending={mut self.list.values.descending} rowsVary={true}>
           <LetterTableRow $for={letter of self.shown} $key={letter.index} letter={letter} picked={self.picked}
                           busy={self.busy} @clicked={self.onClicked} />

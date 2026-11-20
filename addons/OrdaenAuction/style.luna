@@ -30,8 +30,6 @@ public const GOLD: Color = Color.hex("#ffd100")
 public const RED: Color = Color.hex("#ff4040")
 public const GREEN: Color = Color.hex("#40c040")
 public const AMBER: Color = Color.hex("#ffb02e")
-public const LISTS_BACK: Color = Color.hex("#0000004d")
-public const FRAME: Line = { width: 1.171875dp, color: Color.hex("#3e2f1d") }
 public const RULE: Line = { width: 1.171875dp, color: Color.hex("#3e2f1d"), sides: [Side.Bottom] }
 
 const MINUTE = 60

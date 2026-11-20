@@ -155,7 +155,7 @@ public class OwnedPage implements Component {
   public render(self): Template {
     return $ltml {
       <box rows={PAGE} gap={3sp}>
-        <box rows={FILL} border={Style.FRAME} background={Style.LISTS_BACK}>
+        <box rows={FILL}>
           <Table columns={COLUMNS} sorted={mut self.list.values.sorted} descending={mut self.list.values.descending}>
             <OwnedRow $for={row of self.rows} $key={row} shown={row} busy={Game.auctionActions.busy}
                       @cancel={self.onCancel} />

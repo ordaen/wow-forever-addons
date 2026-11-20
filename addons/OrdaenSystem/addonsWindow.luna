@@ -7,7 +7,7 @@ import Events from "$events"
 import Game from "$game"
 import { Action, Align, Edges, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { ARTWORK, ButtonPlate, Choice, Component, Dialog, KeptWindow, Menu, MenuEntry, ModuleMemory, Placing, PushButton, SECONDARY_TEXT, TextField, Tip, TipRow, TipText, ToolPick, Toolbar, Window, WindowSide, WindowTabSpec } from "Ordaen"
+import { ARTWORK, ButtonPlate, Choice, Component, Dialog, KeptWindow, Menu, MenuEntry, ModuleMemory, Placing, PushButton, SECONDARY_TEXT, ScrolledList, TextField, Tip, TipRow, TipText, ToolPick, Toolbar, Window, WindowSide, WindowTabSpec } from "Ordaen"
 import { Card } from "@/card"
 import { AddOn, Catalog, Status, plain } from "@/catalog"
 import { Age, FilterPick, Heat, Loading, Standing, Written } from "@/filter"
@@ -584,12 +584,12 @@ public class AddOnsWindow implements Component {
             </box>
             <box />
           </box>
-          <virtualList>
+          <ScrolledList virtual={true}>
             <LineRow $for={line of self.lines} line={line} catalog={self.catalog} profiler={self.profiler}
                      hot={self.hot} picked={self.list.values.picked} framework={self.framework} @pick={self.onPick}
                      @toggle={self.onToggle} @toggleGroup={self.onToggleGroup} @fold={self.onFold} @foldGroup={self.onFoldGroup}
                      @settings={self.onSettings} @loadNow={self.onLoadNow} />
-          </virtualList>
+          </ScrolledList>
           <box $if={self.stepShown} columns={STRIP} gap={3sp} yAlign={Align.Center}>
             <box xAlign={Align.End}>
               <text value={self.also} textColor={Style.INK} textSize={SECONDARY_TEXT} />
