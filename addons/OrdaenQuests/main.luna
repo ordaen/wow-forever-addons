@@ -42,6 +42,8 @@ const RED: Color = Color.hex("#ff4040")
 // The toolbar over the list, and the list.
 const BODY: Array<Track> = ["max-content", { fr: 1 }]
 const FILL: Array<Track> = [{ fr: 1 }]
+// The log: its kinds' sub-tabs, the toolbar, the list.
+const LOG_ROWS: Array<Track> = ["max-content", "max-content", { fr: 1 }]
 const FOOT: Array<Track> = [{ fr: 1 }, "max-content"]
 // The status switch stands an item's step after the search.
 const AFTER_SEARCH: Edges = { left: 3sp }
@@ -81,21 +83,23 @@ const VIEWS: Array<Choice<QuestView>> = [
   { value: QuestView.List, label: Locale.VIEW_LIST, icon: ARTWORK.ctl.tool.list }
 ]
 
-// A tab's title and its icon (the client's own) by its kind.
+// The window's one tab: the game's quest log book.
+const TAB_ICON: Asset = "Interface/QuestFrame/UI-QuestLog-BookIcon"
+
+// The kinds' sub-tabs, by their place in `KINDS`, each with how many quests of the log are of it.
+function kindChoices(quests: Array<LogQuest>): Array<Choice<Integer>> {
+  const choices: Array<Choice<Integer>> = []
+  for (index, kind of KINDS) { choices.push({ value: index, label: tabTitle(kind), badge: countOf(quests, kind) }) }
+  return choices
+}
+
+// A sub-tab's title by its kind.
 function tabTitle(kind: QuestKind): String {
   return match (kind) {
     .World => Locale.TAB_WORLD
     .Dungeon => Locale.TAB_DUNGEONS
     .Raid => Locale.TAB_RAIDS
     .PvP => Locale.TAB_PVP
-  }
-}
-function tabIcon(kind: QuestKind): Asset {
-  return match (kind) {
-    .World => "Interface/Icons/INV_Misc_Map_01"
-    .Dungeon => "Interface/Icons/INV_Misc_Bone_HumanSkull_01"
-    .Raid => "Interface/Icons/INV_Misc_Head_Dragon_01"
-    .PvP => "Interface/Icons/Ability_DualWield"
   }
 }
 
@@ -122,6 +126,8 @@ public class Quests implements Module, App {
   data: mut QuestieData = new QuestieData()
 
   public state open = false
+  // The window's one tab, and the kind's sub-tab picked.
+  state windowTab = 1
   state tab = 1
   public state quests: Array<LogQuest> = []
   state most = 25
@@ -151,7 +157,9 @@ public class Quests implements Module, App {
   // The log is read while something shows it: the window, or Map's pins.
   derived reading: Boolean = self.open || Maps != nil
   derived kind: QuestKind = KINDS[self.tab] ?? .World
-  derived tabs: Array<WindowTabSpec> = KINDS.map(kind => { title: tabTitle(kind), desc: String.of(countOf(self.quests, kind)), icon: tabIcon(kind) })
+  // One tab, the log's; its kinds are sub-tabs, each with its count.
+  derived tabs: Array<WindowTabSpec> = [{ title: Locale.TAB_QUESTS, desc: String.of(self.quests.length), icon: TAB_ICON }]
+  derived kinds: Array<Choice<Integer>> = kindChoices(self.quests)
   derived count: Integer = self.quests.length
   derived counted: Array<FooterCount> = [
     { label: Locale.FOOT_QUESTS, value: "%d/%d".format(self.count, self.most), color: self.count >= self.most ? RED : nil }
@@ -328,7 +336,8 @@ public class Quests implements Module, App {
   // The log: the toolbar over the list. The window's body, and the docked panel's while no quest is picked.
   logBody(self): Template {
     return $ltml {
-      <box rows={BODY} gap={3sp}>
+      <box rows={LOG_ROWS} gap={3sp}>
+        <Segmented value={mut self.tab} choices={self.kinds} />
         <Toolbar search={mut self.search} placeholder={Locale.SEARCH}>
           <box padding={AFTER_SEARCH}>
             <Segmented value={mut self.status} choices={STATUSES} />
@@ -347,7 +356,7 @@ public class Quests implements Module, App {
   // its page with the way back to the list, as Blizzard's panel does.
   public render(self): Template {
     return $ltml {
-      <Window $if={self.open} tabs={self.tabs} selected={mut self.tab} declared={mut self.window} withSettings={true}
+      <Window $if={self.open} tabs={self.tabs} selected={mut self.windowTab} declared={mut self.window} withSettings={true}
               side={self.side} footer={self.footer} @close={self.onClose} @settings={self.onSettings}>
         {self.logBody()}
       </Window>
