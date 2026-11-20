@@ -30,14 +30,22 @@ public struct Kept implements Plain {
   tabs: Array<KeptTab>
 }
 
-// A tab: a window's (`w<n>`) or a stream's (`s<club>:<stream>`).
+// A whisper conversation's key: a character's (`t:<name>`) or a Battle.net friend's (`b:<name>`).
+public function talkKey(name: String, battleNet: Boolean): String {
+  return `${battleNet ? "b" : "t"}:${name}`
+}
+
+// A tab: a window's (`w<n>`), a stream's (`s<club>:<stream>`), or a whisper conversation's (`talkKey`), which the
+// whisper window lists.
 public class ChatTab {
   public const key: String
   public state title: String
-  // The game's window behind it (`ChatFrame<n>`), 0 for a stream's; the stream's `<club>:<stream>`, empty for a
-  // window's.
+  // The game's window behind it (`ChatFrame<n>`), 0 for any other; the stream's `<club>:<stream>`, empty for any other.
   public const window: Integer
   public const stream: String
+  // A whisper conversation: with a Battle.net friend or a character.
+  public const talk: Boolean
+  public const battleNet: Boolean
   // What the window is now: a whisper window's partner, its font's size, whether it is the combat log's.
   public state partner = ""
   public state fontSize: Number = 13
@@ -52,10 +60,15 @@ public class ChatTab {
   public state unread = 0
 
   constructor(key: String, title: String) {
+    const kind = key.sub(1, 2)
     self.key = key
-    self.title = title
     self.window = key.sub(1, 1) == "w" ? (key.sub(2).toNumber() ?? 0).floor() : 0
     self.stream = key.sub(1, 1) == "s" ? key.sub(2) : ""
+    self.talk = kind == "t:" || kind == "b:"
+    self.battleNet = kind == "b:"
+    // A conversation is named by its partner.
+    self.title = self.talk ? key.sub(3) : title
+    if (self.talk) { self.partner = key.sub(3) }
   }
 
   // The window's state as the game has it now.
