@@ -242,6 +242,14 @@ test "the list holds both kinds, the best friend first and those offline last" {
   Test.shot("the friends: the best friend on top with its star, the levels at the right, the card the player's own")
 }
 
+test "the best friend's star stands after the name, never over it" {
+  Test.mount(nil, PAGE)
+  const window = opened(new FakePeople())
+  const name = window.text("Alexei").rect()
+  const star = window.text("Alexei").item().box("friendslist-favorite").rect()
+  Test.expect(star.left >= name.right)
+}
+
 test "the filter shows each kind and those offline, and the view draws the friends as a table" {
   Test.mount(nil, PAGE)
   const window = opened(new FakePeople())

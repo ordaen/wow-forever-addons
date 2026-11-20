@@ -153,6 +153,10 @@ at the end. Commits are lunatype's unless named `dev` (wow-dev-tools). What tool
 - **A font file the client hasn't loaded yet is measured in its own text font,** and nothing is said as the file
   comes. Known: 70303b0 («Тема» drawn «Те…» in the settings window). Stand-in: `Client.fontWidth`
   (`client.lua`), `Test.fontWidth`; `tests/runtime/Runtime/fonts`.
+- **A Battle.net name the client keeps from addons (`|K…|k`, a friend's account name) measures 0 unbounded**
+  (`GetUnboundedStringWidth`), while the client draws it as the real name and `GetStringWidth` gives that width.
+  Known: the friends list's star drawn over each name (`|Ks3|k` drawn 95 wide, laid out 0). Stand-in:
+  `FontString:GetUnboundedStringWidth` (`client.lua`); `tests/layout/Pages/keptName`.
 
 ## Tooltips
 
