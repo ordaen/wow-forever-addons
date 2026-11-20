@@ -1,6 +1,6 @@
 import Build from "$build"
 import Game from "$game"
-import { Align, Anchored, EmbedLook, Event, Frame, Line, MouseButton, Point, Position, Shadow } from "$ltml"
+import { Align, Anchored, EmbedLook, Event, Frame, Line, MouseButton, Overflow, Point, Position, Shadow } from "$ltml"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
 import { ALWAYS, Module, Placed, Settings, SettingsPage, Tip, opacityNow, reachAcross, reachDown, timeText } from "Ordaen"
@@ -353,7 +353,7 @@ public class Minimap implements Module, App {
             <Tip $if={self.hint == Hint.Entry} title={self.hintTitle} text={self.hintText} keys={self.hintKeys} />
           </box>
           <box $elseif={self.drawerParked} position={Position.Absolute} left={0ui} top={0ui} width={0ui} height={0ui}
-               opacity={0}>
+               opacity={0} overflow={Overflow.Hidden}>
             <embed $for={button of Game.minimap.buttons} frame={button} width={CELL} height={CELL}
                    look={EmbedLook.Icon} />
           </box>
