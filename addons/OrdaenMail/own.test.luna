@@ -1,11 +1,12 @@
 // «To my characters»: what the bags hold for each of the player's other characters' professions, and what the queue
 // lacks with who holds it.
 import Client from "$client"
+import Game from "$game"
 import Test from "$test"
 import { classColor } from "Ordaen"
 import { Place } from "OrdaenAlts"
 import { Use } from "OrdaenProfessions"
-import { Holding, Kin, lacksOf, ownRows } from "@/own"
+import { Holding, Kin, lacksOf, ownRows, stacksOf } from "@/own"
 
 const BAR = 2841
 const STONE = 2836
@@ -42,6 +43,21 @@ test "each other character has a row of what the bags hold that its professions 
   Test.expect(color != nil && color.equal(classColor("WARRIOR") ?? panic("the client colours a warrior")))
   const aria = rows[1] ?? panic("Aria's row")
   Test.expect(aria.offers.map(offer => offer.name).join(", ") == "Bronze Bar")
+}
+
+test "a count sent takes whole stacks that fit and the rest as a part, which the queue splits off" {
+  Game.bags.size = (bag: Integer): Integer => bag == 0 ? 4 : 0
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => {
+    if (bag != 0 || (slot != 2 && slot != 3)) { return false }
+    into.id = LINEN
+    into.count = slot == 2 ? 20 : 5
+    into.locked = false
+    return true
+  }
+  const stacks = stacksOf([{ bag: 0, slot: 0, item: LINEN, count: 12 }])
+  Test.expect(stacks.map(s => `${s.bag}/${s.slot} ${s.count}`).join(", ") == "0/3 5, 0/0 7")
+  const whole = stacksOf([{ bag: 0, slot: 0, item: LINEN, count: 25 }])
+  Test.expect(whole.map(s => `${s.bag}/${s.slot} ${s.count}`).join(", ") == "0/2 20, 0/3 5")
 }
 
 test "what the queue lacks past the bags names the character who holds the most of it, and where" {

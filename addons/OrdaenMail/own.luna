@@ -7,7 +7,7 @@
 import Client from "$client"
 import Game from "$game"
 import { Align, Overflow, Track } from "$ltml"
-import { Component, ItemId, ModuleMemory, PushButton, SECONDARY_TEXT, TITLE_LINE, TITLE_TEXT, Tick, classColor } from "Ordaen"
+import { Component, CountInput, ItemId, ModuleMemory, PushButton, SECONDARY_TEXT, TITLE_LINE, TITLE_TEXT, Tick, classColor } from "Ordaen"
 import { RecipeId } from "OrdaenAlts"
 import type { Alts, Place } from "OrdaenAlts"
 import type { Professions, QueueItem, Use } from "OrdaenProfessions"
@@ -154,32 +154,42 @@ public function lacksOf(
   return lacks
 }
 
-// The bags' whole stacks of the items, up to a letter's places.
-function stacksOf(items: Array<Integer>): Array<Game.MailStack> {
+// The stacks a letter takes for each item and count wanted, up to a letter's places: the bags' whole stacks while
+// they fit in what is left, and the rest as one part, which the queue splits off a bigger stack as the letter goes.
+public function stacksOf(wanted: Array<Game.MailStack>): Array<Game.MailStack> {
   const stacks: Array<Game.MailStack> = []
   let slot = Game.SlotItem {
     id: 0, count: 0, quality: 0, icon: nil, name: "", link: "", level: 0, kind: 0, subkind: 0, subkindName: "", worn: "",
     bound: false, locked: false, isNew: false, price: 0
   }
-  for (bag of 0..Game.bags.last) {
-    for (place of 1..Game.bags.size(bag)) {
-      if (stacks.length < PLACES && Game.bags.readSlot(bag, place, mut slot) && !slot.locked && items.any(id => id == slot.id)) {
-        stacks.push({ bag: bag, slot: place, item: slot.id, count: slot.count })
+  for (want of wanted) {
+    let left = want.count
+    for (bag of 0..Game.bags.last) {
+      for (place of 1..Game.bags.size(bag)) {
+        if (left > 0 && stacks.length < PLACES && Game.bags.readSlot(bag, place, mut slot) && !slot.locked &&
+            slot.id == want.item && slot.count <= left) {
+          stacks.push({ bag: bag, slot: place, item: slot.id, count: slot.count })
+          left -= slot.count
+        }
       }
     }
+    if (left > 0 && stacks.length < PLACES) { stacks.push({ bag: 0, slot: 0, item: want.item, count: left }) }
   }
   return stacks
 }
 
 class OfferRow implements Component {
   // The item, and whether it goes now.
-  public toggled: Event<(Integer, Boolean)> = new Event()
+  // The item, and how many of it go now: 0 while it is unticked.
+  public toggled: Event<(Integer, Integer)> = new Event()
   state checked = true
+  state count = 0
 
   offer: Signal<Offer>
   constructor(offer: Signal<Offer>) {
     self.offer = offer
-    watch (on of self.checked) { self.toggled.emit(self.offer.item, on) }
+    self.count = peek self.offer.count
+    watch { self.toggled.emit(self.offer.item, self.checked ? self.count : 0) }
   }
 
   public render(self): Template {
@@ -190,7 +200,7 @@ class OfferRow implements Component {
           <text value={self.offer.name} textColor={Style.INK} wrap={false} />
           <text value={self.offer.why} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={false} />
         </box>
-        <text value={String.of(self.offer.count)} textColor={Style.INK} />
+        <CountInput value={mut self.count} least={1} most={self.offer.count} disabled={!self.checked} />
       </box>
     }
   }
@@ -198,19 +208,19 @@ class OfferRow implements Component {
 
 class CharacterOffers implements Component {
   public send: Event<OwnRow> = new Event()
-  public toggled: Event<(String, Boolean)> = new Event()
+  public toggled: Event<(String, Integer)> = new Event()
 
-  derived ticked: Integer = self.row.offers.filter(offer => self.off[`${self.row.who}:${offer.item}`] != true).length
+  derived ticked: Integer = self.row.offers.filter(offer => (self.chosen[`${self.row.who}:${offer.item}`] ?? offer.count) > 0).length
   derived label: String = Locale.OWN_SEND.format(self.row.name, self.ticked)
 
   row: Signal<OwnRow>
-  off: Signal<Map<String, Boolean>>
-  constructor(row: Signal<OwnRow>, off: Signal<Map<String, Boolean>>) {
+  chosen: Signal<Map<String, Integer>>
+  constructor(row: Signal<OwnRow>, chosen: Signal<Map<String, Integer>>) {
     self.row = row
-    self.off = off
+    self.chosen = chosen
   }
 
-  onToggle(mut self, item: Integer, on: Boolean) { self.toggled.emit(`${self.row.who}:${item}`, on) }
+  onToggle(mut self, item: Integer, count: Integer) { self.toggled.emit(`${self.row.who}:${item}`, count) }
   onSend(mut self) { self.send.emit(self.row) }
 
   public render(self): Template {
@@ -276,8 +286,8 @@ class AskedRow implements Component {
 }
 
 public class OwnTab implements Component {
-  // The rows unticked, by «who:item».
-  state off: Map<String, Boolean> = {}
+  // How many of each item go, by «who:item»: 0 for one unticked; the whole of what the bags hold where unset.
+  state chosen: Map<String, Integer> = {}
   derived noAlts: Boolean = self.alts == nil
   derived names: Array<String> = self.namesOf()
   derived alone: Boolean = !self.noAlts && self.names.length == 0
@@ -324,18 +334,22 @@ public class OwnTab implements Component {
     return self.requests.values.list.any(r => r.from == self.me && r.to == lack.holder && r.item == lack.item)
   }
 
-  onToggle(mut self, key: String, on: Boolean) {
-    const before = peek self.off
-    if ((before[key] != true) == on) { return }
+  onToggle(mut self, key: String, count: Integer) {
+    const before = peek self.chosen
+    if (before[key] == count) { return }
     const next = before.clone()
-    next[key] = !on
-    self.off = next
+    next[key] = count
+    self.chosen = next
   }
 
   onSend(mut self, row: OwnRow) {
-    const off = peek self.off
-    const items = row.offers.filter(offer => off[`${row.who}:${offer.item}`] != true).map(offer => offer.item)
-    const stacks = stacksOf(items)
+    const chosen = peek self.chosen
+    const wanted: Array<Game.MailStack> = []
+    for (offer of row.offers) {
+      const count = chosen[`${row.who}:${offer.item}`] ?? offer.count
+      if (count > 0) { wanted.push({ bag: 0, slot: 0, item: offer.item, count: count }) }
+    }
+    const stacks = stacksOf(wanted)
     if (stacks.length == 0) { return }
     self.sender.put(row.name, Locale.OWN_SUBJECT, "", stacks, 0, 0)
   }
@@ -386,7 +400,7 @@ public class OwnTab implements Component {
         </box>
         <box $else columns={1} gap={3sp} overflow={Overflow.Scroll}>
           <text value={Locale.SEND_TO_OWN} textSize={TITLE_TEXT} lineHeight={TITLE_LINE} textColor={Style.GOLD} />
-          <CharacterOffers $for={row of self.rows} $key={row.who} row={row} off={self.off} @send={self.onSend}
+          <CharacterOffers $for={row of self.rows} $key={row.who} row={row} chosen={self.chosen} @send={self.onSend}
                            @toggled={self.onToggle} />
           <text value={Locale.REQUESTS} textSize={TITLE_TEXT} lineHeight={TITLE_LINE} textColor={Style.GOLD} />
           <text $if={self.lacks.length == 0} value={Locale.REQUESTS_NONE} textColor={Style.DIM} textSize={SECONDARY_TEXT} />
