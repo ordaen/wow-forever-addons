@@ -1,7 +1,7 @@
 // The character window's look: its size at the player's scale, the paper doll's measures and the colours of what a
 // stat, a slot or a faction says. Every gap and padding is counted in Ordaen's spacing unit (`sp`); a row is as tall as
 // its text.
-import { Edges, Fr } from "$ltml"
+import { Edges, Fr, Line } from "$ltml"
 
 // The window's body, and the least it is drawn at (a window kept smaller, from an older save, is drawn at this).
 public const WIDTH: Number<Length> = 1400dp
@@ -83,6 +83,13 @@ public const NATURE: Color = Color.hex("#59a84b")
 public const FROST: Color = Color.hex("#5f9fcf")
 public const SHADOW: Color = Color.hex("#8a6bc4")
 public const ARCANE: Color = Color.hex("#c27bc0")
+// A source of the stat whose tooltip is open: a gold rim and a gold light over it; an item's share in a gold badge
+// under its slot, its digits dark.
+public const SOURCE_RIM: Line = { width: 2.34375dp, color: Color.hex("#ffd100") }
+public const SOURCE_GLOW: Color = Color.hex("#ffd10026")
+public const SHARE: Color = Color.hex("#ffd100")
+public const SHARE_INK: Color = Color.hex("#1a1206")
+public const SHARE_PAD: Edges = { right: 1sp, left: 1sp }
 // The flyout over the model.
 public const FLYOUT: Color = Color.hex("#000000d9")
 public const HEALTH: Color = Color.hex("#1d9a2a")

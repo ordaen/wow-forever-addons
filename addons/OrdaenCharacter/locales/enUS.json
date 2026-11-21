@@ -68,5 +68,18 @@
   "EXPERTISE": "Expertise",
   "SPELL_PENETRATION": "Spell Penetration",
   "CASTING_REGEN": "Mana While Casting",
-  "PER_FIVE": "/5 s"
+  "PER_FIVE": "/5 s",
+  "HEALTH": "Health",
+  "MANA": "Mana",
+  "ARMOR": "Armor",
+  "FIRE_RESISTANCE": "Fire Resistance",
+  "NATURE_RESISTANCE": "Nature Resistance",
+  "FROST_RESISTANCE": "Frost Resistance",
+  "SHADOW_RESISTANCE": "Shadow Resistance",
+  "ARCANE_RESISTANCE": "Arcane Resistance",
+  "SPELL_DAMAGE": "Spell Damage",
+  "BASE": "Base",
+  "FROM_STATS": "Stats",
+  "FROM_ITEMS": "Items",
+  "FROM_EFFECTS": "Effects"
 }
