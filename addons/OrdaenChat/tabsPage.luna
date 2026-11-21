@@ -1,14 +1,16 @@
 // «Tabs», the chat's page in the settings window: what each of the game's chat windows shows and its own settings,
 // in place of Blizzard's chat settings. The windows in a sidebar, one picked, «New tab» under them; beside it the
 // picked one's name, its font's size, locked or not, the count of its unread lines, how its channels are named and
-// «Close tab» (not for the game's General and combat log); then the game's message groups in the sections of its own
-// chat settings, in its words, and each channel the character is in, with whether the tab shows it. Every change
-// applies at once; what a window shows is read anew from the game each time.
+// «Close tab» (not for the game's General and combat log); then what the tab shows, with whether it does: «Общие», the
+// kinds of speech (talks.luna); «Каналы», each channel the character is in; «Сообщества», each community's stream;
+// «Системы», the game's own messages, in its words. Every change applies at once; what a window shows is read anew
+// from the game each time.
 import Game from "$game"
 import { Align } from "$ltml"
 import { ButtonPlate, Checkbox, Choice, Component, Field, ListTab, NumberInput, PushButton, Section, Segmented, SettingRow, Settings, Switch, Unit } from "Ordaen"
 import { ChannelName, Choices, TabChoices, tabDefaults, tabKey } from "@/choices"
 import Locale from "@/locales"
+import { TalkPick, TalkRow, TalkShown, systemsOf, talkGroups, talksOf } from "@/talks"
 
 const MAX: "max-content" = "max-content"
 const SIDEBAR = 180dp
@@ -20,26 +22,9 @@ const NAMES: Array<Choice<ChannelName>> = [
   { value: ChannelName.Both, label: Locale.CHANNEL_BOTH }
 ]
 
-// The message groups of one section of the game's chat settings.
-struct GroupSection {
-  title: String
-  groups: Array<Game.ChatGroup>
-}
-
-// The groups, in the order the game lists them, cut where their section changes.
-function sectionsOf(groups: Array<Game.ChatGroup>): Array<GroupSection> {
-  const sections: Array<GroupSection> = []
-  let last: Game.ChatSection | nil = nil
-  let current: Array<Game.ChatGroup> = []
-  for (group of groups) {
-    if (group.section != last) {
-      current = []
-      sections.push({ title: Game.chat.sectionName(group.section), groups: current })
-      last = group.section
-    }
-    current.push(group)
-  }
-  return sections
+// A community's stream's key among the rows.
+function streamKey(stream: Game.ChatStream): String {
+  return `${stream.club}:${stream.stream}`
 }
 
 // The windows' own settings with one window's set (nil: taken away).
@@ -93,8 +78,11 @@ public class TabsPage implements Component {
   derived chosen: Game.ChatWindow | nil = Game.chat.windows.find(window => window.index == self.window)
   // Moved by each change of what the window shows, so what it shows is read anew.
   state version = 0
-  derived sections: Array<GroupSection> = self.version >= 0 ? sectionsOf(Game.chat.groups(self.window)) : []
+  derived groups: Array<Game.ChatGroup> = self.version >= 0 ? Game.chat.groups(self.window) : []
+  derived talks: Array<TalkShown> = talksOf(self.groups)
+  derived systems: Array<Game.ChatGroup> = systemsOf(self.groups)
   derived channels: Array<Game.ChatShown> = self.version >= 0 ? Game.chat.channels(self.window) : []
+  derived communities: Array<Game.ChatCommunity> = self.version >= 0 ? Game.chat.communities(self.window) : []
   derived closable: Boolean = self.window > 2
   state name = ""
   state size: Number = 14
@@ -154,8 +142,24 @@ public class TabsPage implements Component {
     self.version = (peek self.version) + 1
   }
 
+  // A kind of speech: each of its groups the client has, shown or not for whose lines.
+  onTalk(mut self, pick: TalkPick) {
+    const window = peek self.window
+    const known = peek self.groups
+    for (group of talkGroups(pick.key, pick.speakers)) {
+      if (known.any(each => each.name == group.name)) { Game.chat.showGroup(window, group.name, group.shown) }
+    }
+    self.version = (peek self.version) + 1
+  }
+
   onChannel(mut self, channel: Game.ChatShown) {
     Game.chat.showChannel(peek self.window, channel.name, channel.shown)
+    self.version = (peek self.version) + 1
+  }
+
+  onCommunity(mut self, row: Game.ChatShown) {
+    const community = (peek self.communities).find(each => streamKey(each.stream) == row.name)
+    if (community != nil) { Game.chat.showCommunity(peek self.window, community.stream, row.shown) }
     self.version = (peek self.version) + 1
   }
 
@@ -199,12 +203,19 @@ public class TabsPage implements Component {
             <PushButton label={Locale.TAB_CLOSE} width={BUTTON} plate={ButtonPlate.Accent} disabled={!self.closable}
                         @click={self.onClose} />
           </Section>
-          <Section $for={section of self.sections} title={section.title}>
-            <ShownRow $for={group of section.groups} item={{ name: group.name, shown: group.shown }} label={group.label}
-                      @toggled={self.onGroup} />
+          <Section title={Locale.TAB_TALKS}>
+            <TalkRow $for={talk of self.talks} item={talk} @picked={self.onTalk} />
           </Section>
           <Section title={Locale.TAB_CHANNELS}>
             <ShownRow $for={channel of self.channels} item={channel} label={channel.name} @toggled={self.onChannel} />
+          </Section>
+          <Section title={Locale.TAB_COMMUNITIES}>
+            <ShownRow $for={community of self.communities} item={{ name: streamKey(community.stream), shown: community.shown }}
+                      label={community.stream.name} @toggled={self.onCommunity} />
+          </Section>
+          <Section title={Locale.TAB_SYSTEMS}>
+            <ShownRow $for={group of self.systems} item={{ name: group.name, shown: group.shown }} label={group.label}
+                      @toggled={self.onGroup} />
           </Section>
         </box>
       </box>
