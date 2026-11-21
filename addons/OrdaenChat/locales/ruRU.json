@@ -63,8 +63,17 @@
   "TAB_TALKS": "Общие",
   "TAB_COMMUNITIES": "Сообщества",
   "TAB_SYSTEMS": "Системы",
-  "SPEAKERS_NONE": "Нет",
+  "CHOICE_NONE": "Нет",
   "SPEAKERS_PLAYERS": "Игроки",
   "SPEAKERS_CREATURES": "NPC",
-  "SPEAKERS_ALL": "Все"
+  "CHOICE_ALL": "Все",
+  "ACHIEVEMENTS": "Достижения",
+  "ACHIEVEMENTS_NEARBY": "Рядом",
+  "ACHIEVEMENTS_GUILD": "Гильдия",
+  "SYSTEMS_PROGRESS": "Развитие",
+  "SYSTEMS_LOOT": "Добыча",
+  "SYSTEMS_BATTLEGROUND": "Поле боя",
+  "SYSTEMS_GAME": "Игра",
+  "BATTLEGROUND_NEWS": "Объявления поля боя",
+  "CHANNEL_NOTICES": "Уведомления каналов"
 }

@@ -1,0 +1,221 @@
+// What a tab shows of the game's message groups, as the «Вкладки» page lists it: rows over the client's groups
+// (Blizzard keeps a group for a party's leader, a raid's warning, an NPC's say, each battleground's faction), in
+// sections. A row of one part is a check; a row of two (players' lines and NPCs', achievements nearby and the
+// guild's) is a choice of none, either or both. «Общие» is the kinds of speech; «Системы» the game's own messages,
+// where every group the client has that no row covers stands among «Игра», in the game's words. The group that
+// carries the communities' lines is no row: the tab shows it while it shows a community.
+import Game from "$game"
+import { Checkbox, Choice, Component, Dropdown } from "Ordaen"
+import Locale from "@/locales"
+
+// What of a row of two parts a tab shows.
+public enum Pair { None = "none", First = "first", Second = "second", Both = "both" }
+
+// The words of a row's choice: whose speech, whose achievements.
+public enum PairWords { Speakers = "speakers", Achievements = "achievements" }
+
+// A row: the client's groups of its first part and of its second (none for a row of one), its words where they
+// aren't the game's name of its first group, and, for a row of two, the words of its choice.
+public struct GroupRow {
+  first: Array<String>
+  second: Array<String>
+  label: String | nil
+  words: PairWords | nil
+}
+
+// A section of rows under its title.
+public struct RowSection {
+  title: String
+  rows: Array<GroupRow>
+}
+
+// The group that carries the communities' lines into a window.
+public const COMMUNITIES = "COMMUNITIES_CHANNEL"
+// The group of a channel's notices (joined, left), on «Каналы».
+public const CHANNEL_NOTICES = "CHANNEL"
+
+function one(groups: Array<String>): GroupRow {
+  return { first: groups, second: [], label: nil, words: nil }
+}
+
+function speech(players: Array<String>, creatures: Array<String>): GroupRow {
+  return { first: players, second: creatures, label: nil, words: .Speakers }
+}
+
+// The kinds of speech: NPCs' and bosses' whispers with say, bosses' emotes with emote.
+public const TALKS: Array<GroupRow> = [
+  speech(["SAY"], ["MONSTER_SAY", "MONSTER_WHISPER", "MONSTER_BOSS_WHISPER"]),
+  speech(["YELL"], ["MONSTER_YELL"]),
+  speech(["EMOTE"], ["MONSTER_EMOTE", "MONSTER_BOSS_EMOTE"]),
+  one(["WHISPER", "BN_WHISPER"]),
+  one(["PARTY", "PARTY_LEADER"]),
+  one(["RAID", "RAID_LEADER", "RAID_WARNING"]),
+  one(["INSTANCE_CHAT", "INSTANCE_CHAT_LEADER"]),
+  one(["GUILD"]),
+  one(["OFFICER"])
+]
+
+// The game's own messages, by what they are about. The last, «Игра», takes every other group the client has after its
+// rows.
+public const SYSTEMS: Array<RowSection> = [
+  {
+    title: Locale.SYSTEMS_PROGRESS,
+    rows: [
+      one(["COMBAT_XP_GAIN"]), one(["COMBAT_HONOR_GAIN"]), one(["COMBAT_FACTION_CHANGE"]), one(["SKILL"]),
+      one(["TRADESKILLS"]),
+      { first: ["ACHIEVEMENT"], second: ["GUILD_ACHIEVEMENT"], label: Locale.ACHIEVEMENTS, words: .Achievements }
+    ]
+  },
+  { title: Locale.SYSTEMS_LOOT, rows: [one(["LOOT"]), one(["MONEY"]), one(["CURRENCY"]), one(["OPENING"])] },
+  {
+    title: Locale.SYSTEMS_BATTLEGROUND,
+    rows: [{ first: ["BG_HORDE", "BG_ALLIANCE", "BG_NEUTRAL"], second: [], label: Locale.BATTLEGROUND_NEWS, words: nil }]
+  },
+  {
+    title: Locale.SYSTEMS_GAME,
+    rows: [
+      one(["SYSTEM"]), one(["ERRORS"]), one(["IGNORED"]), one(["TARGETICONS"]), one(["PING"]), one(["PET_INFO"]),
+      one(["PET_BATTLE_INFO", "PET_BATTLE_COMBAT_LOG"]), one(["COMBAT_MISC_INFO"]), one(["BN_INLINE_TOAST_ALERT"])
+    ]
+  }
+]
+
+// The channels' notices' row, on «Каналы».
+public const NOTICES: GroupRow = { first: [CHANNEL_NOTICES], second: [], label: Locale.CHANNEL_NOTICES, words: nil }
+
+// A row as a window shows it: its first group's name (its key), its words, and what of it the window shows.
+public struct RowShown {
+  key: String
+  label: String
+  // A row of two: its choice's words.
+  words: PairWords | nil
+  pair: Pair
+}
+
+// A section's rows as a window shows them.
+public struct SectionShown {
+  title: String
+  rows: Array<RowShown>
+}
+
+// A row picked to show this much.
+public struct RowPick {
+  key: String
+  pair: Pair
+}
+
+function pairOf(first: Boolean, second: Boolean): Pair {
+  if (first && second) { return .Both }
+  if (first) { return .First }
+  return second ? .Second : .None
+}
+
+// Whether a part's groups the client has are shown: the first of them speaks for them all.
+function partShown(names: Array<String>, groups: Array<Game.ChatGroup>): Boolean {
+  return groups.find(group => names.any(name => name == group.name))?.shown == true
+}
+
+// The rows the client has (one of its first part's groups), as the window's groups show them.
+public function rowsOf(rows: Array<GroupRow>, groups: Array<Game.ChatGroup>): Array<RowShown> {
+  const shown: Array<RowShown> = []
+  for (row of rows) {
+    const first = groups.find(group => row.first.any(name => name == group.name))
+    if (first != nil) {
+      shown.push({
+        key: row.first[1] ?? first.name, label: row.label ?? first.label, words: row.words,
+        pair: pairOf(first.shown, partShown(row.second, groups))
+      })
+    }
+  }
+  return shown
+}
+
+// Every row of the page: the speech, the systems' sections, the channels' notices.
+function allRows(): Array<GroupRow> {
+  const rows: Array<GroupRow> = []
+  for (row of TALKS) { rows.push(row) }
+  for (section of SYSTEMS) {
+    for (row of section.rows) { rows.push(row) }
+  }
+  rows.push(NOTICES)
+  return rows
+}
+
+// Whether a row covers the group (the communities' carrier is the page's own).
+function covered(rows: Array<GroupRow>, name: String): Boolean {
+  return name == COMMUNITIES || rows.any(row => row.first.any(each => each == name) || row.second.any(each => each == name))
+}
+
+// The systems' sections as the window shows them: the last takes every group no row covers, in the game's words.
+public function systemsOf(groups: Array<Game.ChatGroup>): Array<SectionShown> {
+  const every = allRows()
+  const sections: Array<SectionShown> = []
+  for (at, section of SYSTEMS) {
+    const rows: Array<RowShown> = []
+    for (row of rowsOf(section.rows, groups)) { rows.push(row) }
+    if (at == SYSTEMS.length) {
+      for (group of groups) {
+        if (!covered(every, group.name)) { rows.push({ key: group.name, label: group.label, words: nil, pair: group.shown ? .First : .None }) }
+      }
+    }
+    if (rows.length > 0) { sections.push({ title: section.title, rows: rows }) }
+  }
+  return sections
+}
+
+// Each group a row shows or not for what of it is picked; a group no row covers is its own row.
+public function rowGroups(key: String, pair: Pair): Array<Game.ChatShown> {
+  const row = allRows().find(each => each.first[1] == key) ?? one([key])
+  const first = pair == .First || pair == .Both
+  const second = pair == .Second || pair == .Both
+  const groups: Array<Game.ChatShown> = []
+  for (name of row.first) { groups.push({ name: name, shown: first }) }
+  for (name of row.second) { groups.push({ name: name, shown: second }) }
+  return groups
+}
+
+const SPEAKERS: Array<Choice<Pair>> = [
+  { value: Pair.None, label: Locale.CHOICE_NONE },
+  { value: Pair.First, label: Locale.SPEAKERS_PLAYERS },
+  { value: Pair.Second, label: Locale.SPEAKERS_CREATURES },
+  { value: Pair.Both, label: Locale.CHOICE_ALL }
+]
+
+const ACHIEVEMENTS: Array<Choice<Pair>> = [
+  { value: Pair.None, label: Locale.CHOICE_NONE },
+  { value: Pair.First, label: Locale.ACHIEVEMENTS_NEARBY },
+  { value: Pair.Second, label: Locale.ACHIEVEMENTS_GUILD },
+  { value: Pair.Both, label: Locale.CHOICE_ALL }
+]
+
+// A row: a choice for a row of two, else a check. It shows what each read of the game says.
+public class GroupRowView implements Component {
+  public picked: Event<RowPick> = new Event()
+  state pair: Pair = .None
+  state on = false
+  item: Signal<RowShown>
+  constructor(item: Signal<RowShown>) {
+    self.item = item
+    watch (read of self.item) {
+      self.pair = read.pair
+      self.on = read.pair != .None
+    }
+    watch (pair of self.pair) {
+      const read = peek self.item
+      if (pair != read.pair) { self.picked.emit({ key: read.key, pair: pair }) }
+    }
+    watch (on of self.on) {
+      const read = peek self.item
+      if (on != (read.pair != .None)) { self.picked.emit({ key: read.key, pair: on ? .First : .None }) }
+    }
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <Dropdown $if={self.item.words == PairWords.Speakers} label={self.item.label} value={mut self.pair} choices={SPEAKERS} />
+      <Dropdown $if={self.item.words == PairWords.Achievements} label={self.item.label} value={mut self.pair}
+                choices={ACHIEVEMENTS} />
+      <Checkbox $if={self.item.words == nil} label={self.item.label} value={mut self.on} />
+    }
+  }
+}
