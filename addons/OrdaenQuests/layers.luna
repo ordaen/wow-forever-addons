@@ -1,5 +1,6 @@
 // What Quests puts on Ordaen Map: where the tracked quests' objectives are, whom to hand a tracked quest that is
-// done, and a dungeon's quests on its card. Each pin is a spot QuestieDB knows; a quest it doesn't know has none. Both are added to Map's `layers` while
+// done (and the same of the quest the player asked to see on the map, tracked or not), and a dungeon's quests on its
+// card. Each pin is a spot QuestieDB knows; a quest it doesn't know has none. Both are added to Map's `layers` while
 // Map is on, by the root.
 import Game from "$game"
 import type { DungeonSection, Layer, Pin } from "OrdaenMap"
@@ -29,6 +30,16 @@ public enum PinKind {
   TurnIns
 }
 
+// The area a quest leads to: where its first objective is while it is to do, whom to hand it to once done; else the
+// zone QuestieDB puts it in; nil where it says neither.
+public function leadsTo(quest: LogQuest, facts: QuestFacts): Integer | nil {
+  for (figure of quest.done ? facts.takers : facts.targets) {
+    const spot = figure.spots[1]
+    if (spot != nil) { return spot.area }
+  }
+  return facts.zone > 0 ? facts.zone : nil
+}
+
 const OBJECTIVE: Asset = "Interface/GossipFrame/IncompleteQuestIcon"
 const TURN_IN: Asset = "Interface/GossipFrame/ActiveQuestIcon"
 
@@ -41,17 +52,21 @@ public class QuestPins implements Layer {
   quests: Signal<Array<LogQuest>>
   facts: Signal<Map<Integer, QuestFacts>>
   hovered: Signal<Integer>
+  shown: Signal<Integer>
   constructor(
     kind: PinKind,
     quests: Signal<Array<LogQuest>>,
     facts: Signal<Map<Integer, QuestFacts>>,
     // The quest under the cursor in the log (0: none): its pins are lit.
-    hovered: Signal<Integer> = 0
+    hovered: Signal<Integer> = 0,
+    // The quest the player asked to see on the map (0: none): its pins show, tracked or not, and are lit.
+    shown: Signal<Integer> = 0
   ) {
     self.kind = kind
     self.quests = quests
     self.facts = facts
     self.hovered = hovered
+    self.shown = shown
     self.id = kind == .Objectives ? "quests.objectives" : "quests.turnIns"
     self.title = kind == .Objectives ? Locale.LAYER_OBJECTIVES : Locale.LAYER_TURN_INS
     self.hint = kind == .Objectives ? Locale.LAYER_OBJECTIVES_TIP : Locale.LAYER_TURN_INS_TIP
@@ -59,7 +74,7 @@ public class QuestPins implements Layer {
 
   // The figures of the quest this layer shows, and their pins' icon; none where it shows nothing of it.
   figuresOf(self, quest: LogQuest, facts: QuestFacts): Array<Figure> {
-    if (!quest.tracked) { return [] }
+    if (!quest.tracked && quest.id != self.shown) { return [] }
     return match (self.kind) {
       .Objectives => quest.done ? [] : facts.targets
       .TurnIns => quest.done ? facts.takers : []
@@ -74,7 +89,7 @@ public class QuestPins implements Layer {
       if (facts != nil) {
         for (figure of self.figuresOf(quest, facts)) {
           for (spot of figure.spots) {
-            pins.push({ of: quest.id, area: spot.area, x: spot.x, y: spot.y, icon: icon, lit: quest.id == self.hovered })
+            pins.push({ of: quest.id, area: spot.area, x: spot.x, y: spot.y, icon: icon, lit: quest.id == self.hovered || quest.id == self.shown })
           }
         }
       }

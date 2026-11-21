@@ -9,6 +9,15 @@ public enum ChannelName implements Plain { Number = "number", Name = "name", Bot
 // The least width the player may choose (in dp): a window's least body, Ordaen's `WINDOW_MIN_WIDTH`. The chat stands
 // wider where its tabs and the lines' own least need it.
 public const LEAST_WIDTH: Integer = (WINDOW_MIN_WIDTH / 1dp).ceil()
+// The least height of the lines the player may choose (in dp): eight lines of the body's font. The chat stands
+// taller where its tabs need it.
+public const LEAST_HEIGHT = 150
+
+// The chat's size as the settings keep it (in dp): its whole width, the lines' height.
+public struct ChatSize {
+  width: Number
+  height: Number
+}
 
 public struct Choices implements Plain {
   // The chat's size.

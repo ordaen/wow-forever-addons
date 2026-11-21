@@ -151,7 +151,8 @@ surface 425,183.88 1155.76x532.25 on DIALOG clamped raised by a click
           box 1358.44,662.73 150x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
             text 1382.89,668 101.11x17.78 "Copy BattleTag" #ffd100
       box 1174.16,245.89 6.67x459.39 absolute @drag @dragStart @dragStop
-    box 1563.51,696.12 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
+    box 1563.51,696.12 13.33x13.33 absolute
+      box 1563.51,696.12 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 425,183.88 1155.76x59.42
     box 425,183.88 1067.23x59.42
       box 425,183.88 140.93x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress

@@ -35,9 +35,11 @@ function turnInOf(figures: Array<Figure>): String {
 public class TrackerLines implements QuestLines {
   facts: Signal<Map<Integer, QuestFacts>>
   const opening: (id: Integer) => Boolean
-  constructor(facts: Signal<Map<Integer, QuestFacts>>, opening: (id: Integer) => Boolean) {
+  const showing: (id: Integer) => Boolean
+  constructor(facts: Signal<Map<Integer, QuestFacts>>, opening: (id: Integer) => Boolean, showing: (id: Integer) => Boolean) {
     self.facts = facts
     self.opening = opening
+    self.showing = showing
   }
 
   public lines(self, quest: Integer, done: Boolean): Array<QuestLine> {
@@ -48,4 +50,6 @@ public class TrackerLines implements QuestLines {
   }
 
   public open(self, quest: Integer): Boolean { return self.opening(quest) }
+
+  public showOnMap(self, quest: Integer): Boolean { return self.showing(quest) }
 }

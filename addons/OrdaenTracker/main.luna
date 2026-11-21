@@ -156,7 +156,7 @@ public class Tracker implements Module, App {
       .Link => { if (!Game.chat.linkQuest(id)) { Game.questLog.track(id, false) } }
       .Untrack => { Game.questLog.track(id, false) }
       .SuperTrack => { Game.questLog.superTrack(peek self.superTracked == id ? 0 : id) }
-      .ShowOnMap => { Client.C_Map.OpenWorldMap(nil) }
+      .ShowOnMap => { self.showOnMap(id) }
       .Share => { Game.questLog.share(id) }
       .Abandon => { self.abandoning = id }
     }
@@ -166,6 +166,14 @@ public class Tracker implements Module, App {
   open(self, id: Integer) {
     for (entry of self.questLines) {
       if (entry.open(id)) { return }
+    }
+    Client.C_Map.OpenWorldMap(nil)
+  }
+
+  // The quest on the map: the first module that shows where it leads, else the game's map as it was.
+  showOnMap(self, id: Integer) {
+    for (entry of self.questLines) {
+      if (entry.showOnMap(id)) { return }
     }
     Client.C_Map.OpenWorldMap(nil)
   }

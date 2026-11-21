@@ -12,12 +12,13 @@
 // side of the screen from its top to its bottom, as wide as its placing says: it isn't moved or resized, and its
 // full-screen toggle still covers the screen.
 import Game from "$game"
-import { Align, Art, Bounds, ByInteractionState, Docked, Edges, Event, Layer, Overflow, Place, Point, Position, Shadow, Side, Track } from "$ltml"
+import { Align, Art, Bounds, Docked, Edges, Event, Layer, Overflow, Place, Point, Position, Shadow, Side, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import { reachAcross } from "@/art"
 import { Component } from "@/module"
 import { Hold, kept } from "@/onScreen"
 import { ModuleMemory } from "@/settings"
+import { SizeGrip } from "@/sizeGrip"
 import { Tip } from "@/tip"
 import { BODY_LINE, SECONDARY_TEXT, WINDOW_ROOM } from "@/units"
 
@@ -423,8 +424,6 @@ public class Window implements Component {
     bottom: Ordaen.spacingOf(self.lineTop - (self.bodyReach + Ordaen.art.frame.small.inset) * 1ui)
   }
   derived bodyReach: Number = Ordaen.art.frame.small.reach.top * Ordaen.art.frame.small.scale
-  derived grip: ByInteractionState<Art> = self.gripOf()
-
   tabs: Signal<Array<WindowTabSpec>>
   selected: mut Signal<Integer>
   minWidth: Signal<Number<Length>>
@@ -694,10 +693,6 @@ public class Window implements Component {
     }
   }
 
-  gripOf(self): ByInteractionState<Art> {
-    return { default: Ordaen.art.ctl.grip, hover: Ordaen.art.ctl.gripHover, pressed: Ordaen.art.ctl.gripDown }
-  }
-
   toggleFull(mut self) {
     const full = !self.full
     self.full = full
@@ -805,9 +800,9 @@ public class Window implements Component {
             <box position={Position.Absolute} left={0ui} top={0ui} bottom={0ui} width={SIDE_HANDLE}
                  @dragStart={self.onSideGrab} @drag={self.onSide} @dragStop={self.onSideSettle} />
           </box>
-          <box $if={self.free} position={Position.Absolute} right={2.34375dp} bottom={2.34375dp} width={18.75dp}
-               height={18.75dp} background={self.grip} @dragStart={self.onGrabSize} @drag={self.onSize}
-               @dragStop={self.onSettle} />
+          <box $if={self.free} position={Position.Absolute} right={2.34375dp} bottom={2.34375dp}>
+            <SizeGrip @grab={self.onGrabSize} @drag={self.onSize} @drop={self.onSettle} />
+          </box>
         </box>
         // The tab row: the tabs from the left, the control group at the right, standing on the body's top line as the
         // tabs do. The row is the surface's least width: the window is never narrower than its tabs and its controls.

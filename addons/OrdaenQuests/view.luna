@@ -11,7 +11,7 @@ import root Ordaen from "Ordaen"
 import { BODY_LINE, ButtonPlate, Component, Experience, Menu, MenuEntry, Money, PushButton, Reward, RewardView, Rewards, SCROLL_DIM, SCROLL_HEAD, SCROLL_INK, SECONDARY_TEXT, Scroll, Shown, SwitchFace, TIGHT_LINE, TITLE_TEXT, Tip, WELL_DIM, WELL_TEXT, XP_MARK_SMALL, choiceViews, logReward, questLevelColor, rowShade } from "Ordaen"
 import { LogQuest } from "@/book"
 import Locale from "@/locales"
-import { Figure, QuestFacts } from "@/questie"
+import { QuestFacts } from "@/questie"
 
 // What the player asks of a quest from its row or its page. `Link`: Shift+Left-click on its title, a chat link where a
 // chat line is open, else tracking (the game's order).
@@ -243,24 +243,14 @@ function countOf(text: String): String {
   return count
 }
 
-// The lines under the scroll (QuestieDB's), each its label and who or what: the labels in one column as wide as the
-// longest, so none is cut.
-const WHERE_COLUMNS: Array<Track> = ["max-content", { fr: 1 }]
+// The line under the scroll: its label, then the next quest's name.
+const CHAIN_COLUMNS: Array<Track> = ["max-content", { fr: 1 }]
 // The tracking switch's row: its label at the start, the switch at the page's right edge, over the Abandon button.
 const LABEL_THEN_SWITCH: Array<Track> = [{ fr: 1 }, "max-content"]
 
-// Who a list of figures is, and where the first stands: «Гриан Стаутмантл (56, 47)».
-function whoOf(figures: Array<Figure>): String {
-  const first = figures[1]
-  if (first == nil) { return "" }
-  const spot = first.spots[1]
-  if (spot == nil) { return first.name }
-  return `${first.name} (${(spot.x * 100).floor()}, ${(spot.y * 100).floor()})`
-}
-
 // The picked quest's page, as Dialogue's quest page: on the scroll its title, its story, its objectives (each wrapped,
-// its count at the right), where its giver and its turn-in are (QuestieDB's); under it what it gives, the library's
-// reward rows and band; then its tracking switch and its buttons, Abandon the accent one at the right. Abandoning
+// its count at the right); under it the next quest of its chain (QuestieDB's), what it gives, the library's reward
+// rows and band; then its tracking switch and its buttons, Abandon the accent one at the right. Abandoning
 // asks first.
 public class QuestPage implements Component {
   public act: Event<(Integer, Act)> = new Event()
@@ -269,9 +259,7 @@ public class QuestPage implements Component {
   // Its objectives under the task: one that says the task again (a quest without counted objectives, whose one
   // objective is the task's own text) isn't said twice.
   derived goals: Array<Game.QuestObjective> = self.quest.objectives.filter(objective => objective.text != self.text.task)
-  derived known: Boolean = self.facts != nil
-  derived giver: String = whoOf(self.facts?.givers ?? [])
-  derived taker: String = whoOf(self.facts?.takers ?? [])
+  // The quest after it in its chain, by QuestieDB's name; nothing where QuestieDB knows none.
   derived chain: String = self.facts?.nextName ?? ""
   derived choiceRows: Array<RewardView> = choiceViews(rewardsOf(self.text.choices, true), [])
   derived givenRows: Array<Reward> = rewardsOf(self.text.rewards, false)
@@ -303,13 +291,9 @@ public class QuestPage implements Component {
           <GoalLine $for={objective of self.goals} objective={objective} todoColor={SCROLL_INK}
                     doneColor={SCROLL_DIM} small={false} />
         </Scroll>
-        <box $if={self.known} columns={WHERE_COLUMNS} gap={1sp}>
-          <text $if={self.taker != ""} value={Locale.TAKER} textColor={WELL_DIM} />
-          <text $if={self.taker != ""} value={self.taker} textColor={WELL_TEXT} />
-          <text $if={self.giver != ""} value={Locale.GIVER} textColor={WELL_DIM} />
-          <text $if={self.giver != ""} value={self.giver} textColor={WELL_TEXT} />
-          <text $if={self.chain != ""} value={Locale.NEXT_IN_CHAIN} textColor={WELL_DIM} />
-          <text $if={self.chain != ""} value={self.chain} textColor={WELL_TEXT} />
+        <box $if={self.chain != ""} columns={CHAIN_COLUMNS} gap={3sp}>
+          <text value={Locale.NEXT_IN_CHAIN} textColor={WELL_DIM} />
+          <text value={self.chain} textColor={WELL_TEXT} />
         </box>
         <box gap={0.5sp}>
           <Rewards views={self.choiceRows} also={self.givenRows} xp={self.text.experience} money={self.text.money} />

@@ -6,10 +6,9 @@
 import Game from "$game"
 import { Align, Edges, Event, Overflow, Position, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { BODY_LINE, Component, Field, KeptWindow, SECONDARY_TEXT, Window, WindowTabSpec, timeText } from "Ordaen"
+import { BODY_LINE, Component, CountBadge, Field, KeptWindow, SECONDARY_TEXT, Window, WindowTabSpec, timeText } from "Ordaen"
 import { ChatTab, Shown } from "@/lines"
 import Locale from "@/locales"
-import { Badge } from "@/view"
 
 // Lines drawn at most, and a turn of the wheel.
 const ROWS = 80
@@ -124,12 +123,15 @@ public class TalkRow implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={[{ fr: 1 }, MAX, MAX]} gap={1sp} padding={ROW_PAD} background={self.fill} yAlign={Align.Center}
+      <box columns={[{ fr: 1 }, MAX]} gap={1sp} padding={ROW_PAD} background={self.fill} yAlign={Align.Center}
            @pointerPress={self.onPick} @keyPress(.Enter)={self.onPick} @keyPress(.Space)={self.onPick}>
-        <text value={self.talk.title} textColor={self.color} wrap={.None} />
-        // The badge's room is kept while nothing waits: the «×» stands still.
-        <box opacity={self.talk.unread > 0 ? 1 : 0}>
-          <Badge count={self.talk.unread} />
+        // The count stands over the name's right end, out of the flow: nothing moves as it comes, grows or goes.
+        <box yAlign={Align.Center}>
+          <text value={self.talk.title} textColor={self.color} wrap={.None} />
+          <box $if={self.talk.unread > 0} position={Position.Absolute} top={0ui} right={0ui} bottom={0ui}
+               yAlign={Align.Center}>
+            <CountBadge count={self.talk.unread} />
+          </box>
         </box>
         <box padding={CLOSE_PAD} @pointerPress.self={self.onForget}>
           <text value={"×"} textColor={HINT} wrap={.None} />

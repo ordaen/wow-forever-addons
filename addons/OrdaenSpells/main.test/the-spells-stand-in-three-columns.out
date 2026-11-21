@@ -6,18 +6,18 @@ surface 425,173.04 750x553.92 on DIALOG clamped raised by a click
       box 460.85,246.14 683.3x447.22
         box 460.85,246.14 683.3x29.99
           box 460.85,275.3 683.3x0.83 absolute #3e2f1d
-          box 460.85,246.14 47.76x29.99 #00000059 @keyPress @pointerPress focus ring
-            box 461.68,246.97 46.09x1.67 absolute #d6a56b
-            text 473.06,252.66 23.33x17.78 "All" #f0e6d2
-          box 511.45,246.14 76.64x29.99 #00000000 @keyPress @pointerPress
-            box 512.28,246.97 74.98x1.67 absolute #00000000
-            text 523.66,252.66 52.22x17.78 "General" #a3977f
-          box 590.94,246.14 76.64x29.99 #00000000 @keyPress @pointerPress
-            box 591.77,246.97 74.98x1.67 absolute #00000000
-            text 603.15,252.66 52.22x17.78 "Warrior" #a3977f
-          box 670.43,246.14 55.53x29.99 #00000000 @keyPress @pointerPress
-            box 671.26,246.97 53.87x1.67 absolute #00000000
-            text 682.64,252.66 31.11x17.78 "Arms" #a3977f
+          box 460.85,246.14 46.64x29.99 #00000059 @keyPress @pointerPress focus ring
+            box 461.68,246.97 44.98x1.67 absolute #d6a56b
+            text 473.06,252.66 22.22x17.78 "All" #f0e6d2
+          box 510.34,246.14 72.2x29.99 #00000000 @keyPress @pointerPress
+            box 511.17,246.97 70.53x1.67 absolute #00000000
+            text 522.55,252.66 47.78x17.78 "General" #a3977f
+          box 585.38,246.14 72.2x29.99 #00000000 @keyPress @pointerPress
+            box 586.22,246.97 70.53x1.67 absolute #00000000
+            text 597.59,252.66 47.78x17.78 "Warrior" #a3977f
+          box 660.43,246.14 53.31x29.99 #00000000 @keyPress @pointerPress
+            box 661.26,246.97 51.64x1.67 absolute #00000000
+            text 672.64,252.66 28.89x17.78 "Arms" #a3977f
         box 460.85,283.24 683.3x28.33
           box 460.85,283.24 581.23x28.33
             box 460.85,283.24 581.23x28.33 #00000080 input "" @change @submit
@@ -78,27 +78,28 @@ surface 425,173.04 750x553.92 on DIALOG clamped raised by a click
               text 729.98,367.04 178.82x17.78 "Rend (Rank 1)" #e8dcc4
               text 729.98,384.82 178.82x17.78 "Warrior. Active. Level 4" #a3977f
         box 460.85,675.58 683.3x17.78
-          box 460.85,675.58 52.98x17.78
-            text 460.85,675.58 35.56x17.78 "Shown" #a3977f
-            text 504.94,675.58 8.89x17.78 "5" #e8dcc4
-          box 530.89,675.58 104.09x17.78
-            text 530.89,675.58 86.67x17.78 "Active spells" #a3977f
-            text 626.09,675.58 8.89x17.78 "4" #e8dcc4
-          box 652.05,675.58 110.76x17.78
-            text 652.05,675.58 93.33x17.78 "Passive spells" #a3977f
-            text 753.92,675.58 8.89x17.78 "1" #e8dcc4
-    box 1157.75,706.96 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
+          box 460.85,675.58 49.64x17.78
+            text 460.85,675.58 32.22x17.78 "Shown" #a3977f
+            text 501.61,675.58 8.89x17.78 "5" #e8dcc4
+          box 527.56,675.58 98.53x17.78
+            text 527.56,675.58 81.11x17.78 "Active spells" #a3977f
+            text 617.21,675.58 8.89x17.78 "4" #e8dcc4
+          box 643.16,675.58 104.09x17.78
+            text 643.16,675.58 86.67x17.78 "Passive spells" #a3977f
+            text 738.36,675.58 8.89x17.78 "1" #e8dcc4
+    box 1157.75,706.96 13.33x13.33 absolute
+      box 1157.75,706.96 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 425,173.04 750x47.75
     box 425,173.04 661.47x47.75
       box 425,173.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
         box 443.78,183.29 76.93x34.25
-          text 460.03,191.53 44.44x17.78 "Spells" #ffd100
+          text 461.14,191.53 42.22x17.78 "Spells" #ffd100
       box 549.46,173.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
         box 568.24,183.29 76.93x34.25
-          text 580.59,191.53 52.22x17.78 "Primary" #a3977f
+          text 582.82,191.53 47.78x17.78 "Primary" #a3977f
       box 673.91,173.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
         box 692.69,183.29 76.93x34.25
-          text 698.38,191.53 65.56x17.78 "Secondary" #a3977f
+          text 700.61,191.53 61.11x17.78 "Secondary" #a3977f
     box 1095,189.37 80x31.42
       box 1095,189.37 80x26.67 clipped
         box 1095,189.37 27.5x26.67 absolute clipped @keyPress @pointerPress

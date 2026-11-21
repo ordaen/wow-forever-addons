@@ -25,6 +25,8 @@ class TestHost implements MapHost {
   public shown(self): Boolean { return true }
   public docked(self): Boolean { return self.isDocked }
   public dock(mut self, on: Boolean) { self.isDocked = on }
+  public opened: mut Array<Integer> = []
+  public open(mut self, area: Integer) { self.opened.push(area) }
   public place(mut self, pin: Pin): Placed | nil { return pin.area == 40 ? { pin: pin, x: pin.x, y: pin.y } : nil }
   public draw(mut self, placed: Array<Placed>, lines: Array<Array<String>>) {
     self.drawn = placed

@@ -5,7 +5,8 @@ surface 450,331.38 400x237.25 on DIALOG clamped raised by a click
   box 450,368.62 400x200 absolute Interface\AddOns\Ordaen\media\window-wood border=UI-Frame-Metal-CornerTopLeft
     box 463.09,381.72 378.81x176.06
       box 485.85,404.47 333.3x130.55 #30302a @keyPress @pointerPress
-    box 832.75,548.62 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
+    box 832.75,548.62 13.33x13.33 absolute
+      box 832.75,548.62 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 450,331.38 400x47.75
     box 450,331.38 336.47x47.75
       box 450,331.38 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
@@ -23,7 +24,8 @@ surface 600,331.38 400x437.25 on DIALOG clamped raised by a click
   box 600,368.62 400x400 absolute Interface\AddOns\Ordaen\media\window-wood border=UI-Frame-Metal-CornerTopLeft
     box 613.09,381.72 378.81x376.06
       box 635.85,404.47 333.3x330.55 #30302a @keyPress @pointerPress
-    box 982.75,748.62 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
+    box 982.75,748.62 13.33x13.33 absolute
+      box 982.75,748.62 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 600,331.38 400x47.75
     box 600,331.38 336.47x47.75
       box 600,331.38 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
@@ -41,7 +43,8 @@ surface 750,331.38 400x237.25 on DIALOG clamped raised by a click
   box 750,368.62 400x200 absolute Interface\AddOns\Ordaen\media\window-wood border=UI-Frame-Metal-CornerTopLeft
     box 763.09,381.72 378.81x176.06
       box 785.85,404.47 333.3x130.55 #30302a @keyPress @pointerPress
-    box 1132.75,548.62 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
+    box 1132.75,548.62 13.33x13.33 absolute
+      box 1132.75,548.62 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 750,331.38 400x47.75
     box 750,331.38 336.47x47.75
       box 750,331.38 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress

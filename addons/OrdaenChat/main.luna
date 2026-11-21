@@ -11,7 +11,7 @@ import { Anchored, Event, Point } from "$ltml"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
 import { CopyBox, Dialog, Field, KeptWindow, Module, Placed, PushButton, Settings, SettingsPage, timeText } from "Ordaen"
-import { ChannelName, Choices, LEAST_WIDTH } from "@/choices"
+import { ChannelName, ChatSize, Choices, LEAST_HEIGHT, LEAST_WIDTH } from "@/choices"
 import { ChatTab, Kept, KeptTab, Shown, channelOf, linked, marks, talkKey, talkLine, wordsOf } from "@/lines"
 import Locale from "@/locales"
 import { NamePick, Pane, TabPick, nameOf } from "@/pane"
@@ -69,9 +69,12 @@ public class Chat implements Module, App {
   public state talkOpen = ""
   whisperWindow: mut KeptWindow = new KeptWindow("whispers", Locale.WHISPERS, { x: 0ui, y: 0ui, width: WHISPERS_LEAST, height: 330dp })
 
-  // Never under the least: a width kept from before stands at it.
-  derived width: Number<Length> = self.settings.values.width.max(LEAST_WIDTH) * 1dp
-  derived height: Number<Length> = self.settings.values.height * 1dp
+  // The size while the grip is dragged (in dp), kept as it is let go; where the drag began.
+  state sizing: ChatSize | nil = nil
+  sizedFrom: ChatSize = { width: 0, height: 0 }
+  // Never under the least: a size kept from before stands at it.
+  derived width: Number<Length> = (self.sizing?.width ?? self.settings.values.width).max(LEAST_WIDTH) * 1dp
+  derived height: Number<Length> = (self.sizing?.height ?? self.settings.values.height).max(LEAST_HEIGHT) * 1dp
   derived fade: Integer = self.settings.values.fade
   derived inputAlways: Boolean = self.settings.values.inputAlways
   derived words: Array<String> = wordsOf(self.settings.values.keywords, Game.player.name)
@@ -342,16 +345,46 @@ public class Chat implements Module, App {
     self.talks = talks
   }
 
+  // The grip in the chat's top right corner taken: the chat stands by its bottom left, so it grows to the right and
+  // up, up to the screen's edges and down to the least the settings allow. The chat is drawn never narrower than its
+  // tabs and its lines need, whatever width is chosen.
+  // The drag starts from the width drawn (the room's least as it is taken), which may be more than the width chosen.
+  onSizeGrab(mut self, drag: Event.Drag) {
+    self.sizedFrom = { width: drag.room.leastWidth / 1dp, height: (peek self.height) / 1dp }
+  }
+
+  onSize(mut self, drag: Event.Drag) {
+    const right = drag.dx.min(drag.room.right) / 1dp
+    const up = -(drag.dy.max(-drag.room.up) / 1dp)
+    self.sizing = ChatSize {
+      width: (self.sizedFrom.width + right).max(LEAST_WIDTH).round(),
+      height: (self.sizedFrom.height + up).max(LEAST_HEIGHT).round()
+    }
+  }
+
+  onSizeDrop(mut self) {
+    const sized = peek self.sizing
+    if (sized != nil) {
+      self.settings.change((values: mut Choices): nil => {
+        values.width = sized.width
+        values.height = sized.height
+      })
+    }
+    self.sizing = nil
+  }
+
   public render(self): Template {
     return $ltml {
       <Placed id={"OrdaenChat.chat"} title={Locale.TITLE} home={HOME}>
         <Pane tabs={self.tabs} openKey={self.open?.key ?? ""} width={self.width} height={self.height} fade={self.fade}
               input={Game.chat.input} typing={Game.chat.typing} inputAlways={self.inputAlways} @picked={self.onPick}
-              @tabPicked={self.onTab} @namePicked={self.onName} @link={self.onLink} />
+              @tabPicked={self.onTab} @namePicked={self.onName} @link={self.onLink} @sizeGrab={self.onSizeGrab}
+              @size={self.onSize} @sizeDrop={self.onSizeDrop} />
       </Placed>
       <Placed $for={tab of self.undocked} id={`OrdaenChat.${(peek tab).key}`} title={Locale.TITLE} home={UNDOCKED}>
         <Pane tabs={[tab]} openKey={tab.key} width={self.width} height={self.height} fade={self.fade}
-              @tabPicked={self.onTab} @namePicked={self.onName} @link={self.onLink} />
+              @tabPicked={self.onTab} @namePicked={self.onName} @link={self.onLink} @sizeGrab={self.onSizeGrab}
+              @size={self.onSize} @sizeDrop={self.onSizeDrop} />
       </Placed>
       <Whispers $if={self.talking} talks={self.talks} openKey={self.talkOpen} declared={mut self.whisperWindow}
                 @close={self.onTalkClose} @picked={self.onTalk} @forget={self.onTalkForget} @start={self.onTalkStart}

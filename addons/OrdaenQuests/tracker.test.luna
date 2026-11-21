@@ -18,7 +18,7 @@ const FACTS: QuestFacts = {
 test "a quest to do says its objectives' zone and how many places there; done, whom to hand it to and where" {
   const holder = new Holder()
   holder.facts = { [1]: FACTS }
-  const lines = new TrackerLines(holder.facts, (id: Integer): Boolean => false)
+  const lines = new TrackerLines(holder.facts, (id: Integer): Boolean => false, (id: Integer): Boolean => false)
   Test.expect((lines.lines(1, false)[1] ?? panic("a line")).text == "Westfall · 2 places")
   const done = lines.lines(1, true)[1] ?? panic("a line")
   Test.expect(done.text == "Turn in: Gryan Stoutmantle · Westfall (56, 47)" && done.done)
