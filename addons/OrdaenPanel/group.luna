@@ -3,6 +3,7 @@
 // has its own edge. A cell draws no edge of its own, so no two dividers ever stand together.
 import Game from "$game"
 import { Align, Art, Frame, Line, Side, Track } from "$ltml"
+import root Ordaen from "Ordaen"
 import { Component } from "Ordaen"
 import { BagCell, CELL_HEIGHT, CellSize, DIVIDER, FaceCell, MenuCell, cellSize } from "@/cells"
 
@@ -14,9 +15,11 @@ const LIT_EDGE_DOWN: Line = { width: GROOVE, color: Color.hex("#7a603c"), sides:
 // One track down a side of the screen; along it, the divider and the cell.
 const DOWN: Array<Track> = ["max-content"]
 const PAIR: Array<Track> = ["max-content", "max-content"]
+// The friends' window's module, by its folder: the whispers it says wait unread are counted on the friends' cell.
+const SOCIAL = "OrdaenSocial"
 
 // What a cell of a group is: the character's face, a button of the game's menu with our icon (the friends' with how
-// many are online), a bag button of the game's.
+// many are online and how many whispers wait unread), a bag button of the game's.
 public enum Cell {
   Face
   Menu { icon: Art, frame: any Frame | nil, friends: Boolean }
@@ -141,7 +144,7 @@ class CellOf implements Component {
         if (self.cell.friends) {
           return $ltml {
             <MenuCell icon={self.cell.icon} frame={self.cell.frame} gold={self.gold} size={self.size}
-                      count={Game.friends.online} />
+                      count={Game.friends.online} unread={Ordaen.noticeOf(SOCIAL)} />
           }
         }
         return $ltml { <MenuCell icon={self.cell.icon} frame={self.cell.frame} gold={self.gold} size={self.size} /> }

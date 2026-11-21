@@ -51,26 +51,31 @@ public class MenuCell implements Component {
   derived counted: Boolean = self.count > 0
   derived badgeRight: Number<Length> = self.size.width * 0.12
   derived badgeBottom: Number<Length> = self.size.height * 0.14
+  derived noticed: Boolean = self.unread > 0
 
   const icon: Art
   frame: Signal<any Frame | nil>
   gold: Signal<Boolean>
   count: Signal<Integer>
   size: Signal<CellSize>
+  unread: Signal<Integer>
   constructor(
     icon: Art,
     frame: Signal<any Frame | nil>,
     // The icon in one gold.
     gold: Signal<Boolean>,
     size: Signal<CellSize>,
-    // A number on the cell while it isn't 0: the friends online.
-    count: Signal<Integer> = 0
+    // A number at the cell's lower right while it isn't 0: the friends online.
+    count: Signal<Integer> = 0,
+    // A number at its upper right while it isn't 0: the whispers waiting unread.
+    unread: Signal<Integer> = 0
   ) {
     self.icon = icon
     self.frame = frame
     self.gold = gold
     self.size = size
     self.count = count
+    self.unread = unread
   }
 
   public render(self): Template {
@@ -82,6 +87,9 @@ public class MenuCell implements Component {
         <box $if={self.counted} position={Position.Absolute} right={self.badgeRight} bottom={self.badgeBottom}
              zLevel={1}>
           <CountBadge count={self.count} />
+        </box>
+        <box $if={self.noticed} position={Position.Absolute} right={self.badgeRight} top={self.badgeBottom} zLevel={1}>
+          <CountBadge count={self.unread} />
         </box>
         <embed frame={self.frame} position={Position.Absolute} left={0ui} top={0ui} width={self.size.width}
                height={self.size.height} opacity={0} />

@@ -382,6 +382,16 @@ test "the cell under the cursor is lit, and shaded while it is pressed" {
   Test.release(nil)
 }
 
+test "the whispers Ordaen Social says wait unread are counted on the friends' cell, beside the friends online" {
+  Test.mount(nil, SCREEN)
+  Game.friends.online = 3
+  Test.expect(panel().box(FRIENDS).item().texts().join(" | ") == "3")
+  Ordaen.notice("OrdaenSocial", 2)
+  Test.expect(panel().box(FRIENDS).item().texts().join(" | ") == "3 | 2")
+  Ordaen.notice("OrdaenSocial", 0)
+  Test.expect(panel().box(FRIENDS).item().texts().join(" | ") == "3")
+}
+
 test "with no friend online the friends' cell counts none" {
   Test.mount(nil, SCREEN)
   Test.expect(panel().box(FRIENDS).item().texts().length == 0)
