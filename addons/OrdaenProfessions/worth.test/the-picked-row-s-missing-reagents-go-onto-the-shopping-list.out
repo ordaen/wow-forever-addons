@@ -145,7 +145,8 @@ surface 288,133.88 1024x632.25 on DIALOG clamped raised by a click
       box 323.85,723.99 957.3x17.07
         box 323.85,741.06 957.3x0
           box 323.85,741.06 957.3x0
-    box 1294.75,746.12 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
+    box 1294.75,746.12 13.33x13.33 absolute
+      box 1294.75,746.12 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 288,133.88 1024x59.42
     box 288,133.88 935.47x59.42
       box 288,133.88 152.04x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress

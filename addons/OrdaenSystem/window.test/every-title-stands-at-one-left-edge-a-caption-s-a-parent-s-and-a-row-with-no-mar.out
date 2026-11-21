@@ -158,13 +158,15 @@ surface 391.67,175.54 816.67x548.92 on DIALOG clamped raised by a click
         text 427.52,636.21 749.97x17.78 "The client isn't measuring addons." #9a9080
       box 427.52,653.99 749.97x45.4
         box 427.52,671.06 749.97x28.33
-          box 427.52,671.06 208.53x28.33
+          box 427.52,671.06 317.07x28.33
             box 427.52,671.06 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
               text 458.63,676.34 37.78x17.78 "Reset" #ffd100
-            box 536.05,671.06 100x28.33
-              box 536.05,671.06 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-                text 570.49,676.34 31.11x17.78 "Sets" #ffd100
-          box 653.12,685.22 365.43x0
+            box 536.05,671.06 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+              text 546.05,676.34 80x17.78 "Disable all" #ffd100
+            box 644.58,671.06 100x28.33
+              box 644.58,671.06 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+                text 679.03,676.34 31.11x17.78 "Sets" #ffd100
+          box 761.65,685.22 256.9x0
           box 1035.62,671.06 141.87x28.33
             box 1035.62,685.22 0x0 @pointerEnter @pointerLeave
               text 1035.62,685.22 0x0 "" #f0c860
