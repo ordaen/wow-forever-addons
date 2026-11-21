@@ -1,6 +1,7 @@
 // The compact dropdown: the bronze plate alone in a tool row. Left-click opens its list under it, a choice picks and
 // closes it, a click anywhere else closes it and reaches nothing under it, a choice that isn't built yet is dim and deaf.
 import Test from "$test"
+import root Ordaen from "Ordaen"
 import { Choice, CompactDropdown } from "@/dropdown"
 
 enum Order { Difficulty = "difficulty", Name = "name", Price = "price" }
@@ -79,4 +80,32 @@ test "the list keeps its own layer over the click catcher when the box round it 
   Test.expect(page.order == Order.Name)
   destroy page
   Test.expect(Test.blank())
+}
+
+const LONG: Array<Choice<Order>> = [
+  { value: Order.Difficulty, label: "Количество предметов для изготовления" },
+  { value: Order.Name, label: "By name" }
+]
+
+class Narrow {
+  public state order: Order = Order.Difficulty
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={["max-content"]}>
+        <CompactDropdown value={mut self.order} choices={LONG} width={164ui} />
+      </box>
+    }
+  }
+}
+
+test "a label longer than the plate is cut inside it, and the arrow stays on the plate" {
+  const page = new Narrow()
+  Test.mount(page, { left: 0, top: 0, width: 400, height: 100 })
+  const plate = Test.edges(Ordaen.art.ctl.button, 0)
+  const arrow = Test.edges(Ordaen.art.ctl.dropdownArrow, 0)
+  Test.expect(arrow.right <= plate.right && arrow.left >= plate.left)
+  const label = Test.page().text("Количество предметов для изготовления").rect()
+  Test.expect(label.right <= arrow.left && label.bottom <= plate.bottom && label.top >= plate.top)
+  destroy page
 }
