@@ -336,12 +336,22 @@ function bandOf(xp: Boolean, standings: Boolean, money: Boolean): Array<Track> {
   return columns
 }
 
-// The reputations in the band's one line: one by its faction's name («+250 Stormwind»), several by their amounts and
-// «reputation» («+250, +75 reputation»), each faction then in the Tip.
+// The reputations in the band's one line: one by its faction's name («+250 Stormwind»), several by the span of their
+// amounts and «reputation» («+25–100 reputation», «+25 reputation» where all are the same), each faction then in the
+// Tip.
 function standingsLine(standings: Array<Standing>): String {
   const first = standings[1]
-  if (standings.length == 1 && first != nil) { return Locale.QUEST_REPUTATION.format(first.amount, first.name) }
-  return Locale.QUEST_REPUTATIONS.format(standings.map(standing => "%+d".format(standing.amount)).join(", "))
+  if (first == nil) { return "" }
+  if (standings.length == 1) { return Locale.QUEST_REPUTATION.format(first.amount, first.name) }
+  let least = first.amount
+  let most = first.amount
+  for (standing of standings) {
+    least = least.min(standing.amount)
+    most = most.max(standing.amount)
+  }
+  // The span's end keeps its sign only where its start is a loss: «+25–100», «-25–+100».
+  const span = least == most ? "%+d".format(least) : least > 0 ? "%+d–%d".format(least, most) : "%+d–%+d".format(least, most)
+  return Locale.QUEST_REPUTATIONS.format(span)
 }
 
 // The reputations a quest changes, in one column of the band; under the cursor a Tip with each faction and its amount.

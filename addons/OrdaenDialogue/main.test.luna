@@ -727,6 +727,18 @@ test "the reputation a quest offers stands in the band by the faction's name, Qu
   Test.expect(window().texts().join("|").contains("+250 Stormwind"))
 }
 
+test "several reputations a quest offers stand in the band as the span of their amounts" {
+  Test.questieDB(
+    { [32]: { name: "Friends", reputationReward: [[72, 25], [47, 25], [54, 25], [69, 25], [930, 100]] } }, {}, {}
+  )
+  Test.factions({ [72]: "Stormwind", [47]: "Ironforge", [54]: "Gnomeregan", [69]: "Darnassus", [930]: "Exodar" })
+  Test.mount(nil, SCREEN)
+  Test.talk(innkeeper())
+  Test.quest({ id: 32, title: "Friends" })
+  Events.QUEST_DETAIL.emit(nil)
+  Test.expect(window().text("+25–100 reputation").shown())
+}
+
 test "with Quests off, a quest's page shows without reputations, nothing broken" {
   Test.questieDB({ [32]: { name: "Friends", reputationReward: [[72, 250]] } }, {}, {})
   Test.factions({ [72]: "Stormwind" })
