@@ -1,5 +1,5 @@
 -- sized down past what it holds: held at its content's least size, the footer under the block
-surface 400,131.38 566.7x533.01 on DIALOG clamped raised by a click
+surface 400,131.38 566.7x533.01 on MEDIUM clamped raised by a click
   box 400,168.62 566.7x495.76 absolute Interface\AddOns\Ordaen\media\window-wood border=UI-Frame-Metal-CornerTopLeft
     box 413.09,181.72 545.51x471.82
       box 435.85,204.47 500x400 Interface\AddOns\Ordaen\media\window-wood

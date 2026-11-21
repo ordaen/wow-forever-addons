@@ -1,5 +1,5 @@
 -- the cursor over the window: the group's plates, settings first, then full screen and close
-surface 600,281.38 400x337.25 on DIALOG clamped raised by a click
+surface 600,281.38 400x337.25 on MEDIUM clamped raised by a click
   box 600,318.62 400x300 absolute Interface\AddOns\Ordaen\media\window-wood border=UI-Frame-Metal-CornerTopLeft
     box 613.09,331.72 378.81x276.06
       text 635.85,354.47 333.3x17.78 "the page" #ffffff

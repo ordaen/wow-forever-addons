@@ -1,6 +1,6 @@
 key: SHIFT-TAB → #3 «-» (keys:ENTER,SPACE)
 -- the place's − focused: its ring, its label white; the share's + at its bound, grey
-surface 420,281.38 760x337.25 on DIALOG clamped raised by a click
+surface 420,281.38 760x337.25 on MEDIUM clamped raised by a click
   box 420,318.62 760x300 absolute Interface\AddOns\Ordaen\media\window-wood border=UI-Frame-Metal-CornerTopLeft
     box 433.09,331.72 738.81x276.06
       box 455.85,354.47 693.3x230.55

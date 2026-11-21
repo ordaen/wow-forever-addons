@@ -1,5 +1,5 @@
 -- the world's tab: a quest's objectives under its title, the done one grey; the count in the footer
-surface 550,192.21 500x515.58 on DIALOG clamped raised by a click
+surface 550,192.21 500x515.58 on MEDIUM clamped raised by a click
   box 550,241.12 500x466.67 absolute Interface\AddOns\Ordaen\media\window-wood border=UI-Frame-Metal-CornerTopLeft
     box 563.09,254.22 478.81x442.73
       box 585.85,276.97 433.3x370.91

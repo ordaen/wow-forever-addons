@@ -1,5 +1,5 @@
 -- the content over the footer, a group's step between them; «Reset» left, «Save» right, the panel's step over the line
-surface 600,281.38 400x337.25 on DIALOG clamped raised by a click
+surface 600,281.38 400x337.25 on MEDIUM clamped raised by a click
   box 600,318.62 400x300 absolute Interface\AddOns\Ordaen\media\window-wood border=UI-Frame-Metal-CornerTopLeft
     box 613.09,331.72 378.81x276.06
       box 635.85,354.47 333.3x193.68 #30302a

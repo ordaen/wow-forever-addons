@@ -1,7 +1,7 @@
 key: ESCAPE → none
 -- Gamma opened over Alpha and Beta
 box 0,0 10x0
-surface 450,331.38 400x237.25 on DIALOG clamped raised by a click
+surface 450,331.38 400x237.25 on MEDIUM clamped raised by a click
   box 450,368.62 400x200 absolute Interface\AddOns\Ordaen\media\window-wood border=UI-Frame-Metal-CornerTopLeft
     box 463.09,381.72 378.81x176.06
       box 485.85,404.47 333.3x130.55 #30302a @keyPress @pointerPress
@@ -20,7 +20,7 @@ surface 450,331.38 400x237.25 on DIALOG clamped raised by a click
         box 822.5,347.71 27.5x26.67 absolute clipped @keyPress @pointerPress
           box 822.5,347.71 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
           box 828.75,357.29 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
-surface 600,331.38 400x437.25 on DIALOG clamped raised by a click
+surface 600,331.38 400x437.25 on MEDIUM clamped raised by a click
   box 600,368.62 400x400 absolute Interface\AddOns\Ordaen\media\window-wood border=UI-Frame-Metal-CornerTopLeft
     box 613.09,381.72 378.81x376.06
       box 635.85,404.47 333.3x330.55 #30302a @keyPress @pointerPress
@@ -39,7 +39,7 @@ surface 600,331.38 400x437.25 on DIALOG clamped raised by a click
         box 972.5,347.71 27.5x26.67 absolute clipped @keyPress @pointerPress
           box 972.5,347.71 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
           box 978.75,357.29 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
-surface 750,331.38 400x237.25 on DIALOG clamped raised by a click
+surface 750,331.38 400x237.25 on MEDIUM clamped raised by a click
   box 750,368.62 400x200 absolute Interface\AddOns\Ordaen\media\window-wood border=UI-Frame-Metal-CornerTopLeft
     box 763.09,381.72 378.81x176.06
       box 785.85,404.47 333.3x130.55 #30302a @keyPress @pointerPress

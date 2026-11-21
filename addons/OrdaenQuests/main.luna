@@ -424,7 +424,7 @@ public class Quests implements Module, App {
               @close={self.onChainClose}>
         <ChainPage $for={facts of self.chainedList} quest={self.chained} facts={facts} @act={self.onAct} />
       </Window>
-      <surface $if={self.dockedSide != nil} layer={Layer.Dialog} place={self.dockedPlace}
+      <surface $if={self.dockedSide != nil} layer={Layer.Panel} place={self.dockedPlace} raise={true}
                width={self.dockedWidth} height={self.dockedHeight} background={Style.DOCKED_BACK}
                padding={Style.DOCKED_PAD} columns={1}>
         <box $if={self.pickedQuest == nil} rows={FILL}>

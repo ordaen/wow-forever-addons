@@ -1,5 +1,5 @@
 -- the menu: the last change, the session's start, a savepoint
-surface 310,139.71 980x620.58 on DIALOG clamped raised by a click
+surface 310,139.71 980x620.58 on MEDIUM clamped raised by a click
   box 310,176.96 980x583.33 absolute Interface\AddOns\Ordaen\media\window-wood border=UI-Frame-Metal-CornerTopLeft
     box 323.81,190.76 957.39x557.97
       box 352.25,219.21 900.5x462.08

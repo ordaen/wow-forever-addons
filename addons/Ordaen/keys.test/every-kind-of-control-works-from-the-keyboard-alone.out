@@ -19,7 +19,7 @@ key: SPACE → #6 «Two» (keys:ENTER,SPACE)
 key: TAB → #7 «Small» (keys:ENTER,SPACE)
 key: ENTER → #0 > #1 «Small» (keys:ENTER,SPACE)
 -- the dropdown opened by Enter: the focus in its list
-surface 420,121.38 760x657.25 on DIALOG clamped raised by a click
+surface 420,121.38 760x657.25 on MEDIUM clamped raised by a click
   box 420,158.62 760x620 absolute Interface\AddOns\Ordaen\media\window-wood border=UI-Frame-Metal-CornerTopLeft
     box 433.09,171.72 738.81x596.06
       box 455.85,194.47 693.3x550.55

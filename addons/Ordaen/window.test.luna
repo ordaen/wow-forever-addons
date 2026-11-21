@@ -1,5 +1,6 @@
 // A window's tabs drawn with Ordaen's own art: each tab's wood is cut by its metal's rounded corners, the open
 // one's as the others', and its picture by the clip at its top left.
+import Client from "$client"
 import { Align, Key, Track } from "$ltml"
 import Test from "$test"
 import root Ordaen from "Ordaen"
@@ -302,6 +303,46 @@ test "windows opened and clicked in turn each come to the front and take Escape"
   Test.expect(!desk.alphaOpen)
   Test.expect(Test.key(Key.Escape))
   Test.expect(!desk.betaOpen)
+  destroy desk
+}
+
+// A frame of the client's over the middle of the screen, on a layer, toplevel as the client's panels are, telling the
+// clicks it takes.
+function clientFrame(strata: String, clicked: mut Array<String>): any Client.Frame {
+  const made = Client.CreateFrame("Button", nil, Client.UIParent, nil)
+  made.SetFrameStrata(strata)
+  made.SetToplevel(true)
+  made.SetSize(300, 200)
+  made.SetPoint("CENTER", Client.UIParent, "CENTER", 0, 0)
+  made.SetScript("OnClick", () => { clicked.push(strata) })
+  made.Hide()
+  return made
+}
+
+// A window stands with the client's panels as they stand with each other (the character's, the spellbook: `MEDIUM`,
+// toplevel): the one opened or clicked last is in front. The world map stands over them all, as over the client's.
+test "a window stands with the client's panels, the last opened or clicked in front, and under the world map" {
+  Test.screen(SCREEN_W / 1ui, SCREEN_H / 1ui)
+  let clicked: Array<String> = []
+  let desk = new Desk()
+  Test.mount(desk, { left: 0, top: 0, width: 10, height: 10 })
+  desk.betaOpen = true
+  Test.flush()
+  Test.expect(front(desk) == "Beta")
+  const panel = clientFrame("MEDIUM", mut clicked)
+  panel.Show()
+  desk.hit = ""
+  Test.expect(front(desk) == "" && clicked.length == 1)
+  Test.click(BETA_ONLY, nil)
+  Test.expect(front(desk) == "Beta" && clicked.length == 1)
+  panel.Hide()
+  const map = clientFrame("HIGH", mut clicked)
+  map.Show()
+  desk.hit = ""
+  Test.click(BETA_ONLY, nil)
+  Test.expect(desk.hit == "Beta")
+  desk.hit = ""
+  Test.expect(front(desk) == "" && clicked.join(", ") == "MEDIUM, HIGH")
   destroy desk
 }
 

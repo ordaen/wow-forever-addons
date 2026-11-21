@@ -1,5 +1,5 @@
 -- opened again where it was left, the cursor in its body: full screen and close at the body's top right
-surface 400,361.38 400x337.25 on DIALOG clamped raised by a click
+surface 400,361.38 400x337.25 on MEDIUM clamped raised by a click
   box 400,398.62 400x300 absolute Interface\AddOns\Ordaen\media\window-wood border=UI-Frame-Metal-CornerTopLeft
     box 413.09,411.72 378.81x276.06
       text 435.85,434.47 333.3x17.78 "the page" #ffffff
