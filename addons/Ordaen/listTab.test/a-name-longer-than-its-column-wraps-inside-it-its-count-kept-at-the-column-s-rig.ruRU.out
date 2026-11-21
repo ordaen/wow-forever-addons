@@ -1,0 +1,14 @@
+-- the long name on two lines inside the column, its count at the column's right; «Beside» untouched
+box 0,0 400x69.56
+  box 0,0 160x69.56
+    box 0,0 160x42.58 #00000040 @keyPress @pointerPress
+      box 0,0 2.5x42.58 absolute #d6a56b
+      text 12.8,5.69 113.16x31.2 "Everything the professions take" #f0e6d2
+      box 134.49,13.49 15.56x15.6
+        text 134.49,13.49 15.56x15.6 "12" #ffffff
+    box 0,42.58 160x26.98 #00000000 @keyPress @pointerPress
+      box 0,42.58 2.5x26.98 absolute #00000000
+      text 12.8,48.27 119.82x15.6 "All" #e8dcc4
+      box 141.16,48.27 8.89x15.6
+        text 141.16,48.27 8.89x15.6 "3" #ffffff
+  text 160,0 240x15.6 "Beside" #ffffff

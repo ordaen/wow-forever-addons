@@ -192,6 +192,7 @@ test "the first start is kept: the log's setting is the player's after it" {
 }
 
 test "the settings page lists each layer with its switch" {
+  Test.englishOnly()
   Test.mount(nil, PAGE)
   const layer = new TestLayer()
   Maps.layers.add(layer)

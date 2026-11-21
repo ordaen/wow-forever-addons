@@ -19,6 +19,7 @@ test "the third tab of the page holds the market's controls" {
 }
 
 test "the market holds a row for each of the market's controls, each following its cell" {
+  Test.englishOnly()
   let page = new Market()
   Test.mount(page, { left: 0, top: 0, width: 700, height: 700 })
   Test.shot("the market as the page shows it: the scan at two fifths, the price with its age in amber")

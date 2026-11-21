@@ -178,6 +178,7 @@ function opened(people: mut FakePeople): Test.Part {
 // The window
 
 test "the game's friends window shown shows ours, and closing ours closes the game's" {
+  Test.englishOnly()
   Test.mount(nil, PAGE)
   Game.friends.list = friends
   Game.friends.requests = requests
@@ -210,6 +211,7 @@ test "the game's friends window shown shows ours, and closing ours closes the ga
 
 // The panel off, the game's micro menu stands: its guild button loads the game's guild window, which shows ours.
 test "the micro menu's guild button shows ours on the guild, and again closes it" {
+  Test.englishOnly()
   Test.mount(nil, PAGE)
   Game.guild.roster = guildRoster
   Game.guild.motd = guildMotd
@@ -220,6 +222,7 @@ test "the micro menu's guild button shows ours on the guild, and again closes it
   Test.expect(!Test.page().window(WINDOW).shown()) }
 
 test "the game's guild window, hooked as its addon loads, shows ours on the guild; outside one on the communities" {
+  Test.englishOnly()
   Test.mount(nil, PAGE)
   Game.friends.list = friends
   Game.friends.requests = requests
@@ -250,6 +253,7 @@ test "the game's guild window, hooked as its addon loads, shows ours on the guil
 }
 
 test "the raid isn't a tab of the window" {
+  Test.englishOnly()
   Test.mount(nil, PAGE)
   Game.friends.list = friends
   Game.friends.requests = requests
@@ -272,6 +276,7 @@ test "the raid isn't a tab of the window" {
 // The friends
 
 test "the list holds both kinds, the best friend first and those offline last" {
+  Test.englishOnly()
   Test.mount(nil, PAGE)
   Game.friends.list = friends
   Game.friends.requests = requests
@@ -299,6 +304,7 @@ test "the list holds both kinds, the best friend first and those offline last" {
 }
 
 test "the best friend's star stands after the name, never over it" {
+  Test.englishOnly()
   Test.mount(nil, PAGE)
   Game.friends.list = friends
   Game.friends.requests = requests
@@ -320,6 +326,7 @@ test "the best friend's star stands after the name, never over it" {
 }
 
 test "a friend's row: the mark beside the name's line, the level after the name in its class colour, one size of icon" {
+  Test.englishOnly()
   Test.mount(nil, PAGE)
   Game.friends.list = friends
   Game.friends.requests = requests
@@ -349,6 +356,7 @@ test "a friend's row: the mark beside the name's line, the level after the name 
 }
 
 test "the filter shows each kind and those offline, and the view draws the friends as a table" {
+  Test.englishOnly()
   Test.mount(nil, PAGE)
   Game.friends.list = friends
   Game.friends.requests = requests
@@ -392,6 +400,7 @@ function sortBy(window: Test.Part, choice: String) {
 }
 
 test "the sort is the table's: its headings and the toolbar's sort set one order, the best friend on top in every one" {
+  Test.englishOnly()
   Test.mount(nil, PAGE)
   Game.friends.list = friends
   Game.friends.requests = requests
@@ -422,6 +431,7 @@ test "the sort is the table's: its headings and the toolbar's sort set one order
 }
 
 test "the friends' view, sort and filter are there after a reload" {
+  Test.englishOnly()
   Test.mount(nil, PAGE)
   Game.friends.list = friends
   Game.friends.requests = requests
@@ -450,6 +460,7 @@ test "the friends' view, sort and filter are there after a reload" {
 }
 
 test "a development build's footer button shows the game's own window of the tab, as it is, until it closes" {
+  Test.englishOnly()
   Test.mount(nil, PAGE)
   Game.friends.list = friends
   Game.friends.requests = requests
@@ -479,6 +490,7 @@ test "a development build's footer button shows the game's own window of the tab
 }
 
 test "a friend picked shows their card, whose buttons ask the game in the click" {
+  Test.englishOnly()
   Test.mount(nil, PAGE)
   Game.friends.list = friends
   Game.friends.requests = requests
@@ -507,6 +519,7 @@ test "a friend picked shows their card, whose buttons ask the game in the click"
 }
 
 test "an offline friend can't be whispered or invited" {
+  Test.englishOnly()
   Test.mount(nil, PAGE)
   Game.friends.list = friends
   Game.friends.requests = requests
@@ -530,6 +543,7 @@ test "an offline friend can't be whispered or invited" {
 }
 
 test "removing a friend asks first, and only the yes removes" {
+  Test.englishOnly()
   Test.mount(nil, PAGE)
   Game.friends.list = friends
   Game.friends.requests = requests
@@ -562,6 +576,7 @@ test "removing a friend asks first, and only the yes removes" {
 }
 
 test "the search finds by name, note and BattleTag" {
+  Test.englishOnly()
   Test.mount(nil, PAGE)
   Game.friends.list = friends
   Game.friends.requests = requests
@@ -583,6 +598,7 @@ test "the search finds by name, note and BattleTag" {
 }
 
 test "add friend sends what is typed, and says which kind it makes" {
+  Test.englishOnly()
   Test.mount(nil, PAGE)
   Game.friends.list = friends
   Game.friends.requests = requests

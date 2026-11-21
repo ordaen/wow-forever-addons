@@ -21,6 +21,7 @@ test "without Questie nothing is asked" {
 }
 
 test "with Questie on, Ordaen asks which to keep" {
+  Test.englishOnly()
   withQuestie()
   Test.expect(Test.page().text(ASKED).shown())
   Test.shot("Ordaen asks which of Questie and Ordaen Quests to keep")
@@ -37,6 +38,7 @@ test "«Questie» turns Quests off, and the question isn't asked again" {
 }
 
 test "«Ordaen» turns Questie off for this character and offers the reload" {
+  Test.englishOnly()
   withQuestie()
   Test.page().button("Ordaen").click()
   Test.flush()

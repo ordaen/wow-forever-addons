@@ -130,6 +130,7 @@ test "Enter takes what is typed at once, and − steps from what was typed" {
 }
 
 test "under the cursor − and + say their steps in the value's unit, and the tip goes as the cursor leaves" {
+  Test.englishOnly()
   let page = new Numbers()
   Test.mount(page, { left: 0, top: 0, width: 900, height: 200 })
   Test.page().button("+").nth(1).hover()
@@ -181,6 +182,7 @@ test "− and + are pressed from the keyboard, and each is greyed and does nothi
 }
 
 test "the unit shows: the slider's value in it, the field's name after it" {
+  Test.englishOnly()
   let page = new Numbers()
   Test.mount(page, { left: 0, top: 0, width: 900, height: 200 })
   Test.expect(Test.page().text("50%").shown())
@@ -199,6 +201,7 @@ class Kept {
 }
 
 test "a window's place and size are InputNumbers: a field between − and +, in px" {
+  Test.englishOnly()
   let page = new Kept()
   Test.mount(page, { left: 0, top: 0, width: 1000, height: 600 })
   Test.expect(Test.page().input().count() == 4)

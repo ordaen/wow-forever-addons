@@ -1,0 +1,32 @@
+-- some of the colours on: the group's switch stands halfway
+box 0,0 400x28.33
+  box 0,0 400x28.33
+    box 5.69,0 28.33x28.33
+      box 5.69,0 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerEnter @pointerLeave @pointerPress
+        box 13.19,7.5 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 0 of 16
+surface 5.69,28.33 191.67x208.73 on FULLSCREEN_DIALOG #0a0806f7
+  box 20.74,43.39 161.56x17.78
+    box 20.74,43.39 161.56x17.78 @keyPress @pointerPress
+      text 20.74,43.39 115.67x17.78 "Tracked only" #e8dcc4
+      box 150.63,43.94 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 0 of 4
+        box 148.13,41.44 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2 opacity=1
+  box 20.74,69.7 161.56x106.08
+    box 20.74,79.07 161.56x17.78 @keyPress @pointerPress
+      text 20.74,79.07 115.67x17.78 "Difficulty" #f0c860
+      box 150.63,79.62 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 1 of 4
+        box 155.63,77.12 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=0.5
+    box 20.74,105.38 161.56x17.78 @keyPress @pointerPress
+      text 20.74,105.38 115.67x17.78 "Grey" #e8dcc4
+      box 150.63,105.93 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 1 of 4
+        box 163.13,103.43 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=1
+    box 20.74,131.69 161.56x17.78 @keyPress @pointerPress
+      text 20.74,131.69 115.67x17.78 "Green" #e8dcc4
+      box 150.63,132.24 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 0 of 4
+        box 148.13,129.74 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2 opacity=1
+    box 20.74,158 161.56x17.78 @keyPress @pointerPress
+      text 20.74,158 115.67x17.78 "Yellow" #e8dcc4
+      box 150.63,158.56 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 1 of 4
+        box 163.13,156.06 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=1
+  box 20.74,184.31 161.56x37.7
+    box 20.74,193.68 161.56x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+      text 74.3,198.96 54.44x17.78 "Сбросить" #ffd100

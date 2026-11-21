@@ -1,0 +1,157 @@
+-- «Show again after» opened and «Combat» picked: the plate names it, the menu stays open
+surface 310,139.71 980x620.58 on DIALOG clamped raised by a click
+  box 310,176.96 980x583.33 absolute Interface\AddOns\Ordaen\media\window-wood border=UI-Frame-Metal-CornerTopLeft
+    box 323.09,190.05 958.81x559.39
+      box 345.85,212.81 913.3x477.02
+        box 345.85,212.81 105.93x477.02
+          box 345.85,212.81 105.93x29.71 #00000040 @keyPress @pointerPress
+            box 345.85,212.81 2.5x29.71 absolute #d6a56b
+            box 358.65,218.5 18.33x18.33 icon=Interface/Icons/Trade_Engineering
+            text 385.52,218.77 47.78x17.78 "Общие" #f0e6d2
+            box 441.83,227.66 0x0
+          box 345.85,242.52 105.93x29.71 #00000000 @keyPress @pointerPress
+            box 345.85,242.52 2.5x29.71 absolute #00000000
+            box 358.65,248.21 18.33x18.33 icon=Interface/Icons/Trade_Engineering
+            text 385.52,248.49 47.78x17.78 "Темы" #e8dcc4
+            box 441.83,257.38 0x0
+          box 345.85,272.23 105.93x29.71 #00000000 @keyPress @pointerPress
+            box 345.85,272.23 2.5x29.71 absolute #00000000
+            box 358.65,277.92 18.33x18.33 icon=Interface/Icons/Trade_Engineering
+            text 385.52,278.2 47.78x17.78 "Профили" #e8dcc4
+            box 441.83,287.09 0x0
+          box 345.85,301.94 105.93x40.53
+            text 360.07,316.16 77.49x17.78 "Модули" #a3977f
+          box 345.85,342.48 105.93x0
+        box 468.85,212.81 790.3x477.02 #00000040
+          box 468.85,212.81 790.3x477.02 absolute scrolled 0 of 0
+            box 483.07,227.03 761.86x29.99
+              box 483.07,256.19 761.86x0.83 absolute #3e2f1d
+              box 483.07,227.03 72.2x29.99 #00000000 @keyPress @pointerPress
+                box 483.91,227.86 70.53x1.67 absolute #00000000
+                text 495.28,233.55 47.78x17.78 "Масштаб" #a3977f
+              box 558.12,227.03 59.98x29.99 #00000000 @keyPress @pointerPress
+                box 558.95,227.86 58.31x1.67 absolute #00000000
+                text 570.33,233.55 35.56x17.78 "Числа" #a3977f
+              box 620.94,227.03 85.53x29.99 #00000000 @keyPress @pointerPress
+                box 621.77,227.86 83.87x1.67 absolute #00000000
+                text 633.15,233.55 61.11x17.78 "Поведение" #a3977f
+              box 709.32,227.03 53.31x29.99 #00000059 @keyPress @pointerPress
+                box 710.15,227.86 51.64x1.67 absolute #d6a56b
+                text 721.53,233.55 28.89x17.78 "Окна" #f0e6d2
+            box 483.07,274.09 761.86x303.27
+              box 483.07,274.09 761.86x303.27
+                box 483.07,274.09 166.67x29.16
+                  box 483.07,274.09 166.67x29.16 #d6a56b3d clipped @keyPress @pointerPress
+                    box 483.07,274.09 1.67x29.16 absolute #f0c860
+                    text 497.29,279.77 138.22x17.78 "Настройки" #e8dcc4
+                box 666.81,274.09 578.12x303.27
+                  box 666.81,274.09 578.12x18.33 opacity=1
+                    box 666.81,274.36 233.33x17.78 @pointerEnter @pointerLeave
+                      text 666.81,274.36 233.33x17.78 "Запоминать место и размер" #cbb994
+                    box 915.78,274.09 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @keyPress @pointerPress
+                      box 915.78,274.09 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=1
+                  box 666.81,300.95 578.12x18.33 opacity=1
+                    box 666.81,301.23 233.33x17.78 @pointerEnter @pointerLeave
+                      text 666.81,301.23 233.33x17.78 "Во весь экран" #cbb994
+                    box 915.78,300.95 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @keyPress @pointerPress
+                      box 915.78,300.95 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
+                  box 666.81,327.82 578.12x28.33 opacity=1
+                    box 666.81,333.1 233.33x17.78 @pointerEnter @pointerLeave
+                      text 666.81,333.1 233.33x17.78 "По горизонтали от центра" #cbb994
+                    box 915.78,327.82 329.14x28.33
+                      box 915.78,327.82 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerUp
+                        text 923.01,333.1 8.89x17.78 "-" #ffd100
+                      box 944.81,331.15 100x21.67 #00000080 input "0" @change @submit
+                      box 1050.49,327.82 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerUp
+                        text 1057.72,333.1 8.89x17.78 "+" #ffd100
+                      text 1079.52,333.1 35.56x17.78 "пикс." #f0e6d2
+                  box 666.81,364.69 578.12x28.33 opacity=1
+                    box 666.81,369.96 233.33x17.78 @pointerEnter @pointerLeave
+                      text 666.81,369.96 233.33x17.78 "По вертикали от центра" #cbb994
+                    box 915.78,364.69 329.14x28.33
+                      box 915.78,364.69 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerUp
+                        text 923.01,369.96 8.89x17.78 "-" #ffd100
+                      box 944.81,368.02 100x21.67 #00000080 input "0" @change @submit
+                      box 1050.49,364.69 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerUp
+                        text 1057.72,369.96 8.89x17.78 "+" #ffd100
+                      text 1079.52,369.96 35.56x17.78 "пикс." #f0e6d2
+                  box 666.81,401.55 578.12x28.33 opacity=1
+                    box 666.81,406.83 233.33x17.78 @pointerEnter @pointerLeave
+                      text 666.81,406.83 233.33x17.78 "Ширина" #cbb994
+                    box 915.78,401.55 329.14x28.33
+                      box 915.78,401.55 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerUp
+                        text 923.01,406.83 8.89x17.78 "-" #ffd100
+                      box 944.81,404.89 100x21.67 #00000080 input "980" @change @submit
+                      box 1050.49,401.55 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerUp
+                        text 1057.72,406.83 8.89x17.78 "+" #ffd100
+                      text 1079.52,406.83 35.56x17.78 "пикс." #f0e6d2
+                  box 666.81,438.42 578.12x28.33 opacity=1
+                    box 666.81,443.7 233.33x17.78 @pointerEnter @pointerLeave
+                      text 666.81,443.7 233.33x17.78 "Высота" #cbb994
+                    box 915.78,438.42 329.14x28.33
+                      box 915.78,438.42 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerUp
+                        text 923.01,443.7 8.89x17.78 "-" #ffd100
+                      box 944.81,441.75 100x21.67 #00000080 input "583" @change @submit
+                      box 1050.49,438.42 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerUp
+                        text 1057.72,443.7 8.89x17.78 "+" #ffd100
+                      text 1079.52,443.7 35.56x17.78 "пикс." #f0e6d2
+                  box 666.81,475.29 578.12x28.33 opacity=1
+                    box 666.81,480.56 233.33x17.78 @pointerEnter @pointerLeave
+                      text 666.81,480.56 233.33x17.78 "Открывать на вкладке" #cbb994
+                    box 915.78,475.29 200x28.33
+                      box 915.78,475.29 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
+                        text 931.43,480.56 152.53x17.78 "Последняя открытая" #f0c860
+                        box 1092.49,482.79 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+                  box 666.81,512.15 578.12x28.33 opacity=1
+                    box 666.81,517.43 233.33x17.78 @pointerEnter @pointerLeave
+                      text 666.81,517.43 233.33x17.78 "Скрывать во время" #cbb994
+                    box 915.78,512.15 200x28.33
+                      box 915.78,512.15 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
+                        text 931.43,517.43 152.53x17.78 "Бой" #f0c860
+                        box 1092.49,519.65 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+                  box 666.81,549.02 578.12x28.33 opacity=1
+                    box 666.81,554.3 233.33x17.78 @pointerEnter @pointerLeave
+                      text 666.81,554.3 233.33x17.78 "Снова показывать после" #cbb994
+                    box 915.78,549.02 200x28.33
+                      box 915.78,549.02 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
+                        text 931.43,554.3 152.53x17.78 "Бой" #f0c860
+                        box 1092.49,556.52 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+      box 345.85,689.83 913.3x45.4
+        box 345.85,706.89 913.3x28.33
+          box 345.85,706.89 166.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+            text 372.52,712.17 113.33x17.78 "Режим перемещения" #ffd100
+          box 529.58,712.17 478.97x17.78
+            text 529.58,712.17 478.97x17.78 "Изменения применяются сразу" #a3977f
+          box 1025.62,706.89 233.53x28.33
+            box 1025.62,706.89 108.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+              text 1062.01,712.17 35.56x17.78 "Точка" #ffd100
+            box 1142.48,706.89 116.67x28.33
+              box 1142.48,706.89 116.67x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+                text 1173.59,712.17 54.44x17.78 "Откатить" #808080
+    box 1272.75,740.29 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
+  box 310,139.71 980x47.75
+    box 310,139.71 916.47x47.75
+      box 310,139.71 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
+        box 328.78,149.96 76.93x34.25
+          text 346.14,158.19 42.22x17.78 "Ordaen" #ffd100
+    box 1235,156.04 55x31.42
+      box 1235,156.04 55x26.67 clipped
+        box 1235,156.04 27.5x26.67 absolute clipped @keyPress @pointerPress
+          box 1235,156.04 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
+          box 1243.33,165.62 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
+        box 1262.5,156.04 27.5x26.67 absolute clipped @keyPress @pointerPress
+          box 1262.5,156.04 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
+          box 1268.75,165.62 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
+surface 915.78,457.04 216.67x91.98 on FULLSCREEN_DIALOG #0a0806f7
+  box 916.62,463.56 215x26.31 #d6a56b2e @keyPress @pointerPress
+    box 923.28,469.4 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 0 of 4
+      box 923.28,469.4 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=1
+    text 942.22,467.83 178.02x17.78 "Бой" #f0e6d2
+  box 916.62,489.87 215x26.31 #00000000 @keyPress @pointerPress
+    box 923.28,495.71 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 0 of 4
+      box 923.28,495.71 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
+    text 942.22,494.14 178.02x17.78 "Поездка" #f0e6d2
+  box 916.62,516.19 215x26.31 #00000000 @keyPress @pointerPress
+    box 923.28,522.02 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 0 of 4
+      box 923.28,522.02 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
+    text 942.22,520.45 178.02x17.78 "Движение" #f0e6d2

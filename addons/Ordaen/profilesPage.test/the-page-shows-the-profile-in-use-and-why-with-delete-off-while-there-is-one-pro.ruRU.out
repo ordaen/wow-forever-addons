@@ -1,0 +1,69 @@
+-- opened on a fresh account: «Default», account default, the character's picks unset, Delete off
+box 0,0 760x567.67
+  box 0,0 760x188.09
+    box 0,0 760x15.6
+      text 0,0 47.78x15.6 "Профиль" #e8c35a
+      box 56.31,7.38 703.69x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+    text 0,26.98 760x15.6 "Используется: Default, по умолчанию" #e8dcc4
+    box 0,53.96 760x28.33 opacity=1
+      box 0,60.32 233.33x15.6 @pointerEnter @pointerLeave
+        text 0,60.32 233.33x15.6 "Профиль" #cbb994
+      box 248.98,53.96 200x28.33
+        box 248.98,53.96 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
+          text 264.62,60.32 152.53x15.6 "Default" #f0c860
+          box 425.69,61.46 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+    box 0,93.67 760x25 opacity=1
+      box 0,98.37 233.33x15.6 @pointerEnter @pointerLeave
+        text 0,98.37 233.33x15.6 "Название" #cbb994
+      box 248.98,93.67 250x25 #0d0a08 input "" @change
+    box 0,130.04 760x18.33 opacity=1
+      box 0,131.41 233.33x15.6 @pointerEnter @pointerLeave
+        text 0,131.41 233.33x15.6 "Новый из значений по умолчанию" #cbb994
+      box 248.98,130.04 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @keyPress @pointerPress
+        box 248.98,130.04 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
+    box 0,159.76 760x28.33
+      box 0,159.76 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+        text 38.61,166.12 47.78x15.6 "Создать" #ffd100
+      box 132.11,159.76 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+        text 150.72,166.12 87.78x15.6 "Переименовать" #ffd100
+      box 264.22,159.76 125x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+        text 302.83,166.12 47.78x15.6 "Удалить" #808080
+      box 396.33,159.76 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+        text 431.61,166.12 54.44x15.6 "Сбросить" #ffd100
+  box 0,203.73 760x104.73
+    box 0,203.73 760x15.6
+      text 0,203.73 106.67x15.6 "Использовать для" #e8c35a
+      box 115.2,211.12 644.8x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+    box 0,230.71 760x18.33 opacity=1
+      box 0,232.08 233.33x15.6 @pointerEnter @pointerLeave
+        text 0,232.08 233.33x15.6 "Этот персонаж" #cbb994
+      box 248.98,230.71 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @keyPress @pointerPress
+        box 248.98,230.71 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
+    box 0,260.42 760x18.33 opacity=1
+      box 0,261.79 233.33x15.6 @pointerEnter @pointerLeave
+        text 0,261.79 233.33x15.6 "Все персонажи класса" #cbb994
+      box 248.98,260.42 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @keyPress @pointerPress
+        box 248.98,260.42 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
+    box 0,290.13 760x18.33 opacity=1
+      box 0,291.5 233.33x15.6 @pointerEnter @pointerLeave
+        text 0,291.5 233.33x15.6 "По умолчанию для учётной записи" #cbb994
+      box 248.98,290.13 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @keyPress @pointerPress
+        box 248.98,290.13 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=1
+  box 0,324.11 760x42.58
+    box 0,324.11 760x15.6
+      text 0,324.11 145.56x15.6 "Скопировать из профиля" #e8c35a
+      box 154.09,331.49 605.91x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+    text 0,351.09 760x15.6 "Других профилей, откуда можно копировать, нет." #a3977f
+  box 0,382.33 760x185.33
+    box 0,382.33 760x15.6
+      text 0,382.33 67.78x15.6 "Поделиться" #e8c35a
+      box 76.31,389.72 683.69x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+    text 0,409.31 760x15.6 "Экспорт показывает профиль текстом: Ctrl+C копирует его. Для импорта вставьте текст сюда." #a3977f
+    box 0,436.29 760x91.67 #0d0a08 input "" lines typing clipped @change
+    box 0,539.33 760x28.33
+      box 0,539.33 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+        text 38.61,545.7 47.78x15.6 "Экспорт" #ffd100
+      box 132.11,539.33 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+        text 173.5,545.7 42.22x15.6 "Импорт" #ffd100
+      box 264.22,539.33 125x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+        text 302.83,545.7 47.78x15.6 "Создать" #808080

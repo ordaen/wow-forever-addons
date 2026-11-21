@@ -1,0 +1,40 @@
+as it starts (a space between thousands, shown _; two decimals):
+  0
+  1_795
+  2.5
+  1_234_567.09
+  0.25
+  0.004
+  -3.14
+  -0.0001
+  13
+commas between thousands:
+  0
+  1,795
+  2.5
+  1,234,567.09
+  0.25
+  0.004
+  -3.14
+  -0.0001
+  13
+dots between thousands, a comma before the decimals, one decimal:
+  0
+  1.795
+  2,5
+  1.234.567,1
+  0,25
+  0,004
+  -3,1
+  -0,0001
+  13
+whole numbers from 1 up:
+  0
+  1.795
+  2
+  1.234.567
+  0,25
+  0,004
+  -3
+  -0,0001
+  13

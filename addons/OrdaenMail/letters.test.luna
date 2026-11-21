@@ -48,6 +48,7 @@ test "the queue sends one letter at a time: the next goes once the game says the
 }
 
 test "nothing goes while the mailbox is shut; a letter the game didn't answer stops" {
+  Test.englishOnly()
   Game.mailObserver.open = false
   const sender = new Sender()
   _ = Test.requests()

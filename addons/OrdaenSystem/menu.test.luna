@@ -154,6 +154,7 @@ test "Blizzard's buttons keep their own clicks: «Return to Game» shuts the men
 }
 
 test "«AddOns» opens Ordaen's AddOns window and shuts the menu; Blizzard's list stays shut" {
+  Test.englishOnly()
   Test.mount(nil, SCREEN)
   escape()
   Test.page().text(Client.ADDONS).click()
@@ -162,6 +163,7 @@ test "«AddOns» opens Ordaen's AddOns window and shuts the menu; Blizzard's lis
 }
 
 test "a click Blizzard's «AddOns» takes itself, first thing after a load, opens Ordaen's window, not Blizzard's list" {
+  Test.englishOnly()
   Test.mount(nil, SCREEN)
   _ = Test.key(Key.Escape)
   blizzardsAddOns().Click(nil, nil)
@@ -170,6 +172,7 @@ test "a click Blizzard's «AddOns» takes itself, first thing after a load, open
 }
 
 test "first thing after a reload, the menu's «AddOns» opens Ordaen's window by its plate" {
+  Test.englishOnly()
   Test.mount(nil, SCREEN)
   Test.reload()
   escape()
@@ -178,6 +181,7 @@ test "first thing after a reload, the menu's «AddOns» opens Ordaen's window by
 }
 
 test "once the module is off, Blizzard's «AddOns» opens Blizzard's list" {
+  Test.englishOnly()
   Test.mount(nil, SCREEN)
   (Client.SlashCmdList["ORDAEN"] ?? panic("/ordaen is Ordaen's command"))("")
   Test.page().window("Move mode").button(Ordaen.art.ctl.switchOn).click()
@@ -215,6 +219,7 @@ test "shown again after «AddOns», each plate stands over its own button of Bli
 }
 
 test "turned off in Ordaen's settings, the module puts the menu back as Blizzard's" {
+  Test.englishOnly()
   Test.mount(nil, SCREEN)
   escape()
   Test.page().text("Return to Game").click()

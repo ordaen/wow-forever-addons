@@ -88,6 +88,7 @@ function reads(part: Test.Part, expected: String): Boolean {
 }
 
 test "a row another module adds to an item stands after the tooltip's own footer" {
+  Test.englishOnly()
   Test.mount(nil, SCREEN)
   const added = Tooltips.worth.add(new Priced())
   Game.tooltip.main = showing(ore())
@@ -118,6 +119,7 @@ class Aged implements ItemLines {
 }
 
 test "an added row is asked anew each time the same item shows, and drawn as it stands then" {
+  Test.englishOnly()
   Test.mount(nil, SCREEN)
   let age = "now"
   const added = Tooltips.worth.add(new Aged((): String => age))
@@ -132,6 +134,7 @@ test "an added row is asked anew each time the same item shows, and drawn as it 
 }
 
 test "an added row goes with its handle" {
+  Test.englishOnly()
   Test.mount(nil, SCREEN)
   const added = Tooltips.worth.add(new Priced())
   Game.tooltip.main = showing(ore())
@@ -140,6 +143,7 @@ test "an added row goes with its handle" {
 }
 
 test "what is worth, what an item is for and where it is stand in that order, whatever order they were added in" {
+  Test.englishOnly()
   Test.mount(nil, SCREEN)
   const held = Tooltips.held.add(new Said("Held by Ann"))
   const uses = Tooltips.uses.add(new Said("Used in Bronze Bar"))
@@ -176,6 +180,7 @@ test "an object's rows are for the object they name, and go with their handle" {
 }
 
 test "a hotkey another module adds stands after the tooltip's own, and follows what it read" {
+  Test.englishOnly()
   Test.mount(nil, SCREEN)
   const keyed = new Keyed()
   const added = Tooltips.keys.add(keyed)

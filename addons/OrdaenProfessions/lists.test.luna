@@ -198,6 +198,7 @@ function setting(label: String) {
 // The views
 
 test "in columns: the categories with recipes, each counted, beside the first one's recipes by difficulty" {
+  Test.englishOnly()
   Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
   Game.professions.list = professions()
   Game.tradeSkill.categories = categories()
@@ -212,6 +213,7 @@ test "in columns: the categories with recipes, each counted, beside the first on
 }
 
 test "in columns, a category clicked lists its recipes, the first of them chosen" {
+  Test.englishOnly()
   Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
   Game.professions.list = professions()
   Game.tradeSkill.categories = categories()
@@ -225,6 +227,7 @@ test "in columns, a category clicked lists its recipes, the first of them chosen
 }
 
 test "a category's count of what the bags make now is white while any, dim at none" {
+  Test.englishOnly()
   Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
   Game.professions.list = professions()
   Game.tradeSkill.categories = categories()
@@ -239,6 +242,7 @@ test "a category's count of what the bags make now is white while any, dim at no
 }
 
 test "by category: one list under the categories' headings, a heading clicked folds its recipes away" {
+  Test.englishOnly()
   Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
   Game.professions.list = professions()
   Game.tradeSkill.categories = categories()
@@ -260,6 +264,7 @@ test "by category: one list under the categories' headings, a heading clicked fo
 }
 
 test "by category, a heading's name is gold, «Favorites» white, and its counts follow the bags" {
+  Test.englishOnly()
   Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
   Game.professions.list = professions()
   Game.tradeSkill.categories = categories()
@@ -285,6 +290,7 @@ test "by category, a heading's name is gold, «Favorites» white, and its counts
 }
 
 test "one list: every recipe but the camp's, by difficulty" {
+  Test.englishOnly()
   Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
   Game.professions.list = professions()
   Game.tradeSkill.categories = categories()
@@ -298,6 +304,7 @@ test "one list: every recipe but the camp's, by difficulty" {
 }
 
 test "a table: by name, its headings sort it and the same one again turns it round; the sort's picker goes" {
+  Test.englishOnly()
   Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
   Game.professions.list = professions()
   Game.tradeSkill.categories = categories()
@@ -322,6 +329,7 @@ test "a table: by name, its headings sort it and the same one again turns it rou
 }
 
 test "the camp's tab lists its recipes in one list whatever the view, with no view to pick" {
+  Test.englishOnly()
   Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
   Game.professions.list = professions()
   Game.tradeSkill.categories = categories()
@@ -339,6 +347,7 @@ test "the camp's tab lists its recipes in one list whatever the view, with no vi
 // The sort
 
 test "by difficulty the learned come first, the hardest to raise the skill last, a tie by name" {
+  Test.englishOnly()
   Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
   Game.professions.list = professions()
   Game.tradeSkill.categories = categories()
@@ -357,6 +366,7 @@ test "by difficulty the learned come first, the hardest to raise the skill last,
 }
 
 test "by name the recipes stand in the alphabet's order, learned or not" {
+  Test.englishOnly()
   Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
   Game.professions.list = professions()
   Game.tradeSkill.categories = categories()
@@ -369,6 +379,7 @@ test "by name the recipes stand in the alphabet's order, learned or not" {
 }
 
 test "by «Can make» the most the bags make stands first, a tie by name" {
+  Test.englishOnly()
   Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
   Game.professions.list = professions()
   Game.tradeSkill.categories = categories()
@@ -381,6 +392,7 @@ test "by «Can make» the most the bags make stands first, a tie by name" {
 }
 
 test "two recipes of one name stand by their numbers, whichever way they came" {
+  Test.englishOnly()
   Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
   Game.professions.list = professions()
   Game.tradeSkill.categories = categories()
@@ -396,6 +408,7 @@ test "two recipes of one name stand by their numbers, whichever way they came" {
 // The filter
 
 test "the filter's «Can make» leaves what the bags make now, «Raises the skill» what still raises it" {
+  Test.englishOnly()
   Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
   Game.professions.list = professions()
   Game.tradeSkill.categories = categories()
@@ -416,6 +429,7 @@ test "the filter's «Can make» leaves what the bags make now, «Raises the skil
 }
 
 test "the filter's «Learned» and «Not learned» each take theirs away" {
+  Test.englishOnly()
   Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
   Game.professions.list = professions()
   Game.tradeSkill.categories = categories()
@@ -431,6 +445,7 @@ test "the filter's «Learned» and «Not learned» each take theirs away" {
 }
 
 test "an option of the filter has its switch on while it is on; «Reset» turns every one back, and only then can be clicked" {
+  Test.englishOnly()
   Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
   Game.professions.list = professions()
   Game.tradeSkill.categories = categories()
@@ -452,6 +467,7 @@ test "an option of the filter has its switch on while it is on; «Reset» turns 
 }
 
 test "a click anywhere but the filter's menu closes it" {
+  Test.englishOnly()
   Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
   Game.professions.list = professions()
   Game.tradeSkill.categories = categories()
@@ -464,6 +480,7 @@ test "a click anywhere but the filter's menu closes it" {
 }
 
 test "the funnel's tip names the options on, or that none is" {
+  Test.englishOnly()
   Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
   Game.professions.list = professions()
   Game.tradeSkill.categories = categories()
@@ -487,6 +504,7 @@ test "the funnel's tip names the options on, or that none is" {
 }
 
 test "the funnel is lit while a filter is on" {
+  Test.englishOnly()
   Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
   Game.professions.list = professions()
   Game.tradeSkill.categories = categories()
@@ -502,6 +520,7 @@ test "the funnel is lit while a filter is on" {
 // The search
 
 test "the search finds a recipe by its name or by a reagent's, in any case" {
+  Test.englishOnly()
   Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
   Game.professions.list = professions()
   Game.tradeSkill.categories = categories()
@@ -523,6 +542,7 @@ test "the search finds a recipe by its name or by a reagent's, in any case" {
 }
 
 test "the search reads a recipe's reagents once, not again at each letter typed" {
+  Test.englishOnly()
   let readings = 0
   Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
   Game.professions.list = professions()
@@ -542,6 +562,7 @@ test "the search reads a recipe's reagents once, not again at each letter typed"
 }
 
 test "reagents the game told late are searched once the profession is opened again" {
+  Test.englishOnly()
   Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
   Game.professions.list = professions()
   Game.tradeSkill.categories = categories()
@@ -565,6 +586,7 @@ test "reagents the game told late are searched once the profession is opened aga
 // A recipe's row
 
 test "a recipe's name is in its difficulty's colour, one not learned dim; what the bags make stands at its right" {
+  Test.englishOnly()
   Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
   Game.professions.list = professions()
   Game.tradeSkill.categories = categories()
@@ -581,6 +603,7 @@ test "a recipe's name is in its difficulty's colour, one not learned dim; what t
 }
 
 test "a recipe that no longer raises the skill is grey" {
+  Test.englishOnly()
   Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
   Game.professions.list = professions()
   Game.tradeSkill.categories = categories()
@@ -593,6 +616,7 @@ test "a recipe that no longer raises the skill is grey" {
 // The chosen recipe's card
 
 test "the card: the recipe's name, what making it does for the skill, its description and what the work needs" {
+  Test.englishOnly()
   Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
   Game.professions.list = professions()
   Game.tradeSkill.categories = categories()

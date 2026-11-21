@@ -363,6 +363,7 @@ test "Escape closes the window, and the menu's «AddOns» opens it again" {
 }
 
 test "the list stands by category, a caption with its count over its addons, «Other» last, modules under Ordaen" {
+  Test.englishOnly()
   const world = new World(everyday())
   Client.C_AddOns.GetNumAddOns = () => world.count()
   Client.C_AddOns.GetAddOnName = index => world.name(index)
@@ -458,6 +459,7 @@ test "an addon with no notes shows no tip" {
 }
 
 test "the tab says how many addons are on, of all" {
+  Test.englishOnly()
   const world = new World(everyday())
   Client.C_AddOns.GetNumAddOns = () => world.count()
   Client.C_AddOns.GetAddOnName = index => world.name(index)
@@ -507,6 +509,7 @@ test "a row says why the client doesn't load an addon, in red" {
 }
 
 test "an addon switched off says «disabled», dim; switched on, not loaded, it waits for a reload" {
+  Test.englishOnly()
   const world = new World(everyday())
   world.fakes.push({ name: "Fresh", title: "Fresh" })
   world.off["Fresh"] = true
@@ -538,6 +541,7 @@ test "an addon switched off says «disabled», dim; switched on, not loaded, it 
 }
 
 test "an addon off and refused says it is off, dim, not why it is refused" {
+  Test.englishOnly()
   const world = new World(everyday())
   world.off["OldMap"] = true
   world.savedOff["OldMap"] = true
@@ -562,6 +566,7 @@ test "an addon off and refused says it is off, dim, not why it is refused" {
 }
 
 test "a loaded addon switched off stays loaded until a reload, and the footer counts what waits for one" {
+  Test.englishOnly()
   const world = new World(everyday())
   Client.C_AddOns.GetNumAddOns = () => world.count()
   Client.C_AddOns.GetAddOnName = index => world.name(index)
@@ -593,6 +598,7 @@ test "a loaded addon switched off stays loaded until a reload, and the footer co
 }
 
 test "what waits for a reload is listed in the footer's tip: on and not loaded, off and loaded" {
+  Test.englishOnly()
   const world = new World(everyday())
   world.fakes.push({ name: "Fresh", title: "Fresh" })
   Client.C_AddOns.GetNumAddOns = () => world.count()
@@ -647,6 +653,7 @@ test "neither an addon on demand nor one the client refuses waits for a reload" 
 // Switching
 
 test "switching off what others need asks first: «Cancel» changes nothing" {
+  Test.englishOnly()
   Test.mount(nil, SCREEN)
   open()
   flip("LunaType")
@@ -656,6 +663,7 @@ test "switching off what others need asks first: «Cancel» changes nothing" {
 }
 
 test "«Disable» in the question switches it off alone: what needs it stays on and says why it won't load" {
+  Test.englishOnly()
   Test.mount(nil, SCREEN)
   open()
   flip("Ordaen")
@@ -698,6 +706,7 @@ test "the question comes at every switching off that stops another addon, and ne
 }
 
 test "what stops loading is asked of through what needs it in turn, and only what is on" {
+  Test.englishOnly()
   Test.mount(nil, SCREEN)
   open()
   flip("Ordaen")
@@ -765,6 +774,7 @@ test "a needed addon missing from the folder is left to the client, which says w
 }
 
 test "what stops loading is asked of through a chain of what needs it, and a ring back is never asked of" {
+  Test.englishOnly()
   Test.addon({ name: "Wheel", title: "Wheel", category: "Cart" })
   Test.addon({ name: "Axle", title: "Axle", needs: ["Wheel"], category: "Cart" })
   Test.addon({ name: "Wagon", title: "Wagon", needs: ["Axle"], category: "Cart" })
@@ -780,6 +790,7 @@ test "what stops loading is asked of through a chain of what needs it, and a rin
 }
 
 test "the card names every addon that needs this one, and what it would like, by title" {
+  Test.englishOnly()
   Test.addon({ name: "Base", title: "Base", wants: ["Paint", "Lamp"], category: "Home" })
   Test.addon({ name: "Paint", title: "Paint", needs: ["Base"], category: "Home" })
   Test.addon({ name: "Lamp", title: "Lamp", needs: ["Base"], category: "Home", enabled: .Off })
@@ -968,6 +979,7 @@ test "every title stands at one left edge: a caption's, a parent's and a row wit
 }
 
 test "a caption's switch switches its whole group off where all of it is on, after the question" {
+  Test.englishOnly()
   const world = new World(everyday())
   Client.C_AddOns.GetNumAddOns = () => world.count()
   Client.C_AddOns.GetAddOnName = index => world.name(index)
@@ -996,6 +1008,7 @@ test "a caption's switch switches its whole group off where all of it is on, aft
 }
 
 test "a caption's switch switches its whole group on where any of it is off, with no question" {
+  Test.englishOnly()
   const world = new World(everyday())
   Client.C_AddOns.GetNumAddOns = () => world.count()
   Client.C_AddOns.GetAddOnName = index => world.name(index)
@@ -1052,6 +1065,7 @@ test "a caption's switch is off where none of its group is on, and switches it o
 }
 
 test "a caption's switch is the whole group's, whatever the search shows of it" {
+  Test.englishOnly()
   const world = new World(everyday())
   Client.C_AddOns.GetNumAddOns = () => world.count()
   Client.C_AddOns.GetAddOnName = index => world.name(index)
@@ -1081,6 +1095,7 @@ test "a caption's switch is the whole group's, whatever the search shows of it" 
 }
 
 test "Ordaen's caption switches Ordaen alone, after the question: its modules have no switch of their own" {
+  Test.englishOnly()
   Test.mount(nil, SCREEN)
   open()
   flip("User Interface")
@@ -1124,6 +1139,7 @@ test "for this character, a switch leaves the others: for all it shows on for so
 }
 
 test "an addon on for some characters is on: the tab counts it, «Enabled» shows it" {
+  Test.englishOnly()
   const world = new World(everyday())
   Client.C_AddOns.GetNumAddOns = () => world.count()
   Client.C_AddOns.GetAddOnName = index => world.name(index)
@@ -1205,6 +1221,7 @@ test "the search isn't kept: after a reload the list is whole" {
 }
 
 test "the filter's list shows every kind under its heading" {
+  Test.englishOnly()
   Test.mount(nil, SCREEN)
   open()
   window().button(Ordaen.art.ctl.tool.filter).click()
@@ -1378,6 +1395,7 @@ test "an addon shows where it matches every kind of the filter and the search" {
 }
 
 test "the filter's button is lit while a kind narrows the list, and its tip says which" {
+  Test.englishOnly()
   Test.mount(nil, SCREEN)
   open()
   Test.expect(!window().button(Ordaen.art.ctl.tool.filter).paintedWith(Style.GOLD))
@@ -1405,6 +1423,7 @@ test "each kind lights the filter's button by itself" {
 }
 
 test "a category folds at its caption, its caption and count left; clicked again it opens" {
+  Test.englishOnly()
   const world = new World(everyday())
   Client.C_AddOns.GetNumAddOns = () => world.count()
   Client.C_AddOns.GetAddOnName = index => world.name(index)
@@ -1431,6 +1450,7 @@ test "a category folds at its caption, its caption and count left; clicked again
 }
 
 test "folded, switched and unfolded again, every row keeps its line and its switch" {
+  Test.englishOnly()
   const world = new World(everyday())
   Client.C_AddOns.GetNumAddOns = () => world.count()
   Client.C_AddOns.GetAddOnName = index => world.name(index)
@@ -1459,6 +1479,7 @@ test "folded, switched and unfolded again, every row keeps its line and its swit
 }
 
 test "a long list scrolls, and each switch switches the addon its row shows, at every scroll" {
+  Test.englishOnly()
   for (i of 1..30) { Test.addon({ name: `Many${i}`, title: `Many ${i}`, category: "Many" }) }
   Test.mount(nil, SCREEN)
   open()
@@ -1483,6 +1504,7 @@ test "a long list scrolls, and each switch switches the addon its row shows, at 
 // The numbers
 
 test "the numbers: each addon's CPU now, at its peak and its memory, the heaviest third in the accent" {
+  Test.englishOnly()
   const world = new World(everyday())
   Client.C_AddOns.GetNumAddOns = () => world.count()
   Client.C_AddOns.GetAddOnName = index => world.name(index)
@@ -1660,6 +1682,7 @@ test "by category, the sort orders each category's addons: by load now, at its p
 }
 
 test "as a table: one list by title, no captions, the category in a column, the sort's button gone" {
+  Test.englishOnly()
   const world = new World(everyday())
   Client.C_AddOns.GetNumAddOns = () => world.count()
   Client.C_AddOns.GetAddOnName = index => world.name(index)
@@ -1796,6 +1819,7 @@ test "«Heaviest» shows the addons the client names as the heaviest now" {
 // A row's menu
 
 test "right-click on a row offers its switch and its card; «Disable» asks as its switch does" {
+  Test.englishOnly()
   Test.mount(nil, SCREEN)
   open()
   Test.expect(reads(menu("LunaType"), "Disable | Details"))
@@ -1808,6 +1832,7 @@ test "right-click on a row offers its switch and its card; «Disable» asks as i
 }
 
 test "a module's menu offers Ordaen's settings at it in place of a switch" {
+  Test.englishOnly()
   Test.mount(nil, SCREEN)
   open()
   Test.expect(reads(menu("Ordaen System"), "Ordaen settings | Details"))
@@ -1831,6 +1856,7 @@ test "a row's menu closes at a click elsewhere, having done nothing" {
 }
 
 test "«Load» in the menu of an addon on demand loads it now, and opens its card" {
+  Test.englishOnly()
   const world = new World(everyday())
   Client.C_AddOns.GetNumAddOns = () => world.count()
   Client.C_AddOns.GetAddOnName = index => world.name(index)
@@ -1858,6 +1884,7 @@ test "«Load» in the menu of an addon on demand loads it now, and opens its car
 }
 
 test "«Load» isn't offered for what is loaded, off, refused or loaded at login" {
+  Test.englishOnly()
   const world = new World(everyday())
   world.fakes.push({ name: "Fresh", title: "Fresh" })
   world.fakes.push({ name: "Shut", title: "Shut", demand: true })
@@ -1912,6 +1939,7 @@ test "a row clicked is picked: lit, and its card stands beside the list" {
 }
 
 test "the card: the addon's title, version and author, notes, state, what it needs and would like, and its load" {
+  Test.englishOnly()
   const world = new World(everyday())
   Client.C_AddOns.GetNumAddOns = () => world.count()
   Client.C_AddOns.GetAddOnName = index => world.name(index)
@@ -1962,6 +1990,7 @@ test "the card's byline is the version alone, or the author alone, where the oth
 }
 
 test "an Ordaen module's card: what it needs, loaded, and «Ordaen settings» in place of its switch" {
+  Test.englishOnly()
   Test.mount(nil, SCREEN)
   open()
   row("Ordaen System").click()
@@ -2068,6 +2097,7 @@ test "a refusal of «Load» stays on the card of the addon it is about" {
 }
 
 test "in a fight the card's «Load» is greyed, does nothing, and says why under the cursor" {
+  Test.englishOnly()
   Test.addon({ name: "Chatter", title: "Chatter", onDemand: true })
   Test.mount(nil, SCREEN)
   Test.combat(true)
@@ -2123,6 +2153,7 @@ test "the card names the addon it needs that keeps it from loading" {
 }
 
 test "the card's numbers: each share, the spikes over 5 ms, and memory" {
+  Test.englishOnly()
   const meter = new Meter()
   meter.now["Ordaen"] = 1
   meter.peak["Ordaen"] = 2
@@ -2142,6 +2173,7 @@ test "the card's numbers: each share, the spikes over 5 ms, and memory" {
 }
 
 test "a module's card opens Ordaen's settings at it" {
+  Test.englishOnly()
   Test.mount(nil, SCREEN)
   open()
   row("Ordaen System").click()
@@ -2191,6 +2223,7 @@ test "«Reload» is a secure box the client runs: /reload" {
 }
 
 test "in a fight «Reload» is greyed and says why under the cursor" {
+  Test.englishOnly()
   Test.mount(nil, SCREEN)
   Test.combat(true)
   open()
@@ -2240,6 +2273,7 @@ function set(name: String): Test.Part {
 }
 
 test "a set saved under a name is listed under «Sets»" {
+  Test.englishOnly()
   Test.mount(nil, SCREEN)
   open()
   saveSet("Raid")
@@ -2249,6 +2283,7 @@ test "a set saved under a name is listed under «Sets»" {
 }
 
 test "a set isn't saved with no name" {
+  Test.englishOnly()
   Test.mount(nil, SCREEN)
   open()
   window().button(Locale.SETS).click()
@@ -2315,6 +2350,7 @@ test "a set applied skips what isn't in the folder any more, and says so" {
 }
 
 test "a set saved under a name kept already takes its place" {
+  Test.englishOnly()
   const world = new World(everyday())
   Client.C_AddOns.GetNumAddOns = () => world.count()
   Client.C_AddOns.GetAddOnName = index => world.name(index)
@@ -2346,6 +2382,7 @@ test "a set saved under a name kept already takes its place" {
 }
 
 test "a set renamed, then deleted" {
+  Test.englishOnly()
   Test.mount(nil, SCREEN)
   open()
   saveSet("Raid")
@@ -2360,6 +2397,7 @@ test "a set renamed, then deleted" {
 }
 
 test "a set isn't renamed to no name" {
+  Test.englishOnly()
   Test.mount(nil, SCREEN)
   open()
   saveSet("Raid")
@@ -2379,6 +2417,7 @@ test "at most ten sets are kept: the eleventh says to delete one first" {
 }
 
 test "sets are kept between sessions" {
+  Test.englishOnly()
   Test.mount(nil, SCREEN)
   open()
   saveSet("Raid")
@@ -2467,6 +2506,7 @@ test "a folded category no addon has any more is let go: one of it installed aga
 }
 
 test "another profile has the list as it starts: by category, nothing picked, nothing filtered" {
+  Test.englishOnly()
   Test.mount(nil, SCREEN)
   open()
   filter(Locale.FILTER_DEMAND)
@@ -2524,6 +2564,7 @@ test "every Ordaen module stands under Ordaen in the client's list, in its categ
 }
 
 test "System is among Ordaen's modules, and its page has the AddOns window's settings" {
+  Test.englishOnly()
   Test.mount(nil, SCREEN)
   const page = settings()
   page.button("System").click()
@@ -2545,6 +2586,7 @@ test "a module the player turned off in Ordaen says so, after a reload too" {
 }
 
 test "a module's state opens Ordaen's settings at the module" {
+  Test.englishOnly()
   Test.mount(nil, SCREEN)
   open()
   window().text(Locale.MODULE_ON).click()
@@ -2604,6 +2646,7 @@ test "the card shows the addon's icon as its TOC names it, the question mark whe
 }
 
 test "the card of an addon not loaded says no memory, and its links say what they need is loaded, in green" {
+  Test.englishOnly()
   const world = new World(everyday())
   Client.C_AddOns.GetNumAddOns = () => world.count()
   Client.C_AddOns.GetAddOnName = index => world.name(index)
@@ -2657,6 +2700,7 @@ test "the card offers «Load» only for an addon on demand that is on, not loade
 }
 
 test "the card's spikes: each count of frames over its time, joined" {
+  Test.englishOnly()
   const meter = new Meter()
   meter.spikes["Ordaen"] = 3
   meter.spikes50["Ordaen"] = 1
@@ -2832,6 +2876,7 @@ test "«Reset» takes the strip away with the step" {
 }
 
 test "the filter's tip names the choice of every kind that narrows" {
+  Test.englishOnly()
   Test.mount(nil, SCREEN)
   open()
   filter(Locale.FILTER_HEAVY)
@@ -2882,6 +2927,7 @@ test "a set applied switches on what it holds that is off, and off the last addo
 }
 
 test "a set renamed, deleted or saved again is so after a reload" {
+  Test.englishOnly()
   Test.mount(nil, SCREEN)
   open()
   saveSet("Raid")

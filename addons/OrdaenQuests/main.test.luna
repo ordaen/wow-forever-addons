@@ -58,6 +58,7 @@ test "a quest's tab is the client's tag: dungeon, raid, battleground, else the w
 }
 
 test "the game's quest log key opens the window, and again closes it" {
+  Test.englishOnly()
   Test.mount(nil, PAGE)
   _ = Client.SetBinding("L", "TOGGLEQUESTLOG")
   Events.UPDATE_BINDINGS.emit()
@@ -79,6 +80,7 @@ test "switched off, the key is the game's again" {
 }
 
 test "the micro menu's quest log button opens the window, and has the game's click back as the module ends" {
+  Test.englishOnly()
   Test.mount(nil, PAGE)
   const button = Client.CreateFrame("Button", "QuestLogMicroButton", Client.UIParent, nil)
   button.SetSize(30, 40)
@@ -101,6 +103,7 @@ test "the micro menu's quest log button opens the window, and has the game's cli
 }
 
 test "each tab lists its own quests and counts them, the player's zone first" {
+  Test.englishOnly()
   opened(standing())
   const window = Test.page().window("World")
   Test.expect(window.text("Elwynn Wolves").shown())
@@ -116,6 +119,7 @@ test "each tab lists its own quests and counts them, the player's zone first" {
 }
 
 test "a header folds its quests away and back" {
+  Test.englishOnly()
   opened(standing())
   const window = Test.page().window("World")
   window.text("Westfall").click()
@@ -125,6 +129,7 @@ test "a header folds its quests away and back" {
 }
 
 test "the toolbar's choices and the folded headers are there after a /reload; the search isn't" {
+  Test.englishOnly()
   opened(standing())
   Test.page().window("World").text("Westfall").click()
   Test.expect(Quests.folds.values.headers["Westfall"] == true)
@@ -145,6 +150,7 @@ test "the toolbar's choices and the folded headers are there after a /reload; th
 }
 
 test "Shift+Left-click on a quest tracks it" {
+  Test.englishOnly()
   opened(standing())
   Test.hold([.Shift])
   Test.page().window("World").text("Elwynn Wolves").click()
@@ -153,6 +159,7 @@ test "Shift+Left-click on a quest tracks it" {
 }
 
 test "a quest picked shows its page, with where its giver stands from QuestieDB" {
+  Test.englishOnly()
   opened(standing())
   Test.page().window("World").text("The Defias Brotherhood").click()
   const window = Test.page().window("World")
@@ -168,6 +175,7 @@ test "a quest picked shows its page, with where its giver stands from QuestieDB"
 }
 
 test "the tracking switch stands at the page's right edge, over Abandon's" {
+  Test.englishOnly()
   opened(standing())
   Test.page().window("World").text("The Defias Brotherhood").click()
   const window = Test.page().window("World")
@@ -176,6 +184,7 @@ test "the tracking switch stands at the page's right edge, over Abandon's" {
 }
 
 test "a quest's page shows its rewards as Dialogue's quest page does: those to choose, those given, at its foot" {
+  Test.englishOnly()
   const log = standing()
   log[3] = { rewards: [{ item: 1001, count: 3 }], choices: [{ item: 1002 }, { item: 1003 }], ..quest(103, "Elwynn Wolves", "Elwynn Forest") }
   opened(log)
@@ -189,6 +198,7 @@ test "a quest's page shows its rewards as Dialogue's quest page does: those to c
 }
 
 test "a quest's title stands in Dialogue's title type on the scroll, its lines tight, without its level" {
+  Test.englishOnly()
   opened(standing())
   Test.page().window("World").text("The Defias Brotherhood").click()
   const window = Test.page().window("World")
@@ -199,6 +209,7 @@ test "a quest's title stands in Dialogue's title type on the scroll, its lines t
 }
 
 test "a quest's scroll fills its page's height: the rolls at its top and its foot, the paper repeated between them" {
+  Test.englishOnly()
   opened(standing())
   Test.page().window("World").text("The Defias Brotherhood").click()
   const window = Test.page().window("World")
@@ -214,6 +225,7 @@ test "a quest's scroll fills its page's height: the rolls at its top and its foo
 }
 
 test "a quest under the cursor has its tooltip, and its pins on the map lit while it is there" {
+  Test.englishOnly()
   const log = standing()
   log[1] = { task: "Find Gryan in Sentinel Hill.", ..log[1] ?? panic("a quest") }
   opened(log)
@@ -228,6 +240,7 @@ test "a quest under the cursor has its tooltip, and its pins on the map lit whil
 }
 
 test "docked, the map open, the log stands over the map's side panel; a quest picked there shows its page and the way back" {
+  Test.englishOnly()
   opened(standing())
   Quests.flip()
   Test.flush()
@@ -262,6 +275,7 @@ test "in the tracker a quest to do says where, and its title opens its page in t
 }
 
 test "a quest's page draws no figure, as Dialogue's quest page, even where the client names its giver" {
+  Test.englishOnly()
   const log = standing()
   log[3] = { portraitGiver: 1491, ..quest(103, "Elwynn Wolves", "Elwynn Forest") }
   opened(log)
@@ -274,6 +288,7 @@ test "a quest's page draws no figure, as Dialogue's quest page, even where the c
 }
 
 test "the list's rows have no tracking box: a quest is tracked by the page's switch" {
+  Test.englishOnly()
   opened(standing())
   const window = Test.page().window("World")
   Test.expect(!window.box(Ordaen.art.ctl.check).shown())
@@ -284,6 +299,7 @@ test "the list's rows have no tracking box: a quest is tracked by the page's swi
 }
 
 test "Abandon is the page's accent button and stands at the right, after the others" {
+  Test.englishOnly()
   opened(standing())
   const window = Test.page().window("World")
   window.text("The Defias Brotherhood").click()
@@ -295,6 +311,7 @@ test "Abandon is the page's accent button and stands at the right, after the oth
 }
 
 test "a long objective wraps on the page, its count standing at the right of the line" {
+  Test.englishOnly()
   const log = standing()
   log[3] = { objectives: [{ text: "Gray forest wolves slain in the hills east of Goldshire and the woods past it: 0/50" }], ..quest(103, "Elwynn Wolves", "Elwynn Forest") }
   opened(log)
@@ -311,6 +328,7 @@ test "a long objective wraps on the page, its count standing at the right of the
 }
 
 test "the window opened as the player opens it lists the log's quests, Map on and OpenMap's art not built yet" {
+  Test.englishOnly()
   Test.questLog(standing())
   Test.mount(nil, PAGE)
   Test.flush()
@@ -320,6 +338,7 @@ test "the window opened as the player opens it lists the log's quests, Map on an
 }
 
 test "a quest QuestieDB doesn't know has no lines of who gives and completes it" {
+  Test.englishOnly()
   opened(standing())
   Test.page().window("World").text("Elwynn Wolves").click()
   Test.expect(!Test.page().window("World").text("Completed by").shown())

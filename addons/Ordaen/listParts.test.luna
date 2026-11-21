@@ -89,6 +89,7 @@ test "a card's line says its label and its value; a caption folds; a button with
 }
 
 test "how long ago: never under a minute, then hours, then days" {
+  Test.englishOnly()
   Game.clock.server = 1000000
   Test.expect(agoText(1000000 - 10) == "1 min ago")
   Test.expect(agoText(1000000 - 7200) == "2 h ago")

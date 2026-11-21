@@ -113,6 +113,7 @@ function before(first: String, second: String): Boolean {
 // The rows
 
 test "before any price the list says the first scan is under way" {
+  Test.englishOnly()
   Game.items.tooltip = names
   Test.mount(nil, SCREEN)
   Game.auctionHouse.open = true
@@ -120,6 +121,7 @@ test "before any price the list says the first scan is under way" {
 }
 
 test "each item the house showed is a row: how many listed, its lowest, its market, the share, the age" {
+  Test.englishOnly()
   Game.clock.server = START
   Game.items.tooltip = names
   Test.mount(nil, SCREEN)
@@ -132,6 +134,7 @@ test "each item the house showed is a row: how many listed, its lowest, its mark
 }
 
 test "an item the game doesn't name yet is named by its number" {
+  Test.englishOnly()
   Game.clock.server = START
   Game.items.tooltip = names
   Test.mount(nil, SCREEN)
@@ -144,6 +147,7 @@ test "an item the game doesn't name yet is named by its number" {
 }
 
 test "the lowest's share of its market: green for a bargain under 90%, red over 100%, the ink between" {
+  Test.englishOnly()
   Game.clock.server = START
   Game.items.tooltip = names
   Test.mount(nil, SCREEN)
@@ -163,6 +167,7 @@ test "the lowest's share of its market: green for a bargain under 90%, red over 
 }
 
 test "the age column: «< 1 h» this hour, the hours under a day, the market's days from one, amber to the third" {
+  Test.englishOnly()
   Game.clock.server = START
   Game.items.tooltip = names
   Test.mount(nil, SCREEN)
@@ -183,6 +188,7 @@ test "the age column: «< 1 h» this hour, the hours under a day, the market's d
 }
 
 test "five thousand items: the list builds the rows in view, and the wheel builds none" {
+  Test.englishOnly()
   Game.clock.server = START
   Game.items.tooltip = (id: Integer): Game.TooltipData | nil => { return { lines: [{ left: "Ware %d".format(id), kind: 0 }] } }
   Test.mount(nil, SCREEN)
@@ -202,6 +208,7 @@ test "five thousand items: the list builds the rows in view, and the wheel build
 // Sorting and the views
 
 test "a column's title sorts the rows by it, and again the other way; the sort is kept between sessions" {
+  Test.englishOnly()
   Game.clock.server = START
   Game.items.tooltip = names
   Test.mount(nil, SCREEN)
@@ -226,6 +233,7 @@ test "a column's title sorts the rows by it, and again the other way; the sort i
 }
 
 test "sorted by the market, the share or the age" {
+  Test.englishOnly()
   Game.clock.server = START
   Game.items.tooltip = names
   Test.mount(nil, SCREEN)
@@ -245,6 +253,7 @@ test "sorted by the market, the share or the age" {
 }
 
 test "variants: each a row named with its suffix, its own lowest and its own market's share" {
+  Test.englishOnly()
   Game.clock.server = START
   Game.items.tooltip = names
   Game.items.variant = variants
@@ -269,6 +278,7 @@ test "variants: each a row named with its suffix, its own lowest and its own mar
 }
 
 test "one row an item: the variants folded, their listings summed, their lowest prices a range" {
+  Test.englishOnly()
   Game.clock.server = START
   Game.items.tooltip = names
   Game.items.variant = variants
@@ -291,6 +301,7 @@ test "one row an item: the variants folded, their listings summed, their lowest 
 // Searching
 
 test "typing: keys a tenth of a second apart are one search once the typing settles; names asked of the game once" {
+  Test.englishOnly()
   Game.clock.server = START
   Game.items.tooltip = names
   Test.mount(nil, SCREEN)
@@ -313,6 +324,7 @@ test "typing: keys a tenth of a second apart are one search once the typing sett
 }
 
 test "the rows shown are those whose name holds what is typed" {
+  Test.englishOnly()
   Game.clock.server = START
   Game.items.tooltip = names
   Test.mount(nil, SCREEN)
@@ -326,6 +338,7 @@ test "the rows shown are those whose name holds what is typed" {
 }
 
 test "Enter searches at once, and the typing settling after it sends nothing more" {
+  Test.englishOnly()
   Game.clock.server = START
   Game.items.tooltip = names
   Test.mount(nil, SCREEN)
@@ -341,6 +354,7 @@ test "Enter searches at once, and the typing settling after it sends nothing mor
 }
 
 test "a search waits for the house to take a query, and is sent whole once it does" {
+  Test.englishOnly()
   Game.clock.server = START
   Game.items.tooltip = names
   Test.mount(nil, SCREEN)
@@ -357,6 +371,7 @@ test "a search waits for the house to take a query, and is sent whole once it do
 }
 
 test "a category: a class picked shows its subclasses and searches it, a subclass searches itself, «All items» every one" {
+  Test.englishOnly()
   Game.clock.server = START
   Game.items.tooltip = names
   Test.mount(nil, SCREEN)

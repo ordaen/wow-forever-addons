@@ -1,0 +1,25 @@
+down: 2; held 0.3 s: 2; at 0.42 s: 3; at 0.52 s: 5; let go: 5
+-- held to 12, the most: + disabled, let go
+box 0,0 300x28.33
+  box 0,0 76.38x28.33
+    box 0,0 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+      text 7.22,6.37 8.89x15.6 "-" #ffd100
+    box 29.02,6.37 18.33x15.6
+      text 30.41,6.37 15.56x15.6 "12" #f0e6d2
+    box 53.04,0 23.33x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+      text 60.27,6.37 8.89x15.6 "+" #808080
+surface 53.04,28.33 271.17x174.12 on TOOLTIP Interface\AddOns\Ordaen\media\window-wood clamped
+  text 77.52,52.81 227.22x26.67 "Больше" #f0e6d2
+  text 77.52,85.16 227.22x31.2 "Удерживайте, чтобы шаги повторялись до предела." #cbb994
+  box 77.52,122.05 227.22x15.6
+    box 77.52,122.05 203.13x15.6
+      text 77.52,122.05 22.22x15.6 "ЛКМ" #cbb994
+    text 289.18,122.05 15.56x15.6 "+1" #f0e6d2
+  box 77.52,143.34 227.22x15.6
+    box 77.52,143.34 196.47x15.6
+      text 77.52,143.34 61.11x15.6 "Shift+ЛКМ" #cbb994
+    text 282.52,143.34 22.22x15.6 "+10" #f0e6d2
+  box 77.52,164.63 227.22x15.6
+    box 77.52,164.63 189.8x15.6
+      text 77.52,164.63 54.44x15.6 "Ctrl+ЛКМ" #cbb994
+    text 275.85,164.63 28.89x15.6 "+100" #f0e6d2

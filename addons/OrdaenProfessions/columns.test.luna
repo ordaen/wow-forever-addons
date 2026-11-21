@@ -28,6 +28,7 @@ function dragBy(at: Test.Point, dx: Number, dy: Number) {
 }
 
 test "at the window's least only the longest names wrap; wider, the lists and the card share the room" {
+  Test.englishOnly()
   Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
   Game.professions.list = [
     { skillLine: TAILORING, name: "Tailoring", icon: 136249, rank: 31, max: 75, kind: Game.ProfessionKind.Crafting }

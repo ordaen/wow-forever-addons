@@ -5,6 +5,7 @@ import root Ordaen from "Ordaen"
 import { Showcase } from "@/index"
 
 test "every control of the library answers the mouse and the keyboard" {
+  Test.englishOnly()
   const art = Ordaen.art
   // The showcase made and added to Ordaen's modules: Ordaen draws it on the screen, which the page is.
   const page = new Showcase()

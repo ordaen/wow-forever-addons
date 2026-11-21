@@ -65,6 +65,7 @@ function nameOf(unit: String): (String, String) {
 }
 
 test "the merchant's window opens with the merchant, each item with its price, and leaves with it" {
+  Test.englishOnly()
   Client.UnitName = nameOf
   Client.GetMerchantNumItems = (): Integer => 5
   Client.GetMerchantItemID = (index: Number): Number | nil => 100 + index

@@ -140,6 +140,7 @@ function opened(sheet: mut FakeSheet): Test.Part {
 // The window
 
 test "the game's character window shown shows ours, and closing ours closes the game's" {
+  Test.englishOnly()
   Test.mount(nil, PAGE)
   Char.sheet = new FakeSheet()
   const game = Client.CreateFrame("Frame", "CharacterFrame", Client.UIParent, nil)
@@ -155,6 +156,7 @@ test "the game's character window shown shows ours, and closing ours closes the 
 }
 
 test "the game's reputation page shown opens ours on the reputation tab" {
+  Test.englishOnly()
   Test.mount(nil, PAGE)
   const sheet = new FakeSheet()
   const game = Client.CreateFrame("Frame", "CharacterFrame", Client.UIParent, nil)
@@ -171,6 +173,7 @@ test "the game's reputation page shown opens ours on the reputation tab" {
 // The slots
 
 test "a slot shows what is worn there with its level, and an empty one its well" {
+  Test.englishOnly()
   Test.mount(nil, PAGE)
   Game.items.icon = icons
   const window = opened(new FakeSheet())
@@ -189,6 +192,7 @@ test "a slot's item level is left out where the settings say so" {
 }
 
 test "left-click on a slot picks up what is worn there, and on an empty one lets go there what the cursor holds" {
+  Test.englishOnly()
   Test.mount(nil, PAGE)
   const sheet = new FakeSheet()
   Game.items.icon = icons
@@ -199,6 +203,7 @@ test "left-click on a slot picks up what is worn there, and on an empty one lets
 }
 
 test "Shift+Left-click on a slot puts the item's link into the chat and picks nothing up" {
+  Test.englishOnly()
   Test.mount(nil, PAGE)
   const sheet = new FakeSheet()
   Game.items.icon = icons
@@ -211,6 +216,7 @@ test "Shift+Left-click on a slot puts the item's link into the chat and picks no
 }
 
 test "right-click on a slot uses what is worn there, the client's own doing, and picks nothing up" {
+  Test.englishOnly()
   Test.mount(nil, PAGE)
   const sheet = new FakeSheet()
   Game.items.icon = icons
@@ -221,6 +227,7 @@ test "right-click on a slot uses what is worn there, the client's own doing, and
 }
 
 test "a slot under the cursor shows the tooltip of the slot, never the item's (which the game compares with itself)" {
+  Test.englishOnly()
   Test.mount(nil, PAGE)
   Game.items.icon = icons
   const window = opened(new FakeSheet())

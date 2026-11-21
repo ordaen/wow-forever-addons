@@ -85,12 +85,14 @@ function recorded(others: Array<Character>) {
 }
 
 test "with no recipe with a cooldown the tab says how to record them" {
+  Test.englishOnly()
   Test.mount(nil, SCREEN)
   _ = cooldowns()
   Test.expect(shows(`${Locale.NO_COOLDOWNS} | ${HEADINGS} | ${TABS}`))
 }
 
 test "a profession opened records the cooldowns of its recipes, and only of those that have one" {
+  Test.englishOnly()
   Game.clock.server = START
   Game.spells.name = spellName
   Game.tradeSkill.recipes = learned([STONE, 2662])
@@ -102,6 +104,7 @@ test "a profession opened records the cooldowns of its recipes, and only of thos
 }
 
 test "nothing is recorded while no profession is open, or where the game gives no recipes" {
+  Test.englishOnly()
   Game.tradeSkill.recipes = learned([STONE])
   Game.recipeReader.cooldown = (recipe: Integer): Integer | nil => 3600
   Test.mount(nil, SCREEN)
@@ -112,6 +115,7 @@ test "nothing is recorded while no profession is open, or where the game gives n
 }
 
 test "each recipe with a cooldown is listed per character, the soonest first, a ready one in green" {
+  Test.englishOnly()
   Game.clock.server = START
   Game.spells.name = spellName
   Test.mount(nil, SCREEN)
@@ -125,6 +129,7 @@ test "each recipe with a cooldown is listed per character, the soonest first, a 
 }
 
 test "a recipe ready this very hour is ready, in green; one ready in an hour isn't yet" {
+  Test.englishOnly()
   Game.clock.server = START
   Game.spells.name = spellName
   Test.mount(nil, SCREEN)
@@ -136,6 +141,7 @@ test "a recipe ready this very hour is ready, in green; one ready in an hour isn
 }
 
 test "a recipe the game has no name for is listed by its number" {
+  Test.englishOnly()
   Game.clock.server = START
   Test.mount(nil, SCREEN)
   recorded([crafter("Aria", SMITHING, [STONE, 3])])
@@ -144,6 +150,7 @@ test "a recipe the game has no name for is listed by its number" {
 }
 
 test "a heading sorts the cooldowns by its column, a second click the other way" {
+  Test.englishOnly()
   Game.clock.server = START
   Game.spells.name = spellName
   Test.mount(nil, SCREEN)
@@ -169,6 +176,7 @@ test "a heading sorts the cooldowns by its column, a second click the other way"
 }
 
 test "forty cooldowns scroll inside the window" {
+  Test.englishOnly()
   Game.clock.server = START
   const waits: Array<Integer> = []
   for (i of 1..40) {

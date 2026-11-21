@@ -71,6 +71,7 @@ function copyFrom(named: String) {
 }
 
 test "a bar picked in the list has its settings beside it, and its switch there turns it off" {
+  Test.englishOnly()
   alone()
   const stand = new Stand()
   Test.mount(stand, SCREEN)
@@ -88,6 +89,7 @@ test "a bar picked in the list has its settings beside it, and its switch there 
 }
 
 test "a copy takes every setting but the place, the switch and Панель 1's forms, held to the bar's most" {
+  Test.englishOnly()
   alone()
   const stand = new Stand()
   Test.mount(stand, SCREEN)
@@ -120,6 +122,7 @@ test "a copy takes every setting but the place, the switch and Панель 1's 
 }
 
 test "a copy made in a fight changes the bar only as the fight ends" {
+  Test.englishOnly()
   alone()
   const stand = new Stand()
   Test.mount(stand, SCREEN)
@@ -137,6 +140,7 @@ test "a copy made in a fight changes the bar only as the fight ends" {
 }
 
 test "the menu resets the bar's settings, its switch kept, and puts it back where the panel puts it" {
+  Test.englishOnly()
   alone()
   const stand = new Stand()
   Test.mount(stand, SCREEN)

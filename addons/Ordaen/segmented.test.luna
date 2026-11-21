@@ -25,6 +25,7 @@ class Pick {
 }
 
 test "a segment is picked with the mouse, one not built yet takes no click, a disabled strip none" {
+  Test.englishOnly()
   let page = new Pick()
   Test.mount(page, { left: 0, top: 0, width: 600, height: 100 })
   Test.shot("the first segment picked: white on bronze with its light, the others dim")

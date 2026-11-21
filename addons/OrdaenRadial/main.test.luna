@@ -43,6 +43,7 @@ function clickAt(x: Number, y: Number) {
 }
 
 test "the key held opens the ring at the cursor and names what the mouse goes towards" {
+  Test.englishOnly()
   start()
   hold("F", 0, -FAR)
   Test.expect(Test.page().texts().join(", ") == "Windows")
@@ -56,6 +57,7 @@ test "the key held opens the ring at the cursor and names what the mouse goes to
 }
 
 test "a ring's item opens its ring in place, and a click does its item, in a fight too" {
+  Test.englishOnly()
   start()
   Test.combat(true)
   hold("F", 0, -FAR)
@@ -71,6 +73,7 @@ test "a ring's item opens its ring in place, and a click does its item, in a fig
 }
 
 test "the marks' ring on its own key marks the target with one flick" {
+  Test.englishOnly()
   start()
   Test.combat(true)
   hold("G", 0, -FAR)
@@ -81,6 +84,7 @@ test "the marks' ring on its own key marks the target with one flick" {
 }
 
 test "a window of ours is opened out of a fight, and is dimmed and does nothing in one" {
+  Test.englishOnly()
   start()
   Test.combat(true)
   hold("F", -FAR, -FAR)
@@ -99,6 +103,7 @@ test "a window of ours is opened out of a fight, and is dimmed and does nothing 
 }
 
 test "the settings' tab puts an item in a place, and the preset takes it back" {
+  Test.englishOnly()
   start()
   Test.open("/ordaen")
   const settings = Test.page().window("Move mode")
@@ -134,6 +139,7 @@ class Junk implements RadialKind {
 }
 
 test "a spell dropped from the spellbook goes in the place chosen" {
+  Test.englishOnly()
   start()
   Client.C_Spell.GetSpellName = (id: String | Integer): String | nil => id == 2383 ? "Find Herbs" : nil
   Test.open("/ordaen")
@@ -161,6 +167,7 @@ test "a kind another module adds offers its item on the wheel, in a fight too" {
 }
 
 test "an item of another class is dimmed and does nothing; one held to a modifier needs it" {
+  Test.englishOnly()
   start()
   Client.UnitClass = (unit: String): (String | nil, String | nil, Number | nil) => { return "Warrior", "WARRIOR", 1 }
   editRing(3, (ring: mut Ring): nil => {
@@ -200,6 +207,7 @@ test "a spell shows its charges and its cooldown's sweep; a macro its own icon" 
 }
 
 test "a ring's size and its submenus' memory are chosen on the tab" {
+  Test.englishOnly()
   start()
   Test.open("/ordaen")
   const settings = Test.page().window("Move mode")
@@ -212,6 +220,7 @@ test "a ring's size and its submenus' memory are chosen on the tab" {
 }
 
 test "an item from the bags and a macro dropped go in the place chosen" {
+  Test.englishOnly()
   start()
   Client.GetCursorInfo = (): (String | nil, Unknown, Unknown, Unknown) => { return "item", 6948, "item:6948", nil }
   Client.GetMacroInfo = (which: String | Integer): (String | nil, FileId | nil, String | nil) => { return "Heal me", 134400, "" }

@@ -5,6 +5,7 @@ import { ReportPage, report } from "@/report"
 const PAGE: Test.Page = { left: 0, top: 0, width: 600, height: 500 }
 
 test "the report holds the game's build, the addons loaded with their versions, and the newest errors first" {
+  Test.englishOnly()
   let errors = new Errors(noErrors(), { client: "1.60.1", build: "70959", interface: 16001, locale: "enUS", core: "1.4.0" })
   _ = errors.add({ message: "Interface/AddOns/OrdaenMap/map.lua:1: first" })
   _ = errors.add({ message: "Interface/AddOns/OrdaenMap/map.lua:2: second", stack: "the stack" })
@@ -20,11 +21,13 @@ test "the report holds the game's build, the addons loaded with their versions, 
 }
 
 test "a report with no error says so" {
+  Test.englishOnly()
   const text = report(new Errors(noErrors(), {}))
   Test.expect(text.contains("No error was caught."))
 }
 
 test "the tab counts the errors, and its button makes the report to copy" {
+  Test.englishOnly()
   let errors = new Errors(noErrors(), {})
   _ = errors.add({ message: "boom" })
   const page = new ReportPage(errors)

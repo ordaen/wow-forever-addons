@@ -86,6 +86,7 @@ function recorded(others: Array<Character>, me: Character | nil) {
 }
 
 test "/alts opens the window on the characters: the one played alone, in gold, and a note that only it is recorded" {
+  Test.englishOnly()
   Test.mount(nil, SCREEN)
   Test.open("/alts")
   Test.expect(row("Player") == "Player | 1 | 0g 0s 0c | — | now | never opened | never opened")
@@ -94,6 +95,7 @@ test "/alts opens the window on the characters: the one played alone, in gold, a
 }
 
 test "the character being played has no Forget" {
+  Test.englishOnly()
   Test.mount(nil, SCREEN)
   recorded([alt("Aria", 30, 5)], nil)
   Test.expect(window().text("Aria").item().button(Locale.FORGET).shown())
@@ -115,6 +117,7 @@ test "/alts again closes the window, and so do its close button and Escape" {
 }
 
 test "the row follows the character as it plays: its level, its gold and its professions with their skill" {
+  Test.englishOnly()
   Test.mount(nil, SCREEN)
   Test.open("/alts")
   Game.player.level = 42
@@ -129,6 +132,7 @@ test "the row follows the character as it plays: its level, its gold and its pro
 }
 
 test "a profession's skill and name follow the game, one dropped leaves the row, and an empty list changes nothing" {
+  Test.englishOnly()
   Test.mount(nil, SCREEN)
   Test.open("/alts")
   Game.professions.list = [
@@ -148,6 +152,7 @@ test "a profession's skill and name follow the game, one dropped leaves the row,
 }
 
 test "a character with a surname is listed by its name and surname" {
+  Test.englishOnly()
   Test.login({ guid: PLAYER, name: "Regy", surname: "Ironsight" })
   Test.mount(nil, SCREEN)
   alts()
@@ -155,6 +160,7 @@ test "a character with a surname is listed by its name and surname" {
 }
 
 test "characters played once are listed when another is played, apart where their realm or side differs" {
+  Test.englishOnly()
   Test.login({ guid: "Player-6946-005FB73B", name: "Regy", surname: nil, realm: "CAMWOW EU5 Realm 4 PvP" })
   Test.login({ guid: "Player-1-00000002", name: "Horda", surname: nil, faction: .Horde })
   Test.login({ guid: "Player-1-00000003", name: "Panda", surname: nil, faction: .Neutral })
@@ -168,6 +174,7 @@ test "characters played once are listed when another is played, apart where thei
 }
 
 test "the bags' free slots show once the bags are read, a dash before, and follow the bags" {
+  Test.englishOnly()
   Test.mount(nil, SCREEN)
   Test.open("/alts")
   // The bags' room as the game says it, read as the bags change.
@@ -183,6 +190,7 @@ test "the bags' free slots show once the bags are read, a dash before, and follo
 }
 
 test "the bank says how long ago it was read: in hours under a day, then in whole days" {
+  Test.englishOnly()
   Game.clock.server = START
   Game.bankObserver.holdings = (): Map<Integer, Integer> | nil => {
     const held: Map<Integer, Integer> = {}
@@ -205,6 +213,7 @@ test "the bank says how long ago it was read: in hours under a day, then in whol
 }
 
 test "the mail says when its first mail with something expires, in red within three days, a dash for none" {
+  Test.englishOnly()
   Game.clock.server = START
   Game.mailObserver.holdings = (): Map<Integer, Integer> | nil => {
     const held: Map<Integer, Integer> = {}
@@ -229,6 +238,7 @@ test "the mail says when its first mail with something expires, in red within th
 }
 
 test "another character of the realm and side is in plain ink, one of another realm or side darker" {
+  Test.englishOnly()
   Test.mount(nil, SCREEN)
   const realm = alt("Regy", 42, 5)
   realm.realm = "CAMWOW EU5 Realm 4 PvP"
@@ -241,6 +251,7 @@ test "another character of the realm and side is in plain ink, one of another re
 }
 
 test "a character not played for over ninety days has the hours since in red" {
+  Test.englishOnly()
   Game.clock.server = START
   Test.mount(nil, SCREEN)
   recorded([alt("Ninety", 30, 90 * 24), alt("Older", 30, 90 * 24 + 1)], nil)
@@ -250,6 +261,7 @@ test "a character not played for over ninety days has the hours since in red" {
 }
 
 test "a character played again is written down anew: its name, level, realm and side, and played now" {
+  Test.englishOnly()
   Game.clock.server = START
   Test.mount(nil, SCREEN)
   const before = alt("Old Name", 50, 500)
@@ -263,12 +275,14 @@ test "a character played again is written down anew: its name, level, realm and 
 }
 
 test "the character being played is written down with its class, for others to colour it by" {
+  Test.englishOnly()
   Test.mount(nil, SCREEN)
   recorded([alt("Aria", 30, 10)], alt("Player", 10, 5))
   Test.expect(Game.player.classTag != "")
   Test.expect(Alts.characters[CharacterId.of(PLAYER)]?.classTag == Game.player.classTag) }
 
 test "the table is in the names' order, and a heading sorts by its column, a second click the other way" {
+  Test.englishOnly()
   Game.clock.server = START
   // Each column orders the six otherwise.
   const holding = (name: String, level: Integer, money: Integer, free: Integer, hours: Integer): Character => {
@@ -302,6 +316,7 @@ test "the table is in the names' order, and a heading sorts by its column, a sec
 }
 
 test "the hour the character is played moves with its gold: sorted by when played, it is played now" {
+  Test.englishOnly()
   Game.clock.server = START
   Test.mount(nil, SCREEN)
   recorded([alt("Aria", 30, -3)], nil)
@@ -320,6 +335,7 @@ test "a character of the Horde sees another of its realm's Horde in plain ink" {
 }
 
 test "Forget asks first, naming the character, and Cancel keeps it" {
+  Test.englishOnly()
   Test.mount(nil, SCREEN)
   recorded([alt("Aria", 30, 5)], nil)
   window().text("Aria").item().button(Locale.FORGET).click()
@@ -331,6 +347,7 @@ test "Forget asks first, naming the character, and Cancel keeps it" {
 }
 
 test "a character forgotten leaves the table, and stays gone when the module reads its records again" {
+  Test.englishOnly()
   Test.mount(nil, SCREEN)
   recorded([alt("Aria", 30, 5), alt("Bram", 10, 5)], nil)
   window().text("Aria").item().button(Locale.FORGET).click()
@@ -341,6 +358,7 @@ test "a character forgotten leaves the table, and stays gone when the module rea
 }
 
 test "forty characters scroll inside the window" {
+  Test.englishOnly()
   const others: Array<Character> = []
   for (i of 1..39) { others.push(alt("Alt " + String.of(100 + i), 10, i)) }
   Test.mount(nil, SCREEN)
@@ -349,6 +367,7 @@ test "forty characters scroll inside the window" {
 }
 
 test "what was recorded is kept: after a reload the professions and the bank read are as they were" {
+  Test.englishOnly()
   // The stand-in's own clock, which the new session's game has too.
   Game.bankObserver.holdings = (): Map<Integer, Integer> | nil => {
     const held: Map<Integer, Integer> = {}
@@ -370,6 +389,7 @@ test "what was recorded is kept: after a reload the professions and the bank rea
 }
 
 test "a profession opened before the game lists the professions shows once the list names it" {
+  Test.englishOnly()
   Test.mount(nil, SCREEN)
   Test.open("/alts")
   Game.tradeSkill.recipes = learned([2663])

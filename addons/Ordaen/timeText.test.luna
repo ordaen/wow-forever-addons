@@ -15,6 +15,7 @@ test "a time of day is written by the client's 24-hour mode: noon twelve in the 
 }
 
 test "«Time format» shows the client's mode and sets it" {
+  Test.englishOnly()
   Game.clock.hours24 = true
   Test.mount(nil, SCREEN)
   Test.open("/ordaen")

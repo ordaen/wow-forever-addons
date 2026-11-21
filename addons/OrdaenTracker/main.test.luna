@@ -31,6 +31,7 @@ class Where implements QuestLines {
 }
 
 test "the tracked quests stand at the right with their level, tag and objectives, the game's tracker unseen" {
+  Test.englishOnly()
   logged()
   const own = new Client.Frame(Client.UIParent)
   Game.frames.ObjectiveTracker = own
@@ -83,6 +84,7 @@ test "a title's click opens the quest where a module does; Shift+click links it,
 }
 
 test "the menu points the way, and abandoning asks first" {
+  Test.englishOnly()
   logged()
   Test.mount(nil, PAGE)
   Tracker.refresh()
@@ -99,6 +101,7 @@ test "the menu points the way, and abandoning asks first" {
 }
 
 test "a quest with an item has its button beside the title, which uses the item by the client's secure click" {
+  Test.englishOnly()
   Test.questLog([{ id: 104, title: "The Collector", header: "Westfall", level: 12, watched: true, specialItem: 5060 }])
   Test.mount(nil, PAGE)
   Tracker.refresh()
@@ -127,6 +130,7 @@ test "a quest's item shows its cooldown's sweep while one runs, and none while n
 }
 
 test "it stands at the right under what keeps the top right corner and above what keeps the bottom, all that height" {
+  Test.englishOnly()
   logged()
   Test.mount(nil, PAGE)
   Tracker.refresh()
@@ -158,6 +162,7 @@ test "it lists as many quests as the settings say, the first in the log's order,
 }
 
 test "the placing mode shows it with no quest tracked, moves it, keeps where it was let go, and a right click sends it home" {
+  Test.englishOnly()
   Test.questLog([])
   Test.mount(nil, PAGE)
   Tracker.refresh()

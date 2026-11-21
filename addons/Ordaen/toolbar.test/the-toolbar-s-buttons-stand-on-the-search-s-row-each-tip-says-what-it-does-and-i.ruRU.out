@@ -1,0 +1,72 @@
+-- the row: the search's hint, then the funnel, the sort and the columns' glyph, 6 apart
+box 0,0 400x28.33
+  box 0,0 400x28.33
+    box 0,0 297.93x28.33
+      box 0,0 297.93x28.33 #00000080 input "" @change @submit
+      box 0,0 297.93x28.33 absolute
+        text 8.53,6.37 280.87x15.6 "Search by name" #a3977f
+    box 297.93,0 102.07x28.33
+      box 297.93,0 34.02x28.33
+        box 303.62,0 28.33x28.33
+          box 303.62,0 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerEnter @pointerLeave @pointerPress
+            box 311.12,7.5 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 0 of 16
+      box 331.96,0 34.02x28.33
+        box 337.64,0 28.33x28.33
+          box 337.64,0 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerEnter @pointerLeave @pointerPress
+            box 345.14,7.5 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 1 of 16
+      box 365.98,0 34.02x28.33
+        box 371.67,0 28.33x28.33
+          box 371.67,0 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerEnter @pointerLeave @pointerPress
+            box 379.17,7.5 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 2 of 16
+
+-- the sort's list open under its button, the picked choice's mark lit
+box 0,0 400x28.33
+  box 0,0 400x28.33
+    box 0,0 297.93x28.33
+      box 0,0 297.93x28.33 #00000080 input "" @change @submit
+      box 0,0 297.93x28.33 absolute
+        text 8.53,6.37 280.87x15.6 "Search by name" #a3977f
+    box 297.93,0 102.07x28.33
+      box 297.93,0 34.02x28.33
+        box 303.62,0 28.33x28.33
+          box 303.62,0 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerEnter @pointerLeave @pointerPress
+            box 311.12,7.5 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 0 of 16
+      box 331.96,0 34.02x28.33
+        box 337.64,0 28.33x28.33
+          box 337.64,0 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerEnter @pointerLeave @pointerPress
+            box 345.14,7.5 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 1 of 16
+      box 365.98,0 34.02x28.33
+        box 371.67,0 28.33x28.33
+          box 371.67,0 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerEnter @pointerLeave @pointerPress
+            box 379.17,7.5 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 2 of 16
+surface 337.64,28.33 175x65.67 on FULLSCREEN_DIALOG #0a0806f7
+  box 338.48,34.86 173.33x26.31 #00000000 @keyPress @pointerPress
+    box 346.81,42.36 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 1 of 2
+    text 364.08,39.12 136.36x17.78 "By difficulty" #f0e6d2
+  box 338.48,61.17 173.33x26.31 #00000000 @keyPress @pointerPress
+    box 346.81,68.67 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
+    text 364.08,65.43 136.36x17.78 "By name" #f0e6d2
+
+-- a filter on: the funnel gold, the view's button the list's glyph
+box 0,0 400x28.33
+  box 0,0 400x28.33
+    box 0,0 297.93x28.33
+      box 0,0 297.93x28.33 #00000080 input "" @change @submit
+      box 0,0 297.93x28.33 absolute
+        text 8.53,6.37 280.87x15.6 "Search by name" #a3977f
+    box 297.93,0 102.07x28.33
+      box 297.93,0 34.02x28.33
+        box 303.62,0 28.33x28.33
+          box 303.62,0 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerEnter @pointerLeave @pointerPress
+            box 311.12,7.5 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 0 of 16
+      box 331.96,0 34.02x28.33
+        box 337.64,0 28.33x28.33
+          box 337.64,0 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerEnter @pointerLeave @pointerPress
+            box 345.14,7.5 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 1 of 16
+      box 365.98,0 34.02x28.33
+        box 371.67,0 28.33x28.33
+          box 371.67,0 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerEnter @pointerLeave @pointerPress
+            box 379.17,7.5 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 4 of 16
+
+key: ESCAPE → none
+key: ENTER → none

@@ -131,6 +131,7 @@ function book(): Test.Part {
 // The spellbook window
 
 test "the spellbook window opens with its command" {
+  Test.englishOnly()
   Test.mount(nil, PAGE)
   Game.spellbook.lines = lines
   Game.spellbook.entries = spells
@@ -146,6 +147,7 @@ test "the command again closes the spellbook window" {
 }
 
 test "the spellbook window's close button closes it" {
+  Test.englishOnly()
   Test.mount(nil, PAGE)
   const window = book()
   window.button(Ordaen.art.ctl.corner.close).click()
@@ -153,6 +155,7 @@ test "the spellbook window's close button closes it" {
 }
 
 test "the spellbook reads the game's spells each time it opens" {
+  Test.englishOnly()
   Test.mount(nil, PAGE)
   Game.spellbook.lines = lines
   Game.spellbook.entries = spells
@@ -167,6 +170,7 @@ test "the spellbook reads the game's spells each time it opens" {
 }
 
 test "the game is asked for its words on spells and talents while the spellbook shows, and no longer once it closes" {
+  Test.englishOnly()
   Test.mount(nil, PAGE)
   _ = Test.requests()
   Test.expect(book().shown())
@@ -178,6 +182,7 @@ test "the game is asked for its words on spells and talents while the spellbook 
 }
 
 test "the game's spellbook window opens ours, and closes it as it hides" {
+  Test.englishOnly()
   Test.mount(nil, PAGE)
   Game.spellbook.lines = lines
   Game.spellbook.entries = spells
@@ -194,6 +199,7 @@ test "the game's spellbook window opens ours, and closes it as it hides" {
 }
 
 test "the game's spellbook window is kept out of sight while ours stands in its place" {
+  Test.englishOnly()
   Test.mount(nil, PAGE)
   Test.clientFrames()
   const found = Runtime.frame("PlayerSpellsFrame") ?? panic("the client has its spellbook window")
@@ -205,6 +211,7 @@ test "the game's spellbook window is kept out of sight while ours stands in its 
 }
 
 test "a spellbook window the game makes again opens ours too" {
+  Test.englishOnly()
   Test.mount(nil, PAGE)
   Test.clientFrames()
   const found = Runtime.frame("PlayerSpellsFrame") ?? panic("the client has its spellbook window")
@@ -219,6 +226,7 @@ test "a spellbook window the game makes again opens ours too" {
 }
 
 test "the game's spellbook window already shown when it is named opens ours" {
+  Test.englishOnly()
   Test.mount(nil, PAGE)
   Test.clientFrames()
   const shown = Client.CreateFrame("Frame", "PlayerSpellsFrameShown", Client.UIParent, nil)
@@ -230,6 +238,7 @@ test "the game's spellbook window already shown when it is named opens ours" {
 // The spells
 
 test "each spell's row shows its name and rank, its skill line, its kind and the level it was learned at" {
+  Test.englishOnly()
   Test.mount(nil, PAGE)
   Game.spellbook.lines = lines
   Game.spellbook.entries = spells
@@ -241,6 +250,7 @@ test "each spell's row shows its name and rank, its skill line, its kind and the
 }
 
 test "each spell's row shows its icon" {
+  Test.englishOnly()
   Test.mount(nil, PAGE)
   Game.spellbook.lines = lines
   Game.spellbook.entries = (): Array<Game.SpellEntry> => [
@@ -253,6 +263,7 @@ test "each spell's row shows its icon" {
 }
 
 test "a spell learned at a new rank shows it in the open spellbook when the game's spellbook is opened" {
+  Test.englishOnly()
   Test.mount(nil, PAGE)
   Game.spellbook.lines = lines
   Game.spellbook.entries = spells
@@ -272,6 +283,7 @@ test "a spell learned at a new rank shows it in the open spellbook when the game
 }
 
 test "a spell learned while the spellbook shows is in it at once" {
+  Test.englishOnly()
   Test.mount(nil, PAGE)
   Game.spellbook.lines = lines
   Game.spellbook.entries = spells
@@ -299,6 +311,7 @@ test "a spell learned while the spellbook is shut asks the game for nothing" {
 }
 
 test "a spell's name is drawn in ink and its detail dim" {
+  Test.englishOnly()
   Test.mount(nil, PAGE)
   Game.spellbook.lines = lines
   Game.spellbook.entries = spells
@@ -308,6 +321,7 @@ test "a spell's name is drawn in ink and its detail dim" {
 }
 
 test "the spellbook has a tab for all spells and one per skill line" {
+  Test.englishOnly()
   Test.mount(nil, PAGE)
   Game.spellbook.lines = lines
   Game.spellbook.entries = spells
@@ -315,6 +329,7 @@ test "the spellbook has a tab for all spells and one per skill line" {
 }
 
 test "the spells stand by name at first" {
+  Test.englishOnly()
   Test.mount(nil, PAGE)
   Game.spellbook.lines = lines
   Game.spellbook.entries = spells
@@ -322,6 +337,7 @@ test "the spells stand by name at first" {
 }
 
 test "a skill line's tab shows the spells of that line alone" {
+  Test.englishOnly()
   Test.mount(nil, PAGE)
   Game.spellbook.lines = lines
   Game.spellbook.entries = spells
@@ -332,6 +348,7 @@ test "a skill line's tab shows the spells of that line alone" {
 }
 
 test "the All tab shows the spells of every skill line again" {
+  Test.englishOnly()
   Test.mount(nil, PAGE)
   Game.spellbook.lines = lines
   Game.spellbook.entries = spells
@@ -342,6 +359,7 @@ test "the All tab shows the spells of every skill line again" {
 }
 
 test "the search keeps the spells whose names hold it, in any case" {
+  Test.englishOnly()
   Test.mount(nil, PAGE)
   Game.spellbook.lines = lines
   Game.spellbook.entries = spells
@@ -352,6 +370,7 @@ test "the search keeps the spells whose names hold it, in any case" {
 }
 
 test "the search narrows the skill line's tab it is typed in" {
+  Test.englishOnly()
   Test.mount(nil, PAGE)
   Game.spellbook.lines = lines
   Game.spellbook.entries = spells
@@ -363,6 +382,7 @@ test "the search narrows the skill line's tab it is typed in" {
 }
 
 test "a search nothing matches says nothing was found" {
+  Test.englishOnly()
   Test.mount(nil, PAGE)
   Game.spellbook.lines = lines
   Game.spellbook.entries = spells
@@ -373,6 +393,7 @@ test "a search nothing matches says nothing was found" {
 }
 
 test "sorted by level, the spells learned first stand first" {
+  Test.englishOnly()
   Test.mount(nil, PAGE)
   Game.spellbook.lines = lines
   Game.spellbook.entries = spells
@@ -382,6 +403,7 @@ test "sorted by level, the spells learned first stand first" {
 }
 
 test "sorted active first, the passive spells stand last" {
+  Test.englishOnly()
   Test.mount(nil, PAGE)
   Game.spellbook.lines = lines
   Game.spellbook.entries = spells
@@ -391,6 +413,7 @@ test "sorted active first, the passive spells stand last" {
 }
 
 test "two ranks of one spell stand by the level each is learned at" {
+  Test.englishOnly()
   Test.mount(nil, PAGE)
   Game.spellbook.lines = lines
   Game.spellbook.entries = (): Array<Game.SpellEntry> => [
@@ -401,6 +424,7 @@ test "two ranks of one spell stand by the level each is learned at" {
 }
 
 test "the spellbook's sort is kept when it opens again" {
+  Test.englishOnly()
   Test.mount(nil, PAGE)
   Game.spellbook.lines = lines
   Game.spellbook.entries = spells

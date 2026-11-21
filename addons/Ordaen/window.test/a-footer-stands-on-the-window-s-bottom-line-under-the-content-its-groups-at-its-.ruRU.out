@@ -1,0 +1,27 @@
+-- the content over the footer, a group's step between them; «Reset» left, «Save» right, the panel's step over the line
+surface 600,281.38 400x337.25 on DIALOG clamped raised by a click
+  box 600,318.62 400x300 absolute Interface\AddOns\Ordaen\media\window-wood border=UI-Frame-Metal-CornerTopLeft
+    box 613.09,331.72 378.81x276.06
+      box 635.85,354.47 333.3x193.68 #30302a
+        text 635.85,354.47 333.3x17.78 "the page" #ffffff
+      box 635.85,548.16 333.3x45.4
+        box 635.85,565.23 333.3x28.33
+          box 635.85,565.23 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+            text 668.07,570.5 35.56x17.78 "Reset" #ffd100
+          text 752.92,570.5 99.17x17.78 "2 waiting" #ffffff
+          box 869.15,565.23 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+            text 904.71,570.5 28.89x17.78 "Save" #ffd100
+    box 982.75,598.62 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
+  box 600,281.38 400x47.75
+    box 600,281.38 336.47x47.75
+      box 600,281.38 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
+        box 618.78,291.62 76.93x34.25
+          text 633.36,299.86 47.78x17.78 "Recipes" #ffd100
+    box 945,297.71 55x31.42
+      box 945,297.71 55x26.67 clipped
+        box 945,297.71 27.5x26.67 absolute clipped @keyPress @pointerPress
+          box 945,297.71 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
+          box 953.33,307.29 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
+        box 972.5,297.71 27.5x26.67 absolute clipped @keyPress @pointerPress
+          box 972.5,297.71 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
+          box 978.75,307.29 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8

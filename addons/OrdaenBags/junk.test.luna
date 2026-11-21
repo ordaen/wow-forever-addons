@@ -172,6 +172,7 @@ test "past the cap of marks the one given longest ago leaves" {
 // The window
 
 test "a junk slot carries a coin, and the «Junk» tab counts it" {
+  Test.englishOnly()
   const world = new World(carried())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
   Game.bags.size = (bag: Integer): Integer => world.size(bag)
@@ -185,6 +186,7 @@ test "a junk slot carries a coin, and the «Junk» tab counts it" {
 }
 
 test "the right click opens the slot's menu, and «Not junk» takes the item out of junk at once, with a line in the chat" {
+  Test.englishOnly()
   const world = new World(carried())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
   Game.bags.size = (bag: Integer): Integer => world.size(bag)
@@ -202,6 +204,7 @@ test "the right click opens the slot's menu, and «Not junk» takes the item out
 }
 
 test "«Mark as junk» makes any item junk, and «As the rules decide» takes the mark away" {
+  Test.englishOnly()
   const world = new World(carried())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
   Game.bags.size = (bag: Integer): Integer => world.size(bag)
@@ -262,6 +265,7 @@ test "a click that sold nothing teaches nothing" {
 }
 
 test "«Sell junk» shows at a merchant while there is junk, and sells it in the click" {
+  Test.englishOnly()
   const world = new World(carried())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
   Game.bags.size = (bag: Integer): Integer => world.size(bag)
@@ -310,6 +314,7 @@ test "the client's secure use stands on the scheme's chord for Use: the left in 
 }
 
 test "Shift+left picks the item up, and the right opens the menu: neither is the client's use" {
+  Test.englishOnly()
   const world = new World(carried())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
   Game.bags.size = (bag: Integer): Integer => world.size(bag)

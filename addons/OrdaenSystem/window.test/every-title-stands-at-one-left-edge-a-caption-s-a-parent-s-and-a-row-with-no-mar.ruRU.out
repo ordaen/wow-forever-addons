@@ -1,0 +1,189 @@
+key: ESCAPE → none
+-- titles at one edge
+surface 391.67,175.54 816.67x548.92 on DIALOG clamped raised by a click
+  box 391.67,224.46 816.67x500 absolute Interface\AddOns\Ordaen\media\window-wood border=UI-Frame-Metal-CornerTopLeft
+    box 404.76,237.55 795.48x476.06
+      box 427.52,260.31 749.97x393.68
+        box 427.52,260.31 749.97x28.33
+          box 427.52,260.31 587.92x28.33
+            box 427.52,260.31 587.92x28.33 #00000080 input "" @change @submit
+            box 427.52,260.31 587.92x28.33 absolute
+              text 436.05,265.59 570.86x17.78 "Поиск по названию, папке, автору, описанию" #a3977f
+          box 1015.44,260.31 162.04x28.33
+            box 1015.44,265.59 25.96x17.78
+              text 1023.97,265.59 8.89x17.78 "6" #9a9080
+            box 1041.39,260.31 34.02x28.33
+              box 1047.08,260.31 28.33x28.33
+                box 1047.08,260.31 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerEnter @pointerLeave @pointerPress
+                  box 1054.58,267.81 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 7 of 16
+            box 1075.42,260.31 34.02x28.33
+              box 1081.11,260.31 28.33x28.33
+                box 1081.11,260.31 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerEnter @pointerLeave @pointerPress
+                  box 1088.61,267.81 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 0 of 16
+            box 1109.44,260.31 34.02x28.33
+              box 1115.13,260.31 28.33x28.33
+                box 1115.13,260.31 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerEnter @pointerLeave @pointerPress
+                  box 1122.63,267.81 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 1 of 16
+            box 1143.46,260.31 34.02x28.33
+              box 1149.15,260.31 28.33x28.33
+                box 1149.15,260.31 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerEnter @pointerLeave @pointerPress
+                  box 1156.65,267.81 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 3 of 16
+        box 427.52,297.18 749.97x17.78
+          box 436.05,297.18 475.23x17.78 @keyPress @pointerPress
+            text 436.05,297.18 475.23x17.78 "Модификация" #9a9080
+          box 919.82,306.06 0x0
+            text 919.82,306.06 0x0 "" #9a9080
+          box 928.35,297.18 58.33x17.78 @keyPress @pointerPress
+            text 947.79,297.18 38.89x17.78 "Сейчас" #9a9080
+          box 995.22,297.18 58.33x17.78 @keyPress @pointerPress
+            text 1032.44,297.18 21.11x17.78 "Пик" #9a9080
+          box 1062.08,297.18 66.67x17.78
+            box 1072.26,297.18 38.89x17.78 @keyPress @pointerPress
+              text 1072.26,297.18 38.89x17.78 "Память" #9a9080
+            box 1115.42,297.18 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 6 of 16 @keyPress @pointerPress
+          box 1137.28,306.06 31.67x0
+        box 427.52,323.49 749.97x295.66 #0000004d
+          box 428.35,324.32 748.3x0
+          box 428.35,324.32 748.3x293.99 scrolled 0 of 0
+            box 436.88,332.85 731.23x21.67 @keyPress @pointerPress
+              box 445.42,337.02 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-marks row 3 of 8
+              text 467.28,334.8 35.56x17.78 "Store" #f0c860
+              text 511.37,334.8 608.01x17.78 "3" #9a9080
+              box 1127.92,335.35 31.67x16.67 @keyPress @pointerPress
+                box 1127.92,335.35 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 1 of 4
+                  box 1140.42,332.85 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=1
+            box 436.88,354.52 731.23x21.67 #00000000 @keyPress @pointerEnter @pointerLeave @pointerPress
+              box 445.42,356.46 456.5x17.78
+                box 445.42,365.35 13.33x0
+                text 467.28,356.46 434.63x17.78 "Crate" #e8e0d0
+              box 910.45,365.35 0x0
+                text 910.45,365.35 0x0 "" #9a9080
+              box 918.98,356.46 58.33x17.78
+                text 968.43,356.46 8.89x17.78 "—" #e8e0d0
+              box 985.85,356.46 58.33x17.78
+                text 1035.29,356.46 8.89x17.78 "—" #e8e0d0
+              box 1052.72,356.46 66.67x17.78
+                text 1090.49,356.46 28.89x17.78 "0 KB" #e8e0d0
+              box 1127.92,357.02 31.67x16.67 @keyPress @pointerPress
+                box 1127.92,357.02 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 1 of 4
+                  box 1140.42,354.52 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=1
+            box 436.88,376.19 731.23x21.67 #00000000 @keyPress @pointerEnter @pointerLeave @pointerPress
+              box 445.42,378.13 456.5x17.78
+                box 445.42,380.35 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-marks row 3 of 8 @keyPress @pointerPress
+                text 467.28,378.13 434.63x17.78 "Rack" #e8e0d0
+              box 910.45,387.02 0x0
+                text 910.45,387.02 0x0 "" #9a9080
+              box 918.98,378.13 58.33x17.78
+                text 968.43,378.13 8.89x17.78 "—" #e8e0d0
+              box 985.85,378.13 58.33x17.78
+                text 1035.29,378.13 8.89x17.78 "—" #e8e0d0
+              box 1052.72,378.13 66.67x17.78
+                text 1090.49,378.13 28.89x17.78 "0 KB" #e8e0d0
+              box 1127.92,378.69 31.67x16.67 @keyPress @pointerPress
+                box 1127.92,378.69 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 1 of 4
+                  box 1140.42,376.19 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=1
+            box 436.88,397.85 731.23x21.67 #00000000 @keyPress @pointerEnter @pointerLeave @pointerPress
+              box 445.42,399.8 456.5x17.78
+                box 461.06,408.69 13.33x0
+                text 482.93,399.8 418.99x17.78 "Shelf" #e8e0d0
+              box 910.45,408.69 0x0
+                text 910.45,408.69 0x0 "" #9a9080
+              box 918.98,399.8 58.33x17.78
+                text 968.43,399.8 8.89x17.78 "—" #e8e0d0
+              box 985.85,399.8 58.33x17.78
+                text 1035.29,399.8 8.89x17.78 "—" #e8e0d0
+              box 1052.72,399.8 66.67x17.78
+                text 1090.49,399.8 28.89x17.78 "0 KB" #e8e0d0
+              box 1127.92,400.35 31.67x16.67 @keyPress @pointerPress
+                box 1127.92,400.35 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 1 of 4
+                  box 1140.42,397.85 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=1
+            box 436.88,419.52 731.23x21.67 @keyPress @pointerPress
+              box 445.42,423.69 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-marks row 3 of 8
+              text 467.28,421.46 93.33x17.78 "User Interface" #f0c860
+              text 569.15,421.46 550.23x17.78 "2" #9a9080
+              box 1127.92,422.02 31.67x16.67 @keyPress @pointerPress
+                box 1127.92,422.02 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 1 of 4
+                  box 1140.42,419.52 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=1
+            box 436.88,441.19 731.23x21.67 #00000000 @keyPress @pointerEnter @pointerLeave @pointerPress
+              box 445.42,443.13 456.5x17.78
+                box 445.42,445.35 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-marks row 3 of 8 @keyPress @pointerPress
+                text 467.28,443.13 434.63x17.78 "Ordaen" #e8e0d0
+              box 910.45,452.02 0x0
+                text 910.45,452.02 0x0 "" #9a9080
+              box 918.98,443.13 58.33x17.78
+                text 968.43,443.13 8.89x17.78 "—" #e8e0d0
+              box 985.85,443.13 58.33x17.78
+                text 1035.29,443.13 8.89x17.78 "—" #e8e0d0
+              box 1052.72,443.13 66.67x17.78
+                text 1090.49,443.13 28.89x17.78 "0 KB" #e8e0d0
+              box 1127.92,443.69 31.67x16.67 @keyPress @pointerPress
+                box 1127.92,443.69 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 1 of 4
+                  box 1140.42,441.19 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=1
+            box 436.88,462.85 731.23x21.67 #00000000 @keyPress @pointerEnter @pointerLeave @pointerPress
+              box 445.42,464.8 357.61x17.78
+                box 461.06,473.69 13.33x0
+                text 482.93,464.8 320.1x17.78 "Ordaen System" #e8e0d0
+              box 811.56,464.8 98.89x17.78 @keyPress @pointerPress
+                text 811.56,464.8 98.89x17.78 "включён в Ordaen" #9a9080
+              box 918.98,464.8 58.33x17.78
+                text 968.43,464.8 8.89x17.78 "—" #e8e0d0
+              box 985.85,464.8 58.33x17.78
+                text 1035.29,464.8 8.89x17.78 "—" #e8e0d0
+              box 1052.72,464.8 66.67x17.78
+                text 1090.49,464.8 28.89x17.78 "0 KB" #e8e0d0
+              box 1127.92,473.69 31.67x0
+            box 436.88,484.52 731.23x21.67 @keyPress @pointerPress
+              box 445.42,488.69 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-marks row 3 of 8
+              text 467.28,486.46 42.22x17.78 "Прочее" #f0c860
+              text 518.04,486.46 601.34x17.78 "1" #9a9080
+              box 1127.92,487.02 31.67x16.67 @keyPress @pointerPress
+                box 1127.92,487.02 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 1 of 4
+                  box 1140.42,484.52 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=1
+            box 436.88,506.19 731.23x21.67 #00000000 @keyPress @pointerEnter @pointerLeave @pointerPress
+              box 445.42,508.13 456.5x17.78
+                box 445.42,517.02 13.33x0
+                text 467.28,508.13 434.63x17.78 "LunaType" #e8e0d0
+              box 910.45,517.02 0x0
+                text 910.45,517.02 0x0 "" #9a9080
+              box 918.98,508.13 58.33x17.78
+                text 968.43,508.13 8.89x17.78 "—" #e8e0d0
+              box 985.85,508.13 58.33x17.78
+                text 1035.29,508.13 8.89x17.78 "—" #e8e0d0
+              box 1052.72,508.13 66.67x17.78
+                text 1090.49,508.13 28.89x17.78 "0 KB" #e8e0d0
+              box 1127.92,508.69 31.67x16.67 @keyPress @pointerPress
+                box 1127.92,508.69 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 1 of 4
+                  box 1140.42,506.19 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=1
+        box 427.52,627.68 749.97x0
+        text 427.52,636.21 749.97x17.78 "Клиент не измеряет модификации." #9a9080
+      box 427.52,653.99 749.97x45.4
+        box 427.52,671.06 749.97x28.33
+          box 427.52,671.06 208.53x28.33
+            box 427.52,671.06 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+              text 450.29,676.34 54.44x17.78 "Сбросить" #ffd100
+            box 536.05,671.06 100x28.33
+              box 536.05,671.06 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+                text 564.94,676.34 42.22x17.78 "Наборы" #ffd100
+          box 653.12,685.22 365.43x0
+          box 1035.62,671.06 141.87x28.33
+            box 1035.62,685.22 0x0 @pointerEnter @pointerLeave
+              text 1035.62,685.22 0x0 "" #f0c860
+            box 1044.15,671.06 133.33x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 secure @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+              text 1066.93,676.34 87.78x17.78 "Перезагрузить" #ffd100
+    box 1191.08,704.46 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
+  box 391.67,175.54 816.67x59.42
+    box 391.67,175.54 753.13x59.42
+      box 391.67,175.54 128.71x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
+        box 398.92,182.79 48.92x48.92 absolute icon=Interface/Icons/INV_Misc_Wrench_01 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=none
+        box 442.83,182.79 11.5x52.17 absolute border=UI-Frame-Metal-CornerTopLeft sides=left
+        box 459.37,185.79 42.22x45.92
+          text 459.37,190.26 42.22x17.78 "AddOns" #ffd100
+          text 461.03,209.46 38.89x17.78 "6 из 6" #8f8470
+    box 1153.33,203.54 55x31.42
+      box 1153.33,203.54 55x26.67 clipped
+        box 1153.33,203.54 27.5x26.67 absolute clipped @keyPress @pointerPress
+          box 1153.33,203.54 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
+          box 1161.67,213.13 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
+        box 1180.83,203.54 27.5x26.67 absolute clipped @keyPress @pointerPress
+          box 1180.83,203.54 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
+          box 1187.08,213.13 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8

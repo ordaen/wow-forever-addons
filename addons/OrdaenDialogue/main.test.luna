@@ -140,6 +140,7 @@ test "the keys are the game's again once the window closes" {
 }
 
 test "in a fight the keys are the game's, and the window says so" {
+  Test.englishOnly()
   Test.mount(nil, SCREEN)
   Test.talk(innkeeper())
   Test.combat(true)
@@ -253,6 +254,7 @@ test "with the skip off the window shows" {
 // Options picked on their own
 
 test "right-click an option to always pick it: «auto» shows, and the next talk picks it" {
+  Test.englishOnly()
   Test.mount(nil, SCREEN)
   Test.talk(innkeeper())
   window().text("Tell me about Goldshire.").rightClick()
@@ -264,6 +266,7 @@ test "right-click an option to always pick it: «auto» shows, and the next talk
 }
 
 test "Shift shows the list over a marked option, and a mark is taken away the same way" {
+  Test.englishOnly()
   Test.mount(nil, SCREEN)
   Test.talk(innkeeper())
   window().text("Tell me about Goldshire.").rightClick()
@@ -280,6 +283,7 @@ test "Shift shows the list over a marked option, and a mark is taken away the sa
 }
 
 test "the marks are kept for the account" {
+  Test.englishOnly()
   Test.mount(nil, SCREEN)
   Test.talk(innkeeper())
   window().text("Tell me about Goldshire.").rightClick()
@@ -289,6 +293,7 @@ test "the marks are kept for the account" {
 }
 
 test "with marked options off the list shows" {
+  Test.englishOnly()
   Test.mount(nil, SCREEN)
   Test.talk(innkeeper())
   window().text("Tell me about Goldshire.").rightClick()
@@ -307,6 +312,7 @@ test "a quest can't be marked: its right-click opens nothing" {
 }
 
 test "an option that asks to confirm is never picked on its own again" {
+  Test.englishOnly()
   Test.mount(nil, SCREEN)
   Test.talk(innkeeper())
   window().text("Make this inn your home.").rightClick()
@@ -318,6 +324,7 @@ test "an option that asks to confirm is never picked on its own again" {
 // A quest's pages
 
 test "the details: title, text, objectives, the rewards to choose, money and experience; Accept accepts" {
+  Test.englishOnly()
   Test.mount(nil, SCREEN)
   Test.talk(innkeeper())
   Test.quest(pie())
@@ -330,6 +337,7 @@ test "the details: title, text, objectives, the rewards to choose, money and exp
 }
 
 test "a quest opened from the list goes back to the list with Back and Escape" {
+  Test.englishOnly()
   Test.mount(nil, SCREEN)
   Test.talk(innkeeper())
   Test.quest(pie())
@@ -346,6 +354,7 @@ test "a quest opened from the list goes back to the list with Back and Escape" {
 }
 
 test "a quest with no list is declined: the window closes" {
+  Test.englishOnly()
   Test.mount(nil, SCREEN)
   Test.talk(innkeeper())
   Events.GOSSIP_CLOSED.emit(false)
@@ -356,6 +365,7 @@ test "a quest with no list is declined: the window closes" {
 }
 
 test "a quest that flags for PvP asks first" {
+  Test.englishOnly()
   Test.mount(nil, SCREEN)
   Test.talk(innkeeper())
   Test.quest({ id: 21, title: "Battle!", pvp: true })
@@ -367,6 +377,7 @@ test "a quest that flags for PvP asks first" {
 }
 
 test "the game's own accepted quest is acknowledged" {
+  Test.englishOnly()
   Test.mount(nil, SCREEN)
   Test.talk(innkeeper())
   Test.quest({ id: 22, title: "Given", autoAccepted: true })
@@ -376,6 +387,7 @@ test "the game's own accepted quest is acknowledged" {
 }
 
 test "progress: what's needed, red until there's enough; Continue only once it can be done" {
+  Test.englishOnly()
   Test.mount(nil, SCREEN)
   Test.talk(innkeeper())
   Test.quest(pie())
@@ -390,6 +402,7 @@ test "progress: what's needed, red until there's enough; Continue only once it c
 }
 
 test "a turn-in that takes money lists it with what's needed" {
+  Test.englishOnly()
   Test.mount(nil, SCREEN)
   Test.talk(innkeeper())
   Test.quest({ id: 23, title: "Dues", moneyNeeded: 500 })
@@ -398,6 +411,7 @@ test "a turn-in that takes money lists it with what's needed" {
 }
 
 test "the reward: Complete waits for a choice; 2 picks the second, Complete takes it" {
+  Test.englishOnly()
   Test.mount(nil, SCREEN)
   Test.talk(innkeeper())
   Test.quest(pie())
@@ -447,6 +461,7 @@ test "a reward the player can't wear says so in red" {
 }
 
 test "one reward to choose is picked already" {
+  Test.englishOnly()
   Test.mount(nil, SCREEN)
   Test.talk(innkeeper())
   Test.quest({ id: 24, title: "One", choices: [{ name: "Cook's Gloves", icon: "Interface/Icons/INV_Gauntlets_04", item: 1001 }] })
@@ -456,6 +471,7 @@ test "one reward to choose is picked already" {
 }
 
 test "a turn-in that takes money asks first, with the price" {
+  Test.englishOnly()
   Test.mount(nil, SCREEN)
   Test.talk(innkeeper())
   Test.quest({ id: 23, title: "Dues", moneyNeeded: 500 })
@@ -498,6 +514,7 @@ test "without Pawn there is no column" {
 }
 
 test "a group quest says its group's size" {
+  Test.englishOnly()
   Test.mount(nil, SCREEN)
   Test.talk(innkeeper())
   Test.quest({ id: 25, title: "Hogger", group: 3 })
@@ -506,6 +523,7 @@ test "a group quest says its group's size" {
 }
 
 test "a quest an item starts: the tab is the item, and declining closes" {
+  Test.englishOnly()
   Client.C_Item.GetItemNameByID = (item: String | Integer): String | nil => "Bloodstained Note"
   Test.mount(nil, SCREEN)
   Test.quest(pie())
@@ -528,6 +546,7 @@ test "the quest window's close from the game closes ours" {
 // Questions asked first
 
 test "a paid option asks in Ordaen's dialog with its price, and Yes picks it confirmed" {
+  Test.englishOnly()
   Test.mount(nil, SCREEN)
   Test.talk(innkeeper())
   Events.GOSSIP_CONFIRM.emit(300, "Rent the best room?", 5000)
@@ -537,6 +556,7 @@ test "a paid option asks in Ordaen's dialog with its price, and Yes picks it con
 }
 
 test "a party member's escort quest asks, and Yes accepts it" {
+  Test.englishOnly()
   Test.mount(nil, SCREEN)
   Events.QUEST_ACCEPT_CONFIRM.emit("Reggie", "Guard the Caravan", 0)
   Test.expect(Test.page().text("Reggie offers to start the quest «Guard the Caravan».").shown())
@@ -580,6 +600,7 @@ test "auto-accept «All» accepts nothing while the quest log is full" {
 }
 
 test "auto-complete «All» hands in what is done, but stops on a reward to choose" {
+  Test.englishOnly()
   Test.mount(nil, SCREEN)
   Dialogue.settings.values.autoComplete = Auto.All
   Test.quest({ id: 11, title: "A Parcel for Farley", completable: true, choices: pie().choices })
@@ -673,6 +694,7 @@ test "a reward's slot shows the item's tooltip, and Shift+click puts its link in
 // Currencies, reputation, the giver's figure, the text's fade-in, the NPC's title
 
 test "a currency to choose and one given are rewards; one needed has how much the player has" {
+  Test.englishOnly()
   Test.mount(nil, SCREEN)
   Test.talk(innkeeper())
   Test.quest({
@@ -745,6 +767,7 @@ test "a quest's title stands on its font's own line, not the titles' tall one" {
 }
 
 test "a quest's rewards stand at the well's foot, right over the buttons" {
+  Test.englishOnly()
   Test.mount(nil, SCREEN)
   Test.talk(innkeeper())
   Test.quest(pie())
@@ -771,6 +794,7 @@ test "the main button's key is the space bar's mark, never its name" {
 }
 
 test "a quest's text fades in at the game's pace, a word at a time; the game's option shows it at once" {
+  Test.englishOnly()
   Test.mount(nil, SCREEN)
   Test.talk(innkeeper())
   Test.quest(pie())

@@ -257,6 +257,7 @@ test "a bag's cell draws no edge round its icon" {
 }
 
 test "on a taller panel every cell and groove is as high as its inside, the icons as large in proportion" {
+  Test.englishOnly()
   Game.bags.buttons = bagButtons(frame)
   // A screen wide enough for the whole panel at its tallest.
   Test.screen(2400, 900)
@@ -267,6 +268,7 @@ test "on a taller panel every cell and groove is as high as its inside, the icon
 }
 
 test "the character's button shows the class's icon once chosen" {
+  Test.englishOnly()
   Game.player.level = 42
   Test.mount(nil, SCREEN)
   const icons: Array<Asset> = [
@@ -354,6 +356,7 @@ test "the game's menu, bag bar and status bars made anew while the panel shows a
 }
 
 test "the panel's length is chosen on its tab: the whole edge, or as long as its items" {
+  Test.englishOnly()
   Test.mount(nil, SCREEN)
   const settings = tab("Bottom panel")
   choose(settings, "Whole edge", "Fit the buttons", "Fit the buttons")
@@ -429,6 +432,7 @@ test "the level on the portrait's badge is in the look's accent" {
 }
 
 test "the character's button chosen as a cell: the menu's first cell, and no portrait" {
+  Test.englishOnly()
   Game.player.level = 42
   Test.mount(nil, SCREEN)
   const settings = tab("Micro menu")

@@ -157,6 +157,7 @@ test "the zone's name follows the zone the player is in" {
 }
 
 test "the cursor on the zone's name shows the whole zone and its PvP status" {
+  Test.englishOnly()
   Game.location.zone = "Trade District"
   Game.location.realZone = "Stormwind City"
   Game.location.pvp = Game.Pvp.Sanctuary
@@ -166,6 +167,7 @@ test "the cursor on the zone's name shows the whole zone and its PvP status" {
 }
 
 test "each PvP status is named on the zone's tooltip, and a zone with none names none" {
+  Test.englishOnly()
   Test.mount(nil, SCREEN)
   minimap().text(ZONE).hover()
   Test.expect(Test.page().window("Faction territory").texts().join(" | ") == `${ZONE} | Faction territory`)
@@ -187,6 +189,7 @@ test "the cursor leaving the zone's name takes its tooltip away" {
 }
 
 test "the coordinates' tooltip says how to send them to the chat" {
+  Test.englishOnly()
   Test.mount(nil, SCREEN)
   minimap().text(COORDS).hover()
   Test.expect(Test.page().window("Shift+Left-click: send to chat").texts().join(" | ") == `${COORDS} | Shift+Left-click: send to chat`)
@@ -225,6 +228,7 @@ test "the clock is in ink, and orange while calendar invites wait" {
 }
 
 test "the clock's tooltip says what its clicks do" {
+  Test.englishOnly()
   Test.mount(nil, SCREEN)
   minimap().text(CLOCK).hover()
   const tip = Test.page().window("Left-click: calendar")
@@ -243,6 +247,7 @@ test "a click on the clock opens the calendar" {
 }
 
 test "the clock right-clicked opens the settings on the minimap's page, and again closes them" {
+  Test.englishOnly()
   Test.mount(nil, SCREEN)
   minimap().text(CLOCK).rightClick()
   Test.expect(Test.page().window(SETTINGS).button("Button drawer").shown())
@@ -253,6 +258,7 @@ test "the clock right-clicked opens the settings on the minimap's page, and agai
 // The ring
 
 test "the ring shows only while the cursor is on the minimap" {
+  Test.englishOnly()
   Game.minimap.frame = frame("Minimap", true)
   Game.frames.MinimapTrackingButton = frame("MinimapTrackingButton", true)
   Test.mount(nil, SCREEN)
@@ -265,6 +271,7 @@ test "the ring shows only while the cursor is on the minimap" {
 }
 
 test "with «Buttons on mouseover» off the ring always shows" {
+  Test.englishOnly()
   Game.minimap.frame = frame("Minimap", true)
   Game.frames.MinimapTrackingButton = frame("MinimapTrackingButton", true)
   Test.mount(nil, SCREEN)
@@ -321,6 +328,7 @@ test "the crafting orders' and the expansion page's buttons show while the game 
 }
 
 test "the Ordaen button's tooltip says what its clicks do" {
+  Test.englishOnly()
   Test.mount(nil, SCREEN)
   minimap().button(Ordaen.icon).hover()
   Test.expect(Test.page().window("Ordaen").texts().join(" | ") == "Ordaen | Left-click: settings | Right-click: Ordaen Dev")
@@ -329,6 +337,7 @@ test "the Ordaen button's tooltip says what its clicks do" {
 }
 
 test "the Ordaen button clicked opens Ordaen's settings, and again closes them" {
+  Test.englishOnly()
   Test.mount(nil, SCREEN)
   minimap().button(Ordaen.icon).click()
   Test.expect(Test.page().window(SETTINGS).button("Numbers").shown())
@@ -388,6 +397,7 @@ test "a ring button taken off its middle and dragged by a pixel moves by a pixel
 }
 
 test "a ring button let go hides with the ring once the cursor leaves the minimap" {
+  Test.englishOnly()
   Game.minimap.frame = frame("Minimap", true)
   Game.frames.MinimapMail = frame("MinimapMail", true)
   Test.mount(nil, SCREEN)
@@ -405,6 +415,7 @@ test "a ring button let go hides with the ring once the cursor leaves the minima
 }
 
 test "the drawer's button taken to be dragged hides its tooltip" {
+  Test.englishOnly()
   Game.minimap.entries = [{ text: "Details", icon: DETAILS }]
   Test.mount(nil, SCREEN)
   minimap().hover()
@@ -426,6 +437,7 @@ test "the game's tracking button lies unseen under ours" {
 }
 
 test "the zone's tooltip is the one tooltip shown, the ring's buttons showing none" {
+  Test.englishOnly()
   Game.frames.MinimapTrackingButton = frame("MinimapTrackingButton", true)
   Game.frames.MinimapMail = frame("MinimapMail", true)
   Test.mount(nil, SCREEN)
@@ -462,6 +474,7 @@ test "with nothing to hold the drawer has no button" {
 }
 
 test "the drawer's tooltip says what its button does, and no other button's says it" {
+  Test.englishOnly()
   Game.frames.MinimapTrackingButton = frame("MinimapTrackingButton", true)
   Game.frames.MinimapMail = frame("MinimapMail", true)
   Game.minimap.buttons = [frame("OtherAddonButton", true)]
@@ -486,6 +499,7 @@ test "the drawer's button clicked opens the drawer, lit, with the entries' icons
 }
 
 test "the ring stays shown while the drawer is open" {
+  Test.englishOnly()
   Game.minimap.frame = frame("Minimap", true)
   Game.frames.MinimapTrackingButton = frame("MinimapTrackingButton", true)
   Game.minimap.buttons = [frame("OtherAddonButton", true)]
@@ -499,6 +513,7 @@ test "the ring stays shown while the drawer is open" {
 }
 
 test "the drawer left with nothing to hold goes with its button, and leaves the ring to the cursor" {
+  Test.englishOnly()
   Game.minimap.frame = frame("Minimap", true)
   Game.frames.MinimapTrackingButton = frame("MinimapTrackingButton", true)
   Game.minimap.entries = [{ text: "Details", icon: DETAILS }]
@@ -537,6 +552,7 @@ test "another addon's button that takes the place of one in the closed drawer is
 }
 
 test "the drawer's switch says what it gathers, and nothing of a reload" {
+  Test.englishOnly()
   Test.mount(nil, SCREEN)
   const settings = tab("Button drawer")
   // The tab, then the switch's label.
@@ -546,6 +562,7 @@ test "the drawer's switch says what it gathers, and nothing of a reload" {
 }
 
 test "the drawer turned off gives other addons' buttons back where they stood" {
+  Test.englishOnly()
   const other = frame("OtherAddonButton", true)
   other.SetPoint("CENTER", Client.C_UI.GetUIParent(), "TOPLEFT", 100, -100)
   Game.minimap.buttons = [other]
@@ -581,6 +598,7 @@ test "an entry of the drawer clicked runs the addon menu's entry with the button
 }
 
 test "the drawer turned off on its tab takes its button away" {
+  Test.englishOnly()
   Game.minimap.buttons = [frame("OtherAddonButton", true)]
   Game.minimap.entries = [{ text: "Details", icon: DETAILS }, { text: "Plater" }]
   Test.mount(nil, SCREEN)
@@ -590,6 +608,7 @@ test "the drawer turned off on its tab takes its button away" {
 }
 
 test "the drawer has four columns at first, from two to twelve" {
+  Test.englishOnly()
   Test.mount(nil, SCREEN)
   const settings = tab("Button drawer")
   Test.expect(settings.text("4").shown())
@@ -600,6 +619,7 @@ test "the drawer has four columns at first, from two to twelve" {
 }
 
 test "the map's size goes from 80% to 160%, by 5%" {
+  Test.englishOnly()
   Test.mount(nil, SCREEN)
   const settings = tab("Map")
   Test.expect(settings.text("100%").shown())
@@ -613,6 +633,7 @@ test "the map's size goes from 80% to 160%, by 5%" {
 }
 
 test "with the drawer off its columns can't be chosen" {
+  Test.englishOnly()
   Test.mount(nil, SCREEN)
   const settings = tab("Button drawer")
   Test.expect(settings.text("Columns").opacity() == 1)
@@ -623,6 +644,7 @@ test "with the drawer off its columns can't be chosen" {
 // The map's tab
 
 test "the zone's name unticked takes the zone's strip away" {
+  Test.englishOnly()
   Test.mount(nil, SCREEN)
   tick(ZONE_BOX)
   Test.expect(Test.page().window(COORDS).texts().join(" | ") == `${COORDS} | ${CLOCK}`)

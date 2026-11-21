@@ -51,6 +51,7 @@ function asked(): String { return Test.requests().join(", ") }
 // The window
 
 test "the mail window shows once the game opens the mailbox, and goes when it closes" {
+  Test.englishOnly()
   Test.mount(nil, PAGE)
   Game.mailbox.letters = letters
   Test.expect(!Test.page().window(MAIL).shown())
@@ -75,6 +76,7 @@ test "the game's mailbox window stays open underneath, unseen and without the mo
 }
 
 test "the inbox tab counts the letters, the footer the letters shown of those waiting" {
+  Test.englishOnly()
   Test.mount(nil, PAGE)
   Game.mailbox.letters = letters
   Game.mailbox.waiting = (): Integer => 4
@@ -101,6 +103,7 @@ test "while more letters wait than the server shows, it is asked again a little 
 // A letter's row
 
 test "each row says its subject, its sender, what it carries and the days left" {
+  Test.englishOnly()
   Test.mount(nil, PAGE)
   Game.mailbox.letters = letters
   Game.mailbox.waiting = (): Integer => 4
@@ -116,6 +119,7 @@ test "each row says its subject, its sender, what it carries and the days left" 
 }
 
 test "the search finds a letter by an item it carries" {
+  Test.englishOnly()
   Test.mount(nil, PAGE)
   Game.mailbox.letters = letters
   Game.mailbox.waiting = (): Integer => 4
@@ -130,6 +134,7 @@ test "the search finds a letter by an item it carries" {
 }
 
 test "the view by kind puts the letters under their kinds' captions with the counts, which fold" {
+  Test.englishOnly()
   Test.mount(nil, PAGE)
   Game.mailbox.letters = letters
   Game.mailbox.waiting = (): Integer => 4
@@ -152,6 +157,7 @@ function order(window: Test.Part): String {
 }
 
 test "the table sorts by a heading, a second click the other way" {
+  Test.englishOnly()
   Test.mount(nil, PAGE)
   Game.mailbox.letters = letters
   Game.mailbox.waiting = (): Integer => 4
@@ -169,6 +175,7 @@ test "the table sorts by a heading, a second click the other way" {
 }
 
 test "a row's tooltip names the sender, each attachment with its count, the money and the keys" {
+  Test.englishOnly()
   Test.mount(nil, PAGE)
   Game.mailbox.letters = letters
   Game.mailbox.waiting = (): Integer => 4
@@ -186,6 +193,7 @@ test "a row's tooltip names the sender, each attachment with its count, the mone
 // Opening, taking, returning
 
 test "a click opens the letter beside the list: its text read, its items as rewards, the game's sound" {
+  Test.englishOnly()
   let played = 0
   Client.PlaySound = (kit: Integer, channel: String | nil, once: Boolean | nil): (Boolean | nil, Unknown) => {
     played += 1
@@ -208,6 +216,7 @@ test "a click opens the letter beside the list: its text read, its items as rewa
 }
 
 test "an attachment clicked is taken from its place" {
+  Test.englishOnly()
   Test.mount(nil, PAGE)
   Game.mailbox.letters = letters
   Game.mailbox.waiting = (): Integer => 4
@@ -223,6 +232,7 @@ test "an attachment clicked is taken from its place" {
 }
 
 test "Ctrl+click on an attachment tries it on and takes nothing" {
+  Test.englishOnly()
   let tried = ""
   Client.DressUpItemLink = (link: String): Boolean => {
     tried = link
@@ -245,6 +255,7 @@ test "Ctrl+click on an attachment tries it on and takes nothing" {
 }
 
 test "an attachment the player can't use says so in red; one Pawn rates says by how much it raises the best scale" {
+  Test.englishOnly()
   Game.items.tooltip = (id: Integer): Game.TooltipData | nil => id == 2592 ? { lines: [{ left: "Requires Level 57", kind: 0, usable: false }] } : nil
   Mail.upgrade = (link: String): Number | nil => link.contains("Linen") ? 0.153 : nil
   Test.mount(nil, PAGE)
@@ -262,6 +273,7 @@ test "an attachment the player can't use says so in red; one Pawn rates says by 
 }
 
 test "Shift+click on a row takes everything from it, one thing at a time as the game reads the inbox again" {
+  Test.englishOnly()
   Test.mount(nil, PAGE)
   Game.mailbox.letters = letters
   Game.mailbox.waiting = (): Integer => 4
@@ -281,6 +293,7 @@ test "Shift+click on a row takes everything from it, one thing at a time as the 
 }
 
 test "«Take all» takes the money first and leaves cash on delivery and game masters' letters" {
+  Test.englishOnly()
   Test.mount(nil, PAGE)
   Game.mailbox.letters = letters
   Game.mailbox.waiting = (): Integer => 4
@@ -297,6 +310,7 @@ test "«Take all» takes the money first and leaves cash on delivery and game ma
 }
 
 test "«Take all» writes the house's sale into Ordaen Auction's ledger once, from its invoice" {
+  Test.englishOnly()
   Client.GetInboxInvoiceInfo = (index: Number): (String | nil, String | nil, String | nil, Number | nil, Number | nil, Number | nil, Number | nil, Number | nil, Number | nil, Number | nil, Number | nil) => {
     if (index == 1) { return "seller", "Linen Cloth", nil, 12500, nil, nil, nil, nil, nil, nil, 20 }
     return nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil
@@ -317,6 +331,7 @@ test "«Take all» writes the house's sale into Ordaen Auction's ledger once, fr
 }
 
 test "«Inventory is full» stops taking; «can't carry any more» skips that attachment" {
+  Test.englishOnly()
   Test.mount(nil, PAGE)
   Game.mailbox.letters = letters
   Game.mailbox.waiting = (): Integer => 4

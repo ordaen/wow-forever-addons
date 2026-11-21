@@ -135,6 +135,7 @@ test "− and + step as they go down, again after a wait, then at a pace, until 
 }
 
 test "− and + under the cursor name their keys: a click, Shift, Ctrl, and holding" {
+  Test.englishOnly()
   let page = new Pair()
   Test.mount(page, { left: 0, top: 0, width: 300, height: 100 })
   Test.moveTo(Test.holding("+", nil))

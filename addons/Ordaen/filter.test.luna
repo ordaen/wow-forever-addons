@@ -79,6 +79,7 @@ test "a group's switch turns all its options: on where some are off, off where a
 }
 
 test "«Reset» brings the start back, and is greyed while the filter is as it starts" {
+  Test.englishOnly()
   let list = new List()
   Test.mount(list, { left: 0, top: 0, width: 600, height: 400 })
   Test.expect(menu().button("Reset").paintedWith(Ordaen.art.ctl.buttonDisabled))
@@ -92,6 +93,7 @@ test "«Reset» brings the start back, and is greyed while the filter is as it s
 }
 
 test "the funnel's Tip names the options on, in the menu's order, or that none is" {
+  Test.englishOnly()
   let list = new List()
   Test.mount(list, { left: 0, top: 0, width: 600, height: 400 })
   Test.expect(tip() == "Filter | Grey, Green, Yellow")

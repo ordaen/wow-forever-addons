@@ -301,6 +301,7 @@ test "the bags are followed while they are open, and not while they are shut" {
 }
 
 test "the window's close shuts the game's bags" {
+  Test.englishOnly()
   const world = new World(everyday())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
   Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
@@ -313,6 +314,7 @@ test "the window's close shuts the game's bags" {
 }
 
 test "the corner's gear opens the module's page of the settings, with its two windows, standing over the bags" {
+  Test.englishOnly()
   const world = new World(everyday())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
   Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
@@ -329,6 +331,7 @@ test "the corner's gear opens the module's page of the settings, with its two wi
 }
 
 test "turned off in the settings the window goes and the game's own bag windows show; turned on, it shows again" {
+  Test.englishOnly()
   const own = gameWindow()
   Game.bags.windows = [own]
   const world = new World(everyday())
@@ -348,6 +351,7 @@ test "turned off in the settings the window goes and the game's own bag windows 
 // The tabs
 
 test "each tab says how many items it has, «New» among them while something is new" {
+  Test.englishOnly()
   const world = new World(everyday())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
   Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
@@ -360,6 +364,7 @@ test "each tab says how many items it has, «New» among them while something is
 }
 
 test "every item shows under «All», a section for each kind and subclass in the kinds' order, «Free» last" {
+  Test.englishOnly()
   const world = new World(everyday())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
   Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
@@ -379,6 +384,7 @@ test "every item shows under «All», a section for each kind and subclass in th
 }
 
 test "a tab clicked shows its items alone" {
+  Test.englishOnly()
   const world = new World(everyday())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
   Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
@@ -395,6 +401,7 @@ test "a tab clicked shows its items alone" {
 }
 
 test "an item stands in the tab of its class, and a grey one in «Junk» whatever its class" {
+  Test.englishOnly()
   const world = new World([
     { bag: 0, slot: 1, id: 1, name: "Agate", icon: ZIRCON, kind: 3, subkindName: "Kind" },
     { bag: 0, slot: 2, id: 2, name: "Moss", icon: MOSS, kind: 5, subkindName: "Kind" },
@@ -447,6 +454,7 @@ test "the cursor on a new item: new no more, its glow gone, the game told, and �
 }
 
 test "«New» picked shows the new items in one section; once none is new the window shows every item" {
+  Test.englishOnly()
   const world = new World(everyday())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
   Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
@@ -460,6 +468,7 @@ test "«New» picked shows the new items in one section; once none is new the wi
 }
 
 test "an item come into the bags new is told under «New»" {
+  Test.englishOnly()
   const world = new World(everyday())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
   Game.bags.size = (bag: Integer): Integer => world.size(bag)
@@ -475,6 +484,7 @@ test "an item come into the bags new is told under «New»" {
 // The views
 
 test "the view «By bag»: a section per bag, captioned by its name and fill, its empty slots too" {
+  Test.englishOnly()
   const world = new World(everyday())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
   Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
@@ -489,6 +499,7 @@ test "the view «By bag»: a section per bag, captioned by its name and fill, it
 }
 
 test "the window is as high as its slots, so none hides under a scroll: the last of 160 is in view" {
+  Test.englishOnly()
   const world = new World(everyday())
   world.sizes = [16, 36, 36, 36, 36]
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
@@ -505,6 +516,7 @@ test "the window is as high as its slots, so none hides under a scroll: the last
 }
 
 test "the view «One bag»: every slot in one grid in the bags' order, with no caption" {
+  Test.englishOnly()
   const world = new World(everyday())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
   Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
@@ -522,6 +534,7 @@ test "the view «One bag»: every slot in one grid in the bags' order, with no c
 // The sorts: four cloths in one section
 
 test "sorted by quality: the best first, then by name" {
+  Test.englishOnly()
   const world = new World(cloths())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
   Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
@@ -534,6 +547,7 @@ test "sorted by quality: the best first, then by name" {
 }
 
 test "sorted by name: in the alphabet's order" {
+  Test.englishOnly()
   const world = new World(cloths())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
   Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
@@ -545,6 +559,7 @@ test "sorted by name: in the alphabet's order" {
 }
 
 test "sorted by item level: the highest first" {
+  Test.englishOnly()
   const world = new World(cloths())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
   Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
@@ -556,6 +571,7 @@ test "sorted by item level: the highest first" {
 }
 
 test "sorted by count: the largest stack first, and a stack that grows moves up" {
+  Test.englishOnly()
   const world = new World(cloths())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
   Game.bags.size = (bag: Integer): Integer => world.size(bag)
@@ -585,6 +601,7 @@ test "a stack's count changing shows its new count, the order kept where the sor
 }
 
 test "sorted by item type: by the game's class of each, whatever its name" {
+  Test.englishOnly()
   const world = new World([
     { bag: 0, slot: 1, id: 1, name: "Ash", icon: ASH, kind: 7, subkindName: "Parts" },
     { bag: 0, slot: 2, id: 2, name: "Moss", icon: MOSS, kind: 5, subkindName: "Parts" },
@@ -602,6 +619,7 @@ test "sorted by item type: by the game's class of each, whatever its name" {
 }
 
 test "two stacks alike stand in the bags' order whatever the sort" {
+  Test.englishOnly()
   const world = new World([
     { bag: 1, slot: 1, id: 2589, name: "Linen Cloth", icon: CLOTH, count: 3, kind: 7 },
     { bag: 0, slot: 4, id: 2589, name: "Linen Cloth", icon: CLOTH, count: 2, kind: 7 },
@@ -631,6 +649,7 @@ test "the search dims every item whose name doesn't hold the text, in any case" 
 }
 
 test "the search never dims an empty slot" {
+  Test.englishOnly()
   const world = new World(everyday())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
   Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
@@ -657,6 +676,7 @@ test "the search isn't kept: after a reload nothing is dimmed" {
 // A section's caption
 
 test "a category's caption has no mark and shuts nothing: a tab shows its items whole" {
+  Test.englishOnly()
   const world = new World(everyday())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
   Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
@@ -670,6 +690,7 @@ test "a category's caption has no mark and shuts nothing: a tab shows its items 
 }
 
 test "each category is a card: its caption and its slots on a darker ground, the cards apart" {
+  Test.englishOnly()
   const world = new World(everyday())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
   Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
@@ -684,6 +705,7 @@ test "each category is a card: its caption and its slots on a darker ground, the
 // A slot's clicks
 
 test "Shift+click on a slot picks its item up, or puts down there what the cursor holds" {
+  Test.englishOnly()
   const world = new World(everyday())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
   Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
@@ -699,6 +721,7 @@ test "Shift+click on a slot picks its item up, or puts down there what the curso
 }
 
 test "a slot dragged picks its item up, and let go on another slot puts it down there, as a click does" {
+  Test.englishOnly()
   const world = new World(everyday())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
   Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
@@ -845,6 +868,7 @@ test "Alt-click protects a slot with a padlock; Alt-click again takes it off" {
 }
 
 test "an empty slot takes no protection" {
+  Test.englishOnly()
   const world = new World(everyday())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
   Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
@@ -894,6 +918,7 @@ test "a protection is kept for the character: there after a reload, not for anot
 }
 
 test "a protected item moved to another slot takes its protection with it" {
+  Test.englishOnly()
   const world = new World(everyday())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
   Game.bags.size = (bag: Integer): Integer => world.size(bag)
@@ -929,6 +954,7 @@ test "a protected item gone from the bags loses its protection: put back, it has
 // «Sort the bags»
 
 test "«Sort the bags» moves the items into the window's order, a swap at a time, and stops once they are" {
+  Test.englishOnly()
   const world = new World([
     { bag: 0, slot: 1, id: 1, name: "Ash", icon: ASH, kind: 7, subkindName: "Kind" },
     { bag: 0, slot: 3, id: 2, name: "Elixir", icon: POTION, kind: 0, subkindName: "Kind" },
@@ -954,6 +980,7 @@ test "«Sort the bags» moves the items into the window's order, a swap at a tim
 }
 
 test "«Sort the bags» leaves a protected slot as it is" {
+  Test.englishOnly()
   const world = new World([
     { bag: 0, slot: 1, id: 1, name: "Ash", icon: ASH, kind: 7, subkindName: "Kind" },
     { bag: 0, slot: 2, id: 2, name: "Elixir", icon: POTION, kind: 0, subkindName: "Kind" },
@@ -1038,6 +1065,7 @@ test "«Sort the bags» never takes a stack out of a place it belongs in, waitin
 }
 
 test "«Sort the bags» swaps as many pairs in a go as touch no slot twice, and the rest at the next go" {
+  Test.englishOnly()
   // Into the letter, the elixir, the vest, the ash.
   const world = new World([
     { bag: 0, slot: 1, id: 1, name: "Ash", icon: ASH, kind: 7 },
@@ -1065,6 +1093,7 @@ test "«Sort the bags» swaps as many pairs in a go as touch no slot twice, and 
 }
 
 test "«Sort the bags» moves the items into the sort picked" {
+  Test.englishOnly()
   const world = new World(cloths())
   world.sizes = [4, 0, 0, 0, 0]
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
@@ -1162,6 +1191,7 @@ test "the bags shut while «Sort the bags» goes stop it" {
 // The bag slots
 
 test "the bag button opens the bag slots: each bag with its name and fill, one with no slots left out" {
+  Test.englishOnly()
   const world = new World(everyday())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
   Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
@@ -1174,6 +1204,7 @@ test "the bag button opens the bag slots: each bag with its name and fill, one w
 }
 
 test "the cursor on a bag lights its items, every other dimmed, and shows the bag's tooltip; off it, nothing is dimmed" {
+  Test.englishOnly()
   const world = new World(everyday())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
   Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
@@ -1257,6 +1288,7 @@ test "the bag slots shut with the bags and open with them; a bag lit when they s
 // The footer
 
 test "the footer says the free slots of the total, and the currency the player follows" {
+  Test.englishOnly()
   const world = new World(everyday())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
   Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
@@ -1338,6 +1370,7 @@ test "past fifty characters the one seen longest ago is forgotten" {
 // What the game tells changed
 
 test "an item come into a bag shows, the counts told" {
+  Test.englishOnly()
   const world = new World(everyday())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
   Game.bags.size = (bag: Integer): Integer => world.size(bag)
@@ -1353,6 +1386,7 @@ test "an item come into a bag shows, the counts told" {
 }
 
 test "a bag's fill in the view «By bag» follows its items" {
+  Test.englishOnly()
   const world = new World(everyday())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
   Game.bags.size = (bag: Integer): Integer => world.size(bag)
@@ -1367,6 +1401,7 @@ test "a bag's fill in the view «By bag» follows its items" {
 }
 
 test "a bag swapped for a larger one: its slots read anew" {
+  Test.englishOnly()
   const world = new World(everyday())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
   Game.bags.size = (bag: Integer): Integer => world.size(bag)
@@ -1384,6 +1419,7 @@ test "a bag swapped for a larger one: its slots read anew" {
 // What is kept between sessions
 
 test "the view picked is the profile's: there after a reload" {
+  Test.englishOnly()
   const world = new World(everyday())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
   Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
@@ -1395,6 +1431,7 @@ test "the view picked is the profile's: there after a reload" {
 }
 
 test "the sort picked is the profile's: there after a reload" {
+  Test.englishOnly()
   const world = new World(cloths())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
   Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
@@ -1407,6 +1444,7 @@ test "the sort picked is the profile's: there after a reload" {
 }
 
 test "a new profile used: the window by category in the bags' order, as at first" {
+  Test.englishOnly()
   const world = new World(cloths())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
   Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
@@ -1430,6 +1468,7 @@ test "a new profile used: the window by category in the bags' order, as at first
 // How the tabs, the sections and the slots look
 
 test "the tab picked is white, the others in ink, and one with no item shows dimmed" {
+  Test.englishOnly()
   const world = new World(cloths())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
   Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
@@ -1442,6 +1481,7 @@ test "the tab picked is white, the others in ink, and one with no item shows dim
 }
 
 test "a section's caption is gold, a bag's with its mark; «Free»'s is plain" {
+  Test.englishOnly()
   const world = new World(everyday())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
   Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
@@ -1453,6 +1493,7 @@ test "a section's caption is gold, a bag's with its mark; «Free»'s is plain" {
 }
 
 test "each item's rim is in its quality's colour" {
+  Test.englishOnly()
   const world = new World([
     { bag: 0, slot: 1, id: 1, name: "A", icon: HEARTH, quality: 0, kind: 7 },
     { bag: 0, slot: 2, id: 2, name: "B", icon: CLOTH, quality: 1, kind: 7 },
@@ -1486,6 +1527,7 @@ test "the sections of a kind stand in the order of the game's subclasses" {
 }
 
 test "a stack taken out leaves its slot empty: no count, no glow" {
+  Test.englishOnly()
   const world = new World(everyday())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
   Game.bags.size = (bag: Integer): Integer => world.size(bag)
@@ -1501,6 +1543,7 @@ test "a stack taken out leaves its slot empty: no count, no glow" {
 }
 
 test "every bag with slots has its section in the view «By bag» and its slots in «One bag», the last bag's too" {
+  Test.englishOnly()
   const world = new World(everyday())
   world.sizes = [16, 6, 0, 0, 4]
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
@@ -1514,6 +1557,7 @@ test "every bag with slots has its section in the view «By bag» and its slots 
 }
 
 test "in the view «By bag» a bag's caption shuts its section and opens it again" {
+  Test.englishOnly()
   const world = new World(everyday())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
   Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
@@ -1548,6 +1592,7 @@ test "a protected stack used up: its protection passes to no other stack of its 
 }
 
 test "two protected stacks of one item moved: each keeps its protection" {
+  Test.englishOnly()
   const world = new World([
     { bag: 0, slot: 1, id: 118, name: "Minor Healing Potion", icon: POTION, count: 5, kind: 0 },
     { bag: 0, slot: 2, id: 118, name: "Minor Healing Potion", icon: POTION, count: 5, kind: 0 }
@@ -1570,6 +1615,7 @@ test "two protected stacks of one item moved: each keeps its protection" {
 }
 
 test "the cursor off a slot, or the bags shut, a tooltip of its item elsewhere says nothing of the bags'" {
+  Test.englishOnly()
   let corner = Client.CreateFrame("Frame", "GameTooltip", Client.C_UI.GetUIParent(), nil)
   corner.SetSize(200, 80)
   corner.SetPoint("TOPLEFT", Client.C_UI.GetUIParent(), "TOPLEFT", 1300, -720)
@@ -1617,6 +1663,7 @@ test "a stack picked up and let go elsewhere leaves its slot free for «Sort the
 // What an update redraws
 
 test "an update that changes nothing redraws nothing, sorted by count too" {
+  Test.englishOnly()
   const world = new World(everyday())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
   Game.bags.size = (bag: Integer): Integer => world.size(bag)
@@ -1648,6 +1695,7 @@ test "a count changing redraws that count alone, where the sort isn't by count" 
 }
 
 test "an empty bag put on shows its section in the view «By bag»" {
+  Test.englishOnly()
   const world = new World(everyday())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
   Game.bags.size = (bag: Integer): Integer => world.size(bag)
@@ -1661,6 +1709,7 @@ test "an empty bag put on shows its section in the view «By bag»" {
 }
 
 test "in the view «One bag», the cursor off a slot, a tooltip of its item elsewhere says nothing of the bags'" {
+  Test.englishOnly()
   let corner = Client.CreateFrame("Frame", "GameTooltip", Client.C_UI.GetUIParent(), nil)
   corner.SetSize(200, 80)
   corner.SetPoint("TOPLEFT", Client.C_UI.GetUIParent(), "TOPLEFT", 1300, -720)

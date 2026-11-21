@@ -170,6 +170,7 @@ test "an item the cursor holds goes onto the bar's button it is let go on, or cl
 }
 
 test "a button's tooltip is given its key as the button shows it, among the tooltips' hotkeys" {
+  Test.englishOnly()
   alone()
   const holder = new Holder()
   _ = Client.SetBinding("SHIFT-2", "MULTIACTIONBAR1BUTTON2", nil)

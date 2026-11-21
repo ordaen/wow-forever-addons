@@ -31,6 +31,7 @@ class Tools {
 }
 
 test "the compact dropdown opens its list, picks a choice and closes, a click outside closes it alone" {
+  Test.englishOnly()
   let page = new Tools()
   Test.mount(page, { left: 0, top: 0, width: 500, height: 300 })
   Test.shot("closed: the plate with the picked choice in gold")

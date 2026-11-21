@@ -56,6 +56,7 @@ function chat(first: String = "General"): Test.Part {
 }
 
 test "the chat reads the game's lines and shows them in the window's tab, nothing under them until Enter" {
+  Test.englishOnly()
   Game.chat.windows = gameWindows()
   const shown = chat()
   Game.chat.heard.emit(line("SAY", "[Thrall] says: Hello", "Thrall", [1]))
@@ -149,6 +150,7 @@ test "a web address in a line is a link of the chat's own" {
 }
 
 test "a web address clicked opens a box to copy it, closed by Escape" {
+  Test.englishOnly()
   Game.chat.windows = gameWindows()
   const shown = chat()
   Game.chat.heard.emit(line("SAY", "see https://a.io/x", "Thrall", [1]))
@@ -159,6 +161,7 @@ test "a web address clicked opens a box to copy it, closed by Escape" {
 }
 
 test "the chat's tabs are a sidebar at its left, one a row, a right-click opening the menu alone" {
+  Test.englishOnly()
   Game.chat.windows = playersWindows()
   const shown = chat("Общий")
   Game.chat.heard.emit(line("SAY", "[Thrall] says: here", "Thrall", [1]))
@@ -180,6 +183,7 @@ test "the chat's tabs are a sidebar at its left, one a row, a right-click openin
 }
 
 test "the chat is never narrower than a window's least body, 375 dp" {
+  Test.englishOnly()
   Test.expect(LEAST_WIDTH == 375)
   Game.chat.windows = gameWindows()
   // Found by a tab the settings window doesn't name.
@@ -206,6 +210,7 @@ test "a link clicked is the game's" {
 }
 
 test "a tab's right-click opens its menu: renamed in a box, locked, a new tab, its settings" {
+  Test.englishOnly()
   Game.chat.windows = gameWindows()
   const shown = chat()
   shown.text("General").rightClick()
@@ -222,6 +227,7 @@ test "a tab's right-click opens its menu: renamed in a box, locked, a new tab, i
 }
 
 test "a tab's menu makes its window uninteractable, undocks a docked one (never the first) and docks one apart" {
+  Test.englishOnly()
   Game.chat.windows = [window(1, "General", ""), window(3, "Whisper", "Jaina"), window(4, "Trade", "", false)]
   const shown = chat()
   shown.text("General").rightClick()
@@ -265,6 +271,7 @@ test "a player reported has their lines taken away" {
 }
 
 test "a name's right-click opens its menu: whisper, invite, who, ignore, and the game's own" {
+  Test.englishOnly()
   Game.chat.windows = gameWindows()
   const shown = chat()
   Game.chat.heard.emit(line("SAY", "|Hplayer:Jaina:7|h[Jaina]|h says: hi", "Jaina", [1]))
@@ -282,6 +289,7 @@ test "a window the player undocked is a pane of its own" {
 }
 
 test "the Tabs page shows what a window shows, each turned on and off there" {
+  Test.englishOnly()
   Game.chat.windows = gameWindows()
   Game.chat.groups = (index: Integer): Array<Game.ChatShown> => [{ name: "SAY", shown: true }, { name: "YELL", shown: false }]
   _ = chat()
@@ -294,6 +302,7 @@ test "the Tabs page shows what a window shows, each turned on and off there" {
 }
 
 test "the Tabs page resets every chat window once the player says so, never at the first click" {
+  Test.englishOnly()
   Game.chat.windows = gameWindows()
   _ = chat()
   Test.open("/ordaen")
@@ -327,6 +336,7 @@ test "a line fades once its time is up, and shows while the cursor is on the cha
 }
 
 test "the wheel scrolls back, and «To the latest» brings the newest back" {
+  Test.englishOnly()
   Game.chat.windows = gameWindows()
   const shown = chat()
   for (at of 1..100) { Game.chat.heard.emit(line("SAY", `line ${at}`, "Thrall", [1])) }
@@ -390,6 +400,7 @@ function plain(words: String): Shown {
 }
 
 test "the chat is never lower than its tabs, the whispers' among them: the lines take the room they leave" {
+  Test.englishOnly()
   Game.chat.windows = [
     window(1, "General", ""), window(2, "Log", ""), window(3, "Guild", ""), window(4, "Trade", ""), window(5, "Officers", ""),
     window(6, "Party", ""), window(7, "Raid", ""), window(8, "Market", ""), window(9, "Friends", "")
@@ -426,6 +437,7 @@ test "a stream the game lists twice is one tab" {
 }
 
 test "whispers are the whisper window's: a conversation a person, unread until opened, answered in its own line" {
+  Test.englishOnly()
   Game.chat.windows = [window(1, "General", "")]
   const shown = chat()
   Game.chat.heard.emit(whisper("Jaina", "psst"))
@@ -453,6 +465,7 @@ test "whispers are the whisper window's: a conversation a person, unread until o
 }
 
 test "a conversation is bubbles: the other's on the left, the player's on the right, a group's time under its last" {
+  Test.englishOnly()
   Game.chat.windows = [window(1, "General", "")]
   Game.clock.hours24 = true
   const shown = chat()
@@ -478,6 +491,7 @@ test "a conversation is bubbles: the other's on the left, the player's on the ri
 }
 
 test "the whisper window is never narrower than its list and a conversation of a few words a line" {
+  Test.englishOnly()
   Test.expect(WHISPERS_LEAST == 600dp)
   Game.chat.windows = [window(1, "General", "")]
   const shown = chat()

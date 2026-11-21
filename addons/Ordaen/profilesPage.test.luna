@@ -69,6 +69,7 @@ test "the page shows the profile in use and why, with Delete off while there is 
 }
 
 test "a profile is made, refused with its reason, renamed and deleted: never the account's default, never without asking" {
+  Test.englishOnly()
   const page = new ProfilesPage()
   Test.mount(page, PAGE)
   const profiles = Ordaen.keeper.profiles
@@ -121,6 +122,7 @@ test "a profile is made, refused with its reason, renamed and deleted: never the
 }
 
 test "a profile is picked by its dropdown, and the pick for the character, the class and the account win in turn" {
+  Test.englishOnly()
   const page = new ProfilesPage()
   Test.mount(page, PAGE)
   const profiles = Ordaen.keeper.profiles
@@ -178,6 +180,7 @@ test "a profile is picked by its dropdown, and the pick for the character, the c
 }
 
 test "a profile in use is renamed in every pick of it, and deleted with the character falling back to the next rule" {
+  Test.englishOnly()
   const page = new ProfilesPage()
   Test.mount(page, PAGE)
   const profiles = Ordaen.keeper.profiles
@@ -213,6 +216,7 @@ test "a profile in use is renamed in every pick of it, and deleted with the char
 }
 
 test "a pick that switches the profile asks nothing: each change stays in the profile it was made in" {
+  Test.englishOnly()
   const page = new ProfilesPage()
   Test.mount(page, PAGE)
   const profiles = Ordaen.keeper.profiles
@@ -233,6 +237,7 @@ test "a pick that switches the profile asks nothing: each change stays in the pr
 }
 
 test "a section is copied from another profile at once, one step; a module that isn't loaded keeps it as it is" {
+  Test.englishOnly()
   const page = new ProfilesPage()
   Test.mount(page, PAGE)
   const profiles = Ordaen.keeper.profiles
@@ -276,6 +281,7 @@ test "a section is copied from another profile at once, one step; a module that 
 }
 
 test "a profile exports as text, imports as a new profile after a preview, and a section of a module not installed is kept" {
+  Test.englishOnly()
   const page = new ProfilesPage()
   Test.mount(page, PAGE)
   const profiles = Ordaen.keeper.profiles
@@ -323,6 +329,7 @@ test "a profile exports as text, imports as a new profile after a preview, and a
 }
 
 test "a text that isn't a profile is refused with its sentence and changes nothing" {
+  Test.englishOnly()
   const page = new ProfilesPage()
   Test.mount(page, PAGE)
   const profiles = Ordaen.keeper.profiles
@@ -352,6 +359,7 @@ test "a text that isn't a profile is refused with its sentence and changes nothi
 }
 
 test "Reset takes a profile back to its defaults after the question: the one in use too, with its modules" {
+  Test.englishOnly()
   const page = new ProfilesPage()
   Test.mount(page, PAGE)
   const profiles = Ordaen.keeper.profiles
