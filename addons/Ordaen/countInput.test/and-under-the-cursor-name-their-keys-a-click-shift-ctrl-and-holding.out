@@ -7,21 +7,21 @@ box 0,0 300x28.33
       text 34.08,5.77 10x16.8 "3" #f0e6d2
     box 53.93,0 24.22x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
       text 61.04,5.77 10x16.8 "+" #f0e6d2
-surface 53.93,28.33 271.17x180.12 on TOOLTIP Interface\AddOns\Ordaen\media\window-wood clamped
-  text 78.41,52.81 227.22x26.67 "More" #f0e6d2
-  text 78.41,85.16 227.22x33.6 "Hold to keep stepping, up to the limit." #cbb994
-  box 78.41,124.45 227.22x16.8
-    box 78.41,124.45 202.02x16.8
-      text 78.41,124.45 72.22x16.8 "Left-click" #cbb994
-    text 288.96,124.45 16.67x16.8 "+1" #f0e6d2
-  box 78.41,146.94 227.22x16.8
-    box 78.41,146.94 195.36x16.8
-      text 78.41,146.94 114.44x16.8 "Shift+Left-click" #cbb994
-    text 282.29,146.94 23.33x16.8 "+10" #f0e6d2
-  box 78.41,169.43 227.22x16.8
-    box 78.41,169.43 187.58x16.8
-      text 78.41,169.43 107.78x16.8 "Ctrl+Left-click" #cbb994
-    text 274.52,169.43 31.11x16.8 "+100" #f0e6d2
+surface 53.93,28.33 319.5x163.32 on TOOLTIP Interface\AddOns\Ordaen\media\window-wood clamped
+  text 78.41,52.81 275.56x26.67 "More" #f0e6d2
+  text 78.41,85.16 275.56x16.8 "Hold to keep stepping, up to the limit." #cbb994
+  box 78.41,107.65 275.56x16.8
+    box 78.41,107.65 250.36x16.8
+      text 78.41,107.65 72.22x16.8 "Left-click" #cbb994
+    text 337.29,107.65 16.67x16.8 "+1" #f0e6d2
+  box 78.41,130.14 275.56x16.8
+    box 78.41,130.14 243.69x16.8
+      text 78.41,130.14 114.44x16.8 "Shift+Left-click" #cbb994
+    text 330.63,130.14 23.33x16.8 "+10" #f0e6d2
+  box 78.41,152.63 275.56x16.8
+    box 78.41,152.63 235.91x16.8
+      text 78.41,152.63 107.78x16.8 "Ctrl+Left-click" #cbb994
+    text 322.85,152.63 31.11x16.8 "+100" #f0e6d2
 
 -- the cursor away: no Tip
 box 0,0 300x28.33

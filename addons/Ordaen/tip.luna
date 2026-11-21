@@ -5,14 +5,15 @@
 // mouse. Its owner writes it in the box it explains and shows it while the cursor is on that box: it stands beside
 // that box as the game's tooltip stands beside a button (under it, or over it in the screen's lower half; by its left
 // edge, or by its right edge in the screen's right third), kept on the screen.
-import { Align, Beside, Layer, Track } from "$ltml"
+import { Align, Beside, Bounds, Layer, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import { reachAcross } from "@/art"
 import { Hotkeys } from "@/hotkeys"
 import { Component } from "@/module"
 import { BRIGHT_TEXT, TIGHT_LINE, TITLE_LINE, TITLE_TEXT } from "@/units"
 
-const WIDTH = 367.96875dp
+// As wide as what it says, up to its most at the frame's line: a long text wraps there.
+const MOST = 468.75dp
 const NAME: Color = BRIGHT_TEXT
 const LABEL: Color = Color.hex("#cbb994")
 const BY_ITS_BOX: Beside = { beside: "parent" }
@@ -44,8 +45,8 @@ public struct TipText {
 
 public class Tip implements Component {
   derived hasText: Boolean = self.text != ""
-  // Its width as drawn: the design's at the frame's line, and the art past the line on either side.
-  derived width: Number<Length> = WIDTH + reachAcross(Ordaen.art.frame.small)
+  // Its width as drawn: its content's, up to its most and the art past the line on either side.
+  derived width: Bounds = { min: nil, max: MOST + reachAcross(Ordaen.art.frame.small) }
 
   title: Signal<String>
   text: Signal<String>

@@ -6,10 +6,10 @@ import { Bounds, ByInteractionState, Line, Shadow, Side } from "$ltml"
 // The body. The recipes' side (the search and the lists) and the recipe's card share its width; the lists are never
 // narrower than these, which hold all but the longest names of a category and a recipe on one line, and the
 // recipes' side never narrower than both.
-public const WIDTH: Number<Length> = 1335.9375dp
+public const WIDTH: Number<Length> = 1440dp
 public const HEIGHT: Number<Length> = 820.3125dp
-public const CATEGORIES_LEAST: Number<Length> = 304.6875dp
-public const RECIPES_LEAST: Number<Length> = 398.4375dp
+public const CATEGORIES_LEAST: Number<Length> = 328.125dp
+public const RECIPES_LEAST: Number<Length> = 429.6875dp
 public const LISTS_LEAST: Number<Length> = CATEGORIES_LEAST + RECIPES_LEAST
 // What the lists' boxes are held to: at least their least widths.
 public const CATEGORIES_BOUNDS: Bounds = { min: CATEGORIES_LEAST, max: nil }

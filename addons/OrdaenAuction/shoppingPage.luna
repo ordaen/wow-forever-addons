@@ -21,7 +21,7 @@ import { Source } from "@/wanted"
 // price's age under the price.
 const COLUMNS: Array<Column> = [
   { title: Locale.COLUMN_ITEM, width: { fr: 1 } },
-  { title: Locale.COLUMN_TO_BUY, width: 117.1875dp, align: Align.End },
+  { title: Locale.COLUMN_TO_BUY, width: 131.25dp, align: Align.End },
   { title: Locale.COLUMN_PRICE, width: 117.1875dp, align: Align.End },
   { title: Locale.COLUMN_TOTAL, width: 105.46875dp, align: Align.End },
   { title: "", width: 112.5dp, align: Align.End }

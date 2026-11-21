@@ -2,7 +2,7 @@
 // step of the ladder (`$ltml`'s `TextSize`).
 import Locale from "@/locales"
 
-public const WIDTH: Number<Length> = 1289.0625dp
+public const WIDTH: Number<Length> = 1390dp
 public const HEIGHT: Number<Length> = 656.25dp
 
 public const INK: Color = Color.hex("#e8dcc4")

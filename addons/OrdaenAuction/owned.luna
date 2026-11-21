@@ -14,7 +14,7 @@ import { leftText } from "@/style"
 // A window docked at the screen's right is narrow: whether it is the lowest stands under the item's name.
 const COLUMNS: Array<Column> = [
   { title: Locale.COLUMN_ITEM, width: { fr: 1 } },
-  { title: Locale.COLUMN_COUNT, width: 56.25dp, align: Align.End },
+  { title: Locale.COLUMN_COUNT, width: 65.625dp, align: Align.End },
   { title: Locale.COLUMN_UNIT, width: 105.46875dp, align: Align.End },
   { title: Locale.COLUMN_LEFT, width: 65.625dp, align: Align.End },
   { title: "", width: 112.5dp, align: Align.End }

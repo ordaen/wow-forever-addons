@@ -7,7 +7,7 @@ import Game from "$game"
 import { Action, Align, Event, KeyBinding, MouseButton, Position, Shadow, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import { Component, ItemButton, Menu, MenuEntry, Quality, SECONDARY_TEXT, TIGHT_LINE } from "Ordaen"
-import { CAPTION_HIGH, CARD_GAP, CARD_PAD, Card, GAP, Line, SLOT, Section } from "@/layout"
+import { CARD_GAP, CARD_PAD, Card, GAP, Line, SLOT, Section } from "@/layout"
 import { Slot } from "@/model"
 import { SlotMenu } from "@/slotMenu"
 import { Vault } from "@/vault"
@@ -173,13 +173,13 @@ class Caption implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box $if={self.folds} columns={self.columns} gap={3sp} height={CAPTION_HIGH} lineHeight={TIGHT_LINE} yAlign={Align.Center}
+      <box $if={self.folds} columns={self.columns} gap={3sp} lineHeight={TIGHT_LINE} yAlign={Align.Center}
            @pointerPress={self.onClick} @keyPress(.Enter)={self.onClick} @keyPress(.Space)={self.onClick}>
         <box width={MARK} height={MARK} background={self.mark} />
         <text value={self.section.title} textColor={self.titleColor} textShadow={SHADOW} wrap={.Cut} />
         <text value={self.fill} textColor={LABEL} textSize={SECONDARY_TEXT} textFont={.Numbers} wrap={.None} />
       </box>
-      <box $else columns={self.columns} gap={3sp} height={CAPTION_HIGH} lineHeight={TIGHT_LINE} yAlign={Align.Center}>
+      <box $else columns={self.columns} gap={3sp} lineHeight={TIGHT_LINE} yAlign={Align.Center}>
         <text value={self.section.title} textColor={self.titleColor} textShadow={SHADOW} wrap={.Cut} />
         <text value={self.fill} textColor={LABEL} textSize={SECONDARY_TEXT} textFont={.Numbers} wrap={.None} />
       </box>

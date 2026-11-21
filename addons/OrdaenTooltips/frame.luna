@@ -72,7 +72,7 @@ const NO_KEYS_PAD: Edges = {}
 // quiet, never louder than the text. Its row is as high as the line that stands there once locked, so nothing
 // moves when the lock lands.
 const BAR_PAD: Edges = { top: SECTION }
-const BAR_ROW = 21.09375dp
+const BAR_ROW = 22.5dp
 const BAR_HEIGHT = 3.515625dp
 const TRACK: Color = Color.hex("#00000073")
 const BAR_GOLD: Color = Color.hex("#d6a56b80")
@@ -548,7 +548,7 @@ public class TipFrame implements Component {
           <box gap={LINE} yAlign={Align.Center}>
             <text value={self.model.name} textColor={self.model.nameColor} textSize={TITLE_TEXT} lineHeight={TIGHT_LINE} wrap={.None}
                   textFont={.Title} />
-            <box $if={self.hasDesc} columns={self.descColumns} height={21.09375dp} yAlign={Align.Center}>
+            <box $if={self.hasDesc} columns={self.descColumns} yAlign={Align.Center}>
               <PartText $for={index, part of self.model.desc} part={part} index={index} color={LABEL}
                         locked={self.locked}>
                 <box #opened={opens}>
@@ -556,7 +556,7 @@ public class TipFrame implements Component {
                 </box>
               </PartText>
             </box>
-            <box $if={self.hasInfo} columns={self.infoColumns} height={21.09375dp} yAlign={Align.Center}>
+            <box $if={self.hasInfo} columns={self.infoColumns} yAlign={Align.Center}>
               <PartText $for={index, part of self.model.info} part={part} index={index} color={QUIET}
                         locked={self.locked}>
                 <box #opened={opens}>

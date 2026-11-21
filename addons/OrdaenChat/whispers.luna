@@ -14,9 +14,10 @@ import Locale from "@/locales"
 const ROWS = 80
 const STEP = 3
 const MAX: "max-content" = "max-content"
-// The list's width (its field's «Whisper to: name, Enter» whole), and the window's least: the list and a conversation
-// whose bubbles hold a few words a line.
-const LIST = 240dp
+// The list and the conversation share the window evenly; the window's least gives the list room for its
+// field's «Whisper to: name, Enter» whole, and the conversation bubbles that hold a few words a line.
+const LIST: Track = { fr: 1 }
+const TALK: Track = { fr: 1 }
 public const WHISPERS_LEAST = 600dp
 // The bubbles' floors (WhisperMessenger's warm look, on the wood): what is heard dark brown, what the player told
 // copper; their words light on both.
@@ -233,7 +234,7 @@ public class Whispers implements Component {
     return $ltml {
       <Window tabs={self.tabs} selected={mut self.windowTab} declared={mut self.declared} minWidth={WHISPERS_LEAST}
               @close={self.onClose}>
-        <box columns={[LIST, { fr: 1 }]} rows={[{ fr: 1 }]} gap={3sp}>
+        <box columns={[LIST, TALK]} rows={[{ fr: 1 }]} gap={3sp}>
           <box rows={[MAX, { fr: 1 }]} gap={2sp}>
             <Field value={mut self.name} maxLength={60} placeholder={Locale.WHISPER_TO} @submit={self.onStart} />
             <box columns={1} overflow={Overflow.Scroll}>
