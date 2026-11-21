@@ -6,6 +6,7 @@
 // OpenMap (MIT): https://github.com/openmap-world/openmap, its masks in `media/openmap`.
 import Client from "$client"
 import Debug from "$debug"
+import Gaps from "@/gaps"
 import Reveal from "@/reveal"
 
 // Azeroth's map: the plane every zone is placed on.
@@ -62,6 +63,12 @@ const HATCH_WIDTH: Number = 34
 const HATCH_HEIGHT: Number = 84
 const HATCH_OCTAVE: Number = 7
 const HATCH_ALPHA: Number = 0.6
+// The blank map paper over the land no zone covers, twice at sizes and offsets that never line up:
+// { size, offset (tiles), strength }.
+const PAPER_LAYERS: Array<Array<Number>> = [[1, 0, 1], [2.618, 0.41, 0.5]]
+// A classic map's art, as every zone map's.
+const CLASSIC_WIDTH: Number = 1002
+const CLASSIC_HEIGHT: Number = 668
 
 // A continent's coastal wave strokes, two octaves, over its rectangle on the plane; `pixel`: the plane's units to
 // a pixel of its art.
@@ -194,6 +201,82 @@ class ZoneArt {
   }
 }
 
+// Art over the land no zone's map covers, under every zone: one of Blizzard's classic maps, or a gap painted by hand.
+// Its frame on the canvas, built when it first comes near the view.
+class Patch {
+  const art: Gaps.ClassicMap | Gaps.GapFill
+  // Its rectangle on the plane, in Azeroth's art units.
+  public const left: Number
+  public const top: Number
+  public const right: Number
+  public const bottom: Number
+  public const frame: mut any Client.Frame
+  public built = false
+
+  constructor(art: Gaps.ClassicMap | Gaps.GapFill, width: Number, height: Number, parent: any Client.Frame) {
+    self.art = art
+    self.left = art.left * width
+    self.top = art.top * height
+    self.right = art.right * width
+    self.bottom = art.bottom * height
+    self.frame = Client.CreateFrame("Frame", nil, parent, nil)
+    self.frame.SetAllPoints(parent)
+    self.frame.Hide()
+  }
+
+  public build(mut self) {
+    self.built = true
+    const art = self.art
+    if (art is Gaps.GapFill) {
+      // A fill painted by hand: its 256-pixel tiles, the last of a row or a column cut where the painting ends.
+      const sx = (self.right - self.left) / art.width
+      const sy = (self.bottom - self.top) / art.height
+      for (tile of art.tiles) {
+        const col = (tile - 1) % art.columns
+        const row = (tile - 1 - col) / art.columns
+        const pw = (256.0).min(art.width - col * 256)
+        const ph = (256.0).min(art.height - row * 256)
+        const tex = self.frame.CreateTexture(nil, "ARTWORK", nil, 1)
+        _ = tex.SetTexture(`${MEDIA}gapFill/${art.name}_${tile}`, nil, nil, "TRILINEAR")
+        tex.SetTexCoord(0, pw / 256, 0, ph / 256)
+        self.place(tex, col * 256 * sx, row * 256 * sy, pw * sx, ph * sy)
+      }
+      return
+    }
+    // A classic map: its 1002 by 668 art's tiles, through its land and shallows where no zone paints.
+    const sx = (self.right - self.left) / CLASSIC_WIDTH
+    const sy = (self.bottom - self.top) / CLASSIC_HEIGHT
+    const mask = self.frame.CreateMaskTexture()
+    _ = mask.SetTexture(`${MEDIA}coastArt/${art.name}`, "CLAMPTOBLACKADDITIVE", "CLAMPTOBLACKADDITIVE")
+    self.place(mask, 0, 0, self.right - self.left, self.bottom - self.top)
+    const cols = (CLASSIC_WIDTH / 256).ceil()
+    const rows = (CLASSIC_HEIGHT / 256).ceil()
+    for (j of 1..rows) {
+      const ph = j < rows ? 256 : CLASSIC_HEIGHT - (rows - 1) * 256
+      for (k of 1..cols) {
+        const file = art.files[(j - 1) * cols + k] ?? 0
+        const pw = k < cols ? 256 : CLASSIC_WIDTH - (cols - 1) * 256
+        if (file != 0) {
+          const tex = self.frame.CreateTexture(nil, "ARTWORK", nil, 0)
+          _ = tex.SetTexture(file, nil, nil, "TRILINEAR")
+          tex.SetTexCoord(0, pw / 256, 0, ph / 256)
+          tex.AddMaskTexture(mask)
+          self.place(tex, (k - 1) * 256 * sx, (j - 1) * 256 * sy, pw * sx, ph * sy)
+        }
+      }
+    }
+  }
+
+  place(self, region: any Client.MaskTexture, x: Number, y: Number, width: Number, height: Number) {
+    region.SetPoint("TOPLEFT", self.frame, "TOPLEFT", self.left + x, -(self.top + y))
+    region.SetSize(width, height)
+  }
+
+  public meets(self, left: Number, top: Number, right: Number, bottom: Number): Boolean {
+    return self.right > left && self.left < right && self.bottom > top && self.top < bottom
+  }
+}
+
 public class WorldCanvas {
   // What the window embeds: it clips the plane and takes the drag and the wheel.
   public const view: mut any Client.Frame
@@ -205,6 +288,7 @@ public class WorldCanvas {
   width: Number = 0
   height: Number = 0
   zones: mut Array<mut ZoneArt> = []
+  patches: mut Array<mut Patch> = []
   // Each map's rectangle on the plane, asked once: left, top, right, bottom.
   rects: mut Map<Integer, Array<Number>> = {}
   // The point of the plane at the view's top left corner, and screen pixels to a unit.
@@ -296,6 +380,11 @@ public class WorldCanvas {
       return (a.right - a.left) * (a.bottom - a.top) > (b.right - b.left) * (b.bottom - b.top)
     })
     self.zones = found
+    // Under every zone: Blizzard's classic maps, then the gaps painted by hand over them.
+    const patches: Array<mut Patch> = []
+    for (art of Gaps.classic()) { patches.push(new Patch(art, self.width, self.height, self.plane)) }
+    for (art of Gaps.fills()) { patches.push(new Patch(art, self.width, self.height, self.plane)) }
+    self.patches = patches
     self.level = -1
     self.buildSea()
   }
@@ -372,6 +461,27 @@ public class WorldCanvas {
       self.onPlane(grain, left, top, width, height)
       grain.AddMaskTexture(fade)
       grain.AddMaskTexture(land)
+    }
+    // The gaps between and round its zones: the blank paper through a mask of where the land is, each tile's.
+    const size = Gaps.tile()
+    const paper = Gaps.paper()
+    for (gap of Gaps.tilesOf(map)) {
+      const x = left + gap.col * size
+      const y = top + gap.row * size
+      const ground = self.plane.CreateMaskTexture()
+      _ = ground.SetTexture(`${MEDIA}gapLand/${map}_${gap.col}_${gap.row}`, "CLAMPTOBLACKADDITIVE", "CLAMPTOBLACKADDITIVE")
+      self.onPlane(ground, x, y, size, size)
+      for (index, layer of PAPER_LAYERS) {
+        const tile = paper * (layer[1] ?? 1)
+        const offset = layer[2] ?? 0
+        const sheet = self.plane.CreateTexture(nil, "BORDER", nil, 2 + index)
+        _ = sheet.SetTexture(MEDIA + "paper", "REPEAT", "REPEAT")
+        sheet.SetTexCoord(x / tile + offset, (x + size) / tile + offset, y / tile + offset * 1.7, (y + size) / tile + offset * 1.7)
+        sheet.SetVertexColor(1, 1, 1, layer[3] ?? 1)
+        self.onPlane(sheet, x, y, size, size)
+        sheet.AddMaskTexture(ground)
+        sheet.AddMaskTexture(fade)
+      }
     }
     const coast = self.plane.CreateMaskTexture()
     _ = coast.SetTexture(`${MEDIA}coast/${map}`, "CLAMPTOBLACKADDITIVE", "CLAMPTOBLACKADDITIVE")
@@ -516,6 +626,14 @@ public class WorldCanvas {
     const top = self.y - down * NEAR
     const right = self.x + across * (1 + NEAR)
     const bottom = self.y + down * (1 + NEAR)
+    for (patch of self.patches) {
+      if (patch.meets(left, top, right, bottom)) {
+        if (!patch.built) { patch.build() }
+        patch.frame.Show()
+      } else {
+        patch.frame.Hide()
+      }
+    }
     for (zone of self.zones) {
       const wide = !zone.city || (zone.right - zone.left) * self.scale >= width * CITY_SHARE
       if (wide && zone.meets(left, top, right, bottom)) {
@@ -529,15 +647,17 @@ public class WorldCanvas {
     self.placeArrow()
   }
 
-  // The zones' frames over the view's level, in their order, and the arrow's over them: the window tells the view
-  // its level as it lays out.
+  // Over the view's level, in their order: the plane (the sea and the land), the patches over the gaps, the zones,
+  // and the arrow's frame over them. The window tells the view its level as it lays out.
   relevel(mut self) {
     const level = self.view.GetFrameLevel()
     if (level == self.level) { return }
     self.level = level
     self.plane.SetFrameLevel(level + 1)
-    for (index, zone of self.zones) { zone.frame.SetFrameLevel(level + 1 + index) }
-    self.over.SetFrameLevel(level + 2 + self.zones.length)
+    for (index, patch of self.patches) { patch.frame.SetFrameLevel(level + 1 + index) }
+    const zonesFrom = level + 1 + self.patches.length
+    for (index, zone of self.zones) { zone.frame.SetFrameLevel(zonesFrom + index) }
+    self.over.SetFrameLevel(zonesFrom + self.zones.length + 1)
   }
 
   // The cursor on the view, in the view's units from its top left corner.
