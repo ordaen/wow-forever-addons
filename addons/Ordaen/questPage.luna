@@ -13,7 +13,7 @@ import Locale from "@/locales"
 import { Component } from "@/module"
 import { Money } from "@/money"
 import { PickRow } from "@/pickRow"
-import { Tip } from "@/tip"
+import { Tip, TipRow } from "@/tip"
 import { SECONDARY_TEXT, TIGHT_LINE, TITLE_TEXT } from "@/units"
 
 // On the parchment.
@@ -240,7 +240,7 @@ public class Rewards implements Component {
   derived chooseTitle: String = self.pickable ? Locale.QUEST_CHOOSE_REWARD : Locale.QUEST_CAN_CHOOSE
   derived alsoTitle: String = self.hasChoices ? Locale.QUEST_ALSO_GET : Locale.QUEST_REWARD
   derived banded: Boolean = self.xp > 0 || self.money > 0 || self.standings.length > 0
-  derived bandColumns: Array<Track> = bandOf(self.xp > 0, self.standings.length, self.money > 0)
+  derived bandColumns: Array<Track> = bandOf(self.xp > 0, self.standings.length > 0, self.money > 0)
 
   views: Signal<Array<RewardView>>
   also: Signal<Array<Reward>>
@@ -286,7 +286,7 @@ public class Rewards implements Component {
       <box $if={self.banded} columns={self.bandColumns} border={RULE_BELOW} padding={2sp} xAlign={Align.Center}
            yAlign={Align.Center}>
         <Experience $if={self.xp > 0} amount={self.xp} textSize={TITLE_TEXT} mark={XP_MARK_LARGE} />
-        <BandStanding $for={standing of self.standings} standing={standing} />
+        <BandStandings $if={self.standings.length > 0} standings={self.standings} />
         <Money $if={self.money > 0} amount={self.money} textSize={TITLE_TEXT} />
       </box>
     }
@@ -328,24 +328,40 @@ public class Experience implements Component {
   }
 }
 
-// The band's columns: one for each of experience, every reputation and money, of one width.
-function bandOf(xp: Boolean, standings: Integer, money: Boolean): Array<Track> {
+// The band's columns: one for each of experience, the reputations and money, of one width.
+function bandOf(xp: Boolean, standings: Boolean, money: Boolean): Array<Track> {
   let columns: Array<Track> = []
-  const count = (xp ? 1 : 0) + standings + (money ? 1 : 0)
+  const count = (xp ? 1 : 0) + (standings ? 1 : 0) + (money ? 1 : 0)
   for (column of 1..count) { columns.push({ fr: 1 }) }
   return columns
 }
 
-class BandStanding implements Component {
-  derived text: String = Locale.QUEST_REPUTATION.format(self.standing.amount, self.standing.name)
+// The reputations in the band's one line: one by its faction's name («+250 Stormwind»), several by their amounts and
+// «reputation» («+250, +75 reputation»), each faction then in the Tip.
+function standingsLine(standings: Array<Standing>): String {
+  const first = standings[1]
+  if (standings.length == 1 && first != nil) { return Locale.QUEST_REPUTATION.format(first.amount, first.name) }
+  return Locale.QUEST_REPUTATIONS.format(standings.map(standing => "%+d".format(standing.amount)).join(", "))
+}
 
-  standing: Signal<Standing>
-  constructor(standing: Signal<Standing>) { self.standing = standing }
+// The reputations a quest changes, in one column of the band; under the cursor a Tip with each faction and its amount.
+class BandStandings implements Component {
+  state hovered = false
+  derived text: String = standingsLine(self.standings)
+  derived rows: Array<TipRow> = self.standings.map(standing => ({ label: standing.name, value: "%+d".format(standing.amount) }))
+
+  standings: Signal<Array<Standing>>
+  constructor(standings: Signal<Array<Standing>>) { self.standings = standings }
+
+  onEnter(mut self) { self.hovered = true }
+  onLeave(mut self) { self.hovered = false }
 
   public render(self): Template {
     return $ltml {
-      <box border={{ width: 1.171875dp, color: Color.hex("#3e2f1d"), sides: [Side.Left] }} xAlign={Align.Center}>
+      <box border={{ width: 1.171875dp, color: Color.hex("#3e2f1d"), sides: [Side.Left] }} xAlign={Align.Center}
+           @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
         <text value={self.text} textColor={WELL_TEXT} textSize={SECONDARY_TEXT} wrap={.None} />
+        <Tip $if={self.hovered} title={Locale.QUEST_REPUTATION_TIP} text={""} rows={self.rows} />
       </box>
     }
   }

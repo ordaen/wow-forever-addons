@@ -167,8 +167,14 @@ test "a quest picked shows its page and the next quest of its chain; who gives a
   const window = Test.page().window("World")
   Test.expect(window.text("Gryan asks you to look into Westfall.").shown())
   Test.expect(window.text("420").shown())
-  // The reputations it changes, QuestieDB's (the client says none), in the band by the factions' names.
-  Test.expect(window.text("+250 Stormwind").shown() && window.text("-25 Ratchet").shown())
+  // The reputations it changes, QuestieDB's (the client says none), in one column of the band; each faction in its Tip.
+  const reputation = window.text("+250, -25 reputation")
+  Test.expect(reputation.shown())
+  const at = reputation.rect()
+  Test.moveTo({ x: (at.left + at.right) / 2, y: (at.top + at.bottom) / 2 })
+  Test.flush()
+  const tip = Test.page().window("Reputation")
+  Test.expect(tip.text("Stormwind").shown() && tip.text("+250").shown() && tip.text("Ratchet").shown() && tip.text("-25").shown())
   // The chain: the quest after it, by QuestieDB's name, under the parchment in gold, a link.
   const next = window.text("The Defias Brotherhood, part two")
   Test.expect(window.text("Next quest").shown() && next.textColor().equal(Color.hex("#ffd100")))
@@ -342,7 +348,7 @@ test "a reputation gained has the player's Diplomat in it, 2% a rank; one lost d
   opened(standing())
   Test.page().window("World").text("The Defias Brotherhood").click()
   const window = Test.page().window("World")
-  Test.expect(window.text("+265 Stormwind").shown() && window.text("-25 Ratchet").shown())
+  Test.expect(window.text("+265, -25 reputation").shown())
 }
 
 test "the next quest's name opens its page in a window of its own, which follows the chain on, and closes" {
