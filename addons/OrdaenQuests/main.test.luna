@@ -232,6 +232,20 @@ test "a quest's page shows its rewards as Dialogue's quest page does: those to c
   Test.expect(window.text("You will also receive").rect().bottom < window.button("Share").rect().top)
 }
 
+test "many rewards give way to the parchment, which keeps its least height" {
+  const log = standing()
+  let choices: Array<Test.LogReward> = []
+  for (index of 1..6) { choices.push({ item: 1001 + index % 3, count: index }) }
+  log[3] = { rewards: [{ item: 1001 }, { item: 1002 }], choices: choices, xp: 735, money: 150, ..quest(103, "Elwynn Wolves", "Elwynn Forest") }
+  opened(log)
+  const window = Test.page().window("World")
+  window.text("Elwynn Wolves").click()
+  const paper = window.text("You will be able to choose").rect().top - window.text("Elwynn Wolves").nth(2).rect().top
+  // Without its least height the rewards squeeze the parchment to a line or two (38 here).
+  Test.expect(paper > 100)
+  Test.expect(window.button("Share").rect().bottom <= window.rect().bottom)
+}
+
 test "a quest's title stands in Dialogue's title type on the scroll, its lines tight, without its level" {
   opened(standing())
   Test.page().window("World").text("The Defias Brotherhood").click()

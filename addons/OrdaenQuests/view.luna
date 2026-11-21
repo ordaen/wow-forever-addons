@@ -8,7 +8,7 @@
 import Game from "$game"
 import { Align, Art, ByInteractionState, Edges, Line, Side, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { BODY_LINE, ButtonPlate, Component, Experience, Menu, MenuEntry, Money, PushButton, Reward, RewardView, Rewards, SCROLL_DIM, SCROLL_HEAD, SCROLL_INK, SECONDARY_TEXT, Scroll, Shown, Standing, SwitchFace, TIGHT_LINE, TITLE_TEXT, Tip, TipText, WELL_DIM, WELL_TEXT, choiceViews, logReward, questLevelColor, rowShade } from "Ordaen"
+import { BODY_LINE, ButtonPlate, Component, Experience, Menu, MenuEntry, Money, PushButton, Reward, RewardView, Rewards, SCROLL_DIM, SCROLL_HEAD, SCROLL_INK, SCROLL_ROW, SECONDARY_TEXT, Scroll, Shown, Standing, SwitchFace, TIGHT_LINE, TITLE_TEXT, Tip, TipText, WELL_DIM, WELL_TEXT, choiceViews, logReward, questLevelColor, rowShade } from "Ordaen"
 import { LogQuest } from "@/book"
 import Locale from "@/locales"
 import { QuestFacts } from "@/questie"
@@ -277,7 +277,7 @@ function countOf(text: String): String {
 // The line under the scroll: its label, then the next quest's name.
 const CHAIN_COLUMNS: Array<Track> = ["max-content", { fr: 1 }]
 // The chain's page: its scroll, the line of the quest after it, its button.
-const CHAIN_ROWS: Array<Track> = [{ fr: 1 }, "max-content", "max-content"]
+const CHAIN_ROWS: Array<Track> = [SCROLL_ROW, "max-content", "max-content"]
 const BUTTON_ALONE: Array<Track> = ["max-content", { fr: 1 }]
 
 // The line under a quest's parchment: the quest after it in its chain, by QuestieDB's name, in gold as a link; a
@@ -382,7 +382,7 @@ public class QuestPage implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box rows={[{ fr: 1 }, "max-content", "max-content", "max-content", "max-content"]} gap={1.5sp}>
+      <box rows={[SCROLL_ROW, "max-content", "max-content", "max-content", "max-content"]} gap={1.5sp}>
         <Scroll>
           <text value={self.quest.title} textColor={SCROLL_HEAD} textSize={TITLE_TEXT} lineHeight={TIGHT_LINE} textFont={.Title} />
           <text $if={self.text.story != ""} value={self.text.story} textColor={SCROLL_INK} lineHeight={BODY_LINE} />
