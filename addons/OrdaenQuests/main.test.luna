@@ -168,7 +168,7 @@ test "a quest picked shows its page and the next quest of its chain; who gives a
   Test.expect(window.text("Gryan asks you to look into Westfall.").shown())
   Test.expect(window.text("420").shown())
   // The reputations it changes, QuestieDB's (the client says none), in one column of the band; each faction in its Tip.
-  const reputation = window.text("+250, -25 reputation")
+  const reputation = window.text("-25–+250 reputation")
   Test.expect(reputation.shown())
   const at = reputation.rect()
   Test.moveTo({ x: (at.left + at.right) / 2, y: (at.top + at.bottom) / 2 })
@@ -348,7 +348,7 @@ test "a reputation gained has the player's Diplomat in it, 2% a rank; one lost d
   opened(standing())
   Test.page().window("World").text("The Defias Brotherhood").click()
   const window = Test.page().window("World")
-  Test.expect(window.text("+265, -25 reputation").shown())
+  Test.expect(window.text("-25–+265 reputation").shown())
 }
 
 test "the next quest's name opens its page in a window of its own, which follows the chain on, and closes" {
