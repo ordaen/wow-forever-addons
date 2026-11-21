@@ -18,12 +18,12 @@ const WHITE: Color = Color.hex("#ffffff")
 // The shade a tab stands on, open or under the cursor.
 const TAB_SHADE: Color = Color.hex("#00000059")
 
-function window(index: Integer, name: String, partner: String, docked: Boolean = true, fontSize: Number = 13): Game.ChatWindow {
+function window(index: Integer, name: String, partner: String, docked: Boolean = true, fontSize: Number = 13, combatLog: Boolean = false): Game.ChatWindow {
   // Hidden while its input is made, as the game parks its windows.
   const frame = Client.CreateFrame("Frame", `ChatFrame${index}`, Client.C_UI.GetUIParent(), nil)
   frame.Hide()
   return {
-    index: index, name: name, fontSize: fontSize, partner: partner, combatLog: false, docked: docked, shown: true,
+    index: index, name: name, fontSize: fontSize, partner: partner, combatLog: combatLog, docked: docked, shown: true,
     locked: false, uninteractable: false, frame: frame, input: input(frame)
   }
 }
@@ -288,6 +288,17 @@ test "a tab's count goes off in its settings; the combat log's and a tab of chan
   const on = settings.button(Ordaen.art.ctl.switchOn)
   on.nth(on.count()).click()
   Game.chat.heard.emit(line("SAY", "[Jaina] says: psst", "Jaina", [3]))
+  Test.expect(!shown.text("1").shown())
+}
+
+test "a window the game tells as the combat log only once its addon loads loses its count then" {
+  Game.chat.windows = [window(1, "General", ""), window(2, "Combat Log", "")]
+  const shown = chat()
+  Game.chat.heard.emit(line("SAY", "[Thrall] says: hit", "Thrall", [2]))
+  Test.expect(shown.text("1").shown())
+  // Blizzard_CombatLog loaded: the game reads its windows again.
+  Game.chat.windows = [window(1, "General", ""), window(2, "Combat Log", "", true, 13, true)]
+  Test.flush()
   Test.expect(!shown.text("1").shown())
 }
 
