@@ -6,7 +6,7 @@ import Client from "$client"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
 import { KeptWindow, Module, SettingsPage, WindowsPage, windowsTitle } from "Ordaen"
-import { AddOnsWindow, WINDOW } from "@/addonsWindow"
+import { ADDONS_TAB, AddOnsWindow, WINDOW } from "@/addonsWindow"
 import { GameMenu, Live, MenuDress } from "@/menu"
 
 public class System implements Module, App {
@@ -53,8 +53,9 @@ public class System implements Module, App {
     self.dressed = true
   }
 
-  // The AddOns window opened: made the first time.
+  // The window opened at its AddOns tab: made the first time.
   public openWindow(mut self) {
+    self.window.ask(ADDONS_TAB)
     self.made = true
     self.open = true
   }

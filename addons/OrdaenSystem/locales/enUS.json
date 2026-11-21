@@ -105,5 +105,8 @@
   "KEYS_ADD": "Add a second key",
   "KEYS_PRESS": "Press a key combination, then Enter. For a mouse button or the wheel, use it over the box below. Escape cancels.",
   "KEYS_NOW": "Now: %s. It will be taken from it.",
-  "KEYS_SET": "Set"
+  "KEYS_SET": "Set",
+  "SETTINGS_SEARCH": "Search settings by name or description",
+  "SETTINGS_OPEN_BLIZZARD": "Open in the game's window",
+  "SETTINGS_ADDON_PAGE": "This addon draws its own page: it opens in the game's window."
 }

@@ -1,0 +1,179 @@
+// The «Settings» tab: Blizzard's settings window drawn with Ordaen's controls. On the left the client's groups and
+// their pages in the client's order; on the right the page picked, each setting a row of the settings window's kind
+// (label left with its tooltip, control right). The search finds a setting by its name or tooltip on every page: the
+// list keeps the pages that hold one, the page shows the settings that match. A line only Blizzard draws (a button, a
+// section of its own, an addon's own frame) opens Blizzard's window at that page.
+import Client from "$client"
+import Game from "$game"
+import { Align, Edges, Track } from "$ltml"
+import { Checkbox, Choice, Component, Dropdown, ListTab, NumberInput, PushButton, ScrolledList, SettingRow, Toolbar } from "Ordaen"
+import Locale from "@/locales"
+import { LineKind, PageGroup, SettingLine, SettingsPage, SystemSettings, lineMatches } from "@/settings"
+import Style from "@/style"
+
+const LIST_WIDTH = 281.25dp
+const COLUMNS: Array<Track> = [LIST_WIDTH, { fr: 1 }]
+const PAD: Edges = { left: 3sp, right: 3sp }
+const INDENT: Edges = { left: 5.5sp }
+const BUTTON = 234.375dp
+
+// A dropdown's choice from the client's option.
+function choiceOf(option: Client.SettingsOption): Choice<Boolean | Number | String> {
+  return { value: option.value, label: option.label }
+}
+
+// Opens Blizzard's window at a page: what only Blizzard draws.
+function openBlizzard(id: Integer) {
+  const settings = Client.Settings
+  if (settings != nil && !Client.InCombatLockdown()) { settings.OpenToCategory(id, nil) }
+}
+
+public class SettingsTab implements Component {
+  state search = ""
+  derived query: String = self.search.lower()
+  derived found: Map<Integer, Boolean> = self.settings.matching(self.query)
+  derived shownLines: Array<SettingLine> = self.settings.lines.filter(line => lineMatches(line, self.query))
+  derived title: String = self.titleOf()
+  derived canvas: Boolean = self.pageOf()?.canvas == true
+
+  const settings: mut SystemSettings
+  constructor(settings: mut SystemSettings) {
+    self.settings = settings
+  }
+
+  pageOf(self): SettingsPage | nil {
+    for (group of self.settings.groups) {
+      const page = group.pages.find(candidate => candidate.id == self.settings.page)
+      if (page != nil) { return page }
+    }
+    return nil
+  }
+
+  titleOf(self): String { return self.pageOf()?.name ?? "" }
+
+  onPick(mut self, id: Integer) { self.settings.open(id) }
+  onBlizzard(self) { openBlizzard(self.settings.page) }
+
+  public render(self): Template {
+    return $ltml {
+      <box rows={["max-content", { fr: 1 }]} gap={3sp}>
+        <Toolbar search={mut self.search} placeholder={Locale.SETTINGS_SEARCH} />
+        <box columns={COLUMNS} gap={6sp}>
+          <ScrolledList>
+            <PageGroupList $for={group of self.settings.groups} group={group} picked={self.settings.page}
+                           query={self.query} found={self.found} @pick={self.onPick} />
+          </ScrolledList>
+          <box rows={["max-content", { fr: 1 }]} gap={3sp}>
+            <text value={self.title} textColor={Style.GOLD} textFont={.Title} wrap={.None} />
+            <box $if={self.canvas} rows={["max-content", "max-content"]} gap={3sp}>
+              <text value={Locale.SETTINGS_ADDON_PAGE} textColor={Style.DIM} />
+              <PushButton label={Locale.SETTINGS_OPEN_BLIZZARD} width={BUTTON} @click={self.onBlizzard} />
+            </box>
+            <ScrolledList $else>
+              <LineRow $for={line of self.shownLines} $key={`${line.variable}|${line.name}`} line={line} settings={self.settings} />
+            </ScrolledList>
+          </box>
+        </box>
+      </box>
+    }
+  }
+}
+
+// A group's caption and its pages; while searching, only the pages the search finds (a group with none is left out).
+class PageGroupList implements Component {
+  public pick: Event<Integer> = new Event()
+  derived pages: Array<SettingsPage> = self.query == "" ? self.group.pages : self.group.pages.filter(page => self.found[page.id] == true)
+  derived any: Boolean = self.pages.length > 0
+
+  group: Signal<PageGroup>
+  picked: Signal<Integer>
+  query: Signal<String>
+  found: Signal<Map<Integer, Boolean>>
+  constructor(group: Signal<PageGroup>, picked: Signal<Integer>, query: Signal<String>, found: Signal<Map<Integer, Boolean>>) {
+    self.group = group
+    self.picked = picked
+    self.query = query
+    self.found = found
+  }
+
+  onPick(self, id: Integer) { self.pick.emit(id) }
+
+  public render(self): Template {
+    return $ltml {
+      <box $if={self.any} gap={1sp}>
+        <box padding={PAD}>
+          <text value={self.group.name} textColor={Style.DIM} wrap={.None} />
+        </box>
+        <PageEntry $for={page of self.pages} page={page} picked={self.picked} @pick={self.onPick} />
+      </box>
+    }
+  }
+}
+
+class PageEntry implements Component {
+  public pick: Event<Integer> = new Event()
+  derived selected: Boolean = self.page.id == self.picked
+  derived padding: Edges = self.page.child ? INDENT : {}
+
+  page: Signal<SettingsPage>
+  picked: Signal<Integer>
+  constructor(page: Signal<SettingsPage>, picked: Signal<Integer>) {
+    self.page = page
+    self.picked = picked
+  }
+
+  onPick(self) { self.pick.emit(self.page.id) }
+
+  public render(self): Template {
+    return $ltml {
+      <box padding={self.padding}>
+        <ListTab label={self.page.name} selected={self.selected} @pick={self.onPick} />
+      </box>
+    }
+  }
+}
+
+// One line of a page: a section's header, a setting with its control, or what only Blizzard draws. The control shows
+// the client's value; it is set from the window once the game's side writes settings without Blizzard's objects.
+class LineRow implements Component {
+  state checked = false
+  state number: Number = 0
+  state chosen: Boolean | Number | String = ""
+  derived choices: Array<Choice<Boolean | Number | String>> = self.line.kind == .Choice ?
+    self.settings.choicesOf(self.settings.page, self.line.variable).map(option => choiceOf(option)) : []
+  derived fighting: Boolean = Game.situation.combat
+
+  line: Signal<SettingLine>
+  const settings: SystemSettings
+  constructor(line: Signal<SettingLine>, settings: SystemSettings) {
+    self.line = line
+    self.settings = settings
+    watch {
+      const value = self.settings.values[self.line.variable]
+      if (value is Boolean) { self.checked = value }
+      if (value is Number) { self.number = value }
+      if (value != nil) { self.chosen = value }
+    }
+  }
+
+  onBlizzard(self) { openBlizzard(self.settings.page) }
+
+  public render(self): Template {
+    return $ltml {
+      <box $if={self.line.kind == LineKind.Header} padding={{ top: 3sp }}>
+        <text value={self.line.name} textColor={Style.GOLD} textFont={.Title} wrap={.None} />
+      </box>
+      <Checkbox $elseif={self.line.kind == LineKind.Check} label={self.line.name} value={mut self.checked}
+                hint={self.line.tooltip} disabled={true} />
+      <NumberInput $elseif={self.line.kind == LineKind.Slider} label={self.line.name} value={mut self.number}
+                   least={peek self.line.least} most={peek self.line.most} step={peek self.line.step} hint={self.line.tooltip} disabled={true} />
+      <Dropdown $elseif={self.line.kind == LineKind.Choice} label={self.line.name} value={mut self.chosen}
+                choices={peek self.choices} hint={self.line.tooltip} disabled={true} />
+      <SettingRow $else label={self.line.name} hint={self.line.tooltip}>
+        <box xAlign={Align.Start}>
+          <PushButton label={Locale.SETTINGS_OPEN_BLIZZARD} width={BUTTON} disabled={self.fighting} @click={self.onBlizzard} />
+        </box>
+      </SettingRow>
+    }
+  }
+}

@@ -176,18 +176,24 @@ surface 391.67,175.54 816.67x548.92 on MEDIUM clamped raised by a click
       box 1191.08,704.46 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 391.67,175.54 816.67x59.42
     box 391.67,175.54 753.13x59.42
-      box 391.67,175.54 130.93x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
-        box 398.92,182.79 48.92x48.92 absolute icon=Interface/Icons/INV_Misc_Wrench_01 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=none
+      box 391.67,175.54 138.71x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
+        box 398.92,182.79 48.92x48.92 absolute icon=Interface/Icons/INV_Misc_Gear_01 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=none
         box 442.83,182.79 11.5x52.17 absolute border=UI-Frame-Metal-CornerTopLeft sides=left
-        box 459.37,185.79 44.44x45.92
-          text 459.37,190.26 44.44x17.78 "AddOns" #ffd100
-          text 461.03,209.46 41.11x17.78 "6 of 6" #8f8470
-      box 532.55,175.54 173.15x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
-        box 539.8,182.79 48.92x48.92 absolute icon=Interface/Icons/INV_Misc_Key_03 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=none
-        box 583.72,182.79 11.5x52.17 absolute border=UI-Frame-Metal-CornerTopLeft sides=left
-        box 600.25,185.79 86.67x45.92
-          text 600.25,199.15 86.67x17.78 "Key Bindings" #a3977f
-          text 643.58,218.35 0x0 "" #8f8470
+        box 459.37,185.79 52.22x45.92
+          text 459.37,199.15 52.22x17.78 "Options" #a3977f
+          text 485.48,218.35 0x0 "" #8f8470
+      box 540.33,175.54 173.15x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
+        box 547.58,182.79 48.92x48.92 absolute icon=Interface/Icons/INV_Misc_Key_03 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=none
+        box 591.49,182.79 11.5x52.17 absolute border=UI-Frame-Metal-CornerTopLeft sides=left
+        box 608.03,185.79 86.67x45.92
+          text 608.03,199.15 86.67x17.78 "Key Bindings" #a3977f
+          text 651.36,218.35 0x0 "" #8f8470
+      box 723.43,175.54 130.93x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
+        box 730.68,182.79 48.92x48.92 absolute icon=Interface/Icons/INV_Misc_Wrench_01 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=none
+        box 774.6,182.79 11.5x52.17 absolute border=UI-Frame-Metal-CornerTopLeft sides=left
+        box 791.13,185.79 44.44x45.92
+          text 791.13,190.26 44.44x17.78 "AddOns" #ffd100
+          text 792.8,209.46 41.11x17.78 "6 of 6" #8f8470
     box 1153.33,203.54 55x31.42
       box 1153.33,203.54 55x26.67 clipped
         box 1153.33,203.54 27.5x26.67 absolute clipped @keyPress @pointerPress

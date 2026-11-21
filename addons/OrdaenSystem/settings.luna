@@ -1,0 +1,173 @@
+// Blizzard's settings as the «Settings» tab reads them: the window's groups and their pages in the client's order
+// (`SettingsPanel`'s category list), and a page's lines (its layout's initializers), each told by the template it is
+// drawn with. What a line shows is read from the client's setting (`GetValue`); nothing here writes through Blizzard's
+// setting objects, whose fields a write from addon code would taint.
+import Client from "$client"
+
+// What a line of a page is, by the template Blizzard draws it with.
+public enum LineKind {
+  // A section's header.
+  Header
+  // A setting that is on or off.
+  Check
+  // A number in a range.
+  Slider
+  // One of a list of choices.
+  Choice
+  // Anything else: a button, a section of Blizzard's own drawing, a control of two settings. Blizzard's window shows it.
+  Blizzard
+}
+
+// A line of a page.
+public struct SettingLine {
+  kind: LineKind
+  name: String
+  tooltip: String
+  // The setting's variable (`""` for a header or Blizzard's own line).
+  variable: String
+  // A slider's range.
+  least: Number
+  most: Number
+  step: Number
+}
+
+// A page of the list: its id (what `Settings.OpenToCategory` takes), its name, and whether it is an addon's own frame,
+// which only Blizzard's window shows.
+public struct SettingsPage {
+  id: Integer
+  name: String
+  canvas: Boolean
+  // A page under another: drawn under it, indented.
+  child: Boolean
+}
+
+// A group of the list (Game, Accessibility, System, AddOns) and its pages, in order.
+public struct PageGroup {
+  name: String
+  pages: Array<SettingsPage>
+}
+
+// A line's kind by its template's name.
+function kindOf(template: String, data: Client.SettingsData): LineKind {
+  if (template.contains("SectionHeader")) { return .Header }
+  if (data.setting == nil) { return .Blizzard }
+  if (template.contains("CheckboxSlider") || template.contains("CheckboxDropdown")) { return .Blizzard }
+  if (template.contains("Checkbox")) { return .Check }
+  if (template.contains("Slider")) { return .Slider }
+  if (template.contains("Dropdown")) { return .Choice }
+  return .Blizzard
+}
+
+function pageOf(panel: any Client.SettingsPanelFrame, category: any Client.SettingsCategory, child: Boolean): SettingsPage {
+  const layout = panel.GetLayout(category)
+  return { id: category.GetID(), name: category.GetName(), canvas: layout?.layoutType == .Canvas, child: child }
+}
+
+public class SystemSettings {
+  public state groups: Array<PageGroup> = []
+  // The page shown, by its id: its lines, and the value each of its settings has now.
+  public state page = 0
+  public state lines: Array<SettingLine> = []
+  public state values: Map<String, Boolean | Number | String> = {}
+  // Each page's lines, by the page's id: what the search reads.
+  state everyLine: Map<Integer, Array<SettingLine>> = {}
+
+  // The list read anew, as the tab opens: the client's groups, each with its pages and the pages under them, and every
+  // page's lines (a thousand lines, read once a tab's open, for the search). The first page is shown.
+  public read(mut self) {
+    const panel = Client.SettingsPanel
+    if (panel == nil) { return }
+    const groups: Array<PageGroup> = []
+    const everyLine: Map<Integer, Array<SettingLine>> = {}
+    for (group of panel.GetCategoryList().groups) {
+      const pages: Array<SettingsPage> = []
+      for (category of group.categories) {
+        pages.push(pageOf(panel, category, false))
+        for (under of category.GetSubcategories()) { pages.push(pageOf(panel, under, true)) }
+      }
+      for (page of pages) { everyLine[page.id] = self.linesOf(page.id) }
+      groups.push({ name: group.groupText, pages: pages })
+    }
+    self.groups = groups
+    self.everyLine = everyLine
+    if ((peek self.page) == 0) { self.open((groups[1]?.pages ?? [])[1]?.id ?? 0) }
+  }
+
+  // A page's lines, read from its layout: none for an addon's own frame.
+  public linesOf(self, id: Integer): Array<SettingLine> {
+    const panel = Client.SettingsPanel
+    const category = Client.Settings?.GetCategory(id)
+    if (panel == nil || category == nil) { return [] }
+    const lines: Array<SettingLine> = []
+    for (initializer of panel.GetLayout(category)?.initializers ?? []) {
+      const data = initializer.GetData()
+      const kind = kindOf(initializer.GetTemplate(), data)
+      const options = data.options
+      const range = options is Client.SettingsSliderOptions ? options : nil
+      lines.push({
+        kind: kind,
+        name: data.name ?? initializer.GetName(),
+        tooltip: data.tooltip ?? "",
+        variable: data.setting?.GetVariable() ?? "",
+        least: range?.minValue ?? 0,
+        most: range?.maxValue ?? 0,
+        step: range == nil || range.steps <= 0 ? 1 : (range.maxValue - range.minValue) / range.steps
+      })
+    }
+    return lines
+  }
+
+  // The page shown: its lines read, and their values.
+  public open(mut self, id: Integer) {
+    self.page = id
+    self.lines = self.linesOf(id)
+    self.refresh()
+  }
+
+  // Every value of the page shown read again (a console variable changed: `CVAR_UPDATE`, or another window).
+  public refresh(mut self) {
+    const values: Map<String, Boolean | Number | String> = {}
+    for (line of peek self.lines) {
+      if (line.variable != "") {
+        const setting = Client.Settings?.GetSetting(line.variable)
+        if (setting != nil) { values[line.variable] = setting.GetValue() }
+      }
+    }
+    self.values = values
+  }
+
+  // A dropdown's choices, asked of the client as the line is drawn (they may follow other settings).
+  public choicesOf(self, id: Integer, variable: String): Array<Client.SettingsOption> {
+    const panel = Client.SettingsPanel
+    const category = Client.Settings?.GetCategory(id)
+    if (panel == nil || category == nil) { return [] }
+    for (initializer of panel.GetLayout(category)?.initializers ?? []) {
+      const data = initializer.GetData()
+      const options = data.options
+      if (data.setting?.GetVariable() == variable && options != nil && !(options is Client.SettingsSliderOptions)) {
+        return options()
+      }
+    }
+    return []
+  }
+
+  // The pages a search finds, by their ids: those whose name, or a line's name or tooltip, holds it.
+  public matching(self, query: String): Map<Integer, Boolean> {
+    const found: Map<Integer, Boolean> = {}
+    if (query == "") { return found }
+    for (group of self.groups) {
+      for (page of group.pages) {
+        const lines: Array<SettingLine> = self.everyLine[page.id] ?? []
+        if (page.name.lower().contains(query) || lines.any((line: SettingLine): Boolean => lineMatches(line, query))) {
+          found[page.id] = true
+        }
+      }
+    }
+    return found
+  }
+}
+
+// Whether a line's name or tooltip holds the search.
+public function lineMatches(line: SettingLine, query: String): Boolean {
+  return query == "" || line.name.lower().contains(query) || line.tooltip.lower().contains(query)
+}

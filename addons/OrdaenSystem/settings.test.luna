@@ -1,0 +1,50 @@
+// The «Settings» tab against the stand-in's options window: Game (Controls, Mouse under it, Interface), System (Audio)
+// and the addons' pages, each a list of the client's settings or an addon's own frame.
+import Test from "$test"
+import { SystemSettings } from "@/settings"
+import { SettingsTab } from "@/settingsPage"
+
+function read(): mut SystemSettings {
+  const settings = new SystemSettings()
+  settings.read()
+  return settings
+}
+
+function names(settings: SystemSettings): String {
+  const all: Array<String> = []
+  for (group of settings.groups) {
+    all.push(group.name)
+    for (page of group.pages) { all.push(page.child ? `  ${page.name}` : page.name) }
+  }
+  return all.join(" | ")
+}
+
+test "the pages are the client's groups and their pages in its order, a page under another marked so" {
+  const settings = read()
+  Test.expect(names(settings) == "Game | Controls |   Mouse | Interface | System | Audio | AddOns | Ordaen")
+}
+
+test "the first page shows as the tab opens, each line read as its kind with the client's value" {
+  const settings = read()
+  Test.expect(settings.lines.length > 0)
+  const first = settings.lines.find(line => line.variable != "") ?? panic("a setting on the first page")
+  Test.expect(settings.values[first.variable] != nil)
+}
+
+test "the search finds a page by a setting's name, and the tab shows only the settings that match" {
+  const settings = read()
+  Test.expect(settings.matching("auto loot")[(settings.groups[1]?.pages ?? [])[1]?.id ?? 0] == true)
+  Test.mount(new SettingsTab(mut settings), { left: 0, top: 0, width: 1100, height: 600 })
+  Test.expect(Test.page().text("Auto Loot").shown() && Test.page().text("Interact on Left Click").shown())
+  Test.page().input().type("auto loot")
+  Test.expect(Test.page().text("Auto Loot").shown() && !Test.page().text("Interact on Left Click").shown())
+  Test.expect(!Test.page().text("Audio").shown())
+}
+
+test "an addon's own page says it opens in the game's window, with the button that opens it" {
+  const settings = read()
+  Test.mount(new SettingsTab(mut settings), { left: 0, top: 0, width: 1100, height: 600 })
+  Test.page().text("Ordaen").click()
+  Test.expect(Test.page().text("This addon draws its own page: it opens in the game's window.").shown())
+  Test.expect(Test.page().button("Open in the game's window").shown())
+}

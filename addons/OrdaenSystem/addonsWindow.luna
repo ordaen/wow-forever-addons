@@ -19,6 +19,8 @@ import Locale from "@/locales"
 import { Profiler, percent } from "@/perf"
 import { COLUMNS, Hot, Line, LineRow, TABLE_COLUMNS } from "@/rows"
 import { MOST, Sets } from "@/sets"
+import { SystemSettings } from "@/settings"
+import { SettingsTab } from "@/settingsPage"
 import Style from "@/style"
 
 public enum Order implements Plain { Name = "name", Now = "now", Peak = "peak", Memory = "memory" }
@@ -81,8 +83,9 @@ const CONFIRM_WIDTH = 539.0625dp
 const SET_WIDTH = 820.3125dp
 const BUTTON = 140.625dp
 // The window's tabs, by their place.
-const ADDONS_TAB = 1
-const KEYS_TAB = 2
+public const SETTINGS_TAB = 1
+public const KEYS_TAB = 2
+public const ADDONS_TAB = 3
 
 // An addon of a parent's group (`## Group`), the parent itself aside.
 function isUnder(addon: AddOn, parent: String): Boolean { return addon.group == parent && addon.name != parent }
@@ -146,9 +149,11 @@ public class AddOnsWindow implements Component {
   derived countText: String = self.visible.length == self.catalog.addons.length ? "%d".format(self.visible.length) :
     Locale.COUNT_OF.format(self.visible.length, self.catalog.addons.length)
   derived tabs: Array<WindowTabSpec> = [
-    { title: Client.ADDONS, desc: self.onText(), icon: "Interface/Icons/INV_Misc_Wrench_01" },
-    { title: Client.KEY_BINDINGS, desc: self.keysText(), icon: "Interface/Icons/INV_Misc_Key_03" }
+    { title: Client.SETTINGS_TITLE, desc: "", icon: "Interface/Icons/INV_Misc_Gear_01" },
+    { title: Client.KEY_BINDINGS, desc: self.keysText(), icon: "Interface/Icons/INV_Misc_Key_03" },
+    { title: Client.ADDONS, desc: self.onText(), icon: "Interface/Icons/INV_Misc_Wrench_01" }
   ]
+  derived onGameSettings: Boolean = self.tab == SETTINGS_TAB
   derived onAddOns: Boolean = self.tab == ADDONS_TAB
   derived onKeys: Boolean = self.tab == KEYS_TAB
   derived side: WindowSide | nil = self.onAddOns && self.list.values.picked != "" && self.catalog.byName[self.list.values.picked] != nil ?
@@ -178,9 +183,10 @@ public class AddOnsWindow implements Component {
     <Card name={self.list.values.picked} catalog={mut self.catalog} profiler={self.profiler} module={self.pickedModule}
           @pick={self.onPick} @toggle={self.onCardToggle} @settings={self.onSettings} />
   }
-  // The open tab's footer: the keys' (every key back to the client's defaults, after asking), or the addons'.
+  // The open tab's footer: none for the settings, the keys' (every key back to the client's defaults, after asking), or the addons'.
   const footer: Template = $ltml {
-    <box $if={self.onKeys} columns={FOOT} gap={6sp} yAlign={Align.Center}>
+    <box $if={self.onGameSettings} />
+    <box $elseif={self.onKeys} columns={FOOT} gap={6sp} yAlign={Align.Center}>
       <PushButton label={Locale.KEYS_RESET_ALL} width={BUTTON} disabled={self.fighting} @click={self.onResetAsk} />
       <box />
       <box />
@@ -209,6 +215,7 @@ public class AddOnsWindow implements Component {
   // Closed, it stays drawn: it opens again at the cost of a surface shown.
   shown: Signal<Boolean>
   const bindings: mut Bindings = new Bindings()
+  const settings: mut SystemSettings = new SystemSettings()
   const catalog: mut Catalog = new Catalog()
   const profiler: mut Profiler = new Profiler()
   const sets: mut Sets = new Sets()
@@ -230,9 +237,18 @@ public class AddOnsWindow implements Component {
         Events.UPDATE_BINDINGS.listen(self.onBindings)
       }
     }
+    // Blizzard's settings are read as their tab shows, and the page's values again whenever a console variable
+    // changes, while it shows.
+    watch {
+      if (self.shown && self.onGameSettings) {
+        self.settings.read()
+        Events.CVAR_UPDATE.listen(self.onSetting)
+      }
+    }
   }
 
   onBindings(mut self) { self.bindings.read() }
+  onSetting(mut self, name: String, value: String) { self.settings.refresh() }
   // How many commands there are, once the tab has read them.
   keysText(self): String { return self.bindings.commands.length == 0 ? "" : "%d".format(self.bindings.commands.length) }
   onResetAsk(mut self) { self.resetAsked = true }
@@ -592,7 +608,8 @@ public class AddOnsWindow implements Component {
     return $ltml {
       <Window tabs={self.tabs} selected={mut self.tab} declared={mut self.declared} shown={self.shown}
               footer={self.footer} side={self.side} @close={self.onClose}>
-        <KeysPage $if={self.onKeys} bindings={mut self.bindings} fighting={self.fighting} />
+        <SettingsTab $if={self.onGameSettings} settings={mut self.settings} />
+        <KeysPage $elseif={self.onKeys} bindings={mut self.bindings} fighting={self.fighting} />
         <box $else rows={BODY} gap={3sp}>
           <Toolbar search={mut self.search} placeholder={Locale.SEARCH}>
             <box padding={HEADING}>
