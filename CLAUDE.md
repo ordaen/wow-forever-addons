@@ -74,8 +74,9 @@ would have caught it is half a fix: say which check now catches it, or add one.
    learned, is `api/forever/client.md`: look there before assuming; a fact learned of the client goes into the
    stand-in (with a test that fails without it) and into that page, in the same change.
 4. **The suite is `lunatype`'s.** From `../lunatype`: `zig build test -j16` checks, formats, builds and runs
-   everything (the language, the host, the game's side, every addon here against its snapshots). Run it in the
-   background before a change is handed over. Check `git status`/`git diff --stat` before each commit.
+   everything (the language, the host, the game's side, every addon here against its snapshots); the core session
+   runs it at a milestone, and a session checks its own addon before each push (lunatype's CLAUDE.md). Check
+   `git status`/`git diff --stat` before each commit.
 5. **Isolated components.** Every setup, effect run and handler runs in its own protected call: one that fails is
    reported and rolled back, and the rest still run (design: development/framework/transaction).
 6. **Check the game after a merge.** After merging and the user's `/reload`, the merging session reads `wow_errors`
@@ -141,13 +142,9 @@ would have caught it is half a fix: say which check now catches it, or add one.
   characters, signed, pushed). Commit identity (global git config): `David Iunevich <1751835+f3oall@users.noreply.github.com>`, GitHub user `f3oall`; commits are SSH-signed with `~/.ssh/id_ed25519`, and those GitHub creates (squash merges, release-please via the App, Dependabot) are signed by GitHub.
 - `main` ruleset: PR-only, squash-only, linear history, required checks `Conventional commits`, `Lint & test (Lua)`, `Package (dry run)`; repo admins may bypass only when merging a PR. CI (`.github/workflows/ci.yml`) has `Conventional commits` and `Check & test (LunaType)`: the lunatype suite, with the `lunatype` and `wow-dev-tools` checkouts beside this one (the org App reads them). The ruleset's two Lua checks are retired workflows': the ruleset is to name the new check when `main` is next used.
 - **Branches (`develop` is pushed to `origin` after each finished change; no PR or merge into `main` until the user says so):**
-  - `develop` is the integration branch and the **game checkout**: the main checkout `C:\Users\f3oal\code\ordaen\wow-forever-addons` stays on `develop`, and the game loads it through the junctions. Never switch that checkout to another branch.
-  - Do feature work on a branch off `develop` in its own worktree: `git worktree add ../wow-forever-addons-<topic> -b feat/<topic> develop`, then `npm install` there (installs the commit hook).
-  - Merge once: rebase the branch onto `develop`, fast-forward `develop`, then the suite (`zig build -j16 test` in `../lunatype`; no check before the merge: rule 4). If develop is red after your merge, fixing it is your next task. Then `git worktree remove ../wow-forever-addons-<topic>` and `git branch -d feat/<topic>`. That keeps the signed conventional commits. `npm run dev` (running in the main checkout) builds again and the user does `/reload`: on Forever that also picks up new files, new textures (`.tga` in media/: no client restart), TOC changes and even new addon folders. A new addon is linked by the same build.
+  - `develop` is the **game checkout** and where every session works: the main checkout `C:\Users\f3oal\code\ordaen\wow-forever-addons` stays on `develop`, and the game loads it through the junctions. Never switch that checkout to another branch.
+  - Each session owns its addons (lunatype's `next/owners.md`) and changes only their files, in the main checkout, committing and pushing as lunatype's CLAUDE.md says («One session an area»). `npm run dev` (running in the main checkout) builds again and the user does `/reload`: on Forever that also picks up new files, new textures (`.tga` in media/: no client restart), TOC changes and even new addon folders. A new addon is linked by the same build.
   - Revisit at release: `main` is squash-only, so one develop→main PR gives each addon a single changelog line, and a commit touching several addons shows in each addon's changelog. Prefer one PR per addon or feature with a player-facing title. The merged rename PR #4 and release PR #5 need a `BEGIN_COMMIT_OVERRIDE` block so the rename line stays out of the first changelog.
-- **Help when busy:** when an owner is busy, any session may do the work in its area (the renderer, Core, an addon),
-  and a session that needs something from a busy owner does it itself. Tell the owner first what you'll change, work on
-  your own branch, merge it (rebase, fast-forward), and report back after.
 - **Agree before acting in the game:** before a session reloads the game, runs a bench round, a check run, probes or
   any test in game, every other session working on the addons agrees first: say what will run and why, and wait until
   each has answered (a reload or a round in the middle of someone's in-game test spoils both).
@@ -161,10 +158,7 @@ would have caught it is half a fix: say which check now catches it, or add one.
   «The machine's one queue»): one run at a time, at three quarters of the CPU.
 - **Long work runs in the background:** builds, lints, tests, probes, watch loops and repro runs, always; keep talking
   to the user meanwhile.
-- **Subagents as lunatype's `CLAUDE.md` says:** they do the work of the goal in lunatype's `NEXT.md`, one task an
-  agent, each on its own branch; outside that goal a session does its work itself. An implementer runs no suite
-  and pushes its branch; finished branches are merged into `integration`, where the lead session, as the integrator, runs the
-  suite, fixes what the merge broke and moves `develop` on to it.
+- **Subagents as lunatype's `CLAUDE.md` says:** one a session, for its own area.
 - **Idle bug hunts:** with nothing queued, a session runs bug-hunt and simplification rounds over its own areas until a
   round finds nothing; each round ends green and committed.
 - **Shared checkouts:** never `--autostash` (rebase or pull) in a checkout other sessions use, and commit only your own
