@@ -112,11 +112,16 @@ public class Maps implements Module, App {
     self.docked = self.host.docked()
     self.side = self.host.sidePanel()
     self.showing = self.host.shown()
+    if (!self.showing) { self.host.onlyQuest(0) }
     self.place(peek self.marks)
   }
 
-  // The world map opened where the area is: a module's «Show on map».
-  public show(mut self, area: Integer) { self.host.open(area) }
+  // The world map opened where the area is, the game's pins of every quest but `quest` hidden until it hides (0: all
+  // of them): a module's «Show on map».
+  public show(mut self, area: Integer, quest: Integer = 0) {
+    self.host.open(area)
+    self.host.onlyQuest(quest)
+  }
 
   // The marks in view placed and drawn; one standing on a pin drawn before it adds its lines to that one's tooltip.
   // A lit one goes first, so it is the one drawn.

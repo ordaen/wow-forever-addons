@@ -36,6 +36,8 @@ public trait MapHost {
   // The world map opened at the map that holds the area (an `AreaTable` area), as the game's «Show on map» turns it;
   // the map it shows where the area is none of a map's.
   public open(mut self, area: Integer)
+  // The game's quest pins of every quest but this one hidden (0: all shown).
+  public onlyQuest(mut self, quest: Integer)
   // Where the pin stands on the canvas, 0 to 1; nil where its zone isn't in view.
   public place(mut self, pin: Pin): Placed | nil
   // The pins on the canvas, each with its tooltip's lines.
@@ -114,6 +116,8 @@ public class OpenMapHost implements MapHost {
     const span = (right - left).max(bottom - top)
     _ = OpenMapAPI.ShowWorld((left + right) / 2, (top + bottom) / 2, span > 0 ? MAP_FILL / span : nil)
   }
+
+  public onlyQuest(mut self, quest: Integer) { WorldMap.onlyQuest(quest) }
 
   public place(mut self, pin: Pin): Placed | nil {
     const shown = WorldMap.shownMap()

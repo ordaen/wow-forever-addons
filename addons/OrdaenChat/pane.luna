@@ -1,6 +1,6 @@
 // A pane of the chat: its tabs a sidebar, a line between them and the open tab's lines, and the lines' foot (the
 // game's input while it is open, dressed in a field's look; the way back to the latest lines). The chat's own pane
-// holds the docked windows and the streams; each window the player undocked is a pane of its own, holding that window
+// holds the docked windows and the whispers' tab; each window the player undocked is a pane of its own, holding that window
 // alone.
 import Client from "$client"
 import Game from "$game"
@@ -179,7 +179,7 @@ public class Pane implements Component {
     self.picked.emit(tab)
   }
 
-  // A window's tab has the chat's menu; a stream's none.
+  // A window's tab has the chat's menu; the whispers' none.
   onMenu(mut self, tab: ChatTab) {
     if (tab.window > 0) { self.menuTab = tab }
   }

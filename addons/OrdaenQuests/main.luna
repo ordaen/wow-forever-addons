@@ -344,7 +344,7 @@ public class Quests implements Module, App {
       return false
     }
     self.shownOnMap = id
-    Maps?.show(area)
+    Maps?.show(area, id)
     return true
   }
 

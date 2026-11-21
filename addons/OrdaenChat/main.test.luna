@@ -5,7 +5,7 @@ import Game from "$game"
 import { Key } from "$ltml"
 import Test from "$test"
 import root Ordaen from "Ordaen"
-import { ChatMark, FIELD_FILL, say } from "Ordaen"
+import { ChatMark, FIELD_FILL, say, toLeftLine } from "Ordaen"
 import { LEAST_WIDTH } from "@/choices"
 import { ChatTab, Kept, Shown, linked, marks, wordsOf } from "@/lines"
 import { HEARD_FILL, TOLD_FILL, WHISPERS_LEAST } from "@/whispers"
@@ -83,10 +83,18 @@ test "the lines and the open tab alone are in the window's wood: the other tabs 
   Test.expect(inWood(shown, "Jaina") && !inWood(shown, "General"))
   // A tab keeps its place, open or not.
   Test.expect(shown.text("General").rect().left == name.left)
-  // The open tab's wood runs up to the lines' own: one shape, the lines' left line over the tab's open end.
-  const one = shown.box(Ordaen.art.window.wood).nth(1).rect()
-  const two = shown.box(Ordaen.art.window.wood).nth(2).rect()
-  Test.expect((one.right - two.left).abs() < 0.5 || (two.right - one.left).abs() < 0.5)
+  // The open tab's wood and metal run in under the lines' left line, which stands inside the lines' box by the
+  // frame's reach: one shape, no gap between.
+  const wood = shown.box(Ordaen.art.window.wood)
+  const tab = inBox(wood.nth(1).rect(), shown.text("Jaina").rect()) ? wood.nth(1).rect() : wood.nth(2).rect()
+  const lines = inBox(wood.nth(1).rect(), shown.text("Jaina").rect()) ? wood.nth(2).rect() : wood.nth(1).rect()
+  Test.expect((tab.right - lines.left - toLeftLine(Ordaen.art.frame.small) / 1ui).abs() < 0.5)
+  // The folder's tab shows which is open: no list's shade or light of its own over it.
+  Test.expect(shown.box(Color.hex("#00000040")).count() == 0 && shown.box(Color.hex("#d6a56b")).count() == 0)
+}
+
+function inBox(box: Test.Rect, at: Test.Rect): Boolean {
+  return box.left <= at.left && box.right >= at.right && box.top <= at.top && box.bottom >= at.bottom
 }
 
 // Whether a text stands in one of the window's wood boxes.
@@ -94,8 +102,7 @@ function inWood(shown: Test.Part, text: String): Boolean {
   const at = shown.text(text).rect()
   const wood = shown.box(Ordaen.art.window.wood)
   for (n of 1..wood.count()) {
-    const box = wood.nth(n).rect()
-    if (box.left <= at.left && box.right >= at.right && box.top <= at.top && box.bottom >= at.bottom) { return true }
+    if (inBox(wood.nth(n).rect(), at)) { return true }
   }
   return false
 }
@@ -189,7 +196,7 @@ test "a channel's line is named by its name, the zone left out, until its tab's 
 test "a tab's count goes off in its settings; the combat log's and a tab of channels alone have none until turned on" {
   Game.chat.windows = [window(1, "General", ""), window(3, "Whisper", "Jaina"), window(4, "Trade", "")]
   Game.chat.groups = (index: Integer): Array<Game.ChatGroup> => [
-    { name: "SAY", label: "Say", section: .Players, shown: index != 4 }
+    { name: "SAY", label: "Say", shown: index != 4 }
   ]
   Game.chat.channels = (index: Integer): Array<Game.ChatShown> => [{ name: "Trade", shown: index == 4 }]
   _ = chat()
@@ -380,23 +387,42 @@ test "a window the player undocked is a pane of its own" {
   Test.expect(!Test.page().window("General").text("Jaina").shown())
 }
 
-test "the Tabs page lists the windows in a sidebar, and the picked one's message groups by the game's sections, in its words" {
+// A window's groups as the game's side gives them, the ones a test names.
+function groupsOf(shown: Map<String, Boolean>): Array<Game.ChatGroup> {
+  const labels: Map<String, String> = {
+    SAY: "Say", MONSTER_SAY: "Say", YELL: "Yell", PARTY: "Party", PARTY_LEADER: "Party Leader", RAID: "Raid",
+    RAID_LEADER: "Raid Leader", RAID_WARNING: "Raid Warning", LOOT: "Item Loot"
+  }
+  const order: Array<String> = ["SAY", "YELL", "PARTY", "PARTY_LEADER", "RAID", "RAID_LEADER", "RAID_WARNING", "MONSTER_SAY", "LOOT"]
+  return order.map(name => Game.ChatGroup { name: name, label: labels[name] ?? name, shown: shown[name] == true })
+}
+
+test "the Tabs page lists the windows in a sidebar; the picked one's speech, channels, communities and system messages" {
   Game.chat.windows = gameWindows()
-  Game.chat.groups = (index: Integer): Array<Game.ChatGroup> => [
-    { name: "SAY", label: "Say", section: .Players, shown: true },
-    { name: "YELL", label: "Yell", section: .Players, shown: false },
-    { name: "MONSTER_SAY", label: "Say", section: .Creatures, shown: true }
-  ]
+  Game.chat.groups = (index: Integer): Array<Game.ChatGroup> => groupsOf({ SAY: true, MONSTER_SAY: true, PARTY: true, PARTY_LEADER: true, LOOT: true })
   _ = chat()
   const settings = tabsPage()
-  Test.expect(settings.text("Player Messages").shown() && settings.text("Creature Messages").shown())
-  Test.expect(settings.text("Yell").shown() && !settings.text("YELL").shown())
-  Test.expect(settings.text("Whisper").rect().left < settings.text("Player Messages").rect().left)
+  Test.expect(["Speech", "Channels", "Communities", "System"].all(title => settings.text(title).shown()))
+  Test.expect(settings.text("Whisper").rect().left < settings.text("Speech").rect().left)
+  // A kind of speech is one row over its groups: a party's leader, a raid's warning go with it; NPCs' say with say.
+  Test.expect(!settings.text("Party Leader").shown() && !settings.text("Raid Warning").shown())
+  Test.expect(settings.text("Item Loot").rect().top > settings.text("Communities").rect().top)
+  // Say: the players' and the NPCs' lines; Yell: neither.
+  Test.expect(settings.text("All").shown() && settings.text("None").shown())
+  // The raid's check: the raid, its leader and its warnings.
   settings.button(Ordaen.art.ctl.check).nth(2).click()
-  Test.expect(Test.requests().any(r => r == "Chat.showGroup 1 YELL true"))
+  const asked = Test.requests()
+  Test.expect(["RAID", "RAID_LEADER", "RAID_WARNING"].all(name => asked.any(r => r == `Chat.showGroup 1 ${name} true`)))
+  // Say's players alone: the NPCs' lines go.
+  settings.text("All").click()
+  Test.page().text("Players").click()
+  const said = Test.requests()
+  Test.expect(said.any(r => r == "Chat.showGroup 1 SAY true") && said.any(r => r == "Chat.showGroup 1 MONSTER_SAY false"))
+  Test.expect(!said.any(r => r == "Chat.showGroup 1 MONSTER_WHISPER false"))
+  // Another window picked: its own rows.
   settings.text("Whisper").click()
   settings.button(Ordaen.art.ctl.check).nth(2).click()
-  Test.expect(Test.requests().any(r => r == "Chat.showGroup 3 YELL true"))
+  Test.expect(Test.requests().any(r => r == "Chat.showGroup 3 RAID true"))
 }
 
 test "the input opened in a whisper's tab whispers its partner" {
@@ -492,14 +518,16 @@ test "a tab's last lines are kept for the next session and come back dimmed, bef
   Test.expect(back.lines.map(l => `${l.whole}${l.past ? "*" : ""}`).join(",") == "two*,three*,new")
 }
 
-test "a stream's tab speaks in its channel as the input opens" {
+test "a community is no tab of its own: a tab shows it where the Tabs page ticks it" {
   Game.chat.windows = gameWindows()
-  Game.chat.streams = [{ club: "12", stream: "1", name: "Friends" }]
+  const friends: Game.ChatStream = { club: "12", stream: "1", name: "Friends" }
+  Game.chat.streams = [friends]
+  Game.chat.communities = (index: Integer): Array<Game.ChatCommunity> => [{ stream: friends, shown: false }]
   const shown = chat()
-  shown.text("Friends").click()
-  Game.chat.typing = true
-  Test.pass(0.01)
-  Test.expect(Test.requests().any(r => r == "Chat.speakIn 12 1"))
+  Test.expect(!shown.text("Friends").shown())
+  const settings = tabsPage()
+  settings.button(Ordaen.art.ctl.check).click()
+  Test.expect(Test.requests().any(r => r == "Chat.showCommunity 1 12:1 true"))
 }
 
 test "someone's line naming a keyword is marked" {
@@ -526,7 +554,7 @@ test "the chat is never lower than its tabs, the whispers' among them: the lines
   Test.expect(shown.rect().bottom >= last.bottom)
 }
 
-// The windows and streams of the player's game: General, the combat log, Guild, Channels, two communities.
+// The windows of the player's game: General, the combat log, Guild, Channels.
 function playersWindows(): Array<Game.ChatWindow> {
   return [window(1, "Общий", ""), window(2, "Журнал", ""), window(3, "Гильдия", ""), window(4, "Каналы", "")]
 }
@@ -539,13 +567,6 @@ test "with the player's tabs, the lines keep their room, the newest at their foo
   const said = shown.text("[Thrall] says: still here").rect()
   // The lines keep the chat's height (190 dp, 135 of the screen's units here).
   Test.expect(said.bottom - shown.rect().top >= 130)
-}
-
-test "a stream the game lists twice is one tab" {
-  Game.chat.windows = playersWindows()
-  Game.chat.streams = [{ club: "1", stream: "1", name: "test" }, { club: "1", stream: "1", name: "test" }]
-  const shown = chat("Общий")
-  Test.expect(shown.texts().filter(t => t == "test").length == 1)
 }
 
 test "whispers are the whisper window's: a conversation a person, unread until opened, answered in its own line" {

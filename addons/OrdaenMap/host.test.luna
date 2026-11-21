@@ -15,3 +15,27 @@ test "the map opens at the area's map; OpenMap's stitched view glides to that ma
   const view = Test.openMapView() ?? panic("the view moved")
   Test.expect((view.u - 0.45).abs() < 0.0001 && (view.v - 0.6).abs() < 0.0001 && (view.zoom - 4).abs() < 0.0001)
 }
+
+// The quests of the game's pins that show, «101,102».
+function pinsShown(): String {
+  return Test.questPins().map(id => String.of(id)).join(",")
+}
+
+test "the game's quest pins of every other quest hide while one is shown, as the map turns too, and come back" {
+  Test.questLog([
+    { id: 101, title: "One", header: "Westfall" }, { id: 102, title: "Two", header: "Westfall" },
+    { id: 103, title: "Three", header: "Westfall" }
+  ])
+  const host = new OpenMapHost()
+  host.open(40)
+  Test.expect(pinsShown() == "101,102,103")
+  host.onlyQuest(102)
+  Test.expect(pinsShown() == "102")
+  // The game makes its pins again as the map turns: the others stay hidden.
+  Client.WorldMapFrame.SetMapID(1429)
+  Test.expect(pinsShown() == "102")
+  host.onlyQuest(103)
+  Test.expect(pinsShown() == "103")
+  host.onlyQuest(0)
+  Test.expect(pinsShown() == "101,102,103")
+}
