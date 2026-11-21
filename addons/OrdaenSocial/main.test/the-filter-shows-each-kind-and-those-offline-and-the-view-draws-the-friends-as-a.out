@@ -65,7 +65,7 @@ surface 425,183.88 1155.76x532.25 on MEDIUM clamped raised by a click
                       box 938.39,353.4 187.86x17.78
                         text 938.39,353.4 31.11x17.78 "Note" #a3977f
                 box 461.68,380.54 681.63x264.28 scrolled 0 of 0
-                  box 470.22,389.08 664.57x44.09 #00000000 @keyPress @pointerPress
+                  box 470.22,389.08 664.57x44.09 #00000000 @keyPress @pointerEnter @pointerLeave @pointerPress
                     box 478.75,402.23 187.86x17.78
                       box 478.75,402.23 187.86x17.78
                         box 478.75,406.12 10x10 Interface/FriendsFrame/StatusIcon-Online
@@ -77,7 +77,7 @@ surface 425,183.88 1155.76x532.25 on MEDIUM clamped raised by a click
                       text 742.01,393.34 187.86x35.56 "Battle.net · Torgrim · Loch Modan" #a3977f
                     box 938.39,402.23 187.86x17.78
                       text 938.39,402.23 187.86x17.78 "tanks at night" #a3977f
-                  box 470.22,433.16 664.57x26.31 #00000000 @keyPress @pointerPress
+                  box 470.22,433.16 664.57x26.31 #00000000 @keyPress @pointerEnter @pointerLeave @pointerPress
                     box 478.75,437.43 187.86x17.78
                       box 478.75,437.43 187.86x17.78
                         box 478.75,441.32 10x10 Interface/FriendsFrame/StatusIcon-Away
@@ -88,7 +88,7 @@ surface 425,183.88 1155.76x532.25 on MEDIUM clamped raised by a click
                       text 742.01,437.43 187.86x17.78 "Stormwind" #a3977f
                     box 938.39,446.32 187.86x0
                       text 938.39,446.32 187.86x0 "" #a3977f
-                  box 470.22,459.48 664.57x26.31 #00000000 @keyPress @pointerPress
+                  box 470.22,459.48 664.57x26.31 #00000000 @keyPress @pointerEnter @pointerLeave @pointerPress
                     box 478.75,463.74 187.86x17.78
                       box 478.75,463.74 187.86x17.78
                         box 478.75,467.63 10x10 Interface/FriendsFrame/StatusIcon-Offline
@@ -99,7 +99,7 @@ surface 425,183.88 1155.76x532.25 on MEDIUM clamped raised by a click
                       text 742.01,463.74 187.86x17.78 "offline" #a3977f
                     box 938.39,463.74 187.86x17.78
                       text 938.39,463.74 187.86x17.78 "smith" #a3977f
-                  box 470.22,485.79 664.57x26.31 #00000000 @keyPress @pointerPress
+                  box 470.22,485.79 664.57x26.31 #00000000 @keyPress @pointerEnter @pointerLeave @pointerPress
                     box 478.75,490.05 187.86x17.78
                       box 478.75,490.05 187.86x17.78
                         box 478.75,493.94 10x10 Interface/FriendsFrame/StatusIcon-Offline

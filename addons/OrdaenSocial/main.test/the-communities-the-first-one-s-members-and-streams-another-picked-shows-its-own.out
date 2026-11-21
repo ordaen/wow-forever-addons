@@ -66,7 +66,7 @@ surface 425,183.88 1055.76x532.25 on MEDIUM clamped raised by a click
                         box 1016.93,359.79 6.67x5
                           box 1013.59,355.62 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
                 box 461.68,380.54 681.63x264.28 scrolled 0 of 0
-                  box 470.22,389.08 664.57x26.31 #00000000 @keyPress @pointerPress
+                  box 470.22,389.08 664.57x26.31 #00000000 @keyPress @pointerEnter @pointerLeave @pointerPress
                     box 478.75,397.23 16.67x10
                       box 478.75,397.23 10x10 Interface/FriendsFrame/StatusIcon-Online
                     box 503.95,393.34 58.33x17.78
@@ -79,7 +79,7 @@ surface 425,183.88 1055.76x532.25 on MEDIUM clamped raised by a click
                       text 874.44,393.34 100x17.78 "Owner" #e8dcc4
                     box 982.97,393.34 143.28x17.78
                       text 982.97,393.34 143.28x17.78 "the best rod" #a3977f
-                  box 470.22,415.39 664.57x26.31 #00000000 @keyPress @pointerPress
+                  box 470.22,415.39 664.57x26.31 #00000000 @keyPress @pointerEnter @pointerLeave @pointerPress
                     box 478.75,423.54 16.67x10
                       box 478.75,423.54 10x10 Interface/FriendsFrame/StatusIcon-Offline
                     box 503.95,419.65 58.33x17.78

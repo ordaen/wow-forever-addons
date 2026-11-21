@@ -14,6 +14,7 @@ import { Key } from "$ltml"
 import Runtime from "$runtime"
 import Test from "$test"
 import root Ordaen from "Ordaen"
+import { classColor } from "Ordaen"
 import root Social from "OrdaenSocial"
 import { People } from "@/people"
 import { SeenHero, seenAfter } from "@/seen"
@@ -1301,8 +1302,11 @@ test "an offline Battle.net friend shows the character last seen, after a reload
 
 // The whispers
 
+// Two colours of the same channels.
+function sameColor(a: Color, b: Color): Boolean { return a.r == b.r && a.g == b.g && a.b == b.b && a.a == b.a }
+
 // A whisper as Ordaen Chat hands it: heard (or told, by the player), its words what the bubble shows.
-function whisper(sender: String, words: String, told: Boolean = false, time: Number = Game.clock.server): Game.ChatLine {
+function whisper(sender: String, words: String, told: Boolean = false, time: Number = Game.clock.server): mut Game.ChatLine {
   const kind = told ? "WHISPER_INFORM" : "WHISPER"
   return {
     kind: kind, event: `CHAT_MSG_${kind}`, body: words, plain: words, text: words, sender: sender, guid: "", lineId: 1,
@@ -1377,6 +1381,61 @@ test "a whisper started anywhere opens the window on that conversation; a told l
   const well = window.box(Ordaen.art.ctl.well.floor).rect()
   const said = window.text("on my way").rect()
   Test.expect(said.left >= well.left && said.right <= well.right && window.text("Jaina").rect().right <= well.left)
+  // The well takes the tab's height, the newest line at its foot.
+  Test.expect(said.top >= well.top && said.bottom <= well.bottom && well.bottom - well.top > 100)
+  Test.expect(window.text("on my way").shown())
+}
+
+test "a conversation names a character in its class colour with its level; a Battle.net friend by the account, its character under it" {
+  Test.mount(nil, PAGE)
+  Game.friends.list = friends
+  Game.friends.requests = requests
+  Game.friends.ignored = ignoredOnes
+  Game.friends.battleNetSelf = battleNetSelf
+  Game.guild.roster = guildRoster
+  Game.guild.motd = guildMotd
+  Game.guild.news = guildNews
+  Game.guild.newsFilters = newsFilters
+  Game.communities.clubs = clubs
+  Game.communities.members = clubMembers
+  Game.communities.streams = streams
+  Game.recentAllies.list = allies
+  Game.recentAllies.categories = allyCategories
+  const window = opened(new FakePeople())
+  _ = Social.heard(whisper("Eliana", "hi"), "hi")
+  const told = whisper("Alexei", "ready?")
+  told.kind = "BN_WHISPER"
+  _ = Social.heard(told, "ready?")
+  Social.whisperTo("Eliana", false)
+  const warrior = classColor("WARRIOR") ?? panic("a warrior's colour")
+  Test.expect(window.text("24lvl").shown() && sameColor(window.text("Eliana").textColor(), warrior))
+  Test.expect(window.text("Alexei").shown() && sameColor(window.text("Torgrim").textColor(), warrior) && window.text("25lvl").shown())
+  Test.expect(window.text("Torgrim").rect().top > window.text("Alexei").rect().top)
+}
+
+test "the whispers' tab opens on the conversation waiting unread, which stays unread over a reload until it is read" {
+  Test.mount(nil, PAGE)
+  Game.friends.list = friends
+  Game.friends.requests = requests
+  Game.friends.ignored = ignoredOnes
+  Game.friends.battleNetSelf = battleNetSelf
+  Game.guild.roster = guildRoster
+  Game.guild.motd = guildMotd
+  Game.guild.news = guildNews
+  Game.guild.newsFilters = newsFilters
+  Game.communities.clubs = clubs
+  Game.communities.members = clubMembers
+  Game.communities.streams = streams
+  Game.recentAllies.list = allies
+  Game.recentAllies.categories = allyCategories
+  _ = Social.heard(whisper("Jaina", "psst"), "psst")
+  Events.PLAYER_LOGOUT.emit()
+  Test.reload()
+  Test.flush()
+  Test.expect(Social.whispersUnread == 1 && Ordaen.noticeOf("OrdaenSocial") == 1)
+  const window = opened(new FakePeople())
+  window.text("Whispers").click()
+  Test.expect(Social.talkOpen == "t:Jaina" && window.text("psst").shown() && Social.whispersUnread == 0)
 }
 
 test "a conversation is bubbles: the other's on the left, the player's on the right, a group's time under its last" {

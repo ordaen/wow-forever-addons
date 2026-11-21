@@ -1,7 +1,9 @@
 // The whisper conversations, as WoW Instant Messenger keeps them: one a person (a character, or a Battle.net friend),
 // each its own lines, the one last spoken in first. Ordaen Chat hands each whisper it reads (`Social.heard`), after
 // every addon's filter, the words already drawn as the chat draws them (its web addresses links).
+import Client from "$client"
 import Game from "$game"
+import { Friend, Hero, Member, RecentAlly } from "$game"
 
 // A whisper as its conversation shows it: the words (their web addresses links), when, whose, and whether the client
 // kept them secret (drawn as the client gives them, never measured, never kept).
@@ -16,10 +18,56 @@ public struct TalkLine implements Plain {
   sender: String
 }
 
-// What one conversation keeps between sessions.
+// What one conversation keeps between sessions: its lines, and how many of them wait unread.
 public struct KeptTalk implements Plain {
   key: String
   lines: Array<TalkLine>
+  unread: Integer = 0
+}
+
+// Who a conversation is with, as its row names them: a character by its name, in its class's colour where it is
+// known, and its level where it is; a Battle.net friend by the account's name, the character it plays (if any) under it.
+public struct TalkWho {
+  name: String
+  classFile: String
+  level: Integer
+  // A Battle.net friend's character in this game: the row's second line.
+  hero: Hero | nil
+}
+
+// The people a conversation's partner may be found among.
+public struct KnownPeople {
+  friends: Array<Friend>
+  members: Array<Member>
+  allies: Array<RecentAlly>
+}
+
+// Two names of one character: the same, or one of them its name without the realm the other adds.
+function sameName(a: String, b: String): Boolean {
+  return a == b || a.match("^([^%-]+)") == b || b.match("^([^%-]+)") == a
+}
+
+// Who a conversation is with: a Battle.net friend by the account the friends list has; a character as the friends,
+// the guild's and communities' members or the recent allies know it, else its class as the client tells it by the GUID
+// it last whispered from (no level then).
+public function whoOf(talk: Talk, known: KnownPeople): TalkWho {
+  if (talk.battleNet) {
+    const friend = known.friends.find(one => one.account?.name == talk.partner)
+    return { name: talk.partner, classFile: "", level: 0, hero: friend?.hero }
+  }
+  const hero = known.friends.find(one => one.account == nil && sameName(one.hero?.name ?? "", talk.partner))?.hero
+  if (hero != nil) { return { name: talk.partner, classFile: hero.classFile, level: hero.level, hero: nil } }
+  const member = known.members.find(one => sameName(one.name, talk.partner)) ??
+    known.allies.find(one => sameName(one.fullName, talk.partner))?.member
+  if (member != nil) { return { name: talk.partner, classFile: member.classFile, level: member.level, hero: nil } }
+  return { name: talk.partner, classFile: classByGuid(talk.lines.find(line => !line.mine && line.sender != "")?.sender ?? ""), level: 0, hero: nil }
+}
+
+// A character's class as the client tells it by its GUID: empty for none, or where the client doesn't know it.
+function classByGuid(guid: String): String {
+  if (guid == "") { return "" }
+  let _, classFile, _, _, _, _, _, _ = Client.GetPlayerInfoByGUID(guid)
+  return classFile ?? ""
 }
 
 public struct KeptTalks implements Plain {

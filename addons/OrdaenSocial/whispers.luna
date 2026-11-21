@@ -4,11 +4,12 @@
 // quarters of the width; lines of one side close in time stand together, the group's time under its last. Under it, its
 // own line to type in.
 import Game from "$game"
+import { Hero } from "$game"
 import { Align, Edges, Event, Overflow, Position, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { BODY_LINE, Component, CountBadge, Field, SECONDARY_TEXT, timeText } from "Ordaen"
+import { BODY_LINE, Component, CountBadge, Field, SECONDARY_TEXT, classColor, timeText } from "Ordaen"
 import Locale from "@/locales"
-import { Talk, TalkLine } from "@/talks"
+import { Talk, TalkLine, TalkWho } from "@/talks"
 
 // Lines drawn at most, and a turn of the wheel.
 const ROWS = 80
@@ -38,6 +39,8 @@ const PICKED: Color = Color.hex("#2a1c10e6")
 const HINT: Color = Color.hex("#857a66")
 const ROW_PAD: Edges = { top: 1sp, right: 2sp, bottom: 1sp, left: 2sp }
 const CLOSE_PAD: Edges = { right: 1sp, left: 1sp }
+// A name cut where it is long, its level at the line's end.
+const NAME_AND_LEVEL: Array<Track> = [{ fr: 1 }, MAX]
 // The count's room at a conversation's right, kept while none waits: nothing moves as it comes or goes.
 const COUNT_ROOM: Number<Length> = 28dp
 
@@ -47,6 +50,12 @@ public struct Bubbled {
   starts: Boolean
   ends: Boolean
 }
+
+// A level after a name (`25lvl`); none where it isn't known.
+function levelText(level: Integer): String { return level > 0 ? Locale.ROW_LEVEL.format(level) : "" }
+
+// A conversation's partner as its name alone says it.
+function unknownWho(talk: Talk): TalkWho { return { name: talk.partner, classFile: "", level: 0, hero: nil } }
 
 // Two lines in one group: of one side, the second said soon after the first.
 function together(first: TalkLine | nil, second: TalkLine | nil): Boolean {
@@ -103,20 +112,28 @@ public class Bubble implements Component {
   }
 }
 
-// A conversation in the list: the person's name in the whisper colour (a Battle.net friend's in theirs), the lines
-// waiting unread as a badge out of the flow in a room kept for it, and «×».
+// A conversation in the list, as the friends' list names a friend: a character's name in its class's colour (the
+// whisper colour where the class isn't known) and its level after it; a Battle.net friend's account name in Battle.net
+// blue, the character it plays under it the same way. The lines waiting unread are a badge out of the flow in a room
+// kept for it; then «×».
 public class TalkRow implements Component {
   public pick: Event<Talk> = new Event()
   public forget: Event<Talk> = new Event()
 
-  derived color: Color = self.talk.battleNet ? BATTLE_NET : WHISPER
+  derived color: Color = self.talk.battleNet ? BATTLE_NET : classColor(self.who.classFile) ?? WHISPER
+  derived level: String = levelText(self.who.level)
+  derived hero: Hero | nil = self.who.hero
+  derived heroColor: Color = classColor(self.hero?.classFile) ?? INK
+  derived heroLevel: String = levelText(self.hero?.level ?? 0)
   derived fill: Color | nil = self.open ? PICKED : nil
   derived waiting: Boolean = self.talk.unread > 0
 
   talk: Signal<Talk>
+  who: Signal<TalkWho>
   open: Signal<Boolean>
-  constructor(talk: Signal<Talk>, open: Signal<Boolean>) {
+  constructor(talk: Signal<Talk>, who: Signal<TalkWho>, open: Signal<Boolean>) {
     self.talk = talk
+    self.who = who
     self.open = open
   }
 
@@ -128,7 +145,17 @@ public class TalkRow implements Component {
     return $ltml {
       <box columns={[{ fr: 1 }, COUNT_ROOM, MAX]} gap={1sp} padding={ROW_PAD} background={self.fill} yAlign={Align.Center}
            @pointerPress={self.onPick} @keyPress(.Enter)={self.onPick} @keyPress(.Space)={self.onPick}>
-        <text value={self.talk.partner} textColor={self.color} wrap={.None} />
+        <box columns={1}>
+          <box columns={NAME_AND_LEVEL} gap={2sp} yAlign={Align.Center}>
+            <text value={self.who.name} textColor={self.color} wrap={.Cut} />
+            <text $if={self.level != ""} value={self.level} textColor={HINT} textFont={.Numbers} wrap={.None} />
+          </box>
+          <box $if={self.hero != nil} columns={NAME_AND_LEVEL} gap={2sp} yAlign={Align.Center}>
+            <text value={self.hero?.name ?? ""} textColor={self.heroColor} textSize={SECONDARY_TEXT} wrap={.Cut} />
+            <text $if={self.heroLevel != ""} value={self.heroLevel} textColor={HINT} textFont={.Numbers} textSize={SECONDARY_TEXT}
+                  wrap={.None} />
+          </box>
+        </box>
         <box yAlign={Align.Center}>
           <box $if={self.waiting} position={Position.Absolute} top={0ui} right={0ui} bottom={0ui} yAlign={Align.Center}>
             <CountBadge count={self.talk.unread} />
@@ -163,9 +190,16 @@ public class Whispers implements Component {
   derived empty: Boolean = self.open == nil
 
   talks: Signal<Array<Talk>>
+  who: Signal<Map<String, TalkWho>>
   openKey: Signal<String>
-  constructor(talks: Signal<Array<Talk>>, openKey: Signal<String>) {
+  constructor(
+    talks: Signal<Array<Talk>>,
+    // Who each conversation is with, by its key.
+    who: Signal<Map<String, TalkWho>>,
+    openKey: Signal<String>
+  ) {
     self.talks = talks
+    self.who = who
     self.openKey = openKey
     watch (key of self.openKey) { self.turnTo(key) }
   }
@@ -229,14 +263,15 @@ public class Whispers implements Component {
         <box rows={[MAX, { fr: 1 }]} gap={2sp}>
           <Field value={mut self.name} maxLength={60} placeholder={Locale.WHISPER_TO} @submit={self.onStart} />
           <box columns={1} overflow={Overflow.Scroll}>
-            <TalkRow $for={talk of self.talks} $key={talk.key} talk={talk} open={talk.key == self.openKey}
+            <TalkRow $for={talk of self.talks} $key={talk.key} talk={talk} who={self.who[talk.key] ?? unknownWho(talk)}
+                     open={talk.key == self.openKey}
                      @pick={self.onPick} @forget={self.onForget} />
           </box>
         </box>
         <box rows={[{ fr: 1 }, MAX]} gap={2sp}>
           // The conversation sunk in a well, as the chat's lines stand in their frame: its rim the line between it and
           // the list, its floor its own. The newest line at the bottom; older ones go up past the top, which cuts them.
-          <box border={Ordaen.art.ctl.well.rim} background={Ordaen.art.ctl.well.floor} padding={WELL_ROOM}>
+          <box border={Ordaen.art.ctl.well.rim} background={Ordaen.art.ctl.well.floor} padding={WELL_ROOM} rows={[{ fr: 1 }]}>
             <box overflow={Overflow.Hidden} @wheel={self.onWheel}>
               <box position={Position.Absolute} left={0ui} right={0ui} bottom={0ui} columns={1}>
                 <Bubble $for={item of self.bubbles} item={item} lineHeight={Ordaen.lengthOf(BODY_LINE)} @link={self.onLink} />
