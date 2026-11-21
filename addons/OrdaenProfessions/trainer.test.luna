@@ -47,7 +47,8 @@ test "a profession's trainer opens our window in place of the game's, its servic
   Game.trainer.changed.emit()
   const window = Test.page().window(Locale.TRAINER)
   Test.expect(window.text("Red Linen Robe").shown() && window.text("Linen Shirt").shown())
-  Test.expect(window.text(Locale.COLUMN_SKILL).shown() && window.text(Locale.SHOW_AVAILABLE).shown() && window.text(Locale.SHOW_KNOWN).shown())
+  // The footer counts each kind by a dot and its number: one to learn now, one not yet, one known.
+  Test.expect(window.text(Locale.COLUMN_SKILL).shown() && window.texts().join(" | ").contains("1 | 1 | 1"))
   window.input().type("bolt")
   Test.expect(!window.text("Red Linen Robe").shown() && window.text("Bolt of Woolen Cloth").shown())
   Game.trainer.open = false
@@ -66,6 +67,67 @@ test "a trainer whose list fills after it shows, in the same frame, shows the li
   filled = true
   Game.trainer.changed.emit()
   Test.expect(Test.page().window(Locale.TRAINER).text("Red Linen Robe").shown())
+}
+
+// The trainer's window open on `taught()`, with 1000 copper; what the client was asked to buy is kept in `bought`.
+function opened(bought: mut Array<String>): Test.Part {
+  Game.trainer.teachesClass = (): Boolean => false
+  Client.IsTradeskillTrainer = (): Boolean => true
+  Game.trainer.services = (): Array<Game.TrainerService> => taught()
+  Client.BuyTrainerService = (index: Integer): nil => bought.push(String.of(index))
+  Game.money.amount = 1000
+  Test.mount(nil, SCREEN)
+  Game.trainer.open = true
+  Game.trainer.changed.emit()
+  return Test.page().window(Locale.TRAINER)
+}
+
+test "a double press on a service learns it where it can be learned now, and nothing where it can't" {
+  const bought: Array<String> = []
+  const window = opened(mut bought)
+  window.text("Bolt of Woolen Cloth").nth(1).click()
+  window.text("Bolt of Woolen Cloth").nth(1).click()
+  Test.expect(bought.length == 0)
+  Test.pass(1)
+  window.text("Red Linen Robe").nth(1).click()
+  window.text("Red Linen Robe").nth(1).click()
+  Test.expect(bought.join(", ") == "2")
+  // It stays picked: the card shows it.
+  Test.expect(window.text("A robe of red linen.").shown())
+}
+
+test "a right-click's «Never learn» bars every rank of a service until «Allow learning», kept for the character" {
+  const bought: Array<String> = []
+  const window = opened(mut bought)
+  window.text("Red Linen Robe").nth(1).rightClick()
+  Test.page().text("Never learn").click()
+  // Barred: its price says so, a double press learns nothing, «Learn» is greyed, the footer counts it grey.
+  Test.expect(window.text("Never learn").shown())
+  window.text("Red Linen Robe").nth(1).click()
+  window.text("Red Linen Robe").nth(1).click()
+  window.button(Locale.TRAIN).click()
+  Test.expect(bought.length == 0)
+  Test.expect(window.texts().join(" | ").contains("0 | 1 | 1 | 1 | Your money"))
+  Test.expect(Game.saved.stored(.Character, "OrdaenProfessions:barred") != nil)
+  Test.pass(1)
+  window.text("Red Linen Robe").nth(1).rightClick()
+  Test.page().text("Allow learning").click()
+  window.button(Locale.TRAIN).click()
+  Test.expect(bought.join(", ") == "2")
+}
+
+test "a right-click's «Link in chat» puts the recipe's link in the chat, and the game's tooltip shows anywhere on its row" {
+  const bought: Array<String> = []
+  Client.GetTrainerServiceItemLink = (index: Number): String | nil => index == 2 ? "|cff1eff00|Hitem:2569::::|h[Red Linen Robe]|h|r" : nil
+  const linked: Array<Integer> = []
+  Game.chat.link = (id: Integer): nil => linked.push(id)
+  const window = opened(mut bought)
+  window.text("Red Linen Robe").rightClick()
+  Test.page().text("Link in chat").click()
+  Test.expect(linked.length == 1 && linked[1] == 2569)
+  _ = Test.requests()
+  window.text("Red Linen Robe").hover()
+  Test.expect(Test.requests().any(asked => asked.contains("showService")))
 }
 
 test "«Learn» buys the picked service where it can be learned now, and nothing where it can't" {

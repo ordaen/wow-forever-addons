@@ -61,7 +61,7 @@ surface 425,173.04 750x553.92 on MEDIUM clamped raised by a click
                     box 1119.58,334.44 6.67x5
                       box 1116.25,330.27 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 1 of 8 opacity=1
             box 461.68,355.2 681.63x312.44 scrolled 0 of 0
-              box 470.22,363.73 664.57x26.31 #00000000 @keyPress @pointerPress
+              box 470.22,363.73 664.57x26.31 #00000000 @keyPress @pointerEnter @pointerLeave @pointerPress
                 box 478.75,368 375.23x17.78 @dragStart
                   box 478.75,368.55 16.67x16.67 #0d0a08 opacity=1 secure @dragStart @drop @pointerEnter @pointerLeave @pointerPress
                     box 478.75,368.55 16.67x16.67 absolute icon=Interface/Icons/INV_Misc_Note_01
@@ -72,7 +72,7 @@ surface 425,173.04 750x553.92 on MEDIUM clamped raised by a click
                 text 987.72,368 80x17.78 "Active" #a3977f
                 box 1076.25,368 50x17.78
                   text 1109.58,368 16.67x17.78 "40" #a3977f
-              box 470.22,390.04 664.57x26.31 #00000000 @keyPress @pointerPress
+              box 470.22,390.04 664.57x26.31 #00000000 @keyPress @pointerEnter @pointerLeave @pointerPress
                 box 478.75,394.31 375.23x17.78 @dragStart
                   box 478.75,394.86 16.67x16.67 #0d0a08 opacity=1 secure @dragStart @drop @pointerEnter @pointerLeave @pointerPress
                     box 478.75,394.86 16.67x16.67 absolute icon=Interface/Icons/INV_Misc_Note_01
@@ -83,7 +83,7 @@ surface 425,173.04 750x553.92 on MEDIUM clamped raised by a click
                 text 987.72,394.31 80x17.78 "Active" #a3977f
                 box 1076.25,394.31 50x17.78
                   text 1116.25,394.31 10x17.78 "8" #a3977f
-              box 470.22,416.35 664.57x26.31 #00000000 @keyPress @pointerPress
+              box 470.22,416.35 664.57x26.31 #00000000 @keyPress @pointerEnter @pointerLeave @pointerPress
                 box 478.75,420.62 375.23x17.78 @dragStart
                   box 478.75,421.17 16.67x16.67 #0d0a08 opacity=1 @dragStart @drop @pointerEnter @pointerLeave @pointerPress
                     box 478.75,421.17 16.67x16.67 absolute icon=Interface/Icons/INV_Misc_Note_01
@@ -94,7 +94,7 @@ surface 425,173.04 750x553.92 on MEDIUM clamped raised by a click
                 text 987.72,420.62 80x17.78 "Passive" #a3977f
                 box 1076.25,420.62 50x17.78
                   text 1116.25,420.62 10x17.78 "6" #a3977f
-              box 470.22,442.66 664.57x26.31 #00000000 @keyPress @pointerPress
+              box 470.22,442.66 664.57x26.31 #00000000 @keyPress @pointerEnter @pointerLeave @pointerPress
                 box 478.75,446.93 375.23x17.78 @dragStart
                   box 478.75,447.49 16.67x16.67 #0d0a08 opacity=1 secure @dragStart @drop @pointerEnter @pointerLeave @pointerPress
                     box 478.75,447.49 16.67x16.67 absolute icon=Interface/Icons/INV_Misc_Note_01
@@ -105,7 +105,7 @@ surface 425,173.04 750x553.92 on MEDIUM clamped raised by a click
                 text 987.72,446.93 80x17.78 "Active" #a3977f
                 box 1076.25,446.93 50x17.78
                   text 1116.25,446.93 10x17.78 "4" #a3977f
-              box 470.22,468.97 664.57x26.31 #00000000 @keyPress @pointerPress
+              box 470.22,468.97 664.57x26.31 #00000000 @keyPress @pointerEnter @pointerLeave @pointerPress
                 box 478.75,473.24 375.23x17.78 @dragStart
                   box 478.75,473.8 16.67x16.67 #0d0a08 opacity=1 secure @dragStart @drop @pointerEnter @pointerLeave @pointerPress
                     box 478.75,473.8 16.67x16.67 absolute icon=Interface/Icons/INV_Misc_Note_01

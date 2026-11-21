@@ -108,7 +108,7 @@ surface 288,133.88 1024x632.25 on MEDIUM clamped raised by a click
                         box 1256.58,389.19 6.67x5
                           box 1253.25,385.02 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 1 of 8 opacity=0
                 box 324.68,409.94 955.63x276.35 scrolled 0 of 0
-                  box 333.22,418.48 938.57x26.31 #00000040 @keyPress @pointerPress
+                  box 333.22,418.48 938.57x26.31 #00000040 @keyPress @pointerEnter @pointerLeave @pointerPress
                     text 341.75,422.74 345.1x17.78 "Linen Cloak" #f0e6d2
                     text 695.38,422.74 125x17.78 "Player, Tailoring" #a3977f
                     box 828.92,422.74 75x17.78
@@ -123,7 +123,7 @@ surface 288,133.88 1024x632.25 on MEDIUM clamped raised by a click
                       text 1156.38,422.74 23.33x17.78 "0 h" #a3977f
                     box 1188.25,422.74 75x17.78
                       text 1253.25,422.74 10x17.78 "0" #f0e6d2
-                  box 333.22,444.79 938.57x26.31 #00000000 @keyPress @pointerPress
+                  box 333.22,444.79 938.57x26.31 #00000000 @keyPress @pointerEnter @pointerLeave @pointerPress
                     text 341.75,449.05 345.1x17.78 "Bolt of Linen Cloth" #f0e6d2
                     text 695.38,449.05 125x17.78 "Player, Tailoring" #a3977f
                     box 828.92,449.05 75x17.78

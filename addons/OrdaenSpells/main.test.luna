@@ -148,53 +148,49 @@ test "the game is asked for its words on spells while the spellbook shows, and n
   Test.expect(closed.any(r => r == "Spellbook.watch false"))
 }
 
-test "the game's spellbook window opens ours, and closes it as it hides" {
+// The client's spells window, named to the module as the game loads it: shut, on no page yet.
+function gameWindow(): any Client.Frame {
+  Test.clientFrames()
+  const found = Runtime.frame("PlayerSpellsFrame") ?? panic("the client has its spells window")
+  const game: any Client.Frame = found
+  Game.frames.PlayerSpells = game
+  return game
+}
+
+test "the game's spells window on its spellbook page opens ours, and closes it as it hides" {
   Test.mount(nil, PAGE)
   Game.spellbook.lines = lines
   Game.spellbook.entries = spells
-  Test.clientFrames()
-  const found = Runtime.frame("PlayerSpellsFrame") ?? panic("the client has its spellbook window")
-  const game: any Client.Frame = found
-  Game.frames.PlayerSpells = game
+  const game = gameWindow()
   const window = Test.page().window(BOOK)
   Test.expect(!window.shown())
-  game.Show()
+  Client.PlayerSpellsUtil.OpenToSpellBookTab()
   Test.expect(window.text("Rend (Rank 1)").shown())
   game.Hide()
   Test.expect(!window.shown())
 }
 
-test "the game's spellbook window is kept out of sight while ours stands in its place" {
+test "the game's spells window is kept out of sight while ours stands in its place" {
   Test.mount(nil, PAGE)
-  Test.clientFrames()
-  const found = Runtime.frame("PlayerSpellsFrame") ?? panic("the client has its spellbook window")
-  const game: any Client.Frame = found
-  Game.frames.PlayerSpells = game
-  game.Show()
+  const game = gameWindow()
+  Client.PlayerSpellsUtil.OpenToSpellBookTab()
   Test.expect(Test.page().window(BOOK).shown())
   Test.expect(game.GetAlpha() == 0)
 }
 
-test "a spellbook window the game makes again opens ours too" {
+test "the game's talents button opens nothing of ours: its talents page is Ordaen Character's" {
   Test.mount(nil, PAGE)
-  Test.clientFrames()
-  const found = Runtime.frame("PlayerSpellsFrame") ?? panic("the client has its spellbook window")
-  Game.frames.PlayerSpells = found
-  const second = Client.CreateFrame("Frame", "PlayerSpellsFrameAgain", Client.UIParent, nil)
-  second.Hide()
-  Game.frames.PlayerSpells = second
-  const window = Test.page().window(BOOK)
-  Test.expect(!window.shown())
-  second.Show()
-  Test.expect(window.shown())
+  _ = gameWindow()
+  Runtime.press(Client.TalentMicroButton, .Left)
+  Test.flush()
+  Test.expect(!Test.page().window(BOOK).shown())
 }
 
-test "the game's spellbook window already shown when it is named opens ours" {
+test "the game's spells window already on its spellbook page when it is named opens ours" {
   Test.mount(nil, PAGE)
   Test.clientFrames()
-  const shown = Client.CreateFrame("Frame", "PlayerSpellsFrameShown", Client.UIParent, nil)
-  shown.Show()
-  Game.frames.PlayerSpells = shown
+  Client.PlayerSpellsUtil.OpenToSpellBookTab()
+  Game.frames.PlayerSpells = Runtime.frame("PlayerSpellsFrame")
   Test.expect(Test.page().window(BOOK).shown())
 }
 
@@ -227,16 +223,13 @@ test "a spell learned at a new rank shows it in the open spellbook when the game
   Test.mount(nil, PAGE)
   Game.spellbook.lines = lines
   Game.spellbook.entries = spells
-  Test.clientFrames()
-  const game = Client.CreateFrame("Frame", "PlayerSpellsFrameLater", Client.UIParent, nil)
-  game.Hide()
-  Game.frames.PlayerSpells = game
+  _ = gameWindow()
   const window = book()
   Test.expect(window.text("Heroic Strike (Rank 2)").shown())
   Game.spellbook.entries = (): Array<Game.SpellEntry> => [
     { id: 78, name: "Heroic Strike", rank: "Rank 3", icon: SWORD, level: 16, passive: false, line: 2 }
   ]
-  game.Show()
+  Client.PlayerSpellsUtil.OpenToSpellBookTab()
   const row = window.text("Heroic Strike (Rank 3)").item()
   Test.expect(row.texts().join(" | ") == "Heroic Strike (Rank 3) | Warrior. Active. Level 16")
   Test.expect(row.paintedWith(SWORD))
@@ -875,10 +868,15 @@ test "with nothing picked, the trainer asks for a pick, and the footer counts th
   Game.trainer.changed.emit()
   const window = Test.page().window(TRAINER)
   Test.expect(window.text("Pick a skill.").shown())
-  Test.expect(window.texts().join(" | ").contains("Available | 1 | Unavailable | 2 | Learned | 3"))
+  // Each count a dot and its number, no label: its tip says what it counts.
+  Test.expect(window.texts().join(" | ").contains("1 | 2 | 3 | Your money"))
+  Test.expect(!Test.page().text("Unavailable").shown())
+  window.text("2").hover()
+  Test.expect(Test.page().text("Unavailable").shown() &&
+      Test.page().text("Can't be learned yet: a level, a skill or an earlier rank is missing.").shown())
 }
 
-test "with nothing picked, the card is the trainer's: its greeting, the services by kind and what the available cost together" {
+test "with nothing picked, the card is the trainer's: its greeting and what the available cost together, the counts left to the footer" {
   Test.mount(nil, PAGE)
   Game.trainer.services = services
   Game.trainer.greeting = (): String => "Hail, warrior."
@@ -886,7 +884,7 @@ test "with nothing picked, the card is the trainer's: its greeting, the services
   Game.trainer.changed.emit()
   const window = Test.page().window(TRAINER)
   Test.expect(window.text("Hail, warrior.").shown())
-  Test.expect(window.text("Available: 1").shown() && window.text("Unavailable: 1").shown() && window.text("Learned: 1").shown())
+  Test.expect(!window.text("Available").shown() && !window.text("Unavailable").shown())
   Test.expect(window.texts().join(" | ").contains("All available, together: | 0g 4s 0c"))
 }
 
@@ -960,6 +958,8 @@ test "the picked service clicked again is let go" {
   Game.trainer.changed.emit()
   const window = Test.page().window(TRAINER)
   window.button("Heroic Strike (Rank 3)").click()
+  // Later than a double press.
+  Test.pass(1)
   window.button("Heroic Strike (Rank 3)").click()
   Test.expect(window.text("Pick a skill.").shown())
 }
@@ -1006,10 +1006,10 @@ test "the count of the services follows what the trainer says" {
   Game.trainer.open = true
   Game.trainer.changed.emit()
   const window = Test.page().window(TRAINER)
-  Test.expect(window.texts().join(" | ").contains("Available | 1 | Unavailable | 1 | Learned | 1"))
+  Test.expect(window.texts().join(" | ").contains("1 | 1 | 1 | Your money"))
   Game.trainer.services = (): Array<Game.TrainerService> => []
   Game.trainer.changed.emit()
-  Test.expect(window.texts().join(" | ").contains("Available | 0 | Unavailable | 0 | Learned | 0"))
+  Test.expect(window.texts().join(" | ").contains("0 | 0 | 0 | Your money"))
 }
 
 test "a price of all the player's money is in ink" {
