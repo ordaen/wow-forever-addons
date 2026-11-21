@@ -71,9 +71,3 @@ ComfyUI portable (NVIDIA) in `C:\Users\f3oal\ComfyUI\ComfyUI_windows_portable\`,
 `RealESRGAN_x4plus_anime_6B.pth` (from `xinntao/Real-ESRGAN`'s releases). Every picture ComfyUI saves holds the
 workflow that made it: `lunatype art workflow <picture> workflows/<name>.json` keeps it (then blank its prompt,
 seed and input picture, which a set or a step gives).
-
-## Licence
-
-The addons ship on CurseForge (which pays authors), so only outputs of **FLUX.1 [schnell]** (Apache 2.0), **SDXL**
-(CreativeML OpenRAIL++-M) and **Real-ESRGAN** (BSD-3) may ship. Never FLUX.1 [dev] (non-commercial). Prompts stay
-generic; never ask for a copy of Blizzard's or anyone's art.
