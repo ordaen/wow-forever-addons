@@ -309,5 +309,5 @@
   "QUEST_CAN_CHOOSE": "You will be able to choose",
   "QUEST_ALSO_GET": "You will also receive",
   "QUEST_REWARD": "Reward",
-  "QUEST_REPUTATION": "+%d %s"
+  "QUEST_REPUTATION": "%+d %s"
 }

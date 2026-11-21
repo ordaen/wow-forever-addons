@@ -1,0 +1,47 @@
+// The reputations a quest changes, as a reward band says them. Forever's client says none (its quest windows don't
+// show them, and `C_QuestOffer`'s and `C_QuestLog`'s calls answer nil): QuestieDB's amounts are read instead, each by
+// the faction's name as the client gives it, a gain with the player's bonus.
+//
+// The one bonus Forever has is Diplomat's, a legacy talent: 2% more reputation gained a rank, up to 10% at its fifth
+// (its rank's own words, `C_Traits.GetTraitDescription`). Classic's buffs of reputation (the Darkmoon Faire's, Hallow's
+// End's) aren't spells of Forever's.
+import Client from "$client"
+import { Standing } from "Ordaen"
+import { FactionGain } from "@/questie"
+
+// The legacy talents' tree (`C_Traits.GetConfigIDBySystemID`), Diplomat's spell in it, and what a rank of it adds.
+const LEGACY_TREE = 45
+const DIPLOMAT = 1225485
+const DIPLOMAT_STEP = 0.02
+
+// The player's rank of Diplomat: 0 without the legacy tree or the talent.
+function diplomatRank(): Integer {
+  const config = Client.C_Traits.GetConfigIDBySystemID(LEGACY_TREE)
+  if (config == nil) { return 0 }
+  for (tree of Client.C_Traits.GetConfigInfo(config)?.treeIDs ?? []) {
+    for (node of Client.C_Traits.GetTreeNodes(tree) ?? []) {
+      const info = Client.C_Traits.GetNodeInfo(config, node)
+      for (entry of info?.entryIDs ?? []) {
+        const definition = Client.C_Traits.GetEntryInfo(config, entry)?.definitionID
+        if (definition != nil && Client.C_Traits.GetDefinitionInfo(definition)?.spellID == DIPLOMAT) {
+          return (info?.currentRank ?? 0).floor()
+        }
+      }
+    }
+  }
+  return 0
+}
+
+// The reputations by the factions' names, a gain with the player's bonus (a loss as it is); a faction the client
+// doesn't name is left out.
+public function standingsOf(gains: Array<FactionGain>): Array<Standing> {
+  let standings: Array<Standing> = []
+  if (gains.length == 0) { return standings }
+  const bonus = 1 + diplomatRank() * DIPLOMAT_STEP
+  for (gain of gains) {
+    const faction = Client.C_Reputation.GetFactionDataByID(gain.faction)
+    const amount = gain.amount > 0 ? (gain.amount * bonus).floor() : gain.amount
+    if (faction != nil) { standings.push({ name: faction.name, amount: amount }) }
+  }
+  return standings
+}

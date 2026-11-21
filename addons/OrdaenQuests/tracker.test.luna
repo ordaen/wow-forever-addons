@@ -9,7 +9,7 @@ class Holder {
 }
 
 const FACTS: QuestFacts = {
-  name: "", level: 10, minLevel: 8, task: "", zone: 40, next: 0, nextName: "",
+  name: "", level: 10, minLevel: 8, task: "", zone: 40, reputation: [], next: 0, nextName: "",
   givers: [],
   takers: [{ name: "Gryan Stoutmantle", spots: [{ area: 40, x: 0.56, y: 0.47 }] }],
   targets: [{ name: "Wolf", spots: [{ area: 40, x: 0.3, y: 0.3 }, { area: 40, x: 0.4, y: 0.4 }, { area: 12, x: 0.1, y: 0.1 }] }]

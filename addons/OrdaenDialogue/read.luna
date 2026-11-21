@@ -1,10 +1,12 @@
 // What the client says of a talk, read into the dialogue's own data: the NPC's list (the gossip window's, or a quest
 // giver's greeting), a quest's page (its texts, what it needs, its rewards) and a book's pages. Nothing here keeps
-// anything: each is read as the game tells that it changed.
+// anything: each is read as the game tells that it changed. The reputations a quest changes are Ordaen Quests'
+// (QuestieDB's): the client says none; without Quests the band has none.
 import Client from "$client"
 import Game from "$game"
 import { Art } from "$ltml"
 import { Difficulty, Quality, Reward, Standing, artOf, difficultyOf, itemReward } from "Ordaen"
+import root Quests from "OrdaenQuests"
 import Locale from "@/locales"
 
 // Where the NPC's list came from: the gossip window (`GOSSIP_SHOW`), or a quest giver's greeting (`QUEST_GREETING`),
@@ -240,16 +242,6 @@ function givenRewards(questID: Integer): Array<Reward> {
   return given
 }
 
-// The reputations the quest raises, by the factions' names.
-function standingsOf(): Array<Standing> {
-  let standings: Array<Standing> = []
-  for (reward of Client.C_QuestOffer.GetQuestOfferMajorFactionReputationRewards() ?? []) {
-    const faction = Client.C_Reputation.GetFactionDataByID(reward.factionID)
-    if (faction != nil) { standings.push({ name: faction.name, amount: reward.rewardAmount.floor() }) }
-  }
-  return standings
-}
-
 // What a quest needs handed in, with how many of each the player has: its items (none where the quest hides them, nor
 // one it hides) and its currencies.
 function needsOf(): Array<Need> {
@@ -282,7 +274,7 @@ public function questOf(text: String): Quest {
   return {
     id: id, title: Client.GetTitleText(), text: text, objectives: Client.GetObjectiveText(),
     group: Client.GetSuggestedGroupSize().floor(), choices: choices, also: givenRewards(id),
-    money: Client.GetRewardMoney().floor(), xp: Client.GetRewardXP().floor(), standings: standingsOf(), needs: needsOf(),
+    money: Client.GetRewardMoney().floor(), xp: Client.GetRewardXP().floor(), standings: Quests?.reputationOf(id) ?? [], needs: needsOf(),
     moneyNeeded: Client.GetQuestMoneyToGet().floor(), completable: Client.IsQuestCompletable(),
     pvp: Client.QuestFlagsPVP(), autoAccepted: Client.QuestGetAutoAccept()
   }
