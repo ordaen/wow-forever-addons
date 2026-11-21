@@ -6,10 +6,10 @@ surface 500,281.38 855.76x337.25 on DIALOG clamped raised by a click
         text 535.85,354.47 533.3x17.78 "the list" #ffffff
       box 535.85,548.16 533.3x45.4
         box 535.85,565.23 533.3x28.33
-          text 535.85,570.5 47.78x17.78 "5 items" #ffffff
-          box 600.69,579.39 351.39x0
+          text 535.85,570.5 52.22x17.78 "5 items" #ffffff
+          box 605.14,579.39 346.94x0
           box 969.15,565.23 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-            text 1004.71,570.5 28.89x17.78 "Scan" #ffd100
+            text 1003.59,570.5 31.11x17.78 "Scan" #ffd100
     box 1091.91,331.72 255.76x276.06 border=UI-Frame-Metal-CornerTopLeft sides=left
       box 1124.91,354.47 200x239.08 #30302a
         text 1124.91,354.47 200x17.78 "the details" #ffffff
@@ -20,7 +20,7 @@ surface 500,281.38 855.76x337.25 on DIALOG clamped raised by a click
     box 500,281.38 792.23x47.75
       box 500,281.38 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
         box 518.78,291.62 76.93x34.25
-          text 536.14,299.86 42.22x17.78 "Market" #ffd100
+          text 535.03,299.86 44.44x17.78 "Market" #ffd100
     box 1300.76,297.71 55x31.42
       box 1300.76,297.71 55x26.67 clipped
         box 1300.76,297.71 27.5x26.67 absolute clipped @keyPress @pointerPress

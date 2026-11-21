@@ -13,6 +13,10 @@ public function spacingFor(density: Density): Number<Length> {
   }
 }
 
+// The body's text size, what `1rem` is (a text that names none): Ordaen gives it to the renderer, and every text
+// any addon draws is its size in `rem` of it.
+public const BODY_TEXT: Number<Length> = 14ui
+
 // The brightest text: a name or a value picked out, a label under the cursor or picked. A warm off-white, never pure
 // white, which glares on the dark wood and breaks up on an OLED panel's pixels.
 public const BRIGHT_TEXT: Color = Color.hex("#f0e6d2")

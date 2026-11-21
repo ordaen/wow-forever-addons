@@ -164,8 +164,8 @@ struct PageMemory implements Plain {
   picked: String
 }
 
-const LIST_WIDTH = 225dp
-const PAGE: Array<Track> = [LIST_WIDTH, { fr: 1 }]
+// The bars' list as wide as their names, the picked bar's rows the rest.
+const PAGE: Array<Track> = ["max-content", { fr: 1 }]
 const HEAD: Array<Track> = [{ fr: 1 }, "max-content"]
 const MORE = 39.84375dp
 // The «…» glyph on the head's icon button.

@@ -10,7 +10,7 @@ surface 600,331.38 400x437.25 on DIALOG clamped raised by a click
     box 600,331.38 336.47x47.75
       box 600,331.38 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
         box 618.78,341.62 76.93x34.25
-          text 642.81,349.86 28.89x17.78 "Beta" #ffd100
+          text 641.69,349.86 31.11x17.78 "Beta" #ffd100
     box 945,347.71 55x31.42
       box 945,347.71 55x26.67 clipped
         box 945,347.71 27.5x26.67 absolute clipped @keyPress @pointerPress
@@ -29,7 +29,7 @@ surface 750,451.38 400x237.25 on DIALOG clamped raised by a click
     box 750,451.38 336.47x47.75
       box 750,451.38 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
         box 768.78,461.62 76.93x34.25
-          text 789.47,469.86 35.56x17.78 "Gamma" #ffd100
+          text 788.36,469.86 37.78x17.78 "Gamma" #ffd100
     box 1095,467.71 55x31.42
       box 1095,467.71 55x26.67 clipped
         box 1095,467.71 27.5x26.67 absolute clipped @keyPress @pointerPress
