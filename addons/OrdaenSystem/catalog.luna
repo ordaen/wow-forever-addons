@@ -150,7 +150,7 @@ public class Catalog {
 
   // What the client says of every addon now.
   public refresh(mut self) {
-    const player = Game.player.name
+    const player = Game.player.guid
     const character = self.character()
     const map: Map<String, Status> = {}
     for (addon of peek self.addons) {
@@ -178,7 +178,7 @@ public class Catalog {
   }
 
   // The character the header's choice switches for: nil for all of them.
-  public character(self): String | nil { return (peek self.everyone) ? nil : Game.player.name }
+  public character(self): String | nil { return (peek self.everyone) ? nil : Game.player.guid }
 
   indexOf(self): Map<String, AddOn> {
     const map: Map<String, AddOn> = {}
@@ -324,7 +324,7 @@ public class Catalog {
     const step = peek self.step
     if (step == nil) { return }
     const character = self.character()
-    const player = Game.player.name
+    const player = Game.player.guid
     for (index of step.changes.length..1 step -1) {
       const change = step.changes[index] ?? panic("an index of the list")
       match (change.before) {
