@@ -13,10 +13,10 @@ import Client from "$client"
 import Events from "$events"
 import Game from "$game"
 import { AllyCategory, BattleNetSelf, Club, ClubStream, Friend, FriendRequest, GuildNews, GuildRights, GuildRoster, Ignored, Member, NewsFilter, Presence, RecentAlly } from "$game"
-import { Align, Frame } from "$ltml"
+import { Align, Event, Frame } from "$ltml"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
-import { ButtonPlate, Dialog, Field, FooterCount, FooterCounts, GamePass, GameWindowButton, KeptWindow, Module, ModuleMemory, PushButton, SECONDARY_TEXT, Settings, SettingsPage, Tabs, Window, WindowSide, WindowTabSpec, WindowsPage, trimmed, windowsTitle } from "Ordaen"
+import { ButtonPlate, CopyBox, Dialog, Field, FooterCount, FooterCounts, GamePass, GameWindowButton, KeptWindow, Module, ModuleMemory, PushButton, SECONDARY_TEXT, Settings, SettingsPage, Tabs, Window, WindowSide, WindowTabSpec, WindowsPage, trimmed, windowsTitle } from "Ordaen"
 import { AllyCard, AllyFilter, AllyList, allyFilterStart, categoriesOf } from "@/allies"
 import { ClubCard } from "@/communities"
 import { FRIENDS_KEPT, FriendCard, FriendList, FriendsKept, IgnoreList, MyCard, RequestList, keyOf, titleOf } from "@/friends"
@@ -27,12 +27,15 @@ import { ClientPeople, People, namesAccount } from "@/people"
 import { SEEN_HEROES, SeenHeroes, noteSeen, withSeen } from "@/seen"
 import { Choices, GeneralPage } from "@/settings"
 import Style from "@/style"
+import { KeptTalk, KeptTalks, Talk, isBattleNet, isTold, isWhisper, talkKey } from "@/talks"
+import { Whispers } from "@/whispers"
 
 // The tabs, in order, and the friends' and the guild's own.
 public const TAB_FRIENDS = 1
 public const TAB_GUILD = 2
 public const TAB_COMMUNITIES = 3
 public const TAB_ALLIES = 4
+public const TAB_WHISPERS = 5
 public const SUB_STATUS = 1
 public const SUB_REQUESTS = 2
 public const SUB_IGNORE = 3
@@ -43,6 +46,11 @@ const ICON_FRIENDS: Asset = "Interface/Icons/Achievement_GuildPerk_EverybodysFri
 const ICON_GUILD: Asset = "Interface/Icons/INV_Shirt_GuildTabard_01"
 const ICON_COMMUNITIES: Asset = "Interface/Icons/INV_Misc_GroupNeedMore"
 const ICON_ALLIES: Asset = "Interface/Icons/INV_Misc_GroupLooking"
+const ICON_WHISPERS: Asset = "Interface/Icons/INV_Letter_15"
+// Where the conversations' last lines are kept between sessions, the character's.
+const TALKS_KEPT = "OrdaenSocial:whispers"
+// A web address the chat made a link of in a whisper's words (Ordaen Chat's `linked`): shown to copy.
+const WEB_LINK = "ordaenurl:"
 // The game's friends window, and its pages, with the tab and the friends' page of ours each opens.
 const FRIENDS_WINDOW = "FriendsFrame"
 const GAME_WINDOWS: Array<String> = [FRIENDS_WINDOW, "SocialUIFrame"]
@@ -135,6 +143,14 @@ public class Social implements Module, App {
   // The recent ally's note dialog, while it shows, and what is typed in it.
   state noting = false
   state noteText = ""
+  // The whisper conversations, the one last spoken in first, by their keys too; the one open in the whispers' tab.
+  public state talks: Array<Talk> = []
+  talkMade: mut Map<String, mut Talk> = {}
+  public state talkOpen = ""
+  // The whispers' lines waiting unread, all conversations': the whispers' tab says it, and the panel's friends cell.
+  public state whispersUnread = 0
+  // A web address in a whisper clicked: shown to copy.
+  state copied = ""
 
   derived pickedFriend: Friend | nil = self.picked == "" ? nil : self.friends.find(friend => keyOf(friend) == self.picked)
   derived guildMembers: Array<Member> = self.guild?.members ?? []
@@ -152,8 +168,10 @@ public class Social implements Module, App {
     { title: Locale.TAB_FRIENDS, desc: Locale.ONLINE_COUNT.format(self.onlineCount), icon: ICON_FRIENDS },
     { title: Locale.TAB_GUILD, desc: self.guild != nil ? Locale.ONLINE_COUNT.format(self.guildOnline) : Locale.NO_GUILD_LOWER, icon: ICON_GUILD },
     { title: Locale.TAB_COMMUNITIES, desc: Locale.COMMUNITIES_COUNT.format(self.clubs.length), icon: ICON_COMMUNITIES },
-    { title: Locale.TAB_ALLIES, desc: Locale.ALLIES_COUNT.format(self.allies.length), icon: ICON_ALLIES }
+    { title: Locale.TAB_ALLIES, desc: Locale.ALLIES_COUNT.format(self.allies.length), icon: ICON_ALLIES },
+    { title: Locale.TAB_WHISPERS, desc: self.whispersDesc, icon: ICON_WHISPERS }
   ]
+  derived whispersDesc: String = self.whispersUnread > 0 ? Locale.UNREAD_COUNT.format(self.whispersUnread) : Locale.TALKS_COUNT.format(self.talks.length)
   derived subTabs: Array<String> = [Locale.SUB_STATUS, self.requestsTitle(), Locale.SUB_IGNORE]
   derived side: WindowSide | nil = self.sideOf()
   derived removeText: String = Locale.REMOVE_ASK.format(self.removing != nil ? titleOf(self.removing ?? panic("tested")) : "")
@@ -173,6 +191,12 @@ public class Social implements Module, App {
 
   constructor() {
     Ordaen.modules.add(self)
+    self.recallTalks()
+    Events.PLAYER_LOGOUT.listen(self.keepTalks)
+    // The open conversation, while its tab shows, has nothing waiting.
+    watch {
+      if (self.open && self.tab == TAB_WHISPERS) { self.readTalk(self.talkOpen) }
+    }
     // The friends read: the characters Battle.net friends play here written down.
     watch (friends of self.read) { noteSeen(mut self.seen, friends, Client.GetServerTime()) }
     // The game's words about the people shown are heard while the window shows.
@@ -364,9 +388,17 @@ public class Social implements Module, App {
   onPickAlly(mut self, key: String) { self.ally = (peek self.ally) == key ? "" : key }
 
   // What the card's buttons ask, in the click's own call.
+  // A friend whispered in the whispers' tab: a Battle.net friend by the account's token, which the client's whisper
+  // takes; a character by name.
   onWhisper(mut self) {
     const friend = peek self.pickedFriend
-    if (friend != nil) { self.people.whisper(friend) }
+    const account = friend?.account?.name
+    const hero = friend?.hero?.name
+    if (account != nil) {
+      self.whisperTo(account, true)
+    } else if (hero != nil) {
+      self.whisperTo(hero, false)
+    }
   }
 
   onInvite(mut self) {
@@ -451,7 +483,7 @@ public class Social implements Module, App {
   // A guild's or a community's member, whispered or invited by name.
   onMemberWhisper(mut self) {
     const one = peek self.pickedMember ?? peek self.pickedClubMember
-    if (one != nil) { self.people.whisperTo(one.name) }
+    if (one != nil) { self.whisperTo(one.name, false) }
   }
 
   onMemberInvite(mut self) {
@@ -549,7 +581,7 @@ public class Social implements Module, App {
 
   onAllyWhisper(mut self) {
     const one = peek self.pickedAlly
-    if (one != nil) { self.people.whisperTo(one.fullName) }
+    if (one != nil) { self.whisperTo(one.fullName, false) }
   }
 
   onAllyInvite(mut self) {
@@ -599,6 +631,112 @@ public class Social implements Module, App {
   onAllyNoteNo(mut self) { self.noting = false }
 
   // Ours closed: the game's closes with it.
+  // A whisper Ordaen Chat read (after every addon's filter), `whole` its words as the chat draws them: its
+  // conversation's, which goes first in the list. Heard while that conversation isn't the one shown, it waits unread.
+  public heard(mut self, line: Game.ChatLine, whole: String) {
+    if (!isWhisper(line)) { return }
+    const told = isTold(line)
+    const talk = self.talkOf(talkKey(line.sender, isBattleNet(line)))
+    talk.add({ whole: whole, time: line.time, mine: told, secret: line.secret != "", sender: line.guid })
+    if (!told && !self.shows(talk.key)) { talk.unread = (peek talk.unread) + 1 }
+    self.countUnread()
+  }
+
+  // A whisper started anywhere (a card's, the chat's, another addon's): the window shown on the whispers' tab, the
+  // person's conversation open, a new one where there is none.
+  public whisperTo(mut self, name: String, battleNet: Boolean) {
+    self.talkOpen = self.talkOf(talkKey(name, battleNet)).key
+    if (!(peek self.open)) {
+      const friends = Runtime.frame(FRIENDS_WINDOW)
+      if (friends != nil) { Client.ShowUIPanel(friends) }
+    }
+    self.window.ask(TAB_WHISPERS)
+  }
+
+  // A player reported: their lines go from every conversation, as the game's windows take them away.
+  public reported(mut self, guid: String) {
+    if (guid == "") { return }
+    for (_, talk of self.talkMade) { talk.forgetSender(guid) }
+  }
+
+  // Whether a conversation is the one the player looks at.
+  shows(self, key: String): Boolean {
+    return peek self.open && peek self.tab == TAB_WHISPERS && peek self.talkOpen == key
+  }
+
+  // A conversation, made where there is none, put first in the list.
+  talkOf(mut self, key: String): mut Talk {
+    const talk = self.talkMade[key] ?? new Talk(key)
+    self.talkMade[key] = talk
+    const talks: Array<Talk> = [talk]
+    for (other of peek self.talks) {
+      if (other.key != key) { talks.push(other) }
+    }
+    self.talks = talks
+    return talk
+  }
+
+  // A conversation looked at: nothing of it waits.
+  readTalk(mut self, key: String) {
+    const talk = self.talkMade[key]
+    if (talk == nil || peek talk.unread == 0) { return }
+    talk.unread = 0
+    self.countUnread()
+  }
+
+  countUnread(mut self) {
+    let unread = 0
+    for (_, talk of self.talkMade) { unread += peek talk.unread }
+    self.whispersUnread = unread
+  }
+
+  onTalkPick(mut self, talk: Talk) { self.talkOpen = talk.key }
+
+  onTalkStart(mut self, name: String) { self.talkOpen = self.talkOf(talkKey(name, false)).key }
+
+  // A conversation closed: its lines go with it.
+  onTalkForget(mut self, talk: Talk) {
+    self.talkMade[talk.key] = nil
+    self.talks = (peek self.talks).filter(other => other.key != talk.key)
+    if (peek self.talkOpen == talk.key) { self.talkOpen = (peek self.talks)[1]?.key ?? "" }
+    self.countUnread()
+  }
+
+  // The words typed in a conversation, sent in the key's own call.
+  onTalkSend(mut self, text: String) {
+    const talk = self.talkMade[peek self.talkOpen]
+    if (talk != nil) { _ = Game.chat.whisper(talk.partner, text, talk.battleNet) }
+  }
+
+  // A link in a whisper: a web address shown to copy; any other is the game's.
+  onTalkLink(mut self, link: Event.Link) {
+    if (link.link.sub(1, WEB_LINK.length) == WEB_LINK) {
+      self.copied = link.link.sub(WEB_LINK.length + 1)
+      return
+    }
+    Game.chat.click(link.link, link.text, link.button)
+  }
+
+  onCopyClose(mut self) { self.copied = "" }
+
+  // The conversations' last lines, for the next session: written once, as the player logs out.
+  keepTalks(mut self) {
+    const talks = (peek self.talks).map(talk => KeptTalk { key: talk.key, lines: talk.kept() })
+    Game.saved.store(Game.Scope.Character, TALKS_KEPT, KeptTalks { talks: talks })
+  }
+
+  recallTalks(mut self) {
+    const kept = KeptTalks.decode(Game.saved.stored(Game.Scope.Character, TALKS_KEPT), KeptTalks { talks: [] })
+    const talks: Array<Talk> = []
+    for (one of kept.talks) {
+      const talk = new Talk(one.key)
+      talk.recall(one.lines)
+      self.talkMade[one.key] = talk
+      talks.push(talk)
+    }
+    self.talks = talks
+  }
+
   onClose(mut self) {
     self.open = false
     for (game of self.games) {
@@ -694,9 +832,12 @@ public class Social implements Module, App {
         <box $elseif={self.tab == TAB_COMMUNITIES} xAlign={Align.Center} yAlign={Align.Center}>
           <text value={Locale.NO_COMMUNITIES} textColor={Style.DIM} wrap={.None} />
         </box>
+        <Whispers $elseif={self.tab == TAB_WHISPERS} talks={self.talks} openKey={self.talkOpen} @picked={self.onTalkPick}
+                  @forget={self.onTalkForget} @start={self.onTalkStart} @send={self.onTalkSend} @link={self.onTalkLink} />
         <AllyList $else allies={self.allies} chosen={self.ally} filter={mut self.allyFilter}
                   categories={peek Game.recentAllies.categories()} @pick={self.onPickAlly} @menu={self.onAllyMenu} />
       </Window>
+      <CopyBox $if={self.copied != ""} title={Locale.COPY_TITLE} value={self.copied} @close={self.onCopyClose} />
       <Dialog $if={self.removing != nil} width={Style.ASK} title={Locale.REMOVE_FRIEND}>
         <box columns={1} gap={2sp}>
           <text value={self.removeText} textColor={Style.INK} />

@@ -1,6 +1,6 @@
 key: ESCAPE → none
 -- the guild: its roster by rank, Branna's long note cut at its column, every row's columns under the headings, the guild's card beside it
-surface 425,183.88 1055.76x532.25 on DIALOG clamped raised by a click
+surface 425,183.88 1055.76x532.25 on MEDIUM clamped raised by a click
   box 425,232.79 1055.76x483.33 absolute Interface\AddOns\Ordaen\media\window-wood border=UI-Frame-Metal-CornerTopLeft
     box 438.09,245.89 728.81x459.39
       box 460.85,268.64 683.3x377.02
@@ -169,6 +169,12 @@ surface 425,183.88 1055.76x532.25 on DIALOG clamped raised by a click
         box 970.91,194.12 93.33x45.92
           text 970.91,198.59 93.33x17.78 "Recent Allies" #a3977f
           text 990.35,217.79 54.44x17.78 "2 allies" #8f8470
+      box 1092.98,183.88 186.48x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
+        box 1100.23,191.12 48.92x48.92 absolute icon=Interface/Icons/INV_Letter_15 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=none
+        box 1144.14,191.12 11.5x52.17 absolute border=UI-Frame-Metal-CornerTopLeft sides=left
+        box 1160.68,194.12 100x45.92
+          text 1181.23,198.59 58.89x17.78 "Whispers" #a3977f
+          text 1160.68,217.79 100x17.78 "0 conversations" #8f8470
     box 1400.76,211.88 80x31.42
       box 1400.76,211.88 80x26.67 clipped
         box 1400.76,211.88 27.5x26.67 absolute clipped @keyPress @pointerPress

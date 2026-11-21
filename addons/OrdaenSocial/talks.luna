@@ -1,0 +1,106 @@
+// The whisper conversations, as WoW Instant Messenger keeps them: one a person (a character, or a Battle.net friend),
+// each its own lines, the one last spoken in first. Ordaen Chat hands each whisper it reads (`Social.heard`), after
+// every addon's filter, the words already drawn as the chat draws them (its web addresses links).
+import Game from "$game"
+
+// A whisper as its conversation shows it: the words (their web addresses links), when, whose, and whether the client
+// kept them secret (drawn as the client gives them, never measured, never kept).
+public struct TalkLine implements Plain {
+  whole: String
+  // When it was said (seconds since 1970).
+  time: Number
+  // The player's own (a whisper told): drawn on the right.
+  mine: Boolean
+  secret: Boolean
+  // Who said it (their GUID; empty for none): a player reported has their lines taken away.
+  sender: String
+}
+
+// What one conversation keeps between sessions.
+public struct KeptTalk implements Plain {
+  key: String
+  lines: Array<TalkLine>
+}
+
+public struct KeptTalks implements Plain {
+  talks: Array<KeptTalk>
+}
+
+// The whispers' kinds (the client's `ChatTypeInfo` keys): what the player whispered; what was heard (a character's, a
+// Battle.net friend's, the away and busy answers); a Battle.net friend's either way. The conversation is the sender's
+// (the one told, for what was told).
+const TOLD: Array<String> = ["WHISPER_INFORM", "BN_WHISPER_INFORM"]
+const HEARD: Array<String> = ["WHISPER", "BN_WHISPER", "AFK", "DND"]
+const BATTLE_NET: Array<String> = ["BN_WHISPER", "BN_WHISPER_INFORM"]
+// Lines a conversation holds, and keeps for the next session.
+public const HELD = 500
+public const KEPT = 200
+
+// Whether a chat line is a whisper: told or heard, from someone.
+public function isWhisper(line: Game.ChatLine): Boolean {
+  return line.sender != "" && (isTold(line) || HEARD.any(kind => kind == line.kind))
+}
+
+public function isTold(line: Game.ChatLine): Boolean { return TOLD.any(kind => kind == line.kind) }
+
+public function isBattleNet(line: Game.ChatLine): Boolean { return BATTLE_NET.any(kind => kind == line.kind) }
+
+// A conversation's key: a character's (`t:<name>`) or a Battle.net friend's (`b:<name>`).
+public function talkKey(name: String, battleNet: Boolean): String {
+  return `${battleNet ? "b" : "t"}:${name}`
+}
+
+// A conversation: with whom (the name the client's whisper takes), its lines oldest first, which a view follows by
+// `version`, and the lines heard while it wasn't the one shown.
+public class Talk {
+  public const key: String
+  public const partner: String
+  public const battleNet: Boolean
+  public lines: mut Array<TalkLine> = []
+  public state version = 0
+  public state unread = 0
+
+  constructor(key: String) {
+    self.key = key
+    self.partner = key.sub(3)
+    self.battleNet = key.sub(1, 2) == "b:"
+  }
+
+  // A line added; the oldest let go past `HELD`.
+  public add(mut self, line: TalkLine) {
+    self.lines.push(line)
+    if (self.lines.length > HELD) { _ = self.lines.remove(1) }
+    self.version = (peek self.version) + 1
+  }
+
+  // The lines of the last session, before this one's.
+  public recall(mut self, lines: Array<TalkLine>) {
+    const now: Array<TalkLine> = lines.clone()
+    for (line of self.lines) { now.push(line) }
+    self.lines = now
+    self.version = (peek self.version) + 1
+  }
+
+  // The last `KEPT` that can be kept.
+  public kept(self): Array<TalkLine> {
+    const keep = self.lines.filter(line => !line.secret)
+    for (at of KEPT + 1..keep.length) { _ = keep.remove(1) }
+    return keep
+  }
+
+  // A sender's lines taken away (a player reported).
+  public forgetSender(mut self, guid: String) {
+    const kept = self.lines.filter(line => line.sender != guid)
+    if (kept.length == self.lines.length) { return }
+    self.lines = kept
+    self.version = (peek self.version) + 1
+  }
+
+  // The lines a view shows: `count` of them, ending `back` lines before the newest.
+  public slice(self, back: Integer, count: Integer): Array<TalkLine> {
+    const shown: Array<TalkLine> = []
+    const last = self.lines.length - back
+    for (at of (1).max(last - count + 1)..last) { shown.push(self.lines[at] ?? panic("inside the lines")) }
+    return shown
+  }
+}

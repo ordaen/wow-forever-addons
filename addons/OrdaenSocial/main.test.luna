@@ -17,6 +17,7 @@ import root Ordaen from "Ordaen"
 import root Social from "OrdaenSocial"
 import { People } from "@/people"
 import { SeenHero, seenAfter } from "@/seen"
+import { HEARD_FILL, TOLD_FILL } from "@/whispers"
 
 const PAGE: Test.Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
 // A text the window always shows: its last tab.
@@ -157,9 +158,7 @@ function allyCategories(): Array<AllyCategory> { return [.PvP, .Dungeons] }
 class FakePeople implements People {
   heard: mut Array<String> = []
 
-  public whisper(mut self, friend: Friend) { self.heard.push(`whisper ${friend.hero?.name ?? ""}`) }
   public copy(mut self, text: String) { self.heard.push(`copy ${text}`) }
-  public whisperTo(mut self, name: String) { self.heard.push(`whisper ${name}`) }
   public inviteTo(mut self, name: String) { self.heard.push(`invite ${name}`) }
 }
 
@@ -497,13 +496,15 @@ test "a friend picked shows their card, whose buttons ask the game in the click"
   const window = opened(mut people)
   window.text("Eliana").click()
   Test.expect(window.text("Stormwind").shown())
-  window.button("Whisper").click()
   window.button("Invite").click()
-  Test.expect(people.heard.join(", ") == "whisper Eliana")
   Test.expect(askedGame() == "Friends.invite Eliana")
   // Picked again: the player's own card.
   window.text("Eliana").nth(1).click()
   Test.expect(window.text("This is you").shown())
+  // The friend's whisper opens their conversation on the whispers' tab.
+  window.text("Eliana").click()
+  window.button("Whisper").click()
+  Test.expect(Social.talkOpen == "t:Eliana" && !window.text("Stormwind").shown())
 }
 
 test "an offline friend can't be whispered or invited" {
@@ -784,15 +785,17 @@ test "a guild member's card whispers, invites, promotes and demotes in the click
   window.text("Guild").click()
   window.text("Ingrid").click()
   Test.expect(window.text("Priest, level 24").shown())
-  window.button("Whisper").click()
   window.button("Invite").click()
   window.button("Promote").click()
   window.button("Demote").click()
-  Test.expect(people.heard.join(", ") == "whisper Ingrid, invite Ingrid")
+  Test.expect(people.heard.join(", ") == "invite Ingrid")
   Test.expect(askedGame() == "Guild.promote Ingrid, Guild.demote Ingrid")
   // Picked again: the guild's card.
   window.text("Ingrid").nth(1).click()
   Test.expect(window.text("Iron Vow").shown())
+  window.text("Ingrid").click()
+  window.button("Whisper").click()
+  Test.expect(Social.talkOpen == "t:Ingrid")
 }
 
 test "the guild's card invites by name and asks before leaving" {
@@ -899,11 +902,12 @@ test "the communities: the first one's members and streams, another picked shows
   Test.expect(window.text("Halvar").shown() && window.text("Owner").shown())
   Test.expect(window.text("Channels (2)").shown() && window.text("Everything").shown())
   Test.shot("the communities: a tab each, the first one's members under them and its card")
-  window.text("Halvar").click()
-  window.button("Whisper").click()
-  Test.expect(people.heard.join(", ") == "whisper Halvar")
   window.text("Smiths of Ironforge").click()
   Test.expect(window.text("Bjorn").shown() && !window.text("Halvar").shown())
+  window.text("Night Fishers").click()
+  window.text("Halvar").click()
+  window.button("Whisper").click()
+  Test.expect(Social.talkOpen == "t:Halvar")
 }
 
 // The recent allies
@@ -930,15 +934,15 @@ test "the recent allies: those pinned first; an ally's card pins, whispers by fu
   Test.expect(window.text("Completed the Deadmines together · 2 h ago").shown())
   window.text("Gunnar").click()
   Test.expect(window.text("Traded").shown())
-  window.button("Whisper").click()
   window.button("Add Friend").click()
   // The game's allies as they are once he is unpinned.
   Game.recentAllies.list = alliesUnpinned
   window.button("Unpin").click()
-  Test.expect(people.heard.join(", ") == "whisper Gunnar-Flamegor")
   Test.expect(askedGame() == "Friends.add Gunnar-Flamegor, RecentAllies.pin Gunnar false")
   Test.expect(!window.text("Pinned").shown() && window.button("Pin").shown())
   Test.shot("the recent allies: an ally's card with what was done together")
+  window.button("Whisper").click()
+  Test.expect(Social.talkOpen == "t:Gunnar-Flamegor")
 }
 
 test "the allies' filter offers the game's categories here, and asks the game for the allies of those on" {
@@ -1293,4 +1297,109 @@ test "an offline Battle.net friend shows the character last seen, after a reload
   const window = opened(new FakePeople())
   Test.expect(Social.seen.values.heroes["Drake#2145"] != nil)
   Test.expect(window.texts().find(text => text.contains("Torgrim")) != nil)
+}
+
+// The whispers
+
+// A whisper as Ordaen Chat hands it: heard (or told, by the player), its words what the bubble shows.
+function whisper(sender: String, words: String, told: Boolean = false, time: Number = Game.clock.server): Game.ChatLine {
+  const kind = told ? "WHISPER_INFORM" : "WHISPER"
+  return {
+    kind: kind, event: `CHAT_MSG_${kind}`, body: words, plain: words, text: words, sender: sender, guid: "", lineId: 1,
+    channel: 0, channelName: "", stream: "", color: Color.hex("#ff80ff"), time: time, stamp: "", windows: [1], secret: ""
+  }
+}
+
+test "whispers are the window's tab: a conversation a person, unread until opened, answered in its own line" {
+  Test.mount(nil, PAGE)
+  Game.friends.list = friends
+  Game.friends.requests = requests
+  Game.friends.ignored = ignoredOnes
+  Game.friends.battleNetSelf = battleNetSelf
+  Game.guild.roster = guildRoster
+  Game.guild.motd = guildMotd
+  Game.guild.news = guildNews
+  Game.guild.newsFilters = newsFilters
+  Game.communities.clubs = clubs
+  Game.communities.members = clubMembers
+  Game.communities.streams = streams
+  Game.recentAllies.list = allies
+  Game.recentAllies.categories = allyCategories
+  // Heard while the window is closed: waiting unread, the count the micro menu's second badge shows.
+  Social.heard(whisper("Jaina", "psst"), "psst")
+  Test.expect(Social.whispersUnread == 1)
+  const window = opened(new FakePeople())
+  Test.expect(window.text("1 unread").shown())
+  window.text("Whispers").click()
+  window.text("Jaina").click()
+  Test.expect(window.text("psst").shown() && Social.whispersUnread == 0)
+  window.input().nth(2).type("hello")
+  _ = Test.key(Key.Enter)
+  Test.expect(Test.requests().any(r => r == "Chat.whisper Jaina hello false"))
+  // Another person's whisper: a conversation of their own, first in the list, waiting unread.
+  Social.heard(whisper("Thrall", "lok'tar"), "lok'tar")
+  Test.expect(window.text("Thrall").rect().top < window.text("Jaina").rect().top)
+  Test.expect(Social.whispersUnread == 1 && !window.text("lok'tar").shown())
+  window.text("Thrall").click()
+  Test.expect(window.text("lok'tar").shown() && Social.whispersUnread == 0)
+  // A line of the open conversation is read as it comes.
+  Social.heard(whisper("Thrall", "for the horde"), "for the horde")
+  Test.expect(Social.whispersUnread == 0 && window.text("for the horde").shown())
+  // A name typed starts one.
+  window.input().nth(1).type("Anduin")
+  _ = Test.key(Key.Enter)
+  Test.expect(window.text("Anduin").shown())
+}
+
+test "a whisper started anywhere opens the window on that conversation; a told line is never unread" {
+  Test.mount(nil, PAGE)
+  Game.friends.list = friends
+  Game.friends.requests = requests
+  Game.friends.ignored = ignoredOnes
+  Game.friends.battleNetSelf = battleNetSelf
+  Game.guild.roster = guildRoster
+  Game.guild.motd = guildMotd
+  Game.guild.news = guildNews
+  Game.guild.newsFilters = newsFilters
+  Game.communities.clubs = clubs
+  Game.communities.members = clubMembers
+  Game.communities.streams = streams
+  Game.recentAllies.list = allies
+  Game.recentAllies.categories = allyCategories
+  const window = opened(new FakePeople())
+  Social.heard(whisper("Jaina", "on my way", true), "on my way")
+  Test.expect(Social.whispersUnread == 0)
+  Social.whisperTo("Jaina", false)
+  Test.expect(Social.talkOpen == "t:Jaina" && window.text("on my way").shown())
+}
+
+test "a conversation is bubbles: the other's on the left, the player's on the right, a group's time under its last" {
+  Test.mount(nil, PAGE)
+  Game.friends.list = friends
+  Game.friends.requests = requests
+  Game.friends.ignored = ignoredOnes
+  Game.friends.battleNetSelf = battleNetSelf
+  Game.guild.roster = guildRoster
+  Game.guild.motd = guildMotd
+  Game.guild.news = guildNews
+  Game.guild.newsFilters = newsFilters
+  Game.communities.clubs = clubs
+  Game.communities.members = clubMembers
+  Game.communities.streams = streams
+  Game.recentAllies.list = allies
+  Game.recentAllies.categories = allyCategories
+  Game.clock.hours24 = true
+  Social.heard(whisper("Jaina", "hi", false, 12 * 3600), "hi")
+  Social.heard(whisper("Jaina", "are you there?", false, 12 * 3600 + 30), "are you there?")
+  Social.heard(whisper("Jaina", "yes", true, 12 * 3600 + 60), "yes")
+  const window = opened(new FakePeople())
+  Social.whisperTo("Jaina", false)
+  const heard = window.text("hi").rect()
+  const told = window.text("yes").rect()
+  // Hers start at the conversation's left, his end at its right; each side on its own floor.
+  Test.expect(heard.left < told.left && window.text("are you there?").rect().left == heard.left)
+  Test.expect(window.box(HEARD_FILL).count() == 2 && window.box(TOLD_FILL).count() == 1)
+  // Her two lines are one group: its time once, under the second; then his.
+  Test.expect(window.texts().filter(t => t == "12:00").length == 1 && window.texts().filter(t => t == "12:01").length == 1)
+  Test.expect(window.text("12:00").rect().top > window.text("are you there?").rect().bottom)
 }

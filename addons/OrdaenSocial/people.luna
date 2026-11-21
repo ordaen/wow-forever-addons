@@ -1,16 +1,12 @@
 // What the social window's clicks ask of the game besides its parts (`"$game"`'s friends, guild, communities and
-// recent allies): the chat's whisper, an invite to the group, the clipboard. `ClientPeople` asks the client, a test
-// hands its own. Every act is called in the player's click, as the client's restricted calls want.
+// recent allies): an invite to the group, the clipboard. `ClientPeople` asks the client, a test hands its own. Every
+// act is called in the player's click, as the client's restricted calls want. A whisper is the window's own (its
+// whispers' tab).
 import Client from "$client"
-import { Friend } from "$game"
 
 public trait People {
-  // The chat's line opened to a friend.
-  public whisper(mut self, friend: Friend)
   public copy(mut self, text: String)
-  // A character by its name (with its realm where it is of another): the chat's whisper opened to it, an invite to
-  // the group.
-  public whisperTo(mut self, name: String)
+  // A character by its name (with its realm where it is of another) invited to the group.
   public inviteTo(mut self, name: String)
 }
 
@@ -19,14 +15,6 @@ public trait People {
 public function namesAccount(text: String): Boolean { return text.contains("#") || text.contains("@") }
 
 public class ClientPeople implements People {
-  // The chat's line opened to them, as the game's «Шепнуть» opens it: a character by name, a Battle.net friend by
-  // the account's token, which the client's whisper takes.
-  public whisper(mut self, friend: Friend) {
-    const to = friend.account?.name ?? friend.hero?.name
-    if (to != nil) { Client.ChatFrameUtil.OpenChat(`/w ${to} `) }
-  }
-
   public copy(mut self, text: String) { _ = Client.CopyToClipboard(text, nil) }
-  public whisperTo(mut self, name: String) { Client.ChatFrameUtil.OpenChat(`/w ${name} `) }
   public inviteTo(mut self, name: String) { Client.C_PartyInfo.InviteUnit(name) }
 }
