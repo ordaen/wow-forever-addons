@@ -159,6 +159,8 @@ public class Character implements Module, App {
     watch (opened of self.open) {
       if (opened) {
         Events.PLAYER_EQUIPMENT_CHANGED.listen(self.readGear)
+        // Which set is worn whole follows each piece put on or taken off.
+        Events.PLAYER_EQUIPMENT_CHANGED.listen(self.readSets)
         Events.UPDATE_INVENTORY_DURABILITY.listen(self.readGear)
         Events.UNIT_INVENTORY_CHANGED.listen(self.onUnitGear)
         Events.UNIT_STATS.listen(self.onUnitStats)

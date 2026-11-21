@@ -9,7 +9,7 @@ import Game from "$game"
 import { Art } from "$ltml"
 import Test from "$test"
 import root Ordaen from "Ordaen"
-import { Quality, XpFill, xpFillArt } from "Ordaen"
+import { BRIGHT_TEXT, Quality, XpFill, xpFillArt } from "Ordaen"
 import root Auras from "OrdaenAuras"
 import root Char from "OrdaenCharacter"
 import { FITS_GLOW, wearColor } from "@/gear"
@@ -137,8 +137,12 @@ class FakeSheet implements Sheet {
   // The bags hold another helm.
   public fitting(self, slot: Integer): Array<Integer> { return slot == 1 ? [OTHER_HELM] : [] }
   public equip(mut self, item: Integer, slot: Integer) { self.heard.push(`equip ${item} ${slot}`) }
+  // The set worn whole, by its number; -1 for none.
+  wornSet = 0
   public sets(self): Array<GearSet> {
-    return [{ id: 0, name: "Tank", worn: true, missing: 0 }, { id: 1, name: "Fury", worn: false, missing: 2 }]
+    return [
+      { id: 0, name: "Tank", worn: self.wornSet == 0, missing: 0 }, { id: 1, name: "Fury", worn: self.wornSet == 1, missing: 2 }
+    ]
   }
   public useSet(mut self, id: Integer) { self.heard.push(`set ${id}`) }
   public saveSet(mut self, name: String) { self.heard.push(`save ${name}`) }
@@ -287,16 +291,46 @@ test "a slot's flyout with nothing for it says so, and Close shuts it" {
   Test.expect(!window.text("From your bags").shown())
 }
 
-test "the game's sets stand over the columns: one clicked is put on, and «+» saves what is worn as the next" {
+test "the game's sets are tabs over the columns, the one worn picked: another picked is put on, the worn one not again" {
   Test.mount(nil, PAGE)
   const sheet = new FakeSheet()
   Game.items.icon = icons
   const window = opened(mut sheet)
-  Test.expect(window.text("Tank").textColor().equal(Style.GOLD))
-  Test.expect(window.text("Fury").textColor().equal(Style.RED))
+  Test.expect(window.text("Tank").textColor().equal(BRIGHT_TEXT))
+  Test.expect(!window.text("Fury").textColor().equal(BRIGHT_TEXT))
+  window.button("Tank").click()
   window.button("Fury").click()
-  window.button("+ Save set").click()
-  Test.expect(sheet.heard.join(", ") == "set 1, save Set 3")
+  Test.expect(sheet.heard.join(", ") == "set 1")
+  Test.expect(window.text("Fury").textColor().equal(BRIGHT_TEXT))
+}
+
+test "a set picked in a fight isn't put on, and the worn one stays picked" {
+  Test.mount(nil, PAGE)
+  const sheet = new FakeSheet()
+  Game.items.icon = icons
+  const window = opened(mut sheet)
+  Test.combat(true)
+  window.button("Fury").click()
+  Test.expect(sheet.heard.length == 0)
+  Test.expect(window.text("Tank").textColor().equal(BRIGHT_TEXT))
+}
+
+test "«New Set» saves nothing until «Save», which saves what is worn as the next set, and is off while it is a set already" {
+  Test.mount(nil, PAGE)
+  const sheet = new FakeSheet()
+  Game.items.icon = icons
+  const window = opened(mut sheet)
+  Test.expect(!window.text("Save").shown())
+  window.button("New Set").click()
+  Test.expect(sheet.heard.length == 0)
+  // What is worn is «Tank»: saving it again would make a second of it.
+  window.button("Save").click()
+  Test.expect(sheet.heard.length == 0)
+  // A piece of it taken off: what is worn is no set now.
+  sheet.wornSet = -1
+  Test.event("PLAYER_EQUIPMENT_CHANGED", 1, true)
+  window.button("Save").click()
+  Test.expect(sheet.heard.join(", ") == "save Set 3")
 }
 
 test "the slot what the cursor holds goes in is lit, the others not; a locked item is greyed" {
@@ -528,6 +562,17 @@ test "what a faction rose since the window first read it shows beside it" {
 }
 
 // The client's sheet
+
+test "the character is named with its surname, as Forever gives it" {
+  Test.login({ guid: "Player-1-0001", name: "Regy", surname: "Ironsight", realm: "Realm", faction: "Alliance", classTag: "WARRIOR" })
+  Test.mount(nil, PAGE)
+  // The client's own sheet, as the character's window reads it after the login.
+  const game = Client.CreateFrame("Frame", "CharacterFrame", Client.UIParent, nil)
+  game.Hide()
+  Char.hook(game)
+  game.Show()
+  Test.expect(Test.page().window(WINDOW).text("Regy Ironsight").shown())
+}
 
 test "the client's sheet reads what is worn in a slot from the client" {
   Test.mount(nil, PAGE)

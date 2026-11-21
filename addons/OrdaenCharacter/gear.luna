@@ -6,7 +6,7 @@
 // over the three columns.
 import Game from "$game"
 import { Action, Align, Art, BarFill, Edges, Event, FillFrom, Line, MouseButton, Overflow, Position, TextFont } from "$ltml"
-import { Component, ItemButton, SECONDARY_TEXT, TITLE_LINE, TITLE_TEXT, classColor } from "Ordaen"
+import { ButtonPlate, Component, ItemButton, PushButton, SECONDARY_TEXT, TITLE_LINE, TITLE_TEXT, Tabs, TipText, classColor } from "Ordaen"
 import { Active } from "OrdaenAuras"
 import Locale from "@/locales"
 import { Choices } from "@/settings"
@@ -24,8 +24,8 @@ const WORN_OUT = 0.25
 const COOLING: Color = Color.hex("#000000a6")
 const FITS: Line = { width: 2.34375dp, color: Color.hex("#ffd100") }
 public const FITS_GLOW: Color = Color.hex("#ffd10040")
-// A set wholly worn; a chip's room round its name.
-const SET_WORN: Line = { width: 1.171875dp, color: Color.hex("#ffd100") }
+// A chip's room round its word; the sets' «Save».
+const SAVE_WIDTH = 140dp
 const CHIP_PAD: Edges = { top: 2sp, right: 3sp, bottom: 2sp, left: 3sp }
 const NO_SLOTS: Array<Integer> = []
 const NO_SETS: Array<GearSet> = []
@@ -155,60 +155,95 @@ function resourceColor(resource: Resource): Color {
   }
 }
 
-// A set of the game's equipment manager: its name, gold while all of it is worn, red while some of it is nowhere the
-// player has it; a click puts it on (the client refuses in a fight). The last chip, «+», saves what is worn as a
-// new set.
-public class SetChip implements Component {
+// A small dark chip with a word, a click away: the flyout's «Close».
+public class Chip implements Component {
   public click: Event<nil> = new Event()
 
-  derived ink: Color = self.disabled ? Style.DIM : self.missing ? Style.RED : self.worn ? Style.GOLD : Style.INK
-  derived edge: Line | nil = self.worn ? SET_WORN : nil
-
   label: Signal<String>
-  worn: Signal<Boolean>
-  missing: Signal<Boolean>
-  disabled: Signal<Boolean>
-  constructor(label: Signal<String>, worn: Signal<Boolean> = false, missing: Signal<Boolean> = false,
-    disabled: Signal<Boolean> = false) {
+  constructor(label: Signal<String>) {
     self.label = label
-    self.worn = worn
-    self.missing = missing
-    self.disabled = disabled
   }
 
-  onClick(self) {
-    if (!(peek self.disabled)) { self.click.emit() }
-  }
+  onClick(self) { self.click.emit() }
 
   public render(self): Template {
     return $ltml {
-      <box padding={CHIP_PAD} background={Style.CARD} border={self.edge} @pointerPress={self.onClick}
-           @keyPress(.Enter)={self.onClick} @keyPress(.Space)={self.onClick}>
-        <text value={self.label} textSize={SECONDARY_TEXT} textColor={self.ink} wrap={.None} />
+      <box padding={CHIP_PAD} background={Style.CARD} @pointerPress={self.onClick} @keyPress(.Enter)={self.onClick}
+           @keyPress(.Space)={self.onClick}>
+        <text value={self.label} textSize={SECONDARY_TEXT} textColor={Style.INK} wrap={.None} />
       </box>
     }
   }
 }
 
-// A set's chip, which tells its number.
-public class SetOf implements Component {
+// The sets of the game's equipment manager as a page's tabs, the one worn whole picked, and «New Set» after them. A
+// set's tab picked puts it on (not in a fight, where the client refuses: the worn one stays picked). «New Set» picked
+// saves nothing yet: «Save» stands at the strip's right, and saves what is worn as a new set, whose tab is then the
+// picked one; disabled while what is worn is a set already, which its tip names.
+public class GearSets implements Component {
+  // A set's tab picked, by the set's number; «Save» pressed.
   public use: Event<Integer> = new Event()
+  public save: Event<nil> = new Event()
 
-  set: Signal<GearSet>
-  disabled: Signal<Boolean>
-  constructor(set: Signal<GearSet>, disabled: Signal<Boolean>) {
-    self.set = set
-    self.disabled = disabled
+  // The tab picked: a set's place, the place after them for «New Set», 0 for none.
+  state chosen: Integer = 0
+  derived names: Array<String> = self.namesOf()
+  derived drafting: Boolean = self.chosen == self.sets.length + 1
+  derived same: GearSet | nil = self.sets.find(set => set.worn)
+  derived taken: Boolean = self.same != nil
+  derived saveTip: TipText | nil = self.tipOf()
+
+  sets: Signal<Array<GearSet>>
+  constructor(sets: Signal<Array<GearSet>>) {
+    self.sets = sets
+    // The sets read anew: the one worn picked, unless «New Set» is (where a set saved takes its place).
+    watch {
+      const read = self.sets
+      if (!(peek self.drafting)) { self.chosen = wornPlace(read) }
+    }
+    watch (place of self.chosen) { self.onChosen(place) }
   }
 
-  onClick(self) { self.use.emit(peek self.set.id) }
+  onChosen(mut self, place: Integer) {
+    const set = (peek self.sets)[place]
+    if (set == nil || set.worn) { return }
+    if (Game.situation.combat) {
+      self.chosen = wornPlace(peek self.sets)
+      return
+    }
+    self.use.emit(set.id)
+  }
+
+  namesOf(self): Array<String> {
+    const names = self.sets.map(set => set.name)
+    names.push(Locale.NEW_SET)
+    return names
+  }
+
+  tipOf(self): TipText | nil {
+    const same = self.same
+    return same == nil ? nil : { title: Locale.SET_TAKEN, text: Locale.SET_TAKEN_TIP.format(same.name), rows: [] }
+  }
+
+  onSave(self) { self.save.emit() }
 
   public render(self): Template {
     return $ltml {
-      <SetChip label={self.set.name} worn={self.set.worn} missing={self.set.missing > 0} disabled={self.disabled}
-               @click={self.onClick} />
+      <box columns={[{ fr: 1 }, "max-content"]} gap={3sp} yAlign={Align.End}>
+        <Tabs tabs={self.names} selected={mut self.chosen} />
+        <PushButton $if={self.drafting} label={Locale.SAVE_SET} width={SAVE_WIDTH} plate={ButtonPlate.Accent}
+                    disabled={self.taken} tip={self.saveTip} @click={self.onSave} />
+      </box>
     }
   }
+}
+
+// The place of the set worn whole; 0 where none is.
+function wornPlace(sets: Array<GearSet>): Integer {
+  for (place, set of sets) {
+    if (set.worn) { return place }
+  }
+  return 0
 }
 
 // The game's flyout of a slot: what the bags hold that goes in it, each a click away from being worn.
@@ -232,7 +267,7 @@ public class Flyout implements Component {
       <box gap={2sp} padding={3sp} background={Style.FLYOUT}>
         <box columns={[{ fr: 1 }, "max-content"]} gap={3sp} yAlign={Align.Center}>
           <text value={Locale.FLYOUT} textSize={SECONDARY_TEXT} textColor={Style.GOLD} />
-          <SetChip label={Locale.CLOSE} @click={self.onClose} />
+          <Chip label={Locale.CLOSE} @click={self.onClose} />
         </box>
         <text $if={self.none} value={Locale.NOTHING_FITS} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
         <box columns={{ each: "max-content" }} gap={2sp}>
@@ -256,6 +291,7 @@ public class GearPage implements Component {
   public useSet: Event<Integer> = new Event()
   public saveSet: Event<nil> = new Event()
 
+  derived fullName: String = self.who.surname != "" ? `${self.who.name} ${self.who.surname}` : self.who.name
   derived whoText: String = Locale.LEVEL_RACE.format(self.who.level, self.who.race)
   derived tag: String = self.classTag ?? Game.player.classTag
   derived whoColor: Color = classColor(self.tag) ?? Style.GOLD
@@ -371,15 +407,12 @@ public class GearPage implements Component {
   public render(self): Template {
     return $ltml {
       <box rows={["max-content", { fr: 1 }]} gap={3sp}>
-        <box $if={self.own} columns={{ each: "max-content" }} gap={2sp}>
-          <SetOf $for={set of self.sets} set={set} disabled={Game.situation.combat} @use={self.onUseSet} />
-          <SetChip label={Locale.SAVE_SET} disabled={Game.situation.combat} @click={self.onSaveSet} />
-        </box>
+        <GearSets $if={self.own} sets={self.sets} @use={self.onUseSet} @save={self.onSaveSet} />
         <box columns={Style.COLUMNS} rows={[{ fr: 1 }]} gap={6sp}>
           <box gap={2.5sp}>
             <box gap={2sp} padding={Style.SECTION_PAD}>
               <box gap={0.5sp}>
-                <text value={self.who.name} textSize={TITLE_TEXT} lineHeight={TITLE_LINE} textFont={TextFont.Title} textColor={self.whoColor} />
+                <text value={self.fullName} textSize={TITLE_TEXT} lineHeight={TITLE_LINE} textFont={TextFont.Title} textColor={self.whoColor} />
                 <text value={self.whoText} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
               </box>
               <box gap={1sp}>

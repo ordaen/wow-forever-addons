@@ -106,10 +106,11 @@ public struct StatTips {
   regen: String = ""
 }
 
-// Who the character is, as the paper doll's top says it; `scene` its race as the client names its files (`Dwarf`,
-// `NightElf`, `Scourge`): the scene the model stands in.
+// Who the character is, as the paper doll's top says it: its name and its surname where Forever gives it one;
+// `scene` its race as the client names its files (`Dwarf`, `NightElf`, `Scourge`): the scene the model stands in.
 public struct Who {
   const name: String
+  const surname: String = ""
   const level: Integer
   const race: String
   const className: String
@@ -500,7 +501,10 @@ public class ClientSheet implements Sheet {
   public who(self): Who {
     let race, scene, _ = Client.UnitRace("player")
     let className, _, _ = Client.UnitClass("player")
-    return { name: Game.player.name, level: peek Game.player.level, race: race ?? "", className: className ?? "", scene: scene ?? "" }
+    return {
+      name: Game.player.name, surname: Game.player.surname ?? "", level: peek Game.player.level, race: race ?? "",
+      className: className ?? "", scene: scene ?? ""
+    }
   }
 
   public stats(self): Stats {
