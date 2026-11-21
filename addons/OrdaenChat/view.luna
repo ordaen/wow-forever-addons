@@ -1,5 +1,5 @@
 // The chat's parts: a tab of its sidebar and a line.
-import { Event, Overflow, Position } from "$ltml"
+import { Align, Edges, Event, Overflow, Position } from "$ltml"
 import root Ordaen from "Ordaen"
 import { Component, CountBadge, ListTab, toLeftLine } from "Ordaen"
 import { ChatTab, Shown } from "@/lines"
@@ -8,11 +8,17 @@ import { ChatTab, Shown } from "@/lines"
 const MARK: Color = Color.hex("#ff9a2e33")
 // The shade behind the open tab and the one under the cursor: a list tab's own under the cursor.
 const SHADE: Color = Color.hex("#00000059")
+// The count's room at a counting tab's right, a two-digit badge's, kept in the tab's flow; the badge stands over the
+// tab out of it, centred on its height, in from its right edge.
+const COUNT_ROOM: Number<Length> = 28dp
+const COUNT_SPOT: Edges = { right: 3sp }
 
 // A tab: an entry of the chat's sidebar, the library's list tab (its name), and while lines wait unread, their count's
-// badge at its right end, beside its name and never over it: the name stays where it is as the count comes, grows or
-// goes (the sidebar widens where a short name's badge needs it). The open one and the one under the cursor stand on a shade, its name white on the open one; the shade reaches in
-// under the lines' frame's left line, so it touches the lines. The left button picks it, the right opens its menu.
+// badge at its right end, beside its name: a tab that counts keeps the badge's room whether any wait or not, the badge
+// out of the flow in it (a count wider than the room grows to the left, into the gap), so nothing moves as the count
+// comes, grows or goes. The open one and the one under the cursor stand on a shade, its name white on the open one;
+// the shade reaches in under the lines' frame's left line, so it touches the lines. The left button picks it, the
+// right opens its menu.
 public class TabButton implements Component {
   public pick: Event<ChatTab> = new Event()
   public menu: Event<ChatTab> = new Event()
@@ -46,8 +52,12 @@ public class TabButton implements Component {
         // The list tab draws no shade of its own (framed): this one reaches the frame.
         <box zLevel={1}>
           <ListTab label={self.tab.title} selected={self.open} framed={true} @pick={self.onPick}>
-            <CountBadge $if={self.unread} count={self.tab.unread} />
+            <box $if={self.tab.counted} width={COUNT_ROOM} />
           </ListTab>
+        </box>
+        <box $if={self.unread} position={Position.Absolute} top={0ui} right={0ui} bottom={0ui} padding={COUNT_SPOT}
+             yAlign={Align.Center} zLevel={2}>
+          <CountBadge count={self.tab.unread} />
         </box>
       </box>
     }

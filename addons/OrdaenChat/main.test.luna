@@ -114,20 +114,39 @@ function onShade(shown: Test.Part, text: String): Boolean {
   return false
 }
 
-test "a tab's count is the library's badge beside its name, never over it: the name never moves for it" {
+test "a tab's count is the library's badge beside its name, never over it: nothing moves for it" {
   Game.chat.windows = gameWindows()
   const shown = chat()
   const name = shown.text("Jaina").letters()
+  const tab = shown.text("Jaina").rect()
+  const lines = shown.box(Ordaen.art.window.wood).rect()
   Game.chat.heard.emit(line("SAY", "[Jaina] says: one", "Jaina", [3]))
   const badge = shown.box(Ordaen.art.panel.countBadge)
   const one = badge.rect()
   Test.expect(one.left >= name.right && one.top < name.bottom && one.bottom > name.top)
   for (at of 1..98) { Game.chat.heard.emit(line("SAY", `[Jaina] says: ${at}`, "Jaina", [3])) }
   Test.expect(shown.text("99").shown())
-  // Wider, still clear of the name, which stands where it stood.
+  // Wider, still clear of the name; the name, its tab and the lines where they stood.
   const now = shown.text("Jaina").letters()
   Test.expect(badge.rect().left >= now.right)
   Test.expect(now.left == name.left && now.right == name.right)
+  const after = shown.text("Jaina").rect()
+  Test.expect(after.left == tab.left && after.right == tab.right && after.top == tab.top && after.bottom == tab.bottom)
+  Test.expect(shown.box(Ordaen.art.window.wood).rect().left == lines.left)
+}
+
+test "messages stand further apart than a message's own lines" {
+  Game.chat.windows = playersWindows()
+  const shown = chat("Общий")
+  const long = "[Thrall] says: a line long enough to fill the whole width of the lines and more, and then some more again and again"
+  Game.chat.heard.emit(line("SAY", long, "Thrall", [1]))
+  Game.chat.heard.emit(line("SAY", "[Jaina] says: next", "Jaina", [1]))
+  const first = shown.text(long).letters()
+  const next = shown.text("[Jaina] says: next").letters()
+  // The long one takes two lines at least; between it and the next, a gap of 1.5sp (6 dp, 4.3 of the screen's units
+  // here) its own lines haven't.
+  Test.expect(first.bottom - first.top > (next.bottom - next.top) * 1.5)
+  Test.expect(next.top - first.bottom >= 4)
 }
 
 test "the lines keep their least width, some sixty letters, however narrow the chat is chosen" {

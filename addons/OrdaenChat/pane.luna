@@ -6,12 +6,16 @@ import Client from "$client"
 import Game from "$game"
 import { Align, Edges, Event, Frame, Layer, Line, MouseButton, Over, Overflow, Position, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { BODY_LINE, Component, FIELD_EDGE, FIELD_FILL, GripCorner, Menu, MenuEntry, SECONDARY_TEXT, SizeGrip } from "Ordaen"
+import { Component, FIELD_EDGE, FIELD_FILL, GripCorner, Menu, MenuEntry, SECONDARY_TEXT, SizeGrip } from "Ordaen"
 import root Quests from "OrdaenQuests"
 import { ChatTab, Shown } from "@/lines"
 import Locale from "@/locales"
 import { Row, TabButton } from "@/view"
 
+// A message's lines stand closer than the body's (`BODY_LINE`), and messages further apart than its lines: each
+// reads as one.
+const LINE: Number<Spacing> = 5sp
+const BETWEEN: Number<Spacing> = 1.5sp
 // Lines drawn at most: more than the tallest chat shows.
 const ROWS = 80
 // Lines a turn of the wheel scrolls.
@@ -197,7 +201,7 @@ public class Pane implements Component {
     const tab = peek self.open
     if (tab == nil || tab.window != window) { return }
     const most = (0).max(tab.lines.length - 1)
-    const page = ((peek self.height) / Ordaen.lengthOf(BODY_LINE)).floor().max(1)
+    const page = ((peek self.height) / Ordaen.lengthOf(LINE + BETWEEN)).floor().max(1)
     const back = peek self.back
     self.back = match (scroll) {
       .LineUp => most.min(back + 1)
@@ -323,8 +327,9 @@ public class Pane implements Component {
               <embed $if={self.logFrame != nil} frame={self.logFrame ?? panic("shown with the frame")} />
               // The newest line stands at the bottom; older ones go up past the top, which cuts them.
               <box $else overflow={Overflow.Hidden} textSize={self.textSize} mouseThrough={self.clickThrough} @wheel={self.onWheel}>
-                <box position={Position.Absolute} left={0ui} right={0ui} bottom={0ui} columns={1}>
-                  <Row $for={line of self.shown} line={line} lineHeight={Ordaen.lengthOf(BODY_LINE)}
+                <box position={Position.Absolute} left={0ui} right={0ui} bottom={0ui} columns={1} lineHeight={LINE}
+                     gap={BETWEEN}>
+                  <Row $for={line of self.shown} line={line} lineHeight={Ordaen.lengthOf(LINE)}
                        @link={self.onLink} />
                 </box>
               </box>
