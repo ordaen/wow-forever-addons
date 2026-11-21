@@ -1,7 +1,8 @@
 // Ordaen Chat: the game's chat in Ordaen's frame. It reads every line the game's windows would show, after every
 // addon's filters (`Game.chat.heard`), and draws them itself; the game's windows stand hidden meanwhile. Its tabs are
-// the game's windows docked with the first (whisper windows among them, the combat log's frame held as it is) and the
-// communities' streams; each window the player undocked is a pane of its own. The input is the game's own, dressed as
+// the game's windows docked with the first (whisper windows among them, the combat log's frame held as it is), each
+// showing the channels and communities its settings tick; each window the player undocked is a pane of its own, and
+// the whispers have a window of their own. The input is the game's own, dressed as
 // ours and placed under the lines: sending, slash commands, Shift-click links and other addons' hooks stay the
 // game's. A tab's right-click menu and the «Tabs» page are ours, over the game's own window settings.
 import Client from "$client"
@@ -50,8 +51,8 @@ public class Chat implements Module, App {
     { title: Locale.TAB_TABS, content: $ltml { <TabsPage window={mut self.editing} settings={mut self.settings} /> } }
   ]
 
-  // Every tab made, by its key, kept while its key is; the chat's own pane's in their order (the docked windows,
-  // then the streams), and the undocked windows', each a pane.
+  // Every tab made, by its key, kept while its key is; the chat's own pane's in their order (the docked windows, then
+  // the whispers'), and the undocked windows', each a pane.
   made: mut Map<String, mut ChatTab> = {}
   public state tabs: Array<ChatTab> = []
   public state undocked: Array<ChatTab> = []
@@ -88,13 +89,12 @@ public class Chat implements Module, App {
     Game.chat.playerReported.listen(self.onReported)
     Events.PLAYER_LOGOUT.listen(self.keep)
     watch (windows of Game.chat.windows) { self.sync() }
-    watch (streams of Game.chat.streams) { self.sync() }
     // Whispers are the whisper window's: the game opens no window of its own for them.
     Game.chat.whisperWindows(false)
     watch { Game.chat.inputHistory(self.settings.values.history) }
     watch { Game.chat.inputShown(self.settings.values.inputAlways) }
     watch { self.chooseTabs(self.settings.values.tabs) }
-    // The input opened (Enter) while a whisper's or a stream's tab is open: it speaks there.
+    // The input opened (Enter) while a whisper window's tab is open: it speaks there.
     watch (typing of Game.chat.typing) {
       if (typing) { self.speakHere() }
     }
@@ -106,7 +106,7 @@ public class Chat implements Module, App {
     Game.chat.read(false)
   }
 
-  // The tabs made anew from the game's windows and the streams; a tab whose key stays keeps its lines.
+  // The tabs made anew from the game's windows; a tab whose key stays keeps its lines.
   sync(mut self) {
     const tabs: Array<ChatTab> = []
     const undocked: Array<ChatTab> = []
@@ -118,12 +118,6 @@ public class Chat implements Module, App {
       } else {
         undocked.push(tab)
       }
-    }
-    for (stream of peek Game.chat.streams) {
-      const tab = self.tabOf(`s${stream.club}:${stream.stream}`, stream.name)
-      tab.title = stream.name
-      // A tab once, however often the game names its stream.
-      if (!tabs.any(other => other.key == tab.key)) { tabs.push(tab) }
     }
     tabs.push(self.whispersTab)
     self.tabs = tabs
@@ -159,7 +153,6 @@ public class Chat implements Module, App {
     const plain = line.channel > 0 ? nil : self.shownLine(line, .Name)
     const open = peek self.openKey
     for (index of line.windows) { self.addTo(tabKey(index), line, plain, open, values) }
-    if (line.stream != "") { self.addTo(`s${line.stream}`, line, plain, open, values) }
   }
 
   // A player reported: their lines go from every tab and conversation, as the game's windows take them away.
@@ -264,19 +257,13 @@ public class Chat implements Module, App {
     if (peek Game.chat.typing) { self.speakTo(tab) }
   }
 
-  // The input, opened, speaks where the open tab speaks: a whisper partner, a stream's channel; elsewhere, in the
-  // input's own kind.
+  // The input, opened, speaks where the open tab speaks: a whisper window's partner; elsewhere, in the input's own kind.
   speakHere(mut self) {
     const tab = peek self.open
     if (tab != nil) { self.speakTo(tab) }
   }
 
   speakTo(mut self, tab: ChatTab) {
-    const stream = Game.chat.streams.find(stream => `${stream.club}:${stream.stream}` == tab.stream)
-    if (stream != nil) {
-      Game.chat.speakIn(stream)
-      return
-    }
     if (tab.window > 0 && tab.partner != "") { Game.chat.speak(tab.window) }
   }
 

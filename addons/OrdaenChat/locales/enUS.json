@@ -59,5 +59,12 @@
   "TAB_COUNTER": "Unread count",
   "TAB_COUNTER_TIP": "The number of lines that came while another tab was open, on the tab.",
   "TAB_CHANNEL_NAMES": "Channel names",
-  "TAB_CHANNEL_NAMES_TIP": "How a channel's lines name their channel in this tab."
+  "TAB_CHANNEL_NAMES_TIP": "How a channel's lines name their channel in this tab.",
+  "TAB_TALKS": "Speech",
+  "TAB_COMMUNITIES": "Communities",
+  "TAB_SYSTEMS": "System",
+  "SPEAKERS_NONE": "None",
+  "SPEAKERS_PLAYERS": "Players",
+  "SPEAKERS_CREATURES": "NPCs",
+  "SPEAKERS_ALL": "All"
 }

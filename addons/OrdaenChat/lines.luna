@@ -1,5 +1,5 @@
-// The chat's tabs and the lines each holds: a tab is one of the game's chat windows (its whisper windows among them)
-// or one of the communities' streams, and a line is what the game's window would show, made once as it is heard.
+// The chat's tabs and the lines each holds: a tab is one of the game's chat windows (its whisper windows among them),
+// the whispers', or a whisper conversation, and a line is what the game's window would show, made once as it is heard.
 import Game from "$game"
 import { ChannelName, TabChoices } from "@/choices"
 
@@ -40,14 +40,13 @@ public function talkKey(name: String, battleNet: Boolean): String {
   return `${battleNet ? "b" : "t"}:${name}`
 }
 
-// A tab: a window's (`w<n>`), a stream's (`s<club>:<stream>`), or a whisper conversation's (`talkKey`), which the
+// A tab: a window's (`w<n>`), the whispers', or a whisper conversation's (`talkKey`), which the
 // whisper window lists.
 public class ChatTab {
   public const key: String
   public state title: String
-  // The game's window behind it (`ChatFrame<n>`), 0 for any other; the stream's `<club>:<stream>`, empty for any other.
+  // The game's window behind it (`ChatFrame<n>`), 0 for any other.
   public const window: Integer
-  public const stream: String
   // A whisper conversation: with a Battle.net friend or a character.
   public const talk: Boolean
   public const battleNet: Boolean
@@ -73,7 +72,6 @@ public class ChatTab {
     const kind = key.sub(1, 2)
     self.key = key
     self.window = key.sub(1, 1) == "w" ? (key.sub(2).toNumber() ?? 0).floor() : 0
-    self.stream = key.sub(1, 1) == "s" ? key.sub(2) : ""
     self.talk = kind == "t:" || kind == "b:"
     self.battleNet = kind == "b:"
     // A conversation is named by its partner.
