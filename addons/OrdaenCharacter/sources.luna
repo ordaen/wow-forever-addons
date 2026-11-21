@@ -8,7 +8,7 @@ import { TipRow, TipSection, qualityColor } from "Ordaen"
 import { Active, Change, Kind } from "OrdaenAuras"
 import Locale from "@/locales"
 import { Resource, Stats, Worn } from "@/sheet"
-import { Stat } from "@/stat"
+import { MAINS, Stat } from "@/stat"
 
 // A stat's name, whether it is a percentage, and its value as the sheet has it.
 struct Spec {
@@ -68,64 +68,9 @@ struct Feed {
   const past: Integer = 0
 }
 
-// Every class's: armor from agility, health from stamina.
-const EVERY_CLASS: Array<Feed> = [
-  { from: .Agility, to: .Armor, per: 2 },
-  { from: .Stamina, to: .Health, per: 10, past: 20 }
-]
-// What a class's stats give at level 60, by its tag: attack power, crit and dodge from agility, spell crit and mana
-// from intellect, the block's damage from strength.
-const CLASS_FEEDS: Map<String, Array<Feed>> = {
-  WARRIOR: [
-    { from: .Strength, to: .AttackPower, per: 2 }, { from: .Agility, to: .RangedAttackPower, per: 1 },
-    { from: .Agility, to: .MeleeCrit, per: 1 / 20 }, { from: .Agility, to: .RangedCrit, per: 1 / 20 },
-    { from: .Agility, to: .Dodge, per: 1 / 20 }, { from: .Strength, to: .BlockValue, per: 1 / 20 }
-  ],
-  PALADIN: [
-    { from: .Strength, to: .AttackPower, per: 2 }, { from: .Agility, to: .MeleeCrit, per: 1 / 20 },
-    { from: .Agility, to: .Dodge, per: 1 / 20 }, { from: .Strength, to: .BlockValue, per: 1 / 20 },
-    { from: .Intellect, to: .SpellCrit, per: 1 / 54 }, { from: .Intellect, to: .Power, per: 15, past: 20 }
-  ],
-  SHAMAN: [
-    { from: .Strength, to: .AttackPower, per: 2 }, { from: .Agility, to: .MeleeCrit, per: 1 / 20 },
-    { from: .Agility, to: .Dodge, per: 1 / 20 }, { from: .Strength, to: .BlockValue, per: 1 / 20 },
-    { from: .Intellect, to: .SpellCrit, per: 1 / 59.5 }, { from: .Intellect, to: .Power, per: 15, past: 20 }
-  ],
-  ROGUE: [
-    { from: .Strength, to: .AttackPower, per: 1 }, { from: .Agility, to: .AttackPower, per: 1 },
-    { from: .Agility, to: .RangedAttackPower, per: 1 }, { from: .Agility, to: .MeleeCrit, per: 1 / 29 },
-    { from: .Agility, to: .RangedCrit, per: 1 / 29 }, { from: .Agility, to: .Dodge, per: 1 / 14.5 }
-  ],
-  HUNTER: [
-    { from: .Strength, to: .AttackPower, per: 1 }, { from: .Agility, to: .AttackPower, per: 1 },
-    { from: .Agility, to: .RangedAttackPower, per: 2 }, { from: .Agility, to: .MeleeCrit, per: 1 / 53 },
-    { from: .Agility, to: .RangedCrit, per: 1 / 53 }, { from: .Agility, to: .Dodge, per: 1 / 26.5 },
-    { from: .Intellect, to: .Power, per: 15, past: 20 }
-  ],
-  DRUID: [
-    { from: .Strength, to: .AttackPower, per: 2 }, { from: .Agility, to: .MeleeCrit, per: 1 / 20 },
-    { from: .Agility, to: .Dodge, per: 1 / 20 }, { from: .Intellect, to: .SpellCrit, per: 1 / 60 },
-    { from: .Intellect, to: .Power, per: 15, past: 20 }
-  ],
-  MAGE: [
-    { from: .Strength, to: .AttackPower, per: 1 }, { from: .Agility, to: .MeleeCrit, per: 1 / 20 },
-    { from: .Agility, to: .Dodge, per: 1 / 20 }, { from: .Intellect, to: .SpellCrit, per: 1 / 59.5 },
-    { from: .Intellect, to: .Power, per: 15, past: 20 }
-  ],
-  PRIEST: [
-    { from: .Strength, to: .AttackPower, per: 1 }, { from: .Agility, to: .MeleeCrit, per: 1 / 20 },
-    { from: .Agility, to: .Dodge, per: 1 / 20 }, { from: .Intellect, to: .SpellCrit, per: 1 / 59.2 },
-    { from: .Intellect, to: .Power, per: 15, past: 20 }
-  ],
-  WARLOCK: [
-    { from: .Strength, to: .AttackPower, per: 1 }, { from: .Agility, to: .MeleeCrit, per: 1 / 20 },
-    { from: .Agility, to: .Dodge, per: 1 / 20 }, { from: .Intellect, to: .SpellCrit, per: 1 / 60.6 },
-    { from: .Intellect, to: .Power, per: 15, past: 20 }
-  ]
-}
+// The classes that block with a shield: a point of strength is a twentieth of a point of the block's damage.
+const SHIELD_CLASSES: Array<String> = ["WARRIOR", "PALADIN", "SHAMAN"]
 
-// The main stats, by the number an aura's change names them (0 strength to 4 spirit).
-const MAINS: Array<Stat> = [.Strength, .Agility, .Stamina, .Intellect, .Spirit]
 // The schools of an aura's resistance, by the bit of its mask (1 physical: armor; 2 holy has none of its own).
 struct School {
   const bit: Integer
@@ -224,12 +169,24 @@ function section(title: String, parts: Array<Part>, into: mut Array<TipSection>)
   if (parts.length > 0) { into.push({ title: title, rows: largestFirst(parts) }) }
 }
 
-// The feeds of a class, every class's first.
-function feedsOf(classTag: String, resource: Resource): Array<Feed> {
-  const all: Array<Feed> = EVERY_CLASS.map(feed => feed)
-  for (feed of CLASS_FEEDS[classTag] ?? []) {
-    if (feed.to != Stat.Power || resource == Resource.Mana) { all.push(feed) }
-  }
+// What the character's stats feed: attack power, ranged attack power, crit and spell crit as the client works them out
+// for the class and level (`Conversions`); armor from agility; health from stamina (the client's table `hppersta`:
+// ten a point past the first twenty, which give one each); mana from intellect, for a class with mana; the block's
+// damage from strength, for a class with a shield.
+function feedsOf(stats: Stats, classTag: String): Array<Feed> {
+  const by = stats.conversions
+  const all: Array<Feed> = [
+    { from: .Strength, to: .AttackPower, per: by.attackPerStrength },
+    { from: .Agility, to: .AttackPower, per: by.attackPerAgility },
+    { from: .Agility, to: .RangedAttackPower, per: by.rangedPerAgility },
+    { from: .Agility, to: .MeleeCrit, per: by.critPerAgility },
+    { from: .Agility, to: .RangedCrit, per: by.critPerAgility },
+    { from: .Intellect, to: .SpellCrit, per: by.spellCritPerIntellect },
+    { from: .Agility, to: .Armor, per: 2 },
+    { from: .Stamina, to: .Health, per: 10, past: 20 }
+  ]
+  if (stats.resource == Resource.Mana) { all.push({ from: .Intellect, to: .Power, per: 15, past: 20 }) }
+  if (SHIELD_CLASSES.any(tag => tag == classTag)) { all.push({ from: .Strength, to: .BlockValue, per: 1 / 20 }) }
   return all
 }
 
@@ -267,7 +224,7 @@ public function breakdownOf(stat: Stat, text: String, facts: Facts): Breakdown {
   // What the parts other than the base add: the base is the rest.
   let counted: Number = 0
 
-  for (feed of feedsOf(facts.classTag, facts.stats.resource)) {
+  for (feed of feedsOf(facts.stats, facts.classTag)) {
     if (feed.to == stat) {
       const points = specOf(feed.from).of(facts.stats)
       const amount = feed.past.min(points) + (points - feed.past).max(0) * feed.per
@@ -292,6 +249,28 @@ public function breakdownOf(stat: Stat, text: String, facts: Facts): Breakdown {
           shares[piece.slot] = value
           counted += given.amount
         }
+      }
+    }
+  }
+
+  // Each set's bonuses once, however many of its pieces are worn; its pieces that give the stat nothing of their own
+  // light with the set's share.
+  const sets: Array<String> = []
+  for (piece of facts.worn) {
+    const set = piece.set
+    if (set != nil && !sets.any(name => name == set.name)) {
+      sets.push(set.name)
+      let amount: Number = 0
+      for (given of set.gives) {
+        if (given.stat == stat) { amount += given.amount }
+      }
+      if (amount != 0) {
+        const value = added(amount, spec.percent)
+        fromItems.push({ row: { label: set.name, value: value }, amount: amount })
+        for (other of facts.worn) {
+          if (other.set?.name == set.name && shares[other.slot] == nil) { shares[other.slot] = value }
+        }
+        counted += amount
       }
     }
   }

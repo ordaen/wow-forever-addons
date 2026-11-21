@@ -81,5 +81,13 @@
   "BASE": "Базовое",
   "FROM_STATS": "Характеристики",
   "FROM_ITEMS": "Предметы",
-  "FROM_EFFECTS": "Эффекты"
+  "FROM_EFFECTS": "Эффекты",
+  "WORD_ARMOR": "к броне",
+  "WORD_ALL_STATS": "ко всем характеристикам",
+  "WORD_HIT": "вероятность попадания",
+  "WORD_CRIT": "критическ",
+  "WORD_DODGE": "уклон",
+  "WORD_PARRY": "парир",
+  "WORD_BLOCK": "блок",
+  "WORD_SPELLS": "заклинан"
 }

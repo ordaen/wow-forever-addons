@@ -81,5 +81,13 @@
   "BASE": "Base",
   "FROM_STATS": "Stats",
   "FROM_ITEMS": "Items",
-  "FROM_EFFECTS": "Effects"
+  "FROM_EFFECTS": "Effects",
+  "WORD_ARMOR": "Armor",
+  "WORD_ALL_STATS": "All Stats",
+  "WORD_HIT": "chance to hit",
+  "WORD_CRIT": "critical strike",
+  "WORD_DODGE": "dodge",
+  "WORD_PARRY": "parry",
+  "WORD_BLOCK": "block",
+  "WORD_SPELLS": "spell"
 }

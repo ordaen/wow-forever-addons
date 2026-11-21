@@ -38,6 +38,9 @@ public enum Stat {
   RunSpeed
 }
 
+// The main stats in the client's order: an aura's change names them by their place here (0 strength to 4 spirit).
+public const MAINS: Array<Stat> = [.Strength, .Agility, .Stamina, .Intellect, .Spirit]
+
 // What a worn item gives a stat, in the stat's own unit (a rating already made a percentage).
 public struct Given {
   const stat: Stat

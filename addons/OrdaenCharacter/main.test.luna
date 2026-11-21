@@ -13,6 +13,7 @@ import { Quality } from "Ordaen"
 import root Auras from "OrdaenAuras"
 import root Char from "OrdaenCharacter"
 import { FITS_GLOW, wearColor } from "@/gear"
+import { WornSet } from "@/lines"
 import { ClientSheet, Faction, GearSet, Sheet, Skill, Stats, Who, Worn } from "@/sheet"
 import Style from "@/style"
 
@@ -52,9 +53,12 @@ function warrior(): Stats {
   return {
     strength: 312, stamina: 280, armor: 4120, attackPower: 832, meleeCrit: 20.05, speed: 3.8, mainSkill: MACES,
     bases: [280, 0, 0, 0, 0],
+    conversions: { attackPerStrength: 2, rangedPerAgility: 2, critPerAgility: 0.1064 },
     tips: { primary: ["Increases your attack power with melee weapons."] }
   }
 }
+
+const PRIDE: WornSet = { name: "Lion's Pride", gives: [{ stat: .Strength, amount: 10 }, { stat: .Stamina, amount: 5 }] }
 
 // The test's sheet: a level 60 dwarf warrior with a helm and a two-hander, two groups of factions, and what the window
 // asks of it, heard.
@@ -63,18 +67,21 @@ class FakeSheet implements Sheet {
   // The second group folded.
   folded = false
   stand = 4500
+  // The helm and the two-hander pieces of one set, whose bonus in effect gives strength.
+  matched = false
 
   public worn(self, slot: Integer): Worn {
     if (slot == 1) {
       return {
         slot: slot, item: HELM, quality: Quality.Epic, level: 63, durability: 0.2, locked: self.helmLocked,
-        name: "Lionheart Helm", gives: [{ stat: .Strength, amount: 12 }, { stat: .Armor, amount: 600 }]
+        name: "Lionheart Helm", gives: [{ stat: .Strength, amount: 12 }, { stat: .Armor, amount: 600 }],
+        set: self.matched ? PRIDE : nil
       }
     }
     if (slot == 16) {
       return {
         slot: slot, item: REAPER, quality: Quality.Epic, level: 58, durability: 1, name: "Arcanite Reaper",
-        gives: [{ stat: .Strength, amount: 20 }, { stat: .MeleeCrit, amount: 1 }]
+        gives: [{ stat: .Strength, amount: 20 }, { stat: .MeleeCrit, amount: 1 }], set: self.matched ? PRIDE : nil
       }
     }
     return { slot: slot, item: nil, quality: Quality.Common, level: nil, durability: nil }
@@ -330,6 +337,17 @@ test "a stat's tooltip lists the stats that feed it and the auras that change it
   window.text("832").hover()
   const tip = Test.page().window("Attack power 832")
   Test.expect(tip.texts().join(" | ") == "Attack power 832 | Stats | Strength | +624 | Base | 108 | Effects | Battle Shout | +100")
+}
+
+test "a set's bonus is one row under its name, however many of its pieces are worn" {
+  Test.mount(nil, PAGE)
+  Game.items.icon = icons
+  const sheet = new FakeSheet()
+  sheet.matched = true
+  const window = opened(mut sheet)
+  window.text("312").hover()
+  const tip = Test.page().window("Strength 312")
+  Test.expect(tip.texts().join(" | ") == "Strength 312 | Increases your attack power with melee weapons. | Stats | Base | 280 | Items | Arcanite Reaper | +20 | Lionheart Helm | +12 | Lion's Pride | +10")
 }
 
 test "while a stat's tooltip is open, each item that gives it has its share under its slot, and leaving takes them off" {

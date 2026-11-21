@@ -1,0 +1,57 @@
+// An item's tooltip lines read as the client writes them in Russian: its enchant, its set's name and the set's bonuses
+// in effect; a bonus not yet in effect, and words that start like a shorter stat's, are not misread.
+import Test from "$test"
+import { ItemLine, LineWords, bonusesOf, givenOf } from "@/lines"
+import { Given } from "@/stat"
+
+const RUSSIAN: LineWords = {
+  enchant: "Чары: ",
+  setBonus: "Комплект: ",
+  flat: [
+    { label: "к броне", stats: [.Armor] },
+    { label: "к выносливости", stats: [.Stamina] },
+    { label: "к силе", stats: [.Strength] },
+    { label: "к силе атаки", stats: [.AttackPower] }
+  ],
+  chances: [
+    { stem: "вероятность попадания", stats: [.MeleeHit, .RangedHit], spells: [.SpellHit] },
+    { stem: "критическ", stats: [.MeleeCrit, .RangedCrit], spells: [.SpellCrit] }
+  ],
+  spells: "заклинан"
+}
+
+// What a list of stats gives, written out: «Stamina 2, Armor 16».
+function told(gives: Array<Given>): String {
+  return gives.map(given => `${given.stat} ${given.amount}`).join(", ")
+}
+
+test "an enchant's line gives each of its flat bonuses" {
+  const lines: Array<ItemLine> = [
+    { text: "Кожаный шлем", kind: 0 },
+    { text: "Чары: +2 к выносливости и +16 к броне", kind: 15 }
+  ]
+  const found = bonusesOf(lines, RUSSIAN)
+  Test.expect(told(found.enchant) == "Stamina 2, Armor 16")
+  Test.expect(found.set == nil)
+}
+
+test "a set's name and its bonuses in effect, a flat one and a chance; one not yet in effect is left out" {
+  const lines: Array<ItemLine> = [
+    { text: "Плащ соучастника", kind: 0 },
+    { text: "Соучастники (2/3)", kind: 0 },
+    { text: "Комплект: +22 к силе.", kind: 0 },
+    { text: "Комплект: Повышает вероятность попадания на 2,0%.", kind: 0 },
+    { text: "(3) Комплект: +40 к силе атаки.", kind: 42 }
+  ]
+  const set = bonusesOf(lines, RUSSIAN).set ?? panic("the item is a set's")
+  Test.expect(set.name == "Соучастники")
+  Test.expect(told(set.gives) == "Strength 22, MeleeHit 2, RangedHit 2")
+}
+
+test "a longer stat's words are read as that stat, not as the shorter one they start like" {
+  Test.expect(told(givenOf("+24 к силе атаки", RUSSIAN)) == "AttackPower 24")
+}
+
+test "a chance of spells gives the spells' stat" {
+  Test.expect(told(givenOf("Повышает вероятность критического эффекта заклинаний на 1%.", RUSSIAN)) == "SpellCrit 1")
+}

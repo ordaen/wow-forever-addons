@@ -7,7 +7,9 @@ import Game from "$game"
 import { FillDuration } from "$ltml"
 import Runtime from "$runtime"
 import { Quality, qualityFrom } from "Ordaen"
-import { Given, ITEM_KEYS } from "@/stat"
+import { FlatWord, ItemLine, LineWords, WornSet, bonusesOf } from "@/lines"
+import Locale from "@/locales"
+import { Given, ITEM_KEYS, MAINS } from "@/stat"
 
 // A slot of the paper doll: the client's number for it and the art of its well while nothing is worn there.
 public struct SlotSpec {
@@ -65,6 +67,19 @@ public struct Worn {
   // Its name, and the stats it gives (its stat tooltips' «Items»).
   const name: String = ""
   const gives: Array<Given> = []
+  // The set it is a piece of, with the bonuses in effect; none for an item of none.
+  const set: WornSet | nil = nil
+}
+
+// What a point of a main stat is worth to the character, as the client works it out for its class and level: attack
+// power a point of strength and of agility, ranged attack power a point of agility, and the crit a point of agility
+// and the spell crit a point of intellect give, in percent.
+public struct Conversions {
+  attackPerStrength: Number = 0
+  attackPerAgility: Number = 0
+  rangedPerAgility: Number = 0
+  critPerAgility: Number = 0
+  spellCritPerIntellect: Number = 0
 }
 
 // One of the sets the game's equipment manager keeps: whether all of it is worn, and how many of its items are
@@ -174,6 +189,7 @@ public struct Stats {
   mainSkill: Integer | nil = nil
   offSkill: Integer | nil = nil
   rangedSkill: Integer | nil = nil
+  conversions: Conversions = {}
 }
 
 // The client's skill line of each weapon kind, by the item's subclass (`WEAPON_SUBCLASS_TO_SKILL_ID`).
@@ -313,6 +329,62 @@ function weaponSkill(slot: Integer): Integer | nil {
 
 // The stats an item gives, by its link, in each stat's own unit: a rating as the percentage it makes at the
 // character's level.
+// The client's numbers of the main stats (`LE_UNIT_STAT_*`).
+const STRENGTH = 1
+const AGILITY = 2
+const INTELLECT = 4
+
+// The start of a line the client writes with a format, its text before the format's `%s` («Чары: »).
+function startOf(format: String | nil): String {
+  if (format == nil) { return "" }
+  const start = format.match("^(.-)%%s")
+  return start ?? ""
+}
+
+// The words the client's lines are told by, in the client's language: its own names of the item stats, and this
+// addon's words for what the client names nowhere (armor and every stat as a bonus says them, a chance's stem).
+function clientWords(): LineWords {
+  const flat: Array<FlatWord> = [
+    { label: Locale.WORD_ARMOR, stats: [.Armor] },
+    { label: Locale.WORD_ALL_STATS, stats: MAINS }
+  ]
+  for (key, known of ITEM_KEYS) {
+    const label = Runtime.text(key)
+    if (known.rating == 0 && label != nil) { flat.push({ label: label, stats: known.stats }) }
+  }
+  return {
+    enchant: startOf(Runtime.text("ENCHANTED_TOOLTIP_LINE")),
+    setBonus: startOf(Runtime.text("ITEM_SET_BONUS")),
+    flat: flat,
+    chances: [
+      { stem: Locale.WORD_HIT, stats: [.MeleeHit, .RangedHit], spells: [.SpellHit] },
+      { stem: Locale.WORD_CRIT, stats: [.MeleeCrit, .RangedCrit], spells: [.SpellCrit] },
+      { stem: Locale.WORD_DODGE, stats: [.Dodge] },
+      { stem: Locale.WORD_PARRY, stats: [.Parry] },
+      { stem: Locale.WORD_BLOCK, stats: [.Block] }
+    ],
+    spells: Locale.WORD_SPELLS
+  }
+}
+
+// The lines of the tooltip of the item worn in a slot, in order.
+function linesOf(slot: Integer): Array<ItemLine> {
+  const lines: Array<ItemLine> = []
+  const data = Client.C_TooltipInfo.GetInventoryItem("player", slot, nil)
+  if (!(data is Table)) { return lines }
+  const raw = data["lines"]
+  if (!(raw is Table)) { return lines }
+  for (index of 1..raw.length) {
+    const line = raw[index]
+    if (line is Table) {
+      const text = line["leftText"]
+      const kind = line["type"]
+      if (text is String && kind is Number) { lines.push({ text: text, kind: kind.floor() }) }
+    }
+  }
+  return lines
+}
+
 function givenBy(link: String | nil): Array<Given> {
   const gives: Array<Given> = []
   if (link == nil) { return gives }
@@ -340,6 +412,9 @@ const LAST_SCHOOL = 7
 
 // The sheet read from the client, each time it is asked.
 public class ClientSheet implements Sheet {
+  // The client's words for the lines of an item's tooltip: read once, as they don't change while it runs.
+  const words: LineWords = clientWords()
+
   public worn(self, slot: Integer): Worn {
     const id = Client.GetInventoryItemID("player", slot)
     if (id == nil) { return { slot: slot, item: nil, quality: Quality.Common, level: nil, durability: nil } }
@@ -348,6 +423,10 @@ public class ClientSheet implements Sheet {
     let left, most = Client.GetInventoryItemDurability(slot)
     const durability = left != nil && most != nil && most > 0 ? left / most : nil
     let start, length, _ = Client.GetInventoryItemCooldown("player", slot)
+    const bonuses = bonusesOf(linesOf(slot), self.words)
+    const gives: Array<Given> = []
+    for (given of givenBy(Client.GetInventoryItemLink("player", slot))) { gives.push(given) }
+    for (given of bonuses.enchant) { gives.push(given) }
     return {
       slot: slot,
       item: item,
@@ -358,7 +437,8 @@ public class ClientSheet implements Sheet {
       locked: Client.IsInventoryItemLocked(slot),
       cooldown: length > 0 ? { start: start, length: length } : nil,
       name: name ?? "",
-      gives: givenBy(Client.GetInventoryItemLink("player", slot))
+      gives: gives,
+      set: bonuses.set
     }
   }
 
@@ -470,6 +550,13 @@ public class ClientSheet implements Sheet {
       mainSkill: weaponSkill(16),
       offSkill: weaponSkill(17),
       rangedSkill: relic ? nil : weaponSkill(18),
+      conversions: {
+        attackPerStrength: Client.GetAttackPowerForStat(STRENGTH, 1),
+        attackPerAgility: Client.GetAttackPowerForStat(AGILITY, 1),
+        rangedPerAgility: Client.GetRangedAttackPowerForStat(AGILITY, 1),
+        critPerAgility: Client.GetCritChanceFromStat(AGILITY, 1) * 100,
+        spellCritPerIntellect: Client.GetSpellCritChanceFromStat(INTELLECT, 1) * 100
+      },
       strength: primary[1] ?? 0,
       agility: primary[2] ?? 0,
       stamina: primary[3] ?? 0,
