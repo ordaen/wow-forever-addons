@@ -8,6 +8,7 @@ import Game from "$game"
 import { Key } from "$ltml"
 import Test from "$test"
 import root Ordaen from "Ordaen"
+import root Maps from "OrdaenMap"
 import root Quests from "OrdaenQuests"
 import root Tracker from "OrdaenTracker"
 import { kindOfTag } from "@/kind"
@@ -75,6 +76,20 @@ test "the game's quest log key opens the window, and again closes it" {
   Test.expect(Test.page().window("World").shown())
   Test.keyBound("L")
   Test.expect(!Test.page().window("World").shown())
+}
+
+test "the key stays the window's when Blizzard's map opens its own quest panel (the client's questLogOpen)" {
+  Test.mount(nil, PAGE)
+  _ = Client.SetBinding("L", "TOGGLEQUESTLOG")
+  Events.UPDATE_BINDINGS.emit()
+  Test.flush()
+  _ = Client.C_CVar.SetCVar("questLogOpen", "1")
+  Client.C_Map.OpenWorldMap(1436)
+  Test.flush()
+  Client.WorldMapFrame.Hide()
+  Test.flush()
+  Test.keyBound("L")
+  Test.expect(Test.page().window("World").shown() && !Client.WorldMapFrame.IsShown())
 }
 
 test "switched off, the key is the game's again" {
@@ -252,8 +267,9 @@ test "docked, the map open, the log stands over the map's side panel; a quest pi
   opened(standing())
   Quests.flip()
   Test.flush()
-  // Docked as the map's own toggle docks it: the client's setting.
-  _ = Client.C_CVar.SetCVar("questLogOpen", "1")
+  // Docked by Map's switch.
+  Maps?.dock(true)
+  Test.flush()
   Client.C_Map.OpenWorldMap(1436)
   Test.flush()
   Test.expect(Test.page().text("Red Silk Bandanas").shown() || Test.page().text("The Defias Brotherhood").shown())
