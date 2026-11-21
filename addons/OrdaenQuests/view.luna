@@ -1,6 +1,6 @@
 // The quest log's parts: a header of the list (it folds), a quest's row, and the picked quest's page.
 //
-// A row as the client's log has it: the level in its difficulty colour between muted brackets, the title, an elite
+// A row as the client's log has it: the level in its difficulty colour (two digits' room), a dim bullet, the title, an elite
 // quest's «Группа: 3», at the title's right the experience and money it gives; under the title its objectives, each
 // wrapped at the text's own line with its count at the right, grey once done, or «Готово» / «Провалено» in their
 // place. Left-click picks it (its page shows beside the list); Shift+Left-click and Space track it or stop tracking
@@ -8,7 +8,7 @@
 import Game from "$game"
 import { Align, Art, ByInteractionState, Edges, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { BODY_LINE, ButtonPlate, Component, Experience, Menu, MenuEntry, Money, PushButton, Reward, RewardView, Rewards, SCROLL_DIM, SCROLL_HEAD, SCROLL_INK, SECONDARY_TEXT, Scroll, Shown, Standing, SwitchFace, TIGHT_LINE, TITLE_TEXT, Tip, TipText, WELL_DIM, WELL_TEXT, XP_MARK_SMALL, choiceViews, logReward, questLevelColor, rowShade } from "Ordaen"
+import { BODY_LINE, ButtonPlate, Component, Experience, Menu, MenuEntry, Money, PushButton, Reward, RewardView, Rewards, SCROLL_DIM, SCROLL_HEAD, SCROLL_INK, SECONDARY_TEXT, Scroll, Shown, Standing, SwitchFace, TIGHT_LINE, TITLE_TEXT, Tip, TipText, WELL_DIM, WELL_TEXT, choiceViews, logReward, questLevelColor, rowShade } from "Ordaen"
 import { LogQuest } from "@/book"
 import Locale from "@/locales"
 import { QuestFacts } from "@/questie"
@@ -34,9 +34,11 @@ const BUTTON = 131.25dp
 function mapTipOf(combat: Boolean): TipText | nil {
   return combat ? { title: Locale.SHOW_ON_MAP, text: Locale.MAP_IN_COMBAT, rows: [] } : nil
 }
-// The level's brackets in the muted colour around its number.
-const LEVEL_CELLS: Array<Track> = ["max-content", "max-content", "max-content"]
-const GAIN_CELLS: Array<Track> = ["max-content", "max-content", "max-content"]
+// The bullet between a row's level and its title, and between what a quest gives: dimmer than the dim text it parts.
+const BULLET = "•"
+const BULLET_COLOR: Color = Color.hex("#6b6352")
+// The tens of a level under 10: an unseen «0», so no title moves.
+const UNSEEN: Color = Color.hex("#00000000")
 const HEADER_PAD: Edges = { top: 2sp, right: 2sp, bottom: 2sp }
 // Between two objectives of a quest: what a wrapped one's lines don't have.
 const GOAL_GAP = 1sp
@@ -95,7 +97,11 @@ public class QuestRow implements Component {
   // player's clicks on it do. The task is asked of the client while the tooltip shows.
   derived tipShown: Boolean = self.hovered && !self.menuOpen
   derived tipText: String = self.ended ? self.progress : Game.questLog.text(self.quest.id).task
-  derived level: String = `${self.quest.level}${self.quest.group > 1 ? "+" : ""}`
+  // The level as two digits, each its own text of the numbers' font (whose digits are of one width): the tens unseen
+  // under 10, so every level takes two digits' room. A group quest's «+» after them.
+  derived tens: String = self.quest.level >= 10 ? String.of((self.quest.level / 10).floor() % 10) : "0"
+  derived tensColor: Color = self.quest.level >= 10 ? self.levelColor : UNSEEN
+  derived ones: String = `${self.quest.level % 10}${self.quest.group > 1 ? "+" : ""}`
   // Complete or failed: said under the title in place of its objectives.
   derived ended: Boolean = self.progress != ""
   derived levelColor: Color = questLevelColor(self.quest.level, self.player, INK)
@@ -149,10 +155,12 @@ public class QuestRow implements Component {
            @pointerPress(.Right)={self.onMenu} @keyPress(.Enter)={self.onPick} @keyPress(.Space)={self.onTrack}
            @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
         <Tip $if={self.tipShown} title={self.quest.title} text={self.tipText} keys={ROW_KEYS} />
-        <box columns={LEVEL_CELLS}>
-          <text value={"["} textColor={DIM} textFont={.Numbers} wrap={.None} />
-          <text value={self.level} textColor={self.levelColor} textFont={.Numbers} wrap={.None} />
-          <text value={"]"} textColor={DIM} textFont={.Numbers} wrap={.None} />
+        <box columns={{ each: "max-content" }} gap={2sp}>
+          <box columns={{ each: "max-content" }}>
+            <text value={self.tens} textColor={self.tensColor} textFont={.Numbers} wrap={.None} />
+            <text value={self.ones} textColor={self.levelColor} textFont={.Numbers} wrap={.None} />
+          </box>
+          <text value={BULLET} textColor={BULLET_COLOR} wrap={.None} />
         </box>
         <box columns={1} gap={GOAL_GAP}>
           <box columns={[{ fr: 1 }, "max-content", "max-content"]} gap={2sp} yAlign={Align.Center}>
@@ -173,8 +181,8 @@ public class QuestRow implements Component {
   }
 }
 
-// What a quest gives, at its title's right: its experience and its money, «• » between them; nothing where it gives
-// neither.
+// What a quest gives, at its title's right: its experience and its money, a dim bullet between them; nothing where it
+// gives neither, and no room after one alone.
 class Gains implements Component {
   derived both: Boolean = self.xp > 0 && self.money > 0
 
@@ -187,10 +195,10 @@ class Gains implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={GAIN_CELLS} gap={1sp} yAlign={Align.Center}>
-        <Experience $if={self.xp > 0} amount={self.xp} textSize={SECONDARY_TEXT} mark={XP_MARK_SMALL} color={DIM} />
-        <text $if={self.both} value={"•"} textColor={DIM} textSize={SECONDARY_TEXT} wrap={.None} />
-        <Money $if={self.money > 0} amount={self.money} color={DIM} textSize={SECONDARY_TEXT} />
+      <box columns={{ each: "max-content" }} gap={3sp} yAlign={Align.Center}>
+        <Experience $if={self.xp > 0} amount={self.xp} color={DIM} />
+        <text $if={self.both} value={BULLET} textColor={BULLET_COLOR} wrap={.None} />
+        <Money $if={self.money > 0} amount={self.money} color={DIM} />
       </box>
     }
   }

@@ -693,25 +693,49 @@ test "a header says how many of its quests are complete of all at its right" {
   Test.expect(window.text("1/1").rect().left > window.text("Westfall").rect().right)
 }
 
-test "the level's brackets are muted, its number in its difficulty colour" {
-  opened(standing())
+test "a row is its level, a dim bullet and its title; a level of one digit keeps two digits' room, so titles line up" {
+  const log = standing()
+  log[3] = { level: 7, ..quest(103, "Elwynn Wolves", "Westfall") }
+  opened(log)
   const window = Test.page().window("World")
-  Test.expect(window.text("[").nth(1).textColor().equal(Color.hex("#a3977f")))
-  Test.expect(window.text("]").nth(1).textColor().equal(Color.hex("#a3977f")))
-  Test.expect(!window.text("14").nth(1).textColor().equal(Color.hex("#a3977f")))
+  Test.expect(!window.text("[").shown() && !window.text("]").shown())
+  // Level 14 is its «1» and «4», level 7 an unseen «0» and its «7», each in the level's colour.
+  const said = window.text("The Defias Brotherhood").item().texts()
+  Test.expect(said[1] == "1" && said[2] == "4" && said[3] == "•" && said[4] == "The Defias Brotherhood")
+  Test.expect(!window.text("7").textColor().equal(Color.hex("#a3977f")))
+  Test.expect(window.text("•").nth(1).textColor().equal(Color.hex("#6b6352")))
+  const two = window.text("The Defias Brotherhood").rect()
+  const one = window.text("Elwynn Wolves").rect()
+  Test.expect((two.left - one.left).abs() < 0.01)
+}
+
+test "a quest's gains stand at its row's right in the body's size: one alone leaves no room after it" {
+  const log = standing()
+  log[3] = { xp: 735, money: 150, ..quest(103, "Elwynn Wolves", "Westfall") }
+  opened(log)
+  const window = Test.page().window("World")
+  // Quest 101 gives experience alone, quest 103 experience and money: both end at the same right edge.
+  const alone = window.text("420").rect()
+  const money = window.text(Game.money.format(150)).rect()
+  Test.expect((alone.right - money.right).abs() < 0.01)
+  // The body's size: as high as a title's line.
+  const title = window.text("Elwynn Wolves").rect()
+  Test.expect(((alone.bottom - alone.top) - (title.bottom - title.top)).abs() < 0.5)
+  Test.expect(window.text("Elwynn Wolves").item().texts().any(text => text == "•"))
 }
 
 test "with the game's difficulty colours off (the world map's filter), a level is in the title's colour, and back" {
   opened(standing())
   const window = Test.page().window("World")
-  const coloured = window.text("14").nth(1).textColor()
+  // Level 14's «4».
+  const coloured = window.text("4").nth(1).textColor()
   Test.expect(!coloured.equal(Color.hex("#e8dcc4")))
   Test.cvar("showQuestDifficultyColor", "0")
   Test.flush()
-  Test.expect(window.text("14").nth(1).textColor().equal(Color.hex("#e8dcc4")))
+  Test.expect(window.text("4").nth(1).textColor().equal(Color.hex("#e8dcc4")))
   Test.cvar("showQuestDifficultyColor", "1")
   Test.flush()
-  Test.expect(window.text("14").nth(1).textColor().equal(coloured))
+  Test.expect(window.text("4").nth(1).textColor().equal(coloured))
 }
 
 test "a complete quest says so under its title, in place of its objectives" {
@@ -731,8 +755,10 @@ test "a quest's experience and money stand at its title's right, a bullet betwee
   opened(log)
   const window = Test.page().window("World")
   const title = window.text("Elwynn Wolves").rect()
-  Test.expect(window.text("735").rect().left > title.right && window.text("•").shown())
-  Test.expect(window.text("•").rect().left > window.text("735").rect().right)
+  // Every row has a bullet after its level: the gains' one is the last of its row.
+  const row = window.text("Elwynn Wolves").item()
+  Test.expect(window.text("735").rect().left > title.right && row.text("•").count() == 2)
+  Test.expect(row.text("•").nth(2).rect().left > window.text("735").rect().right)
   Test.expect(window.box("GarrMission_CurrencyIcon-Xp").shown())
 }
 
