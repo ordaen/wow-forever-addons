@@ -158,7 +158,7 @@ would have caught it is half a fix: say which check now catches it, or add one.
   «The machine's one queue»): one run at a time, at three quarters of the CPU.
 - **Long work runs in the background:** builds, lints, tests, probes, watch loops and repro runs, always; keep talking
   to the user meanwhile.
-- **Subagents as lunatype's `CLAUDE.md` says:** one a session, for its own area.
+- **Each session does its own work itself,** as lunatype's `CLAUDE.md` says.
 - **Idle bug hunts:** with nothing queued, a session runs bug-hunt and simplification rounds over its own areas until a
   round finds nothing; each round ends green and committed.
 - **Shared checkouts:** never `--autostash` (rebase or pull) in a checkout other sessions use, and commit only your own
