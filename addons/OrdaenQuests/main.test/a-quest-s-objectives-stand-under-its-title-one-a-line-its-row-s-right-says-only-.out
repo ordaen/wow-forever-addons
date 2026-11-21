@@ -51,46 +51,46 @@ surface 550,192.21 500x515.58 on MEDIUM clamped raised by a click
         box 585.85,352.36 433.3x295.52 #0000004d
           box 586.68,353.2 431.63x0
           box 586.68,353.2 431.63x293.85 scrolled 0 of 0
-            box 595.22,361.73 414.57x171.68
-              box 595.22,361.73 414.57x95.02
-                box 595.22,361.73 414.57x29.16 Interface/FrameGeneral/UI-Background-Marble @keyPress @pointerPress
-                  box 600.91,369.64 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-marks row 3 of 8
-                  text 619.93,367.42 93.33x17.78 "Elwynn Forest" #ffd100
-                  text 718.95,367.42 257.23x17.78 "you are here" #a3977f
-                  text 981.87,367.42 22.22x17.78 "0/1" #a3977f
-                box 595.22,390.89 414.57x65.86
-                  box 595.22,390.89 414.57x65.86 #00000000 @keyPress @pointerEnter @pointerLeave @pointerPress
-                    box 600.91,396.57 403.19x17.78
-                      box 600.91,396.57 20x17.78
-                        text 600.91,396.57 10x17.78 "1" #ff2020
-                        text 610.91,396.57 10x17.78 "4" #ff2020
-                      text 626.59,396.57 10x17.78 "•" #6b6352
-                      text 642.28,396.57 350.43x17.78 "Elwynn Wolves" #e8dcc4
-                      text 998.41,405.46 0x0 "" #a3977f
-                      box 1004.09,405.46 0x0
-                    box 600.91,417.2 403.19x15.51
-                      text 600.91,417.2 368.61x15.51 "Wolves slain" #a3977f
-                      text 975.21,417.2 28.89x15.51 "5/10" #a3977f
-                    box 600.91,435.55 403.19x15.51
-                      text 600.91,435.55 375.28x15.51 "Pelts" #808080
-                      text 981.87,435.55 22.22x15.51 "4/4" #808080
-              box 595.22,456.75 414.57x76.66
-                box 595.22,456.75 414.57x29.16 Interface/FrameGeneral/UI-Background-Marble @keyPress @pointerPress
-                  box 600.91,464.66 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-marks row 3 of 8
-                  text 619.93,462.43 58.89x17.78 "Westfall" #ffd100
-                  box 684.51,471.32 291.68x0
-                  text 981.87,462.43 22.22x17.78 "1/1" #a3977f
-                box 595.22,485.9 414.57x47.51
-                  box 595.22,485.9 414.57x47.51 #00000000 @keyPress @pointerEnter @pointerLeave @pointerPress
-                    box 600.91,491.59 403.19x17.78
-                      box 600.91,491.59 20x17.78
-                        text 600.91,491.59 10x17.78 "1" #ff2020
-                        text 610.91,491.59 10x17.78 "4" #ff2020
-                      text 626.59,491.59 10x17.78 "•" #6b6352
-                      text 642.28,491.59 350.43x17.78 "The Defias Brotherhood" #e8dcc4
-                      text 998.41,500.48 0x0 "" #a3977f
-                      box 1004.09,500.48 0x0
-                    text 600.91,512.21 403.19x15.51 "Complete" #40c040
+            box 586.68,353.2 431.63x207.48
+              box 586.68,353.2 431.63x112.92
+                box 586.68,353.2 431.63x35.68 #d6a56b38 @keyPress @pointerPress
+                  box 592.37,363.95 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-marks row 3 of 8
+                  text 611.39,361.73 93.33x17.78 "Elwynn Forest" #ffd100
+                  text 710.42,361.73 274.3x17.78 "you are here" #a3977f
+                  text 990.41,361.73 22.22x17.78 "0/1" #a3977f
+                box 586.68,388.87 431.63x77.24
+                  box 586.68,388.87 431.63x77.24 #00000000 @keyPress @pointerEnter @pointerLeave @pointerPress
+                    box 592.37,400.25 420.26x17.78
+                      box 592.37,400.25 20x17.78
+                        text 592.37,400.25 10x17.78 "1" #ff2020
+                        text 602.37,400.25 10x17.78 "4" #ff2020
+                      text 618.06,400.25 10x17.78 "•" #6b6352
+                      text 633.75,400.25 367.5x17.78 "Elwynn Wolves" #e8dcc4
+                      text 1006.94,409.14 0x0 "" #a3977f
+                      box 1012.63,409.14 0x0
+                    box 592.37,420.87 420.26x15.51
+                      text 592.37,420.87 385.68x15.51 "Wolves slain" #a3977f
+                      text 983.74,420.87 28.89x15.51 "5/10" #a3977f
+                    box 592.37,439.23 420.26x15.51
+                      text 592.37,439.23 392.34x15.51 "Pelts" #808080
+                      text 990.41,439.23 22.22x15.51 "4/4" #808080
+              box 586.68,466.11 431.63x94.56
+                box 586.68,466.11 431.63x35.68 #d6a56b38 @keyPress @pointerPress
+                  box 592.37,476.87 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-marks row 3 of 8
+                  text 611.39,474.65 58.89x17.78 "Westfall" #ffd100
+                  box 675.97,483.53 308.74x0
+                  text 990.41,474.65 22.22x17.78 "1/1" #a3977f
+                box 586.68,501.79 431.63x58.89
+                  box 586.68,501.79 431.63x58.89 #00000000 @keyPress @pointerEnter @pointerLeave @pointerPress
+                    box 592.37,513.17 420.26x17.78
+                      box 592.37,513.17 20x17.78
+                        text 592.37,513.17 10x17.78 "1" #ff2020
+                        text 602.37,513.17 10x17.78 "4" #ff2020
+                      text 618.06,513.17 10x17.78 "•" #6b6352
+                      text 633.75,513.17 367.5x17.78 "The Defias Brotherhood" #e8dcc4
+                      text 1006.94,522.06 0x0 "" #a3977f
+                      box 1012.63,522.06 0x0
+                    text 592.37,533.79 420.26x15.51 "Complete" #40c040
       box 585.85,647.88 433.3x34.84
         box 585.85,664.95 433.3x17.78
           box 585.85,673.84 311.03x0

@@ -28,7 +28,8 @@ const GREEN: Color = Color.hex("#40c040")
 const GREY: Color = Color.hex("#808080")
 const RED: Color = Color.hex("#ff4040")
 // A row starts at its header's left: the header's band, not an indent, says what it stands under.
-const ROW_PAD: Edges = { top: 2sp, right: 2sp, bottom: 2sp, left: 2sp }
+// Above and below its text alike: the rule above a row stands as far from its text as the next row's does.
+const ROW_PAD: Edges = { top: 4sp, right: 2sp, bottom: 4sp, left: 2sp }
 // The rule between two quests of a list.
 const ROW_RULE: Line = { width: 1.171875dp, color: Color.hex("#d6a56b26"), sides: [Side.Top] }
 const BUTTON = 131.25dp
@@ -45,7 +46,10 @@ const UNSEEN: Color = Color.hex("#00000000")
 // A row's title line: its level, the bullet, its title, a group quest's size, what it gives. Its objectives stand under
 // the whole line, from the level's edge.
 const TITLE_LINE: Array<Track> = ["max-content", "max-content", { fr: 1 }, "max-content", "max-content"]
-const HEADER_PAD: Edges = { top: 2sp, right: 2sp, bottom: 2sp, left: 2sp }
+const HEADER_PAD: Edges = { top: 3sp, right: 2sp, bottom: 3sp, left: 2sp }
+// A header's band: a gold wash over the well's floor, a brighter line under it, so it reads apart from its quests.
+const HEADER_BAND: Color = Color.hex("#d6a56b38")
+const HEADER_LINE: Line = { width: 1.171875dp, color: Color.hex("#d6a56b66"), sides: [Side.Bottom] }
 // Between two objectives of a quest: what a wrapped one's lines don't have.
 const GOAL_GAP = 1sp
 // The fold mark's cell, as a tree's row has it.
@@ -82,7 +86,7 @@ public class HeaderRow implements Component {
   public render(self): Template {
     return $ltml {
       <box columns={["max-content", "max-content", { fr: 1 }, "max-content"]} gap={2sp} yAlign={Align.Center}
-           padding={HEADER_PAD} background={Ordaen.art.window.marble}
+           padding={HEADER_PAD} background={HEADER_BAND} border={HEADER_LINE}
            @pointerPress={self.onFold} @keyPress(.Enter)={self.onFold} @keyPress(.Space)={self.onFold}>
         <box width={MARK} height={MARK} background={self.mark} tint={DIM} />
         <text value={self.header} textColor={GOLD} wrap={.None} />
