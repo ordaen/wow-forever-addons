@@ -652,7 +652,7 @@ test "with no character of the account of the inspected class, race and level, t
   Game.items.icon = icons
   const window = inspecting(new FakeInspector())
   Test.expect(window.text("20").shown())
-  Test.expect(window.text("None of your characters has been this class, race and level: only what the gear gives").shown())
+  Test.expect(window.text("≈ None of your characters has been this class, race and level: only what the gear gives").shown())
 }
 
 test "the stats are estimated from what the player's own character of that class, race and level showed: its base, the gear, and what strength feeds" {
