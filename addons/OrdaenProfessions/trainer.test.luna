@@ -54,6 +54,20 @@ test "a profession's trainer opens our window in place of the game's, its servic
   Test.expect(!Test.page().window(Locale.TRAINER).shown())
 }
 
+test "a trainer whose list fills after it shows, in the same frame, shows the list" {
+  Game.trainer.teachesClass = (): Boolean => false
+  Client.IsTradeskillTrainer = (): Boolean => true
+  let filled = false
+  Game.trainer.services = (): Array<Game.TrainerService> => filled ? taught() : []
+  Test.mount(nil, SCREEN)
+  // TRAINER_SHOW with the list empty, then TRAINER_UPDATE with it filled, before a frame passes.
+  Game.trainer.open = true
+  Game.trainer.changed.emit()
+  filled = true
+  Game.trainer.changed.emit()
+  Test.expect(Test.page().window(Locale.TRAINER).text("Red Linen Robe").shown())
+}
+
 test "«Learn» buys the picked service where it can be learned now, and nothing where it can't" {
   Game.trainer.teachesClass = (): Boolean => false
   Client.IsTradeskillTrainer = (): Boolean => true

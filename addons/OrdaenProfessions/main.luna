@@ -275,8 +275,6 @@ public class Professions implements Module, App {
     watch (opened of Game.trainer.open) {
       if (!opened) { self.atTrainer = false }
     }
-    // The trainer's changes are heard while its window shows.
-    watch (shown of self.atTrainer) { Game.trainer.watch(shown) }
   }
 
   // The recipes of every character's book that take an item: another module's read.
