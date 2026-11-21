@@ -5,6 +5,7 @@
 // zones near the view are drawn, each built the first time it comes near. The player's arrow stands over it.
 // OpenMap (MIT): https://github.com/openmap-world/openmap, its masks in `media/openmap`.
 import Client from "$client"
+import Debug from "$debug"
 
 // Azeroth's map: the plane every zone is placed on.
 const WORLD = 947
@@ -70,7 +71,7 @@ class ZoneArt {
     self.bottom = bottom
     self.city = city
     self.frame = Client.CreateFrame("Frame", nil, parent, nil)
-    self.frame.SetAllPoints(parent, nil)
+    self.frame.SetAllPoints(parent)
     self.frame.Hide()
   }
 
@@ -82,9 +83,9 @@ class ZoneArt {
     if (layer == nil || files == nil) { return }
     const sx = (self.right - self.left) / layer.layerWidth
     const sy = (self.bottom - self.top) / layer.layerHeight
-    const mask = self.frame.CreateMaskTexture(nil, nil, nil, nil)
+    const mask = self.frame.CreateMaskTexture()
     const file = TERRITORIES[self.id] == true ? `${MEDIA}territory/${self.id}` : (self.city ? MEDIA + "featherRound" : MEDIA + "feather")
-    _ = mask.SetTexture(file, "CLAMPTOBLACKADDITIVE", "CLAMPTOBLACKADDITIVE", nil)
+    _ = mask.SetTexture(file, "CLAMPTOBLACKADDITIVE", "CLAMPTOBLACKADDITIVE")
     self.place(mask, 0, 0, layer.layerWidth * sx, layer.layerHeight * sy)
     self.tiles(files, layer, 0, 0, layer.layerWidth, layer.layerHeight, false, 0, mask)
     for (piece of Client.C_MapExplorationInfo.GetExploredMapTextures(self.id) ?? []) {
@@ -111,7 +112,7 @@ class ZoneArt {
         if (file != nil && pw > 0 && ph > 0) {
           const tex = self.frame.CreateTexture(nil, "ARTWORK", nil, sub)
           _ = tex.SetTexture(file, nil, nil, "TRILINEAR")
-          tex.SetTexCoord(0, pw / fw, 0, ph / fh, nil, nil, nil, nil)
+          tex.SetTexCoord(0, pw / fw, 0, ph / fh)
           tex.AddMaskTexture(mask)
           self.place(tex, (x + (k - 1) * tw) * sx, (y + (j - 1) * th) * sy, pw * sx, ph * sy)
         }
@@ -168,10 +169,10 @@ public class WorldCanvas {
     self.view.EnableMouseWheel(true)
     const sea = self.view.CreateTexture(nil, "BACKGROUND", nil, 0)
     sea.SetColorTexture(SEA_R, SEA_G, SEA_B, 1)
-    sea.SetAllPoints(self.view, nil)
+    sea.SetAllPoints(self.view)
     self.plane = Client.CreateFrame("Frame", nil, self.view, nil)
     self.over = Client.CreateFrame("Frame", nil, self.view, nil)
-    self.over.SetAllPoints(self.view, nil)
+    self.over.SetAllPoints(self.view)
     self.arrow = self.over.CreateTexture(nil, "OVERLAY", nil, 0)
     _ = self.arrow.SetTexture("Interface/Minimap/MinimapArrow", nil, nil, nil)
     self.arrow.SetSize(ARROW_SIZE, ARROW_SIZE)
@@ -247,7 +248,10 @@ public class WorldCanvas {
 
   // The map opened: built the first time, the first time on the player's zone, filling the view.
   opened(mut self) {
-    if (self.zones.length == 0) { self.build() }
+    if (self.zones.length == 0) {
+      self.build()
+      Debug.log("MAPARROW built: world %s x %s, %s zones, view %s x %s", self.width, self.height, self.zones.length, self.view.GetWidth(), self.view.GetHeight())
+    }
     if (!self.placed) {
       self.placed = true
       self.findPlayer()
@@ -378,6 +382,7 @@ public class WorldCanvas {
     const at = map != nil ? Client.C_Map.GetPlayerMapPosition(map, "player") : nil
     const rect = map != nil ? self.rectOf(map.floor()) : nil
     if (at == nil || rect == nil) {
+      if (self.arrow.IsShown() || !self.placed) { Debug.log("MAPARROW hidden: map %s, place %s, rect %s", map, at != nil, rect != nil) }
       self.arrow.Hide()
       return
     }
@@ -388,6 +393,9 @@ public class WorldCanvas {
     self.arrow.ClearAllPoints()
     self.arrow.SetPoint("CENTER", self.over, "TOPLEFT", (wx - self.x) * self.scale, -(wy - self.y) * self.scale)
     self.arrow.SetRotation(Client.GetPlayerFacing() ?? 0)
+    if (!self.arrow.IsShown()) {
+      Debug.log("MAPARROW shown: map %s at %s, %s; on the view %s, %s; levels view %s over %s", map, wx, wy, (wx - self.x) * self.scale, (wy - self.y) * self.scale, self.view.GetFrameLevel(), self.over.GetFrameLevel())
+    }
     self.arrow.Show()
   }
 }
