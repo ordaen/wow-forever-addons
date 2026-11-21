@@ -38,6 +38,13 @@ at the end. Commits are lunatype's unless named `dev` (wow-dev-tools). What tool
   `api.ResetAddOns` (`host.lua`).
 - **The list keeps each character's own state** (`GetAddOnEnableState` is mixed where the account's characters
   differ). Known: 644213b, dev 5deb18c. Stand-in: `Host.addons` (`live.split`).
+- **A Forever character has a first name and a surname** («Regy Ironsight»; its folder under `WTF\Account\<account>\
+  <realm>` is `Regy-Ironsight`), and `UnitName("player")` gives the first name alone. Given that as the `character` of
+  `C_AddOns.GetAddOnEnableState`, the client answers the addon's default state (`## DefaultState`), which names no
+  character; `EnableAddOn` with it changes nothing. The character playing is asked with none (`nil`). Known: the Run
+  tab at 02:39 and 02:42, 2026-11-21 (`Regy 0 2`: Ordaen API Dump off by «Regy», on by `nil`, as the AddOns list shows
+  it; `EnableAddOn("OrdaenApiDump", "Regy")` then still 0). Not held by the stand-in: its player has one name; wow-dev-tools
+  `Addons.test.luna` answers so.
 - **The client reads an addon's whole saved-variables file at every login** (a 26 MB file: about 230 ms and 60 MB of
   Lua heap) and writes it on `/reload` or logout. Known: dev eaf28a9 (2026-11-14); skill `debug-in-game`. Not held by
   the stand-in.
