@@ -6,7 +6,7 @@
 // place. Left-click picks it (its page shows beside the list); Shift+Left-click and Space track it or stop tracking
 // it; Right-click opens its menu: track, share, abandon.
 import Game from "$game"
-import { Align, Art, ByInteractionState, Edges, Track } from "$ltml"
+import { Align, Art, ByInteractionState, Edges, Line, Side, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import { BODY_LINE, ButtonPlate, Component, Experience, Menu, MenuEntry, Money, PushButton, Reward, RewardView, Rewards, SCROLL_DIM, SCROLL_HEAD, SCROLL_INK, SECONDARY_TEXT, Scroll, Shown, Standing, SwitchFace, TIGHT_LINE, TITLE_TEXT, Tip, TipText, WELL_DIM, WELL_TEXT, choiceViews, logReward, questLevelColor, rowShade } from "Ordaen"
 import { LogQuest } from "@/book"
@@ -27,7 +27,10 @@ const DIM: Color = Color.hex("#a3977f")
 const GREEN: Color = Color.hex("#40c040")
 const GREY: Color = Color.hex("#808080")
 const RED: Color = Color.hex("#ff4040")
-const ROW_PAD: Edges = { top: 2sp, right: 2sp, bottom: 2sp, left: 5sp }
+// A row starts at its header's left: the header's band, not an indent, says what it stands under.
+const ROW_PAD: Edges = { top: 2sp, right: 2sp, bottom: 2sp, left: 2sp }
+// The rule between two quests of a list.
+const ROW_RULE: Line = { width: 1.171875dp, color: Color.hex("#d6a56b26"), sides: [Side.Top] }
 const BUTTON = 131.25dp
 
 // The client opens the map for an addon out of a fight alone: «Show on map» is off in one, its tip says why.
@@ -42,7 +45,7 @@ const UNSEEN: Color = Color.hex("#00000000")
 // A row's title line: its level, the bullet, its title, a group quest's size, what it gives. Its objectives stand under
 // the whole line, from the level's edge.
 const TITLE_LINE: Array<Track> = ["max-content", "max-content", { fr: 1 }, "max-content", "max-content"]
-const HEADER_PAD: Edges = { top: 2sp, right: 2sp, bottom: 2sp }
+const HEADER_PAD: Edges = { top: 2sp, right: 2sp, bottom: 2sp, left: 2sp }
 // Between two objectives of a quest: what a wrapped one's lines don't have.
 const GOAL_GAP = 1sp
 // The fold mark's cell, as a tree's row has it.
@@ -79,7 +82,7 @@ public class HeaderRow implements Component {
   public render(self): Template {
     return $ltml {
       <box columns={["max-content", "max-content", { fr: 1 }, "max-content"]} gap={2sp} yAlign={Align.Center}
-           padding={HEADER_PAD} background={rowShade(false)}
+           padding={HEADER_PAD} background={Ordaen.art.window.marble}
            @pointerPress={self.onFold} @keyPress(.Enter)={self.onFold} @keyPress(.Space)={self.onFold}>
         <box width={MARK} height={MARK} background={self.mark} tint={DIM} />
         <text value={self.header} textColor={GOLD} wrap={.None} />
@@ -119,13 +122,23 @@ public class QuestRow implements Component {
     { label: Locale.ABANDON, group: true }
   ]
 
+  derived rule: Line | nil = self.ruled ? ROW_RULE : nil
+
   quest: Signal<LogQuest>
   picked: Signal<Boolean>
   player: Signal<Integer>
-  constructor(quest: Signal<LogQuest>, picked: Signal<Boolean>, player: Signal<Integer>) {
+  ruled: Signal<Boolean>
+  constructor(
+    quest: Signal<LogQuest>,
+    picked: Signal<Boolean>,
+    player: Signal<Integer>,
+    // A quest after another of its list: a rule above it.
+    ruled: Signal<Boolean> = false
+  ) {
     self.quest = quest
     self.picked = picked
     self.player = player
+    self.ruled = ruled
   }
 
   onPick(mut self) { self.act.emit(self.quest.id, Act.Pick) }
@@ -153,7 +166,7 @@ public class QuestRow implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={1} gap={GOAL_GAP} padding={ROW_PAD} background={self.background}
+      <box columns={1} gap={GOAL_GAP} padding={ROW_PAD} background={self.background} border={self.rule}
            @pointerPress(.Left)={self.onPick} @pointerPress([.Shift, .Left])={self.onLink}
            @pointerPress(.Right)={self.onMenu} @keyPress(.Enter)={self.onPick} @keyPress(.Space)={self.onTrack}
            @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>

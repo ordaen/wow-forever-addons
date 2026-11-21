@@ -713,6 +713,21 @@ test "a row is its level, a dim bullet and its title; a level of one digit keeps
   Test.expect(row.text("Wolves slain").rect().left < row.text("7").rect().left)
 }
 
+test "a header stands on the game's marble; its quests start at its left edge, a rule between one and the next" {
+  const log = standing()
+  log[3] = { level: 7, ..quest(103, "Elwynn Wolves", "Westfall") }
+  opened(log)
+  const window = Test.page().window("World")
+  const header = window.text("Westfall").item()
+  Test.expect(header.paintedWith("Interface/FrameGeneral/UI-Background-Marble"))
+  // Westfall's two quests, each a title and one objective: the first under its header with no rule, the second with
+  // one above it, which takes its width (1.17dp) of the row.
+  const first = window.text("The Defias Brotherhood").item().rect()
+  const second = window.text("Elwynn Wolves").item().rect()
+  Test.expect(((second.bottom - second.top) - (first.bottom - first.top) - 0.83).abs() < 0.05)
+  Test.expect((window.text("Elwynn Wolves").item().rect().left - header.rect().left).abs() < 0.01)
+}
+
 test "a quest's gains stand at its row's right in the body's size: one alone leaves no room after it" {
   const log = standing()
   log[3] = { xp: 735, money: 150, ..quest(103, "Elwynn Wolves", "Westfall") }
