@@ -1,5 +1,5 @@
 -- the window at its least: the longest category and recipe wrap, every other name on one line
-surface 288,133.88 973.39x548.49 on DIALOG clamped raised by a click
+surface 288,133.88 973.39x548.49 on MEDIUM clamped raised by a click
   box 288,182.79 973.39x499.57 absolute Interface\AddOns\Ordaen\media\window-wood border=UI-Frame-Metal-CornerTopLeft
     box 301.09,195.89 952.2x475.63
       box 323.85,218.64 906.69x421.59
@@ -165,7 +165,7 @@ surface 288,133.88 973.39x548.49 on DIALOG clamped raised by a click
           box 1240.14,171.46 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
 
 -- the window widened: no name wraps, the lists and the card wider alike
-surface 288,133.88 1312x548.49 on DIALOG clamped raised by a click
+surface 288,133.88 1312x548.49 on MEDIUM clamped raised by a click
   box 288,182.79 1312x499.57 absolute Interface\AddOns\Ordaen\media\window-wood border=UI-Frame-Metal-CornerTopLeft
     box 301.09,195.89 1290.81x475.63
       box 323.85,218.64 1245.3x421.59

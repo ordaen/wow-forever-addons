@@ -1,5 +1,5 @@
 -- the form
-surface 500,175.54 1055.76x548.92 on DIALOG clamped raised by a click
+surface 500,175.54 1055.76x548.92 on MEDIUM clamped raised by a click
   box 500,224.46 1055.76x500 absolute Interface\AddOns\Ordaen\media\window-wood border=UI-Frame-Metal-CornerTopLeft
     box 513.09,237.55 578.81x476.06
       box 535.85,260.31 533.3x393.68

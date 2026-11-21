@@ -1,6 +1,6 @@
 open: /spellbook
 -- the table, by level from the highest
-surface 425,173.04 750x553.92 on DIALOG clamped raised by a click
+surface 425,173.04 750x553.92 on MEDIUM clamped raised by a click
   box 425,210.29 750x516.67 absolute Interface\AddOns\Ordaen\media\window-wood border=UI-Frame-Metal-CornerTopLeft
     box 438.09,223.39 728.81x492.73
       box 460.85,246.14 683.3x447.22

@@ -1,5 +1,5 @@
 -- auction
-surface 288,133.88 1024x632.25 on DIALOG clamped raised by a click
+surface 288,133.88 1024x632.25 on MEDIUM clamped raised by a click
   box 288,182.79 1024x583.33 absolute Interface\AddOns\Ordaen\media\window-wood border=UI-Frame-Metal-CornerTopLeft
     box 301.09,195.89 1002.81x559.39
       box 323.85,218.64 957.3x505.35

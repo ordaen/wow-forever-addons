@@ -1,6 +1,6 @@
 key: ESCAPE → none
 -- titles at one edge
-surface 391.67,175.54 816.67x548.92 on DIALOG clamped raised by a click
+surface 391.67,175.54 816.67x548.92 on MEDIUM clamped raised by a click
   box 391.67,224.46 816.67x500 absolute Interface\AddOns\Ordaen\media\window-wood border=UI-Frame-Metal-CornerTopLeft
     box 404.76,237.55 795.48x476.06
       box 427.52,260.31 749.97x393.68
