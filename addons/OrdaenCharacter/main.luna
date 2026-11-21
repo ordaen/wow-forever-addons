@@ -10,6 +10,7 @@ import { Frame } from "$ltml"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
 import { KeptWindow, Module, SECONDARY_TEXT, Settings, SettingsPage, Window, WindowTabSpec, WindowsPage, windowsTitle } from "Ordaen"
+import root Auras from "OrdaenAuras"
 import { SkillsPage } from "@/cards"
 import { GearPage } from "@/gear"
 import Locale from "@/locales"
@@ -298,7 +299,7 @@ public class Character implements Module, App {
                   fitsSlots={self.fitsSlots} sets={self.sets}
                   flyoutSlot={self.flyoutSlot} fitting={self.fitting} @picked={self.onPicked} @tried={self.onTried}
                   @flyout={self.onFlyout} @chose={self.onChose} @closeFlyout={self.onCloseFlyout}
-                  @useSet={self.onUseSet} @saveSet={self.onSaveSet} />
+                  auras={Auras.active} @useSet={self.onUseSet} @saveSet={self.onSaveSet} />
         <SkillsPage $elseif={self.tab == TAB_SKILLS} skills={self.skills} />
         <ReputationPage $elseif={self.tab == TAB_REPUTATION} factions={self.factions} starts={self.starts}
                         chosen={self.chosen} chosenInactive={self.chosenInactive} search={mut self.factionSearch}

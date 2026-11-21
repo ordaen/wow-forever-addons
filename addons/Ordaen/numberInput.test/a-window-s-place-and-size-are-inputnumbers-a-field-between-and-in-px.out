@@ -1,93 +1,93 @@
 -- the window's place and size
 box 0,0 1000x303.27
-  box 0,0 166.67x26.98
-    box 0,0 166.67x26.98 #d6a56b3d clipped @keyPress @pointerPress
-      box 0,0 1.67x26.98 absolute #f0c860
-      text 14.22,5.69 138.22x15.6 "Bank" #e8dcc4
+  box 0,0 166.67x28.18
+    box 0,0 166.67x28.18 #d6a56b3d clipped @keyPress @pointerPress
+      box 0,0 1.67x28.18 absolute #f0c860
+      text 14.22,5.69 138.22x16.8 "Bank" #e8dcc4
   box 183.73,0 816.27x303.27
     box 183.73,0 816.27x18.33 opacity=1
-      box 183.73,1.37 233.33x15.6 @pointerEnter @pointerLeave
-        text 183.73,1.37 233.33x15.6 "Remember its place and size" #cbb994
+      box 183.73,0.77 233.33x16.8 @pointerEnter @pointerLeave
+        text 183.73,0.77 233.33x16.8 "Remember its place and size" #cbb994
       box 432.71,0 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @keyPress @pointerPress
         box 432.71,0 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=1
     box 183.73,26.87 816.27x18.33 opacity=1
-      box 183.73,28.23 233.33x15.6 @pointerEnter @pointerLeave
-        text 183.73,28.23 233.33x15.6 "Full screen" #cbb994
+      box 183.73,27.63 233.33x16.8 @pointerEnter @pointerLeave
+        text 183.73,27.63 233.33x16.8 "Full screen" #cbb994
       box 432.71,26.87 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @keyPress @pointerPress
         box 432.71,26.87 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
     box 183.73,53.73 816.27x28.33 opacity=1
-      box 183.73,60.1 233.33x15.6 @pointerEnter @pointerLeave
-        text 183.73,60.1 233.33x15.6 "Across, from the centre" #cbb994
+      box 183.73,59.5 233.33x16.8 @pointerEnter @pointerLeave
+        text 183.73,59.5 233.33x16.8 "Across, from the centre" #cbb994
       box 432.71,53.73 567.29x28.33
         box 432.71,53.73 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerUp
-          text 439.93,60.1 8.89x15.6 "-" #ffd100
+          text 439.38,59.5 10x16.8 "-" #ffd100
         box 461.73,57.07 100x21.67 #00000080 input "11" @change @submit
         box 567.42,53.73 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerUp
-          text 574.64,60.1 8.89x15.6 "+" #f0e6d2
-        text 596.44,60.1 15.56x15.6 "px" #f0e6d2
+          text 574.09,59.5 10x16.8 "+" #f0e6d2
+        text 596.44,59.5 16.67x16.8 "px" #f0e6d2
     box 183.73,90.6 816.27x28.33 opacity=1
-      box 183.73,96.97 233.33x15.6 @pointerEnter @pointerLeave
-        text 183.73,96.97 233.33x15.6 "Down, from the centre" #cbb994
+      box 183.73,96.37 233.33x16.8 @pointerEnter @pointerLeave
+        text 183.73,96.37 233.33x16.8 "Down, from the centre" #cbb994
       box 432.71,90.6 567.29x28.33
         box 432.71,90.6 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerUp
-          text 439.93,96.97 8.89x15.6 "-" #ffd100
+          text 439.38,96.37 10x16.8 "-" #ffd100
         box 461.73,93.93 100x21.67 #00000080 input "-20" @change @submit
         box 567.42,90.6 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerUp
-          text 574.64,96.97 8.89x15.6 "+" #ffd100
-        text 596.44,96.97 15.56x15.6 "px" #f0e6d2
+          text 574.09,96.37 10x16.8 "+" #ffd100
+        text 596.44,96.37 16.67x16.8 "px" #f0e6d2
     box 183.73,127.47 816.27x28.33 opacity=1
-      box 183.73,133.83 233.33x15.6 @pointerEnter @pointerLeave
-        text 183.73,133.83 233.33x15.6 "Width" #cbb994
+      box 183.73,133.23 233.33x16.8 @pointerEnter @pointerLeave
+        text 183.73,133.23 233.33x16.8 "Width" #cbb994
       box 432.71,127.47 567.29x28.33
         box 432.71,127.47 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerUp
-          text 439.93,133.83 8.89x15.6 "-" #ffd100
+          text 439.38,133.23 10x16.8 "-" #ffd100
         box 461.73,130.8 100x21.67 #00000080 input "400" @change @submit
         box 567.42,127.47 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerUp
-          text 574.64,133.83 8.89x15.6 "+" #ffd100
-        text 596.44,133.83 15.56x15.6 "px" #f0e6d2
+          text 574.09,133.23 10x16.8 "+" #ffd100
+        text 596.44,133.23 16.67x16.8 "px" #f0e6d2
     box 183.73,164.33 816.27x28.33 opacity=1
-      box 183.73,170.7 233.33x15.6 @pointerEnter @pointerLeave
-        text 183.73,170.7 233.33x15.6 "Height" #cbb994
+      box 183.73,170.1 233.33x16.8 @pointerEnter @pointerLeave
+        text 183.73,170.1 233.33x16.8 "Height" #cbb994
       box 432.71,164.33 567.29x28.33
         box 432.71,164.33 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerUp
-          text 439.93,170.7 8.89x15.6 "-" #ffd100
+          text 439.38,170.1 10x16.8 "-" #ffd100
         box 461.73,167.67 100x21.67 #00000080 input "300" @change @submit
         box 567.42,164.33 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerUp
-          text 574.64,170.7 8.89x15.6 "+" #ffd100
-        text 596.44,170.7 15.56x15.6 "px" #f0e6d2
+          text 574.09,170.1 10x16.8 "+" #ffd100
+        text 596.44,170.1 16.67x16.8 "px" #f0e6d2
     box 183.73,201.2 816.27x28.33 opacity=1
-      box 183.73,207.57 233.33x15.6 @pointerEnter @pointerLeave
-        text 183.73,207.57 233.33x15.6 "Opens on" #cbb994
+      box 183.73,206.97 233.33x16.8 @pointerEnter @pointerLeave
+        text 183.73,206.97 233.33x16.8 "Opens on" #cbb994
       box 432.71,201.2 200x28.33
         box 432.71,201.2 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
-          text 448.36,207.57 152.53x15.6 "The tab last open" #f0c860
+          text 448.36,206.97 152.53x16.8 "The tab last open" #f0c860
           box 609.42,208.7 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
     box 183.73,238.07 816.27x28.33 opacity=1
-      box 183.73,244.43 233.33x15.6 @pointerEnter @pointerLeave
-        text 183.73,244.43 233.33x15.6 "Hide during" #cbb994
+      box 183.73,243.83 233.33x16.8 @pointerEnter @pointerLeave
+        text 183.73,243.83 233.33x16.8 "Hide during" #cbb994
       box 432.71,238.07 200x28.33
         box 432.71,238.07 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
-          text 448.36,244.43 152.53x15.6 "Combat" #f0c860
+          text 448.36,243.83 152.53x16.8 "Combat" #f0c860
           box 609.42,245.57 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
     box 183.73,274.93 816.27x28.33 opacity=1
-      box 183.73,281.3 233.33x15.6 @pointerEnter @pointerLeave
-        text 183.73,281.3 233.33x15.6 "Show again after" #cbb994
+      box 183.73,280.7 233.33x16.8 @pointerEnter @pointerLeave
+        text 183.73,280.7 233.33x16.8 "Show again after" #cbb994
       box 432.71,274.93 200x28.33
         box 432.71,274.93 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
-          text 448.36,281.3 152.53x15.6 "Never" #ffffff
+          text 448.36,280.7 152.53x16.8 "Never" #ffffff
           box 609.42,282.43 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-surface 567.42,82.07 271.17x174.12 on TOOLTIP Interface\AddOns\Ordaen\media\window-wood clamped
-  text 591.89,106.54 227.22x26.67 "More" #f0e6d2
-  text 591.89,138.89 227.22x31.2 "Hold to keep stepping, up to the limit." #cbb994
-  box 591.89,175.78 227.22x15.6
-    box 591.89,175.78 183.13x15.6
-      text 591.89,175.78 67.78x15.6 "Left-click" #cbb994
-    text 783.56,175.78 35.56x15.6 "+1 px" #f0e6d2
-  box 591.89,197.07 227.22x15.6
-    box 591.89,197.07 176.47x15.6
-      text 591.89,197.07 106.67x15.6 "Shift+Left-click" #cbb994
-    text 776.89,197.07 42.22x15.6 "+10 px" #f0e6d2
-  box 591.89,218.36 227.22x15.6
-    box 591.89,218.36 170.91x15.6
-      text 591.89,218.36 100x15.6 "Ctrl+Left-click" #cbb994
-    text 771.34,218.36 47.78x15.6 "+100 px" #f0e6d2
+surface 567.42,82.07 319.5x163.32 on TOOLTIP Interface\AddOns\Ordaen\media\window-wood clamped
+  text 591.89,106.54 275.56x26.67 "More" #f0e6d2
+  text 591.89,138.89 275.56x16.8 "Hold to keep stepping, up to the limit." #cbb994
+  box 591.89,161.38 275.56x16.8
+    box 591.89,161.38 229.24x16.8
+      text 591.89,161.38 72.22x16.8 "Left-click" #cbb994
+    text 829.67,161.38 37.78x16.8 "+1 px" #f0e6d2
+  box 591.89,183.87 275.56x16.8
+    box 591.89,183.87 222.58x16.8
+      text 591.89,183.87 114.44x16.8 "Shift+Left-click" #cbb994
+    text 823.01,183.87 44.44x16.8 "+10 px" #f0e6d2
+  box 591.89,206.36 275.56x16.8
+    box 591.89,206.36 214.8x16.8
+      text 591.89,206.36 107.78x16.8 "Ctrl+Left-click" #cbb994
+    text 815.23,206.36 52.22x16.8 "+100 px" #f0e6d2

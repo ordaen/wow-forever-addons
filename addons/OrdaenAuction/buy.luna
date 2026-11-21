@@ -82,7 +82,7 @@ const CLASS_PAD: Edges = { top: 2sp, right: 5sp, bottom: 2sp, left: 5sp }
 const SUBCLASS_PAD: Edges = { top: 1.5sp, right: 5sp, bottom: 1.5sp, left: 5sp + 4sp }
 const LISTING_COLUMNS: Array<Column> = [
   { title: Locale.COLUMN_UNIT, width: { fr: 1 }, align: Align.End },
-  { title: Locale.COLUMN_COUNT, width: 56.25dp, align: Align.End },
+  { title: Locale.COLUMN_COUNT, width: 65.625dp, align: Align.End },
   { title: Locale.COLUMN_LEFT, width: 65.625dp, align: Align.End }
 ]
 const LISTING_TRACKS: Array<Track> = tracksOf(LISTING_COLUMNS)

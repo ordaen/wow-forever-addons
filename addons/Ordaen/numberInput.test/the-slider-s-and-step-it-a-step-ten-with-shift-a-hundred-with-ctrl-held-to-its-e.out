@@ -1,40 +1,40 @@
 -- the share at its most: 100%, + disabled
 box 0,0 900x56.67
   box 0,0 900x28.33 opacity=1
-    box 0,6.37 233.33x15.6 @pointerEnter @pointerLeave
-      text 0,6.37 233.33x15.6 "Share" #cbb994
+    box 0,5.77 233.33x16.8 @pointerEnter @pointerLeave
+      text 0,5.77 233.33x16.8 "Share" #cbb994
     box 248.98,0 651.02x28.33
       box 248.98,0 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerUp
-        text 256.2,6.37 8.89x15.6 "-" #ffd100
+        text 255.64,5.77 10x16.8 "-" #ffd100
       box 278,5.83 213.33x16.67 @drag @dragStart @dragStop @keyPress @pointerPress
         box 284.67,10.83 200x6.67 absolute Interface\AddOns\Ordaen\media\ctl-slider row 0 of 4
         box 285.5,11.67 198.33x5 absolute Interface\AddOns\Ordaen\media\ctl-slider row 1 of 4
         box 478,4.17 13.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-slider-knob
       box 497.02,0 23.33x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerUp
-        text 504.24,6.37 8.89x15.6 "+" #808080
-      text 526.04,6.37 28.89x15.6 "100%" #f0e6d2
+        text 503.69,5.77 10x16.8 "+" #808080
+      text 526.04,5.77 31.11x16.8 "100%" #f0e6d2
   box 0,28.33 900x28.33 opacity=1
-    box 0,34.7 233.33x15.6 @pointerEnter @pointerLeave
-      text 0,34.7 233.33x15.6 "Place" #cbb994
+    box 0,34.1 233.33x16.8 @pointerEnter @pointerLeave
+      text 0,34.1 233.33x16.8 "Place" #cbb994
     box 248.98,28.33 651.02x28.33
       box 248.98,28.33 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerUp
-        text 256.2,34.7 8.89x15.6 "-" #ffd100
+        text 255.64,34.1 10x16.8 "-" #ffd100
       box 278,31.67 100x21.67 #00000080 input "0" @change @submit
       box 383.69,28.33 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerUp
-        text 390.91,34.7 8.89x15.6 "+" #ffd100
-      text 412.71,34.7 15.56x15.6 "px" #f0e6d2
-surface 497.02,28.33 271.17x174.12 on TOOLTIP Interface\AddOns\Ordaen\media\window-wood clamped
-  text 521.49,52.81 227.22x26.67 "More" #f0e6d2
-  text 521.49,85.16 227.22x31.2 "Hold to keep stepping, up to the limit." #cbb994
-  box 521.49,122.05 227.22x15.6
-    box 521.49,122.05 196.47x15.6
-      text 521.49,122.05 67.78x15.6 "Left-click" #cbb994
-    text 726.49,122.05 22.22x15.6 "+1%" #f0e6d2
-  box 521.49,143.34 227.22x15.6
-    box 521.49,143.34 189.8x15.6
-      text 521.49,143.34 106.67x15.6 "Shift+Left-click" #cbb994
-    text 719.83,143.34 28.89x15.6 "+10%" #f0e6d2
-  box 521.49,164.63 227.22x15.6
-    box 521.49,164.63 183.13x15.6
-      text 521.49,164.63 100x15.6 "Ctrl+Left-click" #cbb994
-    text 713.16,164.63 35.56x15.6 "+100%" #f0e6d2
+        text 390.36,34.1 10x16.8 "+" #ffd100
+      text 412.71,34.1 16.67x16.8 "px" #f0e6d2
+surface 497.02,28.33 319.5x163.32 on TOOLTIP Interface\AddOns\Ordaen\media\window-wood clamped
+  text 521.49,52.81 275.56x26.67 "More" #f0e6d2
+  text 521.49,85.16 275.56x16.8 "Hold to keep stepping, up to the limit." #cbb994
+  box 521.49,107.65 275.56x16.8
+    box 521.49,107.65 243.69x16.8
+      text 521.49,107.65 72.22x16.8 "Left-click" #cbb994
+    text 773.72,107.65 23.33x16.8 "+1%" #f0e6d2
+  box 521.49,130.14 275.56x16.8
+    box 521.49,130.14 235.91x16.8
+      text 521.49,130.14 114.44x16.8 "Shift+Left-click" #cbb994
+    text 765.94,130.14 31.11x16.8 "+10%" #f0e6d2
+  box 521.49,152.63 275.56x16.8
+    box 521.49,152.63 229.24x16.8
+      text 521.49,152.63 107.78x16.8 "Ctrl+Left-click" #cbb994
+    text 759.27,152.63 37.78x16.8 "+100%" #f0e6d2

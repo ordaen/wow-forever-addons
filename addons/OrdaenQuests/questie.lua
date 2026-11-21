@@ -52,6 +52,28 @@ local function addTargets(into, db, list)
 	end
 end
 
+-- Its objectives' text `{ line, ... }` as one paragraph.
+local function taskOf(lines)
+	if type(lines) ~= "table" then return "" end
+	local kept = {}
+	for _, line in ipairs(lines) do
+		if type(line) == "string" and line ~= "" then kept[#kept + 1] = line end
+	end
+	return table.concat(kept, " ")
+end
+
+-- Its reputation rewards `{ { faction, amount }, ... }`.
+local function reputationOf(list)
+	local gains = {}
+	if type(list) ~= "table" then return gains end
+	for _, pair in ipairs(list) do
+		if type(pair) == "table" and type(pair[1]) == "number" and type(pair[2]) == "number" and pair[2] ~= 0 then
+			gains[#gains + 1] = { faction = pair[1], amount = pair[2] }
+		end
+	end
+	return gains
+end
+
 function questie.quest(id)
 	local found = _G.LibQuestieDB
 	local quests, npcs, objects, items = found.Quest, found.Npc, found.Object, found.Item
@@ -85,13 +107,17 @@ function questie.quest(id)
 	local level = quests.Get(id, "questLevel")
 	local zone = quests.Get(id, "zoneOrSort")
 	local next = quests.Get(id, "nextQuestInChain")
+	local least = quests.Get(id, "requiredLevel")
 	return {
 		name = type(title) == "string" and title or "",
 		level = type(level) == "number" and level or 0,
+		minLevel = type(least) == "number" and least or 0,
+		task = taskOf(quests.Get(id, "objectivesText")),
 		zone = type(zone) == "number" and zone or 0,
 		givers = givers,
 		takers = takers,
 		targets = targets,
+		reputation = reputationOf(quests.Get(id, "reputationReward")),
 		next = type(next) == "number" and next or 0,
 		nextName = type(next) == "number" and next > 0 and type(quests.Get(next, "name")) == "string" and quests.Get(next, "name") or "",
 	}

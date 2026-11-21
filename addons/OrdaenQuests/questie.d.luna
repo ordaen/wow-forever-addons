@@ -14,10 +14,20 @@ public struct Figure {
   spots: Array<Spot>
 }
 
+// A reputation a quest raises (or lowers, negative): the faction, and by how much before the player's bonuses.
+public struct FactionGain {
+  faction: Integer
+  amount: Integer
+}
+
 // What QuestieDB says of a quest.
 public struct QuestFacts {
   name: String
   level: Integer
+  // The level it may be taken at.
+  minLevel: Integer
+  // What it asks, in the quest's own words (its lines, one paragraph); "" where QuestieDB says nothing.
+  task: String
   // Positive: the `AreaTable` area it belongs to; negative: a `QuestSort`.
   zone: Integer
   // Who gives it, who takes it back, and where its objectives are (the creatures and objects it names, and those
@@ -25,6 +35,8 @@ public struct QuestFacts {
   givers: Array<Figure>
   takers: Array<Figure>
   targets: Array<Figure>
+  // The reputations it changes once turned in (the client's quest window doesn't say them).
+  reputation: Array<FactionGain>
   // The quest after it in its chain; 0 for none.
   next: Integer
   // That quest's name; "" for none, or one QuestieDB doesn't name.

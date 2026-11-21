@@ -1,43 +1,43 @@
 -- opened by a right-click: four lines, a rule above the switches, the second line and the second switch dim
-box 0,0 500x32.67
-  box 0,0 84.84x32.67 @pointerPress
-    text 8.53,8.53 67.78x15.6 "Recipe row" #ffffff
-  box 124.67,0 59.29x32.67 @keyPress @pointerPress
-    text 133.2,8.53 42.22x15.6 "Beside" #ffffff
-surface 0,32.67 183.33x134.77 on FULLSCREEN_DIALOG #0a0806f7
-  box 0.83,39.19 181.67x29.16 #00000000 @keyPress @pointerEnter @pointerPress
-    text 12.21,44.88 150.38x17.78 "Link in chat" #e8dcc4
-  box 0.83,68.34 181.67x29.16 #00000000 @keyPress @pointerEnter @pointerPress
-    text 12.21,74.03 150.38x17.78 "Create [0]" #6f6552
-  box 0.83,97.5 181.67x34.26 #00000000 @keyPress @pointerEnter @pointerPress
-    text 12.21,108.29 118.71x17.78 "Favorite" #e8dcc4
-    box 139.46,108.84 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 0 of 4
-      box 136.96,106.34 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2 opacity=1
-      box 151.96,106.34 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=0
-  box 0.83,131.76 181.67x29.16 #00000000 @keyPress @pointerEnter @pointerPress
-    text 12.21,137.44 118.71x17.78 "Track" #6f6552
-    box 139.46,138 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 0 of 4
-      box 136.96,135.5 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2 opacity=1
-      box 151.96,135.5 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=0
+box 0,0 500x33.87
+  box 0,0 89.29x33.87 @pointerPress
+    text 8.53,8.53 72.22x16.8 "Recipe row" #ffffff
+  box 129.11,0 61.51x33.87 @keyPress @pointerPress
+    text 137.64,8.53 44.44x16.8 "Beside" #ffffff
+surface 0,33.87 183.33x134.77 on FULLSCREEN_DIALOG #0a0806f7
+  box 0.83,40.39 181.67x29.16 #00000000 @keyPress @pointerEnter @pointerPress
+    text 12.21,46.08 150.38x17.78 "Link in chat" #e8dcc4
+  box 0.83,69.54 181.67x29.16 #00000000 @keyPress @pointerEnter @pointerPress
+    text 12.21,75.23 150.38x17.78 "Create [0]" #6f6552
+  box 0.83,98.7 181.67x34.26 #00000000 @keyPress @pointerEnter @pointerPress
+    text 12.21,109.49 118.71x17.78 "Favorite" #e8dcc4
+    box 139.46,110.04 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 0 of 4
+      box 136.96,107.54 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2 opacity=1
+      box 151.96,107.54 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=0
+  box 0.83,132.96 181.67x29.16 #00000000 @keyPress @pointerEnter @pointerPress
+    text 12.21,138.64 118.71x17.78 "Track" #6f6552
+    box 139.46,139.2 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 0 of 4
+      box 136.96,136.7 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2 opacity=1
+      box 151.96,136.7 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=0
 
 -- the first switch clicked: it shows on, the menu is still open
-box 0,0 500x32.67
-  box 0,0 84.84x32.67 @pointerPress
-    text 8.53,8.53 67.78x15.6 "Recipe row" #ffffff
-  box 124.67,0 59.29x32.67 @keyPress @pointerPress
-    text 133.2,8.53 42.22x15.6 "Beside" #ffffff
-surface 0,32.67 183.33x134.77 on FULLSCREEN_DIALOG #0a0806f7
-  box 0.83,39.19 181.67x29.16 #00000000 @keyPress @pointerEnter @pointerPress
-    text 12.21,44.88 150.38x17.78 "Link in chat" #e8dcc4
-  box 0.83,68.34 181.67x29.16 #00000000 @keyPress @pointerEnter @pointerPress
-    text 12.21,74.03 150.38x17.78 "Create [0]" #6f6552
-  box 0.83,97.5 181.67x34.26 #d6a56b2e @keyPress @pointerEnter @pointerPress
-    text 12.21,108.29 118.71x17.78 "Favorite" #f0e6d2
-    box 139.46,108.84 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 1 of 4
-      box 136.96,106.34 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2 opacity=0
-      box 151.96,106.34 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=1
-  box 0.83,131.76 181.67x29.16 #00000000 @keyPress @pointerEnter @pointerPress
-    text 12.21,137.44 118.71x17.78 "Track" #6f6552
-    box 139.46,138 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 0 of 4
-      box 136.96,135.5 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2 opacity=1
-      box 151.96,135.5 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=0
+box 0,0 500x33.87
+  box 0,0 89.29x33.87 @pointerPress
+    text 8.53,8.53 72.22x16.8 "Recipe row" #ffffff
+  box 129.11,0 61.51x33.87 @keyPress @pointerPress
+    text 137.64,8.53 44.44x16.8 "Beside" #ffffff
+surface 0,33.87 183.33x134.77 on FULLSCREEN_DIALOG #0a0806f7
+  box 0.83,40.39 181.67x29.16 #00000000 @keyPress @pointerEnter @pointerPress
+    text 12.21,46.08 150.38x17.78 "Link in chat" #e8dcc4
+  box 0.83,69.54 181.67x29.16 #00000000 @keyPress @pointerEnter @pointerPress
+    text 12.21,75.23 150.38x17.78 "Create [0]" #6f6552
+  box 0.83,98.7 181.67x34.26 #d6a56b2e @keyPress @pointerEnter @pointerPress
+    text 12.21,109.49 118.71x17.78 "Favorite" #f0e6d2
+    box 139.46,110.04 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 1 of 4
+      box 136.96,107.54 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2 opacity=0
+      box 151.96,107.54 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=1
+  box 0.83,132.96 181.67x29.16 #00000000 @keyPress @pointerEnter @pointerPress
+    text 12.21,138.64 118.71x17.78 "Track" #6f6552
+    box 139.46,139.2 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 0 of 4
+      box 136.96,136.7 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2 opacity=1
+      box 151.96,136.7 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=0

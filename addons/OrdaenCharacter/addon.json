@@ -3,5 +3,5 @@
   "icon": "Interface/Icons/INV_Chest_Plate06",
   "notes": "The character window in one: your gear and stats, reputation and statistics.",
   "loadOnDemand": true,
-  "dependencies": { "Ordaen": "^1.0.0" }
+  "dependencies": { "Ordaen": "^1.0.0", "OrdaenAuras": "^0.1.0" }
 }

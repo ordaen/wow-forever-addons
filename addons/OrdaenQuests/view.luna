@@ -8,14 +8,16 @@
 import Game from "$game"
 import { Align, Art, ByInteractionState, Edges, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { BODY_LINE, ButtonPlate, Component, Experience, Menu, MenuEntry, Money, PushButton, Reward, RewardView, Rewards, SCROLL_DIM, SCROLL_HEAD, SCROLL_INK, SECONDARY_TEXT, Scroll, Shown, SwitchFace, TIGHT_LINE, TITLE_TEXT, Tip, WELL_DIM, WELL_TEXT, XP_MARK_SMALL, choiceViews, logReward, questLevelColor, rowShade } from "Ordaen"
+import { BODY_LINE, ButtonPlate, Component, Experience, Menu, MenuEntry, Money, PushButton, Reward, RewardView, Rewards, SCROLL_DIM, SCROLL_HEAD, SCROLL_INK, SECONDARY_TEXT, Scroll, Shown, Standing, SwitchFace, TIGHT_LINE, TITLE_TEXT, Tip, WELL_DIM, WELL_TEXT, XP_MARK_SMALL, choiceViews, logReward, questLevelColor, rowShade } from "Ordaen"
 import { LogQuest } from "@/book"
 import Locale from "@/locales"
 import { QuestFacts } from "@/questie"
+import { standingsOf } from "@/reputation"
 
 // What the player asks of a quest from its row or its page. `Link`: Shift+Left-click on its title, a chat link where a
-// chat line is open, else tracking (the game's order).
-public enum Act { Pick, Track, Link, Share, Abandon, ShowOnMap, SuperTrack, Hover, Unhover }
+// chat line is open, else tracking (the game's order). `ShowNext`: the next quest of a chain, by its id, opens its page
+// in the chain's window.
+public enum Act { Pick, Track, Link, Share, Abandon, ShowOnMap, SuperTrack, Hover, Unhover, ShowNext }
 
 const INK: Color = Color.hex("#e8dcc4")
 // What the player's clicks on a quest's row do, in its tooltip.
@@ -245,6 +247,71 @@ function countOf(text: String): String {
 
 // The line under the scroll: its label, then the next quest's name.
 const CHAIN_COLUMNS: Array<Track> = ["max-content", { fr: 1 }]
+// The chain's page: its scroll, the line of the quest after it, its button.
+const CHAIN_ROWS: Array<Track> = [{ fr: 1 }, "max-content", "max-content"]
+const BUTTON_ALONE: Array<Track> = ["max-content", { fr: 1 }]
+
+// The line under a quest's parchment: the quest after it in its chain, by QuestieDB's name, in gold as a link; a
+// click, Enter or Space opens that quest's page. Nothing where QuestieDB knows none.
+public class ChainLine implements Component {
+  public open: Event<Integer> = new Event()
+
+  derived next: Integer = self.facts?.next ?? 0
+  derived name: String = self.next > 0 ? self.facts?.nextName ?? "" : ""
+
+  facts: Signal<QuestFacts | nil>
+  constructor(facts: Signal<QuestFacts | nil>) {
+    self.facts = facts
+  }
+
+  onOpen(mut self) { self.open.emit(peek self.next) }
+
+  public render(self): Template {
+    return $ltml {
+      <box $if={self.name != ""} columns={CHAIN_COLUMNS} gap={3sp} @pointerPress={self.onOpen} @keyPress(.Enter)={self.onOpen}
+           @keyPress(.Space)={self.onOpen}>
+        <text value={Locale.NEXT_IN_CHAIN} textColor={WELL_DIM} />
+        <text value={self.name} textColor={GOLD} />
+      </box>
+    }
+  }
+}
+
+// A quest of a chain not in the log, as QuestieDB knows it: on the scroll its title, its level and the level it may be
+// taken at, what it asks; under it the quest after it, and «Show on map», which shows where it is given.
+public class ChainPage implements Component {
+  public act: Event<(Integer, Act)> = new Event()
+
+  derived levels: String = Locale.CHAIN_LEVELS.format(self.facts.level, self.facts.minLevel)
+
+  quest: Signal<Integer>
+  facts: Signal<QuestFacts>
+  constructor(quest: Signal<Integer>, facts: Signal<QuestFacts>) {
+    self.quest = quest
+    self.facts = facts
+  }
+
+  onNext(mut self, next: Integer) { self.act.emit(next, Act.ShowNext) }
+  onMap(mut self) { self.act.emit(self.quest, Act.ShowOnMap) }
+
+  public render(self): Template {
+    return $ltml {
+      <box rows={CHAIN_ROWS} gap={1.5sp}>
+        <Scroll>
+          <text value={self.facts.name} textColor={SCROLL_HEAD} textSize={TITLE_TEXT} lineHeight={TIGHT_LINE} textFont={.Title} />
+          <text value={self.levels} textColor={SCROLL_DIM} />
+          <text $if={self.facts.task != ""} value={Locale.SECTION_TASKS} textColor={SCROLL_HEAD} textFont={.Title} />
+          <text $if={self.facts.task != ""} value={self.facts.task} textColor={SCROLL_INK} lineHeight={BODY_LINE} />
+        </Scroll>
+        <ChainLine facts={self.facts} @open={self.onNext} />
+        <box columns={BUTTON_ALONE}>
+          <PushButton label={Locale.SHOW_ON_MAP} width={BUTTON} @click={self.onMap} />
+          <box />
+        </box>
+      </box>
+    }
+  }
+}
 // The tracking switch's row: its label at the start, the switch at the page's right edge, over the Abandon button.
 const LABEL_THEN_SWITCH: Array<Track> = [{ fr: 1 }, "max-content"]
 
@@ -259,10 +326,9 @@ public class QuestPage implements Component {
   // Its objectives under the task: one that says the task again (a quest without counted objectives, whose one
   // objective is the task's own text) isn't said twice.
   derived goals: Array<Game.QuestObjective> = self.quest.objectives.filter(objective => objective.text != self.text.task)
-  // The quest after it in its chain, by QuestieDB's name; nothing where QuestieDB knows none.
-  derived chain: String = self.facts?.nextName ?? ""
   derived choiceRows: Array<RewardView> = choiceViews(rewardsOf(self.text.choices, true), [])
   derived givenRows: Array<Reward> = rewardsOf(self.text.rewards, false)
+  derived standings: Array<Standing> = standingsOf(self.facts?.reputation ?? [])
 
   quest: Signal<LogQuest>
   text: Signal<Game.QuestText>
@@ -279,6 +345,7 @@ public class QuestPage implements Component {
   onShare(mut self) { self.act.emit(self.quest.id, Act.Share) }
   onAbandon(mut self) { self.act.emit(self.quest.id, Act.Abandon) }
   onMap(mut self) { self.act.emit(self.quest.id, Act.ShowOnMap) }
+  onNext(mut self, next: Integer) { self.act.emit(next, Act.ShowNext) }
 
   public render(self): Template {
     return $ltml {
@@ -291,12 +358,10 @@ public class QuestPage implements Component {
           <GoalLine $for={objective of self.goals} objective={objective} todoColor={SCROLL_INK}
                     doneColor={SCROLL_DIM} small={false} />
         </Scroll>
-        <box $if={self.chain != ""} columns={CHAIN_COLUMNS} gap={3sp}>
-          <text value={Locale.NEXT_IN_CHAIN} textColor={WELL_DIM} />
-          <text value={self.chain} textColor={WELL_TEXT} />
-        </box>
+        <ChainLine facts={self.facts} @open={self.onNext} />
         <box gap={0.5sp}>
-          <Rewards views={self.choiceRows} also={self.givenRows} xp={self.text.experience} money={self.text.money} />
+          <Rewards views={self.choiceRows} also={self.givenRows} xp={self.text.experience} money={self.text.money}
+                   standings={self.standings} />
         </box>
         <box columns={LABEL_THEN_SWITCH} yAlign={Align.Center} @pointerPress={self.onTrack} @keyPress(.Enter)={self.onTrack}
              @keyPress(.Space)={self.onTrack}>

@@ -1,109 +1,109 @@
 -- the axe open, the bar closed: open on the axe, closed on the bar one step in, none on the leaf; the bar's age at its right
-box 0,0 400x63.87
-  box 0,0 400x21.29 #00000000 @keyPress @pointerPress
-    box 0,0 2.5x21.29 absolute #00000000
-    box 2.84,4.39 13.33x12.5
-      box 2.84,3.98 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 3 of 8
-    text 19.02,2.84 307.51x15.6 "Bronze Axe" #e8dcc4
-    box 329.38,2.84 67.78x15.6
-      text 329.38,2.84 67.78x15.6 "1g 23s 45c" #e8dcc4
-  box 0,21.29 400x21.29 #00000000 @keyPress @pointerPress
-    box 0,21.29 2.5x21.29 absolute #00000000
-    box 2.84,25.68 26.67x12.5
-      box 16.18,25.27 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 2 of 8
-    text 32.36,24.13 319.73x15.6 "Bronze Bar" #e8dcc4
-    box 354.93,24.13 42.22x15.6
-      text 354.93,24.13 42.22x15.6 "(5 d.)" #a3977f
-  box 0,42.58 400x21.29 #00000000 @keyPress @pointerPress
-    box 0,42.58 2.5x21.29 absolute #00000000
-    box 2.84,46.97 26.67x12.5
-    text 32.36,45.42 361.96x15.6 "Hardwood Handle" #e8dcc4
-    box 397.16,53.22 0x0
+box 0,0 400x67.47
+  box 0,0 400x22.49 #00000000 @keyPress @pointerPress
+    box 0,0 2.5x22.49 absolute #00000000
+    box 2.84,4.99 13.33x12.5
+      box 2.84,4.58 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 3 of 8
+    text 19.02,2.84 303.07x16.8 "Bronze Axe" #e8dcc4
+    box 324.93,2.84 72.22x16.8
+      text 324.93,2.84 72.22x16.8 "1g 23s 45c" #e8dcc4
+  box 0,22.49 400x22.49 #00000000 @keyPress @pointerPress
+    box 0,22.49 2.5x22.49 absolute #00000000
+    box 2.84,27.48 26.67x12.5
+      box 16.18,27.07 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 2 of 8
+    text 32.36,25.33 317.51x16.8 "Bronze Bar" #e8dcc4
+    box 352.71,25.33 44.44x16.8
+      text 352.71,25.33 44.44x16.8 "(5 d.)" #a3977f
+  box 0,44.98 400x22.49 #00000000 @keyPress @pointerPress
+    box 0,44.98 2.5x22.49 absolute #00000000
+    box 2.84,49.97 26.67x12.5
+    text 32.36,47.82 361.96x16.8 "Hardwood Handle" #e8dcc4
+    box 397.16,56.22 0x0
 
 -- the cursor on the leaf: its shade
-box 0,0 400x63.87
-  box 0,0 400x21.29 #00000000 @keyPress @pointerPress
-    box 0,0 2.5x21.29 absolute #00000000
-    box 2.84,4.39 13.33x12.5
-      box 2.84,3.98 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 3 of 8
-    text 19.02,2.84 307.51x15.6 "Bronze Axe" #e8dcc4
-    box 329.38,2.84 67.78x15.6
-      text 329.38,2.84 67.78x15.6 "1g 23s 45c" #e8dcc4
-  box 0,21.29 400x21.29 #00000000 @keyPress @pointerPress
-    box 0,21.29 2.5x21.29 absolute #00000000
-    box 2.84,25.68 26.67x12.5
-      box 16.18,25.27 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 2 of 8
-    text 32.36,24.13 319.73x15.6 "Bronze Bar" #e8dcc4
-    box 354.93,24.13 42.22x15.6
-      text 354.93,24.13 42.22x15.6 "(5 d.)" #a3977f
-  box 0,42.58 400x21.29 #00000059 @keyPress @pointerPress
-    box 0,42.58 2.5x21.29 absolute #00000000
-    box 2.84,46.97 26.67x12.5
-    text 32.36,45.42 361.96x15.6 "Hardwood Handle" #e8dcc4
-    box 397.16,53.22 0x0
+box 0,0 400x67.47
+  box 0,0 400x22.49 #00000000 @keyPress @pointerPress
+    box 0,0 2.5x22.49 absolute #00000000
+    box 2.84,4.99 13.33x12.5
+      box 2.84,4.58 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 3 of 8
+    text 19.02,2.84 303.07x16.8 "Bronze Axe" #e8dcc4
+    box 324.93,2.84 72.22x16.8
+      text 324.93,2.84 72.22x16.8 "1g 23s 45c" #e8dcc4
+  box 0,22.49 400x22.49 #00000000 @keyPress @pointerPress
+    box 0,22.49 2.5x22.49 absolute #00000000
+    box 2.84,27.48 26.67x12.5
+      box 16.18,27.07 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 2 of 8
+    text 32.36,25.33 317.51x16.8 "Bronze Bar" #e8dcc4
+    box 352.71,25.33 44.44x16.8
+      text 352.71,25.33 44.44x16.8 "(5 d.)" #a3977f
+  box 0,44.98 400x22.49 #00000059 @keyPress @pointerPress
+    box 0,44.98 2.5x22.49 absolute #00000000
+    box 2.84,49.97 26.67x12.5
+    text 32.36,47.82 361.96x16.8 "Hardwood Handle" #e8dcc4
+    box 397.16,56.22 0x0
 
 -- the bar clicked: open, its ore two steps in
-box 0,0 400x85.16
-  box 0,0 400x21.29 #00000000 @keyPress @pointerPress
-    box 0,0 2.5x21.29 absolute #00000000
-    box 2.84,4.39 13.33x12.5
-      box 2.84,3.98 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 3 of 8
-    text 19.02,2.84 307.51x15.6 "Bronze Axe" #e8dcc4
-    box 329.38,2.84 67.78x15.6
-      text 329.38,2.84 67.78x15.6 "1g 23s 45c" #e8dcc4
-  box 0,21.29 400x21.29 #00000059 @keyPress @pointerPress
-    box 0,21.29 2.5x21.29 absolute #00000000
-    box 2.84,25.68 26.67x12.5
-      box 16.18,25.27 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 3 of 8
-    text 32.36,24.13 319.73x15.6 "Bronze Bar" #e8dcc4
-    box 354.93,24.13 42.22x15.6
-      text 354.93,24.13 42.22x15.6 "(5 d.)" #a3977f
-  box 0,42.58 400x21.29 #00000000 @keyPress @pointerPress
-    box 0,42.58 2.5x21.29 absolute #00000000
-    box 2.84,46.97 40x12.5
-    text 45.69,45.42 287.51x15.6 "Tin Ore" #e8dcc4
-    box 336.04,45.42 61.11x15.6
-      text 336.04,45.42 61.11x15.6 "0g 0s 80c" #e8dcc4
-  box 0,63.87 400x21.29 #00000000 @keyPress @pointerPress
-    box 0,63.87 2.5x21.29 absolute #00000000
-    box 2.84,68.26 26.67x12.5
-    text 32.36,66.71 361.96x15.6 "Hardwood Handle" #e8dcc4
-    box 397.16,74.51 0x0
+box 0,0 400x89.96
+  box 0,0 400x22.49 #00000000 @keyPress @pointerPress
+    box 0,0 2.5x22.49 absolute #00000000
+    box 2.84,4.99 13.33x12.5
+      box 2.84,4.58 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 3 of 8
+    text 19.02,2.84 303.07x16.8 "Bronze Axe" #e8dcc4
+    box 324.93,2.84 72.22x16.8
+      text 324.93,2.84 72.22x16.8 "1g 23s 45c" #e8dcc4
+  box 0,22.49 400x22.49 #00000059 @keyPress @pointerPress
+    box 0,22.49 2.5x22.49 absolute #00000000
+    box 2.84,27.48 26.67x12.5
+      box 16.18,27.07 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 3 of 8
+    text 32.36,25.33 317.51x16.8 "Bronze Bar" #e8dcc4
+    box 352.71,25.33 44.44x16.8
+      text 352.71,25.33 44.44x16.8 "(5 d.)" #a3977f
+  box 0,44.98 400x22.49 #00000000 @keyPress @pointerPress
+    box 0,44.98 2.5x22.49 absolute #00000000
+    box 2.84,49.97 40x12.5
+    text 45.69,47.82 283.07x16.8 "Tin Ore" #e8dcc4
+    box 331.6,47.82 65.56x16.8
+      text 331.6,47.82 65.56x16.8 "0g 0s 80c" #e8dcc4
+  box 0,67.47 400x22.49 #00000000 @keyPress @pointerPress
+    box 0,67.47 2.5x22.49 absolute #00000000
+    box 2.84,72.46 26.67x12.5
+    text 32.36,70.31 361.96x16.8 "Hardwood Handle" #e8dcc4
+    box 397.16,78.71 0x0
 
 -- the ore clicked: picked, white, its light along its left; a leaf does not close
-box 0,0 400x85.16
-  box 0,0 400x21.29 #00000000 @keyPress @pointerPress
-    box 0,0 2.5x21.29 absolute #00000000
-    box 2.84,4.39 13.33x12.5
-      box 2.84,3.98 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 3 of 8
-    text 19.02,2.84 307.51x15.6 "Bronze Axe" #e8dcc4
-    box 329.38,2.84 67.78x15.6
-      text 329.38,2.84 67.78x15.6 "1g 23s 45c" #e8dcc4
-  box 0,21.29 400x21.29 #00000000 @keyPress @pointerPress
-    box 0,21.29 2.5x21.29 absolute #00000000
-    box 2.84,25.68 26.67x12.5
-      box 16.18,25.27 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 3 of 8
-    text 32.36,24.13 319.73x15.6 "Bronze Bar" #e8dcc4
-    box 354.93,24.13 42.22x15.6
-      text 354.93,24.13 42.22x15.6 "(5 d.)" #a3977f
-  box 0,42.58 400x21.29 #00000040 @keyPress @pointerPress
-    box 0,42.58 2.5x21.29 absolute #d6a56b
-    box 2.84,46.97 40x12.5
-    text 45.69,45.42 287.51x15.6 "Tin Ore" #f0e6d2
-    box 336.04,45.42 61.11x15.6
-      text 336.04,45.42 61.11x15.6 "0g 0s 80c" #e8dcc4
-  box 0,63.87 400x21.29 #00000000 @keyPress @pointerPress
-    box 0,63.87 2.5x21.29 absolute #00000000
-    box 2.84,68.26 26.67x12.5
-    text 32.36,66.71 361.96x15.6 "Hardwood Handle" #e8dcc4
-    box 397.16,74.51 0x0
+box 0,0 400x89.96
+  box 0,0 400x22.49 #00000000 @keyPress @pointerPress
+    box 0,0 2.5x22.49 absolute #00000000
+    box 2.84,4.99 13.33x12.5
+      box 2.84,4.58 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 3 of 8
+    text 19.02,2.84 303.07x16.8 "Bronze Axe" #e8dcc4
+    box 324.93,2.84 72.22x16.8
+      text 324.93,2.84 72.22x16.8 "1g 23s 45c" #e8dcc4
+  box 0,22.49 400x22.49 #00000000 @keyPress @pointerPress
+    box 0,22.49 2.5x22.49 absolute #00000000
+    box 2.84,27.48 26.67x12.5
+      box 16.18,27.07 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 3 of 8
+    text 32.36,25.33 317.51x16.8 "Bronze Bar" #e8dcc4
+    box 352.71,25.33 44.44x16.8
+      text 352.71,25.33 44.44x16.8 "(5 d.)" #a3977f
+  box 0,44.98 400x22.49 #00000040 @keyPress @pointerPress
+    box 0,44.98 2.5x22.49 absolute #d6a56b
+    box 2.84,49.97 40x12.5
+    text 45.69,47.82 283.07x16.8 "Tin Ore" #f0e6d2
+    box 331.6,47.82 65.56x16.8
+      text 331.6,47.82 65.56x16.8 "0g 0s 80c" #e8dcc4
+  box 0,67.47 400x22.49 #00000000 @keyPress @pointerPress
+    box 0,67.47 2.5x22.49 absolute #00000000
+    box 2.84,72.46 26.67x12.5
+    text 32.36,70.31 361.96x16.8 "Hardwood Handle" #e8dcc4
+    box 397.16,78.71 0x0
 
 -- the axe clicked: closed, its children gone, it is the picked row
-box 0,0 400x21.29
-  box 0,0 400x21.29 #00000040 @keyPress @pointerPress
-    box 0,0 2.5x21.29 absolute #d6a56b
-    box 2.84,4.39 13.33x12.5
-      box 2.84,3.98 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 2 of 8
-    text 19.02,2.84 307.51x15.6 "Bronze Axe" #f0e6d2
-    box 329.38,2.84 67.78x15.6
-      text 329.38,2.84 67.78x15.6 "1g 23s 45c" #e8dcc4
+box 0,0 400x22.49
+  box 0,0 400x22.49 #00000040 @keyPress @pointerPress
+    box 0,0 2.5x22.49 absolute #d6a56b
+    box 2.84,4.99 13.33x12.5
+      box 2.84,4.58 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 2 of 8
+    text 19.02,2.84 303.07x16.8 "Bronze Axe" #f0e6d2
+    box 324.93,2.84 72.22x16.8
+      text 324.93,2.84 72.22x16.8 "1g 23s 45c" #e8dcc4

@@ -64,12 +64,12 @@ function trackSpellOf(skillLine: Integer | nil): Integer | nil {
 }
 const COLUMNS: Array<Column> = [
   { title: Locale.COLUMN_RECIPE, width: { fr: 1 }, sortable: true },
-  { title: Locale.COLUMN_MAKEABLE, width: 93.75dp, align: Align.End, sortable: true }
+  { title: Locale.COLUMN_MAKEABLE, width: 103.125dp, align: Align.End, sortable: true }
 ]
 // With Ordaen Auction's prices: one making's cost and profit.
 const PRICED_COLUMNS: Array<Column> = [
   { title: Locale.COLUMN_RECIPE, width: { fr: 1 }, sortable: true },
-  { title: Locale.COLUMN_MAKEABLE, width: 93.75dp, align: Align.End, sortable: true },
+  { title: Locale.COLUMN_MAKEABLE, width: 103.125dp, align: Align.End, sortable: true },
   { title: Locale.COLUMN_COST, width: 128.90625dp, align: Align.End, sortable: true },
   { title: Locale.COLUMN_PROFIT, width: 128.90625dp, align: Align.End, sortable: true }
 ]

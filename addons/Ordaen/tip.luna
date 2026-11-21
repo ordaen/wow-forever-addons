@@ -1,24 +1,29 @@
 // Tip: our tooltip beside what it explains: the small metal frame round the windows' wood, its name in white, its
 // text under it in the label colour, wrapped at the tooltip's width, and under that its rows, each a label at the
-// start in the label colour and its value at the end in white; a panel's room round it and a line's between its
-// lines (`space`), and last its hotkeys (`Hotkeys`). It stands on the screen over everything and takes no
-// mouse. Its owner writes it in the box it explains and shows it while the cursor is on that box: it stands beside
-// that box as the game's tooltip stands beside a button (under it, or over it in the screen's lower half; by its left
-// edge, or by its right edge in the screen's right third), kept on the screen.
-import { Align, Beside, Layer, Track } from "$ltml"
+// start in the label colour and its value at the end in white; then its sections, each a title in gold over rows of
+// its own; a panel's room round it and a line's between its lines (`space`), and last its hotkeys (`Hotkeys`). It
+// stands on the screen over everything and takes no mouse. Its owner writes it in the box it explains and shows it
+// while the cursor is on that box: it stands beside that box as the game's tooltip stands beside a button (under it,
+// or over it in the screen's lower half; by its left edge, or by its right edge in the screen's right third), kept on
+// the screen.
+import { Align, Art, Beside, Bounds, Layer, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import { reachAcross } from "@/art"
 import { Hotkeys } from "@/hotkeys"
 import { Component } from "@/module"
 import { BRIGHT_TEXT, TIGHT_LINE, TITLE_LINE, TITLE_TEXT } from "@/units"
 
-const WIDTH = 367.96875dp
+// As wide as what it says, up to its most at the frame's line: a long text wraps there.
+const MOST = 468.75dp
 const NAME: Color = BRIGHT_TEXT
 const LABEL: Color = Color.hex("#cbb994")
+const HEADING: Color = Color.hex("#ffd100")
 const BY_ITS_BOX: Beside = { beside: "parent" }
 const ROW: Array<Track> = [{ fr: 1 }, "max-content"]
-// A label and the word after it, side by side at the row's start.
-const MARKED: Array<Track> = ["max-content", "max-content"]
+// A row's picture, its label and the word after it, side by side at the row's start.
+const MARKED: Array<Track> = ["max-content", "max-content", "max-content"]
+// A row's picture: as high as its line.
+const ICON = 16dp
 
 // A word after a row's label in a colour of its own: a standing's name in its standing's colour. Without its text, the
 // label stands alone.
@@ -27,12 +32,21 @@ public struct TipMark {
   const color: Color
 }
 
-// One row of a Tip: what it is, a word after it in its own colour where it has one, and how much (in the numbers'
-// font). The mark's default is written out, not a constant of this file: a default is made where the row is.
+// One row of a Tip: its picture where it has one, what it is (in the label colour, or its own `tone`: an item's name in
+// its quality's), a word after it in its own colour where it has one, and how much (in the numbers' font). The
+// defaults are written out, not constants of this file: a default is made where the row is.
 public struct TipRow {
   const label: String
   const value: String
   const mark: TipMark = { text: "", color: BRIGHT_TEXT }
+  const icon: Art | nil = nil
+  const tone: Color | nil = nil
+}
+
+// A titled group of a Tip's rows, under its text and its own rows: a stat's sources, «Items», «Effects».
+public struct TipSection {
+  const title: String
+  const rows: Array<TipRow>
 }
 
 // What a control's Tip says, for a control that draws its own (a push button): its name, its text and its rows.
@@ -42,22 +56,49 @@ public struct TipText {
   const rows: Array<TipRow>
 }
 
+// A row of a Tip, as `Tip` draws each.
+class TipLine implements Component {
+  derived iconed: Boolean = self.row.icon != nil
+  derived ink: Color = self.row.tone ?? LABEL
+
+  row: Signal<TipRow>
+  constructor(row: Signal<TipRow>) {
+    self.row = row
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={ROW} gap={3sp} yAlign={Align.Center}>
+        <box columns={MARKED} gap={2sp} yAlign={Align.Center}>
+          <box $if={self.iconed} width={ICON} height={ICON} icon={self.row.icon} />
+          <text value={self.row.label} textColor={self.ink} />
+          <text $if={self.row.mark.text != ""} value={self.row.mark.text} textColor={self.row.mark.color} />
+        </box>
+        <text value={self.row.value} textColor={NAME} wrap={.None} textFont={.Numbers} />
+      </box>
+    }
+  }
+}
+
 public class Tip implements Component {
   derived hasText: Boolean = self.text != ""
-  // Its width as drawn: the design's at the frame's line, and the art past the line on either side.
-  derived width: Number<Length> = WIDTH + reachAcross(Ordaen.art.frame.small)
+  // Its width as drawn: its content's, up to its most and the art past the line on either side.
+  derived width: Bounds = { min: nil, max: MOST + reachAcross(Ordaen.art.frame.small) }
 
   title: Signal<String>
   text: Signal<String>
   rows: Signal<Array<TipRow>>
   keys: Signal<Array<String>>
+  sections: Signal<Array<TipSection>>
   constructor(
-    title: Signal<String>, text: Signal<String>, rows: Signal<Array<TipRow>> = [], keys: Signal<Array<String>> = []
+    title: Signal<String>, text: Signal<String>, rows: Signal<Array<TipRow>> = [], keys: Signal<Array<String>> = [],
+    sections: Signal<Array<TipSection>> = []
   ) {
     self.title = title
     self.text = text
     self.rows = rows
     self.keys = keys
+    self.sections = sections
   }
 
   public render(self): Template {
@@ -67,12 +108,10 @@ public class Tip implements Component {
                padding={5sp} columns={1} gap={2sp}>
         <text value={self.title} textColor={NAME} textSize={TITLE_TEXT} lineHeight={TITLE_LINE} />
         <text $if={self.hasText} value={self.text} textColor={LABEL} />
-        <box $for={row of self.rows} columns={ROW} gap={3sp} yAlign={Align.Center}>
-          <box columns={MARKED} gap={2sp} yAlign={Align.Center}>
-            <text value={row.label} textColor={LABEL} />
-            <text $if={row.mark.text != ""} value={row.mark.text} textColor={row.mark.color} />
-          </box>
-          <text value={row.value} textColor={NAME} wrap={.None} textFont={.Numbers} />
+        <TipLine $for={row of self.rows} row={row} />
+        <box $for={section of self.sections} columns={1} gap={1sp} padding={{ top: 2sp }}>
+          <text value={section.title} textColor={HEADING} />
+          <TipLine $for={row of section.rows} row={row} />
         </box>
         <Hotkeys keys={self.keys} />
       </surface>

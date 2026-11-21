@@ -10,6 +10,7 @@ import { Art } from "$ltml"
 import Test from "$test"
 import root Ordaen from "Ordaen"
 import { Quality } from "Ordaen"
+import root Auras from "OrdaenAuras"
 import root Char from "OrdaenCharacter"
 import { FITS_GLOW, wearColor } from "@/gear"
 import { ClientSheet, Faction, GearSet, Sheet, Skill, Stats, Who, Worn } from "@/sheet"
@@ -50,6 +51,7 @@ function heading(index: Integer, id: Integer, name: String, collapsed: Boolean):
 function warrior(): Stats {
   return {
     strength: 312, stamina: 280, armor: 4120, attackPower: 832, meleeCrit: 20.05, speed: 3.8, mainSkill: MACES,
+    bases: [280, 0, 0, 0, 0],
     tips: { primary: ["Increases your attack power with melee weapons."] }
   }
 }
@@ -63,8 +65,18 @@ class FakeSheet implements Sheet {
   stand = 4500
 
   public worn(self, slot: Integer): Worn {
-    if (slot == 1) { return { slot: slot, item: HELM, quality: Quality.Epic, level: 63, durability: 0.2, locked: self.helmLocked } }
-    if (slot == 16) { return { slot: slot, item: REAPER, quality: Quality.Epic, level: 58, durability: 1 } }
+    if (slot == 1) {
+      return {
+        slot: slot, item: HELM, quality: Quality.Epic, level: 63, durability: 0.2, locked: self.helmLocked,
+        name: "Lionheart Helm", gives: [{ stat: .Strength, amount: 12 }, { stat: .Armor, amount: 600 }]
+      }
+    }
+    if (slot == 16) {
+      return {
+        slot: slot, item: REAPER, quality: Quality.Epic, level: 58, durability: 1, name: "Arcanite Reaper",
+        gives: [{ stat: .Strength, amount: 20 }, { stat: .MeleeCrit, amount: 1 }]
+      }
+    }
     return { slot: slot, item: nil, quality: Quality.Common, level: nil, durability: nil }
   }
 
@@ -292,13 +304,63 @@ test "the slot what the cursor holds goes in is lit, the others not; a locked it
   Test.expect(window.button(REAPER_ICON).opacity() == 1)
 }
 
-test "a main stat under the cursor shows its name and the game's words on it" {
+// The stats' tooltips
+
+// Battle Shout, as the client has it on the character: 100 attack power.
+const SHOUT = 6673
+function spellNames(id: Integer): String | nil { return id == SHOUT ? "Battle Shout" : nil }
+
+test "a main stat's tooltip: its name and value, the game's words, its base, then the items that give it, the most first" {
   Test.mount(nil, PAGE)
   Game.items.icon = icons
   const window = opened(new FakeSheet())
   window.text("312").hover()
-  const tip = Test.page().window("Increases your attack power with melee weapons.")
-  Test.expect(tip.text("Strength 312").shown())
+  const tip = Test.page().window("Strength 312")
+  Test.expect(tip.texts().join(" | ") == "Strength 312 | Increases your attack power with melee weapons. | Stats | Base | 280 | Items | Arcanite Reaper | +20 | Lionheart Helm | +12")
+}
+
+test "a stat's tooltip lists the stats that feed it and the auras that change it, its base the rest" {
+  Test.login({ guid: "Player-1-0001", name: "Regy", surname: "", realm: "Realm", faction: "Alliance", classTag: "WARRIOR" })
+  Test.mount(nil, PAGE)
+  Game.items.icon = icons
+  Game.spells.name = spellNames
+  Game.auras.player = (): Array<Game.PlayerAura> => [{ spell: SHOUT, stacks: 0, harmful: false, points: [100] }]
+  Auras.refresh()
+  const window = opened(new FakeSheet())
+  window.text("832").hover()
+  const tip = Test.page().window("Attack power 832")
+  Test.expect(tip.texts().join(" | ") == "Attack power 832 | Stats | Strength | +624 | Base | 108 | Effects | Battle Shout | +100")
+}
+
+test "while a stat's tooltip is open, each item that gives it has its share under its slot, and leaving takes them off" {
+  Test.mount(nil, PAGE)
+  Game.items.icon = icons
+  const window = opened(new FakeSheet())
+  window.text("312").hover()
+  Test.expect(window.text("+12").shown() && window.text("+20").shown())
+  window.text("Regy").hover()
+  Test.expect(!window.text("+12").shown() && !Test.page().text("Lionheart Helm").shown())
+}
+
+test "while a stat's tooltip is open, the stats that feed it glow gold, and the others don't" {
+  Test.login({ guid: "Player-1-0001", name: "Regy", surname: "", realm: "Realm", faction: "Alliance", classTag: "WARRIOR" })
+  Test.mount(nil, PAGE)
+  Game.items.icon = icons
+  const window = opened(new FakeSheet())
+  Test.expect(!window.box(Style.SOURCE_GLOW).shown())
+  window.text("832").hover()
+  // Strength alone feeds a warrior's attack power, and no item gives it: one glow, strength's.
+  Test.expect(window.box(Style.SOURCE_GLOW).count() == 1)
+  window.text("Regy").hover()
+  Test.expect(!window.box(Style.SOURCE_GLOW).shown())
+}
+
+test "a percentage's sources are percentages: the crit an item gives" {
+  Test.mount(nil, PAGE)
+  Game.items.icon = icons
+  const window = opened(new FakeSheet())
+  window.text("20.05%").hover()
+  Test.expect(Test.page().window("Crit 20.05%").text("+1.00%").shown())
 }
 
 // The stats
