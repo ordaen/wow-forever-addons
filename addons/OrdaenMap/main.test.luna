@@ -54,19 +54,6 @@ test "docked, the map's side panel is given while the map shows, its size the cl
   Test.expect(Maps.side == nil)
 }
 
-test "«Show on map» asked in a fight opens the map as the fight ends, never in it" {
-  Test.questLog([{ id: 101, title: "One", header: "Westfall" }, { id: 102, title: "Two", header: "Westfall" }])
-  Test.mount(nil, PAGE)
-  Test.combat(true)
-  Maps.show(40, 102)
-  Test.flush()
-  Test.expect(!Client.WorldMapFrame.IsShown())
-  Test.combat(false)
-  Test.flush()
-  Test.expect(Client.WorldMapFrame.IsShown() && Client.WorldMapFrame.GetMapID() == 1436)
-  Test.expect(Test.questPins().length == 1 && Test.questPins()[1] == 102)
-}
-
 test "the map shows no quest's pins; a module's «Show on map» shows its quest's alone, until the map hides" {
   Test.questLog([{ id: 101, title: "One", header: "Westfall" }, { id: 102, title: "Two", header: "Westfall" }])
   Test.mount(nil, PAGE)

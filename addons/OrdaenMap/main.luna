@@ -117,13 +117,11 @@ public class Maps implements Module, App {
   }
 
   // The world map opened where the area is, the game's marks of `quest` alone shown until it hides (its pins and its
-  // shaded area; 0: none): a module's «Show on map». No quest's marks show otherwise. The client opens the map for an
-  // addon out of a fight alone: asked in one, it opens as the fight ends.
+  // shaded area; 0: none): a module's «Show on map». No quest's marks show otherwise. Out of a fight alone: the client
+  // opens the map for an addon there only, and a module's «Show on map» is off in one.
   public show(mut self, area: Integer, quest: Integer = 0) {
-    Ordaen.afterCombat(() => {
-      self.host.open(area)
-      self.host.onlyQuest(quest)
-    })
+    self.host.open(area)
+    self.host.onlyQuest(quest)
   }
 
   // The marks in view placed and drawn; one standing on a pin drawn before it adds its lines to that one's tooltip.
