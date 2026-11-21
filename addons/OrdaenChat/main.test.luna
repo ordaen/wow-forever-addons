@@ -180,6 +180,36 @@ test "Enter shows the input line, on the screen, in the chat's frame" {
   Test.expect(round.left < middle.x && round.right > middle.x && round.top < middle.y && round.bottom > middle.y)
 }
 
+test "the input shows under the lines' frame in a room the chat keeps for it: nothing moves as it or the way back comes" {
+  Game.chat.windows = gameWindows()
+  const box = input(Client.CreateFrame("Frame", nil, Client.C_UI.GetUIParent(), nil))
+  box.Hide()
+  Game.chat.input = box
+  _ = chat()
+  for (at of 1..60) { Game.chat.heard.emit(line("SAY", `line ${at}`, "Thrall", [1])) }
+  const shown = Test.page().window("Whispers")
+  const chatBefore = shown.rect()
+  const lines = shown.box(Ordaen.art.window.wood).nth(2).rect()
+  const newest = shown.text("line 60").rect()
+  // Scrolled back, the way back stands over the lines; scrolled to the newest again, it goes.
+  shown.text("line 60").hover()
+  Test.wheel(1)
+  Test.expect(shown.text("To the latest").shown())
+  Test.expect(shown.rect().bottom == chatBefore.bottom)
+  shown.text("To the latest").click()
+  box.Show()
+  box.SetFocus()
+  Game.chat.typing = true
+  Test.pass(0.01)
+  // Nothing moved: the chat (what the placing mode outlines), its frame, its newest line.
+  const chatNow = shown.rect()
+  Test.expect(chatNow.top == chatBefore.top && chatNow.bottom == chatBefore.bottom && chatNow.right == chatBefore.right)
+  Test.expect(shown.text("line 60").rect().bottom == newest.bottom)
+  // The input stands under the lines' frame, inside the chat.
+  const middle = Test.centre(box)
+  Test.expect(middle.y > lines.bottom && middle.y < chatNow.bottom && middle.x > lines.left && middle.x < lines.right)
+}
+
 test "the input's field stands over a game window opened over the chat's corner, as the game's input does" {
   Game.chat.windows = gameWindows()
   const box = input(Client.CreateFrame("Frame", nil, Client.C_UI.GetUIParent(), nil))
