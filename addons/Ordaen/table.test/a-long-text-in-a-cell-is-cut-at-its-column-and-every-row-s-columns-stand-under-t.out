@@ -16,14 +16,14 @@ box 0,0 500x104.1
           box 333.06,9.37 149.04x16.8
             text 333.06,9.37 31.11x16.8 "Note" #a3977f
     box 0.83,35.53 498.33x67.73 scrolled 0 of 0
-      box 9.37,44.07 481.27x25.33 #00000000 @keyPress @pointerPress
+      box 9.37,44.07 481.27x25.33 #00000000 @keyPress @pointerEnter @pointerLeave @pointerPress
         box 17.9,48.33 149.04x16.8
           text 17.9,48.33 149.04x16.8 "Ingrid" #ffffff
         box 175.48,48.33 149.04x16.8
           text 175.48,48.33 149.04x16.8 "Stormwind" #ffffff
         box 333.06,48.33 149.04x16.8
           text 333.06,48.33 149.04x16.8 "main" #ffffff
-      box 9.37,69.4 481.27x25.33 #00000000 @keyPress @pointerPress
+      box 9.37,69.4 481.27x25.33 #00000000 @keyPress @pointerEnter @pointerLeave @pointerPress
         box 17.9,73.67 149.04x16.8
           text 17.9,73.67 149.04x16.8 "Bo" #ffffff
         box 175.48,73.67 149.04x16.8

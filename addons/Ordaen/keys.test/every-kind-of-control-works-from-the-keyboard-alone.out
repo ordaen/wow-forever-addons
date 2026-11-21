@@ -87,7 +87,7 @@ surface 420,121.38 760x657.25 on MEDIUM clamped raised by a click
                   box 473.75,501.96 33.96x17.78
                     text 473.75,501.96 31.11x17.78 "Name" #f0c860
             box 456.68,529.11 691.63x43.38 scrolled 0 of 0
-              box 465.22,537.64 674.57x26.31 #00000000 @keyPress @pointerPress
+              box 465.22,537.64 674.57x26.31 #00000000 @keyPress @pointerEnter @pointerLeave @pointerPress
                 text 473.75,541.91 657.5x17.78 "a row" #ffffff
         box 455.85,579.01 693.3x20 @keyPress @pointerPress
           text 455.85,579.01 693.3x17.78 "menu" #ffffff
