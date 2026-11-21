@@ -801,6 +801,8 @@ test "the main button's key is the space bar's mark, never its name" {
 }
 
 test "a quest's text fades in at the game's pace, a word at a time; the game's option shows it at once" {
+  // The game shows it at once unless the player turned that off.
+  Test.cvar("instantQuestText", "0")
   Test.mount(nil, SCREEN)
   Test.talk(innkeeper())
   Test.quest(pie())
