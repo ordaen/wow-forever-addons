@@ -28,7 +28,7 @@ const PREFIX = "ordaenurl:"
 // Where the last lines of each tab are kept between sessions.
 const HISTORY = "OrdaenChat:history"
 // Whether the character's guild tab was made, once.
-const GUILD_TAB = "OrdaenChat:guild"
+const GUILD_TAB = "OrdaenChat:guildWindow"
 // What the guild's tab shows: the guild's lines and its officers'.
 const GUILD_GROUPS: Array<String> = ["GUILD", "OFFICER"]
 // The time stamp before a line: in brackets, the muted colour.
@@ -96,7 +96,7 @@ public class Chat implements Module, App {
     Game.chat.playerReported.listen(self.onReported)
     Events.PLAYER_LOGOUT.listen(self.keep)
     // The game's windows loaded, and the player in the world: the guild's tab made where it is due.
-    Events.UPDATE_CHAT_WINDOWS.listen(self.guildTab)
+    Events.UPDATE_CHAT_WINDOWS.listen(self.onWindowsLoaded)
     Events.PLAYER_ENTERING_WORLD.listen(self.onEnterWorld)
     watch (windows of Game.chat.windows) { self.sync() }
     // Whispers are the whisper window's: the game opens no window of its own for them.
@@ -334,22 +334,27 @@ public class Chat implements Module, App {
   }
 
   // A character's first chat has a tab of the guild's lines (the guild's and its officers'), docked after the game's
-  // own two, once its windows are loaded. Asked again as the windows change until a window past those two shows the
-  // guild (the client refuses a new window while it loads them): then it is done for the character, and a guild's
-  // tab closed stays closed.
-  onEnterWorld(mut self, initial: Boolean, reloaded: Boolean) { self.guildTab() }
+  // own two. Asked after each time the game's windows load, and after the player enters the world: after, as the
+  // game's own handlers of the same event lay its saved windows over whatever was opened before them. Done for the
+  // character once a later ask finds the window still there, so a guild's tab closed then stays closed.
+  onWindowsLoaded(mut self) { self.guildTabLater() }
+
+  onEnterWorld(mut self, initial: Boolean, reloaded: Boolean) { self.guildTabLater() }
+
+  guildTabLater(mut self) { Client.C_Timer.After(0, (): nil => self.guildTab()) }
 
   guildTab(mut self) {
     if (Game.saved.stored(Game.Scope.Character, GUILD_TAB) != nil) { return }
-    if (!showsGuild()) {
-      const made = Game.chat.open(Locale.TAB_GUILD_NAME)
-      if (made == nil) { return }
-      for (group of Game.chat.groups(made)) {
-        if (group.shown) { Game.chat.showGroup(made, group.name, false) }
-      }
-      for (group of GUILD_GROUPS) { Game.chat.showGroup(made, group, true) }
+    if (showsGuild()) {
+      Game.saved.store(Game.Scope.Character, GUILD_TAB, true)
+      return
     }
-    if (showsGuild()) { Game.saved.store(Game.Scope.Character, GUILD_TAB, true) }
+    const made = Game.chat.open(Locale.TAB_GUILD_NAME)
+    if (made == nil) { return }
+    for (group of Game.chat.groups(made)) {
+      if (group.shown) { Game.chat.showGroup(made, group.name, false) }
+    }
+    for (group of GUILD_GROUPS) { Game.chat.showGroup(made, group, true) }
   }
 
   // The last lines of each tab, for the next session: written once, as the player logs out.

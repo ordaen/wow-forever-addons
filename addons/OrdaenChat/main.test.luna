@@ -478,29 +478,55 @@ function guildOpening(refused: Integer) {
   }
 }
 
-test "a character's chat gets a tab of the guild's lines once its windows load, once" {
+// The game's windows load, and the game's own handlers of the event have their turn.
+function windowsLoad() {
+  Events.UPDATE_CHAT_WINDOWS.emit()
+  Test.pass(0.01)
+}
+
+function guildAsked(): Boolean { return Test.requests().any(r => r == "Chat.open Guild") }
+
+test "a character's chat gets a tab of the guild's lines once its windows load, after the game's own handlers" {
   guildOpening(0)
   _ = chat()
   Events.UPDATE_CHAT_WINDOWS.emit()
+  // Not in the event itself: the game lays its saved windows over what was opened before its handler.
+  Test.expect(!guildAsked())
+  Test.pass(0.01)
   const asked = Test.requests()
   Test.expect(asked.any(r => r == "Chat.open Guild"))
   // The new window shows the guild's and its officers' lines and nothing else.
   Test.expect(asked.any(r => r == "Chat.showGroup 4 SAY false"))
   Test.expect(asked.any(r => r == "Chat.showGroup 4 GUILD true") && asked.any(r => r == "Chat.showGroup 4 OFFICER true"))
-  // Done for the character: closed, it isn't made again.
+}
+
+test "a guild's tab the game's load closed is opened again; once a later load finds it, closed it stays closed" {
+  guildOpening(0)
+  _ = chat()
+  windowsLoad()
+  Test.expect(guildAsked())
+  // The game's saved windows laid over it: gone.
   Game.chat.windows = gameWindows()
-  Events.UPDATE_CHAT_WINDOWS.emit()
+  windowsLoad()
+  Test.expect(guildAsked())
+  // Found by the next load: done.
+  windowsLoad()
+  Test.expect(!guildAsked())
+  Game.chat.windows = gameWindows()
+  windowsLoad()
   Events.PLAYER_ENTERING_WORLD.emit(false, true)
-  Test.expect(!Test.requests().any(r => r == "Chat.open Guild"))
+  Test.pass(0.01)
+  Test.expect(!guildAsked())
 }
 
 test "a guild's tab the client refused while it loads its windows is asked for again as the player enters the world" {
   guildOpening(1)
   _ = chat()
-  Events.UPDATE_CHAT_WINDOWS.emit()
-  Test.expect(Test.requests().any(r => r == "Chat.open Guild"))
+  windowsLoad()
+  Test.expect(guildAsked())
   Events.PLAYER_ENTERING_WORLD.emit(true, false)
-  Test.expect(Test.requests().any(r => r == "Chat.open Guild"))
+  Test.pass(0.01)
+  Test.expect(guildAsked())
   Test.expect(Game.chat.windows.any(each => each.index == 4))
 }
 
@@ -508,8 +534,8 @@ test "no guild's tab is made where a window past the game's two shows the guild 
   Game.chat.windows = gameWindows()
   Game.chat.groups = (index: Integer): Array<Game.ChatGroup> => index == 3 ? [{ name: "GUILD", label: "Guild", shown: true }] : []
   _ = chat()
-  Events.UPDATE_CHAT_WINDOWS.emit()
-  Test.expect(!Test.requests().any(r => r == "Chat.open Guild"))
+  windowsLoad()
+  Test.expect(!guildAsked())
 }
 
 // A letter of the line's against a letter of the tab's name, Ordaen's body text.
