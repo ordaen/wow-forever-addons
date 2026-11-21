@@ -388,6 +388,8 @@ test "the whispers Ordaen Social says wait unread are counted on the friends' ce
   Test.expect(panel().box(FRIENDS).item().texts().join(" | ") == "3")
   Ordaen.notice("OrdaenSocial", 2)
   Test.expect(panel().box(FRIENDS).item().texts().join(" | ") == "3 | 2")
+  // The whispers' pill in the whisper colour, the friends' in the art's own.
+  Test.expect(panel().box(FRIENDS).item().box(Color.hex("#ff80ff")).count() == 1)
   Ordaen.notice("OrdaenSocial", 0)
   Test.expect(panel().box(FRIENDS).item().texts().join(" | ") == "3")
 }

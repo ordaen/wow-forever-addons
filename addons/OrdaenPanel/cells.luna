@@ -19,6 +19,8 @@ const ICON = 35ui
 const GOLD: Color = Color.hex("#ffb847")
 // The cell under the cursor: a warm light over the wood; pushed, a shade.
 const LIT: ByInteractionState<Color> = { default: Color.hex("#00000000"), hover: Color.hex("#ffd9a01f"), pressed: Color.hex("#00000040"), focus: Color.hex("#ffd9a01f") }
+// The whispers' count in the game's whisper colour.
+const WHISPER: Color = Color.hex("#ff80ff")
 // An icon as its file draws it.
 const UNTINTED: Color = Color.hex("#ffffff")
 
@@ -89,7 +91,7 @@ public class MenuCell implements Component {
           <CountBadge count={self.count} />
         </box>
         <box $if={self.noticed} position={Position.Absolute} right={self.badgeRight} top={self.badgeBottom} zLevel={1}>
-          <CountBadge count={self.unread} />
+          <CountBadge count={self.unread} tone={WHISPER} />
         </box>
         <embed frame={self.frame} position={Position.Absolute} left={0ui} top={0ui} width={self.size.width}
                height={self.size.height} opacity={0} />
