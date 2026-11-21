@@ -41,11 +41,12 @@ at the end. Commits are lunatype's unless named `dev` (wow-dev-tools). What tool
 - **The client reads an addon's whole saved-variables file at every login** (a 26 MB file: about 230 ms and 60 MB of
   Lua heap) and writes it on `/reload` or logout. Known: dev eaf28a9 (2026-11-14); skill `debug-in-game`. Not held by
   the stand-in.
-- **The client writes no saved variables of an addon the character has off,** even one loaded all the same for an
-  addon that needs it: the file keeps what it had, and what the addon changed in the session is lost. Known: Ordaen
-  API Dump, off in the list and loaded for `!OrdaenApiDump`, lost its dump's ask at the reload twice (00:10 and 00:15,
-  2026-11-21: the file written, empty). Stand-in: the runner's `reload` (lunatype `src/runner.zig`); wow-dev-tools
-  `window.test.luna`.
+- **The client writes no saved variables of an addon the character had off as the session loaded,** even one loaded
+  all the same for an addon that needs it, and though it was turned on since: the file keeps what it had, and what the
+  addon changed in the session is lost. Known: Ordaen API Dump, off in the list and loaded for `!OrdaenApiDump`, lost
+  its dump's ask at the reloads of 00:10 and 00:15, 2026-11-21, and at 00:50, turned on (`EnableAddOn`, `SaveAddOns`)
+  in that session before its reload: each time the file written, empty. Stand-in: the runner's `reload` (lunatype
+  `src/runner.zig`, `tests/given`); Ordaen API Dump turns itself on at every load (`ApiDump.keepOn`).
 - **The Key Bindings window lists an addon's binding only under the `category` its `Bindings.xml` gives it**
   (`<Binding name="X" category="Title">`); one with a `header` alone isn't listed. Known: OpenMap and
   ForeverDungeonJournal, which name a category, are listed; Ordaen Radial's header-only ones weren't (the user,
