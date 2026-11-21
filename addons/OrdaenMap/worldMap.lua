@@ -61,6 +61,43 @@ function worldMap.forget()
 	listener = nil
 end
 
+-- Blizzard's quest pins (its `QuestDataProvider`, pins `QuestPinTemplate`) of every quest but one while that one is
+-- shown on the map (0: none). Its provider makes its pins again as the map shows or turns: they are hidden after each
+-- time (its `RefreshAllData` hooked, never replaced), and those hidden shown again as the one is let go. Nothing but a
+-- pin's visibility is touched.
+local onlyQuest = 0
+local hiddenPins = {}
+local pinsHooked = false
+
+local function hideOthers()
+	hiddenPins = {}
+	local map = frame()
+	if not map or onlyQuest == 0 then return end
+	for pin in map:EnumeratePinsByTemplate("QuestPinTemplate") do
+		if pin.questID ~= onlyQuest and pin:IsShown() then
+			pin:Hide()
+			hiddenPins[#hiddenPins + 1] = pin
+		end
+	end
+end
+
+function worldMap.onlyQuest(quest)
+	local map = frame()
+	if not map then return end
+	if not pinsHooked and type(map.dataProviders) == "table" then
+		for provider in pairs(map.dataProviders) do
+			if type(provider) == "table" and provider.GetPinTemplate and provider:GetPinTemplate() == "QuestPinTemplate" then
+				client.hooksecurefunc(provider, "RefreshAllData", hideOthers)
+				pinsHooked = true
+			end
+		end
+	end
+	if quest == onlyQuest then return end
+	for _, pin in ipairs(hiddenPins) do pin:Show() end
+	onlyQuest = quest
+	hideOthers()
+end
+
 function worldMap.tip(owner, lines)
 	client.GameTooltip:SetOwner(owner, "ANCHOR_RIGHT")
 	for i, line in ipairs(lines) do
