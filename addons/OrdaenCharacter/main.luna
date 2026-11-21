@@ -26,7 +26,7 @@ import { ClientSheet, Faction, GearSet, Sheet, Skill, Stats, Who, Worn } from "@
 import { SkillsPage, skillsCount } from "@/skills"
 import { Facts } from "@/sources"
 import Style from "@/style"
-import { TalentsPage } from "@/talents"
+import { KeptWipe, TalentsPage } from "@/talents"
 
 // The tabs, in order: the character, each spec's talents (a spec tab's group is its place less one), «Progression»
 // and the statistics; «Progression»'s subtabs, in order.
@@ -55,6 +55,8 @@ const GAME_INSPECT = "InspectFrame"
 const INSPECT_ADDON = "Blizzard_InspectUI"
 // Where the rates the account's characters showed are kept.
 const RATES = "inspectRates"
+// Where the class trainer's last price for a reset of the talents is kept, for the character.
+const WIPE = "talentWipe"
 const NO_SKILLS: Array<Skill> = []
 // «Progression»: its subtabs over the page they pick.
 const PROGRESS_ROWS: Array<Track> = ["max-content", { fr: 1 }]
@@ -78,6 +80,9 @@ public class Character implements Module, App {
   public inspector: mut any Inspector = new ClientInspector()
   // What the account's characters were without their items, by class, race and level.
   rates: mut KeptRates = load<KeptRates>(.Account, RATES, KeptRates {})
+  // The class trainer's price for a reset of the talents, as it last offered one.
+  wipe: mut KeptWipe = load<KeptWipe>(.Character, WIPE, KeptWipe {})
+  state wipeCost = 0
 
   state open = false
   state tab = TAB_CHARACTER
@@ -165,6 +170,10 @@ public class Character implements Module, App {
   constructor() {
     Ordaen.modules.add(self)
     Game.saved.store(.Account, RATES, self.rates)
+    Game.saved.store(.Character, WIPE, self.wipe)
+    self.wipeCost = self.wipe.cost
+    // The class trainer names the price only as it offers a reset.
+    Events.CONFIRM_TALENT_WIPE.listen(self.onWipeOffered)
     // The server's answers about the player inspected are heard while the inspect window shows.
     watch (shown of self.inspecting) {
       if (shown) {
@@ -493,6 +502,12 @@ public class Character implements Module, App {
     self.readSets()
   }
 
+  // The class trainer offered a reset of the talents: its price, in copper, kept for the footer.
+  onWipeOffered(mut self, cost: Number, kind: Number) {
+    self.wipe.cost = cost.floor()
+    self.wipeCost = self.wipe.cost
+  }
+
   // Ours closed: the game's closes with it.
   onClose(mut self) {
     self.open = false
@@ -514,7 +529,7 @@ public class Character implements Module, App {
                   @flyout={self.onFlyout} @chose={self.onChose} @closeFlyout={self.onCloseFlyout}
                   auras={Auras.active} @useSet={self.onUseSet} @saveSet={self.onSaveSet} />
         <TalentsPage $elseif={self.group > 0} trees={self.trees} unspent={self.unspent} staged={self.staged}
-                     active={self.groupActive} @spend={self.onSpend} @refund={self.onRefund} @apply={self.onApply}
+                     active={self.groupActive} wipeCost={self.wipeCost} @spend={self.onSpend} @refund={self.onRefund} @apply={self.onApply}
                      @cancel={self.onCancel} @activate={self.onActivate} />
         <box $elseif={self.tab == TAB_PROGRESSION} rows={PROGRESS_ROWS} gap={3sp}>
           <Tabs tabs={self.progressTabs} selected={mut self.progress} />
