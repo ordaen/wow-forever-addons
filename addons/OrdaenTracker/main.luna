@@ -166,7 +166,8 @@ public class Tracker implements Module, App {
     for (entry of self.questLines) {
       if (entry.open(id)) { return }
     }
-    Ordaen.afterCombat(() => Client.C_Map.OpenWorldMap(nil))
+    // The client opens the map for an addon out of a fight alone.
+    if (!Game.situation.combat) { Client.C_Map.OpenWorldMap(nil) }
   }
 
   // The quest on the map: the first module that shows where it leads, else the game's map as it was.
@@ -174,7 +175,7 @@ public class Tracker implements Module, App {
     for (entry of self.questLines) {
       if (entry.showOnMap(id)) { return }
     }
-    Ordaen.afterCombat(() => Client.C_Map.OpenWorldMap(nil))
+    Client.C_Map.OpenWorldMap(nil)
   }
 
   onAbandonYes(mut self) {
@@ -236,7 +237,8 @@ class TrackedQuest implements Component {
   derived entries: Array<MenuEntry> = [
     { label: self.pointed ? Locale.UNSUPER_TRACK : Locale.SUPER_TRACK },
     { label: Locale.OPEN_IN_LOG },
-    { label: Locale.SHOW_ON_MAP },
+    // The client opens the map for an addon out of a fight alone.
+    { label: Locale.SHOW_ON_MAP, disabled: Game.situation.combat },
     { label: Locale.UNTRACK },
     { label: Locale.SHARE, disabled: !self.quest.shareable },
     { label: Locale.ABANDON, group: true }

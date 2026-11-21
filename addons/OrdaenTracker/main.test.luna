@@ -109,6 +109,21 @@ test "«Show on the map» is the module's that shows where the quest leads, else
   Test.expect(Client.WorldMapFrame.GetMapID() == 1436)
 }
 
+test "in a fight «Show on the map» is greyed and opens nothing; a title's click opens no game map" {
+  logged()
+  Test.mount(nil, PAGE)
+  Tracker.refresh()
+  Test.combat(true)
+  Test.flush()
+  Test.page().text("Red Silk Bandanas").click()
+  Test.flush()
+  Test.expect(!Client.WorldMapFrame.IsShown())
+  Test.page().text("The Defias Brotherhood").rightClick()
+  Test.page().window("Abandon quest").button("Show on the map").click()
+  Test.flush()
+  Test.expect(!Client.WorldMapFrame.IsShown())
+}
+
 test "the menu points the way, and abandoning asks first" {
   logged()
   Test.mount(nil, PAGE)
