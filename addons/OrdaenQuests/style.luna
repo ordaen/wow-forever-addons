@@ -5,6 +5,9 @@ import { Edges } from "$ltml"
 public const WIDTH: Number<Length> = 703.125dp
 public const HEIGHT: Number<Length> = 656.25dp
 public const PAGE: Number<Length> = 492.1875dp
+// The chain window: as wide as the page, beside the log's centre at first.
+public const CHAIN_HEIGHT: Number<Length> = 585.9375dp
+public const CHAIN_X: Number<Length> = 468.75dp
 public const ASK: Number<Length> = 468.75dp
 public const ASK_BUTTON: Number<Length> = 140.625dp
 // The docked panel: a window's dark body over Blizzard's log, nothing of it showing through.

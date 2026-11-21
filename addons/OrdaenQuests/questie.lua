@@ -52,6 +52,16 @@ local function addTargets(into, db, list)
 	end
 end
 
+-- Its objectives' text `{ line, ... }` as one paragraph.
+local function taskOf(lines)
+	if type(lines) ~= "table" then return "" end
+	local kept = {}
+	for _, line in ipairs(lines) do
+		if type(line) == "string" and line ~= "" then kept[#kept + 1] = line end
+	end
+	return table.concat(kept, " ")
+end
+
 function questie.quest(id)
 	local found = _G.LibQuestieDB
 	local quests, npcs, objects, items = found.Quest, found.Npc, found.Object, found.Item
@@ -85,9 +95,12 @@ function questie.quest(id)
 	local level = quests.Get(id, "questLevel")
 	local zone = quests.Get(id, "zoneOrSort")
 	local next = quests.Get(id, "nextQuestInChain")
+	local least = quests.Get(id, "requiredLevel")
 	return {
 		name = type(title) == "string" and title or "",
 		level = type(level) == "number" and level or 0,
+		minLevel = type(least) == "number" and least or 0,
+		task = taskOf(quests.Get(id, "objectivesText")),
 		zone = type(zone) == "number" and zone or 0,
 		givers = givers,
 		takers = takers,
