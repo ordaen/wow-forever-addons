@@ -3,17 +3,8 @@
 // has it by the player's switch) and the pins other modules put on the map: each module adds its layers to `layers`,
 // and Map places their pins on OpenMap's map while it shows, with a switch for each on its settings page and in
 // OpenMap's menu.
-//
-// Its own window (alpha, the player's switch): the game's map key (M) opens Ordaen's map, every zone stitched into
-// one canvas (`canvas.luna`); an override of the player's own binding, so the game's Key Bindings window stays where
-// it is changed.
-import Client from "$client"
-import Events from "$events"
-import { Position, Track } from "$ltml"
-import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
-import { KeptWindow, Module, Settings, SettingsPage, Window, WindowTabSpec, playSound } from "Ordaen"
-import { WorldCanvas } from "@/canvas"
+import { Module, Settings, SettingsPage } from "Ordaen"
 import { DungeonSection, Layer, Pin, SidePanel } from "@/extend"
 import { MapHost, OpenMapHost, Placed } from "@/host"
 import Locale from "@/locales"
@@ -31,12 +22,6 @@ const CLUSTER: Number = 0.015
 
 // OpenMap's menu switch for the docked log.
 const DOCKED_SWITCH = "docked"
-// The button the game's map key clicks: the client binds a key to a button by its name.
-const TOGGLE = "OrdaenMapToggle"
-// The game's binding of the world map.
-const MAP_BINDING = "TOGGLEWORLDMAP"
-const FILL: Array<Track> = [{ fr: 1 }]
-const MAP_ICON: Asset = "Interface/Icons/INV_Misc_Map02"
 
 // The marks, the lit ones first.
 function litFirst(marks: Array<Mark>): Array<Mark> {
@@ -62,23 +47,15 @@ public class Maps implements Module, App {
   public const layers = new Registry<any Layer>()
   // What the modules say on a dungeon's card.
   public const dungeons = new Registry<any DungeonSection>()
-  public settings: mut Settings<Choices> = new Settings<Choices>({ hidden: {}, primed: false, ownWindow: true })
+  public settings: mut Settings<Choices> = new Settings<Choices>({ hidden: {}, primed: false })
   public const pages: Array<SettingsPage> = [
     {
       title: Locale.TAB_GENERAL,
       content: $ltml {
-        <GeneralPage openMap={self.openMap} docked={mut self.docked} layers={self.layers} hidden={self.settings.values.hidden}
-                     settings={mut self.settings} @flip={self.flip} />
+        <GeneralPage openMap={self.openMap} docked={mut self.docked} layers={self.layers} hidden={self.settings.values.hidden} @flip={self.flip} />
       }
     }
   ]
-  // Ordaen's own map window, and the canvas it holds.
-  public window: mut KeptWindow = new KeptWindow("map", self.title, { x: 0ui, y: 0ui, width: 900ui, height: 640ui })
-  public state open = false
-  state windowTab = 1
-  derived tabs: Array<WindowTabSpec> = [{ title: Locale.MAP_WINDOW, icon: MAP_ICON }]
-  canvas: mut WorldCanvas = new WorldCanvas()
-  const toggle: any Client.Frame
   // Docked or apart: the client's `questLogOpen`, read as the map changes and written by the switch.
   public state docked = false
   // OpenMap is there, of the API Map is written against: without it, nothing is drawn and the page says so.
@@ -103,24 +80,7 @@ public class Maps implements Module, App {
   }
 
   constructor() {
-    self.toggle = Client.CreateFrame("Button", TOGGLE, Client.UIParent, nil)
     Ordaen.modules.add(self)
-    self.toggle.SetScript("OnClick", (): nil => {
-      self.flipWindow()
-      return nil
-    })
-    watch (on of self.open) {
-      if (on) {
-        self.canvas.show()
-      } else {
-        self.canvas.hide()
-      }
-    }
-    watch {
-      if (!self.settings.values.ownWindow) { self.open = false }
-      Ordaen.afterCombat(() => self.bind())
-    }
-    Events.UPDATE_BINDINGS.listen(self.rebind)
     self.docked = self.host.docked()
     self.openMap = self.host.present()
     // The first start sets the default, apart; after that the setting is the player's.
@@ -145,34 +105,7 @@ public class Maps implements Module, App {
     watch (list of self.layers) { self.addSwitches(list) }
   }
 
-  destructor() {
-    self.host.stop()
-    // The client keeps a frame's scripts: none of Map's runs once Map is ended.
-    self.toggle.SetScript("OnClick", nil)
-    const toggle = self.toggle
-    Ordaen.afterCombat(() => Client.ClearOverrideBindings(toggle))
-  }
-
-  // The window opens or closes: the game's map key, and the close button.
-  public flipWindow(mut self) {
-    self.open = !self.open
-    playSound(self.open ? "IG_QUEST_LOG_OPEN" : "IG_QUEST_LOG_CLOSE")
-  }
-
-  onClose(mut self) { self.open = false }
-  onSettings(self) { Ordaen.toggleSettings(Runtime.Addon.of(self)) }
-
-  rebind(mut self) { Ordaen.afterCombat(() => self.bind()) }
-
-  // The player's own keys of the game's map click Map's button while its window is the player's choice; out of a
-  // fight alone, as the client takes no binding in one.
-  bind(self) {
-    Client.ClearOverrideBindings(self.toggle)
-    if (!(peek self.settings.values.ownWindow)) { return }
-    let first, second = Client.GetBindingKey(MAP_BINDING)
-    if (first != nil) { Client.SetOverrideBindingClick(self.toggle, false, first, TOGGLE, "LeftButton") }
-    if (second != nil) { Client.SetOverrideBindingClick(self.toggle, false, second, TOGGLE, "LeftButton") }
-  }
+  destructor() { self.host.stop() }
 
   // The map showed, hid, turned or moved: the pins are placed again, and the setting read as the client has it.
   onChanged(mut self) {
@@ -255,13 +188,6 @@ public class Maps implements Module, App {
   }
 
   public render(self): Template {
-    return $ltml {
-      <Window $if={self.open} tabs={self.tabs} selected={mut self.windowTab} declared={mut self.window} withSettings={true}
-              @close={self.onClose} @settings={self.onSettings}>
-        <box rows={FILL} columns={FILL}>
-          <embed frame={self.canvas.view} position={Position.Absolute} left={0dp} top={0dp} right={0dp} bottom={0dp} />
-        </box>
-      </Window>
-    }
+    return $ltml {}
   }
 }

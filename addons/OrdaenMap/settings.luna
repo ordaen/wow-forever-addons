@@ -1,7 +1,7 @@
 // Ordaen Map's page in the settings window: whether the quest log opens beside the map (the client's `questLogOpen`,
 // which Map keeps no copy of), and a switch for each layer other modules put on the map, its hint naming what it
 // shows. The same switches stand in OpenMap's menu, under «Ordaen».
-import { Component, Section, SettingRow, Settings, Shown, ShownToggle, Switch } from "Ordaen"
+import { Component, Section, SettingRow, Shown, ShownToggle, Switch } from "Ordaen"
 import type { Layer } from "@/extend"
 import Locale from "@/locales"
 
@@ -12,8 +12,6 @@ public struct Choices implements Plain {
   hidden: mut Map<String, Boolean>
   // Whether Map has set the client's `questLogOpen` to its default once: after that it is the player's.
   primed: Boolean
-  // The game's map key (M) opens Ordaen's own map window; off, the game's map.
-  ownWindow: Boolean = true
 }
 
 // One layer's row: its title, its hint, and its switch, which the page flips through its owner.
@@ -53,19 +51,11 @@ public class GeneralPage implements Component {
   docked: mut Signal<Boolean>
   layers: Signal<Array<any Layer>>
   hidden: Signal<Map<String, Boolean>>
-  settings: mut Settings<Choices>
-  constructor(
-    openMap: Signal<Boolean>,
-    docked: mut Signal<Boolean>,
-    layers: Signal<Array<any Layer>>,
-    hidden: Signal<Map<String, Boolean>>,
-    settings: mut Settings<Choices>
-  ) {
+  constructor(openMap: Signal<Boolean>, docked: mut Signal<Boolean>, layers: Signal<Array<any Layer>>, hidden: Signal<Map<String, Boolean>>) {
     self.openMap = openMap
     self.docked = docked
     self.layers = layers
     self.hidden = hidden
-    self.settings = settings
   }
 
   onFlip(mut self, id: String) { self.flip.emit(id) }
@@ -73,7 +63,6 @@ public class GeneralPage implements Component {
   public render(self): Template {
     return $ltml {
       <Section title={Locale.SECTION_MAP}>
-        <Switch label={Locale.SETTING_OWN_WINDOW} hint={Locale.SETTING_OWN_WINDOW_TIP} value={mut self.settings.values.ownWindow} />
         <text $if={!self.openMap} value={Locale.NO_OPENMAP} textColor={RED} />
         <Switch label={Locale.SETTING_DOCKED} hint={Locale.SETTING_DOCKED_TIP} value={mut self.docked} />
       </Section>
