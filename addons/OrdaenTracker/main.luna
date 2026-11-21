@@ -166,7 +166,7 @@ public class Tracker implements Module, App {
     for (entry of self.questLines) {
       if (entry.open(id)) { return }
     }
-    Client.C_Map.OpenWorldMap(nil)
+    Ordaen.afterCombat(() => Client.C_Map.OpenWorldMap(nil))
   }
 
   // The quest on the map: the first module that shows where it leads, else the game's map as it was.
@@ -174,7 +174,7 @@ public class Tracker implements Module, App {
     for (entry of self.questLines) {
       if (entry.showOnMap(id)) { return }
     }
-    Client.C_Map.OpenWorldMap(nil)
+    Ordaen.afterCombat(() => Client.C_Map.OpenWorldMap(nil))
   }
 
   onAbandonYes(mut self) {
