@@ -1327,12 +1327,13 @@ test "whispers are the window's tab: a conversation a person, unread until opene
   Game.recentAllies.categories = allyCategories
   // Heard while the window is closed: waiting unread, the count the micro menu's second badge shows.
   _ = Social.heard(whisper("Jaina", "psst"), "psst")
-  Test.expect(Social.whispersUnread == 1)
+  Test.flush()
+  Test.expect(Social.whispersUnread == 1 && Ordaen.noticeOf("OrdaenSocial") == 1)
   const window = opened(new FakePeople())
   Test.expect(window.text("1 unread").shown())
   window.text("Whispers").click()
   window.text("Jaina").click()
-  Test.expect(window.text("psst").shown() && Social.whispersUnread == 0)
+  Test.expect(window.text("psst").shown() && Social.whispersUnread == 0 && Ordaen.noticeOf("OrdaenSocial") == 0)
   window.input().nth(2).type("hello")
   _ = Test.key(Key.Enter)
   Test.expect(Test.requests().any(r => r == "Chat.whisper Jaina hello false"))

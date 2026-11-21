@@ -49,6 +49,8 @@ const ICON_ALLIES: Asset = "Interface/Icons/INV_Misc_GroupLooking"
 const ICON_WHISPERS: Asset = "Interface/Icons/INV_Letter_15"
 // Where the conversations' last lines are kept between sessions, the character's.
 const TALKS_KEPT = "OrdaenSocial:whispers"
+// The addon's folder, which Ordaen's notices are told by.
+const FOLDER = "OrdaenSocial"
 // A web address the chat made a link of in a whisper's words (Ordaen Chat's `linked`): shown to copy.
 const WEB_LINK = "ordaenurl:"
 // The game's friends window, and its pages, with the tab and the friends' page of ours each opens.
@@ -193,6 +195,8 @@ public class Social implements Module, App {
     Ordaen.modules.add(self)
     self.recallTalks()
     Events.PLAYER_LOGOUT.listen(self.keepTalks)
+    // The whispers waiting unread, for the panel's badge, which reads them by the folder.
+    watch (unread of self.whispersUnread) { Ordaen.notice(FOLDER, unread) }
     // The open conversation, while its tab shows, has nothing waiting.
     watch {
       if (self.open && self.tab == TAB_WHISPERS) { self.readTalk(self.talkOpen) }
@@ -251,6 +255,8 @@ public class Social implements Module, App {
       self.addonHeard = Events.ADDON_LOADED.listen(self.onAddonLoaded)
     }
   }
+
+  destructor() { Ordaen.notice(FOLDER, 0) }
 
   onAddonLoaded(mut self, name: String) {
     if (name != COMMUNITIES_ADDON) { return }
