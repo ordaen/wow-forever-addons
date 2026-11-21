@@ -1,5 +1,5 @@
-// Ordaen Character: the character window, with four tabs: the character (the paper doll and the stats), the skills,
-// reputation and the statistics; PvE and PvP are windows of their own, from the micro menu. It opens in place of the
+// Ordaen Character: the character window, with three tabs: the character (the paper doll and the stats),
+// «Progression» (reputation and the skills, each a subtab) and the statistics; PvE and PvP are windows of their own, from the micro menu. It opens in place of the
 // game's own character window: whatever shows the game's (its key, C, its micro button, another addon's
 // `ToggleCharacter`) shows ours, the game's held unseen and off the screen while ours shows, and the game's tab picks
 // ours (reputation, the skills). Closing ours closes the game's. What it shows is read as it opens and again when the
@@ -10,12 +10,11 @@
 import Client from "$client"
 import Events from "$events"
 import Game from "$game"
-import { Frame } from "$ltml"
+import { Frame, Track } from "$ltml"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
-import { KeptWindow, Module, SECONDARY_TEXT, Settings, SettingsPage, Window, WindowTabSpec, WindowsPage, windowsTitle } from "Ordaen"
+import { KeptWindow, Module, SECONDARY_TEXT, Settings, SettingsPage, Tabs, Window, WindowTabSpec, WindowsPage, windowsTitle } from "Ordaen"
 import root Auras from "OrdaenAuras"
-import { SkillsPage } from "@/cards"
 import { KeptRates, Rates, estimate, ratesKey, ratesOf } from "@/estimate"
 import { GearPage } from "@/gear"
 import { ClientInspector, Honor, InspectHonor, InspectTalents, Inspected, Inspector } from "@/inspect"
@@ -24,21 +23,22 @@ import { FactionShow, ReputationPage, factionsCount } from "@/reputation"
 import { StatisticsPage, StatsView, statisticsCount } from "@/samples"
 import { Choices, GeneralPage } from "@/settings"
 import { ClientSheet, Faction, GearSet, Sheet, Skill, Stats, Who, Worn } from "@/sheet"
+import { SkillsPage, skillsCount } from "@/skills"
 import { Facts } from "@/sources"
 import Style from "@/style"
 
-// The tabs, in order.
+// The tabs, in order; «Progression»'s subtabs, in order.
 const TAB_CHARACTER = 1
-const TAB_SKILLS = 2
-const TAB_REPUTATION = 3
-const TAB_STATISTICS = 4
+const TAB_PROGRESSION = 2
+const TAB_STATISTICS = 3
+const PROGRESS_REPUTATION = 1
+const PROGRESS_SKILLS = 2
 // The game's character window and its pages, by the names its code gives them, with the tab of ours each opens.
 const GAME_WINDOW = "CharacterFrame"
 // The tabs' pictures: the game's character window's side tabs (`CHARACTER_MODE_TAB_ICONS`), and a tabard for the
-// character, where the game draws the portrait, and a book for the skills.
+// character, where the game draws the portrait.
 const CHARACTER_ICON: Asset = "Interface/ICONS/INV_Shirt_GuildTabard_01"
-const SKILLS_ICON: Asset = "Interface/ICONS/INV_Misc_Book_11"
-const REPUTATION_ICON: Asset = "Interface/ICONS/INV_SideTab_Reputation2_c60"
+const PROGRESSION_ICON: Asset = "Interface/ICONS/INV_SideTab_Reputation2_c60"
 const STATISTICS_ICON: Asset = "Interface/ICONS/INV_SideTab_Stats_c60"
 // The inspect window's tabs, in order, and their pictures; the game's inspect window and the addon that makes it.
 const INSPECT_CHARACTER = 1
@@ -50,6 +50,8 @@ const INSPECT_ADDON = "Blizzard_InspectUI"
 // Where the rates the account's characters showed are kept.
 const RATES = "inspectRates"
 const NO_SKILLS: Array<Skill> = []
+// «Progression»: its subtabs over the page they pick.
+const PROGRESS_ROWS: Array<Track> = ["max-content", { fr: 1 }]
 
 public class Character implements Module, App {
   public const title: String = "Ordaen Character"
@@ -128,10 +130,14 @@ public class Character implements Module, App {
   ]
   derived tabs: Array<WindowTabSpec> = [
     { title: Locale.TAB_CHARACTER, icon: CHARACTER_ICON },
-    { title: Locale.TAB_SKILLS, icon: SKILLS_ICON },
-    { title: Locale.TAB_REPUTATION, icon: REPUTATION_ICON },
+    { title: Locale.TAB_PROGRESSION, icon: PROGRESSION_ICON },
     { title: Locale.TAB_STATISTICS, icon: STATISTICS_ICON }
   ]
+  // «Progression»'s subtab, its names, and the skill picked (by its number; none: 0) and the skills' search.
+  state progress = PROGRESS_REPUTATION
+  const progressTabs: Array<String> = [Locale.TAB_REPUTATION, Locale.TAB_SKILLS]
+  state chosenSkill = 0
+  state skillSearch = ""
 
   constructor() {
     Ordaen.modules.add(self)
@@ -193,18 +199,20 @@ public class Character implements Module, App {
       self.onGameHidden()
       return nil
     })
-    self.hookPage("PaperDollFrame", TAB_CHARACTER)
-    self.hookPage("ReputationFrame", TAB_REPUTATION)
-    self.hookPage("SkillsFrame", TAB_SKILLS)
+    self.hookPage("PaperDollFrame", TAB_CHARACTER, 0)
+    self.hookPage("ReputationFrame", TAB_PROGRESSION, PROGRESS_REPUTATION)
+    self.hookPage("SkillsFrame", TAB_PROGRESSION, PROGRESS_SKILLS)
     if (window.IsShown()) { self.onGameShown(frame) }
   }
 
-  // A page of the game's window: shown, ours turns to its tab.
-  hookPage(mut self, name: String, tab: Integer) {
+  // A page of the game's window: shown, ours turns to its tab, and to its subtab where it is one (`progress`, 0 for
+  // none).
+  hookPage(mut self, name: String, tab: Integer, progress: Integer) {
     const page = Runtime.frame(`${GAME_WINDOW}.${name}`) ?? Runtime.frame(name)
     if (page == nil) { return }
     const shown: any Client.Frame = page
     _ = shown.HookScript("OnShow", (): nil => {
+      if (progress > 0) { self.progress = progress }
       self.window.ask(tab)
       return nil
     })
@@ -309,7 +317,9 @@ public class Character implements Module, App {
   }
 
   countOf(self): String {
-    if (self.tab == TAB_REPUTATION) { return factionsCount(self.factions) }
+    if (self.tab == TAB_PROGRESSION) {
+      return self.progress == PROGRESS_REPUTATION ? factionsCount(self.factions) : skillsCount(self.skills)
+    }
     if (self.tab == TAB_STATISTICS) { return statisticsCount(self.statsSearch) }
     return ""
   }
@@ -358,6 +368,19 @@ public class Character implements Module, App {
   }
 
   readSkills(mut self) { self.skills = self.sheet.skills() }
+
+  onPickSkill(mut self, skill: Skill) { self.chosenSkill = skill.id }
+
+  // A heading of the skills clicked: the game folds it or opens it, and keeps it so.
+  onFoldSkills(mut self, skill: Skill) {
+    self.sheet.foldSkills(skill.index, skill.collapsed)
+    self.readSkills()
+  }
+
+  onUnlearn(mut self, skill: Skill) {
+    self.sheet.unlearn(skill.id)
+    self.readSkills()
+  }
 
   // Whether the picked faction is inactive: asked of it alone.
   readChosen(mut self) {
@@ -442,11 +465,15 @@ public class Character implements Module, App {
                   flyoutSlot={self.flyoutSlot} fitting={self.fitting} @picked={self.onPicked} @tried={self.onTried}
                   @flyout={self.onFlyout} @chose={self.onChose} @closeFlyout={self.onCloseFlyout}
                   auras={Auras.active} @useSet={self.onUseSet} @saveSet={self.onSaveSet} />
-        <SkillsPage $elseif={self.tab == TAB_SKILLS} skills={self.skills} />
-        <ReputationPage $elseif={self.tab == TAB_REPUTATION} factions={self.factions} starts={self.starts}
-                        chosen={self.chosen} chosenInactive={self.chosenInactive} search={mut self.factionSearch}
-                        show={mut self.factionShow} @pick={self.onPick}
-                        @fold={self.onFold} @atWar={self.onAtWar} @inactive={self.onInactive} @watch={self.onWatch} />
+        <box $elseif={self.tab == TAB_PROGRESSION} rows={PROGRESS_ROWS} gap={3sp}>
+          <Tabs tabs={self.progressTabs} selected={mut self.progress} />
+          <ReputationPage $if={self.progress == PROGRESS_REPUTATION} factions={self.factions} starts={self.starts}
+                          chosen={self.chosen} chosenInactive={self.chosenInactive} search={mut self.factionSearch}
+                          show={mut self.factionShow} @pick={self.onPick}
+                          @fold={self.onFold} @atWar={self.onAtWar} @inactive={self.onInactive} @watch={self.onWatch} />
+          <SkillsPage $else skills={self.skills} chosen={self.chosenSkill} search={mut self.skillSearch}
+                      @pick={self.onPickSkill} @fold={self.onFoldSkills} @unlearn={self.onUnlearn} />
+        </box>
         <StatisticsPage $else search={mut self.statsSearch} view={mut self.statsView} />
       </Window>
       <frame $if={self.inspecting && self.inspectGame != nil} of={self.inspectGame} opacity={0} away={true} />

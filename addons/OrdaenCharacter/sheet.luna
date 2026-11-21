@@ -236,15 +236,21 @@ public struct Faction {
   const watched: Boolean
 }
 
-// A row of the game's skill list: a heading, or a skill with its rank, the bonus on it and the cap for the level.
+// A row of the game's skill list: a heading, which folds, or a skill with its rank, the bonus on it and the cap for the
+// level, the game's description, and whether the player may unlearn it (a profession, a secondary skill).
 public struct Skill {
   // The client's skill line (`skillID`): what a weapon's kind names.
   const id: Integer = 0
+  // Its place in the game's list, which folds and unfolds by it.
+  const index: Integer = 0
   const name: String
   const header: Boolean
+  const collapsed: Boolean = false
   const rank: Integer
   const modifier: Integer
   const max: Integer
+  const description: String = ""
+  const abandonable: Boolean = false
 }
 
 public trait Sheet {
@@ -256,6 +262,9 @@ public trait Sheet {
   // Whether a faction of the list is inactive: asked of the one the player picks.
   public inactive(self, index: Integer): Boolean
   public skills(self): Array<Skill>
+  // A heading of the skills, by its place, unfolded (`open`) or folded, as the game keeps it; a skill unlearned.
+  public foldSkills(mut self, index: Integer, open: Boolean)
+  public unlearn(mut self, skill: Integer)
   // The slot clicked as the game's own slot is: what the cursor holds is equipped there, or what is worn there is
   // taken onto the cursor (to the bags, the bars, another slot).
   public pickup(mut self, slot: Integer)
@@ -659,11 +668,15 @@ public class ClientSheet implements Sheet {
       if (data != nil) {
         rows.push({
           id: data.skillID.floor(),
+          index: index,
           name: data.name,
           header: data.isHeader,
+          collapsed: data.isCollapsed,
           rank: data.rank.floor(),
           modifier: data.modifier.floor(),
-          max: data.maxRank.floor()
+          max: data.maxRank.floor(),
+          description: data.description,
+          abandonable: data.isAbandonable
         })
       }
     }
@@ -671,6 +684,16 @@ public class ClientSheet implements Sheet {
   }
 
   public pickup(mut self, slot: Integer) { Client.PickupInventoryItem(slot) }
+
+  public foldSkills(mut self, index: Integer, open: Boolean) {
+    if (open) {
+      Client.C_SkillInfo.ExpandSkillHeader(index)
+    } else {
+      Client.C_SkillInfo.CollapseSkillHeader(index)
+    }
+  }
+
+  public unlearn(mut self, skill: Integer) { Client.C_SkillInfo.AbandonSkill(skill) }
 
   public fold(mut self, index: Integer, open: Boolean) {
     if (open) {

@@ -1,0 +1,208 @@
+// «Skills», under «Progression»: the game's skills under its headings, which fold as the game's do (the game keeps
+// them folded); each skill a row with its name and a bar of its rank against the cap for the level, the bonus on it
+// after. The skill picked stands on the right, as a faction does: its heading, the bar with its numbers, what items
+// and effects add, the game's description, and «Unlearn» where the game lets it go (a profession, a secondary skill),
+// asked once more before it is done.
+import { Align, Art, BarFill, TextFont } from "$ltml"
+import root Ordaen from "Ordaen"
+import { ButtonPlate, Component, Dialog, PushButton, SECONDARY_TEXT, ScrolledList, TITLE_LINE, TITLE_TEXT, Toolbar } from "Ordaen"
+import Locale from "@/locales"
+import { Skill } from "@/sheet"
+import Style from "@/style"
+
+const BAR_WIDTH = 187.5dp
+const MARK = 18.75dp
+const BONUS_WIDTH = 46.875dp
+const CLEAR: Color = Color.hex("#00000000")
+const ASK_WIDTH = 468.75dp
+const BUTTON_WIDTH = 164.0625dp
+
+// How far a skill is to its cap, from 0 to 1.
+function barOf(skill: Skill): BarFill {
+  return { value: skill.max <= 0 ? 0 : (skill.rank / skill.max).min(1), color: Style.SKILL }
+}
+
+// A skill's rank against its cap, as the game writes it.
+function rankText(skill: Skill): String { return `${skill.rank} / ${skill.max}` }
+
+function bonusText(skill: Skill): String { return skill.modifier > 0 ? `+${skill.modifier}` : "" }
+
+// The skills the list shows: those whose name holds the search, each under the heading the game lists it under, which
+// stays while it holds any. A folded heading's skills are the game's to list: a search finds them once it is opened.
+public function listedSkills(skills: Array<Skill>, search: String): Array<Skill> {
+  const needle = search.lower()
+  if (needle == "") { return skills }
+  const listed: Array<Skill> = []
+  let heading: Skill | nil = nil
+  for (skill of skills) {
+    if (skill.header) {
+      heading = skill
+    } else if (skill.name.lower().contains(needle)) {
+      if (heading != nil) { listed.push(heading) }
+      heading = nil
+      listed.push(skill)
+    }
+  }
+  return listed
+}
+
+// The heading a skill is listed under; empty for one under none.
+function headingOf(skills: Array<Skill>, id: Integer): String {
+  let heading = ""
+  for (skill of skills) {
+    if (skill.header) {
+      heading = skill.name
+    } else if (skill.id == id) {
+      return heading
+    }
+  }
+  return ""
+}
+
+// The footer's count: the skills the character has.
+public function skillsCount(skills: Array<Skill>): String {
+  return Locale.SKILLS_COUNT.format(skills.count(skill => !skill.header))
+}
+
+// A row of the list: a heading, which folds, or a skill, which is picked.
+public class SkillRow implements Component {
+  public pick: Event<Skill> = new Event()
+  public fold: Event<Skill> = new Event()
+
+  derived bar: BarFill = barOf(self.skill)
+  derived barShown: Boolean = !self.skill.header
+  derived rank: String = self.skill.header ? "" : rankText(self.skill)
+  derived bonus: String = bonusText(self.skill)
+  derived mark: Art | nil = self.skill.header ? (self.skill.collapsed ? Ordaen.art.ctl.markClosed : Ordaen.art.ctl.markOpen) : nil
+  derived nameColor: Color = self.skill.header ? Style.GOLD : Style.INK
+  derived background: Color = self.picked ? Style.PICKED : CLEAR
+
+  skill: Signal<Skill>
+  picked: Signal<Boolean>
+  constructor(skill: Signal<Skill>, picked: Signal<Boolean>) {
+    self.skill = skill
+    self.picked = picked
+  }
+
+  onClick(self) {
+    const skill = peek self.skill
+    if (skill.header) {
+      self.fold.emit(skill)
+    } else {
+      self.pick.emit(skill)
+    }
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={[MARK, { fr: 1 }, BAR_WIDTH, BONUS_WIDTH]} gap={3sp} yAlign={Align.Center}
+           background={self.background} @pointerPress={self.onClick} @keyPress(.Enter)={self.onClick}
+           @keyPress(.Space)={self.onClick}>
+        <box width={MARK} height={MARK} background={self.mark} />
+        <text value={self.skill.name} textColor={self.nameColor} wrap={.None} />
+        <box padding={Style.BAR_PAD} background={Style.TROUGH} fill={self.bar} opacity={self.barShown ? 1 : 0}
+             xAlign={Align.Center} yAlign={Align.Center}>
+          <text value={self.rank} textSize={SECONDARY_TEXT} textFont={TextFont.Numbers} textColor={Style.INK} wrap={.None} />
+        </box>
+        <text value={self.bonus} textSize={SECONDARY_TEXT} textFont={TextFont.Numbers} textColor={Style.GREEN} wrap={.None} />
+      </box>
+    }
+  }
+}
+
+// The picked skill, beside the list.
+public class SkillDetail implements Component {
+  public unlearn: Event<Skill> = new Event()
+
+  state asking = false
+  derived bar: BarFill = barOf(self.skill)
+  derived rank: String = rankText(self.skill)
+  derived bonusShown: Boolean = self.skill.modifier > 0
+  derived bonus: String = Locale.SKILL_BONUS.format(self.skill.modifier)
+  derived described: Boolean = self.skill.description != ""
+  derived question: String = Locale.UNLEARN_ASK.format(self.skill.name)
+
+  skill: Signal<Skill>
+  heading: Signal<String>
+  constructor(skill: Signal<Skill>, heading: Signal<String>) {
+    self.skill = skill
+    self.heading = heading
+  }
+
+  onAsk(mut self) { self.asking = true }
+  onCancel(mut self) { self.asking = false }
+  onUnlearn(mut self) {
+    self.asking = false
+    self.unlearn.emit(peek self.skill)
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <box gap={3sp}>
+        <box gap={2sp}>
+          <text value={self.skill.name} textSize={TITLE_TEXT} lineHeight={TITLE_LINE} textFont={TextFont.Title} textColor={Style.GOLD} />
+          <text value={self.heading} textColor={Style.INK} />
+        </box>
+        <box padding={Style.BAR_PAD} background={Style.TROUGH} fill={self.bar} xAlign={Align.Center} yAlign={Align.Center}>
+          <text value={self.rank} textSize={SECONDARY_TEXT} textFont={TextFont.Numbers} textColor={Style.INK} wrap={.None} />
+        </box>
+        <text $if={self.bonusShown} value={self.bonus} textSize={SECONDARY_TEXT} textColor={Style.GREEN} />
+        <text $if={self.described} value={self.skill.description} textSize={SECONDARY_TEXT} textColor={Style.INK} />
+        <box $if={self.skill.abandonable} xAlign={Align.Start}>
+          <PushButton label={Locale.UNLEARN} width={BUTTON_WIDTH} plate={ButtonPlate.Danger} @click={self.onAsk} />
+        </box>
+        <Dialog $if={self.asking} width={ASK_WIDTH} title={Locale.UNLEARN}>
+          <text value={self.question} textColor={Style.INK} />
+          <PushButton #buttons label={Locale.CANCEL} width={BUTTON_WIDTH} @click={self.onCancel} />
+          <PushButton #buttons label={Locale.UNLEARN} width={BUTTON_WIDTH} plate={ButtonPlate.Danger} @click={self.onUnlearn} />
+        </Dialog>
+      </box>
+    }
+  }
+}
+
+// The skills' page: the list with its search on the left, the picked skill on the right.
+public class SkillsPage implements Component {
+  public pick: Event<Skill> = new Event()
+  public fold: Event<Skill> = new Event()
+  public unlearn: Event<Skill> = new Event()
+
+  derived picked: Skill | nil = self.skills.find(skill => !skill.header && skill.id == self.chosen)
+  derived hasPick: Boolean = self.picked != nil
+  derived shownPick: Skill = self.picked ?? self.skills[1] ?? panic("a skill is picked from the list")
+  derived pickedHeading: String = headingOf(self.skills, self.chosen)
+  derived listed: Array<Skill> = listedSkills(self.skills, self.search)
+  derived none: Boolean = self.listed.length == 0
+
+  skills: Signal<Array<Skill>>
+  chosen: Signal<Integer>
+  search: mut Signal<String>
+  constructor(skills: Signal<Array<Skill>>, chosen: Signal<Integer>, search: mut Signal<String>) {
+    self.skills = skills
+    self.chosen = chosen
+    self.search = search
+  }
+
+  onPick(self, skill: Skill) { self.pick.emit(skill) }
+  onFold(self, skill: Skill) { self.fold.emit(skill) }
+  onUnlearn(self, skill: Skill) { self.unlearn.emit(skill) }
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={[{ fr: 1 }, Style.SIDE]} gap={6sp}>
+        <box rows={["max-content", { fr: 1 }]} gap={3sp}>
+          <Toolbar search={mut self.search} placeholder={Locale.SEARCH_SKILLS} />
+          <ScrolledList>
+            <text $if={self.none} value={Locale.NOTHING_FOUND} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
+            <SkillRow $for={skill of self.listed} skill={skill} picked={!skill.header && skill.id == self.chosen}
+                      @pick={self.onPick} @fold={self.onFold} />
+          </ScrolledList>
+        </box>
+        <box background={Style.CARD} padding={5sp}>
+          <SkillDetail $if={self.hasPick} skill={self.shownPick} heading={self.pickedHeading} @unlearn={self.onUnlearn} />
+          <text $else value={Locale.PICK_SKILL} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
+        </box>
+      </box>
+    }
+  }
+}

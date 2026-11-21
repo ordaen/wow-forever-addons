@@ -1,9 +1,7 @@
-// Lists of cards under headings: the skills tab's and the statistics'. A card is a name and a value; under the cursor
-// the game's own words on it, where it has some.
-import { Overflow, TextFont } from "$ltml"
+// Lists of cards under headings: the statistics'. A card is a name and a value; under the cursor the game's own words
+// on it, where it has some.
+import { TextFont } from "$ltml"
 import { Component, SECONDARY_TEXT, TITLE_LINE, Tip } from "Ordaen"
-import Locale from "@/locales"
-import { Skill } from "@/sheet"
 import Style from "@/style"
 
 // A stat as a card shows it: its name and its value.
@@ -41,26 +39,6 @@ public function grouped(filed: Array<Filed>): Array<Group> {
   }
   if (cards.length > 0) { groups.push({ title: title, cards: cards }) }
   return groups
-}
-
-// A skill's value as the game writes it, its bonus after the rank: «300+5/300».
-function skillValue(skill: Skill): String {
-  if (skill.modifier != 0) { return `${skill.rank}+${skill.modifier}/${skill.max}` }
-  return `${skill.rank}/${skill.max}`
-}
-
-// The skills under the game's headings.
-public function skillGroups(skills: Array<Skill>): Array<Group> {
-  const filed: Array<Filed> = []
-  let title = ""
-  for (skill of skills) {
-    if (skill.header) {
-      title = skill.name
-    } else {
-      filed.push({ title: title, card: { label: skill.name, value: skillValue(skill) } })
-    }
-  }
-  return grouped(filed)
 }
 
 // A card of a list; under the cursor the game's own words on it, as its paper doll's tooltip says them.
@@ -101,28 +79,6 @@ public class StatGroup implements Component {
         <text $if={self.group.title != ""} value={self.group.title} lineHeight={TITLE_LINE} textFont={TextFont.Title} textColor={Style.GOLD} />
         <box columns={4} gap={2sp}>
           <ListCard $for={card of self.group.cards} card={card} />
-        </box>
-      </box>
-    }
-  }
-}
-
-// The skills tab: every skill the character has, under the game's headings.
-public class SkillsPage implements Component {
-  derived groups: Array<Group> = skillGroups(self.skills)
-  derived none: Boolean = self.groups.length == 0
-
-  skills: Signal<Array<Skill>>
-  constructor(skills: Signal<Array<Skill>>) {
-    self.skills = skills
-  }
-
-  public render(self): Template {
-    return $ltml {
-      <box overflow={Overflow.Scroll}>
-        <box gap={6sp}>
-          <text $if={self.none} value={Locale.NO_SKILLS} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
-          <StatGroup $for={group of self.groups} group={group} />
         </box>
       </box>
     }

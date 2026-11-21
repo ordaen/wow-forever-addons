@@ -32,6 +32,7 @@ const OTHER_ICON: Art = "Interface/Icons/INV_Helmet_01"
 const MACES = 54
 const SWORDS = 43
 const WANDS = 228
+const MINING = 186
 
 function faction(index: Integer, id: Integer, name: String, standing: Integer, value: Integer): Faction {
   return {
@@ -109,14 +110,31 @@ class FakeSheet implements Sheet {
 
   public inactive(self, index: Integer): Boolean { return false }
 
+  // The professions' heading folded.
+  craftsFolded = false
   public skills(self): Array<Skill> {
-    return [
-      { name: "Weapon Skills", header: true, rank: 0, modifier: 0, max: 0 },
-      { id: MACES, name: "Maces", header: false, rank: 300, modifier: 5, max: 300 },
-      { id: SWORDS, name: "Swords", header: false, rank: 290, modifier: 0, max: 300 },
-      { id: WANDS, name: "Wands", header: false, rank: 300, modifier: 0, max: 300 }
+    const rows: Array<Skill> = [
+      { index: 1, name: "Weapon Skills", header: true, rank: 0, modifier: 0, max: 0 },
+      { id: MACES, index: 2, name: "Maces", header: false, rank: 300, modifier: 5, max: 300 },
+      { id: SWORDS, index: 3, name: "Swords", header: false, rank: 290, modifier: 0, max: 300 },
+      { id: WANDS, index: 4, name: "Wands", header: false, rank: 300, modifier: 0, max: 300 },
+      { index: 5, name: "Professions", header: true, collapsed: self.craftsFolded, rank: 0, modifier: 0, max: 0 }
     ]
+    if (!self.craftsFolded) {
+      rows.push({
+        id: MINING, index: 6, name: "Mining", header: false, rank: 75, modifier: 0, max: 150,
+        description: "Mining's description.", abandonable: true
+      })
+    }
+    return rows
   }
+
+  public foldSkills(mut self, index: Integer, open: Boolean) {
+    self.heard.push(`fold skills ${index} ${open}`)
+    if (index == 5) { self.craftsFolded = !open }
+  }
+
+  public unlearn(mut self, skill: Integer) { self.heard.push(`unlearn ${skill}`) }
 
   public pickup(mut self, slot: Integer) { self.heard.push(`pickup ${slot}`) }
 
@@ -178,7 +196,7 @@ test "the game's character window shown shows ours, and closing ours closes the 
   Test.expect(!game.IsShown())
 }
 
-test "the game's reputation page shown opens ours on the reputation tab" {
+test "the game's reputation page shown opens ours on «Progression»'s reputation" {
   Test.mount(nil, PAGE)
   const sheet = new FakeSheet()
   const game = Client.CreateFrame("Frame", "CharacterFrame", Client.UIParent, nil)
@@ -457,14 +475,83 @@ test "every stat stands in view: the main stats, defence, and the melee section'
   Test.expect(window.text("3.80").shown())
 }
 
-test "the weapon held has its skill as a gauge, its bonus counted in; the skills' tab lists every skill" {
+test "the weapon held has its skill as a gauge, its bonus counted in" {
   Test.mount(nil, PAGE)
   Game.items.icon = icons
   const window = opened(new FakeSheet())
   Test.expect(window.text("Maces").shown())
   Test.expect(window.text("305").shown())
+}
+
+// Progression
+
+test "«Progression» opens on reputation; its skills subtab lists every skill under its heading, its rank on a bar" {
+  Test.mount(nil, PAGE)
+  Game.items.icon = icons
+  const window = opened(new FakeSheet())
+  window.button("Progression").click()
+  Test.expect(window.text("Stormwind").shown())
   window.button("Skills").click()
-  Test.expect(window.text("300+5/300").shown())
+  Test.expect(window.text("Weapon Skills").shown() && window.text("Professions").shown())
+  Test.expect(window.text("290 / 300").shown() && window.text("75 / 150").shown())
+  Test.expect(window.text("+5").shown())
+  Test.expect(window.text("4 skills").shown())
+  Test.expect(window.text("Pick a skill.").shown())
+}
+
+test "a skills heading folds it in the game, and the list shows what the game then lists" {
+  Test.mount(nil, PAGE)
+  const sheet = new FakeSheet()
+  Game.items.icon = icons
+  const window = opened(mut sheet)
+  window.button("Progression").click()
+  window.button("Skills").click()
+  window.button("Professions").click()
+  Test.expect(sheet.heard.join(", ") == "fold skills 5 false")
+  Test.expect(!window.text("Mining").shown())
+}
+
+test "the skills' search keeps the skills whose name holds it, under their heading" {
+  Test.mount(nil, PAGE)
+  Game.items.icon = icons
+  const window = opened(new FakeSheet())
+  window.button("Progression").click()
+  window.button("Skills").click()
+  window.input().type("min")
+  Test.expect(window.text("Mining").shown() && window.text("Professions").shown())
+  Test.expect(!window.text("Maces").shown() && !window.text("Weapon Skills").shown())
+}
+
+test "a skill picked stands beside the list: its heading, its rank, its bonus and the game's description" {
+  Test.mount(nil, PAGE)
+  Game.items.icon = icons
+  const window = opened(new FakeSheet())
+  window.button("Progression").click()
+  window.button("Skills").click()
+  window.button("Maces").click()
+  Test.expect(window.text("+5 from items and effects").shown())
+  Test.expect(window.text("Weapon Skills").count() == 2)
+  Test.expect(!window.text("Unlearn").shown())
+  window.button("Mining").click()
+  Test.expect(window.text("Mining's description.").shown())
+}
+
+test "«Unlearn» asks once more, and only its own button unlearns the skill" {
+  Test.mount(nil, PAGE)
+  const sheet = new FakeSheet()
+  Game.items.icon = icons
+  const window = opened(mut sheet)
+  window.button("Progression").click()
+  window.button("Skills").click()
+  window.button("Mining").click()
+  window.button("Unlearn").click()
+  const asked = Test.page().text("Unlearn «Mining»? Its rank and recipes are lost.")
+  Test.expect(asked.shown())
+  Test.page().button("Cancel").click()
+  Test.expect(sheet.heard.length == 0 && !asked.shown())
+  window.button("Unlearn").click()
+  Test.page().window("Unlearn «Mining»? Its rank and recipes are lost.").button("Unlearn").click()
+  Test.expect(sheet.heard.join(", ") == "unlearn 186")
 }
 
 test "two hands swing together: the attack speed is both at once, and two of a kind share one skill's gauge" {
@@ -523,7 +610,7 @@ test "a group's heading folds it in the game, and the list shows what the game t
   const sheet = new FakeSheet()
   Game.items.icon = icons
   const window = opened(mut sheet)
-  window.button("Reputation").click()
+  window.button("Progression").click()
   Test.expect(window.text("Argent Dawn").shown())
   window.button("Other").click()
   Test.expect(sheet.heard.join(", ") == "fold 3 false")
@@ -535,7 +622,7 @@ test "a faction picked shows its standing, what is left to the next and its swit
   const sheet = new FakeSheet()
   Game.items.icon = icons
   const window = opened(mut sheet)
-  window.button("Reputation").click()
+  window.button("Progression").click()
   Test.expect(window.text("Pick a faction.").shown())
   window.button("Stormwind").click()
   Test.expect(window.text("Stormwind's description.").shown())
@@ -549,7 +636,7 @@ test "a faction the game won't let the player war with has its switch off and ta
   const sheet = new FakeSheet()
   Game.items.icon = icons
   const window = opened(mut sheet)
-  window.button("Reputation").click()
+  window.button("Progression").click()
   window.button("Stormwind").click()
   window.button("At war").click()
   Test.expect(sheet.heard.length == 0)
@@ -560,7 +647,7 @@ test "what a faction rose since the window first read it shows beside it" {
   const sheet = new FakeSheet()
   Game.items.icon = icons
   const window = opened(mut sheet)
-  window.button("Reputation").click()
+  window.button("Progression").click()
   sheet.stand = 4650
   Events.UPDATE_FACTION.emit()
   Test.expect(window.text("+150").shown())
@@ -588,7 +675,7 @@ test "the client's sheet reads what is worn in a slot from the client" {
   Test.expect(sheet.worn(2).item == nil)
 }
 
-test "the game's skills page shown opens ours on the character tab's skills" {
+test "the game's skills page shown opens ours on «Progression»'s skills" {
   Test.mount(nil, PAGE)
   Char.sheet = new FakeSheet()
   const game = Client.CreateFrame("Frame", "CharacterFrame", Client.UIParent, nil)
@@ -598,7 +685,7 @@ test "the game's skills page shown opens ours on the character tab's skills" {
   Char.hook(game)
   game.Show()
   page.Show()
-  Test.expect(Test.page().window(WINDOW).text("300+5/300").shown())
+  Test.expect(Test.page().window(WINDOW).text("290 / 300").shown())
 }
 
 test "a slot's durability bar is red below a quarter, green from there" {
@@ -633,7 +720,7 @@ test "the statistics as one list stand under no category" {
 test "the reputation's search keeps the factions whose name holds it, under their heading; the footer counts them" {
   Test.mount(nil, PAGE)
   const window = opened(new FakeSheet())
-  window.button("Reputation").click()
+  window.button("Progression").click()
   Test.expect(window.text("2 factions").shown())
   window.input().type("argent")
   Test.expect(window.text("Argent Dawn").shown())
@@ -645,7 +732,7 @@ test "the reputation's search keeps the factions whose name holds it, under thei
 test "the reputation's filter keeps the factions at war alone, and says nothing found where none is" {
   Test.mount(nil, PAGE)
   const window = opened(new FakeSheet())
-  window.button("Reputation").click()
+  window.button("Progression").click()
   window.button(Ordaen.art.ctl.tool.filter).click()
   Test.page().window("At war").text("At war").click()
   Test.expect(!window.text("Stormwind").shown())
