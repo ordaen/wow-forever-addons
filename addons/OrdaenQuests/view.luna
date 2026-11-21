@@ -39,6 +39,9 @@ const BULLET = "•"
 const BULLET_COLOR: Color = Color.hex("#6b6352")
 // The tens of a level under 10: an unseen «0», so no title moves.
 const UNSEEN: Color = Color.hex("#00000000")
+// A row's title line: its level, the bullet, its title, a group quest's size, what it gives. Its objectives stand under
+// the whole line, from the level's edge.
+const TITLE_LINE: Array<Track> = ["max-content", "max-content", { fr: 1 }, "max-content", "max-content"]
 const HEADER_PAD: Edges = { top: 2sp, right: 2sp, bottom: 2sp }
 // Between two objectives of a quest: what a wrapped one's lines don't have.
 const GOAL_GAP = 1sp
@@ -150,30 +153,26 @@ public class QuestRow implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={["max-content", { fr: 1 }]} gap={2sp} padding={ROW_PAD} background={self.background}
+      <box columns={1} gap={GOAL_GAP} padding={ROW_PAD} background={self.background}
            @pointerPress(.Left)={self.onPick} @pointerPress([.Shift, .Left])={self.onLink}
            @pointerPress(.Right)={self.onMenu} @keyPress(.Enter)={self.onPick} @keyPress(.Space)={self.onTrack}
            @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
         <Tip $if={self.tipShown} title={self.quest.title} text={self.tipText} keys={ROW_KEYS} />
-        <box columns={{ each: "max-content" }} gap={2sp}>
+        <box columns={TITLE_LINE} gap={2sp} yAlign={Align.Center}>
           <box columns={{ each: "max-content" }}>
             <text value={self.tens} textColor={self.tensColor} textFont={.Numbers} wrap={.None} />
             <text value={self.ones} textColor={self.levelColor} textFont={.Numbers} wrap={.None} />
           </box>
           <text value={BULLET} textColor={BULLET_COLOR} wrap={.None} />
+          <text value={self.quest.title} textColor={INK} wrap={.None} />
+          <text value={self.group} textColor={DIM} textSize={SECONDARY_TEXT} wrap={.None} />
+          <Gains xp={self.quest.xp} money={self.quest.money} />
         </box>
-        <box columns={1} gap={GOAL_GAP}>
-          <box columns={[{ fr: 1 }, "max-content", "max-content"]} gap={2sp} yAlign={Align.Center}>
-            <text value={self.quest.title} textColor={INK} wrap={.None} />
-            <text value={self.group} textColor={DIM} textSize={SECONDARY_TEXT} wrap={.None} />
-            <Gains xp={self.quest.xp} money={self.quest.money} />
-          </box>
-          <text $if={self.ended} value={self.progress} textColor={self.progressColor} textSize={SECONDARY_TEXT}
-                lineHeight={TIGHT_LINE} />
-          <$else>
-            <GoalLine $for={objective of self.quest.objectives} objective={objective} />
-          </>
-        </box>
+        <text $if={self.ended} value={self.progress} textColor={self.progressColor} textSize={SECONDARY_TEXT}
+              lineHeight={TIGHT_LINE} />
+        <$else>
+          <GoalLine $for={objective of self.quest.objectives} objective={objective} />
+        </>
         <Menu $if={self.menuOpen} entries={self.entries} title={self.quest.title} @pick={self.onEntry}
               @close={self.onClose} />
       </box>

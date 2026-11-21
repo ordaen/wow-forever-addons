@@ -707,6 +707,10 @@ test "a row is its level, a dim bullet and its title; a level of one digit keeps
   const two = window.text("The Defias Brotherhood").rect()
   const one = window.text("Elwynn Wolves").rect()
   Test.expect((two.left - one.left).abs() < 0.01)
+  // The level is part of the title's line: the objectives under it start at the level's edge.
+  const row = window.text("Elwynn Wolves").item()
+  Test.expect((row.text("Wolves slain").rect().left - row.text("7").rect().left).abs() < 11)
+  Test.expect(row.text("Wolves slain").rect().left < row.text("7").rect().left)
 }
 
 test "a quest's gains stand at its row's right in the body's size: one alone leaves no room after it" {
