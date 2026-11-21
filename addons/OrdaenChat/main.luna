@@ -27,10 +27,22 @@ const UNDOCKED: Anchored = { point: Point.BottomLeft, x: 8dp, y: -300dp }
 const PREFIX = "ordaenurl:"
 // Where the last lines of each tab are kept between sessions.
 const HISTORY = "OrdaenChat:history"
-// Whether the character's guild tab was made, once.
-const GUILD_TAB = "OrdaenChat:guildWindow"
-// What the guild's tab shows: the guild's lines and its officers'.
-const GUILD_GROUPS: Array<String> = ["GUILD", "OFFICER"]
+// A tab every character's chat starts with, past the game's own two: its name, the message groups it shows, and
+// whether it takes the character's channels, which the General window then leaves to it.
+struct DefaultTab {
+  // Where the character's chat keeps that it was made.
+  made: String
+  name: String
+  groups: Array<String>
+  channels: Boolean
+}
+
+const DEFAULT_TABS: Array<DefaultTab> = [
+  { made: "OrdaenChat:guildWindow", name: Locale.TAB_GUILD_NAME, groups: ["GUILD", "OFFICER"], channels: false },
+  { made: "OrdaenChat:channelsWindow", name: Locale.TAB_CHANNELS_NAME, groups: ["CHANNEL"], channels: true }
+]
+// The game's General window, which the channels leave for their own tab.
+const GENERAL = 1
 // The time stamp before a line: in brackets, the muted colour.
 const STAMP = "|cff9d9d9d[%s]|r "
 const BUTTON = 90dp
@@ -50,6 +62,8 @@ public class Chat implements Module, App {
   })
   // The window the «Tabs» page shows.
   state editing = 1
+  // The default tabs asked for on the next frame.
+  defaultTabsAsked = false
   public const pages: Array<SettingsPage> = [
     { title: Locale.TAB_CHAT, content: $ltml { <ChatPage settings={mut self.settings} /> } },
     { title: Locale.TAB_TABS, content: $ltml { <TabsPage window={mut self.editing} settings={mut self.settings} /> } }
@@ -98,6 +112,7 @@ public class Chat implements Module, App {
     // The game's windows loaded, and the player in the world: the guild's tab made where it is due.
     Events.UPDATE_CHAT_WINDOWS.listen(self.onWindowsLoaded)
     Events.PLAYER_ENTERING_WORLD.listen(self.onEnterWorld)
+    Events.CHANNEL_UI_UPDATE.listen(self.onWindowsLoaded)
     watch (windows of Game.chat.windows) { self.sync() }
     // Whispers are the whisper window's: the game opens no window of its own for them.
     Game.chat.whisperWindows(false)
@@ -333,28 +348,47 @@ public class Chat implements Module, App {
     }
   }
 
-  // A character's first chat has a tab of the guild's lines (the guild's and its officers'), docked after the game's
-  // own two. Asked after each time the game's windows load, and after the player enters the world: after, as the
-  // game's own handlers of the same event lay its saved windows over whatever was opened before them. Done for the
-  // character once a later ask finds the window still there, so a guild's tab closed then stays closed.
-  onWindowsLoaded(mut self) { self.guildTabLater() }
+  // A character's first chat has the default tabs, docked after the game's own two. Asked after each time the game's
+  // windows load, the player enters the world or the channels change (a tab of channels waits for the character's):
+  // after, as the game's own handlers of the same event lay its saved windows over whatever was opened before them.
+  // A tab is done for the character once a later ask finds a window past the game's two showing its lines, so one
+  // closed then stays closed.
+  onWindowsLoaded(mut self) { self.defaultTabsLater() }
 
-  onEnterWorld(mut self, initial: Boolean, reloaded: Boolean) { self.guildTabLater() }
+  onEnterWorld(mut self, initial: Boolean, reloaded: Boolean) { self.defaultTabsLater() }
 
-  guildTabLater(mut self) { Client.C_Timer.After(0, (): nil => self.guildTab()) }
+  // Once a frame, however many events ask.
+  defaultTabsLater(mut self) {
+    if (self.defaultTabsAsked) { return }
+    self.defaultTabsAsked = true
+    Client.C_Timer.After(0, (): nil => {
+      self.defaultTabsAsked = false
+      for (tab of DEFAULT_TABS) { self.defaultTab(tab) }
+    })
+  }
 
-  guildTab(mut self) {
-    if (Game.saved.stored(Game.Scope.Character, GUILD_TAB) != nil) { return }
-    if (showsGuild()) {
-      Game.saved.store(Game.Scope.Character, GUILD_TAB, true)
+  defaultTab(mut self, tab: DefaultTab) {
+    if (Game.saved.stored(Game.Scope.Character, tab.made) != nil) { return }
+    if (showsAny(tab.groups)) {
+      Game.saved.store(Game.Scope.Character, tab.made, true)
       return
     }
-    const made = Game.chat.open(Locale.TAB_GUILD_NAME)
+    const joined = Game.chat.channels(GENERAL)
+    if (tab.channels && joined.length == 0) { return }
+    const made = Game.chat.open(tab.name)
     if (made == nil) { return }
     for (group of Game.chat.groups(made)) {
       if (group.shown) { Game.chat.showGroup(made, group.name, false) }
     }
-    for (group of GUILD_GROUPS) { Game.chat.showGroup(made, group, true) }
+    for (group of tab.groups) { Game.chat.showGroup(made, group, true) }
+    for (channel of Game.chat.channels(made)) {
+      if (channel.shown != tab.channels) { Game.chat.showChannel(made, channel.name, tab.channels) }
+    }
+    if (tab.channels) {
+      for (channel of joined) {
+        if (channel.shown) { Game.chat.showChannel(GENERAL, channel.name, false) }
+      }
+    }
   }
 
   // The last lines of each tab, for the next session: written once, as the player logs out.
@@ -432,7 +466,7 @@ public class Chat implements Module, App {
   }
 }
 
-// Whether a window past the game's two shows the guild's lines.
-function showsGuild(): Boolean {
-  return (peek Game.chat.windows).any(window => window.index > 2 && Game.chat.groups(window.index).any(group => group.name == GUILD_GROUPS[1] && group.shown))
+// Whether a window past the game's two shows any of the message groups.
+function showsAny(groups: Array<String>): Boolean {
+  return (peek Game.chat.windows).any(window => window.index > 2 && Game.chat.groups(window.index).any(group => group.shown && groups.any(name => name == group.name)))
 }

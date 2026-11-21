@@ -530,6 +530,29 @@ test "a guild's tab the client refused while it loads its windows is asked for a
   Test.expect(Game.chat.windows.any(each => each.index == 4))
 }
 
+test "a character's chat gets a tab of its channels once it is in some, and General leaves them to it" {
+  // The guild's tab is there already (window 3): only the channels' is asked for.
+  let joined: Array<Game.ChatShown> = []
+  Game.chat.windows = gameWindows()
+  Game.chat.groups = (index: Integer): Array<Game.ChatGroup> => index == 3 ? [{ name: "GUILD", label: "Guild", shown: true }] : []
+  Game.chat.channels = (index: Integer): Array<Game.ChatShown> => index == 1 ? joined : index == 5 ? [{ name: "General", shown: false }] : []
+  Game.chat.open = (name: String): Integer | nil => {
+    Test.asked("Chat.open", name)
+    return 5
+  }
+  _ = chat()
+  windowsLoad()
+  // In no channel yet: the tab waits for them.
+  Test.expect(!Test.requests().any(r => r == "Chat.open Channels"))
+  joined = [{ name: "General", shown: true }, { name: "Trade", shown: true }]
+  Events.CHANNEL_UI_UPDATE.emit()
+  Test.pass(0.01)
+  const asked = Test.requests()
+  Test.expect(asked.any(r => r == "Chat.open Channels") && asked.any(r => r == "Chat.showGroup 5 CHANNEL true"))
+  Test.expect(asked.any(r => r == "Chat.showChannel 5 General true"))
+  Test.expect(asked.any(r => r == "Chat.showChannel 1 General false") && asked.any(r => r == "Chat.showChannel 1 Trade false"))
+}
+
 test "no guild's tab is made where a window past the game's two shows the guild already" {
   Game.chat.windows = gameWindows()
   Game.chat.groups = (index: Integer): Array<Game.ChatGroup> => index == 3 ? [{ name: "GUILD", label: "Guild", shown: true }] : []
