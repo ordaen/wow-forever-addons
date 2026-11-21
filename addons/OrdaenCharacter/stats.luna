@@ -7,7 +7,7 @@ import root Ordaen from "Ordaen"
 import { BRIGHT_TEXT, Component, SECONDARY_TEXT, TITLE_TEXT, Tip, XpFill, xpFillArt } from "Ordaen"
 import Locale from "@/locales"
 import { Skill, Stats, WANDS } from "@/sheet"
-import { Breakdown, NO_BREAKDOWN, statName } from "@/sources"
+import { Boost, Breakdown, NO_BREAKDOWN, statName } from "@/sources"
 import { Stat } from "@/stat"
 import Style from "@/style"
 
@@ -369,6 +369,17 @@ public class Cut implements Component {
   }
 }
 
+const NO_BOOSTS: Map<String, Boost> = {}
+
+// A stat's value's ink: green while an aura raises it, red while one lowers it, else its own.
+function inkOf(stat: Stat | nil, boosts: Map<String, Boost>, plain: Color): Color {
+  if (stat == nil) { return plain }
+  const boost = boosts[`${stat}`]
+  if (boost == .Up) { return Style.GREEN }
+  if (boost == .Down) { return Style.RED }
+  return plain
+}
+
 // What a stat's view stands in: with the cursor on it, the stat's tooltip (its name and value, the game's words on it,
 // its sources) stands beside it, and `tipped` tells the page which stat it is, so its sources light; a stat that feeds
 // the one whose tooltip is open glows gold. A view of no stat (`stat` none) is a plain box.
@@ -416,14 +427,16 @@ public class StatGauge implements Component {
   public tipped: Event<Stat | nil> = new Event()
 
   derived fill: BarFill = { value: (self.gauge.value / self.gauge.cap).max(0).min(1), color: self.gauge.tone }
-  derived ink: Color = self.gauge.value == 0 ? Style.DIM : BRIGHT_TEXT
+  derived ink: Color = inkOf(self.gauge.stat, self.boosts, self.gauge.value == 0 ? Style.DIM : BRIGHT_TEXT)
   derived title: String = `${self.gauge.label} ${self.gauge.text}`
 
   gauge: Signal<Gauge>
   shown: Signal<Breakdown>
-  constructor(gauge: Signal<Gauge>, shown: Signal<Breakdown> = NO_BREAKDOWN) {
+  boosts: Signal<Map<String, Boost>>
+  constructor(gauge: Signal<Gauge>, shown: Signal<Breakdown> = NO_BREAKDOWN, boosts: Signal<Map<String, Boost>> = NO_BOOSTS) {
     self.gauge = gauge
     self.shown = shown
+    self.boosts = boosts
   }
 
   onTipped(self, stat: Stat | nil) { self.tipped.emit(stat) }
@@ -449,14 +462,16 @@ public class StatGauge implements Component {
 public class StatRow implements Component {
   public tipped: Event<Stat | nil> = new Event()
 
-  derived ink: Color = self.row.value == "0" ? Style.DIM : BRIGHT_TEXT
+  derived ink: Color = inkOf(self.row.stat, self.boosts, self.row.value == "0" ? Style.DIM : BRIGHT_TEXT)
   derived title: String = `${self.row.label} ${self.row.value}${self.row.unit}`
 
   row: Signal<Row>
   shown: Signal<Breakdown>
-  constructor(row: Signal<Row>, shown: Signal<Breakdown> = NO_BREAKDOWN) {
+  boosts: Signal<Map<String, Boost>>
+  constructor(row: Signal<Row>, shown: Signal<Breakdown> = NO_BREAKDOWN, boosts: Signal<Map<String, Boost>> = NO_BOOSTS) {
     self.row = row
     self.shown = shown
+    self.boosts = boosts
   }
 
   onTipped(self, stat: Stat | nil) { self.tipped.emit(stat) }
@@ -481,12 +496,15 @@ public class StatCard implements Component {
   derived labelled: Boolean = self.figure.label != ""
   derived glyphShade: Number = self.figure.lit ? 1 : 0.7
   derived title: String = self.titleOf()
+  derived ink: Color = inkOf(self.figure.stat, self.boosts, BRIGHT_TEXT)
 
   figure: Signal<Figure>
   shown: Signal<Breakdown>
-  constructor(figure: Signal<Figure>, shown: Signal<Breakdown> = NO_BREAKDOWN) {
+  boosts: Signal<Map<String, Boost>>
+  constructor(figure: Signal<Figure>, shown: Signal<Breakdown> = NO_BREAKDOWN, boosts: Signal<Map<String, Boost>> = NO_BOOSTS) {
     self.figure = figure
     self.shown = shown
+    self.boosts = boosts
   }
 
   // A card without a label (a school's spell damage) is named by its stat.
@@ -509,7 +527,7 @@ public class StatCard implements Component {
           <box>
             <text $if={self.labelled} value={self.figure.label} textSize={SECONDARY_TEXT} textColor={Style.DIM} lineHeight={Style.TIGHT}
                   wrap={.None} />
-            <text value={self.figure.value} textSize={TITLE_TEXT} textFont={TextFont.Numbers} textColor={BRIGHT_TEXT}
+            <text value={self.figure.value} textSize={TITLE_TEXT} textFont={TextFont.Numbers} textColor={self.ink}
                   lineHeight={Style.TIGHT} wrap={.None} />
           </box>
         </box>
@@ -527,9 +545,11 @@ public class SectionView implements Component {
 
   section: Signal<Section>
   shown: Signal<Breakdown>
-  constructor(section: Signal<Section>, shown: Signal<Breakdown> = NO_BREAKDOWN) {
+  boosts: Signal<Map<String, Boost>>
+  constructor(section: Signal<Section>, shown: Signal<Breakdown> = NO_BREAKDOWN, boosts: Signal<Map<String, Boost>> = NO_BOOSTS) {
     self.section = section
     self.shown = shown
+    self.boosts = boosts
   }
 
   onTipped(self, stat: Stat | nil) { self.tipped.emit(stat) }
@@ -540,13 +560,16 @@ public class SectionView implements Component {
         <Cut title={self.section.title} />
         <box gap={2sp} padding={Style.SECTION_PAD}>
           <box $if={self.carded} columns={self.columns} gap={2.5sp} padding={Style.CARDS_PAD}>
-            <StatCard $for={card of self.section.cards} figure={card} shown={self.shown} @tipped={self.onTipped} />
+            <StatCard $for={card of self.section.cards} figure={card} shown={self.shown} boosts={self.boosts}
+                      @tipped={self.onTipped} />
           </box>
           <box gap={1.5sp}>
-            <StatGauge $for={g of self.section.gauges} gauge={g} shown={self.shown} @tipped={self.onTipped} />
+            <StatGauge $for={g of self.section.gauges} gauge={g} shown={self.shown} boosts={self.boosts}
+                       @tipped={self.onTipped} />
           </box>
           <box gap={0.5sp}>
-            <StatRow $for={row of self.section.rows} row={row} shown={self.shown} @tipped={self.onTipped} />
+            <StatRow $for={row of self.section.rows} row={row} shown={self.shown} boosts={self.boosts}
+                     @tipped={self.onTipped} />
           </box>
         </box>
       </box>
@@ -559,12 +582,15 @@ public class MainStat implements Component {
   public tipped: Event<Stat | nil> = new Event()
 
   derived title: String = `${self.main.label} ${self.main.value}`
+  derived ink: Color = inkOf(self.main.stat, self.boosts, BRIGHT_TEXT)
 
   main: Signal<Main>
   shown: Signal<Breakdown>
-  constructor(main: Signal<Main>, shown: Signal<Breakdown> = NO_BREAKDOWN) {
+  boosts: Signal<Map<String, Boost>>
+  constructor(main: Signal<Main>, shown: Signal<Breakdown> = NO_BREAKDOWN, boosts: Signal<Map<String, Boost>> = NO_BOOSTS) {
     self.main = main
     self.shown = shown
+    self.boosts = boosts
   }
 
   onTipped(self, stat: Stat | nil) { self.tipped.emit(stat) }
@@ -574,7 +600,7 @@ public class MainStat implements Component {
       <StatSpot stat={self.main.stat} title={self.title} shown={self.shown} @tipped={self.onTipped}>
         <box gap={0.5sp} xAlign={Align.Center} padding={Style.MAIN_PAD}>
           <text value={String.of(self.main.value)} textSize={Style.MAIN_TEXT} textFont={TextFont.Numbers}
-                textColor={BRIGHT_TEXT} wrap={.None} />
+                textColor={self.ink} wrap={.None} />
           <text value={self.main.short} textSize={SECONDARY_TEXT} textColor={Style.DIM} wrap={.None} />
         </box>
       </StatSpot>
@@ -587,14 +613,16 @@ public class ResistColumn implements Component {
   public tipped: Event<Stat | nil> = new Event()
 
   derived fill: BarFill = { value: (self.resist.value / self.resist.cap).min(1), color: self.resist.color, from: FillFrom.Bottom }
-  derived ink: Color = self.resist.value == 0 ? Style.DIM : BRIGHT_TEXT
+  derived ink: Color = inkOf(self.resist.stat, self.boosts, self.resist.value == 0 ? Style.DIM : BRIGHT_TEXT)
   derived title: String = `${statName(self.resist.stat)} ${self.resist.value}`
 
   resist: Signal<Resist>
   shown: Signal<Breakdown>
-  constructor(resist: Signal<Resist>, shown: Signal<Breakdown> = NO_BREAKDOWN) {
+  boosts: Signal<Map<String, Boost>>
+  constructor(resist: Signal<Resist>, shown: Signal<Breakdown> = NO_BREAKDOWN, boosts: Signal<Map<String, Boost>> = NO_BOOSTS) {
     self.resist = resist
     self.shown = shown
+    self.boosts = boosts
   }
 
   onTipped(self, stat: Stat | nil) { self.tipped.emit(stat) }
@@ -623,6 +651,7 @@ public class PoolBar implements Component {
   derived parts: Array<Track> = [{ fr: self.filled }, { fr: 1 - self.filled }]
   derived regained: Boolean = self.regen != ""
   derived title: String = self.stat != nil ? `${statName(self.stat ?? .Health)} ${self.amount}` : ""
+  derived ink: Color = inkOf(self.stat, self.boosts, BRIGHT_TEXT)
 
   amount: Signal<String>
   color: Signal<Color>
@@ -631,14 +660,16 @@ public class PoolBar implements Component {
   filled: Signal<Number>
   stat: Signal<Stat | nil>
   shown: Signal<Breakdown>
+  boosts: Signal<Map<String, Boost>>
   constructor(amount: Signal<String>, color: Signal<Color>, regen: Signal<String> = "", filled: Signal<Number> = 1,
-    stat: Signal<Stat | nil> = nil, shown: Signal<Breakdown> = NO_BREAKDOWN) {
+    stat: Signal<Stat | nil> = nil, shown: Signal<Breakdown> = NO_BREAKDOWN, boosts: Signal<Map<String, Boost>> = NO_BOOSTS) {
     self.amount = amount
     self.color = color
     self.regen = regen
     self.filled = filled
     self.stat = stat
     self.shown = shown
+    self.boosts = boosts
   }
 
   onTipped(self, stat: Stat | nil) { self.tipped.emit(stat) }
@@ -660,7 +691,7 @@ public class PoolBar implements Component {
           <box position={Position.Absolute} top={0ui} right={0ui} bottom={0ui} left={0ui}
                background={Ordaen.art.panel.xpTube} zLevel={3} />
           <box zLevel={4}>
-            <text value={self.amount} textSize={SECONDARY_TEXT} textFont={TextFont.Numbers} textColor={BRIGHT_TEXT}
+            <text value={self.amount} textSize={SECONDARY_TEXT} textFont={TextFont.Numbers} textColor={self.ink}
                   textOutline={1} textShadow={Style.TUBE_SHADOW} wrap={.None} />
           </box>
           <box $if={self.regained} position={Position.Absolute} top={0ui} right={Style.TUBE_REGEN} bottom={0ui}

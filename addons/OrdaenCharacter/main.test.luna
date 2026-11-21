@@ -340,6 +340,26 @@ test "a stat's tooltip lists the stats that feed it and the auras that change it
   Test.expect(tip.texts().join(" | ") == "Attack power 832 | Stats | Strength | +624 | Base | 108 | Effects | Battle Shout | +100")
 }
 
+const DEMORALIZED = 1160
+
+test "a stat an aura raises reads green, one an aura lowers red whatever else raises it, any other as it is" {
+  Test.login({ guid: "Player-1-0001", name: "Regy", surname: "", realm: "Realm", faction: "Alliance", classTag: "WARRIOR" })
+  Test.mount(nil, PAGE)
+  Game.items.icon = icons
+  Game.spells.name = spellNames
+  Game.auras.player = (): Array<Game.PlayerAura> => [{ spell: SHOUT, stacks: 0, harmful: false, points: [100] }]
+  Auras.refresh()
+  const window = opened(new FakeSheet())
+  Test.expect(window.text("832").textColor().equal(Style.GREEN))
+  Test.expect(!window.text("312").textColor().equal(Style.GREEN))
+  Game.auras.player = (): Array<Game.PlayerAura> => [
+    { spell: SHOUT, stacks: 0, harmful: false, points: [100] },
+    { spell: DEMORALIZED, stacks: 0, harmful: true, points: [-35] }
+  ]
+  Auras.refresh()
+  Test.expect(window.text("832").textColor().equal(Style.RED))
+}
+
 test "a set's bonus is one row under its name, however many of its pieces are worn" {
   Test.mount(nil, PAGE)
   Game.items.icon = icons

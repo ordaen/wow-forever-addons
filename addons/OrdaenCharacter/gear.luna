@@ -11,7 +11,7 @@ import { Active } from "OrdaenAuras"
 import Locale from "@/locales"
 import { Choices } from "@/settings"
 import { AMMO, GearSet, LEFT, RIGHT, Resource, Skill, SlotSpec, Stats, WEAPONS, Who, Worn, averageLevel } from "@/sheet"
-import { Breakdown, NO_BREAKDOWN, breakdownOf, wordsOf } from "@/sources"
+import { Boost, Breakdown, NO_BREAKDOWN, boostsOf, breakdownOf, wordsOf } from "@/sources"
 import { Stat } from "@/stat"
 import { Cut, Gauge, Groove, Main, MainStat, PoolBar, Resist, ResistColumn, Row, Section, SectionView, StatGauge, StatRow, defenceOf, defenceRows, mainsOf, resistsOf, sectionsOf, sharedGauges, sharedRows, speedsOf } from "@/stats"
 import Style from "@/style"
@@ -284,6 +284,10 @@ public class GearPage implements Component {
   // The stat whose tooltip is open (none while none is), what it says and what lights with it.
   state tipped: Stat | nil = nil
   derived shown: Breakdown = self.shownOf()
+  // The stats the auras on the character raise or lower: their values green or red.
+  derived boosts: Map<String, Boost> = boostsOf({
+    stats: self.stats, worn: self.worn, auras: self.auras, classTag: self.tag
+  })
 
   worn: Signal<Array<Worn>>
   who: Signal<Who>
@@ -379,27 +383,27 @@ public class GearPage implements Component {
                 <text value={self.whoText} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
               </box>
               <box gap={1sp}>
-                <PoolBar amount={self.health} color={Style.HEALTH} stat={Stat.Health} shown={self.shown} @tipped={self.onTipped} />
+                <PoolBar amount={self.health} color={Style.HEALTH} stat={Stat.Health} shown={self.shown} boosts={self.boosts} @tipped={self.onTipped} />
                 <PoolBar amount={self.power} color={self.powerTint} regen={self.powerRegen} filled={self.powerFilled}
-                         stat={self.powerStat} shown={self.shown} @tipped={self.onTipped} />
+                         stat={self.powerStat} shown={self.shown} boosts={self.boosts} @tipped={self.onTipped} />
                 <PoolBar $if={self.energyShown} amount={self.energy} color={Style.ENERGY} regen={self.energyRegen} />
               </box>
             </box>
             <Cut title={Locale.SECTION_DEFENSE} />
             <box gap={2sp} padding={Style.SECTION_PAD}>
               <box columns={6} gap={2sp}>
-                <ResistColumn $for={resist of self.resists} resist={resist} shown={self.shown} @tipped={self.onTipped} />
+                <ResistColumn $for={resist of self.resists} resist={resist} shown={self.shown} boosts={self.boosts} @tipped={self.onTipped} />
               </box>
               <box gap={1.5sp}>
-                <StatGauge $for={g of self.defence} gauge={g} shown={self.shown} @tipped={self.onTipped} />
+                <StatGauge $for={g of self.defence} gauge={g} shown={self.shown} boosts={self.boosts} @tipped={self.onTipped} />
               </box>
               <box gap={0.5sp}>
-                <StatRow $for={row of self.blocked} row={row} shown={self.shown} @tipped={self.onTipped} />
+                <StatRow $for={row of self.blocked} row={row} shown={self.shown} boosts={self.boosts} @tipped={self.onTipped} />
               </box>
             </box>
             <Cut />
             <box gap={0.5sp} padding={Style.SECTION_PAD}>
-              <StatRow $for={row of self.speeds} row={row} shown={self.shown} @tipped={self.onTipped} />
+              <StatRow $for={row of self.speeds} row={row} shown={self.shown} boosts={self.boosts} @tipped={self.onTipped} />
             </box>
           </box>
           <box columns={[Style.CUT_LINE * 3, { fr: 1 }, Style.CUT_LINE * 3]} rows={[{ fr: 1 }]}>
@@ -441,14 +445,14 @@ public class GearPage implements Component {
           <box>
             <box gap={2.5sp}>
               <box columns={5}>
-                <MainStat $for={main of self.mains} main={main} shown={self.shown} @tipped={self.onTipped} />
+                <MainStat $for={main of self.mains} main={main} shown={self.shown} boosts={self.boosts} @tipped={self.onTipped} />
               </box>
               <Cut />
               <box gap={1.5sp} padding={Style.SECTION_PAD}>
-                <StatGauge $for={g of self.shared} gauge={g} shown={self.shown} @tipped={self.onTipped} />
-                <StatRow $for={row of self.sharedLines} row={row} shown={self.shown} @tipped={self.onTipped} />
+                <StatGauge $for={g of self.shared} gauge={g} shown={self.shown} boosts={self.boosts} @tipped={self.onTipped} />
+                <StatRow $for={row of self.sharedLines} row={row} shown={self.shown} boosts={self.boosts} @tipped={self.onTipped} />
               </box>
-              <SectionView $for={section of self.sections} section={section} shown={self.shown} @tipped={self.onTipped} />
+              <SectionView $for={section of self.sections} section={section} shown={self.shown} boosts={self.boosts} @tipped={self.onTipped} />
             </box>
           </box>
         </box>

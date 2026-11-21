@@ -258,6 +258,25 @@ public function basesOf(facts: Facts): Map<String, Number> {
   return bases
 }
 
+// How the auras on the character change a stat: one lowers it (whatever others raise, as the game's paper doll reds
+// a stat any debuff takes from), or one raises it.
+public enum Boost { Up = "up", Down = "down" }
+
+// Each stat an aura changes, by its name, and how; a stat none changes isn't in it.
+public function boostsOf(facts: Facts): Map<String, Boost> {
+  const boosts: Map<String, Boost> = {}
+  if (facts.auras.length == 0) { return boosts }
+  for (stat of EVERY_STAT) {
+    const effects = partsOf(stat, facts).fromEffects
+    if (effects.any(part => part.amount < 0)) {
+      boosts[`${stat}`] = .Down
+    } else if (effects.any(part => part.amount > 0)) {
+      boosts[`${stat}`] = .Up
+    }
+  }
+  return boosts
+}
+
 // What the items and the stats give a stat, without its base and its auras: a character's estimate, its base added.
 public function givenTo(stat: Stat, facts: Facts): Number {
   const parts = partsOf(stat, facts)
