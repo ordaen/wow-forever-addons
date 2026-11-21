@@ -1472,6 +1472,19 @@ test "each item's rim is in its quality's colour" {
   for (at, rim of QUALITIES) { Test.expect(nth(at).paintedWith(rim)) }
 }
 
+// A caption longer than its card (a subclass in Russian: «Предметы для заданий») is cut at the card's edge, its fill kept.
+test "a caption longer than its card is cut at the card's edge" {
+  const world = new World([
+    { bag: 0, slot: 1, id: 1972, name: "Westfall Deed", icon: DEED, kind: 12, subkindName: "Предметы для заданий и поручений" }
+  ])
+  Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.items.icon = (id: Integer): Art | nil => world.icon(id)
+  Test.mount(nil, SCREEN)
+  Game.bags.open = true
+  Test.expect(bags().text("Предметы для заданий и поручений").shown())
+}
+
 test "the sections of a kind stand in the order of the game's subclasses" {
   const world = new World([
     { bag: 0, slot: 1, id: 1, name: "Staff", icon: MOSS, kind: 2, subkind: 10, subkindName: "Staves" },

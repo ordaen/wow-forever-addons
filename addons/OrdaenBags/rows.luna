@@ -21,8 +21,9 @@ const SHADOW: Shadow = { color: Color.hex("#000000"), x: 1.171875dp, y: -1.17187
 const MARK = 14.0625dp
 const LOCK = 16.40625dp
 const COIN = 14.0625dp
-const MARKED_TRACKS: Array<Track> = [MARK, "max-content", { fr: 1 }]
-const CAPTION_TRACKS: Array<Track> = ["max-content", { fr: 1 }]
+// A caption: its mark, its name in what the fill leaves (cut where it is longer, as in Russian), the fill at the end.
+const MARKED_TRACKS: Array<Track> = [MARK, { fr: 1 }, "max-content"]
+const CAPTION_TRACKS: Array<Track> = [{ fr: 1 }, "max-content"]
 // The client's padlock, small, over a protected slot's top left corner.
 const PADLOCK: Atlas = "QuestSharing-Padlock"
 // The client's gold coin, a disc with its dark rim, over a junk slot's top right corner.
