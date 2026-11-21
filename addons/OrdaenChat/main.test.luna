@@ -437,6 +437,52 @@ test "a name's right-click opens its menu: whisper, invite, who, ignore, and the
   Test.expect(Test.requests().any(r => r == "Chat.click player:Jaina:7 RightButton"))
 }
 
+test "a name's menu befriends the player and copies the name" {
+  Game.chat.windows = gameWindows()
+  const shown = chat()
+  Game.chat.heard.emit(line("SAY", "|Hplayer:Jaina:7|h[Jaina]|h says: hi", "Jaina", [1]))
+  const said = shown.text("|Hplayer:Jaina:7|h[Jaina]|h says: hi")
+  said.clickLink("player:Jaina:7", .Right)
+  Test.page().text("Add friend").click()
+  Test.expect(Test.requests().any(r => r == "Friends.add Jaina"))
+  said.clickLink("player:Jaina:7", .Right)
+  Test.page().text("Copy").click()
+  Test.expect(Test.page().input().value() == "Jaina")
+}
+
+test "any link's menu copies what it shows: an item's name" {
+  Game.chat.windows = gameWindows()
+  const shown = chat()
+  Game.chat.heard.emit(line("SAY", "|Hitem:6948|h[Hearthstone]|h", "Thrall", [1]))
+  shown.text("|Hitem:6948|h[Hearthstone]|h").clickLink("item:6948", .Right)
+  // Not a quest of the log: nothing of the log's.
+  Test.expect(!Test.page().text("Abandon").shown())
+  Test.page().text("Copy").click()
+  Test.expect(Test.page().input().value() == "Hearthstone")
+}
+
+test "a quest of the log's link has a menu: tracked or not, abandoned once the player says so" {
+  Test.questLog([{ id: 101, title: "One", header: "Westfall" }])
+  Game.chat.windows = gameWindows()
+  const shown = chat()
+  Game.chat.heard.emit(line("SAY", "|Hquest:101:10|h[One]|h", "Thrall", [1]))
+  const said = shown.text("|Hquest:101:10|h[One]|h")
+  said.clickLink("quest:101:10", .Right)
+  // Shared only while the player can share it: in a group.
+  Test.expect(Test.page().text("Track").shown() && !Test.page().text("Share").shown())
+  Test.page().text("Track").click()
+  said.clickLink("quest:101:10", .Right)
+  Test.expect(Test.page().text("Stop tracking").shown())
+  Test.page().text("Abandon").click()
+  Test.expect(Test.page().text("Abandon «One»?").shown())
+  Test.page().button("Cancel").click()
+  Test.expect(Game.questLog.quests().any(quest => quest.id == 101))
+  said.clickLink("quest:101:10", .Right)
+  Test.page().text("Abandon").click()
+  Test.page().window("Abandon «One»?").button("Abandon").click()
+  Test.expect(!Game.questLog.quests().any(quest => quest.id == 101))
+}
+
 test "a window the player undocked is a pane of its own" {
   Game.chat.windows = [window(1, "General", ""), window(3, "Whisper", "Jaina", false)]
   _ = chat()

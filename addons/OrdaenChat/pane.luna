@@ -41,10 +41,15 @@ public enum TabAction {
   Interactable = "interactable", Undock = "undock", Dock = "dock", Close = "close"
 }
 
-// What a player's name's right-click menu offers; `More` is the game's own menu of the player.
-public enum NameAction { Whisper = "whisper", Invite = "invite", Who = "who", Ignore = "ignore", More = "more" }
+// What a link's right-click menu offers (`actionsFor`): a player's name, whom to whisper, invite, ask about, befriend,
+// ignore, or the game's own menu of them (`More`); a quest of the log, tracked or not, shared, abandoned; and any
+// link's name copied.
+public enum LinkAction {
+  Whisper = "whisper", Invite = "invite", Who = "who", Befriend = "befriend", Ignore = "ignore", More = "more"
+  Track = "track", Untrack = "untrack", Share = "share", Abandon = "abandon", Copy = "copy"
+}
 
-const NAME_ACTIONS: Array<NameAction> = [NameAction.Whisper, NameAction.Invite, NameAction.Who, NameAction.Ignore, NameAction.More]
+const NAME_ACTIONS: Array<LinkAction> = [.Whisper, .Invite, .Who, .Befriend, .Copy, .Ignore, .More]
 
 // A tab's menu asked for: the tab, and what was picked.
 public struct TabPick {
@@ -52,10 +57,36 @@ public struct TabPick {
   action: TabAction
 }
 
-// A name's menu asked for: the link it came from, and what was picked.
-public struct NamePick {
+// A link's menu asked for: the link, and what was picked.
+public struct LinkPick {
   link: Event.Link
-  action: NameAction
+  action: LinkAction
+}
+
+// What a link's menu offers: a name's actions; a quest's that the log holds, as it stands there; and its name copied.
+function actionsFor(link: Event.Link | nil): Array<LinkAction> {
+  if (link == nil) { return [] }
+  if (nameOf(link.link) != nil) { return NAME_ACTIONS }
+  const actions: Array<LinkAction> = []
+  const id = questOf(link.link)
+  const logged = id != nil ? Game.questLog.quests().find(quest => quest.id == id) : nil
+  if (logged != nil) {
+    actions.push(logged.tracked ? .Untrack : .Track)
+    if (logged.shareable) { actions.push(.Share) }
+    actions.push(.Abandon)
+  }
+  actions.push(.Copy)
+  return actions
+}
+
+// A quest link's quest (`quest:123:...`).
+public function questOf(link: String): Integer | nil {
+  return link.match("^quest:(%d+)")?.toNumber()?.floor()
+}
+
+// What a link shows, without its brackets: a name, an item's, a quest's title.
+public function shownName(link: Event.Link): String {
+  return nameOf(link.link) ?? link.text.match("|h%[(.-)%]|h") ?? link.text
 }
 
 // What a tab's menu offers it: undocking a docked window but the first, docking an undocked one.
@@ -75,8 +106,8 @@ public function nameOf(link: String): String | nil {
 public class Pane implements Component {
   public picked: Event<ChatTab> = new Event()
   public tabPicked: Event<TabPick> = new Event()
-  public namePicked: Event<NamePick> = new Event()
-  // A link that isn't a name's, or a name's with a plain click.
+  public linkPicked: Event<LinkPick> = new Event()
+  // A link clicked with the left button (a name's with Alt invites).
   public link: Event<Event.Link> = new Event()
   // The grip in the lines' top right corner, taken, dragged and let go.
   public sizeGrab: Event<Event.Drag> = new Event()
@@ -89,9 +120,9 @@ public class Pane implements Component {
   // The cursor on the tabs, on the lines.
   state onTabs = false
   state onLines = false
-  // The tab whose menu is open, and the name link whose menu is open.
+  // The tab whose menu is open, and the link whose menu is open.
   state menuTab: ChatTab | nil = nil
-  state menuName: Event.Link | nil = nil
+  state menuLink: Event.Link | nil = nil
 
   // The lines' row: the height the player chose at least, more where the tabs stand taller.
   derived rows: Array<Track> = [{ fr: 1, min: self.height }]
@@ -101,14 +132,19 @@ public class Pane implements Component {
   derived shown: Array<Shown> = self.shownOf()
   derived inputShown: Boolean = self.input != nil && (self.typing || self.inputAlways)
   // Whole while the cursor is on it, the player types or a menu of it is open; else as the settings say.
-  derived opacity: Number = self.onTabs || self.onLines || self.typing || self.menuTab != nil || self.menuName != nil ?
+  derived opacity: Number = self.onTabs || self.onLines || self.typing || self.menuTab != nil || self.menuLink != nil ?
     1 :
     self.awayOpacity
   derived tabActions: Array<TabAction> = actionsOf(self.menuTab)
   derived tabEntries: Array<MenuEntry> = self.tabEntriesOf()
   // The open tab's lines let the mouse through (the game's «Make uninteractable»).
   derived clickThrough: Boolean = self.open?.uninteractable == true
-  derived nameEntries: Array<MenuEntry> = NAME_ACTIONS.map(action => MenuEntry { label: nameLabel(action), on: nil, disabled: nil, group: nil, more: nil })
+  // The open link menu's actions, read as it opens; a name's `More` and a link's `Copy` a group of their own.
+  derived linkActions: Array<LinkAction> = actionsFor(self.menuLink)
+  derived menuTitle: String = self.menuLink != nil ? shownName(self.menuLink ?? panic("titled while open")) : ""
+  derived linkEntries: Array<MenuEntry> = self.linkActions.map(action => MenuEntry {
+    label: linkLabel(action), on: nil, disabled: nil, group: action == LinkAction.Copy || action == LinkAction.More, more: nil
+  })
 
   tabs: Signal<Array<ChatTab>>
   openKey: Signal<String>
@@ -204,27 +240,25 @@ public class Pane implements Component {
 
   onTabMenuClose(mut self) { self.menuTab = nil }
 
-  onNamePick(mut self, place: Integer) {
-    const link = peek self.menuName
-    const action = NAME_ACTIONS[place]
-    self.menuName = nil
-    if (link != nil && action != nil) { self.namePicked.emit({ link: link, action: action }) }
+  onLinkPick(mut self, place: Integer) {
+    const link = peek self.menuLink
+    const action = (peek self.linkActions)[place]
+    self.menuLink = nil
+    if (link != nil && action != nil) { self.linkPicked.emit({ link: link, action: action }) }
   }
 
-  onNameMenuClose(mut self) { self.menuName = nil }
+  onLinkMenuClose(mut self) { self.menuLink = nil }
 
-  // A name: Alt and the left button invite the player, the right button opens the name's menu; any other link goes
+  // The right button opens a link's menu; Alt and the left button on a name invite the player; any other click goes
   // on.
   onLink(mut self, link: Event.Link) {
-    if (nameOf(link.link) != nil) {
-      if (link.button == MouseButton.Right) {
-        self.menuName = link
-        return
-      }
-      if (link.button == MouseButton.Left && Client.IsAltKeyDown()) {
-        self.namePicked.emit({ link: link, action: NameAction.Invite })
-        return
-      }
+    if (link.button == MouseButton.Right) {
+      self.menuLink = link
+      return
+    }
+    if (nameOf(link.link) != nil && link.button == MouseButton.Left && Client.IsAltKeyDown()) {
+      self.linkPicked.emit({ link: link, action: LinkAction.Invite })
+      return
     }
     self.link.emit(link)
   }
@@ -289,8 +323,8 @@ public class Pane implements Component {
               <box $if={self.back > 0} position={Position.Absolute} right={0ui} bottom={0ui} zLevel={2} @pointerPress={self.onLatest}>
                 <text value={Locale.LATEST} textColor={LINK} textSize={SECONDARY_TEXT} wrap={.None} />
               </box>
-              <Menu $if={self.menuName != nil} entries={self.nameEntries} title={nameOf(self.menuName?.link ?? "") ?? ""}
-                    @pick={self.onNamePick} @close={self.onNameMenuClose} />
+              <Menu $if={self.menuLink != nil} entries={self.linkEntries} title={self.menuTitle} @pick={self.onLinkPick}
+                    @close={self.onLinkMenuClose} />
             </box>
           </box>
           // The game's input while it is open, in a field's floor and edge, in a room of its own height under the lines,
@@ -323,12 +357,18 @@ function tabLabel(action: TabAction, uninteractable: Boolean): String {
   }
 }
 
-function nameLabel(action: NameAction): String {
+function linkLabel(action: LinkAction): String {
   return match (action) {
     .Whisper => Locale.NAME_WHISPER
     .Invite => Locale.NAME_INVITE
     .Who => Locale.NAME_WHO
+    .Befriend => Locale.NAME_BEFRIEND
     .Ignore => Locale.NAME_IGNORE
     .More => Locale.NAME_MORE
+    .Track => Locale.QUEST_TRACK
+    .Untrack => Locale.QUEST_UNTRACK
+    .Share => Locale.QUEST_SHARE
+    .Abandon => Locale.QUEST_ABANDON
+    .Copy => Locale.LINK_COPY
   }
 }

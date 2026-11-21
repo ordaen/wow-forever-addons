@@ -11,11 +11,11 @@ import Game from "$game"
 import { Anchored, Event, Point } from "$ltml"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
-import { BODY_TEXT, CopyBox, Dialog, Field, KeptWindow, Module, Placed, PushButton, Settings, SettingsPage, timeText } from "Ordaen"
+import { BODY_TEXT, ButtonPlate, CopyBox, Dialog, Field, KeptWindow, Module, Placed, PushButton, Settings, SettingsPage, timeText } from "Ordaen"
 import { ChannelName, ChatSize, Choices, LEAST_HEIGHT, LEAST_WIDTH, TabChoices, tabDefaults, tabKey } from "@/choices"
 import { ChatTab, Kept, KeptTab, Shown, channelOf, linked, marks, talkKey, talkLine, wordsOf } from "@/lines"
 import Locale from "@/locales"
-import { NamePick, Pane, TabPick, nameOf } from "@/pane"
+import { LinkPick, Pane, TabPick, nameOf, questOf, shownName } from "@/pane"
 import { ChatPage } from "@/settings"
 import { TabsPage } from "@/tabsPage"
 import { WHISPERS_LEAST, Whispers } from "@/whispers"
@@ -77,6 +77,11 @@ public class Chat implements Module, App {
   public state openKey = "w1"
   // A web address clicked: shown to copy.
   public state copied = ""
+  // The quest link whose quest the player is asked to abandon, and the items abandoning it destroys.
+  state abandoning: Event.Link | nil = nil
+  state abandonItems: Array<String> = []
+  derived abandonAsk: String = Locale.QUEST_ABANDON_ASK.format(self.abandoning != nil ? shownName(self.abandoning ?? panic("asked while set")) : "")
+  derived abandonLoses: String = Locale.QUEST_ABANDON_ITEMS.format(self.abandonItems.join(", "))
   // The tab being renamed, and its name meanwhile.
   state renaming: ChatTab | nil = nil
   state newName = ""
@@ -334,19 +339,38 @@ public class Chat implements Module, App {
 
   onRenameCancel(mut self) { self.renaming = nil }
 
-  // A player's name: whisper them, invite them, ask who they are, ignore them, or the game's own menu of them (its
-  // entries the client keeps to itself are reached there).
-  onName(mut self, pick: NamePick) {
-    const name = nameOf(pick.link.link)
-    if (name == nil) { return }
+  // A link's menu picked. A player's name: whisper them, invite them, ask who they are, befriend or ignore them, or the
+  // game's own menu of them (its entries the client keeps to itself are reached there). A quest of the log: tracked
+  // or not, shared, or abandoned once the player says so. Any link: its name (a web address whole) in the copy box.
+  onLinkPick(mut self, pick: LinkPick) {
+    const name = nameOf(pick.link.link) ?? ""
+    const quest = questOf(pick.link.link) ?? 0
     match (pick.action) {
       .Whisper => { self.onTalkStart(name) }
       .Invite => { Client.C_PartyInfo.InviteUnit(name) }
       .Who => { Client.C_FriendList.SendWho(`n-"${name}"`, nil, nil) }
+      .Befriend => { Game.friends.add(name) }
       .Ignore => { _ = Client.C_FriendList.AddIgnore(name) }
       .More => { Game.chat.click(pick.link.link, pick.link.text, .Right) }
+      .Track => { Game.questLog.track(quest, true) }
+      .Untrack => { Game.questLog.track(quest, false) }
+      .Share => { Game.questLog.share(quest) }
+      .Abandon => {
+        self.abandonItems = Game.questLog.abandonItems(quest)
+        self.abandoning = pick.link
+      }
+      .Copy => { self.copied = pick.link.link.sub(1, PREFIX.length) == PREFIX ? pick.link.link.sub(PREFIX.length + 1) : shownName(pick.link) }
     }
   }
+
+  onAbandon(mut self) {
+    const link = peek self.abandoning
+    const quest = link != nil ? questOf(link.link) : nil
+    if (quest != nil) { Game.questLog.abandon(quest) }
+    self.abandoning = nil
+  }
+
+  onAbandonCancel(mut self) { self.abandoning = nil }
 
   // A character's first chat has the default tabs, docked after the game's own two. Asked after each time the game's
   // windows load, the player enters the world or the channels change (a tab of channels waits for the character's):
@@ -445,12 +469,12 @@ public class Chat implements Module, App {
       <Placed id={"OrdaenChat.chat"} title={Locale.TITLE} home={HOME}>
         <Pane tabs={self.tabs} openKey={self.open?.key ?? ""} width={self.width} height={self.height} awayOpacity={self.awayOpacity}
               textSize={self.textSize} input={Game.chat.input} typing={Game.chat.typing} inputAlways={self.inputAlways} @picked={self.onPick}
-              @tabPicked={self.onTab} @namePicked={self.onName} @link={self.onLink} @sizeGrab={self.onSizeGrab}
+              @tabPicked={self.onTab} @linkPicked={self.onLinkPick} @link={self.onLink} @sizeGrab={self.onSizeGrab}
               @size={self.onSize} @sizeDrop={self.onSizeDrop} />
       </Placed>
       <Placed $for={tab of self.undocked} id={`OrdaenChat.${(peek tab).key}`} title={Locale.TITLE} home={UNDOCKED}>
         <Pane tabs={[tab]} openKey={tab.key} width={self.width} height={self.height} awayOpacity={self.awayOpacity}
-              textSize={self.textSize} @tabPicked={self.onTab} @namePicked={self.onName} @link={self.onLink} @sizeGrab={self.onSizeGrab}
+              textSize={self.textSize} @tabPicked={self.onTab} @linkPicked={self.onLinkPick} @link={self.onLink} @sizeGrab={self.onSizeGrab}
               @size={self.onSize} @sizeDrop={self.onSizeDrop} />
       </Placed>
       <Whispers $if={self.talking} talks={self.talks} openKey={self.talkOpen} declared={mut self.whisperWindow}
@@ -461,6 +485,12 @@ public class Chat implements Module, App {
         <Field value={mut self.newName} maxLength={40} placeholder={Locale.TAB_NAME} />
         <PushButton #buttons label={Locale.CANCEL} width={BUTTON} @click={self.onRenameCancel} />
         <PushButton #buttons label={Locale.TAB_RENAME} width={BUTTON} @click={self.onRename} />
+      </Dialog>
+      <Dialog $if={self.abandoning != nil} width={300dp} title={Locale.QUEST_ABANDON}>
+        <text value={self.abandonAsk} />
+        <text $if={self.abandonItems.length > 0} value={self.abandonLoses} />
+        <PushButton #buttons label={Locale.CANCEL} width={BUTTON} @click={self.onAbandonCancel} />
+        <PushButton #buttons label={Locale.QUEST_ABANDON} width={BUTTON} plate={ButtonPlate.Accent} @click={self.onAbandon} />
       </Dialog>
     }
   }
