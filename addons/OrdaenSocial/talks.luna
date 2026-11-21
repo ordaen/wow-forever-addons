@@ -16,7 +16,13 @@ public struct TalkLine implements Plain {
   secret: Boolean
   // Who said it (their GUID; empty for none): a player reported has their lines taken away.
   sender: String
+  // When the session that heard it began (seconds since 1970): a conversation sets each session's lines apart under
+  // a rule naming it. 0 for a line kept before sessions were told apart.
+  session: Number = 0
 }
+
+// When this session began: the session of every line it hears.
+public const THIS_SESSION: Number = peek Game.clock.server
 
 // What one conversation keeps between sessions: its lines, and how many of them wait unread.
 public struct KeptTalk implements Plain {

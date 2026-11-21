@@ -18,6 +18,7 @@ import { classColor } from "Ordaen"
 import root Social from "OrdaenSocial"
 import { People } from "@/people"
 import { SeenHero, seenAfter } from "@/seen"
+import { THIS_SESSION } from "@/talks"
 import { HEARD_FILL, TOLD_FILL } from "@/whispers"
 
 const PAGE: Test.Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
@@ -1410,7 +1411,43 @@ test "a conversation names a character in its class colour with its level; a Bat
   const warrior = classColor("WARRIOR") ?? panic("a warrior's colour")
   Test.expect(window.text("24lvl").shown() && sameColor(window.text("Eliana").textColor(), warrior))
   Test.expect(window.text("Alexei").shown() && sameColor(window.text("Torgrim").textColor(), warrior) && window.text("25lvl").shown())
-  Test.expect(window.text("Torgrim").rect().top > window.text("Alexei").rect().top)
+  // The character close under the account's name: no body line's room between them.
+  const account = window.text("Alexei").rect()
+  const character = window.text("Torgrim").rect()
+  Test.expect(character.top >= account.bottom && character.top - account.bottom <= 3)
+}
+
+test "a conversation's sessions stand under a rule naming each, as the chat's do" {
+  Test.mount(nil, PAGE)
+  Game.friends.list = friends
+  Game.friends.requests = requests
+  Game.friends.ignored = ignoredOnes
+  Game.friends.battleNetSelf = battleNetSelf
+  Game.guild.roster = guildRoster
+  Game.guild.motd = guildMotd
+  Game.guild.news = guildNews
+  Game.guild.newsFilters = newsFilters
+  Game.communities.clubs = clubs
+  Game.communities.members = clubMembers
+  Game.communities.streams = streams
+  Game.recentAllies.list = allies
+  Game.recentAllies.categories = allyCategories
+  _ = Social.heard(whisper("Jaina", "before"), "before")
+  const first = opened(new FakePeople())
+  Social.whisperTo("Jaina", false)
+  // In this session alone: no rule.
+  Test.expect(!first.texts().any(text => text.match("^Session · ") != nil))
+  // A later session: the kept line under its session's rule, this session's rule over what it hears.
+  Game.clock.server = THIS_SESSION.floor() + 3600
+  Events.PLAYER_LOGOUT.emit()
+  Test.reload()
+  _ = Social.heard(whisper("Jaina", "now"), "now")
+  const window = opened(new FakePeople())
+  Social.whisperTo("Jaina", false)
+  const rules = window.texts().filter(text => text.match("^Session · ") != nil)
+  Test.expect(rules.length == 2)
+  Test.expect(window.text(rules[1] ?? "").rect().bottom <= window.text("before").rect().top)
+  Test.expect(window.text(rules[2] ?? "").rect().bottom <= window.text("now").rect().top)
 }
 
 test "the whispers' tab opens on the conversation waiting unread, which stays unread over a reload until it is read" {

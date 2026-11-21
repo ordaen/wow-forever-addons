@@ -27,7 +27,7 @@ import { ClientPeople, People, namesAccount } from "@/people"
 import { SEEN_HEROES, SeenHeroes, noteSeen, withSeen } from "@/seen"
 import { Choices, GeneralPage } from "@/settings"
 import Style from "@/style"
-import { KeptTalk, KeptTalks, KnownPeople, Talk, TalkWho, isBattleNet, isTold, isWhisper, talkKey, whoOf } from "@/talks"
+import { KeptTalk, KeptTalks, KnownPeople, THIS_SESSION, Talk, TalkWho, isBattleNet, isTold, isWhisper, talkKey, whoOf } from "@/talks"
 import { Whispers } from "@/whispers"
 
 // The tabs, in order, and the friends' and the guild's own.
@@ -653,7 +653,7 @@ public class Social implements Module, App {
     if (!isWhisper(line)) { return false }
     const told = isTold(line)
     const talk = self.talkOf(talkKey(line.sender, isBattleNet(line)))
-    talk.add({ whole: whole, time: line.time, mine: told, secret: line.secret != "", sender: line.guid })
+    talk.add({ whole: whole, time: line.time, mine: told, secret: line.secret != "", sender: line.guid, session: THIS_SESSION })
     if (!told && !self.shows(talk.key)) { talk.unread = (peek talk.unread) + 1 }
     self.countUnread()
     return true
