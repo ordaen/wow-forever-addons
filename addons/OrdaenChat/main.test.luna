@@ -73,8 +73,8 @@ test "the chat reads the game's lines and shows them in the window's tab, nothin
   const shown = chat()
   Game.chat.heard.emit(line("SAY", "[Thrall] says: Hello", "Thrall", [1]))
   Test.expect(shown.text("[Thrall] says: Hello").shown())
-  // Its three tabs and the line: no hint, no button of the game's, no «Copy».
-  Test.expect(shown.texts().join(",") == "General,Jaina,Whispers,[Thrall] says: Hello")
+  // Its two tabs, the line and the toolbar's whispers: no hint, no button of the game's, no «Copy».
+  Test.expect(shown.texts().join(",") == "General,Jaina,[Thrall] says: Hello,Whispers")
 }
 
 test "the open tab and the one under the cursor stand on a list's shade, touching the lines: the window's wood is the lines' alone" {
@@ -209,7 +209,7 @@ test "the input shows under the lines' frame in a room the chat keeps for it: no
   Game.chat.input = box
   _ = chat()
   for (at of 1..60) { Game.chat.heard.emit(line("SAY", `line ${at}`, "Thrall", [1])) }
-  const shown = Test.page().window("Whispers")
+  const shown = Test.page().window("General")
   const chatBefore = shown.rect()
   const lines = shown.box(Ordaen.art.window.wood).rect()
   const newest = shown.text("line 60").rect()
@@ -324,22 +324,46 @@ test "a web address clicked opens a box to copy it, closed by Escape" {
   Test.expect(!Test.page().window("Close").shown())
 }
 
+test "the whispers are the toolbar's under the lines, in the input's room: its count moves nothing, the input covers it" {
+  Game.chat.windows = gameWindows()
+  const box = input(Client.CreateFrame("Frame", nil, Client.C_UI.GetUIParent(), nil))
+  box.Hide()
+  Game.chat.input = box
+  const shown = chat()
+  const lines = shown.box(Ordaen.art.window.wood).rect()
+  const button = shown.text("Whispers").rect()
+  // Under the lines, no tab.
+  Test.expect(button.top >= lines.bottom)
+  Game.chat.heard.emit(whisper("Jaina", "hi"))
+  const badge = shown.box(Ordaen.art.panel.countBadge).rect()
+  Test.expect(shown.text("Whispers").rect().left == button.left && shown.box(Ordaen.art.window.wood).rect().bottom == lines.bottom)
+  // The count over the button's own room, its name clear.
+  Test.expect(badge.left >= shown.text("Whispers").letters().right)
+  shown.text("Whispers").click()
+  Test.expect(Test.page().window("Jaina").shown())
+  // The input open: it takes the room, the toolbar goes.
+  box.Show()
+  box.SetFocus()
+  Game.chat.typing = true
+  Test.pass(0.01)
+  Test.expect(!shown.text("Whispers").shown())
+}
+
 test "the chat's tabs are a sidebar at its left, one a row, a right-click opening the menu alone" {
   Game.chat.windows = playersWindows()
   const shown = chat("Общий")
   Game.chat.heard.emit(line("SAY", "[Thrall] says: here", "Thrall", [1]))
   // Each tab under the one before, from the same left edge, and the lines to the right of them all.
-  const names = ["Общий", "Журнал", "Гильдия", "Каналы", "Whispers"]
+  const names = ["Общий", "Журнал", "Гильдия", "Каналы"]
   for (at of 2..names.length) {
     const above = shown.text(names[at - 1] ?? "").rect()
     const below = shown.text(names[at] ?? "").rect()
     Test.expect(below.top >= above.bottom && below.left == above.left)
   }
-  Test.expect(shown.text("[Thrall] says: here").rect().left > shown.text("Whispers").rect().right)
+  Test.expect(shown.text("[Thrall] says: here").rect().left > shown.text("Каналы").rect().right)
   Game.chat.windows = gameWindows()
   Test.pass(0.1)
   const now = Test.page().window("General")
-  now.text("Whispers").rightClick()
   now.text("General").rightClick()
   Test.expect(!Test.requests().any(r => r == "Chat.choose 1"))
   Test.expect(Test.page().text("Rename").shown())
@@ -904,7 +928,7 @@ function plain(words: String, session: Number = THIS_SESSION): Shown {
   return { whole: words, color: WHITE, time: session, repeat: words, count: 1, marked: false, session: session, secret: false, mine: false, sender: "" }
 }
 
-test "the chat is never lower than its tabs, the whispers' among them: the lines take the room they leave" {
+test "the chat is never lower than its tabs: the lines take the room they leave" {
   Game.chat.windows = [
     window(1, "General", ""), window(2, "Log", ""), window(3, "Guild", ""), window(4, "Trade", ""), window(5, "Officers", ""),
     window(6, "Party", ""), window(7, "Raid", ""), window(8, "Market", ""), window(9, "Friends", "")
@@ -913,7 +937,7 @@ test "the chat is never lower than its tabs, the whispers' among them: the lines
   // The chat's height is 190 dp, 135 of the screen's units: the tabs stand taller, and the frame reaches past the last
   // tab's foot.
   const first = shown.text("General").rect()
-  const last = shown.text("Whispers").rect()
+  const last = shown.text("Friends").rect()
   Test.expect(last.bottom - first.top > 135)
   Test.expect(shown.rect().bottom >= last.bottom)
 }

@@ -1,7 +1,7 @@
 // A pane of the chat: its tabs a sidebar, a line between them and the open tab's lines (the way back to the latest
 // over their corner), and under the lines the room of the game's input, which shows there while it is open, dressed in
-// a field's look. The chat's own pane holds the docked windows and the whispers' tab; each window the player undocked
-// is a pane of its own, holding that window alone, with no input.
+// a field's look, and the chat's toolbar there while it is closed (the whispers). The chat's own pane holds the docked
+// windows; each window the player undocked is a pane of its own, holding that window alone, with no input or toolbar.
 import Client from "$client"
 import Game from "$game"
 import { Align, Edges, Event, Frame, Layer, Line, MouseButton, Over, Overflow, Position, Track } from "$ltml"
@@ -10,7 +10,7 @@ import { Component, FIELD_EDGE, FIELD_FILL, GripCorner, Menu, MenuEntry, SECONDA
 import root Quests from "OrdaenQuests"
 import { ChatTab, Entry } from "@/lines"
 import Locale from "@/locales"
-import { Row, TabButton } from "@/view"
+import { Row, TabButton, ToolbarButton } from "@/view"
 
 // A message's lines stand closer than the body's (`BODY_LINE`), and messages further apart than its lines: each
 // reads as one.
@@ -118,6 +118,8 @@ public class Pane implements Component {
   public picked: Event<ChatTab> = new Event()
   public tabPicked: Event<TabPick> = new Event()
   public linkPicked: Event<LinkPick> = new Event()
+  // The toolbar's whispers clicked.
+  public whispers: Event<nil> = new Event()
   // A link clicked with the left button (a name's with Alt invites).
   public link: Event<Event.Link> = new Event()
   // The grip in the lines' top right corner, taken, dragged and let go.
@@ -168,6 +170,8 @@ public class Pane implements Component {
   input: Signal<any Frame | nil>
   typing: Signal<Boolean>
   inputAlways: Signal<Boolean>
+  whispersUnread: Signal<Integer>
+  const own: Boolean
   constructor(
     tabs: Signal<Array<ChatTab>>,
     // The tab shown: its key.
@@ -178,11 +182,17 @@ public class Pane implements Component {
     awayOpacity: Signal<Number>,
     // The lines' text size.
     textSize: Signal<Number<TextSize>>,
-    // The input it holds (nil: none; Enter opens the chat's), shown while the player types or always.
+    // The chat's own pane: under its lines, the room of the input and the toolbar. Its input (nil until the game
+    // has made it), shown while the player types or always.
+    own: Boolean = false,
     input: Signal<any Frame | nil> = nil,
     typing: Signal<Boolean> = false,
-    inputAlways: Signal<Boolean> = false
+    inputAlways: Signal<Boolean> = false,
+    // The whispers' lines waiting unread, on the toolbar's whispers.
+    whispersUnread: Signal<Integer> = 0
   ) {
+    self.whispersUnread = whispersUnread
+    self.own = own
     self.tabs = tabs
     self.openKey = openKey
     self.width = width
@@ -239,10 +249,9 @@ public class Pane implements Component {
     self.picked.emit(tab)
   }
 
-  // A window's tab has the chat's menu; the whispers' none.
-  onMenu(mut self, tab: ChatTab) {
-    if (tab.window > 0) { self.menuTab = tab }
-  }
+  onMenu(mut self, tab: ChatTab) { self.menuTab = tab }
+
+  onWhispers(mut self) { self.whispers.emit() }
 
   onTabPick(mut self, place: Integer) {
     const tab = peek self.menuTab
@@ -341,15 +350,17 @@ public class Pane implements Component {
                     @close={self.onLinkMenuClose} />
             </box>
           </box>
-          // The game's input while it is open, in a field's floor and edge, in a room of its own height under the lines,
-          // kept whether it shows or not: nothing moves as it comes and goes, and the placing mode's outline holds it.
+          // Under the lines, a room of the game input's height: the input while it is open, in a field's floor and edge;
+          // else the chat's toolbar. Nothing moves as the input comes and goes, and the placing mode's outline holds it.
           // The field is a surface over the input's box, on the game input's own layer: a window over the chat's corner
           // covers both or neither.
-          <box $if={self.input != nil} border={INPUT_EDGE} padding={INPUT_PAD}>
+          <box $if={self.own} border={INPUT_EDGE} padding={INPUT_PAD}>
             <surface $if={self.inputShown} layer={Layer.Dialog} place={Over { over: "parent" }} background={FIELD_FILL}
                      border={FIELD_EDGE} />
             <embed $if={self.inputShown} frame={self.input ?? panic("shown with the input")} height={GAME_INPUT} />
-            <box $else height={GAME_INPUT} />
+            <box $else height={GAME_INPUT} columns={[MAX]} yAlign={Align.Center}>
+              <ToolbarButton label={Locale.WHISPERS} count={self.whispersUnread} @press={self.onWhispers} />
+            </box>
           </box>
         </box>
       </box>

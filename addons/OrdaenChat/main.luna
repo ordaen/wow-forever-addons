@@ -47,8 +47,6 @@ const GENERAL = 1
 // The time stamp before a line: in brackets, the muted colour.
 const STAMP = "|cff9d9d9d[%s]|r "
 const BUTTON = 90dp
-// The chat's tab of the whispers, which opens the whisper window.
-const WHISPERS = "talks"
 // The whispers' kinds (the client's `ChatTypeInfo` keys): a character's, a Battle.net friend's, what the player
 // whispered, and the away and busy answers; the conversation is the sender's (the one told, for what was told).
 const TOLD: Array<String> = ["WHISPER_INFORM", "BN_WHISPER_INFORM"]
@@ -70,8 +68,8 @@ public class Chat implements Module, App {
     { title: Locale.TAB_TABS, content: $ltml { <TabsPage window={mut self.editing} settings={mut self.settings} /> } }
   ]
 
-  // Every tab made, by its key, kept while its key is; the chat's own pane's in their order (the docked windows, then
-  // the whispers'), and the undocked windows', each a pane.
+  // Every tab made, by its key, kept while its key is; the chat's own pane's in their order (the docked windows), and
+  // the undocked windows', each a pane.
   made: mut Map<String, mut ChatTab> = {}
   public state tabs: Array<ChatTab> = []
   public state undocked: Array<ChatTab> = []
@@ -89,7 +87,8 @@ public class Chat implements Module, App {
   // The whisper conversations, the one last spoken in first; the chat's tab of them, its count their unread lines;
   // the whisper window, open or not, and its conversation open.
   public state talks: Array<ChatTab> = []
-  whispersTab: mut ChatTab = new ChatTab(WHISPERS, Locale.WHISPERS)
+  // The whispers' lines waiting unread, all conversations', on the toolbar's whispers.
+  public state whispersUnread = 0
   public state talking = false
   public state talkOpen = ""
   whisperWindow: mut KeptWindow = new KeptWindow("whispers", Locale.WHISPERS, { x: 0ui, y: 0ui, width: WHISPERS_LEAST, height: 330dp })
@@ -150,7 +149,6 @@ public class Chat implements Module, App {
         undocked.push(tab)
       }
     }
-    tabs.push(self.whispersTab)
     self.tabs = tabs
     self.undocked = undocked
     self.chooseTabs((peek self.settings.values).tabs)
@@ -203,7 +201,7 @@ public class Chat implements Module, App {
   }
 
   // A whisper: its conversation's, which goes first in the list; heard while that conversation isn't the one open in
-  // the shown window, it waits unread there and on the chat's tab of the whispers.
+  // the shown window, it waits unread there and on the toolbar's whispers.
   onWhisper(mut self, key: String, line: Shown, heard: Boolean, values: Choices) {
     const talk = self.talkOf(key)
     talk.add(line, values.repeats, values.held)
@@ -225,8 +223,11 @@ public class Chat implements Module, App {
   countUnread(mut self) {
     let unread = 0
     for (talk of peek self.talks) { unread += peek talk.unread }
-    self.whispersTab.unread = unread
+    self.whispersUnread = unread
   }
+
+  // The toolbar's whispers: the whisper window, on the conversation last open.
+  onWhispers(mut self) { self.openTalk(peek self.talkOpen) }
 
   // The whisper window opened on a conversation (the one last open, or the first), whose lines are read then.
   openTalk(mut self, key: String) {
@@ -277,10 +278,6 @@ public class Chat implements Module, App {
   }
 
   onPick(mut self, tab: ChatTab) {
-    if (tab.key == WHISPERS) {
-      self.openTalk(peek self.talkOpen)
-      return
-    }
     self.openKey = tab.key
     const made = self.made[tab.key]
     if (made != nil) { made.unread = 0 }
@@ -471,7 +468,8 @@ public class Chat implements Module, App {
     return $ltml {
       <Placed id={"OrdaenChat.chat"} title={Locale.TITLE} home={HOME}>
         <Pane tabs={self.tabs} openKey={self.open?.key ?? ""} width={self.width} height={self.height} awayOpacity={self.awayOpacity}
-              textSize={self.textSize} input={Game.chat.input} typing={Game.chat.typing} inputAlways={self.inputAlways} @picked={self.onPick}
+              textSize={self.textSize} own={true} input={Game.chat.input} typing={Game.chat.typing} inputAlways={self.inputAlways}
+              whispersUnread={self.whispersUnread} @whispers={self.onWhispers} @picked={self.onPick}
               @tabPicked={self.onTab} @linkPicked={self.onLinkPick} @link={self.onLink} @sizeGrab={self.onSizeGrab}
               @size={self.onSize} @sizeDrop={self.onSizeDrop} />
       </Placed>
