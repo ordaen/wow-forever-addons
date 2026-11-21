@@ -8,15 +8,19 @@ import root Ordaen from "Ordaen"
 import { Component } from "@/module"
 
 // The room between the rim and what the well holds: the least room a text keeps from a frame's line, and an item's step.
+// None where the rows bring their own (`rowsPadded`): they stand edge to edge inside the rim, their shade and rules
+// with them.
 const INSIDE = 3sp
-// The head keeps the rows' sides: what stands in it stands over what stands in the rows.
-const HEAD_SIDES: Edges = { left: INSIDE, right: INSIDE }
+const NONE = 0sp
 // The head as high as it is, the rows the rest.
 const PARTS: Array<Track> = ["max-content", { fr: 1 }]
 
 public class ScrolledList implements Component {
   derived rim = Ordaen.art.ctl.well.rim
   derived floor = Ordaen.art.ctl.well.floor
+  derived inside: Number<Spacing> = self.rowsPadded ? NONE : INSIDE
+  // The head keeps the rows' sides: what stands in it stands over what stands in the rows.
+  derived headSides: Edges = { left: self.inside, right: self.inside }
 
   columns: Signal<Columns | nil>
   rows: Signal<Array<Track> | nil>
@@ -25,6 +29,7 @@ public class ScrolledList implements Component {
   height: Signal<Number<Length> | nil>
   width: Signal<Size | nil>
   const virtual: Boolean
+  const rowsPadded: Boolean
   constructor(
     // Its rows' grid: one column where none is said.
     columns: Signal<Columns | nil> = nil,
@@ -36,7 +41,9 @@ public class ScrolledList implements Component {
     // The well's width, its rim in it. None: the width of its cell.
     width: Signal<Size | nil> = nil,
     // Its rows are of one height: a virtual list, which builds only the rows in view.
-    virtual: Boolean = false
+    virtual: Boolean = false,
+    // Its rows bring their own padding (and their shade, their rules): they stand edge to edge inside the rim.
+    rowsPadded: Boolean = false
   ) {
     self.columns = columns
     self.rows = rows
@@ -45,18 +52,19 @@ public class ScrolledList implements Component {
     self.height = height
     self.width = width
     self.virtual = virtual
+    self.rowsPadded = rowsPadded
   }
 
   public render(self): Template {
     return $ltml {
       <box rows={PARTS} width={self.width} height={self.height} border={self.rim} background={self.floor}>
-        <box padding={HEAD_SIDES}>
+        <box padding={self.headSides}>
           <slot #head />
         </box>
-        <virtualList $if={self.virtual} padding={INSIDE}>
+        <virtualList $if={self.virtual} padding={self.inside}>
           <slot />
         </virtualList>
-        <box $else columns={self.columns} rows={self.rows} gap={self.gap} yAlign={self.yAlign} padding={INSIDE}
+        <box $else columns={self.columns} rows={self.rows} gap={self.gap} yAlign={self.yAlign} padding={self.inside}
              overflow={Overflow.Scroll}>
           <slot />
         </box>

@@ -30,3 +30,30 @@ test "the well's rim stands round the list and its rows are cut at the rim's inn
   // Scrolled: a row half out at the top is cut at the rim's inner edge, the rim drawn whole over nothing.
   Test.shot("scrolled")
 }
+
+const SHADE: Color = Color.hex("#30405a")
+const OTHER_SHADE: Color = Color.hex("#305a40")
+
+// Two wells side by side, the same row in each: one whose rows bring their own padding, one whose rows don't.
+class Padded {
+  public render(self): Template {
+    return $ltml {
+      <box columns={[{ fr: 1 }, { fr: 1 }]} gap={3sp}>
+        <ScrolledList columns={1} height={100dp} rowsPadded={true}>
+          <box padding={3sp} background={SHADE}> <text value={"Own"} /> </box>
+        </ScrolledList>
+        <ScrolledList columns={1} height={100dp}>
+          <box padding={3sp} background={OTHER_SHADE}> <text value={"Inset"} /> </box>
+        </ScrolledList>
+      </box>
+    }
+  }
+}
+
+test "rows that bring their own padding stand edge to edge inside the rim, the well's own room gone" {
+  Test.mount(new Padded(), { left: 0, top: 0, width: 400, height: 200 })
+  const own = Test.page().box(SHADE).rect()
+  const inset = Test.page().box(OTHER_SHADE).rect()
+  // The same well, the rows 3sp nearer its rim on each side.
+  Test.expect((own.right - own.left) - (inset.right - inset.left) > 5)
+}
