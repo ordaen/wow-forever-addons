@@ -656,12 +656,20 @@ test "a window kept narrower than the stats need, from an older save, is drawn w
   Test.expect(window.text("Attack power").count() == 1)
 }
 
-test "the model stands in its race's scene from the game's dressing room, enlarged" {
+// A texture the client draws of the dwarves' scene.
+function isScene(texture: Test.Drawn): Boolean {
+  const at, _ = `${texture.file}`.find("backdrop%-dwarf")
+  return at != nil
+}
+
+test "the model stands in its race's scene from the game's dressing room, enlarged, in grey" {
   Test.mount(nil, PAGE)
   Game.items.icon = icons
   const window = opened(new FakeSheet())
   Test.expect(window.paintedWith("@/media/backdrop-dwarf.tga"))
   Test.expect(!window.paintedWith("@/media/backdrop-human.tga"))
+  const scenes = Test.drawn().filter(texture => isScene(texture))
+  Test.expect(scenes.length == 1 && scenes.all(texture => texture.desaturated))
 }
 
 test "health and the resource are glass tubes as the experience bar is, each filled in its colour" {
