@@ -9,6 +9,9 @@ public struct OrdaenArt {
     small: ArtBorder
     // A window tab's: the metal on its top and sides, its top corners rounded, open or closed alike.
     tab: ArtBorder
+    // A tab standing at a framed box's left (the chat's open tab): the metal on its top, left and bottom, its left
+    // corners rounded; its right is open, where the box's own left line stands over it.
+    sideTab: ArtBorder
     // A tab's icon: its picture cut by the tab's top-left curve, and the line on its right.
     tabIconClip: ArtBorder
     tabIconLine: ArtBorder
@@ -178,8 +181,11 @@ const FRAME = "ButtonFrameTemplateNoPortrait"
 const FRAME_ART: Atlas = "UI-Frame-Metal-CornerTopLeft"
 const REACH: Reach = { top: 14.5, right: 4.5, bottom: 10, left: 14.5 }
 const REACH_ROUND: Reach = { top: 14.5, right: 14.5, bottom: 10, left: 14.5 }
+// A frame rounded at its left corners: its bottom is its top mirrored.
+const REACH_ROUND_LEFT: Reach = { top: 14.5, right: 4.5, bottom: 14.5, left: 14.5 }
 const CURVES: Curves = { small: 8 / 1.2 / 0.5 + 14, large: 14 / 1.2 / 0.5 + 14, flare: 21 }
 const TAB_CORNERS: Corners = { topLeft: Radius.Large, topRight: Radius.Large }
+const SIDE_TAB_CORNERS: Corners = { topLeft: Radius.Large, bottomLeft: Radius.Large }
 const ICON_CORNER: Corners = { topLeft: Radius.Large }
 
 const SCROLL: OrdaenArt.Scroll = {
@@ -196,6 +202,7 @@ public const ARTWORK: OrdaenArt = {
   frame: {
     small: { nineSlice: FRAME, art: FRAME_ART, width: 3, scale: 0.5, inset: -1.5, reach: REACH, curves: CURVES, lineStart: 10 },
     tab: { nineSlice: FRAME, art: FRAME_ART, width: 3, scale: 0.5, inset: -1.5, reach: REACH_ROUND, sides: [Side.Top, Side.Left, Side.Right], radius: TAB_CORNERS, curves: CURVES, lineStart: 10 },
+    sideTab: { nineSlice: FRAME, art: FRAME_ART, width: 3, scale: 0.5, inset: -1.5, reach: REACH_ROUND_LEFT, sides: [Side.Top, Side.Left, Side.Bottom], radius: SIDE_TAB_CORNERS, curves: CURVES, lineStart: 10 },
     tabIconClip: { nineSlice: FRAME, art: FRAME_ART, width: 3, scale: 0.5, inset: -1.5, reach: REACH_ROUND, sides: [], radius: ICON_CORNER, curves: CURVES, lineStart: 10 },
     tabIconLine: { nineSlice: FRAME, art: FRAME_ART, width: 3, scale: 0.5, inset: -1.5, reach: REACH, sides: [Side.Left], curves: CURVES, lineStart: 10 }
   },

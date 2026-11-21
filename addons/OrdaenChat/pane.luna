@@ -255,8 +255,9 @@ public class Pane implements Component {
           <Menu $if={self.menuTab != nil} entries={self.tabEntries} title={self.menuTab?.title ?? ""} @pick={self.onTabPick}
                 @close={self.onTabMenuClose} />
         </box>
+        // Over the sidebar: its left line stands over the open tab's open end, one shape with it.
         <box columns={1} yAlignSelf={Align.Stretch} border={Ordaen.art.frame.small} background={Ordaen.art.window.wood}
-             artOrigin={true} padding={ROOM} @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
+             artOrigin={true} padding={ROOM} zLevel={3} @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
           // The chat stands by its bottom left: it grows to the right and up, by the grip in this corner.
           <box position={Position.Absolute} top={0ui} right={0ui} zLevel={3}>
             <SizeGrip corner={GripCorner.TopRight} @grab={self.onSizeGrab} @drag={self.onSize} @drop={self.onSizeDrop} />

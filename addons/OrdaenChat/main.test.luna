@@ -74,6 +74,10 @@ test "the lines and the open tab alone are in the window's wood: the other tabs 
   Test.expect(inWood(shown, "Jaina") && !inWood(shown, "General"))
   // A tab keeps its place, open or not.
   Test.expect(shown.text("General").rect().left == name.left)
+  // The open tab's wood runs up to the lines' own: one shape, the lines' left line over the tab's open end.
+  const one = shown.box(Ordaen.art.window.wood).nth(1).rect()
+  const two = shown.box(Ordaen.art.window.wood).nth(2).rect()
+  Test.expect((one.right - two.left).abs() < 0.5 || (two.right - one.left).abs() < 0.5)
 }
 
 // Whether a text stands in one of the window's wood boxes.
@@ -129,6 +133,13 @@ test "a line for another tab waits there, counted, until the tab is opened" {
 
 // The game opens its input as `ChatFrameUtil.ActivateChat` does (shown, the keyboard's) and tells it typing: it
 // stands in the chat's foot, under the lines, as high as the game makes it.
+test "a tab clicked keeps no key: Enter goes on to the game's binding, which opens the input" {
+  Game.chat.windows = gameWindows()
+  const shown = chat()
+  shown.text("Jaina").click()
+  Test.expect(!Test.key(Key.Enter))
+}
+
 test "Enter shows the input line, on the screen, in the chat's frame" {
   Game.chat.windows = gameWindows()
   const box = input(Client.CreateFrame("Frame", nil, Client.C_UI.GetUIParent(), nil))

@@ -6,14 +6,14 @@ import { ChatTab, Shown } from "@/lines"
 
 // The warm band under a line that names the player or a keyword.
 const MARK: Color = Color.hex("#ff9a2e33")
-// The count's place: over the tab's right end, a little in from its edge.
-const BADGE_SPOT: Edges = { right: 1sp }
+// The count's place: over the tab's right end, in from its edge, clear of the lines' frame standing over it.
+const BADGE_SPOT: Edges = { right: 3sp }
 
 // A tab: an entry of the chat's sidebar, the library's list tab (its name, the shade under the cursor, the open one
 // white with the light along its left), and, while lines wait unread, their count's badge over its right end, out
-// of the flow: nothing moves as the count comes, grows or goes. The open one stands in the window's frame and wood,
-// as the lines do; the others stand on the world beside them, nothing behind them. The left button picks it, the
-// right opens its menu.
+// of the flow: nothing moves as the count comes, grows or goes. The open one is a folder's tab of the lines: their
+// wood, the metal round its other three sides; the others stand on the world beside them, nothing behind them. The
+// left button picks it, the right opens its menu.
 public class TabButton implements Component {
   public pick: Event<ChatTab> = new Event()
   public menu: Event<ChatTab> = new Event()
@@ -34,9 +34,10 @@ public class TabButton implements Component {
   public render(self): Template {
     return $ltml {
       <box columns={1} @pointerPress(.Right)={self.onMenu}>
-        // The open one in the window's frame and wood, laid behind it out of the flow: every tab one size.
+        // The open one in the window's wood and metal on its top, left and bottom, laid behind it out of the flow
+        // (every tab one size): its right is open, where the lines' frame stands over it, one shape with the lines.
         <box $if={self.open} position={Position.Absolute} top={0ui} right={0ui} bottom={0ui} left={0ui}
-             border={Ordaen.art.frame.small} background={Ordaen.art.window.wood} artOrigin={true} />
+             border={Ordaen.art.frame.sideTab} background={Ordaen.art.window.wood} artOrigin={true} />
         <box zLevel={1}>
           <ListTab label={self.tab.title} selected={self.open} @pick={self.onPick} />
         </box>
