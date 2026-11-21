@@ -52,7 +52,13 @@
     "addons/OrdaenMap/media/openmap/seaLight.tga",
     "addons/OrdaenMap/media/openmap/seaField/947.tga",
     "addons/OrdaenMap/media/openmap/seaField/1414.tga",
-    "addons/OrdaenMap/media/openmap/seaField/1415.tga"
+    "addons/OrdaenMap/media/openmap/seaField/1415.tga",
+    "addons/OrdaenMap/media/openmap/grain.tga",
+    "addons/OrdaenMap/media/openmap/hatch.tga",
+    "addons/OrdaenMap/media/openmap/land/1414.tga",
+    "addons/OrdaenMap/media/openmap/land/1415.tga",
+    "addons/OrdaenMap/media/openmap/coast/1414.tga",
+    "addons/OrdaenMap/media/openmap/coast/1415.tga"
   ],
-  "origin": "OpenMap (MIT, https://github.com/openmap-world/openmap), commit 273f9b6: Media/Textures/Forever/MapTerritory/*.tga (its tools/map-preview/render.py --bake-territory), MapFeather.tga, MapFeatherRound.tga, MapFeatherWide.tga, MapSeaDark.tga, MapSeaLight.tga and MapSeaField/*.tga (its tools/map-preview/sea.py), copied as they are."
+  "origin": "OpenMap (MIT, https://github.com/openmap-world/openmap), commit 273f9b6: Media/Textures/Forever/MapTerritory/*.tga (its tools/map-preview/render.py --bake-territory), MapFeather.tga, MapFeatherRound.tga, MapFeatherWide.tga, MapSeaDark.tga, MapSeaLight.tga and MapSeaField/*.tga (its tools/map-preview/sea.py), copied as they are. Also MapLand/1414.tga and 1415.tga (the continents' land as a colour field), MapCoast/1414.tga and 1415.tga (their coastal bands), MapGrain.tga and MapHatch.tga (the parchment grain and the wave strokes)."
 }

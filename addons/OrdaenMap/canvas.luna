@@ -46,6 +46,33 @@ const SEA_FIELDS: Array<Integer> = [WORLD, 1414, 1415]
 const SEA_TILE: Number = 128
 const SEA_OCTAVE: Number = 4
 const SEA_SCALE_MAP = 1415
+// The continents whose land is kept as land over the sea (OpenMap's `MapLand`: a smooth colour field of the
+// continent art's land, its ink and names left out), warmed toward the zones' parchment.
+const CONTINENTS: Array<Integer> = [1414, 1415]
+const LAND_R: Number = 0.96
+const LAND_G: Number = 0.92
+const LAND_B: Number = 0.84
+const LAND_DESATURATION: Number = 0.25
+// The parchment grain over that land, twice at sizes and offsets that never line up: { size, offset, strength }.
+const GRAIN_TILE: Number = 14
+const GRAIN_OCTAVES: Array<Array<Number>> = [[1, 0, 0.55], [2.618, 0.37, 0.5]]
+// The wave strokes along each continent's coast: their tile in continent-art pixels, the zoom where they start
+// halving, how strong.
+const HATCH_WIDTH: Number = 34
+const HATCH_HEIGHT: Number = 84
+const HATCH_OCTAVE: Number = 7
+const HATCH_ALPHA: Number = 0.6
+
+// A continent's coastal wave strokes, two octaves, over its rectangle on the plane; `pixel`: the plane's units to
+// a pixel of its art.
+struct Coast {
+  const left: Number
+  const top: Number
+  const right: Number
+  const bottom: Number
+  const pixel: Number
+  const strokes: Array<mut any Client.Texture>
+}
 
 // The smallest power of two from 16 up that holds `n`: an explored piece's last tile is a file that wide.
 function powerOver(n: Number): Number {
@@ -196,6 +223,7 @@ public class WorldCanvas {
   // The sea's mottling (dark, light, then the finer dark and light), and its tile in the plane's units.
   papers: Array<mut any Client.Texture> = []
   seaTile: Number = 0
+  coasts: mut Array<Coast> = []
   // Whether it has been laid out once: the first opening finds the player.
   placed = false
 
@@ -307,6 +335,63 @@ public class WorldCanvas {
     const art = firstLayer(SEA_SCALE_MAP)
     const pixel: Number = continent != nil && art != nil ? ((continent[3] ?? 0) - (continent[1] ?? 0)) / art.layerWidth : 0.4
     self.seaTile = SEA_TILE * pixel
+    for (map of CONTINENTS) { self.buildLand(map) }
+  }
+
+  // A continent's land over the sea: its colour field, the parchment grain on it, and its coastal wave strokes
+  // (placed with the sea, `placeSea`). Under every zone, filling the land between them.
+  buildLand(mut self, map: Integer) {
+    const rect = self.rectOf(map)
+    const art = firstLayer(map)
+    if (rect == nil || art == nil) { return }
+    const left = rect[1] ?? 0
+    const top = rect[2] ?? 0
+    const right = rect[3] ?? 0
+    const bottom = rect[4] ?? 0
+    const width = right - left
+    const height = bottom - top
+    const fade = self.plane.CreateMaskTexture()
+    _ = fade.SetTexture(MEDIA + "featherWide", "CLAMPTOBLACKADDITIVE", "CLAMPTOBLACKADDITIVE")
+    self.onPlane(fade, left, top, width, height)
+    const land = self.plane.CreateMaskTexture()
+    _ = land.SetTexture(`${MEDIA}land/${map}`, "CLAMPTOBLACKADDITIVE", "CLAMPTOBLACKADDITIVE")
+    self.onPlane(land, left, top, width, height)
+    const field = self.plane.CreateTexture(nil, "BORDER", nil, 2)
+    _ = field.SetTexture(`${MEDIA}land/${map}`, nil, nil, "LINEAR")
+    field.SetVertexColor(LAND_R, LAND_G, LAND_B)
+    field.SetDesaturation(LAND_DESATURATION)
+    self.onPlane(field, left, top, width, height)
+    field.AddMaskTexture(fade)
+    for (octave of GRAIN_OCTAVES) {
+      const size = GRAIN_TILE * (octave[1] ?? 1)
+      const offset = octave[2] ?? 0
+      const grain = self.plane.CreateTexture(nil, "BORDER", nil, 6)
+      _ = grain.SetTexture(MEDIA + "grain", "REPEAT", "REPEAT")
+      grain.SetTexCoord(offset, offset + width / size, offset * 1.7, offset * 1.7 + height / size)
+      grain.SetVertexColor(1, 1, 1, octave[3] ?? 0.5)
+      self.onPlane(grain, left, top, width, height)
+      grain.AddMaskTexture(fade)
+      grain.AddMaskTexture(land)
+    }
+    const coast = self.plane.CreateMaskTexture()
+    _ = coast.SetTexture(`${MEDIA}coast/${map}`, "CLAMPTOBLACKADDITIVE", "CLAMPTOBLACKADDITIVE")
+    self.onPlane(coast, left, top, width, height)
+    const strokes: Array<mut any Client.Texture> = []
+    for (index of 1..2) {
+      const stroke = self.plane.CreateTexture(nil, "BORDER", nil, 1)
+      _ = stroke.SetTexture(MEDIA + "hatch", "REPEAT", "REPEAT")
+      stroke.AddMaskTexture(coast)
+      stroke.Hide()
+      strokes.push(mut stroke)
+    }
+    self.coasts.push({ left: left, top: top, right: right, bottom: bottom, pixel: width / art.layerWidth, strokes: strokes })
+  }
+
+  // How far past an octave's zoom the view is: the halvings whole, and the share of the next.
+  octaves(self, from: Number): Array<Number> {
+    const octave = (((self.scale / self.least()) / from).log() / (2.0).log()).max(0)
+    const step = octave.floor()
+    return [step, octave - step]
   }
 
   // A region over the plane's rectangle at `left`, `top`, `width` by `height`, in the plane's units.
@@ -320,9 +405,9 @@ public class WorldCanvas {
   // number), so the one that takes over is the same pattern in the same place.
   placeSea(self, left: Number, top: Number, right: Number, bottom: Number) {
     if (self.papers.length < 4 || self.seaTile <= 0) { return }
-    const octave = (((self.scale / self.least()) / SEA_OCTAVE).log() / (2.0).log()).max(0)
-    const step = octave.floor()
-    const fine = octave - step
+    const sea = self.octaves(SEA_OCTAVE)
+    const step = sea[1] ?? 0
+    const fine = sea[2] ?? 0
     const size = self.seaTile / 2 ** step
     for (index, paper of self.papers) {
       const finer = index > 2
@@ -332,6 +417,30 @@ public class WorldCanvas {
       paper.ClearAllPoints()
       self.onPlane(paper, left, top, right - left, bottom - top)
       paper.SetAlpha(finer ? fine : 1 - fine)
+    }
+    const hatch = self.octaves(HATCH_OCTAVE)
+    const div = 2 ** (hatch[1] ?? 0)
+    const share = hatch[2] ?? 0
+    for (coast of self.coasts) {
+      const l = left.max(coast.left)
+      const r = right.min(coast.right)
+      const t = top.max(coast.top)
+      const b = bottom.min(coast.bottom)
+      for (index, stroke of coast.strokes) {
+        const finer = index > 1
+        const across = HATCH_WIDTH * coast.pixel / div / (finer ? 2 : 1)
+        const down = HATCH_HEIGHT * coast.pixel / div / (finer ? 2 : 1)
+        const alpha = HATCH_ALPHA * (finer ? share : 1 - share).sqrt()
+        if (r <= l || b <= t || alpha <= 0.01) {
+          stroke.Hide()
+        } else {
+          stroke.SetTexCoord(l / across, r / across, t / down, b / down)
+          stroke.ClearAllPoints()
+          self.onPlane(stroke, l, t, r - l, b - t)
+          stroke.SetAlpha(alpha)
+          stroke.Show()
+        }
+      }
     }
   }
 
