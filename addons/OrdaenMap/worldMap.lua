@@ -86,12 +86,30 @@ local function hideOthers()
 	end
 end
 
+-- Whether the provider is one of the quest marks', told by the mixin it was made from. `GetPinTemplate` is asked of
+-- no other provider: Blizzard's take what the pin is for (the vignettes' indexes its info and raises without it).
+-- A client whose mixins are empty (the stand-in's) has the quest providers alone, which take nothing.
+local PROVIDERS = { "QuestDataProviderMixin", "QuestBlobDataProviderMixin" }
+local function marksProvider(provider)
+	if type(provider) ~= "table" then return false end
+	local known = false
+	for _, name in ipairs(PROVIDERS) do
+		local mixin = client[name]
+		local refresh = type(mixin) == "table" and mixin.RefreshAllData
+		if type(refresh) == "function" then
+			known = true
+			if provider.RefreshAllData == refresh then return true end
+		end
+	end
+	if known or not provider.GetPinTemplate then return false end
+	return MARKS[provider:GetPinTemplate()] == true
+end
+
 -- The providers' and the area pin's refreshes, each hooked once.
 local function hookMarks(map)
 	if type(map.dataProviders) ~= "table" then return end
 	for provider in pairs(map.dataProviders) do
-		local template = type(provider) == "table" and provider.GetPinTemplate and provider:GetPinTemplate()
-		if template and MARKS[template] and not hooked[provider] then
+		if marksProvider(provider) and not hooked[provider] then
 			client.hooksecurefunc(provider, "RefreshAllData", hideOthers)
 			hooked[provider] = true
 		end
