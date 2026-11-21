@@ -105,7 +105,12 @@ public class Dialogue implements Module, App {
   public state revealed = -1
   fading: Task<nil> | nil = nil
 
+  // Something was done on its own (the one-option skip, a marked option, a quest walked): the game answers with its next
+  // window (a trainer, a vendor, the next page), and until it does the talk is ours and nothing of it shows.
+  state acting = false
   derived shown: Boolean = self.page != Page.Closed
+  // Blizzard's own windows stand away while ours shows, and while the talk is ours with nothing shown.
+  derived gameAway: Boolean = self.shown || self.acting
   derived listShown: Boolean = self.page == Page.List
   derived tabs: Array<WindowTabSpec> = [
     { title: self.speaker.name, desc: self.speaker.subtitle, icon: self.speaker.icon, portrait: self.speaker.portrait }
@@ -151,7 +156,10 @@ public class Dialogue implements Module, App {
     const lines = source == Source.Gossip ? gossipLines() : greetingLines()
     self.lines = lines
     self.alone = false
-    if (!(peek self.held) && self.actAlone(lines, fresh)) { return }
+    if (!(peek self.held) && self.actAlone(lines, fresh)) {
+      self.acting = true
+      return
+    }
     self.walking = false
     self.show(.List)
   }
@@ -214,6 +222,7 @@ public class Dialogue implements Module, App {
       const quest = questOf(Client.GetQuestText())
       // A quest the game asks about (PvP) isn't accepted on its own: its page shows.
       if (!quest.pvp) {
+        self.acting = true
         if (quest.autoAccepted) { Client.AcknowledgeAutoAcceptQuest() } else { Client.AcceptQuest() }
         return
       }
@@ -236,6 +245,7 @@ public class Dialogue implements Module, App {
   onProgress(mut self) {
     if (peek self.completeNext) {
       if (Client.IsQuestCompletable()) {
+        self.acting = true
         Client.CompleteQuest()
         return
       }
@@ -253,6 +263,7 @@ public class Dialogue implements Module, App {
       self.completeNext = false
       // A reward to choose is the player's: its page shows, and the walk stops.
       if (choices <= 1) {
+        self.acting = true
         Client.GetQuestReward(choices)
         return
       }
@@ -293,12 +304,14 @@ public class Dialogue implements Module, App {
   onGossipClosed(mut self, continuing: Boolean) {
     if (continuing) { return }
     self.walking = false
+    self.acting = false
     if (peek self.page == Page.List) { self.hide() }
   }
 
   onQuestFinished(mut self) {
     // While the NPC's quests are walked the list comes back after each.
     if (peek self.walking) { return }
+    self.acting = false
     const page = peek self.page
     if (page != Page.List && page != Page.Book) { self.hide() }
   }
@@ -464,6 +477,7 @@ public class Dialogue implements Module, App {
       self.pawnShown = self.pawnLoaded()
     }
     self.page = page
+    self.acting = false
     self.fadeIn(page)
   }
 
@@ -500,6 +514,7 @@ public class Dialogue implements Module, App {
   hide(mut self) {
     self.stopFading()
     self.page = .Closed
+    self.acting = false
     self.prompt = nil
     self.fromList = false
     self.acceptNext = false
@@ -638,9 +653,9 @@ public class Dialogue implements Module, App {
 
   public render(self): Template {
     return $ltml {
-      <frame $if={self.shown} of={Game.frames.Gossip} opacity={0} away={true} />
-      <frame $if={self.shown} of={Game.frames.Quest} opacity={0} away={true} />
-      <frame $if={self.shown} of={Game.frames.ItemText} opacity={0} away={true} />
+      <frame $if={self.gameAway} of={Game.frames.Gossip} opacity={0} away={true} />
+      <frame $if={self.gameAway} of={Game.frames.Quest} opacity={0} away={true} />
+      <frame $if={self.gameAway} of={Game.frames.ItemText} opacity={0} away={true} />
       <Window $if={self.shown} tabs={self.tabs} selected={mut self.tab} declared={mut self.window} withSettings={true}
               @close={self.close} @settings={self.onSettings}>
         <box rows={self.rows} gap={0sp}>

@@ -108,6 +108,22 @@ test "the game's own gossip window stands away while ours shows, and is back aft
   Test.expect(own.GetAlpha() == 1 && !window().shown())
 }
 
+test "the game's own gossip window stays away while the one option skips on, until the game ends the talk" {
+  const own = Client.CreateFrame("Frame", "GossipFrame", Client.UIParent, nil)
+  own.SetSize(300, 400)
+  own.SetPoint("TOPLEFT", Client.UIParent, "TOPLEFT", 16, -116)
+  Game.frames.Gossip = own
+  Test.mount(nil, SCREEN)
+  Test.talk(flightMaster())
+  Test.flush()
+  // Ours never showed: the option was picked, and the game opens what it leads to (a trainer, the flight map).
+  Test.expect(asked() == "option 400" && !Test.page().window("Thor").shown())
+  Test.expect(own.GetAlpha() == 0)
+  Events.GOSSIP_CLOSED.emit(false)
+  Test.flush()
+  Test.expect(own.GetAlpha() == 1)
+}
+
 test "a click on an option picks it by the game's own call" {
   Test.mount(nil, SCREEN)
   Test.talk(innkeeper())
