@@ -1,15 +1,17 @@
 // The character window's look: its size at the player's scale, the paper doll's measures and the colours of what a
 // stat, a slot or a faction says. Every gap and padding is counted in Ordaen's spacing unit (`sp`); a row is as tall as
 // its text.
-import { Edges, Fr, Line } from "$ltml"
+import { Edges, Fr, Line, Shadow, Track } from "$ltml"
 
 // The window's body, and the least it is drawn at (a window kept smaller, from an older save, is drawn at this).
-public const WIDTH: Number<Length> = 1400dp
+public const WIDTH: Number<Length> = 1500dp
 public const HEIGHT: Number<Length> = 848dp
 // The three columns: the bars and defence on the left, the paper doll (the slots' columns and the model between
-// them) in the middle, the stats on the right.
-public const LEFT: Number<Length> = 344dp
+// them) in the middle, as wide in any window, the stats on the right. The two sides share the rest equally, each at
+// least what the stats' main stats, cards and gauges need whole.
 public const DOLL: Number<Length> = 470dp
+public const SIDE_LEAST: Number<Length> = 440dp
+public const COLUMNS: Array<Track> = [{ fr: 1, min: SIDE_LEAST }, DOLL, { fr: 1, min: SIDE_LEAST }]
 public const SLOT: Number<Length> = 46.875dp
 // The durability bar under a slot.
 public const WEAR: Number<Length> = 3.515625dp
@@ -18,19 +20,23 @@ public const BAR_PAD: Edges = { top: 2sp, right: 3sp, bottom: 2sp, left: 3sp }
 // The reputation tab's side, where the chosen faction stands.
 public const SIDE: Number<Length> = 328.125dp
 
-// A health or power bar, one line of a cut in the wood (three: its shade, its depth, its lit lower lip), a gauge's
-// channel and its columns (the name, the value).
-public const BAR: Number<Length> = 28dp
+// A health or power bar: a glass tube, its fill inside the ring (the art's 10 texels of 64 at each edge); the room
+// its regeneration keeps from the tube's right end; its texts' shadow.
+public const BAR: Number<Length> = 32dp
+public const TUBE_INSET: Number<Length> = BAR * 10 / 64
+public const TUBE_REGEN: Number<Length> = 10dp
+public const TUBE_SHADOW: Shadow = { color: Color.hex("#000000"), x: 1ui, y: -1ui }
+public const ONE_ROW: Array<Track> = [{ fr: 1 }]
+// One line of a cut in the wood (three: its shade, its depth, its lit lower lip), a gauge's channel (a skill's too)
+// and its columns (the name, the value).
 public const CUT_LINE: Number<Length> = 1dp
-public const CHANNEL: Number<Length> = 9dp
+public const CHANNEL: Number<Length> = 13dp
 public const GAUGE_LABEL: Number<Length> = 150dp
 public const GAUGE_VALUE: Number<Length> = 72dp
 // A card's socket, its glyph and the socket's floor, a section's padding and the room between its cards and its gauges.
 public const SOCKET: Number<Length> = 44dp
 public const GLYPH: Number<Length> = 28dp
 public const SOCKET_FLOOR: Color = Color.hex("#00000073")
-// The least the stats' column is wide: what its main stats, cards and gauges need whole.
-public const RIGHT_LEAST: Number<Length> = 440dp
 public const SECTION_PAD: Edges = { top: 2.5sp, right: 2.5sp, bottom: 2.5sp, left: 2.5sp }
 public const CARDS_PAD: Edges = { bottom: 2sp }
 // A main stat's room and its number's size.
@@ -57,9 +63,9 @@ public const TROUGH: Color = Color.hex("#000000a6")
 public const GROOVE_SHADE: Color = Color.hex("#0000008c")
 public const GROOVE_DEPTH: Color = Color.hex("#000000e6")
 public const GROOVE_LIP: Color = Color.hex("#ffdeaa38")
-// The model's backdrop: the race's scene from the game's dressing room (231 x 322 texels as the client crops it), as
-// tall as the model's column at the window's own size and in its own proportions, centred and cut at the column's
-// sides; a veil over it so the slots read; the dark where no scene is. Then the room between the column's edges and the
+// The model's backdrop: the race's scene from the game's dressing room (231 x 322 texels as the client crops it), in
+// grey, as tall as the model's column at the window's own size and in its own proportions, centred and cut at the
+// column's sides; a veil over it so the slots read; the dark where no scene is. Then the room between the column's edges and the
 // slots drawn over it.
 public const SCENE_HEIGHT: Number<Length> = 800dp
 public const SCENE_WIDTH: Number<Length> = SCENE_HEIGHT * 231 / 322

@@ -2,13 +2,17 @@
 // big numbers, then sections parted by cuts in the wood, each its cards first, then its gauges, then its plain lines.
 // A gauge is a stat with a cap the player works towards (hit, crit, a weapon's skill), a line one without (attack
 // speed, penetration), a card one of a section's main numbers (attack power, damage a second, a school's spell damage).
-import { Align, BarFill, Event, FillFrom, Piece, Position, TextAlign, TextFont } from "$ltml"
-import { BRIGHT_TEXT, Component, SECONDARY_TEXT, TITLE_TEXT, Tip } from "Ordaen"
+import { Align, Art, BarFill, Event, FillFrom, Piece, Position, TextAlign, TextFont, Track } from "$ltml"
+import root Ordaen from "Ordaen"
+import { BRIGHT_TEXT, Component, SECONDARY_TEXT, TITLE_TEXT, Tip, XpFill, xpFillArt } from "Ordaen"
 import Locale from "@/locales"
 import { Skill, Stats, WANDS } from "@/sheet"
 import { Breakdown, NO_BREAKDOWN, statName } from "@/sources"
 import { Stat } from "@/stat"
 import Style from "@/style"
+
+// A pool bar's fill: the experience bar's brushed one, given the pool's colour.
+const FILL: Art = xpFillArt(XpFill.Brushed)
 
 // A stat with a cap: its name, its value against the cap, the value as written and the fill's colour.
 public struct Gauge {
@@ -609,12 +613,14 @@ public class ResistColumn implements Component {
   }
 }
 
-// A pool's bar: full in its colour, the amount at its middle and what it regains at its right; the stat it shows
-// (health, mana) its tooltip's.
+// A pool's bar, a glass tube as the experience bar's (Ordaen's art): back to front its trough, the fill in its colour
+// (the experience's brushed fill made grey under it), the shine, the bronze ring; the amount at its middle and what it
+// regains at its right; the stat it shows (health, mana) its tooltip's.
 public class PoolBar implements Component {
   public tipped: Event<Stat | nil> = new Event()
 
-  derived full: BarFill = { value: self.filled, color: self.color }
+  // The fill and the rest of the tube, inside its ring.
+  derived parts: Array<Track> = [{ fr: self.filled }, { fr: 1 - self.filled }]
   derived regained: Boolean = self.regen != ""
   derived title: String = self.stat != nil ? `${statName(self.stat ?? .Health)} ${self.amount}` : ""
 
@@ -637,20 +643,30 @@ public class PoolBar implements Component {
 
   onTipped(self, stat: Stat | nil) { self.tipped.emit(stat) }
 
-  // The fill lies under the texts: a box of its own, first.
+  // Over one another by their levels: the trough, the fill, the shine, the ring, the texts.
   public render(self): Template {
     return $ltml {
       <StatSpot stat={self.stat} title={self.title} shown={self.shown} @tipped={self.onTipped}>
-        <box height={Style.BAR} background={Style.TROUGH} xAlign={Align.Center} yAlign={Align.Center}>
-          <box position={Position.Absolute} top={0ui} right={0ui} bottom={0ui} left={0ui} fill={self.full} />
-          <box zLevel={2}>
-            <text value={self.amount} textSize={SECONDARY_TEXT} textFont={TextFont.Numbers} textColor={BRIGHT_TEXT}
-                  wrap={.None} />
+        <box height={Style.BAR} xAlign={Align.Center} yAlign={Align.Center}>
+          <box position={Position.Absolute} top={0ui} right={0ui} bottom={0ui} left={0ui}
+               background={Ordaen.art.panel.xpTrough} />
+          <box position={Position.Absolute} top={Style.TUBE_INSET} right={Style.TUBE_INSET} bottom={Style.TUBE_INSET}
+               left={Style.TUBE_INSET} columns={self.parts} rows={Style.ONE_ROW} zLevel={1}>
+            <box background={FILL} tint={self.color} desaturate={true} />
+            <box />
           </box>
-          <box $if={self.regained} position={Position.Absolute} top={0ui} right={6dp} bottom={0ui} yAlign={Align.Center}
-               zLevel={2}>
+          <box position={Position.Absolute} top={0ui} right={0ui} bottom={0ui} left={0ui}
+               background={Ordaen.art.panel.xpShine} zLevel={2} />
+          <box position={Position.Absolute} top={0ui} right={0ui} bottom={0ui} left={0ui}
+               background={Ordaen.art.panel.xpTube} zLevel={3} />
+          <box zLevel={4}>
+            <text value={self.amount} textSize={SECONDARY_TEXT} textFont={TextFont.Numbers} textColor={BRIGHT_TEXT}
+                  textOutline={1} textShadow={Style.TUBE_SHADOW} wrap={.None} />
+          </box>
+          <box $if={self.regained} position={Position.Absolute} top={0ui} right={Style.TUBE_REGEN} bottom={0ui}
+               yAlign={Align.Center} zLevel={4}>
             <text value={self.regen} textSize={SECONDARY_TEXT} textFont={TextFont.Numbers} textColor={Style.INK}
-                  wrap={.None} />
+                  textOutline={1} textShadow={Style.TUBE_SHADOW} wrap={.None} />
           </box>
         </box>
       </StatSpot>

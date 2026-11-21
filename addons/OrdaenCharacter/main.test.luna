@@ -9,7 +9,7 @@ import Game from "$game"
 import { Art } from "$ltml"
 import Test from "$test"
 import root Ordaen from "Ordaen"
-import { Quality } from "Ordaen"
+import { Quality, XpFill, xpFillArt } from "Ordaen"
 import root Auras from "OrdaenAuras"
 import root Char from "OrdaenCharacter"
 import { FITS_GLOW, wearColor } from "@/gear"
@@ -597,6 +597,37 @@ test "the model stands in its race's scene from the game's dressing room, enlarg
   const window = opened(new FakeSheet())
   Test.expect(window.paintedWith("@/media/backdrop-dwarf.tga"))
   Test.expect(!window.paintedWith("@/media/backdrop-human.tga"))
+}
+
+test "health and the resource are glass tubes as the experience bar is, each filled in its colour" {
+  Test.mount(nil, PAGE)
+  Game.items.icon = icons
+  const window = opened(new FakeSheet())
+  Test.expect(window.box(Ordaen.art.panel.xpTube).count() == 2)
+  Test.expect(window.box(Ordaen.art.panel.xpTrough).count() == 2)
+  Test.expect(window.box(xpFillArt(XpFill.Brushed)).count() == 2)
+}
+
+test "the bars' and the stats' columns share the room the model's leaves, which stays as wide in a wider window" {
+  Test.mount(nil, PAGE)
+  Game.items.icon = icons
+  _ = opened(new FakeSheet())
+  // The model's box (the scene's), and the columns' grid two boxes out from it (past the grooves' row).
+  const model = Test.edges("@/media/backdrop-dwarf.tga", 1)
+  const columns = Test.edges("@/media/backdrop-dwarf.tga", 3)
+  Test.expect(centred(model, columns))
+  Char.window.memory.write({ width: 1700dp, ..Char.window.defaults })
+  _ = opened(new FakeSheet())
+  const wider = Test.edges("@/media/backdrop-dwarf.tga", 1)
+  const widerColumns = Test.edges("@/media/backdrop-dwarf.tga", 3)
+  Test.expect(widerColumns.right - widerColumns.left > columns.right - columns.left + 100)
+  Test.expect((wider.right - wider.left - (model.right - model.left)).abs() < 1)
+  Test.expect(centred(wider, widerColumns))
+}
+
+// A box stands in the middle of another, to a unit.
+function centred(inner: Test.Rect, outer: Test.Rect): Boolean {
+  return (inner.left - outer.left - (outer.right - inner.right)).abs() < 1
 }
 
 // Inspecting another player

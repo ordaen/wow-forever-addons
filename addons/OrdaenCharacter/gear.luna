@@ -371,7 +371,7 @@ public class GearPage implements Component {
           <SetOf $for={set of self.sets} set={set} disabled={Game.situation.combat} @use={self.onUseSet} />
           <SetChip label={Locale.SAVE_SET} disabled={Game.situation.combat} @click={self.onSaveSet} />
         </box>
-        <box columns={[Style.LEFT, Style.DOLL, { fr: 1, min: Style.RIGHT_LEAST }]} rows={[{ fr: 1 }]} gap={6sp}>
+        <box columns={Style.COLUMNS} rows={[{ fr: 1 }]} gap={6sp}>
           <box gap={2.5sp}>
             <box gap={2sp} padding={Style.SECTION_PAD}>
               <box gap={0.5sp}>
@@ -407,7 +407,7 @@ public class GearPage implements Component {
             <box columns={[Style.SLOT, { fr: 1 }, Style.SLOT]} rows={[{ fr: 1 }]} gap={3sp} padding={Style.DOLL_PAD}
                  background={Style.MODEL_BACK} overflow={Overflow.Hidden}>
               <box $if={self.scene != nil} position={Position.Absolute} left={Style.SCENE_LEFT} top={0ui}
-                   width={Style.SCENE_WIDTH} height={Style.SCENE_HEIGHT} background={self.scene} />
+                   width={Style.SCENE_WIDTH} height={Style.SCENE_HEIGHT} background={self.scene} desaturate={true} />
               <box position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui} background={Style.SCENE_VEIL}
                    zLevel={1} />
               <box position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui} model={self.unit}
