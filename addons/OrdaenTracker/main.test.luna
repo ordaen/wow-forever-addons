@@ -51,6 +51,16 @@ test "the tracked quests stand at the right with their level, tag and objectives
   Test.expect(own.GetAlpha() == 0)
 }
 
+test "a quest's row has no box before its level, the quest pointed to or not" {
+  logged()
+  Client.C_SuperTrack.SetSuperTrackedQuestID(101)
+  Test.mount(nil, PAGE)
+  Tracker.refresh()
+  Test.flush()
+  Test.expect(Test.page().box(Color.hex("#ffd100")).count() == 0)
+  Test.expect(Test.page().box(Color.hex("#a3977f")).count() == 0)
+}
+
 test "a level is in its difficulty colour, or in the title's gold while the game's difficulty colours are off" {
   logged()
   Test.mount(nil, PAGE)

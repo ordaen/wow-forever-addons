@@ -2,7 +2,7 @@
 // which is kept unseen while it is on. It draws each tracked quest from the client by itself (its level, title, tag,
 // objectives); other modules add lines under a quest through `questLines` (Quests: where to go, whom to hand it to).
 // The clicks are Blizzard's tracker's: a chat link first, Shift+click untracks, a click opens the quest in the log,
-// the round button points the way to it, Right-click opens its menu. Its settings say how many quests it lists and how
+// Right-click opens its menu, which also points the way to it. Its settings say how many quests it lists and how
 // dark its ground is; the placing mode moves it.
 import Client from "$client"
 import Events from "$events"
@@ -29,9 +29,8 @@ const RED: Color = Color.hex("#ff2020")
 // Its head, then its quests in the rest of its height.
 const ROWS: Array<Track> = ["max-content", { fr: 1 }]
 const HEAD: Array<Track> = ["max-content", "max-content", { fr: 1 }]
-const TITLE: Array<Track> = ["max-content", "max-content", { fr: 1 }, "max-content", "max-content"]
+const TITLE: Array<Track> = ["max-content", { fr: 1 }, "max-content", "max-content"]
 const ITEM = 24.375dp
-const POI = 11.71875dp
 const LINE_PAD: Edges = { left: 9sp }
 const ASK = 468.75dp
 const ASK_BUTTON = 140.625dp
@@ -221,7 +220,7 @@ public class Tracker implements Module, App {
   }
 }
 
-// One tracked quest: the round button that points the way, its level and title, its tag; its objectives, or that it
+// One tracked quest: its level and title, its tag, its item; its objectives, or that it
 // is done or failed; the lines the modules add.
 class TrackedQuest implements Component {
   public ask: Event<(Integer, Ask)> = new Event()
@@ -232,7 +231,6 @@ class TrackedQuest implements Component {
   derived tag: String = tagText(self.quest.tag)
   // The quest's item, used by the client's own secure click, as the game's tracker's item button uses it.
   derived use: Action | nil = Action.UseQuestItem { quest: self.quest.id }
-  derived poi: Color = self.pointed ? GOLD : DIM
   derived ending: String = self.quest.failed ? Locale.FAILED : self.quest.done ? Locale.COMPLETE : ""
   derived endingColor: Color = self.quest.failed ? RED : GREEN
   derived entries: Array<MenuEntry> = [
@@ -266,7 +264,6 @@ class TrackedQuest implements Component {
 
   onOpen(mut self) { self.ask.emit(self.quest.id, Ask.Open) }
   onShift(mut self) { self.ask.emit(self.quest.id, Ask.Link) }
-  onPoint(mut self) { self.ask.emit(self.quest.id, Ask.SuperTrack) }
   onMenu(mut self) { self.menuOpen = true }
   onClose(mut self) { self.menuOpen = false }
 
@@ -288,7 +285,6 @@ class TrackedQuest implements Component {
       <box columns={1} gap={1sp}>
         <box columns={TITLE} gap={2sp} @pointerPress(.Left)={self.onOpen} @pointerPress([.Shift, .Left])={self.onShift}
              @pointerPress(.Right)={self.onMenu}>
-          <box width={POI} height={POI} background={self.poi} @pointerPress.self={self.onPoint} />
           <text value={self.level} textColor={self.levelColor} textFont={.Numbers} wrap={.None} />
           <text value={self.quest.title} textColor={GOLD} wrap={.Cut} />
           <text value={self.tag} textColor={DIM} textSize={SECONDARY_TEXT} wrap={.None} />
