@@ -155,7 +155,8 @@ would have caught it is half a fix: say which check now catches it, or add one.
 - **What the companion may press:** the dev addon's keys (reload, probes, bench) and the player's own keys that open
   windows (`wow_open`). Never movement, abilities or anything bot-like.
 - **The machine's one queue:** every build, test and compiler run goes through `ordaen-run` (lunatype's CLAUDE.md,
-  «The machine's one queue»): one run at a time, at three quarters of the CPU.
+  «The machine's one queue»): one run at a time a lane, the machine kept under 85% of its CPU; the watch build
+  (`npm run dev`) runs in it too, in the background share.
 - **Long work runs in the background:** builds, lints, tests, probes, watch loops and repro runs, always; keep talking
   to the user meanwhile.
 - **Each session does its own work itself,** as lunatype's `CLAUDE.md` says.
