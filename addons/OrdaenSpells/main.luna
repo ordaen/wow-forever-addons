@@ -76,7 +76,6 @@ public class Spells implements Module, App {
       Game.spellbook.watch(opened)
       self.onOpened(opened)
     }
-    watch (shown of self.trainerShown) { Game.trainer.watch(shown) }
     watch (frame of Game.frames.PlayerSpells) { self.hook(frame) }
     Runtime.command("/spellbook", (text: String): nil => {
       for (module of Ordaen.modules) {

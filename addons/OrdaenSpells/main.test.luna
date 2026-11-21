@@ -638,15 +638,16 @@ test "the trainer's window shows while the game's class trainer is open" {
   Test.expect(!window.shown())
 }
 
-test "the game is asked for its words on the trainer while the trainer's window shows" {
+test "a trainer whose list fills after it shows, in the same frame, shows the list" {
   Test.mount(nil, PAGE)
-  _ = Test.requests()
+  let filled = false
+  Game.trainer.services = (): Array<Game.TrainerService> => filled ? services() : []
+  // TRAINER_SHOW with the list empty, then TRAINER_UPDATE with it filled, before a frame passes.
   Game.trainer.open = true
-  Test.expect(Test.page().window(TRAINER).shown())
-  Test.expect(Test.requests().any(r => r == "Trainer.watch true"))
-  Game.trainer.open = false
-  Test.expect(!Test.page().window(TRAINER).shown())
-  Test.expect(Test.requests().any(r => r == "Trainer.watch false"))
+  Game.trainer.changed.emit()
+  filled = true
+  Game.trainer.changed.emit()
+  Test.expect(Test.page().window(TRAINER).text("Heroic Strike (Rank 3)").shown())
 }
 
 test "the trainer's window's close leaves the trainer, as the game's does" {
