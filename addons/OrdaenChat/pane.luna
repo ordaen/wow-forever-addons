@@ -6,7 +6,7 @@ import Client from "$client"
 import Game from "$game"
 import { Align, Edges, Event, Frame, Layer, Line, MouseButton, Over, Overflow, Position, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { BODY_LINE, Component, FIELD_EDGE, FIELD_FILL, GripCorner, Menu, MenuEntry, SECONDARY_TEXT, SizeGrip } from "Ordaen"
+import { BODY_LINE, BODY_TEXT, Component, FIELD_EDGE, FIELD_FILL, GripCorner, Menu, MenuEntry, SECONDARY_TEXT, SizeGrip } from "Ordaen"
 import { ChatTab, Shown } from "@/lines"
 import Locale from "@/locales"
 import { Row, TabButton } from "@/view"
@@ -95,7 +95,8 @@ public class Pane implements Component {
 
   // The lines' row: the height the player chose at least, more where the tabs stand taller.
   derived rows: Array<Track> = [{ fr: 1, min: self.height }]
-  derived textSize: Number<TextSize> = (self.open?.fontSize ?? 13) * 1rem / 13
+  // The open window's font size, as the game draws it: in UI units, where `1rem` is the body's text.
+  derived textSize: Number<TextSize> = (self.open?.fontSize ?? BODY_TEXT / 1ui) * 1rem * 1ui / BODY_TEXT
   derived logFrame: any Frame | nil = self.logOf()
   derived shown: Array<Shown> = self.shownOf()
   derived inputShown: Boolean = self.input != nil && (self.typing || self.inputAlways)

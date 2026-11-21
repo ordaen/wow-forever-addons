@@ -1,6 +1,7 @@
 // The chat as the player meets it: the game's lines in Ordaen's frame, its windows and streams as tabs, the game's
 // input under them. The fake game's chat hands it lines (`Game.chat.heard.emit`), its windows and its streams.
 import Client from "$client"
+import Events from "$events"
 import Game from "$game"
 import { Key } from "$ltml"
 import Test from "$test"
@@ -12,6 +13,8 @@ import { HEARD_FILL, TOLD_FILL, WHISPERS_LEAST } from "@/whispers"
 
 const SCREEN: Test.Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
 const WHITE: Color = Color.hex("#ffffff")
+// The shade a tab stands on, open or under the cursor.
+const TAB_SHADE: Color = Color.hex("#00000059")
 
 function window(index: Integer, name: String, partner: String, docked: Boolean = true): Game.ChatWindow {
   // Hidden while its input is made, as the game parks its windows.
@@ -72,24 +75,26 @@ test "the chat reads the game's lines and shows them in the window's tab, nothin
   Test.expect(shown.texts().join(",") == "General,Jaina,Whispers,[Thrall] says: Hello")
 }
 
-test "the lines and the open tab alone are in the window's wood: the other tabs stand on the world" {
+test "the open tab and the one under the cursor stand on a list's shade, touching the lines: the window's wood is the lines' alone" {
   Game.chat.windows = gameWindows()
   const shown = chat()
   const name = shown.text("General").rect()
-  // The lines' frame and the open tab's.
-  Test.expect(shown.box(Ordaen.art.window.wood).count() == 2)
-  Test.expect(inWood(shown, "General") && !inWood(shown, "Jaina"))
+  Test.expect(shown.box(Ordaen.art.window.wood).count() == 1)
+  Test.expect(shown.box(TAB_SHADE).count() == 1 && onShade(shown, "General"))
   shown.text("Jaina").click()
-  Test.expect(inWood(shown, "Jaina") && !inWood(shown, "General"))
+  Test.expect(onShade(shown, "Jaina") && !onShade(shown, "General"))
   // A tab keeps its place, open or not.
   Test.expect(shown.text("General").rect().left == name.left)
-  // The open tab's wood and metal run in under the lines' left line, which stands inside the lines' box by the
-  // frame's reach: one shape, no gap between.
-  const wood = shown.box(Ordaen.art.window.wood)
-  const tab = inBox(wood.nth(1).rect(), shown.text("Jaina").rect()) ? wood.nth(1).rect() : wood.nth(2).rect()
-  const lines = inBox(wood.nth(1).rect(), shown.text("Jaina").rect()) ? wood.nth(2).rect() : wood.nth(1).rect()
-  Test.expect((tab.right - lines.left - toLeftLine(Ordaen.art.frame.small) / 1ui).abs() < 0.5)
-  // The folder's tab shows which is open: no list's shade or light of its own over it.
+  // Under the cursor, another tab stands on the same shade.
+  shown.text("General").hover()
+  Test.expect(onShade(shown, "General") && onShade(shown, "Jaina"))
+  // The shade runs in under the lines' left line, which stands inside the lines' box by the frame's reach: no gap.
+  const lines = shown.box(Ordaen.art.window.wood).rect()
+  const shade = shown.box(TAB_SHADE)
+  for (n of 1..shade.count()) {
+    Test.expect((shade.nth(n).rect().right - lines.left - toLeftLine(Ordaen.art.frame.small) / 1ui).abs() < 0.5)
+  }
+  // No list's own shade or light of its own over a tab.
   Test.expect(shown.box(Color.hex("#00000040")).count() == 0 && shown.box(Color.hex("#d6a56b")).count() == 0)
 }
 
@@ -97,33 +102,29 @@ function inBox(box: Test.Rect, at: Test.Rect): Boolean {
   return box.left <= at.left && box.right >= at.right && box.top <= at.top && box.bottom >= at.bottom
 }
 
-// Whether a text stands in one of the window's wood boxes.
-function inWood(shown: Test.Part, text: String): Boolean {
+// Whether a text stands on one of the tabs' shades.
+function onShade(shown: Test.Part, text: String): Boolean {
   const at = shown.text(text).rect()
-  const wood = shown.box(Ordaen.art.window.wood)
-  for (n of 1..wood.count()) {
-    if (inBox(wood.nth(n).rect(), at)) { return true }
+  const shade = shown.box(TAB_SHADE)
+  for (n of 1..shade.count()) {
+    if (inBox(shade.nth(n).rect(), at)) { return true }
   }
   return false
 }
 
-test "a tab's count is the library's badge over the tab's right end: the tab and its name never move for it" {
+test "a tab's count is the library's badge beside its name, never over it: the name never moves for it" {
   Game.chat.windows = gameWindows()
   const shown = chat()
-  const name = shown.text("Jaina").rect()
-  Game.chat.heard.emit(line("SAY", "[Thrall] says: here", "Thrall", [1]))
+  const name = shown.text("Jaina").letters()
   Game.chat.heard.emit(line("SAY", "[Jaina] says: one", "Jaina", [3]))
-  const lines = shown.text("[Thrall] says: here").rect()
   const badge = shown.box(Ordaen.art.panel.countBadge)
   const one = badge.rect()
-  for (at of 1..1200) { Game.chat.heard.emit(line("SAY", `[Jaina] says: ${at}`, "Jaina", [3])) }
-  Test.expect(shown.text("1201").shown())
-  // Wider to the left alone, its right end where it was.
-  const many = badge.rect()
-  Test.expect(shown.text("[Thrall] says: here").rect().left == lines.left)
-  Test.expect((many.right - one.right).abs() < 0.01)
-  Test.expect(many.left < one.left)
-  const now = shown.text("Jaina").rect()
+  Test.expect(one.left >= name.right && one.top < name.bottom && one.bottom > name.top)
+  for (at of 1..98) { Game.chat.heard.emit(line("SAY", `[Jaina] says: ${at}`, "Jaina", [3])) }
+  Test.expect(shown.text("99").shown())
+  // Wider, still clear of the name, which stands where it stood.
+  const now = shown.text("Jaina").letters()
+  Test.expect(badge.rect().left >= now.right)
   Test.expect(now.left == name.left && now.right == name.right)
 }
 
@@ -189,7 +190,7 @@ test "the input shows under the lines' frame in a room the chat keeps for it: no
   for (at of 1..60) { Game.chat.heard.emit(line("SAY", `line ${at}`, "Thrall", [1])) }
   const shown = Test.page().window("Whispers")
   const chatBefore = shown.rect()
-  const lines = shown.box(Ordaen.art.window.wood).nth(2).rect()
+  const lines = shown.box(Ordaen.art.window.wood).rect()
   const newest = shown.text("line 60").rect()
   // Scrolled back, the way back stands over the lines; scrolled to the newest again, it goes.
   shown.text("line 60").hover()
@@ -457,6 +458,43 @@ function groupsOf(shown: Map<String, Boolean>): Array<Game.ChatGroup> {
     "GUILD_ACHIEVEMENT", "BG_HORDE", "BG_ALLIANCE", "CHANNEL", "COMMUNITIES_CHANNEL", "AFK"
   ]
   return order.map(name => Game.ChatGroup { name: name, label: labels[name] ?? name, shown: shown[name] == true })
+}
+
+test "a character's chat gets a tab of the guild's lines once its windows load, once; never where a window shows the guild" {
+  Game.chat.windows = gameWindows()
+  Game.chat.groups = (index: Integer): Array<Game.ChatGroup> => index == 4 ? groupsOf({ SAY: true }) : []
+  Game.chat.open = (name: String): Integer | nil => {
+    Test.asked("Chat.open", name)
+    return 4
+  }
+  _ = chat()
+  Events.UPDATE_CHAT_WINDOWS.emit()
+  const asked = Test.requests()
+  Test.expect(asked.any(r => r == "Chat.open Guild"))
+  // The new window shows the guild's and its officers' lines and nothing else.
+  Test.expect(asked.any(r => r == "Chat.showGroup 4 SAY false"))
+  Test.expect(asked.any(r => r == "Chat.showGroup 4 GUILD true") && asked.any(r => r == "Chat.showGroup 4 OFFICER true"))
+  Events.UPDATE_CHAT_WINDOWS.emit()
+  Test.expect(!Test.requests().any(r => r == "Chat.open Guild"))
+}
+
+test "no guild's tab is made where a window past the game's two shows the guild already" {
+  Game.chat.windows = gameWindows()
+  Game.chat.groups = (index: Integer): Array<Game.ChatGroup> => index == 3 ? [{ name: "GUILD", label: "Guild", shown: true }] : []
+  _ = chat()
+  Events.UPDATE_CHAT_WINDOWS.emit()
+  Test.expect(!Test.requests().any(r => r == "Chat.open Guild"))
+}
+
+test "the lines are drawn at the open window's font size, as the game draws it" {
+  Game.chat.windows = gameWindows()
+  const shown = chat()
+  Game.chat.heard.emit(line("SAY", "[Thrall] says: Hello", "Thrall", [1]))
+  // The window's 13 against the body's 14 of the tabs' names: a letter of the line is 13/14 of a name's wide.
+  const said = shown.text("[Thrall] says: Hello").letters()
+  const name = shown.text("General").letters()
+  const ratio = ((said.right - said.left) / 20) / ((name.right - name.left) / 7)
+  Test.expect((ratio - 13 / 14).abs() < 0.005)
 }
 
 test "the Tabs page lists the windows in a sidebar; the picked one's speech, channels, communities and system messages" {

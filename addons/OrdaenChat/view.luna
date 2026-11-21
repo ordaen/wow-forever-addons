@@ -1,25 +1,26 @@
 // The chat's parts: a tab of its sidebar and a line.
-import { Align, Edges, Event, Overflow, Position } from "$ltml"
+import { Event, Overflow, Position } from "$ltml"
 import root Ordaen from "Ordaen"
 import { Component, CountBadge, ListTab, toLeftLine } from "Ordaen"
 import { ChatTab, Shown } from "@/lines"
 
 // The warm band under a line that names the player or a keyword.
 const MARK: Color = Color.hex("#ff9a2e33")
-// The count's place: over the tab's right end, in from its edge, clear of the lines' frame standing over it.
-const BADGE_SPOT: Edges = { right: 3sp }
+// The shade behind the open tab and the one under the cursor: a list tab's own under the cursor.
+const SHADE: Color = Color.hex("#00000059")
 
-// A tab: an entry of the chat's sidebar, the library's list tab (its name, the shade under the cursor), and, while
-// lines wait unread, their count's badge over its right end, out of the flow: nothing moves as the count comes, grows
-// or goes. The open one is a folder's tab of the lines (a framed list tab, its name white): their wood, the metal
-// round its other three sides, reaching in under the frame's left line, one shape with it; the others stand on the
-// world beside them, nothing behind them. The left button picks it, the right opens its menu.
+// A tab: an entry of the chat's sidebar, the library's list tab (its name), and while lines wait unread, their count's
+// badge at its right end, beside its name and never over it: the name stays where it is as the count comes, grows or
+// goes (the sidebar widens where a short name's badge needs it). The open one and the one under the cursor stand on a shade, its name white on the open one; the shade reaches in
+// under the lines' frame's left line, so it touches the lines. The left button picks it, the right opens its menu.
 public class TabButton implements Component {
   public pick: Event<ChatTab> = new Event()
   public menu: Event<ChatTab> = new Event()
 
+  state hovered = false
+  derived shade: Color | nil = self.open || self.hovered ? SHADE : nil
   derived unread: Boolean = self.tab.unread > 0
-  // The folder's tab past its box: to the middle of the lines' frame's left line, inside that frame's box.
+  // The shade past the tab's box: to the middle of the lines' frame's left line, inside that frame's box.
   derived joined: Number<Length> = -toLeftLine(Ordaen.art.frame.small)
 
   tab: Signal<ChatTab>
@@ -33,19 +34,20 @@ public class TabButton implements Component {
 
   onMenu(mut self) { self.menu.emit(peek self.tab) }
 
+  onEnter(mut self) { self.hovered = true }
+
+  onLeave(mut self) { self.hovered = false }
+
   public render(self): Template {
     return $ltml {
-      <box columns={1} @pointerPress(.Right)={self.onMenu}>
-        // The open one in the window's wood and metal on its top, left and bottom, laid behind it out of the flow
-        // (every tab one size): its right is open, where the lines' frame stands over it, one shape with the lines.
-        <box $if={self.open} position={Position.Absolute} top={0ui} right={self.joined} bottom={0ui} left={0ui}
-             border={Ordaen.art.frame.sideTab} background={Ordaen.art.window.wood} artOrigin={true} />
+      <box columns={1} @pointerPress(.Right)={self.onMenu} @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
+        // The shade behind it out of the flow (every tab one size), its right under the lines' frame.
+        <box position={Position.Absolute} top={0ui} right={self.joined} bottom={0ui} left={0ui} background={self.shade} />
+        // The list tab draws no shade of its own (framed): this one reaches the frame.
         <box zLevel={1}>
-          <ListTab label={self.tab.title} selected={self.open} framed={self.open} @pick={self.onPick} />
-        </box>
-        <box $if={self.unread} position={Position.Absolute} top={0ui} right={0ui} bottom={0ui} padding={BADGE_SPOT}
-             yAlign={Align.Center} zLevel={2}>
-          <CountBadge count={self.tab.unread} />
+          <ListTab label={self.tab.title} selected={self.open} framed={true} @pick={self.onPick}>
+            <CountBadge $if={self.unread} count={self.tab.unread} />
+          </ListTab>
         </box>
       </box>
     }

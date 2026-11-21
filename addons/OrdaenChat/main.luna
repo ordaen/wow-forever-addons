@@ -27,6 +27,10 @@ const UNDOCKED: Anchored = { point: Point.BottomLeft, x: 8dp, y: -300dp }
 const PREFIX = "ordaenurl:"
 // Where the last lines of each tab are kept between sessions.
 const HISTORY = "OrdaenChat:history"
+// Whether the character's guild tab was made, once.
+const GUILD_TAB = "OrdaenChat:guildTab"
+// What the guild's tab shows: the guild's lines and its officers'.
+const GUILD_GROUPS: Array<String> = ["GUILD", "OFFICER"]
 // The time stamp before a line: in brackets, the muted colour.
 const STAMP = "|cff9d9d9d[%s]|r "
 const BUTTON = 90dp
@@ -88,6 +92,8 @@ public class Chat implements Module, App {
     Game.chat.heard.listen(self.onLine)
     Game.chat.playerReported.listen(self.onReported)
     Events.PLAYER_LOGOUT.listen(self.keep)
+    // The game's windows are loaded: the guild's tab made where it is due.
+    Events.UPDATE_CHAT_WINDOWS.listen(self.guildTab)
     watch (windows of Game.chat.windows) { self.sync() }
     // Whispers are the whisper window's: the game opens no window of its own for them.
     Game.chat.whisperWindows(false)
@@ -321,6 +327,22 @@ public class Chat implements Module, App {
       .Ignore => { _ = Client.C_FriendList.AddIgnore(name) }
       .More => { Game.chat.click(pick.link.link, pick.link.text, .Right) }
     }
+  }
+
+  // A character's first chat has a tab of the guild's lines (the guild's and its officers'), docked after the game's
+  // own two, once its windows are loaded: made once a character, and not where a window past those two shows the
+  // guild already. Closed, it stays closed.
+  guildTab(mut self) {
+    if (Game.saved.stored(Game.Scope.Character, GUILD_TAB) != nil) { return }
+    Game.saved.store(Game.Scope.Character, GUILD_TAB, true)
+    const shown = (peek Game.chat.windows).any(window => window.index > 2 && Game.chat.groups(window.index).any(group => group.name == GUILD_GROUPS[1] && group.shown))
+    if (shown) { return }
+    const made = Game.chat.open(Locale.TAB_GUILD_NAME)
+    if (made == nil) { return }
+    for (group of Game.chat.groups(made)) {
+      if (group.shown) { Game.chat.showGroup(made, group.name, false) }
+    }
+    for (group of GUILD_GROUPS) { Game.chat.showGroup(made, group, true) }
   }
 
   // The last lines of each tab, for the next session: written once, as the player logs out.
