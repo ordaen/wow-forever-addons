@@ -58,6 +58,8 @@
   "QUEST_ABANDON_ASK": "Abandon «%s»?",
   "QUEST_ABANDON_ITEMS": "These items will be destroyed: %s",
   "LINK_COPY": "Copy",
+  "SESSION": "Session · %s, %s",
+  "SESSION_DATE": "%d %b",
   "KEYWORDS_TIP": "Someone else's line with one of these words, or with your name, is marked.",
   "KEYWORDS_EXAMPLE": "Comma-separated: tank, healer",
   "HISTORY": "Input history",

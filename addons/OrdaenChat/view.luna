@@ -1,11 +1,18 @@
 // The chat's parts: a tab of its sidebar and a line.
-import { Align, Edges, Event, Overflow, Position } from "$ltml"
+import Client from "$client"
+import Game from "$game"
+import { Align, Edges, Event, Overflow, Position, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { Component, CountBadge, ListTab, toLeftLine } from "Ordaen"
+import { Component, CountBadge, ListTab, SECONDARY_TEXT, timeText, toLeftLine } from "Ordaen"
 import { ChatTab, Shown } from "@/lines"
+import Locale from "@/locales"
 
 // The warm band under a line that names the player or a keyword.
 const MARK: Color = Color.hex("#ff9a2e33")
+// A session's rule: a line each side of its name, the time stamps' muted grey.
+const RULE: Color = Color.hex("#9d9d9d40")
+const RULE_TEXT: Color = Color.hex("#9d9d9d")
+const RULE_COLUMNS: Array<Track> = [{ fr: 1 }, "max-content", { fr: 1 }]
 // The shade behind the open tab and the one under the cursor: a list tab's own under the cursor.
 const SHADE: Color = Color.hex("#00000059")
 // The count's room at a counting tab's right, a two-digit badge's, kept in the tab's flow; the badge stands over the
@@ -64,19 +71,23 @@ public class TabButton implements Component {
   }
 }
 
-// A line: its text in its colour, dimmed where it came from the last session, on a band where it names the player.
-// A secret line stands one line high, so nothing of it is measured.
+// A line: its text in its colour, on a band where it names the player; above it, where it opens a session, a rule with
+// the session's day and time in its middle. A secret line stands one line high, so nothing of it is measured.
 public class Row implements Component {
   // A link of the line clicked.
   public link: Event<Event.Link> = new Event()
 
-  derived opacity: Number = self.line.past ? 0.6 : 1
   derived band: Color | nil = self.line.marked ? MARK : nil
+  // A line kept from before sessions were told apart is named by its own time.
+  derived began: Integer = (self.line.session != 0 ? self.line.session : self.line.time).floor()
+  derived session: String = Locale.SESSION.format(Client.date(Locale.SESSION_DATE, self.began), timeText(Game.clock.timeAt(self.began)))
 
   line: Signal<Shown>
+  opens: Signal<Boolean>
   lineHeight: Signal<Number<Length>>
-  constructor(line: Signal<Shown>, lineHeight: Signal<Number<Length>>) {
+  constructor(line: Signal<Shown>, opens: Signal<Boolean>, lineHeight: Signal<Number<Length>>) {
     self.line = line
+    self.opens = opens
     self.lineHeight = lineHeight
   }
 
@@ -84,10 +95,15 @@ public class Row implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box $if={self.line.secret} @linkPress={self.onLink} height={self.lineHeight} overflow={Overflow.Hidden} opacity={self.opacity}>
+      <box $if={self.opens} columns={RULE_COLUMNS} gap={2sp} yAlign={Align.Center}>
+        <box height={1ui} background={RULE} />
+        <text value={self.session} textColor={RULE_TEXT} textSize={SECONDARY_TEXT} wrap={.None} />
+        <box height={1ui} background={RULE} />
+      </box>
+      <box $if={self.line.secret} @linkPress={self.onLink} height={self.lineHeight} overflow={Overflow.Hidden}>
         <text value={self.line.whole} secret={true} textColor={self.line.color} wrap={.None} />
       </box>
-      <box $else opacity={self.opacity} background={self.band} @linkPress={self.onLink}>
+      <box $else background={self.band} @linkPress={self.onLink}>
         <text value={self.line.whole} textColor={self.line.color} />
       </box>
     }

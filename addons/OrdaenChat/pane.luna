@@ -8,7 +8,7 @@ import { Align, Edges, Event, Frame, Layer, Line, MouseButton, Over, Overflow, P
 import root Ordaen from "Ordaen"
 import { Component, FIELD_EDGE, FIELD_FILL, GripCorner, Menu, MenuEntry, SECONDARY_TEXT, SizeGrip } from "Ordaen"
 import root Quests from "OrdaenQuests"
-import { ChatTab, Shown } from "@/lines"
+import { ChatTab, Entry } from "@/lines"
 import Locale from "@/locales"
 import { Row, TabButton } from "@/view"
 
@@ -140,7 +140,7 @@ public class Pane implements Component {
   derived logFrame: any Frame | nil = self.logOf()
   // The tabs' top where the lines' frame's metal begins: its art reaches this far above it, inside its box.
   derived tabsReach: Number<Length> = Ordaen.art.frame.small.reach.top * Ordaen.art.frame.small.scale * 1ui
-  derived shown: Array<Shown> = self.shownOf()
+  derived shown: Array<Entry> = self.shownOf()
   derived inputShown: Boolean = self.input != nil && (self.typing || self.inputAlways)
   // Whole while the cursor is on it, the player types or a menu of it is open; else as the settings say.
   derived opacity: Number = self.onTabs || self.onLines || self.typing || self.menuTab != nil || self.menuLink != nil ?
@@ -219,7 +219,7 @@ public class Pane implements Component {
     return Game.chat.windows.find(window => window.index == tab.window)?.frame
   }
 
-  shownOf(self): Array<Shown> {
+  shownOf(self): Array<Entry> {
     const tab = self.open
     // The lines change in place: their version is what tells the view.
     if (tab == nil || tab.version < 0) { return [] }
@@ -329,7 +329,7 @@ public class Pane implements Component {
               <box $else overflow={Overflow.Hidden} textSize={self.textSize} mouseThrough={self.clickThrough} @wheel={self.onWheel}>
                 <box position={Position.Absolute} left={0ui} right={0ui} bottom={0ui} columns={1} lineHeight={LINE}
                      gap={BETWEEN}>
-                  <Row $for={line of self.shown} line={line} lineHeight={Ordaen.lengthOf(LINE)}
+                  <Row $for={entry of self.shown} line={entry.line} opens={entry.opens} lineHeight={Ordaen.lengthOf(LINE)}
                        @link={self.onLink} />
                 </box>
               </box>

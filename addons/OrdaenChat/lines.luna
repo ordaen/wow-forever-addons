@@ -14,8 +14,9 @@ public struct Shown implements Plain {
   count: Integer
   // Someone else's line naming the player or one of the keywords.
   marked: Boolean
-  // Brought back from the last session: drawn dimmed.
-  past: Boolean
+  // When the session that heard it began (seconds since 1970): a view sets each session's lines apart under a rule
+  // naming it. 0 for a line kept before sessions were told apart.
+  session: Number = 0
   // The client kept its words secret: drawn as the client gives them, never measured, never kept.
   secret: Boolean
   // The player's own (a whisper told): a conversation draws it on its right.
@@ -33,6 +34,16 @@ public struct KeptTab implements Plain {
 
 public struct Kept implements Plain {
   tabs: Array<KeptTab>
+}
+
+// When this session began: the session of every line it hears.
+public const THIS_SESSION: Number = peek Game.clock.server
+
+// A line as a view lays it out: the line, and whether a session's rule stands above it (its session isn't the line's
+// before; the first line, where it isn't this session's).
+public struct Entry {
+  line: Shown
+  opens: Boolean
 }
 
 // A whisper conversation's key: a character's (`t:<name>`) or a Battle.net friend's (`b:<name>`).
@@ -122,11 +133,7 @@ public class ChatTab {
   public keptLines(self, count: Integer): Array<Shown> {
     const keep: Array<Shown> = []
     for (line of self.lines) {
-      if (!line.secret) {
-        const old = line.clone()
-        old.past = true
-        keep.push(old)
-      }
+      if (!line.secret) { keep.push(line) }
     }
     for (at of count + 1..keep.length) { _ = keep.remove(1) }
     return keep
@@ -141,10 +148,14 @@ public class ChatTab {
   }
 
   // The lines a view shows: `count` of them, ending `back` lines before the newest.
-  public slice(self, back: Integer, count: Integer): Array<Shown> {
-    const shown: Array<Shown> = []
+  public slice(self, back: Integer, count: Integer): Array<Entry> {
+    const shown: Array<Entry> = []
     const last = self.lines.length - back
-    for (at of (1).max(last - count + 1)..last) { shown.push(self.lines[at] ?? panic("inside the lines")) }
+    for (at of (1).max(last - count + 1)..last) {
+      const line = self.lines[at] ?? panic("inside the lines")
+      const before = self.lines[at - 1]
+      shown.push({ line: line, opens: before != nil ? before.session != line.session : line.session != THIS_SESSION })
+    }
     return shown
   }
 }
@@ -155,7 +166,7 @@ public function talkLine(line: Game.ChatLine, mine: Boolean): Shown {
   const secret = line.secret != ""
   return {
     whole: secret ? line.body : linked(line.text), color: line.color, time: line.time,
-    repeat: secret ? "" : `${line.kind}|${line.text}`, count: 1, marked: false, past: false, secret: secret, mine: mine,
+    repeat: secret ? "" : `${line.kind}|${line.text}`, count: 1, marked: false, session: THIS_SESSION, secret: secret, mine: mine,
     sender: line.guid
   }
 }

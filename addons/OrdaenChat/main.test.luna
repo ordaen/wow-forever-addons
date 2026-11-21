@@ -10,7 +10,7 @@ import root Ordaen from "Ordaen"
 import { ChatMark, FIELD_FILL, say, toLeftLine } from "Ordaen"
 import root Quests from "OrdaenQuests"
 import { LEAST_WIDTH } from "@/choices"
-import { ChatTab, Kept, Shown, linked, marks, wordsOf } from "@/lines"
+import { ChatTab, Kept, Shown, THIS_SESSION, linked, marks, wordsOf } from "@/lines"
 import { HEARD_FILL, TOLD_FILL, WHISPERS_LEAST } from "@/whispers"
 
 const SCREEN: Test.Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
@@ -845,15 +845,37 @@ test "a line the client keeps secret shows one line high, never kept for the nex
   Test.expect(Test.errors().length == 0)
 }
 
-test "a tab's last lines are kept for the next session and come back dimmed, before the new ones" {
+test "a tab's last lines are kept for the next session and come back as they were, before the new ones" {
   const kept = new ChatTab("w1", "General")
-  kept.add(plain("one"), true, 500)
-  kept.add(plain("two"), true, 500)
-  kept.add(plain("three"), true, 500)
+  kept.add(plain("one", 100), true, 500)
+  kept.add(plain("two", 100), true, 500)
+  kept.add(plain("three", 100), true, 500)
   const back = new ChatTab("w1", "General")
   back.add(plain("new"), true, 500)
   back.recall(kept.keptLines(2))
-  Test.expect(back.lines.map(l => `${l.whole}${l.past ? "*" : ""}`).join(",") == "two*,three*,new")
+  Test.expect(back.lines.map(l => l.whole).join(",") == "two,three,new")
+  // A rule above each session's first line: the kept session's, and this one's after it.
+  Test.expect(back.slice(0, 80).map(e => `${e.opens ? "|" : ""}${e.line.whole}`).join(",") == "|two,three,|new")
+}
+
+test "each session's lines stand under a rule naming the session, in the lines' own colours" {
+  Game.chat.windows = gameWindows()
+  _ = chat()
+  Game.chat.heard.emit(line("SAY", "[Thrall] says: before", "Thrall", [1]))
+  // In this session alone: no rule.
+  Test.expect(!Test.page().window("Whispers").texts().any(text => text.match("^Session · ") != nil))
+  // A later session: the line kept comes back under its session's rule, this session's rule over what it hears.
+  Game.clock.server = THIS_SESSION.floor() + 3600
+  Events.PLAYER_LOGOUT.emit()
+  Test.reload()
+  Game.chat.windows = gameWindows()
+  Game.chat.heard.emit(line("SAY", "[Thrall] says: now", "Thrall", [1]))
+  const shown = Test.page().window("Whispers")
+  const rules = shown.texts().filter(text => text.match("^Session · ") != nil)
+  Test.expect(rules.length == 2)
+  // Not dimmed: drawn as it was.
+  Test.expect(shown.text("[Thrall] says: before").opacity() == 1)
+  Test.expect(shown.text(rules[1] ?? "").rect().bottom <= shown.text("[Thrall] says: before").rect().top)
 }
 
 test "a community is no tab of its own: a tab shows it where the Tabs page ticks it" {
@@ -877,8 +899,9 @@ test "someone's line naming a keyword is marked" {
   Test.expect(marks("thrall, come", wordsOf("", "Thrall")))
 }
 
-function plain(words: String): Shown {
-  return { whole: words, color: WHITE, time: 0, repeat: words, count: 1, marked: false, past: false, secret: false, mine: false, sender: "" }
+// A line heard in a session: this one's where none is named.
+function plain(words: String, session: Number = THIS_SESSION): Shown {
+  return { whole: words, color: WHITE, time: session, repeat: words, count: 1, marked: false, session: session, secret: false, mine: false, sender: "" }
 }
 
 test "the chat is never lower than its tabs, the whispers' among them: the lines take the room they leave" {

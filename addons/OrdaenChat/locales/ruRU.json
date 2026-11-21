@@ -58,6 +58,8 @@
   "QUEST_ABANDON_ASK": "Отказаться от «%s»?",
   "QUEST_ABANDON_ITEMS": "Будут уничтожены предметы: %s",
   "LINK_COPY": "Копировать",
+  "SESSION": "Сессия · %s, %s",
+  "SESSION_DATE": "%d.%m",
   "KEYWORDS_TIP": "Чужая строка с одним из этих слов или с вашим именем выделяется.",
   "KEYWORDS_EXAMPLE": "Через запятую: танк, хил",
   "HISTORY": "История ввода",

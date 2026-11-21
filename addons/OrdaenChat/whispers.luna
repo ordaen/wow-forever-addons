@@ -185,7 +185,7 @@ public class Whispers implements Component {
     const talk = self.open
     // The lines change in place: their version is what tells the view.
     if (talk == nil || talk.version < 0) { return [] }
-    return talk.slice(self.back, ROWS)
+    return talk.slice(self.back, ROWS).map(entry => entry.line)
   }
 
   onClose(mut self) { self.close.emit() }

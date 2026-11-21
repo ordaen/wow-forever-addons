@@ -3,4 +3,4 @@
 # takes in the fields there are, for one no copy was ever saved without.
 $/lang.Color: a b g r
 OrdaenChat/lines.KeptTab: key lines
-OrdaenChat/lines.Shown: color count marked mine past repeat secret sender time whole
+OrdaenChat/lines.Shown: color count marked mine repeat secret sender session time whole

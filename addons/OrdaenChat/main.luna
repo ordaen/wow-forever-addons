@@ -14,7 +14,7 @@ import root Ordaen from "Ordaen"
 import { BODY_TEXT, ButtonPlate, CopyBox, Dialog, Field, KeptWindow, Module, Placed, PushButton, Settings, SettingsPage, timeText } from "Ordaen"
 import root Quests from "OrdaenQuests"
 import { ChannelName, ChatSize, Choices, LEAST_HEIGHT, LEAST_WIDTH, TabChoices, tabDefaults, tabKey } from "@/choices"
-import { ChatTab, Kept, KeptTab, Shown, channelOf, linked, marks, talkKey, talkLine, wordsOf } from "@/lines"
+import { ChatTab, Kept, KeptTab, Shown, THIS_SESSION, channelOf, linked, marks, talkKey, talkLine, wordsOf } from "@/lines"
 import Locale from "@/locales"
 import { LinkPick, Pane, TabPick, nameOf, questOf, shownName } from "@/pane"
 import { ChatPage } from "@/settings"
@@ -260,7 +260,7 @@ public class Chat implements Module, App {
   shownLine(self, line: Game.ChatLine, channelName: ChannelName): Shown {
     if (line.secret != "") {
       return {
-        whole: line.body, color: line.color, time: line.time, repeat: "", count: 1, marked: false, past: false, secret: true,
+        whole: line.body, color: line.color, time: line.time, repeat: "", count: 1, marked: false, session: THIS_SESSION, secret: true,
         mine: false, sender: line.guid
       }
     }
@@ -271,7 +271,7 @@ public class Chat implements Module, App {
     return {
       whole: `${stamp}${channel}${linked(line.plain)}`, color: line.color, time: line.time,
       repeat: `${line.kind}|${line.channel}|${line.sender}|${line.text}`, count: 1,
-      marked: line.sender != "" && !own && marks(line.text, peek self.words), past: false, secret: false, mine: false,
+      marked: line.sender != "" && !own && marks(line.text, peek self.words), session: THIS_SESSION, secret: false, mine: false,
       sender: line.guid
     }
   }
