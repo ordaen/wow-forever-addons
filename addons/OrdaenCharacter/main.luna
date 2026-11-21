@@ -13,7 +13,7 @@ import Game from "$game"
 import { Frame, Track } from "$ltml"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
-import { KeptWindow, Module, SECONDARY_TEXT, Settings, SettingsPage, Tabs, Window, WindowTabSpec, WindowsPage, playSound, windowsTitle } from "Ordaen"
+import { Callout, CalloutSide, KeptWindow, Module, SECONDARY_TEXT, Settings, SettingsPage, Tabs, Window, WindowTabSpec, WindowsPage, playSound, windowsTitle } from "Ordaen"
 import root Auras from "OrdaenAuras"
 import { KeptRates, Rates, estimate, ratesKey, ratesOf } from "@/estimate"
 import { GearPage } from "@/gear"
@@ -60,6 +60,11 @@ const WIPE = "talentWipe"
 const NO_SKILLS: Array<Skill> = []
 // «Progression»: its subtabs over the page they pick.
 const PROGRESS_ROWS: Array<Track> = ["max-content", { fr: 1 }]
+
+// The frame the alert of unspent talent points points at, while it shows: the character's button, where there is one.
+function alertedBy(shown: Boolean, button: any Frame | nil): Array<any Frame> {
+  return !shown || button == nil ? [] : [button]
+}
 
 public class Character implements Module, App {
   public const title: String = "Ordaen Character"
@@ -162,6 +167,15 @@ public class Character implements Module, App {
   state specGroups = 2
   derived groupActive: Boolean = self.group == self.activeGroup
   // «Progression»'s subtab, its names, and the skill picked (by its number; none: 0) and the skills' search.
+  // The game's spells window while its talents or specializations page shows (Ordaen Spells takes its spellbook):
+  // ours opens on the active spec's tab, the game's held unseen and off the screen.
+  state spellsGame: any Frame | nil = nil
+  spells: any Client.Frame | nil = nil
+  // The client's alert of unspent talent points, ours in its place by the character's button, over it or under it as
+  // the button stands in the screen's lower or upper half: shown until the player closes it or opens a spec tab.
+  state unspentAlert = false
+  state alertSide = CalloutSide.Above
+  derived alertBy: Array<any Frame> = alertedBy(self.unspentAlert, Game.frames.CharacterMicroButton)
   state progress = PROGRESS_REPUTATION
   const progressTabs: Array<String> = [Locale.TAB_REPUTATION, Locale.TAB_SKILLS]
   state chosenSkill = 0
@@ -219,7 +233,67 @@ public class Character implements Module, App {
       }
     }
     self.hook(Runtime.frame(GAME_WINDOW))
+    // The game's spells window comes with its addon, loaded on demand.
+    watch (frame of Game.frames.PlayerSpells) { self.hookSpells(frame) }
+    // The client's alert of unspent points on its talent button: ours, by the character's button, in its place.
+    Client.hooksecurefunc("MainMenuMicroButton_ShowAlert", (button: Unknown): nil => {
+      if (button == Client.TalentMicroButton) { self.onUnspentAlert() }
+      return nil
+    })
+    // A spec tab opened: the points are where the player sees them.
+    watch (group of self.group) {
+      if (group > 0) { self.unspentAlert = false }
+    }
   }
+
+  // The game's spells window: its talents and specializations pages open ours on the active spec's tab, and its
+  // closing closes ours. Hooked as the game names them, on their show and hide, which are rare.
+  hookSpells(mut self, frame: any Frame | nil) {
+    const window = Client.PlayerSpellsFrame
+    if (frame == nil || window == nil) { return }
+    self.spells = window
+    for (page of [window.TalentsFrame, window.SpecFrame]) {
+      const shown: any Client.Frame = page
+      _ = shown.HookScript("OnShow", (): nil => {
+        self.onSpellsShown(frame)
+        return nil
+      })
+      _ = shown.HookScript("OnHide", (): nil => {
+        self.onSpellsHidden()
+        return nil
+      })
+    }
+    if (window.TalentsFrame.IsVisible() || window.SpecFrame.IsVisible()) { self.onSpellsShown(frame) }
+  }
+
+  onSpellsShown(mut self, frame: any Frame) {
+    self.spellsGame = frame
+    self.window.ask(Game.talentTrees.activeGroup() == 2 ? TAB_SPEC_TWO : TAB_SPEC_ONE)
+    if (!(peek self.open)) {
+      self.open = true
+      self.refresh()
+    }
+  }
+
+  onSpellsHidden(mut self) {
+    if ((peek self.spellsGame) == nil) { return }
+    self.spellsGame = nil
+    self.open = false
+  }
+
+  // The client's alert hidden at once, ours shown by the character's button.
+  onUnspentAlert(mut self) {
+    Client.MainMenuMicroButton_HideAlert(Client.TalentMicroButton)
+    const button = peek Game.frames.CharacterMicroButton
+    if (button != nil) {
+      const shown: any Client.Frame = button
+      const _, y = shown.GetCenter()
+      self.alertSide = (y ?? 0) > Client.UIParent.GetHeight() / 2 ? CalloutSide.Below : CalloutSide.Above
+    }
+    self.unspentAlert = true
+  }
+
+  onAlertRead(mut self) { self.unspentAlert = false }
 
   // The game's character window and its pages: ours opens and closes with it, on the tab its page is. Hooked as the
   // game names them, on their show and hide, which are rare.
@@ -512,6 +586,7 @@ public class Character implements Module, App {
   onClose(mut self) {
     self.open = false
     self.game?.Hide()
+    if ((peek self.spellsGame) != nil) { self.spells?.Hide() }
   }
 
   onSettings(self) { Ordaen.toggleSettings(Runtime.Addon.of(self)) }
@@ -519,6 +594,9 @@ public class Character implements Module, App {
   public render(self): Template {
     return $ltml {
       <frame $if={self.gameWindow != nil} of={self.gameWindow} opacity={0} away={true} />
+      <frame $if={self.spellsGame != nil} of={self.spellsGame} opacity={0} away={true} />
+      <Callout $for={by of self.alertBy} by={by} title={Locale.UNSPENT_TITLE} text={Locale.UNSPENT_TIP}
+               side={self.alertSide} @close={self.onAlertRead} />
       <Window $if={self.open} tabs={self.tabs} selected={mut self.tab} declared={mut self.window} withSettings={true}
               minWidth={Style.WIDTH} minHeight={Style.HEIGHT}
               footer={self.footer} @close={self.onClose} @settings={self.onSettings}>

@@ -48,6 +48,8 @@
   "SPEC_LOCKED": "The second specialization is learned from your class trainer.",
   "NO_TALENTS": "The talents are not available.",
   "TALENT_POINTS": "Talent points:",
+  "UNSPENT_TITLE": "Talent points to spend",
+  "UNSPENT_TIP": "You have unspent talent points. Open the character window's spec tab to spend them.",
   "SEARCH_TALENTS": "Search talents",
   "TRAINER_RESET": "Reset at the trainer:",
   "TRAINER_RESET_TITLE": "Talent reset",
