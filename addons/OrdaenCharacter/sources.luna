@@ -8,7 +8,7 @@ import { TipRow, TipSection, qualityColor } from "Ordaen"
 import { Active, Change, Kind } from "OrdaenAuras"
 import Locale from "@/locales"
 import { Resource, Stats, Worn } from "@/sheet"
-import { MAINS, Stat } from "@/stat"
+import { EVERY_STAT, MAINS, Stat } from "@/stat"
 
 // A stat's name, whether it is a percentage, and its value as the sheet has it.
 struct Spec {
@@ -212,8 +212,59 @@ public function wordsOf(stat: Stat, stats: Stats): String {
   }
 }
 
+// A stat's sources other than its base: the stats that feed it, the items and sets that give it, the auras that change
+// it; the stats that feed it and each item's share by its slot.
+struct Parts {
+  const fromStats: Array<Part>
+  const fromItems: Array<Part>
+  const fromEffects: Array<Part>
+  const fed: Array<Stat>
+  const shares: Map<Integer, String>
+}
+
+function sum(parts: Array<Part>): Number {
+  let total: Number = 0
+  for (part of parts) { total += part.amount }
+  return total
+}
+
 // What a stat's tooltip lists, and what lights with it.
 public function breakdownOf(stat: Stat, text: String, facts: Facts): Breakdown {
+  const spec = specOf(stat)
+  const parts = partsOf(stat, facts)
+  const fromStats = parts.fromStats.map(part => part)
+  // The base: a main stat's as the client says it, any other's the rest of its value (its level, its race, talents).
+  const base = baseFor(stat, facts, parts)
+  if (base.abs() >= (spec.percent ? 0.005 : 0.5)) {
+    fromStats.push({ row: { label: Locale.BASE, value: amountText(base, spec.percent) }, amount: base })
+  }
+  const sections: Array<TipSection> = []
+  section(Locale.FROM_STATS, fromStats, mut sections)
+  section(Locale.FROM_ITEMS, parts.fromItems, mut sections)
+  section(Locale.FROM_EFFECTS, parts.fromEffects, mut sections)
+  return { text: text, sections: sections, fed: parts.fed, shares: parts.shares }
+}
+
+// A stat's base: a main stat's as the client says it, any other's what its sources leave of its value.
+function baseFor(stat: Stat, facts: Facts, parts: Parts): Number {
+  const counted = sum(parts.fromStats) + sum(parts.fromItems) + sum(parts.fromEffects)
+  return baseOf(stat, facts.stats) ?? specOf(stat).of(facts.stats) - counted
+}
+
+// Each stat's base, by its name: what the character is without its items, its auras and what its stats feed.
+public function basesOf(facts: Facts): Map<String, Number> {
+  const bases: Map<String, Number> = {}
+  for (stat of EVERY_STAT) { bases[`${stat}`] = baseFor(stat, facts, partsOf(stat, facts)) }
+  return bases
+}
+
+// What the items and the stats give a stat, without its base and its auras: a character's estimate, its base added.
+public function givenTo(stat: Stat, facts: Facts): Number {
+  const parts = partsOf(stat, facts)
+  return sum(parts.fromStats) + sum(parts.fromItems)
+}
+
+function partsOf(stat: Stat, facts: Facts): Parts {
   const spec = specOf(stat)
   const total = spec.of(facts.stats)
   const fromStats: Array<Part> = []
@@ -221,8 +272,6 @@ public function breakdownOf(stat: Stat, text: String, facts: Facts): Breakdown {
   const fromEffects: Array<Part> = []
   const fed: Array<Stat> = []
   const shares: Map<Integer, String> = {}
-  // What the parts other than the base add: the base is the rest.
-  let counted: Number = 0
 
   for (feed of feedsOf(facts.stats, facts.classTag)) {
     if (feed.to == stat) {
@@ -231,7 +280,6 @@ public function breakdownOf(stat: Stat, text: String, facts: Facts): Breakdown {
       if (amount != 0) {
         fromStats.push({ row: { label: statName(feed.from), value: added(amount, spec.percent) }, amount: amount })
         fed.push(feed.from)
-        counted += amount
       }
     }
   }
@@ -247,7 +295,6 @@ public function breakdownOf(stat: Stat, text: String, facts: Facts): Breakdown {
             amount: given.amount
           })
           shares[piece.slot] = value
-          counted += given.amount
         }
       }
     }
@@ -270,7 +317,6 @@ public function breakdownOf(stat: Stat, text: String, facts: Facts): Breakdown {
         for (other of facts.worn) {
           if (other.set?.name == set.name && shares[other.slot] == nil) { shares[other.slot] = value }
         }
-        counted += amount
       }
     }
   }
@@ -284,24 +330,12 @@ public function breakdownOf(stat: Stat, text: String, facts: Facts): Breakdown {
           // What a share of the total it makes: the stat without it times the share.
           const amount = total - total / (1 + change.amount / 100)
           fromEffects.push({ row: { label: name, value: added(change.amount, true), icon: icon }, amount: amount })
-          counted += amount
         } else {
           fromEffects.push({ row: { label: name, value: added(change.amount, spec.percent), icon: icon }, amount: change.amount })
-          counted += change.amount
         }
       }
     }
   }
 
-  // The base: a main stat's as the client says it, any other's the rest of its value (its level, its race, talents).
-  const base: Number = baseOf(stat, facts.stats) ?? total - counted
-  if (base.abs() >= (spec.percent ? 0.005 : 0.5)) {
-    fromStats.push({ row: { label: Locale.BASE, value: amountText(base, spec.percent) }, amount: base })
-  }
-
-  const sections: Array<TipSection> = []
-  section(Locale.FROM_STATS, fromStats, mut sections)
-  section(Locale.FROM_ITEMS, fromItems, mut sections)
-  section(Locale.FROM_EFFECTS, fromEffects, mut sections)
-  return { text: text, sections: sections, fed: fed, shares: shares }
+  return { fromStats: fromStats, fromItems: fromItems, fromEffects: fromEffects, fed: fed, shares: shares }
 }

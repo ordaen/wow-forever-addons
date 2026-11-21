@@ -38,6 +38,44 @@ public enum Stat {
   RunSpeed
 }
 
+// Every stat, in the enum's order.
+public const EVERY_STAT: Array<Stat> = [
+  .Strength,
+  .Agility,
+  .Stamina,
+  .Intellect,
+  .Spirit,
+  .Health,
+  .Power,
+  .Armor,
+  .FireResistance,
+  .NatureResistance,
+  .FrostResistance,
+  .ShadowResistance,
+  .ArcaneResistance,
+  .AttackPower,
+  .RangedAttackPower,
+  .MeleeHit,
+  .RangedHit,
+  .SpellHit,
+  .MeleeCrit,
+  .RangedCrit,
+  .SpellCrit,
+  .Expertise,
+  .Haste,
+  .ArmorPenetration,
+  .SpellPenetration,
+  .Dodge,
+  .Parry,
+  .Block,
+  .BlockValue,
+  .Defense,
+  .SpellDamage,
+  .Healing,
+  .Regen,
+  .RunSpeed
+]
+
 // The main stats in the client's order: an aura's change names them by their place here (0 strength to 4 spirit).
 public const MAINS: Array<Stat> = [.Strength, .Agility, .Stamina, .Intellect, .Spirit]
 

@@ -30,6 +30,7 @@ const CHIP_PAD: Edges = { top: 2sp, right: 3sp, bottom: 2sp, left: 3sp }
 const NO_SLOTS: Array<Integer> = []
 const NO_SETS: Array<GearSet> = []
 const NO_AURAS: Array<Active> = []
+const PLAYER = "player"
 const NOTHING: Worn = { slot: 0, item: nil, quality: .Common, level: nil, durability: nil }
 
 // Each race's scene from the game's dressing room, enlarged (art/pieces/backdrop-<race>.json), by the race's name in
@@ -49,7 +50,8 @@ public function wearColor(left: Number): Color { return left < WORN_OUT ? Style.
 // go there what the cursor holds, Ctrl+Left-click tries it on, Alt+Left-click opens what the bags hold for the slot
 // (the game's flyout), Shift+Left-click links it (the library's slot), and the right button uses it, the client's own
 // doing. Lit while the cursor holds what goes in it; dimmed while it is picked up or on its way; its cooldown's run
-// over its icon; the ammo's count on its own.
+// over its icon; the ammo's count on its own. Another player's slot (not `own`) is only shown: its tooltip the
+// item's, compared with what the player wears, and no click uses or picks up anything.
 public class GearSlot implements Component {
   // What the slot was asked: its number each time.
   public picked: Event<Integer> = new Event()
@@ -60,7 +62,8 @@ public class GearSlot implements Component {
   derived levelText: String = self.levels && self.worn.level != nil ? String.of(self.worn.level ?? 0) : ""
   derived wearShown: Boolean = self.wear && self.worn.durability != nil
   derived wearFill: BarFill = self.fillOf()
-  derived use: Action | nil = self.worn.item != nil ? Action.UseWornItem { slot: self.spec.id } : nil
+  derived use: Action | nil = self.own && self.worn.item != nil ? Action.UseWornItem { slot: self.spec.id } : nil
+  derived wornSlot: Integer | nil = self.own ? self.spec.id : nil
   derived cooling: Boolean = self.worn.cooldown != nil
   derived coolFill: BarFill = { duration: self.worn.cooldown, color: COOLING, from: FillFrom.Top }
   derived shared: Boolean = self.share != ""
@@ -74,8 +77,10 @@ public class GearSlot implements Component {
   // What its item gives the stat whose tooltip is open («+40»): the slot rimmed in gold, the share in a badge centred
   // under it, room past the slot's sides for a wide one («+1.00%»); empty while it gives none.
   share: Signal<String>
+  own: Signal<Boolean>
   constructor(spec: Signal<SlotSpec>, worn: Signal<Worn>, levels: Signal<Boolean>, wear: Signal<Boolean>,
-    fits: Signal<Boolean> = false, size: Signal<Number<Length>> = Style.SLOT, share: Signal<String> = "") {
+    fits: Signal<Boolean> = false, size: Signal<Number<Length>> = Style.SLOT, share: Signal<String> = "",
+    own: Signal<Boolean> = true) {
     self.spec = spec
     self.worn = worn
     self.levels = levels
@@ -83,6 +88,7 @@ public class GearSlot implements Component {
     self.fits = fits
     self.size = size
     self.share = share
+    self.own = own
   }
 
   fillOf(self): BarFill {
@@ -92,6 +98,10 @@ public class GearSlot implements Component {
 
   onPressed(self, press: Event.Press) {
     if (press.button != MouseButton.Left) { return }
+    if (!self.own) {
+      if (Game.input.controlDown()) { self.tried.emit(peek self.spec.id) }
+      return
+    }
     const slot = peek self.spec.id
     if (Game.input.controlDown()) {
       self.tried.emit(slot)
@@ -102,13 +112,15 @@ public class GearSlot implements Component {
     }
   }
 
-  onDragged(self) { self.picked.emit(peek self.spec.id) }
+  onDragged(self) {
+    if (self.own) { self.picked.emit(peek self.spec.id) }
+  }
 
   public render(self): Template {
     return $ltml {
       <box gap={2sp}>
         <ItemButton item={self.worn.item} quality={self.worn.quality} art={self.empty} size={self.size}
-                    count={self.worn.count} dimmed={self.worn.locked} worn={self.spec.id} action={self.use}
+                    count={self.worn.count} dimmed={self.worn.locked} worn={self.wornSlot} action={self.use}
                     @pressed={self.onPressed} @dragged={self.onDragged} @dropped={self.onDragged}>
           <box $if={self.cooling} position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui}
                fill={self.coolFill} />
@@ -245,7 +257,8 @@ public class GearPage implements Component {
   public saveSet: Event<nil> = new Event()
 
   derived whoText: String = Locale.LEVEL_RACE.format(self.who.level, self.who.race)
-  derived whoColor: Color = classColor(Game.player.classTag) ?? Style.GOLD
+  derived tag: String = self.classTag ?? Game.player.classTag
+  derived whoColor: Color = classColor(self.tag) ?? Style.GOLD
   derived scene: Asset | nil = SCENES[self.who.scene]
   derived levelText: String = self.levelOf()
   derived flyoutShown: Boolean = self.flyoutSlot != nil
@@ -256,7 +269,7 @@ public class GearPage implements Component {
   derived speeds: Array<Row> = speedsOf(self.stats)
   derived shared: Array<Gauge> = sharedGauges(self.stats)
   derived sharedLines: Array<Row> = sharedRows(self.stats)
-  derived sections: Array<Section> = sectionsOf(self.stats, self.skills, Game.player.classTag)
+  derived sections: Array<Section> = sectionsOf(self.stats, self.skills, self.tag)
   // The bars: health, the resource with what it regains, and a druid's energy beside its mana.
   derived health: String = String.of(self.stats.health)
   derived power: String = self.stats.resource == Resource.Rage ? `0 / ${self.stats.power}` : String.of(self.stats.power)
@@ -286,10 +299,15 @@ public class GearPage implements Component {
   fitting: Signal<Array<Integer>>
   // The auras on the character and what each changes (Ordaen Auras): a stat tooltip's «Effects».
   auras: Signal<Array<Active>>
+  // Whose character it is: the player's own (its sets and its flyout), or another player's, inspected (`unit`, of
+  // class `classTag`), whose gear is only shown.
+  unit: Signal<String>
+  classTag: Signal<String | nil>
+  derived own: Boolean = self.unit == PLAYER
   constructor(worn: Signal<Array<Worn>>, who: Signal<Who>, stats: Signal<Stats>, skills: Signal<Array<Skill>>,
     usesAmmo: Signal<Boolean>, choices: Signal<Choices>, fitsSlots: Signal<Array<Integer>> = NO_SLOTS,
     sets: Signal<Array<GearSet>> = NO_SETS, flyoutSlot: Signal<Integer | nil> = nil, fitting: Signal<Array<Integer>> = NO_SLOTS,
-    auras: Signal<Array<Active>> = NO_AURAS) {
+    auras: Signal<Array<Active>> = NO_AURAS, unit: Signal<String> = PLAYER, classTag: Signal<String | nil> = nil) {
     self.worn = worn
     self.who = who
     self.stats = stats
@@ -301,13 +319,15 @@ public class GearPage implements Component {
     self.flyoutSlot = flyoutSlot
     self.fitting = fitting
     self.auras = auras
+    self.unit = unit
+    self.classTag = classTag
   }
 
   shownOf(self): Breakdown {
     const stat = self.tipped
     if (stat == nil) { return NO_BREAKDOWN }
     return breakdownOf(stat, wordsOf(stat, self.stats), {
-      stats: self.stats, worn: self.worn, auras: self.auras, classTag: Game.player.classTag
+      stats: self.stats, worn: self.worn, auras: self.auras, classTag: self.tag
     })
   }
 
@@ -347,7 +367,7 @@ public class GearPage implements Component {
   public render(self): Template {
     return $ltml {
       <box rows={["max-content", { fr: 1 }]} gap={3sp}>
-        <box columns={{ each: "max-content" }} gap={2sp}>
+        <box $if={self.own} columns={{ each: "max-content" }} gap={2sp}>
           <SetOf $for={set of self.sets} set={set} disabled={Game.situation.combat} @use={self.onUseSet} />
           <SetChip label={Locale.SAVE_SET} disabled={Game.situation.combat} @click={self.onSaveSet} />
         </box>
@@ -390,11 +410,11 @@ public class GearPage implements Component {
                    width={Style.SCENE_WIDTH} height={Style.SCENE_HEIGHT} background={self.scene} />
               <box position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui} background={Style.SCENE_VEIL}
                    zLevel={1} />
-              <box position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui} model={"player"}
+              <box position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui} model={self.unit}
                    zLevel={2} />
               <box rows={Style.SLOT_ROWS} zLevel={3}>
                 <GearSlot $for={spec of LEFT} spec={spec} worn={self.wornOf(spec.id)} levels={self.choices.itemLevels}
-                          wear={self.choices.durability} fits={self.fitsIn(spec.id)} share={self.shareOf(spec.id)} @picked={self.onPicked}
+                          wear={self.choices.durability} fits={self.fitsIn(spec.id)} share={self.shareOf(spec.id)} own={self.own} @picked={self.onPicked}
                           @tried={self.onTried} @flyout={self.onFlyout} />
               </box>
               <box rows={[{ fr: 1 }, "max-content", "max-content"]} gap={3sp} zLevel={3}>
@@ -403,7 +423,7 @@ public class GearPage implements Component {
                 </box>
                 <box columns={{ each: "max-content" }} gap={2sp} xAlign={Align.Center} yAlign={Align.Start}>
                   <GearSlot $for={spec of WEAPONS} spec={spec} worn={self.wornOf(spec.id)} levels={self.choices.itemLevels}
-                            wear={self.choices.durability} fits={self.fitsIn(spec.id)} share={self.shareOf(spec.id)} @picked={self.onPicked}
+                            wear={self.choices.durability} fits={self.fitsIn(spec.id)} share={self.shareOf(spec.id)} own={self.own} @picked={self.onPicked}
                             @tried={self.onTried} @flyout={self.onFlyout} />
                   <GearSlot $if={self.usesAmmo} spec={AMMO} worn={self.wornOf(AMMO.id)} levels={false} wear={false}
                             fits={self.fitsIn(AMMO.id)} size={AMMO_SIZE} @picked={self.onPicked} />
@@ -412,7 +432,7 @@ public class GearPage implements Component {
               </box>
               <box rows={Style.SLOT_ROWS} zLevel={3}>
                 <GearSlot $for={spec of RIGHT} spec={spec} worn={self.wornOf(spec.id)} levels={self.choices.itemLevels}
-                          wear={self.choices.durability} fits={self.fitsIn(spec.id)} share={self.shareOf(spec.id)} @picked={self.onPicked}
+                          wear={self.choices.durability} fits={self.fitsIn(spec.id)} share={self.shareOf(spec.id)} own={self.own} @picked={self.onPicked}
                           @tried={self.onTried} @flyout={self.onFlyout} />
               </box>
             </box>

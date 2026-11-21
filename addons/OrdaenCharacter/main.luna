@@ -3,21 +3,28 @@
 // game's own character window: whatever shows the game's (its key, C, its micro button, another addon's
 // `ToggleCharacter`) shows ours, the game's held unseen and off the screen while ours shows, and the game's tab picks
 // ours (reputation, the skills). Closing ours closes the game's. What it shows is read as it opens and again when the
-// game says it changed, and only while it shows.
+// game says it changed, and only while it shows. The game's inspect of another player (`InspectUnit`: the unit's menu,
+// the inspect key) opens the inspect window in place of the game's: that player's character, talents and honor, as
+// the server answers; its stats estimated from what the player's own characters of its class, race and level showed,
+// which the window keeps for the account each time it reads the player's stats.
 import Client from "$client"
 import Events from "$events"
+import Game from "$game"
 import { Frame } from "$ltml"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
 import { KeptWindow, Module, SECONDARY_TEXT, Settings, SettingsPage, Window, WindowTabSpec, WindowsPage, windowsTitle } from "Ordaen"
 import root Auras from "OrdaenAuras"
 import { SkillsPage } from "@/cards"
+import { KeptRates, Rates, estimate, ratesKey, ratesOf } from "@/estimate"
 import { GearPage } from "@/gear"
+import { ClientInspector, Honor, InspectHonor, InspectTalents, Inspected, Inspector } from "@/inspect"
 import Locale from "@/locales"
 import { FactionShow, ReputationPage, factionsCount } from "@/reputation"
 import { StatisticsPage, StatsView, statisticsCount } from "@/samples"
 import { Choices, GeneralPage } from "@/settings"
 import { ClientSheet, Faction, GearSet, Sheet, Skill, Stats, Who, Worn } from "@/sheet"
+import { Facts } from "@/sources"
 import Style from "@/style"
 
 // The tabs, in order.
@@ -33,12 +40,23 @@ const CHARACTER_ICON: Asset = "Interface/ICONS/INV_Shirt_GuildTabard_01"
 const SKILLS_ICON: Asset = "Interface/ICONS/INV_Misc_Book_11"
 const REPUTATION_ICON: Asset = "Interface/ICONS/INV_SideTab_Reputation2_c60"
 const STATISTICS_ICON: Asset = "Interface/ICONS/INV_SideTab_Stats_c60"
+// The inspect window's tabs, in order, and their pictures; the game's inspect window and the addon that makes it.
+const INSPECT_CHARACTER = 1
+const INSPECT_TALENTS = 2
+const TALENTS_ICON: Asset = "Interface/ICONS/Ability_Marksmanship"
+const PVP_ICON: Asset = "Interface/ICONS/INV_BannerPVP_02"
+const GAME_INSPECT = "InspectFrame"
+const INSPECT_ADDON = "Blizzard_InspectUI"
+// Where the rates the account's characters showed are kept.
+const RATES = "inspectRates"
+const NO_SKILLS: Array<Skill> = []
 
 public class Character implements Module, App {
   public const title: String = "Ordaen Character"
   // Its window, declared: where it stands and what the player does with it, kept in the profile.
   public window: mut KeptWindow = new KeptWindow("main", self.title, { x: 0ui, y: 0ui, width: Style.WIDTH, height: Style.HEIGHT })
-  public const windows: mut Array<mut KeptWindow> = [self.window]
+  public inspectWindow: mut KeptWindow = new KeptWindow("inspect", Locale.TAB_INSPECT, { x: 0ui, y: 0ui, width: Style.WIDTH, height: Style.HEIGHT })
+  public const windows: mut Array<mut KeptWindow> = [self.window, self.inspectWindow]
   public const pages: Array<SettingsPage> = [
     { title: Locale.TAB_GENERAL, content: $ltml { <GeneralPage settings={mut self.settings} /> } },
     { title: windowsTitle(), content: $ltml { <WindowsPage windows={mut self.windows} /> } }
@@ -47,6 +65,10 @@ public class Character implements Module, App {
   public settings: mut Settings<Choices> = new Settings<Choices>({ itemLevels: true, durability: true })
   // Where the window reads the character and what its clicks ask of the game.
   public sheet: mut any Sheet = new ClientSheet()
+  // Where the inspect window reads the player inspected.
+  public inspector: mut any Inspector = new ClientInspector()
+  // What the account's characters were without their items, by class, race and level.
+  rates: mut KeptRates = load<KeptRates>(.Account, RATES, KeptRates {})
 
   state open = false
   state tab = TAB_CHARACTER
@@ -81,6 +103,29 @@ public class Character implements Module, App {
     <text value={self.count} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
   }
   // Each tab's picture is the game's own for it.
+  // The inspect window: whom it shows (the unit the game inspected) and what the server said of it.
+  state inspecting = false
+  state inspectTab = INSPECT_CHARACTER
+  state inspectUnit = ""
+  state inspected: Inspected = {}
+  state inspectStats: Stats = {}
+  // Whether the stats are estimated from a character of the account (or only what the gear gives).
+  state estimated = false
+  state inspectTrees: Array<Game.TalentTree> = []
+  state honor: Honor = {}
+  // The game's inspect window, while it shows: held unseen and off the screen.
+  state inspectGame: any Frame | nil = nil
+  inspectFrame: any Client.Frame | nil = nil
+  addonHeard: Handle | nil = nil
+  derived estimateText: String = self.inspectTab != INSPECT_CHARACTER ? "" : self.estimated ? Locale.ESTIMATED : Locale.NOT_ESTIMATED
+  const inspectFooter: Template = $ltml {
+    <text value={self.estimateText} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
+  }
+  derived inspectTabs: Array<WindowTabSpec> = [
+    { title: self.inspected.who.name, icon: CHARACTER_ICON },
+    { title: Locale.TAB_TALENTS, icon: TALENTS_ICON },
+    { title: Locale.TAB_PVP, icon: PVP_ICON }
+  ]
   derived tabs: Array<WindowTabSpec> = [
     { title: Locale.TAB_CHARACTER, icon: CHARACTER_ICON },
     { title: Locale.TAB_SKILLS, icon: SKILLS_ICON },
@@ -90,6 +135,26 @@ public class Character implements Module, App {
 
   constructor() {
     Ordaen.modules.add(self)
+    Game.saved.store(.Account, RATES, self.rates)
+    // The server's answers about the player inspected are heard while the inspect window shows.
+    watch (shown of self.inspecting) {
+      if (shown) {
+        Events.INSPECT_READY.listen(self.onInspectReady)
+        Events.INSPECT_HONOR_UPDATE.listen(self.readHonor)
+        // An item the client didn't know yet: its name and level came.
+        Events.GET_ITEM_INFO_RECEIVED.listen(self.readInspected)
+      }
+    }
+    Client.hooksecurefunc("InspectUnit", (unit: Unknown): nil => {
+      if (unit is String) { self.onInspect(unit) }
+      return nil
+    })
+    const inspect = Runtime.frame(GAME_INSPECT)
+    if (inspect != nil) {
+      self.hookInspect(inspect)
+    } else {
+      self.addonHeard = Events.ADDON_LOADED.listen(self.onAddonLoaded)
+    }
     // The game's words about the character are heard while the window shows.
     watch (opened of self.open) {
       if (opened) {
@@ -164,6 +229,81 @@ public class Character implements Module, App {
     self.readSets()
     self.readFits()
     self.who = self.sheet.who()
+    self.keepRates()
+  }
+
+  // The game's inspect window, once its addon has loaded: held unseen while it shows; closed, ours closes.
+  onAddonLoaded(mut self, name: String) {
+    if (name != INSPECT_ADDON) { return }
+    if (self.addonHeard != nil) { destroy self.addonHeard }
+    self.hookInspect(Runtime.frame(GAME_INSPECT))
+  }
+
+  hookInspect(mut self, frame: any Frame | nil) {
+    if (frame == nil) { return }
+    const window: any Client.Frame = frame
+    self.inspectFrame = window
+    _ = window.HookScript("OnShow", (): nil => {
+      self.inspectGame = frame
+      return nil
+    })
+    _ = window.HookScript("OnHide", (): nil => {
+      self.inspectGame = nil
+      self.inspecting = false
+      return nil
+    })
+  }
+
+  // The game inspected a unit: ours shows it, on its character, and asks the server.
+  onInspect(mut self, unit: String) {
+    if (!self.inspector.canInspect(unit)) { return }
+    self.inspectUnit = unit
+    self.inspectTab = INSPECT_CHARACTER
+    self.inspectTrees = []
+    self.honor = {}
+    self.inspecting = true
+    self.inspector.ask(unit)
+    self.readInspected()
+  }
+
+  // The server answered about a player: the one shown, its gear, talents and honor read again.
+  onInspectReady(mut self, guid: String) {
+    if (guid != self.inspector.guidOf(peek self.inspectUnit)) { return }
+    self.readInspected()
+    self.inspectTrees = Game.talentTrees.inspected()
+    self.readHonor()
+  }
+
+  readInspected(mut self) {
+    const read = self.inspector.read(peek self.inspectUnit)
+    const rates = self.rates.byKey[ratesKey(read.classTag, read.who.scene, read.who.level)]
+    self.inspected = read
+    self.estimated = rates != nil
+    self.inspectStats = estimate(rates ?? Rates {}, read.worn, read.classTag)
+  }
+
+  readHonor(mut self) { self.honor = self.inspector.honor(peek self.inspectUnit) }
+
+  onInspectTried(mut self, slot: Integer) { self.inspector.tryOn(peek self.inspectUnit, slot) }
+
+  // Ours closed: the game's closes with it, and lets the answer go; without the game's, the answer is let go here.
+  onInspectClose(mut self) {
+    self.inspecting = false
+    const game = self.inspectFrame
+    if (game != nil && game.IsShown()) {
+      game.Hide()
+    } else {
+      self.inspector.clear()
+    }
+  }
+
+  // What the player's own character is without its items and auras, kept for estimating another of its class, race
+  // and level.
+  keepRates(mut self) {
+    const who = peek self.who
+    if (who.level == 0) { return }
+    const facts: Facts = { stats: peek self.stats, worn: peek self.worn, auras: peek Auras.active, classTag: Game.player.classTag }
+    self.rates.byKey[ratesKey(Game.player.classTag, who.scene, who.level)] = ratesOf(facts)
   }
 
   countOf(self): String {
@@ -306,6 +446,15 @@ public class Character implements Module, App {
                         show={mut self.factionShow} @pick={self.onPick}
                         @fold={self.onFold} @atWar={self.onAtWar} @inactive={self.onInactive} @watch={self.onWatch} />
         <StatisticsPage $else search={mut self.statsSearch} view={mut self.statsView} />
+      </Window>
+      <frame $if={self.inspecting && self.inspectGame != nil} of={self.inspectGame} opacity={0} away={true} />
+      <Window $if={self.inspecting} tabs={self.inspectTabs} selected={mut self.inspectTab} declared={mut self.inspectWindow}
+              minWidth={Style.WIDTH} minHeight={Style.HEIGHT} footer={self.inspectFooter} @close={self.onInspectClose}>
+        <GearPage $if={self.inspectTab == INSPECT_CHARACTER} worn={self.inspected.worn} who={self.inspected.who}
+                  stats={self.inspectStats} skills={NO_SKILLS} usesAmmo={false} choices={self.settings.values}
+                  unit={self.inspectUnit} classTag={self.inspected.classTag} @tried={self.onInspectTried} />
+        <InspectTalents $elseif={self.inspectTab == INSPECT_TALENTS} trees={self.inspectTrees} />
+        <InspectHonor $else honor={self.honor} />
       </Window>
     }
   }

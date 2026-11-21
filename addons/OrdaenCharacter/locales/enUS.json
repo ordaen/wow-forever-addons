@@ -89,5 +89,15 @@
   "WORD_DODGE": "dodge",
   "WORD_PARRY": "parry",
   "WORD_BLOCK": "block",
-  "WORD_SPELLS": "spell"
+  "WORD_SPELLS": "spell",
+  "TAB_TALENTS": "Talents",
+  "TAB_PVP": "PvP",
+  "INSPECT_NO_TALENTS": "The talents haven't come yet.",
+  "PVP_RANK": "Rank %d: %s",
+  "PVP_PROGRESS": "Honor: %d / %d",
+  "PVP_TODAY": "Honorable kills today",
+  "PVP_LIFETIME": "Honorable kills in all",
+  "ESTIMATED": "≈ Estimated from the gear, the base as your own characters of this class, race and level showed it",
+  "NOT_ESTIMATED": "≈ None of your characters has been this class, race and level: only what the gear gives",
+  "TAB_INSPECT": "Inspect"
 }

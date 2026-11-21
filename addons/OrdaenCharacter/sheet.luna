@@ -74,7 +74,7 @@ public struct Worn {
 // What a point of a main stat is worth to the character, as the client works it out for its class and level: attack
 // power a point of strength and of agility, ranged attack power a point of agility, and the crit a point of agility
 // and the spell crit a point of intellect give, in percent.
-public struct Conversions {
+public struct Conversions implements Plain {
   attackPerStrength: Number = 0
   attackPerAgility: Number = 0
   rangedPerAgility: Number = 0
@@ -117,7 +117,7 @@ public struct Who {
 }
 
 // What the character's resource bar holds.
-public enum Resource { Mana, Rage, Energy, Focus }
+public enum Resource implements Plain { Mana = "Mana", Rage = "Rage", Energy = "Energy", Focus = "Focus" }
 
 // The character's stats as the client works them out, with every buff and item counted.
 public struct Stats {
@@ -343,7 +343,7 @@ function startOf(format: String | nil): String {
 
 // The words the client's lines are told by, in the client's language: its own names of the item stats, and this
 // addon's words for what the client names nowhere (armor and every stat as a bonus says them, a chance's stem).
-function clientWords(): LineWords {
+public function clientWords(): LineWords {
   const flat: Array<FlatWord> = [
     { label: Locale.WORD_ARMOR, stats: [.Armor] },
     { label: Locale.WORD_ALL_STATS, stats: MAINS }
@@ -367,10 +367,10 @@ function clientWords(): LineWords {
   }
 }
 
-// The lines of the tooltip of the item worn in a slot, in order.
-function linesOf(slot: Integer): Array<ItemLine> {
+// The lines of the tooltip of the item a unit wears in a slot, in order.
+function linesOf(unit: String, slot: Integer): Array<ItemLine> {
   const lines: Array<ItemLine> = []
-  const data = Client.C_TooltipInfo.GetInventoryItem("player", slot, nil)
+  const data = Client.C_TooltipInfo.GetInventoryItem(unit, slot, nil)
   if (!(data is Table)) { return lines }
   const raw = data["lines"]
   if (!(raw is Table)) { return lines }
@@ -403,6 +403,23 @@ function givenBy(link: String | nil): Array<Given> {
   return gives
 }
 
+// What a unit wears in a slot, as any unit's can be read (the player's, or the player inspected once the server
+// answered): the item, its name, quality and level, and what it gives with its enchant and its set.
+public function wornBy(unit: String, slot: Integer, words: LineWords): Worn {
+  const id = Client.GetInventoryItemID(unit, slot)
+  if (id == nil) { return { slot: slot, item: nil, quality: Quality.Common, level: nil, durability: nil } }
+  const item = id.floor()
+  let name, _, quality, level, _, _, _, _, _, _, _, _, _, _, _, _, _, _ = Client.C_Item.GetItemInfo(item)
+  const bonuses = bonusesOf(linesOf(unit, slot), words)
+  const gives: Array<Given> = []
+  for (given of givenBy(Client.GetInventoryItemLink(unit, slot))) { gives.push(given) }
+  for (given of bonuses.enchant) { gives.push(given) }
+  return {
+    slot: slot, item: item, quality: qualityFrom(quality), level: level?.floor(), durability: nil, name: name ?? "",
+    gives: gives, set: bonuses.set
+  }
+}
+
 // Attack power a point of damage per second takes, as the game's tooltip divides it (`ATTACK_POWER_MAGIC_NUMBER`).
 const ATTACK_POWER_PER_DPS = 14
 
@@ -415,30 +432,25 @@ public class ClientSheet implements Sheet {
   // The client's words for the lines of an item's tooltip: read once, as they don't change while it runs.
   const words: LineWords = clientWords()
 
+  // What anyone's slot says, and what only the player's own does: its wear, how many, whether it is locked, its
+  // cooldown.
   public worn(self, slot: Integer): Worn {
-    const id = Client.GetInventoryItemID("player", slot)
-    if (id == nil) { return { slot: slot, item: nil, quality: Quality.Common, level: nil, durability: nil } }
-    const item = id.floor()
-    let name, _, quality, level, _, _, _, _, _, _, _, _, _, _, _, _, _, _ = Client.C_Item.GetItemInfo(item)
+    const piece = wornBy("player", slot, self.words)
+    if (piece.item == nil) { return piece }
     let left, most = Client.GetInventoryItemDurability(slot)
-    const durability = left != nil && most != nil && most > 0 ? left / most : nil
     let start, length, _ = Client.GetInventoryItemCooldown("player", slot)
-    const bonuses = bonusesOf(linesOf(slot), self.words)
-    const gives: Array<Given> = []
-    for (given of givenBy(Client.GetInventoryItemLink("player", slot))) { gives.push(given) }
-    for (given of bonuses.enchant) { gives.push(given) }
     return {
       slot: slot,
-      item: item,
-      quality: qualityFrom(quality),
-      level: level?.floor(),
-      durability: durability,
+      item: piece.item,
+      quality: piece.quality,
+      level: piece.level,
+      durability: left != nil && most != nil && most > 0 ? left / most : nil,
       count: Client.GetInventoryItemCount("player", slot).floor(),
       locked: Client.IsInventoryItemLocked(slot),
       cooldown: length > 0 ? { start: start, length: length } : nil,
-      name: name ?? "",
-      gives: gives,
-      set: bonuses.set
+      name: piece.name,
+      gives: piece.gives,
+      set: piece.set
     }
   }
 

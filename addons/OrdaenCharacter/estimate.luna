@@ -1,0 +1,103 @@
+// Another player's stats, which the client gives nobody, estimated as the character window explains the player's own:
+// each stat's base, plus what the items, their enchants and their sets give, plus what the main stats feed. The base
+// and the conversions are what the player's own characters of that class, race and level showed (`Rates`, kept for
+// the account each time the character window reads the player's stats); where none of them has been that class, race
+// and level, there is no estimate. Talents and auras on the other player are not counted.
+import { Conversions, Resource, Stats, Worn } from "@/sheet"
+import { Facts, basesOf, givenTo } from "@/sources"
+import { EVERY_STAT, MAINS, Stat } from "@/stat"
+
+// What a character of a class, race and level is without its items and its auras: each stat's base by the stat's
+// name, what a point of a main stat is worth, and its resource.
+public struct Rates implements Plain {
+  const bases: Map<String, Number> = {}
+  const conversions: Conversions = {}
+  const resource: Resource = Resource.Mana
+}
+
+// The rates the account's characters showed, by `ratesKey`.
+public struct KeptRates implements Plain {
+  byKey: mut Map<String, Rates> = {}
+}
+
+// The key a class, a race (as the client names its files) and a level are kept under.
+public function ratesKey(classTag: String, race: String, level: Integer): String {
+  return `${classTag}:${race}:${level}`
+}
+
+// The rates the player's own character shows now.
+public function ratesOf(facts: Facts): Rates {
+  return { bases: basesOf(facts), conversions: facts.stats.conversions, resource: facts.stats.resource }
+}
+
+// The stats of a character of the rates' class, race and level wearing `worn`.
+public function estimate(rates: Rates, worn: Array<Worn>, classTag: String): Stats {
+  const values: Map<String, Number> = {}
+  for (stat of MAINS) { values[`${stat}`] = baseOf(rates, stat) }
+  const bare = statsFrom(values, rates)
+  // The main stats first: what they feed is worked out from them.
+  for (stat of MAINS) { values[`${stat}`] = baseOf(rates, stat) + givenTo(stat, factsOf(bare, worn, classTag)) }
+  const mains = statsFrom(values, rates)
+  for (stat of EVERY_STAT) {
+    if (!MAINS.any(main => main == stat)) {
+      values[`${stat}`] = baseOf(rates, stat) + givenTo(stat, factsOf(mains, worn, classTag))
+    }
+  }
+  return statsFrom(values, rates)
+}
+
+function baseOf(rates: Rates, stat: Stat): Number { return rates.bases[`${stat}`] ?? 0 }
+
+function factsOf(stats: Stats, worn: Array<Worn>, classTag: String): Facts {
+  return { stats: stats, worn: worn, auras: [], classTag: classTag }
+}
+
+function whole(value: Number): Integer { return value.round() }
+
+// The schools a spell's damage counts, holy to arcane: each takes the spell damage every school gets.
+const SCHOOLS: Array<Integer> = [2, 3, 4, 5, 6, 7]
+
+// The window's stats from each stat's value by its name; what no stat names (weapon damage, speeds) is left as none.
+function statsFrom(values: Map<String, Number>, rates: Rates): Stats {
+  const of = (stat: Stat): Number => values[`${stat}`] ?? 0
+  return {
+    strength: whole(of(.Strength)),
+    agility: whole(of(.Agility)),
+    stamina: whole(of(.Stamina)),
+    intellect: whole(of(.Intellect)),
+    spirit: whole(of(.Spirit)),
+    health: whole(of(.Health)),
+    power: whole(of(.Power)),
+    resource: rates.resource,
+    armor: whole(of(.Armor)),
+    resistances: [
+      whole(of(.ArcaneResistance)), whole(of(.FireResistance)), whole(of(.FrostResistance)),
+      whole(of(.NatureResistance)), whole(of(.ShadowResistance))
+    ],
+    attackPower: whole(of(.AttackPower)),
+    rangedAttackPower: whole(of(.RangedAttackPower)),
+    meleeCrit: of(.MeleeCrit),
+    rangedCrit: of(.RangedCrit),
+    spellCrit: of(.SpellCrit),
+    hit: of(.MeleeHit),
+    haste: of(.Haste),
+    dodge: of(.Dodge),
+    parry: of(.Parry),
+    block: of(.Block),
+    spellDamage: whole(of(.SpellDamage)),
+    healing: whole(of(.Healing)),
+    regen: of(.Regen),
+    bases: MAINS.map(stat => whole(baseOf(rates, stat))),
+    meleeHit: of(.MeleeHit),
+    rangedHit: of(.RangedHit),
+    spellHit: of(.SpellHit),
+    expertise: of(.Expertise),
+    armorPenetration: whole(of(.ArmorPenetration)),
+    spellPenetration: whole(of(.SpellPenetration)),
+    defense: whole(of(.Defense)),
+    blockValue: whole(of(.BlockValue)),
+    schoolDamage: SCHOOLS.map(school => whole(of(.SpellDamage))),
+    runSpeed: of(.RunSpeed),
+    conversions: rates.conversions
+  }
+}

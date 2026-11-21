@@ -13,6 +13,7 @@ import { Quality } from "Ordaen"
 import root Auras from "OrdaenAuras"
 import root Char from "OrdaenCharacter"
 import { FITS_GLOW, wearColor } from "@/gear"
+import { Honor, Inspected, Inspector } from "@/inspect"
 import { WornSet } from "@/lines"
 import { ClientSheet, Faction, GearSet, Sheet, Skill, Stats, Who, Worn } from "@/sheet"
 import Style from "@/style"
@@ -596,4 +597,88 @@ test "the model stands in its race's scene from the game's dressing room, enlarg
   const window = opened(new FakeSheet())
   Test.expect(window.paintedWith("@/media/backdrop-dwarf.tga"))
   Test.expect(!window.paintedWith("@/media/backdrop-human.tga"))
+}
+
+// Inspecting another player
+
+// The test's player inspected: a dwarf warrior of level 60 with the two-hander alone, of rank 8.
+class FakeInspector implements Inspector {
+  heard: mut Array<String> = []
+
+  public canInspect(self, unit: String): Boolean { return unit == "target" }
+  public ask(mut self, unit: String) { self.heard.push(`ask ${unit}`) }
+  public guidOf(self, unit: String): String | nil { return GROM }
+  public read(self, unit: String): Inspected {
+    return {
+      who: { name: "Grom", level: 60, race: "Dwarf", className: "Warrior", scene: "Dwarf" }, classTag: "WARRIOR",
+      worn: [{
+        slot: 16, item: REAPER, quality: Quality.Epic, level: 58, durability: nil, name: "Arcanite Reaper",
+        gives: [{ stat: .Strength, amount: 20 }]
+      }]
+    }
+  }
+  public honor(self, unit: String): Honor {
+    return { rank: 8, title: "Knight", current: 300, next: 1000, today: 14, lifetime: 3870 }
+  }
+  public tryOn(mut self, unit: String, slot: Integer) { self.heard.push(`try ${slot}`) }
+  public clear(mut self) { self.heard.push("clear") }
+}
+
+const GROM = "Player-1-0002"
+// A text the inspect window always shows: its last tab.
+const INSPECT = "PvP"
+
+function inspecting(inspector: mut FakeInspector): Test.Part {
+  Char.inspector = inspector
+  Client.InspectUnit("target")
+  return Test.page().window(INSPECT)
+}
+
+test "the game's inspect opens ours on the player's character and asks the server; closing it lets the answer go" {
+  Test.mount(nil, PAGE)
+  Game.items.icon = icons
+  const inspector = new FakeInspector()
+  const window = inspecting(mut inspector)
+  Test.expect(window.text("Grom").shown())
+  Test.expect(window.text("58").shown())
+  Test.expect(inspector.heard.join(",") == "ask target")
+  window.button(Ordaen.art.ctl.corner.close).click()
+  Test.expect(!Test.page().window(INSPECT).shown())
+  Test.expect(inspector.heard.join(",") == "ask target,clear")
+}
+
+test "with no character of the account of the inspected class, race and level, the stats are what the gear gives, and the footer says so" {
+  Test.mount(nil, PAGE)
+  Game.items.icon = icons
+  const window = inspecting(new FakeInspector())
+  Test.expect(window.text("20").shown())
+  Test.expect(window.text("None of your characters has been this class, race and level: only what the gear gives").shown())
+}
+
+test "the stats are estimated from what the player's own character of that class, race and level showed: its base, the gear, and what strength feeds" {
+  Test.login({ guid: "Player-1-0001", name: "Regy", surname: "", realm: "Realm", faction: "Alliance", classTag: "WARRIOR" })
+  Test.mount(nil, PAGE)
+  Game.items.icon = icons
+  // The player's own window read once: a dwarf warrior of level 60, strength's base 280, attack power's 208.
+  opened(new FakeSheet()).button(Ordaen.art.ctl.corner.close).click()
+  const window = inspecting(new FakeInspector())
+  Test.expect(window.text("300").shown())
+  Test.expect(window.text("808").shown())
+  Test.expect(window.text("≈ Estimated from the gear, the base as your own characters of this class, race and level showed it").shown())
+}
+
+test "the talents come with the server's answer, only shown; the honor tab says the rank and the kills" {
+  Test.mount(nil, PAGE)
+  Game.items.icon = icons
+  Game.talentTrees.inspected = (): Array<Game.TalentTree> => [{
+    id: 1, name: "Arms", nodes: [{ id: 10, x: 0, y: 0, name: "Deflection", icon: nil, rank: 5, ranks: 5, canSpend: false, canRefund: false, edges: [] }]
+  }]
+  const window = inspecting(new FakeInspector())
+  window.button("Talents").click()
+  Test.expect(window.text("The talents haven't come yet.").shown())
+  Test.event("INSPECT_READY", GROM)
+  Test.expect(window.text("Arms: 5").shown())
+  window.button("PvP").click()
+  Test.expect(window.text("Rank 8: Knight").shown())
+  Test.expect(window.text("3870").shown())
 }
