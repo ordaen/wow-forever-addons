@@ -332,7 +332,7 @@ public class Quests implements Module, App {
   // once done; the chain window's: where it is given), its pins alone shown and lit until the map hides; without
   // Ordaen Map or a place QuestieDB knows, the map as it was. True where Ordaen Map opened it. Out of a fight alone:
   // the client opens the map for an addon there only, and every «Show on map» is off in one.
-  showOnMap(mut self, id: Integer): Boolean {
+  public showOnMap(mut self, id: Integer): Boolean {
     const area = self.areaOf(id)
     if (Maps == nil || area == nil) {
       Client.C_Map.OpenWorldMap(nil)
@@ -377,9 +377,14 @@ public class Quests implements Module, App {
 
   onBack(mut self) { self.picked = 0 }
 
-  // The quest asked for from the tracker: its page, in the window, or docked on the map with its panel. In a fight,
-  // where the client opens no map for an addon, in the window.
-  openAt(mut self, id: Integer): Boolean {
+  // The quest asked for from another module (the tracker, the chat's link): its page, in the window, or docked on the
+  // map with its panel. In a fight, where the client opens no map for an addon, in the window. A quest not in the log
+  // opens in the chain's window, as QuestieDB knows it; false where it knows nothing of it.
+  public openAt(mut self, id: Integer): Boolean {
+    if ((peek self.quests).find(quest => quest.id == id) == nil) {
+      self.openChained(id)
+      return peek self.chained == id
+    }
     self.picked = id
     if (peek self.docked && !Game.situation.combat) {
       Client.C_Map.OpenWorldMap(nil)

@@ -92,6 +92,19 @@ test "the key stays the window's when Blizzard's map opens its own quest panel (
   Test.expect(Test.page().window("World").shown() && !Client.WorldMapFrame.IsShown())
 }
 
+test "another module opens a quest of the log at its page, and one not in it in the chain's window" {
+  opened(standing())
+  Quests.flip()
+  Test.flush()
+  Test.expect(Quests.openAt(101))
+  Test.flush()
+  Test.expect(Test.page().window("World").shown() && Quests.picked == 101)
+  Test.expect(Quests.openAt(166))
+  Test.flush()
+  Test.expect(Quests.chained == 166 && Test.page().window("Level 16, available from level 12").shown())
+  Test.expect(!Quests.openAt(99999))
+}
+
 test "switched off, the key is the game's again" {
   Test.mount(nil, PAGE)
   _ = Client.SetBinding("L", "TOGGLEQUESTLOG")
