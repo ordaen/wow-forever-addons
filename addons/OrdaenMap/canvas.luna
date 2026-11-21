@@ -1,0 +1,393 @@
+// The world map's canvas: every zone's own art stitched on one plane, in Azeroth's (947) art units, each zone placed
+// by its rectangle on Azeroth's map and cut to its own land by OpenMap's territory mask (a soft feather where it has
+// none; a round one for a city), its explored pieces over it. A plain frame of the client's, without reactivity: the
+// window embeds `view`, and the canvas draws, pans (a drag) and zooms (the wheel, at the cursor) itself. Only the
+// zones near the view are drawn, each built the first time it comes near. The player's arrow stands over it.
+// OpenMap (MIT): https://github.com/openmap-world/openmap, its masks in `media/openmap`.
+import Client from "$client"
+
+// Azeroth's map: the plane every zone is placed on.
+const WORLD = 947
+const MEDIA = "Interface/AddOns/OrdaenMap/media/openmap/"
+// The zones OpenMap measured a territory for (`MapTerritory`): their land and the sea off their coasts.
+const TERRITORIES: Map<Integer, Boolean> = {
+  [1411]: true, [1412]: true, [1413]: true, [1416]: true, [1417]: true, [1418]: true, [1419]: true, [1420]: true,
+  [1421]: true, [1422]: true, [1423]: true, [1424]: true, [1425]: true, [1426]: true, [1427]: true, [1428]: true,
+  [1429]: true, [1430]: true, [1431]: true, [1432]: true, [1433]: true, [1434]: true, [1435]: true, [1436]: true,
+  [1437]: true, [1438]: true, [1439]: true, [1440]: true, [1441]: true, [1442]: true, [1443]: true, [1444]: true,
+  [1445]: true, [1446]: true, [1447]: true, [1448]: true, [1449]: true, [1450]: true, [1451]: true, [1452]: true,
+  [2482]: true, [2521]: true, [2548]: true, [2652]: true
+}
+// How far in the wheel zooms: the most screen pixels to a unit of Azeroth's art, and one notch's step.
+const MOST_SCALE: Number = 60
+const STEP: Number = 1.25
+// What of the view, past each side, counts as near: zones there are drawn before they come in.
+const NEAR: Number = 0.25
+// A city's own map shows once it is this wide a share of the view: under that, its zone's painting of it.
+const CITY_SHARE: Number = 0.15
+// How often the arrow follows the player, in seconds.
+const ARROW_EVERY: Number = 0.1
+const ARROW_SIZE: Number = 28
+const SEA_R: Number = 0.13
+const SEA_G: Number = 0.18
+const SEA_B: Number = 0.21
+
+// The smallest power of two from 16 up that holds `n`: an explored piece's last tile is a file that wide.
+function powerOver(n: Number): Number {
+  let size: Number = 16
+  for (step of 1..12) {
+    if (size >= n) { break }
+    size = size * 2
+  }
+  return size
+}
+
+// A map's first art layer: its size and its tiles' size.
+function firstLayer(map: Integer): Client.UiMapLayerInfo | nil {
+  const layers = Client.C_Map.GetMapArtLayers(map)
+  if (layers == nil) { return nil }
+  return layers[1]
+}
+
+// One zone's art: its frame on the canvas, built when it first comes near the view.
+class ZoneArt {
+  const id: Integer
+  // Its rectangle on the plane, in Azeroth's art units.
+  public const left: Number
+  public const top: Number
+  public const right: Number
+  public const bottom: Number
+  // A city: its own map shows only once it is wide enough in the view.
+  public const city: Boolean
+  public const frame: mut any Client.Frame
+  public built = false
+
+  constructor(id: Integer, left: Number, top: Number, right: Number, bottom: Number, city: Boolean, parent: any Client.Frame) {
+    self.id = id
+    self.left = left
+    self.top = top
+    self.right = right
+    self.bottom = bottom
+    self.city = city
+    self.frame = Client.CreateFrame("Frame", nil, parent, nil)
+    self.frame.SetAllPoints(parent, nil)
+    self.frame.Hide()
+  }
+
+  // The zone's tiles and explored pieces, each through its mask.
+  public build(mut self) {
+    self.built = true
+    const layer = firstLayer(self.id)
+    const files = Client.C_Map.GetMapArtLayerTextures(self.id, 1)
+    if (layer == nil || files == nil) { return }
+    const sx = (self.right - self.left) / layer.layerWidth
+    const sy = (self.bottom - self.top) / layer.layerHeight
+    const mask = self.frame.CreateMaskTexture(nil, nil, nil, nil)
+    const file = TERRITORIES[self.id] == true ? `${MEDIA}territory/${self.id}` : (self.city ? MEDIA + "featherRound" : MEDIA + "feather")
+    _ = mask.SetTexture(file, "CLAMPTOBLACKADDITIVE", "CLAMPTOBLACKADDITIVE", nil)
+    self.place(mask, 0, 0, layer.layerWidth * sx, layer.layerHeight * sy)
+    self.tiles(files, layer, 0, 0, layer.layerWidth, layer.layerHeight, false, 0, mask)
+    for (piece of Client.C_MapExplorationInfo.GetExploredMapTextures(self.id) ?? []) {
+      self.tiles(piece.fileDataIDs, layer, piece.offsetX, piece.offsetY, piece.textureWidth, piece.textureHeight, true, 1, mask)
+    }
+  }
+
+  // An image `width` by `height` at `x`, `y` of the zone's art, cut into its tiles (file ids, row by row). A base
+  // tile is a whole file cut at the art's edge; an explored piece's last tile is a file of the next power of two.
+  tiles(mut self, files: Array<Number>, layer: Client.UiMapLayerInfo, x: Number, y: Number, width: Number, height: Number, piece: Boolean, sub: Integer, mask: any Client.MaskTexture) {
+    const tw = layer.tileWidth
+    const th = layer.tileHeight
+    const sx = (self.right - self.left) / layer.layerWidth
+    const sy = (self.bottom - self.top) / layer.layerHeight
+    const cols = (width / tw).ceil()
+    const rows = (height / th).ceil()
+    for (j of 1..rows) {
+      const ph = j < rows ? th : height - (rows - 1) * th
+      const fh = j < rows || !piece ? th : powerOver(ph)
+      for (k of 1..cols) {
+        const file = files[(j - 1) * cols + k]
+        const pw = k < cols ? tw : width - (cols - 1) * tw
+        const fw = k < cols || !piece ? tw : powerOver(pw)
+        if (file != nil && pw > 0 && ph > 0) {
+          const tex = self.frame.CreateTexture(nil, "ARTWORK", nil, sub)
+          _ = tex.SetTexture(file, nil, nil, "TRILINEAR")
+          tex.SetTexCoord(0, pw / fw, 0, ph / fh, nil, nil, nil, nil)
+          tex.AddMaskTexture(mask)
+          self.place(tex, (x + (k - 1) * tw) * sx, (y + (j - 1) * th) * sy, pw * sx, ph * sy)
+        }
+      }
+    }
+  }
+
+  // A region at `x`, `y` of the zone's rectangle, `width` by `height`, in Azeroth's art units.
+  place(self, region: any Client.MaskTexture, x: Number, y: Number, width: Number, height: Number) {
+    region.SetPoint("TOPLEFT", self.frame, "TOPLEFT", self.left + x, -(self.top + y))
+    region.SetSize(width, height)
+  }
+
+  // Whether it meets the rectangle `left` to `right`, `top` to `bottom`.
+  public meets(self, left: Number, top: Number, right: Number, bottom: Number): Boolean {
+    return self.right > left && self.left < right && self.bottom > top && self.top < bottom
+  }
+}
+
+public class WorldCanvas {
+  // What the window embeds: it clips the plane and takes the drag and the wheel.
+  public const view: mut any Client.Frame
+  // The plane, Azeroth's art size, scaled and moved under the view.
+  const plane: mut any Client.Frame
+  const over: mut any Client.Frame
+  const arrow: mut any Client.Texture
+  // Azeroth's art size: the plane's units.
+  width: Number = 0
+  height: Number = 0
+  zones: mut Array<mut ZoneArt> = []
+  // Each map's rectangle on the plane, asked once: left, top, right, bottom.
+  rects: mut Map<Integer, Array<Number>> = {}
+  // The point of the plane at the view's top left corner, and screen pixels to a unit.
+  x: Number = 0
+  y: Number = 0
+  scale: Number = 1
+  // The view's frame level the zones stand over, as last told.
+  level: Number = -1
+  // A drag: where it began on the screen and where the view stood.
+  dragging = false
+  fromX: Number = 0
+  fromY: Number = 0
+  startX: Number = 0
+  startY: Number = 0
+  sinceArrow: Number = 0
+  // Whether it has been laid out once: the first opening finds the player.
+  placed = false
+
+  constructor() {
+    self.view = Client.CreateFrame("Frame", nil, Client.UIParent, nil)
+    self.view.Hide()
+    self.view.SetClipsChildren(true)
+    self.view.EnableMouse(true)
+    self.view.EnableMouseWheel(true)
+    const sea = self.view.CreateTexture(nil, "BACKGROUND", nil, 0)
+    sea.SetColorTexture(SEA_R, SEA_G, SEA_B, 1)
+    sea.SetAllPoints(self.view, nil)
+    self.plane = Client.CreateFrame("Frame", nil, self.view, nil)
+    self.over = Client.CreateFrame("Frame", nil, self.view, nil)
+    self.over.SetAllPoints(self.view, nil)
+    self.arrow = self.over.CreateTexture(nil, "OVERLAY", nil, 0)
+    _ = self.arrow.SetTexture("Interface/Minimap/MinimapArrow", nil, nil, nil)
+    self.arrow.SetSize(ARROW_SIZE, ARROW_SIZE)
+    self.arrow.Hide()
+    self.view.SetScript("OnShow", (): nil => {
+      self.opened()
+      return nil
+    })
+    self.view.SetScript("OnSizeChanged", (): nil => {
+      self.layout()
+      return nil
+    })
+    self.view.SetScript("OnMouseWheel", (frame: Unknown, delta: Number): nil => {
+      self.zoomAt(delta)
+      return nil
+    })
+    self.view.SetScript("OnMouseDown", (frame: Unknown, button: String): nil => {
+      if (button == "LeftButton") { self.startDrag() }
+      return nil
+    })
+    self.view.SetScript("OnMouseUp", (): nil => {
+      self.dragging = false
+      return nil
+    })
+    self.view.SetScript("OnUpdate", (frame: Unknown, elapsed: Number): nil => {
+      self.tick(elapsed)
+      return nil
+    })
+  }
+
+  public show(self) { self.view.Show() }
+  public hide(mut self) {
+    self.dragging = false
+    self.view.Hide()
+  }
+
+  // The plane and its zones, made the first time the map opens.
+  build(mut self) {
+    const layer = firstLayer(WORLD)
+    if (layer == nil) { return }
+    self.width = layer.layerWidth
+    self.height = layer.layerHeight
+    self.plane.SetSize(self.width, self.height)
+    const found: Array<mut ZoneArt> = []
+    for (info of Client.C_Map.GetMapChildrenInfo(WORLD, .Zone, true) ?? []) {
+      const id = info.mapID.floor()
+      const rect = self.rectOf(id)
+      if (rect != nil) {
+        const pieces = Client.C_MapExplorationInfo.GetExploredMapTextures(id) ?? []
+        const city = pieces.length == 0 && TERRITORIES[id] != true
+        found.push(new ZoneArt(id, rect[1] ?? 0, rect[2] ?? 0, rect[3] ?? 0, rect[4] ?? 0, city, self.plane))
+      }
+    }
+    // The biggest first, so a small zone stands over the big ones round it; the cities over every zone.
+    found.sort((a, b) => {
+      if (a.city != b.city) { return b.city }
+      return (a.right - a.left) * (a.bottom - a.top) > (b.right - b.left) * (b.bottom - b.top)
+    })
+    self.zones = found
+    self.level = -1
+  }
+
+  // A map's rectangle on the plane (left, top, right, bottom), or nil where it isn't on Azeroth's map.
+  rectOf(mut self, id: Integer): Array<Number> | nil {
+    const known = self.rects[id]
+    if (known != nil) { return known }
+    let left, right, top, bottom = Client.C_Map.GetMapRectOnMap(id, WORLD)
+    if (left == nil || right == nil || top == nil || bottom == nil || right <= left || bottom <= top) { return nil }
+    const rect = [left * self.width, top * self.height, right * self.width, bottom * self.height]
+    self.rects[id] = rect
+    return rect
+  }
+
+  // The map opened: built the first time, the first time on the player's zone, filling the view.
+  opened(mut self) {
+    if (self.zones.length == 0) { self.build() }
+    if (!self.placed) {
+      self.placed = true
+      self.findPlayer()
+    }
+    self.layout()
+  }
+
+  // The view on the player's zone, the zone filling it.
+  findPlayer(mut self) {
+    const map = Client.C_Map.GetBestMapForUnit("player")
+    const rect = map != nil ? self.rectOf(map.floor()) : nil
+    const width = self.view.GetWidth()
+    const height = self.view.GetHeight()
+    if (rect == nil || width <= 0 || height <= 0) {
+      self.scale = self.least()
+      self.x = 0
+      self.y = 0
+      return
+    }
+    const left = rect[1] ?? 0
+    const top = rect[2] ?? 0
+    const right = rect[3] ?? 0
+    const bottom = rect[4] ?? 0
+    self.scale = (width / (right - left)).min(height / (bottom - top)) * 0.95
+    self.x = (left + right) / 2 - width / self.scale / 2
+    self.y = (top + bottom) / 2 - height / self.scale / 2
+  }
+
+  // The least zoom: the whole world in the view.
+  least(self): Number {
+    const width = self.view.GetWidth()
+    const height = self.view.GetHeight()
+    if (self.width <= 0 || width <= 0) { return 1 }
+    return (width / self.width).min(height / self.height) * 0.9
+  }
+
+  // The plane placed under the view as `x`, `y` and `scale` say, kept in reach, and the zones near the view drawn.
+  layout(mut self) {
+    if (self.width <= 0) { return }
+    const width = self.view.GetWidth()
+    const height = self.view.GetHeight()
+    if (width <= 0 || height <= 0) { return }
+    self.scale = self.scale.max(self.least()).min(MOST_SCALE)
+    const across = width / self.scale
+    const down = height / self.scale
+    self.x = self.x.max(-across / 2).min(self.width - across / 2)
+    self.y = self.y.max(-down / 2).min(self.height - down / 2)
+    self.plane.SetScale(self.scale)
+    self.plane.ClearAllPoints()
+    self.plane.SetPoint("TOPLEFT", self.view, "TOPLEFT", -self.x, self.y)
+    self.relevel()
+    const left = self.x - across * NEAR
+    const top = self.y - down * NEAR
+    const right = self.x + across * (1 + NEAR)
+    const bottom = self.y + down * (1 + NEAR)
+    for (zone of self.zones) {
+      const wide = !zone.city || (zone.right - zone.left) * self.scale >= width * CITY_SHARE
+      if (wide && zone.meets(left, top, right, bottom)) {
+        if (!zone.built) { zone.build() }
+        zone.frame.Show()
+      } else {
+        zone.frame.Hide()
+      }
+    }
+    self.placeArrow()
+  }
+
+  // The zones' frames over the view's level, in their order, and the arrow's over them: the window tells the view
+  // its level as it lays out.
+  relevel(mut self) {
+    const level = self.view.GetFrameLevel()
+    if (level == self.level) { return }
+    self.level = level
+    self.plane.SetFrameLevel(level + 1)
+    for (index, zone of self.zones) { zone.frame.SetFrameLevel(level + 1 + index) }
+    self.over.SetFrameLevel(level + 2 + self.zones.length)
+  }
+
+  // The cursor on the view, in the view's units from its top left corner.
+  cursor(self): Array<Number> {
+    let x, y = Client.GetCursorPosition()
+    const scale = self.view.GetEffectiveScale()
+    return [x / scale - (self.view.GetLeft() ?? 0), (self.view.GetTop() ?? 0) - y / scale]
+  }
+
+  // A notch of the wheel: in or out, the point under the cursor staying under it.
+  zoomAt(mut self, delta: Number) {
+    const at = self.cursor()
+    const cx = at[1] ?? 0
+    const cy = at[2] ?? 0
+    const wx = self.x + cx / self.scale
+    const wy = self.y + cy / self.scale
+    self.scale = (delta > 0 ? self.scale * STEP : self.scale / STEP).max(self.least()).min(MOST_SCALE)
+    self.x = wx - cx / self.scale
+    self.y = wy - cy / self.scale
+    self.layout()
+  }
+
+  startDrag(mut self) {
+    const at = self.cursor()
+    self.dragging = true
+    self.fromX = at[1] ?? 0
+    self.fromY = at[2] ?? 0
+    self.startX = self.x
+    self.startY = self.y
+  }
+
+  // Each frame while the map shows: a drag moves the plane; the arrow follows the player every tenth of a second.
+  tick(mut self, elapsed: Number) {
+    if (self.dragging) {
+      const at = self.cursor()
+      self.x = self.startX - ((at[1] ?? 0) - self.fromX) / self.scale
+      self.y = self.startY - ((at[2] ?? 0) - self.fromY) / self.scale
+      self.layout()
+      return
+    }
+    self.sinceArrow += elapsed
+    if (self.sinceArrow < ARROW_EVERY) { return }
+    self.sinceArrow = 0
+    self.relevel()
+    self.placeArrow()
+  }
+
+  // The player's arrow where the player is on the plane, turned as the player faces; hidden where the client gives
+  // no place (an instance).
+  placeArrow(mut self) {
+    const map = Client.C_Map.GetBestMapForUnit("player")
+    const at = map != nil ? Client.C_Map.GetPlayerMapPosition(map, "player") : nil
+    const rect = map != nil ? self.rectOf(map.floor()) : nil
+    if (at == nil || rect == nil) {
+      self.arrow.Hide()
+      return
+    }
+    const left = rect[1] ?? 0
+    const top = rect[2] ?? 0
+    const wx = left + at.x * ((rect[3] ?? 0) - left)
+    const wy = top + at.y * ((rect[4] ?? 0) - top)
+    self.arrow.ClearAllPoints()
+    self.arrow.SetPoint("CENTER", self.over, "TOPLEFT", (wx - self.x) * self.scale, -(wy - self.y) * self.scale)
+    self.arrow.SetRotation(Client.GetPlayerFacing() ?? 0)
+    self.arrow.Show()
+  }
+}

@@ -4,6 +4,9 @@
   "SETTING_DOCKED": "Quest log beside the map",
   "DUNGEON_CARD": "Ordaen",
   "SETTING_DOCKED_TIP": "As Blizzard has it: the quest log opens with the map, at its right. Off: the map (M) and the quest log (L) open apart.",
+  "SETTING_OWN_WINDOW": "Ordaen's map (alpha)",
+  "SETTING_OWN_WINDOW_TIP": "The map key (M) opens Ordaen's own map window: every zone stitched into one map, dragged with the mouse and zoomed with the wheel. Off: the game's map.",
+  "MAP_WINDOW": "World map",
   "SECTION_LAYERS": "Layers",
   "NO_LAYERS": "No module puts pins on the map. Ordaen Quests adds its own.",
   "NO_OPENMAP": "OpenMap isn't loaded, or is older than version 4: no pins are drawn on the map."
