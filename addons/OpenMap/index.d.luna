@@ -12,6 +12,9 @@ public module OpenMapAPI {
   public function WorldFromMap(map: Integer, x: Number, y: Number): (Number | nil, Number | nil)
   // A point of the stitched world on a uiMap, 0 to 1 (outside 0 to 1 where it is off the map); nil where it can't say.
   public function MapFromWorld(map: Integer, u: Number, v: Number): (Number | nil, Number | nil)
+  // Glides the stitched map to a point of the world at a zoom (1: the whole world fits; nil: as it is); false where
+  // the stitched map doesn't show.
+  public function ShowWorld(u: Number, v: Number, zoom: Number | nil): Boolean
   // The highest frame level its art takes on the canvas: other addons' pins stand over it.
   // The frame level the stitched art reaches; nil until OpenMap has built its stitched map.
   public function ArtTopLevel(): Integer | nil
