@@ -1,5 +1,6 @@
 // Ordaen Quests: the player's quests in Ordaen's window, in four tabs (World, Dungeons, Raids, PvP), the list by the
-// client's headers on the left and the picked quest's page beside it; and the tracked quests' places on Ordaen Map.
+// client's headers on the left and the picked quest's page beside it; and a quest's places on Ordaen Map as the player
+// asks to see it there.
 // The window has a list window's shape: over the list its kinds' tabs with their counts and the toolbar (the search,
 // the select of in progress, completed or all, then the filter, the sort and the view), and in the footer the count
 // against the log's cap.
@@ -23,7 +24,7 @@ import { LogQuest, logQuests } from "@/book"
 import { TakenClick } from "@/button"
 import { QuestieData } from "@/data"
 import { KINDS, QuestKind } from "@/kind"
-import { ChainPins, DungeonQuests, PinKind, QuestPins, leadsTo, startsAt } from "@/layers"
+import { ChainPins, DungeonQuests, TurnInPins, leadsTo, startsAt } from "@/layers"
 import { QuestList } from "@/list"
 import Locale from "@/locales"
 import { Asked, FILTER_START, Folds, ListChoices, QuestFilter, QuestSort, QuestStatus, QuestView, countOf, foldedOnce, listedOf } from "@/model"
@@ -141,9 +142,7 @@ public class Quests implements Module, App {
   public state facts: Map<Integer, QuestFacts> = {}
   // The quest whose page shows (0: none), its text, and the quest the player asked to abandon (0: none).
   public state picked = 0
-  // The quest under the cursor in the list (0: none): its pins on the map are lit.
-  public state hovered = 0
-  // The quest the player asked to see on the map (0: none): its pins show and are lit until the map hides.
+  // The quest the player asked to see on the map (0: none): its marks alone show, until the map hides.
   public state shownOnMap = 0
   // The quest of a chain whose page the chain window shows (0: none, the window closed), and QuestieDB's facts of it.
   public state chained = 0
@@ -196,15 +195,13 @@ public class Quests implements Module, App {
   derived chainedList: Array<QuestFacts> = self.chainedFacts == nil ? [] : [self.chainedFacts ?? panic("facts")]
 
   const toggle: any Client.Frame
-  const objectives: QuestPins
-  const turnIns: QuestPins
+  const turnIns: TurnInPins
   const chainPins: ChainPins
   const dungeonQuests: DungeonQuests
   const trackerLines: TrackerLines
 
   constructor() {
-    self.objectives = new QuestPins(PinKind.Objectives, self.quests, self.facts, self.hovered, self.shownOnMap)
-    self.turnIns = new QuestPins(PinKind.TurnIns, self.quests, self.facts, self.hovered, self.shownOnMap)
+    self.turnIns = new TurnInPins(self.quests, self.facts, self.shownOnMap)
     self.chainPins = new ChainPins(self.chained, self.chainedFacts, self.shownOnMap)
     self.dungeonQuests = new DungeonQuests(self.quests)
     self.trackerLines = new TrackerLines(self.facts, (id: Integer): Boolean => self.openAt(id), (id: Integer): Boolean => self.showOnMap(id))
@@ -216,7 +213,6 @@ public class Quests implements Module, App {
     })
     watch (maps of Maps) {
       if (maps == nil) { return }
-      maps.layers.add(self.objectives)
       maps.layers.add(self.turnIns)
       maps.layers.add(self.chainPins)
       maps.dungeons.add(self.dungeonQuests)
@@ -295,8 +291,6 @@ public class Quests implements Module, App {
   onAct(mut self, id: Integer, act: Act) {
     match (act) {
       .Pick => { self.picked = id }
-      .Hover => { self.hovered = id }
-      .Unhover => { if (peek self.hovered == id) { self.hovered = 0 } }
       .Track => {
         const quest = (peek self.quests).find(quest => quest.id == id)
         if (quest != nil) {

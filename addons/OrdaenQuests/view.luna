@@ -17,7 +17,7 @@ import { standingsOf } from "@/reputation"
 // What the player asks of a quest from its row or its page. `Link`: Shift+Left-click on its title, a chat link where a
 // chat line is open, else tracking (the game's order). `ShowNext`: the next quest of a chain, by its id, opens its page
 // in the chain's window.
-public enum Act { Pick, Track, Link, Share, Abandon, ShowOnMap, SuperTrack, Hover, Unhover, ShowNext }
+public enum Act { Pick, Track, Link, Share, Abandon, ShowOnMap, SuperTrack, ShowNext }
 
 const INK: Color = Color.hex("#e8dcc4")
 // What the player's clicks on a quest's row do, in its tooltip.
@@ -121,11 +121,9 @@ public class QuestRow implements Component {
   onClose(mut self) { self.menuOpen = false }
   onEnter(mut self) {
     self.hovered = true
-    self.act.emit(self.quest.id, Act.Hover)
   }
   onLeave(mut self) {
     self.hovered = false
-    self.act.emit(self.quest.id, Act.Unhover)
   }
 
   onEntry(mut self, index: Integer) {

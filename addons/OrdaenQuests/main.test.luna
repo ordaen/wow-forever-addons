@@ -237,7 +237,7 @@ test "a quest's scroll fills its page's height: the rolls at its top and its foo
   Test.expect(short.top > window.text("Objectives").rect().bottom + 60)
 }
 
-test "a quest under the cursor has its tooltip, and its pins on the map lit while it is there" {
+test "a quest under the cursor has its tooltip" {
   const log = standing()
   log[1] = { task: "Find Gryan in Sentinel Hill.", ..log[1] ?? panic("a quest") }
   opened(log)
@@ -246,9 +246,6 @@ test "a quest under the cursor has its tooltip, and its pins on the map lit whil
   // As the game's log's: its task, then what the clicks do.
   Test.expect(Test.page().text("Find Gryan in Sentinel Hill.").shown())
   Test.expect(Test.page().text("Left-click: open the quest").shown() && Test.page().text("Right-click: more").shown())
-  Test.expect(Quests.hovered == 101)
-  Test.page().window("World").text("In the log").hover()
-  Test.expect(Quests.hovered == 0)
 }
 
 test "docked, the map open, the log stands over the map's side panel; a quest picked there shows its page and the way back" {
@@ -447,7 +444,7 @@ test "its layers stand on Ordaen Map's settings page while Map is on" {
   Test.mount(nil, PAGE)
   Test.open("Ordaen")
   Test.page().window("Ordaen").text("Map").click()
-  Test.expect(Test.page().text("Quest objectives").shown())
+  Test.expect(!Test.page().text("Quest objectives").shown())
   Test.expect(Test.page().text("Turn in").shown())
 }
 
