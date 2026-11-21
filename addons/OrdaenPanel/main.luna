@@ -3,9 +3,9 @@
 // bags) sits in the zone its setting names, or not on the panel. The menu's buttons and the bags are the game's own,
 // standing in the panel's cells, so their clicks, menus and alerts stay the game's.
 import Game from "$game"
-import { Align, Anchored, Art, Docked, Edges, Event, Layer, Overflow, Place, Point, Position, Shadow, Side, Track } from "$ltml"
+import { Align, Anchored, Art, Docked, Edges, Event, Frame, Layer, Overflow, Place, Point, Position, Shadow, Side, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { BODY_LINE, BarFrame, Component, Module, Mover, Placed, Settings, SettingsPage, XpFill, opacityNow, reachAcross, reachDown, sideNear, timeText, xpFillArt } from "Ordaen"
+import { BODY_LINE, BarFrame, Callout, CalloutSide, Component, Module, Mover, Placed, Settings, SettingsPage, XpFill, opacityNow, reachAcross, reachDown, sideNear, timeText, xpFillArt } from "Ordaen"
 import { ActionBars, barDefaults, bartenderLoaded } from "@/actionBars"
 import { BARS_DEFAULTS, BarChoice, BarsChoices } from "@/barChoices"
 import { BarsPage } from "@/barsPage"
@@ -50,6 +50,13 @@ const CORNER: Anchored = { point: Point.BottomLeft }
 const SPELLS = "Ordaen Spells"
 // Ordaen Social's title, as its module gives it.
 const SOCIAL = "Ordaen Social"
+// Ordaen Social's folder, by which it tells Ordaen how many whispers wait unread.
+const SOCIAL_FOLDER = "OrdaenSocial"
+
+// The friends' button the whispers' bubble points at, while it shows.
+function bubbleBy(shown: Boolean, button: any Frame | nil): Array<any Frame> {
+  return !shown || button == nil ? [] : [button]
+}
 // Down a side of the screen: one column, the zones one under another.
 const DOWN: Array<Track> = [{ fr: 1 }]
 
@@ -205,7 +212,13 @@ public class Panel implements Module, App {
       const taken: Number<Length> = self.settings.values.bottomOn && self.side == Side.Bottom ? self.drawnTall : 0ui
       Ordaen.keepBottom(FOLDER, taken)
     }
+    // Every whisper read: the next one brings the bubble back.
+    watch (count of self.unread) {
+      if (count == 0) { self.unreadClosed = 0 }
+    }
   }
+
+  onWhispersClosed(mut self) { self.unreadClosed = peek self.unread }
 
   destructor() {
     Ordaen.keepBottom(FOLDER, 0ui)
@@ -253,6 +266,14 @@ public class Panel implements Module, App {
   // With Ordaen Social on, its window holds the friends and the guild: the friends' button alone opens it, the guild's
   // goes (and comes back as the module is turned off).
   public derived guildMerged: Boolean = Ordaen.modules.any(module => module.title == SOCIAL)
+  // The whispers Ordaen Social says wait unread: a bubble pointing at the friends' button says how many, over it (under
+  // it on a panel along the top), until the player closes it; more coming after bring it back.
+  derived unread: Integer = Ordaen.noticeOf(SOCIAL_FOLDER)
+  state unreadClosed = 0
+  derived whispersBy: Array<any Frame> = bubbleBy(self.settings.values.microOn && self.unread > self.unreadClosed,
+    Game.frames.QuickJoinToastButton)
+  derived whispersText: String = Locale.WHISPERS_UNREAD.format(self.unread)
+  derived whispersSide: CalloutSide = self.side == Side.Top ? CalloutSide.Below : CalloutSide.Above
   derived place: Place = self.placeOf()
   // The zones: three columns across the screen, three rows down a side of it; thirds of the whole edge, or each
   // as long as its items.
@@ -404,6 +425,8 @@ public class Panel implements Module, App {
         </surface>
       </surface>
 
+      <Callout $for={by of self.whispersBy} by={by} title={Locale.WHISPERS_TITLE} text={self.whispersText}
+               side={self.whispersSide} @close={self.onWhispersClosed} />
       <Placed $if={self.freeMicro} id={"OrdaenPanel.micromenu"} title={Locale.PANEL_MICROMENU} home={MICRO_HOME}>
         <box background={Ordaen.art.window.wood} border={Ordaen.art.frame.small} padding={3sp}>
           <MicroLine gold={self.goldIcons} merged={self.spellsMerged} guildMerged={self.guildMerged} face={self.face} icon={self.classIcon} />

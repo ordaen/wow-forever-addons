@@ -216,5 +216,7 @@
   "PANEL_XPFILL_CLOUDS": "Mana clouds",
   "PANEL_XPFILL_STEEL": "Steel",
   "PANEL_XPBORDER_BEZEL": "Bronze bezel",
-  "PANEL_XPBORDER_GROOVE": "Carved groove"
+  "PANEL_XPBORDER_GROOVE": "Carved groove",
+  "WHISPERS_TITLE": "Whispers",
+  "WHISPERS_UNREAD": "%d unread. Open the friends window to read them."
 }
