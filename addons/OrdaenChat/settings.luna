@@ -1,19 +1,14 @@
-// The chat's page in the settings window: each control writes one entry of the settings, at once.
+// The chat's page in the settings window, in sections: the window, its visibility, the lines, the input. Each control
+// writes one entry of the settings, at once.
 import Game from "$game"
-import { Choice, Component, Field, NumberInput, Segmented, Settings, Switch, Unit } from "Ordaen"
-import { ChannelName, Choices, LEAST_HEIGHT, LEAST_WIDTH } from "@/choices"
+import { Choice, Component, Field, NumberInput, Section, Segmented, SettingRow, Settings, Switch, Unit } from "Ordaen"
+import { Choices, LEAST_HEIGHT, LEAST_WIDTH } from "@/choices"
 import Locale from "@/locales"
 
 const HISTORY: Array<Choice<Game.ChatHistory>> = [
   { value: Game.ChatHistory.All, label: Locale.HISTORY_ALL },
   { value: Game.ChatHistory.Commands, label: Locale.HISTORY_COMMANDS },
   { value: Game.ChatHistory.None, label: Locale.HISTORY_NONE }
-]
-
-const NAMES: Array<Choice<ChannelName>> = [
-  { value: ChannelName.Number, label: Locale.CHANNEL_NUMBER },
-  { value: ChannelName.Name, label: Locale.CHANNEL_NAME },
-  { value: ChannelName.Both, label: Locale.CHANNEL_BOTH }
 ]
 
 public class ChatPage implements Component {
@@ -24,19 +19,35 @@ public class ChatPage implements Component {
 
   public render(self): Template {
     return $ltml {
-      <NumberInput label={Locale.WIDTH} value={mut self.settings.values.width} least={LEAST_WIDTH} most={1200} step={10} unit={Unit.None} />
-      <NumberInput label={Locale.HEIGHT} value={mut self.settings.values.height} least={LEAST_HEIGHT} most={800} step={10} unit={Unit.None} />
-      <NumberInput label={Locale.FADE} hint={Locale.FADE_TIP} value={mut self.settings.values.fade} least={0} most={600} step={10}
-                   unit={Unit.None} />
-      <Segmented value={mut self.settings.values.channelName} choices={NAMES} />
-      <Field value={mut self.settings.values.keywords} maxLength={200} placeholder={Locale.KEYWORDS} />
-      <Switch label={Locale.REPEATS} hint={Locale.REPEATS_TIP} value={mut self.settings.values.repeats} />
-      <NumberInput label={Locale.KEPT} hint={Locale.KEPT_TIP} value={mut self.settings.values.kept} least={0} most={500} step={50}
-                   unit={Unit.None} />
-      <NumberInput label={Locale.HELD} hint={Locale.HELD_TIP} value={mut self.settings.values.held} least={100} most={2000}
-                   step={100} unit={Unit.None} />
-      <Switch label={Locale.INPUT_ALWAYS} hint={Locale.INPUT_ALWAYS_TIP} value={mut self.settings.values.inputAlways} />
-      <Segmented value={mut self.settings.values.history} choices={HISTORY} />
+      <box columns={1} gap={6sp}>
+        <Section title={Locale.SECTION_WINDOW}>
+          <NumberInput label={Locale.WIDTH} value={mut self.settings.values.width} least={LEAST_WIDTH} most={1200} step={10}
+                       unit={Unit.None} />
+          <NumberInput label={Locale.HEIGHT} value={mut self.settings.values.height} least={LEAST_HEIGHT} most={800} step={10}
+                       unit={Unit.None} />
+        </Section>
+        <Section title={Locale.SECTION_VISIBILITY}>
+          <Switch label={Locale.HIDE} hint={Locale.HIDE_TIP} value={mut self.settings.values.hide} />
+          <NumberInput $if={self.settings.values.hide} label={Locale.HIDDEN_OPACITY} hint={Locale.HIDDEN_OPACITY_TIP}
+                       value={mut self.settings.values.hiddenOpacity} least={0} most={1} step={0.05} unit={Unit.Percent} />
+        </Section>
+        <Section title={Locale.SECTION_LINES}>
+          <SettingRow label={Locale.KEYWORDS} hint={Locale.KEYWORDS_TIP}>
+            <Field value={mut self.settings.values.keywords} maxLength={200} placeholder={Locale.KEYWORDS_EXAMPLE} />
+          </SettingRow>
+          <Switch label={Locale.REPEATS} hint={Locale.REPEATS_TIP} value={mut self.settings.values.repeats} />
+          <NumberInput label={Locale.KEPT} hint={Locale.KEPT_TIP} value={mut self.settings.values.kept} least={0} most={500}
+                       step={50} unit={Unit.None} />
+          <NumberInput label={Locale.HELD} hint={Locale.HELD_TIP} value={mut self.settings.values.held} least={100} most={2000}
+                       step={100} unit={Unit.None} />
+        </Section>
+        <Section title={Locale.SECTION_INPUT}>
+          <Switch label={Locale.INPUT_ALWAYS} hint={Locale.INPUT_ALWAYS_TIP} value={mut self.settings.values.inputAlways} />
+          <SettingRow label={Locale.HISTORY} hint={Locale.HISTORY_TIP}>
+            <Segmented value={mut self.settings.values.history} choices={HISTORY} />
+          </SettingRow>
+        </Section>
+      </box>
     }
   }
 }

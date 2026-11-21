@@ -48,6 +48,15 @@ function whisper(sender: String, words: String, told: Boolean = false): mut Game
   return said
 }
 
+// The «Tabs» page opened in the settings window.
+function tabsPage(): Test.Part {
+  Test.open("/ordaen")
+  const settings = Test.page().window("Move mode")
+  settings.button("Chat").click()
+  settings.button("Tabs").click()
+  return settings
+}
+
 // The chat mounted, found by its first tab.
 function chat(first: String = "General"): Test.Part {
   Test.mount(nil, SCREEN)
@@ -161,11 +170,38 @@ test "Enter shows the input line, on the screen, in the chat's frame" {
   Test.expect(shown.box(FIELD_FILL).count() == 1)
 }
 
-test "a channel's line is named by its number and name, the zone left out" {
+test "a channel's line is named by its name, the zone left out, until its tab's settings say otherwise" {
   Game.chat.windows = gameWindows()
-  const shown = chat()
+  _ = chat()
   Game.chat.heard.emit(line("CHANNEL", "[Gazlowe]: WTS ore", "Gazlowe", [1], 2, "Trade - City"))
-  Test.expect(shown.text("|Hchannel:CHANNEL:2|h[2. Trade]|h [Gazlowe]: WTS ore").shown())
+  // Found by its tab of the whispers: the «Tabs» page lists the windows too.
+  const shown = Test.page().window("Whispers")
+  Test.expect(shown.text("|Hchannel:CHANNEL:2|h[Trade]|h [Gazlowe]: WTS ore").shown())
+  const settings = tabsPage()
+  settings.text("[2. Trade]").click()
+  Game.chat.heard.emit(line("CHANNEL", "[Gazlowe]: WTB ore", "Gazlowe", [1, 3], 2, "Trade - City"))
+  Test.expect(shown.text("|Hchannel:CHANNEL:2|h[2. Trade]|h [Gazlowe]: WTB ore").shown())
+  // Another tab keeps its own.
+  shown.text("Jaina").click()
+  Test.expect(shown.text("|Hchannel:CHANNEL:2|h[Trade]|h [Gazlowe]: WTB ore").shown())
+}
+
+test "a tab's count goes off in its settings; the combat log's and a tab of channels alone have none until turned on" {
+  Game.chat.windows = [window(1, "General", ""), window(3, "Whisper", "Jaina"), window(4, "Trade", "")]
+  Game.chat.groups = (index: Integer): Array<Game.ChatGroup> => [
+    { name: "SAY", label: "Say", section: .Players, shown: index != 4 }
+  ]
+  Game.chat.channels = (index: Integer): Array<Game.ChatShown> => [{ name: "Trade", shown: index == 4 }]
+  _ = chat()
+  const shown = Test.page().window("Whispers")
+  Game.chat.heard.emit(line("CHANNEL", "[Gazlowe]: WTS ore", "Gazlowe", [4], 2, "Trade - City"))
+  Test.expect(!shown.text("1").shown())
+  const settings = tabsPage()
+  settings.text("Whisper").click()
+  // Its switches: locked, then the count.
+  settings.button(Ordaen.art.ctl.switchOn).nth(2).click()
+  Game.chat.heard.emit(line("SAY", "[Jaina] says: psst", "Jaina", [3]))
+  Test.expect(!shown.text("1").shown())
 }
 
 test "the same words said again one after another are one line, counted" {
@@ -344,29 +380,23 @@ test "a window the player undocked is a pane of its own" {
   Test.expect(!Test.page().window("General").text("Jaina").shown())
 }
 
-test "the Tabs page shows what a window shows, each turned on and off there" {
+test "the Tabs page lists the windows in a sidebar, and the picked one's message groups by the game's sections, in its words" {
   Game.chat.windows = gameWindows()
-  Game.chat.groups = (index: Integer): Array<Game.ChatShown> => [{ name: "SAY", shown: true }, { name: "YELL", shown: false }]
+  Game.chat.groups = (index: Integer): Array<Game.ChatGroup> => [
+    { name: "SAY", label: "Say", section: .Players, shown: true },
+    { name: "YELL", label: "Yell", section: .Players, shown: false },
+    { name: "MONSTER_SAY", label: "Say", section: .Creatures, shown: true }
+  ]
   _ = chat()
-  Test.open("/ordaen")
-  const settings = Test.page().window("Move mode")
-  settings.button("Chat").click()
-  settings.button("Tabs").click()
+  const settings = tabsPage()
+  Test.expect(settings.text("Player Messages").shown() && settings.text("Creature Messages").shown())
+  Test.expect(settings.text("Yell").shown() && !settings.text("YELL").shown())
+  Test.expect(settings.text("Whisper").rect().left < settings.text("Player Messages").rect().left)
   settings.button(Ordaen.art.ctl.check).nth(2).click()
   Test.expect(Test.requests().any(r => r == "Chat.showGroup 1 YELL true"))
-}
-
-test "the Tabs page resets every chat window once the player says so, never at the first click" {
-  Game.chat.windows = gameWindows()
-  _ = chat()
-  Test.open("/ordaen")
-  const settings = Test.page().window("Move mode")
-  settings.button("Chat").click()
-  settings.button("Tabs").click()
-  settings.button("Reset Chat Windows").click()
-  Test.expect(!Test.requests().any(r => r == "Chat.resetWindows"))
-  Test.page().window("Cancel").button("Reset Chat Windows").click()
-  Test.expect(Test.requests().any(r => r == "Chat.resetWindows"))
+  settings.text("Whisper").click()
+  settings.button(Ordaen.art.ctl.check).nth(2).click()
+  Test.expect(Test.requests().any(r => r == "Chat.showGroup 3 YELL true"))
 }
 
 test "the input opened in a whisper's tab whispers its partner" {
@@ -378,13 +408,22 @@ test "the input opened in a whisper's tab whispers its partner" {
   Test.expect(Test.requests().any(r => r == "Chat.speak 3"))
 }
 
-test "a line fades once its time is up, and shows while the cursor is on the chat" {
+test "lines never fade: the whole chat hides while the cursor is off it where the settings say, at once" {
   Game.chat.windows = gameWindows()
-  const shown = chat()
+  _ = chat()
   Game.chat.heard.emit(line("SAY", "[Thrall] says: old", "Thrall", [1]))
-  Game.clock.server = Game.clock.server + 200
+  const shown = Test.page().window("[Thrall] says: old")
+  Game.clock.server = Game.clock.server + 600
   Test.pass(0.01)
-  Test.expect(shown.text("[Thrall] says: old").opacity() == 0)
+  Test.expect(shown.text("[Thrall] says: old").opacity() == 1)
+  Test.open("/ordaen")
+  const settings = Test.page().window("Move mode")
+  settings.button("Chat").click()
+  settings.button(Ordaen.art.ctl.switchOff).nth(1).click()
+  Test.expect(settings.text("Hidden chat's opacity").shown())
+  Test.expect(shown.text("[Thrall] says: old").opacity() == 0 && shown.text("General").opacity() == 0)
+  shown.text("General").hover()
+  Test.expect(shown.text("[Thrall] says: old").opacity() == 1)
   shown.text("[Thrall] says: old").hover()
   Test.expect(shown.text("[Thrall] says: old").opacity() == 1)
 }

@@ -1,42 +1,80 @@
 // «Tabs», the chat's page in the settings window: what each of the game's chat windows shows and its own settings,
-// in place of Blizzard's chat settings. The windows on top, one picked; under it its name, its font's size, locked
-// or not, then each message group and each channel the character is in with whether the tab shows it, and «Close
-// tab» (not for the game's General and combat log). Every change applies at once; what a window shows is read anew
-// from the game each time.
-import Client from "$client"
+// in place of Blizzard's chat settings. The windows in a sidebar, one picked, «New tab» under them; beside it the
+// picked one's name, its font's size, locked or not, the count of its unread lines, how its channels are named and
+// «Close tab» (not for the game's General and combat log); then the game's message groups in the sections of its own
+// chat settings, in its words, and each channel the character is in, with whether the tab shows it. Every change
+// applies at once; what a window shows is read anew from the game each time.
 import Game from "$game"
-import { Align, Track } from "$ltml"
-import { ButtonPlate, Checkbox, Component, Dialog, Field, NumberInput, PushButton, Section, Switch, Unit } from "Ordaen"
+import { Align } from "$ltml"
+import { ButtonPlate, Checkbox, Choice, Component, Field, ListTab, NumberInput, PushButton, Section, Segmented, SettingRow, Settings, Switch, Unit } from "Ordaen"
+import { ChannelName, Choices, TabChoices, tabDefaults, tabKey } from "@/choices"
 import Locale from "@/locales"
 
 const MAX: "max-content" = "max-content"
-const CHIP = 90dp
+const SIDEBAR = 180dp
 const BUTTON = 130dp
-// Room for its two buttons and the question in a few lines.
-const RESET_DIALOG = 420dp
 
-// A message group's or a channel's row: its check turns it on or off in the window.
+const NAMES: Array<Choice<ChannelName>> = [
+  { value: ChannelName.Name, label: Locale.CHANNEL_NAME },
+  { value: ChannelName.Number, label: Locale.CHANNEL_NUMBER },
+  { value: ChannelName.Both, label: Locale.CHANNEL_BOTH }
+]
+
+// The message groups of one section of the game's chat settings.
+struct GroupSection {
+  title: String
+  groups: Array<Game.ChatGroup>
+}
+
+// The groups, in the order the game lists them, cut where their section changes.
+function sectionsOf(groups: Array<Game.ChatGroup>): Array<GroupSection> {
+  const sections: Array<GroupSection> = []
+  let last: Game.ChatSection | nil = nil
+  let current: Array<Game.ChatGroup> = []
+  for (group of groups) {
+    if (group.section != last) {
+      current = []
+      sections.push({ title: Game.chat.sectionName(group.section), groups: current })
+      last = group.section
+    }
+    current.push(group)
+  }
+  return sections
+}
+
+// The windows' own settings with one window's set (nil: taken away).
+function withTab(tabs: Map<String, TabChoices>, key: String, choices: TabChoices | nil): Map<String, TabChoices> {
+  const changed: Map<String, TabChoices> = {}
+  for (other, kept of tabs) { changed[other] = kept }
+  changed[key] = choices
+  return changed
+}
+
+// A message group's or a channel's row: its check turns it on or off in the window. It shows what each read of the
+// game says (a new value each time, so a change the game refused goes back), and the window picked.
 public class ShownRow implements Component {
   public toggled: Event<Game.ChatShown> = new Event()
-  state on: Boolean
-  const item: Game.ChatShown
-  constructor(item: Game.ChatShown) {
+  state on = false
+  item: Signal<Game.ChatShown>
+  label: Signal<String>
+  constructor(item: Signal<Game.ChatShown>, label: Signal<String>) {
     self.item = item
-    self.on = item.shown
+    self.label = label
+    watch (read of self.item) { self.on = read.shown }
     watch (on of self.on) {
-      if (on != self.item.shown) { self.toggled.emit({ name: self.item.name, shown: on }) }
+      const read = peek self.item
+      if (on != read.shown) { self.toggled.emit({ name: read.name, shown: on }) }
     }
   }
 
   public render(self): Template {
-    return $ltml { <Checkbox label={self.item.name} value={mut self.on} /> }
+    return $ltml { <Checkbox label={self.label} value={mut self.on} /> }
   }
 }
 
-// One window's chip on top.
-public class WindowChip implements Component {
+// One window's entry in the sidebar.
+public class WindowEntry implements Component {
   public pick: Event<Integer> = new Event()
-  derived plate: ButtonPlate = self.picked ? ButtonPlate.Accent : ButtonPlate.Bronze
   const window: Game.ChatWindow
   picked: Signal<Boolean>
   constructor(window: Game.ChatWindow, picked: Signal<Boolean>) {
@@ -44,34 +82,39 @@ public class WindowChip implements Component {
     self.picked = picked
   }
 
-  onClick(mut self) { self.pick.emit(self.window.index) }
+  onPick(mut self) { self.pick.emit(self.window.index) }
 
   public render(self): Template {
-    return $ltml { <PushButton label={self.window.name} width={CHIP} plate={self.plate} @click={self.onClick} /> }
+    return $ltml { <ListTab label={self.window.name} selected={self.picked} @pick={self.onPick} /> }
   }
 }
 
 public class TabsPage implements Component {
-  derived chips: Array<Track> = Game.chat.windows.map(window => MAX)
   derived chosen: Game.ChatWindow | nil = Game.chat.windows.find(window => window.index == self.window)
   // Moved by each change of what the window shows, so what it shows is read anew.
   state version = 0
-  derived groups: Array<Game.ChatShown> = self.version >= 0 ? Game.chat.groups(self.window) : []
+  derived sections: Array<GroupSection> = self.version >= 0 ? sectionsOf(Game.chat.groups(self.window)) : []
   derived channels: Array<Game.ChatShown> = self.version >= 0 ? Game.chat.channels(self.window) : []
   derived closable: Boolean = self.window > 2
   state name = ""
   state size: Number = 14
   state locked = false
-  state resetting = false
+  state counter = true
+  state channelName: ChannelName = .Name
 
   window: mut Signal<Integer>
-  constructor(window: mut Signal<Integer>) {
+  settings: mut Settings<Choices>
+  constructor(window: mut Signal<Integer>, settings: mut Settings<Choices>) {
     self.window = window
+    self.settings = settings
     // The picked window's own settings, taken as it is picked.
     watch (chosen of self.chosen) {
       self.name = chosen?.name ?? ""
       self.size = chosen?.fontSize ?? 14
       self.locked = chosen?.locked == true
+      const own = chosen != nil ? self.choicesOf(chosen) : nil
+      self.counter = own?.counter ?? true
+      self.channelName = own?.channelName ?? .Name
     }
     watch (size of self.size) {
       const chosen = peek self.chosen
@@ -81,6 +124,22 @@ public class TabsPage implements Component {
       const chosen = peek self.chosen
       if (chosen != nil && chosen.locked != locked) { Game.chat.lock(chosen.index, locked) }
     }
+    watch (counter of self.counter) { self.writeTab() }
+    watch (channelName of self.channelName) { self.writeTab() }
+  }
+
+  // A window's own settings: the player's, else its defaults.
+  choicesOf(self, window: Game.ChatWindow): TabChoices {
+    return (peek self.settings.values).tabs[tabKey(window.index)] ?? tabDefaults(window)
+  }
+
+  // The picked window's own settings written where they changed.
+  writeTab(mut self) {
+    const chosen = peek self.chosen
+    if (chosen == nil) { return }
+    const choices: TabChoices = { counter: peek self.counter, channelName: peek self.channelName }
+    if (choices.equal(self.choicesOf(chosen))) { return }
+    self.settings.change((values: mut Choices): nil => { values.tabs = withTab(values.tabs, tabKey(chosen.index), choices) })
   }
 
   onPick(mut self, window: Integer) { self.window = window }
@@ -105,52 +164,49 @@ public class TabsPage implements Component {
     if (made != nil) { self.window = made }
   }
 
+  // A window closed: its own settings go with it, so a window opened later in its place starts from the defaults.
   onClose(mut self) {
-    Game.chat.close(peek self.window)
-    self.window = 1
-  }
-
-  // «Reset Chat Windows» asks first, as Blizzard's does: every window goes back to the game's own.
-  onResetAsk(mut self) { self.resetting = true }
-  onResetCancel(mut self) { self.resetting = false }
-  onReset(mut self) {
-    self.resetting = false
-    Game.chat.resetWindows()
+    const window = peek self.window
+    Game.chat.close(window)
+    if ((peek self.settings.values).tabs[tabKey(window)] != nil) {
+      self.settings.change((values: mut Choices): nil => { values.tabs = withTab(values.tabs, tabKey(window), nil) })
+    }
     self.window = 1
   }
 
   public render(self): Template {
     return $ltml {
-      <box columns={1} gap={3sp}>
-        <box columns={[{ fr: 1 }, MAX, MAX]} gap={2sp} yAlign={Align.Center}>
-          <box columns={self.chips} gap={1sp}>
-            <WindowChip $for={window of Game.chat.windows} window={peek window} picked={window.index == self.window}
-                        @pick={self.onPick} />
+      <box columns={[SIDEBAR, { fr: 1 }]} gap={6sp}>
+        <box columns={1} gap={3sp} yAlignSelf={Align.Start}>
+          <box columns={1}>
+            <WindowEntry $for={window of Game.chat.windows} window={peek window} picked={window.index == self.window}
+                         @pick={self.onPick} />
           </box>
           <PushButton label={Locale.TAB_NEW} width={BUTTON} @click={self.onNew} />
-          <PushButton label={Client.RESET_ALL_WINDOWS} width={BUTTON} @click={self.onResetAsk} />
         </box>
-        <Dialog $if={self.resetting} width={RESET_DIALOG} title={Client.RESET_ALL_WINDOWS}>
-          <text value={Locale.TAB_RESET_ASK} />
-          <PushButton #buttons label={Locale.CANCEL} width={BUTTON} @click={self.onResetCancel} />
-          <PushButton #buttons label={Client.RESET_ALL_WINDOWS} width={BUTTON} plate={ButtonPlate.Accent} @click={self.onReset} />
-        </Dialog>
-        <Section title={Locale.TAB_ITSELF}>
-          <box columns={[{ fr: 1 }, MAX]} gap={2sp} yAlign={Align.Center}>
-            <Field value={mut self.name} maxLength={40} placeholder={Locale.TAB_NAME} />
-            <PushButton label={Locale.TAB_RENAME} width={BUTTON} @click={self.onRename} />
-          </box>
-          <NumberInput label={Locale.TAB_FONT_SIZE} value={mut self.size} least={8} most={24} step={1} unit={Unit.None} />
-          <Switch label={Locale.TAB_LOCK} value={mut self.locked} />
-          <PushButton label={Locale.TAB_CLOSE} width={BUTTON} plate={ButtonPlate.Accent} disabled={!self.closable}
-                      @click={self.onClose} />
-        </Section>
-        <Section title={Locale.TAB_GROUPS}>
-          <ShownRow $for={group of self.groups} item={peek group} @toggled={self.onGroup} />
-        </Section>
-        <Section title={Locale.TAB_CHANNELS}>
-          <ShownRow $for={channel of self.channels} item={peek channel} @toggled={self.onChannel} />
-        </Section>
+        <box columns={1} gap={6sp}>
+          <Section title={Locale.TAB_ITSELF}>
+            <box columns={[{ fr: 1 }, MAX]} gap={2sp} yAlign={Align.Center}>
+              <Field value={mut self.name} maxLength={40} placeholder={Locale.TAB_NAME} />
+              <PushButton label={Locale.TAB_RENAME} width={BUTTON} @click={self.onRename} />
+            </box>
+            <NumberInput label={Locale.TAB_FONT_SIZE} value={mut self.size} least={8} most={24} step={1} unit={Unit.None} />
+            <Switch label={Locale.TAB_LOCK} value={mut self.locked} />
+            <Switch label={Locale.TAB_COUNTER} hint={Locale.TAB_COUNTER_TIP} value={mut self.counter} />
+            <SettingRow label={Locale.TAB_CHANNEL_NAMES} hint={Locale.TAB_CHANNEL_NAMES_TIP}>
+              <Segmented value={mut self.channelName} choices={NAMES} />
+            </SettingRow>
+            <PushButton label={Locale.TAB_CLOSE} width={BUTTON} plate={ButtonPlate.Accent} disabled={!self.closable}
+                        @click={self.onClose} />
+          </Section>
+          <Section $for={section of self.sections} title={section.title}>
+            <ShownRow $for={group of section.groups} item={{ name: group.name, shown: group.shown }} label={group.label}
+                      @toggled={self.onGroup} />
+          </Section>
+          <Section title={Locale.TAB_CHANNELS}>
+            <ShownRow $for={channel of self.channels} item={channel} label={channel.name} @toggled={self.onChannel} />
+          </Section>
+        </box>
       </box>
     }
   }

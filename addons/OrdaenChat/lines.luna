@@ -1,13 +1,13 @@
 // The chat's tabs and the lines each holds: a tab is one of the game's chat windows (its whisper windows among them)
 // or one of the communities' streams, and a line is what the game's window would show, made once as it is heard.
 import Game from "$game"
-import { ChannelName } from "@/choices"
+import { ChannelName, TabChoices } from "@/choices"
 
 // A line as a tab shows it. `whole` is what is drawn: the time, the channel, the words with their links and «×N».
 public struct Shown implements Plain {
   whole: String
   color: Color
-  // When it was said (seconds since 1970): it fades that long after.
+  // When it was said (seconds since 1970).
   time: Number
   // What tells a repeat: who said it, where, and the words.
   repeat: String
@@ -63,8 +63,11 @@ public class ChatTab {
   // Its lines, oldest first; `version` moves as they change, which is what a view follows.
   public lines: mut Array<Shown> = []
   public state version = 0
-  // Lines heard while another tab was open.
+  // Lines heard while another tab was open, counted where its settings show the count.
   public state unread = 0
+  public state counted = true
+  // How its channels' lines name their channel.
+  public state channelName: ChannelName = .Name
 
   constructor(key: String, title: String) {
     const kind = key.sub(1, 2)
@@ -87,6 +90,13 @@ public class ChatTab {
     self.docked = window.docked
     self.locked = window.locked
     self.uninteractable = window.uninteractable
+  }
+
+  // Its own settings, as the player chose them or its window's defaults.
+  public choose(mut self, choices: TabChoices) {
+    self.counted = choices.counter
+    self.channelName = choices.channelName
+    if (!choices.counter) { self.unread = 0 }
   }
 
   // A sender's lines taken away (a player reported).
