@@ -15,8 +15,6 @@ import { Row, TabButton } from "@/view"
 const ROWS = 80
 // Lines a turn of the wheel scrolls.
 const STEP = 3
-// Seconds a line takes to fade once its time is up.
-const FADING = 3
 const LINK: Color = Color.hex("#69ccf0")
 const MAX: "max-content" = "max-content"
 // The lines' least width: some sixty letters of the body's font, so a line doesn't break every few words. The chat
@@ -82,7 +80,9 @@ public class Pane implements Component {
   derived open: ChatTab | nil = self.tabs.find(tab => tab.key == self.openKey) ?? self.tabs[1]
   // Lines scrolled back from the newest.
   public state back = 0
-  state hovered = false
+  // The cursor on the tabs, on the lines.
+  state onTabs = false
+  state onLines = false
   // The tab whose menu is open, and the name link whose menu is open.
   state menuTab: ChatTab | nil = nil
   state menuName: Event.Link | nil = nil
@@ -92,8 +92,11 @@ public class Pane implements Component {
   derived textSize: Number<TextSize> = (self.open?.fontSize ?? 13) * 1rem / 13
   derived logFrame: any Frame | nil = self.logOf()
   derived shown: Array<Shown> = self.shownOf()
-  derived fadeBefore: Number = self.fadeOf()
   derived inputShown: Boolean = self.input != nil && (self.typing || self.inputAlways)
+  // Whole while the cursor is on it, the player types or a menu of it is open; else as the settings say.
+  derived opacity: Number = self.onTabs || self.onLines || self.typing || self.menuTab != nil || self.menuName != nil ?
+    1 :
+    self.awayOpacity
   derived tabActions: Array<TabAction> = actionsOf(self.menuTab)
   derived tabEntries: Array<MenuEntry> = self.tabEntriesOf()
   // The open tab's lines let the mouse through (the game's «Make uninteractable»).
@@ -104,7 +107,7 @@ public class Pane implements Component {
   openKey: Signal<String>
   width: Signal<Number<Length>>
   height: Signal<Number<Length>>
-  fade: Signal<Integer>
+  awayOpacity: Signal<Number>
   input: Signal<any Frame | nil>
   typing: Signal<Boolean>
   inputAlways: Signal<Boolean>
@@ -114,7 +117,8 @@ public class Pane implements Component {
     openKey: Signal<String>,
     width: Signal<Number<Length>>,
     height: Signal<Number<Length>>,
-    fade: Signal<Integer>,
+    // How much of it shows while the cursor is off it (1: all of it).
+    awayOpacity: Signal<Number>,
     // The input it holds (nil: none; Enter opens the chat's), shown while the player types or always.
     input: Signal<any Frame | nil> = nil,
     typing: Signal<Boolean> = false,
@@ -124,7 +128,7 @@ public class Pane implements Component {
     self.openKey = openKey
     self.width = width
     self.height = height
-    self.fade = fade
+    self.awayOpacity = awayOpacity
     self.input = input
     self.typing = typing
     self.inputAlways = inputAlways
@@ -160,12 +164,6 @@ public class Pane implements Component {
     // The lines change in place: their version is what tells the view.
     if (tab == nil || tab.version < 0) { return [] }
     return tab.slice(self.back, ROWS)
-  }
-
-  // Lines older than this have faded, while the cursor is off the pane and it isn't scrolled.
-  fadeOf(self): Number {
-    if (self.fade == 0 || self.hovered || self.back > 0) { return 0 }
-    return Game.clock.server - self.fade - FADING
   }
 
   tabEntriesOf(self): Array<MenuEntry> {
@@ -239,17 +237,18 @@ public class Pane implements Component {
   onSize(mut self, drag: Event.Drag) { self.size.emit(drag) }
   onSizeDrop(mut self) { self.sizeDrop.emit() }
 
-  onEnter(mut self) { self.hovered = true }
-
-  onLeave(mut self) { self.hovered = false }
+  onTabsEnter(mut self) { self.onTabs = true }
+  onTabsLeave(mut self) { self.onTabs = false }
+  onLinesEnter(mut self) { self.onLines = true }
+  onLinesLeave(mut self) { self.onLines = false }
 
   public render(self): Template {
     return $ltml {
       // The tabs a sidebar on the world at the frame's left, one a row; the lines in the window's frame and wood, at
       // least the height the player chose and never lower than the tabs, the foot under them. As wide as the player
       // chose, or as the tabs and the lines' least need.
-      <box width={{ min: self.width, max: nil }} columns={[MAX, { fr: 1 }]}>
-        <box columns={1} yAlignSelf={Align.Start}>
+      <box width={{ min: self.width, max: nil }} columns={[MAX, { fr: 1 }]} opacity={self.opacity}>
+        <box columns={1} yAlignSelf={Align.Start} @pointerEnter={self.onTabsEnter} @pointerLeave={self.onTabsLeave}>
           <TabButton $for={tab of self.tabs} tab={tab} open={tab.key == self.open?.key} @pick={self.onPick}
                      @menu={self.onMenu} />
           <Menu $if={self.menuTab != nil} entries={self.tabEntries} title={self.menuTab?.title ?? ""} @pick={self.onTabPick}
@@ -257,7 +256,7 @@ public class Pane implements Component {
         </box>
         // Over the sidebar: its left line stands over the open tab's open end, one shape with it.
         <box columns={1} yAlignSelf={Align.Stretch} border={Ordaen.art.frame.small} background={Ordaen.art.window.wood}
-             artOrigin={true} padding={ROOM} zLevel={3} @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
+             artOrigin={true} padding={ROOM} zLevel={3} @pointerEnter={self.onLinesEnter} @pointerLeave={self.onLinesLeave}>
           // The chat stands by its bottom left: it grows to the right and up, by the grip in this corner.
           <box position={Position.Absolute} top={0ui} right={0ui} zLevel={3}>
             <SizeGrip corner={GripCorner.TopRight} @grab={self.onSizeGrab} @drag={self.onSize} @drop={self.onSizeDrop} />
@@ -267,7 +266,7 @@ public class Pane implements Component {
             // The newest line stands at the bottom; older ones go up past the top, which cuts them.
             <box $else overflow={Overflow.Hidden} textSize={self.textSize} mouseThrough={self.clickThrough} @wheel={self.onWheel}>
               <box position={Position.Absolute} left={0ui} right={0ui} bottom={0ui} columns={1}>
-                <Row $for={line of self.shown} line={line} fadeBefore={self.fadeBefore} lineHeight={Ordaen.lengthOf(BODY_LINE)}
+                <Row $for={line of self.shown} line={line} lineHeight={Ordaen.lengthOf(BODY_LINE)}
                      @link={self.onLink} />
               </box>
             </box>

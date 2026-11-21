@@ -50,23 +50,19 @@ public class TabButton implements Component {
   }
 }
 
-// A line: its text in its colour, dimmed where it came from the last session, on a band where it names the player,
-// gone once it faded. A secret line stands one line high, so nothing of it is measured.
+// A line: its text in its colour, dimmed where it came from the last session, on a band where it names the player.
+// A secret line stands one line high, so nothing of it is measured.
 public class Row implements Component {
   // A link of the line clicked.
   public link: Event<Event.Link> = new Event()
 
-  derived faded: Boolean = self.line.time < self.fadeBefore
-  derived opacity: Number = self.faded ? 0 : (self.line.past ? 0.6 : 1)
+  derived opacity: Number = self.line.past ? 0.6 : 1
   derived band: Color | nil = self.line.marked ? MARK : nil
 
   line: Signal<Shown>
-  // Lines said before this have faded.
-  fadeBefore: Signal<Number>
   lineHeight: Signal<Number<Length>>
-  constructor(line: Signal<Shown>, fadeBefore: Signal<Number>, lineHeight: Signal<Number<Length>>) {
+  constructor(line: Signal<Shown>, lineHeight: Signal<Number<Length>>) {
     self.line = line
-    self.fadeBefore = fadeBefore
     self.lineHeight = lineHeight
   }
 

@@ -11,7 +11,7 @@ import { Anchored, Event, Point } from "$ltml"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
 import { CopyBox, Dialog, Field, KeptWindow, Module, Placed, PushButton, Settings, SettingsPage, timeText } from "Ordaen"
-import { ChannelName, ChatSize, Choices, LEAST_HEIGHT, LEAST_WIDTH } from "@/choices"
+import { ChannelName, ChatSize, Choices, LEAST_HEIGHT, LEAST_WIDTH, TabChoices, tabDefaults, tabKey } from "@/choices"
 import { ChatTab, Kept, KeptTab, Shown, channelOf, linked, marks, talkKey, talkLine, wordsOf } from "@/lines"
 import Locale from "@/locales"
 import { NamePick, Pane, TabPick, nameOf } from "@/pane"
@@ -40,14 +40,14 @@ const BATTLE_NET: Array<String> = ["BN_WHISPER", "BN_WHISPER_INFORM"]
 public class Chat implements Module, App {
   public const title: String = "Ordaen Chat"
   settings: mut Settings<Choices> = new Settings<Choices>({
-    width: 430, height: 190, fade: 120, channelName: ChannelName.Both, keywords: "", repeats: true,
-    kept: 200, held: 500, history: Game.ChatHistory.All, inputAlways: false
+    width: 430, height: 190, hide: false, hiddenOpacity: 0, tabs: {}, keywords: "", repeats: true, kept: 200, held: 500,
+    history: Game.ChatHistory.All, inputAlways: false
   })
   // The window the «Tabs» page shows.
   state editing = 1
   public const pages: Array<SettingsPage> = [
     { title: Locale.TAB_CHAT, content: $ltml { <ChatPage settings={mut self.settings} /> } },
-    { title: Locale.TAB_TABS, content: $ltml { <TabsPage window={mut self.editing} /> } }
+    { title: Locale.TAB_TABS, content: $ltml { <TabsPage window={mut self.editing} settings={mut self.settings} /> } }
   ]
 
   // Every tab made, by its key, kept while its key is; the chat's own pane's in their order (the docked windows,
@@ -75,7 +75,8 @@ public class Chat implements Module, App {
   // Never under the least: a size kept from before stands at it.
   derived width: Number<Length> = (self.sizing?.width ?? self.settings.values.width).max(LEAST_WIDTH) * 1dp
   derived height: Number<Length> = (self.sizing?.height ?? self.settings.values.height).max(LEAST_HEIGHT) * 1dp
-  derived fade: Integer = self.settings.values.fade
+  // How much of the chat shows while the cursor is off it.
+  derived awayOpacity: Number = self.settings.values.hide ? self.settings.values.hiddenOpacity : 1
   derived inputAlways: Boolean = self.settings.values.inputAlways
   derived words: Array<String> = wordsOf(self.settings.values.keywords, Game.player.name)
   derived open: ChatTab | nil = self.tabs.find(tab => tab.key == self.openKey) ?? self.tabs[1]
@@ -92,6 +93,7 @@ public class Chat implements Module, App {
     Game.chat.whisperWindows(false)
     watch { Game.chat.inputHistory(self.settings.values.history) }
     watch { Game.chat.inputShown(self.settings.values.inputAlways) }
+    watch { self.chooseTabs(self.settings.values.tabs) }
     // The input opened (Enter) while a whisper's or a stream's tab is open: it speaks there.
     watch (typing of Game.chat.typing) {
       if (typing) { self.speakHere() }
@@ -126,6 +128,15 @@ public class Chat implements Module, App {
     tabs.push(self.whispersTab)
     self.tabs = tabs
     self.undocked = undocked
+    self.chooseTabs((peek self.settings.values).tabs)
+  }
+
+  // Each window's tab takes its own settings: the player's, else its window's defaults.
+  chooseTabs(mut self, chosen: Map<String, TabChoices>) {
+    for (window of peek Game.chat.windows) {
+      const tab = self.made[tabKey(window.index)]
+      if (tab != nil) { tab.choose(chosen[tab.key] ?? tabDefaults(window)) }
+    }
   }
 
   tabOf(mut self, key: String, title: String): mut ChatTab {
@@ -144,10 +155,11 @@ public class Chat implements Module, App {
       self.onWhisper(talkKey(line.sender, BATTLE_NET.any(kind => kind == line.kind)), talkLine(line, told), !told, values)
       return
     }
-    const shown = self.shownLine(line, values)
+    // A channel's line names its channel as each tab chose: made for each; any other, once for all.
+    const plain = line.channel > 0 ? nil : self.shownLine(line, .Name)
     const open = peek self.openKey
-    for (index of line.windows) { self.addTo(`w${index}`, shown, open, values) }
-    if (line.stream != "") { self.addTo(`s${line.stream}`, shown, open, values) }
+    for (index of line.windows) { self.addTo(tabKey(index), line, plain, open, values) }
+    if (line.stream != "") { self.addTo(`s${line.stream}`, line, plain, open, values) }
   }
 
   // A player reported: their lines go from every tab and conversation, as the game's windows take them away.
@@ -156,14 +168,14 @@ public class Chat implements Module, App {
     for (_, tab of self.made) { tab.forgetSender(guid) }
   }
 
-  addTo(mut self, key: String, line: Shown, open: String, values: Choices) {
+  addTo(mut self, key: String, line: Game.ChatLine, plain: Shown | nil, open: String, values: Choices) {
     // A window opened in the same call as its first line (a whisper's): its tab is made now, not after the frame.
     if (self.made[key] == nil) { self.sync() }
     const tab = self.made[key]
     if (tab == nil) { return }
-    tab.add(line, values.repeats, values.held)
+    tab.add(plain ?? self.shownLine(line, peek tab.channelName), values.repeats, values.held)
     // An undocked window's pane shows each line as it comes: nothing waits unread there.
-    if (key != open && peek tab.docked) { tab.unread = (peek tab.unread) + 1 }
+    if (key != open && peek tab.docked && peek tab.counted) { tab.unread = (peek tab.unread) + 1 }
   }
 
   // A whisper: its conversation's, which goes first in the list; heard while that conversation isn't the one open in
@@ -221,7 +233,7 @@ public class Chat implements Module, App {
     if (talk != nil) { _ = Game.chat.whisper(talk.partner, text, talk.battleNet) }
   }
 
-  shownLine(self, line: Game.ChatLine, values: Choices): Shown {
+  shownLine(self, line: Game.ChatLine, channelName: ChannelName): Shown {
     if (line.secret != "") {
       return {
         whole: line.body, color: line.color, time: line.time, repeat: "", count: 1, marked: false, past: false, secret: true,
@@ -230,7 +242,7 @@ public class Chat implements Module, App {
     }
     // The time where the game shows the chat's times, written as every time of Ordaen's is.
     const stamp = line.stamp != "" ? STAMP.format(timeText(Game.clock.timeAt(line.time.floor()))) : ""
-    const channel = line.channel > 0 ? channelOf(line, values.channelName) : ""
+    const channel = line.channel > 0 ? channelOf(line, channelName) : ""
     const own = line.sender == Game.player.name || line.sender.match("^([^%-]+)") == Game.player.name
     return {
       whole: `${stamp}${channel}${linked(line.plain)}`, color: line.color, time: line.time,
@@ -376,13 +388,13 @@ public class Chat implements Module, App {
   public render(self): Template {
     return $ltml {
       <Placed id={"OrdaenChat.chat"} title={Locale.TITLE} home={HOME}>
-        <Pane tabs={self.tabs} openKey={self.open?.key ?? ""} width={self.width} height={self.height} fade={self.fade}
+        <Pane tabs={self.tabs} openKey={self.open?.key ?? ""} width={self.width} height={self.height} awayOpacity={self.awayOpacity}
               input={Game.chat.input} typing={Game.chat.typing} inputAlways={self.inputAlways} @picked={self.onPick}
               @tabPicked={self.onTab} @namePicked={self.onName} @link={self.onLink} @sizeGrab={self.onSizeGrab}
               @size={self.onSize} @sizeDrop={self.onSizeDrop} />
       </Placed>
       <Placed $for={tab of self.undocked} id={`OrdaenChat.${(peek tab).key}`} title={Locale.TITLE} home={UNDOCKED}>
-        <Pane tabs={[tab]} openKey={tab.key} width={self.width} height={self.height} fade={self.fade}
+        <Pane tabs={[tab]} openKey={tab.key} width={self.width} height={self.height} awayOpacity={self.awayOpacity}
               @tabPicked={self.onTab} @namePicked={self.onName} @link={self.onLink} @sizeGrab={self.onSizeGrab}
               @size={self.onSize} @sizeDrop={self.onSizeDrop} />
       </Placed>

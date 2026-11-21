@@ -1,10 +1,10 @@
-// What the player chooses on the chat's settings page.
+// What the player chooses on the chat's settings pages.
 import Game from "$game"
 import { WINDOW_MIN_WIDTH } from "Ordaen"
 
-// How a channel's line names its channel: by number («[2]»), by name («[Trade]») or both («[2. Trade]»); the zone
+// How a channel's line names its channel: by name («[Trade]»), by number («[2]») or both («[2. Trade]»); the zone
 // after the name is left out either way.
-public enum ChannelName implements Plain { Number = "number", Name = "name", Both = "both" }
+public enum ChannelName implements Plain { Name = "name", Number = "number", Both = "both" }
 
 // The least width the player may choose (in dp): a window's least body, Ordaen's `WINDOW_MIN_WIDTH`. The chat stands
 // wider where its tabs and the lines' own least need it.
@@ -19,13 +19,39 @@ public struct ChatSize {
   height: Number
 }
 
+// A tab's own settings, as the «Tabs» page writes them.
+public struct TabChoices implements Plain {
+  // The count of its lines waiting unread, shown on it.
+  counter: Boolean
+  channelName: ChannelName
+}
+
+// A window's settings until the player sets them: no count on the combat log's tab or on a tab of channels alone,
+// whose lines come all the time; channels by their name.
+public function tabDefaults(window: Game.ChatWindow): TabChoices {
+  return { counter: !window.combatLog && !channelsOnly(window.index), channelName: .Name }
+}
+
+// A window that shows channels and no message group.
+function channelsOnly(window: Integer): Boolean {
+  return Game.chat.groups(window).all(group => !group.shown) && Game.chat.channels(window).any(channel => channel.shown)
+}
+
+// The key a window's own settings are kept under: its tab's.
+public function tabKey(window: Integer): String {
+  return `w${window}`
+}
+
 public struct Choices implements Plain {
   // The chat's size.
   width: Number
   height: Number
-  // Seconds a line shows before it fades; 0: lines never fade.
-  fade: Integer
-  channelName: ChannelName
+  // The whole chat hidden while the cursor is off it (shown while on it, or while the player types), and how much of
+  // it shows meanwhile (0: nothing).
+  hide: Boolean
+  hiddenOpacity: Number
+  // Each window's own settings, by its tab's key (`tabKey`); a window without them takes `tabDefaults`.
+  tabs: Map<String, TabChoices>
   // Words (comma-separated) that mark someone else's line, beside the player's own name.
   keywords: String
   // The same sender's same words one after another are one line with «×N».
