@@ -27,6 +27,8 @@ class TestHost implements MapHost {
   public dock(mut self, on: Boolean) { self.isDocked = on }
   public opened: mut Array<Integer> = []
   public open(mut self, area: Integer) { self.opened.push(area) }
+  public only = 0
+  public onlyQuest(mut self, quest: Integer) { self.only = quest }
   public place(mut self, pin: Pin): Placed | nil { return pin.area == 40 ? { pin: pin, x: pin.x, y: pin.y } : nil }
   public draw(mut self, placed: Array<Placed>, lines: Array<Array<String>>) {
     self.drawn = placed
@@ -50,6 +52,19 @@ test "docked, the map's side panel is given while the map shows, its size the cl
   Maps.docked = false
   Test.flush()
   Test.expect(Maps.side == nil)
+}
+
+test "a module's «Show on map» opens the area's map with the game's pins of its quest alone, all back as the map hides" {
+  Test.questLog([{ id: 101, title: "One", header: "Westfall" }, { id: 102, title: "Two", header: "Westfall" }])
+  Test.mount(nil, PAGE)
+  Maps.show(40, 102)
+  Test.flush()
+  Test.expect(Client.WorldMapFrame.GetMapID() == 1436 && Test.questPins().length == 1 && Test.questPins()[1] == 102)
+  Client.WorldMapFrame.Hide()
+  Test.flush()
+  Client.C_Map.OpenWorldMap(1436)
+  Test.flush()
+  Test.expect(Test.questPins().length == 2)
 }
 
 // What a dungeon's card says: the instance's name, where one of the test's.
