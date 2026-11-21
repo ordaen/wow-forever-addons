@@ -556,23 +556,48 @@ test "each talent says its rank of its ranks, gold when full, green where a poin
   Test.expect(window.text("0/3").textColor().equal(RANK_DIM))
 }
 
-test "a tree's arrow is gold where the talent it leads to has a rank, the line's colour where it has none" {
+test "a tree's arrow runs across and then down, cell by cell, gold once the talent it comes from is full" {
   Test.mount(nil, PAGE)
   Game.talentTrees.trees = trees
   const window = onSpec("Primary")
+  // Out of Deflection's cell, into the corner's, down out of it and into Tactical Mastery's: five pieces.
   Test.expect(!window.box(Style.GOLD).shown())
-  Test.expect(window.box(ARROW_LINE).count() == 2)
+  Test.expect(window.box(ARROW_LINE).count() == 5)
+  Test.expect(Test.drawn().any(d => d.file == "talents-arrow-head-gray"))
   Game.talentTrees.trees = (group: Integer): Array<Game.TalentTree> => [
     {
       id: 1, name: "Arms",
       nodes: [
-        { id: 10, x: 0, y: 0, name: "Deflection", icon: TALENT_ICON, rank: 2, ranks: 5, canSpend: true, canRefund: true, edges: [11] },
-        { id: 11, x: 0, y: 600, name: "Tactical Mastery", icon: TALENT_ICON, rank: 1, ranks: 3, canSpend: true, canRefund: true, edges: [] }
+        { id: 10, x: 0, y: 0, name: "Deflection", icon: TALENT_ICON, rank: 5, ranks: 5, canSpend: false, canRefund: true, edges: [11] },
+        { id: 11, x: 600, y: 600, name: "Tactical Mastery", icon: TALENT_ICON, rank: 0, ranks: 3, canSpend: true, canRefund: false, edges: [] }
       ]
     }
   ]
   Game.talentTrees.changed.emit()
-  Test.expect(window.box(Style.GOLD).shown())
+  Test.expect(window.box(Style.GOLD).count() == 5)
+  Test.expect(Test.drawn().any(d => d.file == "talents-arrow-head-yellow"))
+}
+
+test "a talent stands in the client's frame for what it may do: gold when full, green while a point may go, grey where none may" {
+  Test.mount(nil, PAGE)
+  Game.talentTrees.trees = trees
+  _ = onSpec("Primary")
+  const drawn = Test.drawn()
+  Test.expect(drawn.any(d => d.file == "talents-node-square-yellow"))
+  Test.expect(drawn.any(d => d.file == "talents-node-square-green"))
+  Test.expect(drawn.any(d => d.file == "talents-node-square-gray"))
+}
+
+test "talents a step of the client's grid apart stand a gap apart, and an arrow's head stops short of the talent it leads to" {
+  Test.mount(nil, PAGE)
+  Game.talentTrees.trees = trees
+  _ = onSpec("Primary")
+  const deflection = Test.edges("talents-node-square-green", 0)
+  const tactical = Test.edges("talents-node-square-gray", 0)
+  Test.expect(tactical.left - deflection.right >= 10)
+  Test.expect(tactical.top - deflection.bottom >= 10)
+  const head = Test.edges("talents-arrow-head-gray", 0)
+  Test.expect(head.bottom <= tactical.top + 1 && head.top > deflection.bottom)
 }
 
 test "the talents say the points left to spend in each spec" {

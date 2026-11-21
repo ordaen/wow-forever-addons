@@ -1,23 +1,77 @@
-// A talent tree as the client lays it out (`Game.TalentTree`): its name and the points spent in it over its nodes, each
-// drawn where the client puts it (its grid, from the tree's top left) with its rank, and the arrows from a node to
-// those it leads to, gold where the one led to has a rank. A node clicked says so (Left: spend, Right: take back); what
-// it may do is the client's to say (`canSpend`, `canRefund`), and a tree only shown (another player's) is not listened
-// to. A search dims the nodes whose names don't hold it.
+// A talent tree as the client lays it out (`Game.TalentTree`): its name and the points spent in it over a grid of its
+// nodes, each in the cell of the client's grid it stands in (a step of `CELL` from the tree's top left), the cells a
+// node's width and a gap apart across and sharing the tree's height down. A node is the client's square talent frame
+// round its icon (gold when full, green while it has a rank or may take one, grey otherwise, its icon grey too where
+// no point may go yet), its rank in a badge at its lower right. The arrows from a node to those it leads to run under
+// the nodes, cell by cell (across its row, then down the column of the one it leads to), from the node's edge to just
+// short of the other's, where the client's arrowhead points at it; gold once the node it comes from is full. A node
+// clicked says so (Left: spend, Right: take back); what it may do is the client's to say (`canSpend`, `canRefund`),
+// and a tree only shown (another player's) is not listened to. A search dims the nodes whose names don't hold it.
 import Game from "$game"
-import { Align, Event, MouseButton, Position } from "$ltml"
+import { Align, Event, Line, MouseButton, Position, Track } from "$ltml"
 import { Component } from "@/module"
 import { SECONDARY_TEXT } from "@/units"
 
-// A node's size, and the room one step of the client's grid takes on the screen.
+// One step of the client's grid: its talents stand this far apart in its own units.
+const CELL = 600
+// A node (the client's frame is 40 px), its icon inside the frame, a cell's width (a node and the gap beside it),
+// and the least a row is high (a node and the gap under it): a taller tree box spreads its rows.
 const SIZE = 46.875dp
-const UNIT: Number<Length> = 0.087890625dp
-const MARGIN = 9.375dp
-// The thickness of an arrow's line.
-const LINE = 3.515625dp
+const ICON_INSET = 4.6875dp
+const STEP = 63.28125dp
+const ROW_LEAST = 63.28125dp
+// A cell: room over its node, the node's row, room under it.
+const CELL_ROWS: Array<Track> = [{ fr: 1 }, SIZE, { fr: 1 }]
+// An arrow's line and its edge, and its head (the client's is 14 by 12 px).
+const LINE = 4.6875dp
+const LINE_EDGE: Line = { width: 1.171875dp, color: Color.hex("#000000") }
+const HEAD = 16.40625dp
+// Where a cell's vertical line and its node stand across it, and where its horizontal line stands down its node's row.
+const MIDDLE: Number<Length> = (STEP - LINE) / 2
+const NODE_LEFT: Number<Length> = (STEP - SIZE) / 2
+const ACROSS_TOP: Number<Length> = (SIZE - LINE) / 2
+const HALF: Number<Length> = STEP / 2
+// The rank's badge, standing out past the node's lower right corner.
+const BADGE_OUT = 7.03125dp
+const BADGE_PAD: Number<Spacing> = 0.5sp
+const BADGE_BACK: Color = Color.hex("#0b0906")
+const BADGE_EDGE: Line = { width: 1.171875dp, color: Color.hex("#3e2f1d") }
 const GOLD: Color = Color.hex("#ffd100")
 const GREEN: Color = Color.hex("#40d060")
 const DIM: Color = Color.hex("#a3977f")
 const EDGE: Color = Color.hex("#4a3a24")
+// The client's talent frames and arrowheads, by what a node may do.
+const FRAME_FULL: Atlas = "talents-node-square-yellow"
+const FRAME_OPEN: Atlas = "talents-node-square-green"
+const FRAME_SHUT: Atlas = "talents-node-square-gray"
+const HEAD_GOLD: Atlas = "talents-arrow-head-yellow"
+const HEAD_DIM: Atlas = "talents-arrow-head-gray"
+
+// The client's arrowhead points down; turned, it points across.
+public enum Way { Down, Right, Left }
+
+// What an arrow draws in a cell: a line over the node's row (`up`), through the row (`through`), from the row's middle
+// down (`lower`, where it turns from across to down), under it (`down`), along the row's left or right half
+// (`west`, `east`), and its head (`head`, pointing `way`) where it ends at the cell's node. Each is the line's colour, or
+// nil where the cell has none of it.
+public struct TreeCell {
+  node: Game.TalentNode | nil = nil
+  up: Color | nil = nil
+  through: Color | nil = nil
+  lower: Color | nil = nil
+  down: Color | nil = nil
+  west: Color | nil = nil
+  east: Color | nil = nil
+  head: Atlas | nil = nil
+  way: Way = Way.Down
+}
+
+// A tree's cells, row by row: how many columns and rows it has, and each cell.
+public struct TreeGrid {
+  columns: Integer
+  rows: Integer
+  cells: Array<TreeCell>
+}
 
 // Where a tree's nodes begin: the smallest x or y.
 function leastOf(nodes: Array<Game.TalentNode>, vertical: Boolean): Number {
@@ -26,49 +80,68 @@ function leastOf(nodes: Array<Game.TalentNode>, vertical: Boolean): Number {
   return nodes.length == 0 ? 0 : least
 }
 
-// How far a tree reaches on the screen: its width or its height.
-public function extentOf(nodes: Array<Game.TalentNode>, vertical: Boolean): Number<Length> {
-  const first = leastOf(nodes, vertical)
-  let most = first
-  for (node of nodes) { most = most.max(vertical ? node.y : node.x) }
-  return (most - first) * UNIT + SIZE + 2 * MARGIN
+// The column or row of the client's grid a node stands in, from the tree's first.
+function stepOf(at: Number, least: Number): Integer {
+  return ((at - least) / CELL + 0.5).floor()
 }
 
-// A straight piece of an arrow, where it lies in its tree's box.
-public struct ArrowPiece {
-  left: Number<Length>
-  top: Number<Length>
-  width: Number<Length>
-  height: Number<Length>
-  // Gold where the node it leads to has a rank.
-  color: Color
-  // The frame level it is drawn at: the across piece under the down piece, which meet at the elbow.
-  level: Integer
-}
-
-// The arrows of a tree: from the middle of a node, across and then down to the one it leads to.
-public function arrowsOf(nodes: Array<Game.TalentNode>, leastX: Number, leastY: Number): Array<ArrowPiece> {
-  const list: Array<ArrowPiece> = []
+// A tree laid out on its grid, its arrows drawn into the cells they cross.
+public function gridOf(nodes: Array<Game.TalentNode>): TreeGrid {
+  const leastX = leastOf(nodes, false)
+  const leastY = leastOf(nodes, true)
+  let columns = 0
+  let rows = 0
   for (node of nodes) {
+    columns = columns.max(stepOf(node.x, leastX) + 1)
+    rows = rows.max(stepOf(node.y, leastY) + 1)
+  }
+  const cells: Array<mut TreeCell> = []
+  for (place of 1..columns * rows) { cells.push({}) }
+  const at = (column: Integer, row: Integer): mut TreeCell => cells[row * columns + column + 1] ?? panic("a cell of the grid")
+  for (node of nodes) { at(stepOf(node.x, leastX), stepOf(node.y, leastY)).node = node }
+  for (node of nodes) {
+    const fromColumn = stepOf(node.x, leastX)
+    const fromRow = stepOf(node.y, leastY)
+    const color = node.rank == node.ranks ? GOLD : EDGE
+    const head = node.rank == node.ranks ? HEAD_GOLD : HEAD_DIM
     for (edge of node.edges) {
       for (target of nodes) {
         if (target.id == edge) {
-          const fromX = (node.x - leastX) * UNIT + MARGIN + SIZE / 2
-          const fromY = (node.y - leastY) * UNIT + MARGIN + SIZE / 2
-          const toX = (target.x - leastX) * UNIT + MARGIN + SIZE / 2
-          const toY = (target.y - leastY) * UNIT + MARGIN + SIZE / 2
-          const color = target.rank > 0 ? GOLD : EDGE
-          if ((toX - fromX).abs() >= 1ui) {
-            list.push({ left: fromX.min(toX), top: fromY - LINE / 2, width: (toX - fromX).abs(), height: LINE, color: color, level: 0 })
+          const toColumn = stepOf(target.x, leastX)
+          const toRow = stepOf(target.y, leastY)
+          const right = toColumn > fromColumn
+          // Across the node's row, to the column of the one it leads to.
+          if (toColumn != fromColumn) {
+            const step = right ? 1 : -1
+            for (k of 1..(toColumn - fromColumn).abs()) {
+              const column = fromColumn + (k - 1) * step
+              if (right) { at(column, fromRow).east = color } else { at(column, fromRow).west = color }
+              if (right) { at(column + step, fromRow).west = color } else { at(column + step, fromRow).east = color }
+            }
+            if (toRow == fromRow) {
+              at(toColumn, toRow).head = head
+              at(toColumn, toRow).way = right ? Way.Right : Way.Left
+            } else {
+              at(toColumn, fromRow).lower = color
+            }
           }
-          if ((toY - fromY).abs() >= 1ui) {
-            list.push({ left: toX - LINE / 2, top: fromY.min(toY), width: LINE, height: (toY - fromY).abs(), color: color, level: 1 })
+          // Down that column, to it.
+          if (toRow > fromRow) {
+            at(toColumn, fromRow).down = color
+            for (row of fromRow + 1..toRow - 1) {
+              at(toColumn, row).up = color
+              at(toColumn, row).through = color
+              at(toColumn, row).down = color
+            }
+            at(toColumn, toRow).up = color
+            at(toColumn, toRow).head = head
+            at(toColumn, toRow).way = Way.Down
           }
         }
       }
     }
   }
-  return list
+  return { columns: columns, rows: rows, cells: cells }
 }
 
 // The points spent in a tree.
@@ -83,21 +156,18 @@ class TalentNodeView implements Component {
   public refund: Event<Integer> = new Event()
 
   derived lit: Boolean = self.search == "" || self.node.name.lower().contains(self.search.lower())
-  derived opacity: Number = !self.lit ? 0.3 : self.node.rank == 0 && !self.node.canSpend ? 0.55 : 1
+  derived shut: Boolean = self.node.rank == 0 && !self.node.canSpend
+  derived full: Boolean = self.node.rank == self.node.ranks
+  derived opacity: Number = self.lit ? 1 : 0.3
   derived rank: String = "%d/%d".format(self.node.rank, self.node.ranks)
-  derived rankColor: Color = self.node.rank == self.node.ranks ? GOLD : self.node.canSpend ? GREEN : DIM
-  derived left: Number<Length> = (self.node.x - self.leastX) * UNIT + MARGIN
-  derived top: Number<Length> = (self.node.y - self.leastY) * UNIT + MARGIN
+  derived rankColor: Color = self.full ? GOLD : self.shut ? DIM : GREEN
+  derived frame: Atlas = self.full ? FRAME_FULL : self.shut ? FRAME_SHUT : FRAME_OPEN
 
   node: Signal<Game.TalentNode>
   search: Signal<String>
-  leastX: Signal<Number>
-  leastY: Signal<Number>
-  constructor(node: Signal<Game.TalentNode>, search: Signal<String>, leastX: Signal<Number>, leastY: Signal<Number>) {
+  constructor(node: Signal<Game.TalentNode>, search: Signal<String>) {
     self.node = node
     self.search = search
-    self.leastX = leastX
-    self.leastY = leastY
   }
 
   onClick(mut self, click: Event.Press) {
@@ -110,10 +180,75 @@ class TalentNodeView implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box position={Position.Absolute} left={self.left} top={self.top} width={SIZE} height={SIZE}
-           border={{ width: 1.171875dp, color: EDGE }} icon={self.node.icon} opacity={self.opacity}
-           xAlign={Align.End} yAlign={Align.End} @pointerPress={self.onClick}>
-        <text value={self.rank} textSize={SECONDARY_TEXT} textColor={self.rankColor} wrap={.None} />
+      <box position={Position.Absolute} left={NODE_LEFT} top={0ui} width={SIZE} height={SIZE} opacity={self.opacity}
+           zLevel={2} @pointerPress={self.onClick}>
+        <box position={Position.Absolute} left={ICON_INSET} top={ICON_INSET} right={ICON_INSET} bottom={ICON_INSET}
+             icon={self.node.icon} desaturate={self.shut} />
+        <box position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui} background={self.frame} />
+        <box position={Position.Absolute} right={-BADGE_OUT} bottom={-BADGE_OUT} padding={{ left: BADGE_PAD, right: BADGE_PAD }}
+             background={BADGE_BACK} border={BADGE_EDGE}>
+          <text value={self.rank} textSize={SECONDARY_TEXT} textColor={self.rankColor} wrap={.None} textFont={.Numbers} />
+        </box>
+      </box>
+    }
+  }
+}
+
+// A cell's node as a list: none, or the one.
+function nodesOf(cell: TreeCell): Array<Game.TalentNode> {
+  const node = cell.node
+  return node == nil ? [] : [node]
+}
+
+// One cell of a tree: the arrows' pieces in it, under its node.
+class TreeCellView implements Component {
+  public spend: Event<Integer> = new Event()
+  public refund: Event<Integer> = new Event()
+
+  derived headTurn: Number<Angle> = self.cell.way == Way.Right ? -90deg : self.cell.way == Way.Left ? 90deg : 0deg
+  derived headDown: Boolean = self.cell.head != nil && self.cell.way == Way.Down
+  derived headAcross: Boolean = self.cell.head != nil && self.cell.way != Way.Down
+  derived headLeft: Number<Length> = self.cell.way == Way.Right ? NODE_LEFT - HEAD : NODE_LEFT + SIZE
+  // The cell's node, where it has one.
+  derived nodes: Array<Game.TalentNode> = nodesOf(self.cell)
+
+  cell: Signal<TreeCell>
+  search: Signal<String>
+  constructor(cell: Signal<TreeCell>, search: Signal<String>) {
+    self.cell = cell
+    self.search = search
+  }
+
+  onSpend(mut self, id: Integer) { self.spend.emit(id) }
+  onRefund(mut self, id: Integer) { self.refund.emit(id) }
+
+  public render(self): Template {
+    return $ltml {
+      <box rows={CELL_ROWS} width={STEP}>
+        <box>
+          <box $if={self.cell.up != nil} position={Position.Absolute} left={MIDDLE} top={0ui} bottom={0ui} width={LINE}
+               background={self.cell.up} border={LINE_EDGE} />
+          <box $if={self.headDown} position={Position.Absolute} left={(STEP - HEAD) / 2} bottom={0ui} width={HEAD}
+               height={HEAD} background={self.cell.head} />
+        </box>
+        <box>
+          <box $if={self.cell.through != nil} position={Position.Absolute} left={MIDDLE} top={0ui} bottom={0ui}
+               width={LINE} background={self.cell.through} border={LINE_EDGE} />
+          <box $if={self.cell.lower != nil} position={Position.Absolute} left={MIDDLE} top={ACROSS_TOP} bottom={0ui}
+               width={LINE} background={self.cell.lower} border={LINE_EDGE} />
+          <box $if={self.cell.west != nil} position={Position.Absolute} left={0ui} top={ACROSS_TOP} width={HALF}
+               height={LINE} background={self.cell.west} border={LINE_EDGE} />
+          <box $if={self.cell.east != nil} position={Position.Absolute} left={HALF} top={ACROSS_TOP} width={HALF}
+               height={LINE} background={self.cell.east} border={LINE_EDGE} />
+          <box $if={self.headAcross} position={Position.Absolute} left={self.headLeft} top={(SIZE - HEAD) / 2}
+               width={HEAD} height={HEAD} background={self.cell.head} rotation={self.headTurn} zLevel={1} />
+          <TalentNodeView $for={node of self.nodes} $key={node.id} node={node} search={self.search} @spend={self.onSpend}
+                          @refund={self.onRefund} />
+        </box>
+        <box>
+          <box $if={self.cell.down != nil} position={Position.Absolute} left={MIDDLE} top={0ui} bottom={0ui}
+               width={LINE} background={self.cell.down} border={LINE_EDGE} />
+        </box>
       </box>
     }
   }
@@ -124,11 +259,9 @@ public class TalentTreeView implements Component {
   public refund: Event<Integer> = new Event()
 
   derived title: String = `${self.tree.name}: ${spentIn(self.tree)}`
-  derived leastX: Number = leastOf(self.tree.nodes, false)
-  derived leastY: Number = leastOf(self.tree.nodes, true)
-  derived width: Number<Length> = extentOf(self.tree.nodes, false)
-  derived height: Number<Length> = extentOf(self.tree.nodes, true)
-  derived arrows: Array<ArrowPiece> = arrowsOf(self.tree.nodes, self.leastX, self.leastY)
+  derived grid: TreeGrid = gridOf(self.tree.nodes)
+  derived columns: Array<Track> = tracksOf(self.grid.columns, STEP)
+  derived rows: Array<Track> = rowTracksOf(self.grid.rows)
 
   tree: Signal<Game.TalentTree>
   search: Signal<String>
@@ -142,15 +275,27 @@ public class TalentTreeView implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={1} gap={2sp} xAlign={Align.Center}>
+      <box rows={["max-content", { fr: 1 }]} gap={3sp} xAlign={Align.Center}>
         <text value={self.title} textColor={GOLD} wrap={.None} />
-        <box width={self.width} height={self.height}>
-          <box $for={index, piece of self.arrows} $key={index} position={Position.Absolute} left={piece.left}
-               top={piece.top} width={piece.width} height={piece.height} background={piece.color} zLevel={piece.level} />
-          <TalentNodeView $for={node of self.tree.nodes} $key={node.id} node={node} search={self.search}
-                          leastX={self.leastX} leastY={self.leastY} @spend={self.onSpend} @refund={self.onRefund} />
+        <box columns={self.columns} rows={self.rows}>
+          <TreeCellView $for={index, cell of self.grid.cells} $key={index} cell={cell} search={self.search}
+                        @spend={self.onSpend} @refund={self.onRefund} />
         </box>
       </box>
     }
   }
+}
+
+// `count` tracks each `width` wide.
+function tracksOf(count: Integer, width: Number<Length>): Array<Track> {
+  const list: Array<Track> = []
+  for (place of 1..count) { list.push(width) }
+  return list
+}
+
+// `count` rows sharing the tree's height, each at least a node and its gap.
+function rowTracksOf(count: Integer): Array<Track> {
+  const list: Array<Track> = []
+  for (place of 1..count) { list.push({ fr: 1, min: ROW_LEAST }) }
+  return list
 }
