@@ -1,5 +1,5 @@
-// Ordaen Character: the character window, with three tabs: the character (the paper doll and the stats),
-// «Progression» (reputation and the skills, each a subtab) and the statistics; PvE and PvP are windows of their own, from the micro menu. It opens in place of the
+// Ordaen Character: the character window, with its tabs: the character (the paper doll and the stats), each spec's
+// talents, «Progression» (reputation and the skills, each a subtab) and the statistics; PvE and PvP are windows of their own, from the micro menu. It opens in place of the
 // game's own character window: whatever shows the game's (its key, C, its micro button, another addon's
 // `ToggleCharacter`) shows ours, the game's held unseen and off the screen while ours shows, and the game's tab picks
 // ours (reputation, the skills). Closing ours closes the game's. What it shows is read as it opens and again when the
@@ -13,7 +13,7 @@ import Game from "$game"
 import { Frame, Track } from "$ltml"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
-import { KeptWindow, Module, SECONDARY_TEXT, Settings, SettingsPage, Tabs, Window, WindowTabSpec, WindowsPage, windowsTitle } from "Ordaen"
+import { KeptWindow, Module, SECONDARY_TEXT, Settings, SettingsPage, Tabs, Window, WindowTabSpec, WindowsPage, playSound, windowsTitle } from "Ordaen"
 import root Auras from "OrdaenAuras"
 import { KeptRates, Rates, estimate, ratesKey, ratesOf } from "@/estimate"
 import { GearPage } from "@/gear"
@@ -21,16 +21,20 @@ import { ClientInspector, Honor, InspectHonor, InspectTalents, Inspected, Inspec
 import Locale from "@/locales"
 import { FactionShow, ReputationPage, factionsCount } from "@/reputation"
 import { StatisticsPage, StatsView, statisticsCount } from "@/samples"
-import { Choices, GeneralPage } from "@/settings"
+import { Choices, GeneralPage, SpecNamesPage } from "@/settings"
 import { ClientSheet, Faction, GearSet, Sheet, Skill, Stats, Who, Worn } from "@/sheet"
 import { SkillsPage, skillsCount } from "@/skills"
 import { Facts } from "@/sources"
 import Style from "@/style"
+import { TalentsPage } from "@/talents"
 
-// The tabs, in order; «Progression»'s subtabs, in order.
+// The tabs, in order: the character, each spec's talents (a spec tab's group is its place less one), «Progression»
+// and the statistics; «Progression»'s subtabs, in order.
 const TAB_CHARACTER = 1
-const TAB_PROGRESSION = 2
-const TAB_STATISTICS = 3
+const TAB_SPEC_ONE = 2
+const TAB_SPEC_TWO = 3
+const TAB_PROGRESSION = 4
+const TAB_STATISTICS = 5
 const PROGRESS_REPUTATION = 1
 const PROGRESS_SKILLS = 2
 // The game's character window and its pages, by the names its code gives them, with the tab of ours each opens.
@@ -38,6 +42,8 @@ const GAME_WINDOW = "CharacterFrame"
 // The tabs' pictures: the game's character window's side tabs (`CHARACTER_MODE_TAB_ICONS`), and a tabard for the
 // character, where the game draws the portrait.
 const CHARACTER_ICON: Asset = "Interface/ICONS/INV_Shirt_GuildTabard_01"
+const SPEC_ONE_ICON: Asset = "Interface/ICONS/Ability_Marksmanship"
+const SPEC_TWO_ICON: Asset = "Interface/ICONS/Ability_Warrior_DefensiveStance"
 const PROGRESSION_ICON: Asset = "Interface/ICONS/INV_SideTab_Reputation2_c60"
 const STATISTICS_ICON: Asset = "Interface/ICONS/INV_SideTab_Stats_c60"
 // The inspect window's tabs, in order, and their pictures; the game's inspect window and the addon that makes it.
@@ -61,6 +67,7 @@ public class Character implements Module, App {
   public const windows: mut Array<mut KeptWindow> = [self.window, self.inspectWindow]
   public const pages: Array<SettingsPage> = [
     { title: Locale.TAB_GENERAL, content: $ltml { <GeneralPage settings={mut self.settings} /> } },
+    { title: Locale.TAB_TALENTS, content: $ltml { <SpecNamesPage settings={mut self.settings} /> } },
     { title: windowsTitle(), content: $ltml { <WindowsPage windows={mut self.windows} /> } }
   ]
 
@@ -130,9 +137,25 @@ public class Character implements Module, App {
   ]
   derived tabs: Array<WindowTabSpec> = [
     { title: Locale.TAB_CHARACTER, icon: CHARACTER_ICON },
+    { title: self.settings.values.specOne == "" ? Locale.TAB_MAIN : self.settings.values.specOne, icon: SPEC_ONE_ICON },
+    {
+      title: self.settings.values.specTwo == "" ? Locale.TAB_SECOND : self.settings.values.specTwo, icon: SPEC_TWO_ICON,
+      locked: self.specGroups < 2 ? Runtime.text("TALENT_SPEC_LOCKED") ?? Locale.SPEC_LOCKED : nil
+    },
     { title: Locale.TAB_PROGRESSION, icon: PROGRESSION_ICON },
     { title: Locale.TAB_STATISTICS, icon: STATISTICS_ICON }
   ]
+  // The spec tab shown, as the game numbers its spec groups (1 or 2; 0 on another tab), its trees, the points left in
+  // it, whether points wait to be applied, the group the player has active, and how many groups the player has: the
+  // second spec's tab is dimmed until it is learned, its Tip the client's own words for it (ours where the client has
+  // none).
+  derived group: Integer = self.tab == TAB_SPEC_ONE ? 1 : self.tab == TAB_SPEC_TWO ? 2 : 0
+  state trees: Array<Game.TalentTree> = []
+  state unspent = 0
+  state staged = false
+  state activeGroup = 1
+  state specGroups = 2
+  derived groupActive: Boolean = self.group == self.activeGroup
   // «Progression»'s subtab, its names, and the skill picked (by its number; none: 0) and the skills' search.
   state progress = PROGRESS_REPUTATION
   const progressTabs: Array<String> = [Locale.TAB_REPUTATION, Locale.TAB_SKILLS]
@@ -161,8 +184,12 @@ public class Character implements Module, App {
     } else {
       self.addonHeard = Events.ADDON_LOADED.listen(self.onAddonLoaded)
     }
+    // The talents are read for the spec tab shown, and again when the game says they changed.
+    Game.talentTrees.changed.listen(self.refreshTalents)
+    watch (group of self.group) { self.refreshTalents() }
     // The game's words about the character are heard while the window shows.
     watch (opened of self.open) {
+      Game.talentTrees.watch(opened)
       if (opened) {
         Events.PLAYER_EQUIPMENT_CHANGED.listen(self.readGear)
         // Which set is worn whole follows each piece put on or taken off.
@@ -240,7 +267,28 @@ public class Character implements Module, App {
     self.readFits()
     self.who = self.sheet.who()
     self.keepRates()
+    self.specGroups = Game.talentTrees.groups()
+    self.refreshTalents()
   }
+
+  // The spec tab's talents, as the game has them; on another tab the game is asked for none.
+  public refreshTalents(mut self) {
+    const group = peek self.group
+    if (group < 1) { return }
+    self.trees = Game.talentTrees.trees(group)
+    self.unspent = Game.talentTrees.unspent(group)
+    self.activeGroup = Game.talentTrees.activeGroup()
+    self.staged = Game.talentTrees.staged()
+  }
+
+  onSpend(mut self, node: Integer) { _ = Game.talentTrees.spend(node) }
+  onRefund(mut self, node: Integer) { _ = Game.talentTrees.refund(node) }
+  onApply(mut self) {
+    if (Game.talentTrees.commit()) { playSound("UI_CLASS_TALENT_APPLY_COMPLETE") }
+  }
+  onCancel(mut self) { _ = Game.talentTrees.rollback() }
+  // The spec switch is the player's: it runs in the click of «Activate».
+  onActivate(mut self) { _ = Game.talentTrees.activate(peek self.group) }
 
   // The game's inspect window, once its addon has loaded: held unseen while it shows; closed, ours closes.
   onAddonLoaded(mut self, name: String) {
@@ -465,6 +513,9 @@ public class Character implements Module, App {
                   flyoutSlot={self.flyoutSlot} fitting={self.fitting} @picked={self.onPicked} @tried={self.onTried}
                   @flyout={self.onFlyout} @chose={self.onChose} @closeFlyout={self.onCloseFlyout}
                   auras={Auras.active} @useSet={self.onUseSet} @saveSet={self.onSaveSet} />
+        <TalentsPage $elseif={self.group > 0} trees={self.trees} unspent={self.unspent} staged={self.staged}
+                     active={self.groupActive} @spend={self.onSpend} @refund={self.onRefund} @apply={self.onApply}
+                     @cancel={self.onCancel} @activate={self.onActivate} />
         <box $elseif={self.tab == TAB_PROGRESSION} rows={PROGRESS_ROWS} gap={3sp}>
           <Tabs tabs={self.progressTabs} selected={mut self.progress} />
           <ReputationPage $if={self.progress == PROGRESS_REPUTATION} factions={self.factions} starts={self.starts}

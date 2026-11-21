@@ -1,8 +1,8 @@
-// «Talents»: the trees side by side, each node drawn where the client puts it (its grid, from the tree's top left),
-// Left-click spending a point in it and Right-click taking back one not applied yet; the search that dims what doesn't
-// match, with «Activate» beside it for the spec that isn't active; the points left in the footer, and «Cancel
-// changes» / «Apply changes» either side of them while points wait to be applied. What a node may do is the
-// client's to say (`canSpend`, `canRefund`); the page only asks.
+// A spec's tab: its talent trees side by side, each node drawn where the client puts it (its grid, from the tree's top
+// left), Left-click spending a point in it and Right-click taking back one not applied yet; the search that dims what
+// doesn't match, with «Activate» beside it for the spec that isn't active; the points left in the footer, and «Cancel
+// changes» / «Apply changes» either side of them while points wait to be applied. What a node may do is the client's to
+// say (`canSpend`, `canRefund`); the page only asks.
 import Game from "$game"
 import { Align, Track } from "$ltml"
 import { ButtonPlate, Component, PushButton, TalentTreeView } from "Ordaen"
@@ -13,6 +13,9 @@ const TREES: Array<Track> = [{ fr: 1 }, { fr: 1 }, { fr: 1 }]
 const PAGE: Array<Track> = ["max-content", { fr: 1 }, "max-content"]
 const FOOT: Array<Track> = [{ fr: 1 }, "max-content", { fr: 1 }]
 const TOP: Array<Track> = [{ fr: 1 }, "max-content"]
+const SEARCH: Number<Length> = 39.84375dp
+const ACTIVATE_WIDTH: Number<Length> = 175.78125dp
+const CHANGES_WIDTH: Number<Length> = 222.65625dp
 
 public class TalentsPage implements Component {
   public spend: Event<Integer> = new Event()
@@ -55,11 +58,10 @@ public class TalentsPage implements Component {
     return $ltml {
       <box rows={PAGE} gap={2.5sp}>
         <box columns={TOP} gap={2.5sp} yAlign={Align.Center}>
-          <box height={39.84375dp} rows={[{ fr: 1 }]}>
-            <input value={mut self.search} padding={{ left: 3sp, right: 3sp }} textColor={Style.INK}
-                   background={Color.hex("#00000080")} />
+          <box height={SEARCH} rows={[{ fr: 1 }]}>
+            <input value={mut self.search} padding={Style.FIELD_PAD} textColor={Style.INK} background={Style.FIELD_BACK} />
           </box>
-          <PushButton $if={self.inactive} label={Locale.ACTIVATE} width={175.78125dp} @click={self.onActivate} />
+          <PushButton $if={self.inactive} label={Locale.ACTIVATE} width={ACTIVATE_WIDTH} @click={self.onActivate} />
         </box>
         <box $if={self.empty} xAlign={Align.Center} yAlign={Align.Center}>
           <text value={Locale.NO_TALENTS} textColor={Style.DIM} />
@@ -70,11 +72,12 @@ public class TalentsPage implements Component {
         </box>
         <box columns={FOOT} gap={2.5sp} yAlign={Align.Center}>
           <box>
-            <PushButton $if={self.waiting} label={Locale.CANCEL_CHANGES} width={222.65625dp} @click={self.onCancel} />
+            <PushButton $if={self.waiting} label={Locale.CANCEL_CHANGES} width={CHANGES_WIDTH} @click={self.onCancel} />
           </box>
           <text value={self.points} textColor={Style.INK} wrap={.None} />
           <box xAlign={Align.End}>
-            <PushButton $if={self.waiting} label={Locale.APPLY_CHANGES} width={222.65625dp} plate={ButtonPlate.Accent} @click={self.onApply} />
+            <PushButton $if={self.waiting} label={Locale.APPLY_CHANGES} width={CHANGES_WIDTH} plate={ButtonPlate.Accent}
+                        @click={self.onApply} />
           </box>
         </box>
       </box>

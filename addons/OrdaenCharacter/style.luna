@@ -19,6 +19,10 @@ public const WEAR: Number<Length> = 3.515625dp
 public const BAR_PAD: Edges = { top: 2sp, right: 3sp, bottom: 2sp, left: 3sp }
 // The reputation tab's side, where the chosen faction stands.
 public const SIDE: Number<Length> = 328.125dp
+// A field the player types in (a spec's name, the talents' search): its height, its room round the text, its well.
+public const FIELD: Number<Length> = 35.15625dp
+public const FIELD_PAD: Edges = { left: 3sp, right: 3sp }
+public const FIELD_BACK: Color = Color.hex("#00000080")
 
 // A health or power bar: a glass tube, its fill inside the ring (the art's 10 texels of 64 at each edge); the room
 // its regeneration keeps from the tube's right end; its texts' shadow.

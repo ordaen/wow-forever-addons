@@ -1,8 +1,5 @@
 {
-  "TAB_GENERAL": "Spells and talents",
   "TAB_SPELLS": "Spells",
-  "TAB_MAIN": "Primary",
-  "TAB_SECOND": "Secondary",
   "TAB_TRAINER": "Trainer",
   "TAB_ALL": "All",
   "SEARCH": "Search",
@@ -17,15 +14,8 @@
   "SPELL_DETAIL": "%s. %s. Level %d",
   "SPELL_KIND": "%s. Level %d",
   "NOTHING_FOUND": "Nothing found.",
-  "NO_TALENTS": "The talents are not available.",
-  "TALENT_POINTS": "Talent points: %d",
-  "CANCEL_CHANGES": "Cancel changes",
-  "APPLY_CHANGES": "Apply changes",
-  "ACTIVATE": "Activate",
   "SHOW_ALL": "All",
   "PICK_SERVICE": "Pick a skill.",
-  "SETTING_SPEC_ONE": "Name of the first spec tab",
-  "SETTING_SPEC_TWO": "Name of the second spec tab",
   "SETTING_TRAINER": "Class trainer window",
   "SETTING_TRAINER_TIP": "Off, class trainers are the game's own.",
   "SETTING_TRAINER_VIEW": "Opens as",
@@ -44,6 +34,5 @@
   "COL_SKILL": "Skill",
   "COUNT_SHOWN": "Shown",
   "COUNT_ACTIVE": "Active spells",
-  "COUNT_PASSIVE": "Passive spells",
-  "SPEC_LOCKED": "The second specialization is learned from your class trainer."
+  "COUNT_PASSIVE": "Passive spells"
 }

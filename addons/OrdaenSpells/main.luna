@@ -1,8 +1,8 @@
-// Ordaen Spells: the spellbook and the talents in one window with three tabs, and the class trainer's window. The
-// spellbook window opens with `/spellbook`, and with the game's own button for it (the micro menu's): the game's
-// window opens all the same, unseen and off the screen, and this one stands in its place while it shows. The
-// trainer's shows while the client's class trainer is open, never for a profession's or a pet's. What each page shows is read from `"$game"` as the
-// window opens and when it says it changed.
+// Ordaen Spells: the spellbook window, and the class trainer's window (the talents are Ordaen Character's, a tab for
+// each spec in the character window). The spellbook window opens with `/spellbook`, and with the game's own button
+// for it (the micro menu's): the game's window opens all the same, unseen and off the screen, and this one stands in
+// its place while it shows. The trainer's shows while the client's class trainer is open, never for a profession's or
+// a pet's. What each shows is read from `"$game"` as the window opens and when it says it changed.
 import Client from "$client"
 import Game from "$game"
 import { Frame } from "$ltml"
@@ -10,10 +10,9 @@ import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
 import { KeptWindow, Module, ModuleMemory, Settings, SettingsPage, TrainerList, TrainerView, TrainerWindow, Window, WindowTabSpec, WindowsPage, playSound, windowsTitle } from "Ordaen"
 import Locale from "@/locales"
-import { Choices, GeneralPage, TrainerPage } from "@/settings"
+import { Choices, TrainerPage } from "@/settings"
 import { SpellbookPage } from "@/spellbook"
 import Style from "@/style"
-import { TalentsPage } from "@/talents"
 
 // What the game's spellbook tells other addons as it shows and hides (`EventRegistry`).
 const SHOWN_EVENT = "PlayerSpellsFrame.SpellBookFrame.Show"
@@ -28,13 +27,12 @@ public class Spells implements Module, App {
   public trainerWindow: mut KeptWindow = new KeptWindow("trainer", Locale.TAB_TRAINER, { x: 0ui, y: 0ui, width: Style.TRAINER_WIDTH, height: Style.HEIGHT })
   public const windows: mut Array<mut KeptWindow> = [self.window, self.trainerWindow]
   public const pages: Array<SettingsPage> = [
-    { title: Locale.TAB_GENERAL, content: $ltml { <GeneralPage settings={mut self.settings} /> } },
     { title: Locale.TAB_TRAINER, content: $ltml { <TrainerPage settings={mut self.settings} /> } },
     { title: windowsTitle(), content: $ltml { <WindowsPage windows={mut self.windows} /> } }
   ]
 
   public settings: mut Settings<Choices> = new Settings<Choices>({
-    specOne: "", specTwo: "", trainer: true, trainerView: TrainerView.List, trainerSort: 0
+    trainer: true, trainerView: TrainerView.List, trainerSort: 0
   })
 
   state open = false
@@ -43,27 +41,10 @@ public class Spells implements Module, App {
   state lines: Array<Game.SpellLine> = []
   state pets: Array<Game.SpellEntry> = []
   state petBook: String | nil = nil
-  state trees: Array<Game.TalentTree> = []
-  state unspent = 0
-  state staged = false
-  // The spec group the player has active: 1 or 2.
-  state activeGroup = 1
-  derived group: Integer = self.tab - 1
-  derived groupActive: Boolean = self.group == self.activeGroup
   // The game's own window shows (the micro menu's button opened it).
   state gameShown = false
   state services: Array<Game.TrainerService> = []
-  derived tabs: Array<WindowTabSpec> = [
-    { title: Locale.TAB_SPELLS },
-    { title: self.settings.values.specOne == "" ? Locale.TAB_MAIN : self.settings.values.specOne },
-    {
-      title: self.settings.values.specTwo == "" ? Locale.TAB_SECOND : self.settings.values.specTwo,
-      locked: self.specGroups < 2 ? Runtime.text("TALENT_SPEC_LOCKED") ?? Locale.SPEC_LOCKED : nil
-    }
-  ]
-  // How many spec groups the player has: the second spec's tab is dimmed until it is learned, its Tip the client's
-  // own words for it (ours where the client has none).
-  state specGroups = 2
+  const tabs: Array<WindowTabSpec> = [{ title: Locale.TAB_SPELLS }]
   // The constructor has run: what changes after it is the player's doing, and sounds.
   started = false
   // How wide the window's body is: the screen's, full screen.
@@ -90,15 +71,9 @@ public class Spells implements Module, App {
     Game.trainer.changed.listen(self.onTrainer)
     Game.spellbook.changed.listen(self.onSpells)
     watch (opened of Game.trainer.open) { self.onTrainerOpen(opened) }
-    Game.talentTrees.changed.listen(self.refreshTalents)
-    watch (value of self.tab) {
-      self.refreshTalents()
-      if (self.started) { playSound("IG_CHARACTER_INFO_TAB") }
-    }
-    // The game's words about spells and talents are heard while their windows show.
+    // The game's words about spells are heard while the spellbook shows.
     watch (opened of self.open) {
       Game.spellbook.watch(opened)
-      Game.talentTrees.watch(opened)
       self.onOpened(opened)
     }
     watch (shown of self.trainerShown) { Game.trainer.watch(shown) }
@@ -126,11 +101,7 @@ public class Spells implements Module, App {
     if (self.open) { self.refresh() }
   }
 
-  public refresh(mut self) {
-    self.readSpells()
-    self.specGroups = Game.talentTrees.groups()
-    self.refreshTalents()
-  }
+  public refresh(mut self) { self.readSpells() }
 
   // A spell learned or unlearned, a pet come or gone, while the window shows.
   onSpells(mut self) {
@@ -171,24 +142,6 @@ public class Spells implements Module, App {
     self.open = false
   }
 
-  public refreshTalents(mut self) {
-    const group = (peek self.tab) - 1
-    if (group < 1) { return }
-    self.trees = Game.talentTrees.trees(group)
-    self.unspent = Game.talentTrees.unspent(group)
-    self.activeGroup = Game.talentTrees.activeGroup()
-    self.staged = Game.talentTrees.staged()
-  }
-
-  onSpend(mut self, node: Integer) { _ = Game.talentTrees.spend(node) }
-  onRefund(mut self, node: Integer) { _ = Game.talentTrees.refund(node) }
-  onApply(mut self) {
-    if (Game.talentTrees.commit()) { playSound("UI_CLASS_TALENT_APPLY_COMPLETE") }
-  }
-  onCancel(mut self) { _ = Game.talentTrees.rollback() }
-  // The spec switch is the player's: it runs in the click of «Activate».
-  onActivate(mut self) { _ = Game.talentTrees.activate(peek self.group) }
-
   // The class trainer's services, as it opens and as they change.
   onTrainer(mut self) {
     if (!Game.trainer.teachesClass()) { return }
@@ -203,10 +156,7 @@ public class Spells implements Module, App {
       <frame $if={self.gameShown} of={Game.frames.PlayerSpells} opacity={0} away={true} />
       <Window $if={self.open} tabs={self.tabs} selected={mut self.tab} declared={mut self.window} withSettings={true}
               @close={self.onClose} @settings={self.onSettings}>
-        <SpellbookPage $if={self.tab == 1} spells={self.spells} lines={self.lines} width={self.bookWidth} pets={self.pets}
-                       petBook={self.petBook} />
-        <TalentsPage $else trees={self.trees} unspent={self.unspent} staged={self.staged} active={self.groupActive} @spend={self.onSpend}
-                     @refund={self.onRefund} @apply={self.onApply} @cancel={self.onCancel} @activate={self.onActivate} />
+        <SpellbookPage spells={self.spells} lines={self.lines} width={self.bookWidth} pets={self.pets} petBook={self.petBook} />
       </Window>
       <TrainerWindow $if={self.trainerShown} services={self.services} declared={mut self.trainerWindow} list={mut self.trainerList}
                      tabSpec={TRAINER_TAB} noun={Locale.COL_SKILL} pickText={Locale.PICK_SERVICE} trade={false} @settings={self.onSettings} />

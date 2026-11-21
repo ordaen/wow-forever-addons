@@ -15,6 +15,7 @@ import root Char from "OrdaenCharacter"
 import { FITS_GLOW, wearColor } from "@/gear"
 import { Honor, Inspected, Inspector } from "@/inspect"
 import { WornSet } from "@/lines"
+import { Choices } from "@/settings"
 import { ClientSheet, Faction, GearSet, Sheet, Skill, Stats, Who, Worn } from "@/sheet"
 import Style from "@/style"
 
@@ -481,6 +482,244 @@ test "the weapon held has its skill as a gauge, its bonus counted in" {
   const window = opened(new FakeSheet())
   Test.expect(window.text("Maces").shown())
   Test.expect(window.text("305").shown())
+}
+
+// The talents
+
+const TALENT_ICON: Asset = "Interface/Icons/INV_Misc_Note_01"
+const SWORD: Asset = "Interface/Icons/INV_Sword_04"
+// An arrow of a tree that leads to a talent with no rank; a talent's rank dimmed where no point may go.
+const ARROW_LINE: Color = Color.hex("#4a3a24")
+const RANK_DIM: Color = Color.hex("#a3977f")
+// The second spec's tab, by its name.
+const SECOND = "Secondary"
+
+// The trees of a spec: the first spec's two, the second's one.
+function trees(group: Integer): Array<Game.TalentTree> {
+  if (group == 2) {
+    return [
+      {
+        id: 3, name: "Protection",
+        nodes: [{ id: 30, x: 0, y: 0, name: "Shield Wall", icon: TALENT_ICON, rank: 1, ranks: 2, canSpend: true, canRefund: true, edges: [] }]
+      }
+    ]
+  }
+  return [
+    {
+      id: 1, name: "Arms",
+      nodes: [
+        { id: 10, x: 0, y: 0, name: "Deflection", icon: TALENT_ICON, rank: 2, ranks: 5, canSpend: true, canRefund: true, edges: [11] },
+        { id: 11, x: 600, y: 600, name: "Tactical Mastery", icon: TALENT_ICON, rank: 0, ranks: 3, canSpend: false, canRefund: false, edges: [] }
+      ]
+    },
+    {
+      id: 2, name: "Fury",
+      nodes: [{ id: 20, x: 0, y: 0, name: "Booming Voice", icon: TALENT_ICON, rank: 5, ranks: 5, canSpend: false, canRefund: true, edges: [] }]
+    }
+  ]
+}
+
+// The window opened on a spec's tab, by the tab's name.
+function onSpec(name: String): Test.Part {
+  Game.items.icon = icons
+  const window = opened(new FakeSheet())
+  window.button(name).click()
+  return window
+}
+
+test "a spec's tab shows its talent trees, each with the points spent in it" {
+  Test.mount(nil, PAGE)
+  Game.talentTrees.trees = trees
+  const window = onSpec("Primary")
+  Test.expect(window.text("Arms: 2").shown() && window.text("Fury: 5").shown())
+  Test.expect(!window.text("Protection: 1").shown())
+}
+
+test "the second spec's tab shows that spec's trees" {
+  Test.mount(nil, PAGE)
+  Game.talentTrees.trees = trees
+  const window = onSpec(SECOND)
+  Test.expect(window.text("Protection: 1").shown())
+  Test.expect(!window.text("Arms: 2").shown())
+}
+
+test "each talent says its rank of its ranks, gold when full, green where a point may go, and dim where none may" {
+  Test.mount(nil, PAGE)
+  Game.talentTrees.trees = trees
+  const window = onSpec("Primary")
+  Test.expect(window.button("2/5").shown() && window.button("0/3").shown() && window.button("5/5").shown())
+  Test.expect(window.text("5/5").textColor().equal(Style.GOLD))
+  Test.expect(window.text("2/5").textColor().equal(Style.GREEN))
+  Test.expect(window.text("0/3").textColor().equal(RANK_DIM))
+}
+
+test "a tree's arrow is gold where the talent it leads to has a rank, the line's colour where it has none" {
+  Test.mount(nil, PAGE)
+  Game.talentTrees.trees = trees
+  const window = onSpec("Primary")
+  Test.expect(!window.box(Style.GOLD).shown())
+  Test.expect(window.box(ARROW_LINE).count() == 2)
+  Game.talentTrees.trees = (group: Integer): Array<Game.TalentTree> => [
+    {
+      id: 1, name: "Arms",
+      nodes: [
+        { id: 10, x: 0, y: 0, name: "Deflection", icon: TALENT_ICON, rank: 2, ranks: 5, canSpend: true, canRefund: true, edges: [11] },
+        { id: 11, x: 0, y: 600, name: "Tactical Mastery", icon: TALENT_ICON, rank: 1, ranks: 3, canSpend: true, canRefund: true, edges: [] }
+      ]
+    }
+  ]
+  Game.talentTrees.changed.emit()
+  Test.expect(window.box(Style.GOLD).shown())
+}
+
+test "the talents say the points left to spend in each spec" {
+  Test.mount(nil, PAGE)
+  Game.talentTrees.trees = trees
+  Game.talentTrees.unspent = (group: Integer): Integer => group == 1 ? 3 : 7
+  const window = onSpec("Primary")
+  Test.expect(window.text("Talent points: 3").shown())
+  window.button(SECOND).click()
+  Test.expect(window.text("Talent points: 7").shown())
+}
+
+test "a spec with no trees says the talents are not available" {
+  Test.mount(nil, PAGE)
+  const window = onSpec("Primary")
+  Test.expect(window.text("The talents are not available.").shown())
+}
+
+test "the talents follow the trees the game reports while the window shows" {
+  Test.mount(nil, PAGE)
+  Game.talentTrees.trees = trees
+  const window = onSpec("Primary")
+  Game.talentTrees.trees = (group: Integer): Array<Game.TalentTree> => [
+    {
+      id: 1, name: "Arms",
+      nodes: [{ id: 10, x: 0, y: 0, name: "Deflection", icon: SWORD, rank: 5, ranks: 5, canSpend: false, canRefund: true, edges: [] }]
+    }
+  ]
+  Game.talentTrees.changed.emit()
+  Test.expect(window.text("Arms: 5").shown() && window.button("5/5").paintedWith(SWORD))
+  Test.expect(window.text("5/5").textColor().equal(Style.GOLD))
+}
+
+test "the game is asked for the talents while the window shows, and for no tree on another tab" {
+  Test.mount(nil, PAGE)
+  let asked = 0
+  Game.talentTrees.trees = (group: Integer): Array<Game.TalentTree> => {
+    asked += 1
+    return []
+  }
+  _ = Test.requests()
+  Game.items.icon = icons
+  const window = opened(new FakeSheet())
+  Test.flush()
+  Test.expect(Test.requests().any(r => r == "TalentTrees.watch true"))
+  Test.expect(asked == 0)
+  window.button("Primary").click()
+  Test.expect(asked == 1)
+  window.button(Ordaen.art.ctl.corner.close).click()
+  Test.expect(Test.requests().any(r => r == "TalentTrees.watch false"))
+}
+
+test "a click on a talent spends a point in it, a right-click takes one back" {
+  Test.mount(nil, PAGE)
+  Game.talentTrees.trees = trees
+  const window = onSpec("Primary")
+  _ = Test.requests()
+  window.button("2/5").click()
+  Test.expect(Test.requests().any(r => r == "TalentTrees.spend 10"))
+  window.button("2/5").rightClick()
+  const asked = Test.requests()
+  Test.expect(asked.any(r => r == "TalentTrees.refund 10") && !asked.any(r => r == "TalentTrees.spend 10"))
+}
+
+test "with points staged, Apply changes stands out and applies them, Cancel changes takes them back" {
+  Test.mount(nil, PAGE)
+  Game.talentTrees.trees = trees
+  Game.talentTrees.staged = (): Boolean => true
+  const window = onSpec("Primary")
+  Test.expect(window.button("Apply changes").paintedWith(Ordaen.art.ctl.buttonAccent))
+  Test.expect(!window.button("Cancel changes").paintedWith(Ordaen.art.ctl.buttonAccent))
+  _ = Test.requests()
+  window.button("Apply changes").click()
+  Test.expect(Test.requests().any(r => r == "TalentTrees.commit"))
+  window.button("Cancel changes").click()
+  Test.expect(Test.requests().any(r => r == "TalentTrees.rollback"))
+}
+
+test "with no points staged, Apply changes and Cancel changes aren't shown" {
+  Test.mount(nil, PAGE)
+  Game.talentTrees.trees = trees
+  const window = onSpec("Primary")
+  Test.expect(!window.button("Apply changes").shown() && !window.button("Cancel changes").shown())
+}
+
+test "the active spec's tab offers no Activate; the other's does, and asks the game to switch to it" {
+  Test.mount(nil, PAGE)
+  const window = onSpec("Primary")
+  Test.expect(!window.button("Activate").shown())
+  window.button(SECOND).click()
+  _ = Test.requests()
+  window.button("Activate").click()
+  Test.expect(Test.requests().any(r => r == "TalentTrees.activate 2"))
+}
+
+test "the other spec's points staged can't be applied until it is active" {
+  Test.mount(nil, PAGE)
+  Game.talentTrees.staged = (): Boolean => true
+  const window = onSpec(SECOND)
+  Test.expect(!window.button("Apply changes").shown())
+}
+
+test "the second spec's tab is the active one when the game says the player has it active" {
+  Test.mount(nil, PAGE)
+  Game.talentTrees.activeGroup = (): Integer => 2
+  const window = onSpec(SECOND)
+  Test.expect(!window.button("Activate").shown())
+  window.button("Primary").click()
+  Test.expect(window.button("Activate").shown())
+}
+
+test "a second spec not had is dimmed, opens nothing, and its tooltip says where it is learned" {
+  Test.mount(nil, PAGE)
+  Game.talentTrees.groups = (): Integer => 1
+  Game.items.icon = icons
+  const window = opened(new FakeSheet())
+  Test.expect(window.text(SECOND).opacity() < 0.6)
+  window.button(SECOND).click()
+  Test.expect(window.text("STR").shown())
+  Test.page().button(SECOND).hover()
+  Test.expect(Test.page().text("The second specialization is learned from your class trainer.").shown())
+}
+
+test "a name given to a spec in the settings stands on its tab" {
+  Test.mount(nil, PAGE)
+  Game.items.icon = icons
+  const window = opened(new FakeSheet())
+  Char.settings.change((choices: mut Choices): nil => {
+    choices.specOne = "Arms"
+    choices.specTwo = "Fury"
+  })
+  Test.expect(window.button("Arms").shown() && window.button("Fury").shown())
+  Test.expect(!window.button("Primary").shown() && !window.button(SECOND).shown())
+}
+
+test "the settings' talents page names the spec tabs as the player types, written as the typing rests" {
+  Test.mount(nil, PAGE)
+  Game.items.icon = icons
+  const window = opened(new FakeSheet())
+  window.button(Ordaen.art.ctl.corner.gear).click()
+  Test.page().window("Item level on the slots").button("Talents").click()
+  const settings = Test.page().window("Name of the first spec tab")
+  for (i of 1..30) {
+    if (Test.keyboard()) { break }
+    Test.key(Test.Move.Next)
+  }
+  Test.type("Arms")
+  Test.expect(!window.button("Arms").shown())
+  Test.pass(0.3)
+  Test.expect(window.button("Arms").shown() && settings.shown())
 }
 
 // Progression

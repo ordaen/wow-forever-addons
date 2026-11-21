@@ -1,8 +1,5 @@
 {
-  "TAB_GENERAL": "Заклинания и таланты",
   "TAB_SPELLS": "Заклинания",
-  "TAB_MAIN": "Основное",
-  "TAB_SECOND": "Дополнительное",
   "TAB_TRAINER": "Учитель",
   "TAB_ALL": "Все",
   "SEARCH": "Поиск",
@@ -17,15 +14,8 @@
   "SPELL_DETAIL": "%s. %s. Уровень %d",
   "SPELL_KIND": "%s. Уровень %d",
   "NOTHING_FOUND": "Ничего не найдено.",
-  "NO_TALENTS": "Таланты недоступны.",
-  "TALENT_POINTS": "Очки талантов: %d",
-  "CANCEL_CHANGES": "Отменить изменения",
-  "APPLY_CHANGES": "Применить изменения",
-  "ACTIVATE": "Активировать",
   "SHOW_ALL": "Все",
   "PICK_SERVICE": "Выберите навык.",
-  "SETTING_SPEC_ONE": "Название первой вкладки специализации",
-  "SETTING_SPEC_TWO": "Название второй вкладки специализации",
   "SETTING_TRAINER": "Окно учителя классов",
   "SETTING_TRAINER_TIP": "Выключено: учителя классов остаются игровыми.",
   "SETTING_TRAINER_VIEW": "Открывается как",
@@ -44,6 +34,5 @@
   "COL_SKILL": "Навык",
   "COUNT_SHOWN": "Показано",
   "COUNT_ACTIVE": "Активных",
-  "COUNT_PASSIVE": "Пассивных",
-  "SPEC_LOCKED": "Вторая специализация изучается у учителя вашего класса."
+  "COUNT_PASSIVE": "Пассивных"
 }

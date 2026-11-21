@@ -1,10 +1,10 @@
 // The spellbook and the trainer as the player meets them: `/spellbook` or the game's own spellbook window opens ours,
-// its tabs list the spells and the talents of each spec, and the class trainer's window shows while the game's trainer
-// is open. The root is drawn on the screen as Ordaen draws it; what the player asks of the game is heard as the fake
+// which lists the spells (the talents are Ordaen Character's), and the class trainer's window shows while the game's
+// trainer is open. The root is drawn on the screen as Ordaen draws it; what the player asks of the game is heard as the fake
 // game's requests.
 import Client from "$client"
 import Game from "$game"
-import { Art, Key } from "$ltml"
+import { Art } from "$ltml"
 import Runtime from "$runtime"
 import Test from "$test"
 import root Ordaen from "Ordaen"
@@ -13,19 +13,15 @@ import { SpellbookPage } from "@/spellbook"
 
 const PAGE: Test.Page = { left: 20, top: 20, width: 1300, height: 720, screen: true }
 const ICON: Asset = "Interface/Icons/INV_Misc_Note_01"
-// A text the spellbook window always shows: its third tab.
-const BOOK = "Secondary"
+// A text the spellbook window always shows: its tab.
+const BOOK = "Spells"
 // A text the trainer's window always shows.
 const TRAINER = "Your money"
 const SWORD: Asset = "Interface/Icons/INV_Sword_04"
 // The colours a text or a box is to be drawn in.
 const INK: Color = Color.hex("#e8dcc4")
 const DIM: Color = Color.hex("#a3977f")
-const GOLD: Color = Color.hex("#ffd100")
 const RED: Color = Color.hex("#ff4040")
-const GREEN: Color = Color.hex("#40d060")
-// An arrow of a tree that leads to a talent with no rank.
-const LINE: Color = Color.hex("#4a3a24")
 // A picked service's line.
 const LIT: Color = Color.hex("#00000040")
 
@@ -40,31 +36,6 @@ function spells(): Array<Game.SpellEntry> {
     { id: 3127, name: "Parry", rank: "", icon: ICON, level: 6, passive: true, line: 2 },
     { id: 12294, name: "Mortal Strike", rank: "", icon: ICON, level: 40, passive: false, line: 3 },
     { id: 2481, name: "Find Treasure", rank: "", icon: ICON, level: 1, passive: false, line: 1 }
-  ]
-}
-
-// The trees of a spec: the first spec's two, the second's one.
-function trees(group: Integer): Array<Game.TalentTree> {
-  if (group == 2) {
-    return [
-      {
-        id: 3, name: "Protection",
-        nodes: [{ id: 30, x: 0, y: 0, name: "Shield Wall", icon: ICON, rank: 1, ranks: 2, canSpend: true, canRefund: true, edges: [] }]
-      }
-    ]
-  }
-  return [
-    {
-      id: 1, name: "Arms",
-      nodes: [
-        { id: 10, x: 0, y: 0, name: "Deflection", icon: ICON, rank: 2, ranks: 5, canSpend: true, canRefund: true, edges: [11] },
-        { id: 11, x: 600, y: 600, name: "Tactical Mastery", icon: ICON, rank: 0, ranks: 3, canSpend: false, canRefund: false, edges: [] }
-      ]
-    },
-    {
-      id: 2, name: "Fury",
-      nodes: [{ id: 20, x: 0, y: 0, name: "Booming Voice", icon: ICON, rank: 5, ranks: 5, canSpend: false, canRefund: true, edges: [] }]
-    }
   ]
 }
 
@@ -166,15 +137,15 @@ test "the spellbook reads the game's spells each time it opens" {
   Test.expect(!window.text("Rend (Rank 1)").shown())
 }
 
-test "the game is asked for its words on spells and talents while the spellbook shows, and no longer once it closes" {
+test "the game is asked for its words on spells while the spellbook shows, and no longer once it closes; none on talents" {
   Test.mount(nil, PAGE)
   _ = Test.requests()
   Test.expect(book().shown())
   const opened = Test.requests()
-  Test.expect(opened.any(r => r == "Spellbook.watch true") && opened.any(r => r == "TalentTrees.watch true"))
+  Test.expect(opened.any(r => r == "Spellbook.watch true") && !opened.any(r => r.contains("TalentTrees")))
   Test.open("/spellbook")
   const closed = Test.requests()
-  Test.expect(closed.any(r => r == "Spellbook.watch false") && closed.any(r => r == "TalentTrees.watch false"))
+  Test.expect(closed.any(r => r == "Spellbook.watch false"))
 }
 
 test "the game's spellbook window opens ours, and closes it as it hides" {
@@ -653,249 +624,6 @@ test "the spellbook's footer counts the spells shown, the active and the passive
   Test.expect(window.texts().join(" | ").contains("Shown | 2 | Active spells | 2 | Passive spells | 0"))
 }
 
-// The talents
-
-test "a spec's tab shows its talent trees, each with the points spent in it" {
-  Test.mount(nil, PAGE)
-  Game.talentTrees.trees = trees
-  const window = book()
-  window.button("Primary").click()
-  Test.expect(window.text("Arms: 2").shown() && window.text("Fury: 5").shown())
-  Test.expect(!window.text("Protection: 1").shown())
-}
-
-test "the second spec's tab shows that spec's trees" {
-  Test.mount(nil, PAGE)
-  Game.talentTrees.trees = trees
-  const window = book()
-  window.button(BOOK).click()
-  Test.expect(window.text("Protection: 1").shown())
-  Test.expect(!window.text("Arms: 2").shown())
-}
-
-test "each talent says its rank of its ranks" {
-  Test.mount(nil, PAGE)
-  Game.talentTrees.trees = trees
-  const window = book()
-  window.button("Primary").click()
-  Test.expect(window.button("2/5").shown() && window.button("0/3").shown() && window.button("5/5").shown())
-}
-
-test "a talent's rank is gold when full, green where a point may go, and dim where none may" {
-  Test.mount(nil, PAGE)
-  Game.talentTrees.trees = trees
-  const window = book()
-  window.button("Primary").click()
-  Test.expect(drawnIn(window.text("5/5"), GOLD))
-  Test.expect(drawnIn(window.text("2/5"), GREEN))
-  Test.expect(drawnIn(window.text("0/3"), DIM))
-}
-
-test "a tree's arrow is gold where the talent it leads to has a rank" {
-  Test.mount(nil, PAGE)
-  Game.talentTrees.trees = (group: Integer): Array<Game.TalentTree> => [
-    {
-      id: 1, name: "Arms",
-      nodes: [
-        { id: 10, x: 0, y: 0, name: "Deflection", icon: ICON, rank: 2, ranks: 5, canSpend: true, canRefund: true, edges: [11] },
-        { id: 11, x: 0, y: 600, name: "Tactical Mastery", icon: ICON, rank: 1, ranks: 3, canSpend: true, canRefund: true, edges: [] }
-      ]
-    }
-  ]
-  const window = book()
-  window.button("Primary").click()
-  Test.expect(window.box(GOLD).shown())
-}
-
-test "a tree's arrow is drawn in the line's colour where the talent it leads to has no rank" {
-  Test.mount(nil, PAGE)
-  Game.talentTrees.trees = trees
-  const window = book()
-  window.button("Primary").click()
-  Test.expect(!window.box(GOLD).shown())
-  Test.expect(window.box(LINE).count() == 2)
-}
-
-test "the talents say the points left to spend" {
-  Test.mount(nil, PAGE)
-  Game.talentTrees.trees = trees
-  Game.talentTrees.unspent = (group: Integer): Integer => group == 1 ? 3 : 7
-  const window = book()
-  window.button("Primary").click()
-  Test.expect(window.text("Talent points: 3").shown())
-  window.button(BOOK).click()
-  Test.expect(window.text("Talent points: 7").shown())
-}
-
-test "a spec with no trees says the talents are not available" {
-  Test.mount(nil, PAGE)
-  const window = book()
-  window.button("Primary").click()
-  Test.expect(window.text("The talents are not available.").shown())
-}
-
-test "the talents follow the trees the game reports while the spellbook shows" {
-  Test.mount(nil, PAGE)
-  Game.talentTrees.trees = trees
-  const window = book()
-  window.button("Primary").click()
-  Game.talentTrees.trees = (group: Integer): Array<Game.TalentTree> => [
-    {
-      id: 1, name: "Arms",
-      nodes: [{ id: 10, x: 0, y: 0, name: "Deflection", icon: SWORD, rank: 3, ranks: 5, canSpend: true, canRefund: true, edges: [] }]
-    }
-  ]
-  Game.talentTrees.changed.emit()
-  Test.expect(window.text("Arms: 3").shown() && window.button("3/5").shown())
-  Test.expect(window.button("3/5").paintedWith(SWORD))
-}
-
-test "a talent filled to its last rank turns gold" {
-  Test.mount(nil, PAGE)
-  Game.talentTrees.trees = trees
-  const window = book()
-  window.button("Primary").click()
-  Game.talentTrees.trees = (group: Integer): Array<Game.TalentTree> => [
-    {
-      id: 1, name: "Arms",
-      nodes: [{ id: 10, x: 0, y: 0, name: "Deflection", icon: ICON, rank: 5, ranks: 5, canSpend: false, canRefund: true, edges: [] }]
-    }
-  ]
-  Game.talentTrees.changed.emit()
-  Test.expect(drawnIn(window.text("5/5"), GOLD))
-}
-
-test "the talents are read again each time the spellbook opens" {
-  Test.mount(nil, PAGE)
-  Game.talentTrees.trees = trees
-  const window = Test.page().window("Primary")
-  _ = book()
-  window.button("Primary").click()
-  Test.open("/spellbook")
-  Game.talentTrees.trees = (group: Integer): Array<Game.TalentTree> => []
-  Test.open("/spellbook")
-  Test.expect(window.text("The talents are not available.").shown())
-}
-
-test "the spells tab asks the game for no talent tree" {
-  Test.mount(nil, PAGE)
-  let asked = 0
-  Game.talentTrees.trees = (group: Integer): Array<Game.TalentTree> => {
-    if (group < 1) { asked += 1 }
-    return []
-  }
-  Test.expect(book().button("All").shown())
-  Test.expect(asked == 0)
-}
-
-test "with points staged, Apply changes stands out from Cancel changes" {
-  Test.mount(nil, PAGE)
-  Game.talentTrees.trees = trees
-  Game.talentTrees.staged = (): Boolean => true
-  const window = book()
-  window.button("Primary").click()
-  Test.expect(window.button("Apply changes").paintedWith(Ordaen.art.ctl.buttonAccent))
-  Test.expect(!window.button("Cancel changes").paintedWith(Ordaen.art.ctl.buttonAccent))
-}
-
-test "a click on a talent spends a point in it" {
-  Test.mount(nil, PAGE)
-  Game.talentTrees.trees = trees
-  const window = book()
-  window.button("Primary").click()
-  _ = Test.requests()
-  window.button("2/5").click()
-  Test.expect(Test.requests().any(r => r == "TalentTrees.spend 10"))
-}
-
-test "a right-click on a talent takes a point back" {
-  Test.mount(nil, PAGE)
-  Game.talentTrees.trees = trees
-  const window = book()
-  window.button("Primary").click()
-  _ = Test.requests()
-  window.button("2/5").rightClick()
-  const asked = Test.requests()
-  Test.expect(asked.any(r => r == "TalentTrees.refund 10"))
-  Test.expect(!asked.any(r => r == "TalentTrees.spend 10"))
-}
-
-test "with points staged, Apply changes applies them" {
-  Test.mount(nil, PAGE)
-  Game.talentTrees.trees = trees
-  Game.talentTrees.staged = (): Boolean => true
-  const window = book()
-  window.button("Primary").click()
-  _ = Test.requests()
-  window.button("Apply changes").click()
-  Test.expect(Test.requests().any(r => r == "TalentTrees.commit"))
-}
-
-test "with points staged, Cancel changes takes them back" {
-  Test.mount(nil, PAGE)
-  Game.talentTrees.trees = trees
-  Game.talentTrees.staged = (): Boolean => true
-  const window = book()
-  window.button("Primary").click()
-  _ = Test.requests()
-  window.button("Cancel changes").click()
-  Test.expect(Test.requests().any(r => r == "TalentTrees.rollback"))
-}
-
-test "with no points staged, Apply changes and Cancel changes aren't shown" {
-  Test.mount(nil, PAGE)
-  Game.talentTrees.trees = trees
-  const window = book()
-  window.button("Primary").click()
-  Test.expect(!window.button("Apply changes").shown() && !window.button("Cancel changes").shown()) }
-
-test "the active spec's tab offers no Activate" {
-  Test.mount(nil, PAGE)
-  const window = book()
-  window.button("Primary").click()
-  Test.expect(!window.button("Activate").shown())
-}
-
-test "the other spec's tab offers Activate, which asks the game to switch to it" {
-  Test.mount(nil, PAGE)
-  const window = book()
-  window.button(BOOK).click()
-  _ = Test.requests()
-  window.button("Activate").click()
-  Test.expect(Test.requests().any(r => r == "TalentTrees.activate 2"))
-}
-
-test "the other spec's points staged can't be applied until it is active" {
-  Test.mount(nil, PAGE)
-  Game.talentTrees.staged = (): Boolean => true
-  const window = book()
-  window.button(BOOK).click()
-  Test.expect(!window.button("Apply changes").shown())
-}
-
-test "the second spec's tab is the active one when the game says the player has it active" {
-  Test.mount(nil, PAGE)
-  Game.talentTrees.activeGroup = (): Integer => 2
-  const window = book()
-  window.button(BOOK).click()
-  Test.expect(!window.button("Activate").shown())
-  window.button("Primary").click()
-  Test.expect(window.button("Activate").shown())
-}
-
-test "a second spec not had is dimmed, opens nothing, and its tooltip says where it is learned" {
-  Test.mount(nil, PAGE)
-  Game.talentTrees.groups = (): Integer => 1
-  Game.spellbook.lines = lines
-  Game.spellbook.entries = spells
-  const window = book()
-  Test.expect(window.text(BOOK).opacity() < 0.6)
-  window.button(BOOK).click()
-  Test.expect(Test.page().text("Find Treasure").shown())
-  Test.page().button(BOOK).hover()
-  Test.expect(Test.page().text("The second specialization is learned from your class trainer.").shown())
-}
-
 // The trainer
 
 test "the trainer's window shows while the game's class trainer is open" {
@@ -1109,7 +837,6 @@ test "the trainer's page of the settings chooses the sort the trainer's window o
   Game.trainer.changed.emit()
   const window = Test.page().window(TRAINER)
   window.button(Ordaen.art.ctl.corner.gear).click()
-  Test.page().window("Name of the first spec tab").button("Trainer").click()
   const page = Test.page().window("Sorted by")
   page.button("The trainer's order").click()
   Test.page().window("Available first").button("Skill").click()
@@ -1126,7 +853,6 @@ test "the trainer's page of the settings chooses the view the trainer's window o
   const window = Test.page().window(TRAINER)
   Test.expect(!window.text("Level").shown())
   window.button(Ordaen.art.ctl.corner.gear).click()
-  Test.page().window("Name of the first spec tab").button("Trainer").click()
   Test.page().window("Opens as").button("One list").click()
   Test.page().window("Table").button("Table").click()
   Game.trainer.open = false
@@ -1332,55 +1058,21 @@ test "Learn buys the picked service where it can be learned and paid for, and is
 
 // Settings
 
-test "the window's settings button opens Spells' page of the settings" {
+test "the window's settings button opens Spells' page of the settings, the trainer's" {
   Test.mount(nil, PAGE)
   const window = book()
   window.button(Ordaen.art.ctl.corner.gear).click()
-  const settings = Test.page().window("Name of the first spec tab")
-  Test.expect(settings.text("Name of the second spec tab").shown() && settings.button("Trainer").shown())
+  const settings = Test.page().window("Class trainer window")
+  Test.expect(settings.text("Sorted by").shown() && !settings.text("Name of the first spec tab").shown())
 }
 
 test "the settings' windows page lists the spellbook's window and the trainer's" {
   Test.mount(nil, PAGE)
   const window = book()
   window.button(Ordaen.art.ctl.corner.gear).click()
-  const settings = Test.page().window("Name of the first spec tab")
+  const settings = Test.page().window("Class trainer window")
   settings.button("Windows").click()
   Test.expect(Test.page().window("Windows").text("Trainer").shown())
-}
-
-test "a name given to the first spec in the settings stands on its tab" {
-  Test.mount(nil, PAGE)
-  const window = book()
-  window.button(Ordaen.art.ctl.corner.gear).click()
-  const settings = Test.page().window("Name of the first spec tab")
-  for (i of 1..30) {
-    if (Test.keyboard()) { break }
-    Test.key(Test.Move.Next)
-  }
-  Test.type("Arms")
-  // The typing is written as it rests.
-  Test.expect(!window.button("Arms").shown())
-  Test.pass(0.3)
-  Test.expect(window.button("Arms").shown() && !window.button("Primary").shown() && settings.shown())
-}
-
-test "a name given to the second spec in the settings stands on its tab" {
-  Test.mount(nil, PAGE)
-  _ = book()
-  const window = Test.page().window("Primary")
-  window.button(Ordaen.art.ctl.corner.gear).click()
-  const settings = Test.page().window("Name of the first spec tab")
-  for (i of 1..30) {
-    if (Test.keyboard()) { break }
-    Test.key(Test.Move.Next)
-  }
-  // The second field is the next the keyboard reaches.
-  Test.key(Test.Move.Next)
-  Test.type("Fury")
-  // Enter writes it at once.
-  Test.key(Key.Enter)
-  Test.expect(window.button("Fury").shown() && !window.button(BOOK).shown() && settings.shown())
 }
 
 test "the trainer's window switched off in the settings leaves the game's trainer to the game" {
@@ -1388,7 +1080,6 @@ test "the trainer's window switched off in the settings leaves the game's traine
   Game.trainer.open = true
   const window = Test.page().window(TRAINER)
   window.button(Ordaen.art.ctl.corner.gear).click()
-  Test.page().window("Name of the first spec tab").button("Trainer").click()
   // The checkbox beside «Class trainer window»: its well, the page's only one, names it; its label doesn't.
   Test.page().window("Class trainer window").button(Ordaen.art.ctl.check).click()
   Test.expect(!window.shown())
