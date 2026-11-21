@@ -173,8 +173,35 @@ test "Enter shows the input line, on the screen, in the chat's frame" {
   Test.expect(box.IsVisible() && box.GetHeight() >= 20)
   Test.expect(middle.x > frame.left && middle.x < frame.right && middle.y > frame.top && middle.y < frame.bottom)
   Test.expect(middle.y > shown.text("[Thrall] says: here").rect().bottom)
-  // It stands in a field's floor and edge, the chat's own look.
-  Test.expect(shown.box(FIELD_FILL).count() == 1)
+  // It stands in a field's floor and edge, the chat's own look: a surface over its box, round it.
+  const field = Test.page().box(FIELD_FILL)
+  Test.expect(field.count() == 1)
+  const round = field.rect()
+  Test.expect(round.left < middle.x && round.right > middle.x && round.top < middle.y && round.bottom > middle.y)
+}
+
+test "the input's field stands over a game window opened over the chat's corner, as the game's input does" {
+  Game.chat.windows = gameWindows()
+  const box = input(Client.CreateFrame("Frame", nil, Client.C_UI.GetUIParent(), nil))
+  Game.chat.input = box
+  Game.chat.typing = true
+  _ = chat()
+  const field = Test.page().box(FIELD_FILL).rect()
+  // A panel of the game's (the bags, the character) over the chat's foot, on the panels' layer.
+  const panel = Client.CreateFrame("Frame", nil, Client.C_UI.GetUIParent(), nil)
+  panel.SetFrameStrata("MEDIUM")
+  panel.SetPoint("BOTTOMLEFT", Client.C_UI.GetUIParent(), "BOTTOMLEFT", 0, 0)
+  panel.SetSize(field.right + 50, 900 - field.top + 50)
+  panel.EnableMouse(true)
+  let pressed = 0
+  panel.SetScript("OnMouseDown", (...given: Unknown): nil => {
+    pressed += 1
+  })
+  Test.click({ x: (field.left + field.right) / 2, y: (field.top + field.bottom) / 2 }, nil)
+  Test.expect(pressed == 0)
+  // Beside the field, the panel is over the chat.
+  Test.click({ x: field.left + 2, y: field.top - 30 }, nil)
+  Test.expect(pressed == 1)
 }
 
 test "a channel's line is named by its name, the zone left out, until its tab's settings say otherwise" {

@@ -4,7 +4,7 @@
 // alone.
 import Client from "$client"
 import Game from "$game"
-import { Align, Edges, Event, Frame, MouseButton, Overflow, Position, Track } from "$ltml"
+import { Align, Edges, Event, Frame, Layer, Line, MouseButton, Over, Overflow, Position, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import { BODY_LINE, Component, FIELD_EDGE, FIELD_FILL, GripCorner, Menu, MenuEntry, SECONDARY_TEXT, SizeGrip } from "Ordaen"
 import { ChatTab, Shown } from "@/lines"
@@ -27,6 +27,8 @@ const GAME_INPUT = 32ui
 const ROOM: Edges = { top: 2sp, right: 3sp, bottom: 2sp, left: 3sp }
 // The input's field: its text in from the edge as a field's is.
 const INPUT_PAD: Edges = { right: 1sp, left: 1sp }
+// The room of the field's edge, which the field's surface draws over the input's box.
+const INPUT_EDGE: Line = { width: FIELD_EDGE.width, color: Color.hex("#00000000") }
 
 // What a tab's right-click menu offers: the mouse through its lines or not (the game's «Make uninteractable»), a docked
 // window undocked, an undocked one docked again.
@@ -271,9 +273,12 @@ public class Pane implements Component {
               </box>
             </box>
             // The game's input while it is open, in a field's floor and edge, and, while scrolled back, the way back.
+            // The field is a surface over the input's box, on the game input's own layer: a window over the chat's
+            // corner covers both or neither.
             <box columns={[{ fr: 1 }, MAX]} gap={1sp} yAlign={Align.Center}>
               <box>
-                <box $if={self.inputShown} background={FIELD_FILL} border={FIELD_EDGE} padding={INPUT_PAD}>
+                <box $if={self.inputShown} border={INPUT_EDGE} padding={INPUT_PAD}>
+                  <surface layer={Layer.Dialog} place={Over { over: "parent" }} background={FIELD_FILL} border={FIELD_EDGE} />
                   <embed frame={self.input ?? panic("shown with the input")} height={GAME_INPUT} />
                 </box>
               </box>
