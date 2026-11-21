@@ -29,7 +29,7 @@ import { SkillBar } from "@/skillBar"
 import { Column, Table, TableRow } from "@/table"
 import { Tip, TipText } from "@/tip"
 import { ToolPick, ToolSort, Toolbar, sortChoices } from "@/toolbar"
-import { SECONDARY_TEXT, TITLE_LINE, TITLE_TEXT } from "@/units"
+import { SECONDARY_TEXT, TIGHT_LINE, TITLE_TEXT } from "@/units"
 import { KeptWindow, Window, WindowSide, WindowTabSpec } from "@/window"
 
 // What the filter's switches keep: what can be learned now, what can't yet, what is known, what is marked never to
@@ -42,8 +42,8 @@ public enum TrainerShow implements Plain {
 }
 public enum TrainerView implements Plain { Table = "table", List = "list" }
 
-// The filter as the window starts: every service shown.
-const FILTER_START: Map<TrainerShow, Boolean> = switched({}, [TrainerShow.Available, TrainerShow.Unavailable, TrainerShow.Known, TrainerShow.Barred], true)
+// The filter as the window starts: every service shown but what is known.
+const FILTER_START: Map<TrainerShow, Boolean> = switched(switched({}, [TrainerShow.Available, TrainerShow.Unavailable, TrainerShow.Barred], true), [TrainerShow.Known], false)
 
 // The services the player marked never to learn, by their name (every rank of a spell): the character's, kept by the
 // module that owns the trainer's kind.
@@ -92,6 +92,7 @@ const LINE: Array<Track> = [ICON, { fr: 1 }, "max-content"]
 const PAIR: Array<Track> = [{ fr: 1 }, "max-content"]
 const CARD: Array<Track> = ["max-content", { fr: 1 }, "max-content"]
 const FOOT: Columns = { each: "max-content" }
+const SPREAD: Array<Track> = ["max-content", { fr: 1 }, "max-content"]
 const DIALOG = 375dp
 const FILTERS: Array<FilterGroup<TrainerShow>> = [
   {
@@ -546,6 +547,7 @@ public class TrainerWindow implements Component {
   derived grouped: Boolean = self.categories.length > 0
   derived current: Game.TrainerService | nil = self.services.find(service => service.index == self.picked)
   derived has: Boolean = self.current != nil
+  derived learned: Boolean = self.current?.status == Game.ServiceStatus.Learned
   derived name: String = self.current == nil ? "" : titleOf(self.current ?? panic("current"))
   derived text: String = self.current?.description ?? ""
   derived currentBarred: Boolean = self.current != nil && isBarred(self.current ?? panic("current"), self.barredNames)
@@ -782,8 +784,9 @@ public class TrainerWindow implements Component {
   const card: Template = $ltml {
     <box rows={CARD} gap={3sp}>
       <box $if={self.has} columns={1} gap={2sp}>
-        <text value={self.name} textSize={TITLE_TEXT} lineHeight={TITLE_LINE} textColor={GOLD} />
-        <text value={self.needs} textColor={DIM} textSize={SECONDARY_TEXT} />
+        // A name on two lines or more keeps its font's own line.
+        <text value={self.name} textSize={TITLE_TEXT} lineHeight={TIGHT_LINE} textColor={GOLD} />
+        <text $if={!self.learned} value={self.needs} textColor={DIM} textSize={SECONDARY_TEXT} />
         <text $if={self.noSlot} value={Locale.TRAINER_NO_SLOT} textColor={RED} textSize={SECONDARY_TEXT} />
         <text value={self.text} textColor={INK} />
         <text $if={self.changed} value={Locale.TRAINER_CHANGES} textColor={GOLD} />
@@ -804,7 +807,11 @@ public class TrainerWindow implements Component {
         </box>
       </box>
       <box />
-      <box columns={PAIR} gap={3sp} yAlign={Align.Center}>
+      // A known service: the word in place of its price and «Learn».
+      <box $if={self.learned} xAlign={Align.End}>
+        <text value={Locale.TRAINER_KNOWN} textColor={BLUE} />
+      </box>
+      <box $else columns={PAIR} gap={3sp} yAlign={Align.Center}>
         <box>
           <Money $if={self.has} amount={self.price} color={self.priceInk} />
         </box>
@@ -814,11 +821,17 @@ public class TrainerWindow implements Component {
     </box>
   }
 
+  // The counts at the footer's left, the player's money at its right.
   const footer: Template = $ltml {
-    <box columns={FOOT} gap={6sp} yAlign={Align.Center}>
-      <StatusDot $for={count of self.counts} count={count} />
-      <text value={Locale.TRAINER_YOUR_MONEY} textColor={DIM} textSize={SECONDARY_TEXT} wrap={.None} />
-      <Money amount={Game.money.amount} />
+    <box columns={SPREAD} gap={6sp} yAlign={Align.Center}>
+      <box columns={FOOT} gap={6sp} yAlign={Align.Center}>
+        <StatusDot $for={count of self.counts} count={count} />
+      </box>
+      <box />
+      <box columns={FOOT} gap={3sp} yAlign={Align.Center}>
+        <text value={Locale.TRAINER_YOUR_MONEY} textColor={DIM} textSize={SECONDARY_TEXT} wrap={.None} />
+        <Money amount={Game.money.amount} />
+      </box>
     </box>
   }
 

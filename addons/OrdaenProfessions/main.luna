@@ -43,7 +43,7 @@ const SIDE: Array<Track> = ["max-content", { fr: 1 }]
 const LISTS: Array<Track> = [{ fr: 2 }, { fr: 3 }]
 const TRACK_WIDTH = 199.21875dp
 // The trainer's window: its list; the card's column widens it.
-const TRAINER_WIDTH = 656.25dp
+const TRAINER_WIDTH = 960.9375dp
 const TRAINER_HEIGHT = 609.375dp
 // The footer: the profession's spell, and what the page puts beside it; the queue's status and «Create next».
 const TRACK_FOOT: Array<Track> = ["max-content", { fr: 1 }]

@@ -685,21 +685,36 @@ test "each service's row shows its name and rank, the level it needs and its pri
   Test.expect(window.text("Heroic Strike (Rank 3)").item().texts().join(" | ") == "Heroic Strike (Rank 3) | Requires level 8 | 0g 4s 0c")
 }
 
-test "a service learned for free shows no price" {
+// The trainer's window open on `services`, what is known shown too: the filter's «Learned» switched on (it starts off),
+// and the filter shut again.
+function trainerWithKnown(): Test.Part {
   Test.mount(nil, PAGE)
   Game.trainer.services = services
   Game.trainer.open = true
   Game.trainer.changed.emit()
   const window = Test.page().window(TRAINER)
+  window.button(Ordaen.art.ctl.tool.filter).click()
+  Test.page().window("Reset").button("Learned").click()
+  window.button(Ordaen.art.ctl.tool.filter).click()
+  return window
+}
+
+test "what is known is left out at first" {
+  Test.mount(nil, PAGE)
+  Game.trainer.services = services
+  Game.trainer.open = true
+  Game.trainer.changed.emit()
+  const window = Test.page().window(TRAINER)
+  Test.expect(window.text("Heroic Strike (Rank 3)").shown() && !window.text("Rend (Rank 1)").shown())
+}
+
+test "a service learned for free shows no price" {
+  const window = trainerWithKnown()
   Test.expect(window.text("Rend (Rank 1)").item().texts().join(" | ") == "Rend (Rank 1) | Learned")
 }
 
 test "a name is never red: what a service needs is, while unmet; a learned one is dim" {
-  Test.mount(nil, PAGE)
-  Game.trainer.services = services
-  Game.trainer.open = true
-  Game.trainer.changed.emit()
-  const window = Test.page().window(TRAINER)
+  const window = trainerWithKnown()
   Test.expect(drawnIn(window.text("Charge (Rank 2)"), INK) && drawnIn(window.text("Requires level 50"), RED))
   Test.expect(drawnIn(window.text("Heroic Strike (Rank 3)"), INK) && drawnIn(window.text("Requires level 8"), DIM))
   Test.expect(drawnIn(window.text("Rend (Rank 1)"), DIM))
@@ -730,29 +745,17 @@ test "what a service needs turns dim once the trainer says it can be learned" {
 }
 
 test "the services stand in the trainer's order at first" {
-  Test.mount(nil, PAGE)
-  Game.trainer.services = services
-  Game.trainer.open = true
-  Game.trainer.changed.emit()
-  Test.expect(inOrder(Test.page().window(TRAINER), ["Heroic Strike (Rank 3)", "Charge (Rank 2)", "Rend (Rank 1)"]))
+  Test.expect(inOrder(trainerWithKnown(), ["Heroic Strike (Rank 3)", "Charge (Rank 2)", "Rend (Rank 1)"]))
 }
 
 test "sorted by the skill's name, the services stand by name" {
-  Test.mount(nil, PAGE)
-  Game.trainer.services = services
-  Game.trainer.open = true
-  Game.trainer.changed.emit()
-  const window = Test.page().window(TRAINER)
+  const window = trainerWithKnown()
   pick(window, Ordaen.art.ctl.tool.sort, "Available first", "Skill")
   Test.expect(inOrder(window, ["Charge (Rank 2)", "Heroic Strike (Rank 3)", "Rend (Rank 1)"]))
 }
 
 test "sorted by level, by price or available first, the services stand so" {
-  Test.mount(nil, PAGE)
-  Game.trainer.services = services
-  Game.trainer.open = true
-  Game.trainer.changed.emit()
-  const window = Test.page().window(TRAINER)
+  const window = trainerWithKnown()
   pick(window, Ordaen.art.ctl.tool.sort, "Available first", "Level")
   Test.expect(inOrder(window, ["Rend (Rank 1)", "Heroic Strike (Rank 3)", "Charge (Rank 2)"]))
   pick(window, Ordaen.art.ctl.tool.sort, "Available first", "Price")
@@ -781,8 +784,9 @@ test "the filter's switches keep the services available, unavailable or learned"
   Game.trainer.changed.emit()
   const window = Test.page().window(TRAINER)
   window.button(Ordaen.art.ctl.tool.filter).click()
+  // Learned starts off: switched on, it shows.
   Test.page().window("Reset").button("Learned").click()
-  Test.expect(!window.text("Rend (Rank 1)").shown() && window.text("Charge (Rank 2)").shown())
+  Test.expect(window.text("Rend (Rank 1)").shown() && window.text("Charge (Rank 2)").shown())
   Test.page().window("Reset").button("Unavailable").click()
   Test.expect(!window.text("Charge (Rank 2)").shown() && window.text("Heroic Strike (Rank 3)").shown())
 }
@@ -820,8 +824,8 @@ test "the trainer's filter is kept when it opens again, and its sort is the sett
   Game.trainer.open = false
   Test.expect(!window.shown())
   Game.trainer.open = true
-  Test.expect(!window.text("Rend (Rank 1)").shown())
-  Test.expect(inOrder(window, ["Heroic Strike (Rank 3)", "Charge (Rank 2)"]))
+  Test.expect(window.text("Rend (Rank 1)").shown())
+  Test.expect(inOrder(window, ["Heroic Strike (Rank 3)", "Charge (Rank 2)", "Rend (Rank 1)"]))
 }
 
 test "the trainer's page of the settings chooses the sort the trainer's window opens with" {
@@ -836,7 +840,7 @@ test "the trainer's page of the settings chooses the sort the trainer's window o
   Test.page().window("Available first").button("Skill").click()
   Game.trainer.open = false
   Game.trainer.open = true
-  Test.expect(inOrder(window, ["Charge (Rank 2)", "Heroic Strike (Rank 3)", "Rend (Rank 1)"]))
+  Test.expect(inOrder(window, ["Charge (Rank 2)", "Heroic Strike (Rank 3)"]))
 }
 
 test "the trainer's page of the settings chooses the view the trainer's window opens with" {
@@ -912,19 +916,14 @@ test "a picked spell says what changes against the rank the player has, and the 
   Test.expect(window.text("15 Rage   Melee Range").shown() && window.text("Next melee").shown())
 }
 
-test "Learn greyed says why on its Tip: a level not reached, not enough money, already learned" {
-  Test.mount(nil, PAGE)
+test "Learn greyed says why on its Tip; a learned service's card says so in place of its price and Learn" {
   Game.player.level = 20
-  Game.trainer.services = services
-  Game.trainer.open = true
-  Game.trainer.changed.emit()
-  const window = Test.page().window(TRAINER)
+  const window = trainerWithKnown()
   window.button("Charge (Rank 2)").click()
   window.button("Learn").hover()
   Test.expect(Test.page().text("Requires level 50").count() >= 1)
-  window.button("Rend (Rank 1)").click()
-  window.button("Learn").hover()
-  Test.expect(Test.page().texts().join(" | ").contains("Learn | Learned"))
+  window.button("Rend (Rank 1)").nth(1).click()
+  Test.expect(!window.button("Learn").shown() && window.text("Learned").count() >= 2)
 }
 
 test "a service clicked shows its name, its description and its price beside the list" {
@@ -965,11 +964,7 @@ test "the picked service clicked again is let go" {
 }
 
 test "another service clicked takes the pick" {
-  Test.mount(nil, PAGE)
-  Game.trainer.services = services
-  Game.trainer.open = true
-  Game.trainer.changed.emit()
-  const window = Test.page().window(TRAINER)
+  const window = trainerWithKnown()
   window.button("Heroic Strike (Rank 3)").click()
   window.button("Rend (Rank 1)").click()
   Test.expect(window.text("Wounds the target.").shown() && !window.text("A strong attack.").shown())
