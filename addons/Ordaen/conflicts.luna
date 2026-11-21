@@ -53,10 +53,10 @@ public class ConflictQuestion implements Component {
     self.reloadText = Locale.CONFLICT_RELOAD.format(other)
   }
 
-  // «Ordaen»: the other addon is off for this character from the next reload, which is offered now.
+  // «Ordaen»: the other addon is off for this character (named by its GUID, as the client names one) from the next
+  // reload, which is offered now.
   keepOrdaen(mut self) {
-    let player, _ = Client.UnitName("player")
-    Client.C_AddOns.DisableAddOn(self.conflict.other.name, player)
+    Client.C_AddOns.DisableAddOn(self.conflict.other.name, Client.UnitGUID("player"))
     Client.C_AddOns.SaveAddOns()
     self.answered(true)
     self.step = .Reload
