@@ -1,5 +1,5 @@
 {
-  "says": "Ordaen Map's masks taken from OpenMap: each zone's territory (its land and the sea off its coasts, MapTerritory), the soft feather for a zone without one and the round feather for a city.",
+  "says": "Ordaen Map's textures taken from OpenMap: each zone's territory (its land and the sea off its coasts, MapTerritory), the feathers (soft, round, wide), and the sea: the world's and the continents' painted sea colour (MapSeaField) and its dark and light mottling (MapSeaDark, MapSeaLight).",
   "ships": [
     "addons/OrdaenMap/media/openmap/feather.tga",
     "addons/OrdaenMap/media/openmap/featherRound.tga",
@@ -46,7 +46,13 @@
     "addons/OrdaenMap/media/openmap/territory/2482.tga",
     "addons/OrdaenMap/media/openmap/territory/2521.tga",
     "addons/OrdaenMap/media/openmap/territory/2548.tga",
-    "addons/OrdaenMap/media/openmap/territory/2652.tga"
+    "addons/OrdaenMap/media/openmap/territory/2652.tga",
+    "addons/OrdaenMap/media/openmap/featherWide.tga",
+    "addons/OrdaenMap/media/openmap/seaDark.tga",
+    "addons/OrdaenMap/media/openmap/seaLight.tga",
+    "addons/OrdaenMap/media/openmap/seaField/947.tga",
+    "addons/OrdaenMap/media/openmap/seaField/1414.tga",
+    "addons/OrdaenMap/media/openmap/seaField/1415.tga"
   ],
-  "origin": "OpenMap (MIT, https://github.com/openmap-world/openmap), commit 273f9b6: Media/Textures/Forever/MapTerritory/*.tga (made by its tools/map-preview/render.py --bake-territory), MapFeather.tga and MapFeatherRound.tga, copied as they are."
+  "origin": "OpenMap (MIT, https://github.com/openmap-world/openmap), commit 273f9b6: Media/Textures/Forever/MapTerritory/*.tga (its tools/map-preview/render.py --bake-territory), MapFeather.tga, MapFeatherRound.tga, MapFeatherWide.tga, MapSeaDark.tga, MapSeaLight.tga and MapSeaField/*.tga (its tools/map-preview/sea.py), copied as they are."
 }

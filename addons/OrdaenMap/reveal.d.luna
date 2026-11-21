@@ -1,0 +1,16 @@
+// Every zone's explored-area pieces, explored and unexplored alike, by the zone's art (`C_Map.GetMapArtID`), as
+// `reveal.lua` reads them out of OpenMap's table: the client gives only the explored ones.
+
+// One piece: its size and place in the zone's art, its key (`"width:height:x:y"`, as the client's explored pieces
+// are told apart), and its files, row by row.
+public struct RevealPiece {
+  const width: Number
+  const height: Number
+  const x: Number
+  const y: Number
+  const key: String
+  const files: Array<Number>
+}
+
+// The pieces of a zone's art; none where OpenMap's table has none.
+public function piecesOf(art: Integer): Array<RevealPiece>
