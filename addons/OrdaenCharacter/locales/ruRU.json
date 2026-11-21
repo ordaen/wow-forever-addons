@@ -68,5 +68,18 @@
   "EXPERTISE": "Мастерство",
   "SPELL_PENETRATION": "Проникающая способность",
   "CASTING_REGEN": "Мана при чтении",
-  "PER_FIVE": "/5 с"
+  "PER_FIVE": "/5 с",
+  "HEALTH": "Здоровье",
+  "MANA": "Мана",
+  "ARMOR": "Броня",
+  "FIRE_RESISTANCE": "Сопротивление огню",
+  "NATURE_RESISTANCE": "Сопротивление силам природы",
+  "FROST_RESISTANCE": "Сопротивление магии льда",
+  "SHADOW_RESISTANCE": "Сопротивление темной магии",
+  "ARCANE_RESISTANCE": "Сопротивление тайной магии",
+  "SPELL_DAMAGE": "Урон от заклинаний",
+  "BASE": "Базовое",
+  "FROM_STATS": "Характеристики",
+  "FROM_ITEMS": "Предметы",
+  "FROM_EFFECTS": "Эффекты"
 }

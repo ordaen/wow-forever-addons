@@ -7,6 +7,7 @@ import Game from "$game"
 import { FillDuration } from "$ltml"
 import Runtime from "$runtime"
 import { Quality, qualityFrom } from "Ordaen"
+import { Given, ITEM_KEYS } from "@/stat"
 
 // A slot of the paper doll: the client's number for it and the art of its well while nothing is worn there.
 public struct SlotSpec {
@@ -61,6 +62,9 @@ public struct Worn {
   const count: Integer = 1
   const locked: Boolean = false
   const cooldown: FillDuration | nil = nil
+  // Its name, and the stats it gives (its stat tooltips' «Items»).
+  const name: String = ""
+  const gives: Array<Given> = []
 }
 
 // One of the sets the game's equipment manager keeps: whether all of it is worn, and how many of its items are
@@ -307,6 +311,26 @@ function weaponSkill(slot: Integer): Integer | nil {
   return WEAPON_SKILLS[subclass.floor()]
 }
 
+// The stats an item gives, by its link, in each stat's own unit: a rating as the percentage it makes at the
+// character's level.
+function givenBy(link: String | nil): Array<Given> {
+  const gives: Array<Given> = []
+  if (link == nil) { return gives }
+  const table = Client.C_Item.GetItemStats(link)
+  if (table is Table) {
+    for (key, value of table) {
+      if (key is String && value is Number) {
+        const known = ITEM_KEYS[key]
+        if (known != nil) {
+          const amount = known.rating == 0 ? value : Client.GetCombatRatingBonusForCombatRatingValue(known.rating, value) ?? value
+          for (stat of known.stats) { gives.push({ stat: stat, amount: amount }) }
+        }
+      }
+    }
+  }
+  return gives
+}
+
 // Attack power a point of damage per second takes, as the game's tooltip divides it (`ATTACK_POWER_MAGIC_NUMBER`).
 const ATTACK_POWER_PER_DPS = 14
 
@@ -320,7 +344,7 @@ public class ClientSheet implements Sheet {
     const id = Client.GetInventoryItemID("player", slot)
     if (id == nil) { return { slot: slot, item: nil, quality: Quality.Common, level: nil, durability: nil } }
     const item = id.floor()
-    let _, _, quality, level, _, _, _, _, _, _, _, _, _, _, _, _, _, _ = Client.C_Item.GetItemInfo(item)
+    let name, _, quality, level, _, _, _, _, _, _, _, _, _, _, _, _, _, _ = Client.C_Item.GetItemInfo(item)
     let left, most = Client.GetInventoryItemDurability(slot)
     const durability = left != nil && most != nil && most > 0 ? left / most : nil
     let start, length, _ = Client.GetInventoryItemCooldown("player", slot)
@@ -332,7 +356,9 @@ public class ClientSheet implements Sheet {
       durability: durability,
       count: Client.GetInventoryItemCount("player", slot).floor(),
       locked: Client.IsInventoryItemLocked(slot),
-      cooldown: length > 0 ? { start: start, length: length } : nil
+      cooldown: length > 0 ? { start: start, length: length } : nil,
+      name: name ?? "",
+      gives: givenBy(Client.GetInventoryItemLink("player", slot))
     }
   }
 

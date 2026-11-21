@@ -1,0 +1,328 @@
+// Where each stat the window shows comes from, as its tooltip lists it: «Stats» (its base and the stats that feed it,
+// by the class's conversions), «Items» (each worn item that gives it) and «Effects» (each aura on the character that
+// changes it, from Ordaen Auras), each the most first. While the tooltip is open its sources light on the window: the
+// items' slots with their share, the stats that feed it.
+import Game from "$game"
+import { Art } from "$ltml"
+import { TipRow, TipSection, qualityColor } from "Ordaen"
+import { Active, Change, Kind } from "OrdaenAuras"
+import Locale from "@/locales"
+import { Resource, Stats, Worn } from "@/sheet"
+import { Stat } from "@/stat"
+
+// A stat's name, whether it is a percentage, and its value as the sheet has it.
+struct Spec {
+  const name: String
+  const percent: Boolean
+  const of: (stats: Stats) => Number
+}
+
+function specOf(stat: Stat): Spec {
+  return match (stat) {
+    .Strength => { name: Locale.STRENGTH, percent: false, of: s => s.strength }
+    .Agility => { name: Locale.AGILITY, percent: false, of: s => s.agility }
+    .Stamina => { name: Locale.STAMINA, percent: false, of: s => s.stamina }
+    .Intellect => { name: Locale.INTELLECT, percent: false, of: s => s.intellect }
+    .Spirit => { name: Locale.SPIRIT, percent: false, of: s => s.spirit }
+    .Health => { name: Locale.HEALTH, percent: false, of: s => s.health }
+    .Power => { name: Locale.MANA, percent: false, of: s => s.power }
+    .Armor => { name: Locale.ARMOR, percent: false, of: s => s.armor }
+    .FireResistance => { name: Locale.FIRE_RESISTANCE, percent: false, of: s => s.resistances[2] ?? 0 }
+    .NatureResistance => { name: Locale.NATURE_RESISTANCE, percent: false, of: s => s.resistances[4] ?? 0 }
+    .FrostResistance => { name: Locale.FROST_RESISTANCE, percent: false, of: s => s.resistances[3] ?? 0 }
+    .ShadowResistance => { name: Locale.SHADOW_RESISTANCE, percent: false, of: s => s.resistances[5] ?? 0 }
+    .ArcaneResistance => { name: Locale.ARCANE_RESISTANCE, percent: false, of: s => s.resistances[1] ?? 0 }
+    .AttackPower => { name: Locale.ATTACK_POWER, percent: false, of: s => s.attackPower }
+    .RangedAttackPower => { name: Locale.ATTACK_POWER, percent: false, of: s => s.rangedAttackPower }
+    .MeleeHit => { name: Locale.HIT, percent: true, of: s => s.meleeHit }
+    .RangedHit => { name: Locale.HIT, percent: true, of: s => s.rangedHit }
+    .SpellHit => { name: Locale.HIT, percent: true, of: s => s.spellHit }
+    .MeleeCrit => { name: Locale.CRIT, percent: true, of: s => s.meleeCrit }
+    .RangedCrit => { name: Locale.CRIT, percent: true, of: s => s.rangedCrit }
+    .SpellCrit => { name: Locale.CRIT, percent: true, of: s => s.spellCrit }
+    .Expertise => { name: Locale.EXPERTISE, percent: true, of: s => s.expertise }
+    .Haste => { name: Locale.HASTE, percent: true, of: s => s.haste }
+    .ArmorPenetration => { name: Locale.ARMOR_PENETRATION, percent: false, of: s => s.armorPenetration }
+    .SpellPenetration => { name: Locale.SPELL_PENETRATION, percent: false, of: s => s.spellPenetration }
+    .Dodge => { name: Locale.DODGE, percent: true, of: s => s.dodge }
+    .Parry => { name: Locale.PARRY, percent: true, of: s => s.parry }
+    .Block => { name: Locale.BLOCK, percent: true, of: s => s.block }
+    .BlockValue => { name: Locale.BLOCK_VALUE, percent: false, of: s => s.blockValue }
+    .Defense => { name: Locale.SECTION_DEFENSE, percent: false, of: s => s.defense }
+    .SpellDamage => { name: Locale.SPELL_DAMAGE, percent: false, of: s => s.spellDamage }
+    .Healing => { name: Locale.HEALING, percent: false, of: s => s.healing }
+    .Regen => { name: Locale.CASTING_REGEN, percent: false, of: s => s.regen }
+    .RunSpeed => { name: Locale.RUN_SPEED, percent: true, of: s => s.runSpeed }
+  }
+}
+
+// A stat's name, as its tooltip's title says it.
+public function statName(stat: Stat): String { return specOf(stat).name }
+
+// A stat that feeds another: so much of `to` a point of `from` gives, past the first `past` points (stamina's first
+// twenty give a point of health each, the rest ten).
+struct Feed {
+  const from: Stat
+  const to: Stat
+  const per: Number
+  const past: Integer = 0
+}
+
+// Every class's: armor from agility, health from stamina.
+const EVERY_CLASS: Array<Feed> = [
+  { from: .Agility, to: .Armor, per: 2 },
+  { from: .Stamina, to: .Health, per: 10, past: 20 }
+]
+// What a class's stats give at level 60, by its tag: attack power, crit and dodge from agility, spell crit and mana
+// from intellect, the block's damage from strength.
+const CLASS_FEEDS: Map<String, Array<Feed>> = {
+  WARRIOR: [
+    { from: .Strength, to: .AttackPower, per: 2 }, { from: .Agility, to: .RangedAttackPower, per: 1 },
+    { from: .Agility, to: .MeleeCrit, per: 1 / 20 }, { from: .Agility, to: .RangedCrit, per: 1 / 20 },
+    { from: .Agility, to: .Dodge, per: 1 / 20 }, { from: .Strength, to: .BlockValue, per: 1 / 20 }
+  ],
+  PALADIN: [
+    { from: .Strength, to: .AttackPower, per: 2 }, { from: .Agility, to: .MeleeCrit, per: 1 / 20 },
+    { from: .Agility, to: .Dodge, per: 1 / 20 }, { from: .Strength, to: .BlockValue, per: 1 / 20 },
+    { from: .Intellect, to: .SpellCrit, per: 1 / 54 }, { from: .Intellect, to: .Power, per: 15, past: 20 }
+  ],
+  SHAMAN: [
+    { from: .Strength, to: .AttackPower, per: 2 }, { from: .Agility, to: .MeleeCrit, per: 1 / 20 },
+    { from: .Agility, to: .Dodge, per: 1 / 20 }, { from: .Strength, to: .BlockValue, per: 1 / 20 },
+    { from: .Intellect, to: .SpellCrit, per: 1 / 59.5 }, { from: .Intellect, to: .Power, per: 15, past: 20 }
+  ],
+  ROGUE: [
+    { from: .Strength, to: .AttackPower, per: 1 }, { from: .Agility, to: .AttackPower, per: 1 },
+    { from: .Agility, to: .RangedAttackPower, per: 1 }, { from: .Agility, to: .MeleeCrit, per: 1 / 29 },
+    { from: .Agility, to: .RangedCrit, per: 1 / 29 }, { from: .Agility, to: .Dodge, per: 1 / 14.5 }
+  ],
+  HUNTER: [
+    { from: .Strength, to: .AttackPower, per: 1 }, { from: .Agility, to: .AttackPower, per: 1 },
+    { from: .Agility, to: .RangedAttackPower, per: 2 }, { from: .Agility, to: .MeleeCrit, per: 1 / 53 },
+    { from: .Agility, to: .RangedCrit, per: 1 / 53 }, { from: .Agility, to: .Dodge, per: 1 / 26.5 },
+    { from: .Intellect, to: .Power, per: 15, past: 20 }
+  ],
+  DRUID: [
+    { from: .Strength, to: .AttackPower, per: 2 }, { from: .Agility, to: .MeleeCrit, per: 1 / 20 },
+    { from: .Agility, to: .Dodge, per: 1 / 20 }, { from: .Intellect, to: .SpellCrit, per: 1 / 60 },
+    { from: .Intellect, to: .Power, per: 15, past: 20 }
+  ],
+  MAGE: [
+    { from: .Strength, to: .AttackPower, per: 1 }, { from: .Agility, to: .MeleeCrit, per: 1 / 20 },
+    { from: .Agility, to: .Dodge, per: 1 / 20 }, { from: .Intellect, to: .SpellCrit, per: 1 / 59.5 },
+    { from: .Intellect, to: .Power, per: 15, past: 20 }
+  ],
+  PRIEST: [
+    { from: .Strength, to: .AttackPower, per: 1 }, { from: .Agility, to: .MeleeCrit, per: 1 / 20 },
+    { from: .Agility, to: .Dodge, per: 1 / 20 }, { from: .Intellect, to: .SpellCrit, per: 1 / 59.2 },
+    { from: .Intellect, to: .Power, per: 15, past: 20 }
+  ],
+  WARLOCK: [
+    { from: .Strength, to: .AttackPower, per: 1 }, { from: .Agility, to: .MeleeCrit, per: 1 / 20 },
+    { from: .Agility, to: .Dodge, per: 1 / 20 }, { from: .Intellect, to: .SpellCrit, per: 1 / 60.6 },
+    { from: .Intellect, to: .Power, per: 15, past: 20 }
+  ]
+}
+
+// The main stats, by the number an aura's change names them (0 strength to 4 spirit).
+const MAINS: Array<Stat> = [.Strength, .Agility, .Stamina, .Intellect, .Spirit]
+// The schools of an aura's resistance, by the bit of its mask (1 physical: armor; 2 holy has none of its own).
+struct School {
+  const bit: Integer
+  const stat: Stat
+}
+const SCHOOLS: Array<School> = [
+  { bit: 1, stat: .Armor }, { bit: 4, stat: .FireResistance }, { bit: 8, stat: .NatureResistance },
+  { bit: 16, stat: .FrostResistance }, { bit: 32, stat: .ShadowResistance }, { bit: 64, stat: .ArcaneResistance }
+]
+// Mana among an aura's powers.
+const MANA_POWER = 0
+
+// The stats an aura's change changes; none for a change no stat of the window shows.
+function changed(change: Change): Array<Stat> {
+  return match (change.kind) {
+    .Stat, .StatPercent => change.misc < 0 ? MAINS : [MAINS[change.misc + 1] ?? panic("five main stats")]
+    .Resist, .ResistPercent => SCHOOLS.filter(school => (change.misc / school.bit).floor() % 2 == 1).map(school => school.stat)
+    .Armor => [.Armor]
+    .Health => [.Health]
+    .Power => change.misc == MANA_POWER ? [.Power] : []
+    .Regen => change.misc == MANA_POWER ? [.Regen] : []
+    .AttackPower, .AttackPowerPercent => [.AttackPower]
+    .RangedPower => [.RangedAttackPower]
+    .SpellDamage => [.SpellDamage]
+    .Healing => [.Healing]
+    .Hit => [.MeleeHit, .RangedHit]
+    .SpellHit => [.SpellHit]
+    .Crit => [.MeleeCrit, .RangedCrit]
+    .SpellCrit => [.SpellCrit]
+    .Dodge => [.Dodge]
+    .Parry => [.Parry]
+    .Block => [.Block]
+    .BlockValue => [.BlockValue]
+    .Expertise => [.Expertise]
+    .Haste => [.Haste]
+    .RunSpeed => [.RunSpeed]
+    else => []
+  }
+}
+
+// A change that multiplies its stat rather than adding to it.
+function multiplies(change: Change): Boolean {
+  return change.kind == Kind.StatPercent || change.kind == Kind.ResistPercent || change.kind == Kind.AttackPowerPercent
+}
+
+// What the window knows of the character, all a stat's sources are read from.
+public struct Facts {
+  const stats: Stats
+  const worn: Array<Worn>
+  const auras: Array<Active>
+  const classTag: String
+}
+
+// One source: its row in the tooltip, and how much it adds in the stat's unit, which orders its section.
+struct Part {
+  const row: TipRow
+  const amount: Number
+}
+
+// A stat's tooltip and what lights while it is open: the text under its title, its sections, the stats that feed it,
+// and each item's share by its slot.
+public struct Breakdown {
+  const text: String
+  const sections: Array<TipSection>
+  const fed: Array<Stat>
+  const shares: Map<Integer, String>
+}
+
+public const NO_BREAKDOWN: Breakdown = { text: "", sections: [], fed: [], shares: {} }
+
+// An amount in the stat's unit: a percentage with two decimals, points whole.
+function amountText(amount: Number, percent: Boolean): String {
+  return percent ? "%.2f%%".format(amount) : String.of(amount.round())
+}
+
+// An amount as a source adds it, signed.
+function added(amount: Number, percent: Boolean): String {
+  return `${amount < 0 ? "-" : "+"}${amountText(amount.abs(), percent)}`
+}
+
+// A main stat's base as the client says it (without what items and auras add); none for any other stat.
+function baseOf(stat: Stat, stats: Stats): Number | nil {
+  for (index, main of MAINS) {
+    if (main == stat) { return stats.bases[index] ?? 0 }
+  }
+  return nil
+}
+
+function largestFirst(parts: Array<Part>): Array<TipRow> {
+  const sorted = parts.map(part => part)
+  sorted.sort((a, b) => a.amount > b.amount)
+  return sorted.map(part => part.row)
+}
+
+function section(title: String, parts: Array<Part>, into: mut Array<TipSection>) {
+  if (parts.length > 0) { into.push({ title: title, rows: largestFirst(parts) }) }
+}
+
+// The feeds of a class, every class's first.
+function feedsOf(classTag: String, resource: Resource): Array<Feed> {
+  const all: Array<Feed> = EVERY_CLASS.map(feed => feed)
+  for (feed of CLASS_FEEDS[classTag] ?? []) {
+    if (feed.to != Stat.Power || resource == Resource.Mana) { all.push(feed) }
+  }
+  return all
+}
+
+// What the game's paper doll says of a stat under its name, the client's own words; empty where it says nothing.
+public function wordsOf(stat: Stat, stats: Stats): String {
+  const tips = stats.tips
+  return match (stat) {
+    .Strength => tips.primary[1] ?? ""
+    .Agility => tips.primary[2] ?? ""
+    .Stamina => tips.primary[3] ?? ""
+    .Intellect => tips.primary[4] ?? ""
+    .Spirit => tips.primary[5] ?? ""
+    .Health => tips.health
+    .Power => tips.power
+    .Armor => tips.armor
+    .AttackPower => tips.attackPower
+    .RangedAttackPower => tips.rangedAttackPower
+    .MeleeHit => tips.hit
+    .BlockValue => tips.block
+    .Healing => tips.healing
+    .Regen => tips.regen
+    else => ""
+  }
+}
+
+// What a stat's tooltip lists, and what lights with it.
+public function breakdownOf(stat: Stat, text: String, facts: Facts): Breakdown {
+  const spec = specOf(stat)
+  const total = spec.of(facts.stats)
+  const fromStats: Array<Part> = []
+  const fromItems: Array<Part> = []
+  const fromEffects: Array<Part> = []
+  const fed: Array<Stat> = []
+  const shares: Map<Integer, String> = {}
+  // What the parts other than the base add: the base is the rest.
+  let counted: Number = 0
+
+  for (feed of feedsOf(facts.classTag, facts.stats.resource)) {
+    if (feed.to == stat) {
+      const points = specOf(feed.from).of(facts.stats)
+      const amount = feed.past.min(points) + (points - feed.past).max(0) * feed.per
+      if (amount != 0) {
+        fromStats.push({ row: { label: statName(feed.from), value: added(amount, spec.percent) }, amount: amount })
+        fed.push(feed.from)
+        counted += amount
+      }
+    }
+  }
+
+  for (piece of facts.worn) {
+    const item = piece.item
+    if (item != nil) {
+      for (given of piece.gives) {
+        if (given.stat == stat) {
+          const value = added(given.amount, spec.percent)
+          fromItems.push({
+            row: { label: piece.name, value: value, icon: Game.items.icon(item), tone: qualityColor(piece.quality) },
+            amount: given.amount
+          })
+          shares[piece.slot] = value
+          counted += given.amount
+        }
+      }
+    }
+  }
+
+  for (aura of facts.auras) {
+    for (change of aura.changes) {
+      if (changed(change).any(s => s == stat)) {
+        const name = Game.spells.name(aura.spell) ?? ""
+        const icon: Art | nil = Game.spells.texture(aura.spell)
+        if (multiplies(change)) {
+          // What a share of the total it makes: the stat without it times the share.
+          const amount = total - total / (1 + change.amount / 100)
+          fromEffects.push({ row: { label: name, value: added(change.amount, true), icon: icon }, amount: amount })
+          counted += amount
+        } else {
+          fromEffects.push({ row: { label: name, value: added(change.amount, spec.percent), icon: icon }, amount: change.amount })
+          counted += change.amount
+        }
+      }
+    }
+  }
+
+  // The base: a main stat's as the client says it, any other's the rest of its value (its level, its race, talents).
+  const base: Number = baseOf(stat, facts.stats) ?? total - counted
+  if (base.abs() >= (spec.percent ? 0.005 : 0.5)) {
+    fromStats.push({ row: { label: Locale.BASE, value: amountText(base, spec.percent) }, amount: base })
+  }
+
+  const sections: Array<TipSection> = []
+  section(Locale.FROM_STATS, fromStats, mut sections)
+  section(Locale.FROM_ITEMS, fromItems, mut sections)
+  section(Locale.FROM_EFFECTS, fromEffects, mut sections)
+  return { text: text, sections: sections, fed: fed, shares: shares }
+}
