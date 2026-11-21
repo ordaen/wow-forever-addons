@@ -15,7 +15,7 @@ import Game from "$game"
 import { Align, Edges, Layer, Place, Point, Track } from "$ltml"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
-import { ARTWORK, ButtonPlate, Choice, CompactDropdown, Dialog, FilterButton, FilterGroup, FooterCount, FooterCounts, KeptWindow, Module, ModuleMemory, PushButton, SECONDARY_TEXT, Settings, SettingsPage, Tabs, ToolPick, Toolbar, Window, WindowSide, WindowTabSpec, WindowsPage, playSound, windowsTitle } from "Ordaen"
+import { ARTWORK, ButtonPlate, Choice, CompactDropdown, Dialog, FilterButton, FilterGroup, FooterCount, FooterCounts, KeptWindow, Module, ModuleMemory, PushButton, SECONDARY_TEXT, Settings, SettingsPage, Standing, Tabs, ToolPick, Toolbar, Window, WindowSide, WindowTabSpec, WindowsPage, playSound, windowsTitle } from "Ordaen"
 import root Maps from "OrdaenMap"
 import type { SidePanel } from "OrdaenMap"
 import root Tracker from "OrdaenTracker"
@@ -28,6 +28,7 @@ import { QuestList } from "@/list"
 import Locale from "@/locales"
 import { Asked, FILTER_START, Folds, ListChoices, QuestFilter, QuestSort, QuestStatus, QuestView, countOf, foldedOnce, listedOf } from "@/model"
 import { QuestFacts } from "@/questie"
+import { standingsOf } from "@/reputation"
 import { Choices, GeneralPage } from "@/settings"
 import Style from "@/style"
 import { TrackerLines } from "@/tracker"
@@ -316,6 +317,11 @@ public class Quests implements Module, App {
       .ShowOnMap => { _ = self.showOnMap(id) }
       .ShowNext => { self.openChained(id) }
     }
+  }
+
+  // The reputations a quest changes once turned in, by QuestieDB: Dialogue's band at a quest giver says them.
+  public reputationOf(mut self, id: Integer): Array<Standing> {
+    return standingsOf(self.data.quest(id)?.reputation ?? [])
   }
 
   // The chain window at a quest QuestieDB knows; nothing for one it doesn't.

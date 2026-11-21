@@ -8,10 +8,11 @@
 import Game from "$game"
 import { Align, Art, ByInteractionState, Edges, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { BODY_LINE, ButtonPlate, Component, Experience, Menu, MenuEntry, Money, PushButton, Reward, RewardView, Rewards, SCROLL_DIM, SCROLL_HEAD, SCROLL_INK, SECONDARY_TEXT, Scroll, Shown, SwitchFace, TIGHT_LINE, TITLE_TEXT, Tip, WELL_DIM, WELL_TEXT, XP_MARK_SMALL, choiceViews, logReward, questLevelColor, rowShade } from "Ordaen"
+import { BODY_LINE, ButtonPlate, Component, Experience, Menu, MenuEntry, Money, PushButton, Reward, RewardView, Rewards, SCROLL_DIM, SCROLL_HEAD, SCROLL_INK, SECONDARY_TEXT, Scroll, Shown, Standing, SwitchFace, TIGHT_LINE, TITLE_TEXT, Tip, WELL_DIM, WELL_TEXT, XP_MARK_SMALL, choiceViews, logReward, questLevelColor, rowShade } from "Ordaen"
 import { LogQuest } from "@/book"
 import Locale from "@/locales"
 import { QuestFacts } from "@/questie"
+import { standingsOf } from "@/reputation"
 
 // What the player asks of a quest from its row or its page. `Link`: Shift+Left-click on its title, a chat link where a
 // chat line is open, else tracking (the game's order). `ShowNext`: the next quest of a chain, by its id, opens its page
@@ -327,6 +328,7 @@ public class QuestPage implements Component {
   derived goals: Array<Game.QuestObjective> = self.quest.objectives.filter(objective => objective.text != self.text.task)
   derived choiceRows: Array<RewardView> = choiceViews(rewardsOf(self.text.choices, true), [])
   derived givenRows: Array<Reward> = rewardsOf(self.text.rewards, false)
+  derived standings: Array<Standing> = standingsOf(self.facts?.reputation ?? [])
 
   quest: Signal<LogQuest>
   text: Signal<Game.QuestText>
@@ -358,7 +360,8 @@ public class QuestPage implements Component {
         </Scroll>
         <ChainLine facts={self.facts} @open={self.onNext} />
         <box gap={0.5sp}>
-          <Rewards views={self.choiceRows} also={self.givenRows} xp={self.text.experience} money={self.text.money} />
+          <Rewards views={self.choiceRows} also={self.givenRows} xp={self.text.experience} money={self.text.money}
+                   standings={self.standings} />
         </box>
         <box columns={LABEL_THEN_SWITCH} yAlign={Align.Center} @pointerPress={self.onTrack} @keyPress(.Enter)={self.onTrack}
              @keyPress(.Space)={self.onTrack}>

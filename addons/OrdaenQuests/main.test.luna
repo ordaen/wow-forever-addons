@@ -33,7 +33,7 @@ function opened(log: Array<Test.LogQuest>) {
   Test.questieDB(
     {
       [101]: { name: "The Defias Brotherhood", questLevel: 14, zoneOrSort: 40, startedBy: [[234]], finishedBy: [[234]],
-        nextQuestInChain: 166 },
+        nextQuestInChain: 166, reputationReward: [[72, 250], [470, -25]] },
       [166]: {
         name: "The Defias Brotherhood, part two", questLevel: 16, requiredLevel: 12, zoneOrSort: 40,
         objectivesText: ["Take the note to the Scout.", "Then report back."], startedBy: [[235]], nextQuestInChain: 167
@@ -46,6 +46,7 @@ function opened(log: Array<Test.LogQuest>) {
     },
     {}
   )
+  Test.factions({ [72]: "Stormwind", [470]: "Ratchet" })
   Test.questLog(log)
   Test.mount(nil, PAGE)
   Quests.flip()
@@ -166,6 +167,8 @@ test "a quest picked shows its page and the next quest of its chain; who gives a
   const window = Test.page().window("World")
   Test.expect(window.text("Gryan asks you to look into Westfall.").shown())
   Test.expect(window.text("420").shown())
+  // The reputations it changes, QuestieDB's (the client says none), in the band by the factions' names.
+  Test.expect(window.text("+250 Stormwind").shown() && window.text("-25 Ratchet").shown())
   // The chain: the quest after it, by QuestieDB's name, under the parchment in gold, a link.
   const next = window.text("The Defias Brotherhood, part two")
   Test.expect(window.text("Next quest").shown() && next.textColor().equal(Color.hex("#ffd100")))
@@ -332,6 +335,14 @@ test "the window opened as the player opens it lists the log's quests, Map on an
   Quests.flip()
   Test.flush()
   Test.expect(Test.page().window("World").text("The Defias Brotherhood").shown())
+}
+
+test "a reputation gained has the player's Diplomat in it, 2% a rank; one lost doesn't" {
+  Test.legacyTalents([{ node: 110314, spell: 1225485, rank: 3, ranks: 5 }])
+  opened(standing())
+  Test.page().window("World").text("The Defias Brotherhood").click()
+  const window = Test.page().window("World")
+  Test.expect(window.text("+265 Stormwind").shown() && window.text("-25 Ratchet").shown())
 }
 
 test "the next quest's name opens its page in a window of its own, which follows the chain on, and closes" {

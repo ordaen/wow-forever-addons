@@ -4,5 +4,5 @@
   "notes": "Talking to NPCs and quest givers in one window: the scroll on the parchment, keys for every choice, the one-option skip, quests accepted and handed in on their own.",
   "version": "0.1.0",
   "loadOnDemand": true,
-  "dependencies": { "Ordaen": "^1.0.0" }
+  "dependencies": { "Ordaen": "^1.0.0", "OrdaenQuests": "^0.1.0" }
 }

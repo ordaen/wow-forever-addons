@@ -4,10 +4,12 @@
 import Client from "$client"
 import Events from "$events"
 import Game from "$game"
+import Runtime from "$runtime"
 import Test from "$test"
 import root Ordaen from "Ordaen"
 import { ROW_HOVER, pawnText } from "Ordaen"
 import root Dialogue from "OrdaenDialogue"
+import root Quests from "OrdaenQuests"
 import { Auto } from "@/settings"
 
 const SCREEN: Test.Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
@@ -715,12 +717,28 @@ test "a required item the quest hides isn't listed, nor any where the quest hide
   Test.expect(!window().text("Boar Meat").shown())
 }
 
-test "the reputation a quest offers stands in the band by the faction's name" {
+test "the reputation a quest offers stands in the band by the faction's name, QuestieDB's while Quests is on" {
+  Test.questieDB({ [32]: { name: "Friends", reputationReward: [[72, 250]] } }, {}, {})
+  Test.factions({ [72]: "Stormwind" })
   Test.mount(nil, SCREEN)
   Test.talk(innkeeper())
-  Test.quest({ id: 32, title: "Friends", reputations: [{ id: 72, name: "Stormwind", amount: 250 }] })
+  Test.quest({ id: 32, title: "Friends" })
   Events.QUEST_DETAIL.emit(nil)
-  Test.expect(window().texts().join("|").contains("Stormwind"))
+  Test.expect(window().texts().join("|").contains("+250 Stormwind"))
+}
+
+test "with Quests off, a quest's page shows without reputations, nothing broken" {
+  Test.questieDB({ [32]: { name: "Friends", reputationReward: [[72, 250]] } }, {}, {})
+  Test.factions({ [72]: "Stormwind" })
+  Test.mount(nil, SCREEN)
+  const quests = Runtime.Addon.of(Quests) ?? panic("Quests is installed")
+  quests.disable()
+  Test.pass(0.02)
+  Test.talk(innkeeper())
+  Test.quest({ id: 32, title: "Friends", text: "Be friends." })
+  Events.QUEST_DETAIL.emit(nil)
+  Test.expect(Quests == nil && Test.errors().length == 0)
+  Test.expect(window().text("Be friends.").shown() && !window().texts().join("|").contains("Stormwind"))
 }
 
 test "a quest's page draws no figure on the parchment: neither the NPC's nor the giver's the client names" {
