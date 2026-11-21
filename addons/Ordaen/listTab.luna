@@ -1,8 +1,9 @@
 // ListTab: an entry in a list of pages (the settings window's modules, a module page's bars): its icon, its name,
 // and what its slot holds at its right (a switch). A name longer than its column wraps there: a text that doesn't wrap
 // keeps its whole line and would push its count past the column (a locale's longer names). The shade under the cursor; selected, a darker shade, the name
-// white and a 3 px light along its left; off, name and icon dimmed. Left-click (Enter, Space) reports `pick`; the
-// right button is left to what holds it.
+// white and a 3 px light along its left; off, name and icon dimmed. Framed (an entry that stands on a frame of its
+// own, a folder's tab), it has neither shade nor light: the frame shows which is selected. Left-click (Enter, Space)
+// reports `pick`; the right button is left to what holds it.
 import { Align, Art, ByInteractionState, Edges, Event, Position, Track } from "$ltml"
 import { Component } from "@/module"
 import { BRIGHT_TEXT } from "@/units"
@@ -25,27 +26,30 @@ public class ListTab implements Component {
 
   derived hasIcon: Boolean = self.icon != nil
   derived columns: Array<Track> = self.hasIcon ? WITH_ICON : NO_ICON
-  derived background: Color | ByInteractionState<Color> = self.selected ? SELECTED : SHADE
+  derived background: Color | ByInteractionState<Color> = self.framed ? CLEAR : self.selected ? SELECTED : SHADE
   derived color: Color = self.selected ? BRIGHT_TEXT : self.off ? OFF : INK
   derived tint: Color = self.off ? DIM : BRIGHT_TEXT
   // The light along the left: on every entry, clear on the others, so only colours tell the selected one.
-  derived light: Color = self.selected ? LIGHT : CLEAR
+  derived light: Color = self.selected && !self.framed ? LIGHT : CLEAR
 
   label: Signal<String>
   selected: Signal<Boolean>
   icon: Signal<Art | nil>
   off: Signal<Boolean>
+  framed: Signal<Boolean>
   constructor(
     label: Signal<String>,
     selected: Signal<Boolean>,
     // None for an entry without a picture.
     icon: Signal<Art | nil> = nil,
-    off: Signal<Boolean> = false
+    off: Signal<Boolean> = false,
+    framed: Signal<Boolean> = false
   ) {
     self.label = label
     self.selected = selected
     self.icon = icon
     self.off = off
+    self.framed = framed
   }
 
   onClick(mut self) { self.pick.emit() }

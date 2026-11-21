@@ -173,6 +173,12 @@ public function reachDown(metal: ArtBorder): Number<Length> {
   return (top + bottom) * metal.scale * 1ui
 }
 
+// How far in from its box's left edge the middle of a frame's left line stands: what is laid against the box from the
+// left reaches this far to meet the line, under it.
+public function toLeftLine(metal: ArtBorder): Number<Length> {
+  return (metal.reach.left + metal.width / 2) * metal.scale * 1ui
+}
+
 // The metal frame: the client's window frame at half size. The line is 3 units; the art stands past it by its
 // reach on each side, and the box's background starts 1.5 units into the art. A rounded frame's right side is
 // its left mirrored, so it reaches as far as the left.
