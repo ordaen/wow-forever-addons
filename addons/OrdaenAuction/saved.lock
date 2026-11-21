@@ -1,0 +1,6 @@
+# The fields every saved copy of these structs holds (`Game.saved`, where nothing falls back for them): a field
+# without a default that isn't here is a finding. Written by `lunatype build`; `lunatype check <folder> --lock`
+# takes in the fields there are, for one no copy was ever saved without.
+OrdaenAuction/ledger.Dealt: at copper count deal item
+OrdaenAuction/wanted.Source.Queue: character crafts recipe
+OrdaenAuction/wanted.Wanted: count item source
