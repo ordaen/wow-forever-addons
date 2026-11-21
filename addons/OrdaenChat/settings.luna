@@ -40,6 +40,9 @@ public class ChatPage implements Component {
                        step={50} unit={Unit.None} />
           <NumberInput label={Locale.HELD} hint={Locale.HELD_TIP} value={mut self.settings.values.held} least={100} most={2000}
                        step={100} unit={Unit.None} />
+          <Switch label={Locale.OWN_TEXT_SIZE} hint={Locale.OWN_TEXT_SIZE_TIP} value={mut self.settings.values.ownTextSize} />
+          <NumberInput $if={self.settings.values.ownTextSize} label={Locale.TEXT_SIZE} value={mut self.settings.values.textSize}
+                       least={10} most={20} step={1} unit={Unit.None} />
         </Section>
         <Section title={Locale.SECTION_INPUT}>
           <Switch label={Locale.INPUT_ALWAYS} hint={Locale.INPUT_ALWAYS_TIP} value={mut self.settings.values.inputAlways} />

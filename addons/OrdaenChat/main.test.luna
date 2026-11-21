@@ -16,12 +16,12 @@ const WHITE: Color = Color.hex("#ffffff")
 // The shade a tab stands on, open or under the cursor.
 const TAB_SHADE: Color = Color.hex("#00000059")
 
-function window(index: Integer, name: String, partner: String, docked: Boolean = true): Game.ChatWindow {
+function window(index: Integer, name: String, partner: String, docked: Boolean = true, fontSize: Number = 13): Game.ChatWindow {
   // Hidden while its input is made, as the game parks its windows.
   const frame = Client.CreateFrame("Frame", `ChatFrame${index}`, Client.C_UI.GetUIParent(), nil)
   frame.Hide()
   return {
-    index: index, name: name, fontSize: 13, partner: partner, combatLog: false, docked: docked, shown: true,
+    index: index, name: name, fontSize: fontSize, partner: partner, combatLog: false, docked: docked, shown: true,
     locked: false, uninteractable: false, frame: frame, input: input(frame)
   }
 }
@@ -512,16 +512,36 @@ test "no guild's tab is made where a window past the game's two shows the guild 
   Test.expect(!Test.requests().any(r => r == "Chat.open Guild"))
 }
 
-test "the lines are drawn at the open window's font size, the game's 14 as 12 UI units of the body's font" {
-  Game.chat.windows = gameWindows()
-  const shown = chat()
-  Game.chat.heard.emit(line("SAY", "[Thrall] says: Hello", "Thrall", [1]))
-  // The window's 13 drawn at 13 × 12/14 against the body's 14 of the tabs' names: a letter of the line is that share
-  // of a name's wide.
+// A letter of the line's against a letter of the tab's name, Ordaen's body text.
+function lineToName(shown: Test.Part): Number {
   const said = shown.text("[Thrall] says: Hello").letters()
   const name = shown.text("General").letters()
-  const ratio = ((said.right - said.left) / 20) / ((name.right - name.left) / 7)
-  Test.expect((ratio - 13 * 12 / 14 / 14).abs() < 0.005)
+  return ((said.right - said.left) / 20) / ((name.right - name.left) / 7)
+}
+
+test "the lines are Ordaen's body text, as every module's, whatever font size the game's window has" {
+  Game.chat.windows = [window(1, "General", "", true, 18)]
+  const shown = chat()
+  Game.chat.heard.emit(line("SAY", "[Thrall] says: Hello", "Thrall", [1]))
+  Test.expect((lineToName(shown) - 1).abs() < 0.005)
+}
+
+test "the chat's own text size, where the player turns it on, is the lines' for the whole chat" {
+  Game.chat.windows = gameWindows()
+  _ = chat()
+  Game.chat.heard.emit(line("SAY", "[Thrall] says: Hello", "Thrall", [1]))
+  Test.open("/ordaen")
+  const settings = Test.page().window("Move mode")
+  settings.button("Chat").click()
+  // The page's switches that are off: hiding, the own text size, the input always shown.
+  settings.button(Ordaen.art.ctl.switchOff).nth(2).click()
+  Test.expect(settings.text("Text size").shown())
+  // The size's slider, at the body's 14 until changed, two steps down by its − (the page's last).
+  const less = settings.text("-")
+  less.nth(less.count()).click()
+  less.nth(less.count()).click()
+  // Found by its line: the settings window names «General» too.
+  Test.expect((lineToName(Test.page().window("[Thrall] says: Hello")) - 12 / 14).abs() < 0.005)
 }
 
 test "the tabs begin where the lines' frame's metal does, not where its art's reach does" {

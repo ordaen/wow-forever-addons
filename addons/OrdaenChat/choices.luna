@@ -60,6 +60,9 @@ public struct Choices implements Plain {
   kept: Integer
   // Lines each tab holds this session.
   held: Integer
+  // The lines at a size of the chat's own (in UI units), not Ordaen's body text.
+  ownTextSize: Boolean
+  textSize: Number
   // What the input's history keeps of what is sent (Alt and Up or Down bring it back).
   history: Game.ChatHistory
   // The input always shown under the lines (off: from Enter to the line sent).

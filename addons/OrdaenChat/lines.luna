@@ -50,9 +50,8 @@ public class ChatTab {
   // A whisper conversation: with a Battle.net friend or a character.
   public const talk: Boolean
   public const battleNet: Boolean
-  // What the window is now: a whisper window's partner, its font's size, whether it is the combat log's.
+  // What the window is now: a whisper window's partner, whether it is the combat log's.
   public state partner = ""
-  public state fontSize: Number = 13
   public state combatLog = false
   // Docked with the first window (a tab of the chat's own pane), or a pane of its own; locked in place.
   public state docked = true
@@ -83,7 +82,6 @@ public class ChatTab {
   public follow(mut self, window: Game.ChatWindow) {
     self.title = window.partner != "" ? window.partner : window.name
     self.partner = window.partner
-    self.fontSize = window.fontSize
     self.combatLog = window.combatLog
     self.docked = window.docked
     self.locked = window.locked

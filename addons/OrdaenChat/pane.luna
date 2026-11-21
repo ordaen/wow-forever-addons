@@ -6,14 +6,11 @@ import Client from "$client"
 import Game from "$game"
 import { Align, Edges, Event, Frame, Layer, Line, MouseButton, Over, Overflow, Position, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { BODY_LINE, BODY_TEXT, Component, FIELD_EDGE, FIELD_FILL, GripCorner, Menu, MenuEntry, SECONDARY_TEXT, SizeGrip } from "Ordaen"
+import { BODY_LINE, Component, FIELD_EDGE, FIELD_FILL, GripCorner, Menu, MenuEntry, SECONDARY_TEXT, SizeGrip } from "Ordaen"
 import { ChatTab, Shown } from "@/lines"
 import Locale from "@/locales"
 import { Row, TabButton } from "@/view"
 
-// A window's font size until it has one, the game's default; and what of it the lines are drawn at in the body's font.
-const GAME_SIZE = 14
-const LINE_SCALE = 12 / 14
 // Lines drawn at most: more than the tallest chat shows.
 const ROWS = 80
 // Lines a turn of the wheel scrolls.
@@ -98,9 +95,6 @@ public class Pane implements Component {
 
   // The lines' row: the height the player chose at least, more where the tabs stand taller.
   derived rows: Array<Track> = [{ fr: 1, min: self.height }]
-  // The open window's font size, in the body's font: wider than the game's narrow chat font, it reads as large at
-  // a smaller size, the game's 14 (its default) as 12 UI units. `1rem` is the body's text.
-  derived textSize: Number<TextSize> = (self.open?.fontSize ?? GAME_SIZE) * LINE_SCALE * 1rem * 1ui / BODY_TEXT
   derived logFrame: any Frame | nil = self.logOf()
   // The tabs' top where the lines' frame's metal begins: its art reaches this far above it, inside its box.
   derived tabsReach: Number<Length> = Ordaen.art.frame.small.reach.top * Ordaen.art.frame.small.scale * 1ui
@@ -121,6 +115,7 @@ public class Pane implements Component {
   width: Signal<Number<Length>>
   height: Signal<Number<Length>>
   awayOpacity: Signal<Number>
+  textSize: Signal<Number<TextSize>>
   input: Signal<any Frame | nil>
   typing: Signal<Boolean>
   inputAlways: Signal<Boolean>
@@ -132,6 +127,8 @@ public class Pane implements Component {
     height: Signal<Number<Length>>,
     // How much of it shows while the cursor is off it (1: all of it).
     awayOpacity: Signal<Number>,
+    // The lines' text size.
+    textSize: Signal<Number<TextSize>>,
     // The input it holds (nil: none; Enter opens the chat's), shown while the player types or always.
     input: Signal<any Frame | nil> = nil,
     typing: Signal<Boolean> = false,
@@ -142,6 +139,7 @@ public class Pane implements Component {
     self.width = width
     self.height = height
     self.awayOpacity = awayOpacity
+    self.textSize = textSize
     self.input = input
     self.typing = typing
     self.inputAlways = inputAlways

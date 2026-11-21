@@ -11,7 +11,7 @@ import Game from "$game"
 import { Anchored, Event, Point } from "$ltml"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
-import { CopyBox, Dialog, Field, KeptWindow, Module, Placed, PushButton, Settings, SettingsPage, timeText } from "Ordaen"
+import { BODY_TEXT, CopyBox, Dialog, Field, KeptWindow, Module, Placed, PushButton, Settings, SettingsPage, timeText } from "Ordaen"
 import { ChannelName, ChatSize, Choices, LEAST_HEIGHT, LEAST_WIDTH, TabChoices, tabDefaults, tabKey } from "@/choices"
 import { ChatTab, Kept, KeptTab, Shown, channelOf, linked, marks, talkKey, talkLine, wordsOf } from "@/lines"
 import Locale from "@/locales"
@@ -46,7 +46,7 @@ public class Chat implements Module, App {
   public const title: String = "Ordaen Chat"
   settings: mut Settings<Choices> = new Settings<Choices>({
     width: 430, height: 190, hide: false, hiddenOpacity: 0, tabs: {}, keywords: "", repeats: true, kept: 200, held: 500,
-    history: Game.ChatHistory.All, inputAlways: false
+    history: Game.ChatHistory.All, inputAlways: false, ownTextSize: false, textSize: BODY_TEXT / 1ui
   })
   // The window the «Tabs» page shows.
   state editing = 1
@@ -83,6 +83,9 @@ public class Chat implements Module, App {
   // How much of the chat shows while the cursor is off it.
   derived awayOpacity: Number = self.settings.values.hide ? self.settings.values.hiddenOpacity : 1
   derived inputAlways: Boolean = self.settings.values.inputAlways
+  // The lines' text: Ordaen's body text, as every module's, or the chat's own size (in UI units) where the player
+  // chose one.
+  derived textSize: Number<TextSize> = self.settings.values.ownTextSize ? self.settings.values.textSize * 1rem * 1ui / BODY_TEXT : 1rem
   derived words: Array<String> = wordsOf(self.settings.values.keywords, Game.player.name)
   derived open: ChatTab | nil = self.tabs.find(tab => tab.key == self.openKey) ?? self.tabs[1]
 
@@ -402,13 +405,13 @@ public class Chat implements Module, App {
     return $ltml {
       <Placed id={"OrdaenChat.chat"} title={Locale.TITLE} home={HOME}>
         <Pane tabs={self.tabs} openKey={self.open?.key ?? ""} width={self.width} height={self.height} awayOpacity={self.awayOpacity}
-              input={Game.chat.input} typing={Game.chat.typing} inputAlways={self.inputAlways} @picked={self.onPick}
+              textSize={self.textSize} input={Game.chat.input} typing={Game.chat.typing} inputAlways={self.inputAlways} @picked={self.onPick}
               @tabPicked={self.onTab} @namePicked={self.onName} @link={self.onLink} @sizeGrab={self.onSizeGrab}
               @size={self.onSize} @sizeDrop={self.onSizeDrop} />
       </Placed>
       <Placed $for={tab of self.undocked} id={`OrdaenChat.${(peek tab).key}`} title={Locale.TITLE} home={UNDOCKED}>
         <Pane tabs={[tab]} openKey={tab.key} width={self.width} height={self.height} awayOpacity={self.awayOpacity}
-              @tabPicked={self.onTab} @namePicked={self.onName} @link={self.onLink} @sizeGrab={self.onSizeGrab}
+              textSize={self.textSize} @tabPicked={self.onTab} @namePicked={self.onName} @link={self.onLink} @sizeGrab={self.onSizeGrab}
               @size={self.onSize} @sizeDrop={self.onSizeDrop} />
       </Placed>
       <Whispers $if={self.talking} talks={self.talks} openKey={self.talkOpen} declared={mut self.whisperWindow}

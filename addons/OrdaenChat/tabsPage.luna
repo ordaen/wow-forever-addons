@@ -1,13 +1,13 @@
 // «Tabs», the chat's page in the settings window: what each of the game's chat windows shows and its own settings,
 // in place of Blizzard's chat settings. The windows in a sidebar, one picked, «New tab» under them; beside it the
-// picked one's name, its font's size, locked or not, the count of its unread lines, how its channels are named and
+// picked one's name, locked or not, the count of its unread lines, how its channels are named and
 // «Close tab» (not for the game's General and combat log); then what the tab shows, with whether it does (groupRows.luna):
 // «Общие», the kinds of speech; «Каналы», the channels' notices and each channel the character is in; «Сообщества»,
 // each community's stream; «Системы», the game's own messages in sections. Every change applies at once; what a window
 // shows is read anew from the game each time.
 import Game from "$game"
 import { Align } from "$ltml"
-import { ButtonPlate, Checkbox, Choice, Component, Field, ListTab, NumberInput, PushButton, Section, Segmented, SettingRow, Settings, Switch, Unit } from "Ordaen"
+import { ButtonPlate, Checkbox, Choice, Component, Field, ListTab, PushButton, Section, Segmented, SettingRow, Settings, Switch } from "Ordaen"
 import { ChannelName, Choices, TabChoices, tabDefaults, tabKey } from "@/choices"
 import { COMMUNITIES, GroupRowView, NOTICES, RowPick, RowShown, SectionShown, TALKS, rowGroups, rowsOf, systemsOf } from "@/groupRows"
 import Locale from "@/locales"
@@ -86,7 +86,6 @@ public class TabsPage implements Component {
   derived communities: Array<Game.ChatCommunity> = self.version >= 0 ? Game.chat.communities(self.window) : []
   derived closable: Boolean = self.window > 2
   state name = ""
-  state size: Number = 14
   state locked = false
   state counter = true
   state channelName: ChannelName = .Name
@@ -99,15 +98,10 @@ public class TabsPage implements Component {
     // The picked window's own settings, taken as it is picked.
     watch (chosen of self.chosen) {
       self.name = chosen?.name ?? ""
-      self.size = chosen?.fontSize ?? 14
       self.locked = chosen?.locked == true
       const own = chosen != nil ? self.choicesOf(chosen) : nil
       self.counter = own?.counter ?? true
       self.channelName = own?.channelName ?? .Name
-    }
-    watch (size of self.size) {
-      const chosen = peek self.chosen
-      if (chosen != nil && chosen.fontSize != size) { Game.chat.textSize(chosen.index, size) }
     }
     watch (locked of self.locked) {
       const chosen = peek self.chosen
@@ -193,7 +187,6 @@ public class TabsPage implements Component {
               <Field value={mut self.name} maxLength={40} placeholder={Locale.TAB_NAME} />
               <PushButton label={Locale.TAB_RENAME} width={BUTTON} @click={self.onRename} />
             </box>
-            <NumberInput label={Locale.TAB_FONT_SIZE} value={mut self.size} least={8} most={24} step={1} unit={Unit.None} />
             <Switch label={Locale.TAB_LOCK} value={mut self.locked} />
             <Switch label={Locale.TAB_COUNTER} hint={Locale.TAB_COUNTER_TIP} value={mut self.counter} />
             <SettingRow label={Locale.TAB_CHANNEL_NAMES} hint={Locale.TAB_CHANNEL_NAMES_TIP}>
