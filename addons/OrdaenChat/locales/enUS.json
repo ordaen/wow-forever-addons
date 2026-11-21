@@ -63,8 +63,17 @@
   "TAB_TALKS": "Speech",
   "TAB_COMMUNITIES": "Communities",
   "TAB_SYSTEMS": "System",
-  "SPEAKERS_NONE": "None",
+  "CHOICE_NONE": "None",
   "SPEAKERS_PLAYERS": "Players",
   "SPEAKERS_CREATURES": "NPCs",
-  "SPEAKERS_ALL": "All"
+  "CHOICE_ALL": "All",
+  "ACHIEVEMENTS": "Achievements",
+  "ACHIEVEMENTS_NEARBY": "Nearby",
+  "ACHIEVEMENTS_GUILD": "Guild",
+  "SYSTEMS_PROGRESS": "Progress",
+  "SYSTEMS_LOOT": "Loot",
+  "SYSTEMS_BATTLEGROUND": "Battlegrounds",
+  "SYSTEMS_GAME": "Game",
+  "BATTLEGROUND_NEWS": "Battleground announcements",
+  "CHANNEL_NOTICES": "Channel notices"
 }

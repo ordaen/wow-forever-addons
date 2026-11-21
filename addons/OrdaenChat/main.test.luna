@@ -180,6 +180,36 @@ test "Enter shows the input line, on the screen, in the chat's frame" {
   Test.expect(round.left < middle.x && round.right > middle.x && round.top < middle.y && round.bottom > middle.y)
 }
 
+test "the input shows under the lines' frame in a room the chat keeps for it: nothing moves as it or the way back comes" {
+  Game.chat.windows = gameWindows()
+  const box = input(Client.CreateFrame("Frame", nil, Client.C_UI.GetUIParent(), nil))
+  box.Hide()
+  Game.chat.input = box
+  _ = chat()
+  for (at of 1..60) { Game.chat.heard.emit(line("SAY", `line ${at}`, "Thrall", [1])) }
+  const shown = Test.page().window("Whispers")
+  const chatBefore = shown.rect()
+  const lines = shown.box(Ordaen.art.window.wood).nth(2).rect()
+  const newest = shown.text("line 60").rect()
+  // Scrolled back, the way back stands over the lines; scrolled to the newest again, it goes.
+  shown.text("line 60").hover()
+  Test.wheel(1)
+  Test.expect(shown.text("To the latest").shown())
+  Test.expect(shown.rect().bottom == chatBefore.bottom)
+  shown.text("To the latest").click()
+  box.Show()
+  box.SetFocus()
+  Game.chat.typing = true
+  Test.pass(0.01)
+  // Nothing moved: the chat (what the placing mode outlines), its frame, its newest line.
+  const chatNow = shown.rect()
+  Test.expect(chatNow.top == chatBefore.top && chatNow.bottom == chatBefore.bottom && chatNow.right == chatBefore.right)
+  Test.expect(shown.text("line 60").rect().bottom == newest.bottom)
+  // The input stands under the lines' frame, inside the chat.
+  const middle = Test.centre(box)
+  Test.expect(middle.y > lines.bottom && middle.y < chatNow.bottom && middle.x > lines.left && middle.x < lines.right)
+}
+
 test "the input's field stands over a game window opened over the chat's corner, as the game's input does" {
   Game.chat.windows = gameWindows()
   const box = input(Client.CreateFrame("Frame", nil, Client.C_UI.GetUIParent(), nil))
@@ -418,9 +448,14 @@ test "a window the player undocked is a pane of its own" {
 function groupsOf(shown: Map<String, Boolean>): Array<Game.ChatGroup> {
   const labels: Map<String, String> = {
     SAY: "Say", MONSTER_SAY: "Say", YELL: "Yell", PARTY: "Party", PARTY_LEADER: "Party Leader", RAID: "Raid",
-    RAID_LEADER: "Raid Leader", RAID_WARNING: "Raid Warning", LOOT: "Item Loot"
+    RAID_LEADER: "Raid Leader", RAID_WARNING: "Raid Warning", LOOT: "Item Loot", ACHIEVEMENT: "Achievement",
+    GUILD_ACHIEVEMENT: "Guild Achievement", BG_HORDE: "Horde", BG_ALLIANCE: "Alliance", CHANNEL: "Channel",
+    COMMUNITIES_CHANNEL: "COMMUNITIES_CHANNEL", AFK: "AFK"
   }
-  const order: Array<String> = ["SAY", "YELL", "PARTY", "PARTY_LEADER", "RAID", "RAID_LEADER", "RAID_WARNING", "MONSTER_SAY", "LOOT"]
+  const order: Array<String> = [
+    "SAY", "YELL", "PARTY", "PARTY_LEADER", "RAID", "RAID_LEADER", "RAID_WARNING", "MONSTER_SAY", "LOOT", "ACHIEVEMENT",
+    "GUILD_ACHIEVEMENT", "BG_HORDE", "BG_ALLIANCE", "CHANNEL", "COMMUNITIES_CHANNEL", "AFK"
+  ]
   return order.map(name => Game.ChatGroup { name: name, label: labels[name] ?? name, shown: shown[name] == true })
 }
 
@@ -450,6 +485,32 @@ test "the Tabs page lists the windows in a sidebar; the picked one's speech, cha
   settings.text("Whisper").click()
   settings.button(Ordaen.art.ctl.check).nth(2).click()
   Test.expect(Test.requests().any(r => r == "Chat.showGroup 3 RAID true"))
+}
+
+test "the system messages stand in sections, the rest of the client's groups under Game; the communities' group is no row" {
+  Game.chat.windows = gameWindows()
+  Game.chat.groups = (index: Integer): Array<Game.ChatGroup> => groupsOf({ BG_HORDE: true, BG_ALLIANCE: true, AFK: true })
+  _ = chat()
+  const settings = tabsPage()
+  Test.expect(["Progress", "Loot", "Battlegrounds", "Game"].all(title => settings.text(title).shown()))
+  // The achievements' choice, the battlegrounds' one row, the channels' notices under Channels.
+  Test.expect(settings.text("Achievements").shown() && settings.text("Battleground announcements").shown())
+  Test.expect(!settings.text("Horde").shown() && !settings.text("COMMUNITIES_CHANNEL").shown())
+  Test.expect(settings.text("Channel notices").rect().top < settings.text("Communities").rect().top)
+  // A group no row covers: under Game, in the game's words.
+  Test.expect(settings.text("AFK").rect().top > settings.text("Game").rect().top)
+  // The guild's achievements alone.
+  // Say's, Yell's and the achievements' choices each read None; the page scrolled down to the third.
+  for (i of 1..6) { settings.text("Speech").wheel(-1) }
+  settings.text("None").nth(3).click()
+  Test.page().text("Guild").click()
+  const picked = Test.requests()
+  Test.expect(picked.any(r => r == "Chat.showGroup 1 ACHIEVEMENT false") && picked.any(r => r == "Chat.showGroup 1 GUILD_ACHIEVEMENT true"))
+  // The battlegrounds' row turns each faction's group off: the fifth check (Party, Raid, the channels' notices, Loot).
+  for (i of 1..6) { settings.text("Progress").wheel(-1) }
+  settings.button(Ordaen.art.ctl.check).nth(5).click()
+  const news = Test.requests()
+  Test.expect(news.any(r => r == "Chat.showGroup 1 BG_HORDE false") && news.any(r => r == "Chat.showGroup 1 BG_ALLIANCE false"))
 }
 
 test "the input opened in a whisper's tab whispers its partner" {
@@ -548,13 +609,16 @@ test "a tab's last lines are kept for the next session and come back dimmed, bef
 test "a community is no tab of its own: a tab shows it where the Tabs page ticks it" {
   Game.chat.windows = gameWindows()
   const friends: Game.ChatStream = { club: "12", stream: "1", name: "Friends" }
-  Game.chat.streams = [friends]
-  Game.chat.communities = (index: Integer): Array<Game.ChatCommunity> => [{ stream: friends, shown: false }]
+  const guild: Game.ChatStream = { club: "14", stream: "1", name: "Guildhall" }
+  Game.chat.streams = [friends, guild]
+  Game.chat.communities = (index: Integer): Array<Game.ChatCommunity> => [{ stream: friends, shown: false }, { stream: guild, shown: true }]
   const shown = chat()
   Test.expect(!shown.text("Friends").shown())
   const settings = tabsPage()
-  settings.button(Ordaen.art.ctl.check).click()
-  Test.expect(Test.requests().any(r => r == "Chat.showCommunity 1 12:1 true"))
+  settings.button(Ordaen.art.ctl.check).nth(1).click()
+  // The group that carries the communities' lines follows: shown while any community is.
+  const asked = Test.requests()
+  Test.expect(asked.any(r => r == "Chat.showCommunity 1 12:1 true") && asked.any(r => r == "Chat.showGroup 1 COMMUNITIES_CHANNEL true"))
 }
 
 test "someone's line naming a keyword is marked" {
