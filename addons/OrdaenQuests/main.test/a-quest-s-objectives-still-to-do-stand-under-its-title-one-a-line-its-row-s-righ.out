@@ -1,4 +1,4 @@
--- the world's tab: a quest's objectives under its title, the done one grey; the count in the footer
+-- the world's tab: a quest's objectives left to do under its title; the count in the footer
 surface 550,192.21 500x515.58 on MEDIUM clamped raised by a click
   box 550,241.12 500x466.67 absolute Interface\AddOns\Ordaen\media\window-wood border=UI-Frame-Metal-CornerTopLeft
     box 563.09,254.22 478.81x442.73
@@ -72,8 +72,8 @@ surface 550,192.21 500x515.58 on MEDIUM clamped raised by a click
                       text 592.37,420.87 385.68x15.51 "Wolves slain" #a3977f
                       text 983.74,420.87 28.89x15.51 "5/10" #a3977f
                     box 592.37,439.23 420.26x15.51
-                      text 592.37,439.23 392.34x15.51 "Pelts" #808080
-                      text 990.41,439.23 22.22x15.51 "4/4" #808080
+                      text 592.37,439.23 392.34x15.51 "Fangs" #a3977f
+                      text 990.41,439.23 22.22x15.51 "1/3" #a3977f
               box 586.68,466.11 431.63x94.56
                 box 586.68,466.11 431.63x35.68 #d6a56b38 @keyPress @pointerPress
                   box 592.37,476.87 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-marks row 3 of 8

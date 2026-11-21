@@ -515,16 +515,20 @@ function filter(): Test.Part {
   return Test.page().window("Tracked only")
 }
 
-test "a quest's objectives stand under its title, one a line; its row's right says only «Complete» or «Failed»" {
+test "a quest's objectives still to do stand under its title, one a line; its row's right says only «Complete» or «Failed»" {
   const log = standing()
-  log[3] = { objectives: [{ text: "Wolves slain: 5/10" }, { text: "Pelts: 4/4", done: true }], ..quest(103, "Elwynn Wolves", "Elwynn Forest") }
+  log[3] = {
+    objectives: [{ text: "Wolves slain: 5/10" }, { text: "Pelts: 4/4", done: true }, { text: "Fangs: 1/3" }],
+    ..quest(103, "Elwynn Wolves", "Elwynn Forest")
+  }
   log[1] = { complete: true, ..quest(101, "The Defias Brotherhood", "Westfall") }
   opened(log)
   const window = Test.page().window("World")
-  Test.expect(window.text("Pelts").shown() && window.text("Wolves slain").shown() && window.text("5/10").shown())
-  Test.expect(before("Elwynn Wolves", "Wolves slain") && before("Wolves slain", "Pelts"))
+  Test.expect(window.text("Wolves slain").shown() && window.text("5/10").shown() && window.text("Fangs").shown())
+  Test.expect(!window.text("Pelts").shown())
+  Test.expect(before("Elwynn Wolves", "Wolves slain") && before("Wolves slain", "Fangs"))
   Test.expect(window.text("Complete").count() == 1)
-  Test.shot("the world's tab: a quest's objectives under its title, the done one grey; the count in the footer")
+  Test.shot("the world's tab: a quest's objectives left to do under its title; the count in the footer")
 }
 
 test "the select beside the search shows the quests in progress, the completed ones, or all" {
@@ -809,8 +813,8 @@ test "an objective that says the task again stands once on the page, not dark th
   opened(log)
   const window = Test.page().window("World")
   window.text("Elwynn Wolves").click()
-  // Once in the list's row, once on the page.
-  Test.expect(window.text("Speak to Marshal Dughan.").count() == 2)
+  // Once on the page: done, it has left the list's row.
+  Test.expect(window.text("Speak to Marshal Dughan.").count() == 1)
 }
 
 test "the parchment's muted ink holds 6:1 against it" {
@@ -819,5 +823,6 @@ test "the parchment's muted ink holds 6:1 against it" {
   opened(log)
   const window = Test.page().window("World")
   window.text("Elwynn Wolves").click()
-  Test.expect(window.text("Pelts").nth(2).textColor().equal(Color.hex("#4a3520")))
+  // The page alone says it: done, it has left the list's row.
+  Test.expect(window.text("Pelts").textColor().equal(Color.hex("#4a3520")))
 }

@@ -114,6 +114,8 @@ public class QuestRow implements Component {
   derived ones: String = `${self.quest.level % 10}${self.quest.group > 1 ? "+" : ""}`
   // Complete or failed: said under the title in place of its objectives.
   derived ended: Boolean = self.progress != ""
+  // Its objectives still to do: one done leaves the list (the page says them all).
+  derived goalsLeft: Array<Game.QuestObjective> = self.quest.objectives.filter(objective => !objective.done)
   derived levelColor: Color = questLevelColor(self.quest.level, self.player, INK)
   derived progress: String = stateOf(self.quest)
   derived progressColor: Color = self.quest.failed ? RED : GREEN
@@ -188,7 +190,7 @@ public class QuestRow implements Component {
         <text $if={self.ended} value={self.progress} textColor={self.progressColor} textSize={SECONDARY_TEXT}
               lineHeight={TIGHT_LINE} />
         <$else>
-          <GoalLine $for={objective of self.quest.objectives} objective={objective} />
+          <GoalLine $for={objective of self.goalsLeft} objective={objective} />
         </>
         <Menu $if={self.menuOpen} entries={self.entries} title={self.quest.title} @pick={self.onEntry}
               @close={self.onClose} />
