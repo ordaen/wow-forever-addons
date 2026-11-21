@@ -54,6 +54,17 @@ test "docked, the map's side panel is given while the map shows, its size the cl
   Test.expect(Maps.side == nil)
 }
 
+test "«Show on map» with the map already open there neither opens it again nor makes its pins anew" {
+  Test.questLog([{ id: 101, title: "One", header: "Westfall" }, { id: 102, title: "Two", header: "Westfall" }])
+  Test.mount(nil, PAGE)
+  Client.C_Map.OpenWorldMap(1436)
+  Test.flush()
+  // The game's pins made anew show each before the others are hidden again: no frame is shown.
+  const called = Test.calls(() => Maps.show(40, 102))
+  Test.expect(!called.contains("Show="))
+  Test.expect(Test.questPins().length == 1 && Test.questPins()[1] == 102)
+}
+
 test "the map shows every quest's pins; a module's «Show on map» shows its quest's alone, until the map hides" {
   Test.questLog([{ id: 101, title: "One", header: "Westfall" }, { id: 102, title: "Two", header: "Westfall" }])
   Test.mount(nil, PAGE)

@@ -109,7 +109,8 @@ public class OpenMapHost implements MapHost {
   // map filling most of it.
   public open(mut self, area: Integer) {
     const map = mapOfArea[area]
-    Client.C_Map.OpenWorldMap(map)
+    // The map already open there isn't opened again: the game would make every pin anew.
+    if (map == nil || WorldMap.shownMap() != map) { Client.C_Map.OpenWorldMap(map) }
     if (map == nil || !self.present() || !OpenMapAPI.IsStitched()) { return }
     let left, top = OpenMapAPI.WorldFromMap(map, 0, 0)
     let right, bottom = OpenMapAPI.WorldFromMap(map, 1, 1)

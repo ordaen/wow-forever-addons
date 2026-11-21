@@ -111,8 +111,9 @@ public class Maps implements Module, App {
   // shaded area): a module's «Show on map». Otherwise every quest's show, as the game has them. Out of a fight alone:
   // the client opens the map for an addon there only, and a module's «Show on map» is off in one.
   public show(mut self, area: Integer, quest: Integer = 0) {
-    self.host.open(area)
+    // The others' marks go before the map turns, so no frame draws them over the quest's.
     self.host.onlyQuest(quest)
+    self.host.open(area)
   }
 
   // The marks in view placed and drawn; one standing on a pin drawn before it adds its lines to that one's tooltip.
