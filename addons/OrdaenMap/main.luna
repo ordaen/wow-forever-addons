@@ -1,6 +1,6 @@
 // Ordaen Map: built for OpenMap, which draws the seamless world map inside Blizzard's `WorldMapFrame`; Map draws no
-// map. It owns how the map and the quest log open (the client's `questLogOpen`: apart by default, docked as Blizzard
-// has it by the player's switch) and the pins other modules put on the map: each module adds its layers to `layers`,
+// map. It owns how the map and the quest log open (apart by default, docked as Blizzard has it by the player's switch,
+// which the client's `questLogOpen` follows) and the pins other modules put on the map: each module adds its layers to `layers`,
 // and Map places their pins on OpenMap's map while it shows, with a switch for each on its settings page and in
 // OpenMap's menu.
 import root Ordaen from "Ordaen"
@@ -47,17 +47,18 @@ public class Maps implements Module, App {
   public const layers = new Registry<any Layer>()
   // What the modules say on a dungeon's card.
   public const dungeons = new Registry<any DungeonSection>()
-  public settings: mut Settings<Choices> = new Settings<Choices>({ hidden: {}, primed: false })
+  public settings: mut Settings<Choices> = new Settings<Choices>({ hidden: {}, docked: false })
   public const pages: Array<SettingsPage> = [
     {
       title: Locale.TAB_GENERAL,
       content: $ltml {
-        <GeneralPage openMap={self.openMap} docked={mut self.docked} layers={self.layers} hidden={self.settings.values.hidden} @flip={self.flip} />
+        <GeneralPage openMap={self.openMap} docked={mut self.settings.values.docked} layers={self.layers} hidden={self.settings.values.hidden}
+                     @flip={self.flip} />
       }
     }
   ]
-  // Docked or apart: the client's `questLogOpen`, read as the map changes and written by the switch.
-  public state docked = false
+  // Docked or apart: the player's setting, which the client's `questLogOpen` follows.
+  public derived docked: Boolean = self.settings.values.docked
   // OpenMap is there, of the API Map is written against: without it, nothing is drawn and the page says so.
   state openMap = false
   // The game's map, OpenMap and the client's setting: a test gives its own.
@@ -81,16 +82,7 @@ public class Maps implements Module, App {
 
   constructor() {
     Ordaen.modules.add(self)
-    self.docked = self.host.docked()
     self.openMap = self.host.present()
-    // The first start sets the default, apart; after that the setting is the player's.
-    if (!self.settings.values.primed) {
-      self.settings.values.primed = true
-      if (self.docked) {
-        self.host.dock(false)
-        self.docked = false
-      }
-    }
     watch (on of self.docked) {
       if (on != self.host.docked()) { self.host.dock(on) }
     }
@@ -107,9 +99,8 @@ public class Maps implements Module, App {
 
   destructor() { self.host.stop() }
 
-  // The map showed, hid, turned or moved: the pins are placed again, and the setting read as the client has it.
+  // The map showed, hid, turned or moved: the pins are placed again, and the side panel read as it stands.
   onChanged(mut self) {
-    self.docked = self.host.docked()
     self.side = self.host.sidePanel()
     self.showing = self.host.shown()
     if (!self.showing) { self.host.onlyQuest(0) }
@@ -166,6 +157,9 @@ public class Maps implements Module, App {
     if (mark != nil) { mark.layer.press(mark.pin, shift) }
   }
 
+  // The quest log docked on the map, or apart: the player's switch, as another module flips it.
+  public dock(mut self, on: Boolean) { self.settings.values.docked = on }
+
   // A layer's switch on the settings page or in OpenMap's menu.
   public flip(mut self, id: String) {
     self.settings.values.hidden[id] = self.settings.values.hidden[id] != true
@@ -176,7 +170,7 @@ public class Maps implements Module, App {
   // OpenMap's menu: the docked switch, and one for each layer.
   addSwitches(mut self, list: Array<any Layer>) {
     self.host.menuSwitch(DOCKED_SWITCH, Locale.SETTING_DOCKED, () => peek self.docked, (on: Boolean): nil => {
-      self.docked = on
+      self.dock(on)
       return nil
     })
     for (layer of list) {

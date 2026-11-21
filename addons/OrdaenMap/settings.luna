@@ -1,5 +1,5 @@
-// Ordaen Map's page in the settings window: whether the quest log opens beside the map (the client's `questLogOpen`,
-// which Map keeps no copy of), and a switch for each layer other modules put on the map, its hint naming what it
+// Ordaen Map's page in the settings window: whether the quest log opens beside the map (Map's own setting, which the
+// client's `questLogOpen` follows), and a switch for each layer other modules put on the map, its hint naming what it
 // shows. The same switches stand in OpenMap's menu, under «Ordaen».
 import { Component, Section, SettingRow, Shown, ShownToggle, Switch } from "Ordaen"
 import type { Layer } from "@/extend"
@@ -10,8 +10,9 @@ const RED: Color = Color.hex("#ff4040")
 public struct Choices implements Plain {
   // The layers the player switched off, by their ids: one not named shows.
   hidden: mut Map<String, Boolean>
-  // Whether Map has set the client's `questLogOpen` to its default once: after that it is the player's.
-  primed: Boolean
+  // Whether the quest log stands docked on the map; apart by default. The client's `questLogOpen` follows it, never
+  // the other way: Blizzard's map opening its side panel by itself leaves the quest log key Quests'.
+  docked: Boolean = false
 }
 
 // One layer's row: its title, its hint, and its switch, which the page flips through its owner.

@@ -1,5 +1,5 @@
 // Ordaen Map as other modules and the player meet it: a layer added shows its pins where the map places them, a layer
-// switched off shows none, the docked switch writes the client's setting, and the first start leaves the log apart.
+// switched off shows none, the docked switch is Map's and writes the client's setting, and the log is apart by default.
 // The world map is the test's own (`TestHost`): the stand-in has no Blizzard map frame. OpenMap is installed, as the
 // player has it, and Map needs it.
 import Client from "$client"
@@ -43,13 +43,13 @@ class TestHost implements MapHost {
 
 test "docked, the map's side panel is given while the map shows, its size the client's; apart, none" {
   Test.mount(nil, PAGE)
-  Maps.docked = true
+  Maps.settings.values.docked = true
   Test.flush()
   Client.C_Map.OpenWorldMap(1436)
   Test.flush()
   const side = Maps.side ?? panic("the side panel")
   Test.expect(side.width == 330 && side.height == 668)
-  Maps.docked = false
+  Maps.settings.values.docked = false
   Test.flush()
   Test.expect(Maps.side == nil)
 }
@@ -196,20 +196,25 @@ test "a layer switched off draws nothing, and on again draws its pins" {
   Test.expect(host.drawn.length == 2)
 }
 
-test "the docked switch writes the client's setting" {
+test "the docked switch writes the client's setting; the client's own change leaves the switch as it is" {
   Test.mount(nil, PAGE)
   const host = new TestHost()
   Maps.host = host
-  Maps.docked = true
+  Maps.settings.values.docked = true
   Test.flush()
   Test.expect(host.isDocked)
-  Maps.docked = false
+  Maps.settings.values.docked = false
   Test.flush()
   Test.expect(!host.isDocked)
+  // Blizzard's map opens its side panel by itself (its own button, a quest's details): the switch stays apart.
+  host.isDocked = true
+  host.changed.emit()
+  Test.flush()
+  Test.expect(!Maps.docked)
 }
 
-test "the first start is kept: the log's setting is the player's after it" {
-  Test.expect(Maps.settings.values.primed)
+test "the log stands apart by default, whatever the client's setting was" {
+  Test.expect(!Maps.settings.values.docked && !Maps.docked)
 }
 
 test "the settings page lists each layer with its switch" {
