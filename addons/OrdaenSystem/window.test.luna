@@ -385,7 +385,7 @@ test "the list stands by category, a caption with its count over its addons, «O
     "Search by title, folder, author, notes | 6 | AddOn | Now | Peak | Memory | Inventory | 1 | Bagger | — | — | 0 KB | " +
       `Map | 1 | Old Map | ${Client.ADDON_INTERFACE_VERSION} | — | — | — | User Interface | 2 | Ordaen | — | — | 0 KB | ` +
       "Ordaen System | on in Ordaen | — | — | 0 KB | Other | 2 | Chatter | on demand | — | — | — | LunaType | — | — | " +
-      "0 KB | The client isn't measuring addons. | Reset | Sets | Reload | AddOns | 6 of 6"
+      "0 KB | The client isn't measuring addons. | Reset | Disable all | Sets | Reload | AddOns | 6 of 6"
   ))
 }
 
@@ -2183,6 +2183,17 @@ test "«Reset» puts every addon back as the client last saved them, undoing wha
   Test.expect(switchOff(row("Bagger")))
 }
 
+test "«Disable all» switches every addon off, as the game's list does, but this page and what it needs: they stay on so the rest can be switched on again" {
+  Test.addon({ name: "Bagger", title: "Bagger", category: "Inventory" })
+  Test.addon({ name: "Chatter", title: "Chatter", onDemand: true })
+  Test.mount(nil, SCREEN)
+  open()
+  window().button(Locale.DISABLE_ALL).click()
+  Test.expect(switchOff(row("Bagger")) && switchOff(row("Chatter")))
+  // On: Ordaen, Ordaen System (a module under it) and the runtime Ordaen needs; off: the other two.
+  Test.expect(switchOn(row("Ordaen")) && switchOn(row("LunaType")) && window().text("3 of 5").shown())
+}
+
 test "«Reload» is a secure box the client runs: /reload" {
   Test.mount(nil, SCREEN)
   open()
@@ -2272,6 +2283,27 @@ test "a set applied switches on what it holds and off the rest" {
   Test.expect(switchOff(row("Bagger")) && switchOn(row("Chatter")) && !Test.page().window(Locale.SET_TITLE.format("Lean")).shown())
 }
 
+test "«Apply» on a set reloads the interface at once: the client runs /reload from the click, the set saved first" {
+  Test.addon({ name: "Bagger", title: "Bagger", category: "Inventory" })
+  Test.mount(nil, SCREEN)
+  open()
+  flip("Bagger")
+  saveSet("Lean")
+  flip("Bagger")
+  _ = Test.performed()
+  set("Lean").button(Locale.APPLY).click()
+  Test.expect(Test.performed().length == 1 && switchOff(row("Bagger")))
+}
+
+test "in a fight «Apply» is greyed: the reload waits for the fight to end" {
+  Test.mount(nil, SCREEN)
+  Test.combat(true)
+  open()
+  saveSet("Lean")
+  Test.expect(set("Lean").button(Locale.APPLY).paintedWith(Ordaen.art.ctl.buttonDisabled))
+  Test.combat(false)
+}
+
 test "a set applied takes the last step's strip away: «Undo» is for that step alone" {
   Test.addon({ name: "Saddle", title: "Saddle", needs: ["Strap"], category: "Tack", enabled: .Off })
   Test.addon({ name: "Strap", title: "Strap", category: "Tack", enabled: .Off })
@@ -2284,7 +2316,7 @@ test "a set applied takes the last step's strip away: «Undo» is for that step 
   Test.expect(!window().button(Locale.UNDO).shown() && switchOff(row("Saddle")) && switchOff(row("Strap")))
 }
 
-test "a set applied skips what isn't in the folder any more, and says so" {
+test "a set that names what isn't in the folder any more says so as it opens, before «Apply»" {
   const world = new World(everyday())
   Client.C_AddOns.GetNumAddOns = () => world.count()
   Client.C_AddOns.GetAddOnName = index => world.name(index)
@@ -2310,8 +2342,7 @@ test "a set applied skips what isn't in the folder any more, and says so" {
   world.remove("OldMap")
   _ = Test.key(Key.Escape)
   open()
-  set("All").button(Locale.APPLY).click()
-  Test.expect(Test.page().window(Locale.SET_TITLE.format("All")).text(Locale.SET_SKIPPED.format("OldMap")).shown())
+  Test.expect(set("All").text(Locale.SET_SKIPPED.format("OldMap")).shown())
 }
 
 test "a set saved under a name kept already takes its place" {
