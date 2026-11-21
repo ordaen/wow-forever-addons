@@ -147,6 +147,8 @@ public class Maps implements Module, App {
 
   destructor() {
     self.host.stop()
+    // The client keeps a frame's scripts: none of Map's runs once Map is ended.
+    self.toggle.SetScript("OnClick", nil)
     const toggle = self.toggle
     Ordaen.afterCombat(() => Client.ClearOverrideBindings(toggle))
   }
