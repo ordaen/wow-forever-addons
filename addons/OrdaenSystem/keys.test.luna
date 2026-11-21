@@ -1,0 +1,128 @@
+// The «Keys» tab against the stand-in's key bindings: its game entries (Movement: Move Forward, Move Backward, Jump;
+// Chat: Open Chat, Open Chat Slash; Interface: Toggle Game Menu), keys set as the player sets them.
+import Client from "$client"
+import { Key } from "$ltml"
+import Test from "$test"
+import { Bindings } from "@/keys"
+import { KeysPage } from "@/keysPage"
+
+function keysOf(bindings: Bindings, action: String): String {
+  return (bindings.command(action)?.keys ?? []).join(" ")
+}
+
+function read(): mut Bindings {
+  const bindings = new Bindings()
+  bindings.read()
+  return bindings
+}
+
+test "the list is every command in the client's order, under its section's text, with its keys" {
+  _ = Client.SetBinding("W", "MOVEFORWARD", nil)
+  _ = Client.SetBinding("UP", "MOVEFORWARD", nil)
+  const bindings = read()
+  const first = bindings.commands[1] ?? panic("a command")
+  Test.expect(first.name == "Move Forward" && first.section == "Movement Keys" && first.keys.join(" ") == "W UP")
+  Test.expect(bindings.commands.map(command => command.action).join(" ") ==
+      "MOVEFORWARD MOVEBACKWARD JUMP OPENCHAT OPENCHATSLASH TOGGLEGAMEMENU")
+  Test.expect((bindings.commands[4] ?? panic("a command")).section == "Chat")
+}
+
+test "a key set on a command leaves the command that held it, and «Undo» puts both back" {
+  _ = Client.SetBinding("SPACE", "JUMP", nil)
+  _ = Client.SetBinding("W", "MOVEFORWARD", nil)
+  const bindings = read()
+  Test.expect(bindings.bind("MOVEFORWARD", 1, "SPACE") == nil)
+  Test.expect(keysOf(bindings, "MOVEFORWARD") == "SPACE" && keysOf(bindings, "JUMP") == "")
+  Test.expect(bindings.step?.taken == "JUMP" && bindings.step?.key == "SPACE")
+  Test.expect(bindings.undo() == nil)
+  Test.expect(keysOf(bindings, "MOVEFORWARD") == "W" && keysOf(bindings, "JUMP") == "SPACE")
+  Test.expect(bindings.step == nil)
+}
+
+test "a second key is added after the first, and a key the command has moves to the slot it is set in" {
+  _ = Client.SetBinding("W", "MOVEFORWARD", nil)
+  const bindings = read()
+  Test.expect(bindings.bind("MOVEFORWARD", 2, "UP") == nil)
+  Test.expect(keysOf(bindings, "MOVEFORWARD") == "W UP")
+  Test.expect(bindings.bind("MOVEFORWARD", 1, "UP") == nil)
+  Test.expect(keysOf(bindings, "MOVEFORWARD") == "UP")
+}
+
+test "a key removed leaves the command's other key" {
+  _ = Client.SetBinding("W", "MOVEFORWARD", nil)
+  _ = Client.SetBinding("UP", "MOVEFORWARD", nil)
+  const bindings = read()
+  Test.expect(bindings.unbind("MOVEFORWARD", "W") == nil)
+  Test.expect(keysOf(bindings, "MOVEFORWARD") == "UP")
+}
+
+test "in a fight every change is refused and nothing changes" {
+  _ = Client.SetBinding("W", "MOVEFORWARD", nil)
+  const bindings = read()
+  Test.combat(true)
+  Test.expect(bindings.bind("JUMP", 1, "W") == .Fight)
+  Test.expect(bindings.unbind("MOVEFORWARD", "W") == .Fight)
+  Test.expect(bindings.resetAll() == .Fight)
+  Test.expect(bindings.keepFor(true) == .Fight)
+  Test.expect(keysOf(bindings, "MOVEFORWARD") == "W" && keysOf(bindings, "JUMP") == "")
+  Test.combat(false)
+}
+
+test "the keys kept for this character start as the account's, and the set says whose they are" {
+  _ = Client.SetBinding("W", "MOVEFORWARD", nil)
+  const bindings = read()
+  Test.expect(bindings.keepFor(true) == nil)
+  Test.expect(bindings.set == .Character)
+  Test.expect(keysOf(bindings, "MOVEFORWARD") == "W")
+  Test.expect(bindings.keepFor(false) == nil)
+  Test.expect(bindings.set == .Account)
+}
+
+test "the page finds a command by its name, its section or its key, and its menu removes a key" {
+  _ = Client.SetBinding("W", "MOVEFORWARD", nil)
+  _ = Client.SetBinding("ENTER", "OPENCHAT", nil)
+  const bindings = read()
+  Test.mount(new KeysPage(mut bindings), { left: 0, top: 0, width: 1100, height: 600 })
+  Test.expect(Test.page().text("Toggle Game Menu").shown())
+  Test.page().input().type("chat")
+  Test.expect(Test.page().text("Open Chat").shown() && !Test.page().text("Jump").shown())
+  Test.erase(4)
+  Test.page().input().type("enter")
+  Test.expect(Test.page().text("Open Chat").shown() && !Test.page().text("Open Chat Slash").shown())
+  Test.erase(5)
+  Test.page().text("Move Forward").item().rightClick()
+  Test.page().text("Remove W").click()
+  Test.expect(keysOf(bindings, "MOVEFORWARD") == "")
+}
+
+test "a key is set by pressing it: the command's «Change key», the key, Enter; the command that had it loses it" {
+  _ = Client.SetBinding("SPACE", "JUMP", nil)
+  const bindings = read()
+  Test.mount(new KeysPage(mut bindings), { left: 0, top: 0, width: 1100, height: 600 })
+  Test.page().text("Move Forward").item().rightClick()
+  Test.page().text("Change key").click()
+  _ = Test.key(Key.Space)
+  Test.expect(Test.page().text("Now: Jump. It will be taken from it.").shown())
+  _ = Test.key(Key.Enter)
+  Test.expect(keysOf(bindings, "MOVEFORWARD") == "SPACE" && keysOf(bindings, "JUMP") == "")
+  Test.expect(Test.page().text("Spacebar was taken from «Jump».").shown())
+  Test.page().button("Undo").click()
+  Test.expect(keysOf(bindings, "MOVEFORWARD") == "" && keysOf(bindings, "JUMP") == "SPACE")
+}
+
+test "Escape in the capture changes nothing, and Enter with nothing pressed yet is the key" {
+  _ = Client.SetBinding("ENTER", nil, nil)
+  const bindings = read()
+  Test.mount(new KeysPage(mut bindings), { left: 0, top: 0, width: 1100, height: 600 })
+  Test.page().text("Open Chat").item().rightClick()
+  Test.page().text("Change key").click()
+  _ = Test.key(Key.F)
+  _ = Test.key(Key.Escape)
+  Test.expect(keysOf(bindings, "OPENCHAT") == "")
+  Test.expect(!Test.page().text("Set").shown())
+  Test.page().text("Open Chat").item().rightClick()
+  Test.page().text("Change key").click()
+  _ = Test.key(Key.Enter)
+  _ = Test.key(Key.Enter)
+  Test.expect(keysOf(bindings, "OPENCHAT") == "ENTER")
+}

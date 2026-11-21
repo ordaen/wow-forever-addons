@@ -13,6 +13,8 @@ import { ARTWORK, ButtonPlate, Choice, Component, Dialog, KeptWindow, Menu, Menu
 import { Card } from "@/card"
 import { AddOn, Catalog, Status, plain } from "@/catalog"
 import { Age, FilterPick, Heat, Loading, Standing, Written } from "@/filter"
+import { Bindings } from "@/keys"
+import { KeysPage } from "@/keysPage"
 import Locale from "@/locales"
 import { Profiler, percent } from "@/perf"
 import { COLUMNS, Hot, Line, LineRow, TABLE_COLUMNS } from "@/rows"
@@ -78,6 +80,9 @@ const CONFIRM_WIDTH = 539.0625dp
 // The set's dialog: room for its name's row, the label and the field.
 const SET_WIDTH = 820.3125dp
 const BUTTON = 140.625dp
+// The window's tabs, by their place.
+const ADDONS_TAB = 1
+const KEYS_TAB = 2
 
 // An addon of a parent's group (`## Group`), the parent itself aside.
 function isUnder(addon: AddOn, parent: String): Boolean { return addon.group == parent && addon.name != parent }
@@ -140,9 +145,16 @@ public class AddOnsWindow implements Component {
   derived hot: Hot = self.hotOf()
   derived countText: String = self.visible.length == self.catalog.addons.length ? "%d".format(self.visible.length) :
     Locale.COUNT_OF.format(self.visible.length, self.catalog.addons.length)
-  derived tabs: Array<WindowTabSpec> = [{ title: Client.ADDONS, desc: self.onText(), icon: "Interface/Icons/INV_Misc_Wrench_01" }]
-  derived side: WindowSide | nil = self.list.values.picked != "" && self.catalog.byName[self.list.values.picked] != nil ?
+  derived tabs: Array<WindowTabSpec> = [
+    { title: Client.ADDONS, desc: self.onText(), icon: "Interface/Icons/INV_Misc_Wrench_01" },
+    { title: Client.KEY_BINDINGS, desc: self.keysText(), icon: "Interface/Icons/INV_Misc_Key_03" }
+  ]
+  derived onAddOns: Boolean = self.tab == ADDONS_TAB
+  derived onKeys: Boolean = self.tab == KEYS_TAB
+  derived side: WindowSide | nil = self.onAddOns && self.list.values.picked != "" && self.catalog.byName[self.list.values.picked] != nil ?
     { width: Style.CARD, content: self.card } : nil
+  // Asked before every key goes back to the client's defaults.
+  state resetAsked = false
   derived pickedModule: Boolean = self.catalog.byName[self.list.values.picked]?.group == self.framework
   derived tabled: Boolean = self.list.values.view == .Table
   derived columns: Array<Track> = self.tabled ? TABLE_COLUMNS : COLUMNS
@@ -166,8 +178,14 @@ public class AddOnsWindow implements Component {
     <Card name={self.list.values.picked} catalog={mut self.catalog} profiler={self.profiler} module={self.pickedModule}
           @pick={self.onPick} @toggle={self.onCardToggle} @settings={self.onSettings} />
   }
+  // The open tab's footer: the keys' (every key back to the client's defaults, after asking), or the addons'.
   const footer: Template = $ltml {
-    <box columns={FOOT} gap={6sp} yAlign={Align.Center}>
+    <box $if={self.onKeys} columns={FOOT} gap={6sp} yAlign={Align.Center}>
+      <PushButton label={Locale.KEYS_RESET_ALL} width={BUTTON} disabled={self.fighting} @click={self.onResetAsk} />
+      <box />
+      <box />
+    </box>
+    <box $else columns={FOOT} gap={6sp} yAlign={Align.Center}>
       <box columns={LEFT_GROUP} gap={3sp} yAlign={Align.Center}>
         <PushButton label={Locale.RESET} width={BUTTON} @click={self.onReset} />
         <PushButton label={Locale.DISABLE_ALL} width={BUTTON} @click={self.onDisableAll} />
@@ -190,6 +208,7 @@ public class AddOnsWindow implements Component {
 
   // Closed, it stays drawn: it opens again at the cost of a surface shown.
   shown: Signal<Boolean>
+  const bindings: mut Bindings = new Bindings()
   const catalog: mut Catalog = new Catalog()
   const profiler: mut Profiler = new Profiler()
   const sets: mut Sets = new Sets()
@@ -203,6 +222,24 @@ public class AddOnsWindow implements Component {
     self.whom = [{ value: true, label: Locale.WHO_ALL }, { value: false, label: Game.player.name }]
     watch (open of self.shown) { self.follow(open) }
     watch { self.catalog.setEveryone(self.list.values.everyone) }
+    // The keys are read as their tab shows, and again whenever the client's change (Forever's preset page, an addon
+    // loaded later, another window), while it shows.
+    watch {
+      if (self.shown && self.onKeys) {
+        self.bindings.read()
+        Events.UPDATE_BINDINGS.listen(self.onBindings)
+      }
+    }
+  }
+
+  onBindings(mut self) { self.bindings.read() }
+  // How many commands there are, once the tab has read them.
+  keysText(self): String { return self.bindings.commands.length == 0 ? "" : "%d".format(self.bindings.commands.length) }
+  onResetAsk(mut self) { self.resetAsked = true }
+  cancelReset(mut self) { self.resetAsked = false }
+  confirmReset(mut self) {
+    self.resetAsked = false
+    _ = self.bindings.resetAll()
   }
 
   // Each open reads the list in one pass and samples once a second, hearing `ADDON_LOADED` while it shows; a close
@@ -555,7 +592,8 @@ public class AddOnsWindow implements Component {
     return $ltml {
       <Window tabs={self.tabs} selected={mut self.tab} declared={mut self.declared} shown={self.shown}
               footer={self.footer} side={self.side} @close={self.onClose}>
-        <box rows={BODY} gap={3sp}>
+        <KeysPage $if={self.onKeys} bindings={mut self.bindings} fighting={self.fighting} />
+        <box $else rows={BODY} gap={3sp}>
           <Toolbar search={mut self.search} placeholder={Locale.SEARCH}>
             <box padding={HEADING}>
               <text value={self.countText} textColor={Style.DIM} textFont={.Numbers} wrap={.None} />
@@ -623,6 +661,11 @@ public class AddOnsWindow implements Component {
           <PushButton #buttons $if={self.editing > 0} label={Locale.RENAME} width={BUTTON} @click={self.renameSet} />
           <PushButton #buttons $if={self.editing > 0} label={Locale.APPLY} width={BUTTON} disabled={self.fighting}
                       action={RELOAD} @click={self.applySet} />
+        </Dialog>
+        <Dialog $if={self.resetAsked} title={Client.KEY_BINDINGS} width={CONFIRM_WIDTH}>
+          <text value={Client.CONFIRM_RESET_KEYBINDINGS} textColor={Style.INK} />
+          <PushButton #buttons label={Locale.CANCEL} width={BUTTON} @click={self.cancelReset} />
+          <PushButton #buttons label={Locale.KEYS_RESET_ALL} width={BUTTON} disabled={self.fighting} @click={self.confirmReset} />
         </Dialog>
       </Window>
     }

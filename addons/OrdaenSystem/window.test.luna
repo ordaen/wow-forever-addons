@@ -385,7 +385,7 @@ test "the list stands by category, a caption with its count over its addons, «O
     "Search by title, folder, author, notes | 6 | AddOn | Now | Peak | Memory | Inventory | 1 | Bagger | — | — | 0 KB | " +
       `Map | 1 | Old Map | ${Client.ADDON_INTERFACE_VERSION} | — | — | — | User Interface | 2 | Ordaen | — | — | 0 KB | ` +
       "Ordaen System | on in Ordaen | — | — | 0 KB | Other | 2 | Chatter | on demand | — | — | — | LunaType | — | — | " +
-      "0 KB | The client isn't measuring addons. | Reset | Disable all | Sets | Reload | AddOns | 6 of 6"
+      "0 KB | The client isn't measuring addons. | Reset | Disable all | Sets | Reload | AddOns | 6 of 6 | Key Bindings"
   ))
 }
 

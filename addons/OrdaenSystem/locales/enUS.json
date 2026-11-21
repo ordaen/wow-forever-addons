@@ -88,5 +88,22 @@
   "RENAME": "Rename",
   "DELETE": "Delete",
   "SET_SKIPPED": "Not in the folder, skipped: %s",
-  "SETS_FULL": "At most %d sets: delete one first."
+  "SETS_FULL": "At most %d sets: delete one first.",
+  "KEYS_SEARCH": "Search by command, section or key",
+  "KEYS_BOUND": "With a key",
+  "KEYS_UNBOUND": "Without a key",
+  "KEYS_COMMAND": "Command",
+  "KEYS_FIRST": "Key 1",
+  "KEYS_SECOND": "Key 2",
+  "KEYS_TAKEN": "%s was taken from «%s».",
+  "KEYS_FIGHT": "Keys can't be changed in combat.",
+  "KEYS_REFUSED": "The game refused this key.",
+  "KEYS_REMOVE": "Remove %s",
+  "KEYS_SAME": "Show commands with %s",
+  "KEYS_RESET_ALL": "Reset all",
+  "KEYS_CHANGE": "Change key",
+  "KEYS_ADD": "Add a second key",
+  "KEYS_PRESS": "Press a key combination, then Enter. For a mouse button or the wheel, use it over the box below. Escape cancels.",
+  "KEYS_NOW": "Now: %s. It will be taken from it.",
+  "KEYS_SET": "Set"
 }

@@ -182,6 +182,12 @@ surface 391.67,175.54 816.67x548.92 on MEDIUM clamped raised by a click
         box 459.37,185.79 44.44x45.92
           text 459.37,190.26 44.44x17.78 "AddOns" #ffd100
           text 461.03,209.46 41.11x17.78 "6 of 6" #8f8470
+      box 532.55,175.54 173.15x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
+        box 539.8,182.79 48.92x48.92 absolute icon=Interface/Icons/INV_Misc_Key_03 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=none
+        box 583.72,182.79 11.5x52.17 absolute border=UI-Frame-Metal-CornerTopLeft sides=left
+        box 600.25,185.79 86.67x45.92
+          text 600.25,199.15 86.67x17.78 "Key Bindings" #a3977f
+          text 643.58,218.35 0x0 "" #8f8470
     box 1153.33,203.54 55x31.42
       box 1153.33,203.54 55x26.67 clipped
         box 1153.33,203.54 27.5x26.67 absolute clipped @keyPress @pointerPress

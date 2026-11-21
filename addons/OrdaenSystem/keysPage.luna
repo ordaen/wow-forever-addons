@@ -1,0 +1,375 @@
+// The «Keys» tab: the client's key bindings as one table, found by typing (a command's name, its section, a key's
+// text). A section is a caption that folds; a command's row shows its keys as caps, the first and the second.
+// ПКМ on a row: remove one of its keys, or show the commands that share it. A key taken from another command is told
+// in a strip under the table, with «Undo». In a fight the client refuses every change: the menu's changes are greyed.
+import Client from "$client"
+import { Align, ByInteractionState, Edges, Event, MouseButton, Track } from "$ltml"
+import root Ordaen from "Ordaen"
+import { Choice, Component, Dialog, Menu, MenuEntry, PushButton, SECONDARY_TEXT, ScrolledList, ToolPick, Toolbar } from "Ordaen"
+import { Bindings, Command, Refusal } from "@/keys"
+import Locale from "@/locales"
+import Style from "@/style"
+
+// The command a key is being pressed for, and its slot (1 or 2).
+struct Capture {
+  action: String
+  slot: Integer
+}
+
+// Which commands the table shows.
+public enum KeyFilter implements Plain { All = "all", Bound = "bound", Unbound = "unbound" }
+
+// One line of the table: a section's caption, or a command.
+public struct KeyLine {
+  caption: Boolean
+  // The section's text, or the command's action.
+  name: String
+  // A caption's: how many commands it holds, and whether it is folded.
+  count: Integer
+  folded: Boolean
+}
+
+const FILTERS: Array<Choice<KeyFilter>> = [
+  { value: .All, label: Locale.FILTER_ALL },
+  { value: .Bound, label: Locale.KEYS_BOUND },
+  { value: .Unbound, label: Locale.KEYS_UNBOUND }
+]
+// The command's name, then its first key and its second, each in a column of its own so that they line up.
+const KEY_COLUMN: Number<Length> = 234.375dp
+const COLUMNS: Array<Track> = [{ fr: 1 }, KEY_COLUMN, KEY_COLUMN]
+const CAPTION: Array<Track> = ["max-content", "max-content", { fr: 1 }]
+const MARK = 18.75dp
+const BUTTON = 140.625dp
+const PAD: Edges = { left: 3sp, right: 3sp }
+const CAP_PAD: Edges = { left: 2sp, right: 2sp, top: 0.5sp, bottom: 0.5sp }
+const CAP: Color = Color.hex("#ffffff14")
+// The capture dialog, and its well: where the keys pressed show, and a mouse button or the wheel is taken.
+const CAPTURE_WIDTH = 539.0625dp
+const WELL = 58.59375dp
+const LIGHT: ByInteractionState<Color> = { default: Style.CLEAR, hover: Style.PICKED }
+const DASH = "—"
+// The modifiers a key's name starts with, in the client's order.
+const MODIFIERS: Array<String> = ["ALT", "CTRL", "SHIFT", "META"]
+
+// A key's parts as caps read them: its modifiers, then the key (`CTRL-SHIFT-F` is Ctrl, Shift, F), each in the
+// client's words.
+public function capsOf(key: String): Array<String> {
+  const parts: Array<String> = []
+  let rest = key
+  for (modifier of MODIFIERS) {
+    if (rest.length > modifier.length + 1 && rest.sub(1, modifier.length + 1) == `${modifier}-`) {
+      parts.push(Client.GetBindingText(modifier, "KEY_", false))
+      rest = rest.sub(modifier.length + 2)
+    }
+  }
+  parts.push(Client.GetBindingText(rest, "KEY_", false))
+  return parts
+}
+
+// A key as one text, for the search and the strip: «Ctrl-Shift-F».
+public function keyText(key: String): String { return Client.GetBindingText(key, "KEY_", false) }
+
+// Whether a command shows with the search and the filter as they are.
+function matches(command: Command, query: String, filter: KeyFilter): Boolean {
+  const shown = match (filter) {
+    .All => true
+    .Bound => command.keys.length > 0
+    .Unbound => command.keys.length == 0
+  }
+  if (!shown) { return false }
+  if (query == "") { return true }
+  return command.name.lower().contains(query) || command.section.lower().contains(query) ||
+    command.keys.any(key => keyText(key).lower().contains(query) || key.lower().contains(query))
+}
+
+public class KeysPage implements Component {
+  state search = ""
+  state filter: KeyFilter = KeyFilter.All
+  state folded: mut Map<String, Boolean> = {}
+  // What the last change the client refused says, until the next change.
+  state refused = ""
+  derived lines: Array<KeyLine> = self.linesOf()
+  derived countText: String = self.countOf()
+  derived stepText: String = self.stepOf()
+  derived stepShown: Boolean = self.stepText != ""
+  // The capture: the command and the slot a key is being set in, and the chord pressed so far.
+  state capture: Capture | nil = nil
+  state chord = ""
+  derived capturing: Boolean = self.capture != nil
+  derived captureTitle: String = self.bindings.command(self.capture?.action ?? "")?.name ?? ""
+  derived chordCaps: Array<String> = self.chord == "" ? [] : capsOf(self.chord)
+  derived holderText: String = self.holderOf()
+
+  const bindings: mut Bindings
+  fighting: Signal<Boolean>
+  constructor(bindings: mut Bindings, fighting: Signal<Boolean> = false) {
+    self.bindings = bindings
+    self.fighting = fighting
+    // A fight that starts while a key is pressed for ends the capture: the client would refuse the key.
+    watch (fight of self.fighting) {
+      if (fight) { self.capture = nil }
+    }
+  }
+
+  // What the chord does now, where it is another command's: that command loses it when it is set.
+  holderOf(self): String {
+    const capture = self.capture
+    if (capture == nil || self.chord == "") { return "" }
+    const holder = self.bindings.holder(capture.action, self.chord)
+    if (holder == "" || holder == capture.action) { return "" }
+    return Locale.KEYS_NOW.format(self.bindings.command(holder)?.name ?? Client.GetBindingName(holder))
+  }
+
+  onCapture(mut self, action: String, slot: Integer) {
+    self.chord = ""
+    self.capture = { action: action, slot: slot }
+  }
+
+  // A key pressed in the capture. Escape cancels; Enter sets the chord pressed so far, and is the chord where none
+  // is yet (Enter, then Enter, binds Enter). A modifier alone waits for its key.
+  onCaptureKey(mut self, stroke: Event.Keystroke) {
+    if (stroke.key == .Escape) {
+      self.capture = nil
+    } else if (stroke.key == .Enter && self.chord != "") {
+      self.onCaptureSet()
+    } else {
+      self.take(Client.GetConvertedKeyOrButton(stroke.key))
+    }
+  }
+
+  // A mouse button on the capture's well: the left and right buttons are the client's own (refused), the others
+  // are keys.
+  onCapturePress(mut self, press: Event.Press) { self.take(Client.GetConvertedKeyOrButton(press.button)) }
+  onCaptureWheel(mut self, wheel: Event.Wheel) { self.take(wheel.direction == .Up ? "MOUSEWHEELUP" : "MOUSEWHEELDOWN") }
+
+  take(mut self, key: String) {
+    if (!Client.IsKeyPressIgnoredForBinding(key)) { self.chord = Client.CreateKeyChordStringUsingMetaKeyState(key) }
+  }
+
+  onCaptureSet(mut self) {
+    const capture = self.capture
+    if (capture == nil || self.chord == "") { return }
+    self.capture = nil
+    self.said(self.bindings.bind(capture.action, capture.slot, self.chord))
+  }
+
+  onCaptureCancel(mut self) { self.capture = nil }
+
+  linesOf(self): Array<KeyLine> {
+    const query = self.search.lower()
+    const lines: Array<mut KeyLine> = []
+    let section = ""
+    let caption = 0
+    for (command of self.bindings.commands) {
+      if (matches(command, query, self.filter)) {
+        if (command.section != section) {
+          section = command.section
+          lines.push({ caption: true, name: section, count: 0, folded: self.folded[section] == true })
+          caption = lines.length
+        }
+        const head = lines[caption] ?? panic("the command's caption stands above it")
+        head.count += 1
+        if (!head.folded) { lines.push({ caption: false, name: command.action, count: 0, folded: false }) }
+      }
+    }
+    return lines
+  }
+
+  countOf(self): String {
+    let shown = 0
+    for (line of self.lines) {
+      if (line.caption) { shown += line.count }
+    }
+    const all = self.bindings.commands.length
+    return shown == all ? "%d".format(all) : Locale.COUNT_OF.format(shown, all)
+  }
+
+  stepOf(self): String {
+    if (self.refused != "") { return self.refused }
+    const step = self.bindings.step
+    if (step == nil || step.taken == "") { return "" }
+    const from = self.bindings.command(step.taken)?.name ?? step.taken
+    return Locale.KEYS_TAKEN.format(keyText(step.key), from)
+  }
+
+  said(mut self, refusal: Refusal | nil) {
+    self.refused = match (refusal) {
+      nil => ""
+      .Fight => Locale.KEYS_FIGHT
+      .Client => Locale.KEYS_REFUSED
+    }
+  }
+
+  onFold(mut self, section: String) { self.folded[section] = self.folded[section] != true }
+  onUnbind(mut self, action: String, key: String) { self.said(self.bindings.unbind(action, key)) }
+  onSame(mut self, key: String) {
+    self.filter = .All
+    self.search = keyText(key)
+  }
+  onUndo(mut self) { self.said(self.bindings.undo()) }
+
+  public render(self): Template {
+    return $ltml {
+      <box rows={["max-content", "max-content", { fr: 1 }, "max-content"]} gap={3sp}>
+        <Toolbar search={mut self.search} placeholder={Locale.KEYS_SEARCH}>
+          <box padding={PAD}>
+            <text value={self.countText} textColor={Style.DIM} textFont={.Numbers} wrap={.None} />
+          </box>
+          <ToolPick value={mut self.filter} choices={FILTERS} icon={Ordaen.art.ctl.tool.filter} title={Locale.FILTER} />
+        </Toolbar>
+        <box columns={COLUMNS} gap={3sp} padding={PAD} yAlign={Align.Center}>
+          <text value={Locale.KEYS_COMMAND} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={.None} />
+          <text value={Locale.KEYS_FIRST} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={.None} />
+          <text value={Locale.KEYS_SECOND} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={.None} />
+        </box>
+        <ScrolledList virtual={true}>
+          <KeyRow $for={line of self.lines} line={line} bindings={self.bindings} fighting={self.fighting}
+                  @fold={self.onFold} @unbind={self.onUnbind} @same={self.onSame} @capture={self.onCapture} />
+        </ScrolledList>
+        <box $if={self.stepShown} columns={[{ fr: 1 }, "max-content"]} gap={3sp} yAlign={Align.Center}>
+          <box xAlign={Align.End}>
+            <text value={self.stepText} textColor={Style.INK} textSize={SECONDARY_TEXT} />
+          </box>
+          <PushButton $if={self.refused == ""} label={Locale.UNDO} width={BUTTON} disabled={self.fighting} @click={self.onUndo} />
+          <box $else />
+        </box>
+        <box $else />
+        <Dialog $if={self.capturing} title={self.captureTitle} width={CAPTURE_WIDTH}>
+          <text value={Locale.KEYS_PRESS} textColor={Style.INK} />
+          <box height={WELL} padding={PAD} background={CAP} xAlign={Align.Center} yAlign={Align.Center}
+               @keyDown.parentScope={self.onCaptureKey} @pointerDown={self.onCapturePress} @wheel={self.onCaptureWheel}>
+            <box columns={{ each: "max-content" }} gap={1sp} yAlign={Align.Center}>
+              <box $for={cap of self.chordCaps} padding={CAP_PAD} background={CAP}>
+                <text value={cap} textColor={Style.GOLD} wrap={.None} />
+              </box>
+            </box>
+          </box>
+          <text value={self.holderText} textColor={Style.DIM} textSize={SECONDARY_TEXT} />
+          <PushButton #buttons label={Locale.CANCEL} width={BUTTON} @click={self.onCaptureCancel} />
+          <PushButton #buttons label={Locale.KEYS_SET} width={BUTTON} disabled={self.chord == ""} @click={self.onCaptureSet} />
+        </Dialog>
+      </box>
+    }
+  }
+}
+
+// What a row's menu offers: set its first key, add a second, remove one of its keys, or show the commands with that
+// key.
+enum RowAct { Change, Add, Unbind, Same }
+
+struct RowEntry {
+  act: RowAct
+  key: String
+}
+
+class KeyRow implements Component {
+  public fold: Event<String> = new Event()
+  public unbind: Event<(String, String)> = new Event()
+  public same: Event<String> = new Event()
+  // A key to be pressed for the command: its slot, 1 or 2.
+  public capture: Event<(String, Integer)> = new Event()
+
+  state menuOpen = false
+  derived command: Command | nil = self.line.caption ? nil : self.bindings.command(self.line.name)
+  derived title: String = self.line.caption ? self.line.name : self.command?.name ?? self.line.name
+  derived keys: Array<String> = self.command?.keys ?? []
+  derived first: Array<String> = capsOf(self.keys[1] ?? "")
+  derived second: Array<String> = capsOf(self.keys[2] ?? "")
+  derived hasFirst: Boolean = self.keys.length >= 1
+  derived hasSecond: Boolean = self.keys.length >= 2
+  derived acts: Array<RowEntry> = self.actsOf()
+  derived entries: Array<MenuEntry> = self.acts.map(entry => self.entryOf(entry))
+  derived countText: String = "%d".format(self.line.count)
+  derived mark = self.line.folded ? Ordaen.art.ctl.markClosed : Ordaen.art.ctl.markOpen
+
+  line: Signal<KeyLine>
+  const bindings: Bindings
+  fighting: Signal<Boolean>
+  constructor(line: Signal<KeyLine>, bindings: Bindings, fighting: Signal<Boolean>) {
+    self.line = line
+    self.bindings = bindings
+    self.fighting = fighting
+  }
+
+  actsOf(self): Array<RowEntry> {
+    const list: Array<RowEntry> = [{ act: .Change, key: "" }]
+    if (self.keys.length == 1) { list.push({ act: .Add, key: "" }) }
+    for (key of self.keys) { list.push({ act: .Unbind, key: key }) }
+    for (key of self.keys) { list.push({ act: .Same, key: key }) }
+    return list
+  }
+
+  entryOf(self, entry: RowEntry): MenuEntry {
+    return match (entry.act) {
+      .Change => { label: Locale.KEYS_CHANGE, disabled: self.fighting }
+      .Add => { label: Locale.KEYS_ADD, disabled: self.fighting }
+      .Unbind => { label: Locale.KEYS_REMOVE.format(keyText(entry.key)), disabled: self.fighting, group: entry.key == (self.keys[1] ?? "") }
+      .Same => { label: Locale.KEYS_SAME.format(keyText(entry.key)), group: entry.key == (self.keys[1] ?? "") }
+    }
+  }
+
+  onPress(mut self, press: Event.Press) {
+    if (self.line.caption) {
+      self.fold.emit(self.line.name)
+    } else if (press.button == MouseButton.Right) {
+      self.menuOpen = true
+    }
+  }
+
+  // Enter or Space: a caption folds, a command's first key is pressed for.
+  onKey(mut self) {
+    if (self.line.caption) {
+      self.fold.emit(self.line.name)
+    } else if (!self.fighting) {
+      self.capture.emit(self.line.name, 1)
+    }
+  }
+
+  // A double press on a command: its first key is pressed for.
+  onDouble(mut self) {
+    if (!self.fighting) { self.capture.emit(self.line.name, 1) }
+  }
+
+  onMenu(mut self, index: Integer) {
+    self.menuOpen = false
+    const entry = self.acts[index]
+    if (entry == nil) { return }
+    match (entry.act) {
+      .Change => self.capture.emit(self.line.name, 1)
+      .Add => self.capture.emit(self.line.name, 2)
+      .Unbind => self.unbind.emit(self.line.name, entry.key)
+      .Same => self.same.emit(entry.key)
+    }
+  }
+
+  closeMenu(mut self) { self.menuOpen = false }
+
+  public render(self): Template {
+    return $ltml {
+      <box $if={self.line.caption} height={Style.ROW} columns={CAPTION} gap={3sp} padding={PAD} yAlign={Align.Center}
+           @pointerPress={self.onPress} @keyPress(.Enter)={self.onKey} @keyPress(.Space)={self.onKey}>
+        <box width={MARK} height={MARK} background={self.mark} tint={Style.GOLD} />
+        <text value={self.title} textColor={Style.GOLD} textFont={.Title} wrap={.None} />
+        <text value={self.countText} textColor={Style.DIM} textFont={.Numbers} wrap={.None} />
+      </box>
+      <box $else height={Style.ROW} columns={COLUMNS} gap={3sp} padding={PAD} yAlign={Align.Center}
+           background={LIGHT} @pointerPress={self.onPress} @pointerPress.double={self.onDouble} @keyPress(.Enter)={self.onKey}
+           @keyPress(.Space)={self.onKey}>
+        <text value={self.title} textColor={Style.INK} wrap={.Cut} />
+        <box $if={self.hasFirst} columns={{ each: "max-content" }} gap={1sp} yAlign={Align.Center}>
+          <box $for={cap of self.first} padding={CAP_PAD} background={CAP}>
+            <text value={cap} textColor={Style.INK} textSize={SECONDARY_TEXT} wrap={.None} />
+          </box>
+        </box>
+        <text $else value={DASH} textColor={Style.DIM} wrap={.None} />
+        <box $if={self.hasSecond} columns={{ each: "max-content" }} gap={1sp} yAlign={Align.Center}>
+          <box $for={cap of self.second} padding={CAP_PAD} background={CAP}>
+            <text value={cap} textColor={Style.INK} textSize={SECONDARY_TEXT} wrap={.None} />
+          </box>
+        </box>
+        <text $else value={DASH} textColor={Style.DIM} wrap={.None} />
+        <Menu $if={self.menuOpen} entries={self.entries} @pick={self.onMenu} @close={self.closeMenu} />
+      </box>
+    }
+  }
+}
