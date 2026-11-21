@@ -76,6 +76,9 @@ public class OrdaenCore implements App {
   // what stands along the right edge (the tracker) starts under it.
   state topRights: mut Map<String, Number<Length>> = {}
   public derived topRightTaken: Number<Length> = mostOf(self.topRights)
+  // What each module asks the player to look at, by its folder: a count another module's part shows for it (the
+  // panel's cell, a badge), read by the folder, so neither imports the other.
+  state notices: mut Map<String, Integer> = {}
   // The modules drawn on the screen: each once, until it ends and what it drew goes with it.
   drawn: mut WeakMap<any Module, Boolean> = {}
   // The mode in which the player moves every module's parts about the screen.
@@ -167,6 +170,14 @@ public class OrdaenCore implements App {
   public keepBottom(mut self, folder: String, taken: Number<Length>) {
     self.bottoms[folder] = taken
   }
+
+  // How many things a module asks the player to look at (unread whispers): 0 once it asks nothing, as it ends too.
+  public notice(mut self, folder: String, count: Integer) {
+    self.notices[folder] = count
+  }
+
+  // What a module asks the player to look at, by its folder: 0 where it asks nothing or doesn't run.
+  public noticeOf(self, folder: String): Integer { return self.notices[folder] ?? 0 }
 
   // The game's tooltip of an item, asked of the game once and kept; none while the game has none yet.
   public itemTip(mut self, id: Integer): Game.TooltipData | nil {

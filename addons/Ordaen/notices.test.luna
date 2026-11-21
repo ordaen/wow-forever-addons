@@ -1,0 +1,28 @@
+// What a module asks the player to look at reaches another module's part by the folder alone: a part that shows the
+// count follows it as it changes, and none is 0.
+import Test from "$test"
+import root Ordaen from "Ordaen"
+
+// A badge of another module's, showing the whispers' module's count by its folder.
+class Badge {
+  derived count: String = "%d".format(Ordaen.noticeOf("OrdaenSocial"))
+
+  public render(self): Template {
+    return $ltml {
+      <box padding={3sp}> <text value={self.count} /> </box>
+    }
+  }
+}
+
+test "a part shows the count a module asks the player to look at, by its folder, following it" {
+  const badge = new Badge()
+  Test.mount(badge, { left: 0, top: 0, width: 100, height: 50 })
+  Test.expect(Test.page().text("0").shown())
+  Ordaen.notice("OrdaenSocial", 3)
+  Test.flush()
+  Test.expect(Test.page().text("3").shown())
+  Ordaen.notice("OrdaenSocial", 0)
+  Test.flush()
+  Test.expect(Test.page().text("0").shown())
+  destroy badge
+}
