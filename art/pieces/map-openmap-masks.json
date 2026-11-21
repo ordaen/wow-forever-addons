@@ -305,7 +305,19 @@
     "addons/OrdaenMap/media/openmap/gapLand/1415_7_6.tga",
     "addons/OrdaenMap/media/openmap/gapLand/1415_8_0.tga",
     "addons/OrdaenMap/media/openmap/gapLand/1415_8_1.tga",
-    "addons/OrdaenMap/media/openmap/paper.tga"
+    "addons/OrdaenMap/media/openmap/paper.tga",
+    "addons/OrdaenMap/media/openmap/tile/308492.blp",
+    "addons/OrdaenMap/media/openmap/tile/308493.blp",
+    "addons/OrdaenMap/media/openmap/tile/308494.blp",
+    "addons/OrdaenMap/media/openmap/tile/308495.blp",
+    "addons/OrdaenMap/media/openmap/tile/308496.blp",
+    "addons/OrdaenMap/media/openmap/tile/308497.blp",
+    "addons/OrdaenMap/media/openmap/tile/308498.blp",
+    "addons/OrdaenMap/media/openmap/tile/308499.blp",
+    "addons/OrdaenMap/media/openmap/tile/308500.blp",
+    "addons/OrdaenMap/media/openmap/tile/308501.blp",
+    "addons/OrdaenMap/media/openmap/tile/308502.blp",
+    "addons/OrdaenMap/media/openmap/tile/308503.blp"
   ],
-  "origin": "OpenMap (MIT, https://github.com/openmap-world/openmap), commit 273f9b6: Media/Textures/Forever/MapTerritory/*.tga (its tools/map-preview/render.py --bake-territory), MapFeather.tga, MapFeatherRound.tga, MapFeatherWide.tga, MapSeaDark.tga, MapSeaLight.tga and MapSeaField/*.tga (its tools/map-preview/sea.py), copied as they are. Also MapLand/1414.tga and 1415.tga (the continents' land as a colour field), MapCoast/1414.tga and 1415.tga (their coastal bands), MapGrain.tga and MapHatch.tga (the parchment grain and the wave strokes). Also the gaps: MapPaper.tga, MapGapLand/*.tga and MapCoastArt/*.tga (its tools/map-preview/gapfill.py), and MapGapFill/*.tga, the gaps painted by hand by Santiago Reyes (https://sreyesmaps.com), used with his credit and his watermarks kept."
+  "origin": "OpenMap (MIT, https://github.com/openmap-world/openmap), commit 273f9b6: Media/Textures/Forever/MapTerritory/*.tga (its tools/map-preview/render.py --bake-territory), MapFeather.tga, MapFeatherRound.tga, MapFeatherWide.tga, MapSeaDark.tga, MapSeaLight.tga and MapSeaField/*.tga (its tools/map-preview/sea.py), copied as they are. Also MapLand/1414.tga and 1415.tga (the continents' land as a colour field), MapCoast/1414.tga and 1415.tga (their coastal bands), MapGrain.tga and MapHatch.tga (the parchment grain and the wave strokes). Also the gaps: MapPaper.tga, MapGapLand/*.tga and MapCoastArt/*.tga (its tools/map-preview/gapfill.py), and MapGapFill/*.tga, the gaps painted by hand by Santiago Reyes (https://sreyesmaps.com), used with his credit and his watermarks kept. Also MapTile/<file>.blp, its copies of Gilneas' classic map, which Forever lists for no Russian client (its tools/map-tiles/build.py)."
 }

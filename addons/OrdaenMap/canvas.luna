@@ -35,18 +35,15 @@ const ARROW_SIZE: Number = 28
 const BASE_SUB = 0
 const UNEXPLORED_SUB = 1
 const EXPLORED_SUB = 2
-// The sea where no map paints one, OpenMap's; under it, past the world's edges, as far as `SEA_REACH` world widths.
-const SEA_R: Number = 0.5
-const SEA_G: Number = 0.49
-const SEA_B: Number = 0.41
+// The sea, one picture under the whole world: the deep ocean (`media/openmap/seaDeep`) stretched over the plane and
+// mirrored past its edges, `SEA_REACH` world widths each side; round each continent its shallow shelf
+// (`seaShelf/<map>`, the land's shape widened and blurred, in the zones' coastal sea colour) over a square twice the
+// continent's size; and over all of it a seamless tile of ripples for close zoom. `SEA_SCALE_MAP`: the zone whose art
+// pixels measure the ripples; `SEA_RIPPLE_PIXELS`: one tile's side in them; `SEA_RIPPLE_ALPHA`: their strength.
 const SEA_REACH: Number = 1.5
-// The maps whose painted sea colour is laid over it (`MapSeaField`), each feathered into the one under it.
-const SEA_FIELDS: Array<Integer> = [WORLD, 1414, 1415]
-// The sea's mottling: its tile in continent-art pixels, and the zoom (1: the world in the view) where it starts
-// halving each time the zoom doubles, so it keeps its size on the screen. The continent its pixels are of.
-const SEA_TILE: Number = 128
-const SEA_OCTAVE: Number = 4
-const SEA_SCALE_MAP = 1415
+const SEA_SCALE_MAP = 1436
+const SEA_RIPPLE_PIXELS: Number = 640
+const SEA_RIPPLE_ALPHA: Number = 0.35
 // The continents whose land is kept as land over the sea (OpenMap's `MapLand`: a smooth colour field of the
 // continent art's land, its ink and names left out), warmed toward the zones' parchment.
 const CONTINENTS: Array<Integer> = [1414, 1415]
@@ -57,29 +54,12 @@ const LAND_DESATURATION: Number = 0.25
 // The parchment grain over that land, twice at sizes and offsets that never line up: { size, offset, strength }.
 const GRAIN_TILE: Number = 14
 const GRAIN_OCTAVES: Array<Array<Number>> = [[1, 0, 0.55], [2.618, 0.37, 0.5]]
-// The wave strokes along each continent's coast: their tile in continent-art pixels, the zoom where they start
-// halving, how strong.
-const HATCH_WIDTH: Number = 34
-const HATCH_HEIGHT: Number = 84
-const HATCH_OCTAVE: Number = 7
-const HATCH_ALPHA: Number = 0.6
 // The blank map paper over the land no zone covers, twice at sizes and offsets that never line up:
 // { size, offset (tiles), strength }.
 const PAPER_LAYERS: Array<Array<Number>> = [[1, 0, 1], [2.618, 0.41, 0.5]]
 // A classic map's art, as every zone map's.
 const CLASSIC_WIDTH: Number = 1002
 const CLASSIC_HEIGHT: Number = 668
-
-// A continent's coastal wave strokes, two octaves, over its rectangle on the plane; `pixel`: the plane's units to
-// a pixel of its art.
-struct Coast {
-  const left: Number
-  const top: Number
-  const right: Number
-  const bottom: Number
-  const pixel: Number
-  const strokes: Array<mut any Client.Texture>
-}
 
 // The smallest power of two from 16 up that holds `n`: an explored piece's last tile is a file that wide.
 function powerOver(n: Number): Number {
@@ -106,6 +86,59 @@ function firstLayer(map: Integer): Client.UiMapLayerInfo | nil {
   const layers = Client.C_Map.GetMapArtLayers(map)
   if (layers == nil) { return nil }
   return layers[1]
+}
+
+// Where an art stands on the plane: its top left corner, the plane's units to one of its pixels across and down, and
+// its tiles' size in pixels.
+struct ArtPlace {
+  const left: Number
+  const top: Number
+  const sx: Number
+  const sy: Number
+  const tileWidth: Number
+  const tileHeight: Number
+}
+
+// An image `width` by `height` at `x`, `y` of an art, cut into its tiles (file ids or paths, row by row; 0 or none: a
+// tile not drawn), on `frame` (which covers the plane), each through `mask` (and `also`, where given). A whole art's
+// tile is a whole file cut at the art's edge; an explored piece's (`piece`) last tile is a file of the next power of
+// two.
+function drawTiles(
+  frame: any Client.Frame,
+  at: ArtPlace,
+  files: Array<Number | String>,
+  x: Number,
+  y: Number,
+  width: Number,
+  height: Number,
+  piece: Boolean,
+  drawLayer: String,
+  sub: Integer,
+  mask: any Client.MaskTexture,
+  also: any Client.MaskTexture | nil = nil
+) {
+  const tw = at.tileWidth
+  const th = at.tileHeight
+  const cols = (width / tw).ceil()
+  const rows = (height / th).ceil()
+  for (j of 1..rows) {
+    const ph = j < rows ? th : height - (rows - 1) * th
+    const fh = j < rows || !piece ? th : powerOver(ph)
+    for (k of 1..cols) {
+      const file = files[(j - 1) * cols + k] ?? 0
+      const pw = k < cols ? tw : width - (cols - 1) * tw
+      const fw = k < cols || !piece ? tw : powerOver(pw)
+      if (file != 0 && pw > 0 && ph > 0) {
+        const tex = frame.CreateTexture(nil, drawLayer, nil, sub)
+        _ = tex.SetTexture(file, nil, nil, "TRILINEAR")
+        tex.SetTexCoord(0, pw / fw, 0, ph / fh)
+        tex.AddMaskTexture(mask)
+        if (also != nil) { tex.AddMaskTexture(also) }
+        tex.SetPoint("TOPLEFT", frame, "TOPLEFT", at.left + (x + (k - 1) * tw) * at.sx, -(at.top + (y + (j - 1) * th) * at.sy))
+        tex.SetSize(pw * at.sx, ph * at.sy)
+      }
+    }
+  }
 }
 
 // One zone's art: its frame on the canvas, built when it first comes near the view.
@@ -145,46 +178,20 @@ class ZoneArt {
     const file = TERRITORIES[self.id] == true ? `${MEDIA}territory/${self.id}` : (self.city ? MEDIA + "featherRound" : MEDIA + "feather")
     _ = mask.SetTexture(file, "CLAMPTOBLACKADDITIVE", "CLAMPTOBLACKADDITIVE")
     self.place(mask, 0, 0, layer.layerWidth * sx, layer.layerHeight * sy)
-    self.tiles(files, layer, 0, 0, layer.layerWidth, layer.layerHeight, false, BASE_SUB, mask)
+    const at: ArtPlace = { left: self.left, top: self.top, sx: sx, sy: sy, tileWidth: layer.tileWidth, tileHeight: layer.tileHeight }
+    drawTiles(self.frame, at, files, 0, 0, layer.layerWidth, layer.layerHeight, false, "ARTWORK", BASE_SUB, mask)
     // The explored pieces as the client gives them, over the rest of the zone's pieces from OpenMap's table; a piece
     // the client shows only under the cursor isn't drawn.
     const seen: Map<String, Boolean> = {}
     for (piece of Client.C_MapExplorationInfo.GetExploredMapTextures(self.id) ?? []) {
       seen[pieceKey(piece.textureWidth, piece.textureHeight, piece.offsetX, piece.offsetY)] = true
       if (!piece.isShownByMouseOver) {
-        self.tiles(piece.fileDataIDs, layer, piece.offsetX, piece.offsetY, piece.textureWidth, piece.textureHeight, true, EXPLORED_SUB, mask)
+        drawTiles(self.frame, at, piece.fileDataIDs, piece.offsetX, piece.offsetY, piece.textureWidth, piece.textureHeight, true, "ARTWORK", EXPLORED_SUB, mask)
       }
     }
     for (piece of Reveal.piecesOf(artOf(self.id))) {
       if (seen[piece.key] != true) {
-        self.tiles(piece.files, layer, piece.x, piece.y, piece.width, piece.height, true, UNEXPLORED_SUB, mask)
-      }
-    }
-  }
-
-  // An image `width` by `height` at `x`, `y` of the zone's art, cut into its tiles (file ids, row by row). A base
-  // tile is a whole file cut at the art's edge; an explored piece's last tile is a file of the next power of two.
-  tiles(mut self, files: Array<Number>, layer: Client.UiMapLayerInfo, x: Number, y: Number, width: Number, height: Number, piece: Boolean, sub: Integer, mask: any Client.MaskTexture) {
-    const tw = layer.tileWidth
-    const th = layer.tileHeight
-    const sx = (self.right - self.left) / layer.layerWidth
-    const sy = (self.bottom - self.top) / layer.layerHeight
-    const cols = (width / tw).ceil()
-    const rows = (height / th).ceil()
-    for (j of 1..rows) {
-      const ph = j < rows ? th : height - (rows - 1) * th
-      const fh = j < rows || !piece ? th : powerOver(ph)
-      for (k of 1..cols) {
-        const file = files[(j - 1) * cols + k]
-        const pw = k < cols ? tw : width - (cols - 1) * tw
-        const fw = k < cols || !piece ? tw : powerOver(pw)
-        if (file != nil && pw > 0 && ph > 0) {
-          const tex = self.frame.CreateTexture(nil, "ARTWORK", nil, sub)
-          _ = tex.SetTexture(file, nil, nil, "TRILINEAR")
-          tex.SetTexCoord(0, pw / fw, 0, ph / fh)
-          tex.AddMaskTexture(mask)
-          self.place(tex, (x + (k - 1) * tw) * sx, (y + (j - 1) * th) * sy, pw * sx, ph * sy)
-        }
+        drawTiles(self.frame, at, piece.files, piece.x, piece.y, piece.width, piece.height, true, "ARTWORK", UNEXPLORED_SUB, mask)
       }
     }
   }
@@ -249,22 +256,8 @@ class Patch {
     const mask = self.frame.CreateMaskTexture()
     _ = mask.SetTexture(`${MEDIA}coastArt/${art.name}`, "CLAMPTOBLACKADDITIVE", "CLAMPTOBLACKADDITIVE")
     self.place(mask, 0, 0, self.right - self.left, self.bottom - self.top)
-    const cols = (CLASSIC_WIDTH / 256).ceil()
-    const rows = (CLASSIC_HEIGHT / 256).ceil()
-    for (j of 1..rows) {
-      const ph = j < rows ? 256 : CLASSIC_HEIGHT - (rows - 1) * 256
-      for (k of 1..cols) {
-        const file = art.files[(j - 1) * cols + k] ?? 0
-        const pw = k < cols ? 256 : CLASSIC_WIDTH - (cols - 1) * 256
-        if (file != 0) {
-          const tex = self.frame.CreateTexture(nil, "ARTWORK", nil, 0)
-          _ = tex.SetTexture(file, nil, nil, "TRILINEAR")
-          tex.SetTexCoord(0, pw / 256, 0, ph / 256)
-          tex.AddMaskTexture(mask)
-          self.place(tex, (k - 1) * 256 * sx, (j - 1) * 256 * sy, pw * sx, ph * sy)
-        }
-      }
-    }
+    const at: ArtPlace = { left: self.left, top: self.top, sx: sx, sy: sy, tileWidth: 256, tileHeight: 256 }
+    drawTiles(self.frame, at, art.files, 0, 0, CLASSIC_WIDTH, CLASSIC_HEIGHT, false, "ARTWORK", 0, mask)
   }
 
   place(self, region: any Client.MaskTexture, x: Number, y: Number, width: Number, height: Number) {
@@ -305,9 +298,6 @@ public class WorldCanvas {
   startY: Number = 0
   sinceArrow: Number = 0
   // The sea's mottling (dark, light, then the finer dark and light), and its tile in the plane's units.
-  papers: Array<mut any Client.Texture> = []
-  seaTile: Number = 0
-  coasts: mut Array<Coast> = []
   // Whether it has been laid out once: the first opening finds the player.
   placed = false
 
@@ -350,6 +340,14 @@ public class WorldCanvas {
     })
   }
 
+  // Ended with Map: hidden, and its scripts taken off, as the client keeps a frame's scripts after.
+  destructor() {
+    self.view.Hide()
+    for (script of ["OnShow", "OnSizeChanged", "OnMouseWheel", "OnMouseDown", "OnMouseUp", "OnUpdate"]) {
+      self.view.SetScript(script, nil)
+    }
+  }
+
   public show(self) { self.view.Show() }
   public hide(mut self) {
     self.dragging = false
@@ -389,56 +387,48 @@ public class WorldCanvas {
     self.buildSea()
   }
 
-  // The sea under every zone: its colour, past the world's edges; the world's and the continents' painted sea
-  // colour, each feathered into the one under it; its dark and light mottling, two of each for two octaves, placed
-  // over the view as it moves (`placeSea`).
+  // The sea under every zone: the deep ocean, each continent's shelf, the ripples; the zones' painted coasts fade into
+  // it through their masks. Then each continent's land.
   buildSea(mut self) {
-    const base = self.plane.CreateTexture(nil, "BACKGROUND", nil, -8)
-    base.SetColorTexture(SEA_R, SEA_G, SEA_B, 1)
-    base.SetPoint("TOPLEFT", self.plane, "TOPLEFT", -SEA_REACH * self.width, SEA_REACH * self.height)
-    base.SetSize((1 + 2 * SEA_REACH) * self.width, (1 + 2 * SEA_REACH) * self.height)
-    for (map of SEA_FIELDS) {
+    const left = -SEA_REACH * self.width
+    const top = -SEA_REACH * self.height
+    const width = (1 + 2 * SEA_REACH) * self.width
+    const height = (1 + 2 * SEA_REACH) * self.height
+    const deep = self.plane.CreateTexture(nil, "BACKGROUND", nil, 0)
+    _ = deep.SetTexture(MEDIA + "seaDeep", "MIRROR", "MIRROR", "TRILINEAR")
+    deep.SetTexCoord(left / self.width, (left + width) / self.width, top / self.height, (top + height) / self.height)
+    self.onPlane(deep, left, top, width, height)
+    for (map of CONTINENTS) {
       const rect = self.rectOf(map)
       if (rect != nil) {
-        const left = rect[1] ?? 0
-        const top = rect[2] ?? 0
-        const width = (rect[3] ?? 0) - left
-        const height = (rect[4] ?? 0) - top
-        const field = self.plane.CreateTexture(nil, "BACKGROUND", nil, map == WORLD ? -7 : -6)
-        _ = field.SetTexture(`${MEDIA}seaField/${map}`, nil, nil, "LINEAR")
-        const fade = self.plane.CreateMaskTexture()
-        _ = fade.SetTexture(MEDIA + "featherWide", "CLAMPTOBLACKADDITIVE", "CLAMPTOBLACKADDITIVE")
-        self.onPlane(field, left, top, width, height)
-        self.onPlane(fade, left, top, width, height)
-        field.AddMaskTexture(fade)
+        const across = (rect[3] ?? 0) - (rect[1] ?? 0)
+        const down = (rect[4] ?? 0) - (rect[2] ?? 0)
+        const shelf = self.plane.CreateTexture(nil, "BACKGROUND", nil, 1)
+        _ = shelf.SetTexture(`${MEDIA}seaShelf/${map}`, "CLAMP", "CLAMP", "TRILINEAR")
+        self.onPlane(shelf, (rect[1] ?? 0) - across / 2, (rect[2] ?? 0) - down / 2, across * 2, down * 2)
       }
     }
-    const papers: Array<mut any Client.Texture> = []
-    for (index of 1..4) {
-      const paper = self.plane.CreateTexture(nil, "BACKGROUND", nil, -5 + index)
-      _ = paper.SetTexture(index % 2 == 1 ? MEDIA + "seaDark" : MEDIA + "seaLight", "REPEAT", "REPEAT")
-      papers.push(mut paper)
-    }
-    self.papers = papers
-    const continent = self.rectOf(SEA_SCALE_MAP)
+    const zone = self.rectOf(SEA_SCALE_MAP)
     const art = firstLayer(SEA_SCALE_MAP)
-    const pixel: Number = continent != nil && art != nil ? ((continent[3] ?? 0) - (continent[1] ?? 0)) / art.layerWidth : 0.4
-    self.seaTile = SEA_TILE * pixel
+    const pixel: Number = zone != nil && art != nil ? ((zone[3] ?? 0) - (zone[1] ?? 0)) / art.layerWidth : 0.05
+    const side = SEA_RIPPLE_PIXELS * pixel
+    const ripples = self.plane.CreateTexture(nil, "BACKGROUND", nil, 2)
+    _ = ripples.SetTexture(MEDIA + "seaRipples", "REPEAT", "REPEAT", "TRILINEAR")
+    ripples.SetTexCoord(left / side, (left + width) / side, top / side, (top + height) / side)
+    ripples.SetAlpha(SEA_RIPPLE_ALPHA)
+    self.onPlane(ripples, left, top, width, height)
     for (map of CONTINENTS) { self.buildLand(map) }
   }
 
-  // A continent's land over the sea: its colour field, the parchment grain on it, and its coastal wave strokes
-  // (placed with the sea, `placeSea`). Under every zone, filling the land between them.
+  // A continent's land over the sea: its colour field and the parchment grain on it. Under every zone, filling the
+  // land between them.
   buildLand(mut self, map: Integer) {
     const rect = self.rectOf(map)
-    const art = firstLayer(map)
-    if (rect == nil || art == nil) { return }
+    if (rect == nil) { return }
     const left = rect[1] ?? 0
     const top = rect[2] ?? 0
-    const right = rect[3] ?? 0
-    const bottom = rect[4] ?? 0
-    const width = right - left
-    const height = bottom - top
+    const width = (rect[3] ?? 0) - left
+    const height = (rect[4] ?? 0) - top
     const fade = self.plane.CreateMaskTexture()
     _ = fade.SetTexture(MEDIA + "featherWide", "CLAMPTOBLACKADDITIVE", "CLAMPTOBLACKADDITIVE")
     self.onPlane(fade, left, top, width, height)
@@ -483,75 +473,12 @@ public class WorldCanvas {
         sheet.AddMaskTexture(fade)
       }
     }
-    const coast = self.plane.CreateMaskTexture()
-    _ = coast.SetTexture(`${MEDIA}coast/${map}`, "CLAMPTOBLACKADDITIVE", "CLAMPTOBLACKADDITIVE")
-    self.onPlane(coast, left, top, width, height)
-    const strokes: Array<mut any Client.Texture> = []
-    for (index of 1..2) {
-      const stroke = self.plane.CreateTexture(nil, "BORDER", nil, 1)
-      _ = stroke.SetTexture(MEDIA + "hatch", "REPEAT", "REPEAT")
-      stroke.AddMaskTexture(coast)
-      stroke.Hide()
-      strokes.push(mut stroke)
-    }
-    self.coasts.push({ left: left, top: top, right: right, bottom: bottom, pixel: width / art.layerWidth, strokes: strokes })
-  }
-
-  // How far past an octave's zoom the view is: the halvings whole, and the share of the next.
-  octaves(self, from: Number): Array<Number> {
-    const octave = (((self.scale / self.least()) / from).log() / (2.0).log()).max(0)
-    const step = octave.floor()
-    return [step, octave - step]
   }
 
   // A region over the plane's rectangle at `left`, `top`, `width` by `height`, in the plane's units.
   onPlane(self, region: any Client.MaskTexture, left: Number, top: Number, width: Number, height: Number) {
     region.SetPoint("TOPLEFT", self.plane, "TOPLEFT", left, -top)
     region.SetSize(width, height)
-  }
-
-  // The sea's mottling over the plane's rectangle `left` to `right`, `top` to `bottom`: two sizes of it, the finer
-  // fading in as the zoom doubles, so it keeps its size on the screen; each size keeps its own offset (its octave's
-  // number), so the one that takes over is the same pattern in the same place.
-  placeSea(self, left: Number, top: Number, right: Number, bottom: Number) {
-    if (self.papers.length < 4 || self.seaTile <= 0) { return }
-    const sea = self.octaves(SEA_OCTAVE)
-    const step = sea[1] ?? 0
-    const fine = sea[2] ?? 0
-    const size = self.seaTile / 2 ** step
-    for (index, paper of self.papers) {
-      const finer = index > 2
-      const tile = finer ? size / 2 : size
-      const shift = (finer ? step + 1 : step) * 0.37
-      paper.SetTexCoord(left / tile + shift, right / tile + shift, top / tile + shift * 1.6, bottom / tile + shift * 1.6)
-      paper.ClearAllPoints()
-      self.onPlane(paper, left, top, right - left, bottom - top)
-      paper.SetAlpha(finer ? fine : 1 - fine)
-    }
-    const hatch = self.octaves(HATCH_OCTAVE)
-    const div = 2 ** (hatch[1] ?? 0)
-    const share = hatch[2] ?? 0
-    for (coast of self.coasts) {
-      const l = left.max(coast.left)
-      const r = right.min(coast.right)
-      const t = top.max(coast.top)
-      const b = bottom.min(coast.bottom)
-      for (index, stroke of coast.strokes) {
-        const finer = index > 1
-        const across = HATCH_WIDTH * coast.pixel / div / (finer ? 2 : 1)
-        const down = HATCH_HEIGHT * coast.pixel / div / (finer ? 2 : 1)
-        const alpha = HATCH_ALPHA * (finer ? share : 1 - share).sqrt()
-        if (r <= l || b <= t || alpha <= 0.01) {
-          stroke.Hide()
-        } else {
-          stroke.SetTexCoord(l / across, r / across, t / down, b / down)
-          stroke.ClearAllPoints()
-          self.onPlane(stroke, l, t, r - l, b - t)
-          stroke.SetAlpha(alpha)
-          stroke.Show()
-        }
-      }
-    }
   }
 
   // A map's rectangle on the plane (left, top, right, bottom), or nil where it isn't on Azeroth's map.
@@ -643,7 +570,6 @@ public class WorldCanvas {
         zone.frame.Hide()
       }
     }
-    self.placeSea(left, top, right, bottom)
     self.placeArrow()
   }
 

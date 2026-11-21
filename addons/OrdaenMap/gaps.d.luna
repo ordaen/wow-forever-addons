@@ -9,15 +9,16 @@ public struct GapTile {
   const row: Integer
 }
 
-// One of Blizzard's classic maps: its box on the world (0 to 1), its 1002 by 668 art's tiles row by row (0: a tile its
-// mask leaves nothing of), drawn through `media/openmap/coastArt/<name>`.
+// One of Blizzard's classic maps: its box on the world (0 to 1), its 1002 by 668 art's tiles row by row (a file id,
+// or the path of OpenMap's copy where the client may not have it; 0: a tile its mask leaves nothing of), drawn
+// through `media/openmap/coastArt/<name>`.
 public struct ClassicMap {
   const name: String
   const left: Number
   const top: Number
   const right: Number
   const bottom: Number
-  const files: Array<Number>
+  const files: Array<Number | String>
 }
 
 // A gap painted by hand: its tiles' prefix (`media/openmap/gapFill/<name>_<tile>`), its box on the world (0 to 1),

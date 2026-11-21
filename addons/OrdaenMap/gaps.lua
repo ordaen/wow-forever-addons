@@ -69,12 +69,21 @@ function module.tilesOf(continent)
 	return list
 end
 
+-- The classic maps drawn from OpenMap's copies of their tiles (`media/openmap/tile/<file>.blp`): Forever doesn't list
+-- them for every language, and a client that hasn't them draws solid green squares (OpenMap's #152).
+local COPIED = { Gilneas = true }
+local TILES = "Interface/AddOns/OrdaenMap/media/openmap/tile/"
+
 -- Blizzard's classic maps: { name, left, top, right, bottom, files } (0 to 1 on the world; a file 0 is none).
 function module.classic()
 	local list = {}
 	for _, x in ipairs(gaps.art or {}) do
-		local r = x[3]
-		list[#list + 1] = { name = x[1], left = r[1], top = r[3], right = r[2], bottom = r[4], files = x[4] }
+		local r, files = x[3], x[4]
+		if COPIED[x[1]] then
+			files = {}
+			for k, id in ipairs(x[4]) do files[k] = id ~= 0 and TILES .. id or 0 end
+		end
+		list[#list + 1] = { name = x[1], left = r[1], top = r[3], right = r[2], bottom = r[4], files = files }
 	end
 	return list
 end
