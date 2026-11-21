@@ -382,7 +382,12 @@ public class Social implements Module, App {
       TAB_FRIENDS => counted(Locale.FOOT_FRIENDS, self.friends.length, self.onlineCount)
       TAB_GUILD => self.guild != nil ? counted(Locale.FOOT_MEMBERS, self.guildMembers.length, self.guildOnline) : []
       TAB_COMMUNITIES => self.chosenClub != nil ? counted(Locale.FOOT_MEMBERS, self.clubMembers.length, onlineOf(self.clubMembers)) : []
-      else => [{ label: Locale.FOOT_ALLIES, value: String.of(self.allies.length) }]
+      TAB_ALLIES => [{ label: Locale.FOOT_ALLIES, value: String.of(self.allies.length) }]
+      TAB_WHISPERS => [
+        { label: Locale.FOOT_TALKS, value: String.of(self.talks.length) },
+        { label: Locale.FOOT_UNREAD, value: String.of(self.whispersUnread) }
+      ]
+      else => []
     }
   }
 
@@ -755,12 +760,13 @@ public class Social implements Module, App {
   onSettings(self) { Ordaen.toggleSettings(Runtime.Addon.of(self)) }
 
   // The card beside the list, of the tab shown: the picked friend's or the player's own; the picked member's, or the
-  // guild's or the community's; the picked ally's.
+  // guild's or the community's; the picked ally's. The whispers have none: the conversation is their tab's own.
   sideOf(self): WindowSide | nil {
     if (self.tab == TAB_FRIENDS) { return self.sub == SUB_STATUS ? self.friendSide() : nil }
     if (self.tab == TAB_GUILD) { return self.guild != nil && self.guildSub == SUB_ROSTER ? self.guildSide() : nil }
     if (self.tab == TAB_COMMUNITIES) { return self.chosenClub != nil ? self.clubSide() : nil }
-    return self.pickedAlly != nil ? self.allySide() : nil
+    if (self.tab == TAB_ALLIES) { return self.pickedAlly != nil ? self.allySide() : nil }
+    return nil
   }
 
   friendSide(self): WindowSide {

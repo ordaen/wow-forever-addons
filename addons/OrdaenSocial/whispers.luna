@@ -1,5 +1,5 @@
-// The whispers' tab: the conversations listed newest first with their unread count, a name typed at the list's top
-// starting one, a conversation's «×» closing it (its history with it); beside them the open one, drawn as
+// The whispers' tab: a sidebar of the conversations, newest first with their unread count, a name typed at its top
+// starting one, a conversation's «×» closing it (its history with it); beside it, in a well, the open one, drawn as
 // WhisperMessenger draws it: each line a bubble, the other's on the left and the player's on the right, at most three
 // quarters of the width; lines of one side close in time stand together, the group's time under its last. Under it, its
 // own line to type in.
@@ -14,8 +14,10 @@ import { Talk, TalkLine } from "@/talks"
 const ROWS = 80
 const STEP = 3
 const MAX: "max-content" = "max-content"
-// The list and the conversation share the tab evenly.
-const HALVES: Array<Track> = [{ fr: 1 }, { fr: 1 }]
+// The conversations a sidebar at the left, the open one the rest.
+const SIDEBAR_AND_TALK: Array<Track> = [240dp, { fr: 1 }]
+// Between the well's rim and the bubbles: the least room a text keeps from a frame's line.
+const WELL_ROOM: Number<Spacing> = 3sp
 // The bubbles' floors (WhisperMessenger's warm look, on the wood): what is heard dark brown, what the player told
 // copper; their words light on both.
 public const HEARD_FILL: Color = Color.hex("#3d2e24e6")
@@ -223,7 +225,7 @@ public class Whispers implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={HALVES} rows={[{ fr: 1 }]} gap={3sp}>
+      <box columns={SIDEBAR_AND_TALK} rows={[{ fr: 1 }]} gap={3sp}>
         <box rows={[MAX, { fr: 1 }]} gap={2sp}>
           <Field value={mut self.name} maxLength={60} placeholder={Locale.WHISPER_TO} @submit={self.onStart} />
           <box columns={1} overflow={Overflow.Scroll}>
@@ -232,13 +234,16 @@ public class Whispers implements Component {
           </box>
         </box>
         <box rows={[{ fr: 1 }, MAX]} gap={2sp}>
-          // The newest line at the bottom; older ones go up past the top, which cuts them.
-          <box overflow={Overflow.Hidden} @wheel={self.onWheel}>
-            <box position={Position.Absolute} left={0ui} right={0ui} bottom={0ui} columns={1}>
-              <Bubble $for={item of self.bubbles} item={item} lineHeight={Ordaen.lengthOf(BODY_LINE)} @link={self.onLink} />
-            </box>
-            <box $if={self.empty} xAlign={Align.Center} yAlign={Align.Center}>
-              <text value={Locale.WHISPER_NONE} textColor={HINT} wrap={.None} />
+          // The conversation sunk in a well, as the chat's lines stand in their frame: its rim the line between it and
+          // the list, its floor its own. The newest line at the bottom; older ones go up past the top, which cuts them.
+          <box border={Ordaen.art.ctl.well.rim} background={Ordaen.art.ctl.well.floor} padding={WELL_ROOM}>
+            <box overflow={Overflow.Hidden} @wheel={self.onWheel}>
+              <box position={Position.Absolute} left={0ui} right={0ui} bottom={0ui} columns={1}>
+                <Bubble $for={item of self.bubbles} item={item} lineHeight={Ordaen.lengthOf(BODY_LINE)} @link={self.onLink} />
+              </box>
+              <box $if={self.empty} xAlign={Align.Center} yAlign={Align.Center}>
+                <text value={Locale.WHISPER_NONE} textColor={HINT} wrap={.None} />
+              </box>
             </box>
           </box>
           <Field value={mut self.draft} maxLength={255} placeholder={Locale.WHISPER_TYPE} disabled={self.empty}

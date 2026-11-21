@@ -1372,6 +1372,11 @@ test "a whisper started anywhere opens the window on that conversation; a told l
   Test.expect(Social.whispersUnread == 0)
   Social.whisperTo("Jaina", false)
   Test.expect(Social.talkOpen == "t:Jaina" && window.text("on my way").shown())
+  // The footer counts the whispers' own, never the allies; the conversation stands in a well, the sidebar beside it.
+  Test.expect(window.text("Conversations").shown() && window.text("Unread").shown() && !window.text("Recent allies").shown())
+  const well = window.box(Ordaen.art.ctl.well.floor).rect()
+  const said = window.text("on my way").rect()
+  Test.expect(said.left >= well.left && said.right <= well.right && window.text("Jaina").rect().right <= well.left)
 }
 
 test "a conversation is bubbles: the other's on the left, the player's on the right, a group's time under its last" {
