@@ -1,0 +1,79 @@
+// A Callout points at a frame of the game's from over it or under it, its arrow's point by the frame's edge, and its
+// close glyph says the player read it.
+import Client from "$client"
+import Test from "$test"
+import root Ordaen from "Ordaen"
+import { Callout, CalloutSide } from "@/callout"
+import { Component } from "@/module"
+
+const TITLE = "Talent points to spend"
+
+// A button of the game's, 32 by 40 px, its middle `fromBottom` px over the screen's bottom (negative: under its top).
+function button(name: String, fromBottom: Number): any Client.Frame {
+  const made = Client.CreateFrame("Button", name, Client.C_UI.GetUIParent(), nil)
+  made.SetSize(32, 40)
+  if (fromBottom > 0) {
+    made.SetPoint("BOTTOM", Client.C_UI.GetUIParent(), "BOTTOM", 0, fromBottom)
+  } else {
+    made.SetPoint("TOP", Client.C_UI.GetUIParent(), "TOP", 0, fromBottom)
+  }
+  return made
+}
+
+// Its owner: the Callout while it shows, hidden once read.
+class Pointing implements Component {
+  public state shown = true
+
+  by: any Client.Frame
+  side: CalloutSide
+  constructor(by: any Client.Frame, side: CalloutSide) {
+    self.by = by
+    self.side = side
+  }
+
+  onClose(mut self) { self.shown = false }
+
+  public render(self): Template {
+    return $ltml {
+      <Callout $if={self.shown} by={self.by} title={TITLE} text={"Open the character window."} side={self.side}
+               @close={self.onClose} />
+    }
+  }
+}
+
+test "over a button, its arrow points down at the button's top" {
+  const by = button("CalloutAbove", 40)
+  const page = new Pointing(by, CalloutSide.Above)
+  Test.mount(page, { left: 0, top: 0, width: 1600, height: 900 })
+  // The button's top: 40 px over the screen's bottom, and 40 px high.
+  const top = 900 - 80
+  const arrow = Test.edges("helptip-arrow", 0)
+  Test.expect(arrow.bottom <= top && arrow.bottom >= top - 4)
+  Test.expect(Test.surfaceHolding(TITLE).y < arrow.top)
+  Test.expect(Test.drawn().any(d => d.file == "helptip-arrow" && d.rotation == 0))
+  destroy page
+}
+
+test "under a button, its arrow points up at the button's bottom" {
+  const by = button("CalloutBelow", -40)
+  const page = new Pointing(by, CalloutSide.Below)
+  Test.mount(page, { left: 0, top: 0, width: 1600, height: 900 })
+  const bottom = 80
+  const arrow = Test.edges("helptip-arrow", 0)
+  Test.expect(arrow.top >= bottom && arrow.top <= bottom + 4)
+  Test.expect(Test.surfaceHolding(TITLE).y > arrow.bottom)
+  Test.expect(Test.drawn().any(d => d.file == "helptip-arrow" && d.rotation.abs() > 3))
+  destroy page
+}
+
+test "its close glyph says it was read, and its owner hides it" {
+  const by = button("CalloutClosed", 40)
+  const page = new Pointing(by, CalloutSide.Above)
+  Test.mount(page, { left: 0, top: 0, width: 1600, height: 900 })
+  Test.expect(Test.surfaces().any(s => s.texts.any(t => t == TITLE)))
+  const glyph = Test.edges(Ordaen.art.ctl.corner.close, 0)
+  Test.click({ x: (glyph.left + glyph.right) / 2, y: (glyph.top + glyph.bottom) / 2 }, nil)
+  Test.expect(!page.shown)
+  Test.expect(!Test.surfaces().any(s => s.texts.any(t => t == TITLE)))
+  destroy page
+}
