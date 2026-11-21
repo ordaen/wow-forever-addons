@@ -23,7 +23,7 @@ import { LogQuest, logQuests } from "@/book"
 import { TakenClick } from "@/button"
 import { QuestieData } from "@/data"
 import { KINDS, QuestKind } from "@/kind"
-import { DungeonQuests, PinKind, QuestPins, leadsTo } from "@/layers"
+import { ChainPins, DungeonQuests, PinKind, QuestPins, leadsTo, startsAt } from "@/layers"
 import { QuestList } from "@/list"
 import Locale from "@/locales"
 import { Asked, FILTER_START, Folds, ListChoices, QuestFilter, QuestSort, QuestStatus, QuestView, countOf, foldedOnce, listedOf } from "@/model"
@@ -31,7 +31,7 @@ import { QuestFacts } from "@/questie"
 import { Choices, GeneralPage } from "@/settings"
 import Style from "@/style"
 import { TrackerLines } from "@/tracker"
-import { Act, QuestPage } from "@/view"
+import { Act, ChainPage, QuestPage } from "@/view"
 
 // The button the game's quest log key clicks: the client binds a key to a button by its name.
 const TOGGLE = "OrdaenQuestsToggle"
@@ -82,6 +82,8 @@ const VIEWS: Array<Choice<QuestView>> = [
 
 // The window's one tab: the game's quest log book.
 const TAB_ICON: Asset = "Interface/QuestFrame/UI-QuestLog-BookIcon"
+// The chain window's tab: the game's mark of a quest to take.
+const CHAIN_ICON: Asset = "Interface/GossipFrame/AvailableQuestIcon"
 
 // How many quests of the log are of each kind, in `KINDS`' order: the sub-tabs' counts.
 function kindCounts(quests: Array<LogQuest>): Array<Integer> {
@@ -104,7 +106,11 @@ const KIND_TITLES: Array<String> = KINDS.map(kind => tabTitle(kind))
 public class Quests implements Module, App {
   public const title: String = "Ordaen Quests"
   public window: mut KeptWindow = new KeptWindow("log", self.title, { x: 0ui, y: 0ui, width: Style.WIDTH, height: Style.HEIGHT })
-  public const windows: mut Array<mut KeptWindow> = [self.window]
+  // The next quest of a chain, beside the log at first.
+  public chainWindow: mut KeptWindow = new KeptWindow(
+    "chain", Locale.CHAIN_WINDOW, { x: Style.CHAIN_X, y: 0ui, width: Style.PAGE, height: Style.CHAIN_HEIGHT }
+  )
+  public const windows: mut Array<mut KeptWindow> = [self.window, self.chainWindow]
   public const pages: Array<SettingsPage> = [
     { title: Locale.TAB_GENERAL, content: $ltml { <GeneralPage settings={mut self.settings} /> } },
     { title: windowsTitle(), content: $ltml { <WindowsPage windows={mut self.windows} /> } }
@@ -138,6 +144,10 @@ public class Quests implements Module, App {
   public state hovered = 0
   // The quest the player asked to see on the map (0: none): its pins show and are lit until the map hides.
   public state shownOnMap = 0
+  // The quest of a chain whose page the chain window shows (0: none, the window closed), and QuestieDB's facts of it.
+  public state chained = 0
+  state chainedFacts: QuestFacts | nil = nil
+  state chainTab = 1
   state text: Game.QuestText = NO_TEXT
   state abandoning = 0
   // The items abandoning it destroys, by name: the question says them, as the game's does.
@@ -180,16 +190,21 @@ public class Quests implements Module, App {
   derived side: WindowSide | nil = self.pageOf(self.pickedQuest)
   derived abandonText: String = Locale.ABANDON_ASK.format(self.quests.find(quest => quest.id == self.abandoning)?.title ?? "")
   derived level: Integer = Game.player.level
+  derived chainTabs: Array<WindowTabSpec> = [{ title: Locale.CHAIN_WINDOW, icon: CHAIN_ICON }]
+  // The chain's quest as a list of one, or none: the chain window's page.
+  derived chainedList: Array<QuestFacts> = self.chainedFacts == nil ? [] : [self.chainedFacts ?? panic("facts")]
 
   const toggle: any Client.Frame
   const objectives: QuestPins
   const turnIns: QuestPins
+  const chainPins: ChainPins
   const dungeonQuests: DungeonQuests
   const trackerLines: TrackerLines
 
   constructor() {
     self.objectives = new QuestPins(PinKind.Objectives, self.quests, self.facts, self.hovered, self.shownOnMap)
     self.turnIns = new QuestPins(PinKind.TurnIns, self.quests, self.facts, self.hovered, self.shownOnMap)
+    self.chainPins = new ChainPins(self.chained, self.chainedFacts, self.shownOnMap)
     self.dungeonQuests = new DungeonQuests(self.quests)
     self.trackerLines = new TrackerLines(self.facts, (id: Integer): Boolean => self.openAt(id), (id: Integer): Boolean => self.showOnMap(id))
     self.toggle = Client.CreateFrame("Button", TOGGLE, Client.UIParent, nil)
@@ -202,6 +217,7 @@ public class Quests implements Module, App {
       if (maps == nil) { return }
       maps.layers.add(self.objectives)
       maps.layers.add(self.turnIns)
+      maps.layers.add(self.chainPins)
       maps.dungeons.add(self.dungeonQuests)
     }
     // What the player asked to see on the map stays until the map hides.
@@ -298,16 +314,25 @@ public class Quests implements Module, App {
         self.abandoning = id
       }
       .ShowOnMap => { _ = self.showOnMap(id) }
+      .ShowNext => { self.openChained(id) }
     }
   }
 
-  // The world map at where the quest leads (its objectives while it is to do, whom to hand it to once done), its pins
-  // shown and lit until the map hides; without Ordaen Map or a place QuestieDB knows, the map as it was. True where
-  // Ordaen Map opened it.
+  // The chain window at a quest QuestieDB knows; nothing for one it doesn't.
+  openChained(mut self, id: Integer) {
+    const facts = self.data.quest(id)
+    if (facts == nil) { return }
+    self.chainedFacts = facts
+    self.chained = id
+  }
+
+  onChainClose(mut self) { self.chained = 0 }
+
+  // The world map at where the quest leads (a quest of the log: its objectives while it is to do, whom to hand it to
+  // once done; the chain window's: where it is given), its pins alone shown and lit until the map hides; without
+  // Ordaen Map or a place QuestieDB knows, the map as it was. True where Ordaen Map opened it.
   showOnMap(mut self, id: Integer): Boolean {
-    const quest = (peek self.quests).find(quest => quest.id == id)
-    const facts = (peek self.facts)[id]
-    const area = quest == nil || facts == nil ? nil : leadsTo(quest, facts)
+    const area = self.areaOf(id)
     if (Maps == nil || area == nil) {
       Client.C_Map.OpenWorldMap(nil)
       return false
@@ -315,6 +340,15 @@ public class Quests implements Module, App {
     self.shownOnMap = id
     Maps?.show(area)
     return true
+  }
+
+  // Where a quest leads on the map: a quest of the log by its state, the chain window's where it starts.
+  areaOf(self, id: Integer): Integer | nil {
+    const quest = (peek self.quests).find(quest => quest.id == id)
+    const facts = (peek self.facts)[id]
+    if (quest != nil && facts != nil) { return leadsTo(quest, facts) }
+    const chained = peek self.chainedFacts
+    return id == peek self.chained && chained != nil ? startsAt(chained) : nil
   }
 
   onFold(mut self, header: String) { self.folds.write(foldedOnce(peek self.folds.values, header, peek self.quests)) }
@@ -379,6 +413,10 @@ public class Quests implements Module, App {
       <Window $if={self.open} tabs={self.tabs} selected={mut self.windowTab} declared={mut self.window} withSettings={true}
               side={self.side} footer={self.footer} @close={self.onClose} @settings={self.onSettings}>
         {self.logBody()}
+      </Window>
+      <Window $if={self.chained != 0} tabs={self.chainTabs} selected={mut self.chainTab} declared={mut self.chainWindow}
+              @close={self.onChainClose}>
+        <ChainPage $for={facts of self.chainedList} quest={self.chained} facts={facts} @act={self.onAct} />
       </Window>
       <surface $if={self.dockedSide != nil} layer={Layer.Dialog} place={self.dockedPlace}
                width={self.dockedWidth} height={self.dockedHeight} background={Style.DOCKED_BACK}

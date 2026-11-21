@@ -5,6 +5,7 @@
 import Client from "$client"
 import Events from "$events"
 import Game from "$game"
+import { Key } from "$ltml"
 import Test from "$test"
 import root Ordaen from "Ordaen"
 import root Quests from "OrdaenQuests"
@@ -33,9 +34,16 @@ function opened(log: Array<Test.LogQuest>) {
     {
       [101]: { name: "The Defias Brotherhood", questLevel: 14, zoneOrSort: 40, startedBy: [[234]], finishedBy: [[234]],
         nextQuestInChain: 166 },
-      [166]: { name: "The Defias Brotherhood, part two", zoneOrSort: 40 }
+      [166]: {
+        name: "The Defias Brotherhood, part two", questLevel: 16, requiredLevel: 12, zoneOrSort: 40,
+        objectivesText: ["Take the note to the Scout.", "Then report back."], startedBy: [[235]], nextQuestInChain: 167
+      },
+      [167]: { name: "The Defias Brotherhood, part three", questLevel: 18, requiredLevel: 14, zoneOrSort: 40 }
     },
-    { [234]: { name: "Gryan Stoutmantle", spawns: { [40]: [[56, 47]] } } },
+    {
+      [234]: { name: "Gryan Stoutmantle", spawns: { [40]: [[56, 47]] } },
+      [235]: { name: "Scout Riell", spawns: { [12]: [[30, 60]] } }
+    },
     {}
   )
   Test.questLog(log)
@@ -158,9 +166,9 @@ test "a quest picked shows its page and the next quest of its chain; who gives a
   const window = Test.page().window("World")
   Test.expect(window.text("Gryan asks you to look into Westfall.").shown())
   Test.expect(window.text("420").shown())
-  // The chain: the quest after it, by QuestieDB's name, under the parchment in the well's colours.
+  // The chain: the quest after it, by QuestieDB's name, under the parchment in gold, a link.
   const next = window.text("The Defias Brotherhood, part two")
-  Test.expect(window.text("Next quest").shown() && next.textColor().equal(Color.hex("#f0e6d0")))
+  Test.expect(window.text("Next quest").shown() && next.textColor().equal(Color.hex("#ffd100")))
   Test.expect(next.rect().top > window.text("Objectives").rect().bottom)
   // The giver and the turn-in aren't named on the page.
   Test.expect(!window.text("Gryan Stoutmantle (56, 47)").shown() && !window.text("Gryan Stoutmantle").shown())
@@ -316,6 +324,36 @@ test "the window opened as the player opens it lists the log's quests, Map on an
   Quests.flip()
   Test.flush()
   Test.expect(Test.page().window("World").text("The Defias Brotherhood").shown())
+}
+
+test "the next quest's name opens its page in a window of its own, which follows the chain on, and closes" {
+  opened(standing())
+  Test.page().window("World").text("The Defias Brotherhood").click()
+  Test.page().window("World").text("The Defias Brotherhood, part two").click()
+  Test.flush()
+  const chain = Test.page().window("Level 16, available from level 12")
+  Test.expect(chain.text("The Defias Brotherhood, part two").shown())
+  Test.expect(chain.text("Take the note to the Scout. Then report back.").shown())
+  Test.shot("the next quest of a chain in its window")
+  chain.text("The Defias Brotherhood, part three").click()
+  Test.flush()
+  Test.expect(Test.page().window("Level 18, available from level 14").shown() && Quests.chained == 167)
+  // The last of the chain QuestieDB knows: no line under it.
+  Test.expect(!Test.page().window("Level 18, available from level 14").text("Next quest").shown())
+  Test.key(Key.Escape)
+  Test.flush()
+  Test.expect(Quests.chained == 0 && Test.page().window("World").shown())
+}
+
+test "«Show on map» in the chain's window opens the map where its quest is given, the log's pins hidden" {
+  opened(standing())
+  Test.page().window("World").text("The Defias Brotherhood").click()
+  Test.page().window("World").text("The Defias Brotherhood, part two").click()
+  Test.flush()
+  Test.page().window("Level 16, available from level 12").button("Show on map").click()
+  Test.flush()
+  // Scout Riell stands in Elwynn Forest (area 12), on its map.
+  Test.expect(Client.WorldMapFrame.GetMapID() == 1429 && Quests.shownOnMap == 166)
 }
 
 test "a quest QuestieDB knows no next quest of has no line under its parchment" {

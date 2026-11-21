@@ -18,6 +18,10 @@ public struct Figure {
 public struct QuestFacts {
   name: String
   level: Integer
+  // The level it may be taken at.
+  minLevel: Integer
+  // What it asks, in the quest's own words (its lines, one paragraph); "" where QuestieDB says nothing.
+  task: String
   // Positive: the `AreaTable` area it belongs to; negative: a `QuestSort`.
   zone: Integer
   // Who gives it, who takes it back, and where its objectives are (the creatures and objects it names, and those

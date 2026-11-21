@@ -1,7 +1,7 @@
 // What Quests puts on Ordaen Map: where the tracked quests' objectives are, whom to hand a tracked quest that is
-// done (and the same of the quest the player asked to see on the map, tracked or not), and a dungeon's quests on its
-// card. Each pin is a spot QuestieDB knows; a quest it doesn't know has none. Both are added to Map's `layers` while
-// Map is on, by the root.
+// done (while the player asks to see one quest on the map, that quest's alone, tracked or not), where the quest of a
+// chain whose page shows is given, and a dungeon's quests on its card. Each pin is a spot QuestieDB knows; a quest it
+// doesn't know has none. They are added to Map's `layers` while Map is on, by the root.
 import Game from "$game"
 import type { DungeonSection, Layer, Pin } from "OrdaenMap"
 import { LogQuest } from "@/book"
@@ -40,6 +40,62 @@ public function leadsTo(quest: LogQuest, facts: QuestFacts): Integer | nil {
   return facts.zone > 0 ? facts.zone : nil
 }
 
+// The area a quest not taken starts in: where its first giver stands; else its zone; nil where QuestieDB says neither.
+public function startsAt(facts: QuestFacts): Integer | nil {
+  for (figure of facts.givers) {
+    const spot = figure.spots[1]
+    if (spot != nil) { return spot.area }
+  }
+  return facts.zone > 0 ? facts.zone : nil
+}
+
+const AVAILABLE: Asset = "Interface/GossipFrame/AvailableQuestIcon"
+
+// Where the quest of a chain whose page shows is given, while the player asked to see it on the map: its givers'
+// spots, lit, under the game's mark of a quest to take.
+public class ChainPins implements Layer {
+  public const id: String = "quests.givers"
+  public const title: String = Locale.LAYER_GIVERS
+  public const hint: String = Locale.LAYER_GIVERS_TIP
+
+  chained: Signal<Integer>
+  facts: Signal<QuestFacts | nil>
+  shown: Signal<Integer>
+  constructor(
+    // The quest of a chain whose page shows (0: none), and QuestieDB's facts of it.
+    chained: Signal<Integer>,
+    facts: Signal<QuestFacts | nil>,
+    // The quest the player asked to see on the map (0: none).
+    shown: Signal<Integer>
+  ) {
+    self.chained = chained
+    self.facts = facts
+    self.shown = shown
+  }
+
+  public pins(self): Array<Pin> {
+    const facts = self.facts
+    const pins: Array<Pin> = []
+    if (facts == nil || self.shown == 0 || self.shown != self.chained) { return pins }
+    for (figure of facts.givers) {
+      for (spot of figure.spots) {
+        pins.push({ of: self.chained, area: spot.area, x: spot.x, y: spot.y, icon: AVAILABLE, lit: true })
+      }
+    }
+    return pins
+  }
+
+  // The quest's title, then who gives it.
+  public lines(self, pin: Pin): Array<String> {
+    const facts = self.facts
+    if (facts == nil) { return [] }
+    return [facts.name, Locale.GIVEN_BY.format(facts.givers.map(figure => figure.name).join(", "))]
+  }
+
+  // Not in the log: nothing to point the way to.
+  public press(self, pin: Pin, shift: Boolean) {}
+}
+
 const OBJECTIVE: Asset = "Interface/GossipFrame/IncompleteQuestIcon"
 const TURN_IN: Asset = "Interface/GossipFrame/ActiveQuestIcon"
 
@@ -59,7 +115,7 @@ public class QuestPins implements Layer {
     facts: Signal<Map<Integer, QuestFacts>>,
     // The quest under the cursor in the log (0: none): its pins are lit.
     hovered: Signal<Integer> = 0,
-    // The quest the player asked to see on the map (0: none): its pins show, tracked or not, and are lit.
+    // The quest the player asked to see on the map (0: none): its pins alone show, tracked or not, lit.
     shown: Signal<Integer> = 0
   ) {
     self.kind = kind
@@ -74,11 +130,16 @@ public class QuestPins implements Layer {
 
   // The figures of the quest this layer shows, and their pins' icon; none where it shows nothing of it.
   figuresOf(self, quest: LogQuest, facts: QuestFacts): Array<Figure> {
-    if (!quest.tracked && quest.id != self.shown) { return [] }
+    if (!self.shows(quest)) { return [] }
     return match (self.kind) {
       .Objectives => quest.done ? [] : facts.targets
       .TurnIns => quest.done ? facts.takers : []
     }
+  }
+
+  // The quest asked to see on the map alone while there is one, else the tracked quests.
+  shows(self, quest: LogQuest): Boolean {
+    return self.shown != 0 ? quest.id == self.shown : quest.tracked
   }
 
   public pins(self): Array<Pin> {
