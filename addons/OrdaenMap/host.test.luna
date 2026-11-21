@@ -21,14 +21,15 @@ function pinsShown(): String {
   return Test.questPins().map(id => String.of(id)).join(",")
 }
 
-test "the game's quest pins of every other quest hide while one is shown, as the map turns too, and come back" {
+test "the game's quest pins show only for the quest shown, as the map turns too, and are the game's once Map stops" {
   Test.questLog([
     { id: 101, title: "One", header: "Westfall" }, { id: 102, title: "Two", header: "Westfall" },
     { id: 103, title: "Three", header: "Westfall" }
   ])
   const host = new OpenMapHost()
+  host.start()
   host.open(40)
-  Test.expect(pinsShown() == "101,102,103")
+  Test.expect(pinsShown() == "")
   host.onlyQuest(102)
   Test.expect(pinsShown() == "102")
   // The game makes its pins again as the map turns: the others stay hidden.
@@ -37,5 +38,8 @@ test "the game's quest pins of every other quest hide while one is shown, as the
   host.onlyQuest(103)
   Test.expect(pinsShown() == "103")
   host.onlyQuest(0)
+  Test.expect(pinsShown() == "")
+  host.stop()
+  Client.WorldMapFrame.SetMapID(1436)
   Test.expect(pinsShown() == "101,102,103")
 }

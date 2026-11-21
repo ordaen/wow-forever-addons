@@ -13,8 +13,9 @@ public function listen(run: () => nil)
 // UI units; nil and 0 while it doesn't.
 public function sidePanel(): (any Client.Frame | nil, Number, Number)
 public function forget()
-// Blizzard's quest pins of every quest but `quest` hidden while it is shown on the map (0: all shown again).
-public function onlyQuest(quest: Integer)
+// Blizzard's quest marks on its map (its quest pins and the shaded area of the map's focused quest) of `quest` alone:
+// the quest shown on the map, its area drawn; 0 for none, every mark hidden; nil for all, as the game has them.
+public function onlyQuest(quest: Integer | nil)
 // The game's tooltip beside a pin: its first line the title, in white, the others under it.
 public function tip(owner: any Client.Frame, lines: Array<String>)
 public function untip()

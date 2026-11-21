@@ -61,22 +61,45 @@ function worldMap.forget()
 	listener = nil
 end
 
--- Blizzard's quest pins (its `QuestDataProvider`, pins `QuestPinTemplate`) of every quest but one while that one is
--- shown on the map (0: none). Its provider makes its pins again as the map shows or turns: they are hidden after each
--- time (its `RefreshAllData` hooked, never replaced), and those hidden shown again as the one is let go. Nothing but a
--- pin's visibility is touched.
-local onlyQuest = 0
+-- Blizzard's quest marks on its map, of the quest shown alone: its quest pins (its `QuestDataProvider`, pins
+-- `QuestPinTemplate`) and its quest's shaded area (`QuestBlobDataProvider`, one `QuestBlobPinTemplate` pin, a
+-- `QuestPOIFrame`). `quest` is the one shown (its area drawn: the map's focused quest), 0 for none (every mark hidden),
+-- nil for all of them as the game has them (Map ended). The providers make their pins again as the map shows or turns,
+-- and the area's pin draws again on its own events: they are hidden after each time (`RefreshAllData` and the pin's
+-- `Refresh` hooked, never replaced), and those hidden shown again as the quest is let go. Nothing but a pin's
+-- visibility and the map's focused quest is touched.
+local MARKS = { QuestPinTemplate = true, QuestBlobPinTemplate = true }
+local onlyQuest = nil
 local hiddenPins = {}
-local pinsHooked = false
+local hooked = {}
 
 local function hideOthers()
-	hiddenPins = {}
 	local map = frame()
-	if not map or onlyQuest == 0 then return end
-	for pin in map:EnumeratePinsByTemplate("QuestPinTemplate") do
-		if pin.questID ~= onlyQuest and pin:IsShown() then
-			pin:Hide()
-			hiddenPins[#hiddenPins + 1] = pin
+	if not map or onlyQuest == nil then return end
+	for template in pairs(MARKS) do
+		for pin in map:EnumeratePinsByTemplate(template) do
+			if pin.questID ~= onlyQuest and pin:IsShown() then
+				pin:Hide()
+				hiddenPins[pin] = true
+			end
+		end
+	end
+end
+
+-- The providers' and the area pin's refreshes, each hooked once.
+local function hookMarks(map)
+	if type(map.dataProviders) ~= "table" then return end
+	for provider in pairs(map.dataProviders) do
+		local template = type(provider) == "table" and provider.GetPinTemplate and provider:GetPinTemplate()
+		if template and MARKS[template] and not hooked[provider] then
+			client.hooksecurefunc(provider, "RefreshAllData", hideOthers)
+			hooked[provider] = true
+		end
+	end
+	for pin in map:EnumeratePinsByTemplate("QuestBlobPinTemplate") do
+		if not hooked[pin] and pin.Refresh then
+			client.hooksecurefunc(pin, "Refresh", hideOthers)
+			hooked[pin] = true
 		end
 	end
 end
@@ -84,17 +107,14 @@ end
 function worldMap.onlyQuest(quest)
 	local map = frame()
 	if not map then return end
-	if not pinsHooked and type(map.dataProviders) == "table" then
-		for provider in pairs(map.dataProviders) do
-			if type(provider) == "table" and provider.GetPinTemplate and provider:GetPinTemplate() == "QuestPinTemplate" then
-				client.hooksecurefunc(provider, "RefreshAllData", hideOthers)
-				pinsHooked = true
-			end
-		end
-	end
+	hookMarks(map)
 	if quest == onlyQuest then return end
-	for _, pin in ipairs(hiddenPins) do pin:Show() end
+	for pin in pairs(hiddenPins) do pin:Show() end
+	hiddenPins = {}
 	onlyQuest = quest
+	if map.SetFocusedQuestID and map.ClearFocusedQuestID then
+		if quest and quest ~= 0 then map:SetFocusedQuestID(quest) else map:ClearFocusedQuestID() end
+	end
 	hideOthers()
 end
 

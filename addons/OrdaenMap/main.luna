@@ -116,8 +116,8 @@ public class Maps implements Module, App {
     self.place(peek self.marks)
   }
 
-  // The world map opened where the area is, the game's pins of every quest but `quest` hidden until it hides (0: all
-  // of them): a module's «Show on map».
+  // The world map opened where the area is, the game's marks of `quest` alone shown until it hides (its pins and its
+  // shaded area; 0: none): a module's «Show on map». No quest's marks show otherwise.
   public show(mut self, area: Integer, quest: Integer = 0) {
     self.host.open(area)
     self.host.onlyQuest(quest)
