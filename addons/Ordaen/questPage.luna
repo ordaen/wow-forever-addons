@@ -2,10 +2,11 @@
 // scroll (the game's quest parchment tinted to the native gossip window's colour between its rolled ends, dark ink
 // only) and, under it in the dark well, its rewards: a row each (its key where it is picked by one, its slot, its name
 // in its quality's colour with its slot and type under it, Pawn's column while Pawn is loaded, its sell price, the
-// dearest one's in gold), then experience, reputation and money in one band of columns as a tooltip's.
+// dearest one's in gold), at most three to a column, then experience, reputation and money in one band, one size,
+// parted by rules.
 import Client from "$client"
 import Game from "$game"
-import { Align, Art, Event, Line, MouseButton, Overflow, Position, Side, TextAlign, Track } from "$ltml"
+import { Align, Art, Edges, Event, Line, MouseButton, Overflow, Position, Side, TextAlign, Track } from "$ltml"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
 import { ItemButton, Quality, qualityFrom, usableItem } from "@/itemButton"
@@ -32,6 +33,11 @@ public const REWARD_ICON: Number<Length> = 39.84375dp
 
 const BEST: Color = Color.hex("#40ff40")
 const RULE_BELOW: Line = { width: 1.171875dp, color: Color.hex("#3e2f1d"), sides: [Side.Top, Side.Bottom] }
+// The rule that parts the band's cells, and the room each keeps on its sides.
+const RULE_BEFORE: Line = { width: 1.171875dp, color: Color.hex("#3e2f1d"), sides: [Side.Left] }
+const BAND_CELL: Edges = { top: 0sp, right: 3sp, bottom: 0sp, left: 3sp }
+// The band's one size, for experience, the reputations and money alike.
+const BAND_TEXT: Number<TextSize> = TITLE_TEXT
 const KEYCAP: Color = Color.hex("#00000080")
 const KEYCAP_EDGE: Line = { width: 1.171875dp, color: Color.hex("#4a3a24") }
 const KEY_TEXT: Color = Color.hex("#c9a76a")
@@ -50,6 +56,9 @@ public const SCROLL_WIDTH: Number<Length> = 468.75dp
 // A roll's height at that width (its 128 texels).
 const ROLL_HEIGHT: Number<Length> = 58.59375dp
 const ROLLS: Array<Track> = ["max-content", { fr: 1 }, "max-content"]
+// The scroll's row where it stands over other things (a quest page's rewards): the room left, never less than four
+// rolls' height, about five lines on the paper, so what stands beside it gives way first.
+public const SCROLL_ROW: Track = { fr: 1, min: ROLL_HEIGHT * 4 }
 // The bottom roll's paper that fades in over the band (its first 32 texels): the band runs on under it.
 const FADE_HEIGHT: Number<Length> = 14.6484375dp
 const UNDER_FADE: Number<Length> = ROLL_HEIGHT - FADE_HEIGHT
@@ -241,6 +250,11 @@ public class Rewards implements Component {
   derived alsoTitle: String = self.hasChoices ? Locale.QUEST_ALSO_GET : Locale.QUEST_REWARD
   derived banded: Boolean = self.xp > 0 || self.money > 0 || self.standings.length > 0
   derived bandColumns: Array<Track> = bandOf(self.xp > 0, self.standings.length > 0, self.money > 0)
+  derived moneyParted: Boolean = self.xp > 0 || self.standings.length > 0
+  derived choiceGroups: Array<Array<RewardView>> = columnsOf(self.views)
+  derived choiceColumns: Array<Track> = tracksOf(self.choiceGroups.length)
+  derived alsoGroups: Array<Array<Reward>> = columnsOf(self.also)
+  derived alsoColumns: Array<Track> = tracksOf(self.alsoGroups.length)
 
   views: Signal<Array<RewardView>>
   also: Signal<Array<Reward>>
@@ -278,16 +292,31 @@ public class Rewards implements Component {
   public render(self): Template {
     return $ltml {
       <text $if={self.hasChoices} value={self.chooseTitle} textColor={WELL_DIM} textSize={SECONDARY_TEXT} />
-      <RewardRow $for={view of self.views} reward={view.reward} pickable={self.pickable}
-                 picked={view.reward.index == self.choice} hints={self.hints} pawnColumn={self.pawnColumn}
-                 pawn={view.pawn} best={view.best} dearest={view.dearest} @choose={self.onChoose} />
+      <box $if={self.hasChoices} columns={self.choiceColumns} gap={1sp}>
+        <box $for={column of self.choiceGroups}>
+          <RewardRow $for={view of column} reward={view.reward} pickable={self.pickable}
+                     picked={view.reward.index == self.choice} hints={self.hints} pawnColumn={self.pawnColumn}
+                     pawn={view.pawn} best={view.best} dearest={view.dearest} @choose={self.onChoose} />
+        </box>
+      </box>
       <text $if={self.hasAlso} value={self.alsoTitle} textColor={WELL_DIM} textSize={SECONDARY_TEXT} />
-      <RewardRow $for={reward of self.also} reward={reward} />
-      <box $if={self.banded} columns={self.bandColumns} border={RULE_BELOW} padding={2sp} xAlign={Align.Center}
-           yAlign={Align.Center}>
-        <Experience $if={self.xp > 0} amount={self.xp} textSize={TITLE_TEXT} mark={XP_MARK_LARGE} />
-        <BandStandings $if={self.standings.length > 0} standings={self.standings} />
-        <Money $if={self.money > 0} amount={self.money} textSize={TITLE_TEXT} />
+      <box $if={self.hasAlso} columns={self.alsoColumns} gap={1sp}>
+        <box $for={column of self.alsoGroups}>
+          <RewardRow $for={reward of column} reward={reward} />
+        </box>
+      </box>
+      <box $if={self.banded} border={RULE_BELOW} padding={{ top: 2sp, bottom: 2sp }} xAlign={Align.Center}>
+        <box columns={self.bandColumns} yAlign={Align.Center}>
+          <box $if={self.xp > 0} padding={BAND_CELL}>
+            <Experience amount={self.xp} textSize={BAND_TEXT} mark={XP_MARK_LARGE} />
+          </box>
+          <box $if={self.standings.length > 0} padding={BAND_CELL} border={self.xp > 0 ? RULE_BEFORE : nil}>
+            <BandStandings standings={self.standings} />
+          </box>
+          <box $if={self.money > 0} padding={BAND_CELL} border={self.moneyParted ? RULE_BEFORE : nil}>
+            <Money amount={self.money} textSize={BAND_TEXT} />
+          </box>
+        </box>
       </box>
     }
   }
@@ -295,13 +324,13 @@ public class Rewards implements Component {
 
 // The client's own mark of experience (a mission's currency), before an amount of it.
 const XP_MARK: Atlas = "GarrMission_CurrencyIcon-Xp"
-// The mark beside the body's letters, beside a secondary text's, and beside a title's.
+// The mark beside the body's letters, beside a secondary text's, and beside the band's.
 public const XP_MARK_SIZE: Number<Length> = 18.75dp
 public const XP_MARK_SMALL: Number<Length> = 16.40625dp
 const XP_MARK_LARGE: Number<Length> = 23.4375dp
 
-// An amount of experience a quest gives: the client's mark of it, then the number, in one line; the mark says what
-// the number is.
+// An amount of experience a quest gives: the client's mark of it, then the number in the letters Money writes its
+// amount in, in one line; the mark says what the number is.
 public class Experience implements Component {
   derived text: String = String.of(self.amount)
 
@@ -322,18 +351,44 @@ public class Experience implements Component {
     return $ltml {
       <box columns={["max-content", "max-content"]} gap={1sp} yAlign={Align.Center}>
         <box width={self.mark} height={self.mark} background={XP_MARK} />
-        <text value={self.text} textColor={self.color} textSize={self.textSize} textFont={.Numbers} wrap={.None} />
+        <text value={self.text} textColor={self.color} textSize={self.textSize} wrap={.None} />
       </box>
     }
   }
 }
 
-// The band's columns: one for each of experience, the reputations and money, of one width.
+// The band's columns: one for each of experience, the reputations and money, each as wide as what it says; the band
+// stands centred, as wide as they are, and widens what holds it before it squeezes them.
 function bandOf(xp: Boolean, standings: Boolean, money: Boolean): Array<Track> {
   let columns: Array<Track> = []
   const count = (xp ? 1 : 0) + (standings ? 1 : 0) + (money ? 1 : 0)
-  for (column of 1..count) { columns.push({ fr: 1 }) }
+  for (column of 1..count) { columns.push("max-content") }
   return columns
+}
+
+// Rewards stand at most this many to a column, then a column beside it: many don't take the page's height.
+const REWARDS_DOWN = 3
+
+// Rewards in their columns, down the first, then the next.
+function columnsOf<T>(rewards: Array<T>): Array<Array<T>> {
+  let columns: Array<Array<T>> = []
+  let column: Array<T> = []
+  for (reward of rewards) {
+    column.push(reward)
+    if (column.length == REWARDS_DOWN) {
+      columns.push(column)
+      column = []
+    }
+  }
+  if (column.length > 0) { columns.push(column) }
+  return columns
+}
+
+// The reward columns' tracks, sharing the width.
+function tracksOf(count: Integer): Array<Track> {
+  let tracks: Array<Track> = []
+  for (column of 1..count) { tracks.push({ fr: 1 }) }
+  return tracks
 }
 
 // The reputations in the band's one line: one by its faction's name («+250 Stormwind»), several by the span of their
@@ -368,9 +423,8 @@ class BandStandings implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box border={{ width: 1.171875dp, color: Color.hex("#3e2f1d"), sides: [Side.Left] }} xAlign={Align.Center}
-           @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
-        <text value={self.text} textColor={WELL_TEXT} textSize={SECONDARY_TEXT} wrap={.None} />
+      <box xAlign={Align.Center} @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
+        <text value={self.text} textColor={WELL_TEXT} textSize={BAND_TEXT} wrap={.None} />
         <Tip $if={self.hovered} title={Locale.QUEST_REPUTATION_TIP} text={""} rows={self.rows} />
       </box>
     }

@@ -1,0 +1,46 @@
+// A quest's rewards: at most three to a column, then a column beside it; the band's experience, reputation and money
+// in one size.
+import Test from "$test"
+import { Quality } from "@/itemButton"
+import Locale from "@/locales"
+import { Reward, Rewards, Standing } from "@/questPage"
+
+function given(name: String): Reward {
+  return {
+    kind: .Title, name: name, icon: nil, count: 1, quality: Quality.Common, item: nil, link: nil, detail: "",
+    unusable: false, sell: 0, index: 0
+  }
+}
+
+class Page {
+  public state also: Array<Reward> = [given("One"), given("Two"), given("Three"), given("Four")]
+  public state standings: Array<Standing> = [{ name: "Stormwind", amount: 250 }]
+
+  public render(self): Template {
+    return $ltml {
+      <box width={500dp}>
+        <Rewards views={[]} also={self.also} xp={1200} money={0} standings={self.standings} />
+      </box>
+    }
+  }
+}
+
+test "rewards stand three to a column, down it, the fourth at the top of the next" {
+  const page = new Page()
+  Test.mount(page, { left: 0, top: 0, width: 600, height: 600 })
+  const one = Test.page().text("One").rect()
+  const three = Test.page().text("Three").rect()
+  const four = Test.page().text("Four").rect()
+  Test.expect(three.top > one.top && three.left == one.left)
+  Test.expect(four.top == one.top && four.left > one.right)
+  destroy page
+}
+
+test "the band says experience and reputation in one size" {
+  const page = new Page()
+  Test.mount(page, { left: 0, top: 0, width: 600, height: 600 })
+  const xp = Test.page().text("1200").rect()
+  const standing = Test.page().text(Locale.QUEST_REPUTATION.format(250, "Stormwind")).rect()
+  Test.expect(((xp.bottom - xp.top) - (standing.bottom - standing.top)).abs() < 0.5)
+  destroy page
+}
