@@ -1,11 +1,13 @@
 // The AddOns window: one tab, «AddOns» (the client's `ADDONS`), its line how many are on. The header (the search,
 // how many show, for whom, the filter, the sort, the view), the columns' headings, the list (by category, an addon's
 // group under it, or one table), the strip of the last step's extras with «Undo»; the picked addon's card at the
-// right; on the footer row «Reset» and «Sets» at the left, what waits for a reload and «Reload» at the right.
+// right; on the footer row «Reset», «Disable all» and «Sets» at the left, what waits for a reload and «Reload» at
+// the right.
 import Client from "$client"
 import Events from "$events"
 import Game from "$game"
 import { Action, Align, Edges, Track } from "$ltml"
+import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
 import { ARTWORK, ButtonPlate, Choice, Component, Dialog, KeptWindow, Menu, MenuEntry, ModuleMemory, Placing, PushButton, SECONDARY_TEXT, ScrolledList, TextField, Tip, TipRow, TipText, ToolPick, Toolbar, Window, WindowSide, WindowTabSpec } from "Ordaen"
 import { Card } from "@/card"
@@ -64,6 +66,8 @@ const REFRESH = 18.75dp
 const BODY: Array<Track> = ["max-content", "max-content", { fr: 1 }, "max-content", "max-content"]
 const FOOT: Array<Track> = ["max-content", { fr: 1 }, "max-content"]
 const GROUP: Array<Track> = ["max-content", "max-content"]
+// «Reset», «Disable all» and «Sets».
+const LEFT_GROUP: Array<Track> = ["max-content", "max-content", "max-content"]
 const STRIP: Array<Track> = [{ fr: 1 }, "max-content"]
 const HEADING: Edges = { left: 3sp, right: 3sp }
 const HALF: Number<Spacing> = 3sp / 2
@@ -164,8 +168,9 @@ public class AddOnsWindow implements Component {
   }
   const footer: Template = $ltml {
     <box columns={FOOT} gap={6sp} yAlign={Align.Center}>
-      <box columns={GROUP} gap={3sp} yAlign={Align.Center}>
+      <box columns={LEFT_GROUP} gap={3sp} yAlign={Align.Center}>
         <PushButton label={Locale.RESET} width={BUTTON} @click={self.onReset} />
+        <PushButton label={Locale.DISABLE_ALL} width={BUTTON} @click={self.onDisableAll} />
         <box>
           <PushButton label={Locale.SETS} width={BUTTON} @click={self.onSets} />
           <Menu $if={self.setsOpen} entries={self.setEntries} @pick={self.onSet} @close={self.closeSets} />
@@ -475,6 +480,8 @@ public class AddOnsWindow implements Component {
 
   onUndo(mut self) { self.catalog.undo() }
   onReset(mut self) { self.catalog.reset() }
+  // This addon and what it needs stay on: the page is there after the reload to switch the rest on again.
+  onDisableAll(mut self) { self.catalog.disableAll(Runtime.Addon.of(self)?.name ?? "") }
   onRefresh(mut self) { self.profiler.weigh() }
   onSets(mut self) { self.setsOpen = !self.setsOpen }
   closeSets(mut self) { self.setsOpen = false }
@@ -487,7 +494,11 @@ public class AddOnsWindow implements Component {
       self.setName = ""
     } else {
       self.editing = index - 1
-      self.setName = (peek self.sets.list)[index - 1]?.name ?? ""
+      const kept = (peek self.sets.list)[index - 1]
+      self.setName = kept?.name ?? ""
+      // What «Apply» will skip is said before it: «Apply» reloads at once.
+      const skipped = self.catalog.missing(kept?.addons ?? [])
+      if (skipped.length > 0) { self.setNote = Locale.SET_SKIPPED.format(skipped.join(", ")) }
     }
   }
 
@@ -503,15 +514,12 @@ public class AddOnsWindow implements Component {
     }
   }
 
+  // From the click on «Apply», a secure box: the client reloads the interface right after it (`RELOAD`).
   applySet(mut self) {
     const kept = (peek self.sets.list)[peek self.editing]
     if (kept == nil) { return }
-    const skipped = self.catalog.apply(kept.addons)
-    if (skipped.length > 0) {
-      self.setNote = Locale.SET_SKIPPED.format(skipped.join(", "))
-    } else {
-      self.editing = 0
-    }
+    self.catalog.apply(kept.addons)
+    self.editing = 0
   }
 
   renameSet(mut self) {
@@ -613,7 +621,8 @@ public class AddOnsWindow implements Component {
           <PushButton #buttons label={Locale.CANCEL} width={BUTTON} @click={self.closeSet} />
           <PushButton #buttons $if={self.editing < 0} label={Locale.SAVE} width={BUTTON} @click={self.saveSet} />
           <PushButton #buttons $if={self.editing > 0} label={Locale.RENAME} width={BUTTON} @click={self.renameSet} />
-          <PushButton #buttons $if={self.editing > 0} label={Locale.APPLY} width={BUTTON} @click={self.applySet} />
+          <PushButton #buttons $if={self.editing > 0} label={Locale.APPLY} width={BUTTON} disabled={self.fighting}
+                      action={RELOAD} @click={self.applySet} />
         </Dialog>
       </Window>
     }

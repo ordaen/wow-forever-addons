@@ -4,7 +4,7 @@ import Test from "$test"
 import { Difficulty, colorOf, difficultyOf } from "Ordaen"
 import type { Pin } from "OrdaenMap"
 import { LogQuest } from "@/book"
-import { DungeonQuests, PinKind, QuestPins } from "@/layers"
+import { DungeonQuests, PinKind, QuestPins, leadsTo } from "@/layers"
 import { QuestFacts } from "@/questie"
 
 function quest(id: Integer, tracked: Boolean, done: Boolean): LogQuest {
@@ -20,6 +20,7 @@ class Holder {
   public state quests: Array<LogQuest> = []
   public state facts: Map<Integer, QuestFacts> = {}
   public state hovered = 0
+  public state shown = 0
 }
 
 const FACTS: QuestFacts = {
@@ -59,6 +60,27 @@ test "the pins of the quest under the cursor in the log are lit, the others not"
   const layer = new QuestPins(PinKind.Objectives, holder.quests, holder.facts, holder.hovered)
   const pins = layer.pins()
   Test.expect(pins.filter(pin => pin.lit).all(pin => pin.of == 4) && pins.filter(pin => pin.lit).length == 2)
+}
+
+test "the quest the player asked to see on the map shows its pins, tracked or not, lit" {
+  const holder = new Holder()
+  holder.quests = [quest(1, true, false), quest(2, false, false)]
+  holder.facts = { [1]: FACTS, [2]: FACTS }
+  holder.shown = 2
+  const layer = new QuestPins(PinKind.Objectives, holder.quests, holder.facts, holder.hovered, holder.shown)
+  const pins = layer.pins()
+  Test.expect(pins.length == 4 && pins.filter(pin => pin.of == 2).all(pin => pin.lit))
+  Test.expect(!pins.filter(pin => pin.of == 1).any(pin => pin.lit))
+}
+
+test "a quest leads to its first objective's area while to do, its turn-in's once done, else its zone" {
+  const elsewhere: QuestFacts = {
+    targets: [{ name: "Wolf", spots: [{ area: 12, x: 0.3, y: 0.3 }] }], ..FACTS
+  }
+  Test.expect(leadsTo(quest(1, false, false), elsewhere) == 12)
+  Test.expect(leadsTo(quest(1, false, true), elsewhere) == 40)
+  Test.expect(leadsTo(quest(1, false, false), { targets: [], zone: 44, ..FACTS }) == 44)
+  Test.expect(leadsTo(quest(1, false, false), { targets: [], zone: -21, ..FACTS }) == nil)
 }
 
 test "a pin clicked has the client point the way to its quest; Shift+click stops tracking it" {

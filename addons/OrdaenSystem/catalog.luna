@@ -368,19 +368,29 @@ public class Catalog {
     return loaded == true ? nil : reason ?? ""
   }
 
-  // A set applied: every addon it names that is in the folder on, every other off, for whom the header says. Gives
-  // the names it lists that aren't in the folder.
-  public apply(mut self, names: Array<String>): Array<String> {
+  // «Disable all», as the game's own addon list does it: every addon off for whom the header says, saved once. The
+  // game's list isn't an addon and stays after a reload; this page is one, so `kept` (this addon) and what it needs
+  // stay on, and the player can switch the rest on again.
+  public disableAll(mut self, kept: String) {
+    const character = self.character()
+    const keep: Map<String, Boolean> = {}
+    for (name of self.withNeeds(kept)) { keep[name] = true }
+    for (addon of peek self.addons) {
+      if (keep[addon.name] != true && self.isOn(addon.name)) { Client.C_AddOns.DisableAddOn(addon.name, character) }
+    }
+    self.finish([], [])
+  }
+
+  // The names of `names` that aren't in the folder: what applying them skips.
+  public missing(self, names: Array<String>): Array<String> {
+    return names.filter(name => (peek self.byName)[name] == nil)
+  }
+
+  // A set applied: every addon it names that is in the folder on, every other off, for whom the header says.
+  public apply(mut self, names: Array<String>) {
     const character = self.character()
     const wanted: Map<String, Boolean> = {}
-    const skipped: Array<String> = []
-    for (name of names) {
-      if ((peek self.byName)[name] == nil) {
-        skipped.push(name)
-      } else {
-        wanted[name] = true
-      }
-    }
+    for (name of names) { wanted[name] = true }
     for (addon of peek self.addons) {
       if (wanted[addon.name] == true) {
         Client.C_AddOns.EnableAddOn(addon.name, character)
@@ -391,7 +401,6 @@ public class Catalog {
     Client.C_AddOns.SaveAddOns()
     self.step = nil
     self.refresh()
-    return skipped
   }
 
   // The addons on for whom the header says: what a set saves.

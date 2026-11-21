@@ -16,4 +16,6 @@ public trait QuestLines {
   // The player asked for the quest in the log (its title clicked, «Open in the log»): true where this entry opened
   // it.
   public open(self, quest: Integer): Boolean
+  // The player asked to see the quest on the map («Show on the map»): true where this entry showed it.
+  public showOnMap(self, quest: Integer): Boolean
 }

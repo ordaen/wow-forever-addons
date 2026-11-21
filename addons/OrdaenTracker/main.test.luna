@@ -18,8 +18,14 @@ function logged() {
   ])
 }
 
-// What a module adds: where to go while a quest is to do, whom to hand it to once done; it opens quest 101 alone.
+// What a module adds: where to go while a quest is to do, whom to hand it to once done; it opens quest 101 alone, and
+// shows quest 101 alone on the map (at Westfall's).
 class Where implements QuestLines {
+  public showOnMap(self, quest: Integer): Boolean {
+    if (quest != 101) { return false }
+    Client.C_Map.OpenWorldMap(1436)
+    return true
+  }
   public lines(self, quest: Integer, done: Boolean): Array<QuestLine> {
     return done ? [{ text: "Turn in: Gryan", done: true }] : [{ text: "Westfall · 2 places" }]
   }
@@ -80,6 +86,17 @@ test "a title's click opens the quest where a module does; Shift+click links it,
   Test.page().text("Red Silk Bandanas").click()
   Test.hold([])
   Test.expect(Test.talked().join(",") == "unwatch 102")
+}
+
+test "«Show on the map» is the module's that shows where the quest leads, else the game's map as it was" {
+  logged()
+  Test.mount(nil, PAGE)
+  Tracker.questLines.add(new Where())
+  Tracker.refresh()
+  Test.flush()
+  Test.page().text("The Defias Brotherhood").rightClick()
+  Test.page().window("Abandon quest").button("Show on the map").click()
+  Test.expect(Client.WorldMapFrame.GetMapID() == 1436)
 }
 
 test "the menu points the way, and abandoning asks first" {

@@ -64,6 +64,8 @@ public class Maps implements Module, App {
   public state host: mut any MapHost = new OpenMapHost()
   // The map's side panel while it shows (docked, the map open): Quests draws its log over it.
   public state side: SidePanel | nil = nil
+  // Whether the world map shows: what a module shows on it stays until it hides (Quests' «Show on map»).
+  public state showing = false
   // The marks drawn, in the host's order: what a click on one goes to.
   drawn: Array<Mark> = []
   // The pins of the layers the player shows, asked again when what a layer read changes.
@@ -109,8 +111,12 @@ public class Maps implements Module, App {
   onChanged(mut self) {
     self.docked = self.host.docked()
     self.side = self.host.sidePanel()
+    self.showing = self.host.shown()
     self.place(peek self.marks)
   }
+
+  // The world map opened where the area is: a module's «Show on map».
+  public show(mut self, area: Integer) { self.host.open(area) }
 
   // The marks in view placed and drawn; one standing on a pin drawn before it adds its lines to that one's tooltip.
   // A lit one goes first, so it is the one drawn.

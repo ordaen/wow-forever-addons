@@ -23,7 +23,7 @@ import { LogQuest, logQuests } from "@/book"
 import { TakenClick } from "@/button"
 import { QuestieData } from "@/data"
 import { KINDS, QuestKind } from "@/kind"
-import { DungeonQuests, PinKind, QuestPins } from "@/layers"
+import { DungeonQuests, PinKind, QuestPins, leadsTo } from "@/layers"
 import { QuestList } from "@/list"
 import Locale from "@/locales"
 import { Asked, FILTER_START, Folds, ListChoices, QuestFilter, QuestSort, QuestStatus, QuestView, countOf, foldedOnce, listedOf } from "@/model"
@@ -136,6 +136,8 @@ public class Quests implements Module, App {
   public state picked = 0
   // The quest under the cursor in the list (0: none): its pins on the map are lit.
   public state hovered = 0
+  // The quest the player asked to see on the map (0: none): its pins show and are lit until the map hides.
+  public state shownOnMap = 0
   state text: Game.QuestText = NO_TEXT
   state abandoning = 0
   // The items abandoning it destroys, by name: the question says them, as the game's does.
@@ -148,6 +150,7 @@ public class Quests implements Module, App {
 
   // Docked on the map (Ordaen Map's switch): the game's log key and button are the game's.
   derived docked: Boolean = Maps?.docked == true
+  derived mapShowing: Boolean = Maps?.showing == true
   derived ownKey: Boolean = self.settings.values.ownKey && !self.docked
   // The log is read while something shows it: the window, or Map's pins.
   derived reading: Boolean = self.open || Maps != nil
@@ -185,10 +188,10 @@ public class Quests implements Module, App {
   const trackerLines: TrackerLines
 
   constructor() {
-    self.objectives = new QuestPins(PinKind.Objectives, self.quests, self.facts, self.hovered)
-    self.turnIns = new QuestPins(PinKind.TurnIns, self.quests, self.facts, self.hovered)
+    self.objectives = new QuestPins(PinKind.Objectives, self.quests, self.facts, self.hovered, self.shownOnMap)
+    self.turnIns = new QuestPins(PinKind.TurnIns, self.quests, self.facts, self.hovered, self.shownOnMap)
     self.dungeonQuests = new DungeonQuests(self.quests)
-    self.trackerLines = new TrackerLines(self.facts, (id: Integer): Boolean => self.openAt(id))
+    self.trackerLines = new TrackerLines(self.facts, (id: Integer): Boolean => self.openAt(id), (id: Integer): Boolean => self.showOnMap(id))
     self.toggle = Client.CreateFrame("Button", TOGGLE, Client.UIParent, nil)
     Ordaen.modules.add(self)
     self.toggle.SetScript("OnClick", (): nil => {
@@ -200,6 +203,10 @@ public class Quests implements Module, App {
       maps.layers.add(self.objectives)
       maps.layers.add(self.turnIns)
       maps.dungeons.add(self.dungeonQuests)
+    }
+    // What the player asked to see on the map stays until the map hides.
+    watch (showing of self.mapShowing) {
+      if (!showing) { self.shownOnMap = 0 }
     }
     watch (tracker of Tracker) {
       if (tracker == nil) { return }
@@ -290,8 +297,24 @@ public class Quests implements Module, App {
         self.abandonItems = Game.questLog.abandonItems(id)
         self.abandoning = id
       }
-      .ShowOnMap => { Client.C_Map.OpenWorldMap(nil) }
+      .ShowOnMap => { _ = self.showOnMap(id) }
     }
+  }
+
+  // The world map at where the quest leads (its objectives while it is to do, whom to hand it to once done), its pins
+  // shown and lit until the map hides; without Ordaen Map or a place QuestieDB knows, the map as it was. True where
+  // Ordaen Map opened it.
+  showOnMap(mut self, id: Integer): Boolean {
+    const quest = (peek self.quests).find(quest => quest.id == id)
+    const facts = (peek self.facts)[id]
+    const area = quest == nil || facts == nil ? nil : leadsTo(quest, facts)
+    if (Maps == nil || area == nil) {
+      Client.C_Map.OpenWorldMap(nil)
+      return false
+    }
+    self.shownOnMap = id
+    Maps?.show(area)
+    return true
   }
 
   onFold(mut self, header: String) { self.folds.write(foldedOnce(peek self.folds.values, header, peek self.quests)) }

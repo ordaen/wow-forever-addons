@@ -74,6 +74,7 @@
   "DISABLE_ASK": "These stop loading: %s",
   "CANCEL": "Cancel",
   "RESET": "Reset",
+  "DISABLE_ALL": "Disable all",
   "SETS": "Sets",
   "RELOAD_NEEDED": "Reload needed: %d",
   "RELOAD": "Reload",
