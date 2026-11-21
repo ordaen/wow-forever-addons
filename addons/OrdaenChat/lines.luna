@@ -1,5 +1,5 @@
 // The chat's tabs and the lines each holds: a tab is one of the game's chat windows (its whisper windows among them),
-// the whispers', or a whisper conversation, and a line is what the game's window would show, made once as it is heard.
+// and a line is what the game's window would show, made once as it is heard.
 import Game from "$game"
 import { ChannelName, TabChoices } from "@/choices"
 
@@ -19,8 +19,6 @@ public struct Shown implements Plain {
   session: Number = 0
   // The client kept its words secret: drawn as the client gives them, never measured, never kept.
   secret: Boolean
-  // The player's own (a whisper told): a conversation draws it on its right.
-  mine: Boolean
   // Who said it (their GUID; empty for none): a player reported has their lines taken away. A line kept without one
   // was said by nobody known.
   sender: String = ""
@@ -46,21 +44,12 @@ public struct Entry {
   opens: Boolean
 }
 
-// A whisper conversation's key: a character's (`t:<name>`) or a Battle.net friend's (`b:<name>`).
-public function talkKey(name: String, battleNet: Boolean): String {
-  return `${battleNet ? "b" : "t"}:${name}`
-}
-
-// A tab: a window's (`w<n>`), the whispers', or a whisper conversation's (`talkKey`), which the
-// whisper window lists.
+// A tab: a window's (`w<n>`).
 public class ChatTab {
   public const key: String
   public state title: String
-  // The game's window behind it (`ChatFrame<n>`), 0 for any other.
+  // The game's window behind it (`ChatFrame<n>`).
   public const window: Integer
-  // A whisper conversation: with a Battle.net friend or a character.
-  public const talk: Boolean
-  public const battleNet: Boolean
   // What the window is now: a whisper window's partner, whether it is the combat log's.
   public state partner = ""
   public state combatLog = false
@@ -79,14 +68,9 @@ public class ChatTab {
   public state channelName: ChannelName = .Name
 
   constructor(key: String, title: String) {
-    const kind = key.sub(1, 2)
     self.key = key
-    self.window = key.sub(1, 1) == "w" ? (key.sub(2).toNumber() ?? 0).floor() : 0
-    self.talk = kind == "t:" || kind == "b:"
-    self.battleNet = kind == "b:"
-    // A conversation is named by its partner.
-    self.title = self.talk ? key.sub(3) : title
-    if (self.talk) { self.partner = key.sub(3) }
+    self.window = (key.sub(2).toNumber() ?? 0).floor()
+    self.title = title
   }
 
   // The window's state as the game has it now.
@@ -157,17 +141,6 @@ public class ChatTab {
       shown.push({ line: line, opens: before != nil ? before.session != line.session : line.session != THIS_SESSION })
     }
     return shown
-  }
-}
-
-// A whisper as its conversation shows it: the words alone, their web addresses links (its bubble says whose it is and
-// when); a secret one as the client gives it.
-public function talkLine(line: Game.ChatLine, mine: Boolean): Shown {
-  const secret = line.secret != ""
-  return {
-    whole: secret ? line.body : linked(line.text), color: line.color, time: line.time,
-    repeat: secret ? "" : `${line.kind}|${line.text}`, count: 1, marked: false, session: THIS_SESSION, secret: secret, mine: mine,
-    sender: line.guid
   }
 }
 

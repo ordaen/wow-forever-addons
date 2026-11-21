@@ -9,9 +9,9 @@ import Test from "$test"
 import root Ordaen from "Ordaen"
 import { ChatMark, FIELD_FILL, say, toLeftLine } from "Ordaen"
 import root Quests from "OrdaenQuests"
+import root Social from "OrdaenSocial"
 import { LEAST_WIDTH } from "@/choices"
 import { ChatTab, Kept, Shown, THIS_SESSION, linked, marks, wordsOf } from "@/lines"
-import { HEARD_FILL, TOLD_FILL, WHISPERS_LEAST } from "@/whispers"
 
 const SCREEN: Test.Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
 const WHITE: Color = Color.hex("#ffffff")
@@ -73,8 +73,8 @@ test "the chat reads the game's lines and shows them in the window's tab, nothin
   const shown = chat()
   Game.chat.heard.emit(line("SAY", "[Thrall] says: Hello", "Thrall", [1]))
   Test.expect(shown.text("[Thrall] says: Hello").shown())
-  // Its two tabs, the line and the toolbar's whispers: no hint, no button of the game's, no «Copy».
-  Test.expect(shown.texts().join(",") == "General,Jaina,[Thrall] says: Hello,Whispers")
+  // Its two tabs and the line: no hint, no button of the game's, no «Copy».
+  Test.expect(shown.texts().join(",") == "General,Jaina,[Thrall] says: Hello")
 }
 
 test "the open tab and the one under the cursor stand on a list's shade, touching the lines: the window's wood is the lines' alone" {
@@ -260,8 +260,8 @@ test "a channel's line is named by its name, the zone left out, until its tab's 
   Game.chat.windows = gameWindows()
   _ = chat()
   Game.chat.heard.emit(line("CHANNEL", "[Gazlowe]: WTS ore", "Gazlowe", [1], 2, "Trade - City"))
-  // Found by its tab of the whispers: the «Tabs» page lists the windows too.
-  const shown = Test.page().window("Whispers")
+  // Found by its whisper window's tab, named by the partner: the «Tabs» page lists the windows too, by their names.
+  const shown = Test.page().window("Jaina")
   Test.expect(shown.text("|Hchannel:CHANNEL:2|h[Trade]|h [Gazlowe]: WTS ore").shown())
   const settings = tabsPage()
   settings.text("[2. Trade]").click()
@@ -279,7 +279,7 @@ test "a tab's count goes off in its settings; the combat log's and a tab of chan
   ]
   Game.chat.channels = (index: Integer): Array<Game.ChatShown> => [{ name: "Trade", shown: index == 4 }]
   _ = chat()
-  const shown = Test.page().window("Whispers")
+  const shown = Test.page().window("Jaina")
   Game.chat.heard.emit(line("CHANNEL", "[Gazlowe]: WTS ore", "Gazlowe", [4], 2, "Trade - City"))
   Test.expect(!shown.text("1").shown())
   const settings = tabsPage()
@@ -324,29 +324,29 @@ test "a web address clicked opens a box to copy it, closed by Escape" {
   Test.expect(!Test.page().window("Close").shown())
 }
 
-test "the whispers are the toolbar's under the lines, in the input's room: its count moves nothing, the input covers it" {
-  Game.chat.windows = gameWindows()
-  const box = input(Client.CreateFrame("Frame", nil, Client.C_UI.GetUIParent(), nil))
-  box.Hide()
-  Game.chat.input = box
+test "whispers are Ordaen Social's: no tab shows them, its conversation counts them unread, a web address a link" {
+  Game.chat.windows = [window(1, "General", "")]
   const shown = chat()
-  const lines = shown.box(Ordaen.art.window.wood).rect()
-  const button = shown.text("Whispers").rect()
-  // Under the lines, no tab.
-  Test.expect(button.top >= lines.bottom)
-  Game.chat.heard.emit(whisper("Jaina", "hi"))
-  const badge = shown.box(Ordaen.art.panel.countBadge).rect()
-  Test.expect(shown.text("Whispers").rect().left == button.left && shown.box(Ordaen.art.window.wood).rect().bottom == lines.bottom)
-  // The count over the button's own room, its name clear.
-  Test.expect(badge.left >= shown.text("Whispers").letters().right)
-  shown.text("Whispers").click()
-  Test.expect(Test.page().window("Jaina").shown())
-  // The input open: it takes the room, the toolbar goes.
-  box.Show()
-  box.SetFocus()
-  Game.chat.typing = true
-  Test.pass(0.01)
-  Test.expect(!shown.text("Whispers").shown())
+  Game.chat.heard.emit(whisper("Thrall", "see https://a.io/x"))
+  Test.expect(!shown.texts().any(text => text.contains("a.io")))
+  const social = Social ?? panic("Ordaen Social is on in the tests")
+  const talk = social.talks[1] ?? panic("Thrall's conversation made")
+  Test.expect(social.whispersUnread == 1 && talk.lines[1]?.whole == linked("see https://a.io/x"))
+  // A player reported: their lines go from the conversations too.
+  const rude = whisper("Grub", "rude")
+  rude.guid = "Player-1-0001"
+  Game.chat.heard.emit(rude)
+  Game.chat.playerReported.emit("Player-1-0001")
+  Test.expect((social.talks[1] ?? panic("Grub's conversation made")).lines.length == 0)
+}
+
+test "a name's menu whispers them in Ordaen Social's window" {
+  Game.chat.windows = gameWindows()
+  const shown = chat()
+  Game.chat.heard.emit(line("SAY", "|Hplayer:Jaina:7|h[Jaina]|h says: hi", "Jaina", [1]))
+  shown.text("|Hplayer:Jaina:7|h[Jaina]|h says: hi").clickLink("player:Jaina:7", .Right)
+  Test.page().text("Whisper").click()
+  Test.expect(Social?.talkOpen == "t:Jaina")
 }
 
 test "the chat's tabs are a sidebar at its left, one a row, a right-click opening the menu alone" {
@@ -887,14 +887,14 @@ test "each session's lines stand under a rule naming the session, in the lines' 
   _ = chat()
   Game.chat.heard.emit(line("SAY", "[Thrall] says: before", "Thrall", [1]))
   // In this session alone: no rule.
-  Test.expect(!Test.page().window("Whispers").texts().any(text => text.match("^Session · ") != nil))
+  Test.expect(!Test.page().window("Jaina").texts().any(text => text.match("^Session · ") != nil))
   // A later session: the line kept comes back under its session's rule, this session's rule over what it hears.
   Game.clock.server = THIS_SESSION.floor() + 3600
   Events.PLAYER_LOGOUT.emit()
   Test.reload()
   Game.chat.windows = gameWindows()
   Game.chat.heard.emit(line("SAY", "[Thrall] says: now", "Thrall", [1]))
-  const shown = Test.page().window("Whispers")
+  const shown = Test.page().window("Jaina")
   const rules = shown.texts().filter(text => text.match("^Session · ") != nil)
   Test.expect(rules.length == 2)
   // Not dimmed: drawn as it was.
@@ -925,7 +925,7 @@ test "someone's line naming a keyword is marked" {
 
 // A line heard in a session: this one's where none is named.
 function plain(words: String, session: Number = THIS_SESSION): Shown {
-  return { whole: words, color: WHITE, time: session, repeat: words, count: 1, marked: false, session: session, secret: false, mine: false, sender: "" }
+  return { whole: words, color: WHITE, time: session, repeat: words, count: 1, marked: false, session: session, secret: false, sender: "" }
 }
 
 test "the chat is never lower than its tabs: the lines take the room they leave" {
@@ -955,68 +955,6 @@ test "with the player's tabs, the lines keep their room, the newest at their foo
   const said = shown.text("[Thrall] says: still here").rect()
   // The lines keep the chat's height (190 dp, 135 of the screen's units here).
   Test.expect(said.bottom - shown.rect().top >= 130)
-}
-
-test "whispers are the whisper window's: a conversation a person, unread until opened, answered in its own line" {
-  Game.chat.windows = [window(1, "General", "")]
-  const shown = chat()
-  Game.chat.heard.emit(whisper("Jaina", "psst"))
-  Test.expect(!shown.text("psst").shown())
-  Test.expect(shown.text("1").shown())
-  shown.text("Whispers").click()
-  const talks = Test.page().window("Whisper to: name, Enter")
-  Test.expect(talks.text("psst").shown())
-  Test.expect(!shown.text("1").shown() && !talks.text("1").shown())
-  talks.input().nth(2).type("hello")
-  _ = Test.key(Key.Enter)
-  Test.expect(Test.requests().any(r => r == "Chat.whisper Jaina hello false"))
-  // Another person's whisper: a conversation of their own, first in the list, waiting unread.
-  Game.chat.heard.emit(whisper("Thrall", "lok'tar"))
-  Test.expect(talks.text("Thrall").rect().top < talks.text("Jaina").rect().top)
-  Test.expect(talks.text("1").shown() && !talks.text("lok'tar").shown())
-  talks.text("Thrall").click()
-  Test.expect(talks.text("lok'tar").shown())
-  // A name typed starts one; Escape closes the window.
-  talks.input().nth(1).type("Anduin")
-  _ = Test.key(Key.Enter)
-  Test.expect(talks.text("Anduin").shown())
-  _ = Test.key(Key.Escape)
-  Test.expect(!Test.page().window("Whisper to: name, Enter").shown())
-}
-
-test "a conversation is bubbles: the other's on the left, the player's on the right, a group's time under its last" {
-  Game.chat.windows = [window(1, "General", "")]
-  Game.clock.hours24 = true
-  const shown = chat()
-  const first = whisper("Jaina", "hi")
-  first.time = 12 * 3600
-  const second = whisper("Jaina", "are you there?")
-  second.time = 12 * 3600 + 30
-  const answer = whisper("Jaina", "yes", true)
-  answer.time = 12 * 3600 + 60
-  Game.chat.heard.emit(first)
-  Game.chat.heard.emit(second)
-  Game.chat.heard.emit(answer)
-  shown.text("Whispers").click()
-  const talks = Test.page().window("Whisper to: name, Enter")
-  const heard = talks.text("hi").rect()
-  const told = talks.text("yes").rect()
-  // Hers start at the conversation's left, his end at its right; each side on its own floor.
-  Test.expect(heard.left < told.left && talks.text("are you there?").rect().left == heard.left)
-  Test.expect(talks.box(HEARD_FILL).count() == 2 && talks.box(TOLD_FILL).count() == 1)
-  // Her two lines are one group: its time once, under the second; then his.
-  Test.expect(talks.texts().filter(t => t == "12:00").length == 1 && talks.texts().filter(t => t == "12:01").length == 1)
-  Test.expect(talks.text("12:00").rect().top > talks.text("are you there?").rect().bottom)
-}
-
-test "the whisper window is never narrower than its list and a conversation of a few words a line" {
-  Test.expect(WHISPERS_LEAST == 600dp)
-  Game.chat.windows = [window(1, "General", "")]
-  const shown = chat()
-  shown.text("Whispers").click()
-  // 600 dp, 426 of the screen's units here (190 dp are 135).
-  const talks = Test.page().window("Whisper to: name, Enter").rect()
-  Test.expect(talks.right - talks.left >= 426)
 }
 
 // The game's line as it gives it: its body, and the same line plain.

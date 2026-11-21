@@ -19,10 +19,6 @@ const SHADE: Color = Color.hex("#00000059")
 // tab out of it, centred on its height, in from its right edge.
 const COUNT_ROOM: Number<Length> = 28dp
 const COUNT_SPOT: Edges = { right: 3sp }
-// A toolbar button's room round its name, and its name's ink: a list tab's.
-const TOOL_PAD: Edges = { right: 2sp, left: 2sp }
-const TOOL_INK: Color = Color.hex("#e8dcc4")
-const MAX: "max-content" = "max-content"
 
 // A tab: an entry of the chat's sidebar, the library's list tab (its name), and while lines wait unread, their count's
 // badge at its right end, beside its name: a tab that counts keeps the badge's room whether any wait or not, the badge
@@ -69,44 +65,6 @@ public class TabButton implements Component {
         <box $if={self.unread} position={Position.Absolute} top={0ui} right={0ui} bottom={0ui} padding={COUNT_SPOT}
              yAlign={Align.Center} zLevel={2}>
           <CountBadge count={self.tab.unread} />
-        </box>
-      </box>
-    }
-  }
-}
-
-// A button of the chat's toolbar: its name in the tabs' ink, on the tabs' shade under the cursor, and the count of what
-// waits for it as a badge out of the flow, in a room kept for it at its right: nothing moves as the count comes or
-// goes. A click reports `press`.
-public class ToolbarButton implements Component {
-  public press: Event<nil> = new Event()
-
-  state hovered = false
-  derived shade: Color | nil = self.hovered ? SHADE : nil
-  derived waiting: Boolean = self.count > 0
-
-  label: Signal<String>
-  count: Signal<Integer>
-  constructor(label: Signal<String>, count: Signal<Integer>) {
-    self.label = label
-    self.count = count
-  }
-
-  onPress(mut self) { self.press.emit() }
-
-  onEnter(mut self) { self.hovered = true }
-
-  onLeave(mut self) { self.hovered = false }
-
-  public render(self): Template {
-    return $ltml {
-      <box columns={[MAX, COUNT_ROOM]} gap={2sp} padding={TOOL_PAD} yAlign={Align.Center} background={self.shade}
-           @pointerPress(.Left)={self.onPress} @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
-        <text value={self.label} textColor={TOOL_INK} wrap={.None} />
-        <box />
-        <box $if={self.waiting} position={Position.Absolute} top={0ui} right={0ui} bottom={0ui} padding={TOOL_PAD}
-             yAlign={Align.Center}>
-          <CountBadge count={self.count} />
         </box>
       </box>
     }
