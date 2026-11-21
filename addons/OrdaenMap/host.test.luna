@@ -21,7 +21,7 @@ function pinsShown(): String {
   return Test.questPins().map(id => String.of(id)).join(",")
 }
 
-test "the game's quest pins show only for the quest shown, as the map turns too, and are the game's once Map stops" {
+test "the game's quest pins are every quest's, but the quest shown's alone while one is shown, as the map turns too" {
   Test.questLog([
     { id: 101, title: "One", header: "Westfall" }, { id: 102, title: "Two", header: "Westfall" },
     { id: 103, title: "Three", header: "Westfall" }
@@ -29,7 +29,7 @@ test "the game's quest pins show only for the quest shown, as the map turns too,
   const host = new OpenMapHost()
   host.start()
   host.open(40)
-  Test.expect(pinsShown() == "")
+  Test.expect(pinsShown() == "101,102,103")
   host.onlyQuest(102)
   Test.expect(pinsShown() == "102")
   // The game makes its pins again as the map turns: the others stay hidden.
@@ -38,7 +38,8 @@ test "the game's quest pins show only for the quest shown, as the map turns too,
   host.onlyQuest(103)
   Test.expect(pinsShown() == "103")
   host.onlyQuest(0)
-  Test.expect(pinsShown() == "")
+  Test.expect(pinsShown() == "101,102,103")
+  host.onlyQuest(101)
   host.stop()
   Client.WorldMapFrame.SetMapID(1436)
   Test.expect(pinsShown() == "101,102,103")

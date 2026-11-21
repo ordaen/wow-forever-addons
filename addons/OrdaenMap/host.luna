@@ -36,8 +36,7 @@ public trait MapHost {
   // The world map opened at the map that holds the area (an `AreaTable` area), as the game's «Show on map» turns it;
   // the map it shows where the area is none of a map's.
   public open(mut self, area: Integer)
-  // The game's quest marks (its pins, a quest's shaded area) of this quest alone, its area drawn; 0: none of them.
-  // Every mark is the game's again once the host stops.
+  // The game's quest marks (its pins, a quest's shaded area) of this quest alone, its area drawn; 0: every quest's.
   public onlyQuest(mut self, quest: Integer)
   // Where the pin stands on the canvas, 0 to 1; nil where its zone isn't in view.
   public place(mut self, pin: Pin): Placed | nil
@@ -70,8 +69,6 @@ public class OpenMapHost implements MapHost {
   owner: Table = {}
 
   public start(mut self) {
-    // No quest's marks until a module shows one.
-    WorldMap.onlyQuest(0)
     WorldMap.listen((): nil => {
       self.changed.emit()
       return nil
@@ -91,7 +88,7 @@ public class OpenMapHost implements MapHost {
 
   public stop(mut self) {
     WorldMap.forget()
-    WorldMap.onlyQuest(nil)
+    WorldMap.onlyQuest(0)
     if (self.present()) {
       OpenMapAPI.UnregisterAllCallbacks(self.owner)
       WorldMap.noTownsfolk()

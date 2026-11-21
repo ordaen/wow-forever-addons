@@ -108,8 +108,8 @@ public class Maps implements Module, App {
   }
 
   // The world map opened where the area is, the game's marks of `quest` alone shown until it hides (its pins and its
-  // shaded area; 0: none): a module's «Show on map». No quest's marks show otherwise. Out of a fight alone: the client
-  // opens the map for an addon there only, and a module's «Show on map» is off in one.
+  // shaded area): a module's «Show on map». Otherwise every quest's show, as the game has them. Out of a fight alone:
+  // the client opens the map for an addon there only, and a module's «Show on map» is off in one.
   public show(mut self, area: Integer, quest: Integer = 0) {
     self.host.open(area)
     self.host.onlyQuest(quest)

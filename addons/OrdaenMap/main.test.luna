@@ -54,12 +54,12 @@ test "docked, the map's side panel is given while the map shows, its size the cl
   Test.expect(Maps.side == nil)
 }
 
-test "the map shows no quest's pins; a module's «Show on map» shows its quest's alone, until the map hides" {
+test "the map shows every quest's pins; a module's «Show on map» shows its quest's alone, until the map hides" {
   Test.questLog([{ id: 101, title: "One", header: "Westfall" }, { id: 102, title: "Two", header: "Westfall" }])
   Test.mount(nil, PAGE)
   Client.C_Map.OpenWorldMap(1436)
   Test.flush()
-  Test.expect(Test.questPins().length == 0)
+  Test.expect(Test.questPins().length == 2)
   Client.WorldMapFrame.Hide()
   Maps.show(40, 102)
   Test.flush()
@@ -68,7 +68,7 @@ test "the map shows no quest's pins; a module's «Show on map» shows its quest'
   Test.flush()
   Client.C_Map.OpenWorldMap(1436)
   Test.flush()
-  Test.expect(Test.questPins().length == 0)
+  Test.expect(Test.questPins().length == 2)
 }
 
 // What a dungeon's card says: the instance's name, where one of the test's.
