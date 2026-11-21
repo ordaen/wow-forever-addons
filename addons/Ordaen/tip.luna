@@ -33,14 +33,16 @@ public struct TipMark {
 }
 
 // One row of a Tip: its picture where it has one, what it is (in the label colour, or its own `tone`: an item's name in
-// its quality's), a word after it in its own colour where it has one, and how much (in the numbers' font). The
-// defaults are written out, not constants of this file: a default is made where the row is.
+// its quality's), a word after it in its own colour where it has one, and how much (in the numbers' font, in the
+// names' colour, or its own `valueTone`: a buff's green, a debuff's red). The defaults are written out, not constants
+// of this file: a default is made where the row is.
 public struct TipRow {
   const label: String
   const value: String
   const mark: TipMark = { text: "", color: BRIGHT_TEXT }
   const icon: Art | nil = nil
   const tone: Color | nil = nil
+  const valueTone: Color | nil = nil
 }
 
 // A titled group of a Tip's rows, under its text and its own rows: a stat's sources, «Items», «Effects».
@@ -60,6 +62,7 @@ public struct TipText {
 class TipLine implements Component {
   derived iconed: Boolean = self.row.icon != nil
   derived ink: Color = self.row.tone ?? LABEL
+  derived valueInk: Color = self.row.valueTone ?? NAME
 
   row: Signal<TipRow>
   constructor(row: Signal<TipRow>) {
@@ -74,7 +77,7 @@ class TipLine implements Component {
           <text value={self.row.label} textColor={self.ink} />
           <text $if={self.row.mark.text != ""} value={self.row.mark.text} textColor={self.row.mark.color} />
         </box>
-        <text value={self.row.value} textColor={NAME} wrap={.None} textFont={.Numbers} />
+        <text value={self.row.value} textColor={self.valueInk} wrap={.None} textFont={.Numbers} />
       </box>
     }
   }

@@ -63,3 +63,33 @@ test "a tip goes when the list scrolls its box under the cursor, and comes back 
   Test.expect(tipShown() == "About Third")
   destroy page
 }
+
+const GREEN: Color = Color.hex("#3fbf3f")
+
+// A box whose Tip lists effects: a buff's value in its own colour, a plain row's in the names'.
+class Effects implements Component {
+  state hovered = false
+
+  onEnter(mut self) { self.hovered = true }
+  onLeave(mut self) { self.hovered = false }
+
+  public render(self): Template {
+    return $ltml {
+      <box height={40ui} @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
+        <text value={"Strength"} />
+        <Tip $if={self.hovered} title={"Strength"} text={""}
+             rows={[{ label: "Battle Shout", value: "+100", valueTone: GREEN }, { label: "Base", value: "20" }]} />
+      </box>
+    }
+  }
+}
+
+test "a row's value is drawn in its own colour where it has one, else in the names'" {
+  const page = new Effects()
+  Test.mount(page, { left: 0, top: 0, width: 300, height: 200 })
+  Test.moveTo(Test.holding("Strength", nil))
+  Test.pass(0.1)
+  Test.expect(Test.page().text("+100").textColor().equal(GREEN))
+  Test.expect(!Test.page().text("20").textColor().equal(GREEN))
+  destroy page
+}
