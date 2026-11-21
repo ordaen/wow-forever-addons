@@ -630,16 +630,17 @@ public class Social implements Module, App {
 
   onAllyNoteNo(mut self) { self.noting = false }
 
-  // Ours closed: the game's closes with it.
-  // A whisper Ordaen Chat read (after every addon's filter), `whole` its words as the chat draws them: its
-  // conversation's, which goes first in the list. Heard while that conversation isn't the one shown, it waits unread.
-  public heard(mut self, line: Game.ChatLine, whole: String) {
-    if (!isWhisper(line)) { return }
+  // A line Ordaen Chat read (after every addon's filter), `whole` its words as the chat draws them; whether it was a
+  // whisper, which is then the window's alone. A whisper is its conversation's, which goes first in the list; heard
+  // while that conversation isn't the one shown, it waits unread.
+  public heard(mut self, line: Game.ChatLine, whole: String): Boolean {
+    if (!isWhisper(line)) { return false }
     const told = isTold(line)
     const talk = self.talkOf(talkKey(line.sender, isBattleNet(line)))
     talk.add({ whole: whole, time: line.time, mine: told, secret: line.secret != "", sender: line.guid })
     if (!told && !self.shows(talk.key)) { talk.unread = (peek talk.unread) + 1 }
     self.countUnread()
+    return true
   }
 
   // A whisper started anywhere (a card's, the chat's, another addon's): the window shown on the whispers' tab, the
@@ -737,6 +738,7 @@ public class Social implements Module, App {
     self.talks = talks
   }
 
+  // Ours closed: the game's closes with it.
   onClose(mut self) {
     self.open = false
     for (game of self.games) {

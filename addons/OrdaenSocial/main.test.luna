@@ -1326,7 +1326,7 @@ test "whispers are the window's tab: a conversation a person, unread until opene
   Game.recentAllies.list = allies
   Game.recentAllies.categories = allyCategories
   // Heard while the window is closed: waiting unread, the count the micro menu's second badge shows.
-  Social.heard(whisper("Jaina", "psst"), "psst")
+  _ = Social.heard(whisper("Jaina", "psst"), "psst")
   Test.expect(Social.whispersUnread == 1)
   const window = opened(new FakePeople())
   Test.expect(window.text("1 unread").shown())
@@ -1337,13 +1337,13 @@ test "whispers are the window's tab: a conversation a person, unread until opene
   _ = Test.key(Key.Enter)
   Test.expect(Test.requests().any(r => r == "Chat.whisper Jaina hello false"))
   // Another person's whisper: a conversation of their own, first in the list, waiting unread.
-  Social.heard(whisper("Thrall", "lok'tar"), "lok'tar")
+  _ = Social.heard(whisper("Thrall", "lok'tar"), "lok'tar")
   Test.expect(window.text("Thrall").rect().top < window.text("Jaina").rect().top)
   Test.expect(Social.whispersUnread == 1 && !window.text("lok'tar").shown())
   window.text("Thrall").click()
   Test.expect(window.text("lok'tar").shown() && Social.whispersUnread == 0)
   // A line of the open conversation is read as it comes.
-  Social.heard(whisper("Thrall", "for the horde"), "for the horde")
+  _ = Social.heard(whisper("Thrall", "for the horde"), "for the horde")
   Test.expect(Social.whispersUnread == 0 && window.text("for the horde").shown())
   // A name typed starts one.
   window.input().nth(1).type("Anduin")
@@ -1367,7 +1367,7 @@ test "a whisper started anywhere opens the window on that conversation; a told l
   Game.recentAllies.list = allies
   Game.recentAllies.categories = allyCategories
   const window = opened(new FakePeople())
-  Social.heard(whisper("Jaina", "on my way", true), "on my way")
+  _ = Social.heard(whisper("Jaina", "on my way", true), "on my way")
   Test.expect(Social.whispersUnread == 0)
   Social.whisperTo("Jaina", false)
   Test.expect(Social.talkOpen == "t:Jaina" && window.text("on my way").shown())
@@ -1389,9 +1389,9 @@ test "a conversation is bubbles: the other's on the left, the player's on the ri
   Game.recentAllies.list = allies
   Game.recentAllies.categories = allyCategories
   Game.clock.hours24 = true
-  Social.heard(whisper("Jaina", "hi", false, 12 * 3600), "hi")
-  Social.heard(whisper("Jaina", "are you there?", false, 12 * 3600 + 30), "are you there?")
-  Social.heard(whisper("Jaina", "yes", true, 12 * 3600 + 60), "yes")
+  _ = Social.heard(whisper("Jaina", "hi", false, 12 * 3600), "hi")
+  _ = Social.heard(whisper("Jaina", "are you there?", false, 12 * 3600 + 30), "are you there?")
+  _ = Social.heard(whisper("Jaina", "yes", true, 12 * 3600 + 60), "yes")
   const window = opened(new FakePeople())
   Social.whisperTo("Jaina", false)
   const heard = window.text("hi").rect()
