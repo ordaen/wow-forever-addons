@@ -28,7 +28,7 @@ const PREFIX = "ordaenurl:"
 // Where the last lines of each tab are kept between sessions.
 const HISTORY = "OrdaenChat:history"
 // Whether the character's guild tab was made, once.
-const GUILD_TAB = "OrdaenChat:guildTab"
+const GUILD_TAB = "OrdaenChat:guild"
 // What the guild's tab shows: the guild's lines and its officers'.
 const GUILD_GROUPS: Array<String> = ["GUILD", "OFFICER"]
 // The time stamp before a line: in brackets, the muted colour.
@@ -92,8 +92,9 @@ public class Chat implements Module, App {
     Game.chat.heard.listen(self.onLine)
     Game.chat.playerReported.listen(self.onReported)
     Events.PLAYER_LOGOUT.listen(self.keep)
-    // The game's windows are loaded: the guild's tab made where it is due.
+    // The game's windows loaded, and the player in the world: the guild's tab made where it is due.
     Events.UPDATE_CHAT_WINDOWS.listen(self.guildTab)
+    Events.PLAYER_ENTERING_WORLD.listen(self.onEnterWorld)
     watch (windows of Game.chat.windows) { self.sync() }
     // Whispers are the whisper window's: the game opens no window of its own for them.
     Game.chat.whisperWindows(false)
@@ -330,19 +331,22 @@ public class Chat implements Module, App {
   }
 
   // A character's first chat has a tab of the guild's lines (the guild's and its officers'), docked after the game's
-  // own two, once its windows are loaded: made once a character, and not where a window past those two shows the
-  // guild already. Closed, it stays closed.
+  // own two, once its windows are loaded. Asked again as the windows change until a window past those two shows the
+  // guild (the client refuses a new window while it loads them): then it is done for the character, and a guild's
+  // tab closed stays closed.
+  onEnterWorld(mut self, initial: Boolean, reloaded: Boolean) { self.guildTab() }
+
   guildTab(mut self) {
     if (Game.saved.stored(Game.Scope.Character, GUILD_TAB) != nil) { return }
-    Game.saved.store(Game.Scope.Character, GUILD_TAB, true)
-    const shown = (peek Game.chat.windows).any(window => window.index > 2 && Game.chat.groups(window.index).any(group => group.name == GUILD_GROUPS[1] && group.shown))
-    if (shown) { return }
-    const made = Game.chat.open(Locale.TAB_GUILD_NAME)
-    if (made == nil) { return }
-    for (group of Game.chat.groups(made)) {
-      if (group.shown) { Game.chat.showGroup(made, group.name, false) }
+    if (!showsGuild()) {
+      const made = Game.chat.open(Locale.TAB_GUILD_NAME)
+      if (made == nil) { return }
+      for (group of Game.chat.groups(made)) {
+        if (group.shown) { Game.chat.showGroup(made, group.name, false) }
+      }
+      for (group of GUILD_GROUPS) { Game.chat.showGroup(made, group, true) }
     }
-    for (group of GUILD_GROUPS) { Game.chat.showGroup(made, group, true) }
+    if (showsGuild()) { Game.saved.store(Game.Scope.Character, GUILD_TAB, true) }
   }
 
   // The last lines of each tab, for the next session: written once, as the player logs out.
@@ -418,4 +422,9 @@ public class Chat implements Module, App {
       </Dialog>
     }
   }
+}
+
+// Whether a window past the game's two shows the guild's lines.
+function showsGuild(): Boolean {
+  return (peek Game.chat.windows).any(window => window.index > 2 && Game.chat.groups(window.index).any(group => group.name == GUILD_GROUPS[1] && group.shown))
 }

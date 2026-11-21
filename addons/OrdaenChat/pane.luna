@@ -11,6 +11,9 @@ import { ChatTab, Shown } from "@/lines"
 import Locale from "@/locales"
 import { Row, TabButton } from "@/view"
 
+// A window's font size until it has one, the game's default; and what of it the lines are drawn at in the body's font.
+const GAME_SIZE = 14
+const LINE_SCALE = 12 / 14
 // Lines drawn at most: more than the tallest chat shows.
 const ROWS = 80
 // Lines a turn of the wheel scrolls.
@@ -95,9 +98,12 @@ public class Pane implements Component {
 
   // The lines' row: the height the player chose at least, more where the tabs stand taller.
   derived rows: Array<Track> = [{ fr: 1, min: self.height }]
-  // The open window's font size, as the game draws it: in UI units, where `1rem` is the body's text.
-  derived textSize: Number<TextSize> = (self.open?.fontSize ?? BODY_TEXT / 1ui) * 1rem * 1ui / BODY_TEXT
+  // The open window's font size, in the body's font: wider than the game's narrow chat font, it reads as large at
+  // a smaller size, the game's 14 (its default) as 12 UI units. `1rem` is the body's text.
+  derived textSize: Number<TextSize> = (self.open?.fontSize ?? GAME_SIZE) * LINE_SCALE * 1rem * 1ui / BODY_TEXT
   derived logFrame: any Frame | nil = self.logOf()
+  // The tabs' top where the lines' frame's metal begins: its art reaches this far above it, inside its box.
+  derived tabsReach: Number<Length> = Ordaen.art.frame.small.reach.top * Ordaen.art.frame.small.scale * 1ui
   derived shown: Array<Shown> = self.shownOf()
   derived inputShown: Boolean = self.input != nil && (self.typing || self.inputAlways)
   // Whole while the cursor is on it, the player types or a menu of it is open; else as the settings say.
@@ -255,7 +261,9 @@ public class Pane implements Component {
       // least the height the player chose and never lower than the tabs, the input's room under them. As wide as the player
       // chose, or as the tabs and the lines' least need.
       <box width={{ min: self.width, max: nil }} columns={[MAX, { fr: 1 }]} opacity={self.opacity}>
+        // From the frame's metal down, not the reach of its art above it.
         <box columns={1} yAlignSelf={Align.Start} @pointerEnter={self.onTabsEnter} @pointerLeave={self.onTabsLeave}>
+          <box height={self.tabsReach} />
           <TabButton $for={tab of self.tabs} tab={tab} open={tab.key == self.open?.key} @pick={self.onPick}
                      @menu={self.onMenu} />
           <Menu $if={self.menuTab != nil} entries={self.tabEntries} title={self.menuTab?.title ?? ""} @pick={self.onTabPick}

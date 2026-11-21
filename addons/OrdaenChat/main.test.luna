@@ -460,13 +460,26 @@ function groupsOf(shown: Map<String, Boolean>): Array<Game.ChatGroup> {
   return order.map(name => Game.ChatGroup { name: name, label: labels[name] ?? name, shown: shown[name] == true })
 }
 
-test "a character's chat gets a tab of the guild's lines once its windows load, once; never where a window shows the guild" {
-  Game.chat.windows = gameWindows()
-  Game.chat.groups = (index: Integer): Array<Game.ChatGroup> => index == 4 ? groupsOf({ SAY: true }) : []
+// The game's windows, and a fourth the game opens as it is asked for one: showing say as a new window does, and
+// the guild, as it is told to. The client refuses the first `refused` windows asked for, as it does while it loads.
+function guildOpening(refused: Integer) {
+  const general = window(1, "General", "")
+  const jaina = window(3, "Whisper", "Jaina")
+  const guild = window(4, "Guild", "")
+  let asked = 0
+  Game.chat.windows = [general, jaina]
+  Game.chat.groups = (index: Integer): Array<Game.ChatGroup> => index == 4 ? [{ name: "SAY", label: "Say", shown: true }, { name: "GUILD", label: "Guild", shown: true }] : []
   Game.chat.open = (name: String): Integer | nil => {
     Test.asked("Chat.open", name)
+    asked += 1
+    if (asked <= refused) { return nil }
+    Game.chat.windows = [general, jaina, guild]
     return 4
   }
+}
+
+test "a character's chat gets a tab of the guild's lines once its windows load, once" {
+  guildOpening(0)
   _ = chat()
   Events.UPDATE_CHAT_WINDOWS.emit()
   const asked = Test.requests()
@@ -474,8 +487,21 @@ test "a character's chat gets a tab of the guild's lines once its windows load, 
   // The new window shows the guild's and its officers' lines and nothing else.
   Test.expect(asked.any(r => r == "Chat.showGroup 4 SAY false"))
   Test.expect(asked.any(r => r == "Chat.showGroup 4 GUILD true") && asked.any(r => r == "Chat.showGroup 4 OFFICER true"))
+  // Done for the character: closed, it isn't made again.
+  Game.chat.windows = gameWindows()
   Events.UPDATE_CHAT_WINDOWS.emit()
+  Events.PLAYER_ENTERING_WORLD.emit(false, true)
   Test.expect(!Test.requests().any(r => r == "Chat.open Guild"))
+}
+
+test "a guild's tab the client refused while it loads its windows is asked for again as the player enters the world" {
+  guildOpening(1)
+  _ = chat()
+  Events.UPDATE_CHAT_WINDOWS.emit()
+  Test.expect(Test.requests().any(r => r == "Chat.open Guild"))
+  Events.PLAYER_ENTERING_WORLD.emit(true, false)
+  Test.expect(Test.requests().any(r => r == "Chat.open Guild"))
+  Test.expect(Game.chat.windows.any(each => each.index == 4))
 }
 
 test "no guild's tab is made where a window past the game's two shows the guild already" {
@@ -486,15 +512,24 @@ test "no guild's tab is made where a window past the game's two shows the guild 
   Test.expect(!Test.requests().any(r => r == "Chat.open Guild"))
 }
 
-test "the lines are drawn at the open window's font size, as the game draws it" {
+test "the lines are drawn at the open window's font size, the game's 14 as 12 UI units of the body's font" {
   Game.chat.windows = gameWindows()
   const shown = chat()
   Game.chat.heard.emit(line("SAY", "[Thrall] says: Hello", "Thrall", [1]))
-  // The window's 13 against the body's 14 of the tabs' names: a letter of the line is 13/14 of a name's wide.
+  // The window's 13 drawn at 13 × 12/14 against the body's 14 of the tabs' names: a letter of the line is that share
+  // of a name's wide.
   const said = shown.text("[Thrall] says: Hello").letters()
   const name = shown.text("General").letters()
   const ratio = ((said.right - said.left) / 20) / ((name.right - name.left) / 7)
-  Test.expect((ratio - 13 / 14).abs() < 0.005)
+  Test.expect((ratio - 13 * 12 / 14 / 14).abs() < 0.005)
+}
+
+test "the tabs begin where the lines' frame's metal does, not where its art's reach does" {
+  Game.chat.windows = gameWindows()
+  const shown = chat()
+  const frame = shown.box(Ordaen.art.window.wood).rect()
+  const reach = Ordaen.art.frame.small.reach.top * Ordaen.art.frame.small.scale
+  Test.expect((shown.box(TAB_SHADE).rect().top - frame.top - reach).abs() < 0.5)
 }
 
 test "the Tabs page lists the windows in a sidebar; the picked one's speech, channels, communities and system messages" {
