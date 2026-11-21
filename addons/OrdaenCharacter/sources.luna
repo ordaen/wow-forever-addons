@@ -9,6 +9,7 @@ import { Active, Change, Kind } from "OrdaenAuras"
 import Locale from "@/locales"
 import { Resource, Stats, Worn } from "@/sheet"
 import { EVERY_STAT, MAINS, Stat } from "@/stat"
+import Style from "@/style"
 
 // A stat's name, whether it is a percentage, and its value as the sheet has it.
 struct Spec {
@@ -262,6 +263,12 @@ public function basesOf(facts: Facts): Map<String, Number> {
 // a stat any debuff takes from), or one raises it.
 public enum Boost { Up = "up", Down = "down" }
 
+// An aura's share of a stat in its tooltip: green where it raises the stat, red where it lowers it, as the stat's
+// value reads.
+function boostTone(amount: Number): Color | nil {
+  return amount > 0 ? Style.GREEN : amount < 0 ? Style.RED : nil
+}
+
 // Each stat an aura changes, by its name, and how; a stat none changes isn't in it.
 public function boostsOf(facts: Facts): Map<String, Boost> {
   const boosts: Map<String, Boost> = {}
@@ -345,12 +352,15 @@ function partsOf(stat: Stat, facts: Facts): Parts {
       if (changed(change).any(s => s == stat)) {
         const name = Game.spells.name(aura.spell) ?? ""
         const icon: Art | nil = Game.spells.texture(aura.spell)
+        const tone = boostTone(change.amount)
         if (multiplies(change)) {
           // What a share of the total it makes: the stat without it times the share.
           const amount = total - total / (1 + change.amount / 100)
-          fromEffects.push({ row: { label: name, value: added(change.amount, true), icon: icon }, amount: amount })
+          fromEffects.push({ row: { label: name, value: added(change.amount, true), icon: icon, valueTone: tone }, amount: amount })
         } else {
-          fromEffects.push({ row: { label: name, value: added(change.amount, spec.percent), icon: icon }, amount: change.amount })
+          fromEffects.push({
+            row: { label: name, value: added(change.amount, spec.percent), icon: icon, valueTone: tone }, amount: change.amount
+          })
         }
       }
     }

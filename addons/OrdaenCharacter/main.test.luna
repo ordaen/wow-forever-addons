@@ -392,6 +392,11 @@ test "a stat an aura raises reads green, one an aura lowers red whatever else ra
   ]
   Auras.refresh()
   Test.expect(window.text("832").textColor().equal(Style.RED))
+  // Its tooltip's «Effects»: each aura's share in the colour of what it does to the stat.
+  window.text("832").hover()
+  const tip = Test.page().window("Attack power 832")
+  Test.expect(tip.text("+100").textColor().equal(Style.GREEN))
+  Test.expect(tip.text("-35").textColor().equal(Style.RED))
 }
 
 test "a set's bonus is one row under its name, however many of its pieces are worn" {
