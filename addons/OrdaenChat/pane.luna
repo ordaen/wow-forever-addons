@@ -7,6 +7,7 @@ import Game from "$game"
 import { Align, Edges, Event, Frame, Layer, Line, MouseButton, Over, Overflow, Position, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import { BODY_LINE, Component, FIELD_EDGE, FIELD_FILL, GripCorner, Menu, MenuEntry, SECONDARY_TEXT, SizeGrip } from "Ordaen"
+import root Quests from "OrdaenQuests"
 import { ChatTab, Shown } from "@/lines"
 import Locale from "@/locales"
 import { Row, TabButton } from "@/view"
@@ -46,7 +47,8 @@ public enum TabAction {
 // link's name copied.
 public enum LinkAction {
   Whisper = "whisper", Invite = "invite", Who = "who", Befriend = "befriend", Ignore = "ignore", More = "more"
-  Track = "track", Untrack = "untrack", Share = "share", Abandon = "abandon", Copy = "copy"
+  ShowInLog = "showInLog", ShowOnMap = "showOnMap", Track = "track", Untrack = "untrack", Share = "share"
+  Abandon = "abandon", Copy = "copy"
 }
 
 const NAME_ACTIONS: Array<LinkAction> = [.Whisper, .Invite, .Who, .Befriend, .Copy, .Ignore, .More]
@@ -63,12 +65,17 @@ public struct LinkPick {
   action: LinkAction
 }
 
-// What a link's menu offers: a name's actions; a quest's that the log holds, as it stands there; and its name copied.
+// What a link's menu offers: a name's actions; a quest's, shown in Ordaen Quests' log and on the map where it is on,
+// and the log's own where the log holds it, as it stands there; and its name copied.
 function actionsFor(link: Event.Link | nil): Array<LinkAction> {
   if (link == nil) { return [] }
   if (nameOf(link.link) != nil) { return NAME_ACTIONS }
   const actions: Array<LinkAction> = []
   const id = questOf(link.link)
+  if (id != nil && Quests != nil) {
+    actions.push(.ShowInLog)
+    actions.push(.ShowOnMap)
+  }
   const logged = id != nil ? Game.questLog.quests().find(quest => quest.id == id) : nil
   if (logged != nil) {
     actions.push(logged.tracked ? .Untrack : .Track)
@@ -142,8 +149,10 @@ public class Pane implements Component {
   // The open link menu's actions, read as it opens; a name's `More` and a link's `Copy` a group of their own.
   derived linkActions: Array<LinkAction> = actionsFor(self.menuLink)
   derived menuTitle: String = self.menuLink != nil ? shownName(self.menuLink ?? panic("titled while open")) : ""
+  // The map isn't opened in a fight: the client lets no addon open it there.
   derived linkEntries: Array<MenuEntry> = self.linkActions.map(action => MenuEntry {
-    label: linkLabel(action), on: nil, disabled: nil, group: action == LinkAction.Copy || action == LinkAction.More, more: nil
+    label: linkLabel(action), on: nil, disabled: action == LinkAction.ShowOnMap && Game.situation.combat,
+    group: action == LinkAction.Copy || action == LinkAction.More || action == LinkAction.Track || action == LinkAction.Untrack, more: nil
   })
 
   tabs: Signal<Array<ChatTab>>
@@ -365,6 +374,8 @@ function linkLabel(action: LinkAction): String {
     .Befriend => Locale.NAME_BEFRIEND
     .Ignore => Locale.NAME_IGNORE
     .More => Locale.NAME_MORE
+    .ShowInLog => Locale.QUEST_SHOW_IN_LOG
+    .ShowOnMap => Locale.QUEST_SHOW_ON_MAP
     .Track => Locale.QUEST_TRACK
     .Untrack => Locale.QUEST_UNTRACK
     .Share => Locale.QUEST_SHARE

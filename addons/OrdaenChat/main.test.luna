@@ -4,9 +4,11 @@ import Client from "$client"
 import Events from "$events"
 import Game from "$game"
 import { Key } from "$ltml"
+import Runtime from "$runtime"
 import Test from "$test"
 import root Ordaen from "Ordaen"
 import { ChatMark, FIELD_FILL, say, toLeftLine } from "Ordaen"
+import root Quests from "OrdaenQuests"
 import { LEAST_WIDTH } from "@/choices"
 import { ChatTab, Kept, Shown, linked, marks, wordsOf } from "@/lines"
 import { HEARD_FILL, TOLD_FILL, WHISPERS_LEAST } from "@/whispers"
@@ -263,8 +265,9 @@ test "a tab's count goes off in its settings; the combat log's and a tab of chan
   Test.expect(!shown.text("1").shown())
   const settings = tabsPage()
   settings.text("Whisper").click()
-  // Its switches: locked, then the count.
-  settings.button(Ordaen.art.ctl.switchOn).nth(2).click()
+  // The switches on: the modules' in the sidebar, then the tab's count, the page's last.
+  const on = settings.button(Ordaen.art.ctl.switchOn)
+  on.nth(on.count()).click()
   Game.chat.heard.emit(line("SAY", "[Jaina] says: psst", "Jaina", [3]))
   Test.expect(!shown.text("1").shown())
 }
@@ -481,6 +484,35 @@ test "a quest of the log's link has a menu: tracked or not, abandoned once the p
   Test.page().text("Abandon").click()
   Test.page().window("Abandon «One»?").button("Abandon").click()
   Test.expect(!Game.questLog.quests().any(quest => quest.id == 101))
+}
+
+test "a quest's link shows it in Ordaen Quests' log; on the map, never in a fight" {
+  Test.questLog([{ id: 101, title: "One", header: "Westfall" }])
+  Game.chat.windows = gameWindows()
+  const shown = chat()
+  Game.chat.heard.emit(line("SAY", "|Hquest:101:10|h[One]|h", "Thrall", [1]))
+  const said = shown.text("|Hquest:101:10|h[One]|h")
+  said.clickLink("quest:101:10", .Right)
+  Test.page().text("Show in quest log").click()
+  Test.flush()
+  Test.expect((Quests ?? panic("Quests is on")).picked == 101)
+  Test.combat(true)
+  said.clickLink("quest:101:10", .Right)
+  Test.page().text("Show on map").click()
+  // Greyed: nothing opens, the menu stays.
+  Test.expect(Test.page().text("Show on map").shown())
+}
+
+test "with Quests off, a quest's link has no Quests' entries" {
+  Test.questLog([{ id: 101, title: "One", header: "Westfall" }])
+  Game.chat.windows = gameWindows()
+  const shown = chat()
+  const quests = Runtime.Addon.of(Quests) ?? panic("Quests is installed")
+  quests.disable()
+  Test.pass(0.02)
+  Game.chat.heard.emit(line("SAY", "|Hquest:101:10|h[One]|h", "Thrall", [1]))
+  shown.text("|Hquest:101:10|h[One]|h").clickLink("quest:101:10", .Right)
+  Test.expect(!Test.page().text("Show in quest log").shown() && Test.page().text("Track").shown())
 }
 
 test "a window the player undocked is a pane of its own" {

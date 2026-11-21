@@ -49,6 +49,8 @@
   "NAME_BEFRIEND": "Add friend",
   "NAME_IGNORE": "Ignore",
   "NAME_MORE": "More…",
+  "QUEST_SHOW_IN_LOG": "Show in quest log",
+  "QUEST_SHOW_ON_MAP": "Show on map",
   "QUEST_TRACK": "Track",
   "QUEST_UNTRACK": "Stop tracking",
   "QUEST_SHARE": "Share",
