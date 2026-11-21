@@ -20,6 +20,7 @@
   "CANCEL": "Cancel",
   "BACK": "Back to the list",
   "SHOW_ON_MAP": "Show on map",
+  "MAP_IN_COMBAT": "The map can't be opened in combat.",
   "SECTION_TASKS": "Objectives",
   "TRACKER_WHERE": "%s · %d places",
   "TRACKER_TURN_IN": "Turn in: %s · %s (%d, %d)",

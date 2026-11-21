@@ -8,7 +8,7 @@
 import Game from "$game"
 import { Align, Art, ByInteractionState, Edges, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { BODY_LINE, ButtonPlate, Component, Experience, Menu, MenuEntry, Money, PushButton, Reward, RewardView, Rewards, SCROLL_DIM, SCROLL_HEAD, SCROLL_INK, SECONDARY_TEXT, Scroll, Shown, Standing, SwitchFace, TIGHT_LINE, TITLE_TEXT, Tip, WELL_DIM, WELL_TEXT, XP_MARK_SMALL, choiceViews, logReward, questLevelColor, rowShade } from "Ordaen"
+import { BODY_LINE, ButtonPlate, Component, Experience, Menu, MenuEntry, Money, PushButton, Reward, RewardView, Rewards, SCROLL_DIM, SCROLL_HEAD, SCROLL_INK, SECONDARY_TEXT, Scroll, Shown, Standing, SwitchFace, TIGHT_LINE, TITLE_TEXT, Tip, TipText, WELL_DIM, WELL_TEXT, XP_MARK_SMALL, choiceViews, logReward, questLevelColor, rowShade } from "Ordaen"
 import { LogQuest } from "@/book"
 import Locale from "@/locales"
 import { QuestFacts } from "@/questie"
@@ -29,6 +29,11 @@ const GREY: Color = Color.hex("#808080")
 const RED: Color = Color.hex("#ff4040")
 const ROW_PAD: Edges = { top: 2sp, right: 2sp, bottom: 2sp, left: 5sp }
 const BUTTON = 131.25dp
+
+// The client opens the map for an addon out of a fight alone: «Show on map» is off in one, its tip says why.
+function mapTipOf(combat: Boolean): TipText | nil {
+  return combat ? { title: Locale.SHOW_ON_MAP, text: Locale.MAP_IN_COMBAT, rows: [] } : nil
+}
 // The level's brackets in the muted colour around its number.
 const LEVEL_CELLS: Array<Track> = ["max-content", "max-content", "max-content"]
 const GAIN_CELLS: Array<Track> = ["max-content", "max-content", "max-content"]
@@ -281,6 +286,8 @@ public class ChainPage implements Component {
   public act: Event<(Integer, Act)> = new Event()
 
   derived levels: String = Locale.CHAIN_LEVELS.format(self.facts.level, self.facts.minLevel)
+  derived combat: Boolean = Game.situation.combat
+  derived mapTip: TipText | nil = mapTipOf(self.combat)
 
   quest: Signal<Integer>
   facts: Signal<QuestFacts>
@@ -303,7 +310,7 @@ public class ChainPage implements Component {
         </Scroll>
         <ChainLine facts={self.facts} @open={self.onNext} />
         <box columns={BUTTON_ALONE}>
-          <PushButton label={Locale.SHOW_ON_MAP} width={BUTTON} @click={self.onMap} />
+          <PushButton label={Locale.SHOW_ON_MAP} width={BUTTON} disabled={self.combat} tip={self.mapTip} @click={self.onMap} />
           <box />
         </box>
       </box>
@@ -327,6 +334,8 @@ public class QuestPage implements Component {
   derived choiceRows: Array<RewardView> = choiceViews(rewardsOf(self.text.choices, true), [])
   derived givenRows: Array<Reward> = rewardsOf(self.text.rewards, false)
   derived standings: Array<Standing> = standingsOf(self.facts?.reputation ?? [])
+  derived combat: Boolean = Game.situation.combat
+  derived mapTip: TipText | nil = mapTipOf(self.combat)
 
   quest: Signal<LogQuest>
   text: Signal<Game.QuestText>
@@ -367,7 +376,7 @@ public class QuestPage implements Component {
           <SwitchFace state={self.tracking} />
         </box>
         <box columns={["max-content", "max-content", { fr: 1 }, "max-content"]} gap={3sp}>
-          <PushButton label={Locale.SHOW_ON_MAP} width={BUTTON} @click={self.onMap} />
+          <PushButton label={Locale.SHOW_ON_MAP} width={BUTTON} disabled={self.combat} tip={self.mapTip} @click={self.onMap} />
           <PushButton label={Locale.SHARE} width={BUTTON} disabled={!self.quest.shareable} @click={self.onShare} />
           <box />
           <PushButton label={Locale.ABANDON} width={BUTTON} plate={ButtonPlate.Accent} @click={self.onAbandon} />

@@ -20,6 +20,7 @@
   "CANCEL": "Отмена",
   "BACK": "К списку",
   "SHOW_ON_MAP": "На карте",
+  "MAP_IN_COMBAT": "Карту нельзя открыть в бою.",
   "SECTION_TASKS": "Задачи",
   "TRACKER_WHERE": "%s · мест: %d",
   "TRACKER_TURN_IN": "Сдать: %s · %s (%d, %d)",

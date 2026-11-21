@@ -426,6 +426,26 @@ test "«Show on map» opens the map where the quest leads, its pins shown until 
   Test.expect(Client.WorldMapFrame.IsShown() && Quests.shownOnMap == 0)
 }
 
+test "in a fight «Show on map» is greyed, opens nothing, and its tip says the map can't be opened in combat" {
+  opened(standing())
+  // The player keeps the log shown in a fight.
+  Quests.window.memory.write({ hideDuring: [], ..Quests.window.memory.values })
+  const window = Test.page().window("World")
+  window.text("The Defias Brotherhood").click()
+  Test.combat(true)
+  Test.flush()
+  window.button("Show on map").click()
+  Test.flush()
+  Test.expect(!Client.WorldMapFrame.IsShown() && Quests.shownOnMap == 0)
+  window.button("Show on map").hover()
+  Test.expect(Test.page().text("The map can't be opened in combat.").shown())
+  Test.combat(false)
+  Test.flush()
+  window.button("Show on map").click()
+  Test.flush()
+  Test.expect(Client.WorldMapFrame.IsShown() && Quests.shownOnMap == 101)
+}
+
 test "a quest that can't be shared has its button greyed: a click shares nothing" {
   opened(standing())
   Test.page().window("World").text("The Defias Brotherhood").click()

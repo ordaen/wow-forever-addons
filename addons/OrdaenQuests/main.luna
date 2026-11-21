@@ -330,12 +330,12 @@ public class Quests implements Module, App {
 
   // The world map at where the quest leads (a quest of the log: its objectives while it is to do, whom to hand it to
   // once done; the chain window's: where it is given), its pins alone shown and lit until the map hides; without
-  // Ordaen Map or a place QuestieDB knows, the map as it was. True where Ordaen Map opened it. The client opens the map
-  // for an addon out of a fight alone: asked in one, it opens as the fight ends.
+  // Ordaen Map or a place QuestieDB knows, the map as it was. True where Ordaen Map opened it. Out of a fight alone:
+  // the client opens the map for an addon there only, and every «Show on map» is off in one.
   showOnMap(mut self, id: Integer): Boolean {
     const area = self.areaOf(id)
     if (Maps == nil || area == nil) {
-      Ordaen.afterCombat(() => Client.C_Map.OpenWorldMap(nil))
+      Client.C_Map.OpenWorldMap(nil)
       return false
     }
     self.shownOnMap = id
@@ -377,11 +377,12 @@ public class Quests implements Module, App {
 
   onBack(mut self) { self.picked = 0 }
 
-  // The quest asked for from the tracker: its page, in the window, or docked on the map with its panel.
+  // The quest asked for from the tracker: its page, in the window, or docked on the map with its panel. In a fight,
+  // where the client opens no map for an addon, in the window.
   openAt(mut self, id: Integer): Boolean {
     self.picked = id
-    if (peek self.docked) {
-      Ordaen.afterCombat(() => Client.C_Map.OpenWorldMap(nil))
+    if (peek self.docked && !Game.situation.combat) {
+      Client.C_Map.OpenWorldMap(nil)
     } else if (!(peek self.open)) {
       self.flip()
     }
