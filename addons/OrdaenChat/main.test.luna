@@ -5,7 +5,7 @@ import Game from "$game"
 import { Key } from "$ltml"
 import Test from "$test"
 import root Ordaen from "Ordaen"
-import { ChatMark, FIELD_FILL, say } from "Ordaen"
+import { ChatMark, FIELD_FILL, say, toLeftLine } from "Ordaen"
 import { LEAST_WIDTH } from "@/choices"
 import { ChatTab, Kept, Shown, linked, marks, wordsOf } from "@/lines"
 import { HEARD_FILL, TOLD_FILL, WHISPERS_LEAST } from "@/whispers"
@@ -83,10 +83,18 @@ test "the lines and the open tab alone are in the window's wood: the other tabs 
   Test.expect(inWood(shown, "Jaina") && !inWood(shown, "General"))
   // A tab keeps its place, open or not.
   Test.expect(shown.text("General").rect().left == name.left)
-  // The open tab's wood runs up to the lines' own: one shape, the lines' left line over the tab's open end.
-  const one = shown.box(Ordaen.art.window.wood).nth(1).rect()
-  const two = shown.box(Ordaen.art.window.wood).nth(2).rect()
-  Test.expect((one.right - two.left).abs() < 0.5 || (two.right - one.left).abs() < 0.5)
+  // The open tab's wood and metal run in under the lines' left line, which stands inside the lines' box by the
+  // frame's reach: one shape, no gap between.
+  const wood = shown.box(Ordaen.art.window.wood)
+  const tab = inBox(wood.nth(1).rect(), shown.text("Jaina").rect()) ? wood.nth(1).rect() : wood.nth(2).rect()
+  const lines = inBox(wood.nth(1).rect(), shown.text("Jaina").rect()) ? wood.nth(2).rect() : wood.nth(1).rect()
+  Test.expect((tab.right - lines.left - toLeftLine(Ordaen.art.frame.small) / 1ui).abs() < 0.5)
+  // The folder's tab shows which is open: no list's shade or light of its own over it.
+  Test.expect(shown.box(Color.hex("#00000040")).count() == 0 && shown.box(Color.hex("#d6a56b")).count() == 0)
+}
+
+function inBox(box: Test.Rect, at: Test.Rect): Boolean {
+  return box.left <= at.left && box.right >= at.right && box.top <= at.top && box.bottom >= at.bottom
 }
 
 // Whether a text stands in one of the window's wood boxes.
@@ -94,8 +102,7 @@ function inWood(shown: Test.Part, text: String): Boolean {
   const at = shown.text(text).rect()
   const wood = shown.box(Ordaen.art.window.wood)
   for (n of 1..wood.count()) {
-    const box = wood.nth(n).rect()
-    if (box.left <= at.left && box.right >= at.right && box.top <= at.top && box.bottom >= at.bottom) { return true }
+    if (inBox(wood.nth(n).rect(), at)) { return true }
   }
   return false
 }
