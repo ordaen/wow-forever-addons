@@ -158,7 +158,7 @@ public class TalkRow implements Component {
         </box>
         <box yAlign={Align.Center}>
           <box $if={self.waiting} position={Position.Absolute} top={0ui} right={0ui} bottom={0ui} yAlign={Align.Center}>
-            <CountBadge count={self.talk.unread} />
+            <CountBadge count={self.talk.unread} tone={WHISPER} />
           </box>
         </box>
         <box padding={CLOSE_PAD} @pointerPress.self={self.onForget}>
