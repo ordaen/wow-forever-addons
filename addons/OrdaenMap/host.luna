@@ -54,6 +54,8 @@ const PIN_SIZE = 20
 const LIT_SCALE: Number = 1.5
 // How far past the canvas's edges a pin still stands (the stitched view shows past the map underneath).
 const REACH: Number = 0.5
+// How much of the stitched view a map opened at fills.
+const MAP_FILL: Number = 0.8
 
 public class OpenMapHost implements MapHost {
   public const changed: Event<nil> = new Event()
@@ -100,7 +102,18 @@ public class OpenMapHost implements MapHost {
 
   public dock(mut self, on: Boolean) { _ = Client.C_CVar.SetCVar("questLogOpen", on ? "1" : "0") }
 
-  public open(mut self, area: Integer) { Client.C_Map.OpenWorldMap(mapOfArea[area]) }
+  // OpenMap's stitched map keeps its own view whatever map the client opens at: it is glided to the area's map, the
+  // map filling most of it.
+  public open(mut self, area: Integer) {
+    const map = mapOfArea[area]
+    Client.C_Map.OpenWorldMap(map)
+    if (map == nil || !self.present() || !OpenMapAPI.IsStitched()) { return }
+    let left, top = OpenMapAPI.WorldFromMap(map, 0, 0)
+    let right, bottom = OpenMapAPI.WorldFromMap(map, 1, 1)
+    if (left == nil || top == nil || right == nil || bottom == nil) { return }
+    const span = (right - left).max(bottom - top)
+    _ = OpenMapAPI.ShowWorld((left + right) / 2, (top + bottom) / 2, span > 0 ? MAP_FILL / span : nil)
+  }
 
   public place(mut self, pin: Pin): Placed | nil {
     const shown = WorldMap.shownMap()
