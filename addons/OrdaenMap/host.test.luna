@@ -1,0 +1,17 @@
+// What Map asks of the game's map and OpenMap, on the stand-in's: the map opened where an area is, and OpenMap's
+// stitched view glided there, as it keeps its own view whatever map the client opens at.
+import Client from "$client"
+import Test from "$test"
+import { OpenMapHost } from "@/host"
+
+test "the map opens at the area's map; OpenMap's stitched view glides to that map, which fills most of it" {
+  const host = new OpenMapHost()
+  host.open(40)
+  Test.expect(Client.WorldMapFrame.GetMapID() == 1436 && Test.openMapView() == nil)
+  Client.WorldMapFrame.Hide()
+  // Westfall's map on the stitched world: a tenth across, a fifth down.
+  Test.openMapStitched({ [1436]: { left: 0.4, top: 0.5, right: 0.5, bottom: 0.7 } })
+  host.open(40)
+  const view = Test.openMapView() ?? panic("the view moved")
+  Test.expect((view.u - 0.45).abs() < 0.0001 && (view.v - 0.6).abs() < 0.0001 && (view.zoom - 4).abs() < 0.0001)
+}

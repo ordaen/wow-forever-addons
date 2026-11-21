@@ -121,13 +121,11 @@ surface 550,192.21 905.76x515.58 on MEDIUM clamped raised by a click
           text 1155.67,572.31 269.24x17.78 "The Defias Brotherhood, part two" #ffd100
         box 1074.91,594.36 350x33.72
           box 1074.91,594.36 350x33.72
-            box 1112.84,600.88 48.4x20.68
-              box 1112.84,602.89 16.67x16.67 GarrMission_CurrencyIcon-Xp
-              text 1132.35,600.88 28.89x20.68 "420" #f0e6d0
-            box 1202.83,602.33 94.17x17.78
-              text 1203.66,602.33 93.33x17.78 "+250 Stormwind" #f0e6d0
-            box 1325.7,602.33 74.17x17.78
-              text 1326.54,602.33 73.33x17.78 "-25 Ratchet" #f0e6d0
+            box 1141.06,600.88 48.4x20.68
+              box 1141.06,602.89 16.67x16.67 GarrMission_CurrencyIcon-Xp
+              text 1160.57,600.88 28.89x20.68 "420" #f0e6d0
+            box 1268.04,602.33 133.06x17.78 @pointerEnter @pointerLeave
+              text 1268.87,602.33 132.22x17.78 "+250, -25 reputation" #f0e6d0
         box 1074.91,632.35 350x17.78 @keyPress @pointerPress
           text 1074.91,632.35 318.33x17.78 "Track" #f0e6d0
           box 1393.24,632.9 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 0 of 4
