@@ -171,7 +171,7 @@ public class CompactDropdown<T: Unknown> implements Component {
         <box position={Position.Absolute} left={0ui} top={0ui} width={self.width} height={HEIGHT}
              padding={COMPACT_FACE_PAD} columns={[{ fr: 1 }, 18.75dp]} gap={2sp} yAlign={Align.Center}
              background={Ordaen.art.ctl.button} @pointerPress={self.toggle} @keyPress(.Enter)={self.toggle} @keyPress(.Space)={self.toggle}>
-          <text value={self.shown} textColor={GOLD} wrap={.None} />
+          <text value={self.shown} textColor={GOLD} wrap={.Cut} />
           <box width={18.75dp} height={18.75dp} background={Ordaen.art.ctl.dropdownArrow} shadow={ARROW_SHADOW} />
         </box>
         <surface lineHeight={BODY_LINE} $if={self.open} layer={Layer.Tooltip} place={Beside { beside: "parent" }} width={self.listBounds}
