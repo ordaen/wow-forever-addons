@@ -8,7 +8,7 @@
 import Game from "$game"
 import { Align, Art, Bounds, ByInteractionState, Edges, Line, Side, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { ButtonPlate, Component, Cut, Menu, MenuEntry, Money, PushButton, SECONDARY_TEXT, Shown, SwitchFace, TIGHT_LINE, Tip, TipText, questLevelColor, rowShade } from "Ordaen"
+import { ButtonPlate, Component, Cut, Menu, MenuEntry, Money, PushButton, SECONDARY_TEXT, Shown, SwitchFace, Tip, TipText, questLevelColor, rowShade } from "Ordaen"
 import { Experience, Named, Reward, RewardView, Rewards, SCROLL_DIM, SCROLL_ROW, Scroll, ScrollHeading, ScrollText, Standing, WELL_TEXT, WIDE_SCROLL, choiceViews, logReward, scrollOverflows } from "OrdaenQuestPage"
 import { LogQuest } from "@/book"
 import Locale from "@/locales"
@@ -192,7 +192,7 @@ public class QuestRow implements Component {
           <Gains xp={self.quest.xp} money={self.quest.money} />
         </box>
         <text $if={self.ended} value={self.progress} textColor={self.progressColor} textSize={SECONDARY_TEXT}
-              lineHeight={TIGHT_LINE} />
+              leading={.Tight} />
         <$else>
           <GoalLine $for={objective of self.goalsLeft} objective={objective} />
         </>
@@ -254,15 +254,15 @@ class GoalLine implements Component {
   public render(self): Template {
     return $ltml {
       <box $if={self.small} columns={[{ fr: 1 }, "max-content"]} gap={2sp}>
-        <text value={self.what} textColor={self.color} textSize={SECONDARY_TEXT} lineHeight={TIGHT_LINE} />
+        <text value={self.what} textColor={self.color} textSize={SECONDARY_TEXT} leading={.Tight} />
         <box $if={self.done} width={CHECK_SMALL} height={CHECK_SMALL} background={CHECK} />
         <text $else value={self.count} textColor={self.color} textSize={SECONDARY_TEXT} textFont={.Numbers}
-              lineHeight={TIGHT_LINE} wrap={.None} />
+              leading={.Tight} wrap={.None} />
       </box>
       <box $else columns={[{ fr: 1 }, "max-content"]} gap={2sp} yAlign={Align.Start}>
-        <text value={self.what} textColor={self.color} lineHeight={TIGHT_LINE} />
+        <text value={self.what} textColor={self.color} leading={.Tight} />
         <box $if={self.done} width={CHECK_SIZE} height={CHECK_SIZE} background={CHECK} />
-        <text $else value={self.count} textColor={self.color} textFont={.Numbers} lineHeight={TIGHT_LINE} wrap={.None} />
+        <text $else value={self.count} textColor={self.color} textFont={.Numbers} leading={.Tight} wrap={.None} />
       </box>
     }
   }

@@ -11,7 +11,7 @@ import Game from "$game"
 import { Align, Bounds, Edges, Event, Overflow, Position, Track } from "$ltml"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
-import { BODY_LINE, ButtonKey, ButtonPlate, KeptWindow, Module, Money, PushButton, SECONDARY_TEXT, Settings, SettingsPage, TipText, Window, WindowTabSpec, WindowsPage, windowsTitle } from "Ordaen"
+import { ButtonKey, ButtonPlate, KeptWindow, Module, Money, PushButton, SECONDARY_TEXT, Settings, SettingsPage, TipText, Window, WindowTabSpec, WindowsPage, windowsTitle } from "Ordaen"
 import { Reward, RewardView, Rewards, SCROLL_WIDTH, Scroll, WIDE_SCROLL, choiceViews, scrollOverflows } from "OrdaenQuestPage"
 import { AnswerRow, LINE_KEYS, LineKey, OptionColumn, Placed, columnsOf, placeOf } from "@/list"
 import Locale from "@/locales"
@@ -756,7 +756,7 @@ public class Dialogue implements Module, App {
             </box>
           </box>
           <box $else width={SCROLL_WIDTH} gap={1sp} padding={SPOKEN_PAD}>
-            <text value={self.spoken} textColor={Style.TEXT} lineHeight={BODY_LINE} />
+            <text value={self.spoken} textColor={Style.TEXT} leading={.Row} />
             <Money $if={self.promptCost > 0} amount={self.promptCost} />
           </box>
           <box $if={!self.isBook || self.prompted} width={self.wellWidth} rows={[{ fr: 1 }, "max-content"]} gap={1.5sp}

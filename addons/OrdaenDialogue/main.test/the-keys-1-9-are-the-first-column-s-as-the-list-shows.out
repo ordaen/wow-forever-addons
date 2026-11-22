@@ -18,7 +18,7 @@ surface 54.82,99.96 384.71x620.08 on MEDIUM clamped raised by a click
             text 86.19,168.09 321.96x15.83 "Where would you like to go?" #f0e6d0
           box 80.51,189.61 333.33x504.74
             box 80.51,195.3 333.33x494.79
-              box 80.51,195.3 333.33x297.46
+              box 80.51,195.3 333.33x294.96
                 box 80.51,195.3 333.33x278.78
                   box 80.51,195.3 109.97x278.78 @focusEnter
                     box 80.51,195.3 109.97x29.71 @pointerPress
@@ -150,7 +150,7 @@ surface 54.82,99.96 384.71x620.08 on MEDIUM clamped raised by a click
                         box 244.89,428.09 0x0
                         text 250.58,420.17 50x15.83 "Place 17" #f0e6d0
                         box 306.27,428.09 0x0
-                text 80.51,476.92 333.33x15.83 "Tab: the keys move to the next column" #a3977f
+                text 80.51,476.92 333.33x13.33 "Tab: the keys move to the next column" #a3977f
     box 417.78,698.29 13.33x13.33 absolute
       box 417.78,698.29 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 54.82,99.96 384.71x36.75

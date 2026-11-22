@@ -7,11 +7,11 @@
 import Client from "$client"
 import Game from "$game"
 import {
-  Align, Art, Blend, Columns, Edges, Event, Gaps, Line, MouseButton, Overflow, Position, Side, TextAlign, Tile, Track
+  Align, Art, Blend, Columns, Edges, Event, Gaps, Leading, Line, MouseButton, Overflow, Position, Side, TextAlign, Tile, Track
 } from "$ltml"
 import Runtime from "$runtime"
 import {
-  Component, Cut, ItemButton, Money, PickRow, Quality, SECONDARY_TEXT, TIGHT_LINE, TITLE_TEXT, Tip, TipRow, qualityColor, qualityFrom,
+  Component, Cut, ItemButton, Money, PickRow, Quality, SECONDARY_TEXT, TITLE_TEXT, Tip, TipRow, qualityColor, qualityFrom,
   usableItem
 } from "Ordaen"
 import Locale from "@/locales"
@@ -24,8 +24,8 @@ const SCROLL_TITLE: Color = Color.hex("#200800")
 const SCROLL_RULE: Color = Color.hex("#3a100080")
 const RULE_HEIGHT: Number<Length> = 1.171875dp
 const HEADING_ACROSS: Array<Track> = [{ fr: 1 }, "max-content", { fr: 1 }]
-// The body's line on the parchment: tighter than the window's, as a written page's.
-public const SCROLL_LINE: Number<Spacing> = 5sp
+// The body's lines on the parchment: as tight as a title's, a written page's (the window's prose stands looser).
+public const SCROLL_LEADING: Leading = .Title
 // The muted ink: still 6:1 on the tinted parchment (≈#d9bb85), the weakest monitor's least; lighter than the ink.
 public const SCROLL_DIM: Color = Color.hex("#4a3520")
 // In the well.
@@ -256,7 +256,7 @@ class ScrollTitle implements Component {
 
   public render(self): Template {
     return $ltml {
-      <text value={self.title} textColor={SCROLL_TITLE} textSize={TITLE_TEXT} lineHeight={TIGHT_LINE} textFont={.Title}
+      <text value={self.title} textColor={SCROLL_TITLE} textSize={TITLE_TEXT} leading={.Tight} textFont={.Title}
             textWeight={.Bold} />
     }
   }
@@ -376,7 +376,7 @@ public class Keycap implements Component {
     return $ltml {
       <box $if={self.shown} width={self.size} height={self.size} background={KEYCAP} border={KEYCAP_EDGE}
            xAlign={Align.Center} yAlign={Align.Center}>
-        <text value={self.key} textColor={KEY_TEXT} textSize={SECONDARY_TEXT} textFont={.Numbers} lineHeight={TIGHT_LINE}
+        <text value={self.key} textColor={KEY_TEXT} textSize={SECONDARY_TEXT} textFont={.Numbers} leading={.Tight}
               wrap={.None} />
       </box>
       <box $else width={self.size} height={self.size} />

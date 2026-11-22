@@ -31,7 +31,7 @@ surface 54.82,99.96 384.71x620.08 on MEDIUM clamped raised by a click
             box 80.51,666.02 333.33x28.33
               box 80.51,666.02 141.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
                 box 84.06,669.56 38.33x21.25 #00000038 opacity=1
-                  text 94.48,672.27 16.67x15.83 "Esc" #c9a76a
+                  text 94.48,673.52 16.67x13.33 "Esc" #c9a76a
                 text 151.34,672.27 38.33x15.83 "Cancel" #ffd100
               box 222.17,666.02 50x0
               box 272.17,666.02 141.67x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress

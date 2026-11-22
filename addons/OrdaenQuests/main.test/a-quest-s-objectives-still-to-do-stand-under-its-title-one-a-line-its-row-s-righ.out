@@ -2,30 +2,30 @@
 surface 548.15,192.46 503.7x515.08 on MEDIUM clamped raised by a click
   box 548.15,240.88 503.7x466.67 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.98, tr 0.78, bl 0.80, br 0.61, top 0.97>0.79 x16.49, bottom 0.80>0.61 x16.49, left 0.97>0.80 x15.20, right 0.78>0.61 x15.20]
     box 555.35,248.07 489.3x452.27
-      box 555.35,248.07 489.3x422.21
-        box 578.11,270.83 443.79x382.39
+      box 555.35,248.07 489.3x424.71
+        box 578.11,270.83 443.79x384.89
           box 578.11,270.83 443.79x28.04
             box 578.11,298.04 443.79x0.83 absolute #3e2f1d
             box 578.11,270.83 74.13x28.04 #00000059 @keyPress @pointerPress
               box 578.94,271.66 72.47x1.67 absolute #d6a56b
               text 590.32,277.35 31.67x15.83 "World" #f0e6d2
-              box 627.67,277.35 12.36x15.83 #00000099
-                text 630.52,277.35 6.67x15.83 "2" #f0e6d2
+              box 627.67,278.6 12.36x13.33 #00000099
+                text 630.52,278.6 6.67x13.33 "2" #f0e6d2
             box 655.08,270.83 92.47x28.04 #00000000 @keyPress @pointerPress
               box 655.92,271.66 90.8x1.67 absolute #00000000
               text 667.29,277.35 50x15.83 "Dungeons" #a3977f
-              box 722.98,277.35 12.36x15.83 #00000099
-                text 725.83,277.35 6.67x15.83 "1" #a3977f
+              box 722.98,278.6 12.36x13.33 #00000099
+                text 725.83,278.6 6.67x13.33 "1" #a3977f
             box 750.39,270.83 74.13x28.04 #00000000 @keyPress @pointerPress
               box 751.23,271.66 72.47x1.67 absolute #00000000
               text 762.61,277.35 31.67x15.83 "Raids" #a3977f
-              box 799.96,277.35 12.36x15.83 #00000099
-                text 802.81,277.35 6.67x15.83 "0" #a3977f
+              box 799.96,278.6 12.36x13.33 #00000099
+                text 802.81,278.6 6.67x13.33 "0" #a3977f
             box 827.37,270.83 62.47x28.04 #00000000 @keyPress @pointerPress
               box 828.21,271.66 60.8x1.67 absolute #00000000
               text 839.58,277.35 20x15.83 "PvP" #a3977f
-              box 865.27,277.35 12.36x15.83 #00000099
-                text 868.12,277.35 6.67x15.83 "0" #a3977f
+              box 865.27,278.6 12.36x13.33 #00000099
+                text 868.12,278.6 6.67x13.33 "0" #a3977f
           box 578.11,307.41 443.79x28.33
             box 578.11,307.41 216.52x28.33
               box 578.11,307.41 216.52x28.33 #00000080 input "" @change @submit
@@ -49,16 +49,16 @@ surface 548.15,192.46 503.7x515.08 on MEDIUM clamped raised by a click
                 box 993.56,307.41 28.33x28.33
                   box 993.56,307.41 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerEnter @pointerLeave @pointerPress
                     box 1001.06,314.91 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 3 of 16 tint=#e8dcc4
-          box 578.11,344.27 443.79x308.94 #0000004d
+          box 578.11,344.27 443.79x311.44 #0000004d
             box 578.94,345.11 442.12x0
-            box 578.94,345.11 442.12x307.28 scrolled 0 of 0
+            box 578.94,345.11 442.12x309.78 scrolled 0 of 0
               box 578.94,345.11 442.12x189.18
                 box 578.94,345.11 442.12x102.01
                   box 578.94,345.11 442.12x33.73 #d6a56b38 @keyPress @pointerPress
                     box 584.63,354.89 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-marks row 3 of 8 tint=#a3977f
                     text 603.65,353.64 80x15.83 "Elwynn Forest" #ffd100
-                    text 689.34,353.64 303.68x15.83 "you are here" #a3977f
-                    text 998.71,353.64 16.67x15.83 "0/1" #a3977f
+                    text 689.34,354.89 303.68x13.33 "you are here" #a3977f
+                    text 998.71,354.89 16.67x13.33 "0/1" #a3977f
                   box 578.94,378.84 442.12x68.28
                     box 578.94,378.84 442.12x68.28 #00000000 @keyPress @pointerEnter @pointerLeave @pointerPress
                       box 584.63,390.22 430.74x15.83
@@ -80,7 +80,7 @@ surface 548.15,192.46 503.7x515.08 on MEDIUM clamped raised by a click
                     box 584.63,456.9 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-marks row 3 of 8 tint=#a3977f
                     text 603.65,455.65 50x15.83 "Westfall" #ffd100
                     box 659.34,463.57 333.68x0
-                    text 998.71,455.65 16.67x15.83 "1/1" #a3977f
+                    text 998.71,456.9 16.67x13.33 "1/1" #a3977f
                   box 578.94,480.85 442.12x53.43
                     box 578.94,480.85 442.12x53.43 #00000000 @keyPress @pointerEnter @pointerLeave @pointerPress
                       box 584.63,492.23 430.74x15.83
@@ -92,13 +92,13 @@ surface 548.15,192.46 503.7x515.08 on MEDIUM clamped raised by a click
                         text 1009.68,500.15 0x0 "" #a3977f
                         box 1015.37,500.15 0x0
                       text 584.63,510.91 430.74x12 "Complete" #40c040
-      box 555.35,670.29 489.3x30.06
-        box 555.35,670.29 489.3x30.06
-          box 578.11,678.2 344.86x0
-          box 940.03,670.29 81.87x15.83
-            box 940.03,670.29 81.87x15.83
-              text 940.03,670.29 51.67x15.83 "In the log" #a3977f
-              text 1000.23,670.29 21.67x15.83 "3/25" #e8dcc4
+      box 555.35,672.79 489.3x27.56
+        box 555.35,672.79 489.3x27.56
+          box 578.11,679.45 344.86x0
+          box 940.03,672.79 81.87x13.33
+            box 940.03,672.79 81.87x13.33
+              text 940.03,672.79 51.67x13.33 "In the log" #a3977f
+              text 1000.23,672.79 21.67x13.33 "3/25" #e8dcc4
     box 1030.1,685.79 13.33x13.33 absolute
       box 1030.1,685.79 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 548.15,192.46 503.7x48.42
@@ -107,8 +107,8 @@ surface 548.15,192.46 503.7x515.08 on MEDIUM clamped raised by a click
         box 554.9,199.21 48.42x48.42 absolute icon=Interface/QuestFrame/UI-QuestLog-BookIcon cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=none pieces=[]
         box 600.77,199.21 2.7x41.67 absolute border=Interface\AddOns\Ordaen\media\frame-divider-down sides=left pieces=[left 0.86>0.84 x2.17]
         box 607.8,199.66 38.33x47.97
-          text 607.8,207.1 38.33x15.83 "Quests" #ffd100
-          text 623.63,224.35 6.67x15.83 "3" #8f8470
+          text 607.8,208.35 38.33x15.83 "Quests" #ffd100
+          text 623.63,225.6 6.67x13.33 "3" #8f8470
     box 971.85,218.71 80x22.17
       box 971.85,218.71 80x26.67 clipped
         box 971.85,218.71 27.5x26.67 absolute clipped @keyPress @pointerPress

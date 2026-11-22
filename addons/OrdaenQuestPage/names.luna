@@ -4,7 +4,7 @@
 import Game from "$game"
 import { Event, Frame } from "$ltml"
 import { Component, Tip } from "Ordaen"
-import { SCROLL_INK, SCROLL_LINE } from "@/questPage"
+import { SCROLL_INK, SCROLL_LEADING } from "@/questPage"
 
 // What a named thing is: an NPC or an object (a tip says its lines), or an item (the game's tooltip of its link).
 public enum NamedKind { Figure = "figure", Item = "item" }
@@ -199,7 +199,7 @@ public class ScrollText implements Component {
   public render(self): Template {
     return $ltml {
       <box @linkEnter={self.onLinkEnter} @linkLeave={self.onLinkLeave}>
-        <text value={self.marked} textColor={SCROLL_INK} lineHeight={SCROLL_LINE} />
+        <text value={self.marked} textColor={SCROLL_INK} leading={SCROLL_LEADING} />
         <Tip $if={self.tipShown} title={self.tipTitle} text={self.tipText} />
       </box>
     }

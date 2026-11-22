@@ -4,7 +4,7 @@
 import Game from "$game"
 import { Align, Position } from "$ltml"
 import { Component, Money, SECONDARY_TEXT, Tip } from "Ordaen"
-import { Named, REWARD_ICON, SCROLL_LINE, ScrollHeading, ScrollText } from "OrdaenQuestPage"
+import { Named, REWARD_ICON, SCROLL_LEADING, ScrollHeading, ScrollText } from "OrdaenQuestPage"
 import Locale from "@/locales"
 import { Need, Quest } from "@/read"
 import Style from "@/style"
@@ -66,7 +66,7 @@ public class Said implements Component {
           <ScrollText value={self.text} names={self.names} />
         </box>
         <box $if={self.revealing} position={Position.Absolute} left={0ui} top={0ui} right={0ui}>
-          <text value={self.shownText} textColor={Style.INK} lineHeight={SCROLL_LINE} />
+          <text value={self.shownText} textColor={Style.INK} leading={SCROLL_LEADING} />
         </box>
       </box>
       <ScrollHeading $if={self.hasObjectives} title={Locale.OBJECTIVES} />

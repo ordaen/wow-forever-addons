@@ -38,50 +38,50 @@ surface 54.82,99.96 384.71x620.08 on MEDIUM clamped raised by a click
                   box 372.17,193.65 41.67x54.3 absolute Interface\AddOns\OrdaenQuestPage\media\scroll-paper-right
           box 80.51,279.2 333.33x415.16
             box 80.51,284.89 333.33x376.87 scrolled 0 of 0
-              box 80.51,519.64 333.33x92.41
-                box 80.51,523.91 333.33x15.83
-                  text 80.51,523.91 158.33x15.83 "You will be able to choose" #e8c35a
-                  box 247.37,528.49 166.47x6.67
-                    box 247.37,528.49 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry tint=#c29a43
-                    box 254.04,528.49 159.8x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip tint=#c29a43
-                box 80.51,542.59 333.33x69.47
-                  box 80.51,542.59 333.33x34.02
-                    box 83.35,559.6 0x0
-                    box 86.19,545.43 28.33x28.33 #0d0a08 opacity=1 @dragStart @drop @pointerEnter @pointerLeave @pointerPress
-                      box 86.19,545.43 28.33x28.33 absolute icon=Interface/Icons/INV_Gauntlets_04
-                      box 86.19,545.43 28.33x28.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim tint=#6c5535 opacity=0
-                      box 86.19,545.43 28.33x28.33 absolute #00000000
-                    box 117.37,551.68 290.78x15.83
-                      text 117.37,551.68 290.78x15.83 "Cook's Gloves" #f0e6d0
-                    box 410.99,559.6 0x0
-                  box 80.51,578.03 333.33x34.02
-                    box 83.35,595.04 0x0
-                    box 86.19,580.87 28.33x28.33 #0d0a08 opacity=1 @dragStart @drop @pointerEnter @pointerLeave @pointerPress
-                      box 86.19,580.87 28.33x28.33 absolute icon=Interface/Icons/INV_Boots_01
-                      box 86.19,580.87 28.33x28.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim tint=#6c5535 opacity=0
-                      box 86.19,580.87 28.33x28.33 absolute #00000000
-                    box 117.37,587.12 290.78x15.83
-                      text 117.37,587.12 290.78x15.83 "Courier Boots" #f0e6d0
-                    box 410.99,595.04 0x0
-              box 80.51,613.47 333.33x48.28
-                box 80.51,617.74 333.33x15.83
-                  text 80.51,617.74 128.33x15.83 "You will also receive" #e8c35a
-                  box 217.37,622.32 196.47x6.67
-                    box 217.37,622.32 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry tint=#c29a43
-                    box 224.04,622.32 189.8x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip tint=#c29a43
-                box 80.51,636.42 333.33x0
-                box 80.51,639.26 333.33x22.49
-                  box 175.77,642.11 142.81x16.8
-                    box 175.77,642.11 59.91x16.8
-                      box 184.3,642.11 42.84x16.8
-                        box 184.3,642.17 16.67x16.67 GarrMission_CurrencyIcon-Xp
-                        text 203.81,642.11 23.33x16.8 "450" #f0e6d0
-                    box 235.68,642.11 82.9x16.8
-                      text 245.04,642.11 65x16.8 "0g 0s 75c" #e8dcc4
+              box 80.51,517.27 333.33x92.41
+                box 80.51,521.54 333.33x15.83
+                  text 80.51,521.54 158.33x15.83 "You will be able to choose" #e8c35a
+                  box 247.37,526.12 166.47x6.67
+                    box 247.37,526.12 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry tint=#c29a43
+                    box 254.04,526.12 159.8x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip tint=#c29a43
+                box 80.51,540.22 333.33x69.47
+                  box 80.51,540.22 333.33x34.02
+                    box 83.35,557.23 0x0
+                    box 86.19,543.06 28.33x28.33 #0d0a08 opacity=1 @dragStart @drop @pointerEnter @pointerLeave @pointerPress
+                      box 86.19,543.06 28.33x28.33 absolute icon=Interface/Icons/INV_Gauntlets_04
+                      box 86.19,543.06 28.33x28.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim tint=#6c5535 opacity=0
+                      box 86.19,543.06 28.33x28.33 absolute #00000000
+                    box 117.37,549.31 290.78x15.83
+                      text 117.37,549.31 290.78x15.83 "Cook's Gloves" #f0e6d0
+                    box 410.99,557.23 0x0
+                  box 80.51,575.66 333.33x34.02
+                    box 83.35,592.67 0x0
+                    box 86.19,578.51 28.33x28.33 #0d0a08 opacity=1 @dragStart @drop @pointerEnter @pointerLeave @pointerPress
+                      box 86.19,578.51 28.33x28.33 absolute icon=Interface/Icons/INV_Boots_01
+                      box 86.19,578.51 28.33x28.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim tint=#6c5535 opacity=0
+                      box 86.19,578.51 28.33x28.33 absolute #00000000
+                    box 117.37,584.76 290.78x15.83
+                      text 117.37,584.76 290.78x15.83 "Courier Boots" #f0e6d0
+                    box 410.99,592.67 0x0
+              box 80.51,611.11 333.33x50.64
+                box 80.51,615.37 333.33x15.83
+                  text 80.51,615.37 128.33x15.83 "You will also receive" #e8c35a
+                  box 217.37,619.96 196.47x6.67
+                    box 217.37,619.96 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry tint=#c29a43
+                    box 224.04,619.96 189.8x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip tint=#c29a43
+                box 80.51,634.05 333.33x0
+                box 80.51,636.9 333.33x24.86
+                  box 175.77,639.74 142.81x19.17
+                    box 175.77,639.74 59.91x19.17
+                      box 184.3,639.74 42.84x19.17
+                        box 184.3,640.99 16.67x16.67 GarrMission_CurrencyIcon-Xp
+                        text 203.81,639.74 23.33x19.17 "450" #f0e6d0
+                    box 235.68,639.74 82.9x19.17
+                      text 245.04,639.74 65x19.17 "0g 0s 75c" #e8dcc4
             box 80.51,666.02 333.33x28.33
               box 80.51,666.02 141.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
                 box 84.06,669.56 38.33x21.25 #00000038 opacity=1
-                  text 94.48,672.27 16.67x15.83 "Esc" #c9a76a
+                  text 94.48,673.52 16.67x13.33 "Esc" #c9a76a
                 text 148.42,672.27 44.17x15.83 "Decline" #ffd100
               box 222.17,666.02 50x0
               box 272.17,666.02 141.67x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
