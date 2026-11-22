@@ -31,15 +31,8 @@ surface 56.67,99.71 400.03x620.58 on MEDIUM clamped raised by a click
             box 92.52,299.17 333.33x354.92 scrolled 0 of 0
               box 92.52,504.77 333.33x94.08
                 box 92.52,509.04 333.33x17.5
-                  box 92.52,515.7 67.47x4.17
-                    box 92.52,515.7 67.47x1.67 #0000008c
-                    box 92.52,517.37 67.47x1.67 #000000e6
-                    box 92.52,519.04 67.47x0.83 #ffdeaa52
-                  text 167.1,509.04 184.17x17.5 "You will be able to choose" #b8a07a
-                  box 358.38,515.7 67.47x4.17
-                    box 358.38,515.7 67.47x1.67 #0000008c
-                    box 358.38,517.37 67.47x1.67 #000000e6
-                    box 358.38,519.04 67.47x0.83 #ffdeaa52
+                  text 92.52,509.04 184.17x17.5 "You will be able to choose" #e8c35a
+                  box 285.22,517.37 140.63x0.83 Interface\AddOns\Ordaen\media\ctl-rule
                 box 92.52,529.38 333.33x69.47
                   box 92.52,529.38 333.33x34.02
                     box 95.36,546.39 0x0
@@ -61,15 +54,8 @@ surface 56.67,99.71 400.03x620.58 on MEDIUM clamped raised by a click
                     box 423.01,581.84 0x0
               box 92.52,600.27 333.33x53.82
                 box 92.52,604.54 333.33x17.5
-                  box 92.52,611.2 84.97x4.17
-                    box 92.52,611.2 84.97x1.67 #0000008c
-                    box 92.52,612.87 84.97x1.67 #000000e6
-                    box 92.52,614.54 84.97x0.83 #ffdeaa52
-                  text 184.6,604.54 149.17x17.5 "You will also receive" #b8a07a
-                  box 340.88,611.2 84.97x4.17
-                    box 340.88,611.2 84.97x1.67 #0000008c
-                    box 340.88,612.87 84.97x1.67 #000000e6
-                    box 340.88,614.54 84.97x0.83 #ffdeaa52
+                  text 92.52,604.54 149.17x17.5 "You will also receive" #e8c35a
+                  box 250.22,612.87 175.63x0.83 Interface\AddOns\Ordaen\media\ctl-rule
                 box 92.52,624.88 333.33x0
                 box 92.52,627.73 333.33x26.37
                   box 177.78,630.57 162.81x20.68
