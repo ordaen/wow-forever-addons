@@ -40,51 +40,52 @@ surface 500,175.54 1055.76x548.92 on MEDIUM clamped raised by a click
           box 948.26,671.06 120.89x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
             text 955.37,676.48 106.67x17.5 "Blizzard window" #ffd100
     box 1091.91,237.55 455.76x476.06 border=UI-Frame-Metal-CornerTopLeft sides=left
-      box 1124.91,260.31 400x439.08
-        box 1124.91,260.31 400x28.33
-          text 1124.91,265.73 300x17.5 "Write" #ffd100
-          box 1424.91,260.31 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-            text 1456.58,265.73 36.67x17.5 "Close" #ffd100
-        box 1124.91,294.33 400x341.33 scrolled 0 of 0
-          box 1124.91,294.33 400x25
+      box 1102.16,237.55 445.51x476.06
+        box 1124.91,260.31 400x439.08
+          box 1124.91,260.31 400x28.33
+            text 1124.91,265.73 300x17.5 "Write" #ffd100
+            box 1424.91,260.31 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+              text 1456.58,265.73 36.67x17.5 "Close" #ffd100
+          box 1124.91,294.33 400x341.33 scrolled 0 of 0
             box 1124.91,294.33 400x25
-              box 1124.91,294.33 400x25 #0d0a08 input "" @change @submit
-              box 1124.91,294.33 400x25 absolute
-                text 1132.02,298.08 385.78x17.5 "To" #a3977f
-          box 1124.91,325.02 400x25
-            box 1124.91,325.02 400x25 #0d0a08 input "" @change @submit
-            box 1124.91,325.02 400x25 absolute
-              text 1132.02,328.77 385.78x17.5 "Subject" #a3977f
-          box 1124.91,355.71 400x66.67
-            box 1124.91,355.71 400x66.67 #0d0a08 input "" lines @change
-          box 1124.91,428.06 400x33.33
+              box 1124.91,294.33 400x25
+                box 1124.91,294.33 400x25 #0d0a08 input "" @change @submit
+                box 1124.91,294.33 400x25 absolute
+                  text 1132.02,298.08 385.78x17.5 "To" #a3977f
+            box 1124.91,325.02 400x25
+              box 1124.91,325.02 400x25 #0d0a08 input "" @change @submit
+              box 1124.91,325.02 400x25 absolute
+                text 1132.02,328.77 385.78x17.5 "Subject" #a3977f
+            box 1124.91,355.71 400x66.67
+              box 1124.91,355.71 400x66.67 #0d0a08 input "" lines @change
             box 1124.91,428.06 400x33.33
-              box 1124.91,428.06 33.33x33.33 #0d0a08 opacity=1 @dragStart @drop @pointerEnter @pointerLeave @pointerPress
-                box 1124.91,428.06 33.33x33.33 absolute
-                box 1124.91,428.06 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
-                box 1124.91,428.06 33.33x33.33 absolute #00000000
-          box 1124.91,467.09 400x60.4
-            box 1124.91,467.09 400x29.71
-              box 1124.91,495.96 400x0.83 absolute #3e2f1d
-              box 1124.91,467.09 96.09x29.71 #00000059 @keyPress @pointerPress
-                box 1125.74,467.92 94.42x1.67 absolute #d6a56b
-                text 1137.12,473.61 71.67x17.5 "Send money" #f0e6d2
-              box 1223.84,467.09 68.59x29.71 #00000000 @keyPress @pointerPress
-                box 1224.68,467.92 66.92x1.67 absolute #00000000
-                text 1236.06,473.61 44.17x17.5 "C.O.D." #a3977f
-            box 1124.91,502.49 400x25
-              box 1124.91,502.49 150x25 #0d0a08 input "0c" @change
-        box 1124.91,641.35 400x58.04
-          box 1124.91,647.87 400x17.5
-            box 1124.91,647.87 240.29x17.5
-              text 1124.91,647.87 83.33x17.5 "Attachments" #a3977f
-              text 1213.93,647.87 151.27x17.5 "0 in 1 letters" #e8dcc4
-            box 1370.89,647.87 154.02x17.5
-              text 1370.89,647.87 83.33x17.5 "Postage" #a3977f
-              text 1459.91,647.87 65x17.5 "0g 0s 30c" #e8dcc4
-          box 1124.91,671.06 400x28.33
-            box 1424.91,671.06 100x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-              text 1459.91,676.47 30x17.5 "Send" #808080
+              box 1124.91,428.06 400x33.33
+                box 1124.91,428.06 33.33x33.33 #0d0a08 opacity=1 @dragStart @drop @pointerEnter @pointerLeave @pointerPress
+                  box 1124.91,428.06 33.33x33.33 absolute
+                  box 1124.91,428.06 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
+                  box 1124.91,428.06 33.33x33.33 absolute #00000000
+            box 1124.91,467.09 400x60.4
+              box 1124.91,467.09 400x29.71
+                box 1124.91,495.96 400x0.83 absolute #3e2f1d
+                box 1124.91,467.09 96.09x29.71 #00000059 @keyPress @pointerPress
+                  box 1125.74,467.92 94.42x1.67 absolute #d6a56b
+                  text 1137.12,473.61 71.67x17.5 "Send money" #f0e6d2
+                box 1223.84,467.09 68.59x29.71 #00000000 @keyPress @pointerPress
+                  box 1224.68,467.92 66.92x1.67 absolute #00000000
+                  text 1236.06,473.61 44.17x17.5 "C.O.D." #a3977f
+              box 1124.91,502.49 400x25
+                box 1124.91,502.49 150x25 #0d0a08 input "0c" @change
+          box 1124.91,641.35 400x58.04
+            box 1124.91,647.87 400x17.5
+              box 1124.91,647.87 240.29x17.5
+                text 1124.91,647.87 83.33x17.5 "Attachments" #a3977f
+                text 1213.93,647.87 151.27x17.5 "0 in 1 letters" #e8dcc4
+              box 1370.89,647.87 154.02x17.5
+                text 1370.89,647.87 83.33x17.5 "Postage" #a3977f
+                text 1459.91,647.87 65x17.5 "0g 0s 30c" #e8dcc4
+            box 1124.91,671.06 400x28.33
+              box 1424.91,671.06 100x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+                text 1459.91,676.47 30x17.5 "Send" #808080
       box 1099.16,237.55 6.67x476.06 absolute @drag @dragStart @dragStop
     box 1538.51,704.46 13.33x13.33 absolute
       box 1538.51,704.46 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
