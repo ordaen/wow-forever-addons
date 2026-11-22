@@ -396,7 +396,7 @@ test "the whispers Ordaen Social says wait unread are a plain violet bubble with
   Ordaen.notice("OrdaenSocial", 2)
   Test.expect(surfaceSays("2"))
   const bubble = Test.page().window("2")
-  Test.expect(bubble.box(WHISPER_VIOLET).shown() && !bubble.box(Ordaen.art.ctl.corner.close).shown())
+  Test.expect(bubble.box(WHISPER_VIOLET).shown() && !bubble.box(Ordaen.art.window.wood).shown())
   // The cell counts only the friends online; the bubble stands over the friends' button, the panel along the bottom.
   Test.expect(panel().box(FRIENDS).item().texts().join(" | ") == "3")
   Test.expect(Test.surfaceHolding("2").y < Test.edges(FRIENDS, 0).top)
@@ -460,6 +460,11 @@ test "talent points to spend are a badge on the portrait's rim under the level, 
   const level = portrait.text("42").rect()
   Test.expect((points.left + points.right) / 2 > (level.left + level.right) / 2)
   Test.expect(portrait.box(Ordaen.art.panel.badge).count() == 2)
+  // Its middle on the rim's band, which the portrait's 128 wide art puts at 120 of 128: the portrait as wide as before.
+  const rim = Test.edges(Ordaen.art.panel.cornerRim, 0)
+  const scale = (rim.right - rim.left) / 128
+  Test.expect(((points.left + points.right) / 2 - rim.left - 120 * scale).abs() <= 1.5 * scale)
+  Test.expect((Test.edges(Ordaen.art.panel.cornerRim, 1).right - rim.right).abs() < 0.5)
   Game.talentTrees.unspent = (group: Integer): Integer => 0
   Test.event("CHARACTER_POINTS_CHANGED", -3)
   Test.expect(!portrait.text("3").shown() && !portrait.text("0").shown())
