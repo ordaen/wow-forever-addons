@@ -1,5 +1,5 @@
-// RoundedFill: a plain colour behind what a box holds, its corners rounded, and nothing else: no art, no border. It
-// fills the box it stands in. The straight parts are plain boxes (the middle from top to bottom, a strip down each side
+// RoundedFill: a plain colour behind what a box holds, its corners rounded (each one, or those it is told), and
+// nothing else: no art, no border. It fills the box it stands in. The straight parts are plain boxes (the middle from top to bottom, a strip down each side
 // between the corners); each corner is a box that clips a circle (the client's round mask) to its own quarter. No part
 // lies over another, so a colour that lets the world through stays even. The chat's lines and the quest tracker
 // stand on it: the dark ground (`GROUND`, or black at an opacity of their own), `GROUND_ROUND` round.
@@ -10,6 +10,15 @@ import { Component } from "@/module"
 public const GROUND: Color = Color.hex("#000000cc")
 public const GROUND_ROUND = 7.03125dp
 
+// Which corners of a rounded fill are round; a corner that isn't is square.
+public struct Corners {
+  topLeft: Boolean
+  topRight: Boolean
+  bottomLeft: Boolean
+  bottomRight: Boolean
+}
+public const EVERY_CORNER: Corners = { topLeft: true, topRight: true, bottomLeft: true, bottomRight: true }
+
 const PLAIN: Asset = "Interface/Buttons/WHITE8X8"
 // The client's round mask: what shows of a box is a circle.
 const ROUND: Asset = "Interface/CHARACTERFRAME/TempPortraitAlphaMask"
@@ -19,9 +28,11 @@ public class RoundedFill implements Component {
 
   color: Signal<Color>
   radius: Signal<Number<Length>>
-  constructor(color: Signal<Color> = GROUND, radius: Signal<Number<Length>> = GROUND_ROUND) {
+  corners: Signal<Corners>
+  constructor(color: Signal<Color> = GROUND, radius: Signal<Number<Length>> = GROUND_ROUND, corners: Signal<Corners> = EVERY_CORNER) {
     self.color = color
     self.radius = radius
+    self.corners = corners
   }
 
   public render(self): Template {
@@ -35,19 +46,19 @@ public class RoundedFill implements Component {
              background={PLAIN} tint={self.color} />
         <box position={Position.Absolute} left={0ui} top={0ui} width={self.radius} height={self.radius} overflow={.Hidden}>
           <box position={Position.Absolute} left={0ui} top={0ui} width={self.across} height={self.across} background={PLAIN}
-               tint={self.color} mask={ROUND} />
+               tint={self.color} mask={self.corners.topLeft ? ROUND : nil} />
         </box>
         <box position={Position.Absolute} right={0ui} top={0ui} width={self.radius} height={self.radius} overflow={.Hidden}>
           <box position={Position.Absolute} left={-self.radius} top={0ui} width={self.across} height={self.across}
-               background={PLAIN} tint={self.color} mask={ROUND} />
+               background={PLAIN} tint={self.color} mask={self.corners.topRight ? ROUND : nil} />
         </box>
         <box position={Position.Absolute} left={0ui} bottom={0ui} width={self.radius} height={self.radius} overflow={.Hidden}>
           <box position={Position.Absolute} left={0ui} top={-self.radius} width={self.across} height={self.across}
-               background={PLAIN} tint={self.color} mask={ROUND} />
+               background={PLAIN} tint={self.color} mask={self.corners.bottomLeft ? ROUND : nil} />
         </box>
         <box position={Position.Absolute} right={0ui} bottom={0ui} width={self.radius} height={self.radius} overflow={.Hidden}>
           <box position={Position.Absolute} left={-self.radius} top={-self.radius} width={self.across} height={self.across}
-               background={PLAIN} tint={self.color} mask={ROUND} />
+               background={PLAIN} tint={self.color} mask={self.corners.bottomRight ? ROUND : nil} />
         </box>
       </box>
     }

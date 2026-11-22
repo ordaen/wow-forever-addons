@@ -1,0 +1,14 @@
+-- its top right corner round, the other three square
+box 0,0 200x100
+  box 0,0 200x100 absolute
+    box 10,0 180x100 absolute Interface/Buttons/WHITE8X8 tint=#000000cc
+    box 0,10 10x80 absolute Interface/Buttons/WHITE8X8 tint=#000000cc
+    box 190,10 10x80 absolute Interface/Buttons/WHITE8X8 tint=#000000cc
+    box 0,0 10x10 absolute clipped
+      box 0,0 20x20 absolute Interface/Buttons/WHITE8X8 tint=#000000cc
+    box 190,0 10x10 absolute clipped
+      box 180,0 20x20 absolute Interface/Buttons/WHITE8X8 tint=#000000cc cut by Interface/CHARACTERFRAME/TempPortraitAlphaMask
+    box 0,90 10x10 absolute clipped
+      box 0,80 20x20 absolute Interface/Buttons/WHITE8X8 tint=#000000cc
+    box 190,90 10x10 absolute clipped
+      box 180,80 20x20 absolute Interface/Buttons/WHITE8X8 tint=#000000cc

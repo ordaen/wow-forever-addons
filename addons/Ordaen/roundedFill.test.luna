@@ -25,3 +25,19 @@ test "a rounded fill covers its box: the middle top to bottom, a strip down each
   // Each corner a circle twice the radius across, round by the client's mask, cut to the corner's quarter.
   Test.shot("a rounded fill 200 by 100, its radius 10")
 }
+
+class TopRight {
+  public render(self): Template {
+    return $ltml {
+      <box width={200ui} height={100ui}>
+        <RoundedFill color={DARK} radius={10ui} corners={{ topLeft: false, topRight: true, bottomLeft: false, bottomRight: false }} />
+      </box>
+    }
+  }
+}
+
+test "a rounded fill told its corners rounds those alone: the others stand square" {
+  Test.mount(new TopRight(), { left: 0, top: 0, width: 300, height: 200 })
+  Test.expect(Test.page().box(DARK).count() == 7)
+  Test.shot("its top right corner round, the other three square")
+}
