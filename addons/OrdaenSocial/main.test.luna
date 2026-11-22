@@ -509,6 +509,29 @@ test "a friend picked shows their card, whose buttons ask the game in the click"
   Test.expect(Social.talkOpen == "t:Eliana" && !window.text("Stormwind").shown())
 }
 
+test "a status picked on the player's own card is set in the click itself, as the client takes it" {
+  Test.mount(nil, PAGE)
+  Game.friends.list = friends
+  Game.friends.requests = requests
+  Game.friends.ignored = ignoredOnes
+  Game.friends.battleNetSelf = battleNetSelf
+  Game.guild.roster = guildRoster
+  Game.guild.motd = guildMotd
+  Game.guild.news = guildNews
+  Game.guild.newsFilters = newsFilters
+  Game.communities.clubs = clubs
+  Game.communities.members = clubMembers
+  Game.communities.streams = streams
+  Game.recentAllies.list = allies
+  Game.recentAllies.categories = allyCategories
+  const people = new FakePeople()
+  const window = opened(mut people)
+  Test.expect(window.text("This is you").shown())
+  window.text("Online").nth(2).click()
+  Test.page().text("Away").click()
+  Test.expect(askedGame() == "Friends.setPresence away")
+}
+
 test "an offline friend can't be whispered or invited" {
   Test.mount(nil, PAGE)
   Game.friends.list = friends

@@ -453,9 +453,11 @@ public class MyCard implements Component {
   constructor(me: Signal<BattleNetSelf>) {
     self.me = me
     watch (now of self.me) { self.picked = now.presence }
-    watch (chosen of self.picked) {
-      if (chosen != (peek self.me).presence) { self.presence.emit(chosen) }
-    }
+  }
+
+  // A status picked, in the player's click: the client sets it from that click alone.
+  onPick(mut self, chosen: Presence) {
+    if (chosen != (peek self.me).presence) { self.presence.emit(chosen) }
   }
 
   onEdit(mut self) { self.edit.emit() }
@@ -475,7 +477,7 @@ public class MyCard implements Component {
           </box>
           <box $if={self.connected} columns={[117.1875dp, { fr: 1 }]} gap={2sp} yAlign={Align.Center}>
             <text value={Locale.STATUS} textColor={Style.DIM} wrap={.None} />
-            <CompactDropdown value={mut self.picked} choices={PRESENCES} width={Style.WIDE_BUTTON} />
+            <CompactDropdown value={mut self.picked} choices={PRESENCES} width={Style.WIDE_BUTTON} @pick={self.onPick} />
           </box>
           <Fact $if={self.connected} label={Locale.BROADCAST} value={orDash(self.me.broadcast)} />
           <Fact label={Locale.CHARACTER} value={heroText(self.me.hero)} color={classColor(self.me.hero.classFile) ?? Style.INK} />

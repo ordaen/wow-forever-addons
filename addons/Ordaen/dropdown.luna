@@ -140,6 +140,9 @@ public class Dropdown<T: Unknown> implements Component {
 // (a sort, a view). It shows the picked choice in gold with an arrow; left-click opens the list under it, a click on a
 // choice picks it and closes the list, a click anywhere else closes it.
 public class CompactDropdown<T: Unknown> implements Component {
+  // A choice picked, heard in the player's click itself: what the client takes from a click alone (a status) is
+  // done here, never by a watch on `value`, which runs a frame later.
+  public pick: Event<T> = new Event()
   state open = false
   derived shown: String = labelOf(self.choices, self.value)
   derived listBounds: Bounds = { min: self.width + 46.875dp, max: nil }
@@ -163,6 +166,7 @@ public class CompactDropdown<T: Unknown> implements Component {
   onPick(mut self, value: T) {
     self.value = value
     self.open = false
+    self.pick.emit(value)
   }
 
   public render(self): Template {
