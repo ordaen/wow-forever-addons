@@ -100,6 +100,7 @@ public class Callout implements Component {
   text: Signal<String>
   side: Signal<CalloutSide>
   look: Signal<CalloutLook>
+  pulse: Signal<Boolean>
   constructor(
     // The frame it points at.
     by: Signal<any Frame>,
@@ -107,13 +108,16 @@ public class Callout implements Component {
     // Under the title, in a framed callout.
     text: Signal<String> = "",
     side: Signal<CalloutSide> = CalloutSide.Above,
-    look: Signal<CalloutLook> = CalloutLook.Framed { closable: true }
+    look: Signal<CalloutLook> = CalloutLook.Framed { closable: true },
+    // It fades and comes back, over and over, while this holds: something waits for a look (unread whispers).
+    pulse: Signal<Boolean> = false
   ) {
     self.by = by
     self.title = title
     self.text = text
     self.side = side
     self.look = look
+    self.pulse = pulse
   }
 
   onClose(mut self) { self.close.emit() }
@@ -122,7 +126,7 @@ public class Callout implements Component {
     return $ltml {
       <surface $if={self.framed} layer={Layer.Dialog} place={self.bubblePlace} clamp={true} columns={1}>
         <box lineHeight={TIGHT_LINE} border={Ordaen.art.frame.small} background={Ordaen.art.window.wood} padding={PAD}
-             columns={1} gap={2sp} width={{ min: nil, max: MOST }}>
+             columns={1} gap={2sp} width={{ min: nil, max: MOST }} pulse={self.pulse}>
           <box columns={HEAD} gap={3sp}>
             <text value={self.title} textColor={BRIGHT_TEXT} textSize={TITLE_TEXT} lineHeight={TITLE_LINE} />
             <box $if={self.closable} width={GLYPH} height={GLYPH} background={Ordaen.art.ctl.corner.close}
@@ -133,14 +137,14 @@ public class Callout implements Component {
       </surface>
       <surface $if={self.speech} layer={Layer.Dialog} place={self.bubblePlace} clamp={true} columns={1}>
         <box width={{ min: BUBBLE_LEAST, max: nil }} height={BUBBLE_LEAST} padding={BUBBLE_PAD} background={BUBBLE}
-             desaturate={true} tint={self.tone} xAlign={Align.Center} yAlign={Align.Center}>
+             desaturate={true} tint={self.tone} xAlign={Align.Center} yAlign={Align.Center} pulse={self.pulse}>
           <text value={self.title} textSize={SECONDARY_TEXT} textColor={BRIGHT_TEXT} textFont={.Numbers}
                 lineHeight={TIGHT_LINE} wrap={.None} />
         </box>
       </surface>
       <surface layer={Layer.Dialog} place={self.arrowPlace} columns={1}>
         <box width={self.arrowWidth} height={self.arrowHeight} background={self.arrow} desaturate={true}
-             tint={self.arrowTint} rotation={self.turn} />
+             tint={self.arrowTint} rotation={self.turn} pulse={self.pulse} />
       </surface>
     }
   }

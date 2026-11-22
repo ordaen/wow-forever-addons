@@ -100,14 +100,28 @@ const VIOLET: Color = Color.hex("#8a4fd0")
 
 // A speech bubble: a count in the client's chat bubble made one colour.
 class Counted implements Component {
+  public state unread = false
   by: any Client.Frame
   constructor(by: any Client.Frame) { self.by = by }
 
   public render(self): Template {
     return $ltml {
-      <Callout by={self.by} title={"3"} look={CalloutLook.Speech { tone: VIOLET }} />
+      <Callout by={self.by} title={"3"} look={CalloutLook.Speech { tone: VIOLET }} pulse={self.unread} />
     }
   }
+}
+
+test "a speech callout pulses, its bubble and its tail together, while its owner says so" {
+  const page = new Counted(button("CalloutPulse", 40))
+  Test.mount(page, { left: 0, top: 0, width: 1600, height: 900 })
+  Test.expect(Test.pulsing() == 0)
+  page.unread = true
+  Test.flush()
+  Test.expect(Test.pulsing() == 2)
+  page.unread = false
+  Test.flush()
+  Test.expect(Test.pulsing() == 0)
+  destroy page
 }
 
 test "a speech callout is the client's chat bubble in its colour with its count and its tail: no frame, no close" {
