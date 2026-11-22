@@ -6,7 +6,7 @@
 // under an engraved cut with its title.
 import Client from "$client"
 import Game from "$game"
-import { Align, Art, Columns, Edges, Event, Gaps, Line, MouseButton, Overflow, Position, Side, TextAlign, Tile, Track } from "$ltml"
+import { Align, Art, Columns, Edges, Event, Gaps, Line, MouseButton, Overflow, Position, Shadow, Side, TextAlign, Tile, Track } from "$ltml"
 import Runtime from "$runtime"
 import {
   Component, Cut, ItemButton, Money, PickRow, Quality, SECONDARY_TEXT, TIGHT_LINE, TITLE_TEXT, Tip, TipRow, qualityColor, qualityFrom,
@@ -19,7 +19,9 @@ import Locale from "@/locales"
 public const SCROLL_INK: Color = Color.hex("#160c03")
 public const SCROLL_HEAD: Color = Color.hex("#3a1000")
 const SCROLL_TITLE: Color = Color.hex("#200800")
-const TITLE_OUTLINE = 1
+// Its letters drawn again a pixel to the right in the same ink, so each stroke is a pixel heavier: the client's
+// outline is black and closes up its letters' insides at this size.
+const TITLE_WEIGHT: Shadow = { color: SCROLL_TITLE, x: 0.75ui, y: 0ui, size: nil }
 // The rule each side of a section's heading: the heading's ink, faded.
 const SCROLL_RULE: Color = Color.hex("#3a100080")
 const RULE_HEIGHT: Number<Length> = 1.171875dp
@@ -247,7 +249,7 @@ class ScrollTitle implements Component {
   public render(self): Template {
     return $ltml {
       <text value={self.title} textColor={SCROLL_TITLE} textSize={TITLE_TEXT} lineHeight={TIGHT_LINE} textFont={.Title}
-            textOutline={TITLE_OUTLINE} />
+            textShadow={TITLE_WEIGHT} />
     }
   }
 }
