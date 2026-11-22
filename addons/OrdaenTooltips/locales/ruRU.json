@@ -2,6 +2,8 @@
   "KEY_NEEDED": "Нужен ключ",
   "KEY_OPEN": "%s: открыть",
   "CAST_INSTANT": "Мгновенно",
+  "CAST_SECONDS": "%s сек.",
+  "CAST_MINUTES": "%s мин.",
   "COUNT": "%d шт.",
   "READY_IN": "Готово через",
   "MELEE_RANGE_SHORT": "5 м",

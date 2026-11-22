@@ -102,6 +102,8 @@ const CELL_PAD_LAST: Edges = { top: 2.5sp, right: 3sp, left: 3sp }
 public const INDENT: Edges = { left: 3.5sp }
 // Where the body turns from rows into sentences or back.
 const SPACED: Edges = { top: 2sp }
+// A description's line: a little more than the body's.
+const SENTENCE_LINE: Number<Spacing> = 7sp
 
 // A line as it is drawn: its texts, their colours, its size, and the room round it.
 public struct Drawn {
@@ -111,6 +113,8 @@ public struct Drawn {
   rightColor: Color
   size: Number<TextSize>
   padding: Edges
+  // A sentence (a description), its lines a little apart.
+  sentence: Boolean = false
   // What its name opens, and what its value does.
   opens: Opens
   valueOpens: Opens
@@ -372,6 +376,8 @@ public class Row implements Component {
             </box>
           </TermText>
         </box>
+        <text $elseif={self.line.sentence} value={self.line.left} textColor={self.line.leftColor} textSize={self.line.size}
+              lineHeight={SENTENCE_LINE} />
         <text $else value={self.line.left} textColor={self.line.leftColor} textSize={self.line.size} />
       </box>
     }
@@ -401,7 +407,7 @@ function rows(lines: Array<TextLine>, was: Array<Drawn>, from: Array<TextLine>):
     list.push({
       left: line.left, right: line.right, leftColor: line.color ?? plain,
       rightColor: line.rightColor ?? line.color ?? BODY, size: 1rem, padding: padding, opens: line.opens,
-      valueOpens: Opens.None, compared: line.compared
+      valueOpens: Opens.None, compared: line.compared, sentence: line.desc == true
     })
   }
   return same ? was : list

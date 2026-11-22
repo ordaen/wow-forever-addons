@@ -430,7 +430,7 @@ test "the cursor on the term a cell opened keeps the lock" {
   Game.tooltip.main = inSlot(frostbolt())
   Test.pass(CHARGED)
   Game.tooltip.main = hidden()
-  locked().text("2.5 sec cast").hover()
+  locked().text("2.5 sec").hover()
   Test.pass(1)
   Test.expect(isLocked())
 }

@@ -2,6 +2,8 @@
   "KEY_NEEDED": "Needs a key",
   "KEY_OPEN": "%s: open",
   "CAST_INSTANT": "Instant",
+  "CAST_SECONDS": "%s sec",
+  "CAST_MINUTES": "%s min",
   "COUNT": "%d",
   "READY_IN": "Ready in",
   "MELEE_RANGE_SHORT": "5 yd",

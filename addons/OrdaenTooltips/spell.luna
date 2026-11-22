@@ -18,6 +18,16 @@ const SPELL_NAME = 13
 const PASSIVE = 33
 const DESCRIPTION = 34
 const REQUIREMENT = 43
+// The description's colours (the design's Tooltip.vue): numbers, the damage schools, a spell's name.
+const NUMBER = "ffffff"
+const PHYSICAL = "e0c9a0"
+const FIRE = "ff8a3c"
+const NATURE = "6ed04a"
+const FROST = "8fd2ff"
+const SHADOW = "b48ae8"
+const ARCANE = "e48af0"
+const HOLY = "ffe680"
+const SPELL_NAME_COLOR = "ffd100"
 // Before the lines of the item a recipe makes: from it on they are that item's own tooltip.
 const NESTED = 19
 
@@ -114,11 +124,42 @@ function comboValue(effect: String): String | nil {
   return effect.match("%d+")
 }
 
+// A colour as the game's text codes write it: «|cffffffff».
+function code(color: String): String { return "|cff" + color }
+
+// A number lit, a full stop or a comma after it left as it was.
+function litNumber(number: String): String {
+  const digits, tail = number.match("^(.-)([,%.]*)$")
+  return digits == nil || digits == "" ? number : code(NUMBER) + digits + "|r" + (tail ?? "")
+}
+
+// A description as the design draws it: its numbers white, a damage school in its colour, a spell's name in «» gold.
+// A text the game coloured itself is left as it is.
+public function rich(text: String): String {
+  if (text.contains("|c")) { return text }
+  let lit = text.replace("(%d[%d,%.]*%%?)", number => litNumber(number))
+  lit = lit.replace("(физическ[^%s]* урон[^%s,%.]*)", school => code(PHYSICAL) + school + "|r")
+  lit = lit.replace("([Pp]hysical damage)", school => code(PHYSICAL) + school + "|r")
+  lit = lit.replace("(урон[^%s]* от огня)", school => code(FIRE) + school + "|r")
+  lit = lit.replace("([Ff]ire damage)", school => code(FIRE) + school + "|r")
+  lit = lit.replace("(урон[^%s]* от сил природы)", school => code(NATURE) + school + "|r")
+  lit = lit.replace("([Nn]ature damage)", school => code(NATURE) + school + "|r")
+  lit = lit.replace("(урон[^%s]* от магии льда)", school => code(FROST) + school + "|r")
+  lit = lit.replace("([Ff]rost damage)", school => code(FROST) + school + "|r")
+  lit = lit.replace("(урон[^%s]* от т[^%s]-мной магии)", school => code(SHADOW) + school + "|r")
+  lit = lit.replace("([Ss]hadow damage)", school => code(SHADOW) + school + "|r")
+  lit = lit.replace("(урон[^%s]* от тайной магии)", school => code(ARCANE) + school + "|r")
+  lit = lit.replace("([Aa]rcane damage)", school => code(ARCANE) + school + "|r")
+  lit = lit.replace("(урон[^%s]* от светлой магии)", school => code(HOLY) + school + "|r")
+  lit = lit.replace("([Hh]oly damage)", school => code(HOLY) + school + "|r")
+  return lit.replace("«([^»]+)»", name => "«" + code(SPELL_NAME_COLOR) + name + "|r»")
+}
+
 // A description into the body. A finishing move's («1 point: 46-66 damage» on a line each) gives its sentence
 // first and then a row for each line of the list.
 function describe(text: String, body: mut Array<TextLine>) {
   if (text.match("^%s*%d%s") == nil && text.match("\n%s*%d%s") == nil) {
-    body.push({ left: text, desc: true })
+    body.push({ left: rich(text), desc: true })
     return
   }
   let rows: Array<TextLine> = []
@@ -138,15 +179,27 @@ function describe(text: String, body: mut Array<TextLine>) {
       rest = (rest ?? first) + "\n" + line
     }
   }
-  if (first != nil) { body.push({ left: rest ?? first, desc: true }) }
+  if (first != nil) { body.push({ left: rich(rest ?? first), desc: true }) }
   for (row of rows) { body.push(row) }
+}
+
+// A number as the game wrote it in a line («1,5», «2.5»).
+function digitsOf(text: String): String { return text.match("%d+[,%.]?%d*") ?? "" }
+
+// How long a channelled spell lasts, as its description says it («over 5 sec.», «в течение 5 сек.»), else its first
+// time in seconds; nothing where it says none.
+function channelOf(description: String): String | nil {
+  const seconds = description.match("в течение (%d+[,%.]?%d*)%s*сек") ?? description.match("over (%d+[,%.]?%d*)%s*sec") ??
+    description.match("(%d+[,%.]?%d*)%s*сек") ?? description.match("(%d+[,%.]?%d*)%s*sec")
+  return seconds == nil ? nil : Locale.CAST_SECONDS.format(seconds)
 }
 
 // A cell of the band from one side of one of the spell's first lines. `first`: the line is the band's first, where
 // the cost and the range stand; `right`: the line's right side; `cast`: its left side was the cast, so this is the
-// cooldown. Whether this side was the cast.
+// cooldown; `channel`: how long the spell is channelled, where it is. Whether this side was the cast.
 function cell(
-  text: String, first: Boolean, right: Boolean, cost: Game.SpellCost | nil, cast: Boolean, facts: mut Array<Fact>
+  text: String, first: Boolean, right: Boolean, cost: Game.SpellCost | nil, cast: Boolean, channel: String | nil,
+  facts: mut Array<Fact>
 ): Boolean {
   let glyph: Glyph | nil = nil
   let tint: Color | nil = nil
@@ -160,11 +213,19 @@ function cell(
     opens = named(Term.Castnow)
     isCast = true
   } else if (text.contains(Game.strings.castChanneled)) {
+    // The glyph says it is channelled; the cell says for how long, as the description has it (the game's word where
+    // it says no time).
+    shown = channel ?? text
     glyph = .CastChan
     opens = named(Term.Castchan)
     isCast = true
-  } else if (text.unformat(Game.strings.castTimeSec) != nil ||
-      text.unformat(Game.strings.castTimeMin) != nil) {
+  } else if (text.unformat(Game.strings.castTimeSec) != nil) {
+    shown = Locale.CAST_SECONDS.format(digitsOf(text))
+    glyph = .CastTime
+    opens = named(Term.Casttime)
+    isCast = true
+  } else if (text.unformat(Game.strings.castTimeMin) != nil) {
+    shown = Locale.CAST_MINUTES.format(digitsOf(text))
     glyph = .CastTime
     opens = named(Term.Casttime)
     isCast = true
@@ -209,6 +270,11 @@ public function spell(data: Game.TooltipData, options: Options): Model | nil {
   let foot: Array<Note> = []
   // The band's lines read so far.
   let band = 0
+  let description = ""
+  for (line of data.lines) {
+    if (line.kind == DESCRIPTION) { description = description + (line.left ?? "") }
+  }
+  const channel = channelOf(description)
   for (i, line of data.lines) {
     // A recipe's made item: a tooltip of its own beside this one (`madeBy`).
     if (line.kind == NESTED) { break }
@@ -217,7 +283,8 @@ public function spell(data: Game.TooltipData, options: Options): Model | nil {
     if (line.kind == SPELL_NAME && name == nil) {
       name = left
       // The rank, then the spellbook's tab.
-      if (right != nil) { desc.push({ text: right }) }
+      const rank = right ?? (id != nil ? clean(Client.C_Spell.GetSpellSubtext(id)) : nil)
+      if (rank != nil) { desc.push({ text: rank }) }
       let tab = id != nil ? Game.spells.tab(id) : nil
       if (tab != nil) { desc.push({ text: tab }) }
     } else if (line.kind == REQUIREMENT) {
@@ -233,12 +300,12 @@ public function spell(data: Game.TooltipData, options: Options): Model | nil {
       // Cost and range, cast and cooldown: the game's two-sided lines, cells of the band.
       if (right != nil) {
         band += 1
-        let cast = cell(left, band == 1, false, cost, false, mut facts)
-        _ = cell(right, band == 1, true, cost, cast, mut facts)
+        let cast = cell(left, band == 1, false, cost, false, channel, mut facts)
+        _ = cell(right, band == 1, true, cost, cast, channel, mut facts)
       } else if (!reagents(left, mut foot) && !tools(left, mut foot)) {
         if (i <= 4 && body.length == 0) {
           band += 1
-          _ = cell(left, band == 1, false, cost, false, mut facts)
+          _ = cell(left, band == 1, false, cost, false, channel, mut facts)
         } else {
           body.push({ left: left, color: colorOf(line.leftColor) })
         }
