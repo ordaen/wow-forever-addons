@@ -608,3 +608,17 @@ test "while an item is taken, the wheel follows the cursor no more: its aim stan
   Test.expect(!held.wheel.armed)
   Test.releaseBound("F")
 }
+
+test "anchored and drawn at the screen's middle, it aims from where it is drawn: going round it there picks what is drawn" {
+  const held = new Held(1, true, true)
+  Test.flush()
+  // Opened away from the screen's middle (800, 450); the cursor goes to the left of the wheel drawn there.
+  open("F")
+  Test.pass(0.05)
+  Test.moveTo({ x: 700, y: 450 })
+  Test.pass(0.05)
+  Test.expect(held.wheel.middleX == Client.UIParent.GetWidth() / 2)
+  clickHere(nil)
+  Test.releaseBound("F")
+  Test.expect(Test.performed().join(", ") == "macro /tm 8")
+}

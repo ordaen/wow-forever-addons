@@ -64,8 +64,9 @@ public struct WheelRing {
 // How a wheel is laid out: where it opens, how large it is, whether its submenus remember, whether it is anchored to
 // the cursor.
 public struct WheelSetup {
-  // It is drawn at the screen's middle and not at the cursor. Either way it aims from where the cursor was as it
-  // opened: the mouse moves from where the hand is, never to the wheel first.
+  // It is drawn at the screen's middle and not at the cursor. Not anchored, it aims from where the cursor was as it
+  // opened either way: the mouse moves from where the hand is, never to the wheel first. Anchored, it aims from where
+  // it is drawn, as the cursor going round it on it expects.
   centred: Boolean
   scale: Number
   remember: Boolean
@@ -127,7 +128,11 @@ const CHOICE: String = [
   "  owner:SetAttribute('level', 'r')",
   "  owner:SetAttribute('armed', nil)",
   "  self:ClearAllPoints()",
-  "  self:SetPoint('CENTER', '$cursor')",
+  "  if owner:GetAttribute('anchored') and owner:GetAttribute('centred') then",
+  "    self:SetPoint('CENTER', owner, 'CENTER')",
+  "  else",
+  "    self:SetPoint('CENTER', '$cursor')",
+  "  end",
   "  self:Show()",
   "  self:SetBindingClick(true, 'ESCAPE', self, 'Escape')",
   "  return false",
@@ -285,6 +290,7 @@ public class SecureWheel {
   // The item the aim was on last (the middle is none).
   aimedName: String | nil = nil
   centred: Boolean = false
+  anchored: Boolean = false
   scale: Number = 1
 
   constructor(
@@ -321,6 +327,8 @@ public class SecureWheel {
     const high = Client.UIParent.GetHeight() * 2
     const wide = Client.UIParent.GetWidth() * 2
     button.SetSize(wide, high)
+    // The header stands at the screen's middle: an anchored wheel drawn there aims from it.
+    header.SetPoint("CENTER", Client.UIParent, "CENTER", 0, 0)
     header.SetAttribute("level", ROOT)
     header.SetAttribute("dead", DEAD_ZONE / 1ui)
     Client.RegisterAttributeDriver(header, "fighting", "[combat] yes; no")
@@ -341,7 +349,9 @@ public class SecureWheel {
     self.written.clear()
     self.writtenOnHeader.clear()
     self.centred = setup.centred
+    self.anchored = setup.anchored
     self.scale = setup.scale
+    self.header.SetAttribute("centred", setup.centred)
     self.header.SetAttribute("remember", setup.remember)
     self.header.SetAttribute("dead", DEAD_ZONE / 1ui * setup.scale)
     self.header.SetAttribute("anchored", setup.anchored)
@@ -472,8 +482,10 @@ public class SecureWheel {
     const fromX, fromY = self.button.GetCenter()
     if (fromX == nil || fromY == nil) { return }
     const screenX, screenY = Client.UIParent.GetCenter()
-    const middleX = self.centred ? screenX ?? fromX : fromX
-    const middleY = self.centred ? screenY ?? fromY : fromY
+    // Drawn at the screen's middle where it says so, unless anchored: an anchored wheel is drawn where it aims from.
+    const atScreen = self.centred && !self.anchored
+    const middleX = atScreen ? screenX ?? fromX : fromX
+    const middleY = atScreen ? screenY ?? fromY : fromY
     if (middleX != self.middleX || middleY != self.middleY) {
       self.middleX = middleX
       self.middleY = middleY
