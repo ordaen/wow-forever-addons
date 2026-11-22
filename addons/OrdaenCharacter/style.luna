@@ -35,15 +35,6 @@ public const TUBE_INSET: Number<Length> = BAR * 10 / 64
 public const TUBE_REGEN: Number<Length> = 10dp
 public const TUBE_SHADOW: Shadow = { color: Color.hex("#000000"), x: 1ui, y: -1ui }
 public const ONE_ROW: Array<Track> = [{ fr: 1 }]
-// A cut in the wood, in whole pixels of a 1440p screen at the client's scale for it (1.171875dp): its upper wall in
-// shade, its floor, its lit lower lip, and the three together; a title cut into the wood at a cut's middle, its letters'
-// upper walls in shade.
-public const CUT_SHADE: Number<Length> = 2.34375dp
-public const CUT_FLOOR: Number<Length> = 2.34375dp
-public const CUT_LIP: Number<Length> = 1.171875dp
-public const CUT: Number<Length> = CUT_SHADE + CUT_FLOOR + CUT_LIP
-public const CUT_TITLE: Color = Color.hex("#b8a07a")
-public const CUT_TITLE_SHADOW: Shadow = { color: Color.hex("#000000e6"), x: 0ui, y: 1.171875dp }
 // A gauge's channel (a skill's too) and its columns (the name, the value).
 public const CHANNEL: Number<Length> = 16.40625dp
 // A gauge with its text in it: a skill's rank, a faction's standing.
@@ -76,10 +67,6 @@ public const BACK: Color = Color.hex("#00000066")
 public const CARD: Color = Color.hex("#0d0907")
 public const PICKED: Color = Color.hex("#ffd10026")
 public const TROUGH: Color = Color.hex("#000000a6")
-// A cut in the wood, lit from above: its upper wall in shade, its floor, its lower lip catching the light.
-public const GROOVE_SHADE: Color = Color.hex("#0000008c")
-public const GROOVE_DEPTH: Color = Color.hex("#000000e6")
-public const GROOVE_LIP: Color = Color.hex("#ffdeaa52")
 // The model's backdrop: the race's scene from the game's dressing room (231 x 322 texels as the client crops it), in
 // grey, from the model's column's top to its bottom, as wide as its proportions make it at the column's height while
 // the character tab holds the window at `HEIGHT` (less the sets' row and the room round them), centred and cut at the

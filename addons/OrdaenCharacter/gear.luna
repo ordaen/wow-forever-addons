@@ -6,7 +6,7 @@
 // over the three columns.
 import Game from "$game"
 import { Action, Align, Art, BarFill, Edges, Event, FillFrom, Line, MouseButton, Overflow, Position, TextFont, Track } from "$ltml"
-import { ButtonPlate, Component, ItemButton, PushButton, SECONDARY_TEXT, TITLE_LINE, TITLE_TEXT, Tabs, TipText, classColor } from "Ordaen"
+import { ButtonPlate, CUT, Component, Cut, Groove, ItemButton, PushButton, SECONDARY_TEXT, TITLE_LINE, TITLE_TEXT, Tabs, TipText, classColor } from "Ordaen"
 import { Active } from "OrdaenAuras"
 import { ItemLevel } from "@/itemLevel"
 import Locale from "@/locales"
@@ -14,7 +14,7 @@ import { Choices, slotSizeOf } from "@/settings"
 import { AMMO, GearSet, LEFT, RIGHT, Resource, Skill, SlotSpec, Stats, WEAPONS, Who, Worn } from "@/sheet"
 import { Boost, Breakdown, NO_BREAKDOWN, boostsOf, breakdownOf, wordsOf } from "@/sources"
 import { Stat } from "@/stat"
-import { Cut, Gauge, Groove, Main, MainStat, PoolBar, Resist, ResistColumn, Row, Section, SectionView, StatGauge, StatRow, defenceOf, defenceRows, mainsOf, resistsOf, sectionsOf, sharedGauges, sharedRows, speedsOf } from "@/stats"
+import { Gauge, Main, MainStat, PoolBar, Resist, ResistColumn, Row, Section, SectionView, StatGauge, StatRow, defenceOf, defenceRows, mainsOf, resistsOf, sectionsOf, sharedGauges, sharedRows, speedsOf } from "@/stats"
 import Style from "@/style"
 
 // The ammo's slot is the game's small one.
@@ -437,7 +437,7 @@ public class GearPage implements Component {
               <StatRow $for={row of self.speeds} row={row} shown={self.shown} boosts={self.boosts} @tipped={self.onTipped} />
             </box>
           </box>
-          <box columns={[Style.CUT, { fr: 1 }, Style.CUT]} rows={[{ fr: 1 }]}>
+          <box columns={[CUT, { fr: 1 }, CUT]} rows={[{ fr: 1 }]}>
             <Groove upright={true} />
             <box columns={self.dollColumns} rows={[{ fr: 1 }]} gap={3sp} padding={Style.DOLL_PAD}
                  background={Style.MODEL_BACK} overflow={Overflow.Hidden}>

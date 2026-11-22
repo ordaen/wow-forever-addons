@@ -4,7 +4,7 @@
 // speed, penetration), a card one of a section's main numbers (attack power, damage a second, a school's spell damage).
 import { Align, Art, BarFill, Event, FillFrom, Piece, Position, TextAlign, TextFont, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { BRIGHT_TEXT, Component, SECONDARY_TEXT, TITLE_TEXT, Tip, XpFill, xpFillArt } from "Ordaen"
+import { BRIGHT_TEXT, Component, Cut, SECONDARY_TEXT, TITLE_TEXT, Tip, XpFill, xpFillArt } from "Ordaen"
 import { GaugeBar } from "@/gauge"
 import Locale from "@/locales"
 import { Skill, Stats, WANDS } from "@/sheet"
@@ -323,51 +323,6 @@ public function sectionsOf(stats: Stats, skills: Array<Skill>, classTag: String)
   if (shooting != nil) { sections.push(shooting) }
   if (!caster && magic != nil) { sections.push(magic) }
   return sections
-}
-
-// A straight cut in the wood, lit from above: the shaded upper edge, the depth, the lit lower lip; across (`upright`
-// false) or down its box (true, the light from the left: the shade on its left, the lip on its right).
-public class Groove implements Component {
-  upright: Signal<Boolean>
-  constructor(upright: Signal<Boolean> = false) {
-    self.upright = upright
-  }
-
-  public render(self): Template {
-    return $ltml {
-      <box $if={self.upright} columns={[Style.CUT_SHADE, Style.CUT_FLOOR, Style.CUT_LIP]} rows={[{ fr: 1 }]}>
-        <box background={Style.GROOVE_SHADE} />
-        <box background={Style.GROOVE_DEPTH} />
-        <box background={Style.GROOVE_LIP} />
-      </box>
-      <box $else>
-        <box height={Style.CUT_SHADE} background={Style.GROOVE_SHADE} />
-        <box height={Style.CUT_FLOOR} background={Style.GROOVE_DEPTH} />
-        <box height={Style.CUT_LIP} background={Style.GROOVE_LIP} />
-      </box>
-    }
-  }
-}
-
-// A cut in the wood across the column, the title at its middle where it has one.
-public class Cut implements Component {
-  derived titled: Boolean = self.title != ""
-
-  title: Signal<String>
-  constructor(title: Signal<String> = "") {
-    self.title = title
-  }
-
-  public render(self): Template {
-    return $ltml {
-      <box $if={self.titled} columns={[{ fr: 1 }, "max-content", { fr: 1 }]} gap={2.5sp} yAlign={Align.Center}>
-        <Groove />
-        <text value={self.title} textColor={Style.CUT_TITLE} textShadow={Style.CUT_TITLE_SHADOW} wrap={.None} />
-        <Groove />
-      </box>
-      <Groove $else />
-    }
-  }
 }
 
 const NO_BOOSTS: Map<String, Boost> = {}
