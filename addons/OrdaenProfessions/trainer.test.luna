@@ -98,6 +98,16 @@ test "a double press on a service learns it where it can be learned now, and not
   Test.expect(window.text("A robe of red linen.").shown())
 }
 
+test "the footer is a band of marble under the list, the money on it" {
+  const bought: Array<String> = []
+  const window = opened(mut bought)
+  const band = Test.painted(Ordaen.art.window.marble, nil)
+  const money = Test.holding("Your money", nil)
+  const list = window.text("Red Linen Robe").rect()
+  // The money stands in the band, under its line: a little below the band's middle.
+  Test.expect(money.y > band.y && money.y - band.y < 8 && band.y > list.bottom && band.x < money.x)
+}
+
 test "a view kept before «Learned» started off loads with it off, its sort kept" {
   const kept: Map<String, Boolean> = { known: true, available: true }
   const old: Map<String, Unknown> = { filter: kept, sorted: 2 }
