@@ -1,9 +1,9 @@
 -- the next quest of a chain in its window
-surface 550,192.21 905.76x515.58 on MEDIUM clamped raised by a click
-  box 550,241.12 905.76x466.67 absolute Interface\AddOns\Ordaen\media\window-wood border=UI-Frame-Metal-CornerTopLeft
-    box 563.09,254.22 478.81x442.73
-      box 563.09,254.22 478.81x411.01
-        box 585.85,276.97 433.3x371.18
+surface 550,192.21 905.76x516.57 on MEDIUM clamped raised by a click
+  box 550,241.12 905.76x467.65 absolute Interface\AddOns\Ordaen\media\window-wood border=UI-Frame-Metal-CornerTopLeft
+    box 563.09,254.22 478.81x443.71
+      box 563.09,254.22 478.81x411.99
+        box 585.85,276.97 433.3x372.17
           box 585.85,276.97 433.3x29.71
             box 585.85,305.85 433.3x0.83 absolute #3e2f1d
             box 585.85,276.97 80.8x29.71 #00000059 @keyPress @pointerPress
@@ -49,9 +49,9 @@ surface 550,192.21 905.76x515.58 on MEDIUM clamped raised by a click
                 box 990.82,315.22 28.33x28.33
                   box 990.82,315.22 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerEnter @pointerLeave @pointerPress
                     box 998.32,322.72 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 3 of 16
-          box 585.85,352.09 433.3x296.07 #0000004d
+          box 585.85,352.09 433.3x297.05 #0000004d
             box 586.68,352.92 431.63x0
-            box 586.68,352.92 431.63x294.41 scrolled 0 of 0
+            box 586.68,352.92 431.63x295.39 scrolled 0 of 0
               box 586.68,352.92 431.63x188.02
                 box 586.68,352.92 431.63x94.01
                   box 586.68,352.92 431.63x35.4 #d6a56b38 @keyPress @pointerPress
@@ -94,88 +94,89 @@ surface 550,192.21 905.76x515.58 on MEDIUM clamped raised by a click
                       box 592.37,514.05 420.26x15.51
                         text 592.37,514.05 386.23x15.51 "Wolves slain" #a3977f
                         text 984.29,514.05 28.33x15.51 "5/10" #a3977f
-      box 563.09,665.23 478.81x31.72
-        box 563.09,665.23 478.81x31.72
-          box 585.85,673.98 312.7x0
-          box 915.62,665.23 103.53x17.5
-            box 915.62,665.23 103.53x17.5
-              text 915.62,665.23 66.67x17.5 "In the log" #a3977f
-              text 990.82,665.23 28.33x17.5 "3/25" #e8dcc4
-    box 1041.91,254.22 405.76x442.73 border=UI-Frame-Metal-CornerTopLeft sides=left
-      box 1074.91,276.97 350x405.75
-        box 1074.91,276.97 350x168.53
+      box 563.09,666.21 478.81x31.72
+        box 563.09,666.21 478.81x31.72
+          box 585.85,674.96 312.7x0
+          box 915.62,666.21 103.53x17.5
+            box 915.62,666.21 103.53x17.5
+              text 915.62,666.21 66.67x17.5 "In the log" #a3977f
+              text 990.82,666.21 28.33x17.5 "3/25" #e8dcc4
+    box 1041.91,254.22 405.76x443.71 border=UI-Frame-Metal-CornerTopLeft sides=left
+      box 1074.91,276.97 350x406.73
+        box 1074.91,276.97 350x166.67
           box 1074.91,276.97 350x41.67 Interface\AddOns\Ordaen\media\scroll-top
-          box 1074.91,318.64 350x85.2
-          box 1074.91,403.84 350x41.67 Interface\AddOns\Ordaen\media\scroll-bottom
-          box 1074.91,318.64 350x95.61 absolute Interface\AddOns\Ordaen\media\scroll-paper
-            box 1118.24,326.97 263.33x68.53 absolute scrolled 0 of 0
+          box 1074.91,318.64 350x83.33
+          box 1074.91,401.97 350x41.67 Interface\AddOns\Ordaen\media\scroll-bottom
+          box 1074.91,318.64 350x93.75 absolute Interface\AddOns\Ordaen\media\scroll-paper
+            box 1118.24,326.97 263.33x66.67 absolute scrolled 0 of 0
               text 1118.24,326.97 263.33x20.68 "The Defias Brotherhood" #3a1000
               text 1118.24,351.92 263.33x17.5 "Gryan asks you to look into Westfall." #160c03
               text 1118.24,373.69 263.33x17.5 "Objectives" #3a1000
-        box 1074.91,456.88 350x37.14
-          box 1074.91,456.88 350x17.5
-            box 1074.91,463.55 138.72x4.17
-              box 1074.91,463.55 138.72x1.67 #0000008c
-              box 1074.91,465.21 138.72x1.67 #000000e6
-              box 1074.91,466.88 138.72x0.83 #ffdeaa52
-            text 1220.74,456.88 58.33x17.5 "Progress" #b8a07a
-            box 1286.19,463.55 138.72x4.17
-              box 1286.19,463.55 138.72x1.67 #0000008c
-              box 1286.19,465.21 138.72x1.67 #000000e6
-              box 1286.19,466.88 138.72x0.83 #ffdeaa52
-          box 1074.91,477.23 350x16.8
-            box 1074.91,477.23 350x16.8
-              text 1074.91,477.23 314.31x16.8 "Wolves slain" #f0e6d0
-              text 1394.91,477.23 30x16.8 "5/10" #f0e6d0
-        box 1074.91,505.4 350x37.84
-          box 1074.91,505.4 350x17.5
-            box 1074.91,512.07 132.06x4.17
-              box 1074.91,512.07 132.06x1.67 #0000008c
-              box 1074.91,513.74 132.06x1.67 #000000e6
-              box 1074.91,515.4 132.06x0.83 #ffdeaa52
-            text 1214.08,505.4 71.67x17.5 "Next quest" #b8a07a
-            box 1292.86,512.07 132.06x4.17
-              box 1292.86,512.07 132.06x1.67 #0000008c
-              box 1292.86,513.74 132.06x1.67 #000000e6
-              box 1292.86,515.4 132.06x0.83 #ffdeaa52
-          box 1074.91,525.75 350x17.5 @keyPress @pointerPress
-            text 1074.91,525.75 350x17.5 "The Defias Brotherhood, part two" #ffd100
-        box 1074.91,554.63 350x50.98
-          box 1074.91,554.63 350x50.98
-            box 1074.91,558.89 350x17.5
-              box 1074.91,565.56 145.81x4.17
-                box 1074.91,565.56 145.81x1.67 #0000008c
-                box 1074.91,567.23 145.81x1.67 #000000e6
-                box 1074.91,568.89 145.81x0.83 #ffdeaa52
-              text 1227.83,558.89 44.17x17.5 "Reward" #b8a07a
-              box 1279.11,565.56 145.81x4.17
-                box 1279.11,565.56 145.81x1.67 #0000008c
-                box 1279.11,567.23 145.81x1.67 #000000e6
-                box 1279.11,568.89 145.81x0.83 #ffdeaa52
-            box 1074.91,579.24 350x26.37
-              box 1125.59,582.08 248.64x20.68
-                box 1125.59,582.08 64.91x20.68
-                  box 1134.12,582.08 47.84x20.68
-                    box 1134.12,584.09 16.67x16.67 GarrMission_CurrencyIcon-Xp
-                    text 1153.63,582.08 28.33x20.68 "420" #f0e6d0
-                box 1190.5,582.08 183.73x20.68
-                  box 1199.87,582.08 165.83x20.68 @pointerEnter @pointerLeave
-                    text 1199.87,582.08 165.83x20.68 "-25–+250 reputation" #f0e6d0
-        box 1074.91,616.98 350x17.5 @keyPress @pointerPress
-          text 1074.91,616.98 318.33x17.5 "Track" #f0e6d0
-          box 1393.24,617.4 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 0 of 4
-            box 1390.74,614.9 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2 opacity=1
-        box 1074.91,645.86 350x36.87
-          box 1074.91,654.39 93.39x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-            text 1082.02,659.81 79.17x17.5 "Show on map" #ffd100
-          box 1176.83,654.39 93.33x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-            text 1205.17,659.81 36.67x17.5 "Share" #808080
-          box 1278.7,654.39 44.34x0
-          box 1331.58,654.39 93.33x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-            text 1352.83,659.81 50.83x17.5 "Abandon" #ffd100
-      box 1049.16,254.22 6.67x442.73 absolute @drag @dragStart @dragStop
-    box 1438.51,687.79 13.33x13.33 absolute
-      box 1438.51,687.79 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
+        box 1074.91,455.02 350x37.14
+          box 1074.91,455.02 350x17.5
+            box 1074.91,461.69 138.72x4.17
+              box 1074.91,461.69 138.72x1.67 #0000008c
+              box 1074.91,463.35 138.72x1.67 #000000e6
+              box 1074.91,465.02 138.72x0.83 #ffdeaa52
+            text 1220.74,455.02 58.33x17.5 "Progress" #b8a07a
+            box 1286.19,461.69 138.72x4.17
+              box 1286.19,461.69 138.72x1.67 #0000008c
+              box 1286.19,463.35 138.72x1.67 #000000e6
+              box 1286.19,465.02 138.72x0.83 #ffdeaa52
+          box 1074.91,475.36 350x16.8
+            box 1074.91,475.36 350x16.8
+              text 1074.91,475.36 314.31x16.8 "Wolves slain" #f0e6d0
+              text 1394.91,475.36 30x16.8 "5/10" #f0e6d0
+        box 1074.91,503.54 350x37.84
+          box 1074.91,503.54 350x17.5
+            box 1074.91,510.21 132.06x4.17
+              box 1074.91,510.21 132.06x1.67 #0000008c
+              box 1074.91,511.88 132.06x1.67 #000000e6
+              box 1074.91,513.54 132.06x0.83 #ffdeaa52
+            text 1214.08,503.54 71.67x17.5 "Next quest" #b8a07a
+            box 1292.86,510.21 132.06x4.17
+              box 1292.86,510.21 132.06x1.67 #0000008c
+              box 1292.86,511.88 132.06x1.67 #000000e6
+              box 1292.86,513.54 132.06x0.83 #ffdeaa52
+          box 1074.91,523.89 350x17.5 @keyPress @pointerPress
+            text 1074.91,523.89 350x17.5 "The Defias Brotherhood, part two" #ffd100
+        box 1074.91,552.76 350x53.82
+          box 1074.91,552.76 350x53.82
+            box 1074.91,557.03 350x17.5
+              box 1074.91,563.7 145.81x4.17
+                box 1074.91,563.7 145.81x1.67 #0000008c
+                box 1074.91,565.36 145.81x1.67 #000000e6
+                box 1074.91,567.03 145.81x0.83 #ffdeaa52
+              text 1227.83,557.03 44.17x17.5 "Reward" #b8a07a
+              box 1279.11,563.7 145.81x4.17
+                box 1279.11,563.7 145.81x1.67 #0000008c
+                box 1279.11,565.36 145.81x1.67 #000000e6
+                box 1279.11,567.03 145.81x0.83 #ffdeaa52
+            box 1074.91,577.38 350x0
+            box 1074.91,580.22 350x26.37
+              box 1125.59,583.06 248.64x20.68
+                box 1125.59,583.06 64.91x20.68
+                  box 1134.12,583.06 47.84x20.68
+                    box 1134.12,585.07 16.67x16.67 GarrMission_CurrencyIcon-Xp
+                    text 1153.63,583.06 28.33x20.68 "420" #f0e6d0
+                box 1190.5,583.06 183.73x20.68
+                  box 1199.87,583.06 165.83x20.68 @pointerEnter @pointerLeave
+                    text 1199.87,583.06 165.83x20.68 "-25–+250 reputation" #f0e6d0
+        box 1074.91,617.96 350x17.5 @keyPress @pointerPress
+          text 1074.91,617.96 318.33x17.5 "Track" #f0e6d0
+          box 1393.24,618.38 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 0 of 4
+            box 1390.74,615.88 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2 opacity=1
+        box 1074.91,646.84 350x36.87
+          box 1074.91,655.37 93.39x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+            text 1082.02,660.79 79.17x17.5 "Show on map" #ffd100
+          box 1176.83,655.37 93.33x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+            text 1205.17,660.79 36.67x17.5 "Share" #808080
+          box 1278.7,655.37 44.34x0
+          box 1331.58,655.37 93.33x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+            text 1352.83,660.79 50.83x17.5 "Abandon" #ffd100
+      box 1049.16,254.22 6.67x443.71 absolute @drag @dragStart @dragStop
+    box 1438.51,688.77 13.33x13.33 absolute
+      box 1438.51,688.77 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 550,192.21 905.76x59.42
     box 550,192.21 817.23x59.42
       box 550,192.21 130.65x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress

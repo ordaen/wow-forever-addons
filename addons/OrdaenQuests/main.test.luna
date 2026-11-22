@@ -246,6 +246,32 @@ test "many rewards give way to the parchment, which keeps its least height" {
   Test.expect(window.button("Share").rect().bottom <= window.rect().bottom)
 }
 
+test "past three rewards to choose they stand in two columns, each name whole, the side growing for them" {
+  const log = standing()
+  log[3] = { choices: [{ item: 1001 }, { item: 1002 }, { item: 1003 }, { item: 1004 }], ..quest(103, "Elwynn Wolves", "Elwynn Forest") }
+  opened(log)
+  const window = Test.page().window("World")
+  window.text("Elwynn Wolves").click()
+  // The slots two by two: the first and second side by side, the third under the first.
+  const slots = window.box(Ordaen.art.ctl.qualityRim)
+  Test.expect(slots.count() == 4)
+  const first = slots.nth(1).rect()
+  const second = slots.nth(2).rect()
+  const third = slots.nth(3).rect()
+  Test.expect((first.top - second.top).abs() < 0.5 && second.left > first.right)
+  Test.expect((first.left - third.left).abs() < 0.5 && third.top > first.bottom)
+}
+
+test "three rewards to choose stand in one column" {
+  const log = standing()
+  log[3] = { choices: [{ item: 1001 }, { item: 1002 }, { item: 1003 }], ..quest(103, "Elwynn Wolves", "Elwynn Forest") }
+  opened(log)
+  const window = Test.page().window("World")
+  window.text("Elwynn Wolves").click()
+  const slots = window.box(Ordaen.art.ctl.qualityRim)
+  Test.expect((slots.nth(1).rect().left - slots.nth(2).rect().left).abs() < 0.5)
+}
+
 test "a quest's title stands in Dialogue's title type on the scroll, its lines tight, without its level" {
   opened(standing())
   Test.page().window("World").text("The Defias Brotherhood").click()

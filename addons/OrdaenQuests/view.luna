@@ -430,7 +430,7 @@ public class QuestPage implements Component {
         <ChainLine facts={self.facts} @open={self.onNext} />
         <box gap={0.5sp}>
           <Rewards views={self.choiceRows} also={self.givenRows} xp={self.text.experience} money={self.text.money}
-                   standings={self.standings} />
+                   standings={self.standings} paired={true} />
         </box>
         <box columns={LABEL_THEN_SWITCH} yAlign={Align.Center} @pointerPress={self.onTrack} @keyPress(.Enter)={self.onTrack}
              @keyPress(.Space)={self.onTrack}>

@@ -6,7 +6,7 @@
 // under an engraved cut with its title.
 import Client from "$client"
 import Game from "$game"
-import { Align, Art, Edges, Event, Line, MouseButton, Overflow, Position, Side, TextAlign, Track } from "$ltml"
+import { Align, Art, Columns, Edges, Event, Gaps, Line, MouseButton, Overflow, Position, Side, TextAlign, Track } from "$ltml"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
 import {
@@ -33,6 +33,14 @@ const BEST: Color = Color.hex("#40ff40")
 // A section of the rewards: the cut with its title, then its rows, off the section before.
 const SECTION: Edges = { top: 1.5sp, right: 0sp, bottom: 0sp, left: 0sp }
 const SECTION_GAP = 1sp
+// A section's rows, and its two columns where it has them.
+const ROWS_GAP: Gaps = { columns: 4sp, rows: 0.5sp }
+// Past this many rows a section stands in two columns where its page asks for them (`paired`), each as wide as its
+// widest row: no name is cut, and the page grows for them.
+const PAIRED_PAST = 3
+const PAIRED: Array<Track> = ["max-content", "max-content"]
+
+function columnsFor(paired: Boolean, rows: Integer): Columns { return paired && rows > PAIRED_PAST ? PAIRED : 1 }
 // The rule that parts the band's cells, and the room each keeps on its sides.
 const RULE_BEFORE: Line = { width: 1.171875dp, color: Color.hex("#3e2f1d"), sides: [Side.Left] }
 const BAND_CELL: Edges = { top: 0sp, right: 3sp, bottom: 0sp, left: 3sp }
@@ -285,6 +293,8 @@ public class Rewards implements Component {
   derived banded: Boolean = self.xp > 0 || self.money > 0 || self.standings.length > 0
   // What is given anyway, the band with it: one section under one cut.
   derived received: Boolean = self.hasAlso || self.banded
+  derived choiceColumns: Columns = columnsFor(self.paired, self.views.length)
+  derived alsoColumns: Columns = columnsFor(self.paired, self.also.length)
   derived bandColumns: Array<Track> = bandOf(self.xp > 0, self.standings.length > 0, self.money > 0)
   derived moneyParted: Boolean = self.xp > 0 || self.standings.length > 0
 
@@ -297,6 +307,8 @@ public class Rewards implements Component {
   choice: Signal<Integer>
   hints: Signal<Boolean>
   pawnColumn: Signal<Boolean>
+  // Many rows stand in two columns, the page growing for them (a window's side); else one, whatever their names.
+  paired: Signal<Boolean>
   constructor(
     views: Signal<Array<RewardView>>,
     also: Signal<Array<Reward>>,
@@ -306,8 +318,10 @@ public class Rewards implements Component {
     pickable: Signal<Boolean> = false,
     choice: Signal<Integer> = 0,
     hints: Signal<Boolean> = false,
-    pawnColumn: Signal<Boolean> = false
+    pawnColumn: Signal<Boolean> = false,
+    paired: Signal<Boolean> = false
   ) {
+    self.paired = paired
     self.views = views
     self.also = also
     self.xp = xp
@@ -325,13 +339,17 @@ public class Rewards implements Component {
     return $ltml {
       <box $if={self.hasChoices} gap={SECTION_GAP} padding={SECTION}>
         <Cut title={self.chooseTitle} />
-        <RewardRow $for={view of self.views} reward={view.reward} pickable={self.pickable}
-                   picked={view.reward.index == self.choice} hints={self.hints} pawnColumn={self.pawnColumn}
-                   pawn={view.pawn} best={view.best} dearest={view.dearest} @choose={self.onChoose} />
+        <box columns={self.choiceColumns} gap={ROWS_GAP}>
+          <RewardRow $for={view of self.views} reward={view.reward} pickable={self.pickable}
+                     picked={view.reward.index == self.choice} hints={self.hints} pawnColumn={self.pawnColumn}
+                     pawn={view.pawn} best={view.best} dearest={view.dearest} @choose={self.onChoose} />
+        </box>
       </box>
       <box $if={self.received} gap={SECTION_GAP} padding={SECTION}>
         <Cut title={self.alsoTitle} />
-        <RewardRow $for={reward of self.also} reward={reward} />
+        <box columns={self.alsoColumns} gap={ROWS_GAP}>
+          <RewardRow $for={reward of self.also} reward={reward} />
+        </box>
         <box $if={self.banded} padding={{ top: 1sp, bottom: 1sp }} xAlign={Align.Center}>
           <box columns={self.bandColumns} yAlign={Align.Center}>
             <box $if={self.xp > 0} padding={BAND_CELL}>
