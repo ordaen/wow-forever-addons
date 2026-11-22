@@ -73,8 +73,14 @@ public class Spells implements Module, App {
   state lines: Array<Game.SpellLine> = []
   state pets: Array<Game.SpellEntry> = []
   state petBook: String | nil = nil
-  // The game's own window shows (the micro menu's button opened it).
+  // The game's own window's spellbook page shows (the micro menu's button opened it), and the window shows at all (a
+  // page of another's, the talents, may show alone).
   state gameShown = false
+  state windowShown = false
+  // The game's window stands away whenever it exists, so the game's window manager never counts it among the windows
+  // it shows (it holds three): it is away already as the game shows it. While the game shows another page alone, it is
+  // let be (that page's own addon holds it where it draws that page).
+  derived holdsGame: Boolean = Game.frames.PlayerSpells != nil && (!self.windowShown || self.gameShown)
   state services: Array<Game.TrainerService> = []
   const tabs: Array<WindowTabSpec> = [{ title: Locale.TAB_SPELLS, icon: BOOK }, { title: Locale.TAB_LEARNABLE, icon: LEARNABLE_ICON }]
   // What the player can learn, worked out again as their spells and level change while its tab shows.
@@ -101,9 +107,12 @@ public class Spells implements Module, App {
   public ignored: mut ModuleMemory<TrainerIgnored> = new ModuleMemory<TrainerIgnored>({}, .Character, "ignored")
   // The trainer that is open teaches a class's skills: asked as it opens.
   state classTrainer = false
-  // The game's own trainer window, found as a class trainer first opens: it stands away, unseen, while ours shows.
-  state gameTrainer: any Frame | nil = nil
+  // The game's own trainer window, found as it loads (the first trainer opened): it stands away, unseen, while ours
+  // shows, and while no trainer is open, so the game's window manager never counts it; a trainer of another kind open
+  // (a profession's, Ordaen Professions'), it is let be.
+  state gameTrainer: any Frame | nil = Runtime.frame("ClassTrainerFrame")
   derived trainerShown: Boolean = self.classTrainer && self.settings.values.trainer
+  derived holdsTrainer: Boolean = self.settings.values.trainer && self.gameTrainer != nil && (!Game.trainer.open || self.classTrainer)
 
   // A trainer opened or closed: one of a class opens in the view and sort the settings give.
   onTrainerOpen(mut self, opened: Boolean) {
@@ -175,6 +184,15 @@ public class Spells implements Module, App {
     const window = Client.PlayerSpellsFrame
     if (frame == nil || window == nil) { return }
     const page: any Client.Frame = window.SpellBookFrame
+    _ = window.HookScript("OnShow", (): nil => {
+      self.windowShown = true
+      return nil
+    })
+    _ = window.HookScript("OnHide", (): nil => {
+      self.windowShown = false
+      return nil
+    })
+    self.windowShown = window.IsVisible()
     _ = page.HookScript("OnShow", (): nil => {
       self.onGameShown()
       return nil
@@ -229,13 +247,13 @@ public class Spells implements Module, App {
 
   public render(self): Template {
     return $ltml {
-      <frame $if={self.gameShown} of={Game.frames.PlayerSpells} opacity={0} away={true} />
+      <frame $if={self.holdsGame} of={Game.frames.PlayerSpells} opacity={0} away={true} />
       <Window $if={self.open} tabs={self.tabs} selected={mut self.tab} declared={mut self.window} withSettings={true}
               side={self.side} footer={self.footer} @close={self.onClose} @settings={self.onSettings}>
         <$if={self.tab == SPELLS}> {self.page.body} </>
         <$else> {self.learnPage.body} </>
       </Window>
-      <frame $if={self.trainerShown && self.gameTrainer != nil} of={self.gameTrainer} opacity={0} away={true} />
+      <frame $if={self.holdsTrainer} of={self.gameTrainer} opacity={0} away={true} />
       <TrainerWindow $if={self.trainerShown} services={self.services} declared={mut self.trainerWindow} list={mut self.trainerList} ignored={mut self.ignored}
                      tabSpec={TRAINER_TAB} noun={Locale.COL_SKILL} trade={false} @settings={self.onSettings} />
     }

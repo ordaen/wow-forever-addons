@@ -177,6 +177,45 @@ test "the game's spells window is kept out of sight while ours stands in its pla
   Test.expect(game.GetAlpha() == 0)
 }
 
+// A game window held away from its start: the game's window manager reads it as having no place among its three, so
+// showing it later fills none.
+function unmanaged(window: any Client.Frame): Boolean {
+  Test.flush()
+  return window.GetAttribute("UIPanelLayout-defined") == true && window.GetAttribute("UIPanelLayout-area") == nil
+}
+
+test "the game's spells window is held before the game shows it: the game's window manager never counts it" {
+  Test.mount(nil, PAGE)
+  const game = gameWindow()
+  Test.expect(unmanaged(game))
+}
+
+test "the game's spells window on another page alone is let be: that page's addon holds it where it draws it" {
+  Test.mount(nil, PAGE)
+  const game = gameWindow()
+  const window: any Client.Frame = game
+  window.Show()
+  Test.flush()
+  Test.expect(game.GetAlpha() == 1)
+}
+
+test "the game's trainer window, found at a trainer, is held while none is open, and let be while a profession's is" {
+  const own = Client.CreateFrame("Frame", "ClassTrainerFrame", Client.UIParent, nil)
+  own.SetSize(300, 400)
+  own.SetPoint("TOPLEFT", Client.UIParent, "TOPLEFT", 16, -100)
+  Test.mount(nil, PAGE)
+  // A class trainer visited and left: the game's window, found there, stays held for the next one.
+  Game.trainer.services = batch
+  Game.trainer.open = true
+  Game.trainer.changed.emit()
+  Game.trainer.open = false
+  Test.expect(unmanaged(own))
+  Game.trainer.teachesClass = (): Boolean => false
+  Game.trainer.open = true
+  Test.flush()
+  Test.expect(own.GetAlpha() == 1 && (own.GetLeft() ?? 0).floor() == 16)
+}
+
 test "the game's talents button opens nothing of ours: its talents page is Ordaen Character's" {
   Test.mount(nil, PAGE)
   _ = gameWindow()
