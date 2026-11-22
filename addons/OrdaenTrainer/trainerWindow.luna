@@ -12,10 +12,10 @@
 // (`TrainerIgnored`), every rank of a spell under its name.
 import Client from "$client"
 import Game from "$game"
-import { Align, ArtBorder, Columns, Edges, Event, Frame, MouseButton, Overflow, Position, Side, TextFont, Track } from "$ltml"
+import { Align, Columns, Event, Frame, MouseButton, Overflow, Position, TextFont, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import {
-  ARTWORK, ButtonPlate, Choice, Column, Component, Dialog, FOOTER_ROOM, FilterButton, FilterGroup, FoldCaption, KeptWindow,
+  ARTWORK, ButtonPlate, Choice, Column, Component, Dialog, FilterButton, FooterBand, FilterGroup, FoldCaption, KeptWindow,
   Menu, MenuEntry, ModuleMemory, Money, PushButton, SECONDARY_TEXT, SkillBar, TIGHT_LINE, TITLE_TEXT, Table, TableRow,
   Tip, TipText, ToolPick, ToolSort, Toolbar, Window, WindowSide, WindowTabSpec, sortChoices, switched
 } from "Ordaen"
@@ -83,10 +83,6 @@ const PAIR: Array<Track> = [{ fr: 1 }, "max-content"]
 const CARD: Array<Track> = ["max-content", { fr: 1 }, "max-content"]
 const FOOT: Columns = { each: "max-content" }
 const SPREAD: Array<Track> = ["max-content", { fr: 1 }, "max-content"]
-// The footer's band: the frame's line along its top, as the side section's runs down its left; its text as far in from
-// the band's top as from its bottom.
-const FOOTER_LINE: ArtBorder = { sides: [Side.Top], ..ARTWORK.frame.tabIconLine }
-const FOOTER_PAD: Edges = { top: 5sp, ..FOOTER_ROOM }
 const DIALOG = 375dp
 const FILTERS: Array<FilterGroup<TrainerShow>> = [
   {
@@ -840,20 +836,20 @@ public class TrainerWindow implements Component {
     </box>
   }
 
-  // The footer: a band of the game's marble across the main section, the frame's line over it; the counts at its left,
-  // the player's money at its right.
+  // The footer, a band across the main section: the counts at its left, the player's money at its right.
   const footer: Template = $ltml {
-    <box border={FOOTER_LINE} background={Ordaen.art.window.marble} padding={FOOTER_PAD} columns={SPREAD} gap={6sp}
-         yAlign={Align.Center}>
-      <box columns={FOOT} gap={6sp} yAlign={Align.Center}>
-        <StatusDot $for={count of self.counts} count={count} />
+    <FooterBand>
+      <box columns={SPREAD} gap={6sp} yAlign={Align.Center}>
+        <box columns={FOOT} gap={6sp} yAlign={Align.Center}>
+          <StatusDot $for={count of self.counts} count={count} />
+        </box>
+        <box />
+        <box columns={FOOT} gap={3sp} yAlign={Align.Center}>
+          <text value={Locale.TRAINER_YOUR_MONEY} textColor={DIM} textSize={SECONDARY_TEXT} wrap={.None} />
+          <Money amount={Game.money.amount} />
+        </box>
       </box>
-      <box />
-      <box columns={FOOT} gap={3sp} yAlign={Align.Center}>
-        <text value={Locale.TRAINER_YOUR_MONEY} textColor={DIM} textSize={SECONDARY_TEXT} wrap={.None} />
-        <Money amount={Game.money.amount} />
-      </box>
-    </box>
+    </FooterBand>
   }
 
   public render(self): Template {
