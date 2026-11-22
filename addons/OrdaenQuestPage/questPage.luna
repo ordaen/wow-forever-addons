@@ -85,7 +85,7 @@ const TITLE_LETTERS = 30
 const LEAST_LINES = 4
 
 // As wide as its place, never wider than that (past it the art would stretch), in the middle of a wider place.
-const SCROLL_BOUNDS: Bounds = { fill: true, min: nil, max: SCROLL_WIDTH }
+const SCROLL_BOUNDS: Bounds = { stretch: true, min: nil, max: SCROLL_WIDTH }
 const ONE_ROW: Array<Track> = [{ fr: 1 }]
 // A roll's height at that width (its 128 texels).
 const ROLL_HEIGHT: Number<Length> = 58.59375dp
