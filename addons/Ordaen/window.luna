@@ -851,7 +851,7 @@ public class Window implements Component {
       // row is the one thing in its grid, and the width it keeps is its least.
       <surface leading={.Row} shown={self.seen} layer={Layer.Panel} place={self.place} width={self.bounds} height={self.height} clamp={true}
                raise={true}
-               @keyPress.parentScope(.Escape)={self.onClose}>
+               @keyDown.parentScope(.Escape)={self.onClose}>
         <box position={Position.Absolute} left={0ui} right={self.inset} top={self.tabHeight} bottom={0ui}
              border={Ordaen.art.frame.window} background={Ordaen.art.window.wood}
              columns={self.bodyColumns} rows={BODY_ROWS} zLevel={BODY_LEVEL} @pointerEnter={self.onBodyIn}
