@@ -10,8 +10,11 @@
 // follows the button by `slotAt`, the same formula, from the scripts hooked on its click, which the client runs in a
 // fight too; an item that is ours (`WheelAction.Ours`, a window of ours) is done there, as the client does nothing for
 // it. What is set up (the items, the keys, the size) is written out of a fight; a change made in one waits for its
-// end. A key's release missed (the game lost focus) is mended by the next press, Escape or a click. Nothing runs while
-// it is closed: the cursor is followed by a script set as it opens and taken away as it closes.
+// end. The client drops a held key's release once the mouse presses a frame: out of a fight the wheel sees its key up
+// (`IsKeyDown`) and closes; in one nothing can (the restricted code has no `IsKeyDown` nor a timer, and addon code may
+// not hide the button), so there Escape or a right click closes it. A release the game missed for losing focus is
+// mended the same way, or by the next press. Nothing runs while it is closed: the cursor is followed by a script set as
+// it opens and taken away as it closes.
 import Client from "$client"
 import root Ordaen from "Ordaen"
 import { DEAD_ZONE, SLOT_LUA } from "@/wheel"
@@ -176,6 +179,8 @@ public class SecureWheel {
   written: mut Array<String> = []
   writtenOnHeader: mut Array<String> = []
   picks: Integer = 0
+  // The keys that hold it, without their modifiers (`"Q"` of `"CTRL-Q"`): what the client says is down.
+  held: mut Array<String> = []
   openedAt: Number = 0
   readAt: Number = 0
   centred: Boolean = false
@@ -256,7 +261,9 @@ public class SecureWheel {
   }
 
   // The keys that hold the wheel, by the client's names (`"CTRL-Q"`), bound over the player's own out of a fight.
-  public bind(self, keys: Array<String>) {
+  public bind(mut self, keys: Array<String>) {
+    self.held.clear()
+    for (key of keys) { self.held.push(key.match("^.+%-(.+)$") ?? key) }
     const header = self.header
     const name = self.button.GetName() ?? panic("the button is named")
     Ordaen.afterCombat(() => {
@@ -283,6 +290,14 @@ public class SecureWheel {
     }
   }
 
+  // Closed as its restricted code closes it: out of a fight alone, as the button is protected.
+  close(mut self) {
+    self.button.Hide()
+    Client.ClearOverrideBindings(self.button)
+    self.header.SetAttribute("level", ROOT)
+    self.heard()
+  }
+
   // The cursor followed while the wheel is up, and not at all once it closes; it opens over `OPENING_TIME`.
   follow(mut self, on: Boolean) {
     if (!on) {
@@ -296,7 +311,14 @@ public class SecureWheel {
     self.follower.SetScript("OnUpdate", (): nil => self.aim())
   }
 
+  // While it is up: its key let go closes it, a release the client dropped (a mouse press on a frame while a bound
+  // key is held loses that key's release) as well as one it told. Out of a fight alone: in one the restricted code
+  // has no `IsKeyDown` and addon code may not hide the button, so there Escape or a right click closes it.
   aim(mut self) {
+    if (!self.held.any(key => Client.IsKeyDown(key) == true) && !Client.InCombatLockdown()) {
+      self.close()
+      return
+    }
     const now = Client.GetTime()
     if (self.opening < 1) { self.opening = ((now - self.openedAt) / OPENING_TIME).min(1) }
     if (now - self.readAt >= STATE_EVERY) {

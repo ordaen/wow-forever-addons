@@ -139,8 +139,20 @@ test "the key let go closes the wheel and does nothing, wherever the cursor went
   open("F")
   clickAt(100, 0)
   Test.expect(held.wheel.open && held.wheel.level == "r_2")
+  // The click lost the key's release, as the client loses it: the wheel sees the key up on its next frame.
   Test.releaseBound("F")
+  Test.pass(0.05)
   Test.expect(!held.wheel.open && Test.performed().length == 0)
+  // In a fight the client's release is lost too, and nothing may hide the button: it stays up for Escape.
+  Test.combat(true)
+  open("F")
+  clickAt(100, 0)
+  Test.releaseBound("F")
+  Test.pass(0.05)
+  Test.expect(held.wheel.open)
+  _ = Test.keyBound("ESCAPE")
+  Test.expect(!held.wheel.open)
+  Test.combat(false)
   // Opened again, it starts on the first ring.
   open("F")
   Test.expect(held.wheel.level == ROOT)

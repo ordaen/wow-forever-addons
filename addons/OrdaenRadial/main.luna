@@ -217,7 +217,7 @@ public class Radial implements Module, App {
   }
 
   // The keys the player gave each ring, bound to its wheel (out of a fight: in one, as it ends).
-  bind(self) {
+  bind(mut self) {
     for (index, wheel of self.wheels) {
       const command = RING_KEYS[index] ?? panic("a key for each wheel")
       const first, second = Client.GetBindingKey(command)
