@@ -1,28 +1,48 @@
 // SideList: a list of the recipes page (the categories, the recipes), standing edge to edge with the section beside it:
-// no rim of its own, its section's surface (none for the categories, which stand on the wood), its rows
-// (`TabItem`) edge to edge, scrolling in their column. A prototype of the professions window's design: Ordaen's
-// `ScrolledList` draws the lists of every other window.
-import { Overflow, Size } from "$ltml"
+// no rim of its own, its section's surface (none for the categories, which stand on the wood), its rows (`TabItem`)
+// scrolling in their column. Where it is parted from the section at its right by a groove (`groove`), the groove runs
+// down its right side under its rows, so the chosen one, on that section's surface, stands over it: a tab cut into it.
+// A prototype of the professions window's design: Ordaen's `ScrolledList` draws the lists of every other window.
+import { Edges, Overflow, Position, Size, Track } from "$ltml"
 import { Component } from "Ordaen"
 import Style from "@/style"
+
+const ONE: Array<Track> = [{ fr: 1 }]
+const NO_ROOM: Edges = {}
 
 public class SideList implements Component {
   width: Signal<Size | nil>
   surface: Signal<Style.Surface | nil>
+  room: Signal<Edges>
+  groove: Signal<Boolean>
   constructor(
     // The list's width. None: the width of its cell.
     width: Signal<Size | nil> = nil,
     // Its section's surface; none: what it stands on.
-    surface: Signal<Style.Surface | nil> = nil
+    surface: Signal<Style.Surface | nil> = nil,
+    // Room round its rows, on its surface.
+    room: Signal<Edges> = NO_ROOM,
+    // A groove down its right side.
+    groove: Signal<Boolean> = false
   ) {
     self.width = width
     self.surface = surface
+    self.room = room
+    self.groove = groove
   }
 
   public render(self): Template {
     return $ltml {
-      <box width={self.width} background={self.surface?.art} tint={self.surface?.tint} columns={1} overflow={Overflow.Scroll}>
-        <slot />
+      <box width={self.width} background={self.surface?.art} tint={self.surface?.tint} rows={ONE}>
+        <$if={self.groove}>
+          <box position={Position.Absolute} top={0ui} bottom={0ui} right={Style.GROOVE} width={Style.GROOVE}
+               background={Style.GROOVE_DARK} />
+          <box position={Position.Absolute} top={0ui} bottom={0ui} right={0ui} width={Style.GROOVE}
+               background={Style.GROOVE_LIGHT} />
+        </>
+        <box columns={1} padding={self.room} overflow={Overflow.Scroll}>
+          <slot />
+        </box>
       </box>
     }
   }

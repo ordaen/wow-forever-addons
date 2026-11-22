@@ -1,6 +1,6 @@
 // The rows of the professions window's lists: a category, a recipe, a reagent. A category and a recipe are a
-// `TabItem`: a faint rule between them, a light under the cursor, the chosen one open into the section beside it,
-// with a 2 px edge of its colour at its left (a recipe's, its difficulty's; a category's, the gold). A recipe's row
+// `TabItem`: a faint rule between them, a light under the cursor, the chosen one open into the section beside it (a
+// category on the recipes' stained wood, cut into the groove between them; a recipe a plain light). A recipe's row
 // says what was clicked (`Act`): the left button picks it, the right one opens its menu.
 import Game from "$game"
 import { Align, Art, Edges, Line, MouseButton, Position, Track } from "$ltml"
@@ -15,9 +15,9 @@ const NAME_COUNT: Array<Track> = [{ fr: 1 }, "max-content"]
 const MARKS: Array<Track> = ["max-content", "max-content"]
 // The categories stand at the window's left line: their names keep the window's room, as the toolbar over them does.
 const CATEGORY_PAD: Edges = { top: 2sp, right: 5sp, bottom: 2sp, left: WINDOW_ROOM }
-const RECIPE_PAD: Edges = { top: 2sp, right: 5sp, bottom: 2sp, left: 5sp }
+const RECIPE_PAD: Edges = { top: 2sp, right: 5sp, bottom: 2sp, left: Style.RECIPE_PAD }
 // A recipe under a heading stands in past the heading's fold mark.
-const INDENT_PAD: Edges = { top: 2sp, right: 5sp, bottom: 2sp, left: 5sp + 5.5sp }
+const INDENT_PAD: Edges = { top: 2sp, right: 5sp, bottom: 2sp, left: Style.RECIPE_PAD + 5.5sp }
 const FOLD: Array<Track> = [11.71875dp, { fr: 1 }, "max-content"]
 const SLOT = 37.5dp
 const REAGENT: Array<Track> = [SLOT, { fr: 1 }, "max-content"]
@@ -57,7 +57,7 @@ public class CategoryRow implements Component {
 
   public render(self): Template {
     return $ltml {
-      <TabItem selected={self.isChosen} into={Style.RECIPES} first={self.first} columns={NAME_COUNT} padding={CATEGORY_PAD}
+      <TabItem selected={self.isChosen} into={Style.RECIPES} groove={true} first={self.first} columns={NAME_COUNT} padding={CATEGORY_PAD}
                @pick={self.onClick}>
         <text value={self.group.name} textColor={self.nameColor} textShadow={Style.SHADOW} />
         <box columns={MARKS} gap={1sp} yAlign={Align.Center}>
@@ -78,8 +78,6 @@ public class RecipeRow implements Component {
 
   derived isChosen: Boolean = self.chosen == self.recipe.id
   derived first: Boolean = self.index == 1
-  // Chosen, it is filled in its own colour.
-  derived tint: Color | nil = self.color
   derived color: Color = self.recipe.learned ? Style.difficultyColor(self.recipe.difficulty) : Style.OFF
   derived count: String = self.recipe.craftable > 0 ? "[%d]".format(self.recipe.craftable) : ""
   derived starred: Boolean = has(self.kept.favorites, self.recipe.id)
@@ -119,7 +117,7 @@ public class RecipeRow implements Component {
 
   public render(self): Template {
     return $ltml {
-      <TabItem selected={self.isChosen} into={Style.RECIPE} color={self.tint} first={self.first} columns={NAME_COUNT}
+      <TabItem selected={self.isChosen} into={Style.RECIPE_LIT} first={self.first} columns={NAME_COUNT}
                padding={self.padding} @pick={self.onClick}>
         <text value={self.recipe.name} textColor={self.color} textShadow={Style.SHADOW} />
         <text value={self.count} textColor={BRIGHT_TEXT} wrap={.None} textFont={.Numbers} />
@@ -271,10 +269,10 @@ public class RecipeTableRow implements Component {
 
 // A reagent of the chosen recipe: its icon in a slot, its name, have / need (red when short).
 public class ReagentRow implements Component {
-  derived rule: Line | nil = self.index > 1 ? Style.ROW_RULE : nil
+  derived rule: Line | nil = self.index > 1 ? Style.PAPER_RULE : nil
   derived item: Integer | nil = self.reagent.itemID
   derived icon: Art | nil = self.reagent.icon
-  derived color: Color = self.reagent.have < self.reagent.need ? Style.RED : Style.INK
+  derived color: Color = self.reagent.have < self.reagent.need ? Style.PAPER_RED : Style.PAPER_INK
 
   reagent: Signal<Game.Reagent>
   index: Signal<Integer>
@@ -290,7 +288,7 @@ public class ReagentRow implements Component {
     return $ltml {
       <box columns={REAGENT} gap={2.5sp} yAlign={Align.Center} padding={REAGENT_PAD} border={self.rule}>
         <ItemButton item={self.item} art={self.icon} size={SLOT} />
-        <text value={self.reagent.name} textColor={Style.INK} />
+        <text value={self.reagent.name} textColor={Style.PAPER_INK} />
         <text value={"%d / %d"} arguments={[self.reagent.have, self.reagent.need]} wrap={.None} textColor={self.color}
               textFont={.Numbers} />
       </box>

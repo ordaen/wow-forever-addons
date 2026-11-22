@@ -823,9 +823,9 @@ public class Professions implements Module, App {
                             kept={self.kept} taught={self.taught} @pick={self.openRecipe} />
               <WorthPage $elseif={self.worthShown} book={self.written} prices={self.prices} />
               // The recipes, from the band to the window's bottom and side to side: the toolbar over the lists on the
-              // wood, and the recipe beside both, the full height. The categories have no floor of their own, the
-              // recipes and the recipe each a darker one: a chosen category is the recipes' colour, a chosen recipe the
-              // recipe's (`TabItem`), each a tab into what it chose.
+              // wood, and the recipe beside both, the full height, on the quest scroll's paper. The categories stand on
+              // the wood, parted by a groove from the recipes on the wood stained dark: a chosen category takes the
+              // recipes' surface, a tab cut into the groove; a chosen recipe a plain light (`TabItem`).
               <box $else columns={GRID} rows={FILL}>
                 <box rows={TOOLED} width={Style.LISTS_BOUNDS}>
                   <box padding={TOOL_ROOM}>
@@ -837,23 +837,23 @@ public class Professions implements Module, App {
                                 title={Locale.VIEW} />
                     </Toolbar>
                   </box>
-                  <SideList $if={self.onCamp} surface={Style.RECIPES}>
+                  <SideList $if={self.onCamp} surface={Style.RECIPES} room={Style.RECIPES_ROOM}>
                     <RecipeRow $for={index, recipe of self.recipes} recipe={recipe} index={index}
                                chosen={self.chosenRecipe} kept={self.kept} menuFor={self.menuFor}
                                @act={self.onAct} />
                   </SideList>
                   <box $elseif={self.inColumns} columns={LISTS} rows={FILL}>
-                    <SideList width={Style.CATEGORIES_BOUNDS}>
+                    <SideList width={Style.CATEGORIES_BOUNDS} groove={true}>
                       <CategoryRow $for={index, group of self.groups} group={group} index={index}
                                    chosen={self.chosenCategory} @pick={self.pickCategory} />
                     </SideList>
-                    <SideList width={Style.RECIPES_BOUNDS} surface={Style.RECIPES}>
+                    <SideList width={Style.RECIPES_BOUNDS} surface={Style.RECIPES} room={Style.RECIPES_ROOM}>
                       <RecipeRow $for={index, recipe of self.recipes} recipe={recipe} index={index}
                                  chosen={self.chosenRecipe} kept={self.kept} menuFor={self.menuFor}
                                  @act={self.onAct} />
                     </SideList>
                   </box>
-                  <SideList $elseif={self.inGroups} surface={Style.RECIPES}>
+                  <SideList $elseif={self.inGroups} surface={Style.RECIPES} room={Style.RECIPES_ROOM}>
                     <CategoryGroup $for={group of self.groups} $key={group.id} group={group} shown={self.mains}
                                    byCategory={self.byCategory}
                                    chosen={self.chosenRecipe} kept={self.kept} menuFor={self.menuFor}
