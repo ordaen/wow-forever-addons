@@ -1,0 +1,88 @@
+{
+  "says": "The windows rule, a deep groove cut into the wood (wow-dev-tools design/character/engravings.md, look 5; theme ctl.groove): 8 px deep, its six rows centred. groove-dark is laid with the client MOD (its dark rows mixed to white by their opacity, white elsewhere), groove-light with ADD (the lit lip times its opacity, black elsewhere). Each comes as one tile 64 px along, repeated along the cut (the rim and the lip vary along it); -upright, the same turned, the light from the left; -entry (8 px), where a heading cut enters the wood, deepening over 6 px; -tip (64 px), where it narrows to a point.",
+  "ships": [
+    "addons/Ordaen/media/groove-dark.tga",
+    "addons/Ordaen/media/groove-dark-upright.tga",
+    "addons/Ordaen/media/groove-dark-entry.tga",
+    "addons/Ordaen/media/groove-dark-tip.tga",
+    "addons/Ordaen/media/groove-light.tga",
+    "addons/Ordaen/media/groove-light-upright.tga",
+    "addons/Ordaen/media/groove-light-entry.tga",
+    "addons/Ordaen/media/groove-light-tip.tga"
+  ],
+  "origin": "Drawn by the design: wow-dev-tools `design/scripts/groove-rule.mjs deep <dark|light> <across|upright|entry|tip>` writes a page of the look`s pixels (`LOOKS.deep` in design/.vitepress/theme/rules.js); each page shot with `design/scripts/shot.mjs --width 400 --height 600` on `?bg=black` and `?bg=white`, then matted.",
+  "steps": [
+    {
+      "matte": {
+        "black": "art/sources/groove-dark-across-black.png",
+        "white": "art/sources/groove-dark-across-white.png",
+        "out": "addons/Ordaen/media/groove-dark.tga",
+        "width": 64,
+        "height": 8
+      }
+    },
+    {
+      "matte": {
+        "black": "art/sources/groove-dark-upright-black.png",
+        "white": "art/sources/groove-dark-upright-white.png",
+        "out": "addons/Ordaen/media/groove-dark-upright.tga",
+        "width": 8,
+        "height": 64
+      }
+    },
+    {
+      "matte": {
+        "black": "art/sources/groove-dark-entry-black.png",
+        "white": "art/sources/groove-dark-entry-white.png",
+        "out": "addons/Ordaen/media/groove-dark-entry.tga",
+        "width": 8,
+        "height": 8
+      }
+    },
+    {
+      "matte": {
+        "black": "art/sources/groove-dark-tip-black.png",
+        "white": "art/sources/groove-dark-tip-white.png",
+        "out": "addons/Ordaen/media/groove-dark-tip.tga",
+        "width": 64,
+        "height": 8
+      }
+    },
+    {
+      "matte": {
+        "black": "art/sources/groove-light-across-black.png",
+        "white": "art/sources/groove-light-across-white.png",
+        "out": "addons/Ordaen/media/groove-light.tga",
+        "width": 64,
+        "height": 8
+      }
+    },
+    {
+      "matte": {
+        "black": "art/sources/groove-light-upright-black.png",
+        "white": "art/sources/groove-light-upright-white.png",
+        "out": "addons/Ordaen/media/groove-light-upright.tga",
+        "width": 8,
+        "height": 64
+      }
+    },
+    {
+      "matte": {
+        "black": "art/sources/groove-light-entry-black.png",
+        "white": "art/sources/groove-light-entry-white.png",
+        "out": "addons/Ordaen/media/groove-light-entry.tga",
+        "width": 8,
+        "height": 8
+      }
+    },
+    {
+      "matte": {
+        "black": "art/sources/groove-light-tip-black.png",
+        "white": "art/sources/groove-light-tip-white.png",
+        "out": "addons/Ordaen/media/groove-light-tip.tga",
+        "width": 64,
+        "height": 8
+      }
+    }
+  ]
+}

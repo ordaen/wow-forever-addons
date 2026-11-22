@@ -1,18 +1,38 @@
-// The rule on a window's wood, the spellbook's bronze line, in two forms: a heading's, the title in gold bold and the
-// rule fading out to its right (a Section's, a character window's section); a divider's, the same bronze solid, from
-// border to border (between two sections, beside the paper doll).
-import { Align, Shadow } from "$ltml"
+// A cut in a window's wood, a deep groove (the theme's `ctl.cut`), in two forms: a heading's, the title in gold bold
+// and the cut after it, entering the wood and narrowing to a point (a Section's, a character window's section); a
+// divider's, the cut whole from border to border (between two sections, beside the paper doll). Its shade is
+// multiplied into the wood and its lip added to it, so the wood's grain goes on through it.
+import { Align, Blend, Position, Shadow } from "$ltml"
 import root Ordaen from "Ordaen"
+import { OrdaenArt } from "@/art"
 import { Component } from "@/module"
 
-// The rule's thickness, and its bronze at 45%: `ctl-rule`'s first texel, which fades from it to nothing.
-public const CUT: Number<Length> = 1.171875dp
-const RULE: Color = Color.hex("#d6a56b73")
+// The cut's depth, 8 texels of its art at a texel a pixel; a heading's ends, 8 and 64 texels long.
+public const CUT: Number<Length> = 9.375dp
+const ENTRY: Number<Length> = 9.375dp
+const TIP: Number<Length> = 75dp
 const GOLD: Color = Color.hex("#e8c35a")
 // The design's 700: the same colour one pixel to the right.
 const BOLD: Shadow = { color: GOLD, x: 1.171875dp, y: 0ui }
 
-// The divider's form: the solid rule across its box (`upright` false) or down it (true).
+// One piece of the cut filling its box: its shade multiplied into the wood, its lip added over it.
+class CutPiece implements Component {
+  layers: OrdaenArt.CutLayers
+  constructor(layers: OrdaenArt.CutLayers) {
+    self.layers = layers
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <box background={self.layers.dark} blend={Blend.Multiply}>
+        <box position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui} background={self.layers.light}
+             blend={Blend.Add} />
+      </box>
+    }
+  }
+}
+
+// The divider's form: the cut whole across its box (`upright` false) or down it (true, the light from the left).
 public class Groove implements Component {
   upright: Signal<Boolean>
   constructor(upright: Signal<Boolean> = false) {
@@ -21,16 +41,18 @@ public class Groove implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box $if={self.upright} columns={[CUT]} rows={[{ fr: 1 }]}>
-        <box background={RULE} />
+      <box $if={self.upright} columns={[CUT]} rows={[{ fr: 1 }]} yAlign={Align.Stretch}>
+        <CutPiece layers={Ordaen.art.ctl.cut.upright} />
       </box>
-      <box $else height={CUT} background={RULE} />
+      <box $else rows={[CUT]} yAlign={Align.Stretch}>
+        <CutPiece layers={Ordaen.art.ctl.cut.across} />
+      </box>
     }
   }
 }
 
-// A rule across the column: the heading's form where it has a title (the title at its left, the rule fading out
-// after it), else the divider's.
+// A cut across the column: the heading's form where it has a title (the title at its left, the cut after it entering
+// the wood and narrowing to a point at the column's end), else the divider's.
 public class Cut implements Component {
   derived titled: Boolean = self.title != ""
 
@@ -43,7 +65,11 @@ public class Cut implements Component {
     return $ltml {
       <box $if={self.titled} columns={["max-content", { fr: 1 }]} gap={3sp} yAlign={Align.Center}>
         <text value={self.title} textColor={GOLD} textShadow={BOLD} wrap={.None} />
-        <box height={CUT} background={Ordaen.art.ctl.rule} />
+        <box columns={[ENTRY, { fr: 1 }, TIP]} rows={[CUT]} yAlign={Align.Stretch}>
+          <CutPiece layers={Ordaen.art.ctl.cut.entry} />
+          <CutPiece layers={Ordaen.art.ctl.cut.across} />
+          <CutPiece layers={Ordaen.art.ctl.cut.tip} />
+        </box>
       </box>
       <Groove $else />
     }

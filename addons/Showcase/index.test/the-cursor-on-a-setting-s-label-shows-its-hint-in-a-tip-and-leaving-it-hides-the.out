@@ -15,7 +15,13 @@ box 0,0 700x396.66
     box 0,37.54 700x160.49
       box 0,37.54 700x16.8
         text 0,37.54 44.17x16.8 "Drawer" #e8c35a
-        box 52.7,45.53 647.3x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+        box 52.7,42.61 647.3x6.67
+          box 52.7,42.61 6.67x6.67 Interface\AddOns\Ordaen\media\groove-dark-entry blend=MOD
+            box 52.7,42.61 6.67x6.67 absolute Interface\AddOns\Ordaen\media\groove-light-entry blend=ADD
+          box 59.37,42.61 587.3x6.67 Interface\AddOns\Ordaen\media\groove-dark blend=MOD
+            box 59.37,42.61 587.3x6.67 absolute Interface\AddOns\Ordaen\media\groove-light blend=ADD
+          box 646.67,42.61 53.33x6.67 Interface\AddOns\Ordaen\media\groove-dark-tip blend=MOD
+            box 646.67,42.61 53.33x6.67 absolute Interface\AddOns\Ordaen\media\groove-light-tip blend=ADD
       box 0,65.72 700x16.8 opacity=1
         box 0,65.72 233.33x16.8 @pointerEnter @pointerLeave
           text 0,65.72 233.33x16.8 "Button drawer" #cbb994
@@ -40,7 +46,13 @@ box 0,0 700x396.66
     box 0,209.41 700x88.18
       box 0,209.41 700x16.8
         text 0,209.41 44.17x16.8 "Export" #e8c35a
-        box 52.7,217.39 647.3x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+        box 52.7,214.48 647.3x6.67
+          box 52.7,214.48 6.67x6.67 Interface\AddOns\Ordaen\media\groove-dark-entry blend=MOD
+            box 52.7,214.48 6.67x6.67 absolute Interface\AddOns\Ordaen\media\groove-light-entry blend=ADD
+          box 59.37,214.48 587.3x6.67 Interface\AddOns\Ordaen\media\groove-dark blend=MOD
+            box 59.37,214.48 587.3x6.67 absolute Interface\AddOns\Ordaen\media\groove-light blend=ADD
+          box 646.67,214.48 53.33x6.67 Interface\AddOns\Ordaen\media\groove-dark-tip blend=MOD
+            box 646.67,214.48 53.33x6.67 absolute Interface\AddOns\Ordaen\media\groove-light-tip blend=ADD
       box 0,237.59 700x60 #0d0a08 input "Ordaen:1:drawer\nhide=never" lines typing selected 0..26 clipped @change
   box 0,306.12 700x16.8 @pointerEnter @pointerLeave
     text 0,306.12 700x16.8 "zone shown" #ffffff
@@ -69,7 +81,13 @@ box 0,0 700x396.66
     box 0,37.54 700x160.49
       box 0,37.54 700x16.8
         text 0,37.54 44.17x16.8 "Drawer" #e8c35a
-        box 52.7,45.53 647.3x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+        box 52.7,42.61 647.3x6.67
+          box 52.7,42.61 6.67x6.67 Interface\AddOns\Ordaen\media\groove-dark-entry blend=MOD
+            box 52.7,42.61 6.67x6.67 absolute Interface\AddOns\Ordaen\media\groove-light-entry blend=ADD
+          box 59.37,42.61 587.3x6.67 Interface\AddOns\Ordaen\media\groove-dark blend=MOD
+            box 59.37,42.61 587.3x6.67 absolute Interface\AddOns\Ordaen\media\groove-light blend=ADD
+          box 646.67,42.61 53.33x6.67 Interface\AddOns\Ordaen\media\groove-dark-tip blend=MOD
+            box 646.67,42.61 53.33x6.67 absolute Interface\AddOns\Ordaen\media\groove-light-tip blend=ADD
       box 0,65.72 700x16.8 opacity=1
         box 0,65.72 233.33x16.8 @pointerEnter @pointerLeave
           text 0,65.72 233.33x16.8 "Button drawer" #cbb994
@@ -94,7 +112,13 @@ box 0,0 700x396.66
     box 0,209.41 700x88.18
       box 0,209.41 700x16.8
         text 0,209.41 44.17x16.8 "Export" #e8c35a
-        box 52.7,217.39 647.3x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+        box 52.7,214.48 647.3x6.67
+          box 52.7,214.48 6.67x6.67 Interface\AddOns\Ordaen\media\groove-dark-entry blend=MOD
+            box 52.7,214.48 6.67x6.67 absolute Interface\AddOns\Ordaen\media\groove-light-entry blend=ADD
+          box 59.37,214.48 587.3x6.67 Interface\AddOns\Ordaen\media\groove-dark blend=MOD
+            box 59.37,214.48 587.3x6.67 absolute Interface\AddOns\Ordaen\media\groove-light blend=ADD
+          box 646.67,214.48 53.33x6.67 Interface\AddOns\Ordaen\media\groove-dark-tip blend=MOD
+            box 646.67,214.48 53.33x6.67 absolute Interface\AddOns\Ordaen\media\groove-light-tip blend=ADD
       box 0,237.59 700x60 #0d0a08 input "Ordaen:1:drawer\nhide=never" lines typing selected 0..26 clipped @change
   box 0,306.12 700x16.8 @pointerEnter @pointerLeave
     text 0,306.12 700x16.8 "zone shown" #ffffff

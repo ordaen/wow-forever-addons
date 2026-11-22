@@ -16,7 +16,13 @@ box 0,0 700x739.27
       box 0,37.54 700x289.51
         box 0,37.54 700x16.8
           text 0,37.54 44.17x16.8 "Market" #e8c35a
-          box 52.7,45.53 647.3x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+          box 52.7,42.61 647.3x6.67
+            box 52.7,42.61 6.67x6.67 Interface\AddOns\Ordaen\media\groove-dark-entry blend=MOD
+              box 52.7,42.61 6.67x6.67 absolute Interface\AddOns\Ordaen\media\groove-light-entry blend=ADD
+            box 59.37,42.61 587.3x6.67 Interface\AddOns\Ordaen\media\groove-dark blend=MOD
+              box 59.37,42.61 587.3x6.67 absolute Interface\AddOns\Ordaen\media\groove-light blend=ADD
+            box 646.67,42.61 53.33x6.67 Interface\AddOns\Ordaen\media\groove-dark-tip blend=MOD
+              box 646.67,42.61 53.33x6.67 absolute Interface\AddOns\Ordaen\media\groove-light-tip blend=ADD
         box 0,65.72 700x26.31 opacity=1
           box 0,70.48 233.33x16.8 @pointerEnter @pointerLeave
             text 0,70.48 233.33x16.8 "Scan" #cbb994
@@ -89,7 +95,13 @@ box 0,0 700x739.27
       box 0,344.12 700x185.79
         box 0,344.12 700x16.8
           text 0,344.12 36.67x16.8 "Sales" #e8c35a
-          box 45.2,352.11 654.8x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+          box 45.2,349.19 654.8x6.67
+            box 45.2,349.19 6.67x6.67 Interface\AddOns\Ordaen\media\groove-dark-entry blend=MOD
+              box 45.2,349.19 6.67x6.67 absolute Interface\AddOns\Ordaen\media\groove-light-entry blend=ADD
+            box 51.87,349.19 594.8x6.67 Interface\AddOns\Ordaen\media\groove-dark blend=MOD
+              box 51.87,349.19 594.8x6.67 absolute Interface\AddOns\Ordaen\media\groove-light blend=ADD
+            box 646.67,349.19 53.33x6.67 Interface\AddOns\Ordaen\media\groove-dark-tip blend=MOD
+              box 646.67,349.19 53.33x6.67 absolute Interface\AddOns\Ordaen\media\groove-light-tip blend=ADD
         box 0,372.3 700x16.8 opacity=1
           box 0,372.3 233.33x16.8 @pointerEnter @pointerLeave
             text 0,372.3 233.33x16.8 "Last click on a row" #cbb994
@@ -138,7 +150,13 @@ box 0,0 700x739.27
       box 0,546.98 700x93.22
         box 0,546.98 700x16.8
           text 0,546.98 36.67x16.8 "Menus" #e8c35a
-          box 45.2,554.96 654.8x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+          box 45.2,552.04 654.8x6.67
+            box 45.2,552.04 6.67x6.67 Interface\AddOns\Ordaen\media\groove-dark-entry blend=MOD
+              box 45.2,552.04 6.67x6.67 absolute Interface\AddOns\Ordaen\media\groove-light-entry blend=ADD
+            box 51.87,552.04 594.8x6.67 Interface\AddOns\Ordaen\media\groove-dark blend=MOD
+              box 51.87,552.04 594.8x6.67 absolute Interface\AddOns\Ordaen\media\groove-light blend=ADD
+            box 646.67,552.04 53.33x6.67 Interface\AddOns\Ordaen\media\groove-dark-tip blend=MOD
+              box 646.67,552.04 53.33x6.67 absolute Interface\AddOns\Ordaen\media\groove-light-tip blend=ADD
         box 0,575.16 700x28.33 opacity=1
           box 0,580.92 233.33x16.8 @pointerEnter @pointerLeave
             text 0,580.92 233.33x16.8 "Toolbar" #cbb994

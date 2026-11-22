@@ -4,7 +4,13 @@ box 0,0 800x1548.26
   box 0,0 800x107.02
     box 0,0 800x16.8
       text 0,0 44.17x16.8 "Themes" #e8c35a
-      box 52.7,7.98 747.3x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+      box 52.7,5.07 747.3x6.67
+        box 52.7,5.07 6.67x6.67 Interface\AddOns\Ordaen\media\groove-dark-entry blend=MOD
+          box 52.7,5.07 6.67x6.67 absolute Interface\AddOns\Ordaen\media\groove-light-entry blend=ADD
+        box 59.37,5.07 687.3x6.67 Interface\AddOns\Ordaen\media\groove-dark blend=MOD
+          box 59.37,5.07 687.3x6.67 absolute Interface\AddOns\Ordaen\media\groove-light blend=ADD
+        box 746.67,5.07 53.33x6.67 Interface\AddOns\Ordaen\media\groove-dark-tip blend=MOD
+          box 746.67,5.07 53.33x6.67 absolute Interface\AddOns\Ordaen\media\groove-light-tip blend=ADD
     box 0,28.18 800x33.73
       box 0,28.18 665.04x33.73
         text 0,28.18 665.04x16.8 "Ordaen" #f0e6d2
@@ -19,7 +25,13 @@ box 0,0 800x1548.26
   box 0,122.66 800x135.93
     box 0,122.66 800x16.8
       text 0,122.66 36.67x16.8 "Fonts" #e8c35a
-      box 45.2,130.64 754.8x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+      box 45.2,127.73 754.8x6.67
+        box 45.2,127.73 6.67x6.67 Interface\AddOns\Ordaen\media\groove-dark-entry blend=MOD
+          box 45.2,127.73 6.67x6.67 absolute Interface\AddOns\Ordaen\media\groove-light-entry blend=ADD
+        box 51.87,127.73 694.8x6.67 Interface\AddOns\Ordaen\media\groove-dark blend=MOD
+          box 51.87,127.73 694.8x6.67 absolute Interface\AddOns\Ordaen\media\groove-light blend=ADD
+        box 746.67,127.73 53.33x6.67 Interface\AddOns\Ordaen\media\groove-dark-tip blend=MOD
+          box 746.67,127.73 53.33x6.67 absolute Interface\AddOns\Ordaen\media\groove-light-tip blend=ADD
     box 0,150.84 800x28.33 opacity=1
       box 0,156.6 233.33x16.8 @pointerEnter @pointerLeave
         text 0,156.6 233.33x16.8 "Text font" #cbb994
@@ -44,7 +56,13 @@ box 0,0 800x1548.26
   box 0,274.24 800x96.22
     box 0,274.24 800x16.8
       text 0,274.24 58.33x16.8 "Textures" #e8c35a
-      box 66.87,282.22 733.13x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+      box 66.87,279.3 733.13x6.67
+        box 66.87,279.3 6.67x6.67 Interface\AddOns\Ordaen\media\groove-dark-entry blend=MOD
+          box 66.87,279.3 6.67x6.67 absolute Interface\AddOns\Ordaen\media\groove-light-entry blend=ADD
+        box 73.53,279.3 673.13x6.67 Interface\AddOns\Ordaen\media\groove-dark blend=MOD
+          box 73.53,279.3 673.13x6.67 absolute Interface\AddOns\Ordaen\media\groove-light blend=ADD
+        box 746.67,279.3 53.33x6.67 Interface\AddOns\Ordaen\media\groove-dark-tip blend=MOD
+          box 746.67,279.3 53.33x6.67 absolute Interface\AddOns\Ordaen\media\groove-light-tip blend=ADD
     box 0,302.42 800x28.33 opacity=1
       box 0,308.18 233.33x16.8 @pointerEnter @pointerLeave
         text 0,308.18 233.33x16.8 "Bar texture" #cbb994
@@ -62,7 +80,13 @@ box 0,0 800x1548.26
   box 0,386.1 800x56.51
     box 0,386.1 800x16.8
       text 0,386.1 71.67x16.8 "Animations" #e8c35a
-      box 80.2,394.09 719.8x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+      box 80.2,391.17 719.8x6.67
+        box 80.2,391.17 6.67x6.67 Interface\AddOns\Ordaen\media\groove-dark-entry blend=MOD
+          box 80.2,391.17 6.67x6.67 absolute Interface\AddOns\Ordaen\media\groove-light-entry blend=ADD
+        box 86.87,391.17 659.8x6.67 Interface\AddOns\Ordaen\media\groove-dark blend=MOD
+          box 86.87,391.17 659.8x6.67 absolute Interface\AddOns\Ordaen\media\groove-light blend=ADD
+        box 746.67,391.17 53.33x6.67 Interface\AddOns\Ordaen\media\groove-dark-tip blend=MOD
+          box 746.67,391.17 53.33x6.67 absolute Interface\AddOns\Ordaen\media\groove-light-tip blend=ADD
     box 0,414.28 800x28.33 opacity=1
       box 0,420.05 233.33x16.8 @pointerEnter @pointerLeave
         text 0,420.05 233.33x16.8 "Animations" #cbb994
@@ -73,7 +97,13 @@ box 0,0 800x1548.26
   box 0,458.26 800x700.16
     box 0,458.26 800x16.8
       text 0,458.26 50.83x16.8 "Colours" #e8c35a
-      box 59.37,466.24 740.63x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+      box 59.37,463.33 740.63x6.67
+        box 59.37,463.33 6.67x6.67 Interface\AddOns\Ordaen\media\groove-dark-entry blend=MOD
+          box 59.37,463.33 6.67x6.67 absolute Interface\AddOns\Ordaen\media\groove-light-entry blend=ADD
+        box 66.03,463.33 680.63x6.67 Interface\AddOns\Ordaen\media\groove-dark blend=MOD
+          box 66.03,463.33 680.63x6.67 absolute Interface\AddOns\Ordaen\media\groove-light blend=ADD
+        box 746.67,463.33 53.33x6.67 Interface\AddOns\Ordaen\media\groove-dark-tip blend=MOD
+          box 746.67,463.33 53.33x6.67 absolute Interface\AddOns\Ordaen\media\groove-light-tip blend=ADD
     box 0,486.44 800x18.33 opacity=1
       box 0,487.2 233.33x16.8 @pointerEnter @pointerLeave
         text 0,487.2 233.33x16.8 "Accent colour" #cbb994
@@ -169,7 +199,13 @@ box 0,0 800x1548.26
   box 0,1174.06 800x374.2
     box 0,1174.06 800x16.8
       text 0,1174.06 93.33x16.8 "Class colours" #e8c35a
-      box 101.87,1182.04 698.13x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+      box 101.87,1179.13 698.13x6.67
+        box 101.87,1179.13 6.67x6.67 Interface\AddOns\Ordaen\media\groove-dark-entry blend=MOD
+          box 101.87,1179.13 6.67x6.67 absolute Interface\AddOns\Ordaen\media\groove-light-entry blend=ADD
+        box 108.53,1179.13 638.13x6.67 Interface\AddOns\Ordaen\media\groove-dark blend=MOD
+          box 108.53,1179.13 638.13x6.67 absolute Interface\AddOns\Ordaen\media\groove-light blend=ADD
+        box 746.67,1179.13 53.33x6.67 Interface\AddOns\Ordaen\media\groove-dark-tip blend=MOD
+          box 746.67,1179.13 53.33x6.67 absolute Interface\AddOns\Ordaen\media\groove-light-tip blend=ADD
     box 0,1202.24 800x28.33 opacity=1
       box 0,1208 233.33x16.8 @pointerEnter @pointerLeave
         text 0,1208 233.33x16.8 "Warrior" #cbb994
@@ -242,7 +278,13 @@ box 0,0 800x1548.26
   box 0,0 800x107.02
     box 0,0 800x16.8
       text 0,0 44.17x16.8 "Themes" #e8c35a
-      box 52.7,7.98 747.3x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+      box 52.7,5.07 747.3x6.67
+        box 52.7,5.07 6.67x6.67 Interface\AddOns\Ordaen\media\groove-dark-entry blend=MOD
+          box 52.7,5.07 6.67x6.67 absolute Interface\AddOns\Ordaen\media\groove-light-entry blend=ADD
+        box 59.37,5.07 687.3x6.67 Interface\AddOns\Ordaen\media\groove-dark blend=MOD
+          box 59.37,5.07 687.3x6.67 absolute Interface\AddOns\Ordaen\media\groove-light blend=ADD
+        box 746.67,5.07 53.33x6.67 Interface\AddOns\Ordaen\media\groove-dark-tip blend=MOD
+          box 746.67,5.07 53.33x6.67 absolute Interface\AddOns\Ordaen\media\groove-light-tip blend=ADD
     box 0,28.18 800x33.73
       box 0,28.18 665.04x33.73
         text 0,28.18 665.04x16.8 "Ordaen" #f0e6d2
@@ -258,7 +300,13 @@ box 0,0 800x1548.26
   box 0,122.66 800x135.93
     box 0,122.66 800x16.8
       text 0,122.66 36.67x16.8 "Fonts" #e8c35a
-      box 45.2,130.64 754.8x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+      box 45.2,127.73 754.8x6.67
+        box 45.2,127.73 6.67x6.67 Interface\AddOns\Ordaen\media\groove-dark-entry blend=MOD
+          box 45.2,127.73 6.67x6.67 absolute Interface\AddOns\Ordaen\media\groove-light-entry blend=ADD
+        box 51.87,127.73 694.8x6.67 Interface\AddOns\Ordaen\media\groove-dark blend=MOD
+          box 51.87,127.73 694.8x6.67 absolute Interface\AddOns\Ordaen\media\groove-light blend=ADD
+        box 746.67,127.73 53.33x6.67 Interface\AddOns\Ordaen\media\groove-dark-tip blend=MOD
+          box 746.67,127.73 53.33x6.67 absolute Interface\AddOns\Ordaen\media\groove-light-tip blend=ADD
     box 0,150.84 800x28.33 opacity=1
       box 0,156.6 233.33x16.8 @pointerEnter @pointerLeave
         text 0,156.6 233.33x16.8 "Text font" #cbb994
@@ -283,7 +331,13 @@ box 0,0 800x1548.26
   box 0,274.24 800x96.22
     box 0,274.24 800x16.8
       text 0,274.24 58.33x16.8 "Textures" #e8c35a
-      box 66.87,282.22 733.13x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+      box 66.87,279.3 733.13x6.67
+        box 66.87,279.3 6.67x6.67 Interface\AddOns\Ordaen\media\groove-dark-entry blend=MOD
+          box 66.87,279.3 6.67x6.67 absolute Interface\AddOns\Ordaen\media\groove-light-entry blend=ADD
+        box 73.53,279.3 673.13x6.67 Interface\AddOns\Ordaen\media\groove-dark blend=MOD
+          box 73.53,279.3 673.13x6.67 absolute Interface\AddOns\Ordaen\media\groove-light blend=ADD
+        box 746.67,279.3 53.33x6.67 Interface\AddOns\Ordaen\media\groove-dark-tip blend=MOD
+          box 746.67,279.3 53.33x6.67 absolute Interface\AddOns\Ordaen\media\groove-light-tip blend=ADD
     box 0,302.42 800x28.33 opacity=1
       box 0,308.18 233.33x16.8 @pointerEnter @pointerLeave
         text 0,308.18 233.33x16.8 "Bar texture" #cbb994
@@ -301,7 +355,13 @@ box 0,0 800x1548.26
   box 0,386.1 800x56.51
     box 0,386.1 800x16.8
       text 0,386.1 71.67x16.8 "Animations" #e8c35a
-      box 80.2,394.09 719.8x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+      box 80.2,391.17 719.8x6.67
+        box 80.2,391.17 6.67x6.67 Interface\AddOns\Ordaen\media\groove-dark-entry blend=MOD
+          box 80.2,391.17 6.67x6.67 absolute Interface\AddOns\Ordaen\media\groove-light-entry blend=ADD
+        box 86.87,391.17 659.8x6.67 Interface\AddOns\Ordaen\media\groove-dark blend=MOD
+          box 86.87,391.17 659.8x6.67 absolute Interface\AddOns\Ordaen\media\groove-light blend=ADD
+        box 746.67,391.17 53.33x6.67 Interface\AddOns\Ordaen\media\groove-dark-tip blend=MOD
+          box 746.67,391.17 53.33x6.67 absolute Interface\AddOns\Ordaen\media\groove-light-tip blend=ADD
     box 0,414.28 800x28.33 opacity=1
       box 0,420.05 233.33x16.8 @pointerEnter @pointerLeave
         text 0,420.05 233.33x16.8 "Animations" #cbb994
@@ -312,7 +372,13 @@ box 0,0 800x1548.26
   box 0,458.26 800x700.16
     box 0,458.26 800x16.8
       text 0,458.26 50.83x16.8 "Colours" #e8c35a
-      box 59.37,466.24 740.63x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+      box 59.37,463.33 740.63x6.67
+        box 59.37,463.33 6.67x6.67 Interface\AddOns\Ordaen\media\groove-dark-entry blend=MOD
+          box 59.37,463.33 6.67x6.67 absolute Interface\AddOns\Ordaen\media\groove-light-entry blend=ADD
+        box 66.03,463.33 680.63x6.67 Interface\AddOns\Ordaen\media\groove-dark blend=MOD
+          box 66.03,463.33 680.63x6.67 absolute Interface\AddOns\Ordaen\media\groove-light blend=ADD
+        box 746.67,463.33 53.33x6.67 Interface\AddOns\Ordaen\media\groove-dark-tip blend=MOD
+          box 746.67,463.33 53.33x6.67 absolute Interface\AddOns\Ordaen\media\groove-light-tip blend=ADD
     box 0,486.44 800x18.33 opacity=1
       box 0,487.2 233.33x16.8 @pointerEnter @pointerLeave
         text 0,487.2 233.33x16.8 "Accent colour" #cbb994
@@ -408,7 +474,13 @@ box 0,0 800x1548.26
   box 0,1174.06 800x374.2
     box 0,1174.06 800x16.8
       text 0,1174.06 93.33x16.8 "Class colours" #e8c35a
-      box 101.87,1182.04 698.13x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+      box 101.87,1179.13 698.13x6.67
+        box 101.87,1179.13 6.67x6.67 Interface\AddOns\Ordaen\media\groove-dark-entry blend=MOD
+          box 101.87,1179.13 6.67x6.67 absolute Interface\AddOns\Ordaen\media\groove-light-entry blend=ADD
+        box 108.53,1179.13 638.13x6.67 Interface\AddOns\Ordaen\media\groove-dark blend=MOD
+          box 108.53,1179.13 638.13x6.67 absolute Interface\AddOns\Ordaen\media\groove-light blend=ADD
+        box 746.67,1179.13 53.33x6.67 Interface\AddOns\Ordaen\media\groove-dark-tip blend=MOD
+          box 746.67,1179.13 53.33x6.67 absolute Interface\AddOns\Ordaen\media\groove-light-tip blend=ADD
     box 0,1202.24 800x28.33 opacity=1
       box 0,1208 233.33x16.8 @pointerEnter @pointerLeave
         text 0,1208 233.33x16.8 "Warrior" #cbb994
@@ -482,7 +554,13 @@ box 0,0 800x1548.26
   box 0,0 800x107.02
     box 0,0 800x16.8
       text 0,0 44.17x16.8 "Themes" #e8c35a
-      box 52.7,7.98 747.3x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+      box 52.7,5.07 747.3x6.67
+        box 52.7,5.07 6.67x6.67 Interface\AddOns\Ordaen\media\groove-dark-entry blend=MOD
+          box 52.7,5.07 6.67x6.67 absolute Interface\AddOns\Ordaen\media\groove-light-entry blend=ADD
+        box 59.37,5.07 687.3x6.67 Interface\AddOns\Ordaen\media\groove-dark blend=MOD
+          box 59.37,5.07 687.3x6.67 absolute Interface\AddOns\Ordaen\media\groove-light blend=ADD
+        box 746.67,5.07 53.33x6.67 Interface\AddOns\Ordaen\media\groove-dark-tip blend=MOD
+          box 746.67,5.07 53.33x6.67 absolute Interface\AddOns\Ordaen\media\groove-light-tip blend=ADD
     box 0,28.18 800x33.73
       box 0,28.18 665.04x33.73
         text 0,28.18 665.04x16.8 "Ordaen" #f0e6d2
@@ -497,7 +575,13 @@ box 0,0 800x1548.26
   box 0,122.66 800x135.93
     box 0,122.66 800x16.8
       text 0,122.66 36.67x16.8 "Fonts" #e8c35a
-      box 45.2,130.64 754.8x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+      box 45.2,127.73 754.8x6.67
+        box 45.2,127.73 6.67x6.67 Interface\AddOns\Ordaen\media\groove-dark-entry blend=MOD
+          box 45.2,127.73 6.67x6.67 absolute Interface\AddOns\Ordaen\media\groove-light-entry blend=ADD
+        box 51.87,127.73 694.8x6.67 Interface\AddOns\Ordaen\media\groove-dark blend=MOD
+          box 51.87,127.73 694.8x6.67 absolute Interface\AddOns\Ordaen\media\groove-light blend=ADD
+        box 746.67,127.73 53.33x6.67 Interface\AddOns\Ordaen\media\groove-dark-tip blend=MOD
+          box 746.67,127.73 53.33x6.67 absolute Interface\AddOns\Ordaen\media\groove-light-tip blend=ADD
     box 0,150.84 800x28.33 opacity=1
       box 0,156.6 233.33x16.8 @pointerEnter @pointerLeave
         text 0,156.6 233.33x16.8 "Text font" #cbb994
@@ -522,7 +606,13 @@ box 0,0 800x1548.26
   box 0,274.24 800x96.22
     box 0,274.24 800x16.8
       text 0,274.24 58.33x16.8 "Textures" #e8c35a
-      box 66.87,282.22 733.13x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+      box 66.87,279.3 733.13x6.67
+        box 66.87,279.3 6.67x6.67 Interface\AddOns\Ordaen\media\groove-dark-entry blend=MOD
+          box 66.87,279.3 6.67x6.67 absolute Interface\AddOns\Ordaen\media\groove-light-entry blend=ADD
+        box 73.53,279.3 673.13x6.67 Interface\AddOns\Ordaen\media\groove-dark blend=MOD
+          box 73.53,279.3 673.13x6.67 absolute Interface\AddOns\Ordaen\media\groove-light blend=ADD
+        box 746.67,279.3 53.33x6.67 Interface\AddOns\Ordaen\media\groove-dark-tip blend=MOD
+          box 746.67,279.3 53.33x6.67 absolute Interface\AddOns\Ordaen\media\groove-light-tip blend=ADD
     box 0,302.42 800x28.33 opacity=1
       box 0,308.18 233.33x16.8 @pointerEnter @pointerLeave
         text 0,308.18 233.33x16.8 "Bar texture" #cbb994
@@ -540,7 +630,13 @@ box 0,0 800x1548.26
   box 0,386.1 800x56.51
     box 0,386.1 800x16.8
       text 0,386.1 71.67x16.8 "Animations" #e8c35a
-      box 80.2,394.09 719.8x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+      box 80.2,391.17 719.8x6.67
+        box 80.2,391.17 6.67x6.67 Interface\AddOns\Ordaen\media\groove-dark-entry blend=MOD
+          box 80.2,391.17 6.67x6.67 absolute Interface\AddOns\Ordaen\media\groove-light-entry blend=ADD
+        box 86.87,391.17 659.8x6.67 Interface\AddOns\Ordaen\media\groove-dark blend=MOD
+          box 86.87,391.17 659.8x6.67 absolute Interface\AddOns\Ordaen\media\groove-light blend=ADD
+        box 746.67,391.17 53.33x6.67 Interface\AddOns\Ordaen\media\groove-dark-tip blend=MOD
+          box 746.67,391.17 53.33x6.67 absolute Interface\AddOns\Ordaen\media\groove-light-tip blend=ADD
     box 0,414.28 800x28.33 opacity=1
       box 0,420.05 233.33x16.8 @pointerEnter @pointerLeave
         text 0,420.05 233.33x16.8 "Animations" #cbb994
@@ -551,7 +647,13 @@ box 0,0 800x1548.26
   box 0,458.26 800x700.16
     box 0,458.26 800x16.8
       text 0,458.26 50.83x16.8 "Colours" #e8c35a
-      box 59.37,466.24 740.63x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+      box 59.37,463.33 740.63x6.67
+        box 59.37,463.33 6.67x6.67 Interface\AddOns\Ordaen\media\groove-dark-entry blend=MOD
+          box 59.37,463.33 6.67x6.67 absolute Interface\AddOns\Ordaen\media\groove-light-entry blend=ADD
+        box 66.03,463.33 680.63x6.67 Interface\AddOns\Ordaen\media\groove-dark blend=MOD
+          box 66.03,463.33 680.63x6.67 absolute Interface\AddOns\Ordaen\media\groove-light blend=ADD
+        box 746.67,463.33 53.33x6.67 Interface\AddOns\Ordaen\media\groove-dark-tip blend=MOD
+          box 746.67,463.33 53.33x6.67 absolute Interface\AddOns\Ordaen\media\groove-light-tip blend=ADD
     box 0,486.44 800x18.33 opacity=1
       box 0,487.2 233.33x16.8 @pointerEnter @pointerLeave
         text 0,487.2 233.33x16.8 "Accent colour" #cbb994
@@ -647,7 +749,13 @@ box 0,0 800x1548.26
   box 0,1174.06 800x374.2
     box 0,1174.06 800x16.8
       text 0,1174.06 93.33x16.8 "Class colours" #e8c35a
-      box 101.87,1182.04 698.13x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+      box 101.87,1179.13 698.13x6.67
+        box 101.87,1179.13 6.67x6.67 Interface\AddOns\Ordaen\media\groove-dark-entry blend=MOD
+          box 101.87,1179.13 6.67x6.67 absolute Interface\AddOns\Ordaen\media\groove-light-entry blend=ADD
+        box 108.53,1179.13 638.13x6.67 Interface\AddOns\Ordaen\media\groove-dark blend=MOD
+          box 108.53,1179.13 638.13x6.67 absolute Interface\AddOns\Ordaen\media\groove-light blend=ADD
+        box 746.67,1179.13 53.33x6.67 Interface\AddOns\Ordaen\media\groove-dark-tip blend=MOD
+          box 746.67,1179.13 53.33x6.67 absolute Interface\AddOns\Ordaen\media\groove-light-tip blend=ADD
     box 0,1202.24 800x28.33 opacity=1
       box 0,1208 233.33x16.8 @pointerEnter @pointerLeave
         text 0,1208 233.33x16.8 "Warrior" #cbb994

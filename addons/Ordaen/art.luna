@@ -67,6 +67,22 @@ public struct OrdaenArt {
     floor: Color
   }
 
+  // A cut in the wood's two textures, laid over each other: `dark` multiplied into the wood (`Blend.Multiply`), its
+  // shade; `light` added to it (`Blend.Add`), its lit lip.
+  public struct CutLayers {
+    dark: Art
+    light: Art
+  }
+
+  // A cut in the wood (`Cut`, `Groove`), 8 texels deep: `across` a strip repeated along it, `upright` the same down a
+  // column; a heading's cut has `entry` where it enters the wood and `tip` where it narrows to a point.
+  public struct CutArt {
+    across: CutLayers
+    upright: CutLayers
+    entry: CutLayers
+    tip: CutLayers
+  }
+
   public struct Controls {
     // A scrolled list's well (`ScrolledList`).
     well: Well
@@ -82,7 +98,7 @@ public struct OrdaenArt {
     groove: Art
     sliderFill: Art
     sliderKnob: Art
-    rule: Art
+    cut: CutArt
     // A dialog title's rule: a groove cut into the wood, 4 px tall, stretched along it.
     carved: Art
     switchOn: Art
@@ -220,7 +236,18 @@ public const ARTWORK: OrdaenArt = {
     groove: { file: "@/media/ctl-slider.tga", width: 64, height: 128, cap: 4, capHeight: 0.125, rows: 4, normal: 0 },
     sliderFill: { file: "@/media/ctl-slider.tga", width: 64, height: 128, rows: 4, normal: 1 },
     sliderKnob: "@/media/ctl-slider-knob.tga",
-    rule: "@/media/ctl-rule.tga",
+    cut: {
+      across: {
+        dark: { file: "@/media/groove-dark.tga", width: 64, height: 8, tile: Tile.Across },
+        light: { file: "@/media/groove-light.tga", width: 64, height: 8, tile: Tile.Across }
+      },
+      upright: {
+        dark: { file: "@/media/groove-dark-upright.tga", width: 8, height: 64, tile: Tile.Down },
+        light: { file: "@/media/groove-light-upright.tga", width: 8, height: 64, tile: Tile.Down }
+      },
+      entry: { dark: "@/media/groove-dark-entry.tga", light: "@/media/groove-light-entry.tga" },
+      tip: { dark: "@/media/groove-dark-tip.tga", light: "@/media/groove-light-tip.tga" }
+    },
     carved: "@/media/ctl-carved.tga",
     // The switch: the track, a pill with round caps (rows 0 off, 1 on, 2 the ring over either), and the knob.
     switchOff: { file: "@/media/ctl-switch-track.tga", width: 128, height: 256, cap: 32, capHeight: 0.5, rows: 4, normal: 0, glow: 2 },

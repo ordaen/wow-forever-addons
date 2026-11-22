@@ -82,7 +82,7 @@ public const TROUGH: Color = Color.hex("#000000a6")
 // own, over the footer's estimate on another's; centred and cut at the column's sides. A veil over it so the slots read;
 // the dark where no scene is. Then the room between the column's edges and the slots drawn over it.
 public const SCENE_ASPECT: Number = 231 / 322
-public const SCENE_HEIGHT: Number<Length> = 769.38dp
+public const SCENE_HEIGHT: Number<Length> = 784.79dp
 public const SCENE_HEIGHT_INSPECTED: Number<Length> = 777.73dp
 public const SCENE_VEIL: Color = Color.hex("#00000059")
 public const MODEL_BACK: Color = Color.hex("#0b0805")

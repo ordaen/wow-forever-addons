@@ -31,7 +31,13 @@ surface 425,173.04 806.61x553.92 on MEDIUM clamped raised by a click
             box 460.85,281.59 739.91x120.52
               box 460.85,281.59 739.91x17.5
                 text 460.85,281.59 44.17x17.5 "Active" #e8c35a
-                box 513.55,289.92 687.21x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+                box 513.55,287 687.21x6.67
+                  box 513.55,287 6.67x6.67 Interface\AddOns\Ordaen\media\groove-dark-entry blend=MOD
+                    box 513.55,287 6.67x6.67 absolute Interface\AddOns\Ordaen\media\groove-light-entry blend=ADD
+                  box 520.22,287 627.21x6.67 Interface\AddOns\Ordaen\media\groove-dark blend=MOD
+                    box 520.22,287 627.21x6.67 absolute Interface\AddOns\Ordaen\media\groove-light blend=ADD
+                  box 1147.43,287 53.33x6.67 Interface\AddOns\Ordaen\media\groove-dark-tip blend=MOD
+                    box 1147.43,287 53.33x6.67 absolute Interface\AddOns\Ordaen\media\groove-light-tip blend=ADD
               box 460.85,310.46 739.91x91.64
                 box 460.85,310.46 240x40.84 #00000000 @dragStart
                   box 465.12,314.22 33.33x33.33 #0d0a08 opacity=1 secure @dragStart @drop @pointerEnter @pointerLeave @pointerPress
@@ -68,7 +74,13 @@ surface 425,173.04 806.61x553.92 on MEDIUM clamped raised by a click
             box 460.85,424.86 739.91x69.72
               box 460.85,424.86 739.91x17.5
                 text 460.85,424.86 50.83x17.5 "Passive" #e8c35a
-                box 520.22,433.19 680.54x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+                box 520.22,430.27 680.54x6.67
+                  box 520.22,430.27 6.67x6.67 Interface\AddOns\Ordaen\media\groove-dark-entry blend=MOD
+                    box 520.22,430.27 6.67x6.67 absolute Interface\AddOns\Ordaen\media\groove-light-entry blend=ADD
+                  box 526.88,430.27 620.54x6.67 Interface\AddOns\Ordaen\media\groove-dark blend=MOD
+                    box 526.88,430.27 620.54x6.67 absolute Interface\AddOns\Ordaen\media\groove-light blend=ADD
+                  box 1147.43,430.27 53.33x6.67 Interface\AddOns\Ordaen\media\groove-dark-tip blend=MOD
+                    box 1147.43,430.27 53.33x6.67 absolute Interface\AddOns\Ordaen\media\groove-light-tip blend=ADD
               box 460.85,453.73 739.91x40.84
                 box 460.85,453.73 240x40.84 #00000000 @dragStart
                   box 465.12,457.49 33.33x33.33 #0d0a08 opacity=1 @dragStart @drop @pointerEnter @pointerLeave @pointerPress

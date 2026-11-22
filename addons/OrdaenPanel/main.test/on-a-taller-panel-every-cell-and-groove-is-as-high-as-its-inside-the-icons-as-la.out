@@ -386,7 +386,13 @@ surface 710,139.71 980x620.58 on MEDIUM clamped raised by a click
                 box 903.63,410.01 741.3x295.48
                   box 903.63,410.01 741.3x17.5
                     text 903.63,410.01 36.67x17.5 "Items" #e8c35a
-                    box 948.83,418.34 696.1x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+                    box 948.83,415.43 696.1x6.67
+                      box 948.83,415.43 6.67x6.67 Interface\AddOns\Ordaen\media\groove-dark-entry blend=MOD
+                        box 948.83,415.43 6.67x6.67 absolute Interface\AddOns\Ordaen\media\groove-light-entry blend=ADD
+                      box 955.49,415.43 636.1x6.67 Interface\AddOns\Ordaen\media\groove-dark blend=MOD
+                        box 955.49,415.43 636.1x6.67 absolute Interface\AddOns\Ordaen\media\groove-light blend=ADD
+                      box 1591.59,415.43 53.33x6.67 Interface\AddOns\Ordaen\media\groove-dark-tip blend=MOD
+                        box 1591.59,415.43 53.33x6.67 absolute Interface\AddOns\Ordaen\media\groove-light-tip blend=ADD
                   box 903.63,438.89 741.3x28.33 opacity=1
                     box 903.63,444.3 233.33x17.5 @pointerEnter @pointerLeave
                       text 903.63,444.3 233.33x17.5 "Game menu buttons" #cbb994
@@ -439,7 +445,13 @@ surface 710,139.71 980x620.58 on MEDIUM clamped raised by a click
                 box 903.63,722.55 741.3x176.34
                   box 903.63,722.55 741.3x17.5
                     text 903.63,722.55 71.67x17.5 "Visibility" #e8c35a
-                    box 983.83,730.89 661.1x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+                    box 983.83,727.97 661.1x6.67
+                      box 983.83,727.97 6.67x6.67 Interface\AddOns\Ordaen\media\groove-dark-entry blend=MOD
+                        box 983.83,727.97 6.67x6.67 absolute Interface\AddOns\Ordaen\media\groove-light-entry blend=ADD
+                      box 990.49,727.97 601.1x6.67 Interface\AddOns\Ordaen\media\groove-dark blend=MOD
+                        box 990.49,727.97 601.1x6.67 absolute Interface\AddOns\Ordaen\media\groove-light blend=ADD
+                      box 1591.59,727.97 53.33x6.67 Interface\AddOns\Ordaen\media\groove-dark-tip blend=MOD
+                        box 1591.59,727.97 53.33x6.67 absolute Interface\AddOns\Ordaen\media\groove-light-tip blend=ADD
                   box 903.63,751.43 741.3x28.33 opacity=1
                     box 903.63,756.85 233.33x17.5 @pointerEnter @pointerLeave
                       text 903.63,756.85 233.33x17.5 "General" #cbb994

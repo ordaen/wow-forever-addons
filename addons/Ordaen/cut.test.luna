@@ -1,8 +1,12 @@
-// The rule's two forms: a heading's, its title at the left and the fading rule after it; a divider's, solid from
-// border to border.
+// The cut's two forms: a heading's, its title at the left and the cut after it, entering the wood and narrowing to a
+// point at the row's end; a divider's, whole from border to border, across or down.
 import Test from "$test"
 import root Ordaen from "Ordaen"
-import { Cut } from "@/cut"
+import { Cut, Groove } from "@/cut"
+
+// 9.375dp, 75dp and 8 texels in UI units (768 to 1080).
+const DEPTH = 9.375 * 768 / 1080
+const TIP = 75 * 768 / 1080
 
 class Cuts {
   public render(self): Template {
@@ -15,21 +19,51 @@ class Cuts {
   }
 }
 
-test "a titled cut stands its title at its left, the fading rule taking the rest of the row" {
+class Upright {
+  public render(self): Template {
+    return $ltml {
+      <box width={100ui} height={120ui} columns={["max-content", { fr: 1 }]} rows={[{ fr: 1 }]}>
+        <Groove upright={true} />
+        <box />
+      </box>
+    }
+  }
+}
+
+test "a titled cut stands its title at its left, the cut entering the wood after it and narrowing to a point at the row's end" {
   const page = new Cuts()
   Test.mount(page, { left: 0, top: 0, width: 400, height: 100 })
   const title = Test.page().text("Defense").rect()
   Test.expect(title.left < 1)
-  const rule = Test.page().box(Ordaen.art.ctl.rule).rect()
-  Test.expect(rule.left > title.right && (rule.right - 400).abs() < 1)
+  const cut = Ordaen.art.ctl.cut
+  const entry = Test.page().box(cut.entry.dark).rect()
+  const middle = Test.page().box(cut.across.dark).nth(1).rect()
+  const tip = Test.page().box(cut.tip.dark).rect()
+  Test.expect(entry.left > title.right && (entry.bottom - entry.top - DEPTH).abs() < 0.01)
+  Test.expect((middle.left - entry.right).abs() < 0.01 && (tip.left - middle.right).abs() < 0.01)
+  Test.expect((tip.right - 400).abs() < 0.01 && (tip.right - tip.left - TIP).abs() < 0.01)
+  const lip = Test.page().box(cut.tip.light).rect()
+  Test.expect(lip.left == tip.left && lip.right == tip.right && lip.top == tip.top && lip.bottom == tip.bottom)
   destroy page
 }
 
-test "a cut without a title is the solid rule from border to border" {
+test "a cut without a title runs whole from border to border, its lip over its shade" {
   const page = new Cuts()
   Test.mount(page, { left: 0, top: 0, width: 400, height: 100 })
-  const line = Test.page().box(Color.hex("#d6a56b73")).rect()
-  Test.expect(line.left < 1 && (line.right - 400).abs() < 1)
-  Test.expect(line.bottom - line.top > 0 && line.bottom - line.top < 1.5)
+  const cut = Ordaen.art.ctl.cut
+  const shade = Test.page().box(cut.across.dark).nth(2).rect()
+  const lip = Test.page().box(cut.across.light).nth(2).rect()
+  Test.expect(shade.left < 0.01 && (shade.right - 400).abs() < 0.01 && (shade.bottom - shade.top - DEPTH).abs() < 0.01)
+  Test.expect(lip.left == shade.left && lip.right == shade.right && lip.top == shade.top && lip.bottom == shade.bottom)
+  destroy page
+}
+
+test "an upright cut runs down its column, as deep across as a cut across is high" {
+  const page = new Upright()
+  Test.mount(page, { left: 0, top: 0, width: 100, height: 120 })
+  const cut = Ordaen.art.ctl.cut
+  const shade = Test.page().box(cut.upright.dark).rect()
+  Test.expect(shade.top < 0.01 && (shade.bottom - 120).abs() < 0.01 && (shade.right - shade.left - DEPTH).abs() < 0.01)
+  Test.expect(Test.page().box(cut.upright.light).rect().left == shade.left)
   destroy page
 }
