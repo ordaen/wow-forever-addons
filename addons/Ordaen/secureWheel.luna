@@ -178,13 +178,14 @@ public class SecureWheel {
     const made = Client.CreateFrame("Button", name, Client.UIParent, "SecureActionButtonTemplate")
     self.button = made is Client.Button ? made : panic("the client makes a Button")
     self.follower = Client.CreateFrame("Frame", nil, Client.UIParent, nil)
-    const button = self.button
-    const header = self.header
-    _ = button.HookScript("OnClick", (frame: Unknown, how: Unknown, down: Unknown): nil => self.heard())
-    Ordaen.afterCombat(() => SecureWheel.setUp(header, button))
+    Ordaen.afterCombat(() => self.setUp())
   }
 
-  setUp(header: any Client.Frame, button: any Client.Button) {
+  // The button laid out and its click wrapped in the client's restricted code, then heard: the wrap sets the click's
+  // script anew (`SetScript`), which drops every hook told before it, so the hook comes after.
+  setUp(mut self) {
+    const header = self.header
+    const button = self.button
     button.Hide()
     button.SetFrameStrata("FULLSCREEN_DIALOG")
     button.RegisterForClicks("AnyDown", "AnyUp")
@@ -196,6 +197,7 @@ public class SecureWheel {
     header.SetAttribute("dead", DEAD_ZONE / 1ui)
     Client.RegisterAttributeDriver(header, "fighting", "[combat] yes; no")
     Client.SecureHandlerWrapScript(button, "OnClick", header, CHOICE, nil)
+    _ = button.HookScript("OnClick", (frame: Unknown, how: Unknown, down: Unknown): nil => self.heard())
   }
 
   // The rings and their items and how the wheel is laid out, written out of a fight (in one, at its end).
