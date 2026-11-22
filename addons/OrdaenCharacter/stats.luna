@@ -335,15 +335,15 @@ public class Groove implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box $if={self.upright} columns={[Style.CUT_LINE, Style.CUT_LINE, Style.CUT_LINE]} rows={[{ fr: 1 }]}>
+      <box $if={self.upright} columns={[Style.CUT_SHADE, Style.CUT_FLOOR, Style.CUT_LIP]} rows={[{ fr: 1 }]}>
         <box background={Style.GROOVE_SHADE} />
         <box background={Style.GROOVE_DEPTH} />
         <box background={Style.GROOVE_LIP} />
       </box>
       <box $else>
-        <box height={Style.CUT_LINE} background={Style.GROOVE_SHADE} />
-        <box height={Style.CUT_LINE} background={Style.GROOVE_DEPTH} />
-        <box height={Style.CUT_LINE} background={Style.GROOVE_LIP} />
+        <box height={Style.CUT_SHADE} background={Style.GROOVE_SHADE} />
+        <box height={Style.CUT_FLOOR} background={Style.GROOVE_DEPTH} />
+        <box height={Style.CUT_LIP} background={Style.GROOVE_LIP} />
       </box>
     }
   }
@@ -362,7 +362,7 @@ public class Cut implements Component {
     return $ltml {
       <box $if={self.titled} columns={[{ fr: 1 }, "max-content", { fr: 1 }]} gap={2.5sp} yAlign={Align.Center}>
         <Groove />
-        <text value={self.title} textSize={SECONDARY_TEXT} textColor={Style.DIM} wrap={.None} />
+        <text value={self.title} textColor={Style.CUT_TITLE} textShadow={Style.CUT_TITLE_SHADOW} wrap={.None} />
         <Groove />
       </box>
       <Groove $else />
@@ -694,7 +694,7 @@ public class PoolBar implements Component {
           </box>
           <box $if={self.regained} position={Position.Absolute} top={0ui} right={Style.TUBE_REGEN} bottom={0ui}
                yAlign={Align.Center} zLevel={4}>
-            <text value={self.regen} textSize={SECONDARY_TEXT} textFont={TextFont.Numbers} textColor={Style.INK}
+            <text value={self.regen} textSize={SECONDARY_TEXT} textFont={TextFont.Numbers} textColor={BRIGHT_TEXT}
                   textOutline={1} textShadow={Style.TUBE_SHADOW} wrap={.None} />
           </box>
         </box>

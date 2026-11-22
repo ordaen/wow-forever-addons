@@ -35,9 +35,16 @@ public const TUBE_INSET: Number<Length> = BAR * 10 / 64
 public const TUBE_REGEN: Number<Length> = 10dp
 public const TUBE_SHADOW: Shadow = { color: Color.hex("#000000"), x: 1ui, y: -1ui }
 public const ONE_ROW: Array<Track> = [{ fr: 1 }]
-// One line of a cut in the wood (three: its shade, its depth, its lit lower lip), a gauge's channel (a skill's too)
-// and its columns (the name, the value).
-public const CUT_LINE: Number<Length> = 1dp
+// A cut in the wood, in whole pixels of a 1440p screen at the client's scale for it (1.171875dp): its upper wall in
+// shade, its floor, its lit lower lip, and the three together; a title cut into the wood at a cut's middle, its letters'
+// upper walls in shade.
+public const CUT_SHADE: Number<Length> = 2.34375dp
+public const CUT_FLOOR: Number<Length> = 2.34375dp
+public const CUT_LIP: Number<Length> = 1.171875dp
+public const CUT: Number<Length> = CUT_SHADE + CUT_FLOOR + CUT_LIP
+public const CUT_TITLE: Color = Color.hex("#b8a07a")
+public const CUT_TITLE_SHADOW: Shadow = { color: Color.hex("#000000e6"), x: 0ui, y: 1.171875dp }
+// A gauge's channel (a skill's too) and its columns (the name, the value).
 public const CHANNEL: Number<Length> = 16.40625dp
 // A gauge with its text in it: a skill's rank, a faction's standing.
 public const GAUGE_BAR: Number<Length> = 22.265625dp
@@ -52,7 +59,8 @@ public const CARDS_PAD: Edges = { bottom: 2sp }
 // A main stat's room and its number's size.
 public const MAIN_PAD: Edges = { top: 2.5sp, bottom: 2.5sp }
 public const MAIN_TEXT: Number<TextSize> = 26rem / 13
-// A resistance's bar and its picture.
+// A resistance's bar and its picture; the room under the resistances, before the gauges.
+public const RESIST_PAD: Edges = { bottom: 3sp }
 public const RESIST_WIDTH: Number<Length> = 20dp
 public const RESIST_HEIGHT: Number<Length> = 84dp
 public const RESIST_ICON: Number<Length> = 20dp
@@ -68,16 +76,16 @@ public const BACK: Color = Color.hex("#00000066")
 public const CARD: Color = Color.hex("#0d0907")
 public const PICKED: Color = Color.hex("#ffd10026")
 public const TROUGH: Color = Color.hex("#000000a6")
-// A cut in the wood, lit from above: its upper edge in shade, its depth, its lower lip catching the light; a gauge's
-// fill, a skill's (a weapon's, defense).
+// A cut in the wood, lit from above: its upper wall in shade, its floor, its lower lip catching the light.
 public const GROOVE_SHADE: Color = Color.hex("#0000008c")
 public const GROOVE_DEPTH: Color = Color.hex("#000000e6")
-public const GROOVE_LIP: Color = Color.hex("#ffdeaa38")
+public const GROOVE_LIP: Color = Color.hex("#ffdeaa52")
 // The model's backdrop: the race's scene from the game's dressing room (231 x 322 texels as the client crops it), in
-// grey, as tall as the model's column at the window's own size and in its own proportions, centred and cut at the
-// column's sides; a veil over it so the slots read; the dark where no scene is. Then the room between the column's edges and the
-// slots drawn over it.
-public const SCENE_HEIGHT: Number<Length> = 800dp
+// grey, from the model's column's top to its bottom, as wide as its proportions make it at the column's height while
+// the character tab holds the window at `HEIGHT` (less the sets' row and the room round them), centred and cut at the
+// column's sides; a veil over it so the slots read; the dark where no scene is. Then the room between the column's
+// edges and the slots drawn over it.
+public const SCENE_HEIGHT: Number<Length> = 746.5dp
 public const SCENE_WIDTH: Number<Length> = SCENE_HEIGHT * 231 / 322
 public const SCENE_LEFT: Number<Length> = (DOLL - SCENE_WIDTH) / 2
 public const SCENE_VEIL: Color = Color.hex("#00000059")

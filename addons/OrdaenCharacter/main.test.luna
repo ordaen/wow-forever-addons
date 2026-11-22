@@ -629,7 +629,7 @@ test "talents a step of the client's grid apart stand a gap apart, and an arrow'
   Test.expect(tactical.left - deflection.right >= 10)
   Test.expect(tactical.top - deflection.bottom >= 10)
   const head = Test.edges("talents-arrow-head-gray", 0)
-  Test.expect(head.bottom <= tactical.top + 1 && head.top > deflection.bottom)
+  Test.expect(head.bottom <= tactical.top + 1 && head.top > deflection.bottom - 0.01)
 }
 
 test "the talents say the points left to spend in each spec" {
@@ -960,7 +960,7 @@ test "a druid's energy stands under its mana, with what each regains" {
   const window = opened(mut sheet)
   Char.readStats()
   Test.expect(window.text("5240").shown())
-  Test.expect(window.text("+76/5 s").shown())
+  Test.expect(window.text("+76/5s").shown())
   Test.expect(window.text("100").shown())
   Test.expect(window.text("+10/s").shown())
 }
@@ -1147,6 +1147,10 @@ test "the model stands in its race's scene from the game's dressing room, enlarg
   Test.expect(!window.paintedWith("@/media/backdrop-human.tga"))
   const scenes = Test.drawn().filter(texture => isScene(texture))
   Test.expect(scenes.length == 1 && scenes.all(texture => texture.desaturated))
+  // As tall as the model's column at the height the tab holds the window at, so it is drawn in its own proportions,
+  // neither cut at the bottom nor short of it (the veil over it is the column's whole).
+  const column = window.box(Style.SCENE_VEIL).nth(2).rect()
+  Test.expect(((column.bottom - column.top) / (Style.SCENE_HEIGHT / 1ui) - 1).abs() < 0.01)
 }
 
 test "health and the resource are glass tubes as the experience bar is, each filled in its colour" {

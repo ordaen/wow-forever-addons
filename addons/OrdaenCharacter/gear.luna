@@ -427,7 +427,7 @@ public class GearPage implements Component {
             </box>
             <Cut title={Locale.SECTION_DEFENSE} />
             <box gap={2sp} padding={Style.SECTION_PAD}>
-              <box columns={6} gap={2sp}>
+              <box columns={6} gap={2sp} padding={Style.RESIST_PAD}>
                 <ResistColumn $for={resist of self.resists} resist={resist} shown={self.shown} boosts={self.boosts} @tipped={self.onTipped} />
               </box>
               <box gap={1.5sp}>
@@ -442,12 +442,12 @@ public class GearPage implements Component {
               <StatRow $for={row of self.speeds} row={row} shown={self.shown} boosts={self.boosts} @tipped={self.onTipped} />
             </box>
           </box>
-          <box columns={[Style.CUT_LINE * 3, { fr: 1 }, Style.CUT_LINE * 3]} rows={[{ fr: 1 }]}>
+          <box columns={[Style.CUT, { fr: 1 }, Style.CUT]} rows={[{ fr: 1 }]}>
             <Groove upright={true} />
             <box columns={self.dollColumns} rows={[{ fr: 1 }]} gap={3sp} padding={Style.DOLL_PAD}
                  background={Style.MODEL_BACK} overflow={Overflow.Hidden}>
               <box $if={self.scene != nil} position={Position.Absolute} left={Style.SCENE_LEFT} top={0ui}
-                   width={Style.SCENE_WIDTH} height={Style.SCENE_HEIGHT} background={self.scene} desaturate={true} />
+                   width={Style.SCENE_WIDTH} bottom={0ui} background={self.scene} desaturate={true} />
               <box position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui} background={Style.SCENE_VEIL}
                    zLevel={1} />
               <box position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui} model={self.unit}
