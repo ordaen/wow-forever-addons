@@ -1,10 +1,10 @@
 -- the row past its box of 300
 box 0,0 300x28.33
   box 0,0 300x28.33
-    box 0,0 135.06x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-      text 7.11,5.77 120.83x16.8 "Показать на карте" #ffd100
-    box 143.59,0 93.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-      text 154.42,5.77 71.67x16.8 "Поделиться" #ffd100
-    box 245.46,0 0x0
-    box 253.99,0 163.39x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-      text 261.1,5.77 149.17x16.8 "Отказаться от задания" #ffd100
+    box 0,0 118.39x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+      text 7.11,6.97 104.17x14.4 "Показать на карте" #ffd100
+    box 126.92,0 93.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+      text 142.76,6.97 61.67x14.4 "Поделиться" #ffd100
+    box 228.79,0 0x0
+    box 237.32,0 142.56x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+      text 244.43,6.97 128.33x14.4 "Отказаться от задания" #ffd100

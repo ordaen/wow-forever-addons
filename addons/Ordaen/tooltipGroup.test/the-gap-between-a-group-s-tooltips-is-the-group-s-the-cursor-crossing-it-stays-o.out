@@ -2,14 +2,14 @@
 surface 200,100 202.84x80 on TOOLTIP
   box 200,100 202.84x80 @pointerEnter @pointerLeave
     box 200,100 100x80 #2a1d12
-      text 200,100 100x16.8 "Primary" #ffffff
+      text 200,100 100x14.4 "Primary" #ffffff
     box 302.84,100 100x50 #2a1d12
-      text 302.84,100 100x16.8 "Secondary" #ffffff
+      text 302.84,100 100x14.4 "Secondary" #ffffff
 
 -- running leftwards: the secondary on the primary's left
 surface 200,100 202.84x80 on TOOLTIP
   box 200,100 202.84x80 @pointerEnter @pointerLeave
     box 200,100 100x50 #2a1d12
-      text 200,100 100x16.8 "Secondary" #ffffff
+      text 200,100 100x14.4 "Secondary" #ffffff
     box 302.84,100 100x80 #2a1d12
-      text 302.84,100 100x16.8 "Primary" #ffffff
+      text 302.84,100 100x14.4 "Primary" #ffffff

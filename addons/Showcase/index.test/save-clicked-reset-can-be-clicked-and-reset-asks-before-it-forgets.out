@@ -1,62 +1,62 @@
 -- Save then Reset clicked: the question over the page
-box 0,0 700x292.26
-  box 0,0 700x29.01
-    box 0,28.18 700x0.83 absolute #3e2f1d
-    box 0,0 47.76x29.01 #00000059 @keyPress @pointerPress
-      box 0.83,0.83 46.09x1.67 absolute #d6a56b
-      text 12.21,6.52 23.33x16.8 "Map" #f0e6d2
-    box 50.6,0 68.59x29.01 #00000000 @keyPress @pointerPress
-      box 51.43,0.83 66.92x1.67 absolute #00000000
-      text 62.81,6.52 44.17x16.8 "Drawer" #a3977f
-    box 122.03,0 68.59x29.01 #00000000 @keyPress @pointerPress
-      box 122.87,0.83 66.92x1.67 absolute #00000000
-      text 134.24,6.52 44.17x16.8 "Market" #a3977f
-  box 0,37.54 700x155.64
-    box 0,37.54 700x155.64
-      box 0,37.54 700x16.8
-        text 0,37.54 23.33x16.8 "Map" #e8c35a
-        box 31.87,42.61 668.13x6.67
-          box 31.87,42.61 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry tint=#c29a43
-          box 38.53,42.61 661.47x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip tint=#c29a43
-      box 0,65.72 700x18.33 opacity=1
-        box 0,66.49 233.33x16.8 @pointerEnter @pointerLeave
-          text 0,66.49 233.33x16.8 "Show the zone" #cbb994
-        box 248.98,65.72 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @keyPress @pointerPress
-          box 248.98,65.72 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=1
-      box 0,95.43 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @keyPress @pointerPress
-        box 0,95.43 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=1
-      box 0,125.14 700x28.33 opacity=1
-        box 0,130.91 233.33x16.8 @pointerEnter @pointerLeave
-          text 0,130.91 233.33x16.8 "Size" #cbb994
-        box 248.98,125.14 451.02x28.33
-          box 248.98,125.14 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerUp
-            text 256.06,130.91 9.17x16.8 "-" #ffd100
-          box 278,130.98 213.33x16.67 @drag @dragStart @dragStop @keyPress @pointerPress
-            box 284.67,135.98 200x6.67 absolute Interface\AddOns\Ordaen\media\ctl-slider row 0 of 4
-            box 285.5,136.81 49.58x5 absolute Interface\AddOns\Ordaen\media\ctl-slider row 1 of 4
-            box 328,129.31 13.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-slider-knob
-          box 497.02,125.14 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerUp
-            text 504.11,130.91 9.17x16.8 "+" #ffd100
-          text 526.04,130.91 30x16.8 "100%" #f0e6d2
-      box 0,164.86 700x28.33 opacity=1
-        box 0,170.62 233.33x16.8 @pointerEnter @pointerLeave
-          text 0,170.62 233.33x16.8 "Columns" #cbb994
-        box 248.98,164.86 451.02x28.33
-          box 248.98,164.86 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerUp
-            text 256.06,170.62 9.17x16.8 "-" #ffd100
-          box 278,170.69 213.33x16.67 @drag @dragStart @dragStop @keyPress @pointerPress
-            box 284.67,175.69 200x6.67 absolute Interface\AddOns\Ordaen\media\ctl-slider row 0 of 4
-            box 285.5,176.52 39.67x5 absolute Interface\AddOns\Ordaen\media\ctl-slider row 1 of 4
-            box 318,169.02 13.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-slider-knob
-          box 497.02,164.86 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerUp
-            text 504.11,170.62 9.17x16.8 "+" #ffd100
-          text 526.04,170.62 9.17x16.8 "4" #f0e6d2
-  box 0,201.72 700x16.8 @pointerEnter @pointerLeave
-    text 0,201.72 700x16.8 "zone shown" #ffffff
-  box 0,227.06 700x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-    text 335,232.82 30x16.8 "Save" #ffd100
-  box 0,263.92 700x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-    text 331.67,269.69 36.67x16.8 "Reset" #f0e6d2
+box 0,0 700x285.06
+  box 0,0 700x26.61
+    box 0,25.78 700x0.83 absolute #3e2f1d
+    box 0,0 44.42x26.61 #00000059 @keyPress @pointerPress
+      box 0.83,0.83 42.76x1.67 absolute #d6a56b
+      text 12.21,6.52 20x14.4 "Map" #f0e6d2
+    box 47.27,0 62.76x26.61 #00000000 @keyPress @pointerPress
+      box 48.1,0.83 61.09x1.67 absolute #00000000
+      text 59.48,6.52 38.33x14.4 "Drawer" #a3977f
+    box 112.87,0 62.76x26.61 #00000000 @keyPress @pointerPress
+      box 113.7,0.83 61.09x1.67 absolute #00000000
+      text 125.08,6.52 38.33x14.4 "Market" #a3977f
+  box 0,35.14 700x153.24
+    box 0,35.14 700x153.24
+      box 0,35.14 700x14.4
+        text 0,35.14 20x14.4 "Map" #e8c35a
+        box 28.53,39.01 671.47x6.67
+          box 28.53,39.01 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry tint=#c29a43
+          box 35.2,39.01 664.8x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip tint=#c29a43
+      box 0,60.92 700x18.33 opacity=1
+        box 0,62.89 233.33x14.4 @pointerEnter @pointerLeave
+          text 0,62.89 233.33x14.4 "Show the zone" #cbb994
+        box 248.98,60.92 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @keyPress @pointerPress
+          box 248.98,60.92 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=1
+      box 0,90.63 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @keyPress @pointerPress
+        box 0,90.63 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=1
+      box 0,120.34 700x28.33 opacity=1
+        box 0,127.31 233.33x14.4 @pointerEnter @pointerLeave
+          text 0,127.31 233.33x14.4 "Size" #cbb994
+        box 248.98,120.34 451.02x28.33
+          box 248.98,120.34 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerUp
+            text 256.48,127.31 8.33x14.4 "-" #ffd100
+          box 278,126.18 213.33x16.67 @drag @dragStart @dragStop @keyPress @pointerPress
+            box 284.67,131.18 200x6.67 absolute Interface\AddOns\Ordaen\media\ctl-slider row 0 of 4
+            box 285.5,132.01 49.58x5 absolute Interface\AddOns\Ordaen\media\ctl-slider row 1 of 4
+            box 328,124.51 13.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-slider-knob
+          box 497.02,120.34 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerUp
+            text 504.52,127.31 8.33x14.4 "+" #ffd100
+          text 526.04,127.31 25.83x14.4 "100%" #f0e6d2
+      box 0,160.06 700x28.33 opacity=1
+        box 0,167.02 233.33x14.4 @pointerEnter @pointerLeave
+          text 0,167.02 233.33x14.4 "Columns" #cbb994
+        box 248.98,160.06 451.02x28.33
+          box 248.98,160.06 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerUp
+            text 256.48,167.02 8.33x14.4 "-" #ffd100
+          box 278,165.89 213.33x16.67 @drag @dragStart @dragStop @keyPress @pointerPress
+            box 284.67,170.89 200x6.67 absolute Interface\AddOns\Ordaen\media\ctl-slider row 0 of 4
+            box 285.5,171.72 39.67x5 absolute Interface\AddOns\Ordaen\media\ctl-slider row 1 of 4
+            box 318,164.22 13.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-slider-knob
+          box 497.02,160.06 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerUp
+            text 504.52,167.02 8.33x14.4 "+" #ffd100
+          text 526.04,167.02 8.33x14.4 "4" #f0e6d2
+  box 0,196.92 700x14.4 @pointerEnter @pointerLeave
+    text 0,196.92 700x14.4 "zone shown" #ffffff
+  box 0,219.86 700x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+    text 337.08,226.82 25.83x14.4 "Save" #ffd100
+  box 0,256.72 700x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+    text 334.17,263.69 31.67x14.4 "Reset" #f0e6d2
 surface 0,0 1600x900 on DIALOG #0000008c
   box 615.5,388.15 369x123.7 Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.84, tr 0.79, bl 0.81, br 0.76, top 0.84>0.79 x18.22, bottom 0.81>0.76 x18.22, left 0.83>0.81 x5.44, right 0.79>0.77 x5.44]
     text 640.21,429.93 319.58x17.5 "Forget what was saved?" #ffffff
@@ -64,8 +64,8 @@ surface 0,0 1600x900 on DIALOG #0000008c
       box 640.21,458.81 105.36x0
       box 745.57,458.81 214.22x28.33
         box 745.57,458.81 100x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-          text 773.48,464.22 44.17x17.5 "Forget" #ffd100
+          text 776.4,464.22 38.33x17.5 "Forget" #ffd100
         box 852.68,458.81 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-          text 887.68,464.22 30x17.5 "Keep" #ffd100
+          text 889.76,464.22 25.83x17.5 "Keep" #ffd100
     box 620,404.32 360x25.83 absolute
-      text 777.5,404.32 45x25.83 "Reset" #ffd100
+      text 781.67,404.32 36.67x25.83 "Reset" #ffd100

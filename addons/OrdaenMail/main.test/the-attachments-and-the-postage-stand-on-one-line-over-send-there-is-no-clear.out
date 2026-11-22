@@ -1,6 +1,6 @@
 -- the form
-surface 500,174.67 1049.56x550.67 on MEDIUM clamped raised by a click
-  box 500,225.33 1049.56x500 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.98, tr 0.78, bl 0.80, br 0.61, top 0.98>0.78 x26.33, bottom 0.80>0.61 x26.33, left 0.97>0.81 x12.02, right 0.78>0.61 x12.02]
+surface 500,174.67 1041.03x550.67 on MEDIUM clamped raised by a click
+  box 500,225.33 1041.03x500 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.98, tr 0.78, bl 0.80, br 0.61, top 0.98>0.78 x26.11, bottom 0.80>0.61 x26.11, left 0.97>0.81 x12.02, right 0.78>0.61 x12.02]
     box 512.44,237.78 575.11x477.96
       box 512.44,237.78 575.11x435.4
         box 535.2,260.53 529.6x395.58
@@ -24,93 +24,93 @@ surface 500,174.67 1049.56x550.67 on MEDIUM clamped raised by a click
                     box 930.78,260.53 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerEnter @pointerLeave @pointerPress
                       box 938.28,268.03 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 4 of 16 tint=#e8dcc4
             box 964.8,260.53 100x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-              text 996.47,265.95 36.67x17.5 "Write" #f0e6d2
+              text 998.97,265.95 31.67x17.5 "Write" #f0e6d2
           box 535.2,295.98 529.6x353.02
-            text 729.17,463.74 141.67x17.5 "No letters sent yet." #a3977f
+            text 739.17,463.74 121.67x17.5 "No letters sent yet." #a3977f
           box 535.2,656.11 529.6x0
       box 512.44,673.18 575.11x42.56
         box 512.44,673.18 575.11x42.56
-          box 535.2,678.59 408.71x17.5
-            box 535.2,678.59 64.37x17.5
-              text 535.2,678.59 47.5x17.5 "Waiting" #a3977f
-              text 591.23,678.59 8.33x17.5 "0" #e8dcc4
-            box 616.63,678.59 45.2x17.5
-              text 616.63,678.59 28.33x17.5 "Sent" #a3977f
-              text 653.5,678.59 8.33x17.5 "0" #e8dcc4
-          box 943.91,673.18 120.89x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-            text 951.02,678.59 106.67x17.5 "Blizzard window" #ffd100
-    box 1087.56,237.78 449.56x477.96 border=Interface\AddOns\Ordaen\media\frame-divider-down sides=left pieces=[left 0.76>0.61 x16.60]
-      box 1091.61,237.78 445.51x477.96
-        box 1114.36,260.53 400x440.98
-          box 1114.36,260.53 400x28.33
-            text 1114.36,265.95 300x17.5 "Write" #ffd100
-            box 1414.36,260.53 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-              text 1446.03,265.95 36.67x17.5 "Close" #ffd100
-          box 1114.36,294.56 400x343.22 scrolled 0 of 0
-            box 1114.36,294.56 400x25
-              box 1114.36,294.56 400x25
-                box 1114.36,294.56 400x25 #0d0a08 input "" @change @submit
-                box 1114.36,294.56 400x25 absolute
-                  text 1121.47,298.31 385.78x17.5 "To" #a3977f
-            box 1114.36,325.24 400x25
-              box 1114.36,325.24 400x25 #0d0a08 input "" @change @submit
-              box 1114.36,325.24 400x25 absolute
-                text 1121.47,328.99 385.78x17.5 "Subject" #a3977f
-            box 1114.36,355.93 400x66.67
-              box 1114.36,355.93 400x66.67 #0d0a08 input "" lines @change
-            box 1114.36,428.29 400x33.33
-              box 1114.36,428.29 400x33.33
+          box 535.2,678.59 421.27x17.5
+            box 535.2,678.59 51.87x17.5
+              text 535.2,678.59 36.67x17.5 "Waiting" #a3977f
+              text 580.4,678.59 6.67x17.5 "0" #e8dcc4
+            box 604.13,678.59 36.87x17.5
+              text 604.13,678.59 21.67x17.5 "Sent" #a3977f
+              text 634.33,678.59 6.67x17.5 "0" #e8dcc4
+          box 956.47,673.18 108.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+            text 964.8,678.59 91.67x17.5 "Blizzard window" #ffd100
+    box 1087.56,237.78 441.03x477.96 border=Interface\AddOns\Ordaen\media\frame-divider-down sides=left pieces=[left 0.76>0.61 x16.60]
+      box 1091.61,237.78 436.98x477.96
+        box 1114.36,260.53 391.47x440.98
+          box 1114.36,260.53 391.47x28.33
+            text 1114.36,265.95 291.47x17.5 "Write" #ffd100
+            box 1405.83,260.53 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+              text 1439.99,265.95 31.67x17.5 "Close" #ffd100
+          box 1114.36,294.56 391.47x343.22 scrolled 0 of 0
+            box 1114.36,294.56 391.47x25
+              box 1114.36,294.56 391.47x25
+                box 1114.36,294.56 391.47x25 #0d0a08 input "" @change @submit
+                box 1114.36,294.56 391.47x25 absolute
+                  text 1121.47,298.31 377.24x17.5 "To" #a3977f
+            box 1114.36,325.24 391.47x25
+              box 1114.36,325.24 391.47x25 #0d0a08 input "" @change @submit
+              box 1114.36,325.24 391.47x25 absolute
+                text 1121.47,328.99 377.24x17.5 "Subject" #a3977f
+            box 1114.36,355.93 391.47x66.67
+              box 1114.36,355.93 391.47x66.67 #0d0a08 input "" lines @change
+            box 1114.36,428.29 391.47x33.33
+              box 1114.36,428.29 391.47x33.33
                 box 1114.36,428.29 33.33x33.33 #0d0a08 opacity=1 @dragStart @drop @pointerEnter @pointerLeave @pointerPress
                   box 1114.36,428.29 33.33x33.33 absolute
                   box 1114.36,428.29 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim tint=#6c5535 opacity=0
                   box 1114.36,428.29 33.33x33.33 absolute #00000000
-            box 1114.36,467.31 400x60.4
-              box 1114.36,467.31 400x29.71
-                box 1114.36,496.19 400x0.83 absolute #3e2f1d
-                box 1114.36,467.31 96.09x29.71 #00000059 @keyPress @pointerPress
-                  box 1115.19,468.14 94.42x1.67 absolute #d6a56b
-                  text 1126.57,473.83 71.67x17.5 "Send money" #f0e6d2
-                box 1213.29,467.31 68.59x29.71 #00000000 @keyPress @pointerPress
-                  box 1214.13,468.14 66.92x1.67 absolute #00000000
-                  text 1225.51,473.83 44.17x17.5 "C.O.D." #a3977f
-              box 1114.36,502.71 400x25
+            box 1114.36,467.31 391.47x60.4
+              box 1114.36,467.31 391.47x29.71
+                box 1114.36,496.19 391.47x0.83 absolute #3e2f1d
+                box 1114.36,467.31 86.09x29.71 #00000059 @keyPress @pointerPress
+                  box 1115.19,468.14 84.42x1.67 absolute #d6a56b
+                  text 1126.57,473.83 61.67x17.5 "Send money" #f0e6d2
+                box 1203.29,467.31 62.76x29.71 #00000000 @keyPress @pointerPress
+                  box 1204.13,468.14 61.09x1.67 absolute #00000000
+                  text 1215.51,473.83 38.33x17.5 "C.O.D." #a3977f
+              box 1114.36,502.71 391.47x25
                 box 1114.36,502.71 150x25 #0d0a08 input "0c" @change
-          box 1114.36,643.47 400x58.04
-            box 1114.36,649.99 400x17.5
-              box 1114.36,649.99 240.29x17.5
+          box 1114.36,643.47 391.47x58.04
+            box 1114.36,649.99 391.47x17.5
+              box 1114.36,649.99 240.92x17.5
                 text 1114.36,649.99 83.33x17.5 "Attachments" #a3977f
-                text 1203.38,649.99 151.27x17.5 "0 in 1 letters" #e8dcc4
-              box 1360.34,649.99 154.02x17.5
-                text 1360.34,649.99 83.33x17.5 "Postage" #a3977f
-                text 1449.36,649.99 65x17.5 "0g 0s 30c" #e8dcc4
-            box 1114.36,673.18 400x28.33
-              box 1414.36,673.18 100x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-                text 1449.36,678.59 30x17.5 "Send" #808080
+                text 1203.38,649.99 151.9x17.5 "0 in 1 letters" #e8dcc4
+              box 1360.97,649.99 144.86x17.5
+                text 1360.97,649.99 83.33x17.5 "Postage" #a3977f
+                text 1449.99,649.99 55.83x17.5 "0g 0s 30c" #e8dcc4
+            box 1114.36,673.18 391.47x28.33
+              box 1405.83,673.18 100x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+                text 1442.91,678.59 25.83x17.5 "Send" #808080
       box 1091.16,237.78 6.67x477.96 absolute @drag @dragStart @dragStop
-    box 1525.56,701.33 13.33x13.33 absolute
-      box 1525.56,701.33 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
-  box 500,174.67 1049.56x50.67
-    box 500,174.67 961.03x50.67
+    box 1517.03,701.33 13.33x13.33 absolute
+      box 1517.03,701.33 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
+  box 500,174.67 1041.03x50.67
+    box 500,174.67 952.49x50.67
       box 500,174.67 118x50.67 Interface\AddOns\Ordaen\media\window-wood tint=#808080 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.99, tr 0.98, top 0.99>0.98 x2.07, left 0.99>0.98 x0.82, right 0.97>0.96 x0.82] @drag @dragStart @dragStop @keyPress @pointerPress
         box 518.13,184.27 81.73x50.07
-          text 540.67,191.09 36.67x17.5 "Inbox" #a3977f
-          text 529,210.01 60x17.5 "0 letters" #8f8470
-      box 627.96,174.67 118x50.67 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.97, tr 0.95, top 0.97>0.96 x2.07, left 0.97>0.96 x0.82, right 0.95>0.94 x0.82] @drag @dragStart @dragStop @keyPress @pointerPress
+          text 543.17,191.09 31.67x17.5 "Inbox" #a3977f
+          text 535.67,210.01 46.67x17.5 "0 letters" #8f8470
+      box 627.96,174.67 118x50.67 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.97, tr 0.95, top 0.97>0.95 x2.07, left 0.97>0.96 x0.82, right 0.95>0.94 x0.82] @drag @dragStart @dragStop @keyPress @pointerPress
         box 646.09,184.27 81.73x50.07
-          text 664.87,191.09 44.17x17.5 "Outbox" #ffd100
-          text 666.54,210.01 40.83x17.5 "0 sent" #8f8470
-      box 755.91,174.67 150.43x50.67 Interface\AddOns\Ordaen\media\window-wood tint=#808080 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.95, tr 0.92, top 0.95>0.92 x2.92, left 0.94>0.93 x0.82, right 0.92>0.91 x0.82] @drag @dragStart @dragStop @keyPress @pointerPress
-        box 774.04,184.27 114.17x50.07
-          text 774.04,200.55 114.17x17.5 "To my characters" #a3977f
-    box 1469.56,204.67 80x20.67
-      box 1469.56,204.67 80x26.67 clipped
-        box 1469.56,204.67 27.5x26.67 absolute clipped @keyPress @pointerPress
-          box 1469.56,204.67 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
-          box 1477.89,214.25 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 0 of 8
-        box 1497.06,204.67 25x26.67 absolute clipped @keyPress @pointerPress
-          box 1497.06,204.67 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 3 of 16
-          box 1503.31,214.25 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
-        box 1522.06,204.67 27.5x26.67 absolute clipped @keyPress @pointerPress
-          box 1522.06,204.67 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
-          box 1528.31,214.25 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
+          text 667.79,191.09 38.33x17.5 "Outbox" #ffd100
+          text 671.12,210.01 31.67x17.5 "0 sent" #8f8470
+      box 755.91,174.67 134.6x50.67 Interface\AddOns\Ordaen\media\window-wood tint=#808080 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.95, tr 0.92, top 0.95>0.93 x2.51, left 0.94>0.93 x0.82, right 0.92>0.91 x0.82] @drag @dragStart @dragStop @keyPress @pointerPress
+        box 774.04,184.27 98.33x50.07
+          text 774.04,200.55 98.33x17.5 "To my characters" #a3977f
+    box 1461.03,204.67 80x20.67
+      box 1461.03,204.67 80x26.67 clipped
+        box 1461.03,204.67 27.5x26.67 absolute clipped @keyPress @pointerPress
+          box 1461.03,204.67 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
+          box 1469.36,214.25 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 0 of 8
+        box 1488.53,204.67 25x26.67 absolute clipped @keyPress @pointerPress
+          box 1488.53,204.67 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 3 of 16
+          box 1494.78,214.25 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
+        box 1513.53,204.67 27.5x26.67 absolute clipped @keyPress @pointerPress
+          box 1513.53,204.67 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
+          box 1519.78,214.25 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
 asked: Mailbox.writing true

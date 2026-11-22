@@ -3,14 +3,14 @@ surface 400,360.5 400x339 on MEDIUM clamped raised by a click
   box 400,399.5 400x300 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.97, tr 0.78, bl 0.80, br 0.61, top 0.96>0.78 x9.42, bottom 0.79>0.61 x9.42, left 0.96>0.81 x6.81, right 0.77>0.61 x6.81]
     box 412.44,411.94 375.11x275.11
       box 412.44,411.94 375.11x275.11
-        text 435.2,434.7 329.6x17.5 "the page" #ffffff
+        text 430.93,430.43 338.13x17.5 "the page" #ffffff
     box 776,675.5 13.33x13.33 absolute
       box 776,675.5 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 400,360.5 400x39
     box 400,360.5 336.47x39
       box 400,360.5 118x39 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.99, tr 0.94, top 0.99>0.95 x2.07, left 0.99>0.97 x0.52, right 0.93>0.92 x0.52] @drag @dragStart @dragStop @keyPress @pointerPress
         box 418.13,370.1 81.73x38.4
-          text 433.58,380.55 50.83x17.5 "Recipes" #ffd100
+          text 436.92,380.55 44.17x17.5 "Recipes" #ffd100
     box 745,378.83 55x20.67
       box 745,378.83 55x26.67 clipped
         box 745,378.83 27.5x26.67 absolute clipped @keyPress @pointerPress

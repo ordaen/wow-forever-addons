@@ -1,74 +1,74 @@
 -- the first segment picked: white on bronze with its light, the others dim
-box 0,0 600x29.84 opacity=1
-  box 0,0 75.26x29.84 #5a4428 @keyPress @pointerPress
-    box 0,0 75.26x1.67 absolute #d6a56b
-    text 12.21,6.52 50.83x16.8 "Auction" #f0e6d2
-  box 75.26,0 81.92x29.84 #0d0a08 @keyPress @pointerPress
-    box 75.26,0 81.92x1.67 absolute #00000000
-    text 86.63,6.52 58.33x16.8 "Merchant" #a3977f
-  box 157.18,0 144.42x29.84 #0d0a08 @keyPress @pointerPress
-    box 157.18,0 144.42x1.67 absolute #00000000
-    text 168.56,6.52 120.83x16.8 "From what is held" #a3977f
-  box 301.6,0 207.76x29.84 #0d0a08 @keyPress @pointerPress
-    box 301.6,0 207.76x1.67 absolute #00000000
-    text 312.98,6.52 184.17x16.8 "Cooldowns — in development" #ffffff
+box 0,0 600x27.44 opacity=1
+  box 0,0 68.59x27.44 #5a4428 @keyPress @pointerPress
+    box 0,0 68.59x1.67 absolute #d6a56b
+    text 12.21,6.52 44.17x14.4 "Auction" #f0e6d2
+  box 68.59,0 73.59x27.44 #0d0a08 @keyPress @pointerPress
+    box 68.59,0 73.59x1.67 absolute #00000000
+    text 79.97,6.52 50x14.4 "Merchant" #a3977f
+  box 142.18,0 127.76x27.44 #0d0a08 @keyPress @pointerPress
+    box 142.18,0 127.76x1.67 absolute #00000000
+    text 153.56,6.52 104.17x14.4 "From what is held" #a3977f
+  box 269.93,0 181.92x27.44 #0d0a08 @keyPress @pointerPress
+    box 269.93,0 181.92x1.67 absolute #00000000
+    text 281.31,6.52 158.33x14.4 "Cooldowns — in development" #ffffff
 
 -- the cursor on the second segment: lighter on a shade
-box 0,0 600x29.84 opacity=1
-  box 0,0 75.26x29.84 #5a4428 @keyPress @pointerPress
-    box 0,0 75.26x1.67 absolute #d6a56b
-    text 12.21,6.52 50.83x16.8 "Auction" #f0e6d2
-  box 75.26,0 81.92x29.84 #1c1610 @keyPress @pointerPress
-    box 75.26,0 81.92x1.67 absolute #00000000
-    text 86.63,6.52 58.33x16.8 "Merchant" #e8dcc4
-  box 157.18,0 144.42x29.84 #0d0a08 @keyPress @pointerPress
-    box 157.18,0 144.42x1.67 absolute #00000000
-    text 168.56,6.52 120.83x16.8 "From what is held" #a3977f
-  box 301.6,0 207.76x29.84 #0d0a08 @keyPress @pointerPress
-    box 301.6,0 207.76x1.67 absolute #00000000
-    text 312.98,6.52 184.17x16.8 "Cooldowns — in development" #ffffff
+box 0,0 600x27.44 opacity=1
+  box 0,0 68.59x27.44 #5a4428 @keyPress @pointerPress
+    box 0,0 68.59x1.67 absolute #d6a56b
+    text 12.21,6.52 44.17x14.4 "Auction" #f0e6d2
+  box 68.59,0 73.59x27.44 #1c1610 @keyPress @pointerPress
+    box 68.59,0 73.59x1.67 absolute #00000000
+    text 79.97,6.52 50x14.4 "Merchant" #e8dcc4
+  box 142.18,0 127.76x27.44 #0d0a08 @keyPress @pointerPress
+    box 142.18,0 127.76x1.67 absolute #00000000
+    text 153.56,6.52 104.17x14.4 "From what is held" #a3977f
+  box 269.93,0 181.92x27.44 #0d0a08 @keyPress @pointerPress
+    box 269.93,0 181.92x1.67 absolute #00000000
+    text 281.31,6.52 158.33x14.4 "Cooldowns — in development" #ffffff
 
 -- the second segment clicked: it is the picked one, the first is dim
-box 0,0 600x29.84 opacity=1
-  box 0,0 75.26x29.84 #0d0a08 @keyPress @pointerPress
-    box 0,0 75.26x1.67 absolute #00000000
-    text 12.21,6.52 50.83x16.8 "Auction" #a3977f
-  box 75.26,0 81.92x29.84 #5a4428 @keyPress @pointerPress
-    box 75.26,0 81.92x1.67 absolute #d6a56b
-    text 86.63,6.52 58.33x16.8 "Merchant" #f0e6d2
-  box 157.18,0 144.42x29.84 #0d0a08 @keyPress @pointerPress
-    box 157.18,0 144.42x1.67 absolute #00000000
-    text 168.56,6.52 120.83x16.8 "From what is held" #a3977f
-  box 301.6,0 207.76x29.84 #0d0a08 @keyPress @pointerPress
-    box 301.6,0 207.76x1.67 absolute #00000000
-    text 312.98,6.52 184.17x16.8 "Cooldowns — in development" #ffffff
+box 0,0 600x27.44 opacity=1
+  box 0,0 68.59x27.44 #0d0a08 @keyPress @pointerPress
+    box 0,0 68.59x1.67 absolute #00000000
+    text 12.21,6.52 44.17x14.4 "Auction" #a3977f
+  box 68.59,0 73.59x27.44 #5a4428 @keyPress @pointerPress
+    box 68.59,0 73.59x1.67 absolute #d6a56b
+    text 79.97,6.52 50x14.4 "Merchant" #f0e6d2
+  box 142.18,0 127.76x27.44 #0d0a08 @keyPress @pointerPress
+    box 142.18,0 127.76x1.67 absolute #00000000
+    text 153.56,6.52 104.17x14.4 "From what is held" #a3977f
+  box 269.93,0 181.92x27.44 #0d0a08 @keyPress @pointerPress
+    box 269.93,0 181.92x1.67 absolute #00000000
+    text 281.31,6.52 158.33x14.4 "Cooldowns — in development" #ffffff
 
 -- the segment not built yet clicked: nothing changes
-box 0,0 600x29.84 opacity=1
-  box 0,0 75.26x29.84 #0d0a08 @keyPress @pointerPress
-    box 0,0 75.26x1.67 absolute #00000000
-    text 12.21,6.52 50.83x16.8 "Auction" #a3977f
-  box 75.26,0 81.92x29.84 #5a4428 @keyPress @pointerPress
-    box 75.26,0 81.92x1.67 absolute #d6a56b
-    text 86.63,6.52 58.33x16.8 "Merchant" #f0e6d2
-  box 157.18,0 144.42x29.84 #0d0a08 @keyPress @pointerPress
-    box 157.18,0 144.42x1.67 absolute #00000000
-    text 168.56,6.52 120.83x16.8 "From what is held" #a3977f
-  box 301.6,0 207.76x29.84 #0d0a08 @keyPress @pointerPress
-    box 301.6,0 207.76x1.67 absolute #00000000
-    text 312.98,6.52 184.17x16.8 "Cooldowns — in development" #ffffff
+box 0,0 600x27.44 opacity=1
+  box 0,0 68.59x27.44 #0d0a08 @keyPress @pointerPress
+    box 0,0 68.59x1.67 absolute #00000000
+    text 12.21,6.52 44.17x14.4 "Auction" #a3977f
+  box 68.59,0 73.59x27.44 #5a4428 @keyPress @pointerPress
+    box 68.59,0 73.59x1.67 absolute #d6a56b
+    text 79.97,6.52 50x14.4 "Merchant" #f0e6d2
+  box 142.18,0 127.76x27.44 #0d0a08 @keyPress @pointerPress
+    box 142.18,0 127.76x1.67 absolute #00000000
+    text 153.56,6.52 104.17x14.4 "From what is held" #a3977f
+  box 269.93,0 181.92x27.44 #0d0a08 @keyPress @pointerPress
+    box 269.93,0 181.92x1.67 absolute #00000000
+    text 281.31,6.52 158.33x14.4 "Cooldowns — in development" #ffffff
 
 -- disabled: the strip at 45%, a click changes nothing
-box 0,0 600x29.84 opacity=0.45
-  box 0,0 75.26x29.84 #0d0a08 @keyPress @pointerPress
-    box 0,0 75.26x1.67 absolute #00000000
-    text 12.21,6.52 50.83x16.8 "Auction" #a3977f
-  box 75.26,0 81.92x29.84 #5a4428 @keyPress @pointerPress
-    box 75.26,0 81.92x1.67 absolute #d6a56b
-    text 86.63,6.52 58.33x16.8 "Merchant" #f0e6d2
-  box 157.18,0 144.42x29.84 #0d0a08 @keyPress @pointerPress
-    box 157.18,0 144.42x1.67 absolute #00000000
-    text 168.56,6.52 120.83x16.8 "From what is held" #a3977f
-  box 301.6,0 207.76x29.84 #0d0a08 @keyPress @pointerPress
-    box 301.6,0 207.76x1.67 absolute #00000000
-    text 312.98,6.52 184.17x16.8 "Cooldowns — in development" #ffffff
+box 0,0 600x27.44 opacity=0.45
+  box 0,0 68.59x27.44 #0d0a08 @keyPress @pointerPress
+    box 0,0 68.59x1.67 absolute #00000000
+    text 12.21,6.52 44.17x14.4 "Auction" #a3977f
+  box 68.59,0 73.59x27.44 #5a4428 @keyPress @pointerPress
+    box 68.59,0 73.59x1.67 absolute #d6a56b
+    text 79.97,6.52 50x14.4 "Merchant" #f0e6d2
+  box 142.18,0 127.76x27.44 #0d0a08 @keyPress @pointerPress
+    box 142.18,0 127.76x1.67 absolute #00000000
+    text 153.56,6.52 104.17x14.4 "From what is held" #a3977f
+  box 269.93,0 181.92x27.44 #0d0a08 @keyPress @pointerPress
+    box 269.93,0 181.92x1.67 absolute #00000000
+    text 281.31,6.52 158.33x14.4 "Cooldowns — in development" #ffffff

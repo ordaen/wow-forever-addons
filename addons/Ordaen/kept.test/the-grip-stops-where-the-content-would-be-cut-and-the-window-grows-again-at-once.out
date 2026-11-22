@@ -13,7 +13,7 @@ surface 400,130.5 570.4x532.59 on MEDIUM clamped raised by a click
     box 400,130.5 506.87x39
       box 400,130.5 118x39 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.99, tr 0.96, top 0.99>0.96 x2.07, left 0.99>0.98 x0.52, right 0.95>0.95 x0.52] @drag @dragStart @dragStop @keyPress @pointerPress
         box 418.13,140.1 81.73x38.4
-          text 433.58,150.55 50.83x17.5 "Crowded" #ffd100
+          text 436.92,150.55 44.17x17.5 "Crowded" #ffd100
     box 915.4,148.83 55x20.67
       box 915.4,148.83 55x26.67 clipped
         box 915.4,148.83 27.5x26.67 absolute clipped @keyPress @pointerPress

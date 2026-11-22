@@ -21,38 +21,38 @@ surface 288,133 1024x634 on MEDIUM clamped raised by a click
                 box 1084.37,218.87 94.79x22.16
                 box 1179.16,218.87 94.79x22.16
               box 326.04,218.87 947.91x22.16 absolute
-                text 729.17,221.19 141.67x17.5 "Apprentice · 31 / 75" #f0e6d2
+                text 739.17,221.19 121.67x17.5 "Apprentice · 31 / 75" #f0e6d2
           box 323.2,260.93 953.6x29.71
             box 323.2,289.81 953.6x0.83 absolute #3e2f1d
-            box 323.2,260.93 75.26x29.71 #00000000 @keyPress @pointerPress
-              box 324.03,261.77 73.59x1.67 absolute #00000000
-              text 335.41,267.46 50.83x17.5 "Recipes" #a3977f
-            box 401.3,260.93 54.42x29.71 #00000000 @keyPress @pointerPress
-              box 402.13,261.77 52.76x1.67 absolute #00000000
-              text 413.51,267.46 30x17.5 "Camp" #a3977f
-            box 458.57,260.93 61.09x29.71 #00000000 @keyPress @pointerPress
-              box 459.4,261.77 59.42x1.67 absolute #00000000
-              text 470.78,267.46 36.67x17.5 "Queue" #a3977f
-            box 522.5,260.93 82.76x29.71 #00000000 @keyPress @pointerPress
-              box 523.33,261.77 81.09x1.67 absolute #00000000
-              text 534.71,267.46 58.33x17.5 "Overview" #a3977f
-            box 608.1,260.93 82.76x29.71 #00000059 @keyPress @pointerPress
-              box 608.93,261.77 81.09x1.67 absolute #d6a56b
-              text 620.31,267.46 58.33x17.5 "Worth it" #f0e6d2
+            box 323.2,260.93 68.59x29.71 #00000000 @keyPress @pointerPress
+              box 324.03,261.77 66.92x1.67 absolute #00000000
+              text 335.41,267.46 44.17x17.5 "Recipes" #a3977f
+            box 394.63,260.93 50.26x29.71 #00000000 @keyPress @pointerPress
+              box 395.47,261.77 48.59x1.67 absolute #00000000
+              text 406.84,267.46 25.83x17.5 "Camp" #a3977f
+            box 447.73,260.93 56.09x29.71 #00000000 @keyPress @pointerPress
+              box 448.57,261.77 54.42x1.67 absolute #00000000
+              text 459.94,267.46 31.67x17.5 "Queue" #a3977f
+            box 506.67,260.93 74.42x29.71 #00000000 @keyPress @pointerPress
+              box 507.5,261.77 72.76x1.67 absolute #00000000
+              text 518.88,267.46 50x17.5 "Overview" #a3977f
+            box 583.93,260.93 74.42x29.71 #00000059 @keyPress @pointerPress
+              box 584.77,261.77 72.76x1.67 absolute #d6a56b
+              text 596.14,267.46 50x17.5 "Worth it" #f0e6d2
           box 323.2,307.71 953.6x418.4
             box 323.2,307.71 953.6x30.54 opacity=1
-              box 323.2,307.71 145.26x30.54 #5a4428 @keyPress @pointerPress
-                box 323.2,307.71 145.26x1.67 absolute #d6a56b
-                text 335.41,314.23 120.83x17.5 "Auction → auction" #f0e6d2
-              box 468.46,307.71 95.26x30.54 #0d0a08 @keyPress @pointerPress
-                box 468.46,307.71 95.26x1.67 absolute #00000000
-                text 479.83,314.23 71.67x17.5 "→ merchant" #a3977f
-              box 563.71,307.71 151.92x30.54 #0d0a08 @keyPress @pointerPress
-                box 563.71,307.71 151.92x1.67 absolute #00000000
-                text 575.09,314.23 128.33x17.5 "From what you have" #a3977f
-              box 715.63,307.71 88.59x30.54 #0d0a08 @keyPress @pointerPress
-                box 715.63,307.71 88.59x1.67 absolute #00000000
-                text 727.01,314.23 65x17.5 "Cooldowns" #a3977f
+              box 323.2,307.71 128.59x30.54 #5a4428 @keyPress @pointerPress
+                box 323.2,307.71 128.59x1.67 absolute #d6a56b
+                text 335.41,314.23 104.17x17.5 "Auction → auction" #f0e6d2
+              box 451.79,307.71 85.26x30.54 #0d0a08 @keyPress @pointerPress
+                box 451.79,307.71 85.26x1.67 absolute #00000000
+                text 463.17,314.23 61.67x17.5 "→ merchant" #a3977f
+              box 537.04,307.71 133.59x30.54 #0d0a08 @keyPress @pointerPress
+                box 537.04,307.71 133.59x1.67 absolute #00000000
+                text 548.42,314.23 110x17.5 "From what you have" #a3977f
+              box 670.63,307.71 79.42x30.54 #0d0a08 @keyPress @pointerPress
+                box 670.63,307.71 79.42x1.67 absolute #00000000
+                text 682.01,314.23 55.83x17.5 "Cooldowns" #a3977f
             box 323.2,346.79 953.6x17.5
               text 323.2,346.79 953.6x17.5 "Only this character: turn on Ordaen Alts and log in on your other characters to see theirs." #a3977f
             box 323.2,372.82 953.6x316.42
@@ -63,49 +63,49 @@ surface 288,133 1024x634 on MEDIUM clamped raised by a click
                       box 341.1,373.66 341.4x34.57 #00000000 @keyPress @pointerPress
                         box 341.1,406.56 341.4x1.67 absolute #00000000
                         box 341.1,382.19 341.4x17.5
-                          text 341.1,382.19 44.17x17.5 "Recipe" #cbb994
-                          box 388.11,388.44 6.67x5
-                            box 384.78,384.27 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 1 of 8 tint=#f0c860 opacity=0
+                          text 341.1,382.19 38.33x17.5 "Recipe" #cbb994
+                          box 382.28,388.44 6.67x5
+                            box 378.94,384.27 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 1 of 8 tint=#f0c860 opacity=0
                       box 691.03,373.66 125x34.57 #00000000 @keyPress @pointerPress
                         box 691.03,406.56 125x1.67 absolute #00000000
                         box 691.03,382.19 125x17.5
-                          text 691.03,382.19 23.33x17.5 "Who" #cbb994
-                          box 717.21,388.44 6.67x5
-                            box 713.88,384.27 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 1 of 8 tint=#f0c860 opacity=0
+                          text 691.03,382.19 20x17.5 "Who" #cbb994
+                          box 713.88,388.44 6.67x5
+                            box 710.54,384.27 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 1 of 8 tint=#f0c860 opacity=0
                       box 824.57,373.66 75x34.57 #00000000 @keyPress @pointerPress
                         box 824.57,406.56 75x1.67 absolute #00000000
-                        box 860.06,382.19 39.51x17.5
-                          text 860.06,382.19 30x17.5 "Cost" #cbb994
+                        box 864.22,382.19 35.34x17.5
+                          text 864.22,382.19 25.83x17.5 "Cost" #cbb994
                           box 892.9,388.44 6.67x5
                             box 889.57,384.27 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 1 of 8 tint=#f0c860 opacity=0
                       box 908.1,373.66 75x34.57 #00000000 @keyPress @pointerPress
                         box 908.1,406.56 75x1.67 absolute #00000000
-                        box 943.59,382.19 39.51x17.5
-                          text 943.59,382.19 30x17.5 "Sale" #cbb994
+                        box 947.76,382.19 35.34x17.5
+                          text 947.76,382.19 25.83x17.5 "Sale" #cbb994
                           box 976.43,388.44 6.67x5
                             box 973.1,384.27 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 1 of 8 tint=#f0c860 opacity=0
                       box 991.63,373.66 75x34.57 #00000000 @keyPress @pointerPress
                         box 991.63,406.56 75x1.67 absolute #d6a56b
-                        box 1012.96,382.19 53.68x17.5
-                          text 1012.96,382.19 44.17x17.5 "Profit" #f0c860
+                        box 1018.79,382.19 47.84x17.5
+                          text 1018.79,382.19 38.33x17.5 "Profit" #f0c860
                           box 1059.97,388.44 6.67x5
                             box 1056.63,384.27 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 1 of 8 tint=#f0c860 opacity=1
                       box 1075.17,373.66 41.67x34.57 #00000000 @keyPress @pointerPress
                         box 1075.17,406.56 41.67x1.67 absolute #00000000
-                        box 1098.16,382.19 18.68x17.5
-                          text 1098.16,382.19 9.17x17.5 "%" #cbb994
+                        box 1098.99,382.19 17.84x17.5
+                          text 1098.99,382.19 8.33x17.5 "%" #cbb994
                           box 1110.17,388.44 6.67x5
                             box 1106.83,384.27 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 1 of 8 tint=#f0c860 opacity=0
                       box 1125.37,373.66 50x34.57 #00000000 @keyPress @pointerPress
                         box 1125.37,406.56 50x1.67 absolute #00000000
-                        box 1142.52,382.19 32.84x17.5
-                          text 1142.52,382.19 23.33x17.5 "Age" #cbb994
+                        box 1145.86,382.19 29.51x17.5
+                          text 1145.86,382.19 20x17.5 "Age" #cbb994
                           box 1168.7,388.44 6.67x5
                             box 1165.37,384.27 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 1 of 8 tint=#f0c860 opacity=0
                       box 1183.9,373.66 75x34.57 #00000000 @keyPress @pointerPress
                         box 1183.9,406.56 75x1.67 absolute #00000000
-                        box 1191.06,382.19 67.84x17.5
-                          text 1191.06,382.19 58.33x17.5 "Can make" #cbb994
+                        box 1199.39,382.19 59.51x17.5
+                          text 1199.39,382.19 50x17.5 "Can make" #cbb994
                           box 1252.23,388.44 6.67x5
                             box 1248.9,384.27 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 1 of 8 tint=#f0c860 opacity=0
                   box 324.03,409.06 951.93x279.36 scrolled 0 of 0
@@ -113,36 +113,36 @@ surface 288,133 1024x634 on MEDIUM clamped raised by a click
                       text 341.1,421.86 341.4x17.5 "Linen Cloak" #f0e6d2
                       text 691.03,421.86 125x17.5 "Player, Tailoring" #a3977f
                       box 824.57,421.86 75x17.5
-                        text 834.57,421.86 65x17.5 "0g 1s 15c" #e8dcc4
+                        text 843.73,421.86 55.83x17.5 "0g 1s 15c" #e8dcc4
                       box 908.1,421.86 75x17.5
-                        text 918.1,421.86 65x17.5 "0g 4s 75c" #e8dcc4
+                        text 927.27,421.86 55.83x17.5 "0g 4s 75c" #e8dcc4
                       box 991.63,421.86 75x17.5
-                        text 1001.63,421.86 65x17.5 "0g 3s 60c" #f0e6d2
+                        text 1010.8,421.86 55.83x17.5 "0g 3s 60c" #f0e6d2
                       box 1075.17,421.86 41.67x17.5
-                        text 1093.5,421.86 23.33x17.5 "313" #f0e6d2
+                        text 1096.83,421.86 20x17.5 "313" #f0e6d2
                       box 1125.37,421.86 50x17.5
-                        text 1152.03,421.86 23.33x17.5 "0 h" #a3977f
+                        text 1155.37,421.86 20x17.5 "0 h" #a3977f
                       box 1183.9,421.86 75x17.5
-                        text 1249.73,421.86 9.17x17.5 "0" #f0e6d2
+                        text 1250.57,421.86 8.33x17.5 "0" #f0e6d2
                     box 332.57,443.62 934.87x26.03 #00000000 @keyPress @pointerEnter @pointerLeave @pointerPress
                       text 341.1,447.89 341.4x17.5 "Bolt of Linen Cloth" #f0e6d2
                       text 691.03,447.89 125x17.5 "Player, Tailoring" #a3977f
                       box 824.57,447.89 75x17.5
-                        text 834.57,447.89 65x17.5 "0g 0s 40c" #e8dcc4
+                        text 843.73,447.89 55.83x17.5 "0g 0s 40c" #e8dcc4
                       box 908.1,447.89 75x17.5
-                        text 918.1,447.89 65x17.5 "0g 0s 95c" #e8dcc4
+                        text 927.27,447.89 55.83x17.5 "0g 0s 95c" #e8dcc4
                       box 991.63,447.89 75x17.5
-                        text 1001.63,447.89 65x17.5 "0g 0s 55c" #f0e6d2
+                        text 1010.8,447.89 55.83x17.5 "0g 0s 55c" #f0e6d2
                       box 1075.17,447.89 41.67x17.5
-                        text 1093.5,447.89 23.33x17.5 "137" #f0e6d2
+                        text 1096.83,447.89 20x17.5 "137" #f0e6d2
                       box 1125.37,447.89 50x17.5
-                        text 1152.03,447.89 23.33x17.5 "0 h" #a3977f
+                        text 1155.37,447.89 20x17.5 "0 h" #a3977f
                       box 1183.9,447.89 75x17.5
-                        text 1249.73,447.89 9.17x17.5 "2" #f0e6d2
+                        text 1250.57,447.89 8.33x17.5 "2" #f0e6d2
             box 323.2,697.78 953.6x28.33
-              text 323.2,711.94 797.71x0 "" #a3977f
-              box 1120.91,697.78 155.89x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-                text 1128.02,703.19 141.67x17.5 "To the shopping list" #f0e6d2
+              text 323.2,711.94 803.6x0 "" #a3977f
+              box 1126.8,697.78 150x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+                text 1140.97,703.19 121.67x17.5 "To the shopping list" #f0e6d2
       box 300.44,743.18 999.11x14.22
         box 300.44,743.18 999.11x14.22
           box 323.2,743.18 953.6x0
@@ -150,12 +150,12 @@ surface 288,133 1024x634 on MEDIUM clamped raised by a click
       box 1288,743 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 288,133 1024x50.67
     box 288,133 935.47x50.67
-      box 288,133 146.38x50.67 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 1.00, tr 0.97, top 0.99>0.97 x2.81, left 0.99>0.98 x0.82, right 0.97>0.96 x0.82] @drag @dragStart @dragStop @keyPress @pointerPress
+      box 288,133 137.22x50.67 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 1.00, tr 0.97, top 0.99>0.98 x2.57, left 0.99>0.98 x0.82, right 0.97>0.96 x0.82] @drag @dragStart @dragStop @keyPress @pointerPress
         box 297,142 50.67x50.67 absolute icon=136249 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=none pieces=[]
         box 343.84,142 4.05x41.67 absolute border=Interface\AddOns\Ordaen\media\frame-divider-down sides=left pieces=[left 0.87>0.86 x1.45]
-        box 351.25,142.6 65x50.07
-          text 351.25,149.42 65x17.5 "Tailoring" #ffd100
-          text 360,168.34 47.5x17.5 "31 / 75" #8f8470
+        box 351.25,142.6 55.83x50.07
+          text 351.25,149.42 55.83x17.5 "Tailoring" #ffd100
+          text 360.83,168.34 36.67x17.5 "31 / 75" #8f8470
     box 1232,163 80x20.67
       box 1232,163 80x26.67 clipped
         box 1232,163 27.5x26.67 absolute clipped @keyPress @pointerPress

@@ -4,25 +4,25 @@ box 0,0 300x88.18
     box 9.37,9.37 281.27x0
     box 9.37,9.37 281.27x69.44 scrolled 0 of 146.73
       box 17.9,17.9 264.2x19.91
-        text 17.9,17.9 264.2x16.8 "Row 1" #ffffff
+        text 17.9,17.9 264.2x14.4 "Row 1" #ffffff
       box 17.9,37.81 264.2x19.91
-        text 17.9,37.81 264.2x16.8 "Row 2" #ffffff
+        text 17.9,37.81 264.2x14.4 "Row 2" #ffffff
       box 17.9,57.72 264.2x19.91
-        text 17.9,57.72 264.2x16.8 "Row 3" #ffffff
+        text 17.9,57.72 264.2x14.4 "Row 3" #ffffff
       box 17.9,77.63 264.2x19.91
-        text 17.9,77.63 264.2x16.8 "Row 4" #ffffff
+        text 17.9,77.63 264.2x14.4 "Row 4" #ffffff
       box 17.9,97.54 264.2x19.91
-        text 17.9,97.54 264.2x16.8 "Row 5" #ffffff
+        text 17.9,97.54 264.2x14.4 "Row 5" #ffffff
       box 17.9,117.46 264.2x19.91
-        text 17.9,117.46 264.2x16.8 "Row 6" #ffffff
+        text 17.9,117.46 264.2x14.4 "Row 6" #ffffff
       box 17.9,137.37 264.2x19.91
-        text 17.9,137.37 264.2x16.8 "Row 7" #ffffff
+        text 17.9,137.37 264.2x14.4 "Row 7" #ffffff
       box 17.9,157.28 264.2x19.91
-        text 17.9,157.28 264.2x16.8 "Row 8" #ffffff
+        text 17.9,157.28 264.2x14.4 "Row 8" #ffffff
       box 17.9,177.19 264.2x19.91
-        text 17.9,177.19 264.2x16.8 "Row 9" #ffffff
+        text 17.9,177.19 264.2x14.4 "Row 9" #ffffff
       box 17.9,197.1 264.2x19.91
-        text 17.9,197.1 264.2x16.8 "Row 10" #ffffff
+        text 17.9,197.1 264.2x14.4 "Row 10" #ffffff
 
 -- scrolled
 box 0,0 300x88.18
@@ -30,22 +30,22 @@ box 0,0 300x88.18
     box 9.37,9.37 281.27x0
     box 9.37,9.37 281.27x69.44 scrolled 36 of 146.73
       box 17.9,-18.1 264.2x19.91
-        text 17.9,-18.1 264.2x16.8 "Row 1" #ffffff
+        text 17.9,-18.1 264.2x14.4 "Row 1" #ffffff
       box 17.9,1.81 264.2x19.91
-        text 17.9,1.81 264.2x16.8 "Row 2" #ffffff
+        text 17.9,1.81 264.2x14.4 "Row 2" #ffffff
       box 17.9,21.72 264.2x19.91
-        text 17.9,21.72 264.2x16.8 "Row 3" #ffffff
+        text 17.9,21.72 264.2x14.4 "Row 3" #ffffff
       box 17.9,41.63 264.2x19.91
-        text 17.9,41.63 264.2x16.8 "Row 4" #ffffff
+        text 17.9,41.63 264.2x14.4 "Row 4" #ffffff
       box 17.9,61.54 264.2x19.91
-        text 17.9,61.54 264.2x16.8 "Row 5" #ffffff
+        text 17.9,61.54 264.2x14.4 "Row 5" #ffffff
       box 17.9,81.46 264.2x19.91
-        text 17.9,81.46 264.2x16.8 "Row 6" #ffffff
+        text 17.9,81.46 264.2x14.4 "Row 6" #ffffff
       box 17.9,101.37 264.2x19.91
-        text 17.9,101.37 264.2x16.8 "Row 7" #ffffff
+        text 17.9,101.37 264.2x14.4 "Row 7" #ffffff
       box 17.9,121.28 264.2x19.91
-        text 17.9,121.28 264.2x16.8 "Row 8" #ffffff
+        text 17.9,121.28 264.2x14.4 "Row 8" #ffffff
       box 17.9,141.19 264.2x19.91
-        text 17.9,141.19 264.2x16.8 "Row 9" #ffffff
+        text 17.9,141.19 264.2x14.4 "Row 9" #ffffff
       box 17.9,161.1 264.2x19.91
-        text 17.9,161.1 264.2x16.8 "Row 10" #ffffff
+        text 17.9,161.1 264.2x14.4 "Row 10" #ffffff

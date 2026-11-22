@@ -8,17 +8,17 @@ surface 600,280.5 400x339 on MEDIUM clamped raised by a click
       box 612.44,567.34 375.11x42.56
         box 612.44,567.34 375.11x42.56
           box 635.2,567.34 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-            text 666.87,572.76 36.67x17.5 "Reset" #ffd100
+            text 669.37,572.76 31.67x17.5 "Reset" #ffd100
           text 752.27,572.76 95.47x17.5 "2 waiting" #ffffff
           box 864.8,567.34 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-            text 899.8,572.76 30x17.5 "Save" #ffd100
+            text 901.88,572.76 25.83x17.5 "Save" #ffd100
     box 976,595.5 13.33x13.33 absolute
       box 976,595.5 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 600,280.5 400x39
     box 600,280.5 336.47x39
       box 600,280.5 118x39 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.99, tr 0.94, top 0.99>0.95 x2.07, left 0.99>0.97 x0.52, right 0.93>0.92 x0.52] @drag @dragStart @dragStop @keyPress @pointerPress
         box 618.13,290.1 81.73x38.4
-          text 633.58,300.55 50.83x17.5 "Recipes" #ffd100
+          text 636.92,300.55 44.17x17.5 "Recipes" #ffd100
     box 945,298.83 55x20.67
       box 945,298.83 55x26.67 clipped
         box 945,298.83 27.5x26.67 absolute clipped @keyPress @pointerPress

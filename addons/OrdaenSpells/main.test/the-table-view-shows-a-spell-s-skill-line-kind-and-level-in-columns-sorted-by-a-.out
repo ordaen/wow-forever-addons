@@ -26,25 +26,25 @@ surface 425,172.17 810.31x555.67 on MEDIUM clamped raised by a click
                   box 478.1,282.64 431.84x34.57 #00000000 @keyPress @pointerPress
                     box 478.1,315.54 431.84x1.67 absolute #00000000
                     box 478.1,291.18 431.84x17.5
-                      text 478.1,291.18 36.67x17.5 "Spell" #cbb994
-                      box 517.61,297.43 6.67x5
-                        box 514.28,293.26 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 1 of 8 tint=#f0c860 opacity=0
+                      text 478.1,291.18 31.67x17.5 "Spell" #cbb994
+                      box 512.61,297.43 6.67x5
+                        box 509.28,293.26 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 1 of 8 tint=#f0c860 opacity=0
                   box 918.48,282.64 116.67x34.57 #00000000 @keyPress @pointerPress
                     box 918.48,315.54 116.67x1.67 absolute #00000000
                     box 918.48,291.18 116.67x17.5
-                      text 918.48,291.18 100x17.5 "Specialization" #cbb994
-                      box 1021.32,297.43 6.67x5
-                        box 1017.99,293.26 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 1 of 8 tint=#f0c860 opacity=0
+                      text 918.48,291.18 85.83x17.5 "Specialization" #cbb994
+                      box 1007.16,297.43 6.67x5
+                        box 1003.82,293.26 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 1 of 8 tint=#f0c860 opacity=0
                   box 1043.68,282.64 80x34.57 #00000000 @keyPress @pointerPress
                     box 1043.68,315.54 80x1.67 absolute #00000000
                     box 1043.68,291.18 80x17.5
-                      text 1043.68,291.18 30x17.5 "Kind" #cbb994
-                      box 1076.52,297.43 6.67x5
-                        box 1073.19,293.26 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 1 of 8 tint=#f0c860 opacity=0
+                      text 1043.68,291.18 25.83x17.5 "Kind" #cbb994
+                      box 1072.36,297.43 6.67x5
+                        box 1069.02,293.26 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 1 of 8 tint=#f0c860 opacity=0
                   box 1132.21,282.64 50x34.57 #00000033 @keyPress @pointerPress
                     box 1132.21,315.54 50x1.67 absolute #d6a56b
-                    box 1136.03,291.18 46.18x17.5
-                      text 1136.03,291.18 36.67x17.5 "Level" #f0c860
+                    box 1141.03,291.18 41.18x17.5
+                      text 1141.03,291.18 31.67x17.5 "Level" #f0c860
                       box 1175.54,297.43 6.67x5
                         box 1172.21,293.26 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 1 of 8 tint=#f0c860 opacity=1
               box 461.03,318.04 738.24x349.36 scrolled 0 of 0
@@ -58,7 +58,7 @@ surface 425,172.17 810.31x555.67 on MEDIUM clamped raised by a click
                   text 918.48,330.84 116.67x17.5 "Arms" #a3977f
                   text 1043.68,330.84 80x17.5 "Active" #a3977f
                   box 1132.21,330.84 50x17.5
-                    text 1166.38,330.84 15.83x17.5 "40" #a3977f
+                    text 1168.04,330.84 14.17x17.5 "40" #a3977f
                 box 469.57,352.61 721.18x26.03 #00000000 @keyPress @pointerEnter @pointerLeave @pointerPress
                   box 478.1,356.88 431.84x17.5 @dragStart
                     box 478.1,357.29 16.67x16.67 #0d0a08 opacity=1 secure @dragStart @drop @pointerEnter @pointerLeave @pointerPress
@@ -69,7 +69,7 @@ surface 425,172.17 810.31x555.67 on MEDIUM clamped raised by a click
                   text 918.48,356.88 116.67x17.5 "Warrior" #a3977f
                   text 1043.68,356.88 80x17.5 "Active" #a3977f
                   box 1132.21,356.88 50x17.5
-                    text 1173.04,356.88 9.17x17.5 "8" #a3977f
+                    text 1173.88,356.88 8.33x17.5 "8" #a3977f
                 box 469.57,378.64 721.18x26.03 #00000000 @keyPress @pointerEnter @pointerLeave @pointerPress
                   box 478.1,382.91 431.84x17.5 @dragStart
                     box 478.1,383.33 16.67x16.67 #0d0a08 opacity=1 @dragStart @drop @pointerEnter @pointerLeave @pointerPress
@@ -80,7 +80,7 @@ surface 425,172.17 810.31x555.67 on MEDIUM clamped raised by a click
                   text 918.48,382.91 116.67x17.5 "Warrior" #a3977f
                   text 1043.68,382.91 80x17.5 "Passive" #a3977f
                   box 1132.21,382.91 50x17.5
-                    text 1173.04,382.91 9.17x17.5 "6" #a3977f
+                    text 1173.88,382.91 8.33x17.5 "6" #a3977f
                 box 469.57,404.68 721.18x26.03 #00000000 @keyPress @pointerEnter @pointerLeave @pointerPress
                   box 478.1,408.94 431.84x17.5 @dragStart
                     box 478.1,409.36 16.67x16.67 #0d0a08 opacity=1 secure @dragStart @drop @pointerEnter @pointerLeave @pointerPress
@@ -91,7 +91,7 @@ surface 425,172.17 810.31x555.67 on MEDIUM clamped raised by a click
                   text 918.48,408.94 116.67x17.5 "Warrior" #a3977f
                   text 1043.68,408.94 80x17.5 "Active" #a3977f
                   box 1132.21,408.94 50x17.5
-                    text 1173.04,408.94 9.17x17.5 "4" #a3977f
+                    text 1173.88,408.94 8.33x17.5 "4" #a3977f
                 box 469.57,430.71 721.18x26.03 #00000000 @keyPress @pointerEnter @pointerLeave @pointerPress
                   box 478.1,434.98 431.84x17.5 @dragStart
                     box 478.1,435.39 16.67x16.67 #0d0a08 opacity=1 secure @dragStart @drop @pointerEnter @pointerLeave @pointerPress
@@ -102,19 +102,19 @@ surface 425,172.17 810.31x555.67 on MEDIUM clamped raised by a click
                   text 918.48,434.98 116.67x17.5 "General" #a3977f
                   text 1043.68,434.98 80x17.5 "Active" #a3977f
                   box 1132.21,434.98 50x17.5
-                    text 1173.04,434.98 9.17x17.5 "1" #a3977f
+                    text 1173.88,434.98 8.33x17.5 "1" #a3977f
       box 437.44,685.31 785.42x32.93
         box 437.44,685.31 785.42x32.93 Interface/FrameGeneral/UI-Background-Marble border=Interface\AddOns\Ordaen\media\frame-divider-down sides=top pieces=[top 0.71>0.54 x27.27]
           box 460.2,695.04 739.91x17.5
-            box 460.2,695.04 51.03x17.5
-              text 460.2,695.04 34.17x17.5 "Shown" #a3977f
-              text 502.9,695.04 8.33x17.5 "5" #e8dcc4
-            box 528.3,695.04 102.7x17.5
-              text 528.3,695.04 85.83x17.5 "Active spells" #a3977f
-              text 622.67,695.04 8.33x17.5 "4" #e8dcc4
-            box 648.07,695.04 109.37x17.5
-              text 648.07,695.04 92.5x17.5 "Passive spells" #a3977f
-              text 749.1,695.04 8.33x17.5 "1" #e8dcc4
+            box 460.2,695.04 41.87x17.5
+              text 460.2,695.04 26.67x17.5 "Shown" #a3977f
+              text 495.4,695.04 6.67x17.5 "5" #e8dcc4
+            box 519.13,695.04 81.87x17.5
+              text 519.13,695.04 66.67x17.5 "Active spells" #a3977f
+              text 594.33,695.04 6.67x17.5 "4" #e8dcc4
+            box 618.07,695.04 86.87x17.5
+              text 618.07,695.04 71.67x17.5 "Passive spells" #a3977f
+              text 698.27,695.04 6.67x17.5 "1" #e8dcc4
     box 1211.31,703.83 13.33x13.33 absolute
       box 1211.31,703.83 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 425,172.17 810.31x39
@@ -123,12 +123,12 @@ surface 425,172.17 810.31x555.67 on MEDIUM clamped raised by a click
         box 434,181.17 39x39 absolute icon=Interface/Icons/INV_Misc_Book_09 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=none pieces=[]
         box 469.18,181.17 4.05x30 absolute border=Interface\AddOns\Ordaen\media\frame-divider-down sides=left pieces=[left 0.87>0.86 x1.04]
         box 476.58,181.77 48.28x38.4
-          text 478.64,192.22 44.17x17.5 "Spells" #ffd100
-      box 552.96,172.17 134.72x39 Interface\AddOns\Ordaen\media\window-wood tint=#808080 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.96, tr 0.93, top 0.96>0.94 x2.51, left 0.96>0.95 x0.52, right 0.93>0.92 x0.52] @drag @dragStart @dragStop @keyPress @pointerPress
+          text 481.56,192.22 38.33x17.5 "Spells" #ffd100
+      box 552.96,172.17 125.55x39 Interface\AddOns\Ordaen\media\window-wood tint=#808080 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.96, tr 0.94, top 0.96>0.94 x2.27, left 0.96>0.95 x0.52, right 0.93>0.92 x0.52] @drag @dragStart @dragStop @keyPress @pointerPress
         box 561.96,181.17 39x39 absolute icon=Interface/Icons/INV_Misc_Book_11 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=none pieces=[]
         box 597.13,181.17 4.05x30 absolute border=Interface\AddOns\Ordaen\media\frame-divider-down sides=left pieces=[left 0.84>0.83 x1.04]
-        box 604.54,181.77 65x38.4
-          text 604.54,192.22 65x17.5 "Learnable" #a3977f
+        box 604.54,181.77 55.83x38.4
+          text 604.54,192.22 55.83x17.5 "Learnable" #a3977f
     box 1155.31,190.5 80x20.67
       box 1155.31,190.5 80x26.67 clipped
         box 1155.31,190.5 27.5x26.67 absolute clipped @keyPress @pointerPress

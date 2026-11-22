@@ -4,7 +4,7 @@ box 0,0 400x28.33
     box 0,0 297.93x28.33
       box 0,0 297.93x28.33 #00000080 input "" @change @submit
       box 0,0 297.93x28.33 absolute
-        text 8.53,5.77 280.87x16.8 "Search by name" #a3977f
+        text 8.53,6.97 280.87x14.4 "Search by name" #a3977f
     box 297.93,0 102.07x28.33
       box 297.93,0 34.02x28.33
         box 303.62,0 28.33x28.33
@@ -25,7 +25,7 @@ box 0,0 400x28.33
     box 0,0 297.93x28.33
       box 0,0 297.93x28.33 #00000080 input "" @change @submit
       box 0,0 297.93x28.33 absolute
-        text 8.53,5.77 280.87x16.8 "Search by name" #a3977f
+        text 8.53,6.97 280.87x14.4 "Search by name" #a3977f
     box 297.93,0 102.07x28.33
       box 297.93,0 34.02x28.33
         box 303.62,0 28.33x28.33
@@ -53,7 +53,7 @@ box 0,0 400x28.33
     box 0,0 297.93x28.33
       box 0,0 297.93x28.33 #00000080 input "" @change @submit
       box 0,0 297.93x28.33 absolute
-        text 8.53,5.77 280.87x16.8 "Search by name" #a3977f
+        text 8.53,6.97 280.87x14.4 "Search by name" #a3977f
     box 297.93,0 102.07x28.33
       box 297.93,0 34.02x28.33
         box 303.62,0 28.33x28.33

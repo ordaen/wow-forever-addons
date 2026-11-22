@@ -3,20 +3,20 @@ surface 600,274.67 400x350.67 on MEDIUM clamped raised by a click
   box 600,325.33 400x300 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.96, tr 0.77, bl 0.80, br 0.61, top 0.96>0.78 x9.42, bottom 0.79>0.61 x9.42, left 0.96>0.81 x6.81, right 0.76>0.61 x6.81]
     box 612.44,337.78 375.11x275.11
       box 612.44,337.78 375.11x275.11
-        text 635.2,360.53 329.6x17.5 "the page" #ffffff
+        text 630.93,356.27 338.13x17.5 "the page" #ffffff
     box 976,601.33 13.33x13.33 absolute
       box 976,601.33 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 600,274.67 400x50.67
     box 600,274.67 336.47x50.67
-      box 600,274.67 161.38x50.67 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.99, tr 0.92, top 0.99>0.93 x3.20, left 0.99>0.97 x0.82, right 0.91>0.89 x0.82] @drag @dragStart @dragStop @keyPress @pointerPress
+      box 600,274.67 149.72x50.67 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.99, tr 0.92, top 0.99>0.93 x2.90, left 0.99>0.97 x0.82, right 0.92>0.90 x0.82] @drag @dragStart @dragStop @keyPress @pointerPress
         box 609,283.67 50.67x50.67 absolute icon=Interface/Icons/Trade_Tailoring cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=none pieces=[]
         box 655.84,283.67 4.05x41.67 absolute border=Interface\AddOns\Ordaen\media\frame-divider-down sides=left pieces=[left 0.85>0.83 x1.45]
-        box 663.25,284.27 80x50.07
-          text 663.67,291.09 79.17x17.5 "Professions" #ffd100
-          text 663.25,310.01 80x17.5 "Tailoring 75" #8f8470
-      box 771.34,274.67 118x50.67 Interface\AddOns\Ordaen\media\window-wood tint=#808080 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.90, tr 0.85, top 0.90>0.86 x2.07, left 0.90>0.88 x0.82, right 0.85>0.83 x0.82] @drag @dragStart @dragStop @keyPress @pointerPress
-        box 789.47,284.27 81.73x50.07
-          text 804.92,300.55 50.83x17.5 "Recipes" #a3977f
+        box 663.25,284.27 68.33x50.07
+          text 663.25,291.09 68.33x17.5 "Professions" #ffd100
+          text 666.58,310.01 61.67x17.5 "Tailoring 75" #8f8470
+      box 759.67,274.67 118x50.67 Interface\AddOns\Ordaen\media\window-wood tint=#808080 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.91, tr 0.86, top 0.91>0.87 x2.07, left 0.91>0.89 x0.82, right 0.85>0.83 x0.82] @drag @dragStart @dragStop @keyPress @pointerPress
+        box 777.81,284.27 81.73x50.07
+          text 796.59,300.55 44.17x17.5 "Recipes" #a3977f
     box 945,304.67 55x20.67
       box 945,304.67 55x26.67 clipped
         box 945,304.67 27.5x26.67 absolute clipped @keyPress @pointerPress
@@ -31,20 +31,20 @@ surface 600,274.67 400x350.67 on MEDIUM clamped raised by a click
   box 600,325.33 400x300 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.96, tr 0.77, bl 0.80, br 0.61, top 0.96>0.78 x9.42, bottom 0.79>0.61 x9.42, left 0.96>0.81 x6.81, right 0.76>0.61 x6.81]
     box 612.44,337.78 375.11x275.11
       box 612.44,337.78 375.11x275.11
-        text 635.2,360.53 329.6x17.5 "the page" #ffffff
+        text 630.93,356.27 338.13x17.5 "the page" #ffffff
     box 976,601.33 13.33x13.33 absolute
       box 976,601.33 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 600,274.67 400x50.67
     box 600,274.67 336.47x50.67
-      box 600,274.67 161.38x50.67 Interface\AddOns\Ordaen\media\window-wood tint=#808080 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.99, tr 0.92, top 0.99>0.93 x3.20, left 0.99>0.97 x0.82, right 0.91>0.89 x0.82] @drag @dragStart @dragStop @keyPress @pointerPress
+      box 600,274.67 149.72x50.67 Interface\AddOns\Ordaen\media\window-wood tint=#808080 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.99, tr 0.92, top 0.99>0.93 x2.90, left 0.99>0.97 x0.82, right 0.92>0.90 x0.82] @drag @dragStart @dragStop @keyPress @pointerPress
         box 609,283.67 50.67x50.67 absolute icon=Interface/Icons/Trade_Tailoring cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=none pieces=[]
         box 655.84,283.67 4.05x41.67 absolute border=Interface\AddOns\Ordaen\media\frame-divider-down sides=left pieces=[left 0.85>0.83 x1.45]
-        box 663.25,284.27 80x50.07
-          text 663.67,291.09 79.17x17.5 "Professions" #a3977f
-          text 663.25,310.01 80x17.5 "Tailoring 75" #8f8470
-      box 771.34,274.67 118x50.67 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.90, tr 0.85, top 0.90>0.86 x2.07, left 0.90>0.88 x0.82, right 0.85>0.83 x0.82] @drag @dragStart @dragStop @keyPress @pointerPress
-        box 789.47,284.27 81.73x50.07
-          text 804.92,300.55 50.83x17.5 "Recipes" #ffd100
+        box 663.25,284.27 68.33x50.07
+          text 663.25,291.09 68.33x17.5 "Professions" #a3977f
+          text 666.58,310.01 61.67x17.5 "Tailoring 75" #8f8470
+      box 759.67,274.67 118x50.67 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.91, tr 0.86, top 0.91>0.87 x2.07, left 0.91>0.89 x0.82, right 0.85>0.83 x0.82] @drag @dragStart @dragStop @keyPress @pointerPress
+        box 777.81,284.27 81.73x50.07
+          text 796.59,300.55 44.17x17.5 "Recipes" #ffd100
     box 945,304.67 55x20.67
       box 945,304.67 55x26.67 clipped
         box 945,304.67 27.5x26.67 absolute clipped @keyPress @pointerPress

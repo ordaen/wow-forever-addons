@@ -1,32 +1,32 @@
 -- «Bags» selected, without a colour: the gold fill and edge; no rule over the first
-box 0,0 300x86.2
-  box 0,0 300x28.18 #d6a56b3d clipped @keyPress @pointerPress
-    box 0,0 1.67x28.18 absolute #f0c860
-    text 14.22,5.69 241.11x16.8 "Bags" #ffffff
-    text 262.44,5.69 23.33x16.8 "[2]" #ffffff
-  box 0,28.18 300x29.01 #00000000 clipped @keyPress @pointerPress
-    text 14.22,34.7 271.56x16.8 "Linen Cloak" #ffffff
-  box 0,57.19 300x29.01 #00000000 clipped @keyPress @pointerPress
-    text 14.22,63.71 271.56x16.8 "Brown Linen Vest" #ffffff
+box 0,0 300x79
+  box 0,0 300x25.78 #d6a56b3d clipped @keyPress @pointerPress
+    box 0,0 1.67x25.78 absolute #f0c860
+    text 14.22,5.69 244.44x14.4 "Bags" #ffffff
+    text 265.78,5.69 20x14.4 "[2]" #ffffff
+  box 0,25.78 300x26.61 #00000000 clipped @keyPress @pointerPress
+    text 14.22,32.3 271.56x14.4 "Linen Cloak" #ffffff
+  box 0,52.39 300x26.61 #00000000 clipped @keyPress @pointerPress
+    text 14.22,58.91 271.56x14.4 "Brown Linen Vest" #ffffff
 
 -- the green «Linen Cloak» selected: a green fill and a green edge
-box 0,0 300x86.2
-  box 0,0 300x28.18 #00000000 clipped @keyPress @pointerPress
-    text 14.22,5.69 241.11x16.8 "Bags" #ffffff
-    text 262.44,5.69 23.33x16.8 "[2]" #ffffff
-  box 0,28.18 300x29.01 #40c0403d clipped @keyPress @pointerPress
-    box 0,28.18 1.67x29.01 absolute #40c040
-    text 14.22,34.7 271.56x16.8 "Linen Cloak" #ffffff
-  box 0,57.19 300x29.01 #00000000 clipped @keyPress @pointerPress
-    text 14.22,63.71 271.56x16.8 "Brown Linen Vest" #ffffff
+box 0,0 300x79
+  box 0,0 300x25.78 #00000000 clipped @keyPress @pointerPress
+    text 14.22,5.69 244.44x14.4 "Bags" #ffffff
+    text 265.78,5.69 20x14.4 "[2]" #ffffff
+  box 0,25.78 300x26.61 #40c0403d clipped @keyPress @pointerPress
+    box 0,25.78 1.67x26.61 absolute #40c040
+    text 14.22,32.3 271.56x14.4 "Linen Cloak" #ffffff
+  box 0,52.39 300x26.61 #00000000 clipped @keyPress @pointerPress
+    text 14.22,58.91 271.56x14.4 "Brown Linen Vest" #ffffff
 
 -- the cursor on «Bags»: its light
-box 0,0 300x86.2
-  box 0,0 300x28.18 #d6a56b1f clipped @keyPress @pointerPress
-    text 14.22,5.69 241.11x16.8 "Bags" #ffffff
-    text 262.44,5.69 23.33x16.8 "[2]" #ffffff
-  box 0,28.18 300x29.01 #40c0403d clipped @keyPress @pointerPress
-    box 0,28.18 1.67x29.01 absolute #40c040
-    text 14.22,34.7 271.56x16.8 "Linen Cloak" #ffffff
-  box 0,57.19 300x29.01 #00000000 clipped @keyPress @pointerPress
-    text 14.22,63.71 271.56x16.8 "Brown Linen Vest" #ffffff
+box 0,0 300x79
+  box 0,0 300x25.78 #d6a56b1f clipped @keyPress @pointerPress
+    text 14.22,5.69 244.44x14.4 "Bags" #ffffff
+    text 265.78,5.69 20x14.4 "[2]" #ffffff
+  box 0,25.78 300x26.61 #40c0403d clipped @keyPress @pointerPress
+    box 0,25.78 1.67x26.61 absolute #40c040
+    text 14.22,32.3 271.56x14.4 "Linen Cloak" #ffffff
+  box 0,52.39 300x26.61 #00000000 clipped @keyPress @pointerPress
+    text 14.22,58.91 271.56x14.4 "Brown Linen Vest" #ffffff

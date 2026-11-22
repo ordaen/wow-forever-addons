@@ -1,109 +1,109 @@
 -- Reset: the question
-box 0,0 760x741.13
-  box 0,0 760x204.71
-    box 0,0 760x16.8
-      text 0,0 50.83x16.8 "Profile" #e8c35a
-      box 61.5,5.07 698.5x6.67
-        box 61.5,5.07 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry tint=#c29a43
-        box 68.17,5.07 691.83x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip tint=#c29a43
-    text 0,31.02 760x16.8 "In use: Default, account default" #e8dcc4
-    box 0,62.04 760x28.33 opacity=1
-      box 0,67.81 233.33x16.8 @pointerEnter @pointerLeave
-        text 0,67.81 233.33x16.8 "Profile" #cbb994
-      box 252.89,62.04 200x28.33
-        box 252.89,62.04 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
-          text 272.44,67.81 144x16.8 "Spare" #f0c860
-          box 427.11,69.54 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-    box 0,104.6 760x25 opacity=1
-      box 0,108.7 233.33x16.8 @pointerEnter @pointerLeave
-        text 0,108.7 233.33x16.8 "Name" #cbb994
-      box 252.89,104.6 250x25 #0d0a08 input "" @change
-    box 0,143.82 760x18.33 opacity=1
-      box 0,144.59 233.33x16.8 @pointerEnter @pointerLeave
-        text 0,144.59 233.33x16.8 "New from defaults" #cbb994
-      box 252.89,143.82 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @keyPress @pointerPress
-        box 252.89,143.82 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
-    box 0,176.38 760x28.33
-      box 0,176.38 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-        text 50.83,182.14 23.33x16.8 "New" #ffd100
-      box 133.89,176.38 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-        text 174.31,182.14 44.17x16.8 "Rename" #ffd100
-      box 267.78,176.38 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-        text 308.19,182.14 44.17x16.8 "Delete" #ffd100
-      box 401.67,176.38 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-        text 445.83,182.14 36.67x16.8 "Reset" #f0e6d2
-  box 0,224.27 760x114.47
-    box 0,224.27 760x16.8
-      text 0,224.27 50.83x16.8 "Use for" #e8c35a
-      box 61.5,229.33 698.5x6.67
-        box 61.5,229.33 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry tint=#c29a43
-        box 68.17,229.33 691.83x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip tint=#c29a43
-    box 0,255.29 760x18.33 opacity=1
-      box 0,256.06 233.33x16.8 @pointerEnter @pointerLeave
-        text 0,256.06 233.33x16.8 "This character" #cbb994
-      box 252.89,255.29 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @keyPress @pointerPress
-        box 252.89,255.29 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
-    box 0,287.84 760x18.33 opacity=1
-      box 0,288.61 233.33x16.8 @pointerEnter @pointerLeave
-        text 0,288.61 233.33x16.8 "All characters of this class" #cbb994
-      box 252.89,287.84 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @keyPress @pointerPress
-        box 252.89,287.84 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
-    box 0,320.4 760x18.33 opacity=1
-      box 0,321.17 233.33x16.8 @pointerEnter @pointerLeave
-        text 0,321.17 233.33x16.8 "Account default" #cbb994
-      box 252.89,320.4 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @keyPress @pointerPress
-        box 252.89,320.4 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
-  box 0,358.29 760x134.47
-    box 0,358.29 760x16.8
-      text 0,358.29 135x16.8 "Copy from a profile" #e8c35a
-      box 145.67,363.36 614.33x6.67
-        box 145.67,363.36 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry tint=#c29a43
-        box 152.33,363.36 607.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip tint=#c29a43
-    box 0,389.31 760x103.44
-      box 0,389.31 760x28.33 opacity=1
-        box 0,395.08 233.33x16.8 @pointerEnter @pointerLeave
-          text 0,395.08 233.33x16.8 "From profile" #cbb994
-        box 252.89,389.31 200x28.33
-          box 252.89,389.31 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
-            text 272.44,395.08 144x16.8 "Spare" #f0c860
-            box 427.11,396.81 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-      box 0,431.87 760x18.33 opacity=1
-        box 0,432.63 233.33x16.8 @pointerEnter @pointerLeave
-          text 0,432.63 233.33x16.8 "General" #cbb994
-        box 252.89,431.87 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @keyPress @pointerPress
-          box 252.89,431.87 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=1
-      box 0,464.42 760x28.33
-        box 0,464.42 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-          text 47.5,470.19 30x16.8 "Copy" #ffd100
-  box 0,512.31 760x228.82
-    box 0,512.31 760x16.8
-      text 0,512.31 36.67x16.8 "Share" #e8c35a
-      box 47.33,517.38 712.67x6.67
-        box 47.33,517.38 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry tint=#c29a43
-        box 54,517.38 706x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip tint=#c29a43
-    text 0,543.33 760x16.8 "Export shows the profile as text: Ctrl+C copies it. To import, paste a text here." #a3977f
-    box 0,574.36 760x18.33 opacity=1
-      box 0,575.12 233.33x16.8 @pointerEnter @pointerLeave
-        text 0,575.12 233.33x16.8 "General" #cbb994
-      box 252.89,574.36 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @keyPress @pointerPress
-        box 252.89,574.36 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=1
-    box 0,606.91 760x91.67 #0d0a08 input "" lines clipped @change
-    box 0,712.8 760x28.33
-      box 0,712.8 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-        text 40.42,718.57 44.17x16.8 "Export" #ffd100
-      box 133.89,712.8 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-        text 174.31,718.57 44.17x16.8 "Import" #ffd100
-      box 267.78,712.8 125x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-        text 308.19,718.57 44.17x16.8 "Create" #808080
+box 0,0 760x726.73
+  box 0,0 760x199.91
+    box 0,0 760x14.4
+      text 0,0 44.17x14.4 "Profile" #e8c35a
+      box 54.83,3.87 705.17x6.67
+        box 54.83,3.87 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry tint=#c29a43
+        box 61.5,3.87 698.5x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip tint=#c29a43
+    text 0,28.62 760x14.4 "In use: Default, account default" #e8dcc4
+    box 0,57.24 760x28.33 opacity=1
+      box 0,64.21 233.33x14.4 @pointerEnter @pointerLeave
+        text 0,64.21 233.33x14.4 "Profile" #cbb994
+      box 252.89,57.24 200x28.33
+        box 252.89,57.24 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
+          text 272.44,64.21 144x14.4 "Spare" #f0c860
+          box 427.11,64.74 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+    box 0,99.8 760x25 opacity=1
+      box 0,105.1 233.33x14.4 @pointerEnter @pointerLeave
+        text 0,105.1 233.33x14.4 "Name" #cbb994
+      box 252.89,99.8 250x25 #0d0a08 input "" @change
+    box 0,139.02 760x18.33 opacity=1
+      box 0,140.99 233.33x14.4 @pointerEnter @pointerLeave
+        text 0,140.99 233.33x14.4 "New from defaults" #cbb994
+      box 252.89,139.02 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @keyPress @pointerPress
+        box 252.89,139.02 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
+    box 0,171.58 760x28.33
+      box 0,171.58 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+        text 52.5,178.54 20x14.4 "New" #ffd100
+      box 133.89,171.58 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+        text 177.22,178.54 38.33x14.4 "Rename" #ffd100
+      box 267.78,171.58 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+        text 311.11,178.54 38.33x14.4 "Delete" #ffd100
+      box 401.67,171.58 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+        text 448.33,178.54 31.67x14.4 "Reset" #f0e6d2
+  box 0,219.47 760x112.07
+    box 0,219.47 760x14.4
+      text 0,219.47 44.17x14.4 "Use for" #e8c35a
+      box 54.83,223.33 705.17x6.67
+        box 54.83,223.33 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry tint=#c29a43
+        box 61.5,223.33 698.5x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip tint=#c29a43
+    box 0,248.09 760x18.33 opacity=1
+      box 0,250.06 233.33x14.4 @pointerEnter @pointerLeave
+        text 0,250.06 233.33x14.4 "This character" #cbb994
+      box 252.89,248.09 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @keyPress @pointerPress
+        box 252.89,248.09 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
+    box 0,280.64 760x18.33 opacity=1
+      box 0,282.61 233.33x14.4 @pointerEnter @pointerLeave
+        text 0,282.61 233.33x14.4 "All characters of this class" #cbb994
+      box 252.89,280.64 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @keyPress @pointerPress
+        box 252.89,280.64 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
+    box 0,313.2 760x18.33 opacity=1
+      box 0,315.17 233.33x14.4 @pointerEnter @pointerLeave
+        text 0,315.17 233.33x14.4 "Account default" #cbb994
+      box 252.89,313.2 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @keyPress @pointerPress
+        box 252.89,313.2 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
+  box 0,351.09 760x132.07
+    box 0,351.09 760x14.4
+      text 0,351.09 115.83x14.4 "Copy from a profile" #e8c35a
+      box 126.5,354.96 633.5x6.67
+        box 126.5,354.96 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry tint=#c29a43
+        box 133.17,354.96 626.83x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip tint=#c29a43
+    box 0,379.71 760x103.44
+      box 0,379.71 760x28.33 opacity=1
+        box 0,386.68 233.33x14.4 @pointerEnter @pointerLeave
+          text 0,386.68 233.33x14.4 "From profile" #cbb994
+        box 252.89,379.71 200x28.33
+          box 252.89,379.71 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
+            text 272.44,386.68 144x14.4 "Spare" #f0c860
+            box 427.11,387.21 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+      box 0,422.27 760x18.33 opacity=1
+        box 0,424.23 233.33x14.4 @pointerEnter @pointerLeave
+          text 0,424.23 233.33x14.4 "General" #cbb994
+        box 252.89,422.27 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @keyPress @pointerPress
+          box 252.89,422.27 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=1
+      box 0,454.82 760x28.33
+        box 0,454.82 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+          text 49.58,461.79 25.83x14.4 "Copy" #ffd100
+  box 0,502.71 760x224.02
+    box 0,502.71 760x14.4
+      text 0,502.71 31.67x14.4 "Share" #e8c35a
+      box 42.33,506.58 717.67x6.67
+        box 42.33,506.58 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry tint=#c29a43
+        box 49,506.58 711x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip tint=#c29a43
+    text 0,531.33 760x14.4 "Export shows the profile as text: Ctrl+C copies it. To import, paste a text here." #a3977f
+    box 0,559.96 760x18.33 opacity=1
+      box 0,561.92 233.33x14.4 @pointerEnter @pointerLeave
+        text 0,561.92 233.33x14.4 "General" #cbb994
+      box 252.89,559.96 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @keyPress @pointerPress
+        box 252.89,559.96 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=1
+    box 0,592.51 760x91.67 #0d0a08 input "" lines clipped @change
+    box 0,698.4 760x28.33
+      box 0,698.4 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+        text 43.33,705.37 38.33x14.4 "Export" #ffd100
+      box 133.89,698.4 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+        text 177.22,705.37 38.33x14.4 "Import" #ffd100
+      box 267.78,698.4 125x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+        text 311.11,705.37 38.33x14.4 "Create" #808080
 surface 0,0 1600x900 on DIALOG #0000008c
-  box 593.83,366.7 412.33x166.6 Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.84, tr 0.79, bl 0.81, br 0.76, top 0.84>0.79 x20.48, bottom 0.81>0.76 x20.48, left 0.84>0.81 x7.68, right 0.79>0.76 x7.68]
-    text 623.52,417.72 352.96x43.33 "Reset every setting of profile «Spare» to its default?" #e8dcc4
-    box 623.52,475.28 352.96x28.33
-      box 623.52,475.28 118.51x0
-      box 742.03,475.28 234.44x28.33
-        box 742.03,475.28 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-          text 769.95,478.61 44.17x21.67 "Cancel" #ffd100
-        box 850.92,475.28 116.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-          text 890.92,478.61 36.67x21.67 "Reset" #ffd100
-    box 598.33,382.87 403.33x32.5 absolute
-      text 742.92,382.87 114.17x32.5 "Reset profile" #ffd100
+  box 593.83,377.53 412.33x144.93 Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.84, tr 0.79, bl 0.81, br 0.76, top 0.84>0.79 x20.48, bottom 0.81>0.76 x20.48, left 0.84>0.81 x6.55, right 0.79>0.76 x6.55]
+    text 623.52,428.56 352.96x21.67 "Reset every setting of profile «Spare» to its default?" #e8dcc4
+    box 623.52,464.44 352.96x28.33
+      box 623.52,464.44 118.51x0
+      box 742.03,464.44 234.44x28.33
+        box 742.03,464.44 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+          text 772.87,467.78 38.33x21.67 "Cancel" #ffd100
+        box 850.92,464.44 116.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+          text 893.42,467.78 31.67x21.67 "Reset" #ffd100
+    box 598.33,393.7 403.33x32.5 absolute
+      text 753.33,393.7 93.33x32.5 "Reset profile" #ffd100
