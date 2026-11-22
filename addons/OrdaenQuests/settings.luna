@@ -6,6 +6,8 @@ import Locale from "@/locales"
 public struct Choices implements Plain {
   // The game's «Журнал заданий» key (L) and its button in the micro menu open Quests' window; off, the game's log.
   ownKey: Boolean
+  // A quest's page opens with its parchment folded to its title; a click unfolds it.
+  foldedScroll: Boolean = false
 }
 
 public class GeneralPage implements Component {
@@ -18,6 +20,8 @@ public class GeneralPage implements Component {
     return $ltml {
       <Section title={Locale.SECTION_LOG}>
         <Switch label={Locale.SETTING_OWN_KEY} hint={Locale.SETTING_OWN_KEY_TIP} value={mut self.settings.values.ownKey} />
+        <Switch label={Locale.SETTING_FOLDED_SCROLL} hint={Locale.SETTING_FOLDED_SCROLL_TIP}
+                value={mut self.settings.values.foldedScroll} />
       </Section>
     }
   }

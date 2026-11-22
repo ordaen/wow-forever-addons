@@ -370,7 +370,8 @@ public class Quests implements Module, App {
     return {
       width: Style.PAGE,
       content: $ltml {
-        <QuestPage quest={self.pickedQuest ?? quest} text={self.text} facts={self.pickedFacts} player={self.level} @act={self.onAct} />
+        <QuestPage quest={self.pickedQuest ?? quest} text={self.text} facts={self.pickedFacts} player={self.level}
+                   foldFirst={self.settings.values.foldedScroll} @act={self.onAct} />
       }
     }
   }
@@ -423,7 +424,8 @@ public class Quests implements Module, App {
       </Window>
       <Window $if={self.chained != 0} tabs={self.chainTabs} selected={mut self.chainTab} declared={mut self.chainWindow}
               @close={self.onChainClose}>
-        <ChainPage $for={facts of self.chainedList} quest={self.chained} facts={facts} @act={self.onAct} />
+        <ChainPage $for={facts of self.chainedList} quest={self.chained} facts={facts}
+                   foldFirst={self.settings.values.foldedScroll} @act={self.onAct} />
       </Window>
       <surface $if={self.dockedSide != nil} layer={Layer.Panel} place={self.dockedPlace} raise={true}
                width={self.dockedWidth} height={self.dockedHeight} background={Style.DOCKED_BACK}
@@ -433,7 +435,8 @@ public class Quests implements Module, App {
         </box>
         <box $if={self.pickedQuest != nil} rows={BODY} gap={3sp}>
           <PushButton label={Locale.BACK} width={Style.ASK_BUTTON} @click={self.onBack} />
-          <QuestPage $for={quest of self.pickedList} quest={quest} text={self.text} facts={self.pickedFacts} player={self.level} @act={self.onAct} />
+          <QuestPage $for={quest of self.pickedList} quest={quest} text={self.text} facts={self.pickedFacts} player={self.level}
+                     foldFirst={self.settings.values.foldedScroll} @act={self.onAct} />
         </box>
       </surface>
       <Dialog $if={self.abandoning != 0} width={Style.ASK} title={Locale.ABANDON}>

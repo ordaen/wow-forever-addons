@@ -8,7 +8,7 @@
 import Game from "$game"
 import { Align, Art, ByInteractionState, Edges, Line, Side, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { BODY_LINE, ButtonPlate, Component, Experience, Menu, MenuEntry, Money, PushButton, Reward, RewardView, Rewards, SCROLL_DIM, SCROLL_HEAD, SCROLL_INK, SCROLL_ROW, SECONDARY_TEXT, Scroll, Shown, Standing, SwitchFace, TIGHT_LINE, TITLE_TEXT, Tip, TipText, WELL_DIM, WELL_TEXT, choiceViews, logReward, questLevelColor, rowShade } from "Ordaen"
+import { BODY_LINE, ButtonPlate, Component, Experience, Menu, MenuEntry, Money, PushButton, Reward, RewardView, Rewards, SCROLL_DIM, SCROLL_HEAD, SCROLL_INK, SCROLL_ROW, SECONDARY_TEXT, Scroll, Shown, Standing, SwitchFace, TIGHT_LINE, Tip, TipText, WELL_DIM, WELL_TEXT, choiceViews, logReward, questLevelColor, rowShade } from "Ordaen"
 import { LogQuest } from "@/book"
 import Locale from "@/locales"
 import { QuestFacts } from "@/questie"
@@ -276,8 +276,11 @@ function countOf(text: String): String {
 
 // The line under the scroll: its label, then the next quest's name.
 const CHAIN_COLUMNS: Array<Track> = ["max-content", { fr: 1 }]
-// The chain's page: its scroll, the line of the quest after it, its button.
-const CHAIN_ROWS: Array<Track> = [SCROLL_ROW, "max-content", "max-content"]
+// The scroll's row: its least height unfolded, its own height folded.
+function scrollRow(folded: Boolean): Track {
+  if (folded) { return "max-content" }
+  return SCROLL_ROW
+}
 const BUTTON_ALONE: Array<Track> = ["max-content", { fr: 1 }]
 
 // The line under a quest's parchment: the quest after it in its chain, by QuestieDB's name, in gold as a link; a
@@ -311,15 +314,22 @@ public class ChainLine implements Component {
 public class ChainPage implements Component {
   public act: Event<(Integer, Act)> = new Event()
 
+  // Folded as each quest opens where the settings say so; a click unfolds it.
+  state folded = false
   derived levels: String = Locale.CHAIN_LEVELS.format(self.facts.level, self.facts.minLevel)
   derived combat: Boolean = Game.situation.combat
   derived mapTip: TipText | nil = mapTipOf(self.combat)
+  // Its scroll, the line of the quest after it, its button.
+  derived rows: Array<Track> = [scrollRow(self.folded), "max-content", "max-content"]
 
   quest: Signal<Integer>
   facts: Signal<QuestFacts>
-  constructor(quest: Signal<Integer>, facts: Signal<QuestFacts>) {
+  foldFirst: Signal<Boolean>
+  constructor(quest: Signal<Integer>, facts: Signal<QuestFacts>, foldFirst: Signal<Boolean> = false) {
     self.quest = quest
     self.facts = facts
+    self.foldFirst = foldFirst
+    watch (id of self.quest) { self.folded = peek self.foldFirst }
   }
 
   onNext(mut self, next: Integer) { self.act.emit(next, Act.ShowNext) }
@@ -327,9 +337,8 @@ public class ChainPage implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box rows={CHAIN_ROWS} gap={1.5sp}>
-        <Scroll>
-          <text value={self.facts.name} textColor={SCROLL_HEAD} textSize={TITLE_TEXT} lineHeight={TIGHT_LINE} textFont={.Title} />
+      <box rows={self.rows} gap={1.5sp}>
+        <Scroll title={self.facts.name} folded={mut self.folded}>
           <text value={self.levels} textColor={SCROLL_DIM} />
           <text $if={self.facts.task != ""} value={Locale.SECTION_TASKS} textColor={SCROLL_HEAD} textFont={.Title} />
           <text $if={self.facts.task != ""} value={self.facts.task} textColor={SCROLL_INK} lineHeight={BODY_LINE} />
@@ -346,8 +355,8 @@ public class ChainPage implements Component {
 // The tracking switch's row: its label at the start, the switch at the page's right edge, over the Abandon button.
 const LABEL_THEN_SWITCH: Array<Track> = [{ fr: 1 }, "max-content"]
 
-// The picked quest's page, as Dialogue's quest page: on the scroll its title, its story, its objectives (each wrapped,
-// its count at the right); under it the next quest of its chain (QuestieDB's), what it gives, the library's reward
+// The picked quest's page, as Dialogue's quest page: on the scroll its title, its story and its task, the lore alone;
+// under it its objectives (each wrapped, its count at the right), the next quest of its chain (QuestieDB's), what it gives, the library's reward
 // rows and band; then its tracking switch and its buttons, Abandon the accent one at the right. Abandoning
 // asks first.
 public class QuestPage implements Component {
@@ -362,16 +371,29 @@ public class QuestPage implements Component {
   derived standings: Array<Standing> = standingsOf(self.facts?.reputation ?? [])
   derived combat: Boolean = Game.situation.combat
   derived mapTip: TipText | nil = mapTipOf(self.combat)
+  // Folded as each quest opens where the settings say so; a click unfolds it.
+  state folded = false
+  derived questId: Integer = self.quest.id
+  derived rows: Array<Track> = [scrollRow(self.folded), "max-content", "max-content", "max-content", "max-content", "max-content"]
 
   quest: Signal<LogQuest>
   text: Signal<Game.QuestText>
   facts: Signal<QuestFacts | nil>
   player: Signal<Integer>
-  constructor(quest: Signal<LogQuest>, text: Signal<Game.QuestText>, facts: Signal<QuestFacts | nil>, player: Signal<Integer>) {
+  foldFirst: Signal<Boolean>
+  constructor(
+    quest: Signal<LogQuest>,
+    text: Signal<Game.QuestText>,
+    facts: Signal<QuestFacts | nil>,
+    player: Signal<Integer>,
+    foldFirst: Signal<Boolean> = false
+  ) {
     self.quest = quest
     self.text = text
     self.facts = facts
     self.player = player
+    self.foldFirst = foldFirst
+    watch (id of self.questId) { self.folded = peek self.foldFirst }
   }
 
   onTrack(mut self) { self.act.emit(self.quest.id, Act.Track) }
@@ -382,15 +404,16 @@ public class QuestPage implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box rows={[SCROLL_ROW, "max-content", "max-content", "max-content", "max-content"]} gap={1.5sp}>
-        <Scroll>
-          <text value={self.quest.title} textColor={SCROLL_HEAD} textSize={TITLE_TEXT} lineHeight={TIGHT_LINE} textFont={.Title} />
+      <box rows={self.rows} gap={1.5sp}>
+        <Scroll title={self.quest.title} folded={mut self.folded}>
           <text $if={self.text.story != ""} value={self.text.story} textColor={SCROLL_INK} lineHeight={BODY_LINE} />
           <text value={Locale.SECTION_TASKS} textColor={SCROLL_HEAD} textFont={.Title} />
           <text $if={self.text.task != ""} value={self.text.task} textColor={SCROLL_INK} lineHeight={BODY_LINE} />
-          <GoalLine $for={objective of self.goals} objective={objective} todoColor={SCROLL_INK}
-                    doneColor={SCROLL_DIM} small={false} />
         </Scroll>
+        <box gap={GOAL_GAP}>
+          <GoalLine $for={objective of self.goals} objective={objective} todoColor={WELL_TEXT} doneColor={WELL_DIM}
+                    small={false} />
+        </box>
         <ChainLine facts={self.facts} @open={self.onNext} />
         <box gap={0.5sp}>
           <Rewards views={self.choiceRows} also={self.givenRows} xp={self.text.experience} money={self.text.money}

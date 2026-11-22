@@ -831,12 +831,44 @@ test "an objective that says the task again stands once on the page, not dark th
   Test.expect(window.text("Speak to Marshal Dughan.").count() == 1)
 }
 
-test "the parchment's muted ink holds 6:1 against it" {
+test "the parchment holds the lore alone: the objectives and their counts stand under it, on the well" {
   const log = standing()
-  log[3] = { objectives: [{ text: "Pelts: 4/4", done: true }], ..quest(103, "Elwynn Wolves", "Elwynn Forest") }
+  log[3] = {
+    task: "Bring pelts to Eagan.", objectives: [{ text: "Pelts: 4/4", done: true }, { text: "Fangs: 1/3" }],
+    ..quest(103, "Elwynn Wolves", "Elwynn Forest")
+  }
   opened(log)
   const window = Test.page().window("World")
   window.text("Elwynn Wolves").click()
-  // The page alone says it: done, it has left the list's row.
-  Test.expect(window.text("Pelts").textColor().equal(Color.hex("#4a3520")))
+  // The task on the parchment; the objectives past its bottom roll, in the well's text as the switch's label is, a done
+  // one dim.
+  // The list's row says «Fangs» first; the page's is the second.
+  const fangs = window.text("Fangs").nth(2)
+  Test.expect(fangs.rect().top > window.text("Bring pelts to Eagan.").rect().bottom + 40)
+  Test.expect(fangs.textColor().equal(window.text("Track").textColor()))
+  Test.expect(!window.text("Pelts").textColor().equal(fangs.textColor()))
+}
+
+test "with the setting on, a quest's parchment opens folded to its title, and a click unfolds it" {
+  const log = standing()
+  log[3] = { task: "Bring pelts to Eagan.", ..quest(103, "Elwynn Wolves", "Elwynn Forest") }
+  opened(log)
+  Quests.settings.values.foldedScroll = true
+  const window = Test.page().window("World")
+  window.text("Elwynn Wolves").click()
+  Test.expect(window.text("Elwynn Wolves").count() == 2 && !window.text("Bring pelts to Eagan.").shown())
+  Test.shot("a quest's page, its parchment folded to its title")
+  window.text("Elwynn Wolves").nth(2).click()
+  Test.expect(window.text("Bring pelts to Eagan.").shown())
+  // Another quest opens folded again.
+  window.text("The Defias Brotherhood").click()
+  Test.expect(!window.text("Bring pelts to Eagan.").shown())
+}
+
+test "the parchment opens unfolded by default" {
+  const log = standing()
+  log[3] = { task: "Bring pelts to Eagan.", ..quest(103, "Elwynn Wolves", "Elwynn Forest") }
+  opened(log)
+  Test.page().window("World").text("Elwynn Wolves").click()
+  Test.expect(Test.page().window("World").text("Bring pelts to Eagan.").shown())
 }
