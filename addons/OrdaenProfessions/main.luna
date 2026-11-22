@@ -161,7 +161,11 @@ public class Professions implements Module, App {
   // teaches, and the game's own window, held away while ours shows.
   state atTrainer = false
   state services: Array<Game.TrainerService> = []
-  state gameTrainer: any Frame | nil = nil
+  state gameTrainer: any Frame | nil = Runtime.frame("ClassTrainerFrame")
+  // The game's trainer window stands away while ours shows, and while no trainer is open, so the game's window manager
+  // never counts it (it holds three windows): it is away already as the game shows it. A trainer of another kind open (a
+  // class's, Ordaen Spells'), it is let be.
+  derived holdsTrainer: Boolean = self.gameTrainer != nil && (!Game.trainer.open || self.atTrainer)
   public const pages: Array<SettingsPage> = [
     { title: Locale.TAB_GENERAL, content: $ltml { <GeneralPage settings={mut self.settings} /> } },
     { title: windowsTitle(), content: $ltml { <WindowsPage windows={mut self.windows} /> } }
@@ -800,13 +804,14 @@ public class Professions implements Module, App {
 
   public render(self): Template {
     return $ltml {
+      // The game's windows stand away whenever they exist, out of the game's window manager (see `holdsTrainer`).
+      <frame $if={Game.frames.Professions != nil} of={Game.frames.Professions} opacity={0} away={true} />
+      <frame $if={self.holdsTrainer} of={self.gameTrainer} opacity={0} away={true} />
       <$if={self.atTrainer}>
-        <frame $if={self.gameTrainer != nil} of={self.gameTrainer} opacity={0} away={true} />
         <TrainerWindow services={self.services} declared={mut self.trainerWindow} list={mut self.trainerList} ignored={mut self.ignored}
                        tabSpec={TRAINER_TAB} noun={Locale.COLUMN_RECIPE} trade={true} @settings={self.onSettings} />
       </>
       <$if={self.isOpen}>
-        <frame of={Game.frames.Professions} opacity={0} away={true} />
         <Window $if={self.drawn} tabs={self.tabs} selected={mut self.tab} asks={true} declared={mut self.window} withSettings={true}
                 footer={self.footer} @close={self.onClose} @picked={self.onTab} @settings={self.onSettings}>
           <box $if={!self.hasOpen} xAlign={Align.Center} yAlign={Align.Center}>

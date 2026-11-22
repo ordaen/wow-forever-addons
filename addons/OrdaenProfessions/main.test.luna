@@ -107,12 +107,12 @@ function settings(): Test.Part {
 
 // The window shown and shut
 
-test "with no profession open nothing shows, and the game's own window stands where it is" {
+test "with no profession open nothing shows, and the game's own window already stands away: the game's window manager never counts it" {
   const own = gameWindow()
   Game.frames.Professions = own
   Game.professions.list = professions()
   Test.mount(nil, SCREEN)
-  Test.expect(!window().shown() && !Test.page().text("Tailoring").shown() && back(own))
+  Test.expect(!window().shown() && !Test.page().text("Tailoring").shown() && away(own))
 }
 
 test "the game opens a profession: the window shows in place of the game's own, which stands away unseen" {
@@ -233,7 +233,7 @@ test "the profession the game opens picks its tab, after the window closed on an
   Test.expect(window().text("Tailoring").textColor().equal(OPEN) && window().text("First Aid").textColor().equal(CLOSED))
 }
 
-test "Escape asks the game to close the profession; closed, the window goes and the game's own is back" {
+test "Escape asks the game to close the profession; closed, the window goes and the game's own stays away, hidden" {
   const own = gameWindow()
   Game.frames.Professions = own
   Game.professions.list = professions()
@@ -244,10 +244,10 @@ test "Escape asks the game to close the profession; closed, the window goes and 
   _ = Test.requests()
   Test.key(Key.Escape)
   Test.expect(asked("TradeSkill.close"))
-  // The game hides its own window as the profession closes: given back, it stays hidden.
+  // The game hides its own window as the profession closes; it stays away for the next time the game shows it.
   own.Hide()
   Game.tradeSkill.open = nil
-  Test.expect(!window().shown() && back(own) && !own.IsShown())
+  Test.expect(!window().shown() && away(own) && !own.IsShown())
 }
 
 test "the window's close asks the game to close the profession" {
