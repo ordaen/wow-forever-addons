@@ -4,10 +4,11 @@ box 0,0 300x25.33
 surface 600,275.54 400x348.92 on MEDIUM clamped raised by a click
   box 600,324.46 400x300 absolute Interface\AddOns\Ordaen\media\window-wood border=UI-Frame-Metal-CornerTopLeft
     box 613.09,337.55 378.81x276.06
-      box 635.85,360.31 333.3x193.68
-        text 635.85,360.31 333.3x17.78 "the first tab's page" #ffffff
-      box 635.85,553.99 333.3x45.4
-        box 635.85,571.06 333.3x28.33
+      box 613.09,337.55 378.81x233.51
+        box 635.85,360.31 333.3x193.68
+          text 635.85,360.31 333.3x17.78 "the first tab's page" #ffffff
+      box 613.09,571.06 378.81x42.56
+        box 613.09,571.06 378.81x42.56
           text 635.85,576.34 216.23x17.78 "saved 0 times" #a3977f
           box 869.15,571.06 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
             text 903.59,576.34 31.11x17.78 "Save" #ffd100
@@ -42,10 +43,11 @@ box 0,0 300x25.33
 surface 600,275.54 400x348.92 on MEDIUM clamped raised by a click
   box 600,324.46 400x300 absolute Interface\AddOns\Ordaen\media\window-wood border=UI-Frame-Metal-CornerTopLeft
     box 613.09,337.55 378.81x276.06
-      box 635.85,360.31 333.3x193.68
-        text 635.85,360.31 333.3x17.78 "the second tab's page" #ffffff
-      box 635.85,553.99 333.3x45.4
-        box 635.85,571.06 333.3x28.33
+      box 613.09,337.55 378.81x233.51
+        box 635.85,360.31 333.3x193.68
+          text 635.85,360.31 333.3x17.78 "the second tab's page" #ffffff
+      box 613.09,571.06 378.81x42.56
+        box 613.09,571.06 378.81x42.56
           text 635.85,576.34 216.23x17.78 "saved 0 times" #a3977f
           box 869.15,571.06 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
             text 903.59,576.34 31.11x17.78 "Save" #ffd100
@@ -80,10 +82,11 @@ box 0,0 300x25.33
 surface 640,305.54 400x348.92 on MEDIUM clamped raised by a click
   box 640,354.46 400x300 absolute Interface\AddOns\Ordaen\media\window-wood border=UI-Frame-Metal-CornerTopLeft
     box 653.09,367.55 378.81x276.06
-      box 675.85,390.31 333.3x193.68
-        text 675.85,390.31 333.3x17.78 "the second tab's page" #ffffff
-      box 675.85,583.99 333.3x45.4
-        box 675.85,601.06 333.3x28.33
+      box 653.09,367.55 378.81x233.51
+        box 675.85,390.31 333.3x193.68
+          text 675.85,390.31 333.3x17.78 "the second tab's page" #ffffff
+      box 653.09,601.06 378.81x42.56
+        box 653.09,601.06 378.81x42.56
           text 675.85,606.34 216.23x17.78 "saved 0 times" #a3977f
           box 909.15,601.06 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
             text 943.59,606.34 31.11x17.78 "Save" #ffd100
@@ -118,10 +121,11 @@ box 0,0 300x25.33
 surface 640,305.54 400x348.92 on MEDIUM clamped raised by a click
   box 640,354.46 400x300 absolute Interface\AddOns\Ordaen\media\window-wood border=UI-Frame-Metal-CornerTopLeft
     box 653.09,367.55 378.81x276.06
-      box 675.85,390.31 333.3x193.68
-        text 675.85,390.31 333.3x17.78 "the second tab's page" #ffffff
-      box 675.85,583.99 333.3x45.4
-        box 675.85,601.06 333.3x28.33
+      box 653.09,367.55 378.81x233.51
+        box 675.85,390.31 333.3x193.68
+          text 675.85,390.31 333.3x17.78 "the second tab's page" #ffffff
+      box 653.09,601.06 378.81x42.56
+        box 653.09,601.06 378.81x42.56
           text 675.85,606.34 216.23x17.78 "saved 0 times" #a3977f
           box 909.15,601.06 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
             text 943.59,606.34 31.11x17.78 "Save" #ffd100
@@ -156,10 +160,11 @@ box 0,0 300x25.33
 surface 640,305.54 400x348.92 on MEDIUM clamped raised by a click
   box 640,354.46 400x300 absolute Interface\AddOns\Ordaen\media\window-wood border=UI-Frame-Metal-CornerTopLeft
     box 653.09,367.55 378.81x276.06
-      box 675.85,390.31 333.3x193.68
-        text 675.85,390.31 333.3x17.78 "the second tab's page" #ffffff
-      box 675.85,583.99 333.3x45.4
-        box 675.85,601.06 333.3x28.33
+      box 653.09,367.55 378.81x233.51
+        box 675.85,390.31 333.3x193.68
+          text 675.85,390.31 333.3x17.78 "the second tab's page" #ffffff
+      box 653.09,601.06 378.81x42.56
+        box 653.09,601.06 378.81x42.56
           text 675.85,606.34 216.23x17.78 "saved 0 times" #a3977f
           box 909.15,601.06 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
             text 943.59,606.34 31.11x17.78 "Save" #ffd100
@@ -194,10 +199,11 @@ box 0,0 300x25.33
 surface 0,0 1600x900 on MEDIUM clamped raised by a click
   box 0,48.92 1600x851.08 absolute Interface\AddOns\Ordaen\media\window-wood border=UI-Frame-Metal-CornerTopLeft
     box 13.09,62.01 1578.81x827.14
-      box 35.85,84.77 1533.3x744.77
-        text 35.85,84.77 1533.3x17.78 "the second tab's page" #ffffff
-      box 35.85,829.53 1533.3x45.4
-        box 35.85,846.6 1533.3x28.33
+      box 13.09,62.01 1578.81x784.59
+        box 35.85,84.77 1533.3x744.77
+          text 35.85,84.77 1533.3x17.78 "the second tab's page" #ffffff
+      box 13.09,846.6 1578.81x42.56
+        box 13.09,846.6 1578.81x42.56
           text 35.85,851.88 1416.23x17.78 "saved 0 times" #a3977f
           box 1469.15,846.6 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
             text 1503.59,851.88 31.11x17.78 "Save" #ffd100
@@ -230,10 +236,11 @@ box 0,0 300x25.33
 surface 640,305.54 400x348.92 on MEDIUM clamped raised by a click
   box 640,354.46 400x300 absolute Interface\AddOns\Ordaen\media\window-wood border=UI-Frame-Metal-CornerTopLeft
     box 653.09,367.55 378.81x276.06
-      box 675.85,390.31 333.3x193.68
-        text 675.85,390.31 333.3x17.78 "the second tab's page" #ffffff
-      box 675.85,583.99 333.3x45.4
-        box 675.85,601.06 333.3x28.33
+      box 653.09,367.55 378.81x233.51
+        box 675.85,390.31 333.3x193.68
+          text 675.85,390.31 333.3x17.78 "the second tab's page" #ffffff
+      box 653.09,601.06 378.81x42.56
+        box 653.09,601.06 378.81x42.56
           text 675.85,606.34 216.23x17.78 "saved 0 times" #a3977f
           box 909.15,601.06 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
             text 943.59,606.34 31.11x17.78 "Save" #ffd100
@@ -268,10 +275,11 @@ box 0,0 300x25.33
 surface 640,305.54 400x348.92 on MEDIUM clamped raised by a click
   box 640,354.46 400x300 absolute Interface\AddOns\Ordaen\media\window-wood border=UI-Frame-Metal-CornerTopLeft
     box 653.09,367.55 378.81x276.06
-      box 675.85,390.31 333.3x193.68
-        text 675.85,390.31 333.3x17.78 "the second tab's page" #ffffff
-      box 675.85,583.99 333.3x45.4
-        box 675.85,601.06 333.3x28.33
+      box 653.09,367.55 378.81x233.51
+        box 675.85,390.31 333.3x193.68
+          text 675.85,390.31 333.3x17.78 "the second tab's page" #ffffff
+      box 653.09,601.06 378.81x42.56
+        box 653.09,601.06 378.81x42.56
           text 675.85,606.34 216.23x17.78 "saved 0 times" #a3977f
           box 909.15,601.06 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
             text 943.59,606.34 31.11x17.78 "Save" #ffd100
@@ -306,10 +314,11 @@ box 0,0 300x25.33
 surface 640,305.54 460x368.92 on MEDIUM clamped raised by a click
   box 640,354.46 460x320 absolute Interface\AddOns\Ordaen\media\window-wood border=UI-Frame-Metal-CornerTopLeft
     box 653.09,367.55 438.81x296.06
-      box 675.85,390.31 393.3x213.68
-        text 675.85,390.31 393.3x17.78 "the second tab's page" #ffffff
-      box 675.85,603.99 393.3x45.4
-        box 675.85,621.06 393.3x28.33
+      box 653.09,367.55 438.81x253.51
+        box 675.85,390.31 393.3x213.68
+          text 675.85,390.31 393.3x17.78 "the second tab's page" #ffffff
+      box 653.09,621.06 438.81x42.56
+        box 653.09,621.06 438.81x42.56
           text 675.85,626.34 276.23x17.78 "saved 0 times" #a3977f
           box 969.15,621.06 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
             text 1003.59,626.34 31.11x17.78 "Save" #ffd100
@@ -344,12 +353,13 @@ box 0,0 300x25.33
 surface 640,305.54 600x215.58 on MEDIUM clamped raised by a click
   box 640,354.46 600x166.67 absolute Interface\AddOns\Ordaen\media\window-wood border=UI-Frame-Metal-CornerTopLeft
     box 653.09,367.55 578.81x142.73
-      box 675.85,390.31 533.3x60.35
-        text 675.85,390.31 533.3x17.78 "the second tab's page" #ffffff
-      box 675.85,450.66 533.3x45.4
-        box 675.85,467.72 533.3x28.33
+      box 653.09,367.55 578.81x100.17
+        box 675.85,390.31 533.3x60.35
+          text 675.85,390.31 533.3x17.78 "the second tab's page" #ffffff
+      box 653.09,467.73 578.81x42.56
+        box 653.09,467.73 578.81x42.56
           text 675.85,473 416.23x17.78 "saved 0 times" #a3977f
-          box 1109.15,467.72 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+          box 1109.15,467.73 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
             text 1143.59,473 31.11x17.78 "Save" #ffd100
     box 1222.75,501.12 13.33x13.33 absolute
       box 1222.75,501.12 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop

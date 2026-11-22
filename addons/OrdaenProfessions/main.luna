@@ -9,7 +9,7 @@ import Game from "$game"
 import { Action, Align, Frame, Track } from "$ltml"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
-import { ARTWORK, Choice, Column, FilterButton, FilterGroup, ItemId, KeptWindow, Module, ModuleMemory, PushButton, SECONDARY_TEXT, ScrolledList, Settings, SettingsPage, SkillBar, Table, Tabs, ToolPick, Toolbar, TrainerIgnored, TrainerList, TrainerView, TrainerWindow, Window, WindowTabSpec, WindowsPage, switched, tracksOf, windowsTitle } from "Ordaen"
+import { ARTWORK, Choice, Column, FOOTER_ROOM, FilterButton, FilterGroup, ItemId, KeptWindow, Module, ModuleMemory, PushButton, SECONDARY_TEXT, ScrolledList, Settings, SettingsPage, SkillBar, Table, Tabs, ToolPick, Toolbar, TrainerIgnored, TrainerList, TrainerView, TrainerWindow, Window, WindowTabSpec, WindowsPage, switched, tracksOf, windowsTitle } from "Ordaen"
 import root Auction from "OrdaenAuction"
 import type { PriceSource } from "OrdaenAuction"
 import { Book, written } from "@/book"
@@ -128,7 +128,7 @@ public class Professions implements Module, App {
   // The window's footer: the profession's own spell («Find Minerals») at its left; on the queue's page what the queue
   // is doing and «Create next». The make row is the chosen recipe's card's (`RecipeDetails`).
   const footer: Template = $ltml {
-    <box columns={self.footColumns} gap={6sp} yAlign={Align.Center}>
+    <box padding={FOOTER_ROOM} columns={self.footColumns} gap={6sp} yAlign={Align.Center}>
       <PushButton $if={self.hasTrack} label={self.trackName} width={TRACK_WIDTH} action={self.trackAction} />
       <box $if={self.queueShown} columns={QUEUE_FOOT} gap={6sp} yAlign={Align.Center}>
         <text value={self.queueStatus} textSize={SECONDARY_TEXT} textColor={Style.DIM} />

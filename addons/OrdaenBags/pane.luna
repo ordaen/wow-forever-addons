@@ -8,7 +8,7 @@
 // hide an item under a scroll; it scrolls only where the screen is too low for it.
 import Client from "$client"
 import Game from "$game"
-import { Align, Edges, KeyBinding, Line, MouseButton, Overflow, Track } from "$ltml"
+import { Align, Edges, KeyBinding, Line, MouseButton, Overflow, Side, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import { Choice, Component, FooterCount, FooterCounts, ListTab, ModuleMemory, Money, PushButton, SECONDARY_TEXT, ScrolledList, Tip, TipRow, ToolAct, ToolButton, ToolPick, Toolbar, WINDOW_ROOM } from "Ordaen"
 import { BANK_ICON } from "@/bank"
@@ -58,9 +58,11 @@ const WITH_TABS: Array<Track> = [TABS_WIDTH, { fr: 1 }]
 const FILL: Array<Track> = [{ fr: 1 }]
 const NOTED: Array<Track> = ["max-content", { fr: 1 }]
 const FOOT: Array<Track> = ["max-content", { fr: 1 }, "max-content", "max-content", "max-content"]
-const FOOT_PAD_Y: Number<Spacing> = 2sp
-const FOOT_PAD: Edges = { top: FOOT_PAD_Y, right: 4sp, bottom: FOOT_PAD_Y, left: 4sp }
-const FOOT_RIM: Line = { width: 1.171875dp, color: Color.hex("#3e2f1d") }
+// The footer's marble reaches the window's sides and bottom (the window places it flush); its text stands in by a
+// footer's room at the sides, and as far above and below it.
+const FOOT_PAD_Y: Number<Spacing> = 4sp
+const FOOT_PAD: Edges = { top: FOOT_PAD_Y, right: 8sp, bottom: FOOT_PAD_Y, left: 8sp }
+const FOOT_RIM: Line = { width: 1.171875dp, color: Color.hex("#3e2f1d"), sides: [Side.Top] }
 const LABEL: Color = Color.hex("#a3977f")
 const COUNT: Color = Color.hex("#a3977f")
 const BUTTON = 140.625dp
@@ -190,7 +192,7 @@ public class Pane {
   public derived lines: Array<CardRow> = linesOf(self.sections, self.listWidth, self.room)
   // As high as its cards, or as the screen lets it be.
   derived cardsHeight: Number<Length> = heightOf(self.lines, self.room)
-  derived footRoom: Number<Length> = Ordaen.lengthOf(FOOT_PAD_Y * 2) + FOOT_RIM.width * 2
+  derived footRoom: Number<Length> = Ordaen.lengthOf(FOOT_PAD_Y * 2) + FOOT_RIM.width
   derived listHeight: Number<Length> = self.cardsHeight.min(Client.UIParent.GetHeight() * 1ui - AROUND_LIST - self.footRoom)
   derived listOverflow: Overflow | nil = self.listHeight < self.cardsHeight ? Overflow.Scroll : nil
   public derived filter: Filter = { query: self.query, place: Game.bags.place, lit: self.isBags ? self.lit : -1 }
@@ -327,7 +329,7 @@ public class Pane {
   onGoldEnter(mut self) { self.goldShown = true }
   onGoldLeave(mut self) { self.goldShown = false }
 
-  // The footer on the game's dark marble, its rim the line between it and the list.
+  // The footer on the game's dark marble, the window's width, a line between it and the list.
   public const footer: Template = $ltml {
     <box columns={FOOT} gap={6sp} yAlign={Align.Center} padding={FOOT_PAD} border={FOOT_RIM} background={Ordaen.art.window.marble}>
       <FooterCounts counts={self.footCounts} />

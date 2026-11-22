@@ -2,7 +2,8 @@
 surface 600,275.54 400x348.92 on MEDIUM clamped raised by a click
   box 600,324.46 400x300 absolute Interface\AddOns\Ordaen\media\window-wood border=UI-Frame-Metal-CornerTopLeft
     box 613.09,337.55 378.81x276.06
-      text 635.85,360.31 333.3x17.78 "the page" #ffffff
+      box 613.09,337.55 378.81x276.06
+        text 635.85,360.31 333.3x17.78 "the page" #ffffff
     box 982.75,604.46 13.33x13.33 absolute
       box 982.75,604.46 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 600,275.54 400x59.42
@@ -29,7 +30,8 @@ surface 600,275.54 400x348.92 on MEDIUM clamped raised by a click
 surface 600,275.54 400x348.92 on MEDIUM clamped raised by a click
   box 600,324.46 400x300 absolute Interface\AddOns\Ordaen\media\window-wood border=UI-Frame-Metal-CornerTopLeft
     box 613.09,337.55 378.81x276.06
-      text 635.85,360.31 333.3x17.78 "the page" #ffffff
+      box 613.09,337.55 378.81x276.06
+        text 635.85,360.31 333.3x17.78 "the page" #ffffff
     box 982.75,604.46 13.33x13.33 absolute
       box 982.75,604.46 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 600,275.54 400x59.42

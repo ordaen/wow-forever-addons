@@ -2,73 +2,74 @@
 surface 425,183.88 1155.76x532.25 on MEDIUM clamped raised by a click
   box 425,232.79 1155.76x483.33 absolute Interface\AddOns\Ordaen\media\window-wood border=UI-Frame-Metal-CornerTopLeft
     box 438.09,245.89 728.81x459.39
-      box 460.85,268.64 683.3x377.02
-        box 460.85,268.64 683.3x29.99
-          box 460.85,297.8 683.3x0.83 absolute #3e2f1d
-          box 460.85,268.64 68.87x29.99 #00000059 @keyPress @pointerPress
-            box 461.68,269.47 67.2x1.67 absolute #d6a56b
-            text 473.06,275.16 44.44x17.78 "Status" #f0e6d2
-          box 532.56,268.64 111.09x29.99 #00000000 @keyPress @pointerPress
-            box 533.39,269.47 109.42x1.67 absolute #00000000
-            text 544.77,275.16 86.67x17.78 "Requests (1)" #a3977f
-          box 646.49,268.64 104.42x29.99 #00000000 @keyPress @pointerPress
-            box 647.33,269.47 102.76x1.67 absolute #00000000
-            text 658.71,275.16 80x17.78 "Ignore List" #a3977f
-        box 460.85,307.16 683.3x338.49
-          box 460.85,307.16 683.3x28.33
-            box 460.85,307.16 566.43x28.33
-              box 460.85,307.16 464.37x28.33
-                box 460.85,307.16 464.37x28.33 #00000080 input "" @change @submit
-                box 460.85,307.16 464.37x28.33 absolute
-                  text 469.38,312.44 447.3x17.78 "Search" #a3977f
-              box 925.22,307.16 102.07x28.33
-                box 925.22,307.16 34.02x28.33
-                  box 930.91,307.16 28.33x28.33
-                    box 930.91,307.16 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerEnter @pointerLeave @pointerPress
-                      box 938.41,314.66 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 0 of 16
-                box 959.24,307.16 34.02x28.33
-                  box 964.93,307.16 28.33x28.33
-                    box 964.93,307.16 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerEnter @pointerLeave @pointerPress
-                      box 972.43,314.66 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 1 of 16
-                box 993.26,307.16 34.02x28.33
-                  box 998.95,307.16 28.33x28.33
-                    box 998.95,307.16 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerEnter @pointerLeave @pointerPress
-                      box 1006.45,314.66 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 4 of 16
-            box 1035.82,307.16 108.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-              text 1053.87,312.44 72.22x17.78 "Add Friend" #ffd100
-          box 460.85,344.03 683.3x301.63 #0000004d
-            box 461.68,344.86 681.63x0
-            box 461.68,344.86 681.63x299.96 scrolled 0 of 0
-              box 470.22,353.4 664.57x52.62 #00000000 @keyPress @pointerPress
-                box 475.91,359.09 17.78x17.78 Interface/FriendsFrame/StatusIcon-Online
-                box 499.37,359.09 629.72x17.78
-                  text 499.37,359.09 44.44x17.78 "Alexei" #c79c6e
-                  text 549.51,359.09 37.78x17.78 "25lvl" #a3977f
-                  box 592.97,359.09 17.78x17.78 friendslist-favorite
-                box 475.91,391.44 17.78x0
-                text 499.37,382.55 629.72x17.78 "Battle.net · Torgrim · Loch Modan" #a3977f
-              box 470.22,406.02 664.57x52.62 #00000000 @keyPress @pointerPress
-                box 475.91,411.71 17.78x17.78 Interface/FriendsFrame/StatusIcon-Away
-                box 499.37,411.71 629.72x17.78
-                  text 499.37,411.71 44.44x17.78 "Eliana" #c79c6e
-                  text 549.51,411.71 37.78x17.78 "24lvl" #a3977f
-                box 475.91,444.06 17.78x0
-                text 499.37,435.18 629.72x17.78 "Stormwind" #a3977f
-              box 470.22,458.64 664.57x52.62 #00000000 @keyPress @pointerPress
-                box 475.91,464.33 17.78x17.78 Interface/FriendsFrame/StatusIcon-Offline
-                box 499.37,464.33 629.72x17.78
-                  text 499.37,464.33 52.22x17.78 "Darrick" #7c848a
-                  text 557.28,464.33 37.78x17.78 "22lvl" #a3977f
-                box 475.91,496.69 17.78x0
-                text 499.37,487.8 629.72x17.78 "offline" #a3977f
-              box 470.22,511.26 664.57x52.62 #00000000 @keyPress @pointerPress
-                box 475.91,516.95 17.78x17.78 Interface/FriendsFrame/StatusIcon-Offline
-                box 499.37,516.95 629.72x17.78
-                  text 499.37,516.95 37.78x17.78 "Irina" #7c848a
-                box 475.91,549.31 17.78x0
-                text 499.37,540.42 629.72x17.78 "Battle.net · offline" #a3977f
-      box 460.85,645.66 683.3x45.4
-        box 460.85,662.73 683.3x28.33
+      box 438.09,245.89 728.81x416.84
+        box 460.85,268.64 683.3x377.02
+          box 460.85,268.64 683.3x29.99
+            box 460.85,297.8 683.3x0.83 absolute #3e2f1d
+            box 460.85,268.64 68.87x29.99 #00000059 @keyPress @pointerPress
+              box 461.68,269.47 67.2x1.67 absolute #d6a56b
+              text 473.06,275.16 44.44x17.78 "Status" #f0e6d2
+            box 532.56,268.64 111.09x29.99 #00000000 @keyPress @pointerPress
+              box 533.39,269.47 109.42x1.67 absolute #00000000
+              text 544.77,275.16 86.67x17.78 "Requests (1)" #a3977f
+            box 646.49,268.64 104.42x29.99 #00000000 @keyPress @pointerPress
+              box 647.33,269.47 102.76x1.67 absolute #00000000
+              text 658.71,275.16 80x17.78 "Ignore List" #a3977f
+          box 460.85,307.16 683.3x338.49
+            box 460.85,307.16 683.3x28.33
+              box 460.85,307.16 566.43x28.33
+                box 460.85,307.16 464.37x28.33
+                  box 460.85,307.16 464.37x28.33 #00000080 input "" @change @submit
+                  box 460.85,307.16 464.37x28.33 absolute
+                    text 469.38,312.44 447.3x17.78 "Search" #a3977f
+                box 925.22,307.16 102.07x28.33
+                  box 925.22,307.16 34.02x28.33
+                    box 930.91,307.16 28.33x28.33
+                      box 930.91,307.16 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerEnter @pointerLeave @pointerPress
+                        box 938.41,314.66 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 0 of 16
+                  box 959.24,307.16 34.02x28.33
+                    box 964.93,307.16 28.33x28.33
+                      box 964.93,307.16 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerEnter @pointerLeave @pointerPress
+                        box 972.43,314.66 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 1 of 16
+                  box 993.26,307.16 34.02x28.33
+                    box 998.95,307.16 28.33x28.33
+                      box 998.95,307.16 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerEnter @pointerLeave @pointerPress
+                        box 1006.45,314.66 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 4 of 16
+              box 1035.82,307.16 108.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+                text 1053.87,312.44 72.22x17.78 "Add Friend" #ffd100
+            box 460.85,344.03 683.3x301.63 #0000004d
+              box 461.68,344.86 681.63x0
+              box 461.68,344.86 681.63x299.96 scrolled 0 of 0
+                box 470.22,353.4 664.57x52.62 #00000000 @keyPress @pointerPress
+                  box 475.91,359.09 17.78x17.78 Interface/FriendsFrame/StatusIcon-Online
+                  box 499.37,359.09 629.72x17.78
+                    text 499.37,359.09 44.44x17.78 "Alexei" #c79c6e
+                    text 549.51,359.09 37.78x17.78 "25lvl" #a3977f
+                    box 592.97,359.09 17.78x17.78 friendslist-favorite
+                  box 475.91,391.44 17.78x0
+                  text 499.37,382.55 629.72x17.78 "Battle.net · Torgrim · Loch Modan" #a3977f
+                box 470.22,406.02 664.57x52.62 #00000000 @keyPress @pointerPress
+                  box 475.91,411.71 17.78x17.78 Interface/FriendsFrame/StatusIcon-Away
+                  box 499.37,411.71 629.72x17.78
+                    text 499.37,411.71 44.44x17.78 "Eliana" #c79c6e
+                    text 549.51,411.71 37.78x17.78 "24lvl" #a3977f
+                  box 475.91,444.06 17.78x0
+                  text 499.37,435.18 629.72x17.78 "Stormwind" #a3977f
+                box 470.22,458.64 664.57x52.62 #00000000 @keyPress @pointerPress
+                  box 475.91,464.33 17.78x17.78 Interface/FriendsFrame/StatusIcon-Offline
+                  box 499.37,464.33 629.72x17.78
+                    text 499.37,464.33 52.22x17.78 "Darrick" #7c848a
+                    text 557.28,464.33 37.78x17.78 "22lvl" #a3977f
+                  box 475.91,496.69 17.78x0
+                  text 499.37,487.8 629.72x17.78 "offline" #a3977f
+                box 470.22,511.26 664.57x52.62 #00000000 @keyPress @pointerPress
+                  box 475.91,516.95 17.78x17.78 Interface/FriendsFrame/StatusIcon-Offline
+                  box 499.37,516.95 629.72x17.78
+                    text 499.37,516.95 37.78x17.78 "Irina" #7c848a
+                  box 475.91,549.31 17.78x0
+                  text 499.37,540.42 629.72x17.78 "Battle.net · offline" #a3977f
+      box 438.09,662.73 728.81x42.56
+        box 438.09,662.73 728.81x42.56
           box 460.85,668 561.3x17.78
             box 460.85,668 65.2x17.78
               text 460.85,668 47.78x17.78 "Friends" #a3977f

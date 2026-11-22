@@ -2,10 +2,11 @@
 surface 500,281.38 855.76x337.25 on MEDIUM clamped raised by a click
   box 500,318.62 855.76x300 absolute Interface\AddOns\Ordaen\media\window-wood border=UI-Frame-Metal-CornerTopLeft
     box 513.09,331.72 578.81x276.06
-      box 535.85,354.47 533.3x193.68 #30302a
-        text 535.85,354.47 533.3x17.78 "the list" #ffffff
-      box 535.85,548.16 533.3x45.4
-        box 535.85,565.23 533.3x28.33
+      box 513.09,331.72 578.81x233.51
+        box 535.85,354.47 533.3x193.68 #30302a
+          text 535.85,354.47 533.3x17.78 "the list" #ffffff
+      box 513.09,565.23 578.81x42.56
+        box 513.09,565.23 578.81x42.56
           text 535.85,570.5 52.22x17.78 "5 items" #ffffff
           box 605.14,579.39 346.94x0
           box 969.15,565.23 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress

@@ -16,7 +16,7 @@ import Game from "$game"
 import { Align, Edges, Layer, Place, Point, Track } from "$ltml"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
-import { ARTWORK, ButtonPlate, Choice, CompactDropdown, Dialog, FilterButton, FilterGroup, FooterCount, FooterCounts, KeptWindow, Module, ModuleMemory, PushButton, SECONDARY_TEXT, Settings, SettingsPage, Standing, Tabs, ToolPick, Toolbar, Window, WindowSide, WindowTabSpec, WindowsPage, playSound, windowsTitle } from "Ordaen"
+import { ARTWORK, ButtonPlate, Choice, CompactDropdown, Dialog, FOOTER_ROOM, FilterButton, FilterGroup, FooterCount, FooterCounts, KeptWindow, Module, ModuleMemory, PushButton, SECONDARY_TEXT, Settings, SettingsPage, Standing, Tabs, ToolPick, Toolbar, Window, WindowSide, WindowTabSpec, WindowsPage, playSound, windowsTitle } from "Ordaen"
 import root Maps from "OrdaenMap"
 import type { SidePanel } from "OrdaenMap"
 import root Tracker from "OrdaenTracker"
@@ -121,7 +121,7 @@ public class Quests implements Module, App {
   // The window's footer: QuestieDB's absence where it can't be read, and the count against the log's cap (red when
   // full), as label and value.
   const footer: Template = $ltml {
-    <box columns={FOOT} gap={6sp} yAlign={Align.Center}>
+    <box padding={FOOTER_ROOM} columns={FOOT} gap={6sp} yAlign={Align.Center}>
       <text $if={!self.known} value={Locale.NO_QUESTIE} textColor={RED} textSize={SECONDARY_TEXT} />
       <box $else />
       <FooterCounts counts={self.counted} />

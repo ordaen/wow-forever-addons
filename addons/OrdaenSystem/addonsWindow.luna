@@ -9,7 +9,7 @@ import Game from "$game"
 import { Action, Align, Edges, Track } from "$ltml"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
-import { ARTWORK, ButtonPlate, Choice, Component, Dialog, KeptWindow, Menu, MenuEntry, ModuleMemory, Placing, PushButton, SECONDARY_TEXT, ScrolledList, TextField, Tip, TipRow, TipText, ToolPick, Toolbar, Window, WindowSide, WindowTabSpec } from "Ordaen"
+import { ARTWORK, ButtonPlate, Choice, Component, Dialog, FOOTER_ROOM, KeptWindow, Menu, MenuEntry, ModuleMemory, Placing, PushButton, SECONDARY_TEXT, ScrolledList, TextField, Tip, TipRow, TipText, ToolPick, Toolbar, Window, WindowSide, WindowTabSpec } from "Ordaen"
 import { Card } from "@/card"
 import { AddOn, Catalog, Status, plain } from "@/catalog"
 import { Age, FilterPick, Heat, Loading, Standing, Written } from "@/filter"
@@ -185,13 +185,13 @@ public class AddOnsWindow implements Component {
   }
   // The open tab's footer: none for the settings, the keys' (every key back to the client's defaults, after asking), or the addons'.
   const footer: Template = $ltml {
-    <box $if={self.onGameSettings} />
-    <box $elseif={self.onKeys} columns={FOOT} gap={6sp} yAlign={Align.Center}>
+    <box $if={self.onGameSettings} padding={FOOTER_ROOM} />
+    <box $elseif={self.onKeys} padding={FOOTER_ROOM} columns={FOOT} gap={6sp} yAlign={Align.Center}>
       <PushButton label={Locale.KEYS_RESET_ALL} width={BUTTON} disabled={self.fighting} @click={self.onResetAsk} />
       <box />
       <box />
     </box>
-    <box $else columns={FOOT} gap={6sp} yAlign={Align.Center}>
+    <box $else padding={FOOTER_ROOM} columns={FOOT} gap={6sp} yAlign={Align.Center}>
       <box columns={LEFT_GROUP} gap={3sp} yAlign={Align.Center}>
         <PushButton label={Locale.RESET} width={BUTTON} @click={self.onReset} />
         <PushButton label={Locale.DISABLE_ALL} width={BUTTON} @click={self.onDisableAll} />

@@ -202,6 +202,9 @@ const SCROLL: OrdaenArt.Scroll = {
 
 // The wood: one tile, repeated at the size the picture had in the design's window.
 const WOOD: Piece = { file: "@/media/window-wood.tga", width: 512, height: 512, repeatSize: 746 / 1.2 }
+// The game's dark marble, repeated at its own size both ways as the game's frames tile it (`horizTile`, `vertTile`):
+// never stretched, whatever the box's shape.
+const MARBLE: Piece = { file: "Interface/FrameGeneral/UI-Background-Marble", width: 256, height: 256, repeatSize: 256 }
 
 // Ordaen's art: its measures, and its pictures from this addon's `media` and the client.
 public const ARTWORK: OrdaenArt = {
@@ -212,7 +215,7 @@ public const ARTWORK: OrdaenArt = {
     tabIconClip: { nineSlice: FRAME, art: FRAME_ART, width: 3, scale: 0.5, inset: -1.5, reach: REACH_ROUND, sides: [], radius: ICON_CORNER, curves: CURVES, lineStart: 10 },
     tabIconLine: { nineSlice: FRAME, art: FRAME_ART, width: 3, scale: 0.5, inset: -1.5, reach: REACH, sides: [Side.Left], curves: CURVES, lineStart: 10 }
   },
-  window: { wood: WOOD, marble: "Interface/FrameGeneral/UI-Background-Marble", scroll: SCROLL },
+  window: { wood: WOOD, marble: MARBLE, scroll: SCROLL },
   ctl: {
     well: { rim: { width: 1.171875dp, color: Color.hex("#3e2f1d") }, floor: Color.hex("#0000004d") },
     // The checkbox, drawn whole: the well (the light ring over it under the cursor), and the tick.

@@ -2,33 +2,34 @@
 surface 500,175.54 1055.76x548.92 on MEDIUM clamped raised by a click
   box 500,224.46 1055.76x500 absolute Interface\AddOns\Ordaen\media\window-wood border=UI-Frame-Metal-CornerTopLeft
     box 513.09,237.55 578.81x476.06
-      box 535.85,260.31 533.3x393.68
-        box 535.85,260.31 533.3x28.33
-          box 535.85,260.31 427.61x28.33
-            box 535.85,260.31 325.54x28.33
-              box 535.85,260.31 325.54x28.33 #00000080 input "" @change @submit
-              box 535.85,260.31 325.54x28.33 absolute
-                text 544.38,265.59 308.48x17.78 "Search subject or recipient" #a3977f
-            box 861.39,260.31 102.07x28.33
-              box 861.39,260.31 34.02x28.33
-                box 867.08,260.31 28.33x28.33
-                  box 867.08,260.31 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerEnter @pointerLeave @pointerPress
-                    box 874.58,267.81 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 0 of 16
-              box 895.42,260.31 34.02x28.33
-                box 901.11,260.31 28.33x28.33
-                  box 901.11,260.31 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerEnter @pointerLeave @pointerPress
-                    box 908.61,267.81 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 1 of 16
-              box 929.44,260.31 34.02x28.33
-                box 935.13,260.31 28.33x28.33
-                  box 935.13,260.31 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerEnter @pointerLeave @pointerPress
-                    box 942.63,267.81 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 4 of 16
-          box 969.15,260.31 100x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-            text 1000.26,265.59 37.78x17.78 "Write" #f0e6d2
-        box 535.85,295.75 533.3x351.13
-          text 731.39,462.43 142.22x17.78 "No letters sent yet." #a3977f
-        box 535.85,653.99 533.3x0
-      box 535.85,653.99 533.3x45.4
-        box 535.85,671.06 533.3x28.33
+      box 513.09,237.55 578.81x433.51
+        box 535.85,260.31 533.3x393.68
+          box 535.85,260.31 533.3x28.33
+            box 535.85,260.31 427.61x28.33
+              box 535.85,260.31 325.54x28.33
+                box 535.85,260.31 325.54x28.33 #00000080 input "" @change @submit
+                box 535.85,260.31 325.54x28.33 absolute
+                  text 544.38,265.59 308.48x17.78 "Search subject or recipient" #a3977f
+              box 861.39,260.31 102.07x28.33
+                box 861.39,260.31 34.02x28.33
+                  box 867.08,260.31 28.33x28.33
+                    box 867.08,260.31 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerEnter @pointerLeave @pointerPress
+                      box 874.58,267.81 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 0 of 16
+                box 895.42,260.31 34.02x28.33
+                  box 901.11,260.31 28.33x28.33
+                    box 901.11,260.31 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerEnter @pointerLeave @pointerPress
+                      box 908.61,267.81 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 1 of 16
+                box 929.44,260.31 34.02x28.33
+                  box 935.13,260.31 28.33x28.33
+                    box 935.13,260.31 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerEnter @pointerLeave @pointerPress
+                      box 942.63,267.81 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 4 of 16
+            box 969.15,260.31 100x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+              text 1000.26,265.59 37.78x17.78 "Write" #f0e6d2
+          box 535.85,295.75 533.3x351.13
+            text 731.39,462.43 142.22x17.78 "No letters sent yet." #a3977f
+          box 535.85,653.99 533.3x0
+      box 513.09,671.06 578.81x42.56
+        box 513.09,671.06 578.81x42.56
           box 535.85,676.34 411.3x17.78
             box 535.85,676.34 65.2x17.78
               text 535.85,676.34 47.78x17.78 "Waiting" #a3977f

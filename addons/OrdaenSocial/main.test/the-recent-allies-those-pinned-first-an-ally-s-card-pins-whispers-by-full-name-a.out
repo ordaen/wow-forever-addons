@@ -2,41 +2,42 @@
 surface 425,183.88 1055.76x532.25 on MEDIUM clamped raised by a click
   box 425,232.79 1055.76x483.33 absolute Interface\AddOns\Ordaen\media\window-wood border=UI-Frame-Metal-CornerTopLeft
     box 438.09,245.89 728.81x459.39
-      box 460.85,268.64 683.3x377.02
-        box 460.85,268.64 683.3x28.33
-          box 460.85,268.64 615.26x28.33
-            box 460.85,268.64 615.26x28.33 #00000080 input "" @change @submit
-            box 460.85,268.64 615.26x28.33 absolute
-              text 469.38,273.92 598.19x17.78 "Search" #a3977f
-          box 1076.11,268.64 68.04x28.33
-            box 1076.11,268.64 34.02x28.33
-              box 1081.79,268.64 28.33x28.33
-                box 1081.79,268.64 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerEnter @pointerLeave @pointerPress
-                  box 1089.29,276.14 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 0 of 16
-            box 1110.13,268.64 34.02x28.33
-              box 1115.82,268.64 28.33x28.33
-                box 1115.82,268.64 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerEnter @pointerLeave @pointerPress
-                  box 1123.32,276.14 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 1 of 16
-        box 460.85,305.51 683.3x340.15 #0000004d
-          box 461.68,306.34 681.63x0
-          box 461.68,306.34 681.63x338.48 scrolled 0 of 0
-            text 470.22,314.88 664.57x17.78 "Recent Allies" #ffd100
-            box 470.22,332.65 664.57x46.93 #ffd10026 @keyPress @pointerPress
-              box 475.91,351.12 10x10 Interface/FriendsFrame/StatusIcon-Online
-              box 491.59,338.34 631.81x35.56
-                box 491.59,338.34 631.81x17.78
-                  text 491.59,338.34 44.44x17.78 "Gunnar" #e8dcc4
-                  text 541.73,338.34 16.67x17.78 "25" #a3977f
-                text 491.59,356.12 631.81x17.78 "Completed the Deadmines together · 2 h ago" #a3977f
-            box 470.22,379.59 664.57x29.16 #00000000 @keyPress @pointerPress
-              box 475.91,389.16 10x10 Interface/FriendsFrame/StatusIcon-Offline
-              box 491.59,385.27 631.81x17.78
+      box 438.09,245.89 728.81x416.84
+        box 460.85,268.64 683.3x377.02
+          box 460.85,268.64 683.3x28.33
+            box 460.85,268.64 615.26x28.33
+              box 460.85,268.64 615.26x28.33 #00000080 input "" @change @submit
+              box 460.85,268.64 615.26x28.33 absolute
+                text 469.38,273.92 598.19x17.78 "Search" #a3977f
+            box 1076.11,268.64 68.04x28.33
+              box 1076.11,268.64 34.02x28.33
+                box 1081.79,268.64 28.33x28.33
+                  box 1081.79,268.64 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerEnter @pointerLeave @pointerPress
+                    box 1089.29,276.14 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 0 of 16
+              box 1110.13,268.64 34.02x28.33
+                box 1115.82,268.64 28.33x28.33
+                  box 1115.82,268.64 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerEnter @pointerLeave @pointerPress
+                    box 1123.32,276.14 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 1 of 16
+          box 460.85,305.51 683.3x340.15 #0000004d
+            box 461.68,306.34 681.63x0
+            box 461.68,306.34 681.63x338.48 scrolled 0 of 0
+              text 470.22,314.88 664.57x17.78 "Recent Allies" #ffd100
+              box 470.22,332.65 664.57x46.93 #ffd10026 @keyPress @pointerPress
+                box 475.91,351.12 10x10 Interface/FriendsFrame/StatusIcon-Online
+                box 491.59,338.34 631.81x35.56
+                  box 491.59,338.34 631.81x17.78
+                    text 491.59,338.34 44.44x17.78 "Gunnar" #e8dcc4
+                    text 541.73,338.34 16.67x17.78 "25" #a3977f
+                  text 491.59,356.12 631.81x17.78 "Completed the Deadmines together · 2 h ago" #a3977f
+              box 470.22,379.59 664.57x29.16 #00000000 @keyPress @pointerPress
+                box 475.91,389.16 10x10 Interface/FriendsFrame/StatusIcon-Offline
                 box 491.59,385.27 631.81x17.78
-                  text 491.59,385.27 44.44x17.78 "Astrid" #7c848a
-                  text 541.73,385.27 16.67x17.78 "21" #a3977f
-                text 491.59,403.05 631.81x0 "" #a3977f
-      box 460.85,645.66 683.3x45.4
-        box 460.85,662.73 683.3x28.33
+                  box 491.59,385.27 631.81x17.78
+                    text 491.59,385.27 44.44x17.78 "Astrid" #7c848a
+                    text 541.73,385.27 16.67x17.78 "21" #a3977f
+                  text 491.59,403.05 631.81x0 "" #a3977f
+      box 438.09,662.73 728.81x42.56
+        box 438.09,662.73 728.81x42.56
           box 460.85,668 561.3x17.78
             box 460.85,668 104.09x17.78
               text 460.85,668 86.67x17.78 "Recent allies" #a3977f

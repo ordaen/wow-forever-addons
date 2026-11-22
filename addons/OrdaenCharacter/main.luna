@@ -13,7 +13,7 @@ import Game from "$game"
 import { Frame, Track } from "$ltml"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
-import { KeptWindow, Module, SECONDARY_TEXT, Settings, SettingsPage, Tabs, Window, WindowTabSpec, WindowsPage, playSound, windowsTitle } from "Ordaen"
+import { FOOTER_ROOM, KeptWindow, Module, SECONDARY_TEXT, Settings, SettingsPage, Tabs, Window, WindowTabSpec, WindowsPage, playSound, windowsTitle } from "Ordaen"
 import root Auras from "OrdaenAuras"
 import { KeptRates, Rates, estimate, ratesKey, ratesOf } from "@/estimate"
 import { GearPage } from "@/gear"
@@ -114,7 +114,9 @@ public class Character implements Module, App {
   // The footer's count, in dim text, of the list the tab shows; none on the other tabs.
   derived count: String = self.countOf()
   const footer: Template = $ltml {
-    <text value={self.count} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
+    <box padding={FOOTER_ROOM}>
+      <text value={self.count} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
+    </box>
   }
   // Each tab's picture is the game's own for it.
   // The inspect window: whom it shows (the unit the game inspected) and what the server said of it.
@@ -133,7 +135,9 @@ public class Character implements Module, App {
   addonHeard: Handle | nil = nil
   derived estimateText: String = self.inspectTab != INSPECT_CHARACTER ? "" : self.estimated ? Locale.ESTIMATED : Locale.NOT_ESTIMATED
   const inspectFooter: Template = $ltml {
-    <text value={self.estimateText} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
+    <box padding={FOOTER_ROOM}>
+      <text value={self.estimateText} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
+    </box>
   }
   derived inspectTabs: Array<WindowTabSpec> = [
     { title: self.inspected.who.name, icon: CHARACTER_ICON },

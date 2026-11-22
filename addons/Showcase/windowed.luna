@@ -1,7 +1,7 @@
 // A window with two tabs over a page, for the run tests: what a module with a window of its own does, its footer on
 // the window's bottom line (a dim note at its left, «Save» at its right).
 import { Align, Track } from "$ltml"
-import { KeptWindow, Module, PushButton, SECONDARY_TEXT, SettingsPage, Window, WindowTabSpec } from "Ordaen"
+import { FOOTER_ROOM, KeptWindow, Module, PushButton, SECONDARY_TEXT, SettingsPage, Window, WindowTabSpec } from "Ordaen"
 
 const DIM: Color = Color.hex("#a3977f")
 const FOOT: Array<Track> = [{ fr: 1 }, "max-content"]
@@ -23,7 +23,7 @@ public class Windowed implements Module {
   derived body: String = self.tab == 1 ? "the first tab's page" : "the second tab's page"
   derived note: String = "saved %d times".format(self.saved)
   const footer: Template = $ltml {
-    <box columns={FOOT} gap={6sp} yAlign={Align.Center}>
+    <box padding={FOOTER_ROOM} columns={FOOT} gap={6sp} yAlign={Align.Center}>
       <text value={self.note} textSize={SECONDARY_TEXT} textColor={DIM} />
       <PushButton label={"Save"} width={100ui} @click={self.onSave} />
     </box>

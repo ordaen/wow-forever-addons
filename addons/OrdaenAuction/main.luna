@@ -5,7 +5,7 @@ import Game from "$game"
 import { Side, Track } from "$ltml"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
-import { KeptWindow, Module, Settings, SettingsPage, Window, WindowSide, WindowTabSpec, WindowsPage, windowsTitle } from "Ordaen"
+import { FOOTER_ROOM, KeptWindow, Module, Settings, SettingsPage, Window, WindowSide, WindowTabSpec, WindowsPage, windowsTitle } from "Ordaen"
 import { BuyPage, Chosen, Found } from "@/buy"
 import { DataPage } from "@/dataPage"
 import { House } from "@/house"
@@ -86,7 +86,9 @@ public class Auction implements Module, App {
   derived side: WindowSide | nil = self.sideOf()
   // The window's footer: the status under every page.
   const footer: Template = $ltml {
-    <Status items={self.scanner.known} lastFull={self.scanner.lastFull} scanner={mut self.scanner} />
+    <box padding={FOOTER_ROOM}>
+      <Status items={self.scanner.known} lastFull={self.scanner.lastFull} scanner={mut self.scanner} />
+    </box>
   }
   // The side section: the row picked on the page shown.
   const chosenPanel: Template = $ltml {

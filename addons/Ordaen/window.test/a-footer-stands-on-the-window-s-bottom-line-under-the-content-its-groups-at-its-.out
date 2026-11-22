@@ -2,10 +2,11 @@
 surface 600,281.38 400x337.25 on MEDIUM clamped raised by a click
   box 600,318.62 400x300 absolute Interface\AddOns\Ordaen\media\window-wood border=UI-Frame-Metal-CornerTopLeft
     box 613.09,331.72 378.81x276.06
-      box 635.85,354.47 333.3x193.68 #30302a
-        text 635.85,354.47 333.3x17.78 "the page" #ffffff
-      box 635.85,548.16 333.3x45.4
-        box 635.85,565.23 333.3x28.33
+      box 613.09,331.72 378.81x233.51
+        box 635.85,354.47 333.3x193.68 #30302a
+          text 635.85,354.47 333.3x17.78 "the page" #ffffff
+      box 613.09,565.23 378.81x42.56
+        box 613.09,565.23 378.81x42.56
           box 635.85,565.23 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
             text 666.96,570.5 37.78x17.78 "Reset" #ffd100
           text 752.92,570.5 99.17x17.78 "2 waiting" #ffffff

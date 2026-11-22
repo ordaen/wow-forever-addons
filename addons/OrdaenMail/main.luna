@@ -8,7 +8,7 @@ import Game from "$game"
 import { Align, Frame } from "$ltml"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
-import { ButtonPlate, Dialog, FooterCount, FooterCounts, GamePass, GameWindowButton, KeptWindow, Module, ModuleMemory, PushButton, Settings, SettingsPage, Window, WindowSide, WindowTabSpec, WindowsPage, windowsTitle } from "Ordaen"
+import { ButtonPlate, Dialog, FOOTER_ROOM, FooterCount, FooterCounts, GamePass, GameWindowButton, KeptWindow, Module, ModuleMemory, PushButton, Settings, SettingsPage, Window, WindowSide, WindowTabSpec, WindowsPage, windowsTitle } from "Ordaen"
 import root Alts from "OrdaenAlts"
 import root Auction from "OrdaenAuction"
 import root Professions from "OrdaenProfessions"
@@ -101,7 +101,7 @@ public class Mail implements Module, App {
   derived busy: Boolean = self.collector.running
   derived askText: String = self.askTextOf()
   const footer: Template = $ltml {
-    <box columns={[{ fr: 1 }, "max-content"]} yAlign={Align.Center}>
+    <box padding={FOOTER_ROOM} columns={[{ fr: 1 }, "max-content"]} yAlign={Align.Center}>
       <FooterCounts counts={self.counts} />
       <GameWindowButton @click={self.onGameWindow} />
     </box>

@@ -8,7 +8,7 @@ import Test from "$test"
 import root Ordaen from "Ordaen"
 import { Density } from "@/globals"
 import Locale from "@/locales"
-import { KeptWindow, Occasion, Window, WindowTabSpec, WindowView } from "@/window"
+import { FOOTER_ROOM, KeptWindow, Occasion, Window, WindowTabSpec, WindowView } from "@/window"
 
 function near(a: Number, b: Number): Boolean { return (a - b).abs() < 0.01 }
 
@@ -141,7 +141,11 @@ class Crowded {
   state tabs: Array<WindowTabSpec> = [{ title: "Crowded" }]
   state tab = 1
   public placing: mut KeptWindow = new KeptWindow("placing", "placing", { x: 0ui, y: 0ui, width: 800ui, height: 600ui })
-  const footer: Template = $ltml { <text value={"the footer"} /> }
+  const footer: Template = $ltml {
+    <box padding={FOOTER_ROOM}>
+      <text value={"the footer"} />
+    </box>
+  }
 
   public render(self): Template {
     return $ltml {

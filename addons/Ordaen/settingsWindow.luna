@@ -22,7 +22,7 @@ import { Tabs } from "@/tabs"
 import { TextField } from "@/textField"
 import { TipText } from "@/tip"
 import { SECONDARY_TEXT } from "@/units"
-import { KeptWindow, Window, WindowTabSpec } from "@/window"
+import { FOOTER_ROOM, KeptWindow, Window, WindowTabSpec } from "@/window"
 import { WindowsPage } from "@/windowsPage"
 
 // The window's body at first, and the smallest it resizes to: the list, a row and the foot fit, and no narrower than
@@ -83,7 +83,7 @@ public class SettingsWindow implements Component {
 
   const nothing: Template = $ltml {}
   const footer: Template = $ltml {
-    <box columns={FOOT} yAlign={Align.Center} gap={6sp}>
+    <box padding={FOOTER_ROOM} columns={FOOT} yAlign={Align.Center} gap={6sp}>
       <PushButton label={Locale.PLACING} width={234.375dp} @click={self.placingMode} />
       <box>
         <text value={self.hint} textColor={DIM} textSize={SECONDARY_TEXT} />

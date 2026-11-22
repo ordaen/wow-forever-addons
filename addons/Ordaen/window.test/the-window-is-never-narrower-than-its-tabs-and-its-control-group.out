@@ -2,7 +2,8 @@
 surface 635,331.38 797.56x237.25 on MEDIUM clamped raised by a click
   box 635,368.62 797.56x200 absolute Interface\AddOns\Ordaen\media\window-wood border=UI-Frame-Metal-CornerTopLeft
     box 648.09,381.72 776.37x176.06
-      text 670.85,404.47 730.86x17.78 "the page" #ffffff
+      box 648.09,381.72 776.37x176.06
+        text 670.85,404.47 730.86x17.78 "the page" #ffffff
     box 1415.31,548.62 13.33x13.33 absolute
       box 1415.31,548.62 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 635,331.38 797.56x47.75

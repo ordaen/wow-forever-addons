@@ -30,7 +30,7 @@ import { Column, Table, TableRow } from "@/table"
 import { Tip, TipText } from "@/tip"
 import { ToolPick, ToolSort, Toolbar, sortChoices } from "@/toolbar"
 import { SECONDARY_TEXT, TIGHT_LINE, TITLE_TEXT } from "@/units"
-import { KeptWindow, Window, WindowSide, WindowTabSpec } from "@/window"
+import { FOOTER_ROOM, KeptWindow, Window, WindowSide, WindowTabSpec } from "@/window"
 
 // What the filter's switches keep: what can be learned now, what can't yet, what is known, what is marked never to
 // learn.
@@ -849,7 +849,7 @@ public class TrainerWindow implements Component {
 
   // The counts at the footer's left, the player's money at its right.
   const footer: Template = $ltml {
-    <box columns={SPREAD} gap={6sp} yAlign={Align.Center}>
+    <box padding={FOOTER_ROOM} columns={SPREAD} gap={6sp} yAlign={Align.Center}>
       <box columns={FOOT} gap={6sp} yAlign={Align.Center}>
         <StatusDot $for={count of self.counts} count={count} />
       </box>
