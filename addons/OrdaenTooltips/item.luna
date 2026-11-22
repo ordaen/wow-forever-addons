@@ -7,7 +7,7 @@ import Ordaen from "Ordaen"
 import { BRIGHT_TEXT } from "Ordaen"
 import { GOLD, GREEN, GREY, RED, YELLOW, colorOf } from "@/colors"
 import Locale from "@/locales"
-import { Fact, Kind, Model, Note, Opens, Part, TextLine, iconOf, named, namedWith } from "@/model"
+import { Fact, Kind, Model, Note, Part, TextLine, iconOf, named, namedWith } from "@/model"
 import { Options } from "@/options"
 import { spell } from "@/spell"
 import { Term } from "@/terms"
@@ -28,12 +28,14 @@ const EQUIP = 45
 const CHANCE = 46
 
 // An item as it was read.
-// The term for how an item is bound, by the game's own text for it.
-function binding(text: String): Opens {
-  if (text == Game.strings.soulbound) { return named(Term.Bound) }
-  if (text == Game.strings.bindOnEquip) { return named(Term.Boe) }
-  if (text == Game.strings.bindOnPickup) { return named(Term.Bop) }
-  return Opens.None
+// How an item is bound, by the game's own text for it: in the glossary term's short name («Персональный при
+// поднятии» for the game's «Становится персональным при поднятии»), opening the term; another binding as the game
+// wrote it.
+function binding(text: String): Part {
+  if (text == Game.strings.soulbound) { return { text: Locale.TERM_BOUND, color: nil, opens: named(Term.Bound) } }
+  if (text == Game.strings.bindOnEquip) { return { text: Locale.TERM_BOE, color: nil, opens: named(Term.Boe) } }
+  if (text == Game.strings.bindOnPickup) { return { text: Locale.TERM_BOP, color: nil, opens: named(Term.Bop) } }
+  return { text: text, color: nil }
 }
 
 public struct ItemRead {
@@ -157,7 +159,7 @@ public function item(data: Game.TooltipData, options: Options): ItemRead | nil {
       if (left != nil) { desc.push({ text: left, color: line.validSlot == false ? RED : nil }) }
       if (right != nil) { desc.push({ text: right, color: line.validType == false ? RED : nil }) }
     } else if (kind == BINDING) {
-      if (left != nil) { info.push({ text: left, opens: binding(left) }) }
+      if (left != nil) { info.push(binding(left)) }
     } else if (kind == SELL_PRICE) {
       let price = line.price
       if (price != nil && price > 0) {

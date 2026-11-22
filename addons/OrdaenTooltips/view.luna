@@ -6,10 +6,12 @@
 // or below it with their tops on its bottom; on the frame's left edge, or on its right edge with the group running leftwards. The main tooltip is
 // always the one at the frame; the others follow it in one row, lined up on the edge that faces the frame, so no
 // tooltip floats off it.
+import Game from "$game"
 import { Align, Edges, Frame, Place, Point } from "$ltml"
 import { BRIGHT_TEXT, Component, TooltipGroup } from "Ordaen"
 import { GOLD } from "@/colors"
 import { HEADER, TipFrame } from "@/frame"
+import { item } from "@/item"
 import { Kind, Model, Opens } from "@/model"
 import { Options } from "@/options"
 import { term } from "@/term"
@@ -62,6 +64,10 @@ class Opened implements Component {
         desc: [], info: [], facts: [], body: [{ left: opens.text, desc: true }], more: [], foot: [], keys: []
       }
       Opens.Unit => return unitOf(opens.unit, self.options)
+      Opens.Item => {
+        let data = Game.items.tooltip(opens.id)
+        return data != nil ? item(data, self.options)?.model : nil
+      }
       Opens.None => return nil
     }
   }

@@ -56,6 +56,9 @@ const FILL: Array<Track> = [{ fr: 1 }]
 const WITH_ICON: Array<Track> = [ICON, { fr: 1 }]
 const ALONE: Array<Track> = [{ fr: 1 }]
 public const NAME_VALUE: Array<Track> = [{ fr: 1 }, "max-content"]
+// A line's icon (a reagent's), a line of the footer's text high.
+const LINE_ICON = 16.40625dp
+const ICON_NAME_VALUE: Array<Track> = [LINE_ICON, { fr: 1 }, "max-content"]
 // A compared value: the value, then its difference «(by», the mark, «)», 3 px apart (the design's `.diff`), the mark
 // 10 px (ctl.compareUp, ctl.compareDown).
 const COMPARED: Array<Track> = ["max-content", "max-content", "max-content", "max-content"]
@@ -113,6 +116,8 @@ public struct Drawn {
   valueOpens: Opens
   // An item's stat against the compared item's, after the value.
   compared: Compared | nil
+  // The icon before its name: a reagent's.
+  icon: Art | nil = nil
 }
 
 function opensSomething(opens: Opens): Boolean {
@@ -315,6 +320,9 @@ public class Row implements Component {
   derived comparedColor: Color = self.comparedMore ? GREEN : RED
   derived comparedMark: Art = self.comparedMore ? Ordaen.art.ctl.compareUp : Ordaen.art.ctl.compareDown
   derived comparedBy: String = `(${self.line.compared?.by ?? ""}`
+  // A line with an icon (a reagent's) has it in a column before its name.
+  derived hasIcon: Boolean = self.line.icon != nil
+  derived tracks: Array<Track> = self.hasIcon ? ICON_NAME_VALUE : NAME_VALUE
 
   line: Signal<Drawn>
   locked: Signal<Boolean>
@@ -325,7 +333,8 @@ public class Row implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box $if={self.paired} columns={NAME_VALUE} gap={3sp} padding={self.line.padding}>
+      <box $if={self.paired} columns={self.tracks} gap={3sp} padding={self.line.padding}>
+        <box $if={self.hasIcon} width={LINE_ICON} height={LINE_ICON} icon={self.line.icon} />
         <box $if={self.opening} columns={OWN_WIDTH}>
           <TermText text={self.line.left} color={self.line.leftColor} size={self.line.size} opens={self.line.opens}
                     locked={self.locked}>
@@ -523,7 +532,7 @@ public class TipFrame implements Component {
       list.push({
         left: note.left, right: note.right, leftColor: alone ? note.valueColor ?? QUIET : QUIET,
         rightColor: note.valueColor ?? QUIET_VALUE, size: SECONDARY_TEXT, padding: NO_PAD, opens: note.opens,
-        valueOpens: note.valueOpens, compared: nil
+        valueOpens: note.valueOpens, compared: nil, icon: note.icon
       })
     }
     return list

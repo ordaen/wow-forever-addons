@@ -1,6 +1,7 @@
 // A spell's tooltip, read from the game's lines for it: the name with its rank and its spellbook tab, the band of
 // facts in the design's short form (the cost as a dot in its resource's colour and the number, the range, the cast,
 // the cooldown as «CD 10 sec»), the description with a finishing move's list as rows, what it needs in the footer.
+import Client from "$client"
 import Game from "$game"
 import Runtime from "$runtime"
 import { BRIGHT_TEXT } from "Ordaen"
@@ -59,7 +60,12 @@ function reagents(text: String, foot: mut Array<Note>): Boolean {
     let need = ((count ?? "").toNumber() ?? 1).floor()
     if (name != "") {
       let have = Game.items.count(name)
-      foot.push({ left: name, right: Locale.COUNT.format(need), valueColor: have < need ? RED : nil })
+      // The reagent by its name, as the client knows it: its icon, and its own tooltip from a locked one.
+      let id, _, _, _, icon, _, _ = Client.C_Item.GetItemInfoInstant(name)
+      foot.push({
+        left: name, right: Locale.COUNT.format(need), valueColor: have < need ? RED : nil, icon: icon,
+        opens: id != nil ? Opens.Item { id: id.floor() } : Opens.None
+      })
     }
   }
   return true

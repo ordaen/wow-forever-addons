@@ -12,11 +12,12 @@ public enum Kind {
 
 // What a part of a tooltip opens once the tooltip is locked and the cursor comes onto the part: a term of the
 // glossary, with the amount the part speaks of; a name with its whole sentence (a camp's building and its bonus);
-// a unit's own tooltip, by the game's name for the unit (`mouseovertarget`).
+// a unit's own tooltip, by the game's name for the unit (`mouseovertarget`); an item's own (a reagent's).
 public enum Opens {
   Term { term: Term, amount: String | nil }
   Text { name: String, text: String }
   Unit { unit: String }
+  Item { id: Integer }
   None
 }
 
@@ -91,6 +92,8 @@ public struct Note {
   left: String
   right: String | nil
   valueColor: Color | nil
+  // The icon before its label: a reagent's.
+  icon: Art | nil = nil
   // What its label opens, and what its value does (the unit it names).
   opens: Opens = Opens.None
   valueOpens: Opens = Opens.None

@@ -620,6 +620,26 @@ test "each cell of an ability's band opens its own term" {
   Test.expect(same([termOf("5 yd"), termOf("Channeled"), termOf("CD 8 sec"), termOf("Next")].join(" | "), "Melee range | Channelled | Cooldown | Next attack"))
 }
 
+const WOOD: FileId = 135435
+
+test "a recipe's reagent stands with its icon, and opens its own tooltip from the locked one" {
+  Client.C_Item.GetItemInfoInstant = (itemInfo: String | Integer): (Number | nil, String | nil, String | nil, String | nil, FileId | nil, Number | nil, Number | nil) => {
+    if (itemInfo == "Simple Wood") { return 4470, nil, nil, nil, WOOD, nil, nil }
+    return nil, nil, nil, nil, nil, nil, nil
+  }
+  Game.items.tooltip = (id: Integer): Game.TooltipData | nil => id != 4470 ? nil : {
+    kind: 0, id: 4470, lines: [{ left: "Simple Wood", kind: 22 }, { left: "Used to craft wooden things.", kind: 0 }]
+  }
+  Test.mount(new Elsewhere(), SCREEN)
+  Game.tooltip.main = inSlot({
+    kind: 1, id: 7421, about: "spell:7421",
+    lines: [{ left: "Enchanting: Runed Copper Rod", kind: 13 }, { left: "Reagents: |n|cffff2020Simple Wood|r", kind: 0 }]
+  })
+  Test.pass(CHARGED)
+  Test.expect(locked().text("Simple Wood").item().paintedWith(WOOD))
+  Test.expect(same(termOf("Simple Wood"), "Simple Wood"))
+}
+
 test "an item bound on equip or on pickup opens what that binding is" {
   Test.mount(new Elsewhere(), SCREEN)
   Game.tooltip.main = inSlot({
