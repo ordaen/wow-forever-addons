@@ -60,10 +60,10 @@ function file(font: FontFiles | nil): String {
   return bold == nil ? `${font.regular} (no bold)` : `${font.regular}, bold ${bold}`
 }
 
-test "the files each preset draws its text, titles and numbers in, regular and bold" {
+test "the files each preset draws its text, titles, numbers and pages of sentences in, regular and bold" {
   for (name of Ordaen.PRESETS) {
     let fonts = artOf(Ordaen.preset(name)).fonts
-    Test.note(`${name}: ${file(fonts.body)}; ${file(fonts.title)}; ${file(fonts.numbers)}`)
+    Test.note(`${name}: ${file(fonts.body)}; ${file(fonts.title)}; ${file(fonts.numbers)}; ${file(fonts.book)}`)
   }
 }
 
@@ -98,4 +98,14 @@ test "a look saved as the Blizzard preset loads as Ordaen's" {
   Core.keeper.profiles.pack()
   Test.reload()
   Test.expect(Core.look.values.font == Ordaen.Font.Friz)
+}
+
+test "a book font chosen changes the files of a page of sentences alone: the text's, the titles' and the numbers' stay" {
+  const ordaen = Ordaen.preset(Ordaen.Preset.Ordaen)
+  const before = artOf(ordaen).fonts
+  const after = artOf({ fontBook: Ordaen.BookFont.Lora, ..ordaen }).fonts
+  Test.expect(file(before.book).contains("PTSerif-Regular.ttf, bold ") && file(before.book).contains("PTSerif-Bold.ttf"))
+  Test.expect(file(after.book).contains("Lora-Regular.ttf, bold ") && file(after.book).contains("Lora-Bold.ttf"))
+  Test.expect(file(after.body) == file(before.body) && file(after.title) == file(before.title))
+  Test.expect(file(after.numbers) == file(before.numbers))
 }

@@ -208,7 +208,8 @@ public class Scroll implements Component {
         <box position={Position.Absolute} left={0dp} right={0dp} top={UNDER_FADE} bottom={UNDER_FADE}>
           <ScrollPaper />
           <box position={Position.Absolute} left={OFF_SIDES} right={OFF_SIDES} top={OFF_FADES} bottom={OFF_FADES}
-               overflow={Overflow.Scroll} gap={1.5sp} zLevel={OVER_PAPER} textSize={SCROLL_TEXT}>
+               overflow={Overflow.Scroll} gap={1.5sp} zLevel={OVER_PAPER} textSize={SCROLL_TEXT}
+               textFont={.Book}>
             <ScrollTitle $if={self.titled} title={self.title} />
             <slot />
           </box>

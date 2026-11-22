@@ -27,6 +27,15 @@ public enum NumbersFont implements Plain {
   ArialNarrow = "arialNarrow"
 }
 
+// The fonts a page of sentences may be set in (`TextFont.Book`: a quest's story on its parchment): serifs made for
+// reading, each with Cyrillic, shipped regular and bold (SIL Open Font License).
+public enum BookFont implements Plain {
+  PtSerif = "ptSerif"
+  Alegreya = "alegreya"
+  Literata = "literata"
+  Lora = "lora"
+}
+
 // What a plain bar is filled with.
 public enum BarTexture implements Plain { Flat = "flat", Blizzard = "blizzard" }
 // What fills an experience bar, and every bar that looks like it: chosen where the bar is, over the look's bar texture.
@@ -45,10 +54,11 @@ public enum Preset { Ordaen = "ordaen", Minimal = "minimal" }
 public const PRESETS: Array<Preset> = [Preset.Ordaen, Preset.Minimal]
 
 public struct Look implements Plain {
-  // The text's, the titles' and the numbers' fonts.
+  // The text's, the titles', the numbers' and a page of sentences' fonts.
   font: Font
   fontHeader: Font
   fontNumbers: NumbersFont
+  fontBook: BookFont
   accent: Color
   // A section's title (a heading's, or one standing on a cut), and the paint of a heading's rule as it shows on the wood.
   heading: Color
@@ -93,7 +103,7 @@ public struct Look implements Plain {
 
 // Ordaen's own look: bronze, dark wood, Ordaen's own fonts.
 const ORDAEN: Look = {
-  font: Font.FiraSans, fontHeader: Font.AlegreyaSC, fontNumbers: NumbersFont.PtSansNarrow,
+  font: Font.FiraSans, fontHeader: Font.AlegreyaSC, fontNumbers: NumbersFont.PtSansNarrow, fontBook: BookFont.PtSerif,
   accent: { r: 0.72, g: 0.56, b: 0.34, a: 1 },
   heading: Color.hex("#e8c35a"), headingPaint: Color.hex("#a8853a"),
   barTexture: BarTexture.Flat, barFrame: BarFrame.Bezel, animation: Animation.Smooth,
@@ -198,6 +208,16 @@ function fontFiles(font: Font): FontFiles | nil {
   }
 }
 
+// A book font's files, regular and bold.
+function bookFiles(font: BookFont): FontFiles {
+  match (font) {
+    BookFont.PtSerif => return { regular: "@/media/fonts/PTSerif-Regular.ttf", bold: "@/media/fonts/PTSerif-Bold.ttf" }
+    BookFont.Alegreya => return { regular: "@/media/fonts/Alegreya-Regular.ttf", bold: "@/media/fonts/Alegreya-Bold.ttf" }
+    BookFont.Literata => return { regular: "@/media/fonts/Literata-Regular.ttf", bold: "@/media/fonts/Literata-Bold.ttf" }
+    BookFont.Lora => return { regular: "@/media/fonts/Lora-Regular.ttf", bold: "@/media/fonts/Lora-Bold.ttf" }
+  }
+}
+
 // A numbers font's file, its digits measured where it is written: regular alone, a bold one's digits unmeasured.
 function numbersFile(font: NumbersFont): TabularFont {
   match (font) {
@@ -234,7 +254,7 @@ public function artOf(look: Look): LookArt {
   return {
     fonts: {
       body: fontFiles(look.font), title: fontFiles(look.fontHeader),
-      numbers: { regular: numbersFile(look.fontNumbers), bold: nil }
+      numbers: { regular: numbersFile(look.fontNumbers), bold: nil }, book: bookFiles(look.fontBook)
     },
     bar: barFile(look.barTexture)
   }
