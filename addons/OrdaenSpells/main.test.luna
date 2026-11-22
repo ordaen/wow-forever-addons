@@ -1133,6 +1133,56 @@ test "Learn buys the picked service where it can be learned and paid for, and is
   Test.expect(bought.length == 1)
 }
 
+// Four services that can be learned now (one starting a profession), and one that can't yet.
+function batch(): Array<Game.TrainerService> {
+  return [
+    { index: 1, name: "A", rank: "", icon: nil, status: Game.ServiceStatus.Available, level: 1, cost: 100, description: "" },
+    { index: 2, name: "B", rank: "", icon: nil, status: Game.ServiceStatus.Unavailable, level: 30, cost: 100, description: "" },
+    { index: 3, name: "C", rank: "", icon: nil, status: Game.ServiceStatus.Available, level: 1, cost: 200, description: "" },
+    {
+      index: 4, name: "Mining", rank: "", icon: nil, status: Game.ServiceStatus.Available, level: 1, cost: 10, description: "",
+      profession: true
+    },
+    { index: 5, name: "E", rank: "", icon: nil, status: Game.ServiceStatus.Available, level: 1, cost: 300, description: "" }
+  ]
+}
+
+test "with nothing picked, Learn all asks first, then learns what can be learned now from the bottom up, no profession" {
+  Test.mount(nil, PAGE)
+  Game.trainer.services = batch
+  Game.money.amount = 1000
+  const bought: Array<Integer> = []
+  Client.BuyTrainerService = (index: Integer): nil => bought.push(index)
+  Game.trainer.open = true
+  Game.trainer.changed.emit()
+  const window = Test.page().window(TRAINER)
+  window.button("Learn all (3)").click()
+  Test.expect(bought.length == 0 && Test.page().text("Learn 3 skills for").shown())
+  Test.page().window("Learn 3 skills for").button("Learn").click()
+  Test.expect(bought.length == 3 && bought[1] == 5 && bought[2] == 3 && bought[3] == 1)
+}
+
+test "Learn all is greyed while the money doesn't pay for all; a list changed since it asked learns nothing" {
+  Test.mount(nil, PAGE)
+  Game.trainer.services = batch
+  Game.money.amount = 500
+  const bought: Array<Integer> = []
+  Client.BuyTrainerService = (index: Integer): nil => bought.push(index)
+  Game.trainer.open = true
+  Game.trainer.changed.emit()
+  const window = Test.page().window(TRAINER)
+  window.button("Learn all (3)").click()
+  Test.expect(!Test.page().text("Learn 3 skills for").shown())
+  window.button("Learn all (3)").hover()
+  Test.expect(Test.page().text("Not enough money for all of them together.").shown())
+  Game.money.amount = 1000
+  window.button("Learn all (3)").click()
+  Game.trainer.services = (): Array<Game.TrainerService> => batch().filter(service => service.index != 5)
+  Game.trainer.changed.emit()
+  Test.page().window("Learn 3 skills for").button("Learn").click()
+  Test.expect(bought.length == 0)
+}
+
 // Settings
 
 test "the window's settings button opens Spells' page of the settings, the trainer's" {

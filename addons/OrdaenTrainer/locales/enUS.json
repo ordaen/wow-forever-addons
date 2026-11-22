@@ -32,6 +32,10 @@
   "TRAINER_TOGETHER": "All available, together:",
   "TRAINER_NEEDS_LEVEL_SHORT": "Requires level %d",
   "TRAINER_TOO_DEAR": "Not enough money",
+  "TRAINER_LEARN_ALL": "Learn all (%d)",
+  "TRAINER_LEARN_ALL_CONFIRM": "Learn %d skills for",
+  "TRAINER_LEARN_ALL_NONE": "Nothing can be learned now: what is ignored or starts a profession is left out.",
+  "TRAINER_LEARN_ALL_DEAR": "Not enough money for all of them together.",
   "TRAINER_PICK_FIRST": "Pick a service",
   "CANCEL": "Cancel"
 }

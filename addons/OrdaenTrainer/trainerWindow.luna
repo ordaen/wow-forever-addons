@@ -380,12 +380,26 @@ class ServiceLine implements Component {
 }
 
 // What every service that can be learned now and isn't ignored costs together.
-function availableCost(services: Array<Game.TrainerService>, ignored: Map<String, Boolean>): Integer {
+// What «Learn all» learns, in the trainer's order: every service that can be learned now but what is ignored and what
+// starts a profession (each asked for on its own).
+function batchOf(services: Array<Game.TrainerService>, ignored: Map<String, Boolean>): Array<Game.TrainerService> {
+  return services.filter(service => service.status == Game.ServiceStatus.Available && !isIgnored(service, ignored) && !service.profession)
+}
+
+function costOf(services: Array<Game.TrainerService>): Integer {
   let total = 0
-  for (service of services) {
-    if (service.status == Game.ServiceStatus.Available && !isIgnored(service, ignored)) { total += service.cost }
-  }
+  for (service of services) { total += service.cost }
   return total
+}
+
+// The batch the player confirmed is the one there now: the same services at the same places for the same prices.
+function sameBatch(now: Array<Game.TrainerService>, quoted: Array<Game.TrainerService>): Boolean {
+  if (now.length != quoted.length) { return false }
+  for (at, service of now) {
+    const was = quoted[at]
+    if (was == nil || was.index != service.index || was.cost != service.cost) { return false }
+  }
+  return true
 }
 
 // One count of the footer: the colour its services are known by, how many there are, and what its tip says.
@@ -529,6 +543,9 @@ public class TrainerWindow implements Component {
   state folded: Map<String, Boolean> = {}
   // A new profession's «Learn», waiting for the player's word.
   state confirming = false
+  // «Learn all», waiting for the player's word, and the services it was asked for.
+  state confirmingAll = false
+  state quoted: Array<Game.TrainerService> = []
   // The service whose menu is open, by its place in the trainer's list; 0: none.
   state menuAt = 0
 
@@ -571,7 +588,14 @@ public class TrainerWindow implements Component {
   // Nothing picked: the trainer's card, its greeting, and what all that can be learned now costs together (the footer
   // counts them).
   derived greeting: String = self.greetingOf()
-  derived together: Integer = availableCost(self.services, self.ignoredNames)
+  derived batch: Array<Game.TrainerService> = batchOf(self.services, self.ignoredNames)
+  derived together: Integer = costOf(self.batch)
+  // «Learn all» while nothing is picked: everything the batch holds, while the money pays for all of it.
+  derived canLearnAll: Boolean = self.batch.length > 0 && self.together <= Game.money.amount
+  derived allLabel: String = Locale.TRAINER_LEARN_ALL.format(self.batch.length)
+  derived allReason: TipText | nil = self.allReasonOf()
+  derived quotedCount: String = Locale.TRAINER_LEARN_ALL_CONFIRM.format(self.quoted.length)
+  derived quotedCost: Integer = costOf(self.quoted)
   // The picked service's facts, the game's (cast time, cooldown, cost, range: its spell's tooltip lines between its name
   // and what it does), and what changes against the rank the player has.
   derived facts: Array<String> = factsOf(self.current)
@@ -672,6 +696,12 @@ public class TrainerWindow implements Component {
   reasonOf(self): TipText | nil {
     if (self.canTrain) { return nil }
     return { title: Locale.TRAINER_TRAIN, text: self.reasonText(), rows: [] }
+  }
+
+  allReasonOf(self): TipText | nil {
+    if (self.canLearnAll) { return nil }
+    const text = self.batch.length == 0 ? Locale.TRAINER_LEARN_ALL_NONE : Locale.TRAINER_LEARN_ALL_DEAR
+    return { title: self.allLabel, text: text, rows: [] }
   }
 
   reasonText(self): String {
@@ -791,6 +821,28 @@ public class TrainerWindow implements Component {
 
   onConfirmCancel(mut self) { self.confirming = false }
 
+  // «Learn all»: the batch as it stands is asked about first.
+  onLearnAll(mut self) {
+    if (!(peek self.canLearnAll)) { return }
+    self.quoted = peek self.batch
+    self.confirmingAll = true
+  }
+
+  // The batch confirmed is learned in the player's click, from the bottom of the list up (a service learned may leave
+  // the list at once, and the places above it keep theirs); nothing, where the trainer's list or the money changed
+  // since it was asked about.
+  onLearnAllConfirmed(mut self) {
+    self.confirmingAll = false
+    const now = batchOf(peek self.services, peek self.ignoredNames)
+    if (!sameBatch(now, peek self.quoted) || costOf(now) > Game.money.amount) { return }
+    for (at of now.length..1 step -1) {
+      const service = now[at]
+      if (service != nil) { Client.BuyTrainerService(service.index) }
+    }
+  }
+
+  onLearnAllCancel(mut self) { self.confirmingAll = false }
+
   // The window's close leaves the trainer, as the game's does.
   onClose(self) { Client.CloseTrainer() }
   onSettings(self) { self.settings.emit() }
@@ -830,8 +882,10 @@ public class TrainerWindow implements Component {
         <box>
           <Money $if={self.has} amount={self.price} color={self.priceInk} />
         </box>
-        <PushButton label={Locale.TRAINER_TRAIN} width={TRAIN_WIDTH} plate={ButtonPlate.Accent} disabled={!self.canTrain} tip={self.reason}
-                    @click={self.onTrain} />
+        <PushButton $if={self.has} label={Locale.TRAINER_TRAIN} width={TRAIN_WIDTH} plate={ButtonPlate.Accent} disabled={!self.canTrain}
+                    tip={self.reason} @click={self.onTrain} />
+        <PushButton $else label={self.allLabel} width={TRAIN_WIDTH} plate={ButtonPlate.Accent} disabled={!self.canLearnAll}
+                    tip={self.allReason} @click={self.onLearnAll} />
       </box>
     </box>
   }
@@ -890,6 +944,14 @@ public class TrainerWindow implements Component {
         <text value={self.confirmText} textColor={INK} />
         <PushButton #buttons label={Locale.CANCEL} width={TRAIN_WIDTH} @click={self.onConfirmCancel} />
         <PushButton #buttons label={Locale.TRAINER_TRAIN} width={TRAIN_WIDTH} plate={ButtonPlate.Accent} @click={self.onConfirmed} />
+      </Dialog>
+      <Dialog $if={self.confirmingAll} width={DIALOG} title={self.tabSpec.title}>
+        <box columns={FOOT} gap={2sp} yAlign={Align.Center}>
+          <text value={self.quotedCount} textColor={INK} />
+          <Money amount={self.quotedCost} />
+        </box>
+        <PushButton #buttons label={Locale.CANCEL} width={TRAIN_WIDTH} @click={self.onLearnAllCancel} />
+        <PushButton #buttons label={Locale.TRAINER_TRAIN} width={TRAIN_WIDTH} plate={ButtonPlate.Accent} @click={self.onLearnAllConfirmed} />
       </Dialog>
     }
   }
