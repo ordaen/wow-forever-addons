@@ -103,32 +103,43 @@ surface 550,192.21 905.76x515.58 on MEDIUM clamped raised by a click
               text 990.82,665.23 28.33x17.5 "3/25" #e8dcc4
     box 1041.91,254.22 405.76x442.73 border=UI-Frame-Metal-CornerTopLeft sides=left
       box 1074.91,276.97 350x405.75
-        box 1074.91,276.97 350x226.47
+        box 1074.91,276.97 350x209.22
           box 1074.91,276.97 350x41.67 Interface\AddOns\Ordaen\media\scroll-top
-          box 1074.91,318.64 350x143.14
-          box 1074.91,461.78 350x41.67 Interface\AddOns\Ordaen\media\scroll-bottom
-          box 1074.91,318.64 350x153.56 absolute Interface\AddOns\Ordaen\media\scroll-paper
-            box 1118.24,326.97 263.33x126.47 absolute scrolled 0 of 0
+          box 1074.91,318.64 350x125.88
+          box 1074.91,444.53 350x41.67 Interface\AddOns\Ordaen\media\scroll-bottom
+          box 1074.91,318.64 350x136.3 absolute Interface\AddOns\Ordaen\media\scroll-paper
+            box 1118.24,326.97 263.33x109.22 absolute scrolled 0 of 0
               text 1118.24,326.97 263.33x20.68 "The Defias Brotherhood" #3a1000
               text 1118.24,351.92 263.33x17.5 "Gryan asks you to look into Westfall." #160c03
               text 1118.24,373.69 263.33x17.5 "Objectives" #3a1000
-        box 1074.91,514.83 350x16.8
-          box 1074.91,514.83 350x16.8
-            text 1074.91,514.83 314.31x16.8 "Wolves slain" #f0e6d0
-            text 1394.91,514.83 30x16.8 "5/10" #f0e6d0
-        box 1074.91,543 350x17.5 @keyPress @pointerPress
-          text 1074.91,543 71.67x17.5 "Next quest" #a3977f
-          text 1155.11,543 269.8x17.5 "The Defias Brotherhood, part two" #ffd100
-        box 1074.91,571.88 350x33.72
-          box 1074.91,571.88 350x33.72
-            box 1125.59,578.4 248.64x20.68
-              box 1125.59,578.4 64.91x20.68
-                box 1134.12,578.4 47.84x20.68
-                  box 1134.12,580.41 16.67x16.67 GarrMission_CurrencyIcon-Xp
-                  text 1153.63,578.4 28.33x20.68 "420" #f0e6d0
-              box 1190.5,578.4 183.73x20.68
-                box 1199.87,578.4 165.83x20.68 @pointerEnter @pointerLeave
-                  text 1199.87,578.4 165.83x20.68 "-25–+250 reputation" #f0e6d0
+        box 1074.91,497.57 350x16.8
+          box 1074.91,497.57 350x16.8
+            text 1074.91,497.57 314.31x16.8 "Wolves slain" #f0e6d0
+            text 1394.91,497.57 30x16.8 "5/10" #f0e6d0
+        box 1074.91,525.75 350x17.5 @keyPress @pointerPress
+          text 1074.91,525.75 71.67x17.5 "Next quest" #a3977f
+          text 1155.11,525.75 269.8x17.5 "The Defias Brotherhood, part two" #ffd100
+        box 1074.91,554.63 350x50.98
+          box 1074.91,554.63 350x50.98
+            box 1074.91,558.89 350x17.5
+              box 1074.91,565.56 145.81x4.17
+                box 1074.91,565.56 145.81x1.67 #0000008c
+                box 1074.91,567.23 145.81x1.67 #000000e6
+                box 1074.91,568.89 145.81x0.83 #ffdeaa52
+              text 1227.83,558.89 44.17x17.5 "Reward" #b8a07a
+              box 1279.11,565.56 145.81x4.17
+                box 1279.11,565.56 145.81x1.67 #0000008c
+                box 1279.11,567.23 145.81x1.67 #000000e6
+                box 1279.11,568.89 145.81x0.83 #ffdeaa52
+            box 1074.91,579.24 350x26.37
+              box 1125.59,582.08 248.64x20.68
+                box 1125.59,582.08 64.91x20.68
+                  box 1134.12,582.08 47.84x20.68
+                    box 1134.12,584.09 16.67x16.67 GarrMission_CurrencyIcon-Xp
+                    text 1153.63,582.08 28.33x20.68 "420" #f0e6d0
+                box 1190.5,582.08 183.73x20.68
+                  box 1199.87,582.08 165.83x20.68 @pointerEnter @pointerLeave
+                    text 1199.87,582.08 165.83x20.68 "-25–+250 reputation" #f0e6d0
         box 1074.91,616.98 350x17.5 @keyPress @pointerPress
           text 1074.91,616.98 318.33x17.5 "Track" #f0e6d0
           box 1393.24,617.4 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 0 of 4
