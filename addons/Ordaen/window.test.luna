@@ -399,6 +399,24 @@ test "the open tab and the others are cut by their metal's corners" {
   destroy page
 }
 
+test "a tab stands on the body's rod, and nothing of it reaches below its foot" {
+  let page = new Tabbed()
+  Test.mount(page, { left: 0, top: 0, width: 800, height: 600 })
+  const metal = Ordaen.art.frame.window
+  // The body is placed by its art's top: its rod starts 5 texels below it, past its shadow (4) and outer black.
+  const rod = Test.edges(Ordaen.art.window.wood, 0).top + 5 * metal.scale
+  // The first tab's picture, and the tab that holds it (the box that takes its click).
+  const icon = Test.page().box("Interface/Icons/Trade_Tailoring").rect()
+  const tab = Test.page().button("Interface/Icons/Trade_Tailoring").rect()
+  Test.expect(near(tab.bottom, rod))
+  Test.expect(near(icon.bottom, tab.bottom))
+  // Every tab's label keeps above the foot, the one with a picture and the one without.
+  for (title of ["Professions", "Tailoring 75", "Recipes"]) {
+    Test.expect(Test.page().text(title).rect().bottom <= tab.bottom + 0.01)
+  }
+  destroy page
+}
+
 // A window with a footer: «Reset» at its left, a status, «Save» at its right, on the body's bottom line.
 class Footed {
   state tabs: Array<WindowTabSpec> = [{ title: "Recipes" }]
