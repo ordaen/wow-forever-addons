@@ -6,7 +6,7 @@ import Events from "$events"
 import Game from "$game"
 import { Align, Anchored, Art, Docked, Edges, Event, Frame, Layer, Overflow, Place, Point, Position, Shadow, Side, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { BODY_LINE, BarFrame, Callout, CalloutSide, Component, CountBadge, Module, Mover, Placed, Settings, SettingsPage, XpFill, opacityNow, reachAcross, reachDown, sideNear, timeText, xpFillArt } from "Ordaen"
+import { BODY_LINE, BRIGHT_TEXT, BarFrame, Callout, CalloutSide, Component, Module, Mover, Placed, SECONDARY_TEXT, Settings, SettingsPage, XpFill, opacityNow, reachAcross, reachDown, sideNear, timeText, xpFillArt } from "Ordaen"
 import { ActionBars, barDefaults, bartenderLoaded } from "@/actionBars"
 import { BARS_DEFAULTS, BarChoice, BarsChoices } from "@/barChoices"
 import { BarsPage } from "@/barsPage"
@@ -47,9 +47,11 @@ const PORTRAIT_WIDTH = 128ui
 const PORTRAIT_HEIGHT = 124ui
 const PORTRAIT_ROOM: Array<Track> = [PORTRAIT_WIDTH, "max-content"]
 const CORNER: Anchored = { point: Point.BottomLeft }
-// The talent points to spend, on the portrait's rim down its right side, under the level's badge.
-const TALENTS_LEFT = 101ui
-const TALENTS_TOP = 45ui
+// The talent points to spend, on a round badge (the level's, smaller) centred on the portrait's rim down its right side
+// (the rim's art runs from 112 to 128 there), under the level's badge, inside the portrait's 128.
+const TALENTS_SIZE = 22ui
+const TALENTS_LEFT = 106ui
+const TALENTS_TOP = 48ui
 // Ordaen Spells' title, as its module gives it.
 const SPELLS = "Ordaen Spells"
 // Ordaen Social's title, as its module gives it.
@@ -431,8 +433,11 @@ public class Panel implements Module, App {
             <text value={"%d"} arguments={[Game.player.level]} textColor={Ordaen.look.values.accent}
                   wrap={.None} />
           </box>
-          <box $if={self.talentsShown} position={Position.Absolute} left={TALENTS_LEFT} top={TALENTS_TOP} zLevel={1}>
-            <CountBadge count={self.unspentTalents} />
+          <box $if={self.talentsShown} position={Position.Absolute} left={TALENTS_LEFT} top={TALENTS_TOP}
+               width={TALENTS_SIZE} height={TALENTS_SIZE} background={Ordaen.art.panel.badge} xAlign={Align.Center}
+               yAlign={Align.Center} zLevel={1}>
+            <text value={"%d"} arguments={[self.unspentTalents]} textSize={SECONDARY_TEXT} textColor={BRIGHT_TEXT}
+                  textFont={.Numbers} wrap={.None} />
           </box>
           // The panel's corner: in the placing mode it takes the panel to another side too. It shows only while the
           // panel is at the bottom, where a right click would put it: it hears none.

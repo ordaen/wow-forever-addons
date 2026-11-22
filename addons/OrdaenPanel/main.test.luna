@@ -455,6 +455,11 @@ test "talent points to spend are a badge on the portrait's rim under the level, 
   Test.event("PLAYER_TALENT_UPDATE")
   Test.expect(portrait.text("3").shown())
   Test.expect(portrait.text("3").rect().top > portrait.text("42").rect().bottom)
+  // On the rim's right side, which runs right of the level's badge, on the round badge art the level has.
+  const points = portrait.text("3").rect()
+  const level = portrait.text("42").rect()
+  Test.expect((points.left + points.right) / 2 > (level.left + level.right) / 2)
+  Test.expect(portrait.box(Ordaen.art.panel.badge).count() == 2)
   Game.talentTrees.unspent = (group: Integer): Integer => 0
   Test.event("CHARACTER_POINTS_CHANGED", -3)
   Test.expect(!portrait.text("3").shown() && !portrait.text("0").shown())
