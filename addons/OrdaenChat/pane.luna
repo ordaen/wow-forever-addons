@@ -34,8 +34,8 @@ const INPUT_PAD: Edges = { right: 1sp, left: 1sp }
 const INPUT_EDGE: Line = { width: FIELD_EDGE.width, color: Color.hex("#00000000") }
 // The lines' ground is round at its top right alone: its left meets the open tab, its bottom the panel under it.
 const GROUND_CORNERS: Corners = { topLeft: false, topRight: true, bottomLeft: false, bottomRight: false }
-// The field's top edge, lit: it stands out over the world above the lines.
-const INPUT_TOP: Color = Color.hex("#8c6a3f")
+// The field's top and side edges, lit: it stands out over the lines it covers.
+const INPUT_LIT: Color = Color.hex("#8c6a3f")
 
 // What a tab's right-click menu offers: the mouse through its lines or not (the game's «Make uninteractable»), a docked
 // window undocked, an undocked one docked again.
@@ -138,6 +138,8 @@ public class Pane implements Component {
   derived logFrame: any Frame | nil = self.logOf()
   derived shown: Array<Entry> = self.shownOf()
   derived inputShown: Boolean = self.input != nil && (self.typing || self.inputAlways)
+  // Where the newest line stands over the lines' bottom: while the input shows over it, above the input's field.
+  derived linesFoot: Number<Length> = self.inputShown ? GAME_INPUT + 2 * FIELD_EDGE.width : 0ui
   // Whole while the cursor is on it, the player types or a menu of it is open; else as the settings say.
   derived opacity: Number = self.onTabs || self.onLines || self.typing || self.menuTab != nil || self.menuLink != nil ?
     1 :
@@ -339,7 +341,7 @@ public class Pane implements Component {
               <embed $if={self.logFrame != nil} frame={self.logFrame ?? panic("shown with the frame")} />
               // The newest line stands at the bottom; older ones go up past the top, which cuts them.
               <box $else overflow={Overflow.Hidden} textSize={self.textSize} mouseThrough={self.clickThrough} @wheel={self.onWheel}>
-                <box position={Position.Absolute} left={0ui} right={0ui} bottom={0ui} columns={1} leading={.Row}
+                <box position={Position.Absolute} left={0ui} right={0ui} bottom={self.linesFoot} columns={1} leading={.Row}
                      gap={self.between}>
                   <Row $for={entry of self.shown} line={entry.line} opens={entry.opens} stamp={entry.stamp}
                        lineHeight={self.line}
@@ -347,7 +349,8 @@ public class Pane implements Component {
                 </box>
               </box>
               // While scrolled back, the way back, over the lines' bottom right corner: nothing moves for it.
-              <box $if={self.back > 0} position={Position.Absolute} right={0ui} bottom={0ui} zLevel={2} @pointerPress={self.onLatest}>
+              <box $if={self.back > 0} position={Position.Absolute} right={0ui} bottom={self.linesFoot} zLevel={2}
+                   @pointerPress={self.onLatest}>
                 <text value={Locale.LATEST} textColor={LINK} textSize={SECONDARY_TEXT} wrap={.None} />
               </box>
               <Menu $if={self.menuLink != nil} entries={self.linkEntries} title={self.menuTitle} @pick={self.onLinkPick}
@@ -363,7 +366,9 @@ public class Pane implements Component {
                padding={INPUT_PAD}>
             <surface $if={self.inputShown} layer={Layer.Dialog} place={Over { over: "parent" }} background={FIELD_FILL}
                      border={FIELD_EDGE} padding={INPUT_PAD}>
-              <box position={Position.Absolute} left={0ui} right={0ui} top={0ui} height={FIELD_EDGE.width} background={INPUT_TOP} />
+              <box position={Position.Absolute} left={0ui} right={0ui} top={0ui} height={FIELD_EDGE.width} background={INPUT_LIT} />
+              <box position={Position.Absolute} left={0ui} top={0ui} bottom={0ui} width={FIELD_EDGE.width} background={INPUT_LIT} />
+              <box position={Position.Absolute} right={0ui} top={0ui} bottom={0ui} width={FIELD_EDGE.width} background={INPUT_LIT} />
               <embed frame={self.input ?? panic("shown with the input")} height={GAME_INPUT} />
             </surface>
             <box height={GAME_INPUT} />

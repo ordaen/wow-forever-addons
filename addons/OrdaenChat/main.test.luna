@@ -19,6 +19,8 @@ const WHITE: Color = Color.hex("#ffffff")
 const TAB_SHADE: Color = Color.hex("#00000059")
 // The unread count's plain fill.
 const COUNT_FILL: Color = Color.hex("#9b2c1f")
+// The input's field's lit edges.
+const INPUT_LIT: Color = Color.hex("#8c6a3f")
 
 function window(index: Integer, name: String, partner: String, docked: Boolean = true, fontSize: Number = 13, combatLog: Boolean = false): Game.ChatWindow {
   // Hidden while its input is made, as the game parks its windows.
@@ -226,7 +228,7 @@ test "Enter shows the input line, on the screen, in the chat's frame" {
   Test.expect(box.GetFrameStrata() == "DIALOG" && box.GetFrameLevel() > field.level())
 }
 
-test "the input shows over the bottom of the lines' ground, in no room of its own: nothing moves as it or the way back comes" {
+test "the input shows over the bottom of the lines' ground, lit on three sides, and the lines rise to stand above it" {
   Game.chat.windows = gameWindows()
   const box = input(Client.CreateFrame("Frame", nil, Client.C_UI.GetUIParent(), nil))
   box.Hide()
@@ -247,12 +249,16 @@ test "the input shows over the bottom of the lines' ground, in no room of its ow
   box.SetFocus()
   Game.chat.typing = true
   Test.pass(0.01)
-  // Nothing moved: the chat (what the placing mode outlines), its newest line.
+  // The chat (what the placing mode outlines) stays where it was.
   const chatNow = shown.rect()
   Test.expect(chatNow.top == chatBefore.top && chatNow.bottom == chatBefore.bottom && chatNow.right == chatBefore.right)
-  Test.expect(shown.text("line 60").rect().bottom == newest.bottom)
-  // The input stands over the bottom of the lines' ground, inside it.
+  // The input stands over the bottom of the lines' ground, inside it, its field lit along its top and both sides; the
+  // newest line rose to stand above the field.
   const middle = Test.centre(box)
+  const field = Test.page().box(FIELD_FILL).rect()
+  Test.expect(Test.page().box(INPUT_LIT).count() == 3)
+  const risen = shown.text("line 60").rect()
+  Test.expect(risen.bottom < newest.bottom && risen.bottom <= field.top)
   Test.expect(middle.y > (lines.top + lines.bottom) / 2 && middle.y < lines.bottom)
   Test.expect(middle.x > lines.left && middle.x < lines.right)
   // The lines' ground starts at the chat's top: no room is kept over it.
