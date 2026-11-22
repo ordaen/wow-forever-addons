@@ -18,6 +18,8 @@ const OVERPOWER = 7384
 const CLEAVE = 845
 // Stormwind, whose trainers teach warriors of the Alliance.
 const STORMWIND = 72
+const POLEARMS = 200
+const SWORDS = 201
 // The client's reactions: Friendly, Honored.
 const FRIENDLY = 5
 const HONORED = 6
@@ -33,6 +35,8 @@ function warrior(known: Array<Integer>, stormwind: Integer = FRIENDLY): Learner 
 
 function noQuest(quest: Integer): String | nil { return nil }
 
+function noNpc(npc: Integer): String | nil { return nil }
+
 function serviceOf(learnable: Learnable, spell: Integer): Game.TrainerService | nil {
   return learnable.services.find(service => service.spell == spell)
 }
@@ -40,7 +44,7 @@ function serviceOf(learnable: Learnable, spell: Integer): Game.TrainerService | 
 function headingOf(learnable: Learnable, spell: Integer): String { return serviceOf(learnable, spell)?.category ?? "" }
 
 test "each spell stands under what it waits for: learned now, an earlier rank first, the next levels, later, known" {
-  const learnable = learnableOf(warrior([BATTLE_SHOUT, HEROIC_STRIKE]), noQuest, nil)
+  const learnable = learnableOf(warrior([BATTLE_SHOUT, HEROIC_STRIKE]), noQuest, noNpc, nil)
   Test.expect(headingOf(learnable, CHARGE) == "Available now" && headingOf(learnable, HEROIC_STRIKE_2) == "Available now")
   Test.expect(headingOf(learnable, REND_2) == "Needs an earlier rank or a talent")
   Test.expect(headingOf(learnable, OVERPOWER) == "Coming soon" && headingOf(learnable, CLEAVE) == "Later")
@@ -55,10 +59,10 @@ test "each spell stands under what it waits for: learned now, an earlier rank fi
 }
 
 test "a spell's rank is the client's, and its price What's Training's, a tenth off where the player is Honored" {
-  const friendly = learnableOf(warrior([REND]), noQuest, nil)
+  const friendly = learnableOf(warrior([REND]), noQuest, noNpc, nil)
   Test.expect(serviceOf(friendly, REND_2)?.rank == "Rank 2" && serviceOf(friendly, CHARGE)?.rank == "Rank 1")
   Test.expect(serviceOf(friendly, REND_2)?.cost == 700 && serviceOf(friendly, CHARGE)?.cost == 100)
-  const honored = learnableOf(warrior([REND], HONORED), noQuest, nil)
+  const honored = learnableOf(warrior([REND], HONORED), noQuest, noNpc, nil)
   Test.expect(serviceOf(honored, REND_2)?.cost == 630 && serviceOf(honored, CHARGE)?.cost == 90)
   Test.expect(bestPrice(warrior([], HONORED), 1000) == 900 && bestPrice(warrior([]), 1000) == 1000)
 }
@@ -71,16 +75,30 @@ test "a price at each city whose trainers teach the class, cheapest first: a ten
 
 test "a quest's spell stands under the quests with the quest of the player's race, and its action opens it" {
   const named = (quest: Integer): String | nil => quest == 1665 ? "Defensive Stance" : nil
-  const learnable = learnableOf(warrior([]), named, "Show quest")
+  const learnable = learnableOf(warrior([]), named, noNpc, "Show quest")
   const stance = serviceOf(learnable, DEFENSIVE_STANCE)
   Test.expect(stance?.category == "From quests" && stance?.cost == 0)
   const at = stance?.index ?? 0
   Test.expect(learnable.notes[at] == "Quest: Defensive Stance (level 10)" && learnable.actions[at] == "Show quest")
   Test.expect(learnable.quests[at] == 1665)
   // Known, it stands with what is known, with no note or action.
-  const known = learnableOf(warrior([DEFENSIVE_STANCE]), named, "Show quest")
+  const known = learnableOf(warrior([DEFENSIVE_STANCE]), named, noNpc, "Show quest")
   const had = serviceOf(known, DEFENSIVE_STANCE)?.index ?? 0
   Test.expect(serviceOf(known, DEFENSIVE_STANCE)?.category == "Known" && known.notes[had] == nil && known.actions[had] == nil)
+}
+
+test "a weapon skill of the class stands under the weapon masters with its masters on the player's side and their prices" {
+  const masters = (npc: Integer): String | nil => npc == 11867 ? "Woo Ping" : nil
+  const friendly = learnableOf(warrior([SWORDS]), noQuest, masters, nil)
+  const polearms = serviceOf(friendly, POLEARMS)
+  Test.expect(polearms?.category == "Weapon masters" && polearms?.cost == 10000 && polearms?.level == 20)
+  const at = polearms?.index ?? 0
+  Test.expect(friendly.notes[at] == "From level 20")
+  const lines = friendly.prices[at] ?? []
+  Test.expect(lines.length == 1 && (lines[1] ?? "").contains("Woo Ping") && (lines[1] ?? "").contains("(63.9, 69.1)"))
+  Test.expect(serviceOf(friendly, SWORDS)?.category == "Known")
+  // Honored with Stormwind, its master takes a tenth off.
+  Test.expect(serviceOf(learnableOf(warrior([], HONORED), noQuest, masters, nil), POLEARMS)?.cost == 9000)
 }
 
 test "the spellbook's «Learnable» tab lists them under their headings, with a picked spell's card" {

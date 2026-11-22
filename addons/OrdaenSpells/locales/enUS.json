@@ -50,5 +50,8 @@
   "LEARN_QUEST_LEVEL": "From a quest (level %d)",
   "LEARN_OPEN_QUEST": "Show quest",
   "CITY_PRICE": "%s (%s): %s",
+  "LEARN_WEAPONS": "Weapon masters",
+  "LEARN_WEAPON_LEVEL": "From level %d",
+  "WEAPON_MASTER": "%s, %s (%.1f, %.1f): %s",
   "PICK_LEARNABLE": "Pick a spell: what it does, where it is learned and for how much."
 }

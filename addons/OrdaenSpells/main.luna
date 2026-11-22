@@ -48,6 +48,9 @@ function questNameOf(quest: Integer): String | nil {
   return Client.C_QuestLog.GetTitleForQuestID(quest) ?? Quests?.questFacts(quest)?.name
 }
 
+// An NPC's name, Questie's.
+function npcNameOf(npc: Integer): String | nil { return Quests?.npc(npc)?.name }
+
 public class Spells implements Module, App {
   public const title: String = "Ordaen Spells"
   // Its windows, declared: where each stands and what the player does with it, kept in the profile.
@@ -202,7 +205,7 @@ public class Spells implements Module, App {
     if (self.tab != LEARNABLE || !self.open) { return { services: [], notes: {}, actions: {}, quests: {}, prices: {} } }
     _ = self.spells.length
     const openLabel = Quests == nil ? nil : Locale.LEARN_OPEN_QUEST
-    return learnableOf(learnerOf(Game.player.level), questNameOf, openLabel)
+    return learnableOf(learnerOf(Game.player.level), questNameOf, npcNameOf, openLabel)
   }
 
   // A quest spell's action: its quest, opened on its chain page (with its way on the map).

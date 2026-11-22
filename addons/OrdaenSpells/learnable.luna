@@ -1,7 +1,7 @@
 // What the player can learn of their class, away from a trainer: every spell a class trainer teaches the player's side
 // and race (What's Training's list, `training.luna`), and the spells a quest gives in a trainer's place, each as a
 // trainer's service for the trainer's page: under a heading by what it waits for (learned now, an earlier rank or a
-// talent first, the next levels, later, a quest, known), its rank, its price at
+// talent first, the next levels, later, a quest, a weapon master, known), its rank, its price at
 // the trainer where it costs least (an Honored player pays a tenth less at a faction's trainers, as What's Training
 // measured on Forever), and a quest's note and its way to the quest.
 import Client from "$client"
@@ -164,8 +164,61 @@ function wayFor(ways: Array<QuestWay>, race: Integer): QuestWay | nil {
   return ways.find(way => way.races.any(each => each == race))
 }
 
+// A weapon master on the learner's side: who, where (an area's ID, x and y on its map from 0 to 100), and what the
+// skill costs there.
+public struct WeaponMaster {
+  npc: Integer
+  zone: Integer
+  x: Number
+  y: Number
+  price: Integer
+}
+
+// A weapon skill the learner's class may learn: its spell, the level and the full price, and its masters on the
+// learner's side, cheapest first.
+public struct WeaponWay {
+  spell: Integer
+  order: Integer
+  level: Integer
+  cost: Integer
+  masters: Array<WeaponMaster>
+}
+
+// The weapon skills the learner's class may learn, in What's Training's order.
+public function weaponWaysOf(learner: Learner): Array<WeaponWay> {
+  const list: Array<WeaponWay> = []
+  for (spell, skill of Training.weapons) {
+    if (skill.classes.split("/").any(each => each == learner.classTag)) {
+      const masters: Array<WeaponMaster> = []
+      for (entry of skill.masters.split("|")) {
+        const parts = entry.split(",")
+        const npc = numberAt(parts, 2)
+        if (numberAt(parts, 1) == learner.side) {
+          const faction = Training.npcs[npc]
+          const percent = faction == nil ? 0 : discountAt(learner, faction)
+          masters.push({
+            npc: npc, zone: numberAt(parts, 3), x: (parts[4] ?? "").toNumber() ?? 0, y: (parts[5] ?? "").toNumber() ?? 0,
+            price: discounted(skill.cost, percent)
+          })
+        }
+      }
+      masters.sort((a, b) => a.price != b.price ? a.price < b.price : a.npc < b.npc)
+      list.push({ spell: spell, order: skill.order, level: skill.level, cost: skill.cost, masters: masters })
+    }
+  }
+  list.sort((a, b) => a.order < b.order)
+  return list
+}
+
+// A master's line on a skill's card: «Bixiwobble, Ironforge (61.2, 89.5): 10s», the client's names.
+function masterLineOf(master: WeaponMaster, npcName: NpcName): String {
+  const name = npcName(master.npc) ?? String.of(master.npc)
+  const zone = Client.C_Map.GetAreaInfo(master.zone) ?? ""
+  return Locale.WEAPON_MASTER.format(name, zone, master.x, master.y, Game.money.format(master.price))
+}
+
 // What waits for a spell the learner hasn't, by the heading it stands under, in the headings' order.
-enum Wait { Now, Needs, Soon, Later, Quest, Known }
+enum Wait { Now, Needs, Soon, Later, Quest, Weapon, Known }
 
 function headingOf(wait: Wait): String {
   return match (wait) {
@@ -174,6 +227,7 @@ function headingOf(wait: Wait): String {
     .Soon => Locale.LEARN_SOON
     .Later => Locale.LEARN_LATER
     .Quest => Locale.LEARN_QUESTS
+    .Weapon => Locale.LEARN_WEAPONS
     .Known => Locale.LEARN_KNOWN
   }
 }
@@ -185,7 +239,8 @@ function orderOf(wait: Wait): Integer {
     .Soon => 3
     .Later => 4
     .Quest => 5
-    .Known => 6
+    .Weapon => 6
+    .Known => 7
   }
 }
 
@@ -200,7 +255,7 @@ function statusOf(wait: Wait): Game.ServiceStatus {
   return match (wait) {
     .Now => .Available
     .Known => .Learned
-    .Needs, .Soon, .Later, .Quest => .Unavailable
+    .Needs, .Soon, .Later, .Quest, .Weapon => .Unavailable
   }
 }
 
@@ -216,14 +271,20 @@ struct Row {
   base: Integer
   quest: Integer | nil
   note: String | nil
+  // Its masters' lines, for a weapon skill.
+  masters: Array<String>
 }
 
 // The name a spell's quest says it by: the client's, in the player's language, where it has the quest.
 public type QuestName = (quest: Integer) => String | nil
 
+// The name an NPC is known by, where it is known.
+public type NpcName = (npc: Integer) => String | nil
+
 // What the learner can learn, as the trainer's page shows it: a service for each spell (its place in this list its
-// index), the notes of the quest spells and the action that opens their quest.
-public function learnableOf(learner: Learner, questName: QuestName, openLabel: String | nil): Learnable {
+// index), the notes of the quest spells and the action that opens their quest, and the weapon skills with their
+// masters.
+public function learnableOf(learner: Learner, questName: QuestName, npcName: NpcName, openLabel: String | nil): Learnable {
   const rows: Array<Row> = []
   const quests = questWaysOf(learner.classTag)
   for (spell of trainerSpellsOf(learner.classTag)) {
@@ -231,7 +292,7 @@ public function learnableOf(learner: Learner, questName: QuestName, openLabel: S
     const forRace = spell.race == 0 || spell.race == learner.race
     if (forSide && forRace && quests[spell.id] == nil) {
       const wait = waitOf(spell, learner)
-      rows.push({ spell: spell.id, wait: wait, level: spell.level, rank: spell.rank, cost: bestPrice(learner, spell.cost), base: spell.cost, quest: nil, note: nil })
+      rows.push({ spell: spell.id, wait: wait, level: spell.level, rank: spell.rank, cost: bestPrice(learner, spell.cost), base: spell.cost, quest: nil, note: nil, masters: [] })
     }
   }
   for (spell, ways of quests) {
@@ -241,8 +302,15 @@ public function learnableOf(learner: Learner, questName: QuestName, openLabel: S
       const quest = way.quests[1]
       const name = quest == nil ? nil : questName(quest)
       const note = name == nil ? Locale.LEARN_QUEST_LEVEL.format(way.level) : Locale.LEARN_QUEST.format(name, way.level)
-      rows.push({ spell: spell, wait: known ? Wait.Known : Wait.Quest, level: way.level, rank: 0, cost: 0, base: 0, quest: quest, note: known ? nil : note })
+      rows.push({ spell: spell, wait: known ? Wait.Known : Wait.Quest, level: way.level, rank: 0, cost: 0, base: 0, quest: quest, note: known ? nil : note, masters: [] })
     }
+  }
+  for (way of weaponWaysOf(learner)) {
+    const known = learner.known(way.spell)
+    const cost = way.masters[1]?.price ?? way.cost
+    const note = known || way.level <= learner.level ? nil : Locale.LEARN_WEAPON_LEVEL.format(way.level)
+    const lines = known ? [] : way.masters.map(master => masterLineOf(master, npcName))
+    rows.push({ spell: way.spell, wait: known ? Wait.Known : Wait.Weapon, level: way.level, rank: 0, cost: cost, base: 0, quest: nil, note: note, masters: lines })
   }
   rows.sort((a, b) => {
     if (a.wait != b.wait) { return orderOf(a.wait) < orderOf(b.wait) }
@@ -261,6 +329,7 @@ public function learnableOf(learner: Learner, questName: QuestName, openLabel: S
       description: Game.spells.description(row.spell) ?? "", skill: nil, category: headingOf(row.wait), spell: row.spell
     })
     if (row.base > 0) { prices[at] = cityPricesOf(learner, row.base).map(cityLineOf) }
+    if (row.masters.length > 0) { prices[at] = row.masters }
     const note = row.note
     if (note != nil) { notes[at] = note }
     const quest = row.quest
