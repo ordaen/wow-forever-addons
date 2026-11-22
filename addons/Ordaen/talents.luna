@@ -34,8 +34,8 @@ const MIDDLE: Number<Length> = (STEP - LINE) / 2
 const NODE_LEFT: Number<Length> = (STEP - SIZE) / 2
 const ACROSS_TOP: Number<Length> = (SIZE - LINE) / 2
 const HALF: Number<Length> = STEP / 2
-// The rank, a bare number in the node's lower right corner, thickly outlined, in the client's colours for its look.
-const RANK_IN = 3.515625dp
+// The rank, a bare number large in the node's middle, thickly outlined, in the client's colours for its look.
+const RANK_TEXT = 1.75rem
 const RANK_OUTLINE = 2
 const GOLD: Color = Color.hex("#ffd100")
 const GREEN: Color = Color.hex("#19ff19")
@@ -260,8 +260,9 @@ class TalentNodeView implements Component {
         <box $if={self.veiled} position={Position.Absolute} left={ICON_INSET} top={ICON_INSET} right={ICON_INSET}
              bottom={ICON_INSET} background={VEIL} opacity={self.art.veil} />
         <box position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui} background={self.art.frame} />
-        <box $if={self.ranked} position={Position.Absolute} right={RANK_IN} bottom={0ui}>
-          <text value={self.rank} textColor={self.art.rank} textOutline={RANK_OUTLINE} wrap={.None} textFont={.Numbers} />
+        <box $if={self.ranked} position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui} xAlign={Align.Center}
+             yAlign={Align.Center}>
+          <text value={self.rank} textSize={RANK_TEXT} textColor={self.art.rank} textOutline={RANK_OUTLINE} wrap={.None} textFont={.Numbers} />
         </box>
         <Tip $if={self.hovered} title={self.node.name} text={self.tipText} rows={self.tipRows} sections={self.tipSections} />
       </box>
