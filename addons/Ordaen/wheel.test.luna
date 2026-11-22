@@ -1,11 +1,11 @@
-// The wheel: the art and the client's restricted code choose by one formula; a key held opens it at the cursor and
-// its release does the item the cursor went towards, in a fight too; a release in the middle leaves it up for the
-// mouse, a left click uses, a right click goes back or closes, Escape closes; a submenu replaces the ring; an item the
+// The wheel: the art and the client's restricted code choose by one formula; a key held opens it, aimed from the
+// cursor; a left click does the item the cursor went towards, in a fight too, none in the middle; the key let go closes
+// it and does nothing; a right click goes back or closes, Escape closes; a submenu replaces the ring; an item the
 // client refuses in a fight does nothing then; an item of ours is told; a missed release is mended by the next press;
 // what is set up in a fight waits for its end. The art draws the items with the chosen one's name, dims what can't be
-// used, and lights the hub in the middle.
+// used, and shows the ring's own icon on the hub.
 import Client from "$client"
-import { MouseButton } from "$ltml"
+import { Art, MouseButton } from "$ltml"
 import Test from "$test"
 import { ROOT, SecureWheel, SlotMode, WheelAction, WheelEntry, WheelModifier, WheelRing, placeIn } from "@/secureWheel"
 import { SLOT_LUA, Wheel, WheelItem, WheelNames, plainItem, slotAt } from "@/wheel"
@@ -95,27 +95,56 @@ function clickHere(button: MouseButton | nil) {
   Test.release(button)
 }
 
-// The key held at the wheel's middle, the cursor moved by `x` right and `y` down, the key let go.
-function flick(x: Number, y: Number) { flickOn("F", x, y) }
-
-function flickOn(key: String, x: Number, y: Number) {
+// The key held with the cursor at the wheel's middle.
+function open(key: String) {
   Test.moveTo(MIDDLE)
   Test.holdBound(key)
   Test.flush()
+}
+
+// The cursor moved by `x` right and `y` down from the middle, and a left click there.
+function clickAt(x: Number, y: Number) {
   Test.moveTo({ x: MIDDLE.x + x, y: MIDDLE.y + y })
+  clickHere(nil)
+}
+
+// The key held, a left click towards `x` right and `y` down, the key let go.
+function pick(x: Number, y: Number) { pickOn("F", x, y) }
+
+function pickOn(key: String, x: Number, y: Number) {
+  open(key)
+  clickAt(x, y)
   Test.releaseBound(key)
 }
 
-test "a key held and let go towards an item does it, in a fight too" {
+test "a key held and a left click towards an item does it, in a fight too" {
   const held = new Held(1)
   Test.flush()
   Test.combat(true)
-  flick(0, -100)
+  pick(0, -100)
   Test.expect(Test.performed().join(", ") == "spell Find Herbs")
   Test.expect(!held.wheel.open)
-  flick(-100, 0)
+  pick(-100, 0)
   Test.expect(Test.performed().join(", ") == "macro /tm 8")
   Test.combat(false)
+}
+
+test "the key let go closes the wheel and does nothing, wherever the cursor went, from a submenu too" {
+  const held = new Held(1)
+  Test.flush()
+  open("F")
+  Test.moveTo({ x: MIDDLE.x, y: MIDDLE.y - 100 })
+  Test.releaseBound("F")
+  Test.expect(!held.wheel.open && Test.performed().length == 0)
+  open("F")
+  clickAt(100, 0)
+  Test.expect(held.wheel.open && held.wheel.level == "r_2")
+  Test.releaseBound("F")
+  Test.expect(!held.wheel.open && Test.performed().length == 0)
+  // Opened again, it starts on the first ring.
+  open("F")
+  Test.expect(held.wheel.level == ROOT)
+  Test.releaseBound("F")
 }
 
 test "the art follows the cursor while the wheel is up" {
@@ -132,7 +161,7 @@ test "the art follows the cursor while the wheel is up" {
   Test.expect(!held.wheel.open)
 }
 
-test "a centred wheel is drawn at the screen's middle and aims from where the cursor was: a flick from there picks" {
+test "a centred wheel is drawn at the screen's middle and aims from where the cursor was: a click from there picks" {
   const held = new Held(1, true)
   Test.flush()
   const corner: Test.Point = { x: 200, y: 200 }
@@ -146,6 +175,7 @@ test "a centred wheel is drawn at the screen's middle and aims from where the cu
   Test.moveTo({ x: corner.x, y: corner.y - 100 })
   Test.pass(0.05)
   Test.expect(held.wheel.aimY > 50 && held.wheel.aimX.abs() < 1)
+  clickHere(nil)
   Test.releaseBound("F")
   Test.expect(Test.performed().join(", ") == "spell Find Herbs")
 }
@@ -154,32 +184,35 @@ test "a submenu replaces the ring, and its item of ours is told" {
   const held = new Held(1)
   Test.flush()
   Test.combat(true)
-  flick(100, 0)
+  open("F")
+  clickAt(100, 0)
   Test.expect(held.wheel.open && held.wheel.level == "r_2")
   Test.expect(Test.performed().length == 0)
-  Test.moveTo({ x: MIDDLE.x, y: MIDDLE.y + 100 })
-  clickHere(nil)
+  clickAt(0, 100)
   Test.expect(!held.wheel.open)
   Test.expect(held.used.join(", ") == "r_2_2")
+  Test.releaseBound("F")
   Test.combat(false)
 }
 
-test "a release in the middle keeps the wheel up; a right click goes back, then closes; Escape closes" {
+test "a click in the middle does nothing; a right click goes back, then closes; Escape closes" {
   const held = new Held(1)
   Test.flush()
-  flick(3, 3)
-  Test.expect(held.wheel.open)
-  Test.moveTo({ x: MIDDLE.x + 100, y: MIDDLE.y })
-  clickHere(nil)
+  open("F")
+  clickAt(3, 3)
+  Test.expect(held.wheel.open && held.wheel.level == ROOT)
+  clickAt(100, 0)
   Test.expect(held.wheel.level == "r_2")
   clickHere(.Right)
   Test.expect(held.wheel.open && held.wheel.level == ROOT)
   clickHere(.Right)
   Test.expect(!held.wheel.open)
-  flick(3, 3)
+  Test.releaseBound("F")
+  open("F")
   Test.expect(held.wheel.open)
   _ = Test.keyBound("ESCAPE")
   Test.expect(!held.wheel.open)
+  Test.releaseBound("F")
   Test.expect(Test.performed().length == 0)
 }
 
@@ -187,10 +220,10 @@ test "an item the client refuses in a fight does nothing then" {
   const held = new Held(1)
   Test.flush()
   Test.combat(true)
-  flick(0, 100)
+  pick(0, 100)
   Test.expect(Test.performed().length == 0)
   Test.combat(false)
-  flick(0, 100)
+  pick(0, 100)
   Test.expect(Test.performed().join(", ") == "item item:6948")
 }
 
@@ -201,7 +234,7 @@ test "a release the game missed is mended by the next press" {
   Test.holdBound("F")
   Test.expect(held.wheel.open)
   Test.flush()
-  flick(0, -100)
+  pick(0, -100)
   Test.expect(Test.performed().join(", ") == "spell Find Herbs")
   Test.expect(!held.wheel.open)
 }
@@ -210,11 +243,11 @@ test "what is set up in a fight waits for its end" {
   Test.combat(true)
   const held = new Held(1)
   Test.flush()
-  flick(0, -100)
+  pick(0, -100)
   Test.expect(Test.performed().length == 0)
   Test.combat(false)
   Test.flush()
-  flick(0, -100)
+  pick(0, -100)
   Test.expect(Test.performed().join(", ") == "spell Find Herbs")
 }
 
@@ -232,8 +265,11 @@ class Drawn {
   public state chosen = 1
   public state pointer: Number<Angle> = 0deg
   public state names: WheelNames = WheelNames.Chosen
+  public state category: Art | nil = nil
   public render(self): Template {
-    return $ltml { <Wheel items={self.items} chosen={self.chosen} pointer={self.pointer} names={self.names} /> }
+    return $ltml {
+      <Wheel items={self.items} chosen={self.chosen} pointer={self.pointer} names={self.names} category={self.category} />
+    }
   }
 }
 
@@ -258,26 +294,42 @@ test "the art names the chosen item, every item where asked, and none in the mid
   Test.expect(Test.page().texts().join(", ") == "3, Character, Talents, Potions")
 }
 
+const BAG: Asset = "Interface/Icons/INV_Misc_Bag_08"
+
+test "the hub shows the ring's own icon, none on the first ring; no close mark" {
+  const page = new Drawn()
+  Test.mount(page, { left: 0, top: 0, width: 400, height: 400 })
+  Test.expect(!Test.page().box(BAG).shown() && !Test.page().box("Interface/Buttons/UI-GroupLoot-Pass-Up").shown())
+  page.category = BAG
+  Test.flush()
+  Test.expect(Test.page().box(BAG).count() == 1)
+}
+
 test "an item held to a modifier is done only with it held" {
   const held = new Held(1)
   Test.flush()
-  flick(100, 0)
-  Test.moveTo({ x: MIDDLE.x, y: MIDDLE.y - 100 })
-  clickHere(nil)
+  open("F")
+  clickAt(100, 0)
+  clickAt(0, -100)
+  Test.releaseBound("F")
   Test.expect(Test.performed().length == 0)
-  flick(100, 0)
+  open("F")
+  clickAt(100, 0)
   Test.moveTo({ x: MIDDLE.x, y: MIDDLE.y - 100 })
   Test.hold([.Shift])
   clickHere(nil)
   Test.hold([])
+  Test.releaseBound("F")
   Test.expect(Test.performed().join(", ") == "macro /wave")
 }
 
-test "a larger wheel's middle is larger: a flick a smaller one would take leaves it up" {
+test "a larger wheel's middle is larger: a click a smaller one would take does nothing" {
   const held = new Held(2)
   Test.flush()
-  flick(0, -35)
+  open("F")
+  clickAt(0, -35)
   Test.expect(held.wheel.open && Test.performed().length == 0)
+  Test.releaseBound("F")
 }
 
 test "the wheel opens over a fifth of a second" {
@@ -291,44 +343,45 @@ test "the wheel opens over a fifth of a second" {
   Test.releaseBound("F")
 }
 
-test "a slot that cycles does its next child after each use" {
+test "a slot's children open on a click; one that cycles makes the next child current after each use" {
   const slots = new Slotted()
   Test.flush()
-  flickOn("G", 0, -100)
-  flickOn("G", 0, -100)
-  flickOn("G", 0, -100)
-  Test.expect(Test.performed().join(", ") == "macro /wave, macro /bow, macro /wave")
+  open("G")
+  clickAt(0, -100)
+  Test.expect(slots.wheel.level == "r_1")
+  clickAt(0, -100)
+  Test.releaseBound("G")
+  Test.expect(Test.performed().join(", ") == "macro /wave")
   Test.expect(slots.wheel.current("r_1") == 2)
 }
 
-test "a slot's child chosen by a click is remembered, or not where it starts over" {
+test "a slot's child used is remembered as its current, or not where it starts over" {
   const slots = new Slotted()
   Test.flush()
-  flickOn("G", 0, 0)
-  Test.moveTo({ x: MIDDLE.x + 100, y: MIDDLE.y })
-  clickHere(nil)
+  open("G")
+  clickAt(100, 0)
   Test.expect(slots.wheel.level == "r_2")
-  Test.moveTo({ x: MIDDLE.x, y: MIDDLE.y + 100 })
-  clickHere(nil)
-  flickOn("G", 100, 0)
-  Test.expect(Test.performed().join(", ") == "macro /cry, macro /cry")
-  flickOn("G", 0, 0)
-  Test.moveTo({ x: MIDDLE.x, y: MIDDLE.y + 100 })
-  clickHere(nil)
-  clickHere(nil)
-  flickOn("G", 0, 100)
-  Test.expect(Test.performed().join(", ") == "macro /dance, macro /salute")
+  clickAt(0, 100)
+  Test.releaseBound("G")
+  Test.expect(Test.performed().join(", ") == "macro /cry" && slots.wheel.current("r_2") == 2)
+  open("G")
+  clickAt(0, 100)
+  clickAt(0, 100)
+  Test.releaseBound("G")
+  Test.expect(Test.performed().join(", ") == "macro /dance" && slots.wheel.current("r_3") == 1)
 }
 
-test "letting go in the middle of a submenu that remembers does its last item" {
+test "a click in the middle of a submenu that remembers does its last item" {
   const slots = new Slotted()
   Test.flush()
-  flickOn("G", -100, 0)
-  Test.moveTo({ x: MIDDLE.x, y: MIDDLE.y + 100 })
-  clickHere(nil)
-  flickOn("G", -100, 0)
+  open("G")
+  clickAt(-100, 0)
+  clickAt(0, 100)
+  Test.releaseBound("G")
+  open("G")
+  clickAt(-100, 0)
   Test.expect(slots.wheel.level == "r_4")
-  Test.moveTo(MIDDLE)
-  clickHere(nil)
+  clickAt(0, 0)
+  Test.releaseBound("G")
   Test.expect(Test.performed().join(", ") == "macro /laugh, macro /laugh")
 }

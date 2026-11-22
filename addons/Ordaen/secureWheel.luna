@@ -1,22 +1,22 @@
 // SecureWheel: a wheel's choice and its action, as the client allows them in a fight. The client lets no addon code
 // show a protected frame or change a secure button while the player fights, so both are the client's restricted code:
-// a key bound to one secure button (its press opens the wheel at the cursor, or at the screen's middle; its release
-// reads the cursor's direction over that button, by `SLOT_LUA`, and has the client click it as the chosen item, which
-// does the item's action); while open, the button takes the mouse (a left click uses an item, a right click goes back
-// a level or closes) and Escape (closes). A submenu replaces the ring in place. A slot of several does its current
-// child (cycling after each use where it cycles); a left click on it opens its children to choose one, which it then
-// remembers (or not, where it starts over). Where the wheel remembers, letting go in the middle of a submenu does the
-// item last used there. What the art shows (`Wheel`) follows the button by `slotAt`, the same formula, from the scripts
-// hooked on its click, which the client runs in a fight too; an item that is ours (`WheelAction.Ours`, a window of
-// ours) is done there, as the client does nothing for it. What is set up (the items, the keys, the size) is written
-// out of a fight; a change made in one waits for its end. A key's release missed (the game lost focus) is mended by
-// the next press, Escape or a click. Nothing runs while it is closed: the cursor is followed by a script set as it
-// opens and taken away as it closes.
+// a key bound to one secure button, its press opening the wheel (the button stands on the cursor, so the choice is the
+// way the mouse goes from there, wherever the art is drawn) and its release closing it, doing nothing. While open, the
+// button takes the mouse: a left click reads the cursor's direction, by `SLOT_LUA`, and has the client click it as the
+// chosen item, which does the item's action (none in the middle); a right click goes back a level or closes; Escape
+// closes. A submenu replaces the ring in place; so does a slot of several, whose child used becomes its current
+// (cycling after each use where it cycles, kept where it remembers, the first again where it starts over). Where the
+// wheel remembers, a click in the middle of a submenu does the item last used there. What the art shows (`Wheel`)
+// follows the button by `slotAt`, the same formula, from the scripts hooked on its click, which the client runs in a
+// fight too; an item that is ours (`WheelAction.Ours`, a window of ours) is done there, as the client does nothing for
+// it. What is set up (the items, the keys, the size) is written out of a fight; a change made in one waits for its
+// end. A key's release missed (the game lost focus) is mended by the next press, Escape or a click. Nothing runs while
+// it is closed: the cursor is followed by a script set as it opens and taken away as it closes.
 import Client from "$client"
 import root Ordaen from "Ordaen"
 import { DEAD_ZONE, SLOT_LUA } from "@/wheel"
 
-// What an item does. The client does the first four on the release, in a fight too.
+// What an item does. The client does the first four on the click, in a fight too.
 public enum WheelAction implements Plain {
   // A spell by its name: its highest rank, a mount, a profession's window.
   Spell { spell: String }
@@ -73,9 +73,11 @@ public function placeIn(ring: String, index: Integer): String { return `${ring}_
 // How long the wheel takes to open, and how often an open wheel reads its items' state again.
 const OPENING_TIME = 0.2
 const STATE_EVERY = 0.2
-
 // The client's restricted code round the button's click: `self` the button, `owner` the header, `button` how it was
-// clicked (`Key` the bound key, `LeftButton`, `RightButton`, `Escape`), `down` whether it went down.
+// clicked (`Key` the bound key, `LeftButton`, `RightButton`, `Escape`), `down` whether it went down. The key held opens
+// the wheel and its release closes it, doing nothing; a left click does the item the cursor went towards (opens a
+// submenu or a slot's children), none in the middle (a submenu that remembers: its last); a right click goes back a
+// ring, closing the wheel from the first; Escape closes it.
 const CHOICE: String = [
   "if button == 'Key' and down then",
   "  owner:SetAttribute('level', 'r')",
@@ -86,16 +88,21 @@ const CHOICE: String = [
   "  return false",
   "end",
   "if not self:IsShown() then return false end",
-  "local close = button == 'Escape'",
-  "if down and not close then return false end",
-  "local level = owner:GetAttribute('level') or 'r'",
-  "if button == 'RightButton' then",
-  "  if level == 'r' then close = true else owner:SetAttribute('level', owner:GetAttribute('up-' .. level)) return false end",
-  "end",
-  "if close then",
+  "if button == 'Key' or button == 'Escape' then",
   "  self:Hide() self:ClearBindings() owner:SetAttribute('level', 'r')",
   "  return false",
   "end",
+  "if down then return false end",
+  "local level = owner:GetAttribute('level') or 'r'",
+  "if button == 'RightButton' then",
+  "  if level == 'r' then",
+  "    self:Hide() self:ClearBindings()",
+  "  else",
+  "    owner:SetAttribute('level', owner:GetAttribute('up-' .. level))",
+  "  end",
+  "  return false",
+  "end",
+  "if button ~= 'LeftButton' then return false end",
   "local count = owner:GetAttribute('count-' .. level) or 0",
   "local dead = owner:GetAttribute('dead') or 0",
   "local x, y = self:GetMousePosition()",
@@ -103,22 +110,21 @@ const CHOICE: String = [
   "if x then dx, dy = (x - 0.5) * self:GetWidth(), (y - 0.5) * self:GetHeight() end",
   SLOT_LUA,
   "if slot == 0 and level ~= 'r' and owner:GetAttribute('remember') then slot = owner:GetAttribute('last-' .. level) or 0 end",
-  "if slot == 0 then",
-  "  if button == 'Key' then return false end",
-  "  self:Hide() self:ClearBindings() owner:SetAttribute('level', 'r')",
+  "if slot == 0 then return false end",
+  "local name = level .. '_' .. slot",
+  "if owner:GetAttribute('menu-' .. name) or owner:GetAttribute('slot-' .. name) then",
+  "  owner:SetAttribute('level', name)",
   "  return false",
   "end",
-  "local name = level .. '_' .. slot",
-  "if owner:GetAttribute('menu-' .. name) then owner:SetAttribute('level', name) return false end",
-  "local several = owner:GetAttribute('slot-' .. name)",
-  "if several and button == 'LeftButton' then owner:SetAttribute('level', name) return false end",
   "if level ~= 'r' then owner:SetAttribute('last-' .. level, slot) end",
-  "if several then",
-  "  local current = owner:GetAttribute('current-' .. name) or 1",
-  "  if owner:GetAttribute('mode-' .. name) == 'cycle' then owner:SetAttribute('current-' .. name, current % several + 1) end",
-  "  name = name .. '_' .. current",
-  "elseif owner:GetAttribute('slot-' .. level) and owner:GetAttribute('mode-' .. level) ~= 'first' then",
-  "  owner:SetAttribute('current-' .. level, slot)",
+  "if owner:GetAttribute('slot-' .. level) then",
+  "  local mode = owner:GetAttribute('mode-' .. level)",
+  "  if mode == 'cycle' then",
+  "    local several = owner:GetAttribute('slot-' .. level)",
+  "    owner:SetAttribute('current-' .. level, slot % several + 1)",
+  "  elseif mode ~= 'first' then",
+  "    owner:SetAttribute('current-' .. level, slot)",
+  "  end",
   "end",
   "self:Hide() self:ClearBindings() owner:SetAttribute('level', 'r')",
   "if owner:GetAttribute('fighting') == 'yes' and owner:GetAttribute('fightoff-' .. name) then return false end",

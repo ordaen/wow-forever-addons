@@ -98,7 +98,6 @@ const DOT = 5dp
 const PLAIN: Asset = "Interface/Buttons/WHITE8X8"
 // The client's round mask: what shows of a box is a circle.
 const ROUND: Asset = "Interface/CHARACTERFRAME/TempPortraitAlphaMask"
-const CLOSE: Asset = "Interface/Buttons/UI-GroupLoot-Pass-Up"
 const ARROW: Asset = "Interface/Minimap/MiniMap-QuestArrow"
 // The lit slice: a wedge, its point at the bottom's middle and its edges to the top corners (art/pieces/wheel-cone).
 const CONE: Asset = "@/media/wheel-cone.tga"
@@ -106,7 +105,6 @@ const BACKDROP: Color = Color.hex("#0a0806d9")
 const BRONZE: Color = Color.hex("#8c6a3f")
 const GOLD: Color = Color.hex("#ffd100")
 const NAME: Color = Color.hex("#f3e1b8")
-const HUB_LIT: Color = Color.hex("#c0392b")
 const DOT_OFF: Color = Color.hex("#5a4a33")
 const DIM_OPACITY = 0.4
 
@@ -124,7 +122,6 @@ public class Wheel implements Component {
   derived hub: Number<Length> = HUB * self.scale
   derived spots: Array<WheelSpot> = self.spotsOf()
   derived lines: Array<WheelLine> = self.linesOf()
-  derived hubLit: Boolean = self.chosen == 0
   derived pointerSpot: [Number<Length>, Number<Length>] = self.along(self.pointer, self.hub / 2 + POINTER * self.scale / 2, POINTER * self.scale)
   derived coneTurn: Number<Angle> = itemTurn(self.chosen, (1).max(self.items.length))
   // The cone's box: as long as the radius, as wide as its slice at the rim (a quarter turn at most), its point on the
@@ -138,6 +135,7 @@ public class Wheel implements Component {
   names: Signal<WheelNames>
   scale: Signal<Number>
   opening: Signal<Number>
+  category: Signal<Art | nil>
   constructor(
     // The ring's items, up to `WHEEL_MOST`, item 1 up and the rest clockwise.
     items: Signal<Array<WheelItem>>,
@@ -148,7 +146,9 @@ public class Wheel implements Component {
     names: Signal<WheelNames>,
     scale: Signal<Number> = 1,
     // How far it has opened, 0 to 1: the items' distance from the hub.
-    opening: Signal<Number> = 1
+    opening: Signal<Number> = 1,
+    // The icon of the ring shown, on the hub: a submenu's or a slot's own; none on the first ring.
+    category: Signal<Art | nil> = nil
   ) {
     self.items = items
     self.chosen = chosen
@@ -156,6 +156,7 @@ public class Wheel implements Component {
     self.names = names
     self.scale = scale
     self.opening = opening
+    self.category = category
   }
 
   // A point at an angle from the wheel's middle, `out` away: its left and top for a box of `size` centred there.
@@ -225,9 +226,9 @@ public class Wheel implements Component {
           <text $if={spot.named} value={spot.item.name} textSize={SECONDARY_TEXT} textColor={NAME} />
         </box>
         <box position={Position.Absolute} left={self.middle - self.hub / 2} top={self.middle - self.hub / 2} width={self.hub}
-             height={self.hub} background={PLAIN} tint={self.hubLit ? HUB_LIT : BRONZE} mask={ROUND} zLevel={4}>
-          <box position={Position.Absolute} left={self.hub / 5} top={self.hub / 5} width={self.hub * 3 / 5}
-               height={self.hub * 3 / 5} background={CLOSE} />
+             height={self.hub} background={PLAIN} tint={BRONZE} mask={ROUND} zLevel={4}>
+          <box $if={self.category != nil} position={Position.Absolute} left={self.hub / 10} top={self.hub / 10}
+               width={self.hub * 4 / 5} height={self.hub * 4 / 5} icon={self.category} mask={ROUND} />
         </box>
         <box position={Position.Absolute} left={self.pointerSpot[1]} top={self.pointerSpot[2]} width={POINTER * self.scale}
              height={POINTER * self.scale} background={ARROW} rotation={self.pointer} zLevel={5} />
