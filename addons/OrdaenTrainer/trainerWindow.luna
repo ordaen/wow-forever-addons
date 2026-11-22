@@ -17,7 +17,7 @@ import root Ordaen from "Ordaen"
 import {
   ARTWORK, ButtonPlate, Choice, Column, Component, Dialog, FilterButton, FooterBand, FilterGroup, FoldCaption, KeptWindow,
   Menu, MenuEntry, ModuleMemory, Money, PushButton, SECONDARY_TEXT, SkillBar, TIGHT_LINE, TITLE_TEXT, Table, TableRow,
-  Tip, TipText, ToolPick, ToolSort, Toolbar, Window, WindowSide, WindowTabSpec, sortChoices, switched
+  Tip, TipRow, TipText, ToolPick, ToolSort, Toolbar, Window, WindowSide, WindowTabSpec, sortChoices, switched
 } from "Ordaen"
 import Locale from "@/locales"
 
@@ -403,10 +403,22 @@ class ServiceLine implements Component {
   }
 }
 
-// What «Learn all» learns, in the trainer's order: every service that can be learned now but what is ignored and what
+// What «Learn available» learns, in the trainer's order: every service that can be learned now but what is ignored and what
 // starts a profession (each asked for on its own).
 function batchOf(services: Array<Game.TrainerService>, ignored: Map<String, Boolean>): Array<Game.TrainerService> {
   return services.filter(service => service.status == Game.ServiceStatus.Available && !isIgnored(service, ignored) && !service.profession)
+}
+
+// What learning everything left takes: every service not yet learned, whether it can be learned now or not, but what
+// is ignored.
+function dueOf(services: Array<Game.TrainerService>, ignored: Map<String, Boolean>): Array<Game.TrainerService> {
+  return services.filter(service => service.status != Game.ServiceStatus.Learned && !isIgnored(service, ignored))
+}
+
+// A service as a line of «Learn available»'s tip: its name and rank, its icon, its price.
+function batchRowOf(service: Game.TrainerService): TipRow {
+  const name = service.rank == "" ? service.name : `${service.name} (${service.rank})`
+  return { label: name, value: Game.money.format(service.cost), icon: service.icon }
 }
 
 function costOf(services: Array<Game.TrainerService>): Integer {
@@ -569,7 +581,7 @@ public class TrainerPage {
   state folded: Map<String, Boolean> = {}
   // A new profession's «Learn», waiting for the player's word.
   state confirming = false
-  // «Learn all», waiting for the player's word, and the services it was asked for.
+  // «Learn available», waiting for the player's word, and the services it was asked for.
   state confirmingAll = false
   state quoted: Array<Game.TrainerService> = []
   // The service whose menu is open, by its place in the trainer's list; 0: none.
@@ -615,10 +627,13 @@ public class TrainerPage {
   derived greeting: String = self.greetingOf()
   derived batch: Array<Game.TrainerService> = batchOf(self.services, self.ignoredNames)
   derived together: Integer = costOf(self.batch)
-  // «Learn all» while nothing is picked: everything the batch holds, while the money pays for all of it.
+  // What everything not yet learned costs, what can't be learned yet with it.
+  derived due: Integer = costOf(dueOf(self.services, self.ignoredNames))
+  // «Learn available» while nothing is picked: everything the batch holds, while the money pays for all of it; its
+  // price on it, and its tip a line for each service it learns.
   derived canLearnAll: Boolean = self.batch.length > 0 && self.together <= Game.money.amount
-  derived allLabel: String = Locale.TRAINER_LEARN_ALL.format(self.batch.length)
-  derived allReason: TipText | nil = self.allReasonOf()
+  derived allLabel: String = Locale.TRAINER_LEARN_AVAILABLE.format(Game.money.format(self.together))
+  derived allTip: TipText = self.allTipOf()
   derived quotedCount: String = Locale.TRAINER_LEARN_ALL_CONFIRM.format(self.quoted.length)
   derived quotedCost: Integer = costOf(self.quoted)
   // The picked service's facts, the game's (cast time, cooldown, cost, range: its spell's tooltip lines between its name
@@ -740,10 +755,9 @@ public class TrainerPage {
     return { title: Locale.TRAINER_TRAIN, text: self.reasonText(), rows: [] }
   }
 
-  allReasonOf(self): TipText | nil {
-    if (self.canLearnAll) { return nil }
-    const text = self.batch.length == 0 ? Locale.TRAINER_LEARN_ALL_NONE : Locale.TRAINER_LEARN_ALL_DEAR
-    return { title: self.allLabel, text: text, rows: [] }
+  allTipOf(self): TipText {
+    const text = self.batch.length == 0 ? Locale.TRAINER_LEARN_ALL_NONE : self.canLearnAll ? "" : Locale.TRAINER_LEARN_ALL_DEAR
+    return { title: Locale.TRAINER_LEARN_AVAILABLE_TITLE, text: text, rows: self.batch.map(batchRowOf) }
   }
 
   reasonText(self): String {
@@ -863,7 +877,7 @@ public class TrainerPage {
 
   onConfirmCancel(mut self) { self.confirming = false }
 
-  // «Learn all»: the batch as it stands is asked about first.
+  // «Learn available»: the batch as it stands is asked about first.
   onLearnAll(mut self) {
     if (!(peek self.canLearnAll)) { return }
     self.quoted = peek self.batch
@@ -915,8 +929,8 @@ public class TrainerPage {
         <text $if={self.greeting != ""} value={self.greeting} textColor={INK} />
         <text value={self.pickText} textColor={DIM} />
         <box columns={PAIR} gap={3sp} yAlign={Align.Center}>
-          <text value={Locale.TRAINER_TOGETHER} textColor={DIM} textSize={SECONDARY_TEXT} />
-          <Money amount={self.together} />
+          <text value={Locale.TRAINER_DUE} textColor={DIM} textSize={SECONDARY_TEXT} />
+          <Money amount={self.due} />
         </box>
       </box>
       <box />
@@ -939,7 +953,7 @@ public class TrainerPage {
         <PushButton $if={self.has} label={Locale.TRAINER_TRAIN} width={TRAIN_WIDTH} plate={ButtonPlate.Accent} disabled={!self.canTrain}
                     tip={self.reason} @click={self.onTrain} />
         <PushButton $else label={self.allLabel} width={TRAIN_WIDTH} plate={ButtonPlate.Accent} disabled={!self.canLearnAll}
-                    tip={self.allReason} @click={self.onLearnAll} />
+                    tip={self.allTip} @click={self.onLearnAll} />
       </box>
     </box>
   }
