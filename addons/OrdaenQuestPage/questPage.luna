@@ -271,7 +271,7 @@ public class ScrollHeading implements Component {
     return $ltml {
       <box columns={HEADING_ACROSS} gap={2sp} yAlign={Align.Center}>
         <box height={RULE_HEIGHT} background={SCROLL_RULE} />
-        <text value={self.title} textColor={SCROLL_HEAD} textFont={.Title} wrap={.None} />
+        <text value={self.title} textColor={SCROLL_HEAD} textFont={.Title} textWeight={.Bold} wrap={.None} />
         <box height={RULE_HEIGHT} background={SCROLL_RULE} />
       </box>
     }
