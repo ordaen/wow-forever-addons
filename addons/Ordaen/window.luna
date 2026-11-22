@@ -221,6 +221,13 @@ public struct WindowSide {
   content: Template
   footer: Template | nil = nil
 }
+// How wide a side section of content `width` stands beside the main one: its room on both sides and the frame's line
+// between them with it.
+public function windowSideWide(width: Number<Length>): Number<Length> {
+  return width + Ordaen.lengthOf(2 * WINDOW_ROOM) +
+    (Ordaen.art.frame.tabIconLine.width + Ordaen.art.frame.tabIconLine.reach.left * Ordaen.art.frame.tabIconLine.scale) * 1ui
+}
+
 // The smallest body unless the window names one: room for the tab row and a few lines.
 public const WINDOW_MIN_WIDTH = 375dp
 const MIN_H = 234.375dp
@@ -478,7 +485,7 @@ public class Window implements Component {
   derived sideWidth: Number<Length> = self.sideWidthOf()
   // The side's line: the room its art and line take (what the side keeps at its left), and how far its line's middle
   // stands in from the art's left.
-  derived lineRim: Number<Length> = (Ordaen.art.frame.tabIconLine.width + Ordaen.art.frame.tabIconLine.reach.left * Ordaen.art.frame.tabIconLine.scale) * 1ui
+  derived lineRim: Number<Length> = windowSideWide(0ui) - Ordaen.lengthOf(2 * WINDOW_ROOM)
   derived lineMiddle: Number<Length> = self.lineRim - Ordaen.art.frame.tabIconLine.width / 2 * 1ui
   derived sideRoom: Edges = { left: Ordaen.spacingOf(self.lineRim) }
   derived bodyColumns: Array<Track> = self.columnsOf()
@@ -707,7 +714,7 @@ public class Window implements Component {
   sideWideOf(self): Number<Length> {
     const side = self.side
     if (side == nil) { return 0ui }
-    return self.sideWidth + Ordaen.lengthOf(2 * WINDOW_ROOM) + self.lineRim
+    return windowSideWide(self.sideWidth)
   }
 
   tabHeightOf(self): Number<Length> {

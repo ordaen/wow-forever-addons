@@ -15,7 +15,10 @@ import Game from "$game"
 import { Event, Frame, KeyBinding, MouseButton } from "$ltml"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
-import { ButtonPlate, Dialog, KeptWindow, Module, ModuleMemory, MoneyField, PushButton, Settings, SettingsPage, TipRow, Window, WindowTabSpec, WindowsPage, say, windowsTitle } from "Ordaen"
+import {
+  ButtonPlate, Dialog, KeptWindow, Module, ModuleMemory, MoneyField, PushButton, Settings, SettingsPage, TipRow, Window, WindowTabSpec,
+  WindowsPage, say, windowSideWide, windowsTitle
+} from "Ordaen"
 import { Arranger } from "@/arrange"
 import { BagLine, BagSlotsWindow } from "@/bagSlots"
 import { BANK_ICON, BankBag, BankSlotsWindow, bankInfos } from "@/bank"
@@ -26,7 +29,7 @@ import { GUILD_ICON, GuildBank } from "@/guild"
 import { JUNK_RULES, JunkLists, JunkRules, LEARNED, Mark, NO_LISTS, afterSale, shareOf, teaches, withMark, withScore } from "@/junk"
 import { ROW_LEAST, SLOT_GAP, SLOT_SIZE } from "@/layout"
 import Locale from "@/locales"
-import { MERCHANT_VIEW, MerchantView, MerchantWindow } from "@/merchant"
+import { MERCHANT_VIEW, MerchantView, MerchantWindow, SIDE_WIDTH } from "@/merchant"
 import { MOVED, Slot, SortBy } from "@/model"
 import { BagsView, Choices, Pane, junkIn, worthIn } from "@/pane"
 import { ClicksPage, JunkPage, LookPage } from "@/settings"
@@ -69,6 +72,12 @@ const WIDTH = 773.4375dp
 const HEIGHT = 609.375dp
 // The merchant's window: two columns of goods; its right column widens it.
 const MERCHANT_WIDTH = 796.875dp
+// The merchant's window and the bags open together: by default they stand side by side about the screen's middle, the
+// merchant's on the left (its side column with it), this gap between them. Where the screen is too narrow for both,
+// they overlap.
+const APART = 11.71875dp
+const BAGS_X = (WIDTH + APART) / 2
+function merchantX(): Number<Length> { return -(MERCHANT_WIDTH + APART) / 2 - windowSideWide(SIDE_WIDTH) }
 // Junk sold at once by «Sell junk»: what the merchant's buyback keeps, so all can be bought back.
 const SAFE_SALE = 12
 
@@ -82,10 +91,10 @@ const BAGS_ICON: Asset = "Interface/Icons/INV_Misc_Bag_08"
 public class Bags implements Module, App {
   public const title: String = "Ordaen Bags"
   // Its windows, declared: where each stands and what the player does with it, kept in the profile.
-  public window: mut KeptWindow = new KeptWindow("main", self.title, { x: 0ui, y: 0ui, width: WIDTH, height: HEIGHT })
+  public window: mut KeptWindow = new KeptWindow("main", self.title, { x: BAGS_X, y: 0ui, width: WIDTH, height: HEIGHT })
   public slotsWindow: mut KeptWindow = new KeptWindow("slots", Locale.BAG_SLOTS, { x: 0ui, y: 0ui, width: 292.96875dp, height: 351.5625dp })
   public bankSlotsWindow: mut KeptWindow = new KeptWindow("bankSlots", Locale.BANK_SLOTS, { x: 0ui, y: 0ui, width: 292.96875dp, height: 351.5625dp })
-  public merchantWindow: mut KeptWindow = new KeptWindow("merchant", Locale.MERCHANT, { x: 0ui, y: 0ui, width: MERCHANT_WIDTH, height: HEIGHT })
+  public merchantWindow: mut KeptWindow = new KeptWindow("merchant", Locale.MERCHANT, { x: merchantX(), y: 0ui, width: MERCHANT_WIDTH, height: HEIGHT })
   // The bank's or the guild bank's window while the game has it open.
   public vaultWindow: mut KeptWindow = new KeptWindow("vault", Locale.BANK, { x: 0ui, y: 0ui, width: WIDTH, height: HEIGHT })
   public const windows: mut Array<mut KeptWindow> = [

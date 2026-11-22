@@ -318,11 +318,13 @@ test "the corner's gear opens the module's page of the settings, with its two wi
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
   Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
   Test.mount(nil, SCREEN)
-  // Small slots against each other, the bags low enough for the settings to cover their gear.
+  // Small slots against each other, the bags low enough for the settings to cover their gear; the player left the bags
+  // in the screen's middle, where the settings open.
   Bags.settings.change((values: mut Choices): nil => {
     values.slotGap = 0
     values.slotSize = 37
   })
+  Bags.window.memory.write({ x: 0ui, ..Bags.window.memory.values })
   Game.bags.open = true
   bags().text("13 of 22").hover()
   bags().button(Ordaen.art.ctl.corner.gear).click()

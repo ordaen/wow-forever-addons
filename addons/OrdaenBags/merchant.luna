@@ -57,7 +57,7 @@ const SLOT = 43.359375dp
 // A table row: an item's slot and the row's padding round it.
 const TABLE_SLOT = 28.125dp
 const TABLE_CELL: Array<Track> = [TABLE_SLOT, { fr: 1 }]
-const SIDE_WIDTH = 234.375dp
+public const SIDE_WIDTH = 234.375dp
 const DIALOG = 375dp
 const BUTTON = 140.625dp
 const CELL: Array<Track> = [SLOT, { fr: 1 }]
