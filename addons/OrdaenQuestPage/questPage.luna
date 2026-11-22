@@ -6,7 +6,7 @@
 // under an engraved cut with its title.
 import Client from "$client"
 import Game from "$game"
-import { Align, Art, Columns, Edges, Event, Gaps, Line, MouseButton, Overflow, Position, Side, TextAlign, Track } from "$ltml"
+import { Align, Art, Bounds, Columns, Edges, Event, Gaps, Line, MouseButton, Overflow, Position, Side, TextAlign, Track } from "$ltml"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
 import {
@@ -61,6 +61,8 @@ const PAWN_CELLS: Array<Track> = [ARROW, { fr: 1 }]
 
 // The scroll's width, its art's (1024 texels): where it stands, it is about as wide, its rolls barely stretched.
 public const SCROLL_WIDTH: Number<Length> = 468.75dp
+// Never wider than that: past it the art would stretch.
+const SCROLL_BOUNDS: Bounds = { min: nil, max: SCROLL_WIDTH }
 // A roll's height at that width (its 128 texels).
 const ROLL_HEIGHT: Number<Length> = 58.59375dp
 const ROLLS: Array<Track> = ["max-content", { fr: 1 }, "max-content"]
@@ -105,10 +107,11 @@ public class Scroll implements Component {
 
   unfold(mut self) { self.folded = false }
 
+  // Never wider than its art: in a wider place its rolls stand unstretched.
   public render(self): Template {
     return $ltml {
-      <box $if={self.folded} rows={FOLDED_ROLLS} @pointerPress={self.unfold} @keyPress(.Enter)={self.unfold}
-           @keyPress(.Space)={self.unfold}>
+      <box $if={self.folded} width={SCROLL_BOUNDS} rows={FOLDED_ROLLS} @pointerPress={self.unfold}
+           @keyPress(.Enter)={self.unfold} @keyPress(.Space)={self.unfold}>
         <box height={ROLL_HEIGHT} background={Ordaen.art.window.scroll.top} />
         <box columns={FOLDED_ACROSS} rows={FOLDED_DOWN} zLevel={OVER_PAPER}>
           <box />
@@ -121,7 +124,7 @@ public class Scroll implements Component {
         <box position={Position.Absolute} left={0dp} right={0dp} top={ROLL_HEIGHT} bottom={UNDER_FADE}
              background={Ordaen.art.window.scroll.paper} />
       </box>
-      <box $else rows={ROLLS}>
+      <box $else width={SCROLL_BOUNDS} rows={ROLLS}>
         <box height={ROLL_HEIGHT} background={Ordaen.art.window.scroll.top} />
         <box />
         <box height={ROLL_HEIGHT} background={Ordaen.art.window.scroll.bottom} zLevel={OVER_PAPER} />

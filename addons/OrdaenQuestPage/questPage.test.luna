@@ -52,6 +52,28 @@ test "a folded scroll holds its title alone between close rolls, and a click on 
   destroy page
 }
 
+class WideParchment {
+  public state folded = false
+
+  public render(self): Template {
+    return $ltml {
+      <box width={SCROLL_WIDTH * 2} rows={[SCROLL_ROW]}>
+        <Scroll title={"The Defias Brotherhood"} folded={mut self.folded}>
+          <text value={"Find the Defias hideout."} />
+        </Scroll>
+      </box>
+    }
+  }
+}
+
+test "in a place twice its art's width the scroll keeps its art's, its rolls unstretched" {
+  const page = new WideParchment()
+  Test.mount(page, { left: 0, top: 0, width: 1400, height: 600 })
+  const top = Test.edges(Ordaen.art.window.scroll.top, 0)
+  Test.expect(top.right - top.left <= SCROLL_WIDTH / 1ui + 0.5)
+  destroy page
+}
+
 test "the band says experience and reputation in one size" {
   const page = new Page()
   Test.mount(page, { left: 0, top: 0, width: 600, height: 600 })
