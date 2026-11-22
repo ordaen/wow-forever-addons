@@ -1246,3 +1246,19 @@ test "a class trainer's own window stands away, unseen, while ours shows" {
   Test.flush()
   Test.expect(own.GetAlpha() == 0 && (own.GetLeft() ?? 0) < -1000)
 }
+
+test "a service's line names its spec before its rank, and its card lights what its description says" {
+  Test.mount(nil, PAGE)
+  Game.trainer.services = (): Array<Game.TrainerService> => [
+    {
+      index: 1, name: "Rend", rank: "Rank 2", icon: nil, status: Game.ServiceStatus.Available, level: 10, cost: 100,
+      description: "Wounds the target for 28 damage over 12 sec.", skillLine: "Arms"
+    }
+  ]
+  Game.trainer.open = true
+  Game.trainer.changed.emit()
+  const window = Test.page().window(TRAINER)
+  Test.expect(window.text("Arms · Rank 2 · Requires level 10").shown())
+  window.button("Rend").click()
+  Test.expect(window.text("Wounds the target for |cffffd10028|r damage over |cffffd10012 sec.|r").shown())
+}

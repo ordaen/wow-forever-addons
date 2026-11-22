@@ -17,7 +17,7 @@ import root Ordaen from "Ordaen"
 import {
   ARTWORK, ButtonPlate, Choice, Column, Component, Dialog, FilterButton, FooterBand, FilterGroup, FoldCaption, KeptWindow,
   Menu, MenuEntry, ModuleMemory, Money, PushButton, SECONDARY_TEXT, SkillBar, TIGHT_LINE, TITLE_TEXT, Table, TableRow,
-  Tip, TipRow, TipText, ToolPick, ToolSort, Toolbar, Window, WindowSide, WindowTabSpec, sortChoices, switched
+  Tip, TipRow, TipText, ToolPick, ToolSort, Toolbar, Window, WindowSide, WindowTabSpec, richDescription, sortChoices, switched
 } from "Ordaen"
 import Locale from "@/locales"
 
@@ -213,10 +213,11 @@ function rankOf(service: Game.TrainerService): String {
   return number == nil ? service.rank : Locale.TRAINER_RANK.format(number)
 }
 
-// The line under a service's name: its rank, then what it asks for (a level from 2, a skill from 1), or that it is
+// The line under a service's name: its spec («Огонь»), its rank, then what it asks for (a level from 2, a skill from 1), or that it is
 // known.
 function needsOf(service: Game.TrainerService): String {
   const parts: Array<String> = []
+  if (service.skillLine != "") { parts.push(service.skillLine) }
   const rank = rankOf(service)
   if (rank != "") { parts.push(rank) }
   if (service.status == Game.ServiceStatus.Learned) {
@@ -617,7 +618,8 @@ public class TrainerPage {
   derived has: Boolean = self.current != nil
   derived learned: Boolean = self.current?.status == Game.ServiceStatus.Learned
   derived name: String = self.current?.name ?? ""
-  derived text: String = self.current?.description ?? ""
+  // What it does, lit as a tooltip's description is: its numbers with their units, a damage school, a spell's name.
+  derived text: String = richDescription(self.current?.description ?? "")
   derived currentIgnored: Boolean = self.current != nil && isIgnored(self.current ?? panic("current"), self.ignoredNames)
   // The card says an ignored service is ignored, where its row's plate does.
   derived needs: String = self.current == nil ? "" : self.currentIgnored ? Locale.TRAINER_IGNORED : self.rows.needsOf(self.current ?? panic("current"))
