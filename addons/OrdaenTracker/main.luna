@@ -7,7 +7,7 @@
 import Client from "$client"
 import Events from "$events"
 import Game from "$game"
-import { Action, Anchored, Bounds, Edges, FillDuration, Overflow, Point, Track } from "$ltml"
+import { Action, Align, Anchored, Bounds, Edges, FillDuration, Gaps, Overflow, Point, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import { BRIGHT_TEXT, ButtonPlate, Component, Dialog, ItemButton, Menu, MenuEntry, Module, Placed, PushButton, RoundedFill, SECONDARY_TEXT, Settings, SettingsPage, playSound, questLevelColor } from "Ordaen"
 import { QuestLevel } from "OrdaenQuestPage"
@@ -29,10 +29,12 @@ const RED: Color = Color.hex("#ff2020")
 const ROWS: Array<Track> = [{ fr: 1 }]
 // A quest: its level, and beside it its title line with its lines under, which start where the title starts.
 const QUEST: Array<Track> = ["max-content", { fr: 1 }]
+// Between a quest's title line and its lines, and its level and its title.
+const LINES_GAP: Gaps = { columns: 2sp, rows: 1sp }
 const TITLE: Array<Track> = [{ fr: 1 }, "max-content", "max-content", "max-content"]
 // The mark of a quest done, at its title's right, as the game's ready check says ready.
 const CHECK: Asset = "Interface/RaidFrame/ReadyCheck-Ready"
-const CHECK_SIZE = 16ui
+const CHECK_SIZE = 14ui
 const ITEM = 24.375dp
 const ASK = 468.75dp
 const ASK_BUTTON = 140.625dp
@@ -290,19 +292,20 @@ class TrackedQuest implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={QUEST} gap={2sp}>
+      <box columns={QUEST} gap={LINES_GAP} yAlign={Align.Center}>
         <QuestLevel level={self.quest.level} group={self.quest.group > 1} color={self.levelColor} />
+        <box columns={TITLE} gap={2sp} yAlign={Align.Center} @pointerPress(.Left)={self.onOpen} @pointerPress([.Shift, .Left])={self.onShift}
+             @pointerPress(.Right)={self.onMenu}>
+          <text value={self.quest.title} textColor={BRIGHT_TEXT} wrap={.Cut} />
+          <text value={self.tag} textColor={DIM} textSize={SECONDARY_TEXT} wrap={.None} />
+          <box $if={self.checked} width={CHECK_SIZE} height={CHECK_SIZE} background={CHECK} />
+          <box $else />
+          <ItemButton $if={self.quest.item > 0} item={self.quest.item} size={ITEM} action={self.use} linkOnShift={true}
+                      cooldown={self.cooldown} />
+          <box $else />
+        </box>
+        <box />
         <box columns={1} gap={1sp}>
-          <box columns={TITLE} gap={2sp} @pointerPress(.Left)={self.onOpen} @pointerPress([.Shift, .Left])={self.onShift}
-               @pointerPress(.Right)={self.onMenu}>
-            <text value={self.quest.title} textColor={BRIGHT_TEXT} wrap={.Cut} />
-            <text value={self.tag} textColor={DIM} textSize={SECONDARY_TEXT} wrap={.None} />
-            <box $if={self.checked} width={CHECK_SIZE} height={CHECK_SIZE} background={CHECK} />
-            <box $else />
-            <ItemButton $if={self.quest.item > 0} item={self.quest.item} size={ITEM} action={self.use} linkOnShift={true}
-                        cooldown={self.cooldown} />
-            <box $else />
-          </box>
           <box $if={!self.quest.done && !self.quest.failed} columns={1} gap={1sp}>
             <text $for={objective of self.quest.objectives} value={objective.text} textColor={BRIGHT_TEXT} />
           </box>

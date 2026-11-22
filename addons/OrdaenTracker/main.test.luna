@@ -54,6 +54,12 @@ test "the tracked quests stand at the right with their level, tag and objectives
   Test.expect(goal.rect().left == title.rect().left && goal.letters().bottom - goal.letters().top >= title.letters().bottom - title.letters().top - 0.5)
   Test.expect(Test.page().text("(Dungeon)").shown() && !Test.page().text("Ready to turn in").shown())
   Test.expect(Test.page().box("Interface/RaidFrame/ReadyCheck-Ready").rect().left > Test.page().text("Red Silk Bandanas").rect().right)
+  // The level, the title and the check share one middle.
+  const check = Test.page().box("Interface/RaidFrame/ReadyCheck-Ready").rect()
+  const done = Test.page().text("Red Silk Bandanas").letters()
+  const level = Test.page().text("7").letters()
+  Test.expect(((check.top + check.bottom) / 2 - (done.top + done.bottom) / 2).abs() < 1)
+  Test.expect(((level.top + level.bottom) / 2 - (done.top + done.bottom) / 2).abs() < 1)
   Test.expect(!Test.page().text("Elwynn Wolves").shown())
   // One zone's quests alone: no head over them, nor a count.
   Test.expect(!Test.page().text("Quests").shown() && !Test.page().text("3/25").shown())
