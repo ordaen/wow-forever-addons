@@ -202,11 +202,12 @@ public function toLeftLine(metal: ArtBorder): Number<Length> {
 // 10, a black line; the line is the inner black, so the art stands 15 texels past it, and the box's background starts
 // under the rod's middle (5 texels out). The pieces are grey: `tint` makes them bronze, and the light runs round the
 // box's surface, its bottom right darker by `fall` than its top left. A window's outer frame and its tabs are drawn
-// at 0.6, its dividers at 0.45, a small surface's frame at 0.3: a rod of 6, 4.5 and 3 units, the game's own windows'
-// at its scale 1. A small surface's corners are square: the client cuts a texture by three masks at most, and four
-// rounded corners would cut its background by four.
-const WINDOW_SCALE = 0.6
-const DIVIDER_SCALE = 0.45
+// at 0.45, its dividers and a small surface's frame at 0.3: a rod of 4.5 and 3 units. A small surface's corners are rounded with no mask (the client cuts a texture by three at most): its
+// background starts at the line (`LINE_INSET`), and its square corner stands under the corner's band, which is solid
+// from the line out past the rod (a rounded corner's inner curve is 16 texels round its middle, the background's corner
+// 22.6 from it, the rod's outer black 28).
+const WINDOW_SCALE = 0.45
+const DIVIDER_SCALE = 0.3
 const SMALL_SCALE = 0.3
 const BRONZE: Color = Color.hex("#f0b673")
 const FALL = 0.4
@@ -215,6 +216,7 @@ const INLAID = 0.88
 const BAND: Reach = { top: 15, right: 15, bottom: 15, left: 15 }
 const BAND_LINE = 15
 const BAND_INSET = -5
+const LINE_INSET = 0
 // A rounded corner's curve where the background meets it (the rod's middle): its piece's 32 less the 10 texels out.
 const ROUND: Curves = { small: 22, large: 22, flare: 0 }
 const STRAIGHT: Curves = { small: 0, large: 0, flare: 0 }
@@ -273,7 +275,7 @@ public const ARTWORK: OrdaenArt = {
       curves: STRAIGHT, lineStart: BAND_LINE
     },
     small: {
-      drawnFrom: BRACKET, art: EDGE_TOP, width: SMALL_SCALE, scale: SMALL_SCALE, inset: BAND_INSET * SMALL_SCALE, reach: BAND,
+      drawnFrom: ROUNDED, art: EDGE_TOP, width: SMALL_SCALE, scale: SMALL_SCALE, inset: LINE_INSET, reach: BAND,
       curves: STRAIGHT, lineStart: BAND_LINE
     },
     tab: {

@@ -1,0 +1,23 @@
+// Ordaen's frames as the client draws them: a small surface is rounded at its four corners, and its background is cut by
+// no mask (the client cuts a texture by three at most): it starts at the line, under the corners' solid band.
+import Test from "$test"
+import root Ordaen from "Ordaen"
+
+const FILL: Color = Color.hex("#2a1d12")
+
+class Small {
+  public render(self): Template {
+    return $ltml {
+      <box width={200ui} height={80ui} border={Ordaen.art.frame.small} background={FILL}>
+        <text value={"a tooltip"} />
+      </box>
+    }
+  }
+}
+
+test "a small surface is rounded at its four corners, its background cut by no mask" {
+  let page = new Small()
+  Test.mount(page, { left: 0, top: 0, width: 400, height: 200 })
+  Test.shot("the four rounded corners; the fill starts at the line and nothing cuts it")
+  destroy page
+}
