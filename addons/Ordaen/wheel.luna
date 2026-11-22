@@ -1,7 +1,7 @@
 // Wheel: a ring of up to eight items round a middle, aimed by the direction the cursor went from where it was as the
 // wheel opened, whatever the distance. Each item is a slice of the ring cut in the bank's stone, a gap off each side,
-// its icon a square carved into the stone; the slice aimed at is lit warm with a gold outline, its icon's hollow lit
-// gold. A submenu or a slot of several has a band of segments along its slice's outer edge, one for each of its items,
+// its icon a square set into a hollow carved in the stone, whole over it (the hollow's lip shows round it); the slice
+// aimed at is lit warm with a gold outline, its icon outlined gold. A submenu or a slot of several has a band of segments along its slice's outer edge, one for each of its items,
 // edge to edge, the one the slice shows (stepped to by the mouse wheel, or a slot's current) solid gold. The middle
 // names what is aimed at and what the hand can do there (`WheelMiddle`, the owner's words), with the ring's own icon
 // above in a submenu. An item that can't be used now is dimmed where it stands, never taken away, so a direction stays
@@ -11,7 +11,7 @@
 // each (`slotAt`, `SLOT_LUA`), which a test holds to the same answers. Every slice, segment and curved outline is a box
 // as large as the wheel, cut by masks (`art/pieces/radial.json`): a ring for its radii and two half-planes turned to
 // its two edges; the straight edges are thin boxes turned along them.
-import { Align, Art, FillDuration, Mask, Piece, Position } from "$ltml"
+import { Align, Art, FillDuration, Line, Mask, Piece, Position } from "$ltml"
 import { Component } from "@/module"
 import { BRIGHT_TEXT, SECONDARY_TEXT } from "@/units"
 
@@ -118,6 +118,8 @@ const CATEGORY = 30dp
 const RIM = 2dp
 const OUTLINE_WIDTH = 1.5dp
 const LIT_WIDTH = 2dp
+// The icon aimed at, outlined.
+const ICON_LIT: Line = { width: LIT_WIDTH, color: Color.hex("#ffd100") }
 const SEPARATOR = 2dp
 const MIDDLE_TEXT = 140dp
 
@@ -137,8 +139,8 @@ const LINE_BAND: Asset = "@/media/radial-line-band.tga"
 // The slices' shade towards the middle, and the warmth of the one aimed at.
 const SHADE: Asset = "@/media/radial-shade.tga"
 const WARM: Asset = "@/media/radial-warm.tga"
+// An icon's hollow, under the icon: its lip round the icon's square.
 const CARVED: Asset = "@/media/radial-carve.tga"
-const CARVED_LIT: Asset = "@/media/radial-carve-lit.tga"
 const MIDDLE_ART: Asset = "@/media/radial-middle.tga"
 
 const OUTLINE: Color = Color.hex("#3e2f1d")
@@ -335,14 +337,18 @@ public class Wheel implements Component {
              height={edge.height} background={PLAIN} tint={edge.tint} opacity={edge.opacity} rotation={edge.turn} zLevel={2} />
         <box $for={spot of self.spots} position={Position.Absolute} left={spot.left} top={spot.top} width={CARVE * self.scale}
              height={CARVE * self.scale} opacity={spot.item.dim ? DIM_OPACITY : 1} zLevel={4}>
+          // The hollow under the icon: its lip shows round the icon, its shade inside is under it, so the icon is whole.
+          <box position={Position.Absolute} left={0dp} top={0dp} width={CARVE * self.scale} height={CARVE * self.scale}
+               background={CARVED} />
           <box position={Position.Absolute} left={(CARVE - ICON) / 2 * self.scale} top={(CARVE - ICON) / 2 * self.scale}
                width={ICON * self.scale} height={ICON * self.scale} icon={spot.item.icon} desaturate={spot.item.dim}
                tint={spot.item.tone ?? (spot.chosen ? nil : HOLLOW)} cooldown={spot.item.cooldown} xAlign={Align.End}
-               yAlign={Align.End}>
+               yAlign={Align.End} zLevel={1}>
             <text value={spot.item.count} textSize={SECONDARY_TEXT} textColor={BRIGHT_TEXT} />
           </box>
-          <box position={Position.Absolute} left={0dp} top={0dp} width={CARVE * self.scale} height={CARVE * self.scale}
-               background={spot.chosen ? CARVED_LIT : CARVED} zLevel={1} />
+          <box $if={spot.chosen} position={Position.Absolute} left={(CARVE - ICON) / 2 * self.scale}
+               top={(CARVE - ICON) / 2 * self.scale} width={ICON * self.scale} height={ICON * self.scale} border={ICON_LIT}
+               zLevel={2} />
         </box>
         <$if={self.names == WheelNames.Always}>
           <box $for={spot of self.spots} position={Position.Absolute} left={spot.left - 30dp} top={spot.top + CARVE * self.scale}

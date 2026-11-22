@@ -264,6 +264,7 @@ test "what is set up in a fight waits for its end" {
 }
 
 const QUESTION: Asset = "Interface/Icons/INV_Misc_QuestionMark"
+const HOLLOW_ART: Asset = "@/media/radial-carve.tga"
 
 class Drawn {
   public state items: Array<WheelItem> = [
@@ -290,17 +291,21 @@ function drawnOf(part: String): Integer {
   return Test.drawn().filter(drawn => drawn.file is String && drawn.file.contains(part)).length
 }
 
-test "each item is a slice cut in the stone, a gap off each side, its icon carved in; the chosen one lit, its hollow gold" {
+test "each item is a slice cut in the stone, a gap off each side, its icon whole over its hollow; the chosen one lit, its icon outlined gold" {
   const page = new Drawn()
   Test.mount(page, { left: 0, top: 0, width: 400, height: 400 })
   Test.expect(drawnOf("Bank-Background") == 3 && drawnOf("radial-shade") == 3 && drawnOf("radial-warm") == 1)
-  Test.expect(drawnOf("radial-carve") == 3 && drawnOf("radial-carve-lit") == 1)
+  Test.expect(drawnOf("radial-carve") == 3)
+  // Each icon stands over its hollow, never under it: the hollow's shade would cut its edges.
+  const hollows = Test.page().box(HOLLOW_ART)
+  const icons = Test.page().box(QUESTION)
+  for (n of 1..3) { Test.expect(icons.nth(n).level() > hollows.nth(n).level()) }
   // Each slice cut by its ring and two half-planes turned to its edges, a third of a turn less its gaps wide; the band
   // of the third cut in three, the second segment gold.
   Test.shot("three slices, the first aimed at, the third with a band of three")
   page.chosen = 0
   Test.flush()
-  Test.expect(drawnOf("radial-warm") == 0 && drawnOf("radial-carve-lit") == 0)
+  Test.expect(drawnOf("radial-warm") == 0)
 }
 
 test "the slice aimed at draws its band's lines gold as it does its own edges: the band's inner edge and each separator" {

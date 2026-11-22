@@ -1,5 +1,5 @@
 {
-  "says": "The radial wheel (Ordaen/wheel.luna): pieces the size of the whole wheel, centred on its middle, that a box cuts by masks into any slice, band segment or outline for any count: the half-plane (radial-half, turned to each edge), the rings of the slices and of a band (radial-ring-slice, radial-ring-band), the slices' curved edges and a band's inner edge (radial-lines-slice, radial-line-band), the slices' shade and the lit slice's warmth (radial-shade, radial-warm); the round middle (radial-middle); and an icon's hollow carved into the stone (radial-carve, radial-carve-lit aimed at). The stone is the client's own Bank-Background, tiled.",
+  "says": "The radial wheel (Ordaen/wheel.luna): pieces the size of the whole wheel, centred on its middle, that a box cuts by masks into any slice, band segment or outline for any count: the half-plane (radial-half, turned to each edge), the rings of the slices and of a band (radial-ring-slice, radial-ring-band), the slices' curved edges and a band's inner edge (radial-lines-slice, radial-line-band), the slices' shade and the lit slice's warmth (radial-shade, radial-warm); the round middle (radial-middle); and an icon's hollow carved into the stone, drawn under the icon (radial-carve). The stone is the client's own Bank-Background, tiled.",
   "ships": [
     "addons/Ordaen/media/radial-half.tga",
     "addons/Ordaen/media/radial-ring-slice.tga",
@@ -9,8 +9,7 @@
     "addons/Ordaen/media/radial-shade.tga",
     "addons/Ordaen/media/radial-warm.tga",
     "addons/Ordaen/media/radial-middle.tga",
-    "addons/Ordaen/media/radial-carve.tga",
-    "addons/Ordaen/media/radial-carve-lit.tga"
+    "addons/Ordaen/media/radial-carve.tga"
   ],
   "origin": "Drawn by wow-dev-tools `design/scripts/radial-pieces.mjs` after the design's preview (`RadialPreview.vue`): a page a piece at its texture's size, shot on black and on white with `design/scripts/shot.mjs`, then matted.",
   "steps": [
@@ -91,15 +90,6 @@
         "black": "art/sources/radial-carve-black.png",
         "white": "art/sources/radial-carve-white.png",
         "out": "addons/Ordaen/media/radial-carve.tga",
-        "width": 64,
-        "height": 64
-      }
-    },
-    {
-      "matte": {
-        "black": "art/sources/radial-carve-lit-black.png",
-        "white": "art/sources/radial-carve-lit-white.png",
-        "out": "addons/Ordaen/media/radial-carve-lit.tga",
         "width": 64,
         "height": 64
       }

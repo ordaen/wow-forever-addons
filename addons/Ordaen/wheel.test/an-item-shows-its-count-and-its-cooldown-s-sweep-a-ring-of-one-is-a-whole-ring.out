@@ -6,9 +6,10 @@ box 0,0 270.22x270.22
   box 0,0 270.22x270.22 absolute Interface\AddOns\Ordaen\media\radial-warm masks=[Interface\AddOns\Ordaen\media\radial-ring-slice] cut by Interface\AddOns\Ordaen\media\radial-ring-slice opacity=1
   box 0,0 270.22x270.22 absolute Interface/Buttons/WHITE8X8 tint=#ffd100 masks=[Interface\AddOns\Ordaen\media\radial-lines-slice] cut by Interface\AddOns\Ordaen\media\radial-lines-slice opacity=1
   box 118.04,29.16 34.13x34.13 absolute opacity=1
+    box 118.04,29.16 34.13x34.13 absolute Interface\AddOns\Ordaen\media\radial-carve
     box 120.89,32 28.44x28.44 absolute icon=Interface/Icons/INV_Misc_QuestionMark
       text 149.33,60.44 0x0 "" #f0e6d2
-    box 118.04,29.16 34.13x34.13 absolute Interface\AddOns\Ordaen\media\radial-carve-lit
+    box 120.89,32 28.44x28.44 absolute
   box 75.38,75.38 119.47x119.47 absolute Interface\AddOns\Ordaen\media\radial-middle
     box 85.33,120.49 99.56x29.24
       text 107.19,120.49 55.83x14.4 "Character" #f3e1b8
