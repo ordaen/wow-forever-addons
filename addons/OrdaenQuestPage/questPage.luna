@@ -84,8 +84,9 @@ const LINE_LETTERS = 44
 const TITLE_LETTERS = 30
 const LEAST_LINES = 4
 
-// Never wider than that: past it the art would stretch.
-const SCROLL_BOUNDS: Bounds = { min: nil, max: SCROLL_WIDTH }
+// As wide as its place, never wider than that (past it the art would stretch), in the middle of a wider place.
+const SCROLL_BOUNDS: Bounds = { fill: true, min: nil, max: SCROLL_WIDTH }
+const ONE_ROW: Array<Track> = [{ fr: 1 }]
 // A roll's height at that width (its 128 texels).
 const ROLL_HEIGHT: Number<Length> = 58.59375dp
 const ROLLS: Array<Track> = ["max-content", { fr: 1 }, "max-content"]
@@ -130,8 +131,16 @@ public class Scroll implements Component {
 
   unfold(mut self) { self.folded = false }
 
-  // Never wider than its art: in a wider place its rolls stand unstretched.
+  // Never wider than its art: in a wider place it stands in the middle, its rolls unstretched.
   public render(self): Template {
+    return $ltml {
+      <box xAlign={Align.Center} rows={ONE_ROW}>
+        {self.rolled()}
+      </box>
+    }
+  }
+
+  rolled(self): Template {
     return $ltml {
       <box $if={self.folded} width={SCROLL_BOUNDS} rows={FOLDED_ROLLS} @pointerPress={self.unfold}
            @keyPress(.Enter)={self.unfold} @keyPress(.Space)={self.unfold}>

@@ -557,9 +557,7 @@ test "Share shows only while the quest can be shared: alone, or a quest the clie
   const window = Test.page().window("World")
   window.text("The Defias Brotherhood").click()
   Test.expect(!window.button("Share").shown())
-  // Joined to a group: the client says so.
   Test.grouped(true)
-  Test.event("GROUP_ROSTER_UPDATE")
   Test.flush()
   Test.expect(window.button("Share").shown())
   window.button("Share").click()

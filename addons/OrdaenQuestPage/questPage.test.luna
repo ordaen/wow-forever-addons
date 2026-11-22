@@ -66,11 +66,13 @@ class WideParchment {
   }
 }
 
-test "in a place twice its art's width the scroll keeps its art's, its rolls unstretched" {
+test "in a place twice its art's width the scroll keeps its art's, in the middle, its rolls unstretched" {
   const page = new WideParchment()
   Test.mount(page, { left: 0, top: 0, width: 1400, height: 600 })
   const top = Test.edges(Ordaen.art.window.scroll.top, 0)
-  Test.expect(top.right - top.left <= SCROLL_WIDTH / 1ui + 0.5)
+  const art = SCROLL_WIDTH / 1ui
+  Test.expect((top.right - top.left - art).abs() < 0.5)
+  Test.expect((top.left - art / 2).abs() < 0.5)
   destroy page
 }
 
