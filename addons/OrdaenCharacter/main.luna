@@ -86,7 +86,8 @@ public class Character implements Module, App {
 
   state open = false
   state tab = TAB_CHARACTER
-  // The game's own window, while it shows: held unseen and off the screen.
+  // The game's own window, once it is made: held away (unseen, off the screen, out of the game's own window manager,
+  // which slots a window as it shows) from then on, shown or not.
   state gameWindow: any Frame | nil = nil
   game: any Client.Frame | nil = nil
   state worn: Array<Worn> = []
@@ -169,9 +170,10 @@ public class Character implements Module, App {
   state specGroups = 2
   derived groupActive: Boolean = self.group == self.activeGroup
   // «Progression»'s subtab, its names, and the skill picked (by its number; none: 0) and the skills' search.
-  // The game's spells window while its talents or specializations page shows (Ordaen Spells takes its spellbook):
-  // ours opens on the active spec's tab, the game's held unseen and off the screen.
+  // The game's spells window, once it is made, held away as the game's own is; while its talents or specializations
+  // page shows (Ordaen Spells takes its spellbook) ours opens on the active spec's tab.
   state spellsGame: any Frame | nil = nil
+  spellsPaged = false
   spells: any Client.Frame | nil = nil
   state progress = PROGRESS_REPUTATION
   const progressTabs: Array<String> = [Locale.TAB_REPUTATION, Locale.TAB_SKILLS]
@@ -246,6 +248,7 @@ public class Character implements Module, App {
     const window = Client.PlayerSpellsFrame
     if (frame == nil || window == nil) { return }
     self.spells = window
+    self.spellsGame = frame
     for (page of [window.TalentsFrame, window.SpecFrame]) {
       const shown: any Client.Frame = page
       _ = shown.HookScript("OnShow", (): nil => {
@@ -261,7 +264,7 @@ public class Character implements Module, App {
   }
 
   onSpellsShown(mut self, frame: any Frame) {
-    self.spellsGame = frame
+    self.spellsPaged = true
     self.window.ask(Game.talentTrees.activeGroup() == 2 ? TAB_SPEC_TWO : TAB_SPEC_ONE)
     if (!(peek self.open)) {
       self.open = true
@@ -270,8 +273,8 @@ public class Character implements Module, App {
   }
 
   onSpellsHidden(mut self) {
-    if ((peek self.spellsGame) == nil) { return }
-    self.spellsGame = nil
+    if (!self.spellsPaged) { return }
+    self.spellsPaged = false
     self.open = false
   }
 
@@ -283,6 +286,7 @@ public class Character implements Module, App {
     if (frame == nil) { return }
     const window: any Client.Frame = frame
     self.game = window
+    self.gameWindow = frame
     _ = window.HookScript("OnShow", (): nil => {
       self.onGameShown(frame)
       return nil
@@ -311,7 +315,6 @@ public class Character implements Module, App {
   }
 
   onGameShown(mut self, frame: any Frame) {
-    self.gameWindow = frame
     if (!(peek self.open)) {
       self.open = true
       self.refresh()
@@ -319,7 +322,6 @@ public class Character implements Module, App {
   }
 
   onGameHidden(mut self) {
-    self.gameWindow = nil
     self.open = false
   }
 
@@ -366,12 +368,8 @@ public class Character implements Module, App {
     if (frame == nil) { return }
     const window: any Client.Frame = frame
     self.inspectFrame = window
-    _ = window.HookScript("OnShow", (): nil => {
-      self.inspectGame = frame
-      return nil
-    })
+    self.inspectGame = frame
     _ = window.HookScript("OnHide", (): nil => {
-      self.inspectGame = nil
       self.inspecting = false
       return nil
     })
@@ -568,7 +566,7 @@ public class Character implements Module, App {
   onClose(mut self) {
     self.open = false
     self.game?.Hide()
-    if ((peek self.spellsGame) != nil) { self.spells?.Hide() }
+    if (self.spellsPaged) { self.spells?.Hide() }
   }
 
   onSettings(self) { Ordaen.toggleSettings(Runtime.Addon.of(self)) }
@@ -600,7 +598,7 @@ public class Character implements Module, App {
         </box>
         <StatisticsPage $else search={mut self.statsSearch} view={mut self.statsView} />
       </Window>
-      <frame $if={self.inspecting && self.inspectGame != nil} of={self.inspectGame} opacity={0} away={true} />
+      <frame $if={self.inspectGame != nil} of={self.inspectGame} opacity={0} away={true} />
       <Window $if={self.inspecting} tabs={self.inspectTabs} selected={mut self.inspectTab} declared={mut self.inspectWindow}
               minWidth={Style.WIDTH} minHeight={Style.HEIGHT} footer={self.inspectFooter} @close={self.onInspectClose}>
         <GearPage $if={self.inspectTab == INSPECT_CHARACTER} worn={self.inspected.worn} who={self.inspected.who}

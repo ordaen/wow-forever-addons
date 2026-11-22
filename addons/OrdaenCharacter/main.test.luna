@@ -200,6 +200,20 @@ test "the game's character window shown shows ours, and closing ours closes the 
   Test.expect(!game.IsShown())
 }
 
+test "the game's character window is held unseen from its making, before it first shows, and while hidden after" {
+  Test.mount(nil, PAGE)
+  Char.sheet = new FakeSheet()
+  const game = Client.CreateFrame("Frame", "CharacterFrame", Client.UIParent, nil)
+  game.Hide()
+  Char.hook(game)
+  Test.flush()
+  Test.expect(game.GetAlpha() == 0)
+  game.Show()
+  game.Hide()
+  Test.flush()
+  Test.expect(game.GetAlpha() == 0)
+}
+
 test "the game's reputation page shown opens ours on «Progression»'s reputation" {
   Test.mount(nil, PAGE)
   const sheet = new FakeSheet()
