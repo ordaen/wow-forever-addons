@@ -147,7 +147,7 @@ public class RingsPage implements Component {
   state names: WheelNames = WheelNames.Chosen
   state scale: Number = 1
   state remember = false
-  state trailing = true
+  state anchored = true
   derived keys: String = self.keysOf()
   // The catalogue, with the kinds other modules add as the page is made.
   const catalogue: Array<Choice<String>>
@@ -164,7 +164,7 @@ public class RingsPage implements Component {
     watch (names of self.names) { self.change((r: mut Ring): nil => { r.names = names }) }
     watch (scale of self.scale) { self.change((r: mut Ring): nil => { r.scale = scale }) }
     watch (remember of self.remember) { self.change((r: mut Ring): nil => { r.remember = remember }) }
-    watch (trailing of self.trailing) { self.change((r: mut Ring): nil => { r.trailing = trailing }) }
+    watch (anchored of self.anchored) { self.change((r: mut Ring): nil => { r.anchored = anchored }) }
   }
 
   load(mut self, index: Integer) {
@@ -174,7 +174,7 @@ public class RingsPage implements Component {
     self.names = ring.names
     self.scale = ring.scale
     self.remember = ring.remember
-    self.trailing = ring.trailing
+    self.anchored = ring.anchored
   }
 
   // The chosen ring changed as `edit` changes it, unless it is already so.
@@ -230,7 +230,7 @@ public class RingsPage implements Component {
       r.names = fresh.names
       r.scale = fresh.scale
       r.remember = fresh.remember
-      r.trailing = fresh.trailing
+      r.anchored = fresh.anchored
       r.counts = fresh.counts.clone()
       r.items = fresh.items.clone()
       r.conditions = fresh.conditions.clone()
@@ -252,7 +252,7 @@ public class RingsPage implements Component {
         <Dropdown label={Locale.NAMES} value={mut self.names} choices={NAMES} />
         <NumberInput label={Locale.SCALE} value={mut self.scale} least={0.6} most={2} step={0.05} unit={Unit.Percent} />
         <Checkbox label={Locale.REMEMBER} hint={Locale.REMEMBER_TIP} value={mut self.remember} />
-        <Checkbox label={Locale.TRAILING} hint={Locale.TRAILING_TIP} value={mut self.trailing} />
+        <Checkbox label={Locale.ANCHORED} hint={Locale.ANCHORED_TIP} value={mut self.anchored} />
       </Section>
       <Section title={Locale.SECTION_ITEM}>
         <TextField label={Locale.PLACE} hint={Locale.PLACE_TIP} value={mut self.place} />

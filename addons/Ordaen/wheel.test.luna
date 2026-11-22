@@ -8,7 +8,7 @@ import Client from "$client"
 import { Art, MouseButton } from "$ltml"
 import Test from "$test"
 import { ROOT, SecureWheel, SlotMode, WheelAction, WheelEntry, WheelModifier, WheelRing, placeIn } from "@/secureWheel"
-import { SLOT_LUA, Wheel, WheelItem, WheelMiddle, WheelNames, plainItem, slotAt } from "@/wheel"
+import { SLOT_LUA, WHEEL_SIZE, Wheel, WheelItem, WheelMiddle, WheelNames, plainItem, slotAt } from "@/wheel"
 
 const RUN_SLOT: String = [
   "local dx, dy = self:GetAttribute('dx'), self:GetAttribute('dy')",
@@ -46,7 +46,7 @@ test "the art and the restricted code choose the same item for every direction" 
 class Held {
   public const wheel: mut SecureWheel = new SecureWheel("OrdaenWheelTest")
   public state used: mut Array<String> = []
-  constructor(scale: Number, centred: Boolean = false, trailing: Boolean = false) {
+  constructor(scale: Number, centred: Boolean = false, anchored: Boolean = false) {
     const rings: Array<WheelRing> = [{ path: ROOT, count: 4 }, { path: "r_2", count: 2 }]
     const entries: Array<WheelEntry> = [
       { path: placeIn(ROOT, 1), action: .Spell { spell: "Find Herbs" }, refusesInFight: false, modifier: nil },
@@ -56,7 +56,7 @@ class Held {
       { path: placeIn(ROOT, 3), action: .Item { item: 6948 }, refusesInFight: true, modifier: nil },
       { path: placeIn(ROOT, 4), action: .MacroText { text: "/tm 8" }, refusesInFight: false, modifier: nil }
     ]
-    self.wheel.apply(rings, entries, { centred: centred, scale: scale, remember: false, trailing: trailing })
+    self.wheel.apply(rings, entries, { centred: centred, scale: scale, remember: false, anchored: anchored })
     self.wheel.bind(["F"])
     self.wheel.picked.listen(self.onPick)
   }
@@ -78,7 +78,7 @@ class Slotted {
       Slotted.entry("r_3", .Slot { mode: SlotMode.First }), Slotted.line("r_3_1", "/salute"), Slotted.line("r_3_2", "/dance"),
       Slotted.entry("r_4", WheelAction.Menu), Slotted.line("r_4_1", "/roll"), Slotted.line("r_4_2", "/laugh")
     ]
-    self.wheel.apply(rings, entries, { centred: false, scale: 1, remember: true, trailing: false })
+    self.wheel.apply(rings, entries, { centred: false, scale: 1, remember: true, anchored: false })
     self.wheel.bind(["G"])
   }
   entry(path: String, action: WheelAction): WheelEntry {
@@ -486,7 +486,7 @@ test "the middle says one thing a line, three lines at most: the name and two hi
   Test.expect(Test.page().texts().join(", ") == "3, Click to use, 1 of 3, more")
 }
 
-test "the aim's middle trails the cursor: gone far up, a move left from there turns to the item on the left, in a fight too" {
+test "anchored: gone off the wheel far up, it follows, and a move left from there turns to the item on the left, in a fight too" {
   const held = new Held(1, false, true)
   Test.flush()
   Test.combat(true)
@@ -499,7 +499,7 @@ test "the aim's middle trails the cursor: gone far up, a move left from there tu
   Test.combat(false)
 }
 
-test "where the aim doesn't trail, the wheel aims from where the cursor was as it opened, however far it went" {
+test "not anchored, the wheel aims from where the cursor was as it opened, however far it went" {
   const held = new Held(1, false, false)
   Test.flush()
   open("F")
@@ -508,4 +508,56 @@ test "where the aim doesn't trail, the wheel aims from where the cursor was as i
   clickAt(-80, -300)
   Test.releaseBound("F")
   Test.expect(Test.performed().join(", ") == "spell Find Herbs")
+}
+
+test "anchored, going round on the wheel never moves it: its middle stays the aim's, and each item is where it is drawn" {
+  const held = new Held(1, false, true)
+  Test.flush()
+  open("F")
+  Test.pass(0.05)
+  const x = held.wheel.middleX
+  const y = held.wheel.middleY
+  // Round the wheel inside its edge, past where a reach of a fixed 120 dp would have moved it.
+  const on = WHEEL_SIZE * 0.4 / 1ui
+  const round: Array<Test.Point> = [{ x: 0, y: -on }, { x: on, y: 0 }, { x: 0, y: on }, { x: -on, y: 0 }]
+  for (at of round) {
+    Test.moveTo({ x: MIDDLE.x + at.x, y: MIDDLE.y + at.y })
+    Test.pass(0.05)
+  }
+  Test.expect(held.wheel.middleX == x && held.wheel.middleY == y)
+  clickHere(nil)
+  Test.releaseBound("F")
+  Test.expect(Test.performed().join(", ") == "macro /tm 8")
+}
+
+test "the mouse wheel's step is taken back as the aim goes to another item: back on it, a click opens the submenu" {
+  const slots = new Slotted()
+  Test.flush()
+  open("G")
+  Test.moveTo({ x: MIDDLE.x - 100, y: MIDDLE.y })
+  Test.pass(0.05)
+  Test.wheel(-1)
+  Test.expect(slots.wheel.step("r_4") == 1)
+  Test.moveTo({ x: MIDDLE.x + 100, y: MIDDLE.y })
+  Test.pass(0.05)
+  Test.expect(slots.wheel.step("r_4") == 0)
+  Test.moveTo({ x: MIDDLE.x - 100, y: MIDDLE.y })
+  Test.pass(0.05)
+  clickHere(nil)
+  Test.expect(slots.wheel.level == "r_4" && Test.performed().length == 0)
+  Test.releaseBound("G")
+}
+
+test "in a fight, a step made on another item takes back the last one's" {
+  const slots = new Slotted()
+  Test.flush()
+  Test.combat(true)
+  open("G")
+  Test.moveTo({ x: MIDDLE.x - 100, y: MIDDLE.y })
+  Test.wheel(-1)
+  Test.moveTo({ x: MIDDLE.x + 100, y: MIDDLE.y })
+  Test.wheel(-1)
+  Test.expect(slots.wheel.step("r_2") == 1 && slots.wheel.step("r_4") == 0)
+  Test.releaseBound("G")
+  Test.combat(false)
 }

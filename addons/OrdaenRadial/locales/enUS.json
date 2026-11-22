@@ -94,6 +94,6 @@
   "HINT_OFF": "Can't be used now",
   "HINT_SCROLL": "Scroll to choose",
   "HINT_STEP": "%d of %d",
-  "TRAILING": "The aim follows the cursor",
-  "TRAILING_TIP": "Off: the wheel aims from where the cursor was as it opened, however far the cursor goes"
+  "ANCHORED": "Anchored mode",
+  "ANCHORED_TIP": "While the cursor is on the wheel, the wheel's middle is the anchor; once it goes off, the wheel follows it, so another item is a short move away. Off: the wheel stays where the cursor was as it opened"
 }

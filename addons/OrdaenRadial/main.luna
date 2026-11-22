@@ -238,7 +238,7 @@ public class Radial implements Module, App {
       const ring = self.settings.values.rings[index]
       if (laid != nil && ring != nil) {
         wheel.apply(laid.rings, laid.entries, { centred: ring.opensAt == .Middle, scale: ring.scale, remember: ring.remember,
-          trailing: ring.trailing
+          anchored: ring.anchored
         })
       }
     }

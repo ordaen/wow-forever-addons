@@ -18,7 +18,7 @@
 // it opens and taken away as it closes.
 import Client from "$client"
 import root Ordaen from "Ordaen"
-import { DEAD_ZONE, SLOT_LUA } from "@/wheel"
+import { DEAD_ZONE, SLOT_LUA, WHEEL_SIZE, slotAt } from "@/wheel"
 
 // What an item does. The client does the first four on the click, in a fight too.
 public enum WheelAction implements Plain {
@@ -61,17 +61,18 @@ public struct WheelRing {
   count: Integer
 }
 
-// How a wheel is laid out: where it opens, how large it is, whether its submenus remember, whether its aim's middle
-// trails the cursor.
+// How a wheel is laid out: where it opens, how large it is, whether its submenus remember, whether it is anchored to
+// the cursor.
 public struct WheelSetup {
   // It is drawn at the screen's middle and not at the cursor. Either way it aims from where the cursor was as it
   // opened: the mouse moves from where the hand is, never to the wheel first.
   centred: Boolean
   scale: Number
   remember: Boolean
-  // The aim's middle follows the cursor once it goes further than `REACH` from it, so turning to another item is a
-  // short move whichever way the cursor went first; else it stays where the cursor was as the wheel opened.
-  trailing: Boolean
+  // Anchored: while the cursor is on the wheel, the wheel's middle is the aim's; once the cursor goes off the wheel,
+  // the wheel follows it to `TRAIL` behind, so turning to another item is a short move whichever way the cursor went
+  // first. Else the wheel stays where the cursor was as it opened.
+  anchored: Boolean
 }
 
 // The place of the root ring, and of an item or a ring inside one.
@@ -81,12 +82,12 @@ public function placeIn(ring: String, index: Integer): String { return `${ring}_
 // How long the wheel takes to open, and how often an open wheel reads its items' state again.
 const OPENING_TIME = 0.2
 const STATE_EVERY = 0.2
-// How far the cursor goes from the aim's middle before the middle trails it (at a scale of 1): half the side of a
-// square round the middle. It trails to a little inside that, so the cursor stands in the square again and its next way
-// out is heard.
-const REACH = 120dp
-const TRAIL = 0.9
-// The bands round that square: the cursor going out of the square comes into one of them, by its own motion, which is
+// An anchored wheel: the cursor goes off it out of a square round its middle as large as the wheel (at a scale of 1),
+// so going round the wheel never moves it; off it, the wheel follows to `TRAIL` behind the cursor, inside the square
+// again, so the cursor's next way out is heard.
+const REACH = WHEEL_SIZE / 2
+const TRAIL = 108dp
+// The bands round that square: the cursor going off the wheel comes into one of them, by its own motion, which is
 // what the client runs a wrapped enter's body on (`Wrapped_OnEnter`); a frame that comes under a cursor standing still
 // runs none. Each by the point of its side that touches the square, which way that side is from the middle, and
 // whether it runs across the screen (over or under the square) or beside the square, as tall as it. Together they
@@ -175,7 +176,9 @@ const CHOICE: String = [
 ].join("\n")
 
 // The client's restricted code round the button's mouse wheel (`offset` 1 up, -1 down): over a submenu or a slot of
-// several, the item it steps to goes on to the next (down) or back (up), through nought, the ring itself.
+// several, the item it steps to goes on to the next (down) or back (up), through nought, the ring itself. A step
+// belongs to the item it was made on: stepping another takes the last one's back (out of a fight the aim leaving it
+// does, `forgetStep`; in one, addon code can't).
 const STEP: String = [
   "local level = owner:GetAttribute('level') or 'r'",
   AIM,
@@ -184,15 +187,19 @@ const STEP: String = [
   "if not owner:GetAttribute('menu-' .. name) and not owner:GetAttribute('slot-' .. name) then return end",
   "local several = math.min(owner:GetAttribute('count-' .. name) or 0, 8)",
   "if several == 0 then return end",
+  "local stepped = owner:GetAttribute('stepped')",
+  "if stepped and stepped ~= name then owner:SetAttribute('step-' .. stepped, nil) end",
+  "owner:SetAttribute('stepped', name)",
   "local step = owner:GetAttribute('step-' .. name) or 0",
   "owner:SetAttribute('step-' .. name, (step + (offset < 0 and 1 or several)) % (several + 1))"
 ].join("\n")
 
 // The client's restricted code round a band's `OnEnter` (`self` the band, which hears the cursor and takes no
-// click): the cursor went out of the square round the aim's middle, so the wheel's button, whose middle the aim is
-// measured from, stands again between where the cursor was and where it is, `trail` from it, and the bands with it.
+// click): the cursor went off an anchored wheel, so the wheel's button, whose middle the aim is measured from and the
+// wheel is drawn round, stands again between where the cursor was and where it is, `trail` from it, and the bands
+// with it.
 const LEASH: String = [
-  "if not owner:GetAttribute('trailing') then return end",
+  "if not owner:GetAttribute('anchored') then return end",
   "local b = owner:GetFrameRef('button')",
   "if not b:IsShown() then return end",
   "local x, y = b:GetMousePosition()",
@@ -257,6 +264,8 @@ public class SecureWheel {
   held: mut Array<String> = []
   openedAt: Number = 0
   readAt: Number = 0
+  // The item the aim was on last (the middle is none).
+  aimedName: String | nil = nil
   centred: Boolean = false
 
   constructor(
@@ -315,10 +324,9 @@ public class SecureWheel {
     self.centred = setup.centred
     self.header.SetAttribute("remember", setup.remember)
     self.header.SetAttribute("dead", DEAD_ZONE / 1ui * setup.scale)
-    self.header.SetAttribute("trailing", setup.trailing)
-    const reach = REACH / 1ui * setup.scale
-    self.header.SetAttribute("trail", reach * TRAIL)
-    self.placeBands(reach)
+    self.header.SetAttribute("anchored", setup.anchored)
+    self.header.SetAttribute("trail", TRAIL / 1ui * setup.scale)
+    self.placeBands(REACH / 1ui * setup.scale)
     for (ring of rings) {
       self.onHeader(`count-${ring.path}`, ring.count)
       self.header.SetAttribute(`step-${ring.path}`, nil)
@@ -416,6 +424,7 @@ public class SecureWheel {
     }
     self.openedAt = Client.GetTime()
     self.readAt = self.openedAt
+    self.aimedName = nil
     self.opening = 0
     self.aim()
     self.follower.SetScript("OnUpdate", (): nil => self.aim())
@@ -451,5 +460,23 @@ public class SecureWheel {
     if ((x - self.aimX).abs() < 0.5 && (y - self.aimY).abs() < 0.5) { return }
     self.aimX = x
     self.aimY = y
+    self.forgetStep()
+  }
+
+  // The aim gone to another item (the middle is none): the mouse wheel's step on the item it left is taken back, out
+  // of a fight (in one, the header is the client's alone, and the restricted code takes a step back as another is made).
+  forgetStep(mut self) {
+    const count = self.header.GetAttribute(`count-${self.level}`)
+    const dead = self.header.GetAttribute("dead")
+    if (!(count is Integer) || !(dead is Number)) { return }
+    const slot = slotAt(self.aimX, self.aimY, count, dead)
+    if (slot == 0) { return }
+    const name = placeIn(self.level, slot)
+    const left = self.aimedName
+    self.aimedName = name
+    if (left == nil || left == name || Client.InCombatLockdown()) { return }
+    if (self.header.GetAttribute(`step-${left}`) == nil) { return }
+    self.header.SetAttribute(`step-${left}`, nil)
+    self.steps += 1
   }
 }

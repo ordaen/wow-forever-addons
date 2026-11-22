@@ -62,10 +62,11 @@ test "a ring's item opens its ring in place on a click, and a click there does i
   Test.combat(true)
   hold("F", 0, -FAR)
   clickAt(0, -FAR)
-  Test.moveTo({ x: MIDDLE.x + 2 * FAR, y: MIDDLE.y - FAR })
+  // On the wheel, its middle is the aim's: the item right of it is right of the middle.
+  Test.moveTo({ x: MIDDLE.x + FAR, y: MIDDLE.y })
   Test.pass(0.05)
   Test.expect(Test.page().texts().join(", ") == "Talents, Click to use")
-  clickAt(2 * FAR, -FAR)
+  clickAt(FAR, 0)
   Test.expect(Test.performed().join(", ") == "macro /click TalentMicroButton")
   Test.expect(Test.page().texts().length == 0)
   _ = Test.releaseBound("F")
