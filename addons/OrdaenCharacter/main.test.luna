@@ -740,37 +740,11 @@ test "closing ours closes the game's talents it opened on" {
   Test.expect(!game.IsShown())
 }
 
-// The game's character button, at the screen's bottom as the panel holds it.
-function characterButton(): any Client.Frame {
-  const made = Client.CreateFrame("Button", "CharacterMicroButton", Client.UIParent, nil)
-  made.SetSize(32, 40)
-  made.SetPoint("BOTTOM", Client.UIParent, "BOTTOM", 0, 20)
-  return made
-}
-
-// Ours in place of the client's alert, by its title.
-function unspentShown(): Boolean {
-  return Test.surfaces().any(s => s.texts.any(t => t == "Talent points to spend"))
-}
-
-test "the client's alert of unspent talent points is ours, over the character's button, gone once a spec tab opens" {
+test "the client's alert of unspent talent points goes as it shows: the panel's portrait counts them" {
   Test.mount(nil, PAGE)
-  Game.frames.CharacterMicroButton = characterButton()
   Test.unspentTalents()
   Test.expect(Test.microAlert() == nil)
-  Test.expect(unspentShown())
-  Test.expect(Test.surfaceHolding("Talent points to spend").y < 900 - 60)
-  _ = onSpec("Primary")
-  Test.expect(!unspentShown())
-}
-
-test "the alert of unspent talent points goes when the player closes it" {
-  Test.mount(nil, PAGE)
-  Game.frames.CharacterMicroButton = characterButton()
-  Test.unspentTalents()
-  const glyph = Test.edges(Ordaen.art.ctl.corner.close, 0)
-  Test.click({ x: (glyph.left + glyph.right) / 2, y: (glyph.top + glyph.bottom) / 2 }, nil)
-  Test.expect(!unspentShown())
+  Test.expect(!Test.surfaces().any(s => s.texts.any(t => t.contains("talent"))))
 }
 
 test "the active spec's tab offers no Activate; the other's does, and asks the game to switch to it" {

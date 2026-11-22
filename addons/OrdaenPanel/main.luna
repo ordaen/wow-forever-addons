@@ -2,10 +2,11 @@
 // middle and at its end. Each item (the game's menu, friends and guild, the zone's name, the time, the money, the
 // bags) sits in the zone its setting names, or not on the panel. The menu's buttons and the bags are the game's own,
 // standing in the panel's cells, so their clicks, menus and alerts stay the game's.
+import Events from "$events"
 import Game from "$game"
 import { Align, Anchored, Art, Docked, Edges, Event, Frame, Layer, Overflow, Place, Point, Position, Shadow, Side, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { BODY_LINE, BarFrame, Callout, CalloutSide, Component, Module, Mover, Placed, Settings, SettingsPage, XpFill, opacityNow, reachAcross, reachDown, sideNear, timeText, xpFillArt } from "Ordaen"
+import { BODY_LINE, BarFrame, Callout, CalloutSide, Component, CountBadge, Module, Mover, Placed, Settings, SettingsPage, XpFill, opacityNow, reachAcross, reachDown, sideNear, timeText, xpFillArt } from "Ordaen"
 import { ActionBars, barDefaults, bartenderLoaded } from "@/actionBars"
 import { BARS_DEFAULTS, BarChoice, BarsChoices } from "@/barChoices"
 import { BarsPage } from "@/barsPage"
@@ -46,6 +47,9 @@ const PORTRAIT_WIDTH = 128ui
 const PORTRAIT_HEIGHT = 124ui
 const PORTRAIT_ROOM: Array<Track> = [PORTRAIT_WIDTH, "max-content"]
 const CORNER: Anchored = { point: Point.BottomLeft }
+// The talent points to spend, on the portrait's rim down its right side, under the level's badge.
+const TALENTS_LEFT = 101ui
+const TALENTS_TOP = 45ui
 // Ordaen Spells' title, as its module gives it.
 const SPELLS = "Ordaen Spells"
 // Ordaen Social's title, as its module gives it.
@@ -205,6 +209,9 @@ public class Panel implements Module, App {
   // The cursor on the panel, on its portrait: each a surface of its own, heard apart.
   state hovered = false
   state portraitHovered = false
+  // The talent points the player has to spend in the active spec: a badge on the portrait's rim while there are any.
+  public state unspentTalents = 0
+  derived talentsShown: Boolean = self.unspentTalents > 0
 
   constructor() {
     Ordaen.modules.add(self)
@@ -214,6 +221,12 @@ public class Panel implements Module, App {
       const taken: Number<Length> = self.settings.values.bottomOn && self.side == Side.Bottom ? self.drawnTall : 0ui
       Ordaen.keepBottom(FOLDER, taken)
     }
+    // The talent points to spend: read at the start and each time the game says they changed.
+    self.readTalents()
+    Events.CHARACTER_POINTS_CHANGED.listen(self.onPoints)
+    Events.PLAYER_TALENT_UPDATE.listen(self.readTalents)
+    Events.TRAIT_CONFIG_UPDATED.listen(self.onPoints)
+    Events.ACTIVE_TALENT_GROUP_CHANGED.listen(self.onGroup)
   }
 
   destructor() {
@@ -366,6 +379,10 @@ public class Panel implements Module, App {
 
   onEnter(mut self) { self.hovered = true }
   onLeave(mut self) { self.hovered = false }
+  readTalents(mut self) { self.unspentTalents = Game.talentTrees.unspent(Game.talentTrees.activeGroup()) }
+  onPoints(mut self, changed: Number) { self.readTalents() }
+  onGroup(mut self, now: Number, before: Number) { self.readTalents() }
+
   onPortraitEnter(mut self) { self.portraitHovered = true }
   onPortraitLeave(mut self) { self.portraitHovered = false }
 
@@ -413,6 +430,9 @@ public class Panel implements Module, App {
                background={Ordaen.art.panel.badge} xAlign={Align.Center} yAlign={Align.Center} zLevel={1}>
             <text value={"%d"} arguments={[Game.player.level]} textColor={Ordaen.look.values.accent}
                   wrap={.None} />
+          </box>
+          <box $if={self.talentsShown} position={Position.Absolute} left={TALENTS_LEFT} top={TALENTS_TOP} zLevel={1}>
+            <CountBadge count={self.unspentTalents} />
           </box>
           // The panel's corner: in the placing mode it takes the panel to another side too. It shows only while the
           // panel is at the bottom, where a right click would put it: it hears none.

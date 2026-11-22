@@ -446,6 +446,20 @@ test "the portrait in the corner shows the player's level on its badge" {
   Test.expect(Test.page().window("43").shown() && !Test.page().text("42").shown())
 }
 
+test "talent points to spend are a badge on the portrait's rim under the level, gone once spent" {
+  Game.player.level = 42
+  Test.mount(nil, SCREEN)
+  const portrait = Test.page().window("42")
+  Test.expect(!portrait.text("3").shown())
+  Game.talentTrees.unspent = (group: Integer): Integer => 3
+  Test.event("PLAYER_TALENT_UPDATE")
+  Test.expect(portrait.text("3").shown())
+  Test.expect(portrait.text("3").rect().top > portrait.text("42").rect().bottom)
+  Game.talentTrees.unspent = (group: Integer): Integer => 0
+  Test.event("CHARACTER_POINTS_CHANGED", -3)
+  Test.expect(!portrait.text("3").shown() && !portrait.text("0").shown())
+}
+
 test "the level on the portrait's badge is in the look's accent" {
   Game.player.level = 42
   Test.mount(nil, SCREEN)
