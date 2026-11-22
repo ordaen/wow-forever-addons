@@ -45,9 +45,7 @@ public const WEAPONS: Array<SlotSpec> = [
   { id: 18, empty: "Interface/PaperDoll/UI-PaperDoll-Slot-Ranged" }
 ]
 public const AMMO: SlotSpec = { id: 0, empty: "Interface/PaperDoll/UI-PaperDoll-Slot-Ammo" }
-// The slots the average item level counts, as the game does: every one but the shirt, the tabard and the ammo, an
-// empty one as nought.
-const COUNTED = 17
+// The slots the items' level counts: every one but the shirt, the tabard and the ammo.
 const SHIRT = 4
 const TABARD = 19
 
@@ -285,18 +283,23 @@ public trait Sheet {
   public setInactive(mut self, index: Integer, inactive: Boolean)
 }
 
-// The average item level over the counted slots, an empty one as nought; none while nothing is worn.
-public function averageLevel(worn: Array<Worn>): Number | nil {
-  let sum = 0
-  let any = false
-  for (piece of worn) {
-    const level = piece.level
-    if (level != nil && piece.slot != SHIRT && piece.slot != TABARD && piece.slot != AMMO.id) {
-      sum += level
-      any = true
-    }
-  }
-  return any ? sum / COUNTED : nil
+function levelCounts(slot: Integer): Boolean { return slot != SHIRT && slot != TABARD && slot != AMMO.id }
+
+// What is worn in the slots the items' level counts, each with its level, the highest first.
+public function levelledItems(worn: Array<Worn>): Array<Worn> {
+  const levelled = worn.filter(piece => piece.item != nil && piece.level != nil && levelCounts(piece.slot))
+  levelled.sort((a, b) => (a.level ?? 0) > (b.level ?? 0))
+  return levelled
+}
+
+// The median of their levels (`levelledItems`): the middle one, or halfway between the two in the middle; none while
+// nothing is worn. One item far above or below the rest (a quest's weapon) moves it no more than any other.
+public function medianLevel(levelled: Array<Worn>): Number | nil {
+  const count = levelled.length
+  if (count == 0) { return nil }
+  const upper = levelled[((count + 1) / 2).floor()]?.level ?? 0
+  const lower = levelled[(count / 2).floor() + 1]?.level ?? 0
+  return (upper + lower) / 2
 }
 
 function resistanceOf(school: Client.Damageclass): Integer {

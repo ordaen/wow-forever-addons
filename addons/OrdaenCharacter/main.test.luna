@@ -16,6 +16,7 @@ import root Char from "OrdaenCharacter"
 import { FITS_GLOW, wearColor } from "@/gear"
 import { Honor, Inspected, Inspector } from "@/inspect"
 import { WornSet } from "@/lines"
+import Locale from "@/locales"
 import { Choices, SlotSize } from "@/settings"
 import { ClientSheet, Faction, GearSet, Sheet, Skill, Stats, Who, Worn } from "@/sheet"
 import Style from "@/style"
@@ -222,7 +223,17 @@ test "a slot shows what is worn there with its level, and an empty one its well"
   Test.expect(window.button(HELM_ICON).text("63").shown())
   Test.expect(window.button(REAPER_ICON).text("58").shown())
   Test.expect(window.button(EMPTY_FEET).shown())
-  Test.expect(window.text("Average item level 7.1").shown())
+}
+
+test "the items' level is the median of what is worn, its tooltip listing each item's level, the highest first" {
+  Test.mount(nil, PAGE)
+  Game.items.icon = icons
+  const window = opened(new FakeSheet())
+  // The helm's 63 and the two-hander's 58: halfway between.
+  Test.expect(window.text("Item level").shown() && window.text("60.5").shown())
+  window.text("60.5").hover()
+  const tip = Test.page().window(Locale.ITEM_LEVEL_TIP)
+  Test.expect(tip.texts().join(" | ") == `Item level | ${Locale.ITEM_LEVEL_TIP} | Lionheart Helm | 63 | Arcanite Reaper | 58`)
 }
 
 test "a slot's item level is left out where the settings say so" {

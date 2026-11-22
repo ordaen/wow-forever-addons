@@ -8,9 +8,10 @@ import Game from "$game"
 import { Action, Align, Art, BarFill, Edges, Event, FillFrom, Line, MouseButton, Overflow, Position, TextFont, Track } from "$ltml"
 import { ButtonPlate, Component, ItemButton, PushButton, SECONDARY_TEXT, TITLE_LINE, TITLE_TEXT, Tabs, TipText, classColor } from "Ordaen"
 import { Active } from "OrdaenAuras"
+import { ItemLevel } from "@/itemLevel"
 import Locale from "@/locales"
 import { Choices, slotSizeOf } from "@/settings"
-import { AMMO, GearSet, LEFT, RIGHT, Resource, Skill, SlotSpec, Stats, WEAPONS, Who, Worn, averageLevel } from "@/sheet"
+import { AMMO, GearSet, LEFT, RIGHT, Resource, Skill, SlotSpec, Stats, WEAPONS, Who, Worn } from "@/sheet"
 import { Boost, Breakdown, NO_BREAKDOWN, boostsOf, breakdownOf, wordsOf } from "@/sources"
 import { Stat } from "@/stat"
 import { Cut, Gauge, Groove, Main, MainStat, PoolBar, Resist, ResistColumn, Row, Section, SectionView, StatGauge, StatRow, defenceOf, defenceRows, mainsOf, resistsOf, sectionsOf, sharedGauges, sharedRows, speedsOf } from "@/stats"
@@ -296,7 +297,6 @@ public class GearPage implements Component {
   derived tag: String = self.classTag ?? Game.player.classTag
   derived whoColor: Color = classColor(self.tag) ?? Style.GOLD
   derived scene: Asset | nil = SCENES[self.who.scene]
-  derived levelText: String = self.levelOf()
   derived flyoutShown: Boolean = self.flyoutSlot != nil
   derived mains: Array<Main> = mainsOf(self.stats)
   derived resists: Array<Resist> = resistsOf(self.stats)
@@ -379,11 +379,6 @@ public class GearPage implements Component {
 
   onTipped(mut self, stat: Stat | nil) { self.tipped = stat }
 
-  levelOf(self): String {
-    const level = averageLevel(self.worn)
-    return level == nil ? "" : Locale.ITEM_LEVEL.format("%.1f".format(level))
-  }
-
   // What a resource regains on its bar: mana every five seconds outside casting, energy a second; rage none.
   regenOf(self, resource: Resource): String {
     return match (resource) {
@@ -457,7 +452,8 @@ public class GearPage implements Component {
                           wear={self.choices.durability} fits={self.fitsIn(spec.id)} share={self.shareOf(spec.id)} size={self.slot} own={self.own} @picked={self.onPicked}
                           @tried={self.onTried} @flyout={self.onFlyout} />
               </box>
-              <box rows={[{ fr: 1 }, "max-content", "max-content"]} gap={3sp} zLevel={3}>
+              <box rows={["max-content", { fr: 1 }, "max-content"]} gap={3sp} zLevel={3}>
+                <ItemLevel worn={self.worn} />
                 <box yAlign={Align.End}>
                   <Flyout $if={self.flyoutShown} items={self.fitting} @chose={self.onChose} @close={self.onCloseFlyout} />
                 </box>
@@ -468,7 +464,6 @@ public class GearPage implements Component {
                   <GearSlot $if={self.usesAmmo} spec={AMMO} worn={self.wornOf(AMMO.id)} levels={false} wear={false}
                             fits={self.fitsIn(AMMO.id)} size={AMMO_SIZE} @picked={self.onPicked} />
                 </box>
-                <text value={self.levelText} textSize={SECONDARY_TEXT} textColor={Style.DIM} xAlignSelf={Align.Center} />
               </box>
               <box rows={Style.SLOT_ROWS} zLevel={3}>
                 <GearSlot $for={spec of RIGHT} spec={spec} worn={self.wornOf(spec.id)} levels={self.choices.itemLevels}

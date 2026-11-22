@@ -1,0 +1,51 @@
+// The items' level at the top of the paper doll: its name over the median of the levels of what is worn in the slots
+// that count. Its tooltip says it is the median and lists each of those items with its level, the highest first.
+import Game from "$game"
+import { Align, TextFont } from "$ltml"
+import { Component, SECONDARY_TEXT, Tip, TipRow, qualityColor } from "Ordaen"
+import Locale from "@/locales"
+import { Worn, levelledItems, medianLevel } from "@/sheet"
+import Style from "@/style"
+
+// An item's row in the tooltip: its picture, its name in its quality's colour, its level.
+function levelRow(piece: Worn): TipRow {
+  return {
+    label: piece.name, value: String.of(piece.level ?? 0), icon: Game.items.icon(piece.item ?? 0),
+    tone: qualityColor(piece.quality)
+  }
+}
+
+// A level as it reads: whole, or with the half the median of an even count may have.
+function levelText(level: Number): String {
+  return level == level.floor() ? String.of(level.floor()) : "%.1f".format(level)
+}
+
+public class ItemLevel implements Component {
+  state tipShown = false
+  derived levelled: Array<Worn> = levelledItems(self.worn)
+  derived median: Number | nil = medianLevel(self.levelled)
+  derived shown: Boolean = self.median != nil
+  derived value: String = levelText(self.median ?? 0)
+  derived rows: Array<TipRow> = self.levelled.map(piece => levelRow(piece))
+
+  worn: Signal<Array<Worn>>
+  constructor(worn: Signal<Array<Worn>>) {
+    self.worn = worn
+  }
+
+  onEnter(mut self) { self.tipShown = true }
+  onLeave(mut self) { self.tipShown = false }
+
+  public render(self): Template {
+    return $ltml {
+      <box xAlign={Align.Center}>
+        <box $if={self.shown} xAlign={Align.Center} @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
+          <text value={Locale.ITEM_LEVEL} textSize={SECONDARY_TEXT} textColor={Style.DIM} wrap={.None} />
+          <text value={self.value} textSize={Style.MAIN_TEXT} textFont={TextFont.Numbers} textColor={Style.GOLD}
+                wrap={.None} />
+          <Tip $if={self.tipShown} title={Locale.ITEM_LEVEL} text={Locale.ITEM_LEVEL_TIP} rows={self.rows} />
+        </box>
+      </box>
+    }
+  }
+}
