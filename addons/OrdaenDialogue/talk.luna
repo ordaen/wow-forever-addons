@@ -1,6 +1,6 @@
 // What the dialogue window is on, and what may stand over it: the page the game is on (the NPC's list, a quest's
-// details, its progress, its reward, a book), who the window's tab is, and a question asked first (a paid option, a
-// party member's escort quest, a PvP quest, a turn-in that costs money).
+// details, its progress, its reward, a book), who the window's tab is, and a question asked first (the inn made home,
+// a paid option, a party member's escort quest, a PvP quest, a turn-in that costs money).
 import Client from "$client"
 import { Art } from "$ltml"
 import Locale from "@/locales"
@@ -15,8 +15,10 @@ public struct Speaker {
   const icon: Art | nil
 }
 
-// A question asked before the game is told: Ordaen's confirm over the window.
+// A question asked before the game is told: the window's page while it waits, Yes and No its answers.
 public enum Prompt {
+  // The innkeeper's «make this inn your home» (`CONFIRM_BINDER`): the inn's place.
+  Binder { place: String }
   // A gossip option that asks (`GOSSIP_CONFIRM`): its text and its price.
   Paid { option: Integer, text: String, cost: Integer }
   // A party member's quest shared to start (`QUEST_ACCEPT_CONFIRM`).

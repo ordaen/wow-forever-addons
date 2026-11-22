@@ -88,6 +88,36 @@ function titleColor(line: Line): Color {
   return Style.NAME
 }
 
+// An answer to the question the window asks (Yes, No): its key, its word; a click, Enter or Space gives it.
+public class AnswerRow implements Component {
+  public pick: Event<Integer> = new Event()
+
+  derived key: String = keyName(self.index)
+
+  label: Signal<String>
+  index: Signal<Integer>
+  hints: Signal<Boolean>
+  constructor(label: Signal<String>, index: Signal<Integer>, hints: Signal<Boolean>) {
+    self.label = label
+    self.index = index
+    self.hints = hints
+  }
+
+  onPick(mut self) { self.pick.emit(peek self.index) }
+
+  public render(self): Template {
+    return $ltml {
+      <PickRow columns={ANSWER_COLUMNS} @pick={self.onPick}>
+        <Keycap $if={self.hints} key={self.key} />
+        <box $else />
+        <text value={self.label} textColor={Style.TEXT} wrap={.None} />
+      </PickRow>
+    }
+  }
+}
+
+const ANSWER_COLUMNS: Array<Track> = ["max-content", "max-content"]
+
 public class OptionRow implements Component {
   public pick: Event<Integer> = new Event()
   public mark: Event<Integer> = new Event()

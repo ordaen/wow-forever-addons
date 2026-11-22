@@ -1,0 +1,67 @@
+-- a paid option's question as the window's page
+surface 56.67,99.71 400.03x620.58 on MEDIUM clamped raised by a click
+  box 56.67,136.96 400.03x583.33 absolute Interface\AddOns\Ordaen\media\window-wood border=UI-Frame-Metal-CornerTopLeft
+    box 69.76,150.05 378.84x559.39
+      box 69.76,150.05 378.84x559.39
+        box 92.52,172.81 333.33x513.88
+          box 92.52,172.81 0x0 absolute @keyPress
+          box 92.52,172.81 0x0 absolute @keyPress
+          box 92.52,172.81 0x0 absolute @keyPress
+          box 92.52,172.81 0x0 absolute @keyPress
+          box 92.52,172.81 0x0 absolute @keyPress
+          box 92.52,172.81 0x0 absolute @keyPress
+          box 92.52,172.81 0x0 absolute @keyPress
+          box 92.52,172.81 0x0 absolute @keyPress
+          box 92.52,172.81 0x0 absolute @keyPress
+          box 92.52,172.81 0x0 absolute @keyPress
+          box 92.52,172.81 333.33x200
+            box 92.52,172.81 333.33x200
+              box 92.52,172.81 333.33x200
+                box 92.52,172.81 333.33x41.67 Interface\AddOns\Ordaen\media\scroll-top
+                box 92.52,214.47 333.33x116.67
+                box 92.52,331.14 333.33x41.67 Interface\AddOns\Ordaen\media\scroll-bottom
+                box 92.52,214.47 333.33x127.08 absolute Interface\AddOns\Ordaen\media\scroll-paper
+                  box 135.85,222.81 246.67x100 absolute scrolled 0 of 0
+                    text 135.85,222.81 246.67x17.78 "Rent the best room?" #160c03
+                    text 135.85,244.85 246.67x17.78 "0g 50s 0c" #e8dcc4
+          box 92.52,372.81 333.33x313.88
+            box 92.52,378.5 333.33x275.59
+              box 92.52,378.5 333.33x60.84
+                box 92.52,378.5 333.33x29.71 #00000000 @keyPress @pointerPress
+                  box 98.21,384.19 18.33x18.33 #00000080
+                    text 102.93,385.6 8.89x15.51 "1" #c9a76a
+                  text 122.23,384.46 23.33x17.78 "Yes" #f0e6d0
+                box 92.52,409.63 333.33x29.71 #00000000 @keyPress @pointerPress
+                  box 98.21,415.32 18.33x18.33 #00000080
+                    text 102.93,416.73 8.89x15.51 "2" #c9a76a
+                  text 122.23,415.6 16.67x17.78 "No" #f0e6d0
+            box 92.52,658.36 333.33x28.33
+              box 92.52,658.36 141.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+                box 96.07,661.9 38.33x21.25 #00000038 opacity=1
+                  text 103.71,663.64 22.22x17.78 "Esc" #c9a76a
+                text 160.29,663.64 44.44x17.78 "Cancel" #ffd100
+              box 234.18,658.36 50x0
+              box 284.18,658.36 141.67x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+                box 287.74,661.9 38.33x21.25 #00000038 opacity=1
+                  box 299.82,670.44 13.33x4.17
+                text 362.52,663.64 23.33x17.78 "Yes" #ffd100
+    box 439.45,700.29 13.33x13.33 absolute
+      box 439.45,700.29 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
+  box 56.67,99.71 400.03x47.75
+    box 56.67,99.71 311.5x47.75
+      box 56.67,99.71 189.26x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
+        box 63.92,106.96 37.25x37.25 absolute face:npc border=UI-Frame-Metal-CornerTopLeft sides=none
+        box 96.17,106.96 11.5x40.5 absolute border=UI-Frame-Metal-CornerTopLeft sides=left
+        box 112.7,109.96 114.44x34.25
+          text 112.7,118.19 114.44x17.78 "Innkeeper Farley" #ffd100
+    box 376.7,116.04 80x31.42
+      box 376.7,116.04 80x26.67 clipped
+        box 376.7,116.04 27.5x26.67 absolute clipped @keyPress @pointerPress
+          box 376.7,116.04 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
+          box 385.03,125.62 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 0 of 8
+        box 404.2,116.04 25x26.67 absolute clipped @keyPress @pointerPress
+          box 404.2,116.04 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 3 of 16
+          box 410.45,125.62 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
+        box 429.2,116.04 27.5x26.67 absolute clipped @keyPress @pointerPress
+          box 429.2,116.04 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
+          box 435.45,125.62 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8

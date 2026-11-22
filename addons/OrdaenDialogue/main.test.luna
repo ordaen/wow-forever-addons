@@ -401,8 +401,9 @@ test "a quest that flags for PvP asks first" {
   Test.quest({ id: 21, title: "Battle!", pvp: true })
   Events.QUEST_DETAIL.emit(nil)
   window().button("Accept").click()
-  Test.expect(asked() == "" && Test.page().text("Accepting this quest flags you for PvP.").shown())
-  Test.page().button("Yes").click()
+  Test.expect(asked() == "" && window().text("Accepting this quest flags you for PvP.").shown())
+  // The answers are the list's: Yes first, its key 1.
+  _ = Test.keyBound("1")
   Test.expect(asked() == "accept")
 }
 
@@ -502,7 +503,8 @@ test "a turn-in that takes money asks first, with the price" {
   Events.QUEST_COMPLETE.emit()
   window().button("Complete").click()
   Test.expect(asked() == "")
-  Test.page().button("Yes").click()
+  // Space is the page's Yes, as it is its main button on every page.
+  _ = Test.keyBound("SPACE")
   Test.expect(asked() == "reward 0")
 }
 
@@ -567,21 +569,47 @@ test "the quest window's close from the game closes ours" {
 
 // Questions asked first
 
-test "a paid option asks in Ordaen's dialog with its price, and Yes picks it confirmed" {
+test "a paid option asks on the window's page with its price, Yes and No its answers, and Yes picks it confirmed" {
   Test.mount(nil, SCREEN)
   Test.talk(innkeeper())
   Events.GOSSIP_CONFIRM.emit(300, "Rent the best room?", 5000)
-  Test.expect(Test.page().text("Rent the best room?").shown())
-  Test.page().button("Yes").click()
+  // The question on the parchment, the NPC's options gone; the answers in the list, Yes over No.
+  Test.expect(window().text("Rent the best room?").shown() && !window().text("Make this inn your home.").shown())
+  Test.expect(window().text("No").shown() && window().button("Yes").count() == 2)
+  Test.shot("a paid option's question as the window's page")
+  window().button("Yes").nth(1).click()
   Test.expect(asked() == "option 300 confirmed")
+}
+
+test "No, Escape or the Cancel button answers a question no, and the NPC's list is back" {
+  Test.mount(nil, SCREEN)
+  Test.talk(innkeeper())
+  Events.GOSSIP_CONFIRM.emit(300, "Rent the best room?", 5000)
+  window().button("No").click()
+  Test.expect(asked() == "" && window().text("Make this inn your home.").shown())
+  Events.GOSSIP_CONFIRM.emit(300, "Rent the best room?", 5000)
+  _ = Test.keyBound("ESCAPE")
+  Test.expect(asked() == "" && window().text("Make this inn your home.").shown())
+  Events.GOSSIP_CONFIRM.emit(300, "Rent the best room?", 5000)
+  window().button("Cancel").click()
+  Test.expect(asked() == "" && window().text("Make this inn your home.").shown())
 }
 
 test "a party member's escort quest asks, and Yes accepts it" {
   Test.mount(nil, SCREEN)
   Events.QUEST_ACCEPT_CONFIRM.emit("Reggie", "Guard the Caravan", 0)
   Test.expect(Test.page().text("Reggie offers to start the quest «Guard the Caravan».").shown())
-  Test.page().button("Yes").click()
+  Test.page().button("Yes").nth(2).click()
   Test.expect(asked() == "confirm accept")
+}
+
+test "the innkeeper's «make this inn your home» asks on the window's page, and stays while the talk ends" {
+  Test.mount(nil, SCREEN)
+  Test.talk(innkeeper())
+  Events.CONFIRM_BINDER.emit("Goldshire")
+  Test.expect(window().text("Goldshire will be your new home. Agree?").shown())
+  Events.GOSSIP_CLOSED.emit(false)
+  Test.expect(window().text("Goldshire will be your new home. Agree?").shown())
 }
 
 // Quests accepted and handed in on their own

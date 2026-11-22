@@ -11,8 +11,8 @@ import Game from "$game"
 import { Align, Event, Overflow, Position, Track } from "$ltml"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
-import { ButtonKey, ButtonPlate, Dialog, KeptWindow, Module, Money, PushButton, Reward, RewardView, Rewards, SCROLL_WIDTH, SECONDARY_TEXT, Scroll, Settings, SettingsPage, TipText, Window, WindowTabSpec, WindowsPage, choiceViews, windowsTitle } from "Ordaen"
-import { LineKey, OptionRow, Placed, columnsOf, keysFor, placeOf } from "@/list"
+import { BODY_LINE, ButtonKey, ButtonPlate, KeptWindow, Module, Money, PushButton, Reward, RewardView, Rewards, SCROLL_WIDTH, SECONDARY_TEXT, Scroll, Settings, SettingsPage, TipText, Window, WindowTabSpec, WindowsPage, choiceViews, windowsTitle } from "Ordaen"
+import { AnswerRow, LineKey, OptionRow, Placed, columnsOf, keysFor, placeOf } from "@/list"
 import Locale from "@/locales"
 import { Needs, Said } from "@/pages"
 import Pawn from "@/pawn"
@@ -49,6 +49,9 @@ const FADE_LETTERS = 7
 // The scroll's height on every page, 5:3 at its width: a short greeting and a long quest alike (a long one scrolls).
 const SCROLL_HEIGHT: Number<Length> = 281.25dp
 const FILL: Array<Track> = [{ fr: 1 }]
+// A question's answers, by their place in the list and their key.
+const YES = 1
+const NO = 2
 
 // The end of the word at `at` or after it (a byte before a space, or the text's end): a text cut there wraps as the
 // whole does, and never inside a letter.
@@ -108,14 +111,19 @@ public class Dialogue implements Module, App {
   // Something was done on its own (the one-option skip, a marked option, a quest walked): the game answers with its next
   // window (a trainer, a vendor, the next page), and until it does the talk is ours and nothing of it shows.
   state acting = false
-  derived shown: Boolean = self.page != Page.Closed
+  // A question asked is the window's page, its answers the list.
+  derived prompted: Boolean = self.prompt != nil
+  derived shown: Boolean = self.page != Page.Closed || self.prompted
   // Blizzard's own windows stand away while ours shows, and while the talk is ours with nothing shown.
   derived gameAway: Boolean = self.shown || self.acting
   derived listShown: Boolean = self.page == Page.List
   // A quest's page as it opens, its parchment folded to its title where the settings say so; a click unfolds it.
   state scrollFolded = false
-  derived questPageShown: String = isQuestPage(self.page) ? `${self.page}:${self.quest?.id ?? 0}` : ""
-  derived scrollTitle: String = isQuestPage(self.page) ? self.quest?.title ?? "" : ""
+  derived onQuest: Boolean = isQuestPage(self.page) && !self.prompted
+  derived questPageShown: String = self.onQuest ? `${self.page}:${self.quest?.id ?? 0}` : ""
+  derived scrollTitle: String = self.onQuest ? self.quest?.title ?? "" : ""
+  // Under a question its answers, with their keys; the buttons say them too.
+  derived listed: Boolean = self.listShown && !self.prompted
   derived tabs: Array<WindowTabSpec> = [
     { title: self.speaker.name, desc: self.speaker.subtitle, icon: self.speaker.icon, portrait: self.speaker.portrait }
   ]
@@ -134,6 +142,7 @@ public class Dialogue implements Module, App {
     Events.QUEST_COMPLETE.listen(self.onComplete)
     Events.QUEST_FINISHED.listen(self.onQuestFinished)
     Events.QUEST_ACCEPT_CONFIRM.listen(self.onEscort)
+    Events.CONFIRM_BINDER.listen(self.onBinder)
     Events.ITEM_TEXT_BEGIN.listen(self.onBookBegin)
     Events.ITEM_TEXT_READY.listen(self.onBookPage)
     Events.ITEM_TEXT_CLOSED.listen(self.onBookClosed)
@@ -332,6 +341,13 @@ public class Dialogue implements Module, App {
 
   onConfirmCancel(mut self) { self.prompt = nil }
 
+  // The innkeeper asks whether the inn is to be home: the game's own question stands away, the window asks it.
+  onBinder(mut self, place: String) {
+    Client.StaticPopup_Hide("CONFIRM_BINDER")
+    if (!(peek self.shown)) { sound(SOUND_OPEN) }
+    self.prompt = .Binder { place: place }
+  }
+
   onEscort(mut self, who: String, quest: String, from: Number) {
     Client.StaticPopup_Hide("QUEST_ACCEPT")
     self.prompt = .Escort { text: Locale.ESCORT.format(who, quest) }
@@ -342,6 +358,10 @@ public class Dialogue implements Module, App {
     self.prompt = nil
     if (prompt == nil) { return }
     match (prompt) {
+      .Binder => {
+        Client.C_PlayerInteractionManager.ConfirmationInteraction(Client.PlayerInteractionType.Binder)
+        Client.C_PlayerInteractionManager.ClearInteraction(Client.PlayerInteractionType.Binder)
+      }
       .Paid => Client.C_GossipInfo.SelectOption(prompt.option, "", true)
       .Escort => Client.ConfirmAcceptQuest()
       .Pvp => self.acceptQuest()
@@ -349,7 +369,12 @@ public class Dialogue implements Module, App {
     }
   }
 
-  public cancelPrompt(mut self) { self.prompt = nil }
+  // No: the question goes, and the game is told where it waits for an answer (the inn's, as its own window's Cancel).
+  public cancelPrompt(mut self) {
+    const prompt = peek self.prompt
+    self.prompt = nil
+    if (prompt is Prompt.Binder) { Client.C_PlayerInteractionManager.ClearInteraction(Client.PlayerInteractionType.Binder) }
+  }
 
   // ——— The player's actions.
 
@@ -383,6 +408,10 @@ public class Dialogue implements Module, App {
 
   // The page's main action (Space, the accent button): on the list its first line.
   public main(mut self) {
+    if (peek self.prompted) {
+      self.confirmPrompt()
+      return
+    }
     match (peek self.page) {
       .List => self.pickLine(1)
       .Detail => self.accept()
@@ -394,6 +423,11 @@ public class Dialogue implements Module, App {
 
   // Back (Esc, the left button): from a quest picked in the list, the list; else the page is declined or closed.
   public back(mut self) {
+    if (peek self.prompted) {
+      sound(SOUND_CANCEL)
+      self.cancelPrompt()
+      return
+    }
     const page = peek self.page
     if (page == Page.List || page == Page.Book) {
       self.close()
@@ -455,11 +489,19 @@ public class Dialogue implements Module, App {
 
   // A key of 1–9: a line of the list, or a reward to choose.
   public pickNumber(mut self, number: Integer) {
-    if (peek self.page == Page.List) {
+    if (peek self.prompted) {
+      self.answer(number)
+    } else if (peek self.page == Page.List) {
       self.pickLine(number)
     } else {
       self.choose(number)
     }
+  }
+
+  // An answer to the question by its place: 1 is Yes, 2 No; another place is none.
+  public answer(mut self, place: Integer) {
+    if (place == YES) { self.main() }
+    if (place == NO) { self.back() }
   }
 
   // The window closed (its ✕, Escape on the list or a book): the game's window is told, as its own close does.
@@ -483,6 +525,8 @@ public class Dialogue implements Module, App {
     }
     self.page = page
     self.acting = false
+    // A new talk drops a question left unanswered (the inn's, which outlives its talk).
+    self.prompt = nil
     self.fadeIn(page)
   }
 
@@ -520,7 +564,8 @@ public class Dialogue implements Module, App {
     self.stopFading()
     self.page = .Closed
     self.acting = false
-    self.prompt = nil
+    // The inn's question outlives the talk, as the game's own does: it is answered or cancelled.
+    if (!((peek self.prompt) is Prompt.Binder)) { self.prompt = nil }
     self.fromList = false
     self.acceptNext = false
     self.completeNext = false
@@ -582,7 +627,7 @@ public class Dialogue implements Module, App {
 
   // ——— What the window draws.
 
-  derived keysOn: Boolean = self.settings.values.keyboard && !Game.situation.combat && self.prompt == nil
+  derived keysOn: Boolean = self.settings.values.keyboard && !Game.situation.combat
   derived hints: Boolean = self.settings.values.keyboard && self.settings.values.keyHints
   derived combatNote: Boolean = self.settings.values.keyboard && Game.situation.combat
   derived isBook: Boolean = self.page == Page.Book
@@ -600,12 +645,14 @@ public class Dialogue implements Module, App {
   derived lineKeys: Array<LineKey> = self.keysOn ? keysFor(self.listShown ? self.lines.length : 0) : []
   derived pickable: Boolean = self.page == Page.Reward
   derived rewardViews: Array<RewardView> = choiceViews(self.quest?.choices ?? [], self.upgrades())
-  derived backLabel: String = match (self.page) {
+  derived backLabel: String = self.prompted ? Locale.CANCEL : self.pageBack
+  derived pageBack: String = match (self.page) {
     .Detail => self.fromList ? Locale.BACK : Locale.DECLINE
     .Book => Locale.CLOSE
     else => Locale.BACK
   }
-  derived mainLabel: String = match (self.page) {
+  derived mainLabel: String = self.prompted ? Locale.YES : self.pageMain
+  derived pageMain: String = match (self.page) {
     .Detail => Locale.ACCEPT
     .Progress => Locale.CONTINUE
     else => Locale.COMPLETE
@@ -616,10 +663,10 @@ public class Dialogue implements Module, App {
   derived mainKey: ButtonKey = self.hints ? ButtonKey.Space : ButtonKey.None
   derived promptText: String = self.promptTextNow()
   derived promptCost: Integer = self.promptCostNow()
-  derived prompted: Boolean = self.prompt != nil
   state tab = 1
 
   mainOffNow(self): Boolean {
+    if (self.prompted) { return false }
     const quest = self.quest
     if (quest == nil) { return false }
     if (self.page == Page.Progress) { return !quest.completable }
@@ -631,6 +678,7 @@ public class Dialogue implements Module, App {
     const prompt = self.prompt
     if (prompt == nil) { return "" }
     return match (prompt) {
+      .Binder => Locale.BINDER_CONFIRM.format(prompt.place)
       .Paid => prompt.text
       .Escort => prompt.text
       .Pvp => Locale.PVP_CONFIRM
@@ -674,13 +722,20 @@ public class Dialogue implements Module, App {
             </box>
             <box $else width={SCROLL_WIDTH} height={SCROLL_HEIGHT} rows={FILL}>
               <Scroll title={self.scrollTitle} folded={mut self.scrollFolded}>
-                <Said page={self.page} quest={self.quest} said={self.said} book={self.book} revealed={self.revealed} />
+                <text $if={self.prompted} value={self.promptText} textColor={Style.INK} lineHeight={BODY_LINE} />
+                <Money $if={self.promptCost > 0} amount={self.promptCost} />
+                <Said $if={!self.prompted} page={self.page} quest={self.quest} said={self.said} book={self.book}
+                      revealed={self.revealed} />
               </Scroll>
             </box>
           </box>
-          <box $if={!self.isBook} rows={[{ fr: 1 }, "max-content"]} gap={1.5sp} padding={{ top: 2sp }}>
+          <box $if={!self.isBook || self.prompted} rows={[{ fr: 1 }, "max-content"]} gap={1.5sp} padding={{ top: 2sp }}>
             <box overflow={self.wellOverflow} gap={0.5sp} yAlign={self.wellAlign}>
-              <box $if={self.listShown} columns={self.listColumns} gap={2sp}>
+              <box $if={self.prompted} gap={0.5sp}>
+                <AnswerRow label={Locale.YES} index={YES} hints={self.hints} @pick={self.answer} />
+                <AnswerRow label={Locale.NO} index={NO} hints={self.hints} @pick={self.answer} />
+              </box>
+              <box $elseif={self.listShown} columns={self.listColumns} gap={2sp}>
                 <box $for={column of self.optionColumns} gap={0.5sp}>
                   <OptionRow $for={placed of column} line={placed.line} index={placed.index} hints={self.hints}
                              marked={self.markedAt(placed.line)} @pick={self.pickLine} @mark={self.toggleMark} />
@@ -692,7 +747,7 @@ public class Dialogue implements Module, App {
                        hints={self.hints} pawnColumn={self.pawnShown} @choose={self.choose} />
             </box>
             <text $if={self.combatNote} value={Locale.KEYS_IN_COMBAT} textColor={Style.DIM} textSize={SECONDARY_TEXT} />
-            <box $if={!self.listShown} columns={["max-content", { fr: 1 }, "max-content"]}>
+            <box $if={!self.listed} columns={["max-content", { fr: 1 }, "max-content"]}>
               <PushButton label={self.backLabel} width={199.21875dp} key={self.backKey} @click={self.back} />
               <box />
               <PushButton label={self.mainLabel} width={199.21875dp} plate={ButtonPlate.Accent} disabled={self.mainOff}
@@ -704,12 +759,6 @@ public class Dialogue implements Module, App {
           </box>
         </box>
       </Window>
-      <Dialog $if={self.prompted} width={421.875dp}>
-        <text value={self.promptText} textColor={Style.TEXT} />
-        <Money $if={self.promptCost > 0} amount={self.promptCost} />
-        <PushButton #buttons label={Locale.CANCEL} width={140.625dp} @click={self.cancelPrompt} />
-        <PushButton #buttons label={Locale.YES} width={140.625dp} plate={ButtonPlate.Accent} @click={self.confirmPrompt} />
-      </Dialog>
     }
   }
 }
