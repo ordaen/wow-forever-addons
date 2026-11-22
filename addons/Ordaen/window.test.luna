@@ -243,6 +243,33 @@ test "the window is never narrower than its tabs and its control group" {
   destroy page
 }
 
+// A window whose second tab keeps its size.
+class Pinned {
+  state tabs: Array<WindowTabSpec> = [{ title: "Sized" }, { title: "Kept", fixed: true }]
+  state tab = 1
+  public placing: mut KeptWindow = new KeptWindow("pinned", "pinned", { x: 0ui, y: 0ui, width: 400ui, height: 300ui })
+
+  public render(self): Template {
+    return $ltml {
+      <Window tabs={self.tabs} selected={mut self.tab} declared={mut self.placing}>
+        <text value={"the page"} />
+      </Window>
+    }
+  }
+}
+
+test "a tab that keeps the window's size draws no grip while open, and the others draw it again" {
+  let page = new Pinned()
+  Test.mount(page, { left: 0, top: 0, width: 800, height: 600 })
+  Test.flush()
+  Test.expect(Test.page().box(Ordaen.art.ctl.grip).shown())
+  Test.page().text("Kept").click()
+  Test.expect(!Test.page().box(Ordaen.art.ctl.grip).shown())
+  Test.page().text("Sized").click()
+  Test.expect(Test.page().box(Ordaen.art.ctl.grip).shown())
+  destroy page
+}
+
 test "each control in the tab row works: settings and close are heard, full screen goes and comes back" {
   let page = new Gearbox(true)
   Test.mount(page, { left: 0, top: 0, width: 800, height: 600 })
