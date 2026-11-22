@@ -191,6 +191,32 @@ test "a tab that holds the window's height draws it at that height, its grip cha
   Test.expect(near(back.bottom - back.top, free.bottom - free.top) && near(back.top, free.top))
 }
 
+// A window of two tabs, the second's page bare: what each page holds fills it.
+class Bare {
+  state tabs: Array<WindowTabSpec> = [{ title: "Roomy" }, { title: "Bare", bare: true }]
+  state tab = 1
+  public placing: mut KeptWindow = new KeptWindow("bare", "bare", { x: 0ui, y: 0ui, width: 600ui, height: 400ui })
+
+  public render(self): Template {
+    return $ltml {
+      <Window tabs={self.tabs} selected={mut self.tab} declared={mut self.placing}>
+        <box background={Ordaen.art.panel.xpTrough} />
+      </Window>
+    }
+  }
+}
+
+test "a bare tab's page stands to the body's line, with no room round it" {
+  const page = new Bare()
+  Test.mount(page, { left: 0, top: 0, width: 200, height: 100 })
+  const roomy = Test.edges(Ordaen.art.panel.xpTrough, 0)
+  page.tab = 2
+  Test.flush()
+  const bare = Test.edges(Ordaen.art.panel.xpTrough, 0)
+  Test.expect(bare.left < roomy.left - 5 && bare.top < roomy.top - 5)
+  Test.expect(bare.right > roomy.right + 5 && bare.bottom > roomy.bottom + 5)
+}
+
 test "the grip stops where the content would be cut, and the window grows again at once" {
   const page = new Crowded()
   Test.mount(page, { left: 0, top: 0, width: 200, height: 100 })

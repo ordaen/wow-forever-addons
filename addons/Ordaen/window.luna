@@ -36,6 +36,9 @@ public struct WindowTabSpec {
   // height: a paper doll); the grip then changes only its width, and the player's height comes back on the other
   // tabs. None: the player's height.
   height: Number<Length> | nil = nil
+  // The tab's page stands to the body's line, with no room round it: a page cut into sections by lines in the wood,
+  // each section keeping its own room, the lines running to the frame.
+  bare: Boolean = false
 }
 
 // Where a window is: its centre from the screen's (y down), and its body's size. Its owner holds it, and the window
@@ -157,6 +160,7 @@ const PADDING: Edges = { top: WINDOW_ROOM, right: WINDOW_ROOM, bottom: WINDOW_RO
 const PADDING_FOOTED: Edges = { top: 8sp, right: 8sp, bottom: 5sp, left: 8sp }
 const CONTENT_FOOTED: Edges = { top: 8sp, right: 8sp, bottom: 6sp, left: 8sp }
 public const FOOTER_ROOM: Edges = { right: 8sp, bottom: 5sp, left: 8sp }
+const BARE: Edges = { top: 0sp, right: 0sp, bottom: 0sp, left: 0sp }
 // The control group at the tab row's right end (the design's `CTRLS`): its controls from its left, each one kind of
 // plate with its glyph; how high it is with its rim.
 public enum CornerControl { Settings = "settings", Full = "full", Close = "close" }
@@ -419,6 +423,8 @@ public class Window implements Component {
   derived height: Number<Length> | nil = self.full || self.docked != nil ? nil : self.tabHeight + (self.held ?? self.declared.placing.height)
   // The height the open tab holds the body at; none where it holds none.
   derived held: Number<Length> | nil = self.tabs[self.selected]?.height
+  // The room round the open tab's page: none for a bare one.
+  derived pagePadding: Edges = (self.tabs[self.selected]?.bare ?? false) ? BARE : self.contentPadding
   // Moved by a tab and resized by its grip: neither full screen nor docked.
   derived free: Boolean = !self.full && self.docked == nil
   // The screen's right side kept clear while full screen.
@@ -802,7 +808,7 @@ public class Window implements Component {
              border={Ordaen.art.frame.small} background={Ordaen.art.window.wood} padding={INSET}
              columns={self.bodyColumns} rows={BODY_ROWS} zLevel={BODY_LEVEL}>
           <box rows={MAIN_ROWS}>
-            <box rows={ONE} padding={self.contentPadding}>
+            <box rows={ONE} padding={self.pagePadding}>
               <slot />
             </box>
             <box $if={self.footed}>
