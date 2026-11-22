@@ -349,8 +349,8 @@ public class Wheel implements Component {
                    icon={self.category} mask={ROUND} />
             </box>
             <text $if={self.middle.name != "" && self.names != WheelNames.Off} value={self.middle.name}
-                  textSize={14rem / 13 * self.scale} textColor={self.middle.dim ? NAME_DIM : NAME} />
-            <text $if={self.middle.hint != ""} value={self.middle.hint} textSize={SECONDARY_TEXT * self.scale}
+                  textSize={12rem / 13 * self.scale} textColor={self.middle.dim ? NAME_DIM : NAME} />
+            <text $if={self.middle.hint != ""} value={self.middle.hint} textSize={10rem / 13 * self.scale}
                   textColor={HINT} />
           </box>
         </box>

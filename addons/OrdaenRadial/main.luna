@@ -203,6 +203,7 @@ public class Radial implements Module, App {
     const wheel = self.wheel
     if (ring == nil || wheel == nil) { return [] }
     _ = wheel.tick
+    _ = wheel.steps
     const place = placeOf(self.level)
     const count = ring.counts[place] ?? 0
     const fighting = Game.situation.combat

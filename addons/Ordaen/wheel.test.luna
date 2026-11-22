@@ -421,3 +421,46 @@ test "a click in the middle of a submenu that remembers does its last item" {
   Test.releaseBound("G")
   Test.expect(Test.performed().join(", ") == "macro /laugh, macro /laugh")
 }
+
+test "the mouse wheel over a submenu steps through its items, and a click then does the one stepped to, in a fight too" {
+  const slots = new Slotted()
+  Test.flush()
+  Test.combat(true)
+  open("G")
+  Test.moveTo({ x: MIDDLE.x - 100, y: MIDDLE.y })
+  Test.wheel(-1)
+  Test.wheel(-1)
+  Test.expect(slots.wheel.step("r_4") == 2)
+  clickHere(nil)
+  Test.releaseBound("G")
+  Test.expect(Test.performed().join(", ") == "macro /laugh" && !slots.wheel.open)
+  // Up goes back, through the ring itself: a click there opens it.
+  open("G")
+  Test.moveTo({ x: MIDDLE.x - 100, y: MIDDLE.y })
+  Test.wheel(1)
+  Test.wheel(1)
+  Test.expect(slots.wheel.step("r_4") == 0)
+  clickHere(nil)
+  Test.expect(slots.wheel.level == "r_4" && Test.performed().length == 0)
+  Test.releaseBound("G")
+  Test.combat(false)
+}
+
+test "the mouse wheel over a slot steps to its child, which a click does and makes current; over an item, nothing" {
+  const slots = new Slotted()
+  Test.flush()
+  open("G")
+  Test.moveTo({ x: MIDDLE.x + 100, y: MIDDLE.y })
+  Test.wheel(-1)
+  Test.wheel(-1)
+  clickHere(nil)
+  Test.releaseBound("G")
+  Test.expect(Test.performed().join(", ") == "macro /cry" && slots.wheel.current("r_2") == 2)
+  const held = new Held(1)
+  Test.flush()
+  open("F")
+  Test.moveTo({ x: MIDDLE.x, y: MIDDLE.y - 100 })
+  Test.wheel(-1)
+  Test.expect(held.wheel.step("r_1") == 0)
+  Test.releaseBound("F")
+}

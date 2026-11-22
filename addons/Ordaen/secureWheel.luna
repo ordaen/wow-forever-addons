@@ -4,7 +4,8 @@
 // way the mouse goes from there, wherever the art is drawn) and its release closing it, doing nothing. While open, the
 // button takes the mouse: a left click reads the cursor's direction, by `SLOT_LUA`, and has the client click it as the
 // chosen item, which does the item's action (none in the middle); a right click goes back a level or closes; Escape
-// closes. A submenu replaces the ring in place; so does a slot of several, whose child used becomes its current
+// closes; the mouse wheel over a submenu or a slot of several steps through its items, and a left click then does the
+// one stepped to. A submenu replaces the ring in place; so does a slot of several, whose child used becomes its current
 // (cycling after each use where it cycles, kept where it remembers, the first again where it starts over). Where the
 // wheel remembers, a click in the middle of a submenu does the item last used there. What the art shows (`Wheel`)
 // follows the button by `slotAt`, the same formula, from the scripts hooked on its click, which the client runs in a
@@ -147,6 +148,20 @@ const CHOICE: String = [
   "return name"
 ].join("\n")
 
+// The client's restricted code round the button's mouse wheel (`offset` 1 up, -1 down): over a submenu or a slot of
+// several, the item it steps to goes on to the next (down) or back (up), through nought, the ring itself.
+const STEP: String = [
+  "local level = owner:GetAttribute('level') or 'r'",
+  AIM,
+  "if slot == 0 then return end",
+  "local name = level .. '_' .. slot",
+  "if not owner:GetAttribute('menu-' .. name) and not owner:GetAttribute('slot-' .. name) then return end",
+  "local several = math.min(owner:GetAttribute('count-' .. name) or 0, 8)",
+  "if several == 0 then return end",
+  "local step = owner:GetAttribute('step-' .. name) or 0",
+  "owner:SetAttribute('step-' .. name, (step + (offset < 0 and 1 or several)) % (several + 1))"
+].join("\n")
+
 // The attributes an item's action sets on the button, by its place: read only while its modifier is held, where it
 // has one (`shift-type-r_3`).
 function actionAttributes(entry: WheelEntry): Array<[String, String]> {
@@ -178,6 +193,8 @@ public class SecureWheel {
   // seconds: what an item's state (its cooldown, its range) is read again by.
   public state opening: Number = 1
   public state tick = 0
+  // A count that moves as the mouse wheel steps a band: what the art reads the steps again by.
+  public state steps = 0
   // An item used, by its place, after the client did its action: an item of ours is done by whoever hears it.
   public const picked: Event<String> = new Event()
 
@@ -216,6 +233,7 @@ public class SecureWheel {
     button.SetFrameStrata("FULLSCREEN_DIALOG")
     button.RegisterForClicks("AnyDown", "AnyUp")
     button.EnableMouse(true)
+    button.EnableMouseWheel(true)
     const high = Client.UIParent.GetHeight() * 2
     const wide = Client.UIParent.GetWidth() * 2
     button.SetSize(wide, high)
@@ -224,6 +242,8 @@ public class SecureWheel {
     Client.RegisterAttributeDriver(header, "fighting", "[combat] yes; no")
     Client.SecureHandlerWrapScript(button, "OnClick", header, CHOICE, nil)
     _ = button.HookScript("OnClick", (frame: Unknown, how: Unknown, down: Unknown): nil => self.heard())
+    Client.SecureHandlerWrapScript(button, "OnMouseWheel", header, STEP, nil)
+    _ = button.HookScript("OnMouseWheel", (frame: Unknown, offset: Unknown): nil => { self.steps += 1 })
   }
 
   // The rings and their items and how the wheel is laid out, written out of a fight (in one, at its end).

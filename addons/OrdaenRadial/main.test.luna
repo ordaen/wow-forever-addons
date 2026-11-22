@@ -45,10 +45,10 @@ function clickAt(x: Number, y: Number) {
 test "the key held opens the ring and names what the mouse goes towards" {
   start()
   hold("F", 0, -FAR)
-  Test.expect(Test.page().texts().join(", ") == "Windows, Click to open")
+  Test.expect(Test.page().texts().join(", ") == "Windows, Click to open · scroll to choose")
   Test.moveTo({ x: MIDDLE.x + FAR, y: MIDDLE.y })
   Test.pass(0.05)
-  Test.expect(Test.page().texts().join(", ") == "Pings, Click to open")
+  Test.expect(Test.page().texts().join(", ") == "Pings, Click to open · scroll to choose")
   Test.moveTo(MIDDLE)
   Test.pass(0.05)
   Test.expect(Test.page().texts().join(", ") == "Release to cancel")
@@ -238,4 +238,14 @@ test "an item from the bags and a macro dropped go in the place chosen" {
   Client.GetCursorInfo = (): (String | nil, Unknown, Unknown, Unknown) => { return "macro", 3, nil, nil }
   settings.button(drop).click()
   Test.expect((Radial.settings.values.rings[1] ?? panic("the first ring")).items["1"] is Item.Macro)
+}
+
+test "the mouse wheel over a submenu shows the item it steps to, and the middle says which of how many" {
+  start()
+  hold("F", 0, -FAR)
+  Test.wheel(-1)
+  Test.pass(0.05)
+  const texts = Test.page().texts()
+  Test.expect(texts.length == 2 && (texts[2] ?? "").contains("1 of"))
+  _ = Test.releaseBound("F")
 }
