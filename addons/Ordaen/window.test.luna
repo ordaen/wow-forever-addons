@@ -4,7 +4,7 @@ import Client from "$client"
 import { Align, Key, Track } from "$ltml"
 import Test from "$test"
 import root Ordaen from "Ordaen"
-import { ARTWORK } from "@/art"
+import { ARTWORK, cornerArtWidth } from "@/art"
 import { FooterBand } from "@/footerBand"
 import { PushButton } from "@/pushButton"
 import { FOOTER_ROOM, KeptWindow, Window, WindowSide, WindowTabSpec, windowSides } from "@/window"
@@ -185,28 +185,36 @@ class Crowded {
   }
 }
 
-test "the control group stands in the tab row: outside the body, right of the last tab, on the body's top line" {
+test "the control group stands in the tab row: past the body's top right corner, its foot under the top band" {
   let page = new Gearbox(true)
   Test.mount(page, { left: 0, top: 0, width: 800, height: 600 })
   Test.flush()
   const body = Test.edges(Ordaen.art.window.wood, 0)
-  const gear = Test.edges(Ordaen.art.ctl.corner.gear, 0)
-  const close = Test.edges(Ordaen.art.ctl.corner.close, 0)
+  // The close plate's cell: its art is wider, cut to it.
+  const close = Test.edges(Ordaen.art.ctl.corner.red, 1)
   const tab = Test.holding("Recipes", nil)
-  // The body's wood is drawn from its art's top: its line stands the art's reach below that, the line's metal the
-  // frame's inset outside it.
   const metal = Ordaen.art.frame.window
-  const lineTop = body.top + metal.reach.top * metal.scale + metal.inset
-  Test.expect(gear.bottom <= lineTop && close.bottom <= lineTop)
-  Test.expect(gear.left > tab.x && close.right <= body.right && close.right > body.right - 20)
-  // Every plate stands joined to the frame, as the tabs' sides do: its foot on the top of the body's line, with
-  // nothing between.
+  // The body's wood is drawn from its art's top: its line stands the band's reach and its own width below that.
+  const line = body.top + metal.reach.top * metal.scale + metal.width
+  // The group ends where the body's top right corner piece starts (its corners are one width).
+  Test.expect(near(close.right, body.right - cornerArtWidth(metal) / 1ui))
+  Test.expect(Test.edges(Ordaen.art.ctl.corner.gear, 0).left > tab.x)
+  // Every plate runs on under the band, as the tabs' sides do: its foot on the line, the band drawn over it.
   for (art of [Ordaen.art.ctl.corner.bronze.first, Ordaen.art.ctl.corner.bronze.next, Ordaen.art.ctl.corner.red]) {
-    const foot = Test.edges(art, 0).bottom
-    Test.expect(foot > lineTop - 0.01 && foot < lineTop + 0.01)
+    Test.expect(near(Test.edges(art, 0).bottom, line))
   }
-  // Shown with the window, not only while the cursor is over it.
-  Test.expect(corner() == "plate 0, glyph 0, plate 3, glyph 2, plate 9, glyph 6")
+  destroy page
+}
+
+test "the control group shows while the cursor is over the window, and goes as it leaves" {
+  let page = new Gearbox(true)
+  Test.mount(page, { left: 0, top: 0, width: 800, height: 600 })
+  Test.moveTo({ x: 5, y: 5 })
+  Test.flush()
+  Test.shot("the cursor outside the window: no control group")
+  Test.moveTo(Test.holding("the page", nil))
+  Test.flush()
+  Test.shot("the cursor over the page: the group shows")
   destroy page
 }
 

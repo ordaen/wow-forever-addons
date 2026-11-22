@@ -1,6 +1,6 @@
 -- auction
 surface 288,134.12 1024x631.75 on MEDIUM clamped raised by a click
-  box 288,182.54 1024x583.33 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.98, tr 0.78, bl 0.80, br 0.60, top 0.98>0.79 x34.56, bottom 0.80>0.60 x34.56, left 0.98>0.80 x19.25, right 0.78>0.61 x19.25]
+  box 288,182.54 1024x583.33 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.98, tr 0.78, bl 0.80, br 0.60, top 0.98>0.79 x34.56, bottom 0.80>0.60 x34.56, left 0.98>0.80 x19.25, right 0.78>0.61 x19.25] @pointerEnter @pointerLeave
     box 295.2,189.74 1009.6x568.93
       box 295.2,189.74 1009.6x554.71
         box 317.96,212.5 964.09x514.89
@@ -148,22 +148,21 @@ surface 288,134.12 1024x631.75 on MEDIUM clamped raised by a click
           box 317.96,744.45 964.09x0
     box 1290.25,744.12 13.33x13.33 absolute
       box 1290.25,744.12 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
-  box 288,134.12 1024x48.42
-    box 288,134.12 935.47x48.42
-      box 288,134.12 131.22x48.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 1.00, tr 0.97, top 1.00>0.98 x3.56, left 0.99>0.98 x1.18, right 0.97>0.96 x1.18] @drag @dragStart @dragStop @keyPress @pointerPress
-        box 294.75,140.88 48.42x48.42 absolute icon=136249 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=none pieces=[]
-        box 340.62,140.88 2.7x41.67 absolute border=Interface\AddOns\Ordaen\media\frame-divider-down sides=left pieces=[left 0.87>0.86 x2.17]
-        box 347.65,141.32 55.83x47.97
-          text 347.65,150.01 55.83x15.83 "Tailoring" #ffd100
-          text 357.23,167.27 36.67x13.33 "31 / 75" #8f8470
-    box 1232,160.38 80x22.17
-      box 1232,160.38 80x26.67 clipped
-        box 1232,160.38 27.5x26.67 absolute clipped @keyPress @pointerPress
-          box 1232,160.38 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
-          box 1240.33,169.96 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 0 of 8
-        box 1259.5,160.38 25x26.67 absolute clipped @keyPress @pointerPress
-          box 1259.5,160.38 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 3 of 16
-          box 1265.75,169.96 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
-        box 1284.5,160.38 27.5x26.67 absolute clipped @keyPress @pointerPress
-          box 1284.5,160.38 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
-          box 1290.75,169.96 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
+  box 288,134.12 1024x55.62
+    box 302.4,134.12 906.67x55.62
+      box 302.4,134.12 138.42x55.62 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.99, tr 0.97, top 0.99>0.97 x3.81, left 0.99>0.98 x1.43, right 0.97>0.95 x1.43] @drag @dragStart @dragStop @keyPress @pointerPress
+        box 309.15,140.88 55.62x55.62 absolute icon=136249 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=none pieces=[]
+        box 362.22,140.88 2.7x48.87 absolute border=Interface\AddOns\Ordaen\media\frame-divider-down sides=left pieces=[left 0.86>0.85 x2.55]
+        box 369.25,141.32 55.83x55.17
+          text 369.25,153.61 55.83x15.83 "Tailoring" #ffd100
+          text 378.83,170.87 36.67x13.33 "31 / 75" #8f8470
+    box 1217.6,163.08 80x26.67 clipped opacity=1 @pointerEnter @pointerLeave
+      box 1217.6,163.08 27.5x26.67 absolute clipped @keyPress @pointerPress
+        box 1217.6,163.08 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
+        box 1225.93,172.66 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 0 of 8
+      box 1245.1,163.08 25x26.67 absolute clipped @keyPress @pointerPress
+        box 1245.1,163.08 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 3 of 16
+        box 1251.35,172.66 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
+      box 1270.1,163.08 27.5x26.67 absolute clipped @keyPress @pointerPress
+        box 1270.1,163.08 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
+        box 1276.35,172.66 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8

@@ -1,6 +1,6 @@
 -- the form
 surface 500,175.79 1039.68x548.42 on MEDIUM clamped raised by a click
-  box 500,224.21 1039.68x500 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.98, tr 0.78, bl 0.80, br 0.60, top 0.98>0.78 x35.10, bottom 0.80>0.60 x35.10, left 0.98>0.80 x16.36, right 0.78>0.61 x16.36]
+  box 500,224.21 1039.68x500 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.98, tr 0.78, bl 0.80, br 0.60, top 0.98>0.78 x35.10, bottom 0.80>0.60 x35.10, left 0.98>0.80 x16.36, right 0.78>0.61 x16.36] @pointerEnter @pointerLeave
     box 507.2,231.41 585.6x485.6
       box 507.2,231.41 585.6x443.04
         box 529.96,254.16 540.09x403.22
@@ -90,28 +90,27 @@ surface 500,175.79 1039.68x548.42 on MEDIUM clamped raised by a click
       box 1089.47,231.41 6.67x485.6 absolute @drag @dragStart @dragStop
     box 1517.93,702.46 13.33x13.33 absolute
       box 1517.93,702.46 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
-  box 500,175.79 1039.68x48.42
-    box 500,175.79 951.14x48.42
-      box 500,175.79 113.5x48.42 Interface\AddOns\Ordaen\media\window-wood tint=#808080 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 1.00, tr 0.98, top 1.00>0.98 x2.94, left 0.99>0.98 x1.18, right 0.97>0.96 x1.18] @drag @dragStart @dragStop @keyPress @pointerPress
-        box 515.73,182.99 82.03x47.97
-          text 540.92,191.68 31.67x15.83 "Inbox" #a3977f
-          text 533.42,208.94 46.67x13.33 "0 letters" #8f8470
-      box 623.46,175.79 113.5x48.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.97, tr 0.95, top 0.97>0.96 x2.94, left 0.97>0.96 x1.18, right 0.95>0.94 x1.18] @drag @dragStart @dragStop @keyPress @pointerPress
-        box 639.19,182.99 82.03x47.97
-          text 661.04,191.68 38.33x15.83 "Outbox" #ffd100
-          text 664.37,208.94 31.67x13.33 "0 sent" #8f8470
-      box 746.91,175.79 129.8x48.42 Interface\AddOns\Ordaen\media\window-wood tint=#808080 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.95, tr 0.93, top 0.95>0.93 x3.51, left 0.95>0.93 x1.18, right 0.92>0.91 x1.18] @drag @dragStart @dragStop @keyPress @pointerPress
-        box 762.64,182.99 98.33x47.97
-          text 762.64,199.06 98.33x15.83 "To my characters" #a3977f
-    box 1459.68,202.04 80x22.17
-      box 1459.68,202.04 80x26.67 clipped
-        box 1459.68,202.04 27.5x26.67 absolute clipped @keyPress @pointerPress
-          box 1459.68,202.04 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
-          box 1468.01,211.63 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 0 of 8
-        box 1487.18,202.04 25x26.67 absolute clipped @keyPress @pointerPress
-          box 1487.18,202.04 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 3 of 16
-          box 1493.43,211.63 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
-        box 1512.18,202.04 27.5x26.67 absolute clipped @keyPress @pointerPress
-          box 1512.18,202.04 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
-          box 1518.43,211.63 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
+  box 500,175.79 1039.68x55.62
+    box 514.4,175.79 922.34x55.62
+      box 514.4,175.79 113.5x55.62 Interface\AddOns\Ordaen\media\window-wood tint=#808080 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.99, tr 0.97, top 0.99>0.98 x2.94, left 0.99>0.98 x1.43, right 0.97>0.96 x1.43] @drag @dragStart @dragStop @keyPress @pointerPress
+        box 530.13,182.99 82.03x55.17
+          text 555.32,195.28 31.67x15.83 "Inbox" #a3977f
+          text 547.82,212.54 46.67x13.33 "0 letters" #8f8470
+      box 637.86,175.79 113.5x55.62 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.97, tr 0.95, top 0.97>0.95 x2.94, left 0.97>0.95 x1.43, right 0.95>0.93 x1.43] @drag @dragStart @dragStop @keyPress @pointerPress
+        box 653.59,182.99 82.03x55.17
+          text 675.44,195.28 38.33x15.83 "Outbox" #ffd100
+          text 678.77,212.54 31.67x13.33 "0 sent" #8f8470
+      box 761.31,175.79 129.8x55.62 Interface\AddOns\Ordaen\media\window-wood tint=#808080 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.95, tr 0.92, top 0.95>0.93 x3.51, left 0.94>0.93 x1.43, right 0.92>0.91 x1.43] @drag @dragStart @dragStop @keyPress @pointerPress
+        box 777.04,182.99 98.33x55.17
+          text 777.04,202.66 98.33x15.83 "To my characters" #a3977f
+    box 1445.28,204.74 80x26.67 clipped opacity=1 @pointerEnter @pointerLeave
+      box 1445.28,204.74 27.5x26.67 absolute clipped @keyPress @pointerPress
+        box 1445.28,204.74 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
+        box 1453.61,214.33 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 0 of 8
+      box 1472.78,204.74 25x26.67 absolute clipped @keyPress @pointerPress
+        box 1472.78,204.74 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 3 of 16
+        box 1479.03,214.33 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
+      box 1497.78,204.74 27.5x26.67 absolute clipped @keyPress @pointerPress
+        box 1497.78,204.74 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
+        box 1504.03,214.33 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
 asked: Mailbox.writing true

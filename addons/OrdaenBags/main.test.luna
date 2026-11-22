@@ -1736,6 +1736,7 @@ test "an update that changes nothing redraws nothing, sorted by count too" {
   Test.mount(nil, SCREEN)
   Game.bags.open = true
   pick(Ordaen.art.ctl.tool.sort, "Count")
+  Test.flush()
   const told = Test.calls(() => {
     Game.bags.updated.emit(0)
     Test.flush()

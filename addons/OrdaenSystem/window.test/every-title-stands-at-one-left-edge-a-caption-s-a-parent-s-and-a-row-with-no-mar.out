@@ -1,7 +1,7 @@
 key: ESCAPE → none
 -- titles at one edge
 surface 391.67,175.79 816.67x548.42 on MEDIUM clamped raised by a click
-  box 391.67,224.21 816.67x500 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.98, tr 0.78, bl 0.80, br 0.60, top 0.98>0.78 x27.36, bottom 0.80>0.60 x27.36, left 0.98>0.80 x16.36, right 0.78>0.61 x16.36]
+  box 391.67,224.21 816.67x500 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.98, tr 0.78, bl 0.80, br 0.60, top 0.98>0.78 x27.36, bottom 0.80>0.60 x27.36, left 0.98>0.80 x16.36, right 0.78>0.61 x16.36] @pointerEnter @pointerLeave
     box 398.87,231.41 802.27x485.6
       box 398.87,231.41 802.27x443.04
         box 421.62,254.16 756.76x403.22
@@ -175,31 +175,30 @@ surface 391.67,175.79 816.67x548.42 on MEDIUM clamped raised by a click
               text 1092.54,680.7 38.33x15.83 "Reload" #ffd100
     box 1186.58,702.46 13.33x13.33 absolute
       box 1186.58,702.46 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
-  box 391.67,175.79 816.67x48.42
-    box 391.67,175.79 753.13x48.42
-      box 391.67,175.79 119.55x48.42 Interface\AddOns\Ordaen\media\window-wood tint=#808080 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 1.00, tr 0.97, top 1.00>0.97 x3.15, left 0.99>0.98 x1.18, right 0.97>0.95 x1.18] @drag @dragStart @dragStop @keyPress @pointerPress
-        box 398.42,182.54 48.42x48.42 absolute icon=Interface/Icons/INV_Misc_Gear_01 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=none pieces=[]
-        box 444.28,182.54 2.7x41.67 absolute border=Interface\AddOns\Ordaen\media\frame-divider-down sides=left pieces=[left 0.87>0.85 x2.17]
-        box 451.32,182.99 44.17x47.97
-          text 451.32,198.35 44.17x15.83 "Options" #a3977f
-          text 473.4,215.6 0x0 "" #8f8470
-      box 521.17,175.79 149.55x48.42 Interface\AddOns\Ordaen\media\window-wood tint=#808080 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.96, tr 0.93, top 0.96>0.93 x4.19, left 0.96>0.95 x1.18, right 0.93>0.91 x1.18] @drag @dragStart @dragStop @keyPress @pointerPress
-        box 527.92,182.54 48.42x48.42 absolute icon=Interface/Icons/INV_Misc_Key_03 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=none pieces=[]
-        box 573.79,182.54 2.7x41.67 absolute border=Interface\AddOns\Ordaen\media\frame-divider-down sides=left pieces=[left 0.84>0.82 x2.17]
-        box 580.82,182.99 74.17x47.97
-          text 580.82,198.35 74.17x15.83 "Key Bindings" #a3977f
-          text 617.91,215.6 0x0 "" #8f8470
-      box 680.68,175.79 113.72x48.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.92, tr 0.90, top 0.92>0.90 x2.95, left 0.92>0.91 x1.18, right 0.90>0.88 x1.18] @drag @dragStart @dragStop @keyPress @pointerPress
-        box 687.43,182.54 48.42x48.42 absolute icon=Interface/Icons/INV_Misc_Wrench_01 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=none pieces=[]
-        box 733.29,182.54 2.7x41.67 absolute border=Interface\AddOns\Ordaen\media\frame-divider-down sides=left pieces=[left 0.80>0.79 x2.17]
-        box 740.33,182.99 38.33x47.97
-          text 740.33,191.68 38.33x15.83 "AddOns" #ffd100
-          text 743.66,208.94 31.67x13.33 "6 of 6" #8f8470
-    box 1153.33,202.04 55x22.17
-      box 1153.33,202.04 55x26.67 clipped
-        box 1153.33,202.04 27.5x26.67 absolute clipped @keyPress @pointerPress
-          box 1153.33,202.04 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
-          box 1161.67,211.63 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
-        box 1180.83,202.04 27.5x26.67 absolute clipped @keyPress @pointerPress
-          box 1180.83,202.04 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
-          box 1187.08,211.63 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
+  box 391.67,175.79 816.67x55.62
+    box 406.07,175.79 724.33x55.62
+      box 406.07,175.79 126.75x55.62 Interface\AddOns\Ordaen\media\window-wood tint=#808080 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.99, tr 0.96, top 0.99>0.97 x3.40, left 0.99>0.98 x1.43, right 0.96>0.95 x1.43] @drag @dragStart @dragStop @keyPress @pointerPress
+        box 412.82,182.54 55.62x55.62 absolute icon=Interface/Icons/INV_Misc_Gear_01 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=none pieces=[]
+        box 465.88,182.54 2.7x48.87 absolute border=Interface\AddOns\Ordaen\media\frame-divider-down sides=left pieces=[left 0.86>0.85 x2.55]
+        box 472.92,182.99 44.17x55.17
+          text 472.92,201.95 44.17x15.83 "Options" #a3977f
+          text 495,219.2 0x0 "" #8f8470
+      box 542.77,175.79 156.75x55.62 Interface\AddOns\Ordaen\media\window-wood tint=#808080 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.96, tr 0.92, top 0.96>0.93 x4.44, left 0.96>0.94 x1.43, right 0.92>0.91 x1.43] @drag @dragStart @dragStop @keyPress @pointerPress
+        box 549.52,182.54 55.62x55.62 absolute icon=Interface/Icons/INV_Misc_Key_03 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=none pieces=[]
+        box 602.59,182.54 2.7x48.87 absolute border=Interface\AddOns\Ordaen\media\frame-divider-down sides=left pieces=[left 0.83>0.82 x2.55]
+        box 609.62,182.99 74.17x55.17
+          text 609.62,201.95 74.17x15.83 "Key Bindings" #a3977f
+          text 646.71,219.2 0x0 "" #8f8470
+      box 709.48,175.79 120.92x55.62 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.92, tr 0.89, top 0.92>0.89 x3.20, left 0.92>0.90 x1.43, right 0.89>0.87 x1.43] @drag @dragStart @dragStop @keyPress @pointerPress
+        box 716.23,182.54 55.62x55.62 absolute icon=Interface/Icons/INV_Misc_Wrench_01 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=none pieces=[]
+        box 769.29,182.54 2.7x48.87 absolute border=Interface\AddOns\Ordaen\media\frame-divider-down sides=left pieces=[left 0.80>0.78 x2.55]
+        box 776.33,182.99 38.33x55.17
+          text 776.33,195.28 38.33x15.83 "AddOns" #ffd100
+          text 779.66,212.54 31.67x13.33 "6 of 6" #8f8470
+    box 1138.93,204.74 55x26.67 clipped opacity=0 @pointerEnter @pointerLeave
+      box 1138.93,204.74 27.5x26.67 absolute clipped @keyPress @pointerPress
+        box 1138.93,204.74 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
+        box 1147.27,214.33 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
+      box 1166.43,204.74 27.5x26.67 absolute clipped @keyPress @pointerPress
+        box 1166.43,204.74 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
+        box 1172.68,214.33 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8

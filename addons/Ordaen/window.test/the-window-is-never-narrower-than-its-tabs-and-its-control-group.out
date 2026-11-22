@@ -1,33 +1,32 @@
 -- four long tabs on a body given 330: the window as wide as the tabs and the group, none over another
-surface 635,331.62 695.93x236.75 on MEDIUM clamped raised by a click
-  box 635,368.38 695.93x200 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.96, tr 0.76, bl 0.80, br 0.61, top 0.96>0.77 x23.16, bottom 0.80>0.61 x23.16, left 0.96>0.81 x5.94, right 0.76>0.61 x5.94]
-    box 642.2,375.57 681.53x185.6
-      box 642.2,375.57 681.53x185.6
-        text 660.69,394.06 644.56x15.83 "the page" #ffffff
-    box 1309.18,546.62 13.33x13.33 absolute
-      box 1309.18,546.62 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
-  box 635,331.62 695.93x36.75
-    box 635,331.62 607.4x36.75
-      box 635,331.62 141.47x36.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.99, tr 0.96, top 0.99>0.96 x3.91, left 0.99>0.97 x0.78, right 0.95>0.93 x0.78] @drag @dragStart @dragStop @keyPress @pointerPress
-        box 650.73,338.82 110x36.3
-          text 650.73,349.06 110x15.83 "The first long tab" #ffd100
-      box 786.42,331.62 147.3x36.75 Interface\AddOns\Ordaen\media\window-wood tint=#808080 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.95, tr 0.91, top 0.95>0.92 x4.11, left 0.94>0.92 x0.78, right 0.90>0.88 x0.78] @drag @dragStart @dragStop @keyPress @pointerPress
-        box 802.16,338.82 115.83x36.3
-          text 802.16,349.06 115.83x15.83 "The second long tab" #a3977f
-      box 943.68,331.62 141.47x36.75 Interface\AddOns\Ordaen\media\window-wood tint=#808080 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.90, tr 0.87, top 0.90>0.87 x3.91, left 0.90>0.88 x0.78, right 0.86>0.84 x0.78] @drag @dragStart @dragStop @keyPress @pointerPress
-        box 959.41,338.82 110x36.3
-          text 959.41,349.06 110x15.83 "The third long tab" #a3977f
-      box 1095.1,331.62 147.3x36.75 Interface\AddOns\Ordaen\media\window-wood tint=#808080 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.86, tr 0.82, top 0.86>0.83 x4.11, left 0.85>0.84 x0.78, right 0.81>0.80 x0.78] @drag @dragStart @dragStop @keyPress @pointerPress
-        box 1110.83,338.82 115.83x36.3
-          text 1110.83,349.06 115.83x15.83 "The fourth long tab" #a3977f
-    box 1250.93,346.21 80x22.17
-      box 1250.93,346.21 80x26.67 clipped
-        box 1250.93,346.21 27.5x26.67 absolute clipped @keyPress @pointerPress
-          box 1250.93,346.21 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
-          box 1259.27,355.79 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 0 of 8
-        box 1278.43,346.21 25x26.67 absolute clipped @keyPress @pointerPress
-          box 1278.43,346.21 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 3 of 16
-          box 1284.68,355.79 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
-        box 1303.43,346.21 27.5x26.67 absolute clipped @keyPress @pointerPress
-          box 1303.43,346.21 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
-          box 1309.68,355.79 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
+surface 635,331.62 724.73x236.75 on MEDIUM clamped raised by a click
+  box 635,368.38 724.73x200 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.96, tr 0.76, bl 0.80, br 0.61, top 0.96>0.77 x24.16, bottom 0.80>0.61 x24.16, left 0.96>0.81 x5.94, right 0.76>0.61 x5.94] @pointerEnter @pointerLeave
+    box 642.2,375.57 710.33x185.6
+      box 642.2,375.57 710.33x185.6
+        text 660.69,394.06 673.36x15.83 "the page" #ffffff
+    box 1337.98,546.62 13.33x13.33 absolute
+      box 1337.98,546.62 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
+  box 635,331.62 724.73x43.95
+    box 649.4,331.62 607.4x43.95
+      box 649.4,331.62 141.47x43.95 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.99, tr 0.95, top 0.99>0.96 x3.91, left 0.98>0.96 x1.03, right 0.95>0.92 x1.03] @drag @dragStart @dragStop @keyPress @pointerPress
+        box 665.13,338.82 110x43.5
+          text 665.13,352.66 110x15.83 "The first long tab" #ffd100
+      box 800.82,331.62 147.3x43.95 Interface\AddOns\Ordaen\media\window-wood tint=#808080 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.95, tr 0.91, top 0.95>0.91 x4.11, left 0.94>0.92 x1.03, right 0.90>0.88 x1.03] @drag @dragStart @dragStop @keyPress @pointerPress
+        box 816.56,338.82 115.83x43.5
+          text 816.56,352.66 115.83x15.83 "The second long tab" #a3977f
+      box 958.08,331.62 141.47x43.95 Interface\AddOns\Ordaen\media\window-wood tint=#808080 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.90, tr 0.87, top 0.90>0.87 x3.91, left 0.90>0.87 x1.03, right 0.86>0.84 x1.03] @drag @dragStart @dragStop @keyPress @pointerPress
+        box 973.81,338.82 110x43.5
+          text 973.81,352.66 110x15.83 "The third long tab" #a3977f
+      box 1109.5,331.62 147.3x43.95 Interface\AddOns\Ordaen\media\window-wood tint=#808080 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.86, tr 0.82, top 0.86>0.83 x4.11, left 0.86>0.83 x1.03, right 0.82>0.79 x1.03] @drag @dragStart @dragStop @keyPress @pointerPress
+        box 1125.23,338.82 115.83x43.5
+          text 1125.23,352.66 115.83x15.83 "The fourth long tab" #a3977f
+    box 1265.33,348.91 80x26.67 clipped opacity=0 @pointerEnter @pointerLeave
+      box 1265.33,348.91 27.5x26.67 absolute clipped @keyPress @pointerPress
+        box 1265.33,348.91 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
+        box 1273.67,358.49 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 0 of 8
+      box 1292.83,348.91 25x26.67 absolute clipped @keyPress @pointerPress
+        box 1292.83,348.91 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 3 of 16
+        box 1299.08,358.49 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
+      box 1317.83,348.91 27.5x26.67 absolute clipped @keyPress @pointerPress
+        box 1317.83,348.91 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
+        box 1324.08,358.49 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8

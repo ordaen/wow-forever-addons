@@ -1,7 +1,7 @@
 key: SHIFT-TAB → #3 «-» (keys:ENTER,SPACE)
 -- the place's − focused: its ring, its label white; the share's + at its bound, grey
 surface 420,281.62 760x336.75 on MEDIUM clamped raised by a click
-  box 420,318.38 760x300 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.97, tr 0.78, bl 0.80, br 0.61, top 0.97>0.78 x25.39, bottom 0.80>0.61 x25.39, left 0.97>0.81 x9.42, right 0.77>0.61 x9.42]
+  box 420,318.38 760x300 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.97, tr 0.78, bl 0.80, br 0.61, top 0.97>0.78 x25.39, bottom 0.80>0.61 x25.39, left 0.97>0.81 x9.42, right 0.77>0.61 x9.42] @pointerEnter @pointerLeave
     box 427.2,325.57 745.6x285.6
       box 427.2,325.57 745.6x285.6
         box 445.69,344.06 708.62x248.62
@@ -30,19 +30,18 @@ surface 420,281.62 760x336.75 on MEDIUM clamped raised by a click
               text 858.4,378.65 14.17x15.83 "px" #f0e6d2
     box 1158.25,596.62 13.33x13.33 absolute
       box 1158.25,596.62 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
-  box 420,281.62 760x36.75
-    box 420,281.62 696.47x36.75
-      box 420,281.62 113.5x36.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.99, tr 0.97, top 0.99>0.97 x2.94, left 0.99>0.98 x0.78, right 0.96>0.95 x0.78] @drag @dragStart @dragStop @keyPress @pointerPress
-        box 435.73,288.82 82.03x36.3
-          text 454.67,299.06 44.17x15.83 "Numbers" #ffd100
-    box 1125,296.21 55x22.17
-      box 1125,296.21 55x26.67 clipped
-        box 1125,296.21 27.5x26.67 absolute clipped @keyPress @pointerPress
-          box 1125,296.21 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
-          box 1133.33,305.79 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
-        box 1152.5,296.21 27.5x26.67 absolute clipped @keyPress @pointerPress
-          box 1152.5,296.21 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
-          box 1158.75,305.79 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
+  box 420,281.62 760x43.95
+    box 434.4,281.62 667.67x43.95
+      box 434.4,281.62 113.5x43.95 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.99, tr 0.96, top 0.99>0.97 x2.94, left 0.99>0.97 x1.03, right 0.96>0.94 x1.03] @drag @dragStart @dragStop @keyPress @pointerPress
+        box 450.13,288.82 82.03x43.5
+          text 469.07,302.66 44.17x15.83 "Numbers" #ffd100
+    box 1110.6,298.91 55x26.67 clipped opacity=1 @pointerEnter @pointerLeave
+      box 1110.6,298.91 27.5x26.67 absolute clipped @keyPress @pointerPress
+        box 1110.6,298.91 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
+        box 1118.93,308.49 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
+      box 1138.1,298.91 27.5x26.67 absolute clipped @keyPress @pointerPress
+        box 1138.1,298.91 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
+        box 1144.35,308.49 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
 
 key: ENTER → #3 «-» (keys:ENTER,SPACE)
 key: SPACE → #3 «-» (keys:ENTER,SPACE)

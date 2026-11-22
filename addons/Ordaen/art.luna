@@ -197,6 +197,13 @@ public function toLeftLine(metal: ArtBorder): Number<Length> {
   return (metal.reach.left + metal.width / 2) * metal.scale * 1ui
 }
 
+// How wide a frame's top left corner piece is drawn: what stands along its top starts past it. None for a frame drawn
+// from the client's own layout, whose corners aren't pieces of the look's.
+public function cornerArtWidth(metal: ArtBorder): Number<Length> {
+  const pieces = metal.drawnFrom
+  return pieces is FramePieces ? pieces.topLeft.width * metal.scale * 1ui : 0ui
+}
+
 // The metal frame: Ordaen's own (art/pieces/frame-*.json, drawn by wow-dev-tools design/scripts/frame-metal.mjs), one
 // bronze rod for every line. An outer side is a band of 16 texels, outside in: 4 of shadow, a black line, the rod of
 // 10, a black line; the line is the inner black, so the art stands 15 texels past it, and the box's background starts

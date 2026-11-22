@@ -1,7 +1,7 @@
 open: /spellbook
 -- the table, by level from the highest
 surface 425,173.29 799.82x553.42 on MEDIUM clamped raised by a click
-  box 425,210.04 799.82x516.67 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.98, tr 0.79, bl 0.80, br 0.60, top 0.98>0.79 x26.77, bottom 0.80>0.60 x26.77, left 0.98>0.80 x16.94, right 0.78>0.61 x16.94]
+  box 425,210.04 799.82x516.67 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.98, tr 0.79, bl 0.80, br 0.60, top 0.98>0.79 x26.77, bottom 0.80>0.60 x26.77, left 0.98>0.80 x16.94, right 0.78>0.61 x16.94] @pointerEnter @pointerLeave
     box 432.2,217.24 785.42x502.27
       box 432.2,217.24 785.42x474.86
         box 454.96,240 739.91x435.03
@@ -117,27 +117,26 @@ surface 425,173.29 799.82x553.42 on MEDIUM clamped raised by a click
               text 693.02,700.49 6.67x13.33 "1" #e8dcc4
     box 1203.07,704.96 13.33x13.33 absolute
       box 1203.07,704.96 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
-  box 425,173.29 799.82x36.75
-    box 425,173.29 711.29x36.75
-      box 425,173.29 113.5x36.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 1.00, tr 0.97, top 1.00>0.97 x2.94, left 0.99>0.99 x0.78, right 0.97>0.96 x0.78] @drag @dragStart @dragStop @keyPress @pointerPress
-        box 431.75,180.04 36.75x36.75 absolute icon=Interface/Icons/INV_Misc_Book_09 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=none pieces=[]
-        box 465.95,180.04 2.7x30 absolute border=Interface\AddOns\Ordaen\media\frame-divider-down sides=left pieces=[left 0.87>0.86 x1.56]
-        box 472.98,180.49 49.78x36.3
-          text 478.71,190.72 38.33x15.83 "Spells" #ffd100
-      box 548.46,173.29 119.55x36.75 Interface\AddOns\Ordaen\media\window-wood tint=#808080 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.96, tr 0.94, top 0.96>0.94 x3.15, left 0.96>0.95 x0.78, right 0.93>0.93 x0.78] @drag @dragStart @dragStop @keyPress @pointerPress
-        box 555.21,180.04 36.75x36.75 absolute icon=Interface/Icons/INV_Misc_Book_11 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=none pieces=[]
-        box 589.41,180.04 2.7x30 absolute border=Interface\AddOns\Ordaen\media\frame-divider-down sides=left pieces=[left 0.84>0.83 x1.56]
-        box 596.44,180.49 55.83x36.3
-          text 596.44,190.72 55.83x15.83 "Learnable" #a3977f
-    box 1144.82,187.87 80x22.17
-      box 1144.82,187.87 80x26.67 clipped
-        box 1144.82,187.87 27.5x26.67 absolute clipped @keyPress @pointerPress
-          box 1144.82,187.87 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
-          box 1153.16,197.46 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 0 of 8
-        box 1172.32,187.87 25x26.67 absolute clipped @keyPress @pointerPress
-          box 1172.32,187.87 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 3 of 16
-          box 1178.57,197.46 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
-        box 1197.32,187.87 27.5x26.67 absolute clipped @keyPress @pointerPress
-          box 1197.32,187.87 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
-          box 1203.57,197.46 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
+  box 425,173.29 799.82x43.95
+    box 439.4,173.29 682.49x43.95
+      box 439.4,173.29 113.5x43.95 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.99, tr 0.97, top 0.99>0.97 x2.94, left 0.99>0.98 x1.03, right 0.96>0.95 x1.03] @drag @dragStart @dragStop @keyPress @pointerPress
+        box 446.15,180.04 43.95x43.95 absolute icon=Interface/Icons/INV_Misc_Book_09 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=none pieces=[]
+        box 487.55,180.04 2.7x37.2 absolute border=Interface\AddOns\Ordaen\media\frame-divider-down sides=left pieces=[left 0.86>0.85 x1.94]
+        box 494.58,180.49 42.58x43.5
+          text 496.71,194.32 38.33x15.83 "Spells" #ffd100
+      box 562.86,173.29 126.75x43.95 Interface\AddOns\Ordaen\media\window-wood tint=#808080 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.96, tr 0.93, top 0.96>0.94 x3.40, left 0.96>0.95 x1.03, right 0.93>0.92 x1.03] @drag @dragStart @dragStop @keyPress @pointerPress
+        box 569.61,180.04 43.95x43.95 absolute icon=Interface/Icons/INV_Misc_Book_11 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=none pieces=[]
+        box 611.01,180.04 2.7x37.2 absolute border=Interface\AddOns\Ordaen\media\frame-divider-down sides=left pieces=[left 0.84>0.82 x1.94]
+        box 618.04,180.49 55.83x43.5
+          text 618.04,194.32 55.83x15.83 "Learnable" #a3977f
+    box 1130.42,190.57 80x26.67 clipped opacity=1 @pointerEnter @pointerLeave
+      box 1130.42,190.57 27.5x26.67 absolute clipped @keyPress @pointerPress
+        box 1130.42,190.57 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
+        box 1138.76,200.16 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 0 of 8
+      box 1157.92,190.57 25x26.67 absolute clipped @keyPress @pointerPress
+        box 1157.92,190.57 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 3 of 16
+        box 1164.17,200.16 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
+      box 1182.92,190.57 27.5x26.67 absolute clipped @keyPress @pointerPress
+        box 1182.92,190.57 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
+        box 1189.17,200.16 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
 asked: Spellbook.watch true

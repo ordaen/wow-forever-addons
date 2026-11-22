@@ -14,7 +14,7 @@
 import Game from "$game"
 import { Align, Art, Bounds, Docked, Edges, Event, Layer, Overflow, Place, Point, Position, Shadow, Side, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { reachAcross } from "@/art"
+import { cornerArtWidth, reachAcross } from "@/art"
 import { Component } from "@/module"
 import { Hold, kept } from "@/onScreen"
 import { ModuleMemory } from "@/settings"
@@ -173,8 +173,6 @@ public function windowSides(): Number<Length> {
 // plate with its glyph; how high it is with its rim.
 public enum CornerControl { Settings = "settings", Full = "full", Close = "close" }
 const CORNER_HEIGHT = 37.5dp
-// How far below the body's top the group's foot stands: the middle of the frame's line.
-const CORNER_FOOT = 3.515625dp
 // A plate's width; the group's rim on its left, top and right, with its shadow beside it (the first's left, the
 // last's right) and above it: a plate stands that far below the group's top.
 const PLATE = 35.15625dp
@@ -244,6 +242,9 @@ public class WindowTab implements Component {
   // The tab was clicked: its place among the tabs. Heard in the click's own call, where the client takes what
   // it takes from nothing but a click (opening a profession).
   public picked: Event<Integer> = new Event()
+  // The cursor came onto the tab (`true`) or went from it: the window shows its control group while the cursor is
+  // over any part of it.
+  public hover: Event<Boolean> = new Event()
 
   derived open: Boolean = self.selected == self.index
   // The frame's measures at its scale: its art above its line, how far its foot stands behind the body's line,
@@ -318,8 +319,14 @@ public class WindowTab implements Component {
   onPress(mut self, press: Event.Press) {
     if (press.button == .Left) { self.pick() }
   }
-  onEnter(mut self) { self.hovered = true }
-  onLeave(mut self) { self.hovered = false }
+  onEnter(mut self) {
+    self.hovered = true
+    self.hover.emit(true)
+  }
+  onLeave(mut self) {
+    self.hovered = false
+    self.hover.emit(false)
+  }
   onGrab(mut self) { self.grab.emit() }
   onMove(mut self, drag: Event.Drag) { self.move.emit(drag) }
   onDrop(mut self) { self.drop.emit() }
@@ -430,9 +437,12 @@ public class Window implements Component {
 
   // The tab row's height: the design's, from a tab's own line down to the body, and the tab's art above its line.
   derived tabHeight: Number<Length> = self.tabHeightOf() + Ordaen.art.frame.tab.reach.top * Ordaen.art.frame.tab.scale * 1ui
-  // A tab's height: down to the inner side of the body's top line, which stands over its foot.
-  derived lineTop: Number<Length> = Ordaen.art.frame.tab.curves.flare * Ordaen.art.frame.tab.scale * 1ui
+  // How far a tab and the control group stand down into the body's top band, which is drawn over their feet: to its
+  // line, so their sides run on into its rod.
+  derived lineTop: Number<Length> = (Ordaen.art.frame.window.reach.top * Ordaen.art.frame.window.scale + Ordaen.art.frame.window.width) * 1ui
   derived tabWhole: Number<Length> = self.tabHeight + self.lineTop
+  // The corner's art at each end of the body's top: the tab row starts and ends past it.
+  derived cornerArt: Number<Length> = cornerArtWidth(Ordaen.art.frame.window)
   derived columns: Array<Track> = self.tabColumns()
   derived place: Place = self.placeOf()
   // The main section keeps the width the player gave it: a side section widens the window by its own column.
@@ -448,16 +458,14 @@ public class Window implements Component {
   derived free: Boolean = !self.full && self.docked == nil
   // The screen's right side kept clear while full screen.
   derived inset: Number<Length> = self.full ? self.room : 0ui
-  // The tab row ends where the body does: short of that side while full screen.
-  derived rowPad: Edges = { right: Ordaen.spacingOf(self.inset) }
-  // The control group's foot stands on the top of the body's line, as the tabs' sides meet it. The body is placed
-  // by its art's top: its line stands the art's reach below that, and the line's metal starts the frame's inset
-  // outside it. The group is drawn over the body: the frame's art above its line, its dark edge and shadow, would
-  // otherwise cover the plates' foot.
-  derived cornerFoot: Edges = {
-    bottom: Ordaen.spacingOf(self.lineTop - (self.bodyReach + Ordaen.art.frame.window.inset) * 1ui)
-  }
-  derived bodyReach: Number = Ordaen.art.frame.window.reach.top * Ordaen.art.frame.window.scale
+  // The tab row runs between the body's top corners: short of the screen's right side too while full screen.
+  derived rowPad: Edges = { left: Ordaen.spacingOf(self.cornerArt), right: Ordaen.spacingOf(self.inset + self.cornerArt) }
+  // The control group shows while the cursor is over the window: its body, a tab or the group itself, each of which
+  // draws all of itself (the row between them takes no mouse, so clicks there reach what is under the window).
+  state overBody = false
+  state overTab = false
+  state overControls = false
+  derived controlsOpacity: Number = self.overBody || self.overTab || self.overControls ? 1 : 0
   tabs: Signal<Array<WindowTabSpec>>
   selected: mut Signal<Integer>
   minWidth: Signal<Number<Length>>
@@ -748,6 +756,12 @@ public class Window implements Component {
     self.full = full
     self.remember((view: mut WindowView) => { view.full = full })
   }
+  onBodyIn(mut self) { self.overBody = true }
+  onBodyOut(mut self) { self.overBody = false }
+  onTabHover(mut self, over: Boolean) { self.overTab = over }
+  onControlsIn(mut self) { self.overControls = true }
+  onControlsOut(mut self) { self.overControls = false }
+
   onPicked(mut self, index: Integer) {
     if (!self.asks) { self.selected = index }
     self.picked.emit(index)
@@ -839,7 +853,8 @@ public class Window implements Component {
                @keyPress.parentScope(.Escape)={self.onClose}>
         <box position={Position.Absolute} left={0ui} right={self.inset} top={self.tabHeight} bottom={0ui}
              border={Ordaen.art.frame.window} background={Ordaen.art.window.wood}
-             columns={self.bodyColumns} rows={BODY_ROWS} zLevel={BODY_LEVEL}>
+             columns={self.bodyColumns} rows={BODY_ROWS} zLevel={BODY_LEVEL} @pointerEnter={self.onBodyIn}
+             @pointerLeave={self.onBodyOut}>
           <box rows={MAIN_ROWS}>
             <box rows={ONE} padding={self.pagePadding}>
               <slot />
@@ -866,19 +881,21 @@ public class Window implements Component {
             <SizeGrip @grab={self.onGrabSize} @drag={self.onSize} @drop={self.onSettle} />
           </box>
         </box>
-        // The tab row: the tabs from the left, the control group at the right, standing on the body's top line as the
-        // tabs do. The row is the surface's least width: the window is never narrower than its tabs and its controls.
+        // The tab row: the tabs from the left, the control group at the right, down to the body's line. The body stands
+        // over it by its `zLevel`: its top band covers the tabs' and the group's feet, so their sides run on into its
+        // rod. The row is the surface's least width: the window is never narrower than its tabs and its controls.
         <box columns={ROW} gap={3sp} padding={self.rowPad} yAlign={Align.End}>
           <box columns={self.columns} gap={3.5sp} yAlign={Align.End}>
             <WindowTab $for={index, tab of self.tabs} tab={tab} index={index} selected={self.selected}
                        height={self.tabWhole} @grab={self.onGrab} @move={self.onMove} @drop={self.onSettle}
-                       @picked={self.onPicked} />
+                       @picked={self.onPicked} @hover={self.onTabHover} />
           </box>
-          <box padding={self.cornerFoot} zLevel={BODY_LEVEL + 1}>
-            <box width={self.cornerWidth} height={CORNER_HEIGHT} overflow={Overflow.Hidden}>
-              <CornerPlate $for={index, control of self.controls} control={control} index={index}
-                           count={self.controls.length} full={self.full} @pressed={self.onCorner} />
-            </box>
+          // Faded out, never taken away: the cursor coming from the window onto a plate leaves the window before it
+          // enters the plate, and a plate taken away then would never be entered.
+          <box width={self.cornerWidth} height={CORNER_HEIGHT} overflow={Overflow.Hidden} opacity={self.controlsOpacity}
+               @pointerEnter={self.onControlsIn} @pointerLeave={self.onControlsOut}>
+            <CornerPlate $for={index, control of self.controls} control={control} index={index}
+                         count={self.controls.length} full={self.full} @pressed={self.onCorner} />
           </box>
         </box>
       </surface>

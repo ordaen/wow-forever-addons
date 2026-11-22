@@ -1,6 +1,6 @@
 -- a header's band over its quests, each quest's row the list's whole width
 surface 548.15,192.46 503.7x515.08 on MEDIUM clamped raised by a click
-  box 548.15,240.88 503.7x466.67 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.98, tr 0.78, bl 0.80, br 0.61, top 0.97>0.79 x16.49, bottom 0.80>0.61 x16.49, left 0.97>0.80 x15.20, right 0.78>0.61 x15.20]
+  box 548.15,240.88 503.7x466.67 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.98, tr 0.78, bl 0.80, br 0.61, top 0.97>0.79 x16.49, bottom 0.80>0.61 x16.49, left 0.97>0.80 x15.20, right 0.78>0.61 x15.20] @pointerEnter @pointerLeave
     box 555.35,248.07 489.3x452.27
       box 555.35,248.07 489.3x424.71
         box 578.11,270.83 443.79x384.89
@@ -96,22 +96,21 @@ surface 548.15,192.46 503.7x515.08 on MEDIUM clamped raised by a click
               text 1000.23,672.79 21.67x13.33 "3/25" #e8dcc4
     box 1030.1,685.79 13.33x13.33 absolute
       box 1030.1,685.79 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
-  box 548.15,192.46 503.7x48.42
-    box 548.15,192.46 415.17x48.42
-      box 548.15,192.46 113.72x48.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.99, tr 0.95, top 0.99>0.96 x2.95, left 0.99>0.98 x1.18, right 0.95>0.94 x1.18] @drag @dragStart @dragStop @keyPress @pointerPress
-        box 554.9,199.21 48.42x48.42 absolute icon=Interface/QuestFrame/UI-QuestLog-BookIcon cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=none pieces=[]
-        box 600.77,199.21 2.7x41.67 absolute border=Interface\AddOns\Ordaen\media\frame-divider-down sides=left pieces=[left 0.86>0.84 x2.17]
-        box 607.8,199.66 38.33x47.97
-          text 607.8,208.35 38.33x15.83 "Quests" #ffd100
-          text 623.63,225.6 6.67x13.33 "3" #8f8470
-    box 971.85,218.71 80x22.17
-      box 971.85,218.71 80x26.67 clipped
-        box 971.85,218.71 27.5x26.67 absolute clipped @keyPress @pointerPress
-          box 971.85,218.71 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
-          box 980.18,228.29 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 0 of 8
-        box 999.35,218.71 25x26.67 absolute clipped @keyPress @pointerPress
-          box 999.35,218.71 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 3 of 16
-          box 1005.6,228.29 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
-        box 1024.35,218.71 27.5x26.67 absolute clipped @keyPress @pointerPress
-          box 1024.35,218.71 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
-          box 1030.6,228.29 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
+  box 548.15,192.46 503.7x55.62
+    box 562.55,192.46 386.37x55.62
+      box 562.55,192.46 120.92x55.62 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.99, tr 0.95, top 0.99>0.95 x3.20, left 0.99>0.97 x1.43, right 0.94>0.93 x1.43] @drag @dragStart @dragStop @keyPress @pointerPress
+        box 569.3,199.21 55.62x55.62 absolute icon=Interface/QuestFrame/UI-QuestLog-BookIcon cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=none pieces=[]
+        box 622.37,199.21 2.7x48.87 absolute border=Interface\AddOns\Ordaen\media\frame-divider-down sides=left pieces=[left 0.85>0.83 x2.55]
+        box 629.4,199.66 38.33x55.17
+          text 629.4,211.95 38.33x15.83 "Quests" #ffd100
+          text 645.23,229.2 6.67x13.33 "3" #8f8470
+    box 957.45,221.41 80x26.67 clipped opacity=0 @pointerEnter @pointerLeave
+      box 957.45,221.41 27.5x26.67 absolute clipped @keyPress @pointerPress
+        box 957.45,221.41 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
+        box 965.78,230.99 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 0 of 8
+      box 984.95,221.41 25x26.67 absolute clipped @keyPress @pointerPress
+        box 984.95,221.41 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 3 of 16
+        box 991.2,230.99 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
+      box 1009.95,221.41 27.5x26.67 absolute clipped @keyPress @pointerPress
+        box 1009.95,221.41 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
+        box 1016.2,230.99 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8

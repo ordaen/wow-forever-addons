@@ -1,6 +1,6 @@
 -- the content over the footer, a group's step between them; «Reset» left, «Save» right, the panel's step over the line
 surface 600,281.62 400x336.75 on MEDIUM clamped raised by a click
-  box 600,318.38 400x300 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.97, tr 0.78, bl 0.80, br 0.61, top 0.97>0.78 x12.89, bottom 0.79>0.61 x12.89, left 0.97>0.81 x9.42, right 0.77>0.61 x9.42]
+  box 600,318.38 400x300 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.97, tr 0.78, bl 0.80, br 0.61, top 0.97>0.78 x12.89, bottom 0.79>0.61 x12.89, left 0.97>0.81 x9.42, right 0.77>0.61 x9.42] @pointerEnter @pointerLeave
     box 607.2,325.57 385.6x285.6
       box 607.2,325.57 385.6x243.04
         box 629.96,348.33 340.09x203.22 #30302a
@@ -14,16 +14,15 @@ surface 600,281.62 400x336.75 on MEDIUM clamped raised by a click
             text 907.13,574.87 25.83x15.83 "Save" #ffd100
     box 978.25,596.62 13.33x13.33 absolute
       box 978.25,596.62 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
-  box 600,281.62 400x36.75
-    box 600,281.62 336.47x36.75
-      box 600,281.62 113.5x36.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.99, tr 0.94, top 0.99>0.95 x2.94, left 0.99>0.98 x0.78, right 0.94>0.92 x0.78] @drag @dragStart @dragStop @keyPress @pointerPress
-        box 615.73,288.82 82.03x36.3
-          text 634.67,299.06 44.17x15.83 "Recipes" #ffd100
-    box 945,296.21 55x22.17
-      box 945,296.21 55x26.67 clipped
-        box 945,296.21 27.5x26.67 absolute clipped @keyPress @pointerPress
-          box 945,296.21 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
-          box 953.33,305.79 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
-        box 972.5,296.21 27.5x26.67 absolute clipped @keyPress @pointerPress
-          box 972.5,296.21 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
-          box 978.75,305.79 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
+  box 600,281.62 400x43.95
+    box 614.4,281.62 307.67x43.95
+      box 614.4,281.62 113.5x43.95 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.98, tr 0.94, top 0.98>0.94 x2.94, left 0.98>0.96 x1.03, right 0.93>0.91 x1.03] @drag @dragStart @dragStop @keyPress @pointerPress
+        box 630.13,288.82 82.03x43.5
+          text 649.07,302.66 44.17x15.83 "Recipes" #ffd100
+    box 930.6,298.91 55x26.67 clipped opacity=0 @pointerEnter @pointerLeave
+      box 930.6,298.91 27.5x26.67 absolute clipped @keyPress @pointerPress
+        box 930.6,298.91 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
+        box 938.93,308.49 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
+      box 958.1,298.91 27.5x26.67 absolute clipped @keyPress @pointerPress
+        box 958.1,298.91 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
+        box 964.35,308.49 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
