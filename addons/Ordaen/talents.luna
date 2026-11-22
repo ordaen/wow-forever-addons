@@ -224,7 +224,9 @@ class TreeCellView implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box rows={CELL_ROWS} width={STEP}>
+      // Each row's box as high as its row: what it holds is placed by offsets, and the client draws nothing of a box
+      // with no height.
+      <box rows={CELL_ROWS} width={STEP} yAlign={Align.Stretch}>
         <box>
           <box $if={self.cell.up != nil} position={Position.Absolute} left={MIDDLE} top={0ui} bottom={0ui} width={LINE}
                background={self.cell.up} border={LINE_EDGE} />

@@ -637,6 +637,16 @@ test "a talent stands in the client's frame for what it may do: gold when full, 
   Test.expect(drawn.any(d => d.file == "talents-node-square-gray"))
 }
 
+test "a talent's row in its cell is as high as the talent: the client draws nothing of a box with no height" {
+  Test.mount(nil, PAGE)
+  Game.talentTrees.trees = trees
+  _ = onSpec("Primary")
+  // The frame's art, the talent's box round it, the row of the cell it stands in.
+  const node = Test.edges("talents-node-square-green", 1)
+  const row = Test.edges("talents-node-square-green", 2)
+  Test.expect((row.bottom - row.top - (node.bottom - node.top)).abs() < 0.01 && row.top == node.top)
+}
+
 test "talents a step of the client's grid apart stand a gap apart, and an arrow's head stops short of the talent it leads to" {
   Test.mount(nil, PAGE)
   Game.talentTrees.trees = trees
