@@ -23,7 +23,7 @@
   "MAP_IN_COMBAT": "The map can't be opened in combat.",
   "SECTION_TASKS": "Objectives",
   "TRACKER_WHERE": "%s · %d places",
-  "TRACKER_TURN_IN": "Turn in: %s · %s (%d, %d)",
+  "TRACKER_TURN_IN": "%s · %s",
   "ROW_KEY_PAGE": "Left-click: open the quest",
   "ROW_KEY_LINK": "Shift+Left-click: link or track",
   "ROW_KEY_MENU": "Right-click: more",

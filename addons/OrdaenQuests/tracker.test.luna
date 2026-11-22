@@ -21,6 +21,7 @@ test "a quest to do says its objectives' zone and how many places there; done, w
   const lines = new TrackerLines(holder.facts, (id: Integer): Boolean => false, (id: Integer): Boolean => false)
   Test.expect((lines.lines(1, false)[1] ?? panic("a line")).text == "Westfall · 2 places")
   const done = lines.lines(1, true)[1] ?? panic("a line")
-  Test.expect(done.text == "Turn in: Gryan Stoutmantle · Westfall (56, 47)" && done.done)
+  // The tracker says it after «Ready to turn in»: the taker and the zone, no coordinates.
+  Test.expect(done.text == "Gryan Stoutmantle · Westfall" && done.done)
   Test.expect(lines.lines(2, false).length == 0)
 }

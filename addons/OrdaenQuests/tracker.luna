@@ -24,12 +24,12 @@ function whereOf(figures: Array<Figure>): String {
   return Locale.TRACKER_WHERE.format(zoneOf(first.area), places)
 }
 
-// Whom to hand it to, and where: «Turn in: Gryan Stoutmantle · Westfall (56, 47)».
+// Whom to hand it to, and where: «Gryan Stoutmantle · Westfall», which the tracker says after «Ready to turn in».
 function turnInOf(figures: Array<Figure>): String {
   const first = figures[1]
   const spot = firstSpot(figures)
   if (first == nil || spot == nil) { return "" }
-  return Locale.TRACKER_TURN_IN.format(first.name, zoneOf(spot.area), (spot.x * 100).floor(), (spot.y * 100).floor())
+  return Locale.TRACKER_TURN_IN.format(first.name, zoneOf(spot.area))
 }
 
 public class TrackerLines implements QuestLines {

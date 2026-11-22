@@ -311,7 +311,8 @@ test "docked, the map open, the log stands over the map's side panel; a quest pi
 
 test "in the tracker a quest to do says where, and its title opens its page in the window" {
   const log = standing()
-  log[1] = { watched: true, story: "Gryan asks you to look into Westfall.", ..quest(101, "The Defias Brotherhood", "Westfall") }
+  // In the player's zone (the stand-in's, Elwynn Forest): the tracker lists the zone's quests alone.
+  log[1] = { watched: true, story: "Gryan asks you to look into Westfall.", ..quest(101, "The Defias Brotherhood", "Elwynn Forest") }
   opened(log)
   Quests.flip()
   Test.flush()
