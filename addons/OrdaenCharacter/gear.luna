@@ -5,11 +5,11 @@
 // the bars, another slot) and lets go there what the cursor holds, as the game's own slot does. The game's sets stand
 // over the three columns.
 import Game from "$game"
-import { Action, Align, Art, BarFill, Edges, Event, FillFrom, Line, MouseButton, Overflow, Position, TextFont } from "$ltml"
+import { Action, Align, Art, BarFill, Edges, Event, FillFrom, Line, MouseButton, Overflow, Position, TextFont, Track } from "$ltml"
 import { ButtonPlate, Component, ItemButton, PushButton, SECONDARY_TEXT, TITLE_LINE, TITLE_TEXT, Tabs, TipText, classColor } from "Ordaen"
 import { Active } from "OrdaenAuras"
 import Locale from "@/locales"
-import { Choices } from "@/settings"
+import { Choices, slotSizeOf } from "@/settings"
 import { AMMO, GearSet, LEFT, RIGHT, Resource, Skill, SlotSpec, Stats, WEAPONS, Who, Worn, averageLevel } from "@/sheet"
 import { Boost, Breakdown, NO_BREAKDOWN, boostsOf, breakdownOf, wordsOf } from "@/sources"
 import { Stat } from "@/stat"
@@ -344,6 +344,9 @@ public class GearPage implements Component {
   unit: Signal<String>
   classTag: Signal<String | nil>
   derived own: Boolean = self.unit == PLAYER
+  // The slots' size as the player chose it; the model's column between them gives up what larger slots take.
+  derived slot: Number<Length> = slotSizeOf(self.choices.slotSize)
+  derived dollColumns: Array<Track> = [self.slot, { fr: 1 }, self.slot]
   constructor(worn: Signal<Array<Worn>>, who: Signal<Who>, stats: Signal<Stats>, skills: Signal<Array<Skill>>,
     usesAmmo: Signal<Boolean>, choices: Signal<Choices>, fitsSlots: Signal<Array<Integer>> = NO_SLOTS,
     sets: Signal<Array<GearSet>> = NO_SETS, flyoutSlot: Signal<Integer | nil> = nil, fitting: Signal<Array<Integer>> = NO_SLOTS,
@@ -441,7 +444,7 @@ public class GearPage implements Component {
           </box>
           <box columns={[Style.CUT_LINE * 3, { fr: 1 }, Style.CUT_LINE * 3]} rows={[{ fr: 1 }]}>
             <Groove upright={true} />
-            <box columns={[Style.SLOT, { fr: 1 }, Style.SLOT]} rows={[{ fr: 1 }]} gap={3sp} padding={Style.DOLL_PAD}
+            <box columns={self.dollColumns} rows={[{ fr: 1 }]} gap={3sp} padding={Style.DOLL_PAD}
                  background={Style.MODEL_BACK} overflow={Overflow.Hidden}>
               <box $if={self.scene != nil} position={Position.Absolute} left={Style.SCENE_LEFT} top={0ui}
                    width={Style.SCENE_WIDTH} height={Style.SCENE_HEIGHT} background={self.scene} desaturate={true} />
@@ -451,7 +454,7 @@ public class GearPage implements Component {
                    zLevel={2} />
               <box rows={Style.SLOT_ROWS} zLevel={3}>
                 <GearSlot $for={spec of LEFT} spec={spec} worn={self.wornOf(spec.id)} levels={self.choices.itemLevels}
-                          wear={self.choices.durability} fits={self.fitsIn(spec.id)} share={self.shareOf(spec.id)} own={self.own} @picked={self.onPicked}
+                          wear={self.choices.durability} fits={self.fitsIn(spec.id)} share={self.shareOf(spec.id)} size={self.slot} own={self.own} @picked={self.onPicked}
                           @tried={self.onTried} @flyout={self.onFlyout} />
               </box>
               <box rows={[{ fr: 1 }, "max-content", "max-content"]} gap={3sp} zLevel={3}>
@@ -460,7 +463,7 @@ public class GearPage implements Component {
                 </box>
                 <box columns={{ each: "max-content" }} gap={2sp} xAlign={Align.Center} yAlign={Align.Start}>
                   <GearSlot $for={spec of WEAPONS} spec={spec} worn={self.wornOf(spec.id)} levels={self.choices.itemLevels}
-                            wear={self.choices.durability} fits={self.fitsIn(spec.id)} share={self.shareOf(spec.id)} own={self.own} @picked={self.onPicked}
+                            wear={self.choices.durability} fits={self.fitsIn(spec.id)} share={self.shareOf(spec.id)} size={self.slot} own={self.own} @picked={self.onPicked}
                             @tried={self.onTried} @flyout={self.onFlyout} />
                   <GearSlot $if={self.usesAmmo} spec={AMMO} worn={self.wornOf(AMMO.id)} levels={false} wear={false}
                             fits={self.fitsIn(AMMO.id)} size={AMMO_SIZE} @picked={self.onPicked} />
@@ -469,7 +472,7 @@ public class GearPage implements Component {
               </box>
               <box rows={Style.SLOT_ROWS} zLevel={3}>
                 <GearSlot $for={spec of RIGHT} spec={spec} worn={self.wornOf(spec.id)} levels={self.choices.itemLevels}
-                          wear={self.choices.durability} fits={self.fitsIn(spec.id)} share={self.shareOf(spec.id)} own={self.own} @picked={self.onPicked}
+                          wear={self.choices.durability} fits={self.fitsIn(spec.id)} share={self.shareOf(spec.id)} size={self.slot} own={self.own} @picked={self.onPicked}
                           @tried={self.onTried} @flyout={self.onFlyout} />
               </box>
             </box>

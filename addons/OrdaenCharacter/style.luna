@@ -12,7 +12,13 @@ public const HEIGHT: Number<Length> = 848dp
 public const DOLL: Number<Length> = 470dp
 public const SIDE_LEAST: Number<Length> = 440dp
 public const COLUMNS: Array<Track> = [{ fr: 1, min: SIDE_LEAST }, DOLL, { fr: 1, min: SIDE_LEAST }]
+// A slot: the standard size, the larger, and the most the paper doll holds; its edge (Ordaen's item button's); an
+// icon's picture in texels (its 64 less the 0.08 of each side the renderer cuts as its rim).
 public const SLOT: Number<Length> = 46.875dp
+public const SLOT_LARGE: Number<Length> = 52.734375dp
+public const SLOT_MOST: Number<Length> = 67.96875dp
+public const SLOT_EDGE: Number<Length> = 2.34375dp
+public const ICON_TEXELS: Number = 64 * 0.84
 // The durability bar under a slot.
 public const WEAR: Number<Length> = 3.515625dp
 // The reputation tab's side, where the chosen faction stands.

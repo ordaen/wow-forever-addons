@@ -1,9 +1,38 @@
 // Ordaen Character's pages in the settings window: what the paper doll's slots show, and the spec tabs' names. A
 // checkbox writes its entry at once; a name typed is written when the typing rests and at Enter. An empty name keeps
 // nothing: the tab shows ours.
-import { Checkbox, Component, Resting, Settings } from "Ordaen"
+import Client from "$client"
+import { Checkbox, Choice, Component, Resting, Segmented, SettingRow, Settings } from "Ordaen"
 import Locale from "@/locales"
 import Style from "@/style"
+
+// How large the paper doll's slots are: the standard, a larger, or the largest the screen draws an icon at whole.
+public enum SlotSize implements Plain { Standard = "standard", Large = "large", Sharpest = "sharpest" }
+
+const SLOT_SIZES: Array<Choice<SlotSize>> = [
+  { value: SlotSize.Standard, label: Locale.SLOT_STANDARD },
+  { value: SlotSize.Large, label: Locale.SLOT_LARGE },
+  { value: SlotSize.Sharpest, label: Locale.SLOT_SHARPEST }
+]
+
+// The largest slot whose icon the screen draws with no texel spread over more than one pixel: the icon's picture
+// (its texels less the rim the client cuts) in the screen's pixels, and the slot's edge round it; never under the
+// standard slot (a dense screen draws that sharp already), never past what the paper doll holds.
+function sharpestSlot(): Number<Length> {
+  const wide, high = Client.GetPhysicalScreenSize()
+  const pixels = high * Client.UIParent.GetEffectiveScale() / 1080
+  const sharp = Style.SLOT_EDGE * 2 + 1dp * Style.ICON_TEXELS.floor() / pixels
+  return sharp.max(Style.SLOT).min(Style.SLOT_MOST)
+}
+
+// A slot's size as the player chose it.
+public function slotSizeOf(size: SlotSize): Number<Length> {
+  return match (size) {
+    .Standard => Style.SLOT
+    .Large => Style.SLOT_LARGE
+    .Sharpest => sharpestSlot()
+  }
+}
 
 // What the player chooses.
 public struct Choices implements Plain {
@@ -11,6 +40,7 @@ public struct Choices implements Plain {
   itemLevels: Boolean
   // A thin bar under each slot shows its item's durability.
   durability: Boolean
+  slotSize: SlotSize = SlotSize.Sharpest
   // The names of the spec tabs; empty for ours.
   specOne: String = ""
   specTwo: String = ""
@@ -28,6 +58,9 @@ public class GeneralPage implements Component {
                 value={mut self.settings.values.itemLevels} />
       <Checkbox label={Locale.SETTING_DURABILITY} hint={Locale.SETTING_DURABILITY_TIP}
                 value={mut self.settings.values.durability} />
+      <SettingRow label={Locale.SETTING_SLOT_SIZE} hint={Locale.SETTING_SLOT_SIZE_TIP}>
+        <Segmented value={mut self.settings.values.slotSize} choices={SLOT_SIZES} />
+      </SettingRow>
     }
   }
 }

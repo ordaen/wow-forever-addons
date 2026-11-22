@@ -16,7 +16,7 @@ import root Char from "OrdaenCharacter"
 import { FITS_GLOW, wearColor } from "@/gear"
 import { Honor, Inspected, Inspector } from "@/inspect"
 import { WornSet } from "@/lines"
-import { Choices } from "@/settings"
+import { Choices, SlotSize } from "@/settings"
 import { ClientSheet, Faction, GearSet, Sheet, Skill, Stats, Who, Worn } from "@/sheet"
 import Style from "@/style"
 import { KeptWipe } from "@/talents"
@@ -231,6 +231,34 @@ test "a slot's item level is left out where the settings say so" {
   const window = opened(new FakeSheet())
   Char.settings.values.itemLevels = false
   Test.expect(!window.text("63").shown())
+}
+
+// The helm's slot's width against the standard slot's, which the settings then pick.
+function slotWidthRatio(window: Test.Part): Number {
+  const picked = window.button(HELM_ICON).rect()
+  Char.settings.values.slotSize = SlotSize.Standard
+  Test.flush()
+  const standard = window.button(HELM_ICON).rect()
+  return (picked.right - picked.left) / (standard.right - standard.left)
+}
+
+test "a slot is as large as the screen draws its icon sharp, unless the settings pick a size" {
+  Test.mount(nil, PAGE)
+  Game.items.icon = icons
+  // At 1080p and a scale of 1 a dp is a pixel: the icon's 53 whole pixels and the edge's two.
+  Client.UIParent.SetScale(1)
+  const window = opened(new FakeSheet())
+  const helm = window.button(HELM_ICON).rect()
+  Test.expect(((helm.bottom - helm.top) - (helm.right - helm.left)).abs() < 0.5)
+  Test.expect((slotWidthRatio(window) - (53 + 2 * 2.34375) / 46.875).abs() < 0.01)
+}
+
+test "a slot the screen would draw sharp larger than the paper doll holds is as large as it holds" {
+  Test.mount(nil, PAGE)
+  Game.items.icon = icons
+  Client.UIParent.SetScale(0.5)
+  const window = opened(new FakeSheet())
+  Test.expect((slotWidthRatio(window) - 67.96875 / 46.875).abs() < 0.01)
 }
 
 test "left-click on a slot picks up what is worn there, and on an empty one lets go there what the cursor holds" {
