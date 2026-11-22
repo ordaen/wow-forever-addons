@@ -425,6 +425,15 @@ test "the talents' button tells the points not spent, and nothing with none" {
   Test.expect(reads(Test.page().window("Talents (N)"), "Talents (N)"))
 }
 
+test "the character's button tells the talent points not spent too, after the item level, its window holding the talents" {
+  Game.character.itemLevel = (): Number | nil => 12
+  Game.character.durability = (): Number | nil => nil
+  Game.character.unspentTalents = (): Integer => 2
+  Test.mount(nil, SCREEN)
+  Game.tooltip.main = atButton("CharacterMicroButton", text("Character Info"))
+  Test.expect(reads(Test.page().window("Character Info"), "Character Info | Item level | 12 | Unspent points | 2"))
+}
+
 test "the professions' button tells each profession's rank" {
   Game.professions.list = [
     { skillLine: 186, name: "Mining", icon: 136248, rank: 75, max: 150, kind: .Gathering },
@@ -646,7 +655,7 @@ test "a bag of one slot, an item level of one, a durability of a half and a sing
   Game.tooltip.main = atButton("CharacterBag0Slot", text("Pouch"))
   Test.expect(reads(Test.page().window("Pouch"), "Pouch | Free slots | 1 / 1"))
   Game.tooltip.main = atButton("CharacterMicroButton", text("Character Info"))
-  Test.expect(reads(Test.page().window("Character Info"), "Character Info | Item level | 1 | Durability | 50%"))
+  Test.expect(reads(Test.page().window("Character Info"), "Character Info | Item level | 1 | Durability | 50% | Unspent points | 1"))
   Game.tooltip.main = atButton("TalentMicroButton", text("Talents"))
   Test.expect(reads(Test.page().window("Talents"), "Talents | Unspent points | 1"))
   Game.tooltip.main = atButton("AchievementMicroButton", text("Achievements"))

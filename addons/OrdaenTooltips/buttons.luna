@@ -15,6 +15,13 @@ function count(have: Integer, most: Integer): String {
   return "%d / %d".format(have, most)
 }
 
+// The talent points not spent, where there are any: the talents' button says them, and the character's, whose window
+// holds the talents.
+function talentsRow(rows: mut Array<TextLine>) {
+  let points = Game.character.unspentTalents()
+  if (points > 0) { rows.push({ left: Locale.EXTRA_TALENTS, right: String.of(points) }) }
+}
+
 // The rows a button adds, by the game's name for it.
 function rowsOf(owner: String): mut Array<TextLine> {
   let rows: Array<TextLine> = []
@@ -32,9 +39,9 @@ function rowsOf(owner: String): mut Array<TextLine> {
       let percent = (worn * 100).round()
       rows.push({ left: Locale.EXTRA_DURABILITY, right: `${percent}%`, rightColor: percent < 25 ? RED : nil })
     }
+    talentsRow(mut rows)
   } else if (owner == "TalentMicroButton") {
-    let points = Game.character.unspentTalents()
-    if (points > 0) { rows.push({ left: Locale.EXTRA_TALENTS, right: String.of(points) }) }
+    talentsRow(mut rows)
   } else if (owner == "ProfessionMicroButton") {
     for (profession of Game.professions.list) {
       rows.push({ left: profession.name, right: count(profession.rank, profession.max) })
