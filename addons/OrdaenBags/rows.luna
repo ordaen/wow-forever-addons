@@ -6,7 +6,7 @@
 import Game from "$game"
 import { Action, Align, Event, KeyBinding, MouseButton, Position, Shadow, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { Component, ItemButton, Menu, MenuEntry, Quality, SECONDARY_TEXT, SlotWell, TIGHT_LINE } from "Ordaen"
+import { Component, ItemButton, Menu, MenuEntry, Quality, SECONDARY_TEXT, SlotWell } from "Ordaen"
 import { CARD_GAP, CARD_PAD, Card, CardRow, Section } from "@/layout"
 import { Slot } from "@/model"
 import { SlotMenu } from "@/slotMenu"
@@ -164,7 +164,7 @@ class Caption implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={CAPTION_TRACKS} gap={3sp} lineHeight={TIGHT_LINE} yAlign={Align.Center}>
+      <box columns={CAPTION_TRACKS} gap={3sp} leading={.Tight} yAlign={Align.Center}>
         <text value={self.section.title} textColor={self.titleColor} textShadow={SHADOW} wrap={.Cut} />
         <text value={self.fill} textColor={LABEL} textSize={SECONDARY_TEXT} textFont={.Numbers} wrap={.None} />
       </box>
