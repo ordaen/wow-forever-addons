@@ -60,7 +60,7 @@ const SOCIAL = "Ordaen Social"
 const SOCIAL_FOLDER = "OrdaenSocial"
 
 // The whispers' bubble: a plain round dot of Ordaen's violet, in the tone of the game's whisper pink.
-const WHISPERS_LOOK: CalloutLook = CalloutLook.Dot { tone: Color.hex("#8a4fd0") }
+const WHISPERS_LOOK: CalloutLook = CalloutLook.Speech { tone: Color.hex("#8a4fd0") }
 // The friends' button the whispers' bubble points at, while it shows.
 function bubbleBy(shown: Boolean, button: any Frame | nil): Array<any Frame> {
   return !shown || button == nil ? [] : [button]

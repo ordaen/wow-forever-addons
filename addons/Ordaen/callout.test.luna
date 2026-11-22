@@ -98,28 +98,31 @@ test "by a button at the screen's edge, it reaches inward and its arrow stands o
 
 const VIOLET: Color = Color.hex("#8a4fd0")
 
-// A dot: a count in a plain round bubble of one colour.
+// A speech bubble: a count in the client's chat bubble made one colour.
 class Counted implements Component {
   by: any Client.Frame
   constructor(by: any Client.Frame) { self.by = by }
 
   public render(self): Template {
     return $ltml {
-      <Callout by={self.by} title={"3"} look={CalloutLook.Dot { tone: VIOLET }} />
+      <Callout by={self.by} title={"3"} look={CalloutLook.Speech { tone: VIOLET }} />
     }
   }
 }
 
-test "a dot is a plain round bubble of its colour with its count: no frame, no close, a small arrow in its colour" {
-  const page = new Counted(button("CalloutDot", 40))
+test "a speech callout is the client's chat bubble in its colour with its count and its tail: no frame, no close" {
+  const page = new Counted(button("CalloutSpeech", 40))
   Test.mount(page, { left: 0, top: 0, width: 1600, height: 900 })
-  const bubble = Test.page().window("3")
-  Test.expect(bubble.box(VIOLET).shown())
+  Test.expect(Test.page().text("3").shown())
   Test.expect(!Test.page().box(Ordaen.art.window.wood).shown() && !Test.page().box(Ordaen.art.ctl.corner.close).shown())
-  const dot = bubble.box(VIOLET).rect()
-  Test.expect((dot.right - dot.left - (dot.bottom - dot.top)).abs() < 1)
-  const arrow = Test.edges("helptip-arrow", 0)
-  Test.expect(arrow.right - arrow.left < dot.right - dot.left)
+  const pieces = Test.drawn().filter(d => d.file is String && String.of(d.file).contains("ChatBubble-NineSlice"))
+  Test.expect(pieces.length == 9 && pieces.filter(d => d.desaturated).length == 9)
+  const tail = Test.edges("ChatBubble-Tail", 0)
+  const count = Test.page().text("3").rect()
+  // The tail's point by the button's top middle (the screen's middle, 80 px over its bottom), the count over it.
+  Test.expect(((tail.left + tail.right) / 2 - 800).abs() <= 4 && tail.bottom <= 820 && tail.bottom >= 816)
+  Test.expect(count.bottom < tail.bottom)
+  Test.expect(Test.drawn().filter(d => d.file == "helptip-arrow").length == 0)
   destroy page
 }
 

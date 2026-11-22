@@ -1,13 +1,14 @@
 // Callout: a pointer at something on the screen the player should look at, as the client's own help tip and micro
 // button alert are, in one of two looks (`CalloutLook`). Framed: the small metal frame round the windows' wood, a
 // title in white and its text under it in the label colour, the window's close glyph at its top right where it is
-// closable, and the client's help-tip arrow in gold. A dot: a plain round bubble of one colour with its title (a count:
-// the whispers waiting unread) in white, no frame, no close, a smaller arrow in its colour. It stands beside a frame
-// of the game's, over it or under it (`CalloutSide`), on the dialogs' layer over the windows. The arrow stands on the
-// frame's middle, its point a gap short of the frame's edge; the bubble is centred over it and kept on the screen, so
-// by a frame at the screen's edge the bubble moves inward and the arrow stays on the frame. Its owner shows it while
-// what it says holds; the close glyph says the player has read it (`close`), and the owner hides it.
-import { Align, Anchored, Frame, Layer, Point, Track } from "$ltml"
+// closable, and the client's help-tip arrow in gold. Speech: the client's own chat bubble made one colour, with its
+// title (a count: the whispers waiting unread) in white, no close, and the bubble's tail in its colour where the arrow
+// would be. It stands beside a frame of the game's, over it or under it (`CalloutSide`), on the dialogs' layer over the
+// windows. The arrow (or tail) stands on the frame's middle, its point a gap short of the frame's edge; the bubble is
+// centred over it and kept on the screen, so by a frame at the screen's edge the bubble moves inward and the arrow
+// stays on the frame. Its owner shows it while what it says holds; the close glyph says the player has read it
+// (`close`), and the owner hides it.
+import { Align, Anchored, Edges, Frame, Layer, NineSlice, Point, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import { Component } from "@/module"
 import { BRIGHT_TEXT, SECONDARY_TEXT, TIGHT_LINE, TITLE_LINE, TITLE_TEXT } from "@/units"
@@ -15,27 +16,32 @@ import { BRIGHT_TEXT, SECONDARY_TEXT, TIGHT_LINE, TITLE_LINE, TITLE_TEXT } from 
 // Which side of the frame it stands on.
 public enum CalloutSide { Above, Below }
 
-// How it looks: framed, with a close glyph or without; or a plain round dot of one colour.
+// How it looks: framed, with a close glyph or without; or a chat bubble of one colour.
 public enum CalloutLook {
   Framed { closable: Boolean }
-  Dot { tone: Color }
+  Speech { tone: Color }
 }
 
 // As wide as what it says, up to its most: a long text wraps there.
 const MOST = 468.75dp
 const LABEL: Color = Color.hex("#cbb994")
 const GOLD: Color = Color.hex("#f0c860")
-// The client's help-tip arrow (65 by 28 px), pointing down as drawn, at a framed callout's size and a dot's; the gap
-// from its point to the frame; how far the bubble comes over the arrow's base, so they meet.
+// The client's help-tip arrow (65 by 28 px), pointing down as drawn; the gap from its point to the frame; how far the
+// bubble comes over the arrow's base, so they meet.
 const ARROW: Atlas = "helptip-arrow"
 const ARROW_WIDTH = 38.0859375dp
 const ARROW_HEIGHT = 16.40625dp
-const DOT_ARROW_WIDTH = 21.09375dp
-const DOT_ARROW_HEIGHT = 9.375dp
 const GAP = 2.34375dp
 const MEET = 2.34375dp
-// A dot: round, as high as a line of small digits with a little room.
-const DOT = 25.78125dp
+// The client's chat bubble: its nine pieces (corners and edges 16 units, as the client draws them), its tail (16 by
+// 16, pointing down as drawn), which comes over the bubble's bottom edge as far as the edge's rim stands in from it.
+const BUBBLE: NineSlice = { layout: "ChatBubble" }
+const TAIL: Atlas = "ChatBubble-Tail"
+const TAIL_SIZE = 16ui
+const TAIL_MEET = 8ui
+// The bubble is never smaller than its corners; its count stands in from its rim.
+const BUBBLE_LEAST = 32ui
+const BUBBLE_PAD: Edges = { top: 0sp, right: 3sp, bottom: 0sp, left: 3sp }
 const GLYPH = 18.75dp
 const HEAD: Array<Track> = [{ fr: 1 }, "max-content"]
 const PAD: Number<Spacing> = 5sp
@@ -49,19 +55,19 @@ function arrowPlaceOf(by: any Frame, side: CalloutSide): Anchored {
 }
 
 // Where the bubble stands: centred past the arrow's base.
-function bubblePlaceOf(by: any Frame, side: CalloutSide, arrowHeight: Number<Length>): Anchored {
-  const past: Number<Length> = GAP + arrowHeight - MEET
+function bubblePlaceOf(by: any Frame, side: CalloutSide, arrowHeight: Number<Length>, meet: Number<Length>): Anchored {
+  const past: Number<Length> = GAP + arrowHeight - meet
   if (side == CalloutSide.Above) {
     return { point: Point.Bottom, to: Point.Top, y: -past, by: by }
   }
   return { point: Point.Top, to: Point.Bottom, y: past, by: by }
 }
 
-// A dot's colour; nil for a framed callout.
+// A speech bubble's colour; nil for a framed callout.
 function toneOf(look: CalloutLook): Color | nil {
   match (look) {
     .Framed => return nil
-    .Dot => return look.tone
+    .Speech => return look.tone
   }
 }
 
@@ -69,7 +75,7 @@ function toneOf(look: CalloutLook): Color | nil {
 function closableOf(look: CalloutLook): Boolean {
   match (look) {
     .Framed => return look.closable
-    .Dot => return false
+    .Speech => return false
   }
 }
 
@@ -77,13 +83,14 @@ public class Callout implements Component {
   public close: Event<nil> = new Event()
 
   derived tone: Color | nil = toneOf(self.look)
-  derived dot: Boolean = self.tone != nil
-  derived framed: Boolean = !self.dot
+  derived speech: Boolean = self.tone != nil
+  derived framed: Boolean = !self.speech
   derived closable: Boolean = closableOf(self.look)
-  derived arrowWidth: Number<Length> = self.dot ? DOT_ARROW_WIDTH : ARROW_WIDTH
-  derived arrowHeight: Number<Length> = self.dot ? DOT_ARROW_HEIGHT : ARROW_HEIGHT
+  derived arrow: Atlas = self.speech ? TAIL : ARROW
+  derived arrowWidth: Number<Length> = self.speech ? TAIL_SIZE : ARROW_WIDTH
+  derived arrowHeight: Number<Length> = self.speech ? TAIL_SIZE : ARROW_HEIGHT
   derived arrowPlace: Anchored = arrowPlaceOf(self.by, self.side)
-  derived bubblePlace: Anchored = bubblePlaceOf(self.by, self.side, self.arrowHeight)
+  derived bubblePlace: Anchored = bubblePlaceOf(self.by, self.side, self.arrowHeight, self.speech ? TAIL_MEET : MEET)
   derived turn: Number<Angle> = self.side == CalloutSide.Above ? 0deg : 180deg
   derived hasText: Boolean = self.text != ""
   derived arrowTint: Color = self.tone ?? GOLD
@@ -124,15 +131,15 @@ public class Callout implements Component {
           <text $if={self.hasText} value={self.text} textColor={LABEL} />
         </box>
       </surface>
-      <surface $if={self.dot} layer={Layer.Dialog} place={self.bubblePlace} clamp={true} columns={1}>
-        <box width={DOT} height={DOT} background={self.tone} mask={Ordaen.art.panel.faceRound} xAlign={Align.Center}
-             yAlign={Align.Center}>
+      <surface $if={self.speech} layer={Layer.Dialog} place={self.bubblePlace} clamp={true} columns={1}>
+        <box width={{ min: BUBBLE_LEAST, max: nil }} height={BUBBLE_LEAST} padding={BUBBLE_PAD} background={BUBBLE}
+             desaturate={true} tint={self.tone} xAlign={Align.Center} yAlign={Align.Center}>
           <text value={self.title} textSize={SECONDARY_TEXT} textColor={BRIGHT_TEXT} textFont={.Numbers}
                 lineHeight={TIGHT_LINE} wrap={.None} />
         </box>
       </surface>
       <surface layer={Layer.Dialog} place={self.arrowPlace} columns={1}>
-        <box width={self.arrowWidth} height={self.arrowHeight} background={ARROW} desaturate={true}
+        <box width={self.arrowWidth} height={self.arrowHeight} background={self.arrow} desaturate={true}
              tint={self.arrowTint} rotation={self.turn} />
       </surface>
     }
