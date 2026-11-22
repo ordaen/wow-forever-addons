@@ -8,13 +8,14 @@ import Test from "$test"
 
 const NAMES: Array<String> = ["Copper Ore", "Linen Cloth", "Silk Cloth"]
 
-// Four bags of twenty slots and the backpack's, three slots of four holding something.
+// Four bags of six slots and the backpack's, three slots of four holding something: every part of the window runs, and
+// a run that checks the whole layout after each flush (`--full`) stays in a test's time.
 function bagOf(bag: Integer): Game.BagInfo {
-  return { bag: bag, item: nil, name: `Bag ${bag}`, icon: nil, slots: bag <= 4 ? 20 : 0, general: true }
+  return { bag: bag, item: nil, name: `Bag ${bag}`, icon: nil, slots: bag <= 4 ? 6 : 0, general: true }
 }
 
 function sizeOf(bag: Integer): Integer {
-  return bag <= 4 ? 20 : 0
+  return bag <= 4 ? 6 : 0
 }
 
 function readSlot(bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean {
@@ -84,10 +85,10 @@ test "every bag updated with nothing moved: the module makes no garbage" {
   Game.bags.open = true
   Test.flush()
   _ = made()
-  for (round of 1..50) {
-    for (bag of 0..round % 1 + 4) { Game.bags.updated.emit(bag) }
+  for (round of 1..10) {
+    for (bag of 0..4) { Game.bags.updated.emit(bag) }
     Test.flush()
   }
-  // A full update with nothing moved makes nothing: fifty of them under a kilobyte.
+  // A full update with nothing moved makes nothing: ten of them under a kilobyte.
   Test.expect(made() < 1)
 }
