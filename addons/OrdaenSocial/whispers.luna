@@ -7,7 +7,7 @@
 import Client from "$client"
 import Game from "$game"
 import { Hero } from "$game"
-import { Align, Bounds, Edges, Event, Overflow, Position, Track } from "$ltml"
+import { Align, Bounds, Edges, Event, NineSlice, Overflow, Position, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import { BODY_LINE, Component, CountBadge, Field, Menu, MenuEntry, SECONDARY_TEXT, TIGHT_LINE, classColor, timeText } from "Ordaen"
 import Locale from "@/locales"
@@ -29,6 +29,8 @@ public const HEARD_FILL: Color = Color.hex("#3d2e24e6")
 public const TOLD_FILL: Color = Color.hex("#8c4d2ed6")
 const INK: Color = Color.hex("#e8dcc4")
 const BUBBLE_PAD: Edges = { top: 2sp, right: 3sp, bottom: 2sp, left: 3sp }
+// A bubble's shape: the client's own chat bubble, its rounded corners and edges, made one colour by the side's tint.
+const CHAT_BUBBLE: NineSlice = { layout: "ChatBubble" }
 // Room above a bubble: little inside a group, more where a group starts.
 const IN_GROUP: Edges = { top: 1sp }
 const NEW_GROUP: Edges = { top: 3sp }
@@ -123,7 +125,8 @@ public class Bubble implements Component {
         // The player's own stands in the second column: the first is the room on its left.
         <box $if={self.mine} />
         <box columns={1} gap={0.5sp}>
-          <box xAlignSelf={self.side} padding={BUBBLE_PAD} background={self.fill} @linkPress={self.onLink}>
+          <box xAlignSelf={self.side} padding={BUBBLE_PAD} background={CHAT_BUBBLE} desaturate={true} tint={self.fill}
+               @linkPress={self.onLink}>
             <box $if={self.item.line.secret} height={self.lineHeight} overflow={Overflow.Hidden}>
               <text value={self.item.line.whole} secret={true} textColor={INK} wrap={.None} />
             </box>
