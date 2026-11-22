@@ -2,6 +2,7 @@
 // content and its owner, so every addon that fills it works as before: for a show drawn here the game's own is kept
 // unseen, and this module draws its group where the tooltip belongs. Each kind of tooltip has its switch: off, that
 // kind stays the game's, unchanged.
+import Events from "$events"
 import Game from "$game"
 import root Ordaen from "Ordaen"
 import { BRIGHT_TEXT, Module, Settings, SettingsPage } from "Ordaen"
@@ -23,7 +24,8 @@ const UNIT_NAME = 2
 // The lock: a tooltip held under the cursor charges, then locks, and stays for the cursor to come onto it. The
 // charge starts `DELAY` seconds into the show (a passing cursor sees no bar) and takes `CHARGE` seconds, in
 // `STEPS`. A locked group goes `GRACE` seconds after the cursor went onto anything but the group and its source,
-// unless it came back to either; onto another thing with a tooltip, at once. The game hides and
+// unless it came back to either; onto another thing with a tooltip, at once; a press of the mouse anywhere but on the
+// group (its tooltips, a term it opened), at once, the press still going to what it was on. The game hides and
 // shows a button's tooltip again as it refreshes it: only a hide longer than `REFRESH` is the cursor leaving.
 const DELAY = 0.18
 const CHARGE = 1
@@ -109,6 +111,8 @@ public class Tooltips implements Module, App {
   // The cursor is on the group (on a part of it that opens another tooltip too); it has been on it since it locked.
   state over = false
   state visited = false
+  // The game's word of every press of the mouse, heard while a tooltip is locked.
+  pressHeard: Handle | nil = nil
   derived locked: Boolean = self.kept != nil
   // What is drawn locks: it is locked, or it charges as the cursor stays (a button's text never does). Kept with
   // the last show while nothing shows, as the rest of it is.
@@ -161,6 +165,24 @@ public class Tooltips implements Module, App {
     watch { self.graceOut() }
     watch { self.keepLast() }
     watch { self.keepKeys() }
+    watch (locked of self.locked) { self.hearPresses(locked) }
+  }
+
+  // A press is heard while a tooltip is locked, and not otherwise.
+  hearPresses(mut self, locked: Boolean) {
+    if (locked && self.pressHeard == nil) {
+      self.pressHeard = Events.GLOBAL_MOUSE_DOWN.listen(self.onPress)
+    } else if (!locked && self.pressHeard != nil) {
+      destroy self.pressHeard
+      self.pressHeard = nil
+    }
+  }
+
+  // A press of the mouse anywhere but on the locked group takes it away. The game says it of every press, and takes
+  // nothing of it: the press still goes to what it was on (a window starts its drag, a button its click). The close
+  // button is on the group, and closes it as itself.
+  onPress(mut self, button: String) {
+    if (peek self.kept != nil && !(peek self.over)) { self.close() }
   }
 
   // The hotkeys other modules add for the item shown. A module may say them of the frame under the cursor (a bag's
@@ -297,6 +319,7 @@ public class Tooltips implements Module, App {
   }
 
   destructor() {
+    if (self.pressHeard != nil) { destroy self.pressHeard }
     // Nothing here draws the game's tooltip any more: it is seen again.
     Game.tooltip.hide(false)
   }

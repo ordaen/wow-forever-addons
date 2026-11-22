@@ -287,6 +287,63 @@ test "the cursor off the locked tooltip for longer than the grace takes it away"
   Test.expect(!isLocked() && !Test.page().window("Sword").shown())
 }
 
+// A button on the screen with nothing of the tooltips' on it, counting its presses: what a press elsewhere lands on.
+class Pressed {
+  public state presses = 0
+
+  onPress(mut self) { self.presses += 1 }
+
+  public render(self): Template {
+    return $ltml {
+      <box @pointerPress={self.onPress}>
+        <text value={"Elsewhere"} />
+      </box>
+    }
+  }
+}
+
+test "a press elsewhere takes the locked tooltip away at once, and still reaches what it was on" {
+  const page = new Pressed()
+  Test.mount(page, SCREEN)
+  Game.tooltip.main = inSlot(sword())
+  Test.pass(CHARGED)
+  Game.tooltip.main = hidden()
+  locked().text("Sword").hover()
+  Test.page().text("Elsewhere").click()
+  Test.expect(!isLocked() && !Test.page().window("Sword").shown() && page.presses == 1)
+}
+
+test "a press elsewhere takes a locked tooltip away before the cursor has come onto it" {
+  const page = new Pressed()
+  Test.mount(page, SCREEN)
+  Game.tooltip.main = inSlot(sword())
+  Test.pass(CHARGED)
+  Game.tooltip.main = hidden()
+  Test.page().text("Elsewhere").click()
+  Test.expect(!isLocked() && page.presses == 1)
+}
+
+test "a press on the locked tooltip keeps it" {
+  Test.mount(new Pressed(), SCREEN)
+  Game.tooltip.main = inSlot(sword())
+  Test.pass(CHARGED)
+  Game.tooltip.main = hidden()
+  locked().text("Sword").click()
+  Test.pass(1)
+  Test.expect(isLocked())
+}
+
+test "a press on a term the locked tooltip opened keeps it" {
+  Test.mount(new Pressed(), SCREEN)
+  Game.tooltip.main = inSlot(frostbolt())
+  Test.pass(CHARGED)
+  Game.tooltip.main = hidden()
+  locked().text("30 yd range").hover()
+  Test.page().window("Range").text("Range").click()
+  Test.pass(1)
+  Test.expect(isLocked())
+}
+
 test "a locked tooltip the cursor hasn't come onto yet waits for it" {
   Test.mount(new Elsewhere(), SCREEN)
   Game.tooltip.main = inSlot(sword())
