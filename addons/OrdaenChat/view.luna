@@ -1,8 +1,7 @@
 // The chat's parts: a tab of its sidebar and a line.
 import Game from "$game"
 import { Align, Edges, Event, Overflow, Position } from "$ltml"
-import root Ordaen from "Ordaen"
-import { Component, CountBadge, ListTab, SECONDARY_TEXT, SessionRule, timeText, toLeftLine } from "Ordaen"
+import { Component, CountBadge, ListTab, SECONDARY_TEXT, SessionRule, timeText } from "Ordaen"
 import { ChatTab, STAMP, Shown, StampShown } from "@/lines"
 
 // The warm band under a line that names the player or a keyword.
@@ -20,8 +19,8 @@ const COUNT_SPOT: Edges = { right: 3sp }
 // badge at its right end, beside its name: a tab that counts keeps the badge's room whether any wait or not, the badge
 // out of the flow in it (a count wider than the room grows to the left, into the gap), so nothing moves as the count
 // comes, grows or goes. The open one and the one under the cursor stand on a shade, its name white on the open one;
-// the shade reaches in under the lines' frame's left line, so it touches the lines. The left button picks it, the
-// right opens its menu.
+// the shade runs to the tab's right, where the lines' ground begins, so it touches the lines. The left button picks it,
+// the right opens its menu.
 public class TabButton implements Component {
   public pick: Event<ChatTab> = new Event()
   public menu: Event<ChatTab> = new Event()
@@ -29,8 +28,6 @@ public class TabButton implements Component {
   state hovered = false
   derived shade: Color | nil = self.open || self.hovered ? SHADE : nil
   derived unread: Boolean = self.tab.unread > 0
-  // The shade past the tab's box: to the middle of the lines' frame's left line, inside that frame's box.
-  derived joined: Number<Length> = -toLeftLine(Ordaen.art.frame.small)
 
   tab: Signal<ChatTab>
   open: Signal<Boolean>
@@ -50,9 +47,9 @@ public class TabButton implements Component {
   public render(self): Template {
     return $ltml {
       <box columns={1} @pointerPress(.Right)={self.onMenu} @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
-        // The shade behind it out of the flow (every tab one size), its right under the lines' frame.
-        <box position={Position.Absolute} top={0ui} right={self.joined} bottom={0ui} left={0ui} background={self.shade} />
-        // The list tab draws no shade of its own (framed): this one reaches the frame.
+        // The shade behind it out of the flow (every tab one size), up to the lines' ground.
+        <box position={Position.Absolute} top={0ui} right={0ui} bottom={0ui} left={0ui} background={self.shade} />
+        // The list tab draws no shade of its own (framed): this one reaches the ground.
         <box zLevel={1}>
           <ListTab label={self.tab.title} selected={self.open} framed={true} @pick={self.onPick}>
             <box $if={self.tab.counted} width={COUNT_ROOM} />

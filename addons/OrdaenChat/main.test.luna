@@ -7,11 +7,12 @@ import { Key } from "$ltml"
 import Runtime from "$runtime"
 import Test from "$test"
 import root Ordaen from "Ordaen"
-import { BODY_TEXT, ChatMark, FIELD_FILL, say, toLeftLine } from "Ordaen"
+import { BODY_TEXT, ChatMark, FIELD_FILL, say } from "Ordaen"
 import root Quests from "OrdaenQuests"
 import root Social from "OrdaenSocial"
 import { LEAST_WIDTH, MESSAGE_GAP } from "@/choices"
 import { ChatTab, Kept, Shown, StampShown, THIS_SESSION, linked, marks, wordsOf } from "@/lines"
+import { GROUND, GROUND_ROUND } from "@/pane"
 
 const SCREEN: Test.Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
 const WHITE: Color = Color.hex("#ffffff")
@@ -77,11 +78,11 @@ test "the chat reads the game's lines and shows them in the window's tab, nothin
   Test.expect(shown.texts().join(",") == "General,Jaina,[Thrall] says: Hello")
 }
 
-test "the open tab and the one under the cursor stand on a list's shade, touching the lines: the window's wood is the lines' alone" {
+test "the open tab and the one under the cursor stand on a list's shade, touching the lines' dark ground" {
   Game.chat.windows = gameWindows()
   const shown = chat()
   const name = shown.text("General").rect()
-  Test.expect(shown.box(Ordaen.art.window.wood).count() == 1)
+  Test.expect(shown.box(Ordaen.art.window.wood).count() == 0)
   Test.expect(shown.box(TAB_SHADE).count() == 1 && onShade(shown, "General"))
   shown.text("Jaina").click()
   Test.expect(onShade(shown, "Jaina") && !onShade(shown, "General"))
@@ -90,14 +91,21 @@ test "the open tab and the one under the cursor stand on a list's shade, touchin
   // Under the cursor, another tab stands on the same shade.
   shown.text("General").hover()
   Test.expect(onShade(shown, "General") && onShade(shown, "Jaina"))
-  // The shade runs in under the lines' left line, which stands inside the lines' box by the frame's reach: no gap.
-  const lines = shown.box(Ordaen.art.window.wood).rect()
+  // The shade runs up to the lines' ground: no gap.
+  const lines = ground(shown)
   const shade = shown.box(TAB_SHADE)
   for (n of 1..shade.count()) {
-    Test.expect((shade.nth(n).rect().right - lines.left - toLeftLine(Ordaen.art.frame.small) / 1ui).abs() < 0.5)
+    Test.expect((shade.nth(n).rect().right - lines.left).abs() < 0.5)
   }
   // No list's own shade or light of its own over a tab.
   Test.expect(shown.box(Color.hex("#00000040")).count() == 0 && shown.box(Color.hex("#d6a56b")).count() == 0)
+}
+
+// The lines' dark ground, whole: its middle part runs from top to bottom, a corner's round in from each side.
+function ground(shown: Test.Part): Test.Rect {
+  const middle = shown.box(GROUND).nth(1).rect()
+  const round = GROUND_ROUND / 1ui
+  return { left: middle.left - round, top: middle.top, right: middle.right + round, bottom: middle.bottom }
 }
 
 function inBox(box: Test.Rect, at: Test.Rect): Boolean {
@@ -119,7 +127,7 @@ test "a tab's count is the library's badge beside its name, never over it: nothi
   const shown = chat()
   const name = shown.text("Jaina").letters()
   const tab = shown.text("Jaina").rect()
-  const lines = shown.box(Ordaen.art.window.wood).rect()
+  const lines = ground(shown)
   Game.chat.heard.emit(line("SAY", "[Jaina] says: one", "Jaina", [3]))
   const badge = shown.box(Ordaen.art.panel.countBadge)
   const one = badge.rect()
@@ -132,7 +140,7 @@ test "a tab's count is the library's badge beside its name, never over it: nothi
   Test.expect(now.left == name.left && now.right == name.right)
   const after = shown.text("Jaina").rect()
   Test.expect(after.left == tab.left && after.right == tab.right && after.top == tab.top && after.bottom == tab.bottom)
-  Test.expect(shown.box(Ordaen.art.window.wood).rect().left == lines.left)
+  Test.expect(ground(shown).left == lines.left)
 }
 
 test "messages stand further apart than a message's own lines" {
@@ -204,7 +212,7 @@ test "Enter shows the input line, on the screen, in the chat's frame" {
   Test.expect(box.GetFrameStrata() == "DIALOG" && box.GetFrameLevel() > field.level())
 }
 
-test "the input shows under the lines' frame in a room the chat keeps for it: nothing moves as it or the way back comes" {
+test "the input shows under the lines' ground in a room the chat keeps for it: nothing moves as it or the way back comes" {
   Game.chat.windows = gameWindows()
   const box = input(Client.CreateFrame("Frame", nil, Client.C_UI.GetUIParent(), nil))
   box.Hide()
@@ -213,7 +221,7 @@ test "the input shows under the lines' frame in a room the chat keeps for it: no
   for (at of 1..60) { Game.chat.heard.emit(line("SAY", `line ${at}`, "Thrall", [1])) }
   const shown = Test.page().window("General")
   const chatBefore = shown.rect()
-  const lines = shown.box(Ordaen.art.window.wood).rect()
+  const lines = ground(shown)
   const newest = shown.text("line 60").rect()
   // Scrolled back, the way back stands over the lines; scrolled to the newest again, it goes.
   shown.text("line 60").hover()
@@ -225,11 +233,11 @@ test "the input shows under the lines' frame in a room the chat keeps for it: no
   box.SetFocus()
   Game.chat.typing = true
   Test.pass(0.01)
-  // Nothing moved: the chat (what the placing mode outlines), its frame, its newest line.
+  // Nothing moved: the chat (what the placing mode outlines), its newest line.
   const chatNow = shown.rect()
   Test.expect(chatNow.top == chatBefore.top && chatNow.bottom == chatBefore.bottom && chatNow.right == chatBefore.right)
   Test.expect(shown.text("line 60").rect().bottom == newest.bottom)
-  // The input stands under the lines' frame, inside the chat.
+  // The input stands under the lines' ground, inside the chat.
   const middle = Test.centre(box)
   Test.expect(middle.y > lines.bottom && middle.y < chatNow.bottom && middle.x > lines.left && middle.x < lines.right)
 }
@@ -729,12 +737,12 @@ test "the chat's own text size, where the player turns it on, is the lines' for 
   Test.expect((lineToName(Test.page().window("[Thrall] says: Hello")) - (body - 2) / body).abs() < 0.005)
 }
 
-test "the tabs begin where the lines' frame's metal does, not where its art's reach does" {
+test "the tabs begin level with the lines' ground, and the ground is dark with rounded corners, no wood" {
   Game.chat.windows = gameWindows()
   const shown = chat()
-  const frame = shown.box(Ordaen.art.window.wood).rect()
-  const reach = Ordaen.art.frame.small.reach.top * Ordaen.art.frame.small.scale
-  Test.expect((shown.box(TAB_SHADE).rect().top - frame.top - reach).abs() < 0.5)
+  Test.expect((shown.box(TAB_SHADE).rect().top - ground(shown).top).abs() < 0.5)
+  // Its middle, a strip down each side, and four corners, each a circle cut to its quarter.
+  Test.expect(shown.box(GROUND).count() == 7 && shown.box(Ordaen.art.window.wood).count() == 0)
 }
 
 test "the Tabs page lists the windows in a sidebar; the picked one's speech, channels, communities and system messages" {

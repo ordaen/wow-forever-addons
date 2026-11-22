@@ -6,7 +6,7 @@ import Client from "$client"
 import Game from "$game"
 import { Align, Edges, Event, Frame, Layer, Line, MouseButton, Over, Overflow, Position, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { BODY_LINE, Component, FIELD_EDGE, FIELD_FILL, GripCorner, Menu, MenuEntry, SECONDARY_TEXT, SizeGrip } from "Ordaen"
+import { BODY_LINE, Component, FIELD_EDGE, FIELD_FILL, GripCorner, Menu, MenuEntry, RoundedFill, SECONDARY_TEXT, SizeGrip } from "Ordaen"
 import root Quests from "OrdaenQuests"
 import { ChatTab, Entry } from "@/lines"
 import Locale from "@/locales"
@@ -30,6 +30,9 @@ const FRAME_AND_INPUT: Array<Track> = [{ fr: 1 }, "max-content"]
 const GAME_INPUT = 32ui
 // From the frame's line to what it holds.
 const ROOM: Edges = { top: 2sp, right: 3sp, bottom: 2sp, left: 3sp }
+// The lines' ground: dark, the world a little through it, its corners rounded; nothing else round it.
+public const GROUND: Color = Color.hex("#000000cc")
+public const GROUND_ROUND = 7.03125dp
 // The input's field: its text in from the edge as a field's is.
 const INPUT_PAD: Edges = { right: 1sp, left: 1sp }
 // The room of the field's edge, which the field's surface draws over the input's box.
@@ -134,8 +137,6 @@ public class Pane implements Component {
   // The lines' row: the height the player chose at least, more where the tabs stand taller.
   derived rows: Array<Track> = [{ fr: 1, min: self.height }]
   derived logFrame: any Frame | nil = self.logOf()
-  // The tabs' top where the lines' frame's metal begins: its art reaches this far above it, inside its box.
-  derived tabsReach: Number<Length> = Ordaen.art.frame.small.reach.top * Ordaen.art.frame.small.scale * 1ui
   derived shown: Array<Entry> = self.shownOf()
   derived inputShown: Boolean = self.input != nil && (self.typing || self.inputAlways)
   // Whole while the cursor is on it, the player types or a menu of it is open; else as the settings say.
@@ -301,23 +302,21 @@ public class Pane implements Component {
 
   public render(self): Template {
     return $ltml {
-      // The tabs a sidebar on the world at the frame's left, one a row; the lines in the window's frame and wood, at
-      // least the height the player chose and never lower than the tabs, the input's room under them. As wide as the player
+      // The tabs a sidebar on the world at the lines' left, one a row; the lines on a dark ground with rounded corners,
+      // at least the height the player chose and never lower than the tabs, the input's room under them. As wide as the player
       // chose, or as the tabs and the lines' least need.
       <box width={{ min: self.width, max: nil }} columns={[MAX, { fr: 1 }]} opacity={self.opacity}>
-        // From the frame's metal down, not the reach of its art above it.
         <box columns={1} yAlignSelf={Align.Start} @pointerEnter={self.onTabsEnter} @pointerLeave={self.onTabsLeave}>
-          <box height={self.tabsReach} />
           <TabButton $for={tab of self.tabs} tab={tab} open={tab.key == self.open?.key} @pick={self.onPick}
                      @menu={self.onMenu} />
           <Menu $if={self.menuTab != nil} entries={self.tabEntries} title={self.menuTab?.title ?? ""} @pick={self.onTabPick}
                 @close={self.onTabMenuClose} />
         </box>
-        // The lines' frame, and under it the input's room.
+        // The lines' ground, and under it the input's room.
         <box rows={FRAME_AND_INPUT} gap={1sp} yAlignSelf={Align.Stretch}>
-          // Over the sidebar: its left line stands over the open tab's open end, one shape with it.
-          <box rows={ALL} yAlignSelf={Align.Stretch} border={Ordaen.art.frame.small} background={Ordaen.art.window.wood}
-               artOrigin={true} padding={ROOM} zLevel={3} @pointerEnter={self.onLinesEnter} @pointerLeave={self.onLinesLeave}>
+          <box rows={ALL} yAlignSelf={Align.Stretch} padding={ROOM} zLevel={3} @pointerEnter={self.onLinesEnter}
+               @pointerLeave={self.onLinesLeave}>
+            <RoundedFill color={GROUND} radius={GROUND_ROUND} />
             // The chat stands by its bottom left: it grows to the right and up, by the grip in this corner.
             <box position={Position.Absolute} top={0ui} right={0ui} zLevel={3}>
               <SizeGrip corner={GripCorner.TopRight} @grab={self.onSizeGrab} @drag={self.onSize} @drop={self.onSizeDrop} />
