@@ -55,10 +55,12 @@ public struct Section {
   const free: Boolean
 }
 
-// A section as a card: how many slots wide it is.
+// A section as a card: how many slots wide it is, and the room between two of its slots across: the player's gap, or
+// where the card fills its line, that and an even share of what is left over, so its rows end flush with the list.
 public struct Card {
   const section: Section
   const span: Integer
+  const gap: Number<Length>
 }
 
 // A line of cards side by side: each card's width, and the line's height (its tallest card's).
@@ -104,7 +106,9 @@ public function linesOf(sections: Array<Section>, width: Number<Length>, room: C
   const most = spanIn(width, room)
   for (section of sections) {
     const span = spanOf(section, most, room)
-    const wide = cardWidth(span, room)
+    const fills = span == most && span > 1
+    const wide = fills ? width : cardWidth(span, room)
+    const gap = fills ? (width - 2 * room.pad - span * room.slot) / (span - 1) : room.gap
     if (cards.length > 0 && used + room.between + wide > width) {
       lines.push({ cards: cards, tracks: tracks, height: high })
       cards = []
@@ -113,7 +117,7 @@ public function linesOf(sections: Array<Section>, width: Number<Length>, room: C
       used = 0ui
     }
     used = cards.length == 0 ? wide : used + room.between + wide
-    cards.push({ section: section, span: span })
+    cards.push({ section: section, span: span, gap: gap })
     tracks.push(wide)
     high = high.max(cardHeight(section, span, room))
   }
