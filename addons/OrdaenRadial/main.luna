@@ -22,6 +22,9 @@ import Locale from "@/locales"
 import { preset } from "@/preset"
 import { RingsPage } from "@/settings"
 
+// How much of the wheel shows while an item taken by a press waits for the release.
+const ARMED_OPACITY = 0.35
+
 // The keys the rings stand on, the first ring's first: the player's own, from the client's Key Bindings window.
 const RING_1: NamedKey = { name: "ORDAEN_RADIAL_1", label: "Radial menu", key: nil }
 const RING_2: NamedKey = { name: "ORDAEN_RADIAL_2", label: "Radial menu: marks", key: nil }
@@ -127,6 +130,8 @@ public class Radial implements Module, App {
   public derived chosen: Integer = self.chosenOf()
   derived middle: WheelMiddle = self.middleOf()
   derived opening: Number = self.wheel?.opening ?? 1
+  // An item taken by a press: the wheel fades while the cursor goes to where its release does it (where a ping lands).
+  derived armed: Boolean = self.wheel?.armed ?? false
   derived names: WheelNames = self.settings.values.rings[self.up]?.names ?? WheelNames.Chosen
   // The icon of the ring shown, on the wheel's hub: the submenu's or the slot's own; none on the first.
   derived category: Art | nil = self.categoryOf()
@@ -274,7 +279,7 @@ public class Radial implements Module, App {
     return $ltml {
       <box @keyDown.globalScope(RING_1)={self.heard} @keyDown.globalScope(RING_2)={self.heard}
            @keyDown.globalScope(RING_3)={self.heard} />
-      <surface $if={self.up > 0} layer={Layer.Dialog} place={self.place}>
+      <surface $if={self.up > 0} layer={Layer.Dialog} place={self.place} opacity={self.armed ? ARMED_OPACITY : 1}>
         <Wheel items={self.shownItems} chosen={self.chosen} middle={self.middle} names={self.names} scale={self.scale}
                opening={self.opening} category={self.category} />
       </surface>

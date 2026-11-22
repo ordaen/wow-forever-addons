@@ -116,12 +116,16 @@ const AIM: String = [
 ].join("\n")
 // The client's restricted code round the button's click: `self` the button, `owner` the header, `button` how it was
 // clicked (`Key` the bound key, `LeftButton`, `RightButton`, `Escape`), `down` whether it went down. The key held opens
-// the wheel and its release closes it, doing nothing; a left click does the item the cursor went towards (opens a
-// submenu or a slot's children, or does the item of them the mouse wheel stepped to), none in the middle (a submenu that
-// remembers: its last); a right click goes back a ring, closing the wheel from the first; Escape closes it.
+// the wheel and its release closes it, doing nothing; a left press takes the item the cursor went towards (`armed`),
+// and from then the wheel follows the cursor no more: its release does that item wherever the cursor went, so a ping
+// lands where the button comes up. The item done opens a submenu or a slot's children, or does the item of them the
+// mouse wheel stepped to; a press in the middle takes none, and the release does what the cursor went towards then
+// (a submenu that remembers: its last). A right click goes back a ring, closing the wheel from the first; Escape
+// closes it.
 const CHOICE: String = [
   "if button == 'Key' and down then",
   "  owner:SetAttribute('level', 'r')",
+  "  owner:SetAttribute('armed', nil)",
   "  self:ClearAllPoints()",
   "  self:SetPoint('CENTER', '$cursor')",
   "  self:Show()",
@@ -133,8 +137,16 @@ const CHOICE: String = [
   "  self:Hide() self:ClearBindings() owner:SetAttribute('level', 'r')",
   "  return false",
   "end",
-  "if down then return false end",
   "local level = owner:GetAttribute('level') or 'r'",
+  "if down then",
+  "  if button == 'LeftButton' then",
+  AIM,
+  "    owner:SetAttribute('armed', slot ~= 0 and slot or nil)",
+  "  end",
+  "  return false",
+  "end",
+  "local armed = owner:GetAttribute('armed')",
+  "owner:SetAttribute('armed', nil)",
   "if button == 'RightButton' then",
   "  if level == 'r' then",
   "    self:Hide() self:ClearBindings()",
@@ -145,6 +157,7 @@ const CHOICE: String = [
   "end",
   "if button ~= 'LeftButton' then return false end",
   AIM,
+  "if armed then slot = armed end",
   "if slot == 0 and level ~= 'r' and owner:GetAttribute('remember') then slot = owner:GetAttribute('last-' .. level) or 0 end",
   "if slot == 0 then return false end",
   "local name = level .. '_' .. slot",
@@ -182,6 +195,7 @@ const CHOICE: String = [
 const STEP: String = [
   "local level = owner:GetAttribute('level') or 'r'",
   AIM,
+  "slot = owner:GetAttribute('armed') or slot",
   "if slot == 0 then return end",
   "local name = level .. '_' .. slot",
   "if not owner:GetAttribute('menu-' .. name) and not owner:GetAttribute('slot-' .. name) then return end",
@@ -199,7 +213,7 @@ const STEP: String = [
 // wheel is drawn round, stands again between where the cursor was and where it is, `trail` from it, and the bands
 // with it.
 const LEASH: String = [
-  "if not owner:GetAttribute('anchored') then return end",
+  "if not owner:GetAttribute('anchored') or owner:GetAttribute('armed') then return end",
   "local b = owner:GetFrameRef('button')",
   "if not b:IsShown() then return end",
   "local x, y = b:GetMousePosition()",
@@ -243,6 +257,8 @@ public class SecureWheel {
   // seconds: what an item's state (its cooldown, its range) is read again by.
   public state opening: Number = 1
   public state tick = 0
+  // An item taken by a press, until the release does it: the aim stands still, wherever the cursor goes.
+  public state armed = false
   // A count that moves as the mouse wheel steps a band: what the art reads the steps again by.
   public state steps = 0
   // An item used, by its place, after the client did its action: an item of ours is done by whoever hears it.
@@ -387,6 +403,8 @@ public class SecureWheel {
       const chosen = self.header.GetAttribute("chosen")
       if (chosen is String) { self.picked.emit(chosen) }
     }
+    // A press takes an item and its release lets it go: told at each click, the closing one too.
+    self.armed = self.header.GetAttribute("armed") != nil
     const shown = self.button.IsShown()
     const level = self.header.GetAttribute("level")
     self.level = level is String ? level : ROOT
@@ -444,6 +462,8 @@ public class SecureWheel {
       self.readAt = now
       self.tick += 1
     }
+    self.armed = self.header.GetAttribute("armed") != nil
+    if (self.armed) { return }
     const scale = Client.UIParent.GetEffectiveScale()
     const cursorX, cursorY = Client.GetCursorPosition()
     const fromX, fromY = self.button.GetCenter()

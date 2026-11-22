@@ -252,3 +252,16 @@ test "the mouse wheel over a submenu shows the item it steps to, and the middle 
   Test.expect(texts.length == 3 && texts[2] == "Click to use" && (texts[3] ?? "").match("^1 of %d+$") != nil)
   _ = Test.releaseBound("F")
 }
+
+test "the wheel fades while an item taken by a press waits for its release, so the spot it is done at shows" {
+  start()
+  hold("F", 0, -FAR)
+  Test.expect(Test.page().text("Windows").opacity() == 1)
+  Test.press(nil)
+  Test.moveTo({ x: MIDDLE.x + 2 * FAR, y: MIDDLE.y + FAR })
+  Test.pass(0.05)
+  Test.expect(Test.page().text("Windows").opacity() < 1)
+  Test.release(nil)
+  Test.pass(0.05)
+  _ = Test.releaseBound("F")
+}

@@ -569,3 +569,42 @@ test "in a fight, a step made on another item takes back the last one's" {
   Test.releaseBound("G")
   Test.combat(false)
 }
+
+test "a press takes the item aimed at, and its release does it wherever the cursor went, in a fight too" {
+  const held = new Held(1)
+  Test.flush()
+  Test.combat(true)
+  open("F")
+  Test.moveTo({ x: MIDDLE.x, y: MIDDLE.y - 100 })
+  Test.pass(0.05)
+  Test.press(nil)
+  // Off to where the item is to be done (a ping's spot): past the item on the left, which it doesn't turn to.
+  Test.moveTo({ x: MIDDLE.x - 300, y: MIDDLE.y + 50 })
+  Test.pass(0.05)
+  Test.release(nil)
+  Test.releaseBound("F")
+  Test.expect(Test.performed().join(", ") == "spell Find Herbs")
+  Test.combat(false)
+}
+
+test "while an item is taken, the wheel follows the cursor no more: its aim stands still and an anchored one stays put" {
+  const held = new Held(1, false, true)
+  Test.flush()
+  open("F")
+  Test.moveTo({ x: MIDDLE.x, y: MIDDLE.y - 100 })
+  Test.pass(0.05)
+  const x = held.wheel.middleX
+  const y = held.wheel.middleY
+  const aimX = held.wheel.aimX
+  const aimY = held.wheel.aimY
+  Test.press(nil)
+  Test.pass(0.05)
+  Test.expect(held.wheel.armed)
+  Test.moveTo({ x: MIDDLE.x + 400, y: MIDDLE.y - 300 })
+  Test.pass(0.05)
+  Test.expect(held.wheel.middleX == x && held.wheel.middleY == y && held.wheel.aimX == aimX && held.wheel.aimY == aimY)
+  Test.release(nil)
+  Test.pass(0.05)
+  Test.expect(!held.wheel.armed)
+  Test.releaseBound("F")
+}
