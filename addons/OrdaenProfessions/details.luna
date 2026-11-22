@@ -6,7 +6,7 @@
 import Game from "$game"
 import { Align, Art, Edges, Line, Overflow, Side, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { BRIGHT_TEXT, Component, ItemButton, SECONDARY_TEXT, TITLE_LINE, TITLE_TEXT } from "Ordaen"
+import { BRIGHT_TEXT, Component, ItemButton, SECONDARY_TEXT, TITLE_TEXT } from "Ordaen"
 import type { PriceSource } from "OrdaenAuction"
 import { PartPrice, Totals, partsOf, totalsOf, yieldOf } from "@/cost"
 import { Flag } from "@/flag"
@@ -168,7 +168,7 @@ public class RecipeDetails implements Component {
             <ItemButton $if={self.hasItem} item={self.made} size={SLOT} dimmed={!self.shown.learned} />
             <box $else width={SLOT} height={SLOT} border={Style.BRONZE} icon={self.icon} />
             <box gap={0.5sp}>
-              <text value={self.shown.name} textSize={TITLE_TEXT} lineHeight={TITLE_LINE} textColor={BRIGHT_TEXT}
+              <text value={self.shown.name} textSize={TITLE_TEXT} leading={.Title} textColor={BRIGHT_TEXT}
                     textShadow={Style.SHADOW} />
               <text value={self.skill} textSize={SECONDARY_TEXT} textColor={self.skillColor} />
             </box>
