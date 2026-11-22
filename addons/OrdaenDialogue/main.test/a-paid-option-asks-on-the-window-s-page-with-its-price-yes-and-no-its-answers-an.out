@@ -14,39 +14,39 @@ surface 56.67,99.71 400.03x620.58 on MEDIUM clamped raised by a click
           box 92.52,172.81 0x0 absolute @keyPress
           box 92.52,172.81 0x0 absolute @keyPress
           box 92.52,172.81 0x0 absolute @keyPress
-          box 92.52,172.81 333.33x49.78
-            text 98.21,178.5 321.96x17.78 "Rent the best room?" #f0e6d0
-            text 98.21,199.12 321.96x17.78 "0g 50s 0c" #e8dcc4
-          box 92.52,222.59 333.33x464.11
-            box 92.52,228.27 333.33x425.82
-              box 92.52,228.27 333.33x60.84
-                box 92.52,228.27 333.33x29.71 #00000000 @keyPress @pointerPress
-                  box 98.21,233.96 18.33x18.33 #00000080
-                    text 102.93,235.38 8.89x15.51 "1" #c9a76a
-                  text 122.23,234.24 23.33x17.78 "Yes" #f0e6d0
-                box 92.52,259.41 333.33x29.71 #00000000 @keyPress @pointerPress
-                  box 98.21,265.1 18.33x18.33 #00000080
-                    text 102.93,266.51 8.89x15.51 "2" #c9a76a
-                  text 122.23,265.38 16.67x17.78 "No" #f0e6d0
+          box 92.52,172.81 333.33x49.22
+            text 98.21,178.5 321.96x17.5 "Rent the best room?" #f0e6d0
+            text 98.21,198.84 321.96x17.5 "0g 50s 0c" #e8dcc4
+          box 92.52,222.03 333.33x464.66
+            box 92.52,227.72 333.33x426.37
+              box 92.52,227.72 333.33x60.84
+                box 92.52,227.72 333.33x29.71 #00000000 @keyPress @pointerPress
+                  box 98.21,233.41 18.33x18.33 #00000080
+                    text 103.21,234.82 8.33x15.51 "1" #c9a76a
+                  text 122.23,233.82 23.33x17.5 "Yes" #f0e6d0
+                box 92.52,258.85 333.33x29.71 #00000000 @keyPress @pointerPress
+                  box 98.21,264.54 18.33x18.33 #00000080
+                    text 103.21,265.95 8.33x15.51 "2" #c9a76a
+                  text 122.23,264.96 15.83x17.5 "No" #f0e6d0
             box 92.52,658.36 333.33x28.33
               box 92.52,658.36 141.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
                 box 96.07,661.9 38.33x21.25 #00000038 opacity=1
-                  text 103.71,663.64 22.22x17.78 "Esc" #c9a76a
-                text 160.29,663.64 44.44x17.78 "Cancel" #ffd100
+                  text 103.99,663.77 21.67x17.5 "Esc" #c9a76a
+                text 160.43,663.77 44.17x17.5 "Cancel" #ffd100
               box 234.18,658.36 50x0
               box 284.18,658.36 141.67x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
                 box 287.74,661.9 38.33x21.25 #00000038 opacity=1
                   box 299.82,670.44 13.33x4.17
-                text 362.52,663.64 23.33x17.78 "Yes" #ffd100
+                text 362.52,663.77 23.33x17.5 "Yes" #ffd100
     box 439.45,700.29 13.33x13.33 absolute
       box 439.45,700.29 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 56.67,99.71 400.03x47.75
     box 56.67,99.71 311.5x47.75
-      box 56.67,99.71 189.26x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
+      box 56.67,99.71 188.98x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
         box 63.92,106.96 37.25x37.25 absolute face:npc border=UI-Frame-Metal-CornerTopLeft sides=none
         box 96.17,106.96 11.5x40.5 absolute border=UI-Frame-Metal-CornerTopLeft sides=left
-        box 112.7,109.96 114.44x34.25
-          text 112.7,118.19 114.44x17.78 "Innkeeper Farley" #ffd100
+        box 112.7,109.96 114.17x34.25
+          text 112.7,118.33 114.17x17.5 "Innkeeper Farley" #ffd100
     box 376.7,116.04 80x31.42
       box 376.7,116.04 80x26.67 clipped
         box 376.7,116.04 27.5x26.67 absolute clipped @keyPress @pointerPress
