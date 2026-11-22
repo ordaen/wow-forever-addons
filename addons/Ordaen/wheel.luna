@@ -1,16 +1,17 @@
 // Wheel: a ring of up to eight items round a middle, aimed by the direction the cursor went from where it was as the
-// wheel opened, whatever the distance. Each item is a slice of the ring cut in the bank's stone, its icon a square
-// carved into the stone; the slice aimed at is lit warm with a gold outline, its icon's hollow lit gold. A submenu or a
-// slot of several has a band of segments along its slice's outer edge, one for each of its items, the one the slice
-// shows (stepped to by the mouse wheel, or a slot's current) solid gold. The middle names what is aimed at and what
-// the hand can do there (`WheelMiddle`, the owner's words), with the ring's own icon above in a submenu. An item that
-// can't be used now is dimmed where it stands, never taken away, so a direction stays the same item; its state shows
-// as the action bars show it (its cooldown's sweep, charges or a count, red out of range, blue without the power). The
-// icons glide out from the middle as it opens. The choice is the owner's (`chosen`, by `slotAt`): the secure part
-// (`SecureWheel`) and this art work it out by one formula, written once for each (`slotAt`, `SLOT_LUA`), which a test
-// holds to the same answers. The slices' art is each shape straight up from the middle, cut to its box
-// (`art/pieces/radial.json`): a box is turned about its own middle to stand it at its item.
-import { Align, Art, FillDuration, Position } from "$ltml"
+// wheel opened, whatever the distance. Each item is a slice of the ring cut in the bank's stone, a gap off each side,
+// its icon a square carved into the stone; the slice aimed at is lit warm with a gold outline, its icon's hollow lit
+// gold. A submenu or a slot of several has a band of segments along its slice's outer edge, one for each of its items,
+// edge to edge, the one the slice shows (stepped to by the mouse wheel, or a slot's current) solid gold. The middle
+// names what is aimed at and what the hand can do there (`WheelMiddle`, the owner's words), with the ring's own icon
+// above in a submenu. An item that can't be used now is dimmed where it stands, never taken away, so a direction stays
+// the same item; its state shows as the action bars show it (its cooldown's sweep, charges or a count, red out of
+// range, blue without the power). The icons glide out from the middle as it opens. The choice is the owner's
+// (`chosen`, by `slotAt`): the secure part (`SecureWheel`) and this art work it out by one formula, written once for
+// each (`slotAt`, `SLOT_LUA`), which a test holds to the same answers. Every slice, segment and curved outline is a box
+// as large as the wheel, cut by masks (`art/pieces/radial.json`): a ring for its radii and two half-planes turned to
+// its two edges; the straight edges are thin boxes turned along them.
+import { Align, Art, FillDuration, Mask, Piece, Position } from "$ltml"
 import { Component } from "@/module"
 import { BRIGHT_TEXT, SECONDARY_TEXT } from "@/units"
 
@@ -70,14 +71,21 @@ public struct WheelMiddle {
   dim: Boolean
 }
 
-// A piece of the wheel's art in its box, turned to stand at its place.
-struct Placed {
+// A piece of the ring as large as the wheel, cut by its masks.
+struct Cut {
+  art: Art
+  tint: Color
+  opacity: Number
+  masks: Array<Mask>
+}
+
+// A straight edge: a thin box turned along a direction from the middle, between two radii.
+struct Edge {
   left: Number<Length>
   top: Number<Length>
   width: Number<Length>
   height: Number<Length>
   turn: Number<Angle>
-  art: Art
   tint: Color
   opacity: Number
 }
@@ -93,76 +101,42 @@ struct Spot {
 // The wheel's lengths at a scale of 1: the ring between its inner and outer edge, a band of segments inside the outer
 // edge, the icons' squares halfway between the inner edge and the band, the round middle inside the inner edge.
 public const WHEEL_SIZE = 380dp
-const INNER = 66dp
+const INNER = 88dp
 const OUTER = 178dp
 const BAND = 162dp
-// Round each piece's shape in its art, for its edge's softness (radial-pieces.mjs).
-const MARGIN = 2dp
+// The gap off each side of a slice; a ring of one is whole.
+const GAP = 1.2deg
 const ICON = 40dp
-const ICON_AT = 114dp
+const ICON_AT = 125dp
 // An icon's hollow: its square and the lip round it.
 const CARVE = 48dp
-const MIDDLE = 124dp
+const MIDDLE = 168dp
 const CATEGORY = 30dp
 const RIM = 2dp
+const OUTLINE_WIDTH = 1.5dp
+const LIT_WIDTH = 2dp
 const SEPARATOR = 2dp
-const MIDDLE_TEXT = 104dp
+const MIDDLE_TEXT = 140dp
 
 const PLAIN: Asset = "Interface/Buttons/WHITE8X8"
 // The client's round mask: what shows of a box is a circle.
 const ROUND: Asset = "Interface/CHARACTERFRAME/TempPortraitAlphaMask"
+// The client's bank stone, tiled at its size across the wheel, a little darker.
+const STONE: Piece = { file: "Interface/BankFrame/Bank-Background", width: 256, height: 256, repeatSize: 256 }
+const STONE_TINT: Color = Color.hex("#e6e6e6")
+// The masks: the right half of the wheel (turned, what lies clockwise of a direction for half a turn), the slices'
+// ring, a band's ring, the slices' curved edges, a band's inner edge.
+const HALF: Asset = "@/media/radial-half.tga"
+const RING_SLICE: Asset = "@/media/radial-ring-slice.tga"
+const RING_BAND: Asset = "@/media/radial-ring-band.tga"
+const LINES_SLICE: Asset = "@/media/radial-lines-slice.tga"
+const LINE_BAND: Asset = "@/media/radial-line-band.tga"
+// The slices' shade towards the middle, and the warmth of the one aimed at.
+const SHADE: Asset = "@/media/radial-shade.tga"
+const WARM: Asset = "@/media/radial-warm.tga"
 const CARVED: Asset = "@/media/radial-carve.tga"
 const CARVED_LIT: Asset = "@/media/radial-carve-lit.tga"
 const MIDDLE_ART: Asset = "@/media/radial-middle.tga"
-// A ring of n: its slice in the stone, the slice aimed at lit over it, the inner edge of its band.
-const WEDGES: Array<Asset> = [
-  "@/media/radial-wedge-1.tga", "@/media/radial-wedge-2.tga", "@/media/radial-wedge-3.tga", "@/media/radial-wedge-4.tga",
-  "@/media/radial-wedge-5.tga", "@/media/radial-wedge-6.tga", "@/media/radial-wedge-7.tga", "@/media/radial-wedge-8.tga"
-]
-const LIT: Array<Asset> = [
-  "@/media/radial-lit-1.tga", "@/media/radial-lit-2.tga", "@/media/radial-lit-3.tga", "@/media/radial-lit-4.tga",
-  "@/media/radial-lit-5.tga", "@/media/radial-lit-6.tga", "@/media/radial-lit-7.tga", "@/media/radial-lit-8.tga"
-]
-const ARCS: Array<Asset> = [
-  "@/media/radial-arc-1.tga", "@/media/radial-arc-2.tga", "@/media/radial-arc-3.tga", "@/media/radial-arc-4.tga",
-  "@/media/radial-arc-5.tga", "@/media/radial-arc-6.tga", "@/media/radial-arc-7.tga", "@/media/radial-arc-8.tga"
-]
-
-// A band's segment 1/m of a turn wide: m is a ring's count times the band's, each up to eight.
-function bandArt(m: Integer): Asset {
-  return match (m) {
-    1 => "@/media/radial-band-1.tga"
-    2 => "@/media/radial-band-2.tga"
-    3 => "@/media/radial-band-3.tga"
-    4 => "@/media/radial-band-4.tga"
-    5 => "@/media/radial-band-5.tga"
-    6 => "@/media/radial-band-6.tga"
-    7 => "@/media/radial-band-7.tga"
-    8 => "@/media/radial-band-8.tga"
-    9 => "@/media/radial-band-9.tga"
-    10 => "@/media/radial-band-10.tga"
-    12 => "@/media/radial-band-12.tga"
-    14 => "@/media/radial-band-14.tga"
-    15 => "@/media/radial-band-15.tga"
-    16 => "@/media/radial-band-16.tga"
-    18 => "@/media/radial-band-18.tga"
-    20 => "@/media/radial-band-20.tga"
-    21 => "@/media/radial-band-21.tga"
-    24 => "@/media/radial-band-24.tga"
-    25 => "@/media/radial-band-25.tga"
-    28 => "@/media/radial-band-28.tga"
-    30 => "@/media/radial-band-30.tga"
-    32 => "@/media/radial-band-32.tga"
-    35 => "@/media/radial-band-35.tga"
-    36 => "@/media/radial-band-36.tga"
-    40 => "@/media/radial-band-40.tga"
-    42 => "@/media/radial-band-42.tga"
-    48 => "@/media/radial-band-48.tga"
-    49 => "@/media/radial-band-49.tga"
-    56 => "@/media/radial-band-56.tga"
-    else => "@/media/radial-band-64.tga"
-  }
-}
 
 const OUTLINE: Color = Color.hex("#3e2f1d")
 const GOLD: Color = Color.hex("#ffd100")
@@ -184,26 +158,24 @@ public function itemTurn(index: Integer, count: Integer): Number<Angle> {
   return (index - 1) * 360deg / count
 }
 
-// The box of a slice `turn` wide between two radii, straight up from the middle, with its margin: its width and
-// height, and how far its middle stands above the wheel's.
-function sectorBox(turn: Number<Angle>, inner: Number<Length>, outer: Number<Length>): [Number<Length>, Number<Length>, Number<Length>] {
-  if (turn >= 360deg) {
-    const side = 2 * (outer + MARGIN)
-    return [side, side, 0dp]
-  }
-  const half = (turn / 2).min(90deg) / 1rad
-  const bottom = turn >= 180deg ? 0dp : inner * half.cos()
-  const height = outer - bottom + 2 * MARGIN
-  return [2 * outer * half.sin() + 2 * MARGIN, height, outer + MARGIN - height / 2]
+// How wide a slice of a ring of `count` is, its gaps taken off.
+function sliceTurn(count: Integer): Number<Angle> {
+  return count == 1 ? 360deg : 360deg / count - 2 * GAP
+}
+
+// What cuts a piece of the ring `ring` gives to the part between two directions, clockwise from `from` to `to`
+// (half a turn at most): the ring, what lies clockwise of `from`, what lies before `to`. A whole turn, the ring alone.
+function cutting(ring: Asset, from: Number<Angle>, to: Number<Angle>): Array<Mask> {
+  if (to - from >= 360deg) { return [{ art: ring }] }
+  return [{ art: ring }, { art: HALF, turn: from }, { art: HALF, turn: to - 180deg }]
 }
 
 public class Wheel implements Component {
   // Every length, by the ring's scale.
   derived size: Number<Length> = WHEEL_SIZE * self.scale
   derived count: Integer = self.items.length.min(WHEEL_MOST)
-  derived slices: Array<Placed> = self.slicesOf()
-  derived bands: Array<Placed> = self.bandsOf()
-  derived lit: Array<Placed> = self.litOf()
+  derived cuts: Array<Cut> = self.cutsOf()
+  derived edges: Array<Edge> = self.edgesOf()
   derived spots: Array<Spot> = self.spotsOf()
   derived middleSize: Number<Length> = MIDDLE * self.scale
   derived categorySize: Number<Length> = CATEGORY * self.scale
@@ -237,76 +209,101 @@ public class Wheel implements Component {
     self.category = category
   }
 
-  // A piece of art whose box is `box` at a scale of 1, its middle `out` from the wheel's middle at `turn`.
-  place(self, turn: Number<Angle>, box: [Number<Length>, Number<Length>, Number<Length>], art: Art, tint: Color, opacity: Number): Placed {
-    return self.placeAt(turn, box[3], box[1], box[2], art, tint, opacity)
+  // Slice `index`'s two edges.
+  sides(self, index: Integer): [Number<Angle>, Number<Angle>] {
+    const middle = itemTurn(index, self.count)
+    const half = sliceTurn(self.count) / 2
+    return [middle - half, middle + half]
   }
 
-  placeAt(self, turn: Number<Angle>, out: Number<Length>, width: Number<Length>, height: Number<Length>, art: Art, tint: Color, opacity: Number): Placed {
-    const r = turn / 1rad
-    const scale = self.scale
-    return {
-      left: self.size / 2 + r.sin() * out * scale - width * scale / 2, top: self.size / 2 - r.cos() * out * scale - height * scale / 2,
-      width: width * scale, height: height * scale, turn: turn, art: art, tint: tint, opacity: opacity
-    }
-  }
-
-  slicesOf(self): Array<Placed> {
+  // The curved pieces, under to over: each slice's stone, its shade, its curved edges; each band's segments and its
+  // inner edge; the slice aimed at, lit, and its curved edges gold.
+  cutsOf(self): Array<Cut> {
     const count = self.count
-    const slices: Array<Placed> = []
-    if (count < 1) { return slices }
-    const box = sectorBox(360deg / count, INNER, OUTER)
-    const art = WEDGES[count] ?? panic("a slice for each count")
-    for (index of 1..count) {
-      const dim = self.items[index]?.dim ?? false
-      slices.push(self.place(itemTurn(index, count), box, art, WHITE, dim ? DIM_OPACITY : 1))
+    const cuts: Array<Cut> = []
+    for (index, item of self.items) {
+      if (index <= count) {
+        const sides = self.sides(index)
+        const opacity = item.dim ? DIM_OPACITY : 1
+        cuts.push({ art: STONE, tint: STONE_TINT, opacity: opacity, masks: cutting(RING_SLICE, sides[1], sides[2]) })
+        cuts.push({ art: SHADE, tint: WHITE, opacity: opacity, masks: cutting(RING_SLICE, sides[1], sides[2]) })
+        cuts.push({ art: PLAIN, tint: OUTLINE, opacity: 1, masks: cutting(LINES_SLICE, sides[1], sides[2]) })
+      }
     }
-    return slices
-  }
-
-  // The bands of the submenus and the slots: each segment, the lines between them, the band's inner edge.
-  bandsOf(self): Array<Placed> {
-    const count = self.count
-    const parts: Array<Placed> = []
     for (index, item of self.items) {
       const several = item.segments.min(WHEEL_MOST)
       if (index <= count && several > 0) {
-        const share = count * several
-        const start = itemTurn(index, count) - 180deg / count
-        const each = 360deg / share
-        const box = sectorBox(each, BAND, OUTER - 1dp)
-        const art = bandArt(share)
+        const sides = self.sides(index)
+        const each = (sides[2] - sides[1]) / several
         const aimed = self.chosen == index
         for (segment of 1..several) {
           const on = segment == item.segment
-          parts.push(self.place(start + (segment - 0.5) * each, box, art, on ? GOLD : SHADOW,
-            on ? 1 : aimed ? SEGMENT_OFF_AIMED : SEGMENT_OFF))
+          const from = sides[1] + (segment - 1) * each
+          cuts.push({
+            art: PLAIN, tint: on ? GOLD : SHADOW, opacity: on ? 1 : aimed ? SEGMENT_OFF_AIMED : SEGMENT_OFF,
+            masks: cutting(RING_BAND, from, from + each)
+          })
         }
-        for (line of 0..several) {
-          parts.push(self.placeAt(start + line * each, (BAND + OUTER) / 2, SEPARATOR, OUTER - BAND, PLAIN, OUTLINE, 1))
-        }
-        parts.push(self.place(itemTurn(index, count), sectorBox(360deg / count, BAND - 1dp, BAND + 1dp),
-          ARCS[count] ?? panic("an arc for each count"), OUTLINE, 1))
+        cuts.push({ art: PLAIN, tint: OUTLINE, opacity: 1, masks: cutting(LINE_BAND, sides[1], sides[2]) })
       }
     }
-    return parts
+    const chosen = self.chosen
+    if (chosen >= 1 && chosen <= count) {
+      const sides = self.sides(chosen)
+      cuts.push({ art: WARM, tint: WHITE, opacity: 1, masks: cutting(RING_SLICE, sides[1], sides[2]) })
+      cuts.push({ art: PLAIN, tint: GOLD, opacity: 1, masks: cutting(LINES_SLICE, sides[1], sides[2]) })
+    }
+    return cuts
   }
 
-  litOf(self): Array<Placed> {
+  // A thin box along the direction `turn`, between two radii.
+  edge(self, turn: Number<Angle>, from: Number<Length>, to: Number<Length>, width: Number<Length>, tint: Color, opacity: Number): Edge {
+    const r = turn / 1rad
+    const scale = self.scale
+    const out = (from + to) / 2 * scale
+    const long = (to - from) * scale
+    return {
+      left: self.size / 2 + r.sin() * out - width * scale / 2, top: self.size / 2 - r.cos() * out - long / 2,
+      width: width * scale, height: long, turn: turn, tint: tint, opacity: opacity
+    }
+  }
+
+  // The straight edges: each slice's two, the lines between a band's segments, the slice aimed at's two gold.
+  edgesOf(self): Array<Edge> {
     const count = self.count
+    const edges: Array<Edge> = []
+    if (count < 2) { return edges }
+    for (index, item of self.items) {
+      if (index <= count) {
+        const sides = self.sides(index)
+        edges.push(self.edge(sides[1], INNER, OUTER, OUTLINE_WIDTH, OUTLINE, 1))
+        edges.push(self.edge(sides[2], INNER, OUTER, OUTLINE_WIDTH, OUTLINE, 1))
+        const several = item.segments.min(WHEEL_MOST)
+        const each = (sides[2] - sides[1]) / (1).max(several)
+        for (line of 1..several - 1) { edges.push(self.edge(sides[1] + line * each, BAND, OUTER, SEPARATOR, OUTLINE, 1)) }
+      }
+    }
     const chosen = self.chosen
-    if (chosen < 1 || chosen > count) { return [] }
-    return [self.place(itemTurn(chosen, count), sectorBox(360deg / count, INNER, OUTER), LIT[count] ?? panic("a lit slice for each count"), WHITE, 1)]
+    if (chosen >= 1 && chosen <= count) {
+      const sides = self.sides(chosen)
+      edges.push(self.edge(sides[1], INNER, OUTER, LIT_WIDTH, GOLD, 1))
+      edges.push(self.edge(sides[2], INNER, OUTER, LIT_WIDTH, GOLD, 1))
+    }
+    return edges
   }
 
   spotsOf(self): Array<Spot> {
     const count = self.count
     const spots: Array<Spot> = []
-    const out = ICON_AT * (0.4 + 0.6 * self.opening)
+    const out = ICON_AT * self.scale * (0.4 + 0.6 * self.opening)
     for (index, item of self.items) {
       if (index <= count) {
-        const at = self.placeAt(itemTurn(index, count), out, CARVE, CARVE, PLAIN, WHITE, 1)
-        spots.push({ item: item, left: at.left, top: at.top, chosen: self.chosen == index })
+        const r = itemTurn(index, count) / 1rad
+        const half = CARVE * self.scale / 2
+        spots.push({
+          item: item, left: self.size / 2 + r.sin() * out - half, top: self.size / 2 - r.cos() * out - half,
+          chosen: self.chosen == index
+        })
       }
     }
     return spots
@@ -315,13 +312,10 @@ public class Wheel implements Component {
   public render(self): Template {
     return $ltml {
       <box width={self.size} height={self.size} mouseThrough={true}>
-        <box $for={slice of self.slices} position={Position.Absolute} left={slice.left} top={slice.top} width={slice.width}
-             height={slice.height} background={slice.art} rotation={slice.turn} opacity={slice.opacity} zLevel={1} />
-        <box $for={part of self.bands} position={Position.Absolute} left={part.left} top={part.top} width={part.width}
-             height={part.height} background={part.art} tint={part.tint} opacity={part.opacity} rotation={part.turn}
-             zLevel={2} />
-        <box $for={slice of self.lit} position={Position.Absolute} left={slice.left} top={slice.top} width={slice.width}
-             height={slice.height} background={slice.art} rotation={slice.turn} zLevel={3} />
+        <box $for={cut of self.cuts} position={Position.Absolute} left={0dp} top={0dp} width={self.size} height={self.size}
+             background={cut.art} tint={cut.tint} opacity={cut.opacity} mask={cut.masks} zLevel={1} />
+        <box $for={edge of self.edges} position={Position.Absolute} left={edge.left} top={edge.top} width={edge.width}
+             height={edge.height} background={PLAIN} tint={edge.tint} opacity={edge.opacity} rotation={edge.turn} zLevel={2} />
         <box $for={spot of self.spots} position={Position.Absolute} left={spot.left} top={spot.top} width={CARVE * self.scale}
              height={CARVE * self.scale} opacity={spot.item.dim ? DIM_OPACITY : 1} zLevel={4}>
           <box position={Position.Absolute} left={(CARVE - ICON) / 2 * self.scale} top={(CARVE - ICON) / 2 * self.scale}
@@ -349,9 +343,8 @@ public class Wheel implements Component {
                    icon={self.category} mask={ROUND} />
             </box>
             <text $if={self.middle.name != "" && self.names != WheelNames.Off} value={self.middle.name}
-                  textSize={12rem / 13 * self.scale} textColor={self.middle.dim ? NAME_DIM : NAME} />
-            <text $if={self.middle.hint != ""} value={self.middle.hint} textSize={10rem / 13 * self.scale}
-                  textColor={HINT} />
+                  textSize={1rem * self.scale} textColor={self.middle.dim ? NAME_DIM : NAME} />
+            <text $if={self.middle.hint != ""} value={self.middle.hint} textSize={SECONDARY_TEXT * self.scale} textColor={HINT} />
           </box>
         </box>
       </box>

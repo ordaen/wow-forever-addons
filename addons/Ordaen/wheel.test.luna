@@ -290,30 +290,28 @@ function drawnOf(part: String): Integer {
   return Test.drawn().filter(drawn => drawn.file is String && drawn.file.contains(part)).length
 }
 
-test "each item is a slice in the stone with its icon carved in; the chosen one lit, its hollow gold" {
+test "each item is a slice cut in the stone, a gap off each side, its icon carved in; the chosen one lit, its hollow gold" {
   const page = new Drawn()
   Test.mount(page, { left: 0, top: 0, width: 400, height: 400 })
-  Test.expect(drawnOf("radial-wedge-3") == 3 && drawnOf("radial-lit-3") == 1)
+  Test.expect(drawnOf("Bank-Background") == 3 && drawnOf("radial-shade") == 3 && drawnOf("radial-warm") == 1)
   Test.expect(drawnOf("radial-carve") == 3 && drawnOf("radial-carve-lit") == 1)
-  // Each slice turned to stand at its item: up, then a third of a turn clockwise each.
-  const turns = Test.drawn().filter(drawn => drawn.file is String && drawn.file.contains("radial-wedge")).map(drawn => drawn.rotation)
-  Test.expect(turns.length == 3 && (turns[1] ?? 1).abs() < 0.001 && ((turns[2] ?? 0) + 2 * Number.pi / 3).abs() < 0.001)
-  Test.expect(((turns[3] ?? 0) + 4 * Number.pi / 3).abs() < 0.001)
+  // Each slice cut by its ring and two half-planes turned to its edges, a third of a turn less its gaps wide; the band
+  // of the third cut in three, the second segment gold.
+  Test.shot("three slices, the first aimed at, the third with a band of three")
   page.chosen = 0
   Test.flush()
-  Test.expect(drawnOf("radial-lit") == 0 && drawnOf("radial-carve-lit") == 0)
+  Test.expect(drawnOf("radial-warm") == 0 && drawnOf("radial-carve-lit") == 0)
 }
 
-test "an item shows its count and its cooldown's sweep; a submenu or a slot its band of segments" {
+test "an item shows its count and its cooldown's sweep; a ring of one is a whole ring" {
   const page = new Drawn()
   const told = Test.calls(() => Test.mount(page, { left: 0, top: 0, width: 400, height: 400 }))
   Test.expect(told.contains("SetCooldown=1"))
   Test.expect(Test.page().text("3").shown())
-  // Three segments in a ring of three: each a ninth of a turn, with its inner edge.
-  Test.expect(drawnOf("radial-band-9") == 3 && drawnOf("radial-arc-3") == 1)
   page.items = [plainItem("Character", QUESTION, false)]
   Test.flush()
-  Test.expect(drawnOf("radial-band") == 0 && drawnOf("radial-wedge-1") == 1)
+  Test.expect(drawnOf("Bank-Background") == 1)
+  Test.shot("a ring of one: the ring's own mask alone")
 }
 
 test "the middle names the chosen item and what a click does; every item named under its icon where asked" {

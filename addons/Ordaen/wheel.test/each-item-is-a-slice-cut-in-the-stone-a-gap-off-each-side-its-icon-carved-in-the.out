@@ -1,0 +1,43 @@
+-- three slices, the first aimed at, the third with a band of three
+box 0,0 270.22x270.22
+  box 0,0 270.22x270.22 absolute Interface/BankFrame/Bank-Background tint=#e6e6e6 masks=[Interface\AddOns\Ordaen\media\radial-ring-slice, Interface\AddOns\Ordaen\media\radial-half turn=-58.8, Interface\AddOns\Ordaen\media\radial-half turn=-121.2] cut by Interface\AddOns\Ordaen\media\radial-ring-slice opacity=1
+  box 0,0 270.22x270.22 absolute Interface\AddOns\Ordaen\media\radial-shade masks=[Interface\AddOns\Ordaen\media\radial-ring-slice, Interface\AddOns\Ordaen\media\radial-half turn=-58.8, Interface\AddOns\Ordaen\media\radial-half turn=-121.2] cut by Interface\AddOns\Ordaen\media\radial-ring-slice opacity=1
+  box 0,0 270.22x270.22 absolute Interface/Buttons/WHITE8X8 tint=#3e2f1d masks=[Interface\AddOns\Ordaen\media\radial-lines-slice, Interface\AddOns\Ordaen\media\radial-half turn=-58.8, Interface\AddOns\Ordaen\media\radial-half turn=-121.2] cut by Interface\AddOns\Ordaen\media\radial-lines-slice opacity=1
+  box 0,0 270.22x270.22 absolute Interface/BankFrame/Bank-Background tint=#e6e6e6 masks=[Interface\AddOns\Ordaen\media\radial-ring-slice, Interface\AddOns\Ordaen\media\radial-half turn=61.2, Interface\AddOns\Ordaen\media\radial-half turn=-1.2] cut by Interface\AddOns\Ordaen\media\radial-ring-slice opacity=0.55
+  box 0,0 270.22x270.22 absolute Interface\AddOns\Ordaen\media\radial-shade masks=[Interface\AddOns\Ordaen\media\radial-ring-slice, Interface\AddOns\Ordaen\media\radial-half turn=61.2, Interface\AddOns\Ordaen\media\radial-half turn=-1.2] cut by Interface\AddOns\Ordaen\media\radial-ring-slice opacity=0.55
+  box 0,0 270.22x270.22 absolute Interface/Buttons/WHITE8X8 tint=#3e2f1d masks=[Interface\AddOns\Ordaen\media\radial-lines-slice, Interface\AddOns\Ordaen\media\radial-half turn=61.2, Interface\AddOns\Ordaen\media\radial-half turn=-1.2] cut by Interface\AddOns\Ordaen\media\radial-lines-slice opacity=1
+  box 0,0 270.22x270.22 absolute Interface/BankFrame/Bank-Background tint=#e6e6e6 masks=[Interface\AddOns\Ordaen\media\radial-ring-slice, Interface\AddOns\Ordaen\media\radial-half turn=181.2, Interface\AddOns\Ordaen\media\radial-half turn=118.8] cut by Interface\AddOns\Ordaen\media\radial-ring-slice opacity=1
+  box 0,0 270.22x270.22 absolute Interface\AddOns\Ordaen\media\radial-shade masks=[Interface\AddOns\Ordaen\media\radial-ring-slice, Interface\AddOns\Ordaen\media\radial-half turn=181.2, Interface\AddOns\Ordaen\media\radial-half turn=118.8] cut by Interface\AddOns\Ordaen\media\radial-ring-slice opacity=1
+  box 0,0 270.22x270.22 absolute Interface/Buttons/WHITE8X8 tint=#3e2f1d masks=[Interface\AddOns\Ordaen\media\radial-lines-slice, Interface\AddOns\Ordaen\media\radial-half turn=181.2, Interface\AddOns\Ordaen\media\radial-half turn=118.8] cut by Interface\AddOns\Ordaen\media\radial-lines-slice opacity=1
+  box 0,0 270.22x270.22 absolute Interface/Buttons/WHITE8X8 tint=#000000 masks=[Interface\AddOns\Ordaen\media\radial-ring-band, Interface\AddOns\Ordaen\media\radial-half turn=181.2, Interface\AddOns\Ordaen\media\radial-half turn=40.4] cut by Interface\AddOns\Ordaen\media\radial-ring-band opacity=0.38
+  box 0,0 270.22x270.22 absolute Interface/Buttons/WHITE8X8 tint=#ffd100 masks=[Interface\AddOns\Ordaen\media\radial-ring-band, Interface\AddOns\Ordaen\media\radial-half turn=220.4, Interface\AddOns\Ordaen\media\radial-half turn=79.6] cut by Interface\AddOns\Ordaen\media\radial-ring-band opacity=1
+  box 0,0 270.22x270.22 absolute Interface/Buttons/WHITE8X8 tint=#000000 masks=[Interface\AddOns\Ordaen\media\radial-ring-band, Interface\AddOns\Ordaen\media\radial-half turn=259.6, Interface\AddOns\Ordaen\media\radial-half turn=118.8] cut by Interface\AddOns\Ordaen\media\radial-ring-band opacity=0.38
+  box 0,0 270.22x270.22 absolute Interface/Buttons/WHITE8X8 tint=#3e2f1d masks=[Interface\AddOns\Ordaen\media\radial-line-band, Interface\AddOns\Ordaen\media\radial-half turn=181.2, Interface\AddOns\Ordaen\media\radial-half turn=118.8] cut by Interface\AddOns\Ordaen\media\radial-line-band opacity=1
+  box 0,0 270.22x270.22 absolute Interface\AddOns\Ordaen\media\radial-warm masks=[Interface\AddOns\Ordaen\media\radial-ring-slice, Interface\AddOns\Ordaen\media\radial-half turn=-58.8, Interface\AddOns\Ordaen\media\radial-half turn=-121.2] cut by Interface\AddOns\Ordaen\media\radial-ring-slice opacity=1
+  box 0,0 270.22x270.22 absolute Interface/Buttons/WHITE8X8 tint=#ffd100 masks=[Interface\AddOns\Ordaen\media\radial-lines-slice, Interface\AddOns\Ordaen\media\radial-half turn=-58.8, Interface\AddOns\Ordaen\media\radial-half turn=-121.2] cut by Interface\AddOns\Ordaen\media\radial-lines-slice opacity=1
+  box 53.68,54.12 1.07x64 absolute Interface/Buttons/WHITE8X8 tint=#3e2f1d opacity=1
+  box 215.48,54.12 1.07x64 absolute Interface/Buttons/WHITE8X8 tint=#3e2f1d opacity=1
+  box 217.46,57.55 1.07x64 absolute Interface/Buttons/WHITE8X8 tint=#3e2f1d opacity=1
+  box 136.56,197.67 1.07x64 absolute Interface/Buttons/WHITE8X8 tint=#3e2f1d opacity=1
+  box 132.6,197.67 1.07x64 absolute Interface/Buttons/WHITE8X8 tint=#3e2f1d opacity=1
+  box 51.7,57.55 1.07x64 absolute Interface/Buttons/WHITE8X8 tint=#3e2f1d opacity=1
+  box 56.05,221.48 1.42x11.38 absolute Interface/Buttons/WHITE8X8 tint=#3e2f1d opacity=1
+  box 15.5,151.24 1.42x11.38 absolute Interface/Buttons/WHITE8X8 tint=#3e2f1d opacity=1
+  box 53.5,54.12 1.42x64 absolute Interface/Buttons/WHITE8X8 tint=#ffd100 opacity=1
+  box 215.3,54.12 1.42x64 absolute Interface/Buttons/WHITE8X8 tint=#ffd100 opacity=1
+  box 118.04,29.16 34.13x34.13 absolute opacity=1
+    box 120.89,32 28.44x28.44 absolute icon=Interface/Icons/INV_Misc_QuestionMark
+      text 149.33,60.44 0x0 "" #f0e6d2
+    box 118.04,29.16 34.13x34.13 absolute Interface\AddOns\Ordaen\media\radial-carve-lit
+  box 195.02,162.49 34.13x34.13 absolute opacity=0.55
+    box 197.87,165.33 28.44x28.44 absolute icon=Interface/Icons/INV_Misc_QuestionMark
+      text 226.31,193.78 0x0 "" #f0e6d2
+    box 195.02,162.49 34.13x34.13 absolute Interface\AddOns\Ordaen\media\radial-carve
+  box 41.06,162.49 34.13x34.13 absolute opacity=1
+    box 43.91,165.33 28.44x28.44 absolute icon=Interface/Icons/INV_Misc_QuestionMark
+      text 65.69,181.78 6.67x12 "3" #f0e6d2
+    box 41.06,162.49 34.13x34.13 absolute Interface\AddOns\Ordaen\media\radial-carve
+  box 75.38,75.38 119.47x119.47 absolute Interface\AddOns\Ordaen\media\radial-middle
+    box 85.33,120.49 99.56x29.24
+      text 107.19,120.49 55.83x14.4 "Character" #f3e1b8
+      text 104.28,137.73 61.67x12 "Click to use" #8a7d66
