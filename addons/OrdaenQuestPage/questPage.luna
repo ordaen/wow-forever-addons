@@ -16,7 +16,8 @@ import {
 } from "Ordaen"
 import Locale from "@/locales"
 
-// On the parchment: the body's ink, a section heading's, and the quest's title's, darkest, in its font's bold face.
+// On the parchment: the body's ink, a section heading's, and the quest's title's, darkest, each in the look's book font (its
+// bold face for the title and the headings), so the whole page follows that one choice.
 public const SCROLL_INK: Color = Color.hex("#160c03")
 public const SCROLL_HEAD: Color = Color.hex("#3a1000")
 const SCROLL_TITLE: Color = Color.hex("#200800")
@@ -260,7 +261,7 @@ class ScrollTitle implements Component {
 
   public render(self): Template {
     return $ltml {
-      <text value={self.title} textColor={SCROLL_TITLE} textSize={TITLE_TEXT} leading={.Tight} textFont={.Title}
+      <text value={self.title} textColor={SCROLL_TITLE} textSize={TITLE_TEXT} leading={.Tight} textFont={.Book}
             textWeight={.Bold} />
     }
   }
@@ -275,7 +276,7 @@ public class ScrollHeading implements Component {
     return $ltml {
       <box columns={HEADING_ACROSS} gap={2sp} yAlign={Align.Center}>
         <box height={RULE_HEIGHT} background={SCROLL_RULE} />
-        <text value={self.title} textColor={SCROLL_HEAD} textFont={.Title} textWeight={.Bold} wrap={.None} />
+        <text value={self.title} textColor={SCROLL_HEAD} textFont={.Book} textWeight={.Bold} wrap={.None} />
         <box height={RULE_HEIGHT} background={SCROLL_RULE} />
       </box>
     }

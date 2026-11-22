@@ -139,3 +139,19 @@ test "the parchment's sentences stand larger than the window's body text, as a p
   Test.expect(parchment.right - parchment.left > (window.right - window.left) * 1.05)
   destroy page
 }
+
+test "the parchment's title is in the book font, as its sentences are" {
+  const page = new Parchment()
+  page.folded = false
+  Test.mount(page, { left: 0, top: 0, width: 600, height: 600 })
+  Test.expect(Test.page().text("The Defias Brotherhood").told().contains("textFont=book"))
+  destroy page
+}
+
+test "a section's heading on the parchment is in the book font" {
+  const heading = new Heading()
+  Test.mount(heading, { left: 0, top: 0, width: 600, height: 600 })
+  Test.expect(Test.page().texts().length > 0)
+  for (said of Test.page().texts()) { Test.expect(Test.page().text(said).told().contains("textFont=book")) }
+  destroy heading
+}
