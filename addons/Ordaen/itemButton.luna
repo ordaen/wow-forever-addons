@@ -83,14 +83,17 @@ public struct Marker {
   color: Color
 }
 
-// A slot's well: sunk, near-black, the border round the slot; crested, the client's slot art with its own rim, and the
-// icon, the border and what is drawn over the icon inside that rim (3 of the art's 41 texels on each side), as the
-// client's bank slots hold theirs. The art is the file's top left 41 of its 64 texels (as its templates cut it): the whole
-// file drawn that much larger, in a box that cuts it at the slot's edge.
+// A slot's well: sunk, near-black, the border round the slot; crested, the client's slot art with its own rim, the
+// icon and what is drawn over it inside that rim (3 of the art's 41 texels on each side), cut to the client's icon
+// shape, and an item's quality from uncommon up the rim's own colour: the client's white icon frame over it, tinted,
+// as the client's bags colour theirs. The art is the file's top left 41 of its 64 texels (as its templates cut it): the
+// whole file drawn that much larger, in a box that cuts it at the slot's edge.
 const WELL: Color = Color.hex("#0d0a08")
 const CREST: Asset = "Interface/Buttons/UI-Slot-Background"
 const CREST_WHOLE = 64 / 41
 const CREST_RIM = 3 / 41
+const ICON_MASK: Asset = "Interface/Common/Common-IconMask"
+const QUALITY_FRAME: Asset = "Interface/Common/WhiteIconFrame"
 const NO_EDGE: Line = { width: 0dp, color: Color.hex("#00000000") }
 const CLEAR: Color = Color.hex("#00000000")
 const SHINE: ByInteractionState<Color> = { default: CLEAR, hover: Color.hex("#ffffff26"), focus: Color.hex("#ffffff26") }
@@ -150,8 +153,9 @@ public class ItemButton implements Component {
   public derived edge: Line = self.edgeOf()
   // The rim's light: an item from uncommon up, in its quality's colour.
   public derived lit: Boolean = self.item != nil && self.quality != Quality.Poor && self.quality != Quality.Common
-  // Always drawn, at no opacity when not lit: the slot keeps its boxes whatever it holds.
-  derived rim: Number = self.lit ? 1 : 0
+  // Always drawn, at no opacity when not lit (or in a crest, whose rim takes the colour): the slot keeps its boxes
+  // whatever it holds.
+  derived rim: Number = self.lit && !self.crested ? 1 : 0
   derived opacity: Number = self.dimmed ? 0.35 : 1
   derived counted: Boolean = self.count > 1
   derived crested: Boolean = self.well == SlotWell.Crested
@@ -159,8 +163,10 @@ public class ItemButton implements Component {
   derived crestSize: Number<Length> = self.size * CREST_WHOLE
   // Where the icon stands inside the slot: inside the crest's rim, or edge to edge.
   derived inset: Number<Length> = self.crested ? self.size * CREST_RIM : 0dp
-  // The border goes round the slot on a sunk well, round the icon inside a crest.
+  // The border goes round the slot on a sunk well; a crest's rim is its own, coloured by an item's quality.
   derived slotEdge: Line = self.crested ? NO_EDGE : self.edge
+  derived framed: Boolean = self.crested && self.lit
+  derived iconMask: Asset | nil = self.crested ? ICON_MASK : nil
 
   item: Signal<Integer | nil>
   count: Signal<Integer>
@@ -308,9 +314,9 @@ public class ItemButton implements Component {
                background={CREST} />
         </box>
         <box position={Position.Absolute} left={self.inset} top={self.inset} right={self.inset} bottom={self.inset}
-             icon={self.icon} tint={self.tint} cooldown={self.cooldown} />
-        <box $if={self.crested} position={Position.Absolute} left={self.inset} top={self.inset} right={self.inset}
-             bottom={self.inset} border={self.edge} />
+             icon={self.icon} tint={self.tint} mask={self.iconMask} cooldown={self.cooldown} />
+        <box $if={self.framed} position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui}
+             background={QUALITY_FRAME} tint={self.edge.color} />
         <box position={Position.Absolute} left={self.inset} top={self.inset} right={self.inset} bottom={self.inset}
              background={Ordaen.art.ctl.qualityRim} tint={self.edge.color} opacity={self.rim} zLevel={1} />
         <box position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui} background={SHINE}
