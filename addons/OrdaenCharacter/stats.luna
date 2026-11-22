@@ -489,7 +489,7 @@ public class StatCard implements Component {
   }
 }
 
-// A section: its cut and title, then a padded group of its cards, its gauges set a little further off, its lines.
+// A section: the divider over it, then its heading, a padded group of its cards, its gauges set a little further off, its lines.
 public class SectionView implements Component {
   public tipped: Event<Stat | nil> = new Event()
 
@@ -510,8 +510,9 @@ public class SectionView implements Component {
   public render(self): Template {
     return $ltml {
       <box gap={2.5sp}>
-        <Cut title={self.section.title} />
+        <Cut />
         <box gap={2sp} padding={Style.SECTION_PAD}>
+          <Cut title={self.section.title} />
           <box $if={self.carded} columns={self.columns} gap={2.5sp} padding={Style.CARDS_PAD}>
             <StatCard $for={card of self.section.cards} figure={card} shown={self.shown} boosts={self.boosts}
                       @tipped={self.onTipped} />

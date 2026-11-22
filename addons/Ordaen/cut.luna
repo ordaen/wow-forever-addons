@@ -1,22 +1,18 @@
-// A cut in the wood: a straight groove lit from above, across a column or down it, and the cut that parts sections
-// of a window (the character window's, a quest page's rewards), its title cut into the wood at its middle.
+// The rule on a window's wood, the spellbook's bronze line, in two forms: a heading's, the title in gold bold and the
+// rule fading out to its right (a Section's, a character window's section); a divider's, the same bronze solid, from
+// border to border (between two sections, beside the paper doll).
 import { Align, Shadow } from "$ltml"
+import root Ordaen from "Ordaen"
 import { Component } from "@/module"
 
-// The groove's three bands, lit from above: its upper edge in shade, its floor, its lit lower lip; and the three
-// together. A title cut into the wood at a cut's middle has its letters' upper walls in shade.
-const CUT_SHADE: Number<Length> = 2.34375dp
-const CUT_FLOOR: Number<Length> = 2.34375dp
-const CUT_LIP: Number<Length> = 1.171875dp
-public const CUT: Number<Length> = CUT_SHADE + CUT_FLOOR + CUT_LIP
-const GROOVE_SHADE: Color = Color.hex("#0000008c")
-const GROOVE_DEPTH: Color = Color.hex("#000000e6")
-const GROOVE_LIP: Color = Color.hex("#ffdeaa52")
-const CUT_TITLE: Color = Color.hex("#b8a07a")
-const CUT_TITLE_SHADOW: Shadow = { color: Color.hex("#000000e6"), x: 0ui, y: 1.171875dp }
+// The rule's thickness, and its bronze at 45%: `ctl-rule`'s first texel, which fades from it to nothing.
+public const CUT: Number<Length> = 1.171875dp
+const RULE: Color = Color.hex("#d6a56b73")
+const GOLD: Color = Color.hex("#e8c35a")
+// The design's 700: the same colour one pixel to the right.
+const BOLD: Shadow = { color: GOLD, x: 1.171875dp, y: 0ui }
 
-// A straight cut in the wood, lit from above: the shaded upper edge, the depth, the lit lower lip; across (`upright`
-// false) or down its box (true, the light from the left: the shade on its left, the lip on its right).
+// The divider's form: the solid rule across its box (`upright` false) or down it (true).
 public class Groove implements Component {
   upright: Signal<Boolean>
   constructor(upright: Signal<Boolean> = false) {
@@ -25,21 +21,16 @@ public class Groove implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box $if={self.upright} columns={[CUT_SHADE, CUT_FLOOR, CUT_LIP]} rows={[{ fr: 1 }]}>
-        <box background={GROOVE_SHADE} />
-        <box background={GROOVE_DEPTH} />
-        <box background={GROOVE_LIP} />
+      <box $if={self.upright} columns={[CUT]} rows={[{ fr: 1 }]}>
+        <box background={RULE} />
       </box>
-      <box $else>
-        <box height={CUT_SHADE} background={GROOVE_SHADE} />
-        <box height={CUT_FLOOR} background={GROOVE_DEPTH} />
-        <box height={CUT_LIP} background={GROOVE_LIP} />
-      </box>
+      <box $else height={CUT} background={RULE} />
     }
   }
 }
 
-// A cut in the wood across the column, the title at its middle where it has one.
+// A rule across the column: the heading's form where it has a title (the title at its left, the rule fading out
+// after it), else the divider's.
 public class Cut implements Component {
   derived titled: Boolean = self.title != ""
 
@@ -50,10 +41,9 @@ public class Cut implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box $if={self.titled} columns={[{ fr: 1 }, "max-content", { fr: 1 }]} gap={2.5sp} yAlign={Align.Center}>
-        <Groove />
-        <text value={self.title} textColor={CUT_TITLE} textShadow={CUT_TITLE_SHADOW} wrap={.None} />
-        <Groove />
+      <box $if={self.titled} columns={["max-content", { fr: 1 }]} gap={3sp} yAlign={Align.Center}>
+        <text value={self.title} textColor={GOLD} textShadow={BOLD} wrap={.None} />
+        <box height={CUT} background={Ordaen.art.ctl.rule} />
       </box>
       <Groove $else />
     }

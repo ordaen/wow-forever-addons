@@ -1,22 +1,35 @@
-// A cut in the wood: its title at its middle, a groove on each side of it.
+// The rule's two forms: a heading's, its title at the left and the fading rule after it; a divider's, solid from
+// border to border.
 import Test from "$test"
+import root Ordaen from "Ordaen"
 import { Cut } from "@/cut"
 
 class Cuts {
   public render(self): Template {
     return $ltml {
-      <box width={400ui}>
+      <box width={400ui} columns={1} gap={6sp}>
         <Cut title={"Defense"} />
+        <Cut />
       </box>
     }
   }
 }
 
-test "a titled cut stands its title at its middle, the grooves taking the room on each side" {
+test "a titled cut stands its title at its left, the fading rule taking the rest of the row" {
   const page = new Cuts()
   Test.mount(page, { left: 0, top: 0, width: 400, height: 100 })
   const title = Test.page().text("Defense").rect()
-  Test.expect(((title.left + title.right) / 2 - 200).abs() < 1)
-  Test.expect(title.left > 100 && title.right < 300)
+  Test.expect(title.left < 1)
+  const rule = Test.page().box(Ordaen.art.ctl.rule).rect()
+  Test.expect(rule.left > title.right && (rule.right - 400).abs() < 1)
+  destroy page
+}
+
+test "a cut without a title is the solid rule from border to border" {
+  const page = new Cuts()
+  Test.mount(page, { left: 0, top: 0, width: 400, height: 100 })
+  const line = Test.page().box(Color.hex("#d6a56b73")).rect()
+  Test.expect(line.left < 1 && (line.right - 400).abs() < 1)
+  Test.expect(line.bottom - line.top > 0 && line.bottom - line.top < 1.5)
   destroy page
 }

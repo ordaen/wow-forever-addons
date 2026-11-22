@@ -429,8 +429,9 @@ public class GearPage implements Component {
                 <PoolBar $if={self.energyShown} amount={self.energy} color={Style.ENERGY} regen={self.energyRegen} />
               </box>
             </box>
-            <Cut title={Locale.SECTION_DEFENSE} />
+            <Cut />
             <box gap={2sp} padding={Style.SECTION_PAD}>
+              <Cut title={Locale.SECTION_DEFENSE} />
               <box columns={6} gap={2sp} padding={Style.RESIST_PAD}>
                 <ResistColumn $for={resist of self.resists} resist={resist} shown={self.shown} boosts={self.boosts} @tipped={self.onTipped} />
               </box>
