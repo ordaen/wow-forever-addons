@@ -1444,3 +1444,12 @@ test "the class's art keeps its proportions after another tab showed and the tal
   const shown = (drawn.right - drawn.left) * 2046 / ((drawn.bottom - drawn.top) * 1177)
   Test.expect((shown / ((art.right - art.left) / (art.bottom - art.top)) - 1).abs() < 0.01)
 }
+
+test "a spec's tab keeps the window's size: no grip while it is open, the grip again on another" {
+  Test.mount(nil, PAGE)
+  Game.talentTrees.trees = trees
+  const window = onSpec("Primary")
+  Test.expect(!window.box(Ordaen.art.ctl.grip).shown())
+  window.button("Statistics").click()
+  Test.expect(window.box(Ordaen.art.ctl.grip).shown())
+}
