@@ -232,7 +232,7 @@ public class Wheel implements Component {
   }
 
   // The curved pieces, under to over: each slice's stone, its shade, its curved edges; each band's segments and its
-  // inner edge; the slice aimed at, lit, and its curved edges gold.
+  // inner edge (gold in the slice aimed at); the slice aimed at, lit, and its curved edges gold.
   cutsOf(self): Array<Cut> {
     const count = self.count
     const cuts: Array<Cut> = []
@@ -259,7 +259,7 @@ public class Wheel implements Component {
             masks: cutting(RING_BAND, from, from + each)
           })
         }
-        cuts.push({ art: PLAIN, tint: OUTLINE, opacity: 1, masks: cutting(LINE_BAND, sides[1], sides[2]) })
+        cuts.push({ art: PLAIN, tint: aimed ? GOLD : OUTLINE, opacity: 1, masks: cutting(LINE_BAND, sides[1], sides[2]) })
       }
     }
     const chosen = self.chosen
@@ -283,7 +283,8 @@ public class Wheel implements Component {
     }
   }
 
-  // The straight edges: each slice's two, the lines between a band's segments, the slice aimed at's two gold.
+  // The straight edges: each slice's two, the lines between a band's segments (gold in the slice aimed at, as its
+  // band's inner edge is), the slice aimed at's two gold.
   edgesOf(self): Array<Edge> {
     const count = self.count
     const edges: Array<Edge> = []
@@ -295,7 +296,8 @@ public class Wheel implements Component {
         edges.push(self.edge(sides[2], INNER, OUTER, OUTLINE_WIDTH, OUTLINE, 1))
         const several = item.segments.min(WHEEL_MOST)
         const each = (sides[2] - sides[1]) / (1).max(several)
-        for (line of 1..several - 1) { edges.push(self.edge(sides[1] + line * each, BAND, OUTER, SEPARATOR, OUTLINE, 1)) }
+        const tint = self.chosen == index ? GOLD : OUTLINE
+        for (line of 1..several - 1) { edges.push(self.edge(sides[1] + line * each, BAND, OUTER, SEPARATOR, tint, 1)) }
       }
     }
     const chosen = self.chosen

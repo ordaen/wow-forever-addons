@@ -303,6 +303,18 @@ test "each item is a slice cut in the stone, a gap off each side, its icon carve
   Test.expect(drawnOf("radial-warm") == 0 && drawnOf("radial-carve-lit") == 0)
 }
 
+test "the slice aimed at draws its band's lines gold as it does its own edges: the band's inner edge and each separator" {
+  const gold = Color.hex("#ffd100")
+  const page = new Drawn()
+  Test.mount(page, { left: 0, top: 0, width: 400, height: 400 })
+  // Aimed at, a slice with no band: its edges gold, and the third slice's shown segment.
+  const plain = Test.page().box(gold).count()
+  // Aimed at, the slice with a band of three: its edges gold, and the band's inner edge and its two separators too.
+  page.chosen = 3
+  Test.flush()
+  Test.expect(Test.page().box(gold).count() == plain + 3)
+}
+
 test "an item shows its count and its cooldown's sweep; a ring of one is a whole ring" {
   const page = new Drawn()
   const told = Test.calls(() => Test.mount(page, { left: 0, top: 0, width: 400, height: 400 }))
@@ -474,14 +486,14 @@ test "the middle says one thing a line, three lines at most: the name and two hi
   Test.expect(Test.page().texts().join(", ") == "3, Click to use, 1 of 3, more")
 }
 
-test "the aim's middle trails the cursor: gone far up, a short move left turns to the item on the left, in a fight too" {
+test "the aim's middle trails the cursor: gone far up, a move left from there turns to the item on the left, in a fight too" {
   const held = new Held(1, false, true)
   Test.flush()
   Test.combat(true)
   open("F")
   Test.moveTo({ x: MIDDLE.x, y: MIDDLE.y - 300 })
   Test.pass(0.05)
-  clickAt(-80, -300)
+  clickAt(-200, -300)
   Test.releaseBound("F")
   Test.expect(Test.performed().join(", ") == "macro /tm 8")
   Test.combat(false)

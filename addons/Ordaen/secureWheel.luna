@@ -84,7 +84,7 @@ const STATE_EVERY = 0.2
 // How far the cursor goes from the aim's middle before the middle trails it (at a scale of 1): half the side of a
 // square round the middle. It trails to a little inside that, so the cursor stands in the square again and its next way
 // out is heard.
-const REACH = 60dp
+const REACH = 120dp
 const TRAIL = 0.9
 // The bands round that square: the cursor going out of the square comes into one of them, by its own motion, which is
 // what the client runs a wrapped enter's body on (`Wrapped_OnEnter`); a frame that comes under a cursor standing still

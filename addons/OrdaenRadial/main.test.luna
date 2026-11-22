@@ -44,16 +44,16 @@ function clickAt(x: Number, y: Number) {
 
 test "the key held opens the ring and names what the mouse goes towards, from where its aim has trailed to" {
   start()
-  hold("F", 0, -FAR)
+  hold("F", 0, -2 * FAR)
   Test.expect(Test.page().texts().join(", ") == "Windows, Click to open, Scroll to choose")
-  // Gone far up, the aim's middle trailed it: a move right from there turns to the item on the right.
-  Test.moveTo({ x: MIDDLE.x + 2 * FAR, y: MIDDLE.y - FAR })
-  Test.pass(0.05)
-  Test.expect(Test.page().texts().join(", ") == "Pings, Click to open, Scroll to choose")
-  // A short way back, into the middle that trailed the cursor, cancels.
-  Test.moveTo({ x: MIDDLE.x + 2 * FAR - FAR / 3, y: MIDDLE.y - FAR })
+  // Gone far up, the aim's middle trailed it, a reach behind: a way back about that far comes into it, which cancels.
+  Test.moveTo({ x: MIDDLE.x, y: MIDDLE.y - 2 * FAR + 90 })
   Test.pass(0.05)
   Test.expect(Test.page().texts().join(", ") == "Release to cancel")
+  // A move right from there turns to the item on the right.
+  Test.moveTo({ x: MIDDLE.x + 3 * FAR, y: MIDDLE.y - 2 * FAR + 90 })
+  Test.pass(0.05)
+  Test.expect(Test.page().texts().join(", ") == "Pings, Click to open, Scroll to choose")
   _ = Test.releaseBound("F")
 }
 
