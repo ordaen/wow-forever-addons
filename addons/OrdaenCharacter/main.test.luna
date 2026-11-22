@@ -1405,3 +1405,13 @@ test "the talents come with the server's answer, only shown; the honor tab says 
   Test.expect(window.text("Rank 8: Knight").shown())
   Test.expect(window.text("3870").shown())
 }
+
+test "a talent's rank stands in its icon's middle, as wide as the node so the client centres its letters whatever their width" {
+  Test.mount(nil, PAGE)
+  Game.talentTrees.trees = trees
+  const window = onSpec("Primary")
+  const node = window.button("2").rect()
+  const rank = window.button("2").text("2").rect()
+  Test.expect((rank.left - node.left).abs() < 0.5 && (rank.right - node.right).abs() < 0.5)
+  Test.expect((rank.top + rank.bottom - node.top - node.bottom).abs() < 0.5)
+}
