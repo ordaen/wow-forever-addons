@@ -206,7 +206,8 @@ const ROW: Array<Track> = [{ fr: 1 }, "max-content"]
 // line between it and the main section (as the trainer's card beside its list). It shares neither the main section's
 // head nor its footer: it lays out its own top and bottom.
 public struct WindowSide {
-  // How wide its content is: the section adds its room on both sides and the frame's line.
+  // How wide its content is, at least: the section adds its room on both sides and the frame's line, and grows
+  // where its content's least width is more.
   width: Number<Length>
   content: Template
 }
@@ -673,7 +674,9 @@ public class Window implements Component {
 
   columnsOf(self): Array<Track> {
     if (self.side == nil) { return ONE }
-    return [{ fr: 1 }, self.sideWide]
+    // The side takes no share of what is left: as wide as it was declared (or dragged), and wider where its content's
+    // least width needs more, the main section giving way.
+    return [{ fr: 1 }, { fr: 0, min: self.sideWide }]
   }
 
   // The side section's column: its content, its room on both sides and the frame's line; none without one.
