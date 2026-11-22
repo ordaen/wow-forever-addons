@@ -214,8 +214,9 @@ test "Enter shows the input line, on the screen, in the chat's frame" {
   const middle = Test.centre(box)
   Test.expect(box.IsVisible() && box.GetHeight() >= 20)
   Test.expect(middle.x > frame.left && middle.x < frame.right && middle.y > frame.top && middle.y < frame.bottom)
-  // Over the lines.
-  Test.expect(middle.y < shown.text("[Thrall] says: here").rect().top)
+  // Over the newest line, at the lines' bottom, drawn over it.
+  const newest = shown.text("[Thrall] says: here").rect()
+  Test.expect(middle.y > newest.top - 20 && middle.y < frame.bottom)
   // It stands in a field's floor and edge, the chat's own look: a surface over its box, round it.
   const field = Test.page().box(FIELD_FILL)
   Test.expect(field.count() == 1)
@@ -225,7 +226,7 @@ test "Enter shows the input line, on the screen, in the chat's frame" {
   Test.expect(box.GetFrameStrata() == "DIALOG" && box.GetFrameLevel() > field.level())
 }
 
-test "the input shows over the lines' ground in a room the chat keeps for it: nothing moves as it or the way back comes" {
+test "the input shows over the bottom of the lines' ground, in no room of its own: nothing moves as it or the way back comes" {
   Game.chat.windows = gameWindows()
   const box = input(Client.CreateFrame("Frame", nil, Client.C_UI.GetUIParent(), nil))
   box.Hide()
@@ -250,9 +251,12 @@ test "the input shows over the lines' ground in a room the chat keeps for it: no
   const chatNow = shown.rect()
   Test.expect(chatNow.top == chatBefore.top && chatNow.bottom == chatBefore.bottom && chatNow.right == chatBefore.right)
   Test.expect(shown.text("line 60").rect().bottom == newest.bottom)
-  // The input stands over the lines' ground, inside the chat.
+  // The input stands over the bottom of the lines' ground, inside it.
   const middle = Test.centre(box)
-  Test.expect(middle.y < lines.top && middle.y > chatNow.top && middle.x > lines.left && middle.x < lines.right)
+  Test.expect(middle.y > (lines.top + lines.bottom) / 2 && middle.y < lines.bottom)
+  Test.expect(middle.x > lines.left && middle.x < lines.right)
+  // The lines' ground starts at the chat's top: no room is kept over it.
+  Test.expect((lines.top - chatNow.top).abs() < 0.5)
 }
 
 test "the input's field stands over a game window opened over the chat's corner, as the game's input does" {

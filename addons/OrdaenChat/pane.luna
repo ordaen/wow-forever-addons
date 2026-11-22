@@ -23,8 +23,6 @@ const MAX: "max-content" = "max-content"
 const LINES_LEAST = 480dp
 // The lines take all the frame's height.
 const ALL: Array<Track> = [{ fr: 1 }]
-// The input's room over the lines, and the lines' ground the height it leaves.
-const INPUT_AND_GROUND: Array<Track> = ["max-content", { fr: 1 }]
 // The game's input, as high as its template makes it (FloatingChatFrame.xml): an embed is the size it is given, and
 // the input's room is this high whether it shows or not.
 const GAME_INPUT = 32ui
@@ -162,8 +160,6 @@ public class Pane implements Component {
   // The tabs' least width, and the room kept under them (the character's portrait under the docked pane's).
   tabsLeast: Signal<Number<Length>>
   tabsFoot: Signal<Number<Length>>
-  // The input's room over the lines, which the tabs start under, level with the lines' ground.
-  derived inputRoom: Number<Length> = self.input != nil ? GAME_INPUT + 2 * FIELD_EDGE.width + Ordaen.lengthOf(1sp) : 0ui
   width: Signal<Number<Length>>
   height: Signal<Number<Length>>
   awayOpacity: Signal<Number>
@@ -317,13 +313,11 @@ public class Pane implements Component {
   public render(self): Template {
     return $ltml {
       // The tabs a sidebar on the world at the lines' left, one a row, level with the lines' ground, the room kept under
-      // them; the lines on a dark ground, at least the height the player chose and never lower than the tabs, the
-      // input's room over them. As wide as the player chose, or as the tabs and the lines' least need.
+      // them; the lines on a dark ground, at least the height the player chose and never lower than the tabs, the input
+      // over their bottom. As wide as the player chose, or as the tabs and the lines' least need.
       <box width={{ min: self.width, max: nil }} columns={[MAX, { fr: 1 }]} opacity={self.opacity}>
-        // The room over and under the tabs takes no mouse: what shows through it (the portrait) keeps its clicks.
-        <box columns={1} yAlignSelf={Align.Start}>
-          // As wide as the tabs' least at the least: a room of that width, the input's height.
-          <box width={self.tabsLeast} height={self.inputRoom} />
+        // The room under the tabs takes no mouse: what shows through it (the portrait) keeps its clicks.
+        <box width={{ min: self.tabsLeast, max: nil }} columns={1} yAlignSelf={Align.Start}>
           <box columns={1} @pointerEnter={self.onTabsEnter} @pointerLeave={self.onTabsLeave}>
             <TabButton $for={tab of self.tabs} tab={tab} open={tab.key == self.open?.key} ground={self.ground} @pick={self.onPick}
                        @menu={self.onMenu} />
@@ -332,21 +326,8 @@ public class Pane implements Component {
           </box>
           <box height={self.tabsFoot} />
         </box>
-        // The input's room, and under it the lines' ground.
-        <box rows={INPUT_AND_GROUND} gap={1sp} yAlignSelf={Align.Stretch}>
-          // The game's input while it is open, in a field's floor and edge, in a room of its own height over the lines,
-          // kept whether it shows or not: nothing moves as it comes and goes, and the placing mode's outline holds it.
-          // The field is a surface over the input's box, on the game input's own layer, and the input stands inside it:
-          // a frame takes its parent's stratum, so the field's floor is under the input's text, never over it, and a
-          // window over the chat's corner covers both or neither.
-          <box $if={self.input != nil} border={INPUT_EDGE} padding={INPUT_PAD}>
-            <surface $if={self.inputShown} layer={Layer.Dialog} place={Over { over: "parent" }} background={FIELD_FILL}
-                     border={FIELD_EDGE} padding={INPUT_PAD}>
-              <box position={Position.Absolute} left={0ui} right={0ui} top={0ui} height={FIELD_EDGE.width} background={INPUT_TOP} />
-              <embed frame={self.input ?? panic("shown with the input")} height={GAME_INPUT} />
-            </surface>
-            <box height={GAME_INPUT} />
-          </box>
+        // The lines' ground, and over its bottom the input.
+        <box rows={ALL} yAlignSelf={Align.Stretch}>
           <box rows={ALL} yAlignSelf={Align.Stretch} padding={ROOM} zLevel={3} @pointerEnter={self.onLinesEnter}
                @pointerLeave={self.onLinesLeave}>
             <RoundedFill color={self.ground} corners={GROUND_CORNERS} />
@@ -372,6 +353,20 @@ public class Pane implements Component {
               <Menu $if={self.menuLink != nil} entries={self.linkEntries} title={self.menuTitle} @pick={self.onLinkPick}
                     @close={self.onLinkMenuClose} />
             </box>
+          </box>
+          // The game's input while it is open, in a field's floor and edge, over the bottom of the lines: it takes no
+          // room of its own, so nothing moves as it comes and goes; its lit top edge sets it off from the lines.
+          // The field is a surface over the input's box, on the game input's own layer, and the input stands inside it:
+          // a frame takes its parent's stratum, so the field's floor is under the input's text, never over it, and a
+          // window over the chat's corner covers both or neither.
+          <box $if={self.input != nil} position={Position.Absolute} left={0ui} right={0ui} bottom={0ui} border={INPUT_EDGE}
+               padding={INPUT_PAD}>
+            <surface $if={self.inputShown} layer={Layer.Dialog} place={Over { over: "parent" }} background={FIELD_FILL}
+                     border={FIELD_EDGE} padding={INPUT_PAD}>
+              <box position={Position.Absolute} left={0ui} right={0ui} top={0ui} height={FIELD_EDGE.width} background={INPUT_TOP} />
+              <embed frame={self.input ?? panic("shown with the input")} height={GAME_INPUT} />
+            </surface>
+            <box height={GAME_INPUT} />
           </box>
         </box>
       </box>
