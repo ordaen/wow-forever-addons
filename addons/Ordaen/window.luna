@@ -204,12 +204,14 @@ const ROW: Array<Track> = [{ fr: 1 }, "max-content"]
 
 // A window's side section: a column at the body's right, running from its top line to its bottom one, the frame's
 // line between it and the main section (as the trainer's card beside its list). It shares neither the main section's
-// head nor its footer: it lays out its own top and bottom.
+// head nor its footer: it lays out its own top, and its own footer where it has one, flush with its edges as the
+// main section's is (a FooterBand of its buttons).
 public struct WindowSide {
   // How wide its content is, at least: the section adds its room on both sides and the frame's line, and grows
   // where its content's least width is more.
   width: Number<Length>
   content: Template
+  footer: Template | nil = nil
 }
 // The smallest body unless the window names one: room for the tab row and a few lines.
 public const WINDOW_MIN_WIDTH = 375dp
@@ -465,6 +467,8 @@ public class Window implements Component {
   side: Signal<WindowSide | nil>
   derived sided: Boolean = self.side != nil
   derived sideContent: Template = self.side?.content ?? self.nothing
+  derived sideFooted: Boolean = self.side?.footer != nil
+  derived sideFooter: Template = self.side?.footer ?? self.nothing
   // The side's content's width: the one the player dragged it to, or the one it is given.
   derived sideWidth: Number<Length> = self.sideWidthOf()
   derived bodyColumns: Array<Track> = self.columnsOf()
@@ -828,8 +832,13 @@ public class Window implements Component {
               {self.footer}
             </box>
           </box>
-          <box $if={self.sided} border={Ordaen.art.frame.tabIconLine} rows={ONE} padding={self.padding}>
-            {self.sideContent}
+          <box $if={self.sided} border={Ordaen.art.frame.tabIconLine} rows={MAIN_ROWS}>
+            <box rows={ONE} padding={self.padding}>
+              {self.sideContent}
+            </box>
+            <box $if={self.sideFooted}>
+              {self.sideFooter}
+            </box>
             <box position={Position.Absolute} left={0ui} top={0ui} bottom={0ui} width={SIDE_HANDLE}
                  @dragStart={self.onSideGrab} @drag={self.onSide} @dragStop={self.onSideSettle} />
           </box>

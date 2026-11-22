@@ -12,8 +12,9 @@ surface 500,281.38 855.76x337.25 on MEDIUM clamped raised by a click
           box 969.15,565.23 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
             text 1004.15,570.64 30x17.5 "Scan" #ffd100
     box 1091.91,331.72 255.76x276.06 border=UI-Frame-Metal-CornerTopLeft sides=left
-      box 1124.91,354.47 200x239.08 #30302a
-        text 1124.91,354.47 200x17.5 "the details" #ffffff
+      box 1102.16,331.72 245.51x276.06
+        box 1124.91,354.47 200x239.08 #30302a
+          text 1124.91,354.47 200x17.5 "the details" #ffffff
       box 1099.16,331.72 6.67x276.06 absolute @drag @dragStart @dragStop
     box 1338.51,598.62 13.33x13.33 absolute
       box 1338.51,598.62 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
