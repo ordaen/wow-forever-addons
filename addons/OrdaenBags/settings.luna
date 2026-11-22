@@ -5,19 +5,21 @@
 import { Choice, Component, Dropdown, NumberInput, PushButton, Section, Switch } from "Ordaen"
 import { AS_THE_GAME, CHORDS, Chord, Clicks, OURS, SlotAction, actionAt, choicesFor, chordName, withAction } from "@/clicks"
 import { JunkRules } from "@/junk"
-import { SLOT_GAP_MOST, SLOT_SIZE_LEAST, SLOT_SIZE_MOST } from "@/layout"
+import { ROW_LEAST, ROW_LEAST_MOST, SLOT_GAP_MOST, SLOT_SIZE_LEAST, SLOT_SIZE_MOST } from "@/layout"
 import Locale from "@/locales"
 
 const BUTTON = 187.5dp
 
 // «Look»: a slot's size, in the interface's pixels; the room between two slots of a card, in steps of the spacing (0:
-// slot against slot).
+// slot against slot); the fewest slots in a row, what a group and the window are at least as wide as.
 public class LookPage implements Component {
   slotSize: mut Signal<Number>
   slotGap: mut Signal<Number>
-  constructor(slotSize: mut Signal<Number>, slotGap: mut Signal<Number>) {
+  rowLeast: mut Signal<Number>
+  constructor(slotSize: mut Signal<Number>, slotGap: mut Signal<Number>, rowLeast: mut Signal<Number>) {
     self.slotSize = slotSize
     self.slotGap = slotGap
+    self.rowLeast = rowLeast
   }
 
   public render(self): Template {
@@ -26,6 +28,8 @@ public class LookPage implements Component {
         <NumberInput label={Locale.SLOT_SIZE} hint={Locale.SLOT_SIZE_TIP} value={mut self.slotSize} least={SLOT_SIZE_LEAST}
                      most={SLOT_SIZE_MOST} />
         <NumberInput label={Locale.SLOT_GAP} hint={Locale.SLOT_GAP_TIP} value={mut self.slotGap} least={0} most={SLOT_GAP_MOST} />
+        <NumberInput label={Locale.ROW_LEAST} hint={Locale.ROW_LEAST_TIP} value={mut self.rowLeast} least={ROW_LEAST}
+                     most={ROW_LEAST_MOST} />
       </Section>
     }
   }

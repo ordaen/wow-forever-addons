@@ -1786,3 +1786,47 @@ test "in the view «One bag», the cursor off a slot, a tooltip of its item else
   Game.tooltip.main = tooltipOf(corner, 118, "Minor Healing Potion")
   Test.expect(reads(Test.page().window("Minor Healing Potion"), "Minor Healing Potion"))
 }
+
+// The bags' window's grip dragged far to the left: as narrow as it lets itself be.
+function narrowest() {
+  const grip = Test.painted(Ordaen.art.ctl.grip, nil)
+  Test.moveTo(grip)
+  Test.press(nil)
+  Test.moveTo({ x: grip.x - 1, y: grip.y })
+  Test.pass(0.05)
+  Test.moveTo({ x: grip.x - 2000, y: grip.y })
+  Test.pass(0.05)
+  Test.release(nil)
+  Test.flush()
+}
+
+// How many slots the first card's row holds.
+function firstSpan(): Integer {
+  return ((Bags.main.lines[1]?.cards ?? [])[1])?.span ?? 0
+}
+
+test "the one-bag view keeps no room for the tabs it doesn't show: it may be the tab list narrower than the categories" {
+  const world = new World(everyday())
+  Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Test.mount(nil, SCREEN)
+  Game.bags.open = true
+  Test.flush()
+  const withTabs = Bags.main.leastWidth
+  Bags.list.write({ view: .One, ..Bags.list.values })
+  Test.flush()
+  Test.expect(Bags.main.leastWidth < withTabs - 100ui)
+}
+
+test "a group is at least the fewest slots in a row wide, as the player sets it, and the window narrows to one" {
+  const world = new World(everyday())
+  Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Test.mount(nil, SCREEN)
+  Bags.settings.change((values: mut Choices): nil => { values.rowLeast = 6 })
+  Game.bags.open = true
+  Test.flush()
+  Test.expect(Bags.main.lines.all(line => line.cards.all(card => card.section.title == "" || card.span >= 6)))
+  narrowest()
+  Test.expect(Bags.main.lines.all(line => line.cards.length == 1) && firstSpan() == 6)
+}

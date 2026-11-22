@@ -15,7 +15,7 @@ import { BANK_ICON } from "@/bank"
 import { Clicks } from "@/clicks"
 import { GuildBank, GuildPage, GuildTab, withdrawalsText } from "@/guild"
 import { JunkRules } from "@/junk"
-import { CARD_GAP, CardRoom, CardRow, SLOT_GAP, SLOT_SIZE, Section, cardRoom, cardWidth, heightOf, linesOf } from "@/layout"
+import { CARD_GAP, CardRoom, CardRow, ROW_LEAST, SLOT_GAP, SLOT_SIZE, Section, cardRoom, cardWidth, heightOf, linesOf } from "@/layout"
 import Locale from "@/locales"
 import { Grouping, KINDS, Slot, SortBy, Tab, View } from "@/model"
 import { CardLine, Filter, Shelf } from "@/rows"
@@ -35,6 +35,7 @@ public struct Choices implements Plain {
   clicks: Clicks
   slotGap: Number = SLOT_GAP
   slotSize: Number = SLOT_SIZE
+  rowLeast: Number = ROW_LEAST
 }
 
 // How the player left the bags' view, the profile's (`ModuleMemory`): the view and the sort the header picks. The
@@ -185,11 +186,10 @@ public class Pane {
   public derived sections: Array<Section> = self.sectionsOf()
   // The list's width: the body's but for the window's room, the tabs where they show, the scroll bar.
   derived slotGap: Number<Spacing> = self.choices.slotGap * 1sp
-  derived room: CardRoom = cardRoom(self.choices.slotGap, self.choices.slotSize)
+  derived room: CardRoom = cardRoom(self.choices.slotGap, self.choices.slotSize, self.choices.rowLeast)
   derived slotSize: Number<Length> = self.room.slot
-  // The least window: the list of tabs and eight slots in a card beside it.
-  public derived leastWidth: Number<Length> =
-    windowSides() + Ordaen.lengthOf(TABS_GAP) + TABS_WIDTH + cardWidth(8, self.room) + SCROLL_ROOM
+  // The least window: a card of the fewest slots in a row, the list of tabs beside it where it shows.
+  public derived leastWidth: Number<Length> = windowSides() + self.tabsRoom + cardWidth(self.room.least, self.room) + SCROLL_ROOM
   derived tabsRoom: Number<Length> = self.withList ? TABS_WIDTH + Ordaen.lengthOf(TABS_GAP) : 0ui
   derived listWidth: Number<Length> = self.width - windowSides() - self.tabsRoom - SCROLL_ROOM
   public derived lines: Array<CardRow> = linesOf(self.sections, self.listWidth, self.room)

@@ -152,5 +152,7 @@
   "ASK_BUY": "Buy %s for %s?",
   "ASK_BUY_COSTS": "Buy %s?",
   "NO_REFUND": "This purchase can't be refunded.",
-  "LAST_SOLD": "Last sold"
+  "LAST_SOLD": "Last sold",
+  "ROW_LEAST": "Fewest slots in a row",
+  "ROW_LEAST_TIP": "A group is at least this many slots wide, and the window narrows to one group this wide."
 }
