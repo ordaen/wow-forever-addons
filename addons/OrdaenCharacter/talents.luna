@@ -3,7 +3,8 @@
 // (the client's `talent-background-<class>`), edge to edge out to the window's sides, a thin dark line between them;
 // the footer on the marble, a rim along its top, with «Cancel» on its left and «Apply» on its right while points wait
 // to be applied, each as wide as its label, and in its centre the class trainer's price for a reset (from the trainer's
-// last offer, `CONFIRM_TALENT_WIPE`, kept per character; hidden until the first). Each node is drawn where the client
+// last offer, `CONFIRM_TALENT_WIPE`, kept per character; «not known yet» until the first, its Tip saying where to learn
+// it: the client tells it nowhere else). Each node is drawn where the client
 // puts it, Left-click spending a point in it and Right-click taking back one not applied yet; what a node may do is the
 // client's to say (`canSpend`, `canRefund`), the page only asks.
 import Game from "$game"
@@ -94,11 +95,13 @@ class PointsLeft implements Component {
   }
 }
 
-// The footer's centre: the trainer's price for a reset, its Tip saying where it is from.
+// The footer's centre: the trainer's price for a reset, its Tip saying where it is from; before the trainer named one,
+// that it isn't known yet and where it is learnt.
 class WipePrice implements Component {
   state hovered = false
   derived priced: Boolean = self.wipeCost > 0
-  derived tipShown: Boolean = self.hovered && self.priced
+  derived unpriced: Boolean = !self.priced
+  derived tip: String = self.priced ? Locale.TRAINER_RESET_TIP : Locale.TRAINER_RESET_UNKNOWN_TIP
 
   wipeCost: Signal<Integer>
   constructor(wipeCost: Signal<Integer>) {
@@ -110,11 +113,12 @@ class WipePrice implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box $if={self.priced} columns={["max-content", "max-content"]} gap={1sp} yAlign={Align.Center}
-           @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
+      <box columns={["max-content", "max-content"]} gap={1sp} yAlign={Align.Center} @pointerEnter={self.onEnter}
+           @pointerLeave={self.onLeave}>
         <text value={Locale.TRAINER_RESET} textSize={SECONDARY_TEXT} textColor={Style.DIM} wrap={.None} />
-        <Money amount={self.wipeCost} color={WHITE} textSize={SECONDARY_TEXT} />
-        <Tip $if={self.tipShown} title={Locale.TRAINER_RESET_TITLE} text={Locale.TRAINER_RESET_TIP} />
+        <Money $if={self.priced} amount={self.wipeCost} color={WHITE} textSize={SECONDARY_TEXT} />
+        <text $if={self.unpriced} value={Locale.TRAINER_RESET_UNKNOWN} textSize={SECONDARY_TEXT} textColor={Style.DIM} wrap={.None} />
+        <Tip $if={self.hovered} title={Locale.TRAINER_RESET_TITLE} text={self.tip} />
       </box>
     }
   }

@@ -749,13 +749,15 @@ test "the header's right says the points left to spend in the active spec, and o
   Test.expect(window.button("Activate").shown() && !window.text("Talent points:").shown())
 }
 
-test "the footer says the trainer's price for a reset once the trainer offered one, and keeps it" {
+test "the footer says the trainer's price for a reset once the trainer offered one, and keeps it; not known before, where it is learnt in its Tip" {
   Test.mount(nil, PAGE)
   Game.talentTrees.trees = trees
   const window = onSpec("Primary")
-  Test.expect(!window.text("Reset at the trainer:").shown())
+  Test.expect(window.text("Reset at the trainer:").shown() && window.text("not known yet").shown())
+  window.text("not known yet").hover()
+  Test.expect(Test.page().text("The game says the price only at the class trainer: talk to one and it shows here, kept for this character. It grows with each reset and falls again over time.").shown())
   Test.event("CONFIRM_TALENT_WIPE", 50000, 1)
-  Test.expect(window.text("Reset at the trainer:").shown())
+  Test.expect(window.text("Reset at the trainer:").shown() && !window.text("not known yet").shown())
   Test.expect(window.text(Game.money.format(50000)).shown())
   Test.expect(load<KeptWipe>(.Character, "talentWipe", KeptWipe {}).cost == 50000)
 }
