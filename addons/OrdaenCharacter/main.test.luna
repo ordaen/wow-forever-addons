@@ -1048,6 +1048,29 @@ test "the statistics as one list stand under no category" {
   Test.expect(!window.text("Combat").shown())
 }
 
+// A gauge's fill: the client's status bar texture, tinted.
+const GAUGE_FILL: Art = "Interface/TargetingFrame/UI-StatusBar"
+
+test "each faction's gauge fills its own share, in its own row, as tall as the others" {
+  Test.mount(nil, PAGE)
+  const sheet = new FakeSheet()
+  // Stormwind half way (6000 of 3000 to 9000), Argent Dawn a sixth (4000).
+  sheet.stand = 6000
+  const window = opened(mut sheet)
+  window.button("Progression").click()
+  // The rows in order: Alliance, Stormwind, Other, Argent Dawn (a heading keeps its gauge's place, unseen).
+  const stormwind = window.box(GAUGE_FILL).nth(2).rect()
+  const argent = window.box(GAUGE_FILL).nth(4).rect()
+  Test.expect(((stormwind.bottom - stormwind.top) - (argent.bottom - argent.top)).abs() < 0.5)
+  Test.expect(((stormwind.right - stormwind.left) / (argent.right - argent.left) - 3).abs() < 0.1)
+  // Each in the row of its faction's name.
+  const stormwindName = window.text("Stormwind").rect()
+  const argentName = window.text("Argent Dawn").rect()
+  Test.expect(stormwind.top <= stormwindName.bottom && stormwind.bottom >= stormwindName.top)
+  Test.expect(argent.top <= argentName.bottom && argent.bottom >= argentName.top)
+  Test.expect(stormwind.bottom <= argentName.top)
+}
+
 test "the reputation's search keeps the factions whose name holds it, under their heading; the footer counts them" {
   Test.mount(nil, PAGE)
   const window = opened(new FakeSheet())

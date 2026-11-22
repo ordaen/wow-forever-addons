@@ -5,6 +5,7 @@
 import { Align, Art, BarFill, Event, FillFrom, Piece, Position, TextAlign, TextFont, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import { BRIGHT_TEXT, Component, SECONDARY_TEXT, TITLE_TEXT, Tip, XpFill, xpFillArt } from "Ordaen"
+import { GaugeBar } from "@/gauge"
 import Locale from "@/locales"
 import { Skill, Stats, WANDS } from "@/sheet"
 import { Boost, Breakdown, NO_BREAKDOWN, statName } from "@/sources"
@@ -426,7 +427,7 @@ public class StatSpot implements Component {
 public class StatGauge implements Component {
   public tipped: Event<Stat | nil> = new Event()
 
-  derived fill: BarFill = { value: (self.gauge.value / self.gauge.cap).max(0).min(1), color: self.gauge.tone }
+  derived share: Number = self.gauge.cap <= 0 ? 0 : self.gauge.value / self.gauge.cap
   derived ink: Color = inkOf(self.gauge.stat, self.boosts, self.gauge.value == 0 ? Style.DIM : BRIGHT_TEXT)
   derived title: String = `${self.gauge.label} ${self.gauge.text}`
 
@@ -446,10 +447,7 @@ public class StatGauge implements Component {
       <StatSpot stat={self.gauge.stat} title={self.title} shown={self.shown} @tipped={self.onTipped}>
         <box columns={[Style.GAUGE_LABEL, { fr: 1 }, Style.GAUGE_VALUE]} gap={2.5sp} yAlign={Align.Center}>
           <text value={self.gauge.label} textSize={SECONDARY_TEXT} textColor={BRIGHT_TEXT} wrap={.None} />
-          <box>
-            <box height={Style.CHANNEL} background={Style.TROUGH} fill={self.fill} />
-            <box height={Style.CUT_LINE} background={Style.GROOVE_LIP} />
-          </box>
+          <GaugeBar value={self.share} tone={self.gauge.tone} height={Style.CHANNEL} />
           <text value={self.gauge.text} textFont={TextFont.Numbers} textColor={self.ink} textAlign={TextAlign.End}
                 wrap={.None} />
         </box>

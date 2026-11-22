@@ -15,8 +15,6 @@ public const COLUMNS: Array<Track> = [{ fr: 1, min: SIDE_LEAST }, DOLL, { fr: 1,
 public const SLOT: Number<Length> = 46.875dp
 // The durability bar under a slot.
 public const WEAR: Number<Length> = 3.515625dp
-// Round the text a bar shows (a faction's standing): the bar is as tall as it.
-public const BAR_PAD: Edges = { top: 2sp, right: 3sp, bottom: 2sp, left: 3sp }
 // The reputation tab's side, where the chosen faction stands.
 public const SIDE: Number<Length> = 328.125dp
 // A field the player types in (a spec's name, the talents' search): its height, its room round the text, its well.
@@ -34,7 +32,9 @@ public const ONE_ROW: Array<Track> = [{ fr: 1 }]
 // One line of a cut in the wood (three: its shade, its depth, its lit lower lip), a gauge's channel (a skill's too)
 // and its columns (the name, the value).
 public const CUT_LINE: Number<Length> = 1dp
-public const CHANNEL: Number<Length> = 13dp
+public const CHANNEL: Number<Length> = 16.40625dp
+// A gauge with its text in it: a skill's rank, a faction's standing.
+public const GAUGE_BAR: Number<Length> = 22.265625dp
 public const GAUGE_LABEL: Number<Length> = 150dp
 public const GAUGE_VALUE: Number<Length> = 72dp
 // A card's socket, its glyph and the socket's floor, a section's padding and the room between its cards and its gauges.

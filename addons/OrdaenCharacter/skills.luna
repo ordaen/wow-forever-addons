@@ -3,9 +3,10 @@
 // after. The skill picked stands on the right, as a faction does: its heading, the bar with its numbers, what items
 // and effects add, the game's description, and «Unlearn» where the game lets it go (a profession, a secondary skill),
 // asked once more before it is done.
-import { Align, Art, BarFill, TextFont } from "$ltml"
+import { Align, Art, TextFont } from "$ltml"
 import root Ordaen from "Ordaen"
 import { ButtonPlate, Component, Dialog, PushButton, SECONDARY_TEXT, ScrolledList, TITLE_LINE, TITLE_TEXT, Toolbar } from "Ordaen"
+import { GaugeBar } from "@/gauge"
 import Locale from "@/locales"
 import { Skill } from "@/sheet"
 import Style from "@/style"
@@ -18,8 +19,8 @@ const ASK_WIDTH = 468.75dp
 const BUTTON_WIDTH = 164.0625dp
 
 // How far a skill is to its cap, from 0 to 1.
-function barOf(skill: Skill): BarFill {
-  return { value: skill.max <= 0 ? 0 : (skill.rank / skill.max).min(1), color: Style.SKILL }
+function shareOf(skill: Skill): Number {
+  return skill.max <= 0 ? 0 : (skill.rank / skill.max).min(1)
 }
 
 // A skill's rank against its cap, as the game writes it.
@@ -69,7 +70,7 @@ public class SkillRow implements Component {
   public pick: Event<Skill> = new Event()
   public fold: Event<Skill> = new Event()
 
-  derived bar: BarFill = barOf(self.skill)
+  derived share: Number = shareOf(self.skill)
   derived barShown: Boolean = !self.skill.header
   derived rank: String = self.skill.header ? "" : rankText(self.skill)
   derived bonus: String = bonusText(self.skill)
@@ -100,9 +101,8 @@ public class SkillRow implements Component {
            @keyPress(.Space)={self.onClick}>
         <box width={MARK} height={MARK} background={self.mark} />
         <text value={self.skill.name} textColor={self.nameColor} wrap={.None} />
-        <box padding={Style.BAR_PAD} background={Style.TROUGH} fill={self.bar} opacity={self.barShown ? 1 : 0}
-             xAlign={Align.Center} yAlign={Align.Center}>
-          <text value={self.rank} textSize={SECONDARY_TEXT} textFont={TextFont.Numbers} textColor={Style.INK} wrap={.None} />
+        <box opacity={self.barShown ? 1 : 0}>
+          <GaugeBar value={self.share} tone={Style.SKILL} height={Style.GAUGE_BAR} text={self.rank} />
         </box>
         <text value={self.bonus} textSize={SECONDARY_TEXT} textFont={TextFont.Numbers} textColor={Style.GREEN} wrap={.None} />
       </box>
@@ -115,7 +115,7 @@ public class SkillDetail implements Component {
   public unlearn: Event<Skill> = new Event()
 
   state asking = false
-  derived bar: BarFill = barOf(self.skill)
+  derived share: Number = shareOf(self.skill)
   derived rank: String = rankText(self.skill)
   derived bonusShown: Boolean = self.skill.modifier > 0
   derived bonus: String = Locale.SKILL_BONUS.format(self.skill.modifier)
@@ -143,9 +143,7 @@ public class SkillDetail implements Component {
           <text value={self.skill.name} textSize={TITLE_TEXT} lineHeight={TITLE_LINE} textFont={TextFont.Title} textColor={Style.GOLD} />
           <text value={self.heading} textColor={Style.INK} />
         </box>
-        <box padding={Style.BAR_PAD} background={Style.TROUGH} fill={self.bar} xAlign={Align.Center} yAlign={Align.Center}>
-          <text value={self.rank} textSize={SECONDARY_TEXT} textFont={TextFont.Numbers} textColor={Style.INK} wrap={.None} />
-        </box>
+        <GaugeBar value={self.share} tone={Style.SKILL} height={Style.GAUGE_BAR} text={self.rank} />
         <text $if={self.bonusShown} value={self.bonus} textSize={SECONDARY_TEXT} textColor={Style.GREEN} />
         <text $if={self.described} value={self.skill.description} textSize={SECONDARY_TEXT} textColor={Style.INK} />
         <box $if={self.skill.abandonable} xAlign={Align.Start}>

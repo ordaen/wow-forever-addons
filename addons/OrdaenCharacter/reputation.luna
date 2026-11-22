@@ -3,9 +3,10 @@
 // session. The faction picked stands on the right: its standing, the bar with the numbers, how far to the next
 // standing, the game's description, and its switches: at war (where the game lets it), inactive, and shown on the
 // bar (the faction the game watches).
-import { Align, Art, BarFill, TextFont } from "$ltml"
+import { Align, Art, TextFont } from "$ltml"
 import root Ordaen from "Ordaen"
 import { Choice, Component, SECONDARY_TEXT, ScrolledList, Shown, ShownToggle, TITLE_LINE, TITLE_TEXT, ToolPick, Toolbar } from "Ordaen"
+import { GaugeBar } from "@/gauge"
 import Locale from "@/locales"
 import { Faction, standingColor, standingName } from "@/sheet"
 import Style from "@/style"
@@ -20,10 +21,6 @@ const CLEAR: Color = Color.hex("#00000000")
 function fractionOf(faction: Faction): Number {
   if (faction.max <= faction.min) { return 1 }
   return (faction.value - faction.min) / (faction.max - faction.min)
-}
-
-function barOf(faction: Faction): BarFill {
-  return { value: fractionOf(faction), color: standingColor(faction.standing) }
 }
 
 // What a faction rose since the window first read it this session.
@@ -84,7 +81,8 @@ public class FactionRow implements Component {
   public fold: Event<Faction> = new Event()
 
   derived standing: String = standingName(self.faction.standing)
-  derived bar: BarFill = barOf(self.faction)
+  derived share: Number = fractionOf(self.faction)
+  derived tone: Color = standingColor(self.faction.standing)
   derived barShown: Boolean = !self.faction.header || self.faction.ranked
   derived mark: Art | nil = self.faction.header ? (self.faction.collapsed ? Ordaen.art.ctl.markClosed : Ordaen.art.ctl.markOpen) : nil
   derived indent: Number<Length> = self.faction.child ? INDENT : 0ui
@@ -115,9 +113,8 @@ public class FactionRow implements Component {
         <box />
         <box width={MARK} height={MARK} background={self.mark} />
         <text value={self.faction.name} textColor={self.nameColor} wrap={.None} />
-        <box padding={Style.BAR_PAD} background={Style.TROUGH} fill={self.bar} opacity={self.barShown ? 1 : 0}
-             xAlign={Align.Center} yAlign={Align.Center}>
-          <text value={self.standing} textSize={SECONDARY_TEXT} textColor={Style.INK} wrap={.None} />
+        <box opacity={self.barShown ? 1 : 0}>
+          <GaugeBar value={self.share} tone={self.tone} height={Style.GAUGE_BAR} text={self.standing} font={TextFont.Body} />
         </box>
         <text value={self.gainText} textSize={SECONDARY_TEXT} textFont={TextFont.Numbers} textColor={Style.GREEN}
               wrap={.None} />
@@ -161,7 +158,8 @@ public class FactionDetail implements Component {
   public watch: Event<Faction> = new Event()
 
   derived standing: String = standingName(self.faction.standing)
-  derived bar: BarFill = barOf(self.faction)
+  derived share: Number = fractionOf(self.faction)
+  derived tone: Color = standingColor(self.faction.standing)
   derived numbers: String = `${self.faction.value - self.faction.min} / ${self.faction.max - self.faction.min}`
   derived toNext: String = self.faction.standing < EXALTED ?
     Locale.TO_NEXT.format(standingName(self.faction.standing + 1), String.of(self.faction.max - self.faction.value)) :
@@ -190,10 +188,7 @@ public class FactionDetail implements Component {
           <text value={self.faction.name} textSize={TITLE_TEXT} lineHeight={TITLE_LINE} textFont={TextFont.Title} textColor={Style.GOLD} />
           <text value={self.standing} textColor={Style.INK} />
         </box>
-        <box padding={Style.BAR_PAD} background={Style.TROUGH} fill={self.bar} xAlign={Align.Center} yAlign={Align.Center}>
-          <text value={self.numbers} textSize={SECONDARY_TEXT} textFont={TextFont.Numbers} textColor={Style.INK}
-                wrap={.None} />
-        </box>
+        <GaugeBar value={self.share} tone={self.tone} height={Style.GAUGE_BAR} text={self.numbers} />
         <box columns={[{ fr: 1 }, "max-content"]}>
           <text value={self.toNext} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
           <text value={self.gainText} textSize={SECONDARY_TEXT} textFont={TextFont.Numbers} textColor={Style.GREEN} />
