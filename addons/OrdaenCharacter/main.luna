@@ -140,12 +140,12 @@ public class Character implements Module, App {
     </box>
   }
   derived inspectTabs: Array<WindowTabSpec> = [
-    { title: self.inspected.who.name, icon: CHARACTER_ICON },
+    { title: self.inspected.who.name, icon: CHARACTER_ICON, height: Style.HEIGHT },
     { title: Locale.TAB_TALENTS, icon: TALENTS_ICON },
     { title: Locale.TAB_PVP, icon: PVP_ICON }
   ]
   derived tabs: Array<WindowTabSpec> = [
-    { title: Locale.TAB_CHARACTER, icon: CHARACTER_ICON },
+    { title: Locale.TAB_CHARACTER, icon: CHARACTER_ICON, height: Style.HEIGHT },
     { title: self.settings.values.specOne == "" ? Locale.TAB_MAIN : self.settings.values.specOne, icon: SPEC_ONE_ICON },
     {
       title: self.settings.values.specTwo == "" ? Locale.TAB_SECOND : self.settings.values.specTwo, icon: SPEC_TWO_ICON,

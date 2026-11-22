@@ -1133,6 +1133,18 @@ test "a window kept narrower than the stats need, from an older save, is drawn w
   Test.expect(window.text("Attack power").count() == 1)
 }
 
+test "the character tab holds the window at its own height; the player's taller one comes back on the others" {
+  Test.mount(nil, PAGE)
+  Game.items.icon = icons
+  Char.window.memory.write({ width: Style.WIDTH, height: Style.HEIGHT + 200dp, ..Char.window.defaults })
+  const window = opened(new FakeSheet())
+  const held = Test.edges(Ordaen.art.window.wood, 0)
+  window.button("Progression").click()
+  const tall = Test.edges(Ordaen.art.window.wood, 0)
+  Test.expect((held.top - tall.top).abs() < 0.5)
+  Test.expect((tall.bottom - tall.top) - (held.bottom - held.top) > 50dp / 1ui)
+}
+
 // A texture the client draws of the dwarves' scene.
 function isScene(texture: Test.Drawn): Boolean {
   const at, _ = `${texture.file}`.find("backdrop%-dwarf")
