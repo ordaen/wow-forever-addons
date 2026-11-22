@@ -799,7 +799,7 @@ test "a header says how many of its quests are complete of all at its right" {
   Test.expect(window.text("1/1").rect().left > window.text("Westfall").rect().right)
 }
 
-test "a row is its level, a dim bullet and its title; a level of one digit keeps two digits' room, so titles line up" {
+test "a row is its level and its title, no bullet between; a level of one digit keeps two digits' room, so titles line up" {
   const log = standing()
   log[3] = { level: 7, ..quest(103, "Elwynn Wolves", "Westfall") }
   opened(log)
@@ -807,9 +807,8 @@ test "a row is its level, a dim bullet and its title; a level of one digit keeps
   Test.expect(!window.text("[").shown() && !window.text("]").shown())
   // Level 14 is its «1» and «4», level 7 an unseen «0» and its «7», each in the level's colour.
   const said = window.text("The Defias Brotherhood").item().texts()
-  Test.expect(said[1] == "1" && said[2] == "4" && said[3] == "•" && said[4] == "The Defias Brotherhood")
+  Test.expect(said[1] == "1" && said[2] == "4" && said[3] == "The Defias Brotherhood")
   Test.expect(!window.text("7").textColor().equal(Color.hex("#a3977f")))
-  Test.expect(window.text("•").nth(1).textColor().equal(Color.hex("#6b6352")))
   const two = window.text("The Defias Brotherhood").rect()
   const one = window.text("Elwynn Wolves").rect()
   Test.expect((two.left - one.left).abs() < 0.01)
@@ -882,10 +881,10 @@ test "a quest's experience and money stand at its title's right, a bullet betwee
   opened(log)
   const window = Test.page().window("World")
   const title = window.text("Elwynn Wolves").rect()
-  // Every row has a bullet after its level: the gains' one is the last of its row.
+  // The one bullet of a row stands between its gains.
   const row = window.text("Elwynn Wolves").item()
-  Test.expect(window.text("735").rect().left > title.right && row.text("•").count() == 2)
-  Test.expect(row.text("•").nth(2).rect().left > window.text("735").rect().right)
+  Test.expect(window.text("735").rect().left > title.right && row.text("•").count() == 1)
+  Test.expect(row.text("•").rect().left > window.text("735").rect().right)
   Test.expect(window.box("GarrMission_CurrencyIcon-Xp").shown())
 }
 

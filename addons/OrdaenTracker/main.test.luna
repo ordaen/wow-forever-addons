@@ -45,10 +45,15 @@ test "the tracked quests stand at the right with their level, tag and objectives
   Test.mount(nil, PAGE)
   Tracker.refresh()
   Test.flush()
-  Test.expect(Test.page().text("The Defias Brotherhood").shown() && Test.page().text("[14]").shown())
+  // Its level as the log's rows have it, two digits of the numbers' font, no brackets; its title whitish.
+  Test.expect(Test.page().text("The Defias Brotherhood").shown() && Test.page().text("4").shown() && !Test.page().text("[14]").shown())
+  Test.expect(Test.page().text("The Defias Brotherhood").textColor().equal(Color.hex("#f0e6d2")))
   Test.expect(Test.page().text("— Talk to Gryan Stoutmantle").shown())
   Test.expect(Test.page().text("(Dungeon)").shown() && Test.page().text("Ready to turn in").shown())
   Test.expect(!Test.page().text("Elwynn Wolves").shown())
+  // Its head: «Quests» at the left, the count at the right, nothing after it.
+  const box = Test.page().window("Quests").rect()
+  Test.expect(box.right - Test.page().text("3/25").rect().right < 20 && !Test.page().text("–").shown())
   Test.expect(Test.page().text("3/25").shown())
   Test.expect(own.GetAlpha() == 0)
 }
@@ -63,16 +68,16 @@ test "a quest's row has no box before its level, the quest pointed to or not" {
   Test.expect(Test.page().box(Color.hex("#a3977f")).count() == 0)
 }
 
-test "a level is in its difficulty colour, or in the title's gold while the game's difficulty colours are off" {
+test "a level is in its difficulty colour, or in the title's while the game's difficulty colours are off" {
   logged()
   Test.mount(nil, PAGE)
   Tracker.refresh()
   Test.flush()
-  const gold = Color.hex("#ffd100")
-  Test.expect(!Test.page().text("[14]").textColor().equal(gold))
+  const title = Color.hex("#f0e6d2")
+  Test.expect(!Test.page().text("4").textColor().equal(title))
   Test.cvar("showQuestDifficultyColor", "0")
   Test.flush()
-  Test.expect(Test.page().text("[14]").textColor().equal(gold))
+  Test.expect(Test.page().text("4").textColor().equal(title))
 }
 
 test "only the zone's tracked quests are listed: another zone's stays out" {

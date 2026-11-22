@@ -65,8 +65,7 @@ surface 548.15,192.46 893.38x515.08 on MEDIUM clamped raised by a click
                         box 584.63,390.22 16.67x15.83
                           text 584.63,390.22 8.33x15.83 "1" #ff2020
                           text 592.96,390.22 8.33x15.83 "4" #ff2020
-                        text 606.98,390.22 8.33x15.83 "•" #6b6352
-                        text 621.01,390.22 382.99x15.83 "Elwynn Wolves" #e8dcc4
+                        text 606.98,390.22 397.01x15.83 "Elwynn Wolves" #e8dcc4
                         text 1009.68,398.14 0x0 "" #a3977f
                         box 1015.37,398.14 0x0
                       box 584.63,408.9 430.74x12
@@ -84,8 +83,7 @@ surface 548.15,192.46 893.38x515.08 on MEDIUM clamped raised by a click
                         box 584.63,477.39 16.67x15.83
                           text 584.63,477.39 8.33x15.83 "1" #ff2020
                           text 592.96,477.39 8.33x15.83 "4" #ff2020
-                        text 606.98,477.39 8.33x15.83 "•" #6b6352
-                        text 621.01,477.39 346.81x15.83 "The Defias Brotherhood" #e8dcc4
+                        text 606.98,477.39 360.83x15.83 "The Defias Brotherhood" #e8dcc4
                         text 973.51,485.3 0x0 "" #a3977f
                         box 979.19,477.39 36.18x15.83
                           box 979.19,477.39 36.18x15.83

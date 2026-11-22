@@ -1,0 +1,33 @@
+// A quest's level as its row shows it in Quests' log and in the tracker: two digits of the numbers' font (whose
+// digits are of one width), the tens unseen under 10, so every level takes two digits' room and the titles after them
+// stand in one line; a group quest's «+» after them.
+import { Component } from "Ordaen"
+
+// The tens of a level under 10: an unseen «0», so no title moves.
+const UNSEEN: Color = Color.hex("#00000000")
+
+public class QuestLevel implements Component {
+  derived tens: String = self.level >= 10 ? String.of((self.level / 10).floor() % 10) : "0"
+  derived tensColor: Color = self.level >= 10 ? self.color : UNSEEN
+  derived ones: String = `${self.level % 10}${self.group ? "+" : ""}`
+
+  level: Signal<Integer>
+  // A group quest's: a «+» after the level.
+  group: Signal<Boolean>
+  // Its difficulty's colour (`questLevelColor`).
+  color: Signal<Color>
+  constructor(level: Signal<Integer>, group: Signal<Boolean>, color: Signal<Color>) {
+    self.level = level
+    self.group = group
+    self.color = color
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={{ each: "max-content" }}>
+        <text value={self.tens} textColor={self.tensColor} textFont={.Numbers} wrap={.None} />
+        <text value={self.ones} textColor={self.color} textFont={.Numbers} wrap={.None} />
+      </box>
+    }
+  }
+}

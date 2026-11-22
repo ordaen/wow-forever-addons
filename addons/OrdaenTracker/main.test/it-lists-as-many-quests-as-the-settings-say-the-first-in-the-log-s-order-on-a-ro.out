@@ -14,14 +14,15 @@ surface 1341.67,5 250x76.29 on LOW clamped
       box 1586.67,76.29 5x5 absolute clipped
         box 1581.67,71.29 10x10 absolute Interface/Buttons/WHITE8X8 tint=#00000040 cut by Interface/CHARACTERFRAME/TempPortraitAlphaMask
     box 1350.2,13.53 232.93x15.83 @pointerPress
-      text 1350.2,13.53 38.33x15.83 "Quests" #ffd100
-      text 1397.07,13.53 21.67x13.33 "3/25" #a3977f
-      text 1427.27,13.53 155.87x15.83 "–" #a3977f
+      text 1350.2,13.53 202.73x15.83 "Quests" #ffd100
+      text 1561.47,13.53 21.67x13.33 "3/25" #a3977f
     box 1350.2,37.9 232.93x34.86 scrolled 0 of 0
       box 1350.2,37.9 232.93x34.86
         box 1350.2,37.9 232.93x15.83 @pointerPress
-          text 1350.2,37.9 25.83x15.83 "[14]" #ff2020
-          text 1381.72,37.9 190.03x15.83 "The Defias Brotherhood" #ffd100
+          box 1350.2,37.9 16.67x15.83
+            text 1350.2,37.9 8.33x15.83 "1" #ff2020
+            text 1358.53,37.9 8.33x15.83 "4" #ff2020
+          text 1372.56,37.9 199.2x15.83 "The Defias Brotherhood" #f0e6d2
           text 1577.44,37.9 0x0 "" #a3977f
           box 1583.13,37.9 0x0
         box 1350.2,56.58 232.93x13.33

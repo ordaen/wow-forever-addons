@@ -4,5 +4,5 @@
   "notes": "The tracked quests at the screen's right in Ordaen's look, with what other modules add to each.",
   "version": "0.1.0",
   "loadOnDemand": true,
-  "dependencies": { "Ordaen": "^1.0.0" }
+  "dependencies": { "Ordaen": "^1.0.0", "OrdaenQuestPage": "^0.1.0" }
 }

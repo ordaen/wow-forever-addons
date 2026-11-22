@@ -9,7 +9,7 @@ import Game from "$game"
 import { Align, Art, Bounds, ByInteractionState, Edges, Line, Side, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import { ButtonPlate, Component, Cut, Menu, MenuEntry, Money, PushButton, SECONDARY_TEXT, Shown, SwitchFace, Tip, TipText, questLevelColor, rowShade } from "Ordaen"
-import { Experience, Named, Reward, RewardView, Rewards, SCROLL_DIM, SCROLL_ROW, Scroll, ScrollHeading, ScrollText, Standing, WELL_TEXT, WIDE_SCROLL, choiceViews, logReward, scrollOverflows } from "OrdaenQuestPage"
+import { Experience, Named, QuestLevel, Reward, RewardView, Rewards, SCROLL_DIM, SCROLL_ROW, Scroll, ScrollHeading, ScrollText, Standing, WELL_TEXT, WIDE_SCROLL, choiceViews, logReward, scrollOverflows } from "OrdaenQuestPage"
 import { LogQuest } from "@/book"
 import Locale from "@/locales"
 import { namedOf, namedOfFacts } from "@/names"
@@ -42,14 +42,12 @@ const BUTTON = 131.25dp
 function mapTipOf(combat: Boolean): TipText | nil {
   return combat ? { title: Locale.SHOW_ON_MAP, text: Locale.MAP_IN_COMBAT, rows: [] } : nil
 }
-// The bullet between a row's level and its title, and between what a quest gives: dimmer than the dim text it parts.
+// The bullet between what a quest gives: dimmer than the dim text it parts.
 const BULLET = "•"
 const BULLET_COLOR: Color = Color.hex("#6b6352")
-// The tens of a level under 10: an unseen «0», so no title moves.
-const UNSEEN: Color = Color.hex("#00000000")
-// A row's title line: its level, the bullet, its title, a group quest's size, what it gives. Its objectives stand under
+// A row's title line: its level, its title, a group quest's size, what it gives. Its objectives stand under
 // the whole line, from the level's edge.
-const TITLE_LINE: Array<Track> = ["max-content", "max-content", { fr: 1 }, "max-content", "max-content"]
+const TITLE_LINE: Array<Track> = ["max-content", { fr: 1 }, "max-content", "max-content"]
 const HEADER_PAD: Edges = { top: 3sp, right: 2sp, bottom: 3sp, left: 2sp }
 // A header's band: a gold wash over the well's floor, a brighter line under it, so it reads apart from its quests.
 const HEADER_BAND: Color = Color.hex("#d6a56b38")
@@ -111,11 +109,6 @@ public class QuestRow implements Component {
   // player's clicks on it do. The task is asked of the client while the tooltip shows.
   derived tipShown: Boolean = self.hovered && !self.menuOpen
   derived tipText: String = self.ended ? self.progress : Game.questLog.text(self.quest.id).task
-  // The level as two digits, each its own text of the numbers' font (whose digits are of one width): the tens unseen
-  // under 10, so every level takes two digits' room. A group quest's «+» after them.
-  derived tens: String = self.quest.level >= 10 ? String.of((self.quest.level / 10).floor() % 10) : "0"
-  derived tensColor: Color = self.quest.level >= 10 ? self.levelColor : UNSEEN
-  derived ones: String = `${self.quest.level % 10}${self.quest.group > 1 ? "+" : ""}`
   // Complete or failed: said under the title in place of its objectives.
   derived ended: Boolean = self.progress != ""
   // Its objectives still to do: one done leaves the list (the page says them all).
@@ -182,11 +175,7 @@ public class QuestRow implements Component {
            @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
         <Tip $if={self.tipShown} title={self.quest.title} text={self.tipText} keys={ROW_KEYS} />
         <box columns={TITLE_LINE} gap={2sp} yAlign={Align.Center}>
-          <box columns={{ each: "max-content" }}>
-            <text value={self.tens} textColor={self.tensColor} textFont={.Numbers} wrap={.None} />
-            <text value={self.ones} textColor={self.levelColor} textFont={.Numbers} wrap={.None} />
-          </box>
-          <text value={BULLET} textColor={BULLET_COLOR} wrap={.None} />
+          <QuestLevel level={self.quest.level} group={self.quest.group > 1} color={self.levelColor} />
           <text value={self.quest.title} textColor={INK} wrap={.None} />
           <text value={self.group} textColor={DIM} textSize={SECONDARY_TEXT} wrap={.None} />
           <Gains xp={self.quest.xp} money={self.quest.money} />
