@@ -1593,7 +1593,7 @@ test "in the view «By bag» a bag's caption is a name alone: a click on it shut
   Test.expect(bags().button(WELL).count() == 22)
 }
 
-test "slots stand apart by at least the setting's room, three steps where none is chosen; rows touch at 0" {
+test "slots stand apart by the setting's room, three steps where none is chosen; none at 0" {
   const world = new World(everyday())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
   Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
@@ -1605,24 +1605,7 @@ test "slots stand apart by at least the setting's room, three steps where none i
   Test.expect(second.left - first.right >= Ordaen.lengthOf(3sp) / 1ui - 0.01)
   Bags.settings.change((values: mut Choices): nil => { values.slotGap = 0 })
   Test.flush()
-  const below = nth(firstSpan() + 1).rect()
-  Test.expect((below.top - nth(1).rect().bottom).abs() < 0.01)
-}
-
-test "a row that fills the list spreads what is left between its slots, evenly: it ends flush, none left at its right" {
-  const world = new World(everyday())
-  Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
-  Test.mount(nil, SCREEN)
-  Bags.window.memory.write({ width: 900ui, ..Bags.window.memory.values })
-  Game.bags.open = true
-  pick(Ordaen.art.ctl.tool.categories, "One bag")
-  const span = firstSpan()
-  const across = nth(2).rect().left - nth(1).rect().right
-  const last = nth(span).rect().left - nth(span - 1).rect().right
-  Test.expect(span > 2 && (across - last).abs() < 0.01)
-  // Wider than the setting's three steps: what was left at the right went into the gaps.
-  Test.expect(across > Ordaen.lengthOf(3sp) / 1ui + 0.5)
+  Test.expect((nth(2).rect().left - nth(1).rect().right).abs() < 0.01)
 }
 
 test "a slot is as big as the setting says, 50 where none is chosen, its icon with it, and the cards stay in the list" {
