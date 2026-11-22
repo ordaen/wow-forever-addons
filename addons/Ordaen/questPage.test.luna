@@ -1,8 +1,9 @@
-// A quest's rewards: the band's experience, reputation and money in one size.
+// A quest's scroll folded and unfolded; its rewards' band of experience, reputation and money in one size.
 import Test from "$test"
+import root Ordaen from "Ordaen"
 import { Quality } from "@/itemButton"
 import Locale from "@/locales"
-import { Reward, Rewards, Standing } from "@/questPage"
+import { Reward, Rewards, SCROLL_ROW, SCROLL_WIDTH, Scroll, Standing } from "@/questPage"
 
 function given(name: String): Reward {
   return {
@@ -22,6 +23,33 @@ class Page {
       </box>
     }
   }
+}
+
+class Parchment {
+  public state folded = true
+
+  public render(self): Template {
+    return $ltml {
+      <box width={SCROLL_WIDTH} rows={[SCROLL_ROW]}>
+        <Scroll title={"The Defias Brotherhood"} folded={mut self.folded}>
+          <text value={"Find the Defias hideout."} />
+        </Scroll>
+      </box>
+    }
+  }
+}
+
+test "a folded scroll holds its title alone between close rolls, and a click on it unfolds it" {
+  const page = new Parchment()
+  Test.mount(page, { left: 0, top: 0, width: 600, height: 600 })
+  const title = Test.page().text("The Defias Brotherhood").rect()
+  Test.expect(Test.page().texts().filter(text => text == "Find the Defias hideout.").length == 0)
+  const bottom = Test.edges(Ordaen.art.window.scroll.bottom, 0)
+  Test.expect(bottom.top - title.bottom < 30)
+  Test.page().text("The Defias Brotherhood").click()
+  Test.expect(!page.folded)
+  Test.expect(Test.page().text("Find the Defias hideout.").rect().top > Test.page().text("The Defias Brotherhood").rect().bottom)
+  destroy page
 }
 
 test "the band says experience and reputation in one size" {

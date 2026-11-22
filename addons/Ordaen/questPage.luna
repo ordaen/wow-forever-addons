@@ -70,15 +70,50 @@ const OVER_PAPER = 1
 const OFF_SIDES: Number<Length> = 60.9375dp
 const OFF_ROLLS: Number<Length> = 11.71875dp
 const OFF_BOTTOM: Number<Length> = FADE_HEIGHT + OFF_ROLLS
+// Folded: the title's row between the rolls, as far in from the torn sides and off the rolls as the text unfolded.
+const FOLDED_ROLLS: Array<Track> = ["max-content", "max-content", "max-content"]
+const FOLDED_ACROSS: Array<Track> = [OFF_SIDES, { fr: 1 }, OFF_SIDES]
+const FOLDED_DOWN: Array<Track> = [OFF_ROLLS, "max-content", OFF_ROLLS]
 
-// The scroll: what is said of a quest on the parchment between its rolls. It fills the cell it stands in, the paper
-// repeated down between the rolls and on under the bottom roll's fading edge; what it holds scrolls past the paper's
-// height. The text stands in the paper's box, so it is drawn over the paper and never meets a roll (boxes that overlap
-// at one level draw in the client's order).
+// The scroll: what is said of a quest on the parchment between its rolls, its title first. It fills the cell it
+// stands in, the paper repeated down between the rolls and on under the bottom roll's fading edge; what it holds
+// scrolls past the paper's height. The text stands in the paper's box, so it is drawn over the paper and never meets
+// a roll (boxes that overlap at one level draw in the client's order). Folded, the rolls stand close round the title
+// alone, the scroll as high as that (its row is the holder's: `max-content`, not SCROLL_ROW), and a click on it,
+// Enter or Space, unfolds it.
 public class Scroll implements Component {
+  derived titled: Boolean = self.title != ""
+
+  title: Signal<String>
+  folded: mut Signal<Boolean>
+  constructor(
+    // The quest's name, over what the scroll holds; none: what it holds alone.
+    title: Signal<String> = "",
+    folded: mut Signal<Boolean> = false
+  ) {
+    self.title = title
+    self.folded = folded
+  }
+
+  unfold(mut self) { self.folded = false }
+
   public render(self): Template {
     return $ltml {
-      <box rows={ROLLS}>
+      <box $if={self.folded} rows={FOLDED_ROLLS} @pointerPress={self.unfold} @keyPress(.Enter)={self.unfold}
+           @keyPress(.Space)={self.unfold}>
+        <box height={ROLL_HEIGHT} background={Ordaen.art.window.scroll.top} />
+        <box columns={FOLDED_ACROSS} rows={FOLDED_DOWN} zLevel={OVER_PAPER}>
+          <box />
+          <box />
+          <box />
+          <box />
+          <ScrollTitle title={self.title} />
+        </box>
+        <box height={ROLL_HEIGHT} background={Ordaen.art.window.scroll.bottom} zLevel={OVER_PAPER} />
+        <box position={Position.Absolute} left={0dp} right={0dp} top={ROLL_HEIGHT} bottom={UNDER_FADE}
+             background={Ordaen.art.window.scroll.paper} />
+      </box>
+      <box $else rows={ROLLS}>
         <box height={ROLL_HEIGHT} background={Ordaen.art.window.scroll.top} />
         <box />
         <box height={ROLL_HEIGHT} background={Ordaen.art.window.scroll.bottom} zLevel={OVER_PAPER} />
@@ -86,10 +121,23 @@ public class Scroll implements Component {
              background={Ordaen.art.window.scroll.paper}>
           <box position={Position.Absolute} left={OFF_SIDES} right={OFF_SIDES} top={OFF_ROLLS} bottom={OFF_BOTTOM}
                overflow={Overflow.Scroll} gap={1.5sp}>
+            <ScrollTitle $if={self.titled} title={self.title} />
             <slot />
           </box>
         </box>
       </box>
+    }
+  }
+}
+
+// A quest's name at the head of its scroll, in the scroll's heading ink.
+class ScrollTitle implements Component {
+  title: Signal<String>
+  constructor(title: Signal<String>) { self.title = title }
+
+  public render(self): Template {
+    return $ltml {
+      <text value={self.title} textColor={SCROLL_HEAD} textSize={TITLE_TEXT} lineHeight={TIGHT_LINE} textFont={.Title} />
     }
   }
 }
