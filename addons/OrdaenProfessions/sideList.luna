@@ -1,9 +1,10 @@
 // SideList: a list of the recipes page (the categories, the recipes), standing edge to edge with the section beside it:
 // no rim of its own, its section's surface (none for the categories, which stand on the wood), its rows (`TabItem`)
-// scrolling in their column. Where it is parted from the section at its right by a groove (`groove`), the groove runs
-// down its right side under its rows, so the chosen one, on that section's surface, stands over it: a tab cut into it.
+// scrolling in their column, its scrollbar shown while the cursor is over it. Where it is parted from the section at
+// its right by a groove (`groove`), the groove runs down its right side under its rows, so the chosen one, on that
+// section's surface, stands over it: a tab cut into it.
 // A prototype of the professions window's design: Ordaen's `ScrolledList` draws the lists of every other window.
-import { Edges, Overflow, Position, Size, Track } from "$ltml"
+import { Edges, Overflow, Position, Scrollbar, Size, Track } from "$ltml"
 import { Component } from "Ordaen"
 import Style from "@/style"
 
@@ -40,7 +41,7 @@ public class SideList implements Component {
           <box position={Position.Absolute} top={0ui} bottom={0ui} right={0ui} width={Style.GROOVE}
                background={Style.GROOVE_LIGHT} />
         </>
-        <box columns={1} padding={self.room} overflow={Overflow.Scroll}>
+        <box columns={1} padding={self.room} overflow={Overflow.Scroll} scrollbar={Scrollbar.Hover}>
           <slot />
         </box>
       </box>

@@ -5,7 +5,7 @@
 // each, scrolling in what room is left; and at the bottom, under a rule, its switches, the make row of a learned
 // recipe (`MakeRow`: the mode, the count, «Create») and what became of the last «Create».
 import Game from "$game"
-import { Align, Art, Blend, Edges, Overflow, Position, Track } from "$ltml"
+import { Align, Art, Blend, Edges, Overflow, Position, Scrollbar, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import { Component, ItemButton, SECONDARY_TEXT, TITLE_TEXT, WINDOW_ROOM } from "Ordaen"
 import type { PriceSource } from "OrdaenAuction"
@@ -186,10 +186,10 @@ public class RecipeDetails implements Component {
           </box>
           <text value={self.description} textSize={SECONDARY_TEXT} textColor={Style.PAPER_INK} />
           <text value={self.needs} textSize={SECONDARY_TEXT} textColor={Style.PAPER_DIM} />
-          <box $if={self.priced} overflow={Overflow.Scroll}>
+          <box $if={self.priced} overflow={Overflow.Scroll} scrollbar={Scrollbar.Hover}>
             <PriceTable parts={self.parts} />
           </box>
-          <box $else overflow={Overflow.Scroll}>
+          <box $else overflow={Overflow.Scroll} scrollbar={Scrollbar.Hover}>
             <ReagentRow $for={index, reagent of self.reagents} reagent={reagent} index={index} />
           </box>
           <box $if={self.priced} gap={3sp}>
