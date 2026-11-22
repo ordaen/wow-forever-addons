@@ -876,6 +876,34 @@ test "the wheel scrolls back, and «To the latest» brings the newest back" {
   Test.expect(shown.text("line 100").rect().bottom > shown.text("line 99").rect().bottom)
 }
 
+// How many of the lines `from` to `to` show in part: faded at an edge.
+function fadingAmong(shown: Test.Part, from: Integer, to: Integer): Integer {
+  let count = 0
+  for (n of from..to) {
+    const text = shown.text(`line ${n}`)
+    if (text.shown()) {
+      const part = text.opacity()
+      if (part > 0 && part < 1) { count += 1 }
+    }
+  }
+  return count
+}
+
+test "the lines fade out toward the top, and toward the bottom too while scrolled back" {
+  Game.chat.windows = gameWindows()
+  const shown = chat()
+  for (at of 1..100) { Game.chat.heard.emit(line("SAY", `line ${at}`, "Thrall", [1])) }
+  // At the newest: the oldest shown fade up to the top; the newest at the bottom is whole.
+  Test.expect(shown.text("line 100").opacity() == 1)
+  Test.expect(fadingAmong(shown, 60, 99) >= 1)
+  const atNewest = fadingAmong(shown, 20, 99)
+  shown.text("line 100").hover()
+  // Fifteen lines back: the newer ones wait under the bottom, and fade toward it too.
+  for (at of 1..5) { Test.wheel(1) }
+  Test.expect(!shown.text("line 99").shown())
+  Test.expect(fadingAmong(shown, 20, 99) > atNewest)
+}
+
 test "an Ordaen addon writes into the chat with its mark and colour" {
   const mark: ChatMark = { name: "Inventory", color: Color.hex("#e8c35a") }
   say(mark, "sorted.")

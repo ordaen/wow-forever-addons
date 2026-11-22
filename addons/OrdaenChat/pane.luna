@@ -4,7 +4,7 @@
 // holding that window alone, with no input. Whispers are Ordaen Social's.
 import Client from "$client"
 import Game from "$game"
-import { Align, Edges, Event, Frame, Layer, Line, MouseButton, Over, Overflow, Position, Track } from "$ltml"
+import { Align, Edges, Event, Fade, Frame, Layer, Line, MouseButton, Over, Overflow, Position, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import { BODY_LINE, Component, Corners, FIELD_EDGE, FIELD_FILL, GripCorner, Menu, MenuEntry, RoundedFill, SECONDARY_TEXT, SizeGrip } from "Ordaen"
 import root Quests from "OrdaenQuests"
@@ -34,6 +34,11 @@ const ROOM: Edges = { top: 2sp, right: 3sp, bottom: 2sp, left: 3sp }
 const INPUT_PAD: Edges = { right: 1sp, left: 1sp }
 // The room of the field's edge, which the field's surface draws over the input's box.
 const INPUT_EDGE: Line = { width: FIELD_EDGE.width, color: Color.hex("#00000000") }
+// The lines fade out toward the top, where the older ones go up past it; and toward the bottom while scrolled back,
+// where the newer ones wait under it.
+const FADE = 24dp
+const FADE_TOP: Fade = { top: FADE, bottom: 0ui }
+const FADE_BOTH: Fade = { top: FADE, bottom: FADE }
 // The lines' ground is round at its top right alone: its left meets the open tab, its bottom the panel under it.
 const GROUND_CORNERS: Corners = { topLeft: false, topRight: true, bottomLeft: false, bottomRight: false }
 // The field's top edge, lit: it stands out over the world above the lines.
@@ -128,6 +133,7 @@ public class Pane implements Component {
   derived open: ChatTab | nil = self.tabs.find(tab => tab.key == self.openKey) ?? self.tabs[1]
   // Lines scrolled back from the newest.
   public state back = 0
+  derived fade: Fade = self.back > 0 ? FADE_BOTH : FADE_TOP
   // The cursor on the tabs, on the lines.
   state onTabs = false
   state onLines = false
@@ -357,7 +363,7 @@ public class Pane implements Component {
             <box width={{ min: LINES_LEAST, max: nil }} rows={self.rows} yAlignSelf={Align.Stretch}>
               <embed $if={self.logFrame != nil} frame={self.logFrame ?? panic("shown with the frame")} />
               // The newest line stands at the bottom; older ones go up past the top, which cuts them.
-              <box $else overflow={Overflow.Hidden} textSize={self.textSize} mouseThrough={self.clickThrough} @wheel={self.onWheel}>
+              <box $else overflow={Overflow.Hidden} fade={self.fade} textSize={self.textSize} mouseThrough={self.clickThrough} @wheel={self.onWheel}>
                 <box position={Position.Absolute} left={0ui} right={0ui} bottom={0ui} columns={1} leading={.Row}
                      gap={self.between}>
                   <Row $for={entry of self.shown} line={entry.line} opens={entry.opens} stamp={entry.stamp}
