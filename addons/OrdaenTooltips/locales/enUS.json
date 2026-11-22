@@ -2,6 +2,7 @@
   "KEY_NEEDED": "Needs a key",
   "KEY_OPEN": "%s: open",
   "CAST_INSTANT": "Instant",
+  "RANK": "Rank %s",
   "CAST_SECONDS": "%s sec",
   "CAST_MINUTES": "%s min",
   "COUNT": "%d",

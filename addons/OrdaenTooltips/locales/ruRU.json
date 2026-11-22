@@ -2,6 +2,7 @@
   "KEY_NEEDED": "Нужен ключ",
   "KEY_OPEN": "%s: открыть",
   "CAST_INSTANT": "Мгновенно",
+  "RANK": "Ранг %s",
   "CAST_SECONDS": "%s сек.",
   "CAST_MINUTES": "%s мин.",
   "COUNT": "%d шт.",

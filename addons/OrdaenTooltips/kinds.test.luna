@@ -409,6 +409,13 @@ test "a spell's cost is a dot in its resource's colour, each cast its own glyph"
   Test.expect(!bolt.text("30 yd range").item().box(glyphArt(.Cost)).shown())
 }
 
+test "a cost in mana, rage or energy is the design's colour of it, not the client's" {
+  Game.spells.cost = (id: Integer): Game.SpellCost | nil => ({ amount: 65, resource: .Mana, color: BLUE })
+  Test.mount(nil, SCREEN)
+  Game.tooltip.main = showing(frostbolt())
+  Test.expect(tip("Frostbolt").text("65").item().box(glyphArt(.Cost)).paintedWith(Color.hex("#2f6fe0")))
+}
+
 test "a finishing move reads instant, melee range, its cooldown, its points as rows and its reagents" {
   Game.spells.cost = (id: Integer): Game.SpellCost | nil => ({ amount: 35, color: GAME_GOLD })
   Game.items.count = (name: String): Integer => name == "Flash Powder" ? 1 : 3
@@ -477,12 +484,12 @@ test "a channelled spell's cell says for how long, as its description has it; th
   Test.expect(missiles.text("3 sec").item().box(glyphArt(.CastChan)).shown())
   Test.expect(reads(
     missiles,
-    "Arcane Missiles | 3 sec | Launches |cffffffff3|r missiles, each dealing |cffffffff24|r |cffe48af0Arcane damage|r, over |cffffffff3|r sec. Unlike «|cffffd100Frostbolt|r»."
+    "Arcane Missiles | 3 sec | Launches |cffffd1003|r missiles, each dealing |cffffd10024|r |cffe48af0Arcane damage|r, over |cffffd1003 sec.|r Unlike «|cffffd100Frostbolt|r»."
   ))
 }
 
-test "a spell's rank is the client's subtext where its tooltip says none" {
-  Client.C_Spell.GetSpellSubtext = (spell: String | Integer): String | nil => spell == 10 ? "Rank 7" : nil
+test "a spell's rank is the client's subtext where its tooltip says none, in Ordaen's words" {
+  Client.C_Spell.GetSpellSubtext = (spell: String | Integer): String | nil => spell == 10 ? "Уровень 7" : nil
   Test.mount(nil, SCREEN)
   Game.tooltip.main = showing({ kind: 1, id: 10, lines: [{ left: "Blizzard", kind: NAME_OF_SPELL }, { left: "Channeled", kind: 0 }] })
   Test.expect(tip("Blizzard").text("Rank 7").shown())
@@ -571,7 +578,7 @@ test "a talent reads its tree and its rank, and the next rank with what changes 
     lines: [{ left: "Passive", kind: 33 }, { left: "Reduces the cast time of Fireball by 0.2 sec.", kind: DESCRIBED }]
   })
   const talent = tip("Improved Fireball")
-  Test.expect(reads(talent, "Improved Fireball | Talent | · | 2/5 | · | Fire | Reduces the cast time of Fireball by |cffffffff0.2|r sec. | Next rank: | Reduces the cast time of Fireball by |cff40ff600.3|r sec."))
+  Test.expect(reads(talent, "Improved Fireball | Talent | · | 2/5 | · | Fire | Reduces the cast time of Fireball by |cffffd1000.2 sec.|r | Next rank: | Reduces the cast time of Fireball by |cff40ff600.3|r sec."))
   Test.expect(talent.paintedWith("Interface/Icons/Spell_Fire_FlameBolt"))
   Test.expect(inColor(talent.text("2/5"), Color.hex("#cbb994")))
 }
@@ -622,7 +629,7 @@ test "a talent not learned names the points its tree wants, red while not spent,
   Test.mount(nil, SCREEN)
   Game.tooltip.main = showing({ kind: 1, id: 11069, lines: [{ left: "Reduces the cast time of Fireball by 0.1 sec.", kind: DESCRIBED }] })
   const talent = tip("Improved Fireball")
-  Test.expect(reads(talent, "Improved Fireball | Talent | · | 0/5 | · | Fire | Reduces the cast time of Fireball by |cffffffff0.1|r sec. | Talent points required | 5 | Talent points required | 10 | Learn the talent before it first"))
+  Test.expect(reads(talent, "Improved Fireball | Talent | · | 0/5 | · | Fire | Reduces the cast time of Fireball by |cffffd1000.1 sec.|r | Talent points required | 5 | Talent points required | 10 | Learn the talent before it first"))
   Test.expect(inColor(talent.text("5"), RED))
   Test.expect(inColor(talent.text("10"), QUIET_VALUE))
   Test.expect(inColor(talent.text("Learn the talent before it first"), RED))
@@ -1057,7 +1064,7 @@ test "what using an item does stands beside it, with the time until it can be us
   Test.mount(nil, SCREEN)
   Game.tooltip.main = showing(axeTip())
   const use = tip("Healing Touch").text("Healing Touch").item()
-  Test.expect(reads(use, "Healing Touch | Instant | Heals you for |cffffffff100|r. | Ready in | 30 s"))
+  Test.expect(reads(use, "Healing Touch | Instant | Heals you for |cffffd100100|r. | Ready in | 30 s"))
   Test.expect(inColor(use.text("30 s"), GOLD))
   // The axe says it no more.
   Test.expect(!tip("Healing Touch").text("Use: Heals you.").shown())
@@ -1780,4 +1787,19 @@ test "a party member's count stands set in under the player's own" {
   const own = tip("Sack").text("Sacks").rect()
   const member = tip("Sack").text("Anduin").rect()
   Test.expect(member.left > own.left)
+}
+
+test "a description lights a range whole and each number with its unit" {
+  Test.mount(nil, SCREEN)
+  Game.tooltip.main = showing({
+    kind: 1, id: 10,
+    lines: [
+      { left: "Fireball", kind: NAME_OF_SPELL },
+      { left: "Hurls a fiery ball that causes 19-20 Fire damage, and от 19 до 20 сек. more over 4 sec, 10% faster.", kind: DESCRIBED }
+    ]
+  })
+  Test.expect(reads(
+    tip("Fireball"),
+    "Fireball | Hurls a fiery ball that causes |cffffd10019-20|r |cffff8a3cFire damage|r, and |cffffd100от 19 до 20 сек.|r more over |cffffd1004 sec|r, |cffffd10010%|r faster."
+  ))
 }
