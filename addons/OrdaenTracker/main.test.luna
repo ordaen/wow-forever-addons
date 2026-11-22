@@ -83,6 +83,17 @@ test "only the zone's tracked quests are listed: another zone's stays out" {
   Test.expect(Test.page().text("The Defias Brotherhood").shown() && !Test.page().text("The Westfall Stew").shown())
 }
 
+test "entering another zone lists that zone's tracked quests in place of the last one's" {
+  logged()
+  Test.mount(nil, PAGE)
+  Tracker.refresh()
+  Test.flush()
+  Test.zone("Westfall")
+  Test.flush()
+  Test.expect(Test.page().text("The Westfall Stew").shown() && !Test.page().text("The Defias Brotherhood").shown())
+  Test.zone("Elwynn Forest")
+}
+
 test "a module's lines stand under each quest: where to go; done, whom to hand it to on the quest's own line" {
   logged()
   Test.mount(nil, PAGE)
