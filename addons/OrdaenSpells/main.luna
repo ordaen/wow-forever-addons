@@ -39,6 +39,7 @@ function learnerOf(level: Integer): Learner {
   return {
     classTag: Game.player.classTag, race: race?.floor() ?? 0, side: Game.player.faction == Game.Faction.Horde ? 2 : 1, level: level,
     known: (spell: Integer): Boolean => Game.spells.known(spell),
+    petKnown: (spell: Integer): Boolean => Client.C_SpellBook.IsSpellKnown(spell, Client.SpellBookSpellBank.Pet),
     standing: (faction: Integer): Integer | nil => Client.C_Reputation.GetFactionDataByID(faction)?.reaction
   }
 }

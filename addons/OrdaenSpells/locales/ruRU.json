@@ -53,5 +53,8 @@
   "LEARN_WEAPONS": "Учителя оружия",
   "LEARN_WEAPON_LEVEL": "С уровня %d",
   "WEAPON_MASTER": "%s, %s (%.1f, %.1f): %s",
+  "LEARN_GRIMOIRES": "Учитель демонов",
+  "LEARN_GRIMOIRE": "Гримуар для демона: %s",
+  "LEARN_PET_TRAINER": "Учитель питомцев",
   "PICK_LEARNABLE": "Выберите заклинание: что оно делает, где изучается и за сколько."
 }

@@ -19,6 +19,9 @@ const CLEAVE = 845
 // Stormwind, whose trainers teach warriors of the Alliance.
 const STORMWIND = 72
 const POLEARMS = 200
+const BLOOD_PACT = 6307
+const BLOOD_PACT_2 = 7804
+const GREAT_STAMINA = 4187
 const SWORDS = 201
 // The client's reactions: Friendly, Honored.
 const FRIENDLY = 5
@@ -29,7 +32,17 @@ function warrior(known: Array<Integer>, stormwind: Integer = FRIENDLY): Learner 
   return {
     classTag: "WARRIOR", race: 1, side: 1, level: 10,
     known: (spell: Integer): Boolean => known.any(each => each == spell),
+    petKnown: (spell: Integer): Boolean => known.any(each => each == spell),
     standing: (faction: Integer): Integer | nil => faction == STORMWIND ? stormwind : FRIENDLY
+  }
+}
+
+// A level 10 human of the Alliance of `classTag`, knowing nothing, whose pet knows `pet`.
+function classLearner(classTag: String, pet: Array<Integer>): Learner {
+  return {
+    classTag: classTag, race: 1, side: 1, level: 10, known: (spell: Integer): Boolean => false,
+    petKnown: (spell: Integer): Boolean => pet.any(each => each == spell),
+    standing: (faction: Integer): Integer | nil => FRIENDLY
   }
 }
 
@@ -64,11 +77,11 @@ test "a spell's rank is the client's, and its price What's Training's, a tenth o
   Test.expect(serviceOf(friendly, REND_2)?.cost == 700 && serviceOf(friendly, CHARGE)?.cost == 100)
   const honored = learnableOf(warrior([REND], HONORED), noQuest, noNpc, nil)
   Test.expect(serviceOf(honored, REND_2)?.cost == 630 && serviceOf(honored, CHARGE)?.cost == 90)
-  Test.expect(bestPrice(warrior([], HONORED), 1000) == 900 && bestPrice(warrior([]), 1000) == 1000)
+  Test.expect(bestPrice(warrior([], HONORED), 1000, "WARRIOR") == 900 && bestPrice(warrior([]), 1000, "WARRIOR") == 1000)
 }
 
 test "a price at each city whose trainers teach the class, cheapest first: a tenth off where the player is Honored" {
-  const cities = cityPricesOf(warrior([], HONORED), 1000)
+  const cities = cityPricesOf(warrior([], HONORED), 1000, "WARRIOR")
   Test.expect(cities.length == 4 && cities[1]?.faction == STORMWIND && cities[1]?.price == 900 && cities[1]?.standing == HONORED)
   Test.expect(cities[2]?.price == 1000 && cities[2]?.standing == FRIENDLY)
 }
@@ -99,6 +112,26 @@ test "a weapon skill of the class stands under the weapon masters with its maste
   Test.expect(serviceOf(friendly, SWORDS)?.category == "Known")
   // Honored with Stormwind, its master takes a tenth off.
   Test.expect(serviceOf(learnableOf(warrior([], HONORED), noQuest, masters, nil), POLEARMS)?.cost == 9000)
+}
+
+test "a warlock's demon grimoires stand under the demon trainer, ranked by the grimoires of their spell, known where the demon knows them" {
+  Game.spells.name = (id: Integer): String | nil => id == BLOOD_PACT || id == BLOOD_PACT_2 ? "Blood Pact" : nil
+  const warlock = classLearner("WARLOCK", [])
+  const grimoires = learnableOf(warlock, noQuest, noNpc, nil)
+  const pact = serviceOf(grimoires, BLOOD_PACT)
+  Test.expect(pact?.category == "Demon trainer" && pact?.rank == "Rank 1" && pact?.cost == 100 && pact?.level == 4)
+  Test.expect(serviceOf(grimoires, BLOOD_PACT_2)?.rank == "Rank 2")
+  Test.expect(grimoires.notes[pact?.index ?? 0] == "A grimoire for your Imp")
+  const knowing = classLearner("WARLOCK", [BLOOD_PACT])
+  Test.expect(serviceOf(learnableOf(knowing, noQuest, noNpc, nil), BLOOD_PACT)?.category == "Known")
+  // A warrior has no grimoires.
+  Test.expect(serviceOf(learnableOf(warrior([]), noQuest, noNpc, nil), BLOOD_PACT) == nil)
+}
+
+test "a hunter's pet trainer abilities stand under the pet trainer, at its price, known where the pet knows them" {
+  const stamina = serviceOf(learnableOf(classLearner("HUNTER", []), noQuest, noNpc, nil), GREAT_STAMINA)
+  Test.expect(stamina?.category == "Pet trainer" && stamina?.rank == "Rank 1" && stamina?.cost == 10)
+  Test.expect(serviceOf(learnableOf(classLearner("HUNTER", [GREAT_STAMINA]), noQuest, noNpc, nil), GREAT_STAMINA)?.category == "Known")
 }
 
 test "the spellbook's «Learnable» tab lists them under their headings, with a picked spell's card" {

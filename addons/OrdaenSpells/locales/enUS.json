@@ -53,5 +53,8 @@
   "LEARN_WEAPONS": "Weapon masters",
   "LEARN_WEAPON_LEVEL": "From level %d",
   "WEAPON_MASTER": "%s, %s (%.1f, %.1f): %s",
+  "LEARN_GRIMOIRES": "Demon trainer",
+  "LEARN_GRIMOIRE": "A grimoire for your %s",
+  "LEARN_PET_TRAINER": "Pet trainer",
   "PICK_LEARNABLE": "Pick a spell: what it does, where it is learned and for how much."
 }
