@@ -183,12 +183,12 @@ surface 548.15,192.46 893.38x515.08 on MEDIUM clamped raised by a click
       box 1419.78,685.79 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 548.15,192.46 893.38x50.67
     box 562.55,192.46 776.04x50.67
-      box 562.55,192.46 115.97x50.67 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.99, tr 0.97, top 0.99>0.97 x3.03, left 0.99>0.98 x1.26, right 0.97>0.95 x1.26] @drag @dragStart @dragStop @keyPress @pointerPress
-        box 569.3,199.21 50.67x50.67 absolute icon=Interface/QuestFrame/UI-QuestLog-BookIcon cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=none pieces=[]
-        box 617.42,199.21 2.7x43.92 absolute border=Interface\AddOns\Ordaen\media\frame-divider-down sides=left pieces=[left 0.86>0.85 x2.29]
-        box 624.45,199.66 38.33x50.22
-          text 624.45,209.47 38.33x15.83 "Quests" #ffd100
-          text 640.28,226.73 6.67x13.33 "3" #8f8470
+      box 562.55,192.46 113.5x50.67 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.99, tr 0.97, top 0.99>0.97 x2.94, left 0.99>0.98 x1.26, right 0.97>0.95 x1.26] @drag @dragStart @dragStop @keyPress @pointerPress
+        box 569.3,199.21 43.92x43.92 absolute icon=Interface/QuestFrame/UI-QuestLog-BookIcon cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=none pieces=[]
+        box 610.67,199.21 2.7x43.92 absolute border=Interface\AddOns\Ordaen\media\frame-divider-down sides=left pieces=[left 0.86>0.85 x2.29]
+        box 617.7,199.66 42.62x43.47
+          text 619.84,206.1 38.33x15.83 "Quests" #ffd100
+          text 635.67,223.35 6.67x13.33 "3" #8f8470
     box 1347.13,216.46 80x26.67 clipped opacity=1 @pointerEnter @pointerLeave
       box 1347.13,216.46 27.5x26.67 absolute clipped @keyPress @pointerPress
         box 1347.13,216.46 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
@@ -244,11 +244,11 @@ surface 956.48,223.29 353.7x453.42 on MEDIUM clamped raised by a click
       box 1288.43,654.96 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 956.48,223.29 353.7x39
     box 970.88,223.29 261.37x39
-      box 970.88,223.29 194.3x39 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.98, tr 0.88, top 0.98>0.89 x5.75, left 0.98>0.97 x0.85, right 0.88>0.87 x0.85] @drag @dragStart @dragStop @keyPress @pointerPress
-        box 977.63,230.04 39x39 absolute icon=Interface/GossipFrame/AvailableQuestIcon cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=none pieces=[]
-        box 1014.08,230.04 2.7x32.25 absolute border=Interface\AddOns\Ordaen\media\frame-divider-down sides=left pieces=[left 0.85>0.84 x1.68]
-        box 1021.12,230.49 128.33x38.55
-          text 1021.12,241.85 128.33x15.83 "Next quest in a chain" #ffd100
+      box 970.88,223.29 187.55x39 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.98, tr 0.89, top 0.98>0.89 x5.51, left 0.98>0.97 x0.85, right 0.88>0.87 x0.85] @drag @dragStart @dragStop @keyPress @pointerPress
+        box 977.63,230.04 32.25x32.25 absolute icon=Interface/GossipFrame/AvailableQuestIcon cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=none pieces=[]
+        box 1007.33,230.04 2.7x32.25 absolute border=Interface\AddOns\Ordaen\media\frame-divider-down sides=left pieces=[left 0.85>0.84 x1.68]
+        box 1014.37,230.49 128.33x31.8
+          text 1014.37,238.47 128.33x15.83 "Next quest in a chain" #ffd100
     box 1240.78,235.62 55x26.67 clipped opacity=0 @pointerEnter @pointerLeave
       box 1240.78,235.62 27.5x26.67 absolute clipped @keyPress @pointerPress
         box 1240.78,235.62 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16

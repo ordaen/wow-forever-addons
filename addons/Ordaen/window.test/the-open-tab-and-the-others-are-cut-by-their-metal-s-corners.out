@@ -8,15 +8,15 @@ surface 600,275.79 400x348.42 on MEDIUM clamped raised by a click
       box 978.25,602.46 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 600,275.79 400x50.67
     box 614.4,275.79 307.67x50.67
-      box 614.4,275.79 145.97x50.67 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.99, tr 0.92, top 0.98>0.92 x4.07, left 0.98>0.96 x1.26, right 0.91>0.89 x1.26] @drag @dragStart @dragStop @keyPress @pointerPress
-        box 621.15,282.54 50.67x50.67 absolute icon=Interface/Icons/Trade_Tailoring cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=none pieces=[]
-        box 669.27,282.54 2.7x43.92 absolute border=Interface\AddOns\Ordaen\media\frame-divider-down sides=left pieces=[left 0.85>0.82 x2.29]
-        box 676.3,282.99 68.33x50.22
-          text 676.3,292.81 68.33x15.83 "Professions" #ffd100
-          text 679.63,310.06 61.67x13.33 "Tailoring 75" #8f8470
-      box 770.32,275.79 113.5x50.67 Interface\AddOns\Ordaen\media\window-wood tint=#808080 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.91, tr 0.86, top 0.91>0.86 x2.94, left 0.90>0.88 x1.26, right 0.85>0.83 x1.26] @drag @dragStart @dragStop @keyPress @pointerPress
-        box 786.06,282.99 82.03x50.22
-          text 804.99,300.18 44.17x15.83 "Recipes" #a3977f
+      box 614.4,275.79 139.22x50.67 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.99, tr 0.92, top 0.98>0.93 x3.83, left 0.98>0.96 x1.26, right 0.92>0.90 x1.26] @drag @dragStart @dragStop @keyPress @pointerPress
+        box 621.15,282.54 43.92x43.92 absolute icon=Interface/Icons/Trade_Tailoring cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=none pieces=[]
+        box 662.52,282.54 2.7x43.92 absolute border=Interface\AddOns\Ordaen\media\frame-divider-down sides=left pieces=[left 0.85>0.83 x2.29]
+        box 669.55,282.99 68.33x43.47
+          text 669.55,289.43 68.33x15.83 "Professions" #ffd100
+          text 672.88,306.69 61.67x13.33 "Tailoring 75" #8f8470
+      box 763.57,275.79 113.5x50.67 Interface\AddOns\Ordaen\media\window-wood tint=#808080 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.91, tr 0.86, top 0.91>0.87 x2.94, left 0.91>0.89 x1.26, right 0.85>0.83 x1.26] @drag @dragStart @dragStop @keyPress @pointerPress
+        box 779.31,282.99 82.03x43.47
+          text 798.24,296.81 44.17x15.83 "Recipes" #a3977f
     box 930.6,299.79 55x26.67 clipped opacity=0 @pointerEnter @pointerLeave
       box 930.6,299.79 27.5x26.67 absolute clipped @keyPress @pointerPress
         box 930.6,299.79 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
@@ -35,15 +35,15 @@ surface 600,275.79 400x348.42 on MEDIUM clamped raised by a click
       box 978.25,602.46 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 600,275.79 400x50.67
     box 614.4,275.79 307.67x50.67
-      box 614.4,275.79 145.97x50.67 Interface\AddOns\Ordaen\media\window-wood tint=#808080 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.99, tr 0.92, top 0.98>0.92 x4.07, left 0.98>0.96 x1.26, right 0.91>0.89 x1.26] @drag @dragStart @dragStop @keyPress @pointerPress
-        box 621.15,282.54 50.67x50.67 absolute icon=Interface/Icons/Trade_Tailoring cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=none pieces=[]
-        box 669.27,282.54 2.7x43.92 absolute border=Interface\AddOns\Ordaen\media\frame-divider-down sides=left pieces=[left 0.85>0.82 x2.29]
-        box 676.3,282.99 68.33x50.22
-          text 676.3,292.81 68.33x15.83 "Professions" #a3977f
-          text 679.63,310.06 61.67x13.33 "Tailoring 75" #8f8470
-      box 770.32,275.79 113.5x50.67 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.91, tr 0.86, top 0.91>0.86 x2.94, left 0.90>0.88 x1.26, right 0.85>0.83 x1.26] @drag @dragStart @dragStop @keyPress @pointerPress
-        box 786.06,282.99 82.03x50.22
-          text 804.99,300.18 44.17x15.83 "Recipes" #ffd100
+      box 614.4,275.79 139.22x50.67 Interface\AddOns\Ordaen\media\window-wood tint=#808080 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.99, tr 0.92, top 0.98>0.93 x3.83, left 0.98>0.96 x1.26, right 0.92>0.90 x1.26] @drag @dragStart @dragStop @keyPress @pointerPress
+        box 621.15,282.54 43.92x43.92 absolute icon=Interface/Icons/Trade_Tailoring cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=none pieces=[]
+        box 662.52,282.54 2.7x43.92 absolute border=Interface\AddOns\Ordaen\media\frame-divider-down sides=left pieces=[left 0.85>0.83 x2.29]
+        box 669.55,282.99 68.33x43.47
+          text 669.55,289.43 68.33x15.83 "Professions" #a3977f
+          text 672.88,306.69 61.67x13.33 "Tailoring 75" #8f8470
+      box 763.57,275.79 113.5x50.67 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.91, tr 0.86, top 0.91>0.87 x2.94, left 0.91>0.89 x1.26, right 0.85>0.83 x1.26] @drag @dragStart @dragStop @keyPress @pointerPress
+        box 779.31,282.99 82.03x43.47
+          text 798.24,296.81 44.17x15.83 "Recipes" #ffd100
     box 930.6,299.79 55x26.67 clipped opacity=0 @pointerEnter @pointerLeave
       box 930.6,299.79 27.5x26.67 absolute clipped @keyPress @pointerPress
         box 930.6,299.79 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16

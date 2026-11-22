@@ -91,36 +91,36 @@ surface 425,184.12 1039.68x531.75 on MEDIUM clamped raised by a click
       box 1442.93,694.12 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 425,184.12 1039.68x50.67
     box 439.4,184.12 922.34x50.67
-      box 439.4,184.12 121.8x50.67 Interface\AddOns\Ordaen\media\window-wood tint=#808080 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.99, tr 0.97, top 0.99>0.98 x3.23, left 0.99>0.98 x1.26, right 0.97>0.96 x1.26] @drag @dragStart @dragStop @keyPress @pointerPress
-        box 446.15,190.88 50.67x50.67 absolute icon=Interface/Icons/Achievement_GuildPerk_EverybodysFriend cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=none pieces=[]
-        box 494.27,190.88 2.7x43.92 absolute border=Interface\AddOns\Ordaen\media\frame-divider-down sides=left pieces=[left 0.87>0.85 x2.29]
-        box 501.3,191.32 44.17x50.22
-          text 501.3,201.14 44.17x15.83 "Friends" #a3977f
-          text 502.55,218.39 41.67x13.33 "2 online" #8f8470
-      box 571.16,184.12 119.3x50.67 Interface\AddOns\Ordaen\media\window-wood tint=#808080 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.97, tr 0.95, top 0.97>0.95 x3.14, left 0.97>0.95 x1.26, right 0.94>0.93 x1.26] @drag @dragStart @dragStop @keyPress @pointerPress
-        box 577.91,190.88 50.67x50.67 absolute icon=Interface/Icons/INV_Shirt_GuildTabard_01 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=none pieces=[]
-        box 626.02,190.88 2.7x43.92 absolute border=Interface\AddOns\Ordaen\media\frame-divider-down sides=left pieces=[left 0.84>0.83 x2.29]
-        box 633.06,191.32 41.67x50.22
-          text 638.06,201.14 31.67x15.83 "Guild" #a3977f
-          text 633.06,218.39 41.67x13.33 "2 online" #8f8470
-      box 700.41,184.12 145.97x50.67 Interface\AddOns\Ordaen\media\window-wood tint=#808080 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.94, tr 0.92, top 0.94>0.92 x4.07, left 0.94>0.93 x1.26, right 0.91>0.90 x1.26] @drag @dragStart @dragStop @keyPress @pointerPress
-        box 707.16,190.88 50.67x50.67 absolute icon=Interface/Icons/INV_Misc_GroupNeedMore cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=none pieces=[]
-        box 755.28,190.88 2.7x43.92 absolute border=Interface\AddOns\Ordaen\media\frame-divider-down sides=left pieces=[left 0.82>0.81 x2.29]
-        box 762.31,191.32 68.33x50.22
-          text 762.31,201.14 68.33x15.83 "Communities" #a3977f
-          text 775.64,218.39 41.67x13.33 "2 joined" #8f8470
-      box 856.33,184.12 157.63x50.67 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.91, tr 0.89, top 0.91>0.89 x4.47, left 0.91>0.90 x1.26, right 0.88>0.87 x1.26] @drag @dragStart @dragStop @keyPress @pointerPress
-        box 863.08,190.88 50.67x50.67 absolute icon=Interface/Icons/INV_Misc_GroupLooking cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=none pieces=[]
-        box 911.2,190.88 2.7x43.92 absolute border=Interface\AddOns\Ordaen\media\frame-divider-down sides=left pieces=[left 0.80>0.78 x2.29]
-        box 918.23,191.32 80x50.22
-          text 918.23,201.14 80x15.83 "Recent Allies" #ffd100
-          text 937.4,218.39 41.67x13.33 "2 allies" #8f8470
-      box 1023.92,184.12 154.3x50.67 Interface\AddOns\Ordaen\media\window-wood tint=#808080 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.88, tr 0.85, top 0.88>0.86 x4.36, left 0.88>0.87 x1.26, right 0.85>0.84 x1.26] @drag @dragStart @dragStop @keyPress @pointerPress
-        box 1030.67,190.88 50.67x50.67 absolute icon=Interface/Icons/INV_Letter_15 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=none pieces=[]
-        box 1078.79,190.88 2.7x43.92 absolute border=Interface\AddOns\Ordaen\media\frame-divider-down sides=left pieces=[left 0.77>0.75 x2.29]
-        box 1085.82,191.32 76.67x50.22
-          text 1099.16,201.14 50x15.83 "Whispers" #a3977f
-          text 1085.82,218.39 76.67x13.33 "0 conversations" #8f8470
+      box 439.4,184.12 115.05x50.67 Interface\AddOns\Ordaen\media\window-wood tint=#808080 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.99, tr 0.97, top 0.99>0.98 x2.99, left 0.99>0.98 x1.26, right 0.97>0.96 x1.26] @drag @dragStart @dragStop @keyPress @pointerPress
+        box 446.15,190.88 43.92x43.92 absolute icon=Interface/Icons/Achievement_GuildPerk_EverybodysFriend cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=none pieces=[]
+        box 487.52,190.88 2.7x43.92 absolute border=Interface\AddOns\Ordaen\media\frame-divider-down sides=left pieces=[left 0.87>0.85 x2.29]
+        box 494.55,191.32 44.17x43.47
+          text 494.55,197.76 44.17x15.83 "Friends" #a3977f
+          text 495.8,215.02 41.67x13.33 "2 online" #8f8470
+      box 564.41,184.12 113.5x50.67 Interface\AddOns\Ordaen\media\window-wood tint=#808080 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.97, tr 0.95, top 0.97>0.95 x2.94, left 0.97>0.95 x1.26, right 0.95>0.93 x1.26] @drag @dragStart @dragStop @keyPress @pointerPress
+        box 571.16,190.88 43.92x43.92 absolute icon=Interface/Icons/INV_Shirt_GuildTabard_01 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=none pieces=[]
+        box 612.52,190.88 2.7x43.92 absolute border=Interface\AddOns\Ordaen\media\frame-divider-down sides=left pieces=[left 0.85>0.83 x2.29]
+        box 619.56,191.32 42.62x43.47
+          text 625.03,197.76 31.67x15.83 "Guild" #a3977f
+          text 620.03,215.02 41.67x13.33 "2 online" #8f8470
+      box 687.86,184.12 139.22x50.67 Interface\AddOns\Ordaen\media\window-wood tint=#808080 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.95, tr 0.92, top 0.95>0.92 x3.83, left 0.94>0.93 x1.26, right 0.92>0.90 x1.26] @drag @dragStart @dragStop @keyPress @pointerPress
+        box 694.61,190.88 43.92x43.92 absolute icon=Interface/Icons/INV_Misc_GroupNeedMore cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=none pieces=[]
+        box 735.98,190.88 2.7x43.92 absolute border=Interface\AddOns\Ordaen\media\frame-divider-down sides=left pieces=[left 0.82>0.81 x2.29]
+        box 743.01,191.32 68.33x43.47
+          text 743.01,197.76 68.33x15.83 "Communities" #a3977f
+          text 756.34,215.02 41.67x13.33 "2 joined" #8f8470
+      box 837.03,184.12 150.88x50.67 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.92, tr 0.89, top 0.92>0.89 x4.24, left 0.91>0.90 x1.26, right 0.89>0.87 x1.26] @drag @dragStart @dragStop @keyPress @pointerPress
+        box 843.78,190.88 43.92x43.92 absolute icon=Interface/Icons/INV_Misc_GroupLooking cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=none pieces=[]
+        box 885.15,190.88 2.7x43.92 absolute border=Interface\AddOns\Ordaen\media\frame-divider-down sides=left pieces=[left 0.80>0.78 x2.29]
+        box 892.18,191.32 80x43.47
+          text 892.18,197.76 80x15.83 "Recent Allies" #ffd100
+          text 911.35,215.02 41.67x13.33 "2 allies" #8f8470
+      box 997.87,184.12 147.55x50.67 Interface\AddOns\Ordaen\media\window-wood tint=#808080 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.89, tr 0.86, top 0.89>0.86 x4.12, left 0.88>0.87 x1.26, right 0.86>0.84 x1.26] @drag @dragStart @dragStop @keyPress @pointerPress
+        box 1004.62,190.88 43.92x43.92 absolute icon=Interface/Icons/INV_Letter_15 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=none pieces=[]
+        box 1045.99,190.88 2.7x43.92 absolute border=Interface\AddOns\Ordaen\media\frame-divider-down sides=left pieces=[left 0.77>0.76 x2.29]
+        box 1053.02,191.32 76.67x43.47
+          text 1066.36,197.76 50x15.83 "Whispers" #a3977f
+          text 1053.02,215.02 76.67x13.33 "0 conversations" #8f8470
     box 1370.28,208.12 80x26.67 clipped opacity=1 @pointerEnter @pointerLeave
       box 1370.28,208.12 27.5x26.67 absolute clipped @keyPress @pointerPress
         box 1370.28,208.12 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16

@@ -11,8 +11,8 @@ surface 450,331.62 400x236.75 on MEDIUM clamped raised by a click
   box 450,331.62 400x39
     box 464.4,331.62 307.67x39
       box 464.4,331.62 113.5x39 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.98, tr 0.93, top 0.98>0.94 x2.94, left 0.98>0.96 x0.85, right 0.93>0.90 x0.85] @drag @dragStart @dragStop @keyPress @pointerPress
-        box 480.13,338.82 82.03x38.55
-          text 505.32,350.18 31.67x15.83 "Alpha" #ffd100
+        box 480.13,338.82 82.03x31.8
+          text 505.32,346.81 31.67x15.83 "Alpha" #ffd100
     box 780.6,343.96 55x26.67 clipped opacity=1 @pointerEnter @pointerLeave
       box 780.6,343.96 27.5x26.67 absolute clipped @keyPress @pointerPress
         box 780.6,343.96 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
@@ -30,8 +30,8 @@ surface 600,331.62 400x436.75 on MEDIUM clamped raised by a click
   box 600,331.62 400x39
     box 614.4,331.62 307.67x39
       box 614.4,331.62 113.5x39 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.99, tr 0.94, top 0.98>0.94 x2.94, left 0.98>0.97 x0.85, right 0.93>0.92 x0.85] @drag @dragStart @dragStop @keyPress @pointerPress
-        box 630.13,338.82 82.03x38.55
-          text 658.23,350.18 25.83x15.83 "Beta" #ffd100
+        box 630.13,338.82 82.03x31.8
+          text 658.23,346.81 25.83x15.83 "Beta" #ffd100
     box 930.6,343.96 55x26.67 clipped opacity=0 @pointerEnter @pointerLeave
       box 930.6,343.96 27.5x26.67 absolute clipped @keyPress @pointerPress
         box 930.6,343.96 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
@@ -49,8 +49,8 @@ surface 750,331.62 400x236.75 on MEDIUM clamped raised by a click
   box 750,331.62 400x39
     box 764.4,331.62 307.67x39
       box 764.4,331.62 113.5x39 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.98, tr 0.93, top 0.98>0.94 x2.94, left 0.98>0.96 x0.85, right 0.93>0.90 x0.85] @drag @dragStart @dragStop @keyPress @pointerPress
-        box 780.13,338.82 82.03x38.55
-          text 805.32,350.18 31.67x15.83 "Gamma" #ffd100
+        box 780.13,338.82 82.03x31.8
+          text 805.32,346.81 31.67x15.83 "Gamma" #ffd100
     box 1080.6,343.96 55x26.67 clipped opacity=0 @pointerEnter @pointerLeave
       box 1080.6,343.96 27.5x26.67 absolute clipped @keyPress @pointerPress
         box 1080.6,343.96 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16

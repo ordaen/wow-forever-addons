@@ -155,11 +155,11 @@ surface 54.82,99.96 384.71x620.08 on MEDIUM clamped raised by a click
       box 417.78,698.29 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 54.82,99.96 384.71x39
     box 69.22,99.96 267.38x39
-      box 69.22,99.96 187.63x39 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.99, tr 0.90, top 0.98>0.90 x5.52, left 0.99>0.98 x0.85, right 0.89>0.88 x0.85] @drag @dragStart @dragStop @keyPress @pointerPress
-        box 75.97,106.71 39x39 absolute face:npc border=Interface\AddOns\Ordaen\media\frame-edge-top sides=none pieces=[]
-        box 112.42,106.71 2.7x32.25 absolute border=Interface\AddOns\Ordaen\media\frame-divider-down sides=left pieces=[left 0.85>0.84 x1.68]
-        box 119.45,107.16 121.67x38.55
-          text 119.45,118.52 121.67x15.83 "Stormwind City Guard" #ffd100
+      box 69.22,99.96 180.88x39 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.99, tr 0.90, top 0.98>0.90 x5.28, left 0.99>0.98 x0.85, right 0.90>0.89 x0.85] @drag @dragStart @dragStop @keyPress @pointerPress
+        box 75.97,106.71 32.25x32.25 absolute face:npc border=Interface\AddOns\Ordaen\media\frame-edge-top sides=none pieces=[]
+        box 105.67,106.71 2.7x32.25 absolute border=Interface\AddOns\Ordaen\media\frame-divider-down sides=left pieces=[left 0.85>0.84 x1.68]
+        box 112.7,107.16 121.67x31.8
+          text 112.7,115.14 121.67x15.83 "Stormwind City Guard" #ffd100
     box 345.13,112.29 80x26.67 clipped opacity=0 @pointerEnter @pointerLeave
       box 345.13,112.29 27.5x26.67 absolute clipped @keyPress @pointerPress
         box 345.13,112.29 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16

@@ -9,8 +9,8 @@ surface 600,281.62 400x336.75 on MEDIUM clamped raised by a click
   box 600,281.62 400x39
     box 614.4,281.62 307.67x39
       box 614.4,281.62 113.5x39 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.98, tr 0.94, top 0.98>0.94 x2.94, left 0.98>0.97 x0.85, right 0.93>0.91 x0.85] @drag @dragStart @dragStop @keyPress @pointerPress
-        box 630.13,288.82 82.03x38.55
-          text 649.07,300.18 44.17x15.83 "Recipes" #ffd100
+        box 630.13,288.82 82.03x31.8
+          text 649.07,296.81 44.17x15.83 "Recipes" #ffd100
     box 930.6,293.96 55x26.67 clipped opacity=1 @pointerEnter @pointerLeave
       box 930.6,293.96 27.5x26.67 absolute clipped @keyPress @pointerPress
         box 930.6,293.96 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16

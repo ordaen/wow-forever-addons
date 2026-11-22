@@ -120,15 +120,15 @@ surface 425,173.29 799.82x553.42 on MEDIUM clamped raised by a click
   box 425,173.29 799.82x39
     box 439.4,173.29 682.49x39
       box 439.4,173.29 113.5x39 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.99, tr 0.97, top 0.99>0.97 x2.94, left 0.99>0.98 x0.85, right 0.96>0.95 x0.85] @drag @dragStart @dragStop @keyPress @pointerPress
-        box 446.15,180.04 39x39 absolute icon=Interface/Icons/INV_Misc_Book_09 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=none pieces=[]
-        box 482.6,180.04 2.7x32.25 absolute border=Interface\AddOns\Ordaen\media\frame-divider-down sides=left pieces=[left 0.86>0.85 x1.68]
-        box 489.63,180.49 47.53x38.55
-          text 494.23,191.85 38.33x15.83 "Spells" #ffd100
-      box 562.86,173.29 121.8x39 Interface\AddOns\Ordaen\media\window-wood tint=#808080 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.96, tr 0.93, top 0.96>0.94 x3.23, left 0.96>0.95 x0.85, right 0.93>0.92 x0.85] @drag @dragStart @dragStop @keyPress @pointerPress
-        box 569.61,180.04 39x39 absolute icon=Interface/Icons/INV_Misc_Book_11 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=none pieces=[]
-        box 606.06,180.04 2.7x32.25 absolute border=Interface\AddOns\Ordaen\media\frame-divider-down sides=left pieces=[left 0.84>0.83 x1.68]
-        box 613.09,180.49 55.83x38.55
-          text 613.09,191.85 55.83x15.83 "Learnable" #a3977f
+        box 446.15,180.04 32.25x32.25 absolute icon=Interface/Icons/INV_Misc_Book_09 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=none pieces=[]
+        box 475.85,180.04 2.7x32.25 absolute border=Interface\AddOns\Ordaen\media\frame-divider-down sides=left pieces=[left 0.87>0.86 x1.68]
+        box 482.88,180.49 54.28x31.8
+          text 490.86,188.47 38.33x15.83 "Spells" #ffd100
+      box 562.86,173.29 115.05x39 Interface\AddOns\Ordaen\media\window-wood tint=#808080 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.96, tr 0.94, top 0.96>0.94 x2.99, left 0.96>0.95 x0.85, right 0.93>0.92 x0.85] @drag @dragStart @dragStop @keyPress @pointerPress
+        box 569.61,180.04 32.25x32.25 absolute icon=Interface/Icons/INV_Misc_Book_11 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=none pieces=[]
+        box 599.31,180.04 2.7x32.25 absolute border=Interface\AddOns\Ordaen\media\frame-divider-down sides=left pieces=[left 0.84>0.83 x1.68]
+        box 606.34,180.49 55.83x31.8
+          text 606.34,188.47 55.83x15.83 "Learnable" #a3977f
     box 1130.42,185.62 80x26.67 clipped opacity=1 @pointerEnter @pointerLeave
       box 1130.42,185.62 27.5x26.67 absolute clipped @keyPress @pointerPress
         box 1130.42,185.62 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16

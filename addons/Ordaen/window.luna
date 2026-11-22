@@ -247,8 +247,8 @@ public class WindowTab implements Component {
   public hover: Event<Boolean> = new Event()
 
   derived open: Boolean = self.selected == self.index
-  // The frame's measures at its scale: its art above its line, how far its foot stands behind the body's line,
-  // where its line starts.
+  // The frame's measures at its scale: its art above its line, how far its art flares out at its foot, where its
+  // line starts.
   derived reachTop: Number<Length> = Ordaen.art.frame.tab.reach.top * Ordaen.art.frame.tab.scale * 1ui
   derived flare: Number<Length> = Ordaen.art.frame.tab.curves.flare * Ordaen.art.frame.tab.scale * 1ui
   derived lineStart: Number<Length> = Ordaen.art.frame.tab.lineStart * Ordaen.art.frame.tab.scale * 1ui
@@ -272,10 +272,10 @@ public class WindowTab implements Component {
   state hovered = false
   derived tipShown: Boolean = self.hovered && self.isLocked
 
-  // The picture is a square at the tab's left end, as tall as what shows of the tab: from the tab's own line
-  // down to the body's line, which the tab stands behind. Everything here is measured from the tab's line, where
-  // what a framed box places by offsets starts. Its line stands at its right.
-  derived side: Number<Length> = self.height - self.flare
+  // The picture is a square at the tab's left end, as tall as the tab below its line: from the tab's own line down to
+  // its foot on the body's rod. Everything here is measured from the tab's line, where what a framed box places by
+  // offsets starts. Its line stands at its right.
+  derived side: Number<Length> = self.given - self.flare
   // The icon's line: the divider's box, its line's middle on the icon's right edge.
   derived lineLeft: Number<Length> = self.side - (Ordaen.art.frame.tabIconLine.reach.left * Ordaen.art.frame.tabIconLine.scale + Ordaen.art.frame.tabIconLine.width / 2) * 1ui
   derived lineWidth: Number<Length> = (Ordaen.art.frame.tabIconLine.reach.left * Ordaen.art.frame.tabIconLine.scale + Ordaen.art.frame.tabIconLine.width) * 1ui
@@ -290,7 +290,7 @@ public class WindowTab implements Component {
     tab: Signal<WindowTabSpec>,
     index: Integer,
     selected: Signal<Integer>,
-    // The tab's height: from the window's top to the inner side of the body's top line.
+    // The tab's height: from the window's top to the top of the body's rod.
     height: Signal<Number<Length>>
   ) {
     self.tab = tab
@@ -299,9 +299,9 @@ public class WindowTab implements Component {
     self.height = height
   }
 
-  // The tab's foot stands behind the body's line: its label keeps to what shows of it.
+  // The whole tab shows, down to its foot on the body's rod: its label keeps above a flare where its art has one.
   paddingOf(self): Edges {
-    let foot = Ordaen.spacingOf(self.flare - self.reachTop)
+    let foot = Ordaen.spacingOf(self.flare)
     if (!self.hasIcon) { return { left: LABEL_PAD, right: LABEL_PAD, bottom: foot } }
     let line = Ordaen.art.frame.tabIconLine
     let frame = Ordaen.art.frame.tab

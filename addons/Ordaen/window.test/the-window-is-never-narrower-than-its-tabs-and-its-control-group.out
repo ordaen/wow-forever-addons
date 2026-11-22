@@ -9,17 +9,17 @@ surface 635,331.62 724.73x236.75 on MEDIUM clamped raised by a click
   box 635,331.62 724.73x39
     box 649.4,331.62 607.4x39
       box 649.4,331.62 141.47x39 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.99, tr 0.95, top 0.99>0.96 x3.91, left 0.98>0.96 x0.85, right 0.95>0.93 x0.85] @drag @dragStart @dragStop @keyPress @pointerPress
-        box 665.13,338.82 110x38.55
-          text 665.13,350.18 110x15.83 "The first long tab" #ffd100
+        box 665.13,338.82 110x31.8
+          text 665.13,346.81 110x15.83 "The first long tab" #ffd100
       box 800.82,331.62 147.3x39 Interface\AddOns\Ordaen\media\window-wood tint=#808080 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.95, tr 0.91, top 0.95>0.91 x4.11, left 0.94>0.92 x0.85, right 0.90>0.88 x0.85] @drag @dragStart @dragStop @keyPress @pointerPress
-        box 816.56,338.82 115.83x38.55
-          text 816.56,350.18 115.83x15.83 "The second long tab" #a3977f
+        box 816.56,338.82 115.83x31.8
+          text 816.56,346.81 115.83x15.83 "The second long tab" #a3977f
       box 958.08,331.62 141.47x39 Interface\AddOns\Ordaen\media\window-wood tint=#808080 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.90, tr 0.87, top 0.90>0.87 x3.91, left 0.90>0.88 x0.85, right 0.86>0.84 x0.85] @drag @dragStart @dragStop @keyPress @pointerPress
-        box 973.81,338.82 110x38.55
-          text 973.81,350.18 110x15.83 "The third long tab" #a3977f
+        box 973.81,338.82 110x31.8
+          text 973.81,346.81 110x15.83 "The third long tab" #a3977f
       box 1109.5,331.62 147.3x39 Interface\AddOns\Ordaen\media\window-wood tint=#808080 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.86, tr 0.82, top 0.86>0.83 x4.11, left 0.86>0.84 x0.85, right 0.82>0.80 x0.85] @drag @dragStart @dragStop @keyPress @pointerPress
-        box 1125.23,338.82 115.83x38.55
-          text 1125.23,350.18 115.83x15.83 "The fourth long tab" #a3977f
+        box 1125.23,338.82 115.83x31.8
+          text 1125.23,346.81 115.83x15.83 "The fourth long tab" #a3977f
     box 1265.33,343.96 80x26.67 clipped opacity=0 @pointerEnter @pointerLeave
       box 1265.33,343.96 27.5x26.67 absolute clipped @keyPress @pointerPress
         box 1265.33,343.96 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
