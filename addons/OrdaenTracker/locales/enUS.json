@@ -10,6 +10,7 @@
   "ABANDON_ASK": "Abandon «%s»?",
   "CANCEL": "Cancel",
   "COMPLETE": "Ready to turn in",
+  "COMPLETE_AT": "Ready to turn in: %s",
   "FAILED": "Failed",
   "TAG_GROUP": "(Group)",
   "TAG_PVP": "(PvP)",

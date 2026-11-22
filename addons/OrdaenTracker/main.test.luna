@@ -9,12 +9,14 @@ import { QuestLine, QuestLines } from "@/extend"
 
 const PAGE: Test.Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
 
+// The player stands in Elwynn Forest (the stand-in's zone): its quests are listed, another zone's aren't.
 function logged() {
   Test.questLog([
-    { id: 101, title: "The Defias Brotherhood", header: "Westfall", level: 14, watched: true,
+    { id: 101, title: "The Defias Brotherhood", header: "Elwynn Forest", level: 14, watched: true,
       objectives: [{ text: "Talk to Gryan Stoutmantle" }] },
-    { id: 102, title: "Red Silk Bandanas", header: "The Deadmines", level: 17, tag: 81, watched: true, complete: true },
-    { id: 103, title: "Elwynn Wolves", header: "Elwynn Forest", level: 5 }
+    { id: 102, title: "Red Silk Bandanas", header: "Elwynn Forest", level: 17, tag: 81, watched: true, complete: true },
+    { id: 103, title: "Elwynn Wolves", header: "Elwynn Forest", level: 5 },
+    { id: 104, title: "The Westfall Stew", header: "Westfall", level: 12, watched: true }
   ])
 }
 
@@ -27,7 +29,7 @@ class Where implements QuestLines {
     return true
   }
   public lines(self, quest: Integer, done: Boolean): Array<QuestLine> {
-    return done ? [{ text: "Turn in: Gryan", done: true }] : [{ text: "Westfall · 2 places" }]
+    return done ? [{ text: "Gryan Stoutmantle · Westfall", done: true }] : [{ text: "Westfall · 2 places" }]
   }
   public open(self, quest: Integer): Boolean {
     if (quest != 101) { return false }
@@ -47,7 +49,7 @@ test "the tracked quests stand at the right with their level, tag and objectives
   Test.expect(Test.page().text("— Talk to Gryan Stoutmantle").shown())
   Test.expect(Test.page().text("(Dungeon)").shown() && Test.page().text("Ready to turn in").shown())
   Test.expect(!Test.page().text("Elwynn Wolves").shown())
-  Test.expect(Test.page().text("2/25").shown())
+  Test.expect(Test.page().text("3/25").shown())
   Test.expect(own.GetAlpha() == 0)
 }
 
@@ -73,13 +75,23 @@ test "a level is in its difficulty colour, or in the title's gold while the game
   Test.expect(Test.page().text("[14]").textColor().equal(gold))
 }
 
-test "a module's lines stand under each quest: where to go, or whom to hand it to" {
+test "only the zone's tracked quests are listed: another zone's stays out" {
+  logged()
+  Test.mount(nil, PAGE)
+  Tracker.refresh()
+  Test.flush()
+  Test.expect(Test.page().text("The Defias Brotherhood").shown() && !Test.page().text("The Westfall Stew").shown())
+}
+
+test "a module's lines stand under each quest: where to go; done, whom to hand it to on the quest's own line" {
   logged()
   Test.mount(nil, PAGE)
   Tracker.questLines.add(new Where())
   Tracker.refresh()
   Test.flush()
-  Test.expect(Test.page().text("Westfall · 2 places").shown() && Test.page().text("Turn in: Gryan").shown())
+  Test.expect(Test.page().text("Westfall · 2 places").shown())
+  const done = "Ready to turn in: Gryan Stoutmantle · Westfall"
+  Test.expect(Test.page().text(done).shown() && !Test.page().text("Ready to turn in").shown())
 }
 
 test "a title's click opens the quest where a module does; Shift+click links it, else untracks it" {
@@ -141,7 +153,7 @@ test "the menu points the way, and abandoning asks first" {
 }
 
 test "a quest with an item has its button beside the title, which uses the item by the client's secure click" {
-  Test.questLog([{ id: 104, title: "The Collector", header: "Westfall", level: 12, watched: true, specialItem: 5060 }])
+  Test.questLog([{ id: 104, title: "The Collector", header: "Elwynn Forest", level: 12, watched: true, specialItem: 5060 }])
   Test.mount(nil, PAGE)
   Tracker.refresh()
   Test.flush()
@@ -154,14 +166,14 @@ test "a quest with an item has its button beside the title, which uses the item 
 }
 
 test "a quest's item shows its cooldown's sweep while one runs, and none while none does" {
-  Test.questLog([{ id: 104, title: "The Collector", header: "Westfall", level: 12, watched: true, specialItem: 5060 }])
+  Test.questLog([{ id: 104, title: "The Collector", header: "Elwynn Forest", level: 12, watched: true, specialItem: 5060 }])
   Test.mount(nil, PAGE)
   Tracker.refresh()
   Test.flush()
   const before = Test.calls(() => Test.flush())
   Test.expect(!before.contains("SetCooldown=1"))
   Test.questLog([
-    { id: 104, title: "The Collector", header: "Westfall", level: 12, watched: true, specialItem: 5060,
+    { id: 104, title: "The Collector", header: "Elwynn Forest", level: 12, watched: true, specialItem: 5060,
       itemCooldown: { start: 100, length: 30 } }
   ])
   const told = Test.calls(() => Test.flush())
@@ -194,8 +206,8 @@ test "it lists as many quests as the settings say, the first in the log's order,
   Tracker.refresh()
   Test.flush()
   Test.expect(Test.page().text("The Defias Brotherhood").shown() && !Test.page().text("Red Silk Bandanas").shown())
-  // The count is of every tracked quest, listed or not.
-  Test.expect(Test.page().text("2/25").shown())
+  // The count is of every tracked quest, listed or not, of any zone.
+  Test.expect(Test.page().text("3/25").shown())
   Test.expect(Test.page().box({ r: 0, g: 0, b: 0, a: 0.25 }).shown())
 }
 

@@ -3,7 +3,8 @@
 // watch that follows the tracker's root, so it ends when either module ends. Without the tracker, Blizzard's stays and
 // nothing is added.
 
-// A line under a tracked quest's objectives: its text, and whether it is said as done (a turn-in).
+// A line under a tracked quest's objectives: its text, and whether it is said as done (a turn-in: whom to hand the
+// quest to and where, said on the done quest's own line, «Ready to turn in: …»).
 public struct QuestLine {
   const text: String
   const done: Boolean = false
