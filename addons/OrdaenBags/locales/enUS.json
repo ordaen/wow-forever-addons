@@ -86,6 +86,8 @@
   "CHAT_UNMARKED": "%s: as the rules decide.",
   "PAGE_LOOK": "Look",
   "SECTION_SLOTS": "Slots",
+  "SLOT_SIZE": "Slot size",
+  "SLOT_SIZE_TIP": "How big a slot and its icon are, in the interface's pixels.",
   "SLOT_GAP": "Room between slots",
   "SLOT_GAP_TIP": "The gap between two slots of a group, in steps of the interface spacing; 0 puts them side by side.",
   "PAGE_JUNK": "Junk",

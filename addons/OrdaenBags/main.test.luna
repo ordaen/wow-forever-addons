@@ -317,8 +317,11 @@ test "the corner's gear opens the module's page of the settings, with its two wi
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
   Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
   Test.mount(nil, SCREEN)
-  // Slot against slot, the bags low enough for the settings to cover their gear.
-  Bags.settings.change((values: mut Choices): nil => { values.slotGap = 0 })
+  // Small slots against each other, the bags low enough for the settings to cover their gear.
+  Bags.settings.change((values: mut Choices): nil => {
+    values.slotGap = 0
+    values.slotSize = 37
+  })
   Game.bags.open = true
   bags().text("13 of 22").hover()
   bags().button(Ordaen.art.ctl.corner.gear).click()
@@ -1557,6 +1560,22 @@ test "slots stand apart by the setting's room, three steps where none is chosen;
   Bags.settings.change((values: mut Choices): nil => { values.slotGap = 0 })
   Test.flush()
   Test.expect((nth(2).rect().left - nth(1).rect().right).abs() < 0.01)
+}
+
+test "a slot is as big as the setting says, 42 where none is chosen, its icon with it, and the cards stay in the list" {
+  const world = new World(everyday())
+  Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.items.icon = (id: Integer): Art | nil => world.icon(id)
+  Test.mount(nil, SCREEN)
+  Game.bags.open = true
+  pick(Ordaen.art.ctl.tool.categories, "One bag")
+  const before = nth(1).rect()
+  Bags.settings.change((values: mut Choices): nil => { values.slotSize = 63 })
+  Test.flush()
+  const after = nth(1).rect()
+  Test.expect(((after.right - after.left) / (before.right - before.left) - 1.5).abs() < 0.01)
+  Test.expect(bags().button(WELL).count() == 22)
 }
 
 test "the footer stands on the game's marble, a rim round it" {

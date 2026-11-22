@@ -7,7 +7,7 @@ import Game from "$game"
 import { Action, Align, Event, KeyBinding, MouseButton, Position, Shadow, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import { Component, ItemButton, Menu, MenuEntry, Quality, SECONDARY_TEXT, SlotWell, TIGHT_LINE } from "Ordaen"
-import { CARD_GAP, CARD_PAD, Card, CardRow, SLOT, Section } from "@/layout"
+import { CARD_GAP, CARD_PAD, Card, CardRow, Section } from "@/layout"
 import { Slot } from "@/model"
 import { SlotMenu } from "@/slotMenu"
 import { Vault } from "@/vault"
@@ -53,7 +53,8 @@ public class Shelf {
 
   public filter: Signal<Filter>
   public free: Signal<Integer>
-  // Between two slots of a card, as the player chose it.
+  // A slot's size, and the room between two slots of a card, as the player chose them.
+  public slot: Signal<Number<Length>>
   public gap: Signal<Number<Spacing>>
   public fills: Signal<Map<Integer, String>>
   public menu: Signal<SlotMenu | nil>
@@ -64,6 +65,7 @@ public class Shelf {
   constructor(
     filter: Signal<Filter>,
     free: Signal<Integer>,
+    slot: Signal<Number<Length>>,
     gap: Signal<Number<Spacing>>,
     fills: Signal<Map<Integer, String>>,
     menu: Signal<SlotMenu | nil>,
@@ -72,6 +74,7 @@ public class Shelf {
   ) {
     self.filter = filter
     self.free = free
+    self.slot = slot
     self.gap = gap
     self.fills = fills
     self.menu = menu
@@ -131,7 +134,7 @@ class BagSlot implements Component {
 
   public render(self): Template {
     return $ltml {
-      <ItemButton item={self.item} count={self.count} quality={self.quality} dimmed={self.dimmed} size={SLOT} well={SlotWell.Crested}
+      <ItemButton item={self.item} count={self.count} quality={self.quality} dimmed={self.dimmed} size={self.shelf.slot} well={SlotWell.Crested}
                   action={self.action} linkOnShift={false} @pressed={self.onPressed} @dragged={self.onPickup}
                   @dropped={self.onPickup} @entered={self.onEnter} @left={self.onLeave}>
         <box $if={self.slot.isNew} position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui}
@@ -189,7 +192,7 @@ class SectionCard implements Component {
       <box columns={1} gap={self.shelf.gap} padding={CARD_PAD}>
         <Caption $if={self.titled} section={self.section} shelf={self.shelf} />
         <box columns={self.span} gap={self.shelf.gap}>
-          <ItemButton $if={self.free} item={nil} count={self.shelf.free} size={SLOT} well={SlotWell.Crested} />
+          <ItemButton $if={self.free} item={nil} count={self.shelf.free} size={self.shelf.slot} well={SlotWell.Crested} />
           <BagSlot $for={slot of self.slots} $key={slot} slot={slot} shelf={self.shelf} />
         </box>
       </box>

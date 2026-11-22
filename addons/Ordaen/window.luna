@@ -161,6 +161,15 @@ const PADDING: Edges = { top: WINDOW_ROOM, right: WINDOW_ROOM, bottom: WINDOW_RO
 const PADDING_FOOTED: Edges = { top: 8sp, right: 8sp, bottom: 5sp, left: 8sp }
 const CONTENT_FOOTED: Edges = { top: 8sp, right: 8sp, bottom: 6sp, left: 8sp }
 public const FOOTER_ROOM: Edges = { right: 8sp, bottom: 5sp, left: 8sp }
+
+// What a window takes of its width round its pages, both sides together: the frame's line and the art past it, the
+// body's inset and `WINDOW_ROOM` (a page with a `padding` of its own keeps that instead). What a page of a window
+// `width` wide lays its content in is `width - windowSides()`.
+public function windowSides(): Number<Length> {
+  const metal = Ordaen.art.frame.small
+  return 2 * metal.width * 1ui + reachAcross(metal) + Ordaen.lengthOf(2 * INSET + 2 * WINDOW_ROOM)
+}
+
 // The control group at the tab row's right end (the design's `CTRLS`): its controls from its left, each one kind of
 // plate with its glyph; how high it is with its rim.
 public enum CornerControl { Settings = "settings", Full = "full", Close = "close" }

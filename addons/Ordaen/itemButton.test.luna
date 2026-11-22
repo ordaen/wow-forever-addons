@@ -10,6 +10,7 @@ const SHOPPING: Marker = { corner: Corner.TopLeft, color: Color.hex("#ffd100") }
 const REAGENT: Marker = { corner: Corner.BottomLeft, color: Color.hex("#4fd1ff") }
 const BOTH: Array<Marker> = [SHOPPING, REAGENT]
 const CREST: Asset = "Interface/Buttons/UI-Slot-Background"
+const HAMMER: Asset = "Interface/Icons/Trade_BlackSmithing"
 
 class Bag {
   state picked = 0
@@ -266,4 +267,28 @@ test "a slot's well is sunk unless its user crests it: the client's slot art fro
   const art = crest.rect()
   const slot = sunk.rect()
   Test.expect(art.top == slot.top && art.right - art.left > (slot.right - slot.left) * 1.5)
+}
+
+// The same icon in a sunk slot and in a crested one, each an uncommon item's.
+class Icons {
+  public render(self): Template {
+    return $ltml {
+      <box columns={2} gap={4sp}>
+        <ItemButton item={2592} art={HAMMER} quality={Quality.Uncommon} />
+        <ItemButton item={2592} art={HAMMER} quality={Quality.Uncommon} well={SlotWell.Crested} />
+      </box>
+    }
+  }
+}
+
+test "a crested slot holds its icon and its quality's border inside the crest's rim; a sunk one edge to edge" {
+  Test.mount(new Icons(), { left: 0, top: 0, width: 300, height: 100 })
+  const sunk = Test.page().box(HAMMER).nth(1).rect()
+  const crested = Test.page().box(HAMMER).nth(2).rect()
+  const slot = Test.page().button(CREST).rect()
+  // The rim is 3 of the art's 41 texels on each side of the slot.
+  const rim = (slot.right - slot.left) * 3 / 41
+  Test.expect(crested.left - slot.left >= rim - 0.01 && crested.left - slot.left < rim + 2)
+  Test.expect(slot.bottom - crested.bottom >= rim - 0.01 && slot.bottom - crested.bottom < rim + 2)
+  Test.expect(crested.right - crested.left < sunk.right - sunk.left)
 }

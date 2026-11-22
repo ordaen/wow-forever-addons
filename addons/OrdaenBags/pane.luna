@@ -10,12 +10,12 @@ import Client from "$client"
 import Game from "$game"
 import { Align, Edges, KeyBinding, Line, MouseButton, Overflow, Side, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { Choice, Component, FooterCount, FooterCounts, ListTab, ModuleMemory, Money, PushButton, SECONDARY_TEXT, ScrolledList, Tip, TipRow, ToolAct, ToolButton, ToolPick, Toolbar, WINDOW_ROOM } from "Ordaen"
+import { Choice, Component, FooterCount, FooterCounts, ListTab, ModuleMemory, Money, PushButton, SECONDARY_TEXT, ScrolledList, Tip, TipRow, ToolAct, ToolButton, ToolPick, Toolbar, windowSides } from "Ordaen"
 import { BANK_ICON } from "@/bank"
 import { Clicks } from "@/clicks"
 import { GuildBank, GuildPage, GuildTab, withdrawalsText } from "@/guild"
 import { JunkRules } from "@/junk"
-import { CARD_GAP, CardRoom, CardRow, SLOT_GAP, Section, cardRoom, cardWidth, heightOf, linesOf } from "@/layout"
+import { CARD_GAP, CardRoom, CardRow, SLOT_GAP, SLOT_SIZE, Section, cardRoom, cardWidth, heightOf, linesOf } from "@/layout"
 import Locale from "@/locales"
 import { Grouping, KINDS, Slot, SortBy, Tab, View } from "@/model"
 import { CardLine, Filter, Shelf } from "@/rows"
@@ -26,7 +26,7 @@ import { Vault } from "@/vault"
 
 // What the module keeps of the player's choices: the tabs hidden; whether a tab with nothing in it hides; each tab's
 // grouping (by type where none is said); the junk's rules; the slot's clicks; the room between two slots, in steps of
-// the spacing.
+// the spacing; a slot's size, in the interface's pixels.
 public struct Choices implements Plain {
   hidden: Array<Tab>
   hideEmpty: Boolean
@@ -34,6 +34,7 @@ public struct Choices implements Plain {
   junk: JunkRules
   clicks: Clicks
   slotGap: Number = SLOT_GAP
+  slotSize: Number = SLOT_SIZE
 }
 
 // How the player left the bags' view, the profile's (`ModuleMemory`): the view and the sort the header picks. The
@@ -184,12 +185,13 @@ public class Pane {
   public derived sections: Array<Section> = self.sectionsOf()
   // The list's width: the body's but for the window's room, the tabs where they show, the scroll bar.
   derived slotGap: Number<Spacing> = self.choices.slotGap * 1sp
-  derived room: CardRoom = cardRoom(self.choices.slotGap)
+  derived room: CardRoom = cardRoom(self.choices.slotGap, self.choices.slotSize)
+  derived slotSize: Number<Length> = self.room.slot
   // The least window: the list of tabs and eight slots in a card beside it.
   public derived leastWidth: Number<Length> =
-    Ordaen.lengthOf(2 * WINDOW_ROOM + TABS_GAP) + TABS_WIDTH + cardWidth(8, self.room) + SCROLL_ROOM
+    windowSides() + Ordaen.lengthOf(TABS_GAP) + TABS_WIDTH + cardWidth(8, self.room) + SCROLL_ROOM
   derived tabsRoom: Number<Length> = self.withList ? TABS_WIDTH + Ordaen.lengthOf(TABS_GAP) : 0ui
-  derived listWidth: Number<Length> = self.width - Ordaen.lengthOf(2 * WINDOW_ROOM) - self.tabsRoom - SCROLL_ROOM
+  derived listWidth: Number<Length> = self.width - windowSides() - self.tabsRoom - SCROLL_ROOM
   public derived lines: Array<CardRow> = linesOf(self.sections, self.listWidth, self.room)
   // As high as its cards, or as the screen lets it be.
   derived cardsHeight: Number<Length> = heightOf(self.lines, self.room)
@@ -271,7 +273,7 @@ public class Pane {
     self.gold = gold
     self.slotsOpen = slotsOpen
     self.bankSlotsOpen = bankSlotsOpen
-    self.shelf = new Shelf(self.filter, self.free, self.slotGap, self.fills, menu, useChord, self.live)
+    self.shelf = new Shelf(self.filter, self.free, self.slotSize, self.slotGap, self.fills, menu, useChord, self.live)
   }
 
   stockOf(self): Stock {

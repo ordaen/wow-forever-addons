@@ -1,23 +1,30 @@
-// Ordaen Bags' pages in the settings window beside its windows: «Look» (the room between slots), «Junk» (the rules, learning, the chat's lines, and the
+// Ordaen Bags' pages in the settings window beside its windows: «Look» (the slots' size and the room between them), «Junk» (the rules, learning, the chat's lines, and the
 // two resets of what play made: the learned scores and the player's marks) and «Slot» (the eight clicks of a slot, each
 // one action, and the two schemes to start from). A chord's row that holds the last Use or the last Menu offers nothing
 // else, so no scheme leaves an item without a click to use it or to open its menu.
 import { Choice, Component, Dropdown, NumberInput, PushButton, Section, Switch } from "Ordaen"
 import { AS_THE_GAME, CHORDS, Chord, Clicks, OURS, SlotAction, actionAt, choicesFor, chordName, withAction } from "@/clicks"
 import { JunkRules } from "@/junk"
-import { SLOT_GAP_MOST } from "@/layout"
+import { SLOT_GAP_MOST, SLOT_SIZE_LEAST, SLOT_SIZE_MOST } from "@/layout"
 import Locale from "@/locales"
 
 const BUTTON = 187.5dp
 
-// «Look»: the room between two slots of a card, in steps of the spacing (0: slot against slot).
+// «Look»: a slot's size, in the interface's pixels; the room between two slots of a card, in steps of the spacing (0:
+// slot against slot).
 public class LookPage implements Component {
+  slotSize: mut Signal<Number>
   slotGap: mut Signal<Number>
-  constructor(slotGap: mut Signal<Number>) { self.slotGap = slotGap }
+  constructor(slotSize: mut Signal<Number>, slotGap: mut Signal<Number>) {
+    self.slotSize = slotSize
+    self.slotGap = slotGap
+  }
 
   public render(self): Template {
     return $ltml {
       <Section title={Locale.SECTION_SLOTS}>
+        <NumberInput label={Locale.SLOT_SIZE} hint={Locale.SLOT_SIZE_TIP} value={mut self.slotSize} least={SLOT_SIZE_LEAST}
+                     most={SLOT_SIZE_MOST} />
         <NumberInput label={Locale.SLOT_GAP} hint={Locale.SLOT_GAP_TIP} value={mut self.slotGap} least={0} most={SLOT_GAP_MOST} />
       </Section>
     }

@@ -6,26 +6,34 @@ import { Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import { Slot } from "@/model"
 
-// A slot's size. Inside a card, round what it holds; between two cards. Between two slots of a card is the player's
-// choice (`Choices.slotGap`, in steps of the spacing), this where none is made; at most `SLOT_GAP_MOST`.
-public const SLOT: Number<Length> = 43.359375dp
+// A slot's size is the player's choice (`Choices.slotSize`, in the interface's pixels: `SLOT_PIXEL` each), this where
+// none is made, from `SLOT_SIZE_LEAST` to `SLOT_SIZE_MOST`. Inside a card, round what it holds; between two cards.
+// Between two slots of a card is the player's choice (`Choices.slotGap`, in steps of the spacing), this where none is
+// made; at most `SLOT_GAP_MOST`.
+public const SLOT_SIZE = 42
+public const SLOT_SIZE_LEAST = 30
+public const SLOT_SIZE_MOST = 64
+const SLOT_PIXEL: Number<Length> = 1.171875dp
 public const CARD_PAD: Number<Spacing> = 2sp
 public const CARD_GAP: Number<Spacing> = 3sp
 public const SLOT_GAP = 3
 public const SLOT_GAP_MOST = 10
 
-// The rooms of the cards as lengths, as the density has them now (a card's padding with its rim): what the cards'
+// A slot's size and the rooms of the cards as lengths, as the density has them now: what the cards'
 // widths and heights are worked out with.
 public struct CardRoom {
+  const slot: Number<Length>
   const gap: Number<Length>
   const pad: Number<Length>
   const between: Number<Length>
 }
 
-// The cards' rooms at the density the player chose and the slots' gap; read in a `derived`, it follows both.
-public function cardRoom(slotGap: Number): CardRoom {
+// The slots' size and the cards' rooms at the density the player chose, the slots' size and gap; read in a `derived`, it
+// follows them.
+public function cardRoom(slotGap: Number, slotSize: Number): CardRoom {
   return {
-    gap: Ordaen.lengthOf(slotGap * 1sp), pad: Ordaen.lengthOf(CARD_PAD), between: Ordaen.lengthOf(CARD_GAP)
+    slot: slotSize * SLOT_PIXEL, gap: Ordaen.lengthOf(slotGap * 1sp), pad: Ordaen.lengthOf(CARD_PAD),
+    between: Ordaen.lengthOf(CARD_GAP)
   }
 }
 // A caption's height, which the cards' heights are worked out with (the list is as high as they are, up to the
@@ -59,12 +67,12 @@ public struct CardRow {
 
 // How many slots a row of a card as wide as `width` holds.
 public function spanIn(width: Number<Length>, room: CardRoom): Integer {
-  return ((width - 2 * room.pad + room.gap) / (SLOT + room.gap)).floor().max(1)
+  return ((width - 2 * room.pad + room.gap) / (room.slot + room.gap)).floor().max(1)
 }
 
 // How wide a card of `span` slots is, its padding with it.
 public function cardWidth(span: Integer, room: CardRoom): Number<Length> {
-  return span * SLOT + (span - 1) * room.gap + 2 * room.pad
+  return span * room.slot + (span - 1) * room.gap + 2 * room.pad
 }
 
 function spanOf(section: Section, most: Integer): Integer {
@@ -79,7 +87,7 @@ function cardHeight(section: Section, span: Integer, room: CardRoom): Number<Len
   if (section.title != "") { high += CAPTION_HIGH + room.gap }
   const count = section.free ? 1 : section.slots.length
   const rows = ((count + span - 1) / span).floor().max(1)
-  return high + rows * SLOT + (rows - 1) * room.gap
+  return high + rows * room.slot + (rows - 1) * room.gap
 }
 
 // The lines of `sections` in a list `width` wide.

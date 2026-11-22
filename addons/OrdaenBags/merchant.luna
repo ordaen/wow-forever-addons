@@ -12,7 +12,6 @@ import Game from "$game"
 import { Align, Art, Columns, Event, MouseButton, Position, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import { ARTWORK, ButtonPlate, Choice, Column, Component, CountInput, Dialog, FOOTER_ROOM, FoldCaption, FooterCount, FooterCounts, ItemButton, KeptWindow, ModuleMemory, Money, PushButton, SECONDARY_TEXT, ScrolledList, Table, TableRow, ToolPick, Toolbar, Window, WindowSide, WindowTabSpec, tracksOf } from "Ordaen"
-import { SLOT } from "@/layout"
 import Locale from "@/locales"
 import { KINDS, Tab } from "@/model"
 import { tabName } from "@/sections"
@@ -53,6 +52,8 @@ const REPAIR_ICON: Asset = "Interface/Icons/Trade_BlackSmithing"
 // The game's «!» over the icon of an item that starts a quest (`TEXTURE_ITEM_QUEST_BANG`).
 const QUEST_BANG: Asset = "Interface/ContainerFrame/UI-Icon-QuestBang"
 const COST_ICON = 16.40625dp
+// A grid slot: the bags' own size before the player could choose one.
+const SLOT = 43.359375dp
 // A table row: an item's slot and the row's padding round it.
 const TABLE_SLOT = 28.125dp
 const TABLE_CELL: Array<Track> = [TABLE_SLOT, { fr: 1 }]

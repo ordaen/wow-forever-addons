@@ -5,7 +5,7 @@ import { Align, Key, Track } from "$ltml"
 import Test from "$test"
 import root Ordaen from "Ordaen"
 import { PushButton } from "@/pushButton"
-import { FOOTER_ROOM, KeptWindow, Window, WindowSide, WindowTabSpec } from "@/window"
+import { FOOTER_ROOM, KeptWindow, Window, WindowSide, WindowTabSpec, windowSides } from "@/window"
 
 class Tabbed {
   state tabs: Array<WindowTabSpec> = [
@@ -460,6 +460,31 @@ test "a footer is placed flush with the main section's sides and bottom: its own
   Test.expect((content.left - floor.left - room).abs() < 0.05 && (floor.right - content.right - room).abs() < 0.05)
   // The text stands in by the footer's room.
   Test.expect(Test.page().text("13 of 22").rect().left - floor.left >= Ordaen.lengthOf(8sp) / 1ui - 0.01)
+  destroy page
+}
+
+// A window 400 wide with one page, no footer.
+class Plain {
+  state tabs: Array<WindowTabSpec> = [{ title: "Bags" }]
+  state tab = 1
+  public placing: mut KeptWindow = new KeptWindow("plain", "plain", { x: 0ui, y: 0ui, width: 400ui, height: 300ui })
+
+  public render(self): Template {
+    return $ltml {
+      <Window tabs={self.tabs} selected={mut self.tab} declared={mut self.placing}>
+        <box background={FACE}>
+          <text value={"the page"} />
+        </box>
+      </Window>
+    }
+  }
+}
+
+test "a window's page is as wide as the window less its sides: the frame, the inset and the room" {
+  let page = new Plain()
+  Test.mount(page, { left: 0, top: 0, width: 800, height: 600 })
+  const content = Test.page().box(FACE).rect()
+  Test.expect((content.right - content.left - (400ui - windowSides()) / 1ui).abs() < 0.05)
   destroy page
 }
 
