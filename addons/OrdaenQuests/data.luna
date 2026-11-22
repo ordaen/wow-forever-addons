@@ -3,7 +3,7 @@
 // from it while drawing or per event).
 import { LibQuestieDB } from "QuestieDB"
 import Questie from "@/questie"
-import { QuestFacts } from "@/questie"
+import { Figure, QuestFacts } from "@/questie"
 
 // The contract of QuestieDB's data this module is written against.
 const CONTRACT = 4
@@ -30,5 +30,11 @@ public class QuestieData {
       self.known[id] = read
     }
     return read
+  }
+
+  // An NPC's name and spawns; nil for one QuestieDB doesn't know, or where it can't be read. Asked on a click, not
+  // kept.
+  public npc(self, id: Integer): Figure | nil {
+    return self.fault() == nil ? Questie.npc(id) : nil
   }
 }

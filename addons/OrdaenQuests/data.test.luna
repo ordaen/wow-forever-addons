@@ -1,0 +1,29 @@
+// What QuestieDB says of a quest and of an NPC, as another module asks it: who gives a quest and where, an NPC's spawns.
+import Test from "$test"
+import { QuestieData } from "@/data"
+
+test "a quest's facts say who gives it and where, 0 to 1; nil for a quest QuestieDB doesn't know" {
+  Test.questieDB(
+    { [1665]: { name: "Tome of Valor", startedBy: [[6089]], zoneOrSort: 1519 } },
+    { [6089]: { name: "Harry Burlguard", spawns: { [1519]: [[57.0, 59.5]] } } },
+    {}
+  )
+  const data = new QuestieData()
+  const facts = data.quest(1665) ?? panic("QuestieDB knows the quest")
+  Test.expect(facts.name == "Tome of Valor")
+  const giver = facts.givers[1] ?? panic("the quest has its giver")
+  const spot = giver.spots[1] ?? panic("the giver stands somewhere")
+  Test.expect(giver.name == "Harry Burlguard" && spot.area == 1519)
+  Test.expect((spot.x - 0.57).abs() < 0.001 && (spot.y - 0.595).abs() < 0.001)
+  Test.expect(data.quest(2) == nil)
+}
+
+test "an NPC says its name and spawns; nil for one QuestieDB doesn't know" {
+  Test.questieDB({}, { [5479]: { name: "Wu Shen", spawns: { [1519]: [[78.5, 45.0], [79.0, 46.0]] } } }, {})
+  const data = new QuestieData()
+  const npc = data.npc(5479) ?? panic("QuestieDB knows the NPC")
+  Test.expect(npc.name == "Wu Shen" && npc.spots.length == 2)
+  const spot = npc.spots[1] ?? panic("it stands somewhere")
+  Test.expect(spot.area == 1519 && (spot.x - 0.785).abs() < 0.001)
+  Test.expect(data.npc(1) == nil)
+}

@@ -123,4 +123,8 @@ function questie.quest(id)
 	}
 end
 
+function questie.npc(id)
+	return figureOf(_G.LibQuestieDB.Npc, id)
+end
+
 LunaType.addon(name)["questie"] = questie

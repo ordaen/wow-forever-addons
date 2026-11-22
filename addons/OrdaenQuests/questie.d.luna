@@ -46,3 +46,6 @@ public struct QuestFacts {
 // The quest's facts; nil for a quest QuestieDB doesn't know (Forever's newest). Asked only where its contract is the
 // one this reader is written against (`QuestieData.fault`).
 public function quest(id: Integer): QuestFacts | nil
+
+// An NPC's name and where it stands; nil for one QuestieDB doesn't know. Asked as `quest` is.
+public function npc(id: Integer): Figure | nil

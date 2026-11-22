@@ -2,3 +2,4 @@
 public import { LogQuest } from "@/book"
 public import { QuestKind } from "@/kind"
 public import { Quests } from "@/main"
+public import { Figure, QuestFacts, Spot } from "@/questie"
