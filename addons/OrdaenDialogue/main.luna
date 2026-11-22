@@ -8,7 +8,7 @@
 import Client from "$client"
 import Events from "$events"
 import Game from "$game"
-import { Align, Event, Overflow, Position, Track } from "$ltml"
+import { Align, Edges, Event, Overflow, Position, Track } from "$ltml"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
 import { BODY_LINE, ButtonKey, ButtonPlate, KeptWindow, Module, Money, PushButton, Reward, RewardView, Rewards, SCROLL_WIDTH, SECONDARY_TEXT, Scroll, Settings, SettingsPage, TipText, Window, WindowTabSpec, WindowsPage, choiceViews, windowsTitle } from "Ordaen"
@@ -49,6 +49,8 @@ const FADE_LETTERS = 7
 // The scroll's height on every page, 5:3 at its width: a short greeting and a long quest alike (a long one scrolls).
 const SCROLL_HEIGHT: Number<Length> = 281.25dp
 const FILL: Array<Track> = [{ fr: 1 }]
+// The NPC's words and a question on the window: in from its sides as the list's lines are.
+const SPOKEN_PAD: Edges = { top: 2sp, right: 2sp, bottom: 2sp, left: 2sp }
 // A question's answers, by their place in the list and their key.
 const YES = 1
 const NO = 2
@@ -120,6 +122,10 @@ public class Dialogue implements Module, App {
   // A quest's page as it opens, its parchment folded to its title where the settings say so; a click unfolds it.
   state scrollFolded = false
   derived onQuest: Boolean = isQuestPage(self.page) && !self.prompted
+  // The parchment holds the lore alone: a quest's pages and what is read (a book, a letter, a plaque). The NPC's
+  // words and a question stand on the window itself.
+  derived onParchment: Boolean = self.onQuest || (self.page == Page.Book && !self.prompted)
+  derived spoken: String = self.prompted ? self.promptText : self.said
   derived questPageShown: String = self.onQuest ? `${self.page}:${self.quest?.id ?? 0}` : ""
   derived scrollTitle: String = self.onQuest ? self.quest?.title ?? "" : ""
   // Under a question its answers, with their keys; the buttons say them too.
@@ -716,18 +722,19 @@ public class Dialogue implements Module, App {
                @keyPress.globalScope(.Space)={self.onSpace} @keyPress.globalScope(.Escape)={self.onEscape} />
           <box $for={lineKey of self.lineKeys} position={Position.Absolute} left={0ui} top={0ui} width={0ui} height={0ui}
                @keyPress.globalScope(lineKey.key)={self.onKey} />
-          <box xAlign={Align.Center}>
+          <box $if={self.onParchment} xAlign={Align.Center}>
             <box $if={self.scrollFolded} width={SCROLL_WIDTH} rows={FILL}>
               <Scroll title={self.scrollTitle} folded={mut self.scrollFolded} />
             </box>
             <box $else width={SCROLL_WIDTH} height={SCROLL_HEIGHT} rows={FILL}>
               <Scroll title={self.scrollTitle} folded={mut self.scrollFolded}>
-                <text $if={self.prompted} value={self.promptText} textColor={Style.INK} lineHeight={BODY_LINE} />
-                <Money $if={self.promptCost > 0} amount={self.promptCost} />
-                <Said $if={!self.prompted} page={self.page} quest={self.quest} said={self.said} book={self.book}
-                      revealed={self.revealed} />
+                <Said page={self.page} quest={self.quest} said={self.said} book={self.book} revealed={self.revealed} />
               </Scroll>
             </box>
+          </box>
+          <box $else width={SCROLL_WIDTH} gap={1sp} padding={SPOKEN_PAD}>
+            <text value={self.spoken} textColor={Style.TEXT} lineHeight={BODY_LINE} />
+            <Money $if={self.promptCost > 0} amount={self.promptCost} />
           </box>
           <box $if={!self.isBook || self.prompted} rows={[{ fr: 1 }, "max-content"]} gap={1.5sp} padding={{ top: 2sp }}>
             <box overflow={self.wellOverflow} gap={0.5sp} yAlign={self.wellAlign}>

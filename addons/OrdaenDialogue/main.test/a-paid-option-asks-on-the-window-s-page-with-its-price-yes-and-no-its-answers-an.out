@@ -14,27 +14,20 @@ surface 56.67,99.71 400.03x620.58 on MEDIUM clamped raised by a click
           box 92.52,172.81 0x0 absolute @keyPress
           box 92.52,172.81 0x0 absolute @keyPress
           box 92.52,172.81 0x0 absolute @keyPress
-          box 92.52,172.81 333.33x200
-            box 92.52,172.81 333.33x200
-              box 92.52,172.81 333.33x200
-                box 92.52,172.81 333.33x41.67 Interface\AddOns\Ordaen\media\scroll-top
-                box 92.52,214.47 333.33x116.67
-                box 92.52,331.14 333.33x41.67 Interface\AddOns\Ordaen\media\scroll-bottom
-                box 92.52,214.47 333.33x127.08 absolute Interface\AddOns\Ordaen\media\scroll-paper
-                  box 135.85,222.81 246.67x100 absolute scrolled 0 of 0
-                    text 135.85,222.81 246.67x17.78 "Rent the best room?" #160c03
-                    text 135.85,244.85 246.67x17.78 "0g 50s 0c" #e8dcc4
-          box 92.52,372.81 333.33x313.88
-            box 92.52,378.5 333.33x275.59
-              box 92.52,378.5 333.33x60.84
-                box 92.52,378.5 333.33x29.71 #00000000 @keyPress @pointerPress
-                  box 98.21,384.19 18.33x18.33 #00000080
-                    text 102.93,385.6 8.89x15.51 "1" #c9a76a
-                  text 122.23,384.46 23.33x17.78 "Yes" #f0e6d0
-                box 92.52,409.63 333.33x29.71 #00000000 @keyPress @pointerPress
-                  box 98.21,415.32 18.33x18.33 #00000080
-                    text 102.93,416.73 8.89x15.51 "2" #c9a76a
-                  text 122.23,415.6 16.67x17.78 "No" #f0e6d0
+          box 92.52,172.81 333.33x49.78
+            text 98.21,178.5 321.96x17.78 "Rent the best room?" #f0e6d0
+            text 98.21,199.12 321.96x17.78 "0g 50s 0c" #e8dcc4
+          box 92.52,222.59 333.33x464.11
+            box 92.52,228.27 333.33x425.82
+              box 92.52,228.27 333.33x60.84
+                box 92.52,228.27 333.33x29.71 #00000000 @keyPress @pointerPress
+                  box 98.21,233.96 18.33x18.33 #00000080
+                    text 102.93,235.38 8.89x15.51 "1" #c9a76a
+                  text 122.23,234.24 23.33x17.78 "Yes" #f0e6d0
+                box 92.52,259.41 333.33x29.71 #00000000 @keyPress @pointerPress
+                  box 98.21,265.1 18.33x18.33 #00000080
+                    text 102.93,266.51 8.89x15.51 "2" #c9a76a
+                  text 122.23,265.38 16.67x17.78 "No" #f0e6d0
             box 92.52,658.36 333.33x28.33
               box 92.52,658.36 141.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
                 box 96.07,661.9 38.33x21.25 #00000038 opacity=1

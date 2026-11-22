@@ -953,13 +953,24 @@ function scrollOf(page: Test.Part): Test.Rect {
   return { left: top.left, right: top.right, top: top.top, bottom: bottom.bottom }
 }
 
-test "the scroll stands at one size, 5:3, on a long list and on a quest's page alike" {
+test "the NPC's words stand on the window, no parchment: it holds the lore alone" {
   Test.mount(nil, SCREEN)
   Test.talk(guard())
   const page = Test.page().window("Stormwind City Guard")
+  Test.expect(page.text("Where would you like to go?").shown())
+  Test.expect(!page.box(Ordaen.art.window.scroll.top).shown())
+  Test.shot("the guard's words and list on the window, without the parchment")
+}
+
+test "the scroll stands at one size, 5:3, on every quest page" {
+  Test.mount(nil, SCREEN)
+  Test.talk(innkeeper())
+  Test.quest({ text: "Short.", ..pie() })
+  Events.QUEST_DETAIL.emit(nil)
+  const page = window()
   const listed = scrollOf(page)
   const height = listed.bottom - listed.top
-  Test.expect(page.text("Where would you like to go?").shown() && height > 150)
+  Test.expect(height > 150)
   Test.expect(((listed.right - listed.left) / height - 5 / 3).abs() < 0.01)
   // The paper starts where the top roll's art ends, and runs on under the bottom roll's fading edge, the roll over it.
   const paper = page.box(Ordaen.art.window.scroll.paper).rect()
@@ -969,11 +980,10 @@ test "the scroll stands at one size, 5:3, on a long list and on a quest's page a
   Test.expect(bottomRoll.level() > page.box(Ordaen.art.window.scroll.paper).level())
   // The words stand on the paper, clear of the rolls (a box that overlaps another at one level draws in the client's
   // order, not the page's, and the rolls hid the words) and in from its torn sides.
-  const words = page.text("Where would you like to go?").rect()
+  const words = page.text("A Pie for Maggie").rect()
   Test.expect(words.top >= paper.top && words.bottom <= paper.bottom)
   Test.expect(words.left >= listed.left + (listed.right - listed.left) * 0.08 && words.right - words.left > 50)
-  Events.GOSSIP_CLOSED.emit(false)
-  Test.talk(innkeeper())
+  // A long quest's page keeps the same size (its text scrolls).
   Test.quest(pie())
   Events.QUEST_DETAIL.emit(nil)
   const quest = scrollOf(window())
