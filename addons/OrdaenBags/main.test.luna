@@ -1832,3 +1832,17 @@ test "a group is at least the fewest slots in a row wide, as the player sets it,
   narrowest()
   Test.expect(Bags.main.lines.all(line => line.cards.length == 1) && firstSpan() == 6)
 }
+
+test "the grip narrows a wide window past the row it opened with, down to its least: the cards ask nothing of it" {
+  const world = new World(everyday())
+  Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Test.mount(nil, SCREEN)
+  Bags.list.write({ view: .One, ..Bags.list.values })
+  Bags.window.memory.write({ width: 1400ui, ..Bags.window.memory.values })
+  Game.bags.open = true
+  Test.flush()
+  Test.expect(firstSpan() == 22)
+  narrowest()
+  Test.expect(firstSpan() <= 6)
+}

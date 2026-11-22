@@ -197,7 +197,9 @@ public class Pane {
   derived cardsHeight: Number<Length> = heightOf(self.lines, self.room)
   derived footRoom: Number<Length> = Ordaen.lengthOf(FOOT_PAD_Y * 2) + FOOT_RIM.width
   derived listHeight: Number<Length> = self.cardsHeight.min(Client.UIParent.GetHeight() * 1ui - AROUND_LIST - self.footRoom)
-  derived listOverflow: Overflow | nil = self.listHeight < self.cardsHeight ? Overflow.Scroll : nil
+  // It scrolls where the screen is too low for it, and clips otherwise: either way the cards, laid out for the width
+  // it has, ask nothing of the window's least width, so the grip narrows it past the row it started from.
+  derived listOverflow: Overflow = self.listHeight < self.cardsHeight ? Overflow.Scroll : Overflow.Hidden
   public derived filter: Filter = { query: self.query, place: Game.bags.place, lit: self.isBags ? self.lit : -1 }
   derived free: Integer = self.stock.free
   derived fills: Map<Integer, String> = self.stock.fills
