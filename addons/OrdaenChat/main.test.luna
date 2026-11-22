@@ -7,7 +7,7 @@ import { Key } from "$ltml"
 import Runtime from "$runtime"
 import Test from "$test"
 import root Ordaen from "Ordaen"
-import { ChatMark, FIELD_FILL, say, toLeftLine } from "Ordaen"
+import { BODY_TEXT, ChatMark, FIELD_FILL, say, toLeftLine } from "Ordaen"
 import root Quests from "OrdaenQuests"
 import root Social from "OrdaenSocial"
 import { LEAST_WIDTH, MESSAGE_GAP } from "@/choices"
@@ -719,13 +719,14 @@ test "the chat's own text size, where the player turns it on, is the lines' for 
   // The page's switches that are off: hiding, the own text size, the input always shown.
   settings.button(Ordaen.art.ctl.switchOff).nth(2).click()
   Test.expect(settings.text("Text size").shown())
-  // The size's slider, at the body's 14 until changed, two steps down by its − (the page's last), the page scrolled to it.
+  // The size's slider, at the body's size until changed, two steps down by its − (the page's last), the page scrolled to it.
   settings.button(Ordaen.art.ctl.switchOff).nth(1).wheel(-10)
   const less = settings.text("-")
   less.nth(less.count()).click()
   less.nth(less.count()).click()
   // Found by its line: the settings window names «General» too.
-  Test.expect((lineToName(Test.page().window("[Thrall] says: Hello")) - 12 / 14).abs() < 0.005)
+  const body = BODY_TEXT / 1ui
+  Test.expect((lineToName(Test.page().window("[Thrall] says: Hello")) - (body - 2) / body).abs() < 0.005)
 }
 
 test "the tabs begin where the lines' frame's metal does, not where its art's reach does" {

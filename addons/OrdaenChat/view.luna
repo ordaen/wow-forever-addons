@@ -2,14 +2,13 @@
 import Game from "$game"
 import { Align, Edges, Event, Overflow, Position } from "$ltml"
 import root Ordaen from "Ordaen"
-import { Component, CountBadge, ListTab, SessionRule, TIGHT_LINE, timeText, toLeftLine } from "Ordaen"
+import { Component, CountBadge, ListTab, SECONDARY_TEXT, SessionRule, TIGHT_LINE, timeText, toLeftLine } from "Ordaen"
 import { ChatTab, STAMP, Shown, StampShown } from "@/lines"
 
 // The warm band under a line that names the player or a keyword.
 const MARK: Color = Color.hex("#ff9a2e33")
-// A time above a minute's lines: the time stamps' muted grey, smaller than the secondary text, on its line's own lines.
+// A time above a minute's lines: the time stamps' muted grey, at the secondary text's size, on its line's own lines.
 const STAMP_GREY: Color = Color.hex("#9d9d9d")
-const STAMP_TEXT: Number<TextSize> = 10rem / 13
 // The shade behind the open tab and the one under the cursor: a list tab's own under the cursor.
 const SHADE: Color = Color.hex("#00000059")
 // The count's room at a counting tab's right, a two-digit badge's, kept in the tab's flow; the badge stands over the
@@ -101,7 +100,7 @@ public class Row implements Component {
       <SessionRule $if={self.opens} began={self.began} />
       <box columns={1}>
         <box $if={self.above} xAlign={Align.Center}>
-          <text value={self.time} textColor={STAMP_GREY} textSize={STAMP_TEXT} lineHeight={TIGHT_LINE} wrap={.None} />
+          <text value={self.time} textColor={STAMP_GREY} textSize={SECONDARY_TEXT} lineHeight={TIGHT_LINE} wrap={.None} />
         </box>
         <box $if={self.line.secret} @linkPress={self.onLink} height={self.lineHeight} overflow={Overflow.Hidden}>
           <text value={self.line.whole} secret={true} textColor={self.line.color} wrap={.None} />
