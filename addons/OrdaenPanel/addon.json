@@ -1,6 +1,7 @@
 {
   "title": "Ordaen Panel",
   "icon": "Interface/Icons/INV_Drink_13",
+  "version": "0.1.0",
   "loadOnDemand": true,
   "dependencies": {
     "Ordaen": "^1.0.0"
