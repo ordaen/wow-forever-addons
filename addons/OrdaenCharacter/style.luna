@@ -5,7 +5,7 @@ import { Edges, Fr, Line, Shadow, Side, Track } from "$ltml"
 
 // The window's body, and the least it is drawn at (a window kept smaller, from an older save, is drawn at this).
 public const WIDTH: Number<Length> = 1500dp
-public const HEIGHT: Number<Length> = 867.34dp
+public const HEIGHT: Number<Length> = 846.99dp
 // The room between the frame's line and the character page: none, its sections keeping their own and its cuts running
 // to the frame.
 public const PAGE_ROOM: Edges = { top: 0sp, right: 0sp, bottom: 0sp, left: 0sp }
@@ -56,9 +56,9 @@ public const SECTION_PAD: Edges = { top: 2.5sp, right: SIDE_ROOM, bottom: 2.5sp,
 public const SETS_PAD: Edges = { top: 2.5sp, right: SIDE_ROOM, left: SIDE_ROOM }
 public const SETS_LINE: Line = { width: 1.171875dp, color: Color.hex("#3e2f1d"), sides: [Side.Bottom] }
 public const CARDS_PAD: Edges = { bottom: 2sp }
-// A main stat's room and its number's size.
+// A main stat's room and its number's size: twice the body's, whatever size the look gives the body.
 public const MAIN_PAD: Edges = { top: 2.5sp, bottom: 2.5sp }
-public const MAIN_TEXT: Number<TextSize> = 26rem / 13
+public const MAIN_TEXT: Number<TextSize> = 2rem
 // A resistance's bar and its picture; the room under the resistances, before the gauges.
 public const RESIST_PAD: Edges = { bottom: 3sp }
 public const RESIST_WIDTH: Number<Length> = 20dp
