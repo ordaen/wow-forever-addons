@@ -5,7 +5,7 @@ import { Totals } from "@/cost"
 
 // How the recipes are laid out: the categories beside the category's recipes (ours, the default), one list with the
 // categories as headings, one flat list, a table.
-public enum View implements Plain { Columns = "columns", Categories = "categories", List = "list", Table = "table" }
+public enum View implements Plain { Columns = "columns", Categories = "categories", Table = "table" }
 
 // How the recipes of a group are ordered: the game's (by difficulty, the ones learned first), by name, by how many
 // the bags can make.

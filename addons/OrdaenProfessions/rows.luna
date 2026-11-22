@@ -4,7 +4,7 @@
 // says what was clicked (`Act`): the left button picks it, the right one opens its menu.
 import Game from "$game"
 import { Align, Art, Edges, Line, MouseButton, Position, Track } from "$ltml"
-import { BRIGHT_TEXT, Component, ItemButton, Money, TableRow } from "Ordaen"
+import { BRIGHT_TEXT, Component, ItemButton, Money, TableRow, WINDOW_ROOM } from "Ordaen"
 import { Totals } from "@/cost"
 import { RecipeMenu } from "@/menu"
 import Style from "@/style"
@@ -13,7 +13,8 @@ import { Act, FAVORITES, Group, Kept, has, members } from "@/view"
 
 const NAME_COUNT: Array<Track> = [{ fr: 1 }, "max-content"]
 const MARKS: Array<Track> = ["max-content", "max-content"]
-const CATEGORY_PAD: Edges = { top: 2sp, right: 5sp, bottom: 2sp, left: 5sp }
+// The categories stand at the window's left line: their names keep the window's room, as the toolbar over them does.
+const CATEGORY_PAD: Edges = { top: 2sp, right: 5sp, bottom: 2sp, left: WINDOW_ROOM }
 const RECIPE_PAD: Edges = { top: 2sp, right: 5sp, bottom: 2sp, left: 5sp }
 // A recipe under a heading stands in past the heading's fold mark.
 const INDENT_PAD: Edges = { top: 2sp, right: 5sp, bottom: 2sp, left: 5sp + 5.5sp }
@@ -56,7 +57,7 @@ public class CategoryRow implements Component {
 
   public render(self): Template {
     return $ltml {
-      <TabItem selected={self.isChosen} first={self.first} columns={NAME_COUNT} padding={CATEGORY_PAD}
+      <TabItem selected={self.isChosen} into={Style.RECIPES_BACK} first={self.first} columns={NAME_COUNT} padding={CATEGORY_PAD}
                @pick={self.onClick}>
         <text value={self.group.name} textColor={self.nameColor} textShadow={Style.SHADOW} />
         <box columns={MARKS} gap={1sp} yAlign={Align.Center}>
@@ -118,7 +119,7 @@ public class RecipeRow implements Component {
 
   public render(self): Template {
     return $ltml {
-      <TabItem selected={self.isChosen} color={self.tint} first={self.first} columns={NAME_COUNT}
+      <TabItem selected={self.isChosen} into={Style.RECIPE_BACK} color={self.tint} first={self.first} columns={NAME_COUNT}
                padding={self.padding} @pick={self.onClick}>
         <text value={self.recipe.name} textColor={self.color} textShadow={Style.SHADOW} />
         <text value={self.count} textColor={BRIGHT_TEXT} wrap={.None} textFont={.Numbers} />

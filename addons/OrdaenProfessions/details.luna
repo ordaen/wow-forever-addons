@@ -1,11 +1,11 @@
-// The chosen recipe, beside the lists on their floor, the chosen recipe's row open into it: its icon in a slot and its name
-// in white, with what making it does for the skill in its difficulty's colour («Not learned» while it isn't); the
+// The chosen recipe, beside the lists the window's full height, on the recipes page's darkest floor (its chosen row
+// in the list is that floor too, a tab into it): its icon in a slot and its name in white, with what making it does for the skill in its difficulty's colour («Not learned» while it isn't); the
 // made item's description; what the work needs besides reagents (red while missing); the reagents, one ruled row
 // each, scrolling in what room is left; and at the bottom, under a rule, its switches, the make row of a learned
 // recipe (`MakeRow`: the mode, the count, «Create») and what became of the last «Create».
 import Game from "$game"
 import { Align, Art, Edges, Line, Overflow, Side, Track } from "$ltml"
-import { BRIGHT_TEXT, Component, ItemButton, SECONDARY_TEXT, TITLE_TEXT } from "Ordaen"
+import { BRIGHT_TEXT, Component, ItemButton, SECONDARY_TEXT, TITLE_TEXT, WINDOW_ROOM } from "Ordaen"
 import type { PriceSource } from "OrdaenAuction"
 import { PartPrice, Totals, partsOf, totalsOf, yieldOf } from "@/cost"
 import { Flag } from "@/flag"
@@ -18,6 +18,8 @@ import Style from "@/style"
 import { Act, Kept, MakeMode, has } from "@/view"
 
 const SWITCHES: Line = { width: 1.171875dp, color: Style.LINE, sides: [Side.Top] }
+// From the band down to the window's bottom line: the room inside, the window's at the right.
+const DETAILS_ROOM: Edges = { top: 5sp, right: WINDOW_ROOM, bottom: 5sp, left: 5sp }
 const SWITCHES_PAD: Edges = { top: 3sp }
 const FLAGS: Array<Track> = [{ fr: 1 }, { fr: 1 }]
 // The head, the description, the needs, the reagents in the rest, their totals, the switches, the make row, the note.
@@ -160,7 +162,7 @@ public class RecipeDetails implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box rows={PANEL} gap={3sp} padding={5sp}>
+      <box rows={PANEL} gap={3sp} padding={DETAILS_ROOM} background={Style.RECIPE_BACK}>
         <$if={self.has}>
           <box columns={HEAD} gap={5sp} yAlign={Align.Center}>
             <ItemButton $if={self.hasItem} item={self.made} size={SLOT} dimmed={!self.shown.learned} />

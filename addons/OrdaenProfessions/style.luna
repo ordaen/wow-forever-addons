@@ -25,7 +25,11 @@ public const OFF: Color = Color.hex("#7a7060")
 // A card's frame (the overview's, the queue's).
 public const LINE: Color = Color.hex("#3e2f1d")
 public const CLEAR: Color = Color.hex("#00000000")
-// A heading under the cursor (a row that selects is the library's `SelectItem`).
+// The recipes page's sections, each darker than the one before it, on the wood: the categories none of their own,
+// the recipes, the recipe. A chosen category is the recipes' colour, a chosen recipe the recipe's (`TabItem`).
+public const RECIPES_BACK: Color = Color.hex("#0000004d")
+public const RECIPE_BACK: Color = Color.hex("#00000080")
+// A heading under the cursor (a row that selects is a `TabItem`).
 public const ROW_LIGHT: ByInteractionState<Color> = { default: CLEAR, hover: Color.hex("#d6a56b1f"), focus: Color.hex("#d6a56b1f") }
 public const SHADOW: Shadow = { color: Color.hex("#000000"), x: 1.171875dp, y: -1.171875dp }
 // Between rows, and round an item's slot.

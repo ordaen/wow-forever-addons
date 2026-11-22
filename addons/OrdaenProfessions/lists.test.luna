@@ -1,4 +1,4 @@
-// The professions window's recipes as the player meets them: the four views, the sort, the filter, the search, the
+// The professions window's recipes as the player meets them: the three views, the sort, the filter, the search, the
 // colours and marks of a recipe, the chosen recipe's card, the right-click menu, and what the window remembers. Each
 // test opens Tailoring on the test's game (`Game.tradeSkill`): its camp's recipe, three in «Cloth armour» (one not
 // learned), two in «Bags», and a category with none.
@@ -157,7 +157,7 @@ function pick(glyph: Art, first: String, choice: String) {
 }
 
 function view(choice: String) {
-  for (glyph of [Ordaen.art.ctl.tool.columns, Ordaen.art.ctl.tool.categories, Ordaen.art.ctl.tool.list, Ordaen.art.ctl.tool.table]) {
+  for (glyph of [Ordaen.art.ctl.tool.columns, Ordaen.art.ctl.tool.categories, Ordaen.art.ctl.tool.table]) {
     if (window().button(glyph).shown()) {
       pick(glyph, "In columns", choice)
       return
@@ -284,19 +284,6 @@ test "by category, a heading's name is gold, «Favorites» white, and its counts
   Test.expect(reads(window().button("Bags"), "- | Bags | 3 | (0)") && near(window().button("Bags").text("(0)").textColor(), DIM))
 }
 
-test "one list: every recipe but the camp's, by difficulty" {
-  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
-  Game.professions.list = professions()
-  Game.tradeSkill.categories = categories()
-  Game.tradeSkill.recipes = recipes()
-  Test.mount(nil, SCREEN)
-  Game.tradeSkill.open = TAILORING
-  view("One list")
-  Test.expect(lists("Linen Cloak, Woolen Bag, Brown Linen Vest, Linen Bag, Woolen Cape"))
-  window().text("Linen Bag").nth(1).click()
-  Test.expect(chosen() == "Linen Bag")
-}
-
 test "a table: by name, its headings sort it and the same one again turns it round; the sort's picker goes" {
   Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
   Game.professions.list = professions()
@@ -356,28 +343,28 @@ test "by difficulty the learned come first, the hardest to raise the skill last,
   Test.expect(order == "Amber Cape, Brown Cape, Yellow Cape, Green Cape, Grey Cape, Woolen Cape, Amber Cape")
 }
 
-test "by name the recipes stand in the alphabet's order, learned or not" {
+test "by name the recipes of a category stand in the alphabet's order, learned or not" {
   Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
   Game.professions.list = professions()
   Game.tradeSkill.categories = categories()
   Game.tradeSkill.recipes = recipes()
   Test.mount(nil, SCREEN)
   Game.tradeSkill.open = TAILORING
-  view("One list")
+  view("By category")
   sort("By name")
-  Test.expect(lists("Brown Linen Vest, Linen Bag, Linen Cloak, Woolen Bag, Woolen Cape"))
+  Test.expect(lists("Brown Linen Vest, Linen Cloak, Woolen Cape, Linen Bag, Woolen Bag"))
 }
 
-test "by «Can make» the most the bags make stands first, a tie by name" {
+test "by «Can make» the most the bags make stands first in its category, a tie by name" {
   Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
   Game.professions.list = professions()
   Game.tradeSkill.categories = categories()
   Game.tradeSkill.recipes = recipes()
   Test.mount(nil, SCREEN)
   Game.tradeSkill.open = TAILORING
-  view("One list")
+  view("By category")
   sort("Can make")
-  Test.expect(lists("Linen Bag, Linen Cloak, Brown Linen Vest, Woolen Bag, Woolen Cape"))
+  Test.expect(lists("Linen Cloak, Brown Linen Vest, Woolen Cape, Linen Bag, Woolen Bag"))
 }
 
 test "two recipes of one name stand by their numbers, whichever way they came" {
@@ -406,7 +393,7 @@ test "the filter's «Can make» leaves what the bags make now, «Raises the skil
   ]
   Test.mount(nil, SCREEN)
   Game.tradeSkill.open = TAILORING
-  view("One list")
+  view("By category")
   filter().button("Can make").click()
   Test.expect(lists("Linen Cloak, Linen Bag"))
   filter().button("Raises the skill").click()
@@ -422,9 +409,9 @@ test "the filter's «Learned» and «Not learned» each take theirs away" {
   Game.tradeSkill.recipes = recipes()
   Test.mount(nil, SCREEN)
   Game.tradeSkill.open = TAILORING
-  view("One list")
+  view("By category")
   filter().button("Not learned").click()
-  Test.expect(lists("Linen Cloak, Woolen Bag, Brown Linen Vest, Linen Bag"))
+  Test.expect(lists("Linen Cloak, Brown Linen Vest, Woolen Bag, Linen Bag"))
   filter().button("Not learned").click()
   filter().button("Learned").click()
   Test.expect(window().text("Woolen Cape").count() == 2 && chosen() == "Woolen Cape")
@@ -437,7 +424,7 @@ test "an option of the filter has its switch on while it is on; «Reset» turns 
   Game.tradeSkill.recipes = recipes()
   Test.mount(nil, SCREEN)
   Game.tradeSkill.open = TAILORING
-  view("One list")
+  view("By category")
   Test.expect(filter().button("Learned").paintedWith(Ordaen.art.ctl.switchOn) && !filter().button("Can make").paintedWith(Ordaen.art.ctl.switchOn))
   Test.expect(filter().button("Reset").paintedWith(Ordaen.art.ctl.buttonDisabled))
   filter().button("Can make").click()
@@ -446,7 +433,7 @@ test "an option of the filter has its switch on while it is on; «Reset» turns 
   Test.expect(filter().button("Can make").paintedWith(Ordaen.art.ctl.switchOn) && !filter().button("Learned").paintedWith(Ordaen.art.ctl.switchOn))
   Test.expect(!filter().button("Reset").paintedWith(Ordaen.art.ctl.buttonDisabled))
   filter().button("Reset").click()
-  Test.expect(lists("Linen Cloak, Woolen Bag, Brown Linen Vest, Linen Bag, Woolen Cape"))
+  Test.expect(lists("Linen Cloak, Brown Linen Vest, Woolen Cape, Woolen Bag, Linen Bag"))
   Test.expect(filter().button("Learned").paintedWith(Ordaen.art.ctl.switchOn) && filter().button("Not learned").paintedWith(Ordaen.art.ctl.switchOn))
   Test.expect(!filter().button("Can make").paintedWith(Ordaen.art.ctl.switchOn) && !filter().button("Raises the skill").paintedWith(Ordaen.art.ctl.switchOn))
 }
@@ -463,8 +450,8 @@ test "the filter narrows the recipes not learned to the ways they are learned, a
   Game.tradeSkill.recipes = all
   Test.mount(nil, SCREEN)
   Game.tradeSkill.open = TAILORING
-  view("One list")
-  view("One list")
+  view("By category")
+  view("By category")
   Test.expect(listed().contains("Trainer's Shirt") && listed().contains("Vendor's Robe"))
   filter().button("From a vendor").click()
   Test.expect(!listed().contains("Trainer's Shirt") && listed().contains("Vendor's Robe"))
@@ -534,7 +521,7 @@ test "the search finds a recipe by its name or by a reagent's, in any case" {
   Game.tradeSkill.reagents = reagents
   Test.mount(nil, SCREEN)
   Game.tradeSkill.open = TAILORING
-  view("One list")
+  view("By category")
   window().input().type("BAG")
   Test.expect(lists("Woolen Bag, Linen Bag"))
   Test.erase(3)
@@ -544,7 +531,7 @@ test "the search finds a recipe by its name or by a reagent's, in any case" {
   Test.type("coarse")
   Test.expect(lists("Linen Cloak, Brown Linen Vest"))
   Test.erase(6)
-  Test.expect(lists("Linen Cloak, Woolen Bag, Brown Linen Vest, Linen Bag, Woolen Cape"))
+  Test.expect(lists("Linen Cloak, Brown Linen Vest, Woolen Cape, Woolen Bag, Linen Bag"))
 }
 
 test "the search reads a recipe's reagents once, not again at each letter typed" {
@@ -559,7 +546,7 @@ test "the search reads a recipe's reagents once, not again at each letter typed"
   }
   Test.mount(nil, SCREEN)
   Game.tradeSkill.open = TAILORING
-  view("One list")
+  view("By category")
   window().input().type("c")
   const once = readings
   Test.type("oarse")
@@ -573,7 +560,7 @@ test "reagents the game told late are searched once the profession is opened aga
   Game.tradeSkill.recipes = recipes()
   Test.mount(nil, SCREEN)
   Game.tradeSkill.open = TAILORING
-  view("One list")
+  view("By category")
   window().input().type("coarse")
   Test.expect(lists("") && !window().text("Linen Cloak").shown())
   Game.tradeSkill.reagents = reagents
@@ -596,7 +583,7 @@ test "a recipe's name is in its difficulty's colour, one not learned dim; what t
   Game.tradeSkill.recipes = recipes()
   Test.mount(nil, SCREEN)
   Game.tradeSkill.open = TAILORING
-  view("One list")
+  view("By category")
   Test.expect(window().text("Woolen Bag").textColor().equal(ORANGE) && window().text("Brown Linen Vest").textColor().equal(YELLOW))
   Test.expect(window().text("Woolen Cape").textColor().equal(UNLEARNED))
   window().button("Camp").click()
@@ -754,7 +741,7 @@ test "a starred recipe's row has a gold pip" {
   Game.tradeSkill.recipes = recipes()
   Test.mount(nil, SCREEN)
   Game.tradeSkill.open = TAILORING
-  view("One list")
+  view("By category")
   const before = window().text("Woolen Bag").item().box(YELLOW).shown()
   window().text("Woolen Bag").click()
   window().button("Favorite").click()
@@ -942,7 +929,7 @@ test "the table's rows have the menu too" {
   Test.expect(chosen() == "Linen Bag")
 }
 
-test "the menu shows in the view by category and in one list" {
+test "the menu shows in the view by category" {
   Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
   Game.professions.list = professions()
   Game.tradeSkill.categories = categories()
@@ -950,10 +937,6 @@ test "the menu shows in the view by category and in one list" {
   Test.mount(nil, SCREEN)
   Game.tradeSkill.open = TAILORING
   view("By category")
-  window().text("Linen Bag").rightClick()
-  Test.expect(Test.page().window("Link in chat").button("Create [2]").shown())
-  window().text("Woolen Bag").click()
-  view("One list")
   window().text("Linen Bag").rightClick()
   Test.expect(Test.page().window("Link in chat").button("Create [2]").shown())
 }
@@ -1060,15 +1043,15 @@ test "the view, the sort and the table's order are there after a reload" {
   Game.tradeSkill.recipes = recipes()
   Test.mount(nil, SCREEN)
   Game.tradeSkill.open = TAILORING
-  view("One list")
+  view("By category")
   sort("By name")
   view("Table")
   window().button("Can make").click()
   window().button("Can make").click()
   Test.reload()
   Test.expect(lists("Linen Bag, Linen Cloak, Woolen Cape, Woolen Bag, Brown Linen Vest"))
-  view("One list")
-  Test.expect(lists("Brown Linen Vest, Linen Bag, Linen Cloak, Woolen Bag, Woolen Cape"))
+  view("By category")
+  Test.expect(lists("Brown Linen Vest, Linen Cloak, Woolen Cape, Linen Bag, Woolen Bag"))
 }
 
 test "a new profile used: the lists in columns by difficulty, as at first" {
@@ -1078,7 +1061,7 @@ test "a new profile used: the lists in columns by difficulty, as at first" {
   Game.tradeSkill.recipes = recipes()
   Test.mount(nil, SCREEN)
   Game.tradeSkill.open = TAILORING
-  view("One list")
+  view("By category")
   sort("By name")
   const page = settings()
   page.button("Profiles").click()

@@ -226,7 +226,8 @@ test "the trainer's skill bar shows its rank of the most; the list stands under 
   const window = Test.page().window(Locale.TRAINER)
   Test.expect(window.text(Locale.RANK_75 + " · 60 / 75").shown())
   window.button(Ordaen.art.ctl.tool.table).click()
-  Test.page().button(Locale.VIEW_LIST).click()
+  // The trainer's own one list (Ordaen Trainer's view).
+  Test.page().button("One list").click()
   // The shirt, known, is left out: the robe alone under «Robes».
   Test.expect(window.text("Robes (1)").shown() && window.text("Cloth (1)").shown())
   window.text("Robes (1)").click()
