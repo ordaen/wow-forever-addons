@@ -1187,6 +1187,10 @@ test "the model stands in its race's scene from the game's dressing room, enlarg
   // As tall as the model's column at the height the tab holds the window at, so it is drawn in its own proportions,
   // neither cut at the bottom nor short of it (the veil over it is the column's whole).
   const column = window.box(Style.SCENE_VEIL).nth(2).rect()
+  const body = Test.edges(Ordaen.art.window.wood, 0)
+  // The tab is bare: the column runs to the frame's line at the top and the bottom, no window's room between (that
+  // room alone was more than the frame's art is wide).
+  Test.expect(column.top - body.top < 15 && body.bottom - column.bottom < 15)
   Test.expect(((column.bottom - column.top) / (Style.SCENE_HEIGHT / 1ui) - 1).abs() < 0.01)
 }
 

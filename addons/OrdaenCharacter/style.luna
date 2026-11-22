@@ -71,7 +71,7 @@ public const TROUGH: Color = Color.hex("#000000a6")
 // grey, from the model's column's top to its bottom, as wide as its proportions make it at the column's height while
 // the character tab holds the window at `HEIGHT`, centred and cut at the column's sides; a veil over it so the slots
 // read; the dark where no scene is. Then the room between the column's edges and the slots drawn over it.
-public const SCENE_HEIGHT: Number<Length> = 758.34dp
+public const SCENE_HEIGHT: Number<Length> = 814.34dp
 public const SCENE_WIDTH: Number<Length> = SCENE_HEIGHT * 231 / 322
 public const SCENE_VEIL: Color = Color.hex("#00000059")
 public const MODEL_BACK: Color = Color.hex("#0b0805")
