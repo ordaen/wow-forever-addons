@@ -23,17 +23,17 @@ const GAP = 7.03125dp
 // The tracker's part, as the placing mode keeps where the player put it.
 const PART = "OrdaenTracker.quests"
 const PAD: Edges = { top: 3sp, right: 3sp, bottom: 3sp, left: 3sp }
-const GOLD: Color = Color.hex("#ffd100")
 const DIM: Color = Color.hex("#a3977f")
-const GREEN: Color = Color.hex("#40c040")
 const RED: Color = Color.hex("#ff2020")
-// Its head, then its quests in the rest of its height.
-const ROWS: Array<Track> = ["max-content", { fr: 1 }]
-// Its head: the title at the left, the count at the right; a click on it folds the list.
-const HEAD: Array<Track> = [{ fr: 1 }, "max-content"]
-const TITLE: Array<Track> = ["max-content", { fr: 1 }, "max-content", "max-content"]
+// Its quests, in all its height.
+const ROWS: Array<Track> = [{ fr: 1 }]
+// A quest: its level, and beside it its title line with its lines under, which start where the title starts.
+const QUEST: Array<Track> = ["max-content", { fr: 1 }]
+const TITLE: Array<Track> = [{ fr: 1 }, "max-content", "max-content", "max-content"]
+// The mark of a quest done, at its title's right, as the game's ready check says ready.
+const CHECK: Asset = "Interface/RaidFrame/ReadyCheck-Ready"
+const CHECK_SIZE = 16ui
 const ITEM = 24.375dp
-const LINE_PAD: Edges = { left: 9sp }
 const ASK = 468.75dp
 const ASK_BUTTON = 140.625dp
 
@@ -83,8 +83,6 @@ public class Tracker implements Module, App {
   public state superTracked = 0
   // The zone the player is in, as the log's headers name it: only its quests are listed.
   state zone = ""
-  state most = 25
-  state folded = false
   // The cursor over it: what shows its ground where the settings say on hover.
   state hovered = false
   // The quest the player asked to abandon (0: none).
@@ -94,7 +92,6 @@ public class Tracker implements Module, App {
   // The cooldown running on each tracked quest's item, by the quest.
   state cooldowns: Map<Integer, FillDuration> = {}
 
-  derived count: String = `${self.quests.length}/${self.most}`
   derived abandonText: String = Locale.ABANDON_ASK.format(self.quests.find(quest => quest.id == self.abandoning)?.title ?? "")
   derived level: Integer = Game.player.level
   // The tracked quests of the zone the player is in (an instance's own in a dungeon, a raid or a battleground: the
@@ -139,7 +136,6 @@ public class Tracker implements Module, App {
     self.quests = tracked
     self.superTracked = Game.questLog.superTracked()
     self.zone = Game.questLog.zone()
-    self.most = Game.questLog.most()
     self.readCooldowns()
   }
 
@@ -157,7 +153,6 @@ public class Tracker implements Module, App {
     self.cooldowns = running
   }
 
-  onFold(mut self) { self.folded = !self.folded }
   onEnter(mut self) { self.hovered = true }
   onLeave(mut self) { self.hovered = false }
 
@@ -199,11 +194,12 @@ public class Tracker implements Module, App {
 
   onAbandonNo(mut self) { self.abandoning = 0 }
 
-  // The lines the modules add under a quest.
+  // The lines the modules add under a quest still to do.
   public linesOf(self, quest: Game.LogQuest): Array<QuestLine> {
     const lines: Array<QuestLine> = []
+    if (quest.done || quest.failed) { return lines }
     for (entry of self.questLines) {
-      for (line of entry.lines(quest.id, quest.done)) { lines.push(line) }
+      for (line of entry.lines(quest.id)) { lines.push(line) }
     }
     return lines
   }
@@ -216,11 +212,7 @@ public class Tracker implements Module, App {
              @pointerEnter={self.onEnter}
              @pointerLeave={self.onLeave}>
           <RoundedFill $if={self.grounded} color={self.ground} />
-          <box columns={HEAD} gap={3sp} @pointerPress={self.onFold}>
-            <text value={Locale.QUESTS} textColor={GOLD} wrap={.None} />
-            <text value={self.count} textColor={DIM} textSize={SECONDARY_TEXT} textFont={.Numbers} wrap={.None} />
-          </box>
-          <box $if={!self.folded} columns={1} gap={3sp} overflow={Overflow.Scroll}>
+          <box columns={1} gap={3sp} overflow={Overflow.Scroll}>
             <TrackedQuest $for={quest of self.listed} $key={quest.id} quest={quest} lines={self.linesOf(quest)}
                           pointed={quest.id == self.superTracked} player={self.level} cooldown={self.cooldowns[quest.id]}
                           @ask={self.onAsk} />
@@ -246,13 +238,8 @@ class TrackedQuest implements Component {
   derived tag: String = tagText(self.quest.tag)
   // The quest's item, used by the client's own secure click, as the game's tracker's item button uses it.
   derived use: Action | nil = Action.UseQuestItem { quest: self.quest.id }
-  // Done, whom to hand it to where a module says (its line said as done) on the same line: «Ready to turn in: Gryan
-  // Stoutmantle · Westfall»; its other lines under it.
-  derived turnIn: String = self.lines.find(line => line.done)?.text ?? ""
-  derived ending: String = self.quest.failed ? Locale.FAILED : self.quest.done ? self.doneText : ""
-  derived doneText: String = self.turnIn == "" ? Locale.COMPLETE : Locale.COMPLETE_AT.format(self.turnIn)
-  derived others: Array<QuestLine> = self.lines.filter(line => !line.done)
-  derived endingColor: Color = self.quest.failed ? RED : GREEN
+  // Done: a green check at its title's right, no line of where to hand it in. Failed: said under its title.
+  derived checked: Boolean = self.quest.done && !self.quest.failed
   derived entries: Array<MenuEntry> = [
     { label: self.pointed ? Locale.UNSUPER_TRACK : Locale.SUPER_TRACK },
     { label: Locale.OPEN_IN_LOG },
@@ -303,27 +290,26 @@ class TrackedQuest implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={1} gap={1sp}>
-        <box columns={TITLE} gap={2sp} @pointerPress(.Left)={self.onOpen} @pointerPress([.Shift, .Left])={self.onShift}
-             @pointerPress(.Right)={self.onMenu}>
-          <QuestLevel level={self.quest.level} group={self.quest.group > 1} color={self.levelColor} />
-          <text value={self.quest.title} textColor={BRIGHT_TEXT} wrap={.Cut} />
-          <text value={self.tag} textColor={DIM} textSize={SECONDARY_TEXT} wrap={.None} />
-          <ItemButton $if={self.quest.item > 0} item={self.quest.item} size={ITEM} action={self.use} linkOnShift={true}
-                      cooldown={self.cooldown} />
-          <box $else />
+      <box columns={QUEST} gap={2sp}>
+        <QuestLevel level={self.quest.level} group={self.quest.group > 1} color={self.levelColor} />
+        <box columns={1} gap={1sp}>
+          <box columns={TITLE} gap={2sp} @pointerPress(.Left)={self.onOpen} @pointerPress([.Shift, .Left])={self.onShift}
+               @pointerPress(.Right)={self.onMenu}>
+            <text value={self.quest.title} textColor={BRIGHT_TEXT} wrap={.Cut} />
+            <text value={self.tag} textColor={DIM} textSize={SECONDARY_TEXT} wrap={.None} />
+            <box $if={self.checked} width={CHECK_SIZE} height={CHECK_SIZE} background={CHECK} />
+            <box $else />
+            <ItemButton $if={self.quest.item > 0} item={self.quest.item} size={ITEM} action={self.use} linkOnShift={true}
+                        cooldown={self.cooldown} />
+            <box $else />
+          </box>
+          <box $if={!self.quest.done && !self.quest.failed} columns={1} gap={1sp}>
+            <text $for={objective of self.quest.objectives} value={objective.text} textColor={BRIGHT_TEXT} />
+          </box>
+          <text $if={self.quest.failed} value={Locale.FAILED} textColor={RED} />
+          <text $for={line of self.lines} value={line.text} textColor={DIM} />
+          <Menu $if={self.menuOpen} entries={self.entries} title={self.quest.title} @pick={self.onEntry} @close={self.onClose} />
         </box>
-        <box $if={!self.quest.done && !self.quest.failed} columns={1} padding={LINE_PAD}>
-          <text $for={objective of self.quest.objectives} value={`— ${objective.text}`} textColor={BRIGHT_TEXT}
-                textSize={SECONDARY_TEXT} />
-        </box>
-        <box $if={self.ending != ""} padding={LINE_PAD}>
-          <text value={self.ending} textColor={self.endingColor} textSize={SECONDARY_TEXT} />
-        </box>
-        <box columns={1} padding={LINE_PAD}>
-          <text $for={line of self.others} value={line.text} textColor={DIM} textSize={SECONDARY_TEXT} />
-        </box>
-        <Menu $if={self.menuOpen} entries={self.entries} title={self.quest.title} @pick={self.onEntry} @close={self.onClose} />
       </box>
     }
   }

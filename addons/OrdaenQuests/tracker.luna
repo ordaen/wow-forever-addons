@@ -1,6 +1,6 @@
-// What Quests adds under a tracked quest in Ordaen Tracker, from QuestieDB: while it is to do, the zone of its
-// objectives and how many places there; once done, whom to hand it to and where. A quest QuestieDB doesn't know gets
-// no line. Its title clicked opens it in Quests' window (or docked, on the map).
+// What Quests adds under a tracked quest to do in Ordaen Tracker, from QuestieDB: the zone of its objectives and how
+// many places there. A quest QuestieDB doesn't know gets no line. Its title clicked opens it in Quests' window (or
+// docked, on the map).
 import Client from "$client"
 import type { QuestLine, QuestLines } from "OrdaenTracker"
 import Locale from "@/locales"
@@ -30,16 +30,6 @@ public function whereOf(figures: Array<Figure>): String {
   return Locale.ZONE_PLACES.format(zone, places)
 }
 
-// Whom to hand it to, and where: «Gryan Stoutmantle · Westfall», which the tracker says after «Ready to turn in»; the
-// name alone where the client doesn't know the zone.
-function turnInOf(figures: Array<Figure>): String {
-  const first = figures[1]
-  const spot = firstSpot(figures)
-  if (first == nil || spot == nil) { return "" }
-  const zone = zoneOf(spot.area)
-  return zone == nil ? first.name : Locale.TRACKER_TURN_IN.format(first.name, zone)
-}
-
 public class TrackerLines implements QuestLines {
   facts: Signal<Map<Integer, QuestFacts>>
   const opening: (id: Integer) => Boolean
@@ -50,11 +40,11 @@ public class TrackerLines implements QuestLines {
     self.showing = showing
   }
 
-  public lines(self, quest: Integer, done: Boolean): Array<QuestLine> {
+  public lines(self, quest: Integer): Array<QuestLine> {
     const facts = self.facts[quest]
     if (facts == nil) { return [] }
-    const text = done ? turnInOf(facts.takers) : whereOf(facts.targets)
-    return text == "" ? [] : [{ text: text, done: done }]
+    const text = whereOf(facts.targets)
+    return text == "" ? [] : [{ text: text }]
   }
 
   public open(self, quest: Integer): Boolean { return self.opening(quest) }

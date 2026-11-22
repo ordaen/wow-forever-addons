@@ -26,7 +26,6 @@
   "NAMED_GIVER": "Выдаёт задание",
   "NAMED_TAKER": "Принимает задание",
   "NAMED_TARGET": "Цель задания",
-  "TRACKER_TURN_IN": "%s · %s",
   "ROW_KEY_PAGE": "ЛКМ: открыть задание",
   "ROW_KEY_LINK": "Shift+ЛКМ: ссылка или отслеживание",
   "ROW_KEY_MENU": "ПКМ: ещё",

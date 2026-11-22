@@ -28,8 +28,8 @@ class Where implements QuestLines {
     Client.C_Map.OpenWorldMap(1436)
     return true
   }
-  public lines(self, quest: Integer, done: Boolean): Array<QuestLine> {
-    return done ? [{ text: "Gryan Stoutmantle · Westfall", done: true }] : [{ text: "Westfall · 2 places" }]
+  public lines(self, quest: Integer): Array<QuestLine> {
+    return [{ text: "Westfall · 2 places" }]
   }
   public open(self, quest: Integer): Boolean {
     if (quest != 101) { return false }
@@ -48,13 +48,15 @@ test "the tracked quests stand at the right with their level, tag and objectives
   // Its level as the log's rows have it, two digits of the numbers' font, no brackets; its title whitish.
   Test.expect(Test.page().text("The Defias Brotherhood").shown() && Test.page().text("4").shown() && !Test.page().text("[14]").shown())
   Test.expect(Test.page().text("The Defias Brotherhood").textColor().equal(Color.hex("#f0e6d2")))
-  Test.expect(Test.page().text("— Talk to Gryan Stoutmantle").shown())
-  Test.expect(Test.page().text("(Dungeon)").shown() && Test.page().text("Ready to turn in").shown())
+  // Its objective at the body's size, standing where its title starts; a done quest's check at its title's right.
+  const goal = Test.page().text("Talk to Gryan Stoutmantle")
+  const title = Test.page().text("The Defias Brotherhood")
+  Test.expect(goal.rect().left == title.rect().left && goal.letters().bottom - goal.letters().top >= title.letters().bottom - title.letters().top - 0.5)
+  Test.expect(Test.page().text("(Dungeon)").shown() && !Test.page().text("Ready to turn in").shown())
+  Test.expect(Test.page().box("Interface/RaidFrame/ReadyCheck-Ready").rect().left > Test.page().text("Red Silk Bandanas").rect().right)
   Test.expect(!Test.page().text("Elwynn Wolves").shown())
-  // Its head: «Quests» at the left, the count at the right, nothing after it.
-  const box = Test.page().window("Quests").rect()
-  Test.expect(box.right - Test.page().text("3/25").rect().right < 20 && !Test.page().text("–").shown())
-  Test.expect(Test.page().text("3/25").shown())
+  // One zone's quests alone: no head over them, nor a count.
+  Test.expect(!Test.page().text("Quests").shown() && !Test.page().text("3/25").shown())
   Test.expect(own.GetAlpha() == 0)
 }
 
@@ -99,15 +101,14 @@ test "entering another zone lists that zone's tracked quests in place of the las
   Test.zone("Elwynn Forest")
 }
 
-test "a module's lines stand under each quest: where to go; done, whom to hand it to on the quest's own line" {
+test "a module's lines stand under each quest to do: where to go; a done quest has none" {
   logged()
   Test.mount(nil, PAGE)
   Tracker.questLines.add(new Where())
   Tracker.refresh()
   Test.flush()
-  Test.expect(Test.page().text("Westfall · 2 places").shown())
-  const done = "Ready to turn in: Gryan Stoutmantle · Westfall"
-  Test.expect(Test.page().text(done).shown() && !Test.page().text("Ready to turn in").shown())
+  // Quest 101 is to do, 102 done: one line, under 101.
+  Test.expect(Test.page().text("Westfall · 2 places").count() == 1)
 }
 
 test "a title's click opens the quest where a module does; Shift+click links it, else untracks it" {
@@ -176,7 +177,7 @@ test "a quest with an item has its button beside the title, which uses the item 
   _ = Test.performed()
   // The stand-in knows no icon of the item: the button is clicked where it stands, at the title's end.
   const title = Test.page().text("The Collector").rect()
-  const whole = Test.page().window("Quests").rect()
+  const whole = Test.page().window("The Collector").rect()
   Test.click({ x: whole.right - 16, y: (title.top + title.bottom) / 2 }, nil)
   Test.expect(Test.performed().join(",") == "item |cffffffff|Hitem:5060::::::::|h[Item 5060]|h|r")
 }
@@ -211,20 +212,20 @@ test "it is as high as its quests, and stands at the right under what keeps the 
   Test.mount(nil, PAGE)
   Tracker.refresh()
   Test.flush()
-  const few = Test.page().window("Quests").rect()
+  const few = Test.page().window("The Defias Brotherhood").rect()
   // As wide as the design's tracker at the least, and as high as its two quests.
   Test.expect(few.right - few.left >= 249 && few.bottom - few.top < 200)
   // More than the screen holds: the screen's height but its gaps, its list scrolling past that.
   crowded()
   Tracker.refresh()
   Test.flush()
-  const free = Test.page().window("Quests").rect()
+  const free = Test.page().window("Quest 1").rect()
   Test.expect(free.bottom - free.top > 880)
   // The minimap at home, the bottom panel: the room each keeps.
   Ordaen.keepTopRight("OrdaenMinimap", 300ui)
   Ordaen.keepBottom("OrdaenPanel", 100ui)
   Test.flush()
-  const kept = Test.page().window("Quests").rect()
+  const kept = Test.page().window("Quest 1").rect()
   Test.expect(kept.top > free.top + 200 && kept.bottom < free.bottom - 60)
   Ordaen.keepTopRight("OrdaenMinimap", 0ui)
   Ordaen.keepBottom("OrdaenPanel", 0ui)
@@ -239,8 +240,6 @@ test "it lists as many quests as the settings say, the first in the log's order,
   Tracker.refresh()
   Test.flush()
   Test.expect(Test.page().text("The Defias Brotherhood").shown() && !Test.page().text("Red Silk Bandanas").shown())
-  // The count is of every tracked quest, listed or not, of any zone.
-  Test.expect(Test.page().text("3/25").shown())
   Test.expect(Test.page().box({ r: 0, g: 0, b: 0, a: 0.25 }).shown())
   // The ground is the chat's: a plain fill with rounded corners (the round mask on each), at the setting's darkness.
   Test.shot("one quest listed on a quarter-dark rounded ground")

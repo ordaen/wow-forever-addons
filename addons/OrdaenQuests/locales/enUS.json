@@ -26,7 +26,6 @@
   "NAMED_GIVER": "Gives the quest",
   "NAMED_TAKER": "Takes the quest back",
   "NAMED_TARGET": "The quest's objective",
-  "TRACKER_TURN_IN": "%s · %s",
   "ROW_KEY_PAGE": "Left-click: open the quest",
   "ROW_KEY_LINK": "Shift+Left-click: link or track",
   "ROW_KEY_MENU": "Right-click: more",

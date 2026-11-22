@@ -1,5 +1,4 @@
-// What Quests adds under a tracked quest in the tracker: where to go while it is to do, whom to hand it to once done,
-// nothing of a quest QuestieDB doesn't know.
+// What Quests adds under a tracked quest to do in the tracker: where to go; nothing of a quest QuestieDB doesn't know.
 import Test from "$test"
 import { QuestFacts } from "@/questie"
 import { TrackerLines } from "@/tracker"
@@ -15,20 +14,17 @@ const FACTS: QuestFacts = {
   targets: [{ id: 1, kind: .Npc, name: "Wolf", spots: [{ area: 40, x: 0.3, y: 0.3 }, { area: 40, x: 0.4, y: 0.4 }, { area: 12, x: 0.1, y: 0.1 }] }]
 }
 
-test "a quest to do says its objectives' zone and how many places there; done, whom to hand it to and where" {
+test "a quest to do says its objectives' zone and how many places there" {
   const holder = new Holder()
   holder.facts = { [1]: FACTS }
   const lines = new TrackerLines(holder.facts, (id: Integer): Boolean => false, (id: Integer): Boolean => false)
-  Test.expect((lines.lines(1, false)[1] ?? panic("a line")).text == "Westfall · 2 places")
-  const done = lines.lines(1, true)[1] ?? panic("a line")
-  // The tracker says it after «Ready to turn in»: the taker and the zone, no coordinates.
-  Test.expect(done.text == "Gryan Stoutmantle · Westfall" && done.done)
-  Test.expect(lines.lines(2, false).length == 0)
+  Test.expect((lines.lines(1)[1] ?? panic("a line")).text == "Westfall · 2 places")
+  Test.expect(lines.lines(2).length == 0)
 }
 
 const UNKNOWN_AREA = 999999
 
-test "where the client doesn't know the zone, a quest to do says nothing and a done one names whom to hand it to" {
+test "where the client doesn't know the zone, a quest to do says nothing" {
   const holder = new Holder()
   holder.facts = {
     [1]: {
@@ -38,6 +34,5 @@ test "where the client doesn't know the zone, a quest to do says nothing and a d
     }
   }
   const lines = new TrackerLines(holder.facts, (id: Integer): Boolean => false, (id: Integer): Boolean => false)
-  Test.expect(lines.lines(1, false).length == 0)
-  Test.expect((lines.lines(1, true)[1] ?? panic("a line")).text == "Gryan Stoutmantle")
+  Test.expect(lines.lines(1).length == 0)
 }

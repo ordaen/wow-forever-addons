@@ -1,5 +1,4 @@
 {
-  "QUESTS": "Задания",
   "SUPER_TRACK": "Указывать путь",
   "UNSUPER_TRACK": "Не указывать путь",
   "OPEN_IN_LOG": "Открыть в журнале",
@@ -9,8 +8,6 @@
   "ABANDON": "Отказаться",
   "ABANDON_ASK": "Отказаться от задания «%s»?",
   "CANCEL": "Отмена",
-  "COMPLETE": "Можно сдать",
-  "COMPLETE_AT": "Можно сдать: %s",
   "FAILED": "Провалено",
   "TAG_GROUP": "(Группа)",
   "TAG_PVP": "(PvP)",
