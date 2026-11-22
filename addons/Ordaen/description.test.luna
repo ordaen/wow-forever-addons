@@ -1,0 +1,20 @@
+// A description as the design draws it: numbers in gold with their units and ranges, a school in its colour, a spell's
+// name in gold; a text the game coloured is left as it is.
+import Test from "$test"
+import { richDescription } from "@/description"
+
+test "a number is lit with its unit, a range whole, and the punctuation after it left as it is" {
+  Test.expect(richDescription("Наносит 19 ед. урона.") == "Наносит |cffffd10019 ед.|r урона.")
+  Test.expect(richDescription("длится от 19 до 20 сек.") == "длится |cffffd100от 19 до 20 сек.|r")
+  Test.expect(richDescription("Restores 10%, then 19–20.") == "Restores |cffffd10010%|r, then |cffffd10019–20|r.")
+}
+
+test "a damage school is in its colour and a spell's name in gold, in either language" {
+  Test.expect(richDescription("Deals Fire damage") == "Deals |cffff8a3cFire damage|r")
+  Test.expect(richDescription("наносит урон от огня") == "наносит |cffff8a3cурон от огня|r")
+  Test.expect(richDescription("as «Fireball» does") == "as «|cffffd100Fireball|r» does")
+}
+
+test "a text the game coloured itself is left as it is" {
+  Test.expect(richDescription("|cff00ff00Heals 20|r") == "|cff00ff00Heals 20|r")
+}

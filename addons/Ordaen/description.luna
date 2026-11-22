@@ -1,0 +1,107 @@
+// A spell's or a service's description as the design draws it (Tooltip.vue): its numbers lit in gold with their units
+// and ranges, a damage school in its colour, a spell's name in «» gold. The tooltips and the trainer write it so.
+
+// Numbers stand out of the body's pale text in gold, and so does a spell's name.
+const NUMBER = "ffd100"
+const SPELL_NAME = "ffd100"
+// The damage schools' colours.
+const PHYSICAL = "e0c9a0"
+const FIRE = "ff8a3c"
+const NATURE = "6ed04a"
+const FROST = "8fd2ff"
+const SHADOW = "b48ae8"
+const ARCANE = "e48af0"
+const HOLY = "ffe680"
+
+// A colour as the game's text codes write it: «|cffffffff».
+function code(color: String): String { return "|cff" + color }
+
+// The units a number is lit with, as the game writes them after it.
+const UNITS: Array<String> = [
+  "сек.", "сек", "мин.", "мин", "ч.", "ед.", "м", "м.", "sec.", "sec", "min.", "min", "hr", "hrs", "yd", "yds", "yards"
+]
+// The words that open and join a range: «от 19 до 20», «from 19 to 20».
+const RANGE_FROM: Array<String> = ["от", "from"]
+const RANGE_TO: Array<String> = ["до", "to"]
+
+// A word without the punctuation after it, and that punctuation.
+function bareOf(word: String): [String, String] {
+  const bare, tail = word.match("^(.-)([,;:!%?%)%.]*)$")
+  return [bare ?? word, tail ?? ""]
+}
+
+// A number as a word is: «20», «1,5», «10%», a range in one word («19-20», «19–20»).
+function isNumber(word: String): Boolean {
+  return word.match("^%d[%d,%.]*%%?$") != nil || word.match("^%d[%d,%.]*%-%d[%d,%.]*%%?$") != nil ||
+    word.match("^%d[%d,%.]*–%d[%d,%.]*%%?$") != nil
+}
+
+function isUnit(word: String): Boolean { return UNITS.any(unit => unit == word) }
+
+function among(words: Array<String>, word: String | nil): Boolean { return word != nil && words.any(each => each == word) }
+
+// A line's numbers lit, each with its unit and a range whole («от 19 до 20 сек.»), the punctuation after left as it is.
+function litNumbers(line: String): String {
+  const words = line.split(" ")
+  const out: Array<String> = []
+  let skip = 0
+  for (at, word of words) {
+    if (skip > 0) {
+      skip -= 1
+      continue
+    }
+    // The words the lit part takes, from this one.
+    let last = 0
+    if (among(RANGE_FROM, word) && isNumber(bareOf(words[at + 1] ?? "")[1]) && among(RANGE_TO, words[at + 2]) &&
+        isNumber(bareOf(words[at + 3] ?? "")[1])) {
+      last = at + 3
+    } else if (isNumber(bareOf(word)[1])) {
+      last = at
+    }
+    if (last == 0) {
+      out.push(word)
+      continue
+    }
+    const parts: Array<String> = []
+    for (each of at..last) { parts.push(words[each] ?? "") }
+    let taken = parts.join(" ")
+    let tail = bareOf(words[last] ?? "")[2]
+    taken = bareOf(taken)[1]
+    // Its unit after it, where nothing parts them.
+    const next = words[last + 1]
+    if (tail == "" && next != nil) {
+      if (isUnit(next)) {
+        taken = `${taken} ${next}`
+        last += 1
+      } else if (isUnit(bareOf(next)[1])) {
+        taken = `${taken} ${bareOf(next)[1]}`
+        tail = bareOf(next)[2]
+        last += 1
+      }
+    }
+    out.push(code(NUMBER) + taken + "|r" + tail)
+    skip = last - at
+  }
+  return out.join(" ")
+}
+
+// A description as the design draws it. A text the game coloured itself is left as it is.
+public function richDescription(text: String): String {
+  if (text.contains("|c")) { return text }
+  let lit = text.split("\n").map(line => litNumbers(line)).join("\n")
+  lit = lit.replace("(физическ[^%s]* урон[^%s,%.]*)", school => code(PHYSICAL) + school + "|r")
+  lit = lit.replace("([Pp]hysical damage)", school => code(PHYSICAL) + school + "|r")
+  lit = lit.replace("(урон[^%s]* от огня)", school => code(FIRE) + school + "|r")
+  lit = lit.replace("([Ff]ire damage)", school => code(FIRE) + school + "|r")
+  lit = lit.replace("(урон[^%s]* от сил природы)", school => code(NATURE) + school + "|r")
+  lit = lit.replace("([Nn]ature damage)", school => code(NATURE) + school + "|r")
+  lit = lit.replace("(урон[^%s]* от магии льда)", school => code(FROST) + school + "|r")
+  lit = lit.replace("([Ff]rost damage)", school => code(FROST) + school + "|r")
+  lit = lit.replace("(урон[^%s]* от т[^%s]-мной магии)", school => code(SHADOW) + school + "|r")
+  lit = lit.replace("([Ss]hadow damage)", school => code(SHADOW) + school + "|r")
+  lit = lit.replace("(урон[^%s]* от тайной магии)", school => code(ARCANE) + school + "|r")
+  lit = lit.replace("([Aa]rcane damage)", school => code(ARCANE) + school + "|r")
+  lit = lit.replace("(урон[^%s]* от светлой магии)", school => code(HOLY) + school + "|r")
+  lit = lit.replace("([Hh]oly damage)", school => code(HOLY) + school + "|r")
+  return lit.replace("«([^»]+)»", name => "«" + code(SPELL_NAME) + name + "|r»")
+}
