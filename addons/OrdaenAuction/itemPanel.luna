@@ -4,7 +4,7 @@
 // its age, the lowest listed, the merchant's); then what the page does with it (its slot: «Buy»'s listings and «Buy»,
 // «Sell»'s quantity and «Post»), in the rest of the panel's height.
 import { Align, Track } from "$ltml"
-import { Age, Choice, Component, Copper, Hour, ItemButton, ItemId, Money, SECONDARY_TEXT, Segmented, TITLE_LINE, TITLE_TEXT } from "Ordaen"
+import { Age, Choice, Component, Copper, Hour, ItemButton, ItemId, Money, SECONDARY_TEXT, Segmented, TITLE_TEXT } from "Ordaen"
 import { PriceHistory } from "@/history"
 import { House } from "@/house"
 import Locale from "@/locales"
@@ -191,7 +191,7 @@ public class ItemPanel implements Component {
         <box columns={HEAD} gap={3sp} yAlign={Align.Center}>
           <ItemButton item={self.item} size={Style.BIG_SLOT} />
           <box gap={0.5sp} overflow={.Hidden}>
-            <text value={self.name} textColor={self.color} textSize={TITLE_TEXT} lineHeight={TITLE_LINE} />
+            <text value={self.name} textColor={self.color} textSize={TITLE_TEXT} leading={.Title} />
             <text value={self.detail} textColor={Style.DIM} textSize={SECONDARY_TEXT} />
           </box>
         </box>

@@ -12,7 +12,7 @@ import Client from "$client"
 import Game from "$game"
 import { Align, Beside, Edges, Layer, Line, MouseButton, Side, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { ARTWORK, BODY_LINE, ButtonPlate, Choice, Column, Component, Copper, CountInput, DropdownItem, ItemButton, ItemId, Menu, MenuEntry, ModuleMemory, Money, PushButton, SECONDARY_TEXT, ScrolledList, SelectItem, Table, TableRow, ToolButton, ToolPick, Toolbar, ageText, tracksOf } from "Ordaen"
+import { ARTWORK, ButtonPlate, Choice, Column, Component, Copper, CountInput, DropdownItem, ItemButton, ItemId, Menu, MenuEntry, ModuleMemory, Money, PushButton, SECONDARY_TEXT, ScrolledList, SelectItem, Table, TableRow, ToolButton, ToolPick, Toolbar, ageText, tracksOf } from "Ordaen"
 import { PriceHistory } from "@/history"
 import { House } from "@/house"
 import { ItemPanel } from "@/itemPanel"
@@ -169,7 +169,7 @@ class FilterMenu implements Component {
 
   public render(self): Template {
     return $ltml {
-      <surface lineHeight={BODY_LINE} layer={Layer.Tooltip} place={Beside { beside: "parent" }} width={MENU_WIDTH} background={MENU_BACK}
+      <surface leading={.Row} layer={Layer.Tooltip} place={Beside { beside: "parent" }} width={MENU_WIDTH} background={MENU_BACK}
                border={MENU_EDGE} padding={MENU_PAD} columns={1} @pointerPressOutside={self.onClose}>
         <DropdownItem $for={choice of LEVELS} choice={choice} value={self.level} compact={true}
                       @pick={self.onLevel} />

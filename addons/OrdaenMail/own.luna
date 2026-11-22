@@ -7,7 +7,7 @@
 import Client from "$client"
 import Game from "$game"
 import { Align, Track } from "$ltml"
-import { Component, CountInput, ItemId, ModuleMemory, PushButton, SECONDARY_TEXT, ScrolledList, TITLE_LINE, TITLE_TEXT, Tick, classColor } from "Ordaen"
+import { Component, CountInput, ItemId, ModuleMemory, PushButton, SECONDARY_TEXT, ScrolledList, TITLE_TEXT, Tick, classColor } from "Ordaen"
 import { RecipeId } from "OrdaenAlts"
 import type { Alts, Place } from "OrdaenAlts"
 import type { Professions, QueueItem, Use } from "OrdaenProfessions"
@@ -399,10 +399,10 @@ public class OwnTab implements Component {
           <text value={Locale.PROFESSIONS_OFF} textColor={Style.DIM} />
         </box>
         <ScrolledList $else columns={1} gap={3sp}>
-          <text value={Locale.SEND_TO_OWN} textSize={TITLE_TEXT} lineHeight={TITLE_LINE} textColor={Style.GOLD} />
+          <text value={Locale.SEND_TO_OWN} textSize={TITLE_TEXT} leading={.Title} textColor={Style.GOLD} />
           <CharacterOffers $for={row of self.rows} $key={row.who} row={row} chosen={self.chosen} @send={self.onSend}
                            @toggled={self.onToggle} />
-          <text value={Locale.REQUESTS} textSize={TITLE_TEXT} lineHeight={TITLE_LINE} textColor={Style.GOLD} />
+          <text value={Locale.REQUESTS} textSize={TITLE_TEXT} leading={.Title} textColor={Style.GOLD} />
           <text $if={self.lacks.length == 0} value={Locale.REQUESTS_NONE} textColor={Style.DIM} textSize={SECONDARY_TEXT} />
           <LackRow $for={lack of self.lacks} $key={lack.item} lack={lack} asked={self.isAsked(lack)} @ask={self.onAsk} />
         </ScrolledList>
