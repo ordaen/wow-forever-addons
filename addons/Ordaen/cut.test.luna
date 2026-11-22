@@ -3,6 +3,7 @@
 import Test from "$test"
 import root Ordaen from "Ordaen"
 import { Cut, Groove } from "@/cut"
+import { Look } from "@/look"
 
 // 9.375dp in UI units (768 to 1080): the cut's depth, the heading's rule's, its entry's length.
 const DEPTH = 9.375 * 768 / 1080
@@ -75,5 +76,18 @@ test "an upright cut runs down its column, as deep across as a cut across is hig
   const shade = Test.page().box(cut.upright.dark).rect()
   Test.expect(shade.top < 0.01 && (shade.bottom - 120).abs() < 0.01 && (shade.right - shade.left - DEPTH).abs() < 0.01)
   Test.expect(Test.page().box(cut.upright.light).rect().left == shade.left)
+  destroy page
+}
+
+test "a heading's title and a title on a cut take the look's colour for them, and follow it" {
+  const page = new Cuts()
+  Test.mount(page, { left: 0, top: 0, width: 400, height: 100 })
+  const gold = Ordaen.look.values.heading
+  Test.expect(Test.page().text("Defense").textColor().g == gold.g && Test.page().text("Speed").textColor().g == gold.g)
+  Ordaen.look.change((values: mut Look): nil => { values.heading = Color.hex("#3366cc") })
+  Test.flush()
+  Test.expect(Test.page().text("Defense").textColor().b == Color.hex("#3366cc").b)
+  Test.expect(Test.page().text("Speed").textColor().b == Color.hex("#3366cc").b)
+  Ordaen.look.change((values: mut Look): nil => { values.heading = gold })
   destroy page
 }

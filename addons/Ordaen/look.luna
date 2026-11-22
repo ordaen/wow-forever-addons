@@ -50,6 +50,9 @@ public struct Look implements Plain {
   fontHeader: Font
   fontNumbers: NumbersFont
   accent: Color
+  // A section's title (a heading's, or one standing on a cut), and the paint of a heading's rule as it shows on the wood.
+  heading: Color
+  headingPaint: Color
   barTexture: BarTexture
   barFrame: BarFrame
   animation: Animation
@@ -92,6 +95,7 @@ public struct Look implements Plain {
 const ORDAEN: Look = {
   font: Font.FiraSans, fontHeader: Font.AlegreyaSC, fontNumbers: NumbersFont.PtSansNarrow,
   accent: { r: 0.72, g: 0.56, b: 0.34, a: 1 },
+  heading: Color.hex("#e8c35a"), headingPaint: Color.hex("#a8853a"),
   barTexture: BarTexture.Flat, barFrame: BarFrame.Bezel, animation: Animation.Smooth,
   red: { r: 0.737, g: 0.004, b: 0.044, a: 1 }, redText: { r: 0.999, g: 0.631, b: 0.582, a: 1 },
   orange: { r: 0.634, g: 0.256, b: 0.007, a: 1 }, orangeText: { r: 0.996, g: 0.644, b: 0.484, a: 1 },

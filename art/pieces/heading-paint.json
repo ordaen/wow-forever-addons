@@ -1,10 +1,10 @@
 {
-  "says": "A heading's rule (theme ctl.heading; Ordaen's Cut with a title, a Section's): old gold paint brushed on the wood (wow-dev-tools design/character/engravings.md, «Other windows' headings: paint», 3), 8 px deep, its four rows centred, the edges thinner than the middle, streaky along the brush, dry gaps growing toward the end. -entry (8 px) is where it rises over 6 px; -tip (256 px), stretched along the rest of the rule, narrows straight to a point and fades to half on the way. Laid as any texture is: its alpha lets the grain through.",
+  "says": "A heading's rule (theme ctl.heading; Ordaen's Cut with a title, a Section's): paint brushed on the wood, white, tinted in the game by the look's paint colour (Ordaen's Look `headingPaint`; wow-dev-tools design/character/engravings.md, «Other windows' headings: paint»), 8 px deep, its four rows centred, the edges thinner than the middle, streaky along the brush, dry gaps growing toward the end. -entry (8 px) is where it rises over 6 px; -tip (256 px), stretched along the rest of the rule, narrows straight to a point and fades to half on the way. Laid as any texture is: its alpha lets the grain through.",
   "ships": [
     "addons/Ordaen/media/heading-paint-entry.tga",
     "addons/Ordaen/media/heading-paint-tip.tga"
   ],
-  "origin": "Drawn by the design: wow-dev-tools `design/scripts/groove-rule.mjs paintGoldDim solid <entry|tip>` writes a page of the look's pixels (`LOOKS.paintGoldDim` in design/.vitepress/theme/rules.js); each page shot with `design/scripts/shot.mjs --width 400 --height 600` on `?bg=black` and `?bg=white`, then matted.",
+  "origin": "Drawn by the design: wow-dev-tools `design/scripts/groove-rule.mjs paintTinted solid <entry|tip>` writes a page of the look's pixels (`LOOKS.paintTinted` in design/.vitepress/theme/rules.js); each page shot with `design/scripts/shot.mjs --width 400 --height 600` on `?bg=black` and `?bg=white`, then matted.",
   "steps": [
     {
       "matte": {

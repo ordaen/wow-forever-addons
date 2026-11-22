@@ -134,6 +134,9 @@ public class LookPage implements Component {
         </Section>
         <Section title={Locale.THEMES_COLORS}>
           <ColorPicker label={Locale.THEME_ACCENT} hint={Locale.THEME_ACCENT_TIP} value={mut self.look.values.accent} />
+          <ColorPicker label={Locale.THEME_HEADING} hint={Locale.THEME_HEADING_TIP} value={mut self.look.values.heading} />
+          <ColorPicker label={Locale.THEME_HEADINGPAINT} hint={Locale.THEME_HEADINGPAINT_TIP}
+                       value={mut self.look.values.headingPaint} />
           <ColorPicker label={Locale.THEME_PALETTE_RED} value={mut self.look.values.red} />
           <ColorPicker label={Locale.THEME_PALETTE_REDTEXT} value={mut self.look.values.redText} />
           <ColorPicker label={Locale.THEME_PALETTE_ORANGE} value={mut self.look.values.orange} />
