@@ -7,7 +7,7 @@
 // puts it, Left-click spending a point in it and Right-click taking back one not applied yet; what a node may do is the
 // client's to say (`canSpend`, `canRefund`), the page only asks.
 import Game from "$game"
-import { Align, Edges, Line, Position, Side, Track } from "$ltml"
+import { Align, ArtBorder, Edges, Position, Side, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import { ButtonPlate, Component, Money, PushButton, SECONDARY_TEXT, TalentTreeView, Tip, Toolbar } from "Ordaen"
 import Locale from "@/locales"
@@ -25,11 +25,11 @@ const LINE: Number<Length> = 1.171875dp
 const LINE_COLOR: Color = Color.hex("#000000")
 const LINE_LIGHT: Color = Color.hex("#d6a56b2e")
 // The header and the footer reach the window's sides on the marble; what they hold stands in by the window's room at
-// the sides and a narrow band above and below it, a rim between the marble and the trees.
-const BAND_ROOM: Edges = { top: 2sp, right: Style.SIDE_ROOM, bottom: 2sp, left: Style.SIDE_ROOM }
-const RIM_COLOR: Color = Color.hex("#3e2f1d")
-const HEAD_RIM: Line = { width: LINE, color: RIM_COLOR, sides: [Side.Bottom] }
-const FOOT_RIM: Line = { width: LINE, color: RIM_COLOR, sides: [Side.Top] }
+// the sides and a band above and below it, the frame's line between the marble and the trees (as a footer band's).
+const BAND_ROOM: Edges = { top: 4sp, right: Style.SIDE_ROOM, bottom: 4sp, left: Style.SIDE_ROOM }
+function rimAt(side: Side): ArtBorder {
+  return { sides: [side], ..Ordaen.art.frame.tabIconLine }
+}
 // The class's art under its three trees, as the client's talents window draws it.
 const ARTS: Map<String, Atlas> = {
   DRUID: "talent-background-druid", HUNTER: "talent-background-hunter", MAGE: "talent-background-mage",
@@ -167,7 +167,7 @@ public class TalentsPage implements Component {
   public render(self): Template {
     return $ltml {
       <box rows={PAGE}>
-        <box columns={TOP} gap={2.5sp} yAlign={Align.Center} padding={BAND_ROOM} border={HEAD_RIM}
+        <box columns={TOP} gap={2.5sp} yAlign={Align.Center} padding={BAND_ROOM} border={rimAt(Side.Bottom)}
              background={Ordaen.art.window.marble}>
           <Toolbar search={mut self.search} placeholder={Locale.SEARCH_TALENTS} />
           <box />
@@ -181,7 +181,7 @@ public class TalentsPage implements Component {
           <TreeColumn $for={place, tree of self.trees} $key={tree.id} tree={tree} place={place} search={self.search}
                       @spend={self.onSpend} @refund={self.onRefund} />
         </box>
-        <box columns={FOOT} gap={2.5sp} yAlign={Align.Center} padding={BAND_ROOM} border={FOOT_RIM}
+        <box columns={FOOT} gap={2.5sp} yAlign={Align.Center} padding={BAND_ROOM} border={rimAt(Side.Top)}
              background={Ordaen.art.window.marble}>
           <box xAlign={Align.Start}>
             <PushButton $if={self.waiting} label={Locale.CANCEL} width={BUTTON_WIDTH} @click={self.onCancel} />
