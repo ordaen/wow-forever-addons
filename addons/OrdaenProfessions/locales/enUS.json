@@ -133,7 +133,6 @@
   "NEEDS_LEVEL": "Requires level %d",
   "NEEDS_SKILL": "skill %d",
   "KNOWN": "Learned",
-  "PICK_SERVICE": "Pick a recipe.",
   "NOTHING_FOUND": "Nothing found.",
   "CONFIRM_PROFESSION": "Learn %s? It takes one of your two professions.",
   "NO_PROFESSION_SLOT": "You already know two professions.",

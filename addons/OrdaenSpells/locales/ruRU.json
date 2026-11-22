@@ -11,7 +11,6 @@
   "PASSIVE": "Пассивное",
   "NOTHING_FOUND": "Ничего не найдено.",
   "SHOW_ALL": "Все",
-  "PICK_SERVICE": "Выберите навык.",
   "SETTING_TRAINER": "Окно учителя классов",
   "SETTING_TRAINER_TIP": "Выключено: учителя классов остаются игровыми.",
   "SETTING_TRAINER_VIEW": "Открывается как",
@@ -55,6 +54,5 @@
   "WEAPON_MASTER": "%s, %s (%.1f, %.1f): %s",
   "LEARN_GRIMOIRES": "Учитель демонов",
   "LEARN_GRIMOIRE": "Гримуар для демона: %s",
-  "LEARN_PET_TRAINER": "Учитель питомцев",
-  "PICK_LEARNABLE": "Выберите заклинание: что оно делает, где изучается и за сколько."
+  "LEARN_PET_TRAINER": "Учитель питомцев"
 }

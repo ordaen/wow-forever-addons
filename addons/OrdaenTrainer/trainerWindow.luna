@@ -204,18 +204,29 @@ function skillInkOf(service: Game.TrainerService): Color {
   return service.status == Game.ServiceStatus.Unavailable && service.level <= Game.player.level ? RED : INK
 }
 
-function titleOf(service: Game.TrainerService): String {
-  return service.rank == "" ? service.name : "%s (%s)".format(service.name, service.rank)
+// A service's rank as its number alone («1» of «Rank 1», «Уровень 1»); the client's words where they hold none.
+function rankNumberOf(service: Game.TrainerService): String { return service.rank.match("%d+") ?? service.rank }
+
+// A service's rank in Ordaen's words («Rank 1», «Ранг 1»), whatever the client calls it; "" for none.
+function rankOf(service: Game.TrainerService): String {
+  const number = service.rank.match("%d+")
+  return number == nil ? service.rank : Locale.TRAINER_RANK.format(number)
 }
 
-// What the service asks for, as its line under the name says it.
+// The line under a service's name: its rank, then what it asks for (a level from 2, a skill from 1), or that it is
+// known.
 function needsOf(service: Game.TrainerService): String {
-  if (service.status == Game.ServiceStatus.Learned) { return Locale.TRAINER_KNOWN }
-  const skill = service.skill
-  const level = service.level > 1 ? Locale.TRAINER_NEEDS_LEVEL.format(service.level) : ""
-  if (skill == nil) { return level }
-  const skilled = Locale.TRAINER_NEEDS_SKILL.format(skill)
-  return level == "" ? skilled : `${level} · ${skilled}`
+  const parts: Array<String> = []
+  const rank = rankOf(service)
+  if (rank != "") { parts.push(rank) }
+  if (service.status == Game.ServiceStatus.Learned) {
+    parts.push(Locale.TRAINER_KNOWN)
+  } else {
+    if (service.level > 1) { parts.push(Locale.TRAINER_NEEDS_LEVEL.format(service.level)) }
+    const skill = service.skill ?? 0
+    if (skill > 0) { parts.push(Locale.TRAINER_NEEDS_SKILL.format(skill)) }
+  }
+  return parts.join(" · ")
 }
 
 // An icon of a service that can't be learned yet is tinted red, as the game's is.
@@ -302,8 +313,7 @@ class ServiceTableRow implements Component {
   derived ignored: Boolean = isIgnored(self.service, self.rows.ignored)
   derived ink: Color = inkOf(self.service)
   derived tint: Color = tintOf(self.service)
-  derived title: String = self.trade ? titleOf(self.service) : self.service.name
-  derived second: String = self.trade ? String.of(self.service.level) : self.service.rank
+  derived second: String = self.trade ? String.of(self.service.level) : rankNumberOf(self.service)
   derived third: String = self.trade ? (self.service.skill == nil ? "—" : String.of(self.service.skill)) : String.of(self.service.level)
   // The level's cell red while unmet (a class trainer's third column, a profession trainer's second); the skill's too.
   derived secondInk: Color = self.trade ? levelInkOf(self.service) : INK
@@ -336,7 +346,7 @@ class ServiceTableRow implements Component {
       <TableRow tracks={TRACKS} selected={self.selected} @pick={self.onPick} @double={self.onDouble} @enter={self.onEnter}>
         <box columns={NAMED} gap={3sp} yAlign={Align.Center}>
           <box width={ICON} height={ICON} icon={self.service.icon} tint={self.tint} />
-          <text value={self.title} textColor={self.ink} wrap={.Cut} />
+          <text value={self.service.name} textColor={self.ink} wrap={.Cut} />
         </box>
         <box xAlign={Align.End}>
           <text value={self.second} textColor={self.secondInk} textFont={TextFont.Numbers} wrap={.None} />
@@ -361,7 +371,6 @@ class ServiceLine implements Component {
   derived ignored: Boolean = isIgnored(self.service, self.rows.ignored)
   derived ink: Color = inkOf(self.service)
   derived tint: Color = tintOf(self.service)
-  derived title: String = titleOf(self.service)
   derived needs: String = self.rows.needsOf(self.service)
   derived needsInk: Color = needsInkOf(self.service)
   derived priced: Boolean = self.service.cost > 0 && self.service.status != Game.ServiceStatus.Learned
@@ -391,7 +400,7 @@ class ServiceLine implements Component {
            @keyPress(.Enter)={self.onKey} @keyPress(.Space)={self.onKey}>
         <box width={ICON} height={ICON} icon={self.service.icon} tint={self.tint} />
         <box columns={1}>
-          <text value={self.title} textColor={self.ink} wrap={.Cut} />
+          <text value={self.service.name} textColor={self.ink} wrap={.Cut} />
           <text value={self.needs} textColor={self.needsInk} textSize={SECONDARY_TEXT} wrap={.Cut} />
         </box>
         <Money $if={self.priced} amount={self.service.cost} color={self.costInk} />
@@ -417,7 +426,8 @@ function dueOf(services: Array<Game.TrainerService>, ignored: Map<String, Boolea
 
 // A service as a line of «Learn available»'s tip: its name and rank, its icon, its price.
 function batchRowOf(service: Game.TrainerService): TipRow {
-  const name = service.rank == "" ? service.name : `${service.name} (${service.rank})`
+  const rank = rankOf(service)
+  const name = rank == "" ? service.name : `${service.name} (${rank})`
   return { label: name, value: Game.money.format(service.cost), icon: service.icon }
 }
 
@@ -606,7 +616,7 @@ public class TrainerPage {
   derived current: Game.TrainerService | nil = self.services.find(service => service.index == self.picked)
   derived has: Boolean = self.current != nil
   derived learned: Boolean = self.current?.status == Game.ServiceStatus.Learned
-  derived name: String = self.current == nil ? "" : titleOf(self.current ?? panic("current"))
+  derived name: String = self.current?.name ?? ""
   derived text: String = self.current?.description ?? ""
   derived currentIgnored: Boolean = self.current != nil && isIgnored(self.current ?? panic("current"), self.ignoredNames)
   // The card says an ignored service is ignored, where its row's plate does.
@@ -663,8 +673,6 @@ public class TrainerPage {
   prices: Signal<Map<Integer, Array<String>>>
   // At a trainer, where services are learned; or in a book.
   const atTrainer: Boolean
-  // The card's words while no service is picked.
-  pickText: Signal<String>
   // A profession trainer's (its columns the level and the skill), or a class trainer's (the rank and the level).
   const trade: Boolean
   const columns: Array<Column>
@@ -676,7 +684,6 @@ public class TrainerPage {
     tabSpec: Signal<WindowTabSpec>,
     // What the first column names a service: «Skill», «Recipe».
     noun: String,
-    pickText: Signal<String>,
     trade: Boolean,
     atTrainer: Boolean = true,
     notes: Signal<Map<Integer, String>> = {},
@@ -691,7 +698,6 @@ public class TrainerPage {
     self.list = list
     self.ignored = ignored
     self.tabSpec = tabSpec
-    self.pickText = pickText
     self.trade = trade
     self.columns = columnsOf(noun, trade)
     self.keys = trade ? TRADE_KEYS : CLASS_KEYS
@@ -911,7 +917,7 @@ public class TrainerPage {
       <box $if={self.has} columns={1} gap={2sp}>
         // A name on two lines or more keeps its font's own line.
         <text value={self.name} textSize={TITLE_TEXT} lineHeight={TIGHT_LINE} textColor={GOLD} />
-        <text $if={!self.learned} value={self.needs} textColor={DIM} textSize={SECONDARY_TEXT} />
+        <text $if={self.needs != ""} value={self.needs} textColor={DIM} textSize={SECONDARY_TEXT} />
         <text $if={self.noSlot} value={Locale.TRAINER_NO_SLOT} textColor={RED} textSize={SECONDARY_TEXT} />
         <text value={self.text} textColor={INK} />
         <text $if={self.changed} value={Locale.TRAINER_CHANGES} textColor={GOLD} />
@@ -927,7 +933,6 @@ public class TrainerPage {
       </box>
       <box $else columns={1} gap={2sp}>
         <text $if={self.greeting != ""} value={self.greeting} textColor={INK} />
-        <text value={self.pickText} textColor={DIM} />
         <box columns={PAIR} gap={3sp} yAlign={Align.Center}>
           <text value={Locale.TRAINER_DUE} textColor={DIM} textSize={SECONDARY_TEXT} />
           <Money amount={self.due} />
@@ -1043,12 +1048,11 @@ public class TrainerWindow implements Component {
     tabSpec: Signal<WindowTabSpec>,
     // What the first column names a service: «Skill», «Recipe».
     noun: String,
-    pickText: Signal<String>,
     trade: Boolean
   ) {
     self.declared = declared
     self.tabSpec = tabSpec
-    self.page = new TrainerPage(services, mut list, mut ignored, tabSpec, noun, pickText, trade)
+    self.page = new TrainerPage(services, mut list, mut ignored, tabSpec, noun, trade)
   }
 
   onClose(self) { Client.CloseTrainer() }

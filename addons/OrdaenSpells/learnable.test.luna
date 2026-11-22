@@ -143,7 +143,7 @@ test "the spellbook's «Learnable» tab lists them under their headings, with a 
   const window = Test.page().window("Spells")
   window.button("Learnable").click()
   Test.expect(window.texts().join(" | ").contains("Available now"))
-  Test.expect(window.text("Charge (Rank 1)").shown())
-  window.text("Charge (Rank 1)").click()
+  Test.expect(window.text("Charge").shown())
+  window.text("Charge").click()
   Test.expect(window.text("Learned at a trainer").shown())
 }

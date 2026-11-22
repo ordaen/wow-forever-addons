@@ -11,7 +11,6 @@
   "PASSIVE": "Passive",
   "NOTHING_FOUND": "Nothing found.",
   "SHOW_ALL": "All",
-  "PICK_SERVICE": "Pick a skill.",
   "SETTING_TRAINER": "Class trainer window",
   "SETTING_TRAINER_TIP": "Off, class trainers are the game's own.",
   "SETTING_TRAINER_VIEW": "Opens as",
@@ -55,6 +54,5 @@
   "WEAPON_MASTER": "%s, %s (%.1f, %.1f): %s",
   "LEARN_GRIMOIRES": "Demon trainer",
   "LEARN_GRIMOIRE": "A grimoire for your %s",
-  "LEARN_PET_TRAINER": "Pet trainer",
-  "PICK_LEARNABLE": "Pick a spell: what it does, where it is learned and for how much."
+  "LEARN_PET_TRAINER": "Pet trainer"
 }

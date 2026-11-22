@@ -86,7 +86,6 @@ public class Spells implements Module, App {
   derived side: WindowSide | nil = self.tab == LEARNABLE ? self.learnPage.side : nil
   // The page's cells, as the «Learnable» page reads them: its tab and its words while nothing is picked.
   derived learnTab: WindowTabSpec = LEARNABLE_TAB
-  derived learnPick: String = Locale.PICK_LEARNABLE
   // The «Learnable» tab's page: the trainer's, away from a trainer.
   learnPage: TrainerPage
   // How the player left the «Learnable» list, the profile's.
@@ -119,7 +118,7 @@ public class Spells implements Module, App {
   constructor() {
     self.page = new SpellbookPage(self.spells, self.lines, self.pets, self.petBook)
     self.learnPage = new TrainerPage(
-      self.learnServices, mut self.learnList, mut self.ignored, self.learnTab, Locale.COL_SKILL, self.learnPick, false, false,
+      self.learnServices, mut self.learnList, mut self.ignored, self.learnTab, Locale.COL_SKILL, false, false,
       self.learnNotes, self.learnActions, self.learnPrices
     )
     self.learnPage.acted.listen(self.onActed)
@@ -238,7 +237,7 @@ public class Spells implements Module, App {
       </Window>
       <frame $if={self.trainerShown && self.gameTrainer != nil} of={self.gameTrainer} opacity={0} away={true} />
       <TrainerWindow $if={self.trainerShown} services={self.services} declared={mut self.trainerWindow} list={mut self.trainerList} ignored={mut self.ignored}
-                     tabSpec={TRAINER_TAB} noun={Locale.COL_SKILL} pickText={Locale.PICK_SERVICE} trade={false} @settings={self.onSettings} />
+                     tabSpec={TRAINER_TAB} noun={Locale.COL_SKILL} trade={false} @settings={self.onSettings} />
     }
   }
 }

@@ -249,7 +249,7 @@ test "a new profession is asked first, and greyed while two are known" {
   Game.trainer.open = true
   Game.trainer.changed.emit()
   const window = Test.page().window(Locale.TRAINER)
-  window.text("Tailoring (Apprentice)").click()
+  window.text("Tailoring").click()
   window.button(Locale.TRAIN).click()
   Test.expect(bought.length == 0)
   const asked = Test.page().window(Locale.CONFIRM_PROFESSION.format("Tailoring"))

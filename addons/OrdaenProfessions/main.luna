@@ -794,7 +794,7 @@ public class Professions implements Module, App {
       <$if={self.atTrainer}>
         <frame $if={self.gameTrainer != nil} of={self.gameTrainer} opacity={0} away={true} />
         <TrainerWindow services={self.services} declared={mut self.trainerWindow} list={mut self.trainerList} ignored={mut self.ignored}
-                       tabSpec={TRAINER_TAB} noun={Locale.COLUMN_RECIPE} pickText={Locale.PICK_SERVICE} trade={true} @settings={self.onSettings} />
+                       tabSpec={TRAINER_TAB} noun={Locale.COLUMN_RECIPE} trade={true} @settings={self.onSettings} />
       </>
       <$if={self.isOpen}>
         <frame of={Game.frames.Professions} opacity={0} away={true} />

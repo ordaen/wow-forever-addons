@@ -11,6 +11,7 @@
   "TRAINER_COLUMN_SKILL": "Skill",
   "TRAINER_COLUMN_COST": "Price",
   "TRAINER_NEEDS_LEVEL": "Requires level %d",
+  "TRAINER_RANK": "Rank %s",
   "TRAINER_NEEDS_SKILL": "skill %d",
   "TRAINER_CONFIRM_PROFESSION": "Learn %s? It takes one of your two professions.",
   "TRAINER_NO_SLOT": "You already know two professions.",
