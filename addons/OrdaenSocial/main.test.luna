@@ -1538,7 +1538,10 @@ test "a conversation is bubbles: the other's on the left, the player's on the ri
   const told = window.text("yes").rect()
   // Hers start at the conversation's left, his end at its right; each side on its own floor.
   Test.expect(heard.left < told.left && window.text("are you there?").rect().left == heard.left)
-  Test.expect(window.box(HEARD_FILL).count() == 2 && window.box(TOLD_FILL).count() == 1)
+  // Two bubbles of hers and one of his, the last of each run with its tail in its colour, at its side.
+  const tails = window.box("ChatBubble-Tail")
+  Test.expect(window.box(HEARD_FILL).count() == 3 && window.box(TOLD_FILL).count() == 2 && tails.count() == 2)
+  Test.expect(tails.nth(1).rect().left < window.text("are you there?").rect().left && tails.nth(2).rect().right > told.right)
   // Her two lines are one group: its time once, under the second; then his.
   Test.expect(window.texts().filter(t => t == "12:00").length == 1 && window.texts().filter(t => t == "12:01").length == 1)
   Test.expect(window.text("12:00").rect().top > window.text("are you there?").rect().bottom)

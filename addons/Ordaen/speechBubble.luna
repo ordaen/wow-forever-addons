@@ -1,0 +1,46 @@
+// SpeechBubble: what someone said, on the client's own chat bubble (its rounded corners and edges) made one colour,
+// as a conversation's lines stand (`tone`: the side's colour). Where it ends a run of one speaker's lines, the bubble's
+// tail hangs under its bottom edge at the speaker's side, in the same colour (`tail`); the bubble keeps the tail's room
+// under it, so nothing below covers it.
+import { Edges, NineSlice, Position } from "$ltml"
+import { Component } from "@/module"
+
+// Where the tail hangs: none, under the bubble's start (its left) or under its end.
+public enum BubbleTail { None, Start, End }
+
+// The client's chat bubble and its tail (16 by 16 units, pointing down as drawn), which comes over the bubble's bottom
+// edge as far as the edge's rim stands in from it, a corner's width in from the side.
+const BUBBLE: NineSlice = { layout: "ChatBubble" }
+const TAIL: Atlas = "ChatBubble-Tail"
+const TAIL_SIZE = 16ui
+const TAIL_MEET = 8ui
+const TAIL_IN = 8ui
+const TAIL_ROOM: Number<Length> = TAIL_SIZE - TAIL_MEET
+const PAD: Edges = { top: 2sp, right: 3sp, bottom: 2sp, left: 3sp }
+
+public class SpeechBubble implements Component {
+  derived tailed: Boolean = self.tail != BubbleTail.None
+  derived tailLeft: Number<Length> | nil = self.tail == BubbleTail.Start ? TAIL_IN : nil
+  derived tailRight: Number<Length> | nil = self.tail == BubbleTail.End ? TAIL_IN : nil
+
+  tone: Signal<Color>
+  tail: Signal<BubbleTail>
+  constructor(tone: Signal<Color>, tail: Signal<BubbleTail> = BubbleTail.None) {
+    self.tone = tone
+    self.tail = tail
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={1}>
+        <box padding={PAD} background={BUBBLE} desaturate={true} tint={self.tone}>
+          <slot />
+          <box $if={self.tailed} position={Position.Absolute} left={self.tailLeft} right={self.tailRight}
+               bottom={-TAIL_ROOM} width={TAIL_SIZE} height={TAIL_SIZE} background={TAIL} desaturate={true}
+               tint={self.tone} />
+        </box>
+        <box $if={self.tailed} height={TAIL_ROOM} />
+      </box>
+    }
+  }
+}

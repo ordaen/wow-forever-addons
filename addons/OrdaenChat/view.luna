@@ -1,19 +1,14 @@
 // The chat's parts: a tab of its sidebar and a line.
-import Client from "$client"
 import Game from "$game"
-import { Align, Edges, Event, Overflow, Position, Track } from "$ltml"
+import { Align, Edges, Event, Overflow, Position } from "$ltml"
 import root Ordaen from "Ordaen"
-import { Component, CountBadge, ListTab, SECONDARY_TEXT, TIGHT_LINE, timeText, toLeftLine } from "Ordaen"
+import { Component, CountBadge, ListTab, SessionRule, TIGHT_LINE, timeText, toLeftLine } from "Ordaen"
 import { ChatTab, STAMP, Shown, StampShown } from "@/lines"
-import Locale from "@/locales"
 
 // The warm band under a line that names the player or a keyword.
 const MARK: Color = Color.hex("#ff9a2e33")
-// A session's rule: a line each side of its name, the time stamps' muted grey.
-const RULE: Color = Color.hex("#9d9d9d40")
-const RULE_TEXT: Color = Color.hex("#9d9d9d")
-const RULE_COLUMNS: Array<Track> = [{ fr: 1 }, "max-content", { fr: 1 }]
-// A time above a minute's lines: the rule's muted grey, smaller than the secondary text, on its line's own lines.
+// A time above a minute's lines: the time stamps' muted grey, smaller than the secondary text, on its line's own lines.
+const STAMP_GREY: Color = Color.hex("#9d9d9d")
 const STAMP_TEXT: Number<TextSize> = 10rem / 13
 // The shade behind the open tab and the one under the cursor: a list tab's own under the cursor.
 const SHADE: Color = Color.hex("#00000059")
@@ -83,7 +78,6 @@ public class Row implements Component {
   derived band: Color | nil = self.line.marked ? MARK : nil
   // A line kept from before sessions were told apart is named by its own time.
   derived began: Integer = (self.line.session != 0 ? self.line.session : self.line.time).floor()
-  derived session: String = Locale.SESSION.format(Client.date(Locale.SESSION_DATE, self.began), timeText(Game.clock.timeAt(self.began)))
   // Its time, written as every time of Ordaen's is.
   derived time: String = timeText(Game.clock.timeAt(self.line.time.floor()))
   derived above: Boolean = self.stamp == StampShown.Above
@@ -104,14 +98,10 @@ public class Row implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box $if={self.opens} columns={RULE_COLUMNS} gap={2sp} yAlign={Align.Center}>
-        <box height={1ui} background={RULE} />
-        <text value={self.session} textColor={RULE_TEXT} textSize={SECONDARY_TEXT} wrap={.None} />
-        <box height={1ui} background={RULE} />
-      </box>
+      <SessionRule $if={self.opens} began={self.began} />
       <box columns={1}>
         <box $if={self.above} xAlign={Align.Center}>
-          <text value={self.time} textColor={RULE_TEXT} textSize={STAMP_TEXT} lineHeight={TIGHT_LINE} wrap={.None} />
+          <text value={self.time} textColor={STAMP_GREY} textSize={STAMP_TEXT} lineHeight={TIGHT_LINE} wrap={.None} />
         </box>
         <box $if={self.line.secret} @linkPress={self.onLink} height={self.lineHeight} overflow={Overflow.Hidden}>
           <text value={self.line.whole} secret={true} textColor={self.line.color} wrap={.None} />

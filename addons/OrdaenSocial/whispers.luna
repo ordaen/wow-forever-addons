@@ -4,12 +4,11 @@
 // WhisperMessenger draws it: each line a bubble, the other's on the left and the player's on the right, at most three
 // quarters of the width; lines of one side close in time stand together, the group's time under its last. Under it, its
 // own line to type in.
-import Client from "$client"
 import Game from "$game"
 import { Hero } from "$game"
-import { Align, Bounds, Edges, Event, NineSlice, Overflow, Position, Track } from "$ltml"
+import { Align, Bounds, Edges, Event, Overflow, Position, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { BODY_LINE, Component, CountBadge, Field, Menu, MenuEntry, SECONDARY_TEXT, TIGHT_LINE, classColor, timeText } from "Ordaen"
+import { BODY_LINE, BubbleTail, Component, CountBadge, Field, Menu, MenuEntry, SECONDARY_TEXT, SessionRule, SpeechBubble, TIGHT_LINE, classColor, timeText } from "Ordaen"
 import Locale from "@/locales"
 import { THIS_SESSION, Talk, TalkLine, TalkWho } from "@/talks"
 
@@ -28,9 +27,6 @@ const WELL_ROOM: Number<Spacing> = 3sp
 public const HEARD_FILL: Color = Color.hex("#3d2e24e6")
 public const TOLD_FILL: Color = Color.hex("#8c4d2ed6")
 const INK: Color = Color.hex("#e8dcc4")
-const BUBBLE_PAD: Edges = { top: 2sp, right: 3sp, bottom: 2sp, left: 3sp }
-// A bubble's shape: the client's own chat bubble, its rounded corners and edges, made one colour by the side's tint.
-const CHAT_BUBBLE: NineSlice = { layout: "ChatBubble" }
 // Room above a bubble: little inside a group, more where a group starts.
 const IN_GROUP: Edges = { top: 1sp }
 const NEW_GROUP: Edges = { top: 3sp }
@@ -42,10 +38,6 @@ const TOLD_COLUMNS: Array<Track> = [{ fr: 1 }, { fr: 3 }]
 const WHISPER: Color = Color.hex("#ff80ff")
 const BATTLE_NET: Color = Color.hex("#00fff6")
 const PICKED: Color = Color.hex("#2a1c10e6")
-// A session's rule: a line each side of its name, the time stamps' muted grey.
-const RULE: Color = Color.hex("#9d9d9d40")
-const RULE_TEXT: Color = Color.hex("#9d9d9d")
-const RULE_COLUMNS: Array<Track> = [{ fr: 1 }, MAX, { fr: 1 }]
 const HINT: Color = Color.hex("#857a66")
 const ROW_PAD: Edges = { top: 1sp, right: 2sp, bottom: 1sp, left: 2sp }
 // A name whole, its level right after it; a Battle.net friend's character close under the account's name.
@@ -89,7 +81,8 @@ function bubblesOf(lines: Array<TalkLine>): Array<Bubbled> {
   return bubbles
 }
 
-// A line of a conversation: its words on a bubble at its side, its group's time under the group's last. A secret line
+// A line of a conversation: its words on a bubble at its side, the group's last with its tail and its time under it. A
+// secret line
 // stands one line high, so nothing of it is measured.
 public class Bubble implements Component {
   public link: Event<Event.Link> = new Event()
@@ -102,7 +95,8 @@ public class Bubble implements Component {
   derived time: String = timeText(Game.clock.timeAt(self.item.line.time.floor()))
   // A line kept from before sessions were told apart is named by its own time.
   derived began: Integer = (self.item.line.session != 0 ? self.item.line.session : self.item.line.time).floor()
-  derived session: String = Locale.SESSION.format(Client.date(Locale.SESSION_DATE, self.began), timeText(Game.clock.timeAt(self.began)))
+  // The tail under the group's last bubble, at its side.
+  derived tail: BubbleTail = !self.item.ends ? BubbleTail.None : self.mine ? BubbleTail.End : BubbleTail.Start
 
   item: Signal<Bubbled>
   lineHeight: Signal<Number<Length>>
@@ -115,22 +109,22 @@ public class Bubble implements Component {
 
   public render(self): Template {
     return $ltml {
-      // The session's rule, as Ordaen Chat draws it over its lines.
-      <box $if={self.item.opens} columns={RULE_COLUMNS} gap={2sp} yAlign={Align.Center} padding={NEW_GROUP}>
-        <box height={1ui} background={RULE} />
-        <text value={self.session} textColor={RULE_TEXT} textSize={SECONDARY_TEXT} wrap={.None} />
-        <box height={1ui} background={RULE} />
+      <box $if={self.item.opens} padding={NEW_GROUP}>
+        <SessionRule began={self.began} />
       </box>
       <box columns={self.columns} padding={self.above}>
         // The player's own stands in the second column: the first is the room on its left.
         <box $if={self.mine} />
         <box columns={1} gap={0.5sp}>
-          <box xAlignSelf={self.side} padding={BUBBLE_PAD} background={CHAT_BUBBLE} desaturate={true} tint={self.fill}
-               @linkPress={self.onLink}>
-            <box $if={self.item.line.secret} height={self.lineHeight} overflow={Overflow.Hidden}>
-              <text value={self.item.line.whole} secret={true} textColor={INK} wrap={.None} />
-            </box>
-            <text $else value={self.item.line.whole} textColor={INK} />
+          <box xAlignSelf={self.side}>
+            <SpeechBubble tone={self.fill} tail={self.tail}>
+              <box @linkPress={self.onLink}>
+                <box $if={self.item.line.secret} height={self.lineHeight} overflow={Overflow.Hidden}>
+                  <text value={self.item.line.whole} secret={true} textColor={INK} wrap={.None} />
+                </box>
+                <text $else value={self.item.line.whole} textColor={INK} />
+              </box>
+            </SpeechBubble>
           </box>
           <text $if={self.item.ends} value={self.time} xAlignSelf={self.side} textColor={HINT} textFont={.Numbers}
                 textSize={SECONDARY_TEXT} wrap={.None} />

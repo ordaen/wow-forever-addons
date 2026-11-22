@@ -1,5 +1,7 @@
 {
   "CLOSE": "Close",
+  "SESSION": "Session · %s, %s",
+  "SESSION_DATE": "%d %b",
   "SETTINGS_OPEN": "Open Ordaen's settings",
   "SOON": "in development",
   "COUNT_FEWER": "Fewer",

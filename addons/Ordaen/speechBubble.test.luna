@@ -1,0 +1,60 @@
+// A SpeechBubble holds what was said on the client's chat bubble in its side's colour, its tail under its start or its
+// end where it ends a speaker's run, with room kept for it; a SessionRule names a session's day and time between lines.
+import Game from "$game"
+import { Align } from "$ltml"
+import Test from "$test"
+import { Component } from "@/module"
+import { SessionRule } from "@/sessionRule"
+import { BubbleTail, SpeechBubble } from "@/speechBubble"
+
+const TONE: Color = Color.hex("#8c4d2ed6")
+const INK: Color = Color.hex("#e8dcc4")
+
+// Three bubbles one under another: the first with no tail, the second's under its start, the third's under its end.
+class Said implements Component {
+  public render(self): Template {
+    return $ltml {
+      <box columns={1} width={300ui}>
+        <box xAlignSelf={Align.Start}>
+          <SpeechBubble tone={TONE}> <text value={"first"} textColor={INK} /> </SpeechBubble>
+        </box>
+        <box xAlignSelf={Align.Start}>
+          <SpeechBubble tone={TONE} tail={BubbleTail.Start}> <text value={"theirs"} textColor={INK} /> </SpeechBubble>
+        </box>
+        <box xAlignSelf={Align.End}>
+          <SpeechBubble tone={TONE} tail={BubbleTail.End}> <text value={"mine"} textColor={INK} /> </SpeechBubble>
+        </box>
+        <text value={"after"} textColor={INK} />
+      </box>
+    }
+  }
+}
+
+test "a bubble is the client's chat bubble in its colour; its tail hangs under its start or its end, its room kept" {
+  Test.mount(new Said(), { left: 0, top: 0, width: 400, height: 300 })
+  const bubbles = Test.page().box(TONE)
+  // Three bubbles, two tails, all in the one colour.
+  Test.expect(Test.page().box("ChatBubble-Tail").count() == 2)
+  const theirs = Test.page().text("theirs").rect()
+  const mine = Test.page().text("mine").rect()
+  const firstTail = Test.page().box("ChatBubble-Tail").nth(1).rect()
+  const secondTail = Test.page().box("ChatBubble-Tail").nth(2).rect()
+  // The start's tail at the bubble's left, hanging below it; the end's at its right.
+  Test.expect(firstTail.left < theirs.left && firstTail.bottom > theirs.bottom + 4)
+  Test.expect(secondTail.right > mine.right && secondTail.bottom > mine.bottom + 4)
+  // Nothing under a tailed bubble covers its tail.
+  Test.expect(Test.page().text("after").rect().top >= secondTail.bottom - 0.01)
+  Test.expect(bubbles.count() >= 3)
+}
+
+class Ruled implements Component {
+  public render(self): Template {
+    return $ltml { <SessionRule began={12 * 3600 + 4 * 60} /> }
+  }
+}
+
+test "a session's rule names its day and its time, written as every time of Ordaen's" {
+  Game.clock.hours24 = true
+  Test.mount(new Ruled(), { left: 0, top: 0, width: 400, height: 100 })
+  Test.expect(Test.page().text("Session · 01 Jan, 12:04").shown())
+}

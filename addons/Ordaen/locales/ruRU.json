@@ -1,5 +1,7 @@
 {
   "CLOSE": "Закрыть",
+  "SESSION": "Сессия · %s, %s",
+  "SESSION_DATE": "%d.%m",
   "SETTINGS_OPEN": "Открыть настройки Ordaen",
   "SOON": "в разработке",
   "COUNT_FEWER": "Меньше",

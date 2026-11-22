@@ -1,0 +1,35 @@
+// SessionRule: where a list of lines (a chat's, a conversation's) passes into another session of play, a rule across
+// it: a line each side of the session's day and time, in the muted grey of the chat's time stamps.
+import Client from "$client"
+import Game from "$game"
+import { Align, Track } from "$ltml"
+import Locale from "@/locales"
+import { Component } from "@/module"
+import { timeText } from "@/timeText"
+import { SECONDARY_TEXT } from "@/units"
+
+const RULE: Color = Color.hex("#9d9d9d40")
+const RULE_TEXT: Color = Color.hex("#9d9d9d")
+const COLUMNS: Array<Track> = [{ fr: 1 }, "max-content", { fr: 1 }]
+
+public class SessionRule implements Component {
+  derived name: String = Locale.SESSION.format(Client.date(Locale.SESSION_DATE, self.began), timeText(Game.clock.timeAt(self.began)))
+
+  began: Signal<Integer>
+  constructor(
+    // When the session began (seconds since 1970).
+    began: Signal<Integer>
+  ) {
+    self.began = began
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={COLUMNS} gap={2sp} yAlign={Align.Center}>
+        <box height={1ui} background={RULE} />
+        <text value={self.name} textColor={RULE_TEXT} textSize={SECONDARY_TEXT} wrap={.None} />
+        <box height={1ui} background={RULE} />
+      </box>
+    }
+  }
+}
