@@ -161,7 +161,7 @@ public class TalentsPage implements Component {
         <box $if={self.empty} xAlign={Align.Center} yAlign={Align.Center}>
           <text value={Locale.NO_TALENTS} textColor={Style.DIM} />
         </box>
-        <box $else columns={TREES} yAlign={Align.Stretch} background={self.art}>
+        <box $else columns={TREES} yAlign={Align.Stretch} background={self.art} cover={true}>
           <TreeColumn $for={place, tree of self.trees} $key={tree.id} tree={tree} place={place} search={self.search}
                       @spend={self.onSpend} @refund={self.onRefund} />
           <box position={Position.Absolute} left={0ui} right={0ui} top={0ui} height={LINE} background={LINE_COLOR} />

@@ -600,6 +600,38 @@ test "a spec's trees stand on the class's art, out to the window's sides and dow
   // Down to the footer, its points under the trees with the footer's own room between.
   const points = window.text("Talent points:").rect()
   Test.expect(points.top > art.bottom && points.top - art.bottom < 30)
+  // In its own proportions: the part of its sheet drawn (a square, 2048 texels a side) is the box's shape, the art
+  // (2046 by 1177) cut at its longer sides.
+  const drawn = Test.drawn().find(d => d.file == "talent-background-warrior") ?? panic("the class's art")
+  const shown = (drawn.right - drawn.left) / (drawn.bottom - drawn.top)
+  Test.expect((shown / ((art.right - art.left) / (art.bottom - art.top)) - 1).abs() < 0.01)
+}
+
+test "a talent under the cursor says what the client's tooltip says: its rank, what it does, the next rank, a click to learn" {
+  Test.mount(nil, PAGE)
+  Game.talentTrees.trees = (group: Integer): Array<Game.TalentTree> => [
+    {
+      id: 1, name: "Arms",
+      nodes: [
+        {
+          id: 10, x: 0, y: 0, name: "Deflection", icon: TALENT_ICON, rank: 2, ranks: 5, canSpend: true, canRefund: true,
+          edges: [], current: "Parry +2%", next: "Parry +3%"
+        },
+        {
+          id: 11, x: 600, y: 600, name: "Tactical Mastery", icon: TALENT_ICON, rank: 0, ranks: 3, canSpend: false,
+          canRefund: false, edges: [], next: "Keeps 5 rage", conditions: [{ points: 5, met: false }]
+        }
+      ]
+    }
+  ]
+  const window = onSpec("Primary")
+  window.button("2/5").hover()
+  Test.expect(Test.page().text("Parry +2%").shown() && Test.page().text("Parry +3%").shown())
+  Test.expect(Test.page().text("2/5").count() == 2 && Test.page().text("Click to learn.").shown())
+  window.button("0/3").hover()
+  // No rank held: the first rank's words as what it does, the points its tree still needs, nothing to click for.
+  Test.expect(Test.page().text("Keeps 5 rage").shown() && !Test.page().text("Parry +2%").shown())
+  Test.expect(Test.page().text("Requires 5 points in this tree").shown())
 }
 
 test "the second spec's tab shows that spec's trees" {

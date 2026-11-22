@@ -7,25 +7,29 @@
 // short of the other's, where the client's arrowhead points at it; gold once the node it comes from is full. A node
 // clicked says so (Left: spend, Right: take back); what it may do is the client's to say (`canSpend`, `canRefund`),
 // and a tree only shown (another player's) is not listened to. A search dims the nodes whose names don't hold it.
+// Under the cursor a node says what the client's talent tooltip says: its name, its rank of its ranks, what the rank
+// held does (or the first will), what the next rank will, the points its tree still needs, and that a click learns it.
 import Game from "$game"
 import { Align, Event, Line, MouseButton, Position, Track } from "$ltml"
+import Locale from "@/locales"
 import { Component } from "@/module"
+import { Tip, TipRow, TipSection } from "@/tip"
 import { SECONDARY_TEXT } from "@/units"
 
 // One step of the client's grid: its talents stand this far apart in its own units.
 const CELL = 600
-// A node (the client's frame is 40 px), its icon inside the frame, a cell's width (a node and the gap beside it),
-// and the least a row is high (a node and the gap under it): a taller tree box spreads its rows.
-const SIZE = 46.875dp
-const ICON_INSET = 4.6875dp
-const STEP = 63.28125dp
-const ROW_LEAST = 63.28125dp
+// A node (52 px, larger than the client's 40 so its icon reads), its icon inside the frame, a cell's width (a node
+// and the gap beside it), and the least a row is high (a node and the gap under it): a taller tree box spreads its rows.
+const SIZE = 60.9375dp
+const ICON_INSET = 6.09375dp
+const STEP = 82.03125dp
+const ROW_LEAST = 82.03125dp
 // A cell: room over its node, the node's row, room under it.
 const CELL_ROWS: Array<Track> = [{ fr: 1 }, SIZE, { fr: 1 }]
-// An arrow's line and its edge, and its head (the client's is 14 by 12 px).
+// An arrow's line and its edge, and its head (the client's is 14 by 12 px, here at the nodes' scale).
 const LINE = 4.6875dp
 const LINE_EDGE: Line = { width: 1.171875dp, color: Color.hex("#000000") }
-const HEAD = 16.40625dp
+const HEAD = 21.09375dp
 // Where a cell's vertical line and its node stand across it, and where its horizontal line stands down its node's row.
 const MIDDLE: Number<Length> = (STEP - LINE) / 2
 const NODE_LEFT: Number<Length> = (STEP - SIZE) / 2
@@ -39,6 +43,8 @@ const BADGE_EDGE: Line = { width: 1.171875dp, color: Color.hex("#3e2f1d") }
 const GOLD: Color = Color.hex("#ffd100")
 const GREEN: Color = Color.hex("#40d060")
 const DIM: Color = Color.hex("#a3977f")
+// A tooltip's line for what isn't met yet, as the client writes it.
+const RED: Color = Color.hex("#ff2020")
 const EDGE: Color = Color.hex("#4a3a24")
 // The client's talent frames and arrowheads, by what a node may do.
 const FRAME_FULL: Atlas = "talents-node-square-yellow"
@@ -151,9 +157,35 @@ public function spentIn(tree: Game.TalentTree): Integer {
   return sum
 }
 
+// What a node's tooltip says under its name: what the rank held does, or the first rank where it holds none.
+function tipTextOf(node: Game.TalentNode): String {
+  return (node.rank > 0 ? node.current : node.next) ?? ""
+}
+
+// Its rows: its rank of its ranks, each point its tree still needs (red), and that a click learns it where one may.
+function tipRowsOf(node: Game.TalentNode): Array<TipRow> {
+  const rows: Array<TipRow> = [{ label: Locale.TALENT_RANK, value: "%d/%d".format(node.rank, node.ranks) }]
+  for (condition of node.conditions) {
+    if (!condition.met) { rows.push({ label: Locale.TALENT_TREE_POINTS.format(condition.points), value: "", tone: RED }) }
+  }
+  if (node.canSpend) { rows.push({ label: Locale.TALENT_LEARN, value: "", tone: GREEN }) }
+  return rows
+}
+
+// Its next rank, where it holds one and has another.
+function tipSectionsOf(node: Game.TalentNode): Array<TipSection> {
+  const next = node.next
+  return node.rank > 0 && next != nil ? [{ title: Locale.TALENT_NEXT_RANK, rows: [{ label: next, value: "" }] }] : []
+}
+
 class TalentNodeView implements Component {
   public spend: Event<Integer> = new Event()
   public refund: Event<Integer> = new Event()
+
+  state hovered = false
+  derived tipText: String = tipTextOf(self.node)
+  derived tipRows: Array<TipRow> = tipRowsOf(self.node)
+  derived tipSections: Array<TipSection> = tipSectionsOf(self.node)
 
   derived lit: Boolean = self.search == "" || self.node.name.lower().contains(self.search.lower())
   derived shut: Boolean = self.node.rank == 0 && !self.node.canSpend
@@ -170,6 +202,9 @@ class TalentNodeView implements Component {
     self.search = search
   }
 
+  onEnter(mut self) { self.hovered = true }
+  onLeave(mut self) { self.hovered = false }
+
   onClick(mut self, click: Event.Press) {
     if (click.button == MouseButton.Right) {
       self.refund.emit(self.node.id)
@@ -181,7 +216,7 @@ class TalentNodeView implements Component {
   public render(self): Template {
     return $ltml {
       <box position={Position.Absolute} left={NODE_LEFT} top={0ui} width={SIZE} height={SIZE} opacity={self.opacity}
-           zLevel={2} @pointerPress={self.onClick}>
+           zLevel={2} @pointerPress={self.onClick} @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
         <box position={Position.Absolute} left={ICON_INSET} top={ICON_INSET} right={ICON_INSET} bottom={ICON_INSET}
              icon={self.node.icon} desaturate={self.shut} />
         <box position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui} background={self.frame} />
@@ -189,6 +224,7 @@ class TalentNodeView implements Component {
              background={BADGE_BACK} border={BADGE_EDGE}>
           <text value={self.rank} textSize={SECONDARY_TEXT} textColor={self.rankColor} wrap={.None} textFont={.Numbers} />
         </box>
+        <Tip $if={self.hovered} title={self.node.name} text={self.tipText} rows={self.tipRows} sections={self.tipSections} />
       </box>
     }
   }
