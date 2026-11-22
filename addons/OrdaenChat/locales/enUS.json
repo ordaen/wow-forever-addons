@@ -90,5 +90,7 @@
   "SYSTEMS_BATTLEGROUND": "Battlegrounds",
   "SYSTEMS_GAME": "Game",
   "BATTLEGROUND_NEWS": "Battleground announcements",
-  "CHANNEL_NOTICES": "Channel notices"
+  "CHANNEL_NOTICES": "Channel notices",
+  "GROUND": "Background opacity",
+  "GROUND_TIP": "How dark the background under the lines is. 0%: no background."
 }

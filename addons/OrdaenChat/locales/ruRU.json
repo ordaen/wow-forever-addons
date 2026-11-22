@@ -90,5 +90,7 @@
   "SYSTEMS_BATTLEGROUND": "Поле боя",
   "SYSTEMS_GAME": "Игра",
   "BATTLEGROUND_NEWS": "Объявления поля боя",
-  "CHANNEL_NOTICES": "Уведомления каналов"
+  "CHANNEL_NOTICES": "Уведомления каналов",
+  "GROUND": "Непрозрачность фона",
+  "GROUND_TIP": "Насколько тёмный фон под строками. 0% — без фона."
 }

@@ -64,6 +64,8 @@ public struct Choices implements Plain {
   // it shows meanwhile (0: nothing).
   hide: Boolean
   hiddenOpacity: Number
+  // How opaque the lines' dark ground is, from 0 to 1.
+  ground: Number = 0.8
   // Each window's own settings, by its tab's key (`tabKey`); a window without them takes `tabDefaults`.
   tabs: Map<String, TabChoices>
   // Words (comma-separated) that mark someone else's line, beside the player's own name.

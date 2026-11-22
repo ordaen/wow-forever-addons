@@ -27,6 +27,8 @@ public class ChatPage implements Component {
                        unit={Unit.None} />
         </Section>
         <Section title={Locale.SECTION_VISIBILITY}>
+          <NumberInput label={Locale.GROUND} hint={Locale.GROUND_TIP} value={mut self.settings.values.ground} least={0} most={1}
+                       step={0.05} unit={Unit.Percent} />
           <Switch label={Locale.HIDE} hint={Locale.HIDE_TIP} value={mut self.settings.values.hide} />
           <NumberInput $if={self.settings.values.hide} label={Locale.HIDDEN_OPACITY} hint={Locale.HIDDEN_OPACITY_TIP}
                        value={mut self.settings.values.hiddenOpacity} least={0} most={1} step={0.05} unit={Unit.Percent} />

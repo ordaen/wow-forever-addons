@@ -1,15 +1,20 @@
 // The chat's parts: a tab of its sidebar and a line.
 import Game from "$game"
-import { Align, Edges, Event, Overflow, Position } from "$ltml"
-import { Component, CountBadge, ListTab, SECONDARY_TEXT, SessionRule, timeText } from "Ordaen"
+import { Align, Bounds, Edges, Event, Overflow, Position } from "$ltml"
+import { BRIGHT_TEXT, Component, ListTab, SECONDARY_TEXT, SessionRule, timeText } from "Ordaen"
 import { ChatTab, STAMP, Shown, StampShown } from "@/lines"
 
 // The warm band under a line that names the player or a keyword.
 const MARK: Color = Color.hex("#ff9a2e33")
 // A time above a minute's lines: the time stamps' muted grey, at the secondary text's size, on its line's own lines.
 const STAMP_GREY: Color = Color.hex("#9d9d9d")
-// The shade behind the open tab and the one under the cursor: a list tab's own under the cursor.
+// The shade behind the tab under the cursor: a list tab's own under the cursor. The open one stands on the lines' own
+// ground, one piece with them.
 const SHADE: Color = Color.hex("#00000059")
+// The unread count: bright digits on a plain fill, no art; never narrower than it is high.
+const COUNT_FILL: Color = Color.hex("#9b2c1f")
+const COUNT_WIDE: Bounds = { min: 18.75dp, max: nil }
+const COUNT_PAD: Edges = { right: 1sp, left: 1sp }
 // The count's room at a counting tab's right, a two-digit badge's, kept in the tab's flow; the badge stands over the
 // tab out of it, centred on its height, in from its right edge.
 const COUNT_ROOM: Number<Length> = 28dp
@@ -18,22 +23,25 @@ const COUNT_SPOT: Edges = { right: 3sp }
 // A tab: an entry of the chat's sidebar, the library's list tab (its name), and while lines wait unread, their count's
 // badge at its right end, beside its name: a tab that counts keeps the badge's room whether any wait or not, the badge
 // out of the flow in it (a count wider than the room grows to the left, into the gap), so nothing moves as the count
-// comes, grows or goes. The open one and the one under the cursor stand on a shade, its name white on the open one;
-// the shade runs to the tab's right, where the lines' ground begins, so it touches the lines. The left button picks it,
-// the right opens its menu.
+// comes, grows or goes. The open one stands on the lines' ground, its name white, and the one under the cursor on a
+// shade; either runs to the tab's right, where the lines' ground begins, so it touches the lines. The left button picks
+// it, the right opens its menu.
 public class TabButton implements Component {
   public pick: Event<ChatTab> = new Event()
   public menu: Event<ChatTab> = new Event()
 
   state hovered = false
-  derived shade: Color | nil = self.open || self.hovered ? SHADE : nil
+  derived shade: Color | nil = self.open ? self.ground : self.hovered ? SHADE : nil
   derived unread: Boolean = self.tab.unread > 0
 
   tab: Signal<ChatTab>
   open: Signal<Boolean>
-  constructor(tab: Signal<ChatTab>, open: Signal<Boolean>) {
+  // The lines' dark ground, the open tab's.
+  ground: Signal<Color>
+  constructor(tab: Signal<ChatTab>, open: Signal<Boolean>, ground: Signal<Color>) {
     self.tab = tab
     self.open = open
+    self.ground = ground
   }
 
   onPick(mut self) { self.pick.emit(peek self.tab) }
@@ -57,7 +65,10 @@ public class TabButton implements Component {
         </box>
         <box $if={self.unread} position={Position.Absolute} top={0ui} right={0ui} bottom={0ui} padding={COUNT_SPOT}
              yAlign={Align.Center} zLevel={2}>
-          <CountBadge count={self.tab.unread} />
+          <box width={COUNT_WIDE} padding={COUNT_PAD} background={COUNT_FILL} xAlign={Align.Center} yAlign={Align.Center}>
+            <text value={"%d"} arguments={[self.tab.unread]} textSize={SECONDARY_TEXT} textColor={BRIGHT_TEXT} textFont={.Numbers}
+                  leading={.Tight} wrap={.None} />
+          </box>
         </box>
       </box>
     }

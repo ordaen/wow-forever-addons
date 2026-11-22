@@ -17,6 +17,8 @@ const SCREEN: Test.Page = { left: 0, top: 0, width: 1600, height: 900, screen: t
 const WHITE: Color = Color.hex("#ffffff")
 // The shade a tab stands on, open or under the cursor.
 const TAB_SHADE: Color = Color.hex("#00000059")
+// The unread count's plain fill.
+const COUNT_FILL: Color = Color.hex("#9b2c1f")
 
 function window(index: Integer, name: String, partner: String, docked: Boolean = true, fontSize: Number = 13, combatLog: Boolean = false): Game.ChatWindow {
   // Hidden while its input is made, as the game parks its windows.
@@ -77,32 +79,36 @@ test "the chat reads the game's lines and shows them in the window's tab, nothin
   Test.expect(shown.texts().join(",") == "General,Jaina,[Thrall] says: Hello")
 }
 
-test "the open tab and the one under the cursor stand on a list's shade, touching the lines' dark ground" {
+test "the open tab stands on the lines' own ground, the one under the cursor on a shade, each touching the lines" {
   Game.chat.windows = gameWindows()
   const shown = chat()
   const name = shown.text("General").rect()
   Test.expect(shown.box(Ordaen.art.window.wood).count() == 0)
-  Test.expect(shown.box(TAB_SHADE).count() == 1 && onShade(shown, "General"))
+  Test.expect(shown.box(TAB_SHADE).count() == 0 && standsOn(shown, "General", GROUND))
   shown.text("Jaina").click()
-  Test.expect(onShade(shown, "Jaina") && !onShade(shown, "General"))
+  Test.expect(standsOn(shown, "Jaina", GROUND) && !standsOn(shown, "General", GROUND))
   // A tab keeps its place, open or not.
   Test.expect(shown.text("General").rect().left == name.left)
-  // Under the cursor, another tab stands on the same shade.
+  // Under the cursor, another tab stands on a shade.
   shown.text("General").hover()
-  Test.expect(onShade(shown, "General") && onShade(shown, "Jaina"))
-  // The shade runs up to the lines' ground: no gap.
+  Test.expect(standsOn(shown, "General", TAB_SHADE) && standsOn(shown, "Jaina", GROUND))
+  // The open tab's ground and the shade run up to the lines' ground: no gap.
   const lines = ground(shown)
-  const shade = shown.box(TAB_SHADE)
-  for (n of 1..shade.count()) {
-    Test.expect((shade.nth(n).rect().right - lines.left).abs() < 0.5)
-  }
+  Test.expect((under(shown, "Jaina", GROUND).right - lines.left).abs() < 0.5)
+  Test.expect((under(shown, "General", TAB_SHADE).right - lines.left).abs() < 0.5)
   // No list's own shade or light of its own over a tab.
   Test.expect(shown.box(Color.hex("#00000040")).count() == 0 && shown.box(Color.hex("#d6a56b")).count() == 0)
 }
 
-// The lines' dark ground, whole: its middle part runs from top to bottom, a corner's round in from each side.
+// The lines' dark ground, whole: its middle part, the widest of the boxes of its colour (the open tab's ground is one
+// too), runs from top to bottom, a corner's round in from each side.
 function ground(shown: Test.Part): Test.Rect {
-  const middle = shown.box(GROUND).nth(1).rect()
+  const parts = shown.box(GROUND)
+  let middle = parts.nth(1).rect()
+  for (n of 2..parts.count()) {
+    const part = parts.nth(n).rect()
+    if (part.right - part.left > middle.right - middle.left) { middle = part }
+  }
   const round = GROUND_ROUND / 1ui
   return { left: middle.left - round, top: middle.top, right: middle.right + round, bottom: middle.bottom }
 }
@@ -111,24 +117,31 @@ function inBox(box: Test.Rect, at: Test.Rect): Boolean {
   return box.left <= at.left && box.right >= at.right && box.top <= at.top && box.bottom >= at.bottom
 }
 
-// Whether a text stands on one of the tabs' shades.
-function onShade(shown: Test.Part, text: String): Boolean {
+// The box of `color` a text stands on, where one is: a tab's ground or shade.
+function underOr(shown: Test.Part, text: String, color: Color): Test.Rect | nil {
   const at = shown.text(text).rect()
-  const shade = shown.box(TAB_SHADE)
-  for (n of 1..shade.count()) {
-    if (inBox(shade.nth(n).rect(), at)) { return true }
+  const boxes = shown.box(color)
+  for (n of 1..boxes.count()) {
+    const box = boxes.nth(n).rect()
+    if (inBox(box, at)) { return box }
   }
-  return false
+  return nil
 }
 
-test "a tab's count is the library's badge beside its name, never over it: nothing moves for it" {
+function standsOn(shown: Test.Part, text: String, color: Color): Boolean { return underOr(shown, text, color) != nil }
+
+function under(shown: Test.Part, text: String, color: Color): Test.Rect {
+  return underOr(shown, text, color) ?? panic(`«${text}» stands on no box of that colour`)
+}
+
+test "a tab's count stands on a plain fill beside its name, never over it: nothing moves for it" {
   Game.chat.windows = gameWindows()
   const shown = chat()
   const name = shown.text("Jaina").letters()
   const tab = shown.text("Jaina").rect()
   const lines = ground(shown)
   Game.chat.heard.emit(line("SAY", "[Jaina] says: one", "Jaina", [3]))
-  const badge = shown.box(Ordaen.art.panel.countBadge)
+  const badge = shown.box(COUNT_FILL)
   const one = badge.rect()
   Test.expect(one.left >= name.right && one.top < name.bottom && one.bottom > name.top)
   for (at of 1..98) { Game.chat.heard.emit(line("SAY", `[Jaina] says: ${at}`, "Jaina", [3])) }
@@ -201,7 +214,8 @@ test "Enter shows the input line, on the screen, in the chat's frame" {
   const middle = Test.centre(box)
   Test.expect(box.IsVisible() && box.GetHeight() >= 20)
   Test.expect(middle.x > frame.left && middle.x < frame.right && middle.y > frame.top && middle.y < frame.bottom)
-  Test.expect(middle.y > shown.text("[Thrall] says: here").rect().bottom)
+  // Over the lines.
+  Test.expect(middle.y < shown.text("[Thrall] says: here").rect().top)
   // It stands in a field's floor and edge, the chat's own look: a surface over its box, round it.
   const field = Test.page().box(FIELD_FILL)
   Test.expect(field.count() == 1)
@@ -211,7 +225,7 @@ test "Enter shows the input line, on the screen, in the chat's frame" {
   Test.expect(box.GetFrameStrata() == "DIALOG" && box.GetFrameLevel() > field.level())
 }
 
-test "the input shows under the lines' ground in a room the chat keeps for it: nothing moves as it or the way back comes" {
+test "the input shows over the lines' ground in a room the chat keeps for it: nothing moves as it or the way back comes" {
   Game.chat.windows = gameWindows()
   const box = input(Client.CreateFrame("Frame", nil, Client.C_UI.GetUIParent(), nil))
   box.Hide()
@@ -236,9 +250,9 @@ test "the input shows under the lines' ground in a room the chat keeps for it: n
   const chatNow = shown.rect()
   Test.expect(chatNow.top == chatBefore.top && chatNow.bottom == chatBefore.bottom && chatNow.right == chatBefore.right)
   Test.expect(shown.text("line 60").rect().bottom == newest.bottom)
-  // The input stands under the lines' ground, inside the chat.
+  // The input stands over the lines' ground, inside the chat.
   const middle = Test.centre(box)
-  Test.expect(middle.y > lines.bottom && middle.y < chatNow.bottom && middle.x > lines.left && middle.x < lines.right)
+  Test.expect(middle.y < lines.top && middle.y > chatNow.top && middle.x > lines.left && middle.x < lines.right)
 }
 
 test "the input's field stands over a game window opened over the chat's corner, as the game's input does" {
@@ -723,7 +737,8 @@ test "the chat's own text size, where the player turns it on, is the lines' for 
   Test.open("/ordaen")
   const settings = Test.page().window("Move mode")
   settings.button("Chat").click()
-  // The page's switches that are off: hiding, the own text size, the input always shown.
+  // The page's switches that are off: hiding, the own text size, the input always shown; the page scrolled to them.
+  settings.button(Ordaen.art.ctl.switchOff).nth(1).wheel(-3)
   settings.button(Ordaen.art.ctl.switchOff).nth(2).click()
   Test.expect(settings.text("Text size").shown())
   // The size's slider, at the body's size until changed, two steps down by its − (the page's last), the page scrolled to it.
@@ -736,12 +751,13 @@ test "the chat's own text size, where the player turns it on, is the lines' for 
   Test.expect((lineToName(Test.page().window("[Thrall] says: Hello")) - (body - 2) / body).abs() < 0.005)
 }
 
-test "the tabs begin level with the lines' ground, and the ground is dark with rounded corners, no wood" {
+test "the tabs begin level with the lines' ground, and the ground is dark, its top right corner round, no wood" {
   Game.chat.windows = gameWindows()
   const shown = chat()
-  Test.expect((shown.box(TAB_SHADE).rect().top - ground(shown).top).abs() < 0.5)
-  // Its middle, a strip down each side, and four corners, each a circle cut to its quarter.
-  Test.expect(shown.box(GROUND).count() == 7 && shown.box(Ordaen.art.window.wood).count() == 0)
+  Test.expect((under(shown, "General", GROUND).top - ground(shown).top).abs() < 0.5)
+  // Its middle, a strip down each side, its four corners (the top right a circle cut to its quarter), and the open
+  // tab's ground.
+  Test.expect(shown.box(GROUND).count() == 8 && shown.box(Ordaen.art.window.wood).count() == 0)
 }
 
 test "the Tabs page lists the windows in a sidebar; the picked one's speech, channels, communities and system messages" {
@@ -1044,13 +1060,13 @@ test "messages stand apart by the chat's room between them, more than a message'
   Game.chat.heard.emit(line("SAY", "[Thrall] says: two", "Thrall", [1]))
   const room = (): Number => shown.text("[Thrall] says: two").rect().top - shown.text("[Thrall] says: one").rect().bottom
   Test.expect((room() - Ordaen.lengthOf(MESSAGE_GAP * 1sp) / 1ui).abs() < 0.05)
-  // The room's slider on the Chat page, two half-steps down by its − (the page's fifth: after the width, the height,
-  // the lines kept and the lines held).
+  // The room's slider on the Chat page, two half-steps down by its − (the page's sixth: after the width, the height,
+  // the background's opacity, the lines kept and the lines held).
   Test.open("/ordaen")
   const settings = Test.page().window("Move mode")
   settings.button("Chat").click()
-  settings.text("-").nth(5).click()
-  settings.text("-").nth(5).click()
+  settings.text("-").nth(6).click()
+  settings.text("-").nth(6).click()
   Test.expect((room() - Ordaen.lengthOf((MESSAGE_GAP - 1) * 1sp) / 1ui).abs() < 0.05)
 }
 
@@ -1103,4 +1119,21 @@ test "the input speaks where each tab's window last spoke: opened in General it 
   Test.expect(Test.requests().any(r => r == "Chat.speak 1"))
   shown.text("Trade").click()
   Test.expect(Test.requests().any(r => r == "Chat.speak 4"))
+}
+
+test "the lines' ground is as dark as the Chat page says, 80% where nothing is chosen" {
+  Game.chat.windows = gameWindows()
+  _ = chat()
+  // Found by its whisper window's tab: the settings window names «General» too.
+  const shown = Test.page().window("Jaina")
+  // The ground's seven parts and the open tab's ground.
+  Test.expect(shown.box(GROUND).count() == 8)
+  // The opacity's slider, two steps down by its − (the page's third: after the width and the height).
+  Test.open("/ordaen")
+  const settings = Test.page().window("Move mode")
+  settings.button("Chat").click()
+  settings.text("-").nth(3).click()
+  settings.text("-").nth(3).click()
+  // Lighter than the 80% it was: the ground follows the setting.
+  Test.expect(shown.box(GROUND).count() == 0)
 }
