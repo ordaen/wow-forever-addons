@@ -11,9 +11,8 @@
 // held does (or the first will), what the next rank will, the points its tree still needs, and that a click learns it.
 import Game from "$game"
 import { Align, Event, Line, MouseButton, Position, Track } from "$ltml"
+import { Component, Tip, TipRow, TipSection } from "Ordaen"
 import Locale from "@/locales"
-import { Component } from "@/module"
-import { Tip, TipRow, TipSection } from "@/tip"
 
 // One step of the client's grid: its talents stand this far apart in its own units.
 const CELL = 600
