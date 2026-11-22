@@ -26,8 +26,6 @@ const ROW_KEYS: Array<String> = [Locale.ROW_KEY_PAGE, Locale.ROW_KEY_LINK, Local
 const GOLD: Color = Color.hex("#ffd100")
 const DIM: Color = Color.hex("#a3977f")
 const GREEN: Color = Color.hex("#40c040")
-// A done objective: the done quest's green, dimmed.
-const GOAL_DONE: Color = Color.hex("#6a9a62")
 // Between the page's parts; the buttons stand further off the tracking switch.
 const PAGE_GAP = 4sp
 const BUTTONS_OFF = 3sp
@@ -235,22 +233,20 @@ public function goalParts(text: String): (String, String) {
   return what, count
 }
 
-// One objective: what is to be done, wrapped, and its count at the right; `color` while to do, `doneColor` once done.
+// One objective: what is to be done, wrapped, in `color`, and at its right its count, or the client's green check once
+// it is done.
 class GoalLine implements Component {
   derived what: String = whatOf(self.objective.text)
   derived count: String = countOf(self.objective.text)
-  derived color: Color = self.objective.done ? self.doneColor : self.todoColor
+  derived done: Boolean = self.objective.done
 
   objective: Signal<Game.QuestObjective>
-  todoColor: Signal<Color>
-  doneColor: Signal<Color>
+  color: Signal<Color>
   // The list's small lines; the page's are the body's size.
   small: Signal<Boolean>
-  constructor(objective: Signal<Game.QuestObjective>, todoColor: Signal<Color> = DIM, doneColor: Signal<Color> = GOAL_DONE,
-    small: Signal<Boolean> = true) {
+  constructor(objective: Signal<Game.QuestObjective>, color: Signal<Color> = DIM, small: Signal<Boolean> = true) {
     self.objective = objective
-    self.todoColor = todoColor
-    self.doneColor = doneColor
+    self.color = color
     self.small = small
   }
 
@@ -258,16 +254,23 @@ class GoalLine implements Component {
     return $ltml {
       <box $if={self.small} columns={[{ fr: 1 }, "max-content"]} gap={2sp}>
         <text value={self.what} textColor={self.color} textSize={SECONDARY_TEXT} lineHeight={TIGHT_LINE} />
-        <text value={self.count} textColor={self.color} textSize={SECONDARY_TEXT} textFont={.Numbers} lineHeight={TIGHT_LINE}
-              wrap={.None} />
+        <box $if={self.done} width={CHECK_SMALL} height={CHECK_SMALL} background={CHECK} />
+        <text $else value={self.count} textColor={self.color} textSize={SECONDARY_TEXT} textFont={.Numbers}
+              lineHeight={TIGHT_LINE} wrap={.None} />
       </box>
-      <box $else columns={[{ fr: 1 }, "max-content"]} gap={2sp}>
+      <box $else columns={[{ fr: 1 }, "max-content"]} gap={2sp} yAlign={Align.Start}>
         <text value={self.what} textColor={self.color} lineHeight={TIGHT_LINE} />
-        <text value={self.count} textColor={self.color} textFont={.Numbers} lineHeight={TIGHT_LINE} wrap={.None} />
+        <box $if={self.done} width={CHECK_SIZE} height={CHECK_SIZE} background={CHECK} />
+        <text $else value={self.count} textColor={self.color} textFont={.Numbers} lineHeight={TIGHT_LINE} wrap={.None} />
       </box>
     }
   }
 }
+
+// The client's green check of a ready check: a goal done.
+const CHECK: Asset = "Interface/RaidFrame/ReadyCheck-Ready"
+const CHECK_SIZE = 18.75dp
+const CHECK_SMALL = 16.40625dp
 
 function whatOf(text: String): String {
   const what, _ = goalParts(text)
@@ -279,7 +282,6 @@ function countOf(text: String): String {
   return count
 }
 
-// The line under the scroll: its label, then the next quest's name.
 // A section under the scroll: the cut with its title, then what it holds.
 const SECTION_GAP = 1sp
 // The scroll's row: its least height unfolded, its own height folded.
@@ -420,7 +422,7 @@ public class QuestPage implements Component {
         <box $if={self.goals.length > 0} gap={SECTION_GAP}>
           <Cut title={Locale.SECTION_PROGRESS} />
           <box gap={GOAL_GAP}>
-            <GoalLine $for={objective of self.goals} objective={objective} todoColor={WELL_TEXT}
+            <GoalLine $for={objective of self.goals} objective={objective} color={WELL_TEXT}
                       small={false} />
           </box>
         </box>

@@ -841,14 +841,16 @@ test "the parchment holds the lore alone: the objectives and their counts stand 
   opened(log)
   const window = Test.page().window("World")
   window.text("Elwynn Wolves").click()
-  // The task on the parchment; the objectives past its bottom roll, in the well's text as the switch's label is, a done
-  // one dim.
+  // The task on the parchment; the objectives past its bottom roll, in the well's text as the switch's label is.
   // The list's row says «Fangs» first; the page's is the second.
   const fangs = window.text("Fangs").nth(2)
   Test.expect(fangs.rect().top > window.text("Bring pelts to Eagan.").rect().bottom + 40)
   Test.expect(fangs.textColor().equal(window.text("Track").textColor()))
-  // Done: a dimmed green, not grey.
-  Test.expect(window.text("Pelts").textColor().equal(Color.hex("#6a9a62")))
+  // Done: the same colour, and the client's green check at its right where its count was.
+  const pelts = window.text("Pelts")
+  Test.expect(pelts.textColor().equal(window.text("Track").textColor()) && !window.text("4/4").shown())
+  const check = window.box("Interface/RaidFrame/ReadyCheck-Ready")
+  Test.expect(check.count() == 1 && check.rect().left > pelts.rect().right)
 }
 
 test "a long objective wraps under the parchment and pushes what follows down" {
