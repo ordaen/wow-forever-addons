@@ -254,7 +254,8 @@ test "a stance's button takes its form by its spell, clicked and by the game's s
   Test.mount(new ActionBars(holder.settings.values, holder.defaults), SCREEN)
   Test.flush()
   _ = Test.performed()
-  actionButton("stance", 1).Click()
+  // Clicked as a key does, on the press's down half: the client's default (ActionButtonUseKeyDown).
+  actionButton("stance", 1).Click("LeftButton", true)
   // The stand-in's form at a place casts the spell of that number.
   Test.expect(Test.performed().join(", ") == "spell 1")
   Test.expect(Test.keyBound("F1"))

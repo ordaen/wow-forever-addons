@@ -226,6 +226,9 @@ public class Bar implements Component {
         // A form is taken by its spell (`armForms`); its tooltip asks the client by its place.
         frame.SetAttribute("type", "spell")
         frame.index = index
+        // Its key acts on the press's down half (the client's ActionButtonUseKeyDown, on by default), which the
+        // stance template alone doesn't hear (it registers "AnyUp"): both halves, as the action bars' buttons are.
+        frame.RegisterForClicks("AnyUp", "AnyDown")
       }
       buttons.push(new Slot(frame, name, command))
     }
