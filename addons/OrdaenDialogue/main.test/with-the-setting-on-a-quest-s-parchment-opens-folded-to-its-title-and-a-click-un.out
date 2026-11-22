@@ -40,7 +40,13 @@ surface 56.67,99.71 400.03x620.58 on MEDIUM clamped raised by a click
               box 92.52,504.77 333.33x94.08
                 box 92.52,509.04 333.33x17.5
                   text 92.52,509.04 184.17x17.5 "You will be able to choose" #e8c35a
-                  box 285.22,517.37 140.63x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+                  box 285.22,514.45 140.63x6.67
+                    box 285.22,514.45 6.67x6.67 Interface\AddOns\Ordaen\media\groove-dark-entry blend=MOD
+                      box 285.22,514.45 6.67x6.67 absolute Interface\AddOns\Ordaen\media\groove-light-entry blend=ADD
+                    box 291.88,514.45 80.63x6.67 Interface\AddOns\Ordaen\media\groove-dark blend=MOD
+                      box 291.88,514.45 80.63x6.67 absolute Interface\AddOns\Ordaen\media\groove-light blend=ADD
+                    box 372.52,514.45 53.33x6.67 Interface\AddOns\Ordaen\media\groove-dark-tip blend=MOD
+                      box 372.52,514.45 53.33x6.67 absolute Interface\AddOns\Ordaen\media\groove-light-tip blend=ADD
                 box 92.52,529.38 333.33x69.47
                   box 92.52,529.38 333.33x34.02
                     box 95.36,546.39 0x0
@@ -63,7 +69,13 @@ surface 56.67,99.71 400.03x620.58 on MEDIUM clamped raised by a click
               box 92.52,600.27 333.33x53.82
                 box 92.52,604.54 333.33x17.5
                   text 92.52,604.54 149.17x17.5 "You will also receive" #e8c35a
-                  box 250.22,612.87 175.63x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+                  box 250.22,609.95 175.63x6.67
+                    box 250.22,609.95 6.67x6.67 Interface\AddOns\Ordaen\media\groove-dark-entry blend=MOD
+                      box 250.22,609.95 6.67x6.67 absolute Interface\AddOns\Ordaen\media\groove-light-entry blend=ADD
+                    box 256.88,609.95 115.63x6.67 Interface\AddOns\Ordaen\media\groove-dark blend=MOD
+                      box 256.88,609.95 115.63x6.67 absolute Interface\AddOns\Ordaen\media\groove-light blend=ADD
+                    box 372.52,609.95 53.33x6.67 Interface\AddOns\Ordaen\media\groove-dark-tip blend=MOD
+                      box 372.52,609.95 53.33x6.67 absolute Interface\AddOns\Ordaen\media\groove-light-tip blend=ADD
                 box 92.52,624.88 333.33x0
                 box 92.52,627.73 333.33x26.37
                   box 177.78,630.57 162.81x20.68
