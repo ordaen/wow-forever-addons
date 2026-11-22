@@ -1,12 +1,13 @@
 // A spec's tab: the talents' search on the left of the top row, «Activate» on its right for the spec that isn't
-// active; under it, a gap below, the spec's trees edge to edge, a thin dark line between them and along their top and
+// active; under it, a gap below, the spec's trees on the class's own art (the client's `talent-background-<class>`),
+// edge to edge out to the window's sides and down to the footer, a thin dark line between them and along their top and
 // bottom; the footer, with «Cancel changes» on its left and «Apply changes» on its right while points wait to be
 // applied, and in its centre the points left with the class trainer's price for a reset under them (from the trainer's
 // last offer, `CONFIRM_TALENT_WIPE`, kept per character; hidden until the first). Each node is drawn where the client
 // puts it, Left-click spending a point in it and Right-click taking back one not applied yet; what a node may do is the
 // client's to say (`canSpend`, `canRefund`), the page only asks.
 import Game from "$game"
-import { Align, Position, Track } from "$ltml"
+import { Align, Edges, Position, Track } from "$ltml"
 import { ButtonPlate, Component, Money, PushButton, SECONDARY_TEXT, TalentTreeView, Tip, Toolbar } from "Ordaen"
 import Locale from "@/locales"
 import Style from "@/style"
@@ -22,8 +23,15 @@ const CHANGES_WIDTH: Number<Length> = 234.375dp
 const LINE: Number<Length> = 1.171875dp
 const LINE_COLOR: Color = Color.hex("#000000")
 const LINE_LIGHT: Color = Color.hex("#d6a56b2e")
-// Under the trees' art, until the trees bring their own.
-const TREE_BACK: Color = Color.hex("#00000040")
+// The top row's and the footer's room from the window's frame; the trees have none at the sides.
+const TOP_ROOM: Edges = { top: 3sp, right: Style.SIDE_ROOM, left: Style.SIDE_ROOM }
+const FOOT_ROOM: Edges = { right: Style.SIDE_ROOM, bottom: 3sp, left: Style.SIDE_ROOM }
+// The class's art under its three trees, as the client's talents window draws it.
+const ARTS: Map<String, Atlas> = {
+  DRUID: "talent-background-druid", HUNTER: "talent-background-hunter", MAGE: "talent-background-mage",
+  PALADIN: "talent-background-paladin", PRIEST: "talent-background-priest", ROGUE: "talent-background-rogue",
+  SHAMAN: "talent-background-shaman", WARLOCK: "talent-background-warlock", WARRIOR: "talent-background-warrior"
+}
 const POINTS_TEXT = 1.25rem
 const WHITE: Color = Color.hex("#ffffff")
 
@@ -32,7 +40,7 @@ public struct KeptWipe implements Plain {
   cost: Integer = 0
 }
 
-// One tree in its column: a dark line at its left after the first.
+// One tree in its column, as high as the trees' room: a dark line at its left after the first.
 class TreeColumn implements Component {
   public spend: Event<Integer> = new Event()
   public refund: Event<Integer> = new Event()
@@ -53,7 +61,7 @@ class TreeColumn implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box background={TREE_BACK} xAlign={Align.Center} padding={{ top: 3sp, bottom: 3sp }}>
+      <box xAlign={Align.Center} yAlign={Align.Stretch} padding={{ top: 3sp, bottom: 3sp }}>
         <box $if={self.after} position={Position.Absolute} left={0ui} top={0ui} bottom={0ui} width={LINE} background={LINE_COLOR} />
         <box $if={self.after} position={Position.Absolute} left={LINE} top={0ui} bottom={0ui} width={LINE} background={LINE_LIGHT} />
         <TalentTreeView tree={self.tree} search={self.search} @spend={self.onSpend} @refund={self.onRefund} />
@@ -109,12 +117,14 @@ public class TalentsPage implements Component {
   // Points wait to be applied: the spec's own, while it is the active one.
   derived waiting: Boolean = self.staged && self.active
   derived inactive: Boolean = !self.active
+  derived art: Atlas | nil = ARTS[self.classTag]
 
   trees: Signal<Array<Game.TalentTree>>
   unspent: Signal<Integer>
   staged: Signal<Boolean>
   active: Signal<Boolean>
   wipeCost: Signal<Integer>
+  classTag: Signal<String>
   constructor(
     trees: Signal<Array<Game.TalentTree>>,
     unspent: Signal<Integer>,
@@ -122,13 +132,16 @@ public class TalentsPage implements Component {
     // The spec group shown is the one the player has active.
     active: Signal<Boolean>,
     // The trainer's price for a reset, in copper: 0 while not known.
-    wipeCost: Signal<Integer> = 0
+    wipeCost: Signal<Integer> = 0,
+    // The class whose art the trees stand on.
+    classTag: Signal<String> = ""
   ) {
     self.trees = trees
     self.unspent = unspent
     self.staged = staged
     self.active = active
     self.wipeCost = wipeCost
+    self.classTag = classTag
   }
 
   onSpend(mut self, id: Integer) { self.spend.emit(id) }
@@ -140,7 +153,7 @@ public class TalentsPage implements Component {
   public render(self): Template {
     return $ltml {
       <box rows={PAGE} gap={4sp}>
-        <box columns={TOP} gap={2.5sp} yAlign={Align.Center}>
+        <box columns={TOP} gap={2.5sp} yAlign={Align.Center} padding={TOP_ROOM}>
           <Toolbar search={mut self.search} placeholder={Locale.SEARCH_TALENTS} />
           <box />
           <PushButton $if={self.inactive} label={Locale.ACTIVATE} width={ACTIVATE_WIDTH} @click={self.onActivate} />
@@ -148,13 +161,13 @@ public class TalentsPage implements Component {
         <box $if={self.empty} xAlign={Align.Center} yAlign={Align.Center}>
           <text value={Locale.NO_TALENTS} textColor={Style.DIM} />
         </box>
-        <box $else columns={TREES}>
+        <box $else columns={TREES} yAlign={Align.Stretch} background={self.art}>
           <TreeColumn $for={place, tree of self.trees} $key={tree.id} tree={tree} place={place} search={self.search}
                       @spend={self.onSpend} @refund={self.onRefund} />
           <box position={Position.Absolute} left={0ui} right={0ui} top={0ui} height={LINE} background={LINE_COLOR} />
           <box position={Position.Absolute} left={0ui} right={0ui} bottom={0ui} height={LINE} background={LINE_COLOR} />
         </box>
-        <box columns={FOOT} gap={2.5sp} yAlign={Align.Center}>
+        <box columns={FOOT} gap={2.5sp} yAlign={Align.Center} padding={FOOT_ROOM}>
           <box>
             <PushButton $if={self.waiting} label={Locale.CANCEL_CHANGES} width={CHANGES_WIDTH} @click={self.onCancel} />
           </box>

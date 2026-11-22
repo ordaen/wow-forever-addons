@@ -587,6 +587,21 @@ test "a spec's tab shows its talent trees, each with the points spent in it" {
   Test.expect(!window.text("Protection: 1").shown())
 }
 
+test "a spec's trees stand on the class's art, out to the window's sides and down to the footer" {
+  Test.login({ guid: "Player-1-0001", name: "Regy", surname: "", realm: "Realm", faction: "Alliance", classTag: "WARRIOR" })
+  Test.mount(nil, PAGE)
+  Game.talentTrees.trees = trees
+  const window = onSpec("Primary")
+  const art = Test.edges("talent-background-warrior", 0)
+  const body = Test.edges(Ordaen.art.window.wood, 0)
+  // Under the frame's art at either side, as the client's window draws its trees.
+  const reach = Ordaen.art.frame.window.reach
+  Test.expect(art.left - body.left <= reach.left + 2 && body.right - art.right <= reach.right + 2)
+  // Down to the footer, its points under the trees with the footer's own room between.
+  const points = window.text("Talent points:").rect()
+  Test.expect(points.top > art.bottom && points.top - art.bottom < 30)
+}
+
 test "the second spec's tab shows that spec's trees" {
   Test.mount(nil, PAGE)
   Game.talentTrees.trees = trees

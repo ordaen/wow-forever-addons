@@ -147,9 +147,11 @@ public class Character implements Module, App {
   ]
   derived tabs: Array<WindowTabSpec> = [
     { title: Locale.TAB_CHARACTER, icon: CHARACTER_ICON, height: Style.HEIGHT, padding: Style.PAGE_ROOM },
-    { title: self.settings.values.specOne == "" ? Locale.TAB_MAIN : self.settings.values.specOne, icon: SPEC_ONE_ICON },
+    // A spec's trees run out to the window's sides: its page keeps its own room for its rows (talents.luna).
+    { title: self.settings.values.specOne == "" ? Locale.TAB_MAIN : self.settings.values.specOne, icon: SPEC_ONE_ICON, padding: Style.PAGE_ROOM },
     {
       title: self.settings.values.specTwo == "" ? Locale.TAB_SECOND : self.settings.values.specTwo, icon: SPEC_TWO_ICON,
+      padding: Style.PAGE_ROOM,
       locked: self.specGroups < 2 ? Runtime.text("TALENT_SPEC_LOCKED") ?? Locale.SPEC_LOCKED : nil
     },
     { title: Locale.TAB_PROGRESSION, icon: PROGRESSION_ICON },
@@ -585,7 +587,7 @@ public class Character implements Module, App {
                   @flyout={self.onFlyout} @chose={self.onChose} @closeFlyout={self.onCloseFlyout}
                   auras={Auras.active} @useSet={self.onUseSet} @saveSet={self.onSaveSet} />
         <TalentsPage $elseif={self.group > 0} trees={self.trees} unspent={self.unspent} staged={self.staged}
-                     active={self.groupActive} wipeCost={self.wipeCost} @spend={self.onSpend} @refund={self.onRefund} @apply={self.onApply}
+                     active={self.groupActive} wipeCost={self.wipeCost} classTag={Game.player.classTag} @spend={self.onSpend} @refund={self.onRefund} @apply={self.onApply}
                      @cancel={self.onCancel} @activate={self.onActivate} />
         <box $elseif={self.tab == TAB_PROGRESSION} rows={PROGRESS_ROWS} gap={3sp}>
           <Tabs tabs={self.progressTabs} selected={mut self.progress} />
