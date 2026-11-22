@@ -2,6 +2,7 @@
 // facts in the design's short form (the cost as a dot in its resource's colour and the number, the range, the cast,
 // the cooldown as «CD 10 sec»), the description with a finishing move's list as rows, what it needs in the footer.
 import Game from "$game"
+import Runtime from "$runtime"
 import { BRIGHT_TEXT } from "Ordaen"
 import { RED, YELLOW, colorOf } from "@/colors"
 import Locale from "@/locales"
@@ -16,6 +17,8 @@ const SPELL_NAME = 13
 const PASSIVE = 33
 const DESCRIPTION = 34
 const REQUIREMENT = 43
+// Before the lines of the item a recipe makes: from it on they are that item's own tooltip.
+const NESTED = 19
 
 // What follows a label's colon («Cooldown: 10 sec» is «10 sec»), or the text.
 function valueOf(text: String): String {
@@ -32,12 +35,23 @@ function combo(points: Integer): String {
   }
 }
 
+// The word of a label the game writes before a list («Reagents: %s», «Материалы: |n», «Инструменты:»).
+function wordOf(label: String): String {
+  return label.match("^%s*([^:|%%]-)%s*:") ?? ""
+}
+
+// The list after `word:` in a line, its colour codes and line breaks taken out; nothing for a line of another label.
+function listAfter(text: String, word: String): String | nil {
+  let label, rest = text.match("^%s*([^:]-)%s*:(.*)$")
+  if (word == "" || label != word || rest == nil) { return nil }
+  let bare = rest.replace("|n", " ").replace("|c%x%x%x%x%x%x%x%x", "").replace("|r", "")
+  return bare.match("^%s*(.-)%s*$")
+}
+
 // The spell's reagents («Reagents: Rune of Teleportation, Powder (2)») as footer rows: the reagent, how many it
 // takes, red where the player carries fewer. Whether the line was the reagents'.
 function reagents(text: String, foot: mut Array<Note>): Boolean {
-  let parts = text.unformat(Game.strings.spellReagents)
-  if (parts == nil) { return false }
-  let list = parts[1]
+  let list = listAfter(text, wordOf(Game.strings.spellReagents))
   if (list == nil) { return false }
   for (part of list.split(",")) {
     let counted, count = part.match("^%s*(.-)%s*%((%d+)%)%s*$")
@@ -49,6 +63,39 @@ function reagents(text: String, foot: mut Array<Note>): Boolean {
     }
   }
   return true
+}
+
+// The tools a recipe needs («Tools: Runed Copper Rod») as one footer row, red where the player carries one of them
+// not. Whether the line was the tools'.
+function tools(text: String, foot: mut Array<Note>): Boolean {
+  let word = wordOf(Runtime.text("SPELL_TOTEMS") ?? "")
+  let list = listAfter(text, word)
+  if (list == nil) { return false }
+  let missing = list.split(",").any(name => Game.items.count(name.match("^%s*(.-)%s*$") ?? name) == 0)
+  foot.push({ left: word, right: list, valueColor: missing ? RED : nil })
+  return true
+}
+
+// The item a recipe makes, as a tooltip of its own: the game's own for it where the line before its lines names it,
+// else its lines as the recipe's tooltip gives them (its name's line without the line break the game puts first).
+public function madeBy(data: Game.TooltipData): Game.TooltipData | nil {
+  let at = 0
+  for (i, line of data.lines) {
+    if (line.kind == NESTED && at == 0) { at = i }
+  }
+  let marker = data.lines[at]
+  if (marker == nil) { return nil }
+  let made = marker.made
+  if (made != nil) {
+    let own = Game.items.tooltip(made)
+    if (own != nil) { return own }
+  }
+  let lines: Array<Game.TooltipLine> = []
+  for (i, line of data.lines) {
+    if (i > at) { lines.push(Game.TooltipLine { left: line.left?.match("^%s*(.-)$"), ..line }) }
+  }
+  if (lines.length == 0) { return nil }
+  return { kind: 0, id: made, lines: lines }
 }
 
 // What a line of a finishing move's list gives: the range it names («46-66», «46 – 66») as «46–66», or its first
@@ -157,6 +204,8 @@ public function spell(data: Game.TooltipData, options: Options): Model | nil {
   // The band's lines read so far.
   let band = 0
   for (i, line of data.lines) {
+    // A recipe's made item: a tooltip of its own beside this one (`madeBy`).
+    if (line.kind == NESTED) { break }
     let left = clean(line.left)
     let right = clean(line.right)
     if (line.kind == SPELL_NAME && name == nil) {
@@ -180,7 +229,7 @@ public function spell(data: Game.TooltipData, options: Options): Model | nil {
         band += 1
         let cast = cell(left, band == 1, false, cost, false, mut facts)
         _ = cell(right, band == 1, true, cost, cast, mut facts)
-      } else if (!reagents(left, mut foot)) {
+      } else if (!reagents(left, mut foot) && !tools(left, mut foot)) {
         if (i <= 4 && body.length == 0) {
           band += 1
           _ = cell(left, band == 1, false, cost, false, mut facts)

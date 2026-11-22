@@ -11,7 +11,7 @@ import Locale from "@/locales"
 import { Kind, Model, Note, TextLine, named } from "@/model"
 import { Options } from "@/options"
 import { quests } from "@/quests"
-import { spell } from "@/spell"
+import { madeBy, spell } from "@/spell"
 import { talent } from "@/talent"
 import { Term } from "@/terms"
 import { clean } from "@/text"
@@ -171,12 +171,17 @@ public struct Group {
 }
 
 // The tooltip and its sides from the game's data. An item's sides are what using it does, its set, and the item a
-// recipe makes, which is read as an item of its own.
+// recipe makes, which is read as an item of its own; a recipe's spell (a trainer's) has the item it makes beside it.
 public function group(data: Game.TooltipData, options: Options, was: Model | nil): Group | nil {
-  if (kindOf(data) != Kind.Item) {
+  let kind = kindOf(data)
+  if (kind != Kind.Item) {
     let model = fill(data, options, was)
     if (model == nil) { return nil }
-    return { model: model, sides: [], stats: {} }
+    let sides: Array<Model> = []
+    let made = kind == Kind.Spell ? madeBy(data) : nil
+    let inner = made != nil ? item(made, options) : nil
+    if (inner != nil) { sides.push(inner.model) }
+    return { model: model, sides: sides, stats: {} }
   }
   let read = item(data, options)
   if (read == nil) { return nil }

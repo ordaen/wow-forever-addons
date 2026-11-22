@@ -421,6 +421,37 @@ test "a finishing move reads instant, melee range, its cooldown, its points as r
   Test.expect(inColor(move.text("1"), QUIET_VALUE))
 }
 
+// A trainer's recipe, as the game gives its tooltip (Forever, 2026-11-22): the recipe's spell, its tools and reagents
+// with their colours and the line break after the label, what it does, then the item it makes after the line that
+// opens it.
+function wandRecipe(): Game.TooltipData {
+  return {
+    kind: 1, id: 14293,
+    lines: [
+      { left: "Enchanting: Lesser Magic Wand", kind: NAME_OF_SPELL },
+      { left: "", kind: 0 },
+      { left: "Tools:Runed Copper Rod", kind: 0 },
+      { left: "Reagents: |n|cffff2020Simple Wood|r, |cffff2020Lesser Magic Essence|r", kind: 0 },
+      { left: "Creates a Lesser Magic Wand.", kind: DESCRIBED },
+      { left: "", kind: 19 },
+      { left: "\nLesser Magic Wand", kind: 22 },
+      { left: "Binds when equipped", kind: 20 },
+      { left: "Ranged", right: "Wand", kind: 21 },
+      { left: "12 - 22 Arcane Damage", right: "Speed 1.50", kind: 0 },
+      { left: "Requires Level 5", kind: REQUIRES }
+    ]
+  }
+}
+
+test "a trainer's recipe is the recipe's tooltip, its reagents in the footer, with the item it makes beside it" {
+  Game.items.count = (name: String): Integer => name == "Simple Wood" ? 1 : 0
+  Test.mount(nil, SCREEN)
+  Game.tooltip.main = showing(wandRecipe())
+  // What it makes beside it, then the recipe: its name, what it does, its reagents.
+  Test.expect(reads(tip("Enchanting: Lesser Magic Wand"), "Lesser Magic Wand | Ranged | · | Wand | Binds when equipped | 12–22 | 1.5/s | Requires level | 5 | Enchanting: Lesser Magic Wand | Runed Copper Rod | Creates a Lesser Magic Wand. | Simple Wood | 1 | Lesser Magic Essence | 1"))
+  Test.expect(inColor(tip("Enchanting: Lesser Magic Wand").text("Lesser Magic Essence").item().text("1"), RED))
+}
+
 test "a channelled spell and one on the next swing have their casts' glyphs" {
   Test.mount(nil, SCREEN)
   Game.tooltip.main = showing({
