@@ -81,6 +81,12 @@ test "in a place twice its art's width the scroll fills it, its rolls' ends at t
   const paper = Test.edges(SCROLL_ART.paper.middle, 0)
   const edge = Test.edges(SCROLL_ART.paper.left, 0)
   Test.expect((edge.left - left.left).abs() < 0.5 && paper.left < edge.right && paper.left > edge.left)
+  // The sheet's shading covers the middle once, over its grain and under the torn edges.
+  const tone = Test.edges(SCROLL_ART.tone, 0)
+  Test.expect((tone.left - paper.left).abs() < 0.5 && (tone.right - paper.right).abs() < 0.5)
+  Test.expect((tone.bottom - tone.top - (paper.bottom - paper.top)).abs() < 0.5)
+  const shading = Test.page().box(SCROLL_ART.tone).level()
+  Test.expect(shading > Test.page().box(SCROLL_ART.paper.middle).level() && shading < Test.page().box(SCROLL_ART.paper.left).level())
   destroy page
 }
 

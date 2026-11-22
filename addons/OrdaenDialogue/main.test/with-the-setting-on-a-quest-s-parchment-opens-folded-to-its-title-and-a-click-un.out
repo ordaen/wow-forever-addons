@@ -33,6 +33,7 @@ surface 56.67,99.71 400.03x620.58 on MEDIUM clamped raised by a click
                   box 384.18,251.82 41.67x41.67 Interface\AddOns\OrdaenQuestPage\media\scroll-bottom-right
                 box 92.52,204.06 333.33x58.18 absolute
                   box 126.37,204.06 265.62x58.18 absolute Interface\AddOns\OrdaenQuestPage\media\scroll-paper-middle
+                  box 126.37,204.06 265.62x58.18 absolute Interface\AddOns\OrdaenQuestPage\media\scroll-paper-tone blend=MOD
                   box 92.52,204.06 41.67x58.18 absolute Interface\AddOns\OrdaenQuestPage\media\scroll-paper-left
                   box 384.18,204.06 41.67x58.18 absolute Interface\AddOns\OrdaenQuestPage\media\scroll-paper-right
           box 92.52,293.49 333.33x393.21

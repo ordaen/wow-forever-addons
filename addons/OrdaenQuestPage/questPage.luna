@@ -6,7 +6,9 @@
 // under an engraved cut with its title.
 import Client from "$client"
 import Game from "$game"
-import { Align, Art, Columns, Edges, Event, Gaps, Line, MouseButton, Overflow, Position, Shadow, Side, TextAlign, Tile, Track } from "$ltml"
+import {
+  Align, Art, Blend, Columns, Edges, Event, Gaps, Line, MouseButton, Overflow, Position, Shadow, Side, TextAlign, Tile, Track
+} from "$ltml"
 import Runtime from "$runtime"
 import {
   Component, Cut, ItemButton, Money, PickRow, Quality, SECONDARY_TEXT, TIGHT_LINE, TITLE_TEXT, Tip, TipRow, qualityColor, qualityFrom,
@@ -109,6 +111,8 @@ public struct ScrollArt {
   top: ScrollParts
   paper: ScrollParts
   bottom: ScrollParts
+  // The sheet's shading and spots, drawn once over the paper's repeating grain, stretched, multiplied into it.
+  tone: Art
 }
 const TEXEL: Number<Length> = SCROLL_WIDTH / 1024
 public const SCROLL_ART: ScrollArt = {
@@ -126,7 +130,8 @@ public const SCROLL_ART: ScrollArt = {
     left: "@/media/scroll-bottom-left.tga",
     middle: { file: "@/media/scroll-bottom-middle.tga", width: 1, height: 128, tile: Tile.Across },
     right: "@/media/scroll-bottom-right.tga"
-  }
+  },
+  tone: "@/media/scroll-paper-tone.tga"
 }
 // A roll's ends and its height (their 128 texels), and the roll between them.
 const ROLL_HEIGHT: Number<Length> = TEXEL * 128
@@ -142,8 +147,12 @@ public const SCROLL_ROW: Track = { fr: 1, min: ROLL_HEIGHT * 4 }
 // A roll's paper that fades over the paper (32 texels): the paper runs on under both rolls that far.
 const FADE_HEIGHT: Number<Length> = TEXEL * 32
 const UNDER_FADE: Number<Length> = ROLL_HEIGHT - FADE_HEIGHT
-// The rolls over the paper, and the paper's edges over its middle, where they overlap.
-const OVER_PAPER = 1
+// What stands over what on the scroll: the sheet's shading over the paper's middle, its torn edges over both, and the
+// rolls and the text over all of it.
+const OVER_GRAIN = 1
+const OVER_TONE = 2
+const OVER_EDGES = 3
+const OVER_PAPER = 4
 // Where the text stands on the paper, in the art's measure (not the spacing setting's): in from its torn sides (80
 // texels) and a margin past them as wide as a line is high, and off the rolls by half that, past their paper's fade.
 const OFF_SIDES: Number<Length> = 60.9375dp
@@ -226,17 +235,20 @@ class ScrollRoll implements Component {
   }
 }
 
-// The scroll's paper, filling the box it is drawn in: its middle repeating both ways, and over its sides the torn
-// edges repeating down, their inner texels fading into the middle.
+// The scroll's paper, filling the box it is drawn in: its middle's grain repeating both ways, the sheet's shading
+// stretched over it once and multiplied in, and over its sides the torn edges repeating down, their inner texels
+// fading into the middle.
 class ScrollPaper implements Component {
   public render(self): Template {
     return $ltml {
       <box position={Position.Absolute} left={UNDER_EDGE} right={UNDER_EDGE} top={0dp} bottom={0dp}
-           background={SCROLL_ART.paper.middle} />
+           background={SCROLL_ART.paper.middle} zLevel={OVER_GRAIN} />
+      <box position={Position.Absolute} left={UNDER_EDGE} right={UNDER_EDGE} top={0dp} bottom={0dp}
+           background={SCROLL_ART.tone} blend={Blend.Multiply} zLevel={OVER_TONE} />
       <box position={Position.Absolute} left={0dp} width={EDGE_WIDTH} top={0dp} bottom={0dp}
-           background={SCROLL_ART.paper.left} zLevel={OVER_PAPER} />
+           background={SCROLL_ART.paper.left} zLevel={OVER_EDGES} />
       <box position={Position.Absolute} right={0dp} width={EDGE_WIDTH} top={0dp} bottom={0dp}
-           background={SCROLL_ART.paper.right} zLevel={OVER_PAPER} />
+           background={SCROLL_ART.paper.right} zLevel={OVER_EDGES} />
     }
   }
 }

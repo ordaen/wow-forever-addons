@@ -116,6 +116,7 @@ surface 550,192.21 905.76x518.28 on MEDIUM clamped raised by a click
               box 1383.24,401.97 41.67x41.67 Interface\AddOns\OrdaenQuestPage\media\scroll-bottom-right
             box 1074.91,308.22 350x104.17 absolute
               box 1108.77,308.22 282.29x104.17 absolute Interface\AddOns\OrdaenQuestPage\media\scroll-paper-middle
+              box 1108.77,308.22 282.29x104.17 absolute Interface\AddOns\OrdaenQuestPage\media\scroll-paper-tone blend=MOD
               box 1074.91,308.22 41.67x104.17 absolute Interface\AddOns\OrdaenQuestPage\media\scroll-paper-left
               box 1383.24,308.22 41.67x104.17 absolute Interface\AddOns\OrdaenQuestPage\media\scroll-paper-right
               box 1118.24,326.97 263.33x66.67 absolute scrolled 0 of 0
@@ -226,6 +227,7 @@ surface 958.33,223.04 350x453.92 on MEDIUM clamped raised by a click
               box 1235.82,512.76 41.67x41.67 Interface\AddOns\OrdaenQuestPage\media\scroll-bottom-right
             box 994.18,327.39 283.3x195.78 absolute
               box 1028.04,327.39 215.59x195.78 absolute Interface\AddOns\OrdaenQuestPage\media\scroll-paper-middle
+              box 1028.04,327.39 215.59x195.78 absolute Interface\AddOns\OrdaenQuestPage\media\scroll-paper-tone blend=MOD
               box 994.18,327.39 41.67x195.78 absolute Interface\AddOns\OrdaenQuestPage\media\scroll-paper-left
               box 1235.82,327.39 41.67x195.78 absolute Interface\AddOns\OrdaenQuestPage\media\scroll-paper-right
               box 1037.52,346.14 196.63x158.28 absolute scrolled 0 of 0

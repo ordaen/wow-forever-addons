@@ -5,7 +5,7 @@
     "addons/OrdaenQuestPage/media/scroll-top-right.tga", "addons/OrdaenQuestPage/media/scroll-bottom-left.tga",
     "addons/OrdaenQuestPage/media/scroll-bottom-middle.tga", "addons/OrdaenQuestPage/media/scroll-bottom-right.tga",
     "addons/OrdaenQuestPage/media/scroll-paper-left.tga", "addons/OrdaenQuestPage/media/scroll-paper-middle.tga",
-    "addons/OrdaenQuestPage/media/scroll-paper-right.tga"
+    "addons/OrdaenQuestPage/media/scroll-paper-right.tga", "addons/OrdaenQuestPage/media/scroll-paper-tone.tga"
   ],
   "origin": "FLUX.1 [schnell] (set dialogue-scroll-03, darker-aged, seed 306), keyed off its black ground at its own 5:3, then cut. The rolls pinch towards their middle, so a roll's ends are its left 128 texels (the right ones mirrored) and its middle the one column after them, repeated across: a smooth roll, where a wider piece repeated showed its grain and its slight taper as a ripple. The paper is cut from rows 140 to 459, under the top roll's shadow and over the bottom roll's: its torn left edge from the left 128 texels (the right one mirrored), and its middle from the plain paper at 550 (clear of its spots, which would repeat as a grid), each with its last 64 rows (and the middle's last 64 columns) blended into its first, so it repeats without a seam and without a mirror's symmetry.",
   "steps": [
@@ -46,6 +46,9 @@
     { "mirror": { "in": "addons/OrdaenQuestPage/media/scroll-paper-left.tga", "out": "art/out/scroll-paper-edges.png", "across": true } },
     { "crop": { "in": "art/out/scroll-paper-edges.png", "out": "addons/OrdaenQuestPage/media/scroll-paper-right.tga", "x": 128, "y": 0, "width": 128, "height": 256 } },
     { "crop": { "in": "art/out/scroll-keyed.png", "out": "art/out/scroll-paper-middle-cut.png", "x": 550, "y": 140, "width": 320, "height": 320 } },
-    { "seamless": { "in": "art/out/scroll-paper-middle-cut.png", "out": "addons/OrdaenQuestPage/media/scroll-paper-middle.tga", "across": 64, "down": 64 } }
+    { "seamless": { "in": "art/out/scroll-paper-middle-cut.png", "out": "art/out/scroll-paper-middle-seamless.png", "across": 64, "down": 64 } },
+    { "flatten": { "in": "art/out/scroll-paper-middle-seamless.png", "out": "addons/OrdaenQuestPage/media/scroll-paper-middle.tga", "radius": 3, "grain": 0.5 } },
+    { "crop": { "in": "art/out/scroll-keyed.png", "out": "art/out/scroll-paper-sheet.png", "x": 110, "y": 130, "width": 800, "height": 340 } },
+    { "tone": { "in": "art/out/scroll-paper-sheet.png", "out": "addons/OrdaenQuestPage/media/scroll-paper-tone.tga", "radius": 2, "width": 512, "height": 256 } }
   ]
 }
