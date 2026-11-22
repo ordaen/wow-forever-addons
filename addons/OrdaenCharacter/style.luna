@@ -7,11 +7,11 @@ import { Edges, Fr, Line, Shadow, Track } from "$ltml"
 public const WIDTH: Number<Length> = 1500dp
 public const HEIGHT: Number<Length> = 848dp
 // The three columns: the bars and defence on the left, the paper doll (the slots' columns and the model between
-// them) in the middle, as wide in any window, the stats on the right. The two sides share the rest equally, each at
-// least what the stats' main stats, cards and gauges need whole.
+// them) in the middle, as wide in any window as its slots and four weapons need and at least `DOLL`, the stats on the
+// right. The two sides share the rest equally, each at least what the stats' main stats, cards and gauges need whole.
 public const DOLL: Number<Length> = 470dp
 public const SIDE_LEAST: Number<Length> = 440dp
-public const COLUMNS: Array<Track> = [{ fr: 1, min: SIDE_LEAST }, DOLL, { fr: 1, min: SIDE_LEAST }]
+public const SIDE_COLUMN: Track = { fr: 1, min: SIDE_LEAST }
 // A slot: the standard size, the larger, and the most the paper doll holds; its edge (Ordaen's item button's); an
 // icon's picture in texels (its 64 less the 0.08 of each side the renderer cuts as its rim).
 public const SLOT: Number<Length> = 46.875dp
@@ -69,15 +69,17 @@ public const PICKED: Color = Color.hex("#ffd10026")
 public const TROUGH: Color = Color.hex("#000000a6")
 // The model's backdrop: the race's scene from the game's dressing room (231 x 322 texels as the client crops it), in
 // grey, from the model's column's top to its bottom, as wide as its proportions make it at the column's height while
-// the character tab holds the window at `HEIGHT` (less the sets' row and the room round them), centred and cut at the
-// column's sides; a veil over it so the slots read; the dark where no scene is. Then the room between the column's
-// edges and the slots drawn over it.
-public const SCENE_HEIGHT: Number<Length> = 746.5dp
+// the character tab holds the window at `HEIGHT`, centred and cut at the column's sides; a veil over it so the slots
+// read; the dark where no scene is. Then the room between the column's edges and the slots drawn over it.
+public const SCENE_HEIGHT: Number<Length> = 758.34dp
 public const SCENE_WIDTH: Number<Length> = SCENE_HEIGHT * 231 / 322
-public const SCENE_LEFT: Number<Length> = (DOLL - SCENE_WIDTH) / 2
 public const SCENE_VEIL: Color = Color.hex("#00000059")
 public const MODEL_BACK: Color = Color.hex("#0b0805")
-public const DOLL_PAD: Edges = { top: 6sp, right: 6sp, bottom: 6sp, left: 6sp }
+public const DOLL_ROOM: Number<Spacing> = 6sp
+public const DOLL_PAD: Edges = { top: DOLL_ROOM, right: DOLL_ROOM, bottom: DOLL_ROOM, left: DOLL_ROOM }
+// The gap between a slots' column and the model's, and between two weapons.
+public const DOLL_GAP: Number<Spacing> = 3sp
+public const WEAPON_GAP: Number<Spacing> = 2sp
 // The eight slots down each side of the model, spread from its top to its bottom.
 public const SLOT_ROWS: Array<Fr> = [{ fr: 1 }, { fr: 1 }, { fr: 1 }, { fr: 1 }, { fr: 1 }, { fr: 1 }, { fr: 1 }, { fr: 1 }]
 // A card's name and value set close, each no taller than its font's own line.

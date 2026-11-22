@@ -113,8 +113,9 @@ public class Character implements Module, App {
   state statsView = StatsView.Categories
   // The footer's count, in dim text, of the list the tab shows; none on the other tabs.
   derived count: String = self.countOf()
+  // It takes no room while it has nothing to say (the character tab).
   const footer: Template = $ltml {
-    <box padding={FOOTER_ROOM}>
+    <box $if={self.count != ""} padding={FOOTER_ROOM}>
       <text value={self.count} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
     </box>
   }

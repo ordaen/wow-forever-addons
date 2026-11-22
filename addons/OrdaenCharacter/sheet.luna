@@ -18,7 +18,7 @@ public struct SlotSpec {
 }
 
 // The slots as the game's paper doll stands them: eight down the left, eight down the right, the weapons along the
-// bottom with the ammo's small slot after the ranged one.
+// bottom with the ammo's after the ranged one.
 public const LEFT: Array<SlotSpec> = [
   { id: 1, empty: "Interface/PaperDoll/UI-PaperDoll-Slot-Head" },
   { id: 2, empty: "Interface/PaperDoll/UI-PaperDoll-Slot-Neck" },

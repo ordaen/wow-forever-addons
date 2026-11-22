@@ -40,9 +40,10 @@ public class ItemLevel implements Component {
     return $ltml {
       <box xAlign={Align.Center}>
         <box $if={self.shown} xAlign={Align.Center} @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
-          <text value={Locale.ITEM_LEVEL} textSize={SECONDARY_TEXT} textColor={Style.DIM} wrap={.None} />
+          <text value={Locale.ITEM_LEVEL} textSize={SECONDARY_TEXT} textColor={Style.INK} textOutline={1}
+                textShadow={Style.TUBE_SHADOW} wrap={.None} />
           <text value={self.value} textSize={Style.MAIN_TEXT} textFont={TextFont.Numbers} textColor={Style.GOLD}
-                wrap={.None} />
+                textOutline={1} textShadow={Style.TUBE_SHADOW} wrap={.None} />
           <Tip $if={self.tipShown} title={Locale.ITEM_LEVEL} text={Locale.ITEM_LEVEL_TIP} rows={self.rows} />
         </box>
       </box>

@@ -267,6 +267,20 @@ test "a slot is as large as the screen draws its icon sharp, unless the settings
   Test.expect((slotWidthRatio(window) - sharpWidth / 46.875).abs() < 0.01)
 }
 
+test "the weapons stand level with the last slots down the sides, all four between them at the largest slots" {
+  Test.mount(nil, PAGE)
+  Game.items.icon = icons
+  Client.UIParent.SetScale(0.5)
+  const window = opened(new FakeSheet())
+  const wrists = window.button("Interface/PaperDoll/UI-PaperDoll-Slot-Wrists").rect()
+  const trinket = window.button("Interface/PaperDoll/UI-PaperDoll-Slot-Trinket").nth(2).rect()
+  const main = window.button(REAPER_ICON).rect()
+  const ammo = window.button("Interface/PaperDoll/UI-PaperDoll-Slot-Ammo").rect()
+  Test.expect((main.top - wrists.top).abs() < 0.5 && (ammo.top - trinket.top).abs() < 0.5)
+  Test.expect(main.left > wrists.right && ammo.right < trinket.left)
+  Test.expect(((ammo.right - ammo.left) - (main.right - main.left)).abs() < 0.5)
+}
+
 test "a slot the screen would draw sharp larger than the paper doll holds is as large as it holds" {
   Test.mount(nil, PAGE)
   Game.items.icon = icons
