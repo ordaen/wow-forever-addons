@@ -17,7 +17,7 @@ import root Ordaen from "Ordaen"
 import {
   ARTWORK, BandCell, BandFact, ButtonPlate, Choice, Column, Component, Dialog, FilterButton, FooterBand, FilterGroup, FoldCaption, KeptWindow,
   Menu, MenuEntry, ModuleMemory, Money, PushButton, SECONDARY_TEXT, SkillBar, TIGHT_LINE, TITLE_TEXT, Table, TableRow,
-  Tip, TipRow, TipText, ToolPick, ToolSort, Toolbar, Window, WindowSide, WindowTabSpec, bandOf, richDescription, sortChoices, switched
+  PROSE_LINE, Tip, TipRow, TipText, ToolPick, ToolSort, Toolbar, Window, WindowSide, WindowTabSpec, bandOf, richDescription, sortChoices, switched
 } from "Ordaen"
 import Locale from "@/locales"
 
@@ -969,7 +969,7 @@ public class TrainerPage {
         <text value={self.name} textSize={TITLE_TEXT} lineHeight={TIGHT_LINE} textColor={GOLD} />
         <text $if={self.needs != ""} value={self.needs} textColor={DIM} textSize={SECONDARY_TEXT} />
         <text $if={self.noSlot} value={Locale.TRAINER_NO_SLOT} textColor={RED} textSize={SECONDARY_TEXT} />
-        <text value={self.text} textColor={INK} />
+        <text value={self.text} textColor={INK} lineHeight={PROSE_LINE} />
         <text $if={self.changed} value={Locale.TRAINER_CHANGES} textColor={GOLD} />
         // The numbers in the numbers font, the arrow in the text's: a numbers font carries digits, not every sign.
         <box $for={change of self.changes} columns={{ each: "max-content" }} gap={1sp}>
