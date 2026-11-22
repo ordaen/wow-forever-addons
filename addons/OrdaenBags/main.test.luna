@@ -231,7 +231,7 @@ function pick(glyph: Art, choice: String) {
 
 // The tab's name and count, as its row reads.
 function tab(name: String): String {
-  return bags().text(name).item().texts().join(" | ")
+  return bags().button(name).texts().join(" | ")
 }
 
 // Whether a part's texts read exactly this, joined by « | »: where they don't, the test fails with what they read.
@@ -368,7 +368,7 @@ test "each tab says how many items it has, «New» among them while something is
   Test.expect(tab("Junk") == "Junk | 1" && bags().text("Other").count() == 2)
 }
 
-test "every item shows under «All», a section for each kind and subclass in the kinds' order, «Free» last" {
+test "every item shows under «All», a section for each category in the kinds' order, «Free» last" {
   const world = new World(everyday())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
   Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
@@ -376,14 +376,14 @@ test "every item shows under «All», a section for each kind and subclass in th
   Test.mount(nil, SCREEN)
   Game.bags.open = true
   Test.expect(bags().button(WELL).count() == 10)
-  // A section is captioned by its subclass, or by its tab where the game names none (the hearthstone's: «Other»).
-  const captions = ["Quest", "Potion", "Miscellaneous", "One-Handed Swords", "Cloth", "Leatherworking", "Oddments", "Free"]
-  let at = 0
-  for (shown of bags().texts()) {
-    if (shown == captions[at + 1]) { at += 1 }
-  }
-  Test.expect(at == captions.length)
-  Test.expect(inOrder([DEED, POTION, SHIRT, SWORD, CLOTH, CLOTH, RECIPE, HEARTH, FOOT]))
+  // A section a category, captioned by its tab's name (there twice: its tab and its caption); no subclass's caption.
+  const kinds = [
+    Locale.TAB_QUEST, Locale.TAB_CONSUMABLES, Locale.TAB_EQUIPMENT, Locale.TAB_TRADE, Locale.TAB_RECIPES, Locale.TAB_OTHER,
+    Locale.TAB_JUNK
+  ]
+  for (kind of kinds) { Test.expect(bags().text(kind).count() == 2) }
+  Test.expect(!bags().text("Potion").shown() && !bags().text("Cloth").shown() && !bags().text("One-Handed Swords").shown())
+  Test.expect(inOrder([DEED, POTION, SWORD, SHIRT, CLOTH, CLOTH, RECIPE, HEARTH, FOOT]))
   Test.expect(bags().text("Free").shown() && bags().text("13").shown())
 }
 
@@ -676,6 +676,8 @@ test "a category's caption has no mark and shuts nothing: a tab shows its items 
   // Slots small enough for all of them to fit the screen.
   Bags.settings.change((values: mut Choices): nil => { values.slotSize = 42 })
   Game.bags.open = true
+  // A tab of one kind: its sections are its subclasses.
+  bags().button(Locale.TAB_TRADE).click()
   Test.expect(!bags().box(Ordaen.art.ctl.markOpen).shown() && !bags().button("Cloth").shown())
   Test.page().text("Cloth").click()
   Test.page().text("Free").click()
@@ -689,6 +691,8 @@ test "each category stands on the wood, its caption over its slots, each slot we
   Game.items.icon = (id: Integer): Art | nil => world.icon(id)
   Test.mount(nil, SCREEN)
   Game.bags.open = true
+  // A tab of one kind: its sections are its subclasses.
+  bags().button(Locale.TAB_TRADE).click()
   Test.expect(bags().text("Cloth").item().paintedWith(WELL) && bags().text("Free").item().paintedWith(WELL))
   Test.expect(reads(bags().text("Free").item(), "Free | 13"))
   Test.expect(Test.faults().length == 0)
@@ -1463,10 +1467,10 @@ test "the tab picked is white, the others in ink, and one with no item shows dim
   Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
   Test.mount(nil, SCREEN)
   Game.bags.open = true
-  Test.expect(bags().text("All").textColor().equal(PICKED) && bags().text("Trade goods").textColor().equal(INK))
+  Test.expect(bags().text("All").textColor().equal(PICKED) && bags().button("Trade goods").text("Trade goods").textColor().equal(INK))
   Test.expect(reads(bags().text("Junk").item(), "Junk | 0") && bags().text("Junk").textColor().equal(EMPTY))
   bags().button("Trade goods").click()
-  Test.expect(bags().text("Trade goods").textColor().equal(PICKED) && bags().text("All").textColor().equal(INK))
+  Test.expect(bags().button("Trade goods").text("Trade goods").textColor().equal(PICKED) && bags().text("All").textColor().equal(INK))
 }
 
 test "a section's caption is gold, a bag's too, with no mark; «Free»'s is plain" {
@@ -1475,6 +1479,8 @@ test "a section's caption is gold, a bag's too, with no mark; «Free»'s is plai
   Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
   Test.mount(nil, SCREEN)
   Game.bags.open = true
+  // A tab of one kind: its sections are its subclasses.
+  bags().button(Locale.TAB_TRADE).click()
   Test.expect(bags().text("Cloth").textColor().equal(CAPTION) && bags().text("Free").textColor().equal(LABEL))
   pick(Ordaen.art.ctl.tool.categories, "By bag")
   Test.expect(bags().text("Backpack").textColor().equal(CAPTION) && !bags().paintedWith(Ordaen.art.ctl.markOpen))
@@ -1510,6 +1516,8 @@ test "a caption longer than its card is cut at the card's edge" {
   Game.items.icon = (id: Integer): Art | nil => world.icon(id)
   Test.mount(nil, SCREEN)
   Game.bags.open = true
+  // A tab of one kind: its sections are its subclasses.
+  bags().button(Locale.TAB_QUEST).click()
   Test.expect(bags().text("Предметы для заданий и поручений").shown())
 }
 
@@ -1523,7 +1531,23 @@ test "the sections of a kind stand in the order of the game's subclasses" {
   Game.items.icon = (id: Integer): Art | nil => world.icon(id)
   Test.mount(nil, SCREEN)
   Game.bags.open = true
+  // A tab of one kind: its sections are its subclasses.
+  bags().button(Locale.TAB_EQUIPMENT).click()
   Test.expect(inOrder([SWORD, MOSS]))
+}
+
+test "the client's miscellaneous «Junk» subclass (a hearthstone) is captioned by its tab: only the junk tab says junk" {
+  const world = new World([
+    { bag: 0, slot: 1, id: 6948, name: "Hearthstone", icon: HEARTH, kind: 15, subkind: 0, subkindName: "Junk" },
+    { bag: 0, slot: 2, id: 2, name: "Sword", icon: SWORD, kind: 2, subkind: 7, subkindName: "One-Handed Swords" }
+  ])
+  Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.items.icon = (id: Integer): Art | nil => world.icon(id)
+  Test.mount(nil, SCREEN)
+  Game.bags.open = true
+  bags().button(Locale.TAB_OTHER).click()
+  Test.expect(bags().text(Locale.TAB_OTHER).count() == 2 && bags().text(Locale.TAB_JUNK).count() == 1)
 }
 
 test "a stack taken out leaves its slot empty: no count, no glow" {

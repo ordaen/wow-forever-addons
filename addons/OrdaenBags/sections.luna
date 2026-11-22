@@ -46,7 +46,25 @@ public function inTab(slot: Slot, tab: Tab): Boolean {
   }
 }
 
-// One section of a tab grouped by type: the items of one kind and one subclass.
+// How a tab's items split into sections: all in one (the new items always), by category (the All tab grouped by
+// type: a section per tab), by subclass (another tab grouped by type), or by where they are worn.
+enum Split { One, Category, Subclass, Worn }
+
+function splitOf(tab: Tab, grouping: Grouping): Split {
+  if (tab == .New) { return .One }
+  return match (grouping) {
+    .None => .One
+    .Type => tab == .All ? Split.Category : Split.Subclass
+    .Worn => .Worn
+  }
+}
+
+// The client's miscellaneous class (`Enum.ItemClass.Miscellaneous`) and its first subclass, which the client names
+// «Junk» though its items aren't (a hearthstone): captioned by its tab, so only the junk tab says junk.
+const MISC = 15
+const MISC_JUNK = 0
+
+// One section of a tab: its items, its caption, and where it stands among the others.
 struct Group {
   key: String
   title: String
@@ -55,22 +73,22 @@ struct Group {
   slots: mut Array<Slot>
 }
 
-// The categories view's sections for a tab: grouped as its setting says (the new items always in one), each sorted,
-// in the kinds' fixed order whatever the sort; no section without items; then «Free».
+// The categories view's sections for a tab: split as its setting says, each sorted, in the kinds' fixed order whatever
+// the sort; no section without items; then «Free».
 public function tabSections(slots: Array<Slot>, tab: Tab, grouping: Grouping, by: SortBy): Array<Section> {
   let groups: Array<mut Group> = []
   let found: Map<String, mut Group> = {}
-  const how = tab == .New ? Grouping.None : grouping
+  const split = splitOf(tab, grouping)
   for (slot of slots) {
     if (inTab(slot, tab)) {
-      const key = keyOf(slot, how)
+      const key = keyOf(slot, split)
       const group = found[key]
       if (group != nil) {
         group.slots.push(slot)
       } else {
         const made: Group = {
-          key: key, title: titleOf(slot, how), rank: rankOf(slot.tab), subkind: how == .Type ? slot.read.subkind : 0,
-          slots: [slot]
+          key: key, title: titleOf(slot, split), rank: rankOf(slot.tab),
+          subkind: split == .Subclass ? slot.read.subkind : 0, slots: [slot]
         }
         found[key] = made
         groups.push(mut made)
@@ -93,22 +111,30 @@ function groupBefore(a: Group, b: Group): Boolean {
   return a.key < b.key
 }
 
-function keyOf(slot: Slot, how: Grouping): String {
-  return match (how) {
-    .None => "all"
-    .Type => `${slot.tab}/${slot.read.subkind}`
+function keyOf(slot: Slot, split: Split): String {
+  return match (split) {
+    .One => "all"
+    .Category => `${slot.tab}`
+    .Subclass => `${slot.tab}/${slot.read.subkind}`
     .Worn => `worn/${slot.read.worn}`
   }
 }
 
-// A section's caption: none for all in one; the subclass's name as the game says it; where an item is worn as the
-// game names it (`INVTYPE_HEAD`), what isn't worn under its tab's name.
-function titleOf(slot: Slot, how: Grouping): String {
-  return match (how) {
-    .None => ""
-    .Type => slot.read.subkindName != "" ? slot.read.subkindName : tabName(slot.tab)
+// A section's caption: none for all in one; the tab's name for a category; the subclass's name as the game says it;
+// where an item is worn as the game names it (`INVTYPE_HEAD`), what isn't worn under its tab's name.
+function titleOf(slot: Slot, split: Split): String {
+  return match (split) {
+    .One => ""
+    .Category => tabName(slot.tab)
+    .Subclass => subclassName(slot)
     .Worn => slot.read.worn != "" ? Runtime.text(slot.read.worn) ?? slot.read.worn : tabName(slot.tab)
   }
+}
+
+function subclassName(slot: Slot): String {
+  const read = slot.read
+  if (read.subkindName == "" || read.kind == MISC && read.subkind == MISC_JUNK) { return tabName(slot.tab) }
+  return read.subkindName
 }
 
 // A section for each bag, in the bags' order, every slot of it with the empty ones, its name for a caption.

@@ -181,7 +181,7 @@ test "a junk slot carries a coin, and the «Junk» tab counts it" {
   Test.mount(nil, SCREEN)
   Game.bags.open = true
   Test.expect(bags().button(FOOT).paintedWith(COIN) && !bags().button(SWORD).paintedWith(COIN))
-  Test.expect(bags().text("Junk").item().texts().join(" | ") == "Junk | 1")
+  Test.expect(bags().button("Junk").texts().join(" | ") == "Junk | 1")
 }
 
 test "the right click opens the slot's menu, and «Not junk» takes the item out of junk at once, with a line in the chat" {
