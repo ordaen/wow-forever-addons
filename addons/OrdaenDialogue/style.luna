@@ -1,7 +1,7 @@
 // The dialogue window's look: its size, and the colours of what each says. The parchment above and the dark well
 // below are the library's quest page (`Scroll`, the `SCROLL_` and `WELL_` colours), shared with Quests' log.
 import { Line } from "$ltml"
-import { SCROLL_DIM, SCROLL_HEAD, SCROLL_INK, WELL_DIM, WELL_GOLD, WELL_GREEN, WELL_RED, WELL_RULE, WELL_TEXT } from "Ordaen"
+import { SCROLL_DIM, SCROLL_HEAD, SCROLL_INK, WELL_DIM, WELL_GOLD, WELL_GREEN, WELL_RED, WELL_RULE, WELL_TEXT } from "OrdaenQuestPage"
 
 public const WIDTH: Number<Length> = 515.625dp
 public const HEIGHT: Number<Length> = 820.3125dp

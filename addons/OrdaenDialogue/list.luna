@@ -4,7 +4,8 @@
 // own. Left-click, Enter or Space picks a line; right-click on a plain option opens its menu: «Always pick this
 // option».
 import { Key, Track } from "$ltml"
-import { Component, Keycap, Menu, MenuEntry, PickRow, SECONDARY_TEXT, colorOf } from "Ordaen"
+import { Component, Menu, MenuEntry, PickRow, SECONDARY_TEXT, colorOf } from "Ordaen"
+import { Keycap } from "OrdaenQuestPage"
 import Locale from "@/locales"
 import { Line, LineKind } from "@/read"
 import Style from "@/style"

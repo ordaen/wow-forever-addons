@@ -9,13 +9,11 @@ import Game from "$game"
 import { Align, Art, Edges, Event, Line, MouseButton, Overflow, Position, Side, TextAlign, Track } from "$ltml"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
-import { ItemButton, Quality, qualityFrom, usableItem } from "@/itemButton"
+import {
+  Component, ItemButton, Money, PickRow, Quality, SECONDARY_TEXT, TIGHT_LINE, TITLE_TEXT, Tip, TipRow, qualityColor, qualityFrom,
+  usableItem
+} from "Ordaen"
 import Locale from "@/locales"
-import { Component } from "@/module"
-import { Money } from "@/money"
-import { PickRow } from "@/pickRow"
-import { Tip, TipRow } from "@/tip"
-import { SECONDARY_TEXT, TIGHT_LINE, TITLE_TEXT } from "@/units"
 
 // On the parchment.
 public const SCROLL_INK: Color = Color.hex("#160c03")
@@ -216,20 +214,6 @@ public function itemReward(
 public function logReward(item: Integer, count: Integer, index: Integer): Reward {
   const name, link, _, _, _, _, _, _, _, texture, _, _, _, _, _, _, _, _ = Client.C_Item.GetItemInfo(item)
   return itemReward(item, count, name ?? "", artOf(texture), usableItem(item), link, index)
-}
-
-// An item's name in its quality's colour, the game's.
-public function qualityColor(quality: Quality): Color {
-  return match (quality) {
-    .Poor => Color.hex("#9d9d9d")
-    .Common => WELL_TEXT
-    .Uncommon => Color.hex("#1eff00")
-    .Rare => Color.hex("#0070dd")
-    .Epic => Color.hex("#a335ee")
-    .Legendary => Color.hex("#ff8000")
-    .Artifact => Color.hex("#e6cc80")
-    .Heirloom => Color.hex("#00ccff")
-  }
 }
 
 // Pawn's word on a reward: «+8%»; nothing for no upgrade.

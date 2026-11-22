@@ -47,6 +47,20 @@ public function qualityFrom(quality: Client.ItemQuality | nil): Quality {
   }
 }
 
+// An item's name in its quality's colour, the game's (common: the light text of a dark well).
+public function qualityColor(quality: Quality): Color {
+  return match (quality) {
+    .Poor => Color.hex("#9d9d9d")
+    .Common => Color.hex("#f0e6d0")
+    .Uncommon => Color.hex("#1eff00")
+    .Rare => Color.hex("#0070dd")
+    .Epic => Color.hex("#a335ee")
+    .Legendary => Color.hex("#ff8000")
+    .Artifact => Color.hex("#e6cc80")
+    .Heirloom => Color.hex("#00ccff")
+  }
+}
+
 // Whether the player can use the item, as the client says in its tooltip: no requirement marked unmet (level, class,
 // skill, reputation), no slot or kind marked as not the player's. Read again when the kept tooltips are let go (a
 // level-up, a skill changed).

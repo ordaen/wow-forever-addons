@@ -1,0 +1,2 @@
+// Ordaen Quest Page: a quest's page as Ordaen Quests and Ordaen Dialogue show it, a library both depend on.
+public import { Experience, Keycap, REWARD_ICON, Reward, RewardKind, RewardRow, RewardView, Rewards, SCROLL_DIM, SCROLL_HEAD, SCROLL_INK, SCROLL_ROW, SCROLL_WIDTH, Scroll, Standing, WELL_DIM, WELL_GOLD, WELL_GREEN, WELL_RED, WELL_RULE, WELL_TEXT, XP_MARK_SMALL, artOf, choiceViews, itemReward, logReward, pawnText } from "@/questPage"

@@ -3,7 +3,8 @@
 // enough, the money too); its rewards are the library's (`Rewards`), as Quests' log shows them.
 import Game from "$game"
 import { Align, Position } from "$ltml"
-import { BODY_LINE, Component, Money, REWARD_ICON, SECONDARY_TEXT, Tip } from "Ordaen"
+import { BODY_LINE, Component, Money, SECONDARY_TEXT, Tip } from "Ordaen"
+import { REWARD_ICON } from "OrdaenQuestPage"
 import Locale from "@/locales"
 import { Need, Quest } from "@/read"
 import Style from "@/style"

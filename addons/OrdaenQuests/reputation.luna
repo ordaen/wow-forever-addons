@@ -6,7 +6,7 @@
 // (its rank's own words, `C_Traits.GetTraitDescription`). Classic's buffs of reputation (the Darkmoon Faire's, Hallow's
 // End's) aren't spells of Forever's.
 import Client from "$client"
-import { Standing } from "Ordaen"
+import { Standing } from "OrdaenQuestPage"
 import { FactionGain } from "@/questie"
 
 // The legacy talents' tree (`C_Traits.GetConfigIDBySystemID`), Diplomat's spell in it, and what a rank of it adds.

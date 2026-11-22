@@ -1,7 +1,7 @@
 // A quest's scroll folded and unfolded; its rewards' band of experience, reputation and money in one size.
 import Test from "$test"
 import root Ordaen from "Ordaen"
-import { Quality } from "@/itemButton"
+import { Quality } from "Ordaen"
 import Locale from "@/locales"
 import { Reward, Rewards, SCROLL_ROW, SCROLL_WIDTH, Scroll, Standing } from "@/questPage"
 

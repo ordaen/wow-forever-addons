@@ -5,7 +5,8 @@
 import Client from "$client"
 import Game from "$game"
 import { Art } from "$ltml"
-import { Difficulty, Quality, Reward, Standing, artOf, difficultyOf, itemReward } from "Ordaen"
+import { Difficulty, Quality, difficultyOf } from "Ordaen"
+import { Reward, Standing, artOf, itemReward } from "OrdaenQuestPage"
 import root Quests from "OrdaenQuests"
 import Locale from "@/locales"
 

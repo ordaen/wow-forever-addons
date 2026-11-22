@@ -1,0 +1,10 @@
+{
+  "QUEST_PAWN_TIP": "Pawn: на %d%% лучше надетого",
+  "QUEST_CHOOSE_REWARD": "Выберите награду",
+  "QUEST_CAN_CHOOSE": "Вы сможете выбрать",
+  "QUEST_ALSO_GET": "Вы также получите",
+  "QUEST_REWARD": "Награда",
+  "QUEST_REPUTATION": "%+d %s",
+  "QUEST_REPUTATIONS": "%s к репутации",
+  "QUEST_REPUTATION_TIP": "Репутация"
+}

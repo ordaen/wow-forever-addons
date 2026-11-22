@@ -274,13 +274,5 @@
   "CONFLICT_OTHER": "%s: выключаются %s.",
   "CONFLICT_RELOAD": "%s выключен со следующей перезагрузки.",
   "CONFLICT_RELOAD_NOW": "Перезагрузить",
-  "CONFLICT_LATER": "Позже",
-  "QUEST_PAWN_TIP": "Pawn: на %d%% лучше надетого",
-  "QUEST_CHOOSE_REWARD": "Выберите награду",
-  "QUEST_CAN_CHOOSE": "Вы сможете выбрать",
-  "QUEST_ALSO_GET": "Вы также получите",
-  "QUEST_REWARD": "Награда",
-  "QUEST_REPUTATION": "%+d %s",
-  "QUEST_REPUTATIONS": "%s к репутации",
-  "QUEST_REPUTATION_TIP": "Репутация"
+  "CONFLICT_LATER": "Позже"
 }

@@ -1,0 +1,20 @@
+{
+  "title": "Ordaen Quest Page",
+  "icon": "Interface/Icons/INV_Misc_Note_01",
+  "notes": "A quest's page as Ordaen Quests and Ordaen Dialogue show it: the parchment, the rewards, the band of experience, reputation and money.",
+  "version": "0.1.0",
+  "dependencies": { "Ordaen": "^1.0.0" },
+  "category": {
+    "enUS": "User Interface",
+    "deDE": "Benutzerinterface",
+    "esES": "Interfaz de usuario",
+    "esMX": "Interfaz de usuario",
+    "frFR": "Interface utilisateur",
+    "itIT": "Interfaccia utente",
+    "koKR": "사용자 인터페이스",
+    "ptBR": "Interface do usuário",
+    "ruRU": "Интерфейс пользователя",
+    "zhCN": "用户界面",
+    "zhTW": "使用者介面"
+  }
+}
