@@ -3,11 +3,10 @@
 import { Line } from "$ltml"
 import { SCROLL_DIM, SCROLL_HEAD, SCROLL_INK, WELL_DIM, WELL_GOLD, WELL_GREEN, WELL_RED, WELL_RULE, WELL_TEXT } from "OrdaenQuestPage"
 
-// What Ordaen's window frame takes past the room the window was sized for: across and down.
-const FRAME_ACROSS = 16.5ui
-const FRAME_DOWN = 13.75ui
+// What Ordaen's window frame takes across past the room the window was sized for.
+const FRAME_ACROSS = 3.7ui
 public const WIDTH: Number<Length> = 515.625dp + FRAME_ACROSS
-public const HEIGHT: Number<Length> = 820.3125dp + FRAME_DOWN
+public const HEIGHT: Number<Length> = 820.3125dp
 
 // On the parchment.
 public const INK: Color = SCROLL_INK

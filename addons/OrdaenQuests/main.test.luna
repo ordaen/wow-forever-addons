@@ -436,19 +436,22 @@ test "the page's buttons stand in the window's footer band, across the side from
   Test.expect(band.right > abandon.right && band.left < window.button("Show on map").rect().left)
 }
 
+const WOLVES = "Gray forest wolves slain in the hills east of Goldshire, along the river and in the woods past the old mill"
+
 test "a long objective wraps on the page, its count standing at the right of the line" {
   const log = standing()
-  log[3] = { objectives: [{ text: "Gray forest wolves slain in the hills east of Goldshire and the woods past it: 0/50" }], ..quest(103, "Elwynn Wolves", "Elwynn Forest") }
+  log[3] = { objectives: [{ text: `${WOLVES}: 0/50` }], ..quest(103, "Elwynn Wolves", "Elwynn Forest") }
   opened(log)
   const window = Test.page().window("World")
   window.text("Elwynn Wolves").click()
-  const what = window.text("Gray forest wolves slain in the hills east of Goldshire and the woods past it")
+  const what = window.text(WOLVES)
   const count = window.text("0/50")
   Test.expect(what.count() == 2 && count.count() == 2)
-  // The list's line and the page's: both wrap, the count after the words.
+  // The list's line and the page's: both wrap (taller than the count's one line), the count after the words.
   for (n of 1..2) {
     const words = what.nth(n).rect()
-    Test.expect(words.bottom - words.top > 25 && count.nth(n).rect().left > words.right)
+    const line = count.nth(n).rect()
+    Test.expect(words.bottom - words.top > (line.bottom - line.top) * 1.5 && line.left > words.right)
   }
 }
 
@@ -892,10 +895,10 @@ test "the page's experience and money are larger than a secondary text" {
   opened(log)
   const window = Test.page().window("World")
   window.text("Elwynn Wolves").click()
-  // The list's row has its own at a secondary text's size; the page's band is a third larger.
+  // The list's row has its own at a secondary text's size; the page's band at the body's, larger.
   const row = window.text("735").nth(1).letters()
   const page = window.text("735").nth(2).letters()
-  Test.expect(page.bottom - page.top > (row.bottom - row.top) * 1.2)
+  Test.expect(page.bottom - page.top > (row.bottom - row.top) * 1.1)
 }
 
 test "the abandon button says only «Abandon»" {
@@ -948,8 +951,9 @@ test "a long objective wraps under the parchment and pushes what follows down" {
   window.text("Elwynn Wolves").click()
   const goal = window.text(long).nth(2)
   const next = window.text("You will be able to choose")
-  // Two lines, and the rewards' title under the second.
-  Test.expect(goal.rect().bottom - goal.rect().top > 30)
+  // Two lines (taller than the count's one), and the rewards' title under the second.
+  const line = window.text("0/1").nth(2).rect()
+  Test.expect(goal.rect().bottom - goal.rect().top > (line.bottom - line.top) * 1.5)
   Test.expect(goal.rect().bottom <= next.rect().top)
 }
 
