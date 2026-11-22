@@ -382,37 +382,28 @@ test "the cell under the cursor is lit, and shaded while it is pressed" {
   Test.release(nil)
 }
 
-// The whispers' bubble, by its title, or nil while it doesn't show: what it says under the title.
-function whispersBubble(): String | nil {
-  for (shown of Test.surfaces()) {
-    if (shown.texts.any(t => t == "Whispers")) { return shown.texts.filter(t => t != "Whispers").join(" ") }
-  }
-  return nil
+const WHISPER_VIOLET: Color = Color.hex("#8a4fd0")
+
+// Whether a surface shows this text.
+function surfaceSays(text: String): Boolean {
+  return Test.surfaces().any(s => s.texts.any(t => t == text))
 }
 
-test "the whispers Ordaen Social says wait unread are a bubble over the friends' button, the cell counting only friends" {
+test "the whispers Ordaen Social says wait unread are a plain violet bubble with their count over the friends' button" {
   Game.frames.QuickJoinToastButton = frame("QuickJoinToastButton")
   Test.mount(nil, SCREEN)
   Game.friends.online = 3
-  Test.expect(whispersBubble() == nil)
   Ordaen.notice("OrdaenSocial", 2)
-  Test.expect(whispersBubble() == "2 unread. Open the friends window to read them.")
+  Test.expect(surfaceSays("2"))
+  const bubble = Test.page().window("2")
+  Test.expect(bubble.box(WHISPER_VIOLET).shown() && !bubble.box(Ordaen.art.ctl.corner.close).shown())
+  // The cell counts only the friends online; the bubble stands over the friends' button, the panel along the bottom.
   Test.expect(panel().box(FRIENDS).item().texts().join(" | ") == "3")
-  // Over the panel along the bottom: above the friends' button.
-  Test.expect(Test.surfaceHolding("Whispers").y < Test.edges(FRIENDS, 0).top)
+  Test.expect(Test.surfaceHolding("2").y < Test.edges(FRIENDS, 0).top)
+  Ordaen.notice("OrdaenSocial", 5)
+  Test.expect(surfaceSays("5"))
   Ordaen.notice("OrdaenSocial", 0)
-  Test.expect(whispersBubble() == nil)
-}
-
-test "the whispers' bubble closed stays closed until more whispers come" {
-  Game.frames.QuickJoinToastButton = frame("QuickJoinToastButton")
-  Test.mount(nil, SCREEN)
-  Ordaen.notice("OrdaenSocial", 1)
-  const glyph = Test.edges(Ordaen.art.ctl.corner.close, 0)
-  Test.click({ x: (glyph.left + glyph.right) / 2, y: (glyph.top + glyph.bottom) / 2 }, nil)
-  Test.expect(whispersBubble() == nil)
-  Ordaen.notice("OrdaenSocial", 2)
-  Test.expect(whispersBubble() == "2 unread. Open the friends window to read them.")
+  Test.expect(!Test.page().text("5").shown() && !surfaceSays("0"))
 }
 
 test "with no friend online the friends' cell counts none" {

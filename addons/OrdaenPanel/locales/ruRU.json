@@ -216,7 +216,5 @@
   "PANEL_XPFILL_CLOUDS": "Облака маны",
   "PANEL_XPFILL_STEEL": "Сталь",
   "PANEL_XPBORDER_BEZEL": "Бронзовая рамка",
-  "PANEL_XPBORDER_GROOVE": "Вырезанный паз",
-  "WHISPERS_TITLE": "Шёпот",
-  "WHISPERS_UNREAD": "Непрочитанных: %d. Откройте окно друзей, чтобы прочитать."
+  "PANEL_XPBORDER_GROOVE": "Вырезанный паз"
 }
