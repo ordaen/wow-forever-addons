@@ -8,6 +8,8 @@
   "WHISPER_TO": "Шепнуть…",
   "WHISPER_TYPE": "Сообщение, Enter отправляет",
   "WHISPER_NONE": "Шёпота пока нет",
+  "TALK_CLOSE": "Закрыть",
+  "TALK_CLEAR": "Очистить историю",
   "COPY_TITLE": "Копировать: выделите и нажмите Ctrl+C",
   "ONLINE_COUNT": "%d в сети",
   "SUB_STATUS": "Статус",

@@ -8,6 +8,8 @@
   "WHISPER_TO": "Whisper to…",
   "WHISPER_TYPE": "Message, Enter sends",
   "WHISPER_NONE": "No whispers yet",
+  "TALK_CLOSE": "Close",
+  "TALK_CLEAR": "Clear history",
   "COPY_TITLE": "Copy: select and press Ctrl+C",
   "ONLINE_COUNT": "%d online",
   "SUB_STATUS": "Status",

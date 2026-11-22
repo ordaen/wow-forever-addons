@@ -24,11 +24,19 @@ public struct TalkLine implements Plain {
 // When this session began: the session of every line it hears.
 public const THIS_SESSION: Number = peek Game.clock.server
 
-// What one conversation keeps between sessions: its lines, and how many of them wait unread.
+// What one conversation keeps between sessions: its lines, how many of them wait unread, and whether it was closed
+// (out of the list until its person whispers again).
 public struct KeptTalk implements Plain {
   key: String
   lines: Array<TalkLine>
   unread: Integer = 0
+  closed: Boolean = false
+}
+
+// A conversation as the next session keeps it.
+public function keptOf(talk: Talk, closed: Boolean): KeptTalk {
+  const lines = talk.kept()
+  return { key: talk.key, lines: lines, unread: (peek talk.unread).min(lines.length), closed: closed }
 }
 
 // Who a conversation is with, as its row names them: a character by its name, in its class's colour where it is
@@ -140,6 +148,13 @@ public class Talk {
     const keep = self.lines.filter(line => !line.secret)
     for (at of KEPT + 1..keep.length) { _ = keep.remove(1) }
     return keep
+  }
+
+  // Its lines cleared, nothing of it waiting.
+  public clear(mut self) {
+    self.lines = []
+    self.unread = 0
+    self.version = (peek self.version) + 1
   }
 
   // A sender's lines taken away (a player reported).

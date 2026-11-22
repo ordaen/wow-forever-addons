@@ -27,8 +27,8 @@ import { ClientPeople, People, namesAccount } from "@/people"
 import { SEEN_HEROES, SeenHeroes, noteSeen, withSeen } from "@/seen"
 import { Choices, GeneralPage } from "@/settings"
 import Style from "@/style"
-import { KeptTalk, KeptTalks, KnownPeople, THIS_SESSION, Talk, TalkWho, isBattleNet, isTold, isWhisper, talkKey, whoOf } from "@/talks"
-import { Whispers } from "@/whispers"
+import { KeptTalk, KeptTalks, KnownPeople, THIS_SESSION, Talk, TalkWho, isBattleNet, isTold, isWhisper, keptOf, talkKey, whoOf } from "@/talks"
+import { TalkPick, Whispers } from "@/whispers"
 
 // The tabs, in order, and the friends' and the guild's own.
 public const TAB_FRIENDS = 1
@@ -727,12 +727,23 @@ public class Social implements Module, App {
 
   onTalkStart(mut self, name: String) { self.talkOpen = self.talkOf(talkKey(name, false)).key }
 
-  // A conversation closed: its lines go with it.
-  onTalkForget(mut self, talk: Talk) {
-    self.talkMade[talk.key] = nil
+  // A conversation's menu picked: closed, or its lines cleared.
+  onTalkMenu(mut self, pick: TalkPick) {
+    const talk = self.talkMade[pick.talk.key]
+    if (talk == nil) { return }
+    match (pick.action) {
+      .Close => { self.closeTalk(mut talk) }
+      .Clear => { talk.clear() }
+    }
+    self.countUnread()
+  }
+
+  // A conversation closed: it leaves the list, nothing of it waiting; its lines are kept, and a whisper of the same
+  // person brings it back with them (`talkOf`).
+  closeTalk(mut self, talk: mut Talk) {
+    talk.unread = 0
     self.talks = (peek self.talks).filter(other => other.key != talk.key)
     if (peek self.talkOpen == talk.key) { self.talkOpen = (peek self.talks)[1]?.key ?? "" }
-    self.countUnread()
   }
 
   // The words typed in a conversation, sent in the key's own call.
@@ -752,13 +763,15 @@ public class Social implements Module, App {
 
   onCopyClose(mut self) { self.copied = "" }
 
-  // The conversations' last lines and what of them waits unread, for the next session (a /reload among them): written
-  // once, as the player logs out.
+  // The conversations' last lines and what of them waits unread, for the next session (a /reload among them): those in
+  // the list in its order, then those closed, whose lines come back as their person whispers again. Written once, as
+  // the player logs out.
   keepTalks(mut self) {
-    const talks = (peek self.talks).map((talk: Talk): KeptTalk => {
-      const lines = talk.kept()
-      return { key: talk.key, lines: lines, unread: (peek talk.unread).min(lines.length) }
-    })
+    const listed = peek self.talks
+    const talks: Array<KeptTalk> = listed.map(talk => keptOf(talk, false))
+    for (key, talk of self.talkMade) {
+      if (!listed.any(one => one.key == key)) { talks.push(keptOf(talk, true)) }
+    }
     Game.saved.store(Game.Scope.Character, TALKS_KEPT, KeptTalks { talks: talks })
   }
 
@@ -770,7 +783,7 @@ public class Social implements Module, App {
       talk.recall(one.lines)
       talk.unread = one.unread
       self.talkMade[one.key] = talk
-      talks.push(talk)
+      if (!one.closed) { talks.push(talk) }
     }
     self.talks = talks
     self.countUnread()
@@ -874,7 +887,7 @@ public class Social implements Module, App {
           <text value={Locale.NO_COMMUNITIES} textColor={Style.DIM} wrap={.None} />
         </box>
         <Whispers $elseif={self.tab == TAB_WHISPERS} talks={self.talks} who={self.talkWho} openKey={self.talkOpen} @picked={self.onTalkPick}
-                  @forget={self.onTalkForget} @start={self.onTalkStart} @send={self.onTalkSend} @link={self.onTalkLink} />
+                  @talkPicked={self.onTalkMenu} @start={self.onTalkStart} @send={self.onTalkSend} @link={self.onTalkLink} />
         <AllyList $else allies={self.allies} chosen={self.ally} filter={mut self.allyFilter}
                   categories={peek Game.recentAllies.categories()} @pick={self.onPickAlly} @menu={self.onAllyMenu} />
       </Window>

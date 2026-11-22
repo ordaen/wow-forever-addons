@@ -1,5 +1,6 @@
 // The whispers' tab: a sidebar of the conversations, newest first with their unread count, a name typed at its top
-// starting one, a conversation's «×» closing it (its history with it); beside it, in a well, the open one, drawn as
+// starting one, a conversation's right-click menu closing it or clearing its lines; beside it, in a well, the open one,
+// drawn as
 // WhisperMessenger draws it: each line a bubble, the other's on the left and the player's on the right, at most three
 // quarters of the width; lines of one side close in time stand together, the group's time under its last. Under it, its
 // own line to type in.
@@ -8,7 +9,7 @@ import Game from "$game"
 import { Hero } from "$game"
 import { Align, Bounds, Edges, Event, Overflow, Position, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { BODY_LINE, Component, CountBadge, Field, SECONDARY_TEXT, TIGHT_LINE, classColor, timeText } from "Ordaen"
+import { BODY_LINE, Component, CountBadge, Field, Menu, MenuEntry, SECONDARY_TEXT, TIGHT_LINE, classColor, timeText } from "Ordaen"
 import Locale from "@/locales"
 import { THIS_SESSION, Talk, TalkLine, TalkWho } from "@/talks"
 
@@ -45,10 +46,9 @@ const RULE_TEXT: Color = Color.hex("#9d9d9d")
 const RULE_COLUMNS: Array<Track> = [{ fr: 1 }, MAX, { fr: 1 }]
 const HINT: Color = Color.hex("#857a66")
 const ROW_PAD: Edges = { top: 1sp, right: 2sp, bottom: 1sp, left: 2sp }
-const CLOSE_PAD: Edges = { right: 1sp, left: 1sp }
 // A name whole, its level right after it; a Battle.net friend's character close under the account's name.
 const NAME_AND_LEVEL: Array<Track> = [MAX, MAX]
-const NAME_LINES_GAP: Number<Spacing> = 0.5sp
+const NAME_LINES_GAP: Number<Spacing> = 1.5sp
 // The count's room at a conversation's right, kept while none waits: nothing moves as it comes or goes.
 const COUNT_ROOM: Number<Length> = 28dp
 
@@ -140,10 +140,10 @@ public class Bubble implements Component {
 // A conversation in the list, as the friends' list names a friend: a character's name in its class's colour (the
 // whisper colour where the class isn't known) and its level after it; a Battle.net friend's account name in Battle.net
 // blue, the character it plays under it the same way. The lines waiting unread are a badge out of the flow in a room
-// kept for it; then «×».
+// kept for it. A left click opens it; a right click, its menu.
 public class TalkRow implements Component {
   public pick: Event<Talk> = new Event()
-  public forget: Event<Talk> = new Event()
+  public menu: Event<Talk> = new Event()
 
   derived color: Color = self.talk.battleNet ? BATTLE_NET : classColor(self.who.classFile) ?? WHISPER
   derived level: String = levelText(self.who.level)
@@ -164,12 +164,13 @@ public class TalkRow implements Component {
 
   onPick(mut self) { self.pick.emit(peek self.talk) }
 
-  onForget(mut self) { self.forget.emit(peek self.talk) }
+  onMenu(mut self) { self.menu.emit(peek self.talk) }
 
   public render(self): Template {
     return $ltml {
-      <box columns={[{ fr: 1 }, COUNT_ROOM, MAX]} gap={1sp} padding={ROW_PAD} background={self.fill} yAlign={Align.Center}
-           @pointerPress={self.onPick} @keyPress(.Enter)={self.onPick} @keyPress(.Space)={self.onPick}>
+      <box columns={[{ fr: 1 }, COUNT_ROOM]} gap={1sp} padding={ROW_PAD} background={self.fill} yAlign={Align.Center}
+           @pointerPress(.Left)={self.onPick} @pointerPress(.Right)={self.onMenu} @keyPress(.Enter)={self.onPick}
+           @keyPress(.Space)={self.onPick}>
         <box columns={1} lineHeight={TIGHT_LINE} gap={NAME_LINES_GAP}>
           <box columns={NAME_AND_LEVEL} gap={2sp} yAlign={Align.Center}>
             <text value={self.who.name} textColor={self.color} wrap={.None} />
@@ -186,17 +187,37 @@ public class TalkRow implements Component {
             <CountBadge count={self.talk.unread} tone={WHISPER} />
           </box>
         </box>
-        <box padding={CLOSE_PAD} @pointerPress.self={self.onForget}>
-          <text value={"×"} textColor={HINT} wrap={.None} />
-        </box>
       </box>
     }
   }
 }
 
+// What a conversation's menu offers: closing it (it leaves the list, its lines kept: a whisper of the same person
+// brings it back with them) and clearing its lines.
+public enum TalkAction { Close = "close", Clear = "clear" }
+
+const TALK_ACTIONS: Array<TalkAction> = [TalkAction.Close, TalkAction.Clear]
+
+function talkLabel(action: TalkAction): String {
+  return match (action) {
+    .Close => Locale.TALK_CLOSE
+    .Clear => Locale.TALK_CLEAR
+  }
+}
+
+const TALK_ENTRIES: Array<MenuEntry> = TALK_ACTIONS.map(action => MenuEntry {
+  label: talkLabel(action), on: nil, disabled: nil, group: nil, more: nil
+})
+
+// A conversation's menu picked: which, and what of it.
+public struct TalkPick {
+  talk: Talk
+  action: TalkAction
+}
+
 public class Whispers implements Component {
   public picked: Event<Talk> = new Event()
-  public forget: Event<Talk> = new Event()
+  public talkPicked: Event<TalkPick> = new Event()
   // A name typed to whisper to.
   public start: Event<String> = new Event()
   // The words typed in the open conversation, Enter pressed: in the key's own call, where the client sends them.
@@ -207,6 +228,9 @@ public class Whispers implements Component {
   state draft = ""
   // Lines scrolled back from the newest.
   state back = 0
+  // The conversation whose menu is open.
+  state menuTalk: Talk | nil = nil
+  derived menuTitle: String = self.menuTalk?.partner ?? ""
   // What was typed in each conversation and not sent, kept while another is open.
   drafts: mut Map<String, String> = {}
   derived open: Talk | nil = self.talks.find(talk => talk.key == self.openKey)
@@ -247,9 +271,17 @@ public class Whispers implements Component {
     self.picked.emit(talk)
   }
 
-  onForget(mut self, talk: Talk) {
-    self.drafts[talk.key] = nil
-    self.forget.emit(talk)
+  onMenu(mut self, talk: Talk) { self.menuTalk = talk }
+
+  onMenuClose(mut self) { self.menuTalk = nil }
+
+  onTalkPick(mut self, place: Integer) {
+    const talk = peek self.menuTalk
+    const action = TALK_ACTIONS[place]
+    self.menuTalk = nil
+    if (talk == nil || action == nil) { return }
+    if (action == .Clear) { self.drafts[talk.key] = nil }
+    self.talkPicked.emit({ talk: talk, action: action })
   }
 
   onStart(mut self) {
@@ -290,8 +322,10 @@ public class Whispers implements Component {
           <box columns={1} overflow={Overflow.Scroll}>
             <TalkRow $for={talk of self.talks} $key={talk.key} talk={talk} who={self.who[talk.key] ?? unknownWho(talk)}
                      open={talk.key == self.openKey}
-                     @pick={self.onPick} @forget={self.onForget} />
+                     @pick={self.onPick} @menu={self.onMenu} />
           </box>
+          <Menu $if={self.menuTalk != nil} entries={TALK_ENTRIES} title={self.menuTitle} @pick={self.onTalkPick}
+                @close={self.onMenuClose} />
         </box>
         <box rows={[{ fr: 1 }, MAX]} gap={2sp}>
           // The conversation sunk in a well, as the chat's lines stand in their frame: its rim the line between it and

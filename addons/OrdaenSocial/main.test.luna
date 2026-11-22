@@ -1411,10 +1411,48 @@ test "a conversation names a character in its class colour with its level; a Bat
   const warrior = classColor("WARRIOR") ?? panic("a warrior's colour")
   Test.expect(window.text("24lvl").shown() && sameColor(window.text("Eliana").textColor(), warrior))
   Test.expect(window.text("Alexei").shown() && sameColor(window.text("Torgrim").textColor(), warrior) && window.text("25lvl").shown())
-  // The character close under the account's name: no body line's room between them.
+  // The character under the account's name, a little room between them, never a body line's.
   const account = window.text("Alexei").rect()
   const character = window.text("Torgrim").rect()
-  Test.expect(character.top >= account.bottom && character.top - account.bottom <= 3)
+  Test.expect(character.top - account.bottom >= 2 && character.top - account.bottom <= 8)
+}
+
+test "a conversation's right-click closes it, its lines kept for the person's next whisper, or clears them" {
+  Test.mount(nil, PAGE)
+  Game.friends.list = friends
+  Game.friends.requests = requests
+  Game.friends.ignored = ignoredOnes
+  Game.friends.battleNetSelf = battleNetSelf
+  Game.guild.roster = guildRoster
+  Game.guild.motd = guildMotd
+  Game.guild.news = guildNews
+  Game.guild.newsFilters = newsFilters
+  Game.communities.clubs = clubs
+  Game.communities.members = clubMembers
+  Game.communities.streams = streams
+  Game.recentAllies.list = allies
+  Game.recentAllies.categories = allyCategories
+  _ = Social.heard(whisper("Jaina", "first"), "first")
+  _ = Social.heard(whisper("Thrall", "lok'tar"), "lok'tar")
+  const window = opened(new FakePeople())
+  Social.whisperTo("Jaina", false)
+  // No «×» on a row: its menu closes it.
+  Test.expect(!window.text("×").shown())
+  window.text("Jaina").rightClick()
+  Test.page().text("Close").click()
+  Test.expect(!window.text("Jaina").shown() && Social.talkOpen == "t:Thrall")
+  // Jaina whispers again: her conversation is back, the lines before with it, kept over a reload while closed.
+  Events.PLAYER_LOGOUT.emit()
+  Test.reload()
+  const again = opened(new FakePeople())
+  Test.expect(Social.talks.length == 1)
+  _ = Social.heard(whisper("Jaina", "second"), "second")
+  Social.whisperTo("Jaina", false)
+  Test.expect(again.text("first").shown() && again.text("second").shown())
+  // Cleared: the conversation stays, its lines gone.
+  again.text("Jaina").rightClick()
+  Test.page().text("Clear history").click()
+  Test.expect(again.text("Jaina").shown() && !again.text("first").shown() && !again.text("second").shown())
 }
 
 test "a conversation's sessions stand under a rule naming each, as the chat's do" {
