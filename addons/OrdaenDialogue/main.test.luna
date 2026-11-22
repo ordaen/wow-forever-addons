@@ -604,13 +604,36 @@ test "a party member's escort quest asks, and Yes accepts it" {
   Test.expect(asked() == "confirm accept")
 }
 
-test "the innkeeper's «make this inn your home» asks on the window's page, and stays while the talk ends" {
+// The innkeeper whose «Make this inn your home.» asks, as the client's does (`CONFIRM_BINDER`).
+function binder(): Test.Npc { return { binds: { option: 300, area: "Goldshire" }, ..innkeeper() } }
+
+// Talking to the innkeeper who binds, the window drawn and hearing its keys, as the server asks to confirm the inn.
+function bindHome() {
   Test.mount(nil, SCREEN)
-  Test.talk(innkeeper())
+  Test.talk(binder())
+  Test.flush()
   Events.CONFIRM_BINDER.emit("Goldshire")
+  Test.flush()
+}
+
+test "the innkeeper's «make this inn your home» asks on the window's page, and stays while the talk ends" {
+  bindHome()
   Test.expect(window().text("Goldshire will be your new home. Agree?").shown())
   Events.GOSSIP_CLOSED.emit(false)
   Test.expect(window().text("Goldshire will be your new home. Agree?").shown())
+}
+
+test "Yes to the inn makes it home, as the game's own dialog's Accept does" {
+  bindHome()
+  _ = Test.keyBound("1")
+  Test.expect(asked() == "confirm binder, clear binder")
+  Test.expect(!window().text("Goldshire will be your new home. Agree?").shown())
+}
+
+test "No to the inn tells the game, as its own dialog's Cancel does" {
+  bindHome()
+  window().button("No").click()
+  Test.expect(asked() == "clear binder")
 }
 
 // Quests accepted and handed in on their own
