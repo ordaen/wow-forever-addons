@@ -1,0 +1,65 @@
+// TabItem: an item of a list that stands edge to edge with the section it selects for (the categories beside the
+// recipes, the recipes beside the recipe), drawn as a tab into it. Its section's line runs down its right side; the
+// selected one has none there and no fill of its own, so it opens into the section beside it on the same floor, a
+// 2 px edge of its colour along its left. A faint rule above every item but the first; a light under the cursor. A
+// click of either button reports `pick` (a right-click opens the item's menu).
+//
+// A prototype of the professions window's design: Ordaen's `SelectItem` takes the same arguments, so it can become an
+// option of it once the design holds.
+import { Align, ByInteractionState, Edges, Event, Line, MouseButton, Overflow, Position, Side, Track } from "$ltml"
+import { Component } from "Ordaen"
+import Style from "@/style"
+
+const CLEAR: Color = Color.hex("#00000000")
+const SHADE: ByInteractionState<Color> = { default: CLEAR, hover: Color.hex("#d6a56b1f"), focus: Color.hex("#d6a56b1f") }
+const LINE_WIDTH = 1.171875dp
+const RULE: Line = { width: LINE_WIDTH, color: Color.hex("#d6a56b14"), sides: [Side.Top] }
+const EDGE = 2.34375dp
+const ONE: Array<Track> = [{ fr: 1 }]
+
+public class TabItem implements Component {
+  public pick: Event<MouseButton> = new Event()
+
+  derived background: Color | ByInteractionState<Color> = self.selected ? CLEAR : SHADE
+  derived edge: Color = self.color ?? Style.GOLD
+  derived rule: Line | nil = self.first ? nil : RULE
+
+  selected: Signal<Boolean>
+  color: Signal<Color | nil>
+  first: Signal<Boolean>
+  columns: Signal<Array<Track>>
+  padding: Signal<Edges>
+  constructor(
+    selected: Signal<Boolean>,
+    // The item's own colour (a recipe's difficulty): its selected edge. None for the lists' gold.
+    color: Signal<Color | nil> = nil,
+    // The list's first item: no rule above it.
+    first: Signal<Boolean> = false,
+    columns: Signal<Array<Track>> = ONE,
+    padding: Signal<Edges>
+  ) {
+    self.selected = selected
+    self.color = color
+    self.first = first
+    self.columns = columns
+    self.padding = padding
+  }
+
+  onClick(mut self, click: Event.Press) { self.pick.emit(click.button) }
+  onKey(mut self) { self.pick.emit(.Left) }
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={self.columns} gap={2.5sp} padding={self.padding} yAlign={Align.Center} border={self.rule}
+           background={self.background} overflow={Overflow.Hidden} @pointerPress={self.onClick} @keyPress(.Enter)={self.onKey}
+           @keyPress(.Space)={self.onKey}>
+        <box $if={self.selected} position={Position.Absolute} left={0ui} top={0ui} bottom={0ui} width={EDGE}
+             background={self.edge} />
+        // The section's line down its right side, where it isn't the selected one: that one opens into the section.
+        <box $if={!self.selected} position={Position.Absolute} right={0ui} top={0ui} bottom={0ui} width={LINE_WIDTH}
+             background={Style.LINE} />
+        <slot />
+      </box>
+    }
+  }
+}

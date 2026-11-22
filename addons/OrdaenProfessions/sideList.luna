@@ -1,0 +1,24 @@
+// SideList: a list of the recipes page's region (the categories, the recipes), standing edge to edge with the section
+// beside it on the region's one floor, inside the region's one rim: no rim or floor of its own, its rows (`TabItem`)
+// edge to edge, scrolling in their column. A prototype of the professions window's design: Ordaen's `ScrolledList`
+// draws the lists of every other window.
+import { Overflow, Size } from "$ltml"
+import { Component } from "Ordaen"
+
+public class SideList implements Component {
+  width: Signal<Size | nil>
+  constructor(
+    // The list's width. None: the width of its cell.
+    width: Signal<Size | nil> = nil
+  ) {
+    self.width = width
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <box width={self.width} columns={1} overflow={Overflow.Scroll}>
+        <slot />
+      </box>
+    }
+  }
+}

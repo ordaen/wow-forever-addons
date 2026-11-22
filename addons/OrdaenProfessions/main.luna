@@ -6,10 +6,10 @@
 // is open. The game's own window stays open with it, unseen and off the screen: hiding it would close the profession.
 import Client from "$client"
 import Game from "$game"
-import { Action, Align, Frame, Track } from "$ltml"
+import { Action, Align, Edges, Frame, Track } from "$ltml"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
-import { ARTWORK, Choice, Column, FOOTER_ROOM, FilterButton, FilterGroup, ItemId, KeptWindow, Module, ModuleMemory, PushButton, SECONDARY_TEXT, ScrolledList, Settings, SettingsPage, SkillBar, Table, Tabs, ToolPick, Toolbar, Window, WindowTabSpec, WindowsPage, switched, tracksOf, windowsTitle } from "Ordaen"
+import { ARTWORK, Choice, Column, FOOTER_ROOM, FilterButton, FilterGroup, ItemId, KeptWindow, Module, ModuleMemory, PushButton, SECONDARY_TEXT, Settings, SettingsPage, SkillBar, Table, ToolPick, Toolbar, WINDOW_ROOM, Window, WindowTabSpec, WindowsPage, switched, tracksOf, windowsTitle } from "Ordaen"
 import root Auction from "OrdaenAuction"
 import type { PriceSource } from "OrdaenAuction"
 import { TrainerIgnored, TrainerList, TrainerView, TrainerWindow } from "OrdaenTrainer"
@@ -20,10 +20,12 @@ import { RecipeDetails } from "@/details"
 import { Learning, Taught, learnedFrom } from "@/learn"
 import Locale from "@/locales"
 import { OverviewPage, knownSpellName } from "@/overview"
+import { PageTabs } from "@/pageTabs"
 import { QueueItem, Use, needsOf, usesOf } from "@/published"
 import { Need, QueuePage } from "@/queue"
 import { CategoryGroup, CategoryRow, RecipeRow, RecipeTableRow } from "@/rows"
 import { Choices, GeneralPage } from "@/settings"
+import { SideList } from "@/sideList"
 import { Thresholds, thresholdsOf } from "@/skillUps"
 import { RecipeSource, Way, otherSideOnly, sideOfPlayer, sourcesOf, wayOf } from "@/sources"
 import Style from "@/style"
@@ -36,12 +38,15 @@ import { WorthPage } from "@/worth"
 const FILL: Array<Track> = [{ fr: 1 }]
 // The trainer's tab: the client's book of a trade.
 const TRAINER_TAB: WindowTabSpec = { title: Locale.TRAINER, desc: nil, icon: "Interface/Icons/INV_Misc_Book_11" }
-// The skill bar, the page tabs, and the recipes' side with the chosen recipe in the rest.
-const BODY: Array<Track> = ["max-content", "max-content", { fr: 1 }]
+// The band of the skill bar and the page tabs across the window's whole width (its page keeps no room of the
+// window's), and the page in the rest, in the window's room.
+const BODY: Array<Track> = ["max-content", { fr: 1 }]
+const NO_ROOM: Edges = { top: 0sp, right: 0sp, bottom: 0sp, left: 0sp }
+const PAGE_ROOM: Edges = { top: 4sp, right: WINDOW_ROOM, bottom: 4sp, left: WINDOW_ROOM }
 // The recipes' side and the card share the width alike, the side never narrower than its lists' least; the
-// categories and the recipes share the side's, each never narrower than its least.
+// categories and the recipes share the side's, each never narrower than its least. The toolbar over the region.
 const GRID: Array<Track> = [{ fr: 1 }, { fr: 1 }]
-const SIDE: Array<Track> = ["max-content", { fr: 1 }]
+const TOOLED: Array<Track> = ["max-content", { fr: 1 }]
 const LISTS: Array<Track> = [{ fr: 2 }, { fr: 3 }]
 const TRACK_WIDTH = 199.21875dp
 // The trainer's window: its list; the card's column widens it.
@@ -348,7 +353,7 @@ public class Professions implements Module, App {
     for (profession of Game.professions.list) {
       list.push({
         title: profession.name, icon: profession.icon,
-        desc: "%d / %d".format(profession.rank, profession.max)
+        desc: "%d / %d".format(profession.rank, profession.max), padding: NO_ROOM
       })
     }
     return list
@@ -803,68 +808,81 @@ public class Professions implements Module, App {
           <box $if={!self.hasOpen} xAlign={Align.Center} yAlign={Align.Center}>
             <text value={Locale.PICK} textColor={Style.DIM} />
           </box>
-          <box $else rows={BODY} gap={6sp}>
-            <SkillBar rank={self.profession?.rank ?? 0} most={self.profession?.max ?? 0} />
-            <Tabs tabs={self.pageNames} selected={mut self.page} />
-            <QueuePage $if={self.queueShown} queued={self.queued} prices={self.prices} @act={self.onQueueAct}
-                       @counted={self.onQueueCount} @shop={self.onShop} />
-            <OverviewPage $elseif={self.overviewShown} profession={self.profession} thresholds={self.thresholds}
-                          kept={self.kept} taught={self.taught} @pick={self.openRecipe} />
-            <WorthPage $elseif={self.worthShown} book={self.written} prices={self.prices} />
-            <box $else columns={GRID} rows={FILL} gap={6sp}>
-              <box rows={SIDE} gap={3sp} width={Style.LISTS_BOUNDS}>
-                <Toolbar search={mut self.search} placeholder={Locale.SEARCH}>
-                  <FilterButton values={mut self.filter} start={self.filterStarts} groups={FILTERS} />
-                  <ToolPick $if={!self.isTable} value={mut self.list.values.sort} choices={SORTS} icon={Ordaen.art.ctl.tool.sort}
-                            title={Locale.SORT} />
-                  <ToolPick $if={!self.onCamp} value={mut self.list.values.view} choices={VIEWS} icon={Ordaen.art.ctl.tool.columns}
-                            title={Locale.VIEW} />
-                </Toolbar>
-                <ScrolledList $if={self.onCamp}>
-                  <RecipeRow $for={index, recipe of self.recipes} recipe={recipe} index={index}
-                             chosen={self.chosenRecipe} kept={self.kept} menuFor={self.menuFor}
-                             @act={self.onAct} />
-                </ScrolledList>
-                <box $elseif={self.inColumns} columns={LISTS} rows={FILL} gap={3sp}>
-                  <ScrolledList width={Style.CATEGORIES_BOUNDS}>
-                    <CategoryRow $for={index, group of self.groups} group={group} index={index}
-                                 chosen={self.chosenCategory} @pick={self.pickCategory} />
-                  </ScrolledList>
-                  <ScrolledList width={Style.RECIPES_BOUNDS}>
-                    <RecipeRow $for={index, recipe of self.recipes} recipe={recipe} index={index}
-                               chosen={self.chosenRecipe} kept={self.kept} menuFor={self.menuFor}
-                               @act={self.onAct} />
-                  </ScrolledList>
+          <box $else rows={BODY}>
+            <PageTabs tabs={self.pageNames} selected={mut self.page}>
+              <SkillBar rank={self.profession?.rank ?? 0} most={self.profession?.max ?? 0} />
+            </PageTabs>
+            <box rows={FILL} padding={PAGE_ROOM}>
+              <QueuePage $if={self.queueShown} queued={self.queued} prices={self.prices} @act={self.onQueueAct}
+                         @counted={self.onQueueCount} @shop={self.onShop} />
+              <OverviewPage $elseif={self.overviewShown} profession={self.profession} thresholds={self.thresholds}
+                            kept={self.kept} taught={self.taught} @pick={self.openRecipe} />
+              <WorthPage $elseif={self.worthShown} book={self.written} prices={self.prices} />
+              // The recipes: the toolbar over the lists, and under it one region on the lists' floor in one rim, the
+              // lists and the recipe edge to edge: a chosen category opens into the recipes, a chosen recipe into the
+              // recipe (`TabItem`).
+              <box $else rows={TOOLED} gap={3sp}>
+                <box columns={GRID}>
+                  <box width={Style.LISTS_BOUNDS}>
+                    <Toolbar search={mut self.search} placeholder={Locale.SEARCH}>
+                      <FilterButton values={mut self.filter} start={self.filterStarts} groups={FILTERS} />
+                      <ToolPick $if={!self.isTable} value={mut self.list.values.sort} choices={SORTS} icon={Ordaen.art.ctl.tool.sort}
+                                title={Locale.SORT} />
+                      <ToolPick $if={!self.onCamp} value={mut self.list.values.view} choices={VIEWS} icon={Ordaen.art.ctl.tool.columns}
+                                title={Locale.VIEW} />
+                    </Toolbar>
+                  </box>
+                  <box />
                 </box>
-                <ScrolledList $elseif={self.inGroups}>
-                  <CategoryGroup $for={group of self.groups} $key={group.id} group={group} shown={self.mains}
-                                 byCategory={self.byCategory}
+                <box columns={GRID} rows={FILL} border={Ordaen.art.ctl.well.rim} background={Ordaen.art.ctl.well.floor}>
+                  <box rows={FILL} width={Style.LISTS_BOUNDS}>
+                    <SideList $if={self.onCamp}>
+                      <RecipeRow $for={index, recipe of self.recipes} recipe={recipe} index={index}
                                  chosen={self.chosenRecipe} kept={self.kept} menuFor={self.menuFor}
                                  @act={self.onAct} />
-                </ScrolledList>
-                <ScrolledList $elseif={self.inList}>
-                  <RecipeRow $for={index, recipe of self.mains} recipe={recipe} index={index}
-                             chosen={self.chosenRecipe} kept={self.kept} menuFor={self.menuFor}
-                             @act={self.onAct} />
-                </ScrolledList>
-                <box $else rows={FILL}>
-                  <Table $if={self.priced} columns={PRICED_COLUMNS} sorted={mut self.list.values.tableColumn}
-                         descending={mut self.list.values.tableDescending}>
-                    <RecipeTableRow $for={recipe of self.tableRows} recipe={recipe}
-                                    tracks={self.tracks} chosen={self.chosenRecipe} kept={self.kept}
-                                    menuFor={self.menuFor} worth={self.worth} priced={true} @act={self.onAct} />
-                  </Table>
-                  <Table $else columns={COLUMNS} sorted={mut self.list.values.tableColumn} descending={mut self.list.values.tableDescending}>
-                    <RecipeTableRow $for={recipe of self.tableRows} recipe={recipe}
-                                    tracks={self.tracks} chosen={self.chosenRecipe} kept={self.kept}
-                                    menuFor={self.menuFor} @act={self.onAct} />
-                  </Table>
+                    </SideList>
+                    <box $elseif={self.inColumns} columns={LISTS} rows={FILL}>
+                      <SideList width={Style.CATEGORIES_BOUNDS}>
+                        <CategoryRow $for={index, group of self.groups} group={group} index={index}
+                                     chosen={self.chosenCategory} @pick={self.pickCategory} />
+                      </SideList>
+                      <SideList width={Style.RECIPES_BOUNDS}>
+                        <RecipeRow $for={index, recipe of self.recipes} recipe={recipe} index={index}
+                                   chosen={self.chosenRecipe} kept={self.kept} menuFor={self.menuFor}
+                                   @act={self.onAct} />
+                      </SideList>
+                    </box>
+                    <SideList $elseif={self.inGroups}>
+                      <CategoryGroup $for={group of self.groups} $key={group.id} group={group} shown={self.mains}
+                                     byCategory={self.byCategory}
+                                     chosen={self.chosenRecipe} kept={self.kept} menuFor={self.menuFor}
+                                     @act={self.onAct} />
+                    </SideList>
+                    <SideList $elseif={self.inList}>
+                      <RecipeRow $for={index, recipe of self.mains} recipe={recipe} index={index}
+                                 chosen={self.chosenRecipe} kept={self.kept} menuFor={self.menuFor}
+                                 @act={self.onAct} />
+                    </SideList>
+                    <box $else rows={FILL}>
+                      <Table $if={self.priced} columns={PRICED_COLUMNS} sorted={mut self.list.values.tableColumn}
+                             descending={mut self.list.values.tableDescending}>
+                        <RecipeTableRow $for={recipe of self.tableRows} recipe={recipe}
+                                        tracks={self.tracks} chosen={self.chosenRecipe} kept={self.kept}
+                                        menuFor={self.menuFor} worth={self.worth} priced={true} @act={self.onAct} />
+                      </Table>
+                      <Table $else columns={COLUMNS} sorted={mut self.list.values.tableColumn} descending={mut self.list.values.tableDescending}>
+                        <RecipeTableRow $for={recipe of self.tableRows} recipe={recipe}
+                                        tracks={self.tracks} chosen={self.chosenRecipe} kept={self.kept}
+                                        menuFor={self.menuFor} @act={self.onAct} />
+                      </Table>
+                    </box>
+                  </box>
+                  <RecipeDetails recipe={self.chosen} note={self.note} kept={self.kept} prices={self.prices}
+                                 count={mut self.count}
+                                 mode={mut self.makeMode} profession={self.profession} yellow={self.chosenYellow}
+                                 grey={self.chosenGrey} sources={self.sources} @act={self.onAct} @create={self.onCreate} />
                 </box>
               </box>
-              <RecipeDetails recipe={self.chosen} note={self.note} kept={self.kept} prices={self.prices}
-                             count={mut self.count}
-                             mode={mut self.makeMode} profession={self.profession} yellow={self.chosenYellow}
-                             grey={self.chosenGrey} sources={self.sources} @act={self.onAct} @create={self.onCreate} />
             </box>
           </box>
         </Window>
