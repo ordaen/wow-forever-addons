@@ -76,7 +76,8 @@ const GREEN: Color = Color.hex("#40d060")
 const BLUE: Color = Color.hex("#4a9eff")
 // A service ignored: its icon greyed, and its row under an opaque plate.
 const GREY: Color = Color.hex("#7a7a7a")
-const PLATE: Color = Color.hex("#16110c")
+// An ignored row's plate: the row under it barely seen.
+const PLATE: Color = Color.hex("#16110cd9")
 const WHITE: Color = Color.hex("#ffffff")
 // A footer count's dot.
 const DOT = 9.375dp
