@@ -1,5 +1,4 @@
-// A quest's rewards: at most three to a column, then a column beside it; the band's experience, reputation and money
-// in one size.
+// A quest's rewards: the band's experience, reputation and money in one size.
 import Test from "$test"
 import { Quality } from "@/itemButton"
 import Locale from "@/locales"
@@ -23,17 +22,6 @@ class Page {
       </box>
     }
   }
-}
-
-test "rewards stand three to a column, down it, the fourth at the top of the next" {
-  const page = new Page()
-  Test.mount(page, { left: 0, top: 0, width: 600, height: 600 })
-  const one = Test.page().text("One").rect()
-  const three = Test.page().text("Three").rect()
-  const four = Test.page().text("Four").rect()
-  Test.expect(three.top > one.top && three.left == one.left)
-  Test.expect(four.top == one.top && four.left > one.right)
-  destroy page
 }
 
 test "the band says experience and reputation in one size" {

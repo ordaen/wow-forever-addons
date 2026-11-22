@@ -2,7 +2,7 @@
 // scroll (the game's quest parchment tinted to the native gossip window's colour between its rolled ends, dark ink
 // only) and, under it in the dark well, its rewards: a row each (its key where it is picked by one, its slot, its name
 // in its quality's colour with its slot and type under it, Pawn's column while Pawn is loaded, its sell price, the
-// dearest one's in gold), at most three to a column, then experience, reputation and money in one band, one size,
+// dearest one's in gold), then experience, reputation and money in one band, one size,
 // parted by rules.
 import Client from "$client"
 import Game from "$game"
@@ -251,10 +251,6 @@ public class Rewards implements Component {
   derived banded: Boolean = self.xp > 0 || self.money > 0 || self.standings.length > 0
   derived bandColumns: Array<Track> = bandOf(self.xp > 0, self.standings.length > 0, self.money > 0)
   derived moneyParted: Boolean = self.xp > 0 || self.standings.length > 0
-  derived choiceGroups: Array<Array<RewardView>> = columnsOf(self.views)
-  derived choiceColumns: Array<Track> = tracksOf(self.choiceGroups.length)
-  derived alsoGroups: Array<Array<Reward>> = columnsOf(self.also)
-  derived alsoColumns: Array<Track> = tracksOf(self.alsoGroups.length)
 
   views: Signal<Array<RewardView>>
   also: Signal<Array<Reward>>
@@ -292,19 +288,11 @@ public class Rewards implements Component {
   public render(self): Template {
     return $ltml {
       <text $if={self.hasChoices} value={self.chooseTitle} textColor={WELL_DIM} textSize={SECONDARY_TEXT} />
-      <box $if={self.hasChoices} columns={self.choiceColumns} gap={1sp}>
-        <box $for={column of self.choiceGroups}>
-          <RewardRow $for={view of column} reward={view.reward} pickable={self.pickable}
-                     picked={view.reward.index == self.choice} hints={self.hints} pawnColumn={self.pawnColumn}
-                     pawn={view.pawn} best={view.best} dearest={view.dearest} @choose={self.onChoose} />
-        </box>
-      </box>
+      <RewardRow $for={view of self.views} reward={view.reward} pickable={self.pickable}
+                 picked={view.reward.index == self.choice} hints={self.hints} pawnColumn={self.pawnColumn}
+                 pawn={view.pawn} best={view.best} dearest={view.dearest} @choose={self.onChoose} />
       <text $if={self.hasAlso} value={self.alsoTitle} textColor={WELL_DIM} textSize={SECONDARY_TEXT} />
-      <box $if={self.hasAlso} columns={self.alsoColumns} gap={1sp}>
-        <box $for={column of self.alsoGroups}>
-          <RewardRow $for={reward of column} reward={reward} />
-        </box>
-      </box>
+      <RewardRow $for={reward of self.also} reward={reward} />
       <box $if={self.banded} border={RULE_BELOW} padding={{ top: 2sp, bottom: 2sp }} xAlign={Align.Center}>
         <box columns={self.bandColumns} yAlign={Align.Center}>
           <box $if={self.xp > 0} padding={BAND_CELL}>
@@ -364,31 +352,6 @@ function bandOf(xp: Boolean, standings: Boolean, money: Boolean): Array<Track> {
   const count = (xp ? 1 : 0) + (standings ? 1 : 0) + (money ? 1 : 0)
   for (column of 1..count) { columns.push("max-content") }
   return columns
-}
-
-// Rewards stand at most this many to a column, then a column beside it: many don't take the page's height.
-const REWARDS_DOWN = 3
-
-// Rewards in their columns, down the first, then the next.
-function columnsOf<T>(rewards: Array<T>): Array<Array<T>> {
-  let columns: Array<Array<T>> = []
-  let column: Array<T> = []
-  for (reward of rewards) {
-    column.push(reward)
-    if (column.length == REWARDS_DOWN) {
-      columns.push(column)
-      column = []
-    }
-  }
-  if (column.length > 0) { columns.push(column) }
-  return columns
-}
-
-// The reward columns' tracks, sharing the width.
-function tracksOf(count: Integer): Array<Track> {
-  let tracks: Array<Track> = []
-  for (column of 1..count) { tracks.push({ fr: 1 }) }
-  return tracks
 }
 
 // The reputations in the band's one line: one by its faction's name («+250 Stormwind»), several by the span of their
