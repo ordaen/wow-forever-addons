@@ -1,13 +1,14 @@
 // Ordaen Radial: wheels of actions held on a key. Each ring of the player's stands on a key of its own (the client's
 // Key Bindings window lists them under «Ordaen Radial»); held, its wheel is drawn at the screen's middle (or at the
-// cursor, as the ring says), and the direction the mouse goes from where it was as the key went down picks an item,
-// the hand never taken to the wheel first; done as the key is let go, in a fight too (Ordaen's `SecureWheel`). The art
-// (Ordaen's `Wheel`) follows the same choice by the same formula while the wheel is up, and nothing runs while it is
-// closed. Other modules add kinds of items of their own (`kinds`).
+// cursor, as the ring says), and the direction the mouse goes from where it was as the key went down chooses an item,
+// the hand never taken to the wheel first. A left click does it, in a fight too; a right click goes back; the key let
+// go closes the wheel (Ordaen's `SecureWheel`). The art (Ordaen's `Wheel`) follows the same choice by the same formula
+// while the wheel is up, the ring's own icon on its hub, and nothing runs while it is closed. Other modules add kinds
+// of items of their own (`kinds`).
 import Client from "$client"
 import Events from "$events"
 import Game from "$game"
-import { Anchored, Layer, NamedKey, Point } from "$ltml"
+import { Anchored, Art, Layer, NamedKey, Point } from "$ltml"
 import root Ordaen from "Ordaen"
 import {
   DEAD_ZONE, Module, ROOT, SecureWheel, Settings, SettingsPage, Wheel, WheelAction, WheelEntry, WheelItem, WheelModifier,
@@ -126,6 +127,8 @@ public class Radial implements Module, App {
   derived pointer: Number<Angle> = self.pointerOf()
   derived opening: Number = self.wheel?.opening ?? 1
   derived names: WheelNames = self.settings.values.rings[self.up]?.names ?? WheelNames.Chosen
+  // The icon of the ring shown, on the wheel's hub: the submenu's or the slot's own; none on the first.
+  derived category: Art | nil = self.categoryOf()
   derived place: Anchored = {
     point: Point.Center, to: Point.BottomLeft, x: (self.wheel?.middleX ?? 0) * 1ui, y: -(self.wheel?.middleY ?? 0) * 1ui
   }
@@ -161,6 +164,14 @@ public class Radial implements Module, App {
     const wheel = self.wheel
     if (wheel == nil) { return 0rad }
     return wheel.aimX.atan2(wheel.aimY) * 1rad
+  }
+
+  categoryOf(self): Art | nil {
+    const ring = self.laids[self.up]
+    if (ring == nil || self.level == ROOT) { return nil }
+    const item = ring.items[placeOf(self.level)]
+    if (item == nil) { return nil }
+    return shown(item, item is Item.Kind ? self.offers[item.kind] : nil).icon
   }
 
   // The items of the ring shown, with their state now: read again as the wheel's count moves while it is up.
@@ -237,7 +248,7 @@ public class Radial implements Module, App {
            @keyDown.globalScope(RING_3)={self.heard} />
       <surface $if={self.up > 0} layer={Layer.Dialog} place={self.place}>
         <Wheel items={self.shownItems} chosen={self.chosen} pointer={self.pointer} names={self.names} scale={self.scale}
-               opening={self.opening} />
+               opening={self.opening} category={self.category} />
       </surface>
     }
   }

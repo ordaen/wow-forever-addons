@@ -1,8 +1,8 @@
-// The wheels as the player meets them: a key bound in the game's Key Bindings window holds the first ring at the
-// cursor, the art names the item the mouse went towards, the key let go opens that item's ring in place and a click
-// there does its item, in a fight too; the marks' ring of its own key marks with one flick; a window of ours is opened
-// by its item out of a fight and is dimmed and does nothing in one; the settings' tab puts an item in a place, and
-// «Back to the preset» takes it away.
+// The wheels as the player meets them: a key bound in the game's Key Bindings window holds the first ring, the art
+// names the item the mouse goes towards, a left click opens that item's ring in place and a click there does its item,
+// in a fight too; the key let go closes it; the marks' ring of its own key marks with one click; a window of ours is
+// opened by its item out of a fight and is dimmed and does nothing in one; the settings' tab puts an item in a place,
+// and «Back to the preset» takes it away.
 import Client from "$client"
 import { SpellChargeInfo, SpellCooldownInfo } from "$client"
 import Events from "$events"
@@ -42,7 +42,7 @@ function clickAt(x: Number, y: Number) {
   Test.pass(0.05)
 }
 
-test "the key held opens the ring at the cursor and names what the mouse goes towards" {
+test "the key held opens the ring and names what the mouse goes towards" {
   start()
   hold("F", 0, -FAR)
   Test.expect(Test.page().texts().join(", ") == "Windows")
@@ -55,26 +55,35 @@ test "the key held opens the ring at the cursor and names what the mouse goes to
   _ = Test.releaseBound("F")
 }
 
-test "a ring's item opens its ring in place, and a click does its item, in a fight too" {
+test "a ring's item opens its ring in place on a click, and a click there does its item, in a fight too" {
   start()
   Test.combat(true)
   hold("F", 0, -FAR)
-  _ = Test.releaseBound("F")
-  Test.pass(0.05)
+  clickAt(0, -FAR)
   Test.moveTo({ x: MIDDLE.x + FAR, y: MIDDLE.y })
   Test.pass(0.05)
   Test.expect(Test.page().texts().join(", ") == "Talents")
   clickAt(FAR, 0)
   Test.expect(Test.performed().join(", ") == "macro /click TalentMicroButton")
   Test.expect(Test.page().texts().length == 0)
+  _ = Test.releaseBound("F")
   Test.combat(false)
 }
 
-test "the marks' ring on its own key marks the target with one flick" {
+test "the key let go closes the wheel and does nothing" {
+  start()
+  hold("G", 0, -FAR)
+  _ = Test.releaseBound("G")
+  Test.pass(0.05)
+  Test.expect(Test.performed().length == 0 && Test.page().texts().length == 0)
+}
+
+test "the marks' ring on its own key marks the target with one click" {
   start()
   Test.combat(true)
   hold("G", 0, -FAR)
   Test.expect(Test.page().texts().join(", ") == "Mark 8")
+  clickAt(0, -FAR)
   _ = Test.releaseBound("G")
   Test.expect(Test.performed().join(", ") == "macro /tm 8")
   Test.combat(false)
@@ -84,17 +93,18 @@ test "a window of ours is opened out of a fight, and is dimmed and does nothing 
   start()
   Test.combat(true)
   hold("F", -FAR, -FAR)
-  _ = Test.releaseBound("F")
-  Test.pass(0.05)
+  clickAt(-FAR, -FAR)
   Test.moveTo({ x: MIDDLE.x + 104, y: MIDDLE.y + 60 })
   Test.pass(0.05)
   Test.expect(Test.page().text("Ordaen settings").opacity() < 0.5)
   clickAt(104, 60)
+  _ = Test.releaseBound("F")
   Test.expect(Test.page().window("Move mode").count() == 0)
   Test.combat(false)
   hold("F", -FAR, -FAR)
-  _ = Test.releaseBound("F")
+  clickAt(-FAR, -FAR)
   clickAt(104, 60)
+  _ = Test.releaseBound("F")
   Test.expect(Test.page().window("Move mode").shown())
 }
 
@@ -155,6 +165,7 @@ test "a kind another module adds offers its item on the wheel, in a fight too" {
   Test.combat(true)
   hold("G", 0, -FAR)
   Test.expect(Test.page().texts().join(", ") == "Broken Fang")
+  clickAt(0, -FAR)
   _ = Test.releaseBound("G")
   Test.expect(Test.performed().join(", ") == "item item:4875")
   Test.combat(false)
@@ -169,12 +180,14 @@ test "an item of another class is dimmed and does nothing; one held to a modifie
   })
   hold("H", 0, -FAR)
   Test.expect(Test.page().text("Attack").opacity() < 0.5)
+  clickAt(0, -FAR)
   _ = Test.releaseBound("H")
   Test.expect(Test.performed().length == 0)
   hold("H", FAR, 0)
   Test.hold([.Shift])
-  _ = Test.releaseBound("H")
+  clickAt(FAR, 0)
   Test.hold([])
+  _ = Test.releaseBound("H")
   Test.expect(Test.performed().join(", ") == "macro /ping assist")
 }
 
