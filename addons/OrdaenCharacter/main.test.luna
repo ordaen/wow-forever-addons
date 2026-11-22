@@ -1431,3 +1431,16 @@ test "a talent's rank stands in its icon's middle, as wide as the node so the cl
   Test.expect((rank.left - node.left).abs() < 0.5 && (rank.right - node.right).abs() < 0.5)
   Test.expect((rank.top + rank.bottom - node.top - node.bottom).abs() < 0.5)
 }
+
+test "the class's art keeps its proportions after another tab showed and the talents again" {
+  Test.login({ guid: "Player-1-0001", name: "Regy", surname: "", realm: "Realm", faction: "Alliance", classTag: "WARRIOR" })
+  Test.mount(nil, PAGE)
+  Game.talentTrees.trees = trees
+  const window = onSpec("Primary")
+  window.button("Progression").click()
+  window.button("Primary").click()
+  const art = Test.edges("talent-background-warrior", 0)
+  const drawn = Test.drawn().find(d => d.file == "talent-background-warrior") ?? panic("the class's art")
+  const shown = (drawn.right - drawn.left) * 2046 / ((drawn.bottom - drawn.top) * 1177)
+  Test.expect((shown / ((art.right - art.left) / (art.bottom - art.top)) - 1).abs() < 0.01)
+}
