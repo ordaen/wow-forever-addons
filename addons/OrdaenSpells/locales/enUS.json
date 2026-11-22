@@ -7,12 +7,9 @@
   "SORT": "Sort",
   "SORT_NAME": "By name",
   "SORT_LEVEL": "By level",
-  "SORT_ACTIVE": "Active first",
   "SORT_LINE": "By specialization",
   "ACTIVE": "Active",
   "PASSIVE": "Passive",
-  "SPELL_DETAIL": "%s. %s. Level %d",
-  "SPELL_KIND": "%s. Level %d",
   "NOTHING_FOUND": "Nothing found.",
   "SHOW_ALL": "All",
   "PICK_SERVICE": "Pick a skill.",
@@ -34,5 +31,8 @@
   "COL_SKILL": "Skill",
   "COUNT_SHOWN": "Shown",
   "COUNT_ACTIVE": "Active spells",
-  "COUNT_PASSIVE": "Passive spells"
+  "COUNT_PASSIVE": "Passive spells",
+  "SPELL_LEVEL": "Lvl %d",
+  "GROUP_ACTIVE": "Active",
+  "GROUP_PASSIVE": "Passive"
 }

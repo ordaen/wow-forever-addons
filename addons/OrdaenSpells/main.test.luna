@@ -106,7 +106,7 @@ test "the spellbook window opens with its command" {
   Game.spellbook.lines = lines
   Game.spellbook.entries = spells
   Test.expect(!Test.page().window(BOOK).shown())
-  Test.expect(book().text("Heroic Strike (Rank 2)").shown())
+  Test.expect(book().text("Heroic Strike").shown())
 }
 
 test "the command again closes the spellbook window" {
@@ -134,7 +134,7 @@ test "the spellbook reads the game's spells each time it opens" {
   ]
   Test.open("/spellbook")
   Test.expect(window.text("Battle Shout").shown())
-  Test.expect(!window.text("Rend (Rank 1)").shown())
+  Test.expect(!window.text("Rend").shown())
 }
 
 test "the game is asked for its words on spells while the spellbook shows, and no longer once it closes; none on talents" {
@@ -165,7 +165,7 @@ test "the game's spells window on its spellbook page opens ours, and closes it a
   const window = Test.page().window(BOOK)
   Test.expect(!window.shown())
   Client.PlayerSpellsUtil.OpenToSpellBookTab()
-  Test.expect(window.text("Rend (Rank 1)").shown())
+  Test.expect(window.text("Rend").shown())
   game.Hide()
   Test.expect(!window.shown())
 }
@@ -196,15 +196,15 @@ test "the game's spells window already on its spellbook page when it is named op
 
 // The spells
 
-test "each spell's row shows its name and rank, its skill line, its kind and the level it was learned at" {
+test "each spell's row shows its name, and under it its skill line, its rank and the level it was learned at, bulleted" {
   Test.mount(nil, PAGE)
   Game.spellbook.lines = lines
   Game.spellbook.entries = spells
   const window = book()
-  Test.expect(window.text("Heroic Strike (Rank 2)").item().texts().join(" | ") == "Heroic Strike (Rank 2) | Warrior. Active. Level 8")
-  Test.expect(window.text("Parry").item().texts().join(" | ") == "Parry | Warrior. Passive. Level 6")
-  Test.expect(window.text("Find Treasure").item().texts().join(" | ") == "Find Treasure | General. Active. Level 1")
-  Test.expect(window.text("Mortal Strike").item().texts().join(" | ") == "Mortal Strike | Arms. Active. Level 40")
+  Test.expect(window.text("Heroic Strike").item().texts().join(" | ") == "Heroic Strike | Warrior • Rank 2 • Lvl 8")
+  Test.expect(window.text("Parry").item().texts().join(" | ") == "Parry | Warrior • Lvl 6")
+  Test.expect(window.text("Find Treasure").item().texts().join(" | ") == "Find Treasure | General • Lvl 1")
+  Test.expect(window.text("Mortal Strike").item().texts().join(" | ") == "Mortal Strike | Arms • Lvl 40")
 }
 
 test "each spell's row shows its icon" {
@@ -225,13 +225,13 @@ test "a spell learned at a new rank shows it in the open spellbook when the game
   Game.spellbook.entries = spells
   _ = gameWindow()
   const window = book()
-  Test.expect(window.text("Heroic Strike (Rank 2)").shown())
+  Test.expect(window.text("Heroic Strike").shown())
   Game.spellbook.entries = (): Array<Game.SpellEntry> => [
     { id: 78, name: "Heroic Strike", rank: "Rank 3", icon: SWORD, level: 16, passive: false, line: 2 }
   ]
   Client.PlayerSpellsUtil.OpenToSpellBookTab()
-  const row = window.text("Heroic Strike (Rank 3)").item()
-  Test.expect(row.texts().join(" | ") == "Heroic Strike (Rank 3) | Warrior. Active. Level 16")
+  const row = window.text("Heroic Strike").item()
+  Test.expect(row.texts().join(" | ") == "Heroic Strike | Warrior • Rank 3 • Lvl 16")
   Test.expect(row.paintedWith(SWORD))
 }
 
@@ -245,7 +245,7 @@ test "a spell learned while the spellbook shows is in it at once" {
   ]
   Game.spellbook.changed.emit()
   Test.expect(window.text("Battle Shout").shown())
-  Test.expect(!window.text("Rend (Rank 1)").shown())
+  Test.expect(!window.text("Rend").shown())
 }
 
 test "a spell learned while the spellbook is shut asks the game for nothing" {
@@ -268,7 +268,7 @@ test "a spell's name is drawn in ink and its detail dim" {
   Game.spellbook.entries = spells
   const row = book().text("Parry").item()
   Test.expect(drawnIn(row.text("Parry"), INK))
-  Test.expect(drawnIn(row.text("Warrior. Passive. Level 6"), DIM))
+  Test.expect(drawnIn(row.text("Warrior • Lvl 6"), DIM))
 }
 
 test "the spellbook has a tab for all spells and one per skill line" {
@@ -282,7 +282,7 @@ test "the spells stand by name at first" {
   Test.mount(nil, PAGE)
   Game.spellbook.lines = lines
   Game.spellbook.entries = spells
-  Test.expect(inOrder(book(), ["Find Treasure", "Heroic Strike (Rank 2)", "Mortal Strike", "Parry", "Rend (Rank 1)"]))
+  Test.expect(inOrder(book(), ["Find Treasure", "Heroic Strike", "Mortal Strike", "Rend", "Parry"]))
 }
 
 test "a skill line's tab shows the spells of that line alone" {
@@ -291,7 +291,7 @@ test "a skill line's tab shows the spells of that line alone" {
   Game.spellbook.entries = spells
   const window = book()
   window.button("Warrior").click()
-  Test.expect(window.text("Heroic Strike (Rank 2)").shown() && window.text("Parry").shown() && window.text("Rend (Rank 1)").shown())
+  Test.expect(window.text("Heroic Strike").shown() && window.text("Parry").shown() && window.text("Rend").shown())
   Test.expect(!window.text("Mortal Strike").shown() && !window.text("Find Treasure").shown())
 }
 
@@ -311,7 +311,7 @@ test "the search keeps the spells whose names hold it, in any case" {
   Game.spellbook.entries = spells
   const window = book()
   window.input().type("STRIKE")
-  Test.expect(window.text("Heroic Strike (Rank 2)").shown() && window.text("Mortal Strike").shown())
+  Test.expect(window.text("Heroic Strike").shown() && window.text("Mortal Strike").shown())
   Test.expect(!window.text("Parry").shown() && !window.text("Find Treasure").shown())
 }
 
@@ -322,7 +322,7 @@ test "the search narrows the skill line's tab it is typed in" {
   const window = book()
   window.button("Warrior").click()
   window.input().type("strike")
-  Test.expect(window.text("Heroic Strike (Rank 2)").shown())
+  Test.expect(window.text("Heroic Strike").shown())
   Test.expect(!window.text("Mortal Strike").shown())
 }
 
@@ -341,17 +341,26 @@ test "sorted by level, the spells learned first stand first" {
   Game.spellbook.lines = lines
   Game.spellbook.entries = spells
   const window = book()
-  pick(window, Ordaen.art.ctl.tool.sort, "Active first", "By level")
-  Test.expect(inOrder(window, ["Find Treasure", "Rend (Rank 1)", "Parry", "Heroic Strike (Rank 2)", "Mortal Strike"]))
+  pick(window, Ordaen.art.ctl.tool.sort, "By name", "By level")
+  Test.expect(inOrder(window, ["Find Treasure", "Rend", "Heroic Strike", "Mortal Strike", "Parry"]))
 }
 
-test "sorted active first, the passive spells stand last" {
+test "the spells stand under two headings, the active ones and then the passive; a kind with none has none" {
   Test.mount(nil, PAGE)
   Game.spellbook.lines = lines
   Game.spellbook.entries = spells
   const window = book()
-  pick(window, Ordaen.art.ctl.tool.sort, "Active first", "Active first")
-  Test.expect(inOrder(window, ["Find Treasure", "Heroic Strike (Rank 2)", "Mortal Strike", "Rend (Rank 1)", "Parry"]))
+  Test.expect(inOrder(window, ["Active", "Find Treasure", "Rend", "Passive", "Parry"]))
+  window.input().type("strike")
+  Test.expect(window.text("Heroic Strike").shown() && !window.text("Passive").shown())
+}
+
+test "the sort offers no «Active first»: the headings stand the kinds apart" {
+  Test.mount(nil, PAGE)
+  const window = book()
+  window.button(Ordaen.art.ctl.tool.sort).click()
+  Test.expect(Test.page().window("By name").text("By level").shown())
+  Test.expect(!Test.page().window("By name").text("Active first").shown())
 }
 
 test "two ranks of one spell stand by the level each is learned at" {
@@ -361,7 +370,7 @@ test "two ranks of one spell stand by the level each is learned at" {
     { id: 6547, name: "Rend", rank: "", icon: ICON, level: 10, passive: false, line: 2 },
     { id: 772, name: "Rend", rank: "", icon: ICON, level: 4, passive: false, line: 2 }
   ]
-  Test.expect(inOrder(book(), ["Warrior. Active. Level 4", "Warrior. Active. Level 10"]))
+  Test.expect(inOrder(book(), ["Warrior • Lvl 4", "Warrior • Lvl 10"]))
 }
 
 test "the spellbook's sort is kept when it opens again" {
@@ -369,10 +378,10 @@ test "the spellbook's sort is kept when it opens again" {
   Game.spellbook.lines = lines
   Game.spellbook.entries = spells
   const window = book()
-  pick(window, Ordaen.art.ctl.tool.sort, "Active first", "By level")
+  pick(window, Ordaen.art.ctl.tool.sort, "By name", "By level")
   Test.open("/spellbook")
   Test.open("/spellbook")
-  Test.expect(inOrder(window, ["Find Treasure", "Rend (Rank 1)", "Parry", "Heroic Strike (Rank 2)", "Mortal Strike"]))
+  Test.expect(inOrder(window, ["Find Treasure", "Rend", "Heroic Strike", "Mortal Strike", "Parry"]))
 }
 
 test "on All, sorted by specialization, the spells stand by skill line, then by name" {
@@ -380,8 +389,8 @@ test "on All, sorted by specialization, the spells stand by skill line, then by 
   Game.spellbook.lines = lines
   Game.spellbook.entries = spells
   const window = book()
-  pick(window, Ordaen.art.ctl.tool.sort, "Active first", "By specialization")
-  Test.expect(inOrder(window, ["Find Treasure", "Heroic Strike (Rank 2)", "Parry", "Rend (Rank 1)", "Mortal Strike"]))
+  pick(window, Ordaen.art.ctl.tool.sort, "By name", "By specialization")
+  Test.expect(inOrder(window, ["Find Treasure", "Heroic Strike", "Rend", "Mortal Strike", "Parry"]))
 }
 
 test "a skill line's tab offers no sort by specialization" {
@@ -391,16 +400,16 @@ test "a skill line's tab offers no sort by specialization" {
   const window = book()
   window.button("Warrior").click()
   window.button(Ordaen.art.ctl.tool.sort).click()
-  Test.expect(!Test.page().window("Active first").text("By specialization").shown())
+  Test.expect(!Test.page().window("By name").text("By specialization").shown())
 }
 
-test "a skill line's tab names no skill line under a spell: its kind and level alone" {
+test "a skill line's tab names no skill line under a spell: its rank and level alone" {
   Test.mount(nil, PAGE)
   Game.spellbook.lines = lines
   Game.spellbook.entries = spells
   const window = book()
   window.button("Warrior").click()
-  Test.expect(window.text("Parry").item().texts().join(" | ") == "Parry | Passive. Level 6")
+  Test.expect(window.text("Parry").item().texts().join(" | ") == "Parry | Lvl 6")
 }
 
 test "the spells stand in three columns" {
@@ -433,10 +442,13 @@ test "the filter keeps the passive spells alone, or the active ones" {
   Game.spellbook.lines = lines
   Game.spellbook.entries = spells
   const window = book()
-  pick(window, Ordaen.art.ctl.tool.filter, "Active", "Passive")
-  Test.expect(window.text("Parry").shown() && !window.text("Rend (Rank 1)").shown())
-  pick(window, Ordaen.art.ctl.tool.filter, "Passive", "Active")
-  Test.expect(!window.text("Parry").shown() && window.text("Rend (Rank 1)").shown())
+  // The filter's list says «Active» and «Passive» as the headings do: it is the surface drawn after the window.
+  window.button(Ordaen.art.ctl.tool.filter).click()
+  Test.page().window("Active").nth(2).button("Passive").click()
+  Test.expect(window.text("Parry").shown() && !window.text("Rend").shown())
+  window.button(Ordaen.art.ctl.tool.filter).click()
+  Test.page().window("Passive").nth(2).button("Active").click()
+  Test.expect(!window.text("Parry").shown() && window.text("Rend").shown())
 }
 
 test "the table view shows a spell's skill line, kind and level in columns, sorted by a heading" {
@@ -469,7 +481,7 @@ test "a spell dragged out of the spellbook is on the cursor, for the action bars
   Game.spellbook.entries = spells
   _ = book()
   Test.expect(!Client.CursorHasSpell())
-  drag("Rend (Rank 1)")
+  drag("Rend")
   Test.expect(Client.CursorHasSpell())
 }
 
@@ -488,7 +500,7 @@ test "a click on a spell's slot casts the rank clicked, the client's own doing; 
   Game.spellbook.entries = spells
   const window = book()
   _ = Test.performed()
-  window.text("Rend (Rank 1)").item().button(ICON).click()
+  window.text("Rend").item().button(ICON).click()
   Test.expect(Test.performed().join(", ") == "spell Rend(Rank 1)")
   window.text("Parry").item().button(ICON).click()
   Test.expect(Test.performed().length == 0)
@@ -503,7 +515,7 @@ test "Shift+Left-click on a spell's slot puts it in as the game's book does, and
   _ = Test.performed()
   Test.hold([.Shift])
   Game.input.shiftDown = (): Boolean => true
-  window.text("Rend (Rank 1)").item().button(ICON).click()
+  window.text("Rend").item().button(ICON).click()
   Test.hold([])
   Test.expect(Test.requests().any(r => r == "Spellbook.link 772"))
   Test.expect(Test.performed().length == 0)
@@ -517,13 +529,13 @@ test "the pick-up's click, rebound to Ctrl, puts the spell on the cursor and cas
   _ = Test.performed()
   Game.input.modifiedClick = (click: Game.ModifiedClick): Boolean => click == .PickupAction
   Test.hold([.Ctrl])
-  window.text("Rend (Rank 1)").item().button(ICON).click()
+  window.text("Rend").item().button(ICON).click()
   Test.hold([])
   Test.expect(Client.CursorHasSpell() && Test.performed().length == 0)
   Client.ClearCursor()
   Game.input.modifiedClick = (click: Game.ModifiedClick): Boolean => click == .SelfCast
   Test.hold([.Alt])
-  window.text("Rend (Rank 1)").item().button(ICON).click()
+  window.text("Rend").item().button(ICON).click()
   Test.hold([])
   Test.expect(Test.performed().join(", ") == "spell Rend(Rank 1) player")
 }
@@ -561,10 +573,10 @@ test "a spell cooling down is shaded by the client's clock until the client says
   Game.spellbook.cooldown = (spell: Game.SpellEntry): Game.SpellRun | nil => running && spell.id == 772 ? { start: 10, length: 6 } : nil
   const window = book()
   const shaded = Color.hex("#0000004d")
-  Test.expect(window.text("Rend (Rank 1)").item().paintedWith(shaded) && !window.text("Parry").item().paintedWith(shaded))
+  Test.expect(window.text("Rend").item().paintedWith(shaded) && !window.text("Parry").item().paintedWith(shaded))
   running = false
   Game.spellbook.cooldownsChanged.emit()
-  Test.expect(!window.text("Rend (Rank 1)").item().paintedWith(shaded))
+  Test.expect(!window.text("Rend").item().paintedWith(shaded))
 }
 
 test "the pet's book is a tab of its own; the right button on a pet's spell turns its autocast, marked while on" {
@@ -580,7 +592,7 @@ test "the pet's book is a tab of its own; the right button on a pet's spell turn
   const window = book()
   Test.expect(!window.text("Torment").shown())
   window.button("Demon").click()
-  Test.expect(window.text("Torment").shown() && !window.text("Rend (Rank 1)").shown())
+  Test.expect(window.text("Torment").shown() && !window.text("Rend").shown())
   const gold = Color.hex("#ffd100")
   Test.expect(!window.text("Torment").item().paintedWith(gold))
   _ = Test.requests()
@@ -652,7 +664,7 @@ test "a long name wraps in its column, on its font's own lines, and is never cut
     return list
   }
   const window = book()
-  const wrapped = window.text(`${long} (Rank 3)`).rect()
+  const wrapped = window.text(`${long}`).rect()
   const one = window.text("Parry").rect()
   const height = (wrapped.bottom - wrapped.top) / (one.bottom - one.top)
   // Two lines at least, each as high as one line of the font: no line height round them.

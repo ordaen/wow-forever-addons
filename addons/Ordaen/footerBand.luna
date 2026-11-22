@@ -1,13 +1,14 @@
 // FooterBand: a window's footer drawn as a band of its own across the main section, to its edges (Window places a
 // footer flush with them): the game's dark marble under it, the frame's line along its top as the side section's runs
-// down its left. What it holds keeps the room a footer's text has always had, and as much over it.
+// down its left. What it holds keeps the footer's room at the sides, and a little over and under it: the band is a
+// line of the window, not a section.
 import { ArtBorder, Edges, Side } from "$ltml"
 import { ARTWORK } from "@/art"
 import { Component } from "@/module"
 import { FOOTER_ROOM } from "@/window"
 
 const LINE: ArtBorder = { sides: [Side.Top], ..ARTWORK.frame.tabIconLine }
-const ROOM: Edges = { top: 5sp, ..FOOTER_ROOM }
+const ROOM: Edges = { top: 2sp, bottom: 2sp, ..FOOTER_ROOM }
 
 public class FooterBand implements Component {
   public render(self): Template {

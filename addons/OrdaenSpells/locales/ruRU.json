@@ -7,12 +7,9 @@
   "SORT": "Сортировка",
   "SORT_NAME": "По названию",
   "SORT_LEVEL": "По уровню",
-  "SORT_ACTIVE": "Сначала активные",
   "SORT_LINE": "По специализации",
   "ACTIVE": "Активное",
   "PASSIVE": "Пассивное",
-  "SPELL_DETAIL": "%s. %s. Уровень %d",
-  "SPELL_KIND": "%s. Уровень %d",
   "NOTHING_FOUND": "Ничего не найдено.",
   "SHOW_ALL": "Все",
   "PICK_SERVICE": "Выберите навык.",
@@ -34,5 +31,8 @@
   "COL_SKILL": "Навык",
   "COUNT_SHOWN": "Показано",
   "COUNT_ACTIVE": "Активных",
-  "COUNT_PASSIVE": "Пассивных"
+  "COUNT_PASSIVE": "Пассивных",
+  "SPELL_LEVEL": "Ур. %d",
+  "GROUP_ACTIVE": "Активные",
+  "GROUP_PASSIVE": "Пассивные"
 }
