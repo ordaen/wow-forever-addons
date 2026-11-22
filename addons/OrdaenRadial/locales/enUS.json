@@ -93,5 +93,7 @@
   "HINT_CANCEL": "Release to cancel",
   "HINT_OFF": "Can't be used now",
   "HINT_SCROLL": "Scroll to choose",
-  "HINT_STEP": "%d of %d"
+  "HINT_STEP": "%d of %d",
+  "TRAILING": "The aim follows the cursor",
+  "TRAILING_TIP": "Off: the wheel aims from where the cursor was as it opened, however far the cursor goes"
 }

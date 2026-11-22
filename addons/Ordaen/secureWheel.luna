@@ -61,13 +61,17 @@ public struct WheelRing {
   count: Integer
 }
 
-// How a wheel is laid out: where it opens, how large it is, whether its submenus remember.
+// How a wheel is laid out: where it opens, how large it is, whether its submenus remember, whether its aim's middle
+// trails the cursor.
 public struct WheelSetup {
   // It is drawn at the screen's middle and not at the cursor. Either way it aims from where the cursor was as it
   // opened: the mouse moves from where the hand is, never to the wheel first.
   centred: Boolean
   scale: Number
   remember: Boolean
+  // The aim's middle follows the cursor once it goes further than `REACH` from it, so turning to another item is a
+  // short move whichever way the cursor went first; else it stays where the cursor was as the wheel opened.
+  trailing: Boolean
 }
 
 // The place of the root ring, and of an item or a ring inside one.
@@ -77,6 +81,28 @@ public function placeIn(ring: String, index: Integer): String { return `${ring}_
 // How long the wheel takes to open, and how often an open wheel reads its items' state again.
 const OPENING_TIME = 0.2
 const STATE_EVERY = 0.2
+// How far the cursor goes from the aim's middle before the middle trails it (at a scale of 1): half the side of a
+// square round the middle. It trails to a little inside that, so the cursor stands in the square again and its next way
+// out is heard.
+const REACH = 60dp
+const TRAIL = 0.9
+// The bands round that square: the cursor going out of the square comes into one of them, by its own motion, which is
+// what the client runs a wrapped enter's body on (`Wrapped_OnEnter`); a frame that comes under a cursor standing still
+// runs none. Each by the point of its side that touches the square, which way that side is from the middle, and
+// whether it runs across the screen (over or under the square) or beside the square, as tall as it. Together they
+// cover everything round the square, each reaching twice the screen away.
+struct Band {
+  point: String
+  x: Number
+  y: Number
+  across: Boolean
+}
+const BANDS: Array<Band> = [
+  { point: "BOTTOM", x: 0, y: 1, across: true },
+  { point: "TOP", x: 0, y: -1, across: true },
+  { point: "RIGHT", x: -1, y: 0, across: false },
+  { point: "LEFT", x: 1, y: 0, across: false }
+]
 // The client's restricted code that reads which item of the ring shown (`level`) the cursor went towards: it sets
 // `slot`, 0 in the middle.
 const AIM: String = [
@@ -162,6 +188,23 @@ const STEP: String = [
   "owner:SetAttribute('step-' .. name, (step + (offset < 0 and 1 or several)) % (several + 1))"
 ].join("\n")
 
+// The client's restricted code round a band's `OnEnter` (`self` the band, which hears the cursor and takes no
+// click): the cursor went out of the square round the aim's middle, so the wheel's button, whose middle the aim is
+// measured from, stands again between where the cursor was and where it is, `trail` from it, and the bands with it.
+const LEASH: String = [
+  "if not owner:GetAttribute('trailing') then return end",
+  "local b = owner:GetFrameRef('button')",
+  "if not b:IsShown() then return end",
+  "local x, y = b:GetMousePosition()",
+  "if not x then return end",
+  "local dx, dy = (x - 0.5) * b:GetWidth(), (y - 0.5) * b:GetHeight()",
+  "local far = math.sqrt(dx * dx + dy * dy)",
+  "if far == 0 then return end",
+  "local trail = owner:GetAttribute('trail') or 0",
+  "b:ClearAllPoints()",
+  "b:SetPoint('CENTER', '$cursor', 'CENTER', -dx / far * trail, -dy / far * trail)"
+].join("\n")
+
 // The attributes an item's action sets on the button, by its place: read only while its modifier is held, where it
 // has one (`shift-type-r_3`).
 function actionAttributes(entry: WheelEntry): Array<[String, String]> {
@@ -203,6 +246,9 @@ public class SecureWheel {
   const button: any Client.Button
   // Follows the cursor while the wheel is up: its script is set as it opens and taken away as it closes.
   const follower: any Client.Frame
+  // The bands round the square of the aim's middle (`BANDS`): each hears the cursor come into it (`LEASH`), and lets
+  // every click through.
+  const bands: Array<any Client.Frame>
   // The attributes written for the items last, unwritten before others are.
   written: mut Array<String> = []
   writtenOnHeader: mut Array<String> = []
@@ -221,6 +267,7 @@ public class SecureWheel {
     const made = Client.CreateFrame("Button", name, Client.UIParent, "SecureActionButtonTemplate")
     self.button = made is Client.Button ? made : panic("the client makes a Button")
     self.follower = Client.CreateFrame("Frame", nil, Client.UIParent, nil)
+    self.bands = BANDS.map(band => Client.CreateFrame("Frame", nil, self.button, "SecureHandlerBaseTemplate"))
     Ordaen.afterCombat(() => self.setUp())
   }
 
@@ -235,6 +282,12 @@ public class SecureWheel {
     // The click's release does the item (`CHOICE`): a secure action button acts on the press where the player's
     // «use on key down» is on (SecureActionButton_OnClick), so the button says it acts on the release.
     button.SetAttribute("useOnKeyDown", false)
+    Client.SecureHandlerSetFrameRef(header, "button", button)
+    for (band of self.bands) {
+      band.SetMouseMotionEnabled(true)
+      band.SetMouseClickEnabled(false)
+      Client.SecureHandlerWrapScript(band, "OnEnter", header, LEASH, nil)
+    }
     button.EnableMouse(true)
     button.EnableMouseWheel(true)
     const high = Client.UIParent.GetHeight() * 2
@@ -262,6 +315,10 @@ public class SecureWheel {
     self.centred = setup.centred
     self.header.SetAttribute("remember", setup.remember)
     self.header.SetAttribute("dead", DEAD_ZONE / 1ui * setup.scale)
+    self.header.SetAttribute("trailing", setup.trailing)
+    const reach = REACH / 1ui * setup.scale
+    self.header.SetAttribute("trail", reach * TRAIL)
+    self.placeBands(reach)
     for (ring of rings) {
       self.onHeader(`count-${ring.path}`, ring.count)
       self.header.SetAttribute(`step-${ring.path}`, nil)
@@ -337,6 +394,18 @@ public class SecureWheel {
     Client.ClearOverrideBindings(self.button)
     self.header.SetAttribute("level", ROOT)
     self.heard()
+  }
+
+  // The bands round the square of the aim's middle, `reach` from it each way.
+  placeBands(self, reach: Number) {
+    const far = Client.UIParent.GetWidth().max(Client.UIParent.GetHeight()) * 2
+    for (i of 1..BANDS.length) {
+      const band = BANDS[i] ?? panic("a band for each frame")
+      const frame = self.bands[i] ?? panic("a frame for each band")
+      frame.ClearAllPoints()
+      frame.SetPoint(band.point, self.button, "CENTER", band.x * reach, band.y * reach)
+      frame.SetSize(band.across ? 2 * far : far, band.across ? far : 2 * reach)
+    }
   }
 
   // The cursor followed while the wheel is up, and not at all once it closes; it opens over `OPENING_TIME`.

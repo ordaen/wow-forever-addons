@@ -49,6 +49,8 @@ public struct Ring implements Plain {
   scale: Number
   // Letting go in the middle of a submenu does the item last used there.
   remember: Boolean
+  // The aim's middle trails the cursor once it goes further than a reach (else it stays where the cursor was).
+  trailing: Boolean = true
   // How many items each of its rings holds, by the ring's place (`""` the ring itself, `"3"` the third's submenu),
   // and each item by its place (`"1"` to `"8"`, `"3_2"`).
   counts: mut Map<String, Integer>

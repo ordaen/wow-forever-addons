@@ -46,7 +46,7 @@ test "the art and the restricted code choose the same item for every direction" 
 class Held {
   public const wheel: mut SecureWheel = new SecureWheel("OrdaenWheelTest")
   public state used: mut Array<String> = []
-  constructor(scale: Number, centred: Boolean = false) {
+  constructor(scale: Number, centred: Boolean = false, trailing: Boolean = false) {
     const rings: Array<WheelRing> = [{ path: ROOT, count: 4 }, { path: "r_2", count: 2 }]
     const entries: Array<WheelEntry> = [
       { path: placeIn(ROOT, 1), action: .Spell { spell: "Find Herbs" }, refusesInFight: false, modifier: nil },
@@ -56,7 +56,7 @@ class Held {
       { path: placeIn(ROOT, 3), action: .Item { item: 6948 }, refusesInFight: true, modifier: nil },
       { path: placeIn(ROOT, 4), action: .MacroText { text: "/tm 8" }, refusesInFight: false, modifier: nil }
     ]
-    self.wheel.apply(rings, entries, { centred: centred, scale: scale, remember: false })
+    self.wheel.apply(rings, entries, { centred: centred, scale: scale, remember: false, trailing: trailing })
     self.wheel.bind(["F"])
     self.wheel.picked.listen(self.onPick)
   }
@@ -78,7 +78,7 @@ class Slotted {
       Slotted.entry("r_3", .Slot { mode: SlotMode.First }), Slotted.line("r_3_1", "/salute"), Slotted.line("r_3_2", "/dance"),
       Slotted.entry("r_4", WheelAction.Menu), Slotted.line("r_4_1", "/roll"), Slotted.line("r_4_2", "/laugh")
     ]
-    self.wheel.apply(rings, entries, { centred: false, scale: 1, remember: true })
+    self.wheel.apply(rings, entries, { centred: false, scale: 1, remember: true, trailing: false })
     self.wheel.bind(["G"])
   }
   entry(path: String, action: WheelAction): WheelEntry {
@@ -472,4 +472,28 @@ test "the middle says one thing a line, three lines at most: the name and two hi
   page.names = WheelNames.Off
   Test.flush()
   Test.expect(Test.page().texts().join(", ") == "3, Click to use, 1 of 3, more")
+}
+
+test "the aim's middle trails the cursor: gone far up, a short move left turns to the item on the left, in a fight too" {
+  const held = new Held(1, false, true)
+  Test.flush()
+  Test.combat(true)
+  open("F")
+  Test.moveTo({ x: MIDDLE.x, y: MIDDLE.y - 300 })
+  Test.pass(0.05)
+  clickAt(-80, -300)
+  Test.releaseBound("F")
+  Test.expect(Test.performed().join(", ") == "macro /tm 8")
+  Test.combat(false)
+}
+
+test "where the aim doesn't trail, the wheel aims from where the cursor was as it opened, however far it went" {
+  const held = new Held(1, false, false)
+  Test.flush()
+  open("F")
+  Test.moveTo({ x: MIDDLE.x, y: MIDDLE.y - 300 })
+  Test.pass(0.05)
+  clickAt(-80, -300)
+  Test.releaseBound("F")
+  Test.expect(Test.performed().join(", ") == "spell Find Herbs")
 }

@@ -42,14 +42,16 @@ function clickAt(x: Number, y: Number) {
   Test.pass(0.05)
 }
 
-test "the key held opens the ring and names what the mouse goes towards" {
+test "the key held opens the ring and names what the mouse goes towards, from where its aim has trailed to" {
   start()
   hold("F", 0, -FAR)
   Test.expect(Test.page().texts().join(", ") == "Windows, Click to open, Scroll to choose")
-  Test.moveTo({ x: MIDDLE.x + FAR, y: MIDDLE.y })
+  // Gone far up, the aim's middle trailed it: a move right from there turns to the item on the right.
+  Test.moveTo({ x: MIDDLE.x + 2 * FAR, y: MIDDLE.y - FAR })
   Test.pass(0.05)
   Test.expect(Test.page().texts().join(", ") == "Pings, Click to open, Scroll to choose")
-  Test.moveTo(MIDDLE)
+  // A short way back, into the middle that trailed the cursor, cancels.
+  Test.moveTo({ x: MIDDLE.x + 2 * FAR - FAR / 3, y: MIDDLE.y - FAR })
   Test.pass(0.05)
   Test.expect(Test.page().texts().join(", ") == "Release to cancel")
   _ = Test.releaseBound("F")
@@ -60,10 +62,10 @@ test "a ring's item opens its ring in place on a click, and a click there does i
   Test.combat(true)
   hold("F", 0, -FAR)
   clickAt(0, -FAR)
-  Test.moveTo({ x: MIDDLE.x + FAR, y: MIDDLE.y })
+  Test.moveTo({ x: MIDDLE.x + 2 * FAR, y: MIDDLE.y - FAR })
   Test.pass(0.05)
   Test.expect(Test.page().texts().join(", ") == "Talents, Click to use")
-  clickAt(FAR, 0)
+  clickAt(2 * FAR, -FAR)
   Test.expect(Test.performed().join(", ") == "macro /click TalentMicroButton")
   Test.expect(Test.page().texts().length == 0)
   _ = Test.releaseBound("F")
