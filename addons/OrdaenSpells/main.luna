@@ -107,12 +107,11 @@ public class Spells implements Module, App {
   public ignored: mut ModuleMemory<TrainerIgnored> = new ModuleMemory<TrainerIgnored>({}, .Character, "ignored")
   // The trainer that is open teaches a class's skills: asked as it opens.
   state classTrainer = false
-  // The game's own trainer window, found as it loads (the first trainer opened): it stands away, unseen, while ours
-  // shows, and while no trainer is open, so the game's window manager never counts it; a trainer of another kind open
-  // (a profession's, Ordaen Professions'), it is let be.
-  state gameTrainer: any Frame | nil = Runtime.frame("ClassTrainerFrame")
   derived trainerShown: Boolean = self.classTrainer && self.settings.values.trainer
-  derived holdsTrainer: Boolean = self.settings.values.trainer && self.gameTrainer != nil && (!Game.trainer.open || self.classTrainer)
+  // The game's own trainer window (`Game.frames.Trainer`, there from its load) stands away, unseen, while ours shows,
+  // and while no trainer is open, so the game's window manager never counts it; a trainer of another kind open (a
+  // profession's, Ordaen Professions'), it is let be.
+  derived holdsTrainer: Boolean = self.settings.values.trainer && Game.frames.Trainer != nil && (!Game.trainer.open || self.classTrainer)
 
   // A trainer opened or closed: one of a class opens in the view and sort the settings give.
   onTrainerOpen(mut self, opened: Boolean) {
@@ -219,8 +218,6 @@ public class Spells implements Module, App {
   onTrainer(mut self) {
     if (!Game.trainer.teachesClass()) { return }
     self.services = Game.trainer.services()
-    // The game's window is loaded as the trainer opens: looked for again at each change until it is found.
-    if (peek self.gameTrainer == nil) { self.gameTrainer = Runtime.frame("ClassTrainerFrame") }
   }
 
   learnableOf(self): Learnable {
@@ -253,7 +250,7 @@ public class Spells implements Module, App {
         <$if={self.tab == SPELLS}> {self.page.body} </>
         <$else> {self.learnPage.body} </>
       </Window>
-      <frame $if={self.holdsTrainer} of={self.gameTrainer} opacity={0} away={true} />
+      <frame $if={self.holdsTrainer} of={Game.frames.Trainer} opacity={0} away={true} />
       <TrainerWindow $if={self.trainerShown} services={self.services} declared={mut self.trainerWindow} list={mut self.trainerList} ignored={mut self.ignored}
                      tabSpec={TRAINER_TAB} noun={Locale.COL_SKILL} trade={false} @settings={self.onSettings} />
     }

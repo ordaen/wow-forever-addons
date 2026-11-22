@@ -199,16 +199,13 @@ test "the game's spells window on another page alone is let be: that page's addo
   Test.expect(game.GetAlpha() == 1)
 }
 
-test "the game's trainer window, found at a trainer, is held while none is open, and let be while a profession's is" {
+test "the game's trainer window is held from its load while no trainer is open, and let be while a profession's is" {
   const own = Client.CreateFrame("Frame", "ClassTrainerFrame", Client.UIParent, nil)
   own.SetSize(300, 400)
   own.SetPoint("TOPLEFT", Client.UIParent, "TOPLEFT", 16, -100)
   Test.mount(nil, PAGE)
-  // A class trainer visited and left: the game's window, found there, stays held for the next one.
-  Game.trainer.services = batch
-  Game.trainer.open = true
-  Game.trainer.changed.emit()
-  Game.trainer.open = false
+  // The game's trainer window loaded (as the first trainer opens): held from then, before any shows.
+  Game.frames.Trainer = own
   Test.expect(unmanaged(own))
   Game.trainer.teachesClass = (): Boolean => false
   Game.trainer.open = true
@@ -1283,6 +1280,7 @@ test "a class trainer's own window stands away, unseen, while ours shows" {
   own.SetPoint("TOPLEFT", Client.UIParent, "TOPLEFT", 16, -100)
   own.Show()
   Test.mount(nil, PAGE)
+  Game.frames.Trainer = own
   Game.trainer.services = batch
   Game.trainer.open = true
   Game.trainer.changed.emit()
