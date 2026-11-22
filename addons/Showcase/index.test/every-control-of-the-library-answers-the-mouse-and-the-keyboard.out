@@ -227,9 +227,9 @@ box 0,0 700x396.66
     text 335,337.22 30x16.8 "Save" #ffd100
   box 0,368.32 700x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
     text 331.67,374.09 36.67x16.8 "Reset" #808080
-surface 100,132.52 290.61x95.02 on TOOLTIP Interface\AddOns\Ordaen\media\window-wood clamped
-  text 124.47,156.99 246.67x25.83 "Button drawer" #f0e6d2
-  text 124.47,188.52 246.67x16.8 "Other addons' buttons in one place." #cbb994
+surface 100,132.52 291.11x92.77 on TOOLTIP Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl pieces=[tl 0.98, tr 0.79, bl 0.81, br 0.62, top 0.98>0.80 x8.10, bottom 0.80>0.62 x8.10, left 0.96>0.83 x1.90, right 0.77>0.64 x1.90] clamped
+  text 122.22,154.74 246.67x25.83 "Button drawer" #f0e6d2
+  text 122.22,186.27 246.67x16.8 "Other addons' buttons in one place." #cbb994
 
 -- the switch clicked: on, both switches follow the one setting, the dropdown's row no longer greyed
 box 0,0 700x396.66
@@ -922,17 +922,17 @@ box 0,0 700x413.46
   box 0,385.12 700x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
     text 331.67,390.89 36.67x16.8 "Reset" #f0e6d2
 surface 0,0 1600x900 on DIALOG #0000008c
-  box 615.25,383.82 369.5x132.35 Interface\AddOns\Ordaen\media\window-wood border=UI-Frame-Metal-CornerTopLeft
-    text 645.41,431.05 314.18x17.5 "Forget what was saved?" #ffffff
-    box 645.41,459.93 314.18x28.33
-      box 645.41,459.93 99.96x0
-      box 745.37,459.93 214.22x28.33
-        box 745.37,459.93 100x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-          text 773.28,465.35 44.17x17.5 "Forget" #ffd100
-        box 852.48,459.93 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-          text 887.48,465.35 30x17.5 "Keep" #ffd100
-    box 622.5,402.74 360x25.83 absolute
-      text 780,402.74 45x25.83 "Reset" #ffd100
+  box 612.5,384.95 375x130.1 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.84, tr 0.79, bl 0.81, br 0.76, top 0.84>0.79 x10.72, bottom 0.81>0.76 x10.72, left 0.83>0.81 x3.07, right 0.79>0.77 x3.07]
+    text 640.41,429.93 319.18x17.5 "Forget what was saved?" #ffffff
+    box 640.41,458.81 319.18x28.33
+      box 640.41,458.81 104.96x0
+      box 745.37,458.81 214.22x28.33
+        box 745.37,458.81 100x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+          text 773.28,464.22 44.17x17.5 "Forget" #ffd100
+        box 852.48,458.81 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+          text 887.48,464.22 30x17.5 "Keep" #ffd100
+    box 620,404.12 360x25.83 absolute
+      text 777.5,404.12 45x25.83 "Reset" #ffd100
 
 -- a click on the dimmed screen, over the first tab: nothing under it hears
 box 0,0 700x413.46
@@ -989,17 +989,17 @@ box 0,0 700x413.46
   box 0,385.12 700x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
     text 331.67,390.89 36.67x16.8 "Reset" #ffd100
 surface 0,0 1600x900 on DIALOG #0000008c
-  box 615.25,383.82 369.5x132.35 Interface\AddOns\Ordaen\media\window-wood border=UI-Frame-Metal-CornerTopLeft
-    text 645.41,431.05 314.18x17.5 "Forget what was saved?" #ffffff
-    box 645.41,459.93 314.18x28.33
-      box 645.41,459.93 99.96x0
-      box 745.37,459.93 214.22x28.33
-        box 745.37,459.93 100x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-          text 773.28,465.35 44.17x17.5 "Forget" #ffd100
-        box 852.48,459.93 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-          text 887.48,465.35 30x17.5 "Keep" #ffd100
-    box 622.5,402.74 360x25.83 absolute
-      text 780,402.74 45x25.83 "Reset" #ffd100
+  box 612.5,384.95 375x130.1 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.84, tr 0.79, bl 0.81, br 0.76, top 0.84>0.79 x10.72, bottom 0.81>0.76 x10.72, left 0.83>0.81 x3.07, right 0.79>0.77 x3.07]
+    text 640.41,429.93 319.18x17.5 "Forget what was saved?" #ffffff
+    box 640.41,458.81 319.18x28.33
+      box 640.41,458.81 104.96x0
+      box 745.37,458.81 214.22x28.33
+        box 745.37,458.81 100x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+          text 773.28,464.22 44.17x17.5 "Forget" #ffd100
+        box 852.48,458.81 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+          text 887.48,464.22 30x17.5 "Keep" #ffd100
+    box 620,404.12 360x25.83 absolute
+      text 777.5,404.12 45x25.83 "Reset" #ffd100
 
 -- «Keep» clicked: the question goes, nothing forgotten
 box 0,0 700x413.46

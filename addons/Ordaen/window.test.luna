@@ -193,8 +193,8 @@ test "the control group stands in the tab row: outside the body, right of the la
   const tab = Test.holding("Recipes", nil)
   // The body's wood is drawn from its art's top: its line stands the art's reach below that, the line's metal the
   // frame's inset outside it.
-  const small = Ordaen.art.frame.small
-  const lineTop = body.top + small.reach.top * small.scale + small.inset
+  const metal = Ordaen.art.frame.window
+  const lineTop = body.top + metal.reach.top * metal.scale + metal.inset
   Test.expect(gear.bottom <= lineTop && close.bottom <= lineTop)
   Test.expect(gear.left > tab.x && close.right <= body.right && close.right > body.right - 20)
   // Every plate stands joined to the frame, as the tabs' sides do: its foot on the top of the body's line, with

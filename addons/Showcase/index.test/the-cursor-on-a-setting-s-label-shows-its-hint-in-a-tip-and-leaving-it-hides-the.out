@@ -52,9 +52,9 @@ box 0,0 700x396.66
     text 335,337.22 30x16.8 "Save" #ffd100
   box 0,368.32 700x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
     text 331.67,374.09 36.67x16.8 "Reset" #808080
-surface 100,132.52 290.61x95.02 on TOOLTIP Interface\AddOns\Ordaen\media\window-wood clamped
-  text 124.47,156.99 246.67x25.83 "Button drawer" #f0e6d2
-  text 124.47,188.52 246.67x16.8 "Other addons' buttons in one place." #cbb994
+surface 100,132.52 291.11x92.77 on TOOLTIP Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl pieces=[tl 0.98, tr 0.79, bl 0.81, br 0.62, top 0.98>0.80 x8.10, bottom 0.80>0.62 x8.10, left 0.96>0.83 x1.90, right 0.77>0.64 x1.90] clamped
+  text 122.22,154.74 246.67x25.83 "Button drawer" #f0e6d2
+  text 122.22,186.27 246.67x16.8 "Other addons' buttons in one place." #cbb994
 
 -- the cursor away: the tip is gone
 box 0,0 700x396.66

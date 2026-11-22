@@ -1183,7 +1183,9 @@ test "the model stands in its race's scene from the game's dressing room, enlarg
   // The tab is bare: the column runs from the sets' strip, under its tabs, to the frame's line at the bottom, no
   // window's room between (that room alone was more than the frame's art is wide).
   const sets = window.text("New Set").rect()
-  Test.expect(column.top >= sets.bottom && column.top - sets.bottom < 10 && body.bottom - column.bottom < 15)
+  // At the bottom, the frame's art past its line covers the wood's edge.
+  const reach = Ordaen.art.frame.window.reach.bottom
+  Test.expect(column.top >= sets.bottom && column.top - sets.bottom < 10 && body.bottom - column.bottom < reach + 2)
   Test.expect(((column.bottom - column.top) / (Style.SCENE_HEIGHT / 1ui) - 1).abs() < 0.01)
 }
 

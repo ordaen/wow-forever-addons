@@ -6,9 +6,11 @@ import Locale from "@/locales"
 
 // The window's body while it isn't full screen (it opens full screen), and the windows docked at the screen's right
 // («Shopping list», «My auctions»).
-public const WIDTH: Number<Length> = 1242.1875dp
+// The main window's body is wider by the frame's art past its line on both sides (16.5 over the client's old frame);
+// a docked window as much narrower, so the main one keeps its room beside it on a small screen (its columns narrower).
+public const WIDTH: Number<Length> = 1242.1875dp + 16.5ui
 public const HEIGHT: Number<Length> = 820.3125dp
-public const SIDE_WIDTH: Number<Length> = 773.4375dp
+public const SIDE_WIDTH: Number<Length> = 773.4375dp - 16.5ui
 // An item's slot in a row, and the chosen item's.
 public const SLOT: Number<Length> = 28.125dp
 public const BIG_SLOT: Number<Length> = 46.875dp

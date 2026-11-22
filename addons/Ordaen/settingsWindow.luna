@@ -26,7 +26,7 @@ import { WindowsPage } from "@/windowsPage"
 
 // The window's body at first, and the smallest it resizes to: the list, a row and the foot fit, and no narrower than
 // the widest page needs (the action bars' page: its list of bars beside the picked bar's rows), so no page squeezes.
-const WIDTH = 1378.125dp
+const WIDTH = 1378.125dp + 16.5ui
 const HEIGHT = 820.3125dp
 const MIN_WIDTH = WIDTH
 const MIN_HEIGHT = 562.5dp

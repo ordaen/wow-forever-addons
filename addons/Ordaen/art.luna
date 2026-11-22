@@ -1,11 +1,13 @@
 // Ordaen's art: the pictures and the measures everything Ordaen draws is made of, the same whatever the player
 // chooses. What the player chooses of the look (fonts, colours, a bar's fill) is Ordaen's settings (look.luna).
-import { Art, ArtBorder, Corners, Curves, Line, Piece, Radius, Reach, Side, Tile } from "$ltml"
+import { Art, ArtBorder, Corners, Curves, FramePieces, Line, Piece, Radius, Reach, Side, Tile } from "$ltml"
 
 // Ordaen's art, by what it is for (`Ordaen.art`); each part is read through its types (`OrdaenArt.Window`).
 public struct OrdaenArt {
   public struct Frame {
-    // A window's or a small surface's metal on all four sides: windows, dialogs, tooltips, the minimap.
+    // A window's metal on all four sides, a bracket over each corner.
+    window: ArtBorder
+    // A small surface's metal on all four sides, its corners rounded: dialogs, tooltips, the chat, the minimap.
     small: ArtBorder
     // A window tab's: the metal on its top and sides, its top corners rounded, open or closed alike.
     tab: ArtBorder
@@ -195,17 +197,61 @@ public function toLeftLine(metal: ArtBorder): Number<Length> {
   return (metal.reach.left + metal.width / 2) * metal.scale * 1ui
 }
 
-// The metal frame: the client's window frame at half size. The line is 3 units; the art stands past it by its
-// reach on each side, and the box's background starts 1.5 units into the art. A rounded frame's right side is
-// its left mirrored, so it reaches as far as the left.
-const FRAME = "ButtonFrameTemplateNoPortrait"
-// The art of that layout, its top left corner: what the inspector names the border by.
-const FRAME_ART: Atlas = "UI-Frame-Metal-CornerTopLeft"
-const REACH: Reach = { top: 14.5, right: 4.5, bottom: 10, left: 14.5 }
-const REACH_ROUND: Reach = { top: 14.5, right: 14.5, bottom: 10, left: 14.5 }
-// A frame rounded at its left corners: its bottom is its top mirrored.
-const REACH_ROUND_LEFT: Reach = { top: 14.5, right: 4.5, bottom: 14.5, left: 14.5 }
-const CURVES: Curves = { small: 8 / 1.2 / 0.5 + 14, large: 14 / 1.2 / 0.5 + 14, flare: 21 }
+// The metal frame: Ordaen's own (art/pieces/frame-*.json, drawn by wow-dev-tools design/scripts/frame-metal.mjs), one
+// bronze rod for every line. An outer side is a band of 16 texels, outside in: 4 of shadow, a black line, the rod of
+// 10, a black line; the line is the inner black, so the art stands 15 texels past it, and the box's background starts
+// under the rod's middle (5 texels out). The pieces are grey: `tint` makes them bronze, and the light runs round the
+// box's surface, its bottom right darker by `fall` than its top left. A window's outer frame and its tabs are drawn
+// at full scale, its dividers at 0.75, a small surface's frame at 0.5.
+const BRONZE: Color = Color.hex("#f0b673")
+const FALL = 0.4
+// A divider is set into the wood: a shade darker than the frame round it.
+const INLAID = 0.88
+const BAND: Reach = { top: 15, right: 15, bottom: 15, left: 15 }
+const BAND_LINE = 15
+const BAND_INSET = -5
+// A rounded corner's curve where the background meets it (the rod's middle): its piece's 32 less the 10 texels out.
+const ROUND: Curves = { small: 22, large: 22, flare: 0 }
+const STRAIGHT: Curves = { small: 0, large: 0, flare: 0 }
+const ALL_ROUND: Corners = { topLeft: Radius.Large, topRight: Radius.Large, bottomLeft: Radius.Large, bottomRight: Radius.Large }
+
+const BRACKET_TL: Piece = { file: "@/media/frame-corner-bracket-tl.tga", width: 32, height: 32 }
+const BRACKET_TR: Piece = { file: "@/media/frame-corner-bracket-tr.tga", width: 32, height: 32 }
+const BRACKET_BL: Piece = { file: "@/media/frame-corner-bracket-bl.tga", width: 32, height: 32 }
+const BRACKET_BR: Piece = { file: "@/media/frame-corner-bracket-br.tga", width: 32, height: 32 }
+const ROUNDED_TL: Piece = { file: "@/media/frame-corner-rounded-tl.tga", width: 32, height: 32 }
+const ROUNDED_TR: Piece = { file: "@/media/frame-corner-rounded-tr.tga", width: 32, height: 32 }
+const ROUNDED_BL: Piece = { file: "@/media/frame-corner-rounded-bl.tga", width: 32, height: 32 }
+const ROUNDED_BR: Piece = { file: "@/media/frame-corner-rounded-br.tga", width: 32, height: 32 }
+
+const EDGE_TOP: Piece = { file: "@/media/frame-edge-top.tga", width: 64, height: 16, tile: Tile.Across }
+const EDGE_BOTTOM: Piece = { file: "@/media/frame-edge-bottom.tga", width: 64, height: 16, tile: Tile.Across }
+const EDGE_LEFT: Piece = { file: "@/media/frame-edge-left.tga", width: 16, height: 64, tile: Tile.Down }
+const EDGE_RIGHT: Piece = { file: "@/media/frame-edge-right.tga", width: 16, height: 64, tile: Tile.Down }
+
+const BRACKET: FramePieces = {
+  topLeft: BRACKET_TL, topRight: BRACKET_TR, bottomLeft: BRACKET_BL,
+  bottomRight: BRACKET_BR, top: EDGE_TOP, bottom: EDGE_BOTTOM, left: EDGE_LEFT, right: EDGE_RIGHT,
+  tint: BRONZE, fall: FALL
+}
+const ROUNDED: FramePieces = {
+  topLeft: ROUNDED_TL, topRight: ROUNDED_TR, bottomLeft: ROUNDED_BL,
+  bottomRight: ROUNDED_BR, top: EDGE_TOP, bottom: EDGE_BOTTOM, left: EDGE_LEFT, right: EDGE_RIGHT,
+  tint: BRONZE, fall: FALL
+}
+
+// The divider: 12 texels of metal centred in 16, lit flat; its line at the metal's middle, 8 texels in. It draws one
+// side or two, never a corner.
+const DIVIDER_ACROSS: Piece = { file: "@/media/frame-divider-across.tga", width: 64, height: 16, tile: Tile.Across }
+const DIVIDER_DOWN: Piece = { file: "@/media/frame-divider-down.tga", width: 16, height: 64, tile: Tile.Down }
+const DIVIDER: FramePieces = {
+  topLeft: ROUNDED_TL, topRight: ROUNDED_TR, bottomLeft: ROUNDED_BL,
+  bottomRight: ROUNDED_BR, top: DIVIDER_ACROSS, bottom: DIVIDER_ACROSS, left: DIVIDER_DOWN,
+  right: DIVIDER_DOWN, tint: BRONZE, fall: FALL, inlaid: INLAID
+}
+const DIVIDER_REACH: Reach = { top: 8, right: 8, bottom: 8, left: 8 }
+const DIVIDER_SCALE = 0.75
+
 const TAB_CORNERS: Corners = { topLeft: Radius.Large, topRight: Radius.Large }
 const SIDE_TAB_CORNERS: Corners = { topLeft: Radius.Large, bottomLeft: Radius.Large }
 const ICON_CORNER: Corners = { topLeft: Radius.Large }
@@ -219,11 +265,27 @@ const MARBLE: Piece = { file: "Interface/FrameGeneral/UI-Background-Marble", wid
 // Ordaen's art: its measures, and its pictures from this addon's `media` and the client.
 public const ARTWORK: OrdaenArt = {
   frame: {
-    small: { drawnFrom: FRAME, art: FRAME_ART, width: 3, scale: 0.5, inset: -1.5, reach: REACH, curves: CURVES, lineStart: 10 },
-    tab: { drawnFrom: FRAME, art: FRAME_ART, width: 3, scale: 0.5, inset: -1.5, reach: REACH_ROUND, sides: [Side.Top, Side.Left, Side.Right], radius: TAB_CORNERS, curves: CURVES, lineStart: 10 },
-    sideTab: { drawnFrom: FRAME, art: FRAME_ART, width: 3, scale: 0.5, inset: -1.5, reach: REACH_ROUND_LEFT, sides: [Side.Top, Side.Left, Side.Bottom], radius: SIDE_TAB_CORNERS, curves: CURVES, lineStart: 10 },
-    tabIconClip: { drawnFrom: FRAME, art: FRAME_ART, width: 3, scale: 0.5, inset: -1.5, reach: REACH_ROUND, sides: [], radius: ICON_CORNER, curves: CURVES, lineStart: 10 },
-    tabIconLine: { drawnFrom: FRAME, art: FRAME_ART, width: 3, scale: 0.5, inset: -1.5, reach: REACH, sides: [Side.Left], curves: CURVES, lineStart: 10 }
+    window: { drawnFrom: BRACKET, art: EDGE_TOP, width: 1, scale: 1, inset: BAND_INSET, reach: BAND, curves: STRAIGHT, lineStart: BAND_LINE },
+    small: {
+      drawnFrom: ROUNDED, art: EDGE_TOP, width: 0.5, scale: 0.5, inset: BAND_INSET * 0.5, reach: BAND, radius: ALL_ROUND,
+      curves: ROUND, lineStart: BAND_LINE
+    },
+    tab: {
+      drawnFrom: ROUNDED, art: EDGE_TOP, width: 1, scale: 1, inset: BAND_INSET, reach: BAND, sides: [Side.Top, Side.Left, Side.Right],
+      radius: TAB_CORNERS, curves: ROUND, lineStart: BAND_LINE
+    },
+    sideTab: {
+      drawnFrom: ROUNDED, art: EDGE_TOP, width: 1, scale: 1, inset: BAND_INSET, reach: BAND, sides: [Side.Top, Side.Left, Side.Bottom],
+      radius: SIDE_TAB_CORNERS, curves: ROUND, lineStart: BAND_LINE
+    },
+    tabIconClip: {
+      drawnFrom: ROUNDED, art: EDGE_TOP, width: 1, scale: 1, inset: BAND_INSET, reach: BAND, sides: [], radius: ICON_CORNER,
+      curves: ROUND, lineStart: BAND_LINE
+    },
+    tabIconLine: {
+      drawnFrom: DIVIDER, art: DIVIDER_DOWN, width: DIVIDER_SCALE, scale: DIVIDER_SCALE, inset: 0, reach: DIVIDER_REACH,
+      sides: [Side.Left], curves: STRAIGHT, lineStart: 8
+    }
   },
   window: { wood: WOOD, marble: MARBLE },
   ctl: {
@@ -314,7 +376,10 @@ public const ARTWORK: OrdaenArt = {
     slotEdge: { width: 1ui, color: Color.hex("#6c5535") },
     xpSteel: { file: "@/media/xp-fill-steel.tga", width: 1024, height: 32, tile: Tile.Across },
     wood: WOOD,
-    edge: { drawnFrom: FRAME, art: FRAME_ART, width: 3, scale: 0.5, inset: -1.5, reach: REACH, sides: [Side.Top], curves: CURVES, lineStart: 10 },
+    edge: {
+      drawnFrom: ROUNDED, art: EDGE_TOP, width: 0.5, scale: 0.5, inset: BAND_INSET * 0.5, reach: BAND, sides: [Side.Top], curves: STRAIGHT,
+      lineStart: BAND_LINE
+    },
     countBadge: { file: "@/media/panel-count-badge.tga", width: 128, height: 64, cap: 32, capHeight: 0.5 },
     // The experience tube, back to front: the trough, the fill, the shine, the ring.
     xpTrough: { file: "@/media/xp-tube-trough.tga", width: 256, height: 64, cap: 64, capHeight: 1 },

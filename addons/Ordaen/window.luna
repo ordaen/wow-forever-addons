@@ -157,6 +157,9 @@ const TAB_LEAST = 140.625dp
 // (a band, a floor), its text kept in by `FOOTER_ROOM` (the room a footer has always had: 8sp at the sides, its text 5sp
 // above the bottom line).
 const INSET = 1sp
+const INSET_ROUND: Edges = { top: INSET, right: INSET, bottom: INSET, left: INSET }
+const INSET_FOOTED: Edges = { top: INSET, right: INSET, left: INSET }
+const NO_INSET: Edges = {}
 const PADDING: Edges = { top: WINDOW_ROOM, right: WINDOW_ROOM, bottom: WINDOW_ROOM, left: WINDOW_ROOM }
 const PADDING_FOOTED: Edges = { top: 8sp, right: 8sp, bottom: 5sp, left: 8sp }
 const CONTENT_FOOTED: Edges = { top: 8sp, right: 8sp, bottom: 6sp, left: 8sp }
@@ -166,7 +169,7 @@ public const FOOTER_ROOM: Edges = { right: 8sp, bottom: 5sp, left: 8sp }
 // body's inset and `WINDOW_ROOM` (a page with a `padding` of its own keeps that instead). What a page of a window
 // `width` wide lays its content in is `width - windowSides()`.
 public function windowSides(): Number<Length> {
-  const metal = Ordaen.art.frame.small
+  const metal = Ordaen.art.frame.window
   return 2 * metal.width * 1ui + reachAcross(metal) + Ordaen.lengthOf(2 * INSET + 2 * WINDOW_ROOM)
 }
 
@@ -269,8 +272,9 @@ public class WindowTab implements Component {
   // down to the body's line, which the tab stands behind. Everything here is measured from the tab's line, where
   // what a framed box places by offsets starts. Its line stands at its right.
   derived side: Number<Length> = self.height - self.flare
-  derived lineLeft: Number<Length> = self.side - self.lineStart
-  derived lineWidth: Number<Length> = self.flare + 1ui
+  // The icon's line: the divider's box, its line's middle on the icon's right edge.
+  derived lineLeft: Number<Length> = self.side - (Ordaen.art.frame.tabIconLine.reach.left * Ordaen.art.frame.tabIconLine.scale + Ordaen.art.frame.tabIconLine.width / 2) * 1ui
+  derived lineWidth: Number<Length> = (Ordaen.art.frame.tabIconLine.reach.left * Ordaen.art.frame.tabIconLine.scale + Ordaen.art.frame.tabIconLine.width) * 1ui
   // The label's room: past the picture's line where there is a picture.
   derived padding: Edges = self.paddingOf()
 
@@ -440,7 +444,9 @@ public class Window implements Component {
   // on the line too).
   derived pageRoom: Edges | nil = self.tabs[self.selected]?.padding ?? self.ownPadding
   derived pagePadding: Edges = self.pageRoom ?? self.contentPadding
-  derived bodyInset: Number<Spacing> = self.pageRoom != nil ? 0sp : INSET
+  // The wood inside the metal: none where a page keeps its own room; none under a footer, whose band meets the bottom
+  // line (its marble runs to the metal).
+  derived bodyInset: Edges = self.pageRoom != nil ? NO_INSET : self.footed ? INSET_FOOTED : INSET_ROUND
   // Moved by a tab and resized by its grip: neither full screen nor docked.
   derived free: Boolean = !self.full && self.docked == nil
   // The screen's right side kept clear while full screen.
@@ -452,9 +458,9 @@ public class Window implements Component {
   // outside it. The group is drawn over the body: the frame's art above its line, its dark edge and shadow, would
   // otherwise cover the plates' foot.
   derived cornerFoot: Edges = {
-    bottom: Ordaen.spacingOf(self.lineTop - (self.bodyReach + Ordaen.art.frame.small.inset) * 1ui)
+    bottom: Ordaen.spacingOf(self.lineTop - (self.bodyReach + Ordaen.art.frame.window.inset) * 1ui)
   }
-  derived bodyReach: Number = Ordaen.art.frame.small.reach.top * Ordaen.art.frame.small.scale
+  derived bodyReach: Number = Ordaen.art.frame.window.reach.top * Ordaen.art.frame.window.scale
   tabs: Signal<Array<WindowTabSpec>>
   selected: mut Signal<Integer>
   minWidth: Signal<Number<Length>>
@@ -831,7 +837,7 @@ public class Window implements Component {
                raise={true}
                @keyPress.parentScope(.Escape)={self.onClose}>
         <box position={Position.Absolute} left={0ui} right={self.inset} top={self.tabHeight} bottom={0ui}
-             border={Ordaen.art.frame.small} background={Ordaen.art.window.wood} padding={self.bodyInset}
+             border={Ordaen.art.frame.window} background={Ordaen.art.window.wood} padding={self.bodyInset}
              columns={self.bodyColumns} rows={BODY_ROWS} zLevel={BODY_LEVEL}>
           <box rows={MAIN_ROWS}>
             <box rows={ONE} padding={self.pagePadding}>

@@ -96,14 +96,14 @@ box 0,0 760x741.13
       box 267.78,712.8 125x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
         text 308.19,718.57 44.17x16.8 "Create" #808080
 surface 0,0 1600x900 on DIALOG #0000008c
-  box 593.58,362.38 412.83x175.25 Interface\AddOns\Ordaen\media\window-wood border=UI-Frame-Metal-CornerTopLeft
-    text 628.72,418.85 347.56x43.33 "Reset every setting of profile «Spare» to its default?" #e8dcc4
-    box 628.72,476.4 347.56x28.33
-      box 628.72,476.4 113.11x0
-      box 741.83,476.4 234.44x28.33
-        box 741.83,476.4 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-          text 769.75,479.74 44.17x21.67 "Cancel" #ffd100
-        box 850.72,476.4 116.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-          text 890.72,479.74 36.67x21.67 "Reset" #ffd100
-    box 600.83,381.29 403.33x32.5 absolute
-      text 745.42,381.29 114.17x32.5 "Reset profile" #ffd100
+  box 590.83,363.5 418.33x173 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.84, tr 0.79, bl 0.81, br 0.76, top 0.84>0.79 x12.07, bottom 0.81>0.76 x12.07, left 0.84>0.81 x4.41, right 0.79>0.76 x4.41]
+    text 623.72,417.72 352.56x43.33 "Reset every setting of profile «Spare» to its default?" #e8dcc4
+    box 623.72,475.28 352.56x28.33
+      box 623.72,475.28 118.11x0
+      box 741.83,475.28 234.44x28.33
+        box 741.83,475.28 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+          text 769.75,478.61 44.17x21.67 "Cancel" #ffd100
+        box 850.72,475.28 116.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+          text 890.72,478.61 36.67x21.67 "Reset" #ffd100
+    box 598.33,382.67 403.33x32.5 absolute
+      text 742.92,382.67 114.17x32.5 "Reset profile" #ffd100

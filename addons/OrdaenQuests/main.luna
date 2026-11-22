@@ -112,7 +112,7 @@ public class Quests implements Module, App {
   public window: mut KeptWindow = new KeptWindow("log", self.title, { x: 0ui, y: 0ui, width: Style.WIDTH, height: Style.HEIGHT })
   // The next quest of a chain, beside the log at first.
   public chainWindow: mut KeptWindow = new KeptWindow(
-    "chain", Locale.CHAIN_WINDOW, { x: Style.CHAIN_X, y: 0ui, width: Style.PAGE, height: Style.CHAIN_HEIGHT }
+    "chain", Locale.CHAIN_WINDOW, { x: Style.CHAIN_X, y: 0ui, width: Style.CHAIN_WIDTH, height: Style.CHAIN_HEIGHT }
   )
   public const windows: mut Array<mut KeptWindow> = [self.window, self.chainWindow]
   public const pages: Array<SettingsPage> = [

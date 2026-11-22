@@ -1,0 +1,8 @@
+{
+  "says": "Ordaen's metal frame: a rounded top-left corner (tabs, side tabs, tooltips). Grey, coloured by the border's tint (bronze by default) and lit by the light running round its surface (FramePieces); drawn by Ordaen's ArtBorder theme (`Ordaen/art.luna`).",
+  "ships": ["addons/Ordaen/media/frame-corner-rounded-tl.tga"],
+  "origin": "Drawn texel by texel by wow-dev-tools design/scripts/frame-metal.mjs corner-rounded-tl (the pieces of .vitepress/theme/frameMetal.js: one rod of 10 texels with a black line each side, its colours the client's UI-Frame-Metal-EdgeTop, kept as grey under the bronze tint; outer sides with a 4-texel shadow), shot on black and on white with shot.mjs at 32x32.",
+  "steps": [
+    { "matte": { "black": "art/sources/frame-corner-rounded-tl-black.png", "white": "art/sources/frame-corner-rounded-tl-white.png", "out": "addons/Ordaen/media/frame-corner-rounded-tl.tga", "width": 32, "height": 32 } }
+  ]
+}

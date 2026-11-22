@@ -13,7 +13,8 @@ import {
 } from "@/junk"
 import Locale from "@/locales"
 
-const SCREEN: Test.Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
+// The player's screen: 2470 by 1054.
+const SCREEN: Test.Page = { left: 0, top: 0, width: 2470, height: 1054, screen: true }
 const FOOT: FileId = 133854
 const SWORD: FileId = 135274
 const CLOTH: FileId = 132889
@@ -277,6 +278,19 @@ test "«Sell junk» shows at a merchant while there is junk, and sells it in the
   Test.expect(Test.requests().join(", ") == "Bags.send 0 1")
 }
 
+// A window moved across by its tab, the one that says `title`.
+function dragTab(title: String, across: Number) {
+  const tab = Test.holding(title, nil)
+  Test.moveTo(tab)
+  Test.press(nil)
+  Test.moveTo({ x: tab.x + 1, y: tab.y })
+  Test.pass(0.05)
+  Test.moveTo({ x: tab.x + across, y: tab.y })
+  Test.pass(0.05)
+  Test.release(nil)
+  Test.flush()
+}
+
 test "the merchant's window sells the bags' junk from its right column, saying what it brings" {
   const world = new World(carried())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
@@ -289,10 +303,17 @@ test "the merchant's window sells the bags' junk from its right column, saying w
     return "Tharynn", ""
   }
   Test.mount(nil, SCREEN)
-  // The merchant opens the bags with its window, as the game's does.
+  // The merchant opens the bags with its window, as the game's does; both open in the middle until the player moves
+  // them, and the player takes the bags to the right and the merchant's to the left.
   Game.bags.open = true
   Game.bags.place = Game.BagPlace.Merchant
   Events.MERCHANT_SHOW.emit()
+  Test.flush()
+  dragTab(Locale.TITLE, 2460 - bags().rect().right)
+  dragTab("Tharynn", 10 - Test.page().window("Tharynn").rect().left)
+  const moved = bags().rect()
+  const merchant = Test.page().window("Tharynn").rect()
+  Test.expect(moved.left > merchant.right)
   _ = Test.requests()
   Test.page().window("Tharynn").button(`${Locale.SELL_JUNK} ${Game.money.format(30)}`).click()
   Test.expect(Test.requests().join(", ").contains("Bags.send 0 1"))

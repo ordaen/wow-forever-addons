@@ -1,21 +1,21 @@
 -- opened again where it was left, the cursor in its body: full screen and close at the body's top right
-surface 400,361.38 400x337.25 on MEDIUM clamped raised by a click
-  box 400,398.62 400x300 absolute Interface\AddOns\Ordaen\media\window-wood border=UI-Frame-Metal-CornerTopLeft
-    box 413.09,411.72 378.81x276.06
-      box 413.09,411.72 378.81x276.06
-        text 435.85,434.47 333.3x17.5 "the page" #ffffff
-    box 782.75,678.62 13.33x13.33 absolute
-      box 782.75,678.62 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
-  box 400,361.38 400x47.75
-    box 400,361.38 336.47x47.75
-      box 400,361.38 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
-        box 418.78,371.62 76.93x34.25
-          text 431.83,380 50.83x17.5 "Recipes" #ffd100
-    box 745,377.71 55x31.42
-      box 745,377.71 55x26.67 clipped
-        box 745,377.71 27.5x26.67 absolute clipped @keyPress @pointerPress
-          box 745,377.71 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
-          box 753.33,387.29 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
-        box 772.5,377.71 27.5x26.67 absolute clipped @keyPress @pointerPress
-          box 772.5,377.71 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
-          box 778.75,387.29 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
+surface 400,357.5 400x345 on MEDIUM clamped raised by a click
+  box 400,402.5 400x300 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.96, tr 0.77, bl 0.80, br 0.62, top 0.95>0.79 x5.25, bottom 0.79>0.62 x5.25, left 0.95>0.81 x3.69, right 0.76>0.62 x3.69]
+    box 418.84,421.34 362.31x262.31
+      box 418.84,421.34 362.31x262.31
+        text 441.6,444.1 316.8x17.5 "the page" #ffffff
+    box 770,672.5 13.33x13.33 absolute
+      box 770,672.5 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
+  box 400,357.5 400x45
+    box 400,357.5 336.47x45
+      box 400,357.5 130x45 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.98, tr 0.93, top 0.98>0.95 x1.03, left 0.98>0.97 x0.20, right 0.92>0.91 x0.20] @drag @dragStart @dragStop @keyPress @pointerPress
+        box 424.53,373.5 80.93x44
+          text 439.58,386.75 50.83x17.5 "Recipes" #ffd100
+    box 745,385.83 55x16.67
+      box 745,385.83 55x26.67 clipped
+        box 745,385.83 27.5x26.67 absolute clipped @keyPress @pointerPress
+          box 745,385.83 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
+          box 753.33,395.42 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
+        box 772.5,385.83 27.5x26.67 absolute clipped @keyPress @pointerPress
+          box 772.5,385.83 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
+          box 778.75,395.42 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8

@@ -5,7 +5,7 @@ import { Edges, Fr, Line, Shadow, Side, Track } from "$ltml"
 
 // The window's body, and the least it is drawn at (a window kept smaller, from an older save, is drawn at this).
 public const WIDTH: Number<Length> = 1500dp
-public const HEIGHT: Number<Length> = 848dp
+public const HEIGHT: Number<Length> = 867.34dp
 // The room between the frame's line and the character page: none, its sections keeping their own and its cuts running
 // to the frame.
 public const PAGE_ROOM: Edges = { top: 0sp, right: 0sp, bottom: 0sp, left: 0sp }

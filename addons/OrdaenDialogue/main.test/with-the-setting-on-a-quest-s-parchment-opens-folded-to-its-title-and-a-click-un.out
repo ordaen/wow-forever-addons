@@ -1,110 +1,110 @@
 -- a quest's details, the parchment folded to its title
-surface 56.67,99.71 400.03x620.58 on MEDIUM clamped raised by a click
-  box 56.67,136.96 400.03x583.33 absolute Interface\AddOns\Ordaen\media\window-wood border=UI-Frame-Metal-CornerTopLeft
-    box 69.76,150.05 378.84x559.39
-      box 69.76,150.05 378.84x559.39
-        box 92.52,172.81 333.33x513.88
-          box 92.52,172.81 0x0 absolute @keyPress
-          box 92.52,172.81 0x0 absolute @keyPress
-          box 92.52,172.81 0x0 absolute @keyPress
-          box 92.52,172.81 0x0 absolute @keyPress
-          box 92.52,172.81 0x0 absolute @keyPress
-          box 92.52,172.81 0x0 absolute @keyPress
-          box 92.52,172.81 0x0 absolute @keyPress
-          box 92.52,172.81 0x0 absolute @keyPress
-          box 92.52,172.81 0x0 absolute @keyPress
-          box 92.52,172.81 0x0 absolute @keyPress
-          box 92.52,172.81 333.33x120.68
-            box 92.52,172.81 333.33x120.68
-              box 92.52,172.81 333.33x120.68 @keyPress @pointerPress
-                box 92.52,172.81 333.33x41.67
-                  box 92.52,172.81 41.67x41.67 Interface\AddOns\OrdaenQuestPage\media\scroll-top-left
-                  box 134.18,172.81 250x41.67 Interface\AddOns\OrdaenQuestPage\media\scroll-top-middle
-                  box 384.18,172.81 41.67x41.67 Interface\AddOns\OrdaenQuestPage\media\scroll-top-right
-                box 92.52,214.47 333.33x37.34
-                  box 92.52,214.47 43.33x0
-                  box 135.85,214.47 246.67x0
-                  box 382.52,214.47 43.33x0
-                  box 92.52,222.81 43.33x0
-                  text 135.85,222.81 246.67x20.68 "A Pie for Maggie" #200800
-                box 92.52,251.82 333.33x41.67
-                  box 92.52,251.82 41.67x41.67 Interface\AddOns\OrdaenQuestPage\media\scroll-bottom-left
-                  box 134.18,251.82 250x41.67 Interface\AddOns\OrdaenQuestPage\media\scroll-bottom-middle
-                  box 384.18,251.82 41.67x41.67 Interface\AddOns\OrdaenQuestPage\media\scroll-bottom-right
-                box 92.52,204.06 333.33x58.18 absolute
-                  box 126.37,204.06 265.62x58.18 absolute Interface\AddOns\OrdaenQuestPage\media\scroll-paper-middle
-                  box 126.37,204.06 265.62x58.18 absolute Interface\AddOns\OrdaenQuestPage\media\scroll-paper-tone blend=MOD
-                  box 92.52,204.06 41.67x58.18 absolute Interface\AddOns\OrdaenQuestPage\media\scroll-paper-left
-                  box 384.18,204.06 41.67x58.18 absolute Interface\AddOns\OrdaenQuestPage\media\scroll-paper-right
-          box 92.52,293.49 333.33x393.21
-            box 92.52,299.17 333.33x354.92 scrolled 0 of 0
-              box 92.52,504.77 333.33x94.08
-                box 92.52,509.04 333.33x17.5
-                  text 92.52,509.04 184.17x17.5 "You will be able to choose" #e8c35a
-                  box 285.22,514.45 140.63x6.67
-                    box 285.22,514.45 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry
-                    box 291.88,514.45 133.97x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip
-                box 92.52,529.38 333.33x69.47
-                  box 92.52,529.38 333.33x34.02
-                    box 95.36,546.39 0x0
-                    box 98.21,532.23 28.33x28.33 #0d0a08 opacity=1 @dragStart @drop @pointerEnter @pointerLeave @pointerPress
-                      box 98.21,532.23 28.33x28.33 absolute icon=Interface/Icons/INV_Gauntlets_04
-                      box 98.21,532.23 28.33x28.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
-                      box 98.21,532.23 28.33x28.33 absolute #00000000
-                    box 129.38,537.64 290.78x17.5
-                      text 129.38,537.64 290.78x17.5 "Cook's Gloves" #f0e6d0
-                    box 423.01,546.39 0x0
-                  box 92.52,564.83 333.33x34.02
-                    box 95.36,581.84 0x0
-                    box 98.21,567.67 28.33x28.33 #0d0a08 opacity=1 @dragStart @drop @pointerEnter @pointerLeave @pointerPress
-                      box 98.21,567.67 28.33x28.33 absolute icon=Interface/Icons/INV_Boots_01
-                      box 98.21,567.67 28.33x28.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
-                      box 98.21,567.67 28.33x28.33 absolute #00000000
-                    box 129.38,573.09 290.78x17.5
-                      text 129.38,573.09 290.78x17.5 "Courier Boots" #f0e6d0
-                    box 423.01,581.84 0x0
-              box 92.52,600.27 333.33x53.82
-                box 92.52,604.54 333.33x17.5
-                  text 92.52,604.54 149.17x17.5 "You will also receive" #e8c35a
-                  box 250.22,609.95 175.63x6.67
-                    box 250.22,609.95 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry
-                    box 256.88,609.95 168.97x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip
-                box 92.52,624.88 333.33x0
-                box 92.52,627.73 333.33x26.37
-                  box 177.78,630.57 162.81x20.68
-                    box 177.78,630.57 64.91x20.68
-                      box 186.31,630.57 47.84x20.68
-                        box 186.31,632.58 16.67x16.67 GarrMission_CurrencyIcon-Xp
-                        text 205.82,630.57 28.33x20.68 "450" #f0e6d0
-                    box 242.69,630.57 97.9x20.68
-                      text 252.06,630.57 80x20.68 "0g 0s 75c" #e8dcc4
-            box 92.52,658.36 333.33x28.33
-              box 92.52,658.36 141.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-                box 96.07,661.9 38.33x21.25 #00000038 opacity=1
-                  text 103.99,663.77 21.67x17.5 "Esc" #c9a76a
-                text 157.1,663.77 50.83x17.5 "Decline" #ffd100
-              box 234.18,658.36 50x0
-              box 284.18,658.36 141.67x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-                box 287.74,661.9 38.33x21.25 #00000038 opacity=1
-                  box 299.82,670.44 13.33x4.17
-                text 352.1,663.77 44.17x17.5 "Accept" #ffd100
-    box 439.45,700.29 13.33x13.33 absolute
-      box 439.45,700.29 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
-  box 56.67,99.71 400.03x47.75
-    box 56.67,99.71 311.5x47.75
-      box 56.67,99.71 188.98x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
-        box 63.92,106.96 37.25x37.25 absolute face:npc border=UI-Frame-Metal-CornerTopLeft sides=none
-        box 96.17,106.96 11.5x40.5 absolute border=UI-Frame-Metal-CornerTopLeft sides=left
-        box 112.7,109.96 114.17x34.25
-          text 112.7,118.33 114.17x17.5 "Innkeeper Farley" #ffd100
-    box 376.7,116.04 80x31.42
-      box 376.7,116.04 80x26.67 clipped
-        box 376.7,116.04 27.5x26.67 absolute clipped @keyPress @pointerPress
-          box 376.7,116.04 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
-          box 385.03,125.62 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 0 of 8
-        box 404.2,116.04 25x26.67 absolute clipped @keyPress @pointerPress
-          box 404.2,116.04 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 3 of 16
-          box 410.45,125.62 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
-        box 429.2,116.04 27.5x26.67 absolute clipped @keyPress @pointerPress
-          box 429.2,116.04 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
-          box 435.45,125.62 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
+surface 48.42,88.96 416.53x642.08 on MEDIUM clamped raised by a click
+  box 48.42,133.96 416.53x597.08 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.97, tr 0.79, bl 0.80, br 0.61, top 0.97>0.80 x5.51, bottom 0.79>0.62 x5.51, left 0.97>0.81 x8.33, right 0.78>0.61 x8.33]
+    box 67.26,152.8 378.84x559.39
+      box 67.26,152.8 378.84x559.39
+        box 90.02,175.56 333.33x513.88
+          box 90.02,175.56 0x0 absolute @keyPress
+          box 90.02,175.56 0x0 absolute @keyPress
+          box 90.02,175.56 0x0 absolute @keyPress
+          box 90.02,175.56 0x0 absolute @keyPress
+          box 90.02,175.56 0x0 absolute @keyPress
+          box 90.02,175.56 0x0 absolute @keyPress
+          box 90.02,175.56 0x0 absolute @keyPress
+          box 90.02,175.56 0x0 absolute @keyPress
+          box 90.02,175.56 0x0 absolute @keyPress
+          box 90.02,175.56 0x0 absolute @keyPress
+          box 90.02,175.56 333.33x120.68
+            box 90.02,175.56 333.33x120.68
+              box 90.02,175.56 333.33x120.68 @keyPress @pointerPress
+                box 90.02,175.56 333.33x41.67
+                  box 90.02,175.56 41.67x41.67 Interface\AddOns\OrdaenQuestPage\media\scroll-top-left
+                  box 131.68,175.56 250x41.67 Interface\AddOns\OrdaenQuestPage\media\scroll-top-middle
+                  box 381.68,175.56 41.67x41.67 Interface\AddOns\OrdaenQuestPage\media\scroll-top-right
+                box 90.02,217.22 333.33x37.34
+                  box 90.02,217.22 43.33x0
+                  box 133.35,217.22 246.67x0
+                  box 380.02,217.22 43.33x0
+                  box 90.02,225.56 43.33x0
+                  text 133.35,225.56 246.67x20.68 "A Pie for Maggie" #200800
+                box 90.02,254.57 333.33x41.67
+                  box 90.02,254.57 41.67x41.67 Interface\AddOns\OrdaenQuestPage\media\scroll-bottom-left
+                  box 131.68,254.57 250x41.67 Interface\AddOns\OrdaenQuestPage\media\scroll-bottom-middle
+                  box 381.68,254.57 41.67x41.67 Interface\AddOns\OrdaenQuestPage\media\scroll-bottom-right
+                box 90.02,206.81 333.33x58.18 absolute
+                  box 123.87,206.81 265.62x58.18 absolute Interface\AddOns\OrdaenQuestPage\media\scroll-paper-middle
+                  box 123.87,206.81 265.62x58.18 absolute Interface\AddOns\OrdaenQuestPage\media\scroll-paper-tone blend=MOD
+                  box 90.02,206.81 41.67x58.18 absolute Interface\AddOns\OrdaenQuestPage\media\scroll-paper-left
+                  box 381.68,206.81 41.67x58.18 absolute Interface\AddOns\OrdaenQuestPage\media\scroll-paper-right
+          box 90.02,296.24 333.33x393.21
+            box 90.02,301.92 333.33x354.92 scrolled 0 of 0
+              box 90.02,507.52 333.33x94.08
+                box 90.02,511.79 333.33x17.5
+                  text 90.02,511.79 184.17x17.5 "You will be able to choose" #e8c35a
+                  box 282.72,517.2 140.63x6.67
+                    box 282.72,517.2 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry tint=#c29a43
+                    box 289.38,517.2 133.97x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip tint=#c29a43
+                box 90.02,532.13 333.33x69.47
+                  box 90.02,532.13 333.33x34.02
+                    box 92.86,549.14 0x0
+                    box 95.71,534.98 28.33x28.33 #0d0a08 opacity=1 @dragStart @drop @pointerEnter @pointerLeave @pointerPress
+                      box 95.71,534.98 28.33x28.33 absolute icon=Interface/Icons/INV_Gauntlets_04
+                      box 95.71,534.98 28.33x28.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim tint=#6c5535 opacity=0
+                      box 95.71,534.98 28.33x28.33 absolute #00000000
+                    box 126.88,540.39 290.78x17.5
+                      text 126.88,540.39 290.78x17.5 "Cook's Gloves" #f0e6d0
+                    box 420.51,549.14 0x0
+                  box 90.02,567.58 333.33x34.02
+                    box 92.86,584.59 0x0
+                    box 95.71,570.42 28.33x28.33 #0d0a08 opacity=1 @dragStart @drop @pointerEnter @pointerLeave @pointerPress
+                      box 95.71,570.42 28.33x28.33 absolute icon=Interface/Icons/INV_Boots_01
+                      box 95.71,570.42 28.33x28.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim tint=#6c5535 opacity=0
+                      box 95.71,570.42 28.33x28.33 absolute #00000000
+                    box 126.88,575.84 290.78x17.5
+                      text 126.88,575.84 290.78x17.5 "Courier Boots" #f0e6d0
+                    box 420.51,584.59 0x0
+              box 90.02,603.02 333.33x53.82
+                box 90.02,607.29 333.33x17.5
+                  text 90.02,607.29 149.17x17.5 "You will also receive" #e8c35a
+                  box 247.72,612.7 175.63x6.67
+                    box 247.72,612.7 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry tint=#c29a43
+                    box 254.38,612.7 168.97x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip tint=#c29a43
+                box 90.02,627.63 333.33x0
+                box 90.02,630.48 333.33x26.37
+                  box 175.28,633.32 162.81x20.68
+                    box 175.28,633.32 64.91x20.68
+                      box 183.81,633.32 47.84x20.68
+                        box 183.81,635.33 16.67x16.67 GarrMission_CurrencyIcon-Xp
+                        text 203.32,633.32 28.33x20.68 "450" #f0e6d0
+                    box 240.19,633.32 97.9x20.68
+                      text 249.56,633.32 80x20.68 "0g 0s 75c" #e8dcc4
+            box 90.02,661.11 333.33x28.33
+              box 90.02,661.11 141.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+                box 93.57,664.65 38.33x21.25 #00000038 opacity=1
+                  text 101.49,666.52 21.67x17.5 "Esc" #c9a76a
+                text 154.6,666.52 50.83x17.5 "Decline" #ffd100
+              box 231.68,661.11 50x0
+              box 281.68,661.11 141.67x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+                box 285.24,664.65 38.33x21.25 #00000038 opacity=1
+                  box 297.32,673.19 13.33x4.17
+                text 349.6,666.52 44.17x17.5 "Accept" #ffd100
+    box 434.95,701.04 13.33x13.33 absolute
+      box 434.95,701.04 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
+  box 48.42,88.96 416.53x45
+    box 48.42,88.96 328x45
+      box 48.42,88.96 198.98x45 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.99, tr 0.91, top 0.98>0.92 x2.11, left 0.99>0.98 x0.20, right 0.90>0.89 x0.20] @drag @dragStart @dragStop @keyPress @pointerPress
+        box 63.42,103.96 45x45 absolute face:npc border=Interface\AddOns\Ordaen\media\frame-edge-top sides=none pieces=[]
+        box 102.04,103.96 6.75x30 absolute border=Interface\AddOns\Ordaen\media\frame-divider-down sides=left pieces=[left 0.85>0.84 x0.62]
+        box 108.7,104.96 114.17x44
+          text 108.7,118.21 114.17x17.5 "Innkeeper Farley" #ffd100
+    box 384.95,117.29 80x16.67
+      box 384.95,117.29 80x26.67 clipped
+        box 384.95,117.29 27.5x26.67 absolute clipped @keyPress @pointerPress
+          box 384.95,117.29 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
+          box 393.28,126.87 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 0 of 8
+        box 412.45,117.29 25x26.67 absolute clipped @keyPress @pointerPress
+          box 412.45,117.29 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 3 of 16
+          box 418.7,126.87 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
+        box 437.45,117.29 27.5x26.67 absolute clipped @keyPress @pointerPress
+          box 437.45,117.29 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
+          box 443.7,126.87 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8

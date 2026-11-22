@@ -2,11 +2,15 @@
 // question, and the docked panel over the map's side panel (its size the side panel's).
 import { Edges } from "$ltml"
 
-public const WIDTH: Number<Length> = 703.125dp
-public const HEIGHT: Number<Length> = 656.25dp
+// What Ordaen's window frame takes past the room the windows were sized for: across and down.
+const FRAME_ACROSS = 16.5ui
+const FRAME_DOWN = 13.75ui
+public const WIDTH: Number<Length> = 703.125dp + FRAME_ACROSS
+public const HEIGHT: Number<Length> = 656.25dp + FRAME_DOWN
 public const PAGE: Number<Length> = 492.1875dp
-// The chain window: as wide as the page, beside the log's centre at first.
-public const CHAIN_HEIGHT: Number<Length> = 585.9375dp
+// The chain window: as wide as the page with its frame, beside the log's centre at first.
+public const CHAIN_WIDTH: Number<Length> = PAGE + FRAME_ACROSS
+public const CHAIN_HEIGHT: Number<Length> = 585.9375dp + FRAME_DOWN
 public const CHAIN_X: Number<Length> = 468.75dp
 public const ASK: Number<Length> = 468.75dp
 public const ASK_BUTTON: Number<Length> = 140.625dp

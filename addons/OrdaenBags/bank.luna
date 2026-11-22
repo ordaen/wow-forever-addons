@@ -7,7 +7,7 @@
 import Client from "$client"
 import Game from "$game"
 import { Align, Frame, Track } from "$ltml"
-import { ButtonPlate, Component, Dialog, KeptWindow, Money, PushButton, SECONDARY_TEXT, Window, WindowTabSpec } from "Ordaen"
+import { ButtonPlate, Component, Dialog, KeptWindow, Money, PushButton, SECONDARY_TEXT, Window, WindowTabSpec, windowSides } from "Ordaen"
 import Locale from "@/locales"
 
 // The bank's bag slots, by their place among the bank's tabs (`Enum.BagIndex.Characterbanktab`).
@@ -20,7 +20,8 @@ const WELL: Color = Color.hex("#0d0a08")
 const CLEAR: Color = Color.hex("#00000000")
 const SHADE: Color = Color.hex("#00000059")
 const RED: Color = Color.hex("#ff4040")
-const WIDTH = 292.96875dp
+// The room the list takes inside the window: the window is that and its sides (the frame, its inset, its room).
+const LIST = 260dp
 const DIALOG = 375dp
 const BUTTON = 117.1875dp
 
@@ -104,7 +105,7 @@ public class BankSlotsWindow implements Component {
 
   public render(self): Template {
     return $ltml {
-      <Window tabs={self.tabs} selected={mut self.tab} declared={mut self.declared} minWidth={WIDTH} @close={self.onClose}>
+      <Window tabs={self.tabs} selected={mut self.tab} declared={mut self.declared} minWidth={LIST + windowSides()} @close={self.onClose}>
         <box columns={1} gap={3sp}>
           <BankBagEntry $for={bag of self.bags} bag={bag} />
           <box $if={self.buyable} columns={ROW} gap={3sp} yAlign={Align.Center}>
