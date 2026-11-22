@@ -30,9 +30,6 @@ const FRAME_AND_INPUT: Array<Track> = [{ fr: 1 }, "max-content"]
 const GAME_INPUT = 32ui
 // From the frame's line to what it holds.
 const ROOM: Edges = { top: 2sp, right: 3sp, bottom: 2sp, left: 3sp }
-// The lines' ground: dark, the world a little through it, its corners rounded; nothing else round it.
-public const GROUND: Color = Color.hex("#000000cc")
-public const GROUND_ROUND = 7.03125dp
 // The input's field: its text in from the edge as a field's is.
 const INPUT_PAD: Edges = { right: 1sp, left: 1sp }
 // The room of the field's edge, which the field's surface draws over the input's box.
@@ -316,7 +313,7 @@ public class Pane implements Component {
         <box rows={FRAME_AND_INPUT} gap={1sp} yAlignSelf={Align.Stretch}>
           <box rows={ALL} yAlignSelf={Align.Stretch} padding={ROOM} zLevel={3} @pointerEnter={self.onLinesEnter}
                @pointerLeave={self.onLinesLeave}>
-            <RoundedFill color={GROUND} radius={GROUND_ROUND} />
+            <RoundedFill />
             // The chat stands by its bottom left: it grows to the right and up, by the grip in this corner.
             <box position={Position.Absolute} top={0ui} right={0ui} zLevel={3}>
               <SizeGrip corner={GripCorner.TopRight} @grab={self.onSizeGrab} @drag={self.onSize} @drop={self.onSizeDrop} />

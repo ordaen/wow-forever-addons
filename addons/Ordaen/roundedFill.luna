@@ -1,9 +1,14 @@
 // RoundedFill: a plain colour behind what a box holds, its corners rounded, and nothing else: no art, no border. It
 // fills the box it stands in. The straight parts are plain boxes (the middle from top to bottom, a strip down each side
 // between the corners); each corner is a box that clips a circle (the client's round mask) to its own quarter. No part
-// lies over another, so a colour that lets the world through stays even.
+// lies over another, so a colour that lets the world through stays even. The chat's lines and the quest tracker
+// stand on it: the dark ground (`GROUND`, or black at an opacity of their own), `GROUND_ROUND` round.
 import { Position } from "$ltml"
 import { Component } from "@/module"
+
+// The dark ground on the world: black, the world a little through it; and how round its corners are.
+public const GROUND: Color = Color.hex("#000000cc")
+public const GROUND_ROUND = 7.03125dp
 
 const PLAIN: Asset = "Interface/Buttons/WHITE8X8"
 // The client's round mask: what shows of a box is a circle.
@@ -14,7 +19,7 @@ public class RoundedFill implements Component {
 
   color: Signal<Color>
   radius: Signal<Number<Length>>
-  constructor(color: Signal<Color>, radius: Signal<Number<Length>>) {
+  constructor(color: Signal<Color> = GROUND, radius: Signal<Number<Length>> = GROUND_ROUND) {
     self.color = color
     self.radius = radius
   }
