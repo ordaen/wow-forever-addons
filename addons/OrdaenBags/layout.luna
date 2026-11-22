@@ -10,7 +10,7 @@ import { Slot } from "@/model"
 // none is made, from `SLOT_SIZE_LEAST` to `SLOT_SIZE_MOST`. Inside a card, round what it holds; between two cards.
 // Between two slots of a card is the player's choice (`Choices.slotGap`, in steps of the spacing), this where none is
 // made; at most `SLOT_GAP_MOST`.
-public const SLOT_SIZE = 42
+public const SLOT_SIZE = 50
 public const SLOT_SIZE_LEAST = 30
 public const SLOT_SIZE_MOST = 64
 const SLOT_PIXEL: Number<Length> = 1.171875dp

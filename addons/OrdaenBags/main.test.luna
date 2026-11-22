@@ -505,6 +505,8 @@ test "the window is as high as its slots, so none hides under a scroll: the last
   Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
   Game.items.icon = (id: Integer): Art | nil => world.icon(id)
   Test.mount(nil, SCREEN)
+  // Slots small enough for all of them to fit the screen.
+  Bags.settings.change((values: mut Choices): nil => { values.slotSize = 42 })
   Game.bags.open = true
   pick(Ordaen.art.ctl.tool.categories, "One bag")
   Test.expect(bags().button(WELL).count() == 160)
@@ -671,6 +673,8 @@ test "a category's caption has no mark and shuts nothing: a tab shows its items 
   Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
   Game.items.icon = (id: Integer): Art | nil => world.icon(id)
   Test.mount(nil, SCREEN)
+  // Slots small enough for all of them to fit the screen.
+  Bags.settings.change((values: mut Choices): nil => { values.slotSize = 42 })
   Game.bags.open = true
   Test.expect(!bags().box(Ordaen.art.ctl.markOpen).shown() && !bags().button("Cloth").shown())
   Test.page().text("Cloth").click()
@@ -1562,7 +1566,7 @@ test "slots stand apart by the setting's room, three steps where none is chosen;
   Test.expect((nth(2).rect().left - nth(1).rect().right).abs() < 0.01)
 }
 
-test "a slot is as big as the setting says, 42 where none is chosen, its icon with it, and the cards stay in the list" {
+test "a slot is as big as the setting says, 50 where none is chosen, its icon with it, and the cards stay in the list" {
   const world = new World(everyday())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
   Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
@@ -1571,10 +1575,10 @@ test "a slot is as big as the setting says, 42 where none is chosen, its icon wi
   Game.bags.open = true
   pick(Ordaen.art.ctl.tool.categories, "One bag")
   const before = nth(1).rect()
-  Bags.settings.change((values: mut Choices): nil => { values.slotSize = 63 })
+  Bags.settings.change((values: mut Choices): nil => { values.slotSize = 40 })
   Test.flush()
   const after = nth(1).rect()
-  Test.expect(((after.right - after.left) / (before.right - before.left) - 1.5).abs() < 0.01)
+  Test.expect(((after.right - after.left) / (before.right - before.left) - 0.8).abs() < 0.01)
   Test.expect(bags().button(WELL).count() == 22)
 }
 
