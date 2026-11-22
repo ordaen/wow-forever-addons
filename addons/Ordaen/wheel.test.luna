@@ -622,3 +622,44 @@ test "anchored and drawn at the screen's middle, it aims from where it is drawn:
   Test.releaseBound("F")
   Test.expect(Test.performed().join(", ") == "macro /tm 8")
 }
+
+// The cursor going round the wheel outside it, from straight up to the left, a quarter turn a step.
+function goRound() {
+  const round: Array<Test.Point> = [
+    { x: 0, y: -300 }, { x: 212, y: -212 }, { x: 300, y: 0 }, { x: 212, y: 212 }, { x: 0, y: 300 }, { x: -212, y: 212 },
+    { x: -300, y: 0 }
+  ]
+  for (at of round) {
+    Test.moveTo({ x: MIDDLE.x + at.x, y: MIDDLE.y + at.y })
+    Test.pass(0.05)
+  }
+}
+
+test "anchored, going round the wheel outside it aims from the wheel's middle: the item in the cursor's direction" {
+  const held = new Held(1, false, true)
+  Test.flush()
+  open("F")
+  Test.pass(0.05)
+  const x = held.wheel.middleX
+  const y = held.wheel.middleY
+  goRound()
+  // Left of the wheel's middle: its item on the left, though the cursor's last step went up.
+  Test.expect(held.wheel.middleX == x && held.wheel.middleY == y)
+  clickHere(nil)
+  Test.releaseBound("F")
+  Test.expect(Test.performed().join(", ") == "macro /tm 8")
+}
+
+test "anchored, a step straight out after going round aims from the trailing point again: a short move turns" {
+  const held = new Held(1, false, true)
+  Test.flush()
+  open("F")
+  Test.pass(0.05)
+  goRound()
+  Test.moveTo({ x: MIDDLE.x - 600, y: MIDDLE.y })
+  Test.pass(0.05)
+  // A short move up from there: the item up, not the wheel's direction (left).
+  clickAt(-600, -150)
+  Test.releaseBound("F")
+  Test.expect(Test.performed().join(", ") == "spell Find Herbs")
+}

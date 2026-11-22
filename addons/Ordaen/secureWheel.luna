@@ -64,15 +64,14 @@ public struct WheelRing {
 // How a wheel is laid out: where it opens, how large it is, whether its submenus remember, whether it is anchored to
 // the cursor.
 public struct WheelSetup {
-  // It is drawn at the screen's middle and not at the cursor. Not anchored, it aims from where the cursor was as it
-  // opened either way: the mouse moves from where the hand is, never to the wheel first. Anchored, it aims from where
-  // it is drawn, as the cursor going round it on it expects.
+  // It is drawn at the screen's middle and not at the cursor. It never moves while it is up.
   centred: Boolean
   scale: Number
   remember: Boolean
-  // Anchored: while the cursor is on the wheel, the wheel's middle is the aim's; once the cursor goes off the wheel,
-  // the wheel follows it to `TRAIL` behind, so turning to another item is a short move whichever way the cursor went
-  // first. Else the wheel stays where the cursor was as it opened.
+  // Anchored: it aims two ways, and goes from one to the other as the cursor moves. On the wheel as drawn, or going
+  // round it (`ROUND`), from the wheel's middle: the item under the cursor, or in its direction. Else from a point that
+  // trails the cursor (`REACH`, `TRAIL`), starting where the hand was as the wheel opened: a short move turns to
+  // another item whichever way the cursor went first. Not anchored, it aims from where the cursor was as it opened.
   anchored: Boolean
 }
 
@@ -83,14 +82,16 @@ public function placeIn(ring: String, index: Integer): String { return `${ring}_
 // How long the wheel takes to open, and how often an open wheel reads its items' state again.
 const OPENING_TIME = 0.2
 const STATE_EVERY = 0.2
-// An anchored wheel: the cursor goes off it out of a square round its middle as large as the wheel (at a scale of 1),
-// so going round the wheel never moves it; off it, the wheel follows to `TRAIL` behind the cursor, inside the square
-// again, so the cursor's next way out is heard.
-const REACH = WHEEL_SIZE / 2
+// An anchored wheel's trailing point (at a scale of 1): the cursor going further than `REACH` from it, out of a square
+// round it, moves it to `TRAIL` behind the cursor, inside the square again, so the cursor's next way out is heard.
+const REACH = 120dp
 const TRAIL = 108dp
-// The bands round that square: the cursor going off the wheel comes into one of them, by its own motion, which is
-// what the client runs a wrapped enter's body on (`Wrapped_OnEnter`); a frame that comes under a cursor standing still
-// runs none. Each by the point of its side that touches the square, which way that side is from the middle, and
+// Going round the wheel: the cursor's steps out of that square turning round the wheel's middle one way, more along
+// the way round than in or out, by this much together. A step more in or out than round ends it.
+const ROUND: Number = 0.5 * Number.pi
+// The bands round that square: the cursor going out of it comes into one of them, by its own motion, which is what
+// the client runs a wrapped enter's body on (`Wrapped_OnEnter`); a frame that comes under a cursor standing still runs
+// none. Each by the point of its side that touches the square, which way that side is from the middle, and
 // whether it runs across the screen (over or under the square) or beside the square, as tall as it. Together they
 // cover everything round the square, each reaching twice the screen away.
 struct Band {
@@ -113,6 +114,15 @@ const AIM: String = [
   "local x, y = self:GetMousePosition()",
   "local dx, dy = 0, 0",
   "if x then dx, dy = (x - 0.5) * self:GetWidth(), (y - 0.5) * self:GetHeight() end",
+  "if owner:GetAttribute('anchored') then",
+  "  local dial = owner:GetFrameRef('dial')",
+  "  local wx, wy = dial:GetMousePosition()",
+  "  if wx then",
+  "    local ex, ey = (wx - 0.5) * dial:GetWidth(), (wy - 0.5) * dial:GetHeight()",
+  "    local edge = owner:GetAttribute('edge') or 0",
+  "    if owner:GetAttribute('round') or ex * ex + ey * ey <= edge * edge then dx, dy = ex, ey end",
+  "  end",
+  "end",
   SLOT_LUA
 ].join("\n")
 // The client's restricted code round the button's click: `self` the button, `owner` the header, `button` how it was
@@ -127,12 +137,14 @@ const CHOICE: String = [
   "if button == 'Key' and down then",
   "  owner:SetAttribute('level', 'r')",
   "  owner:SetAttribute('armed', nil)",
+  "  owner:SetAttribute('round', nil)",
+  "  owner:SetAttribute('turned', 0)",
+  "  owner:SetAttribute('lastAngle', nil)",
   "  self:ClearAllPoints()",
-  "  if owner:GetAttribute('anchored') and owner:GetAttribute('centred') then",
-  "    self:SetPoint('CENTER', owner, 'CENTER')",
-  "  else",
-  "    self:SetPoint('CENTER', '$cursor')",
-  "  end",
+  "  self:SetPoint('CENTER', '$cursor')",
+  "  local dial = owner:GetFrameRef('dial')",
+  "  dial:ClearAllPoints()",
+  "  if owner:GetAttribute('centred') then dial:SetPoint('CENTER', owner, 'CENTER') else dial:SetPoint('CENTER', '$cursor') end",
   "  self:Show()",
   "  self:SetBindingClick(true, 'ESCAPE', self, 'Escape')",
   "  return false",
@@ -214,21 +226,49 @@ const STEP: String = [
 ].join("\n")
 
 // The client's restricted code round a band's `OnEnter` (`self` the band, which hears the cursor and takes no
-// click): the cursor went off an anchored wheel, so the wheel's button, whose middle the aim is measured from and the
-// wheel is drawn round, stands again between where the cursor was and where it is, `trail` from it, and the bands
-// with it.
+// click): the cursor stepped out of the square round an anchored wheel's trailing point (its button). The step is
+// weighed against the wheel's middle (the dial): round it one way, more round than in or out, it adds to the turn,
+// and a turn of `ROUND` aims from the wheel's middle; more in or out than round, it aims from the trailing point
+// again. Then the point stands `trail` behind the cursor: away from the wheel's middle on the wheel or going round it,
+// so the item stays the same as the aim goes back to it; else along the way the cursor went.
 const LEASH: String = [
   "if not owner:GetAttribute('anchored') or owner:GetAttribute('armed') then return end",
   "local b = owner:GetFrameRef('button')",
+  "local dial = owner:GetFrameRef('dial')",
   "if not b:IsShown() then return end",
   "local x, y = b:GetMousePosition()",
-  "if not x then return end",
+  "local wx, wy = dial:GetMousePosition()",
+  "if not x or not wx then return end",
   "local dx, dy = (x - 0.5) * b:GetWidth(), (y - 0.5) * b:GetHeight()",
+  "local ex, ey = (wx - 0.5) * dial:GetWidth(), (wy - 0.5) * dial:GetHeight()",
   "local far = math.sqrt(dx * dx + dy * dy)",
-  "if far == 0 then return end",
+  "local out = math.sqrt(ex * ex + ey * ey)",
+  "if far == 0 or out == 0 then return end",
+  "local angle = math.atan2(ex, ey)",
+  "local lastAngle = owner:GetAttribute('lastAngle')",
+  "local lastOut = owner:GetAttribute('lastOut') or out",
+  "owner:SetAttribute('lastAngle', angle)",
+  "owner:SetAttribute('lastOut', out)",
+  "local edge = owner:GetAttribute('edge') or 0",
+  "if lastAngle and out > edge then",
+  "  local turn = angle - lastAngle",
+  "  if turn > math.pi then turn = turn - 2 * math.pi elseif turn < -math.pi then turn = turn + 2 * math.pi end",
+  "  if math.abs(turn) * out > math.abs(out - lastOut) then",
+  "    local turned = owner:GetAttribute('turned') or 0",
+  "    if turned * turn < 0 then turned = 0 end",
+  "    turned = turned + turn",
+  "    owner:SetAttribute('turned', turned)",
+  "    if math.abs(turned) >= (owner:GetAttribute('roundTurn') or 0) then owner:SetAttribute('round', true) end",
+  "  else",
+  "    owner:SetAttribute('turned', 0)",
+  "    owner:SetAttribute('round', nil)",
+  "  end",
+  "end",
   "local trail = owner:GetAttribute('trail') or 0",
+  "local fromX, fromY, from = dx, dy, far",
+  "if owner:GetAttribute('round') or out <= edge then fromX, fromY, from = ex, ey, out end",
   "b:ClearAllPoints()",
-  "b:SetPoint('CENTER', '$cursor', 'CENTER', -dx / far * trail, -dy / far * trail)"
+  "b:SetPoint('CENTER', '$cursor', 'CENTER', -fromX / from * trail, -fromY / from * trail)"
 ].join("\n")
 
 // The attributes an item's action sets on the button, by its place: read only while its modifier is held, where it
@@ -276,9 +316,11 @@ public class SecureWheel {
   const button: any Client.Button
   // Follows the cursor while the wheel is up: its script is set as it opens and taken away as it closes.
   const follower: any Client.Frame
-  // The bands round the square of the aim's middle (`BANDS`): each hears the cursor come into it (`LEASH`), and lets
-  // every click through.
+  // The bands round the square of the trailing point (`BANDS`): each hears the cursor come into it (`LEASH`), and
+  // lets every click through.
   const bands: Array<any Client.Frame>
+  // Where the wheel is drawn, as large as the button: what an anchored wheel aims from on the wheel or going round it.
+  const dial: any Client.Frame
   // The attributes written for the items last, unwritten before others are.
   written: mut Array<String> = []
   writtenOnHeader: mut Array<String> = []
@@ -289,7 +331,6 @@ public class SecureWheel {
   readAt: Number = 0
   // The item the aim was on last (the middle is none).
   aimedName: String | nil = nil
-  centred: Boolean = false
   anchored: Boolean = false
   scale: Number = 1
 
@@ -302,6 +343,7 @@ public class SecureWheel {
     self.button = made is Client.Button ? made : panic("the client makes a Button")
     self.follower = Client.CreateFrame("Frame", nil, Client.UIParent, nil)
     self.bands = BANDS.map(band => Client.CreateFrame("Frame", nil, self.button, "SecureHandlerBaseTemplate"))
+    self.dial = Client.CreateFrame("Frame", nil, Client.UIParent, "SecureHandlerBaseTemplate")
     Ordaen.afterCombat(() => self.setUp())
   }
 
@@ -317,6 +359,7 @@ public class SecureWheel {
     // «use on key down» is on (SecureActionButton_OnClick), so the button says it acts on the release.
     button.SetAttribute("useOnKeyDown", false)
     Client.SecureHandlerSetFrameRef(header, "button", button)
+    Client.SecureHandlerSetFrameRef(header, "dial", self.dial)
     for (band of self.bands) {
       band.SetMouseMotionEnabled(true)
       band.SetMouseClickEnabled(false)
@@ -327,8 +370,11 @@ public class SecureWheel {
     const high = Client.UIParent.GetHeight() * 2
     const wide = Client.UIParent.GetWidth() * 2
     button.SetSize(wide, high)
-    // The header stands at the screen's middle: an anchored wheel drawn there aims from it.
+    self.dial.SetSize(wide, high)
+    self.dial.SetPoint("CENTER", Client.UIParent, "CENTER", 0, 0)
+    // The header stands at the screen's middle: a wheel drawn there has its dial on it.
     header.SetPoint("CENTER", Client.UIParent, "CENTER", 0, 0)
+    header.SetAttribute("roundTurn", ROUND)
     header.SetAttribute("level", ROOT)
     header.SetAttribute("dead", DEAD_ZONE / 1ui)
     Client.RegisterAttributeDriver(header, "fighting", "[combat] yes; no")
@@ -348,7 +394,6 @@ public class SecureWheel {
     for (name of self.writtenOnHeader) { self.header.SetAttribute(name, nil) }
     self.written.clear()
     self.writtenOnHeader.clear()
-    self.centred = setup.centred
     self.anchored = setup.anchored
     self.scale = setup.scale
     self.header.SetAttribute("centred", setup.centred)
@@ -356,6 +401,7 @@ public class SecureWheel {
     self.header.SetAttribute("dead", DEAD_ZONE / 1ui * setup.scale)
     self.header.SetAttribute("anchored", setup.anchored)
     self.header.SetAttribute("trail", TRAIL / 1ui * setup.scale)
+    self.header.SetAttribute("edge", WHEEL_SIZE / 2 / 1ui * setup.scale)
     self.placeBands(REACH / 1ui * setup.scale)
     for (ring of rings) {
       self.onHeader(`count-${ring.path}`, ring.count)
@@ -481,11 +527,10 @@ public class SecureWheel {
     const cursorX, cursorY = Client.GetCursorPosition()
     const fromX, fromY = self.button.GetCenter()
     if (fromX == nil || fromY == nil) { return }
-    const screenX, screenY = Client.UIParent.GetCenter()
-    // Drawn at the screen's middle where it says so, unless anchored: an anchored wheel is drawn where it aims from.
-    const atScreen = self.centred && !self.anchored
-    const middleX = atScreen ? screenX ?? fromX : fromX
-    const middleY = atScreen ? screenY ?? fromY : fromY
+    // Drawn where its dial stands, which never moves while it is up: the screen's middle, or where the hand was.
+    const dialX, dialY = self.dial.GetCenter()
+    const middleX = dialX ?? fromX
+    const middleY = dialY ?? fromY
     if (middleX != self.middleX || middleY != self.middleY) {
       self.middleX = middleX
       self.middleY = middleY
@@ -495,8 +540,10 @@ public class SecureWheel {
     const edge = WHEEL_SIZE / 2 / 1ui * self.scale
     self.over = fromMiddleX * fromMiddleX + fromMiddleY * fromMiddleY <= edge * edge
     if (self.armed) { return }
-    const x = cursorX / scale - fromX
-    const y = cursorY / scale - fromY
+    // As the restricted code aims: from the wheel's middle on the wheel or going round it, else from the trailing point.
+    const wheelward = self.anchored && (self.header.GetAttribute("round") == true || self.over)
+    const x = cursorX / scale - (wheelward ? middleX : fromX)
+    const y = cursorY / scale - (wheelward ? middleY : fromY)
     if ((x - self.aimX).abs() < 0.5 && (y - self.aimY).abs() < 0.5) { return }
     self.aimX = x
     self.aimY = y
