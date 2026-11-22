@@ -99,6 +99,11 @@ surface 425,173.04 806.61x553.92 on MEDIUM clamped raised by a click
         box 464.5,180.29 11.5x40.5 absolute border=UI-Frame-Metal-CornerTopLeft sides=left
         box 481.03,183.29 44.17x34.25
           text 481.03,191.67 44.17x17.5 "Spells" #ffd100
+      box 553.94,173.04 139.82x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
+        box 561.19,180.29 37.25x37.25 absolute icon=Interface/Icons/INV_Misc_Book_11 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=none
+        box 593.44,180.29 11.5x40.5 absolute border=UI-Frame-Metal-CornerTopLeft sides=left
+        box 609.97,183.29 65x34.25
+          text 609.97,191.67 65x17.5 "Learnable" #a3977f
     box 1151.61,189.37 80x31.42
       box 1151.61,189.37 80x26.67 clipped
         box 1151.61,189.37 27.5x26.67 absolute clipped @keyPress @pointerPress

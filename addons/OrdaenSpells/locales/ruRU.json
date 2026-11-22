@@ -38,5 +38,17 @@
   "BY_SPEC": "По специализации",
   "SPELL_RANK": "Ранг %d",
   "RANK_RACIAL_PASSIVE": "Рас. пассивная",
-  "RANK_RACIAL": "Расовая"
+  "RANK_RACIAL": "Расовая",
+  "TAB_LEARNABLE": "Изучаемое",
+  "LEARN_NOW": "Можно изучить",
+  "LEARN_NEEDS": "Нужен прежний ранг или талант",
+  "LEARN_SOON": "Скоро",
+  "LEARN_LATER": "Позже",
+  "LEARN_QUESTS": "За задания",
+  "LEARN_KNOWN": "Изучено",
+  "LEARN_QUEST": "Задание: %s (уровень %d)",
+  "LEARN_QUEST_LEVEL": "За задание (уровень %d)",
+  "LEARN_OPEN_QUEST": "Показать задание",
+  "CITY_PRICE": "%s (%s): %s",
+  "PICK_LEARNABLE": "Выберите заклинание: что оно делает, где изучается и за сколько."
 }

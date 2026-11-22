@@ -15,7 +15,7 @@ public struct Choices implements Plain {
 
 // The «Trainer» page: whether the class trainer's window is ours, and the view and sort it opens with. What the
 // window's own buttons change lasts until it closes.
-public class TrainerPage implements Component {
+public class TrainerSettingsPage implements Component {
   // The class trainer's sorts, as its sort button lists them.
   const sorts: Array<Choice<Integer>> = trainerSorts(Locale.COL_SKILL, false)
 

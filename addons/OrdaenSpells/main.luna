@@ -8,10 +8,12 @@ import Game from "$game"
 import { Frame } from "$ltml"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
-import { KeptWindow, Module, ModuleMemory, Settings, SettingsPage, Window, WindowTabSpec, WindowsPage, playSound, windowsTitle } from "Ordaen"
-import { TrainerIgnored, TrainerList, TrainerView, TrainerWindow } from "OrdaenTrainer"
+import { KeptWindow, Module, ModuleMemory, Settings, SettingsPage, Window, WindowSide, WindowTabSpec, WindowsPage, playSound, windowsTitle } from "Ordaen"
+import root Quests from "OrdaenQuests"
+import { TrainerIgnored, TrainerList, TrainerPage, TrainerView, TrainerWindow } from "OrdaenTrainer"
+import { Learnable, Learner, learnableOf } from "@/learnable"
 import Locale from "@/locales"
-import { Choices, TrainerPage } from "@/settings"
+import { Choices, TrainerSettingsPage } from "@/settings"
 import { SpellbookPage } from "@/spellbook"
 import Style from "@/style"
 
@@ -23,6 +25,28 @@ const HIDDEN_EVENT = "PlayerSpellsFrame.SpellBookFrame.Hide"
 const BOOK: Asset = "Interface/Icons/INV_Misc_Book_09"
 // The trainer's tab: the class trainer's book.
 const TRAINER_TAB: WindowTabSpec = { title: Locale.TAB_TRAINER, desc: nil, icon: BOOK }
+// The «Learnable» tab: a trainer's book.
+const LEARNABLE_ICON: Asset = "Interface/Icons/INV_Misc_Book_11"
+const LEARNABLE_TAB: WindowTabSpec = { title: Locale.TAB_LEARNABLE, desc: nil, icon: LEARNABLE_ICON }
+// The window's tabs, by their place.
+const SPELLS = 1
+const LEARNABLE = 2
+
+// The player as a learner of their class: their race and side, their level, what they know and how they stand with a
+// faction, the client's.
+function learnerOf(level: Integer): Learner {
+  const _, _, race = Client.UnitRace("player")
+  return {
+    classTag: Game.player.classTag, race: race?.floor() ?? 0, side: Game.player.faction == Game.Faction.Horde ? 2 : 1, level: level,
+    known: (spell: Integer): Boolean => Game.spells.known(spell),
+    standing: (faction: Integer): Integer | nil => Client.C_Reputation.GetFactionDataByID(faction)?.reaction
+  }
+}
+
+// A quest's name in the player's language, the client's where it has the quest, else Questie's.
+function questNameOf(quest: Integer): String | nil {
+  return Client.C_QuestLog.GetTitleForQuestID(quest) ?? Quests?.questFacts(quest)?.name
+}
 
 public class Spells implements Module, App {
   public const title: String = "Ordaen Spells"
@@ -31,7 +55,7 @@ public class Spells implements Module, App {
   public trainerWindow: mut KeptWindow = new KeptWindow("trainer", Locale.TAB_TRAINER, { x: 0ui, y: 0ui, width: Style.TRAINER_WIDTH, height: Style.HEIGHT })
   public const windows: mut Array<mut KeptWindow> = [self.window, self.trainerWindow]
   public const pages: Array<SettingsPage> = [
-    { title: Locale.TAB_TRAINER, content: $ltml { <TrainerPage settings={mut self.settings} /> } },
+    { title: Locale.TAB_TRAINER, content: $ltml { <TrainerSettingsPage settings={mut self.settings} /> } },
     { title: windowsTitle(), content: $ltml { <WindowsPage windows={mut self.windows} /> } }
   ]
 
@@ -48,7 +72,21 @@ public class Spells implements Module, App {
   // The game's own window shows (the micro menu's button opened it).
   state gameShown = false
   state services: Array<Game.TrainerService> = []
-  const tabs: Array<WindowTabSpec> = [{ title: Locale.TAB_SPELLS, icon: BOOK }]
+  const tabs: Array<WindowTabSpec> = [{ title: Locale.TAB_SPELLS, icon: BOOK }, { title: Locale.TAB_LEARNABLE, icon: LEARNABLE_ICON }]
+  // What the player can learn, worked out again as their spells and level change while its tab shows.
+  derived learnable: Learnable = self.learnableOf()
+  derived learnServices: Array<Game.TrainerService> = self.learnable.services
+  derived learnNotes: Map<Integer, String> = self.learnable.notes
+  derived learnActions: Map<Integer, String> = self.learnable.actions
+  derived learnPrices: Map<Integer, Array<String>> = self.learnable.prices
+  derived side: WindowSide | nil = self.tab == LEARNABLE ? self.learnPage.side : nil
+  // The page's cells, as the «Learnable» page reads them: its tab and its words while nothing is picked.
+  derived learnTab: WindowTabSpec = LEARNABLE_TAB
+  derived learnPick: String = Locale.PICK_LEARNABLE
+  // The «Learnable» tab's page: the trainer's, away from a trainer.
+  learnPage: TrainerPage
+  // How the player left the «Learnable» list, the profile's.
+  public learnList: mut ModuleMemory<TrainerList> = new ModuleMemory<TrainerList>({ view: TrainerView.List }, .Profile, "learnable")
   // The spellbook's page: its body in the window, its counts in the window's footer.
   page: SpellbookPage
   // The constructor has run: what changes after it is the player's doing, and sounds.
@@ -74,6 +112,11 @@ public class Spells implements Module, App {
 
   constructor() {
     self.page = new SpellbookPage(self.spells, self.lines, self.pets, self.petBook)
+    self.learnPage = new TrainerPage(
+      self.learnServices, mut self.learnList, mut self.ignored, self.learnTab, Locale.COL_SKILL, self.learnPick, false, false,
+      self.learnNotes, self.learnActions, self.learnPrices
+    )
+    self.learnPage.acted.listen(self.onActed)
     Ordaen.modules.add(self)
     Game.trainer.changed.listen(self.onTrainer)
     Game.spellbook.changed.listen(self.onSpells)
@@ -155,15 +198,35 @@ public class Spells implements Module, App {
     self.services = Game.trainer.services()
   }
 
+  learnableOf(self): Learnable {
+    if (self.tab != LEARNABLE || !self.open) { return { services: [], notes: {}, actions: {}, quests: {}, prices: {} } }
+    _ = self.spells.length
+    const openLabel = Quests == nil ? nil : Locale.LEARN_OPEN_QUEST
+    return learnableOf(learnerOf(Game.player.level), questNameOf, openLabel)
+  }
+
+  // A quest spell's action: its quest, opened on its chain page (with its way on the map).
+  onActed(self, index: Integer) {
+    const quest = (peek self.learnable).quests[index]
+    if (quest != nil) { _ = Quests?.openAt(quest) }
+  }
+
   onClose(mut self) { self.open = false }
+
+  // The window's footer: the open tab's.
+  const footer: Template = $ltml {
+    <$if={self.tab == SPELLS}> {self.page.footer} </>
+    <$else> {self.learnPage.footer} </>
+  }
   onSettings(self) { Ordaen.toggleSettings(Runtime.Addon.of(self)) }
 
   public render(self): Template {
     return $ltml {
       <frame $if={self.gameShown} of={Game.frames.PlayerSpells} opacity={0} away={true} />
       <Window $if={self.open} tabs={self.tabs} selected={mut self.tab} declared={mut self.window} withSettings={true}
-              footer={self.page.footer} @close={self.onClose} @settings={self.onSettings}>
-        {self.page.body}
+              side={self.side} footer={self.footer} @close={self.onClose} @settings={self.onSettings}>
+        <$if={self.tab == SPELLS}> {self.page.body} </>
+        <$else> {self.learnPage.body} </>
       </Window>
       <TrainerWindow $if={self.trainerShown} services={self.services} declared={mut self.trainerWindow} list={mut self.trainerList} ignored={mut self.ignored}
                      tabSpec={TRAINER_TAB} noun={Locale.COL_SKILL} pickText={Locale.PICK_SERVICE} trade={false} @settings={self.onSettings} />

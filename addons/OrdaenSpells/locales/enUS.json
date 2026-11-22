@@ -38,5 +38,17 @@
   "BY_SPEC": "By spec",
   "SPELL_RANK": "Rank %d",
   "RANK_RACIAL_PASSIVE": "Racial Passive",
-  "RANK_RACIAL": "Racial"
+  "RANK_RACIAL": "Racial",
+  "TAB_LEARNABLE": "Learnable",
+  "LEARN_NOW": "Available now",
+  "LEARN_NEEDS": "Needs an earlier rank or a talent",
+  "LEARN_SOON": "Coming soon",
+  "LEARN_LATER": "Later",
+  "LEARN_QUESTS": "From quests",
+  "LEARN_KNOWN": "Known",
+  "LEARN_QUEST": "Quest: %s (level %d)",
+  "LEARN_QUEST_LEVEL": "From a quest (level %d)",
+  "LEARN_OPEN_QUEST": "Show quest",
+  "CITY_PRICE": "%s (%s): %s",
+  "PICK_LEARNABLE": "Pick a spell: what it does, where it is learned and for how much."
 }
