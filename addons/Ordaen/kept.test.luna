@@ -156,6 +156,41 @@ class Crowded {
   }
 }
 
+// A window of two tabs, the second laid out for one height.
+class Held {
+  state tabs: Array<WindowTabSpec> = [{ title: "Free" }, { title: "Held", height: 300ui }]
+  state tab = 1
+  public placing: mut KeptWindow = new KeptWindow("held", "held", { x: 0ui, y: 0ui, width: 600ui, height: 500ui })
+
+  public render(self): Template {
+    return $ltml {
+      <Window tabs={self.tabs} selected={mut self.tab} declared={mut self.placing}>
+        <box width={100ui} height={100ui} />
+      </Window>
+    }
+  }
+}
+
+test "a tab that holds the window's height draws it at that height, its grip changing only the width" {
+  const page = new Held()
+  Test.mount(page, { left: 0, top: 0, width: 200, height: 100 })
+  const free = Test.edges(Ordaen.art.window.wood, 0)
+  page.tab = 2
+  Test.flush()
+  const held = Test.edges(Ordaen.art.window.wood, 0)
+  // Its top left where it was, and the body 200 shorter.
+  Test.expect(near(held.top, free.top) && near(held.left, free.left))
+  Test.expect(near((free.bottom - free.top) - (held.bottom - held.top), 200))
+  drag(Test.painted(Ordaen.art.ctl.grip, nil), 30, 40)
+  const sized = Test.edges(Ordaen.art.window.wood, 0)
+  Test.expect(sized.right > held.right + 20 && near(sized.bottom, held.bottom) && near(sized.top, held.top))
+  // The player's height comes back on the free tab.
+  page.tab = 1
+  Test.flush()
+  const back = Test.edges(Ordaen.art.window.wood, 0)
+  Test.expect(near(back.bottom - back.top, free.bottom - free.top) && near(back.top, free.top))
+}
+
 test "the grip stops where the content would be cut, and the window grows again at once" {
   const page = new Crowded()
   Test.mount(page, { left: 0, top: 0, width: 200, height: 100 })
