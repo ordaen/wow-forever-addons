@@ -6,8 +6,11 @@ import type { QuestLine, QuestLines } from "OrdaenTracker"
 import Locale from "@/locales"
 import { Figure, QuestFacts, Spot } from "@/questie"
 
-// The zone's name of an `AreaTable` area, as the client names it.
-function zoneOf(area: Integer): String { return Client.C_Map.GetAreaInfo(area) }
+// The zone's name of an `AreaTable` area, as the client names it; nil for one it doesn't know.
+function zoneOf(area: Integer): String | nil {
+  const name: String | nil = Client.C_Map.GetAreaInfo(area)
+  return name
+}
 
 // The first place of the first figure; nil where none has one.
 function firstSpot(figures: Array<Figure>): Spot | nil {
@@ -15,21 +18,26 @@ function firstSpot(figures: Array<Figure>): Spot | nil {
   return figure == nil ? nil : figure.spots[1]
 }
 
-// Where the figures stand: the first one's zone, and how many places of theirs are in it.
+// Where the figures stand: the first one's zone, and how many places of theirs are in it; nothing where the client
+// doesn't know that zone.
 function whereOf(figures: Array<Figure>): String {
   const first = firstSpot(figures)
   if (first == nil) { return "" }
+  const zone = zoneOf(first.area)
+  if (zone == nil) { return "" }
   let places = 0
   for (figure of figures) { places = places + figure.spots.count(spot => spot.area == first.area) }
-  return Locale.TRACKER_WHERE.format(zoneOf(first.area), places)
+  return Locale.TRACKER_WHERE.format(zone, places)
 }
 
-// Whom to hand it to, and where: «Gryan Stoutmantle · Westfall», which the tracker says after «Ready to turn in».
+// Whom to hand it to, and where: «Gryan Stoutmantle · Westfall», which the tracker says after «Ready to turn in»; the
+// name alone where the client doesn't know the zone.
 function turnInOf(figures: Array<Figure>): String {
   const first = figures[1]
   const spot = firstSpot(figures)
   if (first == nil || spot == nil) { return "" }
-  return Locale.TRACKER_TURN_IN.format(first.name, zoneOf(spot.area))
+  const zone = zoneOf(spot.area)
+  return zone == nil ? first.name : Locale.TRACKER_TURN_IN.format(first.name, zone)
 }
 
 public class TrackerLines implements QuestLines {
