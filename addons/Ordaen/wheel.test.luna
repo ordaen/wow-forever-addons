@@ -300,6 +300,9 @@ test "each item is a slice cut in the stone, a gap off each side, its icon whole
   const hollows = Test.page().box(HOLLOW_ART)
   const icons = Test.page().box(QUESTION)
   for (n of 1..3) { Test.expect(icons.nth(n).level() > hollows.nth(n).level()) }
+  // Each icon drawn whole, its rim and all: an icon whose picture reaches its edges keeps it.
+  const drawnIcons = Test.drawn().filter(drawn => drawn.file == QUESTION)
+  Test.expect(drawnIcons.length == 3 && !drawnIcons.any(drawn => drawn.left != 0 || drawn.right != 1 || drawn.top != 0 || drawn.bottom != 1))
   // Each slice cut by its ring and two half-planes turned to its edges, a third of a turn less its gaps wide; the band
   // of the third cut in three, the second segment gold.
   Test.shot("three slices, the first aimed at, the third with a band of three")

@@ -340,8 +340,10 @@ public class Wheel implements Component {
           // The hollow under the icon: its lip shows round the icon, its shade inside is under it, so the icon is whole.
           <box position={Position.Absolute} left={0dp} top={0dp} width={CARVE * self.scale} height={CARVE * self.scale}
                background={CARVED} />
+          // The icon whole, its own thin rim and all: `icon` cuts every side's rim off, and an icon whose picture
+          // reaches its edges (a skull, an anvil) loses part of it.
           <box position={Position.Absolute} left={(CARVE - ICON) / 2 * self.scale} top={(CARVE - ICON) / 2 * self.scale}
-               width={ICON * self.scale} height={ICON * self.scale} icon={spot.item.icon} desaturate={spot.item.dim}
+               width={ICON * self.scale} height={ICON * self.scale} background={spot.item.icon} desaturate={spot.item.dim}
                tint={spot.item.tone ?? (spot.chosen ? nil : HOLLOW)} cooldown={spot.item.cooldown} xAlign={Align.End}
                yAlign={Align.End} zLevel={1}>
             <text value={spot.item.count} textSize={SECONDARY_TEXT} textColor={BRIGHT_TEXT} />
