@@ -1,16 +1,11 @@
 // A group of the panel's cells side by side: the game's menu, friends and guild, the bags. It alone parts its cells:
-// one divider between two neighbours, none at its ends, where what holds it (the panel's wood, a free part's frame)
+// one divider between two neighbours (the windows' deep cut in the wood, Ordaen's `Groove`), none at its ends, where what holds it (the panel's wood, a free part's frame)
 // has its own edge. A cell draws no edge of its own, so no two dividers ever stand together.
 import Game from "$game"
-import { Align, Art, Frame, Line, Side, Track } from "$ltml"
-import { Component } from "Ordaen"
-import { BagCell, CELL_HEIGHT, CellSize, DIVIDER, FaceCell, MenuCell, cellSize } from "@/cells"
+import { Align, Art, Frame, Track } from "$ltml"
+import { CUT, Component, Groove } from "Ordaen"
+import { BagCell, CELL_HEIGHT, CellSize, FaceCell, MenuCell, cellSize } from "@/cells"
 
-// A divider: a groove carved in the wood across the cell's whole height, a dark line and a lit one beside it.
-const GROOVE: Number<Length> = DIVIDER / 2
-const DARK: Color = Color.hex("#0a0603d9")
-const LIT_EDGE: Line = { width: GROOVE, color: Color.hex("#7a603c"), sides: [Side.Right] }
-const LIT_EDGE_DOWN: Line = { width: GROOVE, color: Color.hex("#7a603c"), sides: [Side.Bottom] }
 // One track down a side of the screen; along it, the divider and the cell.
 const DOWN: Array<Track> = ["max-content"]
 const PAIR: Array<Track> = ["max-content", "max-content"]
@@ -72,9 +67,11 @@ public class CellGroup implements Component {
 class GroupCell implements Component {
   derived columns: Array<Track> = self.vertical ? DOWN : PAIR
   derived rows: Array<Track> | nil = self.vertical ? PAIR : nil
-  derived dividerWidth: Number<Length> = self.vertical ? self.size.width : DIVIDER
-  derived dividerHeight: Number<Length> = self.vertical ? DIVIDER : self.size.height
-  derived dividerEdge: Line = self.vertical ? LIT_EDGE_DOWN : LIT_EDGE
+  // The divider: the cut down the cell's whole height between cells across the screen, along its whole width
+  // between cells down a side.
+  derived dividerWidth: Number<Length> = self.vertical ? self.size.width : CUT
+  derived dividerHeight: Number<Length> = self.vertical ? CUT : self.size.height
+  derived upright: Boolean = !self.vertical
 
   const cell: Cell
   const first: Boolean
@@ -104,8 +101,10 @@ class GroupCell implements Component {
   public render(self): Template {
     return $ltml {
       <box columns={self.columns} rows={self.rows} xAlign={Align.Center} yAlign={Align.Center}>
-        <box $if={!self.first} width={self.dividerWidth} height={self.dividerHeight} background={DARK}
-             border={self.dividerEdge} />
+        <box $if={!self.first} width={self.dividerWidth} height={self.dividerHeight} rows={[{ fr: 1 }]}
+             yAlign={Align.Stretch}>
+          <Groove upright={self.upright} />
+        </box>
         <CellOf cell={self.cell} gold={self.gold} size={self.size} face={self.face} icon={self.icon} />
       </box>
     }

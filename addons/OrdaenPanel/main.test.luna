@@ -41,8 +41,10 @@ const REAGENT: FileId = 136511
 const KEYRING: FileId = 130980
 // Every cell's ground while the cursor is away: what counts the cells in the order drawn.
 const CELL: Color = Color.hex("#00000000")
-// The groove between two cells.
-const DIVIDER: Color = Color.hex("#0a0603d9")
+// The cut between two cells across the screen: its shade, multiplied into the wood.
+function divider(): Art {
+  return Ordaen.art.ctl.cut.upright.dark
+}
 // The menu's icons as they are, and in one gold.
 const WHITE: Color = Color.hex("#ffffff")
 const GOLD: Color = Color.hex("#ffb847")
@@ -284,9 +286,9 @@ test "one groove parts each two cells of a group, none before its first" {
   Game.bags.buttons = bagButtons(frame)
   Test.mount(nil, SCREEN)
   const window = panel()
-  Test.expect(!window.box(PROFESSIONS).item().paintedWith(DIVIDER))
-  Test.expect(window.box(SPELLBOOK).item().paintedWith(DIVIDER) && window.box(GAME_MENU).item().paintedWith(DIVIDER))
-  Test.expect(!window.box(BACKPACK).item().paintedWith(DIVIDER) && window.box(KEYRING).item().paintedWith(DIVIDER))
+  Test.expect(!window.box(PROFESSIONS).item().paintedWith(divider()))
+  Test.expect(window.box(SPELLBOOK).item().paintedWith(divider()) && window.box(GAME_MENU).item().paintedWith(divider()))
+  Test.expect(!window.box(BACKPACK).item().paintedWith(divider()) && window.box(KEYRING).item().paintedWith(divider()))
 }
 
 test "a click on a cell of the menu or of the bags is the game's own button's in it" {
@@ -514,11 +516,11 @@ test "the menu's icons chosen in gold are painted gold" {
 
 test "friends and guild at the panel's end stand on their own, the game menu's button still the menu's last" {
   Test.mount(nil, SCREEN)
-  Test.expect(panel().box(FRIENDS).item().paintedWith(DIVIDER))
+  Test.expect(panel().box(FRIENDS).item().paintedWith(divider()))
   place("Left", 2, "Right")
   const window = panel()
   // First of their own group: no groove before the friends' cell.
-  Test.expect(!window.box(FRIENDS).item().paintedWith(DIVIDER) && window.box(GUILD).item().paintedWith(DIVIDER))
+  Test.expect(!window.box(FRIENDS).item().paintedWith(divider()) && window.box(GUILD).item().paintedWith(divider()))
   Test.expect(window.box(CELL).nth(8).paintedWith(GAME_MENU) && window.box(CELL).nth(9).paintedWith(FRIENDS))
 }
 
