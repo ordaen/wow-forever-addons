@@ -2,7 +2,7 @@
 import Game from "$game"
 import { Align, Edges, Event, Overflow, Position } from "$ltml"
 import root Ordaen from "Ordaen"
-import { Component, CountBadge, ListTab, SECONDARY_TEXT, SessionRule, TIGHT_LINE, timeText, toLeftLine } from "Ordaen"
+import { Component, CountBadge, ListTab, SECONDARY_TEXT, SessionRule, timeText, toLeftLine } from "Ordaen"
 import { ChatTab, STAMP, Shown, StampShown } from "@/lines"
 
 // The warm band under a line that names the player or a keyword.
@@ -100,7 +100,7 @@ public class Row implements Component {
       <SessionRule $if={self.opens} began={self.began} />
       <box columns={1}>
         <box $if={self.above} xAlign={Align.Center}>
-          <text value={self.time} textColor={STAMP_GREY} textSize={SECONDARY_TEXT} lineHeight={TIGHT_LINE} wrap={.None} />
+          <text value={self.time} textColor={STAMP_GREY} textSize={SECONDARY_TEXT} leading={.Tight} wrap={.None} />
         </box>
         <box $if={self.line.secret} @linkPress={self.onLink} height={self.lineHeight} overflow={Overflow.Hidden}>
           <text value={self.line.whole} secret={true} textColor={self.line.color} wrap={.None} />
