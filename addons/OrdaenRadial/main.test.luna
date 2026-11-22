@@ -191,7 +191,7 @@ test "an item of another class is dimmed and does nothing; one held to a modifie
   clickAt(FAR, 0)
   Test.hold([])
   _ = Test.releaseBound("H")
-  Test.expect(Test.performed().join(", ") == "macro /ping assist")
+  Test.expect(Test.performed().join(", ") == "macro /ping 4")
 }
 
 test "a spell shows its charges and its cooldown's sweep; a macro its own icon" {
@@ -267,5 +267,26 @@ test "a ping taken by a press says to point and let go; the wheel is see-through
   Test.expect(hint.opacity() == 1)
   Test.release(nil)
   _ = Test.releaseBound("H")
-  Test.expect(Test.performed().join(", ") == "macro /ping attack")
+  Test.expect(Test.performed().join(", ") == "macro /ping 1")
+}
+
+test "each kind of ping shows the client's own mark of it and sends its own number" {
+  start()
+  hold("H", 0, -FAR)
+  const drawn = Test.drawn()
+  for (kind of ["Attack", "Assist", "Warning", "OnMyWay"]) {
+    Test.expect(drawn.any(texture => texture.file == `Ping_Marker_Icon_${kind}`))
+  }
+  clickAt(0, -FAR)
+  _ = Test.releaseBound("H")
+  hold("H", FAR, 0)
+  clickAt(FAR, 0)
+  _ = Test.releaseBound("H")
+  hold("H", 0, FAR)
+  clickAt(0, FAR)
+  _ = Test.releaseBound("H")
+  hold("H", -FAR, 0)
+  clickAt(-FAR, 0)
+  _ = Test.releaseBound("H")
+  Test.expect(Test.performed().join(", ") == "macro /ping 1, macro /ping 4, macro /ping 2, macro /ping 3")
 }
