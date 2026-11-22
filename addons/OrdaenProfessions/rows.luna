@@ -57,7 +57,7 @@ public class CategoryRow implements Component {
 
   public render(self): Template {
     return $ltml {
-      <TabItem selected={self.isChosen} into={Style.RECIPES_BACK} first={self.first} columns={NAME_COUNT} padding={CATEGORY_PAD}
+      <TabItem selected={self.isChosen} into={Style.RECIPES} first={self.first} columns={NAME_COUNT} padding={CATEGORY_PAD}
                @pick={self.onClick}>
         <text value={self.group.name} textColor={self.nameColor} textShadow={Style.SHADOW} />
         <box columns={MARKS} gap={1sp} yAlign={Align.Center}>
@@ -119,7 +119,7 @@ public class RecipeRow implements Component {
 
   public render(self): Template {
     return $ltml {
-      <TabItem selected={self.isChosen} into={Style.RECIPE_BACK} color={self.tint} first={self.first} columns={NAME_COUNT}
+      <TabItem selected={self.isChosen} into={Style.RECIPE} color={self.tint} first={self.first} columns={NAME_COUNT}
                padding={self.padding} @pick={self.onClick}>
         <text value={self.recipe.name} textColor={self.color} textShadow={Style.SHADOW} />
         <text value={self.count} textColor={BRIGHT_TEXT} wrap={.None} textFont={.Numbers} />

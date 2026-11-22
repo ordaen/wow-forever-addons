@@ -58,7 +58,7 @@ surface 288,134.12 896.31x437.26 on MEDIUM clamped raised by a click
                             box 804.72,281.09 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 2 of 16 tint=#e8dcc4
                 box 295.2,310.45 538.89x253.73
                   box 295.2,310.45 233.33x253.73 scrolled 0 of 0
-                    box 295.2,310.45 233.33x27.21 #0000004d clipped @keyPress @pointerPress
+                    box 295.2,310.45 233.33x27.21 Interface\AddOns\Ordaen\media\window-wood tint=#86684e clipped @keyPress @pointerPress
                       box 295.2,310.45 1.67x27.21 absolute #ffd100
                       text 313.69,316.14 162.33x15.83 "Cloth armour" #ffd100
                       box 483.13,316.14 31.18x15.83
@@ -69,8 +69,8 @@ surface 288,134.12 896.31x437.26 on MEDIUM clamped raised by a click
                       box 483.13,344.19 31.18x15.83
                         text 483.13,344.19 8.33x15.83 "1" #a3977f
                         text 494.31,344.19 20x15.83 "(1)" #ffffff
-                  box 528.53,310.45 305.56x253.73 #0000004d scrolled 0 of 0
-                    box 528.53,310.45 305.56x27.21 #00000080 clipped @keyPress @pointerPress
+                  box 528.53,310.45 305.56x253.73 Interface\AddOns\Ordaen\media\window-wood tint=#86684e scrolled 0 of 0
+                    box 528.53,310.45 305.56x27.21 Interface/AchievementFrame/UI-Achievement-Parchment-Horizontal-Desaturated tint=#7a604a clipped @keyPress @pointerPress
                       box 528.53,310.45 1.67x27.21 absolute #ff8040
                       text 542.76,316.14 250x15.83 "Enchanted Runecloth Robe of Long Nights" #ff8040
                       text 799.87,316.14 20x15.83 "[1]" #f0e6d2
@@ -80,7 +80,7 @@ surface 288,134.12 896.31x437.26 on MEDIUM clamped raised by a click
                     box 528.53,365.71 305.56x28.04 #00000000 clipped @keyPress @pointerPress
                       text 542.76,372.23 250x15.83 "Rich Purple Silk Shirt" #ff8040
                       text 799.87,372.23 20x15.83 "[1]" #f0e6d2
-              box 834.09,265.05 343.02x299.13 #00000080
+              box 834.09,265.05 343.02x299.13 Interface/AchievementFrame/UI-Achievement-Parchment-Horizontal-Desaturated tint=#7a604a
                 box 848.31,279.28 310.31x49.76
                   box 848.31,282.49 43.33x43.33 icon=Interface/Icons/INV_Misc_Note_01
                   box 905.87,279.28 252.76x49.76
@@ -218,7 +218,7 @@ surface 288,134.12 1312x437.26 on MEDIUM clamped raised by a click
                             box 914.63,281.09 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 2 of 16 tint=#e8dcc4
                 box 295.2,310.45 648.8x253.73
                   box 295.2,310.45 259.52x253.73 scrolled 0 of 0
-                    box 295.2,310.45 259.52x27.21 #0000004d clipped @keyPress @pointerPress
+                    box 295.2,310.45 259.52x27.21 Interface\AddOns\Ordaen\media\window-wood tint=#86684e clipped @keyPress @pointerPress
                       box 295.2,310.45 1.67x27.21 absolute #ffd100
                       text 313.69,316.14 188.52x15.83 "Cloth armour" #ffd100
                       box 509.32,316.14 31.18x15.83
@@ -229,8 +229,8 @@ surface 288,134.12 1312x437.26 on MEDIUM clamped raised by a click
                       box 509.32,344.19 31.18x15.83
                         text 509.32,344.19 8.33x15.83 "1" #a3977f
                         text 520.5,344.19 20x15.83 "(1)" #ffffff
-                  box 554.72,310.45 389.28x253.73 #0000004d scrolled 0 of 0
-                    box 554.72,310.45 389.28x27.21 #00000080 clipped @keyPress @pointerPress
+                  box 554.72,310.45 389.28x253.73 Interface\AddOns\Ordaen\media\window-wood tint=#86684e scrolled 0 of 0
+                    box 554.72,310.45 389.28x27.21 Interface/AchievementFrame/UI-Achievement-Parchment-Horizontal-Desaturated tint=#7a604a clipped @keyPress @pointerPress
                       box 554.72,310.45 1.67x27.21 absolute #ff8040
                       text 568.94,316.14 333.72x15.83 "Enchanted Runecloth Robe of Long Nights" #ff8040
                       text 909.78,316.14 20x15.83 "[1]" #f0e6d2
@@ -240,7 +240,7 @@ surface 288,134.12 1312x437.26 on MEDIUM clamped raised by a click
                     box 554.72,365.71 389.28x28.04 #00000000 clipped @keyPress @pointerPress
                       text 568.94,372.23 333.72x15.83 "Rich Purple Silk Shirt" #ff8040
                       text 909.78,372.23 20x15.83 "[1]" #f0e6d2
-              box 944,265.05 648.8x299.13 #00000080
+              box 944,265.05 648.8x299.13 Interface/AchievementFrame/UI-Achievement-Parchment-Horizontal-Desaturated tint=#7a604a
                 box 958.22,279.28 616.09x43.33
                   box 958.22,279.28 43.33x43.33 icon=Interface/Icons/INV_Misc_Note_01
                   box 1015.78,284.81 558.53x32.26

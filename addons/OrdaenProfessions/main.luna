@@ -837,7 +837,7 @@ public class Professions implements Module, App {
                                 title={Locale.VIEW} />
                     </Toolbar>
                   </box>
-                  <SideList $if={self.onCamp} background={Style.RECIPES_BACK}>
+                  <SideList $if={self.onCamp} surface={Style.RECIPES}>
                     <RecipeRow $for={index, recipe of self.recipes} recipe={recipe} index={index}
                                chosen={self.chosenRecipe} kept={self.kept} menuFor={self.menuFor}
                                @act={self.onAct} />
@@ -847,13 +847,13 @@ public class Professions implements Module, App {
                       <CategoryRow $for={index, group of self.groups} group={group} index={index}
                                    chosen={self.chosenCategory} @pick={self.pickCategory} />
                     </SideList>
-                    <SideList width={Style.RECIPES_BOUNDS} background={Style.RECIPES_BACK}>
+                    <SideList width={Style.RECIPES_BOUNDS} surface={Style.RECIPES}>
                       <RecipeRow $for={index, recipe of self.recipes} recipe={recipe} index={index}
                                  chosen={self.chosenRecipe} kept={self.kept} menuFor={self.menuFor}
                                  @act={self.onAct} />
                     </SideList>
                   </box>
-                  <SideList $elseif={self.inGroups} background={Style.RECIPES_BACK}>
+                  <SideList $elseif={self.inGroups} surface={Style.RECIPES}>
                     <CategoryGroup $for={group of self.groups} $key={group.id} group={group} shown={self.mains}
                                    byCategory={self.byCategory}
                                    chosen={self.chosenRecipe} kept={self.kept} menuFor={self.menuFor}

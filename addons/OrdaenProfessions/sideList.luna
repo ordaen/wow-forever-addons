@@ -1,26 +1,27 @@
 // SideList: a list of the recipes page (the categories, the recipes), standing edge to edge with the section beside it:
-// no rim of its own, its section's background (none for the categories, which stand on the wood), its rows
+// no rim of its own, its section's surface (none for the categories, which stand on the wood), its rows
 // (`TabItem`) edge to edge, scrolling in their column. A prototype of the professions window's design: Ordaen's
 // `ScrolledList` draws the lists of every other window.
 import { Overflow, Size } from "$ltml"
 import { Component } from "Ordaen"
+import Style from "@/style"
 
 public class SideList implements Component {
   width: Signal<Size | nil>
-  background: Signal<Color | nil>
+  surface: Signal<Style.Surface | nil>
   constructor(
     // The list's width. None: the width of its cell.
     width: Signal<Size | nil> = nil,
-    // Its section's background; none: what it stands on.
-    background: Signal<Color | nil> = nil
+    // Its section's surface; none: what it stands on.
+    surface: Signal<Style.Surface | nil> = nil
   ) {
     self.width = width
-    self.background = background
+    self.surface = surface
   }
 
   public render(self): Template {
     return $ltml {
-      <box width={self.width} background={self.background} columns={1} overflow={Overflow.Scroll}>
+      <box width={self.width} background={self.surface?.art} tint={self.surface?.tint} columns={1} overflow={Overflow.Scroll}>
         <slot />
       </box>
     }
