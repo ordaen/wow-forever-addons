@@ -9,7 +9,7 @@ import Game from "$game"
 import { Action, Align, BarFill, Bounds, ByInteractionState, Columns, Event, FillDuration, FillFrom, MouseButton, Overflow, Position, Track } from "$ltml"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
-import { ARTWORK, Choice, Column, Component, Corner, FooterBand, FooterCount, FooterCounts, ItemButton, Marker, ModuleMemory, SECONDARY_TEXT, Section, TIGHT_LINE, Table, TableRow, ToolPick, Toolbar, tracksOf } from "Ordaen"
+import { ARTWORK, Choice, Column, Component, Corner, FooterBand, FooterCount, FooterCounts, ItemButton, Marker, ModuleMemory, SECONDARY_TEXT, Section, Table, TableRow, ToolPick, Toolbar, tracksOf } from "Ordaen"
 import Locale from "@/locales"
 import Style from "@/style"
 
@@ -229,8 +229,8 @@ public class SpellRow implements Component {
            background={GROUND} @dragStart={self.onGrab}>
         <SpellSlot spell={self.spell} size={SLOT} />
         <box columns={1} gap={LINES_APART}>
-          <text value={self.spell.name} textColor={self.ink} lineHeight={TIGHT_LINE} />
-          <text value={self.detail} textSize={SECONDARY_TEXT} textColor={Style.DIM} lineHeight={TIGHT_LINE} />
+          <text value={self.spell.name} textColor={self.ink} leading={.Tight} />
+          <text value={self.detail} textSize={SECONDARY_TEXT} textColor={Style.DIM} leading={.Tight} />
         </box>
       </box>
     }
