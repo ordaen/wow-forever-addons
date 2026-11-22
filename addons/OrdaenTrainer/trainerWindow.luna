@@ -238,12 +238,36 @@ class Rows {
   public menuAt: Signal<Integer>
   public entries: Signal<Array<MenuEntry>>
   public ignored: Signal<Map<String, Boolean>>
-  constructor(picked: Signal<Integer>, menuAt: Signal<Integer>, entries: Signal<Array<MenuEntry>>, ignored: Signal<Map<String, Boolean>>) {
+  public notes: Signal<Map<Integer, String>>
+  public const atTrainer: Boolean
+  constructor(
+    picked: Signal<Integer>,
+    menuAt: Signal<Integer>,
+    entries: Signal<Array<MenuEntry>>,
+    ignored: Signal<Map<String, Boolean>>,
+    notes: Signal<Map<Integer, String>>,
+    atTrainer: Boolean
+  ) {
     self.picked = picked
     self.menuAt = menuAt
     self.entries = entries
     self.ignored = ignored
+    self.notes = notes
+    self.atTrainer = atTrainer
   }
+
+  // A service's tooltip while the cursor is on its row: the trainer's own at a trainer, its spell's in a book.
+  public showTip(self, frame: any Frame, service: Game.TrainerService) {
+    const spell = service.spell
+    if (self.atTrainer) {
+      Game.items.showService(frame, service.index)
+    } else if (spell != nil) {
+      Game.items.showSpell(frame, spell)
+    }
+  }
+
+  // What a service's line says it asks for: its note where it has one (the quest that teaches it), else its needs.
+  public needsOf(self, service: Game.TrainerService): String { return self.notes[service.index] ?? needsOf(service) }
 
   // A press on a service's row: the left picks it, the right asks for its menu.
   public press(self, index: Integer, button: MouseButton) {
@@ -305,7 +329,7 @@ class ServiceTableRow implements Component {
   onClosed(self) { self.rows.closed.emit() }
 
   // The game's tooltip of the service, as its own trainer window shows it, while the cursor is anywhere on the row.
-  onEnter(self, frame: any Frame) { Game.items.showService(frame, self.service.index) }
+  onEnter(self, frame: any Frame) { self.rows.showTip(frame, self.service) }
 
   public render(self): Template {
     return $ltml {
@@ -338,7 +362,7 @@ class ServiceLine implements Component {
   derived ink: Color = inkOf(self.service)
   derived tint: Color = tintOf(self.service)
   derived title: String = titleOf(self.service)
-  derived needs: String = needsOf(self.service)
+  derived needs: String = self.rows.needsOf(self.service)
   derived needsInk: Color = needsInkOf(self.service)
   derived priced: Boolean = self.service.cost > 0 && self.service.status != Game.ServiceStatus.Learned
   derived costInk: Color = self.service.cost > Game.money.amount ? RED : INK
@@ -357,7 +381,7 @@ class ServiceLine implements Component {
   onDouble(self) { self.rows.double.emit(self.service.index) }
   onChose(self, place: Integer) { self.rows.chose.emit(place) }
   onClosed(self) { self.rows.closed.emit() }
-  onEnter(self, frame: any Frame) { Game.items.showService(frame, self.service.index) }
+  onEnter(self, frame: any Frame) { self.rows.showTip(frame, self.service) }
 
   public render(self): Template {
     return $ltml {
@@ -379,7 +403,6 @@ class ServiceLine implements Component {
   }
 }
 
-// What every service that can be learned now and isn't ignored costs together.
 // What «Learn all» learns, in the trainer's order: every service that can be learned now but what is ignored and what
 // starts a profession (each asked for on its own).
 function batchOf(services: Array<Game.TrainerService>, ignored: Map<String, Boolean>): Array<Game.TrainerService> {
@@ -533,11 +556,14 @@ class CategoryCaption implements Component {
   }
 }
 
-public class TrainerWindow implements Component {
-  // The ⚙ in the window's corner: the owning module's settings.
-  public settings: Event<nil> = new Event()
+// A trainer's page: what it teaches (the toolbar, the list or the table), the picked service's card for the window's
+// side, the footer and the dialogs; at a trainer (`TrainerWindow`), or away from one in a book that lists what the
+// player can learn (Ordaen Spells' «Learnable»), where nothing is learned, a service's own action (a quest's way to it)
+// stands in for «Learn» and its note for what it asks.
+public class TrainerPage {
+  // A service's own action pressed, by its place in the list.
+  public acted: Event<Integer> = new Event()
 
-  state tab = 1
   state search = ""
   state picked = 0
   state folded: Map<String, Boolean> = {}
@@ -553,7 +579,6 @@ public class TrainerWindow implements Component {
   derived menuService: Game.TrainerService | nil = self.services.find(service => service.index == self.menuAt)
   derived menuActs: Array<MenuAct> = self.actsOf(self.menuService)
   derived menuEntries: Array<MenuEntry> = self.entriesOf(self.menuActs, self.menuService)
-  derived tabs: Array<WindowTabSpec> = [self.tabSpec]
   derived query: String = self.search.lower()
   // The trainer's skill, read again as its services change: a profession trainer's.
   derived skill: Game.TrainerSkill | nil = self.skillOf()
@@ -573,7 +598,7 @@ public class TrainerWindow implements Component {
   derived text: String = self.current?.description ?? ""
   derived currentIgnored: Boolean = self.current != nil && isIgnored(self.current ?? panic("current"), self.ignoredNames)
   // The card says an ignored service is ignored, where its row's plate does.
-  derived needs: String = self.current == nil ? "" : self.currentIgnored ? Locale.TRAINER_IGNORED : needsOf(self.current ?? panic("current"))
+  derived needs: String = self.current == nil ? "" : self.currentIgnored ? Locale.TRAINER_IGNORED : self.rows.needsOf(self.current ?? panic("current"))
   derived price: Integer = self.current?.cost ?? 0
   derived dear: Boolean = self.price > Game.money.amount
   derived priceInk: Color = self.dear ? RED : INK
@@ -584,7 +609,7 @@ public class TrainerWindow implements Component {
   // The footer's counts: what can be learned now (one ignored left out), what can't yet, what is known; and
   // what is ignored, where anything is.
   derived counts: Array<StatusCount> = self.countsOf()
-  derived side: WindowSide | nil = { width: CARD_WIDTH, content: self.card }
+  public derived side: WindowSide | nil = { width: CARD_WIDTH, content: self.card }
   // Nothing picked: the trainer's card, its greeting, and what all that can be learned now costs together (the footer
   // counts them).
   derived greeting: String = self.greetingOf()
@@ -603,15 +628,26 @@ public class TrainerWindow implements Component {
   derived changed: Boolean = self.changes.length > 0
   // Why «Learn» can't be pressed, on its Tip.
   derived reason: TipText | nil = self.reasonOf()
+  // Away from a trainer: the picked service's own action, where it has one.
+  derived action: String | nil = self.current == nil ? nil : self.actions[(self.current ?? panic("current")).index]
+  derived acts: Boolean = self.action != nil
+  derived priceLines: Array<String> = self.current == nil ? [] : self.prices[(self.current ?? panic("current")).index] ?? []
+  derived priced: Boolean = self.priceLines.length > 0
 
   services: Signal<Array<Game.TrainerService>>
-  declared: mut KeptWindow
   list: mut ModuleMemory<TrainerList>
   // What the player ignored: the character's.
   ignored: mut ModuleMemory<TrainerIgnored>
   const rows: Rows
-  // The window's tab: the trainer, as every window is titled by its tab.
+  // The window's tab: the trainer, as every window is titled by its tab; the dialogs' title.
   tabSpec: Signal<WindowTabSpec>
+  // Away from a trainer: a service's note (what it asks for), its action's label and its card's lines about its price
+  // (what it costs at each city), by its place in the list.
+  notes: Signal<Map<Integer, String>>
+  actions: Signal<Map<Integer, String>>
+  prices: Signal<Map<Integer, Array<String>>>
+  // At a trainer, where services are learned; or in a book.
+  const atTrainer: Boolean
   // The card's words while no service is picked.
   pickText: Signal<String>
   // A profession trainer's (its columns the level and the skill), or a class trainer's (the rank and the level).
@@ -620,17 +656,23 @@ public class TrainerWindow implements Component {
   const keys: Array<Key>
   constructor(
     services: Signal<Array<Game.TrainerService>>,
-    declared: mut KeptWindow,
     list: mut ModuleMemory<TrainerList>,
     ignored: mut ModuleMemory<TrainerIgnored>,
     tabSpec: Signal<WindowTabSpec>,
     // What the first column names a service: «Skill», «Recipe».
     noun: String,
     pickText: Signal<String>,
-    trade: Boolean
+    trade: Boolean,
+    atTrainer: Boolean = true,
+    notes: Signal<Map<Integer, String>> = {},
+    actions: Signal<Map<Integer, String>> = {},
+    prices: Signal<Map<Integer, Array<String>>> = {}
   ) {
     self.services = services
-    self.declared = declared
+    self.atTrainer = atTrainer
+    self.notes = notes
+    self.actions = actions
+    self.prices = prices
     self.list = list
     self.ignored = ignored
     self.tabSpec = tabSpec
@@ -638,7 +680,7 @@ public class TrainerWindow implements Component {
     self.trade = trade
     self.columns = columnsOf(noun, trade)
     self.keys = trade ? TRADE_KEYS : CLASS_KEYS
-    self.rows = new Rows(self.picked, self.menuAt, self.menuEntries, self.ignoredNames)
+    self.rows = new Rows(self.picked, self.menuAt, self.menuEntries, self.ignoredNames, self.notes, atTrainer)
     self.rows.pick.listen(self.onPick)
     self.rows.double.listen(self.onDouble)
     self.rows.menu.listen(self.onMenu)
@@ -665,9 +707,9 @@ public class TrainerWindow implements Component {
   actsOf(self, service: Game.TrainerService | nil): Array<MenuAct> {
     const acts: Array<MenuAct> = []
     if (service == nil) { return acts }
-    if (learnable(service, self.ignoredNames)) { acts.push(.Learn) }
+    if (self.atTrainer && learnable(service, self.ignoredNames)) { acts.push(.Learn) }
     if (service.status != Game.ServiceStatus.Learned) { acts.push(.Ignore) }
-    if (linkOf(service) != nil) { acts.push(.Link) }
+    if (service.spell != nil || (self.atTrainer && linkOf(service) != nil)) { acts.push(.Link) }
     return acts
   }
 
@@ -689,7 +731,7 @@ public class TrainerWindow implements Component {
 
   greetingOf(self): String {
     _ = self.services.length
-    return Game.trainer.greeting()
+    return self.atTrainer ? Game.trainer.greeting() : ""
   }
 
   // The reason on «Learn»'s Tip while it can't be pressed; none while it can.
@@ -735,7 +777,7 @@ public class TrainerWindow implements Component {
 
   skillOf(self): Game.TrainerSkill | nil {
     _ = self.services.length
-    return Game.trainer.skill()
+    return self.atTrainer ? Game.trainer.skill() : nil
   }
 
   // The services of a category as the list shows them: none while it is folded.
@@ -759,7 +801,7 @@ public class TrainerWindow implements Component {
   // A service learned, in the player's click: the client buys it where it can be learned now; a new profession is
   // picked and asked first.
   learn(mut self, service: Game.TrainerService) {
-    if (!learnable(service, peek self.ignoredNames)) { return }
+    if (!self.atTrainer || !learnable(service, peek self.ignoredNames)) { return }
     if (service.profession) {
       self.picked = service.index
       self.confirming = true
@@ -795,7 +837,7 @@ public class TrainerWindow implements Component {
       .Ignore => self.flipIgnored(service.name)
       .Link => {
         const spell = service.spell
-        const item = linkOf(service)?.match("item:(%d+)")?.toNumber()?.floor()
+        const item = self.atTrainer ? linkOf(service)?.match("item:(%d+)")?.toNumber()?.floor() : nil
         if (spell != nil) {
           Game.chat.linkSpell(spell)
         } else if (item != nil) {
@@ -843,9 +885,11 @@ public class TrainerWindow implements Component {
 
   onLearnAllCancel(mut self) { self.confirmingAll = false }
 
-  // The window's close leaves the trainer, as the game's does.
-  onClose(self) { Client.CloseTrainer() }
-  onSettings(self) { self.settings.emit() }
+  // The picked service's own action, away from a trainer.
+  onAct(self) {
+    const current = peek self.current
+    if (current != nil) { self.acted.emit(current.index) }
+  }
 
   // The picked service's card: its name and what it is, what it asks for, its price and «Learn».
   const card: Template = $ltml {
@@ -864,6 +908,8 @@ public class TrainerWindow implements Component {
           <text value={change.next} textColor={GREEN} textFont={TextFont.Numbers} />
         </box>
         <text $for={fact of self.facts} value={fact} textColor={DIM} textSize={SECONDARY_TEXT} />
+        <text $if={self.priced} value={Locale.TRAINER_PRICES} textColor={GOLD} />
+        <text $for={line of self.priceLines} value={line} textColor={INK} textSize={SECONDARY_TEXT} />
       </box>
       <box $else columns={1} gap={2sp}>
         <text $if={self.greeting != ""} value={self.greeting} textColor={INK} />
@@ -878,6 +924,14 @@ public class TrainerWindow implements Component {
       <box $if={self.learned} xAlign={Align.End}>
         <text value={Locale.TRAINER_KNOWN} textColor={BLUE} />
       </box>
+      // Away from a trainer: the service's own action (its quest on the map), or where it is learned.
+      <box $elseif={!self.atTrainer} columns={PAIR} gap={3sp} yAlign={Align.Center}>
+        <box>
+          <Money $if={self.has && self.price > 0} amount={self.price} color={self.priceInk} />
+        </box>
+        <PushButton $if={self.acts} label={self.action ?? ""} width={TRAIN_WIDTH} @click={self.onAct} />
+        <text $else value={Locale.TRAINER_AT_TRAINER} textColor={DIM} textSize={SECONDARY_TEXT} />
+      </box>
       <box $else columns={PAIR} gap={3sp} yAlign={Align.Center}>
         <box>
           <Money $if={self.has} amount={self.price} color={self.priceInk} />
@@ -891,7 +945,7 @@ public class TrainerWindow implements Component {
   }
 
   // The footer, a band across the main section: the counts at its left, the player's money at its right.
-  const footer: Template = $ltml {
+  public const footer: Template = $ltml {
     <FooterBand>
       <box columns={SPREAD} gap={6sp} yAlign={Align.Center}>
         <box columns={FOOT} gap={6sp} yAlign={Align.Center}>
@@ -906,53 +960,93 @@ public class TrainerWindow implements Component {
     </FooterBand>
   }
 
+  public const body: Template = $ltml {
+    <box rows={BODY} gap={6sp}>
+      <SkillBar $if={self.skilled} rank={self.rank} most={self.most} />
+      <box $else />
+      <Toolbar search={mut self.search} placeholder={Locale.TRAINER_SEARCH}>
+        <ToolSort sorted={mut self.list.values.sorted} columns={self.columns} title={Locale.TRAINER_SORT} more={MORE_SORTS} />
+        <FilterButton values={mut self.list.values.shows} start={FILTER_START} groups={FILTERS} />
+        <ToolPick value={mut self.list.values.view} choices={TRAINER_VIEWS} icon={ARTWORK.ctl.tool.table} title={Locale.TRAINER_VIEW} />
+      </Toolbar>
+      <box $if={self.empty} xAlign={Align.Center} yAlign={Align.Center}>
+        <text value={Locale.TRAINER_NOTHING} textColor={DIM} />
+      </box>
+      <box $elseif={self.tabled} rows={FILL}>
+        <Table columns={self.columns} sorted={mut self.list.values.sorted} descending={mut self.list.values.descending}>
+          <ServiceTableRow $for={service of self.shown} $key={service.index} service={service} trade={self.trade}
+                           rows={self.rows} />
+        </Table>
+      </box>
+      <box $elseif={self.grouped} columns={1} overflow={Overflow.Scroll}>
+        <$for={category of self.categories}>
+          <CategoryCaption category={peek category} count={self.countIn(category)} folded={self.folded[category] == true}
+                           @toggled={self.onToggle} />
+          <ServiceLine $for={service of self.inCategory(category)} $key={service.index} service={service}
+                       rows={self.rows} />
+        </>
+      </box>
+      <box $else columns={1} overflow={Overflow.Scroll}>
+        <ServiceLine $for={service of self.shown} $key={service.index} service={service} rows={self.rows} />
+      </box>
+    </box>
+  }
+
+  public const dialogs: Template = $ltml {
+    <Dialog $if={self.confirming} width={DIALOG} title={self.tabSpec.title}>
+      <text value={self.confirmText} textColor={INK} />
+      <PushButton #buttons label={Locale.CANCEL} width={TRAIN_WIDTH} @click={self.onConfirmCancel} />
+      <PushButton #buttons label={Locale.TRAINER_TRAIN} width={TRAIN_WIDTH} plate={ButtonPlate.Accent} @click={self.onConfirmed} />
+    </Dialog>
+    <Dialog $if={self.confirmingAll} width={DIALOG} title={self.tabSpec.title}>
+      <box columns={FOOT} gap={2sp} yAlign={Align.Center}>
+        <text value={self.quotedCount} textColor={INK} />
+        <Money amount={self.quotedCost} />
+      </box>
+      <PushButton #buttons label={Locale.CANCEL} width={TRAIN_WIDTH} @click={self.onLearnAllCancel} />
+      <PushButton #buttons label={Locale.TRAINER_TRAIN} width={TRAIN_WIDTH} plate={ButtonPlate.Accent} @click={self.onLearnAllConfirmed} />
+    </Dialog>
+  }
+}
+
+// The window at a trainer: its page in a window of one tab, titled by the trainer; closing it leaves the trainer, as the
+// game's does.
+public class TrainerWindow implements Component {
+  // The ⚙ in the window's corner: the owning module's settings.
+  public settings: Event<nil> = new Event()
+
+  state tab = 1
+  derived tabs: Array<WindowTabSpec> = [self.tabSpec]
+
+  declared: mut KeptWindow
+  tabSpec: Signal<WindowTabSpec>
+  const page: TrainerPage
+  constructor(
+    services: Signal<Array<Game.TrainerService>>,
+    declared: mut KeptWindow,
+    list: mut ModuleMemory<TrainerList>,
+    ignored: mut ModuleMemory<TrainerIgnored>,
+    tabSpec: Signal<WindowTabSpec>,
+    // What the first column names a service: «Skill», «Recipe».
+    noun: String,
+    pickText: Signal<String>,
+    trade: Boolean
+  ) {
+    self.declared = declared
+    self.tabSpec = tabSpec
+    self.page = new TrainerPage(services, mut list, mut ignored, tabSpec, noun, pickText, trade)
+  }
+
+  onClose(self) { Client.CloseTrainer() }
+  onSettings(self) { self.settings.emit() }
+
   public render(self): Template {
     return $ltml {
-      <Window tabs={self.tabs} selected={mut self.tab} declared={mut self.declared} side={self.side} footer={self.footer}
+      <Window tabs={self.tabs} selected={mut self.tab} declared={mut self.declared} side={self.page.side} footer={self.page.footer}
               withSettings={true} @close={self.onClose} @settings={self.onSettings}>
-        <box rows={BODY} gap={6sp}>
-          <SkillBar $if={self.skilled} rank={self.rank} most={self.most} />
-          <box $else />
-          <Toolbar search={mut self.search} placeholder={Locale.TRAINER_SEARCH}>
-            <ToolSort sorted={mut self.list.values.sorted} columns={self.columns} title={Locale.TRAINER_SORT} more={MORE_SORTS} />
-            <FilterButton values={mut self.list.values.shows} start={FILTER_START} groups={FILTERS} />
-            <ToolPick value={mut self.list.values.view} choices={TRAINER_VIEWS} icon={ARTWORK.ctl.tool.table} title={Locale.TRAINER_VIEW} />
-          </Toolbar>
-          <box $if={self.empty} xAlign={Align.Center} yAlign={Align.Center}>
-            <text value={Locale.TRAINER_NOTHING} textColor={DIM} />
-          </box>
-          <box $elseif={self.tabled} rows={FILL}>
-            <Table columns={self.columns} sorted={mut self.list.values.sorted} descending={mut self.list.values.descending}>
-              <ServiceTableRow $for={service of self.shown} $key={service.index} service={service} trade={self.trade}
-                               rows={self.rows} />
-            </Table>
-          </box>
-          <box $elseif={self.grouped} columns={1} overflow={Overflow.Scroll}>
-            <$for={category of self.categories}>
-              <CategoryCaption category={peek category} count={self.countIn(category)} folded={self.folded[category] == true}
-                               @toggled={self.onToggle} />
-              <ServiceLine $for={service of self.inCategory(category)} $key={service.index} service={service}
-                           rows={self.rows} />
-            </>
-          </box>
-          <box $else columns={1} overflow={Overflow.Scroll}>
-            <ServiceLine $for={service of self.shown} $key={service.index} service={service} rows={self.rows} />
-          </box>
-        </box>
+        {self.page.body}
       </Window>
-      <Dialog $if={self.confirming} width={DIALOG} title={self.tabSpec.title}>
-        <text value={self.confirmText} textColor={INK} />
-        <PushButton #buttons label={Locale.CANCEL} width={TRAIN_WIDTH} @click={self.onConfirmCancel} />
-        <PushButton #buttons label={Locale.TRAINER_TRAIN} width={TRAIN_WIDTH} plate={ButtonPlate.Accent} @click={self.onConfirmed} />
-      </Dialog>
-      <Dialog $if={self.confirmingAll} width={DIALOG} title={self.tabSpec.title}>
-        <box columns={FOOT} gap={2sp} yAlign={Align.Center}>
-          <text value={self.quotedCount} textColor={INK} />
-          <Money amount={self.quotedCost} />
-        </box>
-        <PushButton #buttons label={Locale.CANCEL} width={TRAIN_WIDTH} @click={self.onLearnAllCancel} />
-        <PushButton #buttons label={Locale.TRAINER_TRAIN} width={TRAIN_WIDTH} plate={ButtonPlate.Accent} @click={self.onLearnAllConfirmed} />
-      </Dialog>
+      {self.page.dialogs}
     }
   }
 }

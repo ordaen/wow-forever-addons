@@ -32,6 +32,8 @@
   "TRAINER_TOGETHER": "Всё доступное вместе:",
   "TRAINER_NEEDS_LEVEL_SHORT": "Требуется %d-й уровень",
   "TRAINER_TOO_DEAR": "Недостаточно денег",
+  "TRAINER_AT_TRAINER": "Изучается у наставника",
+  "TRAINER_PRICES": "Цена по городам",
   "TRAINER_LEARN_ALL": "Изучить всё (%d)",
   "TRAINER_LEARN_ALL_CONFIRM": "Изучить навыки (%d) за",
   "TRAINER_LEARN_ALL_NONE": "Сейчас изучить нечего: игнорируемое и новые профессии не входят.",

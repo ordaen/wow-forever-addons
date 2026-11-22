@@ -32,6 +32,8 @@
   "TRAINER_TOGETHER": "All available, together:",
   "TRAINER_NEEDS_LEVEL_SHORT": "Requires level %d",
   "TRAINER_TOO_DEAR": "Not enough money",
+  "TRAINER_AT_TRAINER": "Learned at a trainer",
+  "TRAINER_PRICES": "Price by city",
   "TRAINER_LEARN_ALL": "Learn all (%d)",
   "TRAINER_LEARN_ALL_CONFIRM": "Learn %d skills for",
   "TRAINER_LEARN_ALL_NONE": "Nothing can be learned now: what is ignored or starts a profession is left out.",
