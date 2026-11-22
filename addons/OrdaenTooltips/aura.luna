@@ -123,10 +123,10 @@ public function aura(data: Game.TooltipData, options: Options): Model | nil {
     let dispel = known.dispel
     if (dispel != nil) { desc.push({ text: known.dispelName ?? dispel, color: DISPEL[dispel] }) }
     if (known.source == "player" || known.source == "pet") { desc.push({ text: Locale.AURA_YOURS, color: GOLD, opens: named(Term.Mine) }) }
-    if (known.stacks > 1) { facts.push({ text: `×${known.stacks}`, opens: named(Term.Stacks) }) }
+    if (known.stacks > 1) { facts.push({ cell: { text: `×${known.stacks}` }, opens: named(Term.Stacks) }) }
     let left = known.left
     if (left != nil) {
-      facts.push({ text: wait((0.0).max(left)), glyph: .Time, opens: named(Term.Time) })
+      facts.push({ cell: { text: wait((0.0).max(left)), glyph: .Time }, opens: named(Term.Time) })
       timer = true
     }
     // What the player can do about it.
@@ -139,9 +139,9 @@ public function aura(data: Game.TooltipData, options: Options): Model | nil {
       by = remover(PURGE[mine])
     }
     if (known.own && !harmful) {
-      facts.push({ text: Locale.CANCEL_KEY, opens: named(Term.Cancel) })
+      facts.push({ cell: { text: Locale.CANCEL_KEY }, opens: named(Term.Cancel) })
     } else if (by != nil) {
-      facts.push({ text: by, color: REMOVE_COLOR, opens: named(Term.Removeby) })
+      facts.push({ cell: { text: by, color: REMOVE_COLOR }, opens: named(Term.Removeby) })
     }
     let caster = known.sourceName
     if (options.aurasCaster && caster != nil) {

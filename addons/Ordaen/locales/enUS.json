@@ -276,5 +276,11 @@
   "CONFLICT_OTHER": "%s: %s turned off.",
   "CONFLICT_RELOAD": "%s is off from the next reload.",
   "CONFLICT_RELOAD_NOW": "Reload",
-  "CONFLICT_LATER": "Later"
+  "CONFLICT_LATER": "Later",
+  "CAST_INSTANT": "Instant",
+  "CAST_SECONDS": "%s sec",
+  "CAST_MINUTES": "%s min",
+  "CAST_NEXT": "Next",
+  "MELEE_RANGE_SHORT": "5 yd",
+  "MELEE_RANGE_TEXT": "Melee Range"
 }

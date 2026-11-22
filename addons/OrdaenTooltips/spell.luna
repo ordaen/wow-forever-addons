@@ -4,10 +4,10 @@
 import Client from "$client"
 import Game from "$game"
 import Runtime from "$runtime"
-import { BRIGHT_TEXT, richDescription } from "Ordaen"
+import { BRIGHT_TEXT, BandKind, bandOf, richDescription } from "Ordaen"
 import { RED, YELLOW, colorOf } from "@/colors"
 import Locale from "@/locales"
-import { Fact, Glyph, Kind, Model, Note, Opens, Part, TextLine, iconOf, named } from "@/model"
+import { Fact, Kind, Model, Note, Opens, Part, TextLine, iconOf, named } from "@/model"
 import { Options } from "@/options"
 import { Term } from "@/terms"
 import { clean, duration, form, labelled } from "@/text"
@@ -18,17 +18,8 @@ const SPELL_NAME = 13
 const PASSIVE = 33
 const DESCRIPTION = 34
 const REQUIREMENT = 43
-// The resources' colours, the design's.
-const MANA: Color = Color.hex("#2f6fe0")
-const RAGE: Color = Color.hex("#c7281c")
-const ENERGY: Color = Color.hex("#e8d040")
 // Before the lines of the item a recipe makes: from it on they are that item's own tooltip.
 const NESTED = 19
-
-// What follows a label's colon («Cooldown: 10 sec» is «10 sec»), or the text.
-function valueOf(text: String): String {
-  return text.match("^[^:]+:%s*(.+)$") ?? text
-}
 
 // «%d points», in the form the number takes: the Russian rule on a Russian client, one and the rest elsewhere.
 function combo(points: Integer): String {
@@ -118,16 +109,6 @@ function comboValue(effect: String): String | nil {
   return effect.match("%d+")
 }
 
-// The design's colour of a cost's resource (TooltipColumns' `.res`); the client's own for one it has none of.
-function resourceColorOf(cost: Game.SpellCost): Color | nil {
-  return match (cost.resource) {
-    .Mana => MANA
-    .Rage => RAGE
-    .Energy => ENERGY
-    .Focus, .Health, .Other => cost.color
-  }
-}
-
 // A rank in Ordaen's words («Rank 4», «Ранг 4»), whatever the client calls it («Уровень 4»); its words where they
 // hold no number.
 function rankText(rank: String): String {
@@ -163,80 +144,18 @@ function describe(text: String, body: mut Array<TextLine>) {
   for (row of rows) { body.push(row) }
 }
 
-// A number as the game wrote it in a line («1,5», «2.5»).
-function digitsOf(text: String): String { return text.match("%d+[,%.]?%d*") ?? "" }
-
-// How long a channelled spell lasts, as its description says it («over 5 sec.», «в течение 5 сек.»), else its first
-// time in seconds; nothing where it says none.
-function channelOf(description: String): String | nil {
-  const seconds = description.match("в течение (%d+[,%.]?%d*)%s*сек") ?? description.match("over (%d+[,%.]?%d*)%s*sec") ??
-    description.match("(%d+[,%.]?%d*)%s*сек") ?? description.match("(%d+[,%.]?%d*)%s*sec")
-  return seconds == nil ? nil : Locale.CAST_SECONDS.format(seconds)
-}
-
-// A cell of the band from one side of one of the spell's first lines. `first`: the line is the band's first, where
-// the cost and the range stand; `right`: the line's right side; `cast`: its left side was the cast, so this is the
-// cooldown; `channel`: how long the spell is channelled, where it is. Whether this side was the cast.
-function cell(
-  text: String, first: Boolean, right: Boolean, cost: Game.SpellCost | nil, cast: Boolean, channel: String | nil,
-  facts: mut Array<Fact>
-): Boolean {
-  let glyph: Glyph | nil = nil
-  let tint: Color | nil = nil
-  let shown = text
-  let isCast = false
-  let opens: Opens = Opens.None
-  let digits = text.match("%d[%d%s\194\160]*")
-  if (text == Game.strings.castInstant || text == Game.strings.castInstantNoMana) {
-    shown = Locale.CAST_INSTANT
-    glyph = .CastNow
-    opens = named(Term.Castnow)
-    isCast = true
-  } else if (text.contains(Game.strings.castChanneled)) {
-    // The glyph says it is channelled; the cell says for how long, as the description has it (the game's word where
-    // it says no time).
-    shown = channel ?? text
-    glyph = .CastChan
-    opens = named(Term.Castchan)
-    isCast = true
-  } else if (text.unformat(Game.strings.castTimeSec) != nil) {
-    shown = Locale.CAST_SECONDS.format(digitsOf(text))
-    glyph = .CastTime
-    opens = named(Term.Casttime)
-    isCast = true
-  } else if (text.unformat(Game.strings.castTimeMin) != nil) {
-    shown = Locale.CAST_MINUTES.format(digitsOf(text))
-    glyph = .CastTime
-    opens = named(Term.Casttime)
-    isCast = true
-  } else if (text == Game.strings.onNextSwing || text == Game.strings.onNextRanged) {
-    shown = Locale.CAST_NEXT
-    glyph = .CastNext
-    opens = named(Term.Castnext)
-    isCast = true
-  } else if (!right && first && cost != nil && digits != nil &&
-      (digits.replace("%D", "")).toNumber() == cost.amount) {
-    // The cost: a dot in its resource's colour and the number.
-    glyph = .Cost
-    tint = resourceColorOf(cost)
-    shown = digits.replace("%s+$", "")
-  } else if (right && cast) {
-    if (digits != nil) {
-      shown = "CD " + valueOf(text)
-      opens = named(Term.Cd)
-    }
-  } else if (first) {
-    // The range, beside the cost or alone: its value only, the closing full stop dropped.
-    if (text == Game.strings.meleeRange || text == Locale.MELEE_RANGE_TEXT) {
-      shown = Locale.MELEE_RANGE_SHORT
-      opens = named(Term.Melee)
-    } else {
-      shown = valueOf(text).replace("%.$", "")
-      opens = named(Term.Range)
-    }
+// What a cell of the band explains in a locked tooltip: the term of what it says.
+function opensOf(kind: BandKind): Opens {
+  return match (kind) {
+    .CastNow => named(Term.Castnow)
+    .CastTime => named(Term.Casttime)
+    .CastChan => named(Term.Castchan)
+    .CastNext => named(Term.Castnext)
+    .Cooldown => named(Term.Cd)
+    .Melee => named(Term.Melee)
+    .Range => named(Term.Range)
+    .Cost, .Other => Opens.None
   }
-  facts.push({ text: shown, glyph: glyph, tint: tint, opens: opens })
-  return isCast
 }
 
 public function spell(data: Game.TooltipData, options: Options): Model | nil {
@@ -245,19 +164,16 @@ public function spell(data: Game.TooltipData, options: Options): Model | nil {
   let name: String | nil = nil
   let desc: Array<Part> = []
   let info: Array<Part> = []
-  let facts: Array<Fact> = []
   let body: Array<TextLine> = []
   let foot: Array<Note> = []
-  // The band's lines read so far.
-  let band = 0
-  let description = ""
-  for (line of data.lines) {
-    if (line.kind == DESCRIPTION) { description = description + (line.left ?? "") }
-  }
-  const channel = channelOf(description)
+  // The band (cost and range, cast and cooldown): Ordaen's reading of the game's first lines, which no other part
+  // reads again.
+  const band = bandOf(data.lines, cost)
+  const facts: Array<Fact> = band.facts.map(cell => Fact { cell: cell, opens: opensOf(cell.kind) })
   for (i, line of data.lines) {
     // A recipe's made item: a tooltip of its own beside this one (`madeBy`).
     if (line.kind == NESTED) { break }
+    if (band.taken[i] == true) { continue }
     let left = clean(line.left)
     let right = clean(line.right)
     if (line.kind == SPELL_NAME && name == nil) {
@@ -276,20 +192,8 @@ public function spell(data: Game.TooltipData, options: Options): Model | nil {
       if (left != nil) { describe(left, mut body) }
     } else if (line.kind == PASSIVE) {
       if (left != nil) { desc.push({ text: left }) }
-    } else if (line.kind != BLANK && left != nil) {
-      // Cost and range, cast and cooldown: the game's two-sided lines, cells of the band.
-      if (right != nil) {
-        band += 1
-        let cast = cell(left, band == 1, false, cost, false, channel, mut facts)
-        _ = cell(right, band == 1, true, cost, cast, channel, mut facts)
-      } else if (!reagents(left, mut foot) && !tools(left, mut foot)) {
-        if (i <= 4 && body.length == 0) {
-          band += 1
-          _ = cell(left, band == 1, false, cost, false, channel, mut facts)
-        } else {
-          body.push({ left: left, color: colorOf(line.leftColor) })
-        }
-      }
+    } else if (line.kind != BLANK && left != nil && right == nil && !reagents(left, mut foot) && !tools(left, mut foot)) {
+      body.push({ left: left, color: colorOf(line.leftColor) })
     }
   }
   let timer = false

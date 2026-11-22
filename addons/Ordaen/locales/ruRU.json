@@ -276,5 +276,11 @@
   "CONFLICT_OTHER": "%s: выключаются %s.",
   "CONFLICT_RELOAD": "%s выключен со следующей перезагрузки.",
   "CONFLICT_RELOAD_NOW": "Перезагрузить",
-  "CONFLICT_LATER": "Позже"
+  "CONFLICT_LATER": "Позже",
+  "CAST_INSTANT": "Мгновенно",
+  "CAST_SECONDS": "%s сек.",
+  "CAST_MINUTES": "%s мин.",
+  "CAST_NEXT": "Следующая",
+  "MELEE_RANGE_SHORT": "5 м",
+  "MELEE_RANGE_TEXT": "Дистанция ближнего боя"
 }

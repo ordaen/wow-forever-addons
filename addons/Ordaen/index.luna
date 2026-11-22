@@ -16,6 +16,9 @@ public import { ModuleMemory, Settings } from "@/settings"
 // The controls every module draws by name.
 public import { Age, ageText } from "@/age"
 public import { agoText, hoursAgoText } from "@/ago"
+public import {
+  Band, BandCell, BandFact, BandKind, Glyph, TERM_DASH, TERM_UNDERLINE, TERM_UNDERLINE_HEIGHT, bandOf, glyphArt, termUnderlineAt
+} from "@/band"
 public import { Checkbox, Tick } from "@/checkbox"
 public import { ColorPicker } from "@/colorPicker"
 public import { CopyBox } from "@/copyBox"

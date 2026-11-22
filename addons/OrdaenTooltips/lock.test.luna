@@ -7,9 +7,9 @@ import Game from "$game"
 import { Key } from "$ltml"
 import Test from "$test"
 import root Ordaen from "Ordaen"
+import { TERM_DASH } from "Ordaen"
 import root Tooltips from "OrdaenTooltips"
 import { ItemKeys, ItemLines, Line } from "@/extend"
-import { DASH } from "@/frame"
 
 const SCREEN: Test.Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
 const SETTINGS = "Move mode"
@@ -368,10 +368,10 @@ test "a locked tooltip underlines the parts that open something; one not locked 
   Test.mount(new Elsewhere(), SCREEN)
   Game.tooltip.main = inSlot(frostbolt())
   Test.pass(0.1)
-  Test.expect(Test.page().window("Frostbolt").box(DASH).count() == 0)
+  Test.expect(Test.page().window("Frostbolt").box(TERM_DASH).count() == 0)
   Test.pass(CHARGED)
   // The range's cell and the cast's: the cost names no term.
-  Test.expect(locked().box(DASH).count() == 2)
+  Test.expect(locked().box(TERM_DASH).count() == 2)
 }
 
 test "the cursor on a cell that names a term opens the term beside it, under the help cursor" {

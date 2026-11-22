@@ -234,28 +234,25 @@ public function item(data: Game.TooltipData, options: Options): ItemRead | nil {
       if (low != nil && high != nil) {
         let from = number(low) ?? 0
         let to = number(high) ?? 0
-        facts.push({ text: Locale.COL_DAMAGE.format(shown(from), shown(to)), glyph: .Dmg, opens: named(Term.Dmg) })
+        facts.push({ cell: { text: Locale.COL_DAMAGE.format(shown(from), shown(to)), glyph: .Dmg }, opens: named(Term.Dmg) })
         let speed = last(clean(line.right) ?? "")
         if (speed != nil) {
-          facts.push({ text: Locale.COL_SPEED.format(shown(speed)), glyph: .Spd, opens: named(Term.Spd) })
+          facts.push({ cell: { text: Locale.COL_SPEED.format(shown(speed)), glyph: .Spd }, opens: named(Term.Spd) })
         }
       } else if (single != nil) {
-        facts.push({ text: shown(number(single) ?? 0), glyph: .Dmg, opens: named(Term.Dmg) })
+        facts.push({ cell: { text: shown(number(single) ?? 0), glyph: .Dmg }, opens: named(Term.Dmg) })
       } else if (dps != nil) {
         let perSecond = number(dps) ?? 0
-        facts.push({ text: Locale.COL_DPS.format(shown(perSecond)), opens: named(Term.Dps) })
+        facts.push({ cell: { text: Locale.COL_DPS.format(shown(perSecond)) }, opens: named(Term.Dps) })
       } else if (armor != nil) {
         // Armour beyond the item's own is in green.
         let worn = number(armor) ?? 0
-        facts.push({
-          text: shown(worn), color: colorOf(line.leftColor), glyph: .Arm,
-          opens: namedWith(Term.Arm, shown(worn))
-        })
+        facts.push({ cell: { text: shown(worn), color: colorOf(line.leftColor), glyph: .Arm }, opens: namedWith(Term.Arm, shown(worn)) })
       } else if (block != nil) {
         let blocked = number(block) ?? 0
-        facts.push({ text: shown(blocked), glyph: .Blk, opens: namedWith(Term.Blk, shown(blocked)) })
+        facts.push({ cell: { text: shown(blocked), glyph: .Blk }, opens: namedWith(Term.Blk, shown(blocked)) })
       } else if (room != nil) {
-        facts.push({ text: slots(room.floor()), opens: namedWith(Term.Bag, `${room.floor()}`) })
+        facts.push({ cell: { text: slots(room.floor()) }, opens: namedWith(Term.Bag, `${room.floor()}`) })
       } else if (current != nil && most != nil) {
         let now = number(current) ?? 0
         let whole = number(most) ?? 1

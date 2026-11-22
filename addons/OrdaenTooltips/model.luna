@@ -2,6 +2,7 @@
 // description and the info line), the band of facts, the body, what there is more of, the footer and the hotkeys.
 // The reader fills one from the game's tooltip data; the frame draws it.
 import { Art } from "$ltml"
+import { BandFact } from "Ordaen"
 import { Term } from "@/terms"
 
 public enum Kind {
@@ -44,21 +45,9 @@ public struct Part {
   opens: Opens = Opens.None
 }
 
-// The tooltips' glyphs, by their names in the design (`tooltips`): what a fact is about, drawn before its text
-// (frame.luna's `glyphArt`; the cost's is the design's dot, in its resource's colour).
-public enum Glyph {
-  Dmg = "dmg", Spd = "spd", Arm = "arm", Blk = "blk", Alliance = "alliance", Horde = "horde", Elite = "elite"
-  Time = "time", Cost = "cost", CastNow = "castNow", CastTime = "castTime", CastChan = "castChan"
-  CastNext = "castNext"
-}
-
-// A fact of the band: its glyph before its text.
+// A fact of the band: its cell (Ordaen's band: its glyph before its text), and what it opens in a locked tooltip.
 public struct Fact {
-  text: String
-  color: Color | nil
-  glyph: Glyph | nil
-  // The glyph's colour: a spell's cost in its resource's.
-  tint: Color | nil
+  cell: BandFact
   opens: Opens = Opens.None
 }
 
