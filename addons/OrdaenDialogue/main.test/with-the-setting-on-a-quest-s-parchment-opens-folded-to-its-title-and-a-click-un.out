@@ -90,20 +90,20 @@ surface 54.82,99.96 384.71x620.08 on MEDIUM clamped raised by a click
                 text 343.01,672.27 38.33x15.83 "Accept" #ffd100
     box 417.78,698.29 13.33x13.33 absolute
       box 417.78,698.29 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
-  box 54.82,99.96 384.71x43.95
-    box 69.22,99.96 267.38x43.95
-      box 69.22,99.96 169.25x43.95 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.99, tr 0.91, top 0.98>0.91 x4.88, left 0.99>0.98 x1.03, right 0.90>0.89 x1.03] @drag @dragStart @dragStop @keyPress @pointerPress
-        box 75.97,106.71 43.95x43.95 absolute face:npc border=Interface\AddOns\Ordaen\media\frame-edge-top sides=none pieces=[]
-        box 117.37,106.71 2.7x37.2 absolute border=Interface\AddOns\Ordaen\media\frame-divider-down sides=left pieces=[left 0.85>0.84 x1.94]
-        box 124.4,107.16 98.33x43.5
-          text 124.4,120.99 98.33x15.83 "Innkeeper Farley" #ffd100
-    box 345.13,117.24 80x26.67 clipped opacity=0 @pointerEnter @pointerLeave
-      box 345.13,117.24 27.5x26.67 absolute clipped @keyPress @pointerPress
-        box 345.13,117.24 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
-        box 353.46,126.82 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 0 of 8
-      box 372.63,117.24 25x26.67 absolute clipped @keyPress @pointerPress
-        box 372.63,117.24 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 3 of 16
-        box 378.88,126.82 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
-      box 397.63,117.24 27.5x26.67 absolute clipped @keyPress @pointerPress
-        box 397.63,117.24 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
-        box 403.88,126.82 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
+  box 54.82,99.96 384.71x39
+    box 69.22,99.96 267.38x39
+      box 69.22,99.96 164.3x39 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.99, tr 0.91, top 0.98>0.91 x4.70, left 0.99>0.98 x0.85, right 0.90>0.90 x0.85] @drag @dragStart @dragStop @keyPress @pointerPress
+        box 75.97,106.71 39x39 absolute face:npc border=Interface\AddOns\Ordaen\media\frame-edge-top sides=none pieces=[]
+        box 112.42,106.71 2.7x32.25 absolute border=Interface\AddOns\Ordaen\media\frame-divider-down sides=left pieces=[left 0.85>0.84 x1.68]
+        box 119.45,107.16 98.33x38.55
+          text 119.45,118.52 98.33x15.83 "Innkeeper Farley" #ffd100
+    box 345.13,112.29 80x26.67 clipped opacity=0 @pointerEnter @pointerLeave
+      box 345.13,112.29 27.5x26.67 absolute clipped @keyPress @pointerPress
+        box 345.13,112.29 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
+        box 353.46,121.87 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 0 of 8
+      box 372.63,112.29 25x26.67 absolute clipped @keyPress @pointerPress
+        box 372.63,112.29 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 3 of 16
+        box 378.88,121.87 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
+      box 397.63,112.29 27.5x26.67 absolute clipped @keyPress @pointerPress
+        box 397.63,112.29 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
+        box 403.88,121.87 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8

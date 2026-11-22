@@ -204,15 +204,21 @@ public function cornerArtWidth(metal: ArtBorder): Number<Length> {
   return pieces is FramePieces ? pieces.topLeft.width * metal.scale * 1ui : 0ui
 }
 
+// How far below its box's top edge a frame's rod starts, past its shadow and its outer black line: what stands on the
+// frame from above (a tab's sides) meets the rod there, drawn over the shadow.
+public function toRod(metal: ArtBorder): Number<Length> {
+  return (metal.lineStart - ROD) * metal.scale * 1ui
+}
+
 // The metal frame: Ordaen's own (art/pieces/frame-*.json, drawn by wow-dev-tools design/scripts/frame-metal.mjs), one
 // bronze rod for every line. An outer side is a band of 16 texels, outside in: 4 of shadow, a black line, the rod of
 // 10, a black line; the line is the inner black, so the art stands 15 texels past it, and the box's background starts
 // under the rod's middle (5 texels out). The pieces are grey: `tint` makes them bronze, and the light runs round the
 // box's surface, its bottom right darker by `fall` than its top left. A window's outer frame and its tabs are drawn
-// at 0.45, its dividers and a small surface's frame at 0.3: a rod of 4.5 and 3 units. A small surface's corners are rounded with no mask (the client cuts a texture by three at most): its
-// background starts at the line (`LINE_INSET`), and its square corner stands under the corner's band, which is solid
-// from the line out past the rod (a rounded corner's inner curve is 16 texels round its middle, the background's corner
-// 22.6 from it, the rod's outer black 28).
+// at 0.45, its dividers and a small surface's frame at 0.3: a rod of 4.5 and 3 units. A small surface's corners are
+// rounded with no mask (the client cuts a texture by three at most): its background starts at the line (`LINE_INSET`),
+// and its square corner stands under the corner's band, which is solid from the line out past the rod (a rounded
+// corner's inner curve is 16 texels round its middle, the background's corner 22.6 from it, the rod's outer black 28).
 const WINDOW_SCALE = 0.45
 const DIVIDER_SCALE = 0.3
 const SMALL_SCALE = 0.3
@@ -222,6 +228,8 @@ const FALL = 0.4
 const INLAID = 0.88
 const BAND: Reach = { top: 15, right: 15, bottom: 15, left: 15 }
 const BAND_LINE = 15
+// The rod's width, the line's black outside it: the rod stands from `BAND_LINE - ROD` to the line.
+const ROD = 10
 const BAND_INSET = -5
 const LINE_INSET = 0
 // A rounded corner's curve where the background meets it (the rod's middle): its piece's 32 less the 10 texels out.

@@ -185,7 +185,7 @@ class Crowded {
   }
 }
 
-test "the control group stands in the tab row: past the body's top right corner, its foot under the top band" {
+test "the control group stands in the tab row: past the body's top right corner, its foot on the top band's rod" {
   let page = new Gearbox(true)
   Test.mount(page, { left: 0, top: 0, width: 800, height: 600 })
   Test.flush()
@@ -194,14 +194,14 @@ test "the control group stands in the tab row: past the body's top right corner,
   const close = Test.edges(Ordaen.art.ctl.corner.red, 1)
   const tab = Test.holding("Recipes", nil)
   const metal = Ordaen.art.frame.window
-  // The body's wood is drawn from its art's top: its line stands the band's reach and its own width below that.
-  const line = body.top + metal.reach.top * metal.scale + metal.width
+  // The body is placed by its art's top: the band's rod starts 5 texels below it, past its shadow (4) and outer black.
+  const rod = body.top + 5 * metal.scale
   // The group ends where the body's top right corner piece starts (its corners are one width).
   Test.expect(near(close.right, body.right - cornerArtWidth(metal) / 1ui))
   Test.expect(Test.edges(Ordaen.art.ctl.corner.gear, 0).left > tab.x)
-  // Every plate runs on under the band, as the tabs' sides do: its foot on the line, the band drawn over it.
+  // Every plate meets the rod, as the tabs' sides do: drawn over the band's shadow, its foot on the rod's top.
   for (art of [Ordaen.art.ctl.corner.bronze.first, Ordaen.art.ctl.corner.bronze.next, Ordaen.art.ctl.corner.red]) {
-    Test.expect(near(Test.edges(art, 0).bottom, line))
+    Test.expect(near(Test.edges(art, 0).bottom, rod))
   }
   destroy page
 }

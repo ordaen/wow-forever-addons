@@ -132,15 +132,15 @@ surface 201.75,139.96 996.5x620.08 on MEDIUM clamped raised by a click
                 text 1082.04,716.54 55.83x15.83 "Roll back" #808080
     box 1176.5,738.29 13.33x13.33 absolute
       box 1176.5,738.29 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
-  box 201.75,139.96 996.5x43.95
-    box 216.15,139.96 904.17x43.95
-      box 216.15,139.96 113.5x43.95 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.99, tr 0.97, top 0.99>0.98 x2.94, left 0.99>0.98 x1.03, right 0.97>0.96 x1.03] @drag @dragStart @dragStop @keyPress @pointerPress
-        box 231.88,147.16 82.03x43.5
-          text 253.73,160.99 38.33x15.83 "Ordaen" #ffd100
-    box 1128.85,157.24 55x26.67 clipped opacity=1 @pointerEnter @pointerLeave
-      box 1128.85,157.24 27.5x26.67 absolute clipped @keyPress @pointerPress
-        box 1128.85,157.24 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
-        box 1137.18,166.82 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
-      box 1156.35,157.24 27.5x26.67 absolute clipped @keyPress @pointerPress
-        box 1156.35,157.24 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
-        box 1162.6,166.82 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
+  box 201.75,139.96 996.5x39
+    box 216.15,139.96 904.17x39
+      box 216.15,139.96 113.5x39 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.99, tr 0.97, top 0.99>0.98 x2.94, left 0.99>0.98 x0.85, right 0.97>0.96 x0.85] @drag @dragStart @dragStop @keyPress @pointerPress
+        box 231.88,147.16 82.03x38.55
+          text 253.73,158.52 38.33x15.83 "Ordaen" #ffd100
+    box 1128.85,152.29 55x26.67 clipped opacity=1 @pointerEnter @pointerLeave
+      box 1128.85,152.29 27.5x26.67 absolute clipped @keyPress @pointerPress
+        box 1128.85,152.29 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
+        box 1137.18,161.88 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
+      box 1156.35,152.29 27.5x26.67 absolute clipped @keyPress @pointerPress
+        box 1156.35,152.29 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
+        box 1162.6,161.88 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8

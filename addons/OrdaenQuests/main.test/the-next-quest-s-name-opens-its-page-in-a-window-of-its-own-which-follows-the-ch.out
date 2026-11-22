@@ -181,24 +181,24 @@ surface 548.15,192.46 893.38x515.08 on MEDIUM clamped raised by a click
       box 1041.32,248.07 6.67x452.27 absolute @drag @dragStart @dragStop
     box 1419.78,685.79 13.33x13.33 absolute
       box 1419.78,685.79 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
-  box 548.15,192.46 893.38x55.62
-    box 562.55,192.46 776.04x55.62
-      box 562.55,192.46 120.92x55.62 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.99, tr 0.97, top 0.99>0.97 x3.20, left 0.99>0.97 x1.43, right 0.96>0.95 x1.43] @drag @dragStart @dragStop @keyPress @pointerPress
-        box 569.3,199.21 55.62x55.62 absolute icon=Interface/QuestFrame/UI-QuestLog-BookIcon cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=none pieces=[]
-        box 622.37,199.21 2.7x48.87 absolute border=Interface\AddOns\Ordaen\media\frame-divider-down sides=left pieces=[left 0.86>0.85 x2.55]
-        box 629.4,199.66 38.33x55.17
-          text 629.4,211.95 38.33x15.83 "Quests" #ffd100
-          text 645.23,229.2 6.67x13.33 "3" #8f8470
-    box 1347.13,221.41 80x26.67 clipped opacity=1 @pointerEnter @pointerLeave
-      box 1347.13,221.41 27.5x26.67 absolute clipped @keyPress @pointerPress
-        box 1347.13,221.41 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
-        box 1355.46,230.99 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 0 of 8
-      box 1374.63,221.41 25x26.67 absolute clipped @keyPress @pointerPress
-        box 1374.63,221.41 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 3 of 16
-        box 1380.88,230.99 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
-      box 1399.63,221.41 27.5x26.67 absolute clipped @keyPress @pointerPress
-        box 1399.63,221.41 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
-        box 1405.88,230.99 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
+  box 548.15,192.46 893.38x50.67
+    box 562.55,192.46 776.04x50.67
+      box 562.55,192.46 115.97x50.67 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.99, tr 0.97, top 0.99>0.97 x3.03, left 0.99>0.98 x1.26, right 0.97>0.95 x1.26] @drag @dragStart @dragStop @keyPress @pointerPress
+        box 569.3,199.21 50.67x50.67 absolute icon=Interface/QuestFrame/UI-QuestLog-BookIcon cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=none pieces=[]
+        box 617.42,199.21 2.7x43.92 absolute border=Interface\AddOns\Ordaen\media\frame-divider-down sides=left pieces=[left 0.86>0.85 x2.29]
+        box 624.45,199.66 38.33x50.22
+          text 624.45,209.47 38.33x15.83 "Quests" #ffd100
+          text 640.28,226.73 6.67x13.33 "3" #8f8470
+    box 1347.13,216.46 80x26.67 clipped opacity=1 @pointerEnter @pointerLeave
+      box 1347.13,216.46 27.5x26.67 absolute clipped @keyPress @pointerPress
+        box 1347.13,216.46 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
+        box 1355.46,226.04 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 0 of 8
+      box 1374.63,216.46 25x26.67 absolute clipped @keyPress @pointerPress
+        box 1374.63,216.46 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 3 of 16
+        box 1380.88,226.04 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
+      box 1399.63,216.46 27.5x26.67 absolute clipped @keyPress @pointerPress
+        box 1399.63,216.46 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
+        box 1405.88,226.04 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
 surface 956.48,223.29 353.7x453.42 on MEDIUM clamped raised by a click
   box 956.48,260.04 353.7x416.67 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.98, tr 0.78, bl 0.80, br 0.61, top 0.97>0.79 x11.28, bottom 0.79>0.61 x11.28, left 0.98>0.80 x13.47, right 0.78>0.61 x13.47] @pointerEnter @pointerLeave
     box 963.68,267.24 339.3x402.27
@@ -242,19 +242,19 @@ surface 956.48,223.29 353.7x453.42 on MEDIUM clamped raised by a click
             box 1075.51,622.69 208.99x0
     box 1288.43,654.96 13.33x13.33 absolute
       box 1288.43,654.96 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
-  box 956.48,223.29 353.7x43.95
-    box 970.88,223.29 261.37x43.95
-      box 970.88,223.29 199.25x43.95 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.98, tr 0.88, top 0.98>0.89 x5.92, left 0.98>0.97 x1.03, right 0.87>0.86 x1.03] @drag @dragStart @dragStop @keyPress @pointerPress
-        box 977.63,230.04 43.95x43.95 absolute icon=Interface/GossipFrame/AvailableQuestIcon cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=none pieces=[]
-        box 1019.03,230.04 2.7x37.2 absolute border=Interface\AddOns\Ordaen\media\frame-divider-down sides=left pieces=[left 0.85>0.83 x1.94]
-        box 1026.07,230.49 128.33x43.5
-          text 1026.07,244.32 128.33x15.83 "Next quest in a chain" #ffd100
-    box 1240.78,240.57 55x26.67 clipped opacity=0 @pointerEnter @pointerLeave
-      box 1240.78,240.57 27.5x26.67 absolute clipped @keyPress @pointerPress
-        box 1240.78,240.57 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
-        box 1249.12,250.16 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
-      box 1268.28,240.57 27.5x26.67 absolute clipped @keyPress @pointerPress
-        box 1268.28,240.57 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
-        box 1274.53,250.16 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
+  box 956.48,223.29 353.7x39
+    box 970.88,223.29 261.37x39
+      box 970.88,223.29 194.3x39 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.98, tr 0.88, top 0.98>0.89 x5.75, left 0.98>0.97 x0.85, right 0.88>0.87 x0.85] @drag @dragStart @dragStop @keyPress @pointerPress
+        box 977.63,230.04 39x39 absolute icon=Interface/GossipFrame/AvailableQuestIcon cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=none pieces=[]
+        box 1014.08,230.04 2.7x32.25 absolute border=Interface\AddOns\Ordaen\media\frame-divider-down sides=left pieces=[left 0.85>0.84 x1.68]
+        box 1021.12,230.49 128.33x38.55
+          text 1021.12,241.85 128.33x15.83 "Next quest in a chain" #ffd100
+    box 1240.78,235.62 55x26.67 clipped opacity=0 @pointerEnter @pointerLeave
+      box 1240.78,235.62 27.5x26.67 absolute clipped @keyPress @pointerPress
+        box 1240.78,235.62 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
+        box 1249.12,245.21 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
+      box 1268.28,235.62 27.5x26.67 absolute clipped @keyPress @pointerPress
+        box 1268.28,235.62 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
+        box 1274.53,245.21 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
 
 key: ESCAPE → none

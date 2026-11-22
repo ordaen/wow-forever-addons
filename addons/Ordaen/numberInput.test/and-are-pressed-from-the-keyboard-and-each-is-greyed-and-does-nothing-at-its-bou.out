@@ -30,18 +30,18 @@ surface 420,281.62 760x336.75 on MEDIUM clamped raised by a click
               text 858.4,378.65 14.17x15.83 "px" #f0e6d2
     box 1158.25,596.62 13.33x13.33 absolute
       box 1158.25,596.62 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
-  box 420,281.62 760x43.95
-    box 434.4,281.62 667.67x43.95
-      box 434.4,281.62 113.5x43.95 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.99, tr 0.96, top 0.99>0.97 x2.94, left 0.99>0.97 x1.03, right 0.96>0.94 x1.03] @drag @dragStart @dragStop @keyPress @pointerPress
-        box 450.13,288.82 82.03x43.5
-          text 469.07,302.66 44.17x15.83 "Numbers" #ffd100
-    box 1110.6,298.91 55x26.67 clipped opacity=1 @pointerEnter @pointerLeave
-      box 1110.6,298.91 27.5x26.67 absolute clipped @keyPress @pointerPress
-        box 1110.6,298.91 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
-        box 1118.93,308.49 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
-      box 1138.1,298.91 27.5x26.67 absolute clipped @keyPress @pointerPress
-        box 1138.1,298.91 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
-        box 1144.35,308.49 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
+  box 420,281.62 760x39
+    box 434.4,281.62 667.67x39
+      box 434.4,281.62 113.5x39 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.99, tr 0.96, top 0.99>0.97 x2.94, left 0.99>0.97 x0.85, right 0.96>0.94 x0.85] @drag @dragStart @dragStop @keyPress @pointerPress
+        box 450.13,288.82 82.03x38.55
+          text 469.07,300.18 44.17x15.83 "Numbers" #ffd100
+    box 1110.6,293.96 55x26.67 clipped opacity=1 @pointerEnter @pointerLeave
+      box 1110.6,293.96 27.5x26.67 absolute clipped @keyPress @pointerPress
+        box 1110.6,293.96 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
+        box 1118.93,303.54 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
+      box 1138.1,293.96 27.5x26.67 absolute clipped @keyPress @pointerPress
+        box 1138.1,293.96 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
+        box 1144.35,303.54 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
 
 key: ENTER → #3 «-» (keys:ENTER,SPACE)
 key: SPACE → #3 «-» (keys:ENTER,SPACE)

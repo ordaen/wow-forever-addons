@@ -98,21 +98,21 @@ surface 420,121.62 760x656.75 on MEDIUM clamped raised by a click
             box 445.69,609.42 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
     box 1158.25,756.62 13.33x13.33 absolute
       box 1158.25,756.62 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
-  box 420,121.62 760x43.95
-    box 434.4,121.62 667.67x43.95
-      box 434.4,121.62 113.5x43.95 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.99, tr 0.97, top 0.99>0.97 x2.94, left 0.99>0.98 x1.03, right 0.96>0.95 x1.03] @drag @dragStart @dragStop @keyPress @pointerPress
-        box 450.13,128.82 82.03x43.5
-          text 466.15,142.66 50x15.83 "Controls" #ffd100
-      box 557.86,121.62 113.5x43.95 Interface\AddOns\Ordaen\media\window-wood tint=#808080 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.96, tr 0.93, top 0.96>0.94 x2.94, left 0.96>0.95 x1.03, right 0.93>0.92 x1.03] @drag @dragStart @dragStop @keyPress @pointerPress
-        box 573.59,128.82 82.03x43.5
-          text 601.69,142.66 25.83x15.83 "More" #a3977f
-    box 1110.6,138.91 55x26.67 clipped opacity=0 @pointerEnter @pointerLeave
-      box 1110.6,138.91 27.5x26.67 absolute clipped @keyPress @pointerPress
-        box 1110.6,138.91 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
-        box 1118.93,148.49 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
-      box 1138.1,138.91 27.5x26.67 absolute clipped @keyPress @pointerPress
-        box 1138.1,138.91 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
-        box 1144.35,148.49 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
+  box 420,121.62 760x39
+    box 434.4,121.62 667.67x39
+      box 434.4,121.62 113.5x39 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.99, tr 0.97, top 0.99>0.97 x2.94, left 0.99>0.98 x0.85, right 0.96>0.96 x0.85] @drag @dragStart @dragStop @keyPress @pointerPress
+        box 450.13,128.82 82.03x38.55
+          text 466.15,140.18 50x15.83 "Controls" #ffd100
+      box 557.86,121.62 113.5x39 Interface\AddOns\Ordaen\media\window-wood tint=#808080 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.96, tr 0.93, top 0.96>0.94 x2.94, left 0.96>0.95 x0.85, right 0.93>0.92 x0.85] @drag @dragStart @dragStop @keyPress @pointerPress
+        box 573.59,128.82 82.03x38.55
+          text 601.69,140.18 25.83x15.83 "More" #a3977f
+    box 1110.6,133.96 55x26.67 clipped opacity=0 @pointerEnter @pointerLeave
+      box 1110.6,133.96 27.5x26.67 absolute clipped @keyPress @pointerPress
+        box 1110.6,133.96 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
+        box 1118.93,143.54 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
+      box 1138.1,133.96 27.5x26.67 absolute clipped @keyPress @pointerPress
+        box 1138.1,133.96 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
+        box 1144.35,143.54 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
 surface 694.67,327.07 216.67x61.78 on FULLSCREEN_DIALOG #0a0806f7
   box 695.5,333.6 215x24.37 #d6a56b2e @keyPress @pointerPress focus ring
     box 703.83,341.1 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 1 of 2

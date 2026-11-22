@@ -90,27 +90,27 @@ surface 500,175.79 1039.68x548.42 on MEDIUM clamped raised by a click
       box 1089.47,231.41 6.67x485.6 absolute @drag @dragStart @dragStop
     box 1517.93,702.46 13.33x13.33 absolute
       box 1517.93,702.46 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
-  box 500,175.79 1039.68x55.62
-    box 514.4,175.79 922.34x55.62
-      box 514.4,175.79 113.5x55.62 Interface\AddOns\Ordaen\media\window-wood tint=#808080 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.99, tr 0.97, top 0.99>0.98 x2.94, left 0.99>0.98 x1.43, right 0.97>0.96 x1.43] @drag @dragStart @dragStop @keyPress @pointerPress
-        box 530.13,182.99 82.03x55.17
-          text 555.32,195.28 31.67x15.83 "Inbox" #a3977f
-          text 547.82,212.54 46.67x13.33 "0 letters" #8f8470
-      box 637.86,175.79 113.5x55.62 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.97, tr 0.95, top 0.97>0.95 x2.94, left 0.97>0.95 x1.43, right 0.95>0.93 x1.43] @drag @dragStart @dragStop @keyPress @pointerPress
-        box 653.59,182.99 82.03x55.17
-          text 675.44,195.28 38.33x15.83 "Outbox" #ffd100
-          text 678.77,212.54 31.67x13.33 "0 sent" #8f8470
-      box 761.31,175.79 129.8x55.62 Interface\AddOns\Ordaen\media\window-wood tint=#808080 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.95, tr 0.92, top 0.95>0.93 x3.51, left 0.94>0.93 x1.43, right 0.92>0.91 x1.43] @drag @dragStart @dragStop @keyPress @pointerPress
-        box 777.04,182.99 98.33x55.17
-          text 777.04,202.66 98.33x15.83 "To my characters" #a3977f
-    box 1445.28,204.74 80x26.67 clipped opacity=1 @pointerEnter @pointerLeave
-      box 1445.28,204.74 27.5x26.67 absolute clipped @keyPress @pointerPress
-        box 1445.28,204.74 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
-        box 1453.61,214.33 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 0 of 8
-      box 1472.78,204.74 25x26.67 absolute clipped @keyPress @pointerPress
-        box 1472.78,204.74 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 3 of 16
-        box 1479.03,214.33 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
-      box 1497.78,204.74 27.5x26.67 absolute clipped @keyPress @pointerPress
-        box 1497.78,204.74 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
-        box 1504.03,214.33 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
+  box 500,175.79 1039.68x50.67
+    box 514.4,175.79 922.34x50.67
+      box 514.4,175.79 113.5x50.67 Interface\AddOns\Ordaen\media\window-wood tint=#808080 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.99, tr 0.97, top 0.99>0.98 x2.94, left 0.99>0.98 x1.26, right 0.97>0.96 x1.26] @drag @dragStart @dragStop @keyPress @pointerPress
+        box 530.13,182.99 82.03x50.22
+          text 555.32,192.81 31.67x15.83 "Inbox" #a3977f
+          text 547.82,210.06 46.67x13.33 "0 letters" #8f8470
+      box 637.86,175.79 113.5x50.67 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.97, tr 0.95, top 0.97>0.95 x2.94, left 0.97>0.95 x1.26, right 0.95>0.93 x1.26] @drag @dragStart @dragStop @keyPress @pointerPress
+        box 653.59,182.99 82.03x50.22
+          text 675.44,192.81 38.33x15.83 "Outbox" #ffd100
+          text 678.77,210.06 31.67x13.33 "0 sent" #8f8470
+      box 761.31,175.79 129.8x50.67 Interface\AddOns\Ordaen\media\window-wood tint=#808080 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.95, tr 0.92, top 0.95>0.93 x3.51, left 0.94>0.93 x1.26, right 0.92>0.91 x1.26] @drag @dragStart @dragStop @keyPress @pointerPress
+        box 777.04,182.99 98.33x50.22
+          text 777.04,200.18 98.33x15.83 "To my characters" #a3977f
+    box 1445.28,199.79 80x26.67 clipped opacity=1 @pointerEnter @pointerLeave
+      box 1445.28,199.79 27.5x26.67 absolute clipped @keyPress @pointerPress
+        box 1445.28,199.79 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
+        box 1453.61,209.38 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 0 of 8
+      box 1472.78,199.79 25x26.67 absolute clipped @keyPress @pointerPress
+        box 1472.78,199.79 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 3 of 16
+        box 1479.03,209.38 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
+      box 1497.78,199.79 27.5x26.67 absolute clipped @keyPress @pointerPress
+        box 1497.78,199.79 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
+        box 1504.03,209.38 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
 asked: Mailbox.writing true

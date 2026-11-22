@@ -14,7 +14,7 @@
 import Game from "$game"
 import { Align, Art, Bounds, Docked, Edges, Event, Layer, Overflow, Place, Point, Position, Shadow, Side, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { cornerArtWidth, reachAcross } from "@/art"
+import { cornerArtWidth, reachAcross, toRod } from "@/art"
 import { Component } from "@/module"
 import { Hold, kept } from "@/onScreen"
 import { ModuleMemory } from "@/settings"
@@ -437,9 +437,9 @@ public class Window implements Component {
 
   // The tab row's height: the design's, from a tab's own line down to the body, and the tab's art above its line.
   derived tabHeight: Number<Length> = self.tabHeightOf() + Ordaen.art.frame.tab.reach.top * Ordaen.art.frame.tab.scale * 1ui
-  // How far a tab and the control group stand down into the body's top band, which is drawn over their feet: to its
-  // line, so their sides run on into its rod.
-  derived lineTop: Number<Length> = (Ordaen.art.frame.window.reach.top * Ordaen.art.frame.window.scale + Ordaen.art.frame.window.width) * 1ui
+  // How far a tab and the control group stand down into the body's top band: over its shadow and its outer black line,
+  // to its rod, which their sides meet.
+  derived lineTop: Number<Length> = toRod(Ordaen.art.frame.window)
   derived tabWhole: Number<Length> = self.tabHeight + self.lineTop
   // The corner's art at each end of the body's top: the tab row starts and ends past it.
   derived cornerArt: Number<Length> = cornerArtWidth(Ordaen.art.frame.window)
@@ -881,10 +881,10 @@ public class Window implements Component {
             <SizeGrip @grab={self.onGrabSize} @drag={self.onSize} @drop={self.onSettle} />
           </box>
         </box>
-        // The tab row: the tabs from the left, the control group at the right, down to the body's line. The body stands
-        // over it by its `zLevel`: its top band covers the tabs' and the group's feet, so their sides run on into its
-        // rod. The row is the surface's least width: the window is never narrower than its tabs and its controls.
-        <box columns={ROW} gap={3sp} padding={self.rowPad} yAlign={Align.End}>
+        // The tab row: the tabs from the left, the control group at the right, down to the body's rod. It stands over the
+        // body: the tabs' sides and the group's foot are drawn over the band's shadow and outer edge, meeting the rod.
+        // The row is the surface's least width: the window is never narrower than its tabs and its controls.
+        <box columns={ROW} gap={3sp} padding={self.rowPad} yAlign={Align.End} zLevel={BODY_LEVEL + 1}>
           <box columns={self.columns} gap={3.5sp} yAlign={Align.End}>
             <WindowTab $for={index, tab of self.tabs} tab={tab} index={index} selected={self.selected}
                        height={self.tabWhole} @grab={self.onGrab} @move={self.onMove} @drop={self.onSettle}
