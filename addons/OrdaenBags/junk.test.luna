@@ -309,7 +309,7 @@ test "the client's secure use stands on the scheme's chord for Use: the left in 
   Test.expect(chordFor(OURS, .Protect) == Chord.AltLeft)
 }
 
-test "Shift+left picks the item up, and the right opens the menu: neither is the client's use" {
+test "Shift+left picks the item up, and the right opens the menu, which offers no pick up: neither is the client's use" {
   const world = new World(carried())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
   Game.bags.size = (bag: Integer): Integer => world.size(bag)
@@ -327,6 +327,7 @@ test "Shift+left picks the item up, and the right opens the menu: neither is the
   Game.input.shiftDown = (): Boolean => false
   bags().button(CLOTH).rightClick()
   Test.expect(Test.performed().length == 0 && Test.page().text("Mark as junk").shown())
+  Test.expect(Test.page().text("Link in chat").shown() && !Test.page().text("Pick up").shown())
 }
 
 test "a chord's row holding the last Use or the last Menu offers nothing else" {

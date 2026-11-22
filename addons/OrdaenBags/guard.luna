@@ -1,12 +1,14 @@
-// A slot protected from «Sort the bags» (Alt+Left-click), and what Ordaen Tooltips' item tooltip says of it: the slot
-// under the cursor protected («This slot is protected from sorting», among what other modules add), and its hotkey (to
-// protect it, or to take the protection off). Without Ordaen Tooltips there is no such line: Bags adds nothing to the
-// game's own tooltip.
+// A slot protected from «Sort the bags», and what Ordaen Tooltips' item tooltip says of the slot under the cursor: that
+// it is protected («This slot is protected from sorting», among what other modules add), and its clicks as the
+// player's scheme has them («Left-click: Pick up»), each that does something to this slot. Without Ordaen Tooltips there
+// is no such line: Bags adds nothing to the game's own tooltip.
 import root Tooltips from "OrdaenTooltips"
 import type { ItemKeys, ItemLines, Line } from "OrdaenTooltips"
+import { CHORDS, SlotAction, actionAt, actionName, chordName } from "@/clicks"
 import Locale from "@/locales"
 import { Slot } from "@/model"
-import { whyText } from "@/slotMenu"
+import { Choices } from "@/pane"
+import { socketable, whyText } from "@/slotMenu"
 import { Vault } from "@/vault"
 
 // A protected slot, kept for the character: where it is and the item it protects. The protection follows its item:
@@ -41,16 +43,42 @@ public class GuardLine implements ItemLines {
   }
 }
 
-// The hotkey of a slot of the bags.
+// The clicks of a slot of the bags, the bank or the guild bank, as the player's scheme has them.
 public class GuardKey implements ItemKeys {
   const hovered: Hovered
-  constructor(hovered: Hovered) { self.hovered = hovered }
+  choices: Signal<Choices>
+  constructor(hovered: Hovered, choices: Signal<Choices>) {
+    self.hovered = hovered
+    self.choices = choices
+  }
 
   public keys(self, item: Integer, link: String): Array<String> {
     const slot = self.hovered.slot
-    if (slot == nil || slot.id != item || slot.vault != Vault.Bags) { return NO_KEYS }
-    return [slot.guarded ? Locale.KEY_UNPROTECT : Locale.KEY_PROTECT]
+    if (slot == nil || slot.id != item) { return NO_KEYS }
+    let keys: Array<String> = []
+    for (chord of CHORDS) {
+      const action = actionAt(self.choices.clicks, chord)
+      if (takes(slot, action)) { keys.push(Locale.KEY_CLICK.format(chordName(chord), clickName(slot, action))) }
+    }
+    return keys
   }
+}
+
+// Whether a click's action does something to the slot: protecting and sending are the bags' alone, sockets gear's.
+function takes(slot: Slot, action: SlotAction): Boolean {
+  return match (action) {
+    .Nothing => false
+    .Protect => slot.vault == Vault.Bags
+    .Send => slot.vault == Vault.Bags
+    .Socket => socketable(slot)
+    else => true
+  }
+}
+
+// What a click does, as its hint says it: protecting, what it does to the slot now.
+function clickName(slot: Slot, action: SlotAction): String {
+  if (action == SlotAction.Protect) { return slot.guarded ? Locale.MENU_UNPROTECT : Locale.MENU_PROTECT }
+  return actionName(action)
 }
 
 // Both added to Tooltips while it is on: the watch's run owns them, so they end when either module does.
@@ -58,9 +86,9 @@ public class GuardTips {
   const line: GuardLine
   const key: GuardKey
 
-  constructor(hovered: Hovered) {
+  constructor(hovered: Hovered, choices: Signal<Choices>) {
     self.line = new GuardLine(hovered)
-    self.key = new GuardKey(hovered)
+    self.key = new GuardKey(hovered, choices)
     watch (tooltips of Tooltips) {
       if (tooltips == nil) { return }
       tooltips.held.add(self.line)

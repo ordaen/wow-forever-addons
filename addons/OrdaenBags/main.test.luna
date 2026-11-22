@@ -869,7 +869,10 @@ test "an empty slot takes no protection" {
   Test.expect(Test.page().box(PADLOCK).count() == 0)
 }
 
-test "the tooltip of a slot names the key that protects it; protected, it says so and names the key that takes it off" {
+// A click's hint on a slot's tooltip, as the player's scheme names it.
+function hint(chord: String, action: String): String { return Locale.KEY_CLICK.format(chord, action) }
+
+test "a slot's tooltip names its clicks as the player's scheme has them, protecting as the slot stands; a new scheme follows" {
   let corner = Client.CreateFrame("Frame", "GameTooltip", Client.C_UI.GetUIParent(), nil)
   corner.SetSize(200, 80)
   corner.SetPoint("TOPLEFT", Client.C_UI.GetUIParent(), "TOPLEFT", 1300, -720)
@@ -882,10 +885,22 @@ test "the tooltip of a slot names the key that protects it; protected, it says s
   held(POTION).hover()
   Game.tooltip.main = tooltipOf(corner, 118, "Minor Healing Potion")
   const tip = Test.page().window("Minor Healing Potion")
-  Test.expect(reads(tip, `Minor Healing Potion | ${Locale.KEY_PROTECT}`))
+  // Our scheme, a potion's: no socket to open.
+  const use = hint(Locale.CHORD_LEFT, Locale.ACT_USE)
+  const pickup = hint(Locale.CHORD_SHIFT_LEFT, Locale.ACT_PICKUP)
+  const send = hint(Locale.CHORD_CTRL_LEFT, Locale.ACT_SEND)
+  const menu = hint(Locale.CHORD_RIGHT, Locale.ACT_MENU)
+  const link = hint(Locale.CHORD_SHIFT_RIGHT, Locale.ACT_LINK)
+  const protect = hint(Locale.CHORD_ALT_LEFT, Locale.MENU_PROTECT)
+  Test.expect(reads(tip, `Minor Healing Potion | ${use} | ${pickup} | ${send} | ${protect} | ${menu} | ${link}`))
   Game.input.altDown = (): Boolean => true
   held(POTION).click()
-  Test.expect(reads(tip, `Minor Healing Potion | ${Locale.PROTECTED} | ${Locale.KEY_UNPROTECT}`))
+  const unprotect = hint(Locale.CHORD_ALT_LEFT, Locale.MENU_UNPROTECT)
+  Test.expect(reads(tip, `Minor Healing Potion | ${Locale.PROTECTED} | ${use} | ${pickup} | ${send} | ${unprotect} | ${menu} | ${link}`))
+  // Ctrl+Left set to nothing: its hint goes.
+  Bags.settings.change((values: mut Choices): nil => { values.clicks = { ctrlLeft: .Nothing, ..values.clicks } })
+  Test.flush()
+  Test.expect(reads(tip, `Minor Healing Potion | ${Locale.PROTECTED} | ${use} | ${pickup} | ${unprotect} | ${menu} | ${link}`))
   // Another item's tooltip, where the cursor isn't on its slot: nothing of the bags'.
   Game.tooltip.main = tooltipOf(corner, 25, "Worn Shortsword")
   Test.expect(reads(Test.page().window("Worn Shortsword"), "Worn Shortsword"))

@@ -1,6 +1,7 @@
 // The slot's menu: every action on the item in one list, opened by the Menu click. Its title is the item's name; its
 // first line, dim, the item's category and why; then the mark («Junk», «Not junk», «As the rules decide»), and what
-// the slot's place allows: pick it up, its link, its sockets (gear), sell it (at a merchant), protect it (the bags).
+// the slot's place allows: its link, its sockets (gear), sell it (at a merchant), protect it (the bags). Picking it up is
+// the plain click's and a drag's, never the menu's.
 import Game from "$game"
 import { MenuEntry } from "Ordaen"
 import { Mark, Why } from "@/junk"
@@ -10,7 +11,7 @@ import { tabName } from "@/sections"
 import { Vault } from "@/vault"
 
 // What a line of the menu does.
-public enum MenuAct { Heading, MarkJunk, MarkKeep, Unmark, Pickup, Link, Socket, Sell, Protect }
+public enum MenuAct { Heading, MarkJunk, MarkKeep, Unmark, Link, Socket, Sell, Protect }
 
 // The menu open on a slot: its lines and what each does, by place.
 public struct SlotMenu {
@@ -33,6 +34,11 @@ public function whyText(why: Why): String {
   }
 }
 
+// Whether the slot's item may have sockets to open: gear, outside the guild bank.
+public function socketable(slot: Slot): Boolean {
+  return (slot.read.kind == WEAPON || slot.read.kind == ARMOR) && slot.vault != Vault.Guild
+}
+
 // The menu of the slot's item, as the slot stands now.
 public function menuOf(slot: Slot, mark: Mark | nil, place: Game.BagPlace): SlotMenu {
   let entries: Array<MenuEntry> = []
@@ -47,12 +53,9 @@ public function menuOf(slot: Slot, mark: Mark | nil, place: Game.BagPlace): Slot
     entries.push({ label: Locale.MARK_NONE, on: nil, disabled: nil, group: nil, more: nil })
     acts.push(MenuAct.Unmark)
   }
-  entries.push({ label: Locale.MENU_PICKUP, on: nil, disabled: nil, group: true, more: nil })
-  acts.push(MenuAct.Pickup)
-  entries.push({ label: Locale.MENU_LINK, on: nil, disabled: nil, group: nil, more: nil })
+  entries.push({ label: Locale.MENU_LINK, on: nil, disabled: nil, group: true, more: nil })
   acts.push(MenuAct.Link)
-  const worn = slot.read.kind == WEAPON || slot.read.kind == ARMOR
-  if (worn && slot.vault != Vault.Guild) {
+  if (socketable(slot)) {
     entries.push({ label: Locale.MENU_SOCKET, on: nil, disabled: nil, group: nil, more: nil })
     acts.push(MenuAct.Socket)
   }

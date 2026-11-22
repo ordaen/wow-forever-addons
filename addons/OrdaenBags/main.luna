@@ -166,7 +166,7 @@ public class Bags implements Module, App {
     self.gold = new Gold()
     self.arranger = new Arranger()
     self.hovered = new Hovered()
-    self.tips = new GuardTips(self.hovered)
+    self.tips = new GuardTips(self.hovered, self.settings.values)
     self.guild = new GuildBank()
     self.main = new Pane(
       self.carried, self.bank, self.vaultGuild, self.guild, self.vault, self.live, mut self.list, self.settings.values,
@@ -508,7 +508,6 @@ public class Bags implements Module, App {
       .MarkJunk => self.mark(slot, .Junk)
       .MarkKeep => self.mark(slot, .Keep)
       .Unmark => self.mark(slot, nil)
-      .Pickup => pickupIn(slot.vault, slot.bag, slot.index)
       .Link => Game.chat.link(peek slot.id)
       .Socket => {
         _ = Client.C_Container.SocketContainerItem(slot.bag, slot.index)
