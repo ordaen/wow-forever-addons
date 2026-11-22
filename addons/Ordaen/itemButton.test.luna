@@ -4,6 +4,7 @@ import Events from "$events"
 import Game from "$game"
 import { Action, Art } from "$ltml"
 import Test from "$test"
+import root Ordaen from "Ordaen"
 import { Corner, ItemButton, Marker, Quality, SlotWell } from "@/itemButton"
 
 const SHOPPING: Marker = { corner: Corner.TopLeft, color: Color.hex("#ffd100") }
@@ -11,7 +12,6 @@ const REAGENT: Marker = { corner: Corner.BottomLeft, color: Color.hex("#4fd1ff")
 const BOTH: Array<Marker> = [SHOPPING, REAGENT]
 const CREST: Asset = "Interface/Buttons/UI-Slot-Background"
 const HAMMER: Asset = "Interface/Icons/Trade_BlackSmithing"
-const FRAME: Asset = "Interface/Common/WhiteIconFrame"
 
 class Bag {
   state picked = 0
@@ -293,8 +293,10 @@ test "a crested slot holds its icon inside the crest's rim, the rim taking an un
   Test.expect(crested.left - slot.left >= rim - 0.01 && crested.left - slot.left < rim + 2)
   Test.expect(slot.bottom - crested.bottom >= rim - 0.01 && slot.bottom - crested.bottom < rim + 2)
   Test.expect(crested.right - crested.left < sunk.right - sunk.left)
-  // The client's white frame over the uncommon item's rim, in its colour, from the slot's edge; none on the common one.
-  const frame = Test.page().box(FRAME)
+  // The rim's white copy over the uncommon item's crest, in its colour, laid out as the crest is (from the slot's top
+  // left corner, as large); none on the common one.
+  const frame = Test.page().box(Ordaen.art.ctl.crestRim)
   Test.expect(frame.count() == 1 && frame.paintedWith(Color.hex("#1eff00")))
-  Test.expect(frame.rect().left == slot.left && frame.rect().right == slot.right)
+  const crest = Test.page().box(CREST).nth(1).rect()
+  Test.expect(frame.rect().left == crest.left && frame.rect().top == crest.top && frame.rect().right == crest.right)
 }

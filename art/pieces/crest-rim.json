@@ -1,0 +1,5 @@
+{
+  "says": "A crested item slot's rim, white (ctl.crestRim in Ordaen/art.luna): drawn as the client's UI-Slot-Background is (its top left 41 of 64 texels, cut at the slot's edge) and tinted with an item's quality's colour by ItemButton, so the colour lies on the crest's rim texel for texel.",
+  "ships": ["addons/Ordaen/media/ctl-crest-rim.tga"],
+  "origin": "Written texel by texel on the crest's grid: 64 x 64, 32 bits, clear but for the 41 x 41 square at the top left; its outer ring white and opaque, the next light grey (209) at 90%, the next white at 90%, a grey (115) row at 47% inside the top and the bottom, and the crest's cut corners (two texels along each side of a corner) clear. The file is the source."
+}
