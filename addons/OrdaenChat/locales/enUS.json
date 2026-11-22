@@ -71,6 +71,8 @@
   "TAB_COUNTER_TIP": "The number of lines that came while another tab was open, on the tab.",
   "TAB_CHANNEL_NAMES": "Channel names",
   "TAB_CHANNEL_NAMES_TIP": "How a channel's lines name their channel in this tab.",
+  "MESSAGE_GAP": "Space between messages",
+  "MESSAGE_GAP_TIP": "The room between one message and the next, in every tab.",
   "TAB_STAMPS": "Time stamps",
   "TAB_STAMPS_TIP": "Where a line's time stands, when the game shows the chat's times: before each line, or above the lines, once for each minute.",
   "STAMPS_INLINE": "Before each line",

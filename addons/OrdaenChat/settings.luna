@@ -2,7 +2,7 @@
 // writes one entry of the settings, at once.
 import Game from "$game"
 import { Choice, Component, Field, NumberInput, Section, Segmented, SettingRow, Settings, Switch, Unit } from "Ordaen"
-import { Choices, LEAST_HEIGHT, LEAST_WIDTH } from "@/choices"
+import { Choices, LEAST_HEIGHT, LEAST_WIDTH, MESSAGE_GAP_MOST } from "@/choices"
 import Locale from "@/locales"
 
 const HISTORY: Array<Choice<Game.ChatHistory>> = [
@@ -40,6 +40,8 @@ public class ChatPage implements Component {
                        step={50} unit={Unit.None} />
           <NumberInput label={Locale.HELD} hint={Locale.HELD_TIP} value={mut self.settings.values.held} least={100} most={2000}
                        step={100} unit={Unit.None} />
+          <NumberInput label={Locale.MESSAGE_GAP} hint={Locale.MESSAGE_GAP_TIP} value={mut self.settings.values.messageGap} least={0}
+                       most={MESSAGE_GAP_MOST} step={0.5} unit={Unit.None} />
           <Switch label={Locale.OWN_TEXT_SIZE} hint={Locale.OWN_TEXT_SIZE_TIP} value={mut self.settings.values.ownTextSize} />
           <NumberInput $if={self.settings.values.ownTextSize} label={Locale.TEXT_SIZE} value={mut self.settings.values.textSize}
                        least={10} most={20} step={1} unit={Unit.None} />

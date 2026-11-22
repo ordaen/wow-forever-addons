@@ -3,8 +3,8 @@ import Client from "$client"
 import Game from "$game"
 import { Align, Edges, Event, Overflow, Position, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { Component, CountBadge, ListTab, SECONDARY_TEXT, timeText, toLeftLine } from "Ordaen"
-import { ChatTab, Shown, StampShown } from "@/lines"
+import { Component, CountBadge, ListTab, SECONDARY_TEXT, TIGHT_LINE, timeText, toLeftLine } from "Ordaen"
+import { ChatTab, STAMP, Shown, StampShown } from "@/lines"
 import Locale from "@/locales"
 
 // The warm band under a line that names the player or a keyword.
@@ -13,10 +13,8 @@ const MARK: Color = Color.hex("#ff9a2e33")
 const RULE: Color = Color.hex("#9d9d9d40")
 const RULE_TEXT: Color = Color.hex("#9d9d9d")
 const RULE_COLUMNS: Array<Track> = [{ fr: 1 }, "max-content", { fr: 1 }]
-// A line's time before it: in brackets, the rule's muted grey. Above a minute's lines: the time alone, set apart from
-// the minute before.
-const STAMP = "|cff9d9d9d[%s]|r "
-const STAMP_ROOM: Edges = { top: 2sp }
+// A time above a minute's lines: the rule's muted grey, smaller than the secondary text, on its line's own lines.
+const STAMP_TEXT: Number<TextSize> = 10rem / 13
 // The shade behind the open tab and the one under the cursor: a list tab's own under the cursor.
 const SHADE: Color = Color.hex("#00000059")
 // The count's room at a counting tab's right, a two-digit badge's, kept in the tab's flow; the badge stands over the
@@ -77,7 +75,7 @@ public class TabButton implements Component {
 
 // A line: its text in its colour, on a band where it names the player; above it, where it opens a session, a rule with
 // the session's day and time in its middle. Its time, where it is drawn, stands before its text in brackets, or above
-// it alone, a little apart from the minute before. A secret line stands one line high, so nothing of it is measured.
+// it alone, small and centred, close on its line. A secret line stands one line high, so nothing of it is measured.
 public class Row implements Component {
   // A link of the line clicked.
   public link: Event<Event.Link> = new Event()
@@ -111,14 +109,16 @@ public class Row implements Component {
         <text value={self.session} textColor={RULE_TEXT} textSize={SECONDARY_TEXT} wrap={.None} />
         <box height={1ui} background={RULE} />
       </box>
-      <box $if={self.above} padding={STAMP_ROOM}>
-        <text value={self.time} textColor={RULE_TEXT} textSize={SECONDARY_TEXT} wrap={.None} />
-      </box>
-      <box $if={self.line.secret} @linkPress={self.onLink} height={self.lineHeight} overflow={Overflow.Hidden}>
-        <text value={self.line.whole} secret={true} textColor={self.line.color} wrap={.None} />
-      </box>
-      <box $else background={self.band} @linkPress={self.onLink}>
-        <text value={self.text} textColor={self.line.color} />
+      <box columns={1}>
+        <box $if={self.above} xAlign={Align.Center}>
+          <text value={self.time} textColor={RULE_TEXT} textSize={STAMP_TEXT} lineHeight={TIGHT_LINE} wrap={.None} />
+        </box>
+        <box $if={self.line.secret} @linkPress={self.onLink} height={self.lineHeight} overflow={Overflow.Hidden}>
+          <text value={self.line.whole} secret={true} textColor={self.line.color} wrap={.None} />
+        </box>
+        <box $else background={self.band} @linkPress={self.onLink}>
+          <text value={self.text} textColor={self.line.color} />
+        </box>
       </box>
     }
   }

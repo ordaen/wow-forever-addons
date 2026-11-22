@@ -40,9 +40,23 @@ public struct Kept implements Plain {
 // When this session began: the session of every line it hears.
 public const THIS_SESSION: Number = peek Game.clock.server
 
+// A line's time before it: in brackets, a muted grey. Lines were once kept with it at the start of their text.
+public const STAMP = "|cff9d9d9d[%s]|r "
+
+// A line kept with its time at the start of its text: the time taken out, the line stamped.
+function stampedApart(line: Shown): Shown {
+  if (line.stamped || line.secret) { return line }
+  const words = line.whole.replace("^|cff9d9d9d%[[^%]]*%]|r ", "")
+  if (words == line.whole) { return line }
+  const apart = line.clone()
+  apart.whole = words
+  apart.stamped = true
+  return apart
+}
+
 // Where a line's time is drawn as a view lays it out: nowhere (not stamped, or above an earlier line of its minute),
 // before it, or above it, opening its minute's lines.
-public enum StampShown { None, Before, Above }
+public enum StampShown implements Equal { None, Before, Above }
 
 // A line as a view lays it out: the line, whether a session's rule stands above it (its session isn't the line's
 // before; the first line, where it isn't this session's), and where its time is drawn.
@@ -142,9 +156,10 @@ public class ChatTab {
     return keep
   }
 
-  // Lines of the last session, before this one's.
+  // Lines of the last session, before this one's; a line kept with its time in its text has it drawn apart, as a line
+  // heard now.
   public recall(mut self, lines: Array<Shown>) {
-    const now: Array<Shown> = lines.clone()
+    const now: Array<Shown> = lines.map(stampedApart)
     for (line of self.lines) { now.push(line) }
     self.lines = now
     self.version = (peek self.version) + 1
