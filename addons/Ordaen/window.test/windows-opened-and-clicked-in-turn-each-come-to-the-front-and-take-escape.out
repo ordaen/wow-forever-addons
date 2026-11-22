@@ -3,9 +3,9 @@ key: ESCAPE → none
 box 0,0 10x0
 surface 450,330.5 400x239 on MEDIUM clamped raised by a click
   box 450,369.5 400x200 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.95, tr 0.76, bl 0.80, br 0.61, top 0.95>0.77 x9.42, bottom 0.79>0.61 x9.42, left 0.95>0.81 x4.21, right 0.75>0.62 x4.21]
-    box 462.44,381.94 375.11x175.11
-      box 462.44,381.94 375.11x175.11
-        box 480.93,400.43 338.13x138.13 #30302a @keyPress @pointerPress
+    box 459.6,379.1 380.8x180.8
+      box 459.6,379.1 380.8x180.8
+        box 478.09,397.59 343.82x143.82 #30302a @keyPress @pointerPress
     box 826,545.5 13.33x13.33 absolute
       box 826,545.5 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 450,330.5 400x39
@@ -23,9 +23,9 @@ surface 450,330.5 400x239 on MEDIUM clamped raised by a click
           box 828.75,358.42 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
 surface 600,330.5 400x439 on MEDIUM clamped raised by a click
   box 600,369.5 400x400 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.97, tr 0.78, bl 0.80, br 0.61, top 0.97>0.79 x9.42, bottom 0.79>0.61 x9.42, left 0.97>0.81 x9.42, right 0.78>0.61 x9.42]
-    box 612.44,381.94 375.11x375.11
-      box 612.44,381.94 375.11x375.11
-        box 630.93,400.43 338.13x338.13 #30302a @keyPress @pointerPress
+    box 609.6,379.1 380.8x380.8
+      box 609.6,379.1 380.8x380.8
+        box 628.09,397.59 343.82x343.82 #30302a @keyPress @pointerPress
     box 976,745.5 13.33x13.33 absolute
       box 976,745.5 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 600,330.5 400x39
@@ -43,9 +43,9 @@ surface 600,330.5 400x439 on MEDIUM clamped raised by a click
           box 978.75,358.42 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
 surface 750,330.5 400x239 on MEDIUM clamped raised by a click
   box 750,369.5 400x200 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.95, tr 0.76, bl 0.80, br 0.61, top 0.95>0.77 x9.42, bottom 0.79>0.61 x9.42, left 0.95>0.81 x4.21, right 0.75>0.62 x4.21]
-    box 762.44,381.94 375.11x175.11
-      box 762.44,381.94 375.11x175.11
-        box 780.93,400.43 338.13x138.13 #30302a @keyPress @pointerPress
+    box 759.6,379.1 380.8x180.8
+      box 759.6,379.1 380.8x180.8
+        box 778.09,397.59 343.82x143.82 #30302a @keyPress @pointerPress
     box 1126,545.5 13.33x13.33 absolute
       box 1126,545.5 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 750,330.5 400x39

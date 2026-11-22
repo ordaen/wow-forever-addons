@@ -1,173 +1,173 @@
 -- a guard's seventeen places in two columns, the keys on the first
-surface 54.82,98.83 395.2x622.33 on MEDIUM clamped raised by a click
-  box 54.82,137.83 395.2x583.33 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.98, tr 0.79, bl 0.80, br 0.61, top 0.98>0.80 x9.29, bottom 0.79>0.61 x9.29, left 0.98>0.80 x14.19, right 0.78>0.61 x14.19]
-    box 67.26,150.28 370.31x558.44
-      box 67.26,150.28 370.31x558.44
-        box 85.75,168.77 333.33x521.47
-          box 85.75,168.77 0x0 absolute @keyPress
-          box 85.75,168.77 0x0 absolute @keyPress
-          box 85.75,168.77 0x0 absolute @keyPress
-          box 85.75,168.77 0x0 absolute @keyPress
-          box 85.75,168.77 0x0 absolute @keyPress
-          box 85.75,168.77 0x0 absolute @keyPress
-          box 85.75,168.77 0x0 absolute @keyPress
-          box 85.75,168.77 0x0 absolute @keyPress
-          box 85.75,168.77 0x0 absolute @keyPress
-          box 85.75,168.77 0x0 absolute @keyPress
-          box 85.75,168.77 333.33x27.21
-            text 91.44,174.46 321.96x15.83 "Where would you like to go?" #f0e6d0
-          box 85.75,195.98 333.33x494.26
-            box 85.75,201.67 333.33x484.3
-              box 85.75,201.67 333.33x297.46
-                box 85.75,201.67 333.33x278.78
-                  box 85.75,201.67 109.97x278.78 @focusEnter
-                    box 85.75,201.67 109.97x29.71 @pointerPress
-                      box 85.75,201.67 109.97x29.71 #00000000 @keyPress @pointerPress
-                        box 91.44,207.36 18.33x18.33 #00000080
-                          text 97.27,210.52 6.67x12 "1" #c9a76a
-                        box 115.46,209.86 13.33x13.33 icon=132053
-                        box 134.48,216.52 0x0
-                        text 140.17,208.61 44.17x15.83 "Place 1" #f0e6d0
-                        box 190.03,216.52 0x0
-                    box 85.75,232.8 109.97x29.71 @pointerPress
-                      box 85.75,232.8 109.97x29.71 #00000000 @keyPress @pointerPress
-                        box 91.44,238.49 18.33x18.33 #00000080
-                          text 97.27,241.66 6.67x12 "2" #c9a76a
-                        box 115.46,240.99 13.33x13.33 icon=132053
-                        box 134.48,247.66 0x0
-                        text 140.17,239.74 44.17x15.83 "Place 2" #f0e6d0
-                        box 190.03,247.66 0x0
-                    box 85.75,263.93 109.97x29.71 @pointerPress
-                      box 85.75,263.93 109.97x29.71 #00000000 @keyPress @pointerPress
-                        box 91.44,269.62 18.33x18.33 #00000080
-                          text 97.27,272.79 6.67x12 "3" #c9a76a
-                        box 115.46,272.12 13.33x13.33 icon=132053
-                        box 134.48,278.79 0x0
-                        text 140.17,270.87 44.17x15.83 "Place 3" #f0e6d0
-                        box 190.03,278.79 0x0
-                    box 85.75,295.07 109.97x29.71 @pointerPress
-                      box 85.75,295.07 109.97x29.71 #00000000 @keyPress @pointerPress
-                        box 91.44,300.76 18.33x18.33 #00000080
-                          text 97.27,303.92 6.67x12 "4" #c9a76a
-                        box 115.46,303.26 13.33x13.33 icon=132053
-                        box 134.48,309.92 0x0
-                        text 140.17,302.01 44.17x15.83 "Place 4" #f0e6d0
-                        box 190.03,309.92 0x0
-                    box 85.75,326.2 109.97x29.71 @pointerPress
-                      box 85.75,326.2 109.97x29.71 #00000000 @keyPress @pointerPress
-                        box 91.44,331.89 18.33x18.33 #00000080
-                          text 97.27,335.06 6.67x12 "5" #c9a76a
-                        box 115.46,334.39 13.33x13.33 icon=132053
-                        box 134.48,341.06 0x0
-                        text 140.17,333.14 44.17x15.83 "Place 5" #f0e6d0
-                        box 190.03,341.06 0x0
-                    box 85.75,357.33 109.97x29.71 @pointerPress
-                      box 85.75,357.33 109.97x29.71 #00000000 @keyPress @pointerPress
-                        box 91.44,363.02 18.33x18.33 #00000080
-                          text 97.27,366.19 6.67x12 "6" #c9a76a
-                        box 115.46,365.52 13.33x13.33 icon=132053
-                        box 134.48,372.19 0x0
-                        text 140.17,364.27 44.17x15.83 "Place 6" #f0e6d0
-                        box 190.03,372.19 0x0
-                    box 85.75,388.47 109.97x29.71 @pointerPress
-                      box 85.75,388.47 109.97x29.71 #00000000 @keyPress @pointerPress
-                        box 91.44,394.16 18.33x18.33 #00000080
-                          text 97.27,397.32 6.67x12 "7" #c9a76a
-                        box 115.46,396.66 13.33x13.33 icon=132053
-                        box 134.48,403.32 0x0
-                        text 140.17,395.41 44.17x15.83 "Place 7" #f0e6d0
-                        box 190.03,403.32 0x0
-                    box 85.75,419.6 109.97x29.71 @pointerPress
-                      box 85.75,419.6 109.97x29.71 #00000000 @keyPress @pointerPress
-                        box 91.44,425.29 18.33x18.33 #00000080
-                          text 97.27,428.46 6.67x12 "8" #c9a76a
-                        box 115.46,427.79 13.33x13.33 icon=132053
-                        box 134.48,434.46 0x0
-                        text 140.17,426.54 44.17x15.83 "Place 8" #f0e6d0
-                        box 190.03,434.46 0x0
-                    box 85.75,450.73 109.97x29.71 @pointerPress
-                      box 85.75,450.73 109.97x29.71 #00000000 @keyPress @pointerPress
-                        box 91.44,456.42 18.33x18.33 #00000080
-                          text 97.27,459.59 6.67x12 "9" #c9a76a
-                        box 115.46,458.92 13.33x13.33 icon=132053
-                        box 134.48,465.59 0x0
-                        text 140.17,457.67 44.17x15.83 "Place 9" #f0e6d0
-                        box 190.03,465.59 0x0
-                  box 201.41,201.67 115.8x247.64 @focusEnter
-                    box 201.41,201.67 115.8x29.71 @pointerPress
-                      box 201.41,201.67 115.8x29.71 #00000000 @keyPress @pointerPress
-                        box 207.09,207.36 18.33x18.33
-                        box 231.12,209.86 13.33x13.33 icon=132053
-                        box 250.14,216.52 0x0
-                        text 255.83,208.61 50x15.83 "Place 10" #f0e6d0
-                        box 311.52,216.52 0x0
-                    box 201.41,232.8 115.8x29.71 @pointerPress
-                      box 201.41,232.8 115.8x29.71 #00000000 @keyPress @pointerPress
-                        box 207.09,238.49 18.33x18.33
-                        box 231.12,240.99 13.33x13.33 icon=132053
-                        box 250.14,247.66 0x0
-                        text 255.83,239.74 50x15.83 "Place 11" #f0e6d0
-                        box 311.52,247.66 0x0
-                    box 201.41,263.93 115.8x29.71 @pointerPress
-                      box 201.41,263.93 115.8x29.71 #00000000 @keyPress @pointerPress
-                        box 207.09,269.62 18.33x18.33
-                        box 231.12,272.12 13.33x13.33 icon=132053
-                        box 250.14,278.79 0x0
-                        text 255.83,270.87 50x15.83 "Place 12" #f0e6d0
-                        box 311.52,278.79 0x0
-                    box 201.41,295.07 115.8x29.71 @pointerPress
-                      box 201.41,295.07 115.8x29.71 #00000000 @keyPress @pointerPress
-                        box 207.09,300.76 18.33x18.33
-                        box 231.12,303.26 13.33x13.33 icon=132053
-                        box 250.14,309.92 0x0
-                        text 255.83,302.01 50x15.83 "Place 13" #f0e6d0
-                        box 311.52,309.92 0x0
-                    box 201.41,326.2 115.8x29.71 @pointerPress
-                      box 201.41,326.2 115.8x29.71 #00000000 @keyPress @pointerPress
-                        box 207.09,331.89 18.33x18.33
-                        box 231.12,334.39 13.33x13.33 icon=132053
-                        box 250.14,341.06 0x0
-                        text 255.83,333.14 50x15.83 "Place 14" #f0e6d0
-                        box 311.52,341.06 0x0
-                    box 201.41,357.33 115.8x29.71 @pointerPress
-                      box 201.41,357.33 115.8x29.71 #00000000 @keyPress @pointerPress
-                        box 207.09,363.02 18.33x18.33
-                        box 231.12,365.52 13.33x13.33 icon=132053
-                        box 250.14,372.19 0x0
-                        text 255.83,364.27 50x15.83 "Place 15" #f0e6d0
-                        box 311.52,372.19 0x0
-                    box 201.41,388.47 115.8x29.71 @pointerPress
-                      box 201.41,388.47 115.8x29.71 #00000000 @keyPress @pointerPress
-                        box 207.09,394.16 18.33x18.33
-                        box 231.12,396.66 13.33x13.33 icon=132053
-                        box 250.14,403.32 0x0
-                        text 255.83,395.41 50x15.83 "Place 16" #f0e6d0
-                        box 311.52,403.32 0x0
-                    box 201.41,419.6 115.8x29.71 @pointerPress
-                      box 201.41,419.6 115.8x29.71 #00000000 @keyPress @pointerPress
-                        box 207.09,425.29 18.33x18.33
-                        box 231.12,427.79 13.33x13.33 icon=132053
-                        box 250.14,434.46 0x0
-                        text 255.83,426.54 50x15.83 "Place 17" #f0e6d0
-                        box 311.52,434.46 0x0
-                text 85.75,483.29 333.33x15.83 "Tab: the keys move to the next column" #a3977f
-    box 426.02,697.17 13.33x13.33 absolute
-      box 426.02,697.17 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
-  box 54.82,98.83 395.2x39
-    box 54.82,98.83 306.67x39
+surface 54.82,98.83 389.51x622.33 on MEDIUM clamped raised by a click
+  box 54.82,137.83 389.51x583.33 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.98, tr 0.79, bl 0.80, br 0.61, top 0.98>0.80 x9.14, bottom 0.79>0.61 x9.14, left 0.98>0.80 x14.19, right 0.78>0.61 x14.19]
+    box 64.42,147.43 370.31x564.13
+      box 64.42,147.43 370.31x564.13
+        box 82.91,165.92 333.33x527.16
+          box 82.91,165.92 0x0 absolute @keyPress
+          box 82.91,165.92 0x0 absolute @keyPress
+          box 82.91,165.92 0x0 absolute @keyPress
+          box 82.91,165.92 0x0 absolute @keyPress
+          box 82.91,165.92 0x0 absolute @keyPress
+          box 82.91,165.92 0x0 absolute @keyPress
+          box 82.91,165.92 0x0 absolute @keyPress
+          box 82.91,165.92 0x0 absolute @keyPress
+          box 82.91,165.92 0x0 absolute @keyPress
+          box 82.91,165.92 0x0 absolute @keyPress
+          box 82.91,165.92 333.33x27.21
+            text 88.59,171.61 321.96x15.83 "Where would you like to go?" #f0e6d0
+          box 82.91,193.13 333.33x499.94
+            box 82.91,198.82 333.33x489.99
+              box 82.91,198.82 333.33x297.46
+                box 82.91,198.82 333.33x278.78
+                  box 82.91,198.82 109.97x278.78 @focusEnter
+                    box 82.91,198.82 109.97x29.71 @pointerPress
+                      box 82.91,198.82 109.97x29.71 #00000000 @keyPress @pointerPress
+                        box 88.59,204.51 18.33x18.33 #00000080
+                          text 94.43,207.68 6.67x12 "1" #c9a76a
+                        box 112.62,207.01 13.33x13.33 icon=132053
+                        box 131.64,213.68 0x0
+                        text 137.33,205.76 44.17x15.83 "Place 1" #f0e6d0
+                        box 187.18,213.68 0x0
+                    box 82.91,229.96 109.97x29.71 @pointerPress
+                      box 82.91,229.96 109.97x29.71 #00000000 @keyPress @pointerPress
+                        box 88.59,235.64 18.33x18.33 #00000080
+                          text 94.43,238.81 6.67x12 "2" #c9a76a
+                        box 112.62,238.14 13.33x13.33 icon=132053
+                        box 131.64,244.81 0x0
+                        text 137.33,236.89 44.17x15.83 "Place 2" #f0e6d0
+                        box 187.18,244.81 0x0
+                    box 82.91,261.09 109.97x29.71 @pointerPress
+                      box 82.91,261.09 109.97x29.71 #00000000 @keyPress @pointerPress
+                        box 88.59,266.78 18.33x18.33 #00000080
+                          text 94.43,269.94 6.67x12 "3" #c9a76a
+                        box 112.62,269.28 13.33x13.33 icon=132053
+                        box 131.64,275.94 0x0
+                        text 137.33,268.03 44.17x15.83 "Place 3" #f0e6d0
+                        box 187.18,275.94 0x0
+                    box 82.91,292.22 109.97x29.71 @pointerPress
+                      box 82.91,292.22 109.97x29.71 #00000000 @keyPress @pointerPress
+                        box 88.59,297.91 18.33x18.33 #00000080
+                          text 94.43,301.08 6.67x12 "4" #c9a76a
+                        box 112.62,300.41 13.33x13.33 icon=132053
+                        box 131.64,307.08 0x0
+                        text 137.33,299.16 44.17x15.83 "Place 4" #f0e6d0
+                        box 187.18,307.08 0x0
+                    box 82.91,323.36 109.97x29.71 @pointerPress
+                      box 82.91,323.36 109.97x29.71 #00000000 @keyPress @pointerPress
+                        box 88.59,329.04 18.33x18.33 #00000080
+                          text 94.43,332.21 6.67x12 "5" #c9a76a
+                        box 112.62,331.54 13.33x13.33 icon=132053
+                        box 131.64,338.21 0x0
+                        text 137.33,330.29 44.17x15.83 "Place 5" #f0e6d0
+                        box 187.18,338.21 0x0
+                    box 82.91,354.49 109.97x29.71 @pointerPress
+                      box 82.91,354.49 109.97x29.71 #00000000 @keyPress @pointerPress
+                        box 88.59,360.18 18.33x18.33 #00000080
+                          text 94.43,363.34 6.67x12 "6" #c9a76a
+                        box 112.62,362.68 13.33x13.33 icon=132053
+                        box 131.64,369.34 0x0
+                        text 137.33,361.43 44.17x15.83 "Place 6" #f0e6d0
+                        box 187.18,369.34 0x0
+                    box 82.91,385.62 109.97x29.71 @pointerPress
+                      box 82.91,385.62 109.97x29.71 #00000000 @keyPress @pointerPress
+                        box 88.59,391.31 18.33x18.33 #00000080
+                          text 94.43,394.48 6.67x12 "7" #c9a76a
+                        box 112.62,393.81 13.33x13.33 icon=132053
+                        box 131.64,400.48 0x0
+                        text 137.33,392.56 44.17x15.83 "Place 7" #f0e6d0
+                        box 187.18,400.48 0x0
+                    box 82.91,416.76 109.97x29.71 @pointerPress
+                      box 82.91,416.76 109.97x29.71 #00000000 @keyPress @pointerPress
+                        box 88.59,422.44 18.33x18.33 #00000080
+                          text 94.43,425.61 6.67x12 "8" #c9a76a
+                        box 112.62,424.94 13.33x13.33 icon=132053
+                        box 131.64,431.61 0x0
+                        text 137.33,423.69 44.17x15.83 "Place 8" #f0e6d0
+                        box 187.18,431.61 0x0
+                    box 82.91,447.89 109.97x29.71 @pointerPress
+                      box 82.91,447.89 109.97x29.71 #00000000 @keyPress @pointerPress
+                        box 88.59,453.58 18.33x18.33 #00000080
+                          text 94.43,456.74 6.67x12 "9" #c9a76a
+                        box 112.62,456.08 13.33x13.33 icon=132053
+                        box 131.64,462.74 0x0
+                        text 137.33,454.83 44.17x15.83 "Place 9" #f0e6d0
+                        box 187.18,462.74 0x0
+                  box 198.56,198.82 115.8x247.64 @focusEnter
+                    box 198.56,198.82 115.8x29.71 @pointerPress
+                      box 198.56,198.82 115.8x29.71 #00000000 @keyPress @pointerPress
+                        box 204.25,204.51 18.33x18.33
+                        box 228.27,207.01 13.33x13.33 icon=132053
+                        box 247.29,213.68 0x0
+                        text 252.98,205.76 50x15.83 "Place 10" #f0e6d0
+                        box 308.67,213.68 0x0
+                    box 198.56,229.96 115.8x29.71 @pointerPress
+                      box 198.56,229.96 115.8x29.71 #00000000 @keyPress @pointerPress
+                        box 204.25,235.64 18.33x18.33
+                        box 228.27,238.14 13.33x13.33 icon=132053
+                        box 247.29,244.81 0x0
+                        text 252.98,236.89 50x15.83 "Place 11" #f0e6d0
+                        box 308.67,244.81 0x0
+                    box 198.56,261.09 115.8x29.71 @pointerPress
+                      box 198.56,261.09 115.8x29.71 #00000000 @keyPress @pointerPress
+                        box 204.25,266.78 18.33x18.33
+                        box 228.27,269.28 13.33x13.33 icon=132053
+                        box 247.29,275.94 0x0
+                        text 252.98,268.03 50x15.83 "Place 12" #f0e6d0
+                        box 308.67,275.94 0x0
+                    box 198.56,292.22 115.8x29.71 @pointerPress
+                      box 198.56,292.22 115.8x29.71 #00000000 @keyPress @pointerPress
+                        box 204.25,297.91 18.33x18.33
+                        box 228.27,300.41 13.33x13.33 icon=132053
+                        box 247.29,307.08 0x0
+                        text 252.98,299.16 50x15.83 "Place 13" #f0e6d0
+                        box 308.67,307.08 0x0
+                    box 198.56,323.36 115.8x29.71 @pointerPress
+                      box 198.56,323.36 115.8x29.71 #00000000 @keyPress @pointerPress
+                        box 204.25,329.04 18.33x18.33
+                        box 228.27,331.54 13.33x13.33 icon=132053
+                        box 247.29,338.21 0x0
+                        text 252.98,330.29 50x15.83 "Place 14" #f0e6d0
+                        box 308.67,338.21 0x0
+                    box 198.56,354.49 115.8x29.71 @pointerPress
+                      box 198.56,354.49 115.8x29.71 #00000000 @keyPress @pointerPress
+                        box 204.25,360.18 18.33x18.33
+                        box 228.27,362.68 13.33x13.33 icon=132053
+                        box 247.29,369.34 0x0
+                        text 252.98,361.43 50x15.83 "Place 15" #f0e6d0
+                        box 308.67,369.34 0x0
+                    box 198.56,385.62 115.8x29.71 @pointerPress
+                      box 198.56,385.62 115.8x29.71 #00000000 @keyPress @pointerPress
+                        box 204.25,391.31 18.33x18.33
+                        box 228.27,393.81 13.33x13.33 icon=132053
+                        box 247.29,400.48 0x0
+                        text 252.98,392.56 50x15.83 "Place 16" #f0e6d0
+                        box 308.67,400.48 0x0
+                    box 198.56,416.76 115.8x29.71 @pointerPress
+                      box 198.56,416.76 115.8x29.71 #00000000 @keyPress @pointerPress
+                        box 204.25,422.44 18.33x18.33
+                        box 228.27,424.94 13.33x13.33 icon=132053
+                        box 247.29,431.61 0x0
+                        text 252.98,423.69 50x15.83 "Place 17" #f0e6d0
+                        box 308.67,431.61 0x0
+                text 82.91,480.44 333.33x15.83 "Tab: the keys move to the next column" #a3977f
+    box 420.33,697.17 13.33x13.33 absolute
+      box 420.33,697.17 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
+  box 54.82,98.83 389.51x39
+    box 54.82,98.83 300.98x39
       box 54.82,98.83 191.38x39 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.99, tr 0.90, top 0.99>0.91 x3.98, left 0.99>0.99 x0.52, right 0.90>0.89 x0.52] @drag @dragStart @dragStop @keyPress @pointerPress
         box 63.82,107.83 39x39 absolute face:npc border=Interface\AddOns\Ordaen\media\frame-edge-top sides=none pieces=[]
         box 98.99,107.83 4.05x30 absolute border=Interface\AddOns\Ordaen\media\frame-divider-down sides=left pieces=[left 0.86>0.85 x1.04]
         box 106.4,108.43 121.67x38.4
           text 106.4,119.72 121.67x15.83 "Stormwind City Guard" #ffd100
-    box 370.02,117.17 80x20.67
-      box 370.02,117.17 80x26.67 clipped
-        box 370.02,117.17 27.5x26.67 absolute clipped @keyPress @pointerPress
-          box 370.02,117.17 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
-          box 378.35,126.75 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 0 of 8
-        box 397.52,117.17 25x26.67 absolute clipped @keyPress @pointerPress
-          box 397.52,117.17 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 3 of 16
-          box 403.77,126.75 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
-        box 422.52,117.17 27.5x26.67 absolute clipped @keyPress @pointerPress
-          box 422.52,117.17 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
-          box 428.77,126.75 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
+    box 364.33,117.17 80x20.67
+      box 364.33,117.17 80x26.67 clipped
+        box 364.33,117.17 27.5x26.67 absolute clipped @keyPress @pointerPress
+          box 364.33,117.17 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
+          box 372.66,126.75 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 0 of 8
+        box 391.83,117.17 25x26.67 absolute clipped @keyPress @pointerPress
+          box 391.83,117.17 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 3 of 16
+          box 398.08,126.75 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
+        box 416.83,117.17 27.5x26.67 absolute clipped @keyPress @pointerPress
+          box 416.83,117.17 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
+          box 423.08,126.75 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8

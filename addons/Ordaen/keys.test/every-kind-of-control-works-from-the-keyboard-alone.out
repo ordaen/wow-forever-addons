@@ -21,81 +21,81 @@ key: ENTER → #0 > #1 «Small» (keys:ENTER,SPACE)
 -- the dropdown opened by Enter: the focus in its list
 surface 420,120.5 760x659 on MEDIUM clamped raised by a click
   box 420,159.5 760x620 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.98, tr 0.79, bl 0.80, br 0.61, top 0.98>0.79 x18.79, bottom 0.80>0.61 x18.79, left 0.98>0.80 x15.15, right 0.78>0.61 x15.15]
-    box 432.44,171.94 735.11x595.11
-      box 432.44,171.94 735.11x595.11
-        box 450.93,190.43 698.13x558.13
-          box 450.93,190.43 698.13x18.33 opacity=1
-            box 450.93,191.68 233.33x15.83 @pointerEnter @pointerLeave
-              text 450.93,191.68 233.33x15.83 "Pixel" #cbb994
-            box 699.91,190.43 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @keyPress @pointerPress
-              box 699.91,190.43 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=1
-          box 450.93,214.46 698.13x16.67 opacity=1
-            box 450.93,214.87 233.33x15.83 @pointerEnter @pointerLeave
-              text 450.93,214.87 233.33x15.83 "Sounds" #cbb994
-            box 699.91,214.46 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 1 of 4 @keyPress @pointerPress
-              box 697.41,211.96 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2 opacity=0
-              box 712.41,211.96 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=1
-          box 450.93,236.81 698.13x28.88 opacity=1
-            box 450.93,236.81 50.26x28.88 #0d0a08 @keyPress @pointerPress
-              box 450.93,236.81 50.26x1.67 absolute #00000000
-              text 463.14,243.33 25.83x15.83 "Left" #a3977f
-            box 501.19,236.81 55.26x28.88 #5a4428 @keyPress @pointerPress
-              box 501.19,236.81 55.26x1.67 absolute #d6a56b
-              text 512.57,243.33 31.67x15.83 "Right" #f0e6d2
-          box 450.93,271.38 698.13x28.04
-            box 450.93,298.59 698.13x0.83 absolute #3e2f1d
-            box 450.93,271.38 44.42x28.04 #00000000 @keyPress @pointerPress
-              box 451.77,272.21 42.76x1.67 absolute #00000000
-              text 463.14,277.9 20x15.83 "One" #a3977f
-            box 498.2,271.38 44.42x28.04 #00000059 @keyPress @pointerPress
-              box 499.03,272.21 42.76x1.67 absolute #d6a56b
-              text 510.41,277.9 20x15.83 "Two" #f0e6d2
-          box 450.93,305.11 698.13x28.33 opacity=1
-            box 450.93,311.36 233.33x15.83 @pointerEnter @pointerLeave
-              text 450.93,311.36 233.33x15.83 "Size" #cbb994
-            box 699.91,305.11 200x28.33
-              box 699.91,305.11 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
-                text 715.56,311.36 152.53x15.83 "Small" #f0c860
-                box 876.62,312.61 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-          box 450.93,339.13 120x28.33
-            box 450.93,339.13 120x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
-              text 460.89,345.38 83.91x15.83 "Left" #f0c860
-              box 550.49,346.63 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-          box 450.93,373.16 698.13x28.33 opacity=1
-            box 450.93,379.41 233.33x15.83 @pointerEnter @pointerLeave
-              text 450.93,379.41 233.33x15.83 "Scale" #cbb994
-            box 699.91,373.16 449.16x28.33
-              box 699.91,373.16 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerUp
-                text 707.41,379.41 8.33x15.83 "-" #ffd100
-              box 728.93,378.99 213.33x16.67 @drag @dragStart @dragStop @keyPress @pointerPress
-                box 735.6,383.99 200x6.67 absolute Interface\AddOns\Ordaen\media\ctl-slider row 0 of 4
-                box 736.43,384.82 66.11x5 absolute Interface\AddOns\Ordaen\media\ctl-slider row 1 of 4
-                box 795.6,377.32 13.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-slider-knob
-              box 947.96,373.16 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerUp
-                text 955.46,379.41 8.33x15.83 "+" #ffd100
-              text 976.98,379.41 8.33x15.83 "1" #f0e6d2
-          box 450.93,407.18 698.13x25 opacity=1
-            box 450.93,411.76 233.33x15.83 @pointerEnter @pointerLeave
-              text 450.93,411.76 233.33x15.83 "Price" #cbb994
-            box 699.91,407.18 150x25 #0d0a08 input "0c" @change
-          box 450.93,437.87 698.13x40 #0d0a08 input "" lines clipped @change
-          box 450.93,483.56 698.13x76.83
-            box 450.93,483.56 698.13x76.83 #0000004d
-              box 451.77,484.39 696.47x33.73
-                box 460.3,484.39 679.4x33.73 #00000040
-                  box 468.83,484.39 662.33x32.9 #00000000 @keyPress @pointerPress
-                    box 468.83,515.62 662.33x1.67 absolute #d6a56b
-                    box 468.83,492.92 28.68x15.83
-                      text 468.83,492.92 25.83x15.83 "Name" #f0c860
-              box 451.77,518.12 696.47x41.43 scrolled 0 of 0
-                box 460.3,526.66 679.4x24.37 #00000000 @keyPress @pointerEnter @pointerLeave @pointerPress
-                  text 468.83,530.92 662.33x15.83 "a row" #ffffff
-          box 450.93,566.08 698.13x20 @keyPress @pointerPress
-            text 450.93,566.08 698.13x15.83 "menu" #ffffff
-          box 450.93,591.77 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @keyPress @pointerPress
-            box 450.93,591.77 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
-          box 450.93,615.79 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 opacity=0.45
-            box 450.93,615.79 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
+    box 429.6,169.1 740.8x600.8
+      box 429.6,169.1 740.8x600.8
+        box 448.09,187.59 703.82x563.82
+          box 448.09,187.59 703.82x18.33 opacity=1
+            box 448.09,188.84 233.33x15.83 @pointerEnter @pointerLeave
+              text 448.09,188.84 233.33x15.83 "Pixel" #cbb994
+            box 697.07,187.59 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @keyPress @pointerPress
+              box 697.07,187.59 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=1
+          box 448.09,211.61 703.82x16.67 opacity=1
+            box 448.09,212.03 233.33x15.83 @pointerEnter @pointerLeave
+              text 448.09,212.03 233.33x15.83 "Sounds" #cbb994
+            box 697.07,211.61 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 1 of 4 @keyPress @pointerPress
+              box 694.57,209.11 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2 opacity=0
+              box 709.57,209.11 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=1
+          box 448.09,233.97 703.82x28.88 opacity=1
+            box 448.09,233.97 50.26x28.88 #0d0a08 @keyPress @pointerPress
+              box 448.09,233.97 50.26x1.67 absolute #00000000
+              text 460.3,240.49 25.83x15.83 "Left" #a3977f
+            box 498.34,233.97 55.26x28.88 #5a4428 @keyPress @pointerPress
+              box 498.34,233.97 55.26x1.67 absolute #d6a56b
+              text 509.72,240.49 31.67x15.83 "Right" #f0e6d2
+          box 448.09,268.53 703.82x28.04
+            box 448.09,295.74 703.82x0.83 absolute #3e2f1d
+            box 448.09,268.53 44.42x28.04 #00000000 @keyPress @pointerPress
+              box 448.92,269.37 42.76x1.67 absolute #00000000
+              text 460.3,275.06 20x15.83 "One" #a3977f
+            box 495.36,268.53 44.42x28.04 #00000059 @keyPress @pointerPress
+              box 496.19,269.37 42.76x1.67 absolute #d6a56b
+              text 507.57,275.06 20x15.83 "Two" #f0e6d2
+          box 448.09,302.27 703.82x28.33 opacity=1
+            box 448.09,308.52 233.33x15.83 @pointerEnter @pointerLeave
+              text 448.09,308.52 233.33x15.83 "Size" #cbb994
+            box 697.07,302.27 200x28.33
+              box 697.07,302.27 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
+                text 712.71,308.52 152.53x15.83 "Small" #f0c860
+                box 873.78,309.77 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+          box 448.09,336.29 120x28.33
+            box 448.09,336.29 120x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
+              text 458.04,342.54 83.91x15.83 "Left" #f0c860
+              box 547.64,343.79 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+          box 448.09,370.31 703.82x28.33 opacity=1
+            box 448.09,376.56 233.33x15.83 @pointerEnter @pointerLeave
+              text 448.09,376.56 233.33x15.83 "Scale" #cbb994
+            box 697.07,370.31 454.84x28.33
+              box 697.07,370.31 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerUp
+                text 704.57,376.56 8.33x15.83 "-" #ffd100
+              box 726.09,376.14 213.33x16.67 @drag @dragStart @dragStop @keyPress @pointerPress
+                box 732.76,381.14 200x6.67 absolute Interface\AddOns\Ordaen\media\ctl-slider row 0 of 4
+                box 733.59,381.98 66.11x5 absolute Interface\AddOns\Ordaen\media\ctl-slider row 1 of 4
+                box 792.76,374.48 13.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-slider-knob
+              box 945.11,370.31 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerUp
+                text 952.61,376.56 8.33x15.83 "+" #ffd100
+              text 974.13,376.56 8.33x15.83 "1" #f0e6d2
+          box 448.09,404.33 703.82x25 opacity=1
+            box 448.09,408.92 233.33x15.83 @pointerEnter @pointerLeave
+              text 448.09,408.92 233.33x15.83 "Price" #cbb994
+            box 697.07,404.33 150x25 #0d0a08 input "0c" @change
+          box 448.09,435.02 703.82x40 #0d0a08 input "" lines clipped @change
+          box 448.09,480.71 703.82x76.83
+            box 448.09,480.71 703.82x76.83 #0000004d
+              box 448.92,481.54 702.16x33.73
+                box 457.46,481.54 685.09x33.73 #00000040
+                  box 465.99,481.54 668.02x32.9 #00000000 @keyPress @pointerPress
+                    box 465.99,512.78 668.02x1.67 absolute #d6a56b
+                    box 465.99,490.08 28.68x15.83
+                      text 465.99,490.08 25.83x15.83 "Name" #f0c860
+              box 448.92,515.28 702.16x41.43 scrolled 0 of 0
+                box 457.46,523.81 685.09x24.37 #00000000 @keyPress @pointerEnter @pointerLeave @pointerPress
+                  text 465.99,528.08 668.02x15.83 "a row" #ffffff
+          box 448.09,563.23 703.82x20 @keyPress @pointerPress
+            text 448.09,563.23 703.82x15.83 "menu" #ffffff
+          box 448.09,588.92 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @keyPress @pointerPress
+            box 448.09,588.92 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
+          box 448.09,612.94 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 opacity=0.45
+            box 448.09,612.94 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
     box 1156,755.5 13.33x13.33 absolute
       box 1156,755.5 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 420,120.5 760x39
@@ -114,13 +114,13 @@ surface 420,120.5 760x659 on MEDIUM clamped raised by a click
         box 1152.5,138.83 27.5x26.67 absolute clipped @keyPress @pointerPress
           box 1152.5,138.83 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
           box 1158.75,148.42 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
-surface 699.91,333.44 216.67x61.78 on FULLSCREEN_DIALOG #0a0806f7
-  box 700.74,339.97 215x24.37 #d6a56b2e @keyPress @pointerPress focus ring
-    box 709.08,347.47 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 1 of 2
-    text 726.34,344.23 178.02x15.83 "Small" #f0e6d2
-  box 700.74,364.33 215x24.37 #00000000 @keyPress @pointerPress
-    box 709.08,371.83 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
-    text 726.34,368.6 178.02x15.83 "Large" #f0e6d2
+surface 697.07,330.6 216.67x61.78 on FULLSCREEN_DIALOG #0a0806f7
+  box 697.9,337.12 215x24.37 #d6a56b2e @keyPress @pointerPress focus ring
+    box 706.23,344.62 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 1 of 2
+    text 723.5,341.39 178.02x15.83 "Small" #f0e6d2
+  box 697.9,361.49 215x24.37 #00000000 @keyPress @pointerPress
+    box 706.23,368.99 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
+    text 723.5,365.76 178.02x15.83 "Large" #f0e6d2
 
 key: DOWN → #0 > #2 «Large» (keys:ENTER,SPACE)
 key: ENTER → #7 «Large» (keys:ENTER,SPACE)

@@ -221,8 +221,8 @@ test "a tab's padding is the room between the frame's line and its page: none, a
   const flush = Test.edges(Ordaen.art.panel.xpTrough, 0)
   Test.expect(flush.left < roomy.left - 5 && flush.top < roomy.top - 5)
   Test.expect(flush.right > roomy.right + 5 && flush.bottom > roomy.bottom + 5)
-  // Out by the window's whole room: `WINDOW_ROOM` and its frame's inset (1sp), none left of either.
-  const room = Ordaen.lengthOf(WINDOW_ROOM + 1sp) / 1ui
+  // Out by the window's whole room, `WINDOW_ROOM`, none left of it.
+  const room = Ordaen.lengthOf(WINDOW_ROOM) / 1ui
   Test.expect(near(roomy.left - flush.left, room) && near(roomy.top - flush.top, room) && near(flush.right - roomy.right, room))
 }
 

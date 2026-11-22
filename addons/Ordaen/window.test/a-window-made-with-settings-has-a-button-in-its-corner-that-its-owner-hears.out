@@ -1,9 +1,9 @@
 -- the cursor over the window: the group's plates, settings first, then full screen and close
 surface 600,280.5 400x339 on MEDIUM clamped raised by a click
   box 600,319.5 400x300 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.97, tr 0.78, bl 0.80, br 0.61, top 0.96>0.78 x9.42, bottom 0.79>0.61 x9.42, left 0.96>0.81 x6.81, right 0.77>0.61 x6.81]
-    box 612.44,331.94 375.11x275.11
-      box 612.44,331.94 375.11x275.11
-        text 630.93,350.43 338.13x15.83 "the page" #ffffff
+    box 609.6,329.1 380.8x280.8
+      box 609.6,329.1 380.8x280.8
+        text 628.09,347.59 343.82x15.83 "the page" #ffffff
     box 976,595.5 13.33x13.33 absolute
       box 976,595.5 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 600,280.5 400x39

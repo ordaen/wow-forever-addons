@@ -1,9 +1,9 @@
 -- opened again where it was left, the cursor in its body: full screen and close at the body's top right
 surface 400,360.5 400x339 on MEDIUM clamped raised by a click
   box 400,399.5 400x300 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.97, tr 0.78, bl 0.80, br 0.61, top 0.96>0.78 x9.42, bottom 0.79>0.61 x9.42, left 0.96>0.81 x6.81, right 0.77>0.61 x6.81]
-    box 412.44,411.94 375.11x275.11
-      box 412.44,411.94 375.11x275.11
-        text 430.93,430.43 338.13x15.83 "the page" #ffffff
+    box 409.6,409.1 380.8x280.8
+      box 409.6,409.1 380.8x280.8
+        text 428.09,427.59 343.82x15.83 "the page" #ffffff
     box 776,675.5 13.33x13.33 absolute
       box 776,675.5 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 400,360.5 400x39

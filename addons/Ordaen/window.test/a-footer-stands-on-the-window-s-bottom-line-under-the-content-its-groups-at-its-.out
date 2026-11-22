@@ -1,17 +1,17 @@
 -- the content over the footer, a group's step between them; «Reset» left, «Save» right, the panel's step over the line
 surface 600,280.5 400x339 on MEDIUM clamped raised by a click
   box 600,319.5 400x300 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.97, tr 0.78, bl 0.80, br 0.61, top 0.96>0.78 x9.42, bottom 0.79>0.61 x9.42, left 0.96>0.81 x6.81, right 0.77>0.61 x6.81]
-    box 612.44,331.94 375.11x277.96
-      box 612.44,331.94 375.11x235.4
-        box 635.2,354.7 329.6x195.58 #30302a
-          text 635.2,354.7 329.6x15.83 "the page" #ffffff
-      box 612.44,567.34 375.11x42.56
-        box 612.44,567.34 375.11x42.56
-          box 635.2,567.34 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-            text 669.37,573.59 31.67x15.83 "Reset" #ffd100
-          text 752.27,573.59 95.47x15.83 "2 waiting" #ffffff
-          box 864.8,567.34 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-            text 901.88,573.59 25.83x15.83 "Save" #ffd100
+    box 609.6,329.1 380.8x280.8
+      box 609.6,329.1 380.8x238.24
+        box 632.36,351.86 335.29x198.42 #30302a
+          text 632.36,351.86 335.29x15.83 "the page" #ffffff
+      box 609.6,567.34 380.8x42.56
+        box 609.6,567.34 380.8x42.56
+          box 632.36,567.34 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+            text 666.52,573.59 31.67x15.83 "Reset" #ffd100
+          text 749.42,573.59 101.16x15.83 "2 waiting" #ffffff
+          box 867.64,567.34 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+            text 904.73,573.59 25.83x15.83 "Save" #ffd100
     box 976,595.5 13.33x13.33 absolute
       box 976,595.5 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 600,280.5 400x39

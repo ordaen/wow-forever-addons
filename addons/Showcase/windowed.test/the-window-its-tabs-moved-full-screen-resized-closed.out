@@ -3,15 +3,15 @@ box 0,0 300x22.93
   text 4.27,4.27 291.47x14.4 "a page under the window" #ffffff
 surface 600,274.67 400x350.67 on MEDIUM clamped raised by a click
   box 600,325.33 400x300 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.96, tr 0.77, bl 0.80, br 0.61, top 0.96>0.78 x9.42, bottom 0.79>0.61 x9.42, left 0.96>0.81 x6.81, right 0.76>0.61 x6.81]
-    box 612.44,337.78 375.11x277.96
-      box 612.44,337.78 375.11x235.4
-        box 635.2,360.53 329.6x195.58
-          text 635.2,360.53 329.6x15.83 "the first tab's page" #ffffff
-      box 612.44,573.18 375.11x42.56
-        box 612.44,573.18 375.11x42.56
-          text 635.2,579.43 212.53x15.83 "saved 0 times" #a3977f
-          box 864.8,573.18 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-            text 901.88,579.43 25.83x15.83 "Save" #ffd100
+    box 609.6,334.93 380.8x280.8
+      box 609.6,334.93 380.8x238.24
+        box 632.36,357.69 335.29x198.42
+          text 632.36,357.69 335.29x15.83 "the first tab's page" #ffffff
+      box 609.6,573.18 380.8x42.56
+        box 609.6,573.18 380.8x42.56
+          text 632.36,579.43 218.22x15.83 "saved 0 times" #a3977f
+          box 867.64,573.18 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+            text 904.73,579.43 25.83x15.83 "Save" #ffd100
     box 976,601.33 13.33x13.33 absolute
       box 976,601.33 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 600,274.67 400x50.67
@@ -42,15 +42,15 @@ box 0,0 300x22.93
   text 4.27,4.27 291.47x14.4 "a page under the window" #ffffff
 surface 600,274.67 400x350.67 on MEDIUM clamped raised by a click
   box 600,325.33 400x300 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.96, tr 0.77, bl 0.80, br 0.61, top 0.96>0.78 x9.42, bottom 0.79>0.61 x9.42, left 0.96>0.81 x6.81, right 0.76>0.61 x6.81]
-    box 612.44,337.78 375.11x277.96
-      box 612.44,337.78 375.11x235.4
-        box 635.2,360.53 329.6x195.58
-          text 635.2,360.53 329.6x15.83 "the second tab's page" #ffffff
-      box 612.44,573.18 375.11x42.56
-        box 612.44,573.18 375.11x42.56
-          text 635.2,579.43 212.53x15.83 "saved 0 times" #a3977f
-          box 864.8,573.18 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-            text 901.88,579.43 25.83x15.83 "Save" #ffd100
+    box 609.6,334.93 380.8x280.8
+      box 609.6,334.93 380.8x238.24
+        box 632.36,357.69 335.29x198.42
+          text 632.36,357.69 335.29x15.83 "the second tab's page" #ffffff
+      box 609.6,573.18 380.8x42.56
+        box 609.6,573.18 380.8x42.56
+          text 632.36,579.43 218.22x15.83 "saved 0 times" #a3977f
+          box 867.64,573.18 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+            text 904.73,579.43 25.83x15.83 "Save" #ffd100
     box 976,601.33 13.33x13.33 absolute
       box 976,601.33 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 600,274.67 400x50.67
@@ -81,15 +81,15 @@ box 0,0 300x22.93
   text 4.27,4.27 291.47x14.4 "a page under the window" #ffffff
 surface 640,304.67 400x350.67 on MEDIUM clamped raised by a click
   box 640,355.33 400x300 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.96, tr 0.77, bl 0.80, br 0.61, top 0.96>0.78 x9.42, bottom 0.79>0.61 x9.42, left 0.96>0.81 x6.81, right 0.76>0.61 x6.81]
-    box 652.44,367.78 375.11x277.96
-      box 652.44,367.78 375.11x235.4
-        box 675.2,390.53 329.6x195.58
-          text 675.2,390.53 329.6x15.83 "the second tab's page" #ffffff
-      box 652.44,603.18 375.11x42.56
-        box 652.44,603.18 375.11x42.56
-          text 675.2,609.43 212.53x15.83 "saved 0 times" #a3977f
-          box 904.8,603.18 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-            text 941.88,609.43 25.83x15.83 "Save" #ffd100
+    box 649.6,364.93 380.8x280.8
+      box 649.6,364.93 380.8x238.24
+        box 672.36,387.69 335.29x198.42
+          text 672.36,387.69 335.29x15.83 "the second tab's page" #ffffff
+      box 649.6,603.18 380.8x42.56
+        box 649.6,603.18 380.8x42.56
+          text 672.36,609.43 218.22x15.83 "saved 0 times" #a3977f
+          box 907.64,603.18 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+            text 944.73,609.43 25.83x15.83 "Save" #ffd100
     box 1016,631.33 13.33x13.33 absolute
       box 1016,631.33 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 640,304.67 400x50.67
@@ -120,15 +120,15 @@ box 0,0 300x22.93
   text 4.27,4.27 291.47x14.4 "a page under the window" #ffffff
 surface 640,304.67 400x350.67 on MEDIUM clamped raised by a click
   box 640,355.33 400x300 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.96, tr 0.77, bl 0.80, br 0.61, top 0.96>0.78 x9.42, bottom 0.79>0.61 x9.42, left 0.96>0.81 x6.81, right 0.76>0.61 x6.81]
-    box 652.44,367.78 375.11x277.96
-      box 652.44,367.78 375.11x235.4
-        box 675.2,390.53 329.6x195.58
-          text 675.2,390.53 329.6x15.83 "the second tab's page" #ffffff
-      box 652.44,603.18 375.11x42.56
-        box 652.44,603.18 375.11x42.56
-          text 675.2,609.43 212.53x15.83 "saved 0 times" #a3977f
-          box 904.8,603.18 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-            text 941.88,609.43 25.83x15.83 "Save" #ffd100
+    box 649.6,364.93 380.8x280.8
+      box 649.6,364.93 380.8x238.24
+        box 672.36,387.69 335.29x198.42
+          text 672.36,387.69 335.29x15.83 "the second tab's page" #ffffff
+      box 649.6,603.18 380.8x42.56
+        box 649.6,603.18 380.8x42.56
+          text 672.36,609.43 218.22x15.83 "saved 0 times" #a3977f
+          box 907.64,603.18 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+            text 944.73,609.43 25.83x15.83 "Save" #ffd100
     box 1016,631.33 13.33x13.33 absolute
       box 1016,631.33 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 640,304.67 400x50.67
@@ -159,15 +159,15 @@ box 0,0 300x22.93
   text 4.27,4.27 291.47x14.4 "a page under the window" #ffffff
 surface 640,304.67 400x350.67 on MEDIUM clamped raised by a click
   box 640,355.33 400x300 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.96, tr 0.77, bl 0.80, br 0.61, top 0.96>0.78 x9.42, bottom 0.79>0.61 x9.42, left 0.96>0.81 x6.81, right 0.76>0.61 x6.81]
-    box 652.44,367.78 375.11x277.96
-      box 652.44,367.78 375.11x235.4
-        box 675.2,390.53 329.6x195.58
-          text 675.2,390.53 329.6x15.83 "the second tab's page" #ffffff
-      box 652.44,603.18 375.11x42.56
-        box 652.44,603.18 375.11x42.56
-          text 675.2,609.43 212.53x15.83 "saved 0 times" #a3977f
-          box 904.8,603.18 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-            text 941.88,609.43 25.83x15.83 "Save" #ffd100
+    box 649.6,364.93 380.8x280.8
+      box 649.6,364.93 380.8x238.24
+        box 672.36,387.69 335.29x198.42
+          text 672.36,387.69 335.29x15.83 "the second tab's page" #ffffff
+      box 649.6,603.18 380.8x42.56
+        box 649.6,603.18 380.8x42.56
+          text 672.36,609.43 218.22x15.83 "saved 0 times" #a3977f
+          box 907.64,603.18 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+            text 944.73,609.43 25.83x15.83 "Save" #ffd100
     box 1016,631.33 13.33x13.33 absolute
       box 1016,631.33 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 640,304.67 400x50.67
@@ -198,15 +198,15 @@ box 0,0 300x22.93
   text 4.27,4.27 291.47x14.4 "a page under the window" #ffffff
 surface 0,0 1600x900 on MEDIUM clamped raised by a click
   box 0,50.67 1600x849.33 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.99, tr 0.79, bl 0.80, br 0.60, top 0.99>0.79 x40.67, bottom 0.80>0.60 x40.67, left 0.98>0.80 x21.12, right 0.79>0.60 x21.12]
-    box 12.44,63.11 1575.11x827.29
-      box 12.44,63.11 1575.11x784.73
-        box 35.2,85.87 1529.6x744.91
-          text 35.2,85.87 1529.6x15.83 "the second tab's page" #ffffff
-      box 12.44,847.84 1575.11x42.56
-        box 12.44,847.84 1575.11x42.56
-          text 35.2,854.09 1412.53x15.83 "saved 0 times" #a3977f
-          box 1464.8,847.84 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-            text 1501.88,854.09 25.83x15.83 "Save" #ffd100
+    box 9.6,60.27 1580.8x830.13
+      box 9.6,60.27 1580.8x787.58
+        box 32.36,83.02 1535.29x747.76
+          text 32.36,83.02 1535.29x15.83 "the second tab's page" #ffffff
+      box 9.6,847.84 1580.8x42.56
+        box 9.6,847.84 1580.8x42.56
+          text 32.36,854.09 1418.22x15.83 "saved 0 times" #a3977f
+          box 1467.64,847.84 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+            text 1504.73,854.09 25.83x15.83 "Save" #ffd100
   box 0,0 1600x50.67
     box 0,0 1511.47x50.67
       box 0,0 149.72x50.67 Interface\AddOns\Ordaen\media\window-wood tint=#808080 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 1.00, tr 0.98, top 1.00>0.98 x2.90, left 1.00>0.99 x0.82, right 0.98>0.97 x0.82] @drag @dragStart @dragStop @keyPress @pointerPress
@@ -235,15 +235,15 @@ box 0,0 300x22.93
   text 4.27,4.27 291.47x14.4 "a page under the window" #ffffff
 surface 640,304.67 400x350.67 on MEDIUM clamped raised by a click
   box 640,355.33 400x300 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.96, tr 0.77, bl 0.80, br 0.61, top 0.96>0.78 x9.42, bottom 0.79>0.61 x9.42, left 0.96>0.81 x6.81, right 0.76>0.61 x6.81]
-    box 652.44,367.78 375.11x277.96
-      box 652.44,367.78 375.11x235.4
-        box 675.2,390.53 329.6x195.58
-          text 675.2,390.53 329.6x15.83 "the second tab's page" #ffffff
-      box 652.44,603.18 375.11x42.56
-        box 652.44,603.18 375.11x42.56
-          text 675.2,609.43 212.53x15.83 "saved 0 times" #a3977f
-          box 904.8,603.18 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-            text 941.88,609.43 25.83x15.83 "Save" #ffd100
+    box 649.6,364.93 380.8x280.8
+      box 649.6,364.93 380.8x238.24
+        box 672.36,387.69 335.29x198.42
+          text 672.36,387.69 335.29x15.83 "the second tab's page" #ffffff
+      box 649.6,603.18 380.8x42.56
+        box 649.6,603.18 380.8x42.56
+          text 672.36,609.43 218.22x15.83 "saved 0 times" #a3977f
+          box 907.64,603.18 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+            text 944.73,609.43 25.83x15.83 "Save" #ffd100
     box 1016,631.33 13.33x13.33 absolute
       box 1016,631.33 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 640,304.67 400x50.67
@@ -274,15 +274,15 @@ box 0,0 300x22.93
   text 4.27,4.27 291.47x14.4 "a page under the window" #ffffff
 surface 640,304.67 400x350.67 on MEDIUM clamped raised by a click
   box 640,355.33 400x300 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.96, tr 0.77, bl 0.80, br 0.61, top 0.96>0.78 x9.42, bottom 0.79>0.61 x9.42, left 0.96>0.81 x6.81, right 0.76>0.61 x6.81]
-    box 652.44,367.78 375.11x277.96
-      box 652.44,367.78 375.11x235.4
-        box 675.2,390.53 329.6x195.58
-          text 675.2,390.53 329.6x15.83 "the second tab's page" #ffffff
-      box 652.44,603.18 375.11x42.56
-        box 652.44,603.18 375.11x42.56
-          text 675.2,609.43 212.53x15.83 "saved 0 times" #a3977f
-          box 904.8,603.18 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-            text 941.88,609.43 25.83x15.83 "Save" #ffd100
+    box 649.6,364.93 380.8x280.8
+      box 649.6,364.93 380.8x238.24
+        box 672.36,387.69 335.29x198.42
+          text 672.36,387.69 335.29x15.83 "the second tab's page" #ffffff
+      box 649.6,603.18 380.8x42.56
+        box 649.6,603.18 380.8x42.56
+          text 672.36,609.43 218.22x15.83 "saved 0 times" #a3977f
+          box 907.64,603.18 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+            text 944.73,609.43 25.83x15.83 "Save" #ffd100
     box 1016,631.33 13.33x13.33 absolute
       box 1016,631.33 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 640,304.67 400x50.67
@@ -313,15 +313,15 @@ box 0,0 300x22.93
   text 4.27,4.27 291.47x14.4 "a page under the window" #ffffff
 surface 640,304.67 460x370.67 on MEDIUM clamped raised by a click
   box 640,355.33 460x320 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.96, tr 0.77, bl 0.80, br 0.61, top 0.96>0.78 x10.98, bottom 0.79>0.61 x10.98, left 0.96>0.81 x7.33, right 0.76>0.61 x7.33]
-    box 652.44,367.78 435.11x297.96
-      box 652.44,367.78 435.11x255.4
-        box 675.2,390.53 389.6x215.58
-          text 675.2,390.53 389.6x15.83 "the second tab's page" #ffffff
-      box 652.44,623.18 435.11x42.56
-        box 652.44,623.18 435.11x42.56
-          text 675.2,629.43 272.53x15.83 "saved 0 times" #a3977f
-          box 964.8,623.18 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-            text 1001.88,629.43 25.83x15.83 "Save" #ffd100
+    box 649.6,364.93 440.8x300.8
+      box 649.6,364.93 440.8x258.24
+        box 672.36,387.69 395.29x218.42
+          text 672.36,387.69 395.29x15.83 "the second tab's page" #ffffff
+      box 649.6,623.18 440.8x42.56
+        box 649.6,623.18 440.8x42.56
+          text 672.36,629.43 278.22x15.83 "saved 0 times" #a3977f
+          box 967.64,623.18 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+            text 1004.73,629.43 25.83x15.83 "Save" #ffd100
     box 1076,651.33 13.33x13.33 absolute
       box 1076,651.33 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Highlight @drag @dragStart @dragStop
   box 640,304.67 460x50.67
@@ -352,15 +352,15 @@ box 0,0 300x22.93
   text 4.27,4.27 291.47x14.4 "a page under the window" #ffffff
 surface 640,304.67 600x217.33 on MEDIUM clamped raised by a click
   box 640,355.33 600x166.67 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.94, tr 0.75, bl 0.81, br 0.61, top 0.94>0.76 x14.62, bottom 0.80>0.61 x14.62, left 0.93>0.82 x3.34, right 0.74>0.62 x3.34]
-    box 652.44,367.78 575.11x144.62
-      box 652.44,367.78 575.11x102.07
-        box 675.2,390.53 529.6x62.24
-          text 675.2,390.53 529.6x15.83 "the second tab's page" #ffffff
-      box 652.44,469.84 575.11x42.56
-        box 652.44,469.84 575.11x42.56
-          text 675.2,476.09 412.53x15.83 "saved 0 times" #a3977f
-          box 1104.8,469.84 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-            text 1141.88,476.09 25.83x15.83 "Save" #ffd100
+    box 649.6,364.93 580.8x147.47
+      box 649.6,364.93 580.8x104.91
+        box 672.36,387.69 535.29x65.09
+          text 672.36,387.69 535.29x15.83 "the second tab's page" #ffffff
+      box 649.6,469.84 580.8x42.56
+        box 649.6,469.84 580.8x42.56
+          text 672.36,476.09 418.22x15.83 "saved 0 times" #a3977f
+          box 1107.64,469.84 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+            text 1144.73,476.09 25.83x15.83 "Save" #ffd100
     box 1216,498 13.33x13.33 absolute
       box 1216,498 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 640,304.67 600x50.67

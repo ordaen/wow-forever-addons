@@ -1,9 +1,9 @@
 -- the first tab open: its wood and its picture cut at their rounded corners, the second tab's wood too
 surface 600,274.67 400x350.67 on MEDIUM clamped raised by a click
   box 600,325.33 400x300 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.96, tr 0.77, bl 0.80, br 0.61, top 0.96>0.78 x9.42, bottom 0.79>0.61 x9.42, left 0.96>0.81 x6.81, right 0.76>0.61 x6.81]
-    box 612.44,337.78 375.11x275.11
-      box 612.44,337.78 375.11x275.11
-        text 630.93,356.27 338.13x15.83 "the page" #ffffff
+    box 609.6,334.93 380.8x280.8
+      box 609.6,334.93 380.8x280.8
+        text 628.09,353.42 343.82x15.83 "the page" #ffffff
     box 976,601.33 13.33x13.33 absolute
       box 976,601.33 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 600,274.67 400x50.67
@@ -29,9 +29,9 @@ surface 600,274.67 400x350.67 on MEDIUM clamped raised by a click
 -- the second tab open: cut as the first was
 surface 600,274.67 400x350.67 on MEDIUM clamped raised by a click
   box 600,325.33 400x300 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.96, tr 0.77, bl 0.80, br 0.61, top 0.96>0.78 x9.42, bottom 0.79>0.61 x9.42, left 0.96>0.81 x6.81, right 0.76>0.61 x6.81]
-    box 612.44,337.78 375.11x275.11
-      box 612.44,337.78 375.11x275.11
-        text 630.93,356.27 338.13x15.83 "the page" #ffffff
+    box 609.6,334.93 380.8x280.8
+      box 609.6,334.93 380.8x280.8
+        text 628.09,353.42 343.82x15.83 "the page" #ffffff
     box 976,601.33 13.33x13.33 absolute
       box 976,601.33 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 600,274.67 400x50.67
