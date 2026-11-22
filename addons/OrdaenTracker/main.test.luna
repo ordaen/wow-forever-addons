@@ -209,7 +209,7 @@ test "it stands at the right under what keeps the top right corner and above wha
   Ordaen.keepBottom("OrdaenPanel", 0ui)
 }
 
-test "it lists as many quests as the settings say, the first in the log's order, on a ground as dark as they say" {
+test "it lists as many quests as the settings say, the first in the log's order, on a rounded ground as dark as they say" {
   logged()
   Tracker.settings.values.listed = 1
   Tracker.settings.values.ground = 0.25
@@ -220,6 +220,8 @@ test "it lists as many quests as the settings say, the first in the log's order,
   // The count is of every tracked quest, listed or not, of any zone.
   Test.expect(Test.page().text("3/25").shown())
   Test.expect(Test.page().box({ r: 0, g: 0, b: 0, a: 0.25 }).shown())
+  // The ground is the chat's: a plain fill with rounded corners (the round mask on each), at the setting's darkness.
+  Test.shot("one quest listed on a quarter-dark rounded ground")
 }
 
 test "the placing mode shows it with no quest tracked, moves it, keeps where it was let go, and a right click sends it home" {

@@ -3,13 +3,13 @@
 // objectives); other modules add lines under a quest through `questLines` (Quests: where to go, whom to hand it to).
 // The clicks are Blizzard's tracker's: a chat link first, Shift+click untracks, a click opens the quest in the log,
 // Right-click opens its menu, which also points the way to it. Its settings say how many quests it lists and how
-// dark its ground is; the placing mode moves it.
+// dark its ground is (the chat's rounded ground, at its own opacity); the placing mode moves it.
 import Client from "$client"
 import Events from "$events"
 import Game from "$game"
 import { Action, Anchored, Bounds, Edges, FillDuration, Overflow, Point, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { BRIGHT_TEXT, ButtonPlate, Component, Dialog, ItemButton, Menu, MenuEntry, Module, Placed, PushButton, SECONDARY_TEXT, Settings, SettingsPage, playSound, questLevelColor } from "Ordaen"
+import { BRIGHT_TEXT, ButtonPlate, Component, Dialog, ItemButton, Menu, MenuEntry, Module, Placed, PushButton, RoundedFill, SECONDARY_TEXT, Settings, SettingsPage, playSound, questLevelColor } from "Ordaen"
 import { QuestLine, QuestLines } from "@/extend"
 import Locale from "@/locales"
 import { Choices, DEFAULTS, GeneralPage } from "@/settings"
@@ -205,7 +205,8 @@ public class Tracker implements Module, App {
     return $ltml {
       <frame of={Game.frames.ObjectiveTracker} opacity={0} away={true} />
       <Placed $if={self.drawn} id={PART} title={Locale.PLACE} home={self.home}>
-        <box width={WIDTH} height={self.height} background={self.ground} padding={PAD} rows={ROWS} gap={3sp}>
+        <box width={WIDTH} height={self.height} padding={PAD} rows={ROWS} gap={3sp}>
+          <RoundedFill color={self.ground} />
           <box columns={HEAD} gap={3sp} @pointerPress={self.onFold}>
             <text value={Locale.QUESTS} textColor={GOLD} wrap={.None} />
             <text value={self.count} textColor={DIM} textSize={SECONDARY_TEXT} wrap={.None} />

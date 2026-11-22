@@ -1,0 +1,29 @@
+-- one quest listed on a quarter-dark rounded ground
+surface 1341.67,5 250x890 on LOW clamped
+  box 1341.67,5 250x890
+    box 1341.67,5 250x890 absolute
+      box 1346.67,5 240x890 absolute Interface/Buttons/WHITE8X8 tint=#00000040
+      box 1341.67,10 5x880 absolute Interface/Buttons/WHITE8X8 tint=#00000040
+      box 1586.67,10 5x880 absolute Interface/Buttons/WHITE8X8 tint=#00000040
+      box 1341.67,5 5x5 absolute clipped
+        box 1341.67,5 10x10 absolute Interface/Buttons/WHITE8X8 tint=#00000040 cut by Interface/CHARACTERFRAME/TempPortraitAlphaMask
+      box 1586.67,5 5x5 absolute clipped
+        box 1581.67,5 10x10 absolute Interface/Buttons/WHITE8X8 tint=#00000040 cut by Interface/CHARACTERFRAME/TempPortraitAlphaMask
+      box 1341.67,890 5x5 absolute clipped
+        box 1341.67,885 10x10 absolute Interface/Buttons/WHITE8X8 tint=#00000040 cut by Interface/CHARACTERFRAME/TempPortraitAlphaMask
+      box 1586.67,890 5x5 absolute clipped
+        box 1581.67,885 10x10 absolute Interface/Buttons/WHITE8X8 tint=#00000040 cut by Interface/CHARACTERFRAME/TempPortraitAlphaMask
+    box 1350.2,13.53 232.93x15.83 @pointerPress
+      text 1350.2,13.53 38.33x15.83 "Quests" #ffd100
+      text 1397.07,13.53 21.67x13.33 "3/25" #a3977f
+      text 1427.27,13.53 155.87x15.83 "–" #a3977f
+    box 1350.2,37.9 232.93x848.57 scrolled 0 of 0
+      box 1350.2,37.9 232.93x34.86
+        box 1350.2,37.9 232.93x15.83 @pointerPress
+          text 1350.2,37.9 25.83x15.83 "[14]" #ff2020
+          text 1381.72,37.9 190.03x15.83 "The Defias Brotherhood" #ffd100
+          text 1577.44,37.9 0x0 "" #a3977f
+          box 1583.13,37.9 0x0
+        box 1350.2,56.58 232.93x13.33
+          text 1375.8,56.58 207.33x13.33 "— Talk to Gryan Stoutmantle" #f0e6d2
+        box 1350.2,72.76 232.93x0
