@@ -121,12 +121,12 @@ surface 548.15,192.46 893.38x515.08 on MEDIUM clamped raised by a click
               box 1369.91,302.08 41.67x129.97 absolute Interface\AddOns\OrdaenQuestPage\media\scroll-paper-right
               box 1113.44,320.83 254.8x92.47 absolute scrolled 0 of 0
                 text 1113.44,320.83 254.8x16.8 "The Defias Brotherhood" #200800
-                box 1113.44,341.9 254.8x15 @linkEnter @linkLeave
-                  text 1113.44,341.9 254.8x15 "Gryan asks you to look into Westfall." #160c03
-                box 1113.44,361.16 254.8x15.83
-                  box 1113.44,368.66 90.88x0.83 #3a100080
-                  text 1210.01,361.16 61.67x15.83 "Objectives" #3a1000
-                  box 1277.36,368.66 90.88x0.83 #3a100080
+                box 1113.44,341.9 254.8x15.83 @linkEnter @linkLeave
+                  text 1113.44,341.9 254.8x15.83 "Gryan asks you to look into Westfall." #160c03
+                box 1113.44,362 254.8x17.5
+                  box 1113.44,370.33 88.38x0.83 #3a100080
+                  text 1207.51,362 66.67x17.5 "Objectives" #3a1000
+                  box 1279.86,370.33 88.38x0.83 #3a100080
           box 1070.11,474.68 341.47x140.99
             box 1070.11,474.68 341.47x33.08
               box 1070.11,474.68 341.47x15.83
@@ -222,13 +222,13 @@ surface 956.48,223.29 353.7x453.42 on MEDIUM clamped raised by a click
               box 1242.83,316.98 41.67x217.19 absolute Interface\AddOns\OrdaenQuestPage\media\scroll-paper-right
               box 1025.51,335.73 215.66x179.69 absolute scrolled 0 of 0
                 text 1025.51,335.73 215.66x33.6 "The Defias Brotherhood, part two" #200800
-                text 1025.51,373.6 215.66x15.83 "Level 16, available from level 12" #4a3520
-                box 1025.51,393.7 215.66x15.83
-                  box 1025.51,401.2 71.31x0.83 #3a100080
-                  text 1102.5,393.7 61.67x15.83 "Objectives" #3a1000
-                  box 1169.86,401.2 71.31x0.83 #3a100080
-                box 1025.51,413.8 215.66x30 @linkEnter @linkLeave
-                  text 1025.51,413.8 215.66x30 "Take the note to the Scout. Then report back." #160c03
+                text 1025.51,373.6 215.66x17.5 "Level 16, available from level 12" #4a3520
+                box 1025.51,395.36 215.66x17.5
+                  box 1025.51,403.7 68.81x0.83 #3a100080
+                  text 1100,395.36 66.67x17.5 "Objectives" #3a1000
+                  box 1172.36,403.7 68.81x0.83 #3a100080
+                box 1025.51,417.13 215.66x31.67 @linkEnter @linkLeave
+                  text 1025.51,417.13 215.66x31.67 "Take the note to the Scout. Then report back." #160c03
           box 982.17,576.8 302.32x34.51
             box 982.17,576.8 302.32x15.83
               text 982.17,576.8 61.67x15.83 "Next quest" #e8c35a

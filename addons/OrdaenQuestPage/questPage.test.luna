@@ -116,3 +116,26 @@ test "the band says experience and reputation in one size" {
   Test.expect(((xp.bottom - xp.top) - (standing.bottom - standing.top)).abs() < 0.5)
   destroy page
 }
+
+class ReadPage {
+  public render(self): Template {
+    return $ltml {
+      <box width={SCROLL_WIDTH} rows={[{ fr: 0 }, SCROLL_ROW]}>
+        <text value={"Find the Defias."} />
+        <Scroll>
+          <text value={"Find the Defias."} />
+        </Scroll>
+      </box>
+    }
+  }
+}
+
+test "the parchment's sentences stand larger than the window's body text, as a page's do" {
+  const page = new ReadPage()
+  Test.mount(page, { left: 0, top: 0, width: 600, height: 700 })
+  const words = Test.page().text("Find the Defias.")
+  const window = words.nth(1).letters()
+  const parchment = words.nth(2).letters()
+  Test.expect(parchment.right - parchment.left > (window.right - window.left) * 1.05)
+  destroy page
+}

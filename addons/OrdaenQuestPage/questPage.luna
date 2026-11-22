@@ -11,7 +11,7 @@ import {
 } from "$ltml"
 import Runtime from "$runtime"
 import {
-  Component, Cut, ItemButton, Money, PickRow, Quality, SECONDARY_TEXT, TITLE_TEXT, Tip, TipRow, qualityColor, qualityFrom,
+  BODY_TEXT, Component, Cut, ItemButton, Money, PickRow, Quality, SECONDARY_TEXT, TITLE_TEXT, Tip, TipRow, qualityColor, qualityFrom,
   usableItem
 } from "Ordaen"
 import Locale from "@/locales"
@@ -26,6 +26,9 @@ const RULE_HEIGHT: Number<Length> = 1.171875dp
 const HEADING_ACROSS: Array<Track> = [{ fr: 1 }, "max-content", { fr: 1 }]
 // The body's lines on the parchment: as tight as a title's, a written page's (the window's prose stands looser).
 public const SCROLL_LEADING: Leading = .Title
+// What the parchment holds is read as a page of sentences: a unit over the window's body, as a book's text stands
+// larger than its labels.
+const SCROLL_TEXT: Number<TextSize> = (BODY_TEXT + 1ui) / BODY_TEXT * 1rem
 // The muted ink: still 6:1 on the tinted parchment (≈#d9bb85), the weakest monitor's least; lighter than the ink.
 public const SCROLL_DIM: Color = Color.hex("#4a3520")
 // In the well.
@@ -205,7 +208,7 @@ public class Scroll implements Component {
         <box position={Position.Absolute} left={0dp} right={0dp} top={UNDER_FADE} bottom={UNDER_FADE}>
           <ScrollPaper />
           <box position={Position.Absolute} left={OFF_SIDES} right={OFF_SIDES} top={OFF_FADES} bottom={OFF_FADES}
-               overflow={Overflow.Scroll} gap={1.5sp} zLevel={OVER_PAPER}>
+               overflow={Overflow.Scroll} gap={1.5sp} zLevel={OVER_PAPER} textSize={SCROLL_TEXT}>
             <ScrollTitle $if={self.titled} title={self.title} />
             <slot />
           </box>
