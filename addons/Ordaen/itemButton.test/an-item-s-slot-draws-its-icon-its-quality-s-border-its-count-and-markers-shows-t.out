@@ -2,21 +2,21 @@
 box 0,0 600x33.33
   box 0,0 33.33x33.33 #0d0a08 opacity=1 @dragStart @drop @pointerEnter @pointerLeave @pointerPress
     box 0,0 33.33x33.33 absolute
-    box 0,0 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
+    box 0,0 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim tint=#6c5535 opacity=0
     box 0,0 33.33x33.33 absolute #00000000
   box 41.87,0 33.33x33.33 #0d0a08 opacity=1 @dragStart @drop @pointerEnter @pointerLeave @pointerPress
     box 41.87,0 33.33x33.33 absolute icon=Interface/Icons/INV_Misc_Bag_08
-    box 41.87,0 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
+    box 41.87,0 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim tint=#6c5535 opacity=0
     box 41.87,0 33.33x33.33 absolute #00000000
   box 83.73,0 33.33x33.33 #0d0a08 opacity=1 @dragStart @drop @pointerEnter @pointerLeave @pointerPress
     box 83.73,0 33.33x33.33 absolute icon=Interface/Icons/INV_Misc_Bag_08
-    box 83.73,0 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
+    box 83.73,0 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim tint=#a335ee opacity=1
     box 83.73,0 33.33x33.33 absolute #00000000
     box 83.73,0 33.33x33.33 absolute
       text 99.22,16.4 15x15.51 "20" #f0e6d2
   box 125.6,0 33.33x33.33 #0d0a08 opacity=1 @dragStart @drop @pointerEnter @pointerLeave @pointerPress
     box 125.6,0 33.33x33.33 absolute icon=Interface/Icons/INV_Misc_Bag_08
-    box 125.6,0 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
+    box 125.6,0 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim tint=#1eff00 opacity=1
     box 125.6,0 33.33x33.33 absolute #00000000
     box 125.6,0 5.83x5.83 absolute #ffd100
     box 125.6,27.5 5.83x5.83 absolute #4fd1ff
@@ -24,32 +24,32 @@ box 0,0 600x33.33
       text 147.76,16.4 8.33x15.51 "5" #f0e6d2
   box 167.47,0 33.33x33.33 #0d0a08 opacity=1 @dragStart @drop @pointerEnter @pointerLeave @pointerPress
     box 167.47,0 33.33x33.33 absolute icon=Interface/Icons/INV_Misc_Bag_08
-    box 167.47,0 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
+    box 167.47,0 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim tint=#9d9d9d opacity=0
     box 167.47,0 33.33x33.33 absolute #00000000
   box 209.33,0 33.33x33.33 #0d0a08 opacity=1 @dragStart @drop @pointerEnter @pointerLeave @pointerPress
     box 209.33,0 33.33x33.33 absolute
-    box 209.33,0 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
+    box 209.33,0 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim tint=#ff8000 opacity=1
     box 209.33,0 33.33x33.33 absolute #00000000
 
 -- the cursor on the common slot: the light over its icon, the game's tooltip of the item asked for
 box 0,0 600x33.33
   box 0,0 33.33x33.33 #0d0a08 opacity=1 @dragStart @drop @pointerEnter @pointerLeave @pointerPress
     box 0,0 33.33x33.33 absolute
-    box 0,0 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
+    box 0,0 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim tint=#6c5535 opacity=0
     box 0,0 33.33x33.33 absolute #00000000
   box 41.87,0 33.33x33.33 #0d0a08 opacity=1 @dragStart @drop @pointerEnter @pointerLeave @pointerPress
     box 41.87,0 33.33x33.33 absolute icon=Interface/Icons/INV_Misc_Bag_08
-    box 41.87,0 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
+    box 41.87,0 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim tint=#6c5535 opacity=0
     box 41.87,0 33.33x33.33 absolute #ffffff26
   box 83.73,0 33.33x33.33 #0d0a08 opacity=1 @dragStart @drop @pointerEnter @pointerLeave @pointerPress
     box 83.73,0 33.33x33.33 absolute icon=Interface/Icons/INV_Misc_Bag_08
-    box 83.73,0 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
+    box 83.73,0 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim tint=#a335ee opacity=1
     box 83.73,0 33.33x33.33 absolute #00000000
     box 83.73,0 33.33x33.33 absolute
       text 99.22,16.4 15x15.51 "20" #f0e6d2
   box 125.6,0 33.33x33.33 #0d0a08 opacity=1 @dragStart @drop @pointerEnter @pointerLeave @pointerPress
     box 125.6,0 33.33x33.33 absolute icon=Interface/Icons/INV_Misc_Bag_08
-    box 125.6,0 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
+    box 125.6,0 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim tint=#1eff00 opacity=1
     box 125.6,0 33.33x33.33 absolute #00000000
     box 125.6,0 5.83x5.83 absolute #ffd100
     box 125.6,27.5 5.83x5.83 absolute #4fd1ff
@@ -57,11 +57,11 @@ box 0,0 600x33.33
       text 147.76,16.4 8.33x15.51 "5" #f0e6d2
   box 167.47,0 33.33x33.33 #0d0a08 opacity=1 @dragStart @drop @pointerEnter @pointerLeave @pointerPress
     box 167.47,0 33.33x33.33 absolute icon=Interface/Icons/INV_Misc_Bag_08
-    box 167.47,0 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
+    box 167.47,0 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim tint=#9d9d9d opacity=0
     box 167.47,0 33.33x33.33 absolute #00000000
   box 209.33,0 33.33x33.33 #0d0a08 opacity=1 @dragStart @drop @pointerEnter @pointerLeave @pointerPress
     box 209.33,0 33.33x33.33 absolute
-    box 209.33,0 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
+    box 209.33,0 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim tint=#ff8000 opacity=1
     box 209.33,0 33.33x33.33 absolute #00000000
 asked: Items.show 6948
 
@@ -69,21 +69,21 @@ asked: Items.show 6948
 box 0,0 600x33.33
   box 0,0 33.33x33.33 #0d0a08 opacity=1 @dragStart @drop @pointerEnter @pointerLeave @pointerPress
     box 0,0 33.33x33.33 absolute
-    box 0,0 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
+    box 0,0 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim tint=#6c5535 opacity=0
     box 0,0 33.33x33.33 absolute #00000000
   box 41.87,0 33.33x33.33 #0d0a08 opacity=1 @dragStart @drop @pointerEnter @pointerLeave @pointerPress
     box 41.87,0 33.33x33.33 absolute icon=Interface/Icons/INV_Misc_Bag_08
-    box 41.87,0 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
+    box 41.87,0 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim tint=#6c5535 opacity=0
     box 41.87,0 33.33x33.33 absolute #00000000
   box 83.73,0 33.33x33.33 #0d0a08 opacity=1 @dragStart @drop @pointerEnter @pointerLeave @pointerPress
     box 83.73,0 33.33x33.33 absolute icon=Interface/Icons/INV_Misc_Bag_08
-    box 83.73,0 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
+    box 83.73,0 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim tint=#a335ee opacity=1
     box 83.73,0 33.33x33.33 absolute #00000000
     box 83.73,0 33.33x33.33 absolute
       text 99.22,16.4 15x15.51 "20" #f0e6d2
   box 125.6,0 33.33x33.33 #0d0a08 opacity=1 @dragStart @drop @pointerEnter @pointerLeave @pointerPress
     box 125.6,0 33.33x33.33 absolute icon=Interface/Icons/INV_Misc_Bag_08
-    box 125.6,0 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
+    box 125.6,0 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim tint=#1eff00 opacity=1
     box 125.6,0 33.33x33.33 absolute #00000000
     box 125.6,0 5.83x5.83 absolute #ffd100
     box 125.6,27.5 5.83x5.83 absolute #4fd1ff
@@ -91,32 +91,32 @@ box 0,0 600x33.33
       text 147.76,16.4 8.33x15.51 "5" #f0e6d2
   box 167.47,0 33.33x33.33 #0d0a08 opacity=1 @dragStart @drop @pointerEnter @pointerLeave @pointerPress
     box 167.47,0 33.33x33.33 absolute icon=Interface/Icons/INV_Misc_Bag_08
-    box 167.47,0 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
+    box 167.47,0 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim tint=#9d9d9d opacity=0
     box 167.47,0 33.33x33.33 absolute #00000000
   box 209.33,0 33.33x33.33 #0d0a08 opacity=1 @dragStart @drop @pointerEnter @pointerLeave @pointerPress
     box 209.33,0 33.33x33.33 absolute
-    box 209.33,0 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
+    box 209.33,0 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim tint=#ff8000 opacity=1
     box 209.33,0 33.33x33.33 absolute #00000000
 
 -- the cursor on the empty slot: the light, no tooltip asked for
 box 0,0 600x33.33
   box 0,0 33.33x33.33 #0d0a08 opacity=1 @dragStart @drop @pointerEnter @pointerLeave @pointerPress
     box 0,0 33.33x33.33 absolute
-    box 0,0 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
+    box 0,0 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim tint=#6c5535 opacity=0
     box 0,0 33.33x33.33 absolute #ffffff26
   box 41.87,0 33.33x33.33 #0d0a08 opacity=1 @dragStart @drop @pointerEnter @pointerLeave @pointerPress
     box 41.87,0 33.33x33.33 absolute icon=Interface/Icons/INV_Misc_Bag_08
-    box 41.87,0 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
+    box 41.87,0 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim tint=#6c5535 opacity=0
     box 41.87,0 33.33x33.33 absolute #00000000
   box 83.73,0 33.33x33.33 #0d0a08 opacity=1 @dragStart @drop @pointerEnter @pointerLeave @pointerPress
     box 83.73,0 33.33x33.33 absolute icon=Interface/Icons/INV_Misc_Bag_08
-    box 83.73,0 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
+    box 83.73,0 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim tint=#a335ee opacity=1
     box 83.73,0 33.33x33.33 absolute #00000000
     box 83.73,0 33.33x33.33 absolute
       text 99.22,16.4 15x15.51 "20" #f0e6d2
   box 125.6,0 33.33x33.33 #0d0a08 opacity=1 @dragStart @drop @pointerEnter @pointerLeave @pointerPress
     box 125.6,0 33.33x33.33 absolute icon=Interface/Icons/INV_Misc_Bag_08
-    box 125.6,0 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
+    box 125.6,0 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim tint=#1eff00 opacity=1
     box 125.6,0 33.33x33.33 absolute #00000000
     box 125.6,0 5.83x5.83 absolute #ffd100
     box 125.6,27.5 5.83x5.83 absolute #4fd1ff
@@ -124,32 +124,32 @@ box 0,0 600x33.33
       text 147.76,16.4 8.33x15.51 "5" #f0e6d2
   box 167.47,0 33.33x33.33 #0d0a08 opacity=1 @dragStart @drop @pointerEnter @pointerLeave @pointerPress
     box 167.47,0 33.33x33.33 absolute icon=Interface/Icons/INV_Misc_Bag_08
-    box 167.47,0 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
+    box 167.47,0 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim tint=#9d9d9d opacity=0
     box 167.47,0 33.33x33.33 absolute #00000000
   box 209.33,0 33.33x33.33 #0d0a08 opacity=1 @dragStart @drop @pointerEnter @pointerLeave @pointerPress
     box 209.33,0 33.33x33.33 absolute
-    box 209.33,0 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
+    box 209.33,0 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim tint=#ff8000 opacity=1
     box 209.33,0 33.33x33.33 absolute #00000000
 
 -- the epic dimmed by a search
 box 0,0 600x33.33
   box 0,0 33.33x33.33 #0d0a08 opacity=1 @dragStart @drop @pointerEnter @pointerLeave @pointerPress
     box 0,0 33.33x33.33 absolute
-    box 0,0 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
+    box 0,0 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim tint=#6c5535 opacity=0
     box 0,0 33.33x33.33 absolute #ffffff26
   box 41.87,0 33.33x33.33 #0d0a08 opacity=1 @dragStart @drop @pointerEnter @pointerLeave @pointerPress
     box 41.87,0 33.33x33.33 absolute icon=Interface/Icons/INV_Misc_Bag_08
-    box 41.87,0 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
+    box 41.87,0 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim tint=#6c5535 opacity=0
     box 41.87,0 33.33x33.33 absolute #00000000
   box 83.73,0 33.33x33.33 #0d0a08 opacity=0.35 @dragStart @drop @pointerEnter @pointerLeave @pointerPress
     box 83.73,0 33.33x33.33 absolute icon=Interface/Icons/INV_Misc_Bag_08
-    box 83.73,0 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
+    box 83.73,0 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim tint=#a335ee opacity=1
     box 83.73,0 33.33x33.33 absolute #00000000
     box 83.73,0 33.33x33.33 absolute
       text 99.22,16.4 15x15.51 "20" #f0e6d2
   box 125.6,0 33.33x33.33 #0d0a08 opacity=1 @dragStart @drop @pointerEnter @pointerLeave @pointerPress
     box 125.6,0 33.33x33.33 absolute icon=Interface/Icons/INV_Misc_Bag_08
-    box 125.6,0 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
+    box 125.6,0 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim tint=#1eff00 opacity=1
     box 125.6,0 33.33x33.33 absolute #00000000
     box 125.6,0 5.83x5.83 absolute #ffd100
     box 125.6,27.5 5.83x5.83 absolute #4fd1ff
@@ -157,32 +157,32 @@ box 0,0 600x33.33
       text 147.76,16.4 8.33x15.51 "5" #f0e6d2
   box 167.47,0 33.33x33.33 #0d0a08 opacity=1 @dragStart @drop @pointerEnter @pointerLeave @pointerPress
     box 167.47,0 33.33x33.33 absolute icon=Interface/Icons/INV_Misc_Bag_08
-    box 167.47,0 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
+    box 167.47,0 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim tint=#9d9d9d opacity=0
     box 167.47,0 33.33x33.33 absolute #00000000
   box 209.33,0 33.33x33.33 #0d0a08 opacity=1 @dragStart @drop @pointerEnter @pointerLeave @pointerPress
     box 209.33,0 33.33x33.33 absolute
-    box 209.33,0 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
+    box 209.33,0 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim tint=#ff8000 opacity=1
     box 209.33,0 33.33x33.33 absolute #00000000
 
 -- the common slot clicked: picked, nothing put into the chat
 box 0,0 600x33.33
   box 0,0 33.33x33.33 #0d0a08 opacity=1 @dragStart @drop @pointerEnter @pointerLeave @pointerPress
     box 0,0 33.33x33.33 absolute
-    box 0,0 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
+    box 0,0 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim tint=#6c5535 opacity=0
     box 0,0 33.33x33.33 absolute #00000000
   box 41.87,0 33.33x33.33 #0d0a08 opacity=1 @dragStart @drop @pointerEnter @pointerLeave @pointerPress
     box 41.87,0 33.33x33.33 absolute icon=Interface/Icons/INV_Misc_Bag_08
-    box 41.87,0 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
+    box 41.87,0 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim tint=#6c5535 opacity=0
     box 41.87,0 33.33x33.33 absolute #ffffff26
   box 83.73,0 33.33x33.33 #0d0a08 opacity=0.35 @dragStart @drop @pointerEnter @pointerLeave @pointerPress
     box 83.73,0 33.33x33.33 absolute icon=Interface/Icons/INV_Misc_Bag_08
-    box 83.73,0 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
+    box 83.73,0 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim tint=#a335ee opacity=1
     box 83.73,0 33.33x33.33 absolute #00000000
     box 83.73,0 33.33x33.33 absolute
       text 99.22,16.4 15x15.51 "20" #f0e6d2
   box 125.6,0 33.33x33.33 #0d0a08 opacity=1 @dragStart @drop @pointerEnter @pointerLeave @pointerPress
     box 125.6,0 33.33x33.33 absolute icon=Interface/Icons/INV_Misc_Bag_08
-    box 125.6,0 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
+    box 125.6,0 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim tint=#1eff00 opacity=1
     box 125.6,0 33.33x33.33 absolute #00000000
     box 125.6,0 5.83x5.83 absolute #ffd100
     box 125.6,27.5 5.83x5.83 absolute #4fd1ff
@@ -190,11 +190,11 @@ box 0,0 600x33.33
       text 147.76,16.4 8.33x15.51 "5" #f0e6d2
   box 167.47,0 33.33x33.33 #0d0a08 opacity=1 @dragStart @drop @pointerEnter @pointerLeave @pointerPress
     box 167.47,0 33.33x33.33 absolute icon=Interface/Icons/INV_Misc_Bag_08
-    box 167.47,0 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
+    box 167.47,0 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim tint=#9d9d9d opacity=0
     box 167.47,0 33.33x33.33 absolute #00000000
   box 209.33,0 33.33x33.33 #0d0a08 opacity=1 @dragStart @drop @pointerEnter @pointerLeave @pointerPress
     box 209.33,0 33.33x33.33 absolute
-    box 209.33,0 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
+    box 209.33,0 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim tint=#ff8000 opacity=1
     box 209.33,0 33.33x33.33 absolute #00000000
 asked: Items.show 6948
 
@@ -202,21 +202,21 @@ asked: Items.show 6948
 box 0,0 600x33.33
   box 0,0 33.33x33.33 #0d0a08 opacity=1 @dragStart @drop @pointerEnter @pointerLeave @pointerPress
     box 0,0 33.33x33.33 absolute
-    box 0,0 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
+    box 0,0 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim tint=#6c5535 opacity=0
     box 0,0 33.33x33.33 absolute #00000000
   box 41.87,0 33.33x33.33 #0d0a08 opacity=1 @dragStart @drop @pointerEnter @pointerLeave @pointerPress
     box 41.87,0 33.33x33.33 absolute icon=Interface/Icons/INV_Misc_Bag_08
-    box 41.87,0 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
+    box 41.87,0 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim tint=#6c5535 opacity=0
     box 41.87,0 33.33x33.33 absolute #ffffff26
   box 83.73,0 33.33x33.33 #0d0a08 opacity=0.35 @dragStart @drop @pointerEnter @pointerLeave @pointerPress
     box 83.73,0 33.33x33.33 absolute icon=Interface/Icons/INV_Misc_Bag_08
-    box 83.73,0 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
+    box 83.73,0 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim tint=#a335ee opacity=1
     box 83.73,0 33.33x33.33 absolute #00000000
     box 83.73,0 33.33x33.33 absolute
       text 99.22,16.4 15x15.51 "20" #f0e6d2
   box 125.6,0 33.33x33.33 #0d0a08 opacity=1 @dragStart @drop @pointerEnter @pointerLeave @pointerPress
     box 125.6,0 33.33x33.33 absolute icon=Interface/Icons/INV_Misc_Bag_08
-    box 125.6,0 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
+    box 125.6,0 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim tint=#1eff00 opacity=1
     box 125.6,0 33.33x33.33 absolute #00000000
     box 125.6,0 5.83x5.83 absolute #ffd100
     box 125.6,27.5 5.83x5.83 absolute #4fd1ff
@@ -224,10 +224,10 @@ box 0,0 600x33.33
       text 147.76,16.4 8.33x15.51 "5" #f0e6d2
   box 167.47,0 33.33x33.33 #0d0a08 opacity=1 @dragStart @drop @pointerEnter @pointerLeave @pointerPress
     box 167.47,0 33.33x33.33 absolute icon=Interface/Icons/INV_Misc_Bag_08
-    box 167.47,0 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
+    box 167.47,0 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim tint=#9d9d9d opacity=0
     box 167.47,0 33.33x33.33 absolute #00000000
   box 209.33,0 33.33x33.33 #0d0a08 opacity=1 @dragStart @drop @pointerEnter @pointerLeave @pointerPress
     box 209.33,0 33.33x33.33 absolute
-    box 209.33,0 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
+    box 209.33,0 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim tint=#ff8000 opacity=1
     box 209.33,0 33.33x33.33 absolute #00000000
 asked: Chat.link 6948

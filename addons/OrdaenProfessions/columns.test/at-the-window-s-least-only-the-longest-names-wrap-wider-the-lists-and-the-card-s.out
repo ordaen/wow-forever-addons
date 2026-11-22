@@ -47,15 +47,15 @@ surface 288,133.88 971.72x544.88 on MEDIUM clamped raised by a click
                   box 769.21,307.49 34.02x28.33
                     box 774.89,307.49 28.33x28.33
                       box 774.89,307.49 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerEnter @pointerLeave @pointerPress
-                        box 782.39,314.99 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 0 of 16
+                        box 782.39,314.99 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 0 of 16 tint=#e8dcc4
                   box 803.23,307.49 34.02x28.33
                     box 808.92,307.49 28.33x28.33
                       box 808.92,307.49 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerEnter @pointerLeave @pointerPress
-                        box 816.42,314.99 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 1 of 16
+                        box 816.42,314.99 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 1 of 16 tint=#e8dcc4
                   box 837.25,307.49 34.02x28.33
                     box 842.94,307.49 28.33x28.33
                       box 842.94,307.49 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerEnter @pointerLeave @pointerPress
-                        box 850.44,314.99 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 2 of 16
+                        box 850.44,314.99 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 2 of 16 tint=#e8dcc4
               box 323.85,344.35 547.42x292.27
                 box 323.85,344.35 233.33x292.27 #0000004d
                   box 324.68,345.19 231.67x0
@@ -214,15 +214,15 @@ surface 288,133.88 1312x544.88 on MEDIUM clamped raised by a click
                   box 835.9,307.49 34.02x28.33
                     box 841.59,307.49 28.33x28.33
                       box 841.59,307.49 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerEnter @pointerLeave @pointerPress
-                        box 849.09,314.99 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 0 of 16
+                        box 849.09,314.99 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 0 of 16 tint=#e8dcc4
                   box 869.92,307.49 34.02x28.33
                     box 875.61,307.49 28.33x28.33
                       box 875.61,307.49 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerEnter @pointerLeave @pointerPress
-                        box 883.11,314.99 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 1 of 16
+                        box 883.11,314.99 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 1 of 16 tint=#e8dcc4
                   box 903.94,307.49 34.02x28.33
                     box 909.63,307.49 28.33x28.33
                       box 909.63,307.49 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerEnter @pointerLeave @pointerPress
-                        box 917.13,314.99 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 2 of 16
+                        box 917.13,314.99 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 2 of 16 tint=#e8dcc4
               box 323.85,344.35 614.12x292.27
                 box 323.85,344.35 242.23x292.27 #0000004d
                   box 324.68,345.19 240.57x0

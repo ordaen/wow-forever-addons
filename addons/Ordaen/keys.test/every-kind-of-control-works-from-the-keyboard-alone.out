@@ -103,7 +103,7 @@ surface 420,121.38 760x657.25 on MEDIUM clamped raised by a click
       box 420,121.38 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
         box 438.78,131.62 76.93x34.25
           text 448.08,140 58.33x17.5 "Controls" #ffd100
-      box 544.46,121.38 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
+      box 544.46,121.38 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood tint=#808080 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
         box 563.24,131.62 76.93x34.25
           text 586.71,140 30x17.5 "More" #a3977f
     box 1125,137.71 55x31.42

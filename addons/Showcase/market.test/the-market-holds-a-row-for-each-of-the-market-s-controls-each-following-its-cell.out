@@ -4,8 +4,8 @@ box 0,0 700x602.66
     box 0,0 700x16.8
       text 0,0 44.17x16.8 "Market" #e8c35a
       box 52.7,5.07 647.3x6.67
-        box 52.7,5.07 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry
-        box 59.37,5.07 640.63x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip
+        box 52.7,5.07 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry tint=#c29a43
+        box 59.37,5.07 640.63x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip tint=#c29a43
     box 0,28.18 700x26.31 opacity=1
       box 0,32.93 233.33x16.8 @pointerEnter @pointerLeave
         text 0,32.93 233.33x16.8 "Scan" #cbb994
@@ -46,26 +46,26 @@ box 0,0 700x602.66
       box 248.98,199.82 451.02x33.33
         box 248.98,199.82 33.33x33.33 #0d0a08 opacity=1 @dragStart @drop @pointerEnter @pointerLeave @pointerPress
           box 248.98,199.82 33.33x33.33 absolute
-          box 248.98,199.82 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
+          box 248.98,199.82 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim tint=#0070dd opacity=1
           box 248.98,199.82 33.33x33.33 absolute #00000000
           box 248.98,199.82 5.83x5.83 absolute #ffd100
           box 248.98,199.82 33.33x33.33 absolute
             text 271.13,216.23 8.33x15.51 "5" #f0e6d2
         box 290.84,199.82 33.33x33.33 #0d0a08 opacity=1 @dragStart @drop @pointerEnter @pointerLeave @pointerPress
           box 290.84,199.82 33.33x33.33 absolute
-          box 290.84,199.82 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
+          box 290.84,199.82 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim tint=#a335ee opacity=1
           box 290.84,199.82 33.33x33.33 absolute #00000000
           box 290.84,199.82 33.33x33.33 absolute
             text 306.33,216.23 15x15.51 "20" #f0e6d2
         box 332.71,199.82 33.33x33.33 #0d0a08 opacity=1 @dragStart @drop @pointerEnter @pointerLeave @pointerPress
           box 332.71,199.82 33.33x33.33 absolute
-          box 332.71,199.82 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
+          box 332.71,199.82 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim tint=#6c5535 opacity=0
           box 332.71,199.82 33.33x33.33 absolute #00000000
     box 0,244.53 700x44.98
       box 0,244.53 700x22.49 #00000000 @keyPress @pointerPress
         box 0,244.53 2.5x22.49 absolute #00000000
         box 2.84,249.53 13.33x12.5
-          box 2.84,249.11 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 3 of 8
+          box 2.84,249.11 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 3 of 8 tint=#d6a56b
         text 19.02,247.38 603.62x16.8 "Bronze Axe" #e8dcc4
         box 625.49,247.38 71.67x16.8
           text 625.49,247.38 71.67x16.8 "1g 23s 45c" #e8dcc4
@@ -79,8 +79,8 @@ box 0,0 700x602.66
     box 0,306.58 700x16.8
       text 0,306.58 36.67x16.8 "Sales" #e8c35a
       box 45.2,311.64 654.8x6.67
-        box 45.2,311.64 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry
-        box 51.87,311.64 648.13x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip
+        box 45.2,311.64 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry tint=#c29a43
+        box 51.87,311.64 648.13x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip tint=#c29a43
     box 0,334.76 700x16.8 opacity=1
       box 0,334.76 233.33x16.8 @pointerEnter @pointerLeave
         text 0,334.76 233.33x16.8 "Last click on a row" #cbb994
@@ -94,19 +94,19 @@ box 0,0 700x602.66
               box 17.9,372.3 467.13x16.8
                 text 17.9,372.3 30x16.8 "Item" #cbb994
                 box 50.74,378.2 6.67x5
-                  box 47.41,374.03 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
+                  box 47.41,374.03 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 tint=#f0c860 opacity=0
             box 493.57,363.77 120x33.87 #00000000 @keyPress @pointerPress
               box 493.57,395.97 120x1.67 absolute #00000000
               box 574.06,372.3 39.51x16.8
                 text 574.06,372.3 30x16.8 "Each" #cbb994
                 box 606.9,378.2 6.67x5
-                  box 603.57,374.03 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
+                  box 603.57,374.03 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 tint=#f0c860 opacity=0
             box 622.1,363.77 60x33.87 #00000000 @keyPress @pointerPress
               box 622.1,395.97 60x1.67 absolute #00000000
               box 649.26,372.3 32.84x16.8
                 text 649.26,372.3 23.33x16.8 "Age" #cbb994
                 box 675.43,378.2 6.67x5
-                  box 672.1,374.03 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
+                  box 672.1,374.03 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 tint=#f0c860 opacity=0
         box 0.83,398.47 698.33x93.07 scrolled 0 of 0
           box 9.37,407 681.27x25.33 #00000000 @keyPress @pointerEnter @pointerLeave @pointerPress
             text 17.9,411.27 467.13x16.8 "Copper Bar" #ffffff
@@ -130,8 +130,8 @@ box 0,0 700x602.66
     box 0,509.43 700x16.8
       text 0,509.43 36.67x16.8 "Menus" #e8c35a
       box 45.2,514.5 654.8x6.67
-        box 45.2,514.5 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry
-        box 51.87,514.5 648.13x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip
+        box 45.2,514.5 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry tint=#c29a43
+        box 51.87,514.5 648.13x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip tint=#c29a43
     box 0,537.61 700x28.33 opacity=1
       box 0,543.38 233.33x16.8 @pointerEnter @pointerLeave
         text 0,543.38 233.33x16.8 "Toolbar" #cbb994
@@ -145,7 +145,7 @@ box 0,0 700x602.66
             box 514.96,537.61 34.02x28.33
               box 520.64,537.61 28.33x28.33
                 box 520.64,537.61 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerEnter @pointerLeave @pointerPress
-                  box 528.14,545.11 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 1 of 16
+                  box 528.14,545.11 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 1 of 16 tint=#e8dcc4
     box 0,577.32 700x25.33 opacity=1
       box 0,581.59 233.33x16.8 @pointerEnter @pointerLeave
         text 0,581.59 233.33x16.8 "Context menu" #cbb994
@@ -158,8 +158,8 @@ box 0,0 700x602.66
     box 0,0 700x16.8
       text 0,0 44.17x16.8 "Market" #e8c35a
       box 52.7,5.07 647.3x6.67
-        box 52.7,5.07 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry
-        box 59.37,5.07 640.63x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip
+        box 52.7,5.07 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry tint=#c29a43
+        box 59.37,5.07 640.63x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip tint=#c29a43
     box 0,28.18 700x26.31 opacity=1
       box 0,32.93 233.33x16.8 @pointerEnter @pointerLeave
         text 0,32.93 233.33x16.8 "Scan" #cbb994
@@ -200,26 +200,26 @@ box 0,0 700x602.66
       box 248.98,199.82 451.02x33.33
         box 248.98,199.82 33.33x33.33 #0d0a08 opacity=1 @dragStart @drop @pointerEnter @pointerLeave @pointerPress
           box 248.98,199.82 33.33x33.33 absolute
-          box 248.98,199.82 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
+          box 248.98,199.82 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim tint=#0070dd opacity=1
           box 248.98,199.82 33.33x33.33 absolute #00000000
           box 248.98,199.82 5.83x5.83 absolute #ffd100
           box 248.98,199.82 33.33x33.33 absolute
             text 271.13,216.23 8.33x15.51 "5" #f0e6d2
         box 290.84,199.82 33.33x33.33 #0d0a08 opacity=1 @dragStart @drop @pointerEnter @pointerLeave @pointerPress
           box 290.84,199.82 33.33x33.33 absolute
-          box 290.84,199.82 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
+          box 290.84,199.82 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim tint=#a335ee opacity=1
           box 290.84,199.82 33.33x33.33 absolute #00000000
           box 290.84,199.82 33.33x33.33 absolute
             text 306.33,216.23 15x15.51 "20" #f0e6d2
         box 332.71,199.82 33.33x33.33 #0d0a08 opacity=1 @dragStart @drop @pointerEnter @pointerLeave @pointerPress
           box 332.71,199.82 33.33x33.33 absolute
-          box 332.71,199.82 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
+          box 332.71,199.82 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim tint=#6c5535 opacity=0
           box 332.71,199.82 33.33x33.33 absolute #00000000
     box 0,244.53 700x44.98
       box 0,244.53 700x22.49 #00000000 @keyPress @pointerPress
         box 0,244.53 2.5x22.49 absolute #00000000
         box 2.84,249.53 13.33x12.5
-          box 2.84,249.11 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 3 of 8
+          box 2.84,249.11 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 3 of 8 tint=#d6a56b
         text 19.02,247.38 616.96x16.8 "Bronze Axe" #e8dcc4
         box 638.82,247.38 58.33x16.8
           text 638.82,247.38 58.33x16.8 "0g 0s 5c" #e8dcc4
@@ -233,8 +233,8 @@ box 0,0 700x602.66
     box 0,306.58 700x16.8
       text 0,306.58 36.67x16.8 "Sales" #e8c35a
       box 45.2,311.64 654.8x6.67
-        box 45.2,311.64 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry
-        box 51.87,311.64 648.13x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip
+        box 45.2,311.64 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry tint=#c29a43
+        box 51.87,311.64 648.13x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip tint=#c29a43
     box 0,334.76 700x16.8 opacity=1
       box 0,334.76 233.33x16.8 @pointerEnter @pointerLeave
         text 0,334.76 233.33x16.8 "Last click on a row" #cbb994
@@ -248,19 +248,19 @@ box 0,0 700x602.66
               box 17.9,372.3 467.13x16.8
                 text 17.9,372.3 30x16.8 "Item" #cbb994
                 box 50.74,378.2 6.67x5
-                  box 47.41,374.03 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
+                  box 47.41,374.03 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 tint=#f0c860 opacity=0
             box 493.57,363.77 120x33.87 #00000000 @keyPress @pointerPress
               box 493.57,395.97 120x1.67 absolute #00000000
               box 574.06,372.3 39.51x16.8
                 text 574.06,372.3 30x16.8 "Each" #cbb994
                 box 606.9,378.2 6.67x5
-                  box 603.57,374.03 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
+                  box 603.57,374.03 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 tint=#f0c860 opacity=0
             box 622.1,363.77 60x33.87 #00000000 @keyPress @pointerPress
               box 622.1,395.97 60x1.67 absolute #00000000
               box 649.26,372.3 32.84x16.8
                 text 649.26,372.3 23.33x16.8 "Age" #cbb994
                 box 675.43,378.2 6.67x5
-                  box 672.1,374.03 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
+                  box 672.1,374.03 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 tint=#f0c860 opacity=0
         box 0.83,398.47 698.33x93.07 scrolled 0 of 0
           box 9.37,407 681.27x25.33 #00000000 @keyPress @pointerEnter @pointerLeave @pointerPress
             text 17.9,411.27 467.13x16.8 "Copper Bar" #ffffff
@@ -284,8 +284,8 @@ box 0,0 700x602.66
     box 0,509.43 700x16.8
       text 0,509.43 36.67x16.8 "Menus" #e8c35a
       box 45.2,514.5 654.8x6.67
-        box 45.2,514.5 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry
-        box 51.87,514.5 648.13x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip
+        box 45.2,514.5 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry tint=#c29a43
+        box 51.87,514.5 648.13x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip tint=#c29a43
     box 0,537.61 700x28.33 opacity=1
       box 0,543.38 233.33x16.8 @pointerEnter @pointerLeave
         text 0,543.38 233.33x16.8 "Toolbar" #cbb994
@@ -299,7 +299,7 @@ box 0,0 700x602.66
             box 514.96,537.61 34.02x28.33
               box 520.64,537.61 28.33x28.33
                 box 520.64,537.61 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerEnter @pointerLeave @pointerPress
-                  box 528.14,545.11 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 1 of 16
+                  box 528.14,545.11 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 1 of 16 tint=#e8dcc4
     box 0,577.32 700x25.33 opacity=1
       box 0,581.59 233.33x16.8 @pointerEnter @pointerLeave
         text 0,581.59 233.33x16.8 "Context menu" #cbb994
@@ -312,8 +312,8 @@ box 0,0 700x602.66
     box 0,0 700x16.8
       text 0,0 44.17x16.8 "Market" #e8c35a
       box 52.7,5.07 647.3x6.67
-        box 52.7,5.07 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry
-        box 59.37,5.07 640.63x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip
+        box 52.7,5.07 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry tint=#c29a43
+        box 59.37,5.07 640.63x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip tint=#c29a43
     box 0,28.18 700x26.31 opacity=1
       box 0,32.93 233.33x16.8 @pointerEnter @pointerLeave
         text 0,32.93 233.33x16.8 "Scan" #cbb994
@@ -353,26 +353,26 @@ box 0,0 700x602.66
       box 248.98,199.82 451.02x33.33
         box 248.98,199.82 33.33x33.33 #0d0a08 opacity=1 @dragStart @drop @pointerEnter @pointerLeave @pointerPress
           box 248.98,199.82 33.33x33.33 absolute
-          box 248.98,199.82 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
+          box 248.98,199.82 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim tint=#0070dd opacity=1
           box 248.98,199.82 33.33x33.33 absolute #00000000
           box 248.98,199.82 5.83x5.83 absolute #ffd100
           box 248.98,199.82 33.33x33.33 absolute
             text 271.13,216.23 8.33x15.51 "5" #f0e6d2
         box 290.84,199.82 33.33x33.33 #0d0a08 opacity=1 @dragStart @drop @pointerEnter @pointerLeave @pointerPress
           box 290.84,199.82 33.33x33.33 absolute
-          box 290.84,199.82 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
+          box 290.84,199.82 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim tint=#a335ee opacity=1
           box 290.84,199.82 33.33x33.33 absolute #00000000
           box 290.84,199.82 33.33x33.33 absolute
             text 306.33,216.23 15x15.51 "20" #f0e6d2
         box 332.71,199.82 33.33x33.33 #0d0a08 opacity=1 @dragStart @drop @pointerEnter @pointerLeave @pointerPress
           box 332.71,199.82 33.33x33.33 absolute
-          box 332.71,199.82 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
+          box 332.71,199.82 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim tint=#6c5535 opacity=0
           box 332.71,199.82 33.33x33.33 absolute #00000000
     box 0,244.53 700x44.98
       box 0,244.53 700x22.49 #00000000 @keyPress @pointerPress
         box 0,244.53 2.5x22.49 absolute #00000000
         box 2.84,249.53 13.33x12.5
-          box 2.84,249.11 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 3 of 8
+          box 2.84,249.11 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 3 of 8 tint=#d6a56b
         text 19.02,247.38 616.96x16.8 "Bronze Axe" #e8dcc4
         box 638.82,247.38 58.33x16.8
           text 638.82,247.38 58.33x16.8 "0g 0s 5c" #e8dcc4
@@ -385,8 +385,8 @@ box 0,0 700x602.66
     box 0,306.58 700x16.8
       text 0,306.58 36.67x16.8 "Sales" #e8c35a
       box 45.2,311.64 654.8x6.67
-        box 45.2,311.64 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry
-        box 51.87,311.64 648.13x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip
+        box 45.2,311.64 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry tint=#c29a43
+        box 51.87,311.64 648.13x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip tint=#c29a43
     box 0,334.76 700x16.8 opacity=1
       box 0,334.76 233.33x16.8 @pointerEnter @pointerLeave
         text 0,334.76 233.33x16.8 "Last click on a row" #cbb994
@@ -400,19 +400,19 @@ box 0,0 700x602.66
               box 17.9,372.3 467.13x16.8
                 text 17.9,372.3 30x16.8 "Item" #cbb994
                 box 50.74,378.2 6.67x5
-                  box 47.41,374.03 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
+                  box 47.41,374.03 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 tint=#f0c860 opacity=0
             box 493.57,363.77 120x33.87 #00000000 @keyPress @pointerPress
               box 493.57,395.97 120x1.67 absolute #00000000
               box 574.06,372.3 39.51x16.8
                 text 574.06,372.3 30x16.8 "Each" #cbb994
                 box 606.9,378.2 6.67x5
-                  box 603.57,374.03 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
+                  box 603.57,374.03 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 tint=#f0c860 opacity=0
             box 622.1,363.77 60x33.87 #00000000 @keyPress @pointerPress
               box 622.1,395.97 60x1.67 absolute #00000000
               box 649.26,372.3 32.84x16.8
                 text 649.26,372.3 23.33x16.8 "Age" #cbb994
                 box 675.43,378.2 6.67x5
-                  box 672.1,374.03 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
+                  box 672.1,374.03 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 tint=#f0c860 opacity=0
         box 0.83,398.47 698.33x93.07 scrolled 0 of 0
           box 9.37,407 681.27x25.33 #00000000 @keyPress @pointerEnter @pointerLeave @pointerPress
             text 17.9,411.27 467.13x16.8 "Copper Bar" #ffffff
@@ -436,8 +436,8 @@ box 0,0 700x602.66
     box 0,509.43 700x16.8
       text 0,509.43 36.67x16.8 "Menus" #e8c35a
       box 45.2,514.5 654.8x6.67
-        box 45.2,514.5 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry
-        box 51.87,514.5 648.13x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip
+        box 45.2,514.5 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry tint=#c29a43
+        box 51.87,514.5 648.13x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip tint=#c29a43
     box 0,537.61 700x28.33 opacity=1
       box 0,543.38 233.33x16.8 @pointerEnter @pointerLeave
         text 0,543.38 233.33x16.8 "Toolbar" #cbb994
@@ -451,7 +451,7 @@ box 0,0 700x602.66
             box 514.96,537.61 34.02x28.33
               box 520.64,537.61 28.33x28.33
                 box 520.64,537.61 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerEnter @pointerLeave @pointerPress
-                  box 528.14,545.11 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 1 of 16
+                  box 528.14,545.11 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 1 of 16 tint=#e8dcc4
     box 0,577.32 700x25.33 opacity=1
       box 0,581.59 233.33x16.8 @pointerEnter @pointerLeave
         text 0,581.59 233.33x16.8 "Context menu" #cbb994
@@ -464,8 +464,8 @@ box 0,0 700x602.66
     box 0,0 700x16.8
       text 0,0 44.17x16.8 "Market" #e8c35a
       box 52.7,5.07 647.3x6.67
-        box 52.7,5.07 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry
-        box 59.37,5.07 640.63x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip
+        box 52.7,5.07 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry tint=#c29a43
+        box 59.37,5.07 640.63x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip tint=#c29a43
     box 0,28.18 700x26.31 opacity=1
       box 0,32.93 233.33x16.8 @pointerEnter @pointerLeave
         text 0,32.93 233.33x16.8 "Scan" #cbb994
@@ -505,26 +505,26 @@ box 0,0 700x602.66
       box 248.98,199.82 451.02x33.33
         box 248.98,199.82 33.33x33.33 #0d0a08 opacity=1 @dragStart @drop @pointerEnter @pointerLeave @pointerPress
           box 248.98,199.82 33.33x33.33 absolute
-          box 248.98,199.82 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
+          box 248.98,199.82 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim tint=#0070dd opacity=1
           box 248.98,199.82 33.33x33.33 absolute #00000000
           box 248.98,199.82 5.83x5.83 absolute #ffd100
           box 248.98,199.82 33.33x33.33 absolute
             text 271.13,216.23 8.33x15.51 "5" #f0e6d2
         box 290.84,199.82 33.33x33.33 #0d0a08 opacity=1 @dragStart @drop @pointerEnter @pointerLeave @pointerPress
           box 290.84,199.82 33.33x33.33 absolute
-          box 290.84,199.82 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
+          box 290.84,199.82 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim tint=#a335ee opacity=1
           box 290.84,199.82 33.33x33.33 absolute #00000000
           box 290.84,199.82 33.33x33.33 absolute
             text 306.33,216.23 15x15.51 "20" #f0e6d2
         box 332.71,199.82 33.33x33.33 #0d0a08 opacity=1 @dragStart @drop @pointerEnter @pointerLeave @pointerPress
           box 332.71,199.82 33.33x33.33 absolute
-          box 332.71,199.82 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
+          box 332.71,199.82 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim tint=#6c5535 opacity=0
           box 332.71,199.82 33.33x33.33 absolute #00000000
     box 0,244.53 700x44.98
       box 0,244.53 700x22.49 #00000000 @keyPress @pointerPress
         box 0,244.53 2.5x22.49 absolute #00000000
         box 2.84,249.53 13.33x12.5
-          box 2.84,249.11 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 3 of 8
+          box 2.84,249.11 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 3 of 8 tint=#d6a56b
         text 19.02,247.38 616.96x16.8 "Bronze Axe" #e8dcc4
         box 638.82,247.38 58.33x16.8
           text 638.82,247.38 58.33x16.8 "0g 0s 5c" #e8dcc4
@@ -537,8 +537,8 @@ box 0,0 700x602.66
     box 0,306.58 700x16.8
       text 0,306.58 36.67x16.8 "Sales" #e8c35a
       box 45.2,311.64 654.8x6.67
-        box 45.2,311.64 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry
-        box 51.87,311.64 648.13x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip
+        box 45.2,311.64 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry tint=#c29a43
+        box 51.87,311.64 648.13x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip tint=#c29a43
     box 0,334.76 700x16.8 opacity=1
       box 0,334.76 233.33x16.8 @pointerEnter @pointerLeave
         text 0,334.76 233.33x16.8 "Last click on a row" #cbb994
@@ -552,19 +552,19 @@ box 0,0 700x602.66
               box 17.9,372.3 467.13x16.8
                 text 17.9,372.3 30x16.8 "Item" #cbb994
                 box 50.74,378.2 6.67x5
-                  box 47.41,374.03 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
+                  box 47.41,374.03 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 tint=#f0c860 opacity=0
             box 493.57,363.77 120x33.87 #00000000 @keyPress @pointerPress
               box 493.57,395.97 120x1.67 absolute #00000000
               box 574.06,372.3 39.51x16.8
                 text 574.06,372.3 30x16.8 "Each" #cbb994
                 box 606.9,378.2 6.67x5
-                  box 603.57,374.03 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
+                  box 603.57,374.03 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 tint=#f0c860 opacity=0
             box 622.1,363.77 60x33.87 #00000000 @keyPress @pointerPress
               box 622.1,395.97 60x1.67 absolute #00000000
               box 649.26,372.3 32.84x16.8
                 text 649.26,372.3 23.33x16.8 "Age" #cbb994
                 box 675.43,378.2 6.67x5
-                  box 672.1,374.03 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
+                  box 672.1,374.03 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 tint=#f0c860 opacity=0
         box 0.83,398.47 698.33x93.07 scrolled 0 of 0
           box 9.37,407 681.27x25.33 #00000000 @keyPress @pointerEnter @pointerLeave @pointerPress
             text 17.9,411.27 467.13x16.8 "Copper Bar" #ffffff
@@ -588,8 +588,8 @@ box 0,0 700x602.66
     box 0,509.43 700x16.8
       text 0,509.43 36.67x16.8 "Menus" #e8c35a
       box 45.2,514.5 654.8x6.67
-        box 45.2,514.5 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry
-        box 51.87,514.5 648.13x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip
+        box 45.2,514.5 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry tint=#c29a43
+        box 51.87,514.5 648.13x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip tint=#c29a43
     box 0,537.61 700x28.33 opacity=1
       box 0,543.38 233.33x16.8 @pointerEnter @pointerLeave
         text 0,543.38 233.33x16.8 "Toolbar" #cbb994
@@ -603,7 +603,7 @@ box 0,0 700x602.66
             box 514.96,537.61 34.02x28.33
               box 520.64,537.61 28.33x28.33
                 box 520.64,537.61 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerEnter @pointerLeave @pointerPress
-                  box 528.14,545.11 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 1 of 16
+                  box 528.14,545.11 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 1 of 16 tint=#e8dcc4
     box 0,577.32 700x25.33 opacity=1
       box 0,581.59 233.33x16.8 @pointerEnter @pointerLeave
         text 0,581.59 233.33x16.8 "Context menu" #cbb994
@@ -616,8 +616,8 @@ box 0,0 700x602.66
     box 0,0 700x16.8
       text 0,0 44.17x16.8 "Market" #e8c35a
       box 52.7,5.07 647.3x6.67
-        box 52.7,5.07 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry
-        box 59.37,5.07 640.63x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip
+        box 52.7,5.07 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry tint=#c29a43
+        box 59.37,5.07 640.63x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip tint=#c29a43
     box 0,28.18 700x26.31 opacity=1
       box 0,32.93 233.33x16.8 @pointerEnter @pointerLeave
         text 0,32.93 233.33x16.8 "Scan" #cbb994
@@ -657,26 +657,26 @@ box 0,0 700x602.66
       box 248.98,199.82 451.02x33.33
         box 248.98,199.82 33.33x33.33 #0d0a08 opacity=1 @dragStart @drop @pointerEnter @pointerLeave @pointerPress
           box 248.98,199.82 33.33x33.33 absolute
-          box 248.98,199.82 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
+          box 248.98,199.82 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim tint=#0070dd opacity=1
           box 248.98,199.82 33.33x33.33 absolute #00000000
           box 248.98,199.82 5.83x5.83 absolute #ffd100
           box 248.98,199.82 33.33x33.33 absolute
             text 271.13,216.23 8.33x15.51 "5" #f0e6d2
         box 290.84,199.82 33.33x33.33 #0d0a08 opacity=1 @dragStart @drop @pointerEnter @pointerLeave @pointerPress
           box 290.84,199.82 33.33x33.33 absolute
-          box 290.84,199.82 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
+          box 290.84,199.82 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim tint=#a335ee opacity=1
           box 290.84,199.82 33.33x33.33 absolute #00000000
           box 290.84,199.82 33.33x33.33 absolute
             text 306.33,216.23 15x15.51 "20" #f0e6d2
         box 332.71,199.82 33.33x33.33 #0d0a08 opacity=1 @dragStart @drop @pointerEnter @pointerLeave @pointerPress
           box 332.71,199.82 33.33x33.33 absolute
-          box 332.71,199.82 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
+          box 332.71,199.82 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim tint=#6c5535 opacity=0
           box 332.71,199.82 33.33x33.33 absolute #00000000
     box 0,244.53 700x44.98
       box 0,244.53 700x22.49 #00000000 @keyPress @pointerPress
         box 0,244.53 2.5x22.49 absolute #00000000
         box 2.84,249.53 13.33x12.5
-          box 2.84,249.11 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 3 of 8
+          box 2.84,249.11 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 3 of 8 tint=#d6a56b
         text 19.02,247.38 616.96x16.8 "Bronze Axe" #e8dcc4
         box 638.82,247.38 58.33x16.8
           text 638.82,247.38 58.33x16.8 "0g 0s 5c" #e8dcc4
@@ -689,8 +689,8 @@ box 0,0 700x602.66
     box 0,306.58 700x16.8
       text 0,306.58 36.67x16.8 "Sales" #e8c35a
       box 45.2,311.64 654.8x6.67
-        box 45.2,311.64 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry
-        box 51.87,311.64 648.13x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip
+        box 45.2,311.64 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry tint=#c29a43
+        box 51.87,311.64 648.13x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip tint=#c29a43
     box 0,334.76 700x16.8 opacity=1
       box 0,334.76 233.33x16.8 @pointerEnter @pointerLeave
         text 0,334.76 233.33x16.8 "Last click on a row" #cbb994
@@ -704,19 +704,19 @@ box 0,0 700x602.66
               box 17.9,372.3 467.13x16.8
                 text 17.9,372.3 30x16.8 "Item" #cbb994
                 box 50.74,378.2 6.67x5
-                  box 47.41,374.03 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
+                  box 47.41,374.03 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 tint=#f0c860 opacity=0
             box 493.57,363.77 120x33.87 #00000000 @keyPress @pointerPress
               box 493.57,395.97 120x1.67 absolute #00000000
               box 574.06,372.3 39.51x16.8
                 text 574.06,372.3 30x16.8 "Each" #cbb994
                 box 606.9,378.2 6.67x5
-                  box 603.57,374.03 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
+                  box 603.57,374.03 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 tint=#f0c860 opacity=0
             box 622.1,363.77 60x33.87 #00000000 @keyPress @pointerPress
               box 622.1,395.97 60x1.67 absolute #00000000
               box 649.26,372.3 32.84x16.8
                 text 649.26,372.3 23.33x16.8 "Age" #cbb994
                 box 675.43,378.2 6.67x5
-                  box 672.1,374.03 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
+                  box 672.1,374.03 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 tint=#f0c860 opacity=0
         box 0.83,398.47 698.33x93.07 scrolled 0 of 0
           box 9.37,407 681.27x25.33 #00000000 @keyPress @pointerEnter @pointerLeave @pointerPress
             text 17.9,411.27 467.13x16.8 "Copper Bar" #ffffff
@@ -740,8 +740,8 @@ box 0,0 700x602.66
     box 0,509.43 700x16.8
       text 0,509.43 36.67x16.8 "Menus" #e8c35a
       box 45.2,514.5 654.8x6.67
-        box 45.2,514.5 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry
-        box 51.87,514.5 648.13x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip
+        box 45.2,514.5 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry tint=#c29a43
+        box 51.87,514.5 648.13x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip tint=#c29a43
     box 0,537.61 700x28.33 opacity=1
       box 0,543.38 233.33x16.8 @pointerEnter @pointerLeave
         text 0,543.38 233.33x16.8 "Toolbar" #cbb994
@@ -755,7 +755,7 @@ box 0,0 700x602.66
             box 514.96,537.61 34.02x28.33
               box 520.64,537.61 28.33x28.33
                 box 520.64,537.61 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerEnter @pointerLeave @pointerPress
-                  box 528.14,545.11 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 1 of 16
+                  box 528.14,545.11 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 1 of 16 tint=#e8dcc4
     box 0,577.32 700x25.33 opacity=1
       box 0,581.59 233.33x16.8 @pointerEnter @pointerLeave
         text 0,581.59 233.33x16.8 "Context menu" #cbb994
@@ -768,8 +768,8 @@ box 0,0 700x602.66
     box 0,0 700x16.8
       text 0,0 44.17x16.8 "Market" #e8c35a
       box 52.7,5.07 647.3x6.67
-        box 52.7,5.07 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry
-        box 59.37,5.07 640.63x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip
+        box 52.7,5.07 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry tint=#c29a43
+        box 59.37,5.07 640.63x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip tint=#c29a43
     box 0,28.18 700x26.31 opacity=1
       box 0,32.93 233.33x16.8 @pointerEnter @pointerLeave
         text 0,32.93 233.33x16.8 "Scan" #cbb994
@@ -809,26 +809,26 @@ box 0,0 700x602.66
       box 248.98,199.82 451.02x33.33
         box 248.98,199.82 33.33x33.33 #0d0a08 opacity=1 @dragStart @drop @pointerEnter @pointerLeave @pointerPress
           box 248.98,199.82 33.33x33.33 absolute
-          box 248.98,199.82 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
+          box 248.98,199.82 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim tint=#0070dd opacity=1
           box 248.98,199.82 33.33x33.33 absolute #00000000
           box 248.98,199.82 5.83x5.83 absolute #ffd100
           box 248.98,199.82 33.33x33.33 absolute
             text 271.13,216.23 8.33x15.51 "5" #f0e6d2
         box 290.84,199.82 33.33x33.33 #0d0a08 opacity=1 @dragStart @drop @pointerEnter @pointerLeave @pointerPress
           box 290.84,199.82 33.33x33.33 absolute
-          box 290.84,199.82 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
+          box 290.84,199.82 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim tint=#a335ee opacity=1
           box 290.84,199.82 33.33x33.33 absolute #ffffff26
           box 290.84,199.82 33.33x33.33 absolute
             text 306.33,216.23 15x15.51 "20" #f0e6d2
         box 332.71,199.82 33.33x33.33 #0d0a08 opacity=1 @dragStart @drop @pointerEnter @pointerLeave @pointerPress
           box 332.71,199.82 33.33x33.33 absolute
-          box 332.71,199.82 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
+          box 332.71,199.82 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim tint=#6c5535 opacity=0
           box 332.71,199.82 33.33x33.33 absolute #00000000
     box 0,244.53 700x44.98
       box 0,244.53 700x22.49 #00000000 @keyPress @pointerPress
         box 0,244.53 2.5x22.49 absolute #00000000
         box 2.84,249.53 13.33x12.5
-          box 2.84,249.11 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 3 of 8
+          box 2.84,249.11 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 3 of 8 tint=#d6a56b
         text 19.02,247.38 616.96x16.8 "Bronze Axe" #e8dcc4
         box 638.82,247.38 58.33x16.8
           text 638.82,247.38 58.33x16.8 "0g 0s 5c" #e8dcc4
@@ -841,8 +841,8 @@ box 0,0 700x602.66
     box 0,306.58 700x16.8
       text 0,306.58 36.67x16.8 "Sales" #e8c35a
       box 45.2,311.64 654.8x6.67
-        box 45.2,311.64 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry
-        box 51.87,311.64 648.13x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip
+        box 45.2,311.64 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry tint=#c29a43
+        box 51.87,311.64 648.13x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip tint=#c29a43
     box 0,334.76 700x16.8 opacity=1
       box 0,334.76 233.33x16.8 @pointerEnter @pointerLeave
         text 0,334.76 233.33x16.8 "Last click on a row" #cbb994
@@ -856,19 +856,19 @@ box 0,0 700x602.66
               box 17.9,372.3 467.13x16.8
                 text 17.9,372.3 30x16.8 "Item" #cbb994
                 box 50.74,378.2 6.67x5
-                  box 47.41,374.03 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
+                  box 47.41,374.03 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 tint=#f0c860 opacity=0
             box 493.57,363.77 120x33.87 #00000000 @keyPress @pointerPress
               box 493.57,395.97 120x1.67 absolute #00000000
               box 574.06,372.3 39.51x16.8
                 text 574.06,372.3 30x16.8 "Each" #cbb994
                 box 606.9,378.2 6.67x5
-                  box 603.57,374.03 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
+                  box 603.57,374.03 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 tint=#f0c860 opacity=0
             box 622.1,363.77 60x33.87 #00000000 @keyPress @pointerPress
               box 622.1,395.97 60x1.67 absolute #00000000
               box 649.26,372.3 32.84x16.8
                 text 649.26,372.3 23.33x16.8 "Age" #cbb994
                 box 675.43,378.2 6.67x5
-                  box 672.1,374.03 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
+                  box 672.1,374.03 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 tint=#f0c860 opacity=0
         box 0.83,398.47 698.33x93.07 scrolled 0 of 0
           box 9.37,407 681.27x25.33 #00000000 @keyPress @pointerEnter @pointerLeave @pointerPress
             text 17.9,411.27 467.13x16.8 "Copper Bar" #ffffff
@@ -892,8 +892,8 @@ box 0,0 700x602.66
     box 0,509.43 700x16.8
       text 0,509.43 36.67x16.8 "Menus" #e8c35a
       box 45.2,514.5 654.8x6.67
-        box 45.2,514.5 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry
-        box 51.87,514.5 648.13x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip
+        box 45.2,514.5 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry tint=#c29a43
+        box 51.87,514.5 648.13x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip tint=#c29a43
     box 0,537.61 700x28.33 opacity=1
       box 0,543.38 233.33x16.8 @pointerEnter @pointerLeave
         text 0,543.38 233.33x16.8 "Toolbar" #cbb994
@@ -907,7 +907,7 @@ box 0,0 700x602.66
             box 514.96,537.61 34.02x28.33
               box 520.64,537.61 28.33x28.33
                 box 520.64,537.61 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerEnter @pointerLeave @pointerPress
-                  box 528.14,545.11 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 1 of 16
+                  box 528.14,545.11 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 1 of 16 tint=#e8dcc4
     box 0,577.32 700x25.33 opacity=1
       box 0,581.59 233.33x16.8 @pointerEnter @pointerLeave
         text 0,581.59 233.33x16.8 "Context menu" #cbb994
@@ -921,8 +921,8 @@ box 0,0 700x580.17
     box 0,0 700x16.8
       text 0,0 44.17x16.8 "Market" #e8c35a
       box 52.7,5.07 647.3x6.67
-        box 52.7,5.07 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry
-        box 59.37,5.07 640.63x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip
+        box 52.7,5.07 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry tint=#c29a43
+        box 59.37,5.07 640.63x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip tint=#c29a43
     box 0,28.18 700x26.31 opacity=1
       box 0,32.93 233.33x16.8 @pointerEnter @pointerLeave
         text 0,32.93 233.33x16.8 "Scan" #cbb994
@@ -962,26 +962,26 @@ box 0,0 700x580.17
       box 248.98,199.82 451.02x33.33
         box 248.98,199.82 33.33x33.33 #0d0a08 opacity=1 @dragStart @drop @pointerEnter @pointerLeave @pointerPress
           box 248.98,199.82 33.33x33.33 absolute
-          box 248.98,199.82 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
+          box 248.98,199.82 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim tint=#0070dd opacity=1
           box 248.98,199.82 33.33x33.33 absolute #00000000
           box 248.98,199.82 5.83x5.83 absolute #ffd100
           box 248.98,199.82 33.33x33.33 absolute
             text 271.13,216.23 8.33x15.51 "5" #f0e6d2
         box 290.84,199.82 33.33x33.33 #0d0a08 opacity=1 @dragStart @drop @pointerEnter @pointerLeave @pointerPress
           box 290.84,199.82 33.33x33.33 absolute
-          box 290.84,199.82 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
+          box 290.84,199.82 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim tint=#a335ee opacity=1
           box 290.84,199.82 33.33x33.33 absolute #00000000
           box 290.84,199.82 33.33x33.33 absolute
             text 306.33,216.23 15x15.51 "20" #f0e6d2
         box 332.71,199.82 33.33x33.33 #0d0a08 opacity=1 @dragStart @drop @pointerEnter @pointerLeave @pointerPress
           box 332.71,199.82 33.33x33.33 absolute
-          box 332.71,199.82 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
+          box 332.71,199.82 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim tint=#6c5535 opacity=0
           box 332.71,199.82 33.33x33.33 absolute #00000000
     box 0,244.53 700x22.49
       box 0,244.53 700x22.49 #00000059 @keyPress @pointerPress
         box 0,244.53 2.5x22.49 absolute #00000000
         box 2.84,249.53 13.33x12.5
-          box 2.84,249.11 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 2 of 8
+          box 2.84,249.11 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 2 of 8 tint=#d6a56b
         text 19.02,247.38 616.96x16.8 "Bronze Axe" #e8dcc4
         box 638.82,247.38 58.33x16.8
           text 638.82,247.38 58.33x16.8 "0g 0s 5c" #e8dcc4
@@ -989,8 +989,8 @@ box 0,0 700x580.17
     box 0,284.09 700x16.8
       text 0,284.09 36.67x16.8 "Sales" #e8c35a
       box 45.2,289.16 654.8x6.67
-        box 45.2,289.16 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry
-        box 51.87,289.16 648.13x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip
+        box 45.2,289.16 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry tint=#c29a43
+        box 51.87,289.16 648.13x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip tint=#c29a43
     box 0,312.27 700x16.8 opacity=1
       box 0,312.27 233.33x16.8 @pointerEnter @pointerLeave
         text 0,312.27 233.33x16.8 "Last click on a row" #cbb994
@@ -1004,19 +1004,19 @@ box 0,0 700x580.17
               box 17.9,349.81 467.13x16.8
                 text 17.9,349.81 30x16.8 "Item" #cbb994
                 box 50.74,355.71 6.67x5
-                  box 47.41,351.54 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
+                  box 47.41,351.54 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 tint=#f0c860 opacity=0
             box 493.57,341.28 120x33.87 #00000000 @keyPress @pointerPress
               box 493.57,373.48 120x1.67 absolute #00000000
               box 574.06,349.81 39.51x16.8
                 text 574.06,349.81 30x16.8 "Each" #cbb994
                 box 606.9,355.71 6.67x5
-                  box 603.57,351.54 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
+                  box 603.57,351.54 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 tint=#f0c860 opacity=0
             box 622.1,341.28 60x33.87 #00000000 @keyPress @pointerPress
               box 622.1,373.48 60x1.67 absolute #00000000
               box 649.26,349.81 32.84x16.8
                 text 649.26,349.81 23.33x16.8 "Age" #cbb994
                 box 675.43,355.71 6.67x5
-                  box 672.1,351.54 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
+                  box 672.1,351.54 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 tint=#f0c860 opacity=0
         box 0.83,375.98 698.33x93.07 scrolled 0 of 0
           box 9.37,384.51 681.27x25.33 #00000000 @keyPress @pointerEnter @pointerLeave @pointerPress
             text 17.9,388.78 467.13x16.8 "Copper Bar" #ffffff
@@ -1040,8 +1040,8 @@ box 0,0 700x580.17
     box 0,486.94 700x16.8
       text 0,486.94 36.67x16.8 "Menus" #e8c35a
       box 45.2,492.01 654.8x6.67
-        box 45.2,492.01 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry
-        box 51.87,492.01 648.13x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip
+        box 45.2,492.01 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry tint=#c29a43
+        box 51.87,492.01 648.13x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip tint=#c29a43
     box 0,515.12 700x28.33 opacity=1
       box 0,520.89 233.33x16.8 @pointerEnter @pointerLeave
         text 0,520.89 233.33x16.8 "Toolbar" #cbb994
@@ -1055,7 +1055,7 @@ box 0,0 700x580.17
             box 514.96,515.12 34.02x28.33
               box 520.64,515.12 28.33x28.33
                 box 520.64,515.12 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerEnter @pointerLeave @pointerPress
-                  box 528.14,522.62 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 1 of 16
+                  box 528.14,522.62 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 1 of 16 tint=#e8dcc4
     box 0,554.83 700x25.33 opacity=1
       box 0,559.1 233.33x16.8 @pointerEnter @pointerLeave
         text 0,559.1 233.33x16.8 "Context menu" #cbb994
@@ -1068,8 +1068,8 @@ box 0,0 700x580.17
     box 0,0 700x16.8
       text 0,0 44.17x16.8 "Market" #e8c35a
       box 52.7,5.07 647.3x6.67
-        box 52.7,5.07 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry
-        box 59.37,5.07 640.63x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip
+        box 52.7,5.07 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry tint=#c29a43
+        box 59.37,5.07 640.63x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip tint=#c29a43
     box 0,28.18 700x26.31 opacity=1
       box 0,32.93 233.33x16.8 @pointerEnter @pointerLeave
         text 0,32.93 233.33x16.8 "Scan" #cbb994
@@ -1109,26 +1109,26 @@ box 0,0 700x580.17
       box 248.98,199.82 451.02x33.33
         box 248.98,199.82 33.33x33.33 #0d0a08 opacity=1 @dragStart @drop @pointerEnter @pointerLeave @pointerPress
           box 248.98,199.82 33.33x33.33 absolute
-          box 248.98,199.82 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
+          box 248.98,199.82 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim tint=#0070dd opacity=1
           box 248.98,199.82 33.33x33.33 absolute #00000000
           box 248.98,199.82 5.83x5.83 absolute #ffd100
           box 248.98,199.82 33.33x33.33 absolute
             text 271.13,216.23 8.33x15.51 "5" #f0e6d2
         box 290.84,199.82 33.33x33.33 #0d0a08 opacity=1 @dragStart @drop @pointerEnter @pointerLeave @pointerPress
           box 290.84,199.82 33.33x33.33 absolute
-          box 290.84,199.82 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
+          box 290.84,199.82 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim tint=#a335ee opacity=1
           box 290.84,199.82 33.33x33.33 absolute #00000000
           box 290.84,199.82 33.33x33.33 absolute
             text 306.33,216.23 15x15.51 "20" #f0e6d2
         box 332.71,199.82 33.33x33.33 #0d0a08 opacity=1 @dragStart @drop @pointerEnter @pointerLeave @pointerPress
           box 332.71,199.82 33.33x33.33 absolute
-          box 332.71,199.82 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
+          box 332.71,199.82 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim tint=#6c5535 opacity=0
           box 332.71,199.82 33.33x33.33 absolute #00000000
     box 0,244.53 700x22.49
       box 0,244.53 700x22.49 #00000000 @keyPress @pointerPress
         box 0,244.53 2.5x22.49 absolute #00000000
         box 2.84,249.53 13.33x12.5
-          box 2.84,249.11 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 2 of 8
+          box 2.84,249.11 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 2 of 8 tint=#d6a56b
         text 19.02,247.38 616.96x16.8 "Bronze Axe" #e8dcc4
         box 638.82,247.38 58.33x16.8
           text 638.82,247.38 58.33x16.8 "0g 0s 5c" #e8dcc4
@@ -1136,8 +1136,8 @@ box 0,0 700x580.17
     box 0,284.09 700x16.8
       text 0,284.09 36.67x16.8 "Sales" #e8c35a
       box 45.2,289.16 654.8x6.67
-        box 45.2,289.16 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry
-        box 51.87,289.16 648.13x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip
+        box 45.2,289.16 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry tint=#c29a43
+        box 51.87,289.16 648.13x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip tint=#c29a43
     box 0,312.27 700x16.8 opacity=1
       box 0,312.27 233.33x16.8 @pointerEnter @pointerLeave
         text 0,312.27 233.33x16.8 "Last click on a row" #cbb994
@@ -1151,19 +1151,19 @@ box 0,0 700x580.17
               box 17.9,349.81 467.13x16.8
                 text 17.9,349.81 30x16.8 "Item" #cbb994
                 box 50.74,355.71 6.67x5
-                  box 47.41,351.54 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
+                  box 47.41,351.54 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 tint=#f0c860 opacity=0
             box 493.57,341.28 120x33.87 #00000033 @keyPress @pointerPress
               box 493.57,373.48 120x1.67 absolute #d6a56b
               box 574.06,349.81 39.51x16.8
                 text 574.06,349.81 30x16.8 "Each" #f0c860
                 box 606.9,355.71 6.67x5
-                  box 603.57,351.54 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=1
+                  box 603.57,351.54 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 tint=#f0c860 opacity=1
             box 622.1,341.28 60x33.87 #00000000 @keyPress @pointerPress
               box 622.1,373.48 60x1.67 absolute #00000000
               box 649.26,349.81 32.84x16.8
                 text 649.26,349.81 23.33x16.8 "Age" #cbb994
                 box 675.43,355.71 6.67x5
-                  box 672.1,351.54 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
+                  box 672.1,351.54 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 tint=#f0c860 opacity=0
         box 0.83,375.98 698.33x93.07 scrolled 0 of 0
           box 9.37,384.51 681.27x25.33 #00000000 @keyPress @pointerEnter @pointerLeave @pointerPress
             text 17.9,388.78 467.13x16.8 "Arcane Dust" #ffffff
@@ -1187,8 +1187,8 @@ box 0,0 700x580.17
     box 0,486.94 700x16.8
       text 0,486.94 36.67x16.8 "Menus" #e8c35a
       box 45.2,492.01 654.8x6.67
-        box 45.2,492.01 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry
-        box 51.87,492.01 648.13x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip
+        box 45.2,492.01 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry tint=#c29a43
+        box 51.87,492.01 648.13x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip tint=#c29a43
     box 0,515.12 700x28.33 opacity=1
       box 0,520.89 233.33x16.8 @pointerEnter @pointerLeave
         text 0,520.89 233.33x16.8 "Toolbar" #cbb994
@@ -1202,7 +1202,7 @@ box 0,0 700x580.17
             box 514.96,515.12 34.02x28.33
               box 520.64,515.12 28.33x28.33
                 box 520.64,515.12 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerEnter @pointerLeave @pointerPress
-                  box 528.14,522.62 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 1 of 16
+                  box 528.14,522.62 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 1 of 16 tint=#e8dcc4
     box 0,554.83 700x25.33 opacity=1
       box 0,559.1 233.33x16.8 @pointerEnter @pointerLeave
         text 0,559.1 233.33x16.8 "Context menu" #cbb994
@@ -1215,8 +1215,8 @@ box 0,0 700x580.17
     box 0,0 700x16.8
       text 0,0 44.17x16.8 "Market" #e8c35a
       box 52.7,5.07 647.3x6.67
-        box 52.7,5.07 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry
-        box 59.37,5.07 640.63x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip
+        box 52.7,5.07 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry tint=#c29a43
+        box 59.37,5.07 640.63x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip tint=#c29a43
     box 0,28.18 700x26.31 opacity=1
       box 0,32.93 233.33x16.8 @pointerEnter @pointerLeave
         text 0,32.93 233.33x16.8 "Scan" #cbb994
@@ -1256,26 +1256,26 @@ box 0,0 700x580.17
       box 248.98,199.82 451.02x33.33
         box 248.98,199.82 33.33x33.33 #0d0a08 opacity=1 @dragStart @drop @pointerEnter @pointerLeave @pointerPress
           box 248.98,199.82 33.33x33.33 absolute
-          box 248.98,199.82 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
+          box 248.98,199.82 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim tint=#0070dd opacity=1
           box 248.98,199.82 33.33x33.33 absolute #00000000
           box 248.98,199.82 5.83x5.83 absolute #ffd100
           box 248.98,199.82 33.33x33.33 absolute
             text 271.13,216.23 8.33x15.51 "5" #f0e6d2
         box 290.84,199.82 33.33x33.33 #0d0a08 opacity=1 @dragStart @drop @pointerEnter @pointerLeave @pointerPress
           box 290.84,199.82 33.33x33.33 absolute
-          box 290.84,199.82 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
+          box 290.84,199.82 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim tint=#a335ee opacity=1
           box 290.84,199.82 33.33x33.33 absolute #00000000
           box 290.84,199.82 33.33x33.33 absolute
             text 306.33,216.23 15x15.51 "20" #f0e6d2
         box 332.71,199.82 33.33x33.33 #0d0a08 opacity=1 @dragStart @drop @pointerEnter @pointerLeave @pointerPress
           box 332.71,199.82 33.33x33.33 absolute
-          box 332.71,199.82 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
+          box 332.71,199.82 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim tint=#6c5535 opacity=0
           box 332.71,199.82 33.33x33.33 absolute #00000000
     box 0,244.53 700x22.49
       box 0,244.53 700x22.49 #00000000 @keyPress @pointerPress
         box 0,244.53 2.5x22.49 absolute #00000000
         box 2.84,249.53 13.33x12.5
-          box 2.84,249.11 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 2 of 8
+          box 2.84,249.11 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 2 of 8 tint=#d6a56b
         text 19.02,247.38 616.96x16.8 "Bronze Axe" #e8dcc4
         box 638.82,247.38 58.33x16.8
           text 638.82,247.38 58.33x16.8 "0g 0s 5c" #e8dcc4
@@ -1283,8 +1283,8 @@ box 0,0 700x580.17
     box 0,284.09 700x16.8
       text 0,284.09 36.67x16.8 "Sales" #e8c35a
       box 45.2,289.16 654.8x6.67
-        box 45.2,289.16 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry
-        box 51.87,289.16 648.13x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip
+        box 45.2,289.16 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry tint=#c29a43
+        box 51.87,289.16 648.13x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip tint=#c29a43
     box 0,312.27 700x16.8 opacity=1
       box 0,312.27 233.33x16.8 @pointerEnter @pointerLeave
         text 0,312.27 233.33x16.8 "Last click on a row" #cbb994
@@ -1298,19 +1298,19 @@ box 0,0 700x580.17
               box 17.9,349.81 467.13x16.8
                 text 17.9,349.81 30x16.8 "Item" #cbb994
                 box 50.74,355.71 6.67x5
-                  box 47.41,351.54 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 1 of 8 opacity=0
+                  box 47.41,351.54 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 1 of 8 tint=#f0c860 opacity=0
             box 493.57,341.28 120x33.87 #00000033 @keyPress @pointerPress
               box 493.57,373.48 120x1.67 absolute #d6a56b
               box 574.06,349.81 39.51x16.8
                 text 574.06,349.81 30x16.8 "Each" #f0c860
                 box 606.9,355.71 6.67x5
-                  box 603.57,351.54 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 1 of 8 opacity=1
+                  box 603.57,351.54 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 1 of 8 tint=#f0c860 opacity=1
             box 622.1,341.28 60x33.87 #00000000 @keyPress @pointerPress
               box 622.1,373.48 60x1.67 absolute #00000000
               box 649.26,349.81 32.84x16.8
                 text 649.26,349.81 23.33x16.8 "Age" #cbb994
                 box 675.43,355.71 6.67x5
-                  box 672.1,351.54 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 1 of 8 opacity=0
+                  box 672.1,351.54 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 1 of 8 tint=#f0c860 opacity=0
         box 0.83,375.98 698.33x93.07 scrolled 0 of 0
           box 9.37,384.51 681.27x25.33 #00000000 @keyPress @pointerEnter @pointerLeave @pointerPress
             text 17.9,388.78 467.13x16.8 "Bronze Axe" #ffffff
@@ -1334,8 +1334,8 @@ box 0,0 700x580.17
     box 0,486.94 700x16.8
       text 0,486.94 36.67x16.8 "Menus" #e8c35a
       box 45.2,492.01 654.8x6.67
-        box 45.2,492.01 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry
-        box 51.87,492.01 648.13x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip
+        box 45.2,492.01 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry tint=#c29a43
+        box 51.87,492.01 648.13x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip tint=#c29a43
     box 0,515.12 700x28.33 opacity=1
       box 0,520.89 233.33x16.8 @pointerEnter @pointerLeave
         text 0,520.89 233.33x16.8 "Toolbar" #cbb994
@@ -1349,7 +1349,7 @@ box 0,0 700x580.17
             box 514.96,515.12 34.02x28.33
               box 520.64,515.12 28.33x28.33
                 box 520.64,515.12 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerEnter @pointerLeave @pointerPress
-                  box 528.14,522.62 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 1 of 16
+                  box 528.14,522.62 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 1 of 16 tint=#e8dcc4
     box 0,554.83 700x25.33 opacity=1
       box 0,559.1 233.33x16.8 @pointerEnter @pointerLeave
         text 0,559.1 233.33x16.8 "Context menu" #cbb994
@@ -1362,8 +1362,8 @@ box 0,0 700x580.17
     box 0,0 700x16.8
       text 0,0 44.17x16.8 "Market" #e8c35a
       box 52.7,5.07 647.3x6.67
-        box 52.7,5.07 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry
-        box 59.37,5.07 640.63x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip
+        box 52.7,5.07 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry tint=#c29a43
+        box 59.37,5.07 640.63x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip tint=#c29a43
     box 0,28.18 700x26.31 opacity=1
       box 0,32.93 233.33x16.8 @pointerEnter @pointerLeave
         text 0,32.93 233.33x16.8 "Scan" #cbb994
@@ -1403,26 +1403,26 @@ box 0,0 700x580.17
       box 248.98,199.82 451.02x33.33
         box 248.98,199.82 33.33x33.33 #0d0a08 opacity=1 @dragStart @drop @pointerEnter @pointerLeave @pointerPress
           box 248.98,199.82 33.33x33.33 absolute
-          box 248.98,199.82 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
+          box 248.98,199.82 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim tint=#0070dd opacity=1
           box 248.98,199.82 33.33x33.33 absolute #00000000
           box 248.98,199.82 5.83x5.83 absolute #ffd100
           box 248.98,199.82 33.33x33.33 absolute
             text 271.13,216.23 8.33x15.51 "5" #f0e6d2
         box 290.84,199.82 33.33x33.33 #0d0a08 opacity=1 @dragStart @drop @pointerEnter @pointerLeave @pointerPress
           box 290.84,199.82 33.33x33.33 absolute
-          box 290.84,199.82 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
+          box 290.84,199.82 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim tint=#a335ee opacity=1
           box 290.84,199.82 33.33x33.33 absolute #00000000
           box 290.84,199.82 33.33x33.33 absolute
             text 306.33,216.23 15x15.51 "20" #f0e6d2
         box 332.71,199.82 33.33x33.33 #0d0a08 opacity=1 @dragStart @drop @pointerEnter @pointerLeave @pointerPress
           box 332.71,199.82 33.33x33.33 absolute
-          box 332.71,199.82 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
+          box 332.71,199.82 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim tint=#6c5535 opacity=0
           box 332.71,199.82 33.33x33.33 absolute #00000000
     box 0,244.53 700x22.49
       box 0,244.53 700x22.49 #00000000 @keyPress @pointerPress
         box 0,244.53 2.5x22.49 absolute #00000000
         box 2.84,249.53 13.33x12.5
-          box 2.84,249.11 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 2 of 8
+          box 2.84,249.11 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 2 of 8 tint=#d6a56b
         text 19.02,247.38 616.96x16.8 "Bronze Axe" #e8dcc4
         box 638.82,247.38 58.33x16.8
           text 638.82,247.38 58.33x16.8 "0g 0s 5c" #e8dcc4
@@ -1430,8 +1430,8 @@ box 0,0 700x580.17
     box 0,284.09 700x16.8
       text 0,284.09 36.67x16.8 "Sales" #e8c35a
       box 45.2,289.16 654.8x6.67
-        box 45.2,289.16 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry
-        box 51.87,289.16 648.13x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip
+        box 45.2,289.16 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry tint=#c29a43
+        box 51.87,289.16 648.13x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip tint=#c29a43
     box 0,312.27 700x16.8 opacity=1
       box 0,312.27 233.33x16.8 @pointerEnter @pointerLeave
         text 0,312.27 233.33x16.8 "Last click on a row" #cbb994
@@ -1445,19 +1445,19 @@ box 0,0 700x580.17
               box 17.9,349.81 467.13x16.8
                 text 17.9,349.81 30x16.8 "Item" #cbb994
                 box 50.74,355.71 6.67x5
-                  box 47.41,351.54 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 1 of 8 opacity=0
+                  box 47.41,351.54 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 1 of 8 tint=#f0c860 opacity=0
             box 493.57,341.28 120x33.87 #00000000 @keyPress @pointerPress
               box 493.57,373.48 120x1.67 absolute #d6a56b
               box 574.06,349.81 39.51x16.8
                 text 574.06,349.81 30x16.8 "Each" #f0c860
                 box 606.9,355.71 6.67x5
-                  box 603.57,351.54 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 1 of 8 opacity=1
+                  box 603.57,351.54 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 1 of 8 tint=#f0c860 opacity=1
             box 622.1,341.28 60x33.87 #00000000 @keyPress @pointerPress
               box 622.1,373.48 60x1.67 absolute #00000000
               box 649.26,349.81 32.84x16.8
                 text 649.26,349.81 23.33x16.8 "Age" #cbb994
                 box 675.43,355.71 6.67x5
-                  box 672.1,351.54 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 1 of 8 opacity=0
+                  box 672.1,351.54 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 1 of 8 tint=#f0c860 opacity=0
         box 0.83,375.98 698.33x93.07 scrolled 0 of 0
           box 9.37,384.51 681.27x25.33 #00000000 @keyPress @pointerEnter @pointerLeave @pointerPress
             text 17.9,388.78 467.13x16.8 "Bronze Axe" #ffffff
@@ -1481,8 +1481,8 @@ box 0,0 700x580.17
     box 0,486.94 700x16.8
       text 0,486.94 36.67x16.8 "Menus" #e8c35a
       box 45.2,492.01 654.8x6.67
-        box 45.2,492.01 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry
-        box 51.87,492.01 648.13x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip
+        box 45.2,492.01 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry tint=#c29a43
+        box 51.87,492.01 648.13x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip tint=#c29a43
     box 0,515.12 700x28.33 opacity=1
       box 0,520.89 233.33x16.8 @pointerEnter @pointerLeave
         text 0,520.89 233.33x16.8 "Toolbar" #cbb994
@@ -1496,7 +1496,7 @@ box 0,0 700x580.17
             box 514.96,515.12 34.02x28.33
               box 520.64,515.12 28.33x28.33
                 box 520.64,515.12 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerEnter @pointerLeave @pointerPress
-                  box 528.14,522.62 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 1 of 16
+                  box 528.14,522.62 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 1 of 16 tint=#e8dcc4
     box 0,554.83 700x25.33 opacity=1
       box 0,559.1 233.33x16.8 @pointerEnter @pointerLeave
         text 0,559.1 233.33x16.8 "Context menu" #cbb994
@@ -1509,8 +1509,8 @@ box 0,0 700x580.17
     box 0,0 700x16.8
       text 0,0 44.17x16.8 "Market" #e8c35a
       box 52.7,5.07 647.3x6.67
-        box 52.7,5.07 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry
-        box 59.37,5.07 640.63x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip
+        box 52.7,5.07 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry tint=#c29a43
+        box 59.37,5.07 640.63x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip tint=#c29a43
     box 0,28.18 700x26.31 opacity=1
       box 0,32.93 233.33x16.8 @pointerEnter @pointerLeave
         text 0,32.93 233.33x16.8 "Scan" #cbb994
@@ -1550,26 +1550,26 @@ box 0,0 700x580.17
       box 248.98,199.82 451.02x33.33
         box 248.98,199.82 33.33x33.33 #0d0a08 opacity=1 @dragStart @drop @pointerEnter @pointerLeave @pointerPress
           box 248.98,199.82 33.33x33.33 absolute
-          box 248.98,199.82 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
+          box 248.98,199.82 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim tint=#0070dd opacity=1
           box 248.98,199.82 33.33x33.33 absolute #00000000
           box 248.98,199.82 5.83x5.83 absolute #ffd100
           box 248.98,199.82 33.33x33.33 absolute
             text 271.13,216.23 8.33x15.51 "5" #f0e6d2
         box 290.84,199.82 33.33x33.33 #0d0a08 opacity=1 @dragStart @drop @pointerEnter @pointerLeave @pointerPress
           box 290.84,199.82 33.33x33.33 absolute
-          box 290.84,199.82 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
+          box 290.84,199.82 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim tint=#a335ee opacity=1
           box 290.84,199.82 33.33x33.33 absolute #00000000
           box 290.84,199.82 33.33x33.33 absolute
             text 306.33,216.23 15x15.51 "20" #f0e6d2
         box 332.71,199.82 33.33x33.33 #0d0a08 opacity=1 @dragStart @drop @pointerEnter @pointerLeave @pointerPress
           box 332.71,199.82 33.33x33.33 absolute
-          box 332.71,199.82 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
+          box 332.71,199.82 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim tint=#6c5535 opacity=0
           box 332.71,199.82 33.33x33.33 absolute #00000000
     box 0,244.53 700x22.49
       box 0,244.53 700x22.49 #00000000 @keyPress @pointerPress
         box 0,244.53 2.5x22.49 absolute #00000000
         box 2.84,249.53 13.33x12.5
-          box 2.84,249.11 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 2 of 8
+          box 2.84,249.11 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 2 of 8 tint=#d6a56b
         text 19.02,247.38 616.96x16.8 "Bronze Axe" #e8dcc4
         box 638.82,247.38 58.33x16.8
           text 638.82,247.38 58.33x16.8 "0g 0s 5c" #e8dcc4
@@ -1577,8 +1577,8 @@ box 0,0 700x580.17
     box 0,284.09 700x16.8
       text 0,284.09 36.67x16.8 "Sales" #e8c35a
       box 45.2,289.16 654.8x6.67
-        box 45.2,289.16 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry
-        box 51.87,289.16 648.13x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip
+        box 45.2,289.16 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry tint=#c29a43
+        box 51.87,289.16 648.13x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip tint=#c29a43
     box 0,312.27 700x16.8 opacity=1
       box 0,312.27 233.33x16.8 @pointerEnter @pointerLeave
         text 0,312.27 233.33x16.8 "Last click on a row" #cbb994
@@ -1592,19 +1592,19 @@ box 0,0 700x580.17
               box 17.9,349.81 467.13x16.8
                 text 17.9,349.81 30x16.8 "Item" #cbb994
                 box 50.74,355.71 6.67x5
-                  box 47.41,351.54 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 1 of 8 opacity=0
+                  box 47.41,351.54 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 1 of 8 tint=#f0c860 opacity=0
             box 493.57,341.28 120x33.87 #00000000 @keyPress @pointerPress
               box 493.57,373.48 120x1.67 absolute #d6a56b
               box 574.06,349.81 39.51x16.8
                 text 574.06,349.81 30x16.8 "Each" #f0c860
                 box 606.9,355.71 6.67x5
-                  box 603.57,351.54 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 1 of 8 opacity=1
+                  box 603.57,351.54 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 1 of 8 tint=#f0c860 opacity=1
             box 622.1,341.28 60x33.87 #00000000 @keyPress @pointerPress
               box 622.1,373.48 60x1.67 absolute #00000000
               box 649.26,349.81 32.84x16.8
                 text 649.26,349.81 23.33x16.8 "Age" #cbb994
                 box 675.43,355.71 6.67x5
-                  box 672.1,351.54 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 1 of 8 opacity=0
+                  box 672.1,351.54 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 1 of 8 tint=#f0c860 opacity=0
         box 0.83,375.98 698.33x93.07 scrolled 0 of 0
           box 9.37,384.51 681.27x25.33 #00000000 @keyPress @pointerEnter @pointerLeave @pointerPress
             text 17.9,388.78 467.13x16.8 "Bronze Axe" #ffffff
@@ -1628,8 +1628,8 @@ box 0,0 700x580.17
     box 0,486.94 700x16.8
       text 0,486.94 36.67x16.8 "Menus" #e8c35a
       box 45.2,492.01 654.8x6.67
-        box 45.2,492.01 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry
-        box 51.87,492.01 648.13x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip
+        box 45.2,492.01 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry tint=#c29a43
+        box 51.87,492.01 648.13x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip tint=#c29a43
     box 0,515.12 700x28.33 opacity=1
       box 0,520.89 233.33x16.8 @pointerEnter @pointerLeave
         text 0,520.89 233.33x16.8 "Toolbar" #cbb994
@@ -1643,7 +1643,7 @@ box 0,0 700x580.17
             box 514.96,515.12 34.02x28.33
               box 520.64,515.12 28.33x28.33
                 box 520.64,515.12 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerEnter @pointerLeave @pointerPress
-                  box 528.14,522.62 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 1 of 16
+                  box 528.14,522.62 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 1 of 16 tint=#e8dcc4
     box 0,554.83 700x25.33 opacity=1
       box 0,559.1 233.33x16.8 @pointerEnter @pointerLeave
         text 0,559.1 233.33x16.8 "Context menu" #cbb994
@@ -1656,8 +1656,8 @@ box 0,0 700x580.17
     box 0,0 700x16.8
       text 0,0 44.17x16.8 "Market" #e8c35a
       box 52.7,5.07 647.3x6.67
-        box 52.7,5.07 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry
-        box 59.37,5.07 640.63x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip
+        box 52.7,5.07 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry tint=#c29a43
+        box 59.37,5.07 640.63x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip tint=#c29a43
     box 0,28.18 700x26.31 opacity=1
       box 0,32.93 233.33x16.8 @pointerEnter @pointerLeave
         text 0,32.93 233.33x16.8 "Scan" #cbb994
@@ -1697,26 +1697,26 @@ box 0,0 700x580.17
       box 248.98,199.82 451.02x33.33
         box 248.98,199.82 33.33x33.33 #0d0a08 opacity=1 @dragStart @drop @pointerEnter @pointerLeave @pointerPress
           box 248.98,199.82 33.33x33.33 absolute
-          box 248.98,199.82 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
+          box 248.98,199.82 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim tint=#0070dd opacity=1
           box 248.98,199.82 33.33x33.33 absolute #00000000
           box 248.98,199.82 5.83x5.83 absolute #ffd100
           box 248.98,199.82 33.33x33.33 absolute
             text 271.13,216.23 8.33x15.51 "5" #f0e6d2
         box 290.84,199.82 33.33x33.33 #0d0a08 opacity=1 @dragStart @drop @pointerEnter @pointerLeave @pointerPress
           box 290.84,199.82 33.33x33.33 absolute
-          box 290.84,199.82 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
+          box 290.84,199.82 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim tint=#a335ee opacity=1
           box 290.84,199.82 33.33x33.33 absolute #00000000
           box 290.84,199.82 33.33x33.33 absolute
             text 306.33,216.23 15x15.51 "20" #f0e6d2
         box 332.71,199.82 33.33x33.33 #0d0a08 opacity=1 @dragStart @drop @pointerEnter @pointerLeave @pointerPress
           box 332.71,199.82 33.33x33.33 absolute
-          box 332.71,199.82 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
+          box 332.71,199.82 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim tint=#6c5535 opacity=0
           box 332.71,199.82 33.33x33.33 absolute #00000000
     box 0,244.53 700x22.49
       box 0,244.53 700x22.49 #00000000 @keyPress @pointerPress
         box 0,244.53 2.5x22.49 absolute #00000000
         box 2.84,249.53 13.33x12.5
-          box 2.84,249.11 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 2 of 8
+          box 2.84,249.11 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 2 of 8 tint=#d6a56b
         text 19.02,247.38 616.96x16.8 "Bronze Axe" #e8dcc4
         box 638.82,247.38 58.33x16.8
           text 638.82,247.38 58.33x16.8 "0g 0s 5c" #e8dcc4
@@ -1724,8 +1724,8 @@ box 0,0 700x580.17
     box 0,284.09 700x16.8
       text 0,284.09 36.67x16.8 "Sales" #e8c35a
       box 45.2,289.16 654.8x6.67
-        box 45.2,289.16 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry
-        box 51.87,289.16 648.13x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip
+        box 45.2,289.16 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry tint=#c29a43
+        box 51.87,289.16 648.13x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip tint=#c29a43
     box 0,312.27 700x16.8 opacity=1
       box 0,312.27 233.33x16.8 @pointerEnter @pointerLeave
         text 0,312.27 233.33x16.8 "Last click on a row" #cbb994
@@ -1739,19 +1739,19 @@ box 0,0 700x580.17
               box 17.9,349.81 467.13x16.8
                 text 17.9,349.81 30x16.8 "Item" #cbb994
                 box 50.74,355.71 6.67x5
-                  box 47.41,351.54 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 1 of 8 opacity=0
+                  box 47.41,351.54 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 1 of 8 tint=#f0c860 opacity=0
             box 493.57,341.28 120x33.87 #00000000 @keyPress @pointerPress
               box 493.57,373.48 120x1.67 absolute #d6a56b
               box 574.06,349.81 39.51x16.8
                 text 574.06,349.81 30x16.8 "Each" #f0c860
                 box 606.9,355.71 6.67x5
-                  box 603.57,351.54 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 1 of 8 opacity=1
+                  box 603.57,351.54 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 1 of 8 tint=#f0c860 opacity=1
             box 622.1,341.28 60x33.87 #00000000 @keyPress @pointerPress
               box 622.1,373.48 60x1.67 absolute #00000000
               box 649.26,349.81 32.84x16.8
                 text 649.26,349.81 23.33x16.8 "Age" #cbb994
                 box 675.43,355.71 6.67x5
-                  box 672.1,351.54 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 1 of 8 opacity=0
+                  box 672.1,351.54 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 1 of 8 tint=#f0c860 opacity=0
         box 0.83,375.98 698.33x93.07 scrolled 0 of 0
           box 9.37,384.51 681.27x25.33 #00000000 @keyPress @pointerEnter @pointerLeave @pointerPress
             text 17.9,388.78 467.13x16.8 "Bronze Axe" #ffffff
@@ -1775,8 +1775,8 @@ box 0,0 700x580.17
     box 0,486.94 700x16.8
       text 0,486.94 36.67x16.8 "Menus" #e8c35a
       box 45.2,492.01 654.8x6.67
-        box 45.2,492.01 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry
-        box 51.87,492.01 648.13x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip
+        box 45.2,492.01 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry tint=#c29a43
+        box 51.87,492.01 648.13x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip tint=#c29a43
     box 0,515.12 700x28.33 opacity=1
       box 0,520.89 233.33x16.8 @pointerEnter @pointerLeave
         text 0,520.89 233.33x16.8 "Toolbar" #cbb994
@@ -1790,7 +1790,7 @@ box 0,0 700x580.17
             box 514.96,515.12 34.02x28.33
               box 520.64,515.12 28.33x28.33
                 box 520.64,515.12 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerEnter @pointerLeave @pointerPress
-                  box 528.14,522.62 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 1 of 16
+                  box 528.14,522.62 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 1 of 16 tint=#e8dcc4
     box 0,554.83 700x25.33 opacity=1
       box 0,559.1 233.33x16.8 @pointerEnter @pointerLeave
         text 0,559.1 233.33x16.8 "Context menu" #cbb994

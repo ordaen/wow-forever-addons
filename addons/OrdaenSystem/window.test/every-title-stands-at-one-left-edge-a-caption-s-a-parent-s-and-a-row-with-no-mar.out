@@ -16,19 +16,19 @@ surface 391.67,175.54 816.67x548.92 on MEDIUM clamped raised by a click
               box 1041.39,260.31 34.02x28.33
                 box 1047.08,260.31 28.33x28.33
                   box 1047.08,260.31 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerEnter @pointerLeave @pointerPress
-                    box 1054.58,267.81 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 7 of 16
+                    box 1054.58,267.81 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 7 of 16 tint=#e8dcc4
               box 1075.42,260.31 34.02x28.33
                 box 1081.11,260.31 28.33x28.33
                   box 1081.11,260.31 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerEnter @pointerLeave @pointerPress
-                    box 1088.61,267.81 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 0 of 16
+                    box 1088.61,267.81 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 0 of 16 tint=#e8dcc4
               box 1109.44,260.31 34.02x28.33
                 box 1115.13,260.31 28.33x28.33
                   box 1115.13,260.31 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerEnter @pointerLeave @pointerPress
-                    box 1122.63,267.81 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 1 of 16
+                    box 1122.63,267.81 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 1 of 16 tint=#e8dcc4
               box 1143.46,260.31 34.02x28.33
                 box 1149.15,260.31 28.33x28.33
                   box 1149.15,260.31 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerEnter @pointerLeave @pointerPress
-                    box 1156.65,267.81 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 3 of 16
+                    box 1156.65,267.81 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 3 of 16 tint=#e8dcc4
           box 427.52,297.18 749.97x17.5
             box 436.05,297.18 475.23x17.5 @keyPress @pointerPress
               text 436.05,297.18 475.23x17.5 "AddOn" #9a9080
@@ -41,13 +41,13 @@ surface 391.67,175.54 816.67x548.92 on MEDIUM clamped raised by a click
             box 1062.08,297.18 66.67x17.5
               box 1070.32,297.18 40.83x17.5 @keyPress @pointerPress
                 text 1070.32,297.18 40.83x17.5 "Memory" #9a9080
-              box 1115.42,297.18 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 6 of 16 @keyPress @pointerPress
+              box 1115.42,297.18 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 6 of 16 tint=#f0c860 @keyPress @pointerPress
             box 1137.28,305.93 31.67x0
           box 427.52,323.21 749.97x296.22 #0000004d
             box 428.35,324.04 748.3x0
             box 428.35,324.04 748.3x294.55 scrolled 0 of 0
               box 436.88,332.57 731.23x21.67 @keyPress @pointerPress
-                box 445.42,336.74 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-marks row 3 of 8
+                box 445.42,336.74 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-marks row 3 of 8 tint=#f0c860
                 text 467.28,334.66 36.67x17.5 "Store" #f0c860
                 text 512.48,334.66 606.9x17.5 "3" #9a9080
                 box 1127.92,335.07 31.67x16.67 @keyPress @pointerPress
@@ -70,7 +70,7 @@ surface 391.67,175.54 816.67x548.92 on MEDIUM clamped raised by a click
                     box 1140.42,354.24 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=1
               box 436.88,375.91 731.23x21.67 #00000000 @keyPress @pointerEnter @pointerLeave @pointerPress
                 box 445.42,377.99 456.5x17.5
-                  box 445.42,380.07 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-marks row 3 of 8 @keyPress @pointerPress
+                  box 445.42,380.07 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-marks row 3 of 8 tint=#f0c860 @keyPress @pointerPress
                   text 467.28,377.99 434.63x17.5 "Rack" #e8e0d0
                 box 910.45,386.74 0x0
                   text 910.45,386.74 0x0 "" #9a9080
@@ -99,7 +99,7 @@ surface 391.67,175.54 816.67x548.92 on MEDIUM clamped raised by a click
                   box 1127.92,400.07 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 1 of 4
                     box 1140.42,397.57 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=1
               box 436.88,419.24 731.23x21.67 @keyPress @pointerPress
-                box 445.42,423.41 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-marks row 3 of 8
+                box 445.42,423.41 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-marks row 3 of 8 tint=#f0c860
                 text 467.28,421.32 100x17.5 "User Interface" #f0c860
                 text 575.82,421.32 543.57x17.5 "2" #9a9080
                 box 1127.92,421.74 31.67x16.67 @keyPress @pointerPress
@@ -107,7 +107,7 @@ surface 391.67,175.54 816.67x548.92 on MEDIUM clamped raised by a click
                     box 1140.42,419.24 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=1
               box 436.88,440.91 731.23x21.67 #00000000 @keyPress @pointerEnter @pointerLeave @pointerPress
                 box 445.42,442.99 456.5x17.5
-                  box 445.42,445.07 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-marks row 3 of 8 @keyPress @pointerPress
+                  box 445.42,445.07 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-marks row 3 of 8 tint=#f0c860 @keyPress @pointerPress
                   text 467.28,442.99 434.63x17.5 "Ordaen" #e8e0d0
                 box 910.45,451.74 0x0
                   text 910.45,451.74 0x0 "" #9a9080
@@ -134,7 +134,7 @@ surface 391.67,175.54 816.67x548.92 on MEDIUM clamped raised by a click
                   text 1089.38,464.66 30x17.5 "0 KB" #e8e0d0
                 box 1127.92,473.41 31.67x0
               box 436.88,484.24 731.23x21.67 @keyPress @pointerPress
-                box 445.42,488.41 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-marks row 3 of 8
+                box 445.42,488.41 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-marks row 3 of 8 tint=#f0c860
                 text 467.28,486.32 36.67x17.5 "Other" #f0c860
                 text 512.48,486.32 606.9x17.5 "1" #9a9080
                 box 1127.92,486.74 31.67x16.67 @keyPress @pointerPress
@@ -177,13 +177,13 @@ surface 391.67,175.54 816.67x548.92 on MEDIUM clamped raised by a click
       box 1191.08,704.46 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 391.67,175.54 816.67x59.42
     box 391.67,175.54 753.13x59.42
-      box 391.67,175.54 137.32x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
+      box 391.67,175.54 137.32x59.42 Interface\AddOns\Ordaen\media\window-wood tint=#808080 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
         box 398.92,182.79 48.92x48.92 absolute icon=Interface/Icons/INV_Misc_Gear_01 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=none
         box 442.83,182.79 11.5x52.17 absolute border=UI-Frame-Metal-CornerTopLeft sides=left
         box 459.37,185.79 50.83x45.92
           text 459.37,199.29 50.83x17.5 "Options" #a3977f
           text 484.78,218.21 0x0 "" #8f8470
-      box 538.94,175.54 172.32x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
+      box 538.94,175.54 172.32x59.42 Interface\AddOns\Ordaen\media\window-wood tint=#808080 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
         box 546.19,182.79 48.92x48.92 absolute icon=Interface/Icons/INV_Misc_Key_03 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=none
         box 590.11,182.79 11.5x52.17 absolute border=UI-Frame-Metal-CornerTopLeft sides=left
         box 606.64,185.79 85.83x45.92

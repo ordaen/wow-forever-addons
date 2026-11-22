@@ -65,49 +65,49 @@ surface 288,133.88 1024x632.25 on MEDIUM clamped raised by a click
                         box 341.75,381.96 345.1x17.5
                           text 341.75,381.96 44.17x17.5 "Recipe" #cbb994
                           box 388.76,388.21 6.67x5
-                            box 385.43,384.05 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 1 of 8 opacity=0
+                            box 385.43,384.05 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 1 of 8 tint=#f0c860 opacity=0
                       box 695.38,373.43 125x34.57 #00000000 @keyPress @pointerPress
                         box 695.38,406.33 125x1.67 absolute #00000000
                         box 695.38,381.96 125x17.5
                           text 695.38,381.96 23.33x17.5 "Who" #cbb994
                           box 721.56,388.21 6.67x5
-                            box 718.23,384.05 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 1 of 8 opacity=0
+                            box 718.23,384.05 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 1 of 8 tint=#f0c860 opacity=0
                       box 828.92,373.43 75x34.57 #00000000 @keyPress @pointerPress
                         box 828.92,406.33 75x1.67 absolute #00000000
                         box 864.41,381.96 39.51x17.5
                           text 864.41,381.96 30x17.5 "Cost" #cbb994
                           box 897.25,388.21 6.67x5
-                            box 893.92,384.05 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 1 of 8 opacity=0
+                            box 893.92,384.05 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 1 of 8 tint=#f0c860 opacity=0
                       box 912.45,373.43 75x34.57 #00000000 @keyPress @pointerPress
                         box 912.45,406.33 75x1.67 absolute #00000000
                         box 947.94,381.96 39.51x17.5
                           text 947.94,381.96 30x17.5 "Sale" #cbb994
                           box 980.78,388.21 6.67x5
-                            box 977.45,384.05 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 1 of 8 opacity=0
+                            box 977.45,384.05 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 1 of 8 tint=#f0c860 opacity=0
                       box 995.98,373.43 75x34.57 #00000000 @keyPress @pointerPress
                         box 995.98,406.33 75x1.67 absolute #d6a56b
                         box 1017.31,381.96 53.68x17.5
                           text 1017.31,381.96 44.17x17.5 "Profit" #f0c860
                           box 1064.32,388.21 6.67x5
-                            box 1060.98,384.05 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 1 of 8 opacity=1
+                            box 1060.98,384.05 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 1 of 8 tint=#f0c860 opacity=1
                       box 1079.52,373.43 41.67x34.57 #00000000 @keyPress @pointerPress
                         box 1079.52,406.33 41.67x1.67 absolute #00000000
                         box 1102.51,381.96 18.68x17.5
                           text 1102.51,381.96 9.17x17.5 "%" #cbb994
                           box 1114.52,388.21 6.67x5
-                            box 1111.18,384.05 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 1 of 8 opacity=0
+                            box 1111.18,384.05 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 1 of 8 tint=#f0c860 opacity=0
                       box 1129.72,373.43 50x34.57 #00000000 @keyPress @pointerPress
                         box 1129.72,406.33 50x1.67 absolute #00000000
                         box 1146.87,381.96 32.84x17.5
                           text 1146.87,381.96 23.33x17.5 "Age" #cbb994
                           box 1173.05,388.21 6.67x5
-                            box 1169.72,384.05 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 1 of 8 opacity=0
+                            box 1169.72,384.05 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 1 of 8 tint=#f0c860 opacity=0
                       box 1188.25,373.43 75x34.57 #00000000 @keyPress @pointerPress
                         box 1188.25,406.33 75x1.67 absolute #00000000
                         box 1195.41,381.96 67.84x17.5
                           text 1195.41,381.96 58.33x17.5 "Can make" #cbb994
                           box 1256.58,388.21 6.67x5
-                            box 1253.25,384.05 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 1 of 8 opacity=0
+                            box 1253.25,384.05 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 1 of 8 tint=#f0c860 opacity=0
                   box 324.68,408.83 955.63x277.46 scrolled 0 of 0
                     box 333.22,417.36 938.57x26.03 #00000040 @keyPress @pointerEnter @pointerLeave @pointerPress
                       text 341.75,421.63 345.1x17.5 "Linen Cloak" #f0e6d2

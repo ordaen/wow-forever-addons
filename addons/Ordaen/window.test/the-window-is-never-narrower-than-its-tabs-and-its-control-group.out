@@ -11,13 +11,13 @@ surface 635,331.38 795.33x237.25 on MEDIUM clamped raised by a click
       box 635,331.38 165.9x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
         box 653.78,341.62 128.33x34.25
           text 653.78,350 128.33x17.5 "The first long tab" #ffd100
-      box 810.86,331.38 172.57x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
+      box 810.86,331.38 172.57x47.75 Interface\AddOns\Ordaen\media\window-wood tint=#808080 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
         box 829.64,341.62 135x34.25
           text 829.64,350 135x17.5 "The second long tab" #a3977f
-      box 993.38,331.38 165.9x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
+      box 993.38,331.38 165.9x47.75 Interface\AddOns\Ordaen\media\window-wood tint=#808080 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
         box 1012.16,341.62 128.33x34.25
           text 1012.16,350 128.33x17.5 "The third long tab" #a3977f
-      box 1169.23,331.38 172.57x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
+      box 1169.23,331.38 172.57x47.75 Interface\AddOns\Ordaen\media\window-wood tint=#808080 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
         box 1188.02,341.62 135x34.25
           text 1188.02,350 135x17.5 "The fourth long tab" #a3977f
     box 1350.33,347.71 80x31.42

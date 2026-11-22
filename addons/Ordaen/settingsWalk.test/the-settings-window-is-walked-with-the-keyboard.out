@@ -128,8 +128,8 @@ surface 310,139.71 980x620.58 on MEDIUM clamped raised by a click
                   box 493.63,227.03 751.3x17.5
                     text 493.63,227.03 44.17x17.5 "Themes" #e8c35a
                     box 546.33,232.45 698.6x6.67
-                      box 546.33,232.45 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry
-                      box 552.99,232.45 691.93x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip
+                      box 546.33,232.45 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry tint=#c29a43
+                      box 552.99,232.45 691.93x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip tint=#c29a43
                   box 493.63,255.91 751.3x36.42
                     box 493.63,255.91 616.34x36.42
                       text 493.63,255.91 616.34x17.5 "Ordaen" #f0e6d2
@@ -145,8 +145,8 @@ surface 310,139.71 980x620.58 on MEDIUM clamped raised by a click
                   box 493.63,355.77 751.3x17.5
                     text 493.63,355.77 36.67x17.5 "Fonts" #e8c35a
                     box 538.83,361.19 706.1x6.67
-                      box 538.83,361.19 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry
-                      box 545.49,361.19 699.43x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip
+                      box 538.83,361.19 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry tint=#c29a43
+                      box 545.49,361.19 699.43x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip tint=#c29a43
                   box 493.63,384.65 751.3x28.33 opacity=1
                     box 493.63,390.07 233.33x17.5 @pointerEnter @pointerLeave
                       text 493.63,390.07 233.33x17.5 "Text font" #cbb994
@@ -172,8 +172,8 @@ surface 310,139.71 980x620.58 on MEDIUM clamped raised by a click
                   box 493.63,508.05 751.3x17.5
                     text 493.63,508.05 58.33x17.5 "Textures" #e8c35a
                     box 560.49,513.47 684.43x6.67
-                      box 560.49,513.47 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry
-                      box 567.16,513.47 677.77x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip
+                      box 560.49,513.47 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry tint=#c29a43
+                      box 567.16,513.47 677.77x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip tint=#c29a43
                   box 493.63,536.93 751.3x28.33 opacity=1
                     box 493.63,542.35 233.33x17.5 @pointerEnter @pointerLeave
                       text 493.63,542.35 233.33x17.5 "Bar texture" #cbb994
@@ -192,8 +192,8 @@ surface 310,139.71 980x620.58 on MEDIUM clamped raised by a click
                   box 493.63,620.62 751.3x17.5
                     text 493.63,620.62 71.67x17.5 "Animations" #e8c35a
                     box 573.83,626.04 671.1x6.67
-                      box 573.83,626.04 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry
-                      box 580.49,626.04 664.43x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip
+                      box 573.83,626.04 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry tint=#c29a43
+                      box 580.49,626.04 664.43x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip tint=#c29a43
                   box 493.63,649.5 751.3x28.33 opacity=1
                     box 493.63,654.91 233.33x17.5 @pointerEnter @pointerLeave
                       text 493.63,654.91 233.33x17.5 "Animations" #cbb994
@@ -205,8 +205,8 @@ surface 310,139.71 980x620.58 on MEDIUM clamped raised by a click
                   box 493.63,693.48 751.3x17.5
                     text 493.63,693.48 50.83x17.5 "Colours" #e8c35a
                     box 552.99,698.89 691.93x6.67
-                      box 552.99,698.89 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry
-                      box 559.66,698.89 685.27x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip
+                      box 552.99,698.89 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry tint=#c29a43
+                      box 559.66,698.89 685.27x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip tint=#c29a43
                   box 493.63,722.35 751.3x18.33 opacity=1
                     box 493.63,722.77 233.33x17.5 @pointerEnter @pointerLeave
                       text 493.63,722.77 233.33x17.5 "Accent colour" #cbb994
@@ -311,8 +311,8 @@ surface 310,139.71 980x620.58 on MEDIUM clamped raised by a click
                   box 493.63,1469.4 751.3x17.5
                     text 493.63,1469.4 93.33x17.5 "Class colours" #e8c35a
                     box 595.49,1474.81 649.43x6.67
-                      box 595.49,1474.81 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry
-                      box 602.16,1474.81 642.77x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip
+                      box 595.49,1474.81 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry tint=#c29a43
+                      box 602.16,1474.81 642.77x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip tint=#c29a43
                   box 493.63,1498.28 751.3x28.33 opacity=1
                     box 493.63,1503.69 233.33x17.5 @pointerEnter @pointerLeave
                       text 493.63,1503.69 233.33x17.5 "Warrior" #cbb994

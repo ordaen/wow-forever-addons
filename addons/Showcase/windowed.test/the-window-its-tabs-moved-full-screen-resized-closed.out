@@ -22,7 +22,7 @@ surface 600,275.54 400x348.92 on MEDIUM clamped raised by a click
         box 667.7,285.79 80x45.92
           text 668.12,290.54 79.17x17.5 "Professions" #ffd100
           text 667.7,309.46 80x17.5 "Tailoring 75" #8f8470
-      box 776.44,275.54 114.5x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
+      box 776.44,275.54 114.5x59.42 Interface\AddOns\Ordaen\media\window-wood tint=#808080 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
         box 795.22,285.79 76.93x45.92
           text 808.27,300 50.83x17.5 "Recipes" #a3977f
     box 920,303.54 80x31.42
@@ -55,7 +55,7 @@ surface 600,275.54 400x348.92 on MEDIUM clamped raised by a click
       box 982.75,604.46 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 600,275.54 400x59.42
     box 600,275.54 311.47x59.42
-      box 600,275.54 166.48x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
+      box 600,275.54 166.48x59.42 Interface\AddOns\Ordaen\media\window-wood tint=#808080 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
         box 607.25,282.79 48.92x48.92 absolute icon=Interface/Icons/Trade_Tailoring cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=none
         box 651.17,282.79 11.5x52.17 absolute border=UI-Frame-Metal-CornerTopLeft sides=left
         box 667.7,285.79 80x45.92
@@ -94,7 +94,7 @@ surface 640,305.54 400x348.92 on MEDIUM clamped raised by a click
       box 1022.75,634.46 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 640,305.54 400x59.42
     box 640,305.54 311.47x59.42
-      box 640,305.54 166.48x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
+      box 640,305.54 166.48x59.42 Interface\AddOns\Ordaen\media\window-wood tint=#808080 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
         box 647.25,312.79 48.92x48.92 absolute icon=Interface/Icons/Trade_Tailoring cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=none
         box 691.17,312.79 11.5x52.17 absolute border=UI-Frame-Metal-CornerTopLeft sides=left
         box 707.7,315.79 80x45.92
@@ -133,7 +133,7 @@ surface 640,305.54 400x348.92 on MEDIUM clamped raised by a click
       box 1022.75,634.46 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 640,305.54 400x59.42
     box 640,305.54 311.47x59.42
-      box 640,305.54 166.48x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
+      box 640,305.54 166.48x59.42 Interface\AddOns\Ordaen\media\window-wood tint=#808080 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
         box 647.25,312.79 48.92x48.92 absolute icon=Interface/Icons/Trade_Tailoring cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=none
         box 691.17,312.79 11.5x52.17 absolute border=UI-Frame-Metal-CornerTopLeft sides=left
         box 707.7,315.79 80x45.92
@@ -172,7 +172,7 @@ surface 640,305.54 400x348.92 on MEDIUM clamped raised by a click
       box 1022.75,634.46 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 640,305.54 400x59.42
     box 640,305.54 311.47x59.42
-      box 640,305.54 166.48x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
+      box 640,305.54 166.48x59.42 Interface\AddOns\Ordaen\media\window-wood tint=#808080 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
         box 647.25,312.79 48.92x48.92 absolute icon=Interface/Icons/Trade_Tailoring cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=none
         box 691.17,312.79 11.5x52.17 absolute border=UI-Frame-Metal-CornerTopLeft sides=left
         box 707.7,315.79 80x45.92
@@ -209,7 +209,7 @@ surface 0,0 1600x900 on MEDIUM clamped raised by a click
             text 1504.15,852.02 30x17.5 "Save" #ffd100
   box 0,0 1600x59.42
     box 0,0 1511.47x59.42
-      box 0,0 166.48x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
+      box 0,0 166.48x59.42 Interface\AddOns\Ordaen\media\window-wood tint=#808080 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
         box 7.25,7.25 48.92x48.92 absolute icon=Interface/Icons/Trade_Tailoring cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=none
         box 51.17,7.25 11.5x52.17 absolute border=UI-Frame-Metal-CornerTopLeft sides=left
         box 67.7,10.25 80x45.92
@@ -248,7 +248,7 @@ surface 640,305.54 400x348.92 on MEDIUM clamped raised by a click
       box 1022.75,634.46 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 640,305.54 400x59.42
     box 640,305.54 311.47x59.42
-      box 640,305.54 166.48x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
+      box 640,305.54 166.48x59.42 Interface\AddOns\Ordaen\media\window-wood tint=#808080 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
         box 647.25,312.79 48.92x48.92 absolute icon=Interface/Icons/Trade_Tailoring cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=none
         box 691.17,312.79 11.5x52.17 absolute border=UI-Frame-Metal-CornerTopLeft sides=left
         box 707.7,315.79 80x45.92
@@ -287,7 +287,7 @@ surface 640,305.54 400x348.92 on MEDIUM clamped raised by a click
       box 1022.75,634.46 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 640,305.54 400x59.42
     box 640,305.54 311.47x59.42
-      box 640,305.54 166.48x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
+      box 640,305.54 166.48x59.42 Interface\AddOns\Ordaen\media\window-wood tint=#808080 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
         box 647.25,312.79 48.92x48.92 absolute icon=Interface/Icons/Trade_Tailoring cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=none
         box 691.17,312.79 11.5x52.17 absolute border=UI-Frame-Metal-CornerTopLeft sides=left
         box 707.7,315.79 80x45.92
@@ -326,7 +326,7 @@ surface 640,305.54 460x368.92 on MEDIUM clamped raised by a click
       box 1082.75,654.46 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Highlight @drag @dragStart @dragStop
   box 640,305.54 460x59.42
     box 640,305.54 371.47x59.42
-      box 640,305.54 166.48x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
+      box 640,305.54 166.48x59.42 Interface\AddOns\Ordaen\media\window-wood tint=#808080 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
         box 647.25,312.79 48.92x48.92 absolute icon=Interface/Icons/Trade_Tailoring cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=none
         box 691.17,312.79 11.5x52.17 absolute border=UI-Frame-Metal-CornerTopLeft sides=left
         box 707.7,315.79 80x45.92
@@ -365,7 +365,7 @@ surface 640,305.54 600x215.58 on MEDIUM clamped raised by a click
       box 1222.75,501.12 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 640,305.54 600x59.42
     box 640,305.54 511.47x59.42
-      box 640,305.54 166.48x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
+      box 640,305.54 166.48x59.42 Interface\AddOns\Ordaen\media\window-wood tint=#808080 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
         box 647.25,312.79 48.92x48.92 absolute icon=Interface/Icons/Trade_Tailoring cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=none
         box 691.17,312.79 11.5x52.17 absolute border=UI-Frame-Metal-CornerTopLeft sides=left
         box 707.7,315.79 80x45.92

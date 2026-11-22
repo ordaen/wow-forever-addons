@@ -14,11 +14,11 @@ surface 425,173.04 806.61x553.92 on MEDIUM clamped raised by a click
               box 1132.72,246.14 34.02x28.33
                 box 1138.41,246.14 28.33x28.33
                   box 1138.41,246.14 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerEnter @pointerLeave @pointerPress
-                    box 1145.91,253.64 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 0 of 16
+                    box 1145.91,253.64 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 0 of 16 tint=#e8dcc4
               box 1166.74,246.14 34.02x28.33
                 box 1172.43,246.14 28.33x28.33
                   box 1172.43,246.14 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerEnter @pointerLeave @pointerPress
-                    box 1179.93,253.64 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 5 of 16
+                    box 1179.93,253.64 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 5 of 16 tint=#e8dcc4
           box 460.85,281.59 739.91x378.33
             box 460.85,281.59 739.91x378.33 #0000004d
               box 461.68,282.42 738.24x35.4
@@ -28,31 +28,31 @@ surface 425,173.04 806.61x553.92 on MEDIUM clamped raised by a click
                     box 478.75,290.95 431.84x17.5
                       text 478.75,290.95 36.67x17.5 "Spell" #cbb994
                       box 518.26,297.2 6.67x5
-                        box 514.93,293.04 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 1 of 8 opacity=0
+                        box 514.93,293.04 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 1 of 8 tint=#f0c860 opacity=0
                   box 919.13,282.42 116.67x34.57 #00000000 @keyPress @pointerPress
                     box 919.13,315.32 116.67x1.67 absolute #00000000
                     box 919.13,290.95 116.67x17.5
                       text 919.13,290.95 100x17.5 "Specialization" #cbb994
                       box 1021.97,297.2 6.67x5
-                        box 1018.64,293.04 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 1 of 8 opacity=0
+                        box 1018.64,293.04 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 1 of 8 tint=#f0c860 opacity=0
                   box 1044.33,282.42 80x34.57 #00000000 @keyPress @pointerPress
                     box 1044.33,315.32 80x1.67 absolute #00000000
                     box 1044.33,290.95 80x17.5
                       text 1044.33,290.95 30x17.5 "Kind" #cbb994
                       box 1077.17,297.2 6.67x5
-                        box 1073.84,293.04 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 1 of 8 opacity=0
+                        box 1073.84,293.04 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 1 of 8 tint=#f0c860 opacity=0
                   box 1132.86,282.42 50x34.57 #00000033 @keyPress @pointerPress
                     box 1132.86,315.32 50x1.67 absolute #d6a56b
                     box 1136.68,290.95 46.18x17.5
                       text 1136.68,290.95 36.67x17.5 "Level" #f0c860
                       box 1176.19,297.2 6.67x5
-                        box 1172.86,293.04 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 1 of 8 opacity=1
+                        box 1172.86,293.04 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 1 of 8 tint=#f0c860 opacity=1
               box 461.68,317.82 738.24x341.27 scrolled 0 of 0
                 box 470.22,326.35 721.18x26.03 #00000000 @keyPress @pointerEnter @pointerLeave @pointerPress
                   box 478.75,330.62 431.84x17.5 @dragStart
                     box 478.75,331.04 16.67x16.67 #0d0a08 opacity=1 secure @dragStart @drop @pointerEnter @pointerLeave @pointerPress
                       box 478.75,331.04 16.67x16.67 absolute icon=Interface/Icons/INV_Misc_Note_01
-                      box 478.75,331.04 16.67x16.67 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
+                      box 478.75,331.04 16.67x16.67 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim tint=#6c5535 opacity=0
                       box 478.75,331.04 16.67x16.67 absolute #00000000
                     text 501.11,330.62 409.49x17.5 "Mortal Strike" #e8dcc4
                   text 919.13,330.62 116.67x17.5 "Arms" #a3977f
@@ -63,7 +63,7 @@ surface 425,173.04 806.61x553.92 on MEDIUM clamped raised by a click
                   box 478.75,356.65 431.84x17.5 @dragStart
                     box 478.75,357.07 16.67x16.67 #0d0a08 opacity=1 secure @dragStart @drop @pointerEnter @pointerLeave @pointerPress
                       box 478.75,357.07 16.67x16.67 absolute icon=Interface/Icons/INV_Misc_Note_01
-                      box 478.75,357.07 16.67x16.67 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
+                      box 478.75,357.07 16.67x16.67 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim tint=#6c5535 opacity=0
                       box 478.75,357.07 16.67x16.67 absolute #00000000
                     text 501.11,356.65 409.49x17.5 "Heroic Strike (Rank 2)" #e8dcc4
                   text 919.13,356.65 116.67x17.5 "Warrior" #a3977f
@@ -74,7 +74,7 @@ surface 425,173.04 806.61x553.92 on MEDIUM clamped raised by a click
                   box 478.75,382.69 431.84x17.5 @dragStart
                     box 478.75,383.1 16.67x16.67 #0d0a08 opacity=1 @dragStart @drop @pointerEnter @pointerLeave @pointerPress
                       box 478.75,383.1 16.67x16.67 absolute icon=Interface/Icons/INV_Misc_Note_01
-                      box 478.75,383.1 16.67x16.67 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
+                      box 478.75,383.1 16.67x16.67 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim tint=#6c5535 opacity=0
                       box 478.75,383.1 16.67x16.67 absolute #00000000
                     text 501.11,382.69 409.49x17.5 "Parry" #e8dcc4
                   text 919.13,382.69 116.67x17.5 "Warrior" #a3977f
@@ -85,7 +85,7 @@ surface 425,173.04 806.61x553.92 on MEDIUM clamped raised by a click
                   box 478.75,408.72 431.84x17.5 @dragStart
                     box 478.75,409.14 16.67x16.67 #0d0a08 opacity=1 secure @dragStart @drop @pointerEnter @pointerLeave @pointerPress
                       box 478.75,409.14 16.67x16.67 absolute icon=Interface/Icons/INV_Misc_Note_01
-                      box 478.75,409.14 16.67x16.67 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
+                      box 478.75,409.14 16.67x16.67 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim tint=#6c5535 opacity=0
                       box 478.75,409.14 16.67x16.67 absolute #00000000
                     text 501.11,408.72 409.49x17.5 "Rend (Rank 1)" #e8dcc4
                   text 919.13,408.72 116.67x17.5 "Warrior" #a3977f
@@ -96,7 +96,7 @@ surface 425,173.04 806.61x553.92 on MEDIUM clamped raised by a click
                   box 478.75,434.75 431.84x17.5 @dragStart
                     box 478.75,435.17 16.67x16.67 #0d0a08 opacity=1 secure @dragStart @drop @pointerEnter @pointerLeave @pointerPress
                       box 478.75,435.17 16.67x16.67 absolute icon=Interface/Icons/INV_Misc_Note_01
-                      box 478.75,435.17 16.67x16.67 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
+                      box 478.75,435.17 16.67x16.67 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim tint=#6c5535 opacity=0
                       box 478.75,435.17 16.67x16.67 absolute #00000000
                     text 501.11,434.75 409.49x17.5 "Find Treasure" #e8dcc4
                   text 919.13,434.75 116.67x17.5 "General" #a3977f
@@ -124,7 +124,7 @@ surface 425,173.04 806.61x553.92 on MEDIUM clamped raised by a click
         box 464.5,180.29 11.5x40.5 absolute border=UI-Frame-Metal-CornerTopLeft sides=left
         box 481.03,183.29 44.17x34.25
           text 481.03,191.67 44.17x17.5 "Spells" #ffd100
-      box 553.94,173.04 139.82x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
+      box 553.94,173.04 139.82x47.75 Interface\AddOns\Ordaen\media\window-wood tint=#808080 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
         box 561.19,180.29 37.25x37.25 absolute icon=Interface/Icons/INV_Misc_Book_11 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=none
         box 593.44,180.29 11.5x40.5 absolute border=UI-Frame-Metal-CornerTopLeft sides=left
         box 609.97,183.29 65x34.25

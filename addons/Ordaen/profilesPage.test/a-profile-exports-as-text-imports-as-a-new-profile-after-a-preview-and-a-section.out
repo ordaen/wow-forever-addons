@@ -5,8 +5,8 @@ box 0,0 760x693.38
     box 0,0 760x16.8
       text 0,0 50.83x16.8 "Profile" #e8c35a
       box 59.37,5.07 700.63x6.67
-        box 59.37,5.07 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry
-        box 66.03,5.07 693.97x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip
+        box 59.37,5.07 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry tint=#c29a43
+        box 66.03,5.07 693.97x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip tint=#c29a43
     text 0,28.18 760x16.8 "In use: Default, account default" #e8dcc4
     box 0,56.36 760x28.33 opacity=1
       box 0,62.12 233.33x16.8 @pointerEnter @pointerLeave
@@ -38,8 +38,8 @@ box 0,0 760x693.38
     box 0,234.31 760x16.8
       text 0,234.31 50.83x16.8 "Use for" #e8c35a
       box 59.37,239.38 700.63x6.67
-        box 59.37,239.38 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry
-        box 66.03,239.38 693.97x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip
+        box 59.37,239.38 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry tint=#c29a43
+        box 66.03,239.38 693.97x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip tint=#c29a43
     box 0,262.49 760x18.33 opacity=1
       box 0,263.26 233.33x16.8 @pointerEnter @pointerLeave
         text 0,263.26 233.33x16.8 "This character" #cbb994
@@ -59,15 +59,15 @@ box 0,0 760x693.38
     box 0,355.89 760x16.8
       text 0,355.89 135x16.8 "Copy from a profile" #e8c35a
       box 143.53,360.96 616.47x6.67
-        box 143.53,360.96 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry
-        box 150.2,360.96 609.8x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip
+        box 143.53,360.96 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry tint=#c29a43
+        box 150.2,360.96 609.8x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip tint=#c29a43
     text 0,384.07 760x16.8 "There is no other profile to copy from." #a3977f
   box 0,416.51 760x276.87
     box 0,416.51 760x16.8
       text 0,416.51 36.67x16.8 "Share" #e8c35a
       box 45.2,421.58 714.8x6.67
-        box 45.2,421.58 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry
-        box 51.87,421.58 708.13x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip
+        box 45.2,421.58 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry tint=#c29a43
+        box 51.87,421.58 708.13x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip tint=#c29a43
     text 0,444.69 760x16.8 "Export shows the profile as text: Ctrl+C copies it. To import, paste a text here." #a3977f
     box 0,472.87 760x18.33 opacity=1
       box 0,473.63 233.33x16.8 @pointerEnter @pointerLeave
@@ -99,8 +99,8 @@ box 0,0 760x777.91
     box 0,0 760x16.8
       text 0,0 50.83x16.8 "Profile" #e8c35a
       box 59.37,5.07 700.63x6.67
-        box 59.37,5.07 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry
-        box 66.03,5.07 693.97x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip
+        box 59.37,5.07 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry tint=#c29a43
+        box 66.03,5.07 693.97x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip tint=#c29a43
     text 0,28.18 760x16.8 "In use: Default, account default" #e8dcc4
     box 0,56.36 760x28.33 opacity=1
       box 0,62.12 233.33x16.8 @pointerEnter @pointerLeave
@@ -132,8 +132,8 @@ box 0,0 760x777.91
     box 0,234.31 760x16.8
       text 0,234.31 50.83x16.8 "Use for" #e8c35a
       box 59.37,239.38 700.63x6.67
-        box 59.37,239.38 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry
-        box 66.03,239.38 693.97x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip
+        box 59.37,239.38 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry tint=#c29a43
+        box 66.03,239.38 693.97x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip tint=#c29a43
     box 0,262.49 760x18.33 opacity=1
       box 0,263.26 233.33x16.8 @pointerEnter @pointerLeave
         text 0,263.26 233.33x16.8 "This character" #cbb994
@@ -153,15 +153,15 @@ box 0,0 760x777.91
     box 0,355.89 760x16.8
       text 0,355.89 135x16.8 "Copy from a profile" #e8c35a
       box 143.53,360.96 616.47x6.67
-        box 143.53,360.96 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry
-        box 150.2,360.96 609.8x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip
+        box 143.53,360.96 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry tint=#c29a43
+        box 150.2,360.96 609.8x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip tint=#c29a43
     text 0,384.07 760x16.8 "There is no other profile to copy from." #a3977f
   box 0,416.51 760x361.4
     box 0,416.51 760x16.8
       text 0,416.51 36.67x16.8 "Share" #e8c35a
       box 45.2,421.58 714.8x6.67
-        box 45.2,421.58 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry
-        box 51.87,421.58 708.13x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip
+        box 45.2,421.58 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry tint=#c29a43
+        box 51.87,421.58 708.13x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip tint=#c29a43
     text 0,444.69 760x16.8 "Export shows the profile as text: Ctrl+C copies it. To import, paste a text here." #a3977f
     box 0,472.87 760x18.33 opacity=1
       box 0,473.63 233.33x16.8 @pointerEnter @pointerLeave
@@ -196,8 +196,8 @@ box 0,0 760x833.76
     box 0,0 760x16.8
       text 0,0 50.83x16.8 "Profile" #e8c35a
       box 59.37,5.07 700.63x6.67
-        box 59.37,5.07 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry
-        box 66.03,5.07 693.97x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip
+        box 59.37,5.07 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry tint=#c29a43
+        box 66.03,5.07 693.97x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip tint=#c29a43
     text 0,28.18 760x16.8 "In use: Default, account default" #e8dcc4
     box 0,56.36 760x28.33 opacity=1
       box 0,62.12 233.33x16.8 @pointerEnter @pointerLeave
@@ -229,8 +229,8 @@ box 0,0 760x833.76
     box 0,234.31 760x16.8
       text 0,234.31 50.83x16.8 "Use for" #e8c35a
       box 59.37,239.38 700.63x6.67
-        box 59.37,239.38 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry
-        box 66.03,239.38 693.97x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip
+        box 59.37,239.38 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry tint=#c29a43
+        box 66.03,239.38 693.97x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip tint=#c29a43
     box 0,262.49 760x18.33 opacity=1
       box 0,263.26 233.33x16.8 @pointerEnter @pointerLeave
         text 0,263.26 233.33x16.8 "This character" #cbb994
@@ -250,8 +250,8 @@ box 0,0 760x833.76
     box 0,355.89 760x16.8
       text 0,355.89 135x16.8 "Copy from a profile" #e8c35a
       box 143.53,360.96 616.47x6.67
-        box 143.53,360.96 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry
-        box 150.2,360.96 609.8x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip
+        box 143.53,360.96 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry tint=#c29a43
+        box 150.2,360.96 609.8x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip tint=#c29a43
     box 0,384.07 760x157.18
       box 0,384.07 760x28.33 opacity=1
         box 0,389.83 233.33x16.8 @pointerEnter @pointerLeave
@@ -282,8 +282,8 @@ box 0,0 760x833.76
     box 0,556.89 760x16.8
       text 0,556.89 36.67x16.8 "Share" #e8c35a
       box 45.2,561.96 714.8x6.67
-        box 45.2,561.96 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry
-        box 51.87,561.96 708.13x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip
+        box 45.2,561.96 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry tint=#c29a43
+        box 51.87,561.96 708.13x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip tint=#c29a43
     text 0,585.07 760x16.8 "Export shows the profile as text: Ctrl+C copies it. To import, paste a text here." #a3977f
     box 0,613.24 760x18.33 opacity=1
       box 0,614.01 233.33x16.8 @pointerEnter @pointerLeave
@@ -315,8 +315,8 @@ box 0,0 760x890.11
     box 0,0 760x16.8
       text 0,0 50.83x16.8 "Profile" #e8c35a
       box 59.37,5.07 700.63x6.67
-        box 59.37,5.07 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry
-        box 66.03,5.07 693.97x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip
+        box 59.37,5.07 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry tint=#c29a43
+        box 66.03,5.07 693.97x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip tint=#c29a43
     text 0,28.18 760x16.8 "In use: Default, account default" #e8dcc4
     box 0,56.36 760x28.33 opacity=1
       box 0,62.12 233.33x16.8 @pointerEnter @pointerLeave
@@ -348,8 +348,8 @@ box 0,0 760x890.11
     box 0,234.31 760x16.8
       text 0,234.31 50.83x16.8 "Use for" #e8c35a
       box 59.37,239.38 700.63x6.67
-        box 59.37,239.38 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry
-        box 66.03,239.38 693.97x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip
+        box 59.37,239.38 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry tint=#c29a43
+        box 66.03,239.38 693.97x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip tint=#c29a43
     box 0,262.49 760x18.33 opacity=1
       box 0,263.26 233.33x16.8 @pointerEnter @pointerLeave
         text 0,263.26 233.33x16.8 "This character" #cbb994
@@ -369,8 +369,8 @@ box 0,0 760x890.11
     box 0,355.89 760x16.8
       text 0,355.89 135x16.8 "Copy from a profile" #e8c35a
       box 143.53,360.96 616.47x6.67
-        box 143.53,360.96 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry
-        box 150.2,360.96 609.8x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip
+        box 143.53,360.96 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry tint=#c29a43
+        box 150.2,360.96 609.8x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip tint=#c29a43
     box 0,384.07 760x157.18
       box 0,384.07 760x28.33 opacity=1
         box 0,389.83 233.33x16.8 @pointerEnter @pointerLeave
@@ -401,8 +401,8 @@ box 0,0 760x890.11
     box 0,556.89 760x16.8
       text 0,556.89 36.67x16.8 "Share" #e8c35a
       box 45.2,561.96 714.8x6.67
-        box 45.2,561.96 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry
-        box 51.87,561.96 708.13x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip
+        box 45.2,561.96 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry tint=#c29a43
+        box 51.87,561.96 708.13x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip tint=#c29a43
     text 0,585.07 760x16.8 "Export shows the profile as text: Ctrl+C copies it. To import, paste a text here." #a3977f
     box 0,613.24 760x18.33 opacity=1
       box 0,614.01 233.33x16.8 @pointerEnter @pointerLeave

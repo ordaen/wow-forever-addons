@@ -16,8 +16,8 @@ box 0,0 700x292.26
       box 0,37.54 700x16.8
         text 0,37.54 23.33x16.8 "Map" #e8c35a
         box 31.87,42.61 668.13x6.67
-          box 31.87,42.61 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry
-          box 38.53,42.61 661.47x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip
+          box 31.87,42.61 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry tint=#c29a43
+          box 38.53,42.61 661.47x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip tint=#c29a43
       box 0,65.72 700x18.33 opacity=1
         box 0,66.49 233.33x16.8 @pointerEnter @pointerLeave
           text 0,66.49 233.33x16.8 "Show the zone" #cbb994
@@ -76,8 +76,8 @@ box 0,0 700x292.26
       box 0,37.54 700x16.8
         text 0,37.54 23.33x16.8 "Map" #e8c35a
         box 31.87,42.61 668.13x6.67
-          box 31.87,42.61 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry
-          box 38.53,42.61 661.47x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip
+          box 31.87,42.61 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry tint=#c29a43
+          box 38.53,42.61 661.47x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip tint=#c29a43
       box 0,65.72 700x18.33 opacity=1
         box 0,66.49 233.33x16.8 @pointerEnter @pointerLeave
           text 0,66.49 233.33x16.8 "Show the zone" #cbb994
@@ -136,8 +136,8 @@ box 0,0 700x396.66
       box 0,37.54 700x16.8
         text 0,37.54 44.17x16.8 "Drawer" #e8c35a
         box 52.7,42.61 647.3x6.67
-          box 52.7,42.61 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry
-          box 59.37,42.61 640.63x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip
+          box 52.7,42.61 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry tint=#c29a43
+          box 59.37,42.61 640.63x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip tint=#c29a43
       box 0,65.72 700x16.8 opacity=1
         box 0,65.72 233.33x16.8 @pointerEnter @pointerLeave
           text 0,65.72 233.33x16.8 "Button drawer" #cbb994
@@ -163,8 +163,8 @@ box 0,0 700x396.66
       box 0,209.41 700x16.8
         text 0,209.41 44.17x16.8 "Export" #e8c35a
         box 52.7,214.48 647.3x6.67
-          box 52.7,214.48 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry
-          box 59.37,214.48 640.63x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip
+          box 52.7,214.48 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry tint=#c29a43
+          box 59.37,214.48 640.63x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip tint=#c29a43
       box 0,237.59 700x60 #0d0a08 input "Ordaen:1:drawer\nhide=never" lines typing selected 0..26 clipped @change
   box 0,306.12 700x16.8 @pointerEnter @pointerLeave
     text 0,306.12 700x16.8 "zone shown" #ffffff
@@ -191,8 +191,8 @@ box 0,0 700x396.66
       box 0,37.54 700x16.8
         text 0,37.54 44.17x16.8 "Drawer" #e8c35a
         box 52.7,42.61 647.3x6.67
-          box 52.7,42.61 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry
-          box 59.37,42.61 640.63x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip
+          box 52.7,42.61 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry tint=#c29a43
+          box 59.37,42.61 640.63x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip tint=#c29a43
       box 0,65.72 700x16.8 opacity=1
         box 0,65.72 233.33x16.8 @pointerEnter @pointerLeave
           text 0,65.72 233.33x16.8 "Button drawer" #cbb994
@@ -218,8 +218,8 @@ box 0,0 700x396.66
       box 0,209.41 700x16.8
         text 0,209.41 44.17x16.8 "Export" #e8c35a
         box 52.7,214.48 647.3x6.67
-          box 52.7,214.48 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry
-          box 59.37,214.48 640.63x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip
+          box 52.7,214.48 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry tint=#c29a43
+          box 59.37,214.48 640.63x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip tint=#c29a43
       box 0,237.59 700x60 #0d0a08 input "Ordaen:1:drawer\nhide=never" lines typing selected 0..26 clipped @change
   box 0,306.12 700x16.8 @pointerEnter @pointerLeave
     text 0,306.12 700x16.8 "zone shown" #ffffff
@@ -249,8 +249,8 @@ box 0,0 700x396.66
       box 0,37.54 700x16.8
         text 0,37.54 44.17x16.8 "Drawer" #e8c35a
         box 52.7,42.61 647.3x6.67
-          box 52.7,42.61 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry
-          box 59.37,42.61 640.63x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip
+          box 52.7,42.61 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry tint=#c29a43
+          box 59.37,42.61 640.63x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip tint=#c29a43
       box 0,65.72 700x16.8 opacity=1
         box 0,65.72 233.33x16.8 @pointerEnter @pointerLeave
           text 0,65.72 233.33x16.8 "Button drawer" #cbb994
@@ -276,8 +276,8 @@ box 0,0 700x396.66
       box 0,209.41 700x16.8
         text 0,209.41 44.17x16.8 "Export" #e8c35a
         box 52.7,214.48 647.3x6.67
-          box 52.7,214.48 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry
-          box 59.37,214.48 640.63x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip
+          box 52.7,214.48 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry tint=#c29a43
+          box 59.37,214.48 640.63x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip tint=#c29a43
       box 0,237.59 700x60 #0d0a08 input "Ordaen:1:drawer\nhide=never" lines selected 0..26 clipped @change
   box 0,306.12 700x16.8 @pointerEnter @pointerLeave
     text 0,306.12 700x16.8 "zone shown" #ffffff
@@ -304,8 +304,8 @@ box 0,0 700x396.66
       box 0,37.54 700x16.8
         text 0,37.54 44.17x16.8 "Drawer" #e8c35a
         box 52.7,42.61 647.3x6.67
-          box 52.7,42.61 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry
-          box 59.37,42.61 640.63x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip
+          box 52.7,42.61 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry tint=#c29a43
+          box 59.37,42.61 640.63x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip tint=#c29a43
       box 0,65.72 700x16.8 opacity=1
         box 0,65.72 233.33x16.8 @pointerEnter @pointerLeave
           text 0,65.72 233.33x16.8 "Button drawer" #cbb994
@@ -331,8 +331,8 @@ box 0,0 700x396.66
       box 0,209.41 700x16.8
         text 0,209.41 44.17x16.8 "Export" #e8c35a
         box 52.7,214.48 647.3x6.67
-          box 52.7,214.48 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry
-          box 59.37,214.48 640.63x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip
+          box 52.7,214.48 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry tint=#c29a43
+          box 59.37,214.48 640.63x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip tint=#c29a43
       box 0,237.59 700x60 #0d0a08 input "Ordaen:1:drawer\nhide=never" lines selected 0..26 clipped @change
   box 0,306.12 700x16.8 @pointerEnter @pointerLeave
     text 0,306.12 700x16.8 "zone shown" #ffffff
@@ -369,8 +369,8 @@ box 0,0 700x396.66
       box 0,37.54 700x16.8
         text 0,37.54 44.17x16.8 "Drawer" #e8c35a
         box 52.7,42.61 647.3x6.67
-          box 52.7,42.61 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry
-          box 59.37,42.61 640.63x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip
+          box 52.7,42.61 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry tint=#c29a43
+          box 59.37,42.61 640.63x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip tint=#c29a43
       box 0,65.72 700x16.8 opacity=1
         box 0,65.72 233.33x16.8 @pointerEnter @pointerLeave
           text 0,65.72 233.33x16.8 "Button drawer" #cbb994
@@ -396,8 +396,8 @@ box 0,0 700x396.66
       box 0,209.41 700x16.8
         text 0,209.41 44.17x16.8 "Export" #e8c35a
         box 52.7,214.48 647.3x6.67
-          box 52.7,214.48 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry
-          box 59.37,214.48 640.63x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip
+          box 52.7,214.48 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry tint=#c29a43
+          box 59.37,214.48 640.63x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip tint=#c29a43
       box 0,237.59 700x60 #0d0a08 input "Ordaen:1:drawer\nhide=never" lines selected 0..26 clipped @change
   box 0,306.12 700x16.8 @pointerEnter @pointerLeave
     text 0,306.12 700x16.8 "zone shown" #ffffff
@@ -434,8 +434,8 @@ box 0,0 700x396.66
       box 0,37.54 700x16.8
         text 0,37.54 44.17x16.8 "Drawer" #e8c35a
         box 52.7,42.61 647.3x6.67
-          box 52.7,42.61 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry
-          box 59.37,42.61 640.63x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip
+          box 52.7,42.61 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry tint=#c29a43
+          box 59.37,42.61 640.63x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip tint=#c29a43
       box 0,65.72 700x16.8 opacity=1
         box 0,65.72 233.33x16.8 @pointerEnter @pointerLeave
           text 0,65.72 233.33x16.8 "Button drawer" #cbb994
@@ -461,8 +461,8 @@ box 0,0 700x396.66
       box 0,209.41 700x16.8
         text 0,209.41 44.17x16.8 "Export" #e8c35a
         box 52.7,214.48 647.3x6.67
-          box 52.7,214.48 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry
-          box 59.37,214.48 640.63x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip
+          box 52.7,214.48 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry tint=#c29a43
+          box 59.37,214.48 640.63x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip tint=#c29a43
       box 0,237.59 700x60 #0d0a08 input "Ordaen:1:drawer\nhide=never" lines selected 0..26 clipped @change
   box 0,306.12 700x16.8 @pointerEnter @pointerLeave
     text 0,306.12 700x16.8 "zone shown" #ffffff
@@ -489,8 +489,8 @@ box 0,0 700x396.66
       box 0,37.54 700x16.8
         text 0,37.54 44.17x16.8 "Drawer" #e8c35a
         box 52.7,42.61 647.3x6.67
-          box 52.7,42.61 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry
-          box 59.37,42.61 640.63x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip
+          box 52.7,42.61 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry tint=#c29a43
+          box 59.37,42.61 640.63x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip tint=#c29a43
       box 0,65.72 700x16.8 opacity=1
         box 0,65.72 233.33x16.8 @pointerEnter @pointerLeave
           text 0,65.72 233.33x16.8 "Button drawer" #cbb994
@@ -516,8 +516,8 @@ box 0,0 700x396.66
       box 0,209.41 700x16.8
         text 0,209.41 44.17x16.8 "Export" #e8c35a
         box 52.7,214.48 647.3x6.67
-          box 52.7,214.48 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry
-          box 59.37,214.48 640.63x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip
+          box 52.7,214.48 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry tint=#c29a43
+          box 59.37,214.48 640.63x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip tint=#c29a43
       box 0,237.59 700x60 #0d0a08 input "Ordaen:1:drawer\nhide=never" lines selected 0..26 clipped @change
   box 0,306.12 700x16.8 @pointerEnter @pointerLeave
     text 0,306.12 700x16.8 "zone shown" #ffffff
@@ -554,8 +554,8 @@ box 0,0 700x396.66
       box 0,37.54 700x16.8
         text 0,37.54 44.17x16.8 "Drawer" #e8c35a
         box 52.7,42.61 647.3x6.67
-          box 52.7,42.61 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry
-          box 59.37,42.61 640.63x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip
+          box 52.7,42.61 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry tint=#c29a43
+          box 59.37,42.61 640.63x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip tint=#c29a43
       box 0,65.72 700x16.8 opacity=1
         box 0,65.72 233.33x16.8 @pointerEnter @pointerLeave
           text 0,65.72 233.33x16.8 "Button drawer" #cbb994
@@ -581,8 +581,8 @@ box 0,0 700x396.66
       box 0,209.41 700x16.8
         text 0,209.41 44.17x16.8 "Export" #e8c35a
         box 52.7,214.48 647.3x6.67
-          box 52.7,214.48 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry
-          box 59.37,214.48 640.63x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip
+          box 52.7,214.48 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry tint=#c29a43
+          box 59.37,214.48 640.63x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip tint=#c29a43
       box 0,237.59 700x60 #0d0a08 input "Ordaen:1:drawer\nhide=never" lines selected 0..26 clipped @change
   box 0,306.12 700x16.8 @pointerEnter @pointerLeave
     text 0,306.12 700x16.8 "zone shown" #ffffff
@@ -609,8 +609,8 @@ box 0,0 700x396.66
       box 0,37.54 700x16.8
         text 0,37.54 44.17x16.8 "Drawer" #e8c35a
         box 52.7,42.61 647.3x6.67
-          box 52.7,42.61 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry
-          box 59.37,42.61 640.63x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip
+          box 52.7,42.61 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry tint=#c29a43
+          box 59.37,42.61 640.63x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip tint=#c29a43
       box 0,65.72 700x16.8 opacity=1
         box 0,65.72 233.33x16.8 @pointerEnter @pointerLeave
           text 0,65.72 233.33x16.8 "Button drawer" #cbb994
@@ -636,8 +636,8 @@ box 0,0 700x396.66
       box 0,209.41 700x16.8
         text 0,209.41 44.17x16.8 "Export" #e8c35a
         box 52.7,214.48 647.3x6.67
-          box 52.7,214.48 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry
-          box 59.37,214.48 640.63x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip
+          box 52.7,214.48 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry tint=#c29a43
+          box 59.37,214.48 640.63x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip tint=#c29a43
       box 0,237.59 700x60 #0d0a08 input "Ordaen:1:drawer\nhide=never" lines selected 0..26 clipped @change
   box 0,306.12 700x16.8 @pointerEnter @pointerLeave
     text 0,306.12 700x16.8 "zone shown" #ffffff
@@ -664,8 +664,8 @@ box 0,0 700x396.66
       box 0,37.54 700x16.8
         text 0,37.54 44.17x16.8 "Drawer" #e8c35a
         box 52.7,42.61 647.3x6.67
-          box 52.7,42.61 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry
-          box 59.37,42.61 640.63x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip
+          box 52.7,42.61 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry tint=#c29a43
+          box 59.37,42.61 640.63x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip tint=#c29a43
       box 0,65.72 700x16.8 opacity=1
         box 0,65.72 233.33x16.8 @pointerEnter @pointerLeave
           text 0,65.72 233.33x16.8 "Button drawer" #cbb994
@@ -691,8 +691,8 @@ box 0,0 700x396.66
       box 0,209.41 700x16.8
         text 0,209.41 44.17x16.8 "Export" #e8c35a
         box 52.7,214.48 647.3x6.67
-          box 52.7,214.48 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry
-          box 59.37,214.48 640.63x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip
+          box 52.7,214.48 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry tint=#c29a43
+          box 59.37,214.48 640.63x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip tint=#c29a43
       box 0,237.59 700x60 #0d0a08 input "Ordaen:1:drawer\nhide=never" lines selected 0..26 clipped @change
   box 0,306.12 700x16.8 @pointerEnter @pointerLeave
     text 0,306.12 700x16.8 "zone shown" #ffffff
@@ -719,8 +719,8 @@ box 0,0 700x413.46
       box 0,37.54 700x16.8
         text 0,37.54 44.17x16.8 "Drawer" #e8c35a
         box 52.7,42.61 647.3x6.67
-          box 52.7,42.61 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry
-          box 59.37,42.61 640.63x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip
+          box 52.7,42.61 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry tint=#c29a43
+          box 59.37,42.61 640.63x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip tint=#c29a43
       box 0,65.72 700x16.8 opacity=1
         box 0,65.72 233.33x16.8 @pointerEnter @pointerLeave
           text 0,65.72 233.33x16.8 "Button drawer" #cbb994
@@ -746,8 +746,8 @@ box 0,0 700x413.46
       box 0,226.21 700x16.8
         text 0,226.21 44.17x16.8 "Export" #e8c35a
         box 52.7,231.28 647.3x6.67
-          box 52.7,231.28 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry
-          box 59.37,231.28 640.63x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip
+          box 52.7,231.28 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry tint=#c29a43
+          box 59.37,231.28 640.63x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip tint=#c29a43
       box 0,254.39 700x60 #0d0a08 input "Ordaen:1:drawer\nhide=never" lines selected 0..26 clipped @change
   box 0,322.92 700x16.8 @pointerEnter @pointerLeave
     text 0,322.92 700x16.8 "zone shown" #ffffff
@@ -775,8 +775,8 @@ box 0,0 700x413.46
       box 0,37.54 700x16.8
         text 0,37.54 44.17x16.8 "Drawer" #e8c35a
         box 52.7,42.61 647.3x6.67
-          box 52.7,42.61 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry
-          box 59.37,42.61 640.63x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip
+          box 52.7,42.61 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry tint=#c29a43
+          box 59.37,42.61 640.63x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip tint=#c29a43
       box 0,65.72 700x16.8 opacity=1
         box 0,65.72 233.33x16.8 @pointerEnter @pointerLeave
           text 0,65.72 233.33x16.8 "Button drawer" #cbb994
@@ -802,8 +802,8 @@ box 0,0 700x413.46
       box 0,226.21 700x16.8
         text 0,226.21 44.17x16.8 "Export" #e8c35a
         box 52.7,231.28 647.3x6.67
-          box 52.7,231.28 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry
-          box 59.37,231.28 640.63x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip
+          box 52.7,231.28 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry tint=#c29a43
+          box 59.37,231.28 640.63x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip tint=#c29a43
       box 0,254.39 700x60 #0d0a08 input "Ordaen:1:drawer\nhide=never" lines selected 0..26 clipped @change
   box 0,322.92 700x16.8 @pointerEnter @pointerLeave
     text 0,322.92 700x16.8 "zone shown" #ffffff
@@ -830,8 +830,8 @@ box 0,0 700x413.46
       box 0,37.54 700x16.8
         text 0,37.54 44.17x16.8 "Drawer" #e8c35a
         box 52.7,42.61 647.3x6.67
-          box 52.7,42.61 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry
-          box 59.37,42.61 640.63x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip
+          box 52.7,42.61 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry tint=#c29a43
+          box 59.37,42.61 640.63x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip tint=#c29a43
       box 0,65.72 700x16.8 opacity=1
         box 0,65.72 233.33x16.8 @pointerEnter @pointerLeave
           text 0,65.72 233.33x16.8 "Button drawer" #cbb994
@@ -857,8 +857,8 @@ box 0,0 700x413.46
       box 0,226.21 700x16.8
         text 0,226.21 44.17x16.8 "Export" #e8c35a
         box 52.7,231.28 647.3x6.67
-          box 52.7,231.28 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry
-          box 59.37,231.28 640.63x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip
+          box 52.7,231.28 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry tint=#c29a43
+          box 59.37,231.28 640.63x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip tint=#c29a43
       box 0,254.39 700x60 #0d0a08 input "Ordaen:1:drawer\nhide=never" lines selected 0..26 clipped @change
   box 0,322.92 700x16.8 @pointerEnter @pointerLeave
     text 0,322.92 700x16.8 "zone shown" #ffffff
@@ -885,8 +885,8 @@ box 0,0 700x413.46
       box 0,37.54 700x16.8
         text 0,37.54 44.17x16.8 "Drawer" #e8c35a
         box 52.7,42.61 647.3x6.67
-          box 52.7,42.61 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry
-          box 59.37,42.61 640.63x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip
+          box 52.7,42.61 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry tint=#c29a43
+          box 59.37,42.61 640.63x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip tint=#c29a43
       box 0,65.72 700x16.8 opacity=1
         box 0,65.72 233.33x16.8 @pointerEnter @pointerLeave
           text 0,65.72 233.33x16.8 "Button drawer" #cbb994
@@ -912,8 +912,8 @@ box 0,0 700x413.46
       box 0,226.21 700x16.8
         text 0,226.21 44.17x16.8 "Export" #e8c35a
         box 52.7,231.28 647.3x6.67
-          box 52.7,231.28 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry
-          box 59.37,231.28 640.63x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip
+          box 52.7,231.28 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry tint=#c29a43
+          box 59.37,231.28 640.63x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip tint=#c29a43
       box 0,254.39 700x60 #0d0a08 input "Ordaen:1:drawer\nhide=never" lines selected 0..26 clipped @change
   box 0,322.92 700x16.8 @pointerEnter @pointerLeave
     text 0,322.92 700x16.8 "zone shown" #ffffff
@@ -952,8 +952,8 @@ box 0,0 700x413.46
       box 0,37.54 700x16.8
         text 0,37.54 44.17x16.8 "Drawer" #e8c35a
         box 52.7,42.61 647.3x6.67
-          box 52.7,42.61 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry
-          box 59.37,42.61 640.63x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip
+          box 52.7,42.61 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry tint=#c29a43
+          box 59.37,42.61 640.63x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip tint=#c29a43
       box 0,65.72 700x16.8 opacity=1
         box 0,65.72 233.33x16.8 @pointerEnter @pointerLeave
           text 0,65.72 233.33x16.8 "Button drawer" #cbb994
@@ -979,8 +979,8 @@ box 0,0 700x413.46
       box 0,226.21 700x16.8
         text 0,226.21 44.17x16.8 "Export" #e8c35a
         box 52.7,231.28 647.3x6.67
-          box 52.7,231.28 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry
-          box 59.37,231.28 640.63x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip
+          box 52.7,231.28 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry tint=#c29a43
+          box 59.37,231.28 640.63x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip tint=#c29a43
       box 0,254.39 700x60 #0d0a08 input "Ordaen:1:drawer\nhide=never" lines selected 0..26 clipped @change
   box 0,322.92 700x16.8 @pointerEnter @pointerLeave
     text 0,322.92 700x16.8 "zone shown" #ffffff
@@ -1019,8 +1019,8 @@ box 0,0 700x413.46
       box 0,37.54 700x16.8
         text 0,37.54 44.17x16.8 "Drawer" #e8c35a
         box 52.7,42.61 647.3x6.67
-          box 52.7,42.61 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry
-          box 59.37,42.61 640.63x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip
+          box 52.7,42.61 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry tint=#c29a43
+          box 59.37,42.61 640.63x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip tint=#c29a43
       box 0,65.72 700x16.8 opacity=1
         box 0,65.72 233.33x16.8 @pointerEnter @pointerLeave
           text 0,65.72 233.33x16.8 "Button drawer" #cbb994
@@ -1046,8 +1046,8 @@ box 0,0 700x413.46
       box 0,226.21 700x16.8
         text 0,226.21 44.17x16.8 "Export" #e8c35a
         box 52.7,231.28 647.3x6.67
-          box 52.7,231.28 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry
-          box 59.37,231.28 640.63x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip
+          box 52.7,231.28 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry tint=#c29a43
+          box 59.37,231.28 640.63x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip tint=#c29a43
       box 0,254.39 700x60 #0d0a08 input "Ordaen:1:drawer\nhide=never" lines selected 0..26 clipped @change
   box 0,322.92 700x16.8 @pointerEnter @pointerLeave
     text 0,322.92 700x16.8 "zone shown" #ffffff
@@ -1074,8 +1074,8 @@ box 0,0 700x413.46
       box 0,37.54 700x16.8
         text 0,37.54 44.17x16.8 "Drawer" #e8c35a
         box 52.7,42.61 647.3x6.67
-          box 52.7,42.61 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry
-          box 59.37,42.61 640.63x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip
+          box 52.7,42.61 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry tint=#c29a43
+          box 59.37,42.61 640.63x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip tint=#c29a43
       box 0,65.72 700x16.8 opacity=1
         box 0,65.72 233.33x16.8 @pointerEnter @pointerLeave
           text 0,65.72 233.33x16.8 "Button drawer" #cbb994
@@ -1101,8 +1101,8 @@ box 0,0 700x413.46
       box 0,226.21 700x16.8
         text 0,226.21 44.17x16.8 "Export" #e8c35a
         box 52.7,231.28 647.3x6.67
-          box 52.7,231.28 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry
-          box 59.37,231.28 640.63x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip
+          box 52.7,231.28 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry tint=#c29a43
+          box 59.37,231.28 640.63x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip tint=#c29a43
       box 0,254.39 700x60 #0d0a08 input "Ordaen:1:drawer\nhide=never" lines selected 0..26 clipped @change
   box 0,322.92 700x16.8 @pointerEnter @pointerLeave
     text 0,322.92 700x16.8 "zone shown" #ffffff

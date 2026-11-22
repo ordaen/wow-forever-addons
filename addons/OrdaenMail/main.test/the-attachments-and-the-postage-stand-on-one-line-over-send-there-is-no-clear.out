@@ -14,15 +14,15 @@ surface 500,175.54 1055.76x548.92 on MEDIUM clamped raised by a click
                 box 861.39,260.31 34.02x28.33
                   box 867.08,260.31 28.33x28.33
                     box 867.08,260.31 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerEnter @pointerLeave @pointerPress
-                      box 874.58,267.81 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 0 of 16
+                      box 874.58,267.81 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 0 of 16 tint=#e8dcc4
                 box 895.42,260.31 34.02x28.33
                   box 901.11,260.31 28.33x28.33
                     box 901.11,260.31 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerEnter @pointerLeave @pointerPress
-                      box 908.61,267.81 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 1 of 16
+                      box 908.61,267.81 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 1 of 16 tint=#e8dcc4
                 box 929.44,260.31 34.02x28.33
                   box 935.13,260.31 28.33x28.33
                     box 935.13,260.31 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerEnter @pointerLeave @pointerPress
-                      box 942.63,267.81 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 4 of 16
+                      box 942.63,267.81 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 4 of 16 tint=#e8dcc4
             box 969.15,260.31 100x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
               text 1000.82,265.73 36.67x17.5 "Write" #f0e6d2
           box 535.85,295.75 533.3x351.13
@@ -62,7 +62,7 @@ surface 500,175.54 1055.76x548.92 on MEDIUM clamped raised by a click
               box 1124.91,428.06 400x33.33
                 box 1124.91,428.06 33.33x33.33 #0d0a08 opacity=1 @dragStart @drop @pointerEnter @pointerLeave @pointerPress
                   box 1124.91,428.06 33.33x33.33 absolute
-                  box 1124.91,428.06 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
+                  box 1124.91,428.06 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim tint=#6c5535 opacity=0
                   box 1124.91,428.06 33.33x33.33 absolute #00000000
             box 1124.91,467.09 400x60.4
               box 1124.91,467.09 400x29.71
@@ -91,7 +91,7 @@ surface 500,175.54 1055.76x548.92 on MEDIUM clamped raised by a click
       box 1538.51,704.46 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 500,175.54 1055.76x59.42
     box 500,175.54 967.23x59.42
-      box 500,175.54 114.5x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
+      box 500,175.54 114.5x59.42 Interface\AddOns\Ordaen\media\window-wood tint=#808080 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
         box 518.78,185.79 76.93x45.92
           text 538.92,190.54 36.67x17.5 "Inbox" #a3977f
           text 527.25,209.46 60x17.5 "0 letters" #8f8470
@@ -99,7 +99,7 @@ surface 500,175.54 1055.76x548.92 on MEDIUM clamped raised by a click
         box 643.24,185.79 76.93x45.92
           text 659.62,190.54 44.17x17.5 "Outbox" #ffd100
           text 661.29,209.46 40.83x17.5 "0 sent" #8f8470
-      box 748.91,175.54 151.73x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
+      box 748.91,175.54 151.73x59.42 Interface\AddOns\Ordaen\media\window-wood tint=#808080 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
         box 767.69,185.79 114.17x45.92
           text 767.69,200 114.17x17.5 "To my characters" #a3977f
     box 1475.76,203.54 80x31.42
