@@ -42,9 +42,10 @@ const BAGS_HOME: Anchored = { point: Point.BottomRight, x: -10ui, y: -10ui }
 // items' least (the experience bar's): on a screen too short for that the panel scrolls down a side.
 const THIRDS: Array<Track> = [{ fr: 1 }, { fr: 1 }, { fr: 1 }]
 const FITTED: Array<Track> = ["max-content", { fr: 1 }, "max-content"]
-// The portrait in the screen's corner, over the panel's start; the menu keeps that much room for it.
-const PORTRAIT_WIDTH = 128ui
-const PORTRAIT_HEIGHT = 124ui
+// The portrait in the screen's corner, over the panel's start; the menu keeps that much room for it, and what stands
+// over the panel's start (the chat's tabs) keeps it too, while the portrait shows (`portraitShown`).
+public const PORTRAIT_WIDTH = 128ui
+public const PORTRAIT_HEIGHT = 124ui
 const PORTRAIT_ROOM: Array<Track> = [PORTRAIT_WIDTH, "max-content"]
 const CORNER: Anchored = { point: Point.BottomLeft }
 // The talent points to spend, on a round badge (the level's, smaller) centred on the portrait's rim down its right side
@@ -218,12 +219,8 @@ public class Panel implements Module, App {
 
   constructor() {
     Ordaen.modules.add(self)
-    // The room it keeps along the screen's bottom edge, told to Ordaen: its height and its top edge's metal, which
-    // reaches over it, while it is on and stands there.
-    watch {
-      const taken: Number<Length> = self.settings.values.bottomOn && self.side == Side.Bottom ? self.drawnTall : 0ui
-      Ordaen.keepBottom(FOLDER, taken)
-    }
+    // The room it keeps along the screen's bottom edge, told to Ordaen.
+    watch { Ordaen.keepBottom(FOLDER, self.bottomRoom) }
     // The talent points to spend: read at the start and each time the game says they changed.
     self.readTalents()
     Events.CHARACTER_POINTS_CHANGED.listen(self.onPoints)
@@ -295,6 +292,9 @@ public class Panel implements Module, App {
   // along it.
   derived tall: Number<Length> = (self.settings.values.height * 1ui).max(LEAST_HEIGHT)
   public derived inside: Number<Length> = self.tall - METAL - EDGE_ROOM_TOP
+  // The room it keeps along the screen's bottom edge: its height and its top edge's metal, which reaches over it,
+  // while it is on and stands there; else none. What stands on the panel stands this far up.
+  public derived bottomRoom: Number<Length> = self.settings.values.bottomOn && self.side == Side.Bottom ? self.drawnTall : 0ui
   // The room under the metal, a measure of the art, as a padding takes it.
   derived edgeRoom: Edges = { top: Ordaen.spacingOf(EDGE_ROOM_TOP) }
   // How far its dividers reach up past its cells to meet the metal: across that room; down a side, the room is at its

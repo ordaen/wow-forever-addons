@@ -1,2 +1,2 @@
 // Ordaen Panel: one panel along an edge of the screen, with the game's menu, the money and the bags.
-public import { Panel } from "@/main"
+public import { PORTRAIT_HEIGHT, PORTRAIT_WIDTH, Panel } from "@/main"
