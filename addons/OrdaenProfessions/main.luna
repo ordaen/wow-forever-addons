@@ -167,9 +167,11 @@ public class Professions implements Module, App {
     { title: windowsTitle(), content: $ltml { <WindowsPage windows={mut self.windows} /> } }
   ]
   // The window's footer: the profession's own spell («Find Minerals») at its left; on the queue's page what the queue
-  // is doing and «Create next». The make row is the chosen recipe's card's (`RecipeDetails`).
+  // is doing and «Create next». The make row is the chosen recipe's card's (`RecipeDetails`). With neither there is no
+  // footer: the page runs to the window's bottom line.
   const footer: Template = $ltml {
-    <box padding={FOOTER_ROOM} columns={self.footColumns} gap={6sp} yAlign={Align.Center}>
+    <box $if={self.hasTrack || self.queueShown} padding={FOOTER_ROOM} columns={self.footColumns} gap={6sp}
+         yAlign={Align.Center}>
       <PushButton $if={self.hasTrack} label={self.trackName} width={TRACK_WIDTH} action={self.trackAction} />
       <box $if={self.queueShown} columns={QUEUE_FOOT} gap={6sp} yAlign={Align.Center}>
         <text value={self.queueStatus} textSize={SECONDARY_TEXT} textColor={Style.DIM} />

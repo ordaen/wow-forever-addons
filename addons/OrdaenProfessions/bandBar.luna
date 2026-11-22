@@ -1,13 +1,15 @@
-// BandBar: the profession's skill in the page band, over the marble: a thin bar in Ordaen's own bronze frame (a small
-// surface's, rounded), the experience bar's fill, the rest of it a translucent dark the marble shows through, a notch
+// BandBar: the profession's skill in the page band, over the marble: a bar in Ordaen's own bronze frame (a window's,
+// its corners square, at a small surface's scale), the experience bar's fill, the rest of it a translucent dark the marble shows through, a notch
 // every 10%, and on it the rank and the skill: «Apprentice · 31 / 75». A prototype of the professions window's design:
 // Ordaen's `SkillBar` hangs from a window's top line in the trainer's.
-import { Align, Art, Line, Position, Shadow, Side, TextFont, Track } from "$ltml"
+import { Align, Art, ArtBorder, Line, Position, Shadow, Side, TextFont, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import { BRIGHT_TEXT, Component, SECONDARY_TEXT, XpFill, xpFillArt } from "Ordaen"
 import Locale from "@/locales"
 
-const HEIGHT = 25.78125dp
+const HEIGHT = 30.46875dp
+// A window's frame drawn as thin as a small surface's.
+const THIN = 0.3
 // The rest of the bar: dark enough to read the fill against, light enough that the marble shows.
 const TROUGH: Color = Color.hex("#00000066")
 const SHADOW: Shadow = { color: Color.hex("#000000"), x: 1.171875dp, y: -1.171875dp }
@@ -31,8 +33,10 @@ public class BandBar implements Component {
   // The bar in two columns: the filled part, and the rest.
   derived parts: Array<Track> = [{ fr: self.shareOf() }, { fr: 1 - self.shareOf() }]
   derived label: String = self.labelOf()
-  // How much of the bar's height its frame takes at its top and at its bottom.
-  derived rim: Number<Length> = (Ordaen.art.frame.small.reach.top * Ordaen.art.frame.small.scale + Ordaen.art.frame.small.width) * 1ui
+  // A window's frame, square, at a small surface's scale; and how much of the bar's height it takes at its top and at
+  // its bottom.
+  derived frame: ArtBorder = self.frameOf()
+  derived rim: Number<Length> = (self.frame.reach.top * THIN + THIN) * 1ui
   const fill: Art = xpFillArt(XpFill.Brushed)
 
   // The player's skill and the most it goes to now.
@@ -41,6 +45,14 @@ public class BandBar implements Component {
   constructor(rank: Signal<Integer>, most: Signal<Integer>) {
     self.rank = rank
     self.most = most
+  }
+
+  frameOf(self): ArtBorder {
+    const window = Ordaen.art.frame.window
+    return {
+      drawnFrom: window.drawnFrom, art: window.art, width: THIN, scale: THIN, inset: window.inset / window.scale * THIN,
+      reach: window.reach, curves: window.curves, lineStart: window.lineStart
+    }
   }
 
   shareOf(self): Number {
@@ -58,7 +70,7 @@ public class BandBar implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box height={HEIGHT} border={Ordaen.art.frame.small} background={TROUGH} rows={FILL}>
+      <box height={HEIGHT} border={self.frame} background={TROUGH} rows={FILL}>
         <box position={Position.Absolute} left={0ui} right={0ui} top={0ui} bottom={0ui} columns={self.parts} rows={FILL}>
           <box background={self.fill} />
           <box />

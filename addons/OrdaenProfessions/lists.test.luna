@@ -7,6 +7,7 @@ import Game from "$game"
 import { Art } from "$ltml"
 import Test from "$test"
 import root Ordaen from "Ordaen"
+import Style from "@/style"
 import { Kept } from "@/view"
 
 const SCREEN: Test.Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
@@ -209,6 +210,25 @@ test "in columns: the categories with recipes, each counted, beside the first on
   Test.expect(reads(window().text("Bags").item(), "Bags | 2 | (1)"))
   Test.expect(!window().text("Resting at camp").shown() && !window().text("Nothing known here").shown())
   Test.expect(lists("Linen Cloak, Brown Linen Vest, Woolen Cape") && chosen() == "Linen Cloak")
+}
+
+test "with no spell of its own and off the queue, the recipe runs down to the window's frame: no empty footer under it" {
+  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
+  Game.professions.list = professions()
+  Game.tradeSkill.categories = categories()
+  Game.tradeSkill.recipes = recipes()
+  Test.mount(nil, SCREEN)
+  Game.tradeSkill.open = TAILORING
+  // The body is the lowest of the wood (the tabs are wood too); the frame's band alone stands between them: its 16 texels
+  // at the window's 0.45.
+  Test.expect(lowest(window().box(Ordaen.art.window.wood)) - lowest(window().box(Style.RECIPE_BACK)) <= 16 * 0.45 + 0.01)
+}
+
+// The bottom of the lowest of the boxes found.
+function lowest(boxes: Test.Part): Number {
+  let bottom: Number = 0
+  for (n of 1..boxes.count()) { bottom = bottom.max(boxes.nth(n).rect().bottom) }
+  return bottom
 }
 
 test "in columns, a category clicked lists its recipes, the first of them chosen" {
