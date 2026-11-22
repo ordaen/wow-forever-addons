@@ -37,9 +37,9 @@ const LINEN_BAG: FileId = 133647
 const BAG_BUTTON: FileId = 130716
 const BIG_BAG: FileId = 133644
 
-// A slot's well, every slot drawn on it, empty or not; a new item's glow; a protected slot's padlock; a switched off
-// tool's glyph.
-const WELL: Color = Color.hex("#0d0a08")
+// A slot's well, raised on its card, every slot drawn on it, empty or not; a new item's glow; a protected slot's
+// padlock; a switched off tool's glyph.
+const WELL: Color = Color.hex("#2e2318")
 const NEW_GLOW: Color = Color.hex("#ffd65a")
 const PADLOCK: Atlas = "QuestSharing-Padlock"
 const OFF: Color = Color.hex("#a3977f")
@@ -52,7 +52,7 @@ const PICKED: Color = BRIGHT_TEXT
 const EMPTY: Color = Color.hex("#7a705f")
 const CAPTION: Color = Color.hex("#e8c35a")
 // A section's card's ground.
-const CARD: Color = Color.hex("#00000038")
+const CARD: Color = Color.hex("#c4a06e26")
 // The rims of the items' qualities, from poor to heirloom.
 const QUALITIES: Array<Color> = [
   Color.hex("#9d9d9d"), Color.hex("#6c5535"), Color.hex("#1eff00"), Color.hex("#0070dd"), Color.hex("#a335ee"),
@@ -677,7 +677,7 @@ test "a category's caption has no mark and shuts nothing: a tab shows its items 
   Test.expect(held(CLOTH).count() == 2 && bags().text("13").shown())
 }
 
-test "each category is a card: its caption and its slots on a darker ground, the cards apart" {
+test "each category is a card: its caption and its slots on a tan panel inside a dark rim, its slots raised on it" {
   const world = new World(everyday())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
   Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)

@@ -4,10 +4,10 @@
 // while open. A container's slot has the client's own use of the item on the scheme's chord for Use (secure) while its
 // vault is open; every other click and the cursor's coming and going are told to the window through the shelf.
 import Game from "$game"
-import { Action, Align, Event, KeyBinding, MouseButton, Position, Shadow, Track } from "$ltml"
+import { Action, Align, Event, KeyBinding, Line, MouseButton, Position, Shadow, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { Component, ItemButton, Menu, MenuEntry, Quality, SECONDARY_TEXT, TIGHT_LINE } from "Ordaen"
-import { CARD_GAP, CARD_PAD, Card, CardRow, SLOT, Section } from "@/layout"
+import { Component, ItemButton, Menu, MenuEntry, Quality, SECONDARY_TEXT, SlotWell, TIGHT_LINE } from "Ordaen"
+import { CARD_GAP, CARD_PAD, CARD_RIM_WIDTH, Card, CardRow, SLOT, Section } from "@/layout"
 import { Slot } from "@/model"
 import { SlotMenu } from "@/slotMenu"
 import { Vault } from "@/vault"
@@ -15,8 +15,9 @@ import { Vault } from "@/vault"
 const CAPTION: Color = Color.hex("#e8c35a")
 const LABEL: Color = Color.hex("#a3977f")
 const NEW_GLOW: Color = Color.hex("#ffd65a")
-// A card's ground: darker than the window's, so each section reads as one.
-const CARD: Color = Color.hex("#00000038")
+// A card's ground: a tan panel over the wood under a dark rim, so each section reads as one; its slots raised on it.
+const CARD: Color = Color.hex("#c4a06e26")
+const CARD_RIM: Line = { width: CARD_RIM_WIDTH, color: Color.hex("#00000061") }
 const SHADOW: Shadow = { color: Color.hex("#000000"), x: 1.171875dp, y: -1.171875dp }
 const LOCK = 16.40625dp
 const COIN = 14.0625dp
@@ -133,7 +134,7 @@ class BagSlot implements Component {
 
   public render(self): Template {
     return $ltml {
-      <ItemButton item={self.item} count={self.count} quality={self.quality} dimmed={self.dimmed} size={SLOT}
+      <ItemButton item={self.item} count={self.count} quality={self.quality} dimmed={self.dimmed} size={SLOT} well={SlotWell.Raised}
                   action={self.action} linkOnShift={false} @pressed={self.onPressed} @dragged={self.onPickup}
                   @dropped={self.onPickup} @entered={self.onEnter} @left={self.onLeave}>
         <box $if={self.slot.isNew} position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui}
@@ -188,10 +189,10 @@ class SectionCard implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={1} gap={self.shelf.gap} padding={CARD_PAD} background={CARD}>
+      <box columns={1} gap={self.shelf.gap} padding={CARD_PAD} background={CARD} border={CARD_RIM}>
         <Caption $if={self.titled} section={self.section} shelf={self.shelf} />
         <box columns={self.span} gap={self.shelf.gap}>
-          <ItemButton $if={self.free} item={nil} count={self.shelf.free} size={SLOT} />
+          <ItemButton $if={self.free} item={nil} count={self.shelf.free} size={SLOT} well={SlotWell.Raised} />
           <BagSlot $for={slot of self.slots} $key={slot} slot={slot} shelf={self.shelf} />
         </box>
       </box>
