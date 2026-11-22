@@ -105,20 +105,21 @@ surface 425,183.88 1055.76x532.25 on MEDIUM clamped raised by a click
           box 1023.26,662.73 120.89x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
             text 1030.37,668.14 106.67x17.5 "Blizzard window" #ffd100
     box 1166.91,245.89 305.76x459.39 border=UI-Frame-Metal-CornerTopLeft sides=left
-      box 1199.91,268.64 250x422.42
-        box 1199.91,268.64 250x43.33
-          text 1199.91,268.64 250x25.83 "Night Fishers" #82c5ff
-          text 1199.91,294.47 250x17.5 "Battle.net · members: 2" #a3977f
-        box 1199.91,329.04 250x362.02 scrolled 0 of 0
-          text 1199.91,329.04 250x17.5 "Description" #a3977f
-          text 1199.91,355.07 250x17.5 "We fish at night." #e8dcc4
-          text 1199.91,381.11 250x17.5 "“Tonight at nine”" #e8dcc4
-          text 1199.91,407.14 250x17.5 "Channels (2)" #a3977f
-          box 1199.91,433.17 250x35
-            text 1199.91,433.17 250x17.5 "General" #e8dcc4
-            text 1199.91,450.67 250x17.5 "Everything" #a3977f
-          box 1199.91,476.71 250x17.5
-            text 1199.91,476.71 250x17.5 "Catches" #e8dcc4
+      box 1177.16,245.89 295.51x459.39
+        box 1199.91,268.64 250x422.42
+          box 1199.91,268.64 250x43.33
+            text 1199.91,268.64 250x25.83 "Night Fishers" #82c5ff
+            text 1199.91,294.47 250x17.5 "Battle.net · members: 2" #a3977f
+          box 1199.91,329.04 250x362.02 scrolled 0 of 0
+            text 1199.91,329.04 250x17.5 "Description" #a3977f
+            text 1199.91,355.07 250x17.5 "We fish at night." #e8dcc4
+            text 1199.91,381.11 250x17.5 "“Tonight at nine”" #e8dcc4
+            text 1199.91,407.14 250x17.5 "Channels (2)" #a3977f
+            box 1199.91,433.17 250x35
+              text 1199.91,433.17 250x17.5 "General" #e8dcc4
+              text 1199.91,450.67 250x17.5 "Everything" #a3977f
+            box 1199.91,476.71 250x17.5
+              text 1199.91,476.71 250x17.5 "Catches" #e8dcc4
       box 1174.16,245.89 6.67x459.39 absolute @drag @dragStart @dragStop
     box 1463.51,696.12 13.33x13.33 absolute
       box 1463.51,696.12 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop

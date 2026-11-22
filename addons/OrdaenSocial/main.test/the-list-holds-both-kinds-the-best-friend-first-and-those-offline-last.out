@@ -80,34 +80,35 @@ surface 425,183.88 1155.76x532.25 on MEDIUM clamped raised by a click
           box 1023.26,662.73 120.89x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
             text 1030.37,668.14 106.67x17.5 "Blizzard window" #ffd100
     box 1166.91,245.89 405.76x459.39 border=UI-Frame-Metal-CornerTopLeft sides=left
-      box 1199.91,268.64 350x422.42
-        box 1199.91,268.64 350x158.3
-          box 1199.91,268.64 350x43.33
-            box 1199.91,283.64 13.33x13.33 Interface/FriendsFrame/StatusIcon-Online
-            box 1218.93,268.64 330.98x43.33
-              text 1218.93,268.64 330.98x25.83 "Ordaen#2718" #82c5ff
-              text 1218.93,294.47 330.98x17.5 "This is you" #a3977f
-          box 1199.91,320.51 350x28.33
-            text 1199.91,325.93 83.33x17.5 "Status" #a3977f
-            box 1288.93,320.51 175x28.33
-              box 1288.93,320.51 175x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
-                text 1298.89,325.93 138.91x17.5 "Online" #f0c860
-                box 1443.49,328.01 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-          box 1199.91,357.38 350x17.5
-            text 1199.91,357.38 83.33x17.5 "Broadcast" #a3977f
-            text 1288.93,357.38 260.98x17.5 "—" #e8dcc4
-          box 1199.91,383.41 350x17.5
-            text 1199.91,383.41 83.33x17.5 "Character" #a3977f
-            text 1288.93,383.41 260.98x17.5 "Torvald, Warrior 25 · Flamegor" #c79c6e
-          box 1199.91,409.44 350x17.5
-            text 1199.91,409.44 83.33x17.5 "Location" #a3977f
-            text 1288.93,409.44 260.98x17.5 "Ironforge" #e8dcc4
-        box 1199.91,444.01 350x201.65
-        box 1199.91,662.73 350x28.33
-          box 1199.91,662.73 150x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-            text 1217.83,668.14 114.17x17.5 "Change Broadcast" #ffd100
-          box 1358.44,662.73 150x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-            text 1383.44,668.14 100x17.5 "Copy BattleTag" #ffd100
+      box 1177.16,245.89 395.51x459.39
+        box 1199.91,268.64 350x422.42
+          box 1199.91,268.64 350x158.3
+            box 1199.91,268.64 350x43.33
+              box 1199.91,283.64 13.33x13.33 Interface/FriendsFrame/StatusIcon-Online
+              box 1218.93,268.64 330.98x43.33
+                text 1218.93,268.64 330.98x25.83 "Ordaen#2718" #82c5ff
+                text 1218.93,294.47 330.98x17.5 "This is you" #a3977f
+            box 1199.91,320.51 350x28.33
+              text 1199.91,325.93 83.33x17.5 "Status" #a3977f
+              box 1288.93,320.51 175x28.33
+                box 1288.93,320.51 175x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
+                  text 1298.89,325.93 138.91x17.5 "Online" #f0c860
+                  box 1443.49,328.01 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+            box 1199.91,357.38 350x17.5
+              text 1199.91,357.38 83.33x17.5 "Broadcast" #a3977f
+              text 1288.93,357.38 260.98x17.5 "—" #e8dcc4
+            box 1199.91,383.41 350x17.5
+              text 1199.91,383.41 83.33x17.5 "Character" #a3977f
+              text 1288.93,383.41 260.98x17.5 "Torvald, Warrior 25 · Flamegor" #c79c6e
+            box 1199.91,409.44 350x17.5
+              text 1199.91,409.44 83.33x17.5 "Location" #a3977f
+              text 1288.93,409.44 260.98x17.5 "Ironforge" #e8dcc4
+          box 1199.91,444.01 350x201.65
+          box 1199.91,662.73 350x28.33
+            box 1199.91,662.73 150x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+              text 1217.83,668.14 114.17x17.5 "Change Broadcast" #ffd100
+            box 1358.44,662.73 150x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+              text 1383.44,668.14 100x17.5 "Copy BattleTag" #ffd100
       box 1174.16,245.89 6.67x459.39 absolute @drag @dragStart @dragStop
     box 1563.51,696.12 13.33x13.33 absolute
       box 1563.51,696.12 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop

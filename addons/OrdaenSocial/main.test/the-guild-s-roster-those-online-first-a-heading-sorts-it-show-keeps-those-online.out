@@ -123,24 +123,25 @@ surface 425,183.88 1055.76x532.25 on MEDIUM clamped raised by a click
           box 1023.26,662.73 120.89x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
             text 1030.37,668.14 106.67x17.5 "Blizzard window" #ffd100
     box 1166.91,245.89 305.76x459.39 border=UI-Frame-Metal-CornerTopLeft sides=left
-      box 1199.91,268.64 250x422.42
-        text 1199.91,268.64 250x25.83 "Iron Vow" #ffd100
-        box 1199.91,311.54 250x260.38 scrolled 0 of 0
-          text 1199.91,311.54 250x17.5 "Message of the day" #a3977f
-          box 1199.91,337.57 250x17.5 clipped
-            text 1199.91,337.57 250x17.5 "Raid on Friday" #e8dcc4
-            box 1199.91,337.57 250x17.5 absolute input "Raid on Friday" lines
-          text 1199.91,363.61 250x17.5 "Guild information" #a3977f
-          box 1199.91,389.64 250x182.28 clipped
-            text 1199.91,389.64 250x17.5 "Be kind to the new ones." #e8dcc4
-            box 1199.91,389.64 250x182.28 absolute input "Be kind to the new ones." lines
-        box 1199.91,588.99 250x102.07
-          box 1199.91,588.99 250x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-            text 1271.58,594.41 106.67x17.5 "Invite to Guild" #ffd100
-          box 1199.91,625.86 250x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-            text 1267.83,631.27 114.17x17.5 "Guild Management" #ffd100
-          box 1199.91,662.72 250x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-            text 1285.33,668.14 79.17x17.5 "Leave Guild" #ffd100
+      box 1177.16,245.89 295.51x459.39
+        box 1199.91,268.64 250x422.42
+          text 1199.91,268.64 250x25.83 "Iron Vow" #ffd100
+          box 1199.91,311.54 250x260.38 scrolled 0 of 0
+            text 1199.91,311.54 250x17.5 "Message of the day" #a3977f
+            box 1199.91,337.57 250x17.5 clipped
+              text 1199.91,337.57 250x17.5 "Raid on Friday" #e8dcc4
+              box 1199.91,337.57 250x17.5 absolute input "Raid on Friday" lines
+            text 1199.91,363.61 250x17.5 "Guild information" #a3977f
+            box 1199.91,389.64 250x182.28 clipped
+              text 1199.91,389.64 250x17.5 "Be kind to the new ones." #e8dcc4
+              box 1199.91,389.64 250x182.28 absolute input "Be kind to the new ones." lines
+          box 1199.91,588.99 250x102.07
+            box 1199.91,588.99 250x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+              text 1271.58,594.41 106.67x17.5 "Invite to Guild" #ffd100
+            box 1199.91,625.86 250x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+              text 1267.83,631.27 114.17x17.5 "Guild Management" #ffd100
+            box 1199.91,662.72 250x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+              text 1285.33,668.14 79.17x17.5 "Leave Guild" #ffd100
       box 1174.16,245.89 6.67x459.39 absolute @drag @dragStart @dragStop
     box 1463.51,696.12 13.33x13.33 absolute
       box 1463.51,696.12 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
