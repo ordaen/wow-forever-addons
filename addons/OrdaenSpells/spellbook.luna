@@ -6,7 +6,7 @@
 // dragged out onto the action bars: the drag puts it on the client's cursor, and the bars take what the cursor holds.
 import Client from "$client"
 import Game from "$game"
-import { Action, Align, BarFill, ByInteractionState, Columns, Event, FillDuration, FillFrom, MouseButton, Overflow, Position, Track } from "$ltml"
+import { Action, Align, BarFill, Bounds, ByInteractionState, Columns, Event, FillDuration, FillFrom, MouseButton, Overflow, Position, Track } from "$ltml"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
 import { ARTWORK, Choice, Column, Component, Corner, FooterBand, FooterCount, FooterCounts, ItemButton, Marker, ModuleMemory, SECONDARY_TEXT, Section, TIGHT_LINE, Table, TableRow, ToolPick, Toolbar, tracksOf } from "Ordaen"
@@ -72,9 +72,11 @@ const TRACKS: Array<Track> = tracksOf(COLUMNS)
 const COLUMN: Number<Length> = 337.5dp
 const SPELL_COLUMNS: Columns = { autoFit: COLUMN }
 const ACROSS: Number<Spacing> = 3.5sp
-const DOWN: Number<Spacing> = 1.5sp
+const DOWN: Number<Spacing> = 3.5sp
+// The fewest columns the page narrows to: the window grows to hold them.
+const LEAST_COLUMNS = 3
 // The room between two groups, and between a row's name and the line under it.
-const GROUPS_APART: Number<Spacing> = 6sp
+const GROUPS_APART: Number<Spacing> = 8sp
 const LINES_APART: Number<Spacing> = 1sp
 // A spell's slot in the columns: larger than the table's, as the game's book draws it.
 const SLOT = 46.875dp
@@ -295,6 +297,8 @@ public class SpellbookPage {
   derived tabled: Boolean = self.list.values.layout == BookLayout.Table
   derived byType: Boolean = self.grouping == Grouping.Type
   derived narrowed: Boolean = self.list.values.kinds != Kinds.All
+  // The columns' least width: three of them and the room between, which the window can't be narrowed past.
+  derived columnsWidth: Bounds = { min: LEAST_COLUMNS * COLUMN + Ordaen.lengthOf((LEAST_COLUMNS - 1) * ACROSS), max: nil }
   // The footer: how many spells the list shows, and of them how many are active and passive.
   derived counts: Array<FooterCount> = [
     { label: Locale.COUNT_SHOWN, value: String.of(self.shown.length) },
@@ -378,7 +382,7 @@ public class SpellbookPage {
   }
 
   public const body: Template = $ltml {
-    <box rows={PAGE} gap={2.5sp}>
+    <box rows={PAGE} width={self.columnsWidth} gap={2.5sp}>
       <Toolbar search={mut self.search} placeholder={Locale.SEARCH}>
         <ToolPick $if={!self.tabled} value={mut self.list.values.grouping} choices={GROUPINGS} icon={Ordaen.art.ctl.tool.categories}
                   title={Locale.GROUPING} />

@@ -8,8 +8,6 @@ import { Art } from "$ltml"
 import Runtime from "$runtime"
 import Test from "$test"
 import root Ordaen from "Ordaen"
-import { Component } from "Ordaen"
-import { SpellbookPage } from "@/spellbook"
 
 const PAGE: Test.Page = { left: 20, top: 20, width: 1300, height: 720, screen: true }
 const ICON: Asset = "Interface/Icons/INV_Misc_Note_01"
@@ -422,21 +420,24 @@ test "the spells stand in three columns" {
   Test.shot("five spells: three in the first row, two in the second")
 }
 
-// The spellbook's page's body alone, as wide as the page it is mounted in.
-class NarrowBook implements Component {
-  state spells: Array<Game.SpellEntry> = spells()
-  state lines: Array<Game.SpellLine> = lines()
-  const page: SpellbookPage
-  constructor() { self.page = new SpellbookPage(self.spells, self.lines) }
-
-  public render(self): Template {
-    return $ltml { {self.page.body} }
-  }
-}
-
-test "a page too narrow for three columns of spells holds fewer" {
-  Test.mount(new NarrowBook(), { left: 20, top: 20, width: 600, height: 400 })
-  Test.shot("one column in a page of 600 units")
+test "the window narrows no further than three columns of spells" {
+  Test.mount(nil, PAGE)
+  Game.spellbook.lines = lines
+  Game.spellbook.entries = spells
+  _ = book()
+  const grip = Test.painted(Ordaen.art.ctl.grip, nil)
+  Test.moveTo(grip)
+  Test.press(nil)
+  Test.moveTo({ x: grip.x + 1, y: grip.y })
+  Test.pass(0.05)
+  Test.moveTo({ x: grip.x - 2000, y: grip.y })
+  Test.pass(0.05)
+  Test.release(nil)
+  Test.flush()
+  // By type the active spells by name: three in the first row, Rend under them.
+  const first = Test.holding("Find Treasure", nil).y
+  Test.expect(Test.holding("Heroic Strike", nil).y == first && Test.holding("Mortal Strike", nil).y == first)
+  Test.expect(Test.holding("Rend", nil).y > first)
 }
 
 test "the filter keeps the passive spells alone, or the active ones" {
