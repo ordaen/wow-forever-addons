@@ -196,15 +196,15 @@ test "the game's spells window already on its spellbook page when it is named op
 
 // The spells
 
-test "each spell's row shows its name, and under it its skill line, its rank and the level it was learned at, bulleted" {
+test "each spell's row shows its name, and under it its skill line and its rank, bulleted; never the level it is learned at" {
   Test.mount(nil, PAGE)
   Game.spellbook.lines = lines
   Game.spellbook.entries = spells
   const window = book()
-  Test.expect(window.text("Heroic Strike").item().texts().join(" | ") == "Heroic Strike | Warrior • Rank 2 • Lvl 8")
-  Test.expect(window.text("Parry").item().texts().join(" | ") == "Parry | Warrior • Lvl 6")
-  Test.expect(window.text("Find Treasure").item().texts().join(" | ") == "Find Treasure | General • Lvl 1")
-  Test.expect(window.text("Mortal Strike").item().texts().join(" | ") == "Mortal Strike | Arms • Lvl 40")
+  Test.expect(window.text("Heroic Strike").item().texts().join(" | ") == "Heroic Strike | Warrior • Rank 2")
+  Test.expect(window.text("Parry").item().texts().join(" | ") == "Parry | Warrior")
+  Test.expect(window.text("Find Treasure").item().texts().join(" | ") == "Find Treasure | General")
+  Test.expect(window.text("Mortal Strike").item().texts().join(" | ") == "Mortal Strike | Arms")
 }
 
 test "each spell's row shows its icon" {
@@ -231,7 +231,7 @@ test "a spell learned at a new rank shows it in the open spellbook when the game
   ]
   Client.PlayerSpellsUtil.OpenToSpellBookTab()
   const row = window.text("Heroic Strike").item()
-  Test.expect(row.texts().join(" | ") == "Heroic Strike | Warrior • Rank 3 • Lvl 16")
+  Test.expect(row.texts().join(" | ") == "Heroic Strike | Warrior • Rank 3")
   Test.expect(row.paintedWith(SWORD))
 }
 
@@ -268,7 +268,7 @@ test "a spell's name is drawn in ink and its detail dim" {
   Game.spellbook.entries = spells
   const row = book().text("Parry").item()
   Test.expect(drawnIn(row.text("Parry"), INK))
-  Test.expect(drawnIn(row.text("Warrior • Lvl 6"), DIM))
+  Test.expect(drawnIn(row.text("Warrior"), DIM))
 }
 
 test "the spells stand by name at first" {
@@ -300,11 +300,11 @@ test "the grouping is by type at first, and kept when the spellbook opens again"
   Game.spellbook.lines = lines
   Game.spellbook.entries = spells
   const window = book()
-  Test.expect(window.text("Active").shown() && !window.text("Arms").shown())
+  Test.expect(window.text("Active").shown() && window.text("Mortal Strike").item().texts().join(" | ") == "Mortal Strike | Arms")
   bySpec(window)
   Test.open("/spellbook")
   Test.open("/spellbook")
-  Test.expect(window.text("Arms").shown() && !window.text("Active").shown())
+  Test.expect(!window.text("Active").shown() && window.text("Mortal Strike").item().texts().join(" | ") == "Mortal Strike")
 }
 
 test "the spellbook has no tabs: every skill line's spells stand on its one page" {
@@ -312,6 +312,7 @@ test "the spellbook has no tabs: every skill line's spells stand on its one page
   Game.spellbook.lines = lines
   Game.spellbook.entries = spells
   const window = book()
+  bySpec(window)
   Test.expect(!window.button("All").shown() && !window.button("Warrior").shown())
   Test.expect(window.text("Mortal Strike").shown() && window.text("Find Treasure").shown() && window.text("Parry").shown())
 }
@@ -367,10 +368,10 @@ test "two ranks of one spell stand by the level each is learned at" {
   Test.mount(nil, PAGE)
   Game.spellbook.lines = lines
   Game.spellbook.entries = (): Array<Game.SpellEntry> => [
-    { id: 6547, name: "Rend", rank: "", icon: ICON, level: 10, passive: false, line: 2 },
-    { id: 772, name: "Rend", rank: "", icon: ICON, level: 4, passive: false, line: 2 }
+    { id: 6547, name: "Rend", rank: "Rank 2", icon: ICON, level: 10, passive: false, line: 2 },
+    { id: 772, name: "Rend", rank: "Rank 1", icon: ICON, level: 4, passive: false, line: 2 }
   ]
-  Test.expect(inOrder(book(), ["Warrior • Lvl 4", "Warrior • Lvl 10"]))
+  Test.expect(inOrder(book(), ["Warrior • Rank 1", "Warrior • Rank 2"]))
 }
 
 test "the spellbook's sort is kept when it opens again" {
@@ -403,14 +404,14 @@ test "by spec, the sort offers no sort by specialization" {
   Test.expect(!Test.page().window("By name").text("By specialization").shown())
 }
 
-test "by spec, a spell's line names no skill line: a passive one says it is passive, then its rank and level" {
+test "by spec, a spell's line names no skill line: a passive one says it is passive, then its rank" {
   Test.mount(nil, PAGE)
   Game.spellbook.lines = lines
   Game.spellbook.entries = spells
   const window = book()
   bySpec(window)
-  Test.expect(window.text("Parry").item().texts().join(" | ") == "Parry | Passive • Lvl 6")
-  Test.expect(window.text("Rend").item().texts().join(" | ") == "Rend | Rank 1 • Lvl 4")
+  Test.expect(window.text("Parry").item().texts().join(" | ") == "Parry | Passive")
+  Test.expect(window.text("Rend").item().texts().join(" | ") == "Rend | Rank 1")
 }
 
 test "the spells stand in three columns" {
@@ -587,7 +588,7 @@ test "a racial passive's rank says «Racial» alone: its group says it is passiv
     { id: 20573, name: "Hardiness", rank: "Racial Passive", icon: ICON, level: 1, passive: true, line: 1 }
   ]
   const window = book()
-  Test.expect(window.text("Hardiness").item().texts().join(" | ") == "Hardiness | General • Racial • Lvl 1")
+  Test.expect(window.text("Hardiness").item().texts().join(" | ") == "Hardiness | General • Racial")
 }
 
 test "a rank by its number reads «Rank 2», a word as the client gives it" {
@@ -598,8 +599,8 @@ test "a rank by its number reads «Rank 2», a word as the client gives it" {
     { id: 20577, name: "Cannibalize", rank: "Racial", icon: ICON, level: 1, passive: false, line: 1 }
   ]
   const window = book()
-  Test.expect(window.text("Frostbolt").item().texts().join(" | ") == "Frostbolt | Warrior • Rank 2 • Lvl 4")
-  Test.expect(window.text("Cannibalize").item().texts().join(" | ") == "Cannibalize | General • Racial • Lvl 1")
+  Test.expect(window.text("Frostbolt").item().texts().join(" | ") == "Frostbolt | Warrior • Rank 2")
+  Test.expect(window.text("Cannibalize").item().texts().join(" | ") == "Cannibalize | General • Racial")
 }
 
 test "the pet's spells stand last under its book; the right button on a pet's spell turns its autocast, marked while on" {
@@ -614,8 +615,8 @@ test "the pet's spells stand last under its book; the right button on a pet's sp
   Game.spellbook.autoCast = (spell: Game.SpellEntry): Boolean | nil => spell.pet ? auto : nil
   const window = book()
   Test.expect(inOrder(window, ["Active", "Rend", "Passive", "Parry", "Demon", "Torment"]))
-  // Its book says whose it is and its line: under it, its level alone.
-  Test.expect(window.text("Torment").item().texts().join(" | ") == "Torment | Lvl 10")
+  // Its book says whose it is and its line: under it, nothing.
+  Test.expect(window.text("Torment").item().texts().join(" | ") == "Torment")
   bySpec(window)
   Test.expect(inOrder(window, ["Arms", "Mortal Strike", "Demon", "Torment"]))
   const gold = Color.hex("#ffd100")

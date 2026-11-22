@@ -35,7 +35,7 @@ box 0,0 600x235.66
             box 4.27,67.38 33.33x33.33 absolute #00000000
           box 44.71,66.47 191.02x35.15
             text 44.71,66.47 191.02x16.8 "Find Treasure" #e8dcc4
-            text 44.71,86.11 191.02x15.51 "General • Lvl 1" #a3977f
+            text 44.71,86.11 191.02x15.51 "General" #a3977f
         box 249.96,63.62 240x40.84 #00000000 @dragStart
           box 254.22,67.38 33.33x33.33 #0d0a08 opacity=1 secure @dragStart @drop @pointerEnter @pointerLeave @pointerPress
             box 254.22,67.38 33.33x33.33 absolute icon=Interface/Icons/INV_Misc_Note_01
@@ -43,7 +43,7 @@ box 0,0 600x235.66
             box 254.22,67.38 33.33x33.33 absolute #00000000
           box 294.67,66.47 191.02x35.15
             text 294.67,66.47 191.02x16.8 "Heroic Strike" #e8dcc4
-            text 294.67,86.11 191.02x15.51 "Warrior • Rank 2 • Lvl 8" #a3977f
+            text 294.67,86.11 191.02x15.51 "Warrior • Rank 2" #a3977f
         box 0,108.73 240x40.84 #00000000 @dragStart
           box 4.27,112.48 33.33x33.33 #0d0a08 opacity=1 secure @dragStart @drop @pointerEnter @pointerLeave @pointerPress
             box 4.27,112.48 33.33x33.33 absolute icon=Interface/Icons/INV_Misc_Note_01
@@ -51,7 +51,7 @@ box 0,0 600x235.66
             box 4.27,112.48 33.33x33.33 absolute #00000000
           box 44.71,111.57 191.02x35.15
             text 44.71,111.57 191.02x16.8 "Mortal Strike" #e8dcc4
-            text 44.71,131.22 191.02x15.51 "Arms • Lvl 40" #a3977f
+            text 44.71,131.22 191.02x15.51 "Arms" #a3977f
         box 249.96,108.73 240x40.84 #00000000 @dragStart
           box 254.22,112.48 33.33x33.33 #0d0a08 opacity=1 secure @dragStart @drop @pointerEnter @pointerLeave @pointerPress
             box 254.22,112.48 33.33x33.33 absolute icon=Interface/Icons/INV_Misc_Note_01
@@ -59,7 +59,7 @@ box 0,0 600x235.66
             box 254.22,112.48 33.33x33.33 absolute #00000000
           box 294.67,111.57 191.02x35.15
             text 294.67,111.57 191.02x16.8 "Rend" #e8dcc4
-            text 294.67,131.22 191.02x15.51 "Warrior • Rank 1 • Lvl 4" #a3977f
+            text 294.67,131.22 191.02x15.51 "Warrior • Rank 1" #a3977f
     box 0,166.64 600x69.02
       box 0,166.64 600x16.8
         text 0,166.64 50.83x16.8 "Passive" #e8c35a
@@ -72,4 +72,4 @@ box 0,0 600x235.66
             box 4.27,198.57 33.33x33.33 absolute #00000000
           box 44.71,197.66 191.02x35.15
             text 44.71,197.66 191.02x16.8 "Parry" #e8dcc4
-            text 44.71,217.3 191.02x15.51 "Warrior • Lvl 6" #a3977f
+            text 44.71,217.3 191.02x15.51 "Warrior" #a3977f

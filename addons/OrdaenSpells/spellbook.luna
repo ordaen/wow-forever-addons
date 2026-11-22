@@ -2,9 +2,8 @@
 // view: in groups under their headings, each in as many columns as the page's width holds, or a table whose headings
 // sort. The groups are by type (the active spells, then the passive ones; the default) or by spec (a group for each
 // skill line); the pet's spells stand last, under its book. Under each name what its group doesn't say (by type its
-// skill line, by spec whether it is passive), its rank and the level it is learned at, a bullet between each. A spell
-// that isn't passive is dragged out onto the action bars: the drag puts it on the client's cursor, and the bars take
-// what the cursor holds.
+// skill line, by spec whether it is passive), its rank, a bullet between each. A spell that isn't passive is
+// dragged out onto the action bars: the drag puts it on the client's cursor, and the bars take what the cursor holds.
 import Client from "$client"
 import Game from "$game"
 import { Action, Align, BarFill, ByInteractionState, Columns, Event, FillDuration, FillFrom, MouseButton, Overflow, Position, Track } from "$ltml"
@@ -326,15 +325,14 @@ public class SpellbookPage {
   }
 
   // What a spell's row says under its name that its group doesn't: by type its skill line, by spec that it is passive
-  // (an active one says nothing of it); its rank where it has one; the level it is learned at. A pet's spell stands
-  // under its book, which says both.
+  // (an active one says nothing of it); its rank where it has one. A pet's spell stands under its
+  // book, which says both.
   detailOf(self, spell: Game.SpellEntry): String {
     const parts: Array<String> = []
     if (!spell.pet && self.byType) { parts.push(self.lineOf(spell)) }
     if (!spell.pet && !self.byType && spell.passive) { parts.push(Locale.PASSIVE) }
     const rank = rankOf(spell)
     if (rank != nil) { parts.push(rank) }
-    parts.push(Locale.SPELL_LEVEL.format(spell.level))
     return parts.join(BULLET)
   }
 
