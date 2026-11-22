@@ -347,6 +347,28 @@ test "the details: title, text, objectives, the rewards to choose, money and exp
   Test.expect(asked() == "accept")
 }
 
+test "with the setting on, a quest's parchment opens folded to its title, and a click unfolds it" {
+  Dialogue.settings.values.foldedScroll = true
+  Test.mount(nil, SCREEN)
+  Test.talk(innkeeper())
+  Test.quest(pie())
+  Events.QUEST_DETAIL.emit(nil)
+  Test.expect(window().text("A Pie for Maggie").shown() && !window().text("Bring Maggie 6 chunks of boar meat.").shown())
+  // What it gives stands under the folded parchment as ever.
+  Test.expect(window().text("Cook's Gloves").shown())
+  Test.shot("a quest's details, the parchment folded to its title")
+  window().text("A Pie for Maggie").click()
+  Test.expect(window().text("Bring Maggie 6 chunks of boar meat.").shown())
+}
+
+test "the parchment opens unfolded by default, the quest's title drawn by the scroll" {
+  Test.mount(nil, SCREEN)
+  Test.talk(innkeeper())
+  Test.quest(pie())
+  Events.QUEST_DETAIL.emit(nil)
+  Test.expect(window().text("A Pie for Maggie").count() == 1 && window().text("Bring Maggie 6 chunks of boar meat.").shown())
+}
+
 test "a quest opened from the list goes back to the list with Back and Escape" {
   Test.mount(nil, SCREEN)
   Test.talk(innkeeper())

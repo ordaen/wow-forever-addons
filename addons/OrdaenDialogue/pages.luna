@@ -1,9 +1,9 @@
-// What each page draws. Above, on the parchment, what is said: the NPC's words, a book's pages, or a quest's title
-// (with its group's size), its text and its objectives. Below, in the well: what a quest needs (red until there's
+// What each page draws. Above, on the parchment, what is said: the NPC's words, a book's pages, or a quest's group's
+// size, its text and its objectives (the scroll draws the quest's title). Below, in the well: what a quest needs (red until there's
 // enough, the money too); its rewards are the library's (`Rewards`), as Quests' log shows them.
 import Game from "$game"
 import { Align, Position } from "$ltml"
-import { BODY_LINE, Component, Money, REWARD_ICON, SECONDARY_TEXT, TIGHT_LINE, TITLE_TEXT, Tip } from "Ordaen"
+import { BODY_LINE, Component, Money, REWARD_ICON, SECONDARY_TEXT, Tip } from "Ordaen"
 import Locale from "@/locales"
 import { Need, Quest } from "@/read"
 import Style from "@/style"
@@ -12,7 +12,6 @@ import { Page } from "@/talk"
 // The upper zone: what is said.
 public class Said implements Component {
   derived isQuest: Boolean = self.page == Page.Detail || self.page == Page.Progress || self.page == Page.Reward
-  derived title: String = self.quest?.title ?? ""
   derived text: String = self.isQuest ? self.quest?.text ?? "" : self.page == Page.Book ? self.book : self.said
   derived objectives: String = self.page == Page.Detail ? self.quest?.objectives ?? "" : ""
   derived hasObjectives: Boolean = self.objectives != ""
@@ -51,14 +50,13 @@ public class Said implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box $if={self.isQuest} columns={[{ fr: 1 }, "max-content"]} gap={2sp} yAlign={Align.Center}>
-        <text value={self.title} textColor={Style.INK_HEAD} textSize={TITLE_TEXT} lineHeight={TIGHT_LINE} textFont={.Title} />
-        <box $if={self.grouped} border={{ width: 1.171875dp, color: Style.GROUP_TAG }} padding={{ left: 1sp, right: 1sp }}
+      <box $if={self.grouped} columns={["max-content", { fr: 1 }]}>
+        <box border={{ width: 1.171875dp, color: Style.GROUP_TAG }} padding={{ left: 1sp, right: 1sp }}
              @pointerEnter={self.onGroupEnter} @pointerLeave={self.onGroupLeave}>
           <text value={self.groupText} textColor={Style.GROUP_TAG} textSize={SECONDARY_TEXT} wrap={.None} />
           <Tip $if={self.groupHovered} title={self.groupText} text={self.groupTip} />
         </box>
-        <box $else />
+        <box />
       </box>
       <box>
         <box opacity={self.wholeOpacity}>

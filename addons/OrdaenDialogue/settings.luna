@@ -19,6 +19,8 @@ public struct Choices implements Plain {
   alwaysPick: Boolean
   autoAccept: Auto
   autoComplete: Auto
+  // A quest's page opens with its parchment folded to its title; a click unfolds it.
+  foldedScroll: Boolean = false
 }
 
 public const DEFAULTS: Choices = {
@@ -51,6 +53,8 @@ public class GeneralPage implements Component {
                 choices={AUTO_CHOICES} />
       <Dropdown label={Locale.SETTING_COMPLETE} hint={Locale.SETTING_COMPLETE_TIP}
                 value={mut self.settings.values.autoComplete} choices={AUTO_CHOICES} />
+      <Checkbox label={Locale.SETTING_FOLDED_SCROLL} hint={Locale.SETTING_FOLDED_SCROLL_TIP}
+                value={mut self.settings.values.foldedScroll} />
     }
   }
 }

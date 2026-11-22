@@ -112,6 +112,10 @@ public class Dialogue implements Module, App {
   // Blizzard's own windows stand away while ours shows, and while the talk is ours with nothing shown.
   derived gameAway: Boolean = self.shown || self.acting
   derived listShown: Boolean = self.page == Page.List
+  // A quest's page as it opens, its parchment folded to its title where the settings say so; a click unfolds it.
+  state scrollFolded = false
+  derived questPageShown: String = isQuestPage(self.page) ? `${self.page}:${self.quest?.id ?? 0}` : ""
+  derived scrollTitle: String = isQuestPage(self.page) ? self.quest?.title ?? "" : ""
   derived tabs: Array<WindowTabSpec> = [
     { title: self.speaker.name, desc: self.speaker.subtitle, icon: self.speaker.icon, portrait: self.speaker.portrait }
   ]
@@ -119,6 +123,7 @@ public class Dialogue implements Module, App {
   constructor() {
     Ordaen.modules.add(self)
     self.marks = decode<Array<Marked>>(Game.saved.stored(.Own, MARKS_KEY), [])
+    watch (shown of self.questPageShown) { self.scrollFolded = shown != "" && peek self.settings.values.foldedScroll }
     Events.GOSSIP_SHOW.listen(self.onGossip)
     Events.GOSSIP_CLOSED.listen(self.onGossipClosed)
     Events.GOSSIP_CONFIRM.listen(self.onConfirm)
@@ -664,8 +669,11 @@ public class Dialogue implements Module, App {
           <box $for={lineKey of self.lineKeys} position={Position.Absolute} left={0ui} top={0ui} width={0ui} height={0ui}
                @keyPress.globalScope(lineKey.key)={self.onKey} />
           <box xAlign={Align.Center}>
-            <box width={SCROLL_WIDTH} height={SCROLL_HEIGHT} rows={FILL}>
-              <Scroll>
+            <box $if={self.scrollFolded} width={SCROLL_WIDTH} rows={FILL}>
+              <Scroll title={self.scrollTitle} folded={mut self.scrollFolded} />
+            </box>
+            <box $else width={SCROLL_WIDTH} height={SCROLL_HEIGHT} rows={FILL}>
+              <Scroll title={self.scrollTitle} folded={mut self.scrollFolded}>
                 <Said page={self.page} quest={self.quest} said={self.said} book={self.book} revealed={self.revealed} />
               </Scroll>
             </box>
