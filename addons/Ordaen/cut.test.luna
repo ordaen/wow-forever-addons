@@ -91,3 +91,16 @@ test "a heading's title and a title on a cut take the look's colour for them, an
   Ordaen.look.change((values: mut Look): nil => { values.heading = gold })
   destroy page
 }
+
+test "a heading's paint is tinted to show the look's paint colour on the wood, and follows it" {
+  const page = new Cuts()
+  Test.mount(page, { left: 0, top: 0, width: 400, height: 100 })
+  const paint = Ordaen.look.values.headingPaint
+  // A green the wood can show at the paint's strength: its tint is worked back from it, drawn below.
+  Ordaen.look.change((values: mut Look): nil => { values.headingPaint = Color.hex("#3c8a40") })
+  Test.flush()
+  Test.note("the paint picked: #3c8a40")
+  Test.shot("the heading's paint tinted for #3c8a40")
+  Ordaen.look.change((values: mut Look): nil => { values.headingPaint = paint })
+  destroy page
+}

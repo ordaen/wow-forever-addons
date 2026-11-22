@@ -1,0 +1,19 @@
+the paint picked: #3c8a40
+-- the heading's paint tinted for #3c8a40
+box 0,0 400x74.4
+  box 0,0 400x16.8
+    text 0,0 50.83x16.8 "Defense" #e8c35a
+    box 59.37,5.07 340.63x6.67
+      box 59.37,5.07 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry tint=#43a04a
+      box 66.03,5.07 333.97x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip tint=#43a04a
+  box 0,33.87 400x6.67
+    box 0,33.87 400x6.67 Interface\AddOns\Ordaen\media\groove-dark blend=MOD
+      box 0,33.87 400x6.67 absolute Interface\AddOns\Ordaen\media\groove-light blend=ADD
+  box 0,57.6 400x16.8
+    box 0,62.67 173.13x6.67
+      box 0,62.67 173.13x6.67 Interface\AddOns\Ordaen\media\groove-dark blend=MOD
+        box 0,62.67 173.13x6.67 absolute Interface\AddOns\Ordaen\media\groove-light blend=ADD
+    text 181.67,57.6 36.67x16.8 "Speed" #e8c35a
+    box 226.87,62.67 173.13x6.67
+      box 226.87,62.67 173.13x6.67 Interface\AddOns\Ordaen\media\groove-dark blend=MOD
+        box 226.87,62.67 173.13x6.67 absolute Interface\AddOns\Ordaen\media\groove-light blend=ADD
