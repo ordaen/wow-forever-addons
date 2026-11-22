@@ -602,10 +602,10 @@ test "a spec's trees stand on the class's art, out to the window's sides, betwee
   const foot = Test.painted(Ordaen.art.window.marble, 2)
   Test.expect((head.bottom - art.top).abs() < 0.5 && foot.y > art.bottom && foot.y - art.bottom < 40)
   Test.expect(head.left - body.left <= reach.left + 2)
-  // In its own proportions: the part of its sheet drawn (a square, 2048 texels a side) is the box's shape, the art
-  // (2046 by 1177) cut at its longer sides.
+  // In its own proportions (2046 by 1177): the part of it drawn, read within the atlas's region as the client reads
+  // it, is the box's shape, cut at its longer sides.
   const drawn = Test.drawn().find(d => d.file == "talent-background-warrior") ?? panic("the class's art")
-  const shown = (drawn.right - drawn.left) / (drawn.bottom - drawn.top)
+  const shown = (drawn.right - drawn.left) * 2046 / ((drawn.bottom - drawn.top) * 1177)
   Test.expect((shown / ((art.right - art.left) / (art.bottom - art.top)) - 1).abs() < 0.01)
 }
 
