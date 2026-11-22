@@ -4,7 +4,7 @@
 // next kind, a click anywhere else closes it. The button is lit while any kind narrows the list.
 import { Beside, Edges, Layer, Line } from "$ltml"
 import root Ordaen from "Ordaen"
-import { BODY_LINE, Choice, Component, DropdownItem, SECONDARY_TEXT, ToolButton } from "Ordaen"
+import { Choice, Component, DropdownItem, SECONDARY_TEXT, ToolButton } from "Ordaen"
 import Locale from "@/locales"
 import Style from "@/style"
 
@@ -107,7 +107,7 @@ public class FilterPick implements Component {
     return $ltml {
       <ToolButton icon={Ordaen.art.ctl.tool.filter} title={Locale.FILTER} text={self.shown} open={mut self.open}
                   lit={self.lit}>
-        <surface lineHeight={BODY_LINE} $if={self.open} layer={Layer.Tooltip} place={Beside { beside: "parent" }} width={WIDTH}
+        <surface leading={.Row} $if={self.open} layer={Layer.Tooltip} place={Beside { beside: "parent" }} width={WIDTH}
                  background={BACK} border={EDGE} padding={PAD} columns={1} @pointerPressOutside={self.close}>
           <box padding={HEADING}>
             <text value={Locale.FILTER_PERFORMANCE} textColor={Style.GOLD} textSize={SECONDARY_TEXT} wrap={.None} />

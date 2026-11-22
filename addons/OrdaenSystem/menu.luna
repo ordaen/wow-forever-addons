@@ -10,7 +10,7 @@
 import Client from "$client"
 import { Align, Anchored, Art, ByInteractionState, InteractionState, Layer, Point, Position, Shadow } from "$ltml"
 import root Ordaen from "Ordaen"
-import { BRIGHT_TEXT, Component, TIGHT_LINE, reachAcross, reachDown } from "Ordaen"
+import { BRIGHT_TEXT, Component, reachAcross, reachDown } from "Ordaen"
 
 // The dress's head, from its top: the frame's band, a gap, the title's line, a gap, the carved groove, the gap to
 // Blizzard's first button.
@@ -257,7 +257,7 @@ public class Plate implements Component {
 
   public render(self): Template {
     return $ltml {
-      <surface lineHeight={TIGHT_LINE} layer={Layer.Dialog} place={self.place} width={self.dressed.width} height={self.high}>
+      <surface leading={.Tight} layer={Layer.Dialog} place={self.place} width={self.dressed.width} height={self.high}>
         <box $if={self.dressed.addons} position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui}
              background={Ordaen.art.ctl.button} @pointerPress={self.onClick} @keyPress(.Enter)={self.onClick} @keyPress(.Space)={self.onClick} @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
           <box position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui} background={Ordaen.art.ctl.buttonLight}
@@ -307,7 +307,7 @@ public class MenuDress implements Component {
   public render(self): Template {
     return $ltml {
       <$if={self.menu.shown}>
-        <surface lineHeight={TIGHT_LINE} layer={Layer.Dialog} place={{ point: Point.Bottom, to: Point.Bottom, by: Client.GameMenuFrame }}
+        <surface leading={.Tight} layer={Layer.Dialog} place={{ point: Point.Bottom, to: Point.Bottom, by: Client.GameMenuFrame }}
                  width={self.wide} height={self.high} border={Ordaen.art.frame.small}
                  background={Ordaen.art.window.wood} artOrigin={true} ownsGaps={true}>
           // The client sizes its menu on the frame after its first show: the title waits for the room.
