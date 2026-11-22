@@ -13,7 +13,7 @@ import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
 import { BODY_LINE, ButtonKey, ButtonPlate, KeptWindow, Module, Money, PushButton, SECONDARY_TEXT, Settings, SettingsPage, TipText, Window, WindowTabSpec, WindowsPage, windowsTitle } from "Ordaen"
 import { Reward, RewardView, Rewards, SCROLL_WIDTH, Scroll, choiceViews } from "OrdaenQuestPage"
-import { AnswerRow, LineKey, OptionRow, Placed, columnsOf, keysFor, placeOf } from "@/list"
+import { AnswerRow, LINE_KEYS, LineKey, OptionColumn, Placed, columnsOf, placeOf } from "@/list"
 import Locale from "@/locales"
 import { Needs, Said } from "@/pages"
 import Pawn from "@/pawn"
@@ -138,6 +138,7 @@ public class Dialogue implements Module, App {
   constructor() {
     Ordaen.modules.add(self)
     self.marks = decode<Array<Marked>>(Game.saved.stored(.Own, MARKS_KEY), [])
+    watch (lines of self.lines) { self.column = 1 }
     watch (shown of self.questPageShown) { self.scrollFolded = shown != "" && peek self.settings.values.foldedScroll }
     Events.GOSSIP_SHOW.listen(self.onGossip)
     Events.GOSSIP_CLOSED.listen(self.onGossipClosed)
@@ -494,12 +495,14 @@ public class Dialogue implements Module, App {
     self.choice = index
   }
 
-  // A key of 1–9: a line of the list, or a reward to choose.
+  // A key of 1–9: a line of the list's column the keys are on, an answer, or a reward to choose.
   public pickNumber(mut self, number: Integer) {
     if (peek self.prompted) {
       self.answer(number)
     } else if (peek self.page == Page.List) {
-      self.pickLine(number)
+      const column = (peek self.optionColumns)[peek self.column] ?? []
+      const placed = column[number]
+      if (placed != nil) { self.pickLine(placed.index) }
     } else {
       self.choose(number)
     }
@@ -630,6 +633,10 @@ public class Dialogue implements Module, App {
   }
 
   onSpace(mut self) { self.main() }
+
+  // Tab: the keys move to the list's next column, from the last back to the first.
+  // A column took the keyboard's focus (Tab, Shift+Tab): the keys 1–9 are its lines'.
+  onColumn(mut self, number: Integer) { self.column = number }
   onEscape(mut self) { self.back() }
 
   // ——— What the window draws.
@@ -649,7 +656,13 @@ public class Dialogue implements Module, App {
   derived optionColumns: Array<Array<Placed>> = columnsOf(self.lines)
   derived listColumns: Array<Track> = self.optionColumns.map((column): Track => "max-content")
   // The keys the window hears: 1–9, and on the list one for each line past them.
-  derived lineKeys: Array<LineKey> = self.keysOn ? keysFor(self.listShown ? self.lines.length : 0) : []
+  derived lineKeys: Array<LineKey> = self.keysOn ? LINE_KEYS : []
+  // The column of the list the keys are on: the first as a list shows, the next on each Tab.
+  state column = 1
+  derived columned: Boolean = self.listed && self.optionColumns.length > 1
+  derived tabHint: Boolean = self.keysOn && self.columned && self.hints
+  // The NPC's options the player marked, by their IDs.
+  derived markedOptions: Array<Integer> = self.marks.filter(mark => mark.npc == self.npc).map(mark => mark.option)
   derived pickable: Boolean = self.page == Page.Reward
   derived rewardViews: Array<RewardView> = choiceViews(self.quest?.choices ?? [], self.upgrades())
   derived backLabel: String = self.prompted ? Locale.CANCEL : self.pageBack
@@ -706,11 +719,6 @@ public class Dialogue implements Module, App {
     return quest.choices.map(reward => self.upgrade(reward) ?? 0)
   }
 
-  // Whether the line at that place is marked, followed as the marks change.
-  public markedAt(self, line: Line): Boolean {
-    return line.kind == LineKind.Option && self.marks.any(mark => mark.npc == self.npc && mark.option == line.id)
-  }
-
   public render(self): Template {
     return $ltml {
       <frame $if={self.gameAway} of={Game.frames.Gossip} opacity={0} away={true} />
@@ -743,11 +751,13 @@ public class Dialogue implements Module, App {
                 <AnswerRow label={Locale.YES} index={YES} hints={self.hints} @pick={self.answer} />
                 <AnswerRow label={Locale.NO} index={NO} hints={self.hints} @pick={self.answer} />
               </box>
-              <box $elseif={self.listShown} columns={self.listColumns} gap={2sp}>
-                <box $for={column of self.optionColumns} gap={0.5sp}>
-                  <OptionRow $for={placed of column} line={placed.line} index={placed.index} hints={self.hints}
-                             marked={self.markedAt(placed.line)} @pick={self.pickLine} @mark={self.toggleMark} />
+              <box $elseif={self.listShown} gap={1sp}>
+                <box columns={self.listColumns} gap={2sp}>
+                  <OptionColumn $for={number, column of self.optionColumns} lines={column} number={number}
+                                keysHere={number == self.column} hints={self.hints} marked={self.markedOptions}
+                                @pick={self.pickLine} @mark={self.toggleMark} @focus={self.onColumn} />
                 </box>
+                <text $if={self.tabHint} value={Locale.TAB_COLUMNS} textColor={Style.DIM} textSize={SECONDARY_TEXT} />
               </box>
               <Needs $elseif={self.page == Page.Progress} quest={self.quest} />
               <Rewards $else views={self.rewardViews} also={self.quest?.also ?? []} xp={self.quest?.xp ?? 0}

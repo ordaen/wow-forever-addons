@@ -947,28 +947,52 @@ test "the window widens for the columns: the last one stands inside it" {
   Test.expect(page.text("Place 17").rect().right <= page.rect().right)
 }
 
-test "the tenth line's key is 0, and it picks the line" {
-  Test.mount(nil, SCREEN)
-  let options: Array<Client.GossipOptionUIInfo> = []
-  for (index of 1..10) { options.push(option(500 + index, `Place ${index}`, index - 1, TALK)) }
-  Test.talk({ name: "Stormwind City Guard", id: 68, text: "Where would you like to go?", options: options })
-  Test.expect(Test.page().window("Stormwind City Guard").text("0").shown() && Test.keyBound("0"))
-  Test.expect(asked() == "option 510")
-}
-
-test "every option has a key: the digits, 0, then letters past them, which pick their line" {
+test "the keys 1–9 are the first column's as the list shows" {
   Test.mount(nil, SCREEN)
   Test.talk(guard())
+  Test.flush()
   const page = Test.page().window("Stormwind City Guard")
-  Test.expect(page.text("0").shown() && page.text("Q").shown() && page.text("I").shown())
-  _ = Test.keyBound("Q")
+  // One keycap a line of the first column: «1» to «9» once each.
+  Test.expect(page.text("9").count() == 1 && page.text("Tab: the keys move to the next column").shown())
+  Test.shot("a guard's seventeen places in two columns, the keys on the first")
+  _ = Test.keyBound("2")
+  Test.expect(asked() == "option 502")
+}
+
+test "Tab gives the keys to the next column" {
+  Test.mount(nil, SCREEN)
+  Test.talk(guard())
+  Test.flush()
+  _ = Test.key(Test.Move.Next)
+  Test.flush()
+  _ = Test.keyBound("2")
   Test.expect(asked() == "option 511")
 }
 
-test "the letters aren't the window's for a list the digits reach" {
+test "Shift+Tab gives them back to the column before" {
+  Test.mount(nil, SCREEN)
+  Test.talk(guard())
+  Test.flush()
+  _ = Test.key(Test.Move.Next)
+  Test.flush()
+  _ = Test.key(Test.Move.Back)
+  Test.flush()
+  _ = Test.keyBound("3")
+  Test.expect(asked() == "option 503")
+}
+
+test "past nine lines no key but 1–9 is the window's" {
+  Test.mount(nil, SCREEN)
+  Test.talk(guard())
+  Test.flush()
+  Test.expect(!Test.keyBound("0") && !Test.keyBound("Q"))
+}
+
+test "a list the digits reach has one column and no word of Tab" {
   Test.mount(nil, SCREEN)
   Test.talk(innkeeper())
-  Test.expect(!Test.keyBound("Q"))
+  Test.flush()
+  Test.expect(!window().text("Tab: the keys move to the next column").shown())
 }
 
 // The scroll from its top roll's top to its bottom roll's foot.
