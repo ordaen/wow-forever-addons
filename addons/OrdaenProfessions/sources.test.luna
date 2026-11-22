@@ -1,0 +1,37 @@
+// Where a recipe not learned is learned, as What's Training's table has it, and how its card says it.
+import Test from "$test"
+import { howLearned, sourcesOf } from "@/sources"
+
+const ALCHEMY = 171
+const BLACKSMITHING = 164
+// Minor Healing Potion's recipe: Alchemy's trainer teaches it from skill 15.
+const MINOR_HEALING = 2329
+// A blacksmith's recipe a vendor sells to those Friendly with its faction.
+const SOLD = 1301422
+const VENDOR = 254151
+const FACTION = 2758
+
+test "a profession's recipes are read with where each is learned: its trainer's skill and price, its vendors, the standing it asks" {
+  const potion = sourcesOf(ALCHEMY)[MINOR_HEALING]
+  const sold = sourcesOf(BLACKSMITHING)[SOLD]
+  Test.expect(potion != nil && sold != nil)
+  if (potion != nil) { Test.expect(potion.skill == 15 && potion.cost == 50 && potion.sources.join("/") == "trainer") }
+  if (sold != nil) {
+    Test.expect(sold.skill == 50 && sold.sources.join("/") == "vendor" && sold.vendors[1]?.id == VENDOR)
+    Test.expect(sold.reputation[1]?.faction == FACTION && sold.reputation[1]?.standing == 5)
+  }
+  Test.expect(sourcesOf(nil)[MINOR_HEALING] == nil && sourcesOf(1)[MINOR_HEALING] == nil)
+}
+
+test "a recipe's card says each way it is learned and what it asks, a line each" {
+  Test.factions({ [FACTION]: "The Smiths" })
+  const potion = sourcesOf(ALCHEMY)[MINOR_HEALING]
+  if (potion != nil) { Test.expect(howLearned(potion, 1)[1]?.contains("Trainer: from skill 15") == true) }
+  const sold = sourcesOf(BLACKSMITHING)[SOLD]
+  if (sold != nil) {
+    const lines = howLearned(sold, 1)
+    Test.expect(lines.length == 2 && lines[1]?.contains("Sold by") == true)
+    Test.expect(lines[2]?.contains("with The Smiths") == true)
+  }
+  Test.expect(potion != nil && sold != nil)
+}

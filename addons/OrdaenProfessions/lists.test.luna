@@ -980,8 +980,8 @@ test "the category and recipe left are chosen when the module is turned on with 
   window().button("Bags").click()
   window().text("Linen Bag").nth(1).click()
   const page = settings()
-  // The modules in the list: Alts, Auction, Tooltips, Professions.
-  page.button(Ordaen.art.ctl.switchOn).nth(4).click()
+  // Professions' own switch, by its name: the list holds every module of the modules loaded.
+  page.text("Professions").item().button(Ordaen.art.ctl.switchOn).click()
   Test.expect(!window().shown())
   page.button(Ordaen.art.ctl.switchOff).click()
   Test.expect(chosen() == "Linen Bag")

@@ -130,5 +130,18 @@
   "NOTHING_FOUND": "Nothing found.",
   "CONFIRM_PROFESSION": "Learn %s? It takes one of your two professions.",
   "NO_PROFESSION_SLOT": "You already know two professions.",
-  "CANCEL": "Cancel"
+  "CANCEL": "Cancel",
+  "LEARN_AT": "%s (%s)",
+  "LEARN_MORE": "%s and %d more",
+  "LEARN_NPC": "#%d",
+  "LEARN_TRAINER": "Trainer: from skill %d, %s",
+  "LEARN_VENDOR": "Sold by %s",
+  "LEARN_VENDOR_ANY": "Sold by a vendor",
+  "LEARN_QUEST": "Quest: %s",
+  "LEARN_QUEST_ANY": "From a quest",
+  "LEARN_DROP": "Its recipe drops in the world",
+  "LEARN_CRAFTED": "Its recipe is made by players",
+  "LEARN_OBJECT": "Found on an object in the world",
+  "LEARN_REPUTATION": "Requires %s with %s",
+  "LEARN_FAVOR": "Costs %d merchant favor"
 }

@@ -1,0 +1,128 @@
+// Where a recipe not learned is learned, as What's Training has it (`recipes.luna`): its trainer and price, the
+// vendors that sell its teaching item, the quests that give it, a drop, another player's making, an object in the
+// world; the standing it asks with a faction and the merchant favor it costs. Read for the profession open alone, as
+// its window opens, and said as the recipe's card says it, a line each.
+import Client from "$client"
+import Game from "$game"
+import Runtime from "$runtime"
+import root Quests from "OrdaenQuests"
+import Locale from "@/locales"
+import Recipes from "@/recipes"
+
+// The most vendors and quests a card names; the rest are counted.
+const MOST = 3
+
+// A place a recipe is learned at, by its side (0 both, 1 the Alliance, 2 the Horde).
+public struct Sided {
+  id: Integer
+  area: Integer
+  side: Integer
+}
+
+// A standing a recipe asks with a faction (the client's reaction, 1 hated to 8 exalted).
+public struct Asked {
+  faction: Integer
+  standing: Integer
+}
+
+// Where a recipe is learned.
+public struct RecipeSource {
+  skill: Integer
+  sources: Array<String>
+  // At its trainer, in copper; 0 for none.
+  cost: Integer
+  favor: Integer
+  reputation: Array<Asked>
+  quests: Array<Sided>
+  vendors: Array<Sided>
+}
+
+function numberAt(parts: Array<String>, at: Integer): Integer { return (parts[at] ?? "").toNumber()?.floor() ?? 0 }
+
+function partsOf(text: String, between: String): Array<String> { return text == "" ? [] : text.split(between) }
+
+// `id:area:side:level/...` or `npc:area+area:side/...`: each place, its first area.
+function sidedOf(text: String): Array<Sided> {
+  const list: Array<Sided> = []
+  for (entry of partsOf(text, "/")) {
+    const parts = entry.split(":")
+    const area = (parts[2] ?? "").split("+")[1] ?? ""
+    list.push({ id: numberAt(parts, 1), area: area.toNumber()?.floor() ?? 0, side: numberAt(parts, 3) })
+  }
+  return list
+}
+
+// A profession's recipes' sources, by the recipe's spell; none for a profession the table hasn't.
+public function sourcesOf(skillLine: Integer | nil): Map<Integer, RecipeSource> {
+  const sources: Map<Integer, RecipeSource> = {}
+  const text = skillLine == nil ? nil : Recipes.recipes[skillLine]
+  if (text == nil) { return sources }
+  for (entry of text.split(";")) {
+    const parts = entry.split(",")
+    const reputation: Array<Asked> = []
+    for (asked of partsOf(parts[13] ?? "", "/")) {
+      const pair = asked.split(":")
+      reputation.push({ faction: numberAt(pair, 1), standing: numberAt(pair, 2) })
+    }
+    sources[numberAt(parts, 1)] = {
+      skill: numberAt(parts, 2), sources: partsOf(parts[6] ?? "", "/"), cost: numberAt(parts, 7), favor: numberAt(parts, 11),
+      reputation: reputation, quests: sidedOf(parts[14] ?? ""), vendors: sidedOf(parts[15] ?? "")
+    }
+  }
+  return sources
+}
+
+function forSide(place: Sided, side: Integer): Boolean { return place.side == 0 || place.side == side }
+
+function areaName(area: Integer): String { return Client.C_Map.GetAreaInfo(area) ?? "" }
+
+function placed(name: String, area: Integer): String {
+  const zone = areaName(area)
+  return zone == "" ? name : Locale.LEARN_AT.format(name, zone)
+}
+
+// The names of the first places, «and N more» after them.
+function namesOf(places: Array<Sided>, name: (place: Sided) => String): String {
+  const names: Array<String> = []
+  for (place of places) {
+    if (names.length < MOST) { names.push(placed(name(place), place.area)) }
+  }
+  const more = places.length - names.length
+  const text = names.join(", ")
+  return more > 0 ? Locale.LEARN_MORE.format(text, more) : text
+}
+
+function vendorName(place: Sided): String { return Quests?.npc(place.id)?.name ?? Locale.LEARN_NPC.format(place.id) }
+
+function questName(place: Sided): String {
+  return Client.C_QuestLog.GetTitleForQuestID(place.id) ?? Quests?.questFacts(place.id)?.name ?? Locale.LEARN_NPC.format(place.id)
+}
+
+// What a recipe's card says of where it is learned, for the player's side: a line for each way, then what it asks.
+public function howLearned(source: RecipeSource, side: Integer): Array<String> {
+  const lines: Array<String> = []
+  for (way of source.sources) {
+    if (way == "trainer") {
+      lines.push(Locale.LEARN_TRAINER.format(source.skill, Game.money.format(source.cost)))
+    } else if (way == "vendor") {
+      const vendors = source.vendors.filter(place => forSide(place, side))
+      lines.push(vendors.length == 0 ? Locale.LEARN_VENDOR_ANY : Locale.LEARN_VENDOR.format(namesOf(vendors, vendorName)))
+    } else if (way == "quest") {
+      const quests = source.quests.filter(place => forSide(place, side))
+      lines.push(quests.length == 0 ? Locale.LEARN_QUEST_ANY : Locale.LEARN_QUEST.format(namesOf(quests, questName)))
+    } else if (way == "drop") {
+      lines.push(Locale.LEARN_DROP)
+    } else if (way == "crafted") {
+      lines.push(Locale.LEARN_CRAFTED)
+    } else if (way == "world_object") {
+      lines.push(Locale.LEARN_OBJECT)
+    }
+  }
+  for (asked of source.reputation) {
+    const faction = Client.C_Reputation.GetFactionDataByID(asked.faction)?.name ?? String.of(asked.faction)
+    const standing = Runtime.text(`FACTION_STANDING_LABEL${asked.standing}`) ?? String.of(asked.standing)
+    lines.push(Locale.LEARN_REPUTATION.format(standing, faction))
+  }
+  if (source.favor > 0) { lines.push(Locale.LEARN_FAVOR.format(source.favor)) }
+  return lines
+}

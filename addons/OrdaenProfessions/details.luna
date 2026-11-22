@@ -14,6 +14,7 @@ import Locale from "@/locales"
 import { MakeRow } from "@/make"
 import { PriceTable, TotalsBlock } from "@/priceRows"
 import { ReagentRow } from "@/rows"
+import { RecipeSource, howLearned, sourcesOf } from "@/sources"
 import Style from "@/style"
 import { Act, Kept, MakeMode, has } from "@/view"
 
@@ -46,6 +47,8 @@ public class RecipeDetails implements Component {
   derived skill: String = self.skillOf()
   derived skillColor: Color = self.shown.learned ? Style.difficultyColor(self.shown.difficulty) : Style.RED
   derived description: String = Game.tradeSkill.description(self.shown.id)
+  // Where the recipes of the profession open are learned, read as it opens.
+  derived sources: Map<Integer, RecipeSource> = sourcesOf(self.profession?.skillLine)
   derived needs: String = self.needsOf()
   derived reagents: Array<Game.Reagent> = Game.tradeSkill.reagents(self.shown.id)
   // The item it makes, which the icon is the slot of; none for what makes no item (an enchant).
@@ -140,16 +143,19 @@ public class RecipeDetails implements Component {
     }
   }
 
-  // What the work needs, a line each, red while missing: «Needs: Blacksmith Hammer».
+  // What the work needs, a line each, red while missing: «Needs: Blacksmith Hammer»; then, for a recipe not learned,
+  // where it is learned.
   needsOf(self): String {
-    let text = ""
+    const lines: Array<String> = []
     for (need of Game.tradeSkill.requirements(self.shown.id)) {
-      let line = Locale.TOOLS + ": " + need.name
-      if (!need.met) { line = "|cffff4040" + line + "|r" }
-      if (text != "") { text = text + "\n" }
-      text = text + line
+      const line = Locale.TOOLS + ": " + need.name
+      lines.push(need.met ? line : "|cffff4040" + line + "|r")
     }
-    return text
+    const source = self.shown.learned ? nil : self.sources[self.shown.id]
+    if (source != nil) {
+      for (line of howLearned(source, Game.player.faction == Game.Faction.Horde ? 2 : 1)) { lines.push(line) }
+    }
+    return lines.join("\n")
   }
 
   public render(self): Template {

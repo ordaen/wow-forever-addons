@@ -130,5 +130,18 @@
   "NOTHING_FOUND": "Ничего не найдено.",
   "CONFIRM_PROFESSION": "Изучить %s? Это займёт одну из двух ваших профессий.",
   "NO_PROFESSION_SLOT": "Вы уже знаете две профессии.",
-  "CANCEL": "Отмена"
+  "CANCEL": "Отмена",
+  "LEARN_AT": "%s (%s)",
+  "LEARN_MORE": "%s и ещё %d",
+  "LEARN_NPC": "#%d",
+  "LEARN_TRAINER": "Наставник: с навыка %d, %s",
+  "LEARN_VENDOR": "Продаёт %s",
+  "LEARN_VENDOR_ANY": "Продаётся у торговца",
+  "LEARN_QUEST": "Задание: %s",
+  "LEARN_QUEST_ANY": "За задание",
+  "LEARN_DROP": "Рецепт выпадает в мире",
+  "LEARN_CRAFTED": "Рецепт делают игроки",
+  "LEARN_OBJECT": "Находится на предмете в мире",
+  "LEARN_REPUTATION": "Требуется %s с %s",
+  "LEARN_FAVOR": "Стоит %d благосклонности торговцев"
 }
