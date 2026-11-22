@@ -8,6 +8,7 @@ import { Art } from "$ltml"
 import Runtime from "$runtime"
 import Test from "$test"
 import root Ordaen from "Ordaen"
+import { glyphArt } from "Ordaen"
 
 const PAGE: Test.Page = { left: 20, top: 20, width: 1300, height: 720, screen: true }
 const ICON: Asset = "Interface/Icons/INV_Misc_Note_01"
@@ -973,7 +974,7 @@ test "with nothing picked, the card is the trainer's: its greeting and what all 
   Test.expect(window.texts().join(" | ").contains("Due to learn all: | 9g 4s 0c"))
 }
 
-test "a picked spell says what changes against the rank the player has, and the game's facts of it" {
+test "a picked spell says what changes against the rank the player has, and the game's facts of it in the tooltip's band" {
   Test.mount(nil, PAGE)
   Game.trainer.services = (): Array<Game.TrainerService> => [
     {
@@ -986,15 +987,18 @@ test "a picked spell says what changes against the rank the player has, and the 
   ]
   Game.spells.description = (id: Integer): String | nil => id == 284 ? "Deals 21 more damage." : "Deals 32 more damage."
   Game.spells.tooltip = (id: Integer): Game.TooltipData | nil => {
-    return { lines: [{ left: "Heroic Strike", kind: 0 }, { left: "15 Rage", right: "Melee Range", kind: 0 }, { left: "Next melee", kind: 0 }] }
+    return { lines: [{ left: "Heroic Strike", kind: 13 }, { left: "15 Rage", right: "Melee Range", kind: 0 }, { left: "Next melee", kind: 0 }] }
   }
+  Game.spells.cost = (id: Integer): Game.SpellCost | nil => ({ amount: 15, resource: .Rage })
   Game.trainer.open = true
   Game.trainer.changed.emit()
   const window = Test.page().window(TRAINER)
   window.button("Heroic Strike").click()
   Test.expect(window.text("What changes").shown() && window.text("21").shown() && window.text("→").shown() &&
       window.text("32").shown())
-  Test.expect(window.text("15 Rage   Melee Range").shown() && window.text("Next melee").shown())
+  // The game's facts as the tooltip's band: the cost a dot in rage's colour, the range, the cast.
+  Test.expect(window.text("15").item().box(glyphArt(.Cost)).shown())
+  Test.expect(window.text("5 yd").shown() && window.text("Next").item().box(glyphArt(.CastNext)).shown())
 }
 
 test "Learn greyed says why on its Tip; a learned service's card says so in place of its price and Learn" {

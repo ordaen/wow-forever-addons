@@ -12,12 +12,12 @@
 // (`TrainerIgnored`), every rank of a spell under its name.
 import Client from "$client"
 import Game from "$game"
-import { Align, Columns, Event, Frame, MouseButton, Overflow, Position, TextFont, Track } from "$ltml"
+import { Align, Columns, Event, Frame, Line, MouseButton, Overflow, Position, Side, TextFont, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import {
-  ARTWORK, ButtonPlate, Choice, Column, Component, Dialog, FilterButton, FooterBand, FilterGroup, FoldCaption, KeptWindow,
+  ARTWORK, BandCell, BandFact, ButtonPlate, Choice, Column, Component, Dialog, FilterButton, FooterBand, FilterGroup, FoldCaption, KeptWindow,
   Menu, MenuEntry, ModuleMemory, Money, PushButton, SECONDARY_TEXT, SkillBar, TIGHT_LINE, TITLE_TEXT, Table, TableRow,
-  Tip, TipRow, TipText, ToolPick, ToolSort, Toolbar, Window, WindowSide, WindowTabSpec, richDescription, sortChoices, switched
+  Tip, TipRow, TipText, ToolPick, ToolSort, Toolbar, Window, WindowSide, WindowTabSpec, bandOf, richDescription, sortChoices, switched
 } from "Ordaen"
 import Locale from "@/locales"
 
@@ -488,6 +488,8 @@ struct StatusCount {
   text: String
 }
 
+// The band's rules above and below it, as the tooltip has them.
+const BAND_RULE: Line = { width: 1.171875dp, color: Color.hex("#d6a56b2e"), sides: [Side.Top, Side.Bottom] }
 // A line of prices: the place, the price after it.
 const PRICE_LINE: Array<Track> = [{ fr: 1 }, "max-content"]
 
@@ -517,20 +519,30 @@ class StatusDot implements Component {
 
 // The game's facts of the service's spell: its tooltip's lines after its name, the line of what it does left out (the
 // card says that itself), each as «left   right».
-function factsOf(service: Game.TrainerService | nil): Array<String> {
-  const list: Array<String> = []
+// What the picked service's spell is, as its tooltip says it: its band (cost and range, cast and cooldown, the
+// tooltip's own cells) and the rest of its lines but its name and its description (what it requires).
+struct SpellFacts {
+  band: Array<BandFact>
+  lines: Array<String>
+}
+
+const NO_FACTS: SpellFacts = { band: [], lines: [] }
+
+function factsOf(service: Game.TrainerService | nil): SpellFacts {
   const spell = service?.spell
-  if (service == nil || spell == nil) { return list }
+  if (service == nil || spell == nil) { return NO_FACTS }
   const tip = Game.spells.tooltip(spell)
-  if (tip == nil) { return list }
+  if (tip == nil) { return NO_FACTS }
+  const band = bandOf(tip.lines, Game.spells.cost(spell))
+  const lines: Array<String> = []
   for (at, line of tip.lines) {
     const left = line.left ?? ""
     const right = line.right ?? ""
-    if (at > 1 && left != service.description && (left != "" || right != "")) {
-      list.push(right == "" ? left : `${left}   ${right}`)
+    if (at > 1 && band.taken[at] != true && left != service.description && (left != "" || right != "")) {
+      lines.push(right == "" ? left : `${left}   ${right}`)
     }
   }
-  return list
+  return { band: band.facts, lines: lines }
 }
 
 // The numbers of a text, in order, and the text with each number taken out: two ranks of one spell read the same
@@ -685,7 +697,8 @@ public class TrainerPage {
   derived quotedCost: Integer = costOf(self.quoted)
   // The picked service's facts, the game's (cast time, cooldown, cost, range: its spell's tooltip lines between its name
   // and what it does), and what changes against the rank the player has.
-  derived facts: Array<String> = factsOf(self.current)
+  derived facts: SpellFacts = factsOf(self.current)
+  derived banded: Boolean = self.facts.band.length > 0
   derived changes: Array<Change> = changesOf(self.current)
   derived changed: Boolean = self.changes.length > 0
   // Why «Learn» can't be pressed, on its Tip.
@@ -964,7 +977,11 @@ public class TrainerPage {
           <text value={"→"} textColor={GREEN} />
           <text value={change.next} textColor={GREEN} textFont={TextFont.Numbers} />
         </box>
-        <text $for={fact of self.facts} value={fact} textColor={DIM} textSize={SECONDARY_TEXT} />
+        // Its band, the tooltip's cells, then the rest of what its tooltip says.
+        <box $if={self.banded} columns={self.facts.band.length} border={BAND_RULE}>
+          <BandCell $for={index, fact of self.facts.band} fact={fact} index={index} last={false} />
+        </box>
+        <text $for={line of self.facts.lines} value={line} textColor={DIM} textSize={SECONDARY_TEXT} />
         <text $if={self.priced} value={Locale.TRAINER_PRICES} textColor={GOLD} />
         <PriceLine $for={line of self.priceLines} line={line} />
       </box>
