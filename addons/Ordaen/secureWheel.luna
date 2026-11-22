@@ -232,6 +232,9 @@ public class SecureWheel {
     button.Hide()
     button.SetFrameStrata("FULLSCREEN_DIALOG")
     button.RegisterForClicks("AnyDown", "AnyUp")
+    // The click's release does the item (`CHOICE`): a secure action button acts on the press where the player's
+    // «use on key down» is on (SecureActionButton_OnClick), so the button says it acts on the release.
+    button.SetAttribute("useOnKeyDown", false)
     button.EnableMouse(true)
     button.EnableMouseWheel(true)
     const high = Client.UIParent.GetHeight() * 2
