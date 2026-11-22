@@ -59,7 +59,8 @@ public struct WheelRing {
 
 // How a wheel is laid out: where it opens, how large it is, whether its submenus remember.
 public struct WheelSetup {
-  // It opens at the screen's middle and not at the cursor.
+  // It is drawn at the screen's middle and not at the cursor. Either way it aims from where the cursor was as it
+  // opened: the mouse moves from where the hand is, never to the wheel first.
   centred: Boolean
   scale: Number
   remember: Boolean
@@ -79,7 +80,7 @@ const CHOICE: String = [
   "if button == 'Key' and down then",
   "  owner:SetAttribute('level', 'r')",
   "  self:ClearAllPoints()",
-  "  if owner:GetAttribute('centred') then self:SetPoint('CENTER') else self:SetPoint('CENTER', '$cursor') end",
+  "  self:SetPoint('CENTER', '$cursor')",
   "  self:Show()",
   "  self:SetBindingClick(true, 'ESCAPE', self, 'Escape')",
   "  return false",
@@ -145,10 +146,12 @@ public class SecureWheel {
   // Whether the wheel is up, and the ring it shows (`r`, `r_3`).
   public state open = false
   public state level: String = ROOT
-  // The cursor from the wheel's middle, right and up, in the screen's units: what the art aims by.
+  // The cursor from where it was as the wheel opened, right and up, in the screen's units: what the art aims by, as the
+  // restricted code does (its button stands centred on that point).
   public state aimX: Number = 0
   public state aimY: Number = 0
-  // Where the wheel's middle stands, from the screen's bottom left, in its units: where the art is drawn.
+  // Where the wheel's middle stands, from the screen's bottom left, in its units: where the art is drawn (the screen's
+  // middle for a centred wheel, else where the cursor was as it opened).
   public state middleX: Number = 0
   public state middleY: Number = 0
   // How far it has opened, 0 to 1, over `OPENING_TIME`; and a count that moves while it is up, every `STATE_EVERY`
@@ -169,6 +172,7 @@ public class SecureWheel {
   picks: Integer = 0
   openedAt: Number = 0
   readAt: Number = 0
+  centred: Boolean = false
 
   constructor(
     // The button's global name: what the client's binding clicks.
@@ -210,7 +214,7 @@ public class SecureWheel {
     for (name of self.writtenOnHeader) { self.header.SetAttribute(name, nil) }
     self.written.clear()
     self.writtenOnHeader.clear()
-    self.header.SetAttribute("centred", setup.centred)
+    self.centred = setup.centred
     self.header.SetAttribute("remember", setup.remember)
     self.header.SetAttribute("dead", DEAD_ZONE / 1ui * setup.scale)
     for (ring of rings) {
@@ -295,14 +299,17 @@ public class SecureWheel {
     }
     const scale = Client.UIParent.GetEffectiveScale()
     const cursorX, cursorY = Client.GetCursorPosition()
-    const middleX, middleY = self.button.GetCenter()
-    if (middleX == nil || middleY == nil) { return }
+    const fromX, fromY = self.button.GetCenter()
+    if (fromX == nil || fromY == nil) { return }
+    const screenX, screenY = Client.UIParent.GetCenter()
+    const middleX = self.centred ? screenX ?? fromX : fromX
+    const middleY = self.centred ? screenY ?? fromY : fromY
     if (middleX != self.middleX || middleY != self.middleY) {
       self.middleX = middleX
       self.middleY = middleY
     }
-    const x = cursorX / scale - middleX
-    const y = cursorY / scale - middleY
+    const x = cursorX / scale - fromX
+    const y = cursorY / scale - fromY
     if ((x - self.aimX).abs() < 0.5 && (y - self.aimY).abs() < 0.5) { return }
     self.aimX = x
     self.aimY = y

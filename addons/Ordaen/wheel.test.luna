@@ -46,7 +46,7 @@ test "the art and the restricted code choose the same item for every direction" 
 class Held {
   public const wheel: mut SecureWheel = new SecureWheel("OrdaenWheelTest")
   public state used: mut Array<String> = []
-  constructor(scale: Number) {
+  constructor(scale: Number, centred: Boolean = false) {
     const rings: Array<WheelRing> = [{ path: ROOT, count: 4 }, { path: "r_2", count: 2 }]
     const entries: Array<WheelEntry> = [
       { path: placeIn(ROOT, 1), action: .Spell { spell: "Find Herbs" }, refusesInFight: false, modifier: nil },
@@ -56,7 +56,7 @@ class Held {
       { path: placeIn(ROOT, 3), action: .Item { item: 6948 }, refusesInFight: true, modifier: nil },
       { path: placeIn(ROOT, 4), action: .MacroText { text: "/tm 8" }, refusesInFight: false, modifier: nil }
     ]
-    self.wheel.apply(rings, entries, { centred: false, scale: scale, remember: false })
+    self.wheel.apply(rings, entries, { centred: centred, scale: scale, remember: false })
     self.wheel.bind(["F"])
     self.wheel.picked.listen(self.onPick)
   }
@@ -130,6 +130,24 @@ test "the art follows the cursor while the wheel is up" {
   Test.expect(held.wheel.aimY > 50 && held.wheel.aimX.abs() < 1)
   Test.releaseBound("F")
   Test.expect(!held.wheel.open)
+}
+
+test "a centred wheel is drawn at the screen's middle and aims from where the cursor was: a flick from there picks" {
+  const held = new Held(1, true)
+  Test.flush()
+  const corner: Test.Point = { x: 200, y: 200 }
+  Test.moveTo(corner)
+  Test.holdBound("F")
+  Test.flush()
+  Test.pass(0.05)
+  const screenX, screenY = Client.UIParent.GetCenter()
+  Test.expect(held.wheel.middleX == screenX && held.wheel.middleY == screenY)
+  // Up from the cursor, nowhere near the wheel drawn: its first item.
+  Test.moveTo({ x: corner.x, y: corner.y - 100 })
+  Test.pass(0.05)
+  Test.expect(held.wheel.aimY > 50 && held.wheel.aimX.abs() < 1)
+  Test.releaseBound("F")
+  Test.expect(Test.performed().join(", ") == "spell Find Herbs")
 }
 
 test "a submenu replaces the ring, and its item of ours is told" {
