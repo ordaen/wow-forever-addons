@@ -159,6 +159,11 @@ public class Pane implements Component {
 
   tabs: Signal<Array<ChatTab>>
   openKey: Signal<String>
+  // The tabs' least width, and the room kept under them (the character's portrait under the docked pane's).
+  tabsLeast: Signal<Number<Length>>
+  tabsFoot: Signal<Number<Length>>
+  // The input's room over the lines, which the tabs start under, level with the lines' ground.
+  derived inputRoom: Number<Length> = self.input != nil ? GAME_INPUT + 2 * FIELD_EDGE.width + Ordaen.lengthOf(1sp) : 0ui
   width: Signal<Number<Length>>
   height: Signal<Number<Length>>
   awayOpacity: Signal<Number>
@@ -187,8 +192,12 @@ public class Pane implements Component {
     // The input it holds (nil: none; Enter opens the chat's), shown while the player types or always.
     input: Signal<any Frame | nil> = nil,
     typing: Signal<Boolean> = false,
-    inputAlways: Signal<Boolean> = false
+    inputAlways: Signal<Boolean> = false,
+    tabsLeast: Signal<Number<Length>> = 0ui,
+    tabsFoot: Signal<Number<Length>> = 0ui
   ) {
+    self.tabsLeast = tabsLeast
+    self.tabsFoot = tabsFoot
     self.tabs = tabs
     self.openKey = openKey
     self.width = width
@@ -307,15 +316,21 @@ public class Pane implements Component {
 
   public render(self): Template {
     return $ltml {
-      // The tabs a sidebar on the world at the lines' left, one a row; the lines on a dark ground with rounded corners,
-      // at least the height the player chose and never lower than the tabs, the input's room under them. As wide as the player
-      // chose, or as the tabs and the lines' least need.
+      // The tabs a sidebar on the world at the lines' left, one a row, level with the lines' ground, the room kept under
+      // them; the lines on a dark ground, at least the height the player chose and never lower than the tabs, the
+      // input's room over them. As wide as the player chose, or as the tabs and the lines' least need.
       <box width={{ min: self.width, max: nil }} columns={[MAX, { fr: 1 }]} opacity={self.opacity}>
-        <box columns={1} yAlignSelf={Align.Start} @pointerEnter={self.onTabsEnter} @pointerLeave={self.onTabsLeave}>
-          <TabButton $for={tab of self.tabs} tab={tab} open={tab.key == self.open?.key} ground={self.ground} @pick={self.onPick}
-                     @menu={self.onMenu} />
-          <Menu $if={self.menuTab != nil} entries={self.tabEntries} title={self.menuTab?.title ?? ""} @pick={self.onTabPick}
-                @close={self.onTabMenuClose} />
+        // The room over and under the tabs takes no mouse: what shows through it (the portrait) keeps its clicks.
+        <box columns={1} yAlignSelf={Align.Start}>
+          // As wide as the tabs' least at the least: a room of that width, the input's height.
+          <box width={self.tabsLeast} height={self.inputRoom} />
+          <box columns={1} @pointerEnter={self.onTabsEnter} @pointerLeave={self.onTabsLeave}>
+            <TabButton $for={tab of self.tabs} tab={tab} open={tab.key == self.open?.key} ground={self.ground} @pick={self.onPick}
+                       @menu={self.onMenu} />
+            <Menu $if={self.menuTab != nil} entries={self.tabEntries} title={self.menuTab?.title ?? ""} @pick={self.onTabPick}
+                  @close={self.onTabMenuClose} />
+          </box>
+          <box height={self.tabsFoot} />
         </box>
         // The input's room, and under it the lines' ground.
         <box rows={INPUT_AND_GROUND} gap={1sp} yAlignSelf={Align.Stretch}>

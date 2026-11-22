@@ -12,6 +12,8 @@ import { Anchored, Event, Point } from "$ltml"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
 import { BODY_TEXT, ButtonPlate, CopyBox, Dialog, Field, Module, Placed, PushButton, Settings, SettingsPage } from "Ordaen"
+import root Panel from "OrdaenPanel"
+import { PORTRAIT_HEIGHT, PORTRAIT_WIDTH } from "OrdaenPanel"
 import root Quests from "OrdaenQuests"
 import root Social from "OrdaenSocial"
 import { ChannelName, ChatSize, Choices, LEAST_HEIGHT, LEAST_WIDTH, MESSAGE_GAP, TabChoices, tabDefaults, tabKey } from "@/choices"
@@ -21,8 +23,6 @@ import { LinkPick, Pane, TabPick, nameOf, questOf, shownName } from "@/pane"
 import { ChatPage } from "@/settings"
 import { TabsPage } from "@/tabsPage"
 
-// Where the chat stands until the player moves it: the screen's bottom left corner, above the panel's room.
-const HOME: Anchored = { point: Point.BottomLeft, x: 8dp, y: -76dp }
 // Where an undocked window's pane stands until the player moves it: over the chat.
 const UNDOCKED: Anchored = { point: Point.BottomLeft, x: 8dp, y: -300dp }
 const PREFIX = "ordaenurl:"
@@ -87,6 +87,13 @@ public class Chat implements Module, App {
   derived height: Number<Length> = (self.sizing?.height ?? self.settings.values.height).max(LEAST_HEIGHT) * 1dp
   // How much of the chat shows while the cursor is off it.
   derived awayOpacity: Number = self.settings.values.hide ? self.settings.values.hiddenOpacity : 1
+  // Where the chat stands until the player moves it: on the bottom panel at the screen's left, its tabs over the
+  // character's portrait (the panel's room, none where it isn't along the bottom).
+  derived home: Anchored = { point: Point.BottomLeft, x: 0dp, y: -Panel.bottomRoom }
+  // While the portrait shows, the tabs are at least its width and keep room at their foot for what of it rises over
+  // the panel, so they stand above it.
+  derived tabsLeast: Number<Length> = Panel.portraitShown ? PORTRAIT_WIDTH : 0ui
+  derived tabsFoot: Number<Length> = Panel.portraitShown ? (PORTRAIT_HEIGHT - Panel.bottomRoom).max(0ui) : 0ui
   derived ground: Color = { r: 0, g: 0, b: 0, a: self.settings.values.ground }
   derived inputAlways: Boolean = self.settings.values.inputAlways
   derived between: Number<Spacing> = self.settings.values.messageGap * 1sp
@@ -399,8 +406,8 @@ public class Chat implements Module, App {
 
   public render(self): Template {
     return $ltml {
-      <Placed id={"OrdaenChat.chat"} title={Locale.TITLE} home={HOME}>
-        <Pane tabs={self.tabs} openKey={self.open?.key ?? ""} width={self.width} height={self.height} awayOpacity={self.awayOpacity}
+      <Placed id={"OrdaenChat.chat"} title={Locale.TITLE} home={self.home}>
+        <Pane tabsLeast={self.tabsLeast} tabsFoot={self.tabsFoot} tabs={self.tabs} openKey={self.open?.key ?? ""} width={self.width} height={self.height} awayOpacity={self.awayOpacity}
               ground={self.ground}
               textSize={self.textSize} between={self.between} input={Game.chat.input} typing={Game.chat.typing} inputAlways={self.inputAlways}
               @picked={self.onPick} @tabPicked={self.onTab} @linkPicked={self.onLinkPick} @link={self.onLink} @sizeGrab={self.onSizeGrab}

@@ -405,22 +405,42 @@ function drag(from: Test.Point, dx: Number, dy: Number) {
 }
 
 // Each size is measured after the grip is let go: the settings' size, kept.
+// The chat's own grip: the panel draws grips of its own.
+function gripOf(shown: Test.Part): Test.Point {
+  const at = shown.box(Ordaen.art.ctl.grip).rect()
+  return { x: (at.left + at.right) / 2, y: (at.top + at.bottom) / 2 }
+}
+
 test "the grip in the chat's top right corner grows it right and up, never below its least, and the size is kept" {
   Game.chat.windows = gameWindows()
   const shown = chat()
   const before = shown.rect()
-  drag(Test.painted(Ordaen.art.ctl.grip, nil), 80, -60)
+  // Up more than right: the panel's action bars stack beside the portrait, and a grip pulled over them is under them.
+  drag(gripOf(shown), 60, -200)
   const grown = shown.rect()
   // It stands by its bottom left: that stays, the other sides go out.
   Test.expect(grown.left == before.left && (grown.bottom - before.bottom).abs() < 0.5)
-  Test.expect(grown.right > before.right + 50 && grown.top < before.top - 40)
+  Test.expect(grown.right > before.right + 50 && grown.top < before.top - 150)
   // The grip followed the cursor: off it, it shows its plain art again.
   Test.moveTo({ x: 1500, y: 100 })
   Test.flush()
-  drag(Test.painted(Ordaen.art.ctl.grip, nil), -2000, 2000)
+  drag(gripOf(shown), -2000, 2000)
   const least = shown.rect()
   // The lines' least, 480 dp (341 of the screen's units here), and the tabs beside them.
   Test.expect(least.right < grown.right && least.right - least.left >= 341)
+}
+
+test "the chat stands on the bottom panel at the screen's left, its tabs over the portrait and as wide as it" {
+  Game.chat.windows = gameWindows()
+  const shown = chat()
+  const portrait = Test.page().box(Ordaen.art.panel.cornerRim).rect()
+  const at = shown.rect()
+  const tab = under(shown, "General", GROUND)
+  Test.expect(at.left == 0 && (tab.left - portrait.left).abs() < 0.5)
+  Test.expect((tab.right - tab.left - (portrait.right - portrait.left)).abs() < 0.5)
+  // Its foot on the panel; the tabs' room ends where the portrait rises over it, the tabs above that.
+  Test.expect(at.bottom > portrait.top && at.bottom < portrait.bottom)
+  Test.expect(tab.bottom <= portrait.top)
 }
 
 test "the chat is never narrower than a window's least body, 375 dp" {

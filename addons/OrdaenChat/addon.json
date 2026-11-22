@@ -3,6 +3,6 @@
   "icon": "Interface/Icons/INV_Letter_15",
   "version": "1.0.0",
   "loadOnDemand": true,
-  "dependencies": { "Ordaen": "^1.0.0", "OrdaenQuests": "^0.1.0", "OrdaenSocial": "^0.1.0" },
+  "dependencies": { "Ordaen": "^1.0.0", "OrdaenQuests": "^0.1.0", "OrdaenSocial": "^0.1.0", "OrdaenPanel": "^0.1.0" },
   "notes": "The chat in Ordaen's frame: the game's windows and your communities' channels as tabs, links, history, fading, copying."
 }
