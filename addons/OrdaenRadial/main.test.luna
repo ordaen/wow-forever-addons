@@ -253,15 +253,19 @@ test "the mouse wheel over a submenu shows the item it steps to, and the middle 
   _ = Test.releaseBound("F")
 }
 
-test "the wheel fades while an item taken by a press waits for its release, so the spot it is done at shows" {
+test "a ping taken by a press says to point and let go; the wheel is see-through only while the cursor is over it" {
   start()
-  hold("F", 0, -FAR)
-  Test.expect(Test.page().text("Windows").opacity() == 1)
+  hold("H", 0, -FAR)
   Test.press(nil)
-  Test.moveTo({ x: MIDDLE.x + 2 * FAR, y: MIDDLE.y + FAR })
   Test.pass(0.05)
-  Test.expect(Test.page().text("Windows").opacity() < 1)
+  const hint = Test.page().text("Point and release LMB")
+  // Still on the wheel: all but gone, so the spot under it shows.
+  Test.expect(hint.shown() && hint.opacity() < 0.2)
+  // Off the wheel: drawn as it was.
+  Test.moveTo({ x: MIDDLE.x + 4 * FAR, y: MIDDLE.y })
+  Test.pass(0.05)
+  Test.expect(hint.opacity() == 1)
   Test.release(nil)
-  Test.pass(0.05)
-  _ = Test.releaseBound("F")
+  _ = Test.releaseBound("H")
+  Test.expect(Test.performed().join(", ") == "macro /ping attack")
 }

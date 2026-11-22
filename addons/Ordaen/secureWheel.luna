@@ -259,6 +259,8 @@ public class SecureWheel {
   public state tick = 0
   // An item taken by a press, until the release does it: the aim stands still, wherever the cursor goes.
   public state armed = false
+  // The cursor on the wheel as drawn (inside its outer edge), followed while an item is taken too.
+  public state over = false
   // A count that moves as the mouse wheel steps a band: what the art reads the steps again by.
   public state steps = 0
   // An item used, by its place, after the client did its action: an item of ours is done by whoever hears it.
@@ -283,6 +285,7 @@ public class SecureWheel {
   // The item the aim was on last (the middle is none).
   aimedName: String | nil = nil
   centred: Boolean = false
+  scale: Number = 1
 
   constructor(
     // The button's global name: what the client's binding clicks.
@@ -338,6 +341,7 @@ public class SecureWheel {
     self.written.clear()
     self.writtenOnHeader.clear()
     self.centred = setup.centred
+    self.scale = setup.scale
     self.header.SetAttribute("remember", setup.remember)
     self.header.SetAttribute("dead", DEAD_ZONE / 1ui * setup.scale)
     self.header.SetAttribute("anchored", setup.anchored)
@@ -463,7 +467,6 @@ public class SecureWheel {
       self.tick += 1
     }
     self.armed = self.header.GetAttribute("armed") != nil
-    if (self.armed) { return }
     const scale = Client.UIParent.GetEffectiveScale()
     const cursorX, cursorY = Client.GetCursorPosition()
     const fromX, fromY = self.button.GetCenter()
@@ -475,6 +478,11 @@ public class SecureWheel {
       self.middleX = middleX
       self.middleY = middleY
     }
+    const fromMiddleX = cursorX / scale - middleX
+    const fromMiddleY = cursorY / scale - middleY
+    const edge = WHEEL_SIZE / 2 / 1ui * self.scale
+    self.over = fromMiddleX * fromMiddleX + fromMiddleY * fromMiddleY <= edge * edge
+    if (self.armed) { return }
     const x = cursorX / scale - fromX
     const y = cursorY / scale - fromY
     if ((x - self.aimX).abs() < 0.5 && (y - self.aimY).abs() < 0.5) { return }

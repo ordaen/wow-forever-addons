@@ -22,8 +22,9 @@ import Locale from "@/locales"
 import { preset } from "@/preset"
 import { RingsPage } from "@/settings"
 
-// How much of the wheel shows while an item taken by a press waits for the release.
-const ARMED_OPACITY = 0.35
+// How much of the wheel shows while an item taken by a press waits for its release with the cursor over the wheel,
+// so the spot under it shows.
+const ARMED_OPACITY = 0.1
 
 // The keys the rings stand on, the first ring's first: the player's own, from the client's Key Bindings window.
 const RING_1: NamedKey = { name: "ORDAEN_RADIAL_1", label: "Radial menu", key: nil }
@@ -130,8 +131,10 @@ public class Radial implements Module, App {
   public derived chosen: Integer = self.chosenOf()
   derived middle: WheelMiddle = self.middleOf()
   derived opening: Number = self.wheel?.opening ?? 1
-  // An item taken by a press: the wheel fades while the cursor goes to where its release does it (where a ping lands).
+  // An item taken by a press, waiting for its release: the wheel all but vanishes while the cursor is over it, so the
+  // spot its release does it at (where a ping lands) shows.
   derived armed: Boolean = self.wheel?.armed ?? false
+  derived seeThrough: Boolean = self.armed && (self.wheel?.over ?? false)
   derived names: WheelNames = self.settings.values.rings[self.up]?.names ?? WheelNames.Chosen
   // The icon of the ring shown, on the wheel's hub: the submenu's or the slot's own; none on the first.
   derived category: Art | nil = self.categoryOf()
@@ -191,6 +194,8 @@ public class Radial implements Module, App {
       return { name: name, hints: [Locale.HINT_USE, Locale.HINT_STEP.format(step, drawn?.segments ?? 0)], dim: false }
     }
     if (drawn?.dim ?? false) { return { name: name, hints: [Locale.HINT_OFF], dim: true } }
+    // A ping taken by a press: where its release is, it lands.
+    if (item is Item.Pinged && self.armed) { return { name: name, hints: [Locale.HINT_PING], dim: false } }
     return { name: name, hints: [Locale.HINT_USE], dim: false }
   }
 
@@ -279,7 +284,7 @@ public class Radial implements Module, App {
     return $ltml {
       <box @keyDown.globalScope(RING_1)={self.heard} @keyDown.globalScope(RING_2)={self.heard}
            @keyDown.globalScope(RING_3)={self.heard} />
-      <surface $if={self.up > 0} layer={Layer.Dialog} place={self.place} opacity={self.armed ? ARMED_OPACITY : 1}>
+      <surface $if={self.up > 0} layer={Layer.Dialog} place={self.place} opacity={self.seeThrough ? ARMED_OPACITY : 1}>
         <Wheel items={self.shownItems} chosen={self.chosen} middle={self.middle} names={self.names} scale={self.scale}
                opening={self.opening} category={self.category} />
       </surface>
