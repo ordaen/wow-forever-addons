@@ -15,7 +15,7 @@ import { BODY_TEXT, ButtonPlate, CopyBox, Dialog, Field, Module, Placed, PushBut
 import root Quests from "OrdaenQuests"
 import root Social from "OrdaenSocial"
 import { ChannelName, ChatSize, Choices, LEAST_HEIGHT, LEAST_WIDTH, MESSAGE_GAP, TabChoices, tabDefaults, tabKey } from "@/choices"
-import { ChatTab, Kept, KeptTab, Shown, THIS_SESSION, channelOf, linked, marks, wordsOf } from "@/lines"
+import { ChatTab, Kept, KeptTab, Shown, THIS_SESSION, channelOf, creatureNamed, linked, marks, wordsOf } from "@/lines"
 import Locale from "@/locales"
 import { LinkPick, Pane, TabPick, nameOf, questOf, shownName } from "@/pane"
 import { ChatPage } from "@/settings"
@@ -196,7 +196,7 @@ public class Chat implements Module, App {
     const own = line.sender == Game.player.name || line.sender.match("^([^%-]+)") == Game.player.name
     return {
       // The time where the game shows the chat's times: drawn where the tab places it.
-      whole: `${channel}${linked(line.plain)}`, color: line.color, time: line.time, stamped: line.stamp != "",
+      whole: `${channel}${linked(creatureNamed(line))}`, color: line.color, time: line.time, stamped: line.stamp != "",
       repeat: `${line.kind}|${line.channel}|${line.sender}|${line.text}`, count: 1,
       marked: line.sender != "" && !own && marks(line.text, peek self.words), session: THIS_SESSION, secret: false,
       sender: line.guid

@@ -190,6 +190,17 @@ public function channelOf(line: Game.ChatLine, style: ChannelName): String {
   return `|Hchannel:CHANNEL:${line.channel}|h[${shown}]|h `
 }
 
+// A creature's or a boss's name at the start of its line, in the game's gold for names, not its line's colour (a yell's
+// red, a say's white): «Ragnaros: BY FIRE BE PURGED!». The game names a creature plainly, with no link.
+const CREATURE_NAME = "|cffffd100%s|r"
+
+public function creatureNamed(line: Game.ChatLine): String {
+  const creature = line.kind.sub(1, 7) == "MONSTER" || line.kind.sub(1, 9) == "RAID_BOSS"
+  const head = `${line.sender}: `
+  if (!creature || line.sender == "" || line.plain.sub(1, head.length) != head) { return line.plain }
+  return `${CREATURE_NAME.format(line.sender)}${line.plain.sub(line.sender.length + 1)}`
+}
+
 // The web addresses in a line's words made links the chat opens a copy box for.
 public function linked(body: String): String {
   return body.replace("(https?://[%w%-%._~:/%?#@!%$&%%%*%+,;=]+)", "|cff69ccf0|Hordaenurl:%1|h[%1]|h|r")

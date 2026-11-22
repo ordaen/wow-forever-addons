@@ -1071,3 +1071,16 @@ test "a tab of neither General, the guild nor the channels has its times before 
   settings.text("Above, by minute").click()
   Test.expect(shown.text("12:15").shown() && shown.text("You receive loot").shown())
 }
+
+test "a creature's name stands in the game's gold for names, not in its line's colour; a player's name stays the line's" {
+  Game.chat.windows = gameWindows()
+  const shown = chat()
+  const yelled = line("MONSTER_YELL", "Ragnaros yells: BY FIRE BE PURGED!", "Ragnaros", [1])
+  yelled.plain = "Ragnaros: BY FIRE BE PURGED!"
+  Game.chat.heard.emit(yelled)
+  Test.expect(shown.text("|cffffd100Ragnaros|r: BY FIRE BE PURGED!").shown())
+  const said = line("YELL", "|Hplayer:Thrall:7|h[Thrall]|h yells: For the Horde!", "Thrall", [1])
+  said.plain = "|Hplayer:Thrall:7|hThrall|h: For the Horde!"
+  Game.chat.heard.emit(said)
+  Test.expect(shown.text("|Hplayer:Thrall:7|hThrall|h: For the Horde!").shown())
+}
