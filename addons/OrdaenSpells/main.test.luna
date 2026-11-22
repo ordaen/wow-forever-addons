@@ -411,14 +411,15 @@ test "the spells stand in three columns" {
   Test.shot("five spells: three in the first row, two in the second")
 }
 
-// The spellbook's page alone, as wide as it is told.
+// The spellbook's page's body alone, as wide as the page it is mounted in.
 class NarrowBook implements Component {
   state spells: Array<Game.SpellEntry> = spells()
   state lines: Array<Game.SpellLine> = lines()
-  state width: Number<Length> = 562.5dp
+  const page: SpellbookPage
+  constructor() { self.page = new SpellbookPage(self.spells, self.lines) }
 
   public render(self): Template {
-    return $ltml { <SpellbookPage spells={self.spells} lines={self.lines} width={self.width} /> }
+    return $ltml { {self.page.body} }
   }
 }
 
@@ -615,6 +616,47 @@ test "the spellbook's footer counts the spells shown, the active and the passive
   Test.expect(window.texts().join(" | ").contains("Shown | 5 | Active spells | 4 | Passive spells | 1"))
   window.input().type("strike")
   Test.expect(window.texts().join(" | ").contains("Shown | 2 | Active spells | 2 | Passive spells | 0"))
+}
+
+test "the spellbook's footer is a band of marble across the window, its counts on it" {
+  Test.mount(nil, PAGE)
+  Game.spellbook.lines = lines
+  Game.spellbook.entries = spells
+  const window = book()
+  const band = Test.painted(Ordaen.art.window.marble, nil)
+  const count = Test.holding("Shown", nil)
+  const spell = window.text("Parry").rect()
+  // The counts stand in the band, under its line: a little below its middle; the band runs from the window's left.
+  Test.expect(count.y > band.y && count.y - band.y < 8 && band.y > spell.bottom && band.x > count.x)
+}
+
+test "the spellbook's tab shows the game's own book" {
+  Test.mount(nil, PAGE)
+  Game.spellbook.lines = lines
+  Game.spellbook.entries = spells
+  const window = book()
+  // The icon stands left of the tab's title, on its line.
+  const tab = window.box("Interface/Icons/INV_Misc_Book_09").rect()
+  const title = window.text(BOOK).rect()
+  Test.expect(tab.right <= title.left && tab.top < title.bottom && tab.bottom > title.top)
+}
+
+test "a long name wraps in its column, on its font's own lines, and is never cut" {
+  Test.mount(nil, PAGE)
+  Game.spellbook.lines = lines
+  const long = "Improved Heroic Strike of the Long Winter Nights"
+  Game.spellbook.entries = (): Array<Game.SpellEntry> => {
+    const list: Array<Game.SpellEntry> = []
+    for (spell of spells()) { list.push(spell) }
+    list.push({ id: 99, name: long, rank: "Rank 3", icon: ICON, level: 20, passive: false, line: 2 })
+    return list
+  }
+  const window = book()
+  const wrapped = window.text(`${long} (Rank 3)`).rect()
+  const one = window.text("Parry").rect()
+  const height = (wrapped.bottom - wrapped.top) / (one.bottom - one.top)
+  // Two lines at least, each as high as one line of the font: no line height round them.
+  Test.expect(height >= 1.9 && (height - height.round()).abs() < 0.15)
 }
 
 // The trainer

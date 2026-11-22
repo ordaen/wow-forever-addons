@@ -18,8 +18,11 @@ import Style from "@/style"
 // What the game's spellbook tells other addons as it shows and hides (`EventRegistry`).
 const SHOWN_EVENT = "PlayerSpellsFrame.SpellBookFrame.Show"
 const HIDDEN_EVENT = "PlayerSpellsFrame.SpellBookFrame.Hide"
+// The game's spellbook's own book: the icon of its General skill line, which the game's spells window shows as its
+// portrait on the spellbook's page.
+const BOOK: Asset = "Interface/Icons/INV_Misc_Book_09"
 // The trainer's tab: the class trainer's book.
-const TRAINER_TAB: WindowTabSpec = { title: Locale.TAB_TRAINER, desc: nil, icon: "Interface/Icons/INV_Misc_Book_09" }
+const TRAINER_TAB: WindowTabSpec = { title: Locale.TAB_TRAINER, desc: nil, icon: BOOK }
 
 public class Spells implements Module, App {
   public const title: String = "Ordaen Spells"
@@ -45,11 +48,11 @@ public class Spells implements Module, App {
   // The game's own window shows (the micro menu's button opened it).
   state gameShown = false
   state services: Array<Game.TrainerService> = []
-  const tabs: Array<WindowTabSpec> = [{ title: Locale.TAB_SPELLS }]
+  const tabs: Array<WindowTabSpec> = [{ title: Locale.TAB_SPELLS, icon: BOOK }]
+  // The spellbook's page: its body in the window, its counts in the window's footer.
+  page: SpellbookPage
   // The constructor has run: what changes after it is the player's doing, and sounds.
   started = false
-  // How wide the window's body is: the screen's, full screen.
-  derived bookWidth: Number<Length> = self.window.memory.values.full ? Client.UIParent.GetWidth() * 1ui : self.window.placing.width
   // How the player left the class trainer's list, the profile's: its filter is kept, its view and sort are the
   // settings' each time it opens.
   public trainerList: mut ModuleMemory<TrainerList> = new ModuleMemory<TrainerList>({ view: TrainerView.List }, .Profile, "trainer")
@@ -70,6 +73,7 @@ public class Spells implements Module, App {
   }
 
   constructor() {
+    self.page = new SpellbookPage(self.spells, self.lines, self.pets, self.petBook)
     Ordaen.modules.add(self)
     Game.trainer.changed.listen(self.onTrainer)
     Game.spellbook.changed.listen(self.onSpells)
@@ -158,8 +162,8 @@ public class Spells implements Module, App {
     return $ltml {
       <frame $if={self.gameShown} of={Game.frames.PlayerSpells} opacity={0} away={true} />
       <Window $if={self.open} tabs={self.tabs} selected={mut self.tab} declared={mut self.window} withSettings={true}
-              @close={self.onClose} @settings={self.onSettings}>
-        <SpellbookPage spells={self.spells} lines={self.lines} width={self.bookWidth} pets={self.pets} petBook={self.petBook} />
+              footer={self.page.footer} @close={self.onClose} @settings={self.onSettings}>
+        {self.page.body}
       </Window>
       <TrainerWindow $if={self.trainerShown} services={self.services} declared={mut self.trainerWindow} list={mut self.trainerList} ignored={mut self.ignored}
                      tabSpec={TRAINER_TAB} noun={Locale.COL_SKILL} pickText={Locale.PICK_SERVICE} trade={false} @settings={self.onSettings} />

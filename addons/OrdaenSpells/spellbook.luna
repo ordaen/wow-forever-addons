@@ -5,9 +5,9 @@
 // bars: the drag puts it on the client's cursor, and the bars take what the cursor holds.
 import Client from "$client"
 import Game from "$game"
-import { Action, Align, BarFill, ByInteractionState, Event, FillDuration, FillFrom, MouseButton, Overflow, Position, Track } from "$ltml"
+import { Action, Align, BarFill, ByInteractionState, Columns, Event, FillDuration, FillFrom, MouseButton, Overflow, Position, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { ARTWORK, Choice, Column, Component, Corner, FooterCount, FooterCounts, ItemButton, Marker, ModuleMemory, SECONDARY_TEXT, Table, TableRow, Tabs, ToolPick, Toolbar, tracksOf } from "Ordaen"
+import { ARTWORK, Choice, Column, Component, Corner, FooterBand, FooterCount, FooterCounts, ItemButton, Marker, ModuleMemory, SECONDARY_TEXT, TIGHT_LINE, Table, TableRow, Tabs, ToolPick, Toolbar, tracksOf } from "Ordaen"
 import Locale from "@/locales"
 import Style from "@/style"
 
@@ -59,8 +59,10 @@ const COLUMNS: Array<Column> = [
 ]
 const HEADINGS: Array<SortBy> = [SortBy.Name, SortBy.Line, SortBy.Active, SortBy.Level]
 const TRACKS: Array<Track> = tracksOf(COLUMNS)
-// The least width of a column of spells: an icon and a name with its rank; and the room between columns and rows.
-const COLUMN: Number<Length> = 318.75dp
+// A column of spells, as wide wherever it stands: an icon and a name with its rank, generous so that a long name wraps
+// rather than is cut; and the room between columns and rows.
+const COLUMN: Number<Length> = 337.5dp
+const SPELL_COLUMNS: Columns = { autoFit: COLUMN }
 const ACROSS: Number<Spacing> = 3.5sp
 const DOWN: Number<Spacing> = 1.5sp
 const ROW: Array<Track> = [37.5dp, { fr: 1 }]
@@ -74,7 +76,7 @@ const COOLING: Color = Color.hex("#000000a6")
 // A spell cooling down is dimmed under the shade, as the game's buttons are.
 const DIMMED: Color = Color.hex("#0000004d")
 const AUTOCAST: Array<Marker> = [{ corner: Corner.TopRight, color: Color.hex("#ffd100") }]
-const PAGE: Array<Track> = ["max-content", "max-content", { fr: 1 }, "max-content"]
+const PAGE: Array<Track> = ["max-content", "max-content", { fr: 1 }]
 
 // Whether the spell stands before another in the sort's order; equal ones by name.
 function before(a: Game.SpellEntry, b: Game.SpellEntry, by: SortBy): Boolean {
@@ -82,14 +84,6 @@ function before(a: Game.SpellEntry, b: Game.SpellEntry, by: SortBy): Boolean {
   if (by == SortBy.Active && a.passive != b.passive) { return !a.passive }
   if (by == SortBy.Line && a.line != b.line) { return a.line < b.line }
   return a.name < b.name || (a.name == b.name && a.level < b.level)
-}
-
-// As many columns as the width holds at their least width, one at least.
-function columnsFor(width: Number<Length>, across: Number<Length>): Array<Track> {
-  const count = (1).max(((width + across) / (COLUMN + across)).floor())
-  const list: Array<Track> = []
-  for (i of 1..count) { list.push({ fr: 1, min: 0dp }) }
-  return list
 }
 
 // Whether the spell is one the filter keeps.
@@ -214,8 +208,8 @@ public class SpellRow implements Component {
            background={GROUND} @dragStart={self.onGrab}>
         <SpellSlot spell={self.spell} size={37.5dp} />
         <box columns={1}>
-          <text value={self.title} textColor={self.ink} wrap={.None} />
-          <text value={self.detail} textSize={SECONDARY_TEXT} textColor={Style.DIM} wrap={.None} />
+          <text value={self.title} textColor={self.ink} lineHeight={TIGHT_LINE} />
+          <text value={self.detail} textSize={SECONDARY_TEXT} textColor={Style.DIM} lineHeight={TIGHT_LINE} />
         </box>
       </box>
     }
@@ -257,7 +251,9 @@ public class SpellTableRow implements Component {
   }
 }
 
-public class SpellbookPage implements Component {
+// The spellbook's page: its body (the tabs, the toolbar and the spells) for the window's content, and its footer (the
+// counts) for the window's footer row, a band across the window's main section.
+public class SpellbookPage {
   state tab = 1
   state search = ""
   // How the player left the list, the profile's (`ModuleMemory`); the search isn't kept.
@@ -268,7 +264,6 @@ public class SpellbookPage implements Component {
   derived all: Boolean = self.tab == 1
   derived tabled: Boolean = self.list.values.layout == BookLayout.Table
   derived narrowed: Boolean = self.list.values.kinds != Kinds.All
-  derived columns: Array<Track> = columnsFor(self.width, Ordaen.lengthOf(ACROSS))
   // The footer: how many spells the list shows, and of them how many are active and passive.
   derived counts: Array<FooterCount> = [
     { label: Locale.COUNT_SHOWN, value: String.of(self.shown.length) },
@@ -281,20 +276,16 @@ public class SpellbookPage implements Component {
 
   spells: Signal<Array<Game.SpellEntry>>
   lines: Signal<Array<Game.SpellLine>>
-  // How wide the page is: how many columns of spells it holds.
-  width: Signal<Number<Length>>
   pets: Signal<Array<Game.SpellEntry>>
   petBook: Signal<String | nil>
   constructor(
     spells: Signal<Array<Game.SpellEntry>>,
     lines: Signal<Array<Game.SpellLine>>,
-    width: Signal<Number<Length>>,
     pets: Signal<Array<Game.SpellEntry>> = [],
     petBook: Signal<String | nil> = nil
   ) {
     self.spells = spells
     self.lines = lines
-    self.width = width
     self.pets = pets
     self.petBook = petBook
   }
@@ -337,28 +328,31 @@ public class SpellbookPage implements Component {
     return list
   }
 
-  public render(self): Template {
-    return $ltml {
-      <box rows={PAGE} gap={2.5sp}>
-        <Tabs tabs={self.names} selected={mut self.tab} />
-        <Toolbar search={mut self.search} placeholder={Locale.SEARCH}>
-          <ToolPick $if={!self.tabled && self.all} value={mut self.list.values.sort} choices={ALL_SORTS} icon={Ordaen.art.ctl.tool.sort} title={Locale.SORT} />
-          <ToolPick $elseif={!self.tabled} value={mut self.list.values.sort} choices={SORTS} icon={Ordaen.art.ctl.tool.sort} title={Locale.SORT} />
-          <ToolPick value={mut self.list.values.kinds} choices={KINDS} icon={Ordaen.art.ctl.tool.filter} title={Locale.FILTER}
-                    lit={self.narrowed} />
-          <ToolPick value={mut self.list.values.layout} choices={LAYOUTS} icon={Ordaen.art.ctl.tool.columns} title={Locale.VIEW} />
-        </Toolbar>
-        <box $if={self.empty} xAlign={Align.Center} yAlign={Align.Center}>
-          <text value={Locale.NOTHING_FOUND} textColor={Style.DIM} />
-        </box>
-        <Table $elseif={self.tabled} columns={COLUMNS} sorted={mut self.list.values.heading} descending={mut self.list.values.descending}>
-          <SpellTableRow $for={spell of self.shown} $key={spell.id} spell={spell} lines={self.lines} />
-        </Table>
-        <box $else overflow={Overflow.Scroll} columns={self.columns} gap={{ columns: ACROSS, rows: DOWN }}>
-          <SpellRow $for={spell of self.shown} $key={spell.id} spell={spell} lines={self.lines} all={self.all} />
-        </box>
-        <FooterCounts counts={self.counts} />
+  public const body: Template = $ltml {
+    <box rows={PAGE} gap={2.5sp}>
+      <Tabs tabs={self.names} selected={mut self.tab} />
+      <Toolbar search={mut self.search} placeholder={Locale.SEARCH}>
+        <ToolPick $if={!self.tabled && self.all} value={mut self.list.values.sort} choices={ALL_SORTS} icon={Ordaen.art.ctl.tool.sort} title={Locale.SORT} />
+        <ToolPick $elseif={!self.tabled} value={mut self.list.values.sort} choices={SORTS} icon={Ordaen.art.ctl.tool.sort} title={Locale.SORT} />
+        <ToolPick value={mut self.list.values.kinds} choices={KINDS} icon={Ordaen.art.ctl.tool.filter} title={Locale.FILTER}
+                  lit={self.narrowed} />
+        <ToolPick value={mut self.list.values.layout} choices={LAYOUTS} icon={Ordaen.art.ctl.tool.columns} title={Locale.VIEW} />
+      </Toolbar>
+      <box $if={self.empty} xAlign={Align.Center} yAlign={Align.Center}>
+        <text value={Locale.NOTHING_FOUND} textColor={Style.DIM} />
       </box>
-    }
+      <Table $elseif={self.tabled} columns={COLUMNS} sorted={mut self.list.values.heading} descending={mut self.list.values.descending}>
+        <SpellTableRow $for={spell of self.shown} $key={spell.id} spell={spell} lines={self.lines} />
+      </Table>
+      <box $else overflow={Overflow.Scroll} columns={SPELL_COLUMNS} gap={{ columns: ACROSS, rows: DOWN }}>
+        <SpellRow $for={spell of self.shown} $key={spell.id} spell={spell} lines={self.lines} all={self.all} />
+      </box>
+    </box>
+  }
+
+  public const footer: Template = $ltml {
+    <FooterBand>
+      <FooterCounts counts={self.counts} />
+    </FooterBand>
   }
 }
