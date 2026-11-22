@@ -961,7 +961,7 @@ test "with nothing picked, the trainer asks for a pick, and the footer counts th
       Test.page().text("Can't be learned yet: a level, a skill or an earlier rank is missing.").shown())
 }
 
-test "with nothing picked, the card is the trainer's: its greeting and what the available cost together, the counts left to the footer" {
+test "with nothing picked, the card is the trainer's: its greeting and what all not learned costs, the counts left to the footer" {
   Test.mount(nil, PAGE)
   Game.trainer.services = services
   Game.trainer.greeting = (): String => "Hail, warrior."
@@ -970,7 +970,7 @@ test "with nothing picked, the card is the trainer's: its greeting and what the 
   const window = Test.page().window(TRAINER)
   Test.expect(window.text("Hail, warrior.").shown())
   Test.expect(!window.text("Available").shown() && !window.text("Unavailable").shown())
-  Test.expect(window.texts().join(" | ").contains("All available, together: | 0g 4s 0c"))
+  Test.expect(window.texts().join(" | ").contains("Due to learn all: | 9g 4s 0c"))
 }
 
 test "a picked spell says what changes against the rank the player has, and the game's facts of it" {
@@ -1147,7 +1147,7 @@ function batch(): Array<Game.TrainerService> {
   ]
 }
 
-test "with nothing picked, Learn all asks first, then learns what can be learned now from the bottom up, no profession" {
+test "with nothing picked, «Learn available» asks first, then learns what can be learned now from the bottom up, no profession" {
   Test.mount(nil, PAGE)
   Game.trainer.services = batch
   Game.money.amount = 1000
@@ -1156,13 +1156,13 @@ test "with nothing picked, Learn all asks first, then learns what can be learned
   Game.trainer.open = true
   Game.trainer.changed.emit()
   const window = Test.page().window(TRAINER)
-  window.button("Learn all (3)").click()
+  window.button("Learn available · 0g 6s 0c").click()
   Test.expect(bought.length == 0 && Test.page().text("Learn 3 skills for").shown())
   Test.page().window("Learn 3 skills for").button("Learn").click()
   Test.expect(bought.length == 3 && bought[1] == 5 && bought[2] == 3 && bought[3] == 1)
 }
 
-test "Learn all is greyed while the money doesn't pay for all; a list changed since it asked learns nothing" {
+test "«Learn available» is greyed while the money doesn't pay for all; a list changed since it asked learns nothing" {
   Test.mount(nil, PAGE)
   Game.trainer.services = batch
   Game.money.amount = 500
@@ -1171,12 +1171,12 @@ test "Learn all is greyed while the money doesn't pay for all; a list changed si
   Game.trainer.open = true
   Game.trainer.changed.emit()
   const window = Test.page().window(TRAINER)
-  window.button("Learn all (3)").click()
+  window.button("Learn available · 0g 6s 0c").click()
   Test.expect(!Test.page().text("Learn 3 skills for").shown())
-  window.button("Learn all (3)").hover()
+  window.button("Learn available · 0g 6s 0c").hover()
   Test.expect(Test.page().text("Not enough money for all of them together.").shown())
   Game.money.amount = 1000
-  window.button("Learn all (3)").click()
+  window.button("Learn available · 0g 6s 0c").click()
   Game.trainer.services = (): Array<Game.TrainerService> => batch().filter(service => service.index != 5)
   Game.trainer.changed.emit()
   Test.page().window("Learn 3 skills for").button("Learn").click()
@@ -1210,4 +1210,39 @@ test "the trainer's window switched off in the settings leaves the game's traine
   // The checkbox beside «Class trainer window»: its well, the page's only one, names it; its label doesn't.
   Test.page().window("Class trainer window").button(Ordaen.art.ctl.check).click()
   Test.expect(!window.shown())
+}
+
+// A service with a rank.
+function ranked(service: Game.TrainerService): Game.TrainerService {
+  return {
+    index: service.index, name: service.name, rank: "Rank 1", icon: service.icon, status: service.status, level: service.level,
+    cost: service.cost, description: service.description, profession: service.profession
+  }
+}
+
+test "«Learn available»'s tip names each skill it learns, with its rank and price; the card what all not learned costs" {
+  Test.mount(nil, PAGE)
+  Game.trainer.services = (): Array<Game.TrainerService> => batch().map(service => ranked(service))
+  Game.money.amount = 1000
+  Game.trainer.open = true
+  Game.trainer.changed.emit()
+  const window = Test.page().window(TRAINER)
+  window.button("Learn available · 0g 6s 0c").hover()
+  const tip = Test.page().window("Learn available")
+  Test.expect(tip.texts().join(" | ") == "Learn available | A (Rank 1) | 0g 1s 0c | C (Rank 1) | 0g 2s 0c | E (Rank 1) | 0g 3s 0c")
+  // A, B (not yet), C, E: what Mining, a profession, adds too.
+  Test.expect(window.texts().join(" | ").contains("Due to learn all: | 0g 7s 10c"))
+}
+
+test "a class trainer's own window stands away, unseen, while ours shows" {
+  const own = Client.CreateFrame("Frame", "ClassTrainerFrame", Client.UIParent, nil)
+  own.SetSize(300, 400)
+  own.SetPoint("TOPLEFT", Client.UIParent, "TOPLEFT", 16, -100)
+  own.Show()
+  Test.mount(nil, PAGE)
+  Game.trainer.services = batch
+  Game.trainer.open = true
+  Game.trainer.changed.emit()
+  Test.flush()
+  Test.expect(own.GetAlpha() == 0 && (own.GetLeft() ?? 0) < -1000)
 }

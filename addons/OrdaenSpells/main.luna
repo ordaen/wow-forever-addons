@@ -102,6 +102,8 @@ public class Spells implements Module, App {
   public ignored: mut ModuleMemory<TrainerIgnored> = new ModuleMemory<TrainerIgnored>({}, .Character, "ignored")
   // The trainer that is open teaches a class's skills: asked as it opens.
   state classTrainer = false
+  // The game's own trainer window, found as a class trainer first opens: it stands away, unseen, while ours shows.
+  state gameTrainer: any Frame | nil = nil
   derived trainerShown: Boolean = self.classTrainer && self.settings.values.trainer
 
   // A trainer opened or closed: one of a class opens in the view and sort the settings give.
@@ -200,6 +202,8 @@ public class Spells implements Module, App {
   onTrainer(mut self) {
     if (!Game.trainer.teachesClass()) { return }
     self.services = Game.trainer.services()
+    // The game's window is loaded as the trainer opens: looked for again at each change until it is found.
+    if (peek self.gameTrainer == nil) { self.gameTrainer = Runtime.frame("ClassTrainerFrame") }
   }
 
   learnableOf(self): Learnable {
@@ -232,6 +236,7 @@ public class Spells implements Module, App {
         <$if={self.tab == SPELLS}> {self.page.body} </>
         <$else> {self.learnPage.body} </>
       </Window>
+      <frame $if={self.trainerShown && self.gameTrainer != nil} of={self.gameTrainer} opacity={0} away={true} />
       <TrainerWindow $if={self.trainerShown} services={self.services} declared={mut self.trainerWindow} list={mut self.trainerList} ignored={mut self.ignored}
                      tabSpec={TRAINER_TAB} noun={Locale.COL_SKILL} pickText={Locale.PICK_SERVICE} trade={false} @settings={self.onSettings} />
     }
