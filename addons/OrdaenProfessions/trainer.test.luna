@@ -118,24 +118,42 @@ test "a known service's card says so in place of its price and «Learn», its na
   Test.expect(window.button(Locale.TRAIN).shown())
 }
 
-test "a right-click's «Never learn» bars every rank of a service until «Allow learning», kept for the character" {
+test "a right-click's «Ignore» covers every rank of a service with «Ignored» until «Stop ignoring», kept for the character" {
   const bought: Array<String> = []
   const window = opened(mut bought)
   window.text("Red Linen Robe").nth(1).rightClick()
-  Test.page().text("Never learn").click()
-  // Barred: its price says so, a double press learns nothing, «Learn» is greyed, the footer counts it grey.
-  Test.expect(window.text("Never learn").shown())
+  Test.page().text("Ignore").click()
+  // Ignored: a plate over its row says so, a double press learns nothing, «Learn» is greyed, the footer counts it grey.
+  Test.expect(window.text("Ignored").shown())
   window.text("Red Linen Robe").nth(1).click()
   window.text("Red Linen Robe").nth(1).click()
   window.button(Locale.TRAIN).click()
   Test.expect(bought.length == 0)
   Test.expect(window.texts().join(" | ").contains("0 | 1 | 1 | 1 | Your money"))
-  Test.expect(Game.saved.stored(.Character, "OrdaenProfessions:barred") != nil)
+  Test.expect(Game.saved.stored(.Character, "OrdaenProfessions:ignored") != nil)
   Test.pass(1)
   window.text("Red Linen Robe").nth(1).rightClick()
-  Test.page().text("Allow learning").click()
+  Test.page().text("Stop ignoring").click()
+  Test.expect(!window.text("Ignored").shown())
   window.button(Locale.TRAIN).click()
   Test.expect(bought.join(", ") == "2")
+}
+
+test "a service's menu leaves out what can't be done to it: «Learn» where it can't be learned now" {
+  const bought: Array<String> = []
+  const window = opened(mut bought)
+  // The card's own «Learn» stands all along: the menu adds none.
+  const learns = Test.page().text("Learn").count()
+  window.text("Bolt of Woolen Cloth").nth(1).rightClick()
+  Test.expect(Test.page().text("Learn").count() == learns && Test.page().text("Ignore").shown())
+}
+
+test "a service that can be learned now has «Learn» in its menu" {
+  const bought: Array<String> = []
+  const window = opened(mut bought)
+  const learns = Test.page().text("Learn").count()
+  window.text("Red Linen Robe").nth(1).rightClick()
+  Test.expect(Test.page().text("Learn").count() == learns + 1 && Test.page().text("Ignore").shown())
 }
 
 test "a right-click's «Link in chat» puts the recipe's link in the chat, and the game's tooltip shows anywhere on its row" {

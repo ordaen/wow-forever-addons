@@ -9,7 +9,7 @@ import Game from "$game"
 import { Action, Align, Frame, Track } from "$ltml"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
-import { ARTWORK, Choice, Column, FilterButton, FilterGroup, ItemId, KeptWindow, Module, ModuleMemory, PushButton, SECONDARY_TEXT, ScrolledList, Settings, SettingsPage, SkillBar, Table, Tabs, ToolPick, Toolbar, TrainerBarred, TrainerList, TrainerView, TrainerWindow, Window, WindowTabSpec, WindowsPage, switched, tracksOf, windowsTitle } from "Ordaen"
+import { ARTWORK, Choice, Column, FilterButton, FilterGroup, ItemId, KeptWindow, Module, ModuleMemory, PushButton, SECONDARY_TEXT, ScrolledList, Settings, SettingsPage, SkillBar, Table, Tabs, ToolPick, Toolbar, TrainerIgnored, TrainerList, TrainerView, TrainerWindow, Window, WindowTabSpec, WindowsPage, switched, tracksOf, windowsTitle } from "Ordaen"
 import root Auction from "OrdaenAuction"
 import type { PriceSource } from "OrdaenAuction"
 import { Book, written } from "@/book"
@@ -114,8 +114,8 @@ public class Professions implements Module, App {
   public const windows: mut Array<mut KeptWindow> = [self.window, self.trainerWindow]
   // How the player left the trainer's window, the profile's.
   public trainerList: mut ModuleMemory<TrainerList> = new ModuleMemory<TrainerList>({ view: TrainerView.Table }, .Profile, "trainer")
-  // The recipes the player marked never to learn, the character's.
-  public barred: mut ModuleMemory<TrainerBarred> = new ModuleMemory<TrainerBarred>({}, .Character, "barred")
+  // The recipes the player ignored, the character's.
+  public ignored: mut ModuleMemory<TrainerIgnored> = new ModuleMemory<TrainerIgnored>({}, .Character, "ignored")
   // The player stands at a profession's trainer (a class's and a pet's are Ordaen Spells' and the game's), what it
   // teaches, and the game's own window, held away while ours shows.
   state atTrainer = false
@@ -744,7 +744,7 @@ public class Professions implements Module, App {
     return $ltml {
       <$if={self.atTrainer}>
         <frame $if={self.gameTrainer != nil} of={self.gameTrainer} opacity={0} away={true} />
-        <TrainerWindow services={self.services} declared={mut self.trainerWindow} list={mut self.trainerList} barred={mut self.barred}
+        <TrainerWindow services={self.services} declared={mut self.trainerWindow} list={mut self.trainerList} ignored={mut self.ignored}
                        tabSpec={TRAINER_TAB} noun={Locale.COLUMN_RECIPE} pickText={Locale.PICK_SERVICE} trade={true} @settings={self.onSettings} />
       </>
       <$if={self.isOpen}>

@@ -2,17 +2,17 @@
 // Spells a class trainer, Ordaen Professions a profession's). A profession trainer's skill bar on top; what the trainer
 // teaches (each skill or recipe, its rank, the level and the skill it is learned at, its price) as a table or as a list
 // under the trainer's categories (folded by a click); the search, and on the toolbar's right the sort, the filter (what
-// can be learned now, what can't yet, what is known, what is marked never to learn) and the view; the picked service's
+// can be learned now, what can't yet, what is known, what is ignored) and the view; the picked service's
 // card in the right column with «Learn» (a new profession asked first, greyed with no free slot); the game's tooltip of
 // a service while the cursor is anywhere on its row. A double press learns a service, a right-click opens its menu
-// (learn, never learn or allow it again, its link in the chat). The footer counts what can be learned (green), what
+// (learn, ignore it or stop ignoring it, its link in the chat). The footer counts what can be learned (green), what
 // can't yet (red) and what is known (blue), each a dot and its number whose tip says what it counts, and shows the
 // player's money. The services are the game's (`Game.trainer`); a service the player can't learn yet is red, a known
-// one dim, one marked never to learn grey. The marks are the character's, kept by the owning module
-// (`TrainerBarred`), every rank of a spell under its name.
+// one dim, one ignored grey. The marks are the character's, kept by the owning module
+// (`TrainerIgnored`), every rank of a spell under its name.
 import Client from "$client"
 import Game from "$game"
-import { Align, Columns, Event, Frame, MouseButton, Overflow, TextFont, Track } from "$ltml"
+import { Align, Columns, Event, Frame, MouseButton, Overflow, Position, TextFont, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import { ARTWORK } from "@/art"
 import { Dialog } from "@/dialog"
@@ -38,22 +38,21 @@ public enum TrainerShow implements Plain {
   Available = "available"
   Unavailable = "unavailable"
   Known = "known"
-  Barred = "barred"
+  Ignored = "ignored"
 }
 public enum TrainerView implements Plain { Table = "table", List = "list" }
 
 // The filter as the window starts: every service shown but what is known.
-const FILTER_START: Map<TrainerShow, Boolean> = switched(switched({}, [TrainerShow.Available, TrainerShow.Unavailable, TrainerShow.Barred], true), [TrainerShow.Known], false)
+const FILTER_START: Map<TrainerShow, Boolean> = switched(switched({}, [TrainerShow.Available, TrainerShow.Unavailable, TrainerShow.Ignored], true), [TrainerShow.Known], false)
 
-// The services the player marked never to learn, by their name (every rank of a spell): the character's, kept by the
+// The services the player ignored, by their name (every rank of a spell): the character's, kept by the
 // module that owns the trainer's kind.
-public struct TrainerBarred implements Plain {
+public struct TrainerIgnored implements Plain {
   names: Map<String, Boolean> = {}
 }
 
 // What a service's menu does, in its order.
-enum MenuAct { Learn, Bar, Link }
-const MENU_ACTS: Array<MenuAct> = [MenuAct.Learn, MenuAct.Bar, MenuAct.Link]
+enum MenuAct { Learn, Ignore, Link }
 
 // How the player left a trainer's window, the owning module's profile's: what the filter shows, the view, the column or
 // sort it is ordered by (0: the trainer's order) and its way. The search isn't kept. Each kind opens in its own view
@@ -75,8 +74,9 @@ const RED: Color = Color.hex("#ff4040")
 const CLEAR: Color = Color.hex("#00000000")
 const GREEN: Color = Color.hex("#40d060")
 const BLUE: Color = Color.hex("#4a9eff")
-// A service marked never to learn: its icon greyed.
+// A service ignored: its icon greyed, and its row under an opaque plate.
 const GREY: Color = Color.hex("#7a7a7a")
+const PLATE: Color = Color.hex("#16110c")
 const WHITE: Color = Color.hex("#ffffff")
 // A footer count's dot.
 const DOT = 9.375dp
@@ -99,7 +99,7 @@ const FILTERS: Array<FilterGroup<TrainerShow>> = [
     label: nil,
     options: [
       { key: TrainerShow.Available, label: Locale.TRAINER_AVAILABLE }, { key: TrainerShow.Unavailable, label: Locale.TRAINER_UNAVAILABLE },
-      { key: TrainerShow.Known, label: Locale.TRAINER_KNOWN }, { key: TrainerShow.Barred, label: Locale.TRAINER_BARRED }
+      { key: TrainerShow.Known, label: Locale.TRAINER_KNOWN }, { key: TrainerShow.Ignored, label: Locale.TRAINER_IGNORED }
     ]
   }
 ]
@@ -135,13 +135,13 @@ function columnsOf(noun: String, trade: Boolean): Array<Column> {
   ]
 }
 
-// Whether the player marked the service never to learn: a known one never is.
-function isBarred(service: Game.TrainerService, barred: Map<String, Boolean>): Boolean {
-  return service.status != Game.ServiceStatus.Learned && barred[service.name] == true
+// Whether the player ignores the service: a known one never is.
+function isIgnored(service: Game.TrainerService, ignored: Map<String, Boolean>): Boolean {
+  return service.status != Game.ServiceStatus.Learned && ignored[service.name] == true
 }
 
-function showOf(service: Game.TrainerService, barred: Map<String, Boolean>): TrainerShow {
-  if (isBarred(service, barred)) { return .Barred }
+function showOf(service: Game.TrainerService, ignored: Map<String, Boolean>): TrainerShow {
+  if (isIgnored(service, ignored)) { return .Ignored }
   return match (service.status) {
     .Available => .Available
     .Unavailable => .Unavailable
@@ -150,15 +150,15 @@ function showOf(service: Game.TrainerService, barred: Map<String, Boolean>): Tra
 }
 
 // A switch the kept filter doesn't name yet (one added since it was kept) shows its services.
-function passes(service: Game.TrainerService, filter: Map<TrainerShow, Boolean>, query: String, barred: Map<String, Boolean>): Boolean {
+function passes(service: Game.TrainerService, filter: Map<TrainerShow, Boolean>, query: String, ignored: Map<String, Boolean>): Boolean {
   if (query != "" && !service.name.lower().contains(query)) { return false }
-  return filter[showOf(service, barred)] != false
+  return filter[showOf(service, ignored)] != false
 }
 
-// Whether the player can learn the service now: one the trainer offers, not marked never to learn, paid for, and a
+// Whether the player can learn the service now: one the trainer offers, not ignored, paid for, and a
 // new profession with a slot free.
-function learnable(service: Game.TrainerService, barred: Map<String, Boolean>): Boolean {
-  return service.status == Game.ServiceStatus.Available && !isBarred(service, barred) && service.cost <= Game.money.amount &&
+function learnable(service: Game.TrainerService, ignored: Map<String, Boolean>): Boolean {
+  return service.status == Game.ServiceStatus.Available && !isIgnored(service, ignored) && service.cost <= Game.money.amount &&
     !(service.profession && !slotFree())
 }
 
@@ -194,9 +194,9 @@ function keyOf(service: Game.TrainerService, key: Key): String {
   }
 }
 
-// A name is never red: a learned service's or a barred one's is dim, any other's in ink.
-function inkOf(service: Game.TrainerService, barred: Boolean): Color {
-  return barred || service.status == Game.ServiceStatus.Learned ? DIM : INK
+// A name is never red: a learned service's is dim, any other's in ink.
+function inkOf(service: Game.TrainerService): Color {
+  return service.status == Game.ServiceStatus.Learned ? DIM : INK
 }
 
 // What the service asks for is red while it isn't met.
@@ -218,10 +218,9 @@ function titleOf(service: Game.TrainerService): String {
   return service.rank == "" ? service.name : "%s (%s)".format(service.name, service.rank)
 }
 
-// What the service asks for, as its line under the name says it; a barred one says so.
-function needsOf(service: Game.TrainerService, barred: Boolean): String {
+// What the service asks for, as its line under the name says it.
+function needsOf(service: Game.TrainerService): String {
   if (service.status == Game.ServiceStatus.Learned) { return Locale.TRAINER_KNOWN }
-  if (barred) { return Locale.TRAINER_BARRED }
   const skill = service.skill
   const level = service.level > 1 ? Locale.TRAINER_NEEDS_LEVEL.format(service.level) : ""
   if (skill == nil) { return level }
@@ -229,14 +228,13 @@ function needsOf(service: Game.TrainerService, barred: Boolean): String {
   return level == "" ? skilled : `${level} · ${skilled}`
 }
 
-// An icon of a service that can't be learned yet is tinted red, as the game's is; a barred one's grey.
-function tintOf(service: Game.TrainerService, barred: Boolean): Color {
-  if (barred) { return GREY }
+// An icon of a service that can't be learned yet is tinted red, as the game's is.
+function tintOf(service: Game.TrainerService): Color {
   return service.status == Game.ServiceStatus.Unavailable ? RED : WHITE
 }
 
 // One service as a row of the table: a class trainer's rank and level, a profession trainer's level and skill.
-// What every row of the window reads (the picked service, the one whose menu is open and its entries, the names never
+// What every row of the window reads (the picked service, the one whose menu is open and its entries, the names ignored
 // to learn) and what each tells it, by the service's place in the trainer's list: a pick, a double press, its menu
 // asked for, an entry of the menu chosen, the menu left.
 class Rows {
@@ -249,12 +247,12 @@ class Rows {
   public picked: Signal<Integer>
   public menuAt: Signal<Integer>
   public entries: Signal<Array<MenuEntry>>
-  public barred: Signal<Map<String, Boolean>>
-  constructor(picked: Signal<Integer>, menuAt: Signal<Integer>, entries: Signal<Array<MenuEntry>>, barred: Signal<Map<String, Boolean>>) {
+  public ignored: Signal<Map<String, Boolean>>
+  constructor(picked: Signal<Integer>, menuAt: Signal<Integer>, entries: Signal<Array<MenuEntry>>, ignored: Signal<Map<String, Boolean>>) {
     self.picked = picked
     self.menuAt = menuAt
     self.entries = entries
-    self.barred = barred
+    self.ignored = ignored
   }
 
   // A press on a service's row: the left picks it, the right asks for its menu.
@@ -267,25 +265,38 @@ class Rows {
   }
 }
 
-// What the price's cell says where there is no price: a known service, one never to learn, one given free.
-function noPriceOf(service: Game.TrainerService, barred: Boolean): String {
+// An ignored service's plate: over its whole row, opaque, its status in its middle. Its row still takes the cursor,
+// so its menu stops ignoring it.
+class IgnoredPlate implements Component {
+  public render(self): Template {
+    return $ltml {
+      <box position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui} background={PLATE} zLevel={2}
+           xAlign={Align.Center} yAlign={Align.Center}>
+        <text value={Locale.TRAINER_IGNORED} textColor={DIM} wrap={.None} />
+      </box>
+    }
+  }
+}
+
+// What the price's cell says where there is no price: a known service, one given free.
+function noPriceOf(service: Game.TrainerService): String {
   if (service.status == Game.ServiceStatus.Learned) { return Locale.TRAINER_KNOWN }
-  return barred ? Locale.TRAINER_BARRED : "—"
+  return "—"
 }
 
 class ServiceTableRow implements Component {
-  derived barred: Boolean = isBarred(self.service, self.rows.barred)
-  derived ink: Color = inkOf(self.service, self.barred)
-  derived tint: Color = tintOf(self.service, self.barred)
+  derived ignored: Boolean = isIgnored(self.service, self.rows.ignored)
+  derived ink: Color = inkOf(self.service)
+  derived tint: Color = tintOf(self.service)
   derived title: String = self.trade ? titleOf(self.service) : self.service.name
   derived second: String = self.trade ? String.of(self.service.level) : self.service.rank
   derived third: String = self.trade ? (self.service.skill == nil ? "—" : String.of(self.service.skill)) : String.of(self.service.level)
   // The level's cell red while unmet (a class trainer's third column, a profession trainer's second); the skill's too.
   derived secondInk: Color = self.trade ? levelInkOf(self.service) : INK
   derived thirdInk: Color = self.trade ? skillInkOf(self.service) : levelInkOf(self.service)
-  derived priced: Boolean = self.service.cost > 0 && self.service.status != Game.ServiceStatus.Learned && !self.barred
+  derived priced: Boolean = self.service.cost > 0 && self.service.status != Game.ServiceStatus.Learned
   derived costInk: Color = self.service.cost > Game.money.amount ? RED : INK
-  derived noPrice: String = noPriceOf(self.service, self.barred)
+  derived noPrice: String = noPriceOf(self.service)
   derived selected: Boolean = self.rows.picked == self.service.index
   derived menuShown: Boolean = self.rows.menuAt == self.service.index
 
@@ -323,6 +334,7 @@ class ServiceTableRow implements Component {
           <Money $if={self.priced} amount={self.service.cost} color={self.costInk} />
           <text $else value={self.noPrice} textColor={DIM} wrap={.None} />
         </box>
+        <IgnoredPlate $if={self.ignored} />
         <Menu $if={self.menuShown} entries={self.rows.entries} title={self.service.name} @pick={self.onChose}
               @close={self.onClosed} />
       </TableRow>
@@ -332,13 +344,13 @@ class ServiceTableRow implements Component {
 
 // One service as a line of the list: its icon, its name, what it asks for, its price.
 class ServiceLine implements Component {
-  derived barred: Boolean = isBarred(self.service, self.rows.barred)
-  derived ink: Color = inkOf(self.service, self.barred)
-  derived tint: Color = tintOf(self.service, self.barred)
+  derived ignored: Boolean = isIgnored(self.service, self.rows.ignored)
+  derived ink: Color = inkOf(self.service)
+  derived tint: Color = tintOf(self.service)
   derived title: String = titleOf(self.service)
-  derived needs: String = needsOf(self.service, self.barred)
-  derived needsInk: Color = self.barred ? DIM : needsInkOf(self.service)
-  derived priced: Boolean = self.service.cost > 0 && self.service.status != Game.ServiceStatus.Learned && !self.barred
+  derived needs: String = needsOf(self.service)
+  derived needsInk: Color = needsInkOf(self.service)
+  derived priced: Boolean = self.service.cost > 0 && self.service.status != Game.ServiceStatus.Learned
   derived costInk: Color = self.service.cost > Game.money.amount ? RED : INK
   derived background: Color = self.rows.picked == self.service.index ? PICKED : CLEAR
   derived menuShown: Boolean = self.rows.menuAt == self.service.index
@@ -369,6 +381,7 @@ class ServiceLine implements Component {
           <text value={self.needs} textColor={self.needsInk} textSize={SECONDARY_TEXT} wrap={.Cut} />
         </box>
         <Money $if={self.priced} amount={self.service.cost} color={self.costInk} />
+        <IgnoredPlate $if={self.ignored} />
         <Menu $if={self.menuShown} entries={self.rows.entries} title={self.service.name} @pick={self.onChose}
               @close={self.onClosed} />
       </box>
@@ -376,11 +389,11 @@ class ServiceLine implements Component {
   }
 }
 
-// What every service that can be learned now and isn't marked never to learn costs together.
-function availableCost(services: Array<Game.TrainerService>, barred: Map<String, Boolean>): Integer {
+// What every service that can be learned now and isn't ignored costs together.
+function availableCost(services: Array<Game.TrainerService>, ignored: Map<String, Boolean>): Integer {
   let total = 0
   for (service of services) {
-    if (service.status == Game.ServiceStatus.Available && !isBarred(service, barred)) { total += service.cost }
+    if (service.status == Game.ServiceStatus.Available && !isIgnored(service, ignored)) { total += service.cost }
   }
   return total
 }
@@ -529,9 +542,10 @@ public class TrainerWindow implements Component {
   // The service whose menu is open, by its place in the trainer's list; 0: none.
   state menuAt = 0
 
-  derived barredNames: Map<String, Boolean> = self.barred.values.names
+  derived ignoredNames: Map<String, Boolean> = self.ignored.values.names
   derived menuService: Game.TrainerService | nil = self.services.find(service => service.index == self.menuAt)
-  derived menuEntries: Array<MenuEntry> = self.entriesOf(self.menuService)
+  derived menuActs: Array<MenuAct> = self.actsOf(self.menuService)
+  derived menuEntries: Array<MenuEntry> = self.entriesOf(self.menuActs, self.menuService)
   derived tabs: Array<WindowTabSpec> = [self.tabSpec]
   derived query: String = self.search.lower()
   // The trainer's skill, read again as its services change: a profession trainer's.
@@ -550,23 +564,24 @@ public class TrainerWindow implements Component {
   derived learned: Boolean = self.current?.status == Game.ServiceStatus.Learned
   derived name: String = self.current == nil ? "" : titleOf(self.current ?? panic("current"))
   derived text: String = self.current?.description ?? ""
-  derived currentBarred: Boolean = self.current != nil && isBarred(self.current ?? panic("current"), self.barredNames)
-  derived needs: String = self.current == nil ? "" : needsOf(self.current ?? panic("current"), self.currentBarred)
+  derived currentIgnored: Boolean = self.current != nil && isIgnored(self.current ?? panic("current"), self.ignoredNames)
+  // The card says an ignored service is ignored, where its row's plate does.
+  derived needs: String = self.current == nil ? "" : self.currentIgnored ? Locale.TRAINER_IGNORED : needsOf(self.current ?? panic("current"))
   derived price: Integer = self.current?.cost ?? 0
   derived dear: Boolean = self.price > Game.money.amount
   derived priceInk: Color = self.dear ? RED : INK
   // A new profession needs a free slot, as the game's window greys «Learn» without one.
   derived noSlot: Boolean = self.current?.profession == true && self.current?.status == Game.ServiceStatus.Available && !slotFree()
-  derived canTrain: Boolean = self.current != nil && learnable(self.current ?? panic("current"), self.barredNames)
+  derived canTrain: Boolean = self.current != nil && learnable(self.current ?? panic("current"), self.ignoredNames)
   derived confirmText: String = Locale.TRAINER_CONFIRM_PROFESSION.format(self.current?.name ?? "")
-  // The footer's counts: what can be learned now (one never to learn left out), what can't yet, what is known; and
-  // what is marked never to learn, where anything is.
+  // The footer's counts: what can be learned now (one ignored left out), what can't yet, what is known; and
+  // what is ignored, where anything is.
   derived counts: Array<StatusCount> = self.countsOf()
   derived side: WindowSide | nil = { width: CARD_WIDTH, content: self.card }
   // Nothing picked: the trainer's card, its greeting, and what all that can be learned now costs together (the footer
   // counts them).
   derived greeting: String = self.greetingOf()
-  derived together: Integer = availableCost(self.services, self.barredNames)
+  derived together: Integer = availableCost(self.services, self.ignoredNames)
   // The picked service's facts, the game's (cast time, cooldown, cost, range: its spell's tooltip lines between its name
   // and what it does), and what changes against the rank the player has.
   derived facts: Array<String> = factsOf(self.current)
@@ -578,8 +593,8 @@ public class TrainerWindow implements Component {
   services: Signal<Array<Game.TrainerService>>
   declared: mut KeptWindow
   list: mut ModuleMemory<TrainerList>
-  // What the player marked never to learn: the character's.
-  barred: mut ModuleMemory<TrainerBarred>
+  // What the player ignored: the character's.
+  ignored: mut ModuleMemory<TrainerIgnored>
   const rows: Rows
   // The window's tab: the trainer, as every window is titled by its tab.
   tabSpec: Signal<WindowTabSpec>
@@ -593,7 +608,7 @@ public class TrainerWindow implements Component {
     services: Signal<Array<Game.TrainerService>>,
     declared: mut KeptWindow,
     list: mut ModuleMemory<TrainerList>,
-    barred: mut ModuleMemory<TrainerBarred>,
+    ignored: mut ModuleMemory<TrainerIgnored>,
     tabSpec: Signal<WindowTabSpec>,
     // What the first column names a service: «Skill», «Recipe».
     noun: String,
@@ -603,13 +618,13 @@ public class TrainerWindow implements Component {
     self.services = services
     self.declared = declared
     self.list = list
-    self.barred = barred
+    self.ignored = ignored
     self.tabSpec = tabSpec
     self.pickText = pickText
     self.trade = trade
     self.columns = columnsOf(noun, trade)
     self.keys = trade ? TRADE_KEYS : CLASS_KEYS
-    self.rows = new Rows(self.picked, self.menuAt, self.menuEntries, self.barredNames)
+    self.rows = new Rows(self.picked, self.menuAt, self.menuEntries, self.ignoredNames)
     self.rows.pick.listen(self.onPick)
     self.rows.double.listen(self.onDouble)
     self.rows.menu.listen(self.onMenu)
@@ -618,7 +633,7 @@ public class TrainerWindow implements Component {
   }
 
   // How many services the footer counts as this: what the filter would show of them.
-  count(self, show: TrainerShow): Integer { return self.services.count(service => showOf(service, self.barredNames) == show) }
+  count(self, show: TrainerShow): Integer { return self.services.count(service => showOf(service, self.ignoredNames) == show) }
 
   countsOf(self): Array<StatusCount> {
     const counts: Array<StatusCount> = [
@@ -626,25 +641,35 @@ public class TrainerWindow implements Component {
       { color: RED, value: self.count(.Unavailable), title: Locale.TRAINER_UNAVAILABLE, text: Locale.TRAINER_UNAVAILABLE_TIP },
       { color: BLUE, value: self.count(.Known), title: Locale.TRAINER_KNOWN, text: Locale.TRAINER_KNOWN_TIP }
     ]
-    const barred = self.count(.Barred)
-    if (barred > 0) { counts.push({ color: GREY, value: barred, title: Locale.TRAINER_BARRED, text: Locale.TRAINER_BARRED_TIP }) }
+    const ignored = self.count(.Ignored)
+    if (ignored > 0) { counts.push({ color: GREY, value: ignored, title: Locale.TRAINER_IGNORED, text: Locale.TRAINER_IGNORED_TIP }) }
     return counts
   }
 
-  // A service's menu: learn it, mark it never to learn (or allow it again), its link in the chat.
-  entriesOf(self, service: Game.TrainerService | nil): Array<MenuEntry> {
-    if (service == nil) { return [] }
-    return MENU_ACTS.map(act => self.entryOf(act, service))
+  // What a service's menu offers, each only where it can be done: learn it (where it can be learned now), ignore it or
+  // stop ignoring it (where it isn't known), its link in the chat (where it has one).
+  actsOf(self, service: Game.TrainerService | nil): Array<MenuAct> {
+    const acts: Array<MenuAct> = []
+    if (service == nil) { return acts }
+    if (learnable(service, self.ignoredNames)) { acts.push(.Learn) }
+    if (service.status != Game.ServiceStatus.Learned) { acts.push(.Ignore) }
+    if (linkOf(service) != nil) { acts.push(.Link) }
+    return acts
   }
 
-  entryOf(self, act: MenuAct, service: Game.TrainerService): MenuEntry {
+  // The menu's lines, a rule above each after the first.
+  entriesOf(self, acts: Array<MenuAct>, service: Game.TrainerService | nil): Array<MenuEntry> {
+    const entries: Array<MenuEntry> = []
+    if (service == nil) { return entries }
+    for (at, act of acts) { entries.push({ label: self.labelOf(act, service), group: at > 1 }) }
+    return entries
+  }
+
+  labelOf(self, act: MenuAct, service: Game.TrainerService): String {
     return match (act) {
-      .Learn => { label: Locale.TRAINER_TRAIN, disabled: !learnable(service, self.barredNames) }
-      .Bar => {
-        label: isBarred(service, self.barredNames) ? Locale.TRAINER_ALLOW : Locale.TRAINER_BARRED,
-        disabled: service.status == Game.ServiceStatus.Learned, group: true
-      }
-      .Link => { label: Locale.TRAINER_LINK, disabled: linkOf(service) == nil, group: true }
+      .Learn => Locale.TRAINER_TRAIN
+      .Ignore => isIgnored(service, self.ignoredNames) ? Locale.TRAINER_UNIGNORE : Locale.TRAINER_IGNORE
+      .Link => Locale.TRAINER_LINK
     }
   }
 
@@ -663,7 +688,7 @@ public class TrainerWindow implements Component {
     const current = self.current
     if (current == nil) { return Locale.TRAINER_PICK_FIRST }
     if (current.status == Game.ServiceStatus.Learned) { return Locale.TRAINER_KNOWN }
-    if (self.currentBarred) { return Locale.TRAINER_BARRED_TIP }
+    if (self.currentIgnored) { return Locale.TRAINER_IGNORED_TIP }
     if (current.level > Game.player.level) { return Locale.TRAINER_NEEDS_LEVEL_SHORT.format(current.level) }
     if (self.dear) { return Locale.TRAINER_TOO_DEAR }
     if (self.noSlot) { return Locale.TRAINER_NO_SLOT }
@@ -673,8 +698,8 @@ public class TrainerWindow implements Component {
   shownOf(self): Array<Game.TrainerService> {
     const view = self.list.values
     const key = self.keys[view.sorted]
-    const barred = self.barredNames
-    let services = self.services.filter(service => passes(service, view.shows, self.query, barred))
+    const ignored = self.ignoredNames
+    let services = self.services.filter(service => passes(service, view.shows, self.query, ignored))
     services.sort((a, b) => before(a, b, key, view.descending))
     return services
   }
@@ -714,7 +739,7 @@ public class TrainerWindow implements Component {
   // A service learned, in the player's click: the client buys it where it can be learned now; a new profession is
   // picked and asked first.
   learn(mut self, service: Game.TrainerService) {
-    if (!learnable(service, peek self.barredNames)) { return }
+    if (!learnable(service, peek self.ignoredNames)) { return }
     if (service.profession) {
       self.picked = service.index
       self.confirming = true
@@ -742,12 +767,12 @@ public class TrainerWindow implements Component {
   // An entry of a service's menu chosen: the menu closes, and the entry acts on its service.
   onChose(mut self, place: Integer) {
     const service = peek self.menuService
-    const act = MENU_ACTS[place]
+    const act = (peek self.menuActs)[place]
     self.menuAt = 0
     if (service == nil || act == nil) { return }
     match (act) {
       .Learn => self.learn(service)
-      .Bar => self.flipBarred(service.name)
+      .Ignore => self.flipIgnored(service.name)
       .Link => {
         const spell = service.spell
         const item = linkOf(service)?.match("item:(%d+)")?.toNumber()?.floor()
@@ -760,18 +785,18 @@ public class TrainerWindow implements Component {
     }
   }
 
-  // A service marked never to learn, or allowed again: every rank of it, kept for the character.
-  flipBarred(mut self, name: String) {
+  // A service ignored, or no longer: every rank of it, kept for the character.
+  flipIgnored(mut self, name: String) {
     let names: Map<String, Boolean> = {}
-    for (each, on of peek self.barredNames) { names[each] = on }
+    for (each, on of peek self.ignoredNames) { names[each] = on }
     names[name] = names[name] == true ? nil : true
-    self.barred.write({ names: names })
+    self.ignored.write({ names: names })
   }
 
   onConfirmed(mut self) {
     self.confirming = false
     const current = peek self.current
-    if (current != nil && learnable(current, peek self.barredNames)) { Client.BuyTrainerService(current.index) }
+    if (current != nil && learnable(current, peek self.ignoredNames)) { Client.BuyTrainerService(current.index) }
   }
 
   onConfirmCancel(mut self) { self.confirming = false }
