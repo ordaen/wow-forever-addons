@@ -211,12 +211,12 @@ test "a quest picked shows its page and the next quest of its chain; who gives a
   Test.expect(!window.text("Gryan Stoutmantle (56, 47)").shown() && !window.text("Gryan Stoutmantle").shown())
 }
 
-test "the tracking switch stands at the page's right edge, over Abandon's" {
+test "the tracking switch stands at the page's right edge, over «Show on map»'s" {
   opened(standing())
   Test.page().window("World").text("The Defias Brotherhood").click()
   const window = Test.page().window("World")
   const face = window.box(Ordaen.art.ctl.switchOff).rect()
-  Test.expect((face.right - window.button("Abandon").rect().right).abs() < 1)
+  Test.expect((face.right - window.button("Show on map").rect().right).abs() < 1)
 }
 
 test "a quest's page shows its rewards as Dialogue's quest page does: those to choose, those given, at its foot" {
@@ -280,6 +280,8 @@ test "a quest whose words would overflow its scroll stands the scroll beside the
   const band = window.box(Ordaen.art.window.marble).rect()
   Test.expect(progress.left > top.right && progress.top < bottom.top)
   Test.expect(bottom.bottom <= band.top && band.top - bottom.bottom < 40)
+  // The tracking switch at the page's foot, over the band, however little stands above it.
+  Test.expect(band.top - window.text("Track").rect().bottom < 40)
 }
 
 test "three rewards to choose stand in one column" {
@@ -394,7 +396,7 @@ test "the list's rows have no tracking box: a quest is tracked by the page's swi
   Test.expect(Test.talked().join(",") == "watch 103")
 }
 
-test "Abandon is the page's accent button and stands at the right, after the others" {
+test "Abandon is the page's accent button and stands outermost left, the others at the right" {
   const log = standing()
   log[1] = { pushable: true, ..log[1] ?? panic("the standing log has a first quest") }
   Test.grouped(true)
@@ -403,7 +405,8 @@ test "Abandon is the page's accent button and stands at the right, after the oth
   window.text("The Defias Brotherhood").click()
   const abandon = window.button("Abandon").rect()
   const share = window.button("Share").rect()
-  Test.expect(abandon.left > share.right + 50 && abandon.top == share.top)
+  const map = window.button("Show on map").rect()
+  Test.expect(share.left > abandon.right + 50 && abandon.top == share.top && map.left > share.right)
   Test.expect(window.button("Abandon").paintedWith(Ordaen.art.ctl.buttonAccent))
   Test.expect(!window.button("Share").paintedWith(Ordaen.art.ctl.buttonAccent))
 }

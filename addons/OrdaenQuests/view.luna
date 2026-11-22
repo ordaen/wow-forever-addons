@@ -381,7 +381,8 @@ public class QuestPage implements Component {
   // Folded as each quest opens where the settings say so; a click unfolds it.
   state folded = false
   derived questId: Integer = self.quest.id
-  derived rows: Array<Track> = [scrollRow(self.folded), "max-content", "max-content", "max-content", "max-content", "max-content"]
+  // Stacked: the scroll takes the room left; folded, the room left stands over the tracking switch.
+  derived rows: Array<Track> = [scrollRow(self.folded), "max-content", self.folded ? FILL_ROW : CONTENT_ROW]
   derived wide: Boolean = !self.folded && scrollOverflows(self.quest.title, [self.text.story, Locale.SECTION_TASKS, self.text.task])
 
   quest: Signal<LogQuest>
@@ -441,28 +442,33 @@ public class QuestPage implements Component {
 
   // What stands under the scroll, or beside it: the progress, the chain's next quest, the rewards, the tracking
   // switch, and the buttons where the window has no footer band for them.
+  // Two parts, each always there: the sections from the top, and the foot (the tracking switch, and the buttons where
+  // the window has no footer band for them) at the bottom of what is left.
   details(self): Template {
     return $ltml {
-      <box $if={self.goals.length > 0} gap={SECTION_GAP}>
-        <Cut title={Locale.SECTION_PROGRESS} />
-        <box gap={GOAL_GAP}>
-          <GoalLine $for={objective of self.goals} objective={objective} color={WELL_TEXT}
-                    small={false} />
+      <box gap={PAGE_GAP}>
+        <box $if={self.goals.length > 0} gap={SECTION_GAP}>
+          <Cut title={Locale.SECTION_PROGRESS} />
+          <box gap={GOAL_GAP}>
+            <GoalLine $for={objective of self.goals} objective={objective} color={WELL_TEXT}
+                      small={false} />
+          </box>
+        </box>
+        <ChainLine facts={self.facts} @open={self.onNext} />
+        <box gap={0.5sp}>
+          <Rewards views={self.choiceRows} also={self.givenRows} xp={self.text.experience} money={self.text.money}
+                   standings={self.standings} paired={true} />
         </box>
       </box>
-      <box $else />
-      <ChainLine facts={self.facts} @open={self.onNext} />
-      <box gap={0.5sp}>
-        <Rewards views={self.choiceRows} also={self.givenRows} xp={self.text.experience} money={self.text.money}
-                 standings={self.standings} paired={true} />
-      </box>
-      <box columns={LABEL_THEN_SWITCH} yAlign={Align.Center} @pointerPress={self.onTrack} @keyPress(.Enter)={self.onTrack}
-           @keyPress(.Space)={self.onTrack}>
-        <text value={Locale.TRACK} textColor={WELL_TEXT} />
-        <SwitchFace state={self.tracking} />
-      </box>
-      <box $if={!self.footed} padding={{ top: BUTTONS_OFF }}>
-        <QuestButtons quest={self.quest} @act={self.onAct} />
+      <box yAlign={Align.End}>
+        <box columns={LABEL_THEN_SWITCH} yAlign={Align.Center} @pointerPress={self.onTrack} @keyPress(.Enter)={self.onTrack}
+             @keyPress(.Space)={self.onTrack}>
+          <text value={Locale.TRACK} textColor={WELL_TEXT} />
+          <SwitchFace state={self.tracking} />
+        </box>
+        <box $if={!self.footed} padding={{ top: BUTTONS_OFF }}>
+          <QuestButtons quest={self.quest} @act={self.onAct} />
+        </box>
       </box>
     }
   }
@@ -473,10 +479,13 @@ public class QuestPage implements Component {
 const WIDE_COLUMNS: Array<Track> = [SCROLL_WIDTH, { fr: 1 }]
 const DETAILS_LEAST: Bounds = { min: 375dp, max: nil }
 const ONE_ROW: Array<Track> = [{ fr: 1 }]
-const DETAIL_ROWS: Array<Track> = ["max-content", "max-content", "max-content", "max-content", "max-content"]
+const FILL_ROW: Track = { fr: 1 }
+const CONTENT_ROW: Track = "max-content"
+// Beside the scroll the sections from the top, the foot taking the room left (its switch at its bottom).
+const DETAIL_ROWS: Array<Track> = ["max-content", { fr: 1 }]
 
-// A quest's buttons: «Show on map» (not in a fight), «Share» while the player can share it (in a group, a quest the
-// client lets be shared), and Abandon, the accent one, at the right. In a window's footer band, or under the page where
+// A quest's buttons: Abandon, the accent one, at the left; at the right «Share» while the player can share it (in a
+// group, a quest the client lets be shared) and «Show on map» (not in a fight), the outermost. In a window's footer band, or under the page where
 // it stands on its own.
 public class QuestButtons implements Component {
   public act: Event<(Integer, Act)> = new Event()
@@ -495,12 +504,12 @@ public class QuestButtons implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={["max-content", "max-content", { fr: 1 }, "max-content"]} gap={3sp} yAlign={Align.Center}>
-        <PushButton label={Locale.SHOW_ON_MAP} width={BUTTON} disabled={self.combat} tip={self.mapTip} @click={self.onMap} />
+      <box columns={["max-content", { fr: 1 }, "max-content", "max-content"]} gap={3sp} yAlign={Align.Center}>
+        <PushButton label={Locale.ABANDON} width={BUTTON} plate={ButtonPlate.Accent} @click={self.onAbandon} />
+        <box />
         <PushButton $if={self.quest.shareable} label={Locale.SHARE} width={BUTTON} @click={self.onShare} />
         <box $else />
-        <box />
-        <PushButton label={Locale.ABANDON} width={BUTTON} plate={ButtonPlate.Accent} @click={self.onAbandon} />
+        <PushButton label={Locale.SHOW_ON_MAP} width={BUTTON} disabled={self.combat} tip={self.mapTip} @click={self.onMap} />
       </box>
     }
   }
