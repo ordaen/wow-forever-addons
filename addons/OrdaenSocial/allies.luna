@@ -7,7 +7,7 @@
 import { AllyCategory, Meeting, RecentAlly } from "$game"
 import { Align, ByInteractionState, Edges, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { Choice, Component, Fact, FilterButton, FilterGroup, PushButton, SECONDARY_TEXT, ScrolledList, TITLE_LINE, TITLE_TEXT, ToolPick, Toolbar, agoText, rowShade, switched } from "Ordaen"
+import { Choice, Component, Fact, FilterButton, FilterGroup, PushButton, SECONDARY_TEXT, ScrolledList, TITLE_TEXT, ToolPick, Toolbar, agoText, rowShade, switched } from "Ordaen"
 import { markOf, orDash, presenceText } from "@/friends"
 import Locale from "@/locales"
 import { nameColorOf } from "@/members"
@@ -266,7 +266,7 @@ public class AllyCard implements Component {
           <box columns={[Style.BIG_DOT, { fr: 1 }]} gap={2sp} yAlign={Align.Center}>
             <box width={Style.BIG_DOT} height={Style.BIG_DOT} background={markOf(self.ally.member.presence)} />
             <box columns={1}>
-              <text value={self.ally.member.name} textColor={nameColorOf(self.ally.member)} textSize={TITLE_TEXT} lineHeight={TITLE_LINE}
+              <text value={self.ally.member.name} textColor={nameColorOf(self.ally.member)} textSize={TITLE_TEXT} leading={.Title}
                     textFont={.Title} wrap={.None} />
               <text value={self.sub} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={.None} />
             </box>

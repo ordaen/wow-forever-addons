@@ -8,7 +8,7 @@ import Game from "$game"
 import { Hero } from "$game"
 import { Align, Bounds, Edges, Event, Overflow, Position, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { BODY_LINE, BubbleTail, Component, CountBadge, Field, Menu, MenuEntry, SECONDARY_TEXT, SessionRule, SpeechBubble, TIGHT_LINE, classColor, timeText } from "Ordaen"
+import { BODY_LINE, BubbleTail, Component, CountBadge, Field, Menu, MenuEntry, SECONDARY_TEXT, SessionRule, SpeechBubble, classColor, timeText } from "Ordaen"
 import Locale from "@/locales"
 import { THIS_SESSION, Talk, TalkLine, TalkWho } from "@/talks"
 
@@ -168,7 +168,7 @@ public class TalkRow implements Component {
       <box columns={[{ fr: 1 }, COUNT_ROOM]} gap={1sp} padding={ROW_PAD} background={self.fill} yAlign={Align.Center}
            @pointerPress(.Left)={self.onPick} @pointerPress(.Right)={self.onMenu} @keyPress(.Enter)={self.onPick}
            @keyPress(.Space)={self.onPick}>
-        <box columns={1} lineHeight={TIGHT_LINE} gap={NAME_LINES_GAP}>
+        <box columns={1} leading={.Tight} gap={NAME_LINES_GAP}>
           <box columns={NAME_AND_LEVEL} gap={2sp} yAlign={Align.Center}>
             <text value={self.who.name} textColor={self.color} wrap={.None} />
             <text $if={self.level != ""} value={self.level} textColor={HINT} textFont={.Numbers} wrap={.None} />

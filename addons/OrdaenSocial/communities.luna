@@ -2,7 +2,7 @@
 // its streams). Each community is a tab of the communities' own row, its members in the roster under it.
 import { Club, ClubStream } from "$game"
 import { Align, Overflow } from "$ltml"
-import { Component, SECONDARY_TEXT, TITLE_LINE, TITLE_TEXT } from "Ordaen"
+import { Component, SECONDARY_TEXT, TITLE_TEXT } from "Ordaen"
 import { orDash } from "@/friends"
 import Locale from "@/locales"
 import Style from "@/style"
@@ -41,7 +41,7 @@ public class ClubCard implements Component {
     return $ltml {
       <box columns={1} rows={["max-content", { fr: 1 }]} gap={6sp}>
         <box columns={1}>
-          <text value={self.club.name} textColor={self.club.battleNet ? Style.BATTLE_NET : Style.GOLD} textSize={TITLE_TEXT} lineHeight={TITLE_LINE}
+          <text value={self.club.name} textColor={self.club.battleNet ? Style.BATTLE_NET : Style.GOLD} textSize={TITLE_TEXT} leading={.Title}
                 textFont={.Title} wrap={.None} />
           <text value={kindOf(self.club)} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={.None} />
         </box>

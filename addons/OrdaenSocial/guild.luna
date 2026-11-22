@@ -5,7 +5,7 @@
 import Client from "$client"
 import { GuildNews, GuildRoster, NewsFilter, NewsKind } from "$game"
 import { Align, Overflow } from "$ltml"
-import { ButtonPlate, Component, CopyText, FilterButton, FilterGroup, FilterOption, ItemButton, PushButton, ScrolledList, TITLE_LINE, TITLE_TEXT, Tip, TipText } from "Ordaen"
+import { ButtonPlate, Component, CopyText, FilterButton, FilterGroup, FilterOption, ItemButton, PushButton, ScrolledList, TITLE_TEXT, Tip, TipText } from "Ordaen"
 import { orDash } from "@/friends"
 import Locale from "@/locales"
 import Style from "@/style"
@@ -30,7 +30,7 @@ public class GuildCard implements Component {
   public render(self): Template {
     return $ltml {
       <box columns={1} rows={["max-content", { fr: 1 }, "max-content"]} gap={6sp}>
-        <text value={self.guild.name} textColor={Style.GOLD} textSize={TITLE_TEXT} lineHeight={TITLE_LINE} textFont={.Title} wrap={.None} />
+        <text value={self.guild.name} textColor={Style.GOLD} textSize={TITLE_TEXT} leading={.Title} textFont={.Title} wrap={.None} />
         <box columns={1} rows={["max-content", "max-content", "max-content", { fr: 1 }]} gap={3sp} overflow={Overflow.Scroll}>
           <text value={Locale.MOTD} textColor={Style.DIM} wrap={.None} />
           <CopyText value={orDash(self.guild.motd)} />

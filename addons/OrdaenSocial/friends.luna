@@ -11,7 +11,7 @@
 import { BattleNetSelf, Friend, FriendRequest, Hero, Ignored, Presence } from "$game"
 import { Align, Art, ByInteractionState, Edges, MouseButton, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { ARTWORK, ButtonPlate, Choice, Column, CompactDropdown, Component, Fact, Field, FilterButton, FilterGroup, ModuleMemory, PushButton, SECONDARY_TEXT, ScrolledList, TITLE_LINE, TITLE_TEXT, Table, TableCell, TableRow, ToolPick, ToolSort, Toolbar, agoText, classColor, rowShade, switched, tracksOf, trimmed } from "Ordaen"
+import { ARTWORK, ButtonPlate, Choice, Column, CompactDropdown, Component, Fact, Field, FilterButton, FilterGroup, ModuleMemory, PushButton, SECONDARY_TEXT, ScrolledList, TITLE_TEXT, Table, TableCell, TableRow, ToolPick, ToolSort, Toolbar, agoText, classColor, rowShade, switched, tracksOf, trimmed } from "Ordaen"
 import Locale from "@/locales"
 import Style from "@/style"
 
@@ -413,7 +413,7 @@ public class FriendCard implements Component {
             <box width={Style.BIG_DOT} height={Style.BIG_DOT} background={markOf(self.friend.presence)} />
             <box columns={1}>
               <box columns={["max-content", "max-content"]} gap={2sp}>
-                <text value={self.title} textColor={self.color} textSize={TITLE_TEXT} lineHeight={TITLE_LINE} textFont={.Title} wrap={.None} />
+                <text value={self.title} textColor={self.color} textSize={TITLE_TEXT} leading={.Title} textFont={.Title} wrap={.None} />
                 <box $if={self.favorite} width={Style.STAR} height={Style.STAR} background={Style.STAR_ICON} />
               </box>
               <text value={self.sub} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={.None} />
@@ -469,7 +469,7 @@ public class MyCard implements Component {
             <box width={Style.BIG_DOT} height={Style.BIG_DOT} background={markOf(self.me.presence)} />
             <box columns={1}>
               <text value={self.connected ? self.me.battleTag : self.me.hero.name} textColor={Style.BATTLE_NET}
-                    textSize={TITLE_TEXT} lineHeight={TITLE_LINE} textFont={.Title} wrap={.None} />
+                    textSize={TITLE_TEXT} leading={.Title} textFont={.Title} wrap={.None} />
               <text value={Locale.YOU} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={.None} />
             </box>
           </box>

@@ -7,7 +7,7 @@
 import { GuildRights, Member } from "$game"
 import { Align, MouseButton, TextWrap, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { Choice, Column, Component, Fact, PushButton, SECONDARY_TEXT, TITLE_LINE, TITLE_TEXT, Table, TableCell, TableRow, ToolPick, ToolSort, Toolbar, classColor, hoursAgoText, tracksOf } from "Ordaen"
+import { Choice, Column, Component, Fact, PushButton, SECONDARY_TEXT, TITLE_TEXT, Table, TableCell, TableRow, ToolPick, ToolSort, Toolbar, classColor, hoursAgoText, tracksOf } from "Ordaen"
 import { markOf, orDash, presenceText } from "@/friends"
 import Locale from "@/locales"
 import Style from "@/style"
@@ -305,7 +305,7 @@ public class MemberCard implements Component {
           <box columns={[Style.BIG_DOT, { fr: 1 }]} gap={2sp} yAlign={Align.Center}>
             <box width={Style.BIG_DOT} height={Style.BIG_DOT} background={markOf(self.member.presence)} />
             <box columns={1}>
-              <text value={self.member.name} textColor={nameColorOf(self.member)} textSize={TITLE_TEXT} lineHeight={TITLE_LINE} textFont={.Title} wrap={.None} />
+              <text value={self.member.name} textColor={nameColorOf(self.member)} textSize={TITLE_TEXT} leading={.Title} textFont={.Title} wrap={.None} />
               <text value={self.sub} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={.None} />
             </box>
           </box>
