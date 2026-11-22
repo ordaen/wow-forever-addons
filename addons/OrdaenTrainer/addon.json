@@ -1,0 +1,7 @@
+{
+  "title": "Ordaen Trainer",
+  "version": "1.0.0",
+  "icon": "Interface/Icons/INV_Misc_Book_09",
+  "notes": "The trainer's window, for the modules that stand in for the game's at a trainer.",
+  "dependencies": { "Ordaen": "^1.0.0" }
+}

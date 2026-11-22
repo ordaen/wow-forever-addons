@@ -1,6 +1,7 @@
 // Ordaen Spells' page in the settings window: the class trainer's window. Each control writes one entry of the
 // settings as the player changes it.
-import { Checkbox, Choice, Component, Dropdown, Settings, TRAINER_VIEWS, TrainerView, trainerSorts } from "Ordaen"
+import { Checkbox, Choice, Component, Dropdown, Settings } from "Ordaen"
+import { TRAINER_VIEWS, TrainerView, trainerSorts } from "OrdaenTrainer"
 import Locale from "@/locales"
 
 // What the player chooses.

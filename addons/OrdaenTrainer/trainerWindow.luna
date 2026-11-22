@@ -14,23 +14,12 @@ import Client from "$client"
 import Game from "$game"
 import { Align, ArtBorder, Columns, Edges, Event, Frame, MouseButton, Overflow, Position, Side, TextFont, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { ARTWORK } from "@/art"
-import { Dialog } from "@/dialog"
-import { Choice } from "@/dropdown"
-import { FilterButton, FilterGroup, switched } from "@/filter"
-import { FoldCaption } from "@/foldCaption"
+import {
+  ARTWORK, ButtonPlate, Choice, Column, Component, Dialog, FOOTER_ROOM, FilterButton, FilterGroup, FoldCaption, KeptWindow,
+  Menu, MenuEntry, ModuleMemory, Money, PushButton, SECONDARY_TEXT, SkillBar, TIGHT_LINE, TITLE_TEXT, Table, TableRow,
+  Tip, TipText, ToolPick, ToolSort, Toolbar, Window, WindowSide, WindowTabSpec, sortChoices, switched
+} from "Ordaen"
 import Locale from "@/locales"
-import { Menu, MenuEntry } from "@/menu"
-import { Component } from "@/module"
-import { Money } from "@/money"
-import { ButtonPlate, PushButton } from "@/pushButton"
-import { ModuleMemory } from "@/settings"
-import { SkillBar } from "@/skillBar"
-import { Column, Table, TableRow } from "@/table"
-import { Tip, TipText } from "@/tip"
-import { ToolPick, ToolSort, Toolbar, sortChoices } from "@/toolbar"
-import { SECONDARY_TEXT, TIGHT_LINE, TITLE_TEXT } from "@/units"
-import { FOOTER_ROOM, KeptWindow, Window, WindowSide, WindowTabSpec } from "@/window"
 
 // What the filter's switches keep: what can be learned now, what can't yet, what is known, what is marked never to
 // learn.
