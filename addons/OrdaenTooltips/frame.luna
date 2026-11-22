@@ -6,7 +6,7 @@
 import { Align, Art, BarFill, Beside, Cursor, Edges, Layer, Line, Position, Side, TextFont, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import {
-  BandCell, Component, Hotkeys, PROSE_LINE, SECONDARY_TEXT, TERM_DASH, TERM_UNDERLINE, TERM_UNDERLINE_HEIGHT, TIGHT_LINE, TITLE_TEXT, termUnderlineAt
+  BandCell, Component, Hotkeys, SECONDARY_TEXT, TERM_DASH, TERM_UNDERLINE, TERM_UNDERLINE_HEIGHT, TITLE_TEXT, termUnderlineAt
 } from "Ordaen"
 import { GREEN, RED } from "@/colors"
 import Locale from "@/locales"
@@ -151,7 +151,7 @@ public class TermText implements Component {
              background={TERM_DASH} tint={TERM_UNDERLINE} />
         <box $if={self.lit} position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui}
              cursor={Cursor.Help} @pointerEnter={self.onEnter} @pointerLeave={self.onLeave} />
-        <surface lineHeight={TIGHT_LINE} $if={self.open} layer={Layer.Tooltip} place={BY_ITS_TEXT}>
+        <surface leading={.Tight} $if={self.open} layer={Layer.Tooltip} place={BY_ITS_TEXT}>
           <slot #opened opens={self.opens} />
         </surface>
       </box>
@@ -266,7 +266,7 @@ public class Row implements Component {
           </TermText>
         </box>
         <text $elseif={self.line.sentence} value={self.line.left} textColor={self.line.leftColor} textSize={self.line.size}
-              lineHeight={PROSE_LINE} />
+              leading={.Prose} />
         <text $else value={self.line.left} textColor={self.line.leftColor} textSize={self.line.size} />
       </box>
     }
@@ -450,7 +450,7 @@ public class TipFrame implements Component {
             <box icon={self.icon} portrait={self.face} />
           </box>
           <box gap={LINE} yAlign={Align.Center}>
-            <text value={self.model.name} textColor={self.model.nameColor} textSize={TITLE_TEXT} lineHeight={TIGHT_LINE} wrap={.None}
+            <text value={self.model.name} textColor={self.model.nameColor} textSize={TITLE_TEXT} leading={.Tight} wrap={.None}
                   textFont={.Title} />
             <box $if={self.hasDesc} columns={self.descColumns} yAlign={Align.Center}>
               <PartText $for={index, part of self.model.desc} part={part} index={index} color={LABEL}
