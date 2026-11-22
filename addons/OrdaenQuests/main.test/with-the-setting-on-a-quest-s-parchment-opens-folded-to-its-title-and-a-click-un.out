@@ -113,23 +113,34 @@ surface 550,192.21 905.76x515.58 on MEDIUM clamped raised by a click
             text 1118.24,326.97 263.33x20.68 "Elwynn Wolves" #3a1000
           box 1074.91,355.99 350x41.67 Interface\AddOns\Ordaen\media\scroll-bottom
           box 1074.91,318.64 350x47.76 absolute Interface\AddOns\Ordaen\media\scroll-paper
-        box 1074.91,409.03 350x16.8
-          box 1074.91,409.03 350x16.8
-            text 1074.91,409.03 314.31x16.8 "Wolves slain" #f0e6d0
-            text 1394.91,409.03 30x16.8 "5/10" #f0e6d0
-        box 1074.91,437.21 350x0
-        box 1074.91,448.59 350x17.5 @keyPress @pointerPress
-          text 1074.91,448.59 318.33x17.5 "Track" #f0e6d0
-          box 1393.24,449 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 0 of 4
-            box 1390.74,446.5 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2 opacity=1
-        box 1074.91,477.46 350x36.87
-          box 1074.91,486 93.39x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-            text 1082.02,491.41 79.17x17.5 "Show on map" #ffd100
-          box 1176.83,486 93.33x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-            text 1205.17,491.41 36.67x17.5 "Share" #808080
-          box 1278.7,486 44.34x0
-          box 1331.58,486 93.33x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-            text 1352.83,491.41 50.83x17.5 "Abandon" #ffd100
+        box 1074.91,409.03 350x37.14
+          box 1074.91,409.03 350x17.5
+            box 1074.91,415.7 138.72x4.17
+              box 1074.91,415.7 138.72x1.67 #0000008c
+              box 1074.91,417.36 138.72x1.67 #000000e6
+              box 1074.91,419.03 138.72x0.83 #ffdeaa52
+            text 1220.74,409.03 58.33x17.5 "Progress" #b8a07a
+            box 1286.19,415.7 138.72x4.17
+              box 1286.19,415.7 138.72x1.67 #0000008c
+              box 1286.19,417.36 138.72x1.67 #000000e6
+              box 1286.19,419.03 138.72x0.83 #ffdeaa52
+          box 1074.91,429.37 350x16.8
+            box 1074.91,429.37 350x16.8
+              text 1074.91,429.37 314.31x16.8 "Wolves slain" #f0e6d0
+              text 1394.91,429.37 30x16.8 "5/10" #f0e6d0
+        box 1074.91,457.55 350x0
+        box 1074.91,468.93 350x17.5 @keyPress @pointerPress
+          text 1074.91,468.93 318.33x17.5 "Track" #f0e6d0
+          box 1393.24,469.35 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 0 of 4
+            box 1390.74,466.85 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2 opacity=1
+        box 1074.91,497.81 350x36.87
+          box 1074.91,506.34 93.39x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+            text 1082.02,511.76 79.17x17.5 "Show on map" #ffd100
+          box 1176.83,506.34 93.33x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+            text 1205.17,511.76 36.67x17.5 "Share" #808080
+          box 1278.7,506.34 44.34x0
+          box 1331.58,506.34 93.33x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+            text 1352.83,511.76 50.83x17.5 "Abandon" #ffd100
       box 1049.16,254.22 6.67x442.73 absolute @drag @dragStart @dragStop
     box 1438.51,687.79 13.33x13.33 absolute
       box 1438.51,687.79 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop

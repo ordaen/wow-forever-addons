@@ -8,8 +8,8 @@
 import Game from "$game"
 import { Align, Art, ByInteractionState, Edges, Line, Side, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { BODY_LINE, ButtonPlate, Component, Menu, MenuEntry, Money, PushButton, SECONDARY_TEXT, Shown, SwitchFace, TIGHT_LINE, Tip, TipText, questLevelColor, rowShade } from "Ordaen"
-import { Experience, Reward, RewardView, Rewards, SCROLL_DIM, SCROLL_HEAD, SCROLL_INK, SCROLL_ROW, Scroll, Standing, WELL_DIM, WELL_TEXT, choiceViews, logReward } from "OrdaenQuestPage"
+import { BODY_LINE, ButtonPlate, Component, Cut, Menu, MenuEntry, Money, PushButton, SECONDARY_TEXT, Shown, SwitchFace, TIGHT_LINE, Tip, TipText, questLevelColor, rowShade } from "Ordaen"
+import { Experience, Reward, RewardView, Rewards, SCROLL_DIM, SCROLL_HEAD, SCROLL_INK, SCROLL_ROW, Scroll, Standing, WELL_TEXT, choiceViews, logReward } from "OrdaenQuestPage"
 import { LogQuest } from "@/book"
 import Locale from "@/locales"
 import { QuestFacts } from "@/questie"
@@ -280,7 +280,8 @@ function countOf(text: String): String {
 }
 
 // The line under the scroll: its label, then the next quest's name.
-const CHAIN_COLUMNS: Array<Track> = ["max-content", { fr: 1 }]
+// A section under the scroll: the cut with its title, then what it holds.
+const SECTION_GAP = 1sp
 // The scroll's row: its least height unfolded, its own height folded.
 function scrollRow(folded: Boolean): Track {
   if (folded) { return "max-content" }
@@ -305,10 +306,11 @@ public class ChainLine implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box $if={self.name != ""} columns={CHAIN_COLUMNS} gap={3sp} @pointerPress={self.onOpen} @keyPress(.Enter)={self.onOpen}
-           @keyPress(.Space)={self.onOpen}>
-        <text value={Locale.NEXT_IN_CHAIN} textColor={WELL_DIM} />
-        <text value={self.name} textColor={GOLD} />
+      <box $if={self.name != ""} gap={SECTION_GAP}>
+        <Cut title={Locale.NEXT_IN_CHAIN} />
+        <box @pointerPress={self.onOpen} @keyPress(.Enter)={self.onOpen} @keyPress(.Space)={self.onOpen}>
+          <text value={self.name} textColor={GOLD} />
+        </box>
       </box>
     }
   }
@@ -415,10 +417,14 @@ public class QuestPage implements Component {
           <text value={Locale.SECTION_TASKS} textColor={SCROLL_HEAD} textFont={.Title} />
           <text $if={self.text.task != ""} value={self.text.task} textColor={SCROLL_INK} lineHeight={BODY_LINE} />
         </Scroll>
-        <box gap={GOAL_GAP}>
-          <GoalLine $for={objective of self.goals} objective={objective} todoColor={WELL_TEXT}
-                    small={false} />
+        <box $if={self.goals.length > 0} gap={SECTION_GAP}>
+          <Cut title={Locale.SECTION_PROGRESS} />
+          <box gap={GOAL_GAP}>
+            <GoalLine $for={objective of self.goals} objective={objective} todoColor={WELL_TEXT}
+                      small={false} />
+          </box>
         </box>
+        <box $else />
         <ChainLine facts={self.facts} @open={self.onNext} />
         <box gap={0.5sp}>
           <Rewards views={self.choiceRows} also={self.givenRows} xp={self.text.experience} money={self.text.money}

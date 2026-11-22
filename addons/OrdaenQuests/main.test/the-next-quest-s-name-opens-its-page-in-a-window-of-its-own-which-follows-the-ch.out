@@ -103,22 +103,43 @@ surface 550,192.21 905.76x515.58 on MEDIUM clamped raised by a click
               text 990.82,665.23 28.33x17.5 "3/25" #e8dcc4
     box 1041.91,254.22 405.76x442.73 border=UI-Frame-Metal-CornerTopLeft sides=left
       box 1074.91,276.97 350x405.75
-        box 1074.91,276.97 350x209.22
+        box 1074.91,276.97 350x168.53
           box 1074.91,276.97 350x41.67 Interface\AddOns\Ordaen\media\scroll-top
-          box 1074.91,318.64 350x125.88
-          box 1074.91,444.53 350x41.67 Interface\AddOns\Ordaen\media\scroll-bottom
-          box 1074.91,318.64 350x136.3 absolute Interface\AddOns\Ordaen\media\scroll-paper
-            box 1118.24,326.97 263.33x109.22 absolute scrolled 0 of 0
+          box 1074.91,318.64 350x85.2
+          box 1074.91,403.84 350x41.67 Interface\AddOns\Ordaen\media\scroll-bottom
+          box 1074.91,318.64 350x95.61 absolute Interface\AddOns\Ordaen\media\scroll-paper
+            box 1118.24,326.97 263.33x68.53 absolute scrolled 0 of 0
               text 1118.24,326.97 263.33x20.68 "The Defias Brotherhood" #3a1000
               text 1118.24,351.92 263.33x17.5 "Gryan asks you to look into Westfall." #160c03
               text 1118.24,373.69 263.33x17.5 "Objectives" #3a1000
-        box 1074.91,497.57 350x16.8
-          box 1074.91,497.57 350x16.8
-            text 1074.91,497.57 314.31x16.8 "Wolves slain" #f0e6d0
-            text 1394.91,497.57 30x16.8 "5/10" #f0e6d0
-        box 1074.91,525.75 350x17.5 @keyPress @pointerPress
-          text 1074.91,525.75 71.67x17.5 "Next quest" #a3977f
-          text 1155.11,525.75 269.8x17.5 "The Defias Brotherhood, part two" #ffd100
+        box 1074.91,456.88 350x37.14
+          box 1074.91,456.88 350x17.5
+            box 1074.91,463.55 138.72x4.17
+              box 1074.91,463.55 138.72x1.67 #0000008c
+              box 1074.91,465.21 138.72x1.67 #000000e6
+              box 1074.91,466.88 138.72x0.83 #ffdeaa52
+            text 1220.74,456.88 58.33x17.5 "Progress" #b8a07a
+            box 1286.19,463.55 138.72x4.17
+              box 1286.19,463.55 138.72x1.67 #0000008c
+              box 1286.19,465.21 138.72x1.67 #000000e6
+              box 1286.19,466.88 138.72x0.83 #ffdeaa52
+          box 1074.91,477.23 350x16.8
+            box 1074.91,477.23 350x16.8
+              text 1074.91,477.23 314.31x16.8 "Wolves slain" #f0e6d0
+              text 1394.91,477.23 30x16.8 "5/10" #f0e6d0
+        box 1074.91,505.4 350x37.84
+          box 1074.91,505.4 350x17.5
+            box 1074.91,512.07 132.06x4.17
+              box 1074.91,512.07 132.06x1.67 #0000008c
+              box 1074.91,513.74 132.06x1.67 #000000e6
+              box 1074.91,515.4 132.06x0.83 #ffdeaa52
+            text 1214.08,505.4 71.67x17.5 "Next quest" #b8a07a
+            box 1292.86,512.07 132.06x4.17
+              box 1292.86,512.07 132.06x1.67 #0000008c
+              box 1292.86,513.74 132.06x1.67 #000000e6
+              box 1292.86,515.4 132.06x0.83 #ffdeaa52
+          box 1074.91,525.75 350x17.5 @keyPress @pointerPress
+            text 1074.91,525.75 350x17.5 "The Defias Brotherhood, part two" #ffd100
         box 1074.91,554.63 350x50.98
           box 1074.91,554.63 350x50.98
             box 1074.91,558.89 350x17.5
@@ -179,19 +200,29 @@ surface 958.33,223.04 350x453.92 on MEDIUM clamped raised by a click
     box 971.43,273.39 328.81x392.73
       box 971.43,273.39 328.81x392.73
         box 994.18,296.14 283.3x347.22
-          box 994.18,296.14 283.3x261.13
+          box 994.18,296.14 283.3x258.28
             box 994.18,296.14 283.3x41.67 Interface\AddOns\Ordaen\media\scroll-top
-            box 994.18,337.81 283.3x177.79
-            box 994.18,515.6 283.3x41.67 Interface\AddOns\Ordaen\media\scroll-bottom
-            box 994.18,337.81 283.3x188.21 absolute Interface\AddOns\Ordaen\media\scroll-paper
-              box 1037.52,346.14 196.63x161.13 absolute scrolled 0 of 0
+            box 994.18,337.81 283.3x174.95
+            box 994.18,512.76 283.3x41.67 Interface\AddOns\Ordaen\media\scroll-bottom
+            box 994.18,337.81 283.3x185.37 absolute Interface\AddOns\Ordaen\media\scroll-paper
+              box 1037.52,346.14 196.63x158.28 absolute scrolled 0 of 0
                 text 1037.52,346.14 196.63x41.35 "The Defias Brotherhood, part two" #3a1000
                 text 1037.52,391.76 196.63x35 "Level 16, available from level 12" #4a3520
                 text 1037.52,431.03 196.63x17.5 "Objectives" #3a1000
                 text 1037.52,452.8 196.63x35 "Take the note to the Scout. Then report back." #160c03
-          box 994.18,568.65 283.3x35 @keyPress @pointerPress
-            text 994.18,568.65 71.67x17.5 "Next quest" #a3977f
-            text 1074.38,568.65 203.1x35 "The Defias Brotherhood, part three" #ffd100
+          box 994.18,565.8 283.3x37.84
+            box 994.18,565.8 283.3x17.5
+              box 994.18,572.47 98.71x4.17
+                box 994.18,572.47 98.71x1.67 #0000008c
+                box 994.18,574.14 98.71x1.67 #000000e6
+                box 994.18,575.8 98.71x0.83 #ffdeaa52
+              text 1100,565.8 71.67x17.5 "Next quest" #b8a07a
+              box 1178.78,572.47 98.71x4.17
+                box 1178.78,572.47 98.71x1.67 #0000008c
+                box 1178.78,574.14 98.71x1.67 #000000e6
+                box 1178.78,575.8 98.71x0.83 #ffdeaa52
+            box 994.18,586.15 283.3x17.5 @keyPress @pointerPress
+              text 994.18,586.15 283.3x17.5 "The Defias Brotherhood, part three" #ffd100
           box 994.18,615.03 283.3x28.33
             box 994.18,615.03 93.39x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
               text 1001.29,620.44 79.17x17.5 "Show on map" #ffd100
