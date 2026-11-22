@@ -16,7 +16,7 @@
 // the spell's tooltip and links the spell. Nothing runs per frame.
 import Client from "$client"
 import Game from "$game"
-import { Action, Align, Art, ByInteractionState, Edges, Event, FillDuration, Frame, Line, MouseButton, Position, Shadow } from "$ltml"
+import { Action, Align, Art, ByInteractionState, Edges, Event, FillDuration, Frame, Line, MouseButton, Position, Shadow, TextFont } from "$ltml"
 import root Ordaen from "Ordaen"
 import { Component } from "@/module"
 import { BRIGHT_TEXT, SECONDARY_TEXT, TIGHT_LINE } from "@/units"
@@ -328,7 +328,7 @@ public class ItemButton implements Component {
         <box $if={self.counted} position={Position.Absolute} left={self.inset} top={self.inset} right={self.inset}
              bottom={self.inset} xAlign={Align.End} yAlign={Align.End} padding={COUNT_PAD}>
           <text value={self.count} textColor={BRIGHT_TEXT} textSize={SECONDARY_TEXT} lineHeight={TIGHT_LINE}
-                textShadow={COUNT_SHADOW} wrap={.None} />
+                textFont={TextFont.Numbers} textOutline={1} textShadow={COUNT_SHADOW} wrap={.None} />
         </box>
       </box>
     }

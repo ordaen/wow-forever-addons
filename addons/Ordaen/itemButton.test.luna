@@ -300,3 +300,9 @@ test "a crested slot holds its icon inside the crest's rim, the rim taking an un
   const crest = Test.page().box(CREST).nth(1).rect()
   Test.expect(frame.rect().left == crest.left && frame.rect().top == crest.top && frame.rect().right == crest.right)
 }
+
+test "a slot's count is written in the numbers' font, outlined, so it reads on any icon" {
+  Test.mount(new Bag(), { left: 0, top: 0, width: 600, height: 100 })
+  const told = Test.page().text("20").told()
+  Test.expect(told.contains("textFont=numbers") && told.contains("textOutline=1"))
+}
