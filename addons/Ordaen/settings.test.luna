@@ -31,6 +31,21 @@ test "`/ordaen` with a name no module has opens the settings on Ordaen's own pag
   Test.flush()
 }
 
+test "a library that needs Ordaen is no module: the settings list no switch for it, and `/ordaen` names it not" {
+  // What the build writes into the TOC of an addon with a root.
+  const rooted: Map<String, String> = {}
+  rooted["X-LunaType-Root"] = "1"
+  Test.addon({ name: "OrdaenFakeModule", title: "Fake Module", needs: ["Ordaen"], fields: rooted })
+  Test.addon({ name: "OrdaenFakeLibrary", title: "Fake Library", needs: ["Ordaen"] })
+  const names = Ordaen.moduleAddons().map(addon => addon.name)
+  Test.expect(names.any(name => name == "OrdaenFakeModule") && !names.any(name => name == "OrdaenFakeLibrary"))
+  Test.mount(nil, { left: 0, top: 0, width: 1600, height: 900, screen: true })
+  Ordaen.command("fakelibrary")
+  Test.flush()
+  Test.expect(Ordaen.window?.page == "")
+  Test.expect(Test.page().text("Fake Module").shown() && !Test.page().text("Fake Library").shown())
+}
+
 test "a kept colour without some of its fields takes them from the default" {
   Game.saved.store(.Account, "Probe", Damaged { accent: { r: 0.1 }, red: "red", redText: { r: 0.5, g: 0.25, b: 0, a: 1 } })
   const look: Look = load(.Account, "Probe", preset(Preset.Ordaen))

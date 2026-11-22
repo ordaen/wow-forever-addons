@@ -6,7 +6,6 @@
 // profile is made at once and asks nothing: every change is kept as it is made.
 import Game from "$game"
 import { Track } from "$ltml"
-import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
 import { Checkbox } from "@/checkbox"
 import { Dialog } from "@/dialog"
@@ -201,10 +200,7 @@ public class ProfilesPage implements Component {
   constructor() {
     self.profiles = Ordaen.keeper.profiles
     const titles: Map<String, String> = {}
-    const own = Runtime.Addon.of(Ordaen)
-    if (own != nil) {
-      for (addon of own.dependents()) { titles[addon.name] = addon.title }
-    }
+    for (addon of Ordaen.moduleAddons()) { titles[addon.name] = addon.title }
     titles["Ordaen"] = Ordaen.title
     self.titles = titles
     self.chosen = self.profiles.active

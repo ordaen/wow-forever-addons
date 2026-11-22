@@ -290,13 +290,20 @@ public class OrdaenCore implements App {
     if (refused != nil) { Debug.log("module %s: not made, the client says %s", addon.name, refused.reason) }
   }
 
-  // The modules the player has (each addon that needs Ordaen) run but those the player turned off, as the client's
+  // The addons that are the player's modules: each one that needs Ordaen and has a root of its own. A library (code
+  // alone, as Ordaen Trainer is) is no module: it loads as the modules that need it do, and has no switch of its own.
+  public moduleAddons(self): Array<Runtime.Addon> {
+    const own = Runtime.Addon.of(self)
+    if (own == nil) { return [] }
+    return own.dependents().filter((addon: Runtime.Addon): Boolean => addon.hasRoot)
+  }
+
+  // The modules the player has run but those the player turned off, as the client's
   // list of addons has them: a start never changes that list. A module the list has off is refused by the client
   // and tried again at the next start; one the player turned off is left unloaded, wherever the list has it.
   start(mut self) {
-    const own = Runtime.Addon.of(self)
-    if (own == nil) { return }
-    for (addon of own.dependents()) {
+    const modules = self.moduleAddons()
+    for (addon of modules) {
       if (self.chosen[addon.name] == false) {
         Debug.log("module %s: turned off by the player", addon.name)
         // Loaded as another module needs it: its root ends.
@@ -307,7 +314,7 @@ public class OrdaenCore implements App {
       const refused = addon.load()
       if (refused != nil) { Debug.log("module %s: not made, the client says %s", addon.name, refused.reason) }
     }
-    self.askConflicts(own.dependents())
+    self.askConflicts(modules)
   }
 
   // Each other addon loaded that draws what modules on draw, and was never answered since it came: the player is
@@ -366,9 +373,7 @@ public class OrdaenCore implements App {
   }
 
   moduleNamed(self, word: String): Runtime.Addon | nil {
-    const own = Runtime.Addon.of(self)
-    if (own == nil) { return nil }
-    for (addon of own.dependents()) {
+    for (addon of self.moduleAddons()) {
       const folder = addon.name.lower()
       if (folder == word || folder == "ordaen" + word) { return addon }
     }

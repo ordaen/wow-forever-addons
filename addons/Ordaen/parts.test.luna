@@ -4,16 +4,14 @@
 // the folder (`zig build test`'s run of the whole folder), so a module that draws a part placing doesn't know fails
 // here, whoever wrote it.
 import { Layer } from "$ltml"
-import Runtime from "$runtime"
 import Test from "$test"
 import root Ordaen from "Ordaen"
 
 const SCREEN: Test.Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
 
-// The modules the player has: every addon that needs Ordaen.
+// The modules the player has: every addon that needs Ordaen and has a root of its own.
 function modules(): Integer {
-  const own = Runtime.Addon.of(Ordaen) ?? panic("Ordaen is installed")
-  return own.dependents().length
+  return Ordaen.moduleAddons().length
 }
 
 // How far a part's middle went: the first surface that holds its name, before and after.

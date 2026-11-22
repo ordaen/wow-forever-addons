@@ -4,7 +4,6 @@
 // a savepoint, and «Откатить» goes back to the step before the last change, to the session's start or to a savepoint.
 // Closing asks nothing.
 import { Align, Edges, Overflow, Position, Track } from "$ltml"
-import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
 import { Dialog } from "@/dialog"
 import { BehaviourPage, NumbersPage, ScalePage } from "@/general"
@@ -152,12 +151,7 @@ public class SettingsWindow implements Component {
   }
 
   constructor() {
-    const listed: Array<ModuleEntry> = []
-    const own = Runtime.Addon.of(Ordaen)
-    if (own != nil) {
-      for (addon of own.dependents()) { listed.push(new ModuleEntry(addon)) }
-    }
-    self.entries = listed
+    self.entries = Ordaen.moduleAddons().map(addon => new ModuleEntry(addon))
     // The placing mode started from the window ends as it closes: its button is the mode's only way out, and the
     // places are kept as each part is let go.
     watch (open of self.open) {
