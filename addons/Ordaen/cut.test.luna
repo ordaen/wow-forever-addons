@@ -1,0 +1,22 @@
+// A cut in the wood: its title at its middle, a groove on each side of it.
+import Test from "$test"
+import { Cut } from "@/cut"
+
+class Cuts {
+  public render(self): Template {
+    return $ltml {
+      <box width={400ui}>
+        <Cut title={"Defense"} />
+      </box>
+    }
+  }
+}
+
+test "a titled cut stands its title at its middle, the grooves taking the room on each side" {
+  const page = new Cuts()
+  Test.mount(page, { left: 0, top: 0, width: 400, height: 100 })
+  const title = Test.page().text("Defense").rect()
+  Test.expect(((title.left + title.right) / 2 - 200).abs() < 1)
+  Test.expect(title.left > 100 && title.right < 300)
+  destroy page
+}
