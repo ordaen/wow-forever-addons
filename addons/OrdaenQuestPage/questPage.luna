@@ -103,7 +103,7 @@ const TEXEL: Number<Length> = SCROLL_WIDTH / 1024
 public const SCROLL_ART: ScrollArt = {
   top: {
     left: "@/media/scroll-top-left.tga",
-    middle: { file: "@/media/scroll-top-middle.tga", width: 32, height: 128, tile: Tile.Across },
+    middle: { file: "@/media/scroll-top-middle.tga", width: 1, height: 128, tile: Tile.Across },
     right: "@/media/scroll-top-right.tga"
   },
   paper: {
@@ -113,7 +113,7 @@ public const SCROLL_ART: ScrollArt = {
   },
   bottom: {
     left: "@/media/scroll-bottom-left.tga",
-    middle: { file: "@/media/scroll-bottom-middle.tga", width: 32, height: 128, tile: Tile.Across },
+    middle: { file: "@/media/scroll-bottom-middle.tga", width: 1, height: 128, tile: Tile.Across },
     right: "@/media/scroll-bottom-right.tga"
   }
 }
