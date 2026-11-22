@@ -1,32 +1,41 @@
 // Callout: a pointer at something on the screen the player should look at, as the client's own help tip and micro
-// button alert are (an unspent talent point, by the button that opens the talents): the small metal frame round the
-// windows' wood (or round a plain colour, its `tone`: a whisper's violet), a title in white and its text under it in
-// the label colour, the window's close glyph at its top right unless it isn't `closable`, and the client's help-tip
-// arrow (gold, or in its tone) on the side facing what it points at. It stands beside a frame of the game's, over it
-// or under it (`CalloutSide`), on the dialogs' layer over the windows. The arrow stands on the frame's middle, its
-// point a gap short of the frame's edge; the bubble is centred over it and kept on the screen, so by a frame at the
-// screen's edge (the character's portrait in the corner) the bubble moves inward and the arrow stays on the frame.
-// Its owner shows it while what it says holds; the close glyph says the player has read it (`close`), and the owner
-// hides it.
-import { Anchored, Art, Frame, Layer, Point, Track } from "$ltml"
+// button alert are, in one of two looks (`CalloutLook`). Framed: the small metal frame round the windows' wood, a
+// title in white and its text under it in the label colour, the window's close glyph at its top right where it is
+// closable, and the client's help-tip arrow in gold. A dot: a plain round bubble of one colour with its title (a count:
+// the whispers waiting unread) in white, no frame, no close, a smaller arrow in its colour. It stands beside a frame
+// of the game's, over it or under it (`CalloutSide`), on the dialogs' layer over the windows. The arrow stands on the
+// frame's middle, its point a gap short of the frame's edge; the bubble is centred over it and kept on the screen, so
+// by a frame at the screen's edge the bubble moves inward and the arrow stays on the frame. Its owner shows it while
+// what it says holds; the close glyph says the player has read it (`close`), and the owner hides it.
+import { Align, Anchored, Frame, Layer, Point, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import { Component } from "@/module"
-import { BRIGHT_TEXT, TIGHT_LINE, TITLE_LINE, TITLE_TEXT } from "@/units"
+import { BRIGHT_TEXT, SECONDARY_TEXT, TIGHT_LINE, TITLE_LINE, TITLE_TEXT } from "@/units"
 
 // Which side of the frame it stands on.
 public enum CalloutSide { Above, Below }
+
+// How it looks: framed, with a close glyph or without; or a plain round dot of one colour.
+public enum CalloutLook {
+  Framed { closable: Boolean }
+  Dot { tone: Color }
+}
 
 // As wide as what it says, up to its most: a long text wraps there.
 const MOST = 468.75dp
 const LABEL: Color = Color.hex("#cbb994")
 const GOLD: Color = Color.hex("#f0c860")
-// The client's help-tip arrow (65 by 28 px), pointing down as drawn; the gap from its point to the frame; how far the
-// bubble's frame comes over the arrow's base, so they meet.
+// The client's help-tip arrow (65 by 28 px), pointing down as drawn, at a framed callout's size and a dot's; the gap
+// from its point to the frame; how far the bubble comes over the arrow's base, so they meet.
 const ARROW: Atlas = "helptip-arrow"
 const ARROW_WIDTH = 38.0859375dp
 const ARROW_HEIGHT = 16.40625dp
+const DOT_ARROW_WIDTH = 21.09375dp
+const DOT_ARROW_HEIGHT = 9.375dp
 const GAP = 2.34375dp
 const MEET = 2.34375dp
+// A dot: round, as high as a line of small digits with a little room.
+const DOT = 25.78125dp
 const GLYPH = 18.75dp
 const HEAD: Array<Track> = [{ fr: 1 }, "max-content"]
 const PAD: Number<Spacing> = 5sp
@@ -40,55 +49,73 @@ function arrowPlaceOf(by: any Frame, side: CalloutSide): Anchored {
 }
 
 // Where the bubble stands: centred past the arrow's base.
-function bubblePlaceOf(by: any Frame, side: CalloutSide): Anchored {
-  const past: Number<Length> = GAP + ARROW_HEIGHT - MEET
+function bubblePlaceOf(by: any Frame, side: CalloutSide, arrowHeight: Number<Length>): Anchored {
+  const past: Number<Length> = GAP + arrowHeight - MEET
   if (side == CalloutSide.Above) {
     return { point: Point.Bottom, to: Point.Top, y: -past, by: by }
   }
   return { point: Point.Top, to: Point.Bottom, y: past, by: by }
 }
 
+// A dot's colour; nil for a framed callout.
+function toneOf(look: CalloutLook): Color | nil {
+  match (look) {
+    .Framed => return nil
+    .Dot => return look.tone
+  }
+}
+
+// Whether a framed callout has its close glyph.
+function closableOf(look: CalloutLook): Boolean {
+  match (look) {
+    .Framed => return look.closable
+    .Dot => return false
+  }
+}
+
 public class Callout implements Component {
   public close: Event<nil> = new Event()
 
+  derived tone: Color | nil = toneOf(self.look)
+  derived dot: Boolean = self.tone != nil
+  derived framed: Boolean = !self.dot
+  derived closable: Boolean = closableOf(self.look)
+  derived arrowWidth: Number<Length> = self.dot ? DOT_ARROW_WIDTH : ARROW_WIDTH
+  derived arrowHeight: Number<Length> = self.dot ? DOT_ARROW_HEIGHT : ARROW_HEIGHT
   derived arrowPlace: Anchored = arrowPlaceOf(self.by, self.side)
-  derived bubblePlace: Anchored = bubblePlaceOf(self.by, self.side)
+  derived bubblePlace: Anchored = bubblePlaceOf(self.by, self.side, self.arrowHeight)
   derived turn: Number<Angle> = self.side == CalloutSide.Above ? 0deg : 180deg
   derived hasText: Boolean = self.text != ""
-  derived back: Art | Color = self.tone ?? Ordaen.art.window.wood
   derived arrowTint: Color = self.tone ?? GOLD
 
   by: Signal<any Frame>
   title: Signal<String>
   text: Signal<String>
   side: Signal<CalloutSide>
-  tone: Signal<Color | nil>
-  closable: Signal<Boolean>
+  look: Signal<CalloutLook>
   constructor(
     // The frame it points at.
     by: Signal<any Frame>,
     title: Signal<String>,
+    // Under the title, in a framed callout.
     text: Signal<String> = "",
     side: Signal<CalloutSide> = CalloutSide.Above,
-    // A plain colour inside the frame, the arrow in it too; none: the windows' wood and a gold arrow.
-    tone: Signal<Color | nil> = nil,
-    closable: Signal<Boolean> = true
+    look: Signal<CalloutLook> = CalloutLook.Framed { closable: true }
   ) {
     self.by = by
     self.title = title
     self.text = text
     self.side = side
-    self.tone = tone
-    self.closable = closable
+    self.look = look
   }
 
   onClose(mut self) { self.close.emit() }
 
   public render(self): Template {
     return $ltml {
-      <surface layer={Layer.Dialog} place={self.bubblePlace} clamp={true} columns={1}>
-        <box lineHeight={TIGHT_LINE} border={Ordaen.art.frame.small} background={self.back} padding={PAD} columns={1}
-             gap={2sp} width={{ min: nil, max: MOST }}>
+      <surface $if={self.framed} layer={Layer.Dialog} place={self.bubblePlace} clamp={true} columns={1}>
+        <box lineHeight={TIGHT_LINE} border={Ordaen.art.frame.small} background={Ordaen.art.window.wood} padding={PAD}
+             columns={1} gap={2sp} width={{ min: nil, max: MOST }}>
           <box columns={HEAD} gap={3sp}>
             <text value={self.title} textColor={BRIGHT_TEXT} textSize={TITLE_TEXT} lineHeight={TITLE_LINE} />
             <box $if={self.closable} width={GLYPH} height={GLYPH} background={Ordaen.art.ctl.corner.close}
@@ -97,9 +124,16 @@ public class Callout implements Component {
           <text $if={self.hasText} value={self.text} textColor={LABEL} />
         </box>
       </surface>
+      <surface $if={self.dot} layer={Layer.Dialog} place={self.bubblePlace} clamp={true} columns={1}>
+        <box width={DOT} height={DOT} background={self.tone} mask={Ordaen.art.panel.faceRound} xAlign={Align.Center}
+             yAlign={Align.Center}>
+          <text value={self.title} textSize={SECONDARY_TEXT} textColor={BRIGHT_TEXT} textFont={.Numbers}
+                lineHeight={TIGHT_LINE} wrap={.None} />
+        </box>
+      </surface>
       <surface layer={Layer.Dialog} place={self.arrowPlace} columns={1}>
-        <box width={ARROW_WIDTH} height={ARROW_HEIGHT} background={ARROW} desaturate={true} tint={self.arrowTint}
-             rotation={self.turn} />
+        <box width={self.arrowWidth} height={self.arrowHeight} background={ARROW} desaturate={true}
+             tint={self.arrowTint} rotation={self.turn} />
       </surface>
     }
   }
