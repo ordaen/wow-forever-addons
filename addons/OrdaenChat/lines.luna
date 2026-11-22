@@ -98,6 +98,14 @@ public class ChatTab {
   // How its channels' lines name their channel; where its lines' times stand.
   public state channelName: ChannelName = .Name
   public state stamps: StampPlace = .Above
+  // The words that mark someone else's line in it, the player's name with them; whether it folds repeats; how many
+  // lines it holds and keeps after a reload; what the input's history keeps while it is open.
+  public state keywords = ""
+  public derived words: Array<String> = wordsOf(self.keywords, Game.player.name)
+  public state repeats = true
+  public state held = 500
+  public state kept = 200
+  public state history: Game.ChatHistory = .All
 
   constructor(key: String, title: String) {
     self.key = key
@@ -120,6 +128,11 @@ public class ChatTab {
     self.counted = choices.counter
     self.channelName = choices.channelName
     self.stamps = choices.stamps
+    self.keywords = choices.keywords
+    self.repeats = choices.repeats
+    self.held = choices.held
+    self.kept = choices.kept
+    self.history = choices.history
     if (!choices.counter) { self.unread = 0 }
   }
 
@@ -131,17 +144,18 @@ public class ChatTab {
     self.version = (peek self.version) + 1
   }
 
-  // A line added, or the last one counted again where it repeats it; the oldest let go past `held`.
-  public add(mut self, line: Shown, repeats: Boolean, held: Integer) {
+  // A line added, or the last one counted again where it repeats it (where it folds repeats); the oldest let go past
+  // `held`.
+  public add(mut self, line: Shown) {
     const last = self.lines[self.lines.length]
-    if (repeats && !line.secret && last != nil && !last.secret && last.repeat == line.repeat) {
+    if (peek self.repeats && !line.secret && last != nil && !last.secret && last.repeat == line.repeat) {
       const again = line.clone()
       again.count = last.count + 1
       again.whole = `${line.whole} |cff9d9d9d×${again.count}|r`
       self.lines[self.lines.length] = again
     } else {
       self.lines.push(line)
-      if (self.lines.length > held) { _ = self.lines.remove(1) }
+      if (self.lines.length > peek self.held) { _ = self.lines.remove(1) }
     }
     self.version = (peek self.version) + 1
   }

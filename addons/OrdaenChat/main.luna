@@ -17,7 +17,7 @@ import { PORTRAIT_HEIGHT, PORTRAIT_WIDTH } from "OrdaenPanel"
 import root Quests from "OrdaenQuests"
 import root Social from "OrdaenSocial"
 import { ChannelName, ChatSize, Choices, LEAST_HEIGHT, LEAST_WIDTH, MESSAGE_GAP, TabChoices, tabDefaults, tabKey } from "@/choices"
-import { ChatTab, Kept, KeptTab, Shown, THIS_SESSION, channelOf, creatureNamed, linked, marks, wordsOf } from "@/lines"
+import { ChatTab, Kept, KeptTab, Shown, THIS_SESSION, channelOf, creatureNamed, linked, marks } from "@/lines"
 import Locale from "@/locales"
 import { LinkPick, Pane, TabPick, nameOf, questOf, shownName } from "@/pane"
 import { ChatPage } from "@/settings"
@@ -49,8 +49,8 @@ const BUTTON = 90dp
 public class Chat implements Module, App {
   public const title: String = "Ordaen Chat"
   settings: mut Settings<Choices> = new Settings<Choices>({
-    width: 430, height: 190, hide: false, hiddenOpacity: 0, ground: 0.8, tabs: {}, keywords: "", repeats: true, kept: 200, held: 500,
-    history: Game.ChatHistory.All, inputAlways: false, ownTextSize: false, textSize: BODY_TEXT / 1ui,
+    width: 430, height: 190, hide: false, hiddenOpacity: 0, ground: 0.8, tabs: {},
+    inputAlways: false, ownTextSize: false, textSize: BODY_TEXT / 1ui,
     messageGap: MESSAGE_GAP
   })
   // The window the «Tabs» page shows.
@@ -100,7 +100,6 @@ public class Chat implements Module, App {
   // The lines' text: Ordaen's body text, as every module's, or the chat's own size (in UI units) where the player
   // chose one.
   derived textSize: Number<TextSize> = self.settings.values.ownTextSize ? self.settings.values.textSize * 1rem * 1ui / BODY_TEXT : 1rem
-  derived words: Array<String> = wordsOf(self.settings.values.keywords, Game.player.name)
   derived open: ChatTab | nil = self.tabs.find(tab => tab.key == self.openKey) ?? self.tabs[1]
 
   constructor() {
@@ -116,7 +115,8 @@ public class Chat implements Module, App {
     watch (windows of Game.chat.windows) { self.sync() }
     // Whispers are Ordaen Social's: the game opens no window of its own for them.
     if (Social != nil) { Game.chat.whisperWindows(false) }
-    watch { Game.chat.inputHistory(self.settings.values.history) }
+    // The input's history kept as the open tab chose.
+    watch { Game.chat.inputHistory(self.open?.history ?? .All) }
     watch { Game.chat.inputShown(self.settings.values.inputAlways) }
     watch { self.chooseTabs(self.settings.values.tabs) }
     // The input opened (Enter): it speaks where the open tab's window last spoke (a whisper window, to its partner).
@@ -165,15 +165,25 @@ public class Chat implements Module, App {
     return tab
   }
 
-  // A line heard: a whisper Ordaen Social's, its words alone (their web addresses links); any other made once as
-  // drawn, and added to each tab that shows it.
+  // A line heard: a whisper Ordaen Social's, its words alone (their web addresses links); any other added to each tab
+  // that shows it, drawn as the tab chose (its channel's name, its keywords' mark): made once for the tabs that agree.
   onLine(mut self, line: Game.ChatLine) {
     if (Social?.heard(line, line.secret != "" ? line.body : linked(line.text)) == true) { return }
-    const values = peek self.settings.values
-    // A channel's line names its channel as each tab chose: made for each; any other, once for all.
-    const plain = line.channel > 0 ? nil : self.shownLine(line, .Name)
     const open = peek self.openKey
-    for (index of line.windows) { self.addTo(tabKey(index), line, plain, open, values) }
+    // The line as drawn, by how a tab draws it: its channel's name, its keywords.
+    const drawn: Map<String, Shown> = {}
+    for (index of line.windows) {
+      const key = tabKey(index)
+      // A window opened in the same call as its first line (a whisper's): its tab is made now, not after the frame.
+      if (self.made[key] == nil) { self.sync() }
+      let tab = self.made[key]
+      if (tab != nil) {
+        const as = `${line.channel > 0 ? peek tab.channelName : ""}|${peek tab.keywords}`
+        const shown = drawn[as] ?? self.shownLine(line, peek tab.channelName, peek tab.words)
+        drawn[as] = shown
+        self.addTo(mut tab, shown, open)
+      }
+    }
   }
 
   // A player reported: their lines go from every tab and conversation, as the game's windows take them away.
@@ -183,17 +193,13 @@ public class Chat implements Module, App {
     Social?.reported(guid)
   }
 
-  addTo(mut self, key: String, line: Game.ChatLine, plain: Shown | nil, open: String, values: Choices) {
-    // A window opened in the same call as its first line (a whisper's): its tab is made now, not after the frame.
-    if (self.made[key] == nil) { self.sync() }
-    const tab = self.made[key]
-    if (tab == nil) { return }
-    tab.add(plain ?? self.shownLine(line, peek tab.channelName), values.repeats, values.held)
+  addTo(mut self, tab: mut ChatTab, shown: Shown, open: String) {
+    tab.add(shown)
     // An undocked window's pane shows each line as it comes: nothing waits unread there.
-    if (key != open && peek tab.docked && peek tab.counted) { tab.unread = (peek tab.unread) + 1 }
+    if (tab.key != open && peek tab.docked && peek tab.counted) { tab.unread = (peek tab.unread) + 1 }
   }
 
-  shownLine(self, line: Game.ChatLine, channelName: ChannelName): Shown {
+  shownLine(self, line: Game.ChatLine, channelName: ChannelName, words: Array<String>): Shown {
     if (line.secret != "") {
       return {
         whole: line.body, color: line.color, time: line.time, repeat: "", count: 1, marked: false, session: THIS_SESSION, secret: true,
@@ -206,7 +212,7 @@ public class Chat implements Module, App {
       // The time where the game shows the chat's times: drawn where the tab places it.
       whole: `${channel}${linked(creatureNamed(line))}`, color: line.color, time: line.time, stamped: line.stamp != "",
       repeat: `${line.kind}|${line.channel}|${line.sender}|${line.text}`, count: 1,
-      marked: line.sender != "" && !own && marks(line.text, peek self.words), session: THIS_SESSION, secret: false,
+      marked: line.sender != "" && !own && marks(line.text, words), session: THIS_SESSION, secret: false,
       sender: line.guid
     }
   }
@@ -358,12 +364,12 @@ public class Chat implements Module, App {
     }
   }
 
-  // The last lines of each tab, for the next session: written once, as the player logs out.
+  // The last lines of each tab, as many as it keeps, for the next session: written once, as the player logs out.
   keep(mut self) {
-    const count = (peek self.settings.values).kept
     const tabs: Array<KeptTab> = []
-    if (count > 0) {
-      for (_, tab of self.made) { tabs.push({ key: tab.key, lines: tab.keptLines(count) }) }
+    for (_, tab of self.made) {
+      const count = peek tab.kept
+      if (count > 0) { tabs.push({ key: tab.key, lines: tab.keptLines(count) }) }
     }
     Game.saved.store(Game.Scope.Character, HISTORY, Kept { tabs: tabs })
   }

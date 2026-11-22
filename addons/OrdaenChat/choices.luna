@@ -32,6 +32,15 @@ public struct TabChoices implements Plain {
   counter: Boolean
   channelName: ChannelName
   stamps: StampPlace = .Above
+  // Words (comma-separated) that mark someone else's line in it, beside the player's own name.
+  keywords: String = ""
+  // The same sender's same words one after another are one line with «×N».
+  repeats: Boolean = true
+  // Lines it holds this session, and those kept after a reload (0 keeps none).
+  held: Integer = 500
+  kept: Integer = 200
+  // What the input's history keeps of what is sent while the tab is open (Alt and Up or Down bring it back).
+  history: Game.ChatHistory = .All
 }
 
 // The game's message group of the guild's lines.
@@ -68,21 +77,11 @@ public struct Choices implements Plain {
   ground: Number = 0.8
   // Each window's own settings, by its tab's key (`tabKey`); a window without them takes `tabDefaults`.
   tabs: Map<String, TabChoices>
-  // Words (comma-separated) that mark someone else's line, beside the player's own name.
-  keywords: String
-  // The same sender's same words one after another are one line with «×N».
-  repeats: Boolean
-  // Lines of each tab kept after a reload; 0 keeps none.
-  kept: Integer
-  // Lines each tab holds this session.
-  held: Integer
   // The lines at a size of the chat's own (in UI units), not Ordaen's body text.
   ownTextSize: Boolean
   textSize: Number
   // The room between messages (in sp).
   messageGap: Number = MESSAGE_GAP
-  // What the input's history keeps of what is sent (Alt and Up or Down bring it back).
-  history: Game.ChatHistory
   // The input always shown under the lines (off: from Enter to the line sent).
   inputAlways: Boolean
 }

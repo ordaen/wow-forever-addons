@@ -1,15 +1,8 @@
 // The chat's page in the settings window, in sections: the window, its visibility, the lines, the input. Each control
 // writes one entry of the settings, at once.
-import Game from "$game"
-import { Choice, Component, Field, NumberInput, Section, Segmented, SettingRow, Settings, Switch, Unit } from "Ordaen"
+import { Component, NumberInput, Section, Settings, Switch, Unit } from "Ordaen"
 import { Choices, LEAST_HEIGHT, LEAST_WIDTH, MESSAGE_GAP_MOST } from "@/choices"
 import Locale from "@/locales"
-
-const HISTORY: Array<Choice<Game.ChatHistory>> = [
-  { value: Game.ChatHistory.All, label: Locale.HISTORY_ALL },
-  { value: Game.ChatHistory.Commands, label: Locale.HISTORY_COMMANDS },
-  { value: Game.ChatHistory.None, label: Locale.HISTORY_NONE }
-]
 
 public class ChatPage implements Component {
   settings: mut Settings<Choices>
@@ -34,14 +27,6 @@ public class ChatPage implements Component {
                        value={mut self.settings.values.hiddenOpacity} least={0} most={1} step={0.05} unit={Unit.Percent} />
         </Section>
         <Section title={Locale.SECTION_LINES}>
-          <SettingRow label={Locale.KEYWORDS} hint={Locale.KEYWORDS_TIP}>
-            <Field value={mut self.settings.values.keywords} maxLength={200} placeholder={Locale.KEYWORDS_EXAMPLE} />
-          </SettingRow>
-          <Switch label={Locale.REPEATS} hint={Locale.REPEATS_TIP} value={mut self.settings.values.repeats} />
-          <NumberInput label={Locale.KEPT} hint={Locale.KEPT_TIP} value={mut self.settings.values.kept} least={0} most={500}
-                       step={50} unit={Unit.None} />
-          <NumberInput label={Locale.HELD} hint={Locale.HELD_TIP} value={mut self.settings.values.held} least={100} most={2000}
-                       step={100} unit={Unit.None} />
           <NumberInput label={Locale.MESSAGE_GAP} hint={Locale.MESSAGE_GAP_TIP} value={mut self.settings.values.messageGap} least={0}
                        most={MESSAGE_GAP_MOST} step={0.5} unit={Unit.None} />
           <Switch label={Locale.OWN_TEXT_SIZE} hint={Locale.OWN_TEXT_SIZE_TIP} value={mut self.settings.values.ownTextSize} />
@@ -50,9 +35,6 @@ public class ChatPage implements Component {
         </Section>
         <Section title={Locale.SECTION_INPUT}>
           <Switch label={Locale.INPUT_ALWAYS} hint={Locale.INPUT_ALWAYS_TIP} value={mut self.settings.values.inputAlways} />
-          <SettingRow label={Locale.HISTORY} hint={Locale.HISTORY_TIP}>
-            <Segmented value={mut self.settings.values.history} choices={HISTORY} />
-          </SettingRow>
         </Section>
       </box>
     }

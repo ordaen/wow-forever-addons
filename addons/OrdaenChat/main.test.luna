@@ -317,9 +317,9 @@ test "a tab's count goes off in its settings; the combat log's and a tab of chan
   Test.expect(!shown.text("1").shown())
   const settings = tabsPage()
   settings.text("Whisper").click()
-  // The switches on: the modules' in the sidebar, then the tab's count, the page's last.
+  // The switches on: the modules' in the sidebar, then the tab's count, then its lines' «Fold repeats», the page's last.
   const on = settings.button(Ordaen.art.ctl.switchOn)
-  on.nth(on.count()).click()
+  on.nth(on.count() - 1).click()
   Game.chat.heard.emit(line("SAY", "[Jaina] says: psst", "Jaina", [3]))
   Test.expect(!shown.text("1").shown())
 }
@@ -340,6 +340,22 @@ test "the same words said again one after another are one line, counted" {
   const shown = chat()
   Game.chat.heard.emit(line("YELL", "[Gnoll] yells: spam", "Gnoll", [1]))
   Game.chat.heard.emit(line("YELL", "[Gnoll] yells: spam", "Gnoll", [1]))
+  Test.expect(shown.text("[Gnoll] yells: spam |cff9d9d9d×2|r").shown())
+}
+
+test "a tab folds repeats as its own settings say: one turned off in the Tabs page, another still folds" {
+  Game.chat.windows = gameWindows()
+  const shown = chat()
+  // General picked: its «Fold repeats», the page's last switch, turned off; the whisper tab keeps its own.
+  const settings = tabsPage()
+  const on = settings.button(Ordaen.art.ctl.switchOn)
+  on.nth(on.count() - 1).wheel(-30)
+  on.nth(on.count()).click()
+  _ = Test.key(Key.Escape)
+  Game.chat.heard.emit(line("YELL", "[Gnoll] yells: spam", "Gnoll", [1, 3]))
+  Game.chat.heard.emit(line("YELL", "[Gnoll] yells: spam", "Gnoll", [1, 3]))
+  Test.expect(shown.text("[Gnoll] yells: spam").count() == 2)
+  shown.text("Jaina").click()
   Test.expect(shown.text("[Gnoll] yells: spam |cff9d9d9d×2|r").shown())
 }
 
@@ -461,11 +477,8 @@ test "the chat is never narrower than a window's least body, 375 dp" {
   Test.open("/ordaen")
   const settings = Test.page().window("Move mode")
   settings.button("Chat").click()
-  const width = settings.input().nth(1)
-  width.click()
-  Test.erase(10)
-  Test.type("240")
-  _ = Test.key(Key.Enter)
+  // The width's «−», the page's first, pressed past its least: it stops there.
+  for (at of 1..20) { settings.text("-").nth(1).click() }
   // 375 dp, 266 of the screen's units here (190 dp are 135).
   const drawn = shown.rect()
   Test.expect(drawn.right - drawn.left >= 266)
@@ -928,11 +941,11 @@ test "a line the client keeps secret shows one line high, never kept for the nex
 
 test "a tab's last lines are kept for the next session and come back as they were, before the new ones" {
   const kept = new ChatTab("w1", "General")
-  kept.add(plain("one", 100), true, 500)
-  kept.add(plain("two", 100), true, 500)
-  kept.add(plain("three", 100), true, 500)
+  kept.add(plain("one", 100))
+  kept.add(plain("two", 100))
+  kept.add(plain("three", 100))
   const back = new ChatTab("w1", "General")
-  back.add(plain("new"), true, 500)
+  back.add(plain("new"))
   back.recall(kept.keptLines(2))
   Test.expect(back.lines.map(l => l.whole).join(",") == "two,three,new")
   // A rule above each session's first line: the kept session's, and this one's after it.
@@ -1095,8 +1108,8 @@ test "messages stand apart by the chat's room between them, more than a message'
   Test.open("/ordaen")
   const settings = Test.page().window("Move mode")
   settings.button("Chat").click()
-  settings.text("-").nth(6).click()
-  settings.text("-").nth(6).click()
+  settings.text("-").nth(4).click()
+  settings.text("-").nth(4).click()
   Test.expect((room() - Ordaen.lengthOf((MESSAGE_GAP - 1) * 1sp) / 1ui).abs() < 0.05)
 }
 
