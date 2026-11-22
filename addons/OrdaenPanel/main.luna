@@ -158,14 +158,15 @@ public class ZoneBox implements Component {
                yAlign={Align.Center}>
             <box width={PORTRAIT_WIDTH} height={1ui} />
             <MicroLine gold={self.panel.goldIcons} faced={false} social={self.social}
-                       merged={self.panel.spellsMerged} guildMerged={self.panel.guildMerged} height={self.panel.inside} />
+                       merged={self.panel.spellsMerged} guildMerged={self.panel.guildMerged} height={self.panel.inside}
+                       rise={self.panel.rise} />
           </box>
           <MicroLine $else gold={self.panel.goldIcons} vertical={self.panel.vertical} social={self.social}
                      merged={self.panel.spellsMerged} guildMerged={self.panel.guildMerged} height={self.panel.inside} face={self.panel.face}
-                     icon={self.panel.classIcon} />
+                     icon={self.panel.classIcon} rise={self.panel.rise} />
         </>
         <SocialLine $if={self.socialAlone} gold={self.panel.goldIcons} guildMerged={self.panel.guildMerged} vertical={self.panel.vertical}
-                    height={self.panel.inside} />
+                    height={self.panel.inside} rise={self.panel.rise} />
         <XpBar $if={self.experience} room={self.panel.inside} fill={self.panel.xpFill} bezel={self.panel.xpBezel}
                view={self.panel.xpView} />
         <text $if={self.zoneName} value={Game.location.zone} textColor={INK}
@@ -176,7 +177,7 @@ public class ZoneBox implements Component {
         </box>
         <MoneyLine $if={self.money} outline={self.panel.outline} shadow={self.panel.shadow}
                    vertical={self.panel.vertical} />
-        <BagLine $if={self.bags} vertical={self.panel.vertical} height={self.panel.inside} />
+        <BagLine $if={self.bags} vertical={self.panel.vertical} height={self.panel.inside} rise={self.panel.rise} />
       </box>
     }
   }
@@ -296,6 +297,9 @@ public class Panel implements Module, App {
   public derived inside: Number<Length> = self.tall - METAL - EDGE_ROOM_TOP
   // The room under the metal, a measure of the art, as a padding takes it.
   derived edgeRoom: Edges = { top: Ordaen.spacingOf(EDGE_ROOM_TOP) }
+  // How far its dividers reach up past its cells to meet the metal: across that room; down a side, the room is at its
+  // inner edge, along the dividers, and they reach nothing.
+  public derived rise: Number<Length> = self.vertical ? 0ui : EDGE_ROOM_TOP
   // How far it reaches in from its edge as drawn: its top edge's metal stands past its line, inside the box's size.
   derived drawnTall: Number<Length> = self.tall + reachDown(Ordaen.art.panel.edge)
   // The experience bar on its own: 600 at its frame's line, the art past the line on either side.

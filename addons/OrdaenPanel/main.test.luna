@@ -291,6 +291,16 @@ test "one groove parts each two cells of a group, none before its first" {
   Test.expect(!window.box(BACKPACK).item().paintedWith(divider()) && window.box(KEYRING).item().paintedWith(divider()))
 }
 
+test "a groove runs up past the cells to the panel's metal, through the room under it" {
+  Game.bags.buttons = bagButtons(frame)
+  Test.mount(nil, SCREEN)
+  const cut = Test.edges(divider(), 0)
+  const cell = panel().box(SPELLBOOK).rect()
+  // A cell as high as the panel's inside (CELL_HEIGHT, 53 units), its icon in its middle, and the room under the
+  // metal over it (4 units).
+  Test.expect((cut.bottom - cut.top - 57).abs() < 0.01 && ((cell.top + cell.bottom) / 2 - (cut.bottom - 26.5)).abs() < 0.01)
+}
+
 test "a click on a cell of the menu or of the bags is the game's own button's in it" {
   let clicked: Array<String> = []
   const professions = frame("ProfessionMicroButton")

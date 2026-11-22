@@ -2,7 +2,7 @@
 // one divider between two neighbours (the windows' deep cut in the wood, Ordaen's `Groove`), none at its ends, where what holds it (the panel's wood, a free part's frame)
 // has its own edge. A cell draws no edge of its own, so no two dividers ever stand together.
 import Game from "$game"
-import { Align, Art, Frame, Track } from "$ltml"
+import { Align, Art, Frame, Position, Track } from "$ltml"
 import { CUT, Component, Groove } from "Ordaen"
 import { BagCell, CELL_HEIGHT, CellSize, FaceCell, MenuCell, cellSize } from "@/cells"
 
@@ -29,6 +29,7 @@ public class CellGroup implements Component {
   height: Signal<Number<Length>>
   face: Signal<String | nil>
   icon: Signal<Art | nil>
+  rise: Signal<Number<Length>>
   constructor(
     cells: Signal<Array<Cell>>,
     // The menu's icons in one gold.
@@ -38,7 +39,9 @@ public class CellGroup implements Component {
     height: Signal<Number<Length>> = CELL_HEIGHT,
     // The character's cell: the unit whose face it shows, or the class's icon.
     face: Signal<String | nil> = "player",
-    icon: Signal<Art | nil> = nil
+    icon: Signal<Art | nil> = nil,
+    // How far the dividers reach up past the cells, to meet what holds them (the panel's metal over its room).
+    rise: Signal<Number<Length>> = 0ui
   ) {
     self.cells = cells
     self.gold = gold
@@ -46,6 +49,7 @@ public class CellGroup implements Component {
     self.height = height
     self.face = face
     self.icon = icon
+    self.rise = rise
   }
 
   across(self): Array<Track> {
@@ -57,7 +61,8 @@ public class CellGroup implements Component {
     return $ltml {
       <box columns={self.columns}>
         <GroupCell $for={index, cell of self.cells} $key={cell} cell={peek cell} first={index == 1}
-                   gold={self.gold} vertical={self.vertical} size={self.size} face={self.face} icon={self.icon} />
+                   gold={self.gold} vertical={self.vertical} size={self.size} face={self.face} icon={self.icon}
+                   rise={self.rise} />
       </box>
     }
   }
@@ -80,6 +85,7 @@ class GroupCell implements Component {
   size: Signal<CellSize>
   face: Signal<String | nil>
   icon: Signal<Art | nil>
+  rise: Signal<Number<Length>>
   constructor(
     cell: Cell,
     first: Boolean,
@@ -87,7 +93,8 @@ class GroupCell implements Component {
     vertical: Signal<Boolean>,
     size: Signal<CellSize>,
     face: Signal<String | nil>,
-    icon: Signal<Art | nil>
+    icon: Signal<Art | nil>,
+    rise: Signal<Number<Length>>
   ) {
     self.cell = cell
     self.first = first
@@ -96,14 +103,17 @@ class GroupCell implements Component {
     self.size = size
     self.face = face
     self.icon = icon
+    self.rise = rise
   }
 
   public render(self): Template {
     return $ltml {
       <box columns={self.columns} rows={self.rows} xAlign={Align.Center} yAlign={Align.Center}>
-        <box $if={!self.first} width={self.dividerWidth} height={self.dividerHeight} rows={[{ fr: 1 }]}
-             yAlign={Align.Stretch}>
-          <Groove upright={self.upright} />
+        <box $if={!self.first} width={self.dividerWidth} height={self.dividerHeight}>
+          <box position={Position.Absolute} left={0ui} top={-self.rise} right={0ui} bottom={0ui} rows={[{ fr: 1 }]}
+               yAlign={Align.Stretch}>
+            <Groove upright={self.upright} />
+          </box>
         </box>
         <CellOf cell={self.cell} gold={self.gold} size={self.size} face={self.face} icon={self.icon} />
       </box>

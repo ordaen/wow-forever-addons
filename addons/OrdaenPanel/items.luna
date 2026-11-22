@@ -54,6 +54,7 @@ public class MicroLine implements Component {
   height: Signal<Number<Length>>
   face: Signal<String | nil>
   icon: Signal<Art | nil>
+  rise: Signal<Number<Length>>
   constructor(
     gold: Signal<Boolean>,
     vertical: Signal<Boolean> = false,
@@ -67,7 +68,9 @@ public class MicroLine implements Component {
     height: Signal<Number<Length>> = CELL_HEIGHT,
     // The character's cell: the unit whose face it shows, or the class's icon.
     face: Signal<String | nil> = "player",
-    icon: Signal<Art | nil> = nil
+    icon: Signal<Art | nil> = nil,
+    // How far the dividers reach up past the cells, to meet what holds them (the panel's metal over its room).
+    rise: Signal<Number<Length>> = 0ui
   ) {
     self.gold = gold
     self.vertical = vertical
@@ -78,12 +81,13 @@ public class MicroLine implements Component {
     self.height = height
     self.face = face
     self.icon = icon
+    self.rise = rise
   }
 
   public render(self): Template {
     return $ltml {
       <CellGroup cells={self.cells} gold={self.gold} vertical={self.vertical} height={self.height} face={self.face}
-                 icon={self.icon} />
+                 icon={self.icon} rise={self.rise} />
     }
   }
 }
@@ -96,21 +100,27 @@ public class SocialLine implements Component {
   guildMerged: Signal<Boolean>
   vertical: Signal<Boolean>
   height: Signal<Number<Length>>
+  rise: Signal<Number<Length>>
   constructor(
     gold: Signal<Boolean>,
     // The friends and the guild open one window: the friends' button alone.
     guildMerged: Signal<Boolean> = false,
     vertical: Signal<Boolean> = false,
-    height: Signal<Number<Length>> = CELL_HEIGHT
+    height: Signal<Number<Length>> = CELL_HEIGHT,
+    // How far the dividers reach up past the cells, to meet what holds them (the panel's metal over its room).
+    rise: Signal<Number<Length>> = 0ui
   ) {
     self.gold = gold
     self.guildMerged = guildMerged
     self.vertical = vertical
     self.height = height
+    self.rise = rise
   }
 
   public render(self): Template {
-    return $ltml { <CellGroup cells={self.cells} gold={self.gold} vertical={self.vertical} height={self.height} /> }
+    return $ltml {
+      <CellGroup cells={self.cells} gold={self.gold} vertical={self.vertical} height={self.height} rise={self.rise} />
+    }
   }
 }
 
@@ -163,12 +173,19 @@ public class BagLine implements Component {
 
   vertical: Signal<Boolean>
   height: Signal<Number<Length>>
-  constructor(vertical: Signal<Boolean> = false, height: Signal<Number<Length>> = CELL_HEIGHT) {
+  rise: Signal<Number<Length>>
+  constructor(
+    vertical: Signal<Boolean> = false,
+    height: Signal<Number<Length>> = CELL_HEIGHT,
+    // How far the dividers reach up past the cells, to meet what holds them (the panel's metal over its room).
+    rise: Signal<Number<Length>> = 0ui
+  ) {
     self.vertical = vertical
     self.height = height
+    self.rise = rise
   }
 
   public render(self): Template {
-    return $ltml { <CellGroup cells={self.cells} vertical={self.vertical} height={self.height} /> }
+    return $ltml { <CellGroup cells={self.cells} vertical={self.vertical} height={self.height} rise={self.rise} /> }
   }
 }

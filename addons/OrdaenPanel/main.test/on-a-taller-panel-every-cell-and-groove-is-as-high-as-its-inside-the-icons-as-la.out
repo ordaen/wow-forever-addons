@@ -216,73 +216,82 @@ surface 0,799.5 2400x100.5 on LOW Interface\AddOns\Ordaen\media\window-wood piec
             embed 136.53,809.65 83.4x89 absolute frame=none opacity=0
         box 219.94,809.65 90.07x89
           box 219.94,809.65 6.67x89
-            box 219.94,809.65 6.67x89
-              box 219.94,809.65 6.67x89 Interface\AddOns\Ordaen\media\groove-dark-upright blend=MOD
-                box 219.94,809.65 6.67x89 absolute Interface\AddOns\Ordaen\media\groove-light-upright blend=ADD
+            box 219.94,805.65 6.67x93 absolute
+              box 219.94,805.65 6.67x93
+                box 219.94,805.65 6.67x93 Interface\AddOns\Ordaen\media\groove-dark-upright blend=MOD
+                  box 219.94,805.65 6.67x93 absolute Interface\AddOns\Ordaen\media\groove-light-upright blend=ADD
           box 226.6,809.65 83.4x89 #00000000
             box 238.92,824.76 58.77x58.77 absolute Interface\AddOns\OrdaenPanel\assets\micro-spellbookabilities
             embed 226.6,809.65 83.4x89 absolute frame=none opacity=0
         box 310.01,809.65 90.07x89
           box 310.01,809.65 6.67x89
-            box 310.01,809.65 6.67x89
-              box 310.01,809.65 6.67x89 Interface\AddOns\Ordaen\media\groove-dark-upright blend=MOD
-                box 310.01,809.65 6.67x89 absolute Interface\AddOns\Ordaen\media\groove-light-upright blend=ADD
+            box 310.01,805.65 6.67x93 absolute
+              box 310.01,805.65 6.67x93
+                box 310.01,805.65 6.67x93 Interface\AddOns\Ordaen\media\groove-dark-upright blend=MOD
+                  box 310.01,805.65 6.67x93 absolute Interface\AddOns\Ordaen\media\groove-light-upright blend=ADD
           box 316.67,809.65 83.4x89 #00000000
             box 328.99,824.76 58.77x58.77 absolute Interface\AddOns\OrdaenPanel\assets\micro-spectalents
             embed 316.67,809.65 83.4x89 absolute frame=none opacity=0
         box 400.07,809.65 90.07x89
           box 400.07,809.65 6.67x89
-            box 400.07,809.65 6.67x89
-              box 400.07,809.65 6.67x89 Interface\AddOns\Ordaen\media\groove-dark-upright blend=MOD
-                box 400.07,809.65 6.67x89 absolute Interface\AddOns\Ordaen\media\groove-light-upright blend=ADD
+            box 400.07,805.65 6.67x93 absolute
+              box 400.07,805.65 6.67x93
+                box 400.07,805.65 6.67x93 Interface\AddOns\Ordaen\media\groove-dark-upright blend=MOD
+                  box 400.07,805.65 6.67x93 absolute Interface\AddOns\Ordaen\media\groove-light-upright blend=ADD
           box 406.74,809.65 83.4x89 #00000000
             box 419.06,824.76 58.77x58.77 absolute Interface\AddOns\OrdaenPanel\assets\micro-legacy
             embed 406.74,809.65 83.4x89 absolute frame=none opacity=0
         box 490.14,809.65 90.07x89
           box 490.14,809.65 6.67x89
-            box 490.14,809.65 6.67x89
-              box 490.14,809.65 6.67x89 Interface\AddOns\Ordaen\media\groove-dark-upright blend=MOD
-                box 490.14,809.65 6.67x89 absolute Interface\AddOns\Ordaen\media\groove-light-upright blend=ADD
+            box 490.14,805.65 6.67x93 absolute
+              box 490.14,805.65 6.67x93
+                box 490.14,805.65 6.67x93 Interface\AddOns\Ordaen\media\groove-dark-upright blend=MOD
+                  box 490.14,805.65 6.67x93 absolute Interface\AddOns\Ordaen\media\groove-light-upright blend=ADD
           box 496.81,809.65 83.4x89 #00000000
             box 509.12,824.76 58.77x58.77 absolute Interface\AddOns\OrdaenPanel\assets\micro-questlog
             embed 496.81,809.65 83.4x89 absolute frame=none opacity=0
         box 580.21,809.65 90.07x89
           box 580.21,809.65 6.67x89
-            box 580.21,809.65 6.67x89
-              box 580.21,809.65 6.67x89 Interface\AddOns\Ordaen\media\groove-dark-upright blend=MOD
-                box 580.21,809.65 6.67x89 absolute Interface\AddOns\Ordaen\media\groove-light-upright blend=ADD
+            box 580.21,805.65 6.67x93 absolute
+              box 580.21,805.65 6.67x93
+                box 580.21,805.65 6.67x93 Interface\AddOns\Ordaen\media\groove-dark-upright blend=MOD
+                  box 580.21,805.65 6.67x93 absolute Interface\AddOns\Ordaen\media\groove-light-upright blend=ADD
           box 586.88,809.65 83.4x89 #00000000
             box 599.19,824.76 58.77x58.77 absolute Interface\AddOns\OrdaenPanel\assets\micro-groupfinder
             embed 586.88,809.65 83.4x89 absolute frame=none opacity=0
         box 670.28,809.65 90.07x89
           box 670.28,809.65 6.67x89
-            box 670.28,809.65 6.67x89
-              box 670.28,809.65 6.67x89 Interface\AddOns\Ordaen\media\groove-dark-upright blend=MOD
-                box 670.28,809.65 6.67x89 absolute Interface\AddOns\Ordaen\media\groove-light-upright blend=ADD
+            box 670.28,805.65 6.67x93 absolute
+              box 670.28,805.65 6.67x93
+                box 670.28,805.65 6.67x93 Interface\AddOns\Ordaen\media\groove-dark-upright blend=MOD
+                  box 670.28,805.65 6.67x93 absolute Interface\AddOns\Ordaen\media\groove-light-upright blend=ADD
           box 676.95,809.65 83.4x89 #00000000
             box 689.26,824.76 58.77x58.77 absolute Interface\AddOns\OrdaenPanel\assets\micro-collections
             embed 676.95,809.65 83.4x89 absolute frame=none opacity=0
         box 760.35,809.65 90.07x89
           box 760.35,809.65 6.67x89
-            box 760.35,809.65 6.67x89
-              box 760.35,809.65 6.67x89 Interface\AddOns\Ordaen\media\groove-dark-upright blend=MOD
-                box 760.35,809.65 6.67x89 absolute Interface\AddOns\Ordaen\media\groove-light-upright blend=ADD
+            box 760.35,805.65 6.67x93 absolute
+              box 760.35,805.65 6.67x93
+                box 760.35,805.65 6.67x93 Interface\AddOns\Ordaen\media\groove-dark-upright blend=MOD
+                  box 760.35,805.65 6.67x93 absolute Interface\AddOns\Ordaen\media\groove-light-upright blend=ADD
           box 767.02,809.65 83.4x89 #00000000
             box 779.33,824.76 58.77x58.77 absolute Interface\AddOns\OrdaenPanel\assets\micro-social
             embed 767.02,809.65 83.4x89 absolute frame=none opacity=0
         box 850.42,809.65 90.07x89
           box 850.42,809.65 6.67x89
-            box 850.42,809.65 6.67x89
-              box 850.42,809.65 6.67x89 Interface\AddOns\Ordaen\media\groove-dark-upright blend=MOD
-                box 850.42,809.65 6.67x89 absolute Interface\AddOns\Ordaen\media\groove-light-upright blend=ADD
+            box 850.42,805.65 6.67x93 absolute
+              box 850.42,805.65 6.67x93
+                box 850.42,805.65 6.67x93 Interface\AddOns\Ordaen\media\groove-dark-upright blend=MOD
+                  box 850.42,805.65 6.67x93 absolute Interface\AddOns\Ordaen\media\groove-light-upright blend=ADD
           box 857.09,809.65 83.4x89 #00000000
             box 869.4,824.76 58.77x58.77 absolute Interface\AddOns\OrdaenPanel\assets\micro-guildcommunities
             embed 857.09,809.65 83.4x89 absolute frame=none opacity=0
         box 940.49,809.65 90.07x89
           box 940.49,809.65 6.67x89
-            box 940.49,809.65 6.67x89
-              box 940.49,809.65 6.67x89 Interface\AddOns\Ordaen\media\groove-dark-upright blend=MOD
-                box 940.49,809.65 6.67x89 absolute Interface\AddOns\Ordaen\media\groove-light-upright blend=ADD
+            box 940.49,805.65 6.67x93 absolute
+              box 940.49,805.65 6.67x93
+                box 940.49,805.65 6.67x93 Interface\AddOns\Ordaen\media\groove-dark-upright blend=MOD
+                  box 940.49,805.65 6.67x93 absolute Interface\AddOns\Ordaen\media\groove-light-upright blend=ADD
           box 947.16,809.65 83.4x89 #00000000
             box 959.47,824.76 58.77x58.77 absolute Interface\AddOns\OrdaenPanel\assets\micro-gamemenu
             embed 947.16,809.65 83.4x89 absolute frame=none opacity=0
@@ -298,49 +307,55 @@ surface 0,799.5 2400x100.5 on LOW Interface\AddOns\Ordaen\media\window-wood piec
           embed 1776.18,809.65 83.4x89 absolute frame=MainMenuBarBackpackButton opacity=0
       box 1859.58,809.65 90.07x89
         box 1859.58,809.65 6.67x89
-          box 1859.58,809.65 6.67x89
-            box 1859.58,809.65 6.67x89 Interface\AddOns\Ordaen\media\groove-dark-upright blend=MOD
-              box 1859.58,809.65 6.67x89 absolute Interface\AddOns\Ordaen\media\groove-light-upright blend=ADD
+          box 1859.58,805.65 6.67x93 absolute
+            box 1859.58,805.65 6.67x93
+              box 1859.58,805.65 6.67x93 Interface\AddOns\Ordaen\media\groove-dark-upright blend=MOD
+                box 1859.58,805.65 6.67x93 absolute Interface\AddOns\Ordaen\media\groove-light-upright blend=ADD
         box 1866.25,809.65 83.4x89 #00000000
           box 1878.57,824.76 58.77x58.77 absolute icon=133633
           embed 1866.25,809.65 83.4x89 absolute frame=CharacterBag0Slot opacity=0
       box 1949.65,809.65 90.07x89
         box 1949.65,809.65 6.67x89
-          box 1949.65,809.65 6.67x89
-            box 1949.65,809.65 6.67x89 Interface\AddOns\Ordaen\media\groove-dark-upright blend=MOD
-              box 1949.65,809.65 6.67x89 absolute Interface\AddOns\Ordaen\media\groove-light-upright blend=ADD
+          box 1949.65,805.65 6.67x93 absolute
+            box 1949.65,805.65 6.67x93
+              box 1949.65,805.65 6.67x93 Interface\AddOns\Ordaen\media\groove-dark-upright blend=MOD
+                box 1949.65,805.65 6.67x93 absolute Interface\AddOns\Ordaen\media\groove-light-upright blend=ADD
         box 1956.32,809.65 83.4x89 #00000000
           box 1968.64,824.76 58.77x58.77 absolute icon=133633
           embed 1956.32,809.65 83.4x89 absolute frame=CharacterBag1Slot opacity=0
       box 2039.72,809.65 90.07x89
         box 2039.72,809.65 6.67x89
-          box 2039.72,809.65 6.67x89
-            box 2039.72,809.65 6.67x89 Interface\AddOns\Ordaen\media\groove-dark-upright blend=MOD
-              box 2039.72,809.65 6.67x89 absolute Interface\AddOns\Ordaen\media\groove-light-upright blend=ADD
+          box 2039.72,805.65 6.67x93 absolute
+            box 2039.72,805.65 6.67x93
+              box 2039.72,805.65 6.67x93 Interface\AddOns\Ordaen\media\groove-dark-upright blend=MOD
+                box 2039.72,805.65 6.67x93 absolute Interface\AddOns\Ordaen\media\groove-light-upright blend=ADD
         box 2046.39,809.65 83.4x89 #00000000
           box 2058.7,824.76 58.77x58.77 absolute icon=133633
           embed 2046.39,809.65 83.4x89 absolute frame=CharacterBag2Slot opacity=0
       box 2129.79,809.65 90.07x89
         box 2129.79,809.65 6.67x89
-          box 2129.79,809.65 6.67x89
-            box 2129.79,809.65 6.67x89 Interface\AddOns\Ordaen\media\groove-dark-upright blend=MOD
-              box 2129.79,809.65 6.67x89 absolute Interface\AddOns\Ordaen\media\groove-light-upright blend=ADD
+          box 2129.79,805.65 6.67x93 absolute
+            box 2129.79,805.65 6.67x93
+              box 2129.79,805.65 6.67x93 Interface\AddOns\Ordaen\media\groove-dark-upright blend=MOD
+                box 2129.79,805.65 6.67x93 absolute Interface\AddOns\Ordaen\media\groove-light-upright blend=ADD
         box 2136.46,809.65 83.4x89 #00000000
           box 2148.77,824.76 58.77x58.77 absolute icon=133633
           embed 2136.46,809.65 83.4x89 absolute frame=CharacterBag3Slot opacity=0
       box 2219.86,809.65 90.07x89
         box 2219.86,809.65 6.67x89
-          box 2219.86,809.65 6.67x89
-            box 2219.86,809.65 6.67x89 Interface\AddOns\Ordaen\media\groove-dark-upright blend=MOD
-              box 2219.86,809.65 6.67x89 absolute Interface\AddOns\Ordaen\media\groove-light-upright blend=ADD
+          box 2219.86,805.65 6.67x93 absolute
+            box 2219.86,805.65 6.67x93
+              box 2219.86,805.65 6.67x93 Interface\AddOns\Ordaen\media\groove-dark-upright blend=MOD
+                box 2219.86,805.65 6.67x93 absolute Interface\AddOns\Ordaen\media\groove-light-upright blend=ADD
         box 2226.53,809.65 83.4x89 #00000000
           box 2238.84,824.76 58.77x58.77 absolute icon=136511
           embed 2226.53,809.65 83.4x89 absolute frame=CharacterReagentBag0Slot opacity=0
       box 2309.93,809.65 90.07x89
         box 2309.93,809.65 6.67x89
-          box 2309.93,809.65 6.67x89
-            box 2309.93,809.65 6.67x89 Interface\AddOns\Ordaen\media\groove-dark-upright blend=MOD
-              box 2309.93,809.65 6.67x89 absolute Interface\AddOns\Ordaen\media\groove-light-upright blend=ADD
+          box 2309.93,805.65 6.67x93 absolute
+            box 2309.93,805.65 6.67x93
+              box 2309.93,805.65 6.67x93 Interface\AddOns\Ordaen\media\groove-dark-upright blend=MOD
+                box 2309.93,805.65 6.67x93 absolute Interface\AddOns\Ordaen\media\groove-light-upright blend=ADD
         box 2316.6,809.65 83.4x89 #00000000
           box 2328.91,824.76 58.77x58.77 absolute icon=130980
           embed 2316.6,809.65 83.4x89 absolute frame=KeyRingButton opacity=0
