@@ -57,10 +57,11 @@ const BODY: Array<Track> = ["max-content", { fr: 1 }]
 const WITH_TABS: Array<Track> = [TABS_WIDTH, { fr: 1 }]
 const FILL: Array<Track> = [{ fr: 1 }]
 const NOTED: Array<Track> = ["max-content", { fr: 1 }]
-const FOOT: Array<Track> = ["max-content", { fr: 1 }, "max-content", "max-content", "max-content"]
+// The counts, the room between, the buttons (or the gold tracked), the money.
+const FOOT: Array<Track> = ["max-content", { fr: 1 }, "max-content", "max-content"]
 // The footer's marble reaches the window's sides and bottom (the window places it flush); its text stands in by a
-// footer's room at the sides, and as far above and below it.
-const FOOT_PAD_Y: Number<Spacing> = 4sp
+// footer's room at the sides, and a narrow band above and below it.
+const FOOT_PAD_Y: Number<Spacing> = 2sp
 const FOOT_PAD: Edges = { top: FOOT_PAD_Y, right: 8sp, bottom: FOOT_PAD_Y, left: 8sp }
 const FOOT_RIM: Line = { width: 1.171875dp, color: Color.hex("#3e2f1d"), sides: [Side.Top] }
 const LABEL: Color = Color.hex("#a3977f")

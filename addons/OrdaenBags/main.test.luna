@@ -1569,6 +1569,10 @@ test "the footer stands on the game's marble, a rim round it" {
   Game.bags.open = true
   const marble = bags().box(Ordaen.art.window.marble)
   Test.expect(marble.text("13 of 22").shown())
+  // The money ends a footer's room (8sp) in from the marble's right, nothing after it.
+  const floor = marble.rect()
+  const money = marble.text(Game.money.format(Game.money.amount)).rect()
+  Test.expect((floor.right - money.right - Ordaen.lengthOf(8sp) / 1ui).abs() < 0.05)
 }
 
 // More of the protection
