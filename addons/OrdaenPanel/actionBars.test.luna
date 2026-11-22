@@ -498,3 +498,20 @@ test "ended in a fight, the buttons fade at once, and are put away with the keys
   Test.expect(!second.IsShown())
   Test.expect(Client.GetBindingAction("F8", true) == "ACTIONBUTTON2")
 }
+
+test "a bar of smaller buttons fits the client's art to them: the icon fills the button, as large as it" {
+  alone()
+  const holder = new Holder()
+  holder.settings.change((values: mut BarsChoices): nil => {
+    values.bars["2"] = changed(values, "2", (choice: mut BarChoice): nil => {
+      choice.size = 30
+    })
+  })
+  Test.mount(new ActionBars(holder.settings.values, holder.defaults), SCREEN)
+  Test.flush()
+  const client: any Client.Frame = button("2", 1)
+  Test.expect(client is Client.ActionButton)
+  if (client is Client.ActionButton) {
+    Test.expect((client.icon.GetWidth() - 30).abs() < 0.01 && (client.icon.GetHeight() - 30).abs() < 0.01)
+  }
+}

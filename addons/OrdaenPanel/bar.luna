@@ -42,6 +42,10 @@ public class Slot {
     self.shown = frame.IsShown()
     frame.HotKey.SetAlpha(0)
     const life = self.life
+    fillButton(frame, ...frame.GetRegions())
+    _ = frame.HookScript("OnSizeChanged", (): nil => {
+      if (life.on) { fillButton(frame, ...frame.GetRegions()) }
+    })
     // The template tells each button by one global function: the hook's body one comparison for another's.
     Client.hooksecurefunc("ActionButton_UpdateRangeIndicator", (...args: Unknown): nil => {
       if (life.on && args[1] == frame) { self.outOfRange = args[2] == true && args[3] != true }
@@ -55,6 +59,21 @@ public class Slot {
   }
 
   destructor() { self.life.on = false }
+}
+
+// The client's template lays its art out for its own size (45): its icon, its frames and their masks fill the button
+// at the size it is given, as its texts keep their corners.
+function fillButton(frame: any Client.Frame, ...regions: any Client.Region) {
+  for (i of 1..regions.length) {
+    const region = regions[i]
+    if (region is Client.Texture) {
+      region.ClearAllPoints()
+      region.SetAllPoints(frame, nil)
+    } else if (region is Client.MaskTexture) {
+      region.ClearAllPoints()
+      region.SetAllPoints(frame, nil)
+    }
+  }
 }
 
 struct Life {
