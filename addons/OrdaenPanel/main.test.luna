@@ -721,26 +721,28 @@ test "a panel shown on mouseover shows with its portrait under the cursor, and t
   Test.expect(panel().opacity() < 0.01 && Test.page().text("42").opacity() < 0.01)
 }
 
-test "the panel hides on transport, and shows there once the player sets it to show" {
+test "the panel shows on transport, and hides there once the player sets it to hide" {
   Test.mount(nil, SCREEN)
   Game.situation.vehicle = true
-  Test.expect(!panel().shown())
+  Test.expect(panel().shown())
   Game.situation.vehicle = false
   Game.situation.taxi = true
+  Test.expect(panel().shown())
+  hide("Show", 3, "Hide")
   Test.expect(!panel().shown())
-  hide("Hide", 1, "Show")
+  Game.situation.taxi = false
   Test.expect(panel().shown())
 }
 
 test "a state set to show has no opacity to choose; hidden or on mouseover, it has" {
   Test.mount(nil, SCREEN)
   const settings = visibility()
-  // The height's slider and the transport's opacity.
-  Test.expect(settings.box(Ordaen.art.ctl.sliderKnob).count() == 2)
+  // The height's slider alone: every state shows.
+  Test.expect(settings.box(Ordaen.art.ctl.sliderKnob).count() == 1)
   pick(settings, "Show", 1, "On mouseover")
-  Test.expect(settings.box(Ordaen.art.ctl.sliderKnob).count() == 3)
-  pick(settings, "Hide", 1, "Show")
   Test.expect(settings.box(Ordaen.art.ctl.sliderKnob).count() == 2)
+  pick(settings, "On mouseover", 1, "Show")
+  Test.expect(settings.box(Ordaen.art.ctl.sliderKnob).count() == 1)
 }
 
 test "the portrait stands over the panel shown again on mouseover" {

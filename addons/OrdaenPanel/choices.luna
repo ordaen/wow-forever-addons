@@ -1,5 +1,5 @@
 // What the player chooses on the panel's settings page.
-import { ALWAYS, Visibility, Visible } from "Ordaen"
+import { ALWAYS, Visibility } from "Ordaen"
 
 // The character button: the portrait in the screen's corner with the level, or a micro menu cell with the face.
 public enum CharButton { Portrait = "portrait", Button = "button" }
@@ -71,6 +71,6 @@ public const DEFAULTS: Choices = {
     micromenu: Zone.Left, social: Zone.Left, experience: Zone.Center, zone: Zone.Off, clock: Zone.Off,
     currencies: Zone.Right, bags: Zone.Right
   },
-  // Out of the way on transport, where the game's own bar takes the bottom.
-  visibility: { transport: { visible: Visible.Hide, opacity: 0 }, ..ALWAYS }
+  // Shown in every state: on transport too, where the game's own bars are put away as anywhere.
+  visibility: ALWAYS
 }
