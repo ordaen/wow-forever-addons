@@ -111,7 +111,7 @@ public class Chat implements Module, App {
     watch { Game.chat.inputHistory(self.settings.values.history) }
     watch { Game.chat.inputShown(self.settings.values.inputAlways) }
     watch { self.chooseTabs(self.settings.values.tabs) }
-    // The input opened (Enter) while a whisper window's tab is open: it speaks there.
+    // The input opened (Enter): it speaks where the open tab's window last spoke (a whisper window, to its partner).
     watch (typing of Game.chat.typing) {
       if (typing) { self.speakHere() }
     }
@@ -211,14 +211,15 @@ public class Chat implements Module, App {
     if (peek Game.chat.typing) { self.speakTo(tab) }
   }
 
-  // The input, opened, speaks where the open tab speaks: a whisper window's partner; elsewhere, in the input's own kind.
+  // The input, opened, speaks where the open tab's window speaks: a whisper window's partner; another, where it last
+  // spoke (the game keeps each window's own), else its first kind.
   speakHere(mut self) {
     const tab = peek self.open
     if (tab != nil) { self.speakTo(tab) }
   }
 
   speakTo(mut self, tab: ChatTab) {
-    if (tab.window > 0 && tab.partner != "") { Game.chat.speak(tab.window) }
+    if (tab.window > 0) { Game.chat.speak(tab.window) }
   }
 
   // A link clicked: a web address opens the copy box; any other is the game's.

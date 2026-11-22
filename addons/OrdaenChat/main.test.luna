@@ -1086,3 +1086,13 @@ test "a creature's name stands in the game's gold for names, not in its line's c
   Game.chat.heard.emit(said)
   Test.expect(shown.text("|Hplayer:Thrall:7|hThrall|h: For the Horde!").shown())
 }
+
+test "the input speaks where each tab's window last spoke: opened in General it speaks as General's, a tab picked while typing as its own" {
+  Game.chat.windows = [window(1, "General", ""), window(4, "Trade", "")]
+  const shown = chat()
+  Game.chat.typing = true
+  Test.pass(0.01)
+  Test.expect(Test.requests().any(r => r == "Chat.speak 1"))
+  shown.text("Trade").click()
+  Test.expect(Test.requests().any(r => r == "Chat.speak 4"))
+}
