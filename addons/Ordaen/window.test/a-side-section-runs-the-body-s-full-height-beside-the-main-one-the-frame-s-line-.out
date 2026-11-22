@@ -4,16 +4,16 @@ surface 500,281.38 855.76x337.25 on MEDIUM clamped raised by a click
     box 513.09,331.72 578.81x276.06
       box 513.09,331.72 578.81x233.51
         box 535.85,354.47 533.3x193.68 #30302a
-          text 535.85,354.47 533.3x17.78 "the list" #ffffff
+          text 535.85,354.47 533.3x17.5 "the list" #ffffff
       box 513.09,565.23 578.81x42.56
         box 513.09,565.23 578.81x42.56
-          text 535.85,570.5 52.22x17.78 "5 items" #ffffff
-          box 605.14,579.39 346.94x0
+          text 535.85,570.64 50.83x17.5 "5 items" #ffffff
+          box 603.75,579.39 348.33x0
           box 969.15,565.23 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-            text 1003.59,570.5 31.11x17.78 "Scan" #ffd100
+            text 1004.15,570.64 30x17.5 "Scan" #ffd100
     box 1091.91,331.72 255.76x276.06 border=UI-Frame-Metal-CornerTopLeft sides=left
       box 1124.91,354.47 200x239.08 #30302a
-        text 1124.91,354.47 200x17.78 "the details" #ffffff
+        text 1124.91,354.47 200x17.5 "the details" #ffffff
       box 1099.16,331.72 6.67x276.06 absolute @drag @dragStart @dragStop
     box 1338.51,598.62 13.33x13.33 absolute
       box 1338.51,598.62 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
@@ -21,7 +21,7 @@ surface 500,281.38 855.76x337.25 on MEDIUM clamped raised by a click
     box 500,281.38 792.23x47.75
       box 500,281.38 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=UI-Frame-Metal-CornerTopLeft sides=top,left,right @drag @dragStart @dragStop @keyPress @pointerPress
         box 518.78,291.62 76.93x34.25
-          text 535.03,299.86 44.44x17.78 "Market" #ffd100
+          text 535.17,300 44.17x17.5 "Market" #ffd100
     box 1300.76,297.71 55x31.42
       box 1300.76,297.71 55x26.67 clipped
         box 1300.76,297.71 27.5x26.67 absolute clipped @keyPress @pointerPress

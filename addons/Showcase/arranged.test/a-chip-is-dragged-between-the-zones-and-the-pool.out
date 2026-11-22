@@ -2,96 +2,96 @@
 box 0,0 600x131.02
   box 0,0 600x61.24 #2a1e10
     box 0.83,0.83 199.44x59.57 @drop
-      text 7.94,7.94 28.89x15.51 "Left" #a3977f
-      box 7.94,29.14 56.51x24.16 #5a4428 opacity=1 @dragStart @dragStop @pointerEnter @pointerLeave
-        text 17.31,32.82 37.78x16.8 "Clock" #f3e1b8
+      text 7.94,7.94 28.33x15.51 "Left" #a3977f
+      box 7.94,29.14 55.4x24.16 #5a4428 opacity=1 @dragStart @dragStop @pointerEnter @pointerLeave
+        text 17.31,32.82 36.67x16.8 "Clock" #f3e1b8
     box 200.28,0.83 199.44x29.73 @drop
-      text 279.86,7.94 41.11x15.51 "Middle" #a3977f
+      text 280,7.94 40.83x15.51 "Middle" #a3977f
     box 399.72,0.83 199.44x59.57 @drop
-      text 556.5,7.94 35.56x15.51 "Right" #a3977f
-      box 535.54,29.14 56.51x24.16 #5a4428 opacity=1 @dragStart @dragStop @pointerEnter @pointerLeave
-        text 544.91,32.82 37.78x16.8 "Money" #f3e1b8
+      text 557.89,7.94 34.17x15.51 "Right" #a3977f
+      box 536.66,29.14 55.4x24.16 #5a4428 opacity=1 @dragStart @dragStop @pointerEnter @pointerLeave
+        text 546.02,32.82 36.67x16.8 "Money" #f3e1b8
   text 0,68.35 600x15.51 "Not on the panel" #a3977f
   box 0,90.97 600x40.04 #00000040
     box 0.83,91.8 598.33x38.38 @drop
-      box 7.94,98.92 70.96x24.16 #5a4428 opacity=0.8 @dragStart @dragStop @pointerEnter @pointerLeave
-        text 17.31,102.59 52.22x16.8 "Friends" #f3e1b8
+      box 7.94,98.92 69.57x24.16 #5a4428 opacity=0.8 @dragStart @dragStop @pointerEnter @pointerLeave
+        text 17.31,102.59 50.83x16.8 "Friends" #f3e1b8
 
 -- the cursor on the clock's chip: its hint
 box 0,0 600x131.02
   box 0,0 600x61.24 #2a1e10
     box 0.83,0.83 199.44x59.57 @drop
-      text 7.94,7.94 28.89x15.51 "Left" #a3977f
-      box 7.94,29.14 56.51x24.16 #5a4428 opacity=1 @dragStart @dragStop @pointerEnter @pointerLeave
-        text 17.31,32.82 37.78x16.8 "Clock" #f3e1b8
+      text 7.94,7.94 28.33x15.51 "Left" #a3977f
+      box 7.94,29.14 55.4x24.16 #5a4428 opacity=1 @dragStart @dragStop @pointerEnter @pointerLeave
+        text 17.31,32.82 36.67x16.8 "Clock" #f3e1b8
     box 200.28,0.83 199.44x29.73 @drop
-      text 279.86,7.94 41.11x15.51 "Middle" #a3977f
+      text 280,7.94 40.83x15.51 "Middle" #a3977f
     box 399.72,0.83 199.44x59.57 @drop
-      text 556.5,7.94 35.56x15.51 "Right" #a3977f
-      box 535.54,29.14 56.51x24.16 #5a4428 opacity=1 @dragStart @dragStop @pointerEnter @pointerLeave
-        text 544.91,32.82 37.78x16.8 "Money" #f3e1b8
+      text 557.89,7.94 34.17x15.51 "Right" #a3977f
+      box 536.66,29.14 55.4x24.16 #5a4428 opacity=1 @dragStart @dragStop @pointerEnter @pointerLeave
+        text 546.02,32.82 36.67x16.8 "Money" #f3e1b8
   text 0,68.35 600x15.51 "Not on the panel" #a3977f
   box 0,90.97 600x40.04 #00000040
     box 0.83,91.8 598.33x38.38 @drop
-      box 7.94,98.92 70.96x24.16 #5a4428 opacity=0.8 @dragStart @dragStop @pointerEnter @pointerLeave
-        text 17.31,102.59 52.22x16.8 "Friends" #f3e1b8
-surface 100,181.02 158.39x95.85 on TOOLTIP Interface\AddOns\Ordaen\media\window-wood clamped
-  text 124.47,205.49 114.44x26.67 "Clock" #f0e6d2
-  text 124.47,237.84 114.44x16.8 "The time of day." #cbb994
+      box 7.94,98.92 69.57x24.16 #5a4428 opacity=0.8 @dragStart @dragStop @pointerEnter @pointerLeave
+        text 17.31,102.59 50.83x16.8 "Friends" #f3e1b8
+surface 100,181.02 158.11x95.02 on TOOLTIP Interface\AddOns\Ordaen\media\window-wood clamped
+  text 124.47,205.49 114.17x25.83 "Clock" #f0e6d2
+  text 124.47,237.01 114.17x16.8 "The time of day." #cbb994
 
 -- the clock dragged and let go where it was: nothing moves
 box 0,0 600x131.02
   box 0,0 600x61.24 #2a1e10
     box 0.83,0.83 199.44x59.57 @drop
-      text 7.94,7.94 28.89x15.51 "Left" #a3977f
-      box 7.94,29.14 56.51x24.16 #5a4428 opacity=1 @dragStart @dragStop @pointerEnter @pointerLeave
-        text 17.31,32.82 37.78x16.8 "Clock" #f3e1b8
+      text 7.94,7.94 28.33x15.51 "Left" #a3977f
+      box 7.94,29.14 55.4x24.16 #5a4428 opacity=1 @dragStart @dragStop @pointerEnter @pointerLeave
+        text 17.31,32.82 36.67x16.8 "Clock" #f3e1b8
     box 200.28,0.83 199.44x29.73 @drop
-      text 279.86,7.94 41.11x15.51 "Middle" #a3977f
+      text 280,7.94 40.83x15.51 "Middle" #a3977f
     box 399.72,0.83 199.44x59.57 @drop
-      text 556.5,7.94 35.56x15.51 "Right" #a3977f
-      box 535.54,29.14 56.51x24.16 #5a4428 opacity=1 @dragStart @dragStop @pointerEnter @pointerLeave
-        text 544.91,32.82 37.78x16.8 "Money" #f3e1b8
+      text 557.89,7.94 34.17x15.51 "Right" #a3977f
+      box 536.66,29.14 55.4x24.16 #5a4428 opacity=1 @dragStart @dragStop @pointerEnter @pointerLeave
+        text 546.02,32.82 36.67x16.8 "Money" #f3e1b8
   text 0,68.35 600x15.51 "Not on the panel" #a3977f
   box 0,90.97 600x40.04 #00000040
     box 0.83,91.8 598.33x38.38 @drop
-      box 7.94,98.92 70.96x24.16 #5a4428 opacity=0.8 @dragStart @dragStop @pointerEnter @pointerLeave
-        text 17.31,102.59 52.22x16.8 "Friends" #f3e1b8
+      box 7.94,98.92 69.57x24.16 #5a4428 opacity=0.8 @dragStart @dragStop @pointerEnter @pointerLeave
+        text 17.31,102.59 50.83x16.8 "Friends" #f3e1b8
 
 -- the clock dragged into the middle zone
 box 0,0 600x131.02
   box 0,0 600x61.24 #2a1e10
     box 0.83,0.83 199.44x29.73 @drop
-      text 7.94,7.94 28.89x15.51 "Left" #a3977f
+      text 7.94,7.94 28.33x15.51 "Left" #a3977f
     box 200.28,0.83 199.44x59.57 @drop
-      text 279.86,7.94 41.11x15.51 "Middle" #a3977f
-      box 272.16,29.14 56.51x24.16 #5a4428 opacity=1 @dragStart @dragStop @pointerEnter @pointerLeave
-        text 281.53,32.82 37.78x16.8 "Clock" #f3e1b8
+      text 280,7.94 40.83x15.51 "Middle" #a3977f
+      box 272.72,29.14 55.4x24.16 #5a4428 opacity=1 @dragStart @dragStop @pointerEnter @pointerLeave
+        text 282.08,32.82 36.67x16.8 "Clock" #f3e1b8
     box 399.72,0.83 199.44x59.57 @drop
-      text 556.5,7.94 35.56x15.51 "Right" #a3977f
-      box 535.54,29.14 56.51x24.16 #5a4428 opacity=1 @dragStart @dragStop @pointerEnter @pointerLeave
-        text 544.91,32.82 37.78x16.8 "Money" #f3e1b8
+      text 557.89,7.94 34.17x15.51 "Right" #a3977f
+      box 536.66,29.14 55.4x24.16 #5a4428 opacity=1 @dragStart @dragStop @pointerEnter @pointerLeave
+        text 546.02,32.82 36.67x16.8 "Money" #f3e1b8
   text 0,68.35 600x15.51 "Not on the panel" #a3977f
   box 0,90.97 600x40.04 #00000040
     box 0.83,91.8 598.33x38.38 @drop
-      box 7.94,98.92 70.96x24.16 #5a4428 opacity=0.8 @dragStart @dragStop @pointerEnter @pointerLeave
-        text 17.31,102.59 52.22x16.8 "Friends" #f3e1b8
+      box 7.94,98.92 69.57x24.16 #5a4428 opacity=0.8 @dragStart @dragStop @pointerEnter @pointerLeave
+        text 17.31,102.59 50.83x16.8 "Friends" #f3e1b8
 
 -- the friends dragged out of the pool into the left zone
 box 0,0 600x106.86
   box 0,0 600x61.24 #2a1e10
     box 0.83,0.83 199.44x59.57 @drop
-      text 7.94,7.94 28.89x15.51 "Left" #a3977f
-      box 7.94,29.14 70.96x24.16 #5a4428 opacity=1 @dragStart @dragStop @pointerEnter @pointerLeave
-        text 17.31,32.82 52.22x16.8 "Friends" #f3e1b8
+      text 7.94,7.94 28.33x15.51 "Left" #a3977f
+      box 7.94,29.14 69.57x24.16 #5a4428 opacity=1 @dragStart @dragStop @pointerEnter @pointerLeave
+        text 17.31,32.82 50.83x16.8 "Friends" #f3e1b8
     box 200.28,0.83 199.44x59.57 @drop
-      text 279.86,7.94 41.11x15.51 "Middle" #a3977f
-      box 272.16,29.14 56.51x24.16 #5a4428 opacity=1 @dragStart @dragStop @pointerEnter @pointerLeave
-        text 281.53,32.82 37.78x16.8 "Clock" #f3e1b8
+      text 280,7.94 40.83x15.51 "Middle" #a3977f
+      box 272.72,29.14 55.4x24.16 #5a4428 opacity=1 @dragStart @dragStop @pointerEnter @pointerLeave
+        text 282.08,32.82 36.67x16.8 "Clock" #f3e1b8
     box 399.72,0.83 199.44x59.57 @drop
-      text 556.5,7.94 35.56x15.51 "Right" #a3977f
-      box 535.54,29.14 56.51x24.16 #5a4428 opacity=1 @dragStart @dragStop @pointerEnter @pointerLeave
-        text 544.91,32.82 37.78x16.8 "Money" #f3e1b8
+      text 557.89,7.94 34.17x15.51 "Right" #a3977f
+      box 536.66,29.14 55.4x24.16 #5a4428 opacity=1 @dragStart @dragStop @pointerEnter @pointerLeave
+        text 546.02,32.82 36.67x16.8 "Money" #f3e1b8
   text 0,68.35 600x15.51 "Not on the panel" #a3977f
   box 0,90.97 600x15.89 #00000040
     box 0.83,91.8 598.33x14.22 @drop
@@ -100,17 +100,17 @@ box 0,0 600x106.86
 box 0,0 600x106.86
   box 0,0 600x61.24 #2a1e10
     box 0.83,0.83 199.44x59.57 @drop
-      text 7.94,7.94 28.89x15.51 "Left" #a3977f
-      box 7.94,29.14 70.96x24.16 #5a4428 opacity=1 @dragStart @dragStop @pointerEnter @pointerLeave
-        text 17.31,32.82 52.22x16.8 "Friends" #f3e1b8
+      text 7.94,7.94 28.33x15.51 "Left" #a3977f
+      box 7.94,29.14 69.57x24.16 #5a4428 opacity=1 @dragStart @dragStop @pointerEnter @pointerLeave
+        text 17.31,32.82 50.83x16.8 "Friends" #f3e1b8
     box 200.28,0.83 199.44x59.57 @drop
-      text 279.86,7.94 41.11x15.51 "Middle" #a3977f
-      box 272.16,29.14 56.51x24.16 #5a4428 opacity=1 @dragStart @dragStop @pointerEnter @pointerLeave
-        text 281.53,32.82 37.78x16.8 "Clock" #f3e1b8
+      text 280,7.94 40.83x15.51 "Middle" #a3977f
+      box 272.72,29.14 55.4x24.16 #5a4428 opacity=1 @dragStart @dragStop @pointerEnter @pointerLeave
+        text 282.08,32.82 36.67x16.8 "Clock" #f3e1b8
     box 399.72,0.83 199.44x59.57 @drop
-      text 556.5,7.94 35.56x15.51 "Right" #a3977f
-      box 535.54,29.14 56.51x24.16 #5a4428 opacity=1 @dragStart @dragStop @pointerEnter @pointerLeave
-        text 544.91,32.82 37.78x16.8 "Money" #f3e1b8
+      text 557.89,7.94 34.17x15.51 "Right" #a3977f
+      box 536.66,29.14 55.4x24.16 #5a4428 opacity=1 @dragStart @dragStop @pointerEnter @pointerLeave
+        text 546.02,32.82 36.67x16.8 "Money" #f3e1b8
   text 0,68.35 600x15.51 "Not on the panel" #a3977f
   box 0,90.97 600x15.89 #00000040
     box 0.83,91.8 598.33x14.22 @drop
@@ -119,17 +119,17 @@ box 0,0 600x106.86
 box 0,0 600x106.86
   box 0,0 600x61.24 #2a1e10
     box 0.83,0.83 199.44x59.57 @drop
-      text 7.94,7.94 28.89x15.51 "Left" #a3977f
-      box 7.94,29.14 70.96x24.16 #5a4428 opacity=1 @dragStart @dragStop @pointerEnter @pointerLeave
-        text 17.31,32.82 52.22x16.8 "Friends" #f3e1b8
+      text 7.94,7.94 28.33x15.51 "Left" #a3977f
+      box 7.94,29.14 69.57x24.16 #5a4428 opacity=1 @dragStart @dragStop @pointerEnter @pointerLeave
+        text 17.31,32.82 50.83x16.8 "Friends" #f3e1b8
     box 200.28,0.83 199.44x59.57 @drop
-      text 279.86,7.94 41.11x15.51 "Middle" #a3977f
-      box 272.16,29.14 56.51x24.16 #5a4428 opacity=1 @dragStart @dragStop @pointerEnter @pointerLeave
-        text 281.53,32.82 37.78x16.8 "Clock" #f3e1b8
+      text 280,7.94 40.83x15.51 "Middle" #a3977f
+      box 272.72,29.14 55.4x24.16 #5a4428 opacity=1 @dragStart @dragStop @pointerEnter @pointerLeave
+        text 282.08,32.82 36.67x16.8 "Clock" #f3e1b8
     box 399.72,0.83 199.44x59.57 @drop
-      text 556.5,7.94 35.56x15.51 "Right" #a3977f
-      box 535.54,29.14 56.51x24.16 #5a4428 opacity=1 @dragStart @dragStop @pointerEnter @pointerLeave
-        text 544.91,32.82 37.78x16.8 "Money" #f3e1b8
+      text 557.89,7.94 34.17x15.51 "Right" #a3977f
+      box 536.66,29.14 55.4x24.16 #5a4428 opacity=1 @dragStart @dragStop @pointerEnter @pointerLeave
+        text 546.02,32.82 36.67x16.8 "Money" #f3e1b8
   text 0,68.35 600x15.51 "Not on the panel" #a3977f
   box 0,90.97 600x15.89 #00000040
     box 0.83,91.8 598.33x14.22 @drop

@@ -6,15 +6,15 @@ box 0,0 500x104.1
         box 17.9,0.83 149.04x33.87 #00000000 @keyPress @pointerPress
           box 17.9,33.03 149.04x1.67 absolute #00000000
           box 17.9,9.37 149.04x16.8
-            text 17.9,9.37 31.11x16.8 "Name" #a3977f
+            text 17.9,9.37 30x16.8 "Name" #a3977f
         box 175.48,0.83 149.04x33.87 #00000000 @keyPress @pointerPress
           box 175.48,33.03 149.04x1.67 absolute #00000000
           box 175.48,9.37 149.04x16.8
-            text 175.48,9.37 31.11x16.8 "Zone" #a3977f
+            text 175.48,9.37 30x16.8 "Zone" #a3977f
         box 333.06,0.83 149.04x33.87 #00000000 @keyPress @pointerPress
           box 333.06,33.03 149.04x1.67 absolute #00000000
           box 333.06,9.37 149.04x16.8
-            text 333.06,9.37 31.11x16.8 "Note" #a3977f
+            text 333.06,9.37 30x16.8 "Note" #a3977f
     box 0.83,35.53 498.33x67.73 scrolled 0 of 0
       box 9.37,44.07 481.27x25.33 #00000000 @keyPress @pointerEnter @pointerLeave @pointerPress
         box 17.9,48.33 149.04x16.8

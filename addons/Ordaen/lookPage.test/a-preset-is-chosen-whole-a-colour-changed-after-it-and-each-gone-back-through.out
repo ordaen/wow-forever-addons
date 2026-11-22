@@ -3,8 +3,8 @@ steps 0; the look's preset ordaen; numbers drawn with Interface\AddOns\Ordaen\me
 box 0,0 800x1548.26
   box 0,0 800x107.02
     box 0,0 800x16.8
-      text 0,0 44.44x16.8 "Themes" #e8c35a
-      box 52.98,7.98 747.02x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+      text 0,0 44.17x16.8 "Themes" #e8c35a
+      box 52.7,7.98 747.3x0.83 Interface\AddOns\Ordaen\media\ctl-rule
     box 0,28.18 800x33.73
       box 0,28.18 665.04x33.73
         text 0,28.18 665.04x16.8 "Ordaen" #f0e6d2
@@ -18,8 +18,8 @@ box 0,0 800x1548.26
         text 725.83,81.75 23.33x16.8 "Use" #ffd100
   box 0,122.66 800x135.93
     box 0,122.66 800x16.8
-      text 0,122.66 37.78x16.8 "Fonts" #e8c35a
-      box 46.31,130.64 753.69x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+      text 0,122.66 36.67x16.8 "Fonts" #e8c35a
+      box 45.2,130.64 754.8x0.83 Interface\AddOns\Ordaen\media\ctl-rule
     box 0,150.84 800x28.33 opacity=1
       box 0,156.6 233.33x16.8 @pointerEnter @pointerLeave
         text 0,156.6 233.33x16.8 "Text font" #cbb994
@@ -43,8 +43,8 @@ box 0,0 800x1548.26
           box 425.69,237.76 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
   box 0,274.24 800x96.22
     box 0,274.24 800x16.8
-      text 0,274.24 58.89x16.8 "Textures" #e8c35a
-      box 67.42,282.22 732.58x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+      text 0,274.24 58.33x16.8 "Textures" #e8c35a
+      box 66.87,282.22 733.13x0.83 Interface\AddOns\Ordaen\media\ctl-rule
     box 0,302.42 800x28.33 opacity=1
       box 0,308.18 233.33x16.8 @pointerEnter @pointerLeave
         text 0,308.18 233.33x16.8 "Bar texture" #cbb994
@@ -61,8 +61,8 @@ box 0,0 800x1548.26
           box 425.69,349.63 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
   box 0,386.1 800x56.51
     box 0,386.1 800x16.8
-      text 0,386.1 72.22x16.8 "Animations" #e8c35a
-      box 80.76,394.09 719.24x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+      text 0,386.1 71.67x16.8 "Animations" #e8c35a
+      box 80.2,394.09 719.8x0.83 Interface\AddOns\Ordaen\media\ctl-rule
     box 0,414.28 800x28.33 opacity=1
       box 0,420.05 233.33x16.8 @pointerEnter @pointerLeave
         text 0,420.05 233.33x16.8 "Animations" #cbb994
@@ -72,8 +72,8 @@ box 0,0 800x1548.26
           box 425.69,421.78 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
   box 0,458.26 800x700.16
     box 0,458.26 800x16.8
-      text 0,458.26 52.22x16.8 "Colours" #e8c35a
-      box 60.76,466.24 739.24x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+      text 0,458.26 50.83x16.8 "Colours" #e8c35a
+      box 59.37,466.24 740.63x0.83 Interface\AddOns\Ordaen\media\ctl-rule
     box 0,486.44 800x18.33 opacity=1
       box 0,487.2 233.33x16.8 @pointerEnter @pointerLeave
         text 0,487.2 233.33x16.8 "Accent colour" #cbb994
@@ -241,8 +241,8 @@ steps 2; the look's preset none; numbers drawn with Interface\AddOns\Ordaen\medi
 box 0,0 800x1548.26
   box 0,0 800x107.02
     box 0,0 800x16.8
-      text 0,0 44.44x16.8 "Themes" #e8c35a
-      box 52.98,7.98 747.02x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+      text 0,0 44.17x16.8 "Themes" #e8c35a
+      box 52.7,7.98 747.3x0.83 Interface\AddOns\Ordaen\media\ctl-rule
     box 0,28.18 800x33.73
       box 0,28.18 665.04x33.73
         text 0,28.18 665.04x16.8 "Ordaen" #f0e6d2
@@ -257,8 +257,8 @@ box 0,0 800x1548.26
         text 725.83,81.75 23.33x16.8 "Use" #ffd100
   box 0,122.66 800x135.93
     box 0,122.66 800x16.8
-      text 0,122.66 37.78x16.8 "Fonts" #e8c35a
-      box 46.31,130.64 753.69x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+      text 0,122.66 36.67x16.8 "Fonts" #e8c35a
+      box 45.2,130.64 754.8x0.83 Interface\AddOns\Ordaen\media\ctl-rule
     box 0,150.84 800x28.33 opacity=1
       box 0,156.6 233.33x16.8 @pointerEnter @pointerLeave
         text 0,156.6 233.33x16.8 "Text font" #cbb994
@@ -282,8 +282,8 @@ box 0,0 800x1548.26
           box 425.69,237.76 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
   box 0,274.24 800x96.22
     box 0,274.24 800x16.8
-      text 0,274.24 58.89x16.8 "Textures" #e8c35a
-      box 67.42,282.22 732.58x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+      text 0,274.24 58.33x16.8 "Textures" #e8c35a
+      box 66.87,282.22 733.13x0.83 Interface\AddOns\Ordaen\media\ctl-rule
     box 0,302.42 800x28.33 opacity=1
       box 0,308.18 233.33x16.8 @pointerEnter @pointerLeave
         text 0,308.18 233.33x16.8 "Bar texture" #cbb994
@@ -300,8 +300,8 @@ box 0,0 800x1548.26
           box 425.69,349.63 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
   box 0,386.1 800x56.51
     box 0,386.1 800x16.8
-      text 0,386.1 72.22x16.8 "Animations" #e8c35a
-      box 80.76,394.09 719.24x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+      text 0,386.1 71.67x16.8 "Animations" #e8c35a
+      box 80.2,394.09 719.8x0.83 Interface\AddOns\Ordaen\media\ctl-rule
     box 0,414.28 800x28.33 opacity=1
       box 0,420.05 233.33x16.8 @pointerEnter @pointerLeave
         text 0,420.05 233.33x16.8 "Animations" #cbb994
@@ -311,8 +311,8 @@ box 0,0 800x1548.26
           box 425.69,421.78 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
   box 0,458.26 800x700.16
     box 0,458.26 800x16.8
-      text 0,458.26 52.22x16.8 "Colours" #e8c35a
-      box 60.76,466.24 739.24x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+      text 0,458.26 50.83x16.8 "Colours" #e8c35a
+      box 59.37,466.24 740.63x0.83 Interface\AddOns\Ordaen\media\ctl-rule
     box 0,486.44 800x18.33 opacity=1
       box 0,487.2 233.33x16.8 @pointerEnter @pointerLeave
         text 0,487.2 233.33x16.8 "Accent colour" #cbb994
@@ -481,8 +481,8 @@ steps 0; the look's preset ordaen; numbers drawn with Interface\AddOns\Ordaen\me
 box 0,0 800x1548.26
   box 0,0 800x107.02
     box 0,0 800x16.8
-      text 0,0 44.44x16.8 "Themes" #e8c35a
-      box 52.98,7.98 747.02x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+      text 0,0 44.17x16.8 "Themes" #e8c35a
+      box 52.7,7.98 747.3x0.83 Interface\AddOns\Ordaen\media\ctl-rule
     box 0,28.18 800x33.73
       box 0,28.18 665.04x33.73
         text 0,28.18 665.04x16.8 "Ordaen" #f0e6d2
@@ -496,8 +496,8 @@ box 0,0 800x1548.26
         text 725.83,81.75 23.33x16.8 "Use" #ffd100
   box 0,122.66 800x135.93
     box 0,122.66 800x16.8
-      text 0,122.66 37.78x16.8 "Fonts" #e8c35a
-      box 46.31,130.64 753.69x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+      text 0,122.66 36.67x16.8 "Fonts" #e8c35a
+      box 45.2,130.64 754.8x0.83 Interface\AddOns\Ordaen\media\ctl-rule
     box 0,150.84 800x28.33 opacity=1
       box 0,156.6 233.33x16.8 @pointerEnter @pointerLeave
         text 0,156.6 233.33x16.8 "Text font" #cbb994
@@ -521,8 +521,8 @@ box 0,0 800x1548.26
           box 425.69,237.76 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
   box 0,274.24 800x96.22
     box 0,274.24 800x16.8
-      text 0,274.24 58.89x16.8 "Textures" #e8c35a
-      box 67.42,282.22 732.58x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+      text 0,274.24 58.33x16.8 "Textures" #e8c35a
+      box 66.87,282.22 733.13x0.83 Interface\AddOns\Ordaen\media\ctl-rule
     box 0,302.42 800x28.33 opacity=1
       box 0,308.18 233.33x16.8 @pointerEnter @pointerLeave
         text 0,308.18 233.33x16.8 "Bar texture" #cbb994
@@ -539,8 +539,8 @@ box 0,0 800x1548.26
           box 425.69,349.63 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
   box 0,386.1 800x56.51
     box 0,386.1 800x16.8
-      text 0,386.1 72.22x16.8 "Animations" #e8c35a
-      box 80.76,394.09 719.24x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+      text 0,386.1 71.67x16.8 "Animations" #e8c35a
+      box 80.2,394.09 719.8x0.83 Interface\AddOns\Ordaen\media\ctl-rule
     box 0,414.28 800x28.33 opacity=1
       box 0,420.05 233.33x16.8 @pointerEnter @pointerLeave
         text 0,420.05 233.33x16.8 "Animations" #cbb994
@@ -550,8 +550,8 @@ box 0,0 800x1548.26
           box 425.69,421.78 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
   box 0,458.26 800x700.16
     box 0,458.26 800x16.8
-      text 0,458.26 52.22x16.8 "Colours" #e8c35a
-      box 60.76,466.24 739.24x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+      text 0,458.26 50.83x16.8 "Colours" #e8c35a
+      box 59.37,466.24 740.63x0.83 Interface\AddOns\Ordaen\media\ctl-rule
     box 0,486.44 800x18.33 opacity=1
       box 0,487.2 233.33x16.8 @pointerEnter @pointerLeave
         text 0,487.2 233.33x16.8 "Accent colour" #cbb994
