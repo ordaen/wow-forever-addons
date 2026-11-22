@@ -126,6 +126,8 @@ public class Tooltips implements Module, App {
   derived drawn: Shown | nil = self.current ?? self.last
   // The group is drawn from the first show on.
   derived ever: Boolean = self.drawn != nil
+  derived keysAsked: Array<String> = self.keysAddedNow()
+  state keysAdded: Array<String> = []
   derived model: Model = self.withKeys(self.drawn?.model ?? NOTHING)
   derived sides: Array<Model> = self.drawn?.sides ?? []
   derived compared: Array<Model> = self.drawn?.compared ?? []
@@ -158,18 +160,30 @@ public class Tooltips implements Module, App {
     watch { self.trackAway() }
     watch { self.graceOut() }
     watch { self.keepLast() }
+    watch { self.keepKeys() }
+  }
+
+  // The hotkeys other modules add for the item shown. A module may say them of the frame under the cursor (a bag's
+  // slot): read while the tooltip isn't locked, kept as they were while it is (the cursor gone onto the tooltip).
+  keysAddedNow(self): Array<String> {
+    const shownItem = self.drawn?.item ?? 0
+    let added: Array<String> = []
+    if (shownItem == 0) { return added }
+    const link = self.drawn?.link ?? ""
+    for (row of self.keys) {
+      for (key of row.keys(shownItem, link)) { added.push(key) }
+    }
+    return added
+  }
+
+  keepKeys(mut self) {
+    if (!self.locked) { self.keysAdded = self.keysAsked }
   }
 
   // The model drawn, its hotkeys followed by what other modules add for the item it shows: the model as it is where
   // they add none.
   withKeys(self, model: Model): Model {
-    const shownItem = self.drawn?.item ?? 0
-    if (shownItem == 0 || self.keys.length == 0) { return model }
-    const link = self.drawn?.link ?? ""
-    let added: Array<String> = []
-    for (row of self.keys) {
-      for (key of row.keys(shownItem, link)) { added.push(key) }
-    }
+    const added = self.keysAdded
     if (added.length == 0) { return model }
     let keys: Array<String> = []
     for (key of model.keys) { keys.push(key) }
@@ -430,9 +444,9 @@ public class Tooltips implements Module, App {
                 @close={self.close}
                 @enter={self.onEnter} @leave={self.onLeave}>
         // Each entry asks nothing while the tooltip isn't of its kind; with no entry, nothing is drawn or asked.
-        <AddedToItem $for={row of self.worth} $key={row} row={row} item={self.item} link={self.link} />
-        <AddedToItem $for={row of self.uses} $key={row} row={row} item={self.item} link={self.link} />
-        <AddedToItem $for={row of self.held} $key={row} row={row} item={self.item} link={self.link} />
+        <AddedToItem $for={row of self.worth} $key={row} row={row} item={self.item} link={self.link} locked={self.locked} />
+        <AddedToItem $for={row of self.uses} $key={row} row={row} item={self.item} link={self.link} locked={self.locked} />
+        <AddedToItem $for={row of self.held} $key={row} row={row} item={self.item} link={self.link} locked={self.locked} />
         <AddedToObject $for={row of self.gives} $key={row} row={row} name={self.object} />
       </TipGroup>
     }

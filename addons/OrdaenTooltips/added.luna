@@ -54,17 +54,25 @@ class AddedLines implements Component {
 // No line: what an entry gives while the tooltip isn't of its kind.
 const NONE: Array<Line> = []
 
-// An entry of an item's section: what it gives for the item shown, 0 where the tooltip shows none.
+// An entry of an item's section: what it gives for the item shown, 0 where the tooltip shows none. An entry may say
+// what it says of the frame under the cursor (a bag's slot): while the tooltip is locked, the cursor gone from that
+// frame onto the tooltip, its lines stay as they were.
 public class AddedToItem implements Component {
-  derived lines: Array<Line> = self.item == 0 ? NONE : self.row.lines(self.item, self.link)
+  derived asked: Array<Line> = self.item == 0 ? NONE : self.row.lines(self.item, self.link)
+  state lines: Array<Line> = NONE
 
   row: Signal<any ItemLines>
   item: Signal<Integer>
   link: Signal<String>
-  constructor(row: Signal<any ItemLines>, item: Signal<Integer>, link: Signal<String>) {
+  locked: Signal<Boolean>
+  constructor(row: Signal<any ItemLines>, item: Signal<Integer>, link: Signal<String>, locked: Signal<Boolean>) {
     self.row = row
     self.item = item
     self.link = link
+    self.locked = locked
+    watch {
+      if (!self.locked) { self.lines = self.asked }
+    }
   }
 
   public render(self): Template {

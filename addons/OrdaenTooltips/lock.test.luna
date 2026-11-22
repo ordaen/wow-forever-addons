@@ -8,7 +8,7 @@ import { Key } from "$ltml"
 import Test from "$test"
 import root Ordaen from "Ordaen"
 import root Tooltips from "OrdaenTooltips"
-import { ItemKeys } from "@/extend"
+import { ItemKeys, ItemLines, Line } from "@/extend"
 import { DASH } from "@/frame"
 
 const SCREEN: Test.Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
@@ -152,6 +152,41 @@ test "a locked tooltip's hint stands a section under its hotkeys, as under any s
   const section = Ordaen.lengthOf(3sp) / 1ui
   Test.expect(hint.top - key.bottom < 1.5 * section)
   destroy added
+}
+
+// The slot under the cursor, as a bags' module tells it: its hotkey and its note are said only while it is hovered.
+class OnSlot {
+  public state hovered = true
+}
+
+class SlotKey implements ItemKeys {
+  const slot: OnSlot
+  constructor(slot: OnSlot) { self.slot = slot }
+  public keys(self, item: Integer, link: String): Array<String> { return self.slot.hovered ? ["Alt+Left-click: protect"] : [] }
+}
+
+class SlotNote implements ItemLines {
+  const slot: OnSlot
+  constructor(slot: OnSlot) { self.slot = slot }
+  public lines(self, item: Integer, link: String): Array<Line> { return self.slot.hovered ? [{ left: "Protected from sorting" }] : [] }
+}
+
+test "the cursor gone from the slot onto the locked tooltip keeps the hotkeys and notes said of the slot" {
+  Test.mount(new Elsewhere(), SCREEN)
+  const slot = new OnSlot()
+  const key = Tooltips.keys.add(new SlotKey(slot))
+  const note = Tooltips.held.add(new SlotNote(slot))
+  Game.tooltip.main = inSlot(sword())
+  Test.pass(CHARGED)
+  const before = locked().text("Alt+Left-click: protect").rect()
+  slot.hovered = false
+  Game.tooltip.main = hidden()
+  locked().text("Sword").hover()
+  Test.pass(0.1)
+  Test.expect(locked().text("Alt+Left-click: protect").rect().top == before.top)
+  Test.expect(locked().text("Protected from sorting").shown())
+  destroy key
+  destroy note
 }
 
 test "a tooltip's title, one line, is as high as its letters: no line height round it" {
