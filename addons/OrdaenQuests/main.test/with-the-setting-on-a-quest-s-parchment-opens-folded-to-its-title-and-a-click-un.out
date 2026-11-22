@@ -112,23 +112,23 @@ surface 550,192.21 905.76x515.58 on MEDIUM clamped raised by a click
             text 1118.24,326.97 263.33x20.68 "Elwynn Wolves" #3a1000
           box 1074.91,355.99 350x41.67 Interface\AddOns\Ordaen\media\scroll-bottom
           box 1074.91,318.64 350x47.76 absolute Interface\AddOns\Ordaen\media\scroll-paper
-        box 1074.91,401.92 350x16.8
-          box 1074.91,401.92 350x16.8
-            text 1074.91,401.92 313.2x16.8 "Wolves slain" #f0e6d0
-            text 1393.8,401.92 31.11x16.8 "5/10" #f0e6d0
-        box 1074.91,422.99 350x0
-        box 1074.91,427.25 350x17.78 @keyPress @pointerPress
-          text 1074.91,427.25 318.33x17.78 "Track" #f0e6d0
-          box 1393.24,427.81 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 0 of 4
-            box 1390.74,425.31 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2 opacity=1
-        box 1074.91,449.3 350x28.33
-          box 1074.91,449.3 94.22x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-            text 1082.02,454.57 80x17.78 "Show on map" #ffd100
-          box 1177.67,449.3 93.33x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-            text 1205.44,454.57 37.78x17.78 "Share" #808080
-          box 1279.53,449.3 43.51x0
-          box 1331.58,449.3 93.33x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-            text 1352.13,454.57 52.22x17.78 "Abandon" #ffd100
+        box 1074.91,409.03 350x16.8
+          box 1074.91,409.03 350x16.8
+            text 1074.91,409.03 313.2x16.8 "Wolves slain" #f0e6d0
+            text 1393.8,409.03 31.11x16.8 "5/10" #f0e6d0
+        box 1074.91,437.21 350x0
+        box 1074.91,448.59 350x17.78 @keyPress @pointerPress
+          text 1074.91,448.59 318.33x17.78 "Track" #f0e6d0
+          box 1393.24,449.14 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 0 of 4
+            box 1390.74,446.64 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2 opacity=1
+        box 1074.91,477.74 350x36.87
+          box 1074.91,486.27 94.22x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+            text 1082.02,491.55 80x17.78 "Show on map" #ffd100
+          box 1177.67,486.27 93.33x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+            text 1205.44,491.55 37.78x17.78 "Share" #808080
+          box 1279.53,486.27 43.51x0
+          box 1331.58,486.27 93.33x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+            text 1352.13,491.55 52.22x17.78 "Abandon" #ffd100
       box 1049.16,254.22 6.67x442.73 absolute @drag @dragStart @dragStop
     box 1438.51,687.79 13.33x13.33 absolute
       box 1438.51,687.79 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop

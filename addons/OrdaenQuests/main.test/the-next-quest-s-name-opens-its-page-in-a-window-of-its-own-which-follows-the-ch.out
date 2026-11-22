@@ -102,37 +102,37 @@ surface 550,192.21 905.76x515.58 on MEDIUM clamped raised by a click
               text 990.26,664.95 28.89x17.78 "3/25" #e8dcc4
     box 1041.91,254.22 405.76x442.73 border=UI-Frame-Metal-CornerTopLeft sides=left
       box 1074.91,276.97 350x405.75
-        box 1074.91,276.97 350x270.01
+        box 1074.91,276.97 350x225.92
           box 1074.91,276.97 350x41.67 Interface\AddOns\Ordaen\media\scroll-top
-          box 1074.91,318.64 350x186.67
-          box 1074.91,505.31 350x41.67 Interface\AddOns\Ordaen\media\scroll-bottom
-          box 1074.91,318.64 350x197.09 absolute Interface\AddOns\Ordaen\media\scroll-paper
-            box 1118.24,326.97 263.33x170.01 absolute scrolled 0 of 0
+          box 1074.91,318.64 350x142.58
+          box 1074.91,461.23 350x41.67 Interface\AddOns\Ordaen\media\scroll-bottom
+          box 1074.91,318.64 350x153 absolute Interface\AddOns\Ordaen\media\scroll-paper
+            box 1118.24,326.97 263.33x125.92 absolute scrolled 0 of 0
               text 1118.24,326.97 263.33x20.68 "The Defias Brotherhood" #3a1000
               text 1118.24,351.92 263.33x17.78 "Gryan asks you to look into Westfall." #160c03
               text 1118.24,373.96 263.33x17.78 "Objectives" #3a1000
-        box 1074.91,551.25 350x16.8
-          box 1074.91,551.25 350x16.8
-            text 1074.91,551.25 313.2x16.8 "Wolves slain" #f0e6d0
-            text 1393.8,551.25 31.11x16.8 "5/10" #f0e6d0
-        box 1074.91,572.31 350x17.78 @keyPress @pointerPress
-          text 1074.91,572.31 72.22x17.78 "Next quest" #a3977f
-          text 1155.67,572.31 269.24x17.78 "The Defias Brotherhood, part two" #ffd100
-        box 1074.91,594.36 350x33.72
-          box 1074.91,594.36 350x33.72
-            box 1124.89,600.88 250.03x20.68
-              box 1124.89,600.88 65.47x20.68
-                box 1133.43,600.88 48.4x20.68
-                  box 1133.43,602.89 16.67x16.67 GarrMission_CurrencyIcon-Xp
-                  text 1152.94,600.88 28.89x20.68 "420" #f0e6d0
-              box 1190.36,600.88 184.57x20.68
-                box 1199.73,600.88 166.67x20.68 @pointerEnter @pointerLeave
-                  text 1199.73,600.88 166.67x20.68 "-25–+250 reputation" #f0e6d0
-        box 1074.91,632.35 350x17.78 @keyPress @pointerPress
-          text 1074.91,632.35 318.33x17.78 "Track" #f0e6d0
-          box 1393.24,632.9 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 0 of 4
-            box 1390.74,630.4 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2 opacity=1
-        box 1074.91,654.39 350x28.33
+        box 1074.91,514.27 350x16.8
+          box 1074.91,514.27 350x16.8
+            text 1074.91,514.27 313.2x16.8 "Wolves slain" #f0e6d0
+            text 1393.8,514.27 31.11x16.8 "5/10" #f0e6d0
+        box 1074.91,542.45 350x17.78 @keyPress @pointerPress
+          text 1074.91,542.45 72.22x17.78 "Next quest" #a3977f
+          text 1155.67,542.45 269.24x17.78 "The Defias Brotherhood, part two" #ffd100
+        box 1074.91,571.6 350x33.72
+          box 1074.91,571.6 350x33.72
+            box 1124.89,578.13 250.03x20.68
+              box 1124.89,578.13 65.47x20.68
+                box 1133.43,578.13 48.4x20.68
+                  box 1133.43,580.13 16.67x16.67 GarrMission_CurrencyIcon-Xp
+                  text 1152.94,578.13 28.89x20.68 "420" #f0e6d0
+              box 1190.36,578.13 184.57x20.68
+                box 1199.73,578.13 166.67x20.68 @pointerEnter @pointerLeave
+                  text 1199.73,578.13 166.67x20.68 "-25–+250 reputation" #f0e6d0
+        box 1074.91,616.7 350x17.78 @keyPress @pointerPress
+          text 1074.91,616.7 318.33x17.78 "Track" #f0e6d0
+          box 1393.24,617.26 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 0 of 4
+            box 1390.74,614.76 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2 opacity=1
+        box 1074.91,645.86 350x36.87
           box 1074.91,654.39 94.22x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
             text 1082.02,659.67 80x17.78 "Show on map" #ffd100
           box 1177.67,654.39 93.33x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
@@ -166,23 +166,23 @@ surface 958.33,223.04 350x453.92 on MEDIUM clamped raised by a click
   box 958.33,260.29 350x416.67 absolute Interface\AddOns\Ordaen\media\window-wood border=UI-Frame-Metal-CornerTopLeft
     box 971.43,273.39 328.81x392.73
       box 994.18,296.14 283.3x347.22
-        box 994.18,296.14 283.3x274.79
+        box 994.18,296.14 283.3x260.57
           box 994.18,296.14 283.3x41.67 Interface\AddOns\Ordaen\media\scroll-top
-          box 994.18,337.81 283.3x191.46
-          box 994.18,529.27 283.3x41.67 Interface\AddOns\Ordaen\media\scroll-bottom
-          box 994.18,337.81 283.3x201.88 absolute Interface\AddOns\Ordaen\media\scroll-paper
-            box 1037.52,346.14 196.63x174.79 absolute scrolled 0 of 0
+          box 994.18,337.81 283.3x177.24
+          box 994.18,515.05 283.3x41.67 Interface\AddOns\Ordaen\media\scroll-bottom
+          box 994.18,337.81 283.3x187.66 absolute Interface\AddOns\Ordaen\media\scroll-paper
+            box 1037.52,346.14 196.63x160.57 absolute scrolled 0 of 0
               text 1037.52,346.14 196.63x41.35 "The Defias Brotherhood, part two" #3a1000
               text 1037.52,391.76 196.63x35.56 "Level 16, available from level 12" #4a3520
               text 1037.52,431.58 196.63x17.78 "Objectives" #3a1000
               text 1037.52,453.63 196.63x35.56 "Take the note to the Scout. Then report back." #160c03
-        box 994.18,575.2 283.3x35.56 @keyPress @pointerPress
-          text 994.18,575.2 72.22x17.78 "Next quest" #a3977f
-          text 1074.94,575.2 202.54x35.56 "The Defias Brotherhood, part three" #ffd100
-        box 994.18,615.02 283.3x28.33
-          box 994.18,615.02 94.22x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+        box 994.18,568.09 283.3x35.56 @keyPress @pointerPress
+          text 994.18,568.09 72.22x17.78 "Next quest" #a3977f
+          text 1074.94,568.09 202.54x35.56 "The Defias Brotherhood, part three" #ffd100
+        box 994.18,615.03 283.3x28.33
+          box 994.18,615.03 94.22x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
             text 1001.29,620.3 80x17.78 "Show on map" #ffd100
-          box 1088.41,615.02 189.08x0
+          box 1088.41,615.03 189.08x0
     box 1291.08,656.96 13.33x13.33 absolute
       box 1291.08,656.96 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 958.33,223.04 350x47.75

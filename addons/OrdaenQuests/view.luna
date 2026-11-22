@@ -25,7 +25,11 @@ const ROW_KEYS: Array<String> = [Locale.ROW_KEY_PAGE, Locale.ROW_KEY_LINK, Local
 const GOLD: Color = Color.hex("#ffd100")
 const DIM: Color = Color.hex("#a3977f")
 const GREEN: Color = Color.hex("#40c040")
-const GREY: Color = Color.hex("#808080")
+// A done objective: the done quest's green, dimmed.
+const GOAL_DONE: Color = Color.hex("#6a9a62")
+// Between the page's parts; the buttons stand further off the tracking switch.
+const PAGE_GAP = 4sp
+const BUTTONS_OFF = 3sp
 const RED: Color = Color.hex("#ff4040")
 // A row starts at its header's left: the header's band, not an indent, says what it stands under.
 // Above and below its text alike: the rule above a row stands as far from its text as the next row's does.
@@ -241,7 +245,7 @@ class GoalLine implements Component {
   doneColor: Signal<Color>
   // The list's small lines; the page's are the body's size.
   small: Signal<Boolean>
-  constructor(objective: Signal<Game.QuestObjective>, todoColor: Signal<Color> = DIM, doneColor: Signal<Color> = GREY,
+  constructor(objective: Signal<Game.QuestObjective>, todoColor: Signal<Color> = DIM, doneColor: Signal<Color> = GOAL_DONE,
     small: Signal<Boolean> = true) {
     self.objective = objective
     self.todoColor = todoColor
@@ -337,7 +341,7 @@ public class ChainPage implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box rows={self.rows} gap={1.5sp}>
+      <box rows={self.rows} gap={PAGE_GAP}>
         <Scroll title={self.facts.name} folded={mut self.folded}>
           <text value={self.levels} textColor={SCROLL_DIM} />
           <text $if={self.facts.task != ""} value={Locale.SECTION_TASKS} textColor={SCROLL_HEAD} textFont={.Title} />
@@ -404,14 +408,14 @@ public class QuestPage implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box rows={self.rows} gap={1.5sp}>
+      <box rows={self.rows} gap={PAGE_GAP}>
         <Scroll title={self.quest.title} folded={mut self.folded}>
           <text $if={self.text.story != ""} value={self.text.story} textColor={SCROLL_INK} lineHeight={BODY_LINE} />
           <text value={Locale.SECTION_TASKS} textColor={SCROLL_HEAD} textFont={.Title} />
           <text $if={self.text.task != ""} value={self.text.task} textColor={SCROLL_INK} lineHeight={BODY_LINE} />
         </Scroll>
         <box gap={GOAL_GAP}>
-          <GoalLine $for={objective of self.goals} objective={objective} todoColor={WELL_TEXT} doneColor={WELL_DIM}
+          <GoalLine $for={objective of self.goals} objective={objective} todoColor={WELL_TEXT}
                     small={false} />
         </box>
         <ChainLine facts={self.facts} @open={self.onNext} />
@@ -424,7 +428,7 @@ public class QuestPage implements Component {
           <text value={Locale.TRACK} textColor={WELL_TEXT} />
           <SwitchFace state={self.tracking} />
         </box>
-        <box columns={["max-content", "max-content", { fr: 1 }, "max-content"]} gap={3sp}>
+        <box columns={["max-content", "max-content", { fr: 1 }, "max-content"]} gap={3sp} padding={{ top: BUTTONS_OFF }}>
           <PushButton label={Locale.SHOW_ON_MAP} width={BUTTON} disabled={self.combat} tip={self.mapTip} @click={self.onMap} />
           <PushButton label={Locale.SHARE} width={BUTTON} disabled={!self.quest.shareable} @click={self.onShare} />
           <box />

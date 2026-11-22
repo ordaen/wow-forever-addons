@@ -846,7 +846,24 @@ test "the parchment holds the lore alone: the objectives and their counts stand 
   const fangs = window.text("Fangs").nth(2)
   Test.expect(fangs.rect().top > window.text("Bring pelts to Eagan.").rect().bottom + 40)
   Test.expect(fangs.textColor().equal(window.text("Track").textColor()))
-  Test.expect(!window.text("Pelts").textColor().equal(fangs.textColor()))
+  // Done: a dimmed green, not grey.
+  Test.expect(window.text("Pelts").textColor().equal(Color.hex("#6a9a62")))
+}
+
+test "a long objective wraps under the parchment and pushes what follows down" {
+  const log = standing()
+  const long = "Чародейский справочник: магические термины простыми словами"
+  log[3] = {
+    objectives: [{ text: `${long}: 0/1` }], choices: [{ item: 1002 }], ..quest(103, "Elwynn Wolves", "Elwynn Forest")
+  }
+  opened(log)
+  const window = Test.page().window("World")
+  window.text("Elwynn Wolves").click()
+  const goal = window.text(long).nth(2)
+  const next = window.text("You will be able to choose")
+  // Two lines, and the rewards' title under the second.
+  Test.expect(goal.rect().bottom - goal.rect().top > 30)
+  Test.expect(goal.rect().bottom <= next.rect().top)
 }
 
 test "with the setting on, a quest's parchment opens folded to its title, and a click unfolds it" {
