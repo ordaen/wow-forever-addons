@@ -133,42 +133,53 @@ public const SCROLL_ART: ScrollArt = {
   },
   tone: "@/media/scroll-paper-tone.tga"
 }
-// A roll's ends and its height (their 128 texels), and the roll between them.
-const ROLL_HEIGHT: Number<Length> = TEXEL * 128
-const ROLL_ACROSS: Array<Track> = [ROLL_HEIGHT, { fr: 1 }, ROLL_HEIGHT]
-const ROLL_DOWN: Array<Track> = [{ fr: 1 }]
-// The paper's torn edges (128 texels), their inner 24 fading into its middle, which runs on under them that far.
-const EDGE_WIDTH: Number<Length> = TEXEL * 128
-const UNDER_EDGE: Number<Length> = TEXEL * 104
-const ROLLS: Array<Track> = ["max-content", { fr: 1 }, "max-content"]
-// The scroll's row where it stands over other things (a quest page's rewards): the room left, never less than four
-// rolls' height, about five lines on the paper, so what stands beside it gives way first.
-public const SCROLL_ROW: Track = { fr: 1, min: ROLL_HEIGHT * 4 }
-// A roll's paper that fades over the paper (32 texels): the paper runs on under both rolls that far.
-const FADE_HEIGHT: Number<Length> = TEXEL * 32
-const UNDER_FADE: Number<Length> = ROLL_HEIGHT - FADE_HEIGHT
-// What stands over what on the scroll: the sheet's shading over the paper's middle, its torn edges over both, and the
-// rolls and the text over all of it.
+
+// The sheet's art (art/pieces/sheet.json), in parts that repeat, so it is drawn at any width and height unstretched:
+// its corners at their own size, a torn edge along each side repeating between them, the plain paper of its middle
+// repeating both ways, and the scroll's shading stretched over all of it once. A texel is the scroll's.
+public struct SheetArt {
+  topLeft: Art
+  top: Art
+  topRight: Art
+  left: Art
+  middle: Art
+  right: Art
+  bottomLeft: Art
+  bottom: Art
+  bottomRight: Art
+}
+public const SHEET_ART: SheetArt = {
+  topLeft: "@/media/sheet-top-left.tga",
+  top: { file: "@/media/sheet-top.tga", width: 512, height: 64, tile: Tile.Across },
+  topRight: "@/media/sheet-top-right.tga",
+  left: { file: "@/media/sheet-left.tga", width: 64, height: 512, tile: Tile.Down },
+  middle: { file: "@/media/sheet-paper.tga", width: 256, height: 256, repeatSize: TEXEL * 256 / 1ui },
+  right: { file: "@/media/sheet-right.tga", width: 64, height: 512, tile: Tile.Down },
+  bottomLeft: "@/media/sheet-bottom-left.tga",
+  bottom: { file: "@/media/sheet-bottom.tga", width: 512, height: 64, tile: Tile.Across },
+  bottomRight: "@/media/sheet-bottom-right.tga"
+}
+// A corner of the sheet and the width of its edges (64 texels): the corners at their own size, the rest between.
+const CORNER: Number<Length> = TEXEL * 64
+// The scroll's row where it stands over other things (a quest page's rewards): the room left, never less than half
+// the art's width, about five lines on the paper, so what stands beside it gives way first.
+public const SCROLL_ROW: Track = { fr: 1, min: TEXEL * 512 }
+// What stands over what on the sheet: its shading over its paper, and the text over both.
 const OVER_GRAIN = 1
 const OVER_TONE = 2
-const OVER_EDGES = 3
-const OVER_PAPER = 4
-// Where the text stands on the paper, in the art's measure (not the spacing setting's): in from its torn sides (80
-// texels) and a margin past them as wide as a line is high, and off the rolls by half that, past their paper's fade.
+const OVER_PAPER = 3
+// Where the text stands on the paper, in the art's measure (not the spacing setting's): in from the torn edges, past
+// their deepest bites, by a margin as wide as a line is high.
 const OFF_SIDES: Number<Length> = 60.9375dp
-const OFF_ROLLS: Number<Length> = 11.71875dp
-const OFF_FADES: Number<Length> = FADE_HEIGHT + OFF_ROLLS
-// Folded: the title's row between the rolls, as far in from the torn sides and off the rolls as the text unfolded.
-const FOLDED_ROLLS: Array<Track> = ["max-content", "max-content", "max-content"]
-const FOLDED_ACROSS: Array<Track> = [OFF_SIDES, { fr: 1 }, OFF_SIDES]
-const FOLDED_DOWN: Array<Track> = [OFF_ROLLS, "max-content", OFF_ROLLS]
+const OFF_EDGES: Array<Track> = [OFF_SIDES, { fr: 1 }, OFF_SIDES]
+// Folded: the title alone, as far in from the edges as the text unfolded.
+const FOLDED_DOWN: Array<Track> = [OFF_SIDES, "max-content", OFF_SIDES]
 
-// The scroll: what is said of a quest on the parchment between its rolls, its title first. It fills the cell it
-// stands in, at any width and height (its art repeats), the paper on under both rolls' fading edges; what it holds
-// scrolls past the paper's height. The text stands in the paper's box, so it is drawn over the paper and never meets
-// a roll (boxes that overlap at one level draw in the client's order). Folded, the rolls stand close round the title
-// alone, the scroll as high as that (its row is the holder's: `max-content`, not SCROLL_ROW), and a click on it,
-// Enter or Space, unfolds it.
+// The scroll: what is said of a quest on a sheet of parchment, its title first. It fills the cell it stands in, at any
+// width and height (its art repeats); what it holds scrolls past the paper's height. The text stands over the sheet
+// (boxes that overlap at one level draw in the client's order). Folded, the sheet stands close round the title alone,
+// as high as that (its row is the holder's: `max-content`, not SCROLL_ROW), and a click on it, Enter or Space,
+// unfolds it.
 public class Scroll implements Component {
   derived titled: Boolean = self.title != ""
 
@@ -187,69 +198,54 @@ public class Scroll implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box $if={self.folded} rows={FOLDED_ROLLS} @pointerPress={self.unfold} @keyPress(.Enter)={self.unfold}
-           @keyPress(.Space)={self.unfold}>
-        <ScrollRoll parts={SCROLL_ART.top} />
-        <box columns={FOLDED_ACROSS} rows={FOLDED_DOWN} zLevel={OVER_PAPER}>
-          <box />
-          <box />
-          <box />
-          <box />
+      <box $if={self.folded} columns={OFF_EDGES} rows={FOLDED_DOWN} @pointerPress={self.unfold}
+           @keyPress(.Enter)={self.unfold} @keyPress(.Space)={self.unfold}>
+        <box />
+        <box />
+        <box />
+        <box />
+        <box zLevel={OVER_PAPER}>
           <ScrollTitle title={self.title} />
         </box>
-        <ScrollRoll parts={SCROLL_ART.bottom} />
-        <box position={Position.Absolute} left={0dp} right={0dp} top={UNDER_FADE} bottom={UNDER_FADE}>
-          <ScrollPaper />
-        </box>
+        <Sheet />
       </box>
-      <box $else rows={ROLLS}>
-        <ScrollRoll parts={SCROLL_ART.top} />
-        <box />
-        <ScrollRoll parts={SCROLL_ART.bottom} />
-        <box position={Position.Absolute} left={0dp} right={0dp} top={UNDER_FADE} bottom={UNDER_FADE}>
-          <ScrollPaper />
-          <box position={Position.Absolute} left={OFF_SIDES} right={OFF_SIDES} top={OFF_FADES} bottom={OFF_FADES}
-               overflow={Overflow.Scroll} gap={1.5sp} zLevel={OVER_PAPER} textSize={SCROLL_TEXT}
-               textFont={.Book}>
-            <ScrollTitle $if={self.titled} title={self.title} />
-            <slot />
-          </box>
+      <box $else>
+        <Sheet />
+        <box position={Position.Absolute} left={OFF_SIDES} right={OFF_SIDES} top={OFF_SIDES} bottom={OFF_SIDES}
+             overflow={Overflow.Scroll} gap={1.5sp} zLevel={OVER_PAPER} textSize={SCROLL_TEXT} textFont={.Book}>
+          <ScrollTitle $if={self.titled} title={self.title} />
+          <slot />
         </box>
       </box>
     }
   }
 }
 
-// A roll of the scroll, over the paper: its ends at their own size, the roll between them repeating across.
-class ScrollRoll implements Component {
-  const parts: ScrollParts
-  constructor(parts: ScrollParts) { self.parts = parts }
-
+// The sheet, filling the box it is drawn in: its corners, its torn edges repeating between them and its paper
+// repeating both ways, and the scroll's shading stretched over all of it once, multiplied in.
+class Sheet implements Component {
   public render(self): Template {
     return $ltml {
-      <box height={ROLL_HEIGHT} columns={ROLL_ACROSS} rows={ROLL_DOWN} zLevel={OVER_PAPER}>
-        <box background={self.parts.left} />
-        <box background={self.parts.middle} />
-        <box background={self.parts.right} />
-      </box>
-    }
-  }
-}
-
-// The scroll's paper, filling the box it is drawn in: its middle's grain repeating both ways, the sheet's shading
-// stretched over it once and multiplied in, and over its sides the torn edges repeating down, their inner texels
-// fading into the middle.
-class ScrollPaper implements Component {
-  public render(self): Template {
-    return $ltml {
-      <box position={Position.Absolute} left={UNDER_EDGE} right={UNDER_EDGE} top={0dp} bottom={0dp}
-           background={SCROLL_ART.paper.middle} zLevel={OVER_GRAIN} />
-      <box position={Position.Absolute} left={UNDER_EDGE} right={UNDER_EDGE} top={0dp} bottom={0dp}
-           background={SCROLL_ART.tone} blend={Blend.Multiply} zLevel={OVER_TONE} />
-      <box position={Position.Absolute} left={0dp} width={EDGE_WIDTH} top={0dp} bottom={0dp}
-           background={SCROLL_ART.paper.left} zLevel={OVER_EDGES} />
-      <box position={Position.Absolute} right={0dp} width={EDGE_WIDTH} top={0dp} bottom={0dp}
-           background={SCROLL_ART.paper.right} zLevel={OVER_EDGES} />
+      <box position={Position.Absolute} left={0dp} top={0dp} width={CORNER} height={CORNER}
+           background={SHEET_ART.topLeft} zLevel={OVER_GRAIN} />
+      <box position={Position.Absolute} left={CORNER} right={CORNER} top={0dp} height={CORNER}
+           background={SHEET_ART.top} zLevel={OVER_GRAIN} />
+      <box position={Position.Absolute} right={0dp} top={0dp} width={CORNER} height={CORNER}
+           background={SHEET_ART.topRight} zLevel={OVER_GRAIN} />
+      <box position={Position.Absolute} left={0dp} top={CORNER} bottom={CORNER} width={CORNER}
+           background={SHEET_ART.left} zLevel={OVER_GRAIN} />
+      <box position={Position.Absolute} left={CORNER} right={CORNER} top={CORNER} bottom={CORNER}
+           background={SHEET_ART.middle} zLevel={OVER_GRAIN} />
+      <box position={Position.Absolute} right={0dp} top={CORNER} bottom={CORNER} width={CORNER}
+           background={SHEET_ART.right} zLevel={OVER_GRAIN} />
+      <box position={Position.Absolute} left={0dp} bottom={0dp} width={CORNER} height={CORNER}
+           background={SHEET_ART.bottomLeft} zLevel={OVER_GRAIN} />
+      <box position={Position.Absolute} left={CORNER} right={CORNER} bottom={0dp} height={CORNER}
+           background={SHEET_ART.bottom} zLevel={OVER_GRAIN} />
+      <box position={Position.Absolute} right={0dp} bottom={0dp} width={CORNER} height={CORNER}
+           background={SHEET_ART.bottomRight} zLevel={OVER_GRAIN} />
+      <box position={Position.Absolute} left={0dp} right={0dp} top={0dp} bottom={0dp} background={SCROLL_ART.tone}
+           blend={Blend.Multiply} zLevel={OVER_TONE} />
     }
   }
 }

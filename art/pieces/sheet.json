@@ -1,0 +1,15 @@
+{
+  "says": "The sheet of a quest's page (OrdaenQuestPage questPage.luna, Sheet), in parts that repeat, so it is drawn at any width and height without stretching: four corners, a torn edge on each side repeating along it (512 texels), and the plain paper of the middle repeating both ways; the scroll's tone is stretched over all of it.",
+  "ships": [
+    "addons/OrdaenQuestPage/media/sheet-top-left.tga",
+    "addons/OrdaenQuestPage/media/sheet-top.tga",
+    "addons/OrdaenQuestPage/media/sheet-top-right.tga",
+    "addons/OrdaenQuestPage/media/sheet-left.tga",
+    "addons/OrdaenQuestPage/media/sheet-right.tga",
+    "addons/OrdaenQuestPage/media/sheet-bottom-left.tga",
+    "addons/OrdaenQuestPage/media/sheet-bottom.tga",
+    "addons/OrdaenQuestPage/media/sheet-bottom-right.tga",
+    "addons/OrdaenQuestPage/media/sheet-paper.tga"
+  ],
+  "origin": "Made by the art steps `torn` (threshold technique: wave 2.5, bendWidth 24, persistence 0.4, warp 4, round 6, rim 0.85 over 2 texels in [34, 18, 6], spots 0.55 over 10 texels, seed 47; corners 64, sides 512 x 64, period 512) over the scroll's paper (scroll-paper-middle.tga) lightened by 0.3 with `lighten`, which is the middle. The steps are in lunatype's worktree lunatype-torn, not in the published compiler yet: this piece gets them once they are."
+}

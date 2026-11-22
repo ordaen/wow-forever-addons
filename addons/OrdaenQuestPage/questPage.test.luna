@@ -1,8 +1,9 @@
 // A quest's scroll folded and unfolded; its rewards' band of experience, reputation and money in one size.
+import { Track } from "$ltml"
 import Test from "$test"
 import { Quality } from "Ordaen"
 import Locale from "@/locales"
-import { Reward, Rewards, SCROLL_ART, SCROLL_ROW, SCROLL_WIDTH, Scroll, ScrollHeading, Standing } from "@/questPage"
+import { Reward, Rewards, SCROLL_ART, SCROLL_ROW, SCROLL_WIDTH, SHEET_ART, Scroll, ScrollHeading, Standing } from "@/questPage"
 
 function given(name: String): Reward {
   return {
@@ -24,12 +25,15 @@ class Page {
   }
 }
 
+// A folded scroll's row is its holder's as high as it, as a page's is.
+const FOLDED_ROWS: Array<Track> = ["max-content"]
+
 class Parchment {
   public state folded = true
 
   public render(self): Template {
     return $ltml {
-      <box width={SCROLL_WIDTH} rows={[SCROLL_ROW]}>
+      <box width={SCROLL_WIDTH} rows={self.folded ? FOLDED_ROWS : [SCROLL_ROW]}>
         <Scroll title={"The Defias Brotherhood"} folded={mut self.folded}>
           <text value={"Find the Defias hideout."} />
         </Scroll>
@@ -38,13 +42,13 @@ class Parchment {
   }
 }
 
-test "a folded scroll holds its title alone between close rolls, and a click on it unfolds it" {
+test "a folded scroll holds its title alone on a sheet close round it, and a click on it unfolds it" {
   const page = new Parchment()
   Test.mount(page, { left: 0, top: 0, width: 600, height: 600 })
   const title = Test.page().text("The Defias Brotherhood").rect()
   Test.expect(Test.page().texts().filter(text => text == "Find the Defias hideout.").length == 0)
-  const bottom = Test.edges(SCROLL_ART.bottom.left, 0)
-  Test.expect(bottom.top - title.bottom < 30)
+  const bottom = Test.edges(SHEET_ART.bottomLeft, 0)
+  Test.expect(bottom.bottom - title.bottom < 70)
   Test.page().text("The Defias Brotherhood").click()
   Test.expect(!page.folded)
   Test.expect(Test.page().text("Find the Defias hideout.").rect().top > Test.page().text("The Defias Brotherhood").rect().bottom)
@@ -65,28 +69,28 @@ class WideParchment {
   }
 }
 
-test "in a place twice its art's width the scroll fills it, its rolls' ends at their own size, the roll between them" {
+test "in a place twice its art's width the sheet fills it, its corners at their own size, its edges between them" {
   const page = new WideParchment()
   Test.mount(page, { left: 0, top: 0, width: 1400, height: 600 })
   const art = SCROLL_WIDTH / 1ui
-  const left = Test.edges(SCROLL_ART.top.left, 0)
-  const middle = Test.edges(SCROLL_ART.top.middle, 0)
-  const right = Test.edges(SCROLL_ART.top.right, 0)
-  // An end is 128 of the art's 1024 texels, square; the roll runs from one end to the other, as high.
-  Test.expect((left.right - left.left - art / 8).abs() < 0.5 && (left.bottom - left.top - art / 8).abs() < 0.5)
+  const left = Test.edges(SHEET_ART.topLeft, 0)
+  const top = Test.edges(SHEET_ART.top, 0)
+  const right = Test.edges(SHEET_ART.topRight, 0)
+  // A corner is 64 of the art's 1024 texels, square; the top edge runs from one corner to the other, as high.
+  Test.expect((left.right - left.left - art / 16).abs() < 0.5)
+  Test.expect((left.bottom - left.top - art / 16).abs() < 0.5)
   Test.expect((right.right - left.left - art * 2).abs() < 0.5)
-  Test.expect((middle.left - left.right).abs() < 0.5 && (right.left - middle.right).abs() < 0.5)
-  Test.expect((middle.top - left.top).abs() < 0.5 && (middle.bottom - left.bottom).abs() < 0.5)
-  // The paper's middle reaches under its torn edges, which stand at the scroll's sides.
-  const paper = Test.edges(SCROLL_ART.paper.middle, 0)
-  const edge = Test.edges(SCROLL_ART.paper.left, 0)
-  Test.expect((edge.left - left.left).abs() < 0.5 && paper.left < edge.right && paper.left > edge.left)
-  // The sheet's shading covers the middle once, over its grain and under the torn edges.
+  Test.expect((top.left - left.right).abs() < 0.5 && (right.left - top.right).abs() < 0.5)
+  Test.expect((top.top - left.top).abs() < 0.5 && (top.bottom - left.bottom).abs() < 0.5)
+  // The paper fills what the edges leave, from the left edge to the right.
+  const paper = Test.edges(SHEET_ART.middle, 0)
+  const edge = Test.edges(SHEET_ART.left, 0)
+  Test.expect((paper.left - edge.right).abs() < 0.5 && (paper.right - Test.edges(SHEET_ART.right, 0).left).abs() < 0.5)
+  // The shading covers the whole sheet once, edges and all, over its paper.
   const tone = Test.edges(SCROLL_ART.tone, 0)
-  Test.expect((tone.left - paper.left).abs() < 0.5 && (tone.right - paper.right).abs() < 0.5)
-  Test.expect((tone.bottom - tone.top - (paper.bottom - paper.top)).abs() < 0.5)
-  const shading = Test.page().box(SCROLL_ART.tone).level()
-  Test.expect(shading > Test.page().box(SCROLL_ART.paper.middle).level() && shading < Test.page().box(SCROLL_ART.paper.left).level())
+  Test.expect((tone.left - left.left).abs() < 0.5 && (tone.right - right.right).abs() < 0.5)
+  Test.expect((tone.top - left.top).abs() < 0.5 && (tone.bottom - Test.edges(SHEET_ART.bottomLeft, 0).bottom).abs() < 0.5)
+  Test.expect(Test.page().box(SCROLL_ART.tone).level() > Test.page().box(SHEET_ART.middle).level())
   destroy page
 }
 

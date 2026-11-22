@@ -9,7 +9,7 @@ import Test from "$test"
 import root Ordaen from "Ordaen"
 import { ROW_HOVER } from "Ordaen"
 import root Dialogue from "OrdaenDialogue"
-import { SCROLL_ART, pawnText } from "OrdaenQuestPage"
+import { SHEET_ART, pawnText } from "OrdaenQuestPage"
 import root Quests from "OrdaenQuests"
 import { Auto } from "@/settings"
 
@@ -366,8 +366,8 @@ test "a quest whose words would overflow the scroll stands it beside the rewards
     ..pie()
   })
   Events.QUEST_DETAIL.emit(nil)
-  const top = window().box(SCROLL_ART.top.right).rect()
-  const bottom = window().box(SCROLL_ART.bottom.right).rect()
+  const top = window().box(SHEET_ART.topRight).rect()
+  const bottom = window().box(SHEET_ART.bottomRight).rect()
   const choose = window().text("You will be able to choose").rect()
   Test.expect(choose.left > top.right && choose.top < bottom.top)
   Test.expect(window().button("Accept").rect().left > top.right)
@@ -379,7 +379,7 @@ test "a quest that fits the scroll keeps the rewards under it" {
   Test.talk(innkeeper())
   Test.quest(pie())
   Events.QUEST_DETAIL.emit(nil)
-  Test.expect(window().text("You will be able to choose").rect().top > window().box(SCROLL_ART.bottom.left).rect().bottom)
+  Test.expect(window().text("You will be able to choose").rect().top > window().box(SHEET_ART.bottomLeft).rect().bottom)
 }
 
 test "with the setting on, a quest's parchment opens folded to its title, and a click unfolds it" {
@@ -1029,10 +1029,10 @@ test "a list the digits reach has one column and no word of Tab" {
   Test.expect(!window().text("Tab: the keys move to the next column").shown())
 }
 
-// The scroll from its top roll's top to its bottom roll's foot.
+// The scroll from its sheet's top left corner to its bottom right.
 function scrollOf(page: Test.Part): Test.Rect {
-  const top = page.box(SCROLL_ART.top.left).rect()
-  const bottom = page.box(SCROLL_ART.bottom.right).rect()
+  const top = page.box(SHEET_ART.topLeft).rect()
+  const bottom = page.box(SHEET_ART.bottomRight).rect()
   return { left: top.left, right: bottom.right, top: top.top, bottom: bottom.bottom }
 }
 
@@ -1041,7 +1041,7 @@ test "the NPC's words stand on the window, no parchment: it holds the lore alone
   Test.talk(guard())
   const page = Test.page().window("Stormwind City Guard")
   Test.expect(page.text("Where would you like to go?").shown())
-  Test.expect(!page.box(SCROLL_ART.top.left).shown())
+  Test.expect(!page.box(SHEET_ART.topLeft).shown())
   Test.shot("the guard's words and list on the window, without the parchment")
 }
 
@@ -1055,16 +1055,8 @@ test "the scroll stands at one size, 5:3, on every quest page" {
   const height = listed.bottom - listed.top
   Test.expect(height > 150)
   Test.expect(((listed.right - listed.left) / height - 5 / 3).abs() < 0.01)
-  // The paper runs on under both rolls' fading edges, the rolls over it.
-  const paper = page.box(SCROLL_ART.paper.left).rect()
-  const topRoll = page.box(SCROLL_ART.top.left)
-  const bottomRoll = page.box(SCROLL_ART.bottom.left)
-  Test.expect(paper.top > topRoll.rect().top && paper.top < topRoll.rect().bottom - 1)
-  Test.expect(paper.bottom > bottomRoll.rect().top + 1 && paper.bottom < bottomRoll.rect().bottom)
-  Test.expect(bottomRoll.level() > page.box(SCROLL_ART.paper.middle).level())
-  Test.expect(topRoll.level() > page.box(SCROLL_ART.paper.middle).level())
-  // The words stand on the paper, clear of the rolls (a box that overlaps another at one level draws in the client's
-  // order, not the page's, and the rolls hid the words) and in from its torn sides.
+  // The words stand on the paper, inside its torn edges.
+  const paper = page.box(SHEET_ART.middle).rect()
   const words = page.text("A Pie for Maggie").rect()
   Test.expect(words.top >= paper.top && words.bottom <= paper.bottom)
   Test.expect(words.left >= listed.left + (listed.right - listed.left) * 0.08 && words.right - words.left > 50)

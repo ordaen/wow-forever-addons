@@ -14,30 +14,27 @@ surface 54.82,99.96 384.71x620.08 on MEDIUM clamped raised by a click
           box 80.51,162.4 0x0 absolute @keyPress
           box 80.51,162.4 0x0 absolute @keyPress
           box 80.51,162.4 0x0 absolute @keyPress
-          box 80.51,162.4 333.33x116.8
-            box 80.51,162.4 333.33x116.8
-              box 80.51,162.4 333.33x116.8 @keyPress @pointerPress
-                box 80.51,162.4 333.33x41.67
-                  box 80.51,162.4 41.67x41.67 Interface\AddOns\OrdaenQuestPage\media\scroll-top-left
-                  box 122.17,162.4 250x41.67 Interface\AddOns\OrdaenQuestPage\media\scroll-top-middle
-                  box 372.17,162.4 41.67x41.67 Interface\AddOns\OrdaenQuestPage\media\scroll-top-right
-                box 80.51,204.06 333.33x33.47
-                  box 80.51,204.06 43.33x0
-                  box 123.84,204.06 246.67x0
-                  box 370.51,204.06 43.33x0
-                  box 80.51,212.4 43.33x0
-                  text 123.84,212.4 246.67x16.8 "A Pie for Maggie" #200800
-                box 80.51,237.53 333.33x41.67
-                  box 80.51,237.53 41.67x41.67 Interface\AddOns\OrdaenQuestPage\media\scroll-bottom-left
-                  box 122.17,237.53 250x41.67 Interface\AddOns\OrdaenQuestPage\media\scroll-bottom-middle
-                  box 372.17,237.53 41.67x41.67 Interface\AddOns\OrdaenQuestPage\media\scroll-bottom-right
-                box 80.51,193.65 333.33x54.3 absolute
-                  box 114.36,193.65 265.62x54.3 absolute Interface\AddOns\OrdaenQuestPage\media\scroll-paper-middle
-                  box 114.36,193.65 265.62x54.3 absolute Interface\AddOns\OrdaenQuestPage\media\scroll-paper-tone blend=MOD
-                  box 80.51,193.65 41.67x54.3 absolute Interface\AddOns\OrdaenQuestPage\media\scroll-paper-left
-                  box 372.17,193.65 41.67x54.3 absolute Interface\AddOns\OrdaenQuestPage\media\scroll-paper-right
-          box 80.51,279.2 333.33x415.16
-            box 80.51,284.89 333.33x376.87 scrolled 0 of 0
+          box 80.51,162.4 333.33x103.47
+            box 80.51,162.4 333.33x103.47
+              box 80.51,162.4 333.33x103.47 @keyPress @pointerPress
+                box 80.51,162.4 43.33x0
+                box 123.84,162.4 246.67x0
+                box 370.51,162.4 43.33x0
+                box 80.51,205.73 43.33x0
+                box 123.84,205.73 246.67x16.8
+                  text 123.84,205.73 246.67x16.8 "A Pie for Maggie" #200800
+                box 80.51,162.4 20.83x20.83 absolute Interface\AddOns\OrdaenQuestPage\media\sheet-top-left
+                box 101.34,162.4 291.67x20.83 absolute Interface\AddOns\OrdaenQuestPage\media\sheet-top
+                box 393.01,162.4 20.83x20.83 absolute Interface\AddOns\OrdaenQuestPage\media\sheet-top-right
+                box 80.51,183.23 20.83x61.8 absolute Interface\AddOns\OrdaenQuestPage\media\sheet-left
+                box 101.34,183.23 291.67x61.8 absolute Interface\AddOns\OrdaenQuestPage\media\sheet-paper
+                box 393.01,183.23 20.83x61.8 absolute Interface\AddOns\OrdaenQuestPage\media\sheet-right
+                box 80.51,245.03 20.83x20.83 absolute Interface\AddOns\OrdaenQuestPage\media\sheet-bottom-left
+                box 101.34,245.03 291.67x20.83 absolute Interface\AddOns\OrdaenQuestPage\media\sheet-bottom
+                box 393.01,245.03 20.83x20.83 absolute Interface\AddOns\OrdaenQuestPage\media\sheet-bottom-right
+                box 80.51,162.4 333.33x103.47 absolute Interface\AddOns\OrdaenQuestPage\media\scroll-paper-tone blend=MOD
+          box 80.51,265.86 333.33x428.49
+            box 80.51,271.55 333.33x390.2 scrolled 0 of 0
               box 80.51,517.27 333.33x92.41
                 box 80.51,521.54 333.33x15.83
                   text 80.51,521.54 158.33x15.83 "You will be able to choose" #e8c35a

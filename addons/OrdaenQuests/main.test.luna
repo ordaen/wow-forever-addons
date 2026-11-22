@@ -9,7 +9,7 @@ import { Key } from "$ltml"
 import Test from "$test"
 import root Ordaen from "Ordaen"
 import root Maps from "OrdaenMap"
-import { SCROLL_ART } from "OrdaenQuestPage"
+import { SHEET_ART } from "OrdaenQuestPage"
 import root Quests from "OrdaenQuests"
 import root Tracker from "OrdaenTracker"
 import { kindOfTag } from "@/kind"
@@ -292,8 +292,8 @@ test "a quest whose words would overflow its scroll stands the scroll beside the
   opened(log)
   const window = Test.page().window("World")
   window.text("Elwynn Wolves").click()
-  const top = window.box(SCROLL_ART.top.right).rect()
-  const bottom = window.box(SCROLL_ART.bottom.left).rect()
+  const top = window.box(SHEET_ART.topRight).rect()
+  const bottom = window.box(SHEET_ART.bottomLeft).rect()
   const progress = window.text("Progress").rect()
   const band = window.box(Ordaen.art.window.marble).rect()
   Test.expect(progress.left > top.right && progress.top < bottom.top)
@@ -333,18 +333,18 @@ test "a quest's title stands in Dialogue's title type on the scroll, its lines t
   Test.expect(!window.text("[14] The Defias Brotherhood").shown())
 }
 
-test "a quest's scroll fills its page's height: the rolls at its top and its foot, the paper repeated between them" {
+test "a quest's scroll fills its page's height: its corners at its top and its foot, its edges repeated between them" {
   opened(standing())
   Test.page().window("World").text("The Defias Brotherhood").click()
   const window = Test.page().window("World")
-  const top = window.box(SCROLL_ART.top.left).rect()
-  const paper = window.box(SCROLL_ART.paper.left).rect()
-  const bottom = window.box(SCROLL_ART.bottom.left).rect()
-  // The paper runs on under both rolls' fading paper.
-  Test.expect(paper.top > top.top && paper.top < top.bottom && paper.bottom > bottom.top + 1 && paper.bottom < bottom.bottom)
-  // The title on the paper, under the top roll, and clear of the paper's torn sides by a margin.
+  const top = window.box(SHEET_ART.topLeft).rect()
+  const paper = window.box(SHEET_ART.left).rect()
+  const bottom = window.box(SHEET_ART.bottomLeft).rect()
+  // The left edge runs from the top corner to the bottom one.
+  Test.expect((paper.top - top.bottom).abs() < 0.5 && (paper.bottom - bottom.top).abs() < 0.5)
+  // The title on the paper, under the top edge, and clear of the paper's torn sides by a margin.
   const title = window.text("The Defias Brotherhood").nth(2).rect()
-  const across = window.box(SCROLL_ART.top.right).rect().right - top.left
+  const across = window.box(SHEET_ART.topRight).rect().right - top.left
   Test.expect(title.top >= top.bottom - 10 && (title.left - top.left) / across > 0.115)
   // It fills the page, whatever the text's size and however much the quest says: what stands under it starts right
   // under its foot (its progress' cut), and a quest of three lines (with no next quest under it, whose room it takes
@@ -352,10 +352,10 @@ test "a quest's scroll fills its page's height: the rolls at its top and its foo
   const under = window.text("Progress").rect()
   Test.expect(under.top >= bottom.bottom && under.top - bottom.bottom < 40)
   window.text("Elwynn Wolves").click()
-  const short = window.box(SCROLL_ART.bottom.left).rect()
+  const short = window.box(SHEET_ART.bottomLeft).rect()
   Test.expect(short.bottom >= bottom.bottom - 0.5)
   // Its words: the title, the heading, one objective under it.
-  Test.expect(short.top > window.text("Objectives").rect().bottom + 60)
+  Test.expect(short.top > window.text("Objectives").rect().bottom + 30)
 }
 
 test "a quest under the cursor has its tooltip" {
