@@ -64,7 +64,7 @@ public class Spells implements Module, App {
     if (!self.classTrainer) { return }
     const settings = peek self.settings.values
     self.trainerList.write({
-      filter: (peek self.trainerList.values).filter, view: settings.trainerView, sorted: settings.trainerSort, descending: false
+      shows: (peek self.trainerList.values).shows, view: settings.trainerView, sorted: settings.trainerSort, descending: false
     })
   }
 

@@ -55,11 +55,11 @@ public struct TrainerBarred implements Plain {
 enum MenuAct { Learn, Bar, Link }
 const MENU_ACTS: Array<MenuAct> = [MenuAct.Learn, MenuAct.Bar, MenuAct.Link]
 
-// How the player left a trainer's window, the owning module's profile's: what the filter keeps, the view, the column or
+// How the player left a trainer's window, the owning module's profile's: what the filter shows, the view, the column or
 // sort it is ordered by (0: the trainer's order) and its way. The search isn't kept. Each kind opens in its own view
 // (`TrainerList { view: .List }` for a class trainer's categories).
 public struct TrainerList implements Plain {
-  filter: Map<TrainerShow, Boolean> = FILTER_START
+  shows: Map<TrainerShow, Boolean> = FILTER_START
   view: TrainerView = TrainerView.Table
   sorted: Integer = 0
   descending: Boolean = false
@@ -674,7 +674,7 @@ public class TrainerWindow implements Component {
     const view = self.list.values
     const key = self.keys[view.sorted]
     const barred = self.barredNames
-    let services = self.services.filter(service => passes(service, view.filter, self.query, barred))
+    let services = self.services.filter(service => passes(service, view.shows, self.query, barred))
     services.sort((a, b) => before(a, b, key, view.descending))
     return services
   }
@@ -844,7 +844,7 @@ public class TrainerWindow implements Component {
           <box $else />
           <Toolbar search={mut self.search} placeholder={Locale.TRAINER_SEARCH}>
             <ToolSort sorted={mut self.list.values.sorted} columns={self.columns} title={Locale.TRAINER_SORT} more={MORE_SORTS} />
-            <FilterButton values={mut self.list.values.filter} start={FILTER_START} groups={FILTERS} />
+            <FilterButton values={mut self.list.values.shows} start={FILTER_START} groups={FILTERS} />
             <ToolPick value={mut self.list.values.view} choices={TRAINER_VIEWS} icon={ARTWORK.ctl.tool.table} title={Locale.TRAINER_VIEW} />
           </Toolbar>
           <box $if={self.empty} xAlign={Align.Center} yAlign={Align.Center}>
