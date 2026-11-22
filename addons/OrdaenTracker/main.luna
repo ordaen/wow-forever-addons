@@ -2,8 +2,8 @@
 // which is kept unseen while it is on. It draws each tracked quest from the client by itself (its level, title, tag,
 // objectives); other modules add lines under a quest through `questLines` (Quests: where to go, whom to hand it to).
 // The clicks are Blizzard's tracker's: a chat link first, Shift+click untracks, a click opens the quest in the log,
-// Right-click opens its menu, which also points the way to it. Its settings say how many quests it lists and how
-// dark its ground is (the chat's rounded ground, at its own opacity); the placing mode moves it.
+// Right-click opens its menu, which also points the way to it. Its settings say how many quests it lists, when its
+// ground shows (on hover by default) and how dark it is (the chat's rounded ground); the placing mode moves it.
 import Client from "$client"
 import Events from "$events"
 import Game from "$game"
@@ -12,7 +12,7 @@ import root Ordaen from "Ordaen"
 import { BRIGHT_TEXT, ButtonPlate, Component, Dialog, ItemButton, Menu, MenuEntry, Module, Placed, PushButton, RoundedFill, SECONDARY_TEXT, Settings, SettingsPage, playSound, questLevelColor } from "Ordaen"
 import { QuestLine, QuestLines } from "@/extend"
 import Locale from "@/locales"
-import { Choices, DEFAULTS, GeneralPage } from "@/settings"
+import { Choices, DEFAULTS, GeneralPage, GroundShown } from "@/settings"
 
 // As wide as the design's tracker (360 px), never narrower.
 const WIDTH: Bounds = { min: 351.5625dp, max: nil }
@@ -83,6 +83,8 @@ public class Tracker implements Module, App {
   state zone = ""
   state most = 25
   state folded = false
+  // The cursor over it: what shows its ground where the settings say on hover.
+  state hovered = false
   // The quest the player asked to abandon (0: none).
   state abandoning = 0
   // Every objective's text, to hear progress roll forward.
@@ -99,12 +101,14 @@ public class Tracker implements Module, App {
   derived here: Array<Game.LogQuest> = self.quests.filter(quest => quest.header == self.zone)
   derived listed: Array<Game.LogQuest> = firstOf(self.here, self.settings.values.listed)
   derived ground: Color = { r: 0, g: 0, b: 0, a: self.settings.values.ground }
+  derived grounded: Boolean = self.settings.values.groundShown == GroundShown.Always || self.hovered
   // Shown while it lists a quest, and in the placing mode, to be moved.
   derived drawn: Boolean = self.here.length > 0 || Ordaen.placing
   // Its place while the player never moved it: along the right edge, from under what keeps the top right corner (the
   // minimap) down to above what keeps the bottom edge (the bottom panel, a damage meter there), all of that height; it
   // scrolls past it.
   derived home: Anchored = { point: Point.TopRight, to: Point.TopRight, x: -EDGE, y: Ordaen.topRightTaken + GAP }
+  // The most it is: as high as its quests up to that, its list scrolling past it.
   derived height: Number<Length> = (Client.UIParent.GetHeight() * 1ui - Ordaen.topRightTaken - Ordaen.bottomTaken - 2 * GAP).max(0ui)
 
   constructor() {
@@ -153,6 +157,8 @@ public class Tracker implements Module, App {
   }
 
   onFold(mut self) { self.folded = !self.folded }
+  onEnter(mut self) { self.hovered = true }
+  onLeave(mut self) { self.hovered = false }
 
   onAsk(mut self, id: Integer, ask: Ask) {
     match (ask) {
@@ -205,8 +211,10 @@ public class Tracker implements Module, App {
     return $ltml {
       <frame of={Game.frames.ObjectiveTracker} opacity={0} away={true} />
       <Placed $if={self.drawn} id={PART} title={Locale.PLACE} home={self.home}>
-        <box width={WIDTH} height={self.height} padding={PAD} rows={ROWS} gap={3sp}>
-          <RoundedFill color={self.ground} />
+        <box width={WIDTH} height={{ max: self.height }} padding={PAD} rows={ROWS} gap={3sp} mouseThrough={true}
+             @pointerEnter={self.onEnter}
+             @pointerLeave={self.onLeave}>
+          <RoundedFill $if={self.grounded} color={self.ground} />
           <box columns={HEAD} gap={3sp} @pointerPress={self.onFold}>
             <text value={Locale.QUESTS} textColor={GOLD} wrap={.None} />
             <text value={self.count} textColor={DIM} textSize={SECONDARY_TEXT} wrap={.None} />

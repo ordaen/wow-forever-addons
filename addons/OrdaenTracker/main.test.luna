@@ -191,14 +191,30 @@ test "a quest's item shows its cooldown's sweep while one runs, and none while n
   Test.expect(told.contains("SetCooldown=1"))
 }
 
-test "it stands at the right under what keeps the top right corner and above what keeps the bottom, all that height" {
+// As many tracked quests of the zone as the client tracks, each with two objectives: more than the screen holds.
+function crowded() {
+  const log: Array<Test.LogQuest> = []
+  for (n of 1..25) {
+    log.push({ id: 200 + n, title: `Quest ${n}`, header: "Elwynn Forest", level: 10, watched: true,
+      objectives: [{ text: "Wolves slain: 0/8" }, { text: "Bandanas: 0/6" }] })
+  }
+  Test.questLog(log)
+}
+
+test "it is as high as its quests, and stands at the right under what keeps the top right corner and above the bottom's" {
   logged()
   Test.mount(nil, PAGE)
   Tracker.refresh()
   Test.flush()
+  const few = Test.page().window("Quests").rect()
+  // As wide as the design's tracker at the least, and as high as its two quests.
+  Test.expect(few.right - few.left >= 249 && few.bottom - few.top < 200)
+  // More than the screen holds: the screen's height but its gaps, its list scrolling past that.
+  crowded()
+  Tracker.refresh()
+  Test.flush()
   const free = Test.page().window("Quests").rect()
-  // As wide as the design's tracker at the least, and the screen's height but its gaps.
-  Test.expect(free.right - free.left >= 249 && free.bottom - free.top > 880)
+  Test.expect(free.bottom - free.top > 880)
   // The minimap at home, the bottom panel: the room each keeps.
   Ordaen.keepTopRight("OrdaenMinimap", 300ui)
   Ordaen.keepBottom("OrdaenPanel", 100ui)
@@ -212,6 +228,7 @@ test "it stands at the right under what keeps the top right corner and above wha
 test "it lists as many quests as the settings say, the first in the log's order, on a rounded ground as dark as they say" {
   logged()
   Tracker.settings.values.listed = 1
+  Tracker.settings.values.groundShown = .Always
   Tracker.settings.values.ground = 0.25
   Test.mount(nil, PAGE)
   Tracker.refresh()
@@ -222,6 +239,30 @@ test "it lists as many quests as the settings say, the first in the log's order,
   Test.expect(Test.page().box({ r: 0, g: 0, b: 0, a: 0.25 }).shown())
   // The ground is the chat's: a plain fill with rounded corners (the round mask on each), at the setting's darkness.
   Test.shot("one quest listed on a quarter-dark rounded ground")
+}
+
+const SHADE: Color = { r: 0, g: 0, b: 0, a: 0.55 }
+
+test "by default its ground shows only while the cursor is over it" {
+  logged()
+  Test.mount(nil, PAGE)
+  Tracker.refresh()
+  Test.flush()
+  Test.expect(Test.page().text("The Defias Brotherhood").shown() && Test.page().box(SHADE).count() == 0)
+  const title = Test.page().text("The Defias Brotherhood").rect()
+  Test.moveTo({ x: title.left + 5, y: title.top + 5 })
+  Test.expect(Test.page().box(SHADE).count() > 0)
+  Test.moveTo({ x: 5, y: 5 })
+  Test.expect(Test.page().box(SHADE).count() == 0)
+}
+
+test "with no quest of the zone tracked it draws nothing at all, no ground either" {
+  Test.questLog([{ id: 104, title: "The Westfall Stew", header: "Westfall", level: 12, watched: true }])
+  Tracker.settings.values.groundShown = .Always
+  Test.mount(nil, PAGE)
+  Tracker.refresh()
+  Test.flush()
+  Test.expect(!Test.page().text("Quests").shown() && Test.page().box(SHADE).count() == 0)
 }
 
 test "the placing mode shows it with no quest tracked, moves it, keeps where it was let go, and a right click sends it home" {

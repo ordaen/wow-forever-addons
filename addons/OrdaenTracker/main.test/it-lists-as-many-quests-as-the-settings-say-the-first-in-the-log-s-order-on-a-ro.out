@@ -1,23 +1,23 @@
 -- one quest listed on a quarter-dark rounded ground
-surface 1341.67,5 250x890 on LOW clamped
-  box 1341.67,5 250x890
-    box 1341.67,5 250x890 absolute
-      box 1346.67,5 240x890 absolute Interface/Buttons/WHITE8X8 tint=#00000040
-      box 1341.67,10 5x880 absolute Interface/Buttons/WHITE8X8 tint=#00000040
-      box 1586.67,10 5x880 absolute Interface/Buttons/WHITE8X8 tint=#00000040
+surface 1341.67,5 250x76.29 on LOW clamped
+  box 1341.67,5 250x76.29 @pointerEnter @pointerLeave
+    box 1341.67,5 250x76.29 absolute
+      box 1346.67,5 240x76.29 absolute Interface/Buttons/WHITE8X8 tint=#00000040
+      box 1341.67,10 5x66.29 absolute Interface/Buttons/WHITE8X8 tint=#00000040
+      box 1586.67,10 5x66.29 absolute Interface/Buttons/WHITE8X8 tint=#00000040
       box 1341.67,5 5x5 absolute clipped
         box 1341.67,5 10x10 absolute Interface/Buttons/WHITE8X8 tint=#00000040 cut by Interface/CHARACTERFRAME/TempPortraitAlphaMask
       box 1586.67,5 5x5 absolute clipped
         box 1581.67,5 10x10 absolute Interface/Buttons/WHITE8X8 tint=#00000040 cut by Interface/CHARACTERFRAME/TempPortraitAlphaMask
-      box 1341.67,890 5x5 absolute clipped
-        box 1341.67,885 10x10 absolute Interface/Buttons/WHITE8X8 tint=#00000040 cut by Interface/CHARACTERFRAME/TempPortraitAlphaMask
-      box 1586.67,890 5x5 absolute clipped
-        box 1581.67,885 10x10 absolute Interface/Buttons/WHITE8X8 tint=#00000040 cut by Interface/CHARACTERFRAME/TempPortraitAlphaMask
+      box 1341.67,76.29 5x5 absolute clipped
+        box 1341.67,71.29 10x10 absolute Interface/Buttons/WHITE8X8 tint=#00000040 cut by Interface/CHARACTERFRAME/TempPortraitAlphaMask
+      box 1586.67,76.29 5x5 absolute clipped
+        box 1581.67,71.29 10x10 absolute Interface/Buttons/WHITE8X8 tint=#00000040 cut by Interface/CHARACTERFRAME/TempPortraitAlphaMask
     box 1350.2,13.53 232.93x15.83 @pointerPress
       text 1350.2,13.53 38.33x15.83 "Quests" #ffd100
       text 1397.07,13.53 21.67x13.33 "3/25" #a3977f
       text 1427.27,13.53 155.87x15.83 "–" #a3977f
-    box 1350.2,37.9 232.93x848.57 scrolled 0 of 0
+    box 1350.2,37.9 232.93x34.86 scrolled 0 of 0
       box 1350.2,37.9 232.93x34.86
         box 1350.2,37.9 232.93x15.83 @pointerPress
           text 1350.2,37.9 25.83x15.83 "[14]" #ff2020

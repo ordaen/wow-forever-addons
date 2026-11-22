@@ -20,6 +20,10 @@
   "TAB_GENERAL": "General",
   "LISTED": "Quests listed",
   "LISTED_TIP": "How many tracked quests to show, in the log's order. The rest show once there is room.",
+  "GROUND_SHOWN": "Show background",
+  "GROUND_SHOWN_TIP": "When the background under the list shows: while the cursor is over the tracker, or always.",
+  "GROUND_ON_HOVER": "On hover",
+  "GROUND_ALWAYS": "Always",
   "GROUND": "Background opacity",
   "GROUND_TIP": "How dark the background under the list is. 0%: no background.",
   "PLACE": "Quest tracker"
