@@ -8,7 +8,6 @@ import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
 import Locale from "@/locales"
 import { Component } from "@/module"
-import { TIGHT_LINE } from "@/units"
 
 // The glyphs' pictures (art/pieces/tooltip-glyphs.json): a column of 20 px cells, a row each in the order of
 // `Glyph`, the 16 px glyph 2 px in from its cell's top left, its shadow inside the cell; then the cost's dot's light
@@ -280,7 +279,7 @@ public class BandCell implements Component {
         </box>
         <box $if={self.lit} position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui}
              cursor={Cursor.Help} @pointerEnter={self.onEnter} @pointerLeave={self.onLeave} />
-        <surface lineHeight={TIGHT_LINE} $if={self.open} layer={Layer.Tooltip} place={BY_ITS_TEXT}>
+        <surface leading={.Tight} $if={self.open} layer={Layer.Tooltip} place={BY_ITS_TEXT}>
           <slot #opened />
         </surface>
       </box>

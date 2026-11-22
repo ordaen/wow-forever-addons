@@ -19,7 +19,7 @@ import Game from "$game"
 import { Action, Align, Art, ByInteractionState, Edges, Event, FillDuration, Frame, Line, MouseButton, Position, Shadow, TextFont } from "$ltml"
 import root Ordaen from "Ordaen"
 import { Component } from "@/module"
-import { BRIGHT_TEXT, SECONDARY_TEXT, TIGHT_LINE } from "@/units"
+import { BRIGHT_TEXT, SECONDARY_TEXT } from "@/units"
 
 // The game's numbers for an item's quality.
 public enum Quality {
@@ -327,7 +327,7 @@ public class ItemButton implements Component {
         <slot />
         <box $if={self.counted} position={Position.Absolute} left={self.inset} top={self.inset} right={self.inset}
              bottom={self.inset} xAlign={Align.End} yAlign={Align.End} padding={COUNT_PAD}>
-          <text value={self.count} textColor={BRIGHT_TEXT} textSize={SECONDARY_TEXT} lineHeight={TIGHT_LINE}
+          <text value={self.count} textColor={BRIGHT_TEXT} textSize={SECONDARY_TEXT} leading={.Tight}
                 textFont={TextFont.Numbers} textOutline={1} textShadow={COUNT_SHADOW} wrap={.None} />
         </box>
       </box>

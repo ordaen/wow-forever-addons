@@ -11,7 +11,7 @@
 import { Align, Anchored, Edges, Frame, Layer, NineSlice, Point, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import { Component } from "@/module"
-import { BRIGHT_TEXT, SECONDARY_TEXT, TIGHT_LINE, TITLE_LINE, TITLE_TEXT } from "@/units"
+import { BRIGHT_TEXT, SECONDARY_TEXT, TITLE_TEXT } from "@/units"
 
 // Which side of the frame it stands on.
 public enum CalloutSide { Above, Below }
@@ -125,10 +125,10 @@ public class Callout implements Component {
   public render(self): Template {
     return $ltml {
       <surface $if={self.framed} layer={Layer.Dialog} place={self.bubblePlace} clamp={true} columns={1}>
-        <box lineHeight={TIGHT_LINE} border={Ordaen.art.frame.small} background={Ordaen.art.window.wood} padding={PAD}
+        <box leading={.Tight} border={Ordaen.art.frame.small} background={Ordaen.art.window.wood} padding={PAD}
              columns={1} gap={2sp} width={{ min: nil, max: MOST }} pulse={self.pulse}>
           <box columns={HEAD} gap={3sp}>
-            <text value={self.title} textColor={BRIGHT_TEXT} textSize={TITLE_TEXT} lineHeight={TITLE_LINE} />
+            <text value={self.title} textColor={BRIGHT_TEXT} textSize={TITLE_TEXT} leading={.Title} />
             <box $if={self.closable} width={GLYPH} height={GLYPH} background={Ordaen.art.ctl.corner.close}
                  @pointerPress={self.onClose} />
           </box>
@@ -139,7 +139,7 @@ public class Callout implements Component {
         <box width={{ min: BUBBLE_LEAST, max: nil }} height={BUBBLE_LEAST} padding={BUBBLE_PAD} background={BUBBLE}
              desaturate={true} tint={self.tone} xAlign={Align.Center} yAlign={Align.Center} pulse={self.pulse}>
           <text value={self.title} textSize={SECONDARY_TEXT} textColor={BRIGHT_TEXT} textFont={.Numbers}
-                lineHeight={TIGHT_LINE} wrap={.None} />
+                leading={.Tight} wrap={.None} />
         </box>
       </surface>
       <surface layer={Layer.Dialog} place={self.arrowPlace} columns={1}>

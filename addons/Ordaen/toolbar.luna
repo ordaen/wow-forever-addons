@@ -19,7 +19,6 @@ import { Choice, DropdownItem } from "@/dropdown"
 import { Component } from "@/module"
 import { Column } from "@/table"
 import { Tip } from "@/tip"
-import { BODY_LINE } from "@/units"
 
 const SIZE = 39.84375dp
 const GLYPH = 18.75dp
@@ -210,7 +209,7 @@ public class ToolPick<T: Unknown> implements Component {
   public render(self): Template {
     return $ltml {
       <ToolButton icon={self.glyph} title={self.title} text={self.shown} open={mut self.open} lit={self.lit}>
-        <surface lineHeight={BODY_LINE} $if={self.open} layer={Layer.Tooltip} place={Beside { beside: "parent" }} width={self.listBounds}
+        <surface leading={.Row} $if={self.open} layer={Layer.Tooltip} place={Beside { beside: "parent" }} width={self.listBounds}
                  background={LIST_BACK} border={LIST_EDGE} padding={LIST_PAD} columns={1} @pointerPressOutside={self.close}>
           <DropdownItem $for={choice of self.choices} choice={choice} value={self.value} compact={true}
                         @pick={self.onPick} />

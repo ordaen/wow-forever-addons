@@ -10,7 +10,7 @@ import { Align, Anchored, Art, Beside, ByInteractionState, Edges, Frame, Layer, 
 import root Ordaen from "Ordaen"
 import { Component } from "@/module"
 import { KNOB_OFF, KNOB_ON, KNOB_TOP, SWITCH_HEIGHT, SWITCH_KNOB, SWITCH_WIDTH, knobShown } from "@/switch"
-import { BODY_LINE, BRIGHT_TEXT } from "@/units"
+import { BRIGHT_TEXT } from "@/units"
 
 // One line of a menu.
 public struct MenuEntry {
@@ -132,14 +132,14 @@ public class Menu implements Component {
 
   public render(self): Template {
     return $ltml {
-      <surface lineHeight={BODY_LINE} layer={Layer.Tooltip} place={Beside { beside: "parent" }} width={self.width} background={BACK}
+      <surface leading={.Row} layer={Layer.Tooltip} place={Beside { beside: "parent" }} width={self.width} background={BACK}
                border={EDGE} padding={PAD} columns={1} @pointerPressOutside={self.onOutside}>
         <box $if={self.titled} padding={ITEM_PAD}>
           <text value={self.title} textColor={TITLE} />
         </box>
         <MenuItem $for={index, entry of self.entries} $key={index} entry={entry} index={index}
                   @pick={self.onPick} @enter={self.onEnter} />
-        <surface lineHeight={BODY_LINE} $if={self.opened > 0} layer={Layer.Tooltip} place={self.beside} clamp={true} width={WIDTH}
+        <surface leading={.Row} $if={self.opened > 0} layer={Layer.Tooltip} place={self.beside} clamp={true} width={WIDTH}
                  background={BACK} border={EDGE} padding={PAD} columns={1}>
           <MenuItem $for={index, entry of self.more} $key={index} entry={entry} index={index} @pick={self.onPickMore} />
         </surface>

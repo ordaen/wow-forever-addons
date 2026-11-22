@@ -6,7 +6,6 @@ import { Align, Anchored, Event, Layer, Line, MouseButton, Place, Position, Side
 import root Ordaen from "Ordaen"
 import { Component } from "@/module"
 import { Hold, kept } from "@/onScreen"
-import { BODY_LINE } from "@/units"
 
 const GOLD: Color = Color.hex("#ffd100")
 const SHADE: Color = Color.hex("#00000073")
@@ -111,7 +110,7 @@ public class Placed implements Component {
 
   public render(self): Template {
     return $ltml {
-      <surface lineHeight={BODY_LINE} layer={Layer.Screen} place={self.place} clamp={true}>
+      <surface leading={.Row} layer={Layer.Screen} place={self.place} clamp={true}>
         <slot />
         <Mover id={self.id} title={self.title} @grab={self.onGrab} @drag={self.onDrag} @drop={self.onDrop}
                @reset={self.onReset} />

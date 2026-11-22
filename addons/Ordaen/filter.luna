@@ -16,7 +16,6 @@ import { Component } from "@/module"
 import { PushButton } from "@/pushButton"
 import { SWITCH_WIDTH, Shown, SwitchFace } from "@/switch"
 import { ToolButton } from "@/toolbar"
-import { BODY_LINE } from "@/units"
 
 const WIDTH: Bounds = { min: 269.53125dp, max: nil }
 const BACK: Color = Color.hex("#0a0806f7")
@@ -168,7 +167,7 @@ public class FilterButton<K: Unknown> implements Component {
     return $ltml {
       <ToolButton icon={Ordaen.art.ctl.tool.filter} title={Locale.FILTER} text={self.named} open={mut self.open}
                   lit={self.narrowed}>
-        <surface lineHeight={BODY_LINE} $if={self.open} layer={Layer.Tooltip} place={Beside { beside: "parent" }} width={WIDTH} background={BACK}
+        <surface leading={.Row} $if={self.open} layer={Layer.Tooltip} place={Beside { beside: "parent" }} width={WIDTH} background={BACK}
                  border={EDGE} padding={5sp} columns={1} gap={3sp} @pointerPressOutside={self.close}>
           <FilterSection $for={index, group of self.groups} group={group} values={self.values} index={index}
                          @flip={self.onFlip} @flipAll={self.onFlipAll} />

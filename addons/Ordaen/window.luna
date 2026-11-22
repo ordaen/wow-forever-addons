@@ -20,7 +20,7 @@ import { Hold, kept } from "@/onScreen"
 import { ModuleMemory } from "@/settings"
 import { SizeGrip } from "@/sizeGrip"
 import { Tip } from "@/tip"
-import { BODY_LINE, SECONDARY_TEXT, WINDOW_ROOM } from "@/units"
+import { SECONDARY_TEXT, WINDOW_ROOM } from "@/units"
 
 // One of a window's tabs: its name, a second line under it, a picture at its left end: art, or a unit's face as the
 // game names the unit (`npc`), which follows the unit.
@@ -834,7 +834,7 @@ public class Window implements Component {
     return $ltml {
       // As wide as the player made it, and never narrower than its tab row (its tabs and its control group): the
       // row is the one thing in its grid, and the width it keeps is its least.
-      <surface lineHeight={BODY_LINE} shown={self.seen} layer={Layer.Panel} place={self.place} width={self.bounds} height={self.height} clamp={true}
+      <surface leading={.Row} shown={self.seen} layer={Layer.Panel} place={self.place} width={self.bounds} height={self.height} clamp={true}
                raise={true}
                @keyPress.parentScope(.Escape)={self.onClose}>
         <box position={Position.Absolute} left={0ui} right={self.inset} top={self.tabHeight} bottom={0ui}

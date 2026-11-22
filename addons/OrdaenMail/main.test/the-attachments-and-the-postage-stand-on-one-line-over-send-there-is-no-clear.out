@@ -30,13 +30,13 @@ surface 500,175.79 1039.68x548.42 on MEDIUM clamped raised by a click
           box 529.96,657.39 540.09x0
       box 507.2,674.45 585.6x42.56
         box 507.2,674.45 585.6x42.56
-          box 529.96,680.7 431.76x15.83
-            box 529.96,680.7 51.87x15.83
-              text 529.96,680.7 36.67x15.83 "Waiting" #a3977f
-              text 575.16,680.7 6.67x15.83 "0" #e8dcc4
-            box 598.89,680.7 36.87x15.83
-              text 598.89,680.7 21.67x15.83 "Sent" #a3977f
-              text 629.09,680.7 6.67x15.83 "0" #e8dcc4
+          box 529.96,681.95 431.76x13.33
+            box 529.96,681.95 51.87x13.33
+              text 529.96,681.95 36.67x13.33 "Waiting" #a3977f
+              text 575.16,681.95 6.67x13.33 "0" #e8dcc4
+            box 598.89,681.95 36.87x13.33
+              text 598.89,681.95 21.67x13.33 "Sent" #a3977f
+              text 629.09,681.95 6.67x13.33 "0" #e8dcc4
           box 961.71,674.45 108.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
             text 970.04,680.7 91.67x15.83 "Blizzard window" #ffd100
     box 1092.8,231.41 439.68x485.6
@@ -94,12 +94,12 @@ surface 500,175.79 1039.68x548.42 on MEDIUM clamped raised by a click
     box 500,175.79 951.14x48.42
       box 500,175.79 113.5x48.42 Interface\AddOns\Ordaen\media\window-wood tint=#808080 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 1.00, tr 0.98, top 1.00>0.98 x2.94, left 0.99>0.98 x1.18, right 0.97>0.96 x1.18] @drag @dragStart @dragStop @keyPress @pointerPress
         box 515.73,182.99 82.03x47.97
-          text 540.92,190.43 31.67x15.83 "Inbox" #a3977f
-          text 533.42,207.69 46.67x15.83 "0 letters" #8f8470
+          text 540.92,191.68 31.67x15.83 "Inbox" #a3977f
+          text 533.42,208.94 46.67x13.33 "0 letters" #8f8470
       box 623.46,175.79 113.5x48.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.97, tr 0.95, top 0.97>0.96 x2.94, left 0.97>0.96 x1.18, right 0.95>0.94 x1.18] @drag @dragStart @dragStop @keyPress @pointerPress
         box 639.19,182.99 82.03x47.97
-          text 661.04,190.43 38.33x15.83 "Outbox" #ffd100
-          text 664.37,207.69 31.67x15.83 "0 sent" #8f8470
+          text 661.04,191.68 38.33x15.83 "Outbox" #ffd100
+          text 664.37,208.94 31.67x13.33 "0 sent" #8f8470
       box 746.91,175.79 129.8x48.42 Interface\AddOns\Ordaen\media\window-wood tint=#808080 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.95, tr 0.93, top 0.95>0.93 x3.51, left 0.95>0.93 x1.18, right 0.92>0.91 x1.18] @drag @dragStart @dragStop @keyPress @pointerPress
         box 762.64,182.99 98.33x47.97
           text 762.64,199.06 98.33x15.83 "To my characters" #a3977f

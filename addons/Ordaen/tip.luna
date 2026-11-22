@@ -11,7 +11,7 @@ import root Ordaen from "Ordaen"
 import { reachAcross } from "@/art"
 import { Hotkeys } from "@/hotkeys"
 import { Component } from "@/module"
-import { BRIGHT_TEXT, TIGHT_LINE, TITLE_LINE, TITLE_TEXT } from "@/units"
+import { BRIGHT_TEXT, TITLE_TEXT } from "@/units"
 
 // As wide as what it says, up to its most at the frame's line: a long text wraps there.
 const MOST = 468.75dp
@@ -106,10 +106,10 @@ public class Tip implements Component {
 
   public render(self): Template {
     return $ltml {
-      <surface lineHeight={TIGHT_LINE} layer={Layer.Tooltip} place={BY_ITS_BOX} clamp={true} width={self.width}
+      <surface leading={.Tight} layer={Layer.Tooltip} place={BY_ITS_BOX} clamp={true} width={self.width}
                border={Ordaen.art.frame.small} background={Ordaen.art.window.wood} artOrigin={true}
                padding={5sp} columns={1} gap={2sp}>
-        <text value={self.title} textColor={NAME} textSize={TITLE_TEXT} lineHeight={TITLE_LINE} />
+        <text value={self.title} textColor={NAME} textSize={TITLE_TEXT} leading={.Title} />
         <text $if={self.hasText} value={self.text} textColor={LABEL} />
         <TipLine $for={row of self.rows} row={row} />
         <box $for={section of self.sections} columns={1} gap={1sp} padding={{ top: 2sp }}>

@@ -20,7 +20,7 @@ import { Mover } from "@/placed"
 import { ProfileName } from "@/profiles"
 import { Settings } from "@/settings"
 import { SettingsWindow } from "@/settingsWindow"
-import { BODY_TEXT, spacingFor } from "@/units"
+import { BODY_TEXT, LEADINGS, spacingFor } from "@/units"
 
 // The most items' tooltips kept at once.
 const TIPS_MOST = 512
@@ -123,8 +123,9 @@ public class OrdaenCore implements App {
     watch (running of self.modules) { self.draw(running) }
     // Every text any addon draws is in the look's fonts: given once here, and again when the look's change.
     watch { Runtime.fonts(self.lookArt.fonts) }
-    // ... at Ordaen's body size.
+    // ... at Ordaen's body size, each kind of line at Ordaen's leading.
     Runtime.baseTextSize(BODY_TEXT)
+    Runtime.leadings(LEADINGS)
     // Every gap, padding and line height in the unit the density gives, laid out again when it changes.
     watch { Runtime.spacingUnit(self.spacingUnit) }
     // The ring round the control the keyboard has focused is the look's accent, and follows it.

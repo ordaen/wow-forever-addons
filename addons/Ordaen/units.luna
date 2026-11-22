@@ -2,6 +2,7 @@
 // player's density sets, so what stands apart or together reads the same in every window and at every density.
 // The body text's line is `BODY_LINE`: a row of a list is a whole number of it, and every other room a whole or half
 // number of `sp`.
+import { Leadings } from "$ltml"
 import { Density } from "@/globals"
 
 // What `1sp` is at each density: at the most compact, the body's line still clears its font's own line.
@@ -37,15 +38,15 @@ function lineFor(text: Number<Length>, leading: Number): Number<Spacing> {
   return (units * 2 + 0.5).floor() / 2 * 1sp
 }
 
-// The leadings: a row's, a label's or the body's; a title's; prose's, several lines of sentences.
-const ROW_LEADING = 1.3
-const TITLE_LEADING = 1.2
-const PROSE_LEADING = 1.4
+// The leadings of the kinds of line (`Leading`), which Ordaen gives the renderer (`Runtime.leadings`): a row's, a
+// label's or the body's; a title's; prose's, several lines of sentences. A text says its kind (`leading={.Row}`), and
+// stands on its own size times it.
+public const LEADINGS: Leadings = { row: 1.3, title: 1.2, prose: 1.4 }
 
-// The body's and a secondary text's line, one line of the rhythm; a title's; and prose's (a description, a tooltip's
-// sentences).
-public const BODY_LINE: Number<Spacing> = lineFor(BODY_TEXT, ROW_LEADING)
-public const TITLE_LINE: Number<Spacing> = lineFor(BODY_TEXT * TITLE_TEXT / 1rem, TITLE_LEADING)
-public const PROSE_LINE: Number<Spacing> = lineFor(BODY_TEXT, PROSE_LEADING)
+// The lines of the body's text, a title's and prose's at their sizes, for what is measured in lines: a row of a list
+// is a whole number of the body's.
+public const BODY_LINE: Number<Spacing> = lineFor(BODY_TEXT, LEADINGS.row)
+public const TITLE_LINE: Number<Spacing> = lineFor(BODY_TEXT * TITLE_TEXT / 1rem, LEADINGS.title)
+public const PROSE_LINE: Number<Spacing> = lineFor(BODY_TEXT, LEADINGS.prose)
 // A text set on art keeps its font's own line, the least a line is: a count on an icon, a label on a plate.
 public const TIGHT_LINE: Number<Spacing> = 0sp
