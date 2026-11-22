@@ -37,7 +37,7 @@ const HALF: Number<Length> = STEP / 2
 // stand in the middle and not over a line's room below them; as wide as the node, its letters centred by the client
 // whatever their width there), thickly outlined, in the client's colours for its look.
 const RANK_TEXT = 1.75rem
-const RANK_OUTLINE = 2
+const RANK_OUTLINE = 1
 const GOLD: Color = Color.hex("#ffd100")
 const GREEN: Color = Color.hex("#19ff19")
 const GREY: Color = Color.hex("#808080")
