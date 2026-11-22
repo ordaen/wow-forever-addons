@@ -5,7 +5,7 @@ import { Edges, Fr, Line, Shadow, Side, Track } from "$ltml"
 
 // The window's body, and the least it is drawn at (a window kept smaller, from an older save, is drawn at this).
 public const WIDTH: Number<Length> = 1500dp
-public const HEIGHT: Number<Length> = 846.99dp
+public const HEIGHT: Number<Length> = 840.24dp
 // The room between the frame's line and the character page: none, its sections keeping their own and its cuts running
 // to the frame.
 public const PAGE_ROOM: Edges = { top: 0sp, right: 0sp, bottom: 0sp, left: 0sp }
@@ -83,7 +83,7 @@ public const TROUGH: Color = Color.hex("#000000a6")
 // the dark where no scene is. Then the room between the column's edges and the slots drawn over it.
 public const SCENE_ASPECT: Number = 231 / 322
 public const SCENE_HEIGHT: Number<Length> = 769.38dp
-public const SCENE_HEIGHT_INSPECTED: Number<Length> = 777.73dp
+public const SCENE_HEIGHT_INSPECTED: Number<Length> = 781.24dp
 public const SCENE_VEIL: Color = Color.hex("#00000059")
 public const MODEL_BACK: Color = Color.hex("#0b0805")
 public const DOLL_ROOM: Number<Spacing> = 6sp
@@ -93,8 +93,6 @@ public const DOLL_GAP: Number<Spacing> = 3sp
 public const WEAPON_GAP: Number<Spacing> = 2sp
 // The eight slots down each side of the model, spread from its top to its bottom.
 public const SLOT_ROWS: Array<Fr> = [{ fr: 1 }, { fr: 1 }, { fr: 1 }, { fr: 1 }, { fr: 1 }, { fr: 1 }, { fr: 1 }, { fr: 1 }]
-// A card's name and value set close, each no taller than its font's own line.
-public const TIGHT: Number<Spacing> = 1sp
 public const GAUGE: Color = Color.hex("#a3864f")
 public const SKILL: Color = Color.hex("#3a68b8")
 // The schools' and the resistances' colours: armor, holy, fire, nature, frost, shadow and arcane; a stat's glyph

@@ -6,7 +6,7 @@ import Events from "$events"
 import Game from "$game"
 import { Align, Anchored, Art, Docked, Edges, Event, Frame, Layer, Overflow, Place, Point, Position, Shadow, Side, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { BODY_LINE, BRIGHT_TEXT, BarFrame, Callout, CalloutLook, CalloutSide, Component, Module, Mover, Placed, SECONDARY_TEXT, Settings, SettingsPage, XpFill, opacityNow, reachAcross, reachDown, sideNear, timeText, xpFillArt } from "Ordaen"
+import { BRIGHT_TEXT, BarFrame, Callout, CalloutLook, CalloutSide, Component, Module, Mover, Placed, SECONDARY_TEXT, Settings, SettingsPage, XpFill, opacityNow, reachAcross, reachDown, sideNear, timeText, xpFillArt } from "Ordaen"
 import { ActionBars, barDefaults, bartenderLoaded } from "@/actionBars"
 import { BARS_DEFAULTS, BarChoice, BarsChoices } from "@/barChoices"
 import { BarsPage } from "@/barsPage"
@@ -407,7 +407,7 @@ public class Panel implements Module, App {
       <frame of={Game.frames.BagsBar} shown={false} />
       <frame of={Game.frames.BackpackFreeSlots} shown={false} />
 
-      <surface lineHeight={BODY_LINE} $if={self.drawn} layer={Layer.Screen} place={self.place} width={self.width} height={self.height}
+      <surface leading={.Row} $if={self.drawn} layer={Layer.Screen} place={self.place} width={self.width} height={self.height}
                background={Ordaen.art.panel.wood} border={Ordaen.art.panel.edge} padding={self.edgeRoom}
                columns={self.columns} rows={self.rows} xAlign={self.along} yAlign={self.across}
                opacity={self.opacity} overflow={self.overflow}
@@ -420,7 +420,7 @@ public class Panel implements Module, App {
         // The portrait: the player's face (or the class's icon) in the corner's shape, the level on a badge on its
         // rim, and the character's button of the game's unseen over all of it. Part of the panel: as faint as it, and
         // standing in it, so it comes over the panel each time the panel shows again.
-        <surface lineHeight={BODY_LINE} $if={self.portraitShown} layer={Layer.Screen} place={CORNER} width={PORTRAIT_WIDTH}
+        <surface leading={.Row} $if={self.portraitShown} layer={Layer.Screen} place={CORNER} width={PORTRAIT_WIDTH}
                  height={PORTRAIT_HEIGHT} portrait={self.face} icon={self.classIcon} mask={Ordaen.art.panel.corner}
                  opacity={self.opacity} @pointerEnter={self.onPortraitEnter} @pointerLeave={self.onPortraitLeave}>
           <embed frame={Game.frames.CharacterMicroButton} position={Position.Absolute} left={0ui} top={0ui}

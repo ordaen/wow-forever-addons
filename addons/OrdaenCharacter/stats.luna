@@ -477,11 +477,9 @@ public class StatCard implements Component {
             <box width={Style.GLYPH} height={Style.GLYPH} background={self.figure.glyph} tint={self.figure.color}
                  opacity={self.glyphShade} />
           </box>
-          <box>
-            <text $if={self.labelled} value={self.figure.label} textSize={SECONDARY_TEXT} textColor={Style.DIM} lineHeight={Style.TIGHT}
-                  wrap={.None} />
-            <text value={self.figure.value} textSize={TITLE_TEXT} textFont={TextFont.Numbers} textColor={self.ink}
-                  lineHeight={Style.TIGHT} wrap={.None} />
+          <box leading={.Tight}>
+            <text $if={self.labelled} value={self.figure.label} textSize={SECONDARY_TEXT} textColor={Style.DIM} wrap={.None} />
+            <text value={self.figure.value} textSize={TITLE_TEXT} textFont={TextFont.Numbers} textColor={self.ink} wrap={.None} />
           </box>
         </box>
       </StatSpot>

@@ -5,7 +5,7 @@
 // and its text stands in the middle over all of it, outlined. The fill is a grid's first column, its share of the
 // well, so it never stands past the well.
 import { Align, Line, Position, Shadow, Side, TextFont, Track } from "$ltml"
-import { BRIGHT_TEXT, Component, SECONDARY_TEXT, TIGHT_LINE } from "Ordaen"
+import { BRIGHT_TEXT, Component, SECONDARY_TEXT } from "Ordaen"
 
 // The client's classic status bar, white to grey down its height: tinted, a lit and shaded bar in one colour.
 const TEXTURE: Asset = "Interface/TargetingFrame/UI-StatusBar"
@@ -67,7 +67,7 @@ public class GaugeBar implements Component {
         <box position={Position.Absolute} left={0ui} right={0ui} bottom={0ui} height={LIP_HEIGHT} background={LIP} />
         <box $if={self.hasText} position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui}
              xAlign={Align.Center} yAlign={Align.Center}>
-          <text value={self.text} textSize={SECONDARY_TEXT} textColor={BRIGHT_TEXT} lineHeight={TIGHT_LINE} textFont={self.font}
+          <text value={self.text} textSize={SECONDARY_TEXT} textColor={BRIGHT_TEXT} leading={.Tight} textFont={self.font}
                 textOutline={1} textShadow={TEXT_SHADOW} wrap={.None} />
         </box>
       </box>

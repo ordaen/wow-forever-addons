@@ -1,7 +1,7 @@
 // Lists of cards under headings: the statistics'. A card is a name and a value; under the cursor the game's own words
 // on it, where it has some.
 import { TextFont } from "$ltml"
-import { Component, SECONDARY_TEXT, TITLE_LINE, Tip } from "Ordaen"
+import { Component, SECONDARY_TEXT, Tip } from "Ordaen"
 import Style from "@/style"
 
 // A stat as a card shows it: its name and its value.
@@ -76,7 +76,7 @@ public class StatGroup implements Component {
   public render(self): Template {
     return $ltml {
       <box gap={3sp}>
-        <text $if={self.group.title != ""} value={self.group.title} lineHeight={TITLE_LINE} textFont={TextFont.Title} textColor={Style.GOLD} />
+        <text $if={self.group.title != ""} value={self.group.title} leading={.Title} textFont={TextFont.Title} textColor={Style.GOLD} />
         <box columns={4} gap={2sp}>
           <ListCard $for={card of self.group.cards} card={card} />
         </box>

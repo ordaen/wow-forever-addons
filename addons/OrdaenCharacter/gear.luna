@@ -7,7 +7,7 @@
 import Game from "$game"
 import { Action, Align, Art, BarFill, Edges, Event, FillFrom, Line, MouseButton, Overflow, Position, TextFont, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { ButtonPlate, CUT, Component, Cut, Groove, ItemButton, PushButton, SECONDARY_TEXT, TITLE_LINE, TITLE_TEXT, Tabs, TipText, classColor } from "Ordaen"
+import { ButtonPlate, CUT, Component, Cut, Groove, ItemButton, PushButton, SECONDARY_TEXT, TITLE_TEXT, Tabs, TipText, classColor } from "Ordaen"
 import { Active } from "OrdaenAuras"
 import { ItemLevel } from "@/itemLevel"
 import Locale from "@/locales"
@@ -419,7 +419,7 @@ public class GearPage implements Component {
           <box gap={2.5sp}>
             <box gap={2sp} padding={Style.SECTION_PAD}>
               <box gap={0.5sp}>
-                <text value={self.fullName} textSize={TITLE_TEXT} lineHeight={TITLE_LINE} textFont={TextFont.Title} textColor={self.whoColor} />
+                <text value={self.fullName} textSize={TITLE_TEXT} leading={.Title} textFont={TextFont.Title} textColor={self.whoColor} />
                 <text value={self.whoText} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
               </box>
               <box gap={1sp}>

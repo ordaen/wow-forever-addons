@@ -5,7 +5,7 @@
 // asked once more before it is done.
 import { Align, Art, TextFont } from "$ltml"
 import root Ordaen from "Ordaen"
-import { ButtonPlate, Component, Dialog, PushButton, SECONDARY_TEXT, ScrolledList, TITLE_LINE, TITLE_TEXT, Toolbar } from "Ordaen"
+import { ButtonPlate, Component, Dialog, PushButton, SECONDARY_TEXT, ScrolledList, TITLE_TEXT, Toolbar } from "Ordaen"
 import { GaugeBar } from "@/gauge"
 import Locale from "@/locales"
 import { Skill } from "@/sheet"
@@ -140,7 +140,7 @@ public class SkillDetail implements Component {
     return $ltml {
       <box gap={3sp}>
         <box gap={2sp}>
-          <text value={self.skill.name} textSize={TITLE_TEXT} lineHeight={TITLE_LINE} textFont={TextFont.Title} textColor={Style.GOLD} />
+          <text value={self.skill.name} textSize={TITLE_TEXT} leading={.Title} textFont={TextFont.Title} textColor={Style.GOLD} />
           <text value={self.heading} textColor={Style.INK} />
         </box>
         <GaugeBar value={self.share} tone={Style.SKILL} height={Style.GAUGE_BAR} text={self.rank} />

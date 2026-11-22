@@ -5,7 +5,7 @@
 // bar (the faction the game watches).
 import { Align, Art, TextFont } from "$ltml"
 import root Ordaen from "Ordaen"
-import { Choice, Component, SECONDARY_TEXT, ScrolledList, Shown, ShownToggle, TITLE_LINE, TITLE_TEXT, ToolPick, Toolbar } from "Ordaen"
+import { Choice, Component, SECONDARY_TEXT, ScrolledList, Shown, ShownToggle, TITLE_TEXT, ToolPick, Toolbar } from "Ordaen"
 import { GaugeBar } from "@/gauge"
 import Locale from "@/locales"
 import { Faction, standingColor, standingName } from "@/sheet"
@@ -185,7 +185,7 @@ public class FactionDetail implements Component {
     return $ltml {
       <box gap={3sp}>
         <box gap={2sp}>
-          <text value={self.faction.name} textSize={TITLE_TEXT} lineHeight={TITLE_LINE} textFont={TextFont.Title} textColor={Style.GOLD} />
+          <text value={self.faction.name} textSize={TITLE_TEXT} leading={.Title} textFont={TextFont.Title} textColor={Style.GOLD} />
           <text value={self.standing} textColor={Style.INK} />
         </box>
         <GaugeBar value={self.share} tone={self.tone} height={Style.GAUGE_BAR} text={self.numbers} />
