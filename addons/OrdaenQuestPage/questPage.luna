@@ -61,6 +61,29 @@ const PAWN_CELLS: Array<Track> = [ARROW, { fr: 1 }]
 
 // The scroll's width, its art's (1024 texels): where it stands, it is about as wide, its rolls barely stretched.
 public const SCROLL_WIDTH: Number<Length> = 468.75dp
+// Whether what a scroll holds would overflow it at its least height (`SCROLL_ROW`): where it would, a page stands it in
+// a column of its own, the page's whole height, beside the rest. An estimate that errs long, so a scroll that fits
+// never stands alone needlessly scrolled: its lines at the paper's width with the widest letters (Cyrillic, each
+// counted by its bytes, twice a Latin letter), each paragraph starting a line, the title's letters half again as high.
+public function scrollOverflows(title: String, texts: Array<String>): Boolean {
+  let lines = linesOf(title, TITLE_LETTERS) * 1.5
+  for (text of texts) { lines += linesOf(text, LINE_LETTERS) }
+  return lines > LEAST_LINES
+}
+
+// How many lines a text takes at `letters` a line, each paragraph starting one; none for no text.
+function linesOf(text: String, letters: Integer): Integer {
+  if (text == "") { return 0 }
+  let lines = 0
+  for (paragraph of text.split("\n")) { lines += (paragraph.length.max(1) / letters).ceil() }
+  return lines
+}
+
+// A line of the paper's body letters at the scroll's width, and of its title's; the lines its least height shows.
+const LINE_LETTERS = 44
+const TITLE_LETTERS = 30
+const LEAST_LINES = 4
+
 // Never wider than that: past it the art would stretch.
 const SCROLL_BOUNDS: Bounds = { min: nil, max: SCROLL_WIDTH }
 // A roll's height at that width (its 128 texels).

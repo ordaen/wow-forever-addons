@@ -262,6 +262,26 @@ test "past three rewards to choose they stand in two columns, each name whole, t
   Test.expect((first.left - third.left).abs() < 0.5 && third.top > first.bottom)
 }
 
+test "a quest whose words would overflow its scroll stands the scroll beside the rest, down to the footer band" {
+  const log = standing()
+  log[3] = {
+    story: "The wolves of the forest grow bolder by the day. They have taken sheep from the Maclure vineyards, " +
+      "and a farmer's boy was chased back to Goldshire.\nThe guards can't spare the men.",
+    task: "Bring 8 Wolf Pelts to Eagan Peltskinner outside Goldshire.",
+    objectives: [{ text: "Pelts: 3/8" }],
+    ..quest(103, "Elwynn Wolves", "Elwynn Forest")
+  }
+  opened(log)
+  const window = Test.page().window("World")
+  window.text("Elwynn Wolves").click()
+  const top = window.box(Ordaen.art.window.scroll.top).rect()
+  const bottom = window.box(Ordaen.art.window.scroll.bottom).rect()
+  const progress = window.text("Progress").rect()
+  const band = window.box(Ordaen.art.window.marble).rect()
+  Test.expect(progress.left > top.right && progress.top < bottom.top)
+  Test.expect(bottom.bottom <= band.top && band.top - bottom.bottom < 40)
+}
+
 test "three rewards to choose stand in one column" {
   const log = standing()
   log[3] = { choices: [{ item: 1001 }, { item: 1002 }, { item: 1003 }], ..quest(103, "Elwynn Wolves", "Elwynn Forest") }
