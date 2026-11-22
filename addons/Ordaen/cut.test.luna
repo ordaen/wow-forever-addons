@@ -1,12 +1,11 @@
-// The cut's two forms: a heading's, its title at the left and the cut after it, entering the wood and narrowing to a
-// point at the row's end; a divider's, whole from border to border, across or down.
+// The lines on the wood: a heading, its title at the left and its paint after it to the row's end; a divider, the cut
+// whole from border to border, across or down, a title standing on it in the middle where it has one.
 import Test from "$test"
 import root Ordaen from "Ordaen"
 import { Cut, Groove } from "@/cut"
 
-// 9.375dp, 75dp and 8 texels in UI units (768 to 1080).
+// 9.375dp in UI units (768 to 1080): the cut's depth, the heading's rule's, its entry's length.
 const DEPTH = 9.375 * 768 / 1080
-const TIP = 75 * 768 / 1080
 
 class Cuts {
   public render(self): Template {
@@ -14,6 +13,7 @@ class Cuts {
       <box width={400ui} columns={1} gap={6sp}>
         <Cut title={"Defense"} />
         <Cut />
+        <Groove title={"Speed"} />
       </box>
     }
   }
@@ -30,20 +30,17 @@ class Upright {
   }
 }
 
-test "a titled cut stands its title at its left, the cut entering the wood after it and narrowing to a point at the row's end" {
+test "a heading stands its title at its left, the paint rising after it and running to the row's end" {
   const page = new Cuts()
   Test.mount(page, { left: 0, top: 0, width: 400, height: 100 })
   const title = Test.page().text("Defense").rect()
   Test.expect(title.left < 1)
-  const cut = Ordaen.art.ctl.cut
-  const entry = Test.page().box(cut.entry.dark).rect()
-  const middle = Test.page().box(cut.across.dark).nth(1).rect()
-  const tip = Test.page().box(cut.tip.dark).rect()
-  Test.expect(entry.left > title.right && (entry.bottom - entry.top - DEPTH).abs() < 0.01)
-  Test.expect((middle.left - entry.right).abs() < 0.01 && (tip.left - middle.right).abs() < 0.01)
-  Test.expect((tip.right - 400).abs() < 0.01 && (tip.right - tip.left - TIP).abs() < 0.01)
-  const lip = Test.page().box(cut.tip.light).rect()
-  Test.expect(lip.left == tip.left && lip.right == tip.right && lip.top == tip.top && lip.bottom == tip.bottom)
+  const heading = Ordaen.art.ctl.heading
+  const entry = Test.page().box(heading.entry).rect()
+  const tip = Test.page().box(heading.tip).rect()
+  Test.expect(entry.left > title.right && (entry.right - entry.left - DEPTH).abs() < 0.01)
+  Test.expect((entry.bottom - entry.top - DEPTH).abs() < 0.01 && entry.top == tip.top)
+  Test.expect((tip.left - entry.right).abs() < 0.01 && (tip.right - 400).abs() < 0.01)
   destroy page
 }
 
@@ -51,10 +48,23 @@ test "a cut without a title runs whole from border to border, its lip over its s
   const page = new Cuts()
   Test.mount(page, { left: 0, top: 0, width: 400, height: 100 })
   const cut = Ordaen.art.ctl.cut
-  const shade = Test.page().box(cut.across.dark).nth(2).rect()
-  const lip = Test.page().box(cut.across.light).nth(2).rect()
+  const shade = Test.page().box(cut.across.dark).nth(1).rect()
+  const lip = Test.page().box(cut.across.light).nth(1).rect()
   Test.expect(shade.left < 0.01 && (shade.right - 400).abs() < 0.01 && (shade.bottom - shade.top - DEPTH).abs() < 0.01)
   Test.expect(lip.left == shade.left && lip.right == shade.right && lip.top == shade.top && lip.bottom == shade.bottom)
+  destroy page
+}
+
+test "a title on a cut stands in its middle, the cut running from each border to short of it" {
+  const page = new Cuts()
+  Test.mount(page, { left: 0, top: 0, width: 400, height: 100 })
+  const title = Test.page().text("Speed").rect()
+  Test.expect(((title.left + title.right) / 2 - 200).abs() < 1)
+  const cut = Ordaen.art.ctl.cut
+  const before = Test.page().box(cut.across.dark).nth(2).rect()
+  const after = Test.page().box(cut.across.dark).nth(3).rect()
+  Test.expect(before.left < 0.01 && before.right < title.left && after.left > title.right && (after.right - 400).abs() < 0.01)
+  Test.expect(((before.top + before.bottom) / 2 - (title.top + title.bottom) / 2).abs() < 1)
   destroy page
 }
 

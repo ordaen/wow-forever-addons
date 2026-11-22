@@ -1,0 +1,28 @@
+{
+  "says": "A heading's rule (theme ctl.heading; Ordaen's Cut with a title, a Section's): old gold paint brushed on the wood (wow-dev-tools design/character/engravings.md, «Other windows' headings: paint», 3), 8 px deep, its four rows centred, the edges thinner than the middle, streaky along the brush, dry gaps growing toward the end. -entry (8 px) is where it rises over 6 px; -tip (256 px), stretched along the rest of the rule, narrows straight to a point and fades to half on the way. Laid as any texture is: its alpha lets the grain through.",
+  "ships": [
+    "addons/Ordaen/media/heading-paint-entry.tga",
+    "addons/Ordaen/media/heading-paint-tip.tga"
+  ],
+  "origin": "Drawn by the design: wow-dev-tools `design/scripts/groove-rule.mjs paintGoldDim solid <entry|tip>` writes a page of the look's pixels (`LOOKS.paintGoldDim` in design/.vitepress/theme/rules.js); each page shot with `design/scripts/shot.mjs --width 400 --height 600` on `?bg=black` and `?bg=white`, then matted.",
+  "steps": [
+    {
+      "matte": {
+        "black": "art/sources/heading-paint-entry-black.png",
+        "white": "art/sources/heading-paint-entry-white.png",
+        "out": "addons/Ordaen/media/heading-paint-entry.tga",
+        "width": 8,
+        "height": 8
+      }
+    },
+    {
+      "matte": {
+        "black": "art/sources/heading-paint-tip-black.png",
+        "white": "art/sources/heading-paint-tip-white.png",
+        "out": "addons/Ordaen/media/heading-paint-tip.tga",
+        "width": 256,
+        "height": 8
+      }
+    }
+  ]
+}

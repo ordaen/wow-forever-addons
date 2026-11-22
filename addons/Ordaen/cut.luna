@@ -1,16 +1,16 @@
-// A cut in a window's wood, a deep groove (the theme's `ctl.cut`), in two forms: a heading's, the title in gold bold
-// and the cut after it, entering the wood and narrowing to a point (a Section's, a character window's section); a
-// divider's, the cut whole from border to border (between two sections, beside the paper doll). Its shade is
-// multiplied into the wood and its lip added to it, so the wood's grain goes on through it.
+// The lines on a window's wood. A divider is a deep groove cut into it (the theme's `ctl.cut`), its shade multiplied
+// into the wood and its lip added, so the grain goes on through it: whole from border to border, across or down (beside
+// the paper doll), a title standing on it in the middle where it has one (the character window's sections). A heading
+// (a Section's, the spellbook's) is its title in gold bold and a rule of old gold paint after it (`ctl.heading`),
+// rising over its first pixels and narrowing to a point at the column's end as it fades.
 import { Align, Blend, Position, Shadow } from "$ltml"
 import root Ordaen from "Ordaen"
 import { OrdaenArt } from "@/art"
 import { Component } from "@/module"
 
-// The cut's depth, 8 texels of its art at a texel a pixel; a heading's ends, 8 and 64 texels long.
+// The cut's depth and the heading's rule's, 8 texels of their art at a texel a pixel; the rule's entry, 8 texels.
 public const CUT: Number<Length> = 9.375dp
 const ENTRY: Number<Length> = 9.375dp
-const TIP: Number<Length> = 75dp
 const GOLD: Color = Color.hex("#e8c35a")
 // The design's 700: the same colour one pixel to the right.
 const BOLD: Shadow = { color: GOLD, x: 1.171875dp, y: 0ui }
@@ -32,17 +32,31 @@ class CutPiece implements Component {
   }
 }
 
-// The divider's form: the cut whole across its box (`upright` false) or down it (true, the light from the left).
+// The divider: the cut whole across its box (`upright` false) or down it (true, the light from the left); across, a
+// `title` stands on it in the middle, the cut stopping short of it on each side.
 public class Groove implements Component {
+  derived titled: Boolean = self.title != ""
+
   upright: Signal<Boolean>
-  constructor(upright: Signal<Boolean> = false) {
+  title: Signal<String>
+  constructor(upright: Signal<Boolean> = false, title: Signal<String> = "") {
     self.upright = upright
+    self.title = title
   }
 
   public render(self): Template {
     return $ltml {
       <box $if={self.upright} columns={[CUT]} rows={[{ fr: 1 }]} yAlign={Align.Stretch}>
         <CutPiece layers={Ordaen.art.ctl.cut.upright} />
+      </box>
+      <box $elseif={self.titled} columns={[{ fr: 1 }, "max-content", { fr: 1 }]} gap={3sp} yAlign={Align.Center}>
+        <box rows={[CUT]} yAlign={Align.Stretch}>
+          <CutPiece layers={Ordaen.art.ctl.cut.across} />
+        </box>
+        <text value={self.title} textColor={GOLD} textShadow={BOLD} wrap={.None} />
+        <box rows={[CUT]} yAlign={Align.Stretch}>
+          <CutPiece layers={Ordaen.art.ctl.cut.across} />
+        </box>
       </box>
       <box $else rows={[CUT]} yAlign={Align.Stretch}>
         <CutPiece layers={Ordaen.art.ctl.cut.across} />
@@ -51,8 +65,8 @@ public class Groove implements Component {
   }
 }
 
-// A cut across the column: the heading's form where it has a title (the title at its left, the cut after it entering
-// the wood and narrowing to a point at the column's end), else the divider's.
+// A line across the column: the heading where it has a title (the title at its left, the paint after it to the
+// column's end), else the divider.
 public class Cut implements Component {
   derived titled: Boolean = self.title != ""
 
@@ -65,10 +79,9 @@ public class Cut implements Component {
     return $ltml {
       <box $if={self.titled} columns={["max-content", { fr: 1 }]} gap={3sp} yAlign={Align.Center}>
         <text value={self.title} textColor={GOLD} textShadow={BOLD} wrap={.None} />
-        <box columns={[ENTRY, { fr: 1 }, TIP]} rows={[CUT]} yAlign={Align.Stretch}>
-          <CutPiece layers={Ordaen.art.ctl.cut.entry} />
-          <CutPiece layers={Ordaen.art.ctl.cut.across} />
-          <CutPiece layers={Ordaen.art.ctl.cut.tip} />
+        <box columns={[ENTRY, { fr: 1 }]} rows={[CUT]} yAlign={Align.Stretch}>
+          <box background={Ordaen.art.ctl.heading.entry} />
+          <box background={Ordaen.art.ctl.heading.tip} />
         </box>
       </box>
       <Groove $else />

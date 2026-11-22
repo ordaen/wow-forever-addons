@@ -74,13 +74,18 @@ public struct OrdaenArt {
     light: Art
   }
 
-  // A cut in the wood (`Cut`, `Groove`), 8 texels deep: `across` a strip repeated along it, `upright` the same down a
-  // column; a heading's cut has `entry` where it enters the wood and `tip` where it narrows to a point.
+  // A cut in the wood (`Groove`, `Cut` without a title), 8 texels deep: `across` a strip repeated along it, `upright`
+  // the same down a column.
   public struct CutArt {
     across: CutLayers
     upright: CutLayers
-    entry: CutLayers
-    tip: CutLayers
+  }
+
+  // A heading's rule of paint (`Cut` with a title, `Section`), 8 texels deep: `entry` where it rises, `tip` the rest of
+  // it, stretched along it, narrowing to a point and fading.
+  public struct HeadingArt {
+    entry: Art
+    tip: Art
   }
 
   public struct Controls {
@@ -99,6 +104,7 @@ public struct OrdaenArt {
     sliderFill: Art
     sliderKnob: Art
     cut: CutArt
+    heading: HeadingArt
     // A dialog title's rule: a groove cut into the wood, 4 px tall, stretched along it.
     carved: Art
     switchOn: Art
@@ -244,10 +250,9 @@ public const ARTWORK: OrdaenArt = {
       upright: {
         dark: { file: "@/media/groove-dark-upright.tga", width: 8, height: 64, tile: Tile.Down },
         light: { file: "@/media/groove-light-upright.tga", width: 8, height: 64, tile: Tile.Down }
-      },
-      entry: { dark: "@/media/groove-dark-entry.tga", light: "@/media/groove-light-entry.tga" },
-      tip: { dark: "@/media/groove-dark-tip.tga", light: "@/media/groove-light-tip.tga" }
+      }
     },
+    heading: { entry: "@/media/heading-paint-entry.tga", tip: "@/media/heading-paint-tip.tga" },
     carved: "@/media/ctl-carved.tga",
     // The switch: the track, a pill with round caps (rows 0 off, 1 on, 2 the ring over either), and the knob.
     switchOff: { file: "@/media/ctl-switch-track.tga", width: 128, height: 256, cap: 32, capHeight: 0.5, rows: 4, normal: 0, glow: 2 },

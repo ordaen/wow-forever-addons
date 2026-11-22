@@ -4,7 +4,7 @@
 // speed, penetration), a card one of a section's main numbers (attack power, damage a second, a school's spell damage).
 import { Align, Art, BarFill, Event, FillFrom, Piece, Position, TextAlign, TextFont, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { BRIGHT_TEXT, Component, Cut, SECONDARY_TEXT, TITLE_TEXT, Tip, XpFill, xpFillArt } from "Ordaen"
+import { BRIGHT_TEXT, Component, Groove, SECONDARY_TEXT, TITLE_TEXT, Tip, XpFill, xpFillArt } from "Ordaen"
 import { GaugeBar } from "@/gauge"
 import Locale from "@/locales"
 import { Skill, Stats, WANDS } from "@/sheet"
@@ -489,7 +489,8 @@ public class StatCard implements Component {
   }
 }
 
-// A section: the divider over it, then its heading, a padded group of its cards, its gauges set a little further off, its lines.
+// A section: the cut over it with its title on it, then a padded group of its cards, its gauges set a little further
+// off, its lines.
 public class SectionView implements Component {
   public tipped: Event<Stat | nil> = new Event()
 
@@ -510,9 +511,8 @@ public class SectionView implements Component {
   public render(self): Template {
     return $ltml {
       <box gap={2.5sp}>
-        <Cut />
+        <Groove title={self.section.title} />
         <box gap={2sp} padding={Style.SECTION_PAD}>
-          <Cut title={self.section.title} />
           <box $if={self.carded} columns={self.columns} gap={2.5sp} padding={Style.CARDS_PAD}>
             <StatCard $for={card of self.section.cards} figure={card} shown={self.shown} boosts={self.boosts}
                       @tipped={self.onTipped} />

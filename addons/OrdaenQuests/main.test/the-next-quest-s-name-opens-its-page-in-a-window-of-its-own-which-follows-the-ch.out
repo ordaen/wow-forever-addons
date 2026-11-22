@@ -132,12 +132,8 @@ surface 550,192.21 905.76x518.28 on MEDIUM clamped raised by a click
               box 1074.91,455.02 350x17.5
                 text 1074.91,455.02 58.33x17.5 "Progress" #e8c35a
                 box 1141.78,460.44 283.13x6.67
-                  box 1141.78,460.44 6.67x6.67 Interface\AddOns\Ordaen\media\groove-dark-entry blend=MOD
-                    box 1141.78,460.44 6.67x6.67 absolute Interface\AddOns\Ordaen\media\groove-light-entry blend=ADD
-                  box 1148.44,460.44 223.13x6.67 Interface\AddOns\Ordaen\media\groove-dark blend=MOD
-                    box 1148.44,460.44 223.13x6.67 absolute Interface\AddOns\Ordaen\media\groove-light blend=ADD
-                  box 1371.58,460.44 53.33x6.67 Interface\AddOns\Ordaen\media\groove-dark-tip blend=MOD
-                    box 1371.58,460.44 53.33x6.67 absolute Interface\AddOns\Ordaen\media\groove-light-tip blend=ADD
+                  box 1141.78,460.44 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry
+                  box 1148.44,460.44 276.47x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip
               box 1074.91,475.36 350x16.8
                 box 1074.91,475.36 350x16.8
                   text 1074.91,475.36 314.31x16.8 "Wolves slain" #f0e6d0
@@ -146,12 +142,8 @@ surface 550,192.21 905.76x518.28 on MEDIUM clamped raised by a click
               box 1074.91,503.54 350x17.5
                 text 1074.91,503.54 71.67x17.5 "Next quest" #e8c35a
                 box 1155.11,508.96 269.8x6.67
-                  box 1155.11,508.96 6.67x6.67 Interface\AddOns\Ordaen\media\groove-dark-entry blend=MOD
-                    box 1155.11,508.96 6.67x6.67 absolute Interface\AddOns\Ordaen\media\groove-light-entry blend=ADD
-                  box 1161.78,508.96 209.8x6.67 Interface\AddOns\Ordaen\media\groove-dark blend=MOD
-                    box 1161.78,508.96 209.8x6.67 absolute Interface\AddOns\Ordaen\media\groove-light blend=ADD
-                  box 1371.58,508.96 53.33x6.67 Interface\AddOns\Ordaen\media\groove-dark-tip blend=MOD
-                    box 1371.58,508.96 53.33x6.67 absolute Interface\AddOns\Ordaen\media\groove-light-tip blend=ADD
+                  box 1155.11,508.96 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry
+                  box 1161.78,508.96 263.13x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip
               box 1074.91,523.89 350x17.5 @keyPress @pointerPress
                 text 1074.91,523.89 350x17.5 "The Defias Brotherhood, part two" #ffd100
             box 1074.91,552.76 350x53.82
@@ -159,12 +151,8 @@ surface 550,192.21 905.76x518.28 on MEDIUM clamped raised by a click
                 box 1074.91,557.03 350x17.5
                   text 1074.91,557.03 44.17x17.5 "Reward" #e8c35a
                   box 1127.61,562.45 297.3x6.67
-                    box 1127.61,562.45 6.67x6.67 Interface\AddOns\Ordaen\media\groove-dark-entry blend=MOD
-                      box 1127.61,562.45 6.67x6.67 absolute Interface\AddOns\Ordaen\media\groove-light-entry blend=ADD
-                    box 1134.28,562.45 237.3x6.67 Interface\AddOns\Ordaen\media\groove-dark blend=MOD
-                      box 1134.28,562.45 237.3x6.67 absolute Interface\AddOns\Ordaen\media\groove-light blend=ADD
-                    box 1371.58,562.45 53.33x6.67 Interface\AddOns\Ordaen\media\groove-dark-tip blend=MOD
-                      box 1371.58,562.45 53.33x6.67 absolute Interface\AddOns\Ordaen\media\groove-light-tip blend=ADD
+                    box 1127.61,562.45 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry
+                    box 1134.28,562.45 290.63x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip
                 box 1074.91,577.37 350x0
                 box 1074.91,580.22 350x26.37
                   box 1125.59,583.06 248.64x20.68
@@ -244,12 +232,8 @@ surface 958.33,223.04 350x453.92 on MEDIUM clamped raised by a click
             box 994.18,565.8 283.3x17.5
               text 994.18,565.8 71.67x17.5 "Next quest" #e8c35a
               box 1074.38,571.22 203.1x6.67
-                box 1074.38,571.22 6.67x6.67 Interface\AddOns\Ordaen\media\groove-dark-entry blend=MOD
-                  box 1074.38,571.22 6.67x6.67 absolute Interface\AddOns\Ordaen\media\groove-light-entry blend=ADD
-                box 1081.05,571.22 143.1x6.67 Interface\AddOns\Ordaen\media\groove-dark blend=MOD
-                  box 1081.05,571.22 143.1x6.67 absolute Interface\AddOns\Ordaen\media\groove-light blend=ADD
-                box 1224.15,571.22 53.33x6.67 Interface\AddOns\Ordaen\media\groove-dark-tip blend=MOD
-                  box 1224.15,571.22 53.33x6.67 absolute Interface\AddOns\Ordaen\media\groove-light-tip blend=ADD
+                box 1074.38,571.22 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry
+                box 1081.05,571.22 196.43x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip
             box 994.18,586.15 283.3x17.5 @keyPress @pointerPress
               text 994.18,586.15 283.3x17.5 "The Defias Brotherhood, part three" #ffd100
           box 994.18,615.03 283.3x28.33

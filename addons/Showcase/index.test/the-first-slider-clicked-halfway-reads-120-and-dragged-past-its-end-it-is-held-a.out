@@ -16,12 +16,8 @@ box 0,0 700x292.26
       box 0,37.54 700x16.8
         text 0,37.54 23.33x16.8 "Map" #e8c35a
         box 31.87,42.61 668.13x6.67
-          box 31.87,42.61 6.67x6.67 Interface\AddOns\Ordaen\media\groove-dark-entry blend=MOD
-            box 31.87,42.61 6.67x6.67 absolute Interface\AddOns\Ordaen\media\groove-light-entry blend=ADD
-          box 38.53,42.61 608.13x6.67 Interface\AddOns\Ordaen\media\groove-dark blend=MOD
-            box 38.53,42.61 608.13x6.67 absolute Interface\AddOns\Ordaen\media\groove-light blend=ADD
-          box 646.67,42.61 53.33x6.67 Interface\AddOns\Ordaen\media\groove-dark-tip blend=MOD
-            box 646.67,42.61 53.33x6.67 absolute Interface\AddOns\Ordaen\media\groove-light-tip blend=ADD
+          box 31.87,42.61 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry
+          box 38.53,42.61 661.47x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip
       box 0,65.72 700x18.33 opacity=1
         box 0,66.49 233.33x16.8 @pointerEnter @pointerLeave
           text 0,66.49 233.33x16.8 "Show the zone" #cbb994
@@ -80,12 +76,8 @@ box 0,0 700x292.26
       box 0,37.54 700x16.8
         text 0,37.54 23.33x16.8 "Map" #e8c35a
         box 31.87,42.61 668.13x6.67
-          box 31.87,42.61 6.67x6.67 Interface\AddOns\Ordaen\media\groove-dark-entry blend=MOD
-            box 31.87,42.61 6.67x6.67 absolute Interface\AddOns\Ordaen\media\groove-light-entry blend=ADD
-          box 38.53,42.61 608.13x6.67 Interface\AddOns\Ordaen\media\groove-dark blend=MOD
-            box 38.53,42.61 608.13x6.67 absolute Interface\AddOns\Ordaen\media\groove-light blend=ADD
-          box 646.67,42.61 53.33x6.67 Interface\AddOns\Ordaen\media\groove-dark-tip blend=MOD
-            box 646.67,42.61 53.33x6.67 absolute Interface\AddOns\Ordaen\media\groove-light-tip blend=ADD
+          box 31.87,42.61 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry
+          box 38.53,42.61 661.47x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip
       box 0,65.72 700x18.33 opacity=1
         box 0,66.49 233.33x16.8 @pointerEnter @pointerLeave
           text 0,66.49 233.33x16.8 "Show the zone" #cbb994

@@ -129,12 +129,8 @@ surface 550,192.21 905.76x515.58 on MEDIUM clamped raised by a click
               box 1074.91,409.03 350x17.5
                 text 1074.91,409.03 58.33x17.5 "Progress" #e8c35a
                 box 1141.78,414.45 283.13x6.67
-                  box 1141.78,414.45 6.67x6.67 Interface\AddOns\Ordaen\media\groove-dark-entry blend=MOD
-                    box 1141.78,414.45 6.67x6.67 absolute Interface\AddOns\Ordaen\media\groove-light-entry blend=ADD
-                  box 1148.44,414.45 223.13x6.67 Interface\AddOns\Ordaen\media\groove-dark blend=MOD
-                    box 1148.44,414.45 223.13x6.67 absolute Interface\AddOns\Ordaen\media\groove-light blend=ADD
-                  box 1371.58,414.45 53.33x6.67 Interface\AddOns\Ordaen\media\groove-dark-tip blend=MOD
-                    box 1371.58,414.45 53.33x6.67 absolute Interface\AddOns\Ordaen\media\groove-light-tip blend=ADD
+                  box 1141.78,414.45 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry
+                  box 1148.44,414.45 276.47x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip
               box 1074.91,429.37 350x16.8
                 box 1074.91,429.37 350x16.8
                   text 1074.91,429.37 314.31x16.8 "Wolves slain" #f0e6d0
