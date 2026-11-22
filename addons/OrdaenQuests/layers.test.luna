@@ -23,10 +23,10 @@ class Holder {
 }
 
 const FACTS: QuestFacts = {
-  name: "", level: 10, minLevel: 8, task: "", zone: 40, reputation: [], next: 0, nextName: "",
-  givers: [{ name: "Giver", spots: [{ area: 40, x: 0.1, y: 0.1 }] }],
-  takers: [{ name: "Taker", spots: [{ area: 40, x: 0.2, y: 0.2 }] }],
-  targets: [{ name: "Wolf", spots: [{ area: 40, x: 0.3, y: 0.3 }, { area: 40, x: 0.4, y: 0.4 }] }]
+  name: "", level: 10, minLevel: 8, task: "", zone: 40, reputation: [], items: [], next: 0, nextName: "",
+  givers: [{ id: 1, kind: .Npc, name: "Giver", spots: [{ area: 40, x: 0.1, y: 0.1 }] }],
+  takers: [{ id: 1, kind: .Npc, name: "Taker", spots: [{ area: 40, x: 0.2, y: 0.2 }] }],
+  targets: [{ id: 1, kind: .Npc, name: "Wolf", spots: [{ area: 40, x: 0.3, y: 0.3 }, { area: 40, x: 0.4, y: 0.4 }] }]
 }
 
 test "the turn-ins' layer shows whom to hand the quest shown on the map, lit, once it is done; nothing else" {
@@ -46,7 +46,7 @@ test "the turn-ins' layer shows whom to hand the quest shown on the map, lit, on
 
 test "a quest leads to its first objective's area while to do, its turn-in's once done, else its zone" {
   const elsewhere: QuestFacts = {
-    targets: [{ name: "Wolf", spots: [{ area: 12, x: 0.3, y: 0.3 }] }], ..FACTS
+    targets: [{ id: 1, kind: .Npc, name: "Wolf", spots: [{ area: 12, x: 0.3, y: 0.3 }] }], ..FACTS
   }
   Test.expect(leadsTo(quest(1, false, false), elsewhere) == 12)
   Test.expect(leadsTo(quest(1, false, true), elsewhere) == 40)

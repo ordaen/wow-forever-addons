@@ -1,0 +1,54 @@
+// The things a quest names, for its text on the parchment (`ScrollText`): who gives it and who takes it back, the
+// NPCs and objects of its objectives, and the items it asks for, by QuestieDB in the player's language. A figure's tip
+// says what it is to the quest and where it stands; an item shows the game's tooltip of it.
+import { Named, NamedKind } from "OrdaenQuestPage"
+import Locale from "@/locales"
+import { Figure, QuestFacts } from "@/questie"
+import { whereOf } from "@/tracker"
+
+// Each thing once, by its link: a figure that both gives the quest and takes it back says both.
+public function namedOf(facts: QuestFacts): Array<Named> {
+  // The figures in the order first named, and each one's roles by its link.
+  const figures: Array<Figure> = []
+  const roles: Map<String, Array<String>> = {}
+  const add = (figure: Figure, role: String): nil => {
+    const link = linkOf(figure)
+    const had = roles[link]
+    if (had == nil) {
+      figures.push(figure)
+      roles[link] = [role]
+    } else if (had.find(one => one == role) == nil) {
+      roles[link] = plus(had, role)
+    }
+    return nil
+  }
+  for (figure of facts.givers) { add(figure, Locale.NAMED_GIVER) }
+  for (figure of facts.takers) { add(figure, Locale.NAMED_TAKER) }
+  for (figure of facts.targets) { add(figure, Locale.NAMED_TARGET) }
+  const named: Array<Named> = []
+  for (figure of figures) {
+    const where = whereOf([figure])
+    const said = roles[linkOf(figure)] ?? []
+    named.push({ name: figure.name, kind: NamedKind.Figure, link: linkOf(figure), lines: where == "" ? said : plus(said, where) })
+  }
+  for (item of facts.items) { named.push({ name: item.name, kind: NamedKind.Item, link: `item:${item.id}`, lines: [] }) }
+  return named
+}
+
+// The things a quest QuestieDB may not know names: none where it doesn't.
+public function namedOfFacts(facts: QuestFacts | nil): Array<Named> {
+  return facts == nil ? [] : namedOf(facts)
+}
+
+// The lines with one more after them.
+function plus(lines: Array<String>, one: String): Array<String> {
+  const more: Array<String> = []
+  for (line of lines) { more.push(line) }
+  more.push(one)
+  return more
+}
+
+// A figure's link in a parchment's text: Ordaen's own, which no game tooltip reads.
+function linkOf(figure: Figure): String {
+  return `ordaen:${figure.kind}:${figure.id}`
+}

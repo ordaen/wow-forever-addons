@@ -9,9 +9,10 @@ import Game from "$game"
 import { Align, Art, Bounds, ByInteractionState, Edges, Line, Side, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import { ButtonPlate, Component, Cut, Menu, MenuEntry, Money, PushButton, SECONDARY_TEXT, Shown, SwitchFace, TIGHT_LINE, Tip, TipText, questLevelColor, rowShade } from "Ordaen"
-import { Experience, Reward, RewardView, Rewards, SCROLL_DIM, SCROLL_INK, SCROLL_LINE, SCROLL_ROW, Scroll, ScrollHeading, Standing, WELL_TEXT, WIDE_SCROLL, choiceViews, logReward, scrollOverflows } from "OrdaenQuestPage"
+import { Experience, Named, Reward, RewardView, Rewards, SCROLL_DIM, SCROLL_ROW, Scroll, ScrollHeading, ScrollText, Standing, WELL_TEXT, WIDE_SCROLL, choiceViews, logReward, scrollOverflows } from "OrdaenQuestPage"
 import { LogQuest } from "@/book"
 import Locale from "@/locales"
+import { namedOf, namedOfFacts } from "@/names"
 import { QuestFacts } from "@/questie"
 import { standingsOf } from "@/reputation"
 
@@ -326,6 +327,8 @@ public class ChainPage implements Component {
   // Folded as each quest opens where the settings say so; a click unfolds it.
   state folded = false
   derived levels: String = Locale.CHAIN_LEVELS.format(self.facts.level, self.facts.minLevel)
+  // The things its task names, marked on the parchment.
+  derived named: Array<Named> = namedOf(self.facts)
   derived combat: Boolean = Game.situation.combat
   derived mapTip: TipText | nil = mapTipOf(self.combat)
   // Its scroll, the line of the quest after it, its button.
@@ -350,7 +353,7 @@ public class ChainPage implements Component {
         <Scroll title={self.facts.name} folded={mut self.folded}>
           <text value={self.levels} textColor={SCROLL_DIM} />
           <ScrollHeading $if={self.facts.task != ""} title={Locale.SECTION_TASKS} />
-          <text $if={self.facts.task != ""} value={self.facts.task} textColor={SCROLL_INK} lineHeight={SCROLL_LINE} />
+          <ScrollText $if={self.facts.task != ""} value={self.facts.task} names={self.named} />
         </Scroll>
         <ChainLine facts={self.facts} @open={self.onNext} />
         <box columns={BUTTON_ALONE}>
@@ -378,6 +381,8 @@ public class QuestPage implements Component {
   derived choiceRows: Array<RewardView> = choiceViews(rewardsOf(self.text.choices, true), [])
   derived givenRows: Array<Reward> = rewardsOf(self.text.rewards, false)
   derived standings: Array<Standing> = standingsOf(self.facts?.reputation ?? [])
+  // The things its story and task name (QuestieDB's), marked on the parchment; none for a quest it doesn't know.
+  derived named: Array<Named> = namedOfFacts(self.facts)
   // Folded as each quest opens where the settings say so; a click unfolds it.
   state folded = false
   derived questId: Integer = self.quest.id
@@ -433,9 +438,9 @@ public class QuestPage implements Component {
   scroll(self): Template {
     return $ltml {
       <Scroll title={self.quest.title} folded={mut self.folded}>
-        <text $if={self.text.story != ""} value={self.text.story} textColor={SCROLL_INK} lineHeight={SCROLL_LINE} />
+        <ScrollText $if={self.text.story != ""} value={self.text.story} names={self.named} />
         <ScrollHeading title={Locale.SECTION_TASKS} />
-        <text $if={self.text.task != ""} value={self.text.task} textColor={SCROLL_INK} lineHeight={SCROLL_LINE} />
+        <ScrollText $if={self.text.task != ""} value={self.text.task} names={self.named} />
       </Scroll>
     }
   }

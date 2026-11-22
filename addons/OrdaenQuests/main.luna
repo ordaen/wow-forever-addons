@@ -19,7 +19,7 @@ import root Ordaen from "Ordaen"
 import { ARTWORK, ButtonPlate, Choice, CompactDropdown, Dialog, FOOTER_ROOM, FilterButton, FilterGroup, FooterBand, FooterCount, FooterCounts, KeptWindow, Module, ModuleMemory, PushButton, SECONDARY_TEXT, Settings, SettingsPage, Tabs, ToolPick, Toolbar, Window, WindowSide, WindowTabSpec, WindowsPage, playSound, windowsTitle } from "Ordaen"
 import root Maps from "OrdaenMap"
 import type { SidePanel } from "OrdaenMap"
-import { Standing } from "OrdaenQuestPage"
+import { Named, Standing } from "OrdaenQuestPage"
 import root Tracker from "OrdaenTracker"
 import { LogQuest, logQuests } from "@/book"
 import { TakenClick } from "@/button"
@@ -29,6 +29,7 @@ import { ChainPins, DungeonQuests, TurnInPins, leadsTo, startsAt } from "@/layer
 import { QuestList } from "@/list"
 import Locale from "@/locales"
 import { Asked, FILTER_START, Folds, ListChoices, QuestFilter, QuestSort, QuestStatus, QuestView, countOf, foldedOnce, listedOf } from "@/model"
+import { namedOfFacts } from "@/names"
 import { Figure, QuestFacts } from "@/questie"
 import { standingsOf } from "@/reputation"
 import { Choices, GeneralPage } from "@/settings"
@@ -322,6 +323,10 @@ public class Quests implements Module, App {
 
   // An NPC's name and spawns by QuestieDB (its names are its own locale's), for another module: a trainer to point at.
   public npc(self, id: Integer): Figure | nil { return self.data.npc(id) }
+
+  // The things a quest names (who gives it and takes it back, its objectives' NPCs, objects and items), by QuestieDB:
+  // Dialogue's parchment marks them in the quest's words. None for a quest it doesn't know.
+  public questNames(mut self, id: Integer): Array<Named> { return namedOfFacts(self.data.quest(id)) }
 
   // The reputations a quest changes once turned in, by QuestieDB: Dialogue's band at a quest giver says them.
   public reputationOf(mut self, id: Integer): Array<Standing> {

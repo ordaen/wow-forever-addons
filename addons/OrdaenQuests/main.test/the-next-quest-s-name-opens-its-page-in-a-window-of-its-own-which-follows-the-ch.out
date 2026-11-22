@@ -121,7 +121,8 @@ surface 550,192.21 905.76x518.28 on MEDIUM clamped raised by a click
               box 1383.24,308.22 41.67x104.17 absolute Interface\AddOns\OrdaenQuestPage\media\scroll-paper-right
               box 1118.24,326.97 263.33x66.67 absolute scrolled 0 of 0
                 text 1118.24,326.97 263.33x20.68 "The Defias Brotherhood" #200800
-                text 1118.24,351.92 263.33x16.8 "Gryan asks you to look into Westfall." #160c03
+                box 1118.24,351.92 263.33x16.8 @linkEnter @linkLeave
+                  text 1118.24,351.92 263.33x16.8 "Gryan asks you to look into Westfall." #160c03
                 box 1118.24,372.99 263.33x17.5
                   box 1118.24,381.32 90.14x0.83 #3a100080
                   text 1214.08,372.99 71.67x17.5 "Objectives" #3a1000
@@ -237,7 +238,8 @@ surface 958.33,223.04 350x453.92 on MEDIUM clamped raised by a click
                   box 1037.52,439.36 56.79x0.83 #3a100080
                   text 1100,431.03 71.67x17.5 "Objectives" #3a1000
                   box 1177.36,439.36 56.79x0.83 #3a100080
-                text 1037.52,452.8 196.63x33.6 "Take the note to the Scout. Then report back." #160c03
+                box 1037.52,452.8 196.63x33.6 @linkEnter @linkLeave
+                  text 1037.52,452.8 196.63x33.6 "Take the note to the Scout. Then report back." #160c03
           box 994.18,565.8 283.3x37.84
             box 994.18,565.8 283.3x17.5
               text 994.18,565.8 71.67x17.5 "Next quest" #e8c35a

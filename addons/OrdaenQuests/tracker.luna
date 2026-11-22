@@ -20,14 +20,14 @@ function firstSpot(figures: Array<Figure>): Spot | nil {
 
 // Where the figures stand: the first one's zone, and how many places of theirs are in it; nothing where the client
 // doesn't know that zone.
-function whereOf(figures: Array<Figure>): String {
+public function whereOf(figures: Array<Figure>): String {
   const first = firstSpot(figures)
   if (first == nil) { return "" }
   const zone = zoneOf(first.area)
   if (zone == nil) { return "" }
   let places = 0
   for (figure of figures) { places = places + figure.spots.count(spot => spot.area == first.area) }
-  return Locale.TRACKER_WHERE.format(zone, places)
+  return Locale.ZONE_PLACES.format(zone, places)
 }
 
 // Whom to hand it to, and where: «Gryan Stoutmantle · Westfall», which the tracker says after «Ready to turn in»; the

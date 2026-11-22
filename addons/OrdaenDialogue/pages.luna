@@ -4,7 +4,7 @@
 import Game from "$game"
 import { Align, Position } from "$ltml"
 import { Component, Money, SECONDARY_TEXT, Tip } from "Ordaen"
-import { REWARD_ICON, SCROLL_LINE, ScrollHeading } from "OrdaenQuestPage"
+import { Named, REWARD_ICON, SCROLL_LINE, ScrollHeading, ScrollText } from "OrdaenQuestPage"
 import Locale from "@/locales"
 import { Need, Quest } from "@/read"
 import Style from "@/style"
@@ -16,6 +16,8 @@ public class Said implements Component {
   derived text: String = self.isQuest ? self.quest?.text ?? "" : self.page == Page.Book ? self.book : self.said
   derived objectives: String = self.page == Page.Detail ? self.quest?.objectives ?? "" : ""
   derived hasObjectives: Boolean = self.objectives != ""
+  // The things a quest's words name, marked on the parchment; none in what an NPC says or a book.
+  derived names: Array<Named> = self.isQuest ? self.quest?.names ?? [] : []
   derived group: Integer = self.isQuest ? self.quest?.group ?? 0 : 0
   derived grouped: Boolean = self.group > 0
   derived groupText: String = Locale.GROUP.format(self.group)
@@ -61,14 +63,14 @@ public class Said implements Component {
       </box>
       <box>
         <box opacity={self.wholeOpacity}>
-          <text value={self.text} textColor={Style.INK} lineHeight={SCROLL_LINE} />
+          <ScrollText value={self.text} names={self.names} />
         </box>
         <box $if={self.revealing} position={Position.Absolute} left={0ui} top={0ui} right={0ui}>
           <text value={self.shownText} textColor={Style.INK} lineHeight={SCROLL_LINE} />
         </box>
       </box>
       <ScrollHeading $if={self.hasObjectives} title={Locale.OBJECTIVES} />
-      <text $if={self.hasObjectives} value={self.objectives} textColor={Style.INK} lineHeight={SCROLL_LINE} />
+      <ScrollText $if={self.hasObjectives} value={self.objectives} names={self.names} />
     }
   }
 }

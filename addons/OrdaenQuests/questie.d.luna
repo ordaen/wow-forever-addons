@@ -8,10 +8,22 @@ public struct Spot {
   y: Number
 }
 
-// An NPC or an object a quest names, and where it stands.
+// Which of the world's things a figure is.
+public enum FigureKind { Npc = "npc", Object = "object" }
+
+// An NPC or an object a quest names, by QuestieDB's number of it, its name in the client's language where QuestieDB
+// has that (else English), and where it stands.
 public struct Figure {
+  id: Integer
+  kind: FigureKind
   name: String
   spots: Array<Spot>
+}
+
+// An item a quest asks for: its number, and its name as QuestieDB has it in the client's language.
+public struct WantedItem {
+  id: Integer
+  name: String
 }
 
 // A reputation a quest raises (or lowers, negative): the faction, and by how much before the player's bonuses.
@@ -35,6 +47,8 @@ public struct QuestFacts {
   givers: Array<Figure>
   takers: Array<Figure>
   targets: Array<Figure>
+  // The items it asks for.
+  items: Array<WantedItem>
   // The reputations it changes once turned in (the client's quest window doesn't say them).
   reputation: Array<FactionGain>
   // The quest after it in its chain; 0 for none.

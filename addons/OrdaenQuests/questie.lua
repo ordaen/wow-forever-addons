@@ -29,26 +29,27 @@ local function spotsOf(spawns)
 	return spots
 end
 
-local function figureOf(db, id)
+-- An NPC or an object (`kind`: "npc", "object"), its name in the client's language where QuestieDB has it.
+local function figureOf(db, kind, id)
 	if type(id) ~= "number" or not db.Exists(id) then return nil end
 	local named = db.Get(id, "name")
-	return { name = type(named) == "string" and named or "", spots = spotsOf(db.Get(id, "spawns")) }
+	return { id = id, kind = kind, name = type(named) == "string" and named or "", spots = spotsOf(db.Get(id, "spawns")) }
 end
 
-local function addFigures(into, db, ids)
+local function addFigures(into, db, kind, ids)
 	if type(ids) ~= "table" then return end
 	for _, id in ipairs(ids) do
 		if #into >= FIGURES_MOST then return end
-		local figure = figureOf(db, id)
+		local figure = figureOf(db, kind, id)
 		if figure then into[#into + 1] = figure end
 	end
 end
 
 -- Each entry of an objective's list is `{ id, text? }`.
-local function addTargets(into, db, list)
+local function addTargets(into, db, kind, list)
 	if type(list) ~= "table" then return end
 	for _, entry in ipairs(list) do
-		if type(entry) == "table" then addFigures(into, db, { entry[1] }) end
+		if type(entry) == "table" then addFigures(into, db, kind, { entry[1] }) end
 	end
 end
 
@@ -78,27 +79,29 @@ function questie.quest(id)
 	local found = _G.LibQuestieDB
 	local quests, npcs, objects, items = found.Quest, found.Npc, found.Object, found.Item
 	if not quests.Exists(id) then return nil end
-	local givers, takers, targets = {}, {}, {}
+	local givers, takers, targets, wanted = {}, {}, {}, {}
 	local starts = quests.Get(id, "startedBy")
 	if type(starts) == "table" then
-		addFigures(givers, npcs, starts[1])
-		addFigures(givers, objects, starts[2])
+		addFigures(givers, npcs, "npc", starts[1])
+		addFigures(givers, objects, "object", starts[2])
 	end
 	local ends = quests.Get(id, "finishedBy")
 	if type(ends) == "table" then
-		addFigures(takers, npcs, ends[1])
-		addFigures(takers, objects, ends[2])
+		addFigures(takers, npcs, "npc", ends[1])
+		addFigures(takers, objects, "object", ends[2])
 	end
 	local objectives = quests.Get(id, "objectives")
 	if type(objectives) == "table" then
-		addTargets(targets, npcs, objectives[1])
-		addTargets(targets, objects, objectives[2])
+		addTargets(targets, npcs, "npc", objectives[1])
+		addTargets(targets, objects, "object", objectives[2])
 		if type(objectives[3]) == "table" then
 			for _, entry in ipairs(objectives[3]) do
 				local item = type(entry) == "table" and entry[1]
 				if type(item) == "number" and items.Exists(item) then
-					addFigures(targets, npcs, items.Get(item, "npcDrops"))
-					addFigures(targets, objects, items.Get(item, "objectDrops"))
+					local named = items.Get(item, "name")
+					if type(named) == "string" and named ~= "" then wanted[#wanted + 1] = { id = item, name = named } end
+					addFigures(targets, npcs, "npc", items.Get(item, "npcDrops"))
+					addFigures(targets, objects, "object", items.Get(item, "objectDrops"))
 				end
 			end
 		end
@@ -117,6 +120,7 @@ function questie.quest(id)
 		givers = givers,
 		takers = takers,
 		targets = targets,
+		items = wanted,
 		reputation = reputationOf(quests.Get(id, "reputationReward")),
 		next = type(next) == "number" and next or 0,
 		nextName = type(next) == "number" and next > 0 and type(quests.Get(next, "name")) == "string" and quests.Get(next, "name") or "",
@@ -124,7 +128,7 @@ function questie.quest(id)
 end
 
 function questie.npc(id)
-	return figureOf(_G.LibQuestieDB.Npc, id)
+	return figureOf(_G.LibQuestieDB.Npc, "npc", id)
 end
 
 LunaType.addon(name)["questie"] = questie

@@ -6,7 +6,7 @@ import Client from "$client"
 import Game from "$game"
 import { Art } from "$ltml"
 import { Difficulty, Quality, difficultyOf } from "Ordaen"
-import { Reward, Standing, artOf, itemReward } from "OrdaenQuestPage"
+import { Named, Reward, Standing, artOf, itemReward } from "OrdaenQuestPage"
 import root Quests from "OrdaenQuests"
 import Locale from "@/locales"
 
@@ -68,6 +68,8 @@ public struct Quest {
   const money: Integer
   const xp: Integer
   const standings: Array<Standing>
+  // The things its words name (QuestieDB's, while Quests is on), marked on the parchment.
+  const names: Array<Named>
   const needs: Array<Need>
   const moneyNeeded: Integer
   const completable: Boolean
@@ -275,7 +277,7 @@ public function questOf(text: String): Quest {
   return {
     id: id, title: Client.GetTitleText(), text: text, objectives: Client.GetObjectiveText(),
     group: Client.GetSuggestedGroupSize().floor(), choices: choices, also: givenRewards(id),
-    money: Client.GetRewardMoney().floor(), xp: Client.GetRewardXP().floor(), standings: Quests?.reputationOf(id) ?? [], needs: needsOf(),
+    money: Client.GetRewardMoney().floor(), xp: Client.GetRewardXP().floor(), standings: Quests?.reputationOf(id) ?? [], names: Quests?.questNames(id) ?? [], needs: needsOf(),
     moneyNeeded: Client.GetQuestMoneyToGet().floor(), completable: Client.IsQuestCompletable(),
     pvp: Client.QuestFlagsPVP(), autoAccepted: Client.QuestGetAutoAccept()
   }

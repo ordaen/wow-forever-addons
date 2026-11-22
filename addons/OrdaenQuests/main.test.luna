@@ -295,6 +295,17 @@ test "three rewards to choose stand in one column" {
   Test.expect((slots.nth(1).rect().left - slots.nth(2).rect().left).abs() < 0.5)
 }
 
+test "the parchment marks who gives the quest where its words name him, and his tip says who he is and where" {
+  const log = standing()
+  log[1] = { task: "Report to Gryan Stoutmantle's camp at Sentinel Hill.", ..log[1] ?? panic("a quest") }
+  opened(log)
+  const window = Test.page().window("World")
+  window.text("The Defias Brotherhood").click()
+  const marked = "Report to |Hordaen:npc:234|h|cff7a2200Gryan Stoutmantle's|r|h camp at Sentinel Hill."
+  window.text(marked).hoverLink("ordaen:npc:234")
+  Test.expect(Test.page().text("Gives the quest\nTakes the quest back\nWestfall · 1 places").shown())
+}
+
 test "a quest's title stands in Dialogue's title type on the scroll, its lines tight, without its level" {
   opened(standing())
   Test.page().window("World").text("The Defias Brotherhood").click()
