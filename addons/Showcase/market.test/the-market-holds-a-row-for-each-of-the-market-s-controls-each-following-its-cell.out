@@ -1796,13 +1796,13 @@ box 0,0 700x546.57
         text 0,527.9 233.33x14.4 "Context menu" #cbb994
       box 248.98,523.63 451.02x22.93 @pointerPress
         text 253.24,527.9 442.49x14.4 "Right-click here" #ffffff
-surface 248.98,418.86 183.33x104.78 on FULLSCREEN_DIALOG #0a0806f7
-  box 249.81,425.38 181.67x28.88 #00000000 @keyPress @pointerEnter @pointerPress
-    text 261.19,431.07 150.38x17.5 "Link in chat" #e8dcc4
-  box 249.81,454.26 181.67x28.88 #00000000 @keyPress @pointerEnter @pointerPress
-    text 261.19,459.94 150.38x17.5 "Create [0]" #6f6552
-  box 249.81,483.13 181.67x33.98 #d6a56b2e @keyPress @pointerEnter @pointerPress
-    text 261.19,493.92 118.71x17.5 "Favorite" #f0e6d2
-    box 388.43,494.34 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 1 of 4
-      box 385.93,491.84 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2 opacity=0
-      box 400.93,491.84 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=1
+surface 248.98,423.02 183.33x100.61 on FULLSCREEN_DIALOG #0a0806f7
+  box 249.81,429.54 181.67x27.21 #00000000 @keyPress @pointerEnter @pointerPress
+    text 261.19,435.23 150.38x15.83 "Link in chat" #e8dcc4
+  box 249.81,456.76 181.67x27.21 #00000000 @keyPress @pointerEnter @pointerPress
+    text 261.19,462.44 150.38x15.83 "Create [0]" #6f6552
+  box 249.81,483.97 181.67x33.14 #d6a56b2e @keyPress @pointerEnter @pointerPress
+    text 261.19,495.17 118.71x15.83 "Favorite" #f0e6d2
+    box 388.43,494.76 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 1 of 4
+      box 385.93,492.26 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2 opacity=0
+      box 400.93,492.26 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=1

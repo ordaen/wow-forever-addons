@@ -4,29 +4,29 @@ box 0,0 400x28.33
     box 5.69,0 28.33x28.33
       box 5.69,0 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerEnter @pointerLeave @pointerPress
         box 13.19,7.5 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 0 of 16 tint=#f0c860
-surface 5.69,28.33 191.67x207.34 on FULLSCREEN_DIALOG #0a0806f7
-  box 20.74,43.39 161.56x17.5
-    box 20.74,43.39 161.56x17.5 @keyPress @pointerPress
-      text 20.74,43.39 115.67x17.5 "Tracked only" #e8dcc4
-      box 150.63,43.81 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 0 of 4
-        box 148.13,41.31 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2 opacity=1
-  box 20.74,69.42 161.56x104.97
-    box 20.74,78.79 161.56x17.5 @keyPress @pointerPress
-      text 20.74,78.79 115.67x17.5 "Difficulty" #f0c860
-      box 150.63,79.21 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 1 of 4
-        box 163.13,76.71 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=1
-    box 20.74,104.82 161.56x17.5 @keyPress @pointerPress
-      text 20.74,104.82 115.67x17.5 "Grey" #e8dcc4
-      box 150.63,105.24 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 1 of 4
-        box 163.13,102.74 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=1
-    box 20.74,130.86 161.56x17.5 @keyPress @pointerPress
-      text 20.74,130.86 115.67x17.5 "Green" #e8dcc4
-      box 150.63,131.27 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 1 of 4
-        box 163.13,128.77 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=1
-    box 20.74,156.89 161.56x17.5 @keyPress @pointerPress
-      text 20.74,156.89 115.67x17.5 "Yellow" #e8dcc4
-      box 150.63,157.31 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 1 of 4
-        box 163.13,154.81 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=1
-  box 20.74,182.92 161.56x37.7
-    box 20.74,192.29 161.56x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-      text 85.69,197.71 31.67x17.5 "Reset" #808080
+surface 5.69,28.33 191.67x203.18 on FULLSCREEN_DIALOG #0a0806f7
+  box 20.74,43.39 161.56x16.67
+    box 20.74,43.39 161.56x16.67 @keyPress @pointerPress
+      text 20.74,43.81 115.67x15.83 "Tracked only" #e8dcc4
+      box 150.63,43.39 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 0 of 4
+        box 148.13,40.89 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2 opacity=1
+  box 20.74,68.59 161.56x101.63
+    box 20.74,77.96 161.56x16.67 @keyPress @pointerPress
+      text 20.74,78.37 115.67x15.83 "Difficulty" #f0c860
+      box 150.63,77.96 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 1 of 4
+        box 163.13,75.46 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=1
+    box 20.74,103.16 161.56x16.67 @keyPress @pointerPress
+      text 20.74,103.57 115.67x15.83 "Grey" #e8dcc4
+      box 150.63,103.16 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 1 of 4
+        box 163.13,100.66 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=1
+    box 20.74,128.36 161.56x16.67 @keyPress @pointerPress
+      text 20.74,128.77 115.67x15.83 "Green" #e8dcc4
+      box 150.63,128.36 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 1 of 4
+        box 163.13,125.86 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=1
+    box 20.74,153.56 161.56x16.67 @keyPress @pointerPress
+      text 20.74,153.97 115.67x15.83 "Yellow" #e8dcc4
+      box 150.63,153.56 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 1 of 4
+        box 163.13,151.06 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=1
+  box 20.74,178.76 161.56x37.7
+    box 20.74,188.12 161.56x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+      text 85.69,194.37 31.67x15.83 "Reset" #808080

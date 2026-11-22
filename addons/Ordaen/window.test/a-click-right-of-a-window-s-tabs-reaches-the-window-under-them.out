@@ -11,7 +11,7 @@ surface 600,330.5 400x439 on MEDIUM clamped raised by a click
     box 600,330.5 336.47x39
       box 600,330.5 118x39 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.99, tr 0.94, top 0.99>0.95 x2.07, left 0.99>0.98 x0.52, right 0.93>0.93 x0.52] @drag @dragStart @dragStop @keyPress @pointerPress
         box 618.13,340.1 81.73x38.4
-          text 646.08,350.55 25.83x17.5 "Beta" #ffd100
+          text 646.08,351.38 25.83x15.83 "Beta" #ffd100
     box 945,348.83 55x20.67
       box 945,348.83 55x26.67 clipped
         box 945,348.83 27.5x26.67 absolute clipped @keyPress @pointerPress
@@ -31,7 +31,7 @@ surface 750,450.5 400x239 on MEDIUM clamped raised by a click
     box 750,450.5 336.47x39
       box 750,450.5 118x39 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.99, tr 0.94, top 0.99>0.95 x2.07, left 0.98>0.96 x0.52, right 0.93>0.91 x0.52] @drag @dragStart @dragStop @keyPress @pointerPress
         box 768.13,460.1 81.73x38.4
-          text 793.17,470.55 31.67x17.5 "Gamma" #ffd100
+          text 793.17,471.38 31.67x15.83 "Gamma" #ffd100
     box 1095,468.83 55x20.67
       box 1095,468.83 55x26.67 clipped
         box 1095,468.83 27.5x26.67 absolute clipped @keyPress @pointerPress

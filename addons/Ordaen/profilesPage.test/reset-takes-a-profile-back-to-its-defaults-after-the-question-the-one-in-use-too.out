@@ -96,14 +96,14 @@ box 0,0 760x726.73
       box 267.78,698.4 125x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
         text 311.11,705.37 38.33x14.4 "Create" #808080
 surface 0,0 1600x900 on DIALOG #0000008c
-  box 593.83,377.53 412.33x144.93 Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.84, tr 0.79, bl 0.81, br 0.76, top 0.84>0.79 x20.48, bottom 0.81>0.76 x20.48, left 0.84>0.81 x6.55, right 0.79>0.76 x6.55]
-    text 623.52,428.56 352.96x21.67 "Reset every setting of profile «Spare» to its default?" #e8dcc4
-    box 623.52,464.44 352.96x28.33
-      box 623.52,464.44 118.51x0
-      box 742.03,464.44 234.44x28.33
-        box 742.03,464.44 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-          text 772.87,467.78 38.33x21.67 "Cancel" #ffd100
-        box 850.92,464.44 116.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-          text 893.42,467.78 31.67x21.67 "Reset" #ffd100
-    box 598.33,393.7 403.33x32.5 absolute
-      text 753.33,393.7 93.33x32.5 "Reset profile" #ffd100
+  box 593.83,378.37 412.33x143.27 Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.84, tr 0.79, bl 0.81, br 0.76, top 0.84>0.79 x20.48, bottom 0.81>0.76 x20.48, left 0.84>0.81 x6.46, right 0.79>0.76 x6.46]
+    text 623.52,429.39 352.96x20 "Reset every setting of profile «Spare» to its default?" #e8dcc4
+    box 623.52,463.61 352.96x28.33
+      box 623.52,463.61 118.51x0
+      box 742.03,463.61 234.44x28.33
+        box 742.03,463.61 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+          text 772.87,467.78 38.33x20 "Cancel" #ffd100
+        box 850.92,463.61 116.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+          text 893.42,467.78 31.67x20 "Reset" #ffd100
+    box 598.33,394.53 403.33x21.67 absolute
+      text 753.33,394.53 93.33x21.67 "Reset profile" #ffd100

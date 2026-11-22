@@ -4,17 +4,17 @@ surface 500,280.5 841.03x339 on MEDIUM clamped raised by a click
     box 512.44,331.94 575.11x277.96
       box 512.44,331.94 575.11x235.4
         box 535.2,354.7 529.6x195.58 #30302a
-          text 535.2,354.7 529.6x17.5 "the list" #ffffff
+          text 535.2,354.7 529.6x15.83 "the list" #ffffff
       box 512.44,567.34 575.11x42.56
         box 512.44,567.34 575.11x42.56
-          text 535.2,572.76 44.17x17.5 "5 items" #ffffff
+          text 535.2,573.59 44.17x15.83 "5 items" #ffffff
           box 596.43,581.51 351.3x0
           box 964.8,567.34 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-            text 1001.88,572.76 25.83x17.5 "Scan" #ffd100
+            text 1001.88,573.59 25.83x15.83 "Scan" #ffd100
     box 1087.56,331.94 241.03x277.96 border=Interface\AddOns\Ordaen\media\frame-divider-down sides=left pieces=[left 0.73>0.59 x9.65]
       box 1091.61,331.94 236.98x277.96
         box 1114.36,354.7 191.47x240.98 #30302a
-          text 1114.36,354.7 191.47x17.5 "the details" #ffffff
+          text 1114.36,354.7 191.47x15.83 "the details" #ffffff
       box 1091.16,331.94 6.67x277.96 absolute @drag @dragStart @dragStop
     box 1317.03,595.5 13.33x13.33 absolute
       box 1317.03,595.5 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
@@ -22,7 +22,7 @@ surface 500,280.5 841.03x339 on MEDIUM clamped raised by a click
     box 500,280.5 777.49x39
       box 500,280.5 118x39 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.99, tr 0.97, top 0.99>0.97 x2.07, left 0.99>0.98 x0.52, right 0.96>0.95 x0.52] @drag @dragStart @dragStop @keyPress @pointerPress
         box 518.13,290.1 81.73x38.4
-          text 539.83,300.55 38.33x17.5 "Market" #ffd100
+          text 539.83,301.38 38.33x15.83 "Market" #ffd100
     box 1286.03,298.83 55x20.67
       box 1286.03,298.83 55x26.67 clipped
         box 1286.03,298.83 27.5x26.67 absolute clipped @keyPress @pointerPress

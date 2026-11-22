@@ -1,19 +1,19 @@
 -- sized down past what it holds: held at its content's least size, the footer under the block
-surface 400,130.5 570.4x532.59 on MEDIUM clamped raised by a click
-  box 400,169.5 570.4x493.59 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.98, tr 0.79, bl 0.80, br 0.61, top 0.98>0.79 x13.85, bottom 0.80>0.61 x13.85, left 0.98>0.81 x11.85, right 0.78>0.61 x11.85]
-    box 412.44,181.94 545.51x471.54
+surface 400,130.5 570.4x530.92 on MEDIUM clamped raised by a click
+  box 400,169.5 570.4x491.92 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.98, tr 0.79, bl 0.80, br 0.61, top 0.98>0.79 x13.85, bottom 0.80>0.61 x13.85, left 0.98>0.81 x11.81, right 0.78>0.61 x11.81]
+    box 412.44,181.94 545.51x469.88
       box 412.44,181.94 545.51x439.82
         box 435.2,204.7 500x400 Interface\AddOns\Ordaen\media\window-wood
-      box 412.44,621.77 545.51x31.72
-        box 412.44,621.77 545.51x31.72
-          text 435.2,621.77 500x17.5 "the footer" #ffffff
-    box 946.4,639.09 13.33x13.33 absolute
-      box 946.4,639.09 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
+      box 412.44,621.77 545.51x30.06
+        box 412.44,621.77 545.51x30.06
+          text 435.2,621.77 500x15.83 "the footer" #ffffff
+    box 946.4,637.42 13.33x13.33 absolute
+      box 946.4,637.42 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 400,130.5 570.4x39
     box 400,130.5 506.87x39
       box 400,130.5 118x39 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.99, tr 0.96, top 0.99>0.96 x2.07, left 0.99>0.98 x0.52, right 0.95>0.95 x0.52] @drag @dragStart @dragStop @keyPress @pointerPress
         box 418.13,140.1 81.73x38.4
-          text 436.92,150.55 44.17x17.5 "Crowded" #ffd100
+          text 436.92,151.38 44.17x15.83 "Crowded" #ffd100
     box 915.4,148.83 55x20.67
       box 915.4,148.83 55x26.67 clipped
         box 915.4,148.83 27.5x26.67 absolute clipped @keyPress @pointerPress

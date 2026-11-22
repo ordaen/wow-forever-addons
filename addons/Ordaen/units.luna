@@ -30,9 +30,22 @@ public const TITLE_TEXT: Number<TextSize> = (BODY_TEXT + 2ui) / BODY_TEXT * 1rem
 // The room inside a window's frame, from its line to its content: more than any gap inside it.
 public const WINDOW_ROOM: Number<Spacing> = 6.5sp
 
-// How high a line of each text is: the body's and a secondary text's one line of the rhythm, a title's a line and a
-// half.
-public const BODY_LINE: Number<Spacing> = 6sp
-public const TITLE_LINE: Number<Spacing> = 9sp
+// How high a line of a text is: its size times its kind's leading, on the rhythm's grid of half `sp`s as `sp` is at the
+// normal density (the density then makes every line and every room as much larger or smaller together).
+function lineFor(text: Number<Length>, leading: Number): Number<Spacing> {
+  const units = text * leading / spacingFor(.Normal)
+  return (units * 2 + 0.5).floor() / 2 * 1sp
+}
+
+// The leadings: a row's, a label's or the body's; a title's; prose's, several lines of sentences.
+const ROW_LEADING = 1.3
+const TITLE_LEADING = 1.2
+const PROSE_LEADING = 1.4
+
+// The body's and a secondary text's line, one line of the rhythm; a title's; and prose's (a description, a tooltip's
+// sentences).
+public const BODY_LINE: Number<Spacing> = lineFor(BODY_TEXT, ROW_LEADING)
+public const TITLE_LINE: Number<Spacing> = lineFor(BODY_TEXT * TITLE_TEXT / 1rem, TITLE_LEADING)
+public const PROSE_LINE: Number<Spacing> = lineFor(BODY_TEXT, PROSE_LEADING)
 // A text set on art keeps its font's own line, the least a line is: a count on an icon, a label on a plate.
 public const TIGHT_LINE: Number<Spacing> = 0sp

@@ -23,18 +23,18 @@ box 0,0 900x56.67
       box 383.69,28.33 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerUp
         text 391.19,35.3 8.33x14.4 "+" #ffd100
       text 412.71,35.3 14.17x14.4 "px" #f0e6d2
-surface 497.02,28.33 273.88x144.23 on TOOLTIP Interface\AddOns\Ordaen\media\window-wood pieces=[tl 0.99, tr 0.80, bl 0.80, br 0.61, top 0.99>0.80 x13.26, bottom 0.80>0.61 x13.26, left 0.98>0.81 x6.51, right 0.79>0.62 x6.51] clamped
-  text 516.04,47.36 235.83x25.83 "More" #f0e6d2
-  text 516.04,78.88 235.83x14.4 "Hold to keep stepping, up to the limit." #cbb994
-  box 516.04,98.97 235.83x14.4
-    box 516.04,98.97 207.3x14.4
-      text 516.04,98.97 61.67x14.4 "Left-click" #cbb994
-    text 731.88,98.97 20x14.4 "+1%" #f0e6d2
-  box 516.04,119.06 235.83x14.4
-    box 516.04,119.06 201.47x14.4
-      text 516.04,119.06 98.33x14.4 "Shift+Left-click" #cbb994
-    text 726.04,119.06 25.83x14.4 "+10%" #f0e6d2
-  box 516.04,139.14 235.83x14.4
-    box 516.04,139.14 195.63x14.4
-      text 516.04,139.14 91.67x14.4 "Ctrl+Left-click" #cbb994
-    text 720.21,139.14 31.67x14.4 "+100%" #f0e6d2
+surface 497.02,28.33 273.88x135.9 on TOOLTIP Interface\AddOns\Ordaen\media\window-wood pieces=[tl 0.99, tr 0.80, bl 0.80, br 0.61, top 0.99>0.80 x13.26, bottom 0.80>0.61 x13.26, left 0.98>0.81 x6.08, right 0.79>0.62 x6.08] clamped
+  text 516.04,47.36 235.83x17.5 "More" #f0e6d2
+  text 516.04,70.54 235.83x14.4 "Hold to keep stepping, up to the limit." #cbb994
+  box 516.04,90.63 235.83x14.4
+    box 516.04,90.63 207.3x14.4
+      text 516.04,90.63 61.67x14.4 "Left-click" #cbb994
+    text 731.88,90.63 20x14.4 "+1%" #f0e6d2
+  box 516.04,110.72 235.83x14.4
+    box 516.04,110.72 201.47x14.4
+      text 516.04,110.72 98.33x14.4 "Shift+Left-click" #cbb994
+    text 726.04,110.72 25.83x14.4 "+10%" #f0e6d2
+  box 516.04,130.81 235.83x14.4
+    box 516.04,130.81 195.63x14.4
+      text 516.04,130.81 91.67x14.4 "Ctrl+Left-click" #cbb994
+    text 720.21,130.81 31.67x14.4 "+100%" #f0e6d2

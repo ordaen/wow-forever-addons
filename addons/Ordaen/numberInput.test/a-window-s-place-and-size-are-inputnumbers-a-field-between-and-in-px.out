@@ -76,18 +76,18 @@ box 0,0 1000x303.27
         box 432.71,274.93 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
           text 448.36,281.9 152.53x14.4 "Never" #ffffff
           box 609.42,282.43 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-surface 567.42,82.07 273.88x144.23 on TOOLTIP Interface\AddOns\Ordaen\media\window-wood pieces=[tl 0.99, tr 0.80, bl 0.80, br 0.61, top 0.99>0.80 x13.26, bottom 0.80>0.61 x13.26, left 0.98>0.81 x6.51, right 0.79>0.62 x6.51] clamped
-  text 586.44,101.09 235.83x25.83 "More" #f0e6d2
-  text 586.44,132.61 235.83x14.4 "Hold to keep stepping, up to the limit." #cbb994
-  box 586.44,152.7 235.83x14.4
-    box 586.44,152.7 195.63x14.4
-      text 586.44,152.7 61.67x14.4 "Left-click" #cbb994
-    text 790.61,152.7 31.67x14.4 "+1 px" #f0e6d2
-  box 586.44,172.79 235.83x14.4
-    box 586.44,172.79 188.97x14.4
-      text 586.44,172.79 98.33x14.4 "Shift+Left-click" #cbb994
-    text 783.94,172.79 38.33x14.4 "+10 px" #f0e6d2
-  box 586.44,192.88 235.83x14.4
-    box 586.44,192.88 183.13x14.4
-      text 586.44,192.88 91.67x14.4 "Ctrl+Left-click" #cbb994
-    text 778.11,192.88 44.17x14.4 "+100 px" #f0e6d2
+surface 567.42,82.07 273.88x135.9 on TOOLTIP Interface\AddOns\Ordaen\media\window-wood pieces=[tl 0.99, tr 0.80, bl 0.80, br 0.61, top 0.99>0.80 x13.26, bottom 0.80>0.61 x13.26, left 0.98>0.81 x6.08, right 0.79>0.62 x6.08] clamped
+  text 586.44,101.09 235.83x17.5 "More" #f0e6d2
+  text 586.44,124.28 235.83x14.4 "Hold to keep stepping, up to the limit." #cbb994
+  box 586.44,144.37 235.83x14.4
+    box 586.44,144.37 195.63x14.4
+      text 586.44,144.37 61.67x14.4 "Left-click" #cbb994
+    text 790.61,144.37 31.67x14.4 "+1 px" #f0e6d2
+  box 586.44,164.46 235.83x14.4
+    box 586.44,164.46 188.97x14.4
+      text 586.44,164.46 98.33x14.4 "Shift+Left-click" #cbb994
+    text 783.94,164.46 38.33x14.4 "+10 px" #f0e6d2
+  box 586.44,184.54 235.83x14.4
+    box 586.44,184.54 183.13x14.4
+      text 586.44,184.54 91.67x14.4 "Ctrl+Left-click" #cbb994
+    text 778.11,184.54 44.17x14.4 "+100 px" #f0e6d2

@@ -227,9 +227,9 @@ box 0,0 700x386.92
     text 337.08,328.69 25.83x14.4 "Save" #ffd100
   box 0,358.59 700x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
     text 334.17,365.56 31.67x14.4 "Reset" #808080
-surface 100,126.46 249.71x83.97 on TOOLTIP Interface\AddOns\Ordaen\media\window-wood pieces=[tl 0.98, tr 0.79, bl 0.81, br 0.62, top 0.99>0.80 x12.01, bottom 0.80>0.61 x12.01, left 0.98>0.82 x3.37, right 0.78>0.62 x3.37] clamped
-  text 119.02,145.48 211.67x25.83 "Button drawer" #f0e6d2
-  text 119.02,177 211.67x14.4 "Other addons' buttons in one place." #cbb994
+surface 100,126.46 249.71x75.63 on TOOLTIP Interface\AddOns\Ordaen\media\window-wood pieces=[tl 0.98, tr 0.79, bl 0.81, br 0.62, top 0.99>0.80 x12.01, bottom 0.80>0.61 x12.01, left 0.97>0.82 x2.94, right 0.78>0.63 x2.94] clamped
+  text 119.02,145.48 211.67x17.5 "Button drawer" #f0e6d2
+  text 119.02,168.67 211.67x14.4 "Other addons' buttons in one place." #cbb994
 
 -- the switch clicked: on, both switches follow the one setting, the dropdown's row no longer greyed
 box 0,0 700x386.92
@@ -340,16 +340,16 @@ box 0,0 700x386.92
     text 337.08,328.69 25.83x14.4 "Save" #ffd100
   box 0,358.59 700x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
     text 334.17,365.56 31.67x14.4 "Reset" #808080
-surface 348.98,167.3 216.67x91.14 on FULLSCREEN_DIALOG #0a0806f7
-  box 349.81,173.82 215x26.03 #00000000 @keyPress @pointerPress
+surface 348.98,167.3 216.67x86.14 on FULLSCREEN_DIALOG #0a0806f7
+  box 349.81,173.82 215x24.37 #00000000 @keyPress @pointerPress
     box 358.14,181.32 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 1 of 2
-    text 375.41,178.09 178.02x17.5 "Never" #f0e6d2
-  box 349.81,199.86 215x26.03 #00000000 @keyPress @pointerPress
-    box 358.14,207.36 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
-    text 375.41,204.12 178.02x17.5 "In combat" #f0e6d2
-  box 349.81,225.89 215x26.03 #00000000 @keyPress @pointerPress
-    box 358.14,233.39 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
-    text 375.41,230.16 178.02x17.5 "On a mount — in development" #ffffff
+    text 375.41,178.09 178.02x15.83 "Never" #f0e6d2
+  box 349.81,198.19 215x24.37 #00000000 @keyPress @pointerPress
+    box 358.14,205.69 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
+    text 375.41,202.46 178.02x15.83 "In combat" #f0e6d2
+  box 349.81,222.56 215x24.37 #00000000 @keyPress @pointerPress
+    box 358.14,230.06 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
+    text 375.41,226.82 178.02x15.83 "On a mount — in development" #ffffff
 
 -- the cursor on a choice: the light under it
 box 0,0 700x386.92
@@ -405,16 +405,16 @@ box 0,0 700x386.92
     text 337.08,328.69 25.83x14.4 "Save" #ffd100
   box 0,358.59 700x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
     text 334.17,365.56 31.67x14.4 "Reset" #808080
-surface 348.98,167.3 216.67x91.14 on FULLSCREEN_DIALOG #0a0806f7
-  box 349.81,173.82 215x26.03 #00000000 @keyPress @pointerPress
+surface 348.98,167.3 216.67x86.14 on FULLSCREEN_DIALOG #0a0806f7
+  box 349.81,173.82 215x24.37 #00000000 @keyPress @pointerPress
     box 358.14,181.32 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 1 of 2
-    text 375.41,178.09 178.02x17.5 "Never" #f0e6d2
-  box 349.81,199.86 215x26.03 #d6a56b2e @keyPress @pointerPress
-    box 358.14,207.36 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
-    text 375.41,204.12 178.02x17.5 "In combat" #f0e6d2
-  box 349.81,225.89 215x26.03 #00000000 @keyPress @pointerPress
-    box 358.14,233.39 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
-    text 375.41,230.16 178.02x17.5 "On a mount — in development" #ffffff
+    text 375.41,178.09 178.02x15.83 "Never" #f0e6d2
+  box 349.81,198.19 215x24.37 #d6a56b2e @keyPress @pointerPress
+    box 358.14,205.69 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
+    text 375.41,202.46 178.02x15.83 "In combat" #f0e6d2
+  box 349.81,222.56 215x24.37 #00000000 @keyPress @pointerPress
+    box 358.14,230.06 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
+    text 375.41,226.82 178.02x15.83 "On a mount — in development" #ffffff
 
 -- a click elsewhere: the menu closed, nothing picked
 box 0,0 700x386.92
@@ -525,16 +525,16 @@ box 0,0 700x386.92
     text 337.08,328.69 25.83x14.4 "Save" #ffd100
   box 0,358.59 700x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
     text 334.17,365.56 31.67x14.4 "Reset" #808080
-surface 348.98,167.3 216.67x91.14 on FULLSCREEN_DIALOG #0a0806f7
-  box 349.81,173.82 215x26.03 #00000000 @keyPress @pointerPress
+surface 348.98,167.3 216.67x86.14 on FULLSCREEN_DIALOG #0a0806f7
+  box 349.81,173.82 215x24.37 #00000000 @keyPress @pointerPress
     box 358.14,181.32 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 1 of 2
-    text 375.41,178.09 178.02x17.5 "Never" #f0e6d2
-  box 349.81,199.86 215x26.03 #00000000 @keyPress @pointerPress
-    box 358.14,207.36 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
-    text 375.41,204.12 178.02x17.5 "In combat" #f0e6d2
-  box 349.81,225.89 215x26.03 #00000000 @keyPress @pointerPress
-    box 358.14,233.39 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
-    text 375.41,230.16 178.02x17.5 "On a mount — in development" #ffffff
+    text 375.41,178.09 178.02x15.83 "Never" #f0e6d2
+  box 349.81,198.19 215x24.37 #00000000 @keyPress @pointerPress
+    box 358.14,205.69 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
+    text 375.41,202.46 178.02x15.83 "In combat" #f0e6d2
+  box 349.81,222.56 215x24.37 #00000000 @keyPress @pointerPress
+    box 358.14,230.06 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
+    text 375.41,226.82 178.02x15.83 "On a mount — in development" #ffffff
 
 -- a choice clicked: picked, the menu closed, the plate shows it
 box 0,0 700x386.92
@@ -922,17 +922,17 @@ box 0,0 700x401.32
   box 0,372.99 700x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
     text 334.17,379.96 31.67x14.4 "Reset" #f0e6d2
 surface 0,0 1600x900 on DIALOG #0000008c
-  box 615.5,388.15 369x123.7 Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.84, tr 0.79, bl 0.81, br 0.76, top 0.84>0.79 x18.22, bottom 0.81>0.76 x18.22, left 0.83>0.81 x5.44, right 0.79>0.77 x5.44]
-    text 640.21,429.93 319.58x17.5 "Forget what was saved?" #ffffff
-    box 640.21,458.81 319.58x28.33
-      box 640.21,458.81 105.36x0
-      box 745.57,458.81 214.22x28.33
-        box 745.57,458.81 100x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-          text 776.4,464.22 38.33x17.5 "Forget" #ffd100
-        box 852.68,458.81 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-          text 889.76,464.22 25.83x17.5 "Keep" #ffd100
-    box 620,404.32 360x25.83 absolute
-      text 781.67,404.32 36.67x25.83 "Reset" #ffd100
+  box 615.5,388.98 369x122.03 Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.83, tr 0.79, bl 0.81, br 0.77, top 0.83>0.79 x18.22, bottom 0.81>0.77 x18.22, left 0.83>0.81 x5.36, right 0.79>0.77 x5.36]
+    text 640.21,430.76 319.58x15.83 "Forget what was saved?" #ffffff
+    box 640.21,457.97 319.58x28.33
+      box 640.21,457.97 105.36x0
+      box 745.57,457.97 214.22x28.33
+        box 745.57,457.97 100x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+          text 776.4,464.22 38.33x15.83 "Forget" #ffd100
+        box 852.68,457.97 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+          text 889.76,464.22 25.83x15.83 "Keep" #ffd100
+    box 620,405.15 360x17.5 absolute
+      text 781.67,405.15 36.67x17.5 "Reset" #ffd100
 
 -- a click on the dimmed screen, over the first tab: nothing under it hears
 box 0,0 700x401.32
@@ -989,17 +989,17 @@ box 0,0 700x401.32
   box 0,372.99 700x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
     text 334.17,379.96 31.67x14.4 "Reset" #ffd100
 surface 0,0 1600x900 on DIALOG #0000008c
-  box 615.5,388.15 369x123.7 Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.84, tr 0.79, bl 0.81, br 0.76, top 0.84>0.79 x18.22, bottom 0.81>0.76 x18.22, left 0.83>0.81 x5.44, right 0.79>0.77 x5.44]
-    text 640.21,429.93 319.58x17.5 "Forget what was saved?" #ffffff
-    box 640.21,458.81 319.58x28.33
-      box 640.21,458.81 105.36x0
-      box 745.57,458.81 214.22x28.33
-        box 745.57,458.81 100x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-          text 776.4,464.22 38.33x17.5 "Forget" #ffd100
-        box 852.68,458.81 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-          text 889.76,464.22 25.83x17.5 "Keep" #ffd100
-    box 620,404.32 360x25.83 absolute
-      text 781.67,404.32 36.67x25.83 "Reset" #ffd100
+  box 615.5,388.98 369x122.03 Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.83, tr 0.79, bl 0.81, br 0.77, top 0.83>0.79 x18.22, bottom 0.81>0.77 x18.22, left 0.83>0.81 x5.36, right 0.79>0.77 x5.36]
+    text 640.21,430.76 319.58x15.83 "Forget what was saved?" #ffffff
+    box 640.21,457.97 319.58x28.33
+      box 640.21,457.97 105.36x0
+      box 745.57,457.97 214.22x28.33
+        box 745.57,457.97 100x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+          text 776.4,464.22 38.33x15.83 "Forget" #ffd100
+        box 852.68,457.97 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+          text 889.76,464.22 25.83x15.83 "Keep" #ffd100
+    box 620,405.15 360x17.5 absolute
+      text 781.67,405.15 36.67x17.5 "Reset" #ffd100
 
 -- «Keep» clicked: the question goes, nothing forgotten
 box 0,0 700x401.32

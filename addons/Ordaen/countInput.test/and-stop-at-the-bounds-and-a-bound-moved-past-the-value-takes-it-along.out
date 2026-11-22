@@ -17,21 +17,21 @@ box 0,0 300x28.33
       text 34.02,6.97 8.33x14.4 "5" #f0e6d2
     box 53.04,0 23.33x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
       text 60.54,6.97 8.33x14.4 "+" #808080
-surface 53.04,28.33 273.88x144.23 on TOOLTIP Interface\AddOns\Ordaen\media\window-wood pieces=[tl 0.99, tr 0.80, bl 0.80, br 0.61, top 0.99>0.80 x13.26, bottom 0.80>0.61 x13.26, left 0.98>0.81 x6.51, right 0.79>0.62 x6.51] clamped
-  text 72.07,47.36 235.83x25.83 "More" #f0e6d2
-  text 72.07,78.88 235.83x14.4 "Hold to keep stepping, up to the limit." #cbb994
-  box 72.07,98.97 235.83x14.4
-    box 72.07,98.97 213.13x14.4
-      text 72.07,98.97 61.67x14.4 "Left-click" #cbb994
-    text 293.73,98.97 14.17x14.4 "+1" #f0e6d2
-  box 72.07,119.06 235.83x14.4
-    box 72.07,119.06 207.3x14.4
-      text 72.07,119.06 98.33x14.4 "Shift+Left-click" #cbb994
-    text 287.9,119.06 20x14.4 "+10" #f0e6d2
-  box 72.07,139.14 235.83x14.4
-    box 72.07,139.14 201.47x14.4
-      text 72.07,139.14 91.67x14.4 "Ctrl+Left-click" #cbb994
-    text 282.07,139.14 25.83x14.4 "+100" #f0e6d2
+surface 53.04,28.33 273.88x135.9 on TOOLTIP Interface\AddOns\Ordaen\media\window-wood pieces=[tl 0.99, tr 0.80, bl 0.80, br 0.61, top 0.99>0.80 x13.26, bottom 0.80>0.61 x13.26, left 0.98>0.81 x6.08, right 0.79>0.62 x6.08] clamped
+  text 72.07,47.36 235.83x17.5 "More" #f0e6d2
+  text 72.07,70.54 235.83x14.4 "Hold to keep stepping, up to the limit." #cbb994
+  box 72.07,90.63 235.83x14.4
+    box 72.07,90.63 213.13x14.4
+      text 72.07,90.63 61.67x14.4 "Left-click" #cbb994
+    text 293.73,90.63 14.17x14.4 "+1" #f0e6d2
+  box 72.07,110.72 235.83x14.4
+    box 72.07,110.72 207.3x14.4
+      text 72.07,110.72 98.33x14.4 "Shift+Left-click" #cbb994
+    text 287.9,110.72 20x14.4 "+10" #f0e6d2
+  box 72.07,130.81 235.83x14.4
+    box 72.07,130.81 201.47x14.4
+      text 72.07,130.81 91.67x14.4 "Ctrl+Left-click" #cbb994
+    text 282.07,130.81 25.83x14.4 "+100" #f0e6d2
 
 -- - six times: 1, the least, - disabled
 box 0,0 300x28.33
@@ -42,21 +42,21 @@ box 0,0 300x28.33
       text 34.02,6.97 8.33x14.4 "1" #f0e6d2
     box 53.04,0 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
       text 60.54,6.97 8.33x14.4 "+" #ffd100
-surface 0,28.33 273.88x144.23 on TOOLTIP Interface\AddOns\Ordaen\media\window-wood pieces=[tl 0.99, tr 0.80, bl 0.80, br 0.61, top 0.99>0.80 x13.26, bottom 0.80>0.61 x13.26, left 0.98>0.81 x6.51, right 0.79>0.62 x6.51] clamped
-  text 19.02,47.36 235.83x25.83 "Fewer" #f0e6d2
-  text 19.02,78.88 235.83x14.4 "Hold to keep stepping, up to the limit." #cbb994
-  box 19.02,98.97 235.83x14.4
-    box 19.02,98.97 213.13x14.4
-      text 19.02,98.97 61.67x14.4 "Left-click" #cbb994
-    text 240.69,98.97 14.17x14.4 "-1" #f0e6d2
-  box 19.02,119.06 235.83x14.4
-    box 19.02,119.06 207.3x14.4
-      text 19.02,119.06 98.33x14.4 "Shift+Left-click" #cbb994
-    text 234.86,119.06 20x14.4 "-10" #f0e6d2
-  box 19.02,139.14 235.83x14.4
-    box 19.02,139.14 201.47x14.4
-      text 19.02,139.14 91.67x14.4 "Ctrl+Left-click" #cbb994
-    text 229.02,139.14 25.83x14.4 "-100" #f0e6d2
+surface 0,28.33 273.88x135.9 on TOOLTIP Interface\AddOns\Ordaen\media\window-wood pieces=[tl 0.99, tr 0.80, bl 0.80, br 0.61, top 0.99>0.80 x13.26, bottom 0.80>0.61 x13.26, left 0.98>0.81 x6.08, right 0.79>0.62 x6.08] clamped
+  text 19.02,47.36 235.83x17.5 "Fewer" #f0e6d2
+  text 19.02,70.54 235.83x14.4 "Hold to keep stepping, up to the limit." #cbb994
+  box 19.02,90.63 235.83x14.4
+    box 19.02,90.63 213.13x14.4
+      text 19.02,90.63 61.67x14.4 "Left-click" #cbb994
+    text 240.69,90.63 14.17x14.4 "-1" #f0e6d2
+  box 19.02,110.72 235.83x14.4
+    box 19.02,110.72 207.3x14.4
+      text 19.02,110.72 98.33x14.4 "Shift+Left-click" #cbb994
+    text 234.86,110.72 20x14.4 "-10" #f0e6d2
+  box 19.02,130.81 235.83x14.4
+    box 19.02,130.81 201.47x14.4
+      text 19.02,130.81 91.67x14.4 "Ctrl+Left-click" #cbb994
+    text 229.02,130.81 25.83x14.4 "-100" #f0e6d2
 
 -- the most falls to 2: the value with it
 box 0,0 300x28.33
@@ -67,21 +67,21 @@ box 0,0 300x28.33
       text 34.02,6.97 8.33x14.4 "2" #f0e6d2
     box 53.04,0 23.33x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
       text 60.54,6.97 8.33x14.4 "+" #808080
-surface 0,28.33 273.88x144.23 on TOOLTIP Interface\AddOns\Ordaen\media\window-wood pieces=[tl 0.99, tr 0.80, bl 0.80, br 0.61, top 0.99>0.80 x13.26, bottom 0.80>0.61 x13.26, left 0.98>0.81 x6.51, right 0.79>0.62 x6.51] clamped
-  text 19.02,47.36 235.83x25.83 "Fewer" #f0e6d2
-  text 19.02,78.88 235.83x14.4 "Hold to keep stepping, up to the limit." #cbb994
-  box 19.02,98.97 235.83x14.4
-    box 19.02,98.97 213.13x14.4
-      text 19.02,98.97 61.67x14.4 "Left-click" #cbb994
-    text 240.69,98.97 14.17x14.4 "-1" #f0e6d2
-  box 19.02,119.06 235.83x14.4
-    box 19.02,119.06 207.3x14.4
-      text 19.02,119.06 98.33x14.4 "Shift+Left-click" #cbb994
-    text 234.86,119.06 20x14.4 "-10" #f0e6d2
-  box 19.02,139.14 235.83x14.4
-    box 19.02,139.14 201.47x14.4
-      text 19.02,139.14 91.67x14.4 "Ctrl+Left-click" #cbb994
-    text 229.02,139.14 25.83x14.4 "-100" #f0e6d2
+surface 0,28.33 273.88x135.9 on TOOLTIP Interface\AddOns\Ordaen\media\window-wood pieces=[tl 0.99, tr 0.80, bl 0.80, br 0.61, top 0.99>0.80 x13.26, bottom 0.80>0.61 x13.26, left 0.98>0.81 x6.08, right 0.79>0.62 x6.08] clamped
+  text 19.02,47.36 235.83x17.5 "Fewer" #f0e6d2
+  text 19.02,70.54 235.83x14.4 "Hold to keep stepping, up to the limit." #cbb994
+  box 19.02,90.63 235.83x14.4
+    box 19.02,90.63 213.13x14.4
+      text 19.02,90.63 61.67x14.4 "Left-click" #cbb994
+    text 240.69,90.63 14.17x14.4 "-1" #f0e6d2
+  box 19.02,110.72 235.83x14.4
+    box 19.02,110.72 207.3x14.4
+      text 19.02,110.72 98.33x14.4 "Shift+Left-click" #cbb994
+    text 234.86,110.72 20x14.4 "-10" #f0e6d2
+  box 19.02,130.81 235.83x14.4
+    box 19.02,130.81 201.47x14.4
+      text 19.02,130.81 91.67x14.4 "Ctrl+Left-click" #cbb994
+    text 229.02,130.81 25.83x14.4 "-100" #f0e6d2
 
 -- the most under the least: the least, everything disabled
 box 0,0 300x28.33
@@ -92,21 +92,21 @@ box 0,0 300x28.33
       text 34.02,6.97 8.33x14.4 "1" #f0e6d2
     box 53.04,0 23.33x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
       text 60.54,6.97 8.33x14.4 "+" #808080
-surface 53.04,28.33 273.88x144.23 on TOOLTIP Interface\AddOns\Ordaen\media\window-wood pieces=[tl 0.99, tr 0.80, bl 0.80, br 0.61, top 0.99>0.80 x13.26, bottom 0.80>0.61 x13.26, left 0.98>0.81 x6.51, right 0.79>0.62 x6.51] clamped
-  text 72.07,47.36 235.83x25.83 "More" #f0e6d2
-  text 72.07,78.88 235.83x14.4 "Hold to keep stepping, up to the limit." #cbb994
-  box 72.07,98.97 235.83x14.4
-    box 72.07,98.97 213.13x14.4
-      text 72.07,98.97 61.67x14.4 "Left-click" #cbb994
-    text 293.73,98.97 14.17x14.4 "+1" #f0e6d2
-  box 72.07,119.06 235.83x14.4
-    box 72.07,119.06 207.3x14.4
-      text 72.07,119.06 98.33x14.4 "Shift+Left-click" #cbb994
-    text 287.9,119.06 20x14.4 "+10" #f0e6d2
-  box 72.07,139.14 235.83x14.4
-    box 72.07,139.14 201.47x14.4
-      text 72.07,139.14 91.67x14.4 "Ctrl+Left-click" #cbb994
-    text 282.07,139.14 25.83x14.4 "+100" #f0e6d2
+surface 53.04,28.33 273.88x135.9 on TOOLTIP Interface\AddOns\Ordaen\media\window-wood pieces=[tl 0.99, tr 0.80, bl 0.80, br 0.61, top 0.99>0.80 x13.26, bottom 0.80>0.61 x13.26, left 0.98>0.81 x6.08, right 0.79>0.62 x6.08] clamped
+  text 72.07,47.36 235.83x17.5 "More" #f0e6d2
+  text 72.07,70.54 235.83x14.4 "Hold to keep stepping, up to the limit." #cbb994
+  box 72.07,90.63 235.83x14.4
+    box 72.07,90.63 213.13x14.4
+      text 72.07,90.63 61.67x14.4 "Left-click" #cbb994
+    text 293.73,90.63 14.17x14.4 "+1" #f0e6d2
+  box 72.07,110.72 235.83x14.4
+    box 72.07,110.72 207.3x14.4
+      text 72.07,110.72 98.33x14.4 "Shift+Left-click" #cbb994
+    text 287.9,110.72 20x14.4 "+10" #f0e6d2
+  box 72.07,130.81 235.83x14.4
+    box 72.07,130.81 201.47x14.4
+      text 72.07,130.81 91.67x14.4 "Ctrl+Left-click" #cbb994
+    text 282.07,130.81 25.83x14.4 "+100" #f0e6d2
 
 -- another writes 20 where the most is 9: 9
 box 0,0 300x28.33
@@ -117,18 +117,18 @@ box 0,0 300x28.33
       text 34.02,6.97 8.33x14.4 "9" #f0e6d2
     box 53.04,0 23.33x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
       text 60.54,6.97 8.33x14.4 "+" #808080
-surface 53.04,28.33 273.88x144.23 on TOOLTIP Interface\AddOns\Ordaen\media\window-wood pieces=[tl 0.99, tr 0.80, bl 0.80, br 0.61, top 0.99>0.80 x13.26, bottom 0.80>0.61 x13.26, left 0.98>0.81 x6.51, right 0.79>0.62 x6.51] clamped
-  text 72.07,47.36 235.83x25.83 "More" #f0e6d2
-  text 72.07,78.88 235.83x14.4 "Hold to keep stepping, up to the limit." #cbb994
-  box 72.07,98.97 235.83x14.4
-    box 72.07,98.97 213.13x14.4
-      text 72.07,98.97 61.67x14.4 "Left-click" #cbb994
-    text 293.73,98.97 14.17x14.4 "+1" #f0e6d2
-  box 72.07,119.06 235.83x14.4
-    box 72.07,119.06 207.3x14.4
-      text 72.07,119.06 98.33x14.4 "Shift+Left-click" #cbb994
-    text 287.9,119.06 20x14.4 "+10" #f0e6d2
-  box 72.07,139.14 235.83x14.4
-    box 72.07,139.14 201.47x14.4
-      text 72.07,139.14 91.67x14.4 "Ctrl+Left-click" #cbb994
-    text 282.07,139.14 25.83x14.4 "+100" #f0e6d2
+surface 53.04,28.33 273.88x135.9 on TOOLTIP Interface\AddOns\Ordaen\media\window-wood pieces=[tl 0.99, tr 0.80, bl 0.80, br 0.61, top 0.99>0.80 x13.26, bottom 0.80>0.61 x13.26, left 0.98>0.81 x6.08, right 0.79>0.62 x6.08] clamped
+  text 72.07,47.36 235.83x17.5 "More" #f0e6d2
+  text 72.07,70.54 235.83x14.4 "Hold to keep stepping, up to the limit." #cbb994
+  box 72.07,90.63 235.83x14.4
+    box 72.07,90.63 213.13x14.4
+      text 72.07,90.63 61.67x14.4 "Left-click" #cbb994
+    text 293.73,90.63 14.17x14.4 "+1" #f0e6d2
+  box 72.07,110.72 235.83x14.4
+    box 72.07,110.72 207.3x14.4
+      text 72.07,110.72 98.33x14.4 "Shift+Left-click" #cbb994
+    text 287.9,110.72 20x14.4 "+10" #f0e6d2
+  box 72.07,130.81 235.83x14.4
+    box 72.07,130.81 201.47x14.4
+      text 72.07,130.81 91.67x14.4 "Ctrl+Left-click" #cbb994
+    text 282.07,130.81 25.83x14.4 "+100" #f0e6d2

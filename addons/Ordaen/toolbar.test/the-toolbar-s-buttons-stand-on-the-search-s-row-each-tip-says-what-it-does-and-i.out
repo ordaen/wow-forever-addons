@@ -39,13 +39,13 @@ box 0,0 400x28.33
         box 371.67,0 28.33x28.33
           box 371.67,0 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerEnter @pointerLeave @pointerPress
             box 379.17,7.5 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 2 of 16 tint=#e8dcc4
-surface 337.64,28.33 175x65.11 on FULLSCREEN_DIALOG #0a0806f7
-  box 338.48,34.86 173.33x26.03 #00000000 @keyPress @pointerPress
+surface 337.64,28.33 175x61.78 on FULLSCREEN_DIALOG #0a0806f7
+  box 338.48,34.86 173.33x24.37 #00000000 @keyPress @pointerPress
     box 346.81,42.36 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 1 of 2
-    text 364.08,39.12 136.36x17.5 "By difficulty" #f0e6d2
-  box 338.48,60.89 173.33x26.03 #00000000 @keyPress @pointerPress
-    box 346.81,68.39 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
-    text 364.08,65.16 136.36x17.5 "By name" #f0e6d2
+    text 364.08,39.12 136.36x15.83 "By difficulty" #f0e6d2
+  box 338.48,59.22 173.33x24.37 #00000000 @keyPress @pointerPress
+    box 346.81,66.72 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
+    text 364.08,63.49 136.36x15.83 "By name" #f0e6d2
 
 -- a filter on: the funnel gold, the view's button the list's glyph
 box 0,0 400x28.33

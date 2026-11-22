@@ -432,17 +432,17 @@ box 0,0 760x612.91
       box 264.22,584.58 125x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
         text 307.56,591.54 38.33x14.4 "Create" #808080
 surface 0,0 1600x900 on DIALOG #0000008c
-  box 593.83,379.4 412.33x141.2 Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.84, tr 0.79, bl 0.81, br 0.76, top 0.84>0.79 x20.48, bottom 0.81>0.76 x20.48, left 0.84>0.81 x6.35, right 0.79>0.76 x6.35]
-    text 618.54,421.18 362.91x35 "Delete profile «Raiding»? Characters that use it switch to the next profile in order." #e8dcc4
-    box 618.54,467.56 362.91x28.33
-      box 618.54,467.56 132.02x0
-      box 750.57,467.56 230.89x28.33
-        box 750.57,467.56 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-          text 781.4,472.97 38.33x17.5 "Cancel" #ffd100
-        box 857.68,467.56 116.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-          text 896.84,472.97 38.33x17.5 "Delete" #ffd100
-    box 598.33,395.57 403.33x25.83 absolute
-      text 750,395.57 100x25.83 "Delete profile" #ffd100
+  box 593.83,381.07 412.33x137.87 Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.84, tr 0.79, bl 0.81, br 0.76, top 0.84>0.79 x20.48, bottom 0.81>0.76 x20.48, left 0.84>0.81 x6.18, right 0.79>0.76 x6.18]
+    text 618.54,422.84 362.91x31.67 "Delete profile «Raiding»? Characters that use it switch to the next profile in order." #e8dcc4
+    box 618.54,465.89 362.91x28.33
+      box 618.54,465.89 132.02x0
+      box 750.57,465.89 230.89x28.33
+        box 750.57,465.89 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+          text 781.4,472.14 38.33x15.83 "Cancel" #ffd100
+        box 857.68,465.89 116.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+          text 896.84,472.14 38.33x15.83 "Delete" #ffd100
+    box 598.33,397.23 403.33x17.5 absolute
+      text 750,397.23 100x17.5 "Delete profile" #ffd100
 
 -- deleted: one profile again, Delete off
 box 0,0 760x585.04

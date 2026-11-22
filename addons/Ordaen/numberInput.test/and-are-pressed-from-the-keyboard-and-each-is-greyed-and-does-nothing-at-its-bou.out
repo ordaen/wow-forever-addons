@@ -6,35 +6,35 @@ surface 420,280.5 760x339 on MEDIUM clamped raised by a click
       box 432.44,331.94 735.11x275.11
         box 450.93,350.43 698.13x238.13
           box 450.93,350.43 698.13x28.33 opacity=1
-            box 450.93,355.85 233.33x17.5 @pointerEnter @pointerLeave
-              text 450.93,355.85 233.33x17.5 "Share" #cbb994
+            box 450.93,356.68 233.33x15.83 @pointerEnter @pointerLeave
+              text 450.93,356.68 233.33x15.83 "Share" #cbb994
             box 699.91,350.43 449.16x28.33
               box 699.91,350.43 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerUp
-                text 707.41,355.85 8.33x17.5 "-" #ffd100
+                text 707.41,356.68 8.33x15.83 "-" #ffd100
               box 728.93,356.27 213.33x16.67 @drag @dragStart @dragStop @keyPress @pointerPress
                 box 735.6,361.27 200x6.67 absolute Interface\AddOns\Ordaen\media\ctl-slider row 0 of 4
                 box 736.43,362.1 198.33x5 absolute Interface\AddOns\Ordaen\media\ctl-slider row 1 of 4
                 box 928.93,354.6 13.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-slider-knob
               box 947.96,350.43 23.33x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerUp
-                text 955.46,355.85 8.33x17.5 "+" #808080
-              text 976.98,355.85 25.83x17.5 "100%" #f0e6d2
+                text 955.46,356.68 8.33x15.83 "+" #808080
+              text 976.98,356.68 25.83x15.83 "100%" #f0e6d2
           box 450.93,378.77 698.13x28.33 opacity=1
-            box 450.93,384.18 233.33x17.5 @pointerEnter @pointerLeave
-              text 450.93,384.18 233.33x17.5 "Place" #cbb994
+            box 450.93,385.02 233.33x15.83 @pointerEnter @pointerLeave
+              text 450.93,385.02 233.33x15.83 "Place" #cbb994
             box 699.91,378.77 449.16x28.33
               box 699.91,378.77 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerUp focus ring
-                text 707.41,384.18 8.33x17.5 "-" #f0e6d2
+                text 707.41,385.02 8.33x15.83 "-" #f0e6d2
               box 728.93,382.1 100x21.67 #00000080 input "0" @change @submit
               box 834.62,378.77 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerUp
-                text 842.12,384.18 8.33x17.5 "+" #ffd100
-              text 863.64,384.18 14.17x17.5 "px" #f0e6d2
+                text 842.12,385.02 8.33x15.83 "+" #ffd100
+              text 863.64,385.02 14.17x15.83 "px" #f0e6d2
     box 1156,595.5 13.33x13.33 absolute
       box 1156,595.5 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 420,280.5 760x39
     box 420,280.5 696.47x39
       box 420,280.5 118x39 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.99, tr 0.97, top 0.99>0.97 x2.07, left 0.99>0.98 x0.52, right 0.96>0.95 x0.52] @drag @dragStart @dragStop @keyPress @pointerPress
         box 438.13,290.1 81.73x38.4
-          text 456.92,300.55 44.17x17.5 "Numbers" #ffd100
+          text 456.92,301.38 44.17x15.83 "Numbers" #ffd100
     box 1125,298.83 55x20.67
       box 1125,298.83 55x26.67 clipped
         box 1125,298.83 27.5x26.67 absolute clipped @keyPress @pointerPress

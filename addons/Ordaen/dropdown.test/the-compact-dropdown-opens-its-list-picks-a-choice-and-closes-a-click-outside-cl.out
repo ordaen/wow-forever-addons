@@ -15,16 +15,16 @@ box 0,0 500x31.47
       box 149.56,7.5 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
   box 209.82,0 55.4x31.47 @keyPress @pointerPress
     text 218.36,8.53 38.33x14.4 "Beside" #ffffff
-surface 0,28.33 203.33x91.14 on FULLSCREEN_DIALOG #0a0806f7
-  box 0.83,34.86 201.67x26.03 #00000000 @keyPress @pointerPress
+surface 0,28.33 203.33x86.14 on FULLSCREEN_DIALOG #0a0806f7
+  box 0.83,34.86 201.67x24.37 #00000000 @keyPress @pointerPress
     box 9.17,42.36 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 1 of 2
-    text 26.43,39.12 164.69x17.5 "By difficulty" #f0e6d2
-  box 0.83,60.89 201.67x26.03 #00000000 @keyPress @pointerPress
-    box 9.17,68.39 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
-    text 26.43,65.16 164.69x17.5 "By name" #f0e6d2
-  box 0.83,86.92 201.67x26.03 #00000000 @keyPress @pointerPress
-    box 9.17,94.42 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
-    text 26.43,91.19 164.69x17.5 "By price — in development" #ffffff
+    text 26.43,39.12 164.69x15.83 "By difficulty" #f0e6d2
+  box 0.83,59.22 201.67x24.37 #00000000 @keyPress @pointerPress
+    box 9.17,66.72 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
+    text 26.43,63.49 164.69x15.83 "By name" #f0e6d2
+  box 0.83,83.59 201.67x24.37 #00000000 @keyPress @pointerPress
+    box 9.17,91.09 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
+    text 26.43,87.86 164.69x15.83 "By price — in development" #ffffff
 
 -- a choice clicked: it is the plate's now, the list closed
 box 0,0 500x31.47
