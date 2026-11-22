@@ -4,7 +4,7 @@ import Game from "$game"
 import Runtime from "$runtime"
 import Test from "$test"
 import root Ordaen from "Ordaen"
-import { ALWAYS, Settings, Visibility, Visible } from "Ordaen"
+import { ALWAYS, BRIGHT_TEXT, Settings, Visibility, Visible } from "Ordaen"
 import { ActionBars, Shown, barDefaults } from "@/actionBars"
 import { Bar, buttonName } from "@/bar"
 import { BARS_DEFAULTS, BarChoice, BarsChoices, SPECS, defaultChoice } from "@/barChoices"
@@ -167,6 +167,24 @@ test "an item the cursor holds goes onto the bar's button it is let go on, or cl
   Test.click(Test.centre(button("2", 2)), nil)
   const secondKind, second, _ = Client.GetActionInfo(62)
   Test.expect(secondKind == "item" && second == 119 && !Client.CursorHasItem() && Test.performed().length == 0)
+}
+
+test "an action out of range has its icon darkened and its key in red" {
+  alone()
+  const holder = new Holder()
+  _ = Client.SetBinding("SHIFT-2", "MULTIACTIONBAR1BUTTON2", nil)
+  Test.mount(new ActionBars(holder.settings.values, holder.defaults), SCREEN)
+  Test.flush()
+  Test.expect(Test.page().text("S2").textColor().equal(BRIGHT_TEXT))
+  // Panel 2's second button shows slot 62: it goes out of range, and comes back.
+  Test.event("ACTION_RANGE_CHECK_UPDATE", 62, false, true)
+  Test.flush()
+  Test.expect(Test.page().text("S2").textColor().equal(Color.hex("#ff2020")))
+  Test.expect(Test.page().box(Color.hex("#000000")).opacity() == 0.6)
+  Test.event("ACTION_RANGE_CHECK_UPDATE", 62, true, true)
+  Test.flush()
+  Test.expect(Test.page().text("S2").textColor().equal(BRIGHT_TEXT))
+  Test.expect(!Test.page().box(Color.hex("#000000")).shown())
 }
 
 test "a button's tooltip is given its key as the button shows it, among the tooltips' hotkeys" {

@@ -14,17 +14,24 @@ const ABOVE: Number<Length> = 12dp
 public const BETWEEN: Number<Length> = 8dp
 const INK: Color = BRIGHT_TEXT
 const KEY_SHADOW: Shadow = { color: Color.hex("#000000"), x: 1ui, y: -1ui }
+// An action out of range: its key in the client's red, its icon darkened.
+const OUT_OF_RANGE: Color = Color.hex("#ff2020")
+const RANGE_VEIL: Color = Color.hex("#000000")
+const RANGE_DARK = 0.6
 
 // The pet's buttons show while the player has a pet with its bar: the client's own condition, read in a fight too.
 const WITH_PET = "[pet] show; hide"
 
 // One button of a bar: the client's own, by its name, its binding's name, and whether the client shows it (it hides
-// an action button with nothing on it, the pet's without a pet): what is drawn on it shows with it.
+// an action button with nothing on it, the pet's without a pet): what is drawn on it shows with it. An action's is
+// told when its action is out of range (`ActionButton_UpdateRangeIndicator`); the template's own key text (its key, or
+// with none its range dot) is unseen: the button draws its key itself.
 public class Slot {
   public const frame: any Client.ActionButton
   public const name: String
   public const command: String
   public state shown: Boolean = false
+  public state outOfRange: Boolean = false
   // Whether the slot is still there: the client's hooks stay on its frame after it ends, and hear nothing then.
   const life: mut Life = { on: true }
 
@@ -33,7 +40,12 @@ public class Slot {
     self.name = name
     self.command = command
     self.shown = frame.IsShown()
+    frame.HotKey.SetAlpha(0)
     const life = self.life
+    // The template tells each button by one global function: the hook's body one comparison for another's.
+    Client.hooksecurefunc("ActionButton_UpdateRangeIndicator", (...args: Unknown): nil => {
+      if (life.on && args[1] == frame) { self.outOfRange = args[2] == true && args[3] != true }
+    })
     _ = frame.HookScript("OnShow", (): nil => {
       if (life.on) { self.shown = true }
     })
@@ -102,6 +114,8 @@ function commandIcon(token: String): Art | nil {
 // button and apart from the next; it still takes the click and the cursor.
 public class Button implements Component {
   derived key: String = self.showKeys && self.slot.shown ? self.keys[self.slot.command] ?? "" : ""
+  derived keyColor: Color = self.slot.outOfRange ? OUT_OF_RANGE : INK
+  derived darkened: Boolean = self.slot.outOfRange && self.slot.shown
 
   const slot: Slot
   // Whether the button has a face of ours (a stance's, the pet's), and the client's is unseen.
@@ -131,11 +145,13 @@ public class Button implements Component {
                width={self.size} height={self.size} />
         <embed frame={self.slot.frame} position={Position.Absolute} left={0ui} top={0ui} width={self.size}
                height={self.size} opacity={self.faced ? 0 : nil} />
+        <box $if={self.darkened} position={Position.Absolute} left={0ui} top={0ui} width={self.size} height={self.size}
+             background={RANGE_VEIL} opacity={RANGE_DARK} zLevel={1} />
         <box $if={self.face.lit && self.slot.shown} position={Position.Absolute} left={0ui} top={0ui}
              width={self.size} height={self.size} background={Ordaen.art.ctl.qualityRim}
              tint={Ordaen.look.values.accent} zLevel={2} />
         <box position={Position.Absolute} left={0ui} top={0ui} right={0ui} xAlign={Align.End} padding={0.5sp} zLevel={2}>
-          <text value={self.key} textColor={INK} textSize={SECONDARY_TEXT} textShadow={KEY_SHADOW} wrap={.None} />
+          <text value={self.key} textColor={self.keyColor} textSize={SECONDARY_TEXT} textShadow={KEY_SHADOW} wrap={.None} />
         </box>
       </box>
     }
