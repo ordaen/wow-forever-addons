@@ -95,21 +95,33 @@ test "each line has its key, and a quest its level" {
   Test.expect(window().text("Make this inn your home.").item().texts().join(" ") == "4 Make this inn your home.")
 }
 
-test "the game's own gossip window stands away while ours shows, and is back after" {
-  const own = Client.CreateFrame("Frame", "GossipFrame", Client.UIParent, nil)
+// A window of the game's that its window manager places on the left, one of its three.
+function panel(name: String): any Client.Frame {
+  const own = Client.CreateFrame("Frame", name, Client.UIParent, nil)
   own.SetSize(300, 400)
   own.SetPoint("TOPLEFT", Client.UIParent, "TOPLEFT", 16, -116)
-  Game.frames.Gossip = own
-  Test.mount(nil, SCREEN)
-  Test.talk(innkeeper())
-  Test.flush()
-  Test.expect(own.GetAlpha() == 0)
-  Events.GOSSIP_CLOSED.emit(false)
-  Test.flush()
-  Test.expect(own.GetAlpha() == 1 && !window().shown())
+  own.Hide()
+  own.SetAttribute("UIPanelLayout-defined", true)
+  own.SetAttribute("UIPanelLayout-area", "left")
+  return own
 }
 
-test "the game's own gossip window stays away while the one option skips on, until the game ends the talk" {
+test "the game's own gossip window stands away from the start, unseen, so the game's three windows close none of ours" {
+  const own = panel("GossipFrame")
+  Game.frames.Gossip = own
+  Test.mount(nil, SCREEN)
+  Test.flush()
+  // Already away as the game shows it for a talk: it takes none of the window manager's three places.
+  Client.ShowUIPanel(own)
+  Test.talk(innkeeper())
+  Test.flush()
+  Test.expect(own.GetAlpha() == 0 && window().shown())
+  const others = [panel("FirstPanel"), panel("SecondPanel"), panel("ThirdPanel")]
+  for (other of others) { Client.ShowUIPanel(other) }
+  Test.expect(own.IsShown() && others.all(other => other.IsShown()))
+}
+
+test "the game's own gossip window stays away while the one option skips on" {
   const own = Client.CreateFrame("Frame", "GossipFrame", Client.UIParent, nil)
   own.SetSize(300, 400)
   own.SetPoint("TOPLEFT", Client.UIParent, "TOPLEFT", 16, -116)
@@ -120,9 +132,6 @@ test "the game's own gossip window stays away while the one option skips on, unt
   // Ours never showed: the option was picked, and the game opens what it leads to (a trainer, the flight map).
   Test.expect(asked() == "option 400" && !Test.page().window("Thor").shown())
   Test.expect(own.GetAlpha() == 0)
-  Events.GOSSIP_CLOSED.emit(false)
-  Test.flush()
-  Test.expect(own.GetAlpha() == 1)
 }
 
 test "a click on an option picks it by the game's own call" {

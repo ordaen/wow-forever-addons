@@ -121,8 +121,6 @@ public class Dialogue implements Module, App {
   // A question asked is the window's page, its answers the list.
   derived prompted: Boolean = self.prompt != nil
   derived shown: Boolean = self.page != Page.Closed || self.prompted
-  // Blizzard's own windows stand away while ours shows, and while the talk is ours with nothing shown.
-  derived gameAway: Boolean = self.shown || self.acting
   derived listShown: Boolean = self.page == Page.List
   // A quest's page as it opens, its parchment folded to its title where the settings say so; a click unfolds it.
   state scrollFolded = false
@@ -735,9 +733,12 @@ public class Dialogue implements Module, App {
 
   public render(self): Template {
     return $ltml {
-      <frame $if={self.gameAway} of={Game.frames.Gossip} opacity={0} away={true} />
-      <frame $if={self.gameAway} of={Game.frames.Quest} opacity={0} away={true} />
-      <frame $if={self.gameAway} of={Game.frames.ItemText} opacity={0} away={true} />
+      // Every talk of the game's three windows is ours while Dialogue runs: they stand away, unseen, from its load to
+      // its end, so the game's window manager, which gives a window one of its three places as it shows, never gives
+      // them one (shown in a talk, they would take a place, and a fourth window would close ours).
+      <frame of={Game.frames.Gossip} opacity={0} away={true} />
+      <frame of={Game.frames.Quest} opacity={0} away={true} />
+      <frame of={Game.frames.ItemText} opacity={0} away={true} />
       <Window $if={self.shown} tabs={self.tabs} selected={mut self.tab} declared={mut self.window} withSettings={true}
               @close={self.close} @settings={self.onSettings}>
         <box columns={self.columns} rows={self.rows} gap={0sp}>
