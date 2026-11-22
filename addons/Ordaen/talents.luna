@@ -14,7 +14,6 @@ import { Align, Event, Line, MouseButton, Position, Track } from "$ltml"
 import Locale from "@/locales"
 import { Component } from "@/module"
 import { Tip, TipRow, TipSection } from "@/tip"
-import { SECONDARY_TEXT } from "@/units"
 
 // One step of the client's grid: its talents stand this far apart in its own units.
 const CELL = 600
@@ -35,14 +34,15 @@ const MIDDLE: Number<Length> = (STEP - LINE) / 2
 const NODE_LEFT: Number<Length> = (STEP - SIZE) / 2
 const ACROSS_TOP: Number<Length> = (SIZE - LINE) / 2
 const HALF: Number<Length> = STEP / 2
-// The rank's badge, standing out past the node's lower right corner.
-const BADGE_OUT = 7.03125dp
-const BADGE_PAD: Number<Spacing> = 0.5sp
-const BADGE_BACK: Color = Color.hex("#0b0906")
-const BADGE_EDGE: Line = { width: 1.171875dp, color: Color.hex("#3e2f1d") }
+// The rank, a bare number in the node's lower right corner, thickly outlined, in the client's colours for its look.
+const RANK_IN = 3.515625dp
+const RANK_OUTLINE = 2
 const GOLD: Color = Color.hex("#ffd100")
-const GREEN: Color = Color.hex("#40d060")
+const GREEN: Color = Color.hex("#19ff19")
+const GREY: Color = Color.hex("#808080")
 const DIM: Color = Color.hex("#a3977f")
+// The veil over a node that can't be learned: dark, darker where its tree lacks the points.
+const VEIL: Color = Color.hex("#000000")
 // A tooltip's line for what isn't met yet, as the client writes it.
 const RED: Color = Color.hex("#ff2020")
 const EDGE: Color = Color.hex("#4a3a24")
@@ -50,6 +50,8 @@ const EDGE: Color = Color.hex("#4a3a24")
 const FRAME_FULL: Atlas = "talents-node-square-yellow"
 const FRAME_OPEN: Atlas = "talents-node-square-green"
 const FRAME_SHUT: Atlas = "talents-node-square-gray"
+const FRAME_GATED: Atlas = "talents-node-square-locked"
+const FRAME_STRANDED: Atlas = "talents-node-square-red"
 const HEAD_GOLD: Atlas = "talents-arrow-head-yellow"
 const HEAD_DIM: Atlas = "talents-arrow-head-gray"
 
@@ -178,6 +180,41 @@ function tipSectionsOf(node: Game.TalentNode): Array<TipSection> {
   return node.rank > 0 && next != nil ? [{ title: Locale.TALENT_NEXT_RANK, rows: [{ label: next, value: "" }] }] : []
 }
 
+// A node's look, as the client's talent window finds it (`CalculateVisualState`), the first that holds: a rank that no
+// longer holds, every rank held, a rank it may take now, a rank held, its tree short of points, its arrow's talent
+// unlearned, else nothing it may do now (no points left to spend, say).
+enum Look { Stranded, Maxed, Selectable, Progress, Gated, Locked, Disabled }
+
+function lookOf(node: Game.TalentNode): Look {
+  if (node.stranded) { return .Stranded }
+  if (node.rank > 0 && node.rank >= node.ranks) { return .Maxed }
+  if (node.canSpend && !node.locked) { return .Selectable }
+  if (node.rank > 0) { return .Progress }
+  if (node.gated) { return .Gated }
+  if (node.locked) { return .Locked }
+  return .Disabled
+}
+
+// What each look draws: the frame, the rank's colour, whether the icon is grey and how dark the veil over it.
+struct LookArt {
+  frame: Atlas
+  rank: Color
+  grey: Boolean
+  veil: Number
+}
+
+function artOf(look: Look): LookArt {
+  match (look) {
+    .Stranded => return { frame: FRAME_STRANDED, rank: RED, grey: false, veil: 0.25 }
+    .Maxed => return { frame: FRAME_FULL, rank: GOLD, grey: false, veil: 0 }
+    .Selectable => return { frame: FRAME_OPEN, rank: GREEN, grey: false, veil: 0 }
+    .Progress => return { frame: FRAME_OPEN, rank: GREEN, grey: false, veil: 0 }
+    .Gated => return { frame: FRAME_GATED, rank: GREY, grey: true, veil: 0.7 }
+    .Locked => return { frame: FRAME_SHUT, rank: GREY, grey: true, veil: 0.25 }
+    .Disabled => return { frame: FRAME_SHUT, rank: GREY, grey: true, veil: 0.25 }
+  }
+}
+
 class TalentNodeView implements Component {
   public spend: Event<Integer> = new Event()
   public refund: Event<Integer> = new Event()
@@ -188,12 +225,13 @@ class TalentNodeView implements Component {
   derived tipSections: Array<TipSection> = tipSectionsOf(self.node)
 
   derived lit: Boolean = self.search == "" || self.node.name.lower().contains(self.search.lower())
-  derived shut: Boolean = self.node.rank == 0 && !self.node.canSpend
-  derived full: Boolean = self.node.rank == self.node.ranks
+  derived look: Look = lookOf(self.node)
+  derived art: LookArt = artOf(self.look)
   derived opacity: Number = self.lit ? 1 : 0.3
-  derived rank: String = "%d/%d".format(self.node.rank, self.node.ranks)
-  derived rankColor: Color = self.full ? GOLD : self.shut ? DIM : GREEN
-  derived frame: Atlas = self.full ? FRAME_FULL : self.shut ? FRAME_SHUT : FRAME_OPEN
+  // The rank shows once one is held, or where one may be taken (a 0 then).
+  derived ranked: Boolean = self.node.rank > 0 || self.look == .Selectable
+  derived rank: String = "%d".format(self.node.rank)
+  derived veiled: Boolean = self.art.veil > 0
 
   node: Signal<Game.TalentNode>
   search: Signal<String>
@@ -218,11 +256,12 @@ class TalentNodeView implements Component {
       <box position={Position.Absolute} left={NODE_LEFT} top={0ui} width={SIZE} height={SIZE} opacity={self.opacity}
            zLevel={2} @pointerPress={self.onClick} @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
         <box position={Position.Absolute} left={ICON_INSET} top={ICON_INSET} right={ICON_INSET} bottom={ICON_INSET}
-             icon={self.node.icon} desaturate={self.shut} />
-        <box position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui} background={self.frame} />
-        <box position={Position.Absolute} right={-BADGE_OUT} bottom={-BADGE_OUT} padding={{ left: BADGE_PAD, right: BADGE_PAD }}
-             background={BADGE_BACK} border={BADGE_EDGE}>
-          <text value={self.rank} textSize={SECONDARY_TEXT} textColor={self.rankColor} wrap={.None} textFont={.Numbers} />
+             icon={self.node.icon} desaturate={self.art.grey} />
+        <box $if={self.veiled} position={Position.Absolute} left={ICON_INSET} top={ICON_INSET} right={ICON_INSET}
+             bottom={ICON_INSET} background={VEIL} opacity={self.art.veil} />
+        <box position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui} background={self.art.frame} />
+        <box $if={self.ranked} position={Position.Absolute} right={RANK_IN} bottom={0ui}>
+          <text value={self.rank} textColor={self.art.rank} textOutline={RANK_OUTLINE} wrap={.None} textFont={.Numbers} />
         </box>
         <Tip $if={self.hovered} title={self.node.name} text={self.tipText} rows={self.tipRows} sections={self.tipSections} />
       </box>

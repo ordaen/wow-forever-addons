@@ -538,11 +538,12 @@ test "the weapon held has its skill as a gauge, its bonus counted in" {
 
 const TALENT_ICON: Asset = "Interface/Icons/INV_Misc_Note_01"
 const SWORD: Asset = "Interface/Icons/INV_Sword_04"
-// An arrow of a tree that leads to a talent with no rank; a talent's rank dimmed where no point may go.
+// An arrow of a tree that leads to a talent with no rank.
 const ARROW_LINE: Color = Color.hex("#4a3a24")
-const RANK_DIM: Color = Color.hex("#a3977f")
-// The dark line between the trees and along their top and bottom.
+// The dark line between the trees, and the veil over a talent that can't be learned.
 const TREE_LINE: Color = Color.hex("#000000")
+// The client's talent frames, by a talent's look.
+const FRAME_GREY = "talents-node-square-gray"
 // The second spec's tab, by its name.
 const SECOND = "Secondary"
 
@@ -627,10 +628,10 @@ test "a talent under the cursor says what the client's tooltip says: its rank, w
     }
   ]
   const window = onSpec("Primary")
-  window.button("2/5").hover()
+  window.button("2").hover()
   Test.expect(Test.page().text("Parry +2%").shown() && Test.page().text("Parry +3%").shown())
-  Test.expect(Test.page().text("2/5").count() == 2 && Test.page().text("Click to learn.").shown())
-  window.button("0/3").hover()
+  Test.expect(Test.page().text("2/5").shown() && Test.page().text("Click to learn.").shown())
+  window.button(FRAME_GREY).hover()
   // No rank held: the first rank's words as what it does, the points its tree still needs, nothing to click for.
   Test.expect(Test.page().text("Keeps 5 rage").shown() && !Test.page().text("Parry +2%").shown())
   Test.expect(Test.page().text("Requires 5 points in this tree").shown())
@@ -644,14 +645,41 @@ test "the second spec's tab shows that spec's trees" {
   Test.expect(!window.text("Arms: 2").shown())
 }
 
-test "each talent says its rank of its ranks, gold when full, green where a point may go, and dim where none may" {
+test "each talent looks as the client draws it: gold when full, green where a point may go or one is held, grey and veiled where none may, darker where its tree lacks the points, red where a rank no longer holds" {
   Test.mount(nil, PAGE)
-  Game.talentTrees.trees = trees
+  const node = (id: Integer, rank: Integer, canSpend: Boolean, gated: Boolean, stranded: Boolean): Game.TalentNode => {
+    return {
+      id: id, x: (id - 10) * 600, y: 0, name: "Talent %d".format(id), icon: TALENT_ICON, rank: rank, ranks: 5,
+      canSpend: canSpend, canRefund: rank > 0, edges: [], gated: gated, locked: stranded, stranded: stranded
+    }
+  }
+  Game.talentTrees.trees = (group: Integer): Array<Game.TalentTree> => [
+    {
+      id: 1, name: "Arms",
+      nodes: [node(10, 5, false, false, false), node(11, 2, true, false, false), node(12, 3, false, false, false),
+        node(13, 0, true, false, false), node(14, 0, false, false, false), node(15, 0, false, true, false),
+        node(16, 1, false, false, true)]
+    }
+  ]
   const window = onSpec("Primary")
-  Test.expect(window.button("2/5").shown() && window.button("0/3").shown() && window.button("5/5").shown())
-  Test.expect(window.text("5/5").textColor().equal(Style.GOLD))
-  Test.expect(window.text("2/5").textColor().equal(Style.GREEN))
-  Test.expect(window.text("0/3").textColor().equal(RANK_DIM))
+  // Full: the gold frame and its rank in gold.
+  Test.expect(window.button("5").paintedWith("talents-node-square-yellow"))
+  Test.expect(window.text("5").textColor().equal(Color.hex("#ffd100")))
+  // A point may go, or one is held with none to spend: the green frame, the rank in green; a 0 where none is held yet.
+  Test.expect(window.button("2").paintedWith("talents-node-square-green") && window.button("3").paintedWith("talents-node-square-green"))
+  Test.expect(window.button("0").text("0").textColor().equal(Color.hex("#19ff19")) && window.text("3").textColor().equal(Color.hex("#19ff19")))
+  // None may go: grey, no rank said, the icon grey under a light veil; its tree short of points, the locked frame and a
+  // darker veil.
+  Test.expect(window.button("0").count() == 1)
+  const grey = window.button(FRAME_GREY)
+  Test.expect(grey.box(TREE_LINE).opacity() == 0.25)
+  const gated = window.button("talents-node-square-locked")
+  Test.expect(gated.box(TREE_LINE).opacity() == 0.7)
+  // The two that none may go to are drawn grey, no other.
+  Test.expect(Test.drawn().filter(d => d.file == TALENT_ICON && d.desaturated).length == 2)
+  // A rank that no longer holds: the red frame, its rank in red.
+  Test.expect(window.button("1").paintedWith("talents-node-square-red"))
+  Test.expect(window.text("1").textColor().equal(Color.hex("#ff2020")))
 }
 
 test "a tree's arrow runs across and then down, cell by cell, gold once the talent it comes from is full" {
@@ -736,7 +764,8 @@ test "the trees stand edge to edge, a dark line between them" {
   Test.mount(nil, PAGE)
   Game.talentTrees.trees = trees
   const window = onSpec("Primary")
-  Test.expect(window.box(TREE_LINE).count() == 1)
+  // The line between the two trees, and the veil over the talent no point may go to.
+  Test.expect(window.box(TREE_LINE).count() == 2)
   window.button(SECOND).click()
   Test.expect(window.box(TREE_LINE).count() == 0)
 }
@@ -758,8 +787,8 @@ test "the talents follow the trees the game reports while the window shows" {
     }
   ]
   Game.talentTrees.changed.emit()
-  Test.expect(window.text("Arms: 5").shown() && window.button("5/5").paintedWith(SWORD))
-  Test.expect(window.text("5/5").textColor().equal(Style.GOLD))
+  Test.expect(window.text("Arms: 5").shown() && window.button("5").paintedWith(SWORD))
+  Test.expect(window.text("5").textColor().equal(Color.hex("#ffd100")))
 }
 
 test "the game is asked for the talents while the window shows, and for no tree on another tab" {
@@ -786,9 +815,9 @@ test "a click on a talent spends a point in it, a right-click takes one back" {
   Game.talentTrees.trees = trees
   const window = onSpec("Primary")
   _ = Test.requests()
-  window.button("2/5").click()
+  window.button("2").click()
   Test.expect(Test.requests().any(r => r == "TalentTrees.spend 10"))
-  window.button("2/5").rightClick()
+  window.button("2").rightClick()
   const asked = Test.requests()
   Test.expect(asked.any(r => r == "TalentTrees.refund 10") && !asked.any(r => r == "TalentTrees.spend 10"))
 }
