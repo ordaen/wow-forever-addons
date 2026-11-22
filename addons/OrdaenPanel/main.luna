@@ -446,7 +446,7 @@ public class Panel implements Module, App {
       </surface>
 
       <Callout $for={by of self.whispersBy} by={by} title={self.whispersCount} side={self.whispersSide}
-               look={WHISPERS_LOOK} />
+               look={WHISPERS_LOOK} pulse={true} />
       <Placed $if={self.freeMicro} id={"OrdaenPanel.micromenu"} title={Locale.PANEL_MICROMENU} home={MICRO_HOME}>
         <box background={Ordaen.art.window.wood} border={Ordaen.art.frame.small} padding={3sp}>
           <MicroLine gold={self.goldIcons} merged={self.spellsMerged} guildMerged={self.guildMerged} face={self.face} icon={self.classIcon} />

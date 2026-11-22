@@ -389,12 +389,15 @@ function surfaceSays(text: String): Boolean {
   return Test.surfaces().any(s => s.texts.any(t => t == text))
 }
 
-test "the whispers Ordaen Social says wait unread are a plain violet bubble with their count over the friends' button" {
+test "the whispers Ordaen Social says wait unread are a blinking violet chat bubble with their count over the friends' button" {
   Game.frames.QuickJoinToastButton = frame("QuickJoinToastButton")
   Test.mount(nil, SCREEN)
   Game.friends.online = 3
+  const fading = Test.pulsing()
   Ordaen.notice("OrdaenSocial", 2)
   Test.expect(surfaceSays("2"))
+  // The bubble and its tail fade in and out together.
+  Test.expect(Test.pulsing() - fading == 2)
   const bubble = Test.page().window("2")
   Test.expect(bubble.box(WHISPER_VIOLET).shown() && !bubble.box(Ordaen.art.window.wood).shown())
   // The cell counts only the friends online; the bubble stands over the friends' button, the panel along the bottom.
