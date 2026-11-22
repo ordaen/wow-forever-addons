@@ -6,7 +6,7 @@
 import { Align, Art, BarFill, Beside, Cursor, Edges, Layer, Line, Position, Side, TextFont, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import {
-  BandCell, Component, Hotkeys, SECONDARY_TEXT, TERM_DASH, TERM_UNDERLINE, TERM_UNDERLINE_HEIGHT, TIGHT_LINE, TITLE_TEXT, termUnderlineAt
+  BandCell, Component, Hotkeys, PROSE_LINE, SECONDARY_TEXT, TERM_DASH, TERM_UNDERLINE, TERM_UNDERLINE_HEIGHT, TIGHT_LINE, TITLE_TEXT, termUnderlineAt
 } from "Ordaen"
 import { GREEN, RED } from "@/colors"
 import Locale from "@/locales"
@@ -71,8 +71,6 @@ public const NO_PAD: Edges = {}
 public const INDENT: Edges = { left: 3.5sp }
 // Where the body turns from rows into sentences or back.
 const SPACED: Edges = { top: 2sp }
-// A description's line: a little more than the body's.
-const SENTENCE_LINE: Number<Spacing> = 7sp
 
 // A line as it is drawn: its texts, their colours, its size, and the room round it.
 public struct Drawn {
@@ -268,7 +266,7 @@ public class Row implements Component {
           </TermText>
         </box>
         <text $elseif={self.line.sentence} value={self.line.left} textColor={self.line.leftColor} textSize={self.line.size}
-              lineHeight={SENTENCE_LINE} />
+              lineHeight={PROSE_LINE} />
         <text $else value={self.line.left} textColor={self.line.leftColor} textSize={self.line.size} />
       </box>
     }
