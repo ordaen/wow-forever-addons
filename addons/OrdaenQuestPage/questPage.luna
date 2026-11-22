@@ -14,9 +14,18 @@ import {
 } from "Ordaen"
 import Locale from "@/locales"
 
-// On the parchment.
+// On the parchment: the body's ink, a section heading's, and the quest's title's, darkest, its strokes thickened by
+// a thin outline.
 public const SCROLL_INK: Color = Color.hex("#160c03")
 public const SCROLL_HEAD: Color = Color.hex("#3a1000")
+const SCROLL_TITLE: Color = Color.hex("#200800")
+const TITLE_OUTLINE = 1
+// The rule each side of a section's heading: the heading's ink, faded.
+const SCROLL_RULE: Color = Color.hex("#3a100080")
+const RULE_HEIGHT: Number<Length> = 1.171875dp
+const HEADING_ACROSS: Array<Track> = [{ fr: 1 }, "max-content", { fr: 1 }]
+// The body's line on the parchment: tighter than the window's, as a written page's.
+public const SCROLL_LINE: Number<Spacing> = 5sp
 // The muted ink: still 6:1 on the tinted parchment (≈#d9bb85), the weakest monitor's least; lighter than the ink.
 public const SCROLL_DIM: Color = Color.hex("#4a3520")
 // In the well.
@@ -237,7 +246,24 @@ class ScrollTitle implements Component {
 
   public render(self): Template {
     return $ltml {
-      <text value={self.title} textColor={SCROLL_HEAD} textSize={TITLE_TEXT} lineHeight={TIGHT_LINE} textFont={.Title} />
+      <text value={self.title} textColor={SCROLL_TITLE} textSize={TITLE_TEXT} lineHeight={TIGHT_LINE} textFont={.Title}
+            textOutline={TITLE_OUTLINE} />
+    }
+  }
+}
+
+// A section's heading on the parchment («Objectives»): its title in the middle of a rule, the rule each side of it.
+public class ScrollHeading implements Component {
+  title: Signal<String>
+  constructor(title: Signal<String>) { self.title = title }
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={HEADING_ACROSS} gap={2sp} yAlign={Align.Center}>
+        <box height={RULE_HEIGHT} background={SCROLL_RULE} />
+        <text value={self.title} textColor={SCROLL_HEAD} textFont={.Title} wrap={.None} />
+        <box height={RULE_HEIGHT} background={SCROLL_RULE} />
+      </box>
     }
   }
 }

@@ -114,7 +114,7 @@ surface 550,192.21 905.76x515.58 on MEDIUM clamped raised by a click
               box 1118.24,318.64 263.33x0
               box 1381.58,318.64 43.33x0
               box 1074.91,326.97 43.33x0
-              text 1118.24,326.97 263.33x20.68 "Elwynn Wolves" #3a1000
+              text 1118.24,326.97 263.33x20.68 "Elwynn Wolves" #200800
             box 1074.91,355.99 350x41.67
               box 1074.91,355.99 41.67x41.67 Interface\AddOns\OrdaenQuestPage\media\scroll-bottom-left
               box 1116.58,355.99 266.67x41.67 Interface\AddOns\OrdaenQuestPage\media\scroll-bottom-middle

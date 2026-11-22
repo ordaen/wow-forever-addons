@@ -2,7 +2,7 @@
 import Test from "$test"
 import { Quality } from "Ordaen"
 import Locale from "@/locales"
-import { Reward, Rewards, SCROLL_ART, SCROLL_ROW, SCROLL_WIDTH, Scroll, Standing } from "@/questPage"
+import { Reward, Rewards, SCROLL_ART, SCROLL_ROW, SCROLL_WIDTH, Scroll, ScrollHeading, Standing } from "@/questPage"
 
 function given(name: String): Reward {
   return {
@@ -81,6 +81,24 @@ test "in a place twice its art's width the scroll fills it, its rolls' ends at t
   const paper = Test.edges(SCROLL_ART.paper.middle, 0)
   const edge = Test.edges(SCROLL_ART.paper.left, 0)
   Test.expect((edge.left - left.left).abs() < 0.5 && paper.left < edge.right && paper.left > edge.left)
+  destroy page
+}
+
+class Heading {
+  public render(self): Template {
+    return $ltml {
+      <box width={400ui}>
+        <ScrollHeading title={"Objectives"} />
+      </box>
+    }
+  }
+}
+
+test "a section's heading on the parchment stands in the middle of its rule, the rule each side of it" {
+  const page = new Heading()
+  Test.mount(page, { left: 0, top: 0, width: 600, height: 600 })
+  const title = Test.page().text("Objectives").rect()
+  Test.expect(((title.left + title.right) / 2 - 200).abs() < 1 && title.left > 50)
   destroy page
 }
 
