@@ -326,7 +326,8 @@ public class Pane implements Component {
               <box $else overflow={Overflow.Hidden} textSize={self.textSize} mouseThrough={self.clickThrough} @wheel={self.onWheel}>
                 <box position={Position.Absolute} left={0ui} right={0ui} bottom={0ui} columns={1} lineHeight={LINE}
                      gap={BETWEEN}>
-                  <Row $for={entry of self.shown} line={entry.line} opens={entry.opens} lineHeight={Ordaen.lengthOf(LINE)}
+                  <Row $for={entry of self.shown} line={entry.line} opens={entry.opens} stamp={entry.stamp}
+                       lineHeight={Ordaen.lengthOf(LINE)}
                        @link={self.onLink} />
                 </box>
               </box>

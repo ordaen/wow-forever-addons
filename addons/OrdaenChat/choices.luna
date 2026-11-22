@@ -19,17 +19,28 @@ public struct ChatSize {
   height: Number
 }
 
+// Where a line's time stamp stands (where the game shows the chat's times): before each line («[12:04] …»), or above
+// the lines, once for every line said in the same minute.
+public enum StampPlace implements Plain { Inline = "inline", Above = "above" }
+
 // A tab's own settings, as the «Tabs» page writes them.
 public struct TabChoices implements Plain {
   // The count of its lines waiting unread, shown on it.
   counter: Boolean
   channelName: ChannelName
+  stamps: StampPlace = .Above
 }
 
+// The game's message group of the guild's lines.
+const GUILD = "GUILD"
+
 // A window's settings until the player sets them: no count on the combat log's tab or on a tab of channels alone,
-// whose lines come all the time; channels by their name.
+// whose lines come all the time; channels by their name; the times above the lines in the tabs of talk (the game's
+// General, the guild's, the channels'), before each line in any other.
 public function tabDefaults(window: Game.ChatWindow): TabChoices {
-  return { counter: !window.combatLog && !channelsOnly(window.index), channelName: .Name }
+  const channels = channelsOnly(window.index)
+  const talk = window.index == 1 || channels || Game.chat.groups(window.index).any(group => group.shown && group.name == GUILD)
+  return { counter: !window.combatLog && !channels, channelName: .Name, stamps: talk && !window.combatLog ? .Above : .Inline }
 }
 
 // A window that shows channels and no message group.

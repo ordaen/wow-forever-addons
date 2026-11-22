@@ -957,15 +957,24 @@ test "with the player's tabs, the lines keep their room, the newest at their foo
   Test.expect(said.bottom - shown.rect().top >= 130)
 }
 
+// A line said at `hour`:`minute` and `second`, where the game shows the chat's times.
+function stamped(body: String, hour: Integer, minute: Integer, second: Integer = 0): mut Game.ChatLine {
+  const said = line("SAY", body, "Thrall", [1])
+  said.stamp = "%d:%02d ".format(hour, minute)
+  said.time = hour * 3600 + minute * 60 + second
+  return said
+}
+
 // The game's line as it gives it: its body, and the same line plain.
-test "a line shows the name bare, no «says:»: the colour tells the kind, the time before it in brackets, muted" {
+test "a line shows the name bare, no «says:»: the colour tells the kind, its time before it in brackets, muted, where its tab says" {
   Game.chat.windows = gameWindows()
-  const shown = chat()
+  _ = chat()
+  // Found by its whisper window's tab: the «Tabs» page lists the windows too, by their names.
+  const shown = Test.page().window("Jaina")
   Game.clock.hours24 = true
-  const said = line("SAY", "|Hplayer:Thrall:7|h[Thrall]|h says: Hello", "Thrall", [1])
+  tabsPage().text("Before each line").click()
+  const said = stamped("|Hplayer:Thrall:7|h[Thrall]|h says: Hello", 12, 4)
   said.plain = "|Hplayer:Thrall:7|hThrall|h: Hello"
-  said.stamp = "12:04 "
-  said.time = 12 * 3600 + 4 * 60
   Game.chat.heard.emit(said)
   Test.expect(shown.text("|cff9d9d9d[12:04]|r |Hplayer:Thrall:7|hThrall|h: Hello").shown())
 }
@@ -974,9 +983,54 @@ test "the chat's times are written by the clock's 24-hour mode, as every time of
   Game.chat.windows = gameWindows()
   const shown = chat()
   Game.clock.hours24 = false
-  const said = line("SAY", "Hello", "Thrall", [1])
-  said.stamp = "15:30 "
-  said.time = 15 * 3600 + 30 * 60
-  Game.chat.heard.emit(said)
-  Test.expect(shown.text("|cff9d9d9d[3:30 PM]|r Hello").shown())
+  Game.chat.heard.emit(stamped("Hello", 15, 30))
+  Test.expect(shown.text("3:30 PM").shown() && shown.text("Hello").shown())
+}
+
+test "General's times stand above its lines, once for the lines of a minute, again as the next minute's first comes" {
+  Game.chat.windows = gameWindows()
+  const shown = chat()
+  Game.clock.hours24 = true
+  Game.chat.heard.emit(stamped("first", 12, 4, 5))
+  Game.chat.heard.emit(stamped("second", 12, 4, 50))
+  Game.chat.heard.emit(stamped("third", 12, 5, 1))
+  Test.expect(shown.text("12:04").count() == 1 && shown.text("12:05").count() == 1)
+  const minute = shown.text("12:04").rect()
+  const first = shown.text("first").rect()
+  const second = shown.text("second").rect()
+  const next = shown.text("12:05").rect()
+  // The time above its minute's first line, at its left; the minute's lines one under another, the next minute's
+  // time between them and its own line.
+  Test.expect(minute.bottom <= first.top && (minute.left - first.left).abs() < 0.5)
+  Test.expect(second.top >= first.bottom && next.top >= second.bottom && shown.text("third").rect().top >= next.bottom)
+  // No line carries its time in brackets.
+  Test.expect(!shown.text("|cff9d9d9d[12:04]|r first").shown())
+}
+
+test "a line without the game's times has no time above it" {
+  Game.chat.windows = gameWindows()
+  const shown = chat()
+  Game.chat.heard.emit(line("SAY", "untimed", "Thrall", [1]))
+  Test.expect(shown.text("untimed").shown() && shown.text(":").count() == 0)
+}
+
+test "a tab of neither General, the guild nor the channels has its times before its lines, until its settings say above" {
+  Game.chat.windows = [window(1, "General", ""), window(4, "Drops", "Kel")]
+  Game.chat.groups = (index: Integer): Array<Game.ChatGroup> => [
+    { name: "SAY", label: "Say", shown: index == 1 },
+    { name: "LOOT", label: "Loot", shown: index == 4 }
+  ]
+  _ = chat()
+  // Found by its tab, named by its partner: the «Tabs» page lists the windows by their names.
+  const shown = Test.page().window("Kel")
+  Game.clock.hours24 = true
+  shown.text("Kel").click()
+  const looted = stamped("You receive loot", 12, 15)
+  looted.windows = [4]
+  Game.chat.heard.emit(looted)
+  Test.expect(shown.text("|cff9d9d9d[12:15]|r You receive loot").shown())
+  const settings = tabsPage()
+  settings.text("Drops").click()
+  settings.text("Above, by minute").click()
+  Test.expect(shown.text("12:15").shown() && shown.text("You receive loot").shown())
 }

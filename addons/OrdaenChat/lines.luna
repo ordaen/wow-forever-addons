@@ -1,12 +1,15 @@
 // The chat's tabs and the lines each holds: a tab is one of the game's chat windows (its whisper windows among them),
 // and a line is what the game's window would show, made once as it is heard.
 import Game from "$game"
-import { ChannelName, TabChoices } from "@/choices"
+import { ChannelName, StampPlace, TabChoices } from "@/choices"
 
-// A line as a tab shows it. `whole` is what is drawn: the time, the channel, the words with their links and «×N».
+// A line as a tab shows it. `whole` is what is drawn after its time: the channel, the words with their links and «×N».
 public struct Shown implements Plain {
   whole: String
   color: Color
+  // Its time is drawn (the game shows the chat's times), where the tab places it. A line kept from before the times
+  // were drawn apart has it in `whole`.
+  stamped: Boolean = false
   // When it was said (seconds since 1970).
   time: Number
   // What tells a repeat: who said it, where, and the words.
@@ -37,11 +40,25 @@ public struct Kept implements Plain {
 // When this session began: the session of every line it hears.
 public const THIS_SESSION: Number = peek Game.clock.server
 
-// A line as a view lays it out: the line, and whether a session's rule stands above it (its session isn't the line's
-// before; the first line, where it isn't this session's).
+// Where a line's time is drawn as a view lays it out: nowhere (not stamped, or above an earlier line of its minute),
+// before it, or above it, opening its minute's lines.
+public enum StampShown { None, Before, Above }
+
+// A line as a view lays it out: the line, whether a session's rule stands above it (its session isn't the line's
+// before; the first line, where it isn't this session's), and where its time is drawn.
 public struct Entry {
   line: Shown
   opens: Boolean
+  stamp: StampShown
+}
+
+// Where a line's time is drawn, given the line before it (nil: none) and the tab's place for times: above, a line
+// opens its minute where the line before it is of another minute or isn't stamped, or a session's rule stands between.
+function stampOf(line: Shown, before: Shown | nil, opens: Boolean, place: StampPlace): StampShown {
+  if (!line.stamped) { return .None }
+  if (place == .Inline) { return .Before }
+  if (before == nil || opens || !before.stamped) { return .Above }
+  return (before.time / 60).floor() != (line.time / 60).floor() ? .Above : .None
 }
 
 // A tab: a window's (`w<n>`).
@@ -64,8 +81,9 @@ public class ChatTab {
   // Lines heard while another tab was open, counted where its settings show the count.
   public state unread = 0
   public state counted = true
-  // How its channels' lines name their channel.
+  // How its channels' lines name their channel; where its lines' times stand.
   public state channelName: ChannelName = .Name
+  public state stamps: StampPlace = .Above
 
   constructor(key: String, title: String) {
     self.key = key
@@ -87,6 +105,7 @@ public class ChatTab {
   public choose(mut self, choices: TabChoices) {
     self.counted = choices.counter
     self.channelName = choices.channelName
+    self.stamps = choices.stamps
     if (!choices.counter) { self.unread = 0 }
   }
 
@@ -138,7 +157,8 @@ public class ChatTab {
     for (at of (1).max(last - count + 1)..last) {
       const line = self.lines[at] ?? panic("inside the lines")
       const before = self.lines[at - 1]
-      shown.push({ line: line, opens: before != nil ? before.session != line.session : line.session != THIS_SESSION })
+      const opens = before != nil ? before.session != line.session : line.session != THIS_SESSION
+      shown.push({ line: line, opens: opens, stamp: stampOf(line, before, opens, self.stamps) })
     }
     return shown
   }

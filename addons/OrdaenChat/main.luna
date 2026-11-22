@@ -11,7 +11,7 @@ import Game from "$game"
 import { Anchored, Event, Point } from "$ltml"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
-import { BODY_TEXT, ButtonPlate, CopyBox, Dialog, Field, Module, Placed, PushButton, Settings, SettingsPage, timeText } from "Ordaen"
+import { BODY_TEXT, ButtonPlate, CopyBox, Dialog, Field, Module, Placed, PushButton, Settings, SettingsPage } from "Ordaen"
 import root Quests from "OrdaenQuests"
 import root Social from "OrdaenSocial"
 import { ChannelName, ChatSize, Choices, LEAST_HEIGHT, LEAST_WIDTH, TabChoices, tabDefaults, tabKey } from "@/choices"
@@ -44,8 +44,6 @@ const DEFAULT_TABS: Array<DefaultTab> = [
 ]
 // The game's General window, which the channels leave for their own tab.
 const GENERAL = 1
-// The time stamp before a line: in brackets, the muted colour.
-const STAMP = "|cff9d9d9d[%s]|r "
 const BUTTON = 90dp
 
 public class Chat implements Module, App {
@@ -192,12 +190,11 @@ public class Chat implements Module, App {
         sender: line.guid
       }
     }
-    // The time where the game shows the chat's times, written as every time of Ordaen's is.
-    const stamp = line.stamp != "" ? STAMP.format(timeText(Game.clock.timeAt(line.time.floor()))) : ""
     const channel = line.channel > 0 ? channelOf(line, channelName) : ""
     const own = line.sender == Game.player.name || line.sender.match("^([^%-]+)") == Game.player.name
     return {
-      whole: `${stamp}${channel}${linked(line.plain)}`, color: line.color, time: line.time,
+      // The time where the game shows the chat's times: drawn where the tab places it.
+      whole: `${channel}${linked(line.plain)}`, color: line.color, time: line.time, stamped: line.stamp != "",
       repeat: `${line.kind}|${line.channel}|${line.sender}|${line.text}`, count: 1,
       marked: line.sender != "" && !own && marks(line.text, peek self.words), session: THIS_SESSION, secret: false,
       sender: line.guid

@@ -1,6 +1,6 @@
 // «Tabs», the chat's page in the settings window: what each of the game's chat windows shows and its own settings,
 // in place of Blizzard's chat settings. The windows in a sidebar, one picked, «New tab» under them; beside it the
-// picked one's name, locked or not, the count of its unread lines, how its channels are named and
+// picked one's name, locked or not, the count of its unread lines, how its channels are named, where its times stand and
 // «Close tab» (not for the game's General and combat log); then what the tab shows, with whether it does (groupRows.luna):
 // «Общие», the kinds of speech; «Каналы», the channels' notices and each channel the character is in; «Сообщества»,
 // each community's stream; «Системы», the game's own messages in sections. Every change applies at once; what a window
@@ -8,7 +8,7 @@
 import Game from "$game"
 import { Align } from "$ltml"
 import { ButtonPlate, Checkbox, Choice, Component, Field, ListTab, PushButton, Section, Segmented, SettingRow, Settings, Switch } from "Ordaen"
-import { ChannelName, Choices, TabChoices, tabDefaults, tabKey } from "@/choices"
+import { ChannelName, Choices, StampPlace, TabChoices, tabDefaults, tabKey } from "@/choices"
 import { COMMUNITIES, GroupRowView, NOTICES, RowPick, RowShown, SectionShown, TALKS, rowGroups, rowsOf, systemsOf } from "@/groupRows"
 import Locale from "@/locales"
 
@@ -20,6 +20,10 @@ const NAMES: Array<Choice<ChannelName>> = [
   { value: ChannelName.Name, label: Locale.CHANNEL_NAME },
   { value: ChannelName.Number, label: Locale.CHANNEL_NUMBER },
   { value: ChannelName.Both, label: Locale.CHANNEL_BOTH }
+]
+const STAMPS: Array<Choice<StampPlace>> = [
+  { value: StampPlace.Inline, label: Locale.STAMPS_INLINE },
+  { value: StampPlace.Above, label: Locale.STAMPS_ABOVE }
 ]
 
 // A community's stream's key among the rows.
@@ -89,6 +93,7 @@ public class TabsPage implements Component {
   state locked = false
   state counter = true
   state channelName: ChannelName = .Name
+  state stamps: StampPlace = .Above
 
   window: mut Signal<Integer>
   settings: mut Settings<Choices>
@@ -102,6 +107,7 @@ public class TabsPage implements Component {
       const own = chosen != nil ? self.choicesOf(chosen) : nil
       self.counter = own?.counter ?? true
       self.channelName = own?.channelName ?? .Name
+      self.stamps = own?.stamps ?? .Above
     }
     watch (locked of self.locked) {
       const chosen = peek self.chosen
@@ -109,6 +115,7 @@ public class TabsPage implements Component {
     }
     watch (counter of self.counter) { self.writeTab() }
     watch (channelName of self.channelName) { self.writeTab() }
+    watch (stamps of self.stamps) { self.writeTab() }
   }
 
   // A window's own settings: the player's, else its defaults.
@@ -120,7 +127,7 @@ public class TabsPage implements Component {
   writeTab(mut self) {
     const chosen = peek self.chosen
     if (chosen == nil) { return }
-    const choices: TabChoices = { counter: peek self.counter, channelName: peek self.channelName }
+    const choices: TabChoices = { counter: peek self.counter, channelName: peek self.channelName, stamps: peek self.stamps }
     if (choices.equal(self.choicesOf(chosen))) { return }
     self.settings.change((values: mut Choices): nil => { values.tabs = withTab(values.tabs, tabKey(chosen.index), choices) })
   }
@@ -191,6 +198,9 @@ public class TabsPage implements Component {
             <Switch label={Locale.TAB_COUNTER} hint={Locale.TAB_COUNTER_TIP} value={mut self.counter} />
             <SettingRow label={Locale.TAB_CHANNEL_NAMES} hint={Locale.TAB_CHANNEL_NAMES_TIP}>
               <Segmented value={mut self.channelName} choices={NAMES} />
+            </SettingRow>
+            <SettingRow label={Locale.TAB_STAMPS} hint={Locale.TAB_STAMPS_TIP}>
+              <Segmented value={mut self.stamps} choices={STAMPS} />
             </SettingRow>
             <PushButton label={Locale.TAB_CLOSE} width={BUTTON} plate={ButtonPlate.Accent} disabled={!self.closable}
                         @click={self.onClose} />
