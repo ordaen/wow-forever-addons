@@ -3,7 +3,7 @@
 // profile's at once. Ordaen's own settings window stands for every window: they keep through the same `Window`.
 // Where it stands is read by its texts, which a reload's window draws anew: its tab's title (its top left) and its
 // footer's «Roll back» (its bottom right).
-import { Art, Key } from "$ltml"
+import { Art, Edges, Key } from "$ltml"
 import Test from "$test"
 import root Ordaen from "Ordaen"
 import { Density } from "@/globals"
@@ -191,30 +191,48 @@ test "a tab that holds the window's height draws it at that height, its grip cha
   Test.expect(near(back.bottom - back.top, free.bottom - free.top) && near(back.top, free.top))
 }
 
-// A window of two tabs, the second's page bare: what each page holds fills it.
-class Bare {
-  state tabs: Array<WindowTabSpec> = [{ title: "Roomy" }, { title: "Bare", bare: true }]
+// A window of two tabs, the second's page with no room round it, the window's own room as given (none: its own):
+// what each page holds fills it.
+class Padded {
+  state tabs: Array<WindowTabSpec> = [{ title: "Roomy" }, { title: "Flush", padding: { top: 0sp, right: 0sp, bottom: 0sp, left: 0sp } }]
   state tab = 1
-  public placing: mut KeptWindow = new KeptWindow("bare", "bare", { x: 0ui, y: 0ui, width: 600ui, height: 400ui })
+  public placing: mut KeptWindow = new KeptWindow("padded", "padded", { x: 0ui, y: 0ui, width: 600ui, height: 400ui })
+  room: Edges | nil
+  constructor(room: Edges | nil) {
+    self.room = room
+  }
 
   public render(self): Template {
     return $ltml {
-      <Window tabs={self.tabs} selected={mut self.tab} declared={mut self.placing}>
+      <Window tabs={self.tabs} selected={mut self.tab} declared={mut self.placing} padding={self.room}>
         <box background={Ordaen.art.panel.xpTrough} />
       </Window>
     }
   }
 }
 
-test "a bare tab's page stands to the body's line, with no room round it" {
-  const page = new Bare()
+test "a tab's padding is the room between the frame's line and its page: none, and the page meets the line" {
+  const page = new Padded(nil)
   Test.mount(page, { left: 0, top: 0, width: 200, height: 100 })
   const roomy = Test.edges(Ordaen.art.panel.xpTrough, 0)
   page.tab = 2
   Test.flush()
-  const bare = Test.edges(Ordaen.art.panel.xpTrough, 0)
-  Test.expect(bare.left < roomy.left - 5 && bare.top < roomy.top - 5)
-  Test.expect(bare.right > roomy.right + 5 && bare.bottom > roomy.bottom + 5)
+  const flush = Test.edges(Ordaen.art.panel.xpTrough, 0)
+  Test.expect(flush.left < roomy.left - 5 && flush.top < roomy.top - 5)
+  Test.expect(flush.right > roomy.right + 5 && flush.bottom > roomy.bottom + 5)
+  // Out by the window's whole room: `WINDOW_ROOM` and its frame's inset (1sp), none left of either.
+  const room = Ordaen.lengthOf(9sp) / 1ui
+  Test.expect(near(roomy.left - flush.left, room) && near(roomy.top - flush.top, room) && near(flush.right - roomy.right, room))
+}
+
+test "a window's padding is its tabs' room from the frame's line, a tab's own going over it" {
+  const page = new Padded({ top: 2sp, right: 2sp, bottom: 2sp, left: 2sp })
+  Test.mount(page, { left: 0, top: 0, width: 200, height: 100 })
+  const given = Test.edges(Ordaen.art.panel.xpTrough, 0)
+  page.tab = 2
+  Test.flush()
+  const flush = Test.edges(Ordaen.art.panel.xpTrough, 0)
+  Test.expect(near(given.left - flush.left, Ordaen.lengthOf(2sp) / 1ui) && near(given.top - flush.top, Ordaen.lengthOf(2sp) / 1ui))
 }
 
 test "the grip stops where the content would be cut, and the window grows again at once" {

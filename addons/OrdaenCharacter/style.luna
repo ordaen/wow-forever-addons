@@ -6,6 +6,9 @@ import { Edges, Fr, Line, Shadow, Side, Track } from "$ltml"
 // The window's body, and the least it is drawn at (a window kept smaller, from an older save, is drawn at this).
 public const WIDTH: Number<Length> = 1500dp
 public const HEIGHT: Number<Length> = 848dp
+// The room between the frame's line and the character page: none, its sections keeping their own and its cuts running
+// to the frame.
+public const PAGE_ROOM: Edges = { top: 0sp, right: 0sp, bottom: 0sp, left: 0sp }
 // The three columns: the bars and defence on the left, the paper doll (the slots' columns and the model between
 // them) in the middle, as wide in any window as its slots and four weapons need and at least `DOLL`, the stats on the
 // right. The two sides share the rest equally, each at least what the stats' main stats, cards and gauges need whole.
@@ -79,8 +82,8 @@ public const TROUGH: Color = Color.hex("#000000a6")
 // own, over the footer's estimate on another's; centred and cut at the column's sides. A veil over it so the slots read;
 // the dark where no scene is. Then the room between the column's edges and the slots drawn over it.
 public const SCENE_ASPECT: Number = 231 / 322
-public const SCENE_HEIGHT: Number<Length> = 761.38dp
-public const SCENE_HEIGHT_INSPECTED: Number<Length> = 769.73dp
+public const SCENE_HEIGHT: Number<Length> = 769.38dp
+public const SCENE_HEIGHT_INSPECTED: Number<Length> = 777.73dp
 public const SCENE_VEIL: Color = Color.hex("#00000059")
 public const MODEL_BACK: Color = Color.hex("#0b0805")
 public const DOLL_ROOM: Number<Spacing> = 6sp
