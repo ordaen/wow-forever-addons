@@ -366,8 +366,8 @@ const LABEL_THEN_SWITCH: Array<Track> = [{ fr: 1 }, "max-content"]
 
 // The picked quest's page, as Dialogue's quest page: on the scroll its title, its story and its task, the lore alone;
 // under it its objectives (each wrapped, its count at the right), the next quest of its chain (QuestieDB's), what it gives, the library's reward
-// rows and band; then its tracking switch and its buttons, Abandon the accent one at the right. Abandoning
-// asks first.
+// rows and band; then its tracking switch, and its buttons (`QuestButtons`) under it where its window has no footer
+// band for them. Abandoning asks first.
 public class QuestPage implements Component {
   public act: Event<(Integer, Act)> = new Event()
 
@@ -378,8 +378,6 @@ public class QuestPage implements Component {
   derived choiceRows: Array<RewardView> = choiceViews(rewardsOf(self.text.choices, true), [])
   derived givenRows: Array<Reward> = rewardsOf(self.text.rewards, false)
   derived standings: Array<Standing> = standingsOf(self.facts?.reputation ?? [])
-  derived combat: Boolean = Game.situation.combat
-  derived mapTip: TipText | nil = mapTipOf(self.combat)
   // Folded as each quest opens where the settings say so; a click unfolds it.
   state folded = false
   derived questId: Integer = self.quest.id
@@ -390,25 +388,27 @@ public class QuestPage implements Component {
   facts: Signal<QuestFacts | nil>
   player: Signal<Integer>
   foldFirst: Signal<Boolean>
+  // Its buttons stand in its window's footer band (`QuestButtons`), not under it.
+  footed: Signal<Boolean>
   constructor(
     quest: Signal<LogQuest>,
     text: Signal<Game.QuestText>,
     facts: Signal<QuestFacts | nil>,
     player: Signal<Integer>,
-    foldFirst: Signal<Boolean> = false
+    foldFirst: Signal<Boolean> = false,
+    footed: Signal<Boolean> = false
   ) {
     self.quest = quest
     self.text = text
     self.facts = facts
     self.player = player
     self.foldFirst = foldFirst
+    self.footed = footed
     watch (id of self.questId) { self.folded = peek self.foldFirst }
   }
 
   onTrack(mut self) { self.act.emit(self.quest.id, Act.Track) }
-  onShare(mut self) { self.act.emit(self.quest.id, Act.Share) }
-  onAbandon(mut self) { self.act.emit(self.quest.id, Act.Abandon) }
-  onMap(mut self) { self.act.emit(self.quest.id, Act.ShowOnMap) }
+  onAct(mut self, id: Integer, act: Act) { self.act.emit(id, act) }
   onNext(mut self, next: Integer) { self.act.emit(next, Act.ShowNext) }
 
   public render(self): Template {
@@ -437,12 +437,40 @@ public class QuestPage implements Component {
           <text value={Locale.TRACK} textColor={WELL_TEXT} />
           <SwitchFace state={self.tracking} />
         </box>
-        <box columns={["max-content", "max-content", { fr: 1 }, "max-content"]} gap={3sp} padding={{ top: BUTTONS_OFF }}>
-          <PushButton label={Locale.SHOW_ON_MAP} width={BUTTON} disabled={self.combat} tip={self.mapTip} @click={self.onMap} />
-          <PushButton label={Locale.SHARE} width={BUTTON} disabled={!self.quest.shareable} @click={self.onShare} />
-          <box />
-          <PushButton label={Locale.ABANDON} width={BUTTON} plate={ButtonPlate.Accent} @click={self.onAbandon} />
+        <box $if={!self.footed} padding={{ top: BUTTONS_OFF }}>
+          <QuestButtons quest={self.quest} @act={self.onAct} />
         </box>
+      </box>
+    }
+  }
+}
+
+// A quest's buttons: «Show on map» (not in a fight), «Share» while the player can share it (in a group, a quest the
+// client lets be shared), and Abandon, the accent one, at the right. In a window's footer band, or under the page where
+// it stands on its own.
+public class QuestButtons implements Component {
+  public act: Event<(Integer, Act)> = new Event()
+
+  derived combat: Boolean = Game.situation.combat
+  derived mapTip: TipText | nil = mapTipOf(self.combat)
+
+  quest: Signal<LogQuest>
+  constructor(quest: Signal<LogQuest>) {
+    self.quest = quest
+  }
+
+  onShare(mut self) { self.act.emit(self.quest.id, Act.Share) }
+  onAbandon(mut self) { self.act.emit(self.quest.id, Act.Abandon) }
+  onMap(mut self) { self.act.emit(self.quest.id, Act.ShowOnMap) }
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={["max-content", "max-content", { fr: 1 }, "max-content"]} gap={3sp} yAlign={Align.Center}>
+        <PushButton label={Locale.SHOW_ON_MAP} width={BUTTON} disabled={self.combat} tip={self.mapTip} @click={self.onMap} />
+        <PushButton $if={self.quest.shareable} label={Locale.SHARE} width={BUTTON} @click={self.onShare} />
+        <box $else />
+        <box />
+        <PushButton label={Locale.ABANDON} width={BUTTON} plate={ButtonPlate.Accent} @click={self.onAbandon} />
       </box>
     }
   }

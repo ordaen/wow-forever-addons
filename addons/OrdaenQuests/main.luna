@@ -16,7 +16,7 @@ import Game from "$game"
 import { Align, Edges, Layer, Place, Point, Track } from "$ltml"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
-import { ARTWORK, ButtonPlate, Choice, CompactDropdown, Dialog, FOOTER_ROOM, FilterButton, FilterGroup, FooterCount, FooterCounts, KeptWindow, Module, ModuleMemory, PushButton, SECONDARY_TEXT, Settings, SettingsPage, Tabs, ToolPick, Toolbar, Window, WindowSide, WindowTabSpec, WindowsPage, playSound, windowsTitle } from "Ordaen"
+import { ARTWORK, ButtonPlate, Choice, CompactDropdown, Dialog, FOOTER_ROOM, FilterButton, FilterGroup, FooterBand, FooterCount, FooterCounts, KeptWindow, Module, ModuleMemory, PushButton, SECONDARY_TEXT, Settings, SettingsPage, Tabs, ToolPick, Toolbar, Window, WindowSide, WindowTabSpec, WindowsPage, playSound, windowsTitle } from "Ordaen"
 import root Maps from "OrdaenMap"
 import type { SidePanel } from "OrdaenMap"
 import { Standing } from "OrdaenQuestPage"
@@ -34,7 +34,7 @@ import { standingsOf } from "@/reputation"
 import { Choices, GeneralPage } from "@/settings"
 import Style from "@/style"
 import { TrackerLines } from "@/tracker"
-import { Act, ChainPage, QuestPage } from "@/view"
+import { Act, ChainPage, QuestButtons, QuestPage } from "@/view"
 
 // The button the game's quest log key clicks: the client binds a key to a button by its name.
 const TOGGLE = "OrdaenQuestsToggle"
@@ -233,6 +233,8 @@ public class Quests implements Module, App {
       Events.QUEST_LOG_UPDATE.listen(self.refresh)
       Events.QUEST_WATCH_LIST_CHANGED.listen(self.refresh)
       Events.ZONE_CHANGED_NEW_AREA.listen(self.refresh)
+      // Whether a quest can be shared follows the player's group.
+      Events.GROUP_ROSTER_UPDATE.listen(self.refresh)
     }
     watch (on of self.ownKey) { Ordaen.afterCombat(() => self.bind()) }
     // The micro menu's button opens the window while the key does.
@@ -372,7 +374,12 @@ public class Quests implements Module, App {
       width: Style.PAGE,
       content: $ltml {
         <QuestPage quest={self.pickedQuest ?? quest} text={self.text} facts={self.pickedFacts} player={self.level}
-                   foldFirst={self.settings.values.foldedScroll} @act={self.onAct} />
+                   foldFirst={self.settings.values.foldedScroll} footed={true} @act={self.onAct} />
+      },
+      footer: $ltml {
+        <FooterBand>
+          <QuestButtons quest={self.pickedQuest ?? quest} @act={self.onAct} />
+        </FooterBand>
       }
     }
   }

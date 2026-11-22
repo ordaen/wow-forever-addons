@@ -229,7 +229,7 @@ test "a quest's page shows its rewards as Dialogue's quest page does: those to c
   Test.expect(window.text("3").shown())
   // Under the scroll: below the quest's objectives, above its buttons.
   Test.expect(window.text("You will be able to choose").rect().top > window.text("Objectives").rect().bottom)
-  Test.expect(window.text("You will also receive").rect().bottom < window.button("Share").rect().top)
+  Test.expect(window.text("You will also receive").rect().bottom < window.button("Abandon").rect().top)
 }
 
 test "many rewards give way to the parchment, which keeps its least height" {
@@ -243,7 +243,7 @@ test "many rewards give way to the parchment, which keeps its least height" {
   const paper = window.text("You will be able to choose").rect().top - window.text("Elwynn Wolves").nth(2).rect().top
   // Without its least height the rewards squeeze the parchment to a line or two (38 here).
   Test.expect(paper > 100)
-  Test.expect(window.button("Share").rect().bottom <= window.rect().bottom)
+  Test.expect(window.button("Abandon").rect().bottom <= window.rect().bottom)
 }
 
 test "past three rewards to choose they stand in two columns, each name whole, the side growing for them" {
@@ -375,7 +375,10 @@ test "the list's rows have no tracking box: a quest is tracked by the page's swi
 }
 
 test "Abandon is the page's accent button and stands at the right, after the others" {
-  opened(standing())
+  const log = standing()
+  log[1] = { pushable: true, ..log[1] ?? panic("the standing log has a first quest") }
+  Test.grouped(true)
+  opened(log)
   const window = Test.page().window("World")
   window.text("The Defias Brotherhood").click()
   const abandon = window.button("Abandon").rect()
@@ -383,6 +386,17 @@ test "Abandon is the page's accent button and stands at the right, after the oth
   Test.expect(abandon.left > share.right + 50 && abandon.top == share.top)
   Test.expect(window.button("Abandon").paintedWith(Ordaen.art.ctl.buttonAccent))
   Test.expect(!window.button("Share").paintedWith(Ordaen.art.ctl.buttonAccent))
+}
+
+test "the page's buttons stand in the window's footer band, across the side from its line to its edge" {
+  opened(standing())
+  const window = Test.page().window("World")
+  window.text("The Defias Brotherhood").click()
+  const band = window.box(Ordaen.art.window.marble).rect()
+  const abandon = window.button("Abandon").rect()
+  const track = window.text("Track").rect()
+  Test.expect(abandon.top > band.top && abandon.bottom < band.bottom && band.top > track.bottom)
+  Test.expect(band.right > abandon.right && band.left < window.button("Show on map").rect().left)
 }
 
 test "a long objective wraps on the page, its count standing at the right of the line" {
@@ -516,11 +530,20 @@ test "in a fight «Show on map» is greyed, opens nothing, and its tip says the 
   Test.expect(Client.WorldMapFrame.IsShown() && Quests.shownOnMap == 101)
 }
 
-test "a quest that can't be shared has its button greyed: a click shares nothing" {
-  opened(standing())
-  Test.page().window("World").text("The Defias Brotherhood").click()
-  Test.page().window("World").button("Share").click()
-  Test.expect(Test.talked().length == 0)
+test "Share shows only while the quest can be shared: alone, or a quest the client keeps, there is none" {
+  const log = standing()
+  log[1] = { pushable: true, ..log[1] ?? panic("the standing log has a first quest") }
+  opened(log)
+  const window = Test.page().window("World")
+  window.text("The Defias Brotherhood").click()
+  Test.expect(!window.button("Share").shown())
+  // Joined to a group: the client says so.
+  Test.grouped(true)
+  Test.event("GROUP_ROSTER_UPDATE")
+  Test.flush()
+  Test.expect(window.button("Share").shown())
+  window.button("Share").click()
+  Test.expect(Test.talked().join(", ").contains("share 101"))
 }
 
 test "Right-click on a quest opens its menu, and «Track» there tracks it" {
