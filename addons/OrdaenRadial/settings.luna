@@ -143,7 +143,7 @@ public class RingsPage implements Component {
   state classTag = ""
   state form = ""
   state modifier = ""
-  state opensAt: OpensAt = OpensAt.Cursor
+  state opensAt: OpensAt = OpensAt.Middle
   state names: WheelNames = WheelNames.Chosen
   state scale: Number = 1
   state remember = false

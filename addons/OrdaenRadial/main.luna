@@ -1,8 +1,9 @@
 // Ordaen Radial: wheels of actions held on a key. Each ring of the player's stands on a key of its own (the client's
-// Key Bindings window lists them under «Ordaen Radial»); held, its wheel opens at the cursor, and the direction the
-// mouse goes picks an item, done as the key is let go, in a fight too (Ordaen's `SecureWheel`). The art (Ordaen's
-// `Wheel`) follows the same choice by the same formula while the wheel is up, and nothing runs while it is closed.
-// Other modules add kinds of items of their own (`kinds`).
+// Key Bindings window lists them under «Ordaen Radial»); held, its wheel is drawn at the screen's middle (or at the
+// cursor, as the ring says), and the direction the mouse goes from where it was as the key went down picks an item,
+// the hand never taken to the wheel first; done as the key is let go, in a fight too (Ordaen's `SecureWheel`). The art
+// (Ordaen's `Wheel`) follows the same choice by the same formula while the wheel is up, and nothing runs while it is
+// closed. Other modules add kinds of items of their own (`kinds`).
 import Client from "$client"
 import Events from "$events"
 import Game from "$game"

@@ -39,7 +39,8 @@ public enum Item implements Plain {
   Kind { kind: String }
 }
 
-// Where a ring opens: at the cursor, or at the screen's middle.
+// Where a ring's wheel is drawn: at the screen's middle (the preset's), or at the cursor. It aims from where the cursor
+// was as it opened either way.
 public enum OpensAt implements Plain { Cursor = "cursor", Middle = "middle" }
 
 public struct Ring implements Plain {

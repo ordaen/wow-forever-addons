@@ -8,7 +8,7 @@ import Locale from "@/locales"
 function ring(counts: Map<String, Integer>, placed: Array<[String, Item]>): Ring {
   const items: Map<String, Item> = {}
   for (pair of placed) { items[pair[1]] = pair[2] }
-  return { opensAt: OpensAt.Cursor, names: WheelNames.Chosen, scale: 1, remember: false, counts: counts, items: items, conditions: {} }
+  return { opensAt: OpensAt.Middle, names: WheelNames.Chosen, scale: 1, remember: false, counts: counts, items: items, conditions: {} }
 }
 
 function line(title: String, text: String, icon: Asset): Item {
