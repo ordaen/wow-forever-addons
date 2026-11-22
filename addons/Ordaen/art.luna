@@ -219,11 +219,11 @@ const MARBLE: Piece = { file: "Interface/FrameGeneral/UI-Background-Marble", wid
 // Ordaen's art: its measures, and its pictures from this addon's `media` and the client.
 public const ARTWORK: OrdaenArt = {
   frame: {
-    small: { nineSlice: FRAME, art: FRAME_ART, width: 3, scale: 0.5, inset: -1.5, reach: REACH, curves: CURVES, lineStart: 10 },
-    tab: { nineSlice: FRAME, art: FRAME_ART, width: 3, scale: 0.5, inset: -1.5, reach: REACH_ROUND, sides: [Side.Top, Side.Left, Side.Right], radius: TAB_CORNERS, curves: CURVES, lineStart: 10 },
-    sideTab: { nineSlice: FRAME, art: FRAME_ART, width: 3, scale: 0.5, inset: -1.5, reach: REACH_ROUND_LEFT, sides: [Side.Top, Side.Left, Side.Bottom], radius: SIDE_TAB_CORNERS, curves: CURVES, lineStart: 10 },
-    tabIconClip: { nineSlice: FRAME, art: FRAME_ART, width: 3, scale: 0.5, inset: -1.5, reach: REACH_ROUND, sides: [], radius: ICON_CORNER, curves: CURVES, lineStart: 10 },
-    tabIconLine: { nineSlice: FRAME, art: FRAME_ART, width: 3, scale: 0.5, inset: -1.5, reach: REACH, sides: [Side.Left], curves: CURVES, lineStart: 10 }
+    small: { drawnFrom: FRAME, art: FRAME_ART, width: 3, scale: 0.5, inset: -1.5, reach: REACH, curves: CURVES, lineStart: 10 },
+    tab: { drawnFrom: FRAME, art: FRAME_ART, width: 3, scale: 0.5, inset: -1.5, reach: REACH_ROUND, sides: [Side.Top, Side.Left, Side.Right], radius: TAB_CORNERS, curves: CURVES, lineStart: 10 },
+    sideTab: { drawnFrom: FRAME, art: FRAME_ART, width: 3, scale: 0.5, inset: -1.5, reach: REACH_ROUND_LEFT, sides: [Side.Top, Side.Left, Side.Bottom], radius: SIDE_TAB_CORNERS, curves: CURVES, lineStart: 10 },
+    tabIconClip: { drawnFrom: FRAME, art: FRAME_ART, width: 3, scale: 0.5, inset: -1.5, reach: REACH_ROUND, sides: [], radius: ICON_CORNER, curves: CURVES, lineStart: 10 },
+    tabIconLine: { drawnFrom: FRAME, art: FRAME_ART, width: 3, scale: 0.5, inset: -1.5, reach: REACH, sides: [Side.Left], curves: CURVES, lineStart: 10 }
   },
   window: { wood: WOOD, marble: MARBLE },
   ctl: {
@@ -314,7 +314,7 @@ public const ARTWORK: OrdaenArt = {
     slotEdge: { width: 1ui, color: Color.hex("#6c5535") },
     xpSteel: { file: "@/media/xp-fill-steel.tga", width: 1024, height: 32, tile: Tile.Across },
     wood: WOOD,
-    edge: { nineSlice: FRAME, art: FRAME_ART, width: 3, scale: 0.5, inset: -1.5, reach: REACH, sides: [Side.Top], curves: CURVES, lineStart: 10 },
+    edge: { drawnFrom: FRAME, art: FRAME_ART, width: 3, scale: 0.5, inset: -1.5, reach: REACH, sides: [Side.Top], curves: CURVES, lineStart: 10 },
     countBadge: { file: "@/media/panel-count-badge.tga", width: 128, height: 64, cap: 32, capHeight: 0.5 },
     // The experience tube, back to front: the trough, the fill, the shine, the ring.
     xpTrough: { file: "@/media/xp-tube-trough.tga", width: 256, height: 64, cap: 64, capHeight: 1 },
