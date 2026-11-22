@@ -1,7 +1,7 @@
 // The character window's look: its size at the player's scale, the paper doll's measures and the colours of what a
 // stat, a slot or a faction says. Every gap and padding is counted in Ordaen's spacing unit (`sp`); a row is as tall as
 // its text.
-import { Edges, Fr, Line, Shadow, Track } from "$ltml"
+import { Edges, Fr, Line, Shadow, Side, Track } from "$ltml"
 
 // The window's body, and the least it is drawn at (a window kept smaller, from an older save, is drawn at this).
 public const WIDTH: Number<Length> = 1500dp
@@ -45,7 +45,13 @@ public const GAUGE_VALUE: Number<Length> = 72dp
 public const SOCKET: Number<Length> = 44dp
 public const GLYPH: Number<Length> = 28dp
 public const SOCKET_FLOOR: Color = Color.hex("#00000073")
-public const SECTION_PAD: Edges = { top: 2.5sp, right: 2.5sp, bottom: 2.5sp, left: 2.5sp }
+// A section's room at its sides (the page is bare: this is all the room between its text and the frame or the doll).
+public const SIDE_ROOM: Number<Spacing> = 6sp
+public const SECTION_PAD: Edges = { top: 2.5sp, right: SIDE_ROOM, bottom: 2.5sp, left: SIDE_ROOM }
+// The sets' strip along the page's top: the sections' room at its sides, and the line its tabs stand on (Ordaen's
+// tabs' own, run to the frame).
+public const SETS_PAD: Edges = { top: 2.5sp, right: SIDE_ROOM, left: SIDE_ROOM }
+public const SETS_LINE: Line = { width: 1.171875dp, color: Color.hex("#3e2f1d"), sides: [Side.Bottom] }
 public const CARDS_PAD: Edges = { bottom: 2sp }
 // A main stat's room and its number's size.
 public const MAIN_PAD: Edges = { top: 2.5sp, bottom: 2.5sp }
@@ -67,12 +73,14 @@ public const BACK: Color = Color.hex("#00000066")
 public const CARD: Color = Color.hex("#0d0907")
 public const PICKED: Color = Color.hex("#ffd10026")
 public const TROUGH: Color = Color.hex("#000000a6")
-// The model's backdrop: the race's scene from the game's dressing room (231 x 322 texels as the client crops it), in
-// grey, from the model's column's top to its bottom, as wide as its proportions make it at the column's height while
-// the character tab holds the window at `HEIGHT`, centred and cut at the column's sides; a veil over it so the slots
-// read; the dark where no scene is. Then the room between the column's edges and the slots drawn over it.
-public const SCENE_HEIGHT: Number<Length> = 814.34dp
-public const SCENE_WIDTH: Number<Length> = SCENE_HEIGHT * 231 / 322
+// The model's backdrop: the race's scene from the game's dressing room (231 x 322 texels as the client crops it, its
+// width to its height), in grey, from the model's column's top to its bottom, as wide as its proportions make it at
+// the column's height while the character tab holds the window at `HEIGHT`: under the sets' strip on the player's
+// own, over the footer's estimate on another's; centred and cut at the column's sides. A veil over it so the slots read;
+// the dark where no scene is. Then the room between the column's edges and the slots drawn over it.
+public const SCENE_ASPECT: Number = 231 / 322
+public const SCENE_HEIGHT: Number<Length> = 761.38dp
+public const SCENE_HEIGHT_INSPECTED: Number<Length> = 769.73dp
 public const SCENE_VEIL: Color = Color.hex("#00000059")
 public const MODEL_BACK: Color = Color.hex("#0b0805")
 public const DOLL_ROOM: Number<Spacing> = 6sp

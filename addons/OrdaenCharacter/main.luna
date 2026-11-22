@@ -73,7 +73,7 @@ public class Character implements Module, App {
     { title: windowsTitle(), content: $ltml { <WindowsPage windows={mut self.windows} /> } }
   ]
 
-  public settings: mut Settings<Choices> = new Settings<Choices>({ itemLevels: true, durability: true })
+  public settings: mut Settings<Choices> = new Settings<Choices>({ durability: true })
   // Where the window reads the character and what its clicks ask of the game.
   public sheet: mut any Sheet = new ClientSheet()
   // Where the inspect window reads the player inspected.

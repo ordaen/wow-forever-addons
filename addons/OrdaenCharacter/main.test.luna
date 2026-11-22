@@ -216,12 +216,12 @@ test "the game's reputation page shown opens ours on «Progression»'s reputatio
 
 // The slots
 
-test "a slot shows what is worn there with its level, and an empty one its well" {
+test "a slot shows what is worn there, no level written on it, and an empty one its well" {
   Test.mount(nil, PAGE)
   Game.items.icon = icons
   const window = opened(new FakeSheet())
-  Test.expect(window.button(HELM_ICON).text("63").shown())
-  Test.expect(window.button(REAPER_ICON).text("58").shown())
+  Test.expect(window.button(HELM_ICON).shown() && !window.text("63").shown())
+  Test.expect(window.button(REAPER_ICON).shown() && !window.text("58").shown())
   Test.expect(window.button(EMPTY_FEET).shown())
 }
 
@@ -234,14 +234,6 @@ test "the items' level is the median of what is worn, its tooltip listing each i
   window.text("60.5").hover()
   const tip = Test.page().window(Locale.ITEM_LEVEL_TIP)
   Test.expect(tip.texts().join(" | ") == `Item level | ${Locale.ITEM_LEVEL_TIP} | Lionheart Helm | 63 | Arcanite Reaper | 58`)
-}
-
-test "a slot's item level is left out where the settings say so" {
-  Test.mount(nil, PAGE)
-  Game.items.icon = icons
-  const window = opened(new FakeSheet())
-  Char.settings.values.itemLevels = false
-  Test.expect(!window.text("63").shown())
 }
 
 // The helm's slot's width against the standard slot's, which the settings then pick.
@@ -858,7 +850,7 @@ test "the settings' talents page names the spec tabs as the player types, writte
   Game.items.icon = icons
   const window = opened(new FakeSheet())
   window.button(Ordaen.art.ctl.corner.gear).click()
-  Test.page().window("Item level on the slots").button("Talents").click()
+  Test.page().window("Durability under the slots").button("Talents").click()
   const settings = Test.page().window("Name of the first spec tab")
   for (i of 1..30) {
     if (Test.keyboard()) { break }
@@ -1188,9 +1180,10 @@ test "the model stands in its race's scene from the game's dressing room, enlarg
   // neither cut at the bottom nor short of it (the veil over it is the column's whole).
   const column = window.box(Style.SCENE_VEIL).nth(2).rect()
   const body = Test.edges(Ordaen.art.window.wood, 0)
-  // The tab is bare: the column runs to the frame's line at the top and the bottom, no window's room between (that
-  // room alone was more than the frame's art is wide).
-  Test.expect(column.top - body.top < 15 && body.bottom - column.bottom < 15)
+  // The tab is bare: the column runs from the sets' strip, under its tabs, to the frame's line at the bottom, no
+  // window's room between (that room alone was more than the frame's art is wide).
+  const sets = window.text("New Set").rect()
+  Test.expect(column.top >= sets.bottom && column.top - sets.bottom < 10 && body.bottom - column.bottom < 15)
   Test.expect(((column.bottom - column.top) / (Style.SCENE_HEIGHT / 1ui) - 1).abs() < 0.01)
 }
 
@@ -1271,6 +1264,14 @@ test "the game's inspect opens ours on the player's character and asks the serve
   window.button(Ordaen.art.ctl.corner.close).click()
   Test.expect(!Test.page().window(INSPECT).shown())
   Test.expect(inspector.heard.join(",") == "ask target,clear")
+}
+
+test "an inspected character's scene is as tall as its doll, with no sets' strip over it and the footer under it" {
+  Test.mount(nil, PAGE)
+  Game.items.icon = icons
+  const window = inspecting(new FakeInspector())
+  const column = window.box(Style.SCENE_VEIL).nth(1).rect()
+  Test.expect(((column.bottom - column.top) / (Style.SCENE_HEIGHT_INSPECTED / 1ui) - 1).abs() < 0.01)
 }
 
 test "with no character of the account of the inspected class, race and level, the stats are what the gear gives, and the footer says so" {

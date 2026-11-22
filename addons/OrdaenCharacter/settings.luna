@@ -36,8 +36,6 @@ public function slotSizeOf(size: SlotSize): Number<Length> {
 
 // What the player chooses.
 public struct Choices implements Plain {
-  // Each slot shows its item's level in its corner.
-  itemLevels: Boolean
   // A thin bar under each slot shows its item's durability.
   durability: Boolean
   slotSize: SlotSize = SlotSize.Sharpest
@@ -54,8 +52,6 @@ public class GeneralPage implements Component {
 
   public render(self): Template {
     return $ltml {
-      <Checkbox label={Locale.SETTING_ITEM_LEVELS} hint={Locale.SETTING_ITEM_LEVELS_TIP}
-                value={mut self.settings.values.itemLevels} />
       <Checkbox label={Locale.SETTING_DURABILITY} hint={Locale.SETTING_DURABILITY_TIP}
                 value={mut self.settings.values.durability} />
       <SettingRow label={Locale.SETTING_SLOT_SIZE} hint={Locale.SETTING_SLOT_SIZE_TIP}>

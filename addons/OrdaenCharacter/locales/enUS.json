@@ -72,8 +72,6 @@
   "PICK_FACTION": "Pick a faction.",
   "SAMPLE": "Sample data: the game's own isn't read yet.",
   "NOTHING_FOUND": "Nothing found.",
-  "SETTING_ITEM_LEVELS": "Item level on the slots",
-  "SETTING_ITEM_LEVELS_TIP": "Each slot shows its item's level in the corner.",
   "SETTING_DURABILITY": "Durability under the slots",
   "SETTING_DURABILITY_TIP": "A thin bar under each slot shows how worn its item is, red below a quarter.",
   "SETTING_SLOT_SIZE": "Slot size",
