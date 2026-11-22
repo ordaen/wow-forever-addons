@@ -587,7 +587,7 @@ test "a spec's tab shows its talent trees, each with the points spent in it" {
   Test.expect(!window.text("Protection: 1").shown())
 }
 
-test "a spec's trees stand on the class's art, out to the window's sides and down to the footer" {
+test "a spec's trees stand on the class's art, out to the window's sides, between the header's and the footer's marble" {
   Test.login({ guid: "Player-1-0001", name: "Regy", surname: "", realm: "Realm", faction: "Alliance", classTag: "WARRIOR" })
   Test.mount(nil, PAGE)
   Game.talentTrees.trees = trees
@@ -597,9 +597,11 @@ test "a spec's trees stand on the class's art, out to the window's sides and dow
   // Under the frame's art at either side, as the client's window draws its trees.
   const reach = Ordaen.art.frame.window.reach
   Test.expect(art.left - body.left <= reach.left + 2 && body.right - art.right <= reach.right + 2)
-  // Down to the footer, its points under the trees with the footer's own room between.
-  const points = window.text("Talent points:").rect()
-  Test.expect(points.top > art.bottom && points.top - art.bottom < 30)
+  // From the header's marble down to the footer's, each a rim between it and the trees.
+  const head = Test.edges(Ordaen.art.window.marble, 0)
+  const foot = Test.painted(Ordaen.art.window.marble, 2)
+  Test.expect((head.bottom - art.top).abs() < 0.5 && foot.y > art.bottom && foot.y - art.bottom < 40)
+  Test.expect(head.left - body.left <= reach.left + 2)
   // In its own proportions: the part of its sheet drawn (a square, 2048 texels a side) is the box's shape, the art
   // (2046 by 1177) cut at its longer sides.
   const drawn = Test.drawn().find(d => d.file == "talent-background-warrior") ?? panic("the class's art")
@@ -706,14 +708,17 @@ test "talents a step of the client's grid apart stand a gap apart, and an arrow'
   Test.expect(head.bottom <= tactical.top + 1 && head.top > deflection.bottom - 0.01)
 }
 
-test "the talents say the points left to spend in each spec" {
+test "the header's right says the points left to spend in the active spec, and offers Activate for the other instead" {
   Test.mount(nil, PAGE)
   Game.talentTrees.trees = trees
   Game.talentTrees.unspent = (group: Integer): Integer => group == 1 ? 3 : 7
   const window = onSpec("Primary")
-  Test.expect(window.text("Talent points:").shown() && window.text("3").shown())
+  Test.expect(window.text("Talent points:").shown() && window.text("3").shown() && !window.button("Activate").shown())
+  const points = window.text("3").rect()
+  const search = window.text("Search talents").rect()
+  Test.expect((points.top + points.bottom - search.top - search.bottom).abs() < 30)
   window.button(SECOND).click()
-  Test.expect(window.text("7").shown())
+  Test.expect(window.button("Activate").shown() && !window.text("Talent points:").shown())
 }
 
 test "the footer says the trainer's price for a reset once the trainer offered one, and keeps it" {
@@ -727,13 +732,13 @@ test "the footer says the trainer's price for a reset once the trainer offered o
   Test.expect(load<KeptWipe>(.Character, "talentWipe", KeptWipe {}).cost == 50000)
 }
 
-test "the trees stand edge to edge, a dark line between them and along their top and bottom" {
+test "the trees stand edge to edge, a dark line between them" {
   Test.mount(nil, PAGE)
   Game.talentTrees.trees = trees
   const window = onSpec("Primary")
-  Test.expect(window.box(TREE_LINE).count() == 3)
+  Test.expect(window.box(TREE_LINE).count() == 1)
   window.button(SECOND).click()
-  Test.expect(window.box(TREE_LINE).count() == 2)
+  Test.expect(window.box(TREE_LINE).count() == 0)
 }
 
 test "a spec with no trees says the talents are not available" {
@@ -788,25 +793,28 @@ test "a click on a talent spends a point in it, a right-click takes one back" {
   Test.expect(asked.any(r => r == "TalentTrees.refund 10") && !asked.any(r => r == "TalentTrees.spend 10"))
 }
 
-test "with points staged, Apply changes stands out and applies them, Cancel changes takes them back" {
+test "with points staged, Apply stands out and applies them, Cancel takes them back, each its own width at the footer's ends" {
   Test.mount(nil, PAGE)
   Game.talentTrees.trees = trees
   Game.talentTrees.staged = (): Boolean => true
   const window = onSpec("Primary")
-  Test.expect(window.button("Apply changes").paintedWith(Ordaen.art.ctl.buttonAccent))
-  Test.expect(!window.button("Cancel changes").paintedWith(Ordaen.art.ctl.buttonAccent))
+  Test.expect(window.button("Apply").paintedWith(Ordaen.art.ctl.buttonAccent))
+  Test.expect(!window.button("Cancel").paintedWith(Ordaen.art.ctl.buttonAccent))
+  const apply = window.button("Apply").rect()
+  const cancel = window.button("Cancel").rect()
+  Test.expect((apply.right - apply.left - (cancel.right - cancel.left)).abs() < 0.5 && cancel.right < apply.left - 200)
   _ = Test.requests()
-  window.button("Apply changes").click()
+  window.button("Apply").click()
   Test.expect(Test.requests().any(r => r == "TalentTrees.commit"))
-  window.button("Cancel changes").click()
+  window.button("Cancel").click()
   Test.expect(Test.requests().any(r => r == "TalentTrees.rollback"))
 }
 
-test "with no points staged, Apply changes and Cancel changes aren't shown" {
+test "with no points staged, Apply and Cancel aren't shown" {
   Test.mount(nil, PAGE)
   Game.talentTrees.trees = trees
   const window = onSpec("Primary")
-  Test.expect(!window.button("Apply changes").shown() && !window.button("Cancel changes").shown())
+  Test.expect(!window.button("Apply").shown() && !window.button("Cancel").shown())
 }
 
 // The game's spells window, opened on its talents page by the game's talent button, as the game's side reports it.

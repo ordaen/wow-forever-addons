@@ -1,13 +1,14 @@
-// A spec's tab: the talents' search on the left of the top row, «Activate» on its right for the spec that isn't
-// active; under it, a gap below, the spec's trees on the class's own art (the client's `talent-background-<class>`),
-// edge to edge out to the window's sides and down to the footer, a thin dark line between them and along their top and
-// bottom; the footer, with «Cancel changes» on its left and «Apply changes» on its right while points wait to be
-// applied, and in its centre the points left with the class trainer's price for a reset under them (from the trainer's
+// A spec's tab: the header on the game's marble, a rim along its foot, the talents' search on its left and on its right
+// the points left for the active spec or «Activate» for the other; under it the spec's trees on the class's own art
+// (the client's `talent-background-<class>`), edge to edge out to the window's sides, a thin dark line between them;
+// the footer on the marble, a rim along its top, with «Cancel» on its left and «Apply» on its right while points wait
+// to be applied, each as wide as its label, and in its centre the class trainer's price for a reset (from the trainer's
 // last offer, `CONFIRM_TALENT_WIPE`, kept per character; hidden until the first). Each node is drawn where the client
 // puts it, Left-click spending a point in it and Right-click taking back one not applied yet; what a node may do is the
 // client's to say (`canSpend`, `canRefund`), the page only asks.
 import Game from "$game"
-import { Align, Edges, Position, Track } from "$ltml"
+import { Align, Edges, Line, Position, Side, Track } from "$ltml"
+import root Ordaen from "Ordaen"
 import { ButtonPlate, Component, Money, PushButton, SECONDARY_TEXT, TalentTreeView, Tip, Toolbar } from "Ordaen"
 import Locale from "@/locales"
 import Style from "@/style"
@@ -17,15 +18,18 @@ const PAGE: Array<Track> = ["max-content", { fr: 1 }, "max-content"]
 const FOOT: Array<Track> = [{ fr: 1 }, "max-content", { fr: 1 }]
 const SEARCH_WIDTH: Number<Length> = 281.25dp
 const TOP: Array<Track> = [SEARCH_WIDTH, { fr: 1 }, "max-content"]
-const ACTIVATE_WIDTH: Number<Length> = 175.78125dp
-const CHANGES_WIDTH: Number<Length> = 234.375dp
+// The page's buttons, each as wide as the longest of their labels needs.
+const BUTTON_WIDTH: Number<Length> = 175.78125dp
 // The trees' lines: dark, a faint light beside each, as the game's own window draws them.
 const LINE: Number<Length> = 1.171875dp
 const LINE_COLOR: Color = Color.hex("#000000")
 const LINE_LIGHT: Color = Color.hex("#d6a56b2e")
-// The top row's and the footer's room from the window's frame; the trees have none at the sides.
-const TOP_ROOM: Edges = { top: 3sp, right: Style.SIDE_ROOM, left: Style.SIDE_ROOM }
-const FOOT_ROOM: Edges = { right: Style.SIDE_ROOM, bottom: 3sp, left: Style.SIDE_ROOM }
+// The header and the footer reach the window's sides on the marble; what they hold stands in by the window's room at
+// the sides and a narrow band above and below it, a rim between the marble and the trees.
+const BAND_ROOM: Edges = { top: 2sp, right: Style.SIDE_ROOM, bottom: 2sp, left: Style.SIDE_ROOM }
+const RIM_COLOR: Color = Color.hex("#3e2f1d")
+const HEAD_RIM: Line = { width: LINE, color: RIM_COLOR, sides: [Side.Bottom] }
+const FOOT_RIM: Line = { width: LINE, color: RIM_COLOR, sides: [Side.Top] }
 // The class's art under its three trees, as the client's talents window draws it.
 const ARTS: Map<String, Atlas> = {
   DRUID: "talent-background-druid", HUNTER: "talent-background-hunter", MAGE: "talent-background-mage",
@@ -70,17 +74,33 @@ class TreeColumn implements Component {
   }
 }
 
-// The footer's centre: the points left, and under them the trainer's price for a reset, its Tip saying where it is from.
+// The header's right: the points left to spend.
 class PointsLeft implements Component {
-  state hovered = false
   derived points: String = "%d".format(self.unspent)
+
+  unspent: Signal<Integer>
+  constructor(unspent: Signal<Integer>) {
+    self.unspent = unspent
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={["max-content", "max-content"]} gap={1.5sp} yAlign={Align.Center}>
+        <text value={Locale.TALENT_POINTS} textColor={Style.INK} wrap={.None} />
+        <text value={self.points} textSize={POINTS_TEXT} textColor={WHITE} wrap={.None} />
+      </box>
+    }
+  }
+}
+
+// The footer's centre: the trainer's price for a reset, its Tip saying where it is from.
+class WipePrice implements Component {
+  state hovered = false
   derived priced: Boolean = self.wipeCost > 0
   derived tipShown: Boolean = self.hovered && self.priced
 
-  unspent: Signal<Integer>
   wipeCost: Signal<Integer>
-  constructor(unspent: Signal<Integer>, wipeCost: Signal<Integer>) {
-    self.unspent = unspent
+  constructor(wipeCost: Signal<Integer>) {
     self.wipeCost = wipeCost
   }
 
@@ -89,17 +109,11 @@ class PointsLeft implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box xAlign={Align.Center} gap={0.5sp}>
-        <box columns={["max-content", "max-content"]} gap={1.5sp} yAlign={Align.Center}>
-          <text value={Locale.TALENT_POINTS} textColor={Style.INK} wrap={.None} />
-          <text value={self.points} textSize={POINTS_TEXT} textColor={WHITE} wrap={.None} />
-        </box>
-        <box $if={self.priced} columns={["max-content", "max-content"]} gap={1sp} yAlign={Align.Center}
-             @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
-          <text value={Locale.TRAINER_RESET} textSize={SECONDARY_TEXT} textColor={Style.DIM} wrap={.None} />
-          <Money amount={self.wipeCost} color={WHITE} textSize={SECONDARY_TEXT} />
-          <Tip $if={self.tipShown} title={Locale.TRAINER_RESET_TITLE} text={Locale.TRAINER_RESET_TIP} />
-        </box>
+      <box $if={self.priced} columns={["max-content", "max-content"]} gap={1sp} yAlign={Align.Center}
+           @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
+        <text value={Locale.TRAINER_RESET} textSize={SECONDARY_TEXT} textColor={Style.DIM} wrap={.None} />
+        <Money amount={self.wipeCost} color={WHITE} textSize={SECONDARY_TEXT} />
+        <Tip $if={self.tipShown} title={Locale.TRAINER_RESET_TITLE} text={Locale.TRAINER_RESET_TIP} />
       </box>
     }
   }
@@ -152,11 +166,13 @@ public class TalentsPage implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box rows={PAGE} gap={4sp}>
-        <box columns={TOP} gap={2.5sp} yAlign={Align.Center} padding={TOP_ROOM}>
+      <box rows={PAGE}>
+        <box columns={TOP} gap={2.5sp} yAlign={Align.Center} padding={BAND_ROOM} border={HEAD_RIM}
+             background={Ordaen.art.window.marble}>
           <Toolbar search={mut self.search} placeholder={Locale.SEARCH_TALENTS} />
           <box />
-          <PushButton $if={self.inactive} label={Locale.ACTIVATE} width={ACTIVATE_WIDTH} @click={self.onActivate} />
+          <PushButton $if={self.inactive} label={Locale.ACTIVATE} width={BUTTON_WIDTH} @click={self.onActivate} />
+          <PointsLeft $else unspent={self.unspent} />
         </box>
         <box $if={self.empty} xAlign={Align.Center} yAlign={Align.Center}>
           <text value={Locale.NO_TALENTS} textColor={Style.DIM} />
@@ -164,17 +180,15 @@ public class TalentsPage implements Component {
         <box $else columns={TREES} yAlign={Align.Stretch} background={self.art} cover={true}>
           <TreeColumn $for={place, tree of self.trees} $key={tree.id} tree={tree} place={place} search={self.search}
                       @spend={self.onSpend} @refund={self.onRefund} />
-          <box position={Position.Absolute} left={0ui} right={0ui} top={0ui} height={LINE} background={LINE_COLOR} />
-          <box position={Position.Absolute} left={0ui} right={0ui} bottom={0ui} height={LINE} background={LINE_COLOR} />
         </box>
-        <box columns={FOOT} gap={2.5sp} yAlign={Align.Center} padding={FOOT_ROOM}>
-          <box>
-            <PushButton $if={self.waiting} label={Locale.CANCEL_CHANGES} width={CHANGES_WIDTH} @click={self.onCancel} />
+        <box columns={FOOT} gap={2.5sp} yAlign={Align.Center} padding={BAND_ROOM} border={FOOT_RIM}
+             background={Ordaen.art.window.marble}>
+          <box xAlign={Align.Start}>
+            <PushButton $if={self.waiting} label={Locale.CANCEL} width={BUTTON_WIDTH} @click={self.onCancel} />
           </box>
-          <PointsLeft unspent={self.unspent} wipeCost={self.wipeCost} />
+          <WipePrice wipeCost={self.wipeCost} />
           <box xAlign={Align.End}>
-            <PushButton $if={self.waiting} label={Locale.APPLY_CHANGES} width={CHANGES_WIDTH} plate={ButtonPlate.Accent}
-                        @click={self.onApply} />
+            <PushButton $if={self.waiting} label={Locale.APPLY} width={BUTTON_WIDTH} plate={ButtonPlate.Accent} @click={self.onApply} />
           </box>
         </box>
       </box>
