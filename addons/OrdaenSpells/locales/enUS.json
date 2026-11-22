@@ -1,7 +1,6 @@
 {
   "TAB_SPELLS": "Spells",
   "TAB_TRAINER": "Trainer",
-  "TAB_ALL": "All",
   "SEARCH": "Search",
   "FILTER": "Filter",
   "SORT": "Sort",
@@ -34,5 +33,9 @@
   "COUNT_PASSIVE": "Passive spells",
   "SPELL_LEVEL": "Lvl %d",
   "GROUP_ACTIVE": "Active",
-  "GROUP_PASSIVE": "Passive"
+  "GROUP_PASSIVE": "Passive",
+  "GROUPING": "Group",
+  "BY_TYPE": "By type",
+  "BY_SPEC": "By spec",
+  "SPELL_RANK": "Rank %d"
 }

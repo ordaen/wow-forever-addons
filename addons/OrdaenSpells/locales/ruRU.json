@@ -1,7 +1,6 @@
 {
   "TAB_SPELLS": "Заклинания",
   "TAB_TRAINER": "Учитель",
-  "TAB_ALL": "Все",
   "SEARCH": "Поиск",
   "FILTER": "Фильтр",
   "SORT": "Сортировка",
@@ -34,5 +33,9 @@
   "COUNT_PASSIVE": "Пассивных",
   "SPELL_LEVEL": "Ур. %d",
   "GROUP_ACTIVE": "Активные",
-  "GROUP_PASSIVE": "Пассивные"
+  "GROUP_PASSIVE": "Пассивные",
+  "GROUPING": "Группировка",
+  "BY_TYPE": "По типу",
+  "BY_SPEC": "По специализации",
+  "SPELL_RANK": "Ранг %d"
 }

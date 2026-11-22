@@ -1,13 +1,16 @@
-// «Spells»: the player's spells in tabs, «All» and one per skill line of the spellbook, each with the search, the
-// sort, the filter (active or passive spells) and the view: under two headings, the active spells and the passive ones,
-// each in as many columns as the page's width holds; or a table whose headings sort. Under each name its rank and the
-// level it is learned at, and on «All» its skill line first, a bullet between each. A spell that isn't passive is dragged out onto the action
-// bars: the drag puts it on the client's cursor, and the bars take what the cursor holds.
+// «Spells»: the player's spells with the search, the grouping, the sort, the filter (active or passive spells) and the
+// view: in groups under their headings, each in as many columns as the page's width holds, or a table whose headings
+// sort. The groups are by type (the active spells, then the passive ones; the default) or by spec (a group for each
+// skill line); the pet's spells stand last, under its book. Under each name what its group doesn't say (by type its
+// skill line, by spec whether it is passive), its rank and the level it is learned at, a bullet between each. A spell
+// that isn't passive is dragged out onto the action bars: the drag puts it on the client's cursor, and the bars take
+// what the cursor holds.
 import Client from "$client"
 import Game from "$game"
 import { Action, Align, BarFill, ByInteractionState, Columns, Event, FillDuration, FillFrom, MouseButton, Overflow, Position, Track } from "$ltml"
+import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
-import { ARTWORK, Choice, Column, Component, Corner, FooterBand, FooterCount, FooterCounts, ItemButton, Marker, ModuleMemory, SECONDARY_TEXT, Section, TIGHT_LINE, Table, TableRow, Tabs, ToolPick, Toolbar, tracksOf } from "Ordaen"
+import { ARTWORK, Choice, Column, Component, Corner, FooterBand, FooterCount, FooterCounts, ItemButton, Marker, ModuleMemory, SECONDARY_TEXT, Section, TIGHT_LINE, Table, TableRow, ToolPick, Toolbar, tracksOf } from "Ordaen"
 import Locale from "@/locales"
 import Style from "@/style"
 
@@ -17,7 +20,10 @@ public enum Kinds implements Plain { All = "all", Active = "active", Passive = "
 
 public enum BookLayout implements Plain { Columns = "columns", Table = "table" }
 
-// How the player left the spellbook's list: its sort, the spells it shows and its view; the table's sort is its
+// How the columns stand the spells: by type (active, passive) or by spec (each skill line).
+public enum Grouping implements Plain { Type = "type", Spec = "spec" }
+
+// How the player left the spellbook's list: its sort, the spells it shows, its view and its grouping; the table's sort is its
 // headings' (the column, from 1, and whether turned round).
 public struct BookView implements Plain {
   sort: SortBy = SortBy.Name
@@ -25,6 +31,7 @@ public struct BookView implements Plain {
   layout: BookLayout = BookLayout.Columns
   heading: Integer = 1
   descending: Boolean = false
+  grouping: Grouping = Grouping.Type
 }
 const BOOK_VIEW: BookView = {}
 
@@ -32,8 +39,8 @@ const SORTS: Array<Choice<SortBy>> = [
   { value: SortBy.Name, label: Locale.SORT_NAME },
   { value: SortBy.Level, label: Locale.SORT_LEVEL }
 ]
-// «All» sorts by skill line too; on a line's own tab that would order nothing.
-const ALL_SORTS: Array<Choice<SortBy>> = [
+// By type the spells sort by skill line too; by spec the line is the group's.
+const TYPE_SORTS: Array<Choice<SortBy>> = [
   { value: SortBy.Name, label: Locale.SORT_NAME },
   { value: SortBy.Level, label: Locale.SORT_LEVEL },
   { value: SortBy.Line, label: Locale.SORT_LINE }
@@ -42,6 +49,10 @@ const KINDS: Array<Choice<Kinds>> = [
   { value: Kinds.All, label: Locale.SHOW_ALL },
   { value: Kinds.Active, label: Locale.SHOW_ACTIVE },
   { value: Kinds.Passive, label: Locale.SHOW_PASSIVE }
+]
+const GROUPINGS: Array<Choice<Grouping>> = [
+  { value: Grouping.Type, label: Locale.BY_TYPE },
+  { value: Grouping.Spec, label: Locale.BY_SPEC }
 ]
 const LAYOUTS: Array<Choice<BookLayout>> = [
   { value: BookLayout.Columns, label: Locale.VIEW_COLUMNS, icon: ARTWORK.ctl.tool.columns },
@@ -63,9 +74,12 @@ const COLUMN: Number<Length> = 337.5dp
 const SPELL_COLUMNS: Columns = { autoFit: COLUMN }
 const ACROSS: Number<Spacing> = 3.5sp
 const DOWN: Number<Spacing> = 1.5sp
-// The room between the active spells' group and the passive ones'.
+// The room between two groups, and between a row's name and the line under it.
 const GROUPS_APART: Number<Spacing> = 6sp
-const ROW: Array<Track> = [37.5dp, { fr: 1 }]
+const LINES_APART: Number<Spacing> = 1sp
+// A spell's slot in the columns: larger than the table's, as the game's book draws it.
+const SLOT = 46.875dp
+const ROW: Array<Track> = [SLOT, { fr: 1 }]
 const CELL: Array<Track> = [23.4375dp, { fr: 1 }]
 const CLEAR: Color = Color.hex("#00000000")
 const HOVER: Color = Color.hex("#ffffff0d")
@@ -78,7 +92,7 @@ const DIMMED: Color = Color.hex("#0000004d")
 const AUTOCAST: Array<Marker> = [{ corner: Corner.TopRight, color: Color.hex("#ffd100") }]
 // What stands between the parts of what a spell's row says under its name.
 const BULLET = " • "
-const PAGE: Array<Track> = ["max-content", "max-content", { fr: 1 }]
+const PAGE: Array<Track> = ["max-content", { fr: 1 }]
 
 // Whether the spell stands before another in the sort's order; equal ones by name.
 function before(a: Game.SpellEntry, b: Game.SpellEntry, by: SortBy): Boolean {
@@ -184,29 +198,24 @@ function castName(spell: Game.SpellEntry): String {
   return spell.rank == "" ? spell.name : "%s(%s)".format(spell.name, spell.rank)
 }
 
-// What a spell's row says under its name, a bullet between each: on «All» its skill line, its rank where it has one
-// («Rank 2», «Racial»), and the level it is learned at. Its kind is the group it stands in.
-function detailOf(spell: Game.SpellEntry, lines: Array<Game.SpellLine>, all: Boolean): String {
-  const parts: Array<String> = []
-  if (all) { parts.push(lineName(lines, spell.line)) }
-  if (spell.rank != "") { parts.push(spell.rank) }
-  parts.push(Locale.SPELL_LEVEL.format(spell.level))
-  return parts.join(BULLET)
+// A spell's rank as the book says it, where it says one: «Rank 2» for a rank by its number (the client's ruRU says
+// «Уровень 2», which reads as a level beside it), a word as the client gives it («Racial»); none where the client's word
+// is «Passive», which the spell's kind already says.
+function rankOf(spell: Game.SpellEntry): String | nil {
+  if (spell.rank == "" || spell.rank == Runtime.text("SPELL_PASSIVE")) { return nil }
+  const number = spell.rank.match("(%d+)")?.toNumber()
+  return number == nil ? spell.rank : Locale.SPELL_RANK.format(number.floor())
 }
 
-// A spell in the columns: its slot, its name, and what `detailOf` says under it.
+// A spell's row: its slot, its name, and under it what its group doesn't say, a bullet between each.
 public class SpellRow implements Component {
   derived ink: Color = self.spell.learned ? Style.INK : Style.DIM
-  derived detail: String = detailOf(self.spell, self.lines, self.all)
 
   spell: Signal<Game.SpellEntry>
-  lines: Signal<Array<Game.SpellLine>>
-  // Whether it stands on «All», where its skill line is named.
-  all: Signal<Boolean>
-  constructor(spell: Signal<Game.SpellEntry>, lines: Signal<Array<Game.SpellLine>>, all: Signal<Boolean>) {
+  detail: Signal<String>
+  constructor(spell: Signal<Game.SpellEntry>, detail: Signal<String>) {
     self.spell = spell
-    self.lines = lines
-    self.all = all
+    self.detail = detail
   }
 
   onGrab(self) { pickUp(self.spell) }
@@ -215,8 +224,8 @@ public class SpellRow implements Component {
     return $ltml {
       <box columns={ROW} gap={2.5sp} yAlign={Align.Center} padding={{ top: 1sp, bottom: 1sp, left: 1.5sp, right: 1.5sp }}
            background={GROUND} @dragStart={self.onGrab}>
-        <SpellSlot spell={self.spell} size={37.5dp} />
-        <box columns={1}>
+        <SpellSlot spell={self.spell} size={SLOT} />
+        <box columns={1} gap={LINES_APART}>
           <text value={self.spell.name} textColor={self.ink} lineHeight={TIGHT_LINE} />
           <text value={self.detail} textSize={SECONDARY_TEXT} textColor={Style.DIM} lineHeight={TIGHT_LINE} />
         </box>
@@ -225,20 +234,20 @@ public class SpellRow implements Component {
   }
 }
 
-// A spell's row of the table: its icon and name, its skill line, its kind and its level; dragged out as a row of
-// the columns is.
+// A spell's row of the table: its icon and name with its rank, its skill line (a pet's: its book), its kind and its
+// level; dragged out as a row of the columns is.
 public class SpellTableRow implements Component {
-  derived title: String = self.spell.rank == "" ? self.spell.name : "%s (%s)".format(self.spell.name, self.spell.rank)
+  derived rank: String | nil = rankOf(self.spell)
+  derived title: String = self.rank == nil ? self.spell.name : "%s (%s)".format(self.spell.name, self.rank ?? "")
   derived kind: String = self.spell.passive ? Locale.PASSIVE : Locale.ACTIVE
-  derived line: String = lineName(self.lines, self.spell.line)
   derived level: String = String.of(self.spell.level)
   derived ink: Color = self.spell.learned ? Style.INK : Style.DIM
 
   spell: Signal<Game.SpellEntry>
-  lines: Signal<Array<Game.SpellLine>>
-  constructor(spell: Signal<Game.SpellEntry>, lines: Signal<Array<Game.SpellLine>>) {
+  line: Signal<String>
+  constructor(spell: Signal<Game.SpellEntry>, line: Signal<String>) {
     self.spell = spell
-    self.lines = lines
+    self.line = line
   }
 
   onGrab(self) { pickUp(self.spell) }
@@ -260,42 +269,30 @@ public class SpellTableRow implements Component {
   }
 }
 
-// The spells of one kind, under its heading in the columns.
+// The spells under one heading in the columns.
 struct SpellGroup {
   title: String
   spells: Array<Game.SpellEntry>
 }
 
-// The columns' groups: the active spells, then the passive ones, each in the order given; a kind with none has no
-// heading.
-function groupsOf(spells: Array<Game.SpellEntry>): Array<SpellGroup> {
-  const groups: Array<SpellGroup> = []
-  const active = spells.filter(spell => !spell.passive)
-  const passive = spells.filter(spell => spell.passive)
-  if (active.length > 0) { groups.push({ title: Locale.GROUP_ACTIVE, spells: active }) }
-  if (passive.length > 0) { groups.push({ title: Locale.GROUP_PASSIVE, spells: passive }) }
-  return groups
+// The columns' sort: by name where the one kept orders nothing there (the kind is the groups' by type; the skill line
+// is the groups' by spec), as a sort kept from before may be.
+function columnSort(sort: SortBy, grouping: Grouping): SortBy {
+  return sort == SortBy.Active || (sort == SortBy.Line && grouping == Grouping.Spec) ? SortBy.Name : sort
 }
 
-// The columns' sort: by name where the one kept orders nothing there (the kind is the groups', a skill line's tab holds
-// one line), as a sort kept from before may be.
-function columnSort(sort: SortBy, all: Boolean): SortBy {
-  return sort == SortBy.Active || (sort == SortBy.Line && !all) ? SortBy.Name : sort
-}
-
-// The spellbook's page: its body (the tabs, the toolbar and the spells) for the window's content, and its footer (the
-// counts) for the window's footer row, a band across the window's main section.
+// The spellbook's page: its body (the toolbar and the spells, under the headings of the grouping picked, or as a
+// table) for the window's content, and its footer (the counts) for the window's footer row, a band across it.
 public class SpellbookPage {
-  state tab = 1
   state search = ""
   // How the player left the list, the profile's (`ModuleMemory`); the search isn't kept.
   public list: mut ModuleMemory<BookView> = new ModuleMemory<BookView>(BOOK_VIEW, .Profile, "book")
-  derived names: Array<String> = self.namesOf()
   derived shown: Array<Game.SpellEntry> = self.shownOf()
   derived empty: Boolean = self.shown.length == 0
-  derived groups: Array<SpellGroup> = groupsOf(self.shown)
-  derived all: Boolean = self.tab == 1
+  derived grouping: Grouping = self.list.values.grouping
+  derived groups: Array<SpellGroup> = self.groupsOf()
   derived tabled: Boolean = self.list.values.layout == BookLayout.Table
+  derived byType: Boolean = self.grouping == Grouping.Type
   derived narrowed: Boolean = self.list.values.kinds != Kinds.All
   // The footer: how many spells the list shows, and of them how many are active and passive.
   derived counts: Array<FooterCount> = [
@@ -304,12 +301,10 @@ public class SpellbookPage {
     { label: Locale.COUNT_PASSIVE, value: String.of(self.shown.count(spell => spell.passive)) }
   ]
 
-  // The pet's book: its own tab, last, named by the pet's kind, while the player has a pet with spells.
-  derived petTab: Integer = self.petBook == nil ? 0 : self.lines.length + 2
-
   spells: Signal<Array<Game.SpellEntry>>
   lines: Signal<Array<Game.SpellLine>>
   pets: Signal<Array<Game.SpellEntry>>
+  // The pet's book, named by the pet's kind, while the player has a pet with spells.
   petBook: Signal<String | nil>
   constructor(
     spells: Signal<Array<Game.SpellEntry>>,
@@ -323,30 +318,33 @@ public class SpellbookPage {
     self.petBook = petBook
   }
 
-  namesOf(self): Array<String> {
-    const list: Array<String> = [Locale.TAB_ALL]
-    for (line of self.lines) { list.push(line.name) }
-    const pet = self.petBook
-    if (pet != nil) { list.push(pet) }
-    return list
+  // The skill line a spell stands on, by its name; a pet's spell's, the pet's book.
+  lineOf(self, spell: Game.SpellEntry): String {
+    return spell.pet ? (self.petBook ?? "") : lineName(self.lines, spell.line)
   }
 
-  lineName(self, index: Integer): String {
-    for (line of self.lines) {
-      if (line.index == index) { return line.name }
-    }
-    return ""
+  // What a spell's row says under its name that its group doesn't: by type its skill line, by spec that it is passive
+  // (an active one says nothing of it); its rank where it has one; the level it is learned at. A pet's spell stands
+  // under its book, which says both.
+  detailOf(self, spell: Game.SpellEntry): String {
+    const parts: Array<String> = []
+    if (!spell.pet && self.byType) { parts.push(self.lineOf(spell)) }
+    if (!spell.pet && !self.byType && spell.passive) { parts.push(Locale.PASSIVE) }
+    const rank = rankOf(spell)
+    if (rank != nil) { parts.push(rank) }
+    parts.push(Locale.SPELL_LEVEL.format(spell.level))
+    return parts.join(BULLET)
   }
 
+  // The player's spells and the pet's that the search and the filter keep, in the sort's order.
   shownOf(self): Array<Game.SpellEntry> {
     const list: Array<Game.SpellEntry> = []
     const sought = self.search.lower()
-    const onPets = self.tab == self.petTab
-    const wanted = self.tab == 1 || onPets ? 0 : (self.lines[self.tab - 1]?.index ?? 0)
-    for (spell of onPets ? self.pets : self.spells) {
-      if ((wanted == 0 || spell.line == wanted) && kept(spell, self.list.values.kinds) &&
-          (sought == "" || spell.name.lower().contains(sought))) {
-        list.push(spell)
+    for (from of [self.spells, self.pets]) {
+      for (spell of from) {
+        if (kept(spell, self.list.values.kinds) && (sought == "" || spell.name.lower().contains(sought))) {
+          list.push(spell)
+        }
       }
     }
     const view = self.list.values
@@ -356,16 +354,36 @@ public class SpellbookPage {
       list.sort((a, b) => descending ? before(b, a, heading) : before(a, b, heading))
       return list
     }
-    const by = columnSort(view.sort, self.tab == 1)
+    const by = columnSort(view.sort, view.grouping)
     list.sort((a, b) => before(a, b, by))
     return list
   }
 
+  // The columns' groups, each in the sort's order, one with no spell left out: by type the active spells, then the
+  // passive ones; by spec a group for each skill line, in the book's order. The pet's spells last, under its book.
+  groupsOf(self): Array<SpellGroup> {
+    const groups: Array<SpellGroup> = []
+    const add = (title: String, spells: Array<Game.SpellEntry>) => {
+      if (spells.length > 0) { groups.push({ title: title, spells: spells }) }
+    }
+    const own = self.shown.filter(spell => !spell.pet)
+    if (self.byType) {
+      add(Locale.GROUP_ACTIVE, own.filter(spell => !spell.passive))
+      add(Locale.GROUP_PASSIVE, own.filter(spell => spell.passive))
+    } else {
+      for (line of self.lines) { add(line.name, own.filter(spell => spell.line == line.index)) }
+    }
+    add(self.petBook ?? "", self.shown.filter(spell => spell.pet))
+    return groups
+  }
+
   public const body: Template = $ltml {
     <box rows={PAGE} gap={2.5sp}>
-      <Tabs tabs={self.names} selected={mut self.tab} />
       <Toolbar search={mut self.search} placeholder={Locale.SEARCH}>
-        <ToolPick $if={!self.tabled && self.all} value={mut self.list.values.sort} choices={ALL_SORTS} icon={Ordaen.art.ctl.tool.sort} title={Locale.SORT} />
+        <ToolPick $if={!self.tabled} value={mut self.list.values.grouping} choices={GROUPINGS} icon={Ordaen.art.ctl.tool.categories}
+                  title={Locale.GROUPING} />
+        <ToolPick $if={!self.tabled && self.byType} value={mut self.list.values.sort} choices={TYPE_SORTS} icon={Ordaen.art.ctl.tool.sort}
+                  title={Locale.SORT} />
         <ToolPick $elseif={!self.tabled} value={mut self.list.values.sort} choices={SORTS} icon={Ordaen.art.ctl.tool.sort} title={Locale.SORT} />
         <ToolPick value={mut self.list.values.kinds} choices={KINDS} icon={Ordaen.art.ctl.tool.filter} title={Locale.FILTER}
                   lit={self.narrowed} />
@@ -375,12 +393,12 @@ public class SpellbookPage {
         <text value={Locale.NOTHING_FOUND} textColor={Style.DIM} />
       </box>
       <Table $elseif={self.tabled} columns={COLUMNS} sorted={mut self.list.values.heading} descending={mut self.list.values.descending}>
-        <SpellTableRow $for={spell of self.shown} $key={spell.id} spell={spell} lines={self.lines} />
+        <SpellTableRow $for={spell of self.shown} $key={spell.id} spell={spell} line={self.lineOf(spell)} />
       </Table>
       <box $else overflow={Overflow.Scroll} columns={1} gap={GROUPS_APART}>
         <Section $for={group of self.groups} $key={group.title} title={group.title}>
           <box columns={SPELL_COLUMNS} gap={{ columns: ACROSS, rows: DOWN }}>
-            <SpellRow $for={spell of group.spells} $key={spell.id} spell={spell} lines={self.lines} all={self.all} />
+            <SpellRow $for={spell of group.spells} $key={spell.id} spell={spell} detail={self.detailOf(spell)} />
           </box>
         </Section>
       </box>

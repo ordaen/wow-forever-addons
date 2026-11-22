@@ -271,13 +271,6 @@ test "a spell's name is drawn in ink and its detail dim" {
   Test.expect(drawnIn(row.text("Warrior • Lvl 6"), DIM))
 }
 
-test "the spellbook has a tab for all spells and one per skill line" {
-  Test.mount(nil, PAGE)
-  Game.spellbook.lines = lines
-  Game.spellbook.entries = spells
-  Test.expect(inOrder(book(), ["All", "General", "Warrior", "Arms"]))
-}
-
 test "the spells stand by name at first" {
   Test.mount(nil, PAGE)
   Game.spellbook.lines = lines
@@ -285,23 +278,41 @@ test "the spells stand by name at first" {
   Test.expect(inOrder(book(), ["Find Treasure", "Heroic Strike", "Mortal Strike", "Rend", "Parry"]))
 }
 
-test "a skill line's tab shows the spells of that line alone" {
-  Test.mount(nil, PAGE)
-  Game.spellbook.lines = lines
-  Game.spellbook.entries = spells
-  const window = book()
-  window.button("Warrior").click()
-  Test.expect(window.text("Heroic Strike").shown() && window.text("Parry").shown() && window.text("Rend").shown())
-  Test.expect(!window.text("Mortal Strike").shown() && !window.text("Find Treasure").shown())
+// The columns grouped by spec: the grouping's button, then its choice.
+function bySpec(window: Test.Part) {
+  pick(window, Ordaen.art.ctl.tool.categories, "By type", "By spec")
 }
 
-test "the All tab shows the spells of every skill line again" {
+test "by spec, the spells stand under a heading for each skill line, in the book's order; a line with none has none" {
+  Test.mount(nil, PAGE)
+  Game.spellbook.lines = (): Array<Game.SpellLine> => [
+    { index: 1, name: "General" }, { index: 2, name: "Warrior" }, { index: 3, name: "Arms" }, { index: 4, name: "Fury" }
+  ]
+  Game.spellbook.entries = spells
+  const window = book()
+  bySpec(window)
+  Test.expect(inOrder(window, ["General", "Find Treasure", "Warrior", "Heroic Strike", "Parry", "Rend", "Arms", "Mortal Strike"]))
+  Test.expect(!window.text("Fury").shown() && !window.text("Active").shown())
+}
+
+test "the grouping is by type at first, and kept when the spellbook opens again" {
   Test.mount(nil, PAGE)
   Game.spellbook.lines = lines
   Game.spellbook.entries = spells
   const window = book()
-  window.button("Warrior").click()
-  window.button("All").click()
+  Test.expect(window.text("Active").shown() && !window.text("Arms").shown())
+  bySpec(window)
+  Test.open("/spellbook")
+  Test.open("/spellbook")
+  Test.expect(window.text("Arms").shown() && !window.text("Active").shown())
+}
+
+test "the spellbook has no tabs: every skill line's spells stand on its one page" {
+  Test.mount(nil, PAGE)
+  Game.spellbook.lines = lines
+  Game.spellbook.entries = spells
+  const window = book()
+  Test.expect(!window.button("All").shown() && !window.button("Warrior").shown())
   Test.expect(window.text("Mortal Strike").shown() && window.text("Find Treasure").shown() && window.text("Parry").shown())
 }
 
@@ -313,17 +324,6 @@ test "the search keeps the spells whose names hold it, in any case" {
   window.input().type("STRIKE")
   Test.expect(window.text("Heroic Strike").shown() && window.text("Mortal Strike").shown())
   Test.expect(!window.text("Parry").shown() && !window.text("Find Treasure").shown())
-}
-
-test "the search narrows the skill line's tab it is typed in" {
-  Test.mount(nil, PAGE)
-  Game.spellbook.lines = lines
-  Game.spellbook.entries = spells
-  const window = book()
-  window.button("Warrior").click()
-  window.input().type("strike")
-  Test.expect(window.text("Heroic Strike").shown())
-  Test.expect(!window.text("Mortal Strike").shown())
 }
 
 test "a search nothing matches says nothing was found" {
@@ -384,7 +384,7 @@ test "the spellbook's sort is kept when it opens again" {
   Test.expect(inOrder(window, ["Find Treasure", "Rend", "Heroic Strike", "Mortal Strike", "Parry"]))
 }
 
-test "on All, sorted by specialization, the spells stand by skill line, then by name" {
+test "by type, sorted by specialization, the spells stand by skill line, then by name" {
   Test.mount(nil, PAGE)
   Game.spellbook.lines = lines
   Game.spellbook.entries = spells
@@ -393,23 +393,24 @@ test "on All, sorted by specialization, the spells stand by skill line, then by 
   Test.expect(inOrder(window, ["Find Treasure", "Heroic Strike", "Rend", "Mortal Strike", "Parry"]))
 }
 
-test "a skill line's tab offers no sort by specialization" {
+test "by spec, the sort offers no sort by specialization" {
   Test.mount(nil, PAGE)
   Game.spellbook.lines = lines
   Game.spellbook.entries = spells
   const window = book()
-  window.button("Warrior").click()
+  bySpec(window)
   window.button(Ordaen.art.ctl.tool.sort).click()
   Test.expect(!Test.page().window("By name").text("By specialization").shown())
 }
 
-test "a skill line's tab names no skill line under a spell: its rank and level alone" {
+test "by spec, a spell's line names no skill line: a passive one says it is passive, then its rank and level" {
   Test.mount(nil, PAGE)
   Game.spellbook.lines = lines
   Game.spellbook.entries = spells
   const window = book()
-  window.button("Warrior").click()
-  Test.expect(window.text("Parry").item().texts().join(" | ") == "Parry | Lvl 6")
+  bySpec(window)
+  Test.expect(window.text("Parry").item().texts().join(" | ") == "Parry | Passive • Lvl 6")
+  Test.expect(window.text("Rend").item().texts().join(" | ") == "Rend | Rank 1 • Lvl 4")
 }
 
 test "the spells stand in three columns" {
@@ -579,7 +580,19 @@ test "a spell cooling down is shaded by the client's clock until the client says
   Test.expect(!window.text("Rend").item().paintedWith(shaded))
 }
 
-test "the pet's book is a tab of its own; the right button on a pet's spell turns its autocast, marked while on" {
+test "a rank by its number reads «Rank 2», a word as the client gives it" {
+  Test.mount(nil, PAGE)
+  Game.spellbook.lines = lines
+  Game.spellbook.entries = (): Array<Game.SpellEntry> => [
+    { id: 116, name: "Frostbolt", rank: "Уровень 2", icon: ICON, level: 4, passive: false, line: 2 },
+    { id: 20577, name: "Cannibalize", rank: "Racial", icon: ICON, level: 1, passive: false, line: 1 }
+  ]
+  const window = book()
+  Test.expect(window.text("Frostbolt").item().texts().join(" | ") == "Frostbolt | Warrior • Rank 2 • Lvl 4")
+  Test.expect(window.text("Cannibalize").item().texts().join(" | ") == "Cannibalize | General • Racial • Lvl 1")
+}
+
+test "the pet's spells stand last under its book; the right button on a pet's spell turns its autocast, marked while on" {
   Test.mount(nil, PAGE)
   Game.spellbook.lines = lines
   Game.spellbook.entries = spells
@@ -590,9 +603,11 @@ test "the pet's book is a tab of its own; the right button on a pet's spell turn
   let auto = false
   Game.spellbook.autoCast = (spell: Game.SpellEntry): Boolean | nil => spell.pet ? auto : nil
   const window = book()
-  Test.expect(!window.text("Torment").shown())
-  window.button("Demon").click()
-  Test.expect(window.text("Torment").shown() && !window.text("Rend").shown())
+  Test.expect(inOrder(window, ["Active", "Rend", "Passive", "Parry", "Demon", "Torment"]))
+  // Its book says whose it is and its line: under it, its level alone.
+  Test.expect(window.text("Torment").item().texts().join(" | ") == "Torment | Lvl 10")
+  bySpec(window)
+  Test.expect(inOrder(window, ["Arms", "Mortal Strike", "Demon", "Torment"]))
   const gold = Color.hex("#ffd100")
   Test.expect(!window.text("Torment").item().paintedWith(gold))
   _ = Test.requests()
