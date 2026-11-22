@@ -104,17 +104,25 @@ surface 550,192.21 905.76x515.58 on MEDIUM clamped raised by a click
     box 1041.91,254.22 405.76x442.73 border=UI-Frame-Metal-CornerTopLeft sides=left
       box 1052.16,254.22 395.51x392.77
         box 1074.91,276.97 350x355.79
-          box 1074.91,276.97 350x120.68
-            box 1083.24,276.97 333.33x120.68 @keyPress @pointerPress
-              box 1083.24,276.97 333.33x41.67 Interface\AddOns\Ordaen\media\scroll-top
-              box 1083.24,318.64 333.33x37.34
-                box 1083.24,318.64 43.33x0
-                box 1126.58,318.64 246.67x0
-                box 1373.24,318.64 43.33x0
-                box 1083.24,326.97 43.33x0
-                text 1126.58,326.97 246.67x20.68 "Elwynn Wolves" #3a1000
-              box 1083.24,355.99 333.33x41.67 Interface\AddOns\Ordaen\media\scroll-bottom
-              box 1083.24,318.64 333.33x47.76 absolute Interface\AddOns\Ordaen\media\scroll-paper
+          box 1074.91,276.97 350x120.68 @keyPress @pointerPress
+            box 1074.91,276.97 350x41.67
+              box 1074.91,276.97 41.67x41.67 Interface\AddOns\OrdaenQuestPage\media\scroll-top-left
+              box 1116.58,276.97 266.67x41.67 Interface\AddOns\OrdaenQuestPage\media\scroll-top-middle
+              box 1383.24,276.97 41.67x41.67 Interface\AddOns\OrdaenQuestPage\media\scroll-top-right
+            box 1074.91,318.64 350x37.34
+              box 1074.91,318.64 43.33x0
+              box 1118.24,318.64 263.33x0
+              box 1381.58,318.64 43.33x0
+              box 1074.91,326.97 43.33x0
+              text 1118.24,326.97 263.33x20.68 "Elwynn Wolves" #3a1000
+            box 1074.91,355.99 350x41.67
+              box 1074.91,355.99 41.67x41.67 Interface\AddOns\OrdaenQuestPage\media\scroll-bottom-left
+              box 1116.58,355.99 266.67x41.67 Interface\AddOns\OrdaenQuestPage\media\scroll-bottom-middle
+              box 1383.24,355.99 41.67x41.67 Interface\AddOns\OrdaenQuestPage\media\scroll-bottom-right
+            box 1074.91,308.22 350x58.18 absolute
+              box 1108.77,308.22 282.29x58.18 absolute Interface\AddOns\OrdaenQuestPage\media\scroll-paper-middle
+              box 1074.91,308.22 41.67x58.18 absolute Interface\AddOns\OrdaenQuestPage\media\scroll-paper-left
+              box 1383.24,308.22 41.67x58.18 absolute Interface\AddOns\OrdaenQuestPage\media\scroll-paper-right
           box 1074.91,409.03 350x48.52
             box 1074.91,409.03 350x37.14
               box 1074.91,409.03 350x17.5

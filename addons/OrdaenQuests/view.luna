@@ -9,7 +9,7 @@ import Game from "$game"
 import { Align, Art, Bounds, ByInteractionState, Edges, Line, Side, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import { BODY_LINE, ButtonPlate, Component, Cut, Menu, MenuEntry, Money, PushButton, SECONDARY_TEXT, Shown, SwitchFace, TIGHT_LINE, Tip, TipText, questLevelColor, rowShade } from "Ordaen"
-import { Experience, Reward, RewardView, Rewards, SCROLL_DIM, SCROLL_HEAD, SCROLL_INK, SCROLL_ROW, SCROLL_WIDTH, Scroll, Standing, WELL_TEXT, choiceViews, logReward, scrollOverflows } from "OrdaenQuestPage"
+import { Experience, Reward, RewardView, Rewards, SCROLL_DIM, SCROLL_HEAD, SCROLL_INK, SCROLL_ROW, Scroll, Standing, WELL_TEXT, WIDE_SCROLL, choiceViews, logReward, scrollOverflows } from "OrdaenQuestPage"
 import { LogQuest } from "@/book"
 import Locale from "@/locales"
 import { QuestFacts } from "@/questie"
@@ -476,7 +476,7 @@ public class QuestPage implements Component {
 
 // A wide page: the scroll at its art's width, the rest beside it never narrower than `DETAILS_LEAST` (a least of its
 // own, which the side grows for); the scroll the whole height, the rest from the top.
-const WIDE_COLUMNS: Array<Track> = [SCROLL_WIDTH, { fr: 1 }]
+const WIDE_COLUMNS: Array<Track> = [WIDE_SCROLL, { fr: 1 }]
 const DETAILS_LEAST: Bounds = { min: 375dp, max: nil }
 const ONE_ROW: Array<Track> = [{ fr: 1 }]
 const FILL_ROW: Track = { fr: 1 }

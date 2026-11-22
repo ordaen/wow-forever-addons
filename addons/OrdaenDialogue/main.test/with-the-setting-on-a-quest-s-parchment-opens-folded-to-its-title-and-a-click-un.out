@@ -16,17 +16,25 @@ surface 56.67,99.71 400.03x620.58 on MEDIUM clamped raised by a click
           box 92.52,172.81 0x0 absolute @keyPress
           box 92.52,172.81 333.33x120.68
             box 92.52,172.81 333.33x120.68
-              box 92.52,172.81 333.33x120.68
-                box 92.52,172.81 333.33x120.68 @keyPress @pointerPress
-                  box 92.52,172.81 333.33x41.67 Interface\AddOns\Ordaen\media\scroll-top
-                  box 92.52,214.47 333.33x37.34
-                    box 92.52,214.47 43.33x0
-                    box 135.85,214.47 246.67x0
-                    box 382.52,214.47 43.33x0
-                    box 92.52,222.81 43.33x0
-                    text 135.85,222.81 246.67x20.68 "A Pie for Maggie" #3a1000
-                  box 92.52,251.82 333.33x41.67 Interface\AddOns\Ordaen\media\scroll-bottom
-                  box 92.52,214.47 333.33x47.76 absolute Interface\AddOns\Ordaen\media\scroll-paper
+              box 92.52,172.81 333.33x120.68 @keyPress @pointerPress
+                box 92.52,172.81 333.33x41.67
+                  box 92.52,172.81 41.67x41.67 Interface\AddOns\OrdaenQuestPage\media\scroll-top-left
+                  box 134.18,172.81 250x41.67 Interface\AddOns\OrdaenQuestPage\media\scroll-top-middle
+                  box 384.18,172.81 41.67x41.67 Interface\AddOns\OrdaenQuestPage\media\scroll-top-right
+                box 92.52,214.47 333.33x37.34
+                  box 92.52,214.47 43.33x0
+                  box 135.85,214.47 246.67x0
+                  box 382.52,214.47 43.33x0
+                  box 92.52,222.81 43.33x0
+                  text 135.85,222.81 246.67x20.68 "A Pie for Maggie" #3a1000
+                box 92.52,251.82 333.33x41.67
+                  box 92.52,251.82 41.67x41.67 Interface\AddOns\OrdaenQuestPage\media\scroll-bottom-left
+                  box 134.18,251.82 250x41.67 Interface\AddOns\OrdaenQuestPage\media\scroll-bottom-middle
+                  box 384.18,251.82 41.67x41.67 Interface\AddOns\OrdaenQuestPage\media\scroll-bottom-right
+                box 92.52,204.06 333.33x58.18 absolute
+                  box 126.37,204.06 265.62x58.18 absolute Interface\AddOns\OrdaenQuestPage\media\scroll-paper-middle
+                  box 92.52,204.06 41.67x58.18 absolute Interface\AddOns\OrdaenQuestPage\media\scroll-paper-left
+                  box 384.18,204.06 41.67x58.18 absolute Interface\AddOns\OrdaenQuestPage\media\scroll-paper-right
           box 92.52,293.49 333.33x393.21
             box 92.52,299.17 333.33x354.92 scrolled 0 of 0
               box 92.52,504.77 333.33x94.08

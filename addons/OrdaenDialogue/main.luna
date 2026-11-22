@@ -12,7 +12,7 @@ import { Align, Bounds, Edges, Event, Overflow, Position, Track } from "$ltml"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
 import { BODY_LINE, ButtonKey, ButtonPlate, KeptWindow, Module, Money, PushButton, SECONDARY_TEXT, Settings, SettingsPage, TipText, Window, WindowTabSpec, WindowsPage, windowsTitle } from "Ordaen"
-import { Reward, RewardView, Rewards, SCROLL_WIDTH, Scroll, choiceViews, scrollOverflows } from "OrdaenQuestPage"
+import { Reward, RewardView, Rewards, SCROLL_WIDTH, Scroll, WIDE_SCROLL, choiceViews, scrollOverflows } from "OrdaenQuestPage"
 import { AnswerRow, LINE_KEYS, LineKey, OptionColumn, Placed, columnsOf, placeOf } from "@/list"
 import Locale from "@/locales"
 import { Needs, Said } from "@/pages"
@@ -658,9 +658,11 @@ public class Dialogue implements Module, App {
   // whole height (OrdaenQuestPage's estimate, erring long); a folded scroll, a book and a question stand as they do.
   derived wide: Boolean = self.onQuest && !self.scrollFolded &&
     scrollOverflows(self.scrollTitle, [self.quest?.text ?? "", self.page == Page.Detail ? self.quest?.objectives ?? "" : ""])
-  // The scroll at its one size, what is under it the rest; wide, the scroll and the well side by side.
+  // The scroll at its one size, what is under it the rest; wide, the scroll half again as wide and the well side by
+  // side.
+  derived scrollWidth: Number<Length> = self.wide ? WIDE_SCROLL : SCROLL_WIDTH
   derived rows: Array<Track> = self.wide ? FILL : ["max-content", { fr: 1 }]
-  derived columns: Array<Track> = self.wide ? [SCROLL_WIDTH, { fr: 1 }] : FILL
+  derived columns: Array<Track> = self.wide ? [WIDE_SCROLL, { fr: 1 }] : FILL
   derived scrollHeight: Number<Length> | nil = self.wide ? nil : SCROLL_HEIGHT
   derived wellPad: Edges = self.wide ? WIDE_WELL : UNDER_SCROLL
   derived wellWidth: Bounds | nil = self.wide ? WELL_LEAST : nil
@@ -747,7 +749,7 @@ public class Dialogue implements Module, App {
             <box $if={self.scrollFolded} width={SCROLL_WIDTH} rows={FILL}>
               <Scroll title={self.scrollTitle} folded={mut self.scrollFolded} />
             </box>
-            <box $else width={SCROLL_WIDTH} height={self.scrollHeight} rows={FILL}>
+            <box $else width={self.scrollWidth} height={self.scrollHeight} rows={FILL}>
               <Scroll title={self.scrollTitle} folded={mut self.scrollFolded}>
                 <Said page={self.page} quest={self.quest} said={self.said} book={self.book} revealed={self.revealed} />
               </Scroll>

@@ -6,9 +6,8 @@
 // under an engraved cut with its title.
 import Client from "$client"
 import Game from "$game"
-import { Align, Art, Bounds, Columns, Edges, Event, Gaps, Line, MouseButton, Overflow, Position, Side, TextAlign, Track } from "$ltml"
+import { Align, Art, Columns, Edges, Event, Gaps, Line, MouseButton, Overflow, Position, Side, TextAlign, Tile, Track } from "$ltml"
 import Runtime from "$runtime"
-import root Ordaen from "Ordaen"
 import {
   Component, Cut, ItemButton, Money, PickRow, Quality, SECONDARY_TEXT, TIGHT_LINE, TITLE_TEXT, Tip, TipRow, qualityColor, qualityFrom,
   usableItem
@@ -84,33 +83,68 @@ const LINE_LETTERS = 44
 const TITLE_LETTERS = 30
 const LEAST_LINES = 4
 
-// As wide as its place, never wider than that (past it the art would stretch), in the middle of a wider place.
-const SCROLL_BOUNDS: Bounds = { stretch: true, min: nil, max: SCROLL_WIDTH }
-const ONE_ROW: Array<Track> = [{ fr: 1 }]
-// A roll's height at that width (its 128 texels).
-const ROLL_HEIGHT: Number<Length> = 58.59375dp
+// The scroll where it stands in a column of its own (a page whose text is long): half again as wide.
+public const WIDE_SCROLL: Number<Length> = SCROLL_WIDTH * 1.5
+
+// The scroll's art (art/pieces/scroll.json), in parts that repeat, so it is drawn at any width and height unstretched:
+// each roll its two ends with a straight piece of roll repeating across between them, the paper its plain middle
+// repeating both ways under its torn edges, which repeat down. A texel of it is the 1024th of the scroll's width.
+public struct ScrollParts {
+  left: Art
+  middle: Art
+  right: Art
+}
+public struct ScrollArt {
+  top: ScrollParts
+  paper: ScrollParts
+  bottom: ScrollParts
+}
+const TEXEL: Number<Length> = SCROLL_WIDTH / 1024
+public const SCROLL_ART: ScrollArt = {
+  top: {
+    left: "@/media/scroll-top-left.tga",
+    middle: { file: "@/media/scroll-top-middle.tga", width: 32, height: 128, tile: Tile.Across },
+    right: "@/media/scroll-top-right.tga"
+  },
+  paper: {
+    left: { file: "@/media/scroll-paper-left.tga", width: 128, height: 256, tile: Tile.Down },
+    middle: { file: "@/media/scroll-paper-middle.tga", width: 256, height: 256, repeatSize: TEXEL * 256 / 1ui },
+    right: { file: "@/media/scroll-paper-right.tga", width: 128, height: 256, tile: Tile.Down }
+  },
+  bottom: {
+    left: "@/media/scroll-bottom-left.tga",
+    middle: { file: "@/media/scroll-bottom-middle.tga", width: 32, height: 128, tile: Tile.Across },
+    right: "@/media/scroll-bottom-right.tga"
+  }
+}
+// A roll's ends and its height (their 128 texels), and the roll between them.
+const ROLL_HEIGHT: Number<Length> = TEXEL * 128
+const ROLL_ACROSS: Array<Track> = [ROLL_HEIGHT, { fr: 1 }, ROLL_HEIGHT]
+const ROLL_DOWN: Array<Track> = [{ fr: 1 }]
+// The paper's torn edges (128 texels), their inner 24 fading into its middle, which runs on under them that far.
+const EDGE_WIDTH: Number<Length> = TEXEL * 128
+const UNDER_EDGE: Number<Length> = TEXEL * 104
 const ROLLS: Array<Track> = ["max-content", { fr: 1 }, "max-content"]
 // The scroll's row where it stands over other things (a quest page's rewards): the room left, never less than four
 // rolls' height, about five lines on the paper, so what stands beside it gives way first.
 public const SCROLL_ROW: Track = { fr: 1, min: ROLL_HEIGHT * 4 }
-// The bottom roll's paper that fades in over the band (its first 32 texels): the band runs on under it.
-const FADE_HEIGHT: Number<Length> = 14.6484375dp
+// A roll's paper that fades over the paper (32 texels): the paper runs on under both rolls that far.
+const FADE_HEIGHT: Number<Length> = TEXEL * 32
 const UNDER_FADE: Number<Length> = ROLL_HEIGHT - FADE_HEIGHT
-// The bottom roll over the band where they overlap.
+// The rolls over the paper, and the paper's edges over its middle, where they overlap.
 const OVER_PAPER = 1
 // Where the text stands on the paper, in the art's measure (not the spacing setting's): in from its torn sides (80
-// texels) and a margin past them as wide as a line is high, and off the rolls by half that, whose art holds some paper
-// of its own.
+// texels) and a margin past them as wide as a line is high, and off the rolls by half that, past their paper's fade.
 const OFF_SIDES: Number<Length> = 60.9375dp
 const OFF_ROLLS: Number<Length> = 11.71875dp
-const OFF_BOTTOM: Number<Length> = FADE_HEIGHT + OFF_ROLLS
+const OFF_FADES: Number<Length> = FADE_HEIGHT + OFF_ROLLS
 // Folded: the title's row between the rolls, as far in from the torn sides and off the rolls as the text unfolded.
 const FOLDED_ROLLS: Array<Track> = ["max-content", "max-content", "max-content"]
 const FOLDED_ACROSS: Array<Track> = [OFF_SIDES, { fr: 1 }, OFF_SIDES]
 const FOLDED_DOWN: Array<Track> = [OFF_ROLLS, "max-content", OFF_ROLLS]
 
 // The scroll: what is said of a quest on the parchment between its rolls, its title first. It fills the cell it
-// stands in, the paper repeated down between the rolls and on under the bottom roll's fading edge; what it holds
+// stands in, at any width and height (its art repeats), the paper on under both rolls' fading edges; what it holds
 // scrolls past the paper's height. The text stands in the paper's box, so it is drawn over the paper and never meets
 // a roll (boxes that overlap at one level draw in the client's order). Folded, the rolls stand close round the title
 // alone, the scroll as high as that (its row is the holder's: `max-content`, not SCROLL_ROW), and a click on it,
@@ -131,20 +165,11 @@ public class Scroll implements Component {
 
   unfold(mut self) { self.folded = false }
 
-  // Never wider than its art: in a wider place it stands in the middle, its rolls unstretched.
   public render(self): Template {
     return $ltml {
-      <box xAlign={Align.Center} rows={ONE_ROW}>
-        {self.rolled()}
-      </box>
-    }
-  }
-
-  rolled(self): Template {
-    return $ltml {
-      <box $if={self.folded} width={SCROLL_BOUNDS} rows={FOLDED_ROLLS} @pointerPress={self.unfold}
-           @keyPress(.Enter)={self.unfold} @keyPress(.Space)={self.unfold}>
-        <box height={ROLL_HEIGHT} background={Ordaen.art.window.scroll.top} />
+      <box $if={self.folded} rows={FOLDED_ROLLS} @pointerPress={self.unfold} @keyPress(.Enter)={self.unfold}
+           @keyPress(.Space)={self.unfold}>
+        <ScrollRoll parts={SCROLL_ART.top} />
         <box columns={FOLDED_ACROSS} rows={FOLDED_DOWN} zLevel={OVER_PAPER}>
           <box />
           <box />
@@ -152,23 +177,55 @@ public class Scroll implements Component {
           <box />
           <ScrollTitle title={self.title} />
         </box>
-        <box height={ROLL_HEIGHT} background={Ordaen.art.window.scroll.bottom} zLevel={OVER_PAPER} />
-        <box position={Position.Absolute} left={0dp} right={0dp} top={ROLL_HEIGHT} bottom={UNDER_FADE}
-             background={Ordaen.art.window.scroll.paper} />
+        <ScrollRoll parts={SCROLL_ART.bottom} />
+        <box position={Position.Absolute} left={0dp} right={0dp} top={UNDER_FADE} bottom={UNDER_FADE}>
+          <ScrollPaper />
+        </box>
       </box>
-      <box $else width={SCROLL_BOUNDS} rows={ROLLS}>
-        <box height={ROLL_HEIGHT} background={Ordaen.art.window.scroll.top} />
+      <box $else rows={ROLLS}>
+        <ScrollRoll parts={SCROLL_ART.top} />
         <box />
-        <box height={ROLL_HEIGHT} background={Ordaen.art.window.scroll.bottom} zLevel={OVER_PAPER} />
-        <box position={Position.Absolute} left={0dp} right={0dp} top={ROLL_HEIGHT} bottom={UNDER_FADE}
-             background={Ordaen.art.window.scroll.paper}>
-          <box position={Position.Absolute} left={OFF_SIDES} right={OFF_SIDES} top={OFF_ROLLS} bottom={OFF_BOTTOM}
-               overflow={Overflow.Scroll} gap={1.5sp}>
+        <ScrollRoll parts={SCROLL_ART.bottom} />
+        <box position={Position.Absolute} left={0dp} right={0dp} top={UNDER_FADE} bottom={UNDER_FADE}>
+          <ScrollPaper />
+          <box position={Position.Absolute} left={OFF_SIDES} right={OFF_SIDES} top={OFF_FADES} bottom={OFF_FADES}
+               overflow={Overflow.Scroll} gap={1.5sp} zLevel={OVER_PAPER}>
             <ScrollTitle $if={self.titled} title={self.title} />
             <slot />
           </box>
         </box>
       </box>
+    }
+  }
+}
+
+// A roll of the scroll, over the paper: its ends at their own size, the roll between them repeating across.
+class ScrollRoll implements Component {
+  const parts: ScrollParts
+  constructor(parts: ScrollParts) { self.parts = parts }
+
+  public render(self): Template {
+    return $ltml {
+      <box height={ROLL_HEIGHT} columns={ROLL_ACROSS} rows={ROLL_DOWN} zLevel={OVER_PAPER}>
+        <box background={self.parts.left} />
+        <box background={self.parts.middle} />
+        <box background={self.parts.right} />
+      </box>
+    }
+  }
+}
+
+// The scroll's paper, filling the box it is drawn in: its middle repeating both ways, and over its sides the torn
+// edges repeating down, their inner texels fading into the middle.
+class ScrollPaper implements Component {
+  public render(self): Template {
+    return $ltml {
+      <box position={Position.Absolute} left={UNDER_EDGE} right={UNDER_EDGE} top={0dp} bottom={0dp}
+           background={SCROLL_ART.paper.middle} />
+      <box position={Position.Absolute} left={0dp} width={EDGE_WIDTH} top={0dp} bottom={0dp}
+           background={SCROLL_ART.paper.left} zLevel={OVER_PAPER} />
+      <box position={Position.Absolute} right={0dp} width={EDGE_WIDTH} top={0dp} bottom={0dp}
+           background={SCROLL_ART.paper.right} zLevel={OVER_PAPER} />
     }
   }
 }

@@ -1,7 +1,13 @@
 {
-  "says": "The scroll of a quest's page (Ordaen questPage.luna, Scroll; Ordaen.art.window.scroll): its top roll and its bottom roll, and between them a band of paper with its torn sides that repeats down, so the scroll grows to any height. Each 1024 texels wide, drawn at the scroll's width.",
-  "ships": ["addons/Ordaen/media/scroll-top.tga", "addons/Ordaen/media/scroll-paper.tga", "addons/Ordaen/media/scroll-bottom.tga"],
-  "origin": "FLUX.1 [schnell] (set dialogue-scroll-03, darker-aged, seed 306), keyed off its black ground at its own 5:3, then cut: the rolls with the paper just past them, and a band of paper under the top roll mirrored onto itself. The band begins where the top roll's art ends; the bottom roll's 32 rows of paper fade in from clear, laid over the band, so neither join shows a seam.",
+  "says": "The scroll of a quest's page (OrdaenQuestPage questPage.luna, Scroll), in parts that repeat, so it is drawn at any width and height without stretching: each roll is its two ends (the knob and the roll's start) with a straight piece of roll repeating across between them, as high all along; the paper is its plain middle repeating both ways, and over its sides the torn left and right edges repeating down, their inner 24 texels fading into it. The top roll's paper fades out over the paper, the bottom roll's fades in over it.",
+  "ships": [
+    "addons/OrdaenQuestPage/media/scroll-top-left.tga", "addons/OrdaenQuestPage/media/scroll-top-middle.tga",
+    "addons/OrdaenQuestPage/media/scroll-top-right.tga", "addons/OrdaenQuestPage/media/scroll-bottom-left.tga",
+    "addons/OrdaenQuestPage/media/scroll-bottom-middle.tga", "addons/OrdaenQuestPage/media/scroll-bottom-right.tga",
+    "addons/OrdaenQuestPage/media/scroll-paper-left.tga", "addons/OrdaenQuestPage/media/scroll-paper-middle.tga",
+    "addons/OrdaenQuestPage/media/scroll-paper-right.tga"
+  ],
+  "origin": "FLUX.1 [schnell] (set dialogue-scroll-03, darker-aged, seed 306), keyed off its black ground at its own 5:3, then cut. The rolls pinch towards their middle, so a roll's ends are its left 128 texels (the right ones mirrored) and its middle the 42 after them (short of a stain), their last 10 blended into their first. The paper is cut from rows 140 to 459, under the top roll's shadow and over the bottom roll's: its torn left edge from the left 128 texels (the right one mirrored), and its middle from the plain paper at 550 (clear of its spots, which would repeat as a grid), each with its last 64 rows (and the middle's last 64 columns) blended into its first, so it repeats without a seam and without a mirror's symmetry.",
   "steps": [
     {
       "generate": {
@@ -17,10 +23,31 @@
       }
     },
     { "key": { "in": "art/sources/dialogue/scroll-darker-aged-306.png", "out": "art/out/scroll-keyed.png", "width": 1024, "height": 614 } },
-    { "crop": { "in": "art/out/scroll-keyed.png", "out": "addons/Ordaen/media/scroll-top.tga", "x": 0, "y": 0, "width": 1024, "height": 128 } },
-    { "crop": { "in": "art/out/scroll-keyed.png", "out": "art/out/scroll-bottom-cut.png", "x": 0, "y": 486, "width": 1024, "height": 128 } },
-    { "fade": { "in": "art/out/scroll-bottom-cut.png", "out": "addons/Ordaen/media/scroll-bottom.tga", "rows": 32 } },
-    { "crop": { "in": "art/out/scroll-keyed.png", "out": "art/out/scroll-band.png", "x": 0, "y": 128, "width": 1024, "height": 128 } },
-    { "mirror": { "in": "art/out/scroll-band.png", "out": "addons/Ordaen/media/scroll-paper.tga" } }
+
+    { "crop": { "in": "art/out/scroll-keyed.png", "out": "art/out/scroll-top-end-cut.png", "x": 0, "y": 0, "width": 128, "height": 128 } },
+    { "fade": { "in": "art/out/scroll-top-end-cut.png", "out": "art/out/scroll-top-end.png", "texels": 32, "edge": "bottom" } },
+    { "convert": { "in": "art/out/scroll-top-end.png", "out": "addons/OrdaenQuestPage/media/scroll-top-left.tga" } },
+    { "mirror": { "in": "art/out/scroll-top-end.png", "out": "art/out/scroll-top-ends.png", "across": true } },
+    { "crop": { "in": "art/out/scroll-top-ends.png", "out": "addons/OrdaenQuestPage/media/scroll-top-right.tga", "x": 128, "y": 0, "width": 128, "height": 128 } },
+    { "crop": { "in": "art/out/scroll-keyed.png", "out": "art/out/scroll-top-middle-cut.png", "x": 128, "y": 0, "width": 42, "height": 128 } },
+    { "seamless": { "in": "art/out/scroll-top-middle-cut.png", "out": "art/out/scroll-top-middle-seamless.png", "across": 10 } },
+    { "fade": { "in": "art/out/scroll-top-middle-seamless.png", "out": "addons/OrdaenQuestPage/media/scroll-top-middle.tga", "texels": 32, "edge": "bottom" } },
+
+    { "crop": { "in": "art/out/scroll-keyed.png", "out": "art/out/scroll-bottom-end-cut.png", "x": 0, "y": 486, "width": 128, "height": 128 } },
+    { "fade": { "in": "art/out/scroll-bottom-end-cut.png", "out": "art/out/scroll-bottom-end.png", "texels": 32 } },
+    { "convert": { "in": "art/out/scroll-bottom-end.png", "out": "addons/OrdaenQuestPage/media/scroll-bottom-left.tga" } },
+    { "mirror": { "in": "art/out/scroll-bottom-end.png", "out": "art/out/scroll-bottom-ends.png", "across": true } },
+    { "crop": { "in": "art/out/scroll-bottom-ends.png", "out": "addons/OrdaenQuestPage/media/scroll-bottom-right.tga", "x": 128, "y": 0, "width": 128, "height": 128 } },
+    { "crop": { "in": "art/out/scroll-keyed.png", "out": "art/out/scroll-bottom-middle-cut.png", "x": 128, "y": 486, "width": 42, "height": 128 } },
+    { "seamless": { "in": "art/out/scroll-bottom-middle-cut.png", "out": "art/out/scroll-bottom-middle-seamless.png", "across": 10 } },
+    { "fade": { "in": "art/out/scroll-bottom-middle-seamless.png", "out": "addons/OrdaenQuestPage/media/scroll-bottom-middle.tga", "texels": 32 } },
+
+    { "crop": { "in": "art/out/scroll-keyed.png", "out": "art/out/scroll-paper-edge-cut.png", "x": 0, "y": 140, "width": 128, "height": 320 } },
+    { "seamless": { "in": "art/out/scroll-paper-edge-cut.png", "out": "art/out/scroll-paper-edge.png", "down": 64 } },
+    { "fade": { "in": "art/out/scroll-paper-edge.png", "out": "addons/OrdaenQuestPage/media/scroll-paper-left.tga", "texels": 24, "edge": "right" } },
+    { "mirror": { "in": "addons/OrdaenQuestPage/media/scroll-paper-left.tga", "out": "art/out/scroll-paper-edges.png", "across": true } },
+    { "crop": { "in": "art/out/scroll-paper-edges.png", "out": "addons/OrdaenQuestPage/media/scroll-paper-right.tga", "x": 128, "y": 0, "width": 128, "height": 256 } },
+    { "crop": { "in": "art/out/scroll-keyed.png", "out": "art/out/scroll-paper-middle-cut.png", "x": 550, "y": 140, "width": 320, "height": 320 } },
+    { "seamless": { "in": "art/out/scroll-paper-middle-cut.png", "out": "addons/OrdaenQuestPage/media/scroll-paper-middle.tga", "across": 64, "down": 64 } }
   ]
 }

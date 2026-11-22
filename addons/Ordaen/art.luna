@@ -21,15 +21,6 @@ public struct OrdaenArt {
     wood: Art
     // The game's dark marble, under a chosen thing's details.
     marble: Art
-    scroll: Scroll
-  }
-
-  // A quest's page's scroll (art/pieces/scroll.json): its top roll and its bottom roll, and between them a band of
-  // paper with its torn sides repeated down, so it grows to any height. Each is drawn at the scroll's width.
-  public struct Scroll {
-    top: Art
-    paper: Art
-    bottom: Art
   }
 
   // The bronze plates of a window's control group, which stands at the tab row's right end, its foot under the body's
@@ -197,12 +188,6 @@ const TAB_CORNERS: Corners = { topLeft: Radius.Large, topRight: Radius.Large }
 const SIDE_TAB_CORNERS: Corners = { topLeft: Radius.Large, bottomLeft: Radius.Large }
 const ICON_CORNER: Corners = { topLeft: Radius.Large }
 
-const SCROLL: OrdaenArt.Scroll = {
-  top: "@/media/scroll-top.tga",
-  paper: { file: "@/media/scroll-paper.tga", width: 1024, height: 256, tile: Tile.Down },
-  bottom: "@/media/scroll-bottom.tga"
-}
-
 // The wood: one tile, repeated at the size the picture had in the design's window.
 const WOOD: Piece = { file: "@/media/window-wood.tga", width: 512, height: 512, repeatSize: 746 / 1.2 }
 // The game's dark marble, repeated at its own size both ways as the game's frames tile it (`horizTile`, `vertTile`):
@@ -218,7 +203,7 @@ public const ARTWORK: OrdaenArt = {
     tabIconClip: { nineSlice: FRAME, art: FRAME_ART, width: 3, scale: 0.5, inset: -1.5, reach: REACH_ROUND, sides: [], radius: ICON_CORNER, curves: CURVES, lineStart: 10 },
     tabIconLine: { nineSlice: FRAME, art: FRAME_ART, width: 3, scale: 0.5, inset: -1.5, reach: REACH, sides: [Side.Left], curves: CURVES, lineStart: 10 }
   },
-  window: { wood: WOOD, marble: MARBLE, scroll: SCROLL },
+  window: { wood: WOOD, marble: MARBLE },
   ctl: {
     well: { rim: { width: 1.171875dp, color: Color.hex("#3e2f1d") }, floor: Color.hex("#0000004d") },
     // The checkbox, drawn whole: the well (the light ring over it under the cursor), and the tick.

@@ -1,9 +1,8 @@
 // A quest's scroll folded and unfolded; its rewards' band of experience, reputation and money in one size.
 import Test from "$test"
-import root Ordaen from "Ordaen"
 import { Quality } from "Ordaen"
 import Locale from "@/locales"
-import { Reward, Rewards, SCROLL_ROW, SCROLL_WIDTH, Scroll, Standing } from "@/questPage"
+import { Reward, Rewards, SCROLL_ART, SCROLL_ROW, SCROLL_WIDTH, Scroll, Standing } from "@/questPage"
 
 function given(name: String): Reward {
   return {
@@ -44,7 +43,7 @@ test "a folded scroll holds its title alone between close rolls, and a click on 
   Test.mount(page, { left: 0, top: 0, width: 600, height: 600 })
   const title = Test.page().text("The Defias Brotherhood").rect()
   Test.expect(Test.page().texts().filter(text => text == "Find the Defias hideout.").length == 0)
-  const bottom = Test.edges(Ordaen.art.window.scroll.bottom, 0)
+  const bottom = Test.edges(SCROLL_ART.bottom.left, 0)
   Test.expect(bottom.top - title.bottom < 30)
   Test.page().text("The Defias Brotherhood").click()
   Test.expect(!page.folded)
@@ -66,13 +65,22 @@ class WideParchment {
   }
 }
 
-test "in a place twice its art's width the scroll keeps its art's, in the middle, its rolls unstretched" {
+test "in a place twice its art's width the scroll fills it, its rolls' ends at their own size, the roll between them" {
   const page = new WideParchment()
   Test.mount(page, { left: 0, top: 0, width: 1400, height: 600 })
-  const top = Test.edges(Ordaen.art.window.scroll.top, 0)
   const art = SCROLL_WIDTH / 1ui
-  Test.expect((top.right - top.left - art).abs() < 0.5)
-  Test.expect((top.left - art / 2).abs() < 0.5)
+  const left = Test.edges(SCROLL_ART.top.left, 0)
+  const middle = Test.edges(SCROLL_ART.top.middle, 0)
+  const right = Test.edges(SCROLL_ART.top.right, 0)
+  // An end is 128 of the art's 1024 texels, square; the roll runs from one end to the other, as high.
+  Test.expect((left.right - left.left - art / 8).abs() < 0.5 && (left.bottom - left.top - art / 8).abs() < 0.5)
+  Test.expect((right.right - left.left - art * 2).abs() < 0.5)
+  Test.expect((middle.left - left.right).abs() < 0.5 && (right.left - middle.right).abs() < 0.5)
+  Test.expect((middle.top - left.top).abs() < 0.5 && (middle.bottom - left.bottom).abs() < 0.5)
+  // The paper's middle reaches under its torn edges, which stand at the scroll's sides.
+  const paper = Test.edges(SCROLL_ART.paper.middle, 0)
+  const edge = Test.edges(SCROLL_ART.paper.left, 0)
+  Test.expect((edge.left - left.left).abs() < 0.5 && paper.left < edge.right && paper.left > edge.left)
   destroy page
 }
 
