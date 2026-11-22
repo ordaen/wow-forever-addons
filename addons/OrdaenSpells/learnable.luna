@@ -1,14 +1,13 @@
 // What the player can learn of their class, away from a trainer: every spell a class trainer teaches the player's side
 // and race (What's Training's list, `training.luna`), and the spells a quest gives in a trainer's place, each as a
 // trainer's service for the trainer's page: under a heading by what it waits for (learned now, an earlier rank or a
-// talent first, the next levels, later, a quest, known), its rank (the client's tables, `trainable.luna`), its price at
+// talent first, the next levels, later, a quest, known), its rank, its price at
 // the trainer where it costs least (an Honored player pays a tenth less at a faction's trainers, as What's Training
 // measured on Forever), and a quest's note and its way to the quest.
 import Client from "$client"
 import Game from "$game"
 import Runtime from "$runtime"
 import Locale from "@/locales"
-import Trainable from "@/trainable"
 import Training from "@/training"
 
 // The levels ahead a spell is «coming soon» for.
@@ -17,11 +16,12 @@ const SOON = 2
 const HONORED = 6
 const DISCOUNT = 10
 
-// A spell a class trainer teaches: the level and the price it is learned at, the talent a later rank of a talent's own
+// A spell a class trainer teaches: the level and the price it is learned at, its rank (0 for none), the talent a later rank of a talent's own
 // needs (0 for none), the side and the race it is for (0 for both, or every race), the spells learned before it.
 public struct TrainerSpell {
   id: Integer
   level: Integer
+  rank: Integer
   cost: Integer
   talent: Integer
   side: Integer
@@ -87,8 +87,8 @@ public function trainerSpellsOf(classTag: String): Array<TrainerSpell> {
   for (entry of text.split(";")) {
     const parts = entry.split(",")
     list.push({
-      id: numberAt(parts, 1), level: numberAt(parts, 2), cost: numberAt(parts, 3), talent: numberAt(parts, 4),
-      side: numberAt(parts, 5), race: numberAt(parts, 6), required: numbersOf(parts[7] ?? "", "/")
+      id: numberAt(parts, 1), level: numberAt(parts, 2), rank: numberAt(parts, 3), cost: numberAt(parts, 4),
+      talent: numberAt(parts, 5), side: numberAt(parts, 6), race: numberAt(parts, 7), required: numbersOf(parts[8] ?? "", "/")
     })
   }
   return list
@@ -115,19 +115,6 @@ public function questWaysOf(classTag: String): Map<Integer, Array<QuestWay>> {
     }
   }
   return ways
-}
-
-// A class's spells' ranks by the client's tables, by spell; a spell with none isn't there.
-public function ranksOf(classTag: String): Map<Integer, Integer> {
-  const ranks: Map<Integer, Integer> = {}
-  const text = Trainable.classes[classTag]
-  if (text == nil) { return ranks }
-  for (entry of text.split(";")) {
-    const parts = entry.split(",")
-    const rank = numberAt(parts, 3)
-    if (rank > 0) { ranks[numberAt(parts, 1)] = rank }
-  }
-  return ranks
 }
 
 // The share a faction's trainers take off for the learner: a tenth from Honored.
@@ -222,6 +209,8 @@ struct Row {
   spell: Integer
   wait: Wait
   level: Integer
+  // Its rank; 0 for none (a quest's spell).
+  rank: Integer
   cost: Integer
   // The price before a faction takes its share off: 0 for a quest's spell.
   base: Integer
@@ -242,7 +231,7 @@ public function learnableOf(learner: Learner, questName: QuestName, openLabel: S
     const forRace = spell.race == 0 || spell.race == learner.race
     if (forSide && forRace && quests[spell.id] == nil) {
       const wait = waitOf(spell, learner)
-      rows.push({ spell: spell.id, wait: wait, level: spell.level, cost: bestPrice(learner, spell.cost), base: spell.cost, quest: nil, note: nil })
+      rows.push({ spell: spell.id, wait: wait, level: spell.level, rank: spell.rank, cost: bestPrice(learner, spell.cost), base: spell.cost, quest: nil, note: nil })
     }
   }
   for (spell, ways of quests) {
@@ -252,7 +241,7 @@ public function learnableOf(learner: Learner, questName: QuestName, openLabel: S
       const quest = way.quests[1]
       const name = quest == nil ? nil : questName(quest)
       const note = name == nil ? Locale.LEARN_QUEST_LEVEL.format(way.level) : Locale.LEARN_QUEST.format(name, way.level)
-      rows.push({ spell: spell, wait: known ? Wait.Known : Wait.Quest, level: way.level, cost: 0, base: 0, quest: quest, note: known ? nil : note })
+      rows.push({ spell: spell, wait: known ? Wait.Known : Wait.Quest, level: way.level, rank: 0, cost: 0, base: 0, quest: quest, note: known ? nil : note })
     }
   }
   rows.sort((a, b) => {
@@ -260,16 +249,14 @@ public function learnableOf(learner: Learner, questName: QuestName, openLabel: S
     if (a.level != b.level) { return a.level < b.level }
     return a.spell < b.spell
   })
-  const ranks = ranksOf(learner.classTag)
   const services: Array<Game.TrainerService> = []
   const notes: Map<Integer, String> = {}
   const actions: Map<Integer, String> = {}
   const questOf: Map<Integer, Integer> = {}
   const prices: Map<Integer, Array<String>> = {}
   for (at, row of rows) {
-    const rank = ranks[row.spell]
     services.push({
-      index: at, name: Game.spells.name(row.spell) ?? "", rank: rank == nil ? "" : Locale.SPELL_RANK.format(rank),
+      index: at, name: Game.spells.name(row.spell) ?? "", rank: row.rank == 0 ? "" : Locale.SPELL_RANK.format(row.rank),
       icon: Game.spells.texture(row.spell), status: statusOf(row.wait), level: row.level, cost: row.cost,
       description: Game.spells.description(row.spell) ?? "", skill: nil, category: headingOf(row.wait), spell: row.spell
     })
