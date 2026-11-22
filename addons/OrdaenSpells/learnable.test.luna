@@ -108,7 +108,9 @@ test "a weapon skill of the class stands under the weapon masters with its maste
   const at = polearms?.index ?? 0
   Test.expect(friendly.notes[at] == "From level 20")
   const lines = friendly.prices[at] ?? []
-  Test.expect(lines.length == 1 && (lines[1] ?? "").contains("Woo Ping") && (lines[1] ?? "").contains("(63.9, 69.1)"))
+  const line = lines[1]
+  Test.expect(lines.length == 1 && (line?.place ?? "").contains("Woo Ping") && (line?.place ?? "").contains("(63.9, 69.1)"))
+  Test.expect(line?.price == 10000)
   Test.expect(serviceOf(friendly, SWORDS)?.category == "Known")
   // Honored with Stormwind, its master takes a tenth off.
   Test.expect(serviceOf(learnableOf(warrior([], HONORED), noQuest, masters, nil), POLEARMS)?.cost == 9000)
@@ -146,4 +148,21 @@ test "the spellbook's «Learnable» tab lists them under their headings, with a 
   Test.expect(window.text("Charge").shown())
   window.text("Charge").click()
   Test.expect(window.text("Learned at a trainer").shown())
+}
+
+test "a picked spell's price at each city is a line of the city and the price; the standing is the line's tip" {
+  Test.mount(nil, PAGE)
+  Test.login({ guid: "Player-1-00000001", name: "Player", surname: nil, classTag: "WARRIOR" })
+  Test.factions({ [STORMWIND]: "Stormwind" })
+  Game.player.level = 10
+  Game.spells.name = (id: Integer): String | nil => id == CHARGE ? "Charge" : nil
+  Test.open("/spellbook")
+  const window = Test.page().window("Spells")
+  window.button("Learnable").click()
+  window.text("Charge").click()
+  const line = window.text("Stormwind").item()
+  Test.expect(line.texts().join(" | ") == "Stormwind | 0g 1s 0c")
+  Test.expect(!Test.page().text("Neutral").shown())
+  line.hover()
+  Test.expect(Test.page().text("Neutral").shown())
 }

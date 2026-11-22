@@ -48,10 +48,10 @@
   "LEARN_QUEST": "Quest: %s (level %d)",
   "LEARN_QUEST_LEVEL": "From a quest (level %d)",
   "LEARN_OPEN_QUEST": "Show quest",
-  "CITY_PRICE": "%s (%s): %s",
+  "CITY_DISCOUNT": "%s: %d%% off",
   "LEARN_WEAPONS": "Weapon masters",
   "LEARN_WEAPON_LEVEL": "From level %d",
-  "WEAPON_MASTER": "%s, %s (%.1f, %.1f): %s",
+  "WEAPON_MASTER": "%s, %s (%.1f, %.1f)",
   "LEARN_GRIMOIRES": "Demon trainer",
   "LEARN_GRIMOIRE": "A grimoire for your %s",
   "LEARN_PET_TRAINER": "Pet trainer"

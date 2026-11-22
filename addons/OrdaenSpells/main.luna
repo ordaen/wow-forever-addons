@@ -10,7 +10,7 @@ import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
 import { KeptWindow, Module, ModuleMemory, Settings, SettingsPage, Window, WindowSide, WindowTabSpec, WindowsPage, playSound, windowsTitle } from "Ordaen"
 import root Quests from "OrdaenQuests"
-import { TrainerIgnored, TrainerList, TrainerPage, TrainerView, TrainerWindow } from "OrdaenTrainer"
+import { PlacePrice, TrainerIgnored, TrainerList, TrainerPage, TrainerView, TrainerWindow } from "OrdaenTrainer"
 import { Learnable, Learner, learnableOf } from "@/learnable"
 import Locale from "@/locales"
 import { Choices, TrainerSettingsPage } from "@/settings"
@@ -82,7 +82,7 @@ public class Spells implements Module, App {
   derived learnServices: Array<Game.TrainerService> = self.learnable.services
   derived learnNotes: Map<Integer, String> = self.learnable.notes
   derived learnActions: Map<Integer, String> = self.learnable.actions
-  derived learnPrices: Map<Integer, Array<String>> = self.learnable.prices
+  derived learnPrices: Map<Integer, Array<PlacePrice>> = self.learnable.prices
   derived side: WindowSide | nil = self.tab == LEARNABLE ? self.learnPage.side : nil
   // The page's cells, as the «Learnable» page reads them: its tab and its words while nothing is picked.
   derived learnTab: WindowTabSpec = LEARNABLE_TAB

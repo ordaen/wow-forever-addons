@@ -448,6 +448,38 @@ function sameBatch(now: Array<Game.TrainerService>, quoted: Array<Game.TrainerSe
   return true
 }
 
+// A place a service is learned at and its price there, a line of the card that never wraps; what makes the price
+// (the player's standing there, its discount) is its tip's, under the cursor. `note` "" for no tip.
+public struct PlacePrice {
+  place: String
+  price: Integer
+  note: String
+}
+
+// One line of the card's «Price by place»: the place, the price at the line's end, the note on its tip.
+class PriceLine implements Component {
+  state hovered = false
+  derived noted: Boolean = self.hovered && self.line.note != ""
+
+  line: Signal<PlacePrice>
+  constructor(line: Signal<PlacePrice>) {
+    self.line = line
+  }
+
+  onEnter(mut self) { self.hovered = true }
+  onLeave(mut self) { self.hovered = false }
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={PRICE_LINE} gap={3sp} yAlign={Align.Center} @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
+        <text value={self.line.place} textColor={INK} textSize={SECONDARY_TEXT} wrap={.Cut} />
+        <Money amount={self.line.price} />
+        <Tip $if={self.noted} title={self.line.place} text={self.line.note} />
+      </box>
+    }
+  }
+}
+
 // One count of the footer: the colour its services are known by, how many there are, and what its tip says.
 struct StatusCount {
   color: Color
@@ -455,6 +487,9 @@ struct StatusCount {
   title: String
   text: String
 }
+
+// A line of prices: the place, the price after it.
+const PRICE_LINE: Array<Track> = [{ fr: 1 }, "max-content"]
 
 // A count in the footer: a dot of its colour and its number, no label; under the cursor its tip says what it counts.
 class StatusDot implements Component {
@@ -658,7 +693,7 @@ public class TrainerPage {
   // Away from a trainer: the picked service's own action, where it has one.
   derived action: String | nil = self.current == nil ? nil : self.actions[(self.current ?? panic("current")).index]
   derived acts: Boolean = self.action != nil
-  derived priceLines: Array<String> = self.current == nil ? [] : self.prices[(self.current ?? panic("current")).index] ?? []
+  derived priceLines: Array<PlacePrice> = self.current == nil ? [] : self.prices[(self.current ?? panic("current")).index] ?? []
   derived priced: Boolean = self.priceLines.length > 0
 
   services: Signal<Array<Game.TrainerService>>
@@ -672,7 +707,7 @@ public class TrainerPage {
   // (what it costs at each city), by its place in the list.
   notes: Signal<Map<Integer, String>>
   actions: Signal<Map<Integer, String>>
-  prices: Signal<Map<Integer, Array<String>>>
+  prices: Signal<Map<Integer, Array<PlacePrice>>>
   // At a trainer, where services are learned; or in a book.
   const atTrainer: Boolean
   // A profession trainer's (its columns the level and the skill), or a class trainer's (the rank and the level).
@@ -690,7 +725,7 @@ public class TrainerPage {
     atTrainer: Boolean = true,
     notes: Signal<Map<Integer, String>> = {},
     actions: Signal<Map<Integer, String>> = {},
-    prices: Signal<Map<Integer, Array<String>>> = {}
+    prices: Signal<Map<Integer, Array<PlacePrice>>> = {}
   ) {
     self.services = services
     self.atTrainer = atTrainer
@@ -931,7 +966,7 @@ public class TrainerPage {
         </box>
         <text $for={fact of self.facts} value={fact} textColor={DIM} textSize={SECONDARY_TEXT} />
         <text $if={self.priced} value={Locale.TRAINER_PRICES} textColor={GOLD} />
-        <text $for={line of self.priceLines} value={line} textColor={INK} textSize={SECONDARY_TEXT} />
+        <PriceLine $for={line of self.priceLines} line={line} />
       </box>
       <box $else columns={1} gap={2sp}>
         <text $if={self.greeting != ""} value={self.greeting} textColor={INK} />

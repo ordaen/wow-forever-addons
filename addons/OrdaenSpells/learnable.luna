@@ -7,6 +7,7 @@
 import Client from "$client"
 import Game from "$game"
 import Runtime from "$runtime"
+import { PlacePrice } from "OrdaenTrainer"
 import Locale from "@/locales"
 import Training from "@/training"
 
@@ -60,7 +61,7 @@ public struct Learnable {
   // The quest a service's action opens, by its place.
   quests: Map<Integer, Integer>
   // What a service costs at each city whose trainers teach the class, by its place.
-  prices: Map<Integer, Array<String>>
+  prices: Map<Integer, Array<PlacePrice>>
 }
 
 // A city whose trainers teach the learner's class: its faction, how the learner stands with it, and what a price comes
@@ -157,10 +158,12 @@ public function cityPricesOf(learner: Learner, cost: Integer, role: String): Arr
 }
 
 // A city's line on a spell's card: «Stormwind (Honored): 63s», the client's names.
-function cityLineOf(city: CityPrice): String {
+function cityLineOf(city: CityPrice): PlacePrice {
   const name = Client.C_Reputation.GetFactionDataByID(city.faction)?.name ?? String.of(city.faction)
   const standing = Runtime.text(`FACTION_STANDING_LABEL${city.standing}`) ?? String.of(city.standing)
-  return Locale.CITY_PRICE.format(name, standing, Game.money.format(city.price))
+  const percent = city.standing >= HONORED ? DISCOUNT : 0
+  const note = percent > 0 ? Locale.CITY_DISCOUNT.format(standing, percent) : standing
+  return { place: name, price: city.price, note: note }
 }
 
 // The way a quest gives the learner a spell, by their race; none where no way is theirs.
@@ -215,10 +218,10 @@ public function weaponWaysOf(learner: Learner): Array<WeaponWay> {
 }
 
 // A master's line on a skill's card: «Bixiwobble, Ironforge (61.2, 89.5): 10s», the client's names.
-function masterLineOf(master: WeaponMaster, npcName: NpcName): String {
+function masterLineOf(master: WeaponMaster, npcName: NpcName): PlacePrice {
   const name = npcName(master.npc) ?? String.of(master.npc)
   const zone = Client.C_Map.GetAreaInfo(master.zone) ?? ""
-  return Locale.WEAPON_MASTER.format(name, zone, master.x, master.y, Game.money.format(master.price))
+  return { place: Locale.WEAPON_MASTER.format(name, zone, master.x, master.y), price: master.price, note: "" }
 }
 
 // A grimoire the demon trainer sells: the spell it teaches a demon, its rank (by the grimoires of that spell before
@@ -307,7 +310,7 @@ struct Row {
   quest: Integer | nil
   note: String | nil
   // Its masters' lines, for a weapon skill.
-  masters: Array<String>
+  masters: Array<PlacePrice>
 }
 
 // The name a spell's quest says it by: the client's, in the player's language, where it has the quest.
@@ -367,7 +370,7 @@ public function learnableOf(learner: Learner, questName: QuestName, npcName: Npc
   const notes: Map<Integer, String> = {}
   const actions: Map<Integer, String> = {}
   const questOf: Map<Integer, Integer> = {}
-  const prices: Map<Integer, Array<String>> = {}
+  const prices: Map<Integer, Array<PlacePrice>> = {}
   for (at, row of rows) {
     services.push({
       index: at, name: Game.spells.name(row.spell) ?? "", rank: row.rank == 0 ? "" : Locale.SPELL_RANK.format(row.rank),

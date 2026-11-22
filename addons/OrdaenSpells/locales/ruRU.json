@@ -48,10 +48,10 @@
   "LEARN_QUEST": "Задание: %s (уровень %d)",
   "LEARN_QUEST_LEVEL": "За задание (уровень %d)",
   "LEARN_OPEN_QUEST": "Показать задание",
-  "CITY_PRICE": "%s (%s): %s",
+  "CITY_DISCOUNT": "%s: скидка %d%%",
   "LEARN_WEAPONS": "Учителя оружия",
   "LEARN_WEAPON_LEVEL": "С уровня %d",
-  "WEAPON_MASTER": "%s, %s (%.1f, %.1f): %s",
+  "WEAPON_MASTER": "%s, %s (%.1f, %.1f)",
   "LEARN_GRIMOIRES": "Учитель демонов",
   "LEARN_GRIMOIRE": "Гримуар для демона: %s",
   "LEARN_PET_TRAINER": "Учитель питомцев"
