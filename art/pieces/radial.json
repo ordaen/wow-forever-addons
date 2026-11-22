@@ -1,0 +1,578 @@
+{
+  "says": "The radial wheel (Ordaen/wheel.luna): each slice of a ring of n in the bank stone (radial-wedge-n), the slice aimed at lit over it (radial-lit-n), the inner edge of a slice's band (radial-arc-n), a band's segment 1/m of a turn wide (radial-band-m, white, tinted), the round middle (radial-middle), and an icon's hollow carved into the stone (radial-carve, radial-carve-lit aimed at). Each is the shape straight up from the wheel's middle, cut to its box and stretched to a power of two; the wheel turns the box about its middle to stand it at its item.",
+  "ships": [
+    "addons/Ordaen/media/radial-wedge-1.tga",
+    "addons/Ordaen/media/radial-lit-1.tga",
+    "addons/Ordaen/media/radial-arc-1.tga",
+    "addons/Ordaen/media/radial-wedge-2.tga",
+    "addons/Ordaen/media/radial-lit-2.tga",
+    "addons/Ordaen/media/radial-arc-2.tga",
+    "addons/Ordaen/media/radial-wedge-3.tga",
+    "addons/Ordaen/media/radial-lit-3.tga",
+    "addons/Ordaen/media/radial-arc-3.tga",
+    "addons/Ordaen/media/radial-wedge-4.tga",
+    "addons/Ordaen/media/radial-lit-4.tga",
+    "addons/Ordaen/media/radial-arc-4.tga",
+    "addons/Ordaen/media/radial-wedge-5.tga",
+    "addons/Ordaen/media/radial-lit-5.tga",
+    "addons/Ordaen/media/radial-arc-5.tga",
+    "addons/Ordaen/media/radial-wedge-6.tga",
+    "addons/Ordaen/media/radial-lit-6.tga",
+    "addons/Ordaen/media/radial-arc-6.tga",
+    "addons/Ordaen/media/radial-wedge-7.tga",
+    "addons/Ordaen/media/radial-lit-7.tga",
+    "addons/Ordaen/media/radial-arc-7.tga",
+    "addons/Ordaen/media/radial-wedge-8.tga",
+    "addons/Ordaen/media/radial-lit-8.tga",
+    "addons/Ordaen/media/radial-arc-8.tga",
+    "addons/Ordaen/media/radial-band-1.tga",
+    "addons/Ordaen/media/radial-band-2.tga",
+    "addons/Ordaen/media/radial-band-3.tga",
+    "addons/Ordaen/media/radial-band-4.tga",
+    "addons/Ordaen/media/radial-band-5.tga",
+    "addons/Ordaen/media/radial-band-6.tga",
+    "addons/Ordaen/media/radial-band-7.tga",
+    "addons/Ordaen/media/radial-band-8.tga",
+    "addons/Ordaen/media/radial-band-9.tga",
+    "addons/Ordaen/media/radial-band-10.tga",
+    "addons/Ordaen/media/radial-band-12.tga",
+    "addons/Ordaen/media/radial-band-14.tga",
+    "addons/Ordaen/media/radial-band-15.tga",
+    "addons/Ordaen/media/radial-band-16.tga",
+    "addons/Ordaen/media/radial-band-18.tga",
+    "addons/Ordaen/media/radial-band-20.tga",
+    "addons/Ordaen/media/radial-band-21.tga",
+    "addons/Ordaen/media/radial-band-24.tga",
+    "addons/Ordaen/media/radial-band-25.tga",
+    "addons/Ordaen/media/radial-band-28.tga",
+    "addons/Ordaen/media/radial-band-30.tga",
+    "addons/Ordaen/media/radial-band-32.tga",
+    "addons/Ordaen/media/radial-band-35.tga",
+    "addons/Ordaen/media/radial-band-36.tga",
+    "addons/Ordaen/media/radial-band-40.tga",
+    "addons/Ordaen/media/radial-band-42.tga",
+    "addons/Ordaen/media/radial-band-48.tga",
+    "addons/Ordaen/media/radial-band-49.tga",
+    "addons/Ordaen/media/radial-band-56.tga",
+    "addons/Ordaen/media/radial-band-64.tga",
+    "addons/Ordaen/media/radial-middle.tga",
+    "addons/Ordaen/media/radial-carve.tga",
+    "addons/Ordaen/media/radial-carve-lit.tga"
+  ],
+  "origin": "Drawn by wow-dev-tools `design/scripts/radial-pieces.mjs` after the design's preview (`RadialPreview.vue`, the client's Bank-Background as the stone): a page a piece at its texture's size, shot on black and on white with `design/scripts/shot.mjs`, then matted.",
+  "steps": [
+    {
+      "matte": {
+        "black": "art/sources/radial-wedge-1-black.png",
+        "white": "art/sources/radial-wedge-1-white.png",
+        "out": "addons/Ordaen/media/radial-wedge-1.tga",
+        "width": 512,
+        "height": 512
+      }
+    },
+    {
+      "matte": {
+        "black": "art/sources/radial-lit-1-black.png",
+        "white": "art/sources/radial-lit-1-white.png",
+        "out": "addons/Ordaen/media/radial-lit-1.tga",
+        "width": 512,
+        "height": 512
+      }
+    },
+    {
+      "matte": {
+        "black": "art/sources/radial-arc-1-black.png",
+        "white": "art/sources/radial-arc-1-white.png",
+        "out": "addons/Ordaen/media/radial-arc-1.tga",
+        "width": 512,
+        "height": 512
+      }
+    },
+    {
+      "matte": {
+        "black": "art/sources/radial-wedge-2-black.png",
+        "white": "art/sources/radial-wedge-2-white.png",
+        "out": "addons/Ordaen/media/radial-wedge-2.tga",
+        "width": 512,
+        "height": 256
+      }
+    },
+    {
+      "matte": {
+        "black": "art/sources/radial-lit-2-black.png",
+        "white": "art/sources/radial-lit-2-white.png",
+        "out": "addons/Ordaen/media/radial-lit-2.tga",
+        "width": 512,
+        "height": 256
+      }
+    },
+    {
+      "matte": {
+        "black": "art/sources/radial-arc-2-black.png",
+        "white": "art/sources/radial-arc-2-white.png",
+        "out": "addons/Ordaen/media/radial-arc-2.tga",
+        "width": 512,
+        "height": 256
+      }
+    },
+    {
+      "matte": {
+        "black": "art/sources/radial-wedge-3-black.png",
+        "white": "art/sources/radial-wedge-3-white.png",
+        "out": "addons/Ordaen/media/radial-wedge-3.tga",
+        "width": 512,
+        "height": 256
+      }
+    },
+    {
+      "matte": {
+        "black": "art/sources/radial-lit-3-black.png",
+        "white": "art/sources/radial-lit-3-white.png",
+        "out": "addons/Ordaen/media/radial-lit-3.tga",
+        "width": 512,
+        "height": 256
+      }
+    },
+    {
+      "matte": {
+        "black": "art/sources/radial-arc-3-black.png",
+        "white": "art/sources/radial-arc-3-white.png",
+        "out": "addons/Ordaen/media/radial-arc-3.tga",
+        "width": 512,
+        "height": 128
+      }
+    },
+    {
+      "matte": {
+        "black": "art/sources/radial-wedge-4-black.png",
+        "white": "art/sources/radial-wedge-4-white.png",
+        "out": "addons/Ordaen/media/radial-wedge-4.tga",
+        "width": 256,
+        "height": 256
+      }
+    },
+    {
+      "matte": {
+        "black": "art/sources/radial-lit-4-black.png",
+        "white": "art/sources/radial-lit-4-white.png",
+        "out": "addons/Ordaen/media/radial-lit-4.tga",
+        "width": 256,
+        "height": 256
+      }
+    },
+    {
+      "matte": {
+        "black": "art/sources/radial-arc-4-black.png",
+        "white": "art/sources/radial-arc-4-white.png",
+        "out": "addons/Ordaen/media/radial-arc-4.tga",
+        "width": 256,
+        "height": 64
+      }
+    },
+    {
+      "matte": {
+        "black": "art/sources/radial-wedge-5-black.png",
+        "white": "art/sources/radial-wedge-5-white.png",
+        "out": "addons/Ordaen/media/radial-wedge-5.tga",
+        "width": 256,
+        "height": 256
+      }
+    },
+    {
+      "matte": {
+        "black": "art/sources/radial-lit-5-black.png",
+        "white": "art/sources/radial-lit-5-white.png",
+        "out": "addons/Ordaen/media/radial-lit-5.tga",
+        "width": 256,
+        "height": 256
+      }
+    },
+    {
+      "matte": {
+        "black": "art/sources/radial-arc-5-black.png",
+        "white": "art/sources/radial-arc-5-white.png",
+        "out": "addons/Ordaen/media/radial-arc-5.tga",
+        "width": 256,
+        "height": 64
+      }
+    },
+    {
+      "matte": {
+        "black": "art/sources/radial-wedge-6-black.png",
+        "white": "art/sources/radial-wedge-6-white.png",
+        "out": "addons/Ordaen/media/radial-wedge-6.tga",
+        "width": 256,
+        "height": 128
+      }
+    },
+    {
+      "matte": {
+        "black": "art/sources/radial-lit-6-black.png",
+        "white": "art/sources/radial-lit-6-white.png",
+        "out": "addons/Ordaen/media/radial-lit-6.tga",
+        "width": 256,
+        "height": 128
+      }
+    },
+    {
+      "matte": {
+        "black": "art/sources/radial-arc-6-black.png",
+        "white": "art/sources/radial-arc-6-white.png",
+        "out": "addons/Ordaen/media/radial-arc-6.tga",
+        "width": 256,
+        "height": 32
+      }
+    },
+    {
+      "matte": {
+        "black": "art/sources/radial-wedge-7-black.png",
+        "white": "art/sources/radial-wedge-7-white.png",
+        "out": "addons/Ordaen/media/radial-wedge-7.tga",
+        "width": 256,
+        "height": 128
+      }
+    },
+    {
+      "matte": {
+        "black": "art/sources/radial-lit-7-black.png",
+        "white": "art/sources/radial-lit-7-white.png",
+        "out": "addons/Ordaen/media/radial-lit-7.tga",
+        "width": 256,
+        "height": 128
+      }
+    },
+    {
+      "matte": {
+        "black": "art/sources/radial-arc-7-black.png",
+        "white": "art/sources/radial-arc-7-white.png",
+        "out": "addons/Ordaen/media/radial-arc-7.tga",
+        "width": 256,
+        "height": 32
+      }
+    },
+    {
+      "matte": {
+        "black": "art/sources/radial-wedge-8-black.png",
+        "white": "art/sources/radial-wedge-8-white.png",
+        "out": "addons/Ordaen/media/radial-wedge-8.tga",
+        "width": 256,
+        "height": 128
+      }
+    },
+    {
+      "matte": {
+        "black": "art/sources/radial-lit-8-black.png",
+        "white": "art/sources/radial-lit-8-white.png",
+        "out": "addons/Ordaen/media/radial-lit-8.tga",
+        "width": 256,
+        "height": 128
+      }
+    },
+    {
+      "matte": {
+        "black": "art/sources/radial-arc-8-black.png",
+        "white": "art/sources/radial-arc-8-white.png",
+        "out": "addons/Ordaen/media/radial-arc-8.tga",
+        "width": 256,
+        "height": 32
+      }
+    },
+    {
+      "matte": {
+        "black": "art/sources/radial-band-1-black.png",
+        "white": "art/sources/radial-band-1-white.png",
+        "out": "addons/Ordaen/media/radial-band-1.tga",
+        "width": 512,
+        "height": 512
+      }
+    },
+    {
+      "matte": {
+        "black": "art/sources/radial-band-2-black.png",
+        "white": "art/sources/radial-band-2-white.png",
+        "out": "addons/Ordaen/media/radial-band-2.tga",
+        "width": 512,
+        "height": 256
+      }
+    },
+    {
+      "matte": {
+        "black": "art/sources/radial-band-3-black.png",
+        "white": "art/sources/radial-band-3-white.png",
+        "out": "addons/Ordaen/media/radial-band-3.tga",
+        "width": 512,
+        "height": 128
+      }
+    },
+    {
+      "matte": {
+        "black": "art/sources/radial-band-4-black.png",
+        "white": "art/sources/radial-band-4-white.png",
+        "out": "addons/Ordaen/media/radial-band-4.tga",
+        "width": 256,
+        "height": 128
+      }
+    },
+    {
+      "matte": {
+        "black": "art/sources/radial-band-5-black.png",
+        "white": "art/sources/radial-band-5-white.png",
+        "out": "addons/Ordaen/media/radial-band-5.tga",
+        "width": 256,
+        "height": 64
+      }
+    },
+    {
+      "matte": {
+        "black": "art/sources/radial-band-6-black.png",
+        "white": "art/sources/radial-band-6-white.png",
+        "out": "addons/Ordaen/media/radial-band-6.tga",
+        "width": 256,
+        "height": 64
+      }
+    },
+    {
+      "matte": {
+        "black": "art/sources/radial-band-7-black.png",
+        "white": "art/sources/radial-band-7-white.png",
+        "out": "addons/Ordaen/media/radial-band-7.tga",
+        "width": 256,
+        "height": 64
+      }
+    },
+    {
+      "matte": {
+        "black": "art/sources/radial-band-8-black.png",
+        "white": "art/sources/radial-band-8-white.png",
+        "out": "addons/Ordaen/media/radial-band-8.tga",
+        "width": 256,
+        "height": 32
+      }
+    },
+    {
+      "matte": {
+        "black": "art/sources/radial-band-9-black.png",
+        "white": "art/sources/radial-band-9-white.png",
+        "out": "addons/Ordaen/media/radial-band-9.tga",
+        "width": 128,
+        "height": 32
+      }
+    },
+    {
+      "matte": {
+        "black": "art/sources/radial-band-10-black.png",
+        "white": "art/sources/radial-band-10-white.png",
+        "out": "addons/Ordaen/media/radial-band-10.tga",
+        "width": 128,
+        "height": 32
+      }
+    },
+    {
+      "matte": {
+        "black": "art/sources/radial-band-12-black.png",
+        "white": "art/sources/radial-band-12-white.png",
+        "out": "addons/Ordaen/media/radial-band-12.tga",
+        "width": 128,
+        "height": 32
+      }
+    },
+    {
+      "matte": {
+        "black": "art/sources/radial-band-14-black.png",
+        "white": "art/sources/radial-band-14-white.png",
+        "out": "addons/Ordaen/media/radial-band-14.tga",
+        "width": 128,
+        "height": 32
+      }
+    },
+    {
+      "matte": {
+        "black": "art/sources/radial-band-15-black.png",
+        "white": "art/sources/radial-band-15-white.png",
+        "out": "addons/Ordaen/media/radial-band-15.tga",
+        "width": 128,
+        "height": 32
+      }
+    },
+    {
+      "matte": {
+        "black": "art/sources/radial-band-16-black.png",
+        "white": "art/sources/radial-band-16-white.png",
+        "out": "addons/Ordaen/media/radial-band-16.tga",
+        "width": 128,
+        "height": 32
+      }
+    },
+    {
+      "matte": {
+        "black": "art/sources/radial-band-18-black.png",
+        "white": "art/sources/radial-band-18-white.png",
+        "out": "addons/Ordaen/media/radial-band-18.tga",
+        "width": 128,
+        "height": 32
+      }
+    },
+    {
+      "matte": {
+        "black": "art/sources/radial-band-20-black.png",
+        "white": "art/sources/radial-band-20-white.png",
+        "out": "addons/Ordaen/media/radial-band-20.tga",
+        "width": 64,
+        "height": 32
+      }
+    },
+    {
+      "matte": {
+        "black": "art/sources/radial-band-21-black.png",
+        "white": "art/sources/radial-band-21-white.png",
+        "out": "addons/Ordaen/media/radial-band-21.tga",
+        "width": 64,
+        "height": 32
+      }
+    },
+    {
+      "matte": {
+        "black": "art/sources/radial-band-24-black.png",
+        "white": "art/sources/radial-band-24-white.png",
+        "out": "addons/Ordaen/media/radial-band-24.tga",
+        "width": 64,
+        "height": 32
+      }
+    },
+    {
+      "matte": {
+        "black": "art/sources/radial-band-25-black.png",
+        "white": "art/sources/radial-band-25-white.png",
+        "out": "addons/Ordaen/media/radial-band-25.tga",
+        "width": 64,
+        "height": 32
+      }
+    },
+    {
+      "matte": {
+        "black": "art/sources/radial-band-28-black.png",
+        "white": "art/sources/radial-band-28-white.png",
+        "out": "addons/Ordaen/media/radial-band-28.tga",
+        "width": 64,
+        "height": 32
+      }
+    },
+    {
+      "matte": {
+        "black": "art/sources/radial-band-30-black.png",
+        "white": "art/sources/radial-band-30-white.png",
+        "out": "addons/Ordaen/media/radial-band-30.tga",
+        "width": 64,
+        "height": 32
+      }
+    },
+    {
+      "matte": {
+        "black": "art/sources/radial-band-32-black.png",
+        "white": "art/sources/radial-band-32-white.png",
+        "out": "addons/Ordaen/media/radial-band-32.tga",
+        "width": 64,
+        "height": 32
+      }
+    },
+    {
+      "matte": {
+        "black": "art/sources/radial-band-35-black.png",
+        "white": "art/sources/radial-band-35-white.png",
+        "out": "addons/Ordaen/media/radial-band-35.tga",
+        "width": 64,
+        "height": 32
+      }
+    },
+    {
+      "matte": {
+        "black": "art/sources/radial-band-36-black.png",
+        "white": "art/sources/radial-band-36-white.png",
+        "out": "addons/Ordaen/media/radial-band-36.tga",
+        "width": 64,
+        "height": 32
+      }
+    },
+    {
+      "matte": {
+        "black": "art/sources/radial-band-40-black.png",
+        "white": "art/sources/radial-band-40-white.png",
+        "out": "addons/Ordaen/media/radial-band-40.tga",
+        "width": 32,
+        "height": 32
+      }
+    },
+    {
+      "matte": {
+        "black": "art/sources/radial-band-42-black.png",
+        "white": "art/sources/radial-band-42-white.png",
+        "out": "addons/Ordaen/media/radial-band-42.tga",
+        "width": 32,
+        "height": 32
+      }
+    },
+    {
+      "matte": {
+        "black": "art/sources/radial-band-48-black.png",
+        "white": "art/sources/radial-band-48-white.png",
+        "out": "addons/Ordaen/media/radial-band-48.tga",
+        "width": 32,
+        "height": 32
+      }
+    },
+    {
+      "matte": {
+        "black": "art/sources/radial-band-49-black.png",
+        "white": "art/sources/radial-band-49-white.png",
+        "out": "addons/Ordaen/media/radial-band-49.tga",
+        "width": 32,
+        "height": 32
+      }
+    },
+    {
+      "matte": {
+        "black": "art/sources/radial-band-56-black.png",
+        "white": "art/sources/radial-band-56-white.png",
+        "out": "addons/Ordaen/media/radial-band-56.tga",
+        "width": 32,
+        "height": 32
+      }
+    },
+    {
+      "matte": {
+        "black": "art/sources/radial-band-64-black.png",
+        "white": "art/sources/radial-band-64-white.png",
+        "out": "addons/Ordaen/media/radial-band-64.tga",
+        "width": 32,
+        "height": 32
+      }
+    },
+    {
+      "matte": {
+        "black": "art/sources/radial-middle-black.png",
+        "white": "art/sources/radial-middle-white.png",
+        "out": "addons/Ordaen/media/radial-middle.tga",
+        "width": 128,
+        "height": 128
+      }
+    },
+    {
+      "matte": {
+        "black": "art/sources/radial-carve-black.png",
+        "white": "art/sources/radial-carve-white.png",
+        "out": "addons/Ordaen/media/radial-carve.tga",
+        "width": 64,
+        "height": 64
+      }
+    },
+    {
+      "matte": {
+        "black": "art/sources/radial-carve-lit-black.png",
+        "white": "art/sources/radial-carve-lit-white.png",
+        "out": "addons/Ordaen/media/radial-carve-lit.tga",
+        "width": 64,
+        "height": 64
+      }
+    }
+  ]
+}

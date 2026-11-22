@@ -84,10 +84,10 @@ function spellShown(spell: String): WheelItem {
   const inRange = Client.C_Spell.IsSpellInRange(spell, "target")
   const cooldown = Client.C_Spell.GetSpellCooldown(spell)
   return {
-    name: spell, icon: icon ?? QUESTION, dim: icon == nil || !usable && !noPower, menu: false,
+    name: spell, icon: icon ?? QUESTION, dim: icon == nil || !usable && !noPower,
     count: charges != nil && charges.maxCharges > 1 ? String.of(charges.currentCharges) : "",
     tone: inRange == false ? OUT_OF_RANGE : noPower ? NO_POWER : nil,
-    cooldown: running(cooldown?.startTime, cooldown?.duration), dots: 0, dot: 0
+    cooldown: running(cooldown?.startTime, cooldown?.duration), segments: 0, segment: 0
   }
 }
 
@@ -99,33 +99,33 @@ function bagShown(item: Integer): WheelItem {
   const start, length, _ = Client.C_Item.GetItemCooldown(item)
   return {
     name: Client.C_Item.GetItemNameByID(item) ?? String.of(item), icon: Client.C_Item.GetItemIconByID(item) ?? QUESTION,
-    dim: count < 1, menu: false, count: count > 1 ? String.of(count.floor()) : "",
-    tone: inRange == false ? OUT_OF_RANGE : nil, cooldown: running(start, length), dots: 0, dot: 0
+    dim: count < 1, count: count > 1 ? String.of(count.floor()) : "",
+    tone: inRange == false ? OUT_OF_RANGE : nil, cooldown: running(start, length), segments: 0, segment: 0
   }
 }
 
 // A macro of the player's: its own icon; dimmed where the player has none so named.
 function macroShown(macro: String): WheelItem {
   const name, icon, _ = Client.GetMacroInfo(macro)
-  return plainItem(macro, icon ?? QUESTION, name == nil, false)
+  return plainItem(macro, icon ?? QUESTION, name == nil)
 }
 
 // How an item is drawn; a kind of another module's as it offers now (none: not loaded).
 public function shown(item: Item, offer: RadialOffer | nil): WheelItem {
   return match (item) {
-    .Empty => plainItem("", QUESTION, true, false)
+    .Empty => plainItem("", QUESTION, true)
     .Spell => spellShown(item.spell)
     .Bag => bagShown(item.item)
     .Macro => macroShown(item.macro)
-    .Open => plainItem(opening(item.window).title, opening(item.window).icon, false, false)
-    .RaidMark => plainItem(Locale.MARK.format(item.mark), markIcon(item.mark), false, false)
-    .WorldMark => plainItem(Locale.WORLD_MARK.format(item.mark), markIcon(item.mark), false, false)
-    .Pinged => plainItem(pingTitle(item.ping), "Interface/Icons/Ability_Hunter_MarkedForDeath", false, false)
-    .Line => plainItem(item.title, item.icon, false, false)
-    .Menu => plainItem(item.title, item.icon, false, true)
-    .Slot => plainItem(item.title, item.icon, false, false)
-    .Professions => plainItem(Locale.RING_PROFESSIONS, QUESTION, true, false)
-    .Kind => offer != nil ? plainItem(offer.name, offer.icon, offer.dim, false) : plainItem(item.kind, QUESTION, true, false)
+    .Open => plainItem(opening(item.window).title, opening(item.window).icon, false)
+    .RaidMark => plainItem(Locale.MARK.format(item.mark), markIcon(item.mark), false)
+    .WorldMark => plainItem(Locale.WORLD_MARK.format(item.mark), markIcon(item.mark), false)
+    .Pinged => plainItem(pingTitle(item.ping), "Interface/Icons/Ability_Hunter_MarkedForDeath", false)
+    .Line => plainItem(item.title, item.icon, false)
+    .Menu => plainItem(item.title, item.icon, false)
+    .Slot => plainItem(item.title, item.icon, false)
+    .Professions => plainItem(Locale.RING_PROFESSIONS, QUESTION, true)
+    .Kind => offer != nil ? plainItem(offer.name, offer.icon, offer.dim) : plainItem(item.kind, QUESTION, true)
   }
 }
 

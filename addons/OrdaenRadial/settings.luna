@@ -246,7 +246,7 @@ public class RingsPage implements Component {
         <Fact label={Locale.RING_KEY} value={self.keys} />
         <Dropdown label={Locale.OPENS_AT} value={mut self.opensAt} choices={OPENS} />
         <Dropdown label={Locale.NAMES} value={mut self.names} choices={NAMES} />
-        <NumberInput label={Locale.SCALE} value={mut self.scale} least={0.6} most={1.6} step={0.05} unit={Unit.Percent} />
+        <NumberInput label={Locale.SCALE} value={mut self.scale} least={0.6} most={2} step={0.05} unit={Unit.Percent} />
         <Checkbox label={Locale.REMEMBER} hint={Locale.REMEMBER_TIP} value={mut self.remember} />
       </Section>
       <Section title={Locale.SECTION_ITEM}>

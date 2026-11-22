@@ -76,11 +76,21 @@ public function placeIn(ring: String, index: Integer): String { return `${ring}_
 // How long the wheel takes to open, and how often an open wheel reads its items' state again.
 const OPENING_TIME = 0.2
 const STATE_EVERY = 0.2
+// The client's restricted code that reads which item of the ring shown (`level`) the cursor went towards: it sets
+// `slot`, 0 in the middle.
+const AIM: String = [
+  "local count = owner:GetAttribute('count-' .. level) or 0",
+  "local dead = owner:GetAttribute('dead') or 0",
+  "local x, y = self:GetMousePosition()",
+  "local dx, dy = 0, 0",
+  "if x then dx, dy = (x - 0.5) * self:GetWidth(), (y - 0.5) * self:GetHeight() end",
+  SLOT_LUA
+].join("\n")
 // The client's restricted code round the button's click: `self` the button, `owner` the header, `button` how it was
 // clicked (`Key` the bound key, `LeftButton`, `RightButton`, `Escape`), `down` whether it went down. The key held opens
 // the wheel and its release closes it, doing nothing; a left click does the item the cursor went towards (opens a
-// submenu or a slot's children), none in the middle (a submenu that remembers: its last); a right click goes back a
-// ring, closing the wheel from the first; Escape closes it.
+// submenu or a slot's children, or does the item of them the mouse wheel stepped to), none in the middle (a submenu that
+// remembers: its last); a right click goes back a ring, closing the wheel from the first; Escape closes it.
 const CHOICE: String = [
   "if button == 'Key' and down then",
   "  owner:SetAttribute('level', 'r')",
@@ -106,18 +116,19 @@ const CHOICE: String = [
   "  return false",
   "end",
   "if button ~= 'LeftButton' then return false end",
-  "local count = owner:GetAttribute('count-' .. level) or 0",
-  "local dead = owner:GetAttribute('dead') or 0",
-  "local x, y = self:GetMousePosition()",
-  "local dx, dy = 0, 0",
-  "if x then dx, dy = (x - 0.5) * self:GetWidth(), (y - 0.5) * self:GetHeight() end",
-  SLOT_LUA,
+  AIM,
   "if slot == 0 and level ~= 'r' and owner:GetAttribute('remember') then slot = owner:GetAttribute('last-' .. level) or 0 end",
   "if slot == 0 then return false end",
   "local name = level .. '_' .. slot",
   "if owner:GetAttribute('menu-' .. name) or owner:GetAttribute('slot-' .. name) then",
-  "  owner:SetAttribute('level', name)",
-  "  return false",
+  "  local step = owner:GetAttribute('step-' .. name) or 0",
+  "  if step == 0 then owner:SetAttribute('level', name) return false end",
+  "  level, slot = name, step",
+  "  name = level .. '_' .. slot",
+  "  if owner:GetAttribute('menu-' .. name) or owner:GetAttribute('slot-' .. name) then",
+  "    owner:SetAttribute('level', name)",
+  "    return false",
+  "  end",
   "end",
   "if level ~= 'r' then owner:SetAttribute('last-' .. level, slot) end",
   "if owner:GetAttribute('slot-' .. level) then",
@@ -230,6 +241,7 @@ public class SecureWheel {
     self.header.SetAttribute("dead", DEAD_ZONE / 1ui * setup.scale)
     for (ring of rings) {
       self.onHeader(`count-${ring.path}`, ring.count)
+      self.header.SetAttribute(`step-${ring.path}`, nil)
       const cut = ring.path.match("^(.+)_%d+$")
       if (cut != nil) { self.onHeader(`up-${ring.path}`, cut) }
     }
@@ -252,6 +264,12 @@ public class SecureWheel {
   onHeader(mut self, name: String, value: String | Integer | Boolean) {
     self.header.SetAttribute(name, value)
     self.writtenOnHeader.push(name)
+  }
+
+  // The item of a submenu or a slot of several the mouse wheel stepped to, by its place: 0 for none, the ring itself.
+  public step(self, path: String): Integer {
+    const kept = self.header.GetAttribute(`step-${path}`)
+    return kept is Integer ? kept : 0
   }
 
   // The child a slot of several does now, by the slot's place: the client's restricted code keeps it.

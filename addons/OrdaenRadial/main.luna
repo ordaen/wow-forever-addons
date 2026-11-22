@@ -1,9 +1,10 @@
 // Ordaen Radial: wheels of actions held on a key. Each ring of the player's stands on a key of its own (the client's
 // Key Bindings window lists them under «Ordaen Radial»); held, its wheel is drawn at the screen's middle (or at the
 // cursor, as the ring says), and the direction the mouse goes from where it was as the key went down chooses an item,
-// the hand never taken to the wheel first. A left click does it, in a fight too; a right click goes back; the key let
-// go closes the wheel (Ordaen's `SecureWheel`). The art (Ordaen's `Wheel`) follows the same choice by the same formula
-// while the wheel is up, the ring's own icon on its hub, and nothing runs while it is closed. Other modules add kinds
+// the hand never taken to the wheel first. A left click does it, in a fight too (a submenu or a slot opens, or does
+// the item of it the mouse wheel stepped to); a right click goes back; the key let go closes the wheel (Ordaen's
+// `SecureWheel`). The art (Ordaen's `Wheel`) follows the same choice by the same formula while the wheel is up, its
+// middle naming what is aimed at and what a click does there, and nothing runs while it is closed. Other modules add kinds
 // of items of their own (`kinds`).
 import Client from "$client"
 import Events from "$events"
@@ -11,8 +12,8 @@ import Game from "$game"
 import { Anchored, Art, Layer, NamedKey, Point } from "$ltml"
 import root Ordaen from "Ordaen"
 import {
-  DEAD_ZONE, Module, ROOT, SecureWheel, Settings, SettingsPage, Wheel, WheelAction, WheelEntry, WheelItem, WheelModifier,
-  WheelNames, WheelRing, slotAt
+  DEAD_ZONE, Module, ROOT, SecureWheel, Settings, SettingsPage, Wheel, WheelAction, WheelEntry, WheelItem, WheelMiddle,
+  WheelModifier, WheelNames, WheelRing, WHEEL_MOST, slotAt
 } from "Ordaen"
 import { Choices, Condition, Item, Ring, Window } from "@/choices"
 import { actionOf, inForm, refusesInFight, shown } from "@/items"
@@ -124,7 +125,7 @@ public class Radial implements Module, App {
   derived scale: Number = self.settings.values.rings[self.up]?.scale ?? 1
   public derived shownItems: Array<WheelItem> = self.itemsOf()
   public derived chosen: Integer = self.chosenOf()
-  derived pointer: Number<Angle> = self.pointerOf()
+  derived middle: WheelMiddle = self.middleOf()
   derived opening: Number = self.wheel?.opening ?? 1
   derived names: WheelNames = self.settings.values.rings[self.up]?.names ?? WheelNames.Chosen
   // The icon of the ring shown, on the wheel's hub: the submenu's or the slot's own; none on the first.
@@ -160,10 +161,32 @@ public class Radial implements Module, App {
     return slotAt(wheel.aimX, wheel.aimY, self.shownItems.length, DEAD_ZONE / 1ui * self.scale)
   }
 
-  pointerOf(self): Number<Angle> {
+  // What the middle says: the item aimed at and what a click does to it; with none, the submenu's name and that a
+  // right click goes back, or on the first ring that letting go closes.
+  middleOf(self): WheelMiddle {
+    const ring = self.laids[self.up]
     const wheel = self.wheel
-    if (wheel == nil) { return 0rad }
-    return wheel.aimX.atan2(wheel.aimY) * 1rad
+    if (ring == nil || wheel == nil) { return { name: "", hint: "", dim: true } }
+    const place = placeOf(self.level)
+    const chosen = self.chosen
+    if (chosen == 0) {
+      const own = ring.items[place]
+      if (own == nil) { return { name: "", hint: Locale.HINT_CANCEL, dim: true } }
+      return { name: shown(own, own is Item.Kind ? self.offers[own.kind] : nil).name, hint: Locale.HINT_BACK, dim: true }
+    }
+    const at = within(place, chosen)
+    const item = ring.items[at] ?? Item.Empty
+    const drawn = self.shownItems[chosen]
+    const name = drawn?.name ?? ""
+    if (item is Item.Menu || item is Item.Slot) {
+      const step = wheel.step(wheelPlace(at))
+      if (step == 0) {
+        return { name: shown(item, nil).name, hint: Locale.HINT_OPEN, dim: false }
+      }
+      return { name: name, hint: Locale.HINT_STEPPED.format(step, drawn?.segments ?? 0), dim: false }
+    }
+    if (drawn?.dim ?? false) { return { name: name, hint: Locale.HINT_OFF, dim: true } }
+    return { name: name, hint: Locale.HINT_USE, dim: false }
   }
 
   categoryOf(self): Art | nil {
@@ -187,20 +210,22 @@ public class Radial implements Module, App {
     for (index of 1..count) {
       const at = within(place, index)
       const item = ring.items[at] ?? Item.Empty
-      // A slot of several shows its current child, and its dots.
+      // A submenu or a slot of several has a band of its items; it shows the one the mouse wheel stepped to, or a
+      // slot its current child.
       let drawn = shown(item, item is Item.Kind ? self.offers[item.kind] : nil)
-      let dots = 0
-      let dot = 0
-      if (item is Item.Slot) {
-        dots = ring.counts[at] ?? 0
-        dot = wheel.current(wheelPlace(at))
-        const child = ring.items[`${at}_${dot}`]
+      let segments = 0
+      let segment = 0
+      if (item is Item.Menu || item is Item.Slot) {
+        segments = (ring.counts[at] ?? 0).min(WHEEL_MOST)
+        const step = wheel.step(wheelPlace(at))
+        segment = step > 0 || item is Item.Menu ? step : wheel.current(wheelPlace(at))
+        const child = segment > 0 ? ring.items[within(at, segment)] : nil
         if (child != nil) { drawn = shown(child, child is Item.Kind ? self.offers[child.kind] : nil) }
       }
       const off = !holdsNow(ring.conditions[at]) || fighting && refusesInFight(item)
       items.push({
-        name: drawn.name, icon: drawn.icon, dim: drawn.dim || off, menu: drawn.menu, count: drawn.count,
-        tone: drawn.tone, cooldown: drawn.cooldown, dots: dots, dot: dot
+        name: drawn.name, icon: drawn.icon, dim: drawn.dim || off, count: drawn.count, tone: drawn.tone,
+        cooldown: drawn.cooldown, segments: segments, segment: segment
       })
     }
     return items
@@ -247,7 +272,7 @@ public class Radial implements Module, App {
       <box @keyDown.globalScope(RING_1)={self.heard} @keyDown.globalScope(RING_2)={self.heard}
            @keyDown.globalScope(RING_3)={self.heard} />
       <surface $if={self.up > 0} layer={Layer.Dialog} place={self.place}>
-        <Wheel items={self.shownItems} chosen={self.chosen} pointer={self.pointer} names={self.names} scale={self.scale}
+        <Wheel items={self.shownItems} chosen={self.chosen} middle={self.middle} names={self.names} scale={self.scale}
                opening={self.opening} category={self.category} />
       </surface>
     }

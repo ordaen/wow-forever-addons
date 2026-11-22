@@ -1,24 +1,26 @@
-// Wheel: a ring of up to eight items round a hub, aimed by the direction the cursor went from the hub, whatever the
-// distance. What it draws: a dark round backdrop, a thin bronze line between each two items, each item a round icon
-// in a rim (larger and its rim gold where it is the one chosen) with its state as the action bars show it (its
-// cooldown's sweep, charges or a count, red out of range, blue without the power) and, for a slot of several, dots
-// with the current one lit; a gold cone from the hub towards the chosen one and its two lines gold, the chosen one's
-// name under it (or every name), the hub with ✕ (lit while letting go there would close) and a pointer turning with
-// the cursor. It opens with the items gliding out from the hub. An item that can't be used now is dimmed where it
-// stands, never taken away, so a direction stays the same item. The choice is the owner's (`chosen`, by `slotAt`): the
-// secure part (`SecureWheel`) and this art work it out by one formula, written once for each (`slotAt`, `SLOT_LUA`),
-// which a test holds to the same answers.
+// Wheel: a ring of up to eight items round a middle, aimed by the direction the cursor went from where it was as the
+// wheel opened, whatever the distance. Each item is a slice of the ring cut in the bank's stone, its icon a square
+// carved into the stone; the slice aimed at is lit warm with a gold outline, its icon's hollow lit gold. A submenu or a
+// slot of several has a band of segments along its slice's outer edge, one for each of its items, the one the slice
+// shows (stepped to by the mouse wheel, or a slot's current) solid gold. The middle names what is aimed at and what
+// the hand can do there (`WheelMiddle`, the owner's words), with the ring's own icon above in a submenu. An item that
+// can't be used now is dimmed where it stands, never taken away, so a direction stays the same item; its state shows
+// as the action bars show it (its cooldown's sweep, charges or a count, red out of range, blue without the power). The
+// icons glide out from the middle as it opens. The choice is the owner's (`chosen`, by `slotAt`): the secure part
+// (`SecureWheel`) and this art work it out by one formula, written once for each (`slotAt`, `SLOT_LUA`), which a test
+// holds to the same answers. The slices' art is each shape straight up from the middle, cut to its box
+// (`art/pieces/radial.json`): a box is turned about its own middle to stand it at its item.
 import { Align, Art, FillDuration, Position } from "$ltml"
 import { Component } from "@/module"
 import { BRIGHT_TEXT, SECONDARY_TEXT } from "@/units"
 
 // Eight to a ring at most: four sides and four corners, aimed by feel.
 public const WHEEL_MOST = 8
-// Round the hub, the cursor chooses nothing (at a scale of 1).
+// Round the middle, the cursor chooses nothing (at a scale of 1).
 public const DEAD_ZONE = 30dp
 
-// The item a direction chooses: 0 in the dead zone round the hub, else the item whose slice holds the direction,
-// item 1 straight up and the rest clockwise, each slice centred on its item. `dx` right and `dy` up from the hub.
+// The item a direction chooses: 0 in the dead zone round the middle, else the item whose slice holds the direction,
+// item 1 straight up and the rest clockwise, each slice centred on its item. `dx` right and `dy` up from the middle.
 public function slotAt(dx: Number, dy: Number, count: Integer, dead: Number): Integer {
   if (count < 1 || dx * dx + dy * dy < dead * dead) { return 0 }
   const share = (dx.atan2(dy) / (2 * Number.pi) + 1 + 0.5 / count) % 1
@@ -35,7 +37,7 @@ public const SLOT_LUA: String = [
   "end"
 ].join("\n")
 
-// How an item's name shows: never, the chosen one's, or every item's.
+// How the items' names show: never, the one aimed at's in the middle, or that and every item's under its icon.
 public enum WheelNames implements Plain { Off = "off", Chosen = "chosen", Always = "always" }
 
 // One item of a ring as it is drawn.
@@ -44,94 +46,171 @@ public struct WheelItem {
   icon: Art
   // Dimmed where it stands: it can't be used now.
   dim: Boolean
-  // It opens a ring of its own in place.
-  menu: Boolean
   // What its icon says as the action bars do: charges or a count (`""`: nothing); the icon tinted red out of range or
   // blue without the power it costs (none: as it is); its cooldown's run.
   count: String
   tone: Color | nil
   cooldown: FillDuration | nil
-  // A slot of several: how many, and the one it does now, as dots under it (0: none).
-  dots: Integer
-  dot: Integer
+  // A submenu or a slot of several: how many items it holds (its band's segments, eight at most; 0: no band), and
+  // the one the slice shows (0: none).
+  segments: Integer
+  segment: Integer
 }
 
 // An item that is a plain picture and a name, with no state.
-public function plainItem(name: String, icon: Art, dim: Boolean, menu: Boolean): WheelItem {
-  return { name: name, icon: icon, dim: dim, menu: menu, count: "", tone: nil, cooldown: nil, dots: 0, dot: 0 }
+public function plainItem(name: String, icon: Art, dim: Boolean): WheelItem {
+  return { name: name, icon: icon, dim: dim, count: "", tone: nil, cooldown: nil, segments: 0, segment: 0 }
 }
 
-// Where an item stands in the wheel's box, and how it is drawn.
-public struct WheelSpot {
+// What the middle says: the name of what is aimed at (or of the ring shown), dimmed where nothing is aimed at, and
+// what the hand can do now.
+public struct WheelMiddle {
+  name: String
+  hint: String
+  dim: Boolean
+}
+
+// A piece of the wheel's art in its box, turned to stand at its place.
+struct Placed {
+  left: Number<Length>
+  top: Number<Length>
+  width: Number<Length>
+  height: Number<Length>
+  turn: Number<Angle>
+  art: Art
+  tint: Color
+  opacity: Number
+}
+
+// An item's icon where it stands.
+struct Spot {
   item: WheelItem
   left: Number<Length>
   top: Number<Length>
-  size: Number<Length>
   chosen: Boolean
-  // Its name and its dots, under it.
-  nameTop: Number<Length>
-  named: Boolean
-  dots: Array<Boolean>
 }
 
-// A line between two items: its box (its art turned to point away from the hub) and whether it edges the chosen one.
-public struct WheelLine {
-  left: Number<Length>
-  top: Number<Length>
-  turn: Number<Angle>
-  lit: Boolean
-}
-
-// The wheel's lengths at a scale of 1.
-const RADIUS = 110dp
+// The wheel's lengths at a scale of 1: the ring between its inner and outer edge, a band of segments inside the outer
+// edge, the icons' squares halfway between the inner edge and the band, the round middle inside the inner edge.
+public const WHEEL_SIZE = 380dp
+const INNER = 66dp
+const OUTER = 178dp
+const BAND = 162dp
+// Round each piece's shape in its art, for its edge's softness (radial-pieces.mjs).
+const MARGIN = 2dp
 const ICON = 40dp
-const ICON_CHOSEN = 48dp
-const RIM = 3dp
-const MARGIN = 40dp
-public const WHEEL_SIZE: Number<Length> = 2 * (RADIUS + MARGIN)
-const LINE_WIDTH = 2dp
-const LINE_LENGTH = 60dp
-const HUB = 40dp
-const POINTER = 16dp
-const DOT = 5dp
+const ICON_AT = 114dp
+// An icon's hollow: its square and the lip round it.
+const CARVE = 48dp
+const MIDDLE = 124dp
+const CATEGORY = 30dp
+const RIM = 2dp
+const SEPARATOR = 2dp
+const MIDDLE_TEXT = 104dp
 
 const PLAIN: Asset = "Interface/Buttons/WHITE8X8"
 // The client's round mask: what shows of a box is a circle.
 const ROUND: Asset = "Interface/CHARACTERFRAME/TempPortraitAlphaMask"
-const ARROW: Asset = "Interface/Minimap/MiniMap-QuestArrow"
-// The lit slice: a wedge, its point at the bottom's middle and its edges to the top corners (art/pieces/wheel-cone).
-const CONE: Asset = "@/media/wheel-cone.tga"
-const BACKDROP: Color = Color.hex("#0a0806d9")
-const BRONZE: Color = Color.hex("#8c6a3f")
+const CARVED: Asset = "@/media/radial-carve.tga"
+const CARVED_LIT: Asset = "@/media/radial-carve-lit.tga"
+const MIDDLE_ART: Asset = "@/media/radial-middle.tga"
+// A ring of n: its slice in the stone, the slice aimed at lit over it, the inner edge of its band.
+const WEDGES: Array<Asset> = [
+  "@/media/radial-wedge-1.tga", "@/media/radial-wedge-2.tga", "@/media/radial-wedge-3.tga", "@/media/radial-wedge-4.tga",
+  "@/media/radial-wedge-5.tga", "@/media/radial-wedge-6.tga", "@/media/radial-wedge-7.tga", "@/media/radial-wedge-8.tga"
+]
+const LIT: Array<Asset> = [
+  "@/media/radial-lit-1.tga", "@/media/radial-lit-2.tga", "@/media/radial-lit-3.tga", "@/media/radial-lit-4.tga",
+  "@/media/radial-lit-5.tga", "@/media/radial-lit-6.tga", "@/media/radial-lit-7.tga", "@/media/radial-lit-8.tga"
+]
+const ARCS: Array<Asset> = [
+  "@/media/radial-arc-1.tga", "@/media/radial-arc-2.tga", "@/media/radial-arc-3.tga", "@/media/radial-arc-4.tga",
+  "@/media/radial-arc-5.tga", "@/media/radial-arc-6.tga", "@/media/radial-arc-7.tga", "@/media/radial-arc-8.tga"
+]
+
+// A band's segment 1/m of a turn wide: m is a ring's count times the band's, each up to eight.
+function bandArt(m: Integer): Asset {
+  return match (m) {
+    1 => "@/media/radial-band-1.tga"
+    2 => "@/media/radial-band-2.tga"
+    3 => "@/media/radial-band-3.tga"
+    4 => "@/media/radial-band-4.tga"
+    5 => "@/media/radial-band-5.tga"
+    6 => "@/media/radial-band-6.tga"
+    7 => "@/media/radial-band-7.tga"
+    8 => "@/media/radial-band-8.tga"
+    9 => "@/media/radial-band-9.tga"
+    10 => "@/media/radial-band-10.tga"
+    12 => "@/media/radial-band-12.tga"
+    14 => "@/media/radial-band-14.tga"
+    15 => "@/media/radial-band-15.tga"
+    16 => "@/media/radial-band-16.tga"
+    18 => "@/media/radial-band-18.tga"
+    20 => "@/media/radial-band-20.tga"
+    21 => "@/media/radial-band-21.tga"
+    24 => "@/media/radial-band-24.tga"
+    25 => "@/media/radial-band-25.tga"
+    28 => "@/media/radial-band-28.tga"
+    30 => "@/media/radial-band-30.tga"
+    32 => "@/media/radial-band-32.tga"
+    35 => "@/media/radial-band-35.tga"
+    36 => "@/media/radial-band-36.tga"
+    40 => "@/media/radial-band-40.tga"
+    42 => "@/media/radial-band-42.tga"
+    48 => "@/media/radial-band-48.tga"
+    49 => "@/media/radial-band-49.tga"
+    56 => "@/media/radial-band-56.tga"
+    else => "@/media/radial-band-64.tga"
+  }
+}
+
+const OUTLINE: Color = Color.hex("#3e2f1d")
 const GOLD: Color = Color.hex("#ffd100")
+const SHADOW: Color = Color.hex("#000000")
+const BRONZE: Color = Color.hex("#8c6a3f")
+// An icon in its hollow, a little darker than itself; aimed at, as it is.
+const HOLLOW: Color = Color.hex("#e0e0e0")
 const NAME: Color = Color.hex("#f3e1b8")
-const DOT_OFF: Color = Color.hex("#5a4a33")
-const DIM_OPACITY = 0.4
+const NAME_DIM: Color = Color.hex("#a3977f")
+const HINT: Color = Color.hex("#8a7d66")
+const WHITE: Color = Color.hex("#ffffff")
+const DIM_OPACITY = 0.55
+// A band's segment not shown, over a slice not aimed at and over the one aimed at.
+const SEGMENT_OFF = 0.38
+const SEGMENT_OFF_AIMED = 0.25
 
 // An item's direction: item 1 up, the rest clockwise.
 public function itemTurn(index: Integer, count: Integer): Number<Angle> {
   return (index - 1) * 360deg / count
 }
 
+// The box of a slice `turn` wide between two radii, straight up from the middle, with its margin: its width and
+// height, and how far its middle stands above the wheel's.
+function sectorBox(turn: Number<Angle>, inner: Number<Length>, outer: Number<Length>): [Number<Length>, Number<Length>, Number<Length>] {
+  if (turn >= 360deg) {
+    const side = 2 * (outer + MARGIN)
+    return [side, side, 0dp]
+  }
+  const half = (turn / 2).min(90deg) / 1rad
+  const bottom = turn >= 180deg ? 0dp : inner * half.cos()
+  const height = outer - bottom + 2 * MARGIN
+  return [2 * outer * half.sin() + 2 * MARGIN, height, outer + MARGIN - height / 2]
+}
+
 public class Wheel implements Component {
   // Every length, by the ring's scale.
   derived size: Number<Length> = WHEEL_SIZE * self.scale
-  derived middle: Number<Length> = self.size / 2
-  // The items glide out from the hub as the wheel opens.
-  derived radius: Number<Length> = RADIUS * self.scale * self.opening
-  derived hub: Number<Length> = HUB * self.scale
-  derived spots: Array<WheelSpot> = self.spotsOf()
-  derived lines: Array<WheelLine> = self.linesOf()
-  derived pointerSpot: [Number<Length>, Number<Length>] = self.along(self.pointer, self.hub / 2 + POINTER * self.scale / 2, POINTER * self.scale)
-  derived coneTurn: Number<Angle> = itemTurn(self.chosen, (1).max(self.items.length))
-  // The cone's box: as long as the radius, as wide as its slice at the rim (a quarter turn at most), its point on the
-  // hub.
-  derived coneWidth: Number<Length> = 2 * self.radius * (180deg / (2).max(self.items.length) / 1rad).tan().min(1)
-  derived coneSpot: [Number<Length>, Number<Length>] = self.along(self.coneTurn, self.radius / 2, self.radius)
+  derived count: Integer = self.items.length.min(WHEEL_MOST)
+  derived slices: Array<Placed> = self.slicesOf()
+  derived bands: Array<Placed> = self.bandsOf()
+  derived lit: Array<Placed> = self.litOf()
+  derived spots: Array<Spot> = self.spotsOf()
+  derived middleSize: Number<Length> = MIDDLE * self.scale
+  derived categorySize: Number<Length> = CATEGORY * self.scale
 
   items: Signal<Array<WheelItem>>
   chosen: Signal<Integer>
-  pointer: Signal<Number<Angle>>
+  middle: Signal<WheelMiddle>
   names: Signal<WheelNames>
   scale: Signal<Number>
   opening: Signal<Number>
@@ -141,97 +220,140 @@ public class Wheel implements Component {
     items: Signal<Array<WheelItem>>,
     // The item the cursor's direction chooses (`slotAt`): 0 for none.
     chosen: Signal<Integer>,
-    // The cursor's direction from the hub: where the pointer turns.
-    pointer: Signal<Number<Angle>>,
+    middle: Signal<WheelMiddle>,
     names: Signal<WheelNames>,
     scale: Signal<Number> = 1,
-    // How far it has opened, 0 to 1: the items' distance from the hub.
+    // How far it has opened, 0 to 1: the icons' distance from the middle.
     opening: Signal<Number> = 1,
-    // The icon of the ring shown, on the hub: a submenu's or a slot's own; none on the first ring.
+    // The icon of the ring shown, in the middle: a submenu's or a slot's own; none on the first ring.
     category: Signal<Art | nil> = nil
   ) {
     self.items = items
     self.chosen = chosen
-    self.pointer = pointer
+    self.middle = middle
     self.names = names
     self.scale = scale
     self.opening = opening
     self.category = category
   }
 
-  // A point at an angle from the wheel's middle, `out` away: its left and top for a box of `size` centred there.
-  along(self, turn: Number<Angle>, out: Number<Length>, size: Number<Length>): [Number<Length>, Number<Length>] {
-    const r = turn / 1rad
-    return [self.middle + r.sin() * out - size / 2, self.middle - r.cos() * out - size / 2]
+  // A piece of art whose box is `box` at a scale of 1, its middle `out` from the wheel's middle at `turn`.
+  place(self, turn: Number<Angle>, box: [Number<Length>, Number<Length>, Number<Length>], art: Art, tint: Color, opacity: Number): Placed {
+    return self.placeAt(turn, box[3], box[1], box[2], art, tint, opacity)
   }
 
-  spotsOf(self): Array<WheelSpot> {
-    const count = self.items.length
-    const spots: Array<WheelSpot> = []
+  placeAt(self, turn: Number<Angle>, out: Number<Length>, width: Number<Length>, height: Number<Length>, art: Art, tint: Color, opacity: Number): Placed {
+    const r = turn / 1rad
+    const scale = self.scale
+    return {
+      left: self.size / 2 + r.sin() * out * scale - width * scale / 2, top: self.size / 2 - r.cos() * out * scale - height * scale / 2,
+      width: width * scale, height: height * scale, turn: turn, art: art, tint: tint, opacity: opacity
+    }
+  }
+
+  slicesOf(self): Array<Placed> {
+    const count = self.count
+    const slices: Array<Placed> = []
+    if (count < 1) { return slices }
+    const box = sectorBox(360deg / count, INNER, OUTER)
+    const art = WEDGES[count] ?? panic("a slice for each count")
+    for (index of 1..count) {
+      const dim = self.items[index]?.dim ?? false
+      slices.push(self.place(itemTurn(index, count), box, art, WHITE, dim ? DIM_OPACITY : 1))
+    }
+    return slices
+  }
+
+  // The bands of the submenus and the slots: each segment, the lines between them, the band's inner edge.
+  bandsOf(self): Array<Placed> {
+    const count = self.count
+    const parts: Array<Placed> = []
     for (index, item of self.items) {
-      const chosen = self.chosen == index
-      const size = (chosen ? ICON_CHOSEN : ICON) * self.scale
-      const at = self.along(itemTurn(index, count), self.radius, size)
-      const named = self.names == WheelNames.Always || (chosen && self.names == WheelNames.Chosen)
-      const dots: Array<Boolean> = []
-      for (dot of 1..item.dots) { dots.push(dot == item.dot) }
-      spots.push({
-        item: item, left: at[1], top: at[2], size: size, chosen: chosen, nameTop: at[2] + size + 2dp, named: named,
-        dots: dots
-      })
+      const several = item.segments.min(WHEEL_MOST)
+      if (index <= count && several > 0) {
+        const share = count * several
+        const start = itemTurn(index, count) - 180deg / count
+        const each = 360deg / share
+        const box = sectorBox(each, BAND, OUTER - 1dp)
+        const art = bandArt(share)
+        const aimed = self.chosen == index
+        for (segment of 1..several) {
+          const on = segment == item.segment
+          parts.push(self.place(start + (segment - 0.5) * each, box, art, on ? GOLD : SHADOW,
+            on ? 1 : aimed ? SEGMENT_OFF_AIMED : SEGMENT_OFF))
+        }
+        for (line of 0..several) {
+          parts.push(self.placeAt(start + line * each, (BAND + OUTER) / 2, SEPARATOR, OUTER - BAND, PLAIN, OUTLINE, 1))
+        }
+        parts.push(self.place(itemTurn(index, count), sectorBox(360deg / count, BAND - 1dp, BAND + 1dp),
+          ARCS[count] ?? panic("an arc for each count"), OUTLINE, 1))
+      }
+    }
+    return parts
+  }
+
+  litOf(self): Array<Placed> {
+    const count = self.count
+    const chosen = self.chosen
+    if (chosen < 1 || chosen > count) { return [] }
+    return [self.place(itemTurn(chosen, count), sectorBox(360deg / count, INNER, OUTER), LIT[count] ?? panic("a lit slice for each count"), WHITE, 1)]
+  }
+
+  spotsOf(self): Array<Spot> {
+    const count = self.count
+    const spots: Array<Spot> = []
+    const out = ICON_AT * (0.4 + 0.6 * self.opening)
+    for (index, item of self.items) {
+      if (index <= count) {
+        const at = self.placeAt(itemTurn(index, count), out, CARVE, CARVE, PLAIN, WHITE, 1)
+        spots.push({ item: item, left: at.left, top: at.top, chosen: self.chosen == index })
+      }
     }
     return spots
   }
 
-  linesOf(self): Array<WheelLine> {
-    const count = self.items.length
-    const lines: Array<WheelLine> = []
-    if (count < 2) { return lines }
-    const chosen = self.chosen
-    const long = LINE_LENGTH * self.scale
-    for (index of 1..count) {
-      // The line before item `index` (between it and the one before it), half a slice back from it.
-      const turn = itemTurn(index, count) - 180deg / count
-      const before = index == 1 ? count : index - 1
-      const at = self.along(turn, self.radius, long)
-      lines.push({ left: at[1] + long / 2 - LINE_WIDTH / 2, top: at[2], turn: turn, lit: chosen == index || chosen == before })
-    }
-    return lines
-  }
-
   public render(self): Template {
     return $ltml {
-      <box width={self.size} height={self.size} mouseThrough={true} background={PLAIN} tint={BACKDROP} mask={ROUND}>
-        <box $for={line of self.lines} position={Position.Absolute} left={line.left} top={line.top} width={LINE_WIDTH}
-             height={LINE_LENGTH * self.scale} background={PLAIN} tint={line.lit ? GOLD : BRONZE} rotation={line.turn}
+      <box width={self.size} height={self.size} mouseThrough={true}>
+        <box $for={slice of self.slices} position={Position.Absolute} left={slice.left} top={slice.top} width={slice.width}
+             height={slice.height} background={slice.art} rotation={slice.turn} opacity={slice.opacity} zLevel={1} />
+        <box $for={part of self.bands} position={Position.Absolute} left={part.left} top={part.top} width={part.width}
+             height={part.height} background={part.art} tint={part.tint} opacity={part.opacity} rotation={part.turn}
              zLevel={2} />
-        <box $if={self.chosen > 0} position={Position.Absolute} left={self.coneSpot[1] + self.radius / 2 - self.coneWidth / 2}
-             top={self.coneSpot[2]} width={self.coneWidth} height={self.radius} background={CONE} rotation={self.coneTurn}
-             zLevel={1} />
-        <box $for={spot of self.spots} position={Position.Absolute} left={spot.left - RIM} top={spot.top - RIM}
-             width={spot.size + 2 * RIM} height={spot.size + 2 * RIM} background={PLAIN} tint={spot.chosen ? GOLD : BRONZE}
-             mask={ROUND} opacity={spot.item.dim ? DIM_OPACITY : 1} zLevel={3}>
-          <box position={Position.Absolute} left={RIM} top={RIM} width={spot.size} height={spot.size} icon={spot.item.icon}
-               mask={ROUND} desaturate={spot.item.dim} tint={spot.item.tone} cooldown={spot.item.cooldown}
-               xAlign={Align.End} yAlign={Align.End}>
+        <box $for={slice of self.lit} position={Position.Absolute} left={slice.left} top={slice.top} width={slice.width}
+             height={slice.height} background={slice.art} rotation={slice.turn} zLevel={3} />
+        <box $for={spot of self.spots} position={Position.Absolute} left={spot.left} top={spot.top} width={CARVE * self.scale}
+             height={CARVE * self.scale} opacity={spot.item.dim ? DIM_OPACITY : 1} zLevel={4}>
+          <box position={Position.Absolute} left={(CARVE - ICON) / 2 * self.scale} top={(CARVE - ICON) / 2 * self.scale}
+               width={ICON * self.scale} height={ICON * self.scale} icon={spot.item.icon} desaturate={spot.item.dim}
+               tint={spot.item.tone ?? (spot.chosen ? nil : HOLLOW)} cooldown={spot.item.cooldown} xAlign={Align.End}
+               yAlign={Align.End}>
             <text value={spot.item.count} textSize={SECONDARY_TEXT} textColor={BRIGHT_TEXT} />
           </box>
+          <box position={Position.Absolute} left={0dp} top={0dp} width={CARVE * self.scale} height={CARVE * self.scale}
+               background={spot.chosen ? CARVED_LIT : CARVED} zLevel={1} />
         </box>
-        <box $for={spot of self.spots} position={Position.Absolute} left={spot.left - 40dp}
-             top={spot.nameTop} width={spot.size + 80dp} xAlign={Align.Center} zLevel={3}
-             opacity={spot.item.dim ? DIM_OPACITY : 1}>
-          <box columns={{ each: DOT }} gap={1sp}>
-            <box $for={lit of spot.dots} width={DOT} height={DOT} background={PLAIN} tint={lit ? GOLD : DOT_OFF} mask={ROUND} />
+        <$if={self.names == WheelNames.Always}>
+          <box $for={spot of self.spots} position={Position.Absolute} left={spot.left - 30dp} top={spot.top + CARVE * self.scale}
+               width={CARVE * self.scale + 60dp} xAlign={Align.Center} opacity={spot.item.dim ? DIM_OPACITY : 1} zLevel={4}>
+            <text value={spot.item.name} textSize={SECONDARY_TEXT} textColor={NAME} />
           </box>
-          <text $if={spot.named} value={spot.item.name} textSize={SECONDARY_TEXT} textColor={NAME} />
+        </>
+        <box position={Position.Absolute} left={(self.size - self.middleSize) / 2} top={(self.size - self.middleSize) / 2}
+             width={self.middleSize} height={self.middleSize} background={MIDDLE_ART} xAlign={Align.Center}
+             yAlign={Align.Center} zLevel={5}>
+          <box width={MIDDLE_TEXT * self.scale} columns={1} xAlign={Align.Center} gap={1sp}>
+            <box $if={self.category != nil} width={self.categorySize + 2 * RIM} height={self.categorySize + 2 * RIM}
+                 background={PLAIN} tint={BRONZE} mask={ROUND}>
+              <box position={Position.Absolute} left={RIM} top={RIM} width={self.categorySize} height={self.categorySize}
+                   icon={self.category} mask={ROUND} />
+            </box>
+            <text $if={self.middle.name != "" && self.names != WheelNames.Off} value={self.middle.name}
+                  textSize={14rem / 13 * self.scale} textColor={self.middle.dim ? NAME_DIM : NAME} />
+            <text $if={self.middle.hint != ""} value={self.middle.hint} textSize={SECONDARY_TEXT * self.scale}
+                  textColor={HINT} />
+          </box>
         </box>
-        <box position={Position.Absolute} left={self.middle - self.hub / 2} top={self.middle - self.hub / 2} width={self.hub}
-             height={self.hub} background={PLAIN} tint={BRONZE} mask={ROUND} zLevel={4}>
-          <box $if={self.category != nil} position={Position.Absolute} left={self.hub / 10} top={self.hub / 10}
-               width={self.hub * 4 / 5} height={self.hub * 4 / 5} icon={self.category} mask={ROUND} />
-        </box>
-        <box position={Position.Absolute} left={self.pointerSpot[1]} top={self.pointerSpot[2]} width={POINTER * self.scale}
-             height={POINTER * self.scale} background={ARROW} rotation={self.pointer} zLevel={5} />
       </box>
     }
   }
