@@ -74,6 +74,28 @@ public function sourcesOf(skillLine: Integer | nil): Map<Integer, RecipeSource> 
 
 function forSide(place: Sided, side: Integer): Boolean { return place.side == 0 || place.side == side }
 
+// The player's side, as the table writes it: 1 the Alliance, 2 the Horde.
+public function sideOfPlayer(): Integer { return Game.player.faction == Game.Faction.Horde ? 2 : 1 }
+
+// A way a recipe is learned, as the filter of the recipes' list tells them apart.
+public enum Way { Trainer, Vendor, Quest, Drop, Other }
+
+public function wayOf(name: String): Way {
+  if (name == "trainer") { return .Trainer }
+  if (name == "vendor") { return .Vendor }
+  if (name == "quest") { return .Quest }
+  if (name == "drop") { return .Drop }
+  return .Other
+}
+
+// Whether a recipe is learned from the other side alone: its every way a vendor or a quest, and none of them the
+// player's side's.
+public function otherSideOnly(source: RecipeSource, side: Integer): Boolean {
+  const ways = source.sources.map(wayOf)
+  if (ways.length == 0 || ways.any(way => way != Way.Vendor && way != Way.Quest)) { return false }
+  return !source.vendors.any(place => forSide(place, side)) && !source.quests.any(place => forSide(place, side))
+}
+
 function areaName(area: Integer): String { return Client.C_Map.GetAreaInfo(area) ?? "" }
 
 function placed(name: String, area: Integer): String {

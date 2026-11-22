@@ -33,7 +33,7 @@ const SETTINGS = "Move mode"
 const QUEUED = "Queued: made after the ones ahead."
 // Every recipe's name, by which the lists are read.
 const NAMES: Array<String> = [
-  "Linen Bandage", "Linen Cloak", "Brown Linen Vest", "Woolen Cape", "Linen Bag", "Woolen Bag", "Copper Mace"
+  "Linen Bandage", "Linen Cloak", "Brown Linen Vest", "Woolen Cape", "Linen Bag", "Woolen Bag", "Copper Mace", "Trainer's Shirt", "Vendor's Robe"
 ]
 
 function recipe(
@@ -449,6 +449,31 @@ test "an option of the filter has its switch on while it is on; «Reset» turns 
   Test.expect(lists("Linen Cloak, Woolen Bag, Brown Linen Vest, Linen Bag, Woolen Cape"))
   Test.expect(filter().button("Learned").paintedWith(Ordaen.art.ctl.switchOn) && filter().button("Not learned").paintedWith(Ordaen.art.ctl.switchOn))
   Test.expect(!filter().button("Can make").paintedWith(Ordaen.art.ctl.switchOn) && !filter().button("Raises the skill").paintedWith(Ordaen.art.ctl.switchOn))
+}
+
+test "the filter narrows the recipes not learned to the ways they are learned, and leaves out those asking a reputation" {
+  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
+  Game.professions.list = professions()
+  Game.tradeSkill.categories = categories()
+  // What's Training's: a recipe its trainer teaches, and one a vendor sells to those Friendly with its faction.
+  const all: Array<Game.Recipe> = []
+  for (each of recipes()) { all.push(each) }
+  all.push(recipe(2393, "Trainer's Shirt", 11, Game.Difficulty.Usually, 0, false))
+  all.push(recipe(1301440, "Vendor's Robe", 11, Game.Difficulty.Usually, 0, false))
+  Game.tradeSkill.recipes = all
+  Test.mount(nil, SCREEN)
+  Game.tradeSkill.open = TAILORING
+  view("One list")
+  view("One list")
+  Test.expect(listed().contains("Trainer's Shirt") && listed().contains("Vendor's Robe"))
+  filter().button("From a vendor").click()
+  Test.expect(!listed().contains("Trainer's Shirt") && listed().contains("Vendor's Robe"))
+  // What has been learned stays, whatever the way.
+  Test.expect(listed().contains("Linen Cloak"))
+  filter().button("No reputation asked").click()
+  Test.expect(!listed().contains("Vendor's Robe"))
+  filter().button("From a vendor").click()
+  Test.expect(listed().contains("Trainer's Shirt") && !listed().contains("Vendor's Robe"))
 }
 
 test "a click anywhere but the filter's menu closes it" {

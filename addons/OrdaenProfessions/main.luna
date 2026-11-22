@@ -25,6 +25,7 @@ import { Need, QueuePage } from "@/queue"
 import { CategoryGroup, CategoryRow, RecipeRow, RecipeTableRow } from "@/rows"
 import { Choices, GeneralPage } from "@/settings"
 import { Thresholds, thresholdsOf } from "@/skillUps"
+import { RecipeSource, Way, otherSideOnly, sideOfPlayer, sourcesOf, wayOf } from "@/sources"
 import Style from "@/style"
 import {
   Act, before, FAVORITES, Group, Kept, LIST_VIEW, ListView, MakeMode, members, MOST_MARKED, Page, Pause, Queued, QueueAct, Seen, SortBy,
@@ -86,17 +87,49 @@ const SORTS: Array<Choice<SortBy>> = [
   { value: SortBy.Makeable, label: Locale.SORT_MAKEABLE }
 ]
 // The filter: the game's own options («Фильтр»).
-enum RecipeFilter { Makeable, SkillUp, Learned, Unlearned }
+enum RecipeFilter { Makeable, SkillUp, Learned, Unlearned, Trainer, Vendor, Quest, Drop, OtherWay, NoReputation, OtherSide }
 const FILTERS: Array<FilterGroup<RecipeFilter>> = [
   {
     options: [{ key: RecipeFilter.Makeable, label: Locale.FILTER_MAKEABLE }, { key: RecipeFilter.SkillUp, label: Locale.FILTER_SKILLUP }]
   },
   {
     options: [{ key: RecipeFilter.Learned, label: Locale.FILTER_LEARNED }, { key: RecipeFilter.Unlearned, label: Locale.FILTER_UNLEARNED }]
+  },
+  {
+    options: [
+      { key: RecipeFilter.Trainer, label: Locale.FILTER_TRAINER }, { key: RecipeFilter.Vendor, label: Locale.FILTER_VENDOR },
+      { key: RecipeFilter.Quest, label: Locale.FILTER_QUEST }, { key: RecipeFilter.Drop, label: Locale.FILTER_DROP },
+      { key: RecipeFilter.OtherWay, label: Locale.FILTER_OTHER_WAY }
+    ]
+  },
+  {
+    options: [{ key: RecipeFilter.NoReputation, label: Locale.FILTER_NO_REPUTATION }, { key: RecipeFilter.OtherSide, label: Locale.FILTER_OTHER_SIDE }]
   }
 ]
+// The options that narrow the recipes not learned to the ways that are on: none on, every way.
+const WAY_FILTERS: Array<RecipeFilter> = [RecipeFilter.Trainer, RecipeFilter.Vendor, RecipeFilter.Quest, RecipeFilter.Drop, RecipeFilter.OtherWay]
 
-// The filter as the window starts it: the recipes learned shown, and the ones not learned as the settings say.
+function filterOf(way: Way): RecipeFilter {
+  return match (way) {
+    .Trainer => RecipeFilter.Trainer
+    .Vendor => RecipeFilter.Vendor
+    .Quest => RecipeFilter.Quest
+    .Drop => RecipeFilter.Drop
+    .Other => RecipeFilter.OtherWay
+  }
+}
+
+// What is on, an option after another in the filter's order.
+function keyOf(filter: Map<RecipeFilter, Boolean>): String {
+  let key = ""
+  for (group of FILTERS) {
+    for (option of group.options) { key = key + (filter[option.key] == true ? "1" : "0") }
+  }
+  return key
+}
+
+// The filter as the window starts it: the recipes learned shown, and the ones not learned as the settings say (from
+// every way, the other side's alone left out).
 function filterStart(unlearned: Boolean): mut Map<RecipeFilter, Boolean> {
   return switched(switched({}, [RecipeFilter.Learned], true), [RecipeFilter.Unlearned], unlearned)
 }
@@ -175,6 +208,10 @@ public class Professions implements Module, App {
   derived onlySkill: Boolean = self.filter[RecipeFilter.SkillUp] == true
   derived showLearned: Boolean = self.filter[RecipeFilter.Learned] == true
   derived showUnlearned: Boolean = self.filter[RecipeFilter.Unlearned] == true
+  // Where the recipes of the profession open are learned, read as it opens.
+  derived sources: Map<Integer, RecipeSource> = sourcesOf(self.profession?.skillLine)
+  // What is on, as a text: the sorted lists are kept while it stands.
+  derived filterKey: String = keyOf(self.filter)
   // The recipe whose menu is open; 0 for none.
   public state menuFor = 0
   // Every recipe the search and the filter let through, in the sort's order: worked out again when any of them
@@ -404,13 +441,24 @@ public class Professions implements Module, App {
     if (sought != "" && !self.textOf(recipe).contains(sought)) { return false }
     if (self.onlyMake && recipe.craftable < 1) { return false }
     if (self.onlySkill && recipe.difficulty == Game.Difficulty.Never) { return false }
-    return recipe.learned ? self.showLearned : self.showUnlearned
+    if (recipe.learned) { return self.showLearned }
+    const source = self.sources[recipe.id]
+    return self.showUnlearned && (source == nil || self.learnedFromShown(source))
+  }
+
+  // A recipe not learned is shown by where it is learned: a way that is on (where any is), no reputation where those
+  // are left out, the other side's alone where those are shown.
+  learnedFromShown(self, source: RecipeSource): Boolean {
+    if (self.filter[RecipeFilter.NoReputation] == true && source.reputation.length > 0) { return false }
+    if (self.filter[RecipeFilter.OtherSide] != true && otherSideOnly(source, sideOfPlayer())) { return false }
+    const anyWay = WAY_FILTERS.any(key => self.filter[key] == true)
+    return !anyWay || source.sources.any(way => self.filter[filterOf(wayOf(way))] == true)
   }
 
   shownOf(mut self): Array<Game.Recipe> {
     const sought = self.search.lower()
     const sort = self.list.values.sort
-    const asked = `${sought}\n${sort}\n${self.onlyMake}${self.onlySkill}${self.showLearned}${self.showUnlearned}`
+    const asked = `${sought}\n${sort}\n${self.filterKey}`
     if (asked != self.sortedAs) {
       self.sortedAs = asked
       self.sortedOf = {}
@@ -816,7 +864,7 @@ public class Professions implements Module, App {
               <RecipeDetails recipe={self.chosen} note={self.note} kept={self.kept} prices={self.prices}
                              count={mut self.count}
                              mode={mut self.makeMode} profession={self.profession} yellow={self.chosenYellow}
-                             grey={self.chosenGrey} @act={self.onAct} @create={self.onCreate} />
+                             grey={self.chosenGrey} sources={self.sources} @act={self.onAct} @create={self.onCreate} />
             </box>
           </box>
         </Window>

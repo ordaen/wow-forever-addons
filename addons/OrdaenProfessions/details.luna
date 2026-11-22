@@ -14,7 +14,7 @@ import Locale from "@/locales"
 import { MakeRow } from "@/make"
 import { PriceTable, TotalsBlock } from "@/priceRows"
 import { ReagentRow } from "@/rows"
-import { RecipeSource, howLearned, sourcesOf } from "@/sources"
+import { RecipeSource, howLearned, sideOfPlayer } from "@/sources"
 import Style from "@/style"
 import { Act, Kept, MakeMode, has } from "@/view"
 
@@ -47,8 +47,6 @@ public class RecipeDetails implements Component {
   derived skill: String = self.skillOf()
   derived skillColor: Color = self.shown.learned ? Style.difficultyColor(self.shown.difficulty) : Style.RED
   derived description: String = Game.tradeSkill.description(self.shown.id)
-  // Where the recipes of the profession open are learned, read as it opens.
-  derived sources: Map<Integer, RecipeSource> = sourcesOf(self.profession?.skillLine)
   derived needs: String = self.needsOf()
   derived reagents: Array<Game.Reagent> = Game.tradeSkill.reagents(self.shown.id)
   // The item it makes, which the icon is the slot of; none for what makes no item (an enchant).
@@ -77,6 +75,7 @@ public class RecipeDetails implements Component {
   profession: Signal<Game.Profession | nil>
   yellow: Signal<Integer | nil>
   grey: Signal<Integer | nil>
+  sources: Signal<Map<Integer, RecipeSource>>
   constructor(
     recipe: Signal<Game.Recipe | nil>,
     kept: Signal<Kept>,
@@ -89,7 +88,9 @@ public class RecipeDetails implements Component {
     mode: mut Signal<MakeMode>,
     profession: Signal<Game.Profession | nil>,
     yellow: Signal<Integer | nil>,
-    grey: Signal<Integer | nil>
+    grey: Signal<Integer | nil>,
+    // Where the recipes of the profession open are learned.
+    sources: Signal<Map<Integer, RecipeSource>>
   ) {
     self.recipe = recipe
     self.kept = kept
@@ -100,6 +101,7 @@ public class RecipeDetails implements Component {
     self.profession = profession
     self.yellow = yellow
     self.grey = grey
+    self.sources = sources
   }
 
   onCreate(self, count: Integer) { self.create.emit(count) }
@@ -153,7 +155,7 @@ public class RecipeDetails implements Component {
     }
     const source = self.shown.learned ? nil : self.sources[self.shown.id]
     if (source != nil) {
-      for (line of howLearned(source, Game.player.faction == Game.Faction.Horde ? 2 : 1)) { lines.push(line) }
+      for (line of howLearned(source, sideOfPlayer())) { lines.push(line) }
     }
     return lines.join("\n")
   }
