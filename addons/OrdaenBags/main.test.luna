@@ -37,9 +37,9 @@ const LINEN_BAG: FileId = 133647
 const BAG_BUTTON: FileId = 130716
 const BIG_BAG: FileId = 133644
 
-// A slot's well, raised on its card, every slot drawn on it, empty or not; a new item's glow; a protected slot's
+// A slot's crest (the client's slot art), every slot drawn on it, empty or not; a new item's glow; a protected slot's
 // padlock; a switched off tool's glyph.
-const WELL: Color = Color.hex("#2e2318")
+const WELL: Asset = "Interface/Buttons/UI-Slot-Background"
 const NEW_GLOW: Color = Color.hex("#ffd65a")
 const PADLOCK: Atlas = "QuestSharing-Padlock"
 const OFF: Color = Color.hex("#a3977f")
@@ -51,8 +51,6 @@ const SHADE: Color = Color.hex("#00000059")
 const PICKED: Color = BRIGHT_TEXT
 const EMPTY: Color = Color.hex("#7a705f")
 const CAPTION: Color = Color.hex("#e8c35a")
-// A section's card's ground.
-const CARD: Color = Color.hex("#c4a06e26")
 // The rims of the items' qualities, from poor to heirloom.
 const QUALITIES: Array<Color> = [
   Color.hex("#9d9d9d"), Color.hex("#6c5535"), Color.hex("#1eff00"), Color.hex("#0070dd"), Color.hex("#a335ee"),
@@ -677,14 +675,14 @@ test "a category's caption has no mark and shuts nothing: a tab shows its items 
   Test.expect(held(CLOTH).count() == 2 && bags().text("13").shown())
 }
 
-test "each category is a card: its caption and its slots on a tan panel inside a dark rim, its slots raised on it" {
+test "each category stands on the wood, its caption over its slots, each slot wearing the client's crest" {
   const world = new World(everyday())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
   Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
   Game.items.icon = (id: Integer): Art | nil => world.icon(id)
   Test.mount(nil, SCREEN)
   Game.bags.open = true
-  Test.expect(bags().text("Cloth").item().paintedWith(CARD) && bags().text("Free").item().paintedWith(CARD))
+  Test.expect(bags().text("Cloth").item().paintedWith(WELL) && bags().text("Free").item().paintedWith(WELL))
   Test.expect(reads(bags().text("Free").item(), "Free | 13"))
   Test.expect(Test.faults().length == 0)
 }

@@ -11,8 +11,6 @@ import { Slot } from "@/model"
 public const SLOT: Number<Length> = 43.359375dp
 public const CARD_PAD: Number<Spacing> = 2sp
 public const CARD_GAP: Number<Spacing> = 3sp
-// The line round a card, inside its box: counted with its padding wherever a card's size is worked out.
-public const CARD_RIM_WIDTH: Number<Length> = 1.171875dp
 public const SLOT_GAP = 3
 public const SLOT_GAP_MOST = 10
 
@@ -27,7 +25,7 @@ public struct CardRoom {
 // The cards' rooms at the density the player chose and the slots' gap; read in a `derived`, it follows both.
 public function cardRoom(slotGap: Number): CardRoom {
   return {
-    gap: Ordaen.lengthOf(slotGap * 1sp), pad: Ordaen.lengthOf(CARD_PAD) + CARD_RIM_WIDTH, between: Ordaen.lengthOf(CARD_GAP)
+    gap: Ordaen.lengthOf(slotGap * 1sp), pad: Ordaen.lengthOf(CARD_PAD), between: Ordaen.lengthOf(CARD_GAP)
   }
 }
 // A caption's height, which the cards' heights are worked out with (the list is as high as they are, up to the

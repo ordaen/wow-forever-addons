@@ -9,6 +9,7 @@ import { Corner, ItemButton, Marker, Quality, SlotWell } from "@/itemButton"
 const SHOPPING: Marker = { corner: Corner.TopLeft, color: Color.hex("#ffd100") }
 const REAGENT: Marker = { corner: Corner.BottomLeft, color: Color.hex("#4fd1ff") }
 const BOTH: Array<Marker> = [SHOPPING, REAGENT]
+const CREST: Asset = "Interface/Buttons/UI-Slot-Background"
 
 class Bag {
   state picked = 0
@@ -244,28 +245,25 @@ test "a worn item's tooltip is its slot's, which the game compares with nothing;
   destroy page
 }
 
-// Two empty slots, one sunk (the default) and one raised.
+// Two empty slots, one sunk (the default) and one crested.
 class Wells {
   public render(self): Template {
     return $ltml {
       <box columns={2} gap={4sp}>
         <ItemButton item={nil} />
-        <ItemButton item={nil} well={SlotWell.Raised} />
+        <ItemButton item={nil} well={SlotWell.Crested} />
       </box>
     }
   }
 }
 
-test "a slot's well is sunk unless its user raises it: a warm floor, a darker rim, lit along its top" {
+test "a slot's well is sunk unless its user crests it: the client's slot art from its top left corner, no rim of ours" {
   Test.mount(new Wells(), { left: 0, top: 0, width: 300, height: 100 })
   const sunk = Test.page().box(Color.hex("#0d0a08"))
-  const raised = Test.page().box(Color.hex("#2e2318"))
-  Test.expect(sunk.count() == 1 && raised.count() == 1 && sunk.rect().left < raised.rect().left)
-  // The light along the raised one's top, the shade along its bottom, inside it; none on the sunk one.
-  const light = Test.page().box(Color.hex("#ffe6be1a")).rect()
-  const shade = Test.page().box(Color.hex("#00000059")).rect()
-  const well = raised.rect()
-  Test.expect(light.left >= well.left && light.top >= well.top && light.top - well.top < 3)
-  Test.expect(shade.bottom <= well.bottom && well.bottom - shade.bottom < 3)
-  Test.expect(Test.page().box(Color.hex("#ffe6be1a")).count() == 1)
+  const crest = Test.page().box(CREST)
+  Test.expect(sunk.count() == 1 && crest.count() == 1 && sunk.rect().left < crest.rect().left)
+  // The whole file drawn 64/41 of the slot (its frame is the top left 41 of its 64 texels), cut at the slot's edge.
+  const art = crest.rect()
+  const slot = sunk.rect()
+  Test.expect(art.top == slot.top && art.right - art.left > (slot.right - slot.left) * 1.5)
 }
