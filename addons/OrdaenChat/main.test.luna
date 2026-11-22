@@ -200,6 +200,8 @@ test "Enter shows the input line, on the screen, in the chat's frame" {
   Test.expect(field.count() == 1)
   const round = field.rect()
   Test.expect(round.left < middle.x && round.right > middle.x && round.top < middle.y && round.bottom > middle.y)
+  // The field's floor is under the input, never over its text: the input takes the field's stratum, a level above it.
+  Test.expect(box.GetFrameStrata() == "DIALOG" && box.GetFrameLevel() > field.level())
 }
 
 test "the input shows under the lines' frame in a room the chat keeps for it: nothing moves as it or the way back comes" {

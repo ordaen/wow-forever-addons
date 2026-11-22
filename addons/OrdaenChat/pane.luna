@@ -344,13 +344,15 @@ public class Pane implements Component {
           </box>
           // The game's input while it is open, in a field's floor and edge, in a room of its own height under the lines,
           // kept whether it shows or not: nothing moves as it comes and goes, and the placing mode's outline holds it.
-          // The field is a surface over the input's box, on the game input's own layer: a window over the chat's corner
-          // covers both or neither.
+          // The field is a surface over the input's box, on the game input's own layer, and the input stands inside it:
+          // a frame takes its parent's stratum, so the field's floor is under the input's text, never over it, and a
+          // window over the chat's corner covers both or neither.
           <box $if={self.input != nil} border={INPUT_EDGE} padding={INPUT_PAD}>
             <surface $if={self.inputShown} layer={Layer.Dialog} place={Over { over: "parent" }} background={FIELD_FILL}
-                     border={FIELD_EDGE} />
-            <embed $if={self.inputShown} frame={self.input ?? panic("shown with the input")} height={GAME_INPUT} />
-            <box $else height={GAME_INPUT} />
+                     border={FIELD_EDGE} padding={INPUT_PAD}>
+              <embed frame={self.input ?? panic("shown with the input")} height={GAME_INPUT} />
+            </surface>
+            <box height={GAME_INPUT} />
           </box>
         </box>
       </box>
