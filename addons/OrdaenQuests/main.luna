@@ -28,7 +28,7 @@ import { KINDS, QuestKind } from "@/kind"
 import { ChainPins, DungeonQuests, TurnInPins, leadsTo, startsAt } from "@/layers"
 import { QuestList } from "@/list"
 import Locale from "@/locales"
-import { Asked, FILTER_START, Folds, ListChoices, QuestFilter, QuestSort, QuestStatus, QuestView, countOf, foldedOnce, listedOf } from "@/model"
+import { Asked, FILTER_START, Folds, ListChoices, Opened, QuestFilter, QuestSort, QuestStatus, QuestView, countOf, foldedOnce, listedOf } from "@/model"
 import { namedOfFacts } from "@/names"
 import { Figure, QuestFacts } from "@/questie"
 import { standingsOf } from "@/reputation"
@@ -142,8 +142,10 @@ public class Quests implements Module, App {
   state zone = ""
   // QuestieDB's facts of the log's quests it knows.
   public state facts: Map<Integer, QuestFacts> = {}
-  // The quest whose page shows (0: none), its text, and the quest the player asked to abandon (0: none).
-  public state picked = 0
+  // The quest whose page shows (0: none), kept for the character so the log opens on it again after a /reload; its
+  // text, and the quest the player asked to abandon (0: none).
+  public opened: mut ModuleMemory<Opened> = new ModuleMemory<Opened>({}, .Character, "opened")
+  public derived picked: Integer = self.opened.values.quest
   // The quest the player asked to see on the map (0: none): its marks alone show, until the map hides.
   public state shownOnMap = 0
   // The quest of a chain whose page the chain window shows (0: none, the window closed), and QuestieDB's facts of it.
@@ -275,8 +277,9 @@ public class Quests implements Module, App {
     self.facts = facts
     self.most = Game.questLog.most()
     self.zone = Game.questLog.zone()
+    // A quest gone from the log is no longer opened; the log read before it has its quests (at a login) drops nothing.
     const picked = peek self.picked
-    if (picked != 0 && quests.find(quest => quest.id == picked) == nil) { self.picked = 0 }
+    if (picked != 0 && quests.length > 0 && quests.find(quest => quest.id == picked) == nil) { self.pick(0) }
   }
 
   rebind(mut self) { Ordaen.afterCombat(() => self.bind()) }
@@ -294,7 +297,7 @@ public class Quests implements Module, App {
   // What the player asked of a quest, from its row or its page; each in the click's own call.
   onAct(mut self, id: Integer, act: Act) {
     match (act) {
-      .Pick => { self.picked = id }
+      .Pick => { self.pick(id) }
       .Track => {
         const quest = (peek self.quests).find(quest => quest.id == id)
         if (quest != nil) {
@@ -396,7 +399,10 @@ public class Quests implements Module, App {
     }
   }
 
-  onBack(mut self) { self.picked = 0 }
+  onBack(mut self) { self.pick(0) }
+
+  // The quest whose page shows, kept for the character.
+  pick(mut self, id: Integer) { self.opened.write({ quest: id }) }
 
   // The quest asked for from another module (the tracker, the chat's link): its page, in the window, or docked on the
   // map with its panel. In a fight, where the client opens no map for an addon, in the window. A quest not in the log
@@ -406,7 +412,7 @@ public class Quests implements Module, App {
       self.openChained(id)
       return peek self.chained == id
     }
-    self.picked = id
+    self.pick(id)
     if (peek self.docked && !Game.situation.combat) {
       Client.C_Map.OpenWorldMap(nil)
     } else if (!(peek self.open)) {

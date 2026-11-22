@@ -89,6 +89,11 @@ public struct Folds implements Plain {
   headers: Map<String, Boolean> = {}
 }
 
+// The quest whose page the log showed last, the character's: the log opens on it again after a /reload (0: the list).
+public struct Opened implements Plain {
+  quest: Integer = 0
+}
+
 // The folds after the player folds or opens `header`: the log's other headers as they were.
 public function foldedOnce(folds: Folds, header: String, quests: Array<LogQuest>): Folds {
   const headers: Map<String, Boolean> = {}

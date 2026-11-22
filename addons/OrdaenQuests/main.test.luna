@@ -93,6 +93,23 @@ test "the key stays the window's when Blizzard's map opens its own quest panel (
   Test.expect(Test.page().window("World").shown() && !Client.WorldMapFrame.IsShown())
 }
 
+test "the quest whose page was open opens again after a /reload, the character's; one gone from the log, the list" {
+  opened(standing())
+  Test.page().window("World").text("The Defias Brotherhood").click()
+  Test.flush()
+  Test.expect(Quests.picked == 101)
+  Test.reload()
+  Test.questLog(standing())
+  Quests.refresh()
+  Test.flush()
+  Test.expect(Quests.picked == 101)
+  // Turned in meanwhile: no page to open, the list.
+  Test.questLog(standing().filter(one => one.id != 101))
+  Quests.refresh()
+  Test.flush()
+  Test.expect(Quests.picked == 0)
+}
+
 test "another module opens a quest of the log at its page, and one not in it in the chain's window" {
   opened(standing())
   Quests.flip()
