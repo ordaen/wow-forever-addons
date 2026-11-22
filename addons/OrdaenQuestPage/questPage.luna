@@ -379,7 +379,7 @@ public class Keycap implements Component {
         <text value={self.key} textColor={KEY_TEXT} textSize={SECONDARY_TEXT} textFont={.Numbers} lineHeight={TIGHT_LINE}
               wrap={.None} />
       </box>
-      <box $else width={self.size} />
+      <box $else width={self.size} height={self.size} />
     }
   }
 }
