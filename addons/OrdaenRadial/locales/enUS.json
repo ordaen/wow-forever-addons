@@ -87,10 +87,11 @@
   "CONDITION_FORM_TIP": "Its place on the stance bar (0: none); empty for any",
   "CONDITION_MODIFIER": "Only with",
   "DROP": "Drop a spell, an item or a macro here: it goes in the place",
-  "HINT_OPEN": "Click to open · scroll to choose",
-  "HINT_STEPPED": "Click to use · %d of %d",
+  "HINT_OPEN": "Click to open",
   "HINT_USE": "Click to use",
   "HINT_BACK": "Right click to return",
   "HINT_CANCEL": "Release to cancel",
-  "HINT_OFF": "Can't be used now"
+  "HINT_OFF": "Can't be used now",
+  "HINT_SCROLL": "Scroll to choose",
+  "HINT_STEP": "%d of %d"
 }

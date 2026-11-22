@@ -63,13 +63,16 @@ public function plainItem(name: String, icon: Art, dim: Boolean): WheelItem {
   return { name: name, icon: icon, dim: dim, count: "", tone: nil, cooldown: nil, segments: 0, segment: 0 }
 }
 
-// What the middle says: the name of what is aimed at (or of the ring shown), dimmed where nothing is aimed at, and
-// what the hand can do now.
+// What the middle says, one thing a line: the name of what is aimed at (or of the ring shown), dimmed where nothing
+// is aimed at, and what the hand can do now, each its own line under it; three lines at most, none wrapped.
 public struct WheelMiddle {
   name: String
-  hint: String
+  hints: Array<String>
   dim: Boolean
 }
+
+// The lines the middle holds at most: the name and two hints.
+const MIDDLE_LINES = 3
 
 // A piece of the ring as large as the wheel, cut by its masks.
 struct Cut {
@@ -179,6 +182,8 @@ public class Wheel implements Component {
   derived spots: Array<Spot> = self.spotsOf()
   derived middleSize: Number<Length> = MIDDLE * self.scale
   derived categorySize: Number<Length> = CATEGORY * self.scale
+  derived named: Boolean = self.middle.name != "" && self.names != WheelNames.Off
+  derived hints: Array<String> = self.hintsOf()
 
   items: Signal<Array<WheelItem>>
   chosen: Signal<Integer>
@@ -207,6 +212,16 @@ public class Wheel implements Component {
     self.scale = scale
     self.opening = opening
     self.category = category
+  }
+
+  // The hints the middle has room for under the name.
+  hintsOf(self): Array<String> {
+    const room = MIDDLE_LINES - (self.named ? 1 : 0)
+    const hints: Array<String> = []
+    for (index, hint of self.middle.hints) {
+      if (index <= room) { hints.push(hint) }
+    }
+    return hints
   }
 
   // Slice `index`'s two edges.
@@ -342,9 +357,9 @@ public class Wheel implements Component {
               <box position={Position.Absolute} left={RIM} top={RIM} width={self.categorySize} height={self.categorySize}
                    icon={self.category} mask={ROUND} />
             </box>
-            <text $if={self.middle.name != "" && self.names != WheelNames.Off} value={self.middle.name}
-                  textSize={1rem * self.scale} textColor={self.middle.dim ? NAME_DIM : NAME} />
-            <text $if={self.middle.hint != ""} value={self.middle.hint} textSize={SECONDARY_TEXT * self.scale} textColor={HINT} />
+            <text $if={self.named} value={self.middle.name} textSize={1rem * self.scale} textColor={self.middle.dim ? NAME_DIM : NAME}
+                  wrap={.Cut} />
+            <text $for={hint of self.hints} value={hint} textSize={SECONDARY_TEXT * self.scale} textColor={HINT} wrap={.Cut} />
           </box>
         </box>
       </box>

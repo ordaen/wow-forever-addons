@@ -275,7 +275,7 @@ class Drawn {
     }
   ]
   public state chosen = 1
-  public state middle: WheelMiddle = { name: "Character", hint: "Click to use", dim: false }
+  public state middle: WheelMiddle = { name: "Character", hints: ["Click to use"], dim: false }
   public state names: WheelNames = WheelNames.Chosen
   public state category: Art | nil = nil
   public render(self): Template {
@@ -318,13 +318,13 @@ test "the middle names the chosen item and what a click does; every item named u
   const page = new Drawn()
   Test.mount(page, { left: 0, top: 0, width: 400, height: 400 })
   Test.expect(Test.page().texts().join(", ") == "3, Character, Click to use")
-  page.middle = { name: "", hint: "Release to cancel", dim: true }
+  page.middle = { name: "", hints: ["Release to cancel"], dim: true }
   page.chosen = 0
   Test.expect(Test.page().texts().join(", ") == "3, Release to cancel")
   page.names = WheelNames.Always
   Test.expect(Test.page().texts().join(", ") == "3, Character, Talents, Potions, Release to cancel")
   page.names = WheelNames.Off
-  page.middle = { name: "Character", hint: "Click to use", dim: false }
+  page.middle = { name: "Character", hints: ["Click to use"], dim: false }
   Test.expect(Test.page().texts().join(", ") == "3, Click to use")
 }
 
@@ -461,4 +461,15 @@ test "the mouse wheel over a slot steps to its child, which a click does and mak
   Test.wheel(-1)
   Test.expect(held.wheel.step("r_1") == 0)
   Test.releaseBound("F")
+}
+
+test "the middle says one thing a line, three lines at most: the name and two hints, or three hints with no name" {
+  const page = new Drawn()
+  Test.mount(page, { left: 0, top: 0, width: 400, height: 400 })
+  page.middle = { name: "Character", hints: ["Click to use", "1 of 3", "more"], dim: false }
+  Test.flush()
+  Test.expect(Test.page().texts().join(", ") == "3, Character, Click to use, 1 of 3")
+  page.names = WheelNames.Off
+  Test.flush()
+  Test.expect(Test.page().texts().join(", ") == "3, Click to use, 1 of 3, more")
 }
