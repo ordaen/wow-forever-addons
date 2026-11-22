@@ -8,18 +8,18 @@ box 0,0 300x28.33
       text 30.33,5.77 15.83x16.8 "12" #f0e6d2
     box 53.1,0 23.39x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
       text 60.21,5.77 9.17x16.8 "+" #808080
-surface 53.1,28.33 319.44x160.23 on TOOLTIP Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl pieces=[tl 0.99, tr 0.80, bl 0.80, br 0.61, top 0.98>0.81 x8.98, bottom 0.79>0.62 x8.98, left 0.98>0.82 x4.01, right 0.78>0.62 x4.01] clamped
-  text 75.32,50.56 275x25.83 "More" #f0e6d2
-  text 75.32,82.08 275x16.8 "Hold to keep stepping, up to the limit." #cbb994
-  box 75.32,104.57 275x16.8
-    box 75.32,104.57 250.63x16.8
-      text 75.32,104.57 71.67x16.8 "Left-click" #cbb994
-    text 334.49,104.57 15.83x16.8 "+1" #f0e6d2
-  box 75.32,127.06 275x16.8
-    box 75.32,127.06 243.13x16.8
-      text 75.32,127.06 114.17x16.8 "Shift+Left-click" #cbb994
-    text 326.99,127.06 23.33x16.8 "+10" #f0e6d2
-  box 75.32,149.54 275x16.8
-    box 75.32,149.54 236.47x16.8
-      text 75.32,149.54 106.67x16.8 "Ctrl+Left-click" #cbb994
-    text 320.32,149.54 30x16.8 "+100" #f0e6d2
+surface 53.1,28.33 313.04x153.83 on TOOLTIP Interface\AddOns\Ordaen\media\window-wood pieces=[tl 0.99, tr 0.80, bl 0.80, br 0.61, top 0.99>0.80 x15.30, bottom 0.80>0.61 x15.30, left 0.99>0.81 x7.01, right 0.79>0.61 x7.01] clamped
+  text 72.12,47.36 275x25.83 "More" #f0e6d2
+  text 72.12,78.88 275x16.8 "Hold to keep stepping, up to the limit." #cbb994
+  box 72.12,101.37 275x16.8
+    box 72.12,101.37 250.63x16.8
+      text 72.12,101.37 71.67x16.8 "Left-click" #cbb994
+    text 331.29,101.37 15.83x16.8 "+1" #f0e6d2
+  box 72.12,123.86 275x16.8
+    box 72.12,123.86 243.13x16.8
+      text 72.12,123.86 114.17x16.8 "Shift+Left-click" #cbb994
+    text 323.79,123.86 23.33x16.8 "+10" #f0e6d2
+  box 72.12,146.34 275x16.8
+    box 72.12,146.34 236.47x16.8
+      text 72.12,146.34 106.67x16.8 "Ctrl+Left-click" #cbb994
+    text 317.12,146.34 30x16.8 "+100" #f0e6d2

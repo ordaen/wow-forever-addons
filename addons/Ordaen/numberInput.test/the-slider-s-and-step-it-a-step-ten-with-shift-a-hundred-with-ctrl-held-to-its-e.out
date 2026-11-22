@@ -23,18 +23,18 @@ box 0,0 900x56.67
       box 383.69,28.33 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerUp
         text 390.77,34.1 9.17x16.8 "+" #ffd100
       text 412.71,34.1 15.83x16.8 "px" #f0e6d2
-surface 497.02,28.33 319.44x160.23 on TOOLTIP Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl pieces=[tl 0.99, tr 0.80, bl 0.80, br 0.61, top 0.98>0.81 x8.98, bottom 0.79>0.62 x8.98, left 0.98>0.82 x4.01, right 0.78>0.62 x4.01] clamped
-  text 519.24,50.56 275x25.83 "More" #f0e6d2
-  text 519.24,82.08 275x16.8 "Hold to keep stepping, up to the limit." #cbb994
-  box 519.24,104.57 275x16.8
-    box 519.24,104.57 243.13x16.8
-      text 519.24,104.57 71.67x16.8 "Left-click" #cbb994
-    text 770.91,104.57 23.33x16.8 "+1%" #f0e6d2
-  box 519.24,127.06 275x16.8
-    box 519.24,127.06 236.47x16.8
-      text 519.24,127.06 114.17x16.8 "Shift+Left-click" #cbb994
-    text 764.24,127.06 30x16.8 "+10%" #f0e6d2
-  box 519.24,149.54 275x16.8
-    box 519.24,149.54 229.8x16.8
-      text 519.24,149.54 106.67x16.8 "Ctrl+Left-click" #cbb994
-    text 757.58,149.54 36.67x16.8 "+100%" #f0e6d2
+surface 497.02,28.33 313.04x153.83 on TOOLTIP Interface\AddOns\Ordaen\media\window-wood pieces=[tl 0.99, tr 0.80, bl 0.80, br 0.61, top 0.99>0.80 x15.30, bottom 0.80>0.61 x15.30, left 0.99>0.81 x7.01, right 0.79>0.61 x7.01] clamped
+  text 516.04,47.36 275x25.83 "More" #f0e6d2
+  text 516.04,78.88 275x16.8 "Hold to keep stepping, up to the limit." #cbb994
+  box 516.04,101.37 275x16.8
+    box 516.04,101.37 243.13x16.8
+      text 516.04,101.37 71.67x16.8 "Left-click" #cbb994
+    text 767.71,101.37 23.33x16.8 "+1%" #f0e6d2
+  box 516.04,123.86 275x16.8
+    box 516.04,123.86 236.47x16.8
+      text 516.04,123.86 114.17x16.8 "Shift+Left-click" #cbb994
+    text 761.04,123.86 30x16.8 "+10%" #f0e6d2
+  box 516.04,146.34 275x16.8
+    box 516.04,146.34 229.8x16.8
+      text 516.04,146.34 106.67x16.8 "Ctrl+Left-click" #cbb994
+    text 754.38,146.34 36.67x16.8 "+100%" #f0e6d2

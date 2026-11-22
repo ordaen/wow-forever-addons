@@ -76,18 +76,18 @@ box 0,0 1000x303.27
         box 432.71,274.93 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
           text 448.36,280.7 152.53x16.8 "Never" #ffffff
           box 609.42,282.43 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-surface 567.42,82.07 319.44x160.23 on TOOLTIP Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl pieces=[tl 0.99, tr 0.80, bl 0.80, br 0.61, top 0.98>0.81 x8.98, bottom 0.79>0.62 x8.98, left 0.98>0.82 x4.01, right 0.78>0.62 x4.01] clamped
-  text 589.64,104.29 275x25.83 "More" #f0e6d2
-  text 589.64,135.81 275x16.8 "Hold to keep stepping, up to the limit." #cbb994
-  box 589.64,158.3 275x16.8
-    box 589.64,158.3 229.8x16.8
-      text 589.64,158.3 71.67x16.8 "Left-click" #cbb994
-    text 827.98,158.3 36.67x16.8 "+1 px" #f0e6d2
-  box 589.64,180.79 275x16.8
-    box 589.64,180.79 222.3x16.8
-      text 589.64,180.79 114.17x16.8 "Shift+Left-click" #cbb994
-    text 820.48,180.79 44.17x16.8 "+10 px" #f0e6d2
-  box 589.64,203.28 275x16.8
-    box 589.64,203.28 215.63x16.8
-      text 589.64,203.28 106.67x16.8 "Ctrl+Left-click" #cbb994
-    text 813.81,203.28 50.83x16.8 "+100 px" #f0e6d2
+surface 567.42,82.07 313.04x153.83 on TOOLTIP Interface\AddOns\Ordaen\media\window-wood pieces=[tl 0.99, tr 0.80, bl 0.80, br 0.61, top 0.99>0.80 x15.30, bottom 0.80>0.61 x15.30, left 0.99>0.81 x7.01, right 0.79>0.61 x7.01] clamped
+  text 586.44,101.09 275x25.83 "More" #f0e6d2
+  text 586.44,132.61 275x16.8 "Hold to keep stepping, up to the limit." #cbb994
+  box 586.44,155.1 275x16.8
+    box 586.44,155.1 229.8x16.8
+      text 586.44,155.1 71.67x16.8 "Left-click" #cbb994
+    text 824.78,155.1 36.67x16.8 "+1 px" #f0e6d2
+  box 586.44,177.59 275x16.8
+    box 586.44,177.59 222.3x16.8
+      text 586.44,177.59 114.17x16.8 "Shift+Left-click" #cbb994
+    text 817.28,177.59 44.17x16.8 "+10 px" #f0e6d2
+  box 586.44,200.08 275x16.8
+    box 586.44,200.08 215.63x16.8
+      text 586.44,200.08 106.67x16.8 "Ctrl+Left-click" #cbb994
+    text 810.61,200.08 50.83x16.8 "+100 px" #f0e6d2

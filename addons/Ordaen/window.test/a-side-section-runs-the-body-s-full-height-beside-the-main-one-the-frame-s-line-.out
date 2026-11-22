@@ -1,33 +1,33 @@
 -- the list over its footer at the left; the details from the top line to the bottom one at the right
-surface 500,277.5 852.26x345 on MEDIUM clamped raised by a click
-  box 500,322.5 852.26x300 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.96, tr 0.77, bl 0.81, br 0.61, top 0.96>0.78 x12.32, bottom 0.80>0.61 x12.32, left 0.95>0.82 x3.69, right 0.76>0.62 x3.69]
-    box 518.84,341.34 562.31x265.16
-      box 518.84,341.34 562.31x222.6
-        box 541.6,364.1 516.8x182.78 #30302a
-          text 541.6,364.1 516.8x17.5 "the list" #ffffff
-      box 518.84,563.94 562.31x42.56
-        box 518.84,563.94 562.31x42.56
-          text 541.6,569.36 50.83x17.5 "5 items" #ffffff
-          box 609.5,578.11 331.83x0
-          box 958.4,563.94 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-            text 993.4,569.36 30x17.5 "Scan" #ffd100
-    box 1081.16,341.34 252.26x265.16 border=Interface\AddOns\Ordaen\media\frame-divider-down sides=left pieces=[left 0.73>0.59 x5.52]
-      box 1087.91,341.34 245.51x265.16
-        box 1110.66,364.1 200x228.18 #30302a
-          text 1110.66,364.1 200x17.5 "the details" #ffffff
-      box 1087.16,341.34 6.67x265.16 absolute @drag @dragStart @dragStop
-    box 1322.26,592.5 13.33x13.33 absolute
-      box 1322.26,592.5 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
-  box 500,277.5 852.26x45
-    box 500,277.5 788.73x45
-      box 500,277.5 130x45 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.99, tr 0.96, top 0.99>0.97 x1.03, left 0.98>0.97 x0.20, right 0.95>0.95 x0.20] @drag @dragStart @dragStop @keyPress @pointerPress
-        box 524.53,293.5 80.93x44
-          text 542.92,306.75 44.17x17.5 "Market" #ffd100
-    box 1297.26,305.83 55x16.67
-      box 1297.26,305.83 55x26.67 clipped
-        box 1297.26,305.83 27.5x26.67 absolute clipped @keyPress @pointerPress
-          box 1297.26,305.83 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
-          box 1305.59,315.42 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
-        box 1324.76,305.83 27.5x26.67 absolute clipped @keyPress @pointerPress
-          box 1324.76,305.83 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
-          box 1331.01,315.42 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
+surface 500,280.5 849.56x339 on MEDIUM clamped raised by a click
+  box 500,319.5 849.56x300 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.97, tr 0.77, bl 0.80, br 0.61, top 0.97>0.78 x21.12, bottom 0.80>0.61 x21.12, left 0.96>0.81 x6.81, right 0.77>0.61 x6.81]
+    box 512.44,331.94 575.11x277.96
+      box 512.44,331.94 575.11x235.4
+        box 535.2,354.7 529.6x195.58 #30302a
+          text 535.2,354.7 529.6x17.5 "the list" #ffffff
+      box 512.44,567.34 575.11x42.56
+        box 512.44,567.34 575.11x42.56
+          text 535.2,572.76 50.83x17.5 "5 items" #ffffff
+          box 603.1,581.51 344.63x0
+          box 964.8,567.34 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+            text 999.8,572.76 30x17.5 "Scan" #ffd100
+    box 1087.56,331.94 249.56x277.96 border=Interface\AddOns\Ordaen\media\frame-divider-down sides=left pieces=[left 0.73>0.59 x9.65]
+      box 1091.61,331.94 245.51x277.96
+        box 1114.36,354.7 200x240.98 #30302a
+          text 1114.36,354.7 200x17.5 "the details" #ffffff
+      box 1091.16,331.94 6.67x277.96 absolute @drag @dragStart @dragStop
+    box 1325.56,595.5 13.33x13.33 absolute
+      box 1325.56,595.5 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
+  box 500,280.5 849.56x39
+    box 500,280.5 786.03x39
+      box 500,280.5 118x39 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.99, tr 0.97, top 0.99>0.97 x2.07, left 0.99>0.98 x0.52, right 0.96>0.95 x0.52] @drag @dragStart @dragStop @keyPress @pointerPress
+        box 518.13,290.1 81.73x38.4
+          text 536.92,300.55 44.17x17.5 "Market" #ffd100
+    box 1294.56,298.83 55x20.67
+      box 1294.56,298.83 55x26.67 clipped
+        box 1294.56,298.83 27.5x26.67 absolute clipped @keyPress @pointerPress
+          box 1294.56,298.83 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
+          box 1302.89,308.42 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
+        box 1322.06,298.83 27.5x26.67 absolute clipped @keyPress @pointerPress
+          box 1322.06,298.83 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
+          box 1328.31,308.42 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8

@@ -1,24 +1,24 @@
 -- the cursor over the window: the group's plates, settings first, then full screen and close
-surface 600,277.5 400x345 on MEDIUM clamped raised by a click
-  box 600,322.5 400x300 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.96, tr 0.77, bl 0.80, br 0.62, top 0.95>0.79 x5.25, bottom 0.79>0.62 x5.25, left 0.95>0.81 x3.69, right 0.76>0.62 x3.69]
-    box 618.84,341.34 362.31x262.31
-      box 618.84,341.34 362.31x262.31
-        text 641.6,364.1 316.8x17.5 "the page" #ffffff
-    box 970,592.5 13.33x13.33 absolute
-      box 970,592.5 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
-  box 600,277.5 400x45
-    box 600,277.5 311.47x45
-      box 600,277.5 130x45 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.98, tr 0.93, top 0.98>0.95 x1.03, left 0.98>0.97 x0.20, right 0.92>0.91 x0.20] @drag @dragStart @dragStop @keyPress @pointerPress
-        box 624.53,293.5 80.93x44
-          text 639.58,306.75 50.83x17.5 "Recipes" #ffd100
-    box 920,305.83 80x16.67
-      box 920,305.83 80x26.67 clipped
-        box 920,305.83 27.5x26.67 absolute clipped @keyPress @pointerPress
-          box 920,305.83 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
-          box 928.33,315.42 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 0 of 8
-        box 947.5,305.83 25x26.67 absolute clipped @keyPress @pointerPress
-          box 947.5,305.83 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 3 of 16
-          box 953.75,315.42 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
-        box 972.5,305.83 27.5x26.67 absolute clipped @keyPress @pointerPress
-          box 972.5,305.83 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
-          box 978.75,315.42 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
+surface 600,280.5 400x339 on MEDIUM clamped raised by a click
+  box 600,319.5 400x300 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.97, tr 0.78, bl 0.80, br 0.61, top 0.96>0.78 x9.42, bottom 0.79>0.61 x9.42, left 0.96>0.81 x6.81, right 0.77>0.61 x6.81]
+    box 612.44,331.94 375.11x275.11
+      box 612.44,331.94 375.11x275.11
+        text 635.2,354.7 329.6x17.5 "the page" #ffffff
+    box 976,595.5 13.33x13.33 absolute
+      box 976,595.5 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
+  box 600,280.5 400x39
+    box 600,280.5 311.47x39
+      box 600,280.5 118x39 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,left,right pieces=[tl 0.99, tr 0.94, top 0.99>0.95 x2.07, left 0.99>0.97 x0.52, right 0.93>0.92 x0.52] @drag @dragStart @dragStop @keyPress @pointerPress
+        box 618.13,290.1 81.73x38.4
+          text 633.58,300.55 50.83x17.5 "Recipes" #ffd100
+    box 920,298.83 80x20.67
+      box 920,298.83 80x26.67 clipped
+        box 920,298.83 27.5x26.67 absolute clipped @keyPress @pointerPress
+          box 920,298.83 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
+          box 928.33,308.42 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 0 of 8
+        box 947.5,298.83 25x26.67 absolute clipped @keyPress @pointerPress
+          box 947.5,298.83 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 3 of 16
+          box 953.75,308.42 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
+        box 972.5,298.83 27.5x26.67 absolute clipped @keyPress @pointerPress
+          box 972.5,298.83 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
+          box 978.75,308.42 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
