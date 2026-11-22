@@ -9,8 +9,10 @@ import { Art } from "$ltml"
 import Test from "$test"
 import root Ordaen from "Ordaen"
 import { BRIGHT_TEXT } from "Ordaen"
+import root Bags from "OrdaenBags"
 import { Purse, Purses } from "@/gold"
 import Locale from "@/locales"
+import { Choices } from "@/pane"
 
 const SCREEN: Test.Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
 
@@ -317,6 +319,8 @@ test "the corner's gear opens the module's page of the settings, with its two wi
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
   Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
   Test.mount(nil, SCREEN)
+  // Slot against slot, the bags low enough for the settings to cover their gear.
+  Bags.settings.change((values: mut Choices): nil => { values.slotGap = 0 })
   Game.bags.open = true
   bags().text("13 of 22").hover()
   bags().button(Ordaen.art.ctl.corner.gear).click()
@@ -324,6 +328,10 @@ test "the corner's gear opens the module's page of the settings, with its two wi
   Test.expect(page.text("Ordaen Bags").shown() && page.text(Locale.BAG_SLOTS).shown())
   // The settings cover the bags, the gear too, and a window stops the clicks on what it draws: a click where the gear
   // stands is the settings' and leaves them open.
+  const gearAt = Test.page().window("13 of 22").button(Ordaen.art.ctl.corner.gear).rect()
+  const over = Test.page().window(SETTINGS).rect()
+  Test.expect(gearAt.left >= over.left && gearAt.right <= over.right)
+  Test.expect(gearAt.top >= over.top && gearAt.bottom <= over.bottom)
   Test.page().window("13 of 22").button(Ordaen.art.ctl.corner.gear).click()
   Test.expect(Test.page().window(SETTINGS).shown())
 }
@@ -482,8 +490,8 @@ test "the view «By bag»: a section per bag, captioned by its name and fill, it
   Test.mount(nil, SCREEN)
   Game.bags.open = true
   pick(Ordaen.art.ctl.tool.categories, "By bag")
-  Test.expect(reads(bags().button("Backpack"), "Backpack | 7/16"))
-  Test.expect(reads(bags().button("Linen Bag"), "Linen Bag | 2/6"))
+  Test.expect(bags().text("Backpack").shown() && bags().text("7/16").shown())
+  Test.expect(bags().text("Linen Bag").shown() && bags().text("2/6").shown())
   Test.expect(bags().button(WELL).count() == 22 && !bags().text("All").shown() && !bags().text("Free").shown())
   Test.expect(nth(1).paintedWith(HEARTH) && nth(9).paintedWith(SHIRT) && nth(18).paintedWith(RECIPE))
 }
@@ -1362,8 +1370,8 @@ test "a bag's fill in the view «By bag» follows its items" {
   pick(Ordaen.art.ctl.tool.categories, "By bag")
   world.take(1, 4)
   Game.bags.updated.emit(1)
-  Test.expect(reads(bags().button("Linen Bag"), "Linen Bag | 1/6"))
-  Test.expect(reads(bags().button("Backpack"), "Backpack | 7/16"))
+  Test.expect(bags().text("Linen Bag").shown() && bags().text("1/6").shown())
+  Test.expect(bags().text("Backpack").shown() && bags().text("7/16").shown())
 }
 
 test "a bag swapped for a larger one: its slots read anew" {
@@ -1441,7 +1449,7 @@ test "the tab picked is white, the others in ink, and one with no item shows dim
   Test.expect(bags().text("Trade goods").textColor().equal(PICKED) && bags().text("All").textColor().equal(INK))
 }
 
-test "a section's caption is gold, a bag's with its mark; «Free»'s is plain" {
+test "a section's caption is gold, a bag's too, with no mark; «Free»'s is plain" {
   const world = new World(everyday())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
   Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
@@ -1449,7 +1457,7 @@ test "a section's caption is gold, a bag's with its mark; «Free»'s is plain" {
   Game.bags.open = true
   Test.expect(bags().text("Cloth").textColor().equal(CAPTION) && bags().text("Free").textColor().equal(LABEL))
   pick(Ordaen.art.ctl.tool.categories, "By bag")
-  Test.expect(bags().text("Backpack").textColor().equal(CAPTION) && bags().button("Backpack").paintedWith(Ordaen.art.ctl.markOpen))
+  Test.expect(bags().text("Backpack").textColor().equal(CAPTION) && !bags().paintedWith(Ordaen.art.ctl.markOpen))
 }
 
 test "each item's rim is in its quality's colour" {
@@ -1526,17 +1534,41 @@ test "every bag with slots has its section in the view «By bag» and its slots 
   Test.expect(bags().button(WELL).count() == 26 && bags().text("17 of 26").shown())
 }
 
-test "in the view «By bag» a bag's caption shuts its section and opens it again" {
+test "in the view «By bag» a bag's caption is a name alone: a click on it shuts nothing" {
   const world = new World(everyday())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
   Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
   Test.mount(nil, SCREEN)
   Game.bags.open = true
   pick(Ordaen.art.ctl.tool.categories, "By bag")
-  bags().button("Backpack").click()
-  Test.expect(bags().button(WELL).count() == 6)
-  bags().button("Backpack").click()
+  Test.expect(!bags().button("Backpack").shown())
+  bags().text("Backpack").click()
   Test.expect(bags().button(WELL).count() == 22)
+}
+
+test "slots stand apart by the setting's room, three steps where none is chosen; none at 0" {
+  const world = new World(everyday())
+  Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Test.mount(nil, SCREEN)
+  Game.bags.open = true
+  pick(Ordaen.art.ctl.tool.categories, "One bag")
+  const first = nth(1).rect()
+  const second = nth(2).rect()
+  Test.expect(second.left - first.right >= Ordaen.lengthOf(3sp) / 1ui - 0.01)
+  Bags.settings.change((values: mut Choices): nil => { values.slotGap = 0 })
+  Test.flush()
+  Test.expect((nth(2).rect().left - nth(1).rect().right).abs() < 0.01)
+}
+
+test "the footer stands on the game's marble, a rim round it" {
+  const world = new World(everyday())
+  Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Test.mount(nil, SCREEN)
+  Game.bags.open = true
+  const marble = bags().box(Ordaen.art.window.marble)
+  Test.expect(marble.text("13 of 22").shown())
 }
 
 // More of the protection

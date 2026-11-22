@@ -7,7 +7,7 @@ import Game from "$game"
 import { Action, Align, Event, KeyBinding, MouseButton, Position, Shadow, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import { Component, ItemButton, Menu, MenuEntry, Quality, SECONDARY_TEXT, TIGHT_LINE } from "Ordaen"
-import { CARD_GAP, CARD_PAD, Card, GAP, Line, SLOT, Section } from "@/layout"
+import { CARD_GAP, CARD_PAD, Card, CardRow, SLOT, Section } from "@/layout"
 import { Slot } from "@/model"
 import { SlotMenu } from "@/slotMenu"
 import { Vault } from "@/vault"
@@ -18,11 +18,9 @@ const NEW_GLOW: Color = Color.hex("#ffd65a")
 // A card's ground: darker than the window's, so each section reads as one.
 const CARD: Color = Color.hex("#00000038")
 const SHADOW: Shadow = { color: Color.hex("#000000"), x: 1.171875dp, y: -1.171875dp }
-const MARK = 14.0625dp
 const LOCK = 16.40625dp
 const COIN = 14.0625dp
-// A caption: its mark, its name in what the fill leaves (cut where it is longer, as in Russian), the fill at the end.
-const MARKED_TRACKS: Array<Track> = [MARK, { fr: 1 }, "max-content"]
+// A caption: its name in what the fill leaves (cut where it is longer, as in Russian), the fill at the end.
 const CAPTION_TRACKS: Array<Track> = [{ fr: 1 }, "max-content"]
 // The client's padlock, small, over a protected slot's top left corner.
 const PADLOCK: Atlas = "QuestSharing-Padlock"
@@ -51,14 +49,14 @@ public class Shelf {
   public pickup: Event<Slot> = new Event()
   public entered: Event<Slot> = new Event()
   public left: Event<Slot> = new Event()
-  public toggled: Event<String> = new Event()
   // A line of the open menu clicked (its place), or a click outside it.
   public picked: Event<Integer> = new Event()
   public closed: Event<nil> = new Event()
 
   public filter: Signal<Filter>
   public free: Signal<Integer>
-  public collapsed: Signal<Map<String, Boolean>>
+  // Between two slots of a card, as the player chose it.
+  public gap: Signal<Number<Spacing>>
   public fills: Signal<Map<Integer, String>>
   public menu: Signal<SlotMenu | nil>
   // The chord a container's slot is used by (the client's secure click).
@@ -68,7 +66,7 @@ public class Shelf {
   constructor(
     filter: Signal<Filter>,
     free: Signal<Integer>,
-    collapsed: Signal<Map<String, Boolean>>,
+    gap: Signal<Number<Spacing>>,
     fills: Signal<Map<Integer, String>>,
     menu: Signal<SlotMenu | nil>,
     useChord: Signal<KeyBinding<MouseButton>>,
@@ -76,7 +74,7 @@ public class Shelf {
   ) {
     self.filter = filter
     self.free = free
-    self.collapsed = collapsed
+    self.gap = gap
     self.fills = fills
     self.menu = menu
     self.useChord = useChord
@@ -151,14 +149,9 @@ class BagSlot implements Component {
   }
 }
 
-// A section's caption: its name, a bag's fill after it; a bag's section has its mark (open or shut) before its name,
-// and a click shuts or opens it. «Free»'s name is plain.
+// A section's caption: its name, a bag's fill after it. «Free»'s name is plain.
 class Caption implements Component {
-  derived shut: Boolean = self.shelf.collapsed[self.section.key] == true
-  derived mark = self.shut ? Ordaen.art.ctl.markClosed : Ordaen.art.ctl.markOpen
   derived fill: String = self.section.bag >= 0 ? self.shelf.fills[self.section.bag] ?? "" : ""
-  derived folds: Boolean = self.section.folds
-  derived columns: Array<Track> = self.folds ? MARKED_TRACKS : CAPTION_TRACKS
   derived titleColor: Color = self.section.free ? LABEL : CAPTION
 
   section: Signal<Section>
@@ -168,19 +161,9 @@ class Caption implements Component {
     self.shelf = shelf
   }
 
-  onClick(self) {
-    if (self.folds) { self.shelf.toggled.emit(self.section.key) }
-  }
-
   public render(self): Template {
     return $ltml {
-      <box $if={self.folds} columns={self.columns} gap={3sp} lineHeight={TIGHT_LINE} yAlign={Align.Center}
-           @pointerPress={self.onClick} @keyPress(.Enter)={self.onClick} @keyPress(.Space)={self.onClick}>
-        <box width={MARK} height={MARK} background={self.mark} />
-        <text value={self.section.title} textColor={self.titleColor} textShadow={SHADOW} wrap={.Cut} />
-        <text value={self.fill} textColor={LABEL} textSize={SECONDARY_TEXT} textFont={.Numbers} wrap={.None} />
-      </box>
-      <box $else columns={self.columns} gap={3sp} lineHeight={TIGHT_LINE} yAlign={Align.Center}>
+      <box columns={CAPTION_TRACKS} gap={3sp} lineHeight={TIGHT_LINE} yAlign={Align.Center}>
         <text value={self.section.title} textColor={self.titleColor} textShadow={SHADOW} wrap={.Cut} />
         <text value={self.fill} textColor={LABEL} textSize={SECONDARY_TEXT} textFont={.Numbers} wrap={.None} />
       </box>
@@ -188,11 +171,9 @@ class Caption implements Component {
   }
 }
 
-// A section as a card: a darker ground, its caption, its slots in rows as wide as the card; a shut one its caption
-// alone.
+// A section as a card: a darker ground, its caption, its slots in rows as wide as the card.
 class SectionCard implements Component {
   derived titled: Boolean = self.card.section.title != ""
-  derived shut: Boolean = self.card.section.folds && self.shelf.collapsed[self.card.section.key] == true
   derived free: Boolean = self.card.section.free
   derived span: Integer = self.card.span
   derived slots: Array<Slot> = self.card.section.slots
@@ -207,9 +188,9 @@ class SectionCard implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={1} gap={GAP} padding={CARD_PAD} background={CARD}>
+      <box columns={1} gap={self.shelf.gap} padding={CARD_PAD} background={CARD}>
         <Caption $if={self.titled} section={self.section} shelf={self.shelf} />
-        <box $if={!self.shut} columns={self.span} gap={GAP}>
+        <box columns={self.span} gap={self.shelf.gap}>
           <ItemButton $if={self.free} item={nil} count={self.shelf.free} size={SLOT} />
           <BagSlot $for={slot of self.slots} $key={slot} slot={slot} shelf={self.shelf} />
         </box>
@@ -223,9 +204,9 @@ public class CardLine implements Component {
   derived tracks: Array<Track> = self.line.tracks
   derived cards: Array<Card> = self.line.cards
 
-  line: Signal<Line>
+  line: Signal<CardRow>
   const shelf: Shelf
-  constructor(line: Signal<Line>, shelf: Shelf) {
+  constructor(line: Signal<CardRow>, shelf: Shelf) {
     self.line = line
     self.shelf = shelf
   }

@@ -24,11 +24,12 @@ import { Gold } from "@/gold"
 import { Guard, GuardTips, Hovered } from "@/guard"
 import { GUILD_ICON, GuildBank } from "@/guild"
 import { JUNK_RULES, JunkLists, JunkRules, LEARNED, Mark, NO_LISTS, afterSale, shareOf, teaches, withMark, withScore } from "@/junk"
+import { SLOT_GAP } from "@/layout"
 import Locale from "@/locales"
 import { MERCHANT_VIEW, MerchantView, MerchantWindow } from "@/merchant"
 import { MOVED, Slot, SortBy } from "@/model"
 import { BagsView, Choices, Pane, junkIn, worthIn } from "@/pane"
-import { ClicksPage, JunkPage } from "@/settings"
+import { ClicksPage, JunkPage, LookPage } from "@/settings"
 import { MenuAct, SlotMenu, menuOf } from "@/slotMenu"
 import { Stock } from "@/stock"
 import { GUILD_SLOTS, Vault, pickupIn } from "@/vault"
@@ -57,7 +58,7 @@ struct Sale {
 // The guild's money the dialog moves: in, or out.
 enum MoneyMove { Deposit, Withdraw }
 
-const DEFAULTS: Choices = { hidden: [], hideEmpty: false, grouping: {}, junk: JUNK_RULES, clicks: OURS }
+const DEFAULTS: Choices = { hidden: [], hideEmpty: false, grouping: {}, junk: JUNK_RULES, clicks: OURS, slotGap: SLOT_GAP }
 const NOTHING_KEPT: Kept = { guards: [] }
 // The window's body: wide enough for the tabs and ten slots, tall enough for ten rows.
 // Between the window and a bag's window opened beside it.
@@ -94,6 +95,7 @@ public class Bags implements Module, App {
   public settings: mut Settings<Choices> = new Settings<Choices>(DEFAULTS)
   public const pages: Array<SettingsPage> = [
     { title: windowsTitle(), content: $ltml { <WindowsPage windows={mut self.windows} /> } },
+    { title: Locale.PAGE_LOOK, content: $ltml { <LookPage slotGap={mut self.settings.values.slotGap} /> } },
     { title: Locale.PAGE_JUNK, content: $ltml { <JunkPage rules={mut self.settings.values.junk} @reset={self.onResetJunk} /> } },
     { title: Locale.PAGE_SLOT, content: $ltml { <ClicksPage clicks={mut self.settings.values.clicks} /> } }
   ]

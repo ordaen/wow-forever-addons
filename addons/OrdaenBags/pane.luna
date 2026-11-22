@@ -2,20 +2,20 @@
 // bank's copy away from them; the vault's window shows the bank or the guild bank while the game has it open. Its
 // header: the search (it dims what doesn't match), the sort, «Sort the bags», the view, the bag slots (the bank's on
 // the bank's). By category: the tabs at the left with their counts, the tab's items in cards side by side in the kinds'
-// fixed order, «Free» last; a card per bag, its empty slots shown, its fill, its caption shutting it; or every slot in
+// fixed order, «Free» last; a card per bag, its empty slots shown, its fill; or every slot in
 // one card. The guild bank shows the guild's tabs at the left and the tab's slots in their own order, with the tab's
 // log and the money's log as pages while it is open. The list is as high as what it holds: the window is never sized to
 // hide an item under a scroll; it scrolls only where the screen is too low for it.
 import Client from "$client"
 import Game from "$game"
-import { Align, KeyBinding, MouseButton, Overflow, Track } from "$ltml"
+import { Align, Edges, KeyBinding, Line, MouseButton, Overflow, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import { Choice, Component, FooterCount, FooterCounts, ListTab, ModuleMemory, Money, PushButton, SECONDARY_TEXT, ScrolledList, Tip, TipRow, ToolAct, ToolButton, ToolPick, Toolbar, WINDOW_ROOM } from "Ordaen"
 import { BANK_ICON } from "@/bank"
 import { Clicks } from "@/clicks"
 import { GuildBank, GuildPage, GuildTab, withdrawalsText } from "@/guild"
 import { JunkRules } from "@/junk"
-import { CARD_GAP, CardRoom, Line, Section, cardRoom, cardWidth, heightOf, linesOf } from "@/layout"
+import { CARD_GAP, CardRoom, CardRow, SLOT_GAP, Section, cardRoom, cardWidth, heightOf, linesOf } from "@/layout"
 import Locale from "@/locales"
 import { Grouping, KINDS, Slot, SortBy, Tab, View } from "@/model"
 import { CardLine, Filter, Shelf } from "@/rows"
@@ -25,13 +25,15 @@ import { Stock } from "@/stock"
 import { Vault } from "@/vault"
 
 // What the module keeps of the player's choices: the tabs hidden; whether a tab with nothing in it hides; each tab's
-// grouping (by type where none is said); the junk's rules; the slot's clicks.
+// grouping (by type where none is said); the junk's rules; the slot's clicks; the room between two slots, in steps of
+// the spacing.
 public struct Choices implements Plain {
   hidden: Array<Tab>
   hideEmpty: Boolean
   grouping: Map<Tab, Grouping>
   junk: JunkRules
   clicks: Clicks
+  slotGap: Number = SLOT_GAP
 }
 
 // How the player left the bags' view, the profile's (`ModuleMemory`): the view and the sort the header picks. The
@@ -47,8 +49,8 @@ public const TABS_WIDTH = 217.96875dp
 public const TABS_GAP: Number<Spacing> = 8sp
 // The room the list's scroll bar takes at its right.
 public const SCROLL_ROOM = 18.75dp
-// What a window keeps above and below its list (its tab row, its header, its footer, its room): the list is never
-// higher than the screen less this.
+// What a window keeps above and below its list (its tab row, its header, its footer's text, its room), the footer's
+// marble's own room besides (`footRoom`): the list is never higher than the screen less these.
 const AROUND_LIST = 257.8125dp
 
 const BODY: Array<Track> = ["max-content", { fr: 1 }]
@@ -56,6 +58,9 @@ const WITH_TABS: Array<Track> = [TABS_WIDTH, { fr: 1 }]
 const FILL: Array<Track> = [{ fr: 1 }]
 const NOTED: Array<Track> = ["max-content", { fr: 1 }]
 const FOOT: Array<Track> = ["max-content", { fr: 1 }, "max-content", "max-content", "max-content"]
+const FOOT_PAD_Y: Number<Spacing> = 2sp
+const FOOT_PAD: Edges = { top: FOOT_PAD_Y, right: 4sp, bottom: FOOT_PAD_Y, left: 4sp }
+const FOOT_RIM: Line = { width: 1.171875dp, color: Color.hex("#3e2f1d") }
 const LABEL: Color = Color.hex("#a3977f")
 const COUNT: Color = Color.hex("#a3977f")
 const BUTTON = 140.625dp
@@ -154,7 +159,6 @@ public class Pane {
 
   public state tab: Tab = Tab.All
   public state search = ""
-  public state collapsed: Map<String, Boolean> = {}
   state goldShown = false
 
   derived isGuild: Boolean = self.vault == Vault.Guild
@@ -176,16 +180,18 @@ public class Pane {
   derived shownTab: Tab = self.tabs.any(tab => tab == self.tab) ? self.tab : Tab.All
   public derived sections: Array<Section> = self.sectionsOf()
   // The list's width: the body's but for the window's room, the tabs where they show, the scroll bar.
-  derived room: CardRoom = cardRoom()
+  derived slotGap: Number<Spacing> = self.choices.slotGap * 1sp
+  derived room: CardRoom = cardRoom(self.choices.slotGap)
   // The least window: the list of tabs and eight slots in a card beside it.
   public derived leastWidth: Number<Length> =
     Ordaen.lengthOf(2 * WINDOW_ROOM + TABS_GAP) + TABS_WIDTH + cardWidth(8, self.room) + SCROLL_ROOM
   derived tabsRoom: Number<Length> = self.withList ? TABS_WIDTH + Ordaen.lengthOf(TABS_GAP) : 0ui
   derived listWidth: Number<Length> = self.width - Ordaen.lengthOf(2 * WINDOW_ROOM) - self.tabsRoom - SCROLL_ROOM
-  public derived lines: Array<Line> = linesOf(self.sections, self.listWidth, self.collapsed, self.room)
+  public derived lines: Array<CardRow> = linesOf(self.sections, self.listWidth, self.room)
   // As high as its cards, or as the screen lets it be.
   derived cardsHeight: Number<Length> = heightOf(self.lines, self.room)
-  derived listHeight: Number<Length> = self.cardsHeight.min(Client.UIParent.GetHeight() * 1ui - AROUND_LIST)
+  derived footRoom: Number<Length> = Ordaen.lengthOf(FOOT_PAD_Y * 2) + FOOT_RIM.width * 2
+  derived listHeight: Number<Length> = self.cardsHeight.min(Client.UIParent.GetHeight() * 1ui - AROUND_LIST - self.footRoom)
   derived listOverflow: Overflow | nil = self.listHeight < self.cardsHeight ? Overflow.Scroll : nil
   public derived filter: Filter = { query: self.query, place: Game.bags.place, lit: self.isBags ? self.lit : -1 }
   derived free: Integer = self.stock.free
@@ -262,8 +268,7 @@ public class Pane {
     self.gold = gold
     self.slotsOpen = slotsOpen
     self.bankSlotsOpen = bankSlotsOpen
-    self.shelf = new Shelf(self.filter, self.free, self.collapsed, self.fills, menu, useChord, self.live)
-    self.shelf.toggled.listen(self.onToggle)
+    self.shelf = new Shelf(self.filter, self.free, self.slotGap, self.fills, menu, useChord, self.live)
   }
 
   stockOf(self): Stock {
@@ -311,13 +316,6 @@ public class Pane {
     return [free, { label: Locale.FOOT_JUNK, value: Locale.JUNK_WORTH.format(self.junkCount, Game.money.format(self.junkWorth)) }]
   }
 
-  onToggle(mut self, key: String) {
-    let collapsed: Map<String, Boolean> = {}
-    for (name, shut of peek self.collapsed) { collapsed[name] = shut }
-    collapsed[key] = collapsed[key] == true ? nil : true
-    self.collapsed = collapsed
-  }
-
   onTab(mut self, tab: Tab) { self.tab = tab }
   onGuildTab(self, tab: Integer) { self.guildTab.emit(tab) }
   onGuildLog(self) { self.guildLog.emit() }
@@ -329,8 +327,9 @@ public class Pane {
   onGoldEnter(mut self) { self.goldShown = true }
   onGoldLeave(mut self) { self.goldShown = false }
 
+  // The footer on the game's dark marble, its rim the line between it and the list.
   public const footer: Template = $ltml {
-    <box columns={FOOT} gap={6sp} yAlign={Align.Center}>
+    <box columns={FOOT} gap={6sp} yAlign={Align.Center} padding={FOOT_PAD} border={FOOT_RIM} background={Ordaen.art.window.marble}>
       <FooterCounts counts={self.footCounts} />
       <box />
       <PushButton $if={self.selling} label={Locale.SELL_JUNK} width={BUTTON} @click={self.onSellJunk} />

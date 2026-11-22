@@ -6,11 +6,13 @@ import { Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import { Slot } from "@/model"
 
-// A slot's size. Between two slots of a card; inside a card, round what it holds; between two cards.
+// A slot's size. Inside a card, round what it holds; between two cards. Between two slots of a card is the player's
+// choice (`Choices.slotGap`, in steps of the spacing), this where none is made; at most `SLOT_GAP_MOST`.
 public const SLOT: Number<Length> = 43.359375dp
-public const GAP: Number<Spacing> = 1sp
-public const CARD_PAD: Number<Spacing> = 3sp
-public const CARD_GAP: Number<Spacing> = 5sp
+public const CARD_PAD: Number<Spacing> = 2sp
+public const CARD_GAP: Number<Spacing> = 3sp
+public const SLOT_GAP = 3
+public const SLOT_GAP_MOST = 10
 
 // The rooms of the cards as lengths, as the density has them now: what the cards' widths and heights are worked out
 // with.
@@ -20,9 +22,9 @@ public struct CardRoom {
   const between: Number<Length>
 }
 
-// The cards' rooms at the density the player chose; read in a `derived`, it follows the choice.
-public function cardRoom(): CardRoom {
-  return { gap: Ordaen.lengthOf(GAP), pad: Ordaen.lengthOf(CARD_PAD), between: Ordaen.lengthOf(CARD_GAP) }
+// The cards' rooms at the density the player chose and the slots' gap; read in a `derived`, it follows both.
+public function cardRoom(slotGap: Number): CardRoom {
+  return { gap: Ordaen.lengthOf(slotGap * 1sp), pad: Ordaen.lengthOf(CARD_PAD), between: Ordaen.lengthOf(CARD_GAP) }
 }
 // A caption's height, which the cards' heights are worked out with (the list is as high as they are, up to the
 // screen's): the caption takes its text's height, which at the body's text size (14) is its font's line, this.
@@ -31,15 +33,13 @@ public const CAPTION_HIGH: Number<Length> = 23.625dp
 const CAPTION_SPAN = 4
 
 // A section: its caption (none where it has none: the one-bag view, a tab grouped in one), the bag it is (-1 for none),
-// its slots in their order; the «Free» section, one slot with the free count; whether its caption shuts it (a bag's
-// section does, a category's doesn't).
+// its slots in their order; the «Free» section, one slot with the free count.
 public struct Section {
   const key: String
   const title: String
   const bag: Integer
   const slots: Array<Slot>
   const free: Boolean
-  const folds: Boolean
 }
 
 // A section as a card: how many slots wide it is.
@@ -49,7 +49,7 @@ public struct Card {
 }
 
 // A line of cards side by side: each card's width, and the line's height (its tallest card's).
-public struct Line {
+public struct CardRow {
   const cards: Array<Card>
   const tracks: Array<Track>
   const height: Number<Length>
@@ -71,23 +71,18 @@ function spanOf(section: Section, most: Integer): Integer {
   return count.max(least).min(most)
 }
 
-// How high a card is: its caption, and its rows of slots unless it is shut.
-function cardHeight(section: Section, span: Integer, shut: Boolean, room: CardRoom): Number<Length> {
+// How high a card is: its caption, and its rows of slots.
+function cardHeight(section: Section, span: Integer, room: CardRoom): Number<Length> {
   let high = 2 * room.pad
-  const titled = section.title != ""
-  if (titled) { high += CAPTION_HIGH }
-  if (shut) { return high }
-  if (titled) { high += room.gap }
+  if (section.title != "") { high += CAPTION_HIGH + room.gap }
   const count = section.free ? 1 : section.slots.length
   const rows = ((count + span - 1) / span).floor().max(1)
   return high + rows * SLOT + (rows - 1) * room.gap
 }
 
-// The lines of `sections` in a list `width` wide, those `collapsed` (by key) with their caption alone.
-public function linesOf(
-  sections: Array<Section>, width: Number<Length>, collapsed: Map<String, Boolean>, room: CardRoom
-): Array<Line> {
-  let lines: Array<Line> = []
+// The lines of `sections` in a list `width` wide.
+public function linesOf(sections: Array<Section>, width: Number<Length>, room: CardRoom): Array<CardRow> {
+  let lines: Array<CardRow> = []
   let cards: Array<Card> = []
   let tracks: Array<Track> = []
   let high: Number<Length> = 0ui
@@ -106,14 +101,14 @@ public function linesOf(
     used = cards.length == 0 ? wide : used + room.between + wide
     cards.push({ section: section, span: span })
     tracks.push(wide)
-    high = high.max(cardHeight(section, span, section.folds && collapsed[section.key] == true, room))
+    high = high.max(cardHeight(section, span, room))
   }
   if (cards.length > 0) { lines.push({ cards: cards, tracks: tracks, height: high }) }
   return lines
 }
 
 // How high the lines are together, the room between them with them.
-public function heightOf(lines: Array<Line>, room: CardRoom): Number<Length> {
+public function heightOf(lines: Array<CardRow>, room: CardRoom): Number<Length> {
   let high: Number<Length> = 0ui
   for (index, line of lines) { high += index > 1 ? room.between + line.height : line.height }
   return high

@@ -1,13 +1,28 @@
-// Ordaen Bags' pages in the settings window beside its windows: «Junk» (the rules, learning, the chat's lines, and the
+// Ordaen Bags' pages in the settings window beside its windows: «Look» (the room between slots), «Junk» (the rules, learning, the chat's lines, and the
 // two resets of what play made: the learned scores and the player's marks) and «Slot» (the eight clicks of a slot, each
 // one action, and the two schemes to start from). A chord's row that holds the last Use or the last Menu offers nothing
 // else, so no scheme leaves an item without a click to use it or to open its menu.
 import { Choice, Component, Dropdown, NumberInput, PushButton, Section, Switch } from "Ordaen"
 import { AS_THE_GAME, CHORDS, Chord, Clicks, OURS, SlotAction, actionAt, choicesFor, chordName, withAction } from "@/clicks"
 import { JunkRules } from "@/junk"
+import { SLOT_GAP_MOST } from "@/layout"
 import Locale from "@/locales"
 
 const BUTTON = 187.5dp
+
+// «Look»: the room between two slots of a card, in steps of the spacing (0: slot against slot).
+public class LookPage implements Component {
+  slotGap: mut Signal<Number>
+  constructor(slotGap: mut Signal<Number>) { self.slotGap = slotGap }
+
+  public render(self): Template {
+    return $ltml {
+      <Section title={Locale.SECTION_SLOTS}>
+        <NumberInput label={Locale.SLOT_GAP} hint={Locale.SLOT_GAP_TIP} value={mut self.slotGap} least={0} most={SLOT_GAP_MOST} />
+      </Section>
+    }
+  }
+}
 
 public class JunkPage implements Component {
   // A reset asked: of the marks (true) or of what was learned.
