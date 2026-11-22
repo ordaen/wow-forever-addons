@@ -37,5 +37,7 @@
   "GROUPING": "Group",
   "BY_TYPE": "By type",
   "BY_SPEC": "By spec",
-  "SPELL_RANK": "Rank %d"
+  "SPELL_RANK": "Rank %d",
+  "RANK_RACIAL_PASSIVE": "Racial Passive",
+  "RANK_RACIAL": "Racial"
 }

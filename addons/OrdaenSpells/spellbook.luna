@@ -203,6 +203,8 @@ function castName(spell: Game.SpellEntry): String {
 // is «Passive», which the spell's kind already says.
 function rankOf(spell: Game.SpellEntry): String | nil {
   if (spell.rank == "" || spell.rank == Runtime.text("SPELL_PASSIVE")) { return nil }
+  // A racial passive's word («Рас. пассивная») says passive too: the race's part alone.
+  if (spell.rank == Locale.RANK_RACIAL_PASSIVE) { return Locale.RANK_RACIAL }
   const number = spell.rank.match("(%d+)")?.toNumber()
   return number == nil ? spell.rank : Locale.SPELL_RANK.format(number.floor())
 }

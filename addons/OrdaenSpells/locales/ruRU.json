@@ -37,5 +37,7 @@
   "GROUPING": "Группировка",
   "BY_TYPE": "По типу",
   "BY_SPEC": "По специализации",
-  "SPELL_RANK": "Ранг %d"
+  "SPELL_RANK": "Ранг %d",
+  "RANK_RACIAL_PASSIVE": "Рас. пассивная",
+  "RANK_RACIAL": "Расовая"
 }

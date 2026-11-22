@@ -580,6 +580,16 @@ test "a spell cooling down is shaded by the client's clock until the client says
   Test.expect(!window.text("Rend").item().paintedWith(shaded))
 }
 
+test "a racial passive's rank says «Racial» alone: its group says it is passive" {
+  Test.mount(nil, PAGE)
+  Game.spellbook.lines = lines
+  Game.spellbook.entries = (): Array<Game.SpellEntry> => [
+    { id: 20573, name: "Hardiness", rank: "Racial Passive", icon: ICON, level: 1, passive: true, line: 1 }
+  ]
+  const window = book()
+  Test.expect(window.text("Hardiness").item().texts().join(" | ") == "Hardiness | General • Racial • Lvl 1")
+}
+
 test "a rank by its number reads «Rank 2», a word as the client gives it" {
   Test.mount(nil, PAGE)
   Game.spellbook.lines = lines
