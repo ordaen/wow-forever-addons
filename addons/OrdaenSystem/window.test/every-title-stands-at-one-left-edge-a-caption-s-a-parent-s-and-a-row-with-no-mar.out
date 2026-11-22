@@ -1,7 +1,7 @@
 key: ESCAPE → none
 -- titles at one edge
 surface 391.67,175.79 816.67x548.42 on MEDIUM clamped raised by a click
-  box 391.67,224.21 816.67x500 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.98, tr 0.78, bl 0.80, br 0.60, top 0.98>0.78 x27.36, bottom 0.80>0.60 x27.36, left 0.98>0.80 x16.36, right 0.78>0.61 x16.36] @pointerEnter @pointerLeave
+  box 391.67,224.21 816.67x500 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.98, tr 0.78, bl 0.80, br 0.60, top 0.98>0.78 x27.36, bottom 0.80>0.60 x27.36, left 0.98>0.80 x16.36, right 0.78>0.61 x16.36] @drag @dragStart @dragStop @pointerEnter @pointerLeave
     box 398.87,231.41 802.27x485.6
       box 398.87,231.41 802.27x443.04
         box 421.62,254.16 756.76x403.22

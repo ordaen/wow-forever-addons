@@ -1,6 +1,6 @@
 -- the list over its footer at the left; the details from the top line to the bottom one at the right
 surface 500,281.62 839.68x336.75 on MEDIUM clamped raised by a click
-  box 500,318.38 839.68x300 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.97, tr 0.78, bl 0.80, br 0.61, top 0.97>0.78 x28.16, bottom 0.80>0.61 x28.16, left 0.97>0.81 x9.42, right 0.77>0.61 x9.42] @pointerEnter @pointerLeave
+  box 500,318.38 839.68x300 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.97, tr 0.78, bl 0.80, br 0.61, top 0.97>0.78 x28.16, bottom 0.80>0.61 x28.16, left 0.97>0.81 x9.42, right 0.77>0.61 x9.42] @drag @dragStart @dragStop @pointerEnter @pointerLeave
     box 507.2,325.57 585.6x285.6
       box 507.2,325.57 585.6x243.19
         box 529.96,348.33 540.09x203.37 #30302a

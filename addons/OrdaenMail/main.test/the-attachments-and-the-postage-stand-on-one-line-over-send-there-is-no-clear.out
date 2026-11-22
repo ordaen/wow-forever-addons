@@ -1,6 +1,6 @@
 -- the form
 surface 500,175.79 1039.68x548.42 on MEDIUM clamped raised by a click
-  box 500,224.21 1039.68x500 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.98, tr 0.78, bl 0.80, br 0.60, top 0.98>0.78 x35.10, bottom 0.80>0.60 x35.10, left 0.98>0.80 x16.36, right 0.78>0.61 x16.36] @pointerEnter @pointerLeave
+  box 500,224.21 1039.68x500 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.98, tr 0.78, bl 0.80, br 0.60, top 0.98>0.78 x35.10, bottom 0.80>0.60 x35.10, left 0.98>0.80 x16.36, right 0.78>0.61 x16.36] @drag @dragStart @dragStop @pointerEnter @pointerLeave
     box 507.2,231.41 585.6x485.6
       box 507.2,231.41 585.6x443.04
         box 529.96,254.16 540.09x403.22

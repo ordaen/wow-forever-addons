@@ -2,7 +2,7 @@
 box 0,0 300x22.93
   text 4.27,4.27 291.47x14.4 "a page under the window" #ffffff
 surface 600,275.79 400x348.42 on MEDIUM clamped raised by a click
-  box 600,324.21 400x300 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.96, tr 0.77, bl 0.80, br 0.61, top 0.96>0.78 x12.89, bottom 0.79>0.61 x12.89, left 0.96>0.81 x9.42, right 0.77>0.61 x9.42] @pointerEnter @pointerLeave
+  box 600,324.21 400x300 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.96, tr 0.77, bl 0.80, br 0.61, top 0.96>0.78 x12.89, bottom 0.79>0.61 x12.89, left 0.96>0.81 x9.42, right 0.77>0.61 x9.42] @drag @dragStart @dragStop @pointerEnter @pointerLeave
     box 607.2,331.41 385.6x285.6
       box 607.2,331.41 385.6x243.04
         box 629.96,354.16 340.09x203.22
@@ -40,7 +40,7 @@ surface 600,275.79 400x348.42 on MEDIUM clamped raised by a click
 box 0,0 300x22.93
   text 4.27,4.27 291.47x14.4 "a page under the window" #ffffff
 surface 600,275.79 400x348.42 on MEDIUM clamped raised by a click
-  box 600,324.21 400x300 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.96, tr 0.77, bl 0.80, br 0.61, top 0.96>0.78 x12.89, bottom 0.79>0.61 x12.89, left 0.96>0.81 x9.42, right 0.77>0.61 x9.42] @pointerEnter @pointerLeave
+  box 600,324.21 400x300 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.96, tr 0.77, bl 0.80, br 0.61, top 0.96>0.78 x12.89, bottom 0.79>0.61 x12.89, left 0.96>0.81 x9.42, right 0.77>0.61 x9.42] @drag @dragStart @dragStop @pointerEnter @pointerLeave
     box 607.2,331.41 385.6x285.6
       box 607.2,331.41 385.6x243.04
         box 629.96,354.16 340.09x203.22
@@ -78,7 +78,7 @@ surface 600,275.79 400x348.42 on MEDIUM clamped raised by a click
 box 0,0 300x22.93
   text 4.27,4.27 291.47x14.4 "a page under the window" #ffffff
 surface 640,305.79 400x348.42 on MEDIUM clamped raised by a click
-  box 640,354.21 400x300 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.96, tr 0.77, bl 0.80, br 0.61, top 0.96>0.78 x12.89, bottom 0.79>0.61 x12.89, left 0.96>0.81 x9.42, right 0.77>0.61 x9.42] @pointerEnter @pointerLeave
+  box 640,354.21 400x300 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.96, tr 0.77, bl 0.80, br 0.61, top 0.96>0.78 x12.89, bottom 0.79>0.61 x12.89, left 0.96>0.81 x9.42, right 0.77>0.61 x9.42] @drag @dragStart @dragStop @pointerEnter @pointerLeave
     box 647.2,361.41 385.6x285.6
       box 647.2,361.41 385.6x243.04
         box 669.96,384.16 340.09x203.22
@@ -116,7 +116,7 @@ surface 640,305.79 400x348.42 on MEDIUM clamped raised by a click
 box 0,0 300x22.93
   text 4.27,4.27 291.47x14.4 "a page under the window" #ffffff
 surface 640,305.79 400x348.42 on MEDIUM clamped raised by a click
-  box 640,354.21 400x300 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.96, tr 0.77, bl 0.80, br 0.61, top 0.96>0.78 x12.89, bottom 0.79>0.61 x12.89, left 0.96>0.81 x9.42, right 0.77>0.61 x9.42] @pointerEnter @pointerLeave
+  box 640,354.21 400x300 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.96, tr 0.77, bl 0.80, br 0.61, top 0.96>0.78 x12.89, bottom 0.79>0.61 x12.89, left 0.96>0.81 x9.42, right 0.77>0.61 x9.42] @drag @dragStart @dragStop @pointerEnter @pointerLeave
     box 647.2,361.41 385.6x285.6
       box 647.2,361.41 385.6x243.04
         box 669.96,384.16 340.09x203.22
@@ -154,7 +154,7 @@ surface 640,305.79 400x348.42 on MEDIUM clamped raised by a click
 box 0,0 300x22.93
   text 4.27,4.27 291.47x14.4 "a page under the window" #ffffff
 surface 640,305.79 400x348.42 on MEDIUM clamped raised by a click
-  box 640,354.21 400x300 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.96, tr 0.77, bl 0.80, br 0.61, top 0.96>0.78 x12.89, bottom 0.79>0.61 x12.89, left 0.96>0.81 x9.42, right 0.77>0.61 x9.42] @pointerEnter @pointerLeave
+  box 640,354.21 400x300 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.96, tr 0.77, bl 0.80, br 0.61, top 0.96>0.78 x12.89, bottom 0.79>0.61 x12.89, left 0.96>0.81 x9.42, right 0.77>0.61 x9.42] @drag @dragStart @dragStop @pointerEnter @pointerLeave
     box 647.2,361.41 385.6x285.6
       box 647.2,361.41 385.6x243.04
         box 669.96,384.16 340.09x203.22
@@ -192,7 +192,7 @@ surface 640,305.79 400x348.42 on MEDIUM clamped raised by a click
 box 0,0 300x22.93
   text 4.27,4.27 291.47x14.4 "a page under the window" #ffffff
 surface 0,0 1600x900 on MEDIUM clamped raised by a click
-  box 0,48.42 1600x851.58 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.99, tr 0.79, bl 0.80, br 0.60, top 0.99>0.79 x54.56, bottom 0.80>0.60 x54.56, left 0.99>0.80 x28.57, right 0.79>0.60 x28.57] @pointerEnter @pointerLeave
+  box 0,48.42 1600x851.58 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.99, tr 0.79, bl 0.80, br 0.60, top 0.99>0.79 x54.56, bottom 0.80>0.60 x54.56, left 0.99>0.80 x28.57, right 0.79>0.60 x28.57] @drag @dragStart @dragStop @pointerEnter @pointerLeave
     box 7.2,55.62 1585.6x837.18
       box 7.2,55.62 1585.6x794.63
         box 29.96,78.37 1540.09x754.81
@@ -228,7 +228,7 @@ surface 0,0 1600x900 on MEDIUM clamped raised by a click
 box 0,0 300x22.93
   text 4.27,4.27 291.47x14.4 "a page under the window" #ffffff
 surface 640,305.79 400x348.42 on MEDIUM clamped raised by a click
-  box 640,354.21 400x300 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.96, tr 0.77, bl 0.80, br 0.61, top 0.96>0.78 x12.89, bottom 0.79>0.61 x12.89, left 0.96>0.81 x9.42, right 0.77>0.61 x9.42] @pointerEnter @pointerLeave
+  box 640,354.21 400x300 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.96, tr 0.77, bl 0.80, br 0.61, top 0.96>0.78 x12.89, bottom 0.79>0.61 x12.89, left 0.96>0.81 x9.42, right 0.77>0.61 x9.42] @drag @dragStart @dragStop @pointerEnter @pointerLeave
     box 647.2,361.41 385.6x285.6
       box 647.2,361.41 385.6x243.04
         box 669.96,384.16 340.09x203.22
@@ -266,7 +266,7 @@ surface 640,305.79 400x348.42 on MEDIUM clamped raised by a click
 box 0,0 300x22.93
   text 4.27,4.27 291.47x14.4 "a page under the window" #ffffff
 surface 640,305.79 400x348.42 on MEDIUM clamped raised by a click
-  box 640,354.21 400x300 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.96, tr 0.77, bl 0.80, br 0.61, top 0.96>0.78 x12.89, bottom 0.79>0.61 x12.89, left 0.96>0.81 x9.42, right 0.77>0.61 x9.42] @pointerEnter @pointerLeave
+  box 640,354.21 400x300 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.96, tr 0.77, bl 0.80, br 0.61, top 0.96>0.78 x12.89, bottom 0.79>0.61 x12.89, left 0.96>0.81 x9.42, right 0.77>0.61 x9.42] @drag @dragStart @dragStop @pointerEnter @pointerLeave
     box 647.2,361.41 385.6x285.6
       box 647.2,361.41 385.6x243.04
         box 669.96,384.16 340.09x203.22
@@ -304,7 +304,7 @@ surface 640,305.79 400x348.42 on MEDIUM clamped raised by a click
 box 0,0 300x22.93
   text 4.27,4.27 291.47x14.4 "a page under the window" #ffffff
 surface 640,305.79 460x368.42 on MEDIUM clamped raised by a click
-  box 640,354.21 460x320 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.97, tr 0.77, bl 0.80, br 0.61, top 0.97>0.78 x14.97, bottom 0.80>0.61 x14.97, left 0.96>0.81 x10.11, right 0.77>0.61 x10.11] @pointerEnter @pointerLeave
+  box 640,354.21 460x320 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.97, tr 0.77, bl 0.80, br 0.61, top 0.97>0.78 x14.97, bottom 0.80>0.61 x14.97, left 0.96>0.81 x10.11, right 0.77>0.61 x10.11] @drag @dragStart @dragStop @pointerEnter @pointerLeave
     box 647.2,361.41 445.6x305.6
       box 647.2,361.41 445.6x263.04
         box 669.96,384.16 400.09x223.22
@@ -342,7 +342,7 @@ surface 640,305.79 460x368.42 on MEDIUM clamped raised by a click
 box 0,0 300x22.93
   text 4.27,4.27 291.47x14.4 "a page under the window" #ffffff
 surface 640,305.79 600x215.08 on MEDIUM clamped raised by a click
-  box 640,354.21 600x166.67 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.95, tr 0.75, bl 0.80, br 0.61, top 0.95>0.76 x19.83, bottom 0.80>0.61 x19.83, left 0.94>0.81 x4.79, right 0.74>0.61 x4.79] @pointerEnter @pointerLeave
+  box 640,354.21 600x166.67 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.95, tr 0.75, bl 0.80, br 0.61, top 0.95>0.76 x19.83, bottom 0.80>0.61 x19.83, left 0.94>0.81 x4.79, right 0.74>0.61 x4.79] @drag @dragStart @dragStop @pointerEnter @pointerLeave
     box 647.2,361.41 585.6x152.27
       box 647.2,361.41 585.6x109.71
         box 669.96,384.16 540.09x69.89

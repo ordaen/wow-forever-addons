@@ -1,6 +1,6 @@
 -- the friends: the best friend on top with its star, the levels at the right, the card the player's own
 surface 425,184.12 1139.68x531.75 on MEDIUM clamped raised by a click
-  box 425,232.54 1139.68x483.33 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.98, tr 0.78, bl 0.80, br 0.60, top 0.98>0.78 x38.57, bottom 0.80>0.60 x38.57, left 0.98>0.80 x15.78, right 0.78>0.61 x15.78] @pointerEnter @pointerLeave
+  box 425,232.54 1139.68x483.33 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.98, tr 0.78, bl 0.80, br 0.60, top 0.98>0.78 x38.57, bottom 0.80>0.60 x38.57, left 0.98>0.80 x15.78, right 0.78>0.61 x15.78] @drag @dragStart @dragStop @pointerEnter @pointerLeave
     box 432.2,239.74 735.6x468.93
       box 432.2,239.74 735.6x426.38
         box 454.96,262.5 690.09x386.56

@@ -1,6 +1,6 @@
 -- the content over the footer, a group's step between them; «Reset» left, «Save» right, the panel's step over the line
 surface 600,281.62 400x336.75 on MEDIUM clamped raised by a click
-  box 600,318.38 400x300 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.97, tr 0.78, bl 0.80, br 0.61, top 0.97>0.78 x12.89, bottom 0.79>0.61 x12.89, left 0.97>0.81 x9.42, right 0.77>0.61 x9.42] @pointerEnter @pointerLeave
+  box 600,318.38 400x300 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.97, tr 0.78, bl 0.80, br 0.61, top 0.97>0.78 x12.89, bottom 0.79>0.61 x12.89, left 0.97>0.81 x9.42, right 0.77>0.61 x9.42] @drag @dragStart @dragStop @pointerEnter @pointerLeave
     box 607.2,325.57 385.6x285.6
       box 607.2,325.57 385.6x243.04
         box 629.96,348.33 340.09x203.22 #30302a

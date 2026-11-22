@@ -1,6 +1,6 @@
 -- the window at its least: the longest category and recipe wrap, every other name on one line
 surface 288,134.12 896.31x437.26 on MEDIUM clamped raised by a click
-  box 288,182.54 896.31x388.84 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.97, tr 0.78, bl 0.80, br 0.60, top 0.97>0.78 x30.12, bottom 0.80>0.60 x30.12, left 0.97>0.81 x12.50, right 0.77>0.61 x12.50] @pointerEnter @pointerLeave
+  box 288,182.54 896.31x388.84 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.97, tr 0.78, bl 0.80, br 0.60, top 0.97>0.78 x30.12, bottom 0.80>0.60 x30.12, left 0.97>0.81 x12.50, right 0.77>0.61 x12.50] @drag @dragStart @dragStop @pointerEnter @pointerLeave
     box 295.2,189.74 881.91x374.44
       box 295.2,189.74 881.91x374.44
         box 295.2,189.74 881.91x374.44
@@ -160,7 +160,7 @@ surface 288,134.12 896.31x437.26 on MEDIUM clamped raised by a click
 
 -- the window widened: no name wraps, the lists and the card wider alike
 surface 288,134.12 1312x437.26 on MEDIUM clamped raised by a click
-  box 288,182.54 1312x388.84 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.97, tr 0.78, bl 0.80, br 0.60, top 0.97>0.78 x44.56, bottom 0.80>0.60 x44.56, left 0.97>0.81 x12.50, right 0.77>0.61 x12.50] @pointerEnter @pointerLeave
+  box 288,182.54 1312x388.84 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.97, tr 0.78, bl 0.80, br 0.60, top 0.97>0.78 x44.56, bottom 0.80>0.60 x44.56, left 0.97>0.81 x12.50, right 0.77>0.61 x12.50] @drag @dragStart @dragStop @pointerEnter @pointerLeave
     box 295.2,189.74 1297.6x374.44
       box 295.2,189.74 1297.6x374.44
         box 295.2,189.74 1297.6x374.44

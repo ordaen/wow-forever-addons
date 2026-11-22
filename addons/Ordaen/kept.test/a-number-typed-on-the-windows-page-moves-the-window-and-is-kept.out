@@ -1,7 +1,7 @@
 key: ENTER → none
 -- the place across typed: -100, the window 100 to the left
 surface 201.75,139.96 996.5x620.08 on MEDIUM clamped raised by a click
-  box 201.75,176.71 996.5x583.33 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.98, tr 0.79, bl 0.80, br 0.60, top 0.98>0.79 x33.60, bottom 0.80>0.60 x33.60, left 0.98>0.80 x19.25, right 0.78>0.61 x19.25] @pointerEnter @pointerLeave
+  box 201.75,176.71 996.5x583.33 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.98, tr 0.79, bl 0.80, br 0.60, top 0.98>0.79 x33.60, bottom 0.80>0.60 x33.60, left 0.98>0.80 x19.25, right 0.78>0.61 x19.25] @drag @dragStart @dragStop @pointerEnter @pointerLeave
     box 208.95,183.91 982.1x568.93
       box 208.95,183.91 982.1x526.38
         box 231.71,206.66 936.59x486.56

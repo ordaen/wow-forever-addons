@@ -1,7 +1,7 @@
 -- Beta clicked through the room right of Gamma's tab
 box 0,0 10x0
 surface 600,331.62 400x436.75 on MEDIUM clamped raised by a click
-  box 600,368.38 400x400 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.98, tr 0.78, bl 0.80, br 0.61, top 0.97>0.79 x12.89, bottom 0.79>0.61 x12.89, left 0.97>0.80 x12.89, right 0.78>0.61 x12.89] @pointerEnter @pointerLeave
+  box 600,368.38 400x400 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.98, tr 0.78, bl 0.80, br 0.61, top 0.97>0.79 x12.89, bottom 0.79>0.61 x12.89, left 0.97>0.80 x12.89, right 0.78>0.61 x12.89] @drag @dragStart @dragStop @pointerEnter @pointerLeave
     box 607.2,375.57 385.6x385.6
       box 607.2,375.57 385.6x385.6
         box 625.69,394.06 348.62x348.62 #30302a @keyPress @pointerPress
@@ -20,7 +20,7 @@ surface 600,331.62 400x436.75 on MEDIUM clamped raised by a click
         box 958.1,343.96 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
         box 964.35,353.54 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
 surface 750,451.62 400x236.75 on MEDIUM clamped raised by a click
-  box 750,488.38 400x200 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.96, tr 0.77, bl 0.80, br 0.61, top 0.96>0.77 x12.89, bottom 0.80>0.61 x12.89, left 0.95>0.81 x5.94, right 0.76>0.61 x5.94] @pointerEnter @pointerLeave
+  box 750,488.38 400x200 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.96, tr 0.77, bl 0.80, br 0.61, top 0.96>0.77 x12.89, bottom 0.80>0.61 x12.89, left 0.95>0.81 x5.94, right 0.76>0.61 x5.94] @drag @dragStart @dragStop @pointerEnter @pointerLeave
     box 757.2,495.57 385.6x185.6
       box 757.2,495.57 385.6x185.6
         box 775.69,514.06 348.62x148.62 #30302a @keyPress @pointerPress

@@ -1,6 +1,6 @@
 -- four long tabs on a body given 330: the window as wide as the tabs and the group, none over another
 surface 635,331.62 724.73x236.75 on MEDIUM clamped raised by a click
-  box 635,368.38 724.73x200 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.96, tr 0.76, bl 0.80, br 0.61, top 0.96>0.77 x24.16, bottom 0.80>0.61 x24.16, left 0.96>0.81 x5.94, right 0.76>0.61 x5.94] @pointerEnter @pointerLeave
+  box 635,368.38 724.73x200 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.96, tr 0.76, bl 0.80, br 0.61, top 0.96>0.77 x24.16, bottom 0.80>0.61 x24.16, left 0.96>0.81 x5.94, right 0.76>0.61 x5.94] @drag @dragStart @dragStop @pointerEnter @pointerLeave
     box 642.2,375.57 710.33x185.6
       box 642.2,375.57 710.33x185.6
         text 660.69,394.06 673.36x15.83 "the page" #ffffff

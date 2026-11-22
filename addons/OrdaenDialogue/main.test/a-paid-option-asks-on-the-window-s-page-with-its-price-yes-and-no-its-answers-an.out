@@ -1,6 +1,6 @@
 -- a paid option's question as the window's page
 surface 54.82,99.96 384.71x620.08 on MEDIUM clamped raised by a click
-  box 54.82,136.71 384.71x583.33 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.98, tr 0.79, bl 0.80, br 0.61, top 0.98>0.79 x12.36, bottom 0.79>0.61 x12.36, left 0.98>0.80 x19.25, right 0.79>0.61 x19.25] @pointerEnter @pointerLeave
+  box 54.82,136.71 384.71x583.33 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.98, tr 0.79, bl 0.80, br 0.61, top 0.98>0.79 x12.36, bottom 0.79>0.61 x12.36, left 0.98>0.80 x19.25, right 0.79>0.61 x19.25] @drag @dragStart @dragStop @pointerEnter @pointerLeave
     box 62.02,143.91 370.31x568.93
       box 62.02,143.91 370.31x568.93
         box 80.51,162.4 333.33x531.96

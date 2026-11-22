@@ -1,6 +1,6 @@
 -- the next quest of a chain in its window
 surface 548.15,192.46 893.38x515.08 on MEDIUM clamped raised by a click
-  box 548.15,240.88 893.38x466.67 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.98, tr 0.78, bl 0.80, br 0.60, top 0.98>0.78 x30.02, bottom 0.80>0.60 x30.02, left 0.97>0.80 x15.20, right 0.78>0.61 x15.20] @pointerEnter @pointerLeave
+  box 548.15,240.88 893.38x466.67 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.98, tr 0.78, bl 0.80, br 0.60, top 0.98>0.78 x30.02, bottom 0.80>0.60 x30.02, left 0.97>0.80 x15.20, right 0.78>0.61 x15.20] @drag @dragStart @dragStop @pointerEnter @pointerLeave
     box 555.35,248.07 489.3x452.27
       box 555.35,248.07 489.3x424.71
         box 578.11,270.83 443.79x384.89
@@ -198,7 +198,7 @@ surface 548.15,192.46 893.38x515.08 on MEDIUM clamped raised by a click
         box 1399.63,216.46 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
         box 1405.88,226.04 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
 surface 956.48,223.29 353.7x453.42 on MEDIUM clamped raised by a click
-  box 956.48,260.04 353.7x416.67 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.98, tr 0.78, bl 0.80, br 0.61, top 0.97>0.79 x11.28, bottom 0.79>0.61 x11.28, left 0.98>0.80 x13.47, right 0.78>0.61 x13.47] @pointerEnter @pointerLeave
+  box 956.48,260.04 353.7x416.67 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.98, tr 0.78, bl 0.80, br 0.61, top 0.97>0.79 x11.28, bottom 0.79>0.61 x11.28, left 0.98>0.80 x13.47, right 0.78>0.61 x13.47] @drag @dragStart @dragStop @pointerEnter @pointerLeave
     box 963.68,267.24 339.3x402.27
       box 963.68,267.24 339.3x402.27
         box 982.17,285.73 302.32x365.29

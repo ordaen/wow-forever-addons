@@ -20,7 +20,7 @@ key: TAB → #7 «Small» (keys:ENTER,SPACE)
 key: ENTER → #0 > #1 «Small» (keys:ENTER,SPACE)
 -- the dropdown opened by Enter: the focus in its list
 surface 420,121.62 760x656.75 on MEDIUM clamped raised by a click
-  box 420,158.38 760x620 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.98, tr 0.79, bl 0.80, br 0.60, top 0.98>0.79 x25.39, bottom 0.80>0.60 x25.39, left 0.98>0.80 x20.53, right 0.79>0.61 x20.53] @pointerEnter @pointerLeave
+  box 420,158.38 760x620 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.98, tr 0.79, bl 0.80, br 0.60, top 0.98>0.79 x25.39, bottom 0.80>0.60 x25.39, left 0.98>0.80 x20.53, right 0.79>0.61 x20.53] @drag @dragStart @dragStop @pointerEnter @pointerLeave
     box 427.2,165.57 745.6x605.6
       box 427.2,165.57 745.6x605.6
         box 445.69,184.06 708.62x568.62

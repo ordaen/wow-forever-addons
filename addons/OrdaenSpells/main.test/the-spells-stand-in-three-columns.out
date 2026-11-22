@@ -1,7 +1,7 @@
 open: /spellbook
 -- five spells: three in the first row, two in the second
 surface 425,173.29 799.82x553.42 on MEDIUM clamped raised by a click
-  box 425,210.04 799.82x516.67 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.98, tr 0.79, bl 0.80, br 0.60, top 0.98>0.79 x26.77, bottom 0.80>0.60 x26.77, left 0.98>0.80 x16.94, right 0.78>0.61 x16.94] @pointerEnter @pointerLeave
+  box 425,210.04 799.82x516.67 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.98, tr 0.79, bl 0.80, br 0.60, top 0.98>0.79 x26.77, bottom 0.80>0.60 x26.77, left 0.98>0.80 x16.94, right 0.78>0.61 x16.94] @drag @dragStart @dragStop @pointerEnter @pointerLeave
     box 432.2,217.24 785.42x502.27
       box 432.2,217.24 785.42x474.86
         box 454.96,240 739.91x435.03

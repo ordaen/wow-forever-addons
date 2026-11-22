@@ -1,6 +1,6 @@
 -- auction
 surface 288,134.12 1024x631.75 on MEDIUM clamped raised by a click
-  box 288,182.54 1024x583.33 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.98, tr 0.78, bl 0.80, br 0.60, top 0.98>0.79 x34.56, bottom 0.80>0.60 x34.56, left 0.98>0.80 x19.25, right 0.78>0.61 x19.25] @pointerEnter @pointerLeave
+  box 288,182.54 1024x583.33 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.98, tr 0.78, bl 0.80, br 0.60, top 0.98>0.79 x34.56, bottom 0.80>0.60 x34.56, left 0.98>0.80 x19.25, right 0.78>0.61 x19.25] @drag @dragStart @dragStop @pointerEnter @pointerLeave
     box 295.2,189.74 1009.6x568.93
       box 295.2,189.74 1009.6x568.93
         box 295.2,189.74 1009.6x568.93

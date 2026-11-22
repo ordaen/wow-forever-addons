@@ -782,8 +782,9 @@ public class Window implements Component {
     self.h0 = (peek self.declared.placing).height
   }
 
-  // A tab dragged moves the window, as far as it stays on the screen. The tab row takes the mouse on its tabs alone:
-  // the room right of them passes a click on to what shows there.
+  // A tab or the body's own room dragged moves the window, as far as it stays on the screen. A control in the body
+  // takes its own presses, so a drag begun on it is its own. The tab row takes the mouse on its tabs alone: the room
+  // right of them passes a click on to what shows there.
   onMove(mut self, drag: Event.Drag) {
     if (self.full || self.docked != nil) { return }
     const dx, dy = kept(drag, Hold.Move)
@@ -854,7 +855,7 @@ public class Window implements Component {
         <box position={Position.Absolute} left={0ui} right={self.inset} top={self.tabHeight} bottom={0ui}
              border={Ordaen.art.frame.window} background={Ordaen.art.window.wood}
              columns={self.bodyColumns} rows={BODY_ROWS} zLevel={BODY_LEVEL} @pointerEnter={self.onBodyIn}
-             @pointerLeave={self.onBodyOut}>
+             @pointerLeave={self.onBodyOut} @dragStart={self.onGrab} @drag={self.onMove} @dragStop={self.onSettle}>
           <box rows={MAIN_ROWS}>
             <box rows={ONE} padding={self.pagePadding}>
               <slot />

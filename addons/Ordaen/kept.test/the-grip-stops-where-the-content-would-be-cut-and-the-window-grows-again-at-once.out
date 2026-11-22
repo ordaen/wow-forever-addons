@@ -1,6 +1,6 @@
 -- sized down past what it holds: held at its content's least size, the footer under the block
 surface 400,131.62 559.91x521.03 on MEDIUM clamped raised by a click
-  box 400,168.38 559.91x484.28 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.98, tr 0.79, bl 0.80, br 0.61, top 0.98>0.79 x18.44, bottom 0.80>0.61 x18.44, left 0.98>0.80 x15.82, right 0.78>0.61 x15.82] @pointerEnter @pointerLeave
+  box 400,168.38 559.91x484.28 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.98, tr 0.79, bl 0.80, br 0.61, top 0.98>0.79 x18.44, bottom 0.80>0.61 x18.44, left 0.98>0.80 x15.82, right 0.78>0.61 x15.82] @drag @dragStart @dragStop @pointerEnter @pointerLeave
     box 407.2,175.57 545.51x469.88
       box 407.2,175.57 545.51x439.82
         box 429.96,198.33 500x400 Interface\AddOns\Ordaen\media\window-wood
