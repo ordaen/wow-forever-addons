@@ -2,7 +2,7 @@
 // Ordaen's own settings (`Ordaen:look`), applied at once and gone back through with every other. A preset is a whole
 // look by its name: choosing one writes every entry at once, one change, and a change after it is a change like any other.
 // What no preset changes (the metal, the wood, the controls' art, the measures) is Ordaen's art (art.luna).
-import { Art, Fonts, Piece, Tile } from "$ltml"
+import { Art, FontFiles, Fonts, Piece, Tile } from "$ltml"
 
 // The fonts Ordaen ships (its media, each with Cyrillic, SIL Open Font License) and the client's own two.
 public enum Font implements Plain {
@@ -170,24 +170,31 @@ public struct LookArt {
   bar: Art
 }
 
-// A font's file; nil for the client's own text font, the one for the client's language (Cyrillic on ruRU).
-function fontFile(font: Font): Asset | nil {
+// A font's files, regular and bold (its heavier face where it has one shipped, none where it has none); nil for the
+// client's own text font, the one for the client's language (Cyrillic on ruRU).
+function fontFiles(font: Font): FontFiles | nil {
   match (font) {
-    Font.FiraSans => return "@/media/fonts/FiraSans-Regular.ttf"
-    Font.AlegreyaSans => return "@/media/fonts/AlegreyaSans-Regular.ttf"
-    Font.PtSans => return "@/media/fonts/PTSans-Regular.ttf"
-    Font.Philosopher => return "@/media/fonts/Philosopher-Regular.ttf"
-    Font.AlegreyaSC => return "@/media/fonts/AlegreyaSC-Medium.ttf"
-    Font.Forum => return "@/media/fonts/Forum-Regular.ttf"
-    Font.CormorantSC => return "@/media/fonts/CormorantSC-SemiBold.ttf"
-    Font.FiraCondensed => return "@/media/fonts/FiraSansCondensed-Medium.ttf"
-    Font.PtSansNarrow => return "@/media/fonts/PTSansNarrow-Regular.ttf"
+    Font.FiraSans => return { regular: "@/media/fonts/FiraSans-Regular.ttf", bold: "@/media/fonts/FiraSans-Medium.ttf" }
+    Font.AlegreyaSans => return {
+      regular: "@/media/fonts/AlegreyaSans-Regular.ttf", bold: "@/media/fonts/AlegreyaSans-Medium.ttf"
+    }
+    Font.PtSans => return { regular: "@/media/fonts/PTSans-Regular.ttf", bold: "@/media/fonts/PTSans-Bold.ttf" }
+    Font.Philosopher => return {
+      regular: "@/media/fonts/Philosopher-Regular.ttf", bold: "@/media/fonts/Philosopher-Bold.ttf"
+    }
+    Font.AlegreyaSC => return { regular: "@/media/fonts/AlegreyaSC-Medium.ttf", bold: "@/media/fonts/AlegreyaSC-Bold.ttf" }
+    Font.Forum => return { regular: "@/media/fonts/Forum-Regular.ttf", bold: nil }
+    Font.CormorantSC => return {
+      regular: "@/media/fonts/CormorantSC-SemiBold.ttf", bold: "@/media/fonts/CormorantSC-Bold.ttf"
+    }
+    Font.FiraCondensed => return { regular: "@/media/fonts/FiraSansCondensed-Medium.ttf", bold: nil }
+    Font.PtSansNarrow => return { regular: "@/media/fonts/PTSansNarrow-Regular.ttf", bold: nil }
     Font.Friz => return nil
-    Font.ArialNarrow => return "Fonts/ARIALN.TTF"
+    Font.ArialNarrow => return { regular: "Fonts/ARIALN.TTF", bold: nil }
   }
 }
 
-// A numbers font's file, its digits measured where it is written.
+// A numbers font's file, its digits measured where it is written: regular alone, a bold one's digits unmeasured.
 function numbersFile(font: NumbersFont): TabularFont {
   match (font) {
     NumbersFont.PtSans => return "@/media/fonts/PTSans-Regular.ttf"
@@ -221,7 +228,10 @@ public function xpFillArt(fill: XpFill): Art {
 
 public function artOf(look: Look): LookArt {
   return {
-    fonts: { body: fontFile(look.font), title: fontFile(look.fontHeader), numbers: numbersFile(look.fontNumbers) },
+    fonts: {
+      body: fontFiles(look.font), title: fontFiles(look.fontHeader),
+      numbers: { regular: numbersFile(look.fontNumbers), bold: nil }
+    },
     bar: barFile(look.barTexture)
   }
 }

@@ -16,8 +16,8 @@ function presetNow(look: Look): String {
 
 function state(): String {
   Test.flush()
-  let file = Ordaen.lookArt.fonts.numbers
-  let font = file != nil ? file : "the client's own text font"
+  let files = Ordaen.lookArt.fonts.numbers
+  let font = files != nil ? files.regular : "the client's own text font"
   return `steps ${Ordaen.keeper.steps}; the look's preset ${presetNow(Ordaen.look.values)}; numbers drawn with ${font}`
 }
 

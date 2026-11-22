@@ -2,6 +2,7 @@
 // written once, in look.luna; the site reads this snapshot (`design/.vitepress/theme/themes.js` in wow-dev-tools),
 // and the suite fails where the two part.
 import Events from "$events"
+import { FontFiles } from "$ltml"
 import Test from "$test"
 import root Core from "Ordaen"
 import Ordaen from "Ordaen"
@@ -53,12 +54,13 @@ test "the presets, as the design site reads them" {
   for (name of Ordaen.PRESETS) { Test.note(json(name)) }
 }
 
-function file(font: Asset | nil): String {
+function file(font: FontFiles | nil): String {
   if (font == nil) { return "the client's own text font" }
-  return font
+  const bold = font.bold
+  return bold == nil ? `${font.regular} (no bold)` : `${font.regular}, bold ${bold}`
 }
 
-test "the files each preset draws its text, titles and numbers in" {
+test "the files each preset draws its text, titles and numbers in, regular and bold" {
   for (name of Ordaen.PRESETS) {
     let fonts = artOf(Ordaen.preset(name)).fonts
     Test.note(`${name}: ${file(fonts.body)}; ${file(fonts.title)}; ${file(fonts.numbers)}`)
