@@ -348,6 +348,31 @@ test "the details: title, text, objectives, the rewards to choose, money and exp
   Test.expect(asked() == "accept")
 }
 
+test "a quest whose words would overflow the scroll stands it beside the rewards, the window's whole height" {
+  Test.mount(nil, SCREEN)
+  Test.talk(innkeeper())
+  Test.quest({
+    text: "Maggie bakes the best pies in Elwynn, and every traveller who passes the farm stops for one. " +
+      "This year the boars have grown fat in the hills and bold in the fields.\nShe needs meat, and plenty of it.",
+    ..pie()
+  })
+  Events.QUEST_DETAIL.emit(nil)
+  const top = window().box(Ordaen.art.window.scroll.top).rect()
+  const bottom = window().box(Ordaen.art.window.scroll.bottom).rect()
+  const choose = window().text("You will be able to choose").rect()
+  Test.expect(choose.left > top.right && choose.top < bottom.top)
+  Test.expect(window().button("Accept").rect().left > top.right)
+  Test.expect(bottom.bottom >= window().button("Accept").rect().top)
+}
+
+test "a quest that fits the scroll keeps the rewards under it" {
+  Test.mount(nil, SCREEN)
+  Test.talk(innkeeper())
+  Test.quest(pie())
+  Events.QUEST_DETAIL.emit(nil)
+  Test.expect(window().text("You will be able to choose").rect().top > window().box(Ordaen.art.window.scroll.bottom).rect().bottom)
+}
+
 test "with the setting on, a quest's parchment opens folded to its title, and a click unfolds it" {
   Dialogue.settings.values.foldedScroll = true
   Test.mount(nil, SCREEN)

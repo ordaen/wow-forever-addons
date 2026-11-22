@@ -8,11 +8,11 @@
 import Client from "$client"
 import Events from "$events"
 import Game from "$game"
-import { Align, Edges, Event, Overflow, Position, Track } from "$ltml"
+import { Align, Bounds, Edges, Event, Overflow, Position, Track } from "$ltml"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
 import { BODY_LINE, ButtonKey, ButtonPlate, KeptWindow, Module, Money, PushButton, SECONDARY_TEXT, Settings, SettingsPage, TipText, Window, WindowTabSpec, WindowsPage, windowsTitle } from "Ordaen"
-import { Reward, RewardView, Rewards, SCROLL_WIDTH, Scroll, choiceViews } from "OrdaenQuestPage"
+import { Reward, RewardView, Rewards, SCROLL_WIDTH, Scroll, choiceViews, scrollOverflows } from "OrdaenQuestPage"
 import { AnswerRow, LINE_KEYS, LineKey, OptionColumn, Placed, columnsOf, placeOf } from "@/list"
 import Locale from "@/locales"
 import { Needs, Said } from "@/pages"
@@ -50,6 +50,10 @@ const FADE_LETTERS = 7
 // The scroll's height on every page, 5:3 at its width: a short greeting and a long quest alike (a long one scrolls).
 const SCROLL_HEIGHT: Number<Length> = 281.25dp
 const FILL: Array<Track> = [{ fr: 1 }]
+// The well under the scroll, off it; beside it, off it by a gap and never narrower than the window's own width.
+const UNDER_SCROLL: Edges = { top: 2sp, right: 0sp, bottom: 0sp, left: 0sp }
+const WIDE_WELL: Edges = { top: 0sp, right: 0sp, bottom: 0sp, left: 4sp }
+const WELL_LEAST: Bounds = { min: 375dp, max: nil }
 // The NPC's words and a question on the window: in from its sides as the list's lines are.
 const SPOKEN_PAD: Edges = { top: 2sp, right: 2sp, bottom: 2sp, left: 2sp }
 // A question's answers, by their place in the list and their key.
@@ -650,8 +654,16 @@ public class Dialogue implements Module, App {
   derived wellOverflow: Overflow = self.listShown ? Overflow.Visible : Overflow.Scroll
   // A quest's needs and rewards stand at the well's foot, right over the buttons that act on them.
   derived wellAlign: Align = self.listShown ? Align.Start : Align.End
-  // The scroll at its one size, what is under it the rest.
-  derived rows: Array<Track> = ["max-content", { fr: 1 }]
+  // A quest whose words would overflow the scroll at its least height stands the scroll beside the well, the window's
+  // whole height (OrdaenQuestPage's estimate, erring long); a folded scroll, a book and a question stand as they do.
+  derived wide: Boolean = self.onQuest && !self.scrollFolded &&
+    scrollOverflows(self.scrollTitle, [self.quest?.text ?? "", self.page == Page.Detail ? self.quest?.objectives ?? "" : ""])
+  // The scroll at its one size, what is under it the rest; wide, the scroll and the well side by side.
+  derived rows: Array<Track> = self.wide ? FILL : ["max-content", { fr: 1 }]
+  derived columns: Array<Track> = self.wide ? [SCROLL_WIDTH, { fr: 1 }] : FILL
+  derived scrollHeight: Number<Length> | nil = self.wide ? nil : SCROLL_HEIGHT
+  derived wellPad: Edges = self.wide ? WIDE_WELL : UNDER_SCROLL
+  derived wellWidth: Bounds | nil = self.wide ? WELL_LEAST : nil
   // The list's lines in columns, as many as their count needs; the window widens for each.
   derived optionColumns: Array<Array<Placed>> = columnsOf(self.lines)
   derived listColumns: Array<Track> = self.optionColumns.map((column): Track => "max-content")
@@ -726,16 +738,16 @@ public class Dialogue implements Module, App {
       <frame $if={self.gameAway} of={Game.frames.ItemText} opacity={0} away={true} />
       <Window $if={self.shown} tabs={self.tabs} selected={mut self.tab} declared={mut self.window} withSettings={true}
               @close={self.close} @settings={self.onSettings}>
-        <box rows={self.rows} gap={0sp}>
+        <box columns={self.columns} rows={self.rows} gap={0sp}>
           <box $if={self.keysOn} position={Position.Absolute} left={0ui} top={0ui} width={0ui} height={0ui}
                @keyPress.globalScope(.Space)={self.onSpace} @keyPress.globalScope(.Escape)={self.onEscape} />
           <box $for={lineKey of self.lineKeys} position={Position.Absolute} left={0ui} top={0ui} width={0ui} height={0ui}
                @keyPress.globalScope(lineKey.key)={self.onKey} />
-          <box $if={self.onParchment} xAlign={Align.Center}>
+          <box $if={self.onParchment} xAlign={Align.Center} rows={FILL}>
             <box $if={self.scrollFolded} width={SCROLL_WIDTH} rows={FILL}>
               <Scroll title={self.scrollTitle} folded={mut self.scrollFolded} />
             </box>
-            <box $else width={SCROLL_WIDTH} height={SCROLL_HEIGHT} rows={FILL}>
+            <box $else width={SCROLL_WIDTH} height={self.scrollHeight} rows={FILL}>
               <Scroll title={self.scrollTitle} folded={mut self.scrollFolded}>
                 <Said page={self.page} quest={self.quest} said={self.said} book={self.book} revealed={self.revealed} />
               </Scroll>
@@ -745,7 +757,8 @@ public class Dialogue implements Module, App {
             <text value={self.spoken} textColor={Style.TEXT} lineHeight={BODY_LINE} />
             <Money $if={self.promptCost > 0} amount={self.promptCost} />
           </box>
-          <box $if={!self.isBook || self.prompted} rows={[{ fr: 1 }, "max-content"]} gap={1.5sp} padding={{ top: 2sp }}>
+          <box $if={!self.isBook || self.prompted} width={self.wellWidth} rows={[{ fr: 1 }, "max-content"]} gap={1.5sp}
+               padding={self.wellPad}>
             <box overflow={self.wellOverflow} gap={0.5sp} yAlign={self.wellAlign}>
               <box $if={self.prompted} gap={0.5sp}>
                 <AnswerRow label={Locale.YES} index={YES} hints={self.hints} @pick={self.answer} />
