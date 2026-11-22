@@ -35,7 +35,8 @@ const ACROSS_TOP: Number<Length> = (SIZE - LINE) / 2
 const HALF: Number<Length> = STEP / 2
 // The rank, a bare number large in the node's middle (on the font's own line, as text set on art is, so the digits
 // stand in the middle and not over a line's room below them; as wide as the node, its letters centred by the client
-// whatever their width there), thickly outlined, in the client's colours for its look.
+// whatever their width there), outlined thinly (the client draws a thick outline's digit off its centre), in the
+// client's colours for its look.
 const RANK_TEXT = 1.75rem
 const RANK_OUTLINE = 1
 const GOLD: Color = Color.hex("#ffd100")
