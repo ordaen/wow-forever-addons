@@ -59,6 +59,8 @@ function faceRight(): Number<Length> {
 // The level's badge over the frame's top right corner, in the place of its corner piece: centred on the frame's inner
 // corner, where its top and right lines meet the face.
 const LEVEL_SIZE = 36ui
+// The badges stand over the frame's metal, which draws its pieces a level above its box.
+const BADGE_LEVEL = 3
 // Read as drawn: the frame is Ordaen's, made after this file loads.
 function levelLeft(): Number<Length> {
   return PORTRAIT_WIDTH - reachAcross(portraitFrame()) - LEVEL_SIZE / 2
@@ -459,13 +461,13 @@ public class Panel implements Module, App {
           <box position={Position.Absolute} left={0ui} top={0ui} width={PORTRAIT_WIDTH} height={PORTRAIT_HEIGHT}
                border={portraitFrame()} />
           <box position={Position.Absolute} left={levelLeft()} top={levelTop()} width={LEVEL_SIZE} height={LEVEL_SIZE}
-               background={Ordaen.art.panel.badge} xAlign={Align.Center} yAlign={Align.Center} zLevel={1}>
+               background={Ordaen.art.panel.badge} xAlign={Align.Center} yAlign={Align.Center} zLevel={BADGE_LEVEL}>
             <text value={"%d"} arguments={[Game.player.level]} textColor={Ordaen.look.values.accent}
                   wrap={.None} />
           </box>
           <box $if={self.talentsShown} position={Position.Absolute} left={TALENTS_LEFT} top={TALENTS_TOP}
                width={TALENTS_SIZE} height={TALENTS_SIZE} background={Ordaen.art.panel.badge} xAlign={Align.Center}
-               yAlign={Align.Center} zLevel={1}>
+               yAlign={Align.Center} zLevel={BADGE_LEVEL}>
             <text value={"%d"} arguments={[self.unspentTalents]} textSize={SECONDARY_TEXT} textColor={BRIGHT_TEXT}
                   textFont={.Numbers} wrap={.None} />
           </box>

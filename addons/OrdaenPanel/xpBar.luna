@@ -8,23 +8,27 @@
 import Game from "$game"
 import { Align, Art, Bounds, Edges, Line, Position, Shadow, Side, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { Component, SECONDARY_TEXT, Tip, TipRow, XpFill, number, xpFillArt } from "Ordaen"
+import { Component, Tip, TipRow, XpFill, number, xpFillArt } from "Ordaen"
 import { XpView } from "@/choices"
 import Locale from "@/locales"
 
 // The experience's fill as it starts.
 const BRUSHED: Art = xpFillArt(XpFill.Brushed)
 
-// Slim at a third of the screen's width.
-const TUBE_HEIGHT: Number<Length> = 25ui
-// The least a tube is high stacked under another: its values still read.
-const LEAST_HEIGHT = 16ui
-const GAP = 1.5sp
+// A tube's height, no higher than the panel's inside, and its label's size: both tubes stand side by side, each half
+// the bars' width, so each is as high as one alone and its words read.
+const TUBE_HEIGHT: Number<Length> = 32ui
+const LABEL_TEXT = 1.1rem
+const GAP = 3sp
 // Room enough for anything: a bar standing by itself.
 const UNBOUNDED = 1000ui
-// The shortest a tube is, with its margins: on a panel as long as its items, and the least the panel's middle gives
-// way to on a short screen.
+// The shortest the bars are, with their margins: on a panel as long as its items, and the least the panel's middle gives
+// way to on a short screen; two side by side take more.
 const LEAST: Bounds = { min: 240ui, max: nil }
+const LEAST_PAIR: Bounds = { min: 420ui, max: nil }
+const ONE: Array<Track> = [{ fr: 1 }]
+// Half each, whatever their words: a track takes no more for its longer label.
+const TWO: Array<Track> = [{ fr: 1, min: 0ui }, { fr: 1, min: 0ui }]
 const MARGINS: Edges = { right: 11.5sp, left: 11.5sp }
 const RESTED: Color = Color.hex("#6e96d129")
 const LABEL: Color = Color.hex("#f3e7cc")
@@ -236,9 +240,9 @@ public class Tube implements Component {
              yAlign={Align.Center} zLevel={7}>
           // Secondary: the values with the longest standing's name fit a tube at its least.
           <box columns={LABEL_PARTS} gap={LABEL_GAP} yAlign={Align.Center}>
-            <text value={self.label} textSize={SECONDARY_TEXT} textColor={LABEL} textOutline={1}
+            <text value={self.label} textSize={LABEL_TEXT} textColor={LABEL} textOutline={1}
                   textShadow={LABEL_SHADOW} wrap={.None} textFont={.Numbers} />
-            <text $if={self.hasDimmed} value={self.dimmed} textSize={SECONDARY_TEXT} textColor={DIMMED}
+            <text $if={self.hasDimmed} value={self.dimmed} textSize={LABEL_TEXT} textColor={DIMMED}
                   textOutline={1} textShadow={LABEL_SHADOW} wrap={.None} textFont={.Numbers} />
           </box>
         </box>
@@ -261,11 +265,11 @@ public class XpBar implements Component {
   // Below the level's cap there is experience to gain.
   derived leveling: Boolean = Game.player.xpMax > 0
   derived watched: Boolean = Game.reputation.name != ""
-  // Two tubes share the room, each no higher than one alone.
-  derived pairHeight: Number<Length> = TUBE_HEIGHT.min((self.room - Ordaen.lengthOf(GAP)) / 2)
-  derived stacked: Boolean = self.leveling && self.watched && self.pairHeight >= LEAST_HEIGHT
-  derived showsReputation: Boolean = self.watched && (!self.leveling || self.stacked)
-  derived tubeHeight: Number<Length> = self.stacked ? self.pairHeight : TUBE_HEIGHT
+  // Both shown, they share the line, half each; one alone takes it whole.
+  derived paired: Boolean = self.leveling && self.watched
+  derived columns: Array<Track> = self.paired ? TWO : ONE
+  derived width: Bounds = self.paired ? LEAST_PAIR : LEAST
+  derived tubeHeight: Number<Length> = TUBE_HEIGHT.min(self.room)
   derived toLevel: Integer = Game.player.xpMax - Game.player.xp
   derived toNext: Integer = Game.reputation.max - Game.reputation.value
   derived restedMost: Integer = (Game.player.xpMax * RESTED_MOST).floor()
@@ -344,12 +348,12 @@ public class XpBar implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box width={LEAST} padding={MARGINS} yAlign={Align.Center} gap={GAP}>
+      <box width={self.width} padding={MARGINS} columns={self.columns} yAlign={Align.Center} gap={GAP}>
         <Tube $if={self.leveling} fill={self.fill} bezel={self.bezel} view={self.view} value={Game.player.xp} least={0}
               most={Game.player.xpMax} ahead={Game.player.rested} height={self.tubeHeight} title={self.xpTitle}
               rows={self.xpRows} aheadTitle={Locale.RESTED_TIP_TITLE} aheadText={Locale.RESTED_TIP}
               aheadRows={self.restedRows} />
-        <Tube $if={self.showsReputation} fill={self.steel} bezel={self.bezel} view={self.view}
+        <Tube $if={self.watched} fill={self.steel} bezel={self.bezel} view={self.view}
               value={Game.reputation.value}
               least={Game.reputation.min} most={Game.reputation.max} words={Game.reputation.standing}
               height={self.tubeHeight} title={Game.reputation.name} rows={self.reputationRows}

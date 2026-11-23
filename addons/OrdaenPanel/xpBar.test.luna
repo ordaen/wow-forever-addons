@@ -349,7 +349,7 @@ test "the faction's fill takes its standing's colour" {
   Test.expect(Test.page().box(Ordaen.art.panel.xpSteel).paintedWith(Color.hex("#00991a")))
 }
 
-test "too low for two tubes, the bars show the experience alone" {
+test "the experience and the faction stand side by side, half the bars each, and one alone takes them whole" {
   Game.player.xpMax = 10000
   Game.player.xp = 6000
   Game.reputation.name = "Stormwind"
@@ -358,13 +358,19 @@ test "too low for two tubes, the bars show the experience alone" {
   Game.reputation.max = 21000
   Game.reputation.value = 13800
   alone()
-  const drawn = new Bars()
-  Test.mount(drawn, PAGE)
-  drawn.room = 37ui
-  // The experience's values and part, the faction's values.
-  Test.expect(Test.page().texts().length == 3)
-  drawn.room = 36ui
-  Test.expect(Test.page().texts().join(" | ") == shown("6~000 / 10~000 | (60%)"))
+  Test.mount(new Bars(), PAGE)
+  const brushed = xpFillArt(XpFill.Brushed)
+  const xp = Test.page().box(brushed).rect()
+  const faction = Test.page().box(Ordaen.art.panel.xpSteel).rect()
+  // On one line, as wide as each other: each fill is its share of its tube (60% and 40%).
+  const xpTube = (xp.right - xp.left) / 0.6
+  const factionTube = (faction.right - faction.left) / 0.4
+  Test.expect((xp.top - faction.top).abs() < 0.5 && xp.right < faction.left)
+  Test.expect((xpTube - factionTube).abs() < 2)
+  // The faction gone: the experience takes the whole width.
+  Game.reputation.name = ""
+  const whole = Test.page().box(brushed).rect()
+  Test.expect((whole.right - whole.left) / 0.6 > xpTube * 1.8)
 }
 
 test "at the level's cap the watched faction's tube is alone" {
