@@ -83,15 +83,14 @@ public class Slot {
   }
 }
 
-// The client's template lays its art out for its own size (45): its icon, its frames and their masks fill the button
-// at the size it is given, as its texts keep their corners.
+// The client's template lays its art out for its own size (45): its icon and its frames fill the button at the size
+// it is given, as its texts keep their corners. Its icon's mask is left as the template places it, centred on the
+// icon: its art carries room round the opening, so stretched to the button it would cut the icon short and aside.
 function fillButton(frame: any Client.Frame, ...regions: any Client.Region) {
   for (i of 1..regions.length) {
     const region = regions[i]
-    if (region is Client.Texture) {
-      region.ClearAllPoints()
-      region.SetAllPoints(frame, nil)
-    } else if (region is Client.MaskTexture) {
+    // A mask is a kind of texture to the client: told apart by its own word.
+    if (region is Client.Texture && region.GetObjectType() == "Texture") {
       region.ClearAllPoints()
       region.SetAllPoints(frame, nil)
     }
