@@ -494,6 +494,9 @@ public class Window implements Component {
   derived sideContent: Template = self.side?.content ?? self.nothing
   derived sideFooted: Boolean = self.side?.footer != nil
   derived sideFooter: Template = self.side?.footer ?? self.nothing
+  // The rows each section's content takes: both where it has no footer under it.
+  derived mainRows: Integer = self.footed ? 1 : 2
+  derived sideRows: Integer = self.sideFooted ? 1 : 2
   // The side's content's width: the one the player dragged it to, or the one it is given.
   derived sideWidth: Number<Length> = self.sideWidthOf()
   // The side's line: the room its art and line take (what the side keeps at its left), and how far its line's middle
@@ -859,29 +862,30 @@ public class Window implements Component {
                @keyDown.parentScope(.Escape)={self.onClose}>
         <box position={Position.Absolute} left={0ui} right={self.inset} top={self.tabHeight} bottom={0ui}
              border={Ordaen.art.frame.window} background={Ordaen.art.window.wood}
-             columns={self.bodyColumns} rows={BODY_ROWS} zLevel={BODY_LEVEL} @pointerEnter={self.onBodyIn}
+             columns={self.bodyColumns} rows={MAIN_ROWS} yAlign={Align.Stretch} zLevel={BODY_LEVEL} @pointerEnter={self.onBodyIn}
              @pointerLeave={self.onBodyOut} @dragStart={self.onGrab} @drag={self.onMove} @dragStop={self.onSettle}>
-          <box rows={MAIN_ROWS}>
-            <box rows={ONE} padding={self.pagePadding}>
-              <slot />
-            </box>
-            <box $if={self.footed}>
-              {self.footer}
-            </box>
+          // The sections' contents over one row of footers, so two footers side by side are as high as the higher; a
+          // section without a footer takes both rows.
+          <box rows={ONE} padding={self.pagePadding} rowSpan={self.mainRows}>
+            <slot />
           </box>
           // The side section, and its line centred on the edge between it and the main section, from the frame's top
-          // line to its bottom one: a footer's line ending at that edge ends inside it.
-          <box $if={self.sided} padding={self.sideRoom} rows={MAIN_ROWS}>
+          // line to its bottom one (in its content's cell and its footer's): a footer's line ending at that edge ends
+          // inside it.
+          <box $if={self.sided} padding={self.sideRoom} rows={ONE} rowSpan={self.sideRows}>
             <box rows={ONE} padding={self.padding}>
               {self.sideContent}
             </box>
-            <box $if={self.sideFooted}>
-              {self.sideFooter}
-            </box>
-            <box position={Position.Absolute} left={-self.lineMiddle} top={0ui} bottom={0ui} width={self.lineRim}
-                 border={Ordaen.art.frame.tabIconLine} />
-            <box position={Position.Absolute} left={-SIDE_HANDLE / 2} top={0ui} bottom={0ui} width={SIDE_HANDLE}
-                 @dragStart={self.onSideGrab} @drag={self.onSide} @dragStop={self.onSideSettle} />
+            <SideLine inside={self.lineMiddle} width={self.lineRim} @grab={self.onSideGrab} @drag={self.onSide}
+                      @drop={self.onSideSettle} />
+          </box>
+          <box $if={self.footed} rows={ONE}>
+            {self.footer}
+          </box>
+          <box $if={self.sideFooted} padding={self.sideRoom} rows={ONE}>
+            {self.sideFooter}
+            <SideLine inside={self.lineMiddle} width={self.lineRim} @grab={self.onSideGrab} @drag={self.onSide}
+                      @drop={self.onSideSettle} />
           </box>
           <box $if={self.sizable} position={Position.Absolute} right={2.34375dp} bottom={2.34375dp}>
             <SizeGrip @grab={self.onGrabSize} @drag={self.onSize} @drop={self.onSettle} />
@@ -905,6 +909,35 @@ public class Window implements Component {
           </box>
         </box>
       </surface>
+    }
+  }
+}
+
+// The frame's line between the main section and the side, centred on their edge (`inside`: how far left of the side
+// section's start its rim begins), from the top of the cell it stands in to its bottom, and the handle over it that
+// drags the side wider or narrower.
+class SideLine implements Component {
+  public grab: Event<nil> = new Event()
+  public drag: Event<Event.Drag> = new Event()
+  public drop: Event<nil> = new Event()
+
+  inside: Signal<Number<Length>>
+  width: Signal<Number<Length>>
+  constructor(inside: Signal<Number<Length>>, width: Signal<Number<Length>>) {
+    self.inside = inside
+    self.width = width
+  }
+
+  onGrab(mut self) { self.grab.emit() }
+  onDrag(mut self, drag: Event.Drag) { self.drag.emit(drag) }
+  onDrop(mut self) { self.drop.emit() }
+
+  public render(self): Template {
+    return $ltml {
+      <box position={Position.Absolute} left={-self.inside} top={0ui} bottom={0ui} width={self.width}
+           border={Ordaen.art.frame.tabIconLine} />
+      <box position={Position.Absolute} left={-SIDE_HANDLE / 2} top={0ui} bottom={0ui} width={SIDE_HANDLE}
+           @dragStart={self.onGrab} @drag={self.onDrag} @dragStop={self.onDrop} />
     }
   }
 }

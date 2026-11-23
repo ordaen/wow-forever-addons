@@ -527,7 +527,8 @@ test "a status picked on the player's own card is set in the click itself, as th
   const people = new FakePeople()
   const window = opened(mut people)
   Test.expect(window.text("This is you").shown())
-  window.text("Online").nth(2).click()
+  // The status picker is the one «Online» that is a control: friends' statuses in the list are text.
+  window.button("Online").click()
   Test.page().text("Away").click()
   Test.expect(askedGame() == "Friends.setPresence away")
 }

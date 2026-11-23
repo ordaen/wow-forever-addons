@@ -2,8 +2,7 @@
 surface 400,361.62 400x336.75 on MEDIUM clamped raised by a click
   box 400,398.38 400x300 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.97, tr 0.78, bl 0.80, br 0.61, top 0.97>0.78 x12.89, bottom 0.79>0.61 x12.89, left 0.97>0.81 x9.42, right 0.77>0.61 x9.42] @drag @dragStart @dragStop @pointerEnter @pointerLeave
     box 407.2,405.57 385.6x285.6
-      box 407.2,405.57 385.6x285.6
-        text 425.69,424.06 348.62x15.83 "the page" #ffffff
+      text 425.69,424.06 348.62x15.83 "the page" #ffffff
     box 778.25,676.62 13.33x13.33 absolute
       box 778.25,676.62 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 400,361.62 400x39

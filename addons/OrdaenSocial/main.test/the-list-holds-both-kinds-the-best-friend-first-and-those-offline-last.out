@@ -1,93 +1,78 @@
 -- the friends: the best friend on top with its star, the levels at the right, the card the player's own
 surface 425,184.12 1139.68x531.75 on MEDIUM clamped raised by a click
   box 425,232.54 1139.68x483.33 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.98, tr 0.78, bl 0.80, br 0.60, top 0.98>0.78 x38.57, bottom 0.80>0.60 x38.57, left 0.98>0.80 x15.78, right 0.78>0.61 x15.78] @drag @dragStart @dragStop @pointerEnter @pointerLeave
-    box 432.2,239.74 735.6x468.93
+    box 432.2,239.74 735.6x428.39
       box 432.2,239.74 735.6x428.39
-        box 432.2,239.74 735.6x428.39
-          box 432.2,239.74 735.6x65.02
-            box 454.96,262.5 690.09x42.27 Interface/FrameGeneral/UI-Background-Marble
-              box 454.96,273.88 690.09x0
-              box 454.96,273.88 690.09x30.89
-                box 454.96,273.88 18.49x30.89
-                box 473.44,273.88 74.13x30.89 Interface\AddOns\Ordaen\media\window-wood @keyPress @pointerPress
-                  box 472.61,303.93 75.8x0.83 absolute #00000000
-                  text 491.34,281.82 38.33x15.83 "Status" #f0e6d2
-                box 547.58,273.88 109.97x30.89 #00000000 @keyPress @pointerPress
-                  box 546.74,303.93 111.63x0.83 absolute #3e2f1d
-                  text 565.48,281.82 74.17x15.83 "Requests (1)" #a3977f
-                box 657.54,273.88 104.13x30.89 #00000000 @keyPress @pointerPress
-                  box 656.71,303.93 105.8x0.83 absolute #3e2f1d
-                  text 675.44,281.82 68.33x15.83 "Ignore List" #a3977f
-                box 761.68,273.88 383.37x30.89
-          box 432.2,313.3 735.6x354.83
-            box 432.2,313.3 735.6x28.33
-              box 454.96,313.3 573.22x28.33
-                box 454.96,313.3 471.16x28.33
-                  box 454.96,313.3 471.16x28.33 #00000080 input "" @change @submit
-                  box 454.96,313.3 471.16x28.33 absolute
-                    text 463.49,319.55 454.09x15.83 "Search" #a3977f
-                box 926.11,313.3 102.07x28.33
-                  box 926.11,313.3 34.02x28.33
-                    box 931.8,313.3 28.33x28.33
-                      box 931.8,313.3 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerEnter @pointerLeave @pointerPress
-                        box 939.3,320.8 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 0 of 16 tint=#e8dcc4
-                  box 960.13,313.3 34.02x28.33
-                    box 965.82,313.3 28.33x28.33
-                      box 965.82,313.3 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerEnter @pointerLeave @pointerPress
-                        box 973.32,320.8 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 1 of 16 tint=#e8dcc4
-                  box 994.16,313.3 34.02x28.33
-                    box 999.84,313.3 28.33x28.33
-                      box 999.84,313.3 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerEnter @pointerLeave @pointerPress
-                        box 1007.34,320.8 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 4 of 16 tint=#e8dcc4
-              box 1036.71,313.3 108.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-                box 1040.03,327.46 0x0
-                text 1060.04,319.55 61.67x15.83 "Add Friend" #ffd100
-                box 1141.72,327.46 0x0
-            box 432.2,350.16 735.6x317.97 #0000004d
-              box 433.03,351 733.93x0
-              box 433.03,351 733.93x316.3 scrolled 0 of 0
-                box 441.57,359.53 716.87x48.18 #00000000 @keyPress @pointerPress
-                  box 447.26,365.22 17.78x17.78 Interface/FriendsFrame/StatusIcon-Online
-                  box 470.72,365.22 682.02x17.78
-                    text 470.72,366.19 38.33x15.83 "Alexei" #c79c6e
-                    text 514.74,366.19 31.67x15.83 "25lvl" #a3977f
-                    box 552.1,365.22 17.78x17.78 friendslist-favorite
-                  box 447.26,395.35 17.78x0
-                  text 470.72,388.69 682.02x13.33 "Battle.net · Torgrim · Loch Modan" #a3977f
-                box 441.57,407.71 716.87x48.18 #00000000 @keyPress @pointerPress
-                  box 447.26,413.4 17.78x17.78 Interface/FriendsFrame/StatusIcon-Away
-                  box 470.72,414.37 682.02x15.83
-                    text 470.72,414.37 38.33x15.83 "Eliana" #c79c6e
-                    text 514.74,414.37 31.67x15.83 "24lvl" #a3977f
-                  box 447.26,443.53 17.78x0
-                  text 470.72,436.86 682.02x13.33 "Stormwind" #a3977f
-                box 441.57,455.89 716.87x48.18 #00000000 @keyPress @pointerPress
-                  box 447.26,461.57 17.78x17.78 Interface/FriendsFrame/StatusIcon-Offline
-                  box 470.72,462.55 682.02x15.83
-                    text 470.72,462.55 44.17x15.83 "Darrick" #7c848a
-                    text 520.58,462.55 31.67x15.83 "22lvl" #a3977f
-                  box 447.26,491.71 17.78x0
-                  text 470.72,485.04 682.02x13.33 "offline" #a3977f
-                box 441.57,504.06 716.87x48.18 #00000000 @keyPress @pointerPress
-                  box 447.26,509.75 17.78x17.78 Interface/FriendsFrame/StatusIcon-Offline
-                  box 470.72,510.72 682.02x15.83
-                    text 470.72,510.72 31.67x15.83 "Irina" #7c848a
-                  box 447.26,539.89 17.78x0
-                  text 470.72,533.22 682.02x13.33 "Battle.net · offline" #a3977f
-      box 432.2,668.13 735.6x40.54
-        box 432.2,668.13 735.6x40.54 Interface/FrameGeneral/UI-Background-Marble
-          box 454.96,674.65 690.09x28.33
-            box 454.96,682.15 578.03x13.33
-              box 454.96,682.15 51.87x13.33
-                text 454.96,682.15 36.67x13.33 "Friends" #a3977f
-                text 500.16,682.15 6.67x13.33 "4" #e8dcc4
-              box 523.89,682.15 46.87x13.33
-                text 523.89,682.15 31.67x13.33 "Online" #a3977f
-                text 564.09,682.15 6.67x13.33 "2" #e8dcc4
-            box 1032.99,674.65 112.06x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-              box 1036.31,688.82 0x0
-              text 1043.18,680.9 91.67x15.83 "Blizzard window" #ffd100
-              box 1141.72,688.82 0x0
+        box 432.2,239.74 735.6x65.02
+          box 454.96,262.5 690.09x42.27 Interface/FrameGeneral/UI-Background-Marble
+            box 454.96,273.88 690.09x0
+            box 454.96,273.88 690.09x30.89
+              box 454.96,273.88 18.49x30.89
+              box 473.44,273.88 74.13x30.89 Interface\AddOns\Ordaen\media\window-wood @keyPress @pointerPress
+                box 472.61,303.93 75.8x0.83 absolute #00000000
+                text 491.34,281.82 38.33x15.83 "Status" #f0e6d2
+              box 547.58,273.88 109.97x30.89 #00000000 @keyPress @pointerPress
+                box 546.74,303.93 111.63x0.83 absolute #3e2f1d
+                text 565.48,281.82 74.17x15.83 "Requests (1)" #a3977f
+              box 657.54,273.88 104.13x30.89 #00000000 @keyPress @pointerPress
+                box 656.71,303.93 105.8x0.83 absolute #3e2f1d
+                text 675.44,281.82 68.33x15.83 "Ignore List" #a3977f
+              box 761.68,273.88 383.37x30.89
+        box 432.2,313.3 735.6x354.83
+          box 432.2,313.3 735.6x28.33
+            box 454.96,313.3 573.22x28.33
+              box 454.96,313.3 471.16x28.33
+                box 454.96,313.3 471.16x28.33 #00000080 input "" @change @submit
+                box 454.96,313.3 471.16x28.33 absolute
+                  text 463.49,319.55 454.09x15.83 "Search" #a3977f
+              box 926.11,313.3 102.07x28.33
+                box 926.11,313.3 34.02x28.33
+                  box 931.8,313.3 28.33x28.33
+                    box 931.8,313.3 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerEnter @pointerLeave @pointerPress
+                      box 939.3,320.8 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 0 of 16 tint=#e8dcc4
+                box 960.13,313.3 34.02x28.33
+                  box 965.82,313.3 28.33x28.33
+                    box 965.82,313.3 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerEnter @pointerLeave @pointerPress
+                      box 973.32,320.8 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 1 of 16 tint=#e8dcc4
+                box 994.16,313.3 34.02x28.33
+                  box 999.84,313.3 28.33x28.33
+                    box 999.84,313.3 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerEnter @pointerLeave @pointerPress
+                      box 1007.34,320.8 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 4 of 16 tint=#e8dcc4
+            box 1036.71,313.3 108.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+              box 1040.03,327.46 0x0
+              text 1060.04,319.55 61.67x15.83 "Add Friend" #ffd100
+              box 1141.72,327.46 0x0
+          box 432.2,350.16 735.6x317.97 #0000004d
+            box 433.03,351 733.93x0
+            box 433.03,351 733.93x316.3 scrolled 0 of 0
+              box 441.57,359.53 716.87x48.18 #00000000 @keyPress @pointerPress
+                box 447.26,365.22 17.78x17.78 Interface/FriendsFrame/StatusIcon-Online
+                box 470.72,365.22 682.02x17.78
+                  text 470.72,366.19 38.33x15.83 "Alexei" #c79c6e
+                  text 514.74,366.19 31.67x15.83 "25lvl" #a3977f
+                  box 552.1,365.22 17.78x17.78 friendslist-favorite
+                box 447.26,395.35 17.78x0
+                text 470.72,388.69 682.02x13.33 "Battle.net · Torgrim · Loch Modan" #a3977f
+              box 441.57,407.71 716.87x48.18 #00000000 @keyPress @pointerPress
+                box 447.26,413.4 17.78x17.78 Interface/FriendsFrame/StatusIcon-Away
+                box 470.72,414.37 682.02x15.83
+                  text 470.72,414.37 38.33x15.83 "Eliana" #c79c6e
+                  text 514.74,414.37 31.67x15.83 "24lvl" #a3977f
+                box 447.26,443.53 17.78x0
+                text 470.72,436.86 682.02x13.33 "Stormwind" #a3977f
+              box 441.57,455.89 716.87x48.18 #00000000 @keyPress @pointerPress
+                box 447.26,461.57 17.78x17.78 Interface/FriendsFrame/StatusIcon-Offline
+                box 470.72,462.55 682.02x15.83
+                  text 470.72,462.55 44.17x15.83 "Darrick" #7c848a
+                  text 520.58,462.55 31.67x15.83 "22lvl" #a3977f
+                box 447.26,491.71 17.78x0
+                text 470.72,485.04 682.02x13.33 "offline" #a3977f
+              box 441.57,504.06 716.87x48.18 #00000000 @keyPress @pointerPress
+                box 447.26,509.75 17.78x17.78 Interface/FriendsFrame/StatusIcon-Offline
+                box 470.72,510.72 682.02x15.83
+                  text 470.72,510.72 31.67x15.83 "Irina" #7c848a
+                box 447.26,539.89 17.78x0
+                text 470.72,533.22 682.02x13.33 "Battle.net · offline" #a3977f
     box 1167.8,239.74 389.68x468.93
       box 1170.5,239.74 386.98x468.93
         box 1193.26,262.5 341.47x431.96
@@ -124,6 +109,20 @@ surface 425,184.12 1139.68x531.75 on MEDIUM clamped raised by a click
               box 1498.47,680.29 0x0
       box 1165.25,239.74 2.7x468.93 absolute border=Interface\AddOns\Ordaen\media\frame-divider-down sides=left pieces=[left 0.75>0.59 x24.42]
       box 1164.47,239.74 6.67x468.93 absolute @drag @dragStart @dragStop
+    box 432.2,668.13 735.6x40.54
+      box 432.2,668.13 735.6x40.54 Interface/FrameGeneral/UI-Background-Marble
+        box 454.96,674.65 690.09x28.33
+          box 454.96,682.15 578.03x13.33
+            box 454.96,682.15 51.87x13.33
+              text 454.96,682.15 36.67x13.33 "Friends" #a3977f
+              text 500.16,682.15 6.67x13.33 "4" #e8dcc4
+            box 523.89,682.15 46.87x13.33
+              text 523.89,682.15 31.67x13.33 "Online" #a3977f
+              text 564.09,682.15 6.67x13.33 "2" #e8dcc4
+          box 1032.99,674.65 112.06x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+            box 1036.31,688.82 0x0
+            text 1043.18,680.9 91.67x15.83 "Blizzard window" #ffd100
+            box 1141.72,688.82 0x0
     box 1542.93,694.12 13.33x13.33 absolute
       box 1542.93,694.12 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 425,184.12 1139.68x50.67

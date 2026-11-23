@@ -303,11 +303,31 @@ function filter(choice: String) {
 }
 
 // The window's texts in the order drawn: the list and its footer up to «Reload», and the card's after it.
+// Where the card starts among the window's texts: its title, the nearest text before its «State» that the list said
+// already (the picked addon's row); past the end where no card shows.
+function cardStart(texts: Array<String>): Integer {
+  let state = 0
+  for (i, text of texts) {
+    if (state == 0 && text == Locale.CARD_STATE) { state = i }
+  }
+  if (state == 0) { return texts.length + 1 }
+  for (back of 1..(state - 1)) {
+    const at = state - back
+    const title = texts[at] ?? ""
+    for (before of 1..(at - 1)) {
+      if (texts[before] == title) { return at }
+    }
+  }
+  return texts.length + 1
+}
+
+// The list's texts, in the order they stand: up to the card, or to the footer's «Reload».
 function listed(): Array<String> {
   const texts = window().texts()
+  const start = cardStart(texts)
   const list: Array<String> = []
-  for (text of texts) {
-    if (text == Locale.RELOAD) { break }
+  for (i, text of texts) {
+    if (i >= start || text == Locale.RELOAD) { break }
     list.push(text)
   }
   return list
@@ -319,15 +339,16 @@ function titles(): String {
   return listed().filter(text => names.any(name => name == text)).join(", ")
 }
 
-// What the card says, joined by « | »: the window's texts after its footer's «Reload», up to its first tab's title.
+// What the card says, joined by « | »: from its title (`cardStart`) to the footer, which «Reset» starts.
 function card(): String {
   const texts = window().texts()
+  const start = cardStart(texts)
   const list: Array<String> = []
-  let after = false
-  for (text of texts) {
-    if (after && text == Client.SETTINGS_TITLE) { break }
-    if (after) { list.push(text) }
-    if (text == Locale.RELOAD) { after = true }
+  for (i, text of texts) {
+    if (i >= start) {
+      if (text == Locale.RESET) { break }
+      list.push(text)
+    }
   }
   return list.join(" | ")
 }

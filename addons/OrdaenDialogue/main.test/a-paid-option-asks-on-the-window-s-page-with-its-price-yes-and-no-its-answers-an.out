@@ -2,46 +2,45 @@
 surface 54.82,99.96 384.71x620.08 on MEDIUM clamped raised by a click
   box 54.82,136.71 384.71x583.33 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.98, tr 0.79, bl 0.80, br 0.61, top 0.98>0.79 x12.36, bottom 0.79>0.61 x12.36, left 0.98>0.80 x19.25, right 0.79>0.61 x19.25] @drag @dragStart @dragStop @pointerEnter @pointerLeave
     box 62.02,143.91 370.31x568.93
-      box 62.02,143.91 370.31x568.93
-        box 80.51,162.4 333.33x531.96
-          box 80.51,162.4 0x0 absolute @keyPress
-          box 80.51,162.4 0x0 absolute @keyPress
-          box 80.51,162.4 0x0 absolute @keyPress
-          box 80.51,162.4 0x0 absolute @keyPress
-          box 80.51,162.4 0x0 absolute @keyPress
-          box 80.51,162.4 0x0 absolute @keyPress
-          box 80.51,162.4 0x0 absolute @keyPress
-          box 80.51,162.4 0x0 absolute @keyPress
-          box 80.51,162.4 0x0 absolute @keyPress
-          box 80.51,162.4 0x0 absolute @keyPress
-          box 80.51,162.4 333.33x45.89
-            text 86.19,168.09 321.96x15.83 "Rent the best room?" #f0e6d0
-            text 86.19,186.76 321.96x15.83 "0g 50s 0c" #e8dcc4
-          box 80.51,208.29 333.33x486.07
-            box 80.51,213.97 333.33x447.78
-              box 80.51,213.97 333.33x60.84
-                box 80.51,213.97 333.33x29.71 #00000000 @keyPress @pointerPress
-                  box 86.19,219.66 18.33x18.33 #00000080
-                    text 92.03,222.83 6.67x12 "1" #c9a76a
-                  text 110.22,220.91 20x15.83 "Yes" #f0e6d0
-                box 80.51,245.11 333.33x29.71 #00000000 @keyPress @pointerPress
-                  box 86.19,250.8 18.33x18.33 #00000080
-                    text 92.03,253.96 6.67x12 "2" #c9a76a
-                  text 110.22,252.05 14.17x15.83 "No" #f0e6d0
-            box 80.51,666.02 333.33x28.33
-              box 80.51,666.02 141.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-                box 83.83,680.19 0x0
-                box 90.7,669.56 38.33x21.25 #00000038 opacity=1
-                  text 101.12,673.52 16.67x13.33 "Esc" #c9a76a
-                text 153.12,672.27 38.33x15.83 "Cancel" #ffd100
-                box 218.85,680.19 0x0
-              box 222.17,666.02 50x0
-              box 272.17,666.02 141.67x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-                box 275.49,680.19 0x0
-                box 282.37,669.56 38.33x21.25 #00000038 opacity=1
-                  box 294.45,678.1 13.33x4.17
-                text 353.95,672.27 20x15.83 "Yes" #ffd100
-                box 410.52,680.19 0x0
+      box 80.51,162.4 333.33x531.96
+        box 80.51,162.4 0x0 absolute @keyPress
+        box 80.51,162.4 0x0 absolute @keyPress
+        box 80.51,162.4 0x0 absolute @keyPress
+        box 80.51,162.4 0x0 absolute @keyPress
+        box 80.51,162.4 0x0 absolute @keyPress
+        box 80.51,162.4 0x0 absolute @keyPress
+        box 80.51,162.4 0x0 absolute @keyPress
+        box 80.51,162.4 0x0 absolute @keyPress
+        box 80.51,162.4 0x0 absolute @keyPress
+        box 80.51,162.4 0x0 absolute @keyPress
+        box 80.51,162.4 333.33x45.89
+          text 86.19,168.09 321.96x15.83 "Rent the best room?" #f0e6d0
+          text 86.19,186.76 321.96x15.83 "0g 50s 0c" #e8dcc4
+        box 80.51,208.29 333.33x486.07
+          box 80.51,213.97 333.33x447.78
+            box 80.51,213.97 333.33x60.84
+              box 80.51,213.97 333.33x29.71 #00000000 @keyPress @pointerPress
+                box 86.19,219.66 18.33x18.33 #00000080
+                  text 92.03,222.83 6.67x12 "1" #c9a76a
+                text 110.22,220.91 20x15.83 "Yes" #f0e6d0
+              box 80.51,245.11 333.33x29.71 #00000000 @keyPress @pointerPress
+                box 86.19,250.8 18.33x18.33 #00000080
+                  text 92.03,253.96 6.67x12 "2" #c9a76a
+                text 110.22,252.05 14.17x15.83 "No" #f0e6d0
+          box 80.51,666.02 333.33x28.33
+            box 80.51,666.02 141.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+              box 83.83,680.19 0x0
+              box 90.7,669.56 38.33x21.25 #00000038 opacity=1
+                text 101.12,673.52 16.67x13.33 "Esc" #c9a76a
+              text 153.12,672.27 38.33x15.83 "Cancel" #ffd100
+              box 218.85,680.19 0x0
+            box 222.17,666.02 50x0
+            box 272.17,666.02 141.67x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+              box 275.49,680.19 0x0
+              box 282.37,669.56 38.33x21.25 #00000038 opacity=1
+                box 294.45,678.1 13.33x4.17
+              text 353.95,672.27 20x15.83 "Yes" #ffd100
+              box 410.52,680.19 0x0
     box 417.78,698.29 13.33x13.33 absolute
       box 417.78,698.29 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 54.82,99.96 384.71x39

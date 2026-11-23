@@ -634,3 +634,46 @@ test "a side section grows past its width for content that needs more, the main 
   Test.expect(wide.right <= window.right && wide.left > list.left)
   destroy page
 }
+
+// A window with a footer under each section: the main one's a line of text, the side's two buttons stacked, higher.
+class TwoFooters {
+  state tabs: Array<WindowTabSpec> = [{ title: "Market" }]
+  state tab = 1
+  public placing: mut KeptWindow = new KeptWindow("placing", "placing", { x: 0ui, y: 0ui, width: 600ui, height: 300ui })
+  const footer: Template = $ltml {
+    <FooterBand>
+      <text value={"5 items"} />
+    </FooterBand>
+  }
+  const details: WindowSide = {
+    width: 200ui,
+    content: $ltml { <text value={"the details"} /> },
+    footer: $ltml {
+      <FooterBand>
+        <box gap={1sp}>
+          <PushButton label={"Buy"} width={100ui} />
+          <PushButton label={"Bid"} width={100ui} />
+        </box>
+      </FooterBand>
+    }
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <Window tabs={self.tabs} selected={mut self.tab} declared={mut self.placing} footer={self.footer}
+              side={self.details}>
+        <text value={"the list"} />
+      </Window>
+    }
+  }
+}
+
+test "two footers side by side are as high as the higher, top and bottom in line" {
+  let page = new TwoFooters()
+  Test.mount(page, { left: 0, top: 0, width: 800, height: 600 })
+  const main = Test.page().box(ARTWORK.window.marble).nth(1).rect()
+  const side = Test.page().box(ARTWORK.window.marble).nth(2).rect()
+  Test.expect(near(main.top, side.top) && near(main.bottom, side.bottom))
+  Test.expect(Test.page().text("5 items").rect().top >= main.top && Test.page().button("Bid").rect().bottom <= side.bottom)
+  destroy page
+}

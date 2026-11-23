@@ -1,109 +1,100 @@
 -- the next quest of a chain in its window
 surface 548.15,192.46 893.38x524.28 on MEDIUM clamped raised by a click
   box 548.15,240.88 893.38x475.87 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.98, tr 0.78, bl 0.80, br 0.60, top 0.98>0.78 x30.02, bottom 0.80>0.60 x30.02, left 0.98>0.80 x15.52, right 0.78>0.61 x15.52] @drag @dragStart @dragStop @pointerEnter @pointerLeave
-    box 555.35,248.07 489.3x461.47
-      box 555.35,248.07 489.3x435.92
-        box 578.11,270.83 443.79x396.1
-          box 578.11,270.83 443.79x42.27 Interface/FrameGeneral/UI-Background-Marble
-            box 578.11,282.21 443.79x0
-            box 578.11,282.21 443.79x30.89
-              box 578.11,282.21 18.49x30.89
-              box 596.59,282.21 85.51x30.89 Interface\AddOns\Ordaen\media\window-wood @keyPress @pointerPress
-                box 595.76,312.26 87.18x0.83 absolute #00000000
-                text 614.49,290.15 31.67x15.83 "World" #f0e6d2
-                box 651.85,291.4 12.36x13.33 #00000099
-                  text 654.69,291.4 6.67x13.33 "2" #f0e6d2
-              box 682.11,282.21 103.84x30.89 #00000000 @keyPress @pointerPress
-                box 681.27,312.26 105.51x0.83 absolute #3e2f1d
-                text 700.01,290.15 50x15.83 "Dungeons" #a3977f
-                box 755.69,291.4 12.36x13.33 #00000099
-                  text 758.54,291.4 6.67x13.33 "1" #a3977f
-              box 785.95,282.21 85.51x30.89 #00000000 @keyPress @pointerPress
-                box 785.12,312.26 87.18x0.83 absolute #3e2f1d
-                text 803.85,290.15 31.67x15.83 "Raids" #a3977f
-                box 841.21,291.4 12.36x13.33 #00000099
-                  text 844.05,291.4 6.67x13.33 "0" #a3977f
-              box 871.46,282.21 73.84x30.89 #00000000 @keyPress @pointerPress
-                box 870.63,312.26 75.51x0.83 absolute #3e2f1d
-                text 889.36,290.15 20x15.83 "PvP" #a3977f
-                box 915.05,291.4 12.36x13.33 #00000099
-                  text 917.89,291.4 6.67x13.33 "0" #a3977f
-              box 945.31,282.21 76.59x30.89
-          box 578.11,321.63 443.79x28.33
-            box 578.11,321.63 216.52x28.33
-              box 578.11,321.63 216.52x28.33 #00000080 input "" @change @submit
-              box 578.11,321.63 216.52x28.33 absolute
-                text 586.64,327.88 199.46x15.83 "Search quests" #a3977f
-            box 794.63,321.63 227.27x28.33
-              box 794.63,321.63 125.2x28.33
-                box 803.16,321.63 116.67x28.33
-                  box 803.16,321.63 116.67x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
-                    text 813.12,327.88 80.58x15.83 "All" #f0c860
-                    box 899.38,329.13 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-              box 919.83,321.63 34.02x28.33
-                box 925.52,321.63 28.33x28.33
-                  box 925.52,321.63 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerEnter @pointerLeave @pointerPress
-                    box 933.02,329.13 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 0 of 16 tint=#e8dcc4
-              box 953.85,321.63 34.02x28.33
-                box 959.54,321.63 28.33x28.33
-                  box 959.54,321.63 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerEnter @pointerLeave @pointerPress
-                    box 967.04,329.13 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 1 of 16 tint=#e8dcc4
-              box 987.87,321.63 34.02x28.33
-                box 993.56,321.63 28.33x28.33
-                  box 993.56,321.63 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerEnter @pointerLeave @pointerPress
-                    box 1001.06,329.13 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 3 of 16 tint=#e8dcc4
-          box 578.11,358.5 443.79x308.43 #0000004d
-            box 578.94,359.33 442.12x0
-            box 578.94,359.33 442.12x306.77 scrolled 0 of 0
-              box 578.94,359.33 442.12x174.33
-                box 578.94,359.33 442.12x87.17
-                  box 578.94,359.33 442.12x33.73 #d6a56b38 @keyPress @pointerPress
-                    box 584.63,369.11 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-marks row 3 of 8 tint=#a3977f
-                    text 603.65,367.86 80x15.83 "Elwynn Forest" #ffd100
-                    text 689.34,369.11 303.68x13.33 "you are here" #a3977f
-                    text 998.71,369.11 16.67x13.33 "0/1" #a3977f
-                  box 578.94,393.06 442.12x53.43
-                    box 578.94,393.06 442.12x53.43 #00000000 @keyPress @pointerEnter @pointerLeave @pointerPress
-                      box 584.63,404.44 430.74x15.83
-                        box 584.63,404.44 16.67x15.83
-                          text 584.63,404.44 8.33x15.83 "1" #ff2020
-                          text 592.96,404.44 8.33x15.83 "4" #ff2020
-                        text 606.98,404.44 397.01x15.83 "Elwynn Wolves" #e8dcc4
-                        text 1009.68,412.36 0x0 "" #a3977f
-                        box 1015.37,412.36 0x0
-                      box 584.63,423.12 430.74x12
-                        text 584.63,423.12 403.39x12 "Wolves slain" #a3977f
-                        text 993.71,423.12 21.67x12 "5/10" #a3977f
-                box 578.94,446.5 442.12x87.17
-                  box 578.94,446.5 442.12x33.73 #d6a56b38 @keyPress @pointerPress
-                    box 584.63,456.28 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-marks row 3 of 8 tint=#a3977f
-                    text 603.65,455.03 50x15.83 "Westfall" #ffd100
-                    box 659.34,462.95 333.68x0
-                    text 998.71,456.28 16.67x13.33 "0/1" #a3977f
-                  box 578.94,480.23 442.12x53.43
-                    box 578.94,480.23 442.12x53.43 #ffd10026 @keyPress @pointerEnter @pointerLeave @pointerPress
-                      box 584.63,491.61 430.74x15.83
-                        box 584.63,491.61 16.67x15.83
-                          text 584.63,491.61 8.33x15.83 "1" #ff2020
-                          text 592.96,491.61 8.33x15.83 "4" #ff2020
-                        text 606.98,491.61 345.5x15.83 "The Defias Brotherhood" #e8dcc4
-                        text 958.17,499.52 0x0 "" #a3977f
+    box 555.35,248.07 489.3x420.92
+      box 578.11,270.83 443.79x381.1
+        box 578.11,270.83 443.79x42.27 Interface/FrameGeneral/UI-Background-Marble
+          box 578.11,282.21 443.79x0
+          box 578.11,282.21 443.79x30.89
+            box 578.11,282.21 18.49x30.89
+            box 596.59,282.21 85.51x30.89 Interface\AddOns\Ordaen\media\window-wood @keyPress @pointerPress
+              box 595.76,312.26 87.18x0.83 absolute #00000000
+              text 614.49,290.15 31.67x15.83 "World" #f0e6d2
+              box 651.85,291.4 12.36x13.33 #00000099
+                text 654.69,291.4 6.67x13.33 "2" #f0e6d2
+            box 682.11,282.21 103.84x30.89 #00000000 @keyPress @pointerPress
+              box 681.27,312.26 105.51x0.83 absolute #3e2f1d
+              text 700.01,290.15 50x15.83 "Dungeons" #a3977f
+              box 755.69,291.4 12.36x13.33 #00000099
+                text 758.54,291.4 6.67x13.33 "1" #a3977f
+            box 785.95,282.21 85.51x30.89 #00000000 @keyPress @pointerPress
+              box 785.12,312.26 87.18x0.83 absolute #3e2f1d
+              text 803.85,290.15 31.67x15.83 "Raids" #a3977f
+              box 841.21,291.4 12.36x13.33 #00000099
+                text 844.05,291.4 6.67x13.33 "0" #a3977f
+            box 871.46,282.21 73.84x30.89 #00000000 @keyPress @pointerPress
+              box 870.63,312.26 75.51x0.83 absolute #3e2f1d
+              text 889.36,290.15 20x15.83 "PvP" #a3977f
+              box 915.05,291.4 12.36x13.33 #00000099
+                text 917.89,291.4 6.67x13.33 "0" #a3977f
+            box 945.31,282.21 76.59x30.89
+        box 578.11,321.63 443.79x28.33
+          box 578.11,321.63 216.52x28.33
+            box 578.11,321.63 216.52x28.33 #00000080 input "" @change @submit
+            box 578.11,321.63 216.52x28.33 absolute
+              text 586.64,327.88 199.46x15.83 "Search quests" #a3977f
+          box 794.63,321.63 227.27x28.33
+            box 794.63,321.63 125.2x28.33
+              box 803.16,321.63 116.67x28.33
+                box 803.16,321.63 116.67x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
+                  text 813.12,327.88 80.58x15.83 "All" #f0c860
+                  box 899.38,329.13 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+            box 919.83,321.63 34.02x28.33
+              box 925.52,321.63 28.33x28.33
+                box 925.52,321.63 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerEnter @pointerLeave @pointerPress
+                  box 933.02,329.13 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 0 of 16 tint=#e8dcc4
+            box 953.85,321.63 34.02x28.33
+              box 959.54,321.63 28.33x28.33
+                box 959.54,321.63 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerEnter @pointerLeave @pointerPress
+                  box 967.04,329.13 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 1 of 16 tint=#e8dcc4
+            box 987.87,321.63 34.02x28.33
+              box 993.56,321.63 28.33x28.33
+                box 993.56,321.63 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerEnter @pointerLeave @pointerPress
+                  box 1001.06,329.13 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 3 of 16 tint=#e8dcc4
+        box 578.11,358.5 443.79x293.43 #0000004d
+          box 578.94,359.33 442.12x0
+          box 578.94,359.33 442.12x291.77 scrolled 0 of 0
+            box 578.94,359.33 442.12x174.33
+              box 578.94,359.33 442.12x87.17
+                box 578.94,359.33 442.12x33.73 #d6a56b38 @keyPress @pointerPress
+                  box 584.63,369.11 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-marks row 3 of 8 tint=#a3977f
+                  text 603.65,367.86 80x15.83 "Elwynn Forest" #ffd100
+                  text 689.34,369.11 303.68x13.33 "you are here" #a3977f
+                  text 998.71,369.11 16.67x13.33 "0/1" #a3977f
+                box 578.94,393.06 442.12x53.43
+                  box 578.94,393.06 442.12x53.43 #00000000 @keyPress @pointerEnter @pointerLeave @pointerPress
+                    box 584.63,404.44 430.74x15.83
+                      box 584.63,404.44 16.67x15.83
+                        text 584.63,404.44 8.33x15.83 "1" #ff2020
+                        text 592.96,404.44 8.33x15.83 "4" #ff2020
+                      text 606.98,404.44 397.01x15.83 "Elwynn Wolves" #e8dcc4
+                      text 1009.68,412.36 0x0 "" #a3977f
+                      box 1015.37,412.36 0x0
+                    box 584.63,423.12 430.74x12
+                      text 584.63,423.12 403.39x12 "Wolves slain" #a3977f
+                      text 993.71,423.12 21.67x12 "5/10" #a3977f
+              box 578.94,446.5 442.12x87.17
+                box 578.94,446.5 442.12x33.73 #d6a56b38 @keyPress @pointerPress
+                  box 584.63,456.28 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-marks row 3 of 8 tint=#a3977f
+                  text 603.65,455.03 50x15.83 "Westfall" #ffd100
+                  box 659.34,462.95 333.68x0
+                  text 998.71,456.28 16.67x13.33 "0/1" #a3977f
+                box 578.94,480.23 442.12x53.43
+                  box 578.94,480.23 442.12x53.43 #ffd10026 @keyPress @pointerEnter @pointerLeave @pointerPress
+                    box 584.63,491.61 430.74x15.83
+                      box 584.63,491.61 16.67x15.83
+                        text 584.63,491.61 8.33x15.83 "1" #ff2020
+                        text 592.96,491.61 8.33x15.83 "4" #ff2020
+                      text 606.98,491.61 345.5x15.83 "The Defias Brotherhood" #e8dcc4
+                      text 958.17,499.52 0x0 "" #a3977f
+                      box 963.86,491.61 51.51x15.83
                         box 963.86,491.61 51.51x15.83
-                          box 963.86,491.61 51.51x15.83
-                            text 963.86,491.61 20x15.83 "420" #a3977f
-                            box 986.71,492.36 28.67x14.33 Interface\AddOns\OrdaenQuestPage\media\xp-mark
-                      box 584.63,510.29 430.74x12
-                        text 584.63,510.29 403.39x12 "Wolves slain" #a3977f
-                        text 993.71,510.29 21.67x12 "5/10" #a3977f
-      box 555.35,684 489.3x25.54
-        box 555.35,684 489.3x25.54 Interface/FrameGeneral/UI-Background-Marble
-          box 578.11,690.52 443.79x13.33
-            box 578.11,697.19 344.86x0
-            box 940.03,690.52 81.87x13.33
-              box 940.03,690.52 81.87x13.33
-                text 940.03,690.52 51.67x13.33 "In the log" #a3977f
-                text 1000.23,690.52 21.67x13.33 "3/25" #e8dcc4
-    box 1044.65,248.07 389.68x461.47
+                          text 963.86,491.61 20x15.83 "420" #a3977f
+                          box 986.71,492.36 28.67x14.33 Interface\AddOns\OrdaenQuestPage\media\xp-mark
+                    box 584.63,510.29 430.74x12
+                      text 584.63,510.29 403.39x12 "Wolves slain" #a3977f
+                      text 993.71,510.29 21.67x12 "5/10" #a3977f
+    box 1044.65,248.07 389.68x420.92
       box 1047.35,248.07 386.98x420.92
         box 1070.11,270.83 341.47x383.94
           box 1070.11,270.83 341.47x166.67
@@ -169,21 +160,31 @@ surface 548.15,192.46 893.38x524.28 on MEDIUM clamped raised by a click
               text 1070.11,638.52 309.8x15.83 "Track" #f0e6d0
               box 1379.91,638.11 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 0 of 4
                 box 1377.41,635.61 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2 opacity=1
-      box 1047.35,669 386.98x40.54
-        box 1047.35,669 386.98x40.54 Interface/FrameGeneral/UI-Background-Marble
-          box 1070.11,675.52 341.47x28.33
-            box 1070.11,675.52 93.33x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-              box 1073.43,689.69 0x0
-              text 1094.69,681.77 44.17x15.83 "Abandon" #ffd100
-              box 1160.12,689.69 0x0
-            box 1171.97,689.69 129.2x0
-            box 1309.71,689.69 0x0
-            box 1318.24,675.52 93.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-              box 1321.56,689.69 0x0
-              text 1330.74,681.77 68.33x15.83 "Show on map" #ffd100
-              box 1408.25,689.69 0x0
-      box 1042.1,248.07 2.7x461.47 absolute border=Interface\AddOns\Ordaen\media\frame-divider-down sides=left pieces=[left 0.76>0.61 x24.03]
-      box 1041.32,248.07 6.67x461.47 absolute @drag @dragStart @dragStop
+      box 1042.1,248.07 2.7x420.92 absolute border=Interface\AddOns\Ordaen\media\frame-divider-down sides=left pieces=[left 0.76>0.62 x21.92]
+      box 1041.32,248.07 6.67x420.92 absolute @drag @dragStart @dragStop
+    box 555.35,669 489.3x40.54
+      box 555.35,669 489.3x40.54 Interface/FrameGeneral/UI-Background-Marble
+        box 578.11,675.52 443.79x13.33
+          box 578.11,682.19 344.86x0
+          box 940.03,675.52 81.87x13.33
+            box 940.03,675.52 81.87x13.33
+              text 940.03,675.52 51.67x13.33 "In the log" #a3977f
+              text 1000.23,675.52 21.67x13.33 "3/25" #e8dcc4
+    box 1044.65,669 389.68x40.54
+      box 1047.35,669 386.98x40.54 Interface/FrameGeneral/UI-Background-Marble
+        box 1070.11,675.52 341.47x28.33
+          box 1070.11,675.52 93.33x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+            box 1073.43,689.69 0x0
+            text 1094.69,681.77 44.17x15.83 "Abandon" #ffd100
+            box 1160.12,689.69 0x0
+          box 1171.97,689.69 129.2x0
+          box 1309.71,689.69 0x0
+          box 1318.24,675.52 93.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+            box 1321.56,689.69 0x0
+            text 1330.74,681.77 68.33x15.83 "Show on map" #ffd100
+            box 1408.25,689.69 0x0
+      box 1042.1,669 2.7x40.54 absolute border=Interface\AddOns\Ordaen\media\frame-divider-down sides=left pieces=[left 0.62>0.61 x2.11]
+      box 1041.32,669 6.67x40.54 absolute @drag @dragStart @dragStop
     box 1419.78,694.99 13.33x13.33 absolute
       box 1419.78,694.99 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 548.15,192.46 893.38x50.67
@@ -207,42 +208,41 @@ surface 548.15,192.46 893.38x524.28 on MEDIUM clamped raised by a click
 surface 956.48,223.29 353.7x453.42 on MEDIUM clamped raised by a click
   box 956.48,260.04 353.7x416.67 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.98, tr 0.78, bl 0.80, br 0.61, top 0.97>0.79 x11.28, bottom 0.79>0.61 x11.28, left 0.98>0.80 x13.47, right 0.78>0.61 x13.47] @drag @dragStart @dragStop @pointerEnter @pointerLeave
     box 963.68,267.24 339.3x402.27
-      box 963.68,267.24 339.3x402.27
-        box 982.17,285.73 302.32x365.29
-          box 982.17,285.73 302.32x276.84
-            box 982.17,285.73 20.83x20.83 absolute Interface\AddOns\OrdaenQuestPage\media\sheet-top-left
-            box 1003.01,285.73 260.66x20.83 absolute Interface\AddOns\OrdaenQuestPage\media\sheet-top
-            box 1263.66,285.73 20.83x20.83 absolute Interface\AddOns\OrdaenQuestPage\media\sheet-top-right
-            box 982.17,306.56 20.83x235.18 absolute Interface\AddOns\OrdaenQuestPage\media\sheet-left
-            box 1003.01,306.56 260.66x235.18 absolute Interface\AddOns\OrdaenQuestPage\media\sheet-paper
-            box 1263.66,306.56 20.83x235.18 absolute Interface\AddOns\OrdaenQuestPage\media\sheet-right
-            box 982.17,541.74 20.83x20.83 absolute Interface\AddOns\OrdaenQuestPage\media\sheet-bottom-left
-            box 1003.01,541.74 260.66x20.83 absolute Interface\AddOns\OrdaenQuestPage\media\sheet-bottom
-            box 1263.66,541.74 20.83x20.83 absolute Interface\AddOns\OrdaenQuestPage\media\sheet-bottom-right
-            box 982.17,285.73 302.32x276.84 absolute Interface\AddOns\OrdaenQuestPage\media\scroll-paper-tone blend=MOD
-            box 1008.17,320.4 250.32x207.51 absolute scrolled 0 of 0
-              text 1008.17,320.4 250.32x16.8 "The Defias Brotherhood, part two" #200800
-              text 1008.17,341.46 250.32x17.5 "Level 16, available from level 12" #4a3520
-              box 1008.17,363.23 250.32x17.5
-                box 1008.17,371.56 86.14x0.83 #3a100080
-                text 1100,363.23 66.67x17.5 "Objectives" #3a1000
-                box 1172.36,371.56 86.14x0.83 #3a100080
-              box 1008.17,385 250.32x31.67 @linkEnter @linkLeave
-                text 1008.17,385 250.32x31.67 "Take the note to the Scout. Then report back." #160c03
-          box 982.17,573.95 302.32x37.36
-            box 982.17,573.95 302.32x15.83
-              text 982.17,573.95 61.67x15.83 "Next quest" #e8c35a
-              box 1052.37,578.54 232.12x6.67
-                box 1052.37,578.54 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry tint=#c29a43
-                box 1059.04,578.54 225.46x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip tint=#c29a43
-            box 982.17,595.48 302.32x15.83 @keyPress @pointerPress
-              text 982.17,595.48 302.32x15.83 "The Defias Brotherhood, part three" #ffd100
-          box 982.17,622.69 302.32x28.33
-            box 982.17,622.69 93.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-              box 985.49,636.85 0x0
-              text 994.67,628.94 68.33x15.83 "Show on map" #ffd100
-              box 1072.19,636.85 0x0
-            box 1075.51,622.69 208.99x0
+      box 982.17,285.73 302.32x365.29
+        box 982.17,285.73 302.32x276.84
+          box 982.17,285.73 20.83x20.83 absolute Interface\AddOns\OrdaenQuestPage\media\sheet-top-left
+          box 1003.01,285.73 260.66x20.83 absolute Interface\AddOns\OrdaenQuestPage\media\sheet-top
+          box 1263.66,285.73 20.83x20.83 absolute Interface\AddOns\OrdaenQuestPage\media\sheet-top-right
+          box 982.17,306.56 20.83x235.18 absolute Interface\AddOns\OrdaenQuestPage\media\sheet-left
+          box 1003.01,306.56 260.66x235.18 absolute Interface\AddOns\OrdaenQuestPage\media\sheet-paper
+          box 1263.66,306.56 20.83x235.18 absolute Interface\AddOns\OrdaenQuestPage\media\sheet-right
+          box 982.17,541.74 20.83x20.83 absolute Interface\AddOns\OrdaenQuestPage\media\sheet-bottom-left
+          box 1003.01,541.74 260.66x20.83 absolute Interface\AddOns\OrdaenQuestPage\media\sheet-bottom
+          box 1263.66,541.74 20.83x20.83 absolute Interface\AddOns\OrdaenQuestPage\media\sheet-bottom-right
+          box 982.17,285.73 302.32x276.84 absolute Interface\AddOns\OrdaenQuestPage\media\scroll-paper-tone blend=MOD
+          box 1008.17,320.4 250.32x207.51 absolute scrolled 0 of 0
+            text 1008.17,320.4 250.32x16.8 "The Defias Brotherhood, part two" #200800
+            text 1008.17,341.46 250.32x17.5 "Level 16, available from level 12" #4a3520
+            box 1008.17,363.23 250.32x17.5
+              box 1008.17,371.56 86.14x0.83 #3a100080
+              text 1100,363.23 66.67x17.5 "Objectives" #3a1000
+              box 1172.36,371.56 86.14x0.83 #3a100080
+            box 1008.17,385 250.32x31.67 @linkEnter @linkLeave
+              text 1008.17,385 250.32x31.67 "Take the note to the Scout. Then report back." #160c03
+        box 982.17,573.95 302.32x37.36
+          box 982.17,573.95 302.32x15.83
+            text 982.17,573.95 61.67x15.83 "Next quest" #e8c35a
+            box 1052.37,578.54 232.12x6.67
+              box 1052.37,578.54 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry tint=#c29a43
+              box 1059.04,578.54 225.46x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip tint=#c29a43
+          box 982.17,595.48 302.32x15.83 @keyPress @pointerPress
+            text 982.17,595.48 302.32x15.83 "The Defias Brotherhood, part three" #ffd100
+        box 982.17,622.69 302.32x28.33
+          box 982.17,622.69 93.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+            box 985.49,636.85 0x0
+            text 994.67,628.94 68.33x15.83 "Show on map" #ffd100
+            box 1072.19,636.85 0x0
+          box 1075.51,622.69 208.99x0
     box 1288.43,654.96 13.33x13.33 absolute
       box 1288.43,654.96 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 956.48,223.29 353.7x39
