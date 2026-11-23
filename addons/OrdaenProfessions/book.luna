@@ -49,6 +49,13 @@ public const MOST_RECIPES = 6000
 // How many one making gives: the mean of its least and most.
 public function yieldOfEntry(entry: Entry): Number { return (entry.least + entry.most) / 2 }
 
+// The character being played as Forever names it: its name and its surname («Regy Ironsight»), its name alone where it
+// has none.
+public function playerName(): String {
+  const surname = Game.player.surname ?? ""
+  return surname == "" ? Game.player.name : Game.player.name + " " + surname
+}
+
 // The book with the open profession's page of the character being played written in; none where nothing changed or
 // the client gave no list.
 public function written(book: Book, skillLine: Integer, recipes: Array<Game.Recipe>): Book | nil {
@@ -89,7 +96,7 @@ public function written(book: Book, skillLine: Integer, recipes: Array<Game.Reci
   }
   const professions: Map<Integer, Learned> = shelf == nil ? {} : shelf.professions.clone()
   professions[skillLine] = { name: name, recipes: known.filter(id => next.recipes[id] != nil) }
-  next.characters[guid] = { name: Game.player.name, realm: Game.player.realm, professions: professions }
+  next.characters[guid] = { name: playerName(), realm: Game.player.realm, professions: professions }
   if (next.equal(book)) { return nil }
   return next
 }

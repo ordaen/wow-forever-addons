@@ -128,7 +128,6 @@ public class WorthLine implements Component {
   derived percent: String = self.worth.percent == nil ? NONE : String.of(self.worth.percent)
   derived age: String = ageText(self.worth.age)
   derived can: String = String.of(self.worth.can)
-  derived who: String = `${self.worth.who}, ${self.worth.profession}`
 
   worth: Signal<Worth>
   chosen: Signal<String>
@@ -143,7 +142,11 @@ public class WorthLine implements Component {
     return $ltml {
       <TableRow tracks={TRACKS} selected={self.picked} @pick={self.onPick}>
         <text value={self.worth.name} textColor={BRIGHT_TEXT} wrap={.None} />
-        <text value={self.who} textColor={Style.DIM} wrap={.None} />
+        // Who knows it over its profession: a full name («Regy Ironsight») wraps rather than being cut.
+        <box>
+          <text value={self.worth.who} textColor={Style.INK} />
+          <text value={self.worth.profession} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
+        </box>
         <box xAlign={Align.End}>
           <Money $if={self.hasCost} amount={self.cost} />
           <text $else value={NONE} textColor={Style.DIM} />

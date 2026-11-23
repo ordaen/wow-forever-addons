@@ -87,8 +87,8 @@ test "the tab prices each known recipe for one making, the profit and how many t
   Test.shot("auction")
   // A cloak: a bolt at 1 s and a thread at 15 c, sold at 5 s less 5%; the bags hold no thread. A bolt: two linen at
   // 20 c, sold at 1 s less 5%; four linen make two.
-  Test.expect(reads(row("Linen Cloak"), "Linen Cloak | Player, Tailoring | 0g 1s 15c | 0g 4s 75c | 0g 3s 60c | 313 | 0 h | 0"))
-  Test.expect(reads(row("Bolt of Linen Cloth"), "Bolt of Linen Cloth | Player, Tailoring | 0g 0s 40c | 0g 0s 95c | 0g 0s 55c | 137 | 0 h | 2"))
+  Test.expect(reads(row("Linen Cloak"), "Linen Cloak | Player | Tailoring | 0g 1s 15c | 0g 4s 75c | 0g 3s 60c | 313 | 0 h | 0"))
+  Test.expect(reads(row("Bolt of Linen Cloth"), "Bolt of Linen Cloth | Player | Tailoring | 0g 0s 40c | 0g 0s 95c | 0g 0s 55c | 137 | 0 h | 2"))
 }
 
 test "«From what you have» lists what the holdings make now and what one missing reagent would" {
@@ -108,7 +108,7 @@ test "«From what you have» lists what the holdings make now and what one missi
   Test.page().button("Worth it").click()
   window().button("From what you have").click()
   // The bags make two bolts; a cloak lacks a thread alone.
-  Test.expect(reads(row("Bolt of Linen Cloth"), "Bolt of Linen Cloth | Player, Tailoring | 0g 0s 40c | 0g 0s 95c | 0g 0s 55c | 137 | 0 h | 2"))
+  Test.expect(reads(row("Bolt of Linen Cloth"), "Bolt of Linen Cloth | Player | Tailoring | 0g 0s 40c | 0g 0s 95c | 0g 0s 55c | 137 | 0 h | 2"))
   Test.expect(window().text("Linen Cloak").shown())
   // Cooldowns: none of these has one.
   window().button("Cooldowns").click()
@@ -135,6 +135,23 @@ test "the picked row's missing reagents go onto the shopping list" {
   Test.shot("shopped")
 }
 
+test "a character is named in the book as Forever names it: its name and its surname" {
+  Game.clock.server = NOW
+  Game.auctionQuery.results.emit(house())
+  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
+  Game.professions.list = professions()
+  Game.tradeSkill.categories = categories()
+  Game.tradeSkill.recipes = recipes()
+  Game.tradeSkill.reagents = reagents
+  Game.recipeReader.schematic = schematic
+  Game.recipeReader.known = known
+  Test.mount(nil, SCREEN)
+  Test.login({ guid: "Player-1-0000003", name: "Regy", surname: "Ironsight", realm: "Stand-in", faction: "Alliance", classTag: "WARRIOR" })
+  Game.tradeSkill.open = TAILORING
+  Test.page().button("Worth it").click()
+  Test.expect(row("Bolt of Linen Cloth").contains("| Regy Ironsight | Tailoring |"))
+}
+
 test "the book is the account's: another character played reads the first one's recipes" {
   Game.clock.server = NOW
   Game.auctionQuery.results.emit(house())
@@ -159,5 +176,5 @@ test "the book is the account's: another character played reads the first one's 
   Test.page().button("Worth it").click()
   // Player's recipes from the book, while Regron is played; Regron's bags and Player's hold four linen each.
   Test.expect(!window().text("Only this character: turn on Ordaen Alts and log in on your other characters to see theirs.").shown())
-  Test.expect(reads(row("Bolt of Linen Cloth"), "Bolt of Linen Cloth | Player, Tailoring | — | — | — | — | — | 4"))
+  Test.expect(reads(row("Bolt of Linen Cloth"), "Bolt of Linen Cloth | Player | Tailoring | — | — | — | — | — | 4"))
 }

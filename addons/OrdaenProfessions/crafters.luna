@@ -2,10 +2,9 @@
 // recipes take the item, each with the characters who know such a recipe, as the recipe book has them (every
 // character's professions as each last opened them): «Used in crafting», then «Tailoring — Ann, Bob». The player's
 // own character first, in white; nothing for an item no known recipe takes.
-import Game from "$game"
 import root Tooltips from "OrdaenTooltips"
 import type { ItemLines, Line } from "OrdaenTooltips"
-import { Book } from "@/book"
+import { Book, playerName } from "@/book"
 import Locale from "@/locales"
 import Style from "@/style"
 
@@ -64,7 +63,7 @@ public class CraftersLines implements ItemLines {
   public lines(self, item: Integer, link: String): Array<Line> {
     const found = self.crafters()[item]
     if (found == nil || found.length == 0) { return NONE }
-    const me = Game.player.name
+    const me = playerName()
     const lines: Array<Line> = [{ left: Locale.USED_IN, color: HEAD }]
     for (each of found) {
       const mine = each.characters.any(name => name == me)
