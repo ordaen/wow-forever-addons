@@ -159,6 +159,7 @@ public class OptionRow implements Component {
   derived key: String = self.keysHere ? keyName(self.place) : ""
   derived leveled: Boolean = self.line.level > 0
   derived levelColor: Color = colorOf(self.line.difficulty)
+  derived levelText: String = `(${self.line.level})`
   derived color: Color = titleColor(self.line)
   derived iconTint: Color = self.line.kind == LineKind.InProgress ? GREY : WHITE
   derived greyed: Boolean = self.line.kind == LineKind.InProgress
@@ -208,10 +209,11 @@ public class OptionRow implements Component {
           <Keycap $if={self.keyed} key={self.key} />
           <box $else />
           <box width={Style.ICON} height={Style.ICON} icon={self.line.icon} tint={self.iconTint} desaturate={self.greyed} />
-          <text $if={self.leveled} value={self.line.level} textColor={self.levelColor} textSize={SECONDARY_TEXT}
+          <text value={self.line.title} textColor={self.color} wrap={.None} />
+          // A quest's level after its title, «(12)», in its difficulty's colour.
+          <text $if={self.leveled} value={self.levelText} textColor={self.levelColor} textSize={SECONDARY_TEXT}
                 textFont={.Numbers} wrap={.None} />
           <box $else />
-          <text value={self.line.title} textColor={self.color} wrap={.None} />
           <text $if={self.marked} value={Locale.AUTO_MARK} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={.None} />
           <box $else />
         </PickRow>
