@@ -8,7 +8,6 @@
 // or at once on Enter, and filters the rows already shown by the names the house keeps lowercased. A row picked: at
 // the right its listings, a quantity, the total, «Buy» (the client's from a click alone) and «Add to shopping list». A
 // row right-clicked: its menu (`RowMenu`).
-import Client from "$client"
 import Game from "$game"
 import { Align, Beside, Edges, Layer, Line, MouseButton, Side, Track } from "$ltml"
 import root Ordaen from "Ordaen"
@@ -486,8 +485,7 @@ public class BuyPage implements Component {
     // A key typed: what is typed is searched for once no other key comes for `SETTLE` seconds.
     watch (typed of self.typed) {
       self.turn += 1
-      const turn = self.turn
-      Client.C_Timer.After(SETTLE, () => self.settle(turn))
+      _ = self.settleLater(self.turn)
     }
     // The search, the category or a filter moved: the house searched as soon as it takes a query; what moves
     // meanwhile is sent whole after.
@@ -500,7 +498,8 @@ public class BuyPage implements Component {
   }
 
   // The typing settled, unless a key or Enter came since.
-  settle(mut self, turn: Integer) {
+  async settleLater(mut self, turn: Integer) {
+    await Game.delay(SETTLE)
     if (turn == self.turn) { self.search = peek self.typed }
   }
 
