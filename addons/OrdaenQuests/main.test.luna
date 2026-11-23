@@ -743,8 +743,9 @@ test "the window's one tab is «Quests» with the game's quest log book; its kin
   // Two quests of the world, one of a dungeon, none of a raid or PvP.
   Test.expect(window.text("World").shown() && window.text("2").shown() && window.text("1").shown())
   Test.expect(window.text("0").count() == 2)
-  // The professions window's inner tabs: the picked one with its light along the top, not a segmented strip.
-  Test.expect(window.box(Color.hex("#d6a56b")).shown() && !window.box(Color.hex("#5a4428")).shown())
+  // The professions window's inner tabs: on a marble band, the picked one the window's wood.
+  const kinds = bandHolding(window, window.text("Dungeons").rect())
+  Test.expect(kinds.bottom < window.text("The Defias Brotherhood").rect().top)
   window.text("Dungeons").click()
   Test.expect(window.text("Red Silk Bandanas").shown() && !window.text("Elwynn Wolves").shown())
 }
@@ -1011,9 +1012,16 @@ test "another module's NPC opens the map where QuestieDB puts it until the map h
 }
 
 // The quest page's footer band (its buttons'), of the two the window has: the log's and the page's.
-function pageBand(window: Test.Part): Test.Rect {
-  const button = window.button("Abandon").rect()
+function pageBand(window: Test.Part): Test.Rect { return bandHolding(window, window.button("Abandon").rect()) }
+
+// The marble band a rectangle stands in, of the window's bands (its kinds' tabs, the log's footer, the page's).
+function bandHolding(window: Test.Part, inner: Test.Rect): Test.Rect {
   const bands = window.box(Ordaen.art.window.marble)
-  const first = bands.nth(1).rect()
-  return first.left <= button.left && first.right >= button.right ? first : bands.nth(2).rect()
+  for (at of 1..bands.count()) {
+    const band = bands.nth(at).rect()
+    if (band.left <= inner.left && band.right >= inner.right && band.top <= inner.top && band.bottom >= inner.bottom) {
+      return band
+    }
+  }
+  return panic("no band holds it")
 }
