@@ -15,10 +15,13 @@ import Locale from "@/locales"
 // The experience's fill as it starts.
 const BRUSHED: Art = xpFillArt(XpFill.Brushed)
 
-// A tube's height, no higher than the panel's inside, and its label's size: both tubes stand side by side, each half
-// the bars' width, so each is as high as one alone and its words read.
-const TUBE_HEIGHT: Number<Length> = 32ui
+// A tube's height and its label's size: both tubes stand side by side, each half the bars' width, each label over its
+// tube. The tube's ring is 10 of its art's 64 high, so at 20 the ring is 3 wide.
+const TUBE_HEIGHT: Number<Length> = 20ui
 const LABEL_TEXT = 1.1rem
+// The label over the tube, and the room between them.
+const LABELLED: Array<Track> = ["max-content", { fr: 1 }]
+const LABEL_ROOM = 1sp
 const GAP = 3sp
 // Room enough for anything: a bar standing by itself.
 const UNBOUNDED = 1000ui
@@ -207,51 +210,49 @@ public class Tube implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box height={self.height} @pointerEnter={self.onBar} @pointerLeave={self.onOff}>
-        <box position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui}
-             background={Ordaen.art.panel.xpTrough} />
-        // Over one another by their levels, each over all that is in the one under it: the trough, the fills (the
-        // rested part, the experience, the marks), the shine, the glass, the label. At one level the client draws
-        // either on top.
-        <box position={Position.Absolute} left={self.inset} top={self.inset} right={self.inset} bottom={self.inset}
-             zLevel={1}>
-          <box position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui} columns={self.behindParts}
-               rows={FILL}>
-            <box background={RESTED} />
-            <box />
-          </box>
-          <box position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui} columns={self.fillParts}
-               rows={FILL} zLevel={1}>
-            <box background={self.fill} tint={self.tint} desaturate={self.tinted} />
-            <box />
-          </box>
-          <box position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui} columns={10} rows={FILL}
-               zLevel={2}>
-            <box $for={cell of CELLS} border={MARK} />
-            <box />
-          </box>
+      <box rows={LABELLED} gap={LABEL_ROOM} xAlign={Align.Stretch} @pointerEnter={self.onBar} @pointerLeave={self.onOff}>
+        <box columns={LABEL_PARTS} gap={LABEL_GAP} xAlign={Align.Center} yAlign={Align.Center}>
+          <text value={self.label} textSize={LABEL_TEXT} textColor={LABEL} textOutline={1}
+                textShadow={LABEL_SHADOW} wrap={.None} textFont={.Numbers} />
+          <text $if={self.hasDimmed} value={self.dimmed} textSize={LABEL_TEXT} textColor={DIMMED}
+                textOutline={1} textShadow={LABEL_SHADOW} wrap={.None} textFont={.Numbers} />
         </box>
-        <box position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui}
-             background={Ordaen.art.panel.xpShine} zLevel={5} />
-        <box $if={self.bezel} position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui}
-             background={Ordaen.art.panel.xpTube} zLevel={6} />
-        <box $else position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui} border={GROOVE} zLevel={6} />
-        <box position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui} xAlign={Align.Center}
-             yAlign={Align.Center} zLevel={7}>
-          // Secondary: the values with the longest standing's name fit a tube at its least.
-          <box columns={LABEL_PARTS} gap={LABEL_GAP} yAlign={Align.Center}>
-            <text value={self.label} textSize={LABEL_TEXT} textColor={LABEL} textOutline={1}
-                  textShadow={LABEL_SHADOW} wrap={.None} textFont={.Numbers} />
-            <text $if={self.hasDimmed} value={self.dimmed} textSize={LABEL_TEXT} textColor={DIMMED}
-                  textOutline={1} textShadow={LABEL_SHADOW} wrap={.None} textFont={.Numbers} />
+        <box height={self.height}>
+          <box position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui}
+               background={Ordaen.art.panel.xpTrough} />
+          // Over one another by their levels, each over all that is in the one under it: the trough, the fills (the
+          // rested part, the experience, the marks), the shine, the glass, the label. At one level the client draws
+          // either on top.
+          <box position={Position.Absolute} left={self.inset} top={self.inset} right={self.inset} bottom={self.inset}
+               zLevel={1}>
+            <box position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui} columns={self.behindParts}
+                 rows={FILL}>
+              <box background={RESTED} />
+              <box />
+            </box>
+            <box position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui} columns={self.fillParts}
+                 rows={FILL} zLevel={1}>
+              <box background={self.fill} tint={self.tint} desaturate={self.tinted} />
+              <box />
+            </box>
+            <box position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui} columns={10} rows={FILL}
+                 zLevel={2}>
+              <box $for={cell of CELLS} border={MARK} />
+              <box />
+            </box>
           </box>
-        </box>
-        <box position={Position.Absolute} left={self.inset} top={self.inset} right={self.inset} bottom={self.inset}
-             columns={self.parts} rows={FILL}>
-          <box />
-          // Inside the tube: the cursor that leaves it is on the tube still, which hears no new enter.
-          <box @pointerEnter={self.onAhead} @pointerLeave={self.onBar} />
-          <box />
+          <box position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui}
+               background={Ordaen.art.panel.xpShine} zLevel={5} />
+          <box $if={self.bezel} position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui}
+               background={Ordaen.art.panel.xpTube} zLevel={6} />
+          <box $else position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui} border={GROOVE} zLevel={6} />
+          <box position={Position.Absolute} left={self.inset} top={self.inset} right={self.inset} bottom={self.inset}
+               columns={self.parts} rows={FILL}>
+            <box />
+            // Inside the tube: the cursor that leaves it is on the tube still, which hears no new enter.
+            <box @pointerEnter={self.onAhead} @pointerLeave={self.onBar} />
+            <box />
+          </box>
         </box>
         <Tip $if={self.overBar} title={self.title} text={""} rows={self.rows} />
         <Tip $if={self.overAhead} title={self.aheadTitle} text={self.aheadText} rows={self.aheadRows} />
