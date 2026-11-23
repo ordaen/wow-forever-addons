@@ -499,11 +499,11 @@ public class Rewards implements Component {
   }
 }
 
-// The mark of experience after an amount of it: the client's «XP» badge cut out of its glow (art/pieces/xp-mark.json),
-// stretched back to its shape (3:2), as tall as the digits beside it.
+// The mark of experience after an amount of it: the client's «XP» letters with their glow, cut to the band they stand
+// in (art/pieces/xp-mark.json, 2:1); a line high, the letters as tall as the digits beside them.
 public const XP_MARK: Asset = "@/media/xp-mark.tga"
-const XP_MARK_HEIGHT: Number<Length> = 17.578125dp
-const XP_MARK_WIDTH: Number<Length> = XP_MARK_HEIGHT * 1.5
+const XP_MARK_HEIGHT: Number<Length> = 20.15625dp
+const XP_MARK_WIDTH: Number<Length> = XP_MARK_HEIGHT * 2
 
 // An amount of experience a quest gives: the number in the letters Money writes its amount in, then the client's mark
 // of it, in one line; the mark says what the number is.

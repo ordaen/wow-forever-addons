@@ -70,9 +70,9 @@ surface 54.82,99.96 384.71x620.08 on MEDIUM clamped raised by a click
                 box 80.51,628.66 333.33x33.09
                   text 80.51,628.66 61.67x15.83 "Experience" #f0e6d2
                   box 153.55,628.66 260.29x15.83
-                    box 372.24,628.66 41.59x15.83
-                      text 372.24,628.66 20x15.83 "450" #f0e6d0
-                      box 395.09,630.33 18.75x12.5 Interface\AddOns\OrdaenQuestPage\media\xp-mark
+                    box 362.33,628.66 51.51x15.83
+                      text 362.33,628.66 20x15.83 "450" #f0e6d0
+                      box 385.17,629.41 28.67x14.33 Interface\AddOns\OrdaenQuestPage\media\xp-mark
                   text 80.51,645.92 61.67x15.83 "Money" #f0e6d2
                   box 153.55,645.92 260.29x15.83
                     text 358.01,645.92 55.83x15.83 "0g 0s 75c" #e8dcc4

@@ -65,12 +65,12 @@ surface 548.15,192.46 503.7x515.08 on MEDIUM clamped raised by a click
                         box 584.63,390.22 16.67x15.83
                           text 584.63,390.22 8.33x15.83 "1" #ff2020
                           text 592.96,390.22 8.33x15.83 "4" #ff2020
-                        text 606.98,390.22 355.42x15.83 "The Defias Brotherhood" #e8dcc4
-                        text 968.09,398.14 0x0 "" #a3977f
-                        box 973.78,390.22 41.59x15.83
-                          box 973.78,390.22 41.59x15.83
-                            text 973.78,390.22 20x15.83 "420" #a3977f
-                            box 996.62,391.89 18.75x12.5 Interface\AddOns\OrdaenQuestPage\media\xp-mark
+                        text 606.98,390.22 345.5x15.83 "The Defias Brotherhood" #e8dcc4
+                        text 958.17,398.14 0x0 "" #a3977f
+                        box 963.86,390.22 51.51x15.83
+                          box 963.86,390.22 51.51x15.83
+                            text 963.86,390.22 20x15.83 "420" #a3977f
+                            box 986.71,390.97 28.67x14.33 Interface\AddOns\OrdaenQuestPage\media\xp-mark
                       box 584.63,408.9 430.74x12
                         text 584.63,408.9 403.39x12 "Wolves slain" #a3977f
                         text 993.71,408.9 21.67x12 "5/10" #a3977f

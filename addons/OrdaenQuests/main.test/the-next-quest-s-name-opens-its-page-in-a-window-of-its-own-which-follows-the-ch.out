@@ -83,12 +83,12 @@ surface 548.15,192.46 893.38x526.15 on MEDIUM clamped raised by a click
                         box 584.63,477.39 16.67x15.83
                           text 584.63,477.39 8.33x15.83 "1" #ff2020
                           text 592.96,477.39 8.33x15.83 "4" #ff2020
-                        text 606.98,477.39 355.42x15.83 "The Defias Brotherhood" #e8dcc4
-                        text 968.09,485.3 0x0 "" #a3977f
-                        box 973.78,477.39 41.59x15.83
-                          box 973.78,477.39 41.59x15.83
-                            text 973.78,477.39 20x15.83 "420" #a3977f
-                            box 996.62,479.05 18.75x12.5 Interface\AddOns\OrdaenQuestPage\media\xp-mark
+                        text 606.98,477.39 345.5x15.83 "The Defias Brotherhood" #e8dcc4
+                        text 958.17,485.3 0x0 "" #a3977f
+                        box 963.86,477.39 51.51x15.83
+                          box 963.86,477.39 51.51x15.83
+                            text 963.86,477.39 20x15.83 "420" #a3977f
+                            box 986.71,478.14 28.67x14.33 Interface\AddOns\OrdaenQuestPage\media\xp-mark
                       box 584.63,496.06 430.74x12
                         text 584.63,496.06 403.39x12 "Wolves slain" #a3977f
                         text 993.71,496.06 21.67x12 "5/10" #a3977f
@@ -151,9 +151,9 @@ surface 548.15,192.46 893.38x526.15 on MEDIUM clamped raised by a click
                 box 1070.11,576.39 341.47x50.34
                   text 1070.11,576.39 61.67x15.83 "Experience" #f0e6d2
                   box 1143.15,576.39 268.42x15.83
-                    box 1369.98,576.39 41.59x15.83
-                      text 1369.98,576.39 20x15.83 "420" #f0e6d0
-                      box 1392.82,578.05 18.75x12.5 Interface\AddOns\OrdaenQuestPage\media\xp-mark
+                    box 1360.06,576.39 51.51x15.83
+                      text 1360.06,576.39 20x15.83 "420" #f0e6d0
+                      box 1382.91,577.14 28.67x14.33 Interface\AddOns\OrdaenQuestPage\media\xp-mark
                   text 1070.11,593.64 61.67x15.83 "Stormwind" #f0e6d2
                   box 1143.15,593.64 268.42x15.83
                     text 1355.74,593.64 55.83x15.83 "+250 Rep." #f0e6d0

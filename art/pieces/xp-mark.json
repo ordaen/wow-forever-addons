@@ -1,8 +1,11 @@
 {
-  "says": "The mark of experience after an amount of it (OrdaenQuestPage questPage.luna, Experience): the client's «XP» badge cut out of its glow room, so it stands as tall as the digits at a line's height.",
+  "says": "The mark of experience after an amount of it (OrdaenQuestPage questPage.luna, Experience): the client's «XP» letters with their glow, the room over and under them cut off and its cut edges faded, so at a line's height the letters stand as tall as the digits.",
   "ships": ["addons/OrdaenQuestPage/media/xp-mark.tga"],
-  "origin": "The client's atlas member GarrMission_CurrencyIcon-Xp (`lunatype art atlas`), kept in art/sources; its badge's band, 64 x 32 from 16 down.",
+  "origin": "The client's atlas member GarrMission_CurrencyIcon-Xp (`lunatype art atlas`), kept in art/sources.",
   "steps": [
-    { "key": { "in": "art/sources/xp-mark-atlas.png", "out": "addons/OrdaenQuestPage/media/xp-mark.tga", "width": 64, "height": 32 } }
+    { "fit": { "in": "art/sources/xp-mark-atlas.png", "out": "art/out/xp-mark/fit.png", "size": 64, "target": 0.8, "cap": 0.8 } },
+    { "crop": { "in": "art/out/xp-mark/fit.png", "out": "art/out/xp-mark/band.png", "x": 0, "y": 16, "width": 64, "height": 32 } },
+    { "fade": { "in": "art/out/xp-mark/band.png", "out": "art/out/xp-mark/top.png", "texels": 4, "edge": "top" } },
+    { "fade": { "in": "art/out/xp-mark/top.png", "out": "addons/OrdaenQuestPage/media/xp-mark.tga", "texels": 4, "edge": "bottom" } }
   ]
 }
