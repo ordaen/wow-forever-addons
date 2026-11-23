@@ -87,8 +87,8 @@ surface 548.15,192.46 893.38x515.08 on MEDIUM clamped raised by a click
                         text 973.51,485.3 0x0 "" #a3977f
                         box 979.19,477.39 36.18x15.83
                           box 979.19,477.39 36.18x15.83
-                            box 979.19,478.64 13.33x13.33 GarrMission_CurrencyIcon-Xp
-                            text 995.37,477.39 20x15.83 "420" #a3977f
+                            text 979.19,477.39 20x15.83 "420" #a3977f
+                            box 1002.04,478.64 13.33x13.33 GarrMission_CurrencyIcon-Xp
                       box 584.63,496.06 430.74x12
                         text 584.63,496.06 403.39x12 "Wolves slain" #a3977f
                         text 993.71,496.06 21.67x12 "5/10" #a3977f
@@ -119,19 +119,19 @@ surface 548.15,192.46 893.38x515.08 on MEDIUM clamped raised by a click
             box 1090.94,336.13 299.8x20.83 absolute Interface\AddOns\OrdaenQuestPage\media\sheet-bottom
             box 1390.74,336.13 20.83x20.83 absolute Interface\AddOns\OrdaenQuestPage\media\sheet-bottom-right
             box 1070.11,270.83 341.47x86.13 absolute Interface\AddOns\OrdaenQuestPage\media\scroll-paper-tone blend=MOD
-          box 1070.11,368.34 341.47x44.46
-            box 1070.11,368.34 341.47x33.08
+          box 1070.11,368.34 341.47x47.3
+            box 1070.11,368.34 341.47x35.92
               box 1070.11,368.34 341.47x15.83
                 text 1070.11,368.34 50x15.83 "Progress" #e8c35a
                 box 1128.64,372.92 282.93x6.67
                   box 1128.64,372.92 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry tint=#c29a43
                   box 1135.31,372.92 276.27x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip tint=#c29a43
-              box 1070.11,387.02 341.47x14.4
-                box 1070.11,387.02 341.47x14.4
-                  text 1070.11,387.02 309.94x14.4 "Wolves slain" #f0e6d0
-                  text 1385.74,387.02 25.83x14.4 "5/10" #f0e6d0
-            box 1070.11,412.8 341.47x0
-          box 1070.11,424.17 341.47x219.53
+              box 1070.11,389.86 341.47x14.4
+                box 1070.11,389.86 341.47x14.4
+                  text 1070.11,389.86 309.94x14.4 "Wolves slain" #f0e6d0
+                  text 1385.74,389.86 25.83x14.4 "5/10" #f0e6d0
+            box 1070.11,415.64 341.47x0
+          box 1070.11,427.02 341.47x216.69
             box 1070.11,627.04 341.47x16.67 @keyPress @pointerPress
               text 1070.11,627.46 309.8x15.83 "Track" #f0e6d0
               box 1379.91,627.04 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 0 of 4

@@ -1,7 +1,7 @@
 // A quest's scroll folded and unfolded; its rewards' band of experience, reputation and money in one size.
 import { Track } from "$ltml"
 import Test from "$test"
-import { Quality } from "Ordaen"
+import { BRIGHT_TEXT, Quality } from "Ordaen"
 import Locale from "@/locales"
 import { Reward, Rewards, SCROLL_ART, SCROLL_ROW, SCROLL_WIDTH, SHEET_ART, Scroll, ScrollHeading, Standing } from "@/questPage"
 
@@ -112,16 +112,22 @@ test "a section's heading on the parchment stands in the middle of its rule, the
   destroy page
 }
 
-test "experience and each reputation stand a row each: what it is, then how much beside it" {
+test "experience and each reputation stand a row each, off the rewards: what it is in white, how much at the right" {
   const page = new Page()
   Test.mount(page, { left: 0, top: 0, width: 600, height: 600 })
-  const label = Test.page().text(Locale.QUEST_EXPERIENCE).rect()
+  const label = Test.page().text(Locale.QUEST_EXPERIENCE)
   const xp = Test.page().text("1200").rect()
+  const mark = Test.page().box("GarrMission_CurrencyIcon-Xp").rect()
   const faction = Test.page().text("Stormwind").rect()
   const standing = Test.page().text(Locale.QUEST_REPUTATION.format(250)).rect()
-  Test.expect(xp.left > label.right && (xp.top + xp.bottom - label.top - label.bottom).abs() < 4)
-  Test.expect(standing.left > faction.right && (standing.top - faction.top).abs() < 1)
-  Test.expect(faction.top >= label.bottom)
+  Test.expect(label.textColor().equal(BRIGHT_TEXT) && Test.page().text("Stormwind").textColor().equal(BRIGHT_TEXT))
+  // The number, then its mark, both ending at the section's right end with the reputation's amount.
+  Test.expect(mark.left > xp.right && (mark.right - standing.right).abs() < 0.5)
+  Test.expect((standing.top - faction.top).abs() < 1 && faction.top >= label.rect().bottom)
+  // Off the last reward by far more than the rewards are off one another.
+  const four = Test.page().text("Four").item().rect()
+  const three = Test.page().text("Three").item().rect()
+  Test.expect(label.rect().top - four.bottom > (four.top - three.bottom) * 5)
   destroy page
 }
 

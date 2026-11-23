@@ -10,7 +10,7 @@ import {
 } from "$ltml"
 import Runtime from "$runtime"
 import {
-  BODY_TEXT, Component, Cut, ItemButton, Money, PickRow, Quality, SECONDARY_TEXT, TITLE_TEXT, Tip, qualityColor, qualityFrom,
+  BODY_TEXT, BRIGHT_TEXT, Component, Cut, ItemButton, Money, PickRow, Quality, SECONDARY_TEXT, TITLE_TEXT, Tip, qualityColor, qualityFrom,
   usableItem
 } from "Ordaen"
 import Locale from "@/locales"
@@ -43,7 +43,7 @@ public const REWARD_ICON: Number<Length> = 39.84375dp
 const BEST: Color = Color.hex("#40ff40")
 // A section of the rewards: the cut with its title, then its rows, off the section before.
 const SECTION: Edges = { top: 1.5sp, right: 0sp, bottom: 0sp, left: 0sp }
-const SECTION_GAP = 1sp
+const SECTION_GAP = 2sp
 // A section's rows, and its two columns where it has them.
 const ROWS_GAP: Gaps = { columns: 4sp, rows: 0.5sp }
 // Past this many rows a section stands in two columns where its page asks for them (`paired`), each as wide as its
@@ -52,8 +52,11 @@ const PAIRED_PAST = 3
 const PAIRED: Array<Track> = ["max-content", "max-content"]
 
 function columnsFor(paired: Boolean, rows: Integer): Columns { return paired && rows > PAIRED_PAST ? PAIRED : 1 }
-// Experience, each reputation and money, a row each: what it is, then how much, the columns as wide as their widest.
-const GAINS: Array<Track> = ["max-content", "max-content"]
+// Experience, each reputation and money, a row each: what it is, then how much at the section's right end; off the
+// rewards over them by a gap of their own.
+const GAINS: Array<Track> = ["max-content", { fr: 1 }]
+const UNDER_REWARDS: Edges = { top: 1.5sp, right: 0sp, bottom: 0sp, left: 0sp }
+const ALONE: Edges = { top: 0sp, right: 0sp, bottom: 0sp, left: 0sp }
 const KEYCAP: Color = Color.hex("#00000080")
 const KEYCAP_EDGE: Line = { width: 1.171875dp, color: Color.hex("#4a3a24") }
 const KEY_TEXT: Color = Color.hex("#c9a76a")
@@ -419,6 +422,7 @@ public class Rewards implements Component {
   derived banded: Boolean = self.xp > 0 || self.money > 0 || self.standings.length > 0
   // What is given anyway, the rows of gains with it: one section under one cut.
   derived received: Boolean = self.hasAlso || self.banded
+  derived gainsRoom: Edges = self.hasAlso ? UNDER_REWARDS : ALONE
   derived choiceColumns: Columns = columnsFor(self.paired, self.views.length)
   derived alsoColumns: Columns = columnsFor(self.paired, self.also.length)
 
@@ -474,17 +478,19 @@ public class Rewards implements Component {
         <box columns={self.alsoColumns} gap={ROWS_GAP}>
           <RewardRow $for={reward of self.also} reward={reward} />
         </box>
-        <box $if={self.banded} columns={GAINS} gap={ROWS_GAP} yAlign={Align.Center}>
-          <text $if={self.xp > 0} value={Locale.QUEST_EXPERIENCE} textColor={WELL_DIM} wrap={.None} />
-          <box $if={self.xp > 0}>
+        <box $if={self.banded} columns={GAINS} gap={ROWS_GAP} padding={self.gainsRoom} yAlign={Align.Center}>
+          <text $if={self.xp > 0} value={Locale.QUEST_EXPERIENCE} textColor={BRIGHT_TEXT} wrap={.None} />
+          <box $if={self.xp > 0} xAlign={Align.End}>
             <Experience amount={self.xp} />
           </box>
           <$for={standing of self.standings}>
-            <text value={standing.name} textColor={WELL_DIM} wrap={.None} />
-            <text value={Locale.QUEST_REPUTATION.format(standing.amount)} textColor={WELL_TEXT} wrap={.None} />
+            <text value={standing.name} textColor={BRIGHT_TEXT} wrap={.None} />
+            <box xAlign={Align.End}>
+              <text value={Locale.QUEST_REPUTATION.format(standing.amount)} textColor={WELL_TEXT} wrap={.None} />
+            </box>
           </>
-          <text $if={self.money > 0} value={Locale.QUEST_MONEY} textColor={WELL_DIM} wrap={.None} />
-          <box $if={self.money > 0}>
+          <text $if={self.money > 0} value={Locale.QUEST_MONEY} textColor={BRIGHT_TEXT} wrap={.None} />
+          <box $if={self.money > 0} xAlign={Align.End}>
             <Money amount={self.money} />
           </box>
         </box>
@@ -499,8 +505,8 @@ const XP_MARK: Atlas = "GarrMission_CurrencyIcon-Xp"
 public const XP_MARK_SIZE: Number<Length> = 18.75dp
 public const XP_MARK_SMALL: Number<Length> = 16.40625dp
 
-// An amount of experience a quest gives: the client's mark of it, then the number in the letters Money writes its
-// amount in, in one line; the mark says what the number is.
+// An amount of experience a quest gives: the number in the letters Money writes its amount in, then the client's mark
+// of it, in one line; the mark says what the number is.
 public class Experience implements Component {
   derived text: String = String.of(self.amount)
 
@@ -520,8 +526,8 @@ public class Experience implements Component {
   public render(self): Template {
     return $ltml {
       <box columns={["max-content", "max-content"]} gap={1sp} yAlign={Align.Center}>
-        <box width={self.mark} height={self.mark} background={XP_MARK} />
         <text value={self.text} textColor={self.color} textSize={self.textSize} wrap={.None} />
+        <box width={self.mark} height={self.mark} background={XP_MARK} />
       </box>
     }
   }

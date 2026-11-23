@@ -273,7 +273,7 @@ function countOf(text: String): String {
 }
 
 // A section under the scroll: the cut with its title, then what it holds.
-const SECTION_GAP = 1sp
+const SECTION_GAP = 2sp
 // The scroll's row: its least height unfolded, its own height folded.
 function scrollRow(folded: Boolean): Track {
   if (folded) { return "max-content" }

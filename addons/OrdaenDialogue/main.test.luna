@@ -905,10 +905,10 @@ test "a quest's rewards stand at the well's foot, right over the buttons" {
   Test.talk(innkeeper())
   Test.quest(pie())
   Events.QUEST_COMPLETE.emit()
-  // The last reward, then the band of experience and money, then the buttons.
-  const last = window().text("Courier Boots").rect()
+  // The rewards, then the rows of experience and money, the last right over the buttons.
+  const last = window().text("Money").rect()
   const button = window().button("Complete").rect()
-  Test.expect(button.top - last.bottom < 80)
+  Test.expect(last.top > window().text("Courier Boots").rect().bottom && button.top - last.bottom < 40)
 }
 
 test "an option under the cursor is shaded light, plain to see on the dark wood" {

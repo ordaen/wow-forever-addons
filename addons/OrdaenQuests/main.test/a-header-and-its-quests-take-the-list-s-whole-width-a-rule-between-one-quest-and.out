@@ -69,8 +69,8 @@ surface 548.15,192.46 503.7x515.08 on MEDIUM clamped raised by a click
                         text 973.51,398.14 0x0 "" #a3977f
                         box 979.19,390.22 36.18x15.83
                           box 979.19,390.22 36.18x15.83
-                            box 979.19,391.47 13.33x13.33 GarrMission_CurrencyIcon-Xp
-                            text 995.37,390.22 20x15.83 "420" #a3977f
+                            text 979.19,390.22 20x15.83 "420" #a3977f
+                            box 1002.04,391.47 13.33x13.33 GarrMission_CurrencyIcon-Xp
                       box 584.63,408.9 430.74x12
                         text 584.63,408.9 403.39x12 "Wolves slain" #a3977f
                         text 993.71,408.9 21.67x12 "5/10" #a3977f
