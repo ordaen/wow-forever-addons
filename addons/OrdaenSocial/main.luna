@@ -169,10 +169,13 @@ public class Social implements Module, App {
   derived onlineCount: Integer = self.friends.count(friend => friend.presence != .Offline)
   derived guildOnline: Integer = onlineOf(self.guildMembers)
   derived tabs: Array<WindowTabSpec> = [
-    { title: Locale.TAB_FRIENDS, desc: Locale.ONLINE_COUNT.format(self.onlineCount), icon: ICON_FRIENDS },
-    { title: Locale.TAB_GUILD, desc: self.guild != nil ? Locale.ONLINE_COUNT.format(self.guildOnline) : Locale.NO_GUILD_LOWER, icon: ICON_GUILD },
-    { title: Locale.TAB_COMMUNITIES, desc: Locale.COMMUNITIES_COUNT.format(self.clubs.length), icon: ICON_COMMUNITIES },
-    { title: Locale.TAB_ALLIES, desc: Locale.ALLIES_COUNT.format(self.allies.length), icon: ICON_ALLIES },
+    { title: Locale.TAB_FRIENDS, desc: Locale.ONLINE_COUNT.format(self.onlineCount), icon: ICON_FRIENDS, padding: Style.NO_ROOM },
+    {
+      title: Locale.TAB_GUILD, desc: self.guild != nil ? Locale.ONLINE_COUNT.format(self.guildOnline) : Locale.NO_GUILD_LOWER, icon: ICON_GUILD,
+      padding: Style.NO_ROOM
+    },
+    { title: Locale.TAB_COMMUNITIES, desc: Locale.COMMUNITIES_COUNT.format(self.clubs.length), icon: ICON_COMMUNITIES, padding: Style.NO_ROOM },
+    { title: Locale.TAB_ALLIES, desc: Locale.ALLIES_COUNT.format(self.allies.length), icon: ICON_ALLIES, padding: Style.NO_ROOM },
     { title: Locale.TAB_WHISPERS, desc: self.whispersDesc, icon: ICON_WHISPERS }
   ]
   derived whispersDesc: String = self.whispersUnread > 0 ? Locale.UNREAD_COUNT.format(self.whispersUnread) : Locale.TALKS_COUNT.format(self.talks.length)
@@ -864,7 +867,7 @@ public class Social implements Module, App {
       <Window $if={self.open} tabs={self.tabs} selected={mut self.tab} declared={mut self.window} withSettings={true}
               side={self.side} footer={self.footer} @close={self.onClose} @settings={self.onSettings}>
         <box $if={self.tab == TAB_FRIENDS} columns={1} rows={["max-content", { fr: 1 }]} gap={3sp}>
-          <Tabs tabs={self.subTabs} selected={mut self.sub} />
+          <box padding={Style.TOP_ROOM}> <Tabs tabs={self.subTabs} selected={mut self.sub} /> </box>
           <FriendList $if={self.sub == SUB_STATUS} friends={self.friends} picked={self.picked}
                       offline={self.settings.values.offline} kept={mut self.friendsList} @pick={self.onPick} @add={self.onAdd}
                       @menu={self.onFriendMenu} />
@@ -872,7 +875,7 @@ public class Social implements Module, App {
           <IgnoreList $else ignored={self.ignored} @ignore={self.onIgnore} @unignore={self.onUnignore} />
         </box>
         <box $elseif={self.tab == TAB_GUILD && self.guild != nil} columns={1} rows={["max-content", { fr: 1 }]} gap={3sp}>
-          <Tabs tabs={GUILD_SUBS} selected={mut self.guildSub} />
+          <box padding={Style.TOP_ROOM}> <Tabs tabs={GUILD_SUBS} selected={mut self.guildSub} /> </box>
           <MemberTable $if={self.guildSub == SUB_ROSTER} members={self.guildMembers} chosen={self.member}
                        @pick={self.onPickMember} @menu={self.onGuildMenu} />
           <NewsList $else news={self.news} filters={self.newsFilters} @filter={self.onNewsFilter} />
@@ -881,7 +884,7 @@ public class Social implements Module, App {
           <text value={Locale.NO_GUILD} textColor={Style.DIM} wrap={.None} />
         </box>
         <box $elseif={self.tab == TAB_COMMUNITIES && self.clubs.length > 0} columns={1} rows={["max-content", { fr: 1 }]} gap={3sp}>
-          <Tabs tabs={self.clubNames} selected={mut self.clubTab} />
+          <box padding={Style.TOP_ROOM}> <Tabs tabs={self.clubNames} selected={mut self.clubTab} /> </box>
           <MemberTable members={self.clubMembers} chosen={self.clubMember} guild={false} @pick={self.onPickClubMember}
                        @menu={self.onClubMenu} />
         </box>

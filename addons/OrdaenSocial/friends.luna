@@ -326,7 +326,7 @@ public class FriendList implements Component {
   public render(self): Template {
     return $ltml {
       <box columns={1} rows={["max-content", { fr: 1 }]} gap={3sp}>
-        <box columns={[{ fr: 1 }, "max-content"]} gap={3sp} yAlign={Align.Center}>
+        <box columns={[{ fr: 1 }, "max-content"]} gap={3sp} yAlign={Align.Center} padding={Style.SIDE_ROOM}>
           <Toolbar search={mut self.query} placeholder={Locale.SEARCH}>
             <FilterButton values={mut self.kept.values.filter} start={self.filterStarts} groups={FILTERS} />
             <ToolSort sorted={mut self.kept.values.sorted} columns={COLUMNS} title={Locale.SORT} more={MORE_SORTS} />
@@ -600,17 +600,19 @@ public class IgnoreList implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={1} rows={["max-content", { fr: 1 }, "max-content"]} gap={3sp}>
-        <box columns={[{ fr: 1 }, "max-content"]} gap={3sp} yAlign={Align.Center}>
+      <box columns={1} rows={["max-content", "max-content", { fr: 1 }]} gap={3sp}>
+        <box columns={[{ fr: 1 }, "max-content"]} gap={3sp} yAlign={Align.Center} padding={Style.SIDE_ROOM}>
           <Field value={mut self.name} maxLength={48} @submit={self.onIgnore} />
           <PushButton label={Locale.ADD_IGNORE} width={Style.WIDE_BUTTON} @click={self.onIgnore} />
+        </box>
+        <box padding={Style.SIDE_ROOM}>
+          <text value={Locale.IGNORE_HINT} textColor={Style.DIM} textSize={SECONDARY_TEXT} />
         </box>
         <ScrolledList columns={1} gap={2sp}>
           <text value={self.heading} textColor={Style.GOLD} wrap={.None} />
           <text $if={self.ignored.length == 0} value={Locale.IGNORE_EMPTY} textColor={Style.DIM} />
           <IgnoredRow $for={entry of self.ignored} $key={ignoredKey(entry)} entry={entry} @unignore={self.onUnignore} />
         </ScrolledList>
-        <text value={Locale.IGNORE_HINT} textColor={Style.DIM} textSize={SECONDARY_TEXT} />
       </box>
     }
   }

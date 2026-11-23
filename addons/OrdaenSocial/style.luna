@@ -1,7 +1,14 @@
 // The social window's look: its size at the player's scale (the guild window's, one for every tab), the friends' list
 // beside the card, the cards beside a roster, and the colours of who stands how.
+import { Edges } from "$ltml"
 
 public const WIDTH: Number<Length> = 1054.6875dp
+// A list's tab runs to the frame's line on every side and down to the footer (its `padding` none): its list takes the
+// whole section. What stands over the list keeps the window's room: at the top and the sides where it is the first
+// thing (`TOP_ROOM`), at the sides under another (`SIDE_ROOM`).
+public const NO_ROOM: Edges = {}
+public const TOP_ROOM: Edges = { top: 8sp, right: 8sp, left: 8sp }
+public const SIDE_ROOM: Edges = { right: 8sp, left: 8sp }
 public const HEIGHT: Number<Length> = 679.6875dp
 // The friends' list; the card takes the rest.
 public const CARD: Number<Length> = 492.1875dp

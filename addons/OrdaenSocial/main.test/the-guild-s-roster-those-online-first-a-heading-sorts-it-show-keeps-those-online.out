@@ -4,113 +4,115 @@ surface 425,184.12 1039.68x531.75 on MEDIUM clamped raised by a click
   box 425,232.54 1039.68x483.33 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.98, tr 0.78, bl 0.80, br 0.60, top 0.98>0.78 x35.10, bottom 0.80>0.60 x35.10, left 0.98>0.80 x15.78, right 0.78>0.61 x15.78] @drag @dragStart @dragStop @pointerEnter @pointerLeave
     box 432.2,239.74 735.6x468.93
       box 432.2,239.74 735.6x426.52
-        box 454.96,262.5 690.09x386.7
-          box 454.96,262.5 690.09x28.04
-            box 454.96,289.71 690.09x0.83 absolute #3e2f1d
-            box 454.96,262.5 62.76x28.04 #00000059 @keyPress @pointerPress
-              box 455.79,263.33 61.09x1.67 absolute #d6a56b
-              text 467.17,269.02 38.33x15.83 "Roster" #f0e6d2
-            box 520.56,262.5 50.26x28.04 #00000000 @keyPress @pointerPress
-              box 521.39,263.33 48.59x1.67 absolute #00000000
-              text 532.77,269.02 25.83x15.83 "News" #a3977f
-          box 454.96,299.07 690.09x350.12
-            box 454.96,299.07 690.09x28.33
-              box 454.96,299.07 588.02x28.33
-                box 454.96,299.07 588.02x28.33 #00000080 input "" @change @submit
-                box 454.96,299.07 588.02x28.33 absolute
-                  text 463.49,305.32 570.96x15.83 "Search by name, zone, rank or note" #a3977f
-              box 1042.98,299.07 102.07x28.33
-                box 1042.98,299.07 34.02x28.33
-                  box 1048.67,299.07 28.33x28.33
-                    box 1048.67,299.07 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerEnter @pointerLeave @pointerPress
-                      box 1056.17,306.57 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 0 of 16 tint=#e8dcc4
-                box 1077,299.07 34.02x28.33
-                  box 1082.69,299.07 28.33x28.33
-                    box 1082.69,299.07 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerEnter @pointerLeave @pointerPress
-                      box 1090.19,306.57 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 1 of 16 tint=#e8dcc4
-                box 1111.02,299.07 34.02x28.33
-                  box 1116.71,299.07 28.33x28.33
-                    box 1116.71,299.07 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerEnter @pointerLeave @pointerPress
-                      box 1124.21,306.57 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 2 of 16 tint=#e8dcc4
-            box 454.96,335.94 690.09x313.26
-              box 454.96,335.94 690.09x313.26
-                box 454.96,335.94 690.09x313.26 #0000004d
-                  box 455.79,336.77 688.42x33.73
-                    box 464.32,336.77 671.36x33.73 #00000040
-                      box 472.86,336.77 16.67x17.07 #00000000 @keyPress @pointerPress
-                        box 472.86,352.17 16.67x1.67 absolute #00000000
-                        box 472.86,345.31 16.67x0
-                          text 472.86,345.31 0x0 "" #a3977f
-                      box 498.06,336.77 58.33x32.9 #00000000 @keyPress @pointerPress
-                        box 498.06,368.01 58.33x1.67 absolute #00000000
-                        box 506.63,345.31 41.18x15.83
-                          text 506.63,345.31 31.67x15.83 "Level" #cbb994
-                          box 541.14,350.73 6.67x5
-                            box 537.81,346.56 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 tint=#f0c860 opacity=0
-                      box 564.92,336.77 145.54x32.9 #00000000 @keyPress @pointerPress
-                        box 564.92,368.01 145.54x1.67 absolute #00000000
-                        box 564.92,345.31 145.54x15.83
-                          text 564.92,345.31 25.83x15.83 "Name" #cbb994
-                          box 593.6,350.73 6.67x5
-                            box 590.27,346.56 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 tint=#f0c860 opacity=0
-                      box 719,336.77 145.54x32.9 #00000000 @keyPress @pointerPress
-                        box 719,368.01 145.54x1.67 absolute #00000000
-                        box 719,345.31 145.54x15.83
-                          text 719,345.31 25.83x15.83 "Zone" #cbb994
-                          box 747.67,350.73 6.67x5
-                            box 744.34,346.56 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 tint=#f0c860 opacity=0
-                      box 873.07,336.77 100x32.9 #00000000 @keyPress @pointerPress
-                        box 873.07,368.01 100x1.67 absolute #d6a56b
-                        box 873.07,345.31 100x15.83
-                          text 873.07,345.31 25.83x15.83 "Rank" #f0c860
-                          box 901.75,350.73 6.67x5
-                            box 898.41,346.56 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 tint=#f0c860 opacity=1
-                      box 981.6,336.77 145.54x32.9 #00000000 @keyPress @pointerPress
-                        box 981.6,368.01 145.54x1.67 absolute #00000000
-                        box 981.6,345.31 145.54x15.83
-                          text 981.6,345.31 25.83x15.83 "Note" #cbb994
-                          box 1010.28,350.73 6.67x5
-                            box 1006.95,346.56 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 tint=#f0c860 opacity=0
-                  box 455.79,370.51 688.42x277.86 scrolled 0 of 0
-                    box 464.32,379.04 671.36x24.37 #00000000 @keyPress @pointerEnter @pointerLeave @pointerPress
-                      box 472.86,386.23 16.67x10
-                        box 472.86,386.23 10x10 Interface/FriendsFrame/StatusIcon-Online
-                      box 498.06,383.31 58.33x15.83
-                        text 520.14,383.31 14.17x15.83 "25" #e8dcc4 centred
-                      box 564.92,383.31 145.54x15.83
-                        text 564.92,383.31 145.54x15.83 "Torvald" #e8dcc4
-                      box 719,383.31 145.54x15.83
-                        text 719,383.31 145.54x15.83 "Ironforge" #a3977f
-                      box 873.07,383.31 100x15.83
-                        text 873.07,383.31 100x15.83 "Guild Master" #e8dcc4
-                      box 981.6,383.31 145.54x15.83
-                        text 981.6,383.31 145.54x15.83 "the founder" #a3977f
-                    box 464.32,403.41 671.36x24.37 #00000000 @keyPress @pointerEnter @pointerLeave @pointerPress
-                      box 472.86,410.59 16.67x10
-                        box 472.86,410.59 10x10 Interface/FriendsFrame/StatusIcon-Online
-                      box 498.06,407.67 58.33x15.83
-                        text 520.14,407.67 14.17x15.83 "24" #e8dcc4 centred
-                      box 564.92,407.67 145.54x15.83
-                        text 564.92,407.67 145.54x15.83 "Ingrid" #e8dcc4
-                      box 719,407.67 145.54x15.83
-                        text 719,407.67 145.54x15.83 "Stormwind" #a3977f
-                      box 873.07,407.67 100x15.83
-                        text 873.07,407.67 100x15.83 "Officer" #e8dcc4
-                      box 981.6,407.67 145.54x15.83
-                        text 981.6,407.67 145.54x15.83 "heals" #a3977f
-                    box 464.32,427.77 671.36x24.37 #00000000 @keyPress @pointerEnter @pointerLeave @pointerPress
-                      box 472.86,434.96 16.67x10
-                        box 472.86,434.96 10x10 Interface/FriendsFrame/StatusIcon-Offline
-                      box 498.06,432.04 58.33x15.83
-                        text 520.14,432.04 14.17x15.83 "27" #7c848a centred
-                      box 564.92,432.04 145.54x15.83
-                        text 564.92,432.04 145.54x15.83 "Branna" #7c848a
-                      box 719,432.04 145.54x15.83
-                        text 719,432.04 145.54x15.83 "2 d ago" #a3977f
-                      box 873.07,432.04 100x15.83
-                        text 873.07,432.04 100x15.83 "Member" #7c848a
-                      box 981.6,432.04 145.54x15.83
-                        text 981.6,432.04 145.54x15.83 "keeps the bank; ask her before taking anything from its second tab" #a3977f
+        box 432.2,239.74 735.6x426.52
+          box 432.2,239.74 735.6x50.8
+            box 454.96,262.5 690.09x28.04
+              box 454.96,289.71 690.09x0.83 absolute #3e2f1d
+              box 454.96,262.5 62.76x28.04 #00000059 @keyPress @pointerPress
+                box 455.79,263.33 61.09x1.67 absolute #d6a56b
+                text 467.17,269.02 38.33x15.83 "Roster" #f0e6d2
+              box 520.56,262.5 50.26x28.04 #00000000 @keyPress @pointerPress
+                box 521.39,263.33 48.59x1.67 absolute #00000000
+                text 532.77,269.02 25.83x15.83 "News" #a3977f
+          box 432.2,299.07 735.6x367.19
+            box 432.2,299.07 735.6x28.33
+              box 454.96,299.07 690.09x28.33
+                box 454.96,299.07 588.02x28.33
+                  box 454.96,299.07 588.02x28.33 #00000080 input "" @change @submit
+                  box 454.96,299.07 588.02x28.33 absolute
+                    text 463.49,305.32 570.96x15.83 "Search by name, zone, rank or note" #a3977f
+                box 1042.98,299.07 102.07x28.33
+                  box 1042.98,299.07 34.02x28.33
+                    box 1048.67,299.07 28.33x28.33
+                      box 1048.67,299.07 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerEnter @pointerLeave @pointerPress
+                        box 1056.17,306.57 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 0 of 16 tint=#e8dcc4
+                  box 1077,299.07 34.02x28.33
+                    box 1082.69,299.07 28.33x28.33
+                      box 1082.69,299.07 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerEnter @pointerLeave @pointerPress
+                        box 1090.19,306.57 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 1 of 16 tint=#e8dcc4
+                  box 1111.02,299.07 34.02x28.33
+                    box 1116.71,299.07 28.33x28.33
+                      box 1116.71,299.07 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerEnter @pointerLeave @pointerPress
+                        box 1124.21,306.57 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 2 of 16 tint=#e8dcc4
+            box 432.2,335.94 735.6x330.32
+              box 432.2,335.94 735.6x330.32
+                box 432.2,335.94 735.6x330.32 #0000004d
+                  box 433.03,336.77 733.93x33.73
+                    box 441.57,336.77 716.87x33.73 #00000040
+                      box 450.1,336.77 16.67x17.07 #00000000 @keyPress @pointerPress
+                        box 450.1,352.17 16.67x1.67 absolute #00000000
+                        box 450.1,345.31 16.67x0
+                          text 450.1,345.31 0x0 "" #a3977f
+                      box 475.3,336.77 58.33x32.9 #00000000 @keyPress @pointerPress
+                        box 475.3,368.01 58.33x1.67 absolute #00000000
+                        box 483.88,345.31 41.18x15.83
+                          text 483.88,345.31 31.67x15.83 "Level" #cbb994
+                          box 518.39,350.73 6.67x5
+                            box 515.06,346.56 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 tint=#f0c860 opacity=0
+                      box 542.17,336.77 160.71x32.9 #00000000 @keyPress @pointerPress
+                        box 542.17,368.01 160.71x1.67 absolute #00000000
+                        box 542.17,345.31 160.71x15.83
+                          text 542.17,345.31 25.83x15.83 "Name" #cbb994
+                          box 570.84,350.73 6.67x5
+                            box 567.51,346.56 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 tint=#f0c860 opacity=0
+                      box 711.41,336.77 160.71x32.9 #00000000 @keyPress @pointerPress
+                        box 711.41,368.01 160.71x1.67 absolute #00000000
+                        box 711.41,345.31 160.71x15.83
+                          text 711.41,345.31 25.83x15.83 "Zone" #cbb994
+                          box 740.09,350.73 6.67x5
+                            box 736.76,346.56 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 tint=#f0c860 opacity=0
+                      box 880.66,336.77 100x32.9 #00000000 @keyPress @pointerPress
+                        box 880.66,368.01 100x1.67 absolute #d6a56b
+                        box 880.66,345.31 100x15.83
+                          text 880.66,345.31 25.83x15.83 "Rank" #f0c860
+                          box 909.33,350.73 6.67x5
+                            box 906,346.56 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 tint=#f0c860 opacity=1
+                      box 989.19,336.77 160.71x32.9 #00000000 @keyPress @pointerPress
+                        box 989.19,368.01 160.71x1.67 absolute #00000000
+                        box 989.19,345.31 160.71x15.83
+                          text 989.19,345.31 25.83x15.83 "Note" #cbb994
+                          box 1017.87,350.73 6.67x5
+                            box 1014.53,346.56 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 tint=#f0c860 opacity=0
+                  box 433.03,370.51 733.93x294.92 scrolled 0 of 0
+                    box 441.57,379.04 716.87x24.37 #00000000 @keyPress @pointerEnter @pointerLeave @pointerPress
+                      box 450.1,386.23 16.67x10
+                        box 450.1,386.23 10x10 Interface/FriendsFrame/StatusIcon-Online
+                      box 475.3,383.31 58.33x15.83
+                        text 497.38,383.31 14.17x15.83 "25" #e8dcc4 centred
+                      box 542.17,383.31 160.71x15.83
+                        text 542.17,383.31 160.71x15.83 "Torvald" #e8dcc4
+                      box 711.41,383.31 160.71x15.83
+                        text 711.41,383.31 160.71x15.83 "Ironforge" #a3977f
+                      box 880.66,383.31 100x15.83
+                        text 880.66,383.31 100x15.83 "Guild Master" #e8dcc4
+                      box 989.19,383.31 160.71x15.83
+                        text 989.19,383.31 160.71x15.83 "the founder" #a3977f
+                    box 441.57,403.41 716.87x24.37 #00000000 @keyPress @pointerEnter @pointerLeave @pointerPress
+                      box 450.1,410.59 16.67x10
+                        box 450.1,410.59 10x10 Interface/FriendsFrame/StatusIcon-Online
+                      box 475.3,407.67 58.33x15.83
+                        text 497.38,407.67 14.17x15.83 "24" #e8dcc4 centred
+                      box 542.17,407.67 160.71x15.83
+                        text 542.17,407.67 160.71x15.83 "Ingrid" #e8dcc4
+                      box 711.41,407.67 160.71x15.83
+                        text 711.41,407.67 160.71x15.83 "Stormwind" #a3977f
+                      box 880.66,407.67 100x15.83
+                        text 880.66,407.67 100x15.83 "Officer" #e8dcc4
+                      box 989.19,407.67 160.71x15.83
+                        text 989.19,407.67 160.71x15.83 "heals" #a3977f
+                    box 441.57,427.77 716.87x24.37 #00000000 @keyPress @pointerEnter @pointerLeave @pointerPress
+                      box 450.1,434.96 16.67x10
+                        box 450.1,434.96 10x10 Interface/FriendsFrame/StatusIcon-Offline
+                      box 475.3,432.04 58.33x15.83
+                        text 497.38,432.04 14.17x15.83 "27" #7c848a centred
+                      box 542.17,432.04 160.71x15.83
+                        text 542.17,432.04 160.71x15.83 "Branna" #7c848a
+                      box 711.41,432.04 160.71x15.83
+                        text 711.41,432.04 160.71x15.83 "2 d ago" #a3977f
+                      box 880.66,432.04 100x15.83
+                        text 880.66,432.04 100x15.83 "Member" #7c848a
+                      box 989.19,432.04 160.71x15.83
+                        text 989.19,432.04 160.71x15.83 "keeps the bank; ask her before taking anything from its second tab" #a3977f
       box 432.2,666.26 735.6x42.41
         box 432.2,666.26 735.6x42.41 Interface/FrameGeneral/UI-Background-Marble border=Interface\AddOns\Ordaen\media\frame-divider-down sides=top pieces=[top 0.72>0.59 x38.31]
           box 454.96,674.65 690.09x28.33

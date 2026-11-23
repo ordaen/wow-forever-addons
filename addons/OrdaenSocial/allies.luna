@@ -188,10 +188,12 @@ public class AllyList implements Component {
   public render(self): Template {
     return $ltml {
       <box columns={1} rows={["max-content", { fr: 1 }]} gap={3sp}>
-        <Toolbar search={mut self.query} placeholder={Locale.SEARCH}>
-          <FilterButton values={mut self.filter} start={self.filterStarts} groups={self.groups} />
-          <ToolPick value={mut self.sort} choices={SORTS} icon={Ordaen.art.ctl.tool.sort} title={Locale.SORT} />
-        </Toolbar>
+        <box padding={Style.TOP_ROOM}>
+          <Toolbar search={mut self.query} placeholder={Locale.SEARCH}>
+            <FilterButton values={mut self.filter} start={self.filterStarts} groups={self.groups} />
+            <ToolPick value={mut self.sort} choices={SORTS} icon={Ordaen.art.ctl.tool.sort} title={Locale.SORT} />
+          </Toolbar>
+        </box>
         <ScrolledList columns={1} yAlign={Align.Start}>
           <text $if={self.empty} value={self.allies.length == 0 ? Locale.NO_ALLIES : Locale.NOTHING_FOUND} textColor={Style.DIM} />
           <text $if={self.pinned.length > 0} value={Locale.PINNED} textColor={Style.GOLD} wrap={.None} />

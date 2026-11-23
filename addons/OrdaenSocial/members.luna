@@ -235,11 +235,13 @@ public class MemberTable implements Component {
   public render(self): Template {
     return $ltml {
       <box columns={1} rows={["max-content", { fr: 1 }]} gap={3sp}>
-        <Toolbar search={mut self.query} placeholder={Locale.SEARCH_MEMBERS}>
-          <ToolPick value={mut self.show} choices={SHOWS} icon={Ordaen.art.ctl.tool.filter} title={Locale.SHOW} lit={self.lit} />
-          <ToolSort sorted={mut self.sorted} columns={self.columns} title={Locale.SORT} more={MORE_SORTS} />
-          <ToolPick $if={self.guild} value={mut self.extra} choices={EXTRAS} icon={Ordaen.art.ctl.tool.columns} title={Locale.EXTRA_COLUMN} />
-        </Toolbar>
+        <box padding={Style.SIDE_ROOM}>
+          <Toolbar search={mut self.query} placeholder={Locale.SEARCH_MEMBERS}>
+            <ToolPick value={mut self.show} choices={SHOWS} icon={Ordaen.art.ctl.tool.filter} title={Locale.SHOW} lit={self.lit} />
+            <ToolSort sorted={mut self.sorted} columns={self.columns} title={Locale.SORT} more={MORE_SORTS} />
+            <ToolPick $if={self.guild} value={mut self.extra} choices={EXTRAS} icon={Ordaen.art.ctl.tool.columns} title={Locale.EXTRA_COLUMN} />
+          </Toolbar>
+        </box>
         <box $if={self.extra == .Professions} columns={1} rows={[{ fr: 1 }]}>
           <Table columns={PROFESSION_COLUMNS} sorted={mut self.sorted} descending={mut self.descending} rowsVary={true} empty={self.empty}>
             <MemberRow $for={member of self.shown} $key={member.key} member={member} chosen={self.chosen} extra={self.extra}
