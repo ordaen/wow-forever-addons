@@ -167,7 +167,7 @@ public class MoneyLine implements Component {
 }
 
 // Every bag button the game has, in its order: the backpack with the free slots of every bag, the bags, the reagent
-// bag, the keyring.
+// bag, the keyring; a cut before the first, parting them from the money.
 public class BagLine implements Component {
   derived cells: Array<Cell> = Game.bags.buttons.map(button => Cell.Bag { button: button })
 
@@ -186,6 +186,8 @@ public class BagLine implements Component {
   }
 
   public render(self): Template {
-    return $ltml { <CellGroup cells={self.cells} vertical={self.vertical} height={self.height} rise={self.rise} /> }
+    return $ltml {
+      <CellGroup cells={self.cells} vertical={self.vertical} height={self.height} rise={self.rise} leading={true} />
+    }
   }
 }

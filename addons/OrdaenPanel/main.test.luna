@@ -289,13 +289,13 @@ test "the character's button shows the class's icon once chosen" {
   Test.expect(icons.any(icon => Test.page().window("42").paintedWith(icon)))
 }
 
-test "one groove parts each two cells of a group, none before its first" {
+test "one groove parts each two cells of a group, none before the menu's first, one before the bags' first after the money" {
   Game.bags.buttons = bagButtons(frame)
   Test.mount(nil, SCREEN)
   const window = panel()
   Test.expect(!window.box(PROFESSIONS).item().paintedWith(divider()))
   Test.expect(window.box(SPELLBOOK).item().paintedWith(divider()) && window.box(GAME_MENU).item().paintedWith(divider()))
-  Test.expect(!window.box(BACKPACK).item().paintedWith(divider()) && window.box(KEYRING_ICON).item().paintedWith(divider()))
+  Test.expect(window.box(BACKPACK).item().paintedWith(divider()) && window.box(KEYRING_ICON).item().paintedWith(divider()))
 }
 
 test "a groove runs up past the cells to the panel's metal, through the room under it" {
@@ -962,4 +962,13 @@ test "a cell's slot is square, from the panel's metal down, the cut after it its
   // Panel 2's second cell: after the first cut, and over the second, which its light and its clicks take.
   const next = panel().box(CUT_LIP).nth(2).rect()
   Test.expect((ground.left - cut.right).abs() < 0.5 && (ground.right - next.right).abs() < 0.5)
+}
+
+test "the menu's first cell starts where the portrait ends, no gap between them" {
+  Game.player.level = 42
+  Game.bags.buttons = bagButtons(frame)
+  Test.mount(nil, SCREEN)
+  const portrait = Test.page().window("42").rect()
+  const cell = panel().box(CELL).nth(1).rect()
+  Test.expect((cell.left - portrait.right).abs() < 0.5)
 }

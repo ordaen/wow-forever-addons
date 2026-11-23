@@ -49,6 +49,13 @@ public const PORTRAIT_HEIGHT = 124ui
 // The portrait's frame: the windows' own metal along its top and down its right, a third heavier than a window's
 // (6 against 4.5), standing out over the panel's corner.
 const PORTRAIT_FRAME_WEIGHT = 6 / 4.5
+// The face stands inside the frame: the frame's art takes its room inside the portrait's box, on its top and its right.
+function faceTop(): Number<Length> {
+  return reachDown(portraitFrame())
+}
+function faceRight(): Number<Length> {
+  return reachAcross(portraitFrame())
+}
 function portraitFrame(): ArtBorder {
   const metal = Ordaen.art.frame.window
   return { sides: [Side.Top, Side.Right], scale: metal.scale * PORTRAIT_FRAME_WEIGHT, width: metal.width * PORTRAIT_FRAME_WEIGHT, ..metal }
@@ -163,8 +170,7 @@ public class ZoneBox implements Component {
       <box columns={self.columns} rows={self.rows} gap={3sp} xAlign={self.along}
            yAlign={self.across}>
         <$if={self.micro}>
-          <box $if={self.panel.portraitShown} columns={PORTRAIT_ROOM} gap={3sp}
-               yAlign={Align.Center}>
+          <box $if={self.panel.portraitShown} columns={PORTRAIT_ROOM} yAlign={Align.Center}>
             <box width={PORTRAIT_WIDTH} height={1ui} />
             <MicroLine gold={self.panel.goldIcons} faced={false} social={self.social}
                        merged={self.panel.spellsMerged} guildMerged={self.panel.guildMerged} height={self.panel.inside}
@@ -433,10 +439,12 @@ public class Panel implements Module, App {
         // rim, and the character's button of the game's unseen over all of it. Part of the panel: as faint as it, and
         // standing in it, so it comes over the panel each time the panel shows again.
         <surface leading={.Row} $if={self.portraitShown} layer={Layer.Screen} place={CORNER} width={PORTRAIT_WIDTH}
-                 height={PORTRAIT_HEIGHT} portrait={self.face} icon={self.classIcon}
+                 height={PORTRAIT_HEIGHT}
                  opacity={self.opacity} @pointerEnter={self.onPortraitEnter} @pointerLeave={self.onPortraitLeave}>
           <embed frame={Game.frames.CharacterMicroButton} position={Position.Absolute} left={0ui} top={0ui}
                  width={PORTRAIT_WIDTH} height={PORTRAIT_HEIGHT} opacity={0} />
+          <box position={Position.Absolute} left={0ui} top={faceTop()} right={faceRight()} bottom={0ui}
+               portrait={self.face} icon={self.classIcon} />
           // The frame along the top and down the right, over the face.
           <box position={Position.Absolute} left={0ui} top={0ui} width={PORTRAIT_WIDTH} height={PORTRAIT_HEIGHT}
                border={portraitFrame()} />

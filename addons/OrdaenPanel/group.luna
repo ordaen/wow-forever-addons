@@ -54,6 +54,7 @@ public class CellGroup implements Component {
   face: Signal<String | nil>
   icon: Signal<Art | nil>
   rise: Signal<Number<Length>>
+  leading: Signal<Boolean>
   constructor(
     cells: Signal<Array<Cell>>,
     // The menu's icons in one gold.
@@ -65,7 +66,9 @@ public class CellGroup implements Component {
     face: Signal<String | nil> = "player",
     icon: Signal<Art | nil> = nil,
     // How far the dividers reach up past the cells, to meet what holds them (the panel's metal over its room).
-    rise: Signal<Number<Length>> = 0ui
+    rise: Signal<Number<Length>> = 0ui,
+    // A cut before its first cell too: what stands before the group has no edge of its own (the money before the bags).
+    leading: Signal<Boolean> = false
   ) {
     self.cells = cells
     self.gold = gold
@@ -74,6 +77,7 @@ public class CellGroup implements Component {
     self.face = face
     self.icon = icon
     self.rise = rise
+    self.leading = leading
   }
 
   across(self): Array<Track> {
@@ -84,7 +88,7 @@ public class CellGroup implements Component {
   public render(self): Template {
     return $ltml {
       <box columns={self.columns}>
-        <GroupCell $for={index, cell of self.cells} $key={cell} cell={peek cell} first={index == 1}
+        <GroupCell $for={index, cell of self.cells} $key={cell} cell={peek cell} first={index == 1 && !(peek self.leading)}
                    last={index == self.cells.length}
                    gold={self.gold} vertical={self.vertical} size={self.size} face={self.face} icon={self.icon}
                    rise={self.rise} />
