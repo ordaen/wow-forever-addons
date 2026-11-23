@@ -66,7 +66,7 @@ public class GuardKey implements ItemKeys {
     if (slot == nil || slot.id != item) { return NO_KEYS }
     let keys: Array<String> = []
     for (chord of CHORDS) {
-      const name = clickName(slot, actionAt(self.choices.slotClicks, chord), self.bankOpen, self.guildOpen)
+      const name = clickName(slot, actionAt(self.choices.slotPresses, chord), self.bankOpen, self.guildOpen)
       if (name != nil) { keys.push(Locale.KEY_CLICK.format(chordName(chord), name)) }
     }
     return keys

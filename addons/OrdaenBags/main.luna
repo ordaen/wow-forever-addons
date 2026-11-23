@@ -22,7 +22,7 @@ import {
 import { Arranger } from "@/arrange"
 import { BagLine, BagSlotsWindow } from "@/bagSlots"
 import { BANK_ICON, BankBag, BankSlotsWindow, bankInfos } from "@/bank"
-import { Chord, OURS, SlotAction, UseClick, actionAt, chordOf, useClickOf } from "@/clicks"
+import { OURS, SlotAction, UseClick, actionAt, chordOf, useClickOf } from "@/clicks"
 import { Gold } from "@/gold"
 import { Guard, GuardTips, Hovered } from "@/guard"
 import { GUILD_ICON, GuildBank } from "@/guild"
@@ -61,7 +61,7 @@ struct Sale {
 // The guild's money the dialog moves: in, or out.
 enum MoneyMove { Deposit, Withdraw }
 
-const DEFAULTS: Choices = { hidden: [], hideEmpty: false, grouping: {}, junk: JUNK_RULES, slotClicks: OURS, slotGap: SLOT_GAP, slotSize: SLOT_SIZE,
+const DEFAULTS: Choices = { hidden: [], hideEmpty: false, grouping: {}, junk: JUNK_RULES, slotPresses: OURS, slotGap: SLOT_GAP, slotSize: SLOT_SIZE,
   rowLeast: ROW_LEAST
 }
 const NOTHING_KEPT: Kept = { guards: [] }
@@ -109,7 +109,7 @@ public class Bags implements Module, App {
     { title: Locale.PAGE_LOOK, content: $ltml { <LookPage slotSize={mut self.settings.values.slotSize} slotGap={mut self.settings.values.slotGap}
                                                           rowLeast={mut self.settings.values.rowLeast} /> } },
     { title: Locale.PAGE_JUNK, content: $ltml { <JunkPage rules={mut self.settings.values.junk} @reset={self.onResetJunk} /> } },
-    { title: Locale.PAGE_SLOT, content: $ltml { <ClicksPage clicks={mut self.settings.values.slotClicks} /> } }
+    { title: Locale.PAGE_SLOT, content: $ltml { <ClicksPage clicks={mut self.settings.values.slotPresses} /> } }
   ]
   public memory: mut ModuleMemory<Kept> = new ModuleMemory<Kept>(NOTHING_KEPT, .Character)
   // What the player marked and what the bags learned: the active profile's, kept at once as play makes it.
@@ -162,7 +162,7 @@ public class Bags implements Module, App {
   // The header's picks: the view and the sort, kept in the profile as they are picked.
   public list: mut ModuleMemory<BagsView> = new ModuleMemory<BagsView>(BAGS_VIEW, .Profile, "view")
   // The chord a container's slot is used by, the client's own secure click.
-  derived useClick: UseClick = useClickOf(self.settings.values.slotClicks)
+  derived useClick: UseClick = useClickOf(self.settings.values.slotPresses)
   derived bagLines: Array<BagLine> = self.bagLinesOf()
   derived bankBags: Array<BankBag> = self.bankBagsOf()
   derived goldRows: Array<TipRow> = self.gold.rows
@@ -233,7 +233,6 @@ public class Bags implements Module, App {
   // What a pane tells: its slots' clicks and the cursor, its header's and its footer's buttons.
   hear(mut self, pane: Pane) {
     pane.shelf.pressed.listen(self.onPressed)
-    pane.shelf.pressedTwice.listen(self.onPressedTwice)
     pane.shelf.pickup.listen(self.onPickup)
     pane.shelf.entered.listen(self.onEnter)
     pane.shelf.left.listen(self.onLeave)
@@ -447,14 +446,7 @@ public class Bags implements Module, App {
     }
     const chord = chordOf(click.button, Game.input.shiftDown(), Game.input.controlDown(), Game.input.altDown())
     if (chord == nil) { return }
-    self.act(mut slot, actionAt(peek self.settings.values.slotClicks, chord))
-  }
-
-  // A slot's left button pressed twice: the double click's action (a container's use the client did itself).
-  onPressedTwice(mut self, slot: mut Slot) {
-    self.menu = nil
-    if (!self.liveIn(slot.vault)) { return }
-    self.act(mut slot, actionAt(peek self.settings.values.slotClicks, Chord.DoubleLeft))
+    self.act(mut slot, actionAt(peek self.settings.values.slotPresses, chord))
   }
 
   act(mut self, slot: mut Slot, action: SlotAction) {

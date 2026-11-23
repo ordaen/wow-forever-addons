@@ -125,7 +125,6 @@
   "ACT_SOCKET": "Socket",
   "ACT_NOTHING": "Nothing",
   "CHORD_LEFT": "Left-click",
-  "CHORD_DOUBLE_LEFT": "Double left click",
   "CHORD_SHIFT_LEFT": "Shift+Left-click",
   "CHORD_CTRL_LEFT": "Ctrl+Left-click",
   "CHORD_ALT_LEFT": "Alt+Left-click",

@@ -279,7 +279,6 @@ test "a sale by hand at a merchant is said in the chat, and two of a full stack 
   Game.bags.place = Game.BagPlace.Merchant
   _ = Test.printed()
   bags().button(CLOTH).click()
-  bags().button(CLOTH).click()
   Test.expect(Test.performed().join(", ") == "item 0 3")
   world.take(0, 3)
   Game.bags.updated.emit(0)
@@ -287,7 +286,6 @@ test "a sale by hand at a merchant is said in the chat, and two of a full stack 
   world.items.push({ bag: 0, slot: 3, id: 2589, name: "Linen Cloth", icon: CLOTH, count: 20, kind: 7 })
   Game.bags.updated.emit(0)
   Test.expect(!bags().button(CLOTH).paintedWith(COIN))
-  bags().button(CLOTH).click()
   bags().button(CLOTH).click()
   world.take(0, 3)
   Game.bags.updated.emit(0)
@@ -354,13 +352,13 @@ test "the merchant's window sells the bags' junk from its right column, saying w
 // The clicks
 
 test "the client's secure use stands on the scheme's chord for Use: the left in ours, the right as in the game" {
-  Test.expect(actionAt(OURS, .DoubleLeft) == SlotAction.Use && actionAt(OURS, .Left) == SlotAction.Nothing)
+  Test.expect(actionAt(OURS, .Left) == SlotAction.Use)
   Test.expect(actionAt(OURS, .Right) == SlotAction.Menu)
   const ours = useClickOf(OURS)
-  Test.expect(ours.chord == MouseButton.Left && ours.twice)
+  Test.expect(ours.chord == MouseButton.Left)
   const game = useClickOf(AS_THE_GAME)
-  Test.expect(game.chord == MouseButton.Right && !game.twice)
-  const moved = useClickOf({ doubleLeft: .Menu, shiftRight: .Use, ..OURS }).chord
+  Test.expect(game.chord == MouseButton.Right)
+  const moved = useClickOf({ left: .Menu, shiftRight: .Use, ..OURS }).chord
   Test.expect(moved is [Modifier, MouseButton] && moved[1] == Modifier.Shift && moved[2] == MouseButton.Right)
   Test.expect(chordFor(OURS, .Protect) == nil && chordFor(AS_THE_GAME, .Protect) == Chord.AltLeft)
 }
@@ -374,7 +372,7 @@ test "Shift+left set to Pick up picks the item up, and the right opens the menu,
   Game.items.maxStack = (id: Integer): Integer | nil => 20
   Test.mount(nil, SCREEN)
   Game.bags.open = true
-  Bags.settings.change((values: mut Choices): nil => { values.slotClicks = { shiftLeft: .Pickup, ..values.slotClicks } })
+  Bags.settings.change((values: mut Choices): nil => { values.slotPresses = { shiftLeft: .Pickup, ..values.slotPresses } })
   _ = Test.requests()
   Test.hold([.Shift])
   Game.input.shiftDown = (): Boolean => true
@@ -390,7 +388,7 @@ test "Shift+left set to Pick up picks the item up, and the right opens the menu,
 }
 
 test "a chord's row holding the last Use or the last Menu offers nothing else" {
-  Test.expect(choicesFor(OURS, .DoubleLeft).length == 1 && choicesFor(OURS, .Right).length == 1)
+  Test.expect(choicesFor(OURS, .Left).length == 1 && choicesFor(OURS, .Right).length == 1)
   Test.expect(choicesFor(OURS, .ShiftLeft).length == 7)
 }
 
@@ -438,7 +436,7 @@ test "the bank opens in a window of its own beside the bags', its slots read and
   // Two windows: the bags' with the bags alone, and the bank's.
   Test.expect(bags().button(SWORD).shown() && !bags().button(GEM).shown() && !bags().text(Locale.BANK).shown())
   Test.expect(bank().button(GEM).shown() && !bank().button(SWORD).shown())
-  Bags.settings.change((values: mut Choices): nil => { values.slotClicks = { shiftLeft: .Pickup, ..values.slotClicks } })
+  Bags.settings.change((values: mut Choices): nil => { values.slotPresses = { shiftLeft: .Pickup, ..values.slotPresses } })
   _ = Test.requests()
   Game.input.shiftDown = (): Boolean => true
   Test.hold([.Shift])
@@ -513,14 +511,15 @@ test "the bank shut, its window goes and the bags' window has the bank's tab aga
   Test.expect(bags().text(Locale.BANK).shown() && bags().button(SWORD).shown())
 }
 
-test "a scheme saved before the double click is let go: Ordaen's own, with its double click, stands in its place" {
+test "a scheme saved before the left click used is let go: Ordaen's own, with its left click's use, stands in its place" {
   const old: Map<String, Unknown> = {}
-  old["left"] = "use"
+  old["left"] = "nothing"
+  old["doubleLeft"] = "use"
   old["shiftLeft"] = "pickup"
   old["ctrlLeft"] = "send"
   old["right"] = "menu"
   const kept: Map<String, Unknown> = {}
-  kept["clicks"] = old
+  kept["slotClicks"] = old
   kept["slotSize"] = 50
   const settings: Map<String, Unknown> = {}
   settings["OrdaenBags"] = kept
@@ -528,9 +527,9 @@ test "a scheme saved before the double click is let go: Ordaen's own, with its d
   account["settings"] = settings
   Test.saved("LunaTypeDB", account)
   Test.reload()
-  const clicks = Bags.settings.values.slotClicks
-  Test.expect(clicks.left == SlotAction.Nothing && clicks.doubleLeft == SlotAction.Use && clicks.shiftLeft == SlotAction.Nothing)
-  Test.expect(useClickOf(clicks).twice)
+  const clicks = Bags.settings.values.slotPresses
+  Test.expect(clicks.left == SlotAction.Use && clicks.shiftLeft == SlotAction.Nothing)
+  Test.expect(useClickOf(clicks).chord == MouseButton.Left)
 }
 
 test "a mark is the character's: there after a reload, not for another character" {

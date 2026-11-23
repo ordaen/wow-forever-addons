@@ -32,7 +32,7 @@ public struct Choices implements Plain {
   hideEmpty: Boolean
   grouping: Map<Tab, Grouping>
   junk: JunkRules
-  slotClicks: Clicks
+  slotPresses: Clicks
   slotGap: Number = SLOT_GAP
   slotSize: Number = SLOT_SIZE
   rowLeast: Number = ROW_LEAST

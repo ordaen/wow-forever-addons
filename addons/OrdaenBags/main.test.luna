@@ -711,7 +711,7 @@ test "Shift+click set to Pick up on a slot picks its item up, or puts down there
   Test.mount(nil, SCREEN)
   Game.bags.open = true
   pick(Ordaen.art.ctl.tool.categories, "One bag")
-  Bags.settings.change((values: mut Choices): nil => { values.slotClicks = { shiftLeft: .Pickup, ..values.slotClicks } })
+  Bags.settings.change((values: mut Choices): nil => { values.slotPresses = { shiftLeft: .Pickup, ..values.slotPresses } })
   _ = Test.requests()
   Game.input.shiftDown = (): Boolean => true
   Test.hold([.Shift])
@@ -765,7 +765,7 @@ test "a slot's item dragged onto an action bar's button: the client's cursor tak
   Test.expect(kind == "item" && id == 118 && !Client.CursorHasItem())
 }
 
-test "a double left click on a slot is the client's own use of the item; a single one, or two apart, uses nothing" {
+test "a left click on a slot is the client's own use of the item, each click one use" {
   const world = new World(everyday())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
   Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
@@ -773,17 +773,9 @@ test "a double left click on a slot is the client's own use of the item; a singl
   Test.mount(nil, SCREEN)
   Game.bags.open = true
   held(POTION).click()
-  Test.expect(Test.performed().length == 0)
-  // The double-click time gone: the next click is a first again.
-  Test.pass(0.7)
-  held(POTION).click()
-  Test.expect(Test.performed().length == 0)
-  Test.pass(0.7)
-  held(POTION).click()
-  // Half a second apart, as a hand's double click often is.
-  Test.pass(0.5)
-  held(POTION).click()
   Test.expect(Test.performed().join(", ") == "item 0 3" && asked("Bags.follow true, Items.show 118"))
+  held(POTION).click()
+  Test.expect(Test.performed().join(", ") == "item 0 3")
   held(POTION).rightClick()
   Test.expect(Test.performed().length == 0)
 }
@@ -905,7 +897,7 @@ test "a slot's tooltip names what its clicks do there: the use as the item and t
   const tip = Test.page().window("Minor Healing Potion")
   const menu = hint(Locale.CHORD_RIGHT, Locale.ACT_MENU)
   // Ordaen's scheme: the double click's use, the menu; no link while the chat's input is shut, no drag.
-  const use = hint(Locale.CHORD_DOUBLE_LEFT, Locale.ACT_USE)
+  const use = hint(Locale.CHORD_LEFT, Locale.ACT_USE)
   Test.expect(reads(tip, `Minor Healing Potion | ${Locale.PROTECTED} | ${use} | ${menu}`))
   Game.chat.typing = true
   Test.flush()
@@ -914,7 +906,7 @@ test "a slot's tooltip names what its clicks do there: the use as the item and t
   // At a merchant the use sells it.
   Game.bags.place = Game.BagPlace.Merchant
   Test.flush()
-  Test.expect(reads(tip, `Minor Healing Potion | ${Locale.PROTECTED} | ${hint(Locale.CHORD_DOUBLE_LEFT, Locale.USE_SELL)} | ${menu}`))
+  Test.expect(reads(tip, `Minor Healing Potion | ${Locale.PROTECTED} | ${hint(Locale.CHORD_LEFT, Locale.USE_SELL)} | ${menu}`))
   Game.bags.place = Game.BagPlace.None
   // An item the client does nothing with: no use to name.
   spell = nil

@@ -16,10 +16,9 @@ public enum SlotAction implements Plain {
   Nothing = "nothing"
 }
 
-// A button with at most one modifier, or the left one pressed twice in the client's double-click time.
+// A button with at most one modifier.
 public enum Chord implements Plain {
   Left = "left"
-  DoubleLeft = "doubleLeft"
   ShiftLeft = "shiftLeft"
   CtrlLeft = "ctrlLeft"
   AltLeft = "altLeft"
@@ -29,12 +28,11 @@ public enum Chord implements Plain {
   AltRight = "altRight"
 }
 
-public const CHORDS: Array<Chord> = [.Left, .DoubleLeft, .ShiftLeft, .CtrlLeft, .AltLeft, .Right, .ShiftRight, .CtrlRight, .AltRight]
+public const CHORDS: Array<Chord> = [.Left, .ShiftLeft, .CtrlLeft, .AltLeft, .Right, .ShiftRight, .CtrlRight, .AltRight]
 
 // The scheme: one action for each chord.
 public struct Clicks implements Plain {
   left: SlotAction
-  doubleLeft: SlotAction = .Nothing
   shiftLeft: SlotAction
   ctrlLeft: SlotAction
   altLeft: SlotAction
@@ -44,17 +42,17 @@ public struct Clicks implements Plain {
   altRight: SlotAction
 }
 
-// A double left click uses (what the client's use does where the player stands: sells at a merchant, puts into a
-// letter or a trade), a drag picks up (a left click alone does nothing: it puts down what the cursor holds), Right
-// opens the menu (protecting is there), Shift+Right links.
+// A left click uses (what the client's use does where the player stands: sells at a merchant, puts into a letter or a
+// trade) as the button comes up, so a drag, which the client lets no click follow, picks up instead; Right opens the
+// menu (protecting is there), Shift+Right links.
 public const OURS: Clicks = {
-  left: .Nothing, doubleLeft: .Use, shiftLeft: .Nothing, ctrlLeft: .Nothing, altLeft: .Nothing, right: .Menu, shiftRight: .Link,
+  left: .Use, shiftLeft: .Nothing, ctrlLeft: .Nothing, altLeft: .Nothing, right: .Menu, shiftRight: .Link,
   ctrlRight: .Nothing, altRight: .Nothing
 }
 
 // As the game's own slot: Left picks up, Right uses, Shift+Left links, Shift+Right sockets, Ctrl+Right the menu.
 public const AS_THE_GAME: Clicks = {
-  left: .Pickup, doubleLeft: .Nothing, shiftLeft: .Link, ctrlLeft: .Nothing, altLeft: .Protect, right: .Use, shiftRight: .Socket,
+  left: .Pickup, shiftLeft: .Link, ctrlLeft: .Nothing, altLeft: .Protect, right: .Use, shiftRight: .Socket,
   ctrlRight: .Menu, altRight: .Nothing
 }
 
@@ -76,7 +74,6 @@ public function chordOf(button: MouseButton, shift: Boolean, ctrl: Boolean, alt:
 public function actionAt(clicks: Clicks, chord: Chord): SlotAction {
   return match (chord) {
     .Left => clicks.left
-    .DoubleLeft => clicks.doubleLeft
     .ShiftLeft => clicks.shiftLeft
     .CtrlLeft => clicks.ctrlLeft
     .AltLeft => clicks.altLeft
@@ -90,7 +87,6 @@ public function actionAt(clicks: Clicks, chord: Chord): SlotAction {
 public function withAction(clicks: Clicks, chord: Chord, action: SlotAction): Clicks {
   return match (chord) {
     .Left => { left: action, ..clicks }
-    .DoubleLeft => { doubleLeft: action, ..clicks }
     .ShiftLeft => { shiftLeft: action, ..clicks }
     .CtrlLeft => { ctrlLeft: action, ..clicks }
     .AltLeft => { altLeft: action, ..clicks }
@@ -107,23 +103,22 @@ public function chordFor(clicks: Clicks, action: SlotAction): Chord | nil {
 }
 
 // How a slot of the bags or the bank is used: the client's own secure click (`Action.UseBagItem`) on its chord's
-// button, and whether that is the second of a double click (the slot's cover takes the first).
+// button, as the button comes up.
 public struct UseClick {
   chord: KeyBinding<MouseButton>
-  twice: Boolean
 }
 
 // The use on the first chord the scheme gives Use (a scheme always keeps one). A guild bank slot's use is no secure
 // click.
 public function useClickOf(clicks: Clicks): UseClick {
   const chord = chordFor(clicks, .Use) ?? .Left
-  return { chord: bindingOf(chord), twice: chord == Chord.DoubleLeft }
+  return { chord: bindingOf(chord) }
 }
 
 // A chord as the renderer's binding of a button and its modifier.
 public function bindingOf(chord: Chord): KeyBinding<MouseButton> {
   return match (chord) {
-    .Left, .DoubleLeft => MouseButton.Left
+    .Left => MouseButton.Left
     .ShiftLeft => [Modifier.Shift, MouseButton.Left]
     .CtrlLeft => [Modifier.Ctrl, MouseButton.Left]
     .AltLeft => [Modifier.Alt, MouseButton.Left]
@@ -167,7 +162,6 @@ public function actionName(action: SlotAction): String {
 public function chordName(chord: Chord): String {
   return match (chord) {
     .Left => Locale.CHORD_LEFT
-    .DoubleLeft => Locale.CHORD_DOUBLE_LEFT
     .ShiftLeft => Locale.CHORD_SHIFT_LEFT
     .CtrlLeft => Locale.CHORD_CTRL_LEFT
     .AltLeft => Locale.CHORD_ALT_LEFT
