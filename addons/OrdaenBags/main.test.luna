@@ -1848,3 +1848,24 @@ test "the grip narrows a wide window past the row it opened with, down to its le
   narrowest()
   Test.expect(firstSpan() <= 6)
 }
+
+test "the cursor on the client's bag button, where the bottom panel shows it, lights that bag's slots" {
+  const world = new World(everyday())
+  Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.items.icon = (id: Integer): Art | nil => world.icon(id)
+  Test.mount(nil, SCREEN)
+  Game.bags.open = true
+  // The first bag's button: the backpack's potion is another bag's, dimmed while the cursor stays.
+  const frame = Client.CreateFrame("Button", "TestBagButton", Client.UIParent)
+  frame.SetPoint("CENTER", Client.UIParent, "CENTER", 0, 0)
+  frame.SetSize(30, 30)
+  Game.bags.buttons = [{ kind: .Bag, bag: 1, frame: frame, icon: nil }]
+  Test.flush()
+  Test.moveTo(Test.centre(frame))
+  Test.flush()
+  Test.expect(held(POTION).opacity() < 1)
+  Test.moveTo({ x: 5, y: 5 })
+  Test.flush()
+  Test.expect(held(POTION).opacity() == 1)
+}

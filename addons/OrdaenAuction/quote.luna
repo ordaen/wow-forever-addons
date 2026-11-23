@@ -57,8 +57,12 @@ public trait PriceSource {
   public revision: Signal<Integer>
   // What one costs now: the lowest listed where it is 48 hours old or less, the market otherwise.
   public buy(self, key: PriceKey): Quote | nil
-  // What one brings: the lesser of the market and a fresh lowest, less the house's cut.
+  // What one is listed for: the lesser of the market and a fresh lowest.
+  public listed(self, key: PriceKey): Quote | nil
+  // What one brings: what it is listed for, less the house's cut.
   public sell(self, key: PriceKey): Quote | nil
+  // The house's cut of a sale, in percent.
+  public cut(self): Integer
   // What a merchant asks for one; merchants don't change prices, so it has no age.
   public vendor(self, item: ItemId): Copper | nil
 }
