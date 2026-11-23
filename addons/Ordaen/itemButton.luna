@@ -184,6 +184,7 @@ public class ItemButton implements Component {
   currency: Signal<Integer | nil>
   cooldown: Signal<FillDuration | nil>
   mail: Signal<[Integer, Integer] | nil>
+  bag: Signal<[Integer, Integer] | nil>
   well: Signal<SlotWell>
   cursor: Signal<Cursor | nil>
   tipped: Signal<Boolean>
@@ -211,6 +212,9 @@ public class ItemButton implements Component {
     // The attachment of a letter of the open mailbox it shows (the letter's place in the inbox, the attachment's in
     // the letter): its tooltip is the game's of that attachment, as the game's open letter shows it.
     mail: Signal<[Integer, Integer] | nil> = nil,
+    // The slot of the player's bags or bank it shows (the client's bag and slot): its tooltip is that very item's (bound
+    // or not, how worn), as the game's bags show it, not the item's by its number.
+    bag: Signal<[Integer, Integer] | nil> = nil,
     // The spell it shows, in place of an item (a spellbook's slot, its icon the `art`): its tooltip and its link are
     // the spell's, as the game's spellbook gives them.
     spell: Signal<Integer | nil> = nil,
@@ -233,6 +237,7 @@ public class ItemButton implements Component {
     self.currency = currency
     self.spell = spell
     self.mail = mail
+    self.bag = bag
     self.art = art
     self.linkOnShift = linkOnShift
     self.actsOnPress = actsOnPress
@@ -292,6 +297,7 @@ public class ItemButton implements Component {
     _ = self.worn
     _ = self.spell
     _ = self.mail
+    _ = self.bag
     _ = self.currency
     _ = self.count
     const frame = peek self.hoveredBy
@@ -308,6 +314,7 @@ public class ItemButton implements Component {
     const worn = self.worn
     const spell = self.spell
     const mail = self.mail
+    const bag = self.bag
     const currency = self.currency
     if (spell != nil) {
       Game.items.showSpell(frame, spell)
@@ -317,6 +324,8 @@ public class ItemButton implements Component {
       Game.items.showMail(frame, mail[1], mail[2])
     } else if (item != nil && worn != nil) {
       Game.items.showWorn(frame, worn)
+    } else if (item != nil && bag != nil) {
+      Game.items.showBag(frame, bag[1], bag[2])
     } else if (item != nil) {
       Game.items.show(frame, item)
     }

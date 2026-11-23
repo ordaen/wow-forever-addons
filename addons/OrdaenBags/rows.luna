@@ -112,6 +112,8 @@ class BagSlot implements Component {
   derived count: Integer = self.slot.count
   derived quality: Quality = self.slot.quality
   // At a merchant, the client's coin bag: red over what he gives nothing for.
+  // Its place in the player's bags or bank while that is open: its tooltip that very item's (bound or not).
+  derived place: [Integer, Integer] | nil = self.slot.vault == Vault.Guild || !self.shelf.live ? nil : [self.slot.bag, self.slot.index]
   derived cursor: Cursor | nil = self.slot.id == 0 || !self.shelf.live || self.shelf.filter.place != Game.BagPlace.Merchant ? nil :
     self.slot.read.price > 0 ? Cursor.Buy : Cursor.BuyError
   derived coin: Boolean = self.slot.junk && self.slot.id != 0
@@ -162,7 +164,7 @@ class BagSlot implements Component {
   public render(self): Template {
     return $ltml {
       <ItemButton item={self.item} count={self.count} quality={self.quality} dimmed={self.dimmed} size={self.shelf.slot} well={SlotWell.Crested}
-                  action={self.action} linkOnShift={false} cursor={self.cursor} @pressed={self.onPressed} @dragged={self.onPickup}
+                  action={self.action} linkOnShift={false} cursor={self.cursor} bag={self.place} @pressed={self.onPressed} @dragged={self.onPickup}
                   @dropped={self.onPickup} @entered={self.onEnter} @left={self.onLeave}>
         <box $if={self.questMark != nil} position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui}
              background={self.questMark} zLevel={1} />

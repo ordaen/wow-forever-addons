@@ -453,12 +453,12 @@ test "the cursor on a new item: new no more, its glow gone, the game told, and �
   Test.expect(held(SHIRT).paintedWith(NEW_GLOW) && !held(SWORD).paintedWith(NEW_GLOW))
   _ = Test.requests()
   held(SHIRT).hover()
-  Test.expect(asked("Items.show 2575, Bags.seen 0 9"))
+  Test.expect(asked("Items.showBag 0 9, Bags.seen 0 9"))
   Test.expect(!held(SHIRT).paintedWith(NEW_GLOW) && !bags().text("New").shown())
   // Looked at again: nothing more to tell.
   held(SWORD).hover()
   held(SHIRT).hover()
-  Test.expect(asked("Items.show 25, Items.show 2575"))
+  Test.expect(asked("Items.showBag 0 4, Items.showBag 0 9"))
 }
 
 test "«New» picked shows the new items in one section; once none is new the window shows every item" {
@@ -720,7 +720,7 @@ test "Shift+click set to Pick up on a slot picks its item up, or puts down there
   Test.hold([.Shift])
   nth(3).click()
   nth(6).click()
-  Test.expect(asked("Items.show 118, Bags.pickup 0 3, Bags.pickup 0 6"))
+  Test.expect(asked("Items.showBag 0 3, Bags.pickup 0 3, Bags.pickup 0 6"))
 }
 
 test "a slot dragged picks its item up, and let go on another slot puts it down there, as a click does" {
@@ -779,7 +779,7 @@ test "a left click on a slot is the client's own use of the item, each click one
   Test.mount(nil, SCREEN)
   Game.bags.open = true
   held(POTION).click()
-  Test.expect(Test.performed().join(", ") == "item 0 3" && asked("Bags.follow true, Items.show 118"))
+  Test.expect(Test.performed().join(", ") == "item 0 3" && asked("Bags.follow true, Items.showBag 0 3"))
   held(POTION).click()
   Test.expect(Test.performed().join(", ") == "item 0 3")
   // The slot placed again (the window resized): its hover's highlight still lets the press through to the use.
@@ -807,7 +807,7 @@ test "Shift+right-click puts the item's link into the chat" {
   Game.input.shiftDown = (): Boolean => true
   Test.hold([.Shift])
   held(POTION).rightClick()
-  Test.expect(asked("Bags.follow true, Items.show 118, Chat.link 118"))
+  Test.expect(asked("Bags.follow true, Items.showBag 0 3, Chat.link 118"))
 }
 
 // Where the player stands
