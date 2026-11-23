@@ -306,3 +306,29 @@ test "a slot's count is written in the numbers' font, outlined, so it reads on a
   const told = Test.page().text("20").told()
   Test.expect(told.contains("textFont=numbers") && told.contains("textOutline=1"))
 }
+
+// A slot whose item the test changes: an item equipped from it, the worn one landing in its place.
+class Swapped {
+  state item: Integer | nil = 6948
+  public render(self): Template {
+    return $ltml { <ItemButton item={self.item} /> }
+  }
+}
+
+test "the cursor on a slot whose item changes: the tooltip shown again of the new one, hidden once it holds nothing" {
+  Game.items.icon = (id: Integer): Art | nil => "Interface/Icons/INV_Misc_Bag_08"
+  const page = new Swapped()
+  Test.mount(page, { left: 0, top: 0, width: 200, height: 100 })
+  Test.moveTo({ x: 10, y: 10 })
+  Test.expect(Test.requests().join(", ").contains("Items.show 6948"))
+  page.item = 2589
+  Test.flush()
+  Test.expect(Test.requests().join(", ").contains("Items.show 2589"))
+  page.item = nil
+  Test.flush()
+  Test.expect(Test.requests().join(", ").contains("Items.hideAt"))
+  Test.moveTo({ x: 190, y: 90 })
+  page.item = 774
+  Test.flush()
+  Test.expect(!Test.requests().join(", ").contains("Items.show"))
+}

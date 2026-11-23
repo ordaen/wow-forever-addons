@@ -167,6 +167,8 @@ public class ItemButton implements Component {
   derived framed: Boolean = self.crested && self.lit
   derived iconMask: Asset | nil = self.crested ? ICON_MASK : nil
 
+  // The frame its `enter` handed, while the cursor is on it.
+  state hoveredBy: any Frame | nil = nil
   item: Signal<Integer | nil>
   count: Signal<Integer>
   quality: Signal<Quality>
@@ -242,6 +244,9 @@ public class ItemButton implements Component {
     self.markers = markers
     self.size = size
     self.action = action
+    // What it holds changing under the cursor (an item equipped from it, the worn one landing there): its tooltip
+    // follows.
+    watch { self.retip() }
   }
 
   iconOf(self): Art | nil {
@@ -274,11 +279,31 @@ public class ItemButton implements Component {
 
   // The game's tooltip of the item beside the slot, of a worn one its slot's; the game hides it when the cursor
   // leaves.
-  onEnter(self, frame: any Frame) {
-    if (!self.tipped) {
-      self.entered.emit()
+  onEnter(mut self, frame: any Frame) {
+    self.hoveredBy = frame
+    if (self.tipped) { self.tip(frame) }
+    self.entered.emit()
+  }
+
+  // What it holds changed while the cursor is on it: the tooltip shown again, of what it holds now; none where it
+  // holds nothing.
+  retip(self) {
+    const item = self.item
+    _ = self.worn
+    _ = self.spell
+    _ = self.mail
+    _ = self.currency
+    _ = self.count
+    const frame = peek self.hoveredBy
+    if (frame == nil || !(peek self.tipped)) { return }
+    if (item == nil && peek self.spell == nil && peek self.currency == nil) {
+      Game.items.hideAt(frame)
       return
     }
+    self.tip(frame)
+  }
+
+  tip(self, frame: any Frame) {
     const item = self.item
     const worn = self.worn
     const spell = self.spell
@@ -295,10 +320,12 @@ public class ItemButton implements Component {
     } else if (item != nil) {
       Game.items.show(frame, item)
     }
-    self.entered.emit()
   }
 
-  onLeave(self) { self.left.emit() }
+  onLeave(mut self) {
+    self.hoveredBy = nil
+    self.left.emit()
+  }
 
   onClick(self, click: Event.Press) {
     const item = self.item
