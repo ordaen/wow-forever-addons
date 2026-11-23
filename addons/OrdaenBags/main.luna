@@ -192,6 +192,7 @@ public class Bags implements Module, App {
     )
     Ordaen.modules.add(self)
     Game.bags.updated.listen(self.onUpdated)
+    Game.bags.loaded.listen(self.onLoaded)
     Game.bankObserver.changed.listen(self.onBankChanged)
     self.guild.slots.listen(self.readGuild)
     self.hear(self.main)
@@ -350,6 +351,13 @@ public class Bags implements Module, App {
   }
 
   // A bag the game told changed: its slots read again; another size, every bag.
+  // An item the client loaded: each bag holding it read before it was is read again, its verdict with it.
+  onLoaded(mut self, item: Integer) {
+    for (place, slots of self.carried.bags) {
+      if (slots.any(slot => peek slot.id == item && !slot.read.loaded)) { self.onUpdated(place - 1) }
+    }
+  }
+
   onUpdated(mut self, bag: Integer) {
     const changed = self.carried.update(bag + 1, Game.bags.size(bag), peek self.junkLists.values, peek self.settings.values.junk)
     if (changed == nil) {

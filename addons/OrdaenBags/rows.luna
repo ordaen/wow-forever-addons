@@ -36,6 +36,10 @@ const REAGENT = 5
 const QUEST = 12
 // How far apart two left clicks are a double click: past Windows' own default (0.5 s), which players' hands follow.
 const DOUBLE_TIME = 0.6
+// The game's marks over a quest's item: its border, and the «!» of one that starts a quest not yet taken
+// (`TEXTURE_ITEM_QUEST_BORDER`, `TEXTURE_ITEM_QUEST_BANG`).
+const QUEST_BORDER: Asset = "Interface/ContainerFrame/UI-Icon-QuestBorder"
+const QUEST_BANG: Asset = "Interface/ContainerFrame/UI-Icon-QuestBang"
 
 // What leaves a slot dimmed: the search's text (lower case), where the player stands, and the bag lit in the bag
 // slots' window (-1 for none).
@@ -109,6 +113,7 @@ class BagSlot implements Component {
   derived count: Integer = self.slot.count
   derived quality: Quality = self.slot.quality
   derived coin: Boolean = self.slot.junk && self.slot.id != 0
+  derived questMark: Asset | nil = self.slot.startsQuest ? QUEST_BANG : self.slot.questItem ? QUEST_BORDER : nil
   // A container's item is used by the client's secure click, on the scheme's chord for Use; a guild bank's has none,
   // nor a copy of a vault that isn't open.
   derived action: Action | nil = self.slot.vault == Vault.Guild || !self.shelf.live ? nil : Action.UseBagItem {
@@ -178,6 +183,8 @@ class BagSlot implements Component {
       <ItemButton item={self.item} count={self.count} quality={self.quality} dimmed={self.dimmed} size={self.shelf.slot} well={SlotWell.Crested}
                   action={self.action} actsOnPress={self.twice} linkOnShift={false} @pressed={self.onPressed} @dragged={self.onPickup}
                   @dropped={self.onPickup} @entered={self.onEnter} @left={self.onLeave}>
+        <box $if={self.questMark != nil} position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui}
+             background={self.questMark} zLevel={1} />
         <box $if={self.slot.isNew} position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui}
              background={Ordaen.art.ctl.qualityRim} tint={NEW_GLOW} zLevel={2} />
         <box $if={self.slot.guarded} position={Position.Absolute} left={2.34375dp} top={2.34375dp} width={LOCK} height={LOCK}

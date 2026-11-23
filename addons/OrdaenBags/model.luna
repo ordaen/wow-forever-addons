@@ -111,6 +111,9 @@ public class Slot {
   public state guarded = false
   // Whether its item is junk: the coin in its corner.
   public state junk = false
+  // The client's quest marks: a quest's item (its border), one that starts a quest not yet taken (its «!»).
+  public state questItem = false
+  public state startsQuest = false
   // What the item is named in lower case, for the search: made again only when another item comes into the slot.
   public lower = ""
   // Its tab, by the verdict and its class; why it is junk, where it is.
@@ -128,11 +131,13 @@ public class Slot {
   }
 
   // Read again from the game: what changed (`MOVED`: another item lies there, `COUNTED`: its count, `MARKED`: whether it
-  // is new, `JUDGED`: its verdict), nought for nothing or a lock alone. The verdict is worked out for a new item only.
+  // is new, `JUDGED`: its verdict), nought for nothing or a lock alone. The verdict is worked out for a new item, and
+  // again once the client loaded an item read before it was (its price and level unknown till then).
   public refresh(mut self, lists: JunkLists, rules: JunkRules): Integer {
     const was = peek self.id
     const wasCount = peek self.count
     const wasNew = peek self.isNew
+    const wasLoaded = self.read.loaded
     let changed = 0
     if (!readIn(self.vault, self.bag, self.index, mut self.read)) {
       self.id = 0
@@ -143,16 +148,16 @@ public class Slot {
       self.why = nil
     } else {
       const item = self.read
-      if (item.id != was) {
-        self.lower = item.name.lower()
-        changed = self.judge(lists, rules)
-      }
+      if (item.id != was) { self.lower = item.name.lower() }
+      if (item.id != was || (item.loaded && !wasLoaded)) { changed = self.judge(lists, rules) }
       self.id = item.id
       self.count = item.count
       self.quality = qualityOf(item.quality)
       self.isNew = item.isNew
       self.locked = item.locked
     }
+    self.questItem = self.read.id != 0 && self.read.questItem
+    self.startsQuest = self.read.id != 0 && self.read.startsQuest
     if (peek self.id != was) { changed = Client.bit.bor(changed, MOVED) }
     if (peek self.count != wasCount) { changed += COUNTED }
     if (peek self.isNew != wasNew) { changed += MARKED }
