@@ -25,13 +25,21 @@ box 0,0 760x585.04
         box 248.98,127.64 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
     box 0,157.36 760x28.33
       box 0,157.36 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+        box 3.32,171.52 0x0
         text 52.5,164.32 20x14.4 "New" #f0e6d2
+        box 121.68,171.52 0x0
       box 132.11,157.36 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+        box 135.43,171.52 0x0
         text 175.44,164.32 38.33x14.4 "Rename" #ffd100
+        box 253.79,171.52 0x0
       box 264.22,157.36 125x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+        box 267.54,171.52 0x0
         text 307.56,164.32 38.33x14.4 "Delete" #808080
+        box 385.9,171.52 0x0
       box 396.33,157.36 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+        box 399.65,171.52 0x0
         text 443,164.32 31.67x14.4 "Reset" #ffd100
+        box 518.01,171.52 0x0
     text 0,197.07 760x14.4 "Enter a name." #ffa194
   box 0,227.11 760x103.53
     box 0,227.11 760x14.4
@@ -71,11 +79,17 @@ box 0,0 760x585.04
     box 0,453.67 760x91.67 #0d0a08 input "" lines clipped @change
     box 0,556.71 760x28.33
       box 0,556.71 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+        box 3.32,570.88 0x0
         text 43.33,563.68 38.33x14.4 "Export" #ffd100
+        box 121.68,570.88 0x0
       box 132.11,556.71 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+        box 135.43,570.88 0x0
         text 175.44,563.68 38.33x14.4 "Import" #ffd100
+        box 253.79,570.88 0x0
       box 264.22,556.71 125x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+        box 267.54,570.88 0x0
         text 307.56,563.68 38.33x14.4 "Create" #808080
+        box 385.9,570.88 0x0
 
 -- New: «Raid» made as a copy and picked on the page; the character still uses Default; Delete on
 box 0,0 760x638.69
@@ -104,13 +118,21 @@ box 0,0 760x638.69
         box 248.98,127.64 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
     box 0,157.36 760x28.33
       box 0,157.36 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+        box 3.32,171.52 0x0
         text 52.5,164.32 20x14.4 "New" #f0e6d2
+        box 121.68,171.52 0x0
       box 132.11,157.36 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+        box 135.43,171.52 0x0
         text 175.44,164.32 38.33x14.4 "Rename" #ffd100
+        box 253.79,171.52 0x0
       box 264.22,157.36 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+        box 267.54,171.52 0x0
         text 307.56,164.32 38.33x14.4 "Delete" #ffd100
+        box 385.9,171.52 0x0
       box 396.33,157.36 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+        box 399.65,171.52 0x0
         text 443,164.32 31.67x14.4 "Reset" #ffd100
+        box 518.01,171.52 0x0
     text 0,197.07 760x14.4 "Profile «Raid» made." #a3977f
   box 0,227.11 760x103.53
     box 0,227.11 760x14.4
@@ -149,7 +171,9 @@ box 0,0 760x638.69
             box 425.69,379.57 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
       box 0,411.78 760x28.33
         box 0,411.78 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+          box 3.32,425.94 0x0
           text 49.58,418.74 25.83x14.4 "Copy" #ffd100
+          box 121.68,425.94 0x0
   box 0,455.76 760x182.93
     box 0,455.76 760x14.4
       text 0,455.76 31.67x14.4 "Share" #e8c35a
@@ -160,11 +184,17 @@ box 0,0 760x638.69
     box 0,507.31 760x91.67 #0d0a08 input "" lines clipped @change
     box 0,610.36 760x28.33
       box 0,610.36 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+        box 3.32,624.52 0x0
         text 43.33,617.32 38.33x14.4 "Export" #ffd100
+        box 121.68,624.52 0x0
       box 132.11,610.36 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+        box 135.43,624.52 0x0
         text 175.44,617.32 38.33x14.4 "Import" #ffd100
+        box 253.79,624.52 0x0
       box 264.22,610.36 125x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+        box 267.54,624.52 0x0
         text 307.56,617.32 38.33x14.4 "Create" #808080
+        box 385.9,624.52 0x0
 
 -- Rename: «Raid» is «Raiding», a note says so
 box 0,0 760x638.69
@@ -193,13 +223,21 @@ box 0,0 760x638.69
         box 248.98,127.64 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
     box 0,157.36 760x28.33
       box 0,157.36 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+        box 3.32,171.52 0x0
         text 52.5,164.32 20x14.4 "New" #ffd100
+        box 121.68,171.52 0x0
       box 132.11,157.36 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+        box 135.43,171.52 0x0
         text 175.44,164.32 38.33x14.4 "Rename" #f0e6d2
+        box 253.79,171.52 0x0
       box 264.22,157.36 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+        box 267.54,171.52 0x0
         text 307.56,164.32 38.33x14.4 "Delete" #ffd100
+        box 385.9,171.52 0x0
       box 396.33,157.36 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+        box 399.65,171.52 0x0
         text 443,164.32 31.67x14.4 "Reset" #ffd100
+        box 518.01,171.52 0x0
     text 0,197.07 760x14.4 "Profile renamed to «Raiding»." #a3977f
   box 0,227.11 760x103.53
     box 0,227.11 760x14.4
@@ -238,7 +276,9 @@ box 0,0 760x638.69
             box 425.69,379.57 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
       box 0,411.78 760x28.33
         box 0,411.78 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+          box 3.32,425.94 0x0
           text 49.58,418.74 25.83x14.4 "Copy" #ffd100
+          box 121.68,425.94 0x0
   box 0,455.76 760x182.93
     box 0,455.76 760x14.4
       text 0,455.76 31.67x14.4 "Share" #e8c35a
@@ -249,11 +289,17 @@ box 0,0 760x638.69
     box 0,507.31 760x91.67 #0d0a08 input "" lines clipped @change
     box 0,610.36 760x28.33
       box 0,610.36 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+        box 3.32,624.52 0x0
         text 43.33,617.32 38.33x14.4 "Export" #ffd100
+        box 121.68,624.52 0x0
       box 132.11,610.36 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+        box 135.43,624.52 0x0
         text 175.44,617.32 38.33x14.4 "Import" #ffd100
+        box 253.79,624.52 0x0
       box 264.22,610.36 125x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+        box 267.54,624.52 0x0
         text 307.56,617.32 38.33x14.4 "Create" #808080
+        box 385.9,624.52 0x0
 
 -- Delete on the account's default: refused, a red line says why
 box 0,0 760x638.69
@@ -282,13 +328,21 @@ box 0,0 760x638.69
         box 248.98,127.64 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
     box 0,157.36 760x28.33
       box 0,157.36 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+        box 3.32,171.52 0x0
         text 52.5,164.32 20x14.4 "New" #ffd100
+        box 121.68,171.52 0x0
       box 132.11,157.36 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+        box 135.43,171.52 0x0
         text 175.44,164.32 38.33x14.4 "Rename" #ffd100
+        box 253.79,171.52 0x0
       box 264.22,157.36 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+        box 267.54,171.52 0x0
         text 307.56,164.32 38.33x14.4 "Delete" #f0e6d2
+        box 385.9,171.52 0x0
       box 396.33,157.36 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+        box 399.65,171.52 0x0
         text 443,164.32 31.67x14.4 "Reset" #ffd100
+        box 518.01,171.52 0x0
     text 0,197.07 760x14.4 "This is the account default. Pick another profile as the account default first." #ffa194
   box 0,227.11 760x103.53
     box 0,227.11 760x14.4
@@ -327,7 +381,9 @@ box 0,0 760x638.69
             box 425.69,379.57 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
       box 0,411.78 760x28.33
         box 0,411.78 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+          box 3.32,425.94 0x0
           text 49.58,418.74 25.83x14.4 "Copy" #ffd100
+          box 121.68,425.94 0x0
   box 0,455.76 760x182.93
     box 0,455.76 760x14.4
       text 0,455.76 31.67x14.4 "Share" #e8c35a
@@ -338,11 +394,17 @@ box 0,0 760x638.69
     box 0,507.31 760x91.67 #0d0a08 input "" lines clipped @change
     box 0,610.36 760x28.33
       box 0,610.36 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+        box 3.32,624.52 0x0
         text 43.33,617.32 38.33x14.4 "Export" #ffd100
+        box 121.68,624.52 0x0
       box 132.11,610.36 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+        box 135.43,624.52 0x0
         text 175.44,617.32 38.33x14.4 "Import" #ffd100
+        box 253.79,624.52 0x0
       box 264.22,610.36 125x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+        box 267.54,624.52 0x0
         text 307.56,617.32 38.33x14.4 "Create" #808080
+        box 385.9,624.52 0x0
 
 -- Delete on «Raiding»: the question, nothing gone yet
 box 0,0 760x612.91
@@ -371,13 +433,21 @@ box 0,0 760x612.91
         box 248.98,127.64 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
     box 0,157.36 760x28.33
       box 0,157.36 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+        box 3.32,171.52 0x0
         text 52.5,164.32 20x14.4 "New" #ffd100
+        box 121.68,171.52 0x0
       box 132.11,157.36 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+        box 135.43,171.52 0x0
         text 175.44,164.32 38.33x14.4 "Rename" #ffd100
+        box 253.79,171.52 0x0
       box 264.22,157.36 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+        box 267.54,171.52 0x0
         text 307.56,164.32 38.33x14.4 "Delete" #f0e6d2
+        box 385.9,171.52 0x0
       box 396.33,157.36 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+        box 399.65,171.52 0x0
         text 443,164.32 31.67x14.4 "Reset" #ffd100
+        box 518.01,171.52 0x0
   box 0,201.33 760x103.53
     box 0,201.33 760x14.4
       text 0,201.33 44.17x14.4 "Use for" #e8c35a
@@ -415,7 +485,9 @@ box 0,0 760x612.91
             box 425.69,353.79 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
       box 0,386 760x28.33
         box 0,386 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+          box 3.32,400.17 0x0
           text 49.58,392.97 25.83x14.4 "Copy" #ffd100
+          box 121.68,400.17 0x0
   box 0,429.98 760x182.93
     box 0,429.98 760x14.4
       text 0,429.98 31.67x14.4 "Share" #e8c35a
@@ -426,11 +498,17 @@ box 0,0 760x612.91
     box 0,481.53 760x91.67 #0d0a08 input "" lines clipped @change
     box 0,584.58 760x28.33
       box 0,584.58 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+        box 3.32,598.74 0x0
         text 43.33,591.54 38.33x14.4 "Export" #ffd100
+        box 121.68,598.74 0x0
       box 132.11,584.58 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+        box 135.43,598.74 0x0
         text 175.44,591.54 38.33x14.4 "Import" #ffd100
+        box 253.79,598.74 0x0
       box 264.22,584.58 125x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+        box 267.54,598.74 0x0
         text 307.56,591.54 38.33x14.4 "Create" #808080
+        box 385.9,598.74 0x0
 surface 0,0 1600x900 on DIALOG #0000008c
   box 593.83,381.07 412.33x137.87 Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.84, tr 0.79, bl 0.81, br 0.76, top 0.84>0.79 x20.48, bottom 0.81>0.76 x20.48, left 0.84>0.81 x6.18, right 0.79>0.76 x6.18]
     text 618.54,422.84 362.91x31.67 "Delete profile «Raiding»? Characters that use it switch to the next profile in order." #e8dcc4
@@ -438,9 +516,13 @@ surface 0,0 1600x900 on DIALOG #0000008c
       box 618.54,465.89 132.02x0
       box 750.57,465.89 230.89x28.33
         box 750.57,465.89 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+          box 753.89,480.06 0x0
           text 781.4,472.14 38.33x15.83 "Cancel" #ffd100
+          box 847.25,480.06 0x0
         box 857.68,465.89 116.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+          box 861,480.06 0x0
           text 896.84,472.14 38.33x15.83 "Delete" #ffd100
+          box 971.02,480.06 0x0
     box 598.33,397.23 403.33x17.5 absolute
       text 750,397.23 100x17.5 "Delete profile" #ffd100
 
@@ -471,13 +553,21 @@ box 0,0 760x585.04
         box 248.98,127.64 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
     box 0,157.36 760x28.33
       box 0,157.36 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+        box 3.32,171.52 0x0
         text 52.5,164.32 20x14.4 "New" #ffd100
+        box 121.68,171.52 0x0
       box 132.11,157.36 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+        box 135.43,171.52 0x0
         text 175.44,164.32 38.33x14.4 "Rename" #ffd100
+        box 253.79,171.52 0x0
       box 264.22,157.36 125x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+        box 267.54,171.52 0x0
         text 307.56,164.32 38.33x14.4 "Delete" #808080
+        box 385.9,171.52 0x0
       box 396.33,157.36 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+        box 399.65,171.52 0x0
         text 443,164.32 31.67x14.4 "Reset" #ffd100
+        box 518.01,171.52 0x0
     text 0,197.07 760x14.4 "Profile «Raiding» deleted." #a3977f
   box 0,227.11 760x103.53
     box 0,227.11 760x14.4
@@ -517,8 +607,14 @@ box 0,0 760x585.04
     box 0,453.67 760x91.67 #0d0a08 input "" lines clipped @change
     box 0,556.71 760x28.33
       box 0,556.71 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+        box 3.32,570.88 0x0
         text 43.33,563.68 38.33x14.4 "Export" #ffd100
+        box 121.68,570.88 0x0
       box 132.11,556.71 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+        box 135.43,570.88 0x0
         text 175.44,563.68 38.33x14.4 "Import" #ffd100
+        box 253.79,570.88 0x0
       box 264.22,556.71 125x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+        box 267.54,570.88 0x0
         text 307.56,563.68 38.33x14.4 "Create" #808080
+        box 385.9,570.88 0x0

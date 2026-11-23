@@ -161,18 +161,26 @@ surface 391.67,175.79 816.67x548.42 on MEDIUM clamped raised by a click
         box 398.87,674.45 802.27x42.56
           box 421.62,674.45 317.07x28.33
             box 421.62,674.45 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+              box 424.94,688.62 0x0
               text 455.79,680.7 31.67x15.83 "Reset" #ffd100
+              box 518.3,688.62 0x0
             box 530.16,674.45 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+              box 533.48,688.62 0x0
               text 545.99,680.7 68.33x15.83 "Disable all" #ffd100
+              box 626.84,688.62 0x0
             box 638.69,674.45 100x28.33
               box 638.69,674.45 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+                box 642.01,688.62 0x0
                 text 675.77,680.7 25.83x15.83 "Sets" #ffd100
+                box 735.37,688.62 0x0
           box 755.76,688.62 263.69x0
           box 1036.51,674.45 141.87x28.33
             box 1036.51,688.62 0x0 @pointerEnter @pointerLeave
               text 1036.51,688.62 0x0 "" #f0c860
             box 1045.04,674.45 133.33x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 secure @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+              box 1048.36,688.62 0x0
               text 1092.54,680.7 38.33x15.83 "Reload" #ffd100
+              box 1175.06,688.62 0x0
     box 1186.58,702.46 13.33x13.33 absolute
       box 1186.58,702.46 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 391.67,175.79 816.67x50.67

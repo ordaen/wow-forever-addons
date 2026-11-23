@@ -11,7 +11,9 @@ surface 500,281.62 839.68x336.75 on MEDIUM clamped raised by a click
             text 529.96,583.4 44.17x15.83 "5 items" #ffffff
             box 591.19,591.32 361.79x0
             box 970.04,577.15 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+              box 973.36,591.32 0x0
               text 1007.13,583.4 25.83x15.83 "Scan" #ffd100
+              box 1066.72,591.32 0x0
     box 1092.8,325.57 239.68x285.6
       box 1095.5,325.57 236.98x285.6
         box 1118.26,348.33 191.47x248.62 #30302a

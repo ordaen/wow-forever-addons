@@ -17,7 +17,9 @@ box 0,0 800x1621.69
         text 0,65.23 665.04x14.4 "Minimal" #f0e6d2
         text 0,81.06 665.04x12 "Flat, fine lines, hardly any textures or animations" #a3977f
       box 675,64.98 125x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+        box 678.32,79.14 0x0
         text 727.5,71.94 20x14.4 "Use" #ffd100
+        box 796.68,79.14 0x0
   box 0,108.96 800x173.24
     box 0,108.96 800x14.4
       text 0,108.96 31.67x14.4 "Fonts" #e8c35a
@@ -277,13 +279,17 @@ box 0,0 800x1622.2
         text 0,26.03 665.04x14.4 "Ordaen" #f0e6d2
         text 0,41.86 665.04x12 "Blizzard's look in our style: bronze, dark wood, our own fonts" #a3977f
       box 675,25.78 125x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+        box 678.32,39.94 0x0
         text 727.5,32.74 20x14.4 "Use" #ffd100
+        box 796.68,39.94 0x0
     box 0,65.49 800x28.33
       box 0,65.74 665.04x27.82
         text 0,65.74 665.04x14.4 "Minimal" #f0e6d2
         text 0,81.57 665.04x12 "Flat, fine lines, hardly any textures or animations" #a3977f
       box 675,65.49 125x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+        box 678.32,79.66 0x0
         text 727.5,72.46 20x14.4 "Use" #ffd100
+        box 796.68,79.66 0x0
   box 0,109.47 800x173.24
     box 0,109.47 800x14.4
       text 0,109.47 31.67x14.4 "Fonts" #e8c35a
@@ -549,7 +555,9 @@ box 0,0 800x1621.69
         text 0,65.23 665.04x14.4 "Minimal" #f0e6d2
         text 0,81.06 665.04x12 "Flat, fine lines, hardly any textures or animations" #a3977f
       box 675,64.98 125x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+        box 678.32,79.14 0x0
         text 727.5,71.94 20x14.4 "Use" #ffd100
+        box 796.68,79.14 0x0
   box 0,108.96 800x173.24
     box 0,108.96 800x14.4
       text 0,108.96 31.67x14.4 "Fonts" #e8c35a

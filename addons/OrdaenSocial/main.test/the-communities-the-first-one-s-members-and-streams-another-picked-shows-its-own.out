@@ -95,15 +95,17 @@ surface 425,184.12 1039.68x531.75 on MEDIUM clamped raised by a click
                         text 981.6,415.59 145.54x0 "" #a3977f
       box 432.2,666.12 735.6x42.56
         box 432.2,666.12 735.6x42.56
-          box 454.96,673.62 581.76x13.33
+          box 454.96,673.62 578.03x13.33
             box 454.96,673.62 51.87x13.33
               text 454.96,673.62 36.67x13.33 "Members" #a3977f
               text 500.16,673.62 6.67x13.33 "2" #e8dcc4
             box 523.89,673.62 46.87x13.33
               text 523.89,673.62 31.67x13.33 "Online" #a3977f
               text 564.09,673.62 6.67x13.33 "1" #e8dcc4
-          box 1036.71,666.12 108.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-            text 1045.04,672.37 91.67x15.83 "Blizzard window" #ffd100
+          box 1032.99,666.12 112.06x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+            box 1036.31,680.29 0x0
+            text 1043.18,672.37 91.67x15.83 "Blizzard window" #ffd100
+            box 1141.72,680.29 0x0
     box 1167.8,239.74 289.68x468.93
       box 1170.5,239.74 286.98x468.93
         box 1193.26,262.5 241.47x431.96

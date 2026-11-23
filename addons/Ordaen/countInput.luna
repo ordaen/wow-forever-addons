@@ -100,13 +100,13 @@ public class CountInput implements Component {
   public render(self): Template {
     return $ltml {
       <box columns={STEPS} gap={2sp} yAlign={Align.Center}>
-        <PushButton label={"-"} width={self.step} disabled={!self.fewer} repeats={true} tip={FEWER_TIP}
+        <PushButton label={"-"} width={self.step} glyph={true} disabled={!self.fewer} repeats={true} tip={FEWER_TIP}
                     @click={self.less} />
         <box xAlign={Align.Center} width={NUMBER_BOUNDS}>
           <text value={"%d"} arguments={[self.value]} textColor={BRIGHT_TEXT}
                 textFont={.Numbers} wrap={.None} />
         </box>
-        <PushButton label={"+"} width={self.step} disabled={!self.more} repeats={true} tip={MORE_TIP}
+        <PushButton label={"+"} width={self.step} glyph={true} disabled={!self.more} repeats={true} tip={MORE_TIP}
                     @click={self.raise} />
       </box>
     }

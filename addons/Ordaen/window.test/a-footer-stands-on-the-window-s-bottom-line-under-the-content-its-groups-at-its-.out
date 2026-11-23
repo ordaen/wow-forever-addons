@@ -8,10 +8,14 @@ surface 600,281.62 400x336.75 on MEDIUM clamped raised by a click
       box 607.2,568.62 385.6x42.56
         box 607.2,568.62 385.6x42.56
           box 629.96,568.62 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+            box 633.28,582.79 0x0
             text 664.12,574.87 31.67x15.83 "Reset" #ffd100
+            box 726.64,582.79 0x0
           text 747.02,574.87 105.96x15.83 "2 waiting" #ffffff
           box 870.04,568.62 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+            box 873.36,582.79 0x0
             text 907.13,574.87 25.83x15.83 "Save" #ffd100
+            box 966.72,582.79 0x0
     box 978.25,596.62 13.33x13.33 absolute
       box 978.25,596.62 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 600,281.62 400x39

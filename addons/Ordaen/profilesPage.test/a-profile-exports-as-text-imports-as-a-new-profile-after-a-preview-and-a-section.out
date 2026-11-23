@@ -26,13 +26,21 @@ box 0,0 760x674.18
         box 248.98,127.64 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
     box 0,157.36 760x28.33
       box 0,157.36 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+        box 3.32,171.52 0x0
         text 52.5,164.32 20x14.4 "New" #ffd100
+        box 121.68,171.52 0x0
       box 132.11,157.36 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+        box 135.43,171.52 0x0
         text 175.44,164.32 38.33x14.4 "Rename" #ffd100
+        box 253.79,171.52 0x0
       box 264.22,157.36 125x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+        box 267.54,171.52 0x0
         text 307.56,164.32 38.33x14.4 "Delete" #808080
+        box 385.9,171.52 0x0
       box 396.33,157.36 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+        box 399.65,171.52 0x0
         text 443,164.32 31.67x14.4 "Reset" #ffd100
+        box 518.01,171.52 0x0
     text 0,197.07 760x14.4 "Text made: 1233 characters." #a3977f
   box 0,227.11 760x103.53
     box 0,227.11 760x14.4
@@ -87,11 +95,17 @@ box 0,0 760x674.18
     box 0,542.8 760x91.67 #0d0a08 input "ORDAEN:1:bVRraBRXFK6pSilBpAQrVXxRfCAiUkRUZPEVtfiOFJVSvDv33Jm7e/fOeGcm2Y22ICJSRERE/KGiMb4KIlJERKRYK6UVoyJRW4OPvEw0xCAaYoyK99zZ2WzA+TOHme985/Wdc4xKkgF7ETASisDxwQq4K/3a9CpFCcg5wnXTG4YsujgllQMh3Kp1kA2OEzKIJPsSjWMurunYMZbYfYmO78xD1CBq5YiMEU9u4FOHiIa/T3Ud/n0aUX2JA7tXPZ5LNzpJEUIxX1eb2LVw/zZEt3xmHkTf3Tb024fTRzm2glwxui1PaPebqmA6HpfpYnR77f0v53nHEd18tqy6cclZRHdV9Nz8f8ROJ0lUudJ9gCRUg2BOKANQoCOCZK4i0oaYZ+uZL2ZMfJZDntvJFXde/vYOeVqWXfppZuJnSwGNgSd3Ti0pXXYJgV4/sG2/qcauIkpxV1mB5naAUC7t2PFe1B50bMc8y7agY2fUa04kzxAckeUyltJ5Y5GhjssECUSeajXhslB53bAfBo/cFyLfk/Oz1w9PrkS+1hGY3/eUuTJwGFekgkifeYqDH0CVwwNg0cBjmqP5IjRN0+3WTfN/nYU07Z17HXVuPCOWBf0hm7HXtfdNs/OmKpgOhlygZWV7QQUozrjp8wBhTf/myB+V/6L/88U1169s/wr9m8zYyrBnMfA6fqhuROC9Z9n6968uIPCxFoAuGqgKOc3Pz9ZeA0Jc3fPj5O6/0PNpfzkdkTRSmOJS3UtQhd7QDLHBiJv5DskQSVG+oFw7jFtlvsQBWk065Rjgrofi24wBsvuCy6lf3toeETgpijLlpt3FyXU2oy6/Rt/YVAWT4iLEyP9M6ssRGZuqYKaxjJVhJgnKF7rZugo9e6UTxbAxxQNsxNU9SFH36oJu959mWJhnb0MkhUJNetbjrh1CaGyqgomaFq6VZpXcFRDkX7Fry7hrB080r0PXO3pVtnbuRddHxsLVpsX1N+np/3N+tjkEetuy9R/MsppdnZqKiAccDrpxtN5Lk1deOhr/HHUfXHZwZsXoF9JsmFFXqVlcRNcbiknR0n9i2xtKDBahNVHBqUhZxdSPehsmaDWZxHW5FT23TOJ47UafYdFJXZ85bVOQPg9yTLoqQ0RamhmtdUNJXzMfX363HX30wXdcFYBvEQF9iTfRXRTRz3J01/88YgF4PAui243+rFZgcV+fiZL8IV/iuH6wtCbi+fwj" lines typing selected 0..1233 clipped @change
     box 0,645.84 760x28.33
       box 0,645.84 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+        box 3.32,660.01 0x0
         text 43.33,652.81 38.33x14.4 "Export" #f0e6d2
+        box 121.68,660.01 0x0
       box 132.11,645.84 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+        box 135.43,660.01 0x0
         text 175.44,652.81 38.33x14.4 "Import" #ffd100
+        box 253.79,660.01 0x0
       box 264.22,645.84 125x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+        box 267.54,660.01 0x0
         text 307.56,652.81 38.33x14.4 "Create" #808080
+        box 385.9,660.01 0x0
 
 -- Import: the preview says each module in the text: installed, off, or not installed and kept
 box 0,0 760x751.51
@@ -120,13 +134,21 @@ box 0,0 760x751.51
         box 248.98,127.64 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
     box 0,157.36 760x28.33
       box 0,157.36 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+        box 3.32,171.52 0x0
         text 52.5,164.32 20x14.4 "New" #ffd100
+        box 121.68,171.52 0x0
       box 132.11,157.36 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+        box 135.43,171.52 0x0
         text 175.44,164.32 38.33x14.4 "Rename" #ffd100
+        box 253.79,171.52 0x0
       box 264.22,157.36 125x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+        box 267.54,171.52 0x0
         text 307.56,164.32 38.33x14.4 "Delete" #808080
+        box 385.9,171.52 0x0
       box 396.33,157.36 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+        box 399.65,171.52 0x0
         text 443,164.32 31.67x14.4 "Reset" #ffd100
+        box 518.01,171.52 0x0
     text 0,197.07 760x14.4 "The text holds profile «Default». Create makes it a new profile." #a3977f
   box 0,227.11 760x103.53
     box 0,227.11 760x14.4
@@ -181,11 +203,17 @@ box 0,0 760x751.51
     box 0,542.8 760x91.67 #0d0a08 input "ORDAEN:1:bVRraBRXFK6pSilBpAQrVXxRfCAiUkRUZPEVtfiOFJVSvDv33Jm7e/fOeGcm2Y22ICJSRERE/KGiMb4KIlJERKRYK6UVoyJRW4OPvEw0xCAaYoyK99zZ2WzA+TOHme985/Wdc4xKkgF7ETASisDxwQq4K/3a9CpFCcg5wnXTG4YsujgllQMh3Kp1kA2OEzKIJPsSjWMurunYMZbYfYmO78xD1CBq5YiMEU9u4FOHiIa/T3Ud/n0aUX2JA7tXPZ5LNzpJEUIxX1eb2LVw/zZEt3xmHkTf3Tb024fTRzm2glwxui1PaPebqmA6HpfpYnR77f0v53nHEd18tqy6cclZRHdV9Nz8f8ROJ0lUudJ9gCRUg2BOKANQoCOCZK4i0oaYZ+uZL2ZMfJZDntvJFXde/vYOeVqWXfppZuJnSwGNgSd3Ti0pXXYJgV4/sG2/qcauIkpxV1mB5naAUC7t2PFe1B50bMc8y7agY2fUa04kzxAckeUyltJ5Y5GhjssECUSeajXhslB53bAfBo/cFyLfk/Oz1w9PrkS+1hGY3/eUuTJwGFekgkifeYqDH0CVwwNg0cBjmqP5IjRN0+3WTfN/nYU07Z17HXVuPCOWBf0hm7HXtfdNs/OmKpgOhlygZWV7QQUozrjp8wBhTf/myB+V/6L/88U1169s/wr9m8zYyrBnMfA6fqhuROC9Z9n6968uIPCxFoAuGqgKOc3Pz9ZeA0Jc3fPj5O6/0PNpfzkdkTRSmOJS3UtQhd7QDLHBiJv5DskQSVG+oFw7jFtlvsQBWk065Rjgrofi24wBsvuCy6lf3toeETgpijLlpt3FyXU2oy6/Rt/YVAWT4iLEyP9M6ssRGZuqYKaxjJVhJgnKF7rZugo9e6UTxbAxxQNsxNU9SFH36oJu959mWJhnb0MkhUJNetbjrh1CaGyqgomaFq6VZpXcFRDkX7Fry7hrB080r0PXO3pVtnbuRddHxsLVpsX1N+np/3N+tjkEetuy9R/MsppdnZqKiAccDrpxtN5Lk1deOhr/HHUfXHZwZsXoF9JsmFFXqVlcRNcbiknR0n9i2xtKDBahNVHBqUhZxdSPehsmaDWZxHW5FT23TOJ47UafYdFJXZ85bVOQPg9yTLoqQ0RamhmtdUNJXzMfX363HX30wXdcFYBvEQF9iTfRXRTRz3J01/88YgF4PAui243+rFZgcV+fiZL8IV/iuH6wtCbi+fwj" lines selected 0..1233 clipped @change
     box 0,645.84 760x28.33
       box 0,645.84 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+        box 3.32,660.01 0x0
         text 43.33,652.81 38.33x14.4 "Export" #ffd100
+        box 121.68,660.01 0x0
       box 132.11,645.84 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+        box 135.43,660.01 0x0
         text 175.44,652.81 38.33x14.4 "Import" #f0e6d2
+        box 253.79,660.01 0x0
       box 264.22,645.84 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+        box 267.54,660.01 0x0
         text 307.56,652.81 38.33x14.4 "Create" #ffd100
+        box 385.9,660.01 0x0
     text 0,685.56 760x14.4 "General — settings that differ: 0" #e8dcc4
     text 0,711.33 760x14.4 "Themes — settings that differ: 0" #e8dcc4
     text 0,737.11 760x14.4 "OrdaenGhost — not installed: will be kept" #a3977f
@@ -217,13 +245,21 @@ box 0,0 760x816.96
         box 248.98,127.64 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
     box 0,157.36 760x28.33
       box 0,157.36 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+        box 3.32,171.52 0x0
         text 52.5,164.32 20x14.4 "New" #ffd100
+        box 121.68,171.52 0x0
       box 132.11,157.36 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+        box 135.43,171.52 0x0
         text 175.44,164.32 38.33x14.4 "Rename" #ffd100
+        box 253.79,171.52 0x0
       box 264.22,157.36 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+        box 267.54,171.52 0x0
         text 307.56,164.32 38.33x14.4 "Delete" #ffd100
+        box 385.9,171.52 0x0
       box 396.33,157.36 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+        box 399.65,171.52 0x0
         text 443,164.32 31.67x14.4 "Reset" #ffd100
+        box 518.01,171.52 0x0
     text 0,197.07 760x14.4 "Profile «Copy» made." #a3977f
   box 0,227.11 760x103.53
     box 0,227.11 760x14.4
@@ -277,7 +313,9 @@ box 0,0 760x816.96
           box 248.98,471.2 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=1
       box 0,500.91 760x28.33
         box 0,500.91 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+          box 3.32,515.08 0x0
           text 49.58,507.88 25.83x14.4 "Copy" #ffd100
+          box 121.68,515.08 0x0
   box 0,544.89 760x272.07
     box 0,544.89 760x14.4
       text 0,544.89 31.67x14.4 "Share" #e8c35a
@@ -303,11 +341,17 @@ box 0,0 760x816.96
     box 0,685.58 760x91.67 #0d0a08 input "" lines typing clipped @change
     box 0,788.62 760x28.33
       box 0,788.62 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+        box 3.32,802.79 0x0
         text 43.33,795.59 38.33x14.4 "Export" #ffd100
+        box 121.68,802.79 0x0
       box 132.11,788.62 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+        box 135.43,802.79 0x0
         text 175.44,795.59 38.33x14.4 "Import" #ffd100
+        box 253.79,802.79 0x0
       box 264.22,788.62 125x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+        box 267.54,802.79 0x0
         text 307.56,795.59 38.33x14.4 "Create" #808080
+        box 385.9,802.79 0x0
 
 -- the text without «Themes»: the preview counts what differs from the settings now
 box 0,0 760x868.51
@@ -336,13 +380,21 @@ box 0,0 760x868.51
         box 248.98,127.64 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
     box 0,157.36 760x28.33
       box 0,157.36 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+        box 3.32,171.52 0x0
         text 52.5,164.32 20x14.4 "New" #ffd100
+        box 121.68,171.52 0x0
       box 132.11,157.36 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+        box 135.43,171.52 0x0
         text 175.44,164.32 38.33x14.4 "Rename" #ffd100
+        box 253.79,171.52 0x0
       box 264.22,157.36 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+        box 267.54,171.52 0x0
         text 307.56,164.32 38.33x14.4 "Delete" #ffd100
+        box 385.9,171.52 0x0
       box 396.33,157.36 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+        box 399.65,171.52 0x0
         text 443,164.32 31.67x14.4 "Reset" #ffd100
+        box 518.01,171.52 0x0
     text 0,197.07 760x14.4 "The text holds profile «Default». Create makes it a new profile." #a3977f
   box 0,227.11 760x103.53
     box 0,227.11 760x14.4
@@ -396,7 +448,9 @@ box 0,0 760x868.51
           box 248.98,471.2 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=1
       box 0,500.91 760x28.33
         box 0,500.91 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+          box 3.32,515.08 0x0
           text 49.58,507.88 25.83x14.4 "Copy" #ffd100
+          box 121.68,515.08 0x0
   box 0,544.89 760x323.62
     box 0,544.89 760x14.4
       text 0,544.89 31.67x14.4 "Share" #e8c35a
@@ -422,10 +476,16 @@ box 0,0 760x868.51
     box 0,685.58 760x91.67 #0d0a08 input "ORDAEN:1:JY7BCsIwEERFP8yLqDfFk9c1maShyW7JJqCfY09+oAXBi62Zy8A8ZpjRMiX4HRzVWDqFKUFYx/6ULYEPnWg5PqGGIjauhdf08hasoTwcS04Ue67phnyRyvbtdDGdfAsV2kkubeK7/az+ig3ul/rMBjLAEO6IkzRyzjBB5y/rHw==" lines selected 0..181 clipped @change
     box 0,788.62 760x28.33
       box 0,788.62 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+        box 3.32,802.79 0x0
         text 43.33,795.59 38.33x14.4 "Export" #ffd100
+        box 121.68,802.79 0x0
       box 132.11,788.62 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+        box 135.43,802.79 0x0
         text 175.44,795.59 38.33x14.4 "Import" #f0e6d2
+        box 253.79,802.79 0x0
       box 264.22,788.62 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+        box 267.54,802.79 0x0
         text 307.56,795.59 38.33x14.4 "Create" #ffd100
+        box 385.9,802.79 0x0
     text 0,828.33 760x14.4 "General — settings that differ: 1" #e8dcc4
     text 0,854.11 760x14.4 "OrdaenGhost — not installed: will be kept" #a3977f

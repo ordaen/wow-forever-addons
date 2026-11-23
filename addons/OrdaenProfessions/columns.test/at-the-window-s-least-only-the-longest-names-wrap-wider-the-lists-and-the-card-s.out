@@ -143,7 +143,9 @@ surface 288,134.12 899.01x443.93 on MEDIUM clamped raised by a click
                       text 1036.76,517.48 8.33x15.83 "+" #808080
                   box 1061.12,525.4 0x0
                   box 1069.66,511.23 91.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+                    box 1072.98,525.4 0x0
                     text 1096.32,517.48 38.33x15.83 "Create" #ffd100
+                    box 1158,525.4 0x0
                   text 851.01,548.1 310.31x0 "" #a3977f
       box 295.2,570.85 884.61x0
     box 1165.26,556.3 13.33x13.33 absolute
@@ -312,7 +314,9 @@ surface 288,134.12 1312x443.93 on MEDIUM clamped raised by a click
                       text 1146.67,517.48 8.33x15.83 "+" #808080
                   box 1171.03,525.4 303.08x0
                   box 1482.64,511.23 91.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+                    box 1485.96,525.4 0x0
                     text 1509.31,517.48 38.33x15.83 "Create" #ffd100
+                    box 1570.99,525.4 0x0
                   text 960.92,548.1 613.39x0 "" #a3977f
       box 295.2,570.85 1297.6x0
     box 1578.25,556.3 13.33x13.33 absolute

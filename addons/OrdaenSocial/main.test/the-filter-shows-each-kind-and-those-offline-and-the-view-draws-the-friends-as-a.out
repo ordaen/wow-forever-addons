@@ -37,7 +37,9 @@ surface 425,184.12 1139.68x531.75 on MEDIUM clamped raised by a click
                       box 999.84,299.07 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerEnter @pointerLeave @pointerPress
                         box 1007.34,306.57 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 5 of 16 tint=#e8dcc4
               box 1036.71,299.07 108.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+                box 1040.03,313.24 0x0
                 text 1060.04,305.32 61.67x15.83 "Add Friend" #ffd100
+                box 1141.72,313.24 0x0
             box 454.96,335.94 690.09x313.11
               box 454.96,335.94 690.09x313.11
                 box 454.96,335.94 690.09x313.11 #0000004d
@@ -113,15 +115,17 @@ surface 425,184.12 1139.68x531.75 on MEDIUM clamped raised by a click
                         text 937.03,480.16 190.12x0 "" #a3977f
       box 432.2,666.12 735.6x42.56
         box 432.2,666.12 735.6x42.56
-          box 454.96,673.62 581.76x13.33
+          box 454.96,673.62 578.03x13.33
             box 454.96,673.62 51.87x13.33
               text 454.96,673.62 36.67x13.33 "Friends" #a3977f
               text 500.16,673.62 6.67x13.33 "4" #e8dcc4
             box 523.89,673.62 46.87x13.33
               text 523.89,673.62 31.67x13.33 "Online" #a3977f
               text 564.09,673.62 6.67x13.33 "2" #e8dcc4
-          box 1036.71,666.12 108.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-            text 1045.04,672.37 91.67x15.83 "Blizzard window" #ffd100
+          box 1032.99,666.12 112.06x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+            box 1036.31,680.29 0x0
+            text 1043.18,672.37 91.67x15.83 "Blizzard window" #ffd100
+            box 1141.72,680.29 0x0
     box 1167.8,239.74 389.68x468.93
       box 1170.5,239.74 386.98x468.93
         box 1193.26,262.5 341.47x431.96
@@ -149,9 +153,13 @@ surface 425,184.12 1139.68x531.75 on MEDIUM clamped raised by a click
           box 1193.26,420.36 341.47x228.69
           box 1193.26,666.12 341.47x28.33
             box 1193.26,666.12 150x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+              box 1196.58,680.29 0x0
               text 1219.09,672.37 98.33x15.83 "Change Broadcast" #ffd100
+              box 1339.94,680.29 0x0
             box 1351.79,666.12 150x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+              box 1355.11,680.29 0x0
               text 1383.87,672.37 85.83x15.83 "Copy BattleTag" #ffd100
+              box 1498.47,680.29 0x0
       box 1165.25,239.74 2.7x468.93 absolute border=Interface\AddOns\Ordaen\media\frame-divider-down sides=left pieces=[left 0.75>0.59 x24.42]
       box 1164.47,239.74 6.67x468.93 absolute @drag @dragStart @dragStop
     box 1542.93,694.12 13.33x13.33 absolute

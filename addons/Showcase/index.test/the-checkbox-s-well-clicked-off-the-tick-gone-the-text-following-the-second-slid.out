@@ -54,6 +54,10 @@ box 0,0 700x285.06
   box 0,196.92 700x14.4 @pointerEnter @pointerLeave
     text 0,196.92 700x14.4 "zone hidden" #ffffff
   box 0,219.86 700x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+    box 3.32,234.02 0x0
     text 337.08,226.82 25.83x14.4 "Save" #ffd100
+    box 696.68,234.02 0x0
   box 0,256.72 700x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+    box 3.32,270.89 0x0
     text 334.17,263.69 31.67x14.4 "Reset" #808080
+    box 696.68,270.89 0x0

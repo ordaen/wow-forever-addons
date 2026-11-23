@@ -68,15 +68,21 @@ surface 301.75,139.96 996.5x620.08 on MEDIUM clamped raised by a click
       box 308.95,706.73 982.1x46.11
         box 308.95,706.73 982.1x46.11
           box 337.39,706.73 166.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+            box 340.71,720.9 0x0
             text 392.81,712.56 55.83x16.67 "Move mode" #ffd100
+            box 500.74,720.9 0x0
           box 525.39,714.65 480.21x12.5
             text 525.39,714.65 480.21x12.5 "Changes this session: 3" #a3977f
           box 1026.94,706.73 235.67x28.33
             box 1026.94,706.73 108.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+              box 1030.26,720.9 0x0
               text 1053.19,712.56 55.83x16.67 "Savepoint" #ffd100
+              box 1131.95,720.9 0x0
             box 1145.94,706.73 116.67x28.33
               box 1145.94,706.73 116.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+                box 1149.26,720.9 0x0
                 text 1176.36,712.56 55.83x16.67 "Roll back" #f0e6d2
+                box 1259.29,720.9 0x0
     box 1276.5,738.29 13.33x13.33 absolute
       box 1276.5,738.29 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 301.75,139.96 996.5x39

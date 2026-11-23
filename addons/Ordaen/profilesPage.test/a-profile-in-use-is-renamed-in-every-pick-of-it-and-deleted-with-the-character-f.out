@@ -25,13 +25,21 @@ box 0,0 760x585.04
         box 248.98,127.64 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
     box 0,157.36 760x28.33
       box 0,157.36 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+        box 3.32,171.52 0x0
         text 52.5,164.32 20x14.4 "New" #ffd100
+        box 121.68,171.52 0x0
       box 132.11,157.36 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+        box 135.43,171.52 0x0
         text 175.44,164.32 38.33x14.4 "Rename" #ffd100
+        box 253.79,171.52 0x0
       box 264.22,157.36 125x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+        box 267.54,171.52 0x0
         text 307.56,164.32 38.33x14.4 "Delete" #808080
+        box 385.9,171.52 0x0
       box 396.33,157.36 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+        box 399.65,171.52 0x0
         text 443,164.32 31.67x14.4 "Reset" #ffd100
+        box 518.01,171.52 0x0
     text 0,197.07 760x14.4 "Profile «Raiders» deleted." #a3977f
   box 0,227.11 760x103.53
     box 0,227.11 760x14.4
@@ -71,8 +79,14 @@ box 0,0 760x585.04
     box 0,453.67 760x91.67 #0d0a08 input "" lines clipped @change
     box 0,556.71 760x28.33
       box 0,556.71 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+        box 3.32,570.88 0x0
         text 43.33,563.68 38.33x14.4 "Export" #ffd100
+        box 121.68,570.88 0x0
       box 132.11,556.71 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+        box 135.43,570.88 0x0
         text 175.44,563.68 38.33x14.4 "Import" #ffd100
+        box 253.79,570.88 0x0
       box 264.22,556.71 125x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+        box 267.54,570.88 0x0
         text 307.56,563.68 38.33x14.4 "Create" #808080
+        box 385.9,570.88 0x0

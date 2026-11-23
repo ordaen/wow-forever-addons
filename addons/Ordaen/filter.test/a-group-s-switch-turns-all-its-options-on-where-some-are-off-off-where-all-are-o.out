@@ -29,4 +29,6 @@ surface 5.69,28.33 191.67x203.18 on FULLSCREEN_DIALOG #0a0806f7
         box 163.13,151.06 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=1
   box 20.74,178.76 161.56x37.7
     box 20.74,188.12 161.56x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+      box 24.06,202.29 0x0
       text 85.69,194.37 31.67x15.83 "Reset" #ffd100
+      box 178.98,202.29 0x0

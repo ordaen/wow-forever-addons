@@ -6,17 +6,24 @@
 // says it while the cursor is on it. With an `icon`, a picture of the game's stands before the label, or alone where the
 // label is `""` (a square button, which its `tip` names); disabled, the picture greys with the label. With a `key`, the
 // key that presses it sits in its own segment at the plate's left end, cut off by a groove.
-import { Action, Align, Art, ByInteractionState, Columns, Edges, Event, Line, MouseButton, Shadow, Side } from "$ltml"
+import { Action, Align, Art, ByInteractionState, Columns, Event, Line, MouseButton, Shadow, Side, Size } from "$ltml"
 import root Ordaen from "Ordaen"
 import { Component } from "@/module"
 import { Tip, TipText } from "@/tip"
 import { BRIGHT_TEXT, SECONDARY_TEXT } from "@/units"
 
 const HEIGHT = 39.84375dp
-// The label keeps inside the carved line round the plate's face (in the art, 14 of the 64 px a row is high in from
-// each end, the face from 15): a quarter of the height off each end, about 10dp. A label longer than the width it
-// was given widens the button.
-const CAPS: Edges = { left: 2.5sp, right: 2.5sp }
+// The plate's rim, part of its art: button.tga's rows are 64 px high and its caps drawn at the button's height (cap 32,
+// capHeight 0.5), so a px is HEIGHT / 64; the carved line round the face stands 14 px in from each end, the face from
+// 15. The plate's columns keep the rim clear; inside it the label keeps a gap more, at the spacing setting's measure. A
+// label longer than the width it was given widens the button.
+const RIM: Number<Length> = HEIGHT * 15 / 64
+const PLATE: Columns = [RIM, { fr: 1 }, RIM]
+// A glyph's button (one sign, or an icon alone) holds it centred, clear of the rim already, at the width it was given:
+// the rim takes no column of it and nothing in it widens it.
+const GLYPH_PLATE: Columns = [{ fr: 1 }]
+// The gap between the rim, the key's segment and the label, at the spacing setting's measure.
+const GAP: Number<Spacing> = 1.25sp
 const LABEL: ByInteractionState<Color> = { default: Color.hex("#ffd100"), hover: BRIGHT_TEXT, focus: BRIGHT_TEXT }
 const GREY: Color = Color.hex("#808080")
 // The picture: inside the plate's carved line, as the label is.
@@ -25,13 +32,11 @@ const ICON_GAP: Number<Spacing> = 1.25sp
 const ICON_ROW: Columns = { each: "max-content" }
 const SHADOW: Shadow = { color: Color.hex("#000000"), x: 1.171875dp, y: -1.171875dp }
 const NO_TIP: TipText = { title: "", text: "", rows: [] }
-// The key's segment: the plate's left end inside its carved line, a groove (a dark line) at its right; the label
+// The key's segment: at the plate's left end past its rim, a groove (a dark line) at its right; the label
 // stands in the plate's other column, past it, so the two can't meet at any spacing.
 const KEY_WIDTH = 53.90625dp
 const KEY_HEIGHT = HEIGHT * 3 / 4
-const KEY_GAP: Number<Spacing> = 1.25sp
-const KEYED_CAPS: Edges = { left: KEY_GAP, right: 2.5sp }
-const KEYED_COLUMNS: Columns = [KEY_WIDTH, { fr: 1 }]
+const KEYED_PLATE: Columns = [RIM, KEY_WIDTH, { fr: 1 }, RIM]
 const KEY_SHADE: Color = Color.hex("#00000038")
 const KEY_TEXT: Color = Color.hex("#c9a76a")
 const GROOVE: Line = { width: 1.171875dp, color: Color.hex("#000000cc"), sides: [Side.Right] }
@@ -69,8 +74,10 @@ public class PushButton implements Component {
   derived keyName: String = self.nameOfKey()
   derived spaceMarked: Boolean = self.key == ButtonKey.Space
   derived keyOpacity: Number = self.disabled ? 0.5 : 1
-  derived padding: Edges = self.keyed ? KEYED_CAPS : CAPS
-  derived columns: Columns | nil = self.keyed ? KEYED_COLUMNS : nil
+  derived glyphed: Boolean = self.glyph || self.iconed && !self.labelled
+  derived columns: Columns = self.glyphed ? GLYPH_PLATE : self.keyed ? KEYED_PLATE : PLATE
+  derived size: Size = self.glyphed ? self.width : { min: self.width }
+  derived rimmed: Boolean = !self.glyphed
 
   label: Signal<String>
   width: Signal<Number<Length>>
@@ -81,6 +88,7 @@ public class PushButton implements Component {
   tip: Signal<TipText | nil>
   icon: Signal<Art | nil>
   key: Signal<ButtonKey>
+  glyph: Signal<Boolean>
   constructor(
     label: Signal<String>,
     width: Signal<Number<Length>>,
@@ -94,10 +102,13 @@ public class PushButton implements Component {
     // A picture before the label, or alone where the label is `""`.
     icon: Signal<Art | nil> = nil,
     // The key that presses it, in its own segment at the plate's left end, cut off by a groove.
-    key: Signal<ButtonKey> = ButtonKey.None
+    key: Signal<ButtonKey> = ButtonKey.None,
+    // Its label one sign (a stepper's − and +): held at the width it was given, as a button with an icon alone is.
+    glyph: Signal<Boolean> = false
   ) {
     self.icon = icon
     self.key = key
+    self.glyph = glyph
     self.label = label
     self.width = width
     self.plate = plate
@@ -132,11 +143,12 @@ public class PushButton implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box width={{ min: self.width }} height={HEIGHT} padding={self.padding} columns={self.columns} gap={KEY_GAP}
-           xAlign={Align.Center} yAlign={Align.Center}
+      <box width={self.size} height={HEIGHT} columns={self.columns} gap={GAP} xAlign={Align.Center}
+           yAlign={Align.Center}
            background={self.art} action={self.doing} @pointerPress={self.onClick} @keyPress(.Enter)={self.onEnterKey} @keyPress(.Space)={self.onClick} @pointerDown.repeat={self.onHeld}
            @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
         <Tip $if={self.tipShown} title={self.tipText.title} text={self.tipText.text} rows={self.tipText.rows} />
+        <box $if={self.rimmed} />
         <box $if={self.keyed} width={KEY_WIDTH} height={KEY_HEIGHT} background={KEY_SHADE} border={GROOVE} opacity={self.keyOpacity} xAlign={Align.Center}
              yAlign={Align.Center}>
           <box $if={self.spaceMarked} width={SPACE_WIDTH} height={SPACE_HEIGHT} border={SPACE_STROKES} />
@@ -147,6 +159,7 @@ public class PushButton implements Component {
           <text $if={self.labelled} value={self.label} textColor={self.color} textShadow={SHADOW} wrap={.None} />
         </box>
         <text $else value={self.label} textColor={self.color} textShadow={SHADOW} wrap={.None} />
+        <box $if={self.rimmed} />
       </box>
     }
   }

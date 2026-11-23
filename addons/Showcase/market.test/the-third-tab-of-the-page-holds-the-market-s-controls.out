@@ -167,6 +167,10 @@ box 0,0 700x698.47
   box 0,610.33 700x14.4 @pointerEnter @pointerLeave
     text 0,610.33 700x14.4 "zone shown" #ffffff
   box 0,633.27 700x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+    box 3.32,647.43 0x0
     text 337.08,640.23 25.83x14.4 "Save" #ffd100
+    box 696.68,647.43 0x0
   box 0,670.13 700x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+    box 3.32,684.3 0x0
     text 334.17,677.1 31.67x14.4 "Reset" #808080
+    box 696.68,684.3 0x0

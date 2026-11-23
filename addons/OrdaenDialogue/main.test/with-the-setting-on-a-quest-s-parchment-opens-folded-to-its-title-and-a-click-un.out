@@ -78,14 +78,18 @@ surface 54.82,99.96 384.71x620.08 on MEDIUM clamped raised by a click
                     text 153.55,645.92 55.83x15.83 "0g 0s 75c" #e8dcc4
             box 80.51,666.02 333.33x28.33
               box 80.51,666.02 141.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-                box 84.06,669.56 38.33x21.25 #00000038 opacity=1
-                  text 94.48,673.52 16.67x13.33 "Esc" #c9a76a
-                text 148.42,672.27 44.17x15.83 "Decline" #ffd100
+                box 83.83,680.19 0x0
+                box 90.7,669.56 38.33x21.25 #00000038 opacity=1
+                  text 101.12,673.52 16.67x13.33 "Esc" #c9a76a
+                text 150.2,672.27 44.17x15.83 "Decline" #ffd100
+                box 218.85,680.19 0x0
               box 222.17,666.02 50x0
               box 272.17,666.02 141.67x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-                box 275.73,669.56 38.33x21.25 #00000038 opacity=1
-                  box 287.81,678.1 13.33x4.17
-                text 343.01,672.27 38.33x15.83 "Accept" #ffd100
+                box 275.49,680.19 0x0
+                box 282.37,669.56 38.33x21.25 #00000038 opacity=1
+                  box 294.45,678.1 13.33x4.17
+                text 344.78,672.27 38.33x15.83 "Accept" #ffd100
+                box 410.52,680.19 0x0
     box 417.78,698.29 13.33x13.33 absolute
       box 417.78,698.29 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 54.82,99.96 384.71x39

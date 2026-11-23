@@ -140,11 +140,15 @@ surface 548.15,192.46 893.38x515.08 on MEDIUM clamped raised by a click
         box 1047.35,657.93 386.98x42.41 Interface/FrameGeneral/UI-Background-Marble border=Interface\AddOns\Ordaen\media\frame-divider-down sides=top pieces=[top 0.62>0.55 x20.16]
           box 1070.11,666.32 341.47x28.33
             box 1070.11,666.32 93.33x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+              box 1073.43,680.49 0x0
               text 1094.69,672.57 44.17x15.83 "Abandon" #ffd100
+              box 1160.12,680.49 0x0
             box 1171.97,680.49 129.2x0
             box 1309.71,680.49 0x0
             box 1318.24,666.32 93.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+              box 1321.56,680.49 0x0
               text 1330.74,672.57 68.33x15.83 "Show on map" #ffd100
+              box 1408.25,680.49 0x0
       box 1042.1,248.07 2.7x452.27 absolute border=Interface\AddOns\Ordaen\media\frame-divider-down sides=left pieces=[left 0.76>0.61 x23.56]
       box 1041.32,248.07 6.67x452.27 absolute @drag @dragStart @dragStop
     box 1419.78,685.79 13.33x13.33 absolute

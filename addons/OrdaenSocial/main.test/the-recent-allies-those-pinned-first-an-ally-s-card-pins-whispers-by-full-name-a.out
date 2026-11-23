@@ -38,12 +38,14 @@ surface 425,184.12 1039.68x531.75 on MEDIUM clamped raised by a click
                   text 485.7,386.63 638.6x0 "" #a3977f
       box 432.2,666.12 735.6x42.56
         box 432.2,666.12 735.6x42.56
-          box 454.96,673.62 581.76x13.33
+          box 454.96,673.62 578.03x13.33
             box 454.96,673.62 81.87x13.33
               text 454.96,673.62 66.67x13.33 "Recent allies" #a3977f
               text 530.16,673.62 6.67x13.33 "2" #e8dcc4
-          box 1036.71,666.12 108.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-            text 1045.04,672.37 91.67x15.83 "Blizzard window" #ffd100
+          box 1032.99,666.12 112.06x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+            box 1036.31,680.29 0x0
+            text 1043.18,672.37 91.67x15.83 "Blizzard window" #ffd100
+            box 1141.72,680.29 0x0
     box 1167.8,239.74 289.68x468.93
       box 1170.5,239.74 286.98x468.93
         box 1193.26,262.5 241.47x431.96
@@ -74,17 +76,29 @@ surface 425,184.12 1039.68x531.75 on MEDIUM clamped raised by a click
                 text 1388.69,451.74 36.67x13.33 "3 d ago" #a3977f
           box 1193.26,592.39 241.47x102.07
             box 1193.26,592.39 91.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+              box 1196.58,606.55 0x0
               text 1217.01,598.64 44.17x15.83 "Whisper" #ffd100
+              box 1281.6,606.55 0x0
             box 1293.46,592.39 91.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+              box 1296.78,606.55 0x0
               text 1320.12,598.64 38.33x15.83 "Invite" #ffd100
+              box 1381.8,606.55 0x0
             box 1193.26,629.25 91.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+              box 1196.58,643.42 0x0
               text 1229.09,635.5 20x15.83 "Pin" #ffd100
+              box 1281.6,643.42 0x0
             box 1293.46,629.25 91.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+              box 1296.78,643.42 0x0
               text 1308.46,635.5 61.67x15.83 "Add Friend" #ffd100
+              box 1381.8,643.42 0x0
             box 1193.26,666.12 91.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+              box 1196.58,680.29 0x0
               text 1214.09,672.37 50x15.83 "Set Note" #ffd100
+              box 1281.6,680.29 0x0
             box 1293.46,666.12 91.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+              box 1296.78,680.29 0x0
               text 1329.29,672.37 20x15.83 "···" #ffd100
+              box 1381.8,680.29 0x0
       box 1165.25,239.74 2.7x468.93 absolute border=Interface\AddOns\Ordaen\media\frame-divider-down sides=left pieces=[left 0.74>0.58 x24.42]
       box 1164.47,239.74 6.67x468.93 absolute @drag @dragStart @dragStop
     box 1442.93,694.12 13.33x13.33 absolute

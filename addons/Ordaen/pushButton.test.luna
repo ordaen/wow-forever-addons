@@ -4,6 +4,7 @@ import { Align, Key, Layer, Point } from "$ltml"
 import Test from "$test"
 import { Move } from "$test"
 import root Ordaen from "Ordaen"
+import { CountInput, STEP_WIDTH } from "@/countInput"
 import { Density } from "@/globals"
 import { ButtonKey, ButtonPlate, PushButton } from "@/pushButton"
 
@@ -37,15 +38,16 @@ test "a push button in a table's cell narrower than it holds its label in its co
   destroy page
 }
 
-// Whether the button's label stands clear of its caps and inside its height.
+// Whether the button's label stands inside its height and clear of the plate's rim by a gap at both ends.
 function fits(label: String): Boolean {
   const plate = Test.page().button(label).rect()
   const drawn = Test.page().text(label).letters()
-  // The carved line round the face: 14 of the art's 64 px in from each end, the face a quarter of the height in.
-  const cap = (plate.bottom - plate.top) / 4
-  return drawn.left >= plate.left + cap - 0.5 && drawn.right <= plate.right - cap + 0.5 &&
+  return drawn.left > plate.left + rimOf(plate) + 1 && drawn.right < plate.right - rimOf(plate) - 1 &&
     drawn.top >= plate.top && drawn.bottom <= plate.bottom
 }
+
+// The plate's rim: the carved line round the face, 15 of the art's 64 px in from each end, the art as high as the plate.
+function rimOf(plate: Test.Rect): Number { return (plate.bottom - plate.top) * 15 / 64 }
 
 test "every push button's label stands inside its caps, a long one widening the button" {
   let page = new Buttons()
@@ -94,6 +96,20 @@ class Grown {
       </surface>
     }
   }
+}
+
+test "a label longer than the button's width keeps a gap past the plate's rim at both ends, at every spacing" {
+  let page = new ButtonRow()
+  Test.mount(page, { left: 0, top: 0, width: 900, height: 300 })
+  Test.expect(fits("Отказаться от задания"))
+  Ordaen.globals.values.density = Density.Compact
+  Test.flush()
+  Test.expect(fits("Отказаться от задания"))
+  Ordaen.globals.values.density = Density.Roomy
+  Test.flush()
+  Test.expect(fits("Отказаться от задания"))
+  Ordaen.globals.values.density = Density.Normal
+  destroy page
 }
 
 test "a box of a fixed width narrower than what it holds needs is a fault that names it and how much it lacks" {
@@ -158,18 +174,16 @@ class Keyed {
   }
 }
 
-// Whether the key's segment stands inside the plate, its key in it, and the label past its groove by the room the
-// segment has from the plate's end (one spacing both), clear of the caps.
+// Whether the key's segment stands inside the plate's rim, its key in it, and the label past its groove by a gap and
+// clear of the plate's rim at its other end.
 function keyedFits(): Boolean {
   const plate = Test.page().button("Decline").rect()
   const segment = Test.page().box(Color.hex("#00000038")).rect()
   const key = Test.page().text("Esc").letters()
   const label = Test.page().text("Decline").letters()
-  const cap = (plate.bottom - plate.top) / 4
-  const inset = segment.left - plate.left
-  return inset > 0 && segment.top >= plate.top && segment.bottom <= plate.bottom &&
-    key.left >= segment.left && key.right <= segment.right && (label.left - segment.right - inset).abs() < 0.5 &&
-    label.right <= plate.right - cap + 0.5
+  return segment.left >= plate.left + rimOf(plate) - 0.5 && segment.top >= plate.top && segment.bottom <= plate.bottom &&
+    key.left >= segment.left && key.right <= segment.right && label.left > segment.right + 1 &&
+    label.right < plate.right - rimOf(plate) - 1
 }
 
 test "a keyed button's label stands past the key's segment at every spacing" {
@@ -182,6 +196,46 @@ test "a keyed button's label stands past the key's segment at every spacing" {
   Ordaen.globals.values.density = Density.Roomy
   Test.flush()
   Test.expect(keyedFits())
+  Ordaen.globals.values.density = Density.Normal
+  destroy page
+}
+
+const SQUARE_ICON: Asset = "Interface/Icons/Trade_BlackSmithing"
+
+// A stepper's − and +, and a button with an icon alone as wide as it is high.
+class Glyphs {
+  public state count = 3
+
+  public render(self): Template {
+    return $ltml {
+      <box rows={["max-content", "max-content"]} gap={3sp} xAlign={Align.Start}>
+        <CountInput value={mut self.count} least={1} most={9} />
+        <PushButton label={""} icon={SQUARE_ICON} width={39.84375dp} />
+      </box>
+    }
+  }
+}
+
+// Whether a glyph's button is as wide as it was made, and the icon's as high as it is wide.
+function glyphsHold(): Boolean {
+  const fewer = Test.page().button("-").rect()
+  const more = Test.page().button("+").rect()
+  const icon = Test.page().button(SQUARE_ICON).rect()
+  const step = STEP_WIDTH / 1ui
+  return (fewer.right - fewer.left - step).abs() < 0.5 && (more.right - more.left - step).abs() < 0.5 &&
+    (icon.right - icon.left - (icon.bottom - icon.top)).abs() < 0.5
+}
+
+test "a glyph's button keeps the width it was given at every spacing: the stepper's, and an icon alone square" {
+  let page = new Glyphs()
+  Test.mount(page, { left: 0, top: 0, width: 600, height: 300 })
+  Test.expect(glyphsHold())
+  Ordaen.globals.values.density = Density.Compact
+  Test.flush()
+  Test.expect(glyphsHold())
+  Ordaen.globals.values.density = Density.Roomy
+  Test.flush()
+  Test.expect(glyphsHold())
   Ordaen.globals.values.density = Density.Normal
   destroy page
 }
