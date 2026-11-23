@@ -9,7 +9,7 @@
 import Game from "$game"
 import { Align, Art, ByInteractionState, Edges, Event, MouseButton, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { Component, Menu, MenuEntry, SECONDARY_TEXT, SWITCH_WIDTH, Shown, ShownToggle, Tip } from "Ordaen"
+import { Component, Menu, MenuEntry, SECONDARY_TEXT, SWITCH_WIDTH, Shown, ShownToggle, Tip, WINDOW_ROOM } from "Ordaen"
 import { AddOn, Catalog, Status, Switch, plain } from "@/catalog"
 import Locale from "@/locales"
 import { Load, Profiler, memory, percent } from "@/perf"
@@ -51,7 +51,8 @@ public const TABLE_COLUMNS: Array<Track> = [
 const MARK = 18.75dp
 // An addon's title after its mark's room, a mark or none: every title at one left edge, a caption's too.
 const TITLE: Array<Track> = ["max-content", { fr: 1 }]
-const PAD: Edges = { left: 3sp, right: 3sp }
+// A row runs the list's full width, to the window's frame; what it says keeps the window's room.
+const PAD: Edges = { left: WINDOW_ROOM, right: WINDOW_ROOM }
 const LIGHT: ByInteractionState<Color> = { default: Style.CLEAR, hover: Color.hex("#d6a56b1f"), focus: Color.hex("#d6a56b1f") }
 const DASH = "—"
 

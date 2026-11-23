@@ -967,6 +967,14 @@ test "every title stands at one left edge: a caption's, a parent's and a row wit
   Test.shot("titles at one edge")
 }
 
+test "the addons' list runs to the window's frame; the search over it keeps the window's room" {
+  Test.addon({ name: "Crate", title: "Crate", category: "Store" })
+  Test.mount(nil, SCREEN)
+  open()
+  const shown = Test.page().window("Crate")
+  Test.expect(shown.text("Crate").item().rect().left < shown.input().rect().left)
+}
+
 test "a caption's switch switches its whole group off where all of it is on, after the question" {
   const world = new World(everyday())
   Client.C_AddOns.GetNumAddOns = () => world.count()
