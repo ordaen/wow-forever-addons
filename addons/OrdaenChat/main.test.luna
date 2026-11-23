@@ -458,8 +458,10 @@ test "the grip in the chat's top right corner grows it right and up, never below
 
 test "the chat stands on the bottom panel at the screen's left, its tabs over the portrait and as wide as it" {
   Game.chat.windows = gameWindows()
+  Game.player.level = 42
   const shown = chat()
-  const portrait = Test.page().box(Ordaen.art.panel.cornerRim).rect()
+  // The portrait: the panel's surface holding the player's level.
+  const portrait = Test.page().window("42").rect()
   const at = shown.rect()
   const tab = under(shown, "General", GROUND)
   Test.expect(at.left == 0 && (tab.left - portrait.left).abs() < 0.5)
