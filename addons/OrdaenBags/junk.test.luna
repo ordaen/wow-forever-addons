@@ -6,12 +6,14 @@ import Events from "$events"
 import Game from "$game"
 import { Art, Modifier, MouseButton } from "$ltml"
 import Test from "$test"
+import root Bags from "OrdaenBags"
 import { AS_THE_GAME, Chord, OURS, SlotAction, actionAt, choicesFor, chordFor, useBinding } from "@/clicks"
 import {
   JUNK_RULES, JunkLists, LEARNED, MOST_LEARNED, MOST_MARKS, Mark, NO_LISTS, Why, afterBuyback, afterSale, junkWhy, shareOf,
   withMark, withScore
 } from "@/junk"
 import Locale from "@/locales"
+import { Choices } from "@/pane"
 
 // The player's screen: 2470 by 1054.
 const SCREEN: Test.Page = { left: 0, top: 0, width: 2470, height: 1054, screen: true }
@@ -338,7 +340,7 @@ test "a chord's row holding the last Use or the last Menu offers nothing else" {
   Test.expect(choicesFor(OURS, .ShiftLeft).length == 8)
 }
 
-test "Alt+click protects the slot, Ctrl+click sends its item, as before" {
+test "Alt+click protects the slot; Ctrl+click does nothing of ours, and sends the item where the scheme says so" {
   const world = new World(carried())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
   Game.bags.size = (bag: Integer): Integer => world.size(bag)
@@ -349,6 +351,10 @@ test "Alt+click protects the slot, Ctrl+click sends its item, as before" {
   Game.bags.open = true
   _ = Test.requests()
   Game.input.controlDown = (): Boolean => true
+  bags().button(CLOTH).click()
+  Test.expect(!Test.requests().join(", ").contains("Bags.send"))
+  Bags.settings.change((values: mut Choices): nil => { values.clicks = { ctrlLeft: .Send, ..values.clicks } })
+  Test.flush()
   bags().button(CLOTH).click()
   Test.expect(Test.requests().join(", ").contains("Bags.send 0 3"))
 }

@@ -788,13 +788,14 @@ test "Shift+right-click puts the item's link into the chat" {
   Test.expect(asked("Bags.follow true, Items.show 118, Chat.link 118"))
 }
 
-test "Ctrl-click sends the item where the place takes it" {
+test "Ctrl-click set to Send sends the item where the place takes it" {
   const world = new World(everyday())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
   Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
   Game.items.icon = (id: Integer): Art | nil => world.icon(id)
   Test.mount(nil, SCREEN)
   Game.bags.open = true
+  Bags.settings.change((values: mut Choices): nil => { values.clicks = { ctrlLeft: .Send, ..values.clicks } })
   Game.input.controlDown = (): Boolean => true
   held(POTION).click()
   Test.expect(asked("Bags.follow true, Items.show 118, Bags.send 0 3"))
@@ -899,15 +900,15 @@ test "a slot's tooltip names its clicks as the player's scheme has them, protect
   const menu = hint(Locale.CHORD_RIGHT, Locale.ACT_MENU)
   const link = hint(Locale.CHORD_SHIFT_RIGHT, Locale.ACT_LINK)
   const protect = hint(Locale.CHORD_ALT_LEFT, Locale.MENU_PROTECT)
-  Test.expect(reads(tip, `Minor Healing Potion | ${use} | ${pickup} | ${send} | ${protect} | ${menu} | ${link}`))
+  Test.expect(reads(tip, `Minor Healing Potion | ${use} | ${pickup} | ${protect} | ${menu} | ${link}`))
   Game.input.altDown = (): Boolean => true
   held(POTION).click()
   const unprotect = hint(Locale.CHORD_ALT_LEFT, Locale.MENU_UNPROTECT)
-  Test.expect(reads(tip, `Minor Healing Potion | ${Locale.PROTECTED} | ${use} | ${pickup} | ${send} | ${unprotect} | ${menu} | ${link}`))
-  // Ctrl+Left set to nothing: its hint goes.
-  Bags.settings.change((values: mut Choices): nil => { values.clicks = { ctrlLeft: .Nothing, ..values.clicks } })
-  Test.flush()
   Test.expect(reads(tip, `Minor Healing Potion | ${Locale.PROTECTED} | ${use} | ${pickup} | ${unprotect} | ${menu} | ${link}`))
+  // Ctrl+Left set to Send: its hint comes.
+  Bags.settings.change((values: mut Choices): nil => { values.clicks = { ctrlLeft: .Send, ..values.clicks } })
+  Test.flush()
+  Test.expect(reads(tip, `Minor Healing Potion | ${Locale.PROTECTED} | ${use} | ${pickup} | ${send} | ${unprotect} | ${menu} | ${link}`))
   // Another item's tooltip, where the cursor isn't on its slot: nothing of the bags'.
   Game.tooltip.main = tooltipOf(corner, 25, "Worn Shortsword")
   Test.expect(reads(Test.page().window("Worn Shortsword"), "Worn Shortsword"))
