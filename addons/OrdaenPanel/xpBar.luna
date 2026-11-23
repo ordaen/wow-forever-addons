@@ -36,8 +36,9 @@ const MARGINS: Edges = { right: 11.5sp, left: 11.5sp }
 const RESTED: Color = Color.hex("#6e96d129")
 const LABEL: Color = Color.hex("#f3e7cc")
 const LABEL_SHADOW: Shadow = { color: Color.hex("#000000"), x: 1ui, y: -1ui }
-// The label's second value, in brackets: white, in the regular weight beside the first value's bold.
-const DIMMED: Color = Color.hex("#ffffff")
+// The first value in bold: the numbers' font ships no bold face (PT Sans Narrow, Arial Narrow), so its letters are
+// drawn again one pixel to the right, in their own colour; the bracketed value beside it in the regular weight.
+const BOLD: Shadow = { color: LABEL, x: 1ui, y: 0ui }
 const LABEL_PARTS: Array<Track> = ["max-content", "max-content"]
 const LABEL_GAP = 1.5sp
 // The bars' carved edge: a dark line round the tube, where the bezel's ring would stand.
@@ -213,8 +214,8 @@ public class Tube implements Component {
       <box rows={LABELLED} gap={LABEL_ROOM} xAlign={Align.Stretch} @pointerEnter={self.onBar} @pointerLeave={self.onOff}>
         <box columns={LABEL_PARTS} gap={LABEL_GAP} xAlign={Align.Center} yAlign={Align.Center}>
           <text value={self.label} textSize={LABEL_TEXT} textColor={LABEL} textOutline={1}
-                textShadow={LABEL_SHADOW} wrap={.None} textFont={.Numbers} textWeight={.Bold} />
-          <text $if={self.hasDimmed} value={self.dimmed} textSize={LABEL_TEXT} textColor={DIMMED}
+                textShadow={BOLD} wrap={.None} textFont={.Numbers} />
+          <text $if={self.hasDimmed} value={self.dimmed} textSize={LABEL_TEXT} textColor={LABEL}
                 textOutline={1} textShadow={LABEL_SHADOW} wrap={.None} textFont={.Numbers} />
         </box>
         <box height={self.height}>

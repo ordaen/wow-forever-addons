@@ -78,13 +78,13 @@ test "the experience tube says how far into the level the player is, and its par
   Test.expect(Test.page().texts().join(" | ") == shown("2~500 / 10~000 | (25%)"))
 }
 
-test "the bars say the percent first, the numbers in white beside it; or the numbers alone; or the percent of the whole 100%" {
+test "the bars say the percent first, the numbers beside it in the same colour; or the numbers alone; or the percent of the whole 100%" {
   Game.player.xpMax = 10000
   Game.player.xp = 2500
   alone()
   const bars = new Bars()
   Test.mount(bars, PAGE)
-  Test.expect(Test.page().text("(25%)").textColor().equal(Color.hex("#ffffff")))
+  Test.expect(Test.page().text("(25%)").textColor().equal(Test.page().text(shown("2~500 / 10~000")).textColor()))
   bars.view = XpView.Percent
   Test.expect(Test.page().texts().join(" | ") == shown("25% | (2~500 / 10~000)"))
   bars.view = XpView.NumbersOnly
