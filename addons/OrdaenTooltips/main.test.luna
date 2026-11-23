@@ -630,6 +630,11 @@ test "compared, the main tooltip's title stands level with the worn item's under
   Game.tooltip.main = showing({ kind: 0, lines: [{ left: "Axe", kind: 22 }] })
   const group = Test.page().window("Axe")
   Test.expect(near(group.text("Axe").rect().top, group.text("Worn Axe").rect().top))
+  // «Equipped» a tab on the worn item's frame: in its middle, over its title.
+  const header = group.text("Equipped").rect()
+  const worn = group.text("Equipped").item().rect()
+  Test.expect(header.bottom < group.text("Worn Axe").rect().top)
+  Test.expect(near((header.left + header.right) / 2, (worn.left + worn.right) / 2))
 }
 
 // What buttons tell more: their edges

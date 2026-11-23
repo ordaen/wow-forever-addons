@@ -6,7 +6,7 @@
 import { Align, Art, BarFill, Beside, Cursor, Edges, Layer, Line, Position, Side, TextFont, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import {
-  BandCell, Component, Hotkeys, SECONDARY_TEXT, TERM_DASH, TERM_UNDERLINE, TERM_UNDERLINE_HEIGHT, TITLE_TEXT, termUnderlineAt
+  BandCell, Component, HeaderTab, Hotkeys, SECONDARY_TEXT, TERM_DASH, TERM_UNDERLINE, TERM_UNDERLINE_HEIGHT, TITLE_TEXT, termUnderlineAt
 } from "Ordaen"
 import { GREEN, RED } from "@/colors"
 import Locale from "@/locales"
@@ -21,7 +21,6 @@ const ICON = 70.3125dp
 const LINE: Number<Spacing> = 2sp
 const SECTION: Number<Spacing> = 3sp
 const INSIDE: Number<Spacing> = 5sp
-const HEADING: Color = Color.hex("#ffd100")
 const LABEL: Color = Color.hex("#cbb994")
 const QUIET: Color = Color.hex("#857a66")
 const QUIET_VALUE: Color = Color.hex("#a39883")
@@ -29,7 +28,6 @@ public const BODY: Color = Color.hex("#f3e7cc")
 const FREE: Color = Color.hex("#e6dcc6")
 const BLACK: Color = Color.hex("#000000")
 public const RULE: Line = { width: 1.171875dp, color: Color.hex("#d6a56b2e"), sides: [Side.Top] }
-const GROOVE: Line = { width: 1.171875dp, color: Color.hex("#000000d9"), sides: [Side.Top, Side.Bottom] }
 const RIM: Line = { width: 1.171875dp, color: Color.hex("#6c5535") }
 const FILL: Array<Track> = [{ fr: 1 }]
 const WITH_ICON: Array<Track> = [ICON, { fr: 1 }]
@@ -435,83 +433,84 @@ public class TipFrame implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box width={"min-content"} padding={INSIDE} border={Ordaen.art.frame.small}
-           background={Ordaen.art.window.wood}>
-        <box width={self.width} height={0ui} />
-        <box $if={self.hasHeader} height={self.headerHigh} gap={2sp}>
-          <box xAlign={Align.Center}>
-            <text value={self.header} textColor={HEADING} wrap={.None} />
+      // A header («Equipped») is a tab on the frame's top, in its middle, as high as `HEADER` takes: the main tooltip
+      // beside it stands as much lower, so the titles are level.
+      <box width={"min-content"}>
+        <box $if={self.hasHeader} height={self.headerHigh} xAlign={Align.Center} yAlign={Align.End}>
+          <HeaderTab title={self.header} height={self.headerHigh} />
+        </box>
+        <box width={"min-content"} padding={INSIDE} border={Ordaen.art.frame.small}
+             background={Ordaen.art.window.wood}>
+          <box width={self.width} height={0ui} />
+          <box columns={self.titleColumns} gap={3sp} yAlign={Align.Center} padding={self.titlePadding}>
+            <box $if={self.hasIcon} width={ICON} height={ICON} border={RIM} padding={0.5sp} background={BLACK}
+                 rows={FILL}>
+              <box icon={self.icon} portrait={self.face} />
+            </box>
+            <box gap={LINE} yAlign={Align.Center}>
+              <text value={self.model.name} textColor={self.model.nameColor} textSize={TITLE_TEXT} leading={.Tight} wrap={.None}
+                    textFont={.Title} />
+              <box $if={self.hasDesc} columns={self.descColumns} yAlign={Align.Center}>
+                <PartText $for={index, part of self.model.desc} part={part} index={index} color={LABEL}
+                          locked={self.locked}>
+                  <box #opened={opens}>
+                    <slot #opened opens={opens} />
+                  </box>
+                </PartText>
+              </box>
+              <box $if={self.hasInfo} columns={self.infoColumns} yAlign={Align.Center}>
+                <PartText $for={index, part of self.model.info} part={part} index={index} color={QUIET}
+                          locked={self.locked}>
+                  <box #opened={opens}>
+                    <slot #opened opens={opens} />
+                  </box>
+                </PartText>
+              </box>
+            </box>
           </box>
-          <box height={2.34375dp} border={GROOVE} />
-        </box>
-        <box columns={self.titleColumns} gap={3sp} yAlign={Align.Center} padding={self.titlePadding}>
-          <box $if={self.hasIcon} width={ICON} height={ICON} border={RIM} padding={0.5sp} background={BLACK}
-               rows={FILL}>
-            <box icon={self.icon} portrait={self.face} />
+          <box $if={self.hasFacts} columns={self.facts} border={RULE}>
+            <BandCell $for={index, fact of self.model.facts} fact={fact.cell} index={index} last={self.bandLast}
+                      lit={self.locked && opensSomething(fact.opens)}>
+              <box #opened>
+                <slot #opened opens={fact.opens} />
+              </box>
+            </BandCell>
           </box>
-          <box gap={LINE} yAlign={Align.Center}>
-            <text value={self.model.name} textColor={self.model.nameColor} textSize={TITLE_TEXT} leading={.Tight} wrap={.None}
-                  textFont={.Title} />
-            <box $if={self.hasDesc} columns={self.descColumns} yAlign={Align.Center}>
-              <PartText $for={index, part of self.model.desc} part={part} index={index} color={LABEL}
-                        locked={self.locked}>
-                <box #opened={opens}>
-                  <slot #opened opens={opens} />
-                </box>
-              </PartText>
-            </box>
-            <box $if={self.hasInfo} columns={self.infoColumns} yAlign={Align.Center}>
-              <PartText $for={index, part of self.model.info} part={part} index={index} color={QUIET}
-                        locked={self.locked}>
-                <box #opened={opens}>
-                  <slot #opened opens={opens} />
-                </box>
-              </PartText>
+          <box $if={self.hasBody} gap={LINE} padding={SECTION_PAD} border={self.bodyRule}>
+            <Row $for={line of self.body} line={line} locked={self.locked}>
+              <box #opened={opens}>
+                <slot #opened opens={opens} />
+              </box>
+            </Row>
+          </box>
+          <box $if={self.hasMore} gap={LINE} padding={SECTION_PAD} border={RULE}>
+            <Row $for={line of self.more} line={line} locked={self.locked}>
+              <box #opened={opens}>
+                <slot #opened opens={opens} />
+              </box>
+            </Row>
+          </box>
+          <box $if={self.hasFoot} gap={LINE} padding={SECTION_PAD} border={RULE}>
+            <Row $for={line of self.foot} line={line} locked={self.locked}>
+              <box #opened={opens}>
+                <slot #opened opens={opens} />
+              </box>
+            </Row>
+          </box>
+          // What other modules add, after the footer: the main tooltip's owner fills it.
+          <slot />
+          <box $if={self.hasKeys} padding={self.locks ? NO_KEYS_PAD : KEYS_PAD}>
+            <Hotkeys keys={self.model.keys} />
+          </box>
+          <box $if={self.locks} padding={BAR_PAD}>
+            <box height={BAR_ROW} yAlign={Align.Center}>
+              <text $if={self.locked} value={Locale.LOCKED_HINT} textColor={QUIET} textSize={SECONDARY_TEXT} wrap={.None} />
+              <box $else height={BAR_HEIGHT} background={self.track} fill={self.filled} />
             </box>
           </box>
+          <box $if={self.locked} position={Position.Absolute} right={2.34375dp} top={2.34375dp} width={28.125dp}
+               height={28.125dp} background={CLOSE_ART} @pointerPress={self.onClose} @keyPress(.Enter)={self.onClose} @keyPress(.Space)={self.onClose} />
         </box>
-        <box $if={self.hasFacts} columns={self.facts} border={RULE}>
-          <BandCell $for={index, fact of self.model.facts} fact={fact.cell} index={index} last={self.bandLast}
-                    lit={self.locked && opensSomething(fact.opens)}>
-            <box #opened>
-              <slot #opened opens={fact.opens} />
-            </box>
-          </BandCell>
-        </box>
-        <box $if={self.hasBody} gap={LINE} padding={SECTION_PAD} border={self.bodyRule}>
-          <Row $for={line of self.body} line={line} locked={self.locked}>
-            <box #opened={opens}>
-              <slot #opened opens={opens} />
-            </box>
-          </Row>
-        </box>
-        <box $if={self.hasMore} gap={LINE} padding={SECTION_PAD} border={RULE}>
-          <Row $for={line of self.more} line={line} locked={self.locked}>
-            <box #opened={opens}>
-              <slot #opened opens={opens} />
-            </box>
-          </Row>
-        </box>
-        <box $if={self.hasFoot} gap={LINE} padding={SECTION_PAD} border={RULE}>
-          <Row $for={line of self.foot} line={line} locked={self.locked}>
-            <box #opened={opens}>
-              <slot #opened opens={opens} />
-            </box>
-          </Row>
-        </box>
-        // What other modules add, after the footer: the main tooltip's owner fills it.
-        <slot />
-        <box $if={self.hasKeys} padding={self.locks ? NO_KEYS_PAD : KEYS_PAD}>
-          <Hotkeys keys={self.model.keys} />
-        </box>
-        <box $if={self.locks} padding={BAR_PAD}>
-          <box height={BAR_ROW} yAlign={Align.Center}>
-            <text $if={self.locked} value={Locale.LOCKED_HINT} textColor={QUIET} textSize={SECONDARY_TEXT} wrap={.None} />
-            <box $else height={BAR_HEIGHT} background={self.track} fill={self.filled} />
-          </box>
-        </box>
-        <box $if={self.locked} position={Position.Absolute} right={2.34375dp} top={2.34375dp} width={28.125dp}
-             height={28.125dp} background={CLOSE_ART} @pointerPress={self.onClose} @keyPress(.Enter)={self.onClose} @keyPress(.Space)={self.onClose} />
       </box>
     }
   }

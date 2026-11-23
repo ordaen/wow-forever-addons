@@ -360,6 +360,32 @@ public class WindowTab implements Component {
   }
 }
 
+// A tab that only names what it stands on (a compared tooltip's «Equipped»): an open window tab's look, its title
+// in its middle, no picture and nothing to pick, as high as `height`.
+public class HeaderTab implements Component {
+  derived flare: Number<Length> = Ordaen.art.frame.tab.curves.flare * Ordaen.art.frame.tab.scale * 1ui
+  derived bounds: Bounds = { min: TAB_LEAST / 2 + reachAcross(Ordaen.art.frame.tab), max: nil }
+  derived padding: Edges = { left: LABEL_PAD, right: LABEL_PAD, bottom: Ordaen.spacingOf(self.flare) }
+
+  title: Signal<String>
+  height: Signal<Number<Length>>
+  constructor(title: Signal<String>, height: Signal<Number<Length>>) {
+    self.title = title
+    self.height = height
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <box width={self.bounds} height={self.height} border={Ordaen.art.frame.tab} background={Ordaen.art.window.wood}
+           padding={self.padding} rows={BODY_ROWS}>
+        <box xAlign={Align.Center} yAlign={Align.Center}>
+          <text value={self.title} wrap={.None} textColor={TITLE_OPEN} textShadow={SHADOW} />
+        </box>
+      </box>
+    }
+  }
+}
+
 // One control of the window's group: a plate (close's red, the others' bronze: the first of the group, one after
 // another or the last), with its glyph on it. It takes the mouse over its own part of the group and no further: its
 // art is wider than its box, and two boxes that take the mouse never overlap.
