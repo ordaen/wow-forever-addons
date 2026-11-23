@@ -703,7 +703,7 @@ test "each category stands on the wood, its caption over its slots, each slot we
 
 // A slot's clicks
 
-test "Shift+click on a slot picks its item up, or puts down there what the cursor holds" {
+test "Shift+click set to Pick up on a slot picks its item up, or puts down there what the cursor holds" {
   const world = new World(everyday())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
   Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
@@ -711,6 +711,7 @@ test "Shift+click on a slot picks its item up, or puts down there what the curso
   Test.mount(nil, SCREEN)
   Game.bags.open = true
   pick(Ordaen.art.ctl.tool.categories, "One bag")
+  Bags.settings.change((values: mut Choices): nil => { values.slotClicks = { shiftLeft: .Pickup, ..values.slotClicks } })
   _ = Test.requests()
   Game.input.shiftDown = (): Boolean => true
   Test.hold([.Shift])
@@ -805,7 +806,7 @@ test "Ctrl-click set to Send sends the item where the place takes it" {
   Game.items.icon = (id: Integer): Art | nil => world.icon(id)
   Test.mount(nil, SCREEN)
   Game.bags.open = true
-  Bags.settings.change((values: mut Choices): nil => { values.clicks = { ctrlLeft: .Send, ..values.clicks } })
+  Bags.settings.change((values: mut Choices): nil => { values.slotClicks = { ctrlLeft: .Send, ..values.slotClicks } })
   Game.input.controlDown = (): Boolean => true
   Test.hold([.Ctrl])
   held(POTION).click()
@@ -908,21 +909,20 @@ test "a slot's tooltip names its clicks as the player's scheme has them, protect
   const tip = Test.page().window("Minor Healing Potion")
   // Our scheme, a potion's: no socket to open.
   const use = hint(Locale.CHORD_DOUBLE_LEFT, Locale.ACT_USE)
-  const pickup = hint(Locale.CHORD_SHIFT_LEFT, Locale.ACT_PICKUP)
   const send = hint(Locale.CHORD_CTRL_LEFT, Locale.ACT_SEND)
   const menu = hint(Locale.CHORD_RIGHT, Locale.ACT_MENU)
   const link = hint(Locale.CHORD_SHIFT_RIGHT, Locale.ACT_LINK)
   const protect = hint(Locale.CHORD_ALT_LEFT, Locale.MENU_PROTECT)
-  Test.expect(reads(tip, `Minor Healing Potion | ${use} | ${pickup} | ${protect} | ${menu} | ${link}`))
+  Test.expect(reads(tip, `Minor Healing Potion | ${use} | ${protect} | ${menu} | ${link}`))
   Game.input.altDown = (): Boolean => true
   Test.hold([.Alt])
   held(POTION).click()
   const unprotect = hint(Locale.CHORD_ALT_LEFT, Locale.MENU_UNPROTECT)
-  Test.expect(reads(tip, `Minor Healing Potion | ${Locale.PROTECTED} | ${use} | ${pickup} | ${unprotect} | ${menu} | ${link}`))
+  Test.expect(reads(tip, `Minor Healing Potion | ${Locale.PROTECTED} | ${use} | ${unprotect} | ${menu} | ${link}`))
   // Ctrl+Left set to Send: its hint comes.
-  Bags.settings.change((values: mut Choices): nil => { values.clicks = { ctrlLeft: .Send, ..values.clicks } })
+  Bags.settings.change((values: mut Choices): nil => { values.slotClicks = { ctrlLeft: .Send, ..values.slotClicks } })
   Test.flush()
-  Test.expect(reads(tip, `Minor Healing Potion | ${Locale.PROTECTED} | ${use} | ${pickup} | ${send} | ${unprotect} | ${menu} | ${link}`))
+  Test.expect(reads(tip, `Minor Healing Potion | ${Locale.PROTECTED} | ${use} | ${send} | ${unprotect} | ${menu} | ${link}`))
   // Another item's tooltip, where the cursor isn't on its slot: nothing of the bags'.
   Game.tooltip.main = tooltipOf(corner, 25, "Worn Shortsword")
   Test.expect(reads(Test.page().window("Worn Shortsword"), "Worn Shortsword"))

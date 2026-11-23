@@ -319,7 +319,7 @@ test "the client's secure use stands on the scheme's chord for Use: the left in 
   Test.expect(chordFor(OURS, .Protect) == Chord.AltLeft)
 }
 
-test "Shift+left picks the item up, and the right opens the menu, which offers no pick up: neither is the client's use" {
+test "Shift+left set to Pick up picks the item up, and the right opens the menu, which offers no pick up: neither is the client's use" {
   const world = new World(carried())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
   Game.bags.size = (bag: Integer): Integer => world.size(bag)
@@ -328,6 +328,7 @@ test "Shift+left picks the item up, and the right opens the menu, which offers n
   Game.items.maxStack = (id: Integer): Integer | nil => 20
   Test.mount(nil, SCREEN)
   Game.bags.open = true
+  Bags.settings.change((values: mut Choices): nil => { values.slotClicks = { shiftLeft: .Pickup, ..values.slotClicks } })
   _ = Test.requests()
   Test.hold([.Shift])
   Game.input.shiftDown = (): Boolean => true
@@ -361,7 +362,7 @@ test "Alt+click protects the slot; Ctrl+click does nothing of ours, and sends th
   Test.hold([.Ctrl])
   bags().button(CLOTH).click()
   Test.expect(!Test.requests().join(", ").contains("Bags.send"))
-  Bags.settings.change((values: mut Choices): nil => { values.clicks = { ctrlLeft: .Send, ..values.clicks } })
+  Bags.settings.change((values: mut Choices): nil => { values.slotClicks = { ctrlLeft: .Send, ..values.slotClicks } })
   Test.flush()
   bags().button(CLOTH).click()
   Test.expect(Test.requests().join(", ").contains("Bags.send 0 3"))
@@ -387,6 +388,7 @@ test "the bank opens in a window of its own beside the bags', its slots read and
   // Two windows: the bags' with the bags alone, and the bank's.
   Test.expect(bags().button(SWORD).shown() && !bags().button(GEM).shown() && !bags().text(Locale.BANK).shown())
   Test.expect(bank().button(GEM).shown() && !bank().button(SWORD).shown())
+  Bags.settings.change((values: mut Choices): nil => { values.slotClicks = { shiftLeft: .Pickup, ..values.slotClicks } })
   _ = Test.requests()
   Game.input.shiftDown = (): Boolean => true
   Test.hold([.Shift])
@@ -459,4 +461,24 @@ test "the bank shut, its window goes and the bags' window has the bank's tab aga
   Test.expect(!bags().text(Locale.BANK).shown() && Test.page().window(Locale.BANK).shown())
   Game.bankObserver.open = false
   Test.expect(bags().text(Locale.BANK).shown() && bags().button(SWORD).shown())
+}
+
+test "a scheme saved before the double click is let go: Ordaen's own, with its double click, stands in its place" {
+  const old: Map<String, Unknown> = {}
+  old["left"] = "use"
+  old["shiftLeft"] = "pickup"
+  old["ctrlLeft"] = "send"
+  old["right"] = "menu"
+  const kept: Map<String, Unknown> = {}
+  kept["clicks"] = old
+  kept["slotSize"] = 50
+  const settings: Map<String, Unknown> = {}
+  settings["OrdaenBags"] = kept
+  const account: Map<String, Unknown> = {}
+  account["settings"] = settings
+  Test.saved("LunaTypeDB", account)
+  Test.reload()
+  const clicks = Bags.settings.values.slotClicks
+  Test.expect(clicks.left == SlotAction.Nothing && clicks.doubleLeft == SlotAction.Use && clicks.shiftLeft == SlotAction.Nothing)
+  Test.expect(useClickOf(clicks).twice)
 }

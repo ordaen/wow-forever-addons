@@ -46,10 +46,10 @@ public struct Clicks implements Plain {
 }
 
 // A double left click uses, a drag picks up (a left click alone does nothing: it puts down what the cursor holds),
-// Shift+Left picks up, Alt+Left protects, Right opens the menu, Shift+Right links; Ctrl+Left does nothing (Send is
+// Shift+Left nothing, Alt+Left protects, Right opens the menu, Shift+Right links; Ctrl+Left does nothing (Send is
 // the player's to give a chord).
 public const OURS: Clicks = {
-  left: .Nothing, doubleLeft: .Use, shiftLeft: .Pickup, ctrlLeft: .Nothing, altLeft: .Protect, right: .Menu, shiftRight: .Link,
+  left: .Nothing, doubleLeft: .Use, shiftLeft: .Nothing, ctrlLeft: .Nothing, altLeft: .Protect, right: .Menu, shiftRight: .Link,
   ctrlRight: .Nothing, altRight: .Nothing
 }
 
