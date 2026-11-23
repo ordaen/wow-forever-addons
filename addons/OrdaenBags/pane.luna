@@ -15,7 +15,7 @@ import { BANK_ICON } from "@/bank"
 import { Clicks, UseClick } from "@/clicks"
 import { GuildBank, GuildPage, GuildTab, withdrawalsText } from "@/guild"
 import { JunkRules } from "@/junk"
-import { CARD_GAP, CardRoom, CardRow, ROW_LEAST, ROW_ROOM, SLOT_GAP, SLOT_SIZE, Section, TOOL_ROOM, cardRoom, cardWidth, frameSides, heightOf, linesOf } from "@/layout"
+import { CARD_GAP, CardRoom, CardRow, PAGE_SIDE, ROW_LEAST, ROW_ROOM, SIDE_ROOM, SLOT_GAP, SLOT_SIZE, Section, TOOL_ROOM, TOP_ROOM, cardRoom, cardWidth, frameSides, heightOf, linesOf } from "@/layout"
 import Locale from "@/locales"
 import { Grouping, KINDS, Slot, SortBy, Tab, View } from "@/model"
 import { CardLine, Filter, Shelf } from "@/rows"
@@ -190,7 +190,9 @@ public class Pane {
   derived slotSize: Number<Length> = self.room.slot
   // The least window: a card of the fewest slots in a row, the list of tabs beside it where it shows.
   public derived leastWidth: Number<Length> = frameSides() + self.tabsRoom + cardWidth(self.room.least, self.room) + SCROLL_ROOM
-  derived tabsRoom: Number<Length> = self.withList ? TABS_WIDTH : 0ui
+  derived tabsRoom: Number<Length> = self.withList ? TABS_WIDTH + Ordaen.lengthOf(2 * PAGE_SIDE) : 0ui
+  // The toolbar keeps the page's sides itself, or stands in the column beside the tabs that keeps them.
+  derived toolRoom: Edges = self.withList ? TOP_ROOM : TOOL_ROOM
   derived listWidth: Number<Length> = self.width - frameSides() - self.tabsRoom - SCROLL_ROOM
   public derived lines: Array<CardRow> = linesOf(self.sections, self.listWidth, self.room)
   // As high as its cards, or as the screen lets it be.
@@ -364,7 +366,7 @@ public class Pane {
 
   // The toolbar: the search, the sort, tidying, the view, the bag slots.
   const tools: Template = $ltml {
-    <box padding={TOOL_ROOM}>
+    <box padding={self.toolRoom}>
       <Toolbar search={mut self.search} placeholder={Locale.SEARCH}>
         <ToolPick value={mut self.list.values.sort} choices={SORTS} icon={Ordaen.art.ctl.tool.sort} title={Locale.SORT} />
         <ToolAct icon={Ordaen.art.ctl.tool.arrange} title={Locale.ARRANGE} text={Locale.ARRANGE_TIP}
@@ -409,7 +411,7 @@ public class Pane {
           <TabEntry $for={tab of self.tabs} $key={tab} tab={peek tab} current={self.shownTab} counts={self.counts} @picked={self.onTab} />
         </>
       </box>
-      <box rows={BODY} gap={6sp}>
+      <box rows={BODY} gap={6sp} padding={SIDE_ROOM}>
         {self.tools}
         {self.content}
       </box>

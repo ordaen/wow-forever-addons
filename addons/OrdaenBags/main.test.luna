@@ -1886,4 +1886,6 @@ test "in the category view the tabs stand down a marble column the page's height
   // The column reaches the footer; the search stands right of it, not in it.
   Test.expect((column.rect().bottom - footer.rect().top).abs() < 0.05)
   Test.expect(bags().text(Locale.SEARCH).rect().left >= column.rect().right)
+  // The items keep the page's side room from the column, as the toolbar does.
+  Test.expect(nth(1).rect().left - column.rect().right >= Ordaen.lengthOf(8sp) / 1ui)
 }

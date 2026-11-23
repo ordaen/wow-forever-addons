@@ -10,7 +10,11 @@ import { Slot } from "@/model"
 // A window's page runs to the frame's line on every side and down to its footer (`padding` none): its list takes the
 // whole section. What stands over the list (the toolbar) keeps the window's room at the top and the sides.
 public const NO_ROOM: Edges = {}
-public const TOOL_ROOM: Edges = { top: 8sp, right: 8sp, left: 8sp }
+// The window's room at a page's sides, kept by what stands beside a list of tabs: the toolbar and the items alike.
+public const PAGE_SIDE: Number<Spacing> = 8sp
+public const SIDE_ROOM: Edges = { right: PAGE_SIDE, left: PAGE_SIDE }
+public const TOP_ROOM: Edges = { top: 8sp }
+public const TOOL_ROOM: Edges = { top: 8sp, right: PAGE_SIDE, left: PAGE_SIDE }
 // A line of a list: its text kept off the frame.
 public const ROW_ROOM: Edges = { top: 1sp, right: 8sp, bottom: 1sp, left: 8sp }
 
