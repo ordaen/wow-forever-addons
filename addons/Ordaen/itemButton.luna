@@ -174,6 +174,7 @@ public class ItemButton implements Component {
   markers: Signal<Array<Marker>>
   size: Signal<Number<Length>>
   action: Signal<Action | nil>
+  actsOnPress: Signal<Boolean>
   art: Signal<Art | nil>
   linkOnShift: Signal<Boolean>
   worn: Signal<Integer | nil>
@@ -192,6 +193,9 @@ public class ItemButton implements Component {
     size: Signal<Number<Length>> = 46.875dp,
     // What the client does on the player's click itself: none where the slot's clicks are its own alone.
     action: Signal<Action | nil> = nil,
+    // Whether the client does the `action` as the button goes down, whatever the player set (a slot used by a double
+    // click: the second press's release is no click).
+    actsOnPress: Signal<Boolean> = false,
     // The icon the game gave with what the slot shows (a reagent's): drawn in place of the item's, with or without one.
     art: Signal<Art | nil> = nil,
     // Whether Shift+Left-click puts the item's link into the chat; off, it is told as `pressed` (a slot whose clicks
@@ -221,6 +225,7 @@ public class ItemButton implements Component {
     self.mail = mail
     self.art = art
     self.linkOnShift = linkOnShift
+    self.actsOnPress = actsOnPress
     self.worn = worn
     self.item = item
     self.count = count
@@ -305,7 +310,7 @@ public class ItemButton implements Component {
   public render(self): Template {
     return $ltml {
       <box width={self.size} height={self.size} background={self.floor} border={self.slotEdge} opacity={self.opacity}
-           action={self.action} @pointerPress={self.onClick} @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}
+           action={self.action} actsOnPress={self.actsOnPress} @pointerPress={self.onClick} @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}
            @dragStart={self.onDragStart} @drop={self.onDrop}>
         <box $if={self.crested} position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui}
              overflow={.Hidden}>
