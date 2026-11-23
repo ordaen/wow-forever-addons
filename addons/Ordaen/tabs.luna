@@ -3,7 +3,10 @@
 // sides and open at its foot into the page below; the others stand flat on the marble, lighter with a shade under the
 // cursor, over the band's bottom line, which runs on past them to the band's ends. Left-click picks a tab: the strip
 // writes the picked tab's index into the cell it was handed. Where the strip is given counts, each tab shows its own
-// after its name on a dark pill (a log's sub-tabs: the quests of each).
+// after its name on a dark pill (a log's sub-tabs: the quests of each). A tab with nothing in it is `off`: its name dim,
+// still picked by a click. Vertical, the tabs stand one under another down a marble column as wide as it is given
+// (a window's categories beside its list): the picked one ruled on its top, left and bottom and open on its right
+// into the page, the column's line running down its right edge past the others, the count at each tab's right.
 import { Align, Art, ByInteractionState, Edges, Line, Position, Side, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import { Component } from "@/module"
@@ -16,6 +19,13 @@ const CLEAR: Color = Color.hex("#00000000")
 const OPEN: Line = { width: RULE_WIDTH, color: RULE_COLOR, sides: [Side.Top, Side.Left, Side.Right] }
 const UNRULED: Line = { width: RULE_WIDTH, color: CLEAR, sides: [Side.Top, Side.Left, Side.Right] }
 const FOOT: Line = { width: RULE_WIDTH, color: RULE_COLOR, sides: [Side.Bottom] }
+// Vertical: the picked tab open on its right; the column's line down its right edge.
+const OPEN_RIGHT: Line = { width: RULE_WIDTH, color: RULE_COLOR, sides: [Side.Top, Side.Left, Side.Bottom] }
+const UNRULED_RIGHT: Line = { width: RULE_WIDTH, color: CLEAR, sides: [Side.Top, Side.Left, Side.Bottom] }
+const EDGE: Line = { width: RULE_WIDTH, color: RULE_COLOR, sides: [Side.Right] }
+const COLUMN_PAD: Edges = { left: 4sp }
+// A tab with nothing in it: its name dimmer, lighter under the cursor.
+const OFF: ByInteractionState<Color> = { default: Color.hex("#6b6150"), hover: Color.hex("#a3977f"), focus: Color.hex("#a3977f") }
 const SHADE: ByInteractionState<Color> = { default: CLEAR, hover: Color.hex("#00000033"), focus: Color.hex("#00000033") }
 const NAME: ByInteractionState<Color> = { default: Color.hex("#a3977f"), hover: Color.hex("#e8dcc4"), focus: Color.hex("#e8dcc4") }
 const TAB_PAD: Edges = { top: 2.5sp, right: 6sp, bottom: 2.5sp, left: 6sp }
@@ -27,34 +37,43 @@ const BAND_ROWS: Array<Track> = ["max-content", "max-content"]
 // A count after the name: on a dark pill.
 const COUNTED: Array<Track> = ["max-content", "max-content"]
 const NAME_ONLY: Array<Track> = ["max-content"]
+// Vertical: the name takes the tab's width, the count at its right.
+const COUNTED_ACROSS: Array<Track> = [{ fr: 1 }, "max-content"]
+const NAME_ACROSS: Array<Track> = [{ fr: 1 }]
 const PILL: Color = Color.hex("#00000099")
 const PILL_PAD: Edges = { right: 1sp, left: 1sp }
 
 // One tab of the band.
 public class Tab implements Component {
   derived picked: Boolean = self.selected == self.index
-  derived border: Line = self.picked ? OPEN : UNRULED
+  derived border: Line = self.picked ? self.vertical ? OPEN_RIGHT : OPEN : self.vertical ? UNRULED_RIGHT : UNRULED
   derived foot: Color = self.picked ? CLEAR : RULE_COLOR
   derived background: Art | ByInteractionState<Color> = self.picked ? Ordaen.art.window.wood : SHADE
-  derived color: Color | ByInteractionState<Color> = self.picked ? BRIGHT_TEXT : NAME
+  derived color: Color | ByInteractionState<Color> = self.picked ? BRIGHT_TEXT : self.off ? OFF : NAME
   derived counted: Boolean = self.count != nil
   derived countText: String = String.of(self.count ?? 0)
-  derived tracks: Array<Track> = self.counted ? COUNTED : NAME_ONLY
+  derived tracks: Array<Track> = self.vertical ? self.counted ? COUNTED_ACROSS : NAME_ACROSS : self.counted ? COUNTED : NAME_ONLY
 
   label: Signal<String>
   const index: Integer
   selected: mut Signal<Integer>
   count: Signal<Integer | nil>
+  off: Signal<Boolean>
+  vertical: Signal<Boolean>
   constructor(
     label: Signal<String>,
     index: Integer,
     selected: mut Signal<Integer>,
-    count: Signal<Integer | nil> = nil
+    count: Signal<Integer | nil> = nil,
+    off: Signal<Boolean> = false,
+    vertical: Signal<Boolean> = false
   ) {
     self.label = label
     self.index = index
     self.selected = selected
     self.count = count
+    self.off = off
+    self.vertical = vertical
   }
 
   pick(mut self) { self.selected = self.index }
@@ -63,7 +82,9 @@ public class Tab implements Component {
     return $ltml {
       <box padding={TAB_PAD} border={self.border} background={self.background} columns={self.tracks} gap={2sp}
            yAlign={Align.Center} @pointerPress={self.pick} @keyPress(.Enter)={self.pick} @keyPress(.Space)={self.pick}>
-        <box position={Position.Absolute} left={-RULE_WIDTH} right={-RULE_WIDTH} bottom={0ui}
+        <box $if={self.vertical} position={Position.Absolute} top={-RULE_WIDTH} bottom={-RULE_WIDTH} right={0ui}
+             width={RULE_WIDTH} background={self.foot} />
+        <box $else position={Position.Absolute} left={-RULE_WIDTH} right={-RULE_WIDTH} bottom={0ui}
              height={RULE_WIDTH} background={self.foot} />
         <text value={self.label} textColor={self.color} wrap={.None} />
         <box $if={self.counted} padding={PILL_PAD} background={PILL} xAlign={Align.Center}>
@@ -77,6 +98,8 @@ public class Tab implements Component {
 public class Tabs implements Component {
   // The band's left end, a column as wide as each tab, and the rest of the band.
   derived columns: Array<Track> = self.tracks()
+  // Vertical: the column's top, a row as high as each tab, and the rest of the column.
+  derived rows: Array<Track> = self.tracks()
   derived headPad: Edges = self.headed ? HEADED_PAD : HEAD_PAD
 
   tabs: Signal<Array<String>>
@@ -85,16 +108,24 @@ public class Tabs implements Component {
   counts: Signal<Array<Integer>>
   // Something stands over the tabs, in the band (the slot): room under it.
   headed: Signal<Boolean>
+  // Each tab with nothing in it, by its place: its name dim.
+  offs: Signal<Array<Boolean>>
+  // Down a column, not across a band; what stands over the tabs is the band's alone.
+  vertical: Signal<Boolean>
   constructor(
     tabs: Signal<Array<String>>,
     selected: mut Signal<Integer>,
     counts: Signal<Array<Integer>> = [],
-    headed: Signal<Boolean> = false
+    headed: Signal<Boolean> = false,
+    offs: Signal<Array<Boolean>> = [],
+    vertical: Signal<Boolean> = false
   ) {
     self.tabs = tabs
     self.selected = selected
     self.counts = counts
     self.headed = headed
+    self.offs = offs
+    self.vertical = vertical
   }
 
   tracks(self): Array<Track> {
@@ -106,14 +137,20 @@ public class Tabs implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box rows={BAND_ROWS} padding={BAND_PAD} background={Ordaen.art.window.marble}>
+      <box $if={self.vertical} rows={self.rows} padding={COLUMN_PAD} background={Ordaen.art.window.marble}>
+        <box border={EDGE} />
+        <Tab $for={index, name of self.tabs} label={name} index={index} selected={mut self.selected}
+             count={self.counts[index]} off={self.offs[index] == true} vertical={true} />
+        <box border={EDGE} />
+      </box>
+      <box $else rows={BAND_ROWS} padding={BAND_PAD} background={Ordaen.art.window.marble}>
         <box padding={self.headPad}>
           <slot />
         </box>
         <box columns={self.columns} yAlign={Align.Stretch}>
           <box border={FOOT} />
           <Tab $for={index, name of self.tabs} label={name} index={index} selected={mut self.selected}
-               count={self.counts[index]} />
+               count={self.counts[index]} off={self.offs[index] == true} />
           <box border={FOOT} />
         </box>
       </box>
