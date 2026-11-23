@@ -465,8 +465,8 @@ surface 0,776 128x124 on LOW opacity=1
   embed 0,776 128x124 absolute frame=none opacity=0
   box 0,785 119x115 absolute face:player
   box 0,776 128x124 absolute border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,right pieces=[tr 0.80, top 0.99>0.82 x2.83, right 0.78>0.61 x2.73]
-  box 86.7,781.3 36x36 absolute Interface\AddOns\Ordaen\media\level-badge
-    text 100.53,791.38 8.33x15.83 "1" #b88f57
+  box 101,767 36x36 absolute Interface\AddOns\Ordaen\media\level-badge
+    text 114.83,777.08 8.33x15.83 "1" #b88f57
 surface 701.75,139.96 996.5x620.08 on MEDIUM clamped raised by a click
   box 701.75,176.71 996.5x583.33 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.98, tr 0.79, bl 0.80, br 0.60, top 0.98>0.79 x33.60, bottom 0.80>0.60 x33.60, left 0.98>0.80 x19.25, right 0.78>0.61 x19.25] @drag @dragStart @dragStop @pointerEnter @pointerLeave
     box 708.95,183.91 982.1x568.93

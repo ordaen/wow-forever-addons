@@ -972,3 +972,17 @@ test "the menu's first cell starts where the portrait ends, no gap between them"
   const cell = panel().box(CELL).nth(1).rect()
   Test.expect((cell.left - portrait.right).abs() < 0.5)
 }
+
+test "the level's badge stands over the frame's top right corner, centred where its lines meet the face" {
+  Game.player.level = 42
+  Test.mount(nil, SCREEN)
+  const portrait = Test.page().window("42").rect()
+  const badge = Test.page().window("42").box(Ordaen.art.panel.badge).nth(1).rect()
+  // The frame's room on the portrait's top and right: the windows' metal, a third heavier.
+  const metal = Ordaen.art.frame.window
+  const weight = 6 / 4.5
+  const right = metal.reach.right * metal.scale * weight
+  const top = metal.reach.top * metal.scale * weight
+  Test.expect(((badge.left + badge.right) / 2 - (portrait.right - right)).abs() < 0.5)
+  Test.expect(((badge.top + badge.bottom) / 2 - (portrait.top + top)).abs() < 0.5)
+}
