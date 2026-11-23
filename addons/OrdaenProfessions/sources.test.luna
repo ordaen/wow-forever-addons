@@ -1,7 +1,7 @@
 // Where a recipe not learned is learned, as What's Training's table has it, and how its card says it.
 import Game from "$game"
 import Test from "$test"
-import { RecipeSource, Sided, Way, howLearned, otherSideOnly, readinessOf, sourcesOf, wayOf } from "@/sources"
+import { RecipeSource, Sided, Way, asksOf, otherSideOnly, placesOf, readinessOf, sourcesOf, wayOf } from "@/sources"
 import { READY_LATER, READY_MISSING, READY_NOW, READY_SOON } from "@/view"
 
 const ALCHEMY = 171
@@ -37,15 +37,18 @@ test "a recipe is the other side's alone where its every way is a vendor or a qu
   Test.expect(wayOf("trainer") == Way.Trainer && wayOf("world_object") == Way.Other)
 }
 
-test "a recipe's card says each way it is learned and what it asks, a line each" {
+test "a recipe's card has a place for each way it is learned, a vendor its own, and a line for what it asks" {
   Test.factions({ [FACTION]: "The Smiths" })
   const potion = sourcesOf(ALCHEMY)[MINOR_HEALING]
-  if (potion != nil) { Test.expect(howLearned(potion, 1)[1]?.contains("Trainer: from skill 15") == true) }
+  if (potion != nil) {
+    const trainer = placesOf(potion, 1)[1]
+    Test.expect(trainer?.way == "Trainer" && trainer?.name == "Profession trainer, from skill 15" && trainer?.cost == 50)
+  }
   const sold = sourcesOf(BLACKSMITHING)[SOLD]
   if (sold != nil) {
-    const lines = howLearned(sold, 1)
-    Test.expect(lines.length == 2 && lines[1]?.contains("Sold by") == true)
-    Test.expect(lines[2]?.contains("with The Smiths") == true)
+    const vendor = placesOf(sold, 1)[1]
+    Test.expect(vendor?.way == "Vendor" && vendor?.npc == VENDOR && vendor?.quest == 0)
+    Test.expect(asksOf(sold).length == 1 && asksOf(sold)[1]?.contains("with The Smiths") == true)
   }
   Test.expect(potion != nil && sold != nil)
 }

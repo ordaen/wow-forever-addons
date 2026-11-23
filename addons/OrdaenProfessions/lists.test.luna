@@ -675,17 +675,32 @@ test "the card: the recipe's name, what making it does for the skill, its descri
   Test.expect(window().text("Rarely raises the skill").textColor().equal(GREEN))
 }
 
-test "the card of a recipe not learned says so in red, and has no make row and no «Track»" {
+test "the card of a recipe not learned says so in red, and has nothing of making it: no tools, no switches, no make row" {
   Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
   Game.professions.list = professions()
   Game.tradeSkill.categories = categories()
   Game.tradeSkill.recipes = recipes()
+  Game.tradeSkill.requirements = (id: Integer): Array<Game.Requirement> => [{ name: "Loom", met: false }]
   Test.mount(nil, SCREEN)
   Game.tradeSkill.open = TAILORING
-  Test.expect(window().button("Create").shown() && window().text("Track").shown())
+  Test.expect(window().button("Create").shown() && window().text("Track").shown() && window().text("|cffff4040Needs: Loom|r").shown())
   window().button("Not learned").click()
   Test.expect(window().text("Not learned").nth(2).textColor().equal(RED) && window().text("Doesn't raise the skill").count() == 0)
-  Test.expect(!window().button("Create").shown() && !window().text("Track").shown() && window().text("Favorite").shown())
+  Test.expect(!window().button("Create").shown() && !window().text("Track").shown() && !window().text("Favorite").shown())
+  Test.expect(!window().text("|cffff4040Needs: Loom|r").shown())
+}
+
+test "the card of a recipe not learned says where to learn it, a row a place, the trainer's price at its right" {
+  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
+  Game.professions.list = professions()
+  Game.tradeSkill.categories = categories()
+  // What's Training's: a recipe the trainer teaches.
+  Game.tradeSkill.recipes = [recipe(2393, "Trainer's Shirt", 11, Game.Difficulty.Usually, 0, false)]
+  Test.mount(nil, SCREEN)
+  Game.tradeSkill.open = TAILORING
+  window().button("Not learned").click()
+  Test.expect(window().text("Where to learn").shown() && window().text("Trainer").shown())
+  Test.expect(window().text("Trainer").item().texts()[2]?.contains("Profession trainer, from skill") == true)
 }
 
 test "a recipe grey for the skill says it doesn't raise it" {

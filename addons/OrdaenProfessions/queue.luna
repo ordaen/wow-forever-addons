@@ -300,7 +300,7 @@ public class QueuePage implements Component {
                   <box xAlign={Align.End}>
                     <text value={Locale.QUEUE_PRICE} textColor={Style.DIM} wrap={.None} />
                   </box>
-                  <text value={Locale.PRICE_BEST} textColor={Style.DIM} wrap={.None} />
+                  <text value={Locale.QUEUE_WHERE} textColor={Style.DIM} wrap={.None} />
                 </>
               </box>
               <NeedRow $for={entry of self.entries} $key={entry.need.name} entry={entry} priced={self.priced} />

@@ -1,0 +1,42 @@
+// A place a recipe not learned is learned at, a row of its card's «Where to learn» (`LearnPlace`): how (dim), whom or
+// what, as a link where a click opens something (a quest's page, a vendor on the map; greyed in a fight, where the
+// client opens no map for an addon), the zone under it, the trainer's price at its right.
+import Game from "$game"
+import { Align, Track } from "$ltml"
+import { Component, Money, SECONDARY_TEXT } from "Ordaen"
+import { LearnPlace } from "@/sources"
+import Style from "@/style"
+
+const LINK: Color = Color.hex("#d6b878")
+const ROW: Array<Track> = [{ fr: 1 }, "max-content"]
+
+public class LearnPlaceRow implements Component {
+  // The row clicked, where it opens something.
+  public open: Event<LearnPlace> = new Event()
+
+  derived opens: Boolean = self.place.quest != 0 || (self.place.npc != 0 && !Game.situation.combat)
+  derived nameColor: Color = self.opens ? LINK : Style.INK
+  derived hasZone: Boolean = self.place.zone != ""
+  derived priced: Boolean = self.place.cost > 0
+
+  place: Signal<LearnPlace>
+  constructor(place: Signal<LearnPlace>) { self.place = place }
+
+  onClick(mut self) {
+    if (self.opens) { self.open.emit(self.place) }
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={ROW} gap={3sp} yAlign={Align.Center} @pointerPress={self.onClick}>
+        <box gap={0.5sp}>
+          <text value={self.place.way} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
+          <text value={self.place.name} textColor={self.nameColor} />
+          <text $if={self.hasZone} value={self.place.zone} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
+        </box>
+        <Money $if={self.priced} amount={self.place.cost} />
+        <box $else />
+      </box>
+    }
+  }
+}

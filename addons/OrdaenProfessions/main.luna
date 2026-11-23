@@ -12,6 +12,7 @@ import root Ordaen from "Ordaen"
 import { ARTWORK, Choice, Column, FOOTER_ROOM, FilterButton, FilterGroup, ItemId, KeptWindow, Module, ModuleMemory, PushButton, SECONDARY_TEXT, Settings, SettingsPage, Table, ToolPick, Toolbar, WINDOW_ROOM, Window, WindowTabSpec, WindowsPage, tracksOf, windowsTitle } from "Ordaen"
 import root Auction from "OrdaenAuction"
 import type { PriceSource } from "OrdaenAuction"
+import root Quests from "OrdaenQuests"
 import { TrainerIgnored, TrainerList, TrainerView, TrainerWindow } from "OrdaenTrainer"
 import { BandBar } from "@/bandBar"
 import { Book, written } from "@/book"
@@ -28,7 +29,7 @@ import { CategoryGroup, CategoryRow, RecipeRow, RecipeTableRow } from "@/rows"
 import { Choices, GeneralPage } from "@/settings"
 import { SideList } from "@/sideList"
 import { Thresholds, thresholdsOf } from "@/skillUps"
-import { RecipeSource, Way, otherSideOnly, readinessOf, sideOfPlayer, sourcesOf, wayOf } from "@/sources"
+import { LearnPlace, RecipeSource, Way, otherSideOnly, readinessOf, sideOfPlayer, sourcesOf, wayOf } from "@/sources"
 import Style from "@/style"
 import {
   Act, before, FAVORITES, Group, Grouping, Kept, LIST_VIEW, ListView, MakeMode, members, MOST_MARKED, Page, Pause, Queued, QueueAct, READINESS, READY_MISSING, READY_NOW, READY_SOON, Seen, SortBy,
@@ -390,6 +391,28 @@ public class Professions implements Module, App {
         auction.shopping.add(ItemId.of(item), need.missing,
           .Queue { recipe: need.recipe, crafts: need.crafts, character: Game.player.name })
       }
+    }
+  }
+
+  // The card's «To the shopping list»: what the count of the recipe lacks of each reagent, as asked by it.
+  onCardShop(self, recipe: Integer, count: Integer) {
+    const auction = Auction
+    if (auction == nil) { return }
+    for (reagent of Game.tradeSkill.reagents(recipe)) {
+      const item = reagent.itemID
+      const missing = reagent.need * count - reagent.have
+      if (item != nil && missing > 0) {
+        auction.shopping.add(ItemId.of(item), missing, .Queue { recipe: recipe, crafts: count, character: Game.player.name })
+      }
+    }
+  }
+
+  // A place a recipe is learned at, clicked on its card: a quest's page, a vendor on the map.
+  onPlace(self, place: LearnPlace) {
+    if (place.quest != 0) {
+      _ = Quests?.openAt(place.quest)
+    } else if (place.npc != 0) {
+      _ = Quests?.showNpc(place.npc)
     }
   }
 
@@ -941,7 +964,8 @@ public class Professions implements Module, App {
                 <RecipeDetails recipe={self.chosen} note={self.note} kept={self.kept} prices={self.prices}
                                count={mut self.count}
                                mode={mut self.makeMode} profession={self.profession} yellow={self.chosenYellow}
-                               grey={self.chosenGrey} sources={self.sources} @act={self.onAct} @create={self.onCreate} />
+                               grey={self.chosenGrey} sources={self.sources} @act={self.onAct} @create={self.onCreate}
+                               @shop={self.onCardShop} @open={self.onPlace} />
               </box>
             </box>
           </box>

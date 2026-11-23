@@ -37,7 +37,10 @@ public struct Totals {
   toBuy: Integer | nil
   // It makes an item, which sells.
   sellable: Boolean
+  // What it sells for, the house's cut taken; before the cut; the cut in percent.
   sale: Integer | nil
+  listed: Integer | nil
+  cut: Integer
   profit: Integer | nil
   // The oldest house price the totals took, in hours; none where they took none.
   oldest: Integer | nil
@@ -105,6 +108,7 @@ public function totalsOf(
     oldest = older(oldest, part.age)
   }
   let sale: Integer | nil = nil
+  let listed: Integer | nil = nil
   if (makes != nil) {
     const quote = prices.sell(PriceKey.of(makes))
     if (quote != nil) {
@@ -112,10 +116,13 @@ public function totalsOf(
       sale = (one * yield * count).floor()
       oldest = older(oldest, quote.age())
     }
+    const before = prices.listed(PriceKey.of(makes))
+    if (before != nil) { listed = (before.copper() * yield * count).floor() }
   }
   const profit: Integer | nil = sale != nil && cost != nil ? sale - cost : nil
   return {
-    cost: cost, toBuy: toBuy, sellable: makes != nil, sale: sale, profit: profit, oldest: oldest, priced: priced
+    cost: cost, toBuy: toBuy, sellable: makes != nil, sale: sale, listed: listed, cut: prices.cut(), profit: profit,
+    oldest: oldest, priced: priced
   }
 }
 

@@ -1,18 +1,19 @@
 // The chosen recipe's reagents with Ordaen Auction's prices, and the totals under them (`cost.luna`): a reagent's
 // icon, name, have / need for the make row's count (red when short), its price at «Auction» and at «Merchant» for
-// that quantity («—» where none is known) and «Best», the way taken (red «—» where none is). The totals: «Cost»,
-// «Left to buy», «Sale» («doesn't sell» for what makes no item), «Profit» (red under nought), and how old the
-// oldest price taken is, in its age's colour; «—» where a part has no price.
+// that quantity («—» where none is known), the cheaper on a green ground. The totals: «Cost», «Price» (what it sells
+// for, the house's cut taken; its tip the full price and the cut; «doesn't sell» for what makes no item), «Profit»
+// (red under nought), and how old the oldest price taken is, in its age's colour; «—» where a part has no price.
+import Game from "$game"
 import { Align, Art, Edges, Line, Side, Track } from "$ltml"
-import { BRIGHT_TEXT, Component, ItemButton, Money, SECONDARY_TEXT, ageText } from "Ordaen"
+import { BRIGHT_TEXT, Component, ItemButton, Money, SECONDARY_TEXT, Tip, ageText } from "Ordaen"
 import { PartPrice, Totals, Way } from "@/cost"
 import Locale from "@/locales"
 import Style from "@/style"
 
 const SLOT = 37.5dp
-// The headings and the rows are one grid: a price's column and «Best»'s are as wide as the widest of their heading
-// and their cells, at the text's size. Each cell keeps its row's room round it, and its row's rule over it.
-const PRICED: Array<Track> = [SLOT, { fr: 1 }, "max-content", "max-content", "max-content", "max-content"]
+// The headings and the rows are one grid: a price's column is as wide as the widest of its heading and its cells, at
+// the text's size. Each cell keeps its row's room round it, and its row's rule over it.
+const PRICED: Array<Track> = [SLOT, { fr: 1 }, "max-content", "max-content", "max-content"]
 const GAP = 2.5sp
 const ROOM = 1sp
 const FIRST: Edges = { top: ROOM, bottom: ROOM }
@@ -47,8 +48,6 @@ public class PricedReagentRow implements Component {
   derived hasVendor: Boolean = self.price.vendor != nil
   derived auction: Integer = self.price.auction ?? 0
   derived vendor: Integer = self.price.vendor ?? 0
-  derived best: String = wayText(self.price.way)
-  derived bestColor: Color = self.price.way == Way.None ? Style.RED : Style.INK
   derived auctionBack: Color = self.price.way == Way.Buy ? CHEAPER : CLEAR
   derived vendorBack: Color = self.price.way == Way.Vendor ? CHEAPER : CLEAR
 
@@ -78,14 +77,11 @@ public class PricedReagentRow implements Component {
             <text $else value={NONE} textColor={Style.DIM} />
           </box>
         </box>
-        <box padding={NEXT} border={self.rule} yAlign={Align.Center}>
+        <box padding={LAST} border={self.rule} yAlign={Align.Center}>
           <box background={self.vendorBack} xAlign={Align.End}>
             <Money $if={self.hasVendor} amount={self.vendor} />
             <text $else value={NONE} textColor={Style.DIM} />
           </box>
-        </box>
-        <box padding={LAST} border={self.rule} yAlign={Align.Center}>
-          <text value={self.best} textColor={self.bestColor} wrap={.None} />
         </box>
       </>
     }
@@ -108,11 +104,8 @@ public class PriceTable implements Component {
         <box padding={NEXT}>
           <text value={Locale.PRICE_AUCTION} textSize={SECONDARY_TEXT} textColor={Style.DIM} wrap={.None} />
         </box>
-        <box padding={NEXT}>
-          <text value={Locale.PRICE_VENDOR} textSize={SECONDARY_TEXT} textColor={Style.DIM} wrap={.None} />
-        </box>
         <box padding={LAST}>
-          <text value={Locale.PRICE_BEST} textSize={SECONDARY_TEXT} textColor={Style.DIM} wrap={.None} />
+          <text value={Locale.PRICE_VENDOR} textSize={SECONDARY_TEXT} textColor={Style.DIM} wrap={.None} />
         </box>
         <PricedReagentRow $for={index, part of self.parts} price={part} index={index} />
       </box>
@@ -129,11 +122,9 @@ function ageLine(hours: Integer | nil): String {
 
 public class TotalsBlock implements Component {
   derived hasCost: Boolean = self.totals.cost != nil
-  derived hasToBuy: Boolean = self.totals.toBuy != nil
   derived hasSale: Boolean = self.totals.sale != nil
   derived hasProfit: Boolean = self.totals.profit != nil
   derived cost: Integer = self.totals.cost ?? 0
-  derived toBuy: Integer = self.totals.toBuy ?? 0
   derived sale: Integer = self.totals.sale ?? 0
   derived profit: Integer = (self.totals.profit ?? 0).abs()
   derived losing: Boolean = (self.totals.profit ?? 0) < 0
@@ -142,11 +133,16 @@ public class TotalsBlock implements Component {
   derived aged: Boolean = self.age != ""
   derived ageColor: Color = self.ageColorOf()
   derived saleText: String = self.totals.sellable ? NONE : Locale.NOT_SOLD
+  derived saleTip: String = Locale.SALE_TIP.format(Game.money.format(self.totals.listed ?? 0), self.totals.cut, Game.money.format(self.sale))
+  state saleHovered = false
 
   totals: Signal<Totals>
   constructor(totals: Signal<Totals>) {
     self.totals = totals
   }
+
+  onSaleEnter(mut self) { self.saleHovered = true }
+  onSaleLeave(mut self) { self.saleHovered = false }
 
   ageColorOf(self): Color {
     const _, color = ageText((self.totals.oldest ?? 0) * HOUR)
@@ -159,11 +155,11 @@ public class TotalsBlock implements Component {
         <text value={Locale.TOTAL_COST} textColor={Style.DIM} />
         <Money $if={self.hasCost} amount={self.cost} />
         <text $else value={NONE} textColor={Style.DIM} />
-        <text value={Locale.TOTAL_TO_BUY} textColor={Style.DIM} />
-        <Money $if={self.hasToBuy} amount={self.toBuy} />
-        <text $else value={NONE} textColor={Style.DIM} />
         <text value={Locale.TOTAL_SALE} textColor={Style.DIM} />
-        <Money $if={self.hasSale} amount={self.sale} />
+        <box $if={self.hasSale} xAlign={Align.End} @pointerEnter={self.onSaleEnter} @pointerLeave={self.onSaleLeave}>
+          <Money amount={self.sale} />
+          <Tip $if={self.saleHovered} title={Locale.TOTAL_SALE} text={self.saleTip} />
+        </box>
         <text $else value={self.saleText} textColor={Style.DIM} />
         <text value={Locale.TOTAL_PROFIT} textColor={Style.DIM} />
         <box $if={self.hasProfit} columns={["max-content", "max-content"]} gap={0.5sp} xAlign={Align.End}>

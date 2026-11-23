@@ -10,9 +10,6 @@ import Locale from "@/locales"
 import Recipes from "@/recipes"
 import { READY_LATER, READY_MISSING, READY_NOW, READY_SOON } from "@/view"
 
-// The most vendors and quests a card names; the rest are counted.
-const MOST = 3
-
 // A place a recipe is learned at, by its side (0 both, 1 the Alliance, 2 the Horde).
 public struct Sided {
   id: Integer
@@ -120,48 +117,58 @@ public function otherSideOnly(source: RecipeSource, side: Integer): Boolean {
 
 function areaName(area: Integer): String { return Client.C_Map.GetAreaInfo(area) ?? "" }
 
-function placed(name: String, area: Integer): String {
-  const zone = areaName(area)
-  return zone == "" ? name : Locale.LEARN_AT.format(name, zone)
+function vendorName(id: Integer): String { return Quests?.npc(id)?.name ?? Locale.LEARN_NPC.format(id) }
+
+function questName(id: Integer): String {
+  return Client.C_QuestLog.GetTitleForQuestID(id) ?? Quests?.questFacts(id)?.name ?? Locale.LEARN_NPC.format(id)
 }
 
-// The names of the first places, «and N more» after them.
-function namesOf(places: Array<Sided>, name: (place: Sided) => String): String {
-  const names: Array<String> = []
-  for (place of places) {
-    if (names.length < MOST) { names.push(placed(name(place), place.area)) }
-  }
-  const more = places.length - names.length
-  const text = names.join(", ")
-  return more > 0 ? Locale.LEARN_MORE.format(text, more) : text
+// A place or a way a recipe is learned, a row of its card: how (`Trainer`, `Vendor`, ...), whom or what, the zone, the
+// trainer's price (0 for none), and what a click opens: the quest (0 for none) or the vendor on the map (0 for none).
+public struct LearnPlace {
+  way: String
+  name: String
+  zone: String
+  cost: Integer
+  quest: Integer
+  npc: Integer
 }
 
-function vendorName(place: Sided): String { return Quests?.npc(place.id)?.name ?? Locale.LEARN_NPC.format(place.id) }
+function placeOf(way: String, name: String): LearnPlace { return { way: way, name: name, zone: "", cost: 0, quest: 0, npc: 0 } }
 
-function questName(place: Sided): String {
-  return Client.C_QuestLog.GetTitleForQuestID(place.id) ?? Quests?.questFacts(place.id)?.name ?? Locale.LEARN_NPC.format(place.id)
-}
-
-// What a recipe's card says of where it is learned, for the player's side: a line for each way, then what it asks.
-public function howLearned(source: RecipeSource, side: Integer): Array<String> {
-  const lines: Array<String> = []
+// Where a recipe is learned, for the player's side: its trainer, each vendor, each quest, a drop, a player's making, an
+// object in the world.
+public function placesOf(source: RecipeSource, side: Integer): Array<LearnPlace> {
+  const places: Array<LearnPlace> = []
   for (way of source.sources) {
     if (way == "trainer") {
-      lines.push(Locale.LEARN_TRAINER.format(source.skill, Game.money.format(source.cost)))
+      places.push({ way: Locale.WAY_TRAINER, name: Locale.LEARN_TRAINER.format(source.skill), zone: "", cost: source.cost, quest: 0, npc: 0 })
     } else if (way == "vendor") {
       const vendors = source.vendors.filter(place => forSide(place, side))
-      lines.push(vendors.length == 0 ? Locale.LEARN_VENDOR_ANY : Locale.LEARN_VENDOR.format(namesOf(vendors, vendorName)))
+      if (vendors.length == 0) { places.push(placeOf(Locale.WAY_SELLER, Locale.LEARN_VENDOR_ANY)) }
+      for (place of vendors) {
+        places.push({ way: Locale.WAY_SELLER, name: vendorName(place.id), zone: areaName(place.area), cost: 0, quest: 0, npc: place.id })
+      }
     } else if (way == "quest") {
       const quests = source.quests.filter(place => forSide(place, side))
-      lines.push(quests.length == 0 ? Locale.LEARN_QUEST_ANY : Locale.LEARN_QUEST.format(namesOf(quests, questName)))
+      if (quests.length == 0) { places.push(placeOf(Locale.WAY_QUEST, Locale.LEARN_QUEST_ANY)) }
+      for (place of quests) {
+        places.push({ way: Locale.WAY_QUEST, name: questName(place.id), zone: areaName(place.area), cost: 0, quest: place.id, npc: 0 })
+      }
     } else if (way == "drop") {
-      lines.push(Locale.LEARN_DROP)
+      places.push(placeOf(Locale.WAY_DROP, Locale.LEARN_DROP))
     } else if (way == "crafted") {
-      lines.push(Locale.LEARN_CRAFTED)
+      places.push(placeOf(Locale.WAY_CRAFTED, Locale.LEARN_CRAFTED))
     } else if (way == "world_object") {
-      lines.push(Locale.LEARN_OBJECT)
+      places.push(placeOf(Locale.WAY_OBJECT, Locale.LEARN_OBJECT))
     }
   }
+  return places
+}
+
+// What learning a recipe asks besides its place, a line each: a standing with a faction, merchant favor.
+public function asksOf(source: RecipeSource): Array<String> {
+  const lines: Array<String> = []
   for (asked of source.reputation) {
     const faction = Client.C_Reputation.GetFactionDataByID(asked.faction)?.name ?? String.of(asked.faction)
     const standing = Runtime.text(`FACTION_STANDING_LABEL${asked.standing}`) ?? String.of(asked.standing)
