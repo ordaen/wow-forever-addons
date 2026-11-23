@@ -1,7 +1,8 @@
 // Ordaen Tooltips: every tooltip in the one Ordaen skeleton, in place of the game's. The game's tooltip keeps its
 // content and its owner, so every addon that fills it works as before: for a show drawn here the game's own is kept
 // unseen, and this module draws its group where the tooltip belongs. Each kind of tooltip has its switch: off, that
-// kind stays the game's, unchanged.
+// kind stays the game's, unchanged. The tooltip a link pins (a link clicked in chat) is drawn here too, where the
+// game's stands: locked from the start, closed by its button or Escape, dragged by the player, compared on Shift.
 import Events from "$events"
 import Game from "$game"
 import root Ordaen from "Ordaen"
@@ -150,6 +151,17 @@ public class Tooltips implements Module, App {
   // What a world object gives.
   public const gives = new Registry<any ObjectLines>()
 
+  // The pinned tooltip, read as the hover one is; nothing while none is pinned, or one of a kind left to the game.
+  derived pinnedRead: Shown | nil = self.pinnedNow()
+  derived pinnedShown: Boolean = self.pinnedRead != nil
+  derived pinnedModel: Model = self.pinnedRead?.model ?? NOTHING
+  derived pinnedSides: Array<Model> = self.pinnedRead?.sides ?? []
+  derived pinnedCompared: Array<Model> = self.pinnedRead?.compared ?? []
+  derived pinnedItem: Integer = self.pinnedRead?.item ?? 0
+  derived pinnedLink: String = self.pinnedRead?.link ?? ""
+  // Where the game's pinned tooltip stands, hanging by its top left as it does.
+  derived pinnedStanding: Standing = { by: Game.tooltip.pinned.corner, inPlace: true, below: true, right: false }
+
   // The item the tooltip shows, 0 where it shows none; the world object, "" where it shows none.
   derived item: Integer = self.current?.item ?? 0
   derived link: String = self.current?.link ?? ""
@@ -158,6 +170,7 @@ public class Tooltips implements Module, App {
   constructor() {
     Ordaen.modules.add(self)
     watch { self.keepUnseen() }
+    watch { Game.tooltip.hidePinned(self.pinnedShown) }
     watch { self.follow() }
     watch { self.lockCharged() }
     watch { self.forget() }
@@ -294,6 +307,9 @@ public class Tooltips implements Module, App {
     self.kept = nil
   }
 
+  unpin(self) { Game.tooltip.unpin() }
+  dragPinned(self, moving: Boolean) { Game.tooltip.dragPinned(moving) }
+
   onEnter(mut self) { self.over = true }
   onLeave(mut self) { self.over = false }
 
@@ -320,8 +336,9 @@ public class Tooltips implements Module, App {
 
   destructor() {
     if (self.pressHeard != nil) { destroy self.pressHeard }
-    // Nothing here draws the game's tooltip any more: it is seen again.
+    // Nothing here draws the game's tooltips any more: they are seen again.
     Game.tooltip.hide(false)
+    Game.tooltip.hidePinned(false)
   }
 
   // The game's own tooltip is unseen for a show drawn here, and seen for one left to it.
@@ -403,20 +420,33 @@ public class Tooltips implements Module, App {
   readNow(self): Shown | nil {
     let tip = Game.tooltip.main
     if (!tip.shown) { return nil }
-    let kind = kindOf(tip.data)
-    if (kind == nil || !self.wanted(kind, tip.data)) { return nil }
-    let options = self.chosen
     // Against the show before: a tooltip the game fills anew keeps the lines that say the same.
-    let read = group(tip.data, options, (peek self.last)?.model)
+    return self.shownOf(tip.data, tip.ownerName, Game.tooltip.compared, (peek self.last)?.model)
+  }
+
+  // The tooltip a link pinned, read as the hover one is: it has no owner, and nothing before it.
+  pinnedNow(self): Shown | nil {
+    let tip = Game.tooltip.pinned
+    if (!tip.shown) { return nil }
+    return self.shownOf(tip.data, nil, Game.tooltip.pinnedCompared, nil)
+  }
+
+  // What a tooltip of the game's shows (its data, the frame it is shown for, the worn items it is compared with), as
+  // drawn here; nothing for a kind left to the game.
+  shownOf(self, data: Game.TooltipData, ownerName: String | nil, worn: Array<Game.TooltipData>, before: Model | nil): Shown | nil {
+    let kind = kindOf(data)
+    if (kind == nil || !self.wanted(kind, data)) { return nil }
+    let options = self.chosen
+    let read = group(data, options, before)
     if (read == nil) { return nil }
     // Something in it counts down: it is read again as the seconds pass.
     if (read.model.timer == true) { _ = Game.clock.seconds }
     // What a button of the menu or of the bags adds to its tooltip.
-    let extra = self.settings.values.textsExtra ? extras(tip.ownerName, read.model) : read.model
+    let extra = self.settings.values.textsExtra ? extras(ownerName, read.model) : read.model
     // The hotkeys other modules give the frame it is shown for: an action button's binding.
-    let told = ownerKeys(tip.ownerName, extra)
-    const locks = self.locks(kind, tip.data)
-    const place = self.placeOf(kind, tip.data)
+    let told = ownerKeys(ownerName, extra)
+    const locks = self.locks(kind, data)
+    const place = self.placeOf(kind, data)
     if (told.kind != Kind.Item) {
       const object = told.kind == Kind.Object ? told.name : ""
       return {
@@ -426,11 +456,10 @@ public class Tooltips implements Module, App {
 
     // The worn items it is compared with, each under «Equipped». With one, the differences stand on the hovered
     // item; with two, on each worn one.
-    let worn = Game.tooltip.compared
     let compared: Array<Model> = []
     let model = told
-    for (data of worn) {
-      let other = item(data, options)
+    for (wornData of worn) {
+      let other = item(wornData, options)
       if (other == nil) { continue }
       if (worn.length == 1) {
         model = compare(model, read.stats, other.stats, true)
@@ -440,7 +469,7 @@ public class Tooltips implements Module, App {
       }
     }
     return {
-      model: model, sides: read.sides, compared: compared, item: tip.data.id ?? 0, link: tip.data.about ?? "",
+      model: model, sides: read.sides, compared: compared, item: data.id ?? 0, link: data.about ?? "",
       object: "", locks: locks, place: place
     }
   }
@@ -471,6 +500,14 @@ public class Tooltips implements Module, App {
         <AddedToItem $for={row of self.uses} $key={row} row={row} item={self.item} link={self.link} locked={self.locked} />
         <AddedToItem $for={row of self.held} $key={row} row={row} item={self.item} link={self.link} locked={self.locked} />
         <AddedToObject $for={row of self.gives} $key={row} row={row} name={self.object} />
+      </TipGroup>
+      // The pinned tooltip: locked from the start; its close button closes the game's, and a drag moves it.
+      <TipGroup $if={self.pinnedShown} model={self.pinnedModel} sides={self.pinnedSides} compared={self.pinnedCompared}
+                standing={self.pinnedStanding} shown={true} options={self.chosen} locks={true} charge={STEPS} locked={true}
+                draggable={true} @close={self.unpin} @drag={self.dragPinned}>
+        <AddedToItem $for={row of self.worth} $key={row} row={row} item={self.pinnedItem} link={self.pinnedLink} locked={true} />
+        <AddedToItem $for={row of self.uses} $key={row} row={row} item={self.pinnedItem} link={self.pinnedLink} locked={true} />
+        <AddedToItem $for={row of self.held} $key={row} row={row} item={self.pinnedItem} link={self.pinnedLink} locked={true} />
       </TipGroup>
     }
   }

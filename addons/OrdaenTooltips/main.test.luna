@@ -149,7 +149,7 @@ test "the module turned off draws nothing and leaves the game's tooltip seen" {
   _ = Test.requests()
   (Runtime.Addon.of(Tooltips) ?? panic("the tooltips are installed")).disable()
   Test.expect(Test.surfaces().length == 0)
-  Test.expect(Test.requests().join(", ") == "Tooltip.hide false")
+  Test.expect(Test.requests().join(", ") == "Tooltip.hide false, Tooltip.hidePinned false")
 }
 
 // Where it stands

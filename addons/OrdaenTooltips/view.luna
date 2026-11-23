@@ -95,6 +95,8 @@ public class TipGroup implements Component {
 
   // A locked group's close button was clicked; the cursor came onto the group, and left it.
   public close: Event<nil> = new Event()
+  // A drag of a draggable group began (true), and ended (false).
+  public drag: Event<Boolean> = new Event()
   public enter: Event<nil> = new Event()
   public leave: Event<nil> = new Event()
 
@@ -107,6 +109,7 @@ public class TipGroup implements Component {
   locks: Signal<Boolean>
   charge: Signal<Integer>
   locked: Signal<Boolean>
+  draggable: Signal<Boolean>
   constructor(
     model: Signal<Model>,
     // The tooltips open beside it from the start, top to bottom.
@@ -122,7 +125,9 @@ public class TipGroup implements Component {
     // for it always (a listener is bound for good), and tells it always.
     locks: Signal<Boolean> = false,
     charge: Signal<Integer> = 0,
-    locked: Signal<Boolean> = false
+    locked: Signal<Boolean> = false,
+    // The player drags it by its main tooltip (a pinned one).
+    draggable: Signal<Boolean> = false
   ) {
     self.model = model
     self.sides = sides
@@ -133,9 +138,20 @@ public class TipGroup implements Component {
     self.locks = locks
     self.charge = charge
     self.locked = locked
+    self.draggable = draggable
   }
 
+  onDragStart(mut self) { self.drag.emit(true) }
+  onDragStop(mut self) { self.drag.emit(false) }
+
   onClose(mut self) { self.close.emit() }
+  // The main tooltip, with what opens from it and what other modules add after its body (the group's owner fills it).
+  const main: Template = $ltml {
+    <TipFrame model={self.model} locks={self.locks} charge={self.charge} locked={self.locked} @close={self.onClose}>
+      <Opened #opened={opens} opens={opens} options={self.options} />
+      <slot />
+    </TipFrame>
+  }
   // The cursor on the group and off it, locked or not: a group that locks under a cursor already on it is told so.
   onEnter(mut self) { self.enter.emit() }
   onLeave(mut self) { self.leave.emit() }
@@ -174,12 +190,12 @@ public class TipGroup implements Component {
       // The library's group: the cursor on any tooltip and on the gaps between them is on the group, the lock's.
       <TooltipGroup shown={self.shown} place={self.place} beside={self.besides} across={self.across}
                     leftwards={self.leftwards} @enter={self.onEnter} @leave={self.onLeave}>
-        <box #primary padding={self.lowered}>
-          <TipFrame model={self.model} locks={self.locks} charge={self.charge} locked={self.locked} @close={self.onClose}>
-            <Opened #opened={opens} opens={opens} options={self.options} />
-            // What other modules add, after the main tooltip's body: the group's owner fills it.
-            <slot />
-          </TipFrame>
+        // A draggable group's main tooltip takes the press that drags it; another's lets presses through.
+        <box #primary $if={self.draggable} padding={self.lowered} @dragStart={self.onDragStart} @dragStop={self.onDragStop}>
+          {self.main}
+        </box>
+        <box #primary $else padding={self.lowered}>
+          {self.main}
         </box>
         // Every tooltip of a locked group opens what its parts name.
         <box #secondary $if={self.sidesFirst} gap={GAP} yAlign={self.across}>
