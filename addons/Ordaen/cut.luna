@@ -4,7 +4,7 @@
 // (a Section's, the spellbook's) is its title in bold and a rule of paint after it (`ctl.heading`), rising over its
 // first pixels and narrowing to a point at the column's end as it fades. The titles and the paint take the look's
 // colours (`heading`, `headingPaint`).
-import { Align, Blend, Position, Shadow } from "$ltml"
+import { Align, Blend, Position, TextWeight } from "$ltml"
 import root Ordaen from "Ordaen"
 import { OrdaenArt } from "@/art"
 import { Component } from "@/module"
@@ -15,11 +15,6 @@ const ENTRY: Number<Length> = 9.375dp
 // The paint's opacity over the wood where it is whole, and the wood's colour on average (window-wood.tga).
 const PAINT_OPACITY: Number = 0.85
 const WOOD: Color = { r: 21 / 255, g: 13 / 255, b: 5 / 255, a: 1 }
-
-// A title in the look's colour, bold as the design's 700: the same colour one pixel to the right.
-function boldOf(color: Color): Shadow {
-  return { color: color, x: 1.171875dp, y: 0ui }
-}
 
 // What the white paint is tinted to show `seen` on the wood: worked back from it at the paint's opacity over the wood's
 // average, so a colour the grain shows through keeps its hue (a gold laid thin over brown would turn olive).
@@ -55,7 +50,6 @@ class CutPiece implements Component {
 public class Groove implements Component {
   derived titled: Boolean = self.title != ""
   derived color: Color = Ordaen.look.values.heading
-  derived bold: Shadow = boldOf(self.color)
 
   upright: Signal<Boolean>
   title: Signal<String>
@@ -73,7 +67,7 @@ public class Groove implements Component {
         <box rows={[CUT]} yAlign={Align.Stretch}>
           <CutPiece layers={Ordaen.art.ctl.cut.across} />
         </box>
-        <text value={self.title} textColor={self.color} textShadow={self.bold} wrap={.None} />
+        <text value={self.title} textColor={self.color} textWeight={TextWeight.Bold} wrap={.None} />
         <box rows={[CUT]} yAlign={Align.Stretch}>
           <CutPiece layers={Ordaen.art.ctl.cut.across} />
         </box>
@@ -90,7 +84,6 @@ public class Groove implements Component {
 public class Cut implements Component {
   derived titled: Boolean = self.title != ""
   derived color: Color = Ordaen.look.values.heading
-  derived bold: Shadow = boldOf(self.color)
   derived paint: Color = paintFor(Ordaen.look.values.headingPaint)
 
   title: Signal<String>
@@ -101,7 +94,7 @@ public class Cut implements Component {
   public render(self): Template {
     return $ltml {
       <box $if={self.titled} columns={["max-content", { fr: 1 }]} gap={3sp} yAlign={Align.Center}>
-        <text value={self.title} textColor={self.color} textShadow={self.bold} wrap={.None} />
+        <text value={self.title} textColor={self.color} textWeight={TextWeight.Bold} wrap={.None} />
         <box columns={[ENTRY, { fr: 1 }]} rows={[CUT]} yAlign={Align.Stretch}>
           <box background={Ordaen.art.ctl.heading.entry} tint={self.paint} />
           <box background={Ordaen.art.ctl.heading.tip} tint={self.paint} />
