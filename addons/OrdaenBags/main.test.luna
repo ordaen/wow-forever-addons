@@ -734,6 +734,9 @@ test "a slot dragged picks its item up, and let go on another slot puts it down 
   nth(6).hover()
   Test.release(nil)
   Test.expect(asked("Bags.pickup 0 3, Bags.pickup 0 6"))
+  // The drag used nothing: the slot's use waits for the button to come up on it, the client's setting to use on
+  // the press (on by default) notwithstanding.
+  Test.expect(Test.performed().length == 0)
 }
 
 test "a slot's item dragged onto an action bar's button: the client's cursor takes it, and the button the item" {

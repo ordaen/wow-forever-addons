@@ -193,8 +193,8 @@ public class ItemButton implements Component {
     size: Signal<Number<Length>> = 46.875dp,
     // What the client does on the player's click itself: none where the slot's clicks are its own alone.
     action: Signal<Action | nil> = nil,
-    // Whether the client does the `action` as the button goes down, whatever the player set (a slot used by a double
-    // click: the second press's release is no click).
+    // Whether the client does the `action` as the button goes down; else as it comes up, whatever the player set, so
+    // a drag off the slot is no click.
     actsOnPress: Signal<Boolean> = false,
     // The icon the game gave with what the slot shows (a reagent's): drawn in place of the item's, with or without one.
     art: Signal<Art | nil> = nil,
