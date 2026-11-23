@@ -113,7 +113,7 @@ public class Bags implements Module, App {
   ]
   public memory: mut ModuleMemory<Kept> = new ModuleMemory<Kept>(NOTHING_KEPT, .Character)
   // What the player marked and what the bags learned: the active profile's, kept at once as play makes it.
-  public junkLists: mut ModuleMemory<JunkLists> = new ModuleMemory<JunkLists>(NO_LISTS, .Profile, "junk")
+  public junkLists: mut ModuleMemory<JunkLists> = new ModuleMemory<JunkLists>(NO_LISTS, .Character, "junk")
   public gold: Gold
   public arranger: mut Arranger
   public hovered: mut Hovered

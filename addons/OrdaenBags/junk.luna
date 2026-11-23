@@ -1,7 +1,7 @@
 // Junk: the category whose members a verdict decides, the same in the bags, the bank and the guild bank. The first
 // line that has an answer decides: the player's mark (junk; or not junk, which sends the item to its own tab whatever
 // the rules say), then what the bags learned from the player's own sales, then the rules, each a setting. What is
-// marked and learned is the profile's (`OrdaenBags:junk`), written at once as play makes it, never a step of the
+// marked and learned is the character's (`OrdaenBags:junk`), written at once as play makes it, never a step of the
 // settings' history; each list has a hard cap.
 import Game from "$game"
 
@@ -15,7 +15,7 @@ public struct Marked implements Plain {
 }
 
 // What the player marked and what the bags learned, by item: kept because they are the player's teaching, which
-// nothing can rebuild; `MOST_MARKS` and `MOST_LEARNED` at most (about 25 KB a profile).
+// nothing can rebuild; `MOST_MARKS` and `MOST_LEARNED` at most (about 25 KB a character).
 public struct JunkLists implements Plain {
   marks: Map<Integer, Marked>
   // How sure the bags are that the player sells the item, from `FORGOTTEN` to 1; junk above `LEARNED`.
