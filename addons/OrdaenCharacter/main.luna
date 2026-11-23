@@ -13,7 +13,7 @@ import Game from "$game"
 import { Frame, Track } from "$ltml"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
-import { FOOTER_ROOM, KeptWindow, Module, SECONDARY_TEXT, Settings, SettingsPage, Tabs, Window, WindowTabSpec, WindowsPage, playSound, windowsTitle } from "Ordaen"
+import { FooterBand, KeptWindow, Module, SECONDARY_TEXT, Settings, SettingsPage, Tabs, Window, WindowTabSpec, WindowsPage, playSound, windowsTitle } from "Ordaen"
 import root Auras from "OrdaenAuras"
 import { KeptRates, Rates, estimate, ratesKey, ratesOf } from "@/estimate"
 import { GearPage } from "@/gear"
@@ -114,11 +114,12 @@ public class Character implements Module, App {
   state statsView = StatsView.Categories
   // The footer's count, in dim text, of the list the tab shows; none on the other tabs.
   derived count: String = self.countOf()
-  // It takes no room while it has nothing to say (the character tab).
+  // On the marble with a thin line over it, as every window's footer; it takes no room while it has nothing to say
+  // (the character tab).
   const footer: Template = $ltml {
-    <box $if={self.count != ""} padding={FOOTER_ROOM}>
+    <FooterBand $if={self.count != ""}>
       <text value={self.count} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
-    </box>
+    </FooterBand>
   }
   // Each tab's picture is the game's own for it.
   // The inspect window: whom it shows (the unit the game inspected) and what the server said of it.
@@ -137,9 +138,9 @@ public class Character implements Module, App {
   addonHeard: Handle | nil = nil
   derived estimateText: String = self.inspectTab != INSPECT_CHARACTER ? "" : self.estimated ? Locale.ESTIMATED : Locale.NOT_ESTIMATED
   const inspectFooter: Template = $ltml {
-    <box padding={FOOTER_ROOM}>
+    <FooterBand>
       <text value={self.estimateText} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
-    </box>
+    </FooterBand>
   }
   derived inspectTabs: Array<WindowTabSpec> = [
     { title: self.inspected.who.name, icon: CHARACTER_ICON, height: Style.HEIGHT, padding: Style.PAGE_ROOM },
