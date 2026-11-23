@@ -77,7 +77,7 @@ const WEIGHINGS: Map<String, Weighing> = {
 
 // Where an item is worn (`INVTYPE_*`), by the slots of the player's it can take (`INVSLOT_*`): one of them, or with
 // `both` all at once (a two-handed weapon takes the off hand's place too).
-struct Places {
+public struct Places {
   slots: Array<Integer>
   both: Boolean = false
 }
@@ -95,6 +95,48 @@ const PLACES: Map<String, Places> = {
   INVTYPE_SHIELD: { slots: [OFF_HAND] }, INVTYPE_WEAPONOFFHAND: { slots: [OFF_HAND] }, INVTYPE_HOLDABLE: { slots: [OFF_HAND] },
   INVTYPE_RANGED: { slots: [18] }, INVTYPE_RANGEDRIGHT: { slots: [18] }, INVTYPE_THROWN: { slots: [18] },
   INVTYPE_RELIC: { slots: [18] }
+}
+
+// The client's item classes (`Enum.ItemClass`) whose kinds a class may never use.
+const WEAPON = 2
+const ARMOR = 4
+// The kinds every class uses: miscellaneous armour (a ring, a cloak's), a miscellaneous weapon, a fishing pole.
+const ARMOR_ANY = 0
+const WEAPON_ANY = 14
+const FISHING_POLE = 20
+
+// What each class can ever wear and wield, as its trainers teach it (`Enum.ItemArmorSubclass`,
+// `Enum.ItemWeaponSubclass`): plate and mail from level 40 count, a weapon the player hasn't trained yet counts.
+const ARMOR_KINDS: Map<String, Array<Integer>> = {
+  WARRIOR: [1, 2, 3, 4, 6], PALADIN: [1, 2, 3, 4, 6, 7], HUNTER: [1, 2, 3], ROGUE: [1, 2], PRIEST: [1],
+  SHAMAN: [1, 2, 3, 6, 9], MAGE: [1], WARLOCK: [1], DRUID: [1, 2, 8]
+}
+const WEAPON_KINDS: Map<String, Array<Integer>> = {
+  WARRIOR: [0, 1, 2, 3, 4, 5, 6, 7, 8, 10, 13, 15, 16, 18], PALADIN: [0, 1, 4, 5, 6, 7, 8],
+  HUNTER: [0, 1, 2, 3, 6, 7, 8, 10, 13, 15, 16, 18], ROGUE: [2, 3, 4, 7, 13, 15, 16, 18], PRIEST: [4, 10, 15, 19],
+  SHAMAN: [0, 1, 4, 5, 10, 13, 15], MAGE: [7, 10, 15, 19], WARLOCK: [7, 10, 15, 19], DRUID: [4, 5, 10, 13, 15]
+}
+
+// Whether a class can ever use an item of this class and kind (a Paladin a shield, never a dagger); what is neither a
+// weapon nor armour, always.
+public function classCanUse(classTag: String, itemClass: Integer, kind: Integer): Boolean {
+  if (itemClass == ARMOR) {
+    return kind == ARMOR_ANY || (ARMOR_KINDS[classTag] ?? []).any(each => each == kind)
+  }
+  if (itemClass == WEAPON) {
+    return kind == WEAPON_ANY || kind == FISHING_POLE || (WEAPON_KINDS[classTag] ?? []).any(each => each == kind)
+  }
+  return true
+}
+
+// The slots an item would take from what is worn: a one-hander for a player who can't wield two only the main hand;
+// an off-hand item, while a two-hander is held, both hands (the two-hander comes off).
+public function placesFor(worn: String, dualWields: Boolean, twoHanded: Boolean): Places | nil {
+  const places = PLACES[worn]
+  if (places == nil) { return nil }
+  if (worn == "INVTYPE_WEAPON" && !dualWields) { return { slots: [MAIN_HAND] } }
+  if (twoHanded && places.slots.length == 1 && places.slots[1] == OFF_HAND) { return { slots: [MAIN_HAND, OFF_HAND], both: true } }
+  return places
 }
 
 // Where an item is worn that fires from afar: its damage weighs as ranged.
@@ -180,13 +222,15 @@ public class GearWorth {
   }
 
   // How much more the item is worth than what the player wears in its place, as a share (0.15: 15% more; less than
-  // nought: worth less): against the least of the slots it can take, a two-handed weapon against both hands. Nothing
-  // worn there: 1. None where the item isn't worn or the spec weighs nothing.
+  // nought: worth less): against the least of the slots it can take (`placesFor`), a two-handed weapon against both
+  // hands. Nothing worn there: 1. None where the item isn't worn, the class can never use it, or the spec weighs
+  // nothing.
   public upgradeOf(self, link: String): Number | nil {
+    let _, _, _, worn, _, itemClass, kind = Client.C_Item.GetItemInfoInstant(link)
+    if (worn == nil || !classCanUse(Game.player.classTag, (itemClass ?? 0).floor(), (kind ?? 0).floor())) { return nil }
     const score = self.scoreOf(link)
     if (score == nil) { return nil }
-    let _, _, _, worn, _, _, _ = Client.C_Item.GetItemInfoInstant(link)
-    const places = worn != nil ? PLACES[worn] : nil
+    const places = placesFor(worn, Client.CanDualWield(), self.twoHanded())
     if (places == nil) { return nil }
     let held: Number | nil = nil
     if (places.both) {
@@ -200,6 +244,14 @@ public class GearWorth {
     const was = held ?? 0
     if (was <= 0) { return score > 0 ? 1 : nil }
     return (score - was) / was
+  }
+
+  // A two-handed weapon is held.
+  twoHanded(self): Boolean {
+    const link = Client.GetInventoryItemLink("player", MAIN_HAND)
+    if (link == nil) { return false }
+    let _, _, _, worn, _, _, _ = Client.C_Item.GetItemInfoInstant(link)
+    return worn == "INVTYPE_2HWEAPON"
   }
 
   // The worth of what the player wears in a slot; nought for nothing.

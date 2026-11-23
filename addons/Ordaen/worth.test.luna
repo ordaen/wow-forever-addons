@@ -1,6 +1,6 @@
 import Client from "$client"
 import Test from "$test"
-import { SPEC_WEIGHTS, defaultBuildOf, scoreWith, specOf, specsOf, upgradeText } from "Ordaen"
+import { Places, SPEC_WEIGHTS, classCanUse, defaultBuildOf, placesFor, scoreWith, specOf, specsOf, upgradeText } from "Ordaen"
 
 test "a class weighs by the build picked, else the tree with the most points" {
   Test.expect(specOf("WARRIOR", 3, nil, nil)?.key == "protection")
@@ -36,4 +36,22 @@ test "an item's worth is each stat by its weight, a rating by the percentage it 
 
 test "an upgrade reads «+n%», and none for nothing or for less" {
   Test.expect(upgradeText(0.153) == "+15%" && upgradeText(0) == "" && upgradeText(-0.2) == "" && upgradeText(nil) == "")
+}
+
+test "a class weighs only what it can ever use: a Paladin a shield and a two-hander, never a dagger, cloth for a Priest" {
+  Test.expect(classCanUse("PALADIN", 4, 6) && classCanUse("PALADIN", 2, 1) && !classCanUse("PALADIN", 2, 15))
+  Test.expect(classCanUse("PRIEST", 4, 1) && !classCanUse("PRIEST", 4, 2) && classCanUse("PRIEST", 4, 0))
+  Test.expect(classCanUse("MAGE", 2, 20) && classCanUse("ROGUE", 0, 0))
+}
+
+test "a one-hander for one who can't wield two takes the main hand alone; an off-hand item, under a two-hander, both" {
+  Test.expect(slotsOf(placesFor("INVTYPE_WEAPON", false, false)) == "16")
+  Test.expect(slotsOf(placesFor("INVTYPE_WEAPON", true, false)) == "16,17")
+  const shield = placesFor("INVTYPE_SHIELD", false, true)
+  Test.expect(slotsOf(shield) == "16,17" && shield?.both == true)
+  Test.expect(placesFor("INVTYPE_SHIELD", false, false)?.both == false)
+}
+
+function slotsOf(places: Places | nil): String {
+  return (places ?? panic("the item is worn")).slots.map(slot => String.of(slot)).join(",")
 }
