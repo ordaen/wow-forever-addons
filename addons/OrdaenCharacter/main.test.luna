@@ -613,11 +613,14 @@ test "a spec's trees stand on the class's art, out to the window's sides, betwee
   // Under the frame's art at either side, as the client's window draws its trees.
   const reach = Ordaen.art.frame.window.reach
   Test.expect(art.left - body.left <= reach.left + 2 && body.right - art.right <= reach.right + 2)
-  // From the header's marble down to the footer's, each a rim between it and the trees.
-  const head = Test.edges(Ordaen.art.window.marble, 0)
-  const foot = Test.painted(Ordaen.art.window.marble, 2)
-  Test.expect((head.bottom - art.top).abs() < 0.5 && foot.y > art.bottom && foot.y - art.bottom < 40)
-  Test.expect(head.left - body.left <= reach.left + 2)
+  // Under the spec subtabs' marble band, the header's marble from the band down to the trees, the footer's a rim under
+  // them, both from side to side.
+  const band = Test.edges(Ordaen.art.window.marble, 0)
+  const head = Test.painted(Ordaen.art.window.marble, 2)
+  const foot = Test.painted(Ordaen.art.window.marble, 3)
+  Test.expect((2 * head.y - band.bottom - art.top).abs() < 0.5)
+  Test.expect(foot.y > art.bottom && foot.y - art.bottom < 40)
+  Test.expect(band.left - body.left <= reach.left + 2)
   // In its own proportions (2046 by 1177): the part of it drawn, read within the atlas's region as the client reads
   // it, is the box's shape, cut at its longer sides.
   const drawn = Test.drawn().find(d => d.file == "talent-background-warrior") ?? panic("the class's art")
