@@ -144,11 +144,8 @@ public struct OrdaenArt {
     edge: ArtBorder
     // The pill a count stands on.
     countBadge: Art
-    // The shapes a face is cut to: round on a cell, the screen's corner under the panel's rim; the rim over the corner's
-    // face, drawn over the same box as its shape; and the badge the level stands on.
+    // The shape a face is cut to on a cell, round; and the badge the level stands on.
     faceRound: Asset
-    corner: Asset
-    cornerRim: Art
     badge: Art
     // A bag button's edge on the wood: one line.
     slotEdge: Line
@@ -391,10 +388,8 @@ public const ARTWORK: OrdaenArt = {
     gripDown: "Interface/ChatFrame/UI-ChatIM-SizeGrabber-Down"
   },
   panel: {
-    // The shapes a face is cut to: a circle, and the screen's corner; the corner's rim, from the same render.
+    // The shape a face is cut to: a circle.
     faceRound: "@/media/face-round-mask.tga",
-    corner: "@/media/portrait-mask.tga",
-    cornerRim: "@/media/portrait-rim.tga",
     badge: "@/media/level-badge.tga",
     slotEdge: { width: 1ui, color: Color.hex("#6c5535") },
     xpSteel: { file: "@/media/xp-fill-steel.tga", width: 1024, height: 32, tile: Tile.Across },
