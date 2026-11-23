@@ -71,6 +71,13 @@ test "each spell stands under what it waits for: learned now, an earlier rank fi
   Test.expect(learnable.services[learnable.services.length]?.category == "Known")
 }
 
+test "a rank below one the spellbook holds is known: the client's book keeps a spell's highest rank alone" {
+  Game.spells.name = (id: Integer): String | nil => id == REND || id == REND_2 ? "Rend" : id == CHARGE ? "Charge" : nil
+  const learnable = learnableOf(warrior([REND_2]), noQuest, noNpc, nil)
+  Test.expect(headingOf(learnable, REND) == "Known" && headingOf(learnable, REND_2) == "Known")
+  Test.expect(headingOf(learnable, CHARGE) == "Available now")
+}
+
 test "a spell's rank is the client's, and its price What's Training's, a tenth off where the player is Honored" {
   const friendly = learnableOf(warrior([REND]), noQuest, noNpc, nil)
   Test.expect(serviceOf(friendly, REND_2)?.rank == "Rank 2" && serviceOf(friendly, CHARGE)?.rank == "Rank 1")

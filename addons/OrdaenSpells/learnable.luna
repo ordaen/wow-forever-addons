@@ -319,10 +319,41 @@ public type QuestName = (quest: Integer) => String | nil
 // The name an NPC is known by, where it is known.
 public type NpcName = (npc: Integer) => String | nil
 
+// The learner as it knows its ranks: the client's spellbook keeps a spell's highest rank alone, and says the ranks
+// below it aren't known; each of them is, once a higher rank of the same spell is.
+function withRanksBelow(learner: Learner): Learner {
+  // The ranked spells by name: a spell whose name the client hasn't is no rank of another.
+  const ranked: Array<TrainerSpell> = []
+  const names: Map<Integer, String> = {}
+  for (spell of trainerSpellsOf(learner.classTag)) {
+    const name = Game.spells.name(spell.id)
+    if (spell.rank > 0 && name != nil) {
+      ranked.push(spell)
+      names[spell.id] = name
+    }
+  }
+  const highest: Map<String, Integer> = {}
+  for (spell of ranked) {
+    const name = names[spell.id] ?? ""
+    if (learner.known(spell.id) && spell.rank > (highest[name] ?? 0)) { highest[name] = spell.rank }
+  }
+  const below: Map<Integer, Boolean> = {}
+  for (spell of ranked) {
+    if (spell.rank < (highest[names[spell.id] ?? ""] ?? 0)) { below[spell.id] = true }
+  }
+  const known = learner.known
+  return {
+    classTag: learner.classTag, race: learner.race, side: learner.side, level: learner.level,
+    known: (spell: Integer): Boolean => below[spell] == true || known(spell), petKnown: learner.petKnown,
+    standing: learner.standing
+  }
+}
+
 // What the learner can learn, as the trainer's page shows it: a service for each spell (its place in this list its
 // index), the notes of the quest spells and the action that opens their quest, and the weapon skills with their
 // masters.
-public function learnableOf(learner: Learner, questName: QuestName, npcName: NpcName, openLabel: String | nil): Learnable {
+public function learnableOf(given: Learner, questName: QuestName, npcName: NpcName, openLabel: String | nil): Learnable {
+  const learner = withRanksBelow(given)
   const rows: Array<Row> = []
   const quests = questWaysOf(learner.classTag)
   const pets: Map<Integer, Boolean> = {}
