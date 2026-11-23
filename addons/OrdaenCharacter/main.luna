@@ -31,10 +31,9 @@ import { KeptWipe, TalentsPage } from "@/talents"
 // The tabs, in order: the character, each spec's talents (a spec tab's group is its place less one), «Progression»
 // and the statistics; «Progression»'s subtabs, in order.
 const TAB_CHARACTER = 1
-const TAB_SPEC_ONE = 2
-const TAB_SPEC_TWO = 3
-const TAB_PROGRESSION = 4
-const TAB_STATISTICS = 5
+const TAB_TALENTS = 2
+const TAB_PROGRESSION = 3
+const TAB_STATISTICS = 4
 const PROGRESS_REPUTATION = 1
 const PROGRESS_SKILLS = 2
 // The game's character window and its pages, by the names its code gives them, with the tab of ours each opens.
@@ -42,8 +41,6 @@ const GAME_WINDOW = "CharacterFrame"
 // The tabs' pictures: the game's character window's side tabs (`CHARACTER_MODE_TAB_ICONS`), and a tabard for the
 // character, where the game draws the portrait.
 const CHARACTER_ICON: Asset = "Interface/ICONS/INV_Shirt_GuildTabard_01"
-const SPEC_ONE_ICON: Asset = "Interface/ICONS/Ability_Marksmanship"
-const SPEC_TWO_ICON: Asset = "Interface/ICONS/Ability_Warrior_DefensiveStance"
 const PROGRESSION_ICON: Asset = "Interface/ICONS/INV_SideTab_Reputation2_c60"
 const STATISTICS_ICON: Asset = "Interface/ICONS/INV_SideTab_Stats_c60"
 // The inspect window's tabs, in order, and their pictures; the game's inspect window and the addon that makes it.
@@ -58,8 +55,8 @@ const RATES = "inspectRates"
 // Where the class trainer's last price for a reset of the talents is kept, for the character.
 const WIPE = "talentWipe"
 const NO_SKILLS: Array<Skill> = []
-// «Progression»: its subtabs over the page they pick.
-const PROGRESS_ROWS: Array<Track> = ["max-content", { fr: 1 }]
+// «Talents» and «Progression»: their subtabs over the page they pick.
+const SUBTAB_ROWS: Array<Track> = ["max-content", { fr: 1 }]
 
 public class Character implements Module, App {
   public const title: String = "Ordaen Character"
@@ -150,16 +147,8 @@ public class Character implements Module, App {
   derived tabs: Array<WindowTabSpec> = [
     { title: Locale.TAB_CHARACTER, icon: CHARACTER_ICON, height: Style.HEIGHT, padding: Style.PAGE_ROOM },
     // A spec's trees run out to the window's sides: its page keeps its own room for its rows (talents.luna). The trees
-    // stand on art laid out for the window's size: a spec's tab keeps it.
-    {
-      title: self.settings.values.specOne == "" ? Locale.TAB_MAIN : self.settings.values.specOne, icon: SPEC_ONE_ICON,
-      padding: Style.PAGE_ROOM, fixed: true
-    },
-    {
-      title: self.settings.values.specTwo == "" ? Locale.TAB_SECOND : self.settings.values.specTwo, icon: SPEC_TWO_ICON,
-      padding: Style.PAGE_ROOM, fixed: true,
-      locked: self.specGroups < 2 ? Runtime.text("TALENT_SPEC_LOCKED") ?? Locale.SPEC_LOCKED : nil
-    },
+    // stand on art laid out for the window's size: the tab keeps it.
+    { title: Locale.TAB_TALENTS, icon: TALENTS_ICON, padding: Style.PAGE_ROOM, fixed: true },
     // Its lists run to the frame's line and the footer: the pages keep the room for what stands over them.
     { title: Locale.TAB_PROGRESSION, icon: PROGRESSION_ICON, padding: Style.PAGE_ROOM },
     { title: Locale.TAB_STATISTICS, icon: STATISTICS_ICON }
@@ -168,7 +157,12 @@ public class Character implements Module, App {
   // it, whether points wait to be applied, the group the player has active, and how many groups the player has: the
   // second spec's tab is dimmed until it is learned, its Tip the client's own words for it (ours where the client has
   // none).
-  derived group: Integer = self.tab == TAB_SPEC_ONE ? 1 : self.tab == TAB_SPEC_TWO ? 2 : 0
+  // «Talents»' subtab: a spec, by the game's number; the second offered once the player has learned it.
+  state spec = 1
+  derived specTabs: Array<String> = self.specGroups < 2 ? [self.specOneTitle] : [self.specOneTitle, self.specTwoTitle]
+  derived specOneTitle: String = self.settings.values.specOne == "" ? Locale.TAB_MAIN : self.settings.values.specOne
+  derived specTwoTitle: String = self.settings.values.specTwo == "" ? Locale.TAB_SECOND : self.settings.values.specTwo
+  derived group: Integer = self.tab == TAB_TALENTS ? (self.specGroups < 2 ? 1 : self.spec) : 0
   state trees: Array<Game.TalentTree> = []
   state unspent = 0
   state staged = false
@@ -271,7 +265,8 @@ public class Character implements Module, App {
 
   onSpellsShown(mut self, frame: any Frame) {
     self.spellsPaged = true
-    self.window.ask(Game.talentTrees.activeGroup() == 2 ? TAB_SPEC_TWO : TAB_SPEC_ONE)
+    self.spec = Game.talentTrees.activeGroup()
+    self.window.ask(TAB_TALENTS)
     if (!(peek self.open)) {
       self.open = true
       self.refresh()
@@ -590,10 +585,13 @@ public class Character implements Module, App {
                   flyoutSlot={self.flyoutSlot} fitting={self.fitting} @picked={self.onPicked} @tried={self.onTried}
                   @flyout={self.onFlyout} @chose={self.onChose} @closeFlyout={self.onCloseFlyout}
                   auras={Auras.active} @useSet={self.onUseSet} @saveSet={self.onSaveSet} />
-        <TalentsPage $elseif={self.group > 0} trees={self.trees} unspent={self.unspent} staged={self.staged}
-                     active={self.groupActive} wipeCost={self.wipeCost} classTag={Game.player.classTag} @spend={self.onSpend} @refund={self.onRefund} @apply={self.onApply}
-                     @cancel={self.onCancel} @activate={self.onActivate} />
-        <box $elseif={self.tab == TAB_PROGRESSION} rows={PROGRESS_ROWS} gap={3sp}>
+        <box $elseif={self.tab == TAB_TALENTS} rows={SUBTAB_ROWS}>
+          <Tabs tabs={self.specTabs} selected={mut self.spec} />
+          <TalentsPage trees={self.trees} unspent={self.unspent} staged={self.staged} active={self.groupActive}
+                       wipeCost={self.wipeCost} classTag={Game.player.classTag} @spend={self.onSpend}
+                       @refund={self.onRefund} @apply={self.onApply} @cancel={self.onCancel} @activate={self.onActivate} />
+        </box>
+        <box $elseif={self.tab == TAB_PROGRESSION} rows={SUBTAB_ROWS} gap={3sp}>
           <Tabs tabs={self.progressTabs} selected={mut self.progress} />
           <ReputationPage $if={self.progress == PROGRESS_REPUTATION} factions={self.factions} starts={self.starts}
                           chosen={self.chosen} chosenInactive={self.chosenInactive} search={mut self.factionSearch}

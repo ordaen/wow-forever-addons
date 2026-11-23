@@ -586,10 +586,11 @@ function trees(group: Integer): Array<Game.TalentTree> {
   ]
 }
 
-// The window opened on a spec's tab, by the tab's name.
+// The window opened on «Talents», on a spec's subtab, by its name.
 function onSpec(name: String): Test.Part {
   Game.items.icon = icons
   const window = opened(new FakeSheet())
+  window.button("Talents").click()
   window.button(name).click()
   return window
 }
@@ -820,7 +821,7 @@ test "the game is asked for the talents while the window shows, and for no tree 
   Test.flush()
   Test.expect(Test.requests().any(r => r == "TalentTrees.watch true"))
   Test.expect(asked == 0)
-  window.button("Primary").click()
+  window.button("Talents").click()
   Test.expect(asked == 1)
   window.button(Ordaen.art.ctl.corner.close).click()
   Test.expect(Test.requests().any(r => r == "TalentTrees.watch false"))
@@ -931,22 +932,20 @@ test "the second spec's tab is the active one when the game says the player has 
   Test.expect(window.button("Activate").shown())
 }
 
-test "a second spec not had is dimmed, opens nothing, and its tooltip says where it is learned" {
+test "a second spec not had is not offered: «Talents» shows the first's trees" {
   Test.mount(nil, PAGE)
   Game.talentTrees.groups = (): Integer => 1
-  Game.items.icon = icons
-  const window = opened(new FakeSheet())
-  Test.expect(window.text(SECOND).opacity() < 0.6)
-  window.button(SECOND).click()
-  Test.expect(window.text("STR").shown())
-  Test.page().button(SECOND).hover()
-  Test.expect(Test.page().text("The second specialization is learned from your class trainer.").shown())
+  Game.talentTrees.trees = trees
+  const window = onSpec("Primary")
+  Test.expect(!window.button(SECOND).shown())
+  Test.expect(window.text("Arms: 2").shown())
 }
 
 test "a name given to a spec in the settings stands on its tab" {
   Test.mount(nil, PAGE)
   Game.items.icon = icons
   const window = opened(new FakeSheet())
+  window.button("Talents").click()
   Char.settings.change((choices: mut Choices): nil => {
     choices.specOne = "Arms"
     choices.specTwo = "Fury"
@@ -959,6 +958,7 @@ test "the settings' talents page names the spec tabs as the player types, writte
   Test.mount(nil, PAGE)
   Game.items.icon = icons
   const window = opened(new FakeSheet())
+  window.button("Talents").click()
   window.button(Ordaen.art.ctl.corner.gear).click()
   Test.page().window("Durability under the slots").button("Talents").click()
   const settings = Test.page().window("Name of the first spec tab")
@@ -1438,7 +1438,7 @@ test "the class's art keeps its proportions after another tab showed and the tal
   Game.talentTrees.trees = trees
   const window = onSpec("Primary")
   window.button("Progression").click()
-  window.button("Primary").click()
+  window.button("Talents").click()
   const art = Test.edges("talent-background-warrior", 0)
   const drawn = Test.drawn().find(d => d.file == "talent-background-warrior") ?? panic("the class's art")
   const shown = (drawn.right - drawn.left) * 2046 / ((drawn.bottom - drawn.top) * 1177)
