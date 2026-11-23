@@ -1,0 +1,58 @@
+// A recipe's totals at each source, side by side under the reagents' «Auction» and «Merchant» columns: what the parts
+// sold there cost («~» where some aren't sold there, «—» where none is), what the made item brings there (the house's
+// price less its cut; what a merchant pays; none where it isn't bought there), and the profit: the price less the cost
+// and less what the parts not sold there cost at the other source («~» where a part has no price at either), or the
+// cost alone as a loss where the item isn't bought there.
+import { PartPrice } from "@/cost"
+
+// One source's totals.
+public struct SourceTotals {
+  // The parts sold here, at their price; none where none is.
+  cost: Integer | nil
+  // The parts not sold here, by name.
+  missing: Array<String>
+  // What the made item brings here; none where it isn't bought here (or nothing is made).
+  sale: Integer | nil
+  profit: Integer | nil
+  // The parts not sold here that the other source sells, by name: their price is in the profit.
+  filled: Array<String>
+  // The parts sold at neither: the profit leaves them out.
+  unpriced: Array<String>
+}
+
+// A part's price for its count at one source: the house's or a merchant's.
+public enum Source { Auction, Merchant }
+
+function priceAt(part: PartPrice, source: Source): Integer | nil {
+  return source == .Auction ? part.auction : part.vendor
+}
+
+function other(source: Source): Source { return source == .Auction ? .Merchant : .Auction }
+
+// One source's totals, the other source filling in for the profit; `sale` what the made item brings here.
+public function sourceTotalsOf(parts: Array<PartPrice>, source: Source, sale: Integer | nil): SourceTotals {
+  let cost: Integer | nil = nil
+  let fill = 0
+  const missing: Array<String> = []
+  const filled: Array<String> = []
+  const unpriced: Array<String> = []
+  for (part of parts) {
+    const here = priceAt(part, source)
+    if (here != nil) {
+      cost = (cost ?? 0) + here
+    } else {
+      missing.push(part.name)
+      const there = priceAt(part, other(source))
+      if (there != nil) {
+        fill = fill + there
+        filled.push(part.name)
+      } else {
+        unpriced.push(part.name)
+      }
+    }
+  }
+  const spent = (cost ?? 0) + fill
+  const anyPrice = cost != nil || filled.length > 0
+  const profit: Integer | nil = !anyPrice ? nil : (sale ?? 0) - spent
+  return { cost: cost, missing: missing, sale: sale, profit: profit, filled: filled, unpriced: unpriced }
+}

@@ -26,17 +26,22 @@ surface 288,134.12 899.01x227.17 on MEDIUM clamped raised by a click
                     text 676.67,207.37 121.67x15.83 "Apprentice · 31 / 75" #f0e6d2
             box 295.2,240.83 884.61x30.89
               box 295.2,240.83 18.49x30.89
-              box 313.69,240.83 84.13x30.89 #00000033 @keyPress @pointerPress
-                text 330.76,247.94 50x15.83 "Overview" #e8dcc4
-              box 397.82,240.83 79.97x30.89 Interface\AddOns\Ordaen\media\window-wood @keyPress @pointerPress
-                text 415.72,248.78 44.17x15.83 "Recipes" #f0e6d2
-              box 477.79,240.83 102.47x30.89 #00000000 @keyPress @pointerPress
-                text 494.86,247.94 68.33x15.83 "Not learned" #a3977f
-              box 580.26,240.83 65.8x30.89 #00000000 @keyPress @pointerPress
-                text 597.32,247.94 31.67x15.83 "Queue" #a3977f
-              box 646.06,240.83 84.13x30.89 #00000000 @keyPress @pointerPress
-                text 663.12,247.94 50x15.83 "Worth it" #a3977f
-              box 730.19,240.83 449.62x30.89
+              box 313.69,240.83 85.8x30.89 #00000033 @keyPress @pointerPress
+                box 312.86,270.89 87.47x0.83 absolute #3e2f1d
+                text 331.59,248.78 50x15.83 "Overview" #e8dcc4
+              box 399.49,240.83 79.97x30.89 Interface\AddOns\Ordaen\media\window-wood @keyPress @pointerPress
+                box 398.66,270.89 81.63x0.83 absolute #00000000
+                text 417.39,248.78 44.17x15.83 "Recipes" #f0e6d2
+              box 479.46,240.83 104.13x30.89 #00000000 @keyPress @pointerPress
+                box 478.62,270.89 105.8x0.83 absolute #3e2f1d
+                text 497.36,248.78 68.33x15.83 "Not learned" #a3977f
+              box 583.59,240.83 67.47x30.89 #00000000 @keyPress @pointerPress
+                box 582.76,270.89 69.13x0.83 absolute #3e2f1d
+                text 601.49,248.78 31.67x15.83 "Queue" #a3977f
+              box 651.06,240.83 85.8x30.89 #00000000 @keyPress @pointerPress
+                box 650.22,270.89 87.47x0.83 absolute #3e2f1d
+                text 668.96,248.78 50x15.83 "Worth it" #a3977f
+              box 736.86,240.83 442.96x30.89
           box 295.2,271.72 884.61x82.38
             box 295.2,271.72 884.61x82.38
               box 295.2,271.72 538.89x82.38
@@ -90,7 +95,7 @@ surface 288,134.12 899.01x227.17 on MEDIUM clamped raised by a click
                         text 542.76,387.43 250x15.83 "Rich Purple Silk Shirt" #ff8040
                         text 799.87,387.43 20x15.83 "[1]" #f0e6d2
               box 834.09,271.72 345.72x82.38 border=Interface\AddOns\Ordaen\media\frame-divider-down sides=left pieces=[left 0.67>0.60 x4.29]
-                box 851.01,285.94 310.31x0 scrolled 0 of 252.84
+                box 851.01,285.94 310.31x0 scrolled 0 of 232.93
                   box 851.01,285.94 310.31x49.76
                     box 851.01,289.15 43.33x43.33 icon=Interface/Icons/INV_Misc_Note_01
                     box 908.57,285.94 252.76x49.76
@@ -98,13 +103,13 @@ surface 288,134.12 899.01x227.17 on MEDIUM clamped raised by a click
                       text 908.57,322.36 252.76x13.33 "Always raises the skill" #ff8040
                   text 851.01,347.07 310.31x0 "" #e8dcc4
                   text 851.01,358.45 310.31x0 "" #a3977f
-                  box 851.01,369.83 310.31x131.54
+                  box 851.01,369.83 310.31x111.63
                     box 851.01,369.83 310.31x15.83
                       text 851.01,369.83 85.83x15.83 "Prices & costs" #e8c35a
                       box 945.38,374.41 215.94x6.67
                         box 945.38,374.41 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry tint=#c29a43
                         box 952.04,374.41 209.28x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip tint=#c29a43
-                    box 851.01,397.04 310.31x19.02
+                    box 851.01,397.04 310.31x84.42
                       box 851.01,397.04 26.67x19.02
                       box 877.68,397.04 178.29x19.02
                       box 1055.97,397.04 7.11x19.02
@@ -112,24 +117,41 @@ surface 288,134.12 899.01x227.17 on MEDIUM clamped raised by a click
                         text 1070.19,399.89 36.67x13.33 "Auction" #a3977f
                       box 1106.86,397.04 54.47x19.02
                         text 1113.97,399.89 41.67x13.33 "Merchant" #a3977f
-                    box 851.01,427.44 310.31x73.93
-                      text 851.01,436.81 227.61x15.83 "Cost" #a3977f
-                      text 1087.16,436.81 74.17x15.83 "0g 0s 0c" #e8dcc4
-                      text 851.01,461.17 227.61x15.83 "Price" #a3977f
-                      text 1087.16,461.17 74.17x15.83 "doesn't sell" #a3977f
-                      text 851.01,485.54 227.61x15.83 "Profit" #a3977f
-                      text 1087.16,485.54 74.17x15.83 "—" #a3977f
-                  box 851.01,512.75 310.31x26.03
-                    box 851.01,522.12 146.62x16.67
-                      text 851.01,522.54 106.42x15.83 "Favorite" #e8dcc4
-                      box 965.97,522.12 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 0 of 4 @keyPress @pointerPress
-                        box 963.47,519.62 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2 opacity=1
-                        box 978.47,519.62 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=0
-                    box 1014.7,522.12 146.62x16.67
-                      text 1014.7,522.54 106.42x15.83 "Track" #e8dcc4
-                      box 1129.66,522.12 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 0 of 4 @keyPress @pointerPress
-                        box 1127.16,519.62 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2 opacity=1
-                        box 1142.16,519.62 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=0
+                      box 851.01,416.06 26.67x22.36
+                      box 877.68,416.06 178.29x22.36
+                        text 884.79,419.74 171.18x15.83 "Cost" #a3977f
+                      box 1055.97,416.06 7.11x22.36
+                      box 1063.08,416.06 43.78x22.36
+                        text 1098.52,419.74 8.33x15.83 "—" #a3977f
+                      box 1106.86,416.06 54.47x22.36
+                        text 1147.3,419.74 8.33x15.83 "—" #a3977f
+                      box 851.01,438.42 26.67x21.52
+                      box 877.68,438.42 178.29x21.52
+                        text 884.79,441.26 171.18x15.83 "Price" #a3977f
+                      box 1055.97,438.42 7.11x21.52
+                      box 1063.08,438.42 43.78x21.52
+                        text 1098.52,441.26 8.33x15.83 "—" #a3977f
+                      box 1106.86,438.42 54.47x21.52
+                        text 1147.3,441.26 8.33x15.83 "—" #a3977f
+                      box 851.01,459.94 26.67x21.52
+                      box 877.68,459.94 178.29x21.52
+                        text 884.79,462.79 171.18x15.83 "Profit" #a3977f
+                      box 1055.97,459.94 7.11x21.52
+                      box 1063.08,459.94 43.78x21.52
+                        text 1098.52,462.79 8.33x15.83 "—" #a3977f
+                      box 1106.86,459.94 54.47x21.52
+                        text 1147.3,462.79 8.33x15.83 "—" #a3977f
+                  box 851.01,492.84 310.31x26.03
+                    box 851.01,502.21 146.62x16.67
+                      text 851.01,502.63 106.42x15.83 "Favorite" #e8dcc4
+                      box 965.97,502.21 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 0 of 4 @keyPress @pointerPress
+                        box 963.47,499.71 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2 opacity=1
+                        box 978.47,499.71 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=0
+                    box 1014.7,502.21 146.62x16.67
+                      text 1014.7,502.63 106.42x15.83 "Track" #e8dcc4
+                      box 1129.66,502.21 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 0 of 4 @keyPress @pointerPress
+                        box 1127.16,499.71 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2 opacity=1
+                        box 1142.16,499.71 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=0
                 box 851.01,294.47 310.31x36.87
                   box 851.01,294.47 116.67x28.33
                     box 851.01,294.47 116.67x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
@@ -197,17 +219,22 @@ surface 288,134.12 1312x227.17 on MEDIUM clamped raised by a click
                     text 883.17,207.37 121.67x15.83 "Apprentice · 31 / 75" #f0e6d2
             box 295.2,240.83 1297.6x30.89
               box 295.2,240.83 18.49x30.89
-              box 313.69,240.83 84.13x30.89 #00000000 @keyPress @pointerPress
-                text 330.76,247.94 50x15.83 "Overview" #a3977f
-              box 397.82,240.83 79.97x30.89 Interface\AddOns\Ordaen\media\window-wood @keyPress @pointerPress
-                text 415.72,248.78 44.17x15.83 "Recipes" #f0e6d2
-              box 477.79,240.83 102.47x30.89 #00000000 @keyPress @pointerPress
-                text 494.86,247.94 68.33x15.83 "Not learned" #a3977f
-              box 580.26,240.83 65.8x30.89 #00000000 @keyPress @pointerPress
-                text 597.32,247.94 31.67x15.83 "Queue" #a3977f
-              box 646.06,240.83 84.13x30.89 #00000000 @keyPress @pointerPress
-                text 663.12,247.94 50x15.83 "Worth it" #a3977f
-              box 730.19,240.83 862.61x30.89
+              box 313.69,240.83 85.8x30.89 #00000000 @keyPress @pointerPress
+                box 312.86,270.89 87.47x0.83 absolute #3e2f1d
+                text 331.59,248.78 50x15.83 "Overview" #a3977f
+              box 399.49,240.83 79.97x30.89 Interface\AddOns\Ordaen\media\window-wood @keyPress @pointerPress
+                box 398.66,270.89 81.63x0.83 absolute #00000000
+                text 417.39,248.78 44.17x15.83 "Recipes" #f0e6d2
+              box 479.46,240.83 104.13x30.89 #00000000 @keyPress @pointerPress
+                box 478.62,270.89 105.8x0.83 absolute #3e2f1d
+                text 497.36,248.78 68.33x15.83 "Not learned" #a3977f
+              box 583.59,240.83 67.47x30.89 #00000000 @keyPress @pointerPress
+                box 582.76,270.89 69.13x0.83 absolute #3e2f1d
+                text 601.49,248.78 31.67x15.83 "Queue" #a3977f
+              box 651.06,240.83 85.8x30.89 #00000000 @keyPress @pointerPress
+                box 650.22,270.89 87.47x0.83 absolute #3e2f1d
+                text 668.96,248.78 50x15.83 "Worth it" #a3977f
+              box 736.86,240.83 855.94x30.89
           box 295.2,271.72 1297.6x82.38
             box 295.2,271.72 1297.6x82.38
               box 295.2,271.72 648.8x82.38
@@ -261,7 +288,7 @@ surface 288,134.12 1312x227.17 on MEDIUM clamped raised by a click
                         text 568.94,387.43 333.72x15.83 "Rich Purple Silk Shirt" #ff8040
                         text 909.78,387.43 20x15.83 "[1]" #f0e6d2
               box 944,271.72 648.8x82.38 border=Interface\AddOns\Ordaen\media\frame-divider-down sides=left pieces=[left 0.69>0.62 x4.29]
-                box 960.92,285.94 613.39x0 scrolled 0 of 246.42
+                box 960.92,285.94 613.39x0 scrolled 0 of 226.51
                   box 960.92,285.94 613.39x43.33
                     box 960.92,285.94 43.33x43.33 icon=Interface/Icons/INV_Misc_Note_01
                     box 1018.48,291.48 555.83x32.26
@@ -269,13 +296,13 @@ surface 288,134.12 1312x227.17 on MEDIUM clamped raised by a click
                       text 1018.48,310.4 555.83x13.33 "Always raises the skill" #ff8040
                   text 960.92,340.65 613.39x0 "" #e8dcc4
                   text 960.92,352.03 613.39x0 "" #a3977f
-                  box 960.92,363.41 613.39x131.54
+                  box 960.92,363.41 613.39x111.63
                     box 960.92,363.41 613.39x15.83
                       text 960.92,363.41 85.83x15.83 "Prices & costs" #e8c35a
                       box 1055.29,367.99 519.02x6.67
                         box 1055.29,367.99 6.67x6.67 Interface\AddOns\Ordaen\media\heading-paint-entry tint=#c29a43
                         box 1061.96,367.99 512.36x6.67 Interface\AddOns\Ordaen\media\heading-paint-tip tint=#c29a43
-                    box 960.92,390.62 613.39x19.02
+                    box 960.92,390.62 613.39x84.42
                       box 960.92,390.62 26.67x19.02
                       box 987.59,390.62 481.37x19.02
                       box 1468.96,390.62 7.11x19.02
@@ -283,24 +310,41 @@ surface 288,134.12 1312x227.17 on MEDIUM clamped raised by a click
                         text 1483.18,393.46 36.67x13.33 "Auction" #a3977f
                       box 1519.84,390.62 54.47x19.02
                         text 1526.96,393.46 41.67x13.33 "Merchant" #a3977f
-                    box 960.92,421.02 613.39x73.93
-                      text 960.92,430.39 530.69x15.83 "Cost" #a3977f
-                      text 1500.14,430.39 74.17x15.83 "0g 0s 0c" #e8dcc4
-                      text 960.92,454.75 530.69x15.83 "Price" #a3977f
-                      text 1500.14,454.75 74.17x15.83 "doesn't sell" #a3977f
-                      text 960.92,479.12 530.69x15.83 "Profit" #a3977f
-                      text 1500.14,479.12 74.17x15.83 "—" #a3977f
-                  box 960.92,506.33 613.39x26.03
-                    box 960.92,515.7 298.16x16.67
-                      text 960.92,516.11 257.96x15.83 "Favorite" #e8dcc4
-                      box 1227.42,515.7 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 0 of 4 @keyPress @pointerPress
-                        box 1224.92,513.2 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2 opacity=1
-                        box 1239.92,513.2 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=0
-                    box 1276.15,515.7 298.16x16.67
-                      text 1276.15,516.11 257.96x15.83 "Track" #e8dcc4
-                      box 1542.64,515.7 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 0 of 4 @keyPress @pointerPress
-                        box 1540.14,513.2 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2 opacity=1
-                        box 1555.14,513.2 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=0
+                      box 960.92,409.64 26.67x22.36
+                      box 987.59,409.64 481.37x22.36
+                        text 994.7,413.32 474.26x15.83 "Cost" #a3977f
+                      box 1468.96,409.64 7.11x22.36
+                      box 1476.07,409.64 43.78x22.36
+                        text 1511.51,413.32 8.33x15.83 "—" #a3977f
+                      box 1519.84,409.64 54.47x22.36
+                        text 1560.29,413.32 8.33x15.83 "—" #a3977f
+                      box 960.92,432 26.67x21.52
+                      box 987.59,432 481.37x21.52
+                        text 994.7,434.84 474.26x15.83 "Price" #a3977f
+                      box 1468.96,432 7.11x21.52
+                      box 1476.07,432 43.78x21.52
+                        text 1511.51,434.84 8.33x15.83 "—" #a3977f
+                      box 1519.84,432 54.47x21.52
+                        text 1560.29,434.84 8.33x15.83 "—" #a3977f
+                      box 960.92,453.52 26.67x21.52
+                      box 987.59,453.52 481.37x21.52
+                        text 994.7,456.36 474.26x15.83 "Profit" #a3977f
+                      box 1468.96,453.52 7.11x21.52
+                      box 1476.07,453.52 43.78x21.52
+                        text 1511.51,456.36 8.33x15.83 "—" #a3977f
+                      box 1519.84,453.52 54.47x21.52
+                        text 1560.29,456.36 8.33x15.83 "—" #a3977f
+                  box 960.92,486.42 613.39x26.03
+                    box 960.92,495.79 298.16x16.67
+                      text 960.92,496.2 257.96x15.83 "Favorite" #e8dcc4
+                      box 1227.42,495.79 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 0 of 4 @keyPress @pointerPress
+                        box 1224.92,493.29 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2 opacity=1
+                        box 1239.92,493.29 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=0
+                    box 1276.15,495.79 298.16x16.67
+                      text 1276.15,496.2 257.96x15.83 "Track" #e8dcc4
+                      box 1542.64,495.79 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 0 of 4 @keyPress @pointerPress
+                        box 1540.14,493.29 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2 opacity=1
+                        box 1555.14,493.29 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=0
                 box 960.92,294.47 613.39x36.87
                   box 960.92,294.47 116.67x28.33
                     box 960.92,294.47 116.67x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress

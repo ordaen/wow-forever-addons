@@ -8,6 +8,7 @@ import { Align, Art, Edges, Line, Side, Track } from "$ltml"
 import { BRIGHT_TEXT, Component, ItemButton, Money, SECONDARY_TEXT, Tip, ageText } from "Ordaen"
 import { PartPrice, Totals, Way } from "@/cost"
 import Locale from "@/locales"
+import { SourceTotals } from "@/split"
 import Style from "@/style"
 
 const SLOT = 37.5dp
@@ -88,11 +89,136 @@ public class PricedReagentRow implements Component {
   }
 }
 
-// The priced reagents under their headings.
+// A total at one source: its money, «~» before it where it leaves something out, a red «-» for a loss, its tip
+// under the cursor; `none` where there is no amount.
+class TotalCell implements Component {
+  state hovered = false
+  derived has: Boolean = self.amount != nil
+  derived losing: Boolean = (self.amount ?? 0) < 0
+  derived shown: Integer = (self.amount ?? 0).abs()
+  derived color: Color = self.losing ? Style.RED : BRIGHT_TEXT
+  derived tipped: Boolean = self.hovered && self.tip != ""
+
+  amount: Signal<Integer | nil>
+  rough: Signal<Boolean>
+  tip: Signal<String>
+  rule: Signal<Line | nil>
+  last: Signal<Boolean>
+  constructor(amount: Signal<Integer | nil>, rough: Signal<Boolean>, tip: Signal<String>, rule: Signal<Line | nil>, last: Signal<Boolean> = false) {
+    self.amount = amount
+    self.rough = rough
+    self.tip = tip
+    self.rule = rule
+    self.last = last
+  }
+
+  onEnter(mut self) { self.hovered = true }
+  onLeave(mut self) { self.hovered = false }
+
+  public render(self): Template {
+    return $ltml {
+      <box padding={self.last ? LAST : NEXT} border={self.rule} yAlign={Align.Center} xAlign={Align.End}>
+        // The amount alone hears the mouse: its tip under the cursor.
+        <box $if={self.has} columns={{ each: "max-content" }} gap={0.5sp} @pointerEnter={self.onEnter}
+             @pointerLeave={self.onLeave}>
+          <text $if={self.rough} value={"~"} textColor={Style.DIM} />
+          <text $if={self.losing} value={"-"} textColor={Style.RED} />
+          <Money amount={self.shown} color={self.color} />
+          <Tip $if={self.tipped} title={""} text={self.tip} />
+        </box>
+        <text $else value={NONE} textColor={Style.DIM} />
+      </box>
+    }
+  }
+}
+
+// A row of the totals: its label under the reagents' names, its amount at each source under that source's column.
+class TotalRow implements Component {
+  label: Signal<String>
+  auction: Signal<Integer | nil>
+  merchant: Signal<Integer | nil>
+  auctionRough: Signal<Boolean>
+  merchantRough: Signal<Boolean>
+  auctionTip: Signal<String>
+  merchantTip: Signal<String>
+  rule: Signal<Line | nil>
+  constructor(
+    label: Signal<String>, auction: Signal<Integer | nil>, merchant: Signal<Integer | nil>, auctionRough: Signal<Boolean>,
+    merchantRough: Signal<Boolean>, auctionTip: Signal<String>, merchantTip: Signal<String>, rule: Signal<Line | nil> = nil
+  ) {
+    self.label = label
+    self.auction = auction
+    self.merchant = merchant
+    self.auctionRough = auctionRough
+    self.merchantRough = merchantRough
+    self.auctionTip = auctionTip
+    self.merchantTip = merchantTip
+    self.rule = rule
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <>
+        <box padding={FIRST} border={self.rule} />
+        <box padding={NEXT} border={self.rule} yAlign={Align.Center}>
+          <text value={self.label} textColor={Style.DIM} wrap={.None} />
+        </box>
+        <box padding={NEXT} border={self.rule} />
+        <TotalCell amount={self.auction} rough={self.auctionRough} tip={self.auctionTip} rule={self.rule} />
+        <TotalCell amount={self.merchant} rough={self.merchantRough} tip={self.merchantTip} rule={self.rule} last={true} />
+      </>
+    }
+  }
+}
+
+// What a cost's tip says: the parts it leaves out.
+function costTip(side: SourceTotals): String {
+  return side.cost != nil && side.missing.length > 0 ? Locale.TIP_COST_PARTIAL.format(side.missing.join(", ")) : ""
+}
+
+// Whether a profit leaves something out or takes another source's price: some parts are bought here and some not,
+// or a part has no price at all.
+function roughProfit(side: SourceTotals): Boolean {
+  return (side.cost != nil && side.missing.length > 0) || side.unpriced.length > 0
+}
+
+// What a profit's tip says: the item isn't bought here, the parts at the other source's price, the parts with none.
+function profitTip(side: SourceTotals): String {
+  const lines: Array<String> = []
+  if (side.sale == nil) { lines.push(Locale.TIP_NOT_BOUGHT) }
+  if (side.filled.length > 0) { lines.push(Locale.TIP_PROFIT_FILLED.format(side.filled.join(", "))) }
+  if (side.unpriced.length > 0) { lines.push(Locale.TIP_PROFIT_UNPRICED.format(side.unpriced.join(", "))) }
+  return lines.join("\n")
+}
+
+// The priced reagents under their headings, and under them the totals at each source, in the same columns.
 public class PriceTable implements Component {
+  derived auctionCostTip: String = costTip(self.auction)
+  derived merchantCostTip: String = costTip(self.merchant)
+  derived auctionRough: Boolean = self.auction.cost != nil && self.auction.missing.length > 0
+  derived merchantRough: Boolean = self.merchant.cost != nil && self.merchant.missing.length > 0
+  derived saleTip: String = self.saleTipOf()
+  derived auctionProfitRough: Boolean = roughProfit(self.auction)
+  derived merchantProfitRough: Boolean = roughProfit(self.merchant)
+  derived auctionProfitTip: String = profitTip(self.auction)
+  derived merchantProfitTip: String = profitTip(self.merchant)
+
   parts: Signal<Array<PartPrice>>
-  constructor(parts: Signal<Array<PartPrice>>) {
+  auction: Signal<SourceTotals>
+  merchant: Signal<SourceTotals>
+  totals: Signal<Totals>
+  constructor(parts: Signal<Array<PartPrice>>, auction: Signal<SourceTotals>, merchant: Signal<SourceTotals>, totals: Signal<Totals>) {
     self.parts = parts
+    self.auction = auction
+    self.merchant = merchant
+    self.totals = totals
+  }
+
+  // The house's price before its cut, and the cut.
+  saleTipOf(self): String {
+    const sale = self.auction.sale
+    if (sale == nil) { return "" }
+    return Locale.SALE_TIP.format(Game.money.format(self.totals.listed ?? 0), self.totals.cut, Game.money.format(sale))
   }
 
   public render(self): Template {
@@ -108,6 +234,14 @@ public class PriceTable implements Component {
           <text value={Locale.PRICE_VENDOR} textSize={SECONDARY_TEXT} textColor={Style.DIM} wrap={.None} />
         </box>
         <PricedReagentRow $for={index, part of self.parts} price={part} index={index} />
+        <TotalRow label={Locale.TOTAL_COST} auction={self.auction.cost} merchant={self.merchant.cost}
+                  auctionRough={self.auctionRough} merchantRough={self.merchantRough} auctionTip={self.auctionCostTip}
+                  merchantTip={self.merchantCostTip} rule={TOTALS_RULE} />
+        <TotalRow label={Locale.TOTAL_SALE} auction={self.auction.sale} merchant={self.merchant.sale} auctionRough={false}
+                  merchantRough={false} auctionTip={self.saleTip} merchantTip={""} />
+        <TotalRow label={Locale.TOTAL_PROFIT} auction={self.auction.profit} merchant={self.merchant.profit}
+                  auctionRough={self.auctionProfitRough} merchantRough={self.merchantProfitRough}
+                  auctionTip={self.auctionProfitTip} merchantTip={self.merchantProfitTip} />
       </box>
     }
   }
@@ -120,55 +254,23 @@ function ageLine(hours: Integer | nil): String {
   return Locale.PRICES_AGE_DAYS.format((hours / DAY).floor())
 }
 
-public class TotalsBlock implements Component {
-  derived hasCost: Boolean = self.totals.cost != nil
-  derived hasSale: Boolean = self.totals.sale != nil
-  derived hasProfit: Boolean = self.totals.profit != nil
-  derived cost: Integer = self.totals.cost ?? 0
-  derived sale: Integer = self.totals.sale ?? 0
-  derived profit: Integer = (self.totals.profit ?? 0).abs()
-  derived losing: Boolean = (self.totals.profit ?? 0) < 0
-  derived profitColor: Color = self.losing ? Style.RED : BRIGHT_TEXT
+// How old the oldest price the totals took is, in its age's colour.
+public class PricesAge implements Component {
   derived age: String = ageLine(self.totals.oldest)
   derived aged: Boolean = self.age != ""
-  derived ageColor: Color = self.ageColorOf()
-  derived saleText: String = self.totals.sellable ? NONE : Locale.NOT_SOLD
-  derived saleTip: String = Locale.SALE_TIP.format(Game.money.format(self.totals.listed ?? 0), self.totals.cut, Game.money.format(self.sale))
-  state saleHovered = false
+  derived color: Color = self.colorOf()
 
   totals: Signal<Totals>
-  constructor(totals: Signal<Totals>) {
-    self.totals = totals
-  }
+  constructor(totals: Signal<Totals>) { self.totals = totals }
 
-  onSaleEnter(mut self) { self.saleHovered = true }
-  onSaleLeave(mut self) { self.saleHovered = false }
-
-  ageColorOf(self): Color {
+  colorOf(self): Color {
     const _, color = ageText((self.totals.oldest ?? 0) * HOUR)
     return color ?? Style.DIM
   }
 
   public render(self): Template {
     return $ltml {
-      <box columns={TOTALS} gap={3sp} padding={TOTALS_PAD} border={TOTALS_RULE}>
-        <text value={Locale.TOTAL_COST} textColor={Style.DIM} />
-        <Money $if={self.hasCost} amount={self.cost} />
-        <text $else value={NONE} textColor={Style.DIM} />
-        <text value={Locale.TOTAL_SALE} textColor={Style.DIM} />
-        <box $if={self.hasSale} xAlign={Align.End} @pointerEnter={self.onSaleEnter} @pointerLeave={self.onSaleLeave}>
-          <Money amount={self.sale} />
-          <Tip $if={self.saleHovered} title={Locale.TOTAL_SALE} text={self.saleTip} />
-        </box>
-        <text $else value={self.saleText} textColor={Style.DIM} />
-        <text value={Locale.TOTAL_PROFIT} textColor={Style.DIM} />
-        <box $if={self.hasProfit} columns={["max-content", "max-content"]} gap={0.5sp} xAlign={Align.End}>
-          <text $if={self.losing} value={"-"} textColor={Style.RED} />
-          <Money amount={self.profit} color={self.profitColor} />
-        </box>
-        <text $else value={NONE} textColor={Style.DIM} />
-        <text $if={self.aged} value={self.age} textSize={SECONDARY_TEXT} textColor={self.ageColor} />
-      </box>
+      <text $if={self.aged} value={self.age} textSize={SECONDARY_TEXT} textColor={self.color} />
     }
   }
 }

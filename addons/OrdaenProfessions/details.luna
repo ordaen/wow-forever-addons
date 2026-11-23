@@ -15,9 +15,10 @@ import { Flag } from "@/flag"
 import { LearnPlaceRow } from "@/learnPlaces"
 import Locale from "@/locales"
 import { MakeRow } from "@/make"
-import { PriceTable, TotalsBlock } from "@/priceRows"
+import { PriceTable, PricesAge } from "@/priceRows"
 import { ReagentRow } from "@/rows"
 import { LearnPlace, RecipeSource, asksOf, placesOf, sideOfPlayer } from "@/sources"
+import { Source, SourceTotals, sourceTotalsOf } from "@/split"
 import Style from "@/style"
 import { Act, Kept, MakeMode, has } from "@/view"
 
@@ -79,6 +80,10 @@ public class RecipeDetails implements Component {
   derived pricedCount: Integer = self.pricedCountOf()
   derived parts: Array<PartPrice> = self.partsOf()
   derived totals: Totals = self.totalsOf()
+  // The totals at each source, side by side: the house's and a merchant's.
+  derived merchantSale: Integer | nil = self.merchantSaleOf()
+  derived auctionSide: SourceTotals = sourceTotalsOf(self.parts, Source.Auction, self.totals.sale)
+  derived merchantSide: SourceTotals = sourceTotalsOf(self.parts, Source.Merchant, self.merchantSale)
   // Ordaen Auction is on but has no price for any part: nothing was scanned, or (where the house prices what it
   // makes) none of the reagents.
   derived noPrices: Boolean = self.priced && self.reagents.length > 0 && !self.totals.priced
@@ -156,6 +161,15 @@ public class RecipeDetails implements Component {
     return totalsOf(prices, self.parts, self.made, yieldOf(self.shown.id), self.pricedCount)
   }
 
+  // What a merchant pays for what the count makes; none where merchants don't buy it, or nothing is made.
+  merchantSaleOf(self): Integer | nil {
+    const made = self.made
+    if (made == nil) { return nil }
+    const one = Game.items.sellPrice(made) ?? 0
+    if (one <= 0) { return nil }
+    return (one * yieldOf(self.shown.id) * self.pricedCount).floor()
+  }
+
   madeOf(self): Integer | nil {
     const schematic = Game.recipeReader.schematic(self.shown.id)
     if (schematic == nil) { return nil }
@@ -208,9 +222,9 @@ public class RecipeDetails implements Component {
               <text $if={self.asked} value={self.asks} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
             </Section>
             <Section $if={self.priced} title={Locale.SECTION_PRICES}>
-              <PriceTable parts={self.parts} />
+              <PriceTable parts={self.parts} auction={self.auctionSide} merchant={self.merchantSide} totals={self.totals} />
               <text $if={self.noPrices} value={self.noPricesText} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
-              <TotalsBlock totals={self.totals} />
+              <PricesAge totals={self.totals} />
             </Section>
             <box $else>
               <ReagentRow $for={index, reagent of self.reagents} reagent={reagent} index={index} />

@@ -26,19 +26,25 @@ surface 288,134.12 1024x631.75 on MEDIUM clamped raised by a click
                     text 739.17,207.37 121.67x15.83 "Apprentice · 31 / 75" #f0e6d2
             box 295.2,240.83 1009.6x30.89
               box 295.2,240.83 18.49x30.89
-              box 313.69,240.83 84.13x30.89 #00000000 @keyPress @pointerPress
-                text 330.76,247.94 50x15.83 "Overview" #a3977f
-              box 397.82,240.83 78.3x30.89 #00000000 @keyPress @pointerPress
-                text 414.89,247.94 44.17x15.83 "Recipes" #a3977f
-              box 476.12,240.83 59.97x30.89 #00000000 @keyPress @pointerPress
-                text 493.19,247.94 25.83x15.83 "Camp" #a3977f
-              box 536.09,240.83 102.47x30.89 #00000000 @keyPress @pointerPress
-                text 553.16,247.94 68.33x15.83 "Not learned" #a3977f
-              box 638.56,240.83 65.8x30.89 #00000000 @keyPress @pointerPress
-                text 655.62,247.94 31.67x15.83 "Queue" #a3977f
-              box 704.36,240.83 85.8x30.89 Interface\AddOns\Ordaen\media\window-wood @keyPress @pointerPress
-                text 722.26,248.78 50x15.83 "Worth it" #f0e6d2
-              box 790.16,240.83 514.64x30.89
+              box 313.69,240.83 85.8x30.89 #00000000 @keyPress @pointerPress
+                box 312.86,270.89 87.47x0.83 absolute #3e2f1d
+                text 331.59,248.78 50x15.83 "Overview" #a3977f
+              box 399.49,240.83 79.97x30.89 #00000000 @keyPress @pointerPress
+                box 398.66,270.89 81.63x0.83 absolute #3e2f1d
+                text 417.39,248.78 44.17x15.83 "Recipes" #a3977f
+              box 479.46,240.83 61.63x30.89 #00000000 @keyPress @pointerPress
+                box 478.62,270.89 63.3x0.83 absolute #3e2f1d
+                text 497.36,248.78 25.83x15.83 "Camp" #a3977f
+              box 541.09,240.83 104.13x30.89 #00000000 @keyPress @pointerPress
+                box 540.26,270.89 105.8x0.83 absolute #3e2f1d
+                text 558.99,248.78 68.33x15.83 "Not learned" #a3977f
+              box 645.22,240.83 67.47x30.89 #00000000 @keyPress @pointerPress
+                box 644.39,270.89 69.13x0.83 absolute #3e2f1d
+                text 663.12,248.78 31.67x15.83 "Queue" #a3977f
+              box 712.69,240.83 85.8x30.89 Interface\AddOns\Ordaen\media\window-wood @keyPress @pointerPress
+                box 711.86,270.89 87.47x0.83 absolute #00000000
+                text 730.59,248.78 50x15.83 "Worth it" #f0e6d2
+              box 798.49,240.83 506.31x30.89
           box 295.2,271.72 1009.6x486.96
             box 295.2,271.72 1009.6x486.96
               box 295.2,271.72 1009.6x70.66

@@ -9,7 +9,7 @@ import Game from "$game"
 import { Action, Align, Edges, Track } from "$ltml"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
-import { ARTWORK, Choice, Column, FilterButton, FilterGroup, ItemId, KeptWindow, Module, ModuleMemory, PushButton, Settings, SettingsPage, Table, ToolPick, Toolbar, WINDOW_ROOM, Window, WindowTabSpec, WindowsPage, tracksOf, windowsTitle } from "Ordaen"
+import { ARTWORK, Choice, Column, FilterButton, FilterGroup, ItemId, KeptWindow, Module, ModuleMemory, PushButton, Settings, SettingsPage, Table, Tabs, ToolPick, Toolbar, WINDOW_ROOM, Window, WindowTabSpec, WindowsPage, tracksOf, windowsTitle } from "Ordaen"
 import root Auction from "OrdaenAuction"
 import type { PriceSource } from "OrdaenAuction"
 import root Quests from "OrdaenQuests"
@@ -22,7 +22,6 @@ import { RecipeDetails } from "@/details"
 import { Learning, Taught, learnedFrom } from "@/learn"
 import Locale from "@/locales"
 import { OverviewPage, knownSpellName } from "@/overview"
-import { PageTabs } from "@/pageTabs"
 import { QueueItem, Use, needsOf, usesOf } from "@/published"
 import { Need, QueuePage } from "@/queue"
 import { CategoryGroup, CategoryRow, RecipeRow, RecipeTableRow } from "@/rows"
@@ -884,12 +883,12 @@ public class Professions implements Module, App {
             <text value={Locale.PICK} textColor={Style.DIM} />
           </box>
           <box $else rows={BODY}>
-            <PageTabs tabs={self.pageNames} selected={mut self.page}>
+            <Tabs tabs={self.pageNames} selected={mut self.page} headed={true}>
               <box columns={self.bandColumns} gap={4sp} yAlign={Align.Center}>
                 <BandBar rank={self.profession?.rank ?? 0} most={self.profession?.max ?? 0} />
                 <PushButton $if={self.hasTrack} label={self.trackName} width={TRACK_WIDTH} action={self.trackAction} />
               </box>
-            </PageTabs>
+            </Tabs>
             <box rows={FILL} padding={self.pageRoom}>
               <QueuePage $if={self.queueShown} queued={self.queued} prices={self.prices} status={self.queueStatus}
                          ready={self.queueReady} @next={self.onNext} @act={self.onQueueAct}
