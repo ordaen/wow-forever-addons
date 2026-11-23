@@ -28,10 +28,10 @@ import { CategoryGroup, CategoryRow, RecipeRow, RecipeTableRow } from "@/rows"
 import { Choices, GeneralPage } from "@/settings"
 import { SideList } from "@/sideList"
 import { Thresholds, thresholdsOf } from "@/skillUps"
-import { RecipeSource, Way, otherSideOnly, sideOfPlayer, sourcesOf, wayOf } from "@/sources"
+import { RecipeSource, Way, otherSideOnly, readinessOf, sideOfPlayer, sourcesOf, wayOf } from "@/sources"
 import Style from "@/style"
 import {
-  Act, before, FAVORITES, Group, Kept, LIST_VIEW, ListView, MakeMode, members, MOST_MARKED, Page, Pause, Queued, QueueAct, Seen, SortBy,
+  Act, before, FAVORITES, Group, Grouping, Kept, LIST_VIEW, ListView, MakeMode, members, MOST_MARKED, Page, Pause, Queued, QueueAct, READINESS, READY_MISSING, READY_NOW, READY_SOON, Seen, SortBy,
   Sorted, sorted, tableBefore, View
 } from "@/view"
 import { WorthPage } from "@/worth"
@@ -89,6 +89,9 @@ const VIEWS: Array<Choice<View>> = [
   { value: View.Categories, label: Locale.VIEW_CATEGORIES, icon: ARTWORK.ctl.tool.categories },
   { value: View.Table, label: Locale.VIEW_TABLE, icon: ARTWORK.ctl.tool.table }
 ]
+const GROUPINGS: Array<Choice<Grouping>> = [
+  { value: Grouping.Readiness, label: Locale.GROUP_READINESS }, { value: Grouping.Type, label: Locale.GROUP_TYPE }
+]
 const SORTS: Array<Choice<SortBy>> = [
   { value: SortBy.Difficulty, label: Locale.SORT_DIFFICULTY },
   { value: SortBy.Name, label: Locale.SORT_NAME },
@@ -133,9 +136,28 @@ function keyOf(filter: Map<RecipeFilter, Boolean>): String {
   return key
 }
 
-// The filter as the window starts it: nothing on (the recipes not learned from every way, the other side's alone
-// left out).
-const FILTER_START: Map<RecipeFilter, Boolean> = {}
+// The filter as the window starts it, as What's Training's does: the recipes not learned from a trainer, a vendor or a
+// quest, none asking a standing (the other side's alone left out).
+const FILTER_START: Map<RecipeFilter, Boolean> = {
+  [RecipeFilter.Trainer]: true, [RecipeFilter.Vendor]: true, [RecipeFilter.Quest]: true, [RecipeFilter.NoReputation]: true
+}
+
+// A group of What's Training's by its name.
+function readinessName(readiness: Integer): String {
+  if (readiness == READY_NOW) { return Locale.READY_NOW }
+  if (readiness == READY_MISSING) { return Locale.READY_MISSING }
+  if (readiness == READY_SOON) { return Locale.READY_SOON }
+  return Locale.READY_LATER
+}
+
+// What's Training's order within a group: by the skill a recipe is learned at, then by name.
+function bySkill(sources: Map<Integer, RecipeSource>, a: Game.Recipe, b: Game.Recipe): Boolean {
+  const x = sources[a.id]?.skill ?? 1000
+  const y = sources[b.id]?.skill ?? 1000
+  if (x != y) { return x < y }
+  if (a.name != b.name) { return a.name < b.name }
+  return a.id < b.id
+}
 
 const NO_USES: Array<Use> = []
 
@@ -206,7 +228,7 @@ public class Professions implements Module, App {
   state makeMode: MakeMode = MakeMode.Count
   public state search = ""
   // The filter's options on, and each as the passing reads it.
-  public state filter: Map<RecipeFilter, Boolean> = {}
+  public state filter: Map<RecipeFilter, Boolean> = FILTER_START
   derived onlyMake: Boolean = self.filter[RecipeFilter.Makeable] == true
   derived onlySkill: Boolean = self.filter[RecipeFilter.SkillUp] == true
   // Where the recipes of the profession open are learned, read as it opens.
@@ -246,6 +268,8 @@ public class Professions implements Module, App {
   derived onCamp: Boolean = self.pageKind == Page.Camp
   // The recipes not learned have a page of their own; every other page lists what is learned.
   derived unlearnedShown: Boolean = self.pageKind == Page.Unlearned
+  // The recipes not learned grouped by what waits for them (What's Training's), not by the game's categories.
+  derived byReadiness: Boolean = self.unlearnedShown && self.list.values.grouping == Grouping.Readiness
   derived queueShown: Boolean = self.pageKind == Page.Queue
   derived overviewShown: Boolean = self.pageKind == Page.Overview
   derived worthShown: Boolean = self.pageKind == Page.Worth
@@ -276,7 +300,7 @@ public class Professions implements Module, App {
   // The recipes of the chosen category, and the table's rows in the table's order.
   public derived recipes: Array<Game.Recipe> = members(self.shown, self.byCategory, self.listed, self.kept.favorites)
   // What is shown by its category: every group's recipes come of one reading of the list.
-  derived byCategory: Map<Integer, Array<Game.Recipe>> = sorted(self.shown)
+  derived byCategory: Map<Integer, Array<Game.Recipe>> = self.byReadiness ? self.readinessGroups() : sorted(self.shown)
   derived tableRows: Array<Game.Recipe> = self.tableRowsOf()
   derived priced: Boolean = self.prices != nil
   derived tableColumns: Array<Column> = self.priced ? PRICED_COLUMNS : COLUMNS
@@ -473,7 +497,7 @@ public class Professions implements Module, App {
   shownOf(mut self): Array<Game.Recipe> {
     const sought = self.search.lower()
     const sort = self.list.values.sort
-    const asked = `${sought}\n${sort}\n${self.filterKey}\n${self.unlearnedShown}`
+    const asked = `${sought}\n${sort}\n${self.filterKey}\n${self.unlearnedShown}\n${self.byReadiness}`
     if (asked != self.sortedAs) {
       self.sortedAs = asked
       self.sortedOf = {}
@@ -486,7 +510,12 @@ public class Professions implements Module, App {
     for (recipe of all) {
       if (self.passes(recipe, sought)) { list.push(recipe) }
     }
-    list.sort((a, b) => before(sort, a, b))
+    if (self.byReadiness) {
+      const sources = self.sources
+      list.sort((a, b) => bySkill(sources, a, b))
+    } else {
+      list.sort((a, b) => before(sort, a, b))
+    }
     if (open != nil) { self.sortedOf[open] = { of: all, list: list } }
     return list
   }
@@ -506,6 +535,13 @@ public class Professions implements Module, App {
     const byCategory = self.byCategory
     const hearts = members(self.mains, byCategory, FAVORITES, starred)
     if (hearts.length > 0) { list.push(self.groupOf(FAVORITES, Locale.FAVORITES, hearts)) }
+    if (self.byReadiness) {
+      for (readiness of READINESS) {
+        const own = members(self.mains, byCategory, readiness, starred)
+        if (own.length > 0) { list.push(self.groupOf(readiness, readinessName(readiness), own)) }
+      }
+      return list
+    }
     for (category of Game.tradeSkill.categories) {
       if (category.parentID != nil && category.id != self.camp) {
         const own = members(self.mains, byCategory, category.id, starred)
@@ -513,6 +549,19 @@ public class Professions implements Module, App {
       }
     }
     return list
+  }
+
+  // The recipes shown by what waits for each, at the profession's skill.
+  readinessGroups(self): Map<Integer, Array<Game.Recipe>> {
+    const lists: Map<Integer, mut Array<Game.Recipe>> = {}
+    const skill = self.profession?.rank ?? 0
+    const most = self.profession?.max ?? 0
+    for (recipe of self.shown) {
+      const at = readinessOf(self.sources[recipe.id], skill, most)
+      const list = lists[at]
+      if (list == nil) { lists[at] = [recipe] } else { list.push(recipe) }
+    }
+    return lists
   }
 
   groupOf(self, id: Integer, name: String, recipes: Array<Game.Recipe>): Group {
@@ -785,7 +834,12 @@ public class Professions implements Module, App {
     const page = self.pageAt(inCamp ? Page.Camp : recipe.learned ? Page.Recipes : Page.Unlearned)
     self.opening = page != peek self.page
     self.page = page
-    self.category = recipe.categoryID
+    // One the filter leaves out is shown: the filter lets every way through.
+    const source = (peek self.sources)[id]
+    if (!recipe.learned && source != nil && !self.learnedFromShown(source)) { self.filter = {} }
+    const grouped = !recipe.learned && (peek self.list.values).grouping == Grouping.Readiness
+    const profession = peek self.profession
+    self.category = grouped ? readinessOf(source, profession?.rank ?? 0, profession?.max ?? 0) : recipe.categoryID
     self.pickRecipe(id)
   }
 
@@ -840,8 +894,10 @@ public class Professions implements Module, App {
                   <box padding={TOOL_ROOM}>
                     <Toolbar search={mut self.search} placeholder={Locale.SEARCH}>
                       <FilterButton values={mut self.filter} start={FILTER_START} groups={FILTERS} />
-                      <ToolPick $if={!self.isTable} value={mut self.list.values.sort} choices={SORTS} icon={Ordaen.art.ctl.tool.sort}
-                                title={Locale.SORT} />
+                      <ToolPick $if={!self.isTable && !self.byReadiness} value={mut self.list.values.sort} choices={SORTS}
+                                icon={Ordaen.art.ctl.tool.sort} title={Locale.SORT} />
+                      <ToolPick $if={self.unlearnedShown && !self.isTable} value={mut self.list.values.grouping} choices={GROUPINGS}
+                                icon={Ordaen.art.ctl.tool.list} title={Locale.GROUP} />
                       <ToolPick $if={!self.onCamp} value={mut self.list.values.view} choices={VIEWS} icon={Ordaen.art.ctl.tool.columns}
                                 title={Locale.VIEW} />
                     </Toolbar>

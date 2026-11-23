@@ -474,7 +474,7 @@ test "an option of the filter has its switch on while it is on; «Reset» turns 
   Test.expect(!filter().button("Can make").paintedWith(Ordaen.art.ctl.switchOn) && !filter().button("Raises the skill").paintedWith(Ordaen.art.ctl.switchOn))
 }
 
-test "the filter narrows the recipes not learned to the ways they are learned, and leaves out those asking a reputation" {
+test "the filter starts as What's Training's: a trainer's, a vendor's or a quest's, none asking a standing" {
   Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
   Game.professions.list = professions()
   Game.tradeSkill.categories = categories()
@@ -488,13 +488,29 @@ test "the filter narrows the recipes not learned to the ways they are learned, a
   Game.tradeSkill.open = TAILORING
   view("By category")
   window().button("Not learned").click()
-  Test.expect(listed().contains("Trainer's Shirt") && listed().contains("Vendor's Robe"))
-  filter().button("From a vendor").click()
-  Test.expect(!listed().contains("Trainer's Shirt") && listed().contains("Vendor's Robe"))
-  filter().button("No reputation asked").click()
-  Test.expect(!listed().contains("Vendor's Robe"))
-  filter().button("From a vendor").click()
+  // The robe asks a standing: left out at first.
   Test.expect(listed().contains("Trainer's Shirt") && !listed().contains("Vendor's Robe"))
+  filter().button("No reputation asked").click()
+  Test.expect(listed().contains("Trainer's Shirt") && listed().contains("Vendor's Robe"))
+  filter().button("From a trainer").click()
+  Test.expect(!listed().contains("Trainer's Shirt") && listed().contains("Vendor's Robe"))
+}
+
+test "the recipes not learned group as What's Training files them, or by the game's categories, as the picker says" {
+  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
+  Game.professions.list = professions()
+  Game.tradeSkill.categories = categories()
+  Game.tradeSkill.recipes = recipes()
+  Test.mount(nil, SCREEN)
+  Game.tradeSkill.open = TAILORING
+  // The recipes' page has no grouping to pick.
+  Test.expect(!window().button(Ordaen.art.ctl.tool.list).shown())
+  window().button("Not learned").click()
+  // The cape isn't in What's Training's table: nothing is known of the skill it asks.
+  Test.expect(reads(window().text("Missing requirements").item(), "Missing requirements | 0 | /1"))
+  Test.expect(!window().text("Cloth armour").shown() && lists("Woolen Cape"))
+  pick(Ordaen.art.ctl.tool.list, "What you can learn", "Recipe type")
+  Test.expect(window().text("Cloth armour").shown() && !window().text("Missing requirements").shown())
 }
 
 test "a click anywhere but the filter's menu closes it" {
@@ -517,14 +533,15 @@ test "the funnel's tip names the options on, or that none is" {
   Test.mount(nil, SCREEN)
   Game.tradeSkill.open = TAILORING
   window().button(Ordaen.art.ctl.tool.filter).hover()
-  Test.expect(reads(Test.page().window("Filter"), "Filter | Nothing switched on"))
+  Test.expect(reads(Test.page().window("Filter"), "Filter | From a trainer, From a vendor, From a quest, No reputation asked"))
   filter().button("Can make").click()
   filter().button("Raises the skill").click()
   window().button("Recipes").click()
   window().button(Ordaen.art.ctl.tool.filter).hover()
-  Test.expect(reads(Test.page().window("Filter"), "Filter | Can make, Raises the skill"))
-  filter().button("Can make").click()
-  filter().button("Raises the skill").click()
+  Test.expect(reads(Test.page().window("Filter"), "Filter | Can make, Raises the skill, From a trainer, From a vendor, From a quest, No reputation asked"))
+  for (label of ["Can make", "Raises the skill", "From a trainer", "From a vendor", "From a quest", "No reputation asked"]) {
+    filter().button(label).click()
+  }
   window().button("Recipes").click()
   window().button(Ordaen.art.ctl.tool.filter).hover()
   Test.expect(reads(Test.page().window("Filter"), "Filter | Nothing switched on"))

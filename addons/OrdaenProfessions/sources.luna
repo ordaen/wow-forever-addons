@@ -8,6 +8,7 @@ import Runtime from "$runtime"
 import root Quests from "OrdaenQuests"
 import Locale from "@/locales"
 import Recipes from "@/recipes"
+import { READY_LATER, READY_MISSING, READY_NOW, READY_SOON } from "@/view"
 
 // The most vendors and quests a card names; the rest are counted.
 const MOST = 3
@@ -28,6 +29,8 @@ public struct Asked {
 // Where a recipe is learned.
 public struct RecipeSource {
   skill: Integer
+  // The player's level a rank asks (0 for none).
+  level: Integer = 0
   sources: Array<String>
   // At its trainer, in copper; 0 for none.
   cost: Integer
@@ -65,11 +68,30 @@ public function sourcesOf(skillLine: Integer | nil): Map<Integer, RecipeSource> 
       reputation.push({ faction: numberAt(pair, 1), standing: numberAt(pair, 2) })
     }
     sources[numberAt(parts, 1)] = {
-      skill: numberAt(parts, 2), sources: partsOf(parts[6] ?? "", "/"), cost: numberAt(parts, 7), favor: numberAt(parts, 11),
+      skill: numberAt(parts, 2), level: numberAt(parts, 8), sources: partsOf(parts[6] ?? "", "/"), cost: numberAt(parts, 7), favor: numberAt(parts, 11),
       reputation: reputation, quests: sidedOf(parts[14] ?? ""), vendors: sidedOf(parts[15] ?? "")
     }
   }
   return sources
+}
+
+// The points of skill ahead within which a recipe is «coming soon», as What's Training counts them.
+const SOON_SKILL = 10
+
+// Whether the player stands with a faction as a recipe asks, any of its standings will do; true for one asking none.
+function standingMet(source: RecipeSource): Boolean {
+  if (source.reputation.length == 0) { return true }
+  return source.reputation.any(asked => (Client.C_Reputation.GetFactionDataByID(asked.faction)?.reaction ?? 0) >= asked.standing)
+}
+
+// What waits for a recipe not learned, as What's Training files it, at the profession's skill and most.
+public function readinessOf(source: RecipeSource | nil, skill: Integer, most: Integer): Integer {
+  if (source == nil || source.skill == 0) { return READY_MISSING }
+  if (source.skill <= skill) {
+    return !standingMet(source) || source.level > Game.player.level ? READY_MISSING : READY_NOW
+  }
+  if (source.skill <= skill + SOON_SKILL && source.skill <= most) { return READY_SOON }
+  return READY_LATER
 }
 
 function forSide(place: Sided, side: Integer): Boolean { return place.side == 0 || place.side == side }

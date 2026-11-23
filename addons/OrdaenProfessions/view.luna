@@ -11,6 +11,10 @@ public enum View implements Plain { Columns = "columns", Categories = "categorie
 // the bags can make.
 public enum SortBy implements Plain { Difficulty = "difficulty", Name = "name", Makeable = "makeable" }
 
+// How the recipes not learned are grouped: by the game's categories, as the learned are, or as What's Training files
+// them, by what the player can learn now (`READINESS`).
+public enum Grouping implements Plain { Type = "type", Readiness = "readiness" }
+
 // How the player left the recipe list, the profile's (`ModuleMemory`): its view, its sort, and the
 // table's order (its column from 1, and which way). The search isn't kept: a list cut short by an old search at the
 // next opening says nothing of why.
@@ -19,6 +23,7 @@ public struct ListView implements Plain {
   sort: SortBy = SortBy.Difficulty
   tableColumn: Integer = 1
   tableDescending: Boolean = false
+  grouping: Grouping = Grouping.Readiness
 }
 public const LIST_VIEW: ListView = {}
 
@@ -31,6 +36,15 @@ public enum Act { Pick = 1, Menu = 2, Favorite = 3, Track = 4, Make = 5, Close =
 
 // The group of the recipes the player starred: it stands first, with no category of the game's number.
 public const FAVORITES = -1
+
+// What waits for a recipe not learned, as What's Training files it, each a group of its own with no category of the
+// game's number: learned now (the skill, the level and the standing it asks are reached), something else asked first
+// (or nothing known of the skill), within 10 points of the skill (and under its most), later.
+public const READY_NOW = -11
+public const READY_MISSING = -12
+public const READY_SOON = -13
+public const READY_LATER = -14
+public const READINESS: Array<Integer> = [READY_NOW, READY_MISSING, READY_SOON, READY_LATER]
 
 // A category of the game's with the recipes of it the search and the filter let through, and how many of those the
 // bags can make now; or the favorites.

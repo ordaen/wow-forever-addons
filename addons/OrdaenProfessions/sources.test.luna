@@ -1,6 +1,8 @@
 // Where a recipe not learned is learned, as What's Training's table has it, and how its card says it.
+import Game from "$game"
 import Test from "$test"
-import { RecipeSource, Sided, Way, howLearned, otherSideOnly, sourcesOf, wayOf } from "@/sources"
+import { RecipeSource, Sided, Way, howLearned, otherSideOnly, readinessOf, sourcesOf, wayOf } from "@/sources"
+import { READY_LATER, READY_MISSING, READY_NOW, READY_SOON } from "@/view"
 
 const ALCHEMY = 171
 const BLACKSMITHING = 164
@@ -46,4 +48,21 @@ test "a recipe's card says each way it is learned and what it asks, a line each"
     Test.expect(lines[2]?.contains("with The Smiths") == true)
   }
   Test.expect(potion != nil && sold != nil)
+}
+
+// A recipe learned at `skill`, a rank asking `level`.
+function learnedAt(skill: Integer, level: Integer): RecipeSource {
+  return { skill: skill, level: level, sources: ["trainer"], cost: 0, favor: 0, reputation: [], quests: [], vendors: [] }
+}
+
+test "a recipe not learned waits as What's Training files it: now, something else first, within 10 points, later" {
+  Game.player.level = 20
+  // At skill 50 of 75.
+  Test.expect(readinessOf(learnedAt(50, 0), 50, 75) == READY_NOW && readinessOf(learnedAt(40, 0), 50, 75) == READY_NOW)
+  // A rank asking a level not reached, or nothing known of it.
+  Test.expect(readinessOf(learnedAt(50, 30), 50, 75) == READY_MISSING && readinessOf(nil, 50, 75) == READY_MISSING)
+  Test.expect(readinessOf(learnedAt(0, 0), 50, 75) == READY_MISSING)
+  Test.expect(readinessOf(learnedAt(60, 0), 50, 75) == READY_SOON && readinessOf(learnedAt(61, 0), 50, 75) == READY_LATER)
+  // Over the skill's most now: later, however near.
+  Test.expect(readinessOf(learnedAt(76, 0), 70, 75) == READY_LATER)
 }
