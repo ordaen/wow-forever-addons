@@ -11,7 +11,6 @@ public enum SlotAction implements Plain {
   Pickup = "pickup"
   Menu = "menu"
   Link = "link"
-  Send = "send"
   Protect = "protect"
   Socket = "socket"
   Nothing = "nothing"
@@ -45,17 +44,17 @@ public struct Clicks implements Plain {
   altRight: SlotAction
 }
 
-// A double left click uses, a drag picks up (a left click alone does nothing: it puts down what the cursor holds),
-// Shift+Left nothing, Alt+Left protects, Right opens the menu, Shift+Right links; Ctrl+Left does nothing (Send is
-// the player's to give a chord).
+// A double left click uses (what the client's use does where the player stands: sells at a merchant, puts into a
+// letter or a trade), a drag picks up (a left click alone does nothing: it puts down what the cursor holds), Right
+// opens the menu (protecting is there), Shift+Right links.
 public const OURS: Clicks = {
-  left: .Nothing, doubleLeft: .Use, shiftLeft: .Nothing, ctrlLeft: .Nothing, altLeft: .Protect, right: .Menu, shiftRight: .Link,
+  left: .Nothing, doubleLeft: .Use, shiftLeft: .Nothing, ctrlLeft: .Nothing, altLeft: .Nothing, right: .Menu, shiftRight: .Link,
   ctrlRight: .Nothing, altRight: .Nothing
 }
 
 // As the game's own slot: Left picks up, Right uses, Shift+Left links, Shift+Right sockets, Ctrl+Right the menu.
 public const AS_THE_GAME: Clicks = {
-  left: .Pickup, doubleLeft: .Nothing, shiftLeft: .Link, ctrlLeft: .Send, altLeft: .Protect, right: .Use, shiftRight: .Socket,
+  left: .Pickup, doubleLeft: .Nothing, shiftLeft: .Link, ctrlLeft: .Nothing, altLeft: .Protect, right: .Use, shiftRight: .Socket,
   ctrlRight: .Menu, altRight: .Nothing
 }
 
@@ -151,7 +150,7 @@ function choiceOf(action: SlotAction): Choice<SlotAction> {
   return { value: action, label: actionName(action) }
 }
 
-const ACTIONS: Array<SlotAction> = [.Use, .Pickup, .Menu, .Link, .Send, .Protect, .Socket, .Nothing]
+const ACTIONS: Array<SlotAction> = [.Use, .Pickup, .Menu, .Link, .Protect, .Socket, .Nothing]
 
 public function actionName(action: SlotAction): String {
   return match (action) {
@@ -159,7 +158,6 @@ public function actionName(action: SlotAction): String {
     .Pickup => Locale.ACT_PICKUP
     .Menu => Locale.ACT_MENU
     .Link => Locale.ACT_LINK
-    .Send => Locale.ACT_SEND
     .Protect => Locale.ACT_PROTECT
     .Socket => Locale.ACT_SOCKET
     .Nothing => Locale.ACT_NOTHING

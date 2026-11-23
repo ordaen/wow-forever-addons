@@ -180,8 +180,8 @@ public class Bags implements Module, App {
     self.gold = new Gold()
     self.arranger = new Arranger()
     self.hovered = new Hovered()
-    self.tips = new GuardTips(self.hovered, self.settings.values)
     self.guild = new GuildBank()
+    self.tips = new GuardTips(self.hovered, self.settings.values, self.bankOpen, self.guild.open)
     self.main = new Pane(
       self.carried, self.bank, self.vaultGuild, self.guild, self.vault, self.live, mut self.list, self.settings.values,
       self.mainWidth, self.lit, self.running, self.goldRows, mut self.slotsOpen, mut self.bankSlotsOpen, self.menu, self.useClick
@@ -457,9 +457,6 @@ public class Bags implements Module, App {
       .Menu => self.openMenu(slot)
       .Link => {
         if (id != 0) { Game.chat.link(id) }
-      }
-      .Send => {
-        if (slot.vault == Vault.Bags) { _ = Game.bags.send(slot.bag, slot.index) }
       }
       .Protect => {
         if (slot.vault == Vault.Bags) { self.guard(slot) }
