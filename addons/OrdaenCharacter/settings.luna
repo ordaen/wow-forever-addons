@@ -3,7 +3,7 @@
 // nothing: the tab shows ours.
 import Client from "$client"
 import Game from "$game"
-import { Checkbox, Choice, Component, Dropdown, Resting, Segmented, SettingRow, Settings, SpecWeights, specsOf } from "Ordaen"
+import { Checkbox, Choice, Component, Dropdown, ModuleMemory, Resting, Segmented, SettingRow, Settings, SpecWeights, defaultBuildOf, specsOf } from "Ordaen"
 import Locale from "@/locales"
 import Style from "@/style"
 
@@ -43,9 +43,15 @@ public struct Choices implements Plain {
   // The names of the spec tabs; empty for ours.
   specOne: String = ""
   specTwo: String = ""
-  // The build gear is weighed for (Ordaen's worth), by its key: a spec of the class or one of Forever's builds within
-  // one (a Shockadin); empty for the spec the character plays.
-  build: String = ""
+  // The build gear is weighed for (Ordaen's worth) before a character's first talent point, by its class and the
+  // build's key (a spec of the class or one of Forever's builds within one, a Shockadin); a class not here: its default.
+  classBuilds: mut Map<String, String> = {}
+}
+
+// The builds a character picked for its talent groups (Ordaen's worth), by their keys; empty: by its talents.
+public struct Picks implements Plain {
+  primary: String = ""
+  secondary: String = ""
 }
 
 // A build's name as the player reads it: a spec's the client's own, Forever's builds ours.
@@ -63,18 +69,41 @@ function buildName(spec: SpecWeights): String {
   return spec.label
 }
 
-// The builds the player's class weighs gear for, the spec played first.
+// The builds the player's class weighs gear for.
 function buildChoices(): Array<Choice<String>> {
-  let choices: Array<Choice<String>> = [{ value: "", label: Locale.BUILD_PLAYED }]
-  for (spec of specsOf(Game.player.classTag)) { choices.push({ value: spec.key, label: buildName(spec) }) }
+  return specsOf(Game.player.classTag).map((spec: SpecWeights): Choice<String> => ({ value: spec.key, label: buildName(spec) }))
+}
+
+// The class's build row, by the class's name as the client gives it.
+function classBuildLabel(): String {
+  let name, _, _ = Client.UnitClass("player")
+  return Locale.SETTING_CLASS_BUILD.format(name ?? Game.player.classTag)
+}
+
+// A talent group's build: by its talents, or one picked.
+function pickChoices(): Array<Choice<String>> {
+  let choices: Array<Choice<String>> = [{ value: "", label: Locale.BUILD_BY_TALENTS }]
+  for (choice of buildChoices()) { choices.push(choice) }
   return choices
 }
 
 public class GeneralPage implements Component {
   const builds: Array<Choice<String>> = buildChoices()
+  const picks: Array<Choice<String>> = pickChoices()
+  const classLabel: String = classBuildLabel()
+  const groups: Integer = Game.talentTrees.groups()
+  // The player's class's build before its first point, as the profile keeps it: written there as it is picked.
+  state classBuild: String
   settings: mut Settings<Choices>
-  constructor(settings: mut Settings<Choices>) {
+  memory: mut ModuleMemory<Picks>
+  constructor(settings: mut Settings<Choices>, memory: mut ModuleMemory<Picks>) {
     self.settings = settings
+    self.memory = memory
+    const tag = Game.player.classTag
+    self.classBuild = (peek self.settings.values).classBuilds[tag] ?? defaultBuildOf(tag)
+    watch (build of self.classBuild) {
+      self.settings.change((choices: mut Choices): nil => { choices.classBuilds[tag] = build })
+    }
   }
 
   public render(self): Template {
@@ -84,8 +113,12 @@ public class GeneralPage implements Component {
       <SettingRow label={Locale.SETTING_SLOT_SIZE} hint={Locale.SETTING_SLOT_SIZE_TIP}>
         <Segmented value={mut self.settings.values.slotSize} choices={SLOT_SIZES} />
       </SettingRow>
-      <Dropdown label={Locale.SETTING_BUILD} hint={Locale.SETTING_BUILD_TIP} value={mut self.settings.values.build}
+      <Dropdown label={self.classLabel} hint={Locale.SETTING_CLASS_BUILD_TIP} value={mut self.classBuild}
                 choices={self.builds} />
+      <Dropdown label={Locale.SETTING_PRIMARY_BUILD} hint={Locale.SETTING_PICKED_BUILD_TIP}
+                value={mut self.memory.values.primary} choices={self.picks} />
+      <Dropdown $if={self.groups > 1} label={Locale.SETTING_SECONDARY_BUILD} hint={Locale.SETTING_PICKED_BUILD_TIP}
+                value={mut self.memory.values.secondary} choices={self.picks} />
     }
   }
 }

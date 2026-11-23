@@ -1,14 +1,22 @@
 import Client from "$client"
 import Test from "$test"
-import { SPEC_WEIGHTS, scoreWith, specOf, specsOf, upgradeText } from "Ordaen"
+import { SPEC_WEIGHTS, defaultBuildOf, scoreWith, specOf, specsOf, upgradeText } from "Ordaen"
 
-test "a class weighs by the build chosen, else the specialisation played, else its first" {
-  Test.expect(specOf("WARRIOR", 3, nil)?.key == "protection")
-  Test.expect(specOf("WARRIOR", nil, nil)?.key == "arms")
-  Test.expect(specOf("PALADIN", 3, "shockadin")?.key == "shockadin")
-  Test.expect(specOf("PALADIN", 1, "no such build")?.key == "holy")
-  Test.expect(specOf("DRUID", 3, nil)?.key == "bear" && specsOf("MAGE").length == 6)
-  Test.expect(specOf("NOT A CLASS", 1, nil) == nil)
+test "a class weighs by the build picked, else the tree with the most points" {
+  Test.expect(specOf("WARRIOR", 3, nil, nil)?.key == "protection")
+  Test.expect(specOf("PALADIN", 3, "shockadin", nil)?.key == "shockadin")
+  Test.expect(specOf("PALADIN", 1, "no such build", nil)?.key == "holy")
+  Test.expect(specOf("DRUID", 3, nil, nil)?.key == "bear" && specsOf("MAGE").length == 6)
+  Test.expect(specOf("NOT A CLASS", 1, nil, nil) == nil)
+}
+
+test "before its first talent point a class weighs by the build the profile prefers, else by its default" {
+  Test.expect(specOf("PALADIN", nil, nil, nil)?.key == "retribution")
+  Test.expect(specOf("WARRIOR", nil, nil, nil)?.key == "arms")
+  Test.expect(specOf("PALADIN", nil, nil, "holy")?.key == "holy")
+  Test.expect(specOf("PALADIN", 2, nil, "holy")?.key == "protection")
+  Test.expect(SPEC_WEIGHTS.all(spec => defaultBuildOf(spec.classTag) != "" &&
+      specsOf(spec.classTag).any(build => build.key == defaultBuildOf(spec.classTag))))
 }
 
 test "an item's worth is each stat by its weight, a rating by the percentage it gives, a weapon's damage by where it fires" {

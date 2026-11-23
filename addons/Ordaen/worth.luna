@@ -1,7 +1,7 @@
 // What an item is worth to the player: the sum of its stats, each by the weight the player's spec gives it
-// (`weights.luna`), and how much more or less that is than what the player wears in its place. The spec is the one
-// the player plays (its specialisation's place among its class's), or a build the player chose for the class (a
-// Shockadin); below the level's cap it weighs as it levels.
+// (`weights.luna`), and how much more or less that is than what the player wears in its place. The build weighed for
+// (`specOf`): the one the player picked for its active talent group, else the tree it spent the most points in, else
+// its class's default; below the level's cap it weighs as it levels.
 import Client from "$client"
 import Game from "$game"
 import { SPEC_WEIGHTS, SpecWeights, Weights } from "@/weights"
@@ -121,34 +121,41 @@ public function scoreWith(weights: Weights, stats: Map<String, Number>, far: Boo
   return score
 }
 
+// Each class's build before its first talent point, unless the profile says another: the one most level with.
+const DEFAULT_BUILDS: Map<String, String> = {
+  WARRIOR: "arms", PALADIN: "retribution", HUNTER: "beast_mastery", ROGUE: "combat", PRIEST: "shadow",
+  SHAMAN: "enhancement", MAGE: "frost", WARLOCK: "affliction", DRUID: "feral"
+}
+
+// A class's default build, by its key.
+public function defaultBuildOf(classTag: String): String { return DEFAULT_BUILDS[classTag] ?? "" }
+
 // A class's specs and builds, in the weights' order.
 public function specsOf(classTag: String): Array<SpecWeights> {
   return SPEC_WEIGHTS.filter(spec => spec.classTag == classTag)
 }
 
-// The spec a class weighs by: the build chosen (by its key), else the specialisation played (by its place), else the
-// class's first.
-public function specOf(classTag: String, played: Integer | nil, chosen: String | nil): SpecWeights | nil {
+// The spec a class weighs by: the build picked for the talent group (by its key), else the tree with the most points
+// (by its place), else the build preferred for the class before its first point, else the class's default, else its
+// first.
+public function specOf(classTag: String, leading: Integer | nil, picked: String | nil, preferred: String | nil): SpecWeights | nil {
   const specs = specsOf(classTag)
-  if (chosen != nil) {
-    const build = specs.find(spec => spec.key == chosen)
-    if (build != nil) { return build }
-  }
-  if (played != nil) {
-    const spec = specs.find(spec => spec.spec == played)
-    if (spec != nil) { return spec }
-  }
-  return specs[1]
+  const byKey = (key: String | nil): SpecWeights | nil => key == nil ? nil : specs.find(spec => spec.key == key)
+  const tree = leading == nil ? nil : specs.find(spec => spec.spec == leading)
+  return byKey(picked) ?? tree ?? byKey(preferred) ?? byKey(DEFAULT_BUILDS[classTag]) ?? specs[1]
 }
 
 public class GearWorth {
-  // The build the player chose for the class, by its key (a Shockadin); none: the specialisation played.
-  public state chosen: String | nil = nil
-  public derived spec: SpecWeights | nil = specOf(Game.player.classTag, Game.player.spec?.index, self.chosen)
+  // The build the player picked for its active talent group, and the one it prefers for its class before its first
+  // talent point, by their keys (a Shockadin); none: by its talents, and the class's default.
+  public state picked: String | nil = nil
+  public state preferred: String | nil = nil
+  public derived spec: SpecWeights | nil = specOf(Game.player.classTag, Game.player.leadingTree, self.picked, self.preferred)
   public derived weights: Weights | nil = self.weightsNow()
 
-  // The build chosen, by its key; empty: the specialisation played.
-  public choose(mut self, build: String) { self.chosen = build == "" ? nil : build }
+  // The builds picked and preferred, by their keys; empty: none.
+  public pick(mut self, build: String) { self.picked = build == "" ? nil : build }
+  public prefer(mut self, build: String) { self.preferred = build == "" ? nil : build }
 
   weightsNow(self): Weights | nil {
     const spec = self.spec

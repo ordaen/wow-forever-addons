@@ -13,7 +13,7 @@ import Game from "$game"
 import { Frame, Track } from "$ltml"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
-import { FooterBand, KeptWindow, Module, SECONDARY_TEXT, Settings, SettingsPage, Tabs, Window, WindowTabSpec, WindowsPage, playSound, windowsTitle } from "Ordaen"
+import { FooterBand, KeptWindow, Module, ModuleMemory, SECONDARY_TEXT, Settings, SettingsPage, Tabs, Window, WindowTabSpec, WindowsPage, playSound, windowsTitle } from "Ordaen"
 import root Auras from "OrdaenAuras"
 import { KeptRates, Rates, estimate, ratesKey, ratesOf } from "@/estimate"
 import { GearPage } from "@/gear"
@@ -21,7 +21,7 @@ import { ClientInspector, Honor, InspectHonor, InspectTalents, Inspected, Inspec
 import Locale from "@/locales"
 import { FactionShow, ReputationPage, factionsCount } from "@/reputation"
 import { StatisticsPage, StatsView, statisticsCount } from "@/samples"
-import { Choices, GeneralPage, SpecNamesPage } from "@/settings"
+import { Choices, GeneralPage, Picks, SpecNamesPage } from "@/settings"
 import { ClientSheet, Faction, GearSet, Sheet, Skill, Stats, Who, Worn } from "@/sheet"
 import { SkillsPage, skillsCount } from "@/skills"
 import { Facts } from "@/sources"
@@ -65,12 +65,14 @@ public class Character implements Module, App {
   public inspectWindow: mut KeptWindow = new KeptWindow("inspect", Locale.TAB_INSPECT, { x: 0ui, y: 0ui, width: Style.WIDTH, height: Style.HEIGHT })
   public const windows: mut Array<mut KeptWindow> = [self.window, self.inspectWindow]
   public const pages: Array<SettingsPage> = [
-    { title: Locale.TAB_GENERAL, content: $ltml { <GeneralPage settings={mut self.settings} /> } },
+    { title: Locale.TAB_GENERAL, content: $ltml { <GeneralPage settings={mut self.settings} memory={mut self.builds} /> } },
     { title: Locale.TAB_TALENTS, content: $ltml { <SpecNamesPage settings={mut self.settings} /> } },
     { title: windowsTitle(), content: $ltml { <WindowsPage windows={mut self.windows} /> } }
   ]
 
   public settings: mut Settings<Choices> = new Settings<Choices>({ durability: true })
+  // The builds this character picked for its talent groups.
+  builds: mut ModuleMemory<Picks> = new ModuleMemory<Picks>(Picks {}, Settings.Scope.Character, "builds")
   // Where the window reads the character and what its clicks ask of the game.
   public sheet: mut any Sheet = new ClientSheet()
   // Where the inspect window reads the player inspected.
@@ -182,8 +184,13 @@ public class Character implements Module, App {
 
   constructor() {
     Ordaen.modules.add(self)
-    // Gear is weighed for the build the player chose, else the spec it plays.
-    watch { Ordaen.worth.choose(self.settings.values.build) }
+    // Gear is weighed for the build picked for the active talent group, else by the talents, else for the class's
+    // build the profile prefers.
+    watch {
+      const picks = self.builds.values
+      Ordaen.worth.pick(Game.player.talentGroup == 2 ? picks.secondary : picks.primary)
+      Ordaen.worth.prefer(self.settings.values.classBuilds[Game.player.classTag] ?? "")
+    }
     Game.saved.store(.Account, RATES, self.rates)
     Game.saved.store(.Character, WIPE, self.wipe)
     self.wipeCost = self.wipe.cost
