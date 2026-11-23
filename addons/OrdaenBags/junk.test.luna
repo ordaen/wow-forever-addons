@@ -13,6 +13,7 @@ import {
   withMark, withScore
 } from "@/junk"
 import Locale from "@/locales"
+import { Tab, tabOf } from "@/model"
 import { Choices } from "@/pane"
 
 // The player's screen: 2470 by 1054.
@@ -502,4 +503,10 @@ test "a mark is the character's: there after a reload, not for another character
   Test.expect(bags().button(CLOTH).paintedWith(COIN))
   Test.login({ guid: "Player-1-0000002", name: "Alt", surname: nil })
   Test.expect(!bags().button(CLOTH).paintedWith(COIN))
+}
+
+test "an item crafting takes is a trade good whatever its class; junk stays junk" {
+  // A feather: the client's miscellany (15), marked used for crafting.
+  Test.expect(tabOf(15, true, nil) == Tab.Trade && tabOf(15, false, nil) == Tab.Other)
+  Test.expect(tabOf(15, true, .Grey) == Tab.Junk)
 }

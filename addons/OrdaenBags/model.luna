@@ -49,10 +49,12 @@ const QUEST = 12
 // rest, junk last.
 public const KINDS: Array<Tab> = [.Quest, .Consumables, .Equipment, .Trade, .Recipes, .Other, .Junk]
 
-// One item, one tab: junk where the verdict says so whatever its class (a grey hammer is junk, not equipment); else by
-// the client's class of it.
-public function tabOf(kind: Integer, why: Why | nil): Tab {
+// One item, one tab: junk where the verdict says so whatever its class (a grey hammer is junk, not equipment); a trade
+// good where crafting takes it, as the client marks it, whatever its class (a feather is the client's miscellany);
+// else by the client's class of it.
+public function tabOf(kind: Integer, reagent: Boolean, why: Why | nil): Tab {
   if (why != nil) { return .Junk }
+  if (reagent) { return .Trade }
   return match (kind) {
     QUEST => .Quest
     CONSUMABLE => .Consumables
@@ -161,7 +163,7 @@ public class Slot {
   public judge(mut self, lists: JunkLists, rules: JunkRules): Integer {
     if (self.read.id == 0) { return 0 }
     const why = junkWhy(self.read, lists, rules)
-    const tab = tabOf(self.read.kind, why)
+    const tab = tabOf(self.read.kind, self.read.reagent, why)
     const changed = why != self.why || tab != self.tab
     self.why = why
     self.tab = tab

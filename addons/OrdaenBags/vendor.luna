@@ -78,13 +78,13 @@ function wareAt(index: Integer): Ware | nil {
   const info = Client.C_MerchantFrame.GetItemInfo(index)
   const id = Client.GetMerchantItemID(index)
   if (info == nil || id == nil) { return nil }
-  const _, _, quality, _, level, kind, _, _, _, _, _, classId, _, _, _, _, _, _ = Client.C_Item.GetItemInfo(id.floor())
+  const _, _, quality, _, level, kind, _, _, _, _, _, classId, _, _, _, _, crafting, _ = Client.C_Item.GetItemInfo(id.floor())
   return {
     index: index, id: id.floor(), name: info.name ?? "", icon: info.texture, quality: qualityFrom(quality),
     price: info.price.floor(), stack: info.stackCount.floor().max(1), available: info.numAvailable.floor(),
     usable: info.isUsable, purchasable: info.isPurchasable, costs: info.hasExtendedCost ? costsOf(index) : [],
     most: Client.GetMerchantItemMaxStack(index).floor().max(1), level: (level ?? 0).floor(),
-    tab: tabOf((classId ?? NO_CLASS).floor(), nil), kind: kind ?? "", quest: info.isQuestStartItem,
+    tab: tabOf((classId ?? NO_CLASS).floor(), crafting == true, nil), kind: kind ?? "", quest: info.isQuestStartItem,
     refundable: Client.C_MerchantFrame.IsMerchantItemRefundable(index), link: Client.GetMerchantItemLink(index)
   }
 }
