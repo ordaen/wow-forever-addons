@@ -51,6 +51,8 @@ public struct BarChoice implements Plain {
   spacing: Number
   keys: Boolean
   visibility: Visibility
+  // Its empty buttons unseen, but while something is dragged that could go on one.
+  hideEmpty: Boolean = false
 }
 
 public struct BarsChoices implements Plain {

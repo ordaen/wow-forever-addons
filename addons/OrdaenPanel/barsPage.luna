@@ -114,6 +114,8 @@ class BarTab implements Component {
 class BarEditor implements Component {
   state choice: mut BarChoice
   derived paged: Boolean = self.spec.kind == BarKind.Action && self.spec.number == 1 && self.forms.length > 0
+  // An action bar's buttons may be empty; a pet's or a stance's show what they hold.
+  derived actions: Boolean = self.spec.kind == BarKind.Action
 
   const spec: BarSpec
   const forms: Array<Form>
@@ -151,7 +153,9 @@ class BarEditor implements Component {
                      most={16} unit={Unit.Px} />
         <Checkbox label={Locale.KEYS} hint={Locale.KEYS_TIP} value={mut self.choice.keys} />
       </Section>
-      <VisibilityRows value={mut self.choice.visibility} />
+      <VisibilityRows value={mut self.choice.visibility}>
+        <Checkbox $if={self.actions} label={Locale.HIDE_EMPTY} hint={Locale.HIDE_EMPTY_TIP} value={mut self.choice.hideEmpty} />
+      </VisibilityRows>
       <Section $if={self.paged} title={Locale.SECTION_FORMS}>
         <FormRow $for={form of self.forms} form={peek form} settings={mut self.settings} />
       </Section>

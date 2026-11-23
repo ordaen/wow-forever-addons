@@ -21,6 +21,8 @@
   "SPACING_TIP": "The room between the buttons.",
   "KEYS": "Show key bindings",
   "KEYS_TIP": "Each button shows its key in the top right corner.",
+  "HIDE_EMPTY": "Hide empty buttons",
+  "HIDE_EMPTY_TIP": "Buttons with nothing on them are unseen, and show while a spell, an item or a macro is dragged.",
   "SECTION_FORMS": "Stance pages",
   "FORM_TIP": "On, Action Bar 1 shows this stance's own page while you are in it. Off, it stays as it is.",
   "FORM_BATTLE": "Battle Stance",

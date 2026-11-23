@@ -32,6 +32,10 @@ public class Slot {
   public const command: String
   public state shown: Boolean = false
   public state outOfRange: Boolean = false
+  // Whether its action slot holds anything: read as a slot changes, and as its page turns. A pet's or a stance's
+  // button holds what it shows.
+  public state holds: Boolean = true
+  slotHeard: Handle | nil = nil
   // Whether the slot is still there: the client's hooks stay on its frame after it ends, and hear nothing then.
   const life: mut Life = { on: true }
 
@@ -43,6 +47,11 @@ public class Slot {
     frame.HotKey.SetAlpha(0)
     const life = self.life
     fillButton(frame, ...frame.GetRegions())
+    self.readHolds()
+    self.slotHeard = Events.ACTIONBAR_SLOT_CHANGED.listen(self.onSlotChanged)
+    _ = frame.HookScript("OnAttributeChanged", (): nil => {
+      if (life.on) { self.readHolds() }
+    })
     _ = frame.HookScript("OnSizeChanged", (): nil => {
       if (life.on) { fillButton(frame, ...frame.GetRegions()) }
     })
@@ -58,7 +67,20 @@ public class Slot {
     })
   }
 
-  destructor() { self.life.on = false }
+  destructor() {
+    self.life.on = false
+    if (self.slotHeard != nil) { destroy self.slotHeard }
+  }
+
+  onSlotChanged(mut self, slot: Number) {
+    if (self.frame.action == slot) { self.readHolds() }
+  }
+
+  public readHolds(mut self) {
+    const action = self.frame.action
+    // None yet (made, before its slot or place is told): it is taken to hold what it will show.
+    self.holds = action == nil || action < 1 || Client.C_ActionBar.HasAction(action)
+  }
 }
 
 // The client's template lays its art out for its own size (45): its icon, its frames and their masks fill the button
@@ -132,9 +154,12 @@ function commandIcon(token: String): Art | nil {
 // template draws its art at its own size (30, its frame 35) whatever size it is given, so it would stand out of the
 // button and apart from the next; it still takes the click and the cursor.
 public class Button implements Component {
-  derived key: String = self.showKeys && self.slot.shown ? self.keys[self.slot.command] ?? "" : ""
+  derived key: String = self.showKeys && self.slot.shown && !self.empty ? self.keys[self.slot.command] ?? "" : ""
   derived keyColor: Color = self.slot.outOfRange ? OUT_OF_RANGE : INK
-  derived darkened: Boolean = self.slot.outOfRange && self.slot.shown
+  derived darkened: Boolean = self.slot.outOfRange && self.slot.shown && !self.empty
+  // Unseen where its bar hides empty buttons and nothing is dragged that could go on it.
+  derived empty: Boolean = self.hideEmpty && !self.slot.holds && !self.dragging
+  derived clientOpacity: Number | nil = self.faced || self.empty ? 0 : nil
 
   const slot: Slot
   // Whether the button has a face of ours (a stance's, the pet's), and the client's is unseen.
@@ -143,14 +168,18 @@ public class Button implements Component {
   size: Signal<Number<Length>>
   showKeys: Signal<Boolean>
   face: Signal<Face>
+  hideEmpty: Signal<Boolean>
+  dragging: Signal<Boolean>
   constructor(slot: Slot, faced: Boolean, keys: Signal<Map<String, String>>, size: Signal<Number<Length>>,
-    showKeys: Signal<Boolean>, face: Signal<Face>) {
+    showKeys: Signal<Boolean>, face: Signal<Face>, hideEmpty: Signal<Boolean> = false, dragging: Signal<Boolean> = false) {
     self.slot = slot
     self.faced = faced
     self.keys = keys
     self.size = size
     self.showKeys = showKeys
     self.face = face
+    self.hideEmpty = hideEmpty
+    self.dragging = dragging
   }
 
   public render(self): Template {
@@ -163,7 +192,7 @@ public class Button implements Component {
         <embed $if={self.faced} frame={self.slot.frame.cooldown} position={Position.Absolute} left={0ui} top={0ui}
                width={self.size} height={self.size} />
         <embed frame={self.slot.frame} position={Position.Absolute} left={0ui} top={0ui} width={self.size}
-               height={self.size} opacity={self.faced ? 0 : nil} />
+               height={self.size} opacity={self.clientOpacity} />
         <box $if={self.darkened} position={Position.Absolute} left={0ui} top={0ui} width={self.size} height={self.size}
              background={RANGE_VEIL} opacity={RANGE_DARK} zLevel={1} />
         <box $if={self.face.lit && self.slot.shown} position={Position.Absolute} left={0ui} top={0ui}
@@ -200,6 +229,9 @@ public class Bar implements Component {
   // The player's spacing of the buttons, a length they chose, as the gap takes it.
   derived spacing: Number<Spacing> = Ordaen.spacingOf(self.choice.spacing * 1ui)
   derived showKeys: Boolean = self.choice.keys
+  derived hideEmpty: Boolean = self.choice.hideEmpty
+  // Something the cursor holds could go on a button: the client shows its bars' grid meanwhile.
+  state dragging = false
   // As many columns as buttons in a row, and no more than it has buttons: an empty column would take the cursor.
   derived columns: Integer = self.choice.perRow.min(self.count).max(1)
   // Each button's face on the stances' and the pet's bars, by its place: read again as the player learns or takes a
@@ -268,6 +300,8 @@ public class Bar implements Component {
       buttons.push(new Slot(frame, name, command))
     }
     self.slots = buttons
+    Events.ACTIONBAR_SHOWGRID.listen(self.onGrid)
+    Events.ACTIONBAR_HIDEGRID.listen(self.onGridGone)
     // The client's Quick Keybind mode shows its highlight on the game's own buttons alone: ours are told as it opens
     // and closes.
     const life = self.life
@@ -402,6 +436,8 @@ public class Bar implements Component {
 
   onEnter(mut self) { self.hovered = true }
   onLeave(mut self) { self.hovered = false }
+  onGrid(mut self) { self.dragging = true }
+  onGridGone(mut self) { self.dragging = false }
 
   public render(self): Template {
     return $ltml {
@@ -410,7 +446,7 @@ public class Bar implements Component {
         <box columns={self.columns} gap={self.spacing} opacity={self.opacity}
              @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
           <Button $for={index, slot of self.drawn} slot={peek slot} faced={self.spec.kind != BarKind.Action} keys={self.keys} size={self.size}
-                  showKeys={self.showKeys} face={self.faces[index] ?? BLANK} />
+                  showKeys={self.showKeys} face={self.faces[index] ?? BLANK} hideEmpty={self.hideEmpty} dragging={self.dragging} />
         </box>
       </Placed>
     }
