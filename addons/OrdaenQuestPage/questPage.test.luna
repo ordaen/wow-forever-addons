@@ -112,12 +112,16 @@ test "a section's heading on the parchment stands in the middle of its rule, the
   destroy page
 }
 
-test "the band says experience and reputation in one size" {
+test "experience and each reputation stand a row each: what it is, then how much beside it" {
   const page = new Page()
   Test.mount(page, { left: 0, top: 0, width: 600, height: 600 })
+  const label = Test.page().text(Locale.QUEST_EXPERIENCE).rect()
   const xp = Test.page().text("1200").rect()
-  const standing = Test.page().text(Locale.QUEST_REPUTATION.format(250, "Stormwind")).rect()
-  Test.expect(((xp.bottom - xp.top) - (standing.bottom - standing.top)).abs() < 0.5)
+  const faction = Test.page().text("Stormwind").rect()
+  const standing = Test.page().text(Locale.QUEST_REPUTATION.format(250)).rect()
+  Test.expect(xp.left > label.right && (xp.top + xp.bottom - label.top - label.bottom).abs() < 4)
+  Test.expect(standing.left > faction.right && (standing.top - faction.top).abs() < 1)
+  Test.expect(faction.top >= label.bottom)
   destroy page
 }
 

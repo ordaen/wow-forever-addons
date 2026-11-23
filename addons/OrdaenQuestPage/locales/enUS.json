@@ -4,7 +4,7 @@
   "QUEST_CAN_CHOOSE": "You will be able to choose",
   "QUEST_ALSO_GET": "You will also receive",
   "QUEST_REWARD": "Reward",
-  "QUEST_REPUTATION": "%+d %s",
-  "QUEST_REPUTATIONS": "%s reputation",
-  "QUEST_REPUTATION_TIP": "Reputation"
+  "QUEST_EXPERIENCE": "Experience",
+  "QUEST_MONEY": "Money",
+  "QUEST_REPUTATION": "%+d Rep."
 }

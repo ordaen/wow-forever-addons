@@ -842,17 +842,17 @@ test "a required item the quest hides isn't listed, nor any where the quest hide
   Test.expect(!window().text("Boar Meat").shown())
 }
 
-test "the reputation a quest offers stands in the band by the faction's name, QuestieDB's while Quests is on" {
+test "the reputation a quest offers stands in a row: the faction's name, then the amount, QuestieDB's while Quests is on" {
   Test.questieDB({ [32]: { name: "Friends", reputationReward: [[72, 250]] } }, {}, {})
   Test.factions({ [72]: "Stormwind" })
   Test.mount(nil, SCREEN)
   Test.talk(innkeeper())
   Test.quest({ id: 32, title: "Friends" })
   Events.QUEST_DETAIL.emit(nil)
-  Test.expect(window().texts().join("|").contains("+250 Stormwind"))
+  Test.expect(window().text("Stormwind").rect().right < window().text("+250 Rep.").rect().left)
 }
 
-test "several reputations a quest offers stand in the band as the span of their amounts" {
+test "several reputations a quest offers stand a row each" {
   Test.questieDB(
     { [32]: { name: "Friends", reputationReward: [[72, 25], [47, 25], [54, 25], [69, 25], [930, 100]] } }, {}, {}
   )
@@ -861,7 +861,8 @@ test "several reputations a quest offers stand in the band as the span of their 
   Test.talk(innkeeper())
   Test.quest({ id: 32, title: "Friends" })
   Events.QUEST_DETAIL.emit(nil)
-  Test.expect(window().text("+25–100 reputation").shown())
+  Test.expect(window().text("Exodar").shown() && window().text("+100 Rep.").shown())
+  Test.expect(window().text("Darnassus").rect().top < window().text("Exodar").rect().top)
 }
 
 test "with Quests off, a quest's page shows without reputations, nothing broken" {
@@ -1059,7 +1060,7 @@ test "the scroll stands at one size, 5:3, on every quest page" {
   const paper = page.box(SHEET_ART.middle).rect()
   const words = page.text("A Pie for Maggie").rect()
   Test.expect(words.top >= paper.top && words.bottom <= paper.bottom)
-  Test.expect(words.left >= listed.left + (listed.right - listed.left) * 0.08 && words.right - words.left > 50)
+  Test.expect(words.left >= listed.left + (listed.right - listed.left) * 0.05 && words.right - words.left > 50)
   // A long quest's page keeps the same size (its text scrolls).
   Test.quest(pie())
   Events.QUEST_DETAIL.emit(nil)

@@ -213,14 +213,9 @@ test "a quest picked shows its page and the next quest of its chain; who gives a
   const window = Test.page().window("World")
   Test.expect(window.text("Gryan asks you to look into Westfall.").shown())
   Test.expect(window.text("420").shown())
-  // The reputations it changes, QuestieDB's (the client says none), in one column of the band; each faction in its Tip.
-  const reputation = window.text("-25–+250 reputation")
-  Test.expect(reputation.shown())
-  const at = reputation.rect()
-  Test.moveTo({ x: (at.left + at.right) / 2, y: (at.top + at.bottom) / 2 })
-  Test.flush()
-  const tip = Test.page().window("Reputation")
-  Test.expect(tip.text("Stormwind").shown() && tip.text("+250").shown() && tip.text("Ratchet").shown() && tip.text("-25").shown())
+  // The reputations it changes, QuestieDB's (the client says none), a row each: the faction, then the amount.
+  Test.expect(window.text("Stormwind").rect().right < window.text("+250 Rep.").rect().left)
+  Test.expect(window.text("Ratchet").shown() && window.text("-25 Rep.").shown())
   // The chain: the quest after it, by QuestieDB's name, under the parchment in gold, a link.
   const next = window.text("The Defias Brotherhood, part two")
   Test.expect(window.text("Next quest").shown() && next.textColor().equal(Color.hex("#ffd100")))
@@ -345,7 +340,7 @@ test "a quest's scroll fills its page's height: its corners at its top and its f
   // The title on the paper, under the top edge, and clear of the paper's torn sides by a margin.
   const title = window.text("The Defias Brotherhood").nth(2).rect()
   const across = window.box(SHEET_ART.topRight).rect().right - top.left
-  Test.expect(title.top >= top.bottom - 10 && (title.left - top.left) / across > 0.115)
+  Test.expect(title.top >= top.bottom - 10 && (title.left - top.left) / across > 0.05)
   // It fills the page, whatever the text's size and however much the quest says: what stands under it starts right
   // under its foot (its progress' cut), and a quest of three lines (with no next quest under it, whose room it takes
   // too) has a scroll at least as tall, its foot well past its words.
@@ -486,7 +481,7 @@ test "a reputation gained has the player's Diplomat in it, 2% a rank; one lost d
   opened(standing())
   Test.page().window("World").text("The Defias Brotherhood").click()
   const window = Test.page().window("World")
-  Test.expect(window.text("-25–+265 reputation").shown())
+  Test.expect(window.text("+265 Rep.").shown() && window.text("-25 Rep.").shown())
 }
 
 test "the next quest's name opens its page in a window of its own, which follows the chain on, and closes" {
@@ -905,16 +900,16 @@ test "a quest's experience and money stand at its title's right, a bullet betwee
   Test.expect(window.box("GarrMission_CurrencyIcon-Xp").shown())
 }
 
-test "the page's experience and money are larger than a secondary text" {
+test "the page's experience stands no smaller than the list's" {
   const log = standing()
   log[3] = { xp: 735, money: 150, rewards: [{ item: 1001 }], ..quest(103, "Elwynn Wolves", "Elwynn Forest") }
   opened(log)
   const window = Test.page().window("World")
   window.text("Elwynn Wolves").click()
-  // The list's row has its own at a secondary text's size; the page's band at the body's, larger.
+  // The list's row has its own at a secondary text's size; the page's row at the body's.
   const row = window.text("735").nth(1).letters()
   const page = window.text("735").nth(2).letters()
-  Test.expect(page.bottom - page.top > (row.bottom - row.top) * 1.1)
+  Test.expect(page.bottom - page.top >= row.bottom - row.top - 0.01)
 }
 
 test "the abandon button says only «Abandon»" {

@@ -1,9 +1,8 @@
 // A quest's page as the game's quest windows show it, the pieces Dialogue's quest page and Quests' log share: the
-// scroll (the game's quest parchment tinted to the native gossip window's colour between its rolled ends, dark ink
-// only) and, under it in the dark well, its rewards: a row each (its key where it is picked by one, its slot, its name
-// in its quality's colour with its slot and type under it, Pawn's column while Pawn is loaded, its sell price, the
-// dearest one's in gold), then experience, reputation and money in one band, one size, parted by rules; each section
-// under an engraved cut with its title.
+// scroll (a torn sheet of parchment, dark ink only) and, under it in the dark well, its rewards: a row each (its key
+// where it is picked by one, its slot, its name in its quality's colour with its slot and type under it, Pawn's column
+// while Pawn is loaded, its sell price, the dearest one's in gold), then experience, each reputation and money, a row
+// each of what it is and how much; each section under an engraved cut with its title.
 import Client from "$client"
 import Game from "$game"
 import {
@@ -11,7 +10,7 @@ import {
 } from "$ltml"
 import Runtime from "$runtime"
 import {
-  BODY_TEXT, Component, Cut, ItemButton, Money, PickRow, Quality, SECONDARY_TEXT, TITLE_TEXT, Tip, TipRow, qualityColor, qualityFrom,
+  BODY_TEXT, Component, Cut, ItemButton, Money, PickRow, Quality, SECONDARY_TEXT, TITLE_TEXT, Tip, qualityColor, qualityFrom,
   usableItem
 } from "Ordaen"
 import Locale from "@/locales"
@@ -53,11 +52,8 @@ const PAIRED_PAST = 3
 const PAIRED: Array<Track> = ["max-content", "max-content"]
 
 function columnsFor(paired: Boolean, rows: Integer): Columns { return paired && rows > PAIRED_PAST ? PAIRED : 1 }
-// The rule that parts the band's cells, and the room each keeps on its sides.
-const RULE_BEFORE: Line = { width: 1.171875dp, color: Color.hex("#3e2f1d"), sides: [Side.Left] }
-const BAND_CELL: Edges = { top: 0sp, right: 3sp, bottom: 0sp, left: 3sp }
-// The band's one size, for experience, the reputations and money alike.
-const BAND_TEXT: Number<TextSize> = TITLE_TEXT
+// Experience, each reputation and money, a row each: what it is, then how much, the columns as wide as their widest.
+const GAINS: Array<Track> = ["max-content", "max-content"]
 const KEYCAP: Color = Color.hex("#00000080")
 const KEYCAP_EDGE: Line = { width: 1.171875dp, color: Color.hex("#4a3a24") }
 const KEY_TEXT: Color = Color.hex("#c9a76a")
@@ -169,11 +165,12 @@ const OVER_GRAIN = 1
 const OVER_TONE = 2
 const OVER_PAPER = 3
 // Where the text stands on the paper, in the art's measure (not the spacing setting's): in from the torn edges, past
-// their deepest bites, by a margin as wide as a line is high.
-const OFF_SIDES: Number<Length> = 60.9375dp
+// their deepest bites, by a margin: less across than down.
+const OFF_SIDES: Number<Length> = 36.5625dp
+const OFF_ENDS: Number<Length> = 48.75dp
 const OFF_EDGES: Array<Track> = [OFF_SIDES, { fr: 1 }, OFF_SIDES]
 // Folded: the title alone, as far in from the edges as the text unfolded.
-const FOLDED_DOWN: Array<Track> = [OFF_SIDES, "max-content", OFF_SIDES]
+const FOLDED_DOWN: Array<Track> = [OFF_ENDS, "max-content", OFF_ENDS]
 
 // The scroll: what is said of a quest on a sheet of parchment, its title first. It fills the cell it stands in, at any
 // width and height (its art repeats); what it holds scrolls past the paper's height. The text stands over the sheet
@@ -211,7 +208,7 @@ public class Scroll implements Component {
       </box>
       <box $else>
         <Sheet />
-        <box position={Position.Absolute} left={OFF_SIDES} right={OFF_SIDES} top={OFF_SIDES} bottom={OFF_SIDES}
+        <box position={Position.Absolute} left={OFF_SIDES} right={OFF_SIDES} top={OFF_ENDS} bottom={OFF_ENDS}
              overflow={Overflow.Scroll} gap={1.5sp} zLevel={OVER_PAPER} textSize={SCROLL_TEXT} textFont={.Book}>
           <ScrollTitle $if={self.titled} title={self.title} />
           <slot />
@@ -411,7 +408,7 @@ public function choiceViews(rewards: Array<Reward>, upgrades: Array<Number>): Ar
 }
 
 // A quest's rewards: those to choose («Choose your reward» where they are chosen, «You will be able to choose»
-// before), those given anyway, and the band of experience, reputation and money.
+// before), those given anyway, and the rows of experience, reputation and money.
 public class Rewards implements Component {
   public choose: Event<Integer> = new Event()
 
@@ -420,12 +417,10 @@ public class Rewards implements Component {
   derived chooseTitle: String = self.pickable ? Locale.QUEST_CHOOSE_REWARD : Locale.QUEST_CAN_CHOOSE
   derived alsoTitle: String = self.hasChoices ? Locale.QUEST_ALSO_GET : Locale.QUEST_REWARD
   derived banded: Boolean = self.xp > 0 || self.money > 0 || self.standings.length > 0
-  // What is given anyway, the band with it: one section under one cut.
+  // What is given anyway, the rows of gains with it: one section under one cut.
   derived received: Boolean = self.hasAlso || self.banded
   derived choiceColumns: Columns = columnsFor(self.paired, self.views.length)
   derived alsoColumns: Columns = columnsFor(self.paired, self.also.length)
-  derived bandColumns: Array<Track> = bandOf(self.xp > 0, self.standings.length > 0, self.money > 0)
-  derived moneyParted: Boolean = self.xp > 0 || self.standings.length > 0
 
   views: Signal<Array<RewardView>>
   also: Signal<Array<Reward>>
@@ -479,17 +474,18 @@ public class Rewards implements Component {
         <box columns={self.alsoColumns} gap={ROWS_GAP}>
           <RewardRow $for={reward of self.also} reward={reward} />
         </box>
-        <box $if={self.banded} padding={{ top: 1sp, bottom: 1sp }} xAlign={Align.Center}>
-          <box columns={self.bandColumns} yAlign={Align.Center}>
-            <box $if={self.xp > 0} padding={BAND_CELL}>
-              <Experience amount={self.xp} textSize={BAND_TEXT} mark={XP_MARK_LARGE} />
-            </box>
-            <box $if={self.standings.length > 0} padding={BAND_CELL} border={self.xp > 0 ? RULE_BEFORE : nil}>
-              <BandStandings standings={self.standings} />
-            </box>
-            <box $if={self.money > 0} padding={BAND_CELL} border={self.moneyParted ? RULE_BEFORE : nil}>
-              <Money amount={self.money} textSize={BAND_TEXT} />
-            </box>
+        <box $if={self.banded} columns={GAINS} gap={ROWS_GAP} yAlign={Align.Center}>
+          <text $if={self.xp > 0} value={Locale.QUEST_EXPERIENCE} textColor={WELL_DIM} wrap={.None} />
+          <box $if={self.xp > 0}>
+            <Experience amount={self.xp} />
+          </box>
+          <$for={standing of self.standings}>
+            <text value={standing.name} textColor={WELL_DIM} wrap={.None} />
+            <text value={Locale.QUEST_REPUTATION.format(standing.amount)} textColor={WELL_TEXT} wrap={.None} />
+          </>
+          <text $if={self.money > 0} value={Locale.QUEST_MONEY} textColor={WELL_DIM} wrap={.None} />
+          <box $if={self.money > 0}>
+            <Money amount={self.money} />
           </box>
         </box>
       </box>
@@ -499,10 +495,9 @@ public class Rewards implements Component {
 
 // The client's own mark of experience (a mission's currency), before an amount of it.
 const XP_MARK: Atlas = "GarrMission_CurrencyIcon-Xp"
-// The mark beside the body's letters, beside a secondary text's, and beside the band's.
+// The mark beside the body's letters and beside a secondary text's.
 public const XP_MARK_SIZE: Number<Length> = 18.75dp
 public const XP_MARK_SMALL: Number<Length> = 16.40625dp
-const XP_MARK_LARGE: Number<Length> = 23.4375dp
 
 // An amount of experience a quest gives: the client's mark of it, then the number in the letters Money writes its
 // amount in, in one line; the mark says what the number is.
@@ -527,55 +522,6 @@ public class Experience implements Component {
       <box columns={["max-content", "max-content"]} gap={1sp} yAlign={Align.Center}>
         <box width={self.mark} height={self.mark} background={XP_MARK} />
         <text value={self.text} textColor={self.color} textSize={self.textSize} wrap={.None} />
-      </box>
-    }
-  }
-}
-
-// The band's columns: one for each of experience, the reputations and money, each as wide as what it says; the band
-// stands centred, as wide as they are, and widens what holds it before it squeezes them.
-function bandOf(xp: Boolean, standings: Boolean, money: Boolean): Array<Track> {
-  let columns: Array<Track> = []
-  const count = (xp ? 1 : 0) + (standings ? 1 : 0) + (money ? 1 : 0)
-  for (column of 1..count) { columns.push("max-content") }
-  return columns
-}
-
-// The reputations in the band's one line: one by its faction's name («+250 Stormwind»), several by the span of their
-// amounts and «reputation» («+25–100 reputation», «+25 reputation» where all are the same), each faction then in the
-// Tip.
-function standingsLine(standings: Array<Standing>): String {
-  const first = standings[1]
-  if (first == nil) { return "" }
-  if (standings.length == 1) { return Locale.QUEST_REPUTATION.format(first.amount, first.name) }
-  let least = first.amount
-  let most = first.amount
-  for (standing of standings) {
-    least = least.min(standing.amount)
-    most = most.max(standing.amount)
-  }
-  // The span's end keeps its sign only where its start is a loss: «+25–100», «-25–+100».
-  const span = least == most ? "%+d".format(least) : least > 0 ? "%+d–%d".format(least, most) : "%+d–%+d".format(least, most)
-  return Locale.QUEST_REPUTATIONS.format(span)
-}
-
-// The reputations a quest changes, in one column of the band; under the cursor a Tip with each faction and its amount.
-class BandStandings implements Component {
-  state hovered = false
-  derived text: String = standingsLine(self.standings)
-  derived rows: Array<TipRow> = self.standings.map(standing => ({ label: standing.name, value: "%+d".format(standing.amount) }))
-
-  standings: Signal<Array<Standing>>
-  constructor(standings: Signal<Array<Standing>>) { self.standings = standings }
-
-  onEnter(mut self) { self.hovered = true }
-  onLeave(mut self) { self.hovered = false }
-
-  public render(self): Template {
-    return $ltml {
-      <box xAlign={Align.Center} @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
-        <text value={self.text} textColor={WELL_TEXT} textSize={BAND_TEXT} wrap={.None} />
-        <Tip $if={self.hovered} title={Locale.QUEST_REPUTATION_TIP} text={""} rows={self.rows} />
       </box>
     }
   }
