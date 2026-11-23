@@ -1,0 +1,49 @@
+// A recipe's totals at each source: the cost of what is sold there, the price there, the profit with the other
+// source filling in.
+import Test from "$test"
+import { PartPrice, Way } from "@/cost"
+import { Source, sourceTotalsOf } from "@/split"
+
+// A part priced `auction` at the house and `merchant` at a merchant for its count (none: not sold there).
+function part(name: String, auction: Integer | nil, merchant: Integer | nil): PartPrice {
+  return {
+    name: name, item: 1, icon: "Interface/Icons/INV_Misc_QuestionMark", need: 1, have: 0, auction: auction, vendor: merchant,
+    way: Way.Buy, unit: auction ?? merchant, age: nil
+  }
+}
+
+test "every part sold at a source: its cost is theirs, the profit the price less it" {
+  const parts = [part("Cloth", 100, 120), part("Thread", 15, 10)]
+  const auction = sourceTotalsOf(parts, Source.Auction, 500)
+  Test.expect(auction.cost == 115 && auction.missing.length == 0 && auction.profit == 385)
+  const merchant = sourceTotalsOf(parts, Source.Merchant, 40)
+  Test.expect(merchant.cost == 130 && merchant.profit == -90 && merchant.filled.length == 0)
+}
+
+test "some parts not sold at a source: its cost leaves them out; the profit takes them at the other's price" {
+  // The merchant sells the thread alone; the cloth at the house.
+  const parts = [part("Cloth", 100, nil), part("Thread", 15, 10)]
+  const merchant = sourceTotalsOf(parts, Source.Merchant, 300)
+  Test.expect(merchant.cost == 10 && merchant.missing.join(", ") == "Cloth")
+  Test.expect(merchant.profit == 300 - 10 - 100 && merchant.filled.join(", ") == "Cloth")
+}
+
+test "nothing sold at a source: no cost; the profit is the price less the other's cost" {
+  const parts = [part("Cloth", 100, nil), part("Thread", 15, nil)]
+  const merchant = sourceTotalsOf(parts, Source.Merchant, 300)
+  Test.expect(merchant.cost == nil && merchant.profit == 185 && merchant.unpriced.length == 0)
+}
+
+test "the item not bought at a source: no price, and the profit is the cost as a loss" {
+  const parts = [part("Cloth", 100, 120)]
+  const merchant = sourceTotalsOf(parts, Source.Merchant, nil)
+  Test.expect(merchant.sale == nil && merchant.profit == -120)
+}
+
+test "a part with no price at either is left out of the profit, and said" {
+  const parts = [part("Cloth", 100, nil), part("Rune", nil, nil)]
+  const merchant = sourceTotalsOf(parts, Source.Merchant, 300)
+  Test.expect(merchant.cost == nil && merchant.profit == 200 && merchant.unpriced.join(", ") == "Rune")
+  // No price anywhere: no profit at all.
+  Test.expect(sourceTotalsOf([part("Rune", nil, nil)], Source.Auction, 300).profit == nil)
+}

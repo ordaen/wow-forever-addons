@@ -486,3 +486,20 @@ test "a scheme saved before the double click is let go: Ordaen's own, with its d
   Test.expect(clicks.left == SlotAction.Nothing && clicks.doubleLeft == SlotAction.Use && clicks.shiftLeft == SlotAction.Nothing)
   Test.expect(useClickOf(clicks).twice)
 }
+
+test "a mark is the character's: there after a reload, not for another character" {
+  const world = new World(carried())
+  Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
+  Game.bags.size = (bag: Integer): Integer => world.size(bag)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.items.icon = (id: Integer): Art | nil => world.icon(id)
+  Game.items.maxStack = (id: Integer): Integer | nil => 20
+  Test.mount(nil, SCREEN)
+  Game.bags.open = true
+  bags().button(CLOTH).rightClick()
+  Test.page().button("Mark as junk").click()
+  Test.reload()
+  Test.expect(bags().button(CLOTH).paintedWith(COIN))
+  Test.login({ guid: "Player-1-0000002", name: "Alt", surname: nil })
+  Test.expect(!bags().button(CLOTH).paintedWith(COIN))
+}

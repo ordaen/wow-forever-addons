@@ -161,6 +161,27 @@ test "each reagent's price at the house and at a merchant for the count, the che
   Test.expect(window().text("0 / 1").textColor().equal(RED) && near(window().text("1 / 1").textColor(), INK))
 }
 
+test "the totals at each source: the merchant's price is what a vendor pays; a part it doesn't sell is left out, its cost «~»" {
+  Game.clock.server = NOW
+  Game.merchant.prices = merchant
+  Game.merchant.opened.emit()
+  Game.auctionQuery.results.emit(house())
+  Game.items.sellPrice = (id: Integer): Integer | nil => id == CLOAK ? 200 : nil
+  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
+  Game.professions.list = professions()
+  Game.tradeSkill.categories = categories()
+  Game.tradeSkill.recipes = recipes()
+  Game.tradeSkill.reagents = reagents
+  Game.recipeReader.schematic = schematic
+  Test.mount(nil, SCREEN)
+  Game.tradeSkill.open = TAILORING
+  // The merchant sells the thread at 10 c and not the bolt (1 s at the house), and pays 2 s for the cloak: its profit
+  // takes the bolt at the house's price, «~» as its cost leaves the bolt out.
+  Test.expect(totals("Cost | 0g 1s 15c | ~ | 0g 0s 10c | Price | 0g 4s 75c | 0g 2s 0c | Profit | 0g 3s 60c | ~ | 0g 0s 90c | Prices: 0 h ago | Left to buy | 0g 0s 10c | To the shopping list"))
+  window().text("0g 0s 10c").nth(2).hover()
+  Test.expect(Test.page().window("Leaves out what isn't sold here: Bolt of Linen Cloth").shown())
+}
+
 test "the totals: every part at its price, what the bags lack, the sale after the house's cut, the profit, the prices' age" {
   Game.clock.server = NOW
   Game.merchant.prices = merchant
@@ -175,7 +196,7 @@ test "the totals: every part at its price, what the bags lack, the sale after th
   Test.mount(nil, SCREEN)
   Game.tradeSkill.open = TAILORING
   // A bolt at 1 s and a thread at 10 c; the bolt held: the thread to buy; a cloak sells at 5 s less 5%.
-  Test.expect(totals("Cost | 0g 1s 10c | Price | 0g 4s 75c | Profit | 0g 3s 65c | Prices: 0 h ago | Left to buy | 0g 0s 10c | To the shopping list"))
+  Test.expect(totals("Cost | 0g 1s 15c | ~ | 0g 0s 10c | Price | 0g 4s 75c | — | Profit | 0g 3s 60c | ~ | - | 0g 1s 10c | Prices: 0 h ago | Left to buy | 0g 0s 10c | To the shopping list"))
   Test.expect(!window().text("No prices: open the auction house.").shown())
   // The price is after the house's cut; its tip has the full price and the cut.
   window().text("0g 4s 75c").hover()
@@ -197,7 +218,7 @@ test "the prices and totals are for the make row's count" {
   Game.tradeSkill.open = TAILORING
   window().button("+").click()
   Test.expect(reads(window().text("Coarse Thread").item(), "Coarse Thread | 0 / 2 | 0g 0s 30c | 0g 0s 20c"))
-  Test.expect(totals("Cost | 0g 2s 20c | Price | 0g 9s 50c | Profit | 0g 7s 30c | Prices: 0 h ago | Left to buy | 0g 1s 20c | To the shopping list"))
+  Test.expect(totals("Cost | 0g 2s 30c | ~ | 0g 0s 20c | Price | 0g 9s 50c | — | Profit | 0g 7s 20c | ~ | - | 0g 2s 20c | Prices: 0 h ago | Left to buy | 0g 1s 20c | To the shopping list"))
 }
 
 test "by «All» the prices are for all the bags make" {
@@ -263,10 +284,10 @@ test "a part with no price makes the cost and profit none; left to buy is none o
   Game.tradeSkill.open = TAILORING
   // The bolt, held, has no price; the thread is bought.
   Test.expect(reads(window().text("Bolt of Linen Cloth").nth(2).item(), "Bolt of Linen Cloth | 1 / 1 | — | —"))
-  Test.expect(totals("Cost | — | Price | 0g 4s 75c | Profit | — | Prices: 0 h ago | Left to buy | 0g 0s 15c | To the shopping list"))
+  Test.expect(totals("Cost | ~ | 0g 0s 15c | — | Price | 0g 4s 75c | — | Profit | ~ | 0g 4s 60c | ~ | - | 0g 0s 15c | Prices: 0 h ago | Left to buy | 0g 0s 15c | To the shopping list"))
   // Two: one bolt lacking, with no price.
   window().button("+").click()
-  Test.expect(totals("Cost | — | Price | 0g 9s 50c | Profit | — | Prices: 0 h ago | Left to buy | — | To the shopping list"))
+  Test.expect(totals("Cost | ~ | 0g 0s 30c | — | Price | 0g 9s 50c | — | Profit | ~ | 0g 9s 20c | ~ | - | 0g 0s 30c | Prices: 0 h ago | Left to buy | — | To the shopping list"))
 }
 
 test "a recipe that makes no item doesn't sell" {
@@ -281,7 +302,7 @@ test "a recipe that makes no item doesn't sell" {
   Game.tradeSkill.reagents = reagents
   Test.mount(nil, SCREEN)
   Game.tradeSkill.open = TAILORING
-  Test.expect(totals("Cost | 0g 1s 10c | Price | doesn't sell | Profit | — | Prices: 0 h ago | Left to buy | 0g 0s 10c | To the shopping list"))
+  Test.expect(totals("Cost | 0g 1s 15c | ~ | 0g 0s 10c | Price | — | — | Profit | - | 0g 1s 15c | ~ | - | 0g 1s 10c | Prices: 0 h ago | Left to buy | 0g 0s 10c | To the shopping list"))
 }
 
 test "a making that gives several sells for the mean of what it gives" {
@@ -297,7 +318,7 @@ test "a making that gives several sells for the mean of what it gives" {
   Game.recipeReader.schematic = (id: Integer): Game.Schematic | nil => ({ recipe: id, makes: CLOAK, least: 2, most: 4, parts: [] })
   Test.mount(nil, SCREEN)
   Game.tradeSkill.open = TAILORING
-  Test.expect(totals("Cost | 0g 1s 10c | Price | 0g 14s 25c | Profit | 0g 13s 15c | Prices: 0 h ago | Left to buy | 0g 0s 10c | To the shopping list"))
+  Test.expect(totals("Cost | 0g 1s 15c | ~ | 0g 0s 10c | Price | 0g 14s 25c | — | Profit | 0g 13s 10c | ~ | - | 0g 1s 10c | Prices: 0 h ago | Left to buy | 0g 0s 10c | To the shopping list"))
 }
 
 test "a loss is said with a red minus" {
@@ -314,7 +335,7 @@ test "a loss is said with a red minus" {
   Test.mount(nil, SCREEN)
   Game.tradeSkill.open = TAILORING
   // 1 s 10 c for what sells at 47 c: 63 c lost.
-  Test.expect(totals("Cost | 0g 1s 10c | Price | 0g 0s 47c | Profit | - | 0g 0s 63c | Prices: 0 h ago | Left to buy | 0g 0s 10c | To the shopping list"))
+  Test.expect(totals("Cost | ~ | 0g 1s 0c | ~ | 0g 0s 10c | Price | 0g 0s 47c | — | Profit | ~ | - | 0g 0s 63c | ~ | - | 0g 1s 10c | Prices: 0 h ago | Left to buy | 0g 0s 10c | To the shopping list"))
   Test.expect(near(window().text("-").nth(1).textColor(), RED) && near(window().text("0g 0s 63c").textColor(), RED))
 }
 
@@ -381,7 +402,7 @@ test "the prices' age is the sale's too, where every part is a merchant's" {
   Game.clock.server = NOW + 5 * HOUR
   Test.mount(nil, SCREEN)
   Game.tradeSkill.open = TAILORING
-  Test.expect(totals("Cost | 0g 0s 60c | Price | 0g 4s 75c | Profit | 0g 4s 15c | Prices: 5 h ago | Left to buy | 0g 0s 10c | To the shopping list"))
+  Test.expect(totals("Cost | — | 0g 0s 60c | Price | 0g 4s 75c | — | Profit | 0g 4s 15c | - | 0g 0s 60c | Prices: 5 h ago | Left to buy | 0g 0s 10c | To the shopping list"))
 }
 
 test "a profit of nothing is said with no minus" {
@@ -398,7 +419,7 @@ test "a profit of nothing is said with no minus" {
   Game.recipeReader.schematic = schematic
   Test.mount(nil, SCREEN)
   Game.tradeSkill.open = TAILORING
-  Test.expect(totals("Cost | 0g 1s 10c | Price | 0g 1s 10c | Profit | 0g 0s 0c | Prices: 0 h ago | Left to buy | 0g 0s 10c | To the shopping list"))
+  Test.expect(totals("Cost | ~ | 0g 1s 0c | ~ | 0g 0s 10c | Price | 0g 1s 10c | — | Profit | ~ | 0g 0s 0c | ~ | - | 0g 1s 10c | Prices: 0 h ago | Left to buy | 0g 0s 10c | To the shopping list"))
 }
 
 test "a reagent the game names no item of has no price" {
@@ -427,7 +448,7 @@ test "with nothing scanned the card says there are no prices, and the totals are
   Test.mount(nil, SCREEN)
   Game.tradeSkill.open = TAILORING
   Test.expect(window().text("No prices: open the auction house.").shown())
-  Test.expect(totals("Cost | — | Price | — | Profit | — | Left to buy | — | To the shopping list"))
+  Test.expect(totals("Cost | — | — | Price | — | — | Profit | — | — | No prices: open the auction house. | Left to buy | — | To the shopping list"))
 }
 
 test "with a sale price and no reagent's price, the card says the reagents' prices are missing" {
