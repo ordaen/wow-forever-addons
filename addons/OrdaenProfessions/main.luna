@@ -9,7 +9,7 @@ import Game from "$game"
 import { Action, Align, Edges, Track } from "$ltml"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
-import { ARTWORK, Choice, Column, FOOTER_ROOM, FilterButton, FilterGroup, ItemId, KeptWindow, Module, ModuleMemory, PushButton, SECONDARY_TEXT, Settings, SettingsPage, Table, ToolPick, Toolbar, WINDOW_ROOM, Window, WindowTabSpec, WindowsPage, tracksOf, windowsTitle } from "Ordaen"
+import { ARTWORK, Choice, Column, FilterButton, FilterGroup, ItemId, KeptWindow, Module, ModuleMemory, PushButton, Settings, SettingsPage, Table, ToolPick, Toolbar, WINDOW_ROOM, Window, WindowTabSpec, WindowsPage, tracksOf, windowsTitle } from "Ordaen"
 import root Auction from "OrdaenAuction"
 import type { PriceSource } from "OrdaenAuction"
 import root Quests from "OrdaenQuests"
@@ -58,8 +58,6 @@ const TRAINER_WIDTH = 960.9375dp
 const TRAINER_HEIGHT = 609.375dp
 // The band: the skill bar, the profession's spell at its right.
 const BAND_WITH_TRACK: Array<Track> = [{ fr: 1 }, "max-content"]
-// The footer: the queue's status and «Create next».
-const QUEUE_FOOT: Array<Track> = [{ fr: 1 }, "max-content"]
 // Mining's and Herbalism's finding on the minimap, by their skill lines: Find Minerals, Find Herbs.
 const MINING = 186
 const HERBALISM = 182
@@ -188,16 +186,6 @@ public class Professions implements Module, App {
     { title: Locale.TAB_GENERAL, content: $ltml { <GeneralPage settings={mut self.settings} /> } },
     { title: windowsTitle(), content: $ltml { <WindowsPage windows={mut self.windows} /> } }
   ]
-  // The window's footer, on the queue's page alone: what the queue is doing and «Create next». The make row is the
-  // chosen recipe's card's (`RecipeDetails`); the profession's own spell stands beside the skill bar. Elsewhere there
-  // is no footer: the page runs to the window's bottom line.
-  const footer: Template = $ltml {
-    <box $if={self.queueShown} padding={FOOTER_ROOM} columns={QUEUE_FOOT} gap={6sp} yAlign={Align.Center}>
-      <text value={self.queueStatus} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
-      <PushButton label={Locale.QUEUE_NEXT_BUTTON} width={210.9375dp} disabled={!self.queueReady}
-                  @click={self.onNext} />
-    </box>
-  }
 
   public settings: mut Settings<Choices> = new Settings<Choices>({ prices: true, remember: true })
   public memory: mut ModuleMemory<Kept> = new ModuleMemory<Kept>(NOTHING_KEPT, .Character)
@@ -275,7 +263,8 @@ public class Professions implements Module, App {
   derived overviewShown: Boolean = self.pageKind == Page.Overview
   derived worthShown: Boolean = self.pageKind == Page.Worth
   // The recipes run to the window's edges; every other page keeps the window's room.
-  derived pageRoom: Edges = self.queueShown || self.overviewShown || self.worthShown ? PAGE_ROOM : NO_ROOM
+  // The overview's cards keep the window's room; the lists of every other page run to the window's edges.
+  derived pageRoom: Edges = self.overviewShown ? PAGE_ROOM : NO_ROOM
   // The profession's own spell on its tabs' line: a secure button casts it from the player's click.
   derived trackSpell: Integer | nil = trackSpellOf(Game.tradeSkill.open)
   derived trackName: String = knownSpellName(self.trackSpell)
@@ -890,8 +879,7 @@ public class Professions implements Module, App {
                        tabSpec={TRAINER_TAB} noun={Locale.COLUMN_RECIPE} trade={true} @settings={self.onSettings} />
       </>
       <$if={self.isOpen}>
-        <Window $if={self.drawn} tabs={self.tabs} selected={mut self.tab} asks={true} declared={mut self.window} withSettings={true}
-                footer={self.footer} @close={self.onClose} @picked={self.onTab} @settings={self.onSettings}>
+        <Window $if={self.drawn} tabs={self.tabs} selected={mut self.tab} asks={true} declared={mut self.window} withSettings={true} @close={self.onClose} @picked={self.onTab} @settings={self.onSettings}>
           <box $if={!self.hasOpen} xAlign={Align.Center} yAlign={Align.Center}>
             <text value={Locale.PICK} textColor={Style.DIM} />
           </box>
@@ -903,7 +891,8 @@ public class Professions implements Module, App {
               </box>
             </PageTabs>
             <box rows={FILL} padding={self.pageRoom}>
-              <QueuePage $if={self.queueShown} queued={self.queued} prices={self.prices} @act={self.onQueueAct}
+              <QueuePage $if={self.queueShown} queued={self.queued} prices={self.prices} status={self.queueStatus}
+                         ready={self.queueReady} @next={self.onNext} @act={self.onQueueAct}
                          @counted={self.onQueueCount} @shop={self.onShop} />
               <OverviewPage $elseif={self.overviewShown} profession={self.profession} thresholds={self.thresholds}
                             kept={self.kept} taught={self.taught} @pick={self.openRecipe} />

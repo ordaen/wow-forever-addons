@@ -4,8 +4,8 @@
 // book, Alts' records or a price changes while the tab shows; nothing while another tab does.
 import Client from "$client"
 import Game from "$game"
-import { Align, MouseButton, Track } from "$ltml"
-import { BRIGHT_TEXT, Choice, Column, Component, Hour, ItemId, Money, PushButton, SECONDARY_TEXT, Segmented, Table, TableRow, tracksOf } from "Ordaen"
+import { Align, Edges, MouseButton, Track } from "$ltml"
+import { BRIGHT_TEXT, Choice, Column, Component, FooterBand, Hour, ItemId, Money, PushButton, SECONDARY_TEXT, Segmented, Table, TableRow, WINDOW_ROOM, tracksOf } from "Ordaen"
 import root Alts from "OrdaenAlts"
 import root Auction from "OrdaenAuction"
 import type { PriceKey, PriceSource } from "OrdaenAuction"
@@ -34,7 +34,9 @@ const COLUMNS: Array<Column> = [
   { title: Locale.WORTH_CAN, width: 105.46875dp, align: Align.End, sortable: true }
 ]
 const TRACKS: Array<Track> = tracksOf(COLUMNS)
-const PAGE: Array<Track> = ["max-content", "max-content", { fr: 1 }, "max-content"]
+const PAGE: Array<Track> = ["max-content", { fr: 1 }, "max-content"]
+// The mode and the notes over the table keep the window's room; the table runs to the page's edges.
+const HEAD_PAD: Edges = { top: 4sp, right: WINDOW_ROOM, bottom: 3sp, left: WINDOW_ROOM }
 const NONE = "—"
 const DAY = 24
 
@@ -334,12 +336,11 @@ public class WorthPage implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box rows={PAGE} gap={3sp}>
-        <Segmented value={mut self.mode} choices={MODES} />
-        <box rows={["max-content", "max-content", "max-content"]}>
+      <box rows={PAGE}>
+        <box padding={HEAD_PAD} gap={3sp}>
+          <Segmented value={mut self.mode} choices={MODES} />
           <text $if={self.alone} value={Locale.WORTH_ALONE} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
-          <text $if={self.hasUnopened} value={self.unopenedLine} textSize={SECONDARY_TEXT}
-                textColor={Style.DIM} />
+          <text $if={self.hasUnopened} value={self.unopenedLine} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
           <text $if={self.noPrices} value={Locale.NO_PRICES} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
         </box>
         <box rows={[{ fr: 1 }]}>
@@ -347,10 +348,12 @@ public class WorthPage implements Component {
             <WorthLine $for={row of self.rows} worth={row} chosen={self.chosen} @pick={self.onPick} />
           </Table>
         </box>
-        <box columns={[{ fr: 1 }, "max-content"]} yAlign={Align.Center}>
-          <text value={self.emptyLine} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
-          <PushButton label={Locale.TO_SHOPPING} width={210.9375dp} disabled={!self.canShop} @click={self.onShop} />
-        </box>
+        <FooterBand>
+          <box columns={[{ fr: 1 }, "max-content"]} yAlign={Align.Center}>
+            <text value={self.emptyLine} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
+            <PushButton label={Locale.TO_SHOPPING} width={210.9375dp} disabled={!self.canShop} @click={self.onShop} />
+          </box>
+        </FooterBand>
       </box>
     }
   }

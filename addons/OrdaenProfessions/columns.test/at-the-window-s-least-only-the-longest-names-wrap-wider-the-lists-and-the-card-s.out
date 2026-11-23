@@ -148,7 +148,6 @@ surface 288,134.12 899.01x227.17 on MEDIUM clamped raised by a click
                     text 1096.32,300.72 38.33x15.83 "Create" #ffd100
                     box 1158,308.64 0x0
                   text 851.01,331.34 310.31x0 "" #a3977f
-      box 295.2,354.1 884.61x0
     box 1165.26,339.55 13.33x13.33 absolute
       box 1165.26,339.55 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 288,134.12 899.01x50.67
@@ -320,7 +319,6 @@ surface 288,134.12 1312x227.17 on MEDIUM clamped raised by a click
                     text 1509.31,300.72 38.33x15.83 "Create" #ffd100
                     box 1570.99,308.64 0x0
                   text 960.92,331.34 613.39x0 "" #a3977f
-      box 295.2,354.1 1297.6x0
     box 1578.25,339.55 13.33x13.33 absolute
       box 1578.25,339.55 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 288,134.12 1312x50.67

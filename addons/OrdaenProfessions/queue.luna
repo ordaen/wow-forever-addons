@@ -1,11 +1,12 @@
 // The «Queue» tab: what «Create» asked for in the open profession, in the order it runs, a line each (its icon, its
 // name in its difficulty's colour (one the profession's recipes don't list: dim, its profession's icon), which opens it,
 // its count still to make with − and +, x to take it out); one table of the reagents they all need (need, have,
-// missing, red while short). What the queue is doing or why it waits, and «Create next», the player's click that
-// starts the next run (the client starts a craft from nothing else), stand in the window's footer.
+// missing, red while short), both lists the page's full width down to its footer. The footer band: what the queue is
+// doing or why it waits, what the missing parts cost with «To the shopping list» while prices show, and «Create
+// next», the player's click that starts the next run (the client starts a craft from nothing else).
 import Game from "$game"
 import { Align, Art, Edges, Line, Overflow, Track } from "$ltml"
-import { ButtonPlate, Component, CountInput, ItemButton, Money, PushButton, SECONDARY_TEXT } from "Ordaen"
+import { ButtonPlate, Component, CountInput, FooterBand, ItemButton, Money, PushButton, SECONDARY_TEXT, WINDOW_ROOM } from "Ordaen"
 import type { PriceSource } from "OrdaenAuction"
 import { Way, unitOf } from "@/cost"
 import Locale from "@/locales"
@@ -15,19 +16,20 @@ import { MOST_COUNT, QueueAct, Queued } from "@/view"
 
 const NO_ICON: Art = "Interface/Icons/INV_Misc_QuestionMark"
 
-const FRAME: Line = { width: 1.171875dp, color: Style.LINE }
-const BACK: Color = Color.hex("#0000004d")
-// The lines and the table scrolling in the room there is.
-const PAGE: Array<Track> = [{ fr: 1 }]
+// The lines and the table scrolling in the room there is, the footer band under them.
+const PAGE: Array<Track> = [{ fr: 1 }, "max-content"]
+const EMPTY_PAD: Edges = { top: 4sp, right: WINDOW_ROOM, left: WINDOW_ROOM }
 const LINE: Array<Track> = [37.5dp, { fr: 1 }, "max-content", "max-content"]
-const LINE_PAD: Edges = { top: 1sp, bottom: 1sp }
+const LINE_PAD: Edges = { top: 1sp, right: WINDOW_ROOM, bottom: 1sp, left: WINDOW_ROOM }
 const STEP = 28.125dp
 const SLOT = 37.5dp
 const NEED: Array<Track> = [32.8125dp, { fr: 1 }, 82.03125dp, 82.03125dp, 105.46875dp]
 // With prices: what the missing part costs, and where it is cheaper.
 const NEED_PRICED: Array<Track> = [32.8125dp, { fr: 1 }, 82.03125dp, 82.03125dp, 105.46875dp, 117.1875dp, 93.75dp]
-const BUY_ROW: Array<Track> = [{ fr: 1 }, "max-content", "max-content"]
-const NEED_PAD: Edges = { top: 1sp, right: 2sp, bottom: 1sp }
+// The footer: the status, then what is left to buy and the shopping list while prices show, «Create next».
+const FOOT: Array<Track> = [{ fr: 1 }, "max-content"]
+const FOOT_PRICED: Array<Track> = [{ fr: 1 }, "max-content", "max-content", "max-content", "max-content"]
+const NEED_PAD: Edges = { top: 1sp, right: WINDOW_ROOM, bottom: 1sp, left: WINDOW_ROOM }
 const SHORT: Color = Color.hex("#ff6a5a")
 
 // A queued recipe as its line draws it, with its count still to make.
@@ -236,6 +238,8 @@ public class QueuePage implements Component {
 
   // «To the shopping list»: every need, with what it lacks (Ordaen Auction's list takes nothing of one that lacks none).
   public shop: Event<Array<Need>> = new Event()
+  // «Create next».
+  public next: Event<nil> = new Event()
 
   derived lines: Array<QueueLine> = linesOf(self.queued, Game.tradeSkill.recipes, Game.professions.list)
   derived needs: Array<Need> = needsOf(self.lines)
@@ -247,18 +251,28 @@ public class QueuePage implements Component {
   derived toBuyCopper: Integer = self.toBuy ?? 0
   derived lacking: Boolean = self.needs.count(need => need.missing > 0) > 0
   derived headColumns: Array<Track> = self.priced ? NEED_PRICED : NEED
+  derived footColumns: Array<Track> = self.priced ? FOOT_PRICED : FOOT
 
   queued: Signal<Array<Queued>>
   prices: Signal<any PriceSource | nil>
+  status: Signal<String>
+  ready: Signal<Boolean>
   constructor(
     // The open profession's queue, in the order it runs.
     queued: Signal<Array<Queued>>,
     // Ordaen Auction's prices while they are shown; none for none.
-    prices: Signal<any PriceSource | nil> = nil
+    prices: Signal<any PriceSource | nil> = nil,
+    // What the queue is doing or why it waits; whether «Create next» can start a run.
+    status: Signal<String> = "",
+    ready: Signal<Boolean> = false
   ) {
     self.queued = queued
     self.prices = prices
+    self.status = status
+    self.ready = ready
   }
+
+  onNext(self) { self.next.emit() }
 
   // Read again when a price may have moved; without prices each need stands alone.
   entriesOf(self): Array<NeedPrice> {
@@ -275,45 +289,50 @@ public class QueuePage implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box padding={5sp} border={FRAME} background={BACK} rows={PAGE}>
-        <text $if={self.empty} value={Locale.QUEUE_EMPTY} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
-        <$else>
-          <box overflow={Overflow.Scroll} gap={6sp}>
-            <box columns={1}>
-              <QueueRow $for={index, line of self.lines} $key={line.recipe} line={line} index={index}
-                        @act={self.onAct} @counted={self.onCounted} />
-            </box>
-            <box columns={1}>
-              <box columns={self.headColumns} gap={3sp} padding={NEED_PAD}>
-                <box />
-                <box />
-                <box xAlign={Align.End}>
-                  <text value={Locale.QUEUE_NEED} textColor={Style.DIM} wrap={.None} />
-                </box>
-                <box xAlign={Align.End}>
-                  <text value={Locale.QUEUE_HAVE} textColor={Style.DIM} wrap={.None} />
-                </box>
-                <box xAlign={Align.End}>
-                  <text value={Locale.QUEUE_MISSING} textColor={Style.DIM} wrap={.None} />
-                </box>
-                <$if={self.priced}>
-                  <box xAlign={Align.End}>
-                    <text value={Locale.QUEUE_PRICE} textColor={Style.DIM} wrap={.None} />
-                  </box>
-                  <text value={Locale.QUEUE_WHERE} textColor={Style.DIM} wrap={.None} />
-                </>
+      <box rows={PAGE}>
+        <box $if={self.empty} padding={EMPTY_PAD}>
+          <text value={Locale.QUEUE_EMPTY} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
+        </box>
+        <box $else overflow={Overflow.Scroll} scrollbar={.Hover} gap={6sp}>
+          <box columns={1}>
+            <QueueRow $for={index, line of self.lines} $key={line.recipe} line={line} index={index}
+                      @act={self.onAct} @counted={self.onCounted} />
+          </box>
+          <box columns={1}>
+            <box columns={self.headColumns} gap={3sp} padding={NEED_PAD}>
+              <box />
+              <box />
+              <box xAlign={Align.End}>
+                <text value={Locale.QUEUE_NEED} textColor={Style.DIM} wrap={.None} />
               </box>
-              <NeedRow $for={entry of self.entries} $key={entry.need.name} entry={entry} priced={self.priced} />
+              <box xAlign={Align.End}>
+                <text value={Locale.QUEUE_HAVE} textColor={Style.DIM} wrap={.None} />
+              </box>
+              <box xAlign={Align.End}>
+                <text value={Locale.QUEUE_MISSING} textColor={Style.DIM} wrap={.None} />
+              </box>
+              <$if={self.priced}>
+                <box xAlign={Align.End}>
+                  <text value={Locale.QUEUE_PRICE} textColor={Style.DIM} wrap={.None} />
+                </box>
+                <text value={Locale.QUEUE_WHERE} textColor={Style.DIM} wrap={.None} />
+              </>
             </box>
-            // What the missing parts cost, and «To the shopping list» (Ordaen Auction's), while prices show.
-            <box $if={self.priced} columns={BUY_ROW} gap={3sp} yAlign={Align.Center}>
+            <NeedRow $for={entry of self.entries} $key={entry.need.name} entry={entry} priced={self.priced} />
+          </box>
+        </box>
+        <FooterBand>
+          <box columns={self.footColumns} gap={4sp} yAlign={Align.Center}>
+            <text value={self.status} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
+            <$if={self.priced}>
               <text value={Locale.TOTAL_TO_BUY} textColor={Style.DIM} />
               <Money $if={self.hasToBuy} amount={self.toBuyCopper} />
               <text $else value={"—"} textColor={Style.DIM} />
               <PushButton label={Locale.TO_SHOPPING} width={210.9375dp} disabled={!self.lacking} @click={self.onShop} />
-            </box>
+            </>
+            <PushButton label={Locale.QUEUE_NEXT_BUTTON} width={210.9375dp} disabled={!self.ready} @click={self.onNext} />
           </box>
-        </>
+        </FooterBand>
       </box>
     }
   }
