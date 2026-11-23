@@ -1,7 +1,7 @@
 // PickRow: one row of a list the player picks from (a friend, an ally, a quest): what it holds laid out in its
 // `columns`, a shade under the cursor and the keyboard's focus, a gold one while it is the picked row. A left click,
 // Enter or Space reports `pick`; what is picked is the owner's, which says so through `picked`.
-import { Align, ByInteractionState, Edges, Track } from "$ltml"
+import { Align, ByInteractionState, Edges, Frame, Track } from "$ltml"
 import { Component } from "@/module"
 
 const CLEAR: Color = Color.hex("#00000000")
@@ -18,6 +18,8 @@ public function rowShade(picked: Boolean): Color | ByInteractionState<Color> { r
 
 public class PickRow implements Component {
   public pick: Event<nil> = new Event()
+  // The cursor came onto the row: its frame, what a tooltip of the row stands by.
+  public entered: Event<any Frame> = new Event()
 
   derived background: Color | ByInteractionState<Color> = rowShade(self.picked)
 
@@ -40,12 +42,13 @@ public class PickRow implements Component {
   }
 
   onPick(mut self) { self.pick.emit() }
+  onEnter(self, frame: any Frame) { self.entered.emit(frame) }
 
   public render(self): Template {
     return $ltml {
       <box columns={self.columns} gap={2sp} yAlign={Align.Center} padding={self.padding}
            background={self.background} tabStop={self.tabStop} @pointerPress(.Left)={self.onPick} @keyPress(.Enter)={self.onPick}
-           @keyPress(.Space)={self.onPick}>
+           @keyPress(.Space)={self.onPick} @pointerEnter={self.onEnter}>
         <slot />
       </box>
     }

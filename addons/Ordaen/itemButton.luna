@@ -184,6 +184,7 @@ public class ItemButton implements Component {
   mail: Signal<[Integer, Integer] | nil>
   well: Signal<SlotWell>
   cursor: Signal<Cursor | nil>
+  tipped: Signal<Boolean>
   constructor(
     // The game's number of the item; none for an empty slot.
     item: Signal<Integer | nil>,
@@ -219,9 +220,12 @@ public class ItemButton implements Component {
     // How its well stands on what holds it.
     well: Signal<SlotWell> = SlotWell.Sunk,
     // The cursor's look while it is on the slot (the coin bag at a merchant).
-    cursor: Signal<Cursor | nil> = nil
+    cursor: Signal<Cursor | nil> = nil,
+    // Whether it shows its tooltip itself; off where what holds it shows one for all of it (a reward's row).
+    tipped: Signal<Boolean> = true
   ) {
     self.cursor = cursor
+    self.tipped = tipped
     self.cooldown = cooldown
     self.well = well
     self.currency = currency
@@ -271,6 +275,10 @@ public class ItemButton implements Component {
   // The game's tooltip of the item beside the slot, of a worn one its slot's; the game hides it when the cursor
   // leaves.
   onEnter(self, frame: any Frame) {
+    if (!self.tipped) {
+      self.entered.emit()
+      return
+    }
     const item = self.item
     const worn = self.worn
     const spell = self.spell

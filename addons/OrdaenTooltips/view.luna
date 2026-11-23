@@ -7,7 +7,7 @@
 // always the one at the frame; the others follow it in one row, lined up on the edge that faces the frame, so no
 // tooltip floats off it.
 import Game from "$game"
-import { Align, Edges, Frame, Place, Point } from "$ltml"
+import { Align, Edges, Frame, Hang, Place, Point } from "$ltml"
 import { BRIGHT_TEXT, Component, TooltipGroup } from "Ordaen"
 import { GOLD } from "@/colors"
 import { HEADER, TipFrame } from "@/frame"
@@ -33,6 +33,8 @@ public struct Standing {
   below: Boolean
   // On the frame's right edge, the group running leftwards; on its left edge otherwise.
   right: Boolean
+  // How the frame asked its tooltips to stand beside it, tried first where it keeps them on the screen.
+  hang: Hang | nil = nil
 }
 
 // What stands in an opened tooltip's place while it opens nothing.
@@ -169,6 +171,8 @@ public class TipGroup implements Component {
 
   at(self): Place {
     let standing = self.standing
+    const hang = standing.hang
+    if (!standing.inPlace && hang != nil) { return { beside: standing.by, prefer: [hang] } }
     if (standing.inPlace) {
       let point = standing.below ?
         (standing.right ? Point.TopRight : Point.TopLeft) :

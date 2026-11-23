@@ -19,11 +19,11 @@ surface 54.82,99.96 384.71x620.08 on MEDIUM clamped raised by a click
         box 80.51,208.29 333.33x486.07
           box 80.51,213.97 333.33x447.78
             box 80.51,213.97 333.33x60.84
-              box 80.51,213.97 333.33x29.71 #00000000 @keyPress @pointerPress
+              box 80.51,213.97 333.33x29.71 #00000000 @keyPress @pointerEnter @pointerPress
                 box 86.19,219.66 18.33x18.33 #00000080
                   text 92.03,222.83 6.67x12 "1" #c9a76a
                 text 110.22,220.91 20x15.83 "Yes" #f0e6d0
-              box 80.51,245.11 333.33x29.71 #00000000 @keyPress @pointerPress
+              box 80.51,245.11 333.33x29.71 #00000000 @keyPress @pointerEnter @pointerPress
                 box 86.19,250.8 18.33x18.33 #00000080
                   text 92.03,253.96 6.67x12 "2" #c9a76a
                 text 110.22,252.05 14.17x15.83 "No" #f0e6d0

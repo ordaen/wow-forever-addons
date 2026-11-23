@@ -484,7 +484,7 @@ public class Tooltips implements Module, App {
     let place = self.read?.place ?? self.settings.values.place
     if (place == Place.Blizzard) { return blizzardPlace(tip) }
     if (owner != nil && tip.placeable) {
-      return { by: owner, inPlace: false, below: tip.ownerHigh, right: tip.ownerRight }
+      return { by: owner, inPlace: false, below: tip.ownerHigh, right: tip.ownerRight, hang: tip.hang }
     }
     return { by: tip.corner, inPlace: true, below: tip.below, right: tip.right }
   }

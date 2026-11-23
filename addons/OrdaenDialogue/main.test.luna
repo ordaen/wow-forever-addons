@@ -545,6 +545,16 @@ test "one reward to choose is picked already" {
   Test.expect(asked() == "reward 1")
 }
 
+test "a reward's tooltip shows over all of its row, standing by the row's top right corner" {
+  Test.mount(nil, SCREEN)
+  Test.talk(innkeeper())
+  Test.quest(pie())
+  Events.QUEST_COMPLETE.emit()
+  _ = Test.requests()
+  window().text("Courier Boots").hover()
+  Test.expect(Test.requests().join(", ").contains("Tooltip.hangBy TOPLEFT TOPRIGHT, Items.show 1002"))
+}
+
 test "a turn-in that takes money asks first, with the price" {
   Test.mount(nil, SCREEN)
   Test.talk(innkeeper())

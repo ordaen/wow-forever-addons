@@ -6,7 +6,8 @@
 import Client from "$client"
 import Game from "$game"
 import {
-  Align, Art, Blend, Columns, Edges, Event, Gaps, Leading, Line, MouseButton, Overflow, Position, Side, TextAlign, Tile, Track
+  Align, Art, Blend, Columns, Edges, Event, Frame, Gaps, Hang, Leading, Line, MouseButton, Overflow, Point, Position, Side, TextAlign,
+  Tile, Track
 } from "$ltml"
 import Runtime from "$runtime"
 import {
@@ -64,6 +65,8 @@ const KEYCAP_SMALL = 25.78125dp
 const PAWN_WIDTH = 70.3125dp
 const WITH_PAWN: Array<Track> = ["max-content", "max-content", { fr: 1 }, PAWN_WIDTH, "max-content"]
 const NO_PAWN: Array<Track> = ["max-content", "max-content", { fr: 1 }, "max-content"]
+// A reward's tooltip beside its row: its top left on the row's top right.
+const BY_THE_ROW: Hang = { point: Point.TopLeft, to: Point.TopRight }
 // The game's green arrow of an upgrade, before the best one's word.
 const UPGRADE: Atlas = "bags-greenarrow"
 const ARROW = 14.0625dp
@@ -596,16 +599,30 @@ public class RewardRow implements Component {
   onPawnEnter(mut self) { self.pawnHovered = true }
   onPawnLeave(mut self) { self.pawnHovered = false }
 
+  // The reward's tooltip over all of its row: its top left on the row's top right, where that keeps it on the screen.
+  onRowEnter(self, frame: any Frame) {
+    const reward = self.reward
+    Game.tooltip.hangBy(frame, BY_THE_ROW)
+    const currency = reward.currency
+    const item = reward.item
+    if (currency != nil) {
+      Game.items.showCurrency(frame, currency, reward.count)
+    } else if (item != nil) {
+      Game.items.show(frame, item)
+    }
+  }
+
   public render(self): Template {
     return $ltml {
-      <PickRow $if={self.pickable} columns={self.columns} picked={self.picked} @pick={self.onPick}>
+      <PickRow $if={self.pickable} columns={self.columns} picked={self.picked} @pick={self.onPick}
+               @entered={self.onRowEnter}>
         <RewardCells reward={self.reward} keyed={self.keyed} key={self.key} nameColor={self.nameColor}
                      detailColor={self.detailColor} hasDetail={self.hasDetail} pawnColumn={self.pawnColumn}
                      pawnWord={self.pawnWord} pawnColor={self.pawnColor} pawnTipShown={self.pawnTipShown}
                      pawnTip={self.pawnTip} best={self.best} priced={self.priced} priceColor={self.priceColor}
                      @slot={self.onSlot} @pawnEnter={self.onPawnEnter} @pawnLeave={self.onPawnLeave} />
       </PickRow>
-      <box $else columns={self.columns} gap={1sp} yAlign={Align.Center} padding={1sp}>
+      <box $else columns={self.columns} gap={1sp} yAlign={Align.Center} padding={1sp} @pointerEnter={self.onRowEnter}>
         <RewardCells reward={self.reward} keyed={false} key={""} nameColor={self.nameColor}
                      detailColor={self.detailColor} hasDetail={self.hasDetail} pawnColumn={self.pawnColumn}
                      pawnWord={self.pawnWord} pawnColor={self.pawnColor} pawnTipShown={self.pawnTipShown}
@@ -667,7 +684,7 @@ class RewardCells implements Component {
       <Keycap $if={self.keyed} key={self.key} size={REWARD_ICON} />
       <box $else />
       <ItemButton item={self.reward.item} count={self.reward.count} quality={self.reward.quality} art={self.reward.icon}
-                  currency={self.reward.currency} size={REWARD_ICON} @pressed={self.onSlot} />
+                  currency={self.reward.currency} size={REWARD_ICON} tipped={false} @pressed={self.onSlot} />
       <box gap={0.25sp}>
         <text value={self.reward.name} textColor={self.nameColor} wrap={.None} />
         <text $if={self.hasDetail} value={self.reward.detail} textColor={self.detailColor} textSize={SECONDARY_TEXT}
