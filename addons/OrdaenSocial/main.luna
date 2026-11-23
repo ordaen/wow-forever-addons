@@ -16,7 +16,7 @@ import { AllyCategory, BattleNetSelf, Club, ClubStream, Friend, FriendRequest, G
 import { Align, Event, Frame } from "$ltml"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
-import { ButtonPlate, CopyBox, Dialog, FOOTER_ROOM, Field, FooterCount, FooterCounts, GamePass, GameWindowButton, KeptWindow, Module, ModuleMemory, PushButton, SECONDARY_TEXT, Settings, SettingsPage, Tabs, Window, WindowSide, WindowTabSpec, WindowsPage, trimmed, windowsTitle } from "Ordaen"
+import { ButtonPlate, CopyBox, Dialog, Field, FooterBand, FooterCount, FooterCounts, GamePass, GameWindowButton, KeptWindow, Module, ModuleMemory, PushButton, SECONDARY_TEXT, Settings, SettingsPage, Tabs, Window, WindowSide, WindowTabSpec, WindowsPage, trimmed, windowsTitle } from "Ordaen"
 import { AllyCard, AllyFilter, AllyList, allyFilterStart, categoriesOf } from "@/allies"
 import { ClubCard } from "@/communities"
 import { FRIENDS_KEPT, FriendCard, FriendList, FriendsKept, IgnoreList, MyCard, RequestList, keyOf, titleOf } from "@/friends"
@@ -187,10 +187,12 @@ public class Social implements Module, App {
   // The footer, as every list window's: the counts as label and value pairs; in a development build, the game's own
   // window to compare with.
   const footer: Template = $ltml {
-    <box padding={FOOTER_ROOM} columns={[{ fr: 1 }, "max-content"]} yAlign={Align.Center}>
-      <FooterCounts counts={self.counts} />
-      <GameWindowButton @click={self.onGameCompare} />
-    </box>
+    <FooterBand>
+      <box columns={[{ fr: 1 }, "max-content"]} yAlign={Align.Center}>
+        <FooterCounts counts={self.counts} />
+        <GameWindowButton @click={self.onGameCompare} />
+      </box>
+    </FooterBand>
   }
 
   constructor() {

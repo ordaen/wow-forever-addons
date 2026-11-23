@@ -2,8 +2,8 @@
 surface 425,184.12 1039.68x531.75 on MEDIUM clamped raised by a click
   box 425,232.54 1039.68x483.33 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.98, tr 0.78, bl 0.80, br 0.60, top 0.98>0.78 x35.10, bottom 0.80>0.60 x35.10, left 0.98>0.80 x15.78, right 0.78>0.61 x15.78] @drag @dragStart @dragStop @pointerEnter @pointerLeave
     box 432.2,239.74 735.6x468.93
-      box 432.2,239.74 735.6x426.38
-        box 454.96,262.5 690.09x386.56
+      box 432.2,239.74 735.6x426.52
+        box 454.96,262.5 690.09x386.7
           box 454.96,262.5 690.09x28.33
             box 454.96,262.5 622.04x28.33
               box 454.96,262.5 622.04x28.33 #00000080 input "" @change @submit
@@ -18,9 +18,9 @@ surface 425,184.12 1039.68x531.75 on MEDIUM clamped raised by a click
                 box 1116.71,262.5 28.33x28.33
                   box 1116.71,262.5 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerEnter @pointerLeave @pointerPress
                     box 1124.21,270 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 1 of 16 tint=#e8dcc4
-          box 454.96,299.36 690.09x349.69 #0000004d
+          box 454.96,299.36 690.09x349.83 #0000004d
             box 455.79,300.2 688.42x0
-            box 455.79,300.2 688.42x348.02 scrolled 0 of 0
+            box 455.79,300.2 688.42x348.17 scrolled 0 of 0
               text 464.32,308.73 671.36x15.83 "Recent Allies" #ffd100
               box 464.32,324.56 671.36x40.54 #ffd10026 @keyPress @pointerPress
                 box 470.01,339.84 10x10 Interface/FriendsFrame/StatusIcon-Online
@@ -36,16 +36,17 @@ surface 425,184.12 1039.68x531.75 on MEDIUM clamped raised by a click
                     text 485.7,370.8 38.33x15.83 "Astrid" #7c848a
                     text 529.72,370.8 14.17x15.83 "21" #a3977f
                   text 485.7,386.63 638.6x0 "" #a3977f
-      box 432.2,666.12 735.6x42.56
-        box 432.2,666.12 735.6x42.56
-          box 454.96,673.62 578.03x13.33
-            box 454.96,673.62 81.87x13.33
-              text 454.96,673.62 66.67x13.33 "Recent allies" #a3977f
-              text 530.16,673.62 6.67x13.33 "2" #e8dcc4
-          box 1032.99,666.12 112.06x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-            box 1036.31,680.29 0x0
-            text 1043.18,672.37 91.67x15.83 "Blizzard window" #ffd100
-            box 1141.72,680.29 0x0
+      box 432.2,666.26 735.6x42.41
+        box 432.2,666.26 735.6x42.41 Interface/FrameGeneral/UI-Background-Marble border=Interface\AddOns\Ordaen\media\frame-divider-down sides=top pieces=[top 0.72>0.59 x38.31]
+          box 454.96,674.65 690.09x28.33
+            box 454.96,682.15 578.03x13.33
+              box 454.96,682.15 81.87x13.33
+                text 454.96,682.15 66.67x13.33 "Recent allies" #a3977f
+                text 530.16,682.15 6.67x13.33 "2" #e8dcc4
+            box 1032.99,674.65 112.06x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
+              box 1036.31,688.82 0x0
+              text 1043.18,680.9 91.67x15.83 "Blizzard window" #ffd100
+              box 1141.72,688.82 0x0
     box 1167.8,239.74 289.68x468.93
       box 1170.5,239.74 286.98x468.93
         box 1193.26,262.5 241.47x431.96

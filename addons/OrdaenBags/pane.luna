@@ -8,9 +8,9 @@
 // hide an item under a scroll; it scrolls only where the screen is too low for it.
 import Client from "$client"
 import Game from "$game"
-import { Align, Edges, Line, Overflow, Side, Track } from "$ltml"
+import { Align, ArtBorder, Overflow, Side, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { Choice, Component, FooterCount, FooterCounts, ListTab, ModuleMemory, Money, PushButton, SECONDARY_TEXT, ScrolledList, Tip, TipRow, ToolAct, ToolButton, ToolPick, Toolbar, windowSides } from "Ordaen"
+import { ARTWORK, Choice, Component, FooterBand, FooterCount, FooterCounts, ListTab, ModuleMemory, Money, PushButton, SECONDARY_TEXT, ScrolledList, Tip, TipRow, ToolAct, ToolButton, ToolPick, Toolbar, reachDown, windowSides } from "Ordaen"
 import { BANK_ICON } from "@/bank"
 import { Clicks, UseClick } from "@/clicks"
 import { GuildBank, GuildPage, GuildTab, withdrawalsText } from "@/guild"
@@ -61,11 +61,9 @@ const FILL: Array<Track> = [{ fr: 1 }]
 const NOTED: Array<Track> = ["max-content", { fr: 1 }]
 // The counts, the room between, the buttons (or the gold tracked), the money.
 const FOOT: Array<Track> = ["max-content", { fr: 1 }, "max-content", "max-content"]
-// The footer's marble reaches the window's sides and bottom (the window places it flush); its text stands in by a
-// footer's room at the sides, and a narrow band above and below it.
-const FOOT_PAD_Y: Number<Spacing> = 2sp
-const FOOT_PAD: Edges = { top: FOOT_PAD_Y, right: 8sp, bottom: FOOT_PAD_Y, left: 8sp }
-const FOOT_RIM: Line = { width: 1.171875dp, color: Color.hex("#3e2f1d"), sides: [Side.Top] }
+// The footer band's room over and under what it holds, and its line along the top (Ordaen's FooterBand).
+const FOOT_BAND: Number<Spacing> = 4sp
+const BAND_LINE: ArtBorder = { sides: [Side.Top], ..ARTWORK.frame.tabIconLine }
 const LABEL: Color = Color.hex("#a3977f")
 const COUNT: Color = Color.hex("#a3977f")
 const BUTTON = 140.625dp
@@ -195,7 +193,7 @@ public class Pane {
   public derived lines: Array<CardRow> = linesOf(self.sections, self.listWidth, self.room)
   // As high as its cards, or as the screen lets it be.
   derived cardsHeight: Number<Length> = heightOf(self.lines, self.room)
-  derived footRoom: Number<Length> = Ordaen.lengthOf(FOOT_PAD_Y * 2) + FOOT_RIM.width
+  derived footRoom: Number<Length> = Ordaen.lengthOf(FOOT_BAND) + reachDown(BAND_LINE) + BAND_LINE.width * 1ui
   derived listHeight: Number<Length> = self.cardsHeight.min(Client.UIParent.GetHeight() * 1ui - AROUND_LIST - self.footRoom)
   // It scrolls where the screen is too low for it, and clips otherwise: either way the cards, laid out for the width
   // it has, ask nothing of the window's least width, so the grip narrows it past the row it started from.
@@ -334,23 +332,25 @@ public class Pane {
   onGoldEnter(mut self) { self.goldShown = true }
   onGoldLeave(mut self) { self.goldShown = false }
 
-  // The footer on the game's dark marble, the window's width, a line between it and the list.
+  // The footer band: the game's dark marble, the window's width, its line between it and the list.
   public const footer: Template = $ltml {
-    <box columns={FOOT} gap={6sp} yAlign={Align.Center} padding={FOOT_PAD} border={FOOT_RIM} background={Ordaen.art.window.marble}>
-      <FooterCounts counts={self.footCounts} />
-      <box />
-      <PushButton $if={self.selling} label={Locale.SELL_JUNK} width={BUTTON} @click={self.onSellJunk} />
-      <box $elseif={self.guildLive} columns={2} gap={3sp}>
-        <PushButton label={Locale.GUILD_DEPOSIT} width={BUTTON} @click={self.onDeposit} />
-        <PushButton label={Locale.GUILD_WITHDRAW} width={BUTTON} disabled={!self.guild.canWithdraw} @click={self.onWithdraw} />
+    <FooterBand>
+      <box columns={FOOT} gap={6sp} yAlign={Align.Center}>
+        <FooterCounts counts={self.footCounts} />
+        <box />
+        <PushButton $if={self.selling} label={Locale.SELL_JUNK} width={BUTTON} @click={self.onSellJunk} />
+        <box $elseif={self.guildLive} columns={2} gap={3sp}>
+          <PushButton label={Locale.GUILD_DEPOSIT} width={BUTTON} @click={self.onDeposit} />
+          <PushButton label={Locale.GUILD_WITHDRAW} width={BUTTON} disabled={!self.guild.canWithdraw} @click={self.onWithdraw} />
+        </box>
+        <text $else value={Game.money.tracked} textFont={.Numbers} />
+        <Money $if={self.isGuild} amount={self.guild.money} />
+        <box $else @pointerEnter={self.onGoldEnter} @pointerLeave={self.onGoldLeave}>
+          <Money amount={Game.money.amount} />
+          <Tip $if={self.goldShown} title={Locale.GOLD} text={""} rows={self.goldRows} />
+        </box>
       </box>
-      <text $else value={Game.money.tracked} textFont={.Numbers} />
-      <Money $if={self.isGuild} amount={self.guild.money} />
-      <box $else @pointerEnter={self.onGoldEnter} @pointerLeave={self.onGoldLeave}>
-        <Money amount={Game.money.amount} />
-        <Tip $if={self.goldShown} title={Locale.GOLD} text={""} rows={self.goldRows} />
-      </box>
-    </box>
+    </FooterBand>
   }
 
   // The cards, as high as they are together.

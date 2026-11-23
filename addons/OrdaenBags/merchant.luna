@@ -11,7 +11,7 @@
 import Game from "$game"
 import { Align, Art, Columns, Event, MouseButton, Position, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { ARTWORK, ButtonPlate, Choice, Column, Component, CountInput, Dialog, FOOTER_ROOM, FoldCaption, FooterCount, FooterCounts, ItemButton, KeptWindow, ModuleMemory, Money, PushButton, SECONDARY_TEXT, ScrolledList, Table, TableRow, ToolPick, Toolbar, Window, WindowSide, WindowTabSpec, tracksOf } from "Ordaen"
+import { ARTWORK, ButtonPlate, Choice, Column, Component, CountInput, Dialog, FoldCaption, FooterBand, FooterCount, FooterCounts, ItemButton, KeptWindow, ModuleMemory, Money, PushButton, SECONDARY_TEXT, ScrolledList, Table, TableRow, ToolPick, Toolbar, Window, WindowSide, WindowTabSpec, tracksOf } from "Ordaen"
 import Locale from "@/locales"
 import { KINDS, Tab } from "@/model"
 import { tabName } from "@/sections"
@@ -523,9 +523,9 @@ public class MerchantWindow implements Component {
   }
 
   const footer: Template = $ltml {
-    <box padding={FOOTER_ROOM}>
+    <FooterBand>
       <FooterCounts counts={self.counts} />
-    </box>
+    </FooterBand>
   }
 
   public render(self): Template {
