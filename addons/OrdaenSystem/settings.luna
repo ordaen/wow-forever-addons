@@ -100,7 +100,8 @@ public class SystemSettings {
     if (panel == nil || category == nil) { return [] }
     const lines: Array<SettingLine> = []
     for (initializer of panel.GetLayout(category)?.initializers ?? []) {
-      const data = initializer.GetData()
+      const data = initializer.data
+      if (data == nil) { continue }
       const kind = kindOf(initializer.GetTemplate(), data)
       const options = data.options
       const range = options is Client.SettingsSliderOptions ? options : nil
@@ -142,7 +143,8 @@ public class SystemSettings {
     const category = Client.Settings?.GetCategory(id)
     if (panel == nil || category == nil) { return [] }
     for (initializer of panel.GetLayout(category)?.initializers ?? []) {
-      const data = initializer.GetData()
+      const data = initializer.data
+      if (data == nil) { continue }
       const options = data.options
       if (data.setting?.GetVariable() == variable && options != nil && !(options is Client.SettingsSliderOptions)) {
         return options()
