@@ -16,12 +16,12 @@ public class OrdaenPrices implements PriceSource, PriceHistory {
   const house: House
   const vendors: Map<ItemId, Copper>
   // The house's cut of a sale, in percent.
-  const cut: Signal<Integer>
+  const houseCut: Signal<Integer>
 
-  constructor(house: House, vendors: Map<ItemId, Copper>, cut: Signal<Integer>) {
+  constructor(house: House, vendors: Map<ItemId, Copper>, houseCut: Signal<Integer>) {
     self.house = house
     self.vendors = vendors
-    self.cut = cut
+    self.houseCut = houseCut
   }
 
   public buy(self, key: PriceKey): Quote | nil {
@@ -34,16 +34,23 @@ public class OrdaenPrices implements PriceSource, PriceHistory {
     return market
   }
 
-  public sell(self, key: PriceKey): Quote | nil {
+  public listed(self, key: PriceKey): Quote | nil {
     const market = self.house.quote(key)
     if (market == nil) { return nil }
     const age = market.age()
     if (age > KEPT_HOURS) { return nil }
-    let copper: Integer = market.copper()
     const listing = self.house.listed(key)
-    if (listing != nil && age <= FRESH) { copper = copper.min(listing.low()) }
-    return Quote.of((copper * (100 - self.cut) / 100).floor(), market.seen())
+    if (listing == nil || age > FRESH) { return market }
+    return Quote.of(market.copper().min(listing.low()), market.seen())
   }
+
+  public sell(self, key: PriceKey): Quote | nil {
+    const listed = self.listed(key)
+    if (listed == nil) { return nil }
+    return Quote.of((listed.copper() * (100 - self.houseCut) / 100).floor(), listed.seen())
+  }
+
+  public cut(self): Integer { return self.houseCut }
 
   public vendor(self, item: ItemId): Copper | nil { return self.vendors[item] }
 

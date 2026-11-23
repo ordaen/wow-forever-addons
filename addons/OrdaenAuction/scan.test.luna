@@ -10,6 +10,7 @@ import Game from "$game"
 import Test from "$test"
 import root Ordaen from "Ordaen"
 import root Auction from "OrdaenAuction"
+import { PriceKey } from "@/quote"
 
 const SCREEN: Test.Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
 // 2026-09-21, in the server's seconds: a whole hour.
@@ -395,6 +396,18 @@ test "what one brings is the lesser of the market and a fresh lowest, less the c
   Game.clock.server = START + 49 * HOUR
   Game.bags.changed.emit()
   Test.expect(window().text("Copper Ore").item().text("Auction").shown())
+}
+
+test "what one is listed for is the lesser of the market and a fresh lowest, the cut apart: what it brings is that less it" {
+  Game.clock.server = START
+  Test.mount(nil, SCREEN)
+  Game.auctionQuery.results.emit([{ key: ORE, copper: 100, quantity: 2 }, { key: ORE, copper: 300, quantity: 10 }])
+  const key = PriceKey.of(ORE)
+  const listed = Auction.prices.listed(key) ?? panic("the ore is priced")
+  const sold = Auction.prices.sell(key) ?? panic("the ore brings something")
+  Test.expect(Auction.prices.cut() == 5)
+  Test.expect(listed.copper() == 100 && sold.copper() == 95)
+  Test.expect(Auction.prices.listed(PriceKey.of(LINEN)) == nil)
 }
 
 test "a full scan drops what was unseen past 30 days: its market and its lowest" {
