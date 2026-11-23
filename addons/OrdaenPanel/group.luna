@@ -45,7 +45,7 @@ public enum Cell {
 // The group: its cells in their order, across the screen or down a side of it, each as high as the group is.
 public class CellGroup implements Component {
   derived columns: Array<Track> = self.vertical ? DOWN : self.across()
-  derived size: CellSize = cellSize(self.height)
+  derived size: CellSize = cellSize(self.height, self.vertical ? 0ui : self.rise)
 
   cells: Signal<Array<Cell>>
   gold: Signal<Boolean>

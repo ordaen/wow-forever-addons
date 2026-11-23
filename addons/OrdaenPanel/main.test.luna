@@ -303,9 +303,9 @@ test "a groove runs up past the cells to the panel's metal, through the room und
   Test.mount(nil, SCREEN)
   const cut = firstCut()
   const cell = panel().box(SPELLBOOK).rect()
-  // A cell as high as the panel's inside (CELL_HEIGHT, 53 units), its icon in its middle, and the room under the
-  // metal over it (4 units).
-  Test.expect((cut.bottom - cut.top - 57).abs() < 0.01 && ((cell.top + cell.bottom) / 2 - (cut.bottom - 26.5)).abs() < 0.01)
+  // A cell as high as the panel's inside (CELL_HEIGHT, 53 units) and the room under the metal over it (4 units), its
+  // icon in the middle of that slot.
+  Test.expect((cut.bottom - cut.top - 57).abs() < 0.01 && ((cell.top + cell.bottom) / 2 - (cut.top + cut.bottom) / 2).abs() < 0.01)
 }
 
 test "a click on a cell of the menu or of the bags is the game's own button's in it" {
@@ -954,11 +954,12 @@ test "the action bars' tab fits the settings window at its size: the list, the p
   Test.expect(settings.text("Buttons per row").shown())
 }
 
-test "a cell is square, and stands beside the cut, not under it" {
+test "a cell's slot is square, from the panel's metal down, and stands beside the cut, not under it" {
   Game.bags.buttons = bagButtons(frame)
   Test.mount(nil, SCREEN)
-  const ground = panel().box(SPELLBOOK).rect()
+  const ground = panel().box(CELL).nth(2).rect()
   const cut = firstCut()
   Test.expect((ground.right - ground.left - (ground.bottom - ground.top)).abs() < 0.5)
-  Test.expect(ground.left > cut.right + 1 || ground.right < cut.left - 1)
+  Test.expect((ground.top - cut.top).abs() < 0.5 && (ground.bottom - cut.bottom).abs() < 0.5)
+  Test.expect(ground.left > cut.right - 0.5 || ground.right < cut.left + 0.5)
 }

@@ -206,234 +206,251 @@ surface 957,593.9 486x45 on LOW clamped
       box 1398,593.9 45x2.84 absolute
         text 1441.58,595.32 0x0 "" #f0e6d2
 surface 0,799.5 2400x100.5 on LOW Interface\AddOns\Ordaen\media\window-wood pieces=[top 1.00>0.80 x125.00] opacity=1
-  box 0,809.65 1064.03x89
-    box 0,809.65 1064.03x89
+  box 0,809.65 1104.03x89
+    box 0,809.65 1104.03x89
       box 0,853.65 128x1
-      box 136.53,809.65 927.5x89
-        box 136.53,809.65 89x89
-          box 136.53,809.65 89x89 #00000000
-            box 151.65,824.76 58.77x58.77 absolute Interface\AddOns\OrdaenPanel\assets\micro-professions
-            embed 136.53,809.65 89x89 absolute frame=none opacity=0
-        box 225.53,809.65 93.17x89
-          box 225.53,809.65 4.17x89
-            box 225.53,805.65 4.17x93 absolute
-              box 225.53,805.65 4.17x93
-                box 225.53,805.65 0.83x93 #000000 opacity=0.7
-                box 226.37,805.65 0.83x93 #000000 opacity=0.85
-                box 227.2,805.65 0.83x93 #000000 opacity=0.85
-                box 228.03,805.65 0.83x93 #000000 opacity=0.7
-                box 228.87,805.65 0.83x93 #1e1e1e blend=ADD
-                box 225.53,805.65 4.17x0.83 absolute #000000 opacity=0.6
-                box 225.53,806.48 4.17x0.83 absolute #000000 opacity=0.35
-          box 229.7,809.65 89x89 #00000000
-            box 244.81,824.76 58.77x58.77 absolute Interface\AddOns\OrdaenPanel\assets\micro-spellbookabilities
-            embed 229.7,809.65 89x89 absolute frame=none opacity=0
-        box 318.7,809.65 93.17x89
-          box 318.7,809.65 4.17x89
-            box 318.7,805.65 4.17x93 absolute
-              box 318.7,805.65 4.17x93
-                box 318.7,805.65 0.83x93 #000000 opacity=0.7
-                box 319.53,805.65 0.83x93 #000000 opacity=0.85
-                box 320.37,805.65 0.83x93 #000000 opacity=0.85
-                box 321.2,805.65 0.83x93 #000000 opacity=0.7
-                box 322.03,805.65 0.83x93 #1e1e1e blend=ADD
-                box 318.7,805.65 4.17x0.83 absolute #000000 opacity=0.6
-                box 318.7,806.48 4.17x0.83 absolute #000000 opacity=0.35
-          box 322.87,809.65 89x89 #00000000
-            box 337.98,824.76 58.77x58.77 absolute Interface\AddOns\OrdaenPanel\assets\micro-spectalents
-            embed 322.87,809.65 89x89 absolute frame=none opacity=0
-        box 411.87,809.65 93.17x89
-          box 411.87,809.65 4.17x89
-            box 411.87,805.65 4.17x93 absolute
-              box 411.87,805.65 4.17x93
-                box 411.87,805.65 0.83x93 #000000 opacity=0.7
-                box 412.7,805.65 0.83x93 #000000 opacity=0.85
-                box 413.53,805.65 0.83x93 #000000 opacity=0.85
-                box 414.37,805.65 0.83x93 #000000 opacity=0.7
-                box 415.2,805.65 0.83x93 #1e1e1e blend=ADD
-                box 411.87,805.65 4.17x0.83 absolute #000000 opacity=0.6
-                box 411.87,806.48 4.17x0.83 absolute #000000 opacity=0.35
-          box 416.03,809.65 89x89 #00000000
-            box 431.15,824.76 58.77x58.77 absolute Interface\AddOns\OrdaenPanel\assets\micro-legacy
-            embed 416.03,809.65 89x89 absolute frame=none opacity=0
-        box 505.03,809.65 93.17x89
-          box 505.03,809.65 4.17x89
-            box 505.03,805.65 4.17x93 absolute
-              box 505.03,805.65 4.17x93
-                box 505.03,805.65 0.83x93 #000000 opacity=0.7
-                box 505.87,805.65 0.83x93 #000000 opacity=0.85
-                box 506.7,805.65 0.83x93 #000000 opacity=0.85
-                box 507.53,805.65 0.83x93 #000000 opacity=0.7
-                box 508.37,805.65 0.83x93 #1e1e1e blend=ADD
-                box 505.03,805.65 4.17x0.83 absolute #000000 opacity=0.6
-                box 505.03,806.48 4.17x0.83 absolute #000000 opacity=0.35
-          box 509.2,809.65 89x89 #00000000
-            box 524.31,824.76 58.77x58.77 absolute Interface\AddOns\OrdaenPanel\assets\micro-questlog
-            embed 509.2,809.65 89x89 absolute frame=none opacity=0
-        box 598.2,809.65 93.17x89
-          box 598.2,809.65 4.17x89
-            box 598.2,805.65 4.17x93 absolute
-              box 598.2,805.65 4.17x93
-                box 598.2,805.65 0.83x93 #000000 opacity=0.7
-                box 599.03,805.65 0.83x93 #000000 opacity=0.85
-                box 599.87,805.65 0.83x93 #000000 opacity=0.85
-                box 600.7,805.65 0.83x93 #000000 opacity=0.7
-                box 601.53,805.65 0.83x93 #1e1e1e blend=ADD
-                box 598.2,805.65 4.17x0.83 absolute #000000 opacity=0.6
-                box 598.2,806.48 4.17x0.83 absolute #000000 opacity=0.35
-          box 602.37,809.65 89x89 #00000000
-            box 617.48,824.76 58.77x58.77 absolute Interface\AddOns\OrdaenPanel\assets\micro-groupfinder
-            embed 602.37,809.65 89x89 absolute frame=none opacity=0
-        box 691.37,809.65 93.17x89
-          box 691.37,809.65 4.17x89
-            box 691.37,805.65 4.17x93 absolute
-              box 691.37,805.65 4.17x93
-                box 691.37,805.65 0.83x93 #000000 opacity=0.7
-                box 692.2,805.65 0.83x93 #000000 opacity=0.85
-                box 693.03,805.65 0.83x93 #000000 opacity=0.85
-                box 693.87,805.65 0.83x93 #000000 opacity=0.7
-                box 694.7,805.65 0.83x93 #1e1e1e blend=ADD
-                box 691.37,805.65 4.17x0.83 absolute #000000 opacity=0.6
-                box 691.37,806.48 4.17x0.83 absolute #000000 opacity=0.35
-          box 695.53,809.65 89x89 #00000000
-            box 710.65,824.76 58.77x58.77 absolute Interface\AddOns\OrdaenPanel\assets\micro-collections
-            embed 695.53,809.65 89x89 absolute frame=none opacity=0
-        box 784.53,809.65 93.17x89
-          box 784.53,809.65 4.17x89
-            box 784.53,805.65 4.17x93 absolute
-              box 784.53,805.65 4.17x93
-                box 784.53,805.65 0.83x93 #000000 opacity=0.7
-                box 785.37,805.65 0.83x93 #000000 opacity=0.85
-                box 786.2,805.65 0.83x93 #000000 opacity=0.85
-                box 787.03,805.65 0.83x93 #000000 opacity=0.7
-                box 787.87,805.65 0.83x93 #1e1e1e blend=ADD
-                box 784.53,805.65 4.17x0.83 absolute #000000 opacity=0.6
-                box 784.53,806.48 4.17x0.83 absolute #000000 opacity=0.35
-          box 788.7,809.65 89x89 #00000000
-            box 803.81,824.76 58.77x58.77 absolute Interface\AddOns\OrdaenPanel\assets\micro-social
-            embed 788.7,809.65 89x89 absolute frame=none opacity=0
-        box 877.7,809.65 93.17x89
-          box 877.7,809.65 4.17x89
-            box 877.7,805.65 4.17x93 absolute
-              box 877.7,805.65 4.17x93
-                box 877.7,805.65 0.83x93 #000000 opacity=0.7
-                box 878.53,805.65 0.83x93 #000000 opacity=0.85
-                box 879.37,805.65 0.83x93 #000000 opacity=0.85
-                box 880.2,805.65 0.83x93 #000000 opacity=0.7
-                box 881.03,805.65 0.83x93 #1e1e1e blend=ADD
-                box 877.7,805.65 4.17x0.83 absolute #000000 opacity=0.6
-                box 877.7,806.48 4.17x0.83 absolute #000000 opacity=0.35
-          box 881.87,809.65 89x89 #00000000
-            box 896.98,824.76 58.77x58.77 absolute Interface\AddOns\OrdaenPanel\assets\micro-guildcommunities
-            embed 881.87,809.65 89x89 absolute frame=none opacity=0
-        box 970.87,809.65 93.17x89
-          box 970.87,809.65 4.17x89
-            box 970.87,805.65 4.17x93 absolute
-              box 970.87,805.65 4.17x93
-                box 970.87,805.65 0.83x93 #000000 opacity=0.7
-                box 971.7,805.65 0.83x93 #000000 opacity=0.85
-                box 972.53,805.65 0.83x93 #000000 opacity=0.85
-                box 973.37,805.65 0.83x93 #000000 opacity=0.7
-                box 974.2,805.65 0.83x93 #1e1e1e blend=ADD
-                box 970.87,805.65 4.17x0.83 absolute #000000 opacity=0.6
-                box 970.87,806.48 4.17x0.83 absolute #000000 opacity=0.35
-          box 975.03,809.65 89x89 #00000000
-            box 990.15,824.76 58.77x58.77 absolute Interface\AddOns\OrdaenPanel\assets\micro-gamemenu
-            embed 975.03,809.65 89x89 absolute frame=none opacity=0
-  box 1064.03,854.15 619.48x0
-    box 1064.03,854.15 619.48x0
-  box 1683.51,809.65 716.49x89
-    box 1683.51,846.23 59.96x15.83
-      text 1683.51,846.23 50x15.83 "0g 0s 0c" #e8dcc4
-    box 1752,809.65 648x89
-      box 1752,809.65 89x89
-        box 1752,809.65 89x89 #00000000
-          box 1767.11,824.76 58.77x58.77 absolute icon=130716
-          embed 1752,809.65 89x89 absolute frame=MainMenuBarBackpackButton opacity=0
-      box 1841,809.65 93.17x89
-        box 1841,809.65 4.17x89
-          box 1841,805.65 4.17x93 absolute
-            box 1841,805.65 4.17x93
-              box 1841,805.65 0.83x93 #000000 opacity=0.7
-              box 1841.83,805.65 0.83x93 #000000 opacity=0.85
-              box 1842.67,805.65 0.83x93 #000000 opacity=0.85
-              box 1843.5,805.65 0.83x93 #000000 opacity=0.7
-              box 1844.33,805.65 0.83x93 #1e1e1e blend=ADD
-              box 1841,805.65 4.17x0.83 absolute #000000 opacity=0.6
-              box 1841,806.48 4.17x0.83 absolute #000000 opacity=0.35
-        box 1845.17,809.65 89x89 #00000000
-          box 1860.28,824.76 58.77x58.77 absolute icon=133633
-          embed 1845.17,809.65 89x89 absolute frame=CharacterBag0Slot opacity=0
-      box 1934.17,809.65 93.17x89
-        box 1934.17,809.65 4.17x89
-          box 1934.17,805.65 4.17x93 absolute
-            box 1934.17,805.65 4.17x93
-              box 1934.17,805.65 0.83x93 #000000 opacity=0.7
-              box 1935,805.65 0.83x93 #000000 opacity=0.85
-              box 1935.83,805.65 0.83x93 #000000 opacity=0.85
-              box 1936.67,805.65 0.83x93 #000000 opacity=0.7
-              box 1937.5,805.65 0.83x93 #1e1e1e blend=ADD
-              box 1934.17,805.65 4.17x0.83 absolute #000000 opacity=0.6
-              box 1934.17,806.48 4.17x0.83 absolute #000000 opacity=0.35
-        box 1938.33,809.65 89x89 #00000000
-          box 1953.45,824.76 58.77x58.77 absolute icon=133633
-          embed 1938.33,809.65 89x89 absolute frame=CharacterBag1Slot opacity=0
-      box 2027.33,809.65 93.17x89
-        box 2027.33,809.65 4.17x89
-          box 2027.33,805.65 4.17x93 absolute
-            box 2027.33,805.65 4.17x93
-              box 2027.33,805.65 0.83x93 #000000 opacity=0.7
-              box 2028.17,805.65 0.83x93 #000000 opacity=0.85
-              box 2029,805.65 0.83x93 #000000 opacity=0.85
-              box 2029.83,805.65 0.83x93 #000000 opacity=0.7
-              box 2030.67,805.65 0.83x93 #1e1e1e blend=ADD
-              box 2027.33,805.65 4.17x0.83 absolute #000000 opacity=0.6
-              box 2027.33,806.48 4.17x0.83 absolute #000000 opacity=0.35
-        box 2031.5,809.65 89x89 #00000000
-          box 2046.61,824.76 58.77x58.77 absolute icon=133633
-          embed 2031.5,809.65 89x89 absolute frame=CharacterBag2Slot opacity=0
-      box 2120.5,809.65 93.17x89
-        box 2120.5,809.65 4.17x89
-          box 2120.5,805.65 4.17x93 absolute
-            box 2120.5,805.65 4.17x93
-              box 2120.5,805.65 0.83x93 #000000 opacity=0.7
-              box 2121.33,805.65 0.83x93 #000000 opacity=0.85
-              box 2122.17,805.65 0.83x93 #000000 opacity=0.85
-              box 2123,805.65 0.83x93 #000000 opacity=0.7
-              box 2123.83,805.65 0.83x93 #1e1e1e blend=ADD
-              box 2120.5,805.65 4.17x0.83 absolute #000000 opacity=0.6
-              box 2120.5,806.48 4.17x0.83 absolute #000000 opacity=0.35
-        box 2124.67,809.65 89x89 #00000000
-          box 2139.78,824.76 58.77x58.77 absolute icon=133633
-          embed 2124.67,809.65 89x89 absolute frame=CharacterBag3Slot opacity=0
-      box 2213.67,809.65 93.17x89
-        box 2213.67,809.65 4.17x89
-          box 2213.67,805.65 4.17x93 absolute
-            box 2213.67,805.65 4.17x93
-              box 2213.67,805.65 0.83x93 #000000 opacity=0.7
-              box 2214.5,805.65 0.83x93 #000000 opacity=0.85
-              box 2215.33,805.65 0.83x93 #000000 opacity=0.85
-              box 2216.17,805.65 0.83x93 #000000 opacity=0.7
-              box 2217,805.65 0.83x93 #1e1e1e blend=ADD
-              box 2213.67,805.65 4.17x0.83 absolute #000000 opacity=0.6
-              box 2213.67,806.48 4.17x0.83 absolute #000000 opacity=0.35
-        box 2217.83,809.65 89x89 #00000000
-          box 2232.95,824.76 58.77x58.77 absolute icon=136511
-          embed 2217.83,809.65 89x89 absolute frame=CharacterReagentBag0Slot opacity=0
-      box 2306.83,809.65 93.17x89
-        box 2306.83,809.65 4.17x89
-          box 2306.83,805.65 4.17x93 absolute
-            box 2306.83,805.65 4.17x93
-              box 2306.83,805.65 0.83x93 #000000 opacity=0.7
-              box 2307.67,805.65 0.83x93 #000000 opacity=0.85
-              box 2308.5,805.65 0.83x93 #000000 opacity=0.85
-              box 2309.33,805.65 0.83x93 #000000 opacity=0.7
-              box 2310.17,805.65 0.83x93 #1e1e1e blend=ADD
-              box 2306.83,805.65 4.17x0.83 absolute #000000 opacity=0.6
-              box 2306.83,806.48 4.17x0.83 absolute #000000 opacity=0.35
-        box 2311,809.65 89x89 #00000000
-          box 2326.11,824.76 58.77x58.77 absolute icon=Interface/Icons/INV_Misc_Key_03
-          embed 2311,809.65 89x89 absolute frame=KeyRingButton opacity=0
+      box 136.53,809.65 967.5x89
+        box 136.53,809.65 93x89
+          box 136.53,809.65 93x89
+            box 136.53,805.65 93x93 absolute #00000000
+              box 153.65,822.76 58.77x58.77 absolute Interface\AddOns\OrdaenPanel\assets\micro-professions
+              embed 136.53,805.65 93x93 absolute frame=none opacity=0
+        box 229.53,809.65 97.17x89
+          box 229.53,809.65 4.17x89
+            box 229.53,805.65 4.17x93 absolute
+              box 229.53,805.65 4.17x93
+                box 229.53,805.65 0.83x93 #000000 opacity=0.7
+                box 230.37,805.65 0.83x93 #000000 opacity=0.85
+                box 231.2,805.65 0.83x93 #000000 opacity=0.85
+                box 232.03,805.65 0.83x93 #000000 opacity=0.7
+                box 232.87,805.65 0.83x93 #1e1e1e blend=ADD
+                box 229.53,805.65 4.17x0.83 absolute #000000 opacity=0.6
+                box 229.53,806.48 4.17x0.83 absolute #000000 opacity=0.35
+          box 233.7,809.65 93x89
+            box 233.7,805.65 93x93 absolute #00000000
+              box 250.81,822.76 58.77x58.77 absolute Interface\AddOns\OrdaenPanel\assets\micro-spellbookabilities
+              embed 233.7,805.65 93x93 absolute frame=none opacity=0
+        box 326.7,809.65 97.17x89
+          box 326.7,809.65 4.17x89
+            box 326.7,805.65 4.17x93 absolute
+              box 326.7,805.65 4.17x93
+                box 326.7,805.65 0.83x93 #000000 opacity=0.7
+                box 327.53,805.65 0.83x93 #000000 opacity=0.85
+                box 328.37,805.65 0.83x93 #000000 opacity=0.85
+                box 329.2,805.65 0.83x93 #000000 opacity=0.7
+                box 330.03,805.65 0.83x93 #1e1e1e blend=ADD
+                box 326.7,805.65 4.17x0.83 absolute #000000 opacity=0.6
+                box 326.7,806.48 4.17x0.83 absolute #000000 opacity=0.35
+          box 330.87,809.65 93x89
+            box 330.87,805.65 93x93 absolute #00000000
+              box 347.98,822.76 58.77x58.77 absolute Interface\AddOns\OrdaenPanel\assets\micro-spectalents
+              embed 330.87,805.65 93x93 absolute frame=none opacity=0
+        box 423.87,809.65 97.17x89
+          box 423.87,809.65 4.17x89
+            box 423.87,805.65 4.17x93 absolute
+              box 423.87,805.65 4.17x93
+                box 423.87,805.65 0.83x93 #000000 opacity=0.7
+                box 424.7,805.65 0.83x93 #000000 opacity=0.85
+                box 425.53,805.65 0.83x93 #000000 opacity=0.85
+                box 426.37,805.65 0.83x93 #000000 opacity=0.7
+                box 427.2,805.65 0.83x93 #1e1e1e blend=ADD
+                box 423.87,805.65 4.17x0.83 absolute #000000 opacity=0.6
+                box 423.87,806.48 4.17x0.83 absolute #000000 opacity=0.35
+          box 428.03,809.65 93x89
+            box 428.03,805.65 93x93 absolute #00000000
+              box 445.15,822.76 58.77x58.77 absolute Interface\AddOns\OrdaenPanel\assets\micro-legacy
+              embed 428.03,805.65 93x93 absolute frame=none opacity=0
+        box 521.03,809.65 97.17x89
+          box 521.03,809.65 4.17x89
+            box 521.03,805.65 4.17x93 absolute
+              box 521.03,805.65 4.17x93
+                box 521.03,805.65 0.83x93 #000000 opacity=0.7
+                box 521.87,805.65 0.83x93 #000000 opacity=0.85
+                box 522.7,805.65 0.83x93 #000000 opacity=0.85
+                box 523.53,805.65 0.83x93 #000000 opacity=0.7
+                box 524.37,805.65 0.83x93 #1e1e1e blend=ADD
+                box 521.03,805.65 4.17x0.83 absolute #000000 opacity=0.6
+                box 521.03,806.48 4.17x0.83 absolute #000000 opacity=0.35
+          box 525.2,809.65 93x89
+            box 525.2,805.65 93x93 absolute #00000000
+              box 542.31,822.76 58.77x58.77 absolute Interface\AddOns\OrdaenPanel\assets\micro-questlog
+              embed 525.2,805.65 93x93 absolute frame=none opacity=0
+        box 618.2,809.65 97.17x89
+          box 618.2,809.65 4.17x89
+            box 618.2,805.65 4.17x93 absolute
+              box 618.2,805.65 4.17x93
+                box 618.2,805.65 0.83x93 #000000 opacity=0.7
+                box 619.03,805.65 0.83x93 #000000 opacity=0.85
+                box 619.87,805.65 0.83x93 #000000 opacity=0.85
+                box 620.7,805.65 0.83x93 #000000 opacity=0.7
+                box 621.53,805.65 0.83x93 #1e1e1e blend=ADD
+                box 618.2,805.65 4.17x0.83 absolute #000000 opacity=0.6
+                box 618.2,806.48 4.17x0.83 absolute #000000 opacity=0.35
+          box 622.37,809.65 93x89
+            box 622.37,805.65 93x93 absolute #00000000
+              box 639.48,822.76 58.77x58.77 absolute Interface\AddOns\OrdaenPanel\assets\micro-groupfinder
+              embed 622.37,805.65 93x93 absolute frame=none opacity=0
+        box 715.37,809.65 97.17x89
+          box 715.37,809.65 4.17x89
+            box 715.37,805.65 4.17x93 absolute
+              box 715.37,805.65 4.17x93
+                box 715.37,805.65 0.83x93 #000000 opacity=0.7
+                box 716.2,805.65 0.83x93 #000000 opacity=0.85
+                box 717.03,805.65 0.83x93 #000000 opacity=0.85
+                box 717.87,805.65 0.83x93 #000000 opacity=0.7
+                box 718.7,805.65 0.83x93 #1e1e1e blend=ADD
+                box 715.37,805.65 4.17x0.83 absolute #000000 opacity=0.6
+                box 715.37,806.48 4.17x0.83 absolute #000000 opacity=0.35
+          box 719.53,809.65 93x89
+            box 719.53,805.65 93x93 absolute #00000000
+              box 736.65,822.76 58.77x58.77 absolute Interface\AddOns\OrdaenPanel\assets\micro-collections
+              embed 719.53,805.65 93x93 absolute frame=none opacity=0
+        box 812.53,809.65 97.17x89
+          box 812.53,809.65 4.17x89
+            box 812.53,805.65 4.17x93 absolute
+              box 812.53,805.65 4.17x93
+                box 812.53,805.65 0.83x93 #000000 opacity=0.7
+                box 813.37,805.65 0.83x93 #000000 opacity=0.85
+                box 814.2,805.65 0.83x93 #000000 opacity=0.85
+                box 815.03,805.65 0.83x93 #000000 opacity=0.7
+                box 815.87,805.65 0.83x93 #1e1e1e blend=ADD
+                box 812.53,805.65 4.17x0.83 absolute #000000 opacity=0.6
+                box 812.53,806.48 4.17x0.83 absolute #000000 opacity=0.35
+          box 816.7,809.65 93x89
+            box 816.7,805.65 93x93 absolute #00000000
+              box 833.81,822.76 58.77x58.77 absolute Interface\AddOns\OrdaenPanel\assets\micro-social
+              embed 816.7,805.65 93x93 absolute frame=none opacity=0
+        box 909.7,809.65 97.17x89
+          box 909.7,809.65 4.17x89
+            box 909.7,805.65 4.17x93 absolute
+              box 909.7,805.65 4.17x93
+                box 909.7,805.65 0.83x93 #000000 opacity=0.7
+                box 910.53,805.65 0.83x93 #000000 opacity=0.85
+                box 911.37,805.65 0.83x93 #000000 opacity=0.85
+                box 912.2,805.65 0.83x93 #000000 opacity=0.7
+                box 913.03,805.65 0.83x93 #1e1e1e blend=ADD
+                box 909.7,805.65 4.17x0.83 absolute #000000 opacity=0.6
+                box 909.7,806.48 4.17x0.83 absolute #000000 opacity=0.35
+          box 913.87,809.65 93x89
+            box 913.87,805.65 93x93 absolute #00000000
+              box 930.98,822.76 58.77x58.77 absolute Interface\AddOns\OrdaenPanel\assets\micro-guildcommunities
+              embed 913.87,805.65 93x93 absolute frame=none opacity=0
+        box 1006.87,809.65 97.17x89
+          box 1006.87,809.65 4.17x89
+            box 1006.87,805.65 4.17x93 absolute
+              box 1006.87,805.65 4.17x93
+                box 1006.87,805.65 0.83x93 #000000 opacity=0.7
+                box 1007.7,805.65 0.83x93 #000000 opacity=0.85
+                box 1008.53,805.65 0.83x93 #000000 opacity=0.85
+                box 1009.37,805.65 0.83x93 #000000 opacity=0.7
+                box 1010.2,805.65 0.83x93 #1e1e1e blend=ADD
+                box 1006.87,805.65 4.17x0.83 absolute #000000 opacity=0.6
+                box 1006.87,806.48 4.17x0.83 absolute #000000 opacity=0.35
+          box 1011.03,809.65 93x89
+            box 1011.03,805.65 93x93 absolute #00000000
+              box 1028.15,822.76 58.77x58.77 absolute Interface\AddOns\OrdaenPanel\assets\micro-gamemenu
+              embed 1011.03,805.65 93x93 absolute frame=none opacity=0
+  box 1104.03,854.15 551.48x0
+    box 1104.03,854.15 551.48x0
+  box 1655.51,809.65 744.49x89
+    box 1655.51,846.23 59.96x15.83
+      text 1655.51,846.23 50x15.83 "0g 0s 0c" #e8dcc4
+    box 1724,809.65 676x89
+      box 1724,809.65 93x89
+        box 1724,809.65 93x89
+          box 1724,805.65 93x93 absolute #00000000
+            box 1741.11,822.76 58.77x58.77 absolute icon=130716
+            embed 1724,805.65 93x93 absolute frame=MainMenuBarBackpackButton opacity=0
+      box 1817,809.65 97.17x89
+        box 1817,809.65 4.17x89
+          box 1817,805.65 4.17x93 absolute
+            box 1817,805.65 4.17x93
+              box 1817,805.65 0.83x93 #000000 opacity=0.7
+              box 1817.83,805.65 0.83x93 #000000 opacity=0.85
+              box 1818.67,805.65 0.83x93 #000000 opacity=0.85
+              box 1819.5,805.65 0.83x93 #000000 opacity=0.7
+              box 1820.33,805.65 0.83x93 #1e1e1e blend=ADD
+              box 1817,805.65 4.17x0.83 absolute #000000 opacity=0.6
+              box 1817,806.48 4.17x0.83 absolute #000000 opacity=0.35
+        box 1821.17,809.65 93x89
+          box 1821.17,805.65 93x93 absolute #00000000
+            box 1838.28,822.76 58.77x58.77 absolute icon=133633
+            embed 1821.17,805.65 93x93 absolute frame=CharacterBag0Slot opacity=0
+      box 1914.17,809.65 97.17x89
+        box 1914.17,809.65 4.17x89
+          box 1914.17,805.65 4.17x93 absolute
+            box 1914.17,805.65 4.17x93
+              box 1914.17,805.65 0.83x93 #000000 opacity=0.7
+              box 1915,805.65 0.83x93 #000000 opacity=0.85
+              box 1915.83,805.65 0.83x93 #000000 opacity=0.85
+              box 1916.67,805.65 0.83x93 #000000 opacity=0.7
+              box 1917.5,805.65 0.83x93 #1e1e1e blend=ADD
+              box 1914.17,805.65 4.17x0.83 absolute #000000 opacity=0.6
+              box 1914.17,806.48 4.17x0.83 absolute #000000 opacity=0.35
+        box 1918.33,809.65 93x89
+          box 1918.33,805.65 93x93 absolute #00000000
+            box 1935.45,822.76 58.77x58.77 absolute icon=133633
+            embed 1918.33,805.65 93x93 absolute frame=CharacterBag1Slot opacity=0
+      box 2011.33,809.65 97.17x89
+        box 2011.33,809.65 4.17x89
+          box 2011.33,805.65 4.17x93 absolute
+            box 2011.33,805.65 4.17x93
+              box 2011.33,805.65 0.83x93 #000000 opacity=0.7
+              box 2012.17,805.65 0.83x93 #000000 opacity=0.85
+              box 2013,805.65 0.83x93 #000000 opacity=0.85
+              box 2013.83,805.65 0.83x93 #000000 opacity=0.7
+              box 2014.67,805.65 0.83x93 #1e1e1e blend=ADD
+              box 2011.33,805.65 4.17x0.83 absolute #000000 opacity=0.6
+              box 2011.33,806.48 4.17x0.83 absolute #000000 opacity=0.35
+        box 2015.5,809.65 93x89
+          box 2015.5,805.65 93x93 absolute #00000000
+            box 2032.61,822.76 58.77x58.77 absolute icon=133633
+            embed 2015.5,805.65 93x93 absolute frame=CharacterBag2Slot opacity=0
+      box 2108.5,809.65 97.17x89
+        box 2108.5,809.65 4.17x89
+          box 2108.5,805.65 4.17x93 absolute
+            box 2108.5,805.65 4.17x93
+              box 2108.5,805.65 0.83x93 #000000 opacity=0.7
+              box 2109.33,805.65 0.83x93 #000000 opacity=0.85
+              box 2110.17,805.65 0.83x93 #000000 opacity=0.85
+              box 2111,805.65 0.83x93 #000000 opacity=0.7
+              box 2111.83,805.65 0.83x93 #1e1e1e blend=ADD
+              box 2108.5,805.65 4.17x0.83 absolute #000000 opacity=0.6
+              box 2108.5,806.48 4.17x0.83 absolute #000000 opacity=0.35
+        box 2112.67,809.65 93x89
+          box 2112.67,805.65 93x93 absolute #00000000
+            box 2129.78,822.76 58.77x58.77 absolute icon=133633
+            embed 2112.67,805.65 93x93 absolute frame=CharacterBag3Slot opacity=0
+      box 2205.67,809.65 97.17x89
+        box 2205.67,809.65 4.17x89
+          box 2205.67,805.65 4.17x93 absolute
+            box 2205.67,805.65 4.17x93
+              box 2205.67,805.65 0.83x93 #000000 opacity=0.7
+              box 2206.5,805.65 0.83x93 #000000 opacity=0.85
+              box 2207.33,805.65 0.83x93 #000000 opacity=0.85
+              box 2208.17,805.65 0.83x93 #000000 opacity=0.7
+              box 2209,805.65 0.83x93 #1e1e1e blend=ADD
+              box 2205.67,805.65 4.17x0.83 absolute #000000 opacity=0.6
+              box 2205.67,806.48 4.17x0.83 absolute #000000 opacity=0.35
+        box 2209.83,809.65 93x89
+          box 2209.83,805.65 93x93 absolute #00000000
+            box 2226.95,822.76 58.77x58.77 absolute icon=136511
+            embed 2209.83,805.65 93x93 absolute frame=CharacterReagentBag0Slot opacity=0
+      box 2302.83,809.65 97.17x89
+        box 2302.83,809.65 4.17x89
+          box 2302.83,805.65 4.17x93 absolute
+            box 2302.83,805.65 4.17x93
+              box 2302.83,805.65 0.83x93 #000000 opacity=0.7
+              box 2303.67,805.65 0.83x93 #000000 opacity=0.85
+              box 2304.5,805.65 0.83x93 #000000 opacity=0.85
+              box 2305.33,805.65 0.83x93 #000000 opacity=0.7
+              box 2306.17,805.65 0.83x93 #1e1e1e blend=ADD
+              box 2302.83,805.65 4.17x0.83 absolute #000000 opacity=0.6
+              box 2302.83,806.48 4.17x0.83 absolute #000000 opacity=0.35
+        box 2307,809.65 93x89
+          box 2307,805.65 93x93 absolute #00000000
+            box 2324.11,822.76 58.77x58.77 absolute icon=Interface/Icons/INV_Misc_Key_03
+            embed 2307,805.65 93x93 absolute frame=KeyRingButton opacity=0
 surface 0,776 128x124 on LOW face:player cut by Interface\AddOns\Ordaen\media\portrait-mask opacity=1
   embed 0,776 128x124 absolute frame=none opacity=0
   box 0,776 128x124 absolute Interface\AddOns\Ordaen\media\portrait-rim
