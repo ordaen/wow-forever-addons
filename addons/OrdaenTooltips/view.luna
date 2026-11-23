@@ -8,6 +8,7 @@
 // tooltip floats off it.
 import Game from "$game"
 import { Align, Edges, Frame, Hang, Place, Point } from "$ltml"
+import root Ordaen from "Ordaen"
 import { BRIGHT_TEXT, Component, TooltipGroup } from "Ordaen"
 import { GOLD } from "@/colors"
 import { HEADER, TipFrame } from "@/frame"
@@ -172,7 +173,13 @@ public class TipGroup implements Component {
   at(self): Place {
     let standing = self.standing
     const hang = standing.hang
-    if (!standing.inPlace && hang != nil) { return { beside: standing.by, prefer: [hang] } }
+    // Compared, the main tooltip stands lower by the worn one's header: the group goes as much higher, so the main
+    // tooltip itself hangs as its owner asked.
+    if (!standing.inPlace && hang != nil) {
+      const lift: Number<Length> = self.comparing ? Ordaen.lengthOf(HEADER) : 0ui
+      const down: Number<Length> = hang.y ?? 0ui
+      return { beside: standing.by, prefer: [{ y: down - lift, ..hang }] }
+    }
     if (standing.inPlace) {
       let point = standing.below ?
         (standing.right ? Point.TopRight : Point.TopLeft) :
