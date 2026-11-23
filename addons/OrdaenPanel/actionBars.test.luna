@@ -543,3 +543,28 @@ test "a bar that hides empty buttons shows them while something is dragged, and 
   Test.flush()
   Test.expect(Test.page().text("S2").shown())
 }
+
+// The masks among a button's regions: how many points each is placed by.
+function maskPoints(...regions: any Client.Region): Array<Integer> {
+  const points: Array<Integer> = []
+  for (i of 1..regions.length) {
+    const region = regions[i]
+    if (region is Client.MaskTexture) { points.push(region.GetNumPoints()) }
+  }
+  return points
+}
+
+test "a bar of smaller buttons leaves the icon's mask where the template puts it, centred on the icon, not stretched" {
+  alone()
+  const holder = new Holder()
+  holder.settings.change((values: mut BarsChoices): nil => {
+    values.bars["2"] = changed(values, "2", (choice: mut BarChoice): nil => {
+      choice.size = 30
+    })
+  })
+  Test.mount(new ActionBars(holder.settings.values, holder.defaults), SCREEN)
+  Test.flush()
+  const client: any Client.Frame = button("2", 1)
+  const masks = maskPoints(...client.GetRegions())
+  Test.expect(masks.length == 1 && masks[1] == 1)
+}
