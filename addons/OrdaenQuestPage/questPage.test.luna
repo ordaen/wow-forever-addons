@@ -123,6 +123,8 @@ test "experience and each reputation stand a row each, off the rewards: what it 
   Test.expect(label.textColor().equal(BRIGHT_TEXT) && Test.page().text("Stormwind").textColor().equal(BRIGHT_TEXT))
   // The number, then its mark, both ending at the section's right end with the reputation's amount.
   Test.expect(mark.left > xp.right && (mark.right - standing.right).abs() < 0.5)
+  // The mark larger than the letters: its star leaves room round it in the atlas.
+  Test.expect(mark.bottom - mark.top > (xp.bottom - xp.top) * 1.2)
   Test.expect((standing.top - faction.top).abs() < 1 && faction.top >= label.rect().bottom)
   // Off the last reward by far more than the rewards are off one another.
   const four = Test.page().text("Four").item().rect()

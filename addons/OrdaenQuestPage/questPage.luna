@@ -481,7 +481,7 @@ public class Rewards implements Component {
         <box $if={self.banded} columns={GAINS} gap={ROWS_GAP} padding={self.gainsRoom} yAlign={Align.Center}>
           <text $if={self.xp > 0} value={Locale.QUEST_EXPERIENCE} textColor={BRIGHT_TEXT} wrap={.None} />
           <box $if={self.xp > 0} xAlign={Align.End}>
-            <Experience amount={self.xp} />
+            <Experience amount={self.xp} mark={XP_MARK_LARGE} />
           </box>
           <$for={standing of self.standings}>
             <text value={standing.name} textColor={BRIGHT_TEXT} wrap={.None} />
@@ -499,11 +499,12 @@ public class Rewards implements Component {
   }
 }
 
-// The client's own mark of experience (a mission's currency), before an amount of it.
+// The client's own mark of experience (a mission's currency), after an amount of it: the atlas leaves room round its
+// star, so it stands larger than the letters to look as large: as high as a list's line where it stands in one, larger
+// on a quest's page, where its row may grow.
 const XP_MARK: Atlas = "GarrMission_CurrencyIcon-Xp"
-// The mark beside the body's letters and beside a secondary text's.
-public const XP_MARK_SIZE: Number<Length> = 18.75dp
-public const XP_MARK_SMALL: Number<Length> = 16.40625dp
+const XP_MARK_IN_LINE: Number<Length> = 20.15625dp
+const XP_MARK_LARGE: Number<Length> = 25.78125dp
 
 // An amount of experience a quest gives: the number in the letters Money writes its amount in, then the client's mark
 // of it, in one line; the mark says what the number is.
@@ -511,22 +512,19 @@ public class Experience implements Component {
   derived text: String = String.of(self.amount)
 
   amount: Signal<Integer>
-  textSize: Signal<Number<TextSize>>
-  // The mark's side: as high as the letters of `textSize`.
-  mark: Signal<Number<Length>>
   color: Signal<Color>
-  constructor(amount: Signal<Integer>, textSize: Signal<Number<TextSize>> = 1rem, mark: Signal<Number<Length>> = XP_MARK_SIZE,
-    color: Signal<Color> = WELL_TEXT) {
-    self.amount = amount
-    self.textSize = textSize
+  // The mark's side.
+  mark: Signal<Number<Length>>
+  constructor(amount: Signal<Integer>, color: Signal<Color> = WELL_TEXT, mark: Signal<Number<Length>> = XP_MARK_IN_LINE) {
     self.mark = mark
+    self.amount = amount
     self.color = color
   }
 
   public render(self): Template {
     return $ltml {
       <box columns={["max-content", "max-content"]} gap={1sp} yAlign={Align.Center}>
-        <text value={self.text} textColor={self.color} textSize={self.textSize} wrap={.None} />
+        <text value={self.text} textColor={self.color} wrap={.None} />
         <box width={self.mark} height={self.mark} background={XP_MARK} />
       </box>
     }
