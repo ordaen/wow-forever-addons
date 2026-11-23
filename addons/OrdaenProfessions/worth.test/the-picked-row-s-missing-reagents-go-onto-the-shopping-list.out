@@ -56,9 +56,9 @@ surface 288,134.12 1024x631.75 on MEDIUM clamped raised by a click
                     box 661.12,283.1 79.42x1.67 absolute #00000000
                     text 672.5,289.62 55.83x15.83 "Cooldowns" #a3977f
                 text 313.69,320.51 972.62x13.33 "Only this character: turn on Ordaen Alts and log in on your other characters to see theirs." #a3977f
-              box 295.2,342.38 1009.6x373.89
-                box 295.2,342.38 1009.6x373.89
-                  box 295.2,342.38 1009.6x373.89 #0000004d
+              box 295.2,342.38 1009.6x375.76
+                box 295.2,342.38 1009.6x375.76
+                  box 295.2,342.38 1009.6x375.76 #0000004d
                     box 296.03,343.21 1007.93x33.73
                       box 304.57,343.21 990.87x33.73 #00000040
                         box 313.1,343.21 397.4x32.9 #00000000 @keyPress @pointerPress
@@ -109,7 +109,7 @@ surface 288,134.12 1024x631.75 on MEDIUM clamped raised by a click
                             text 1227.39,351.74 50x15.83 "Can make" #cbb994
                             box 1280.23,357.16 6.67x5
                               box 1276.9,352.99 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 1 of 8 tint=#f0c860 opacity=0
-                    box 296.03,376.94 1007.93x338.49 scrolled 0 of 0
+                    box 296.03,376.94 1007.93x340.36 scrolled 0 of 0
                       box 304.57,385.48 990.87x24.37 #00000040 @keyPress @pointerEnter @pointerLeave @pointerPress
                         text 313.1,389.74 397.4x15.83 "Linen Cloak" #f0e6d2
                         text 719.03,389.74 125x15.83 "Player, Tailoring" #a3977f
@@ -140,7 +140,7 @@ surface 288,134.12 1024x631.75 on MEDIUM clamped raised by a click
                           text 1183.37,414.11 20x15.83 "0 h" #a3977f
                         box 1211.9,414.11 75x15.83
                           text 1278.57,414.11 8.33x15.83 "2" #f0e6d2
-              box 295.2,716.26 1009.6x42.41 Interface/FrameGeneral/UI-Background-Marble border=Interface\AddOns\Ordaen\media\frame-divider-down sides=top pieces=[top 0.72>0.54 x52.58]
+              box 295.2,718.13 1009.6x40.54 Interface/FrameGeneral/UI-Background-Marble
                 box 317.96,724.65 964.09x28.33
                   text 317.96,738.82 814.09x0 "" #a3977f
                   box 1132.04,724.65 150x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress

@@ -3,8 +3,8 @@ key: ESCAPE → none
 surface 391.67,175.79 816.67x548.42 on MEDIUM clamped raised by a click
   box 391.67,224.21 816.67x500 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.98, tr 0.78, bl 0.80, br 0.60, top 0.98>0.78 x27.36, bottom 0.80>0.60 x27.36, left 0.98>0.80 x16.36, right 0.78>0.61 x16.36] @drag @dragStart @dragStop @pointerEnter @pointerLeave
     box 398.87,231.41 802.27x485.6
-      box 398.87,231.41 802.27x443.19
-        box 398.87,231.41 802.27x443.19
+      box 398.87,231.41 802.27x445.06
+        box 398.87,231.41 802.27x445.06
           box 398.87,231.41 802.27x45.4
             box 417.36,248.48 765.29x28.33
               box 417.36,248.48 583.89x28.33
@@ -44,9 +44,9 @@ surface 391.67,175.79 816.67x548.42 on MEDIUM clamped raised by a click
                 text 1093.18,285.34 31.67x13.33 "Memory" #9a9080
               box 1129.11,285.34 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 6 of 16 tint=#f0c860 @keyPress @pointerPress
             box 1150.98,292.01 31.67x0
-          box 398.87,307.21 802.27x336.99 #0000004d
+          box 398.87,307.21 802.27x338.86 #0000004d
             box 399.7,308.04 800.6x0
-            box 399.7,308.04 800.6x335.32 scrolled 0 of 0
+            box 399.7,308.04 800.6x337.19 scrolled 0 of 0
               box 408.23,316.58 783.53x21.67 @keyPress @pointerPress
                 box 426.72,320.74 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-marks row 3 of 8 tint=#f0c860
                 text 448.59,319.49 31.67x15.83 "Store" #f0c860
@@ -156,11 +156,11 @@ surface 391.67,175.79 816.67x548.42 on MEDIUM clamped raised by a click
                 box 1141.61,492.41 31.67x16.67 @keyPress @pointerPress
                   box 1141.61,492.41 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 1 of 4
                     box 1154.11,489.91 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=1
-          box 398.87,652.73 802.27x0
-          box 398.87,661.26 802.27x13.33
-            text 417.36,661.26 765.29x13.33 "The client isn't measuring addons." #9a9080
-      box 398.87,674.6 802.27x42.41
-        box 398.87,674.6 802.27x42.41 Interface/FrameGeneral/UI-Background-Marble border=Interface\AddOns\Ordaen\media\frame-divider-down sides=top pieces=[top 0.72>0.54 x41.78]
+          box 398.87,654.6 802.27x0
+          box 398.87,663.13 802.27x13.33
+            text 417.36,663.13 765.29x13.33 "The client isn't measuring addons." #9a9080
+      box 398.87,676.46 802.27x40.54
+        box 398.87,676.46 802.27x40.54 Interface/FrameGeneral/UI-Background-Marble
           box 421.62,682.99 756.76x28.33
             box 421.62,682.99 317.07x28.33
               box 421.62,682.99 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress

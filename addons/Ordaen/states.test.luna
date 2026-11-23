@@ -149,21 +149,23 @@ function sameBox(frame: any Client.Frame, first: String, state: String) {
 }
 
 // The component that takes the mouse at `at`, in each state: away from the cursor, under it, pressed and let go
-// there (a click), and again after each of `steps` (each sets a state the owner holds).
-function holdsItsBox(at: Test.Point, steps: Array<() => nil>) {
+// there (a click), and again after each of `steps` (each sets a state the owner holds). Away from the cursor the
+// textures' crops are compared too, unless `moves`: a state that moves art from one box to another of its own width (the
+// picked tab's wood).
+function holdsItsBox(at: Test.Point, steps: Array<() => nil>, moves: Boolean = false) {
   const frame = frameAt(at)
   const page = pageOf(frame)
   Test.moveTo(AWAY)
   const box = rectOf(frame)
-  // Away from the cursor the textures' crops are compared too; under it a light is an art's other row.
-  const away = drawnBut(page, true)
+  // Under the cursor a light is an art's other row.
+  const away = drawnBut(page, !moves)
   const first = drawnBut(page, false)
   for (index of 0..steps.length) {
     const step = steps[index]
     if (step != nil) { step() }
     const state = index == 0 ? "as drawn" : `after step ${index}`
     Test.moveTo(AWAY)
-    same(page, away, state + ", away from the cursor", true)
+    same(page, away, state + ", away from the cursor", !moves)
     Test.moveTo(at)
     same(page, first, state + ", under the cursor", false)
     Test.press(nil)
@@ -187,7 +189,7 @@ test "a page's tab keeps its box picked or not" {
   let page = new PageTabs()
   Test.mount(page, PAGE)
   for (name of ["Recipes", "Camp", "Queue"]) {
-    holdsItsBox(Test.holding(name, nil), [() => { page.page = 2 }, () => { page.page = 3 }, () => { page.page = 1 }])
+    holdsItsBox(Test.holding(name, nil), [() => { page.page = 2 }, () => { page.page = 3 }, () => { page.page = 1 }], true)
   }
   destroy page
 }

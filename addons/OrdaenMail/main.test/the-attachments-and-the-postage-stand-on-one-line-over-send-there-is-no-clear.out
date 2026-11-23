@@ -70,17 +70,20 @@ surface 500,175.79 1039.68x548.42 on MEDIUM clamped raised by a click
                   box 1118.26,421.92 33.33x33.33 absolute
                   box 1118.26,421.92 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim tint=#6c5535 opacity=0
                   box 1118.26,421.92 33.33x33.33 absolute #00000000
-            box 1118.26,460.94 391.47x58.73
-              box 1118.26,460.94 391.47x28.04
-                box 1118.26,488.15 391.47x0.83 absolute #3e2f1d
-                box 1118.26,460.94 86.09x28.04 #00000059 @keyPress @pointerPress
-                  box 1119.09,461.78 84.42x1.67 absolute #d6a56b
-                  text 1130.47,467.46 61.67x15.83 "Send money" #f0e6d2
-                box 1207.19,460.94 62.76x28.04 #00000000 @keyPress @pointerPress
-                  box 1208.02,461.78 61.09x1.67 absolute #00000000
-                  text 1219.4,467.46 38.33x15.83 "C.O.D." #a3977f
-              box 1118.26,494.68 391.47x25
-                box 1118.26,494.68 150x25 #0d0a08 input "0c" @change
+            box 1118.26,460.94 391.47x72.96
+              box 1118.26,460.94 391.47x42.27 Interface/FrameGeneral/UI-Background-Marble
+                box 1118.26,472.32 391.47x0
+                box 1118.26,472.32 391.47x30.89
+                  box 1118.26,472.32 18.49x30.89
+                  box 1136.74,472.32 97.47x30.89 Interface\AddOns\Ordaen\media\window-wood @keyPress @pointerPress
+                    box 1135.91,502.38 99.13x0.83 absolute #00000000
+                    text 1154.64,480.26 61.67x15.83 "Send money" #f0e6d2
+                  box 1234.21,472.32 74.13x30.89 #00000000 @keyPress @pointerPress
+                    box 1233.38,502.38 75.8x0.83 absolute #3e2f1d
+                    text 1252.11,480.26 38.33x15.83 "C.O.D." #a3977f
+                  box 1308.34,472.32 201.38x30.89
+              box 1118.26,508.9 391.47x25
+                box 1118.26,508.9 150x25 #0d0a08 input "0c" @change
           box 1118.26,646.41 391.47x56.38
             box 1118.26,652.93 391.47x15.83
               box 1118.26,652.93 240.92x15.83

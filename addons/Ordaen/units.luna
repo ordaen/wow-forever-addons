@@ -28,6 +28,10 @@ public const BRIGHT_TEXT: Color = Color.hex("#f0e6d2")
 public const SECONDARY_TEXT: Number<TextSize> = (BODY_TEXT - 2ui) / BODY_TEXT * 1rem
 public const TITLE_TEXT: Number<TextSize> = (BODY_TEXT + 2ui) / BODY_TEXT * 1rem
 
+// The thin line that rules the inside of a window: a tab band's foot and its picked tab, a footer's top.
+public const RULE_COLOR: Color = Color.hex("#3e2f1d")
+public const RULE_WIDTH: Number<Length> = 1.171875dp
+
 // The room inside a window's frame, from its line to its content: more than any gap inside it.
 public const WINDOW_ROOM: Number<Spacing> = 6.5sp
 

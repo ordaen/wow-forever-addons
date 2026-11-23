@@ -1,36 +1,42 @@
-// Tabs: a page's tabs along its top, 4 px apart, over a 1 px line: each tab's name in the dim colour, lighter with
-// a shade under the cursor; the picked one white on a darker shade, outlined, with a 2 px light along its top
-// inside. Left-click picks a tab: the strip writes the picked tab's index into the cell it was handed. Where the
-// strip is given counts, each tab shows its own after its name on a dark pill (a log's sub-tabs: the quests of each).
-import { Align, ByInteractionState, Edges, Line, Position, Side, Track } from "$ltml"
+// Tabs: a page's tabs set in a band of the game's dark marble across the whole width they are given, under what stands
+// over them (a slot: the professions window's skill bar). The picked tab is the window's wood, ruled on its top and
+// sides and open at its foot into the page below; the others stand flat on the marble, lighter with a shade under the
+// cursor, over the band's bottom line, which runs on past them to the band's ends. Left-click picks a tab: the strip
+// writes the picked tab's index into the cell it was handed. Where the strip is given counts, each tab shows its own
+// after its name on a dark pill (a log's sub-tabs: the quests of each).
+import { Align, Art, ByInteractionState, Edges, Line, Position, Side, Track } from "$ltml"
+import root Ordaen from "Ordaen"
 import { Component } from "@/module"
-import { BRIGHT_TEXT, SECONDARY_TEXT } from "@/units"
+import { BRIGHT_TEXT, RULE_COLOR, RULE_WIDTH, SECONDARY_TEXT, WINDOW_ROOM } from "@/units"
 
-const LINE: Color = Color.hex("#3e2f1d")
-const NAME: ByInteractionState<Color> = { default: Color.hex("#a3977f"), hover: Color.hex("#e8dcc4"), focus: Color.hex("#e8dcc4") }
+// The picked tab: ruled on its top and sides, open at its foot. The others keep that room with a line that draws
+// nothing, so a tab's box is the same picked or not, and stand on the band's bottom line, drawn inside their foot. The
+// band's ends: that line.
 const CLEAR: Color = Color.hex("#00000000")
+const OPEN: Line = { width: RULE_WIDTH, color: RULE_COLOR, sides: [Side.Top, Side.Left, Side.Right] }
+const UNRULED: Line = { width: RULE_WIDTH, color: CLEAR, sides: [Side.Top, Side.Left, Side.Right] }
+const FOOT: Line = { width: RULE_WIDTH, color: RULE_COLOR, sides: [Side.Bottom] }
 const SHADE: ByInteractionState<Color> = { default: CLEAR, hover: Color.hex("#00000033"), focus: Color.hex("#00000033") }
-const PICKED: Color = Color.hex("#00000059")
-// The picked tab's outline; the others keep its room with a line that draws nothing, so a tab's box is the same
-// picked or not.
-const OUTLINE: Line = { width: 1.171875dp, color: LINE, sides: [Side.Top, Side.Left, Side.Right] }
-const NO_OUTLINE: Line = { width: 1.171875dp, color: CLEAR, sides: [Side.Top, Side.Left, Side.Right] }
-const PADDING: Edges = { top: 2sp, right: 4sp, bottom: 2sp, left: 4sp }
-const LIGHT: Color = Color.hex("#d6a56b")
+const NAME: ByInteractionState<Color> = { default: Color.hex("#a3977f"), hover: Color.hex("#e8dcc4"), focus: Color.hex("#e8dcc4") }
+const TAB_PAD: Edges = { top: 2.5sp, right: 6sp, bottom: 2.5sp, left: 6sp }
+// The band's room over what it holds, and at each side of what stands over the tabs (the window's own room).
+const BAND_PAD: Edges = { top: 4sp }
+const HEAD_PAD: Edges = { right: WINDOW_ROOM, left: WINDOW_ROOM }
+const HEADED_PAD: Edges = { right: WINDOW_ROOM, bottom: 4sp, left: WINDOW_ROOM }
+const BAND_ROWS: Array<Track> = ["max-content", "max-content"]
 // A count after the name: on a dark pill.
 const COUNTED: Array<Track> = ["max-content", "max-content"]
 const NAME_ONLY: Array<Track> = ["max-content"]
 const PILL: Color = Color.hex("#00000099")
 const PILL_PAD: Edges = { right: 1sp, left: 1sp }
 
-// One tab of the strip.
+// One tab of the band.
 public class Tab implements Component {
   derived picked: Boolean = self.selected == self.index
-  derived background: Color | ByInteractionState<Color> = self.picked ? PICKED : SHADE
-  derived border: Line = self.picked ? OUTLINE : NO_OUTLINE
+  derived border: Line = self.picked ? OPEN : UNRULED
+  derived foot: Color = self.picked ? CLEAR : RULE_COLOR
+  derived background: Art | ByInteractionState<Color> = self.picked ? Ordaen.art.window.wood : SHADE
   derived color: Color | ByInteractionState<Color> = self.picked ? BRIGHT_TEXT : NAME
-  // The light along the top: there on every tab, clear on the others, so only colours tell the picked one.
-  derived light: Color = self.picked ? LIGHT : CLEAR
   derived counted: Boolean = self.count != nil
   derived countText: String = String.of(self.count ?? 0)
   derived tracks: Array<Track> = self.counted ? COUNTED : NAME_ONLY
@@ -55,10 +61,10 @@ public class Tab implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box padding={PADDING} background={self.background} border={self.border} columns={self.tracks} gap={2sp}
+      <box padding={TAB_PAD} border={self.border} background={self.background} columns={self.tracks} gap={2sp}
            yAlign={Align.Center} @pointerPress={self.pick} @keyPress(.Enter)={self.pick} @keyPress(.Space)={self.pick}>
-        <box position={Position.Absolute} left={1.171875dp} right={1.171875dp} top={1.171875dp} height={2.34375dp}
-             background={self.light} />
+        <box position={Position.Absolute} left={-RULE_WIDTH} right={-RULE_WIDTH} bottom={0ui}
+             height={RULE_WIDTH} background={self.foot} />
         <text value={self.label} textColor={self.color} wrap={.None} />
         <box $if={self.counted} padding={PILL_PAD} background={PILL} xAlign={Align.Center}>
           <text value={self.countText} textColor={self.color} textSize={SECONDARY_TEXT} textFont={.Numbers} wrap={.None} />
@@ -69,25 +75,30 @@ public class Tab implements Component {
 }
 
 public class Tabs implements Component {
-  // One column as wide as each tab, and the rest of the strip.
+  // The band's left end, a column as wide as each tab, and the rest of the band.
   derived columns: Array<Track> = self.tracks()
+  derived headPad: Edges = self.headed ? HEADED_PAD : HEAD_PAD
 
   tabs: Signal<Array<String>>
   selected: mut Signal<Integer>
   // Each tab's count, by its place; none: no counts shown.
   counts: Signal<Array<Integer>>
+  // Something stands over the tabs, in the band (the slot): room under it.
+  headed: Signal<Boolean>
   constructor(
     tabs: Signal<Array<String>>,
     selected: mut Signal<Integer>,
-    counts: Signal<Array<Integer>> = []
+    counts: Signal<Array<Integer>> = [],
+    headed: Signal<Boolean> = false
   ) {
     self.tabs = tabs
     self.selected = selected
     self.counts = counts
+    self.headed = headed
   }
 
   tracks(self): Array<Track> {
-    let list: Array<Track> = []
+    let list: Array<Track> = [Ordaen.lengthOf(WINDOW_ROOM)]
     for (name of self.tabs) { list.push("max-content") }
     list.push({ fr: 1 })
     return list
@@ -95,10 +106,16 @@ public class Tabs implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={self.columns} gap={1sp}>
-        <box position={Position.Absolute} left={0ui} right={0ui} bottom={0ui} height={1.171875dp} background={LINE} zLevel={1} />
-        <Tab $for={index, name of self.tabs} label={name} index={index} selected={mut self.selected}
-             count={self.counts[index]} />
+      <box rows={BAND_ROWS} padding={BAND_PAD} background={Ordaen.art.window.marble}>
+        <box padding={self.headPad}>
+          <slot />
+        </box>
+        <box columns={self.columns} yAlign={Align.Stretch}>
+          <box border={FOOT} />
+          <Tab $for={index, name of self.tabs} label={name} index={index} selected={mut self.selected}
+               count={self.counts[index]} />
+          <box border={FOOT} />
+        </box>
       </box>
     }
   }

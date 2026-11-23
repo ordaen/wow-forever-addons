@@ -2,11 +2,11 @@
 surface 500,281.62 839.68x336.75 on MEDIUM clamped raised by a click
   box 500,318.38 839.68x300 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.97, tr 0.78, bl 0.80, br 0.61, top 0.97>0.78 x28.16, bottom 0.80>0.61 x28.16, left 0.97>0.81 x9.42, right 0.77>0.61 x9.42] @drag @dragStart @dragStop @pointerEnter @pointerLeave
     box 507.2,325.57 585.6x285.6
-      box 507.2,325.57 585.6x243.19
-        box 529.96,348.33 540.09x203.37 #30302a
+      box 507.2,325.57 585.6x245.06
+        box 529.96,348.33 540.09x205.23 #30302a
           text 529.96,348.33 540.09x15.83 "the list" #ffffff
-      box 507.2,568.76 585.6x42.41
-        box 507.2,568.76 585.6x42.41 Interface/FrameGeneral/UI-Background-Marble border=Interface\AddOns\Ordaen\media\frame-divider-down sides=top pieces=[top 0.73>0.60 x30.50]
+      box 507.2,570.63 585.6x40.54
+        box 507.2,570.63 585.6x40.54 Interface/FrameGeneral/UI-Background-Marble
           box 529.96,577.15 540.09x28.33
             text 529.96,583.4 44.17x15.83 "5 items" #ffffff
             box 591.19,591.32 361.79x0

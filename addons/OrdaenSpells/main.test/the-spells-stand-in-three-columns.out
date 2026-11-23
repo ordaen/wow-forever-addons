@@ -3,8 +3,8 @@ open: /spellbook
 surface 425,173.29 799.82x553.42 on MEDIUM clamped raised by a click
   box 425,210.04 799.82x516.67 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.98, tr 0.79, bl 0.80, br 0.60, top 0.98>0.79 x26.77, bottom 0.80>0.60 x26.77, left 0.98>0.80 x16.94, right 0.78>0.61 x16.94] @drag @dragStart @dragStop @pointerEnter @pointerLeave
     box 432.2,217.24 785.42x502.27
-      box 432.2,217.24 785.42x474.86
-        box 454.96,240 739.91x435.03
+      box 432.2,217.24 785.42x476.72
+        box 454.96,240 739.91x436.9
           box 454.96,240 739.91x28.33
             box 454.96,240 603.82x28.33
               box 454.96,240 603.82x28.33 #00000080 input "" typing @change @submit focus ring
@@ -27,7 +27,7 @@ surface 425,173.29 799.82x553.42 on MEDIUM clamped raised by a click
                 box 1166.53,240 28.33x28.33
                   box 1166.53,240 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerEnter @pointerLeave @pointerPress
                     box 1174.03,247.5 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 2 of 16 tint=#e8dcc4
-          box 454.96,275.44 739.91x399.59 scrolled 0 of 0
+          box 454.96,275.44 739.91x401.46 scrolled 0 of 0
             box 454.96,275.44 739.91x115.21
               box 454.96,275.44 739.91x15.83
                 text 454.96,275.44 38.33x15.83 "Active" #e8c35a
@@ -82,8 +82,8 @@ surface 425,173.29 799.82x553.42 on MEDIUM clamped raised by a click
                   box 499.67,445.51 191.02x29.24
                     text 499.67,445.51 191.02x14.4 "Parry" #e8dcc4
                     text 499.67,462.75 191.02x12 "Warrior" #a3977f
-      box 432.2,692.1 785.42x27.41
-        box 432.2,692.1 785.42x27.41 Interface/FrameGeneral/UI-Background-Marble border=Interface\AddOns\Ordaen\media\frame-divider-down sides=top pieces=[top 0.71>0.54 x40.91]
+      box 432.2,693.96 785.42x25.54
+        box 432.2,693.96 785.42x25.54 Interface/FrameGeneral/UI-Background-Marble
           box 454.96,700.49 739.91x13.33
             box 454.96,700.49 41.87x13.33
               text 454.96,700.49 26.67x13.33 "Shown" #a3977f
