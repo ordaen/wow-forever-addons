@@ -2,12 +2,25 @@
 // switch comes first; off, that kind stays the game's and its rows are greyed. Each control writes one entry of the
 // settings, at once.
 import { Checkbox, Choice, Component, Dropdown, Section, Settings, Switch } from "Ordaen"
-import { Choices, KindPlace, Place } from "@/choices"
+import { Choices, Delay, KindDelay, KindPlace, Place } from "@/choices"
 import Locale from "@/locales"
 
 const PLACES: Array<Choice<Place>> = [
   { value: Place.Anchor, label: Locale.TOOLTIPS_PLACE_ANCHOR },
   { value: Place.Blizzard, label: Locale.TOOLTIPS_PLACE_BLIZZARD }
+]
+const DELAYS: Array<Choice<Delay>> = [
+  { value: Delay.Instant, label: Locale.TOOLTIPS_DELAY_INSTANT },
+  { value: Delay.Short, label: Locale.TOOLTIPS_DELAY_SHORT },
+  { value: Delay.Medium, label: Locale.TOOLTIPS_DELAY_MEDIUM },
+  { value: Delay.Long, label: Locale.TOOLTIPS_DELAY_LONG }
+]
+const KINDDELAYS: Array<Choice<KindDelay>> = [
+  { value: KindDelay.Default, label: Locale.TOOLTIPS_DELAY_DEFAULT },
+  { value: KindDelay.Instant, label: Locale.TOOLTIPS_DELAY_INSTANT },
+  { value: KindDelay.Short, label: Locale.TOOLTIPS_DELAY_SHORT },
+  { value: KindDelay.Medium, label: Locale.TOOLTIPS_DELAY_MEDIUM },
+  { value: KindDelay.Long, label: Locale.TOOLTIPS_DELAY_LONG }
 ]
 const KINDPLACES: Array<Choice<KindPlace>> = [
   { value: KindPlace.Default, label: Locale.TOOLTIPS_PLACE_DEFAULT },
@@ -25,6 +38,8 @@ public class GeneralPage implements Component {
     return $ltml {
       <Dropdown label={Locale.TOOLTIPS_PLACE} hint={Locale.TOOLTIPS_PLACE_TIP} value={mut self.settings.values.place}
                 choices={PLACES} />
+      <Dropdown label={Locale.TOOLTIPS_DELAY} hint={Locale.TOOLTIPS_DELAY_TIP} value={mut self.settings.values.delay}
+                choices={DELAYS} />
     }
   }
 }
@@ -45,6 +60,8 @@ public class ItemsPage implements Component {
                 value={mut self.settings.values.itemsLock} disabled={self.off} />
       <Dropdown label={Locale.TOOLTIPS_PLACE} hint={Locale.TOOLTIPS_KINDPLACE_TIP} value={mut self.settings.values.itemsPlace}
                 choices={KINDPLACES} disabled={self.off} />
+      <Dropdown label={Locale.TOOLTIPS_DELAY} hint={Locale.TOOLTIPS_KINDDELAY_TIP} value={mut self.settings.values.itemsDelay}
+                choices={KINDDELAYS} disabled={self.off} />
       <Section title={Locale.SECTION_MORE}>
         <Checkbox label={Locale.TOOLTIPS_ITEMSILVL} hint={Locale.TOOLTIPS_ITEMSILVL_TIP}
                   value={mut self.settings.values.itemsIlvl} disabled={self.off} />
@@ -77,6 +94,8 @@ public class SpellsPage implements Component {
                 value={mut self.settings.values.spellsLock} disabled={self.off} />
       <Dropdown label={Locale.TOOLTIPS_PLACE} hint={Locale.TOOLTIPS_KINDPLACE_TIP} value={mut self.settings.values.spellsPlace}
                 choices={KINDPLACES} disabled={self.off} />
+      <Dropdown label={Locale.TOOLTIPS_DELAY} hint={Locale.TOOLTIPS_KINDDELAY_TIP} value={mut self.settings.values.spellsDelay}
+                choices={KINDDELAYS} disabled={self.off} />
       <Section title={Locale.SECTION_MORE}>
         <Checkbox label={Locale.TOOLTIPS_SPELLSID} hint={Locale.TOOLTIPS_SPELLSID_TIP}
                   value={mut self.settings.values.spellsId} disabled={self.off} />
@@ -105,6 +124,8 @@ public class AurasPage implements Component {
                 value={mut self.settings.values.aurasLock} disabled={self.off} />
       <Dropdown label={Locale.TOOLTIPS_PLACE} hint={Locale.TOOLTIPS_KINDPLACE_TIP} value={mut self.settings.values.aurasPlace}
                 choices={KINDPLACES} disabled={self.off} />
+      <Dropdown label={Locale.TOOLTIPS_DELAY} hint={Locale.TOOLTIPS_KINDDELAY_TIP} value={mut self.settings.values.aurasDelay}
+                choices={KINDDELAYS} disabled={self.off} />
       <Section title={Locale.SECTION_MORE}>
         <Checkbox label={Locale.TOOLTIPS_AURASID} hint={Locale.TOOLTIPS_AURASID_TIP}
                   value={mut self.settings.values.aurasId} disabled={self.off} />
@@ -133,6 +154,8 @@ public class PlayersPage implements Component {
                 value={mut self.settings.values.playersLock} disabled={self.off} />
       <Dropdown label={Locale.TOOLTIPS_PLACE} hint={Locale.TOOLTIPS_KINDPLACE_TIP} value={mut self.settings.values.playersPlace}
                 choices={KINDPLACES} disabled={self.off} />
+      <Dropdown label={Locale.TOOLTIPS_DELAY} hint={Locale.TOOLTIPS_KINDDELAY_TIP} value={mut self.settings.values.playersDelay}
+                choices={KINDDELAYS} disabled={self.off} />
       <Section title={Locale.SECTION_MORE}>
         <Checkbox label={Locale.TOOLTIPS_PLAYERSTARGET} hint={Locale.TOOLTIPS_PLAYERSTARGET_TIP}
                   value={mut self.settings.values.playersTarget} disabled={self.off} />
@@ -159,6 +182,8 @@ public class NpcsPage implements Component {
                 value={mut self.settings.values.npcsLock} disabled={self.off} />
       <Dropdown label={Locale.TOOLTIPS_PLACE} hint={Locale.TOOLTIPS_KINDPLACE_TIP} value={mut self.settings.values.npcsPlace}
                 choices={KINDPLACES} disabled={self.off} />
+      <Dropdown label={Locale.TOOLTIPS_DELAY} hint={Locale.TOOLTIPS_KINDDELAY_TIP} value={mut self.settings.values.npcsDelay}
+                choices={KINDDELAYS} disabled={self.off} />
       <Section title={Locale.SECTION_MORE}>
         <Checkbox label={Locale.TOOLTIPS_NPCSPARTY} hint={Locale.TOOLTIPS_NPCSPARTY_TIP}
                   value={mut self.settings.values.npcsParty} disabled={self.off} />
@@ -187,6 +212,8 @@ public class ObjectsPage implements Component {
                 value={mut self.settings.values.objectsLock} disabled={self.off} />
       <Dropdown label={Locale.TOOLTIPS_PLACE} hint={Locale.TOOLTIPS_KINDPLACE_TIP} value={mut self.settings.values.objectsPlace}
                 choices={KINDPLACES} disabled={self.off} />
+      <Dropdown label={Locale.TOOLTIPS_DELAY} hint={Locale.TOOLTIPS_KINDDELAY_TIP} value={mut self.settings.values.objectsDelay}
+                choices={KINDDELAYS} disabled={self.off} />
     }
   }
 }
@@ -205,6 +232,8 @@ public class TextsPage implements Component {
               value={mut self.settings.values.textsOn} />
       <Dropdown label={Locale.TOOLTIPS_PLACE} hint={Locale.TOOLTIPS_KINDPLACE_TIP} value={mut self.settings.values.textsPlace}
                 choices={KINDPLACES} disabled={self.off} />
+      <Dropdown label={Locale.TOOLTIPS_DELAY} hint={Locale.TOOLTIPS_KINDDELAY_TIP} value={mut self.settings.values.textsDelay}
+                choices={KINDDELAYS} disabled={self.off} />
       <Checkbox label={Locale.TOOLTIPS_TEXTSEXTRA} hint={Locale.TOOLTIPS_TEXTSEXTRA_TIP}
                 value={mut self.settings.values.textsExtra} disabled={self.off} />
     }

@@ -7,12 +7,33 @@ public enum Place implements Plain { Anchor = "anchor", Blizzard = "blizzard" }
 // Where a kind's tooltips stand: as the general setting says, or a place of their own.
 public enum KindPlace implements Plain { Default = "default", Anchor = "anchor", Blizzard = "blizzard" }
 
+// How long the cursor stays on something before its tooltip shows (`delaySeconds`): at once, or a short, a medium or
+// a long wait. Moving straight from one tooltip's thing to the next shows the next at once.
+public enum Delay implements Plain { Instant = "instant", Short = "short", Medium = "medium", Long = "long" }
+
+// A kind's wait: as the general setting says, or one of its own.
+public enum KindDelay implements Plain {
+  Default = "default", Instant = "instant", Short = "short", Medium = "medium", Long = "long"
+}
+
+// A wait in seconds.
+public function delaySeconds(delay: Delay): Number {
+  return match (delay) {
+    .Instant => 0
+    .Short => 0.3
+    .Medium => 0.6
+    .Long => 1
+  }
+}
+
 // A kind's `Lock`: held under the cursor, a tooltip of that kind locks, and stays for the cursor to come onto it.
 public struct Choices implements Plain {
   place: Place
+  delay: Delay = Delay.Short
   itemsOn: Boolean
   itemsLock: Boolean
   itemsPlace: KindPlace
+  itemsDelay: KindDelay = KindDelay.Default
   itemsIlvl: Boolean
   itemsId: Boolean
   itemsCount: Boolean
@@ -21,30 +42,36 @@ public struct Choices implements Plain {
   spellsOn: Boolean
   spellsLock: Boolean
   spellsPlace: KindPlace
+  spellsDelay: KindDelay = KindDelay.Default
   spellsId: Boolean
   spellsNext: Boolean
   spellsCooldown: Boolean
   aurasOn: Boolean
   aurasLock: Boolean
   aurasPlace: KindPlace
+  aurasDelay: KindDelay = KindDelay.Default
   aurasId: Boolean
   aurasCaster: Boolean
   aurasTotal: Boolean
   playersOn: Boolean
   playersLock: Boolean
   playersPlace: KindPlace
+  playersDelay: KindDelay = KindDelay.Default
   playersTarget: Boolean
   playersRelation: Boolean
   npcsOn: Boolean
   npcsLock: Boolean
   npcsPlace: KindPlace
+  npcsDelay: KindDelay = KindDelay.Default
   npcsParty: Boolean
   npcsLoot: Boolean
   npcsRep: Boolean
   objectsOn: Boolean
   objectsLock: Boolean
   objectsPlace: KindPlace
+  objectsDelay: KindDelay = KindDelay.Default
   textsOn: Boolean
   textsPlace: KindPlace
+  textsDelay: KindDelay = KindDelay.Default
   textsExtra: Boolean
 }

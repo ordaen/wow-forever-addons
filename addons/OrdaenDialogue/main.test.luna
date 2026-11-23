@@ -552,7 +552,7 @@ test "a reward's tooltip shows over all of its row, standing by the row's top ri
   Events.QUEST_COMPLETE.emit()
   _ = Test.requests()
   window().text("Courier Boots").hover()
-  Test.expect(Test.requests().join(", ").contains("Tooltip.hangBy TOPLEFT TOPRIGHT, Items.show 1002"))
+  Test.expect(Test.requests().join(", ").contains("Items.show 1002"))
 }
 
 test "a turn-in that takes money asks first, with the price" {

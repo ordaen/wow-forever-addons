@@ -6,7 +6,7 @@
 import Client from "$client"
 import Game from "$game"
 import {
-  Align, Art, Blend, Columns, Edges, Event, Frame, Gaps, Hang, Leading, Line, MouseButton, Overflow, Point, Position, Side, TextAlign,
+  Align, Art, Blend, Columns, Edges, Event, Frame, Gaps, Leading, Line, MouseButton, Overflow, Position, Side, TextAlign,
   Tile, Track
 } from "$ltml"
 import Runtime from "$runtime"
@@ -66,8 +66,7 @@ const KEYCAP_SMALL = 25.78125dp
 const UPGRADE_WIDTH = 70.3125dp
 const WITH_UPGRADE: Array<Track> = ["max-content", "max-content", { fr: 1 }, UPGRADE_WIDTH, "max-content"]
 const NO_UPGRADE: Array<Track> = ["max-content", "max-content", { fr: 1 }, "max-content"]
-// A reward's tooltip beside its row: its top left on the row's top right.
-const BY_THE_ROW: Hang = { point: Point.TopLeft, to: Point.TopRight }
+
 // The game's green arrow of an upgrade, before the best one's word.
 const UPGRADE: Atlas = "bags-greenarrow"
 const ARROW = 14.0625dp
@@ -594,10 +593,9 @@ public class RewardRow implements Component {
   onUpgradeEnter(mut self) { self.upgradeHovered = true }
   onUpgradeLeave(mut self) { self.upgradeHovered = false }
 
-  // The reward's tooltip over all of its row: its top left on the row's top right, where that keeps it on the screen.
+  // The reward's tooltip is the row's: it stands beside the whole row, as tooltips stand by what they explain.
   onRowEnter(self, frame: any Frame) {
     const reward = self.reward
-    Game.tooltip.hangBy(frame, BY_THE_ROW)
     const currency = reward.currency
     const item = reward.item
     if (currency != nil) {

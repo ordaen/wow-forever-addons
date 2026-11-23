@@ -15,6 +15,9 @@ import Locale from "@/locales"
 import { Choices } from "@/pane"
 
 // The player's screen: 2470 by 1054.
+// The general delay before a tooltip shows, and the frame its watch takes to see the show.
+const SHOWS = 0.32
+
 const SCREEN: Test.Page = { left: 0, top: 0, width: 2470, height: 1054, screen: true }
 
 // The items' icons.
@@ -908,6 +911,7 @@ test "a slot's tooltip names what its clicks do there: the use as the item and t
   protect(held(POTION))
   held(POTION).hover()
   Game.tooltip.main = tooltipOf(corner, 118, "Minor Healing Potion")
+  Test.pass(SHOWS)
   const tip = Test.page().window("Minor Healing Potion")
   const menu = hint(Locale.CHORD_RIGHT, Locale.ACT_MENU)
   // Ordaen's scheme: the double click's use, the menu; no link while the chat's input is shut, no drag.
@@ -928,6 +932,7 @@ test "a slot's tooltip names what its clicks do there: the use as the item and t
   Test.expect(reads(tip, `Minor Healing Potion | ${Locale.PROTECTED} | ${menu}`))
   // Another item's tooltip, where the cursor isn't on its slot: nothing of the bags'.
   Game.tooltip.main = tooltipOf(corner, 25, "Worn Shortsword")
+  Test.pass(SHOWS)
   Test.expect(reads(Test.page().window("Worn Shortsword"), "Worn Shortsword"))
 }
 
@@ -1706,10 +1711,12 @@ test "the cursor off a slot, or the bags shut, a tooltip of its item elsewhere s
   held(POTION).hover()
   bags().text("13 of 22").hover()
   Game.tooltip.main = tooltipOf(corner, 118, "Minor Healing Potion")
+  Test.pass(SHOWS)
   Test.expect(reads(Test.page().window("Minor Healing Potion"), "Minor Healing Potion"))
   held(POTION).hover()
   Game.bags.open = false
   Game.tooltip.main = tooltipOf(corner, 118, "Minor Healing Potion")
+  Test.pass(SHOWS)
   Test.expect(reads(Test.page().window("Minor Healing Potion"), "Minor Healing Potion"))
 }
 
@@ -1799,6 +1806,7 @@ test "in the view «One bag», the cursor off a slot, a tooltip of its item else
   held(POTION).hover()
   bags().text("13 of 22").hover()
   Game.tooltip.main = tooltipOf(corner, 118, "Minor Healing Potion")
+  Test.pass(SHOWS)
   Test.expect(reads(Test.page().window("Minor Healing Potion"), "Minor Healing Potion"))
 }
 

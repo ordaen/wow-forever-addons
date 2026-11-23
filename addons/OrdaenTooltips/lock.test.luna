@@ -11,6 +11,9 @@ import { TERM_DASH } from "Ordaen"
 import root Tooltips from "OrdaenTooltips"
 import { ItemKeys, ItemLines, Line } from "@/extend"
 
+// The general delay before a tooltip shows, and the frame its watch takes to see the show.
+const SHOWS = 0.32
+
 const SCREEN: Test.Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
 const SETTINGS = "Move mode"
 // What a locked tooltip says in its bar's place, and its close button, the game's red X.
@@ -23,9 +26,9 @@ const HELP = "Interface/Cursor/QuestTurnIn"
 // What armour is, as its term says it.
 const ARMOUR = "Reduces the |cffffffffphysical damage|r you take."
 
-// A frame of the game's, by its name, at a place on the screen.
+// A frame of the game's, by its name, at a place on the screen: in the screen's frame, as the game's are.
 function frame(kind: String, name: String, x: Number, y: Number, width: Number, height: Number): any Client.Frame {
-  const made = Client.CreateFrame(kind, name, Client.C_UI.GetUIParent(), nil)
+  const made = Client.CreateFrame(kind, name, Client.UIParent, nil)
   made.SetSize(width, height)
   made.SetPoint("TOPLEFT", Client.C_UI.GetUIParent(), "TOPLEFT", x, -y)
   return made
@@ -103,6 +106,7 @@ function reads(part: Test.Part, expected: String): Boolean {
 test "a tooltip under a passing cursor shows no bar" {
   Test.mount(new Elsewhere(), SCREEN)
   Game.tooltip.main = inSlot(sword())
+  Test.pass(SHOWS)
   Test.pass(0.1)
   Test.expect(!Test.page().window("Sword").box(TRACK).shown())
 }
@@ -110,6 +114,7 @@ test "a tooltip under a passing cursor shows no bar" {
 test "a tooltip held under the cursor fills its bar, half of it half a second in" {
   Test.mount(new Elsewhere(), SCREEN)
   Game.tooltip.main = inSlot(sword())
+  Test.pass(SHOWS)
   Test.pass(0.68)
   const track = Test.page().window("Sword").box(TRACK).rect()
   const filled = Test.page().window("Sword").box(TRACK).fill().rect
@@ -120,10 +125,12 @@ test "a tooltip held under the cursor fills its bar, half of it half a second in
 test "the game showing the tooltip again on the way keeps its charge" {
   Test.mount(new Elsewhere(), SCREEN)
   Game.tooltip.main = inSlot(sword())
+  Test.pass(SHOWS)
   Test.pass(0.6)
   Game.tooltip.main = hidden()
   Test.pass(0.05)
   Game.tooltip.main = inSlot(sword())
+  Test.pass(SHOWS)
   Test.pass(0.7)
   Test.expect(isLocked())
 }
@@ -131,6 +138,7 @@ test "the game showing the tooltip again on the way keeps its charge" {
 test "a tooltip charged in full locks: its hint in the bar's place, and its close button" {
   Test.mount(new Elsewhere(), SCREEN)
   Game.tooltip.main = inSlot(sword())
+  Test.pass(SHOWS)
   Test.pass(CHARGED)
   Test.expect(reads(locked(), `Sword | ${LOCKED}`))
   Test.expect(locked().button(CLOSE).shown() && !locked().box(TRACK).shown())
@@ -145,6 +153,7 @@ test "a locked tooltip's hint stands a section under its hotkeys, as under any s
   Test.mount(new Elsewhere(), SCREEN)
   const added = Tooltips.keys.add(new Keyed())
   Game.tooltip.main = inSlot(sword())
+  Test.pass(SHOWS)
   Test.pass(CHARGED)
   const key = locked().text("Alt+Left-click: hold").rect()
   const hint = locked().text(LOCKED).rect()
@@ -177,6 +186,7 @@ test "the cursor gone from the slot onto the locked tooltip keeps the hotkeys an
   const key = Tooltips.keys.add(new SlotKey(slot))
   const note = Tooltips.held.add(new SlotNote(slot))
   Game.tooltip.main = inSlot(sword())
+  Test.pass(SHOWS)
   Test.pass(CHARGED)
   const before = locked().text("Alt+Left-click: protect").rect()
   slot.hovered = false
@@ -192,6 +202,7 @@ test "the cursor gone from the slot onto the locked tooltip keeps the hotkeys an
 test "a tooltip's title, one line, is as high as its letters: no line height round it" {
   Test.mount(new Elsewhere(), SCREEN)
   Game.tooltip.main = inSlot(sword())
+  Test.pass(SHOWS)
   Test.pass(0.1)
   const title = Test.page().window("Sword").text("Sword")
   const box = title.rect()
@@ -202,6 +213,7 @@ test "a tooltip's title, one line, is as high as its letters: no line height rou
 test "a locked tooltip stays once the game's is gone" {
   Test.mount(new Elsewhere(), SCREEN)
   Game.tooltip.main = inSlot(sword())
+  Test.pass(SHOWS)
   Test.pass(CHARGED)
   Game.tooltip.main = hidden()
   Test.pass(1)
@@ -211,6 +223,7 @@ test "a locked tooltip stays once the game's is gone" {
 test "a tooltip that locks keeps the game's own unseen while it stays" {
   Test.mount(new Elsewhere(), SCREEN)
   Game.tooltip.main = inSlot(sword())
+  Test.pass(SHOWS)
   Test.pass(CHARGED)
   _ = Test.requests()
   Game.tooltip.main = hidden()
@@ -224,6 +237,7 @@ test "a button's tooltip never charges" {
     ownerName: "CharacterMicroButton",
     ..inSlot({ plain: true, lines: [{ left: "Character Info", kind: 0 }] })
   }
+  Test.pass(SHOWS)
   Test.pass(2)
   Test.expect(!Test.page().window("Character Info").box(TRACK).shown() && !isLocked())
 }
@@ -237,6 +251,7 @@ test "with «Tooltips in tooltips» unticked for items an item never charges" {
   settings.button("Tooltips in tooltips").click()
   Test.key(Key.Escape)
   Game.tooltip.main = inSlot(sword())
+  Test.pass(SHOWS)
   Test.pass(2)
   Test.expect(!Test.page().window("Sword").box(TRACK).shown() && !isLocked())
 }
@@ -246,6 +261,7 @@ test "with «Tooltips in tooltips» unticked for items an item never charges" {
 test "the cursor on the locked tooltip keeps it, however long" {
   Test.mount(new Elsewhere(), SCREEN)
   Game.tooltip.main = inSlot(sword())
+  Test.pass(SHOWS)
   Test.pass(CHARGED)
   Game.tooltip.main = hidden()
   locked().text("Sword").hover()
@@ -256,6 +272,7 @@ test "the cursor on the locked tooltip keeps it, however long" {
 test "the cursor on its close button is on the locked tooltip" {
   Test.mount(new Elsewhere(), SCREEN)
   Game.tooltip.main = inSlot(sword())
+  Test.pass(SHOWS)
   Test.pass(CHARGED)
   Game.tooltip.main = hidden()
   locked().button(CLOSE).hover()
@@ -266,6 +283,7 @@ test "the cursor on its close button is on the locked tooltip" {
 test "the cursor off the locked tooltip and back within the grace keeps it" {
   Test.mount(new Elsewhere(), SCREEN)
   Game.tooltip.main = inSlot(sword())
+  Test.pass(SHOWS)
   Test.pass(CHARGED)
   Game.tooltip.main = hidden()
   locked().text("Sword").hover()
@@ -279,6 +297,7 @@ test "the cursor off the locked tooltip and back within the grace keeps it" {
 test "the cursor off the locked tooltip for longer than the grace takes it away" {
   Test.mount(new Elsewhere(), SCREEN)
   Game.tooltip.main = inSlot(sword())
+  Test.pass(SHOWS)
   Test.pass(CHARGED)
   Game.tooltip.main = hidden()
   locked().text("Sword").hover()
@@ -306,6 +325,7 @@ test "a press elsewhere takes the locked tooltip away at once, and still reaches
   const page = new Pressed()
   Test.mount(page, SCREEN)
   Game.tooltip.main = inSlot(sword())
+  Test.pass(SHOWS)
   Test.pass(CHARGED)
   Game.tooltip.main = hidden()
   locked().text("Sword").hover()
@@ -317,6 +337,7 @@ test "a press elsewhere takes a locked tooltip away before the cursor has come o
   const page = new Pressed()
   Test.mount(page, SCREEN)
   Game.tooltip.main = inSlot(sword())
+  Test.pass(SHOWS)
   Test.pass(CHARGED)
   Game.tooltip.main = hidden()
   Test.page().text("Elsewhere").click()
@@ -326,6 +347,7 @@ test "a press elsewhere takes a locked tooltip away before the cursor has come o
 test "a press on the locked tooltip keeps it" {
   Test.mount(new Pressed(), SCREEN)
   Game.tooltip.main = inSlot(sword())
+  Test.pass(SHOWS)
   Test.pass(CHARGED)
   Game.tooltip.main = hidden()
   locked().text("Sword").click()
@@ -336,6 +358,7 @@ test "a press on the locked tooltip keeps it" {
 test "a press on a term the locked tooltip opened keeps it" {
   Test.mount(new Pressed(), SCREEN)
   Game.tooltip.main = inSlot(frostbolt())
+  Test.pass(SHOWS)
   Test.pass(CHARGED)
   Game.tooltip.main = hidden()
   locked().text("30 yd range").hover()
@@ -347,6 +370,7 @@ test "a press on a term the locked tooltip opened keeps it" {
 test "a locked tooltip the cursor hasn't come onto yet waits for it" {
   Test.mount(new Elsewhere(), SCREEN)
   Game.tooltip.main = inSlot(sword())
+  Test.pass(SHOWS)
   Test.pass(CHARGED)
   Game.tooltip.main = hidden()
   elsewhere()
@@ -357,11 +381,13 @@ test "a locked tooltip the cursor hasn't come onto yet waits for it" {
 test "the cursor back on its source keeps the locked tooltip" {
   Test.mount(new Elsewhere(), SCREEN)
   Game.tooltip.main = inSlot(sword())
+  Test.pass(SHOWS)
   Test.pass(CHARGED)
   Game.tooltip.main = hidden()
   locked().text("Sword").hover()
   elsewhere()
   Game.tooltip.main = inSlot(sword())
+  Test.pass(SHOWS)
   Test.pass(1)
   Test.expect(isLocked())
 }
@@ -369,6 +395,7 @@ test "the cursor back on its source keeps the locked tooltip" {
 test "the cursor off its source for longer than the grace, once it has been on the tooltip, takes it away" {
   Test.mount(new Elsewhere(), SCREEN)
   Game.tooltip.main = inSlot(sword())
+  Test.pass(SHOWS)
   Test.pass(CHARGED)
   Game.tooltip.main = hidden()
   locked().text("Sword").hover()
@@ -383,10 +410,12 @@ test "the cursor off its source for longer than the grace, once it has been on t
 test "another thing with a tooltip under the cursor takes the locked one away at once, and charges anew" {
   Test.mount(new Elsewhere(), SCREEN)
   Game.tooltip.main = inSlot(sword())
+  Test.pass(SHOWS)
   Test.pass(CHARGED)
   Game.tooltip.main = hidden()
   locked().text("Sword").hover()
   Game.tooltip.main = inSlot(shield())
+  Test.pass(SHOWS)
   Test.pass(0.05)
   Test.expect(!isLocked() && !Test.page().text("Sword").shown())
   Test.pass(CHARGED)
@@ -398,6 +427,7 @@ test "another thing with a tooltip under the cursor takes the locked one away at
 test "a locked tooltip's close button unlocks it, its bar empty, and what was closed doesn't charge again while held" {
   Test.mount(new Elsewhere(), SCREEN)
   Game.tooltip.main = inSlot(sword())
+  Test.pass(SHOWS)
   Test.pass(CHARGED)
   locked().button(CLOSE).click()
   Test.pass(0.05)
@@ -409,11 +439,13 @@ test "a locked tooltip's close button unlocks it, its bar empty, and what was cl
 test "a tooltip closed locks again after the cursor left its source and came back" {
   Test.mount(new Elsewhere(), SCREEN)
   Game.tooltip.main = inSlot(sword())
+  Test.pass(SHOWS)
   Test.pass(CHARGED)
   locked().button(CLOSE).click()
   Game.tooltip.main = hidden()
   Test.pass(0.2)
   Game.tooltip.main = inSlot(sword())
+  Test.pass(SHOWS)
   Test.pass(CHARGED)
   Test.expect(isLocked())
 }
@@ -424,6 +456,7 @@ test "a locked tooltip underlines the parts that open something; one not locked 
   Game.spells.cost = (id: Integer): Game.SpellCost | nil => ({ amount: 65 })
   Test.mount(new Elsewhere(), SCREEN)
   Game.tooltip.main = inSlot(frostbolt())
+  Test.pass(SHOWS)
   Test.pass(0.1)
   Test.expect(Test.page().window("Frostbolt").box(TERM_DASH).count() == 0)
   Test.pass(CHARGED)
@@ -434,6 +467,7 @@ test "a locked tooltip underlines the parts that open something; one not locked 
 test "the cursor on a cell that names a term opens the term beside it, under the help cursor" {
   Test.mount(new Elsewhere(), SCREEN)
   Game.tooltip.main = inSlot(frostbolt())
+  Test.pass(SHOWS)
   Test.pass(CHARGED)
   Game.tooltip.main = hidden()
   locked().text("30 yd range").hover()
@@ -457,6 +491,7 @@ test "a player's side opens its term: the Alliance's, the Horde's, and none for 
   for (side of ["Alliance", "Horde"]) {
     faction = side
     Game.tooltip.main = inSlot({ kind: 2, about: side, lines: [{ left: "Varian", kind: 2, unit: "mouseover" }] })
+    Test.pass(SHOWS)
     Test.pass(CHARGED)
     Game.tooltip.main = hidden()
     locked().text(side).hover()
@@ -465,6 +500,7 @@ test "a player's side opens its term: the Alliance's, the Horde's, and none for 
   }
   faction = "Neutral"
   Game.tooltip.main = inSlot({ kind: 2, about: "Neutral", lines: [{ left: "Varian", kind: 2, unit: "mouseover" }] })
+  Test.pass(SHOWS)
   Test.pass(CHARGED)
   Game.tooltip.main = hidden()
   locked().text("Neutral").hover()
@@ -474,6 +510,7 @@ test "a player's side opens its term: the Alliance's, the Horde's, and none for 
 test "the cursor off the cell takes its term away and keeps the lock" {
   Test.mount(new Elsewhere(), SCREEN)
   Game.tooltip.main = inSlot(frostbolt())
+  Test.pass(SHOWS)
   Test.pass(CHARGED)
   Game.tooltip.main = hidden()
   locked().text("30 yd range").hover()
@@ -485,6 +522,7 @@ test "the cursor off the cell takes its term away and keeps the lock" {
 test "the cursor on the term a cell opened keeps the lock" {
   Test.mount(new Elsewhere(), SCREEN)
   Game.tooltip.main = inSlot(frostbolt())
+  Test.pass(SHOWS)
   Test.pass(CHARGED)
   Game.tooltip.main = hidden()
   locked().text("2.5 sec").hover()
@@ -497,6 +535,7 @@ test "a piece of a locked tooltip's title opens its term" {
   Game.tooltip.main = inSlot({
     kind: 0, id: 9010, about: "item:9010", lines: [{ left: "Sword", kind: 22 }, { left: "Soulbound", kind: 20 }]
   })
+  Test.pass(SHOWS)
   Test.pass(CHARGED)
   locked().text("Soulbound").hover()
   const BOUND = "Already yours: it can't be traded or auctioned, only sold to a vendor."
@@ -509,6 +548,7 @@ test "a fact that speaks of an amount opens its term with the amount in it" {
     kind: 0, id: 9002, about: "item:9002",
     lines: [{ left: "Linen Bag", kind: 22 }, { left: "6 Slot Bag", kind: 0 }, { left: "42 Armor", kind: 0 }]
   })
+  Test.pass(SHOWS)
   Test.pass(CHARGED)
   locked().text("6 slots").hover()
   Test.expect(reads(Test.page().window("A bag with 6 slots: how many items it holds."), "Slots | A bag with 6 slots: how many items it holds."))
@@ -525,6 +565,7 @@ test "a tooltip beside a locked one opens its terms too" {
     kind: 0, id: 9001, about: "item:9001",
     lines: [{ left: "Staff", kind: 22 }, { left: "Use: Heals you.", kind: 44, spell: 7001 }]
   })
+  Test.pass(SHOWS)
   Test.pass(CHARGED)
   Test.page().window(LOCKED).text("Instant").hover()
   Test.expect(reads(Test.page().window("Cast at once, without stopping."), "Instant | Cast at once, without stopping."))
@@ -534,6 +575,7 @@ test "a worn item compared with a locked one opens its terms too, and the cursor
   Test.mount(new Elsewhere(), SCREEN)
   Game.tooltip.compared = [{ kind: 0, lines: [{ left: "Worn Shield", kind: 22 }, { left: "30 Armor", kind: 0 }] }]
   Game.tooltip.main = inSlot(sword())
+  Test.pass(SHOWS)
   Test.pass(CHARGED)
   Game.tooltip.main = hidden()
   locked().text("Sword").hover()
@@ -549,6 +591,7 @@ test "a building of the camp opens its whole sentence" {
     kind: 7, id: 1229741, about: "spell:1229741",
     lines: [{ left: "Camp", kind: 0 }, { left: "The camp grants:\nMana Well: Restores 10 mana every 5 sec.", kind: 34 }]
   })
+  Test.pass(SHOWS)
   Test.pass(CHARGED)
   locked().text("Mana Well").hover()
   Test.expect(reads(Test.page().window("Restores 10 mana every 5 sec."), "Mana Well | Restores 10 mana every 5 sec."))
@@ -577,6 +620,7 @@ test "a player's target opens the target's own tooltip" {
   Game.units.of = known
   Test.mount(new Elsewhere(), SCREEN)
   Game.tooltip.main = inSlot({ kind: 2, about: "unit:Jaina", lines: [{ left: "Jaina", kind: 2, unit: "mouseover" }] })
+  Test.pass(SHOWS)
   Test.pass(CHARGED)
   locked().text("Ann").hover()
   Test.expect(reads(Test.page().window("Level 58"), "Ann | Priest | Level 58 | Human"))
@@ -588,6 +632,7 @@ test "a caster who is gone opens nothing" {
   })
   Test.mount(new Elsewhere(), SCREEN)
   Game.tooltip.main = inSlot({ kind: 7, id: 14914, about: "spell:14914", lines: [{ left: "Holy Fire", kind: 0 }] })
+  Test.pass(SHOWS)
   Test.pass(CHARGED)
   const before = Test.page().texts().join(" | ")
   locked().text("Gone").hover()
@@ -625,9 +670,11 @@ test "with «Tooltips in tooltips» unticked for abilities an ability never lock
   Test.mount(new Elsewhere(), SCREEN)
   lockOf("Abilities")
   Game.tooltip.main = inSlot(ofKind("Abilities"))
+  Test.pass(SHOWS)
   Test.pass(CHARGED)
   Test.expect(!isLocked())
   Game.tooltip.main = inSlot(ofKind("Items"))
+  Test.pass(SHOWS)
   Test.pass(CHARGED)
   Test.expect(isLocked())
 }
@@ -636,9 +683,11 @@ test "with «Tooltips in tooltips» unticked for effects an effect never locks, 
   Test.mount(new Elsewhere(), SCREEN)
   lockOf("Effects")
   Game.tooltip.main = inSlot(ofKind("Effects"))
+  Test.pass(SHOWS)
   Test.pass(CHARGED)
   Test.expect(!isLocked())
   Game.tooltip.main = inSlot(ofKind("Abilities"))
+  Test.pass(SHOWS)
   Test.pass(CHARGED)
   Test.expect(isLocked())
 }
@@ -648,9 +697,11 @@ test "with «Tooltips in tooltips» unticked for players a player never locks, a
   Test.mount(new Elsewhere(), SCREEN)
   lockOf("Players")
   Game.tooltip.main = inSlot(ofKind("Players"))
+  Test.pass(SHOWS)
   Test.pass(CHARGED)
   Test.expect(!isLocked())
   Game.tooltip.main = inSlot(ofKind("NPCs"))
+  Test.pass(SHOWS)
   Test.pass(CHARGED)
   Test.expect(isLocked())
 }
@@ -660,9 +711,11 @@ test "with «Tooltips in tooltips» unticked for NPCs an NPC never locks, and a 
   Test.mount(new Elsewhere(), SCREEN)
   lockOf("NPCs")
   Game.tooltip.main = inSlot(ofKind("NPCs"))
+  Test.pass(SHOWS)
   Test.pass(CHARGED)
   Test.expect(!isLocked())
   Game.tooltip.main = inSlot(ofKind("Players"))
+  Test.pass(SHOWS)
   Test.pass(CHARGED)
   Test.expect(isLocked())
 }
@@ -671,9 +724,11 @@ test "with «Tooltips in tooltips» unticked for objects an object never locks, 
   Test.mount(new Elsewhere(), SCREEN)
   lockOf("Objects")
   Game.tooltip.main = inSlot(ofKind("Objects"))
+  Test.pass(SHOWS)
   Test.pass(CHARGED)
   Test.expect(!isLocked())
   Game.tooltip.main = inSlot(ofKind("Effects"))
+  Test.pass(SHOWS)
   Test.pass(CHARGED)
   Test.expect(isLocked())
 }
@@ -681,6 +736,7 @@ test "with «Tooltips in tooltips» unticked for objects an object never locks, 
 test "a locked tooltip opens no term before the cursor comes onto a part" {
   Test.mount(new Elsewhere(), SCREEN)
   Game.tooltip.main = inSlot(frostbolt())
+  Test.pass(SHOWS)
   Test.pass(CHARGED)
   Test.expect(Test.surfaces().length == 1)
 }
@@ -708,6 +764,7 @@ test "each cell of an ability's band opens its own term" {
       { left: "Next melee", kind: 0 }
     ]
   })
+  Test.pass(SHOWS)
   Test.pass(CHARGED)
   Test.expect(same([termOf("5 yd"), termOf("Channeled"), termOf("CD 8 sec"), termOf("Next")].join(" | "), "Melee range | Channelled | Cooldown | Next attack"))
 }
@@ -727,6 +784,7 @@ test "a recipe's reagent stands with its icon, and opens its own tooltip from th
     kind: 1, id: 7421, about: "spell:7421",
     lines: [{ left: "Enchanting: Runed Copper Rod", kind: 13 }, { left: "Reagents: |n|cffff2020Simple Wood|r", kind: 0 }]
   })
+  Test.pass(SHOWS)
   Test.pass(CHARGED)
   Test.expect(locked().text("Simple Wood").item().paintedWith(WOOD))
   Test.expect(same(termOf("Simple Wood"), "Simple Wood"))
@@ -737,12 +795,14 @@ test "an item bound on equip or on pickup opens what that binding is" {
   Game.tooltip.main = inSlot({
     kind: 0, id: 1, about: "item:1", lines: [{ left: "Ring", kind: 22 }, { left: "Binds when equipped", kind: 20 }]
   })
+  Test.pass(SHOWS)
   Test.pass(CHARGED)
   Test.expect(same(termOf("Binds when equipped"), "Binds when equipped"))
   locked().button(CLOSE).click()
   Game.tooltip.main = inSlot({
     kind: 0, id: 2, about: "item:2", lines: [{ left: "Cloak", kind: 22 }, { left: "Binds when picked up", kind: 20 }]
   })
+  Test.pass(SHOWS)
   Test.pass(CHARGED)
   Test.expect(same(termOf("Binds when picked up"), "Binds when picked up"))
 }
@@ -758,12 +818,14 @@ test "the caster of an effect opens the caster's own tooltip; the player's own �
   })
   Test.mount(new Elsewhere(), SCREEN)
   Game.tooltip.main = inSlot({ kind: 7, id: 14914, about: "spell:14914", lines: [{ left: "Holy Fire", kind: 0 }] })
+  Test.pass(SHOWS)
   Test.pass(CHARGED)
   locked().text("Scarlet Monk").hover()
   Test.expect(reads(Test.page().window("Level 30"), "Scarlet Monk | Level 30"))
   locked().button(CLOSE).click()
   source = "player"
   Game.tooltip.main = inSlot({ kind: 7, id: 1243, about: "spell:1243", lines: [{ left: "Fortitude", kind: 0 }] })
+  Test.pass(SHOWS)
   Test.pass(CHARGED)
   const before = Test.page().texts().join(" | ")
   locked().text("You").hover()
@@ -773,10 +835,12 @@ test "the caster of an effect opens the caster's own tooltip; the player's own �
 test "a new tooltip locked waits for the cursor, though the cursor was on the one before" {
   Test.mount(new Elsewhere(), SCREEN)
   Game.tooltip.main = inSlot(sword())
+  Test.pass(SHOWS)
   Test.pass(CHARGED)
   locked().text("Sword").hover()
   elsewhere()
   Game.tooltip.main = inSlot(shield())
+  Test.pass(SHOWS)
   Test.pass(CHARGED)
   Game.tooltip.main = hidden()
   Test.pass(0.5)

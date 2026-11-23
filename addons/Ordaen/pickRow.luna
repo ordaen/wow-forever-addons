@@ -1,6 +1,7 @@
 // PickRow: one row of a list the player picks from (a friend, an ally, a quest): what it holds laid out in its
 // `columns`, a shade under the cursor and the keyboard's focus, a gold one while it is the picked row. A left click,
 // Enter or Space reports `pick`; what is picked is the owner's, which says so through `picked`.
+import Game from "$game"
 import { Align, ByInteractionState, Edges, Frame, Track } from "$ltml"
 import { Component } from "@/module"
 
@@ -42,7 +43,11 @@ public class PickRow implements Component {
   }
 
   onPick(mut self) { self.pick.emit() }
-  onEnter(self, frame: any Frame) { self.entered.emit(frame) }
+  // A list's row: the tooltips of what it holds stand beside it, never over the rows round it.
+  onEnter(self, frame: any Frame) {
+    Game.tooltip.rowAt(frame)
+    self.entered.emit(frame)
+  }
 
   public render(self): Template {
     return $ltml {

@@ -38,6 +38,23 @@ public struct Standing {
   hang: Hang | nil = nil
 }
 
+// A hang the other way across: by the left edge where it was by the right (a row's left where its right has no room).
+function mirrored(hang: Hang): Hang {
+  return { point: acrossOf(hang.point), to: acrossOf(hang.to), ..hang }
+}
+
+function acrossOf(point: Point): Point {
+  return match (point) {
+    .TopLeft => Point.TopRight
+    .TopRight => Point.TopLeft
+    .BottomLeft => Point.BottomRight
+    .BottomRight => Point.BottomLeft
+    .Left => Point.Right
+    .Right => Point.Left
+    else => point
+  }
+}
+
 // What stands in an opened tooltip's place while it opens nothing.
 const NOTHING: Model = {
   kind: Kind.Text, name: "", nameColor: BRIGHT_TEXT,
@@ -178,7 +195,8 @@ public class TipGroup implements Component {
     if (!standing.inPlace && hang != nil) {
       const lift: Number<Length> = self.comparing ? Ordaen.lengthOf(HEADER) : 0ui
       const down: Number<Length> = hang.y ?? 0ui
-      return { beside: standing.by, prefer: [{ y: down - lift, ..hang }] }
+      const lifted: Hang = { y: down - lift, ..hang }
+      return { beside: standing.by, prefer: [lifted, mirrored(lifted)] }
     }
     if (standing.inPlace) {
       let point = standing.below ?

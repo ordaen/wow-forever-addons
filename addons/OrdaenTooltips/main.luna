@@ -5,11 +5,12 @@
 // game's stands: locked from the start, closed by its button or Escape, dragged by the player, compared on Shift.
 import Events from "$events"
 import Game from "$game"
+import { Hang, Point } from "$ltml"
 import root Ordaen from "Ordaen"
 import { BRIGHT_TEXT, Module, Settings, SettingsPage } from "Ordaen"
 import { AddedToItem, AddedToObject } from "@/added"
 import { extras } from "@/buttons"
-import { Choices, KindPlace, Place } from "@/choices"
+import { Choices, Delay, KindDelay, KindPlace, Place, delaySeconds } from "@/choices"
 import { GREEN, RED } from "@/colors"
 import { ItemKeys, ItemLines, ObjectLines } from "@/extend"
 import { compare, item } from "@/item"
@@ -35,12 +36,18 @@ const STEPS = 100
 const GRACE = 0.22
 const REFRESH = 0.1
 
-// What the game's tooltip is about, since when, and whether a tooltip of its kind locks.
+// Beside what it explains: its top left on the row's or the button's top right.
+const BY_THE_RIGHT: Hang = { point: Point.TopLeft, to: Point.TopRight }
+
+// What the game's tooltip is about, since when, and whether a tooltip of its kind locks; how long it waits before it
+// shows (its kind's delay), and whether it waited that long (`ripe`).
 struct Target {
   kind: Integer | nil
   about: String | nil
   since: Number
   locks: Boolean
+  delay: Number = 0
+  ripe: Boolean = false
 }
 
 // What is drawn for the tooltip the game shows now.
@@ -125,7 +132,8 @@ public class Tooltips implements Module, App {
   // The game's tooltip shows what is locked: the cursor is back on its source.
   derived onSource: Boolean = self.onSourceNow()
   derived current: Shown | nil = self.read ?? self.kept?.shown
-  derived shown: Boolean = self.current != nil
+  // It shows once its target waited its delay, or while it is locked.
+  derived shown: Boolean = self.current != nil && (self.kept != nil || (self.target?.ripe ?? false))
   // The last show, kept while nothing shows: the group is drawn once, and a show changes only what differs from
   // the one before.
   state last: Shown | nil = nil
@@ -173,6 +181,7 @@ public class Tooltips implements Module, App {
     watch { self.keepUnseen() }
     watch { Game.tooltip.hidePinned(self.pinnedShown) }
     watch { self.follow() }
+    watch { self.ripen() }
     watch { self.lockCharged() }
     watch { self.forget() }
     watch { self.trackAway() }
@@ -237,7 +246,7 @@ public class Tooltips implements Module, App {
     if (self.kept != nil) { return STEPS }
     let target = self.target
     if (target == nil || !target.locks || self.closed) { return 0 }
-    let steps = ((Game.clock.time - target.since - DELAY) / CHARGE * STEPS).floor()
+    let steps = ((Game.clock.time - target.since - target.delay - DELAY) / CHARGE * STEPS).floor()
     if (steps < 0) { return 0 }
     return steps < STEPS ? steps : STEPS
   }
@@ -271,10 +280,20 @@ public class Tooltips implements Module, App {
     self.leftAt = nil
     self.visited = false
     self.closed = false
+    // Straight from a tooltip that showed to the next: the next shows at once.
+    const warm = target != nil && target.ripe
+    const delay = kind != nil && !warm ? self.delayOf(kind, data) : 0
     self.target = {
       kind: data.kind, about: data.about, since: peek Game.clock.time,
-      locks: kind != nil && self.wanted(kind, data) && self.locks(kind, data)
+      locks: kind != nil && self.wanted(kind, data) && self.locks(kind, data), delay: delay, ripe: delay <= 0
     }
+  }
+
+  // The target waited its delay: it shows. The time is read only while it waits.
+  ripen(mut self) {
+    const target = self.target
+    if (target == nil || target.ripe) { return }
+    if (Game.clock.time >= target.since + target.delay) { self.target = { ripe: true, ..target } }
   }
 
   // Charged in full: what is shown stays.
@@ -344,7 +363,7 @@ public class Tooltips implements Module, App {
 
   // The game's own tooltip is unseen for a show drawn here, and seen for one left to it.
   keepUnseen(self) {
-    Game.tooltip.hide(self.shown)
+    Game.tooltip.hide(self.current != nil)
   }
 
   options(self): Options {
@@ -395,6 +414,28 @@ public class Tooltips implements Module, App {
       Kind.Term => return false
       Kind.Unit => return self.aPlayer(data) ? chosen.playersLock : chosen.npcsLock
     }
+  }
+
+  // How long a tooltip of this kind waits before it shows: its kind's delay, or the general one where it is «Default».
+  delayOf(self, kind: Kind, data: Game.TooltipData): Number {
+    let chosen = self.settings.values
+    let own = match (kind) {
+      Kind.Item => chosen.itemsDelay
+      Kind.Spell => chosen.spellsDelay
+      Kind.Aura => chosen.aurasDelay
+      Kind.Object => chosen.objectsDelay
+      Kind.Text => chosen.textsDelay
+      Kind.Set => KindDelay.Default
+      Kind.Term => KindDelay.Default
+      Kind.Unit => self.aPlayer(data) ? chosen.playersDelay : chosen.npcsDelay
+    }
+    return delaySeconds(match (own) {
+      KindDelay.Default => chosen.delay
+      KindDelay.Instant => Delay.Instant
+      KindDelay.Short => Delay.Short
+      KindDelay.Medium => Delay.Medium
+      KindDelay.Long => Delay.Long
+    })
   }
 
   // Where a tooltip of this kind stands: its kind's place, or the general one where the kind's is «Default».
@@ -476,17 +517,17 @@ public class Tooltips implements Module, App {
     }
   }
 
-  // Beside its owner where its kind stands so and the owner is a frame it can stand by: above it in the screen's
-  // lower half, below it in the upper; on its right edge in the screen's right third. One it can't stand by (a unit's
-  // frame, the world) is where the game put its own, beside the owner where the game anchored it there. Otherwise in
-  // Blizzard's place.
+  // Beside its owner where its kind stands so and the owner is a frame it can stand by: by the list's row the owner
+  // is in (never over the rows round it), else by the owner; to its right, the tops level, or to its left where the
+  // right has no room. One it can't stand by (a unit's frame, the world) is
+  // where the game put its own, beside the owner where the game anchored it there. Otherwise in Blizzard's place.
   where(self): Standing {
     let tip = Game.tooltip.main
     let owner = tip.owner
     let place = self.read?.place ?? self.settings.values.place
     if (place == Place.Blizzard) { return blizzardPlace(tip) }
     if (owner != nil && tip.placeable) {
-      return { by: owner, inPlace: false, below: tip.ownerHigh, right: tip.ownerRight, hang: tip.hang }
+      return { by: tip.by ?? owner, inPlace: false, below: tip.ownerHigh, right: tip.ownerRight, hang: BY_THE_RIGHT }
     }
     return { by: tip.corner, inPlace: true, below: tip.below, right: tip.right }
   }

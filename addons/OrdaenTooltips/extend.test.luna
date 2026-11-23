@@ -7,6 +7,9 @@ import Test from "$test"
 import root Tooltips from "OrdaenTooltips"
 import { ItemKeys, ItemLines, Line, ObjectLines } from "@/extend"
 
+// The general delay before a tooltip shows, and the frame its watch takes to see the show.
+const SHOWS = 0.32
+
 const SCREEN: Test.Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
 
 // A price another module keeps: its row follows its own cell. Each time it is asked it says so.
@@ -91,6 +94,7 @@ test "a row another module adds to an item stands after the tooltip's own footer
   Test.mount(nil, SCREEN)
   const added = Tooltips.worth.add(new Priced())
   Game.tooltip.main = showing(ore())
+  Test.pass(SHOWS)
   Test.expect(reads(Test.page().window("Copper Ore"), "Copper Ore | Requires level | 5 | Auction | 12g · 2770 · item:2770"))
   destroy added
 }
@@ -100,6 +104,7 @@ test "an added row follows what it read" {
   const priced = new Priced()
   const added = Tooltips.worth.add(priced)
   Game.tooltip.main = showing(ore())
+  Test.pass(SHOWS)
   priced.raise()
   Test.expect(Test.page().window("Copper Ore").text("15g · 2770 · item:2770").shown())
   destroy added
@@ -122,11 +127,13 @@ test "an added row is asked anew each time the same item shows, and drawn as it 
   let age = "now"
   const added = Tooltips.worth.add(new Aged((): String => age))
   Game.tooltip.main = showing(ore())
+  Test.pass(SHOWS)
   Test.expect(Test.page().window("Copper Ore").text("now").shown())
   Game.tooltip.main = hidden()
   Test.pass(0.2)
   age = "a day ago"
   Game.tooltip.main = showing(ore())
+  Test.pass(SHOWS)
   Test.expect(reads(Test.page().window("Copper Ore"), "Copper Ore | Requires level | 5 | Seen | a day ago"))
   destroy added
 }
@@ -135,6 +142,7 @@ test "an added row goes with its handle" {
   Test.mount(nil, SCREEN)
   const added = Tooltips.worth.add(new Priced())
   Game.tooltip.main = showing(ore())
+  Test.pass(SHOWS)
   destroy added
   Test.expect(reads(Test.page().window("Copper Ore"), "Copper Ore | Requires level | 5"))
 }
@@ -145,6 +153,7 @@ test "what is worth, what an item is for and where it is stand in that order, wh
   const uses = Tooltips.uses.add(new Said("Used in Bronze Bar"))
   const worth = Tooltips.worth.add(new Said("Auction 12g"))
   Game.tooltip.main = showing(ore())
+  Test.pass(SHOWS)
   Test.expect(reads(Test.page().window("Copper Ore"), "Copper Ore | Requires level | 5 | Auction 12g | Used in Bronze Bar | Held by Ann"))
   Test.expect(Test.page().text("Held by Ann").textColor().equal(Color.hex("#40ff40")))
   destroy held
@@ -158,6 +167,7 @@ test "an item's rows aren't asked for a world object, and its rows stand in the 
   const worth = Tooltips.worth.add(new Priced((): nil => { asked += 1 }))
   const gives = Tooltips.gives.add(new Mined())
   Game.tooltip.main = showing(vein("Copper Vein"))
+  Test.pass(SHOWS)
   Test.expect(reads(Test.page().window("Copper Vein"), "Copper Vein | Copper Ore | 2–4 | Rough Stone"))
   Test.expect(Test.page().text("2–4").textColor().equal(Color.hex("#ffd100")))
   Test.expect(asked == 0)
@@ -169,8 +179,10 @@ test "an object's rows are for the object they name, and go with their handle" {
   Test.mount(nil, SCREEN)
   const gives = Tooltips.gives.add(new Mined())
   Game.tooltip.main = showing(vein("Tin Vein"))
+  Test.pass(SHOWS)
   Test.expect(reads(Test.page().window("Tin Vein"), "Tin Vein"))
   Game.tooltip.main = showing(vein("Copper Vein"))
+  Test.pass(SHOWS)
   destroy gives
   Test.expect(reads(Test.page().window("Copper Vein"), "Copper Vein"))
 }
@@ -180,9 +192,11 @@ test "a hotkey another module adds stands after the tooltip's own, and follows w
   const keyed = new Keyed()
   const added = Tooltips.keys.add(keyed)
   Game.tooltip.main = showing({ plain: true, lines: [{ left: "Bag |cffffd200(B)|r", kind: 0 }] })
+  Test.pass(SHOWS)
   // A text is no item: none of the item's hotkeys.
   Test.expect(reads(Test.page().window("Bag"), "Bag | B: open"))
   Game.tooltip.main = showing(ore())
+  Test.pass(SHOWS)
   Test.expect(reads(Test.page().window("Copper Ore"), "Copper Ore | Requires level | 5 | Alt+Left-click: hold 2770"))
   keyed.hold()
   Test.expect(Test.page().window("Copper Ore").text("Alt+Left-click: let 2770 go").shown())
@@ -194,6 +208,7 @@ test "a world object has none of an item's hotkeys" {
   Test.mount(nil, SCREEN)
   const added = Tooltips.keys.add(new Keyed())
   Game.tooltip.main = showing(vein("Copper Vein"))
+  Test.pass(SHOWS)
   Test.expect(reads(Test.page().window("Copper Vein"), "Copper Vein"))
   destroy added
 }
@@ -209,6 +224,7 @@ test "an added row's value with no colour of its own is in its line's" {
   Test.mount(nil, SCREEN)
   const added = Tooltips.worth.add(new Tinted())
   Game.tooltip.main = showing(ore())
+  Test.pass(SHOWS)
   Test.expect(Test.page().text("3g").textColor().equal(Color.hex("#40ff40")))
   destroy added
 }
@@ -218,6 +234,7 @@ test "an item the game gives no number for asks the added rows nothing" {
   let asked = 0
   const added = Tooltips.worth.add(new Priced((): nil => { asked += 1 }))
   Game.tooltip.main = showing({ kind: 0, lines: [{ left: "Mystery", kind: 22 }] })
+  Test.pass(SHOWS)
   Test.expect(reads(Test.page().window("Mystery"), "Mystery") && asked == 0)
   destroy added
 }

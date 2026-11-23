@@ -5,6 +5,9 @@ import Game from "$game"
 import { Frame } from "$ltml"
 import Test from "$test"
 
+// The general delay before a tooltip shows, and the frame its watch takes to see the show.
+const SHOWS = 0.32
+
 const GOLD: Color = Color.hex("#ffd100")
 const WHITE: Color = Color.hex("#ffffff")
 
@@ -53,14 +56,17 @@ test "a held tooltip the game fills anew costs what changed in it: a refill of t
   for (addons of [4, 24]) {
     const first = memory(corner, button, addons)
     Game.tooltip.main = first
+    Test.pass(SHOWS)
     Test.pass(0.1)
     // A refill before the one measured: what is made once (a list grown, a text first measured) is made.
     const second = refilled(first, 7, "2.11 MB")
     Game.tooltip.main = second
+    Test.pass(SHOWS)
     Test.pass(0.1)
     const third = refilled(second, 7, "2.12 MB")
     made.push(Test.garbage((): nil => {
       Game.tooltip.main = third
+      Test.pass(SHOWS)
       Test.pass(0.02)
     }))
     Test.expect(Test.page().window("Game Menu").text("2.12 MB").shown())

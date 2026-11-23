@@ -9,6 +9,7 @@
 // its item's cell. A cell's texts wrap at its column unless they say they are cut (`wrap={.Cut}`); while the owner
 // has no rows, the table
 // says what it is given as `empty` under its headings. `ToolSort` is its sort in the toolbar, with sorts no column shows.
+import Game from "$game"
 import { Align, Art, ByInteractionState, Edges, Event, Frame, Line, MouseButton, Position, Side, TextAlign, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import { Component } from "@/module"
@@ -142,7 +143,11 @@ public class TableRow implements Component {
   onClick(mut self, click: Event.Press) { self.pick.emit(click.button) }
   onKey(mut self) { self.pick.emit(.Left) }
   onDouble(mut self) { self.double.emit() }
-  onEnter(mut self, frame: any Frame) { self.enter.emit(frame) }
+  // A list's row: the tooltips of what it holds stand beside it, never over the rows round it.
+  onEnter(mut self, frame: any Frame) {
+    Game.tooltip.rowAt(frame)
+    self.enter.emit(frame)
+  }
   onLeave(mut self) { self.leave.emit() }
 
   public render(self): Template {
