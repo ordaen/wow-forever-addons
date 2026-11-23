@@ -121,6 +121,8 @@ test "made in a fight, the bars are drawn as the fight ends" {
 
 test "a key of the game's bindings presses our button in its place, and the button shows its key" {
   alone()
+  // Every slot holds something: an empty button is unseen.
+  Client.C_ActionBar.HasAction = (slot: Integer): Boolean => true
   const holder = new Holder()
   _ = Client.SetBinding("SHIFT-2", "MULTIACTIONBAR1BUTTON2", nil)
   Test.mount(new ActionBars(holder.settings.values, holder.defaults), SCREEN)
@@ -171,6 +173,7 @@ test "an item the cursor holds goes onto the bar's button it is let go on, or cl
 
 test "an action out of range has its icon darkened and its key in red" {
   alone()
+  Client.C_ActionBar.HasAction = (slot: Integer): Boolean => slot == 62
   const holder = new Holder()
   _ = Client.SetBinding("SHIFT-2", "MULTIACTIONBAR1BUTTON2", nil)
   Test.mount(new ActionBars(holder.settings.values, holder.defaults), SCREEN)

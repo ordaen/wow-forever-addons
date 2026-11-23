@@ -8,15 +8,19 @@ import root Ordaen from "Ordaen"
 import { BRIGHT_TEXT, Component, CountBadge, SECONDARY_TEXT } from "Ordaen"
 
 // The least a cell is high, and where it is drawn at that: the panel with the whole menu, seven bag buttons and the
-// money still fits a 1366 x 768 screen at a UI scale of 1. A cell is a little narrower than it is high.
+// money still fits a 1366 x 768 screen at a UI scale of 1. A cell is square.
 public const CELL_HEIGHT = 53ui
-public const CELL_WIDTH: Number<Length> = CELL_HEIGHT - 4.6875dp
+public const CELL_WIDTH: Number<Length> = CELL_HEIGHT
 // The face on the character's cell.
 const FACE = 46.875dp
 const ICON = 35ui
 const GOLD: Color = Color.hex("#ffb847")
-// The cell under the cursor: a warm light over the wood; pushed, a shade.
+// The cell under the cursor: a warm light over the wood; pushed, a shade. Its ground stands in from the cell's sides
+// by the cut's lip, so neither side of a cut beside it is lit or shaded; what the cell draws stands on that ground.
 const LIT: ByInteractionState<Color> = { default: Color.hex("#00000000"), hover: Color.hex("#ffd9a01f"), pressed: Color.hex("#00000040"), focus: Color.hex("#ffd9a01f") }
+const LIT_IN = 3.515625dp
+// The keyring's button draws a sheet of two states: its cell shows the key ring's own icon.
+const KEYRING_ICON: Asset = "Interface/Icons/INV_Misc_Key_03"
 // An icon as its file draws it.
 const UNTINTED: Color = Color.hex("#ffffff")
 
@@ -30,6 +34,10 @@ public struct CellSize {
   // would take the mouse from that button.
   iconTop: Number<Length>
   face: Number<Length>
+  // The ground's place in the cell and its size: what the cell draws stands on it, its places from the ground's corner.
+  ground: Number<Length>
+  groundWidth: Number<Length>
+  groundHeight: Number<Length>
 }
 
 public function cellSize(height: Number<Length>): CellSize {
@@ -37,8 +45,9 @@ public function cellSize(height: Number<Length>): CellSize {
   const width = CELL_WIDTH * scale
   const icon = ICON * scale
   return {
-    width: width, height: height, icon: icon, iconLeft: (width - icon) / 2,
-    iconTop: (height - icon) / 2, face: FACE * scale
+    width: width, height: height, icon: icon, iconLeft: (width - icon) / 2 - LIT_IN,
+    iconTop: (height - icon) / 2 - LIT_IN, face: FACE * scale, ground: LIT_IN, groundWidth: width - 2 * LIT_IN,
+    groundHeight: height - 2 * LIT_IN
   }
 }
 
@@ -73,16 +82,19 @@ public class MenuCell implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box width={self.size.width} height={self.size.height} background={LIT}>
-        <box position={Position.Absolute} left={self.size.iconLeft} top={self.size.iconTop} width={self.size.icon}
-             height={self.size.icon} background={self.icon} desaturate={self.gold} tint={self.tint}
-        />
-        <box $if={self.counted} position={Position.Absolute} right={self.badgeRight} bottom={self.badgeBottom}
-             zLevel={1}>
-          <CountBadge count={self.count} />
+      <box width={self.size.width} height={self.size.height}>
+        <box position={Position.Absolute} left={self.size.ground} top={self.size.ground} width={self.size.groundWidth}
+             height={self.size.groundHeight} background={LIT}>
+          <box position={Position.Absolute} left={self.size.iconLeft} top={self.size.iconTop} width={self.size.icon}
+               height={self.size.icon} background={self.icon} desaturate={self.gold} tint={self.tint}
+          />
+          <box $if={self.counted} position={Position.Absolute} right={self.badgeRight} bottom={self.badgeBottom}
+               zLevel={1}>
+            <CountBadge count={self.count} />
+          </box>
+          <embed frame={self.frame} position={Position.Absolute} left={-self.size.ground} top={-self.size.ground} width={self.size.width}
+                 height={self.size.height} opacity={0} />
         </box>
-        <embed frame={self.frame} position={Position.Absolute} left={0ui} top={0ui} width={self.size.width}
-               height={self.size.height} opacity={0} />
       </box>
     }
   }
@@ -92,8 +104,8 @@ public class MenuCell implements Component {
 // over the cell like the others.
 public class FaceCell implements Component {
   // Ordaen's art: its root is there before this module loads.
-  derived faceLeft: Number<Length> = (self.size.width - self.size.face) / 2
-  derived faceTop: Number<Length> = (self.size.height - self.size.face) / 2
+  derived faceLeft: Number<Length> = (self.size.width - self.size.face) / 2 - self.size.ground
+  derived faceTop: Number<Length> = (self.size.height - self.size.face) / 2 - self.size.ground
 
   size: Signal<CellSize>
   face: Signal<String | nil>
@@ -111,11 +123,14 @@ public class FaceCell implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box width={self.size.width} height={self.size.height} background={LIT}>
-        <box position={Position.Absolute} left={self.faceLeft} top={self.faceTop} width={self.size.face}
-             height={self.size.face} portrait={self.face} icon={self.icon} mask={Ordaen.art.panel.faceRound} />
-        <embed frame={Game.frames.CharacterMicroButton} position={Position.Absolute} left={0ui} top={0ui}
-               width={self.size.width} height={self.size.height} opacity={0} />
+      <box width={self.size.width} height={self.size.height}>
+        <box position={Position.Absolute} left={self.size.ground} top={self.size.ground} width={self.size.groundWidth}
+             height={self.size.groundHeight} background={LIT}>
+          <box position={Position.Absolute} left={self.faceLeft} top={self.faceTop} width={self.size.face}
+               height={self.size.face} portrait={self.face} icon={self.icon} mask={Ordaen.art.panel.faceRound} />
+          <embed frame={Game.frames.CharacterMicroButton} position={Position.Absolute} left={-self.size.ground} top={-self.size.ground}
+                 width={self.size.width} height={self.size.height} opacity={0} />
+        </box>
       </box>
     }
   }
@@ -129,6 +144,7 @@ public class BagCell implements Component {
   derived counted: Boolean = self.button.kind == Game.BagKind.Backpack && Game.bags.free > 0
   derived countInset: Number<Length> = self.size.iconLeft - 3.515625dp
   derived countBottom: Number<Length> = self.size.iconLeft - 7.03125dp
+  derived icon: Art | nil = self.button.kind == Game.BagKind.Keyring ? KEYRING_ICON : self.button.icon
 
   const button: Game.BagButton
   size: Signal<CellSize>
@@ -139,16 +155,19 @@ public class BagCell implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box width={self.size.width} height={self.size.height} background={LIT}>
-        <box position={Position.Absolute} left={self.size.iconLeft} top={self.size.iconTop} width={self.size.icon}
-             height={self.size.icon} icon={self.button.icon} />
-        <box $if={self.counted} position={Position.Absolute} right={self.countInset} bottom={self.countBottom}
-             zLevel={1}>
-          <text value={"%d"} arguments={[Game.bags.free]} textSize={SECONDARY_TEXT} textColor={BRIGHT_TEXT}
-                textFont={.Numbers} textOutline={1} wrap={.None} />
+      <box width={self.size.width} height={self.size.height}>
+        <box position={Position.Absolute} left={self.size.ground} top={self.size.ground} width={self.size.groundWidth}
+             height={self.size.groundHeight} background={LIT}>
+          <box position={Position.Absolute} left={self.size.iconLeft} top={self.size.iconTop} width={self.size.icon}
+               height={self.size.icon} icon={self.icon} />
+          <box $if={self.counted} position={Position.Absolute} right={self.countInset} bottom={self.countBottom}
+               zLevel={1}>
+            <text value={"%d"} arguments={[Game.bags.free]} textSize={SECONDARY_TEXT} textColor={BRIGHT_TEXT}
+                  textFont={.Numbers} textOutline={1} wrap={.None} />
+          </box>
+          <embed frame={self.button.frame} position={Position.Absolute} left={-self.size.ground} top={-self.size.ground} width={self.size.width}
+                 height={self.size.height} opacity={0} />
         </box>
-        <embed frame={self.button.frame} position={Position.Absolute} left={0ui} top={0ui} width={self.size.width}
-               height={self.size.height} opacity={0} />
       </box>
     }
   }

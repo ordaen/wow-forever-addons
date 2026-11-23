@@ -52,7 +52,7 @@ public struct BarChoice implements Plain {
   keys: Boolean
   visibility: Visibility
   // Its empty buttons unseen, but while something is dragged that could go on one.
-  hideEmpty: Boolean = false
+  hideEmpty: Boolean = true
 }
 
 public struct BarsChoices implements Plain {
@@ -66,7 +66,7 @@ public const BARS_DEFAULTS: BarsChoices = { bars: {}, unpaged: {} }
 
 // A bar's settings before the player changes them: on as the character's Blizzard settings have it.
 public function defaultChoice(spec: BarSpec, on: Boolean): BarChoice {
-  return { on: on, buttons: spec.most, perRow: spec.most, size: 45, spacing: 4, keys: true, visibility: ALWAYS }
+  return { on: on, buttons: spec.most, perRow: spec.most, size: 45, spacing: 4, keys: true, visibility: ALWAYS, hideEmpty: true }
 }
 
 // Another bar's settings copied into a bar: every one but its switch, which is the bar's own, held to what the bar
