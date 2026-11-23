@@ -34,8 +34,8 @@ const NO_ENTRIES: Array<MenuEntry> = []
 const TRADE = 7
 const REAGENT = 5
 const QUEST = 12
-// The client's double-click time, as the game's own double-click is told within it.
-const DOUBLE_TIME = 0.4
+// How far apart two left clicks are a double click: past Windows' own default (0.5 s), which players' hands follow.
+const DOUBLE_TIME = 0.6
 
 // What leaves a slot dimmed: the search's text (lower case), where the player stands, and the bag lit in the bag
 // slots' window (-1 for none).

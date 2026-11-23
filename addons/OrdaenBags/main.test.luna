@@ -775,11 +775,13 @@ test "a double left click on a slot is the client's own use of the item; a singl
   held(POTION).click()
   Test.expect(Test.performed().length == 0)
   // The double-click time gone: the next click is a first again.
-  Test.pass(0.5)
+  Test.pass(0.7)
   held(POTION).click()
   Test.expect(Test.performed().length == 0)
-  Test.pass(0.5)
+  Test.pass(0.7)
   held(POTION).click()
+  // Half a second apart, as a hand's double click often is.
+  Test.pass(0.5)
   held(POTION).click()
   Test.expect(Test.performed().join(", ") == "item 0 3" && asked("Bags.follow true, Items.show 118"))
   held(POTION).rightClick()
