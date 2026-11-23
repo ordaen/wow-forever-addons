@@ -27,7 +27,7 @@ import { Gold } from "@/gold"
 import { Guard, GuardTips, Hovered } from "@/guard"
 import { GUILD_ICON, GuildBank } from "@/guild"
 import { JUNK_RULES, JunkLists, JunkRules, LEARNED, Mark, NO_LISTS, afterSale, shareOf, teaches, withMark, withScore } from "@/junk"
-import { ROW_LEAST, SLOT_GAP, SLOT_SIZE } from "@/layout"
+import { NO_ROOM, ROW_LEAST, SLOT_GAP, SLOT_SIZE } from "@/layout"
 import Locale from "@/locales"
 import { MERCHANT_VIEW, MerchantView, MerchantWindow, SIDE_WIDTH } from "@/merchant"
 import { MOVED, Slot, SortBy } from "@/model"
@@ -687,11 +687,11 @@ public class Bags implements Module, App {
                       junkCount={self.carriedJunkCount} junkWorth={self.carriedJunkWorth} @sellJunk={self.sellJunk} />
       <$if={self.ever}>
         <Window tabs={self.windowTabs} selected={mut self.windowTab} declared={mut self.window} shown={self.shown}
-                minWidth={self.main.leastWidth} withSettings={true} footer={self.main.footer} @close={self.onClose} @settings={self.onSettings}>
+                minWidth={self.main.leastWidth} padding={NO_ROOM} withSettings={true} footer={self.main.footer} @close={self.onClose} @settings={self.onSettings}>
           {self.main.body}
         </Window>
         <Window tabs={self.vaultTabs} selected={mut self.vaultTab} declared={mut self.vaultWindow} shown={self.atVault}
-                minWidth={self.side.leastWidth} footer={self.side.footer} @close={self.onVaultClose}>
+                minWidth={self.side.leastWidth} padding={NO_ROOM} footer={self.side.footer} @close={self.onVaultClose}>
           {self.side.body}
         </Window>
         <BagSlotsWindow $if={self.slotsOpen && self.shown && self.main.isBags} lines={self.bagLines} declared={mut self.slotsWindow}

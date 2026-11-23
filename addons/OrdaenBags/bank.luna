@@ -7,7 +7,8 @@
 import Client from "$client"
 import Game from "$game"
 import { Align, Frame, Track } from "$ltml"
-import { ButtonPlate, Component, Dialog, KeptWindow, Money, PushButton, SECONDARY_TEXT, Window, WindowTabSpec, windowSides } from "Ordaen"
+import { ButtonPlate, Component, Dialog, KeptWindow, Money, PushButton, SECONDARY_TEXT, Window, WindowTabSpec } from "Ordaen"
+import { NO_ROOM, frameSides } from "@/layout"
 import Locale from "@/locales"
 
 // The bank's bag slots, by their place among the bank's tabs (`Enum.BagIndex.Characterbanktab`).
@@ -105,7 +106,7 @@ public class BankSlotsWindow implements Component {
 
   public render(self): Template {
     return $ltml {
-      <Window tabs={self.tabs} selected={mut self.tab} declared={mut self.declared} minWidth={LIST + windowSides()} @close={self.onClose}>
+      <Window tabs={self.tabs} selected={mut self.tab} declared={mut self.declared} minWidth={LIST + frameSides()} padding={NO_ROOM} @close={self.onClose}>
         <box columns={1} gap={3sp}>
           <BankBagEntry $for={bag of self.bags} bag={bag} />
           <box $if={self.buyable} columns={ROW} gap={3sp} yAlign={Align.Center}>

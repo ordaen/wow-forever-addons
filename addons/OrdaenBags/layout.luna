@@ -2,9 +2,22 @@
 // cards side by side in their fixed order while they fit the list's width, each line of them as high as its tallest
 // card. A line's height is worked out here, so the list can be as high as what it holds and no item is hidden under a
 // scroll the window was sized to.
-import { Track } from "$ltml"
+import { Edges, Track } from "$ltml"
 import root Ordaen from "Ordaen"
+import { WINDOW_ROOM, windowSides } from "Ordaen"
 import { Slot } from "@/model"
+
+// A window's page runs to the frame's line on every side and down to its footer (`padding` none): its list takes the
+// whole section. What stands over the list (the toolbar) keeps the window's room at the top and the sides.
+public const NO_ROOM: Edges = {}
+public const TOOL_ROOM: Edges = { top: 8sp, right: 8sp, left: 8sp }
+// A line of a list: its text kept off the frame.
+public const ROW_ROOM: Edges = { top: 1sp, right: 8sp, bottom: 1sp, left: 8sp }
+
+// What a window takes of its width round a page with no room of its own: the frame's line and the art past it.
+public function frameSides(): Number<Length> {
+  return windowSides() - Ordaen.lengthOf(2 * WINDOW_ROOM)
+}
 
 // A slot's size is the player's choice (`Choices.slotSize`, in the interface's pixels: `SLOT_PIXEL` each), this where
 // none is made, from `SLOT_SIZE_LEAST` to `SLOT_SIZE_MOST`. Inside a card, round what it holds; between two cards.

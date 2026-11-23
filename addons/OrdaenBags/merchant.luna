@@ -12,6 +12,7 @@ import Game from "$game"
 import { Align, Art, Columns, Event, MouseButton, Position, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import { ARTWORK, ButtonPlate, Choice, Column, Component, CountInput, Dialog, FoldCaption, FooterBand, FooterCount, FooterCounts, ItemButton, KeptWindow, ModuleMemory, Money, PushButton, SECONDARY_TEXT, ScrolledList, Table, TableRow, ToolPick, Toolbar, Window, WindowSide, WindowTabSpec, tracksOf } from "Ordaen"
+import { NO_ROOM, TOOL_ROOM } from "@/layout"
 import Locale from "@/locales"
 import { KINDS, Tab } from "@/model"
 import { tabName } from "@/sections"
@@ -530,16 +531,18 @@ public class MerchantWindow implements Component {
 
   public render(self): Template {
     return $ltml {
-      <Window tabs={self.tabs} selected={mut self.tab} declared={mut self.declared} side={self.side} footer={self.footer}
+      <Window tabs={self.tabs} selected={mut self.tab} declared={mut self.declared} side={self.side} padding={NO_ROOM} footer={self.footer}
               @close={self.onClose}>
         <box $if={self.buying} rows={BODY} gap={6sp}>
-          <Toolbar search={mut self.search} placeholder={Locale.SEARCH}>
-            <ToolPick $if={!self.tabled} value={mut self.list.values.sort} choices={SORTS} icon={Ordaen.art.ctl.tool.sort}
-                      title={Locale.SORT} />
-            <ToolPick value={mut self.list.values.filter} choices={FILTERS} icon={Ordaen.art.ctl.tool.filter}
-                      title={Locale.FILTER} lit={self.narrowed} />
-            <ToolPick value={mut self.list.values.view} choices={VIEWS} icon={Ordaen.art.ctl.tool.list} title={Locale.VIEW} />
-          </Toolbar>
+          <box padding={TOOL_ROOM}>
+            <Toolbar search={mut self.search} placeholder={Locale.SEARCH}>
+              <ToolPick $if={!self.tabled} value={mut self.list.values.sort} choices={SORTS} icon={Ordaen.art.ctl.tool.sort}
+                        title={Locale.SORT} />
+              <ToolPick value={mut self.list.values.filter} choices={FILTERS} icon={Ordaen.art.ctl.tool.filter}
+                        title={Locale.FILTER} lit={self.narrowed} />
+              <ToolPick value={mut self.list.values.view} choices={VIEWS} icon={Ordaen.art.ctl.tool.list} title={Locale.VIEW} />
+            </Toolbar>
+          </box>
           <box $if={self.tabled} rows={FILL}>
             <Table columns={COLUMNS} sorted={mut self.list.values.sorted} descending={mut self.list.values.descending}>
               <WareTableRow $for={ware of self.shown} $key={ware.index} ware={ware} @pressed={self.onWareRow} />
