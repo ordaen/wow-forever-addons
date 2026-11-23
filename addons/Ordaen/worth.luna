@@ -1,0 +1,203 @@
+// What an item is worth to the player: the sum of its stats, each by the weight the player's spec gives it
+// (`weights.luna`), and how much more or less that is than what the player wears in its place. The spec is the one
+// the player plays (its specialisation's place among its class's), or a build the player chose for the class (a
+// Shockadin); below the level's cap it weighs as it levels.
+import Client from "$client"
+import Game from "$game"
+import { SPEC_WEIGHTS, SpecWeights, Weights } from "@/weights"
+
+// The level's cap, where a spec weighs by its `max`.
+const MAX_LEVEL = 60
+
+// How a stat of the client's item stats (`C_Item.GetItemStats`' keys) is weighed: the weight it takes, and the
+// combat rating it counts in (none: 0), which the client turns into the percentage the weight is per.
+struct Weighing {
+  weight: (weights: Weights, ranged: Boolean) => Number
+  rating: Integer = 0
+}
+
+// The client's combat ratings (`CR_*`) the weights are per 1% of.
+const HIT = 6
+const CRIT = 9
+const DODGE = 3
+const PARRY = 4
+const BLOCK = 5
+const HASTE = 18
+const EXPERTISE = 24
+
+const WEIGHINGS: Map<String, Weighing> = {
+  ITEM_MOD_STRENGTH_SHORT: { weight: (w: Weights, r: Boolean): Number => w.strength },
+  ITEM_MOD_AGILITY_SHORT: { weight: (w: Weights, r: Boolean): Number => w.agility },
+  ITEM_MOD_STAMINA_SHORT: { weight: (w: Weights, r: Boolean): Number => w.stamina },
+  ITEM_MOD_INTELLECT_SHORT: { weight: (w: Weights, r: Boolean): Number => w.intellect },
+  ITEM_MOD_SPIRIT_SHORT: { weight: (w: Weights, r: Boolean): Number => w.spirit },
+  RESISTANCE0_NAME: { weight: (w: Weights, r: Boolean): Number => w.armor },
+  ITEM_MOD_EXTRA_ARMOR_SHORT: { weight: (w: Weights, r: Boolean): Number => w.armor },
+  RESISTANCE2_NAME: { weight: (w: Weights, r: Boolean): Number => w.fireResist },
+  RESISTANCE3_NAME: { weight: (w: Weights, r: Boolean): Number => w.natureResist },
+  RESISTANCE4_NAME: { weight: (w: Weights, r: Boolean): Number => w.frostResist },
+  RESISTANCE5_NAME: { weight: (w: Weights, r: Boolean): Number => w.shadowResist },
+  RESISTANCE6_NAME: { weight: (w: Weights, r: Boolean): Number => w.arcaneResist },
+  ITEM_MOD_ATTACK_POWER_SHORT: { weight: (w: Weights, r: Boolean): Number => w.ap },
+  ITEM_MOD_MELEE_ATTACK_POWER_SHORT: { weight: (w: Weights, r: Boolean): Number => w.ap },
+  ITEM_MOD_RANGED_ATTACK_POWER_SHORT: { weight: (w: Weights, r: Boolean): Number => w.rap },
+  ITEM_MOD_FERAL_ATTACK_POWER_SHORT: { weight: (w: Weights, r: Boolean): Number => w.feralAp },
+  ITEM_MOD_HIT_RATING_SHORT: { weight: (w: Weights, r: Boolean): Number => w.hitRating, rating: HIT },
+  ITEM_MOD_HIT_MELEE_RATING_SHORT: { weight: (w: Weights, r: Boolean): Number => w.hitRating, rating: HIT },
+  ITEM_MOD_HIT_RANGED_RATING_SHORT: { weight: (w: Weights, r: Boolean): Number => w.hitRating, rating: HIT },
+  ITEM_MOD_HIT_SPELL_RATING_SHORT: { weight: (w: Weights, r: Boolean): Number => w.hitRating, rating: HIT },
+  ITEM_MOD_CRIT_RATING_SHORT: { weight: (w: Weights, r: Boolean): Number => w.critRating, rating: CRIT },
+  ITEM_MOD_CRIT_MELEE_RATING_SHORT: { weight: (w: Weights, r: Boolean): Number => w.critRating, rating: CRIT },
+  ITEM_MOD_CRIT_RANGED_RATING_SHORT: { weight: (w: Weights, r: Boolean): Number => w.critRating, rating: CRIT },
+  ITEM_MOD_CRIT_SPELL_RATING_SHORT: { weight: (w: Weights, r: Boolean): Number => w.critRating, rating: CRIT },
+  ITEM_MOD_HASTE_RATING_SHORT: { weight: (w: Weights, r: Boolean): Number => w.hasteRating, rating: HASTE },
+  ITEM_MOD_EXPERTISE_RATING_SHORT: { weight: (w: Weights, r: Boolean): Number => w.expertiseRating, rating: EXPERTISE },
+  ITEM_MOD_DODGE_RATING_SHORT: { weight: (w: Weights, r: Boolean): Number => w.dodgeRating, rating: DODGE },
+  ITEM_MOD_PARRY_RATING_SHORT: { weight: (w: Weights, r: Boolean): Number => w.parryRating, rating: PARRY },
+  ITEM_MOD_BLOCK_RATING_SHORT: { weight: (w: Weights, r: Boolean): Number => w.blockRating, rating: BLOCK },
+  ITEM_MOD_DEFENSE_SKILL_RATING_SHORT: { weight: (w: Weights, r: Boolean): Number => w.defenseRating },
+  ITEM_MOD_BLOCK_VALUE_SHORT: { weight: (w: Weights, r: Boolean): Number => w.blockValue },
+  ITEM_MOD_SPELL_POWER_SHORT: { weight: (w: Weights, r: Boolean): Number => w.spellDamage + w.healing },
+  ITEM_MOD_SPELL_DAMAGE_DONE_SHORT: { weight: (w: Weights, r: Boolean): Number => w.spellDamage },
+  ITEM_MOD_SPELL_HEALING_DONE_SHORT: { weight: (w: Weights, r: Boolean): Number => w.healing },
+  ITEM_MOD_FIRE_DAMAGE_DONE_SHORT: { weight: (w: Weights, r: Boolean): Number => w.fireSpellDamage },
+  ITEM_MOD_FROST_DAMAGE_DONE_SHORT: { weight: (w: Weights, r: Boolean): Number => w.frostSpellDamage },
+  ITEM_MOD_ARCANE_DAMAGE_DONE_SHORT: { weight: (w: Weights, r: Boolean): Number => w.arcaneSpellDamage },
+  ITEM_MOD_NATURE_DAMAGE_DONE_SHORT: { weight: (w: Weights, r: Boolean): Number => w.natureSpellDamage },
+  ITEM_MOD_SHADOW_DAMAGE_DONE_SHORT: { weight: (w: Weights, r: Boolean): Number => w.shadowSpellDamage },
+  ITEM_MOD_HOLY_DAMAGE_DONE_SHORT: { weight: (w: Weights, r: Boolean): Number => w.holySpellDamage },
+  ITEM_MOD_MANA_REGENERATION_SHORT: { weight: (w: Weights, r: Boolean): Number => w.mp5 },
+  ITEM_MOD_HEALTH_REGENERATION_SHORT: { weight: (w: Weights, r: Boolean): Number => w.hp5 },
+  ITEM_MOD_HEALTH_REGEN_SHORT: { weight: (w: Weights, r: Boolean): Number => w.hp5 },
+  ITEM_MOD_MANA_SHORT: { weight: (w: Weights, r: Boolean): Number => w.mana },
+  ITEM_MOD_HEALTH_SHORT: { weight: (w: Weights, r: Boolean): Number => w.health },
+  // A weapon's damage per second: a ranged one's as ranged.
+  ITEM_MOD_DAMAGE_PER_SECOND_SHORT: { weight: (w: Weights, r: Boolean): Number => r ? w.rangedDps : w.meleeDps }
+}
+
+// Where an item is worn (`INVTYPE_*`), by the slots of the player's it can take (`INVSLOT_*`): one of them, or with
+// `both` all at once (a two-handed weapon takes the off hand's place too).
+struct Places {
+  slots: Array<Integer>
+  both: Boolean = false
+}
+
+const MAIN_HAND = 16
+const OFF_HAND = 17
+
+const PLACES: Map<String, Places> = {
+  INVTYPE_HEAD: { slots: [1] }, INVTYPE_NECK: { slots: [2] }, INVTYPE_SHOULDER: { slots: [3] },
+  INVTYPE_CHEST: { slots: [5] }, INVTYPE_ROBE: { slots: [5] }, INVTYPE_WAIST: { slots: [6] }, INVTYPE_LEGS: { slots: [7] },
+  INVTYPE_FEET: { slots: [8] }, INVTYPE_WRIST: { slots: [9] }, INVTYPE_HAND: { slots: [10] },
+  INVTYPE_FINGER: { slots: [11, 12] }, INVTYPE_TRINKET: { slots: [13, 14] }, INVTYPE_CLOAK: { slots: [15] },
+  INVTYPE_WEAPON: { slots: [MAIN_HAND, OFF_HAND] }, INVTYPE_WEAPONMAINHAND: { slots: [MAIN_HAND] },
+  INVTYPE_2HWEAPON: { slots: [MAIN_HAND, OFF_HAND], both: true },
+  INVTYPE_SHIELD: { slots: [OFF_HAND] }, INVTYPE_WEAPONOFFHAND: { slots: [OFF_HAND] }, INVTYPE_HOLDABLE: { slots: [OFF_HAND] },
+  INVTYPE_RANGED: { slots: [18] }, INVTYPE_RANGEDRIGHT: { slots: [18] }, INVTYPE_THROWN: { slots: [18] },
+  INVTYPE_RELIC: { slots: [18] }
+}
+
+// Where an item is worn that fires from afar: its damage weighs as ranged.
+function ranged(worn: String): Boolean {
+  return worn == "INVTYPE_RANGED" || worn == "INVTYPE_RANGEDRIGHT" || worn == "INVTYPE_THROWN"
+}
+
+// An upgrade as the player reads it: «+15%»; nothing for none, or for one worth less.
+public function upgradeText(share: Number | nil): String {
+  if (share == nil || share <= 0) { return "" }
+  return `+${(share * 100).round()}%`
+}
+
+// The worth of an item's stats (the client's keys, their amounts) by a spec's weights: each rating made the percentage
+// the client says it gives; a weapon's damage weighed as ranged where it fires from afar.
+public function scoreWith(weights: Weights, stats: Map<String, Number>, far: Boolean): Number {
+  let score: Number = 0
+  for (key, value of stats) {
+    const weighing = WEIGHINGS[key]
+    if (weighing == nil) { continue }
+    const amount = weighing.rating == 0 ? value : Client.GetCombatRatingBonusForCombatRatingValue(weighing.rating, value) ?? value
+    score += amount * weighing.weight(weights, far)
+  }
+  return score
+}
+
+// A class's specs and builds, in the weights' order.
+public function specsOf(classTag: String): Array<SpecWeights> {
+  return SPEC_WEIGHTS.filter(spec => spec.classTag == classTag)
+}
+
+// The spec a class weighs by: the build chosen (by its key), else the specialisation played (by its place), else the
+// class's first.
+public function specOf(classTag: String, played: Integer | nil, chosen: String | nil): SpecWeights | nil {
+  const specs = specsOf(classTag)
+  if (chosen != nil) {
+    const build = specs.find(spec => spec.key == chosen)
+    if (build != nil) { return build }
+  }
+  if (played != nil) {
+    const spec = specs.find(spec => spec.spec == played)
+    if (spec != nil) { return spec }
+  }
+  return specs[1]
+}
+
+public class GearWorth {
+  // The build the player chose for the class, by its key (a Shockadin); none: the specialisation played.
+  public state chosen: String | nil = nil
+  public derived spec: SpecWeights | nil = specOf(Game.player.classTag, Game.player.spec?.index, self.chosen)
+  public derived weights: Weights | nil = self.weightsNow()
+
+  // The build chosen, by its key; empty: the specialisation played.
+  public choose(mut self, build: String) { self.chosen = build == "" ? nil : build }
+
+  weightsNow(self): Weights | nil {
+    const spec = self.spec
+    if (spec == nil) { return nil }
+    return Game.player.level >= MAX_LEVEL ? spec.max : spec.leveling
+  }
+
+  // An item's worth to the spec, by its link: the sum of its stats, each by its weight; none where the spec weighs
+  // nothing or the item isn't worn.
+  public scoreOf(self, link: String): Number | nil {
+    const weights = self.weights
+    if (weights == nil) { return nil }
+    let _, _, _, worn, _, _, _ = Client.C_Item.GetItemInfoInstant(link)
+    if (worn == nil || PLACES[worn] == nil) { return nil }
+    const stats = Client.C_Item.GetItemStats(link)
+    if (!(stats is Table)) { return nil }
+    let given: Map<String, Number> = {}
+    for (key, value of stats) {
+      if (key is String && value is Number) { given[key] = value }
+    }
+    return scoreWith(weights, given, ranged(worn))
+  }
+
+  // How much more the item is worth than what the player wears in its place, as a share (0.15: 15% more; less than
+  // nought: worth less): against the least of the slots it can take, a two-handed weapon against both hands. Nothing
+  // worn there: 1. None where the item isn't worn or the spec weighs nothing.
+  public upgradeOf(self, link: String): Number | nil {
+    const score = self.scoreOf(link)
+    if (score == nil) { return nil }
+    let _, _, _, worn, _, _, _ = Client.C_Item.GetItemInfoInstant(link)
+    const places = worn != nil ? PLACES[worn] : nil
+    if (places == nil) { return nil }
+    let held: Number | nil = nil
+    if (places.both) {
+      held = self.wornScore(MAIN_HAND) + self.wornScore(OFF_HAND)
+    } else {
+      for (slot of places.slots) {
+        const there = self.wornScore(slot)
+        if (held == nil || there < held) { held = there }
+      }
+    }
+    const was = held ?? 0
+    if (was <= 0) { return score > 0 ? 1 : nil }
+    return (score - was) / was
+  }
+
+  // The worth of what the player wears in a slot; nought for nothing.
+  wornScore(self, slot: Integer): Number {
+    const link = Client.GetInventoryItemLink("player", slot)
+    return link != nil ? self.scoreOf(link) ?? 0 : 0
+  }
+}

@@ -23,6 +23,7 @@ const SWORD: FileId = 135274
 const CLOTH: FileId = 132889
 const GEM: FileId = 134134
 const COIN: Asset = "Interface/MoneyFrame/UI-GoldIcon"
+const UPGRADE_ARROW: Atlas = "bags-greenarrow"
 const BANK_TAB: FileId = 133639
 // The bank's first tab, as the client numbers its container (`Enum.BagIndex.CharacterBankTab_1`).
 const BANK = 6
@@ -231,6 +232,28 @@ test "a quest's item carries the game's quest border, one that starts a quest no
   Test.expect(bags().button(FOOT).paintedWith(border) && !bags().button(FOOT).paintedWith(bang))
   Test.expect(bags().button(SWORD).paintedWith(bang) && !bags().button(SWORD).paintedWith(border))
   Test.expect(!bags().button(CLOTH).paintedWith(border) && !bags().button(CLOTH).paintedWith(bang))
+}
+
+test "gear worth more to the player's spec than what it wears carries the game's green arrow; the rest none" {
+  const world = new World([
+    { bag: 0, slot: 1, id: 3300, name: "Rabbit's Foot", icon: FOOT, count: 3, quality: 0 },
+    { bag: 0, slot: 2, id: 25, name: "Worn Shortsword", icon: SWORD, kind: 4, subkind: 1 }
+  ])
+  Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
+  Game.bags.size = (bag: Integer): Integer => world.size(bag)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.items.icon = (id: Integer): Art | nil => world.icon(id)
+  Game.items.maxStack = (id: Integer): Integer | nil => 20
+  // The priest wears nothing on its hands; the gloves give intellect.
+  Client.C_Item.GetItemInfoInstant = (item: String | Integer): (Number | nil, String | nil, String | nil, String | nil, FileId | nil, Number | nil, Number | nil) => {
+    return 25, "Armor", "Cloth", "INVTYPE_HAND", nil, 4, 1
+  }
+  let given: Map<String, Number> = {}
+  given["ITEM_MOD_INTELLECT_SHORT"] = 10
+  Client.C_Item.GetItemStats = (link: String): Unknown => given
+  Test.mount(nil, SCREEN)
+  Game.bags.open = true
+  Test.expect(bags().button(SWORD).paintedWith(UPGRADE_ARROW) && !bags().button(FOOT).paintedWith(UPGRADE_ARROW))
 }
 
 test "the right click opens the slot's menu, and «Not junk» takes the item out of junk at once, with a line in the chat" {

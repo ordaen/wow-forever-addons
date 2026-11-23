@@ -60,6 +60,7 @@
   "TALENT_POINTS": "Talent points required",
   "TALENT_LOCKED": "Learn the talent before it first",
   "EQUIPPED": "Equipped",
+  "WORTH_FOR": "Against what you wear, for %s",
   "SECTION_MORE": "More information",
   "TAB_AURAS": "Effects",
   "TAB_GENERAL": "General",

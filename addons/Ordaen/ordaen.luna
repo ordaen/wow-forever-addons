@@ -21,6 +21,7 @@ import { ProfileName } from "@/profiles"
 import { Settings } from "@/settings"
 import { SettingsWindow } from "@/settingsWindow"
 import { BODY_TEXT, LEADINGS, spacingFor } from "@/units"
+import { GearWorth } from "@/worth"
 
 // The most items' tooltips kept at once.
 const TIPS_MOST = 512
@@ -87,6 +88,8 @@ public class OrdaenCore implements App {
   public const parts = new Registry<Mover>()
   // The hotkeys modules add to the tooltips of the game's frames they draw or bind (the action bars' buttons).
   public const hotkeys = new Registry<any OwnerKeys>()
+  // What items are worth to the player's spec, and how much more than what it wears.
+  public const worth: mut GearWorth = new GearWorth()
   // Where the player put each part: read by a part an entry at a time, so a part follows its own place.
   const places: mut Settings<Places>
   // Which modules the player turned off: the account's, whatever each character's list of addons says.

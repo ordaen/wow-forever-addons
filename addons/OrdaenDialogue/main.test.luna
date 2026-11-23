@@ -9,7 +9,7 @@ import Test from "$test"
 import root Ordaen from "Ordaen"
 import { ROW_HOVER } from "Ordaen"
 import root Dialogue from "OrdaenDialogue"
-import { SHEET_ART, pawnText } from "OrdaenQuestPage"
+import { SHEET_ART } from "OrdaenQuestPage"
 import root Quests from "OrdaenQuests"
 import { Auto } from "@/settings"
 
@@ -579,23 +579,13 @@ test "the sell price: the dearest reward's in gold" {
   Test.expect(window().text("Courier Boots").item().texts().any(text => text.contains("Leather")))
 }
 
-test "Pawn's column, while Pawn is loaded: the best upgrade with its arrow" {
+test "the upgrade column, by what each reward is worth to the player's spec: the best with its arrow" {
   Test.mount(nil, SCREEN)
-  Dialogue.pawnLoaded = (): Boolean => true
   Dialogue.upgradeOf = (link: String): Number | nil => link == "item:1001" ? 0.08 : 0.03
   Test.talk(innkeeper())
   Test.quest(pie())
   Events.QUEST_COMPLETE.emit()
-  Test.expect(pawnText(0.08) == "+8%")
-  Test.expect(window().text("+8%").shown() && window().text("+3%").shown())
-}
-
-test "without Pawn there is no column" {
-  Test.mount(nil, SCREEN)
-  Test.talk(innkeeper())
-  Test.quest(pie())
-  Events.QUEST_COMPLETE.emit()
-  Test.expect(!window().text("+8%").shown() && !Dialogue.pawnShown)
+  Test.expect(Dialogue.upgradesShown && window().text("+8%").shown() && window().text("+3%").shown())
 }
 
 test "a group quest says its group's size" {

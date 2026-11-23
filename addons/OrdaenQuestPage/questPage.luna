@@ -1,7 +1,7 @@
 // A quest's page as the game's quest windows show it, the pieces Dialogue's quest page and Quests' log share: the
 // scroll (a torn sheet of parchment, dark ink only) and, under it in the dark well, its rewards: a row each (its key
-// where it is picked by one, its slot, its name in its quality's colour with its slot and type under it, Pawn's column
-// while Pawn is loaded, its sell price, the dearest one's in gold), then experience, each reputation and money, a row
+// where it is picked by one, its slot, its name in its quality's colour with its slot and type under it, the upgrade column
+// while the player's spec weighs, its sell price, the dearest one's in gold), then experience, each reputation and money, a row
 // each of what it is and how much; each section under an engraved cut with its title.
 import Client from "$client"
 import Game from "$game"
@@ -10,8 +10,9 @@ import {
   Tile, Track
 } from "$ltml"
 import Runtime from "$runtime"
+import root Ordaen from "Ordaen"
 import {
-  BODY_TEXT, BRIGHT_TEXT, Component, Cut, ItemButton, Money, PickRow, Quality, SECONDARY_TEXT, TITLE_TEXT, Tip, qualityColor, qualityFrom,
+  BODY_TEXT, BRIGHT_TEXT, Component, upgradeText, Cut, ItemButton, Money, PickRow, Quality, SECONDARY_TEXT, TITLE_TEXT, Tip, qualityColor, qualityFrom,
   usableItem
 } from "Ordaen"
 import Locale from "@/locales"
@@ -62,16 +63,16 @@ const KEYCAP: Color = Color.hex("#00000080")
 const KEYCAP_EDGE: Line = { width: 1.171875dp, color: Color.hex("#4a3a24") }
 const KEY_TEXT: Color = Color.hex("#c9a76a")
 const KEYCAP_SMALL = 25.78125dp
-const PAWN_WIDTH = 70.3125dp
-const WITH_PAWN: Array<Track> = ["max-content", "max-content", { fr: 1 }, PAWN_WIDTH, "max-content"]
-const NO_PAWN: Array<Track> = ["max-content", "max-content", { fr: 1 }, "max-content"]
+const UPGRADE_WIDTH = 70.3125dp
+const WITH_UPGRADE: Array<Track> = ["max-content", "max-content", { fr: 1 }, UPGRADE_WIDTH, "max-content"]
+const NO_UPGRADE: Array<Track> = ["max-content", "max-content", { fr: 1 }, "max-content"]
 // A reward's tooltip beside its row: its top left on the row's top right.
 const BY_THE_ROW: Hang = { point: Point.TopLeft, to: Point.TopRight }
 // The game's green arrow of an upgrade, before the best one's word.
 const UPGRADE: Atlas = "bags-greenarrow"
 const ARROW = 14.0625dp
 // The arrow's room and the word, the word at the column's end.
-const PAWN_CELLS: Array<Track> = [ARROW, { fr: 1 }]
+const UPGRADE_CELLS: Array<Track> = [ARROW, { fr: 1 }]
 
 // The scroll's width, its art's (1024 texels): where it stands, it is about as wide, its rolls barely stretched.
 public const SCROLL_WIDTH: Number<Length> = 468.75dp
@@ -358,12 +359,6 @@ public function logReward(item: Integer, count: Integer, index: Integer): Reward
   return itemReward(item, count, name ?? "", artOf(texture), usableItem(item), link, index)
 }
 
-// Pawn's word on a reward: «+8%»; nothing for no upgrade.
-public function pawnText(percent: Number | nil): String {
-  if (percent == nil || percent <= 0) { return "" }
-  return `+${(percent * 100).round()}%`
-}
-
 // Keycap: the key that picks a line or a reward, in a small dark cap; as big as a reward's icon where it stands
 // beside one. An empty key keeps the cap's width alone, so the column holds.
 public class Keycap implements Component {
@@ -388,16 +383,16 @@ public class Keycap implements Component {
   }
 }
 
-// A reward as its row shows it: Pawn's word on it, and whether it is the best upgrade and the dearest.
+// A reward as its row shows it: its upgrade, and whether it is the best upgrade and the dearest.
 public struct RewardView {
   const reward: Reward
-  // Pawn's upgrade, 0.15 for 15%; 0 for none.
-  const pawn: Number
+  // How much more it is worth than what is worn (Ordaen's worth), 0.15 for 15%; 0 for none.
+  const upgrade: Number
   const best: Boolean
   const dearest: Boolean
 }
 
-// The rows of rewards to choose: Pawn's best upgrade marked, and the dearest at a vendor.
+// The rows of rewards to choose: the best upgrade marked, and the dearest at a vendor.
 public function choiceViews(rewards: Array<Reward>, upgrades: Array<Number>): Array<RewardView> {
   let best: Number = 0
   let dearest = 0
@@ -407,8 +402,8 @@ public function choiceViews(rewards: Array<Reward>, upgrades: Array<Number>): Ar
   }
   let views: Array<RewardView> = []
   for (index, reward of rewards) {
-    const pawn = upgrades[index] ?? 0
-    views.push({ reward: reward, pawn: pawn, best: pawn > 0 && pawn == best, dearest: dearest > 0 && reward.sell == dearest })
+    const upgrade = upgrades[index] ?? 0
+    views.push({ reward: reward, upgrade: upgrade, best: upgrade > 0 && upgrade == best, dearest: dearest > 0 && reward.sell == dearest })
   }
   return views
 }
@@ -437,7 +432,7 @@ public class Rewards implements Component {
   pickable: Signal<Boolean>
   choice: Signal<Integer>
   hints: Signal<Boolean>
-  pawnColumn: Signal<Boolean>
+  upgradeColumn: Signal<Boolean>
   // Many rows stand in two columns, the page growing for them (a window's side); else one, whatever their names.
   paired: Signal<Boolean>
   constructor(
@@ -449,7 +444,7 @@ public class Rewards implements Component {
     pickable: Signal<Boolean> = false,
     choice: Signal<Integer> = 0,
     hints: Signal<Boolean> = false,
-    pawnColumn: Signal<Boolean> = false,
+    upgradeColumn: Signal<Boolean> = false,
     paired: Signal<Boolean> = false
   ) {
     self.paired = paired
@@ -461,7 +456,7 @@ public class Rewards implements Component {
     self.pickable = pickable
     self.choice = choice
     self.hints = hints
-    self.pawnColumn = pawnColumn
+    self.upgradeColumn = upgradeColumn
   }
 
   onChoose(mut self, index: Integer) { self.choose.emit(index) }
@@ -472,8 +467,8 @@ public class Rewards implements Component {
         <Cut title={self.chooseTitle} />
         <box columns={self.choiceColumns} gap={ROWS_GAP}>
           <RewardRow $for={view of self.views} reward={view.reward} pickable={self.pickable}
-                     picked={view.reward.index == self.choice} hints={self.hints} pawnColumn={self.pawnColumn}
-                     pawn={view.pawn} best={view.best} dearest={view.dearest} @choose={self.onChoose} />
+                     picked={view.reward.index == self.choice} hints={self.hints} upgradeColumn={self.upgradeColumn}
+                     upgrade={view.upgrade} best={view.best} dearest={view.dearest} @choose={self.onChoose} />
         </box>
       </box>
       <box $if={self.received} gap={SECTION_GAP} padding={SECTION}>
@@ -532,33 +527,33 @@ public class Experience implements Component {
 
 // A quest's reward, one to a row and never wrapped: its key where it is picked by one (as big as its icon), its slot
 // (the item's icon, its tooltip under the cursor, Shift+Left-click its link into the chat, Ctrl+Left-click tried on),
-// its name in its quality's colour with its slot and type under it (dimmed, red where the player can't wear it), Pawn's
-// column while Pawn is loaded (how much better than what is worn, the best with the game's green arrow; empty for no
+// its name in its quality's colour with its slot and type under it (dimmed, red where the player can't wear it), the
+// upgrade column while the player's spec weighs (how much better than what is worn, the best with the game's green arrow; empty for no
 // upgrade) and its sell price, the dearest one's in gold. A reward to choose is a row the player picks (click, its
 // key, or the keyboard's focus and Enter); one given is a row alone.
 public class RewardRow implements Component {
   public choose: Event<Integer> = new Event()
 
-  derived columns: Array<Track> = self.pawnColumn ? WITH_PAWN : NO_PAWN
+  derived columns: Array<Track> = self.upgradeColumn ? WITH_UPGRADE : NO_UPGRADE
   derived keyed: Boolean = self.hints && self.pickable
   derived key: String = self.reward.index <= 9 ? String.of(self.reward.index) : ""
   derived nameColor: Color = qualityColor(self.reward.quality)
   derived detailColor: Color = self.reward.unusable ? WELL_RED : WELL_DIM
   derived hasDetail: Boolean = self.reward.detail != ""
-  derived pawnWord: String = pawnText(self.pawn)
-  derived pawnColor: Color = self.best ? BEST : WELL_GREEN
+  derived upgradeWord: String = upgradeText(self.upgrade)
+  derived upgradeColor: Color = self.best ? BEST : WELL_GREEN
   derived priced: Boolean = self.reward.sell > 0
   derived priceColor: Color = self.dearest ? WELL_GOLD : WELL_DIM
-  state pawnHovered = false
-  derived pawnTipShown: Boolean = self.pawnHovered && self.pawnWord != ""
-  derived pawnTip: String = Locale.QUEST_PAWN_TIP.format(((self.pawn ?? 0) * 100).round())
+  state upgradeHovered = false
+  derived upgradeTipShown: Boolean = self.upgradeHovered && self.upgradeWord != ""
+  derived upgradeTip: String = Locale.QUEST_UPGRADE_TIP.format(((self.upgrade ?? 0) * 100).round())
 
   reward: Signal<Reward>
   pickable: Signal<Boolean>
   picked: Signal<Boolean>
   hints: Signal<Boolean>
-  pawnColumn: Signal<Boolean>
-  pawn: Signal<Number | nil>
+  upgradeColumn: Signal<Boolean>
+  upgrade: Signal<Number | nil>
   best: Signal<Boolean>
   dearest: Signal<Boolean>
   constructor(
@@ -567,8 +562,8 @@ public class RewardRow implements Component {
     pickable: Signal<Boolean> = false,
     picked: Signal<Boolean> = false,
     hints: Signal<Boolean> = false,
-    pawnColumn: Signal<Boolean> = false,
-    pawn: Signal<Number | nil> = nil,
+    upgradeColumn: Signal<Boolean> = false,
+    upgrade: Signal<Number | nil> = nil,
     best: Signal<Boolean> = false,
     dearest: Signal<Boolean> = false
   ) {
@@ -576,8 +571,8 @@ public class RewardRow implements Component {
     self.pickable = pickable
     self.picked = picked
     self.hints = hints
-    self.pawnColumn = pawnColumn
-    self.pawn = pawn
+    self.upgradeColumn = upgradeColumn
+    self.upgrade = upgrade
     self.best = best
     self.dearest = dearest
   }
@@ -596,8 +591,8 @@ public class RewardRow implements Component {
     if (press.button == MouseButton.Left && Game.input.controlDown() && link != nil) { _ = Client.DressUpItemLink(link) }
   }
 
-  onPawnEnter(mut self) { self.pawnHovered = true }
-  onPawnLeave(mut self) { self.pawnHovered = false }
+  onUpgradeEnter(mut self) { self.upgradeHovered = true }
+  onUpgradeLeave(mut self) { self.upgradeHovered = false }
 
   // The reward's tooltip over all of its row: its top left on the row's top right, where that keeps it on the screen.
   onRowEnter(self, frame: any Frame) {
@@ -617,17 +612,17 @@ public class RewardRow implements Component {
       <PickRow $if={self.pickable} columns={self.columns} picked={self.picked} @pick={self.onPick}
                @entered={self.onRowEnter}>
         <RewardCells reward={self.reward} keyed={self.keyed} key={self.key} nameColor={self.nameColor}
-                     detailColor={self.detailColor} hasDetail={self.hasDetail} pawnColumn={self.pawnColumn}
-                     pawnWord={self.pawnWord} pawnColor={self.pawnColor} pawnTipShown={self.pawnTipShown}
-                     pawnTip={self.pawnTip} best={self.best} priced={self.priced} priceColor={self.priceColor}
-                     @slot={self.onSlot} @pawnEnter={self.onPawnEnter} @pawnLeave={self.onPawnLeave} />
+                     detailColor={self.detailColor} hasDetail={self.hasDetail} upgradeColumn={self.upgradeColumn}
+                     upgradeWord={self.upgradeWord} upgradeColor={self.upgradeColor} upgradeTipShown={self.upgradeTipShown}
+                     upgradeTip={self.upgradeTip} best={self.best} priced={self.priced} priceColor={self.priceColor}
+                     @slot={self.onSlot} @upgradeEnter={self.onUpgradeEnter} @upgradeLeave={self.onUpgradeLeave} />
       </PickRow>
       <box $else columns={self.columns} gap={1sp} yAlign={Align.Center} padding={1sp} @pointerEnter={self.onRowEnter}>
         <RewardCells reward={self.reward} keyed={false} key={""} nameColor={self.nameColor}
-                     detailColor={self.detailColor} hasDetail={self.hasDetail} pawnColumn={self.pawnColumn}
-                     pawnWord={self.pawnWord} pawnColor={self.pawnColor} pawnTipShown={self.pawnTipShown}
-                     pawnTip={self.pawnTip} best={self.best} priced={self.priced} priceColor={self.priceColor}
-                     @slot={self.onSlot} @pawnEnter={self.onPawnEnter} @pawnLeave={self.onPawnLeave} />
+                     detailColor={self.detailColor} hasDetail={self.hasDetail} upgradeColumn={self.upgradeColumn}
+                     upgradeWord={self.upgradeWord} upgradeColor={self.upgradeColor} upgradeTipShown={self.upgradeTipShown}
+                     upgradeTip={self.upgradeTip} best={self.best} priced={self.priced} priceColor={self.priceColor}
+                     @slot={self.onSlot} @upgradeEnter={self.onUpgradeEnter} @upgradeLeave={self.onUpgradeLeave} />
       </box>
     }
   }
@@ -636,8 +631,10 @@ public class RewardRow implements Component {
 // A reward row's cells, the same in a row picked from and in one given.
 class RewardCells implements Component {
   public slot: Event<Event.Press> = new Event()
-  public pawnEnter: Event<nil> = new Event()
-  public pawnLeave: Event<nil> = new Event()
+  public upgradeEnter: Event<nil> = new Event()
+  // The spec the upgrade is weighed for: the one played, or the build chosen.
+  derived specName: String = Game.player.spec?.name ?? Ordaen.worth.spec?.label ?? ""
+  public upgradeLeave: Event<nil> = new Event()
 
   reward: Signal<Reward>
   keyed: Signal<Boolean>
@@ -645,18 +642,18 @@ class RewardCells implements Component {
   nameColor: Signal<Color>
   detailColor: Signal<Color>
   hasDetail: Signal<Boolean>
-  pawnColumn: Signal<Boolean>
-  pawnWord: Signal<String>
-  pawnColor: Signal<Color>
-  pawnTipShown: Signal<Boolean>
-  pawnTip: Signal<String>
+  upgradeColumn: Signal<Boolean>
+  upgradeWord: Signal<String>
+  upgradeColor: Signal<Color>
+  upgradeTipShown: Signal<Boolean>
+  upgradeTip: Signal<String>
   best: Signal<Boolean>
   priced: Signal<Boolean>
   priceColor: Signal<Color>
   constructor(
     reward: Signal<Reward>, keyed: Signal<Boolean>, key: Signal<String>, nameColor: Signal<Color>,
-    detailColor: Signal<Color>, hasDetail: Signal<Boolean>, pawnColumn: Signal<Boolean>, pawnWord: Signal<String>,
-    pawnColor: Signal<Color>, pawnTipShown: Signal<Boolean>, pawnTip: Signal<String>, best: Signal<Boolean>, priced: Signal<Boolean>,
+    detailColor: Signal<Color>, hasDetail: Signal<Boolean>, upgradeColumn: Signal<Boolean>, upgradeWord: Signal<String>,
+    upgradeColor: Signal<Color>, upgradeTipShown: Signal<Boolean>, upgradeTip: Signal<String>, best: Signal<Boolean>, priced: Signal<Boolean>,
     priceColor: Signal<Color>
   ) {
     self.reward = reward
@@ -665,19 +662,19 @@ class RewardCells implements Component {
     self.nameColor = nameColor
     self.detailColor = detailColor
     self.hasDetail = hasDetail
-    self.pawnColumn = pawnColumn
-    self.pawnWord = pawnWord
-    self.pawnColor = pawnColor
-    self.pawnTipShown = pawnTipShown
-    self.pawnTip = pawnTip
+    self.upgradeColumn = upgradeColumn
+    self.upgradeWord = upgradeWord
+    self.upgradeColor = upgradeColor
+    self.upgradeTipShown = upgradeTipShown
+    self.upgradeTip = upgradeTip
     self.best = best
     self.priced = priced
     self.priceColor = priceColor
   }
 
   onSlot(mut self, press: Event.Press) { self.slot.emit(press) }
-  onPawnEnter(mut self) { self.pawnEnter.emit() }
-  onPawnLeave(mut self) { self.pawnLeave.emit() }
+  onUpgradeEnter(mut self) { self.upgradeEnter.emit() }
+  onUpgradeLeave(mut self) { self.upgradeLeave.emit() }
 
   public render(self): Template {
     return $ltml {
@@ -690,12 +687,12 @@ class RewardCells implements Component {
         <text $if={self.hasDetail} value={self.reward.detail} textColor={self.detailColor} textSize={SECONDARY_TEXT}
               wrap={.None} />
       </box>
-      <box $if={self.pawnColumn} columns={PAWN_CELLS} gap={1sp} yAlign={Align.Center}
-           @pointerEnter={self.onPawnEnter} @pointerLeave={self.onPawnLeave}>
+      <box $if={self.upgradeColumn} columns={UPGRADE_CELLS} gap={1sp} yAlign={Align.Center}
+           @pointerEnter={self.onUpgradeEnter} @pointerLeave={self.onUpgradeLeave}>
         <box width={ARROW} height={ARROW} background={UPGRADE} opacity={self.best ? 1 : 0} />
-        <text value={self.pawnWord} textColor={self.pawnColor} textSize={SECONDARY_TEXT} textFont={.Numbers}
+        <text value={self.upgradeWord} textColor={self.upgradeColor} textSize={SECONDARY_TEXT} textFont={.Numbers}
               textAlign={TextAlign.End} wrap={.None} />
-        <Tip $if={self.pawnTipShown} title={"Pawn"} text={self.pawnTip} />
+        <Tip $if={self.upgradeTipShown} title={self.specName} text={self.upgradeTip} />
       </box>
       <box xAlign={Align.End}>
         <Money $if={self.priced} amount={self.reward.sell} color={self.priceColor} />

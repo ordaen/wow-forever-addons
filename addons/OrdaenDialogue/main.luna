@@ -16,7 +16,6 @@ import { Reward, RewardView, Rewards, SCROLL_WIDTH, Scroll, WIDE_SCROLL, choiceV
 import { AnswerRow, LINE_KEYS, LineKey, OptionColumn, Placed, columnsOf, placeOf } from "@/list"
 import Locale from "@/locales"
 import { Needs, Said } from "@/pages"
-import Pawn from "@/pawn"
 import { Line, LineKind, Quest, Source, bookPage, gossipLines, greetingLines, questOf } from "@/read"
 import { Auto, Choices, DEFAULTS, GeneralPage } from "@/settings"
 import Style from "@/style"
@@ -108,10 +107,10 @@ public class Dialogue implements Module, App {
   tried: mut Array<Integer> = []
   // Shift was held as the talk started: nothing is done on its own.
   state held = false
-  // How much better each reward is than what is worn, by Pawn: a test's answer stands in its place.
-  upgradeOf: (link: String) => Number | nil = (link: String): Number | nil => Pawn.upgrade(link)
-  pawnLoaded: () => Boolean = (): Boolean => Pawn.present()
-  public state pawnShown = false
+  // How much better each reward is than what is worn, by Ordaen's worth: a test's answer stands in its place.
+  upgradeOf: (link: String) => Number | nil = (link: String): Number | nil => Ordaen.worth.upgradeOf(link)
+  // The upgrade column, while the player's spec weighs items.
+  public derived upgradesShown: Boolean = Ordaen.worth.weights != nil
   // How much of the quest's text shows as it fades in, as the game's own window lets it in (`instantQuestText` "0"):
   // bytes to a word's end, -1 for all of it. Its steps run only while it fades in.
   public state revealed = -1
@@ -535,7 +534,6 @@ public class Dialogue implements Module, App {
   show(mut self, page: Page) {
     if (!(peek self.shown)) {
       sound(SOUND_OPEN)
-      self.pawnShown = self.pawnLoaded()
     }
     self.page = page
     self.acting = false
@@ -618,11 +616,11 @@ public class Dialogue implements Module, App {
     Game.saved.store(.Own, MARKS_KEY, marks)
   }
 
-  // ——— Rewards' worth by Pawn.
+  // ——— Rewards' worth.
 
   public upgrade(self, reward: Reward): Number | nil {
     const link = reward.link
-    if (!(peek self.pawnShown) || link == nil) { return nil }
+    if (!(peek self.upgradesShown) || link == nil) { return nil }
     return self.upgradeOf(link)
   }
 
@@ -733,7 +731,7 @@ public class Dialogue implements Module, App {
 
   upgrades(self): Array<Number> {
     const quest = self.quest
-    if (quest == nil || !self.pawnShown) { return [] }
+    if (quest == nil || !self.upgradesShown) { return [] }
     return quest.choices.map(reward => self.upgrade(reward) ?? 0)
   }
 
@@ -784,7 +782,7 @@ public class Dialogue implements Module, App {
               <Needs $elseif={self.page == Page.Progress} quest={self.quest} />
               <Rewards $else views={self.rewardViews} also={self.quest?.also ?? []} xp={self.quest?.xp ?? 0}
                        money={self.quest?.money ?? 0} standings={self.quest?.standings ?? []} pickable={self.pickable} choice={self.choice}
-                       hints={self.hints} pawnColumn={self.pawnShown} @choose={self.choose} />
+                       hints={self.hints} upgradeColumn={self.upgradesShown} @choose={self.choose} />
             </box>
             <text $if={self.combatNote} value={Locale.KEYS_IN_COMBAT} textColor={Style.DIM} textSize={SECONDARY_TEXT} />
             <box $if={!self.listed} columns={["max-content", { fr: 1 }, "max-content"]}>

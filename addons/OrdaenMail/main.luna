@@ -20,7 +20,6 @@ import { Sent, SentState, keyOf, waits } from "@/letters"
 import Locale from "@/locales"
 import { Outbox, SentView } from "@/outbox"
 import { OwnTab, Requests } from "@/own"
-import Pawn from "@/pawn"
 import { Sender } from "@/sender"
 import { Choices, GeneralPage } from "@/settings"
 import Style from "@/style"
@@ -58,8 +57,8 @@ public class Mail implements Module, App {
   // The requests between the player's characters, the account's: the player's own lists, so saved (at most 50).
   public requests: mut ModuleMemory<Requests> = new ModuleMemory<Requests>({}, .Account, "requests")
   pass: mut GamePass = new GamePass()
-  // How much an item would raise the player's best scale: Pawn's, where the player has it.
-  public upgrade: (link: String) => Number | nil = Pawn.upgrade
+  // How much more an item is worth to the player's spec than what it wears (Ordaen's worth).
+  public upgrade: (link: String) => Number | nil = (link: String): Number | nil => Ordaen.worth.upgradeOf(link)
 
   state tab = TAB_INBOX
   state letters: Array<Game.MailLetter> = []

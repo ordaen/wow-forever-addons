@@ -7,7 +7,7 @@
 import Game from "$game"
 import { Action, Align, Cursor, Event, Position, Shadow, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { Component, ItemButton, Menu, MenuEntry, Quality, SECONDARY_TEXT, SlotWell } from "Ordaen"
+import { Component, ItemButton, Menu, MenuEntry, Quality, SECONDARY_TEXT, SlotWell, usableItem } from "Ordaen"
 import { UseClick } from "@/clicks"
 import { CARD_GAP, CARD_PAD, Card, CardRow, Section } from "@/layout"
 import { Slot, handsOver } from "@/model"
@@ -35,6 +35,12 @@ const QUEST = 12
 // (`TEXTURE_ITEM_QUEST_BORDER`, `TEXTURE_ITEM_QUEST_BANG`).
 const QUEST_BORDER: Asset = "Interface/ContainerFrame/UI-Icon-QuestBorder"
 const QUEST_BANG: Asset = "Interface/ContainerFrame/UI-Icon-QuestBang"
+// The game's green arrow over gear worth more to the player's spec than what it wears, in the slot's bottom left.
+const UPGRADE_ART: Atlas = "bags-greenarrow"
+const UPGRADE = 16.40625dp
+// The client's classes of gear (`Enum.ItemClass`): weapons and armour.
+const WEAPON = 2
+const ARMOR = 4
 
 // What leaves a slot dimmed: the search's text (lower case), where the player stands, and the bag lit in the bag
 // slots' window (-1 for none).
@@ -109,6 +115,8 @@ class BagSlot implements Component {
   derived cursor: Cursor | nil = self.slot.id == 0 || !self.shelf.live || self.shelf.filter.place != Game.BagPlace.Merchant ? nil :
     self.slot.read.price > 0 ? Cursor.Buy : Cursor.BuyError
   derived coin: Boolean = self.slot.junk && self.slot.id != 0
+  // Gear the player can use, worth more to its spec than what it wears (Ordaen's worth).
+  derived upgrade: Boolean = self.upgradeNow()
   derived questMark: Asset | nil = self.slot.startsQuest ? QUEST_BANG : self.slot.questItem ? QUEST_BORDER : nil
   // A container's item is used by the client's secure click, on the scheme's chord for Use; a guild bank's has none,
   // nor a copy of a vault that isn't open, nor any slot while Use hands the item over (sold to a merchant, put in a
@@ -126,6 +134,12 @@ class BagSlot implements Component {
   constructor(slot: Signal<Slot>, shelf: Shelf) {
     self.slot = slot
     self.shelf = shelf
+  }
+
+  upgradeNow(self): Boolean {
+    const slot = self.slot
+    if (slot.id == 0 || (slot.read.kind != WEAPON && slot.read.kind != ARMOR) || !usableItem(slot.id)) { return false }
+    return (Ordaen.worth.upgradeOf(slot.read.link) ?? 0) > 0
   }
 
   dimmedOf(self): Boolean {
@@ -156,6 +170,8 @@ class BagSlot implements Component {
              background={Ordaen.art.ctl.qualityRim} tint={NEW_GLOW} zLevel={2} />
         <box $if={self.slot.guarded} position={Position.Absolute} left={2.34375dp} top={2.34375dp} width={LOCK} height={LOCK}
              background={PADLOCK} zLevel={3} />
+        <box $if={self.upgrade} position={Position.Absolute} left={2.34375dp} bottom={2.34375dp} width={UPGRADE}
+             height={UPGRADE} background={UPGRADE_ART} zLevel={3} />
         <box $if={self.coin} position={Position.Absolute} right={2.34375dp} top={2.34375dp} width={COIN} height={COIN}
              background={COIN_ART} zLevel={3} />
         <Menu $if={self.menuShown} entries={self.menuEntries} title={self.menuTitle} @pick={self.onPicked}

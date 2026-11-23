@@ -4,7 +4,7 @@
 // speed, penetration), a card one of a section's main numbers (attack power, damage a second, a school's spell damage).
 import { Align, Art, BarFill, Event, FillFrom, Piece, Position, TextAlign, TextFont, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { BRIGHT_TEXT, Component, Groove, SECONDARY_TEXT, TITLE_TEXT, Tip, XpFill, xpFillArt } from "Ordaen"
+import { BRIGHT_TEXT, Component, Groove, SECONDARY_TEXT, TITLE_TEXT, Tip, Weights, XpFill, xpFillArt } from "Ordaen"
 import { GaugeBar } from "@/gauge"
 import Locale from "@/locales"
 import { Skill, Stats, WANDS } from "@/sheet"
@@ -63,13 +63,15 @@ public struct Resist {
   const stat: Stat
 }
 
-// One of the five main stats: its value, its name in three letters, and what the game's sheet says of it.
+// One of the five main stats: its value, its name in three letters, and what the game's sheet says of it; `valued`
+// where the player's spec weighs it among its most (`mainsOf`).
 public struct Main {
   const value: Integer
   const short: String
   const label: String
   const tip: String
   const stat: Stat
+  const valued: Boolean = false
 }
 
 // The caps: hit against a boss (melee and ranged, spells), crit, expertise, defense (a level 63 boss can't crit),
@@ -134,16 +136,27 @@ function rate(label: String, value: Number, cap: Number, stat: Stat): Gauge {
   return measured(label, value, cap, percent(value), stat)
 }
 
-// The five main stats, the class's own first (the greatest of strength, agility and intellect), then stamina, then the
-// rest in the game's order.
-public function mainsOf(stats: Stats): Array<Main> {
+// The five main stats. By the player's spec's weights (`weights`, its own sheet's alone): the most weighed first,
+// those weighed at least half the most `valued`. Without: the class's own first (the greatest of strength, agility and
+// intellect), then stamina, then the rest in the game's order.
+public function mainsOf(stats: Stats, weights: Weights | nil): Array<Main> {
+  const worth: Array<Number> = weights == nil ? [0, 0, 0, 0, 0] :
+    [weights.strength, weights.agility, weights.stamina, weights.intellect, weights.spirit]
+  let most: Number = 0
+  for (weight of worth) { most = most.max(weight) }
+  const valued = (index: Integer): Boolean => most > 0 && (worth[index] ?? 0) * 2 >= most
   const all: Array<Main> = [
-    { value: stats.strength, short: Locale.STRENGTH_SHORT, label: Locale.STRENGTH, tip: stats.tips.primary[1] ?? "", stat: .Strength },
-    { value: stats.agility, short: Locale.AGILITY_SHORT, label: Locale.AGILITY, tip: stats.tips.primary[2] ?? "", stat: .Agility },
-    { value: stats.stamina, short: Locale.STAMINA_SHORT, label: Locale.STAMINA, tip: stats.tips.primary[3] ?? "", stat: .Stamina },
-    { value: stats.intellect, short: Locale.INTELLECT_SHORT, label: Locale.INTELLECT, tip: stats.tips.primary[4] ?? "", stat: .Intellect },
-    { value: stats.spirit, short: Locale.SPIRIT_SHORT, label: Locale.SPIRIT, tip: stats.tips.primary[5] ?? "", stat: .Spirit }
+    { value: stats.strength, short: Locale.STRENGTH_SHORT, label: Locale.STRENGTH, tip: stats.tips.primary[1] ?? "", stat: .Strength, valued: valued(1) },
+    { value: stats.agility, short: Locale.AGILITY_SHORT, label: Locale.AGILITY, tip: stats.tips.primary[2] ?? "", stat: .Agility, valued: valued(2) },
+    { value: stats.stamina, short: Locale.STAMINA_SHORT, label: Locale.STAMINA, tip: stats.tips.primary[3] ?? "", stat: .Stamina, valued: valued(3) },
+    { value: stats.intellect, short: Locale.INTELLECT_SHORT, label: Locale.INTELLECT, tip: stats.tips.primary[4] ?? "", stat: .Intellect, valued: valued(4) },
+    { value: stats.spirit, short: Locale.SPIRIT_SHORT, label: Locale.SPIRIT, tip: stats.tips.primary[5] ?? "", stat: .Spirit, valued: valued(5) }
   ]
+  if (most > 0) {
+    let order: Array<Integer> = [1, 2, 3, 4, 5]
+    order.sort((a: Integer, b: Integer): Boolean => (worth[a] ?? 0) > (worth[b] ?? 0) || ((worth[a] ?? 0) == (worth[b] ?? 0) && a < b))
+    return order.map(index => all[index] ?? panic("five main stats"))
+  }
   const lead = stats.intellect > stats.strength.max(stats.agility) ? 4 : stats.agility > stats.strength ? 2 : 1
   const order: Array<Integer> = [lead, 3]
   for (index of 1..5) {
@@ -535,6 +548,8 @@ public class MainStat implements Component {
 
   derived title: String = `${self.main.label} ${self.main.value}`
   derived ink: Color = inkOf(self.main.stat, self.boosts, BRIGHT_TEXT)
+  // Its letters gold where the player's spec weighs it among its most.
+  derived shortInk: Color = self.main.valued ? Style.GOLD : Style.DIM
 
   main: Signal<Main>
   shown: Signal<Breakdown>
@@ -553,7 +568,7 @@ public class MainStat implements Component {
         <box gap={0.5sp} xAlign={Align.Center} padding={Style.MAIN_PAD}>
           <text value={String.of(self.main.value)} textSize={Style.MAIN_TEXT} textFont={TextFont.Numbers}
                 textColor={self.ink} wrap={.None} />
-          <text value={self.main.short} textSize={SECONDARY_TEXT} textColor={Style.DIM} wrap={.None} />
+          <text value={self.main.short} textSize={SECONDARY_TEXT} textColor={self.shortInk} wrap={.None} />
         </box>
       </StatSpot>
     }

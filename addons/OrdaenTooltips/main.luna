@@ -10,10 +10,11 @@ import { BRIGHT_TEXT, Module, Settings, SettingsPage } from "Ordaen"
 import { AddedToItem, AddedToObject } from "@/added"
 import { extras } from "@/buttons"
 import { Choices, KindPlace, Place } from "@/choices"
+import { GREEN, RED } from "@/colors"
 import { ItemKeys, ItemLines, ObjectLines } from "@/extend"
 import { compare, item } from "@/item"
 import Locale from "@/locales"
-import { Kind, Model } from "@/model"
+import { Kind, Model, Note } from "@/model"
 import { Options } from "@/options"
 import { group, kindOf } from "@/read"
 import { AurasPage, GeneralPage, ItemsPage, NpcsPage, ObjectsPage, PlayersPage, SpellsPage, TextsPage } from "@/settings"
@@ -468,8 +469,9 @@ public class Tooltips implements Module, App {
         compared.push({ header: Locale.EQUIPPED, ..compare(other.model, read.stats, other.stats, false) })
       }
     }
+    const link = data.about ?? ""
     return {
-      model: model, sides: read.sides, compared: compared, item: data.id ?? 0, link: data.about ?? "",
+      model: withWorth(model, link), sides: read.sides, compared: compared, item: data.id ?? 0, link: link,
       object: "", locks: locks, place: place
     }
   }
@@ -511,6 +513,22 @@ public class Tooltips implements Module, App {
       </TipGroup>
     }
   }
+}
+
+// The item's worth to the player's spec, as a note at the foot: how much more or less than what is worn, green or
+// red; nothing for an item that isn't worn or that the spec weighs at nothing.
+function withWorth(model: Model, link: String): Model {
+  if (link == "") { return model }
+  const share = Ordaen.worth.upgradeOf(link)
+  if (share == nil) { return model }
+  const spec = Game.player.spec?.name ?? Ordaen.worth.spec?.label ?? ""
+  const percent = (share * 100).round()
+  const right = percent > 0 ? `+${percent}%` : percent < 0 ? `−${-percent}%` : "="
+  const color = percent > 0 ? GREEN : percent < 0 ? RED : nil
+  let foot: Array<Note> = []
+  for (note of model.foot) { foot.push(note) }
+  foot.push({ left: Locale.WORTH_FOR.format(spec), right: right, valueColor: color })
+  return { foot: foot, ..model }
 }
 
 // Blizzard's place: the game's default anchor, where it puts a tooltip with no place of its own (the world, a unit's

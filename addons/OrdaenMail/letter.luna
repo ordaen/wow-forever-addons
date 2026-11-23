@@ -8,7 +8,7 @@ import Client from "$client"
 import Game from "$game"
 import { Align, Overflow, Track } from "$ltml"
 import Runtime from "$runtime"
-import { ButtonPlate, Component, CopyText, ItemButton, Money, PickRow, PushButton, SECONDARY_TEXT, TITLE_TEXT, UNUSABLE, usableItem } from "Ordaen"
+import { ButtonPlate, Component, CopyText, ItemButton, Money, PickRow, PushButton, SECONDARY_TEXT, TITLE_TEXT, UNUSABLE, upgradeText, usableItem } from "Ordaen"
 import { daysText, senderOf } from "@/inbox"
 import Locale from "@/locales"
 import Style from "@/style"
@@ -39,8 +39,8 @@ public class Attachment implements Component {
 
   derived info: AttachmentInfo = infoOf(self.item.item)
   derived usable: Boolean = usableItem(self.item.item)
-  // How much it would raise the player's best Pawn scale, as «+n%»; empty where it is none.
-  derived raise: String = raiseText(self.upgrade(self.item.link))
+  // How much more it is worth to the player's spec than what is worn, as «+n%»; empty where it is none.
+  derived raise: String = upgradeText(self.upgrade(self.item.link))
 
   item: Signal<Game.MailItem>
   index: Signal<Integer>
@@ -82,12 +82,6 @@ public struct AttachmentInfo {
   color: Color
   kind: String
   price: Integer
-}
-
-// Pawn's share as the player reads it: «+15%»; empty for none.
-public function raiseText(share: Number | nil): String {
-  if (share == nil || share <= 0) { return "" }
-  return `+${(share * 100).round()}%`
 }
 
 function infoOf(item: Integer): AttachmentInfo {

@@ -182,6 +182,8 @@ public class Character implements Module, App {
 
   constructor() {
     Ordaen.modules.add(self)
+    // Gear is weighed for the build the player chose, else the spec it plays.
+    watch { Ordaen.worth.choose(self.settings.values.build) }
     Game.saved.store(.Account, RATES, self.rates)
     Game.saved.store(.Character, WIPE, self.wipe)
     self.wipeCost = self.wipe.cost

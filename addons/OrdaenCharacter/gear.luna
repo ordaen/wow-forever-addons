@@ -297,7 +297,8 @@ public class GearPage implements Component {
   derived whoColor: Color = classColor(self.tag) ?? Style.GOLD
   derived scene: Asset | nil = SCENES[self.who.scene]
   derived flyoutShown: Boolean = self.flyoutSlot != nil
-  derived mains: Array<Main> = mainsOf(self.stats)
+  // The player's own by its spec's weights; another's (inspected) as the game orders them.
+  derived mains: Array<Main> = mainsOf(self.stats, self.classTag == nil ? Ordaen.worth.weights : nil)
   derived resists: Array<Resist> = resistsOf(self.stats)
   derived defence: Array<Gauge> = defenceOf(self.stats)
   derived blocked: Array<Row> = defenceRows(self.stats)

@@ -2,7 +2,8 @@
 // checkbox writes its entry at once; a name typed is written when the typing rests and at Enter. An empty name keeps
 // nothing: the tab shows ours.
 import Client from "$client"
-import { Checkbox, Choice, Component, Resting, Segmented, SettingRow, Settings } from "Ordaen"
+import Game from "$game"
+import { Checkbox, Choice, Component, Dropdown, Resting, Segmented, SettingRow, Settings, SpecWeights, specsOf } from "Ordaen"
 import Locale from "@/locales"
 import Style from "@/style"
 
@@ -42,9 +43,35 @@ public struct Choices implements Plain {
   // The names of the spec tabs; empty for ours.
   specOne: String = ""
   specTwo: String = ""
+  // The build gear is weighed for (Ordaen's worth), by its key: a spec of the class or one of Forever's builds within
+  // one (a Shockadin); empty for the spec the character plays.
+  build: String = ""
+}
+
+// A build's name as the player reads it: a spec's the client's own, Forever's builds ours.
+function buildName(spec: SpecWeights): String {
+  const index = spec.spec
+  if (index != nil) {
+    let _, name, _, _, _, _, _, _, _, _ = Client.C_SpecializationInfo.GetSpecializationInfo(index, nil, nil, nil, nil, nil, nil)
+    if (name != nil) { return name }
+  }
+  if (spec.key == "shockadin") { return Locale.BUILD_SHOCKADIN }
+  if (spec.key == "enhancement_tank") { return Locale.BUILD_ENHANCEMENT_TANK }
+  if (spec.key == "battlemage_arcane") { return Locale.BUILD_BATTLEMAGE_ARCANE }
+  if (spec.key == "battlemage_fire") { return Locale.BUILD_BATTLEMAGE_FIRE }
+  if (spec.key == "battlemage_frost") { return Locale.BUILD_BATTLEMAGE_FROST }
+  return spec.label
+}
+
+// The builds the player's class weighs gear for, the spec played first.
+function buildChoices(): Array<Choice<String>> {
+  let choices: Array<Choice<String>> = [{ value: "", label: Locale.BUILD_PLAYED }]
+  for (spec of specsOf(Game.player.classTag)) { choices.push({ value: spec.key, label: buildName(spec) }) }
+  return choices
 }
 
 public class GeneralPage implements Component {
+  const builds: Array<Choice<String>> = buildChoices()
   settings: mut Settings<Choices>
   constructor(settings: mut Settings<Choices>) {
     self.settings = settings
@@ -57,6 +84,8 @@ public class GeneralPage implements Component {
       <SettingRow label={Locale.SETTING_SLOT_SIZE} hint={Locale.SETTING_SLOT_SIZE_TIP}>
         <Segmented value={mut self.settings.values.slotSize} choices={SLOT_SIZES} />
       </SettingRow>
+      <Dropdown label={Locale.SETTING_BUILD} hint={Locale.SETTING_BUILD_TIP} value={mut self.settings.values.build}
+                choices={self.builds} />
     }
   }
 }
