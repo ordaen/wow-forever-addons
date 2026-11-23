@@ -7,7 +7,7 @@ import Game from "$game"
 import { Art, Modifier, MouseButton } from "$ltml"
 import Test from "$test"
 import root Bags from "OrdaenBags"
-import { AS_THE_GAME, Chord, OURS, SlotAction, actionAt, choicesFor, chordFor, useBinding } from "@/clicks"
+import { AS_THE_GAME, Chord, OURS, SlotAction, actionAt, choicesFor, chordFor, useClickOf } from "@/clicks"
 import {
   JUNK_RULES, JunkLists, LEARNED, MOST_LEARNED, MOST_MARKS, Mark, NO_LISTS, Why, afterBuyback, afterSale, junkWhy, shareOf,
   withMark, withScore
@@ -233,6 +233,7 @@ test "a sale by hand at a merchant is said in the chat, and two of a full stack 
   Game.bags.place = Game.BagPlace.Merchant
   _ = Test.printed()
   bags().button(CLOTH).click()
+  bags().button(CLOTH).click()
   Test.expect(Test.performed().join(", ") == "item 0 3")
   world.take(0, 3)
   Game.bags.updated.emit(0)
@@ -240,6 +241,7 @@ test "a sale by hand at a merchant is said in the chat, and two of a full stack 
   world.items.push({ bag: 0, slot: 3, id: 2589, name: "Linen Cloth", icon: CLOTH, count: 20, kind: 7 })
   Game.bags.updated.emit(0)
   Test.expect(!bags().button(CLOTH).paintedWith(COIN))
+  bags().button(CLOTH).click()
   bags().button(CLOTH).click()
   world.take(0, 3)
   Game.bags.updated.emit(0)
@@ -306,10 +308,13 @@ test "the merchant's window sells the bags' junk from its right column, saying w
 // The clicks
 
 test "the client's secure use stands on the scheme's chord for Use: the left in ours, the right as in the game" {
-  Test.expect(actionAt(OURS, .Left) == SlotAction.Use && actionAt(OURS, .ShiftLeft) == SlotAction.Pickup)
+  Test.expect(actionAt(OURS, .DoubleLeft) == SlotAction.Use && actionAt(OURS, .Left) == SlotAction.Nothing)
   Test.expect(actionAt(OURS, .Right) == SlotAction.Menu)
-  Test.expect(useBinding(OURS) == MouseButton.Left && useBinding(AS_THE_GAME) == MouseButton.Right)
-  const moved = useBinding({ left: .Menu, shiftRight: .Use, ..OURS })
+  const ours = useClickOf(OURS)
+  Test.expect(ours.chord == MouseButton.Left && ours.twice)
+  const game = useClickOf(AS_THE_GAME)
+  Test.expect(game.chord == MouseButton.Right && !game.twice)
+  const moved = useClickOf({ doubleLeft: .Menu, shiftRight: .Use, ..OURS }).chord
   Test.expect(moved is [Modifier, MouseButton] && moved[1] == Modifier.Shift && moved[2] == MouseButton.Right)
   Test.expect(chordFor(OURS, .Protect) == Chord.AltLeft)
 }
@@ -326,17 +331,19 @@ test "Shift+left picks the item up, and the right opens the menu, which offers n
   _ = Test.requests()
   Test.hold([.Shift])
   Game.input.shiftDown = (): Boolean => true
+  Test.hold([.Shift])
   bags().button(CLOTH).click()
   Test.expect(Test.performed().length == 0 && Test.requests().join(", ").contains("Bags.pickup 0 3"))
   Test.hold([])
   Game.input.shiftDown = (): Boolean => false
+  Test.hold([])
   bags().button(CLOTH).rightClick()
   Test.expect(Test.performed().length == 0 && Test.page().text("Mark as junk").shown())
   Test.expect(Test.page().text("Link in chat").shown() && !Test.page().text("Pick up").shown())
 }
 
 test "a chord's row holding the last Use or the last Menu offers nothing else" {
-  Test.expect(choicesFor(OURS, .Left).length == 1 && choicesFor(OURS, .Right).length == 1)
+  Test.expect(choicesFor(OURS, .DoubleLeft).length == 1 && choicesFor(OURS, .Right).length == 1)
   Test.expect(choicesFor(OURS, .ShiftLeft).length == 8)
 }
 
@@ -351,6 +358,7 @@ test "Alt+click protects the slot; Ctrl+click does nothing of ours, and sends th
   Game.bags.open = true
   _ = Test.requests()
   Game.input.controlDown = (): Boolean => true
+  Test.hold([.Ctrl])
   bags().button(CLOTH).click()
   Test.expect(!Test.requests().join(", ").contains("Bags.send"))
   Bags.settings.change((values: mut Choices): nil => { values.clicks = { ctrlLeft: .Send, ..values.clicks } })
@@ -381,6 +389,7 @@ test "the bank opens in a window of its own beside the bags', its slots read and
   Test.expect(bank().button(GEM).shown() && !bank().button(SWORD).shown())
   _ = Test.requests()
   Game.input.shiftDown = (): Boolean => true
+  Test.hold([.Shift])
   bank().button(GEM).click()
   Test.expect(Test.requests().join(", ").contains("Bags.pickup 6 2"))
 }
@@ -409,6 +418,7 @@ test "away from the banker the bank is a tab of the bags' window: what it held, 
   Test.expect(bags().button(GEM).shown() && bags().text(Locale.BANK_COPY).shown())
   _ = Test.requests()
   Game.input.shiftDown = (): Boolean => true
+  Test.hold([.Shift])
   bags().button(GEM).click()
   Test.expect(!Test.requests().join(", ").contains("Bags.pickup"))
 }

@@ -2,11 +2,16 @@
 // its item, its count, its quality's rim; dimmed where the search or the place leaves it out or another bag is lit; a
 // new item's glow inside it until it is hovered; a lock on a protected one; a coin on a junk one; its menu under it
 // while open. A container's slot has the client's own use of the item on the scheme's chord for Use (secure) while its
-// vault is open; every other click and the cursor's coming and going are told to the window through the shelf.
+// vault is open; every other click and the cursor's coming and going are told to the window through the shelf. Where
+// Use is a double click, a cover over the slot takes the first left click and stands aside for the client's double-click
+// time, so the second press is the slot's own: the client's use as it goes down, or told as pressed twice; the cover
+// passes the cursor's motion to the slot and tells its other presses and its drags as the slot's.
+import Client from "$client"
 import Game from "$game"
-import { Action, Align, Event, KeyBinding, MouseButton, Position, Shadow, Track } from "$ltml"
+import { Action, Align, Event, MouseButton, Position, Shadow, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import { Component, ItemButton, Menu, MenuEntry, Quality, SECONDARY_TEXT, SlotWell } from "Ordaen"
+import { UseClick } from "@/clicks"
 import { CARD_GAP, CARD_PAD, Card, CardRow, Section } from "@/layout"
 import { Slot } from "@/model"
 import { SlotMenu } from "@/slotMenu"
@@ -29,6 +34,8 @@ const NO_ENTRIES: Array<MenuEntry> = []
 const TRADE = 7
 const REAGENT = 5
 const QUEST = 12
+// The client's double-click time, as the game's own double-click is told within it.
+const DOUBLE_TIME = 0.4
 
 // What leaves a slot dimmed: the search's text (lower case), where the player stands, and the bag lit in the bag
 // slots' window (-1 for none).
@@ -42,6 +49,8 @@ public struct Filter {
 // window and handed down.
 public class Shelf {
   public pressed: Event<(Slot, Event.Press)> = new Event()
+  // A slot's left button pressed twice in the double-click time.
+  public pressedTwice: Event<Slot> = new Event()
   // A slot's item dragged off it, or something dragged let go on it: what a plain pick up does, as the game's own
   // slots take a drag.
   public pickup: Event<Slot> = new Event()
@@ -58,8 +67,8 @@ public class Shelf {
   public gap: Signal<Number<Spacing>>
   public fills: Signal<Map<Integer, String>>
   public menu: Signal<SlotMenu | nil>
-  // The chord a container's slot is used by (the client's secure click).
-  public useChord: Signal<KeyBinding<MouseButton>>
+  // How a container's slot is used (the client's secure click).
+  public useClick: Signal<UseClick>
   // Whether the slots' vault is open: shut (the bank away from a banker), they are its copy, shown and not used.
   public live: Signal<Boolean>
   constructor(
@@ -69,7 +78,7 @@ public class Shelf {
     gap: Signal<Number<Spacing>>,
     fills: Signal<Map<Integer, String>>,
     menu: Signal<SlotMenu | nil>,
-    useChord: Signal<KeyBinding<MouseButton>>,
+    useClick: Signal<UseClick>,
     live: Signal<Boolean>
   ) {
     self.filter = filter
@@ -78,7 +87,7 @@ public class Shelf {
     self.gap = gap
     self.fills = fills
     self.menu = menu
-    self.useChord = useChord
+    self.useClick = useClick
     self.live = live
   }
 }
@@ -103,8 +112,16 @@ class BagSlot implements Component {
   // A container's item is used by the client's secure click, on the scheme's chord for Use; a guild bank's has none,
   // nor a copy of a vault that isn't open.
   derived action: Action | nil = self.slot.vault == Vault.Guild || !self.shelf.live ? nil : Action.UseBagItem {
-    bag: self.slot.bag, slot: self.slot.index, chord: self.shelf.useChord
+    bag: self.slot.bag, slot: self.slot.index, chord: self.shelf.useClick.chord
   }
+  derived twice: Boolean = self.shelf.useClick.twice
+  // The cover over the slot, where Use is a double click, unless it stands aside for a second press.
+  derived covered: Boolean = self.twice && !self.aside
+  // The cover stands aside after a first left click, for the double-click time.
+  state aside = false
+  standing: Task<nil> | nil = nil
+  // The left click the cover took: it goes up to the slot too, which leaves it be.
+  covering: Event.Press | nil = nil
   derived menuShown: Boolean = self.shelf.menu?.slot == self.slot
   derived menuEntries: Array<MenuEntry> = self.shelf.menu?.entries ?? NO_ENTRIES
   derived menuTitle: String = self.shelf.menu?.title ?? ""
@@ -125,7 +142,31 @@ class BagSlot implements Component {
     return !fits(slot, filter.place)
   }
 
-  onPressed(self, click: Event.Press) { self.shelf.pressed.emit(self.slot, click) }
+  onPressed(mut self, click: Event.Press) {
+    if (click == self.covering) {
+      self.covering = nil
+      return
+    }
+    if (self.aside && click.button == MouseButton.Left) {
+      self.aside = false
+      self.shelf.pressedTwice.emit(self.slot)
+      return
+    }
+    self.shelf.pressed.emit(self.slot, click)
+  }
+
+  // The plain left click on the cover stands it aside, unless the cursor holds something to put down there.
+  onCover(mut self, click: Event.Press) {
+    if (Client.CursorHasItem()) { return }
+    self.covering = click
+    self.aside = true
+    self.standing = self.standAside()
+  }
+
+  async standAside(mut self) {
+    await Game.delay(DOUBLE_TIME)
+    self.aside = false
+  }
   onPickup(self) { self.shelf.pickup.emit(self.slot) }
   onEnter(self) { self.shelf.entered.emit(self.slot) }
   onLeave(self) { self.shelf.left.emit(self.slot) }
@@ -135,7 +176,7 @@ class BagSlot implements Component {
   public render(self): Template {
     return $ltml {
       <ItemButton item={self.item} count={self.count} quality={self.quality} dimmed={self.dimmed} size={self.shelf.slot} well={SlotWell.Crested}
-                  action={self.action} linkOnShift={false} @pressed={self.onPressed} @dragged={self.onPickup}
+                  action={self.action} actsOnPress={self.twice} linkOnShift={false} @pressed={self.onPressed} @dragged={self.onPickup}
                   @dropped={self.onPickup} @entered={self.onEnter} @left={self.onLeave}>
         <box $if={self.slot.isNew} position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui}
              background={Ordaen.art.ctl.qualityRim} tint={NEW_GLOW} zLevel={2} />
@@ -143,6 +184,8 @@ class BagSlot implements Component {
              background={PADLOCK} zLevel={3} />
         <box $if={self.coin} position={Position.Absolute} right={2.34375dp} top={2.34375dp} width={COIN} height={COIN}
              background={COIN_ART} zLevel={3} />
+        <box $if={self.covered} position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui} zLevel={4}
+             motionThrough={true} @pointerPress(.Left)={self.onCover} @dragStart={self.onPickup} @drop={self.onPickup} />
         <Menu $if={self.menuShown} entries={self.menuEntries} title={self.menuTitle} @pick={self.onPicked}
               @close={self.onClosed} />
       </ItemButton>

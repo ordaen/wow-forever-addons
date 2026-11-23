@@ -8,11 +8,11 @@
 // hide an item under a scroll; it scrolls only where the screen is too low for it.
 import Client from "$client"
 import Game from "$game"
-import { Align, Edges, KeyBinding, Line, MouseButton, Overflow, Side, Track } from "$ltml"
+import { Align, Edges, Line, Overflow, Side, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import { Choice, Component, FooterCount, FooterCounts, ListTab, ModuleMemory, Money, PushButton, SECONDARY_TEXT, ScrolledList, Tip, TipRow, ToolAct, ToolButton, ToolPick, Toolbar, windowSides } from "Ordaen"
 import { BANK_ICON } from "@/bank"
-import { Clicks } from "@/clicks"
+import { Clicks, UseClick } from "@/clicks"
 import { GuildBank, GuildPage, GuildTab, withdrawalsText } from "@/guild"
 import { JunkRules } from "@/junk"
 import { CARD_GAP, CardRoom, CardRow, ROW_LEAST, SLOT_GAP, SLOT_SIZE, Section, cardRoom, cardWidth, heightOf, linesOf } from "@/layout"
@@ -259,7 +259,7 @@ public class Pane {
     slotsOpen: mut Signal<Boolean>,
     bankSlotsOpen: mut Signal<Boolean>,
     menu: Signal<SlotMenu | nil>,
-    useChord: Signal<KeyBinding<MouseButton>>
+    useClick: Signal<UseClick>
   ) {
     self.carried = carried
     self.bank = bank
@@ -275,7 +275,7 @@ public class Pane {
     self.gold = gold
     self.slotsOpen = slotsOpen
     self.bankSlotsOpen = bankSlotsOpen
-    self.shelf = new Shelf(self.filter, self.free, self.slotSize, self.slotGap, self.fills, menu, useChord, self.live)
+    self.shelf = new Shelf(self.filter, self.free, self.slotSize, self.slotGap, self.fills, menu, useClick, self.live)
   }
 
   stockOf(self): Stock {

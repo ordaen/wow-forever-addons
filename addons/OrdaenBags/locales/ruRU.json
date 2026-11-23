@@ -115,6 +115,7 @@
   "ACT_SOCKET": "Инкрустировать",
   "ACT_NOTHING": "Ничего",
   "CHORD_LEFT": "ЛКМ",
+  "CHORD_DOUBLE_LEFT": "Двойной ЛКМ",
   "CHORD_SHIFT_LEFT": "Shift+ЛКМ",
   "CHORD_CTRL_LEFT": "Ctrl+ЛКМ",
   "CHORD_ALT_LEFT": "Alt+ЛКМ",

@@ -12,7 +12,7 @@
 import Client from "$client"
 import Events from "$events"
 import Game from "$game"
-import { Event, Frame, KeyBinding, MouseButton } from "$ltml"
+import { Event, Frame, MouseButton } from "$ltml"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
 import {
@@ -22,7 +22,7 @@ import {
 import { Arranger } from "@/arrange"
 import { BagLine, BagSlotsWindow } from "@/bagSlots"
 import { BANK_ICON, BankBag, BankSlotsWindow, bankInfos } from "@/bank"
-import { OURS, SlotAction, actionAt, chordOf, useBinding } from "@/clicks"
+import { Chord, OURS, SlotAction, UseClick, actionAt, chordOf, useClickOf } from "@/clicks"
 import { Gold } from "@/gold"
 import { Guard, GuardTips, Hovered } from "@/guard"
 import { GUILD_ICON, GuildBank } from "@/guild"
@@ -162,7 +162,7 @@ public class Bags implements Module, App {
   // The header's picks: the view and the sort, kept in the profile as they are picked.
   public list: mut ModuleMemory<BagsView> = new ModuleMemory<BagsView>(BAGS_VIEW, .Profile, "view")
   // The chord a container's slot is used by, the client's own secure click.
-  derived useChord: KeyBinding<MouseButton> = useBinding(self.settings.values.clicks)
+  derived useClick: UseClick = useClickOf(self.settings.values.clicks)
   derived bagLines: Array<BagLine> = self.bagLinesOf()
   derived bankBags: Array<BankBag> = self.bankBagsOf()
   derived goldRows: Array<TipRow> = self.gold.rows
@@ -184,11 +184,11 @@ public class Bags implements Module, App {
     self.guild = new GuildBank()
     self.main = new Pane(
       self.carried, self.bank, self.vaultGuild, self.guild, self.vault, self.live, mut self.list, self.settings.values,
-      self.mainWidth, self.lit, self.running, self.goldRows, mut self.slotsOpen, mut self.bankSlotsOpen, self.menu, self.useChord
+      self.mainWidth, self.lit, self.running, self.goldRows, mut self.slotsOpen, mut self.bankSlotsOpen, self.menu, self.useClick
     )
     self.side = new Pane(
       self.carried, self.bank, self.vaultGuild, self.guild, self.vaultOpen, self.atVault, mut self.list, self.settings.values,
-      self.vaultWidth, self.lit, self.running, self.goldRows, mut self.slotsOpen, mut self.bankSlotsOpen, self.menu, self.useChord
+      self.vaultWidth, self.lit, self.running, self.goldRows, mut self.slotsOpen, mut self.bankSlotsOpen, self.menu, self.useClick
     )
     Ordaen.modules.add(self)
     Game.bags.updated.listen(self.onUpdated)
@@ -232,6 +232,7 @@ public class Bags implements Module, App {
   // What a pane tells: its slots' clicks and the cursor, its header's and its footer's buttons.
   hear(mut self, pane: Pane) {
     pane.shelf.pressed.listen(self.onPressed)
+    pane.shelf.pressedTwice.listen(self.onPressedTwice)
     pane.shelf.pickup.listen(self.onPickup)
     pane.shelf.entered.listen(self.onEnter)
     pane.shelf.left.listen(self.onLeave)
@@ -427,7 +428,7 @@ public class Bags implements Module, App {
   }
 
   // A click on a slot: what the cursor holds is put down by the left button; else the chord's action in the player's
-  // scheme. A container's use is the client's own secure click on its chord (`useChord`), done before this is told.
+  // scheme. A container's use is the client's own secure click on its chord (`useClick`), done before this is told.
   // A copy's slot (its vault shut) takes no click: only its vault's own are the game's.
   onPressed(mut self, slot: mut Slot, click: Event.Press) {
     self.menu = nil
@@ -439,6 +440,13 @@ public class Bags implements Module, App {
     const chord = chordOf(click.button, Game.input.shiftDown(), Game.input.controlDown(), Game.input.altDown())
     if (chord == nil) { return }
     self.act(mut slot, actionAt(peek self.settings.values.clicks, chord))
+  }
+
+  // A slot's left button pressed twice: the double click's action (a container's use the client did itself).
+  onPressedTwice(mut self, slot: mut Slot) {
+    self.menu = nil
+    if (!self.liveIn(slot.vault)) { return }
+    self.act(mut slot, actionAt(peek self.settings.values.clicks, Chord.DoubleLeft))
   }
 
   act(mut self, slot: mut Slot, action: SlotAction) {
