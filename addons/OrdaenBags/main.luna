@@ -131,6 +131,8 @@ public class Bags implements Module, App {
   public state slotsOpen = false
   public state bankSlotsOpen = false
   public state lit = -1
+  // The client's bag buttons hooked (the bottom panel shows them): the cursor on one lights its bag, as on ours.
+  hooked: mut Map<any Client.Frame, Boolean> = {}
   // The slot whose menu is open, with its lines.
   public state menu: SlotMenu | nil = nil
   // The guild's money dialog, and what it holds.
@@ -200,6 +202,7 @@ public class Bags implements Module, App {
     watch (open of Game.bags.open) { self.onOpen(open) }
     watch (open of self.bankOpen) { self.onBank(open) }
     watch (open of self.guild.open) { self.onGuild(open) }
+    watch (buttons of Game.bags.buttons) { for (button of buttons) { self.hookBag(button) } }
     // A mark, a score or a rule changed: every slot's verdict is worked out again.
     watch { self.judge(self.junkLists.values, self.settings.values.junk) }
   }
@@ -636,6 +639,15 @@ public class Bags implements Module, App {
   }
 
   onLit(mut self, bag: Integer) { self.lit = bag }
+
+  hookBag(mut self, button: Game.BagButton) {
+    const frame: any Client.Frame = button.frame
+    if (self.hooked[frame] == true) { return }
+    self.hooked[frame] = true
+    const bag = button.bag
+    _ = frame.HookScript("OnEnter", (...args: Unknown): nil => { self.lit = bag })
+    _ = frame.HookScript("OnLeave", (...args: Unknown): nil => { if (peek self.lit == bag) { self.lit = -1 } })
+  }
   onSlotsClosed(mut self) { self.slotsOpen = false }
   onBankSlotsClosed(mut self) { self.bankSlotsOpen = false }
 
