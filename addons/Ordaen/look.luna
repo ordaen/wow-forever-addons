@@ -201,8 +201,12 @@ function fontFiles(font: Font): FontFiles | nil {
     Font.CormorantSC => return {
       regular: "@/media/fonts/CormorantSC-SemiBold.ttf", bold: "@/media/fonts/CormorantSC-Bold.ttf"
     }
-    Font.FiraCondensed => return { regular: "@/media/fonts/FiraSansCondensed-Medium.ttf", bold: nil }
-    Font.PtSansNarrow => return { regular: "@/media/fonts/PTSansNarrow-Regular.ttf", bold: nil }
+    Font.FiraCondensed => return {
+      regular: "@/media/fonts/FiraSansCondensed-Medium.ttf", bold: "@/media/fonts/FiraSansCondensed-Bold.ttf"
+    }
+    Font.PtSansNarrow => return {
+      regular: "@/media/fonts/PTSansNarrow-Regular.ttf", bold: "@/media/fonts/PTSansNarrow-Bold.ttf"
+    }
     Font.Friz => return nil
     Font.ArialNarrow => return { regular: "Fonts/ARIALN.TTF", bold: nil }
   }
