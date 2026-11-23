@@ -776,6 +776,17 @@ test "a left click on a slot is the client's own use of the item, each click one
   Test.expect(Test.performed().join(", ") == "item 0 3" && asked("Bags.follow true, Items.show 118"))
   held(POTION).click()
   Test.expect(Test.performed().join(", ") == "item 0 3")
+  // The slot placed again (the window resized): its hover's highlight still lets the press through to the use.
+  Bags.settings.change((values: mut Choices): nil => { values.slotGap = values.slotGap + 1 })
+  held(POTION).click()
+  Test.expect(Test.performed().join(", ") == "item 0 3")
+  // Shut and opened again, the slot hovered before the press.
+  Game.bags.open = false
+  Game.bags.open = true
+  held(POTION).hover()
+  Test.pass(1)
+  held(POTION).click()
+  Test.expect(Test.performed().join(", ") == "item 0 3")
   held(POTION).rightClick()
   Test.expect(Test.performed().length == 0)
 }
