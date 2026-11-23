@@ -43,9 +43,14 @@ const KEYRING: FileId = 130980
 const KEYRING_ICON: Asset = "Interface/Icons/INV_Misc_Key_03"
 // Every cell's ground while the cursor is away: what counts the cells in the order drawn.
 const CELL: Color = Color.hex("#00000000")
-// The cut between two cells across the screen: its shade, multiplied into the wood.
-function divider(): Art {
-  return Ordaen.art.ctl.cut.upright.dark
+// The cut between two cells across the screen: its lip of light, added to the wood.
+const CUT_LIP: Color = Color.hex("#1e1e1e")
+function divider(): Color {
+  return CUT_LIP
+}
+// The first cut's edges on the screen.
+function firstCut(): Test.Rect {
+  return panel().box(CUT_LIP).nth(1).rect()
 }
 // The menu's icons as they are, and in one gold.
 const WHITE: Color = Color.hex("#ffffff")
@@ -296,7 +301,7 @@ test "one groove parts each two cells of a group, none before its first" {
 test "a groove runs up past the cells to the panel's metal, through the room under it" {
   Game.bags.buttons = bagButtons(frame)
   Test.mount(nil, SCREEN)
-  const cut = Test.edges(divider(), 0)
+  const cut = firstCut()
   const cell = panel().box(SPELLBOOK).rect()
   // A cell as high as the panel's inside (CELL_HEIGHT, 53 units), its icon in its middle, and the room under the
   // metal over it (4 units).
@@ -949,11 +954,11 @@ test "the action bars' tab fits the settings window at its size: the list, the p
   Test.expect(settings.text("Buttons per row").shown())
 }
 
-test "a cell is square, and its light under the cursor stands clear of the cuts beside it" {
+test "a cell is square, and stands beside the cut, not under it" {
   Game.bags.buttons = bagButtons(frame)
   Test.mount(nil, SCREEN)
   const ground = panel().box(SPELLBOOK).rect()
-  const cut = Test.edges(divider(), 0)
+  const cut = firstCut()
   Test.expect((ground.right - ground.left - (ground.bottom - ground.top)).abs() < 0.5)
   Test.expect(ground.left > cut.right + 1 || ground.right < cut.left - 1)
 }

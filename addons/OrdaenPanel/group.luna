@@ -2,9 +2,33 @@
 // one divider between two neighbours (the windows' deep cut in the wood, Ordaen's `Groove`), none at its ends, where what holds it (the panel's wood, a free part's frame)
 // has its own edge. A cell draws no edge of its own, so no two dividers ever stand together.
 import Game from "$game"
-import { Align, Art, Frame, Position, Track } from "$ltml"
+import { Align, Art, Blend, Frame, Position, Track } from "$ltml"
 import { CUT, Component, Groove } from "Ordaen"
 import { BagCell, CELL_HEIGHT, CellSize, FaceCell, MenuCell, cellSize } from "@/cells"
+
+// The cut between two cells across the screen: short and upright, so it is drawn to read as carved where the windows'
+// long cut (lit from the left) reads flat: five texels, both walls in shadow laid over the wood as black (the wood is
+// too dark for a multiplied shade to show), a lip of light at its right, and its top end in shadow where light from
+// above can't reach.
+const TEXEL: Number<Length> = 1.171875dp
+const PANEL_CUT: Number<Length> = TEXEL * 5
+const SHADOW: Color = Color.hex("#000000")
+const LIP: Color = Color.hex("#1e1e1e")
+const WALLS: Array<Number> = [0.7, 0.85, 0.85, 0.7]
+const TOP_END: Array<Number> = [0.6, 0.35]
+
+class PanelCut implements Component {
+  public render(self): Template {
+    return $ltml {
+      <box columns={[TEXEL, TEXEL, TEXEL, TEXEL, TEXEL]} rows={[{ fr: 1 }]} yAlign={Align.Stretch}>
+        <box $for={wall of WALLS} background={SHADOW} opacity={peek wall} />
+        <box background={LIP} blend={Blend.Add} />
+        <box $for={row, end of TOP_END} position={Position.Absolute} left={0ui} right={0ui} top={TEXEL * (row - 1)}
+             height={TEXEL} background={SHADOW} opacity={peek end} />
+      </box>
+    }
+  }
+}
 
 // One track down a side of the screen; along it, the divider and the cell.
 const DOWN: Array<Track> = ["max-content"]
@@ -74,7 +98,7 @@ class GroupCell implements Component {
   derived rows: Array<Track> | nil = self.vertical ? PAIR : nil
   // The divider: the cut down the cell's whole height between cells across the screen, along its whole width
   // between cells down a side.
-  derived dividerWidth: Number<Length> = self.vertical ? self.size.width : CUT
+  derived dividerWidth: Number<Length> = self.vertical ? self.size.width : PANEL_CUT
   derived dividerHeight: Number<Length> = self.vertical ? CUT : self.size.height
   derived upright: Boolean = !self.vertical
 
@@ -112,7 +136,8 @@ class GroupCell implements Component {
         <box $if={!self.first} width={self.dividerWidth} height={self.dividerHeight}>
           <box position={Position.Absolute} left={0ui} top={-self.rise} right={0ui} bottom={0ui} rows={[{ fr: 1 }]}
                yAlign={Align.Stretch}>
-            <Groove upright={self.upright} />
+            <PanelCut $if={self.upright} />
+            <Groove $else />
           </box>
         </box>
         <CellOf cell={self.cell} gold={self.gold} size={self.size} face={self.face} icon={self.icon} />
