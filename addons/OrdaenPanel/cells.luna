@@ -60,6 +60,10 @@ public class MenuCell implements Component {
   gold: Signal<Boolean>
   count: Signal<Integer>
   size: Signal<CellSize>
+  after: Signal<Number<Length>>
+  // The slot is square with the cut after it: the cell takes the rest of it.
+  derived reach: Number<Length> = self.size.width
+  derived own: Number<Length> = self.size.width - self.after
   constructor(
     icon: Art,
     frame: Signal<any Frame | nil>,
@@ -67,19 +71,22 @@ public class MenuCell implements Component {
     gold: Signal<Boolean>,
     size: Signal<CellSize>,
     // A number on the cell while it isn't 0: the friends online.
-    count: Signal<Integer> = 0
+    count: Signal<Integer> = 0,
+    // How far it reaches right over the cut after it.
+    after: Signal<Number<Length>> = 0ui
   ) {
     self.icon = icon
     self.frame = frame
     self.gold = gold
     self.size = size
     self.count = count
+    self.after = after
   }
 
   public render(self): Template {
     return $ltml {
-      <box width={self.size.width} height={self.size.height}>
-        <box position={Position.Absolute} left={0ui} top={-self.size.rise} right={0ui} bottom={0ui} background={LIT}>
+      <box width={self.own} height={self.size.height}>
+        <box position={Position.Absolute} left={0ui} top={-self.size.rise} right={-self.after} bottom={0ui} background={LIT}>
           <box position={Position.Absolute} left={self.size.iconLeft} top={self.size.iconTop} width={self.size.icon}
                height={self.size.icon} background={self.icon} desaturate={self.gold} tint={self.tint}
           />
@@ -105,25 +112,32 @@ public class FaceCell implements Component {
   size: Signal<CellSize>
   face: Signal<String | nil>
   icon: Signal<Art | nil>
+  after: Signal<Number<Length>>
+  // The slot is square with the cut after it: the cell takes the rest of it.
+  derived reach: Number<Length> = self.size.width
+  derived own: Number<Length> = self.size.width - self.after
   constructor(
     size: Signal<CellSize>,
     // The unit whose face it shows, or nil for the class's icon.
     face: Signal<String | nil>,
-    icon: Signal<Art | nil>
+    icon: Signal<Art | nil>,
+    // How far it reaches right over the cut after it.
+    after: Signal<Number<Length>> = 0ui
   ) {
     self.size = size
     self.face = face
     self.icon = icon
+    self.after = after
   }
 
   public render(self): Template {
     return $ltml {
-      <box width={self.size.width} height={self.size.height}>
-        <box position={Position.Absolute} left={0ui} top={-self.size.rise} right={0ui} bottom={0ui} background={LIT}>
+      <box width={self.own} height={self.size.height}>
+        <box position={Position.Absolute} left={0ui} top={-self.size.rise} right={-self.after} bottom={0ui} background={LIT}>
           <box position={Position.Absolute} left={self.faceLeft} top={self.faceTop} width={self.size.face}
                height={self.size.face} portrait={self.face} icon={self.icon} mask={Ordaen.art.panel.faceRound} />
           <embed frame={Game.frames.CharacterMicroButton} position={Position.Absolute} left={0ui} top={0ui}
-                 width={self.size.width} height={self.size.slot} opacity={0} />
+                 width={self.reach} height={self.size.slot} opacity={0} />
         </box>
       </box>
     }
@@ -142,15 +156,20 @@ public class BagCell implements Component {
 
   const button: Game.BagButton
   size: Signal<CellSize>
-  constructor(button: Game.BagButton, size: Signal<CellSize>) {
+  after: Signal<Number<Length>>
+  // The slot is square with the cut after it: the cell takes the rest of it.
+  derived reach: Number<Length> = self.size.width
+  derived own: Number<Length> = self.size.width - self.after
+  constructor(button: Game.BagButton, size: Signal<CellSize>, after: Signal<Number<Length>> = 0ui) {
     self.button = button
     self.size = size
+    self.after = after
   }
 
   public render(self): Template {
     return $ltml {
-      <box width={self.size.width} height={self.size.height}>
-        <box position={Position.Absolute} left={0ui} top={-self.size.rise} right={0ui} bottom={0ui} background={LIT}>
+      <box width={self.own} height={self.size.height}>
+        <box position={Position.Absolute} left={0ui} top={-self.size.rise} right={-self.after} bottom={0ui} background={LIT}>
           <box position={Position.Absolute} left={self.size.iconLeft} top={self.size.iconTop} width={self.size.icon}
                height={self.size.icon} icon={self.icon} />
           <box $if={self.counted} position={Position.Absolute} right={self.countInset} bottom={self.countBottom}

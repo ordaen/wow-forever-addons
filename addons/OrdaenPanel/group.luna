@@ -85,6 +85,7 @@ public class CellGroup implements Component {
     return $ltml {
       <box columns={self.columns}>
         <GroupCell $for={index, cell of self.cells} $key={cell} cell={peek cell} first={index == 1}
+                   last={index == self.cells.length}
                    gold={self.gold} vertical={self.vertical} size={self.size} face={self.face} icon={self.icon}
                    rise={self.rise} />
       </box>
@@ -101,9 +102,14 @@ class GroupCell implements Component {
   derived dividerWidth: Number<Length> = self.vertical ? self.size.width : PANEL_CUT
   derived dividerHeight: Number<Length> = self.vertical ? CUT : self.size.height
   derived upright: Boolean = !self.vertical
+  // The cut after a cell across the screen is lit with it under the cursor and takes its clicks: the cell reaches over
+  // it, but the group's last, after which none stands.
+  derived after: Number<Length> = self.upright && !self.last ? PANEL_CUT : 0ui
 
   const cell: Cell
   const first: Boolean
+  // The cells come and go: whether it is the last follows them.
+  last: Signal<Boolean>
   gold: Signal<Boolean>
   vertical: Signal<Boolean>
   size: Signal<CellSize>
@@ -113,6 +119,7 @@ class GroupCell implements Component {
   constructor(
     cell: Cell,
     first: Boolean,
+    last: Signal<Boolean>,
     gold: Signal<Boolean>,
     vertical: Signal<Boolean>,
     size: Signal<CellSize>,
@@ -122,6 +129,7 @@ class GroupCell implements Component {
   ) {
     self.cell = cell
     self.first = first
+    self.last = last
     self.gold = gold
     self.vertical = vertical
     self.size = size
@@ -140,7 +148,7 @@ class GroupCell implements Component {
             <Groove $else />
           </box>
         </box>
-        <CellOf cell={self.cell} gold={self.gold} size={self.size} face={self.face} icon={self.icon} />
+        <CellOf cell={self.cell} gold={self.gold} size={self.size} face={self.face} icon={self.icon} after={self.after} />
       </box>
     }
   }
@@ -153,34 +161,37 @@ class CellOf implements Component {
   size: Signal<CellSize>
   face: Signal<String | nil>
   icon: Signal<Art | nil>
+  after: Signal<Number<Length>>
   constructor(
     cell: Cell,
     gold: Signal<Boolean>,
     size: Signal<CellSize>,
     face: Signal<String | nil>,
-    icon: Signal<Art | nil>
+    icon: Signal<Art | nil>,
+    after: Signal<Number<Length>>
   ) {
     self.cell = cell
     self.gold = gold
     self.size = size
     self.face = face
     self.icon = icon
+    self.after = after
   }
 
   // What a template draws reads `self`: the cell is told by its own field.
   public render(self): Template {
     match (self.cell) {
-      .Face => return $ltml { <FaceCell size={self.size} face={self.face} icon={self.icon} /> }
+      .Face => return $ltml { <FaceCell size={self.size} face={self.face} icon={self.icon} after={self.after} /> }
       .Menu => {
         if (self.cell.friends) {
           return $ltml {
             <MenuCell icon={self.cell.icon} frame={self.cell.frame} gold={self.gold} size={self.size}
-                      count={Game.friends.online} />
+                      count={Game.friends.online} after={self.after} />
           }
         }
-        return $ltml { <MenuCell icon={self.cell.icon} frame={self.cell.frame} gold={self.gold} size={self.size} /> }
+        return $ltml { <MenuCell icon={self.cell.icon} frame={self.cell.frame} gold={self.gold} size={self.size} after={self.after} /> }
       }
-      .Bag => return $ltml { <BagCell button={self.cell.button} size={self.size} /> }
+      .Bag => return $ltml { <BagCell button={self.cell.button} size={self.size} after={self.after} /> }
     }
   }
 }

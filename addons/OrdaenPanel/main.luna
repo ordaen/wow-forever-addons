@@ -4,7 +4,7 @@
 // standing in the panel's cells, so their clicks, menus and alerts stay the game's.
 import Events from "$events"
 import Game from "$game"
-import { Align, Anchored, Art, Docked, Edges, Event, Frame, Layer, Overflow, Place, Point, Position, Shadow, Side, Track } from "$ltml"
+import { Align, Anchored, Art, ArtBorder, Docked, Edges, Event, Frame, Layer, Overflow, Place, Point, Position, Shadow, Side, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import { BRIGHT_TEXT, BarFrame, Callout, CalloutLook, CalloutSide, Component, Module, Mover, Placed, SECONDARY_TEXT, Settings, SettingsPage, XpFill, opacityNow, reachAcross, reachDown, sideNear, timeText, xpFillArt } from "Ordaen"
 import { ActionBars, barDefaults, bartenderLoaded } from "@/actionBars"
@@ -46,12 +46,20 @@ const FITTED: Array<Track> = ["max-content", { fr: 1 }, "max-content"]
 // over the panel's start (the chat's tabs) keeps it too, while the portrait shows (`portraitShown`).
 public const PORTRAIT_WIDTH = 128ui
 public const PORTRAIT_HEIGHT = 124ui
+// The portrait's frame: the windows' own metal along its top and down its right, a third heavier than a window's
+// (6 against 4.5), standing out over the panel's corner.
+const PORTRAIT_FRAME_WEIGHT = 6 / 4.5
+function portraitFrame(): ArtBorder {
+  const metal = Ordaen.art.frame.window
+  return { sides: [Side.Top, Side.Right], scale: metal.scale * PORTRAIT_FRAME_WEIGHT, width: metal.width * PORTRAIT_FRAME_WEIGHT, ..metal }
+}
 const PORTRAIT_ROOM: Array<Track> = [PORTRAIT_WIDTH, "max-content"]
 const CORNER: Anchored = { point: Point.BottomLeft }
-// The talent points to spend, on a round badge (the level's, smaller) centred on the portrait's rim down its right side
-// (the rim's art runs from about 112 to 128 there, its middle at 120), under the level's badge.
+// The talent points to spend, on a round badge (the level's, smaller) centred on the portrait's frame down its right
+// side (its metal 6 wide, its middle 3 in from the edge), under the level's badge.
 const TALENTS_SIZE = 20ui
-const TALENTS_LEFT = 110ui
+const FRAME_MIDDLE = 3ui
+const TALENTS_LEFT: Number<Length> = PORTRAIT_WIDTH - FRAME_MIDDLE - TALENTS_SIZE / 2
 const TALENTS_TOP = 50ui
 // Ordaen Spells' title, as its module gives it.
 const SPELLS = "Ordaen Spells"
@@ -425,13 +433,13 @@ public class Panel implements Module, App {
         // rim, and the character's button of the game's unseen over all of it. Part of the panel: as faint as it, and
         // standing in it, so it comes over the panel each time the panel shows again.
         <surface leading={.Row} $if={self.portraitShown} layer={Layer.Screen} place={CORNER} width={PORTRAIT_WIDTH}
-                 height={PORTRAIT_HEIGHT} portrait={self.face} icon={self.classIcon} mask={Ordaen.art.panel.corner}
+                 height={PORTRAIT_HEIGHT} portrait={self.face} icon={self.classIcon}
                  opacity={self.opacity} @pointerEnter={self.onPortraitEnter} @pointerLeave={self.onPortraitLeave}>
           <embed frame={Game.frames.CharacterMicroButton} position={Position.Absolute} left={0ui} top={0ui}
                  width={PORTRAIT_WIDTH} height={PORTRAIT_HEIGHT} opacity={0} />
-          // The rim along the top and down the right, over the face: drawn over the box its shape is cut to.
+          // The frame along the top and down the right, over the face.
           <box position={Position.Absolute} left={0ui} top={0ui} width={PORTRAIT_WIDTH} height={PORTRAIT_HEIGHT}
-               background={Ordaen.art.panel.cornerRim} />
+               border={portraitFrame()} />
           <box position={Position.Absolute} left={86.7ui} top={5.3ui} width={36ui} height={36ui}
                background={Ordaen.art.panel.badge} xAlign={Align.Center} yAlign={Align.Center} zLevel={1}>
             <text value={"%d"} arguments={[Game.player.level]} textColor={Ordaen.look.values.accent}

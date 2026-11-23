@@ -482,11 +482,9 @@ test "talent points to spend are a badge on the portrait's rim under the level, 
   const level = portrait.text("42").rect()
   Test.expect((points.left + points.right) / 2 > (level.left + level.right) / 2)
   Test.expect(portrait.box(Ordaen.art.panel.badge).count() == 2)
-  // Its middle on the rim's band, which the portrait's 128 wide art puts at 120 of 128: the portrait as wide as before.
-  const rim = Test.edges(Ordaen.art.panel.cornerRim, 0)
-  const scale = (rim.right - rim.left) / 128
-  Test.expect(((points.left + points.right) / 2 - rim.left - 120 * scale).abs() <= 1.5 * scale)
-  Test.expect((Test.edges(Ordaen.art.panel.cornerRim, 1).right - rim.right).abs() < 0.5)
+  // Its middle on the frame down the portrait's right side, 3 in from its edge (the metal 6 wide).
+  const edges = portrait.rect()
+  Test.expect(((points.left + points.right) / 2 - (edges.right - 3)).abs() <= 1.5)
   Game.talentTrees.unspent = (group: Integer): Integer => 0
   Test.event("CHARACTER_POINTS_CHANGED", -3)
   Test.expect(!portrait.text("3").shown() && !portrait.text("0").shown())
@@ -706,7 +704,7 @@ test "a hidden panel's every part is as faint as it: the portrait, its badge and
   settings.button(Ordaen.art.ctl.groove).nth(2).click()
   Game.situation.combat = true
   Test.expect((panel().opacity() - 0.5).abs() < 0.01)
-  const portrait = Test.page().box(Ordaen.art.panel.cornerRim)
+  const portrait = Test.page().window("42")
   Test.expect(portrait.opacity() <= 0.51 && Test.page().text("42").opacity() <= 0.51)
   Test.expect(Test.page().box(Ordaen.art.panel.badge).opacity() <= 0.51)
   for (game of [professions, character, client("MainMenuBarBackpackButton")]) {
@@ -954,12 +952,14 @@ test "the action bars' tab fits the settings window at its size: the list, the p
   Test.expect(settings.text("Buttons per row").shown())
 }
 
-test "a cell's slot is square, from the panel's metal down, and stands beside the cut, not under it" {
+test "a cell's slot is square, from the panel's metal down, the cut after it its own" {
   Game.bags.buttons = bagButtons(frame)
   Test.mount(nil, SCREEN)
   const ground = panel().box(CELL).nth(2).rect()
   const cut = firstCut()
   Test.expect((ground.right - ground.left - (ground.bottom - ground.top)).abs() < 0.5)
   Test.expect((ground.top - cut.top).abs() < 0.5 && (ground.bottom - cut.bottom).abs() < 0.5)
-  Test.expect(ground.left > cut.right - 0.5 || ground.right < cut.left + 0.5)
+  // Panel 2's second cell: after the first cut, and over the second, which its light and its clicks take.
+  const next = panel().box(CUT_LIP).nth(2).rect()
+  Test.expect((ground.left - cut.right).abs() < 0.5 && (ground.right - next.right).abs() < 0.5)
 }
