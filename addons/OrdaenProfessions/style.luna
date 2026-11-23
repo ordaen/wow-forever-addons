@@ -3,7 +3,6 @@
 import Game from "$game"
 import { Art, Bounds, ByInteractionState, Edges, Line, Shadow, Side } from "$ltml"
 import { ARTWORK } from "Ordaen"
-import { SCROLL_DIM, SCROLL_HEAD, SCROLL_INK } from "OrdaenQuestPage"
 
 // The body. The recipes' side (the search and the lists) and the recipe's card share its width; the lists are never
 // narrower than these, which hold all but the longest names of a category and a recipe on one line, and the
@@ -34,41 +33,24 @@ public struct Surface {
 }
 
 // The recipes page's sections: the categories on the window's wood, the recipes on the wood stained a dark brown, the
-// recipe on Ordaen Quest Page's paper (`RecipeDetails`). A chosen category takes the recipes' surface, a tab into them;
+// recipe on the window's wood behind a divider (`RecipeDetails`). A chosen category takes the recipes' surface, a tab into them;
 // a chosen recipe a plain light, short of the paper's torn edge.
 public const RECIPES: Surface = { art: ARTWORK.window.wood, tint: Color.hex("#86684e") }
 public const RECIPE_LIT: Surface = { art: Color.hex("#e8c89629"), tint: nil }
 // The recipes' room on their left, twice their rows' padding: the chosen category's surface shows there.
-public const RECIPES_ROOM: Edges = { left: 6sp }
+public const RECIPES_ROOM: Edges = { left: 2sp }
 public const RECIPE_PAD: Number<Spacing> = 3sp
 // The groove between the categories and the recipes, at 40%: a dark line and a light one beside it, 1 unit each.
 public const GROOVE_DARK: Color = Color.hex("#0000003d")
 public const GROOVE_LIGHT: Color = Color.hex("#d6a56b16")
 public const GROOVE: Number<Length> = 1ui
 
-// The recipe's paper's inks: the quest scroll's, its red and its rule darker for the paper.
-public const PAPER_INK: Color = SCROLL_INK
-public const PAPER_TITLE: Color = Color.hex("#200800")
-public const PAPER_HEAD: Color = SCROLL_HEAD
-public const PAPER_DIM: Color = SCROLL_DIM
-public const PAPER_RED: Color = Color.hex("#a01a10")
-public const PAPER_RULE: Line = { width: 1.171875dp, color: Color.hex("#3a100040"), sides: [Side.Top] }
 // A heading under the cursor (a row that selects is a `TabItem`).
 public const ROW_LIGHT: ByInteractionState<Color> = { default: CLEAR, hover: Color.hex("#d6a56b1f"), focus: Color.hex("#d6a56b1f") }
 public const SHADOW: Shadow = { color: Color.hex("#000000"), x: 1.171875dp, y: -1.171875dp }
 // Between rows, and round an item's slot.
 public const ROW_RULE: Line = { width: 1.171875dp, color: Color.hex("#d6a56b14"), sides: [Side.Top] }
 public const BRONZE: Line = { width: 1.171875dp, color: Color.hex("#6c5535") }
-
-// A recipe's difficulty on the recipe's paper: its colour darkened to read on it.
-public function paperDifficultyColor(difficulty: Game.Difficulty): Color {
-  match (difficulty) {
-    Game.Difficulty.Always => return Color.hex("#a8400c")
-    Game.Difficulty.Usually => return Color.hex("#7a5a00")
-    Game.Difficulty.Rarely => return Color.hex("#2e6e1e")
-    Game.Difficulty.Never => return Color.hex("#5a5048")
-  }
-}
 
 // A recipe's name in its difficulty's colour.
 public function difficultyColor(difficulty: Game.Difficulty): Color {

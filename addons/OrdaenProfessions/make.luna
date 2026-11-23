@@ -106,7 +106,7 @@ public class MakeRow implements Component {
         <box $else />
         <box />
         <PushButton label={Locale.CREATE} width={128.90625dp} disabled={self.cannot} @click={self.onCreate} />
-        <text value={self.hint} textSize={SECONDARY_TEXT} textColor={Style.PAPER_DIM} columnSpan={4} />
+        <text value={self.hint} textSize={SECONDARY_TEXT} textColor={Style.DIM} columnSpan={4} />
       </box>
     }
   }

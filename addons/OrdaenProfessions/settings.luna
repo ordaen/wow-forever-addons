@@ -11,8 +11,6 @@ public struct Choices implements Plain {
   prices: Boolean
   // The window opens a profession at the category and recipe the player left it at.
   remember: Boolean
-  // The filter starts with the recipes the character hasn't learned in the list.
-  showUnlearned: Boolean
 }
 
 public class GeneralPage implements Component {
@@ -30,8 +28,6 @@ public class GeneralPage implements Component {
                 disabled={self.noAuction} />
       <Checkbox label={Locale.SETTING_REMEMBER} hint={Locale.SETTING_REMEMBER_TIP}
                 value={mut self.settings.values.remember} />
-      <Checkbox label={Locale.SETTING_UNLEARNED} hint={Locale.SETTING_UNLEARNED_TIP}
-                value={mut self.settings.values.showUnlearned} />
     }
   }
 }

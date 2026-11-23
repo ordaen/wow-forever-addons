@@ -27,10 +27,6 @@ const RED: Color = Color.hex("#ff4040")
 const DIM: Color = Color.hex("#a3977f")
 const INK: Color = Color.hex("#e8dcc4")
 const AMBER: Color = Color.hex("#ffb02e")
-// The recipe's card is on the quest scroll's paper, in its inks.
-const PAPER_RED: Color = Color.hex("#a01a10")
-const PAPER_DIM: Color = Color.hex("#4a3520")
-const PAPER_INK: Color = Color.hex("#160c03")
 // The cheaper way's price, on a green ground.
 const CHEAPER: Color = Color.hex("#40c0402e")
 // A text the settings window always shows.
@@ -162,8 +158,8 @@ test "each reagent's price at the house and at a merchant for the count, the che
   Test.expect(reads(window().text("Coarse Thread").item(), "Coarse Thread | 0 / 1 | 0g 0s 15c | 0g 0s 10c | Merchant"))
   Test.expect(reads(window().text("Coarse Thread").item().box(CHEAPER), "0g 0s 10c"))
   Test.expect(reads(window().text("Bolt of Linen Cloth").nth(2).item().box(CHEAPER), "0g 1s 0c"))
-  Test.expect(window().text("0 / 1").textColor().equal(PAPER_RED) && near(window().text("1 / 1").textColor(), PAPER_INK))
-  Test.expect(near(window().text("Buy").textColor(), PAPER_INK))
+  Test.expect(window().text("0 / 1").textColor().equal(RED) && near(window().text("1 / 1").textColor(), INK))
+  Test.expect(near(window().text("Buy").textColor(), INK))
 }
 
 test "the totals: every part at its price, what the bags lack, the sale after the house's cut, the profit, the prices' age" {
@@ -265,7 +261,7 @@ test "a part with no price makes the cost and profit none; left to buy is none o
   Game.tradeSkill.open = TAILORING
   // The bolt, held, has no price; the thread is bought.
   Test.expect(reads(window().text("Bolt of Linen Cloth").nth(2).item(), "Bolt of Linen Cloth | 1 / 1 | — | — | —"))
-  Test.expect(window().text("Bolt of Linen Cloth").nth(2).item().text("—").nth(3).textColor().equal(PAPER_RED))
+  Test.expect(window().text("Bolt of Linen Cloth").nth(2).item().text("—").nth(3).textColor().equal(RED))
   Test.expect(totals("Cost | — | Left to buy | 0g 0s 15c | Sale | 0g 4s 75c | Profit | — | Prices: 0 h ago"))
   // Two: one bolt lacking, with no price.
   window().button("+").click()
@@ -318,7 +314,7 @@ test "a loss is said with a red minus" {
   Game.tradeSkill.open = TAILORING
   // 1 s 10 c for what sells at 47 c: 63 c lost.
   Test.expect(totals("Cost | 0g 1s 10c | Left to buy | 0g 0s 10c | Sale | 0g 0s 47c | Profit | - | 0g 0s 63c | Prices: 0 h ago"))
-  Test.expect(near(window().text("-").nth(1).textColor(), PAPER_RED) && near(window().text("0g 0s 63c").textColor(), PAPER_RED))
+  Test.expect(near(window().text("-").nth(1).textColor(), RED) && near(window().text("0g 0s 63c").textColor(), RED))
 }
 
 test "the prices' age: in hours under two days, then in days" {
@@ -367,7 +363,7 @@ test "prices under a day old are said dim" {
   Game.clock.server = NOW + 5 * HOUR
   Test.mount(nil, SCREEN)
   Game.tradeSkill.open = TAILORING
-  Test.expect(near(window().text("Prices: 5 h ago").textColor(), PAPER_DIM))
+  Test.expect(near(window().text("Prices: 5 h ago").textColor(), DIM))
 }
 
 test "the prices' age is the sale's too, where every part is a merchant's" {

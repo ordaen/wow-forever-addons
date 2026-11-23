@@ -342,13 +342,17 @@ test "the profession last open is asked for after a reload" {
 
 // The profession's spell
 
-test "Mining has «Find Minerals» in the footer, which the client casts from the player's click" {
+test "Mining has «Find Minerals» at the skill bar's right, which the client casts from the player's click" {
   Game.frames.Professions = gameWindow()
   Game.professions.list = [{ skillLine: MINING, name: "Mining", icon: 136248, rank: 70, max: 75, kind: Game.ProfessionKind.Gathering }]
   Game.spells.name = (id: Integer): String | nil => id == 2580 ? "Find Minerals" : nil
   Game.spells.known = (id: Integer): Boolean => true
   Test.mount(nil, SCREEN)
   Game.tradeSkill.open = MINING
+  // In the band, on the bar's line, a gap between them.
+  const bar = window().text("Apprentice · 70 / 75").rect()
+  const button = window().button("Find Minerals").rect()
+  Test.expect(button.top < bar.bottom && button.bottom > bar.top && button.left > bar.right)
   _ = Test.performed()
   window().button("Find Minerals").click()
   Test.expect(Test.performed().join(", ") == "spell Find Minerals")
@@ -383,11 +387,11 @@ test "a profession's spell the character doesn't know has no button" {
 
 // The settings
 
-test "Ordaen lists the module, whose page has its three settings" {
+test "Ordaen lists the module, whose page has its settings" {
   Test.mount(nil, SCREEN)
   const page = settings()
   Test.expect(page.button("Professions").shown() && page.text("Prices").shown())
-  Test.expect(page.text("Show recipes you haven't learned").shown())
+  Test.expect(!page.text("Show recipes you haven't learned").shown())
 }
 
 test "the window's gear opens the module's page of the settings, which stands over the window" {

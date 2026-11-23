@@ -7,7 +7,6 @@ import Game from "$game"
 import { Art } from "$ltml"
 import Test from "$test"
 import root Ordaen from "Ordaen"
-import { SCROLL_ART } from "OrdaenQuestPage"
 import { Kept } from "@/view"
 
 const SCREEN: Test.Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
@@ -28,13 +27,10 @@ const DIM: Color = Color.hex("#a3977f")
 // The funnel's glyph while a filter is on; a menu's line that takes no click.
 const LIT: Color = Color.hex("#f0c860")
 const MENU_DIM: Color = Color.hex("#6f6552")
-// The recipe's card is on the quest scroll's paper: its inks, and the difficulties' colours darkened for it.
-const PAPER_INK: Color = Color.hex("#160c03")
-const PAPER_RED: Color = Color.hex("#a01a10")
-const PAPER_ORANGE: Color = Color.hex("#a8400c")
-const PAPER_YELLOW: Color = Color.hex("#7a5a00")
-const PAPER_GREEN: Color = Color.hex("#2e6e1e")
-const PAPER_GREY: Color = Color.hex("#5a5048")
+// The card's text.
+const INK: Color = Color.hex("#e8dcc4")
+// The groove's dark line between the categories and the recipes.
+const GROOVE: Color = Color.hex("#0000003d")
 // A text the settings window always shows.
 const SETTINGS = "Move mode"
 // The card's note that a recipe waits in the queue.
@@ -213,10 +209,10 @@ test "in columns: the categories with recipes, each counted, beside the first on
   Test.mount(nil, SCREEN)
   Game.tradeSkill.open = TAILORING
   // The camp's has a tab of its own; a category with nothing in it has no row.
-  Test.expect(reads(window().text("Cloth armour").item(), "Cloth armour | 3 | (1)"))
-  Test.expect(reads(window().text("Bags").item(), "Bags | 2 | (1)"))
+  Test.expect(reads(window().text("Cloth armour").item(), "Cloth armour | 1 | /2"))
+  Test.expect(reads(window().text("Bags").item(), "Bags | 1 | /2"))
   Test.expect(!window().text("Resting at camp").shown() && !window().text("Nothing known here").shown())
-  Test.expect(lists("Linen Cloak, Brown Linen Vest, Woolen Cape") && chosen() == "Linen Cloak")
+  Test.expect(lists("Linen Cloak, Brown Linen Vest") && chosen() == "Linen Cloak")
 }
 
 test "with no spell of its own and off the queue, the recipe runs down to the window's frame: no empty footer under it" {
@@ -226,19 +222,18 @@ test "with no spell of its own and off the queue, the recipe runs down to the wi
   Game.tradeSkill.recipes = recipes()
   Test.mount(nil, SCREEN)
   Game.tradeSkill.open = TAILORING
-  // The body is the lowest of the wood (the tabs are wood too); the frame's band alone stands between them: its 16 texels
-  // at the window's 0.45.
-  Test.expect(lowest(window().box(Ordaen.art.window.wood)) - lowest(window().box(SCROLL_ART.paper.middle)) <= 16 * 0.45 + 0.01)
+  // The body is the lowest of the wood (the tabs are wood too); the lists run to the page's bottom, the groove down the
+  // categories with them; the frame's band alone stands between them: its 16 texels at the window's 0.45.
+  Test.expect(lowest(window().box(Ordaen.art.window.wood)) - lowest(window().box(GROOVE)) <= 16 * 0.45 + 0.01)
 }
 
-test "the recipe on the quest scroll's paper, its torn edge at its left; the chosen recipe a light, the chosen category cut into the groove" {
+test "the chosen recipe a light, the chosen category cut into the groove" {
   Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
   Game.professions.list = professions()
   Game.tradeSkill.categories = categories()
   Game.tradeSkill.recipes = recipes()
   Test.mount(nil, SCREEN)
   Game.tradeSkill.open = TAILORING
-  Test.expect(window().box(SCROLL_ART.paper.middle).shown() && window().box(SCROLL_ART.paper.left).shown())
   // One light, the chosen recipe's; the groove's dark line down the categories and along the chosen one's top and
   // bottom.
   Test.expect(window().box(Color.hex("#e8c89629")).count() == 1)
@@ -274,9 +269,9 @@ test "a category's count of what the bags make now is white while any, dim at no
   ]
   Test.mount(nil, SCREEN)
   Game.tradeSkill.open = TAILORING
-  Test.expect(reads(window().text("Cloth armour").item(), "Cloth armour | 1 | (0)"))
-  Test.expect(window().text("Cloth armour").item().text("(0)").textColor().equal(DIM))
-  Test.expect(window().text("Bags").item().text("(1)").textColor().equal(WHITE))
+  Test.expect(reads(window().text("Cloth armour").item(), "Cloth armour | 0 | /1"))
+  Test.expect(window().text("Cloth armour").item().text("0").textColor().equal(DIM))
+  Test.expect(window().text("Bags").item().text("1").textColor().equal(WHITE))
 }
 
 test "by category: one list under the categories' headings, a heading clicked folds its recipes away" {
@@ -287,12 +282,12 @@ test "by category: one list under the categories' headings, a heading clicked fo
   Test.mount(nil, SCREEN)
   Game.tradeSkill.open = TAILORING
   view("By category")
-  Test.expect(lists("Linen Cloak, Brown Linen Vest, Woolen Cape, Woolen Bag, Linen Bag"))
-  Test.expect(reads(window().button("Bags"), "- | Bags | 2 | (1)"))
+  Test.expect(lists("Linen Cloak, Brown Linen Vest, Woolen Bag, Linen Bag"))
+  Test.expect(reads(window().button("Bags"), "- | Bags | 1 | /2"))
   window().button("Cloth armour").click()
-  Test.expect(reads(window().button("Cloth armour"), "+ | Cloth armour | 3 | (1)") && lists("Woolen Bag, Linen Bag"))
+  Test.expect(reads(window().button("Cloth armour"), "+ | Cloth armour | 1 | /2") && lists("Woolen Bag, Linen Bag"))
   window().button("Cloth armour").click()
-  Test.expect(lists("Linen Cloak, Brown Linen Vest, Woolen Cape, Woolen Bag, Linen Bag"))
+  Test.expect(lists("Linen Cloak, Brown Linen Vest, Woolen Bag, Linen Bag"))
   window().text("Woolen Bag").nth(1).click()
   Test.expect(chosen() == "Woolen Bag")
   // The last of a category too.
@@ -311,7 +306,7 @@ test "by category, a heading's name is gold, «Favorites» white, and its counts
   window().button("Favorite").click()
   const bags = window().button("Bags")
   Test.expect(near(bags.text("Bags").textColor(), YELLOW) && near(window().button("Favorites").text("Favorites").textColor(), WHITE))
-  Test.expect(near(bags.text("(1)").textColor(), WHITE))
+  Test.expect(near(bags.text("1").textColor(), WHITE))
   // Starred again: «Favorites» goes, and the first heading is gold; starred once more for what follows.
   window().button("Favorite").click()
   Test.expect(!window().text("Favorites").shown() && near(window().button("Cloth armour").text("Cloth armour").textColor(), YELLOW))
@@ -322,7 +317,7 @@ test "by category, a heading's name is gold, «Favorites» white, and its counts
     recipe(120, "Linen Bag", 12, Game.Difficulty.Usually, 0, true), recipe(121, "Woolen Bag", 12, Game.Difficulty.Always, 0, true),
     recipe(122, "Red Linen Bag", 12, Game.Difficulty.Always, 0, true)
   ]
-  Test.expect(reads(window().button("Bags"), "- | Bags | 3 | (0)") && near(window().button("Bags").text("(0)").textColor(), DIM))
+  Test.expect(reads(window().button("Bags"), "- | Bags | 0 | /3") && near(window().button("Bags").text("0").textColor(), DIM))
 }
 
 test "a table: by name, its headings sort it and the same one again turns it round; the sort's picker goes" {
@@ -335,16 +330,16 @@ test "a table: by name, its headings sort it and the same one again turns it rou
   Test.expect(window().button(Ordaen.art.ctl.tool.sort).shown())
   view("Table")
   Test.expect(!window().button(Ordaen.art.ctl.tool.sort).shown())
-  Test.expect(lists("Brown Linen Vest, Linen Bag, Linen Cloak, Woolen Bag, Woolen Cape"))
+  Test.expect(lists("Brown Linen Vest, Linen Bag, Linen Cloak, Woolen Bag"))
   Test.expect(reads(window().text("Linen Bag").item(), "Linen Bag | 2 | 0g 0s 0c | —") && reads(window().text("Woolen Bag").item(), "Woolen Bag | - | 0g 0s 0c | —"))
   window().button("Can make").click()
-  Test.expect(lists("Brown Linen Vest, Woolen Bag, Woolen Cape, Linen Cloak, Linen Bag"))
+  Test.expect(lists("Brown Linen Vest, Woolen Bag, Linen Cloak, Linen Bag"))
   window().button("Can make").click()
-  Test.expect(lists("Linen Bag, Linen Cloak, Woolen Cape, Woolen Bag, Brown Linen Vest"))
+  Test.expect(lists("Linen Bag, Linen Cloak, Woolen Bag, Brown Linen Vest"))
   window().button("Recipe").click()
-  Test.expect(lists("Brown Linen Vest, Linen Bag, Linen Cloak, Woolen Bag, Woolen Cape"))
+  Test.expect(lists("Brown Linen Vest, Linen Bag, Linen Cloak, Woolen Bag"))
   window().button("Recipe").click()
-  Test.expect(lists("Woolen Cape, Woolen Bag, Linen Cloak, Linen Bag, Brown Linen Vest"))
+  Test.expect(lists("Woolen Bag, Linen Cloak, Linen Bag, Brown Linen Vest"))
   window().text("Linen Cloak").nth(1).click()
   Test.expect(chosen() == "Linen Cloak")
 }
@@ -366,12 +361,11 @@ test "the camp's tab lists its recipes in one list whatever the view, with no vi
 
 // The sort
 
-test "by difficulty the learned come first, the hardest to raise the skill last, a tie by name" {
+test "by difficulty the hardest to raise the skill last, a tie by name" {
   Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
   Game.professions.list = professions()
   Game.tradeSkill.categories = categories()
   Game.tradeSkill.recipes = [
-    recipe(112, "Woolen Cape", 11, Game.Difficulty.Always, 0, false),
     recipe(113, "Grey Cape", 11, Game.Difficulty.Never, 0, true),
     recipe(114, "Green Cape", 11, Game.Difficulty.Rarely, 0, true),
     recipe(115, "Yellow Cape", 11, Game.Difficulty.Usually, 0, true),
@@ -381,10 +375,10 @@ test "by difficulty the learned come first, the hardest to raise the skill last,
   Test.mount(nil, SCREEN)
   Game.tradeSkill.open = TAILORING
   const order = window().texts().filter(shown => shown.contains("Cape")).join(", ")
-  Test.expect(order == "Amber Cape, Brown Cape, Yellow Cape, Green Cape, Grey Cape, Woolen Cape, Amber Cape")
+  Test.expect(order == "Amber Cape, Brown Cape, Yellow Cape, Green Cape, Grey Cape, Amber Cape")
 }
 
-test "by name the recipes of a category stand in the alphabet's order, learned or not" {
+test "by name the recipes of a category stand in the alphabet's order" {
   Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
   Game.professions.list = professions()
   Game.tradeSkill.categories = categories()
@@ -393,7 +387,7 @@ test "by name the recipes of a category stand in the alphabet's order, learned o
   Game.tradeSkill.open = TAILORING
   view("By category")
   sort("By name")
-  Test.expect(lists("Brown Linen Vest, Linen Cloak, Woolen Cape, Linen Bag, Woolen Bag"))
+  Test.expect(lists("Brown Linen Vest, Linen Cloak, Linen Bag, Woolen Bag"))
 }
 
 test "by «Can make» the most the bags make stands first in its category, a tie by name" {
@@ -405,7 +399,7 @@ test "by «Can make» the most the bags make stands first in its category, a tie
   Game.tradeSkill.open = TAILORING
   view("By category")
   sort("Can make")
-  Test.expect(lists("Linen Cloak, Brown Linen Vest, Woolen Cape, Linen Bag, Woolen Bag"))
+  Test.expect(lists("Linen Cloak, Brown Linen Vest, Linen Bag, Woolen Bag"))
 }
 
 test "two recipes of one name stand by their numbers, whichever way they came" {
@@ -443,7 +437,7 @@ test "the filter's «Can make» leaves what the bags make now, «Raises the skil
   Test.expect(lists("Linen Cloak, Brown Linen Vest"))
 }
 
-test "the filter's «Learned» and «Not learned» each take theirs away" {
+test "the recipes not learned have a tab of their own, after the recipes'; the overview's tab stands first" {
   Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
   Game.professions.list = professions()
   Game.tradeSkill.categories = categories()
@@ -451,11 +445,14 @@ test "the filter's «Learned» and «Not learned» each take theirs away" {
   Test.mount(nil, SCREEN)
   Game.tradeSkill.open = TAILORING
   view("By category")
-  filter().button("Not learned").click()
+  const tabs = window().button("Overview").rect().left < window().button("Recipes").rect().left
+  Test.expect(tabs && window().button("Recipes").rect().left < window().button("Not learned").rect().left)
+  window().button("Not learned").click()
+  Test.expect(lists("Woolen Cape") && chosen() == "Woolen Cape")
+  window().button("Recipes").click()
   Test.expect(lists("Linen Cloak, Brown Linen Vest, Woolen Bag, Linen Bag"))
-  filter().button("Not learned").click()
-  filter().button("Learned").click()
-  Test.expect(window().text("Woolen Cape").count() == 2 && chosen() == "Woolen Cape")
+  // The filter has no switch for them any more.
+  Test.expect(!filter().button("Not learned").shown() && !filter().button("Learned").shown())
 }
 
 test "an option of the filter has its switch on while it is on; «Reset» turns every one back, and only then can be clicked" {
@@ -466,16 +463,14 @@ test "an option of the filter has its switch on while it is on; «Reset» turns 
   Test.mount(nil, SCREEN)
   Game.tradeSkill.open = TAILORING
   view("By category")
-  Test.expect(filter().button("Learned").paintedWith(Ordaen.art.ctl.switchOn) && !filter().button("Can make").paintedWith(Ordaen.art.ctl.switchOn))
+  Test.expect(!filter().button("Can make").paintedWith(Ordaen.art.ctl.switchOn))
   Test.expect(filter().button("Reset").paintedWith(Ordaen.art.ctl.buttonDisabled))
   filter().button("Can make").click()
   filter().button("Raises the skill").click()
-  filter().button("Learned").click()
-  Test.expect(filter().button("Can make").paintedWith(Ordaen.art.ctl.switchOn) && !filter().button("Learned").paintedWith(Ordaen.art.ctl.switchOn))
+  Test.expect(filter().button("Can make").paintedWith(Ordaen.art.ctl.switchOn))
   Test.expect(!filter().button("Reset").paintedWith(Ordaen.art.ctl.buttonDisabled))
   filter().button("Reset").click()
-  Test.expect(lists("Linen Cloak, Brown Linen Vest, Woolen Cape, Woolen Bag, Linen Bag"))
-  Test.expect(filter().button("Learned").paintedWith(Ordaen.art.ctl.switchOn) && filter().button("Not learned").paintedWith(Ordaen.art.ctl.switchOn))
+  Test.expect(lists("Linen Cloak, Brown Linen Vest, Woolen Bag, Linen Bag"))
   Test.expect(!filter().button("Can make").paintedWith(Ordaen.art.ctl.switchOn) && !filter().button("Raises the skill").paintedWith(Ordaen.art.ctl.switchOn))
 }
 
@@ -492,12 +487,10 @@ test "the filter narrows the recipes not learned to the ways they are learned, a
   Test.mount(nil, SCREEN)
   Game.tradeSkill.open = TAILORING
   view("By category")
-  view("By category")
+  window().button("Not learned").click()
   Test.expect(listed().contains("Trainer's Shirt") && listed().contains("Vendor's Robe"))
   filter().button("From a vendor").click()
   Test.expect(!listed().contains("Trainer's Shirt") && listed().contains("Vendor's Robe"))
-  // What has been learned stays, whatever the way.
-  Test.expect(listed().contains("Linen Cloak"))
   filter().button("No reputation asked").click()
   Test.expect(!listed().contains("Vendor's Robe"))
   filter().button("From a vendor").click()
@@ -524,16 +517,14 @@ test "the funnel's tip names the options on, or that none is" {
   Test.mount(nil, SCREEN)
   Game.tradeSkill.open = TAILORING
   window().button(Ordaen.art.ctl.tool.filter).hover()
-  Test.expect(reads(Test.page().window("Filter"), "Filter | Learned, Not learned"))
+  Test.expect(reads(Test.page().window("Filter"), "Filter | Nothing switched on"))
   filter().button("Can make").click()
   filter().button("Raises the skill").click()
   window().button("Recipes").click()
   window().button(Ordaen.art.ctl.tool.filter).hover()
-  Test.expect(reads(Test.page().window("Filter"), "Filter | Can make, Raises the skill, Learned, Not learned"))
+  Test.expect(reads(Test.page().window("Filter"), "Filter | Can make, Raises the skill"))
   filter().button("Can make").click()
   filter().button("Raises the skill").click()
-  filter().button("Learned").click()
-  filter().button("Not learned").click()
   window().button("Recipes").click()
   window().button(Ordaen.art.ctl.tool.filter).hover()
   Test.expect(reads(Test.page().window("Filter"), "Filter | Nothing switched on"))
@@ -572,7 +563,7 @@ test "the search finds a recipe by its name or by a reagent's, in any case" {
   Test.type("coarse")
   Test.expect(lists("Linen Cloak, Brown Linen Vest"))
   Test.erase(6)
-  Test.expect(lists("Linen Cloak, Brown Linen Vest, Woolen Cape, Woolen Bag, Linen Bag"))
+  Test.expect(lists("Linen Cloak, Brown Linen Vest, Woolen Bag, Linen Bag"))
 }
 
 test "the search reads a recipe's reagents once, not again at each letter typed" {
@@ -626,11 +617,12 @@ test "a recipe's name is in its difficulty's colour, one not learned dim; what t
   Game.tradeSkill.open = TAILORING
   view("By category")
   Test.expect(window().text("Woolen Bag").textColor().equal(ORANGE) && window().text("Brown Linen Vest").textColor().equal(YELLOW))
-  Test.expect(window().text("Woolen Cape").textColor().equal(UNLEARNED))
   window().button("Camp").click()
   Test.expect(window().text("Linen Bandage").nth(1).textColor().equal(GREEN))
   window().button("Recipes").click()
   Test.expect(reads(window().text("Linen Bag").item(), "Linen Bag | [2]") && reads(window().text("Woolen Bag").item(), "Woolen Bag"))
+  window().button("Not learned").click()
+  Test.expect(window().text("Woolen Cape").nth(1).textColor().equal(UNLEARNED))
 }
 
 test "a recipe that no longer raises the skill is grey" {
@@ -654,16 +646,16 @@ test "the card: the recipe's name, what making it does for the skill, its descri
   Game.tradeSkill.requirements = (id: Integer): Array<Game.Requirement> => id == 110 ? [{ name: "Sewing kit", met: true }, { name: "Loom", met: false }] : []
   Test.mount(nil, SCREEN)
   Game.tradeSkill.open = TAILORING
-  Test.expect(window().text("Always raises the skill").textColor().equal(PAPER_ORANGE) && window().text("A plain cloak of linen.").shown())
+  Test.expect(window().text("Always raises the skill").textColor().equal(ORANGE) && window().text("A plain cloak of linen.").shown())
   // A need missing is red.
-  Test.expect(window().text("Needs: Sewing kit\n|cffa01a10Needs: Loom|r").shown())
+  Test.expect(window().text("Needs: Sewing kit\n|cffff4040Needs: Loom|r").shown())
   window().text("Brown Linen Vest").click()
-  Test.expect(window().text("Usually raises the skill").textColor().equal(PAPER_YELLOW) && !window().text("A plain cloak of linen.").shown())
+  Test.expect(window().text("Usually raises the skill").textColor().equal(YELLOW) && !window().text("A plain cloak of linen.").shown())
   window().button("Bags").click()
   window().text("Linen Bag").nth(1).click()
   Test.expect(window().text("Usually raises the skill").shown())
   window().button("Camp").click()
-  Test.expect(window().text("Rarely raises the skill").textColor().equal(PAPER_GREEN))
+  Test.expect(window().text("Rarely raises the skill").textColor().equal(GREEN))
 }
 
 test "the card of a recipe not learned says so in red, and has no make row and no «Track»" {
@@ -674,8 +666,8 @@ test "the card of a recipe not learned says so in red, and has no make row and n
   Test.mount(nil, SCREEN)
   Game.tradeSkill.open = TAILORING
   Test.expect(window().button("Create").shown() && window().text("Track").shown())
-  window().text("Woolen Cape").click()
-  Test.expect(window().text("Not learned").textColor().equal(PAPER_RED) && window().text("Doesn't raise the skill").count() == 0)
+  window().button("Not learned").click()
+  Test.expect(window().text("Not learned").nth(2).textColor().equal(RED) && window().text("Doesn't raise the skill").count() == 0)
   Test.expect(!window().button("Create").shown() && !window().text("Track").shown() && window().text("Favorite").shown())
 }
 
@@ -686,7 +678,7 @@ test "a recipe grey for the skill says it doesn't raise it" {
   Game.tradeSkill.recipes = [recipe(110, "Linen Cloak", 11, Game.Difficulty.Never, 1, true)]
   Test.mount(nil, SCREEN)
   Game.tradeSkill.open = TAILORING
-  Test.expect(window().text("Doesn't raise the skill").textColor().equal(PAPER_GREY))
+  Test.expect(window().text("Doesn't raise the skill").textColor().equal(GREY))
 }
 
 test "a long description is shown whole in the card" {
@@ -727,7 +719,7 @@ test "the card's item of a recipe not learned is dimmed" {
   Test.mount(nil, SCREEN)
   Game.tradeSkill.open = TAILORING
   Test.expect(window().button(CLOTH_ICON).opacity() == 1)
-  window().text("Woolen Cape").click()
+  window().button("Not learned").click()
   Test.expect(window().button(CLOTH_ICON).opacity() < 1)
 }
 
@@ -746,15 +738,15 @@ test "the reagents with prices off: each with have / need, red where the bags ho
   Game.tradeSkill.open = TAILORING
   setting("Prices")
   Test.expect(reads(window().text("Coarse Thread").item(), "Coarse Thread | 0 / 1"))
-  Test.expect(window().text("3 / 1").textColor().equal(PAPER_INK) && window().text("0 / 1").textColor().equal(PAPER_RED))
+  Test.expect(window().text("3 / 1").textColor().equal(INK) && window().text("0 / 1").textColor().equal(RED))
   Test.expect(!window().text("Auction").shown())
   // Another recipe chosen: its reagents in the rows.
   window().button("Bags").click()
   Test.expect(chosen() == "Woolen Bag" && reads(window().text("Bolt of Woolen Cloth").item(), "Bolt of Woolen Cloth | 0 / 3"))
-  Test.expect(window().text("0 / 3").textColor().equal(PAPER_RED) && window().box(WOOL_ICON).shown())
+  Test.expect(window().text("0 / 3").textColor().equal(RED) && window().box(WOOL_ICON).shown())
   // Just as many as it takes: not short.
   window().text("Linen Bag").click()
-  Test.expect(window().text("3 / 3").textColor().equal(PAPER_INK))
+  Test.expect(window().text("3 / 3").textColor().equal(INK))
 }
 
 // Favorites and tracked
@@ -768,7 +760,7 @@ test "a recipe starred stands in «Favorites», first among the categories, with
   Game.tradeSkill.open = TAILORING
   Test.expect(!window().text("Favorites").shown())
   window().button("Favorite").click()
-  Test.expect(reads(window().text("Favorites").item(), "Favorites | 1 | (1)") && window().text("Favorites").textColor().equal(WHITE))
+  Test.expect(reads(window().text("Favorites").item(), "Favorites | 1 | /1") && window().text("Favorites").textColor().equal(WHITE))
   window().button("Favorites").click()
   Test.expect(lists("Linen Cloak") && window().button("Favorite").paintedWith(Ordaen.art.ctl.switchOn))
   window().button("Favorite").click()
@@ -820,11 +812,11 @@ test "a hundred starred is the most: one more takes off the one starred first" {
   window().button("Cloth armour").click()
   window().text("Brown Linen Vest").click()
   window().button("Favorite").click()
-  Test.expect(reads(window().text("Favorites").item(), "Favorites | 2 | (1)"))
+  Test.expect(reads(window().text("Favorites").item(), "Favorites | 1 | /2"))
   // The hundred and first: the cloak goes.
   window().button("Bags").click()
   window().button("Favorite").click()
-  Test.expect(reads(window().text("Favorites").item(), "Favorites | 2 | (0)"))
+  Test.expect(reads(window().text("Favorites").item(), "Favorites | 0 | /2"))
   window().button("Favorites").click()
   Test.expect(lists("Woolen Bag, Brown Linen Vest"))
 }
@@ -934,7 +926,8 @@ test "the menu's «Favorite» stars the recipe and the menu stays; its «Track»
   Game.tradeSkill.recipes = recipes()
   Test.mount(nil, SCREEN)
   Game.tradeSkill.open = TAILORING
-  window().text("Woolen Cape").rightClick()
+  window().button("Not learned").click()
+  window().text("Woolen Cape").nth(1).rightClick()
   const menu = Test.page().window("Link in chat")
   Test.expect(menu.text("Track").textColor().equal(MENU_DIM) && !menu.text("Favorite").textColor().equal(MENU_DIM))
   choose("Favorite")
@@ -1090,9 +1083,9 @@ test "the view, the sort and the table's order are there after a reload" {
   window().button("Can make").click()
   window().button("Can make").click()
   Test.reload()
-  Test.expect(lists("Linen Bag, Linen Cloak, Woolen Cape, Woolen Bag, Brown Linen Vest"))
+  Test.expect(lists("Linen Bag, Linen Cloak, Woolen Bag, Brown Linen Vest"))
   view("By category")
-  Test.expect(lists("Brown Linen Vest, Linen Cloak, Woolen Cape, Linen Bag, Woolen Bag"))
+  Test.expect(lists("Brown Linen Vest, Linen Cloak, Linen Bag, Woolen Bag"))
 }
 
 test "a new profile used: the lists in columns by difficulty, as at first" {
@@ -1112,35 +1105,5 @@ test "a new profile used: the lists in columns by difficulty, as at first" {
   page.button(Ordaen.art.ctl.check).nth(2).click()
   page.text("Profiles").hover()
   page.button(Ordaen.art.ctl.corner.close).click()
-  Test.expect(window().button("Cloth armour").shown() && lists("Linen Cloak, Brown Linen Vest, Woolen Cape"))
-}
-
-// The settings
-
-test "with «Show recipes you haven't learned» off they are left out, and the filter's «Not learned» brings them" {
-  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
-  Game.professions.list = professions()
-  Game.tradeSkill.categories = categories()
-  Game.tradeSkill.recipes = recipes()
-  Test.mount(nil, SCREEN)
-  Game.tradeSkill.open = TAILORING
-  const unlit = window().button(Ordaen.art.ctl.tool.filter).paintedWith(LIT)
-  setting("Show recipes you haven't learned")
-  Test.expect(lists("Linen Cloak, Brown Linen Vest") && !unlit && !window().button(Ordaen.art.ctl.tool.filter).paintedWith(LIT))
-  Test.expect(filter().button("Reset").paintedWith(Ordaen.art.ctl.buttonDisabled))
-  filter().button("Not learned").click()
-  Test.expect(lists("Linen Cloak, Brown Linen Vest, Woolen Cape") && window().button(Ordaen.art.ctl.tool.filter).paintedWith(LIT))
-  filter().button("Reset").click()
-  Test.expect(lists("Linen Cloak, Brown Linen Vest"))
-}
-
-test "the setting of recipes not learned says they are dimmed, which is all the rows show of them" {
-  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
-  Game.professions.list = professions()
-  Game.tradeSkill.categories = categories()
-  Game.tradeSkill.recipes = recipes()
-  Test.mount(nil, SCREEN)
-  Game.tradeSkill.open = TAILORING
-  settings().text("Show recipes you haven't learned").hover()
-  Test.expect(Test.page().window("Dimmed.").shown())
+  Test.expect(window().button("Cloth armour").shown() && lists("Linen Cloak, Brown Linen Vest"))
 }

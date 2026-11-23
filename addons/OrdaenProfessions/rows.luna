@@ -60,10 +60,10 @@ public class CategoryRow implements Component {
       <TabItem selected={self.isChosen} into={Style.RECIPES} groove={true} first={self.first} columns={NAME_COUNT} padding={CATEGORY_PAD}
                @pick={self.onClick}>
         <text value={self.group.name} textColor={self.nameColor} textShadow={Style.SHADOW} />
-        <box columns={MARKS} gap={1sp} yAlign={Align.Center}>
-          <text value={"%d"} arguments={[self.group.total]} textColor={Style.DIM} wrap={.None}
+        <box columns={MARKS} yAlign={Align.Center}>
+          <text value={"%d"} arguments={[self.group.makeable]} textColor={self.makeableColor} wrap={.None}
                 textFont={.Numbers} />
-          <text value={"(%d)"} arguments={[self.group.makeable]} textColor={self.makeableColor} wrap={.None}
+          <text value={"/%d"} arguments={[self.group.total]} textColor={Style.DIM} wrap={.None}
                 textFont={.Numbers} />
         </box>
       </TabItem>
@@ -174,10 +174,10 @@ public class CategoryGroup implements Component {
           <text value={self.mark} textColor={Style.DIM} wrap={.None} />
           <text value={self.group.name} textColor={self.nameColor}
                 textShadow={Style.SHADOW} />
-          <box columns={MARKS} gap={1sp} yAlign={Align.Center}>
-            <text value={"%d"} arguments={[self.group.total]} textColor={Style.DIM} wrap={.None}
+          <box columns={MARKS} yAlign={Align.Center}>
+            <text value={"%d"} arguments={[self.group.makeable]} textColor={self.makeableColor} wrap={.None}
                   textFont={.Numbers} />
-            <text value={"(%d)"} arguments={[self.group.makeable]} textColor={self.makeableColor} wrap={.None}
+            <text value={"/%d"} arguments={[self.group.total]} textColor={Style.DIM} wrap={.None}
                   textFont={.Numbers} />
           </box>
         </box>
@@ -269,10 +269,10 @@ public class RecipeTableRow implements Component {
 
 // A reagent of the chosen recipe: its icon in a slot, its name, have / need (red when short).
 public class ReagentRow implements Component {
-  derived rule: Line | nil = self.index > 1 ? Style.PAPER_RULE : nil
+  derived rule: Line | nil = self.index > 1 ? Style.ROW_RULE : nil
   derived item: Integer | nil = self.reagent.itemID
   derived icon: Art | nil = self.reagent.icon
-  derived color: Color = self.reagent.have < self.reagent.need ? Style.PAPER_RED : Style.PAPER_INK
+  derived color: Color = self.reagent.have < self.reagent.need ? Style.RED : Style.INK
 
   reagent: Signal<Game.Reagent>
   index: Signal<Integer>
@@ -288,7 +288,7 @@ public class ReagentRow implements Component {
     return $ltml {
       <box columns={REAGENT} gap={2.5sp} yAlign={Align.Center} padding={REAGENT_PAD} border={self.rule}>
         <ItemButton item={self.item} art={self.icon} size={SLOT} />
-        <text value={self.reagent.name} textColor={Style.PAPER_INK} />
+        <text value={self.reagent.name} textColor={Style.INK} />
         <text value={"%d / %d"} arguments={[self.reagent.have, self.reagent.need]} wrap={.None} textColor={self.color}
               textFont={.Numbers} />
       </box>

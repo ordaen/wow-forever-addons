@@ -3,8 +3,8 @@
 // that quantity («—» where none is known) and «Best», the way taken (red «—» where none is). The totals: «Cost»,
 // «Left to buy», «Sale» («doesn't sell» for what makes no item), «Profit» (red under nought), and how old the
 // oldest price taken is, in its age's colour; «—» where a part has no price.
-import { Align, Art, Edges, Line, Track } from "$ltml"
-import { Component, ItemButton, Money, SECONDARY_TEXT, ageText } from "Ordaen"
+import { Align, Art, Edges, Line, Side, Track } from "$ltml"
+import { BRIGHT_TEXT, Component, ItemButton, Money, SECONDARY_TEXT, ageText } from "Ordaen"
 import { PartPrice, Totals, Way } from "@/cost"
 import Locale from "@/locales"
 import Style from "@/style"
@@ -22,6 +22,7 @@ const TOTALS: Array<Track> = [{ fr: 1 }, "max-content"]
 const TOTALS_PAD: Edges = { top: 3sp }
 const NONE = "—"
 // The cheaper way, on a green ground.
+const TOTALS_RULE: Line = { width: 1.171875dp, color: Style.LINE, sides: [Side.Top] }
 const CHEAPER: Color = Color.hex("#40c0402e")
 const CLEAR: Color = Color.hex("#00000000")
 const HOUR = 3600
@@ -38,16 +39,16 @@ public function wayText(way: Way): String {
 
 // A priced reagent's cells, laid out in the table's columns: it has no box of its own.
 public class PricedReagentRow implements Component {
-  derived rule: Line | nil = self.index > 1 ? Style.PAPER_RULE : nil
+  derived rule: Line | nil = self.index > 1 ? Style.ROW_RULE : nil
   derived item: Integer | nil = self.price.item
   derived icon: Art | nil = self.price.icon
-  derived color: Color = self.price.have < self.price.need ? Style.PAPER_RED : Style.PAPER_INK
+  derived color: Color = self.price.have < self.price.need ? Style.RED : Style.INK
   derived hasAuction: Boolean = self.price.auction != nil
   derived hasVendor: Boolean = self.price.vendor != nil
   derived auction: Integer = self.price.auction ?? 0
   derived vendor: Integer = self.price.vendor ?? 0
   derived best: String = wayText(self.price.way)
-  derived bestColor: Color = self.price.way == Way.None ? Style.PAPER_RED : Style.PAPER_INK
+  derived bestColor: Color = self.price.way == Way.None ? Style.RED : Style.INK
   derived auctionBack: Color = self.price.way == Way.Buy ? CHEAPER : CLEAR
   derived vendorBack: Color = self.price.way == Way.Vendor ? CHEAPER : CLEAR
 
@@ -65,7 +66,7 @@ public class PricedReagentRow implements Component {
           <ItemButton item={self.item} art={self.icon} size={SLOT} />
         </box>
         <box padding={NEXT} border={self.rule} yAlign={Align.Center}>
-          <text value={self.price.name} textColor={Style.PAPER_INK} />
+          <text value={self.price.name} textColor={Style.INK} />
         </box>
         <box padding={NEXT} border={self.rule} yAlign={Align.Center}>
           <text value={"%d / %d"} arguments={[self.price.have, self.price.need]} wrap={.None} textColor={self.color}
@@ -73,14 +74,14 @@ public class PricedReagentRow implements Component {
         </box>
         <box padding={NEXT} border={self.rule} yAlign={Align.Center}>
           <box background={self.auctionBack} xAlign={Align.End}>
-            <Money $if={self.hasAuction} amount={self.auction} color={Style.PAPER_INK} />
-            <text $else value={NONE} textColor={Style.PAPER_DIM} />
+            <Money $if={self.hasAuction} amount={self.auction} />
+            <text $else value={NONE} textColor={Style.DIM} />
           </box>
         </box>
         <box padding={NEXT} border={self.rule} yAlign={Align.Center}>
           <box background={self.vendorBack} xAlign={Align.End}>
-            <Money $if={self.hasVendor} amount={self.vendor} color={Style.PAPER_INK} />
-            <text $else value={NONE} textColor={Style.PAPER_DIM} />
+            <Money $if={self.hasVendor} amount={self.vendor} />
+            <text $else value={NONE} textColor={Style.DIM} />
           </box>
         </box>
         <box padding={LAST} border={self.rule} yAlign={Align.Center}>
@@ -105,13 +106,13 @@ public class PriceTable implements Component {
         <box padding={NEXT} />
         <box padding={NEXT} />
         <box padding={NEXT}>
-          <text value={Locale.PRICE_AUCTION} textSize={SECONDARY_TEXT} textColor={Style.PAPER_DIM} wrap={.None} />
+          <text value={Locale.PRICE_AUCTION} textSize={SECONDARY_TEXT} textColor={Style.DIM} wrap={.None} />
         </box>
         <box padding={NEXT}>
-          <text value={Locale.PRICE_VENDOR} textSize={SECONDARY_TEXT} textColor={Style.PAPER_DIM} wrap={.None} />
+          <text value={Locale.PRICE_VENDOR} textSize={SECONDARY_TEXT} textColor={Style.DIM} wrap={.None} />
         </box>
         <box padding={LAST}>
-          <text value={Locale.PRICE_BEST} textSize={SECONDARY_TEXT} textColor={Style.PAPER_DIM} wrap={.None} />
+          <text value={Locale.PRICE_BEST} textSize={SECONDARY_TEXT} textColor={Style.DIM} wrap={.None} />
         </box>
         <PricedReagentRow $for={index, part of self.parts} price={part} index={index} />
       </box>
@@ -136,7 +137,7 @@ public class TotalsBlock implements Component {
   derived sale: Integer = self.totals.sale ?? 0
   derived profit: Integer = (self.totals.profit ?? 0).abs()
   derived losing: Boolean = (self.totals.profit ?? 0) < 0
-  derived profitColor: Color = self.losing ? Style.PAPER_RED : Style.PAPER_INK
+  derived profitColor: Color = self.losing ? Style.RED : BRIGHT_TEXT
   derived age: String = ageLine(self.totals.oldest)
   derived aged: Boolean = self.age != ""
   derived ageColor: Color = self.ageColorOf()
@@ -149,27 +150,27 @@ public class TotalsBlock implements Component {
 
   ageColorOf(self): Color {
     const _, color = ageText((self.totals.oldest ?? 0) * HOUR)
-    return color ?? Style.PAPER_DIM
+    return color ?? Style.DIM
   }
 
   public render(self): Template {
     return $ltml {
-      <box columns={TOTALS} gap={3sp} padding={TOTALS_PAD} border={Style.PAPER_RULE}>
-        <text value={Locale.TOTAL_COST} textColor={Style.PAPER_DIM} />
-        <Money $if={self.hasCost} amount={self.cost} color={Style.PAPER_INK} />
-        <text $else value={NONE} textColor={Style.PAPER_DIM} />
-        <text value={Locale.TOTAL_TO_BUY} textColor={Style.PAPER_DIM} />
-        <Money $if={self.hasToBuy} amount={self.toBuy} color={Style.PAPER_INK} />
-        <text $else value={NONE} textColor={Style.PAPER_DIM} />
-        <text value={Locale.TOTAL_SALE} textColor={Style.PAPER_DIM} />
-        <Money $if={self.hasSale} amount={self.sale} color={Style.PAPER_INK} />
-        <text $else value={self.saleText} textColor={Style.PAPER_DIM} />
-        <text value={Locale.TOTAL_PROFIT} textColor={Style.PAPER_DIM} />
+      <box columns={TOTALS} gap={3sp} padding={TOTALS_PAD} border={TOTALS_RULE}>
+        <text value={Locale.TOTAL_COST} textColor={Style.DIM} />
+        <Money $if={self.hasCost} amount={self.cost} />
+        <text $else value={NONE} textColor={Style.DIM} />
+        <text value={Locale.TOTAL_TO_BUY} textColor={Style.DIM} />
+        <Money $if={self.hasToBuy} amount={self.toBuy} />
+        <text $else value={NONE} textColor={Style.DIM} />
+        <text value={Locale.TOTAL_SALE} textColor={Style.DIM} />
+        <Money $if={self.hasSale} amount={self.sale} />
+        <text $else value={self.saleText} textColor={Style.DIM} />
+        <text value={Locale.TOTAL_PROFIT} textColor={Style.DIM} />
         <box $if={self.hasProfit} columns={["max-content", "max-content"]} gap={0.5sp} xAlign={Align.End}>
-          <text $if={self.losing} value={"-"} textColor={Style.PAPER_RED} />
+          <text $if={self.losing} value={"-"} textColor={Style.RED} />
           <Money amount={self.profit} color={self.profitColor} />
         </box>
-        <text $else value={NONE} textColor={Style.PAPER_DIM} />
+        <text $else value={NONE} textColor={Style.DIM} />
         <text $if={self.aged} value={self.age} textSize={SECONDARY_TEXT} textColor={self.ageColor} />
       </box>
     }
