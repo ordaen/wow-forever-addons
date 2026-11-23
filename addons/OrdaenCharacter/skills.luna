@@ -187,9 +187,9 @@ public class SkillsPage implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={[{ fr: 1 }, Style.SIDE]} gap={6sp}>
+      <box columns={[{ fr: 1 }, Style.SIDE]} yAlign={Align.Stretch}>
         <box rows={["max-content", { fr: 1 }]} gap={3sp}>
-          <box padding={{ left: Style.LIST_HEAD.left }}>
+          <box padding={Style.LIST_TOOLBAR}>
             <Toolbar search={mut self.search} placeholder={Locale.SEARCH_SKILLS} />
           </box>
           <ScrolledList>
@@ -198,11 +198,9 @@ public class SkillsPage implements Component {
                       @pick={self.onPick} @fold={self.onFold} />
           </ScrolledList>
         </box>
-        <box padding={Style.LIST_CARD}>
-          <box background={Style.CARD} padding={5sp}>
-            <SkillDetail $if={self.hasPick} skill={self.shownPick} heading={self.pickedHeading} @unlearn={self.onUnlearn} />
-            <text $else value={Locale.PICK_SKILL} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
-          </box>
+        <box background={Ordaen.art.window.wood} border={Style.detailsLine()} padding={Style.DETAILS_ROOM}>
+          <SkillDetail $if={self.hasPick} skill={self.shownPick} heading={self.pickedHeading} @unlearn={self.onUnlearn} />
+          <text $else value={Locale.PICK_SKILL} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
         </box>
       </box>
     }

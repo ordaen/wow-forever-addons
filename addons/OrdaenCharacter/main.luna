@@ -594,9 +594,7 @@ public class Character implements Module, App {
                      active={self.groupActive} wipeCost={self.wipeCost} classTag={Game.player.classTag} @spend={self.onSpend} @refund={self.onRefund} @apply={self.onApply}
                      @cancel={self.onCancel} @activate={self.onActivate} />
         <box $elseif={self.tab == TAB_PROGRESSION} rows={PROGRESS_ROWS} gap={3sp}>
-          <box padding={Style.LIST_HEAD}>
-            <Tabs tabs={self.progressTabs} selected={mut self.progress} />
-          </box>
+          <Tabs tabs={self.progressTabs} selected={mut self.progress} />
           <ReputationPage $if={self.progress == PROGRESS_REPUTATION} factions={self.factions} starts={self.starts}
                           chosen={self.chosen} chosenInactive={self.chosenInactive} search={mut self.factionSearch}
                           show={mut self.factionShow} @pick={self.onPick}

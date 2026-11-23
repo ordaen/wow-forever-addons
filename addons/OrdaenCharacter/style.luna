@@ -1,7 +1,8 @@
 // The character window's look: its size at the player's scale, the paper doll's measures and the colours of what a
 // stat, a slot or a faction says. Every gap and padding is counted in Ordaen's spacing unit (`sp`); a row is as tall as
 // its text.
-import { Edges, Fr, Line, Shadow, Side, Track } from "$ltml"
+import { ArtBorder, Edges, Fr, Line, Shadow, Side, Track } from "$ltml"
+import root Ordaen from "Ordaen"
 
 // The window's body, and the least it is drawn at (a window kept smaller, from an older save, is drawn at this).
 public const WIDTH: Number<Length> = 1500dp
@@ -50,10 +51,15 @@ public const GLYPH: Number<Length> = 28dp
 public const SOCKET_FLOOR: Color = Color.hex("#00000073")
 // A section's room at its sides (the page is bare: this is all the room between its text and the frame or the doll).
 public const SIDE_ROOM: Number<Spacing> = 6sp
-// A list page runs edge to edge (its tab's room none): what stands over the list keeps the window's room from the
-// frame on the top and the sides, the list itself reaching the frame's line and the footer; a side card beside it.
-public const LIST_HEAD: Edges = { top: 8sp, right: 8sp, left: 8sp }
-public const LIST_CARD: Edges = { top: 8sp, right: 8sp, bottom: 8sp }
+// A list page runs edge to edge (its tab's room none): its subtabs' band from side to side, its toolbar the window's
+// room from the band and the sides, its list reaching the frame's line and the footer; beside it a details column
+// from the band to the footer, on the window's wood, the frame's line down its left.
+public const LIST_TOOLBAR: Edges = { top: 8sp, right: 8sp, left: 8sp }
+public const DETAILS_ROOM: Edges = { top: 8sp, right: 8sp, bottom: 8sp, left: 8sp }
+// The frame's line down the details column's left: a window's inner upright divider.
+public function detailsLine(): ArtBorder {
+  return { sides: [Side.Left], ..Ordaen.art.frame.tabIconLine }
+}
 public const SECTION_PAD: Edges = { top: 2.5sp, right: SIDE_ROOM, bottom: 2.5sp, left: SIDE_ROOM }
 // The sets' strip along the page's top: the sections' room at its sides, and the line its tabs stand on (Ordaen's
 // tabs' own, run to the frame).
