@@ -56,6 +56,30 @@ public struct Need {
 }
 
 // What the client says of the quest a quest giver shows.
+// The reward to pick for the player, by its place among the choices: the one worth most more than what is worn
+// (`upgradeOf`, of those the player can use), else the one that sells for most; 0 where none sells either.
+public function bestReward(choices: Array<Reward>, upgradeOf: (link: String) => Number | nil): Integer {
+  let best = 0
+  let bestShare: Number = 0
+  for (reward of choices) {
+    const link = reward.link
+    const share = link != nil && !reward.unusable ? upgradeOf(link) ?? 0 : 0
+    if (share > bestShare) {
+      best = reward.index
+      bestShare = share
+    }
+  }
+  if (best > 0) { return best }
+  let most = 0
+  for (reward of choices) {
+    if (reward.sell > most) {
+      best = reward.index
+      most = reward.sell
+    }
+  }
+  return best
+}
+
 public struct Quest {
   const id: Integer
   const title: String

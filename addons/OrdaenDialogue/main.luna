@@ -16,7 +16,7 @@ import { Reward, RewardView, Rewards, SCROLL_WIDTH, Scroll, WIDE_SCROLL, choiceV
 import { AnswerRow, LINE_KEYS, LineKey, OptionColumn, Placed, columnsOf, placeOf } from "@/list"
 import Locale from "@/locales"
 import { Needs, Said } from "@/pages"
-import { Line, LineKind, Quest, Source, bookPage, gossipLines, greetingLines, questOf } from "@/read"
+import { Line, LineKind, Quest, Source, bestReward, bookPage, gossipLines, greetingLines, questOf } from "@/read"
 import { Auto, Choices, DEFAULTS, GeneralPage } from "@/settings"
 import Style from "@/style"
 import { MARKS_KEPT, Marked, Page, Prompt, Speaker, bookSpeaker, itemSpeaker, npcOf, speakerOf } from "@/talk"
@@ -86,8 +86,10 @@ public class Dialogue implements Module, App {
   public state said = ""
   public state quest: Quest | nil = nil
   public state book = ""
-  // The reward picked, by its place among the choices; 0: none yet.
+  // The reward picked, by its place among the choices; 0: none yet. Picked for the player (`bestReward`) until the
+  // player picks one.
   public state choice = 0
+  choiceByPlayer = false
   public state speaker: Speaker = { name: "" }
   public state prompt: Prompt | nil = nil
   // The marked options, kept for the account.
@@ -294,14 +296,16 @@ public class Dialogue implements Module, App {
       }
       self.walking = false
     }
-    if (choices == 1) { self.choice = 1 }
+    self.choiceByPlayer = false
     self.quest = questOf(Client.GetRewardText())
+    self.preselect()
     self.show(.Reward)
   }
 
   onItemInfo(mut self, item: Number, fine: Boolean) {
     const page = peek self.page
     if (page == Page.Detail || page == Page.Reward) { self.quest = questOf((peek self.quest)?.text ?? "") }
+    if (page == Page.Reward) { self.preselect() }
   }
 
   // ——— Books: every page read as it opens, then shown as one.
@@ -495,6 +499,7 @@ public class Dialogue implements Module, App {
   public choose(mut self, index: Integer) {
     const quest = peek self.quest
     if (peek self.page != Page.Reward || quest == nil || index > quest.choices.length) { return }
+    self.choiceByPlayer = true
     self.choice = index
   }
 
@@ -617,6 +622,13 @@ public class Dialogue implements Module, App {
   }
 
   // ——— Rewards' worth.
+
+  // The reward picked for the player, while the player hasn't picked one: the only one, else `bestReward`.
+  preselect(mut self) {
+    const quest = peek self.quest
+    if (self.choiceByPlayer || quest == nil) { return }
+    self.choice = quest.choices.length == 1 ? 1 : bestReward(quest.choices, self.upgradeOf)
+  }
 
   public upgrade(self, reward: Reward): Number | nil {
     const link = reward.link
