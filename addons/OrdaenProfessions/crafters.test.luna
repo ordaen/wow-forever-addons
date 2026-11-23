@@ -1,0 +1,48 @@
+// Who crafts with an item, by every character's known recipes, and how its tooltip says it.
+import Test from "$test"
+import { Book } from "@/book"
+import { CraftersLines, craftersOf } from "@/crafters"
+
+const FEATHER = 4776
+const CLOTH = 2589
+// Two characters: Ann a tailor and a leatherworker, Player (the one played) a tailor; the feather taken by a recipe of each profession.
+function book(): Book {
+  return {
+    recipes: {
+      [100]: { name: "Feathered Cap", makes: 1100, parts: [{ item: FEATHER, count: 2 }, { item: CLOTH, count: 1 }] },
+      [200]: { name: "Plumed Belt", makes: 1200, parts: [{ item: FEATHER, count: 1 }] },
+      [300]: { name: "Linen Cloak", makes: 1300, parts: [{ item: CLOTH, count: 2 }] }
+    },
+    characters: {
+      ["Player-1-0001"]: {
+        name: "Ann", realm: "Home",
+        professions: { [197]: { name: "Tailoring", recipes: [100, 300] }, [165]: { name: "Leatherworking", recipes: [200] } }
+      },
+      ["Player-1-0002"]: { name: "Player", realm: "Home", professions: { [197]: { name: "Tailoring", recipes: [100] } } }
+    }
+  }
+}
+
+test "an item's professions each with the characters who know a recipe taking it, each named once" {
+  const found = craftersOf(book())
+  const feather = found[FEATHER] ?? []
+  const tailoring = feather.find(each => each.profession == "Tailoring")
+  Test.expect(feather.length == 2 && (tailoring?.characters ?? []).length == 2)
+  Test.expect((feather.find(each => each.profession == "Leatherworking")?.characters ?? []).join(", ") == "Ann")
+  Test.expect(((found[CLOTH] ?? []).find(each => each.profession == "Tailoring")?.characters ?? []).length == 2)
+  Test.expect(found[1100] == nil)
+}
+
+test "the tooltip says «Used in crafting», then each profession with its characters, the one played first, and its profession lit" {
+  // The test kit's character is «Player».
+  Test.mount(nil, { left: 0, top: 0, width: 800, height: 600, screen: true })
+  const found = craftersOf(book())
+  const lines = new CraftersLines(() => found).lines(FEATHER, "")
+  Test.expect(lines[1]?.left == "Used in crafting")
+  const tailoring = lines.find(line => line.left == "Tailoring")
+  const leather = lines.find(line => line.left == "Leatherworking")
+  Test.expect(tailoring?.right == "Player, Ann" && leather?.right == "Ann")
+  // The played character's profession stands out from one only another character has.
+  Test.expect(tailoring?.rightColor != nil && leather?.rightColor != nil && tailoring?.rightColor != leather?.rightColor)
+  Test.expect(new CraftersLines(() => found).lines(1100, "").length == 0)
+}

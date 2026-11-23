@@ -1,0 +1,92 @@
+// Ordaen Professions' lines in an item's tooltip, added to Ordaen Tooltips' `uses` section: the professions whose
+// recipes take the item, each with the characters who know such a recipe, as the recipe book has them (every
+// character's professions as each last opened them): «Used in crafting», then «Tailoring — Ann, Bob». The player's
+// own character first, in white; nothing for an item no known recipe takes.
+import Game from "$game"
+import root Tooltips from "OrdaenTooltips"
+import type { ItemLines, Line } from "OrdaenTooltips"
+import { Book } from "@/book"
+import Locale from "@/locales"
+import Style from "@/style"
+
+const NONE: Array<Line> = []
+const HEAD: Color = Color.hex("#ffd100")
+const OWN: Color = Color.hex("#ffffff")
+
+// A profession whose known recipes take an item, and who knows one.
+public struct Crafters {
+  profession: String
+  characters: Array<String>
+}
+
+// A list of an item's crafters, empty, for its first.
+function none(): mut Array<Crafters> { return [] }
+
+// Every item a known recipe takes, with its professions and their characters, in the order first met: made once as the
+// book changes, a map read for each tooltip.
+public function craftersOf(book: Book): Map<Integer, Array<Crafters>> {
+  const found: Map<Integer, mut Array<Crafters>> = {}
+  // Where an item's profession stands in its list, by «item, profession».
+  const at: Map<String, Integer> = {}
+  for (_, shelf of book.characters) {
+    for (_, learned of shelf.professions) {
+      for (recipe of learned.recipes) {
+        for (part of book.recipes[recipe]?.parts ?? []) {
+          const list = found[part.item] ?? none()
+          found[part.item] = list
+          const key = `${part.item}\n${learned.name}`
+          const index = at[key]
+          const crafters = index == nil ? nil : list[index]
+          if (crafters == nil) {
+            list.push({ profession: learned.name, characters: [shelf.name] })
+            at[key] = list.length
+          } else if (index != nil && !crafters.characters.any((name: String) => name == shelf.name)) {
+            const characters: Array<String> = []
+            for (name of crafters.characters) { characters.push(name) }
+            characters.push(shelf.name)
+            list[index] = { profession: crafters.profession, characters: characters }
+          }
+        }
+      }
+    }
+  }
+  return found
+}
+
+// The «Used in crafting» lines of an item's tooltip.
+// Who crafts with each item, as `craftersOf` gives it: read as a tooltip asks, so the tooltip follows the book.
+public type CraftersRead = () => Map<Integer, Array<Crafters>>
+
+public class CraftersLines implements ItemLines {
+  const crafters: CraftersRead
+  constructor(crafters: CraftersRead) { self.crafters = crafters }
+
+  public lines(self, item: Integer, link: String): Array<Line> {
+    const found = self.crafters()[item]
+    if (found == nil || found.length == 0) { return NONE }
+    const me = Game.player.name
+    const lines: Array<Line> = [{ left: Locale.USED_IN, color: HEAD }]
+    for (each of found) {
+      const mine = each.characters.any(name => name == me)
+      const names: Array<String> = mine ? [me] : []
+      for (name of each.characters) {
+        if (name != me) { names.push(name) }
+      }
+      lines.push({ left: each.profession, right: names.join(", "), rightColor: mine ? OWN : Style.DIM, indent: true })
+    }
+    return lines
+  }
+}
+
+// The lines, added to Tooltips' `uses` while Tooltips is on: the watch's run owns them, so they end when either
+// module does. Without Tooltips the root import stays nil and nothing is added.
+public class TooltipCrafters {
+  const lines: CraftersLines
+  constructor(crafters: CraftersRead) {
+    self.lines = new CraftersLines(crafters)
+    watch (tooltips of Tooltips) {
+      if (tooltips == nil) { return }
+      tooltips.uses.add(self.lines)
+    }
+  }
+}

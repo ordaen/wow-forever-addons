@@ -2,6 +2,7 @@
   "MODULE_NOTES": "One window for your professions: every recipe, what it needs, and making it.",
   "TAB_RECIPES": "Recipes",
   "TAB_UNLEARNED": "Not learned",
+  "USED_IN": "Used in crafting",
   "GROUP": "Group by",
   "GROUP_READINESS": "What you can learn",
   "GROUP_TYPE": "Recipe type",
