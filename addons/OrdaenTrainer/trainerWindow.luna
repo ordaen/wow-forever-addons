@@ -12,12 +12,13 @@
 // (`TrainerIgnored`), every rank of a spell under its name.
 import Client from "$client"
 import Game from "$game"
-import { Align, Columns, Event, Frame, Line, MouseButton, Overflow, Position, Side, TextFont, Track } from "$ltml"
+import { Align, Columns, Edges, Event, Frame, Line, MouseButton, Overflow, Position, Side, TextFont, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import {
   ARTWORK, BandCell, BandFact, ButtonPlate, Choice, Column, Component, Dialog, FilterButton, FooterBand, FilterGroup, FoldCaption, KeptWindow,
   Menu, MenuEntry, ModuleMemory, Money, PushButton, SECONDARY_TEXT, SkillBar, TITLE_TEXT, Table, TableRow,
-  Tip, TipRow, TipText, ToolPick, ToolSort, Toolbar, Window, WindowSide, WindowTabSpec, bandOf, richDescription, sortChoices, switched
+  Tip, TipRow, TipText, ToolPick, ToolSort, Toolbar, WINDOW_ROOM, Window, WindowSide, WindowTabSpec, bandOf, richDescription,
+  sortChoices, switched
 } from "Ordaen"
 import Locale from "@/locales"
 
@@ -76,7 +77,11 @@ const ICON = 28.125dp
 const CARD_WIDTH = 281.25dp
 const TRAIN_WIDTH = 140.625dp
 const FILL: Array<Track> = [{ fr: 1 }]
-const BODY: Array<Track> = ["max-content", "max-content", { fr: 1 }]
+// The skill bar and the toolbar in the window's room, the list under them to the frame's line and the footer.
+const BODY: Array<Track> = ["max-content", { fr: 1 }]
+const HEAD_ROOM: Edges = { top: 6sp, right: WINDOW_ROOM, bottom: 4sp, left: WINDOW_ROOM }
+// The page's tab keeps no room of the window's: its list runs to the frame.
+public const EDGE_TO_EDGE: Edges = { top: 0sp, right: 0sp, bottom: 0sp, left: 0sp }
 const NAMED: Array<Track> = [ICON, { fr: 1 }]
 const LINE: Array<Track> = [ICON, { fr: 1 }, "max-content"]
 const PAIR: Array<Track> = [{ fr: 1 }, "max-content"]
@@ -1035,14 +1040,15 @@ public class TrainerPage {
   }
 
   public const body: Template = $ltml {
-    <box rows={BODY} gap={6sp}>
-      <SkillBar $if={self.skilled} rank={self.rank} most={self.most} />
-      <box $else />
-      <Toolbar search={mut self.search} placeholder={Locale.TRAINER_SEARCH}>
-        <ToolSort sorted={mut self.list.values.sorted} columns={self.columns} title={Locale.TRAINER_SORT} more={MORE_SORTS} />
-        <FilterButton values={mut self.list.values.shows} start={FILTER_START} groups={FILTERS} />
-        <ToolPick value={mut self.list.values.view} choices={TRAINER_VIEWS} icon={ARTWORK.ctl.tool.table} title={Locale.TRAINER_VIEW} />
-      </Toolbar>
+    <box rows={BODY}>
+      <box padding={HEAD_ROOM} gap={6sp}>
+        <SkillBar $if={self.skilled} rank={self.rank} most={self.most} />
+        <Toolbar search={mut self.search} placeholder={Locale.TRAINER_SEARCH}>
+          <ToolSort sorted={mut self.list.values.sorted} columns={self.columns} title={Locale.TRAINER_SORT} more={MORE_SORTS} />
+          <FilterButton values={mut self.list.values.shows} start={FILTER_START} groups={FILTERS} />
+          <ToolPick value={mut self.list.values.view} choices={TRAINER_VIEWS} icon={ARTWORK.ctl.tool.table} title={Locale.TRAINER_VIEW} />
+        </Toolbar>
+      </box>
       <box $if={self.empty} xAlign={Align.Center} yAlign={Align.Center}>
         <text value={Locale.TRAINER_NOTHING} textColor={DIM} />
       </box>
@@ -1116,7 +1122,7 @@ public class TrainerWindow implements Component {
   public render(self): Template {
     return $ltml {
       <Window tabs={self.tabs} selected={mut self.tab} declared={mut self.declared} side={self.page.side} footer={self.page.footer}
-              withSettings={true} @close={self.onClose} @settings={self.onSettings}>
+              padding={EDGE_TO_EDGE} withSettings={true} @close={self.onClose} @settings={self.onSettings}>
         {self.page.body}
       </Window>
       {self.page.dialogs}

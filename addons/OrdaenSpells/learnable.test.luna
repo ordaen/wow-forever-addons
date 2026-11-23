@@ -177,6 +177,17 @@ test "the spellbook's «Learnable» tab lists them under their headings, with a 
   Test.expect(window.text("Learned at a trainer").shown())
 }
 
+test "the «Learnable» list runs to the window's frame; the search over it keeps the window's room" {
+  Test.mount(nil, PAGE)
+  Test.login({ guid: "Player-1-00000001", name: "Player", surname: nil, classTag: "WARRIOR" })
+  Game.player.level = 10
+  Game.spells.name = (id: Integer): String | nil => id == CHARGE ? "Charge" : nil
+  Test.open("/spellbook")
+  const window = Test.page().window("Spells")
+  window.button("Learnable").click()
+  Test.expect(window.text("Charge").item().rect().left < window.input().rect().left)
+}
+
 test "a picked spell's price at each city is a line of the city and the price; the standing is the line's tip" {
   Test.mount(nil, PAGE)
   Test.login({ guid: "Player-1-00000001", name: "Player", surname: nil, classTag: "WARRIOR" })

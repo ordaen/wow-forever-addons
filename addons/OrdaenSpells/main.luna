@@ -10,7 +10,7 @@ import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
 import { KeptWindow, Module, ModuleMemory, Settings, SettingsPage, Window, WindowSide, WindowTabSpec, WindowsPage, playSound, windowsTitle } from "Ordaen"
 import root Quests from "OrdaenQuests"
-import { PlacePrice, TrainerIgnored, TrainerList, TrainerPage, TrainerView, TrainerWindow } from "OrdaenTrainer"
+import { EDGE_TO_EDGE, PlacePrice, TrainerIgnored, TrainerList, TrainerPage, TrainerView, TrainerWindow } from "OrdaenTrainer"
 import { Learnable, Learner, learnableOf } from "@/learnable"
 import Locale from "@/locales"
 import { Choices, TrainerSettingsPage } from "@/settings"
@@ -27,7 +27,7 @@ const BOOK: Asset = "Interface/Icons/INV_Misc_Book_09"
 const TRAINER_TAB: WindowTabSpec = { title: Locale.TAB_TRAINER, desc: nil, icon: BOOK }
 // The «Learnable» tab: a trainer's book.
 const LEARNABLE_ICON: Asset = "Interface/Icons/INV_Misc_Book_11"
-const LEARNABLE_TAB: WindowTabSpec = { title: Locale.TAB_LEARNABLE, desc: nil, icon: LEARNABLE_ICON }
+const LEARNABLE_TAB: WindowTabSpec = { title: Locale.TAB_LEARNABLE, desc: nil, icon: LEARNABLE_ICON, padding: EDGE_TO_EDGE }
 // The window's tabs, by their place.
 const SPELLS = 1
 const LEARNABLE = 2
