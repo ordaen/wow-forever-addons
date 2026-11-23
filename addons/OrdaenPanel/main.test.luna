@@ -98,14 +98,14 @@ function client(name: String): any Client.Frame {
 // The game's bag buttons, every one its constants say it has (the stand-in's are Forever's): the backpack, a slot for
 // each bag, one for each reagent bag, the keyring's; each of `make`'s frame of that name.
 function bagButtons(make: (name: String) => any Client.Frame): Array<Game.BagButton> {
-  let bags: Array<Game.BagButton> = [{ kind: .Backpack, frame: make("MainMenuBarBackpackButton"), icon: BACKPACK }]
+  let bags: Array<Game.BagButton> = [{ kind: .Backpack, frame: make("MainMenuBarBackpackButton"), icon: BACKPACK, bag: 0 }]
   for (slot of 0..Client.NUM_BAG_SLOTS - 1) {
-    bags.push({ kind: .Bag, frame: make(`CharacterBag${slot}Slot`), icon: BAG })
+    bags.push({ kind: .Bag, frame: make(`CharacterBag${slot}Slot`), icon: BAG, bag: slot + 1 })
   }
   for (slot of 0..Client.NUM_REAGENTBAG_SLOTS - 1) {
-    bags.push({ kind: .Reagent, frame: make(`CharacterReagentBag${slot}Slot`), icon: REAGENT })
+    bags.push({ kind: .Reagent, frame: make(`CharacterReagentBag${slot}Slot`), icon: REAGENT, bag: Client.NUM_BAG_SLOTS + 1 + slot })
   }
-  bags.push({ kind: .Keyring, frame: make("KeyRingButton"), icon: KEYRING })
+  bags.push({ kind: .Keyring, frame: make("KeyRingButton"), icon: KEYRING, bag: Client.KEYRING_CONTAINER })
   return bags
 }
 
