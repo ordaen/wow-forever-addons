@@ -2,7 +2,7 @@
 // arrow. Left-click opens the menu under it, each choice with its mark (the picked one's gold), the light under the
 // cursor. Left-click on a choice picks it and closes the menu; a click anywhere else closes it. Disabled, it doesn't
 // open. A choice not built yet (`soon`) is listed dimmed, with «in development» after its name, and takes no click.
-import { Align, Art, Beside, Bounds, ByInteractionState, Edges, Layer, Line, Position, Shadow, TextWrap } from "$ltml"
+import { Align, Art, Beside, Bounds, ByInteractionState, Edges, Layer, Line, Position, Shadow, TextWeight, TextWrap } from "$ltml"
 import root Ordaen from "Ordaen"
 import Locale from "@/locales"
 import { Component } from "@/module"
@@ -22,8 +22,6 @@ const WIDTH = 281.25dp
 const HEIGHT = 39.84375dp
 const GOLD: Color = Color.hex("#f0c860")
 const DIM: Color = Color.hex("#ffffff73")
-// The design's 700: the same colour one pixel to the right.
-const BOLD: Shadow = { color: GOLD, x: 1.171875dp, y: 0ui }
 const FACE_PAD: Edges = { right: 3.5sp, left: 5.5sp }
 const COMPACT_FACE_PAD: Edges = { right: 2.5sp, left: 3.5sp }
 const ARROW_SHADOW: Shadow = { color: Color.hex("#14141fcc"), x: 1.171875dp, y: 1.171875dp }
@@ -122,7 +120,7 @@ public class Dropdown<T: Unknown> implements Component {
           <box position={Position.Absolute} left={0ui} top={0ui} width={WIDTH} height={HEIGHT} padding={FACE_PAD}
                columns={[{ fr: 1 }, 18.75dp]} gap={3sp} yAlign={Align.Center}
                background={Ordaen.art.ctl.button} @pointerPress={self.toggle} @keyPress(.Enter)={self.toggle} @keyPress(.Space)={self.toggle}>
-            <text value={self.shown} textColor={GOLD} textShadow={BOLD} wrap={.None} />
+            <text value={self.shown} textColor={GOLD} textWeight={TextWeight.Bold} wrap={.None} />
             <box width={18.75dp} height={18.75dp} background={Ordaen.art.ctl.dropdownArrow} shadow={ARROW_SHADOW} />
           </box>
           <surface leading={.Row} $if={self.open} layer={Layer.Tooltip} place={Beside { beside: "parent" }} width={WIDTH + 23.4375dp}

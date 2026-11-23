@@ -2,7 +2,7 @@
 // round for one digit, as wide as more need. The pill takes a tone of what it counts where one is given (a whisper's
 // pink): the art made grey and tinted. What holds it places it, out of the flow, over a corner or an edge of what it
 // counts.
-import { Align, Bounds, Edges, Shadow } from "$ltml"
+import { Align, Bounds, Edges, TextWeight } from "$ltml"
 import root Ordaen from "Ordaen"
 import { Component } from "@/module"
 import { BRIGHT_TEXT, SECONDARY_TEXT } from "@/units"
@@ -10,7 +10,6 @@ import { BRIGHT_TEXT, SECONDARY_TEXT } from "@/units"
 // Never narrower than the pill is high: round for one digit.
 const WIDE: Bounds = { min: 25.78125dp, max: nil }
 const PAD: Edges = { top: 1sp, right: 2sp, bottom: 1sp, left: 2sp }
-const BOLD: Shadow = { color: BRIGHT_TEXT, x: 1ui, y: 0ui }
 
 public class CountBadge implements Component {
   derived toned: Boolean = self.tone != nil
@@ -31,7 +30,7 @@ public class CountBadge implements Component {
       <box width={WIDE} padding={PAD} xAlign={Align.Center} yAlign={Align.Center}
            background={Ordaen.art.panel.countBadge} desaturate={self.toned} tint={self.tone}>
         <text value={"%d"} arguments={[self.count]} textSize={SECONDARY_TEXT} textColor={BRIGHT_TEXT} textFont={.Numbers}
-              textShadow={BOLD} leading={.Tight} wrap={.None} />
+              textWeight={TextWeight.Bold} leading={.Tight} wrap={.None} />
       </box>
     }
   }
