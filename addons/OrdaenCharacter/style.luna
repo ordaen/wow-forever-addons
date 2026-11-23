@@ -50,6 +50,10 @@ public const GLYPH: Number<Length> = 28dp
 public const SOCKET_FLOOR: Color = Color.hex("#00000073")
 // A section's room at its sides (the page is bare: this is all the room between its text and the frame or the doll).
 public const SIDE_ROOM: Number<Spacing> = 6sp
+// A list page runs edge to edge (its tab's room none): what stands over the list keeps the window's room from the
+// frame on the top and the sides, the list itself reaching the frame's line and the footer; a side card beside it.
+public const LIST_HEAD: Edges = { top: 8sp, right: 8sp, left: 8sp }
+public const LIST_CARD: Edges = { top: 8sp, right: 8sp, bottom: 8sp }
 public const SECTION_PAD: Edges = { top: 2.5sp, right: SIDE_ROOM, bottom: 2.5sp, left: SIDE_ROOM }
 // The sets' strip along the page's top: the sections' room at its sides, and the line its tabs stand on (Ordaen's
 // tabs' own, run to the frame).

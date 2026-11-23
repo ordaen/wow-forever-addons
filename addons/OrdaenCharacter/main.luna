@@ -160,7 +160,8 @@ public class Character implements Module, App {
       padding: Style.PAGE_ROOM, fixed: true,
       locked: self.specGroups < 2 ? Runtime.text("TALENT_SPEC_LOCKED") ?? Locale.SPEC_LOCKED : nil
     },
-    { title: Locale.TAB_PROGRESSION, icon: PROGRESSION_ICON },
+    // Its lists run to the frame's line and the footer: the pages keep the room for what stands over them.
+    { title: Locale.TAB_PROGRESSION, icon: PROGRESSION_ICON, padding: Style.PAGE_ROOM },
     { title: Locale.TAB_STATISTICS, icon: STATISTICS_ICON }
   ]
   // The spec tab shown, as the game numbers its spec groups (1 or 2; 0 on another tab), its trees, the points left in
@@ -593,7 +594,9 @@ public class Character implements Module, App {
                      active={self.groupActive} wipeCost={self.wipeCost} classTag={Game.player.classTag} @spend={self.onSpend} @refund={self.onRefund} @apply={self.onApply}
                      @cancel={self.onCancel} @activate={self.onActivate} />
         <box $elseif={self.tab == TAB_PROGRESSION} rows={PROGRESS_ROWS} gap={3sp}>
-          <Tabs tabs={self.progressTabs} selected={mut self.progress} />
+          <box padding={Style.LIST_HEAD}>
+            <Tabs tabs={self.progressTabs} selected={mut self.progress} />
+          </box>
           <ReputationPage $if={self.progress == PROGRESS_REPUTATION} factions={self.factions} starts={self.starts}
                           chosen={self.chosen} chosenInactive={self.chosenInactive} search={mut self.factionSearch}
                           show={mut self.factionShow} @pick={self.onPick}
