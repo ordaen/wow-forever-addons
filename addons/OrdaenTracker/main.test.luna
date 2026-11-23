@@ -1,4 +1,4 @@
-// The tracker as the player meets it: the tracked quests at the screen's right in place of the game's tracker, with
+// The tracker as the player meets it: the zone's quests at the screen's right in place of the game's tracker, with
 // what other modules add, and Blizzard's tracker's clicks. The client's log is the stand-in's (`Test.questLog`).
 import Client from "$client"
 import Game from "$game"
@@ -38,7 +38,7 @@ class Where implements QuestLines {
   }
 }
 
-test "the tracked quests stand at the right with their level, tag and objectives, the game's tracker unseen" {
+test "the zone's quests stand at the right with their level, tag and objectives, the game's tracker unseen" {
   logged()
   const own = new Client.Frame(Client.UIParent)
   Game.frames.ObjectiveTracker = own
@@ -60,7 +60,6 @@ test "the tracked quests stand at the right with their level, tag and objectives
   const level = Test.page().text("7").letters()
   Test.expect(((check.top + check.bottom) / 2 - (done.top + done.bottom) / 2).abs() < 1)
   Test.expect(((level.top + level.bottom) / 2 - (done.top + done.bottom) / 2).abs() < 1)
-  Test.expect(!Test.page().text("Elwynn Wolves").shown())
   // One zone's quests alone: no head over them, nor a count.
   Test.expect(!Test.page().text("Quests").shown() && !Test.page().text("3/25").shown())
   Test.expect(own.GetAlpha() == 0)
@@ -88,15 +87,16 @@ test "a level is in its difficulty colour, or in the title's while the game's di
   Test.expect(Test.page().text("4").textColor().equal(title))
 }
 
-test "only the zone's tracked quests are listed: another zone's stays out" {
+test "the zone's quests are listed, tracked or not (the client watches one only once it moves): another zone's stays out" {
   logged()
   Test.mount(nil, PAGE)
   Tracker.refresh()
   Test.flush()
-  Test.expect(Test.page().text("The Defias Brotherhood").shown() && !Test.page().text("The Westfall Stew").shown())
+  Test.expect(Test.page().text("The Defias Brotherhood").shown() && Test.page().text("Elwynn Wolves").shown())
+  Test.expect(!Test.page().text("The Westfall Stew").shown())
 }
 
-test "entering another zone lists that zone's tracked quests in place of the last one's" {
+test "entering another zone lists that zone's quests in place of the last one's" {
   logged()
   Test.mount(nil, PAGE)
   Tracker.refresh()
@@ -113,8 +113,8 @@ test "a module's lines stand under each quest to do: where to go; a done quest h
   Tracker.questLines.add(new Where())
   Tracker.refresh()
   Test.flush()
-  // Quest 101 is to do, 102 done: one line, under 101.
-  Test.expect(Test.page().text("Westfall · 2 places").count() == 1)
+  // Quests 101 and 103 are to do, 102 done: a line under each of the two.
+  Test.expect(Test.page().text("Westfall · 2 places").count() == 2)
 }
 
 test "a title's click opens the quest where a module does; Shift+click links it, else untracks it" {
@@ -266,7 +266,7 @@ test "by default its ground shows only while the cursor is over it" {
   Test.expect(Test.page().box(SHADE).count() == 0)
 }
 
-test "with no quest of the zone tracked it draws nothing at all, no ground either" {
+test "with no quest of the zone in the log it draws nothing at all, no ground either" {
   Test.questLog([{ id: 104, title: "The Westfall Stew", header: "Westfall", level: 12, watched: true }])
   Tracker.settings.values.groundShown = .Always
   Test.mount(nil, PAGE)

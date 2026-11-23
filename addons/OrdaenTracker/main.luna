@@ -80,7 +80,7 @@ public class Tracker implements Module, App {
   // What the modules add under each tracked quest.
   public const questLines = new Registry<any QuestLines>()
 
-  // The tracked quests, in the log's order; the one the client points the way to; the log's size.
+  // The log's quests, in its order; the one the client points the way to; the log's size.
   public state quests: Array<Game.LogQuest> = []
   public state superTracked = 0
   // The zone the player is in, as the log's headers name it: only its quests are listed.
@@ -96,8 +96,9 @@ public class Tracker implements Module, App {
 
   derived abandonText: String = Locale.ABANDON_ASK.format(self.quests.find(quest => quest.id == self.abandoning)?.title ?? "")
   derived level: Integer = Game.player.level
-  // The tracked quests of the zone the player is in (an instance's own in a dungeon, a raid or a battleground: the
-  // log heads them by its name), as many as the settings list.
+  // The quests of the zone the player is in, tracked or not (the client watches a quest only once its objectives
+  // move; an instance's own in a dungeon, a raid or a battleground: the log heads them by its name), as many as the
+  // settings list.
   derived here: Array<Game.LogQuest> = self.quests.filter(quest => quest.header == self.zone)
   derived listed: Array<Game.LogQuest> = firstOf(self.here, self.settings.values.listed)
   derived ground: Color = { r: 0, g: 0, b: 0, a: self.settings.values.ground }
@@ -121,9 +122,9 @@ public class Tracker implements Module, App {
     Events.ZONE_CHANGED_NEW_AREA.listen(self.refresh)
   }
 
-  // The tracked quests as the client has them now; an objective that moved on sounds as the game's tracker does.
+  // The log's quests as the client has them now; an objective that moved on sounds as the game's tracker does.
   public refresh(mut self) {
-    const tracked = Game.questLog.quests().filter(quest => quest.tracked)
+    const tracked = Game.questLog.quests()
     const heard: Map<Integer, String> = {}
     let rolled = false
     const before = peek self.heard
