@@ -77,7 +77,7 @@ class StateRows implements Component {
   }
 }
 
-// The setting on a module's page: a section of the three states.
+// The setting on a module's page: a section of the three states, and under them what the module adds of its own.
 public class VisibilityRows implements Component {
   value: mut Signal<Visibility>
   disabled: Signal<Boolean>
@@ -92,6 +92,7 @@ public class VisibilityRows implements Component {
         <StateRows label={Locale.VISIBLE_GENERAL} value={mut self.value.general} disabled={self.disabled} />
         <StateRows label={Locale.VISIBLE_COMBAT} value={mut self.value.combat} disabled={self.disabled} />
         <StateRows label={Locale.VISIBLE_TRANSPORT} value={mut self.value.transport} disabled={self.disabled} />
+        <slot />
       </Section>
     }
   }
