@@ -30,7 +30,7 @@ import { JUNK_RULES, JunkLists, JunkRules, LEARNED, Mark, NO_LISTS, afterSale, s
 import { NO_ROOM, ROW_LEAST, SLOT_GAP, SLOT_SIZE } from "@/layout"
 import Locale from "@/locales"
 import { MERCHANT_VIEW, MerchantView, MerchantWindow, SIDE_WIDTH } from "@/merchant"
-import { MOVED, Slot, SortBy } from "@/model"
+import { MOVED, Slot, SortBy, handsOver } from "@/model"
 import { BagsView, Choices, Pane, junkIn, worthIn } from "@/pane"
 import { ClicksPage, JunkPage, LookPage } from "@/settings"
 import { MenuAct, SlotMenu, menuOf } from "@/slotMenu"
@@ -477,7 +477,9 @@ public class Bags implements Module, App {
       self.guild.take(slot.bag, slot.index)
       return
     }
-    if (slot.vault != Vault.Bags || peek Game.bags.place != Game.BagPlace.Merchant) { return }
+    const place = peek Game.bags.place
+    if (slot.vault != Vault.Bags || !handsOver(place) || !Game.bags.send(slot.bag, slot.index)) { return }
+    if (place != Game.BagPlace.Merchant) { return }
     const rules = peek self.settings.values.junk
     self.sale = {
       bag: slot.bag, index: slot.index, id: id, count: peek slot.count, price: slot.read.price, link: slot.read.link,

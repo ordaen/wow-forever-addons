@@ -277,9 +277,18 @@ test "a sale by hand at a merchant is said in the chat, and two of a full stack 
   Test.mount(nil, SCREEN)
   Game.bags.open = true
   Game.bags.place = Game.BagPlace.Merchant
+  Game.bags.send = (bag: Integer, slot: Integer): Boolean => {
+    Test.asked("Bags.send", bag, slot)
+    return true
+  }
   _ = Test.printed()
+  _ = Test.requests()
+  // The client's coin bag over a slot at a merchant, as the game's own bags show it.
+  bags().button(CLOTH).hover()
+  Test.expect(Test.cursor() == "BUY_CURSOR")
   bags().button(CLOTH).click()
-  Test.expect(Test.performed().join(", ") == "item 0 3")
+  // Sold by the bags themselves: the client's secure use would equip what can be worn.
+  Test.expect(Test.performed().length == 0 && Test.requests().join(", ").contains("Bags.send 0 3"))
   world.take(0, 3)
   Game.bags.updated.emit(0)
   Test.expect(!bags().button(CLOTH).shown())

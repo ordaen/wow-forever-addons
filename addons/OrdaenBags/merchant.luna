@@ -9,7 +9,7 @@
 // at or past the game's asking price (15 gold) or one paid in items or currencies is asked first, as the game asks (one
 // that can't be refunded says so). The buyback's click buys the item back.
 import Game from "$game"
-import { Align, Art, Columns, Event, MouseButton, Position, Track } from "$ltml"
+import { Align, Art, Columns, Cursor, Event, MouseButton, Position, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import { ARTWORK, ButtonPlate, Choice, Column, Component, CountInput, Dialog, FoldCaption, FooterBand, FooterCount, FooterCounts, ItemButton, KeptWindow, ModuleMemory, Money, PushButton, SECONDARY_TEXT, ScrolledList, Table, TableRow, ToolPick, Toolbar, Window, WindowSide, WindowTabSpec, tracksOf } from "Ordaen"
 import { NO_ROOM, TOOL_ROOM } from "@/layout"
@@ -190,6 +190,8 @@ class WareCell implements Component {
   derived priceColor: Color = self.dear ? RED : INK
   derived nameColor: Color = self.ware.usable && self.ware.purchasable ? INK : RED
   derived priced: Boolean = self.ware.price > 0
+  // The client's coin bag over a ware, red where the player can't afford it.
+  derived cursor: Cursor = self.dear ? Cursor.BuyError : Cursor.Buy
   derived stock: String = stockLine(self.ware, Game.items.inBags(self.ware.id))
 
   ware: Signal<Ware>
@@ -202,7 +204,8 @@ class WareCell implements Component {
     return $ltml {
       <box columns={CELL} gap={3sp} yAlign={Align.Center}>
         <ItemButton item={self.ware.id} art={self.ware.icon} count={self.ware.stack} quality={self.ware.quality}
-                    size={SLOT} linkOnShift={false} @pressed={self.onPressed} @dragged={self.onDragged}>
+                    size={SLOT} linkOnShift={false} cursor={self.cursor} @pressed={self.onPressed}
+                    @dragged={self.onDragged}>
           <box $if={self.ware.quest} position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui}
                background={QUEST_BANG} />
         </ItemButton>
@@ -235,7 +238,7 @@ class SoldCell implements Component {
     return $ltml {
       <box columns={CELL} gap={3sp} yAlign={Align.Center}>
         <ItemButton item={nil} art={self.sold.icon} count={self.sold.count} size={SLOT} linkOnShift={false}
-                    @pressed={self.onPressed} />
+                    cursor={Cursor.Buy} @pressed={self.onPressed} />
         <box columns={1}>
           <text value={self.sold.name} textColor={self.nameColor} wrap={.Cut} />
           <Money amount={self.sold.price} />

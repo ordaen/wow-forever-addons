@@ -187,3 +187,9 @@ public class Slot {
     return (peek self.id) * 1000 + (peek self.count)
   }
 }
+
+// Whether Use hands the item over where the player stands, as the client's own bags do: sells it, or puts it in the
+// trade or the letter.
+public function handsOver(place: Game.BagPlace): Boolean {
+  return place == .Merchant || place == .Trade || place == .Mail
+}
