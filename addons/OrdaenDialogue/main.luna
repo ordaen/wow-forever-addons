@@ -50,6 +50,8 @@ const FADE_LETTERS = 7
 // The scroll's height on every page, 5:3 at its width: a short greeting and a long quest alike (a long one scrolls).
 const SCROLL_HEIGHT: Number<Length> = 281.25dp
 const FILL: Array<Track> = [{ fr: 1 }]
+// The share of the screen's height a window stands higher than to stand a long quest's scroll beside the well.
+const TALL = 0.6
 // The well under the scroll, off it; beside it, off it by a gap and never narrower than the window's own width.
 const UNDER_SCROLL: Edges = { top: 2sp, right: 0sp, bottom: 0sp, left: 0sp }
 const WIDE_WELL: Edges = { top: 0sp, right: 0sp, bottom: 0sp, left: 4sp }
@@ -650,11 +652,15 @@ public class Dialogue implements Module, App {
   // The list's options are as wide as they are, never wrapped: it takes the room they need, which widens the window
   // (a scrolled box would keep its width); a quest's rewards scroll.
   derived wellOverflow: Overflow = self.listShown ? Overflow.Visible : Overflow.Scroll
-  // A quest's needs and rewards stand at the well's foot, right over the buttons that act on them.
-  derived wellAlign: Align = self.listShown ? Align.Start : Align.End
+  // Under the scroll a quest's needs and rewards stand at the well's foot, right over the buttons that act on them;
+  // beside it, at its top, the buttons at its foot.
+  derived wellAlign: Align = self.listShown || self.wide ? Align.Start : Align.End
   // A quest whose words would overflow the scroll at its least height stands the scroll beside the well, the window's
-  // whole height (OrdaenQuestPage's estimate, erring long); a folded scroll, a book and a question stand as they do.
+  // whole height (OrdaenQuestPage's estimate, erring long), where the window stands higher than `TALL` of the screen:
+  // a lower one keeps the scroll over the well, its words scrolled. A folded scroll, a book and a question stand as
+  // they do.
   derived wide: Boolean = self.onQuest && !self.scrollFolded &&
+    self.window.placing.height > Client.UIParent.GetHeight() * 1ui * TALL &&
     scrollOverflows(self.scrollTitle, [self.quest?.text ?? "", self.page == Page.Detail ? self.quest?.objectives ?? "" : ""])
   // The scroll at its one size, what is under it the rest; wide, the scroll half again as wide and the well side by
   // side.

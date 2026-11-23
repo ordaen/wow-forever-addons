@@ -370,8 +370,22 @@ test "a quest whose words would overflow the scroll stands it beside the rewards
   const bottom = window().box(SHEET_ART.bottomRight).rect()
   const choose = window().text("You will be able to choose").rect()
   Test.expect(choose.left > top.right && choose.top < bottom.top)
-  Test.expect(window().button("Accept").rect().left > top.right)
-  Test.expect(bottom.bottom >= window().button("Accept").rect().top)
+  const accept = window().button("Accept").rect()
+  Test.expect(accept.left > top.right && bottom.bottom >= accept.top)
+  // The rewards at the top of their column, the buttons at its foot.
+  Test.expect(choose.top - top.top < 60 && accept.top - choose.bottom > 100)
+}
+
+test "a window no higher than 60% of the screen keeps a long quest's rewards under the scroll, its words scrolled" {
+  Test.mount(nil, { left: 0, top: 0, width: 1600, height: 1200, screen: true })
+  Test.talk(innkeeper())
+  Test.quest({
+    text: "Maggie bakes the best pies in Elwynn, and every traveller who passes the farm stops for one. " +
+      "This year the boars have grown fat in the hills and bold in the fields.\nShe needs meat, and plenty of it.",
+    ..pie()
+  })
+  Events.QUEST_DETAIL.emit(nil)
+  Test.expect(window().text("You will be able to choose").rect().top > window().box(SHEET_ART.bottomLeft).rect().bottom)
 }
 
 test "a quest that fits the scroll keeps the rewards under it" {
