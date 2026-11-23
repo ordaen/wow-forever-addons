@@ -23,17 +23,13 @@ const FONTS: Array<Choice<Font>> = [
   { value: Font.PtSans, label: Locale.THEME_FONT_PTSANS },
   { value: Font.Philosopher, label: Locale.THEME_FONT_PHILOSOPHER },
   { value: Font.AlegreyaSC, label: Locale.THEME_FONT_ALEGREYASC },
-  { value: Font.Forum, label: Locale.THEME_FONT_FORUM },
   { value: Font.CormorantSC, label: Locale.THEME_FONT_CORMORANTSC },
   { value: Font.FiraCondensed, label: Locale.THEME_FONT_FIRACONDENSED },
-  { value: Font.PtSansNarrow, label: Locale.THEME_FONT_PTSANSNARROW },
-  { value: Font.Friz, label: Locale.THEME_FONT_FRIZ },
-  { value: Font.ArialNarrow, label: Locale.THEME_FONT_ARIALNARROW }
+  { value: Font.PtSansNarrow, label: Locale.THEME_FONT_PTSANSNARROW }
 ]
 const NUMBERS_FONTS: Array<Choice<NumbersFont>> = [
   { value: NumbersFont.PtSans, label: Locale.THEME_FONT_PTSANS },
-  { value: NumbersFont.PtSansNarrow, label: Locale.THEME_FONT_PTSANSNARROW },
-  { value: NumbersFont.ArialNarrow, label: Locale.THEME_FONT_ARIALNARROW }
+  { value: NumbersFont.PtSansNarrow, label: Locale.THEME_FONT_PTSANSNARROW }
 ]
 const BOOK_FONTS: Array<Choice<BookFont>> = [
   { value: BookFont.PtSerif, label: Locale.THEME_FONT_PTSERIF },

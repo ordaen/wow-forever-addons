@@ -4,19 +4,17 @@
 // What no preset changes (the metal, the wood, the controls' art, the measures) is Ordaen's art (art.luna).
 import { Art, FontFiles, Fonts, Piece, Tile } from "$ltml"
 
-// The fonts Ordaen ships (its media, each with Cyrillic, SIL Open Font License) and the client's own two.
+// The fonts Ordaen ships (its media, SIL Open Font License): each with Cyrillic, and each with a bold face, which
+// bold text is drawn in. A font with no bold face isn't offered.
 public enum Font implements Plain {
   FiraSans = "firaSans"
   AlegreyaSans = "alegreyaSans"
   PtSans = "ptSans"
   Philosopher = "philosopher"
   AlegreyaSC = "alegreyaSC"
-  Forum = "forum"
   CormorantSC = "cormorantSC"
   FiraCondensed = "firaCondensed"
   PtSansNarrow = "ptSansNarrow"
-  Friz = "friz"
-  ArialNarrow = "arialNarrow"
 }
 
 // The fonts numbers may be drawn in: those whose ten digits are equally wide (`TabularFont`, measured as the addon is
@@ -24,7 +22,6 @@ public enum Font implements Plain {
 public enum NumbersFont implements Plain {
   PtSans = "ptSans"
   PtSansNarrow = "ptSansNarrow"
-  ArialNarrow = "arialNarrow"
 }
 
 // The fonts a page of sentences may be set in (`TextFont.Book`: a quest's story on its parchment): serifs made for
@@ -138,9 +135,9 @@ public function preset(name: Preset): Look {
   }
 }
 
-// The look a player who chose the Blizzard preset has saved: Ordaen offers no such preset, and loads it as Ordaen's.
+// The look a player who chose the Blizzard preset has saved, as it loads: its fonts (the client's, which have no bold)
+// are no longer offered and load as Ordaen's. Ordaen offers no such preset, and loads it as Ordaen's.
 const BLIZZARD: Look = {
-  font: Font.Friz, fontHeader: Font.Friz, fontNumbers: NumbersFont.ArialNarrow,
   accent: { r: 1, g: 0.82, b: 0, a: 1 },
   barTexture: BarTexture.Blizzard, animation: Animation.Fast,
   ..ORDAEN
@@ -184,9 +181,8 @@ public struct LookArt {
   bar: Art
 }
 
-// A font's files, regular and bold (its heavier face where it has one shipped, none where it has none); nil for the
-// client's own text font, the one for the client's language (Cyrillic on ruRU).
-function fontFiles(font: Font): FontFiles | nil {
+// A font's files, regular and bold (its heavier face).
+function fontFiles(font: Font): FontFiles {
   match (font) {
     Font.FiraSans => return { regular: "@/media/fonts/FiraSans-Regular.ttf", bold: "@/media/fonts/FiraSans-Medium.ttf" }
     Font.AlegreyaSans => return {
@@ -197,7 +193,6 @@ function fontFiles(font: Font): FontFiles | nil {
       regular: "@/media/fonts/Philosopher-Regular.ttf", bold: "@/media/fonts/Philosopher-Bold.ttf"
     }
     Font.AlegreyaSC => return { regular: "@/media/fonts/AlegreyaSC-Medium.ttf", bold: "@/media/fonts/AlegreyaSC-Bold.ttf" }
-    Font.Forum => return { regular: "@/media/fonts/Forum-Regular.ttf", bold: nil }
     Font.CormorantSC => return {
       regular: "@/media/fonts/CormorantSC-SemiBold.ttf", bold: "@/media/fonts/CormorantSC-Bold.ttf"
     }
@@ -207,8 +202,6 @@ function fontFiles(font: Font): FontFiles | nil {
     Font.PtSansNarrow => return {
       regular: "@/media/fonts/PTSansNarrow-Regular.ttf", bold: "@/media/fonts/PTSansNarrow-Bold.ttf"
     }
-    Font.Friz => return nil
-    Font.ArialNarrow => return { regular: "Fonts/ARIALN.TTF", bold: nil }
   }
 }
 
@@ -222,12 +215,18 @@ function bookFiles(font: BookFont): FontFiles {
   }
 }
 
-// A numbers font's file, its digits measured where it is written: regular alone, a bold one's digits unmeasured.
+// A numbers font's files: the regular one, its digits measured where it is written, and its bold face.
 function numbersFile(font: NumbersFont): TabularFont {
   match (font) {
     NumbersFont.PtSans => return "@/media/fonts/PTSans-Regular.ttf"
     NumbersFont.PtSansNarrow => return "@/media/fonts/PTSansNarrow-Regular.ttf"
-    NumbersFont.ArialNarrow => return "Fonts/ARIALN.TTF"
+  }
+}
+
+function numbersBold(font: NumbersFont): Asset {
+  match (font) {
+    NumbersFont.PtSans => return "@/media/fonts/PTSans-Bold.ttf"
+    NumbersFont.PtSansNarrow => return "@/media/fonts/PTSansNarrow-Bold.ttf"
   }
 }
 
@@ -258,7 +257,7 @@ public function artOf(look: Look): LookArt {
   return {
     fonts: {
       body: fontFiles(look.font), title: fontFiles(look.fontHeader),
-      numbers: { regular: numbersFile(look.fontNumbers), bold: nil }, book: bookFiles(look.fontBook)
+      numbers: { regular: numbersFile(look.fontNumbers), bold: numbersBold(look.fontNumbers) }, book: bookFiles(look.fontBook)
     },
     bar: barFile(look.barTexture)
   }
