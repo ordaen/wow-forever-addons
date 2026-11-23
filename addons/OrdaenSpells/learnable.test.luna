@@ -16,6 +16,9 @@ const CHARGE = 100
 const DEFENSIVE_STANCE = 71
 const OVERPOWER = 7384
 const CLEAVE = 845
+// Mortal Strike, a talent, and its second rank (level 48), which a trainer teaches to those who took it.
+const MORTAL_STRIKE = 12294
+const MORTAL_STRIKE_2 = 21551
 // Stormwind, whose trainers teach warriors of the Alliance.
 const STORMWIND = 72
 const POLEARMS = 200
@@ -59,7 +62,7 @@ function headingOf(learnable: Learnable, spell: Integer): String { return servic
 test "each spell stands under what it waits for: learned now, an earlier rank first, the next levels, later, known" {
   const learnable = learnableOf(warrior([BATTLE_SHOUT, HEROIC_STRIKE]), noQuest, noNpc, nil)
   Test.expect(headingOf(learnable, CHARGE) == "Available now" && headingOf(learnable, HEROIC_STRIKE_2) == "Available now")
-  Test.expect(headingOf(learnable, REND_2) == "Needs an earlier rank or a talent")
+  Test.expect(headingOf(learnable, REND_2) == "Needs an earlier rank")
   Test.expect(headingOf(learnable, OVERPOWER) == "Coming soon" && headingOf(learnable, CLEAVE) == "Later")
   Test.expect(headingOf(learnable, BATTLE_SHOUT) == "Known")
   Test.expect(serviceOf(learnable, CHARGE)?.status == Game.ServiceStatus.Available)
@@ -76,6 +79,20 @@ test "a rank below one the spellbook holds is known: the client's book keeps a s
   const learnable = learnableOf(warrior([REND_2]), noQuest, noNpc, nil)
   Test.expect(headingOf(learnable, REND) == "Known" && headingOf(learnable, REND_2) == "Known")
   Test.expect(headingOf(learnable, CHARGE) == "Available now")
+}
+
+test "a talent's later rank waits for the talent whatever its level, as What's Training files it" {
+  const learnable = learnableOf(warrior([]), noQuest, noNpc, nil)
+  Test.expect(headingOf(learnable, MORTAL_STRIKE_2) == "Needs a talent")
+  const taken = learnableOf(warrior([MORTAL_STRIKE]), noQuest, noNpc, nil)
+  Test.expect(headingOf(taken, MORTAL_STRIKE_2) == "Later")
+}
+
+test "the known and the talents' stand by name, the rest by level" {
+  Game.spells.name = (id: Integer): String | nil => id == CHARGE ? "Charge" : id == BATTLE_SHOUT ? "Battle Shout" : nil
+  const learnable = learnableOf(warrior([CHARGE, BATTLE_SHOUT]), noQuest, noNpc, nil)
+  const known = learnable.services.filter(service => service.category == "Known").map(service => service.name)
+  Test.expect(known.join(", ") == "Battle Shout, Charge")
 }
 
 test "a spell's rank is the client's, and its price What's Training's, a tenth off where the player is Honored" {
@@ -153,6 +170,9 @@ test "the spellbook's «Learnable» tab lists them under their headings, with a 
   window.button("Learnable").click()
   Test.expect(window.texts().join(" | ").contains("Available now"))
   Test.expect(window.text("Charge").shown())
+  // A level reached isn't said (Charge at 4); one ahead is (Overpower at 12).
+  Test.expect(window.text("Rank 1").shown() && !window.text("Rank 1 · Requires level 4").shown())
+  Test.expect(window.text("Rank 1 · Requires level 12").shown())
   window.text("Charge").click()
   Test.expect(window.text("Learned at a trainer").shown())
 }

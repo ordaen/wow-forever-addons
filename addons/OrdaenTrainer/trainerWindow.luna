@@ -223,7 +223,8 @@ function needsOf(service: Game.TrainerService): String {
   if (service.status == Game.ServiceStatus.Learned) {
     parts.push(Locale.TRAINER_KNOWN)
   } else {
-    if (service.level > 1) { parts.push(Locale.TRAINER_NEEDS_LEVEL.format(service.level)) }
+    // The level only while the player is below it: one reached needs no saying.
+    if (service.level > Game.player.level) { parts.push(Locale.TRAINER_NEEDS_LEVEL.format(service.level)) }
     const skill = service.skill ?? 0
     if (skill > 0) { parts.push(Locale.TRAINER_NEEDS_SKILL.format(skill)) }
   }

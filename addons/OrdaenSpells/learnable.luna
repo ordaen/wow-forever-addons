@@ -1,7 +1,8 @@
 // What the player can learn of their class, away from a trainer: every spell a class trainer teaches the player's side
 // and race (What's Training's list, `training.luna`), and the spells a quest gives in a trainer's place, each as a
-// trainer's service for the trainer's page: under a heading by what it waits for (learned now, an earlier rank or a
-// talent first, the next levels, later, a quest, a weapon master, a demon's grimoire, the pet trainer, known), its rank, its price at
+// trainer's service for the trainer's page: under a heading by what it waits for (learned now, an earlier rank first,
+// the next levels, later, a quest, a weapon master, a demon's grimoire, the pet trainer, a talent, known; as What's
+// Training files them), its rank, its price at
 // the trainer where it costs least (an Honored player pays a tenth less at a faction's trainers, as What's Training
 // measured on Forever), and a quest's note and its way to the quest.
 import Client from "$client"
@@ -250,7 +251,7 @@ public function grimoiresOf(): Array<Grimoire> {
 }
 
 // What waits for a spell the learner hasn't, by the heading it stands under, in the headings' order.
-enum Wait { Now, Needs, Soon, Later, Quest, Weapon, Grimoire, PetTrainer, Known }
+enum Wait { Now, Needs, Soon, Later, Quest, Weapon, Grimoire, PetTrainer, Talent, Known }
 
 function headingOf(wait: Wait): String {
   return match (wait) {
@@ -262,6 +263,7 @@ function headingOf(wait: Wait): String {
     .Weapon => Locale.LEARN_WEAPONS
     .Grimoire => Locale.LEARN_GRIMOIRES
     .PetTrainer => Locale.LEARN_PET_TRAINER
+    .Talent => Locale.LEARN_TALENT
     .Known => Locale.LEARN_KNOWN
   }
 }
@@ -276,28 +278,35 @@ function orderOf(wait: Wait): Integer {
     .Weapon => 6
     .Grimoire => 7
     .PetTrainer => 8
-    .Known => 9
+    .Talent => 9
+    .Known => 10
   }
 }
 
+// A talent's rank waits for the talent whatever the level: it isn't coming soon to one who hasn't taken it.
 function waitOf(spell: TrainerSpell, learner: Learner): Wait {
   if (learner.known(spell.id)) { return .Known }
+  if (spell.talent != 0 && !learner.known(spell.talent)) { return .Talent }
   if (spell.level > learner.level) { return spell.level <= learner.level + SOON ? .Soon : .Later }
-  const ready = spell.required.all(each => learner.known(each)) && (spell.talent == 0 || learner.known(spell.talent))
-  return ready ? .Now : .Needs
+  return spell.required.all(each => learner.known(each)) ? .Now : .Needs
 }
+
+// The headings read by name, as a list to look a spell up in; the rest by level, the next one first.
+function byName(wait: Wait): Boolean { return wait == .Known || wait == .Talent }
 
 function statusOf(wait: Wait): Game.ServiceStatus {
   return match (wait) {
     .Now => .Available
     .Known => .Learned
-    .Needs, .Soon, .Later, .Quest, .Weapon, .Grimoire, .PetTrainer => .Unavailable
+    .Needs, .Soon, .Later, .Quest, .Weapon, .Grimoire, .PetTrainer, .Talent => .Unavailable
   }
 }
 
 // One spell before it is placed: the service but its place, and its quest's.
 struct Row {
   spell: Integer
+  // The client's name for it: the rows sort by it.
+  name: String
   wait: Wait
   level: Integer
   // Its rank; 0 for none (a quest's spell).
@@ -365,7 +374,7 @@ public function learnableOf(given: Learner, questName: QuestName, npcName: NpcNa
       const pet = pets[spell.id] == true
       const role = pet ? PET_ROLE : learner.classTag
       const wait = pet ? (learner.known(spell.id) || learner.petKnown(spell.id) ? Wait.Known : Wait.PetTrainer) : waitOf(spell, learner)
-      rows.push({ spell: spell.id, wait: wait, level: spell.level, rank: spell.rank, cost: bestPrice(learner, spell.cost, role), base: spell.cost, role: role, quest: nil, note: nil, masters: [] })
+      rows.push({ spell: spell.id, name: Game.spells.name(spell.id) ?? "", wait: wait, level: spell.level, rank: spell.rank, cost: bestPrice(learner, spell.cost, role), base: spell.cost, role: role, quest: nil, note: nil, masters: [] })
     }
   }
   for (spell, ways of quests) {
@@ -375,7 +384,7 @@ public function learnableOf(given: Learner, questName: QuestName, npcName: NpcNa
       const quest = way.quests[1]
       const name = quest == nil ? nil : questName(quest)
       const note = name == nil ? Locale.LEARN_QUEST_LEVEL.format(way.level) : Locale.LEARN_QUEST.format(name, way.level)
-      rows.push({ spell: spell, wait: known ? Wait.Known : Wait.Quest, level: way.level, rank: 0, cost: 0, base: 0, role: learner.classTag, quest: quest, note: known ? nil : note, masters: [] })
+      rows.push({ spell: spell, name: Game.spells.name(spell) ?? "", wait: known ? Wait.Known : Wait.Quest, level: way.level, rank: 0, cost: 0, base: 0, role: learner.classTag, quest: quest, note: known ? nil : note, masters: [] })
     }
   }
   for (way of weaponWaysOf(learner)) {
@@ -383,18 +392,20 @@ public function learnableOf(given: Learner, questName: QuestName, npcName: NpcNa
     const cost = way.masters[1]?.price ?? way.cost
     const note = known || way.level <= learner.level ? nil : Locale.LEARN_WEAPON_LEVEL.format(way.level)
     const lines = known ? [] : way.masters.map(master => masterLineOf(master, npcName))
-    rows.push({ spell: way.spell, wait: known ? Wait.Known : Wait.Weapon, level: way.level, rank: 0, cost: cost, base: 0, role: learner.classTag, quest: nil, note: note, masters: lines })
+    rows.push({ spell: way.spell, name: Game.spells.name(way.spell) ?? "", wait: known ? Wait.Known : Wait.Weapon, level: way.level, rank: 0, cost: cost, base: 0, role: learner.classTag, quest: nil, note: note, masters: lines })
   }
   if (learner.classTag == "WARLOCK") {
     for (grimoire of grimoiresOf()) {
       const known = learner.petKnown(grimoire.spell)
       const note = known ? nil : Locale.LEARN_GRIMOIRE.format(grimoire.family)
-      rows.push({ spell: grimoire.spell, wait: known ? Wait.Known : Wait.Grimoire, level: grimoire.level, rank: grimoire.rank, cost: bestPrice(learner, grimoire.cost, learner.classTag), base: grimoire.cost, role: learner.classTag, quest: nil, note: note, masters: [] })
+      rows.push({ spell: grimoire.spell, name: Game.spells.name(grimoire.spell) ?? "", wait: known ? Wait.Known : Wait.Grimoire, level: grimoire.level, rank: grimoire.rank, cost: bestPrice(learner, grimoire.cost, learner.classTag), base: grimoire.cost, role: learner.classTag, quest: nil, note: note, masters: [] })
     }
   }
   rows.sort((a, b) => {
     if (a.wait != b.wait) { return orderOf(a.wait) < orderOf(b.wait) }
+    if (byName(a.wait) && a.name != b.name) { return a.name < b.name }
     if (a.level != b.level) { return a.level < b.level }
+    if (a.name != b.name) { return a.name < b.name }
     return a.spell < b.spell
   })
   const services: Array<Game.TrainerService> = []
@@ -404,7 +415,7 @@ public function learnableOf(given: Learner, questName: QuestName, npcName: NpcNa
   const prices: Map<Integer, Array<PlacePrice>> = {}
   for (at, row of rows) {
     services.push({
-      index: at, name: Game.spells.name(row.spell) ?? "", rank: row.rank == 0 ? "" : Locale.SPELL_RANK.format(row.rank),
+      index: at, name: row.name, rank: row.rank == 0 ? "" : Locale.SPELL_RANK.format(row.rank),
       icon: Game.spells.texture(row.spell), status: statusOf(row.wait), level: row.level, cost: row.cost,
       description: Game.spells.description(row.spell) ?? "", skill: nil, category: headingOf(row.wait), spell: row.spell
     })
