@@ -107,7 +107,7 @@ public class SystemSettings {
       const range = options is Client.SettingsSliderOptions ? options : nil
       lines.push({
         kind: kind,
-        name: data.name ?? initializer.GetName(),
+        name: data.name ?? data.setting?.GetName() ?? "",
         tooltip: data.tooltip ?? "",
         variable: data.setting?.GetVariable() ?? "",
         least: range?.minValue ?? 0,
