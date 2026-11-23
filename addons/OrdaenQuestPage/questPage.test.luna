@@ -3,7 +3,7 @@ import { Track } from "$ltml"
 import Test from "$test"
 import { BRIGHT_TEXT, Quality } from "Ordaen"
 import Locale from "@/locales"
-import { Reward, Rewards, SCROLL_ART, SCROLL_ROW, SCROLL_WIDTH, SHEET_ART, Scroll, ScrollHeading, Standing } from "@/questPage"
+import { Reward, Rewards, SCROLL_ART, SCROLL_ROW, SCROLL_WIDTH, SHEET_ART, Scroll, ScrollHeading, Standing, XP_MARK } from "@/questPage"
 
 function given(name: String): Reward {
   return {
@@ -117,14 +117,14 @@ test "experience and each reputation stand a row each, off the rewards: what it 
   Test.mount(page, { left: 0, top: 0, width: 600, height: 600 })
   const label = Test.page().text(Locale.QUEST_EXPERIENCE)
   const xp = Test.page().text("1200").rect()
-  const mark = Test.page().box("GarrMission_CurrencyIcon-Xp").rect()
+  const mark = Test.page().box(XP_MARK).rect()
   const faction = Test.page().text("Stormwind").rect()
   const standing = Test.page().text(Locale.QUEST_REPUTATION.format(250)).rect()
   Test.expect(label.textColor().equal(BRIGHT_TEXT) && Test.page().text("Stormwind").textColor().equal(BRIGHT_TEXT))
   // The number, then its mark, both ending at the section's right end with the reputation's amount.
   Test.expect(mark.left > xp.right && (mark.right - standing.right).abs() < 0.5)
-  // The mark larger than the letters: its star leaves room round it in the atlas.
-  Test.expect(mark.bottom - mark.top > (xp.bottom - xp.top) * 1.2)
+  // The mark as tall as the digits, within a line.
+  Test.expect(mark.bottom - mark.top > (xp.bottom - xp.top) * 0.75 && mark.bottom - mark.top <= xp.bottom - xp.top)
   Test.expect((standing.top - faction.top).abs() < 1 && faction.top >= label.rect().bottom)
   // Off the last reward by far more than the rewards are off one another.
   const four = Test.page().text("Four").item().rect()

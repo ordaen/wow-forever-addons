@@ -1,4 +1,4 @@
 // Ordaen Quest Page: a quest's page as Ordaen Quests and Ordaen Dialogue show it, a library both depend on.
 public import { QuestLevel } from "@/level"
 public import { Named, NamedKind, ScrollText } from "@/names"
-public import { Experience, Keycap, REWARD_ICON, Reward, RewardKind, RewardRow, RewardView, Rewards, SCROLL_ART, SCROLL_DIM, SCROLL_HEAD, SCROLL_INK, SCROLL_LEADING, SCROLL_ROW, SCROLL_WIDTH, SHEET_ART, Scroll, ScrollArt, ScrollHeading, ScrollParts, Standing, WELL_DIM, WELL_GOLD, WELL_GREEN, WELL_RED, WELL_RULE, WELL_TEXT, WIDE_SCROLL, artOf, choiceViews, itemReward, logReward, pawnText, scrollOverflows } from "@/questPage"
+public import { Experience, Keycap, REWARD_ICON, Reward, RewardKind, RewardRow, RewardView, Rewards, SCROLL_ART, SCROLL_DIM, SCROLL_HEAD, SCROLL_INK, SCROLL_LEADING, SCROLL_ROW, SCROLL_WIDTH, SHEET_ART, Scroll, ScrollArt, ScrollHeading, ScrollParts, Standing, WELL_DIM, WELL_GOLD, WELL_GREEN, WELL_RED, WELL_RULE, WELL_TEXT, WIDE_SCROLL, XP_MARK, artOf, choiceViews, itemReward, logReward, pawnText, scrollOverflows } from "@/questPage"

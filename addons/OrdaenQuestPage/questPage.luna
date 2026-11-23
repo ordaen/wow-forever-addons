@@ -481,7 +481,7 @@ public class Rewards implements Component {
         <box $if={self.banded} columns={GAINS} gap={ROWS_GAP} padding={self.gainsRoom} yAlign={Align.Center}>
           <text $if={self.xp > 0} value={Locale.QUEST_EXPERIENCE} textColor={BRIGHT_TEXT} wrap={.None} />
           <box $if={self.xp > 0} xAlign={Align.End}>
-            <Experience amount={self.xp} mark={XP_MARK_LARGE} />
+            <Experience amount={self.xp} />
           </box>
           <$for={standing of self.standings}>
             <text value={standing.name} textColor={BRIGHT_TEXT} wrap={.None} />
@@ -499,12 +499,11 @@ public class Rewards implements Component {
   }
 }
 
-// The client's own mark of experience (a mission's currency), after an amount of it: the atlas leaves room round its
-// star, so it stands larger than the letters to look as large: as high as a list's line where it stands in one, larger
-// on a quest's page, where its row may grow.
-const XP_MARK: Atlas = "GarrMission_CurrencyIcon-Xp"
-const XP_MARK_IN_LINE: Number<Length> = 20.15625dp
-const XP_MARK_LARGE: Number<Length> = 25.78125dp
+// The mark of experience after an amount of it: the client's «XP» badge cut out of its glow (art/pieces/xp-mark.json),
+// stretched back to its shape (3:2), as tall as the digits beside it.
+public const XP_MARK: Asset = "@/media/xp-mark.tga"
+const XP_MARK_HEIGHT: Number<Length> = 17.578125dp
+const XP_MARK_WIDTH: Number<Length> = XP_MARK_HEIGHT * 1.5
 
 // An amount of experience a quest gives: the number in the letters Money writes its amount in, then the client's mark
 // of it, in one line; the mark says what the number is.
@@ -513,10 +512,7 @@ public class Experience implements Component {
 
   amount: Signal<Integer>
   color: Signal<Color>
-  // The mark's side.
-  mark: Signal<Number<Length>>
-  constructor(amount: Signal<Integer>, color: Signal<Color> = WELL_TEXT, mark: Signal<Number<Length>> = XP_MARK_IN_LINE) {
-    self.mark = mark
+  constructor(amount: Signal<Integer>, color: Signal<Color> = WELL_TEXT) {
     self.amount = amount
     self.color = color
   }
@@ -525,7 +521,7 @@ public class Experience implements Component {
     return $ltml {
       <box columns={["max-content", "max-content"]} gap={1sp} yAlign={Align.Center}>
         <text value={self.text} textColor={self.color} wrap={.None} />
-        <box width={self.mark} height={self.mark} background={XP_MARK} />
+        <box width={XP_MARK_WIDTH} height={XP_MARK_HEIGHT} background={XP_MARK} />
       </box>
     }
   }

@@ -9,7 +9,7 @@ import { Key } from "$ltml"
 import Test from "$test"
 import root Ordaen from "Ordaen"
 import root Maps from "OrdaenMap"
-import { SHEET_ART } from "OrdaenQuestPage"
+import { SHEET_ART, XP_MARK } from "OrdaenQuestPage"
 import root Quests from "OrdaenQuests"
 import root Tracker from "OrdaenTracker"
 import { kindOfTag } from "@/kind"
@@ -855,7 +855,7 @@ test "a quest's gains stand at its row's right in the body's size: one alone lea
   // Quest 101 gives experience alone (its number, then its mark), quest 103 experience and money: both end at the
   // same right edge.
   const alone = window.text("420").rect()
-  const marks = window.box("GarrMission_CurrencyIcon-Xp")
+  const marks = window.box(XP_MARK)
   const first = marks.nth(1).rect()
   const mark = (first.top - alone.top).abs() < 10 ? first : marks.nth(2).rect()
   const money = window.text(Game.money.format(150)).rect()
@@ -901,7 +901,7 @@ test "a quest's experience and money stand at its title's right, a bullet betwee
   const row = window.text("Elwynn Wolves").item()
   Test.expect(window.text("735").rect().left > title.right && row.text("•").count() == 1)
   Test.expect(row.text("•").rect().left > window.text("735").rect().right)
-  Test.expect(window.box("GarrMission_CurrencyIcon-Xp").shown())
+  Test.expect(window.box(XP_MARK).shown())
 }
 
 test "the page's experience stands no smaller than the list's" {
