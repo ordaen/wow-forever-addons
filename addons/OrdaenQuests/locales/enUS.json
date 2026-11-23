@@ -40,6 +40,8 @@
   "TURN_IN": "Turn in here",
   "LAYER_GIVERS": "Next quest in a chain",
   "LAYER_GIVERS_TIP": "Ordaen Quests: where the next quest of a chain is given, when you show it on the map from its window",
+  "LAYER_NPC": "An NPC shown",
+  "LAYER_NPC_TIP": "Ordaen Quests: where an NPC stands, when another module shows it on the map (a recipe's trainer or vendor)",
   "GIVEN_BY": "Given by: %s",
   "CHAIN_LEVELS": "Level %d, available from level %d",
   "CHAIN_WINDOW": "Next quest in a chain",

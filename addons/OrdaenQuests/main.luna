@@ -25,7 +25,7 @@ import { LogQuest, logQuests } from "@/book"
 import { TakenClick } from "@/button"
 import { QuestieData } from "@/data"
 import { KINDS, QuestKind } from "@/kind"
-import { ChainPins, DungeonQuests, TurnInPins, leadsTo, startsAt } from "@/layers"
+import { ChainPins, DungeonQuests, NpcPins, TurnInPins, leadsTo, startsAt } from "@/layers"
 import { QuestList } from "@/list"
 import Locale from "@/locales"
 import { Asked, FILTER_START, Folds, ListChoices, Opened, QuestFilter, QuestSort, QuestStatus, QuestView, countOf, foldedOnce, listedOf } from "@/model"
@@ -148,6 +148,8 @@ public class Quests implements Module, App {
   public derived picked: Integer = self.opened.values.quest
   // The quest the player asked to see on the map (0: none): its marks alone show, until the map hides.
   public state shownOnMap = 0
+  // The NPC another module asked to see on the map (nil: none): its pins show, until the map hides.
+  state shownNpc: Figure | nil = nil
   // The quest of a chain whose page the chain window shows (0: none, the window closed), and QuestieDB's facts of it.
   public state chained = 0
   state chainedFacts: QuestFacts | nil = nil
@@ -201,12 +203,14 @@ public class Quests implements Module, App {
   const toggle: any Client.Frame
   const turnIns: TurnInPins
   const chainPins: ChainPins
+  const npcPins: NpcPins
   const dungeonQuests: DungeonQuests
   const trackerLines: TrackerLines
 
   constructor() {
     self.turnIns = new TurnInPins(self.quests, self.facts, self.shownOnMap)
     self.chainPins = new ChainPins(self.chained, self.chainedFacts, self.shownOnMap)
+    self.npcPins = new NpcPins(self.shownNpc)
     self.dungeonQuests = new DungeonQuests(self.quests)
     self.trackerLines = new TrackerLines(self.facts, (id: Integer): Boolean => self.openAt(id), (id: Integer): Boolean => self.showOnMap(id))
     self.toggle = Client.CreateFrame("Button", TOGGLE, Client.UIParent, nil)
@@ -219,11 +223,15 @@ public class Quests implements Module, App {
       if (maps == nil) { return }
       maps.layers.add(self.turnIns)
       maps.layers.add(self.chainPins)
+      maps.layers.add(self.npcPins)
       maps.dungeons.add(self.dungeonQuests)
     }
     // What the player asked to see on the map stays until the map hides.
     watch (showing of self.mapShowing) {
-      if (!showing) { self.shownOnMap = 0 }
+      if (!showing) {
+        self.shownOnMap = 0
+        self.shownNpc = nil
+      }
     }
     watch (tracker of Tracker) {
       if (tracker == nil) { return }
@@ -358,6 +366,20 @@ public class Quests implements Module, App {
     }
     self.shownOnMap = id
     Maps?.show(area, id)
+    return true
+  }
+
+  // The world map at where an NPC stands by QuestieDB (its first spot), its pins lit with its name until the map hides:
+  // another module's link to a trainer or a vendor. False, and the map as it was, without Ordaen Map, in a fight (the
+  // client opens the map for an addon out of one alone), or for an NPC QuestieDB doesn't know or has no spot of.
+  public showNpc(mut self, npc: Integer): Boolean {
+    const figure = self.data.npc(npc)
+    if (Maps == nil || Game.situation.combat || figure == nil) { return false }
+    const spot = figure.spots[1]
+    if (spot == nil) { return false }
+    self.shownOnMap = 0
+    self.shownNpc = figure
+    Maps?.show(spot.area)
     return true
   }
 

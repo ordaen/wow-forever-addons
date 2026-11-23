@@ -4,8 +4,8 @@ import Test from "$test"
 import { Difficulty, colorOf, difficultyOf } from "Ordaen"
 import type { Pin } from "OrdaenMap"
 import { LogQuest } from "@/book"
-import { ChainPins, DungeonQuests, TurnInPins, leadsTo, startsAt } from "@/layers"
-import { QuestFacts } from "@/questie"
+import { ChainPins, DungeonQuests, NpcPins, TurnInPins, leadsTo, startsAt } from "@/layers"
+import { Figure, QuestFacts } from "@/questie"
 
 function quest(id: Integer, tracked: Boolean, done: Boolean): LogQuest {
   return {
@@ -20,6 +20,7 @@ class Holder {
   public state quests: Array<LogQuest> = []
   public state facts: Map<Integer, QuestFacts> = {}
   public state shown = 0
+  public state npc: Figure | nil = nil
 }
 
 const FACTS: QuestFacts = {
@@ -108,4 +109,17 @@ test "a quest's level is coloured as the client colours it against the player's"
   Test.expect(difficultyOf(13, 20) == Difficulty.Easy)
   Test.expect(difficultyOf(12, 20) == Difficulty.Trivial)
   Test.expect(colorOf(.Trivial).r == colorOf(.Trivial).g)
+}
+
+test "the NPC's layer shows each of its spots, lit, its name in the tooltip, while one is asked for; none, nothing" {
+  const holder = new Holder()
+  const layer = new NpcPins(holder.npc)
+  Test.expect(layer.pins().length == 0)
+  holder.npc = { id: 7, kind: .Npc, name: "Trainer", spots: [{ area: 12, x: 0.3, y: 0.6 }, { area: 40, x: 0.5, y: 0.5 }] }
+  const pins = layer.pins()
+  Test.expect(pins.length == 2 && pins.filter(pin => pin.lit && pin.of == 7).length == 2)
+  const first = pins[1] ?? panic("a pin")
+  Test.expect(first.area == 12 && layer.lines(first).join(",") == "Trainer")
+  holder.npc = nil
+  Test.expect(layer.pins().length == 0)
 }

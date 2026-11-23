@@ -5,7 +5,7 @@ import Game from "$game"
 import type { DungeonSection, Layer, Pin } from "OrdaenMap"
 import { LogQuest } from "@/book"
 import Locale from "@/locales"
-import { QuestFacts } from "@/questie"
+import { Figure, QuestFacts } from "@/questie"
 
 // The log's quests of a dungeon on its card on the map: those under its instance's header, «[level] title».
 public class DungeonQuests implements DungeonSection {
@@ -137,4 +137,31 @@ public class TurnInPins implements Layer {
       Game.questLog.superTrack(pin.of)
     }
   }
+}
+
+const NPC: Asset = "Interface/GossipFrame/GossipGossipIcon"
+
+// The NPC another module asked to see on the map (a trainer or a vendor of a recipe): its spots, lit, its name in the
+// tooltip, until the map hides.
+public class NpcPins implements Layer {
+  public const id: String = "quests.npc"
+  public const title: String = Locale.LAYER_NPC
+  public const hint: String = Locale.LAYER_NPC_TIP
+
+  shown: Signal<Figure | nil>
+  constructor(shown: Signal<Figure | nil>) { self.shown = shown }
+
+  public pins(self): Array<Pin> {
+    const figure = self.shown
+    const pins: Array<Pin> = []
+    if (figure == nil) { return pins }
+    for (spot of figure.spots) {
+      pins.push({ of: figure.id, area: spot.area, x: spot.x, y: spot.y, icon: NPC, lit: true })
+    }
+    return pins
+  }
+
+  public lines(self, pin: Pin): Array<String> { return [self.shown?.name ?? ""] }
+
+  public press(self, pin: Pin, shift: Boolean) {}
 }

@@ -991,3 +991,17 @@ test "the parchment opens unfolded by default" {
   Test.page().window("World").text("Elwynn Wolves").click()
   Test.expect(Test.page().window("World").text("Bring pelts to Eagan.").shown())
 }
+
+test "another module's NPC opens the map where QuestieDB puts it until the map hides; unknown or in a fight, nothing" {
+  opened(standing())
+  Test.expect(!Quests.showNpc(999))
+  Test.combat(true)
+  Test.flush()
+  Test.expect(!Quests.showNpc(235) && !Client.WorldMapFrame.IsShown())
+  Test.combat(false)
+  Test.flush()
+  // Scout Riell stands in Elwynn Forest (area 12), on its map.
+  Test.expect(Quests.showNpc(235))
+  Test.flush()
+  Test.expect(Client.WorldMapFrame.GetMapID() == 1429)
+}
