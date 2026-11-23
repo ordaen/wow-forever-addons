@@ -16,7 +16,7 @@ import root Quests from "OrdaenQuests"
 import { TrainerIgnored, TrainerList, TrainerView, TrainerWindow } from "OrdaenTrainer"
 import { BandBar } from "@/bandBar"
 import { Book, written } from "@/book"
-import { Totals, makesOf, partsOf, totalsOf, yieldOf } from "@/cost"
+import { makesOf } from "@/cost"
 import { CraftQueue } from "@/crafting"
 import { RecipeDetails } from "@/details"
 import { Learning, Taught, learnedFrom } from "@/learn"
@@ -29,6 +29,7 @@ import { Choices, GeneralPage } from "@/settings"
 import { SideList } from "@/sideList"
 import { Thresholds, thresholdsOf } from "@/skillUps"
 import { LearnPlace, RecipeSource, Way, otherSideOnly, readinessOf, sideOfPlayer, sourcesOf, wayOf } from "@/sources"
+import { SourceTotals, betterOf, bothSourcesOf } from "@/split"
 import Style from "@/style"
 import {
   Act, before, FAVORITES, Group, Grouping, Kept, LIST_VIEW, ListView, MakeMode, members, MOST_MARKED, Page, Pause, Queued, QueueAct, READINESS, READY_MISSING, READY_NOW, READY_SOON, Seen, SortBy,
@@ -295,7 +296,8 @@ public class Professions implements Module, App {
   derived tableColumns: Array<Column> = self.priced ? PRICED_COLUMNS : COLUMNS
   derived tracks: Array<Track> = tracksOf(self.tableColumns)
   // One making's totals of each recipe the table lists, worked out while the table shows with prices.
-  derived worth: Map<Integer, Totals> = self.worthOf()
+  // Each listed recipe's totals at the better of the house and a merchant, as its card has them.
+  derived worth: Map<Integer, SourceTotals> = self.worthOf()
   // The category whose recipes are listed.
   derived listed: Integer = self.onCamp ? self.camp : self.chosenCategory
   // The recipes the lists hold in the order they are drawn, of which one is the chosen.
@@ -603,14 +605,13 @@ public class Professions implements Module, App {
   }
 
   // Read again when a price may have moved; nothing while the table doesn't show or prices are off.
-  worthOf(self): Map<Integer, Totals> {
+  worthOf(self): Map<Integer, SourceTotals> {
     const prices = self.prices
-    const worth: Map<Integer, Totals> = {}
+    const worth: Map<Integer, SourceTotals> = {}
     if (prices == nil || self.list.values.view != View.Table || self.onCamp) { return worth }
     _ = prices.revision
     for (recipe of self.mains) {
-      const parts = partsOf(prices, Game.tradeSkill.reagents(recipe.id), 1)
-      worth[recipe.id] = totalsOf(prices, parts, makesOf(recipe.id), yieldOf(recipe.id), 1)
+      worth[recipe.id] = betterOf(bothSourcesOf(prices, recipe.id, makesOf(recipe.id), 1))
     }
     return worth
   }

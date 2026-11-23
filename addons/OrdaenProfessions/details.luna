@@ -18,7 +18,7 @@ import { MakeRow } from "@/make"
 import { PriceTable, PricesAge } from "@/priceRows"
 import { ReagentRow } from "@/rows"
 import { LearnPlace, RecipeSource, asksOf, placesOf, sideOfPlayer } from "@/sources"
-import { Source, SourceTotals, sourceTotalsOf } from "@/split"
+import { Source, SourceTotals, merchantSaleOf, sourceTotalsOf } from "@/split"
 import Style from "@/style"
 import { Act, Kept, MakeMode, has } from "@/view"
 
@@ -81,7 +81,7 @@ public class RecipeDetails implements Component {
   derived parts: Array<PartPrice> = self.partsOf()
   derived totals: Totals = self.totalsOf()
   // The totals at each source, side by side: the house's and a merchant's.
-  derived merchantSale: Integer | nil = self.merchantSaleOf()
+  derived merchantSale: Integer | nil = merchantSaleOf(self.made, self.shown.id, self.pricedCount)
   derived auctionSide: SourceTotals = sourceTotalsOf(self.parts, Source.Auction, self.totals.sale)
   derived merchantSide: SourceTotals = sourceTotalsOf(self.parts, Source.Merchant, self.merchantSale)
   // Ordaen Auction is on but has no price for any part: nothing was scanned, or (where the house prices what it
@@ -159,15 +159,6 @@ public class RecipeDetails implements Component {
     const prices = self.prices
     if (prices == nil) { return NO_TOTALS }
     return totalsOf(prices, self.parts, self.made, yieldOf(self.shown.id), self.pricedCount)
-  }
-
-  // What a merchant pays for what the count makes; none where merchants don't buy it, or nothing is made.
-  merchantSaleOf(self): Integer | nil {
-    const made = self.made
-    if (made == nil) { return nil }
-    const one = Game.items.sellPrice(made) ?? 0
-    if (one <= 0) { return nil }
-    return (one * yieldOf(self.shown.id) * self.pricedCount).floor()
   }
 
   madeOf(self): Integer | nil {

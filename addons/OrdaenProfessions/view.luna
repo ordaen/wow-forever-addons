@@ -1,7 +1,7 @@
 // What the professions window's lists share: the views of a profession's recipes, how they are ordered, what a click on
 // a row asks of the window, and the groups the recipes fall into.
 import Game from "$game"
-import { Totals } from "@/cost"
+import { SourceTotals } from "@/split"
 
 // How the recipes are laid out: the categories beside the category's recipes (ours, the default), one list with the
 // categories as headings, one flat list, a table.
@@ -81,10 +81,11 @@ public function before(sort: SortBy, a: Game.Recipe, b: Game.Recipe): Boolean {
   return a.id < b.id
 }
 
-// The table's order by a column: 1 the name, 2 how many can be made, 3 the cost, 4 the profit (`worth`, by recipe;
+// The table's order by a column: 1 the name, 2 how many can be made, 3 the cost, 4 the profit (`worth`, by recipe, the
+// better source's;
 // one with no price after every one with a price, either way); then by name, then by number.
 public function tableBefore(
-  column: Integer, descending: Boolean, worth: Map<Integer, Totals>, a: Game.Recipe, b: Game.Recipe
+  column: Integer, descending: Boolean, worth: Map<Integer, SourceTotals>, a: Game.Recipe, b: Game.Recipe
 ): Boolean {
   if (column == 3 || column == 4) {
     const x = worthOf(column, worth, a)
@@ -100,7 +101,7 @@ public function tableBefore(
   return tableLess(column, a, b)
 }
 
-function worthOf(column: Integer, worth: Map<Integer, Totals>, recipe: Game.Recipe): Integer | nil {
+function worthOf(column: Integer, worth: Map<Integer, SourceTotals>, recipe: Game.Recipe): Integer | nil {
   const totals = worth[recipe.id]
   if (totals == nil) { return nil }
   return column == 3 ? totals.cost : totals.profit

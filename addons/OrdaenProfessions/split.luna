@@ -3,7 +3,9 @@
 // price less its cut; what a merchant pays; none where it isn't bought there), and the profit: the price less the cost
 // and less what the parts not sold there cost at the other source («~» where a part has no price at either), or the
 // cost alone as a loss where the item isn't bought there.
-import { PartPrice } from "@/cost"
+import Game from "$game"
+import type { PriceSource } from "OrdaenAuction"
+import { PartPrice, partsOf, totalsOf, yieldOf } from "@/cost"
 
 // One source's totals.
 public struct SourceTotals {
@@ -31,7 +33,8 @@ function other(source: Source): Source { return source == .Auction ? .Merchant :
 
 // One source's totals, the other source filling in for the profit; `sale` what the made item brings here.
 public function sourceTotalsOf(parts: Array<PartPrice>, source: Source, sale: Integer | nil): SourceTotals {
-  let cost: Integer | nil = nil
+  // Nothing to buy costs nothing; parts none of which is sold here have no cost here.
+  let cost: Integer | nil = parts.length == 0 ? 0 : nil
   let fill = 0
   const missing: Array<String> = []
   const filled: Array<String> = []
@@ -52,7 +55,47 @@ public function sourceTotalsOf(parts: Array<PartPrice>, source: Source, sale: In
     }
   }
   const spent = (cost ?? 0) + fill
-  const anyPrice = cost != nil || filled.length > 0
+  // A profit stands on a price: of a part bought, or of the sale where nothing is bought.
+  const anyPrice = (parts.length > 0 && cost != nil) || filled.length > 0 || (parts.length == 0 && sale != nil)
   const profit: Integer | nil = !anyPrice ? nil : (sale ?? 0) - spent
   return { cost: cost, missing: missing, sale: sale, profit: profit, filled: filled, unpriced: unpriced }
+}
+
+// Whether a cost leaves parts out: some bought here and some not; none for no totals.
+public function roughCost(side: SourceTotals | nil): Boolean { return side != nil && side.cost != nil && side.missing.length > 0 }
+
+// Whether a profit leaves something out or takes another source's price: some parts are bought here and some not,
+// or a part has no price at all.
+public function roughProfit(side: SourceTotals | nil): Boolean { return side != nil && (roughCost(side) || side.unpriced.length > 0) }
+
+// What a merchant pays for what `count` makings of a recipe make; none where merchants don't buy it, or nothing is
+// made (or the client has no word of the item yet).
+public function merchantSaleOf(made: Integer | nil, recipe: Integer, count: Integer): Integer | nil {
+  if (made == nil) { return nil }
+  const one = Game.items.sellPrice(made) ?? 0
+  if (one <= 0) { return nil }
+  return (one * yieldOf(recipe) * count).floor()
+}
+
+// A recipe's totals at the house and at a merchant, for `count` makings.
+public struct BothSources {
+  auction: SourceTotals
+  merchant: SourceTotals
+}
+
+public function bothSourcesOf(prices: any PriceSource, recipe: Integer, made: Integer | nil, count: Integer): BothSources {
+  const parts = partsOf(prices, Game.tradeSkill.reagents(recipe), count)
+  const totals = totalsOf(prices, parts, made, yieldOf(recipe), count)
+  return {
+    auction: sourceTotalsOf(parts, Source.Auction, totals.sale),
+    merchant: sourceTotalsOf(parts, Source.Merchant, merchantSaleOf(made, recipe, count))
+  }
+}
+
+// The source with the higher profit: the house's on a tie; one with a profit over one with none.
+public function betterOf(both: BothSources): SourceTotals {
+  const a = both.auction.profit
+  const m = both.merchant.profit
+  if (m != nil && (a == nil || m > a)) { return both.merchant }
+  return both.auction
 }

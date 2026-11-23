@@ -5,8 +5,8 @@
 import Game from "$game"
 import { Align, Art, Edges, Line, MouseButton, Position, Track } from "$ltml"
 import { BRIGHT_TEXT, Component, ItemButton, Money, TableRow, WINDOW_ROOM } from "Ordaen"
-import { Totals } from "@/cost"
 import { RecipeMenu } from "@/menu"
+import { SourceTotals, roughCost, roughProfit } from "@/split"
 import Style from "@/style"
 import { TabItem } from "@/tabItem"
 import { Act, FAVORITES, Group, Kept, has, members } from "@/view"
@@ -199,8 +199,10 @@ public class RecipeTableRow implements Component {
   derived color: Color = self.recipe.learned ? Style.difficultyColor(self.recipe.difficulty) : Style.OFF
   derived count: String = self.recipe.craftable > 0 ? "%d".format(self.recipe.craftable) : "-"
   derived menuOpen: Boolean = self.menuFor == self.recipe.id
-  // One making's cost and profit, with prices; «—» where a part has no price.
-  derived totals: Totals | nil = self.worth[self.recipe.id]
+  // One making's cost and profit at the better source, «~» where it leaves parts out, as the card's; «—» for none.
+  derived totals: SourceTotals | nil = self.worth[self.recipe.id]
+  derived costRough: Boolean = roughCost(self.totals)
+  derived profitRough: Boolean = roughProfit(self.totals)
   derived hasCost: Boolean = self.totals?.cost != nil
   derived hasProfit: Boolean = self.totals?.profit != nil
   derived cost: Integer = self.totals?.cost ?? 0
@@ -213,7 +215,7 @@ public class RecipeTableRow implements Component {
   chosen: Signal<Integer>
   kept: Signal<Kept>
   menuFor: Signal<Integer>
-  worth: Signal<Map<Integer, Totals>>
+  worth: Signal<Map<Integer, SourceTotals>>
   priced: Signal<Boolean>
   constructor(
     recipe: Signal<Game.Recipe>,
@@ -222,7 +224,7 @@ public class RecipeTableRow implements Component {
     kept: Signal<Kept>,
     menuFor: Signal<Integer>,
     // Each recipe's totals, and whether the table has their columns.
-    worth: Signal<Map<Integer, Totals>> = {},
+    worth: Signal<Map<Integer, SourceTotals>> = {},
     priced: Signal<Boolean> = false
   ) {
     self.recipe = recipe
@@ -250,11 +252,13 @@ public class RecipeTableRow implements Component {
             <text value={self.count} textColor={BRIGHT_TEXT} wrap={.None} textFont={.Numbers} />
           </box>
           <$if={self.priced}>
-            <box xAlign={Align.End}>
+            <box xAlign={Align.End} columns={{ each: "max-content" }} gap={0.5sp}>
+              <text $if={self.costRough && self.hasCost} value={"~"} textColor={Style.DIM} />
               <Money $if={self.hasCost} amount={self.cost} />
               <text $else value={"—"} textColor={Style.DIM} />
             </box>
-            <box xAlign={Align.End} columns={["max-content", "max-content"]} gap={0.5sp}>
+            <box xAlign={Align.End} columns={{ each: "max-content" }} gap={0.5sp}>
+              <text $if={self.profitRough && self.hasProfit} value={"~"} textColor={Style.DIM} />
               <text $if={self.losing} value={"-"} textColor={Style.RED} />
               <Money $if={self.hasProfit} amount={self.profit} color={self.profitColor} />
               <text $else value={"—"} textColor={Style.DIM} />

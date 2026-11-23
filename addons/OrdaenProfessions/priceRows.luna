@@ -8,7 +8,7 @@ import { Align, Art, Edges, Line, Side, Track } from "$ltml"
 import { BRIGHT_TEXT, Component, ItemButton, Money, SECONDARY_TEXT, Tip, ageText } from "Ordaen"
 import { PartPrice, Totals, Way } from "@/cost"
 import Locale from "@/locales"
-import { SourceTotals } from "@/split"
+import { SourceTotals, roughCost, roughProfit } from "@/split"
 import Style from "@/style"
 
 const SLOT = 37.5dp
@@ -176,12 +176,6 @@ function costTip(side: SourceTotals): String {
   return side.cost != nil && side.missing.length > 0 ? Locale.TIP_COST_PARTIAL.format(side.missing.join(", ")) : ""
 }
 
-// Whether a profit leaves something out or takes another source's price: some parts are bought here and some not,
-// or a part has no price at all.
-function roughProfit(side: SourceTotals): Boolean {
-  return (side.cost != nil && side.missing.length > 0) || side.unpriced.length > 0
-}
-
 // What a profit's tip says: the item isn't bought here, the parts at the other source's price, the parts with none.
 function profitTip(side: SourceTotals): String {
   const lines: Array<String> = []
@@ -195,8 +189,8 @@ function profitTip(side: SourceTotals): String {
 public class PriceTable implements Component {
   derived auctionCostTip: String = costTip(self.auction)
   derived merchantCostTip: String = costTip(self.merchant)
-  derived auctionRough: Boolean = self.auction.cost != nil && self.auction.missing.length > 0
-  derived merchantRough: Boolean = self.merchant.cost != nil && self.merchant.missing.length > 0
+  derived auctionRough: Boolean = roughCost(self.auction)
+  derived merchantRough: Boolean = roughCost(self.merchant)
   derived saleTip: String = self.saleTipOf()
   derived auctionProfitRough: Boolean = roughProfit(self.auction)
   derived merchantProfitRough: Boolean = roughProfit(self.merchant)

@@ -479,7 +479,7 @@ test "a recipe with no reagents says nothing of prices missing" {
 
 // The table
 
-test "the table lists each recipe's cost and profit, «—» where a part has no price" {
+test "the table lists each recipe's cost and profit at its better source, as its card has them; «—» where a part has no price" {
   Game.clock.server = NOW
   Game.merchant.prices = merchant
   Game.merchant.opened.emit()
@@ -495,7 +495,7 @@ test "the table lists each recipe's cost and profit, «—» where a part has no
   window().button(Ordaen.art.ctl.tool.columns).click()
   Test.page().window("By category").button("Table").click()
   Test.expect(window().button("Cost").shown() && window().button("Profit").shown())
-  Test.expect(reads(window().text("Linen Cloak").nth(1).item(), "Linen Cloak | 3 | 0g 1s 10c | 0g 3s 65c"))
+  Test.expect(reads(window().text("Linen Cloak").nth(1).item(), "Linen Cloak | 3 | 0g 1s 15c | 0g 3s 60c"))
   Test.expect(reads(window().text("Bolt of Linen Cloth").nth(1).item(), "Bolt of Linen Cloth | - | — | —"))
 }
 
@@ -530,17 +530,17 @@ test "the table sorts by cost and by profit, a recipe with none last either way"
   Game.tradeSkill.open = TAILORING
   window().button(Ordaen.art.ctl.tool.columns).click()
   Test.page().window("By category").button("Table").click()
-  // The apron: 10 c, 9 s 40 c; the belt 10 c, no profit known; the cloak 1 s 10 c, 3 s 65 c; the bolt: 2 s of linen,
-  // sold at 95 c, 1 s 5 c lost. A tie goes by name, reversed with the order.
+  // Each at its better source: the apron 15 c, 9 s 35 c at the house; the belt 10 c at a merchant, which nobody buys:
+  // 10 c lost; the cloak 1 s 15 c, 3 s 60 c; the bolt: 2 s of linen, sold at 95 c, 1 s 5 c lost; the vest none.
   const order = (): String => window().texts().filter(shown => NAMES.any(name => name == shown)).join(", ")
   window().button("Cost").click()
   Test.expect(order().contains("Linen Belt, Simple Apron, Linen Cloak, Bolt of Linen Cloth, Brown Linen Vest"))
   window().button("Cost").click()
   Test.expect(order().contains("Bolt of Linen Cloth, Linen Cloak, Simple Apron, Linen Belt, Brown Linen Vest"))
   window().button("Profit").click()
-  Test.expect(order().contains("Bolt of Linen Cloth, Linen Cloak, Simple Apron, Brown Linen Vest, Linen Belt"))
+  Test.expect(order().contains("Bolt of Linen Cloth, Linen Belt, Linen Cloak, Simple Apron, Brown Linen Vest"))
   window().button("Profit").click()
-  Test.expect(order().contains("Simple Apron, Linen Cloak, Bolt of Linen Cloth, Linen Belt, Brown Linen Vest"))
+  Test.expect(order().contains("Simple Apron, Linen Cloak, Linen Belt, Bolt of Linen Cloth, Brown Linen Vest"))
   Test.expect(near(window().text("Bolt of Linen Cloth").nth(1).item().text("0g 1s 5c").textColor(), RED))
 }
 
