@@ -4,7 +4,7 @@
 import Client from "$client"
 import Events from "$events"
 import Game from "$game"
-import { Art, Modifier, MouseButton } from "$ltml"
+import { Art, Key, Modifier, MouseButton } from "$ltml"
 import Test from "$test"
 import root Bags from "OrdaenBags"
 import { AS_THE_GAME, Chord, OURS, SlotAction, actionAt, choicesFor, chordFor, useClickOf } from "@/clicks"
@@ -356,6 +356,35 @@ test "«Sell junk» shows at a merchant while there is junk, and sells it in the
   _ = Test.requests()
   bags().button("Sell junk").click()
   Test.expect(Test.requests().join(", ") == "Bags.send 0 1")
+}
+
+test "the junk is sold as a merchant's window opens; with «Sell junk at merchants» off it stays" {
+  const world = new World(carried())
+  Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
+  Game.bags.size = (bag: Integer): Integer => world.size(bag)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.items.icon = (id: Integer): Art | nil => world.icon(id)
+  Game.items.maxStack = (id: Integer): Integer | nil => 20
+  Client.CanGuildBankRepair = (): Boolean => false
+  Test.mount(nil, SCREEN)
+  Game.bags.place = Game.BagPlace.Merchant
+  _ = Test.requests()
+  // The merchant opens the bags with its window, as the game's does.
+  Events.MERCHANT_SHOW.emit()
+  Game.bags.open = true
+  Test.flush()
+  Test.expect(Test.requests().join(", ").contains("Bags.send 0 1"))
+  Events.MERCHANT_CLOSED.emit()
+  Test.open("/ordaen")
+  const settings = Test.page().window("Move mode")
+  settings.button("Bags").click()
+  settings.button("Convenience").click()
+  settings.button("Sell junk at merchants").click()
+  Test.key(Key.Escape)
+  _ = Test.requests()
+  Events.MERCHANT_SHOW.emit()
+  Test.flush()
+  Test.expect(!Test.requests().join(", ").contains("Bags.send"))
 }
 
 test "the merchant's window sells the bags' junk from its right column, saying what it brings" {

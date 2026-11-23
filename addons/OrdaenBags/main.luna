@@ -32,7 +32,7 @@ import Locale from "@/locales"
 import { MERCHANT_VIEW, MerchantView, MerchantWindow, SIDE_WIDTH } from "@/merchant"
 import { MOVED, Slot, SortBy, handsOver } from "@/model"
 import { BagsView, Choices, Pane, junkIn, worthIn } from "@/pane"
-import { ClicksPage, JunkPage, LookPage } from "@/settings"
+import { ClicksPage, ConveniencePage, JunkPage, LookPage } from "@/settings"
 import { MenuAct, SlotMenu, menuOf } from "@/slotMenu"
 import { Stock } from "@/stock"
 import { GUILD_SLOTS, Vault, pickupIn } from "@/vault"
@@ -102,12 +102,15 @@ public class Bags implements Module, App {
   ]
   // The merchant the player stands at, and how the player left its window's list (the profile's).
   public vendor: mut Vendor = new Vendor()
+  // The junk was sold by itself at this merchant's visit.
+  state soldThisVisit = false
   public merchantList: mut ModuleMemory<MerchantView> = new ModuleMemory<MerchantView>(MERCHANT_VIEW, .Profile, "merchant")
   public settings: mut Settings<Choices> = new Settings<Choices>(DEFAULTS)
   public const pages: Array<SettingsPage> = [
     { title: windowsTitle(), content: $ltml { <WindowsPage windows={mut self.windows} /> } },
     { title: Locale.PAGE_LOOK, content: $ltml { <LookPage slotSize={mut self.settings.values.slotSize} slotGap={mut self.settings.values.slotGap}
                                                           rowLeast={mut self.settings.values.rowLeast} /> } },
+    { title: Locale.PAGE_CONVENIENCE, content: $ltml { <ConveniencePage sellJunk={mut self.settings.values.sellJunkAtVendor} /> } },
     { title: Locale.PAGE_JUNK, content: $ltml { <JunkPage rules={mut self.settings.values.junk} @reset={self.onResetJunk} /> } },
     { title: Locale.PAGE_SLOT, content: $ltml { <ClicksPage clicks={mut self.settings.values.slotPresses} /> } }
   ]
@@ -243,6 +246,7 @@ public class Bags implements Module, App {
     pane.guildLog.listen(self.onGuildLog)
     pane.moneyLog.listen(self.onMoneyLog)
     pane.sellJunk.listen(self.sellJunk)
+    watch { self.sellAtVisit() }
     pane.deposit.listen(self.onDeposit)
     pane.withdraw.listen(self.onWithdraw)
   }
@@ -548,6 +552,18 @@ public class Bags implements Module, App {
     self.junkLists.write(withMark(peek self.junkLists.values, id, mark))
     const line = mark == nil ? Locale.CHAT_UNMARKED : mark == Mark.Junk ? Locale.CHAT_MARKED_JUNK : Locale.CHAT_MARKED_KEEP
     self.say(line.format(slot.read.link))
+  }
+
+  // At a merchant, its junk sold once a visit where the player wants it so: as soon as the bags know their junk (the
+  // merchant opens them with its window, and they read their slots then).
+  sellAtVisit(mut self) {
+    if (!self.vendor.open) {
+      self.soldThisVisit = false
+      return
+    }
+    if (peek self.soldThisVisit || self.carriedJunkCount == 0 || !self.settings.values.sellJunkAtVendor) { return }
+    self.soldThisVisit = true
+    self.sellJunk()
   }
 
   // «Sell junk» at a merchant: the next junk items, `SAFE_SALE` at most so all can be bought back, each the client's

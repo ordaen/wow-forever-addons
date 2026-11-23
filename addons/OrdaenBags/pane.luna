@@ -33,6 +33,8 @@ public struct Choices implements Plain {
   grouping: Map<Tab, Grouping>
   junk: JunkRules
   slotPresses: Clicks
+  // The junk is sold as a merchant's window opens, as «Sell junk» sells it.
+  sellJunkAtVendor: Boolean = true
   slotGap: Number = SLOT_GAP
   slotSize: Number = SLOT_SIZE
   rowLeast: Number = ROW_LEAST

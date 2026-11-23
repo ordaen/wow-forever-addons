@@ -1,4 +1,4 @@
-// Ordaen Bags' pages in the settings window beside its windows: «Look» (the slots' size and the room between them), «Junk» (the rules, learning, the chat's lines, and the
+// Ordaen Bags' pages in the settings window beside its windows: «Convenience» (what the bags do by themselves), «Look» (the slots' size and the room between them), «Junk» (the rules, learning, the chat's lines, and the
 // two resets of what play made: the learned scores and the player's marks) and «Slot» (the nine clicks of a slot, each
 // one action, and the two schemes to start from). A chord's row that holds the last Use or the last Menu offers nothing
 // else, so no scheme leaves an item without a click to use it or to open its menu.
@@ -31,6 +31,18 @@ public class LookPage implements Component {
         <NumberInput label={Locale.ROW_LEAST} hint={Locale.ROW_LEAST_TIP} value={mut self.rowLeast} least={ROW_LEAST}
                      most={ROW_LEAST_MOST} />
       </Section>
+    }
+  }
+}
+
+// «Convenience»: what the bags do by themselves.
+public class ConveniencePage implements Component {
+  sellJunk: mut Signal<Boolean>
+  constructor(sellJunk: mut Signal<Boolean>) { self.sellJunk = sellJunk }
+
+  public render(self): Template {
+    return $ltml {
+      <Switch label={Locale.SELL_JUNK_AUTO} hint={Locale.SELL_JUNK_AUTO_TIP} value={mut self.sellJunk} />
     }
   }
 }
