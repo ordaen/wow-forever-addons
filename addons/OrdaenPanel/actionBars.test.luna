@@ -515,3 +515,28 @@ test "a bar of smaller buttons fits the client's art to them: the icon fills the
     Test.expect((client.icon.GetWidth() - 30).abs() < 0.01 && (client.icon.GetHeight() - 30).abs() < 0.01)
   }
 }
+
+test "a bar that hides empty buttons shows them while something is dragged, and a button once its slot holds something" {
+  alone()
+  const holder = new Holder()
+  _ = Client.SetBinding("SHIFT-2", "MULTIACTIONBAR1BUTTON2", nil)
+  holder.settings.change((values: mut BarsChoices): nil => {
+    values.bars["2"] = changed(values, "2", (choice: mut BarChoice): nil => {
+      choice.hideEmpty = true
+    })
+  })
+  Test.mount(new ActionBars(holder.settings.values, holder.defaults), SCREEN)
+  Test.flush()
+  // Панель 2's second button shows slot 62, empty: unseen, its key with it.
+  Test.expect(!Test.page().text("S2").shown())
+  Events.ACTIONBAR_SHOWGRID.emit()
+  Test.flush()
+  Test.expect(Test.page().text("S2").shown())
+  Events.ACTIONBAR_HIDEGRID.emit()
+  Test.flush()
+  Test.expect(!Test.page().text("S2").shown())
+  Client.C_ActionBar.HasAction = (slot: Integer): Boolean => slot == 62
+  Test.event("ACTIONBAR_SLOT_CHANGED", 62)
+  Test.flush()
+  Test.expect(Test.page().text("S2").shown())
+}

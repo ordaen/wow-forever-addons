@@ -161,3 +161,16 @@ test "the menu resets the bar's settings, its switch kept, and puts it back wher
   Test.expect(!Test.page().text("Reset settings").shown())
   destroy stand
 }
+
+test "an action bar's visibility offers to hide its empty buttons, which the pet's bar doesn't" {
+  alone()
+  const stand = new Stand()
+  Test.mount(stand, SCREEN)
+  Test.page().button("Action Bar 2").click()
+  // Its look's keys first, then its visibility's empty buttons.
+  Test.page().button(Ordaen.art.ctl.check).nth(2).click()
+  Test.expect(chosen(stand, "2").hideEmpty)
+  Test.page().button("Pet Bar").click()
+  Test.expect(!Test.page().text("Hide empty buttons").shown())
+  destroy stand
+}
