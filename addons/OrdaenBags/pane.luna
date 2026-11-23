@@ -10,7 +10,7 @@ import Client from "$client"
 import Game from "$game"
 import { Align, ArtBorder, Edges, Overflow, Side, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { ARTWORK, Choice, Component, FooterBand, FooterCount, FooterCounts, ListTab, ModuleMemory, Money, PushButton, SECONDARY_TEXT, ScrolledList, Tip, TipRow, ToolAct, ToolButton, ToolPick, Toolbar, reachDown } from "Ordaen"
+import { ARTWORK, Choice, Component, FooterBand, FooterCount, FooterCounts, ListTab, ModuleMemory, Money, PushButton, SECONDARY_TEXT, ScrolledList, Tabs, Tip, TipRow, ToolAct, ToolButton, ToolPick, Toolbar, reachDown } from "Ordaen"
 import { BANK_ICON } from "@/bank"
 import { Clicks, UseClick } from "@/clicks"
 import { GuildBank, GuildPage, GuildTab, withdrawalsText } from "@/guild"
@@ -92,34 +92,6 @@ public function worthIn(junk: Array<Slot>): Integer {
   return worth
 }
 
-// A tab of the list at the window's left: its name and how many items it has.
-class TabEntry implements Component {
-  public picked: Event<Tab> = new Event()
-  derived name: String = tabName(self.tab)
-  derived selected: Boolean = self.current == self.tab
-  derived count: Integer = self.counts[self.tab] ?? 0
-  derived off: Boolean = self.count == 0
-
-  const tab: Tab
-  current: Signal<Tab>
-  counts: Signal<Map<Tab, Integer>>
-  constructor(tab: Tab, current: Signal<Tab>, counts: Signal<Map<Tab, Integer>>) {
-    self.tab = tab
-    self.current = current
-    self.counts = counts
-  }
-
-  onPick(self) { self.picked.emit(self.tab) }
-
-  public render(self): Template {
-    return $ltml {
-      <ListTab label={self.name} selected={self.selected} off={self.off} @pick={self.onPick}>
-        <text value={"%d"} arguments={[self.count]} textColor={COUNT} textSize={SECONDARY_TEXT} textFont={.Numbers} />
-      </ListTab>
-    }
-  }
-}
-
 // A tab of the guild's at the window's left: its icon and name, the withdrawals a day it allows; one the player may
 // not see is dim, and away from the guild bank every tab but the one seen last.
 class GuildTabEntry implements Component {
@@ -183,6 +155,12 @@ public class Pane {
   public derived counts: Map<Tab, Integer> = self.countsOf()
   public derived tabs: Array<Tab> = self.tabsOf()
   derived shownTab: Tab = self.tabs.any(tab => tab == self.tab) ? self.tab : Tab.All
+  // The categories as Ordaen's column of tabs has them: each's name, its count, off where it holds nothing, and the
+  // shown one's place, which a click writes.
+  derived tabNames: Array<String> = self.tabs.map(tab => tabName(tab))
+  derived tabCounts: Array<Integer> = self.tabs.map(tab => self.counts[tab] ?? 0)
+  derived tabOffs: Array<Boolean> = self.tabs.map(tab => (self.counts[tab] ?? 0) == 0)
+  state tabPlace = 1
   public derived sections: Array<Section> = self.sectionsOf()
   // The list's width: the body's but for the window's room, the tabs where they show, the scroll bar.
   derived slotGap: Number<Spacing> = self.choices.slotGap * 1sp
@@ -278,6 +256,16 @@ public class Pane {
     self.slotsOpen = slotsOpen
     self.bankSlotsOpen = bankSlotsOpen
     self.shelf = new Shelf(self.filter, self.free, self.slotSize, self.slotGap, self.fills, menu, useClick, self.live)
+    // The tab clicked is the one shown; the one shown (kept, or the first where it went) is the one lit.
+    watch (place of self.tabPlace) {
+      const tab = (peek self.tabs)[place]
+      if (tab != nil && tab != peek self.tab) { self.tab = tab }
+    }
+    watch (shown of self.shownTab) {
+      for (place, tab of peek self.tabs) {
+        if (tab == shown && place != peek self.tabPlace) { self.tabPlace = place }
+      }
+    }
   }
 
   stockOf(self): Stock {
@@ -325,7 +313,6 @@ public class Pane {
     return [free, { label: Locale.FOOT_JUNK, value: Locale.JUNK_WORTH.format(self.junkCount, Game.money.format(self.junkWorth)) }]
   }
 
-  onTab(mut self, tab: Tab) { self.tab = tab }
   onGuildTab(self, tab: Integer) { self.guildTab.emit(tab) }
   onGuildLog(self) { self.guildLog.emit() }
   onMoneyLog(self) { self.moneyLog.emit() }
@@ -399,18 +386,14 @@ public class Pane {
   // whole height, the toolbar and the list beside it. Else the toolbar over the list.
   public const body: Template = $ltml {
     <box $if={self.withList} columns={WITH_TABS} rows={FILL}>
-      <box columns={1} gap={0.5sp} padding={COLUMN_ROOM} background={Ordaen.art.window.marble}>
-        <$if={self.isGuild}>
-          <GuildTabEntry $for={tab of self.guild.tabs} tab={tab} current={self.guild.tab} page={self.guild.page} live={self.live}
-                         @picked={self.onGuildTab} />
-          <ListTab $if={self.live} label={Locale.GUILD_LOG} selected={self.guild.page == GuildPage.Log} @pick={self.onGuildLog} />
-          <ListTab $if={self.live} label={Locale.GUILD_MONEY_LOG} selected={self.guild.page == GuildPage.MoneyLog}
-                   @pick={self.onMoneyLog} />
-        </>
-        <$else>
-          <TabEntry $for={tab of self.tabs} $key={tab} tab={peek tab} current={self.shownTab} counts={self.counts} @picked={self.onTab} />
-        </>
+      <box $if={self.isGuild} columns={1} gap={0.5sp} padding={COLUMN_ROOM} background={Ordaen.art.window.marble}>
+        <GuildTabEntry $for={tab of self.guild.tabs} tab={tab} current={self.guild.tab} page={self.guild.page} live={self.live}
+                       @picked={self.onGuildTab} />
+        <ListTab $if={self.live} label={Locale.GUILD_LOG} selected={self.guild.page == GuildPage.Log} @pick={self.onGuildLog} />
+        <ListTab $if={self.live} label={Locale.GUILD_MONEY_LOG} selected={self.guild.page == GuildPage.MoneyLog}
+                 @pick={self.onMoneyLog} />
       </box>
+      <Tabs $else tabs={self.tabNames} selected={mut self.tabPlace} counts={self.tabCounts} offs={self.tabOffs} vertical={true} />
       <box rows={BODY} gap={6sp} padding={SIDE_ROOM}>
         {self.tools}
         {self.content}

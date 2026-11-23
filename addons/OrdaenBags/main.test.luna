@@ -50,7 +50,7 @@ const INK: Color = Color.hex("#e8dcc4")
 const SHADE: Color = Color.hex("#00000059")
 // A tab: the one picked, and one with no item. A section's caption.
 const PICKED: Color = BRIGHT_TEXT
-const EMPTY: Color = Color.hex("#7a705f")
+const EMPTY: Color = Color.hex("#6b6150")
 const CAPTION: Color = Color.hex("#e8c35a")
 // The rims of the items' qualities, from poor to heirloom.
 const QUALITIES: Array<Color> = [
@@ -1469,16 +1469,16 @@ test "a new profile used: the window by category in the bags' order, as at first
 
 // How the tabs, the sections and the slots look
 
-test "the tab picked is white, the others in ink, and one with no item shows dimmed" {
+test "the tab picked is white, the others in the labels' colour, and one with no item shows dimmed" {
   const world = new World(cloths())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
   Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
   Test.mount(nil, SCREEN)
   Game.bags.open = true
-  Test.expect(bags().text("All").textColor().equal(PICKED) && bags().button("Trade goods").text("Trade goods").textColor().equal(INK))
+  Test.expect(bags().text("All").textColor().equal(PICKED) && bags().button("Trade goods").text("Trade goods").textColor().equal(LABEL))
   Test.expect(reads(bags().text("Junk").item(), "Junk | 0") && bags().text("Junk").textColor().equal(EMPTY))
   bags().button("Trade goods").click()
-  Test.expect(bags().button("Trade goods").text("Trade goods").textColor().equal(PICKED) && bags().text("All").textColor().equal(INK))
+  Test.expect(bags().button("Trade goods").text("Trade goods").textColor().equal(PICKED) && bags().text("All").textColor().equal(LABEL))
 }
 
 test "a section's caption is gold, a bag's too, with no mark; «Free»'s is plain" {
