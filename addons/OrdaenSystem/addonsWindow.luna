@@ -9,7 +9,7 @@ import Game from "$game"
 import { Action, Align, Edges, Track } from "$ltml"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
-import { ARTWORK, ButtonPlate, Choice, Component, Dialog, FOOTER_ROOM, KeptWindow, Menu, MenuEntry, ModuleMemory, Placing, PushButton, SECONDARY_TEXT, ScrolledList, TextField, Tip, TipRow, TipText, ToolPick, Toolbar, Window, WindowSide, WindowTabSpec } from "Ordaen"
+import { ARTWORK, ButtonPlate, Choice, Component, Dialog, FooterBand, KeptWindow, Menu, MenuEntry, ModuleMemory, Placing, PushButton, SECONDARY_TEXT, ScrolledList, TextField, Tip, TipRow, TipText, ToolPick, Toolbar, WINDOW_ROOM, Window, WindowSide, WindowTabSpec } from "Ordaen"
 import { Card } from "@/card"
 import { AddOn, Catalog, Status, plain } from "@/catalog"
 import { Age, FilterPick, Heat, Loading, Standing, Written } from "@/filter"
@@ -73,7 +73,11 @@ const GROUP: Array<Track> = ["max-content", "max-content"]
 // «Reset», «Disable all» and «Sets».
 const LEFT_GROUP: Array<Track> = ["max-content", "max-content", "max-content"]
 const STRIP: Array<Track> = [{ fr: 1 }, "max-content"]
-const HEADING: Edges = { left: 3sp, right: 3sp }
+// The list runs to the window's frame and footer; the toolbar, the headings and the lines under the list keep the
+// window's room, as the rows' text does.
+const HEADING: Edges = { left: WINDOW_ROOM, right: WINDOW_ROOM }
+const TOOLS: Edges = { top: 6sp, left: WINDOW_ROOM, right: WINDOW_ROOM }
+const EDGE_TO_EDGE: Edges = { top: 0sp, right: 0sp, bottom: 0sp, left: 0sp }
 const HALF: Number<Spacing> = 3sp / 2
 // «Reload»: the client does it from the player's click (Forever refuses `ReloadUI` from addon code).
 const RELOAD: Action = Action.RunMacro { macro: "/reload" }
@@ -151,7 +155,7 @@ public class AddOnsWindow implements Component {
   derived tabs: Array<WindowTabSpec> = [
     { title: Client.SETTINGS_TITLE, desc: "", icon: "Interface/Icons/INV_Misc_Gear_01" },
     { title: Client.KEY_BINDINGS, desc: self.keysText(), icon: "Interface/Icons/INV_Misc_Key_03" },
-    { title: Client.ADDONS, desc: self.onText(), icon: "Interface/Icons/INV_Misc_Wrench_01" }
+    { title: Client.ADDONS, desc: self.onText(), icon: "Interface/Icons/INV_Misc_Wrench_01", padding: EDGE_TO_EDGE }
   ]
   derived onGameSettings: Boolean = self.tab == SETTINGS_TAB
   derived onAddOns: Boolean = self.tab == ADDONS_TAB
@@ -185,31 +189,37 @@ public class AddOnsWindow implements Component {
   }
   // The open tab's footer: none for the settings, the keys' (every key back to the client's defaults, after asking), or the addons'.
   const footer: Template = $ltml {
-    <box $if={self.onGameSettings} padding={FOOTER_ROOM} />
-    <box $elseif={self.onKeys} padding={FOOTER_ROOM} columns={FOOT} gap={6sp} yAlign={Align.Center}>
-      <PushButton label={Locale.KEYS_RESET_ALL} width={BUTTON} disabled={self.fighting} @click={self.onResetAsk} />
+    <FooterBand $if={self.onGameSettings}>
       <box />
-      <box />
-    </box>
-    <box $else padding={FOOTER_ROOM} columns={FOOT} gap={6sp} yAlign={Align.Center}>
-      <box columns={LEFT_GROUP} gap={3sp} yAlign={Align.Center}>
-        <PushButton label={Locale.RESET} width={BUTTON} @click={self.onReset} />
-        <PushButton label={Locale.DISABLE_ALL} width={BUTTON} @click={self.onDisableAll} />
-        <box>
-          <PushButton label={Locale.SETS} width={BUTTON} @click={self.onSets} />
-          <Menu $if={self.setsOpen} entries={self.setEntries} @pick={self.onSet} @close={self.closeSets} />
+    </FooterBand>
+    <FooterBand $elseif={self.onKeys}>
+      <box columns={FOOT} gap={6sp} yAlign={Align.Center}>
+        <PushButton label={Locale.KEYS_RESET_ALL} width={BUTTON} disabled={self.fighting} @click={self.onResetAsk} />
+        <box />
+        <box />
+      </box>
+    </FooterBand>
+    <FooterBand $else>
+      <box columns={FOOT} gap={6sp} yAlign={Align.Center}>
+        <box columns={LEFT_GROUP} gap={3sp} yAlign={Align.Center}>
+          <PushButton label={Locale.RESET} width={BUTTON} @click={self.onReset} />
+          <PushButton label={Locale.DISABLE_ALL} width={BUTTON} @click={self.onDisableAll} />
+          <box>
+            <PushButton label={Locale.SETS} width={BUTTON} @click={self.onSets} />
+            <Menu $if={self.setsOpen} entries={self.setEntries} @pick={self.onSet} @close={self.closeSets} />
+          </box>
+        </box>
+        <box />
+        <box columns={GROUP} gap={3sp} yAlign={Align.Center}>
+          <box @pointerEnter={self.onWaitEnter} @pointerLeave={self.onWaitLeave}>
+            <text value={self.waitText} textColor={Style.GOLD} textSize={SECONDARY_TEXT} wrap={.None} />
+            <Tip $if={self.waitTip} title={self.waitText} text={""} rows={self.waitRows} />
+          </box>
+          <PushButton label={Locale.RELOAD} width={187.5dp} plate={ButtonPlate.Accent} disabled={self.fighting} action={RELOAD}
+                      tip={self.reloadTip} />
         </box>
       </box>
-      <box />
-      <box columns={GROUP} gap={3sp} yAlign={Align.Center}>
-        <box @pointerEnter={self.onWaitEnter} @pointerLeave={self.onWaitLeave}>
-          <text value={self.waitText} textColor={Style.GOLD} textSize={SECONDARY_TEXT} wrap={.None} />
-          <Tip $if={self.waitTip} title={self.waitText} text={""} rows={self.waitRows} />
-        </box>
-        <PushButton label={Locale.RELOAD} width={187.5dp} plate={ButtonPlate.Accent} disabled={self.fighting} action={RELOAD}
-                    tip={self.reloadTip} />
-      </box>
-    </box>
+    </FooterBand>
   }
 
   // Closed, it stays drawn: it opens again at the cost of a surface shown.
@@ -611,18 +621,20 @@ public class AddOnsWindow implements Component {
         <SettingsTab $if={self.onGameSettings} settings={mut self.settings} />
         <KeysPage $elseif={self.onKeys} bindings={mut self.bindings} fighting={self.fighting} />
         <box $else rows={BODY} gap={3sp}>
-          <Toolbar search={mut self.search} placeholder={Locale.SEARCH}>
-            <box padding={HEADING}>
-              <text value={self.countText} textColor={Style.DIM} textFont={.Numbers} wrap={.None} />
-            </box>
-            <ToolPick value={mut self.list.values.everyone} choices={self.whom} icon={ARTWORK.ctl.tool.whom} title={Locale.WHO} />
-            <FilterPick heat={mut self.list.values.heat} standing={mut self.list.values.standing} age={mut self.list.values.age} loading={mut self.list.values.loading}
-                        written={mut self.list.values.written} />
-            <ToolPick $if={!self.tabled} value={mut self.list.values.order} choices={ORDERS} icon={Ordaen.art.ctl.tool.sort}
-                      title={Locale.SORT} />
-            <ToolPick value={mut self.list.values.view} choices={VIEWS} icon={Ordaen.art.ctl.tool.categories}
-                      title={Locale.VIEW} />
-          </Toolbar>
+          <box padding={TOOLS}>
+            <Toolbar search={mut self.search} placeholder={Locale.SEARCH}>
+              <box padding={HEADING}>
+                <text value={self.countText} textColor={Style.DIM} textFont={.Numbers} wrap={.None} />
+              </box>
+              <ToolPick value={mut self.list.values.everyone} choices={self.whom} icon={ARTWORK.ctl.tool.whom} title={Locale.WHO} />
+              <FilterPick heat={mut self.list.values.heat} standing={mut self.list.values.standing} age={mut self.list.values.age} loading={mut self.list.values.loading}
+                          written={mut self.list.values.written} />
+              <ToolPick $if={!self.tabled} value={mut self.list.values.order} choices={ORDERS} icon={Ordaen.art.ctl.tool.sort}
+                        title={Locale.SORT} />
+              <ToolPick value={mut self.list.values.view} choices={VIEWS} icon={Ordaen.art.ctl.tool.categories}
+                        title={Locale.VIEW} />
+            </Toolbar>
+          </box>
           <box columns={self.columns} gap={3sp} padding={HEADING} yAlign={Align.Center}>
             <box @pointerPress={self.onHeadName} @keyPress(.Enter)={self.onHeadName} @keyPress(.Space)={self.onHeadName}>
               <text value={Locale.COL_ADDON} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={.None} />
@@ -653,14 +665,16 @@ public class AddOnsWindow implements Component {
                      @toggle={self.onToggle} @toggleGroup={self.onToggleGroup} @fold={self.onFold} @foldGroup={self.onFoldGroup}
                      @settings={self.onSettings} @loadNow={self.onLoadNow} />
           </ScrolledList>
-          <box $if={self.stepShown} columns={STRIP} gap={3sp} yAlign={Align.Center}>
+          <box $if={self.stepShown} columns={STRIP} gap={3sp} yAlign={Align.Center} padding={HEADING}>
             <box xAlign={Align.End}>
               <text value={self.also} textColor={Style.INK} textSize={SECONDARY_TEXT} />
             </box>
             <PushButton label={Locale.UNDO} width={BUTTON} @click={self.onUndo} />
           </box>
           <box $else />
-          <text $if={self.notMeasuring} value={Locale.NOT_MEASURING} textColor={Style.DIM} textSize={SECONDARY_TEXT} />
+          <box $if={self.notMeasuring} padding={HEADING}>
+            <text value={Locale.NOT_MEASURING} textColor={Style.DIM} textSize={SECONDARY_TEXT} />
+          </box>
         </box>
         <Dialog $if={self.asking.length > 0} title={self.questionTitle} width={CONFIRM_WIDTH}>
           <text value={self.question} textColor={Style.INK} />
