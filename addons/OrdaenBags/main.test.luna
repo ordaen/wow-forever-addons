@@ -799,20 +799,6 @@ test "Shift+right-click puts the item's link into the chat" {
   Test.expect(asked("Bags.follow true, Items.show 118, Chat.link 118"))
 }
 
-test "Ctrl-click set to Send sends the item where the place takes it" {
-  const world = new World(everyday())
-  Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
-  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
-  Game.items.icon = (id: Integer): Art | nil => world.icon(id)
-  Test.mount(nil, SCREEN)
-  Game.bags.open = true
-  Bags.settings.change((values: mut Choices): nil => { values.slotClicks = { ctrlLeft: .Send, ..values.slotClicks } })
-  Game.input.controlDown = (): Boolean => true
-  Test.hold([.Ctrl])
-  held(POTION).click()
-  Test.expect(asked("Bags.follow true, Items.show 118, Bags.send 0 3"))
-}
-
 // Where the player stands
 
 test "at a merchant a quest's items dim" {
@@ -861,21 +847,19 @@ test "at crafting only trade goods and reagents stay lit" {
 
 // The protection from «Sort the bags»
 
-test "Alt-click protects a slot with a padlock; Alt-click again takes it off" {
+test "the slot menu protects a slot with a padlock, and takes it off again" {
   const world = new World(everyday())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
   Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
   Game.items.icon = (id: Integer): Art | nil => world.icon(id)
   Test.mount(nil, SCREEN)
   Game.bags.open = true
-  Game.input.altDown = (): Boolean => true
-  Test.hold([.Alt])
-  held(POTION).click()
+  protect(held(POTION))
   Test.expect(held(POTION).paintedWith(PADLOCK) && Test.page().box(PADLOCK).count() == 1)
-  held(POTION).click()
+  protect(held(POTION))
   Test.expect(Test.page().box(PADLOCK).count() == 0)
-  // Neither click picked the item up.
-  Test.expect(asked("Bags.follow true, Items.show 118"))
+  // Neither pick picked the item up nor used it.
+  Test.expect(!Test.requests().join(", ").contains("Bags.pickup") && Test.performed().length == 0)
 }
 
 test "an empty slot takes no protection" {
@@ -885,16 +869,21 @@ test "an empty slot takes no protection" {
   Test.mount(nil, SCREEN)
   Game.bags.open = true
   pick(Ordaen.art.ctl.tool.categories, "One bag")
-  Game.input.altDown = (): Boolean => true
-  Test.hold([.Alt])
-  nth(6).click()
-  Test.expect(Test.page().box(PADLOCK).count() == 0)
+  nth(6).rightClick()
+  Test.expect(!Test.page().text(Locale.MENU_PROTECT).shown() && Test.page().box(PADLOCK).count() == 0)
 }
 
 // A click's hint on a slot's tooltip, as the player's scheme names it.
 function hint(chord: String, action: String): String { return Locale.KEY_CLICK.format(chord, action) }
 
-test "a slot's tooltip names its clicks as the player's scheme has them, protecting as the slot stands; a new scheme follows" {
+// The slot menu's protecting picked: on, or off where the slot is protected.
+function protect(slot: Test.Part) {
+  slot.rightClick()
+  const off = Test.page().text(Locale.MENU_UNPROTECT)
+  if (off.shown()) { off.click() } else { Test.page().text(Locale.MENU_PROTECT).click() }
+}
+
+test "a slot's tooltip names what its clicks do there: the use as the item and the place have it, the link while the chat's input is open" {
   let corner = Client.CreateFrame("Frame", "GameTooltip", Client.C_UI.GetUIParent(), nil)
   corner.SetSize(200, 80)
   corner.SetPoint("TOPLEFT", Client.C_UI.GetUIParent(), "TOPLEFT", 1300, -720)
@@ -902,27 +891,33 @@ test "a slot's tooltip names its clicks as the player's scheme has them, protect
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
   Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
   Game.items.icon = (id: Integer): Art | nil => world.icon(id)
+  // The potion casts its spell.
+  let spell: String | nil = "Minor Healing Potion"
+  Client.C_Item.GetItemSpell = (item: String | Integer): (String | nil, Number | nil) => { return spell, nil }
   Test.mount(nil, SCREEN)
   Game.bags.open = true
+  // Protected: its tooltip says so first.
+  protect(held(POTION))
   held(POTION).hover()
   Game.tooltip.main = tooltipOf(corner, 118, "Minor Healing Potion")
   const tip = Test.page().window("Minor Healing Potion")
-  // Our scheme, a potion's: no socket to open.
-  const use = hint(Locale.CHORD_DOUBLE_LEFT, Locale.ACT_USE)
-  const send = hint(Locale.CHORD_CTRL_LEFT, Locale.ACT_SEND)
   const menu = hint(Locale.CHORD_RIGHT, Locale.ACT_MENU)
-  const link = hint(Locale.CHORD_SHIFT_RIGHT, Locale.ACT_LINK)
-  const protect = hint(Locale.CHORD_ALT_LEFT, Locale.MENU_PROTECT)
-  Test.expect(reads(tip, `Minor Healing Potion | ${use} | ${protect} | ${menu} | ${link}`))
-  Game.input.altDown = (): Boolean => true
-  Test.hold([.Alt])
-  held(POTION).click()
-  const unprotect = hint(Locale.CHORD_ALT_LEFT, Locale.MENU_UNPROTECT)
-  Test.expect(reads(tip, `Minor Healing Potion | ${Locale.PROTECTED} | ${use} | ${unprotect} | ${menu} | ${link}`))
-  // Ctrl+Left set to Send: its hint comes.
-  Bags.settings.change((values: mut Choices): nil => { values.slotClicks = { ctrlLeft: .Send, ..values.slotClicks } })
+  // Ordaen's scheme: the double click's use, the menu; no link while the chat's input is shut, no drag.
+  const use = hint(Locale.CHORD_DOUBLE_LEFT, Locale.ACT_USE)
+  Test.expect(reads(tip, `Minor Healing Potion | ${Locale.PROTECTED} | ${use} | ${menu}`))
+  Game.chat.typing = true
   Test.flush()
-  Test.expect(reads(tip, `Minor Healing Potion | ${Locale.PROTECTED} | ${use} | ${send} | ${unprotect} | ${menu} | ${link}`))
+  Test.expect(reads(tip, `Minor Healing Potion | ${Locale.PROTECTED} | ${use} | ${menu} | ${hint(Locale.CHORD_SHIFT_RIGHT, Locale.ACT_LINK)}`))
+  Game.chat.typing = false
+  // At a merchant the use sells it.
+  Game.bags.place = Game.BagPlace.Merchant
+  Test.flush()
+  Test.expect(reads(tip, `Minor Healing Potion | ${Locale.PROTECTED} | ${hint(Locale.CHORD_DOUBLE_LEFT, Locale.USE_SELL)} | ${menu}`))
+  Game.bags.place = Game.BagPlace.None
+  // An item the client does nothing with: no use to name.
+  spell = nil
+  Test.flush()
+  Test.expect(reads(tip, `Minor Healing Potion | ${Locale.PROTECTED} | ${menu}`))
   // Another item's tooltip, where the cursor isn't on its slot: nothing of the bags'.
   Game.tooltip.main = tooltipOf(corner, 25, "Worn Shortsword")
   Test.expect(reads(Test.page().window("Worn Shortsword"), "Worn Shortsword"))
@@ -935,9 +930,7 @@ test "a protection is kept for the character: there after a reload, not for anot
   Game.items.icon = (id: Integer): Art | nil => world.icon(id)
   Test.mount(nil, SCREEN)
   Game.bags.open = true
-  Game.input.altDown = (): Boolean => true
-  Test.hold([.Alt])
-  held(POTION).click()
+  protect(held(POTION))
   Test.reload()
   Test.expect(held(POTION).paintedWith(PADLOCK))
   Test.login({ guid: "Player-1-0000002", name: "Alt", surname: nil })
@@ -953,9 +946,7 @@ test "a protected item moved to another slot takes its protection with it" {
   Test.mount(nil, SCREEN)
   Game.bags.open = true
   pick(Ordaen.art.ctl.tool.categories, "One bag")
-  Game.input.altDown = (): Boolean => true
-  Test.hold([.Alt])
-  held(POTION).click()
+  protect(held(POTION))
   world.at(0, 3).slot = 6
   Game.bags.updated.emit(0)
   Test.expect(nth(6).paintedWith(PADLOCK) && Test.page().box(PADLOCK).count() == 1)
@@ -969,9 +960,7 @@ test "a protected item gone from the bags loses its protection: put back, it has
   Game.items.icon = (id: Integer): Art | nil => world.icon(id)
   Test.mount(nil, SCREEN)
   Game.bags.open = true
-  Game.input.altDown = (): Boolean => true
-  Test.hold([.Alt])
-  held(POTION).click()
+  protect(held(POTION))
   world.take(0, 3)
   Game.bags.updated.emit(0)
   world.items.push({ bag: 0, slot: 3, id: 118, name: "Minor Healing Potion", icon: POTION, count: 5, kind: 0, subkind: 1 })
@@ -1021,11 +1010,7 @@ test "«Sort the bags» leaves a protected slot as it is" {
   Test.mount(nil, SCREEN)
   Game.bags.open = true
   pick(Ordaen.art.ctl.tool.categories, "One bag")
-  Game.input.altDown = (): Boolean => true
-  Test.hold([.Alt])
-  held(ASH).click()
-  Game.input.altDown = (): Boolean => false
-  Test.hold([])
+  protect(held(ASH))
   _ = Test.requests()
   bags().button(Ordaen.art.ctl.tool.arrange).click()
   Game.bags.updated.emit(0)
@@ -1668,9 +1653,7 @@ test "a protected stack used up: its protection passes to no other stack of its 
   Game.items.icon = (id: Integer): Art | nil => world.icon(id)
   Test.mount(nil, SCREEN)
   Game.bags.open = true
-  Game.input.altDown = (): Boolean => true
-  Test.hold([.Alt])
-  held(POTION).click()
+  protect(held(POTION))
   // Another stack of the potions comes in, then the protected one is drunk to the last.
   world.items.push({ bag: 0, slot: 10, id: 118, name: "Minor Healing Potion", icon: POTION, count: 2, kind: 0, subkind: 1 })
   Game.bags.updated.emit(0)
@@ -1693,10 +1676,8 @@ test "two protected stacks of one item moved: each keeps its protection" {
   Test.mount(nil, SCREEN)
   Game.bags.open = true
   pick(Ordaen.art.ctl.tool.categories, "One bag")
-  Game.input.altDown = (): Boolean => true
-  Test.hold([.Alt])
-  nth(1).click()
-  nth(2).click()
+  protect(nth(1))
+  protect(nth(2))
   world.at(0, 1).slot = 3
   world.at(0, 2).slot = 4
   Game.bags.updated.emit(0)

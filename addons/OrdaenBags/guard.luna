@@ -1,7 +1,11 @@
 // A slot protected from «Sort the bags», and what Ordaen Tooltips' item tooltip says of the slot under the cursor: that
 // it is protected («This slot is protected from sorting», among what other modules add), and its clicks as the
-// player's scheme has them («Left-click: Pick up»), each that does something to this slot. Without Ordaen Tooltips there
+// player's scheme has them («Double left click: Sell»), each that does something to this slot where the player stands
+// (a use named for what it does there, none for an item the client does nothing with; a link while the chat's input is
+// open). Without Ordaen Tooltips there
 // is no such line: Bags adds nothing to the game's own tooltip.
+import Client from "$client"
+import Game from "$game"
 import root Tooltips from "OrdaenTooltips"
 import type { ItemKeys, ItemLines, Line } from "OrdaenTooltips"
 import { CHORDS, SlotAction, actionAt, actionName, chordName } from "@/clicks"
@@ -47,9 +51,14 @@ public class GuardLine implements ItemLines {
 public class GuardKey implements ItemKeys {
   const hovered: Hovered
   choices: Signal<Choices>
-  constructor(hovered: Hovered, choices: Signal<Choices>) {
+  // The bank and the guild bank open: what a container's use does there.
+  bankOpen: Signal<Boolean>
+  guildOpen: Signal<Boolean>
+  constructor(hovered: Hovered, choices: Signal<Choices>, bankOpen: Signal<Boolean>, guildOpen: Signal<Boolean>) {
     self.hovered = hovered
     self.choices = choices
+    self.bankOpen = bankOpen
+    self.guildOpen = guildOpen
   }
 
   public keys(self, item: Integer, link: String): Array<String> {
@@ -57,28 +66,57 @@ public class GuardKey implements ItemKeys {
     if (slot == nil || slot.id != item) { return NO_KEYS }
     let keys: Array<String> = []
     for (chord of CHORDS) {
-      const action = actionAt(self.choices.slotClicks, chord)
-      if (takes(slot, action)) { keys.push(Locale.KEY_CLICK.format(chordName(chord), clickName(slot, action))) }
+      const name = clickName(slot, actionAt(self.choices.slotClicks, chord), self.bankOpen, self.guildOpen)
+      if (name != nil) { keys.push(Locale.KEY_CLICK.format(chordName(chord), name)) }
     }
     return keys
   }
 }
 
-// Whether a click's action does something to the slot: protecting and sending are the bags' alone, sockets gear's.
-function takes(slot: Slot, action: SlotAction): Boolean {
+// What a click does to the slot now, as its hint says it; none where it does nothing: protecting is the bags' alone,
+// sockets gear's, a link the chat's while its input is open.
+function clickName(slot: Slot, action: SlotAction, bankOpen: Boolean, guildOpen: Boolean): String | nil {
   return match (action) {
-    .Nothing => false
-    .Protect => slot.vault == Vault.Bags
-    .Send => slot.vault == Vault.Bags
-    .Socket => socketable(slot)
-    else => true
+    .Nothing => nil
+    .Use => useName(slot, bankOpen, guildOpen)
+    .Protect => slot.vault != Vault.Bags ? nil : slot.guarded ? Locale.MENU_UNPROTECT : Locale.MENU_PROTECT
+    .Socket => socketable(slot) ? actionName(action) : nil
+    .Link => Game.chat.typing ? actionName(action) : nil
+    else => actionName(action)
   }
 }
 
-// What a click does, as its hint says it: protecting, what it does to the slot now.
-function clickName(slot: Slot, action: SlotAction): String {
-  if (action == SlotAction.Protect) { return slot.guarded ? Locale.MENU_UNPROTECT : Locale.MENU_PROTECT }
-  return actionName(action)
+// What the client's use of the slot's item does where the player stands: a guild bank's stack goes into the bags, as
+// does the bank's while it is open; a window open takes the bags' item as it can (the guild bank, the bank, a letter, a
+// trade, a merchant, the auction house; never a bound one where it is refused, never one sold for nothing); else the
+// item's own use. None: the client does nothing with it.
+function useName(slot: Slot, bankOpen: Boolean, guildOpen: Boolean): String | nil {
+  const read = slot.read
+  if (slot.id == 0) { return nil }
+  if (slot.vault == Vault.Guild) { return Locale.USE_TO_BAGS }
+  if (slot.vault == Vault.Bank) { return bankOpen ? Locale.USE_TO_BAGS : nil }
+  if (guildOpen) { return read.bound ? nil : Locale.USE_TO_GUILD }
+  if (bankOpen) { return Locale.USE_TO_BANK }
+  return match (Game.bags.place) {
+    .Mail => read.bound ? nil : Locale.USE_ATTACH
+    .Trade => read.bound ? nil : Locale.USE_TRADE
+    .Merchant => read.price > 0 ? Locale.USE_SELL : nil
+    .AuctionHouse => read.bound ? nil : Locale.USE_AUCTION
+    else => ownUse(slot)
+  }
+}
+
+// The item's own use, as the client's right-click does it: gear put on, a container of loot opened, a page read, the
+// quest it starts begun, its spell cast (a potion, food, a recipe learned).
+function ownUse(slot: Slot): String | nil {
+  if (slot.read.worn != "") { return Locale.USE_EQUIP }
+  const info = Client.C_Container.GetContainerItemInfo(slot.bag, slot.index)
+  if (info != nil && info.hasLoot) { return Locale.USE_OPEN }
+  if (info != nil && info.isReadable) { return Locale.USE_READ }
+  const quest = Client.C_Container.GetContainerItemQuestInfo(slot.bag, slot.index)
+  if (quest.questID != nil && !quest.isActive) { return Locale.USE_QUEST }
+  const spell, _ = Client.C_Item.GetItemSpell(slot.id)
+  return spell != nil ? Locale.ACT_USE : nil
 }
 
 // Both added to Tooltips while it is on: the watch's run owns them, so they end when either module does.
@@ -86,9 +124,9 @@ public class GuardTips {
   const line: GuardLine
   const key: GuardKey
 
-  constructor(hovered: Hovered, choices: Signal<Choices>) {
+  constructor(hovered: Hovered, choices: Signal<Choices>, bankOpen: Signal<Boolean>, guildOpen: Signal<Boolean>) {
     self.line = new GuardLine(hovered)
-    self.key = new GuardKey(hovered, choices)
+    self.key = new GuardKey(hovered, choices, bankOpen, guildOpen)
     watch (tooltips of Tooltips) {
       if (tooltips == nil) { return }
       tooltips.held.add(self.line)
