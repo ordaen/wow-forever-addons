@@ -2,8 +2,8 @@
 surface 548.15,192.46 893.38x515.08 on MEDIUM clamped raised by a click
   box 548.15,240.88 893.38x466.67 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.98, tr 0.78, bl 0.80, br 0.60, top 0.98>0.78 x30.02, bottom 0.80>0.60 x30.02, left 0.97>0.80 x15.20, right 0.78>0.61 x15.20] @drag @dragStart @dragStop @pointerEnter @pointerLeave
     box 555.35,248.07 489.3x452.27
-      box 555.35,248.07 489.3x424.71
-        box 578.11,270.83 443.79x384.89
+      box 555.35,248.07 489.3x424.86
+        box 578.11,270.83 443.79x385.03
           box 578.11,270.83 443.79x28.04
             box 578.11,298.04 443.79x0.83 absolute #3e2f1d
             box 578.11,270.83 74.13x28.04 #00000059 @keyPress @pointerPress
@@ -49,9 +49,9 @@ surface 548.15,192.46 893.38x515.08 on MEDIUM clamped raised by a click
                 box 993.56,307.41 28.33x28.33
                   box 993.56,307.41 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerEnter @pointerLeave @pointerPress
                     box 1001.06,314.91 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 3 of 16 tint=#e8dcc4
-          box 578.11,344.27 443.79x311.44 #0000004d
+          box 578.11,344.27 443.79x311.59 #0000004d
             box 578.94,345.11 442.12x0
-            box 578.94,345.11 442.12x309.78 scrolled 0 of 0
+            box 578.94,345.11 442.12x309.92 scrolled 0 of 0
               box 578.94,345.11 442.12x174.33
                 box 578.94,345.11 442.12x87.17
                   box 578.94,345.11 442.12x33.73 #d6a56b38 @keyPress @pointerPress
@@ -92,13 +92,14 @@ surface 548.15,192.46 893.38x515.08 on MEDIUM clamped raised by a click
                       box 584.63,496.06 430.74x12
                         text 584.63,496.06 403.39x12 "Wolves slain" #a3977f
                         text 993.71,496.06 21.67x12 "5/10" #a3977f
-      box 555.35,672.79 489.3x27.56
-        box 555.35,672.79 489.3x27.56
-          box 578.11,679.45 344.86x0
-          box 940.03,672.79 81.87x13.33
-            box 940.03,672.79 81.87x13.33
-              text 940.03,672.79 51.67x13.33 "In the log" #a3977f
-              text 1000.23,672.79 21.67x13.33 "3/25" #e8dcc4
+      box 555.35,672.93 489.3x27.41
+        box 555.35,672.93 489.3x27.41 Interface/FrameGeneral/UI-Background-Marble border=Interface\AddOns\Ordaen\media\frame-divider-down sides=top pieces=[top 0.71>0.62 x25.48]
+          box 578.11,681.32 443.79x13.33
+            box 578.11,687.99 344.86x0
+            box 940.03,681.32 81.87x13.33
+              box 940.03,681.32 81.87x13.33
+                text 940.03,681.32 51.67x13.33 "In the log" #a3977f
+                text 1000.23,681.32 21.67x13.33 "3/25" #e8dcc4
     box 1044.65,248.07 389.68x452.27
       box 1047.35,248.07 386.98x409.86
         box 1070.11,270.83 341.47x372.88

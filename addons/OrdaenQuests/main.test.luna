@@ -290,7 +290,7 @@ test "a quest whose words would overflow its scroll stands the scroll beside the
   const top = window.box(SHEET_ART.topRight).rect()
   const bottom = window.box(SHEET_ART.bottomLeft).rect()
   const progress = window.text("Progress").rect()
-  const band = window.box(Ordaen.art.window.marble).rect()
+  const band = pageBand(window)
   Test.expect(progress.left > top.right && progress.top < bottom.top)
   Test.expect(bottom.bottom <= band.top && band.top - bottom.bottom < 40)
   // The tracking switch at the page's foot, over the band, however little stands above it.
@@ -441,7 +441,7 @@ test "the page's buttons stand in the window's footer band, across the side from
   opened(standing())
   const window = Test.page().window("World")
   window.text("The Defias Brotherhood").click()
-  const band = window.box(Ordaen.art.window.marble).rect()
+  const band = pageBand(window)
   const abandon = window.button("Abandon").rect()
   const track = window.text("Track").rect()
   Test.expect(abandon.top > band.top && abandon.bottom < band.bottom && band.top > track.bottom)
@@ -1008,4 +1008,12 @@ test "another module's NPC opens the map where QuestieDB puts it until the map h
   Test.expect(Quests.showNpc(235))
   Test.flush()
   Test.expect(Client.WorldMapFrame.GetMapID() == 1429)
+}
+
+// The quest page's footer band (its buttons'), of the two the window has: the log's and the page's.
+function pageBand(window: Test.Part): Test.Rect {
+  const button = window.button("Abandon").rect()
+  const bands = window.box(Ordaen.art.window.marble)
+  const first = bands.nth(1).rect()
+  return first.left <= button.left && first.right >= button.right ? first : bands.nth(2).rect()
 }
