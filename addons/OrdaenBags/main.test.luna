@@ -1635,7 +1635,8 @@ test "the footer stands on the game's marble, a rim round it" {
   Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
   Test.mount(nil, SCREEN)
   Game.bags.open = true
-  const marble = bags().box(Ordaen.art.window.marble)
+  // The second marble: the first is the category column.
+  const marble = bags().box(Ordaen.art.window.marble).nth(2)
   Test.expect(marble.text("13 of 22").shown())
   // The money ends a footer's room (8sp) in from the marble's right, nothing after it.
   const floor = marble.rect()
@@ -1870,4 +1871,19 @@ test "the cursor on the client's bag button, where the bottom panel shows it, li
   Test.moveTo({ x: 5, y: 5 })
   Test.flush()
   Test.expect(held(POTION).opacity() == 1)
+}
+
+test "in the category view the tabs stand down a marble column the page's height; the toolbar is beside it, over the list" {
+  const world = new World(everyday())
+  Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Test.mount(nil, SCREEN)
+  Game.bags.open = true
+  pick(Ordaen.art.ctl.tool.categories, "Categories")
+  const column = bags().box(Ordaen.art.window.marble).nth(1)
+  const footer = bags().box(Ordaen.art.window.marble).nth(2)
+  Test.expect(column.text("All").shown())
+  // The column reaches the footer; the search stands right of it, not in it.
+  Test.expect((column.rect().bottom - footer.rect().top).abs() < 0.05)
+  Test.expect(bags().text(Locale.SEARCH).rect().left >= column.rect().right)
 }

@@ -8,7 +8,7 @@
 // hide an item under a scroll; it scrolls only where the screen is too low for it.
 import Client from "$client"
 import Game from "$game"
-import { Align, ArtBorder, Overflow, Side, Track } from "$ltml"
+import { Align, ArtBorder, Edges, Overflow, Side, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import { ARTWORK, Choice, Component, FooterBand, FooterCount, FooterCounts, ListTab, ModuleMemory, Money, PushButton, SECONDARY_TEXT, ScrolledList, Tip, TipRow, ToolAct, ToolButton, ToolPick, Toolbar, reachDown } from "Ordaen"
 import { BANK_ICON } from "@/bank"
@@ -57,6 +57,8 @@ const AROUND_LIST = 257.8125dp
 
 const BODY: Array<Track> = ["max-content", { fr: 1 }]
 const WITH_TABS: Array<Track> = [TABS_WIDTH, { fr: 1 }]
+// The tabs' column: the window's room at the top, the sides and under them.
+const COLUMN_ROOM: Edges = { top: 8sp, right: 4sp, bottom: 8sp, left: 4sp }
 const FILL: Array<Track> = [{ fr: 1 }]
 const NOTED: Array<Track> = ["max-content", { fr: 1 }]
 // The counts, the room between, the buttons (or the gold tracked), the money.
@@ -188,7 +190,7 @@ public class Pane {
   derived slotSize: Number<Length> = self.room.slot
   // The least window: a card of the fewest slots in a row, the list of tabs beside it where it shows.
   public derived leastWidth: Number<Length> = frameSides() + self.tabsRoom + cardWidth(self.room.least, self.room) + SCROLL_ROOM
-  derived tabsRoom: Number<Length> = self.withList ? TABS_WIDTH + Ordaen.lengthOf(TABS_GAP) : 0ui
+  derived tabsRoom: Number<Length> = self.withList ? TABS_WIDTH : 0ui
   derived listWidth: Number<Length> = self.width - frameSides() - self.tabsRoom - SCROLL_ROOM
   public derived lines: Array<CardRow> = linesOf(self.sections, self.listWidth, self.room)
   // As high as its cards, or as the screen lets it be.
@@ -360,46 +362,61 @@ public class Pane {
     </box>
   }
 
+  // The toolbar: the search, the sort, tidying, the view, the bag slots.
+  const tools: Template = $ltml {
+    <box padding={TOOL_ROOM}>
+      <Toolbar search={mut self.search} placeholder={Locale.SEARCH}>
+        <ToolPick value={mut self.list.values.sort} choices={SORTS} icon={Ordaen.art.ctl.tool.sort} title={Locale.SORT} />
+        <ToolAct icon={Ordaen.art.ctl.tool.arrange} title={Locale.ARRANGE} text={Locale.ARRANGE_TIP}
+                 disabled={self.running || !self.isBags} @pressed={self.onArrange} />
+        <ToolPick value={mut self.list.values.view} choices={self.views} icon={Ordaen.art.ctl.tool.categories} title={Locale.VIEW} />
+        <ToolButton $if={self.isBags} icon={BACKPACK} title={Locale.BAG_SLOTS} text={Locale.BAG_SLOTS_TIP}
+                    open={mut self.slotsOpen} tinted={false} />
+        <ToolButton $elseif={self.bankSlots} icon={BANK_ICON} title={Locale.BANK_SLOTS} text={Locale.BANK_SLOTS_TIP}
+                    open={mut self.bankSlotsOpen} tinted={false} />
+      </Toolbar>
+    </box>
+  }
+
+  // The vault's note over the list, and the list: the cards, or the guild's log.
+  const content: Template = $ltml {
+    <box columns={1} rows={self.listRows} gap={3sp}>
+      <box $if={self.copy} padding={ROW_ROOM}> <text value={self.copyText} textColor={LABEL} textSize={SECONDARY_TEXT} /> </box>
+      <box $if={!self.seen && !self.live} padding={ROW_ROOM}> <text value={Locale.BANK_UNSEEN} textColor={LABEL} /> </box>
+      <box $elseif={self.gridShown} columns={1}>
+        {self.cards}
+      </box>
+      <text $elseif={self.guild.page == GuildPage.Items} value={Locale.GUILD_LOADING} textColor={LABEL} />
+      <ScrolledList $else columns={1} gap={3sp}>
+        <text $for={line of self.guild.log} value={line} />
+      </ScrolledList>
+    </box>
+  }
+
+  // With a list of tabs (the categories, the guild bank's tabs): the tabs down a marble column at the left, the page's
+  // whole height, the toolbar and the list beside it. Else the toolbar over the list.
   public const body: Template = $ltml {
-    <box rows={BODY} gap={6sp}>
-      <box padding={TOOL_ROOM}>
-        <Toolbar search={mut self.search} placeholder={Locale.SEARCH}>
-          <ToolPick value={mut self.list.values.sort} choices={SORTS} icon={Ordaen.art.ctl.tool.sort} title={Locale.SORT} />
-          <ToolAct icon={Ordaen.art.ctl.tool.arrange} title={Locale.ARRANGE} text={Locale.ARRANGE_TIP}
-                   disabled={self.running || !self.isBags} @pressed={self.onArrange} />
-          <ToolPick value={mut self.list.values.view} choices={self.views} icon={Ordaen.art.ctl.tool.categories} title={Locale.VIEW} />
-          <ToolButton $if={self.isBags} icon={BACKPACK} title={Locale.BAG_SLOTS} text={Locale.BAG_SLOTS_TIP}
-                      open={mut self.slotsOpen} tinted={false} />
-          <ToolButton $elseif={self.bankSlots} icon={BANK_ICON} title={Locale.BANK_SLOTS} text={Locale.BANK_SLOTS_TIP}
-                      open={mut self.bankSlotsOpen} tinted={false} />
-        </Toolbar>
+    <box $if={self.withList} columns={WITH_TABS} rows={FILL}>
+      <box columns={1} gap={0.5sp} padding={COLUMN_ROOM} background={Ordaen.art.window.marble}>
+        <$if={self.isGuild}>
+          <GuildTabEntry $for={tab of self.guild.tabs} tab={tab} current={self.guild.tab} page={self.guild.page} live={self.live}
+                         @picked={self.onGuildTab} />
+          <ListTab $if={self.live} label={Locale.GUILD_LOG} selected={self.guild.page == GuildPage.Log} @pick={self.onGuildLog} />
+          <ListTab $if={self.live} label={Locale.GUILD_MONEY_LOG} selected={self.guild.page == GuildPage.MoneyLog}
+                   @pick={self.onMoneyLog} />
+        </>
+        <$else>
+          <TabEntry $for={tab of self.tabs} $key={tab} tab={peek tab} current={self.shownTab} counts={self.counts} @picked={self.onTab} />
+        </>
       </box>
-      <box columns={1} rows={self.listRows} gap={3sp}>
-        <box $if={self.copy} padding={ROW_ROOM}> <text value={self.copyText} textColor={LABEL} textSize={SECONDARY_TEXT} /> </box>
-        <box $if={!self.seen && !self.live} padding={ROW_ROOM}> <text value={Locale.BANK_UNSEEN} textColor={LABEL} /> </box>
-        <box $elseif={self.withList} columns={WITH_TABS} rows={FILL} gap={TABS_GAP}>
-          <box $if={self.isGuild} columns={1} gap={0.5sp}>
-            <GuildTabEntry $for={tab of self.guild.tabs} tab={tab} current={self.guild.tab} page={self.guild.page} live={self.live}
-                           @picked={self.onGuildTab} />
-            <ListTab $if={self.live} label={Locale.GUILD_LOG} selected={self.guild.page == GuildPage.Log} @pick={self.onGuildLog} />
-            <ListTab $if={self.live} label={Locale.GUILD_MONEY_LOG} selected={self.guild.page == GuildPage.MoneyLog}
-                     @pick={self.onMoneyLog} />
-          </box>
-          <box $else columns={1} gap={0.5sp}>
-            <TabEntry $for={tab of self.tabs} $key={tab} tab={peek tab} current={self.shownTab} counts={self.counts} @picked={self.onTab} />
-          </box>
-          <box $if={self.gridShown} columns={1}>
-            {self.cards}
-          </box>
-          <text $elseif={self.guild.page == GuildPage.Items} value={Locale.GUILD_LOADING} textColor={LABEL} />
-          <ScrolledList $else columns={1} gap={3sp}>
-            <text $for={line of self.guild.log} value={line} />
-          </ScrolledList>
-        </box>
-        <box $else columns={1}>
-          {self.cards}
-        </box>
+      <box rows={BODY} gap={6sp}>
+        {self.tools}
+        {self.content}
       </box>
+    </box>
+    <box $else rows={BODY} gap={6sp}>
+      {self.tools}
+      {self.content}
     </box>
   }
 }
