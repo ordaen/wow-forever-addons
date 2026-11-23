@@ -1,4 +1,4 @@
-// A spec's tab: the header on the game's marble, a rim along its foot, the talents' search on its left and on its right
+// A spec's subtab: the header on the window's wood, a rim along its foot, the talents' search on its left and on its right
 // the points left for the active spec or «Activate» for the other; under it the spec's trees on the class's own art
 // (the client's `talent-background-<class>`), edge to edge out to the window's sides, a thin dark line between them;
 // the footer on the marble, a rim along its top, with «Cancel» on its left and «Apply» on its right while points wait
@@ -26,8 +26,8 @@ const BUTTON_WIDTH: Number<Length> = 175.78125dp
 const LINE: Number<Length> = 1.171875dp
 const LINE_COLOR: Color = Color.hex("#000000")
 const LINE_LIGHT: Color = Color.hex("#d6a56b2e")
-// The header and the footer reach the window's sides on the marble; what they hold stands in by the window's room at
-// the sides and a band above and below it, the frame's line between the marble and the trees (as a footer band's).
+// The header (on the wood) and the footer (on the marble) reach the window's sides; what they hold stands in by the
+// window's room at the sides and a band above and below it, the frame's line between them and the trees.
 const BAND_ROOM: Edges = { top: 4sp, right: Style.SIDE_ROOM, bottom: 4sp, left: Style.SIDE_ROOM }
 function rimAt(side: Side): ArtBorder {
   return { sides: [side], ..Ordaen.art.frame.tabIconLine }
@@ -172,8 +172,7 @@ public class TalentsPage implements Component {
   public render(self): Template {
     return $ltml {
       <box rows={PAGE}>
-        <box columns={TOP} gap={2.5sp} yAlign={Align.Center} padding={BAND_ROOM} border={rimAt(Side.Bottom)}
-             background={Ordaen.art.window.marble}>
+        <box columns={TOP} gap={2.5sp} yAlign={Align.Center} padding={BAND_ROOM} border={rimAt(Side.Bottom)}>
           <Toolbar search={mut self.search} placeholder={Locale.SEARCH_TALENTS} />
           <box />
           <PushButton $if={self.inactive} label={Locale.ACTIVATE} width={BUTTON_WIDTH} @click={self.onActivate} />
