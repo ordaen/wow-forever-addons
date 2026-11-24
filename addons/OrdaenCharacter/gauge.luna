@@ -112,6 +112,39 @@ public class CarveShade implements Component {
   }
 }
 
+// How far in from the carve's edge what fills it stands: its rim's width.
+public const WELL_INSET: Number<Length> = LINE
+
+// A part of a well split by shares (the resistances'): the client's bar texture in its colour, rounded where the well
+// is (`corners`: the first part's left, the last's right), the gloss over its upper half, its text in its middle,
+// outlined as a gauge's.
+public class WellSlice implements Component {
+  color: Signal<Color>
+  text: Signal<String>
+  corners: Signal<Corners>
+  constructor(color: Signal<Color>, text: Signal<String>, corners: Signal<Corners>) {
+    self.color = color
+    self.text = text
+    self.corners = corners
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <box>
+        <RoundedFill color={self.color} radius={INNER} corners={self.corners} art={TEXTURE} />
+        <box position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui} rows={[{ fr: 1 }, { fr: 1 }]}>
+          <box background={GLOSS} />
+        </box>
+        <box position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui} xAlign={Align.Center}
+             yAlign={Align.Center}>
+          <text value={self.text} textColor={BRIGHT_TEXT} leading={.Tight} textFont={TextFont.Numbers} textOutline={1}
+                textShadow={TEXT_SHADOW} wrap={.None} />
+        </box>
+      </box>
+    }
+  }
+}
+
 // The well's two tracks: the fill's share and the rest.
 function sharesOf(value: Number): Array<Track> {
   const share = value.max(0).min(1)

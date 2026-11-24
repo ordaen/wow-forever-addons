@@ -8,7 +8,7 @@ import Game from "$game"
 import { Action, Align, Art, BarFill, Edges, Event, FillFrom, Line, MouseButton, Overflow, Position, TextFont, Track } from "$ltml"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
-import { ButtonPlate, Component, Cut, Groove, ItemButton, PushButton, RULE_WIDTH, SECONDARY_TEXT, SHORT_CUT, ShortCut, SlotWell, TITLE_TEXT, Tabs, Tip, TipText, WINDOW_ROOM, classColor } from "Ordaen"
+import { ButtonPlate, Component, Cut, ItemButton, PushButton, RULE_WIDTH, SECONDARY_TEXT, SHORT_CUT, ShortCut, SlotWell, TITLE_TEXT, Tabs, Tip, TipText, WINDOW_ROOM, classColor } from "Ordaen"
 import { Active } from "OrdaenAuras"
 import { ItemLevel } from "@/itemLevel"
 import Locale from "@/locales"
@@ -16,7 +16,7 @@ import { Choices, slotSizeOf } from "@/settings"
 import { AMMO, GearSet, LEFT, RELIC_WEAPONS, RIGHT, Resource, Skill, SlotSpec, Stats, WEAPONS, Who, Worn } from "@/sheet"
 import { Boost, Breakdown, NO_BREAKDOWN, boostsOf, breakdownOf, wordsOf } from "@/sources"
 import { Stat } from "@/stat"
-import { Gauge, Main, MainStat, PoolBar, Resist, ResistRow, Row, Section, SectionView, StatGauge, StatRow, defenceOf, defenceRows, energyRegenRows, healthRegenRows, mainsOf, powerRegenRows, resistsOf, sectionsOf, sharedGauges, sharedRows, speedsOf } from "@/stats"
+import { Gauge, Main, MainStat, PoolBar, Resist, ResistBar, Row, Section, SectionView, StatGauge, StatRow, defenceOf, energyRegenRows, healthRegenRows, mainsOf, powerRegenRows, resistsOf, sectionsOf, sharedGauges, sharedRows, speedsOf } from "@/stats"
 import Style from "@/style"
 
 // Durability under a quarter is red, as the game's armour figure turns it.
@@ -318,8 +318,8 @@ public class GearPage implements Component {
   // The player's own by its spec's weights; another's (inspected) as the game orders them.
   derived mains: Array<Main> = mainsOf(self.stats, self.classTag == nil ? Ordaen.worth.weights : nil)
   derived resists: Array<Resist> = resistsOf(self.stats)
-  derived defence: Array<Gauge> = defenceOf(self.stats)
-  derived blocked: Array<Row> = defenceRows(self.stats)
+  derived resisted: Boolean = self.resists.length > 0
+  derived defence: Section = defenceOf(self.stats)
   derived speeds: Array<Row> = speedsOf(self.stats)
   derived shared: Array<Gauge> = sharedGauges(self.stats)
   derived sharedLines: Array<Row> = sharedRows(self.stats)
@@ -441,18 +441,9 @@ public class GearPage implements Component {
                 <PoolBar $if={self.energyShown} amount={self.energy} color={Style.ENERGY} regen={self.energyRegen} />
               </box>
             </box>
-            <Groove title={Locale.SECTION_DEFENSE} />
-            <box gap={2sp} padding={Style.SECTION_PAD}>
-              <box columns={2} gap={Style.RESIST_GAP} padding={Style.RESIST_PAD}>
-                <ResistRow $for={resist of self.resists} resist={resist} shown={self.shown} boosts={self.boosts} @tipped={self.onTipped} />
-              </box>
-              <box gap={1.5sp}>
-                <StatGauge $for={g of self.defence} gauge={g} shown={self.shown} boosts={self.boosts} @tipped={self.onTipped} />
-              </box>
-              <box gap={0.5sp}>
-                <StatRow $for={row of self.blocked} row={row} shown={self.shown} boosts={self.boosts} @tipped={self.onTipped} />
-              </box>
-            </box>
+            <SectionView section={self.defence} shown={self.shown} boosts={self.boosts} @tipped={self.onTipped}>
+              <ResistBar $if={self.resisted} resists={self.resists} shown={self.shown} @tipped={self.onTipped} />
+            </SectionView>
             <Cut />
             <box gap={0.5sp} padding={Style.SECTION_PAD}>
               <StatRow $for={row of self.speeds} row={row} shown={self.shown} boosts={self.boosts} @tipped={self.onTipped} />

@@ -573,16 +573,22 @@ test "a crit's tooltip says what a crit does in its own section alone" {
   Test.expect(!tip.texts().join(" | ").contains("spell"))
 }
 
-test "the defense skill stands over block, so block's chance stands over the damage it stops" {
+test "the defence's cards stand first, block's on top; then the defense skill, dodge, parry, the armor and the resistances" {
   Test.mount(nil, PAGE)
   Game.items.icon = icons
   const sheet = new FakeSheet()
-  sheet.figures = (): Stats => Stats { defense: 300, block: 5, blockValue: 40 }
+  sheet.figures = (): Stats => Stats { defense: 300, dodge: 7, parry: 6, block: 5, shield: true, armor: 2000, armorReduction: 30, resistances: [0, 10, 0, 0, 0] }
   const window = opened(mut sheet)
+  const block = window.text("Block").rect()
+  const reduction = window.text("Damage reduction").rect()
+  const taken = window.text("Hit on you").rect()
   const defense = window.text("300").rect()
-  const block = window.text("5.00%").rect()
-  const stops = window.text("40").rect()
-  Test.expect(defense.bottom <= block.top && block.bottom <= stops.top)
+  const dodge = window.text("7.00%").rect()
+  const parry = window.text("6.00%").rect()
+  const armor = window.text("2000").rect()
+  const resistance = window.text("Resistance").rect()
+  Test.expect(block.bottom <= reduction.top && reduction.bottom <= taken.top && taken.bottom <= defense.top)
+  Test.expect(defense.bottom <= dodge.top && dodge.bottom <= parry.top && parry.bottom <= armor.top && armor.bottom <= resistance.top)
 }
 
 test "the paper doll's sides are the tabs' plain rule, no cut in the wood, the scene out to it" {
@@ -1298,17 +1304,16 @@ test "two hands swing together: the attack speed is both at once, and two of a k
   Test.expect(window.text("Swords").count() == 1)
 }
 
-test "a shield adds block to defence and the damage a block stops under it; without one neither shows" {
+test "a shield worn adds block's card to defence; without one block shows nowhere, whatever its chance" {
   Test.mount(nil, PAGE)
   Game.items.icon = icons
   const sheet = new FakeSheet()
-  const window = opened(mut sheet)
-  Test.expect(!window.text("Damage Blocked").shown())
   sheet.figures = (): Stats => Stats { block: 21.5, blockValue: 142 }
+  const window = opened(mut sheet)
+  Test.expect(!window.text("21.50%").shown() && !window.text("Block").shown())
+  sheet.figures = (): Stats => Stats { block: 21.5, blockValue: 142, shield: true }
   Char.readStats()
-  Test.expect(window.text("21.50%").shown())
-  Test.expect(window.text("Damage Blocked").shown())
-  Test.expect(window.text("142").shown())
+  Test.expect(window.text("21.50%").shown() && window.text("Block").shown())
 }
 
 test "a wand's section is its skill and its damage a second, no attack power" {
@@ -1586,21 +1591,61 @@ test "health and the resource are slim bars of their own, a thin line round them
   Test.expect(window.box(Style.POOL_RIM).count() > 0 && window.box(deep).count() > 1)
 }
 
-test "the resistances are rows as the gauges are, two columns of three; a card's name and its value on one line" {
+test "the resistances are one bar, a slice a resistance the character has, as wide as its share, its value in it" {
+  Test.mount(nil, PAGE)
+  Game.items.icon = icons
+  const sheet = new FakeSheet()
+  // Arcane, fire, frost, nature, shadow: fire 30 and shadow 10, the rest none.
+  sheet.figures = (): Stats => Stats { resistances: [0, 30, 0, 0, 10] }
+  const window = opened(mut sheet)
+  const fire = window.box(Style.FIRE).nth(1).item().rect()
+  const shadow = window.box(Style.SHADOW).nth(1).item().rect()
+  Test.expect(window.box(Style.FROST).count() == 0 && window.box(Style.NATURE).count() == 0)
+  Test.expect(((fire.right - fire.left) - 3 * (shadow.right - shadow.left)).abs() < 1 && shadow.left >= fire.right - 0.5)
+  const thirty = window.text("30").rect()
+  Test.expect(thirty.left >= fire.left && thirty.right <= fire.right)
+  // Each slice its own tooltip.
+  window.text("10").hover()
+  Test.expect(Test.page().window("Shadow Resistance").shown())
+}
+
+test "the hit on you's card counts an enemy of the player's level below the greatest; its tooltip the table of each enemy's blows" {
+  Test.mount(nil, PAGE)
+  Game.items.icon = icons
+  const sheet = new FakeSheet()
+  sheet.figures = (): Stats => Stats { dodge: 5, parry: 5, block: 10, shield: true }
+  const window = opened(mut sheet)
+  // An enemy of the level: 5 of misses, the player's 5 of dodges and 5 of parries; a block lands.
+  window.text("85.00%").hover()
+  const tip = Test.page().window(Locale.HIT_TAKEN_TIP)
+  Test.expect(tip.texts().join(" | ").contains("Targets of your level | Miss | 5.00% | Dodge | 5.00% | Parry | 5.00% | Block | 10.00% | Crit | 5.00% | Crushing blow | 0.00% | Ordinary hit | 70.00%"))
+  // A boss's 15 points of skill past the defense: 0.6 off the miss and the player's avoidance, onto its crit; a crushing
+  // blow at 15 points, 2 a point less 15.
+  Test.expect(tip.texts().join(" | ").contains("Raid bosses | Miss | 4.40% | Dodge | 4.40% | Parry | 4.40% | Block | 9.40% | Crit | 5.60% | Crushing blow | 15.00% | Ordinary hit | 56.80%"))
+}
+
+test "the damage reduction's card counts a raid boss at the greatest level, its tooltip each enemy's" {
+  Test.mount(nil, PAGE)
+  Game.items.icon = icons
+  const sheet = new FakeSheet()
+  sheet.figures = (): Stats => Stats { armorReduction: 30, bossArmorReduction: 25, atMaxLevel: true }
+  const window = opened(mut sheet)
+  window.text("25.00%").hover()
+  const tip = Test.page().window(Locale.DAMAGE_REDUCTION_TIP)
+  Test.expect(tip.texts().join(" | ").contains("Raid bosses | Damage reduction | 25.00% | Targets of your level | Damage reduction | 30.00%"))
+}
+
+test "with no resistance the resistances' bar isn't drawn" {
   Test.mount(nil, PAGE)
   Game.items.icon = icons
   const window = opened(new FakeSheet())
-  // The armour's value first: a school's (none) beside it in its row, two under it in its column.
-  const armor = window.text("4120").rect()
-  const zeros = window.text("0")
-  let beside = 0
-  let under = 0
-  for (i of 1..zeros.count()) {
-    const zero = zeros.nth(i).rect()
-    if ((zero.top - armor.top).abs() < 1 && zero.left > armor.right) { beside += 1 }
-    if (zero.top >= armor.bottom && zero.top - armor.bottom < 100 && (zero.right - armor.right).abs() < 1) { under += 1 }
-  }
-  Test.expect(beside == 1 && under == 2)
+  Test.expect(!window.text("Resistance").shown())
+}
+
+test "a card's name and its value stand on one line" {
+  Test.mount(nil, PAGE)
+  Game.items.icon = icons
+  const window = opened(new FakeSheet())
   const name = window.text("Attack power").rect()
   const value = window.text("832").rect()
   Test.expect(value.left > name.right && (value.top + value.bottom - name.top - name.bottom).abs() < 4)
@@ -1610,7 +1655,7 @@ test "the gauges, the resistances and the cards are carved down to the marble" {
   Test.mount(nil, PAGE)
   Game.items.icon = icons
   const window = opened(new FakeSheet())
-  // Six resistances, the gauges, and the melee section's two cards, each on the marble.
+  // The gauges (the armor's among them), the defence's cards and the melee section's, each on the marble.
   Test.expect(window.box(Ordaen.art.window.marble).count() > 12)
 }
 

@@ -4,7 +4,7 @@
 // speed, penetration), a card one of a section's main numbers (attack power, damage a second, a school's spell damage).
 import { Align, Event, Piece, Position, TextAlign, TextFont, Track } from "$ltml"
 import { BRIGHT_TEXT, Component, Corners, Groove, RoundedFill, SECONDARY_TEXT, Tip, Weights } from "Ordaen"
-import { CarveShade, CarvedFloor, GaugeBar, GaugeMark } from "@/gauge"
+import { CarveShade, CarvedFloor, GaugeBar, GaugeMark, WELL_INSET, WellSlice } from "@/gauge"
 import Locale from "@/locales"
 import { Skill, Stats, WANDS, meleeDps, rangedDps, swingOf } from "@/sheet"
 import { Boost, Breakdown, Cap, NO_BREAKDOWN, expertiseCaps, hitCaps, statName, statValue } from "@/sources"
@@ -58,15 +58,14 @@ public struct Section {
   const cards: Array<Array<Figure>>
   const gauges: Array<Gauge>
   const rows: Array<Row>
+  // How many cards a row has room for: a row of fewer leaves the rest (the right column's two; the narrow defence's one).
+  const across: Integer = 2
 }
 
-// A resistance's column: its value, its bar against the cap (the value that stops three quarters of a level 63
-// boss's damage), its colour and its glyph.
+// A resistance on the resistances' bar: its value, its school's colour and its stat.
 public struct Resist {
   const value: Integer
-  const cap: Integer
   const color: Color
-  const glyph: Piece
   const stat: Stat
 }
 
@@ -89,7 +88,6 @@ const DEFENSE_CAP = 440
 const AVOIDANCE_CAP = 30
 const HASTE_CAP = 20
 const ARMOR_CAP = 17265
-const RESISTANCE_CAP = 315
 
 // The glyphs (art/pieces/character-glyphs.json): a column of 64-texel cells, white, tinted where they are drawn: holy,
 // fire, nature, frost, shadow and arcane (the client's schools 2 to 7), then heal, power, damage, armor and percent.
@@ -174,16 +172,32 @@ public function mainsOf(stats: Stats, weights: Weights | nil): Array<Main> {
   return order.map(index => all[index] ?? panic("five main stats"))
 }
 
-// The defence group's gauges: dodge and parry, the defense skill (a skill's blue as the weapons' skills are), and last
-// block with a shield, so its chance stands over the damage it stops.
-public function defenceOf(stats: Stats): Array<Gauge> {
-  const gauges: Array<Gauge> = [
+// The defence section's cards, a row each in its narrow column: block with a shield, on top; the armor's cut of the
+// damage and what of an enemy's blows lands on the player, against the enemy the cards count.
+function defenceCardsOf(stats: Stats): Array<Array<Figure>> {
+  const rows: Array<Array<Figure>> = []
+  if (stats.shield) {
+    rows.push([{ label: Locale.BLOCK, value: percent(stats.block), glyph: glyph(ARMOR_GLYPH), color: Style.STAT, stat: .Block }])
+  }
+  rows.push([{ label: Locale.DAMAGE_REDUCTION, value: percent(statValue(.DamageReduction, stats)), glyph: glyph(ARMOR_GLYPH), color: Style.STAT, stat: .DamageReduction }])
+  rows.push([{ label: Locale.HIT_TAKEN, value: percent(statValue(.HitTaken, stats)), glyph: glyph(PERCENT_GLYPH), color: Style.STAT, stat: .HitTaken }])
+  return rows
+}
+
+// The defence section: its cards, then its gauges (the resistances' bar after them is the page's).
+public function defenceOf(stats: Stats): Section {
+  return { title: Locale.SECTION_DEFENSE, cards: defenceCardsOf(stats), gauges: defenceGauges(stats), rows: [], across: 1 }
+}
+
+// The defence section's gauges: the defense skill first (a skill's blue as the weapons' skills are), dodge and
+// parry, then the armor.
+function defenceGauges(stats: Stats): Array<Gauge> {
+  return [
+    { label: Locale.SECTION_DEFENSE, value: stats.defense, cap: DEFENSE_CAP, text: String.of(stats.defense), tone: Style.SKILL, stat: .Defense },
     rate(Locale.DODGE, stats.dodge, AVOIDANCE_CAP, .Dodge),
     rate(Locale.PARRY, stats.parry, AVOIDANCE_CAP, .Parry),
-    { label: Locale.SECTION_DEFENSE, value: stats.defense, cap: DEFENSE_CAP, text: String.of(stats.defense), tone: Style.SKILL, stat: .Defense }
+    { label: Locale.ARMOR, value: stats.armor, cap: ARMOR_CAP, text: String.of(stats.armor), tone: Style.ARMOR, stat: .Armor }
   ]
-  if (stats.block > 0) { gauges.push(rate(Locale.BLOCK, stats.block, AVOIDANCE_CAP, .Block)) }
-  return gauges
 }
 
 // Under a pool's bar: what it regains, out of a fight and in one, every five seconds (energy every second, in a fight
@@ -208,11 +222,6 @@ public function energyRegenRows(stats: Stats): Array<Row> {
   return [{ label: Locale.REGEN, value: String.of(stats.energyRegen.floor()), unit: Locale.PER_SECOND }]
 }
 
-// Under the defence gauges: the damage a block stops, with a shield.
-public function defenceRows(stats: Stats): Array<Row> {
-  return stats.block > 0 ? [{ label: Locale.BLOCK_VALUE, value: String.of(stats.blockValue), stat: .BlockValue }] : []
-}
-
 // The movement speeds, in percent of the game's base.
 public function speedsOf(stats: Stats): Array<Row> {
   return [
@@ -221,17 +230,18 @@ public function speedsOf(stats: Stats): Array<Row> {
   ]
 }
 
-// Armor and the five schools' resistances, each against what stops three quarters of a boss's damage.
+// The resistances the character has, each a share of their sum in its school's colour: fire, nature, frost, shadow,
+// arcane; none at 0.
 public function resistsOf(stats: Stats): Array<Resist> {
   const r = stats.resistances
-  return [
-    { value: stats.armor, cap: ARMOR_CAP, color: Style.ARMOR, glyph: glyph(ARMOR_GLYPH), stat: .Armor },
-    { value: r[2] ?? 0, cap: RESISTANCE_CAP, color: Style.FIRE, glyph: glyph(FIRE - 1), stat: .FireResistance },
-    { value: r[4] ?? 0, cap: RESISTANCE_CAP, color: Style.NATURE, glyph: glyph(NATURE - 1), stat: .NatureResistance },
-    { value: r[3] ?? 0, cap: RESISTANCE_CAP, color: Style.FROST, glyph: glyph(FROST - 1), stat: .FrostResistance },
-    { value: r[5] ?? 0, cap: RESISTANCE_CAP, color: Style.SHADOW, glyph: glyph(SHADOW - 1), stat: .ShadowResistance },
-    { value: r[1] ?? 0, cap: RESISTANCE_CAP, color: Style.ARCANE, glyph: glyph(ARCANE - 1), stat: .ArcaneResistance }
+  const all: Array<Resist> = [
+    { value: r[2] ?? 0, color: Style.FIRE, stat: .FireResistance },
+    { value: r[4] ?? 0, color: Style.NATURE, stat: .NatureResistance },
+    { value: r[3] ?? 0, color: Style.FROST, stat: .FrostResistance },
+    { value: r[5] ?? 0, color: Style.SHADOW, stat: .ShadowResistance },
+    { value: r[1] ?? 0, color: Style.ARCANE, stat: .ArcaneResistance }
   ]
+  return all.filter(resist => resist.value > 0)
 }
 
 // Under the main stats, shared by every section: haste (one rating in Forever) and armor penetration.
@@ -533,7 +543,7 @@ public class StatCard implements Component {
 }
 
 // A section: the cut over it with its title on it, then a padded group of its cards, its gauges set a little further
-// off, its lines.
+// off (with what the section is given after them: the defence's resistances), its lines.
 public class SectionView implements Component {
   public tipped: Event<Stat | nil> = new Event()
 
@@ -556,13 +566,14 @@ public class SectionView implements Component {
         <Groove title={self.section.title} />
         <box gap={2sp} padding={Style.SECTION_PAD}>
           <box $if={self.carded} gap={2.5sp} padding={Style.CARDS_PAD}>
-            <box $for={line of self.section.cards} columns={line.length.max(2)} gap={2.5sp}>
+            <box $for={line of self.section.cards} columns={line.length.max(self.section.across)} gap={2.5sp}>
               <StatCard $for={card of line} figure={card} shown={self.shown} boosts={self.boosts} @tipped={self.onTipped} />
             </box>
           </box>
           <box gap={1.5sp}>
             <StatGauge $for={g of self.section.gauges} gauge={g} shown={self.shown} boosts={self.boosts}
                        @tipped={self.onTipped} />
+            <slot />
           </box>
           <box gap={0.5sp}>
             <StatRow $for={row of self.section.rows} row={row} shown={self.shown} boosts={self.boosts}
@@ -607,37 +618,50 @@ public class MainStat implements Component {
   }
 }
 
-// A resistance's row, as a gauge's: its picture where a gauge's name stands, the gauge's well, the value at the right.
-public class ResistRow implements Component {
+// A slice's track: its resistance's share of their sum.
+function resistTrack(resist: Resist): Track { return { fr: resist.value } }
+
+// The resistances' bar, as a gauge's row: «Resistance» where a gauge's name stands, then a well split among the
+// resistances the character has, each a slice in its school's colour as wide as its share of their sum, its value in
+// it, its own tooltip under the cursor.
+public class ResistBar implements Component {
   public tipped: Event<Stat | nil> = new Event()
 
-  derived share: Number = (self.resist.value / self.resist.cap).min(1)
-  derived ink: Color = inkOf(self.resist.stat, self.boosts, self.resist.value == 0 ? Style.DIM : BRIGHT_TEXT)
-  derived title: String = statName(self.resist.stat)
+  derived tracks: Array<Track> = self.resists.map(resistTrack)
 
-  resist: Signal<Resist>
+  resists: Signal<Array<Resist>>
   shown: Signal<Breakdown>
-  boosts: Signal<Map<String, Boost>>
-  constructor(resist: Signal<Resist>, shown: Signal<Breakdown> = NO_BREAKDOWN, boosts: Signal<Map<String, Boost>> = NO_BOOSTS) {
-    self.resist = resist
+  constructor(resists: Signal<Array<Resist>>, shown: Signal<Breakdown> = NO_BREAKDOWN) {
+    self.resists = resists
     self.shown = shown
-    self.boosts = boosts
   }
 
   onTipped(self, stat: Stat | nil) { self.tipped.emit(stat) }
 
   public render(self): Template {
     return $ltml {
-      <StatSpot stat={self.resist.stat} title={self.title} shown={self.shown} @tipped={self.onTipped}>
-        <box columns={[Style.RESIST_ICON, { fr: 1 }, Style.GAUGE_VALUE]} gap={2.5sp} yAlign={Align.Center}>
-          <box width={Style.RESIST_ICON} height={Style.RESIST_ICON} background={self.resist.glyph} tint={self.resist.color} />
-          <GaugeBar value={self.share} tone={self.resist.color} height={Style.CHANNEL} />
-          <text value={String.of(self.resist.value)} textFont={TextFont.Numbers} textColor={self.ink}
-                textAlign={TextAlign.End} wrap={.None} />
+      <box columns={[Style.GAUGE_LABEL, { fr: 1 }, Style.GAUGE_VALUE]} gap={2.5sp} yAlign={Align.Center}>
+        <text value={Locale.RESISTANCE} textColor={BRIGHT_TEXT} wrap={.None} />
+        <box height={Style.CHANNEL}>
+          <CarvedFloor />
+          <box position={Position.Absolute} left={WELL_INSET} top={WELL_INSET} right={WELL_INSET} bottom={WELL_INSET}
+               columns={self.tracks} rows={[{ fr: 1 }]}>
+            <StatSpot $for={index, resist of self.resists} stat={resist.stat} title={statName(resist.stat)} shown={self.shown}
+                      @tipped={self.onTipped}>
+              <WellSlice color={resist.color} text={String.of(resist.value)} corners={sliceCorners(index, self.resists.length)} />
+            </StatSpot>
+          </box>
+          <CarveShade />
         </box>
-      </StatSpot>
+        <box />
+      </box>
     }
   }
+}
+
+// A slice's rounded corners: the well's left ones on the first, its right ones on the last.
+function sliceCorners(index: Integer, count: Integer): Corners {
+  return { topLeft: index == 1, bottomLeft: index == 1, topRight: index == count, bottomRight: index == count }
 }
 
 // A pool's colour laid deeper, so the bar sits on the wood and the white text over it reads.

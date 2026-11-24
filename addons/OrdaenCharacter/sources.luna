@@ -62,6 +62,8 @@ function specOf(stat: Stat): Spec {
     .MeleeLands => { name: Locale.LANDS, percent: true, of: s => landsOf(.Melee, s) }
     .RangedLands => { name: Locale.LANDS, percent: true, of: s => landsOf(.Ranged, s) }
     .SpellLands => { name: Locale.LANDS, percent: true, of: s => landsOf(.Spell, s) }
+    .DamageReduction => { name: Locale.DAMAGE_REDUCTION, percent: true, of: s => s.atMaxLevel ? s.bossArmorReduction : s.armorReduction }
+    .HitTaken => { name: Locale.HIT_TAKEN, percent: true, of: s => hitTakenOf(s) }
   }
 }
 
@@ -551,9 +553,8 @@ function gradeOf(outcome: Outcome): Color | nil {
   return toneOf(outcome.share, whole)
 }
 
-// One target's section of what a strike comes to: a line a part, its name in the bar's colour, then the bar.
-function outcomeSection(title: String, strike: Strike, stats: Stats, boss: Boolean): TipSection {
-  const outcomes = outcomesOf(strike, stats, boss)
+// One target's section of what blows come to: a line a part, its name in the bar's colour, then the bar.
+function outcomeSection(title: String, outcomes: Array<Outcome>): TipSection {
   const rows = outcomes.map(o => TipRow {
     label: o.label,
     value: amountText(o.share, true),
@@ -563,15 +564,73 @@ function outcomeSection(title: String, strike: Strike, stats: Stats, boss: Boole
   return { title: title, rows: rows, shares: outcomes.map(o => TipSlice { share: o.share, color: o.color }) }
 }
 
+// A tooltip's two targets, the one its card counts first (a raid's boss at the game's greatest level, else a target of
+// the player's level): each target's section by `sectionOf`.
+function bothTargets(stats: Stats, sectionOf: (title: String, boss: Boolean) => TipSection): Array<TipSection> {
+  const boss = stats.atMaxLevel
+  return [
+    sectionOf(boss ? Locale.HIT_CAP_BOSS : Locale.HIT_CAP_LEVEL, boss),
+    sectionOf(boss ? Locale.HIT_CAP_LEVEL : Locale.HIT_CAP_BOSS, !boss)
+  ]
+}
+
 // What lands's tooltip: what the card counts, then what a strike comes to against each target, the card's first.
 function landsBreakdown(strike: Strike, stats: Stats): Breakdown {
   const text = strike == .Melee ? Locale.LANDS_TIP : strike == .Ranged ? Locale.LANDS_RANGED_TIP : Locale.LANDS_SPELL_TIP
-  const boss = stats.atMaxLevel
-  const first = boss ? Locale.HIT_CAP_BOSS : Locale.HIT_CAP_LEVEL
-  const second = boss ? Locale.HIT_CAP_LEVEL : Locale.HIT_CAP_BOSS
-  const sections: Array<TipSection> = [outcomeSection(first, strike, stats, boss), outcomeSection(second, strike, stats, !boss)]
+  const sections = bothTargets(stats, (title: String, boss: Boolean): TipSection => outcomeSection(title, outcomesOf(strike, stats, boss)))
   const fed: Array<Stat> = strike == .Melee ? [.MeleeHit, .Expertise] : strike == .Ranged ? [.RangedHit] : [.SpellHit]
   return { text: text, sections: sections, fed: fed, shares: {} }
+}
+
+// What an enemy's blows from the front come to on the player, part by part in the order the roll takes them, each in
+// what the parts before it leave (the game's paper doll, `GetEnemyChanceToMiss` and its kin): a miss from 5%, 0.04% more
+// a point of the player's defense past the enemy's weapon skill; the player's dodge, parry and block (a shield's), 0.04%
+// less a point of the enemy's skill past the level's; a crit from 5%, as the miss the other way; a crushing blow from
+// an enemy 15 points past the defense (at most the level's), 2% a point less 15; ordinary hits the rest. The enemy: a
+// raid boss (its level 63's skill, 315), or one of the player's level.
+function takenOf(stats: Stats, boss: Boolean): Array<Outcome> {
+  const past = boss ? stats.bossDefensePast : 0
+  const edge = (stats.defensePast - past) * SKILL_STEP
+  const lose = past * SKILL_STEP
+  const gap = past + (-stats.defensePast).max(0)
+  const parts: Array<Outcome> = []
+  const add = (label: String, chance: Number, color: Color) => {
+    parts.push({ label: label, share: chance.max(0).min(roomOf(parts)), color: color })
+  }
+  add(Locale.MISS, BASE_ENEMY_MISS + edge, Style.GREEN)
+  add(Locale.DODGE, stats.dodge - lose, Style.EVADED)
+  add(Locale.PARRY, stats.parry - lose, Style.EVADED)
+  if (stats.shield) { add(Locale.BLOCK, stats.block - lose, Style.YELLOW) }
+  add(Locale.CRIT, BASE_ENEMY_CRIT - edge, Style.RED)
+  add(Locale.CRUSHING, gap >= CRUSHING_GAP ? gap * 2 - CRUSHING_GAP : 0, Style.CRUSHED)
+  add(Locale.ORDINARY, 100, Style.TAKEN)
+  return parts
+}
+const BASE_ENEMY_MISS = 5
+const BASE_ENEMY_CRIT = 5
+const CRUSHING_GAP = 15
+
+// What of an enemy's blows lands on the player, from the front, against the enemy the card counts: neither a miss, a
+// dodge nor a parry.
+function hitTakenOf(stats: Stats): Number {
+  const parts = takenOf(stats, stats.atMaxLevel)
+  let avoided: Number = 0
+  for (index of 1..3) { avoided = avoided + (parts[index]?.share ?? 0) }
+  return 100 - avoided
+}
+
+function takenBreakdown(stats: Stats): Breakdown {
+  const sections = bothTargets(stats, (title: String, boss: Boolean): TipSection => outcomeSection(title, takenOf(stats, boss)))
+  return { text: Locale.HIT_TAKEN_TIP, sections: sections, fed: [.Defense, .Dodge, .Parry, .Block], shares: {} }
+}
+
+// The armor's cut of a raid boss's physical damage and of a target of the player's level's, the card's first.
+function reductionBreakdown(stats: Stats): Breakdown {
+  const sections = bothTargets(stats, (title: String, boss: Boolean): TipSection => TipSection {
+    title: title,
+    rows: [{ label: Locale.DAMAGE_REDUCTION, value: amountText(boss ? stats.bossArmorReduction : stats.armorReduction, true) }]
+  })
+  return { text: Locale.DAMAGE_REDUCTION_TIP, sections: sections, fed: [.Armor], shares: {} }
 }
 
 // What a stat's tooltip lists, and what lights with it.
@@ -579,6 +638,8 @@ public function breakdownOf(stat: Stat, text: String, facts: Facts): Breakdown {
   if (stat == .MeleeDps || stat == .RangedDps) { return damageBreakdown(stat == .RangedDps, facts.stats) }
   const strike = strikeOf(stat)
   if (strike != nil) { return landsBreakdown(strike, facts.stats) }
+  if (stat == .HitTaken) { return takenBreakdown(facts.stats) }
+  if (stat == .DamageReduction) { return reductionBreakdown(facts.stats) }
   const spec = specOf(stat)
   const parts = partsOf(stat, facts)
   const fromStats = parts.fromStats.map(part => part)
