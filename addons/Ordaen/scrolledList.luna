@@ -2,8 +2,9 @@
 // darker than the wood, and inside the rim the rows, which scroll and are cut at the rim's inner edge; or, on the
 // wood (`Ground.Wood`), with no rim and no floor. Its one padding is the scrolling box's, so it scrolls with the rows:
 // a row scrolled out is cut at the rim, never at the padding. A part that stays while the rows scroll (a table's
-// headings) is its slot `head`, over the rows inside the rim, at the rows' sides. Every list that scrolls is one; no
-// module draws its own.
+// headings) is its slot `head`, over the rows inside the rim, at the rows' sides. A list given `tracks` is a grid of
+// them, its head and its rows subgrids of it: a table's columns, which its headings and its rows' cells stand in. Every
+// list that scrolls is one; no module draws its own.
 import { Align, Columns, Edges, Gaps, Line, Overflow, Size, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import { Component } from "@/module"
@@ -18,6 +19,7 @@ const INSIDE = 3sp
 const NONE = 0sp
 // The head as high as it is, the rows the rest.
 const PARTS: Array<Track> = ["max-content", { fr: 1 }]
+const SUBGRID: Columns = "subgrid"
 
 public class ScrolledList implements Component {
   derived sunk: Boolean = self.ground == Ground.Well
@@ -25,9 +27,19 @@ public class ScrolledList implements Component {
   derived rim: Line | nil = self.sunk ? Ordaen.art.ctl.well.rim : nil
   derived floor = self.sunk ? Ordaen.art.ctl.well.floor : nil
   derived inside: Number<Spacing> = self.rowsPadded || !self.sunk ? NONE : INSIDE
-  // The head keeps the rows' sides: what stands in it stands over what stands in the rows.
-  derived headSides: Edges = { left: self.inside, right: self.inside }
+  // At the sides, the room it is given where it is.
+  derived across: Number<Spacing> = self.sides ?? self.inside
+  // A table's head and rows stand in its tracks (`parts`), which keep the room at its sides: they reach over it, their
+  // cells in the tracks. A list's head and rows keep the room themselves, the head the rows' sides.
+  derived tabled: Boolean = self.tracks != nil
+  derived parts: Columns | nil = self.tabled ? SUBGRID : nil
+  derived tableSides: Edges | nil = self.tabled ? { left: self.across, right: self.across } : nil
+  derived headSides: Edges | nil = self.tabled ? nil : { left: self.across, right: self.across }
+  derived room: Edges = {
+    top: self.inside, right: self.tabled ? NONE : self.across, bottom: self.inside, left: self.tabled ? NONE : self.across
+  }
 
+  tracks: Signal<Array<Track> | nil>
   columns: Signal<Columns | nil>
   rows: Signal<Array<Track> | nil>
   gap: Signal<Number<Spacing> | Gaps | nil>
@@ -37,7 +49,10 @@ public class ScrolledList implements Component {
   const virtual: Boolean
   const rowsPadded: Boolean
   ground: Signal<Ground>
+  sides: Signal<Number<Spacing> | nil>
   constructor(
+    // The columns of a table: its head and its rows are subgrids of them, its `columns` none of its own.
+    tracks: Signal<Array<Track> | nil> = nil,
     // Its rows' grid: one column where none is said.
     columns: Signal<Columns | nil> = nil,
     rows: Signal<Array<Track> | nil> = nil,
@@ -52,9 +67,14 @@ public class ScrolledList implements Component {
     // Its rows bring their own padding (and their shade, their rules): they stand edge to edge inside the rim.
     rowsPadded: Boolean = false,
     // A well, or the wood.
-    ground: Signal<Ground> = Ground.Well
+    ground: Signal<Ground> = Ground.Well,
+    // The room at its sides, over what its ground and its rows give: a table's on the wood, the window's room less its
+    // cells' own.
+    sides: Signal<Number<Spacing> | nil> = nil
   ) {
+    self.sides = sides
     self.ground = ground
+    self.tracks = tracks
     self.columns = columns
     self.rows = rows
     self.gap = gap
@@ -67,14 +87,14 @@ public class ScrolledList implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box rows={PARTS} width={self.width} height={self.height} border={self.rim} background={self.floor}>
-        <box padding={self.headSides}>
+      <box columns={self.tracks} rows={PARTS} padding={self.tableSides} width={self.width} height={self.height} border={self.rim} background={self.floor}>
+        <box columns={self.parts} padding={self.headSides}>
           <slot #head />
         </box>
-        <virtualList $if={self.virtual} padding={self.inside}>
+        <virtualList $if={self.virtual} columns={self.parts} padding={self.room}>
           <slot />
         </virtualList>
-        <box $else columns={self.columns} rows={self.rows} gap={self.gap} yAlign={self.yAlign} padding={self.inside}
+        <box $else columns={self.parts ?? self.columns} rows={self.rows} gap={self.gap} yAlign={self.yAlign} padding={self.room}
              overflow={Overflow.Scroll}>
           <slot />
         </box>

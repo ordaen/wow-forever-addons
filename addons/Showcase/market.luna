@@ -1,8 +1,8 @@
 // The market's controls on a page, for the run tests: a scan's progress, a price with its age, a mode, a tree, item
 // slots and a sortable table of sales.
-import { Align, Event, MouseButton, Track } from "$ltml"
+import { Align, Event, MouseButton } from "$ltml"
 import root Ordaen from "Ordaen"
-import { Age, Choice, Column, Component, Corner, ItemButton, Marker, Menu, MenuEntry, Money, MoneyInput, ProgressBar, Quality, Section, Segmented, SettingRow, Table, TableRow, ToolPick, Toolbar, TreeRow, tracksOf } from "Ordaen"
+import { Age, Choice, Column, Component, Corner, ItemButton, Marker, Menu, MenuEntry, Money, MoneyInput, ProgressBar, Quality, Section, Segmented, SettingRow, Table, TableCell, TableRow, ToolPick, Toolbar, TreeRow } from "Ordaen"
 
 public enum Worth { Auction = "auction", Merchant = "merchant", Held = "held" }
 
@@ -33,7 +33,6 @@ const COLUMNS: Array<Column> = [
   { title: "Each", width: 120ui, align: Align.End, sortable: true },
   { title: "Age", width: 60ui, align: Align.End, sortable: true }
 ]
-const TRACKS: Array<Track> = tracksOf(COLUMNS)
 
 public class Market implements Component {
   state scanned: Number = 0.4
@@ -139,14 +138,14 @@ public class Market implements Component {
             <text value={self.clicked} />
           </SettingRow>
           <Table columns={COLUMNS} sorted={mut self.sorted} descending={mut self.descending}>
-            <TableRow $for={sale of self.ordered} $key={sale} tracks={TRACKS} @pick={self.onSale}>
-              <text value={sale.name} />
-              <box xAlign={Align.End}>
+            <TableRow $for={sale of self.ordered} $key={sale} @pick={self.onSale}>
+              <TableCell> <text value={sale.name} /> </TableCell>
+              <TableCell align={Align.End}>
                 <Money amount={sale.price} />
-              </box>
-              <box xAlign={Align.End}>
+              </TableCell>
+              <TableCell align={Align.End}>
                 <Age seconds={sale.seen} />
-              </box>
+              </TableCell>
             </TableRow>
           </Table>
         </Section>

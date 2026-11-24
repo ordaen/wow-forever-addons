@@ -7,7 +7,7 @@
 // removed, and «Remove bought» clears every row at 0.
 import Game from "$game"
 import { Align, Frame, Track } from "$ltml"
-import { Age, ButtonPlate, Column, Component, FooterCount, ItemButton, ItemId, ListFooter, ModuleMemory, Money, PushButton, SECONDARY_TEXT, Table, TableRow, tracksOf } from "Ordaen"
+import { Age, ButtonPlate, Column, Component, FooterCount, ItemButton, ItemId, ListFooter, ModuleMemory, Money, PushButton, SECONDARY_TEXT, Table, TableCell, TableRow } from "Ordaen"
 import { ageOf } from "@/buy"
 import { nameOf } from "@/house"
 import Locale from "@/locales"
@@ -24,9 +24,8 @@ const COLUMNS: Array<Column> = [
   { title: Locale.COLUMN_TO_BUY, width: 131.25dp, align: Align.End },
   { title: Locale.COLUMN_PRICE, width: 117.1875dp, align: Align.End },
   { title: Locale.COLUMN_TOTAL, width: 105.46875dp, align: Align.End },
-  { title: "", width: 112.5dp, align: Align.End }
+  { title: "", width: 126.5625dp, align: Align.End }
 ]
-const TRACKS: Array<Track> = tracksOf(COLUMNS)
 const ITEM: Array<Track> = ["max-content", { fr: 1 }]
 const LINES: Array<Track> = ["max-content", "max-content"]
 const PRICE: Array<Track> = ["max-content", "max-content"]
@@ -123,34 +122,38 @@ class ShoppingRow implements Component {
 
   public render(self): Template {
     return $ltml {
-      <TableRow tracks={TRACKS} selected={self.selected} @pick={self.onPick} @enter={self.onRowEnter}>
-        <box columns={ITEM} gap={2.5sp} yAlign={Align.Center}>
-          <ItemButton item={self.row.item} size={Style.SLOT} dimmed={self.bought} tipped={false} />
-          // Its name and what asked for it, cut at the column: a long list of what asked would push the row.
-          <box rows={["max-content", "max-content"]}>
-            <text value={self.name} textColor={self.color} wrap={.Cut} />
-            <text value={self.from} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={.Cut} />
+      <TableRow selected={self.selected} @pick={self.onPick} @enter={self.onRowEnter}>
+        <TableCell>
+          <box columns={ITEM} gap={2.5sp} yAlign={Align.Center}>
+            <ItemButton item={self.row.item} size={Style.SLOT} dimmed={self.bought} tipped={false} />
+            // Its name and what asked for it, cut at the column: a long list of what asked would push the row.
+            <box rows={["max-content", "max-content"]}>
+              <text value={self.name} textColor={self.color} wrap={.Cut} />
+              <text value={self.from} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={.Cut} />
+            </box>
           </box>
-        </box>
-        <box rows={LINES} xAlign={Align.End}>
-          <text value={"%d"} arguments={[self.row.toBuy]} textColor={self.ink} />
-          <text value={Locale.HELD_OF} arguments={[self.row.held, self.row.needed]} textColor={Style.DIM}
-                textSize={SECONDARY_TEXT} wrap={.None} />
-        </box>
-        <box xAlign={Align.End}>
+        </TableCell>
+        <TableCell align={Align.End}>
+          <box rows={LINES} xAlign={Align.End}>
+            <text value={"%d"} arguments={[self.row.toBuy]} textColor={self.ink} />
+            <text value={Locale.HELD_OF} arguments={[self.row.held, self.row.needed]} textColor={Style.DIM}
+                  textSize={SECONDARY_TEXT} wrap={.None} />
+          </box>
+        </TableCell>
+        <TableCell align={Align.End}>
           <box $if={self.priced} rows={LINES} xAlign={Align.End}>
             <Money amount={self.unit} />
             <Age seconds={self.age} />
           </box>
           <text $else value={"—"} textColor={Style.DIM} />
-        </box>
-        <box xAlign={Align.End}>
+        </TableCell>
+        <TableCell align={Align.End}>
           <Money $if={self.priced} amount={self.sum} />
           <text $else value={"—"} textColor={Style.DIM} />
-        </box>
-        <box xAlign={Align.End}>
+        </TableCell>
+        <TableCell align={Align.End}>
           <PushButton label={self.buyLabel} width={112.5dp} disabled={!self.canBuy} @click={self.onBuy} />
-        </box>
+        </TableCell>
       </TableRow>
     }
   }

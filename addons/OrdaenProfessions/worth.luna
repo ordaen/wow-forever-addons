@@ -5,7 +5,7 @@
 import Client from "$client"
 import Game from "$game"
 import { Align, Edges, MouseButton, Track } from "$ltml"
-import { BRIGHT_TEXT, Choice, Column, Component, FooterBand, Hour, ItemId, Money, PushButton, SECONDARY_TEXT, Segmented, Table, TableRow, WINDOW_ROOM, tracksOf } from "Ordaen"
+import { BRIGHT_TEXT, Choice, Column, Component, FooterBand, Hour, ItemId, Money, PushButton, SECONDARY_TEXT, Segmented, Table, TableCell, TableRow, WINDOW_ROOM } from "Ordaen"
 import root Alts from "OrdaenAlts"
 import root Trading from "OrdaenTrading"
 import type { PriceKey, PriceSource } from "OrdaenTrading"
@@ -33,7 +33,6 @@ const COLUMNS: Array<Column> = [
   { title: Locale.WORTH_AGE, width: 70.3125dp, align: Align.End, sortable: true },
   { title: Locale.WORTH_CAN, width: 105.46875dp, align: Align.End, sortable: true }
 ]
-const TRACKS: Array<Track> = tracksOf(COLUMNS)
 const PAGE: Array<Track> = ["max-content", { fr: 1 }, "max-content"]
 // The mode and the notes over the table keep the window's room; the table runs to the page's edges.
 const HEAD_PAD: Edges = { top: 4sp, right: WINDOW_ROOM, bottom: 3sp, left: WINDOW_ROOM }
@@ -140,34 +139,36 @@ public class WorthLine implements Component {
 
   public render(self): Template {
     return $ltml {
-      <TableRow tracks={TRACKS} selected={self.picked} @pick={self.onPick}>
-        <text value={self.worth.name} textColor={BRIGHT_TEXT} wrap={.None} />
+      <TableRow selected={self.picked} @pick={self.onPick}>
+        <TableCell> <text value={self.worth.name} textColor={BRIGHT_TEXT} wrap={.None} /> </TableCell>
         // Who knows it over its profession: a full name («Regy Ironsight») wraps rather than being cut.
-        <box>
-          <text value={self.worth.who} textColor={Style.INK} />
-          <text value={self.worth.profession} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
-        </box>
-        <box xAlign={Align.End}>
+        <TableCell>
+          <box>
+            <text value={self.worth.who} textColor={Style.INK} />
+            <text value={self.worth.profession} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
+          </box>
+        </TableCell>
+        <TableCell align={Align.End}>
           <Money $if={self.hasCost} amount={self.cost} />
           <text $else value={NONE} textColor={Style.DIM} />
-        </box>
-        <box xAlign={Align.End}>
+        </TableCell>
+        <TableCell align={Align.End}>
           <Money $if={self.hasSale} amount={self.sale} />
           <text $else value={NONE} textColor={Style.DIM} />
-        </box>
-        <box xAlign={Align.End}>
+        </TableCell>
+        <TableCell align={Align.End}>
           <Money $if={self.hasProfit} amount={self.profit} color={self.profitColor} />
           <text $else value={NONE} textColor={Style.DIM} />
-        </box>
-        <box xAlign={Align.End}>
+        </TableCell>
+        <TableCell align={Align.End}>
           <text value={self.percent} textColor={BRIGHT_TEXT} textFont={.Numbers} />
-        </box>
-        <box xAlign={Align.End}>
+        </TableCell>
+        <TableCell align={Align.End}>
           <text value={self.age} textColor={Style.DIM} textFont={.Numbers} />
-        </box>
-        <box xAlign={Align.End}>
+        </TableCell>
+        <TableCell align={Align.End}>
           <text value={self.can} textColor={BRIGHT_TEXT} textFont={.Numbers} />
-        </box>
+        </TableCell>
       </TableRow>
     }
   }

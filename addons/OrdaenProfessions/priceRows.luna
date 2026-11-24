@@ -5,23 +5,24 @@
 // (red under nought), and how old the oldest price taken is, in its age's colour; «—» where a part has no price.
 import Game from "$game"
 import { Align, Art, Edges, Frame, Line, Side, Track } from "$ltml"
-import { BRIGHT_TEXT, Component, Ground, ItemButton, Money, SECONDARY_TEXT, TableRow, Tip, ageText } from "Ordaen"
+import { BRIGHT_TEXT, Component, Ground, ItemButton, Money, SECONDARY_TEXT, TableCell, TableRow, Tip, ageText } from "Ordaen"
 import { PartPrice, Totals, Way } from "@/cost"
 import Locale from "@/locales"
 import { SourceTotals, roughCost, roughProfit } from "@/split"
 import Style from "@/style"
 
 const SLOT = 37.5dp
-// The headings, each reagent's row and the totals stand in the same columns: the icon, the name, have / need, the
-// price at the house and at a merchant. Each reagent is a row of its own (its shade under the cursor, its item's
-// tooltip beside the whole row), so the columns are of set widths, not each as wide as its widest cell.
-const MONEY = 117.1875dp
+// The headings, each reagent's row and the totals are rows of one grid, in its columns: the icon, the name,
+// have / need, the price at the house and at a merchant. Each reagent is a row of its own (its shade under the
+// cursor, its item's tooltip beside the whole row), so the columns are of set widths, not each as wide as its widest
+// cell.
+const MONEY = 119.53125dp
 // The names never narrower than the totals' labels («Cost», «Price», «Profit»), which stand under them.
 const PRICED: Array<Track> = [SLOT, { fr: 1, min: 70.3125dp }, 58.59375dp, MONEY, MONEY]
-// As the library's table rows lay their cells out: their gap, and their room at the sides.
-const GAP = 3sp
-const SIDES: Edges = { left: 3sp, right: 3sp }
-const LINE_ROOM: Edges = { top: 1sp, right: 3sp, bottom: 1sp, left: 3sp }
+// The icon fills its column, with a cell's room over and under it.
+const ICON_ROOM: Edges = { top: 1.5sp, bottom: 1.5sp }
+// A total's line: less room over and under than a reagent's.
+const LINE_ROOM: Edges = { top: 1sp, right: 1.5sp, bottom: 1sp, left: 1.5sp }
 const NONE = "—"
 // The cheaper way, on a green ground.
 const TOTALS_RULE: Line = { width: 1.171875dp, color: Style.LINE, sides: [Side.Top] }
@@ -62,21 +63,21 @@ public class PricedReagentRow implements Component {
 
   public render(self): Template {
     return $ltml {
-      <TableRow tracks={PRICED} ground={Ground.Wood} @enter={self.onEnter}>
-        <ItemButton item={self.item} art={self.icon} size={SLOT} tipped={false} />
-        <text value={self.price.name} textColor={Style.INK} wrap={.Cut} />
-        <box xAlign={Align.End}>
+      <TableRow ground={Ground.Wood} @enter={self.onEnter}>
+        <TableCell padding={ICON_ROOM}> <ItemButton item={self.item} art={self.icon} size={SLOT} tipped={false} /> </TableCell>
+        <TableCell> <text value={self.price.name} textColor={Style.INK} wrap={.Cut} /> </TableCell>
+        <TableCell align={Align.End}>
           <text value={"%d / %d"} arguments={[self.price.have, self.price.need]} wrap={.None} textColor={self.color}
                 textFont={.Numbers} />
-        </box>
-        <box background={self.auctionBack} xAlign={Align.End}>
+        </TableCell>
+        <TableCell align={Align.End} background={self.auctionBack}>
           <Money $if={self.hasAuction} amount={self.auction} />
           <text $else value={NONE} textColor={Style.DIM} />
-        </box>
-        <box background={self.vendorBack} xAlign={Align.End}>
+        </TableCell>
+        <TableCell align={Align.End} background={self.vendorBack}>
           <Money $if={self.hasVendor} amount={self.vendor} />
           <text $else value={NONE} textColor={Style.DIM} />
-        </box>
+        </TableCell>
       </TableRow>
     }
   }
@@ -106,7 +107,7 @@ class TotalCell implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box yAlign={Align.Center} xAlign={Align.End}>
+      <TableCell align={Align.End} padding={LINE_ROOM}>
         // The amount alone hears the mouse: its tip under the cursor.
         <box $if={self.has} columns={{ each: "max-content" }} gap={0.5sp} @pointerEnter={self.onEnter}
              @pointerLeave={self.onLeave}>
@@ -116,7 +117,7 @@ class TotalCell implements Component {
           <Tip $if={self.tipped} title={""} text={self.tip} />
         </box>
         <text $else value={NONE} textColor={Style.DIM} />
-      </box>
+      </TableCell>
     }
   }
 }
@@ -147,10 +148,10 @@ class TotalRow implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={PRICED} gap={GAP} padding={LINE_ROOM} border={self.rule} yAlign={Align.Center}>
-        <box />
-        <text value={self.label} textColor={Style.DIM} wrap={.None} />
-        <box />
+      <box columns={"subgrid"} border={self.rule} yAlign={Align.Center}>
+        <TableCell padding={LINE_ROOM} />
+        <TableCell padding={LINE_ROOM}> <text value={self.label} textColor={Style.DIM} wrap={.None} /> </TableCell>
+        <TableCell padding={LINE_ROOM} />
         <TotalCell amount={self.auction} rough={self.auctionRough} tip={self.auctionTip} />
         <TotalCell amount={self.merchant} rough={self.merchantRough} tip={self.merchantTip} />
       </box>
@@ -204,17 +205,15 @@ public class PriceTable implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={1}>
-        <box columns={PRICED} gap={GAP} padding={SIDES}>
-          <box />
-          <box />
-          <box />
-          <box xAlign={Align.End}>
+      <box columns={PRICED}>
+        <box columns={"subgrid"}>
+          <TableCell span={3} />
+          <TableCell align={Align.End}>
             <text value={Locale.PRICE_AUCTION} textSize={SECONDARY_TEXT} textColor={Style.DIM} wrap={.None} />
-          </box>
-          <box xAlign={Align.End}>
+          </TableCell>
+          <TableCell align={Align.End}>
             <text value={Locale.PRICE_VENDOR} textSize={SECONDARY_TEXT} textColor={Style.DIM} wrap={.None} />
-          </box>
+          </TableCell>
         </box>
         <PricedReagentRow $for={part of self.parts} price={part} />
         <TotalRow label={Locale.TOTAL_COST} auction={self.auction.cost} merchant={self.merchant.cost}

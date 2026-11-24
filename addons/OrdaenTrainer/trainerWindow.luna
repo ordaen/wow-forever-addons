@@ -15,7 +15,7 @@ import Game from "$game"
 import { Align, Columns, Edges, Event, Frame, Line, MouseButton, Overflow, Position, Side, TextFont, Track } from "$ltml"
 import {
   ARTWORK, BandCell, BandFact, ButtonPlate, Choice, Column, Component, Dialog, FilterButton, FilterGroup, FoldCaption, FooterCount, KeptWindow,
-  ListFooter, Menu, MenuEntry, ModuleMemory, Money, PushButton, SECONDARY_TEXT, SkillBar, TITLE_TEXT, Table, TableRow,
+  ListFooter, Menu, MenuEntry, ModuleMemory, Money, PushButton, SECONDARY_TEXT, SkillBar, TITLE_TEXT, Table, TableCell, TableRow,
   Tip, TipRow, TipText, ToolPick, ToolSort, Toolbar, WINDOW_ROOM, Window, WindowSide, WindowTabSpec, bandOf, richDescription,
   sortChoices, switched
 } from "Ordaen"
@@ -346,21 +346,23 @@ class ServiceTableRow implements Component {
 
   public render(self): Template {
     return $ltml {
-      <TableRow tracks={TRACKS} selected={self.selected} @pick={self.onPick} @double={self.onDouble} @enter={self.onEnter}>
-        <box columns={NAMED} gap={3sp} yAlign={Align.Center}>
-          <box width={ICON} height={ICON} icon={self.service.icon} tint={self.tint} />
-          <text value={self.service.name} textColor={self.ink} wrap={.Cut} />
-        </box>
-        <box xAlign={Align.End}>
+      <TableRow selected={self.selected} @pick={self.onPick} @double={self.onDouble} @enter={self.onEnter}>
+        <TableCell>
+          <box columns={NAMED} gap={3sp} yAlign={Align.Center}>
+            <box width={ICON} height={ICON} icon={self.service.icon} tint={self.tint} />
+            <text value={self.service.name} textColor={self.ink} wrap={.Cut} />
+          </box>
+        </TableCell>
+        <TableCell align={Align.End}>
           <text value={self.second} textColor={self.secondInk} textFont={TextFont.Numbers} wrap={.None} />
-        </box>
-        <box xAlign={Align.End}>
+        </TableCell>
+        <TableCell align={Align.End}>
           <text value={self.third} textColor={self.thirdInk} textFont={TextFont.Numbers} wrap={.None} />
-        </box>
-        <box xAlign={Align.End}>
+        </TableCell>
+        <TableCell align={Align.End}>
           <Money $if={self.priced} amount={self.service.cost} color={self.costInk} />
           <text $else value={self.noPrice} textColor={DIM} wrap={.None} />
-        </box>
+        </TableCell>
         <IgnoredPlate $if={self.ignored} />
         <Menu $if={self.menuShown} entries={self.rows.entries} title={self.service.name} @pick={self.onChose}
               @close={self.onClosed} />

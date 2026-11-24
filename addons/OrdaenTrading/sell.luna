@@ -5,7 +5,7 @@
 // a click (the client's from a click alone). «My auctions» opens their window.
 import Game from "$game"
 import { Align, Frame, Track } from "$ltml"
-import { ButtonPlate, Choice, Column, Component, Copper, CountInput, ItemButton, ItemId, ModuleMemory, Money, MoneyField, PushButton, SECONDARY_TEXT, Segmented, Table, TableRow, tracksOf } from "Ordaen"
+import { ButtonPlate, Choice, Column, Component, Copper, CountInput, ItemButton, ItemId, ModuleMemory, Money, MoneyField, PushButton, SECONDARY_TEXT, Segmented, Table, TableCell, TableRow } from "Ordaen"
 import { PriceHistory } from "@/history"
 import { House, nameOf } from "@/house"
 import { ItemPanel } from "@/itemPanel"
@@ -37,7 +37,6 @@ const COLUMNS: Array<Column> = [
   { title: Locale.COLUMN_VENDOR, width: 112.5dp, align: Align.End, sortable: true },
   { title: Locale.COLUMN_BETTER, width: 105.46875dp }
 ]
-const TRACKS: Array<Track> = tracksOf(COLUMNS)
 // The bags' side, and the picked item's panel at the right, the page's whole height.
 const PAGE: Array<Track> = [{ fr: 1 }, Style.PANEL]
 const FILL: Array<Track> = [{ fr: 1 }]
@@ -80,25 +79,27 @@ class OfferedRow implements Component {
 
   public render(self): Template {
     return $ltml {
-      <TableRow tracks={TRACKS} selected={self.selected} @pick={self.onPick} @enter={self.onRowEnter}>
-        <box columns={ITEM} gap={2.5sp} yAlign={Align.Center}>
-          <ItemButton item={self.offered.item} size={Style.SLOT} tipped={false} />
-          <box overflow={.Hidden}>
-            <text value={self.offered.name} textColor={self.offered.color} wrap={.None} />
+      <TableRow selected={self.selected} @pick={self.onPick} @enter={self.onRowEnter}>
+        <TableCell>
+          <box columns={ITEM} gap={2.5sp} yAlign={Align.Center}>
+            <ItemButton item={self.offered.item} size={Style.SLOT} tipped={false} />
+            <box overflow={.Hidden}>
+              <text value={self.offered.name} textColor={self.offered.color} wrap={.None} />
+            </box>
           </box>
-        </box>
-        <box xAlign={Align.End}>
+        </TableCell>
+        <TableCell align={Align.End}>
           <text value={"%d"} arguments={[self.offered.count]} textColor={Style.INK} />
-        </box>
-        <box xAlign={Align.End}>
+        </TableCell>
+        <TableCell align={Align.End}>
           <Money $if={self.offered.market != nil} amount={self.market} />
           <text $else value={"—"} textColor={Style.DIM} />
-        </box>
-        <box xAlign={Align.End}>
+        </TableCell>
+        <TableCell align={Align.End}>
           <Money $if={self.offered.vendor != nil} amount={self.vendor} />
           <text $else value={"—"} textColor={Style.DIM} />
-        </box>
-        <text value={self.better} textColor={self.betterInk} wrap={.None} />
+        </TableCell>
+        <TableCell> <text value={self.better} textColor={self.betterInk} wrap={.None} /> </TableCell>
       </TableRow>
     }
   }

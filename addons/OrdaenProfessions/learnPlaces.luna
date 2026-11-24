@@ -4,8 +4,8 @@
 // zone under it; how it is learned; how far its nearest spot is, on the player's continent; the trainer's price. Past
 // a few rows it scrolls, its scrollbar on hover.
 import Game from "$game"
-import { Align, Track } from "$ltml"
-import { Column, Component, Ground, Money, SECONDARY_TEXT, Table, TableCell, TableRow, tracksOf } from "Ordaen"
+import { Align } from "$ltml"
+import { Column, Component, Ground, Money, SECONDARY_TEXT, Table, TableCell, TableRow } from "Ordaen"
 import Locale from "@/locales"
 import { LearnPlace } from "@/sources"
 import Style from "@/style"
@@ -18,7 +18,6 @@ const COLUMNS: Array<Column> = [
   { title: Locale.COLUMN_DISTANCE, width: 117.1875dp, align: Align.End, sortable: true },
   { title: Locale.COLUMN_PRICE, width: 105.46875dp, align: Align.End, sortable: true }
 ]
-const TRACKS: Array<Track> = tracksOf(COLUMNS)
 const BY_WAY = 2
 const BY_DISTANCE = 3
 const BY_PRICE = 4
@@ -72,12 +71,14 @@ class LearnPlaceRow implements Component {
 
   public render(self): Template {
     return $ltml {
-      <TableRow tracks={TRACKS} ground={Ground.Wood} @pick={self.onPick}>
-        <box gap={0.5sp}>
-          <text value={self.placed.place.name} textColor={self.nameColor} wrap={.Cut} />
-          <text $if={self.hasZone} value={self.placed.place.zone} textSize={SECONDARY_TEXT} textColor={Style.DIM} wrap={.Cut} />
-        </box>
-        <text value={self.placed.place.way} textColor={Style.DIM} wrap={.Cut} />
+      <TableRow ground={Ground.Wood} @pick={self.onPick}>
+        <TableCell>
+          <box gap={0.5sp}>
+            <text value={self.placed.place.name} textColor={self.nameColor} wrap={.Cut} />
+            <text $if={self.hasZone} value={self.placed.place.zone} textSize={SECONDARY_TEXT} textColor={Style.DIM} wrap={.Cut} />
+          </box>
+        </TableCell>
+        <TableCell> <text value={self.placed.place.way} textColor={Style.DIM} wrap={.Cut} /> </TableCell>
         <TableCell align={Align.End}>
           <text value={self.far} textColor={Style.DIM} wrap={.None} textFont={.Numbers} />
         </TableCell>

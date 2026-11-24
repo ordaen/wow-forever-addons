@@ -9,7 +9,7 @@ import Game from "$game"
 import { Action, Align, BarFill, Bounds, ByInteractionState, Columns, Event, FillDuration, FillFrom, Frame, MouseButton, Overflow, Position, Track } from "$ltml"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
-import { ARTWORK, Choice, Column, Component, Corner, FooterCount, ItemButton, ListFooter, Marker, ModuleMemory, SECONDARY_TEXT, Section, Table, TableRow, ToolPick, Toolbar, tracksOf } from "Ordaen"
+import { ARTWORK, Choice, Column, Component, Corner, FooterCount, ItemButton, ListFooter, Marker, ModuleMemory, SECONDARY_TEXT, Section, Table, TableCell, TableRow, ToolPick, Toolbar } from "Ordaen"
 import Locale from "@/locales"
 import Style from "@/style"
 
@@ -66,7 +66,6 @@ const COLUMNS: Array<Column> = [
   { title: Locale.COL_LEVEL, width: 70.3125dp, align: Align.End, sortable: true }
 ]
 const HEADINGS: Array<SortBy> = [SortBy.Name, SortBy.Line, SortBy.Active, SortBy.Level]
-const TRACKS: Array<Track> = tracksOf(COLUMNS)
 // A column of spells, as wide wherever it stands: an icon and a name with its rank, generous so that a long name wraps
 // rather than is cut; and the room between columns and rows.
 const COLUMN: Number<Length> = 337.5dp
@@ -265,16 +264,18 @@ public class SpellTableRow implements Component {
 
   public render(self): Template {
     return $ltml {
-      <TableRow tracks={TRACKS} @enter={self.onEnter}>
-        <box columns={CELL} gap={2sp} yAlign={Align.Center} @dragStart={self.onGrab}>
-          <SpellSlot spell={self.spell} size={23.4375dp} />
-          <text value={self.title} textColor={self.ink} wrap={.None} />
-        </box>
-        <text value={self.line} textColor={Style.DIM} wrap={.None} />
-        <text value={self.kind} textColor={Style.DIM} wrap={.None} />
-        <box xAlign={Align.End}>
+      <TableRow @enter={self.onEnter}>
+        <TableCell>
+          <box columns={CELL} gap={2sp} yAlign={Align.Center} @dragStart={self.onGrab}>
+            <SpellSlot spell={self.spell} size={23.4375dp} />
+            <text value={self.title} textColor={self.ink} wrap={.None} />
+          </box>
+        </TableCell>
+        <TableCell> <text value={self.line} textColor={Style.DIM} wrap={.None} /> </TableCell>
+        <TableCell> <text value={self.kind} textColor={Style.DIM} wrap={.None} /> </TableCell>
+        <TableCell align={Align.End}>
           <text value={self.level} textColor={Style.DIM} textFont={.Numbers} wrap={.None} />
-        </box>
+        </TableCell>
       </TableRow>
     }
   }

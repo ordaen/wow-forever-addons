@@ -7,7 +7,7 @@ import Wow from "LunaTypeRenderer"
 import { Age } from "@/age"
 import { Money } from "@/money"
 import { Ground } from "@/scrolledList"
-import { Column, Table, TableCell, TableRow, tracksOf } from "@/table"
+import { Column, Table, TableCell, TableRow } from "@/table"
 
 public struct Sale {
   name: String
@@ -21,7 +21,6 @@ const COLUMNS: Array<Column> = [
   { title: "Age", width: 50ui, align: Align.End, sortable: true },
   { title: "Note", width: 60ui }
 ]
-const TRACKS: Array<Track> = tracksOf(COLUMNS)
 
 class Sales {
   public state sales: Array<Sale> = [
@@ -58,15 +57,11 @@ class Sales {
   public render(self): Template {
     return $ltml {
       <Table columns={COLUMNS} sorted={mut self.sorted} descending={mut self.descending} height={self.height}>
-        <TableRow $for={sale of self.ordered} $key={sale} tracks={TRACKS} @pick={self.onPick}>
-          <text value={sale.name} />
-          <box xAlign={Align.End}>
-            <Money amount={sale.price} />
-          </box>
-          <box xAlign={Align.End}>
-            <Age seconds={sale.seen} />
-          </box>
-          <box />
+        <TableRow $for={sale of self.ordered} $key={sale} @pick={self.onPick}>
+          <TableCell> <text value={sale.name} /> </TableCell>
+          <TableCell align={Align.End}> <Money amount={sale.price} /> </TableCell>
+          <TableCell align={Align.End}> <Age seconds={sale.seen} /> </TableCell>
+          <TableCell />
         </TableRow>
       </Table>
     }
@@ -145,15 +140,11 @@ class Long {
       <box height={200ui} rows={PAGE}>
         <text value={"head"} />
         <Table columns={COLUMNS} sorted={mut self.sorted} descending={mut self.descending}>
-          <TableRow $for={sale of self.sales} $key={sale} tracks={TRACKS}>
-            <text value={sale.name} />
-            <box xAlign={Align.End}>
-              <Money amount={sale.price} />
-            </box>
-            <box xAlign={Align.End}>
-              <Age seconds={sale.seen} />
-            </box>
-            <box />
+          <TableRow $for={sale of self.sales} $key={sale}>
+            <TableCell> <text value={sale.name} /> </TableCell>
+            <TableCell align={Align.End}> <Money amount={sale.price} /> </TableCell>
+            <TableCell align={Align.End}> <Age seconds={sale.seen} /> </TableCell>
+            <TableCell />
           </TableRow>
         </Table>
         <text value={"foot"} />
@@ -197,7 +188,6 @@ const SHARED: Array<Column> = [
   { title: "Zone", width: { fr: 1 } },
   { title: "Note", width: { fr: 1 } }
 ]
-const SHARED_TRACKS: Array<Track> = tracksOf(SHARED)
 
 // Three columns that share the width, a row whose zone runs far past its column.
 class Shared {
@@ -207,7 +197,7 @@ class Shared {
   public render(self): Template {
     return $ltml {
       <Table columns={SHARED} sorted={mut self.sorted} descending={mut self.descending}>
-        <TableRow tracks={SHARED_TRACKS}>
+        <TableRow>
           <TableCell>
             <text value={"Ingrid"} wrap={.None} />
           </TableCell>
@@ -218,7 +208,7 @@ class Shared {
             <text value={"main"} wrap={.None} />
           </TableCell>
         </TableRow>
-        <TableRow tracks={SHARED_TRACKS}>
+        <TableRow>
           <TableCell>
             <text value={"Bo"} wrap={.None} />
           </TableCell>
@@ -244,13 +234,12 @@ test "a long text in a cell is cut at its column, and every row's columns stand 
 
 const GROUPED: Array<Column> = [
   { title: "Item", width: { fr: 1 }, sortable: true },
-  { title: "House", width: 80ui, align: Align.End, sortable: true, group: "Cost" },
-  { title: "Vendor", width: 80ui, align: Align.End, sortable: true, group: "Cost" },
-  { title: "House", width: 80ui, align: Align.End, group: "Price" },
-  { title: "Vendor", width: 80ui, align: Align.End, group: "Price" },
+  { title: "House", width: 80ui, align: Align.End, sortable: true, group: ["Cost"] },
+  { title: "Vendor", width: 80ui, align: Align.End, sortable: true, group: ["Cost"] },
+  { title: "House", width: 80ui, align: Align.End, group: ["Price"] },
+  { title: "Vendor", width: 80ui, align: Align.End, group: ["Price"] },
   { title: "Profit", width: 80ui, align: Align.End }
 ]
-const GROUPED_TRACKS: Array<Track> = tracksOf(GROUPED)
 const WARES: Array<String> = ["Copper Bar", "Bronze Axe"]
 
 // Two groups of two columns between two columns in none, on the wood.
@@ -265,13 +254,13 @@ class Grouped {
   public render(self): Template {
     return $ltml {
       <Table columns={GROUPED} sorted={mut self.sorted} descending={mut self.descending} ground={Ground.Wood}>
-        <TableRow $for={ware of WARES} tracks={GROUPED_TRACKS} ground={Ground.Wood} @enter={self.onRow}>
-          <text value={ware} />
-          <text value={"1"} />
-          <text value={"2"} />
-          <text value={"3"} />
-          <text value={"4"} />
-          <text value={"5"} />
+        <TableRow $for={ware of WARES} ground={Ground.Wood} @enter={self.onRow}>
+          <TableCell> <text value={ware} /> </TableCell>
+          <TableCell align={Align.End}> <text value={"1"} /> </TableCell>
+          <TableCell align={Align.End}> <text value={"2"} /> </TableCell>
+          <TableCell align={Align.End}> <text value={"3"} /> </TableCell>
+          <TableCell align={Align.End}> <text value={"4"} /> </TableCell>
+          <TableCell align={Align.End}> <text value={"5"} /> </TableCell>
         </TableRow>
       </Table>
     }
@@ -322,4 +311,77 @@ test "a table on the wood rules its columns apart: a line down each gap of a row
   Test.expect(upright(Test.dump(row)) == 5)
   destroy page
   Test.expect(Test.blank())
+}
+
+const NESTED: Array<Column> = [
+  { title: "Item", width: { fr: 1 } },
+  { title: "Buy", width: 70ui, group: ["Price", "House"] },
+  { title: "Bid", width: 70ui, group: ["Price", "House"] },
+  { title: "Vendor", width: 70ui, group: ["Price"] }
+]
+
+// A group in a group: «House» under «Price», over two columns, beside a column of «Price» in no further group.
+class Nested {
+  public state sorted = 0
+  public state descending = false
+  public row: any Frame | nil = nil
+
+  onRow(mut self, frame: any Frame) { self.row = frame }
+
+  public render(self): Template {
+    return $ltml {
+      <Table columns={NESTED} sorted={mut self.sorted} descending={mut self.descending} ground={Ground.Wood}>
+        <TableRow ground={Ground.Wood} @enter={self.onRow}>
+          <TableCell> <text value={"Ore"} /> </TableCell>
+          <TableCell> <text value={"one"} /> </TableCell>
+          <TableCell> <text value={"two"} /> </TableCell>
+          <TableCell> <text value={"three"} /> </TableCell>
+        </TableRow>
+      </Table>
+    }
+  }
+}
+
+test "a group in a group has its title under its group's, over its own columns; every cell stands where its heading does" {
+  let page = new Nested()
+  Test.mount(page, { left: 0, top: 0, width: 500, height: 200 })
+  const price = Test.page().text("Price").rect()
+  const house = Test.page().text("House").rect()
+  const buy = Test.page().text("Buy").rect()
+  const bid = Test.page().text("Bid").rect()
+  const vendor = Test.page().text("Vendor").rect()
+  Test.expect(price.bottom <= house.top && house.bottom <= buy.top && near(buy.top, bid.top))
+  // «Vendor», beside «House» under «Price», takes both of its rows, its title in their middle.
+  Test.expect(vendor.top > house.top && vendor.bottom < buy.bottom)
+  // Each cell's text starts where its heading's does: one room in the head and the rows.
+  Test.expect(near(Test.page().text("one").rect().left, buy.left) && near(Test.page().text("two").rect().left, bid.left))
+  Test.expect(near(Test.page().text("three").rect().left, vendor.left))
+  destroy page
+  Test.expect(Test.blank())
+}
+
+test "a row on the wood is ruled under, the last too" {
+  let page = new Nested()
+  Test.mount(page, { left: 0, top: 0, width: 500, height: 200 })
+  Test.page().text("Ore").hover()
+  const row = page.row ?? panic("the row hands its frame as the cursor comes onto it")
+  const box = Test.page().text("Ore").rect()
+  let under = false
+  for (line of Test.dump(row).split("\n")) {
+    const words = line.split(" ").filter(word => word != "")
+    if (words[1] == "Texture" && words[2] == "BORDER") {
+      const place = (words[3] ?? "").split(",")
+      const size = (words[4] ?? "").split("x")
+      const wide = (size[1] ?? "").toNumber() ?? 0
+      const top = (place[2] ?? "").toNumber() ?? 0
+      if (wide > 400 && top > box.bottom) { under = true }
+    }
+  }
+  Test.expect(under)
+  destroy page
+  Test.expect(Test.blank())
+}
+
+function near(a: Number, b: Number): Boolean {
+  return (a - b).abs() < 0.02
 }
