@@ -54,6 +54,25 @@ public const UNITS: Array<String> = [
   "party4", "raid1", "arena1", "none", "cursor"
 ]
 
+// One condition the picker built: its name, `no` before it or not, and what follows its `:` (none where empty).
+public struct PickedCondition {
+  const name: String
+  const negated: Boolean = false
+  const value: String = ""
+}
+
+// An option's brackets as the picker builds them: the unit aimed at first (`@focus`; none where empty), then each
+// condition; `[]` with neither.
+public function optionText(unit: String, conditions: Array<PickedCondition>): String {
+  const parts: Array<String> = []
+  if (unit != "") { parts.push(`@${unit}`) }
+  for (condition of conditions) {
+    const value = condition.value == "" ? "" : `:${condition.value}`
+    parts.push(`${condition.negated ? "no" : ""}${condition.name}${value}`)
+  }
+  return `[${parts.join(",")}]`
+}
+
 // What the body's checker found on a line (from 1; 0 for the whole body).
 public struct Problem {
   const line: Integer

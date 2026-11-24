@@ -1,0 +1,51 @@
+// Macros a player often writes, filled with their class's spells by the client's names: a heal on what the cursor is
+// over, an interrupt or a control on the focus, an attack that starts the swing, the trinkets.
+import Client from "$client"
+import Locale from "@/locales"
+
+// A template ready to take: its title and its body.
+public struct MacroTemplate {
+  const title: String
+  const body: String
+}
+
+// A class's spells the templates name, by their first rank's number (a rank's name is every rank's).
+struct ClassSpells {
+  const heal: Integer | nil = nil
+  const attack: Integer | nil = nil
+  const interrupt: Integer | nil = nil
+  const control: Integer | nil = nil
+}
+
+const SPELLS: Map<String, ClassSpells> = {
+  ["WARRIOR"]: { attack: 78, interrupt: 6552, control: 1715 },
+  ["PALADIN"]: { heal: 635, attack: 20271, control: 853 },
+  ["HUNTER"]: { attack: 3044, control: 5116 },
+  ["ROGUE"]: { attack: 1752, interrupt: 1766, control: 1776 },
+  ["PRIEST"]: { heal: 2061, attack: 585, control: 8122 },
+  ["SHAMAN"]: { heal: 331, attack: 403, interrupt: 8042, control: 8056 },
+  ["MAGE"]: { attack: 133, interrupt: 2139, control: 118 },
+  ["WARLOCK"]: { attack: 686, control: 5782 },
+  ["DRUID"]: { heal: 5185, attack: 5176, control: 339 }
+}
+
+// A template of a spell the class has, its name in it; none where the class has none or the client names none.
+function filled(title: String, body: String, spell: Integer | nil, into: mut Array<MacroTemplate>) {
+  if (spell == nil) { return }
+  const name = Client.C_Spell.GetSpellName(spell)
+  if (name != nil) { into.push({ title: title, body: body.format(name) }) }
+}
+
+// The templates for a class, by its tag: its spells' first, then the trinkets'.
+public function templatesOf(classTag: String): Array<MacroTemplate> {
+  const templates: Array<MacroTemplate> = []
+  const spells = SPELLS[classTag] ?? {}
+  filled(Locale.TEMPLATE_MOUSEOVER_HEAL, "#showtooltip\n/cast [@mouseover,help,nodead][help,nodead][@player] %s", spells.heal, mut templates)
+  filled(Locale.TEMPLATE_SELF_ALT, "#showtooltip\n/cast [mod:alt,@player][] %s", spells.heal, mut templates)
+  filled(Locale.TEMPLATE_FOCUS_INTERRUPT, "#showtooltip\n/stopcasting\n/cast [@focus,harm,nodead][] %s", spells.interrupt, mut templates)
+  filled(Locale.TEMPLATE_FOCUS_CONTROL, "#showtooltip\n/cast [mod:alt,@focus,harm,nodead][] %s", spells.control, mut templates)
+  filled(Locale.TEMPLATE_START_ATTACK, "#showtooltip\n/startattack\n/cast %s", spells.attack, mut templates)
+  templates.push({ title: Locale.TEMPLATE_TRINKET.format(1), body: "#showtooltip 13\n/use 13" })
+  templates.push({ title: Locale.TEMPLATE_TRINKET.format(2), body: "#showtooltip 14\n/use 14" })
+  return templates
+}
