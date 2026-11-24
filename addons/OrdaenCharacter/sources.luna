@@ -215,7 +215,9 @@ function feedsOf(stats: Stats, classTag: String): Array<Feed> {
   return all
 }
 
-// What the game's paper doll says of a stat under its name, the client's own words; empty where it says nothing.
+// What the game's paper doll says of a stat under its name, the client's own words; empty where it says nothing. A
+// crit says what it does in its own section alone (the game's `STAT_CRIT_BONUS` says both, and the stats feeding
+// each, which light on the window).
 public function wordsOf(stat: Stat, stats: Stats): String {
   const tips = stats.tips
   return match (stat) {
@@ -227,7 +229,8 @@ public function wordsOf(stat: Stat, stats: Stats): String {
     .Armor => tips.armor
     .AttackPower => tips.attackPower
     .RangedAttackPower => tips.rangedAttackPower
-    .MeleeCrit, .RangedCrit, .SpellCrit => tips.crit
+    .MeleeCrit, .RangedCrit => Locale.CRIT_WEAPON.format()
+    .SpellCrit => Locale.CRIT_SPELL.format()
     .Expertise => tips.expertise
     .Defense => tips.defense
     .BlockValue => tips.block

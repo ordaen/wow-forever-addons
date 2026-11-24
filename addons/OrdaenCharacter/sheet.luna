@@ -117,14 +117,13 @@ public struct GearSet {
 }
 
 // What the game's paper doll says of each stat as its tooltip's text, under the stat's name: the client's own words,
-// filled with the player's numbers, where they tell what the window doesn't already show (what a crit does, what
-// defense takes off a blow). Empty where the game says nothing more.
+// filled with the player's numbers, where they tell what the window doesn't already show (what defense takes off a
+// blow). Empty where the game says nothing more.
 public struct StatTips {
   primary: Array<String> = ["", "", "", "", ""]
   armor: String = ""
   attackPower: String = ""
   rangedAttackPower: String = ""
-  crit: String = ""
   expertise: String = ""
   defense: String = ""
   block: String = ""
@@ -682,7 +681,6 @@ public class ClientSheet implements Sheet {
         armor: said("STAT_ARMOR_TOOLTIP").format(reduction),
         attackPower: attackTip.format((attackPower / ATTACK_POWER_PER_DPS).max(0)),
         rangedAttackPower: said("RANGED_ATTACK_POWER_TOOLTIP").format((rangedAttackPower / ATTACK_POWER_PER_DPS).max(0)),
-        crit: said("STAT_CRIT_BONUS"),
         expertise: said("CR_EXPERTISE_TOOLTIP").format("%.2f%%".format(expertise)),
         defense: said("DEFAULT_STATDEFENSE_TOOLTIP").format(beyondDefense * DEFENSE_SHARE, beyondDefense * DEFENSE_SHARE),
         block: said("STAT_BLOCK_VALUE_FLAT_TOOLTIP").format(block, Client.GetShieldBlock()),

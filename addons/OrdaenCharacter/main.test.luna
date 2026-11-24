@@ -453,6 +453,15 @@ test "a hit's tooltip lists its own section's caps, each green once the hit reac
   Test.expect(tip.text("5.00%").textColor().equal(Style.GREEN) && !tip.text("8.00%").textColor().equal(Style.GREEN))
 }
 
+test "a crit's tooltip says what a crit does in its own section alone" {
+  Test.mount(nil, PAGE)
+  Game.items.icon = icons
+  const window = opened(new FakeSheet())
+  window.text("20.05%").hover()
+  const tip = Test.page().window("A critical strike deals 100% more damage.")
+  Test.expect(!tip.texts().join(" | ").contains("spell"))
+}
+
 test "the defense skill stands over block, so block's chance stands over the damage it stops" {
   Test.mount(nil, PAGE)
   Game.items.icon = icons
