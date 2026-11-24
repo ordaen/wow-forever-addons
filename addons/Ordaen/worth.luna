@@ -3,6 +3,7 @@
 // (`specOf`): the one the player picked for its active talent group, else the tree it spent the most points in, else
 // its class's default; below the level's cap it weighs as it levels.
 import Client from "$client"
+import Events from "$events"
 import Game from "$game"
 import { SPEC_WEIGHTS, SpecWeights, Weights } from "@/weights"
 
@@ -187,6 +188,9 @@ public function specOf(classTag: String, leading: Integer | nil, picked: String 
   return byKey(picked) ?? tree ?? byKey(preferred) ?? byKey(DEFAULT_BUILDS[classTag]) ?? specs[1]
 }
 
+// The last slot worn (the tabard's): the bags' slots come after it.
+const LAST_WORN = 19
+
 public class GearWorth {
   // The build the player picked for its active talent group, and the one it prefers for its class before its first
   // talent point, by their keys (a Shockadin); none: by its talents, and the class's default.
@@ -194,6 +198,21 @@ public class GearWorth {
   public state preferred: String | nil = nil
   public derived spec: SpecWeights | nil = specOf(Game.player.classTag, Game.player.leadingTree, self.picked, self.preferred)
   public derived weights: Weights | nil = self.weightsNow()
+  // What the player wears, each slot's link (`""`: nothing), read anew as the game says a piece was put on or taken
+  // off: what an upgrade is weighed against, so every answer follows the gear.
+  state worn: Array<String> = []
+
+  constructor() {
+    self.readWorn()
+    Events.PLAYER_ENTERING_WORLD.listen(self.readWorn)
+    Events.PLAYER_EQUIPMENT_CHANGED.listen(self.readWorn)
+  }
+
+  readWorn(mut self) {
+    const worn: Array<String> = []
+    for (slot of 1..LAST_WORN) { worn.push(Client.GetInventoryItemLink("player", slot) ?? "") }
+    self.worn = worn
+  }
 
   // The builds picked and preferred, by their keys; empty: none.
   public pick(mut self, build: String) { self.picked = build == "" ? nil : build }
@@ -248,15 +267,15 @@ public class GearWorth {
 
   // A two-handed weapon is held.
   twoHanded(self): Boolean {
-    const link = Client.GetInventoryItemLink("player", MAIN_HAND)
-    if (link == nil) { return false }
+    const link = self.worn[MAIN_HAND] ?? ""
+    if (link == "") { return false }
     let _, _, _, worn, _, _, _ = Client.C_Item.GetItemInfoInstant(link)
     return worn == "INVTYPE_2HWEAPON"
   }
 
   // The worth of what the player wears in a slot; nought for nothing.
   wornScore(self, slot: Integer): Number {
-    const link = Client.GetInventoryItemLink("player", slot)
-    return link != nil ? self.scoreOf(link) ?? 0 : 0
+    const link = self.worn[slot] ?? ""
+    return link != "" ? self.scoreOf(link) ?? 0 : 0
   }
 }

@@ -1,6 +1,6 @@
 import Client from "$client"
 import Test from "$test"
-import { Places, SPEC_WEIGHTS, classCanUse, defaultBuildOf, placesFor, scoreWith, specOf, specsOf, upgradeText } from "Ordaen"
+import { GearWorth, Places, SPEC_WEIGHTS, classCanUse, defaultBuildOf, placesFor, scoreWith, specOf, specsOf, upgradeText } from "Ordaen"
 
 test "a class weighs by the build picked, else the tree with the most points" {
   Test.expect(specOf("WARRIOR", 3, nil, nil)?.key == "protection")
@@ -54,4 +54,29 @@ test "a one-hander for one who can't wield two takes the main hand alone; an off
 
 function slotsOf(places: Places | nil): String {
   return (places ?? panic("the item is worn")).slots.map(slot => String.of(slot)).join(",")
+}
+
+// An upgrade's answer as a window holds it: worked out once, and again only as what it reads changes.
+class Held {
+  derived up: Number | nil = self.worth.upgradeOf("item:new")
+  const worth: GearWorth
+  constructor(worth: GearWorth) { self.worth = worth }
+}
+
+test "an upgrade's answer follows the gear: a piece put on is what the next is weighed against" {
+  Client.C_Item.GetItemInfoInstant = (item: String | Integer): (Number | nil, String | nil, String | nil, String | nil, FileId | nil, Number | nil, Number | nil) => {
+    return 1201, "Weapon", "Mace", "INVTYPE_WEAPON", nil, 2, 4
+  }
+  Client.C_Item.GetItemStats = (link: String): Unknown => {
+    const stats: Map<String, Number> = { ["ITEM_MOD_INTELLECT_SHORT"]: link == "item:new" ? 10 : 8 }
+    return stats
+  }
+  Client.CanDualWield = (): Boolean => false
+  let wearing = false
+  Client.GetInventoryItemLink = (unit: String, slot: Number): String | nil => wearing && slot == 16 ? "item:old" : nil
+  const held = new Held(new GearWorth())
+  Test.expect(held.up == 1)
+  wearing = true
+  Test.event("PLAYER_EQUIPMENT_CHANGED", 16, true)
+  Test.expect(held.up != nil && ((held.up ?? 0) - 0.25).abs() < 0.0001)
 }
