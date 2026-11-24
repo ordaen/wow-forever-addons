@@ -3,7 +3,7 @@
 // body, what there is more of, the footer, what other modules add, the hotkeys. A rule only between two present sections, none between the
 // title and the body. As wide as its title and its band (they never wrap), 314 px at least; the body wraps at that
 // width.
-import { Align, Art, BarFill, Beside, Cursor, Edges, Layer, Line, Position, Side, TextFont, Track } from "$ltml"
+import { Align, Art, BarFill, Beside, Bounds, Cursor, Edges, Layer, Line, Overflow, Position, Scrollbar, Side, TextFont, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import {
   BandCell, Component, HeaderTab, Hotkeys, SECONDARY_TEXT, TERM_DASH, TERM_UNDERLINE, TERM_UNDERLINE_HEIGHT, TITLE_TEXT, termUnderlineAt
@@ -13,6 +13,8 @@ import Locale from "@/locales"
 import { Compared, Model, Opens, Part, Picture, TextLine } from "@/model"
 
 const WIDTH = 367.96875dp
+// The most a tooltip's body stands: past it, it scrolls.
+const BODY_MOST: Bounds = { min: nil, max: 421.875dp }
 // A tooltip beside another: a little narrower.
 const SIDE_WIDTH = 309.375dp
 const ICON = 70.3125dp
@@ -503,7 +505,9 @@ public class TipFrame implements Component {
               </box>
             </BandCell>
           </box>
-          <box $if={self.hasBody} gap={LINE} padding={SECTION_PAD} border={self.bodyRule}>
+          // A long body (a cloth in thirty recipes) scrolls past its most height, its scrollbar shown on hover.
+          <box $if={self.hasBody} gap={LINE} padding={SECTION_PAD} border={self.bodyRule} height={BODY_MOST}
+               overflow={Overflow.Scroll} scrollbar={Scrollbar.Hover}>
             <Row $for={line of self.body} line={line} locked={self.locked}>
               <box #opened={opens}>
                 <slot #opened opens={opens} />

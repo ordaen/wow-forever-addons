@@ -1979,3 +1979,16 @@ test "a description lights a range whole and each number with its unit" {
     "Fireball | Hurls a fiery ball that causes |cffffd10019-20|r |cffff8a3cFire damage|r, and |cffffd100от 19 до 20 сек.|r more over |cffffd1004 sec|r, |cffffd10010%|r faster."
   ))
 }
+
+test "a long body scrolls past its most height: the tooltip stands no taller" {
+  // A quest's text of sixty lines, each its own line of the body.
+  const lines: Array<Game.TooltipLine> = [{ left: "A Long Errand", kind: 0 }]
+  for (n of 1..60) { lines.push({ left: `Step ${n} of the errand`, kind: 0 }) }
+  Test.mount(nil, SCREEN)
+  Game.tooltip.main = showing({ kind: 2, lines: lines })
+  Test.pass(SHOWS)
+  const shown = tip("A Long Errand")
+  Test.expect(shown.shown())
+  // Sixty lines would stand far past the screen's height; the body holds at its most.
+  Test.expect(shown.rect().bottom - shown.rect().top < 700)
+}
