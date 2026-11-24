@@ -377,6 +377,28 @@ test "a table: by name, its headings sort it and the same one again turns it rou
   Test.expect(chosen() == "Linen Cloak")
 }
 
+test "a table's row says its made item's class and where it is worn; «Class» sorts by it, one with none last" {
+  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
+  Game.professions.list = professions()
+  Game.tradeSkill.categories = categories()
+  Game.tradeSkill.recipes = recipes()
+  Game.recipeReader.schematic = schematic
+  // The cloak (1110) and the vest (1111) are cloth, worn on the back and the chest; the bag (1120) a bag, not worn;
+  // the woolen bag makes nothing.
+  Game.items.subtype = (id: Integer): String | nil => id == 1110 || id == 1111 ? "Cloth" : id == 1120 ? "Bag" : nil
+  Game.items.equipSlot = (id: Integer): String | nil => id == 1110 ? "Back" : id == 1111 ? "Chest" : nil
+  Test.mount(nil, SCREEN)
+  Game.tradeSkill.open = TAILORING
+  view("Table")
+  Test.expect(reads(window().text("Linen Cloak").nth(1).item(), "Linen Cloak | — | Cloth | Back | 1 | 0g 0s 0c | 0g 0s 0c | — | — | —"))
+  Test.expect(reads(window().text("Linen Bag").item(), "Linen Bag | — | Bag | 2 | 0g 0s 0c | 0g 0s 0c | — | — | —"))
+  window().button("Class").click()
+  Test.expect(lists("Linen Bag, Brown Linen Vest, Linen Cloak, Woolen Bag"))
+  window().button("Class").click()
+  // The other way round, two of one class by name the other way too; still last, the one with none.
+  Test.expect(lists("Linen Cloak, Brown Linen Vest, Linen Bag, Woolen Bag"))
+}
+
 test "the camp's tab lists its recipes in one list whatever the view, with no view to pick" {
   Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
   Game.professions.list = professions()

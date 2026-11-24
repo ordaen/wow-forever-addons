@@ -37,6 +37,7 @@
   "SORT_MAKEABLE": "Can make",
   "COLUMN_RECIPE": "Recipe",
   "COLUMN_MAKEABLE": "Available",
+  "COLUMN_CLASS": "Class",
   "COLUMN_TYPE": "Type",
   "GROUP_COST": "Cost",
   "SORT": "Sort",

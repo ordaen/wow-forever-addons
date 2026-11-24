@@ -37,6 +37,7 @@
   "SORT_MAKEABLE": "Можно создать",
   "COLUMN_RECIPE": "Рецепт",
   "COLUMN_MAKEABLE": "Доступно",
+  "COLUMN_CLASS": "Класс",
   "COLUMN_TYPE": "Тип",
   "GROUP_COST": "Затраты",
   "SORT": "Сортировка",

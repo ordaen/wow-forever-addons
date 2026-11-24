@@ -78,10 +78,13 @@ function trackSpellOf(skillLine: Integer | nil): Integer | nil {
 // made item's type, how many the bags make. The names never narrower than a long one: the window widens for the
 // table, up to the screen's width.
 const NAMES: Track = { fr: 1, min: 234.375dp }
+// The made item's class and type: a word each, cut short past it.
+const KIND = 105.46875dp
 const COLUMNS: Array<Column> = [
   { title: Locale.COLUMN_RECIPE, width: NAMES, sortable: true },
   { title: Locale.COLUMN_SKILL, width: 70.3125dp, align: Align.End, sortable: true },
-  { title: Locale.COLUMN_TYPE, width: 117.1875dp, sortable: true },
+  { title: Locale.COLUMN_CLASS, width: KIND, sortable: true },
+  { title: Locale.COLUMN_TYPE, width: KIND, sortable: true },
   { title: Locale.COLUMN_MAKEABLE, width: 93.75dp, align: Align.End, sortable: true }
 ]
 const MONEY = 117.1875dp
@@ -90,7 +93,8 @@ const MONEY = 117.1875dp
 const PRICED_COLUMNS: Array<Column> = [
   { title: Locale.COLUMN_RECIPE, width: NAMES, sortable: true },
   { title: Locale.COLUMN_SKILL, width: 70.3125dp, align: Align.End, sortable: true },
-  { title: Locale.COLUMN_TYPE, width: 117.1875dp, sortable: true },
+  { title: Locale.COLUMN_CLASS, width: KIND, sortable: true },
+  { title: Locale.COLUMN_TYPE, width: KIND, sortable: true },
   { title: Locale.COLUMN_MAKEABLE, width: 93.75dp, align: Align.End, sortable: true },
   { title: Locale.PRICE_AUCTION, width: MONEY, align: Align.End, sortable: true, group: Locale.GROUP_COST },
   { title: Locale.PRICE_VENDOR, width: MONEY, align: Align.End, sortable: true, group: Locale.GROUP_COST },
@@ -633,10 +637,12 @@ public class Professions implements Module, App {
     const learned = self.thresholds.learned
     const taught = self.taught
     for (recipe of self.mains) {
+      const made = makesOf(recipe.id)
       const fact: TableFacts = {
         skill: learned[recipe.id] ?? taught[recipe.name]?.skill,
-        kind: nil,
-        both: prices == nil ? nil : bothSourcesOf(prices, recipe.id, makesOf(recipe.id), 1)
+        subtype: made == nil ? nil : Game.items.subtype(made),
+        slot: made == nil ? nil : Game.items.equipSlot(made),
+        both: prices == nil ? nil : bothSourcesOf(prices, recipe.id, made, 1)
       }
       facts[recipe.id] = fact
     }
