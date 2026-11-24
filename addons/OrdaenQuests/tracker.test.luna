@@ -1,38 +1,20 @@
-// What Quests adds under a tracked quest to do in the tracker: where to go; nothing of a quest QuestieDB doesn't know.
+// Where a quest's figures stand: the first one's zone and how many places there; nothing where the client doesn't
+// know the zone.
 import Test from "$test"
-import { QuestFacts } from "@/questie"
-import { TrackerLines } from "@/tracker"
-
-class Holder {
-  public state facts: Map<Integer, QuestFacts> = {}
-}
-
-const FACTS: QuestFacts = {
-  name: "", level: 10, minLevel: 8, task: "", zone: 40, reputation: [], items: [], next: 0, nextName: "",
-  givers: [],
-  takers: [{ id: 1, kind: .Npc, name: "Gryan Stoutmantle", spots: [{ area: 40, x: 0.56, y: 0.47 }] }],
-  targets: [{ id: 1, kind: .Npc, name: "Wolf", spots: [{ area: 40, x: 0.3, y: 0.3 }, { area: 40, x: 0.4, y: 0.4 }, { area: 12, x: 0.1, y: 0.1 }] }]
-}
-
-test "a quest to do says its objectives' zone and how many places there" {
-  const holder = new Holder()
-  holder.facts = { [1]: FACTS }
-  const lines = new TrackerLines(holder.facts, (id: Integer): Boolean => false, (id: Integer): Boolean => false)
-  Test.expect((lines.lines(1)[1] ?? panic("a line")).text == "Westfall · 2 places")
-  Test.expect(lines.lines(2).length == 0)
-}
+import { Figure } from "@/questie"
+import { whereOf } from "@/tracker"
 
 const UNKNOWN_AREA = 999999
 
-test "where the client doesn't know the zone, a quest to do says nothing" {
-  const holder = new Holder()
-  holder.facts = {
-    [1]: {
-      name: "", level: 10, minLevel: 8, task: "", zone: 40, reputation: [], items: [], next: 0, nextName: "", givers: [],
-      takers: [{ id: 1, kind: .Npc, name: "Gryan Stoutmantle", spots: [{ area: UNKNOWN_AREA, x: 0.5, y: 0.5 }] }],
-      targets: [{ id: 1, kind: .Npc, name: "Wolf", spots: [{ area: UNKNOWN_AREA, x: 0.3, y: 0.3 }] }]
-    }
-  }
-  const lines = new TrackerLines(holder.facts, (id: Integer): Boolean => false, (id: Integer): Boolean => false)
-  Test.expect(lines.lines(1).length == 0)
+function wolf(area: Integer): Figure {
+  return { id: 1, kind: .Npc, name: "Wolf", spots: [{ area: area, x: 0.3, y: 0.3 }, { area: area, x: 0.4, y: 0.4 }, { area: 12, x: 0.1, y: 0.1 }] }
+}
+
+test "figures say their first one's zone and how many places there" {
+  Test.expect(whereOf([wolf(40)]) == "Westfall · 2 places")
+  Test.expect(whereOf([]) == "")
+}
+
+test "where the client doesn't know the zone, figures say nothing" {
+  Test.expect(whereOf([wolf(UNKNOWN_AREA)]) == "")
 }

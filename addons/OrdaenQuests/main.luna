@@ -35,7 +35,7 @@ import { Figure, QuestFacts } from "@/questie"
 import { standingsOf } from "@/reputation"
 import { Choices, GeneralPage } from "@/settings"
 import Style from "@/style"
-import { TrackerLines } from "@/tracker"
+import { TrackerOpener } from "@/tracker"
 import { Act, ChainPage, QuestButtons, QuestPage } from "@/view"
 import { TooltipWants } from "@/wants"
 
@@ -209,7 +209,7 @@ public class Quests implements Module, App {
   const chainPins: ChainPins
   const npcPins: NpcPins
   const dungeonQuests: DungeonQuests
-  const trackerLines: TrackerLines
+  const trackerOpener: TrackerOpener
   const tooltipWants: TooltipWants
 
   constructor() {
@@ -218,7 +218,7 @@ public class Quests implements Module, App {
     self.chainPins = new ChainPins(self.chained, self.chainedFacts, self.shownOnMap)
     self.npcPins = new NpcPins(self.shownNpc)
     self.dungeonQuests = new DungeonQuests(self.quests)
-    self.trackerLines = new TrackerLines(self.facts, (id: Integer): Boolean => self.openAt(id), (id: Integer): Boolean => self.showOnMap(id))
+    self.trackerOpener = new TrackerOpener((id: Integer): Boolean => self.openAt(id), (id: Integer): Boolean => self.showOnMap(id))
     self.toggle = Client.CreateFrame("Button", TOGGLE, Client.UIParent, nil)
     Ordaen.modules.add(self)
     self.toggle.SetScript("OnClick", (): nil => {
@@ -241,7 +241,7 @@ public class Quests implements Module, App {
     }
     watch (tracker of Tracker) {
       if (tracker == nil) { return }
-      tracker.questLines.add(self.trackerLines)
+      tracker.openers.add(self.trackerOpener)
     }
     // The log's events are heard while something reads it.
     watch (on of self.reading) {

@@ -120,21 +120,21 @@ surface 548.15,192.46 503.7x515.08 on MEDIUM clamped raised by a click
       box 1009.95,216.46 27.5x26.67 absolute clipped @keyPress @pointerPress
         box 1009.95,216.46 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
         box 1016.2,226.04 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
-surface 1341.67,5 250x88.93 on LOW clamped
-  box 1341.67,5 250x88.93 @pointerEnter @pointerLeave
-    box 1350.2,13.53 232.93x71.87 scrolled 0 of 0
-      box 1350.2,13.53 232.93x71.87
-        box 1350.2,13.53 16.67x15.83
-          text 1350.2,13.53 8.33x15.83 "1" #ff2020
-          text 1358.53,13.53 8.33x15.83 "4" #ff2020
-        box 1372.56,13.53 210.58x15.83 @pointerPress
-          text 1372.56,13.53 193.51x15.83 "Elwynn Wolves" #f0e6d2
-          text 1571.76,21.45 0x0 "" #a3977f
-          box 1577.44,21.45 0x0
-          box 1583.13,21.45 0x0
-        box 1350.2,58.81 16.67x0
-        box 1372.56,32.21 210.58x53.19
-          box 1372.56,32.21 210.58x53.19
-            text 1372.56,32.21 210.58x15.83 "Wolves slain: 5/10" #f0e6d2
-            text 1372.56,50.89 210.58x15.83 "Pelts: 4/4" #f0e6d2
-            text 1372.56,69.57 210.58x15.83 "Fangs: 1/3" #f0e6d2
+surface 1341.67,5 250x94.62 on LOW clamped
+  box 1341.67,5 250x94.62 @pointerEnter @pointerLeave
+    box 1350.2,13.53 232.93x77.56 scrolled 0 of 0
+      box 1350.2,13.53 232.93x77.56 #00000000 @pointerPress
+        box 1353.04,16.38 16.67x15.83
+          text 1353.04,16.38 8.33x15.83 "1" #ff2020
+          text 1361.38,16.38 8.33x15.83 "4" #ff2020
+        box 1375.4,16.38 204.89x15.83
+          text 1375.4,16.38 187.82x15.83 "Elwynn Wolves" #f0e6d2
+          text 1568.91,24.29 0x0 "" #a3977f
+          box 1574.6,24.29 0x0
+          box 1580.29,24.29 0x0
+        box 1353.04,61.65 16.67x0
+        box 1375.4,35.06 204.89x53.19
+          box 1375.4,35.06 204.89x53.19
+            text 1375.4,35.06 204.89x15.83 "Wolves slain: 5/10" #f0e6d2
+            text 1375.4,53.73 204.89x15.83 "Pelts: 4/4" #f0e6d2
+            text 1375.4,72.41 204.89x15.83 "Fangs: 1/3" #f0e6d2

@@ -1,10 +1,9 @@
-// What Quests adds under a tracked quest to do in Ordaen Tracker, from QuestieDB: the zone of its objectives and how
-// many places there. A quest QuestieDB doesn't know gets no line. Its title clicked opens it in Quests' window (or
-// docked, on the map).
+// What Quests does for Ordaen Tracker: a quest's row clicked opens it in Quests' window (or docked, on the map), and
+// «Show on the map» shows where it leads. And where a quest's figures stand, said for a figure's tip.
 import Client from "$client"
-import type { QuestLine, QuestLines } from "OrdaenTracker"
+import type { QuestOpener } from "OrdaenTracker"
 import Locale from "@/locales"
-import { Figure, QuestFacts, Spot } from "@/questie"
+import { Figure, Spot } from "@/questie"
 
 // The zone's name of an `AreaTable` area, as the client names it; nil for one it doesn't know.
 function zoneOf(area: Integer): String | nil {
@@ -30,21 +29,12 @@ public function whereOf(figures: Array<Figure>): String {
   return Locale.ZONE_PLACES.format(zone, places)
 }
 
-public class TrackerLines implements QuestLines {
-  facts: Signal<Map<Integer, QuestFacts>>
+public class TrackerOpener implements QuestOpener {
   const opening: (id: Integer) => Boolean
   const showing: (id: Integer) => Boolean
-  constructor(facts: Signal<Map<Integer, QuestFacts>>, opening: (id: Integer) => Boolean, showing: (id: Integer) => Boolean) {
-    self.facts = facts
+  constructor(opening: (id: Integer) => Boolean, showing: (id: Integer) => Boolean) {
     self.opening = opening
     self.showing = showing
-  }
-
-  public lines(self, quest: Integer): Array<QuestLine> {
-    const facts = self.facts[quest]
-    if (facts == nil) { return [] }
-    const text = whereOf(facts.targets)
-    return text == "" ? [] : [{ text: text }]
   }
 
   public open(self, quest: Integer): Boolean { return self.opening(quest) }

@@ -176,22 +176,22 @@ surface 548.15,192.46 893.38x515.08 on MEDIUM clamped raised by a click
       box 1399.63,216.46 27.5x26.67 absolute clipped @keyPress @pointerPress
         box 1399.63,216.46 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
         box 1405.88,226.04 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
-surface 1341.67,5 250x51.58 on LOW clamped
-  box 1341.67,5 250x51.58 @pointerEnter @pointerLeave
-    box 1350.2,13.53 232.93x34.51 scrolled 0 of 0
-      box 1350.2,13.53 232.93x34.51
-        box 1350.2,13.53 16.67x15.83
-          text 1350.2,13.53 8.33x15.83 "1" #ff2020
-          text 1358.53,13.53 8.33x15.83 "4" #ff2020
-        box 1372.56,13.53 210.58x15.83 @pointerPress
-          text 1372.56,13.53 193.51x15.83 "Elwynn Wolves" #f0e6d2
-          text 1571.76,21.45 0x0 "" #a3977f
-          box 1577.44,21.45 0x0
-          box 1583.13,21.45 0x0
-        box 1350.2,40.13 16.67x0
-        box 1372.56,32.21 210.58x15.83
-          box 1372.56,32.21 210.58x15.83
-            text 1372.56,32.21 210.58x15.83 "Wolves slain: 5/10" #f0e6d2
+surface 1341.67,5 250x57.27 on LOW clamped
+  box 1341.67,5 250x57.27 @pointerEnter @pointerLeave
+    box 1350.2,13.53 232.93x40.2 scrolled 0 of 0
+      box 1350.2,13.53 232.93x40.2 #00000000 @pointerPress
+        box 1353.04,16.38 16.67x15.83
+          text 1353.04,16.38 8.33x15.83 "1" #ff2020
+          text 1361.38,16.38 8.33x15.83 "4" #ff2020
+        box 1375.4,16.38 204.89x15.83
+          text 1375.4,16.38 187.82x15.83 "Elwynn Wolves" #f0e6d2
+          text 1568.91,24.29 0x0 "" #a3977f
+          box 1574.6,24.29 0x0
+          box 1580.29,24.29 0x0
+        box 1353.04,42.97 16.67x0
+        box 1375.4,35.06 204.89x15.83
+          box 1375.4,35.06 204.89x15.83
+            text 1375.4,35.06 204.89x15.83 "Wolves slain: 5/10" #f0e6d2
 surface 578.94,446.5 194.71x138.07 on TOOLTIP Interface\AddOns\Ordaen\media\window-wood pieces=[tl 0.99, tr 0.80, bl 0.80, br 0.61, top 0.99>0.81 x9.14, bottom 0.79>0.61 x9.14, left 0.98>0.81 x6.19, right 0.79>0.62 x6.19] clamped
   text 597.96,465.52 156.67x17.5 "Elwynn Wolves" #f0e6d2
   text 597.96,488.71 156.67x14.4 "Bring pelts to Eagan." #cbb994
