@@ -217,7 +217,7 @@ public class Professions implements Module, App {
   derived usedBy: Map<Integer, Array<Use>> = usesOf(self.written)
   // Who crafts with each item, for its tooltip's «Used in crafting».
   derived crafters: Map<Integer, Array<Crafter>> = craftersOf(self.written)
-  const tooltipCrafters: TooltipCrafters = new TooltipCrafters(() => self.crafters, () => self.written)
+  const tooltipCrafters: TooltipCrafters = new TooltipCrafters(() => self.crafters, () => self.written, () => self.taught)
   // What this character's craft queue takes, every line still to make together: another module's read.
   public derived queue: Array<QueueItem> = needsOf(self.written, self.crafting.lines)
   derived taught: Map<String, Taught> = self.learning.values.recipes

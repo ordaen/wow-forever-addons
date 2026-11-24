@@ -3,6 +3,7 @@ import Game from "$game"
 import Test from "$test"
 import { Book } from "@/book"
 import { CraftersLines, craftersOf } from "@/crafters"
+import { Taught } from "@/learn"
 import { Thresholds, difficultyAt, thresholdsOf } from "@/skillUps"
 import Style from "@/style"
 
@@ -46,18 +47,21 @@ test "the tooltip says «Used in crafting», then a line per character, the one 
   Test.expect(Game.player.guid == ME)
   const written = book()
   const found = craftersOf(written)
-  const lines = new CraftersLines(() => found, () => written).lines(FEATHER, "")
+  // A trainer taught the cap at 30.
+  const taught: Map<String, Taught> = { ["Feathered Cap"]: { skill: 30, cost: 100 } }
+  const lines = new CraftersLines(() => found, () => written, () => taught).lines(FEATHER, "")
   Test.expect(lines[1]?.left == "Used in crafting")
   Test.expect(lines[2]?.left == "Player" && lines[2]?.right == "Tailoring")
   Test.expect(lines[3]?.left == "Ann" && lines[3]?.right == "Tailoring")
   Test.expect(lines[4]?.left == "Ann" && lines[4]?.right == "Leatherworking")
   const rows = lines[2]?.opens?.rows ?? []
-  Test.expect(rows.length == 1 && rows[1]?.left == "Feathered Cap" && rows[1]?.item == 1100)
+  // Each recipe with the skill it is learned at: here what the trainer said.
+  Test.expect(rows.length == 1 && rows[1]?.left == "Feathered Cap" && rows[1]?.item == 1100 && rows[1]?.right == "30")
   // The bags hold no feather in the stand-in.
   const foot = lines[2]?.opens?.foot ?? []
   Test.expect(foot[1]?.left == "In bags and bank" && foot[1]?.right == "0")
   Test.expect(lines[1]?.opens == nil)
-  Test.expect(new CraftersLines(() => found, () => written).lines(1100, "").length == 0)
+  Test.expect(new CraftersLines(() => found, () => written, () => taught).lines(1100, "").length == 0)
 }
 
 test "a recipe's difficulty at a skill: orange under yellow, yellow to halfway, green to grey, grey past; grey unknown" {

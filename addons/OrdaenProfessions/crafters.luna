@@ -9,6 +9,7 @@ import root Alts from "OrdaenAlts"
 import root Tooltips from "OrdaenTooltips"
 import type { ItemLines, Line, Listed } from "OrdaenTooltips"
 import { Book, playerName } from "@/book"
+import { Taught } from "@/learn"
 import Locale from "@/locales"
 import { Thresholds, difficultyAt, thresholdsOf } from "@/skillUps"
 import Style from "@/style"
@@ -116,6 +117,8 @@ public function craftingOf(crafter: Crafter, book: Book, table: Thresholds): Cra
 public type CraftersRead = () => Map<Integer, Array<Crafter>>
 // The book itself, for the recipes' names and what they make.
 public type BookRead = () => Book
+// What the trainers met have taught, by the recipe's name: the skill each is learned at.
+public type TaughtRead = () => Map<String, Taught>
 
 // How many of an item a character holds, bags and bank, by Ordaen Alts' records; the bags alone for the character
 // played while Alts is off, nothing for another.
@@ -132,9 +135,11 @@ function heldBy(guid: String, item: Integer): Integer {
 public class CraftersLines implements ItemLines {
   const crafters: CraftersRead
   const book: BookRead
-  constructor(crafters: CraftersRead, book: BookRead) {
+  const taught: TaughtRead
+  constructor(crafters: CraftersRead, book: BookRead, taught: TaughtRead) {
     self.crafters = crafters
     self.book = book
+    self.taught = taught
   }
 
   public lines(self, item: Integer, link: String): Array<Line> {
@@ -167,12 +172,11 @@ public class CraftersLines implements ItemLines {
   lineOf(self, crafter: Crafter, item: Integer, book: Book, table: Thresholds): Line {
     const crafting = craftingOf(crafter, book, table)
     const rows: Array<Listed> = []
+    const taught = self.taught()
     for (index, recipe of crafting.recipes) {
-      const yellow = table.yellow[crafter.recipes[index] ?? 0]
-      rows.push({
-        left: recipe.name, right: yellow == nil ? nil : String.of(yellow), color: recipe.color,
-        item: recipe.makes
-      })
+      // The skill it is learned at: its item's, else what a trainer said; none where neither is known.
+      const at = table.learned[crafter.recipes[index] ?? 0] ?? taught[recipe.name]?.skill
+      rows.push({ left: recipe.name, right: at == nil ? nil : String.of(at), color: recipe.color, item: recipe.makes })
     }
     const own = crafter.guid == Game.player.guid
     return {
@@ -190,8 +194,8 @@ public class CraftersLines implements ItemLines {
 // module does. Without Tooltips the root import stays nil and nothing is added.
 public class TooltipCrafters {
   const lines: CraftersLines
-  constructor(crafters: CraftersRead, book: BookRead) {
-    self.lines = new CraftersLines(crafters, book)
+  constructor(crafters: CraftersRead, book: BookRead, taught: TaughtRead) {
+    self.lines = new CraftersLines(crafters, book, taught)
     watch (tooltips of Tooltips) {
       if (tooltips == nil) { return }
       tooltips.uses.add(self.lines)
