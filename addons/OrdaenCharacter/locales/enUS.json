@@ -116,7 +116,7 @@
   "MISS": "Miss",
   "GLANCING": "Glancing blow",
   "ORDINARY": "Ordinary hit",
-  "LANDS_TIP": "The chance an ability is neither a miss nor a dodge, from behind, where nothing is parried. Below: what your swings come to from the front, slice by slice of the one roll that settles each; a weapon in each hand misses more with them. A glancing blow lands at reduced damage.",
+  "LANDS_TIP": "The chance an ability is neither a miss nor a dodge, from behind, where nothing is parried. Below: what your swings come to from the front, slice by slice of the one roll that settles each; a weapon in each hand misses more with them. A glancing or a blocked blow lands at reduced damage; only a blow from the front is blocked.",
   "LANDS_RANGED_TIP": "The chance a shot is neither a miss nor a dodge. Below: what your shots come to, slice by slice of the one roll that settles each.",
   "LANDS_SPELL_TIP": "The chance a spell doesn't miss. Below: what your spells come to: a miss, then a crit of what lands. Partial resists aren't counted.",
   "HIT_MARK": "At %s hit, no misses.",

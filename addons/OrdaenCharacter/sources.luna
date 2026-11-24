@@ -367,18 +367,20 @@ public function hitCaps(stat: Stat, stats: Stats): Array<Cap> {
 
 // What a target dodges and parries, in percent (the game's `CR_EXPERTISE_TOOLTIP`, `BASE_ENEMY_DODGE_CHANCE`): a raid's
 // boss, three levels over the player, and a target of the player's level. Expertise takes the dodge off first, and only
-// what is past the dodge takes off the parry (`GetEnemyParryChance`).
+// what is past the dodge takes off the parry (`GetEnemyParryChance`). A blow from the front may be blocked too: the
+// client says no target's block, so it is the players' own measure, a step a level as the dodge's.
 struct Avoidance {
   const dodge: Number
   const parry: Number
+  const block: Number
 }
-const BOSS_AVOIDANCE: Avoidance = { dodge: 6.5, parry: 16.5 }
+const BOSS_AVOIDANCE: Avoidance = { dodge: 6.5, parry: 16.5, block: 6.5 }
 // A target by its name in a tooltip, and what it dodges and parries.
 struct Target {
   const name: String
   const of: Avoidance
 }
-const LEVEL_AVOIDANCE: Avoidance = { dodge: 5, parry: 5 }
+const LEVEL_AVOIDANCE: Avoidance = { dodge: 5, parry: 5, block: 5 }
 
 // One target's chances to dodge and to parry at the player's expertise, bigger worse: the dodge less the expertise, the
 // parry less what is past the dodge.
@@ -428,12 +430,14 @@ function strikeOf(stat: Stat): Strike | nil {
 // percent (the game's skills frame).
 const SKILL_STEP = 0.04
 
-// What fails of a strike against a target, in percent, at the player's hit, weapon skill and expertise: a miss; a
-// dodge (not a spell's; expertise lowers a melee blow's alone); a parry (a melee blow's, from the front alone).
+// What a strike against a target comes short of, in percent, at the player's hit, weapon skill and expertise: a miss;
+// a dodge (not a spell's; expertise lowers a melee blow's alone); a parry (a melee blow's, from the front alone); a
+// block (a blow's or a shot's from the front, which lands for less).
 struct Odds {
   const miss: Number
   const dodge: Number
   const parry: Number
+  const block: Number
 }
 
 // The weapon skill a strike's weapon has past the level's; none for a spell.
@@ -445,13 +449,14 @@ function oddsOf(strike: Strike, stats: Stats, boss: Boolean, caps: HitCaps): Odd
   const hit = strike == .Spell ? stats.spellHit : strike == .Ranged ? stats.rangedHit : stats.meleeHit
   const edge = skillPast(strike, stats) * SKILL_STEP
   const miss = ((boss ? caps.boss : caps.level) - hit - edge).max(0)
-  if (strike == .Spell) { return { miss: miss, dodge: 0, parry: 0 } }
+  if (strike == .Spell) { return { miss: miss, dodge: 0, parry: 0, block: 0 } }
   const of = boss ? BOSS_AVOIDANCE : LEVEL_AVOIDANCE
   const dodged = (of.dodge - edge).max(0)
-  if (strike == .Ranged) { return { miss: miss, dodge: dodged, parry: 0 } }
+  const block = (of.block - edge).max(0)
+  if (strike == .Ranged) { return { miss: miss, dodge: dodged, parry: 0, block: block } }
   const dodge = (dodged - stats.expertise).max(0)
   const parry = ((of.parry - edge).max(0) - (stats.expertise - dodged).max(0)).max(0)
-  return { miss: miss, dodge: dodge, parry: parry }
+  return { miss: miss, dodge: dodge, parry: parry, block: block }
 }
 
 function strikeCaps(strike: Strike): HitCaps { return strike == .Spell ? SPELL_HIT_CAPS : WEAPON_HIT_CAPS }
@@ -481,8 +486,9 @@ struct Outcome {
 }
 
 // What a strike comes to against a target, from the front, part by part in the order the game's roll takes them. A
-// swing's or a shot's one roll: misses, dodges, parries and glancing blows first, crits in what they leave (no more:
-// past it a crit is lost), ordinary blows the rest. A spell's two: a miss, then a crit of what lands.
+// swing's or a shot's one roll: misses, dodges, parries, glancing blows and blocks first (a block in what the rest
+// leave), crits in what they leave (no more: past it a crit is lost), ordinary blows the rest. A spell's two: a miss,
+// then a crit of what lands.
 function outcomesOf(strike: Strike, stats: Stats, boss: Boolean): Array<Outcome> {
   const caps = strike == .Melee && dualOf(stats) ? DUAL_HIT_CAPS : strikeCaps(strike)
   const odds = oddsOf(strike, stats, boss, caps)
@@ -500,13 +506,20 @@ function outcomesOf(strike: Strike, stats: Stats, boss: Boolean): Array<Outcome>
     outcomes.push({ label: Locale.PARRY, share: odds.parry, color: Style.AVOIDED, whole: whole.parry })
     outcomes.push({ label: Locale.GLANCING, share: boss ? stats.bossGlancing : stats.levelGlancing, color: Style.YELLOW })
   }
-  let taken: Number = 0
-  for (o of outcomes) { taken = taken + o.share }
-  const room = (100 - taken).max(0)
+  const blocks = odds.block.min(roomOf(outcomes))
+  outcomes.push({ label: Locale.BLOCK, share: blocks, color: Style.YELLOW })
+  const room = roomOf(outcomes)
   const crits = crit.min(room)
   outcomes.push({ label: Locale.ORDINARY, share: room - crits, color: Style.ORDINARY })
   outcomes.push({ label: Locale.CRIT, share: crits, color: Style.GREEN })
   return outcomes
+}
+
+// What the parts so far leave of the roll.
+function roomOf(outcomes: Array<Outcome>): Number {
+  let taken: Number = 0
+  for (o of outcomes) { taken = taken + o.share }
+  return (100 - taken).max(0)
 }
 
 // How a part's value reads: a failing part's by what is left of it, any other's plain.
