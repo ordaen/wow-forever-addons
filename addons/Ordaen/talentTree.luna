@@ -41,6 +41,9 @@ const HALF: Number<Length> = STEP / 2
 // client's colours for its look.
 const RANK_TEXT = 1.75rem
 const RANK_OUTLINE = 1
+// The rank of the ranks, small at a node's lower right (`TalentButtonLegacyMixin`), white.
+const FRACTION_TEXT = 0.85rem
+const WHITE: Color = Color.hex("#ffffff")
 const GOLD: Color = Color.hex("#ffd100")
 const GREEN: Color = Color.hex("#19ff19")
 const GREY: Color = Color.hex("#808080")
@@ -248,16 +251,19 @@ class TalentNodeView implements Component {
   derived look: Look = lookOf(self.node)
   derived art: LookArt = artOf(self.look)
   derived opacity: Number = self.lit ? 1 : 0.3
-  // The rank shows once one is held, or where one may be taken (a 0 then).
-  derived ranked: Boolean = self.node.rank > 0 || self.look == .Selectable
+  // The rank shows once one is held, or where one may be taken (a 0 then); as a fraction it shows on every node.
+  derived ranked: Boolean = !self.fraction && (self.node.rank > 0 || self.look == .Selectable)
   derived rank: String = "%d".format(self.node.rank)
+  derived ranks: String = "%d/%d".format(self.node.rank, self.node.ranks)
   derived veiled: Boolean = self.art.veil > 0
 
   node: Signal<Game.TalentNode>
   search: Signal<String>
-  constructor(node: Signal<Game.TalentNode>, search: Signal<String>) {
+  const fraction: Boolean
+  constructor(node: Signal<Game.TalentNode>, search: Signal<String>, fraction: Boolean) {
     self.node = node
     self.search = search
+    self.fraction = fraction
   }
 
   onEnter(mut self) { self.hovered = true }
@@ -285,6 +291,10 @@ class TalentNodeView implements Component {
           <text value={self.rank} textSize={RANK_TEXT} textColor={self.art.rank} textOutline={RANK_OUTLINE} wrap={.None} textFont={.Numbers}
                 leading={.Tight} textAlign={.Center} />
         </box>
+        <box $if={self.fraction} position={Position.Absolute} right={1ui} bottom={1ui}>
+          <text value={self.ranks} textSize={FRACTION_TEXT} textColor={WHITE} textOutline={RANK_OUTLINE} wrap={.None} textFont={.Numbers}
+                leading={.Tight} />
+        </box>
         <Tip $if={self.hovered} title={self.node.name} text={self.tipText} rows={self.tipRows} sections={self.tipSections} />
       </box>
     }
@@ -311,9 +321,11 @@ class TreeCellView implements Component {
 
   cell: Signal<TreeCell>
   search: Signal<String>
-  constructor(cell: Signal<TreeCell>, search: Signal<String>) {
+  const fraction: Boolean
+  constructor(cell: Signal<TreeCell>, search: Signal<String>, fraction: Boolean) {
     self.cell = cell
     self.search = search
+    self.fraction = fraction
   }
 
   onSpend(mut self, id: Integer) { self.spend.emit(id) }
@@ -341,7 +353,7 @@ class TreeCellView implements Component {
                height={LINE} background={self.cell.east} border={LINE_EDGE} />
           <box $if={self.headAcross} position={Position.Absolute} left={self.headLeft} top={(SIZE - HEAD) / 2}
                width={HEAD} height={HEAD} background={self.cell.head} rotation={self.headTurn} zLevel={1} />
-          <TalentNodeView $for={node of self.nodes} $key={node.id} node={node} search={self.search} @spend={self.onSpend}
+          <TalentNodeView $for={node of self.nodes} $key={node.id} node={node} search={self.search} fraction={self.fraction} @spend={self.onSpend}
                           @refund={self.onRefund} />
         </box>
         <box>
@@ -367,15 +379,20 @@ public class TalentTreeView implements Component {
   tree: Signal<Game.TalentTree>
   search: Signal<String>
   const titled: Boolean
+  const fraction: Boolean
   constructor(
     tree: Signal<Game.TalentTree>,
     search: Signal<String> = "",
     // The tree's name and points over it; none where its owner names the tree (Legacy's list of trees).
-    titled: Boolean = true
+    titled: Boolean = true,
+    // Each node's rank of its ranks, small and white at its lower right on every node, as Blizzard's Legacy tree has
+    // it; otherwise the rank large in its middle once one is held, as the talents have it.
+    fraction: Boolean = false
   ) {
     self.tree = tree
     self.search = search
     self.titled = titled
+    self.fraction = fraction
   }
 
   onSpend(mut self, id: Integer) { self.spend.emit(id) }
@@ -386,7 +403,7 @@ public class TalentTreeView implements Component {
       <box rows={self.parts} gap={3sp} xAlign={Align.Center}>
         <text $if={self.titled} value={self.title} textColor={GOLD} wrap={.None} />
         <box columns={self.columns} rows={self.rows}>
-          <TreeCellView $for={index, cell of self.grid.cells} $key={index} cell={cell} search={self.search}
+          <TreeCellView $for={index, cell of self.grid.cells} $key={index} cell={cell} search={self.search} fraction={self.fraction}
                         @spend={self.onSpend} @refund={self.onRefund} />
         </box>
       </box>
