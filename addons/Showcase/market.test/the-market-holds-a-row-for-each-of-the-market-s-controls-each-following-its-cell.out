@@ -98,15 +98,15 @@ box 0,0 700x566.66
             box 493.57,342.17 120x31.47 #00000000 @keyPress @pointerPress
               box 493.57,371.97 120x1.67 absolute #00000000
               box 578.22,350.7 35.34x14.4
-                text 578.22,350.7 25.83x14.4 "Each" #cbb994
-                box 606.9,355.4 6.67x5
-                  box 603.57,351.23 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 tint=#f0c860 opacity=0
+                box 578.22,355.4 6.67x5
+                  box 574.89,351.23 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 tint=#f0c860 opacity=0
+                text 587.73,350.7 25.83x14.4 "Each" #cbb994
             box 622.1,342.17 60x31.47 #00000000 @keyPress @pointerPress
               box 622.1,371.97 60x1.67 absolute #00000000
               box 652.59,350.7 29.51x14.4
-                text 652.59,350.7 20x14.4 "Age" #cbb994
-                box 675.43,355.4 6.67x5
-                  box 672.1,351.23 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 tint=#f0c860 opacity=0
+                box 652.59,355.4 6.67x5
+                  box 649.26,351.23 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 tint=#f0c860 opacity=0
+                text 662.1,350.7 20x14.4 "Age" #cbb994
         box 0.83,374.47 698.33x85.87 scrolled 0 of 0
           box 9.37,383 681.27x22.93 #00000000 @keyPress @pointerEnter @pointerLeave @pointerPress
             text 17.9,387.27 467.13x14.4 "Copper Bar" #ffffff
@@ -252,15 +252,15 @@ box 0,0 700x566.66
             box 493.57,342.17 120x31.47 #00000000 @keyPress @pointerPress
               box 493.57,371.97 120x1.67 absolute #00000000
               box 578.22,350.7 35.34x14.4
-                text 578.22,350.7 25.83x14.4 "Each" #cbb994
-                box 606.9,355.4 6.67x5
-                  box 603.57,351.23 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 tint=#f0c860 opacity=0
+                box 578.22,355.4 6.67x5
+                  box 574.89,351.23 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 tint=#f0c860 opacity=0
+                text 587.73,350.7 25.83x14.4 "Each" #cbb994
             box 622.1,342.17 60x31.47 #00000000 @keyPress @pointerPress
               box 622.1,371.97 60x1.67 absolute #00000000
               box 652.59,350.7 29.51x14.4
-                text 652.59,350.7 20x14.4 "Age" #cbb994
-                box 675.43,355.4 6.67x5
-                  box 672.1,351.23 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 tint=#f0c860 opacity=0
+                box 652.59,355.4 6.67x5
+                  box 649.26,351.23 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 tint=#f0c860 opacity=0
+                text 662.1,350.7 20x14.4 "Age" #cbb994
         box 0.83,374.47 698.33x85.87 scrolled 0 of 0
           box 9.37,383 681.27x22.93 #00000000 @keyPress @pointerEnter @pointerLeave @pointerPress
             text 17.9,387.27 467.13x14.4 "Copper Bar" #ffffff
@@ -404,15 +404,15 @@ box 0,0 700x566.66
             box 493.57,342.17 120x31.47 #00000000 @keyPress @pointerPress
               box 493.57,371.97 120x1.67 absolute #00000000
               box 578.22,350.7 35.34x14.4
-                text 578.22,350.7 25.83x14.4 "Each" #cbb994
-                box 606.9,355.4 6.67x5
-                  box 603.57,351.23 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 tint=#f0c860 opacity=0
+                box 578.22,355.4 6.67x5
+                  box 574.89,351.23 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 tint=#f0c860 opacity=0
+                text 587.73,350.7 25.83x14.4 "Each" #cbb994
             box 622.1,342.17 60x31.47 #00000000 @keyPress @pointerPress
               box 622.1,371.97 60x1.67 absolute #00000000
               box 652.59,350.7 29.51x14.4
-                text 652.59,350.7 20x14.4 "Age" #cbb994
-                box 675.43,355.4 6.67x5
-                  box 672.1,351.23 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 tint=#f0c860 opacity=0
+                box 652.59,355.4 6.67x5
+                  box 649.26,351.23 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 tint=#f0c860 opacity=0
+                text 662.1,350.7 20x14.4 "Age" #cbb994
         box 0.83,374.47 698.33x85.87 scrolled 0 of 0
           box 9.37,383 681.27x22.93 #00000000 @keyPress @pointerEnter @pointerLeave @pointerPress
             text 17.9,387.27 467.13x14.4 "Copper Bar" #ffffff
@@ -556,15 +556,15 @@ box 0,0 700x566.66
             box 493.57,342.17 120x31.47 #00000000 @keyPress @pointerPress
               box 493.57,371.97 120x1.67 absolute #00000000
               box 578.22,350.7 35.34x14.4
-                text 578.22,350.7 25.83x14.4 "Each" #cbb994
-                box 606.9,355.4 6.67x5
-                  box 603.57,351.23 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 tint=#f0c860 opacity=0
+                box 578.22,355.4 6.67x5
+                  box 574.89,351.23 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 tint=#f0c860 opacity=0
+                text 587.73,350.7 25.83x14.4 "Each" #cbb994
             box 622.1,342.17 60x31.47 #00000000 @keyPress @pointerPress
               box 622.1,371.97 60x1.67 absolute #00000000
               box 652.59,350.7 29.51x14.4
-                text 652.59,350.7 20x14.4 "Age" #cbb994
-                box 675.43,355.4 6.67x5
-                  box 672.1,351.23 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 tint=#f0c860 opacity=0
+                box 652.59,355.4 6.67x5
+                  box 649.26,351.23 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 tint=#f0c860 opacity=0
+                text 662.1,350.7 20x14.4 "Age" #cbb994
         box 0.83,374.47 698.33x85.87 scrolled 0 of 0
           box 9.37,383 681.27x22.93 #00000000 @keyPress @pointerEnter @pointerLeave @pointerPress
             text 17.9,387.27 467.13x14.4 "Copper Bar" #ffffff
@@ -708,15 +708,15 @@ box 0,0 700x566.66
             box 493.57,342.17 120x31.47 #00000000 @keyPress @pointerPress
               box 493.57,371.97 120x1.67 absolute #00000000
               box 578.22,350.7 35.34x14.4
-                text 578.22,350.7 25.83x14.4 "Each" #cbb994
-                box 606.9,355.4 6.67x5
-                  box 603.57,351.23 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 tint=#f0c860 opacity=0
+                box 578.22,355.4 6.67x5
+                  box 574.89,351.23 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 tint=#f0c860 opacity=0
+                text 587.73,350.7 25.83x14.4 "Each" #cbb994
             box 622.1,342.17 60x31.47 #00000000 @keyPress @pointerPress
               box 622.1,371.97 60x1.67 absolute #00000000
               box 652.59,350.7 29.51x14.4
-                text 652.59,350.7 20x14.4 "Age" #cbb994
-                box 675.43,355.4 6.67x5
-                  box 672.1,351.23 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 tint=#f0c860 opacity=0
+                box 652.59,355.4 6.67x5
+                  box 649.26,351.23 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 tint=#f0c860 opacity=0
+                text 662.1,350.7 20x14.4 "Age" #cbb994
         box 0.83,374.47 698.33x85.87 scrolled 0 of 0
           box 9.37,383 681.27x22.93 #00000000 @keyPress @pointerEnter @pointerLeave @pointerPress
             text 17.9,387.27 467.13x14.4 "Copper Bar" #ffffff
@@ -860,15 +860,15 @@ box 0,0 700x566.66
             box 493.57,342.17 120x31.47 #00000000 @keyPress @pointerPress
               box 493.57,371.97 120x1.67 absolute #00000000
               box 578.22,350.7 35.34x14.4
-                text 578.22,350.7 25.83x14.4 "Each" #cbb994
-                box 606.9,355.4 6.67x5
-                  box 603.57,351.23 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 tint=#f0c860 opacity=0
+                box 578.22,355.4 6.67x5
+                  box 574.89,351.23 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 tint=#f0c860 opacity=0
+                text 587.73,350.7 25.83x14.4 "Each" #cbb994
             box 622.1,342.17 60x31.47 #00000000 @keyPress @pointerPress
               box 622.1,371.97 60x1.67 absolute #00000000
               box 652.59,350.7 29.51x14.4
-                text 652.59,350.7 20x14.4 "Age" #cbb994
-                box 675.43,355.4 6.67x5
-                  box 672.1,351.23 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 tint=#f0c860 opacity=0
+                box 652.59,355.4 6.67x5
+                  box 649.26,351.23 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 tint=#f0c860 opacity=0
+                text 662.1,350.7 20x14.4 "Age" #cbb994
         box 0.83,374.47 698.33x85.87 scrolled 0 of 0
           box 9.37,383 681.27x22.93 #00000000 @keyPress @pointerEnter @pointerLeave @pointerPress
             text 17.9,387.27 467.13x14.4 "Copper Bar" #ffffff
@@ -1008,15 +1008,15 @@ box 0,0 700x546.57
             box 493.57,322.08 120x31.47 #00000000 @keyPress @pointerPress
               box 493.57,351.88 120x1.67 absolute #00000000
               box 578.22,330.61 35.34x14.4
-                text 578.22,330.61 25.83x14.4 "Each" #cbb994
-                box 606.9,335.31 6.67x5
-                  box 603.57,331.14 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 tint=#f0c860 opacity=0
+                box 578.22,335.31 6.67x5
+                  box 574.89,331.14 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 tint=#f0c860 opacity=0
+                text 587.73,330.61 25.83x14.4 "Each" #cbb994
             box 622.1,322.08 60x31.47 #00000000 @keyPress @pointerPress
               box 622.1,351.88 60x1.67 absolute #00000000
               box 652.59,330.61 29.51x14.4
-                text 652.59,330.61 20x14.4 "Age" #cbb994
-                box 675.43,335.31 6.67x5
-                  box 672.1,331.14 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 tint=#f0c860 opacity=0
+                box 652.59,335.31 6.67x5
+                  box 649.26,331.14 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 tint=#f0c860 opacity=0
+                text 662.1,330.61 20x14.4 "Age" #cbb994
         box 0.83,354.38 698.33x85.87 scrolled 0 of 0
           box 9.37,362.91 681.27x22.93 #00000000 @keyPress @pointerEnter @pointerLeave @pointerPress
             text 17.9,367.18 467.13x14.4 "Copper Bar" #ffffff
@@ -1155,15 +1155,15 @@ box 0,0 700x546.57
             box 493.57,322.08 120x31.47 #00000033 @keyPress @pointerPress
               box 493.57,351.88 120x1.67 absolute #d6a56b
               box 578.22,330.61 35.34x14.4
-                text 578.22,330.61 25.83x14.4 "Each" #f0c860
-                box 606.9,335.31 6.67x5
-                  box 603.57,331.14 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 tint=#f0c860 opacity=1
+                box 578.22,335.31 6.67x5
+                  box 574.89,331.14 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 tint=#f0c860 opacity=1
+                text 587.73,330.61 25.83x14.4 "Each" #f0c860
             box 622.1,322.08 60x31.47 #00000000 @keyPress @pointerPress
               box 622.1,351.88 60x1.67 absolute #00000000
               box 652.59,330.61 29.51x14.4
-                text 652.59,330.61 20x14.4 "Age" #cbb994
-                box 675.43,335.31 6.67x5
-                  box 672.1,331.14 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 tint=#f0c860 opacity=0
+                box 652.59,335.31 6.67x5
+                  box 649.26,331.14 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 tint=#f0c860 opacity=0
+                text 662.1,330.61 20x14.4 "Age" #cbb994
         box 0.83,354.38 698.33x85.87 scrolled 0 of 0
           box 9.37,362.91 681.27x22.93 #00000000 @keyPress @pointerEnter @pointerLeave @pointerPress
             text 17.9,367.18 467.13x14.4 "Arcane Dust" #ffffff
@@ -1302,15 +1302,15 @@ box 0,0 700x546.57
             box 493.57,322.08 120x31.47 #00000033 @keyPress @pointerPress
               box 493.57,351.88 120x1.67 absolute #d6a56b
               box 578.22,330.61 35.34x14.4
-                text 578.22,330.61 25.83x14.4 "Each" #f0c860
-                box 606.9,335.31 6.67x5
-                  box 603.57,331.14 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 1 of 8 tint=#f0c860 opacity=1
+                box 578.22,335.31 6.67x5
+                  box 574.89,331.14 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 1 of 8 tint=#f0c860 opacity=1
+                text 587.73,330.61 25.83x14.4 "Each" #f0c860
             box 622.1,322.08 60x31.47 #00000000 @keyPress @pointerPress
               box 622.1,351.88 60x1.67 absolute #00000000
               box 652.59,330.61 29.51x14.4
-                text 652.59,330.61 20x14.4 "Age" #cbb994
-                box 675.43,335.31 6.67x5
-                  box 672.1,331.14 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 1 of 8 tint=#f0c860 opacity=0
+                box 652.59,335.31 6.67x5
+                  box 649.26,331.14 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 1 of 8 tint=#f0c860 opacity=0
+                text 662.1,330.61 20x14.4 "Age" #cbb994
         box 0.83,354.38 698.33x85.87 scrolled 0 of 0
           box 9.37,362.91 681.27x22.93 #00000000 @keyPress @pointerEnter @pointerLeave @pointerPress
             text 17.9,367.18 467.13x14.4 "Bronze Axe" #ffffff
@@ -1449,15 +1449,15 @@ box 0,0 700x546.57
             box 493.57,322.08 120x31.47 #00000000 @keyPress @pointerPress
               box 493.57,351.88 120x1.67 absolute #d6a56b
               box 578.22,330.61 35.34x14.4
-                text 578.22,330.61 25.83x14.4 "Each" #f0c860
-                box 606.9,335.31 6.67x5
-                  box 603.57,331.14 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 1 of 8 tint=#f0c860 opacity=1
+                box 578.22,335.31 6.67x5
+                  box 574.89,331.14 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 1 of 8 tint=#f0c860 opacity=1
+                text 587.73,330.61 25.83x14.4 "Each" #f0c860
             box 622.1,322.08 60x31.47 #00000000 @keyPress @pointerPress
               box 622.1,351.88 60x1.67 absolute #00000000
               box 652.59,330.61 29.51x14.4
-                text 652.59,330.61 20x14.4 "Age" #cbb994
-                box 675.43,335.31 6.67x5
-                  box 672.1,331.14 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 1 of 8 tint=#f0c860 opacity=0
+                box 652.59,335.31 6.67x5
+                  box 649.26,331.14 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 1 of 8 tint=#f0c860 opacity=0
+                text 662.1,330.61 20x14.4 "Age" #cbb994
         box 0.83,354.38 698.33x85.87 scrolled 0 of 0
           box 9.37,362.91 681.27x22.93 #00000000 @keyPress @pointerEnter @pointerLeave @pointerPress
             text 17.9,367.18 467.13x14.4 "Bronze Axe" #ffffff
@@ -1596,15 +1596,15 @@ box 0,0 700x546.57
             box 493.57,322.08 120x31.47 #00000000 @keyPress @pointerPress
               box 493.57,351.88 120x1.67 absolute #d6a56b
               box 578.22,330.61 35.34x14.4
-                text 578.22,330.61 25.83x14.4 "Each" #f0c860
-                box 606.9,335.31 6.67x5
-                  box 603.57,331.14 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 1 of 8 tint=#f0c860 opacity=1
+                box 578.22,335.31 6.67x5
+                  box 574.89,331.14 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 1 of 8 tint=#f0c860 opacity=1
+                text 587.73,330.61 25.83x14.4 "Each" #f0c860
             box 622.1,322.08 60x31.47 #00000000 @keyPress @pointerPress
               box 622.1,351.88 60x1.67 absolute #00000000
               box 652.59,330.61 29.51x14.4
-                text 652.59,330.61 20x14.4 "Age" #cbb994
-                box 675.43,335.31 6.67x5
-                  box 672.1,331.14 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 1 of 8 tint=#f0c860 opacity=0
+                box 652.59,335.31 6.67x5
+                  box 649.26,331.14 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 1 of 8 tint=#f0c860 opacity=0
+                text 662.1,330.61 20x14.4 "Age" #cbb994
         box 0.83,354.38 698.33x85.87 scrolled 0 of 0
           box 9.37,362.91 681.27x22.93 #00000000 @keyPress @pointerEnter @pointerLeave @pointerPress
             text 17.9,367.18 467.13x14.4 "Bronze Axe" #ffffff
@@ -1743,15 +1743,15 @@ box 0,0 700x546.57
             box 493.57,322.08 120x31.47 #00000000 @keyPress @pointerPress
               box 493.57,351.88 120x1.67 absolute #d6a56b
               box 578.22,330.61 35.34x14.4
-                text 578.22,330.61 25.83x14.4 "Each" #f0c860
-                box 606.9,335.31 6.67x5
-                  box 603.57,331.14 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 1 of 8 tint=#f0c860 opacity=1
+                box 578.22,335.31 6.67x5
+                  box 574.89,331.14 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 1 of 8 tint=#f0c860 opacity=1
+                text 587.73,330.61 25.83x14.4 "Each" #f0c860
             box 622.1,322.08 60x31.47 #00000000 @keyPress @pointerPress
               box 622.1,351.88 60x1.67 absolute #00000000
               box 652.59,330.61 29.51x14.4
-                text 652.59,330.61 20x14.4 "Age" #cbb994
-                box 675.43,335.31 6.67x5
-                  box 672.1,331.14 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 1 of 8 tint=#f0c860 opacity=0
+                box 652.59,335.31 6.67x5
+                  box 649.26,331.14 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 1 of 8 tint=#f0c860 opacity=0
+                text 662.1,330.61 20x14.4 "Age" #cbb994
         box 0.83,354.38 698.33x85.87 scrolled 0 of 0
           box 9.37,362.91 681.27x22.93 #00000000 @keyPress @pointerEnter @pointerLeave @pointerPress
             text 17.9,367.18 467.13x14.4 "Bronze Axe" #ffffff
