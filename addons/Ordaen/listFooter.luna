@@ -1,0 +1,28 @@
+// ListFooter: a list window's footer, one layout for every list window: the band (FooterBand), the window's counts at
+// its left (FooterCounts), and at its right what the window puts there (its buttons, the player's money, a note).
+import { Align, Track } from "$ltml"
+import { FooterBand } from "@/footerBand"
+import { FooterCount, FooterCounts } from "@/footerCounts"
+import { Component } from "@/module"
+
+const SPREAD: Array<Track> = [{ fr: 1 }, "max-content"]
+
+public class ListFooter implements Component {
+  counts: Signal<Array<FooterCount>>
+  constructor(counts: Signal<Array<FooterCount>>) {
+    self.counts = counts
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <FooterBand>
+        <box columns={SPREAD} gap={6sp} yAlign={Align.Center}>
+          <FooterCounts counts={self.counts} />
+          <box columns={{ each: "max-content" }} gap={3sp} yAlign={Align.Center}>
+            <slot />
+          </box>
+        </box>
+      </FooterBand>
+    }
+  }
+}
