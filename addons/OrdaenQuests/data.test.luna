@@ -1,6 +1,8 @@
 // What QuestieDB says of a quest and of an NPC, as another module asks it: who gives a quest and where, an NPC's spawns.
+import Game from "$game"
 import Test from "$test"
-import { QuestieData } from "@/data"
+import { QuestieData, sellingTo } from "@/data"
+import { Seller } from "@/questie"
 
 test "a quest's facts say who gives it and where, 0 to 1; nil for a quest QuestieDB doesn't know" {
   Test.questieDB(
@@ -26,4 +28,11 @@ test "an NPC says its name and spawns; nil for one QuestieDB doesn't know" {
   const spot = npc.spots[1] ?? panic("it stands somewhere")
   Test.expect(spot.area == 1519 && (spot.x - 0.785).abs() < 0.001)
   Test.expect(data.npc(1) == nil)
+}
+
+test "an item's sellers are those who trade with the player's side; none for a player of neither" {
+  const sellers: Array<Seller> = [{ npc: 1, sides: "A" }, { npc: 2, sides: "H" }, { npc: 3, sides: "AH" }, { npc: 4, sides: "" }]
+  Test.expect(sellingTo(sellers, Game.Faction.Alliance).map(npc => `${npc}`).join(",") == "1,3")
+  Test.expect(sellingTo(sellers, Game.Faction.Horde).map(npc => `${npc}`).join(",") == "2,3")
+  Test.expect(sellingTo(sellers, Game.Faction.Neutral).length == 0)
 }

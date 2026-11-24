@@ -208,4 +208,19 @@ function questie.npcQuests(id)
 	return { starts = idsOf(npcs.Get(id, "questStarts")), ends = idsOf(npcs.Get(id, "questEnds")) }
 end
 
+-- The NPCs that sell an item, each with the sides it is friendly to ("A", "H", "AH"; "" for neither); none for an
+-- item QuestieDB doesn't know or no one sells.
+function questie.vendors(item)
+	local items, npcs = _G.LibQuestieDB.Item, _G.LibQuestieDB.Npc
+	local sellers = {}
+	if type(item) ~= "number" or not items.Exists(item) then return sellers end
+	for _, id in ipairs(idsOf(items.Get(item, "vendors"))) do
+		if npcs.Exists(id) then
+			local sides = npcs.Get(id, "friendlyToFaction")
+			sellers[#sellers + 1] = { npc = id, sides = type(sides) == "string" and sides or "" }
+		end
+	end
+	return sellers
+end
+
 LunaType.addon(name)["questie"] = questie

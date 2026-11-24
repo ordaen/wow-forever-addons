@@ -399,6 +399,12 @@ public class Quests implements Module, App {
     return nearest != nil && self.showAt(nearest.figure, nearest.spot)
   }
 
+  // The NPCs that sell an item (QuestieDB's) and trade with the player's side: another module's sellers of a reagent,
+  // for `distanceTo` and `showNearest`. None without QuestieDB.
+  public vendorsOf(self, item: Integer): Array<Integer> {
+    return self.data.vendorsOf(item, Game.player.faction)
+  }
+
   // The world yards from the player to the NPC's nearest spot (QuestieDB's) on the player's continent, as
   // `showNearest` measures them: another module's distance column of trainers or vendors. Nil where QuestieDB has no
   // spot of it on this continent, or without Ordaen Map.
