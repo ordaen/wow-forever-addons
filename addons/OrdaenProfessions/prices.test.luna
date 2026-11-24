@@ -446,7 +446,7 @@ test "a recipe with no reagents says nothing of prices missing" {
 
 // The table
 
-test "the table lists each recipe's cost and profit at its better source, as its card has them; «—» where a part has no price" {
+test "the table lists each recipe's cost and price at the house and at a merchant under their groups, the profit at the better, as its card has them; «—» where a part has no price" {
   Game.clock.server = NOW
   Game.merchant.prices = merchant
   Game.merchant.opened.emit()
@@ -461,12 +461,15 @@ test "the table lists each recipe's cost and profit at its better source, as its
   Game.tradeSkill.open = TAILORING
   window().button(Ordaen.art.ctl.tool.columns).click()
   Test.page().window("By category").button("Table").click()
-  Test.expect(window().button("Cost").shown() && window().button("Profit").shown())
-  Test.expect(reads(window().text("Linen Cloak").nth(1).item(), "Linen Cloak | 3 | 0g 1s 15c | 0g 3s 60c"))
-  Test.expect(reads(window().text("Bolt of Linen Cloth").nth(1).item(), "Bolt of Linen Cloth | - | — | —"))
+  Test.expect(window().text("Cost").shown() && window().text("Price").shown() && window().button("Profit").shown())
+  // The name, the skill (none known), how many; the cost at the house and («~», the cloth left out) at a merchant;
+  // what the cloak brings at the house and (nothing: merchants don't buy it) at one; the profit at the better.
+  Test.expect(reads(window().text("Linen Cloak").nth(1).item(), "Linen Cloak | — | 3 | 0g 1s 15c | ~ | 0g 0s 10c | 0g 4s 75c | — | 0g 3s 60c"))
+  // The bolt's linen has no price here: no cost, no profit; it sells at the house for 95 c.
+  Test.expect(reads(window().text("Bolt of Linen Cloth").nth(1).item(), "Bolt of Linen Cloth | — | - | — | — | 0g 0s 95c | — | —"))
 }
 
-test "the table sorts by cost and by profit, a recipe with none last either way" {
+test "the table sorts by the cost at the house and by profit, a recipe with none last either way" {
   Game.clock.server = NOW
   Game.merchant.prices = merchant
   Game.merchant.opened.emit()
@@ -497,12 +500,14 @@ test "the table sorts by cost and by profit, a recipe with none last either way"
   Game.tradeSkill.open = TAILORING
   window().button(Ordaen.art.ctl.tool.columns).click()
   Test.page().window("By category").button("Table").click()
-  // Each at its better source: the apron 15 c, 9 s 35 c at the house; the belt 10 c at a merchant, which nobody buys:
-  // 10 c lost; the cloak 1 s 15 c, 3 s 60 c; the bolt: 2 s of linen, sold at 95 c, 1 s 5 c lost; the vest none.
+  // At the house: the apron's and the belt's thread 15 c, the cloak 1 s 15 c, the bolt 2 s of linen, the vest none.
+  // The profit at the better: the apron 9 s 35 c at the house; the belt 10 c lost at a merchant (nobody buys it); the
+  // cloak 3 s 60 c; the bolt, sold at 95 c, 1 s 5 c lost; the vest none.
   const order = (): String => window().texts().filter(shown => NAMES.any(name => name == shown)).join(", ")
-  window().button("Cost").click()
+  const houseCost = (): Test.Part => window().button("Auction").nth(1)
+  houseCost().click()
   Test.expect(order().contains("Linen Belt, Simple Apron, Linen Cloak, Bolt of Linen Cloth, Brown Linen Vest"))
-  window().button("Cost").click()
+  houseCost().click()
   Test.expect(order().contains("Bolt of Linen Cloth, Linen Cloak, Simple Apron, Linen Belt, Brown Linen Vest"))
   window().button("Profit").click()
   Test.expect(order().contains("Bolt of Linen Cloth, Linen Belt, Linen Cloak, Simple Apron, Brown Linen Vest"))

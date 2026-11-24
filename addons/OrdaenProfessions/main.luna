@@ -9,7 +9,7 @@ import Game from "$game"
 import { Action, Align, Edges, Track } from "$ltml"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
-import { ARTWORK, Choice, Column, FilterButton, FilterGroup, ItemId, KeptWindow, Module, ModuleMemory, PushButton, Settings, SettingsPage, Table, Tabs, ToolPick, Toolbar, WINDOW_ROOM, Window, WindowTabSpec, WindowsPage, tracksOf, windowsTitle } from "Ordaen"
+import { ARTWORK, Choice, Column, FilterButton, FilterGroup, Ground, ItemId, KeptWindow, Module, ModuleMemory, PushButton, Settings, SettingsPage, Table, Tabs, ToolPick, Toolbar, WINDOW_ROOM, Window, WindowTabSpec, WindowsPage, tracksOf, windowsTitle } from "Ordaen"
 import root Auction from "OrdaenAuction"
 import type { PriceSource } from "OrdaenAuction"
 import root Quests from "OrdaenQuests"
@@ -31,11 +31,11 @@ import { Choices, GeneralPage } from "@/settings"
 import { SideList } from "@/sideList"
 import { Thresholds, thresholdsOf } from "@/skillUps"
 import { LearnPlace, RecipeSource, Way, otherSideOnly, readinessOf, sideOfPlayer, sourcesOf, wayOf } from "@/sources"
-import { SourceTotals, betterOf, bothSourcesOf } from "@/split"
+import { bothSourcesOf } from "@/split"
 import Style from "@/style"
 import {
   Act, before, FAVORITES, Group, Grouping, Kept, LIST_VIEW, ListView, MakeMode, members, MOST_MARKED, Page, Pause, Queued, QueueAct, READINESS, READY_MISSING, READY_NOW, READY_SOON, Seen, SortBy,
-  Sorted, sorted, tableBefore, View
+  Sorted, sorted, TableFacts, tableBefore, View
 } from "@/view"
 import { WorthPage } from "@/worth"
 
@@ -74,16 +74,29 @@ function trackSpellOf(skillLine: Integer | nil): Integer | nil {
     else => nil
   }
 }
+// The table's columns in the places `view.luna` names (`COLUMN_NAME`…): the recipe, the skill it is learned at, the
+// made item's type, how many the bags make. The names never narrower than a long one: the window widens for the
+// table, up to the screen's width.
+const NAMES: Track = { fr: 1, min: 234.375dp }
 const COLUMNS: Array<Column> = [
-  { title: Locale.COLUMN_RECIPE, width: { fr: 1 }, sortable: true },
-  { title: Locale.COLUMN_MAKEABLE, width: 103.125dp, align: Align.End, sortable: true }
+  { title: Locale.COLUMN_RECIPE, width: NAMES, sortable: true },
+  { title: Locale.COLUMN_SKILL, width: 70.3125dp, align: Align.End, sortable: true },
+  { title: Locale.COLUMN_TYPE, width: 117.1875dp, sortable: true },
+  { title: Locale.COLUMN_MAKEABLE, width: 93.75dp, align: Align.End, sortable: true }
 ]
-// With Ordaen Auction's prices: one making's cost and profit.
+const MONEY = 117.1875dp
+// With Ordaen Auction's prices besides: one making's cost at the house and at a merchant, what the made item brings at
+// each, the profit at the better.
 const PRICED_COLUMNS: Array<Column> = [
-  { title: Locale.COLUMN_RECIPE, width: { fr: 1 }, sortable: true },
-  { title: Locale.COLUMN_MAKEABLE, width: 103.125dp, align: Align.End, sortable: true },
-  { title: Locale.COLUMN_COST, width: 128.90625dp, align: Align.End, sortable: true },
-  { title: Locale.COLUMN_PROFIT, width: 128.90625dp, align: Align.End, sortable: true }
+  { title: Locale.COLUMN_RECIPE, width: NAMES, sortable: true },
+  { title: Locale.COLUMN_SKILL, width: 70.3125dp, align: Align.End, sortable: true },
+  { title: Locale.COLUMN_TYPE, width: 117.1875dp, sortable: true },
+  { title: Locale.COLUMN_MAKEABLE, width: 93.75dp, align: Align.End, sortable: true },
+  { title: Locale.PRICE_AUCTION, width: MONEY, align: Align.End, sortable: true, group: Locale.GROUP_COST },
+  { title: Locale.PRICE_VENDOR, width: MONEY, align: Align.End, sortable: true, group: Locale.GROUP_COST },
+  { title: Locale.PRICE_AUCTION, width: MONEY, align: Align.End, sortable: true, group: Locale.TOTAL_SALE },
+  { title: Locale.PRICE_VENDOR, width: MONEY, align: Align.End, sortable: true, group: Locale.TOTAL_SALE },
+  { title: Locale.COLUMN_PROFIT, width: MONEY, align: Align.End, sortable: true }
 ]
 const VIEWS: Array<Choice<View>> = [
   { value: View.Columns, label: Locale.VIEW_COLUMNS, icon: ARTWORK.ctl.tool.columns },
@@ -301,9 +314,8 @@ public class Professions implements Module, App {
   derived priced: Boolean = self.prices != nil
   derived tableColumns: Array<Column> = self.priced ? PRICED_COLUMNS : COLUMNS
   derived tracks: Array<Track> = tracksOf(self.tableColumns)
-  // One making's totals of each recipe the table lists, worked out while the table shows with prices.
-  // Each listed recipe's totals at the better of the house and a merchant, as its card has them.
-  derived worth: Map<Integer, SourceTotals> = self.worthOf()
+  // What the table shows of each recipe it lists besides the game's, worked out while the table shows.
+  derived facts: Map<Integer, TableFacts> = self.factsOf()
   // The category whose recipes are listed.
   derived listed: Integer = self.onCamp ? self.camp : self.chosenCategory
   // The recipes the lists hold in the order they are drawn, of which one is the chosen.
@@ -605,21 +617,30 @@ public class Professions implements Module, App {
     for (recipe of self.mains) { list.push(recipe) }
     const column = self.list.values.tableColumn
     const descending = self.list.values.tableDescending
-    const worth = self.worth
-    list.sort((a, b) => tableBefore(column, descending, worth, a, b))
+    const facts = self.facts
+    list.sort((a, b) => tableBefore(column, descending, facts, a, b))
     return list
   }
 
-  // Read again when a price may have moved; nothing while the table doesn't show or prices are off.
-  worthOf(self): Map<Integer, SourceTotals> {
+  // Each listed recipe's skill (the item's that teaches it, else what a trainer said), its made item's type, and one
+  // making's totals at each source while prices show (read again when a price may have moved). Nothing while the
+  // table doesn't show.
+  factsOf(self): Map<Integer, TableFacts> {
+    const facts: Map<Integer, TableFacts> = {}
+    if (self.list.values.view != View.Table || self.onCamp) { return facts }
     const prices = self.prices
-    const worth: Map<Integer, SourceTotals> = {}
-    if (prices == nil || self.list.values.view != View.Table || self.onCamp) { return worth }
-    _ = prices.revision
+    if (prices != nil) { _ = prices.revision }
+    const learned = self.thresholds.learned
+    const taught = self.taught
     for (recipe of self.mains) {
-      worth[recipe.id] = betterOf(bothSourcesOf(prices, recipe.id, makesOf(recipe.id), 1))
+      const fact: TableFacts = {
+        skill: learned[recipe.id] ?? taught[recipe.name]?.skill,
+        kind: nil,
+        both: prices == nil ? nil : bothSourcesOf(prices, recipe.id, makesOf(recipe.id), 1)
+      }
+      facts[recipe.id] = fact
     }
-    return worth
+    return facts
   }
 
   listingOf(self): Array<Game.Recipe> {
@@ -962,13 +983,14 @@ public class Professions implements Module, App {
                   </SideList>
                   <box $else rows={FILL}>
                     <Table $if={self.priced} columns={PRICED_COLUMNS} sorted={mut self.list.values.tableColumn}
-                           descending={mut self.list.values.tableDescending}>
-                      <RecipeTableRow $for={recipe of self.tableRows} recipe={recipe}
+                           descending={mut self.list.values.tableDescending} ground={Ground.Wood}>
+                      <RecipeTableRow $for={recipe of self.tableRows} recipe={recipe} facts={self.facts[recipe.id]}
                                       tracks={self.tracks} chosen={self.chosenRecipe} kept={self.kept}
-                                      menuFor={self.menuFor} worth={self.worth} priced={true} @act={self.onAct} />
+                                      menuFor={self.menuFor} priced={true} @act={self.onAct} />
                     </Table>
-                    <Table $else columns={COLUMNS} sorted={mut self.list.values.tableColumn} descending={mut self.list.values.tableDescending}>
-                      <RecipeTableRow $for={recipe of self.tableRows} recipe={recipe}
+                    <Table $else columns={COLUMNS} sorted={mut self.list.values.tableColumn}
+                           descending={mut self.list.values.tableDescending} ground={Ground.Wood}>
+                      <RecipeTableRow $for={recipe of self.tableRows} recipe={recipe} facts={self.facts[recipe.id]}
                                       tracks={self.tracks} chosen={self.chosenRecipe} kept={self.kept}
                                       menuFor={self.menuFor} @act={self.onAct} />
                     </Table>

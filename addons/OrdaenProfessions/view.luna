@@ -1,7 +1,7 @@
 // What the professions window's lists share: the views of a profession's recipes, how they are ordered, what a click on
 // a row asks of the window, and the groups the recipes fall into.
 import Game from "$game"
-import { SourceTotals } from "@/split"
+import { BothSources, betterOf } from "@/split"
 
 // How the recipes are laid out: the categories beside the category's recipes (ours, the default), one list with the
 // categories as headings, one flat list, a table.
@@ -81,36 +81,75 @@ public function before(sort: SortBy, a: Game.Recipe, b: Game.Recipe): Boolean {
   return a.id < b.id
 }
 
-// The table's order by a column: 1 the name, 2 how many can be made, 3 the cost, 4 the profit (`worth`, by recipe, the
-// better source's;
-// one with no price after every one with a price, either way); then by name, then by number.
-public function tableBefore(
-  column: Integer, descending: Boolean, worth: Map<Integer, SourceTotals>, a: Game.Recipe, b: Game.Recipe
-): Boolean {
-  if (column == 3 || column == 4) {
-    const x = worthOf(column, worth, a)
-    const y = worthOf(column, worth, b)
-    if (x != nil && y != nil) {
-      if (x < y) { return !descending }
-      if (y < x) { return descending }
-    } else if (x != y) {
-      return x != nil
-    }
+// What the table shows of a recipe besides the game's: the skill it is learned at (its orange point), the made item's
+// type, its totals at the house and at a merchant (none while prices aren't shown).
+public struct TableFacts {
+  skill: Integer | nil
+  kind: String | nil
+  both: BothSources | nil
+}
+
+// The table's columns by their place, which is what it sorts by: the name, the skill it is learned at, the made item's
+// type, how many the bags make; with prices, the cost at the house and at a merchant, what the made item brings at each,
+// the profit at the better.
+public const COLUMN_NAME = 1
+public const COLUMN_SKILL = 2
+public const COLUMN_TYPE = 3
+public const COLUMN_MAKEABLE = 4
+public const COLUMN_COST_AUCTION = 5
+public const COLUMN_COST_MERCHANT = 6
+public const COLUMN_SALE_AUCTION = 7
+public const COLUMN_SALE_MERCHANT = 8
+public const COLUMN_PROFIT = 9
+
+// A recipe's number in a column; none where it has none (no price, no skill known).
+function numberAt(column: Integer, facts: TableFacts | nil, recipe: Game.Recipe): Integer | nil {
+  const both = facts?.both
+  if (column == COLUMN_SKILL) { return facts?.skill }
+  if (column == COLUMN_MAKEABLE) { return recipe.craftable }
+  if (both == nil) { return nil }
+  if (column == COLUMN_COST_AUCTION) { return both.auction.cost }
+  if (column == COLUMN_COST_MERCHANT) { return both.merchant.cost }
+  if (column == COLUMN_SALE_AUCTION) { return both.auction.sale }
+  if (column == COLUMN_SALE_MERCHANT) { return both.merchant.sale }
+  if (column == COLUMN_PROFIT) { return betterOf(both).profit }
+  return nil
+}
+
+// Whether `x` stands before `y` in a column, as far as they differ: none where they don't. One with nothing stands
+// after every one with something, either way.
+function numberBefore(x: Integer | nil, y: Integer | nil, descending: Boolean): Boolean | nil {
+  if (x != nil && y != nil) {
+    if (x < y) { return !descending }
+    if (y < x) { return descending }
+    return nil
   }
-  if (descending) { return tableLess(column, b, a) }
-  return tableLess(column, a, b)
+  if (x != y) { return x != nil }
+  return nil
 }
 
-function worthOf(column: Integer, worth: Map<Integer, SourceTotals>, recipe: Game.Recipe): Integer | nil {
-  const totals = worth[recipe.id]
-  if (totals == nil) { return nil }
-  return column == 3 ? totals.cost : totals.profit
+function textBefore(x: String | nil, y: String | nil, descending: Boolean): Boolean | nil {
+  if (x != nil && y != nil) {
+    if (x < y) { return !descending }
+    if (y < x) { return descending }
+    return nil
+  }
+  if (x != y) { return x != nil }
+  return nil
 }
 
-function tableLess(column: Integer, a: Game.Recipe, b: Game.Recipe): Boolean {
-  if (column == 2 && a.craftable != b.craftable) { return a.craftable < b.craftable }
-  if (a.name != b.name) { return a.name < b.name }
-  return a.id < b.id
+// The table's order by a column (`facts` by recipe); then by name, then by number, the column's way.
+public function tableBefore(
+  column: Integer, descending: Boolean, facts: Map<Integer, TableFacts>, a: Game.Recipe, b: Game.Recipe
+): Boolean {
+  const x = facts[a.id]
+  const y = facts[b.id]
+  const by = column == COLUMN_TYPE ? textBefore(x?.kind, y?.kind, descending) : numberBefore(numberAt(column, x, a), numberAt(column, y, b), descending)
+  if (by != nil) { return by }
+  if (a.name != b.name) { return (a.name < b.name) != descending }
+  // A recipe never stands before itself, whichever way: Lua's sort asks that too.
+  if (a.id == b.id) { return false }
+  return (a.id < b.id) != descending
 }
 
 // Whether a number is among the ones listed.

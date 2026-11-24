@@ -108,24 +108,56 @@ function window(): Test.Part {
   return Test.page().window("Overview")
 }
 
-// The recipes the lists show, in the order drawn: the window's texts that name a recipe, but the chosen recipe's on
-// its card, the last.
-function listed(): String {
-  let names: Array<String> = []
-  for (shown of window().texts()) {
-    if (NAMES.any(name => name == shown)) { names.push(shown) }
+// A recipe's name where the window shows it.
+struct Named {
+  name: String
+  top: Number
+  left: Number
+}
+
+// Every recipe name the window shows, top to bottom, left to right.
+function named(): Array<Named> {
+  let list: Array<Named> = []
+  for (name of NAMES) {
+    const texts = window().text(name)
+    for (n of 1..texts.count()) {
+      const rect = texts.nth(n).rect()
+      list.push({ name: name, top: rect.top, left: rect.left })
+    }
   }
-  _ = names.pop()
+  list.sort((a, b) => a.top == b.top ? a.left < b.left : a.top < b.top)
+  return list
+}
+
+// Where the chosen recipe's name on its card stands among them: the card stands right of the lists, so its name is the
+// one furthest right; 0 for none.
+function cardOf(list: Array<Named>): Integer {
+  let card = 0
+  let left: Number = 0
+  for (index, shown of list) {
+    if (card == 0 || shown.left > left) {
+      card = index
+      left = shown.left
+    }
+  }
+  return card
+}
+
+// The recipes the lists show, in the order drawn: every name the window shows but the chosen recipe's on its card.
+function listed(): String {
+  const list = named()
+  const card = cardOf(list)
+  let names: Array<String> = []
+  for (index, shown of list) {
+    if (index != card) { names.push(shown.name) }
+  }
   return names.join(", ")
 }
 
-// The chosen recipe: the name on its card, under which its skill line stands.
+// The chosen recipe: the name on its card.
 function chosen(): String {
-  let names: Array<String> = []
-  for (shown of window().texts()) {
-    if (NAMES.any(name => name == shown)) { names.push(shown) }
-  }
-  return names[names.length] ?? ""
+  const list = named()
+  return list[cardOf(list)]?.name ?? ""
 }
 
 // Whether a part's texts read exactly this, joined by « | »: where they don't, the test fails with what they read.
@@ -331,10 +363,11 @@ test "a table: by name, its headings sort it and the same one again turns it rou
   view("Table")
   Test.expect(!window().button(Ordaen.art.ctl.tool.sort).shown())
   Test.expect(lists("Brown Linen Vest, Linen Bag, Linen Cloak, Woolen Bag"))
-  Test.expect(reads(window().text("Linen Bag").item(), "Linen Bag | 2 | 0g 0s 0c | —") && reads(window().text("Woolen Bag").item(), "Woolen Bag | - | 0g 0s 0c | —"))
-  window().button("Can make").click()
+  // The name, the skill (none known here), how many; with no reagents the costs are nothing, nothing is bought back.
+  Test.expect(reads(window().text("Linen Bag").item(), "Linen Bag | — | 2 | 0g 0s 0c | 0g 0s 0c | — | — | —") && reads(window().text("Woolen Bag").item(), "Woolen Bag | — | - | 0g 0s 0c | 0g 0s 0c | — | — | —"))
+  window().button("Available").click()
   Test.expect(lists("Brown Linen Vest, Woolen Bag, Linen Cloak, Linen Bag"))
-  window().button("Can make").click()
+  window().button("Available").click()
   Test.expect(lists("Linen Bag, Linen Cloak, Woolen Bag, Brown Linen Vest"))
   window().button("Recipe").click()
   Test.expect(lists("Brown Linen Vest, Linen Bag, Linen Cloak, Woolen Bag"))
@@ -412,7 +445,7 @@ test "two recipes of one name stand by their numbers, whichever way they came" {
   // The first, by its number, is chosen: its count on its row.
   Test.expect(reads(window().text("Linen Bag").nth(1).item(), "Linen Bag | [2]"))
   view("Table")
-  Test.expect(reads(window().text("Linen Bag").nth(1).item(), "Linen Bag | 2 | 0g 0s 0c | —"))
+  Test.expect(reads(window().text("Linen Bag").nth(1).item(), "Linen Bag | — | 2 | 0g 0s 0c | 0g 0s 0c | — | — | —"))
 }
 
 // The filter
@@ -1125,8 +1158,9 @@ test "the view, the sort and the table's order are there after a reload" {
   view("By category")
   sort("By name")
   view("Table")
-  window().button("Can make").click()
-  window().button("Can make").click()
+  window().button("Available").click()
+  Test.expect(lists("Brown Linen Vest, Woolen Bag, Linen Cloak, Linen Bag"))
+  window().button("Available").click()
   Test.reload()
   Test.expect(lists("Linen Bag, Linen Cloak, Woolen Bag, Brown Linen Vest"))
   view("By category")
