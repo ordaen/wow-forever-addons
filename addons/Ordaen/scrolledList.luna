@@ -4,7 +4,7 @@
 // a row scrolled out is cut at the rim, never at the padding. A part that stays while the rows scroll (a table's
 // headings) is its slot `head`, over the rows inside the rim, at the rows' sides. Every list that scrolls is one; no
 // module draws its own.
-import { Align, Columns, Edges, Gaps, Overflow, Size, Track } from "$ltml"
+import { Align, ArtBorder, Columns, Edges, Gaps, Line, Overflow, Side, Size, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import { Component } from "@/module"
 
@@ -16,14 +16,16 @@ public enum Ground { Well, Wood }
 // with them.
 const INSIDE = 3sp
 const NONE = 0sp
+const SIDE_LINES: Line = { width: 1.171875dp, color: Color.hex("#3e2f1d"), sides: [Side.Left, Side.Right] }
 // The head as high as it is, the rows the rest.
 const PARTS: Array<Track> = ["max-content", { fr: 1 }]
 
 public class ScrolledList implements Component {
   derived sunk: Boolean = self.ground == Ground.Well
-  derived rim = self.sunk ? Ordaen.art.ctl.well.rim : nil
+  // On the wood a line at each side, which the rows' and the head's rules meet: the rows stand edge to edge in it.
+  derived rim: ArtBorder | Line = self.sunk ? Ordaen.art.ctl.well.rim : SIDE_LINES
   derived floor = self.sunk ? Ordaen.art.ctl.well.floor : nil
-  derived inside: Number<Spacing> = self.rowsPadded ? NONE : INSIDE
+  derived inside: Number<Spacing> = self.rowsPadded || !self.sunk ? NONE : INSIDE
   // The head keeps the rows' sides: what stands in it stands over what stands in the rows.
   derived headSides: Edges = { left: self.inside, right: self.inside }
 

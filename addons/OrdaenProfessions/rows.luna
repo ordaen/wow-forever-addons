@@ -289,8 +289,10 @@ public class RecipeTableRow implements Component {
   public render(self): Template {
     return $ltml {
       <box columns={1}>
+        // The table builds only the rows in view, each as high as the first: every row is one line, a long name cut
+        // short («…») at its column.
         <TableRow tracks={self.tracks} selected={self.isChosen} ground={Ground.Wood} @pick={self.onPick} @enter={self.onEnter}>
-          <text value={self.recipe.name} textColor={self.color} textShadow={Style.SHADOW} wrap={.None} />
+          <text value={self.recipe.name} textColor={self.color} textShadow={Style.SHADOW} wrap={.Cut} />
           <box xAlign={Align.End}>
             <text value={self.skill} textColor={Style.DIM} wrap={.None} textFont={.Numbers} />
           </box>

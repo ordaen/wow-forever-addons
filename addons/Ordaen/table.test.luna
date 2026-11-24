@@ -284,8 +284,9 @@ test "neighbouring columns of one group share a heading over theirs; a table on 
   // «Cost» over its two columns' headings, within their outer edges; «Price» past them, over its own.
   Test.expect(cost.bottom <= house.top && cost.left >= house.left - 80 && cost.right <= vendor.right)
   Test.expect(price.left > vendor.right && price.bottom <= house.top)
-  // A column in no group has its heading in the headings' row.
-  Test.expect(Test.page().text("Item").rect().top == house.top)
+  // A column in no group has its heading over both rows, its title in their middle.
+  const item = Test.page().text("Item").rect()
+  Test.expect(item.top > cost.top && item.bottom < house.bottom)
   Test.click(Test.holding("Vendor", nil), nil)
   Test.expect(page.sorted == 3)
   Test.shot("grouped headings on the wood: «Cost» and «Price» over their pairs, no well, a rule under each row")
