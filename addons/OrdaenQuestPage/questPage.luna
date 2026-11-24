@@ -175,6 +175,8 @@ const OVER_PAPER = 3
 const OFF_SIDES: Number<Length> = 36.5625dp
 const OFF_ENDS: Number<Length> = 48.75dp
 const OFF_EDGES: Array<Track> = [OFF_SIDES, { fr: 1 }, OFF_SIDES]
+// Growing, the text stands in the layout, as far in as it stands over the paper otherwise.
+const ON_PAPER: Array<Track> = [OFF_ENDS, "max-content", OFF_ENDS]
 // Folded: the title alone, as far in from the edges as the text unfolded.
 const FOLDED_DOWN: Array<Track> = [OFF_ENDS, "max-content", OFF_ENDS]
 
@@ -182,19 +184,23 @@ const FOLDED_DOWN: Array<Track> = [OFF_ENDS, "max-content", OFF_ENDS]
 // width and height (its art repeats); what it holds scrolls past the paper's height. The text stands over the sheet
 // (boxes that overlap at one level draw in the client's order). Folded, the sheet stands close round the title alone,
 // as high as that (its row is the holder's: `max-content`, not SCROLL_ROW), and a click on it, Enter or Space,
-// unfolds it.
+// unfolds it. Growing (`grows`), it is as high as what it holds, held between the bounds of its box's height.
 public class Scroll implements Component {
   derived titled: Boolean = self.title != ""
 
   title: Signal<String>
   folded: mut Signal<Boolean>
+  grows: Signal<Boolean>
   constructor(
     // The quest's name, over what the scroll holds; none: what it holds alone.
     title: Signal<String> = "",
-    folded: mut Signal<Boolean> = false
+    folded: mut Signal<Boolean> = false,
+    // As high as what it holds, where its box's height leaves that open; else the height of its cell.
+    grows: Signal<Boolean> = false
   ) {
     self.title = title
     self.folded = folded
+    self.grows = grows
   }
 
   unfold(mut self) { self.folded = false }
@@ -209,6 +215,17 @@ public class Scroll implements Component {
         <box />
         <box zLevel={OVER_PAPER}>
           <ScrollTitle title={self.title} />
+        </box>
+        <Sheet />
+      </box>
+      <box $elseif={self.grows} columns={OFF_EDGES} rows={ON_PAPER}>
+        <box />
+        <box />
+        <box />
+        <box />
+        <box overflow={Overflow.Hidden} gap={1.5sp} zLevel={OVER_PAPER} textSize={SCROLL_TEXT} textFont={.Book}>
+          <ScrollTitle $if={self.titled} title={self.title} />
+          <slot />
         </box>
         <Sheet />
       </box>

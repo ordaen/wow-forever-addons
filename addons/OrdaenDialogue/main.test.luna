@@ -1092,6 +1092,20 @@ test "the NPC's words stand on the window, no parchment: it holds the lore alone
   Test.shot("the guard's words and list on the window, without the parchment")
 }
 
+test "over the well the scroll is as high as its words, from its least height up" {
+  Test.mount(nil, SCREEN)
+  Test.talk(innkeeper())
+  Test.quest({ text: "Short.", ..pie() })
+  Events.QUEST_DETAIL.emit(nil)
+  const short = scrollOf(window())
+  Test.quest({ text: "Maggie bakes a pie each morning.\n\nShe needs apples.\n\nAnd flour.\n\nAnd a good oven.\n\nBring them.", ..pie() })
+  Events.QUEST_DETAIL.emit(nil)
+  const longer = scrollOf(window())
+  // Its words all shown, none scrolled away: the scroll grows, the window with it, and it stays on the screen.
+  Test.expect(longer.bottom - longer.top > short.bottom - short.top + 200)
+  Test.expect(window().rect().bottom <= 900)
+}
+
 test "the scroll stands at one size, 5:3, on every quest page" {
   Test.mount(nil, SCREEN)
   Test.talk(innkeeper())

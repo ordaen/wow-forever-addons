@@ -49,6 +49,8 @@ const FADE_STEP = 0.1
 const FADE_LETTERS = 7
 // The scroll's height on every page, 5:3 at its width: a short greeting and a long quest alike (a long one scrolls).
 const SCROLL_HEIGHT: Number<Length> = 281.25dp
+// What the window holds besides the scroll over the well, at most: its title, the needs and rewards, the buttons.
+const UNDER_SCROLL_ROOM: Number<Length> = 421.875dp
 const FILL: Array<Track> = [{ fr: 1 }]
 // The share of the screen's height a window stands higher than to stand a long quest's scroll beside the well.
 const TALL = 0.6
@@ -691,7 +693,9 @@ public class Dialogue implements Module, App {
   derived scrollWidth: Number<Length> = self.wide ? WIDE_SCROLL : SCROLL_WIDTH
   derived rows: Array<Track> = self.wide ? FILL : ["max-content", { fr: 1 }]
   derived columns: Array<Track> = self.wide ? [WIDE_SCROLL, { fr: 1 }] : FILL
-  derived scrollHeight: Number<Length> | nil = self.wide ? nil : SCROLL_HEIGHT
+  // Over the well the scroll is as high as its words, from its least height up to what leaves the well and the
+  // window's room on the screen; past that its words scroll.
+  derived scrollHeight: Bounds | nil = self.wide ? nil : { min: SCROLL_HEIGHT, max: (Client.UIParent.GetHeight() * 1ui - UNDER_SCROLL_ROOM).max(SCROLL_HEIGHT) }
   derived wellPad: Edges = self.wide ? WIDE_WELL : UNDER_SCROLL
   derived wellWidth: Bounds | nil = self.wide ? WELL_LEAST : nil
   // The list's lines in columns, as many as their count needs; the window widens for each.
@@ -781,7 +785,7 @@ public class Dialogue implements Module, App {
               <Scroll title={self.scrollTitle} folded={mut self.scrollFolded} />
             </box>
             <box $else width={self.scrollWidth} height={self.scrollHeight} rows={FILL}>
-              <Scroll title={self.scrollTitle} folded={mut self.scrollFolded}>
+              <Scroll title={self.scrollTitle} folded={mut self.scrollFolded} grows={!self.wide}>
                 <Said page={self.page} quest={self.quest} said={self.said} book={self.book} revealed={self.revealed} />
               </Scroll>
             </box>
