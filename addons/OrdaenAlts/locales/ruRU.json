@@ -30,5 +30,14 @@
   "PLACE_BAGS": "сумки",
   "PLACE_BANK": "банк",
   "PLACE_MAIL": "почта",
-  "PLACE_AUCTIONS": "аукцион"
+  "PLACE_AUCTIONS": "аукцион",
+  "COL_ITEM": "Предмет",
+  "COL_BAGS_HELD": "Сумки",
+  "COL_BANK_HELD": "Банк",
+  "COL_MAIL_HELD": "Почта",
+  "COL_AUCTIONS_HELD": "Аукцион",
+  "COL_TOTAL": "Всего",
+  "FILTER_PLACES": "Места",
+  "SEARCH_ITEMS": "Поиск предметов",
+  "ITEMS_TOTAL": "Предметов: %d, всего: %d"
 }

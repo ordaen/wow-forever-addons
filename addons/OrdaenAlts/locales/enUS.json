@@ -30,5 +30,14 @@
   "PLACE_BAGS": "bags",
   "PLACE_BANK": "bank",
   "PLACE_MAIL": "mail",
-  "PLACE_AUCTIONS": "auctions"
+  "PLACE_AUCTIONS": "auctions",
+  "COL_ITEM": "Item",
+  "COL_BAGS_HELD": "Bags",
+  "COL_BANK_HELD": "Bank",
+  "COL_MAIL_HELD": "Mail",
+  "COL_AUCTIONS_HELD": "Auctions",
+  "COL_TOTAL": "Total",
+  "FILTER_PLACES": "Places",
+  "SEARCH_ITEMS": "Search items",
+  "ITEMS_TOTAL": "%d items, %d in all"
 }

@@ -1,7 +1,7 @@
 // «Characters»: every recorded character in a sortable table, and «Forget» on each but the one being played, which
 // asks first. A row is built from the records when they change while this tab shows.
 import { Align, Track } from "$ltml"
-import { Column, Component, Dialog, Hour, Money, PushButton, SECONDARY_TEXT, Table, TableCell, TableRow } from "Ordaen"
+import { BUTTON_HEIGHT, Column, Component, Dialog, Hour, Money, PushButton, SECONDARY_TEXT, Table, TableCell, TableRow } from "Ordaen"
 import { CharacterId, Place, STALE } from "@/character"
 import Locale from "@/locales"
 import { Records } from "@/records"
@@ -76,7 +76,10 @@ public class CharacterRow implements Component {
         <TableCell> <text value={self.line.bank} textColor={Style.DIM} /> </TableCell>
         <TableCell> <text value={self.line.mail} textColor={self.mail} /> </TableCell>
         <TableCell align={Align.End}>
-          <PushButton $if={!self.line.current} label={Locale.FORGET} width={93.75dp} @click={self.onForget} />
+          // The button's room on every row, the played character's too: the rows are of one height.
+          <box height={BUTTON_HEIGHT}>
+            <PushButton $if={!self.line.current} label={Locale.FORGET} width={93.75dp} @click={self.onForget} />
+          </box>
         </TableCell>
       </TableRow>
     }
@@ -167,7 +170,7 @@ public class Characters implements Component {
   public render(self): Template {
     return $ltml {
       <box rows={self.rows} gap={6sp}>
-        <Table columns={COLUMNS} sorted={mut self.sorted} descending={mut self.descending} rowsVary={true}>
+        <Table columns={COLUMNS} sorted={mut self.sorted} descending={mut self.descending}>
           <CharacterRow $for={line of self.ordered} $key={line.who} line={line} @forget={self.ask} />
         </Table>
         <text $if={self.alone} value={Locale.ONLY_ONE} textSize={SECONDARY_TEXT} textColor={Style.DIM} />

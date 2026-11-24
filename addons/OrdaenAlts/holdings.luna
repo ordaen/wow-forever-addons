@@ -1,34 +1,125 @@
-// «Items»: a search across every character: per item the total and each holder by place. An item's name is the game's,
-// asked once per item the first time a search needs it and kept while the tab shows.
-import { Align, Edges, Track } from "$ltml"
+// «Items»: every item the characters hold, as a table: the item, how many in the bags, the bank, the mail and at the
+// auction house, all characters together, and the total; a heading sorts by its column. The search narrows by name; the
+// filter leaves places out, of the columns and of the total. Under the table, how many items and how many in all; under
+// the cursor a row's tooltip says who holds how many, and where. An item's name is the game's, asked once per item the
+// first time the tab needs it and kept while the tab shows.
+import { Align, Frame, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { Component, ItemButton, ItemId, SECONDARY_TEXT, ScrolledList } from "Ordaen"
+import {
+  Column, Component, FilterButton, FilterGroup, ItemButton, ItemId, SECONDARY_TEXT, Table, TableCell, TableRow, Tip, TipRow, Toolbar
+} from "Ordaen"
 import { Held, Place } from "@/character"
 import Locale from "@/locales"
 import { Records } from "@/records"
 import Style from "@/style"
 
-// The most items listed: a search narrows to them.
-const MOST = 50
-const ROW: Array<Track> = [51.5625dp, { fr: 2 }, { fr: 5 }]
-// The search, then the items (or the note that none is found), which scroll in the rest of the window's height.
-const PAGE: Array<Track> = ["max-content", { fr: 1 }]
-// The search's letters an item's step in from its sides.
-const FIELD_PAD: Edges = { left: 3sp, right: 3sp }
+const PLACES: Array<Place> = [Place.Bags, Place.Bank, Place.Mail, Place.Auctions]
+const COUNT = 120dp
+const COLUMNS: Array<Column> = [
+  { title: Locale.COL_ITEM, width: { fr: 1, min: 280dp }, sortable: true },
+  { title: Locale.COL_BAGS_HELD, width: COUNT, align: Align.End, sortable: true },
+  { title: Locale.COL_BANK_HELD, width: COUNT, align: Align.End, sortable: true },
+  { title: Locale.COL_MAIL_HELD, width: COUNT, align: Align.End, sortable: true },
+  { title: Locale.COL_AUCTIONS_HELD, width: COUNT, align: Align.End, sortable: true },
+  { title: Locale.COL_TOTAL, width: COUNT, align: Align.End, sortable: true }
+]
+const ITEM: Array<Track> = ["max-content", { fr: 1 }]
+const PAGE: Array<Track> = ["max-content", { fr: 1 }, "max-content"]
+const FILTERS: Array<FilterGroup<Place>> = [
+  {
+    label: Locale.FILTER_PLACES,
+    options: [
+      { key: Place.Bags, label: Locale.PLACE_BAGS }, { key: Place.Bank, label: Locale.PLACE_BANK },
+      { key: Place.Mail, label: Locale.PLACE_MAIL }, { key: Place.Auctions, label: Locale.PLACE_AUCTIONS }
+    ]
+  }
+]
+const EVERY_PLACE: Map<Place, Boolean> = { [Place.Bags]: true, [Place.Bank]: true, [Place.Mail]: true, [Place.Auctions]: true }
 
-// One item as a row shows it.
+function placeName(place: Place): String {
+  return match (place) {
+    .Bags => Locale.PLACE_BAGS
+    .Bank => Locale.PLACE_BANK
+    .Mail => Locale.PLACE_MAIL
+    .Auctions => Locale.PLACE_AUCTIONS
+  }
+}
+
+// One item as a row shows it: its counts by place (in `PLACES`' order) and in all, and who holds them.
 public struct Entry {
   id: ItemId
   name: String
+  counts: Array<Integer>
   total: Integer
-  holders: String
+  holders: Array<TipRow>
+}
+
+function countText(count: Integer): String { return count == 0 ? "—" : String.of(count) }
+
+// How many in all, of every item listed.
+function sumOf(entries: Array<Entry>): Integer {
+  let sum = 0
+  for (entry of entries) { sum += entry.total }
+  return sum
+}
+
+class HeldCell implements Component {
+  derived text: String = countText(self.count)
+  derived ink: Color = self.count == 0 ? Style.DIM : Style.INK
+
+  count: Signal<Integer>
+  constructor(count: Signal<Integer>) { self.count = count }
+
+  public render(self): Template {
+    return $ltml {
+      <TableCell align={Align.End}>
+        <text value={self.text} textColor={self.ink} textFont={.Numbers} wrap={.None} />
+      </TableCell>
+    }
+  }
+}
+
+// An item's row: the game's tooltip of it under the cursor on its icon, who holds how many on its name.
+public class ItemRow implements Component {
+  state hovered = false
+
+  entry: Signal<Entry>
+  constructor(entry: Signal<Entry>) { self.entry = entry }
+
+  onEnter(mut self, frame: any Frame) { self.hovered = true }
+  onLeave(mut self) { self.hovered = false }
+
+  public render(self): Template {
+    return $ltml {
+      <TableRow>
+        <TableCell>
+          <box columns={ITEM} gap={3sp} yAlign={Align.Center}>
+            <ItemButton item={self.entry.id} />
+            <box @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
+              <text value={self.entry.name} textColor={Style.INK} wrap={.Cut} />
+              <Tip $if={self.hovered} title={self.entry.name} text={""} rows={self.entry.holders} />
+            </box>
+          </box>
+        </TableCell>
+        <HeldCell $for={count of self.entry.counts} count={count} />
+        <TableCell align={Align.End}>
+          <text value={"%d"} arguments={[self.entry.total]} textColor={Style.GOLD} textFont={.Numbers} wrap={.None} />
+        </TableCell>
+      </TableRow>
+    }
+  }
 }
 
 public class Holdings implements Component {
   state search = ""
+  state places: Map<Place, Boolean> = EVERY_PLACE
+  state sorted = 6
+  state descending = false
   names: mut Map<ItemId, String> = {}
   derived entries: Array<Entry> = self.entriesOf()
-  derived empty: Boolean = self.entries.length == 0
+  derived ordered: Array<Entry> = self.order()
+  derived empty: String = self.ordered.length == 0 ? Locale.NOTHING_FOUND : ""
+  derived totals: String = Locale.ITEMS_TOTAL.format(self.ordered.length, sumOf(self.ordered))
 
   const records: Records
   touched: Signal<Integer>
@@ -49,72 +140,73 @@ public class Holdings implements Component {
     return name
   }
 
-  // Who holds the item, as a line: each character with its places and counts.
-  holdersOf(self, list: Array<Held>): String {
-    const parts: Array<String> = []
+  // Who holds the item, a row each: the character, and its count in each place the filter leaves.
+  holdersOf(self, list: Array<Held>): Array<TipRow> {
+    const rows: Array<TipRow> = []
     for (held of list) {
-      const character = self.records.characters[held.who]
-      const place = match (held.place) {
-        Place.Bags => Locale.PLACE_BAGS
-        Place.Bank => Locale.PLACE_BANK
-        Place.Mail => Locale.PLACE_MAIL
-        Place.Auctions => Locale.PLACE_AUCTIONS
+      if (self.places[held.place] == true) {
+        const character = self.records.characters[held.who]
+        rows.push({ label: "%s (%s)".format(character == nil ? "?" : character.name, placeName(held.place)), value: String.of(held.count) })
       }
-      parts.push("%s: %s %d".format(character == nil ? "?" : character.name, place, held.count))
     }
-    return parts.join("; ")
+    return rows
   }
 
-  // The items that match the search, the most held first while it is empty and by name once it isn't.
+  // The items that match the search, with their counts in the places the filter leaves; none held there is left out.
   entriesOf(mut self): Array<Entry> {
     // Read again when any record changed.
     _ = self.touched
     const sought = self.search.lower()
     const found: Array<Entry> = []
     for (id, list of self.records.everything()) {
+      const counts: Array<Integer> = []
       let total = 0
-      for (held of list) { total += held.count }
-      if (sought == "") {
-        found.push({ id: id, name: "", total: total, holders: "" })
-      } else {
+      for (place of PLACES) {
+        let count = 0
+        if (self.places[place] == true) {
+          for (held of list) {
+            if (held.place == place) { count += held.count }
+          }
+        }
+        counts.push(count)
+        total += count
+      }
+      if (total > 0) {
         const name = self.nameOf(id)
-        if (name.lower().contains(sought) || String.of(id) == sought) {
-          found.push({ id: id, name: name, total: total, holders: "" })
+        if (sought == "" || name.lower().contains(sought) || String.of(id) == sought) {
+          found.push({ id: id, name: name, counts: counts, total: total, holders: self.holdersOf(list) })
         }
       }
     }
-    if (sought == "") {
-      found.sort((a, b) => a.total > b.total || (a.total == b.total && a.id < b.id))
-    } else {
-      found.sort((a, b) => a.name < b.name || (a.name == b.name && a.id < b.id))
-    }
-    const shown: Array<Entry> = []
-    for (index, entry of found) {
-      if (index > MOST) { break }
-      shown.push({
-        id: entry.id, name: self.nameOf(entry.id), total: entry.total,
-        holders: self.holdersOf(self.records.holders(entry.id))
-      })
-    }
-    return shown
+    return found
+  }
+
+  // By the column sorted: the name's, a place's count or the total, the most first; again the other way.
+  order(self): Array<Entry> {
+    const list: Array<Entry> = []
+    for (entry of self.entries) { list.push(entry) }
+    const column = self.sorted
+    const down = self.descending
+    list.sort((a, b) => {
+      if (column <= 1) { return down ? a.name > b.name : a.name < b.name || (a.name == b.name && a.id < b.id) }
+      const left = column >= 6 ? a.total : a.counts[column - 1] ?? 0
+      const right = column >= 6 ? b.total : b.counts[column - 1] ?? 0
+      if (left == right) { return a.name < b.name }
+      return down ? left < right : left > right
+    })
+    return list
   }
 
   public render(self): Template {
     return $ltml {
-      <box rows={PAGE} gap={6sp}>
-        <box height={35.15625dp} rows={[{ fr: 1 }]}>
-          <input value={mut self.search} padding={FIELD_PAD}
-                 textColor={Style.INK} background={Color.hex("#00000080")} />
-        </box>
-        <text $if={self.empty} value={Locale.NOTHING_FOUND} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
-        <ScrolledList $else>
-          <box $for={entry of self.entries} $key={entry.id} columns={ROW} gap={3sp} yAlign={Align.Center}
-               padding={{ top: 1sp, bottom: 1sp }}>
-            <ItemButton item={entry.id} count={entry.total} />
-            <text value={entry.name} textColor={Style.INK} />
-            <text value={entry.holders} textColor={Style.DIM} />
-          </box>
-        </ScrolledList>
+      <box rows={PAGE} gap={3sp}>
+        <Toolbar search={mut self.search} placeholder={Locale.SEARCH_ITEMS}>
+          <FilterButton values={mut self.places} start={EVERY_PLACE} groups={FILTERS} />
+        </Toolbar>
+        <Table columns={COLUMNS} sorted={mut self.sorted} descending={mut self.descending} empty={self.empty}>
+          <ItemRow $for={entry of self.ordered} $key={entry.id} entry={entry} />
+        </Table>
+        <text value={self.totals} textColor={Style.DIM} textSize={SECONDARY_TEXT} />
       </box>
     }
   }
