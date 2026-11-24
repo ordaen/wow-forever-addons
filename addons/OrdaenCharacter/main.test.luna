@@ -1421,6 +1421,17 @@ test "the client's sheet reads health's and mana's regeneration a second, and sp
   Test.expect(stats.healthFromSpirit == 7.5 && stats.manaFromSpirit == 30)
 }
 
+test "the client's sheet reads the glancing blows against a raid boss's 315 of defense and the level's own" {
+  Test.mount(nil, PAGE)
+  Client.UnitLevel = (unit: String): Number => 60
+  Client.GetGlancingBlowChance = (skill: Number | nil, defense: Number): Number => defense == 315 ? 0.4 : 0.1
+  Client.GetGlancingBlowPenalty = (skill: Number | nil, defense: Number): Number => defense == 315 ? 0.35 : 0.05
+  const stats = new ClientSheet().stats()
+  Test.expect(stats.bossGlancing == 40 && stats.levelGlancing == 10)
+  Test.expect(stats.bossGlancingPenalty == 35 && stats.levelGlancingPenalty == 5)
+  Test.expect(stats.bossDefensePast == 15)
+}
+
 test "the game's skills page shown opens ours on «Progression»'s skills" {
   Test.mount(nil, PAGE)
   Char.sheet = new FakeSheet()

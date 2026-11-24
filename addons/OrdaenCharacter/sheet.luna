@@ -504,6 +504,8 @@ const SPIRIT_STANDING = 0.75
 // A level's defense skill (`SKILL_RANKS_PER_SKILL_LEVEL`), and what a point past it takes off a blow's chances, in
 // percent (`STAT_PER_DEFENSE`).
 const DEFENSE_PER_LEVEL = 5
+// A raid boss's level, as the game's skills frame counts against it (`RAID_BOSS_LEVEL`).
+const RAID_BOSS_LEVEL = 63
 const DEFENSE_SHARE = 0.04
 
 // The sheet read from the client, each time it is asked.
@@ -629,6 +631,10 @@ public class ClientSheet implements Sheet {
     const beyondDefense = (defenseBase + defenseBonus - level * DEFENSE_PER_LEVEL).max(0)
     const spellPenetration = Client.GetSpellPenetration().floor()
     const penetrated = spellPenetration * 0.75 / (level * DEFENSE_PER_LEVEL)
+    const mainSkill = weaponSkill(16)
+    const rangedSkill = relic ? nil : weaponSkill(18)
+    const levelDefense = level * DEFENSE_PER_LEVEL
+    const bossDefense = RAID_BOSS_LEVEL * DEFENSE_PER_LEVEL
     return {
       restingRegen: resting * 5,
       healthRegen: healthRegen * 5,
@@ -656,9 +662,16 @@ public class ClientSheet implements Sheet {
       energyRegen: energyRegen,
       runSpeed: runSpeed / RUN_BASE * 100,
       swimSpeed: swimSpeed / SWIM_BASE * 100,
-      mainSkill: weaponSkill(16),
+      mainSkill: mainSkill,
       offSkill: weaponSkill(17),
-      rangedSkill: relic ? nil : weaponSkill(18),
+      rangedSkill: rangedSkill,
+      meleeSkillPast: (skillValue(mainSkill) ?? levelDefense) - levelDefense,
+      rangedSkillPast: (skillValue(rangedSkill) ?? levelDefense) - levelDefense,
+      bossDefensePast: bossDefense - levelDefense,
+      bossGlancing: Client.GetGlancingBlowChance(nil, bossDefense) * 100,
+      levelGlancing: Client.GetGlancingBlowChance(nil, levelDefense) * 100,
+      bossGlancingPenalty: Client.GetGlancingBlowPenalty(nil, bossDefense) * 100,
+      levelGlancingPenalty: Client.GetGlancingBlowPenalty(nil, levelDefense) * 100,
       conversions: {
         attackPerStrength: Client.GetAttackPowerForStat(STRENGTH, 1),
         attackPerAgility: Client.GetAttackPowerForStat(AGILITY, 1),
