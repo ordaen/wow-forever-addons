@@ -56,8 +56,6 @@
   "MENU_CREATE": "Create [%d]",
   "MAKE_COUNT": "Quantity",
   "MAKE_SKILL": "Raise skill",
-  "MAKE_ALL": "All",
-  "MAKE_PIECES": "%d pcs.",
   "MAKE_ABOUT": "≈ %d pcs.",
   "MAKE_NO_SKILL": "Skill won't rise",
   "TAB_QUEUE": "Queue",

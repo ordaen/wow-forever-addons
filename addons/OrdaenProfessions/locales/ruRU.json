@@ -56,8 +56,6 @@
   "MENU_CREATE": "Создать [%d]",
   "MAKE_COUNT": "Количество",
   "MAKE_SKILL": "Повысить навык",
-  "MAKE_ALL": "Все",
-  "MAKE_PIECES": "%d шт.",
   "MAKE_ABOUT": "≈ %d шт.",
   "MAKE_NO_SKILL": "навык не растёт",
   "TAB_QUEUE": "Очередь",

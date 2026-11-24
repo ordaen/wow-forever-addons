@@ -14,7 +14,7 @@ const BLACKSMITHING = 164
 const CLOAK = 2387
 const BOLT = 2963
 const UNKNOWN = 9999999
-const MODES: Array<String> = ["Quantity", "Raise skill", "All"]
+const MODES: Array<String> = ["Quantity", "Raise skill"]
 
 function recipe(id: Integer, name: String, craftable: Integer, difficulty: Game.Difficulty = Game.Difficulty.Always): Game.Recipe {
   return {
@@ -44,7 +44,7 @@ function window(): Test.Part {
   return Test.page().window("Overview")
 }
 
-// The make row as it reads: the mode, the count with − and + (none by «All»), «Create», and under them what it comes
+// The make row as it reads: the mode, the count with − and +, «Create», and under them what it comes
 // to (none said by «Quantity»).
 function row(): String {
   let read: Array<String> = []
@@ -266,36 +266,6 @@ test "the skill reaching the rank's most: the skill won't rise" {
   Test.expect(reads("Raise skill | - | 1 | + | Create | Skill won't rise"))
 }
 
-// By «All»
-
-test "«All»: no count; what the bags make, said and made" {
-  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
-  Game.professions.list = professions(31)
-  Game.tradeSkill.categories = categories()
-  Game.tradeSkill.recipes = recipes(5)
-  Test.mount(nil, SCREEN)
-  Game.tradeSkill.open = TAILORING
-  mode("Quantity", "All")
-  Test.expect(reads("All | Create | 5 pcs."))
-  _ = Test.requests()
-  window().button("Create").click()
-  Test.expect(asked("TradeSkill.craft 2387 5"))
-}
-
-test "«All» follows the bags; with nothing to make «Create» is off" {
-  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
-  Game.professions.list = professions(31)
-  Game.tradeSkill.categories = categories()
-  Game.tradeSkill.recipes = recipes(5)
-  Test.mount(nil, SCREEN)
-  Game.tradeSkill.open = TAILORING
-  mode("Quantity", "All")
-  Game.tradeSkill.recipes = recipes(2)
-  Test.expect(reads("All | Create | 2 pcs.") && !off("Create"))
-  Game.tradeSkill.recipes = recipes(0)
-  Test.expect(reads("All | Create | 0 pcs.") && off("Create"))
-}
-
 test "the mode picked stays for another recipe" {
   Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
   Game.professions.list = professions(31)
@@ -303,9 +273,20 @@ test "the mode picked stays for another recipe" {
   Game.tradeSkill.recipes = recipes(5)
   Test.mount(nil, SCREEN)
   Game.tradeSkill.open = TAILORING
-  mode("Quantity", "All")
+  mode("Quantity", "Raise skill")
   window().text("Bolt of Linen Cloth").click()
-  Test.expect(reads("All | Create | 9 pcs."))
-  mode("All", "Quantity")
+  Test.expect(row().contains("Raise skill | - | 1 | + | Create"))
+  mode("Raise skill", "Quantity")
   Test.expect(reads("Quantity | - | 1 | + | Create"))
+}
+
+test "the mode offers «Quantity» and «Raise skill» alone" {
+  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
+  Game.professions.list = professions(31)
+  Game.tradeSkill.categories = categories()
+  Game.tradeSkill.recipes = recipes(5)
+  Test.mount(nil, SCREEN)
+  Game.tradeSkill.open = TAILORING
+  window().button("Quantity").click()
+  Test.expect(Test.page().window("Raise skill").texts().join(" | ") == "Quantity | Raise skill")
 }
