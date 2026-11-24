@@ -741,6 +741,38 @@ test "auto-complete «Picked» hands in the quest picked, its single reward take
   Test.expect(asked() == "active 11, complete, reward 1")
 }
 
+test "a reward worth at least the setting's share more than what is worn is put on as it lands in the bags; a lesser one isn't" {
+  Test.mount(nil, SCREEN)
+  Dialogue.settings.values.autoComplete = Auto.Picked
+  let equipped: Array<String> = []
+  let landed = 0
+  Client.GetQuestItemLink = (kind: String, index: Number): String | nil => "item:4540"
+  Client.C_Item.GetItemCount = (item: String | Integer, bank: Boolean | nil, uses: Boolean | nil, reagent: Boolean | nil, account: Boolean | nil): Number => landed
+  Client.C_Item.EquipItemByName = (item: String | Integer, slot: Integer | nil) => { equipped.push(String.of(item)) }
+  Dialogue.upgradeOf = (link: String): Number | nil => 0.3
+  Test.quest({ id: 11, title: "A Parcel for Farley", completable: true, choices: [{ name: "Bread", icon: "Interface/Icons/INV_Misc_Food_11", item: 4540 }] })
+  Test.talk(innkeeper())
+  window().text("A Parcel for Farley").click()
+  Events.QUEST_PROGRESS.emit()
+  Events.QUEST_COMPLETE.emit()
+  Events.BAG_UPDATE_DELAYED.emit()
+  Test.expect(equipped.length == 0)
+  landed = 1
+  Events.BAG_UPDATE_DELAYED.emit()
+  Test.expect(equipped.join(", ") == "item:4540" && Test.printed().join(" ").contains("(+30%)"))
+  Events.BAG_UPDATE_DELAYED.emit()
+  Test.expect(equipped.length == 1)
+  Dialogue.upgradeOf = (link: String): Number | nil => 0.1
+  landed = 2
+  Test.quest({ id: 11, title: "A Parcel for Farley", completable: true, choices: [{ name: "Bread", icon: "Interface/Icons/INV_Misc_Food_11", item: 4540 }] })
+  Test.talk(innkeeper())
+  window().text("A Parcel for Farley").click()
+  Events.QUEST_PROGRESS.emit()
+  Events.QUEST_COMPLETE.emit()
+  Events.BAG_UPDATE_DELAYED.emit()
+  Test.expect(equipped.length == 1)
+}
+
 test "Shift held while talking accepts and hands in nothing on its own" {
   Test.mount(nil, SCREEN)
   Dialogue.settings.values.autoAccept = Auto.All

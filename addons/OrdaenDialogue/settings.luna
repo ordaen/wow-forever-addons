@@ -1,7 +1,7 @@
-// Ordaen Dialogue's page in the settings window: the keyboard, the one-option skip, the options picked on their own,
+// Ordaen Dialogue's pages in the settings window: «Convenience» (a better reward put on as it comes), and «General»: the keyboard, the one-option skip, the options picked on their own,
 // and the quests accepted and handed in on their own. Each control writes one entry of the settings, at once; each
 // applies from the next NPC talked to.
-import { Checkbox, Choice, Component, Dropdown, Settings } from "Ordaen"
+import { Checkbox, Choice, Component, Dropdown, NumberInput, Settings, Switch } from "Ordaen"
 import Locale from "@/locales"
 
 // What is done on its own: nothing, what the player picks in the NPC's list, or everything the NPC has.
@@ -21,6 +21,9 @@ public struct Choices implements Plain {
   autoComplete: Auto
   // A quest's page opens with its parchment folded to its title; a click unfolds it.
   foldedScroll: Boolean = false
+  // A quest's reward is put on as it comes where it is worth at least `equipFrom` percent more than what is worn.
+  autoEquip: Boolean = true
+  equipFrom: Number = 15
 }
 
 public const DEFAULTS: Choices = {
@@ -55,6 +58,24 @@ public class GeneralPage implements Component {
                 value={mut self.settings.values.autoComplete} choices={AUTO_CHOICES} />
       <Checkbox label={Locale.SETTING_FOLDED_SCROLL} hint={Locale.SETTING_FOLDED_SCROLL_TIP}
                 value={mut self.settings.values.foldedScroll} />
+    }
+  }
+}
+
+// «Convenience»: what Dialogue does by itself.
+public class ConveniencePage implements Component {
+  derived off: Boolean = !self.settings.values.autoEquip
+
+  settings: mut Settings<Choices>
+  constructor(settings: mut Settings<Choices>) {
+    self.settings = settings
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <Switch label={Locale.SETTING_AUTO_EQUIP} hint={Locale.SETTING_AUTO_EQUIP_TIP} value={mut self.settings.values.autoEquip} />
+      <NumberInput label={Locale.SETTING_EQUIP_FROM} hint={Locale.SETTING_EQUIP_FROM_TIP}
+                   value={mut self.settings.values.equipFrom} least={1} most={200} disabled={self.off} />
     }
   }
 }

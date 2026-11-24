@@ -13,11 +13,12 @@ import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
 import { ButtonKey, ButtonPlate, KeptWindow, Module, Money, PushButton, SECONDARY_TEXT, Settings, SettingsPage, TipText, Window, WindowTabSpec, WindowsPage, windowsTitle } from "Ordaen"
 import { Reward, RewardView, Rewards, SCROLL_WIDTH, Scroll, WIDE_SCROLL, choiceViews, scrollOverflows } from "OrdaenQuestPage"
+import { AutoEquip } from "@/autoEquip"
 import { AnswerRow, LINE_KEYS, LineKey, OptionColumn, Placed, columnsOf, placeOf } from "@/list"
 import Locale from "@/locales"
 import { Needs, Said } from "@/pages"
 import { Line, LineKind, Quest, Source, bestReward, bookPage, gossipLines, greetingLines, questOf } from "@/read"
-import { Auto, Choices, DEFAULTS, GeneralPage } from "@/settings"
+import { Auto, Choices, ConveniencePage, DEFAULTS, GeneralPage } from "@/settings"
 import Style from "@/style"
 import { MARKS_KEPT, Marked, Page, Prompt, Speaker, bookSpeaker, itemSpeaker, npcOf, speakerOf } from "@/talk"
 
@@ -76,9 +77,12 @@ public class Dialogue implements Module, App {
   public const windows: mut Array<mut KeptWindow> = [self.window]
   public const pages: Array<SettingsPage> = [
     { title: Locale.TAB_GENERAL, content: $ltml { <GeneralPage settings={mut self.settings} /> } },
+    { title: Locale.TAB_CONVENIENCE, content: $ltml { <ConveniencePage settings={mut self.settings} /> } },
     { title: windowsTitle(), content: $ltml { <WindowsPage windows={mut self.windows} /> } }
   ]
   public settings: mut Settings<Choices> = new Settings<Choices>(DEFAULTS)
+  // The reward taken, put on as it comes where it is worth enough more.
+  const equipper: mut AutoEquip = new AutoEquip()
 
   public state page: Page = .Closed
   public state source: Source = .Gossip
@@ -291,7 +295,7 @@ public class Dialogue implements Module, App {
       // A reward to choose is the player's: its page shows, and the walk stops.
       if (choices <= 1) {
         self.acting = true
-        Client.GetQuestReward(choices)
+        self.takeReward(choices)
         return
       }
       self.walking = false
@@ -380,7 +384,7 @@ public class Dialogue implements Module, App {
       .Paid => Client.C_GossipInfo.SelectOption(prompt.option, "", true)
       .Escort => Client.ConfirmAcceptQuest()
       .Pvp => self.acceptQuest()
-      .Expensive => Client.GetQuestReward(peek self.choice)
+      .Expensive => self.takeReward(peek self.choice)
     }
   }
 
@@ -492,7 +496,7 @@ public class Dialogue implements Module, App {
       self.prompt = .Expensive { cost: quest.moneyNeeded }
       return
     }
-    Client.GetQuestReward(picked)
+    self.takeReward(picked)
   }
 
   // A reward to choose, by its place; on the reward page alone.
@@ -622,6 +626,16 @@ public class Dialogue implements Module, App {
   }
 
   // ——— Rewards' worth.
+
+  // The reward taken, by its place among the choices (0: what is given): noted to be put on where it is worth enough.
+  takeReward(mut self, index: Integer) {
+    const choices = peek self.settings.values
+    if (choices.autoEquip && index > 0) {
+      const link = Client.GetQuestItemLink("choice", index)
+      self.equipper.note(link, link == nil ? nil : self.upgradeOf(link), choices.equipFrom / 100)
+    }
+    Client.GetQuestReward(index)
+  }
 
   // The reward picked for the player, while the player hasn't picked one: the only one, else `bestReward`.
   preselect(mut self) {

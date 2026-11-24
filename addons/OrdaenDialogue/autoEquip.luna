@@ -1,0 +1,38 @@
+// A quest's reward worn as it comes: the item taken (`note`), where it is worth at least the setting's share more to
+// the player's spec than what is worn (Ordaen's worth), is put on as it lands in the bags; in a fight, once the fight
+// ends (the client refuses gear changed in one). A line in the chat says what was put on and by how much.
+import Client from "$client"
+import Events from "$events"
+import { say, upgradeText } from "Ordaen"
+import Locale from "@/locales"
+
+const CAPTION: Color = Color.hex("#ffd100")
+
+public class AutoEquip {
+  // The reward waiting to be put on, by its link, and how much better it is.
+  pending: String | nil = nil
+  share: Number = 0
+
+  constructor() {
+    Events.BAG_UPDATE_DELAYED.listen(self.tryEquip)
+    Events.PLAYER_REGEN_ENABLED.listen(self.tryEquip)
+  }
+
+  // A reward taken, and how much more it is worth than what is worn: worn as it comes where that is at least `least`
+  // (0.15: 15%).
+  public note(mut self, link: String | nil, share: Number | nil, least: Number) {
+    self.pending = nil
+    if (link == nil || share == nil || share < least) { return }
+    self.pending = link
+    self.share = share
+  }
+
+  tryEquip(mut self) {
+    const link = self.pending
+    if (link == nil || Client.InCombatLockdown()) { return }
+    if (Client.C_Item.GetItemCount(link, false, nil, nil, nil) <= 0) { return }
+    self.pending = nil
+    Client.C_Item.EquipItemByName(link, nil)
+    say({ name: Locale.CHAT_CAPTION, color: CAPTION }, Locale.CHAT_EQUIPPED.format(link, upgradeText(self.share)))
+  }
+}
