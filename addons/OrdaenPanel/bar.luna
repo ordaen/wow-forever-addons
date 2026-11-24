@@ -397,6 +397,7 @@ public class Bar implements Component {
         self.armForms(count)
         self.readCooldowns()
       }
+      Events.UPDATE_SHAPESHIFT_FORMS.listen(self.relearn)
       Events.UPDATE_SHAPESHIFT_FORM.listen(self.reform)
       Events.UPDATE_SHAPESHIFT_USABLE.listen(self.reform)
       Events.UPDATE_SHAPESHIFT_COOLDOWN.listen(self.readCooldowns)
@@ -408,6 +409,15 @@ public class Bar implements Component {
   }
 
   reform(mut self) { self.readForms(peek self.forms) }
+
+  // The forms learned again: a new rank of one (a paladin's aura) changes its spell and its icon, their count the same.
+  // Each button does the form's spell as it is now, written after the fight where it comes in one.
+  relearn(mut self) {
+    Ordaen.afterCombat(() => {
+      self.readForms(peek self.forms)
+      self.armForms(peek self.forms)
+    })
+  }
 
   // The stances' faces, each form's by its button's place: whether the player is in it, whether it can be taken.
   readForms(mut self, count: Integer) {

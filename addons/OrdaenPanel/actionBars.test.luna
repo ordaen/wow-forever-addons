@@ -236,6 +236,24 @@ test "a stance's button draws its form's icon, and no more buttons than the play
   Test.forms(0)
 }
 
+test "a new rank of a form (a paladin's aura) changes the spell its button casts, the forms' count the same" {
+  Test.forms(2)
+  alone()
+  const holder = new Holder()
+  const bars = new ActionBars(holder.settings.values, holder.defaults)
+  Test.mount(bars, SCREEN)
+  Test.flush()
+  Test.expect(button("stance", 1).GetAttribute("spell") == 1)
+  // Devotion Aura's second rank learned: the first form's spell is the new rank's (the others the stand-in's, their
+  // place), and the client says the forms changed.
+  Client.GetShapeshiftFormInfo = (index: Integer): (FileId | nil, Boolean, Boolean, Integer) => {
+    return index == 1 ? FIRST_FORM : SECOND_FORM, false, true, index == 1 ? 10290 : index
+  }
+  Test.event("UPDATE_SHAPESHIFT_FORMS")
+  Test.flush()
+  Test.expect(button("stance", 1).GetAttribute("spell") == 10290 && button("stance", 2).GetAttribute("spell") == 2)
+}
+
 test "the client's stance and pet buttons are unseen under ours, which stand as close as the gap says; an action's seen" {
   Test.forms(2)
   alone()
