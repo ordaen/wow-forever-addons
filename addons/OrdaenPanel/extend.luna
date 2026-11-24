@@ -1,0 +1,20 @@
+// What other modules do for the panel: the contract, imported by type alone (`import type { XpSource } from
+// "OrdaenPanel"`). An entry of the panel's `xpSources` registry, added in a watch that follows the panel's root, so it
+// ends when either module ends. Without the panel, nothing is added.
+import { TipRow } from "Ordaen"
+
+// A part of the next level's experience a module knows the player will get (quests done, not turned in yet): drawn in
+// the experience's tube after the fill, in its colour, each part after the one before it and the rested part after
+// them all, with its own tooltip; a line in the tube's tooltip too (its title, its amount and its share of the level).
+public struct XpPart {
+  amount: Integer
+  color: Color
+  title: String
+  text: String
+  rows: Array<TipRow>
+}
+
+public trait XpSource {
+  // What to draw now; none: nothing. Read in a derived: what it reads is followed.
+  public part(self): XpPart | nil
+}

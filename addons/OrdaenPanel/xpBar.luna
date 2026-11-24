@@ -6,10 +6,11 @@
 // the value is, what is left to the next level or standing, and the rested bonus, each with its part of the level's
 // (or the standing's) whole.
 import Game from "$game"
-import { Align, Art, Bounds, Edges, Line, Position, Shadow, Side, Track } from "$ltml"
+import { Align, Art, Bounds, Edges, Event, Line, Position, Shadow, Side, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import { Component, Tip, TipRow, XpFill, number, xpFillArt } from "Ordaen"
 import { XpView } from "@/choices"
+import { XpPart } from "@/extend"
 import Locale from "@/locales"
 
 // The experience's fill as it starts.
@@ -49,8 +50,57 @@ const RESTED_MOST = 1.5
 // Under this many percent a part keeps a decimal, so a small one still reads: 264 of 29 000 is 0.9%, not 0%.
 const FINE_PERCENT = 10
 
-// Where the cursor is on a tube: off it, on it, or on the part past its fill.
-enum Over { Off = "off", Bar = "bar", Ahead = "ahead" }
+// Where the cursor is on a tube: off it, on it, or on a part past its fill.
+enum Over { Off = "off", Bar = "bar", Part = "part" }
+
+// The tube's tracks, in hundredths of it: the fill, each part past it in turn (none past the tube's end), the rest.
+function tracksOf(value: Integer, least: Integer, most: Integer, parts: Array<XpPart>): Array<Track> {
+  const tracks: Array<Track> = []
+  let reached = share(value, least, most)
+  let past = value
+  tracks.push({ fr: reached })
+  for (part of parts) {
+    past = past + part.amount
+    const next = share(past, least, most).max(reached)
+    tracks.push({ fr: next - reached })
+    reached = next
+  }
+  tracks.push({ fr: 100 - reached })
+  return tracks
+}
+
+// The cursor's place on one part past a tube's fill: its tooltip while the cursor is on it, and the tube told, so the
+// tube's own stays shut meanwhile.
+class PartSpot implements Component {
+  public entered: Event<nil> = new Event()
+  public left: Event<nil> = new Event()
+
+  state hovered = false
+
+  part: Signal<XpPart>
+  constructor(part: Signal<XpPart>) {
+    self.part = part
+  }
+
+  onEnter(mut self) {
+    self.hovered = true
+    self.entered.emit()
+  }
+
+  onLeave(mut self) {
+    self.hovered = false
+    self.left.emit()
+  }
+
+  public render(self): Template {
+    return $ltml {
+      // Inside the tube: the cursor that leaves it is on the tube still, which hears no new enter.
+      <box @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
+        <Tip $if={self.hovered} title={self.part.title} text={self.part.text} rows={self.part.rows} />
+      </box>
+    }
+  }
+}
 
 // A value between its least and its most, as the start and the end of the bar.
 function share(value: Integer, least: Integer, most: Integer): Number {
@@ -122,23 +172,20 @@ function currentOf(part: Integer, whole: Integer): String {
 }
 
 // One tube: a value between its least and its most, required as a count's bounds are, so every bar says its values
-// the same way; how far the paler part reaches past the value; a tooltip over the bar and one over the paler part.
+// the same way; the parts past the value (quests done, the rested bonus), each its colour and its tooltip; a tooltip
+// over the bar.
 public class Tube implements Component {
   state over: Over = Over.Off
   derived inset: Number<Length> = self.height * 10 / 64
-  // How far the value has got, and the paler part past it, in hundredths of the tube.
+  // How far the value has got, in hundredths of the tube; the tube in columns that share it: the fill, each part, the
+  // rest (the fill's alone in the fill's layer).
   derived filled: Number = share(self.value, self.least, self.most)
-  derived behind: Number = share(self.value + self.ahead, self.least, self.most)
-  // The tube in columns that share it: the fill and the rest; the paler part and the rest; and the part past the
-  // fill alone, where the cursor finds the paler part's tooltip (the rest of the tube is the bar's).
   derived fillParts: Array<Track> = [{ fr: self.filled }, { fr: 100 - self.filled }]
-  derived behindParts: Array<Track> = [{ fr: self.behind }, { fr: 100 - self.behind }]
-  derived parts: Array<Track> = [{ fr: self.filled }, { fr: self.behind - self.filled }, { fr: 100 - self.behind }]
+  derived tracks: Array<Track> = tracksOf(self.value, self.least, self.most, self.parts)
   derived label: String = self.labelOf(1)
   derived dimmed: String = self.labelOf(2)
   derived hasDimmed: Boolean = self.dimmed != ""
   derived overBar: Boolean = self.over == Over.Bar
-  derived overAhead: Boolean = self.over == Over.Ahead
   derived tinted: Boolean = self.tint != nil
 
   // Ordaen's art: its root is there before this module loads.
@@ -149,14 +196,11 @@ public class Tube implements Component {
   least: Signal<Integer>
   most: Signal<Integer>
   words: Signal<String>
-  ahead: Signal<Integer>
+  parts: Signal<Array<XpPart>>
   height: Signal<Number<Length>>
   tint: Signal<Color | nil>
   title: Signal<String>
   rows: Signal<Array<TipRow>>
-  aheadTitle: Signal<String>
-  aheadText: Signal<String>
-  aheadRows: Signal<Array<TipRow>>
   constructor(
     fill: Signal<Art>,
     // The bronze ring round the tube; else a groove carved round it.
@@ -170,11 +214,8 @@ public class Tube implements Component {
     rows: Signal<Array<TipRow>>,
     // What the bar says before its values: the standing.
     words: Signal<String> = "",
-    // The paler part past the fill (rested experience), and its tooltip.
-    ahead: Signal<Integer> = 0,
-    aheadTitle: Signal<String> = "",
-    aheadText: Signal<String> = "",
-    aheadRows: Signal<Array<TipRow>> = [],
+    // The parts past the fill, in turn: quests done, the rested bonus.
+    parts: Signal<Array<XpPart>> = [],
     height: Signal<Number<Length>> = TUBE_HEIGHT,
     // A colour the fill takes, its art made grey under it: the standing's.
     tint: Signal<Color | nil> = nil
@@ -189,10 +230,7 @@ public class Tube implements Component {
     self.title = title
     self.rows = rows
     self.words = words
-    self.ahead = ahead
-    self.aheadTitle = aheadTitle
-    self.aheadText = aheadText
-    self.aheadRows = aheadRows
+    self.parts = parts
     self.height = height
   }
 
@@ -203,7 +241,7 @@ public class Tube implements Component {
   }
 
   onBar(mut self) { self.over = Over.Bar }
-  onAhead(mut self) { self.over = Over.Ahead }
+  onPart(mut self) { self.over = Over.Part }
   onOff(mut self) { self.over = Over.Off }
 
   public render(self): Template {
@@ -219,13 +257,14 @@ public class Tube implements Component {
           <box position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui}
                background={Ordaen.art.panel.xpTrough} />
           // Over one another by their levels, each over all that is in the one under it: the trough, the fills (the
-          // rested part, the experience, the marks), the shine, the glass, the label. At one level the client draws
-          // either on top.
+          // parts past the experience, the experience, the marks), the shine, the glass, the label. At one level the
+          // client draws either on top.
           <box position={Position.Absolute} left={self.inset} top={self.inset} right={self.inset} bottom={self.inset}
                zLevel={1}>
-            <box position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui} columns={self.behindParts}
+            <box position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui} columns={self.tracks}
                  rows={FILL}>
-              <box background={RESTED} />
+              <box />
+              <box $for={part of self.parts} background={part.color} />
               <box />
             </box>
             <box position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui} columns={self.fillParts}
@@ -245,15 +284,13 @@ public class Tube implements Component {
                background={Ordaen.art.panel.xpTube} zLevel={6} />
           <box $else position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui} border={GROOVE} zLevel={6} />
           <box position={Position.Absolute} left={self.inset} top={self.inset} right={self.inset} bottom={self.inset}
-               columns={self.parts} rows={FILL}>
+               columns={self.tracks} rows={FILL}>
             <box />
-            // Inside the tube: the cursor that leaves it is on the tube still, which hears no new enter.
-            <box @pointerEnter={self.onAhead} @pointerLeave={self.onBar} />
+            <PartSpot $for={part of self.parts} part={part} @entered={self.onPart} @left={self.onBar} />
             <box />
           </box>
         </box>
         <Tip $if={self.overBar} title={self.title} text={""} rows={self.rows} />
-        <Tip $if={self.overAhead} title={self.aheadTitle} text={self.aheadText} rows={self.aheadRows} />
       </box>
     }
   }
@@ -275,6 +312,8 @@ public class XpBar implements Component {
   derived xpTitle: String = Locale.XP_TIP_TITLE.format(Game.player.level)
   derived xpRows: Array<TipRow> = self.experienceRows()
   derived restedRows: Array<TipRow> = self.restRows()
+  // Past the fill: what other modules know the player will get (quests done), then the rested bonus.
+  derived xpParts: Array<XpPart> = self.partsOf()
   derived reputationRows: Array<TipRow> = self.standingRows()
   // The faction's fill takes its standing's colour, as the client's reputation bar does.
   derived standingTint: Color | nil = Game.reputation.color
@@ -287,18 +326,33 @@ public class XpBar implements Component {
   fill: Signal<Art>
   bezel: Signal<Boolean>
   view: Signal<XpView>
+  sources: Signal<Array<XpPart>>
   constructor(
     room: Signal<Number<Length>> = UNBOUNDED,
     // What fills the experience's tube.
     fill: Signal<Art> = BRUSHED,
     // The bronze ring round each tube; else a carved groove.
     bezel: Signal<Boolean> = true,
-    view: Signal<XpView> = XpView.Numbers
+    view: Signal<XpView> = XpView.Numbers,
+    // The parts other modules give (`Panel.xpSources`).
+    sources: Signal<Array<XpPart>> = []
   ) {
     self.room = room
     self.fill = fill
     self.bezel = bezel
     self.view = view
+    self.sources = sources
+  }
+
+  partsOf(self): Array<XpPart> {
+    const parts = self.sources.map(part => part)
+    if (Game.player.rested > 0) {
+      parts.push({
+        amount: Game.player.rested, color: RESTED, title: Locale.RESTED_TIP_TITLE, text: Locale.RESTED_TIP,
+        rows: self.restedRows
+      })
+    }
+    return parts
   }
 
   // The rested bonus and its part of the level's whole.
@@ -306,14 +360,15 @@ public class XpBar implements Component {
     return { label: Locale.XP_TIP_RESTED, value: countOf(Game.player.rested, Game.player.xpMax) }
   }
 
-  // Where the experience is, what is left to the next level, and the rested bonus where there is one: each with its
-  // part of the level's whole.
+  // Where the experience is, what is left to the next level, each other module's part (quests done), and the rested
+  // bonus where there is one: each with its part of the level's whole.
   experienceRows(self): Array<TipRow> {
     let whole = Game.player.xpMax
     let rows: Array<TipRow> = [
       { label: Locale.TIP_CURRENT, value: currentOf(Game.player.xp, whole) },
       { label: Locale.XP_TIP_TO_LEVEL.format(Game.player.level + 1), value: leftCount(self.toLevel, whole) }
     ]
+    for (part of self.sources) { rows.push({ label: part.title, value: countOf(part.amount, whole) }) }
     if (Game.player.rested > 0) {
       rows.push(self.restedRow())
     }
@@ -349,9 +404,8 @@ public class XpBar implements Component {
     return $ltml {
       <box width={self.width} padding={MARGINS} columns={self.columns} yAlign={Align.Center} gap={GAP}>
         <Tube $if={self.leveling} fill={self.fill} bezel={self.bezel} view={self.view} value={Game.player.xp} least={0}
-              most={Game.player.xpMax} ahead={Game.player.rested} height={self.tubeHeight} title={self.xpTitle}
-              rows={self.xpRows} aheadTitle={Locale.RESTED_TIP_TITLE} aheadText={Locale.RESTED_TIP}
-              aheadRows={self.restedRows} />
+              most={Game.player.xpMax} parts={self.xpParts} height={self.tubeHeight} title={self.xpTitle}
+              rows={self.xpRows} />
         <Tube $if={self.watched} fill={self.steel} bezel={self.bezel} view={self.view}
               value={Game.reputation.value}
               least={Game.reputation.min} most={Game.reputation.max} words={Game.reputation.standing}

@@ -11,6 +11,7 @@ import root Ordaen from "Ordaen"
 import { Module, SettingsPage } from "Ordaen"
 import root Panel from "OrdaenPanel"
 import { Choices, DEFAULTS } from "@/choices"
+import { XpPart, XpSource } from "@/extend"
 
 const SCREEN: Test.Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
 // What the panel always shows: the player's money, none at first.
@@ -227,6 +228,25 @@ test "the experience bar on the panel says the player's experience" {
   Game.player.xpMax = 10000
   Test.mount(nil, SCREEN)
   Test.expect(panel().text(XP).shown())
+}
+
+// A module's part of the next level's experience: quests done, worth a fifth of the level.
+class Done implements XpSource {
+  public part(self): XpPart | nil {
+    return { amount: 2000, color: DONE_GREEN, title: "Completed quests", text: "", rows: [] }
+  }
+}
+const DONE_GREEN: Color = Color.hex("#3fbf3f")
+
+test "a part another module adds to the panel's sources is drawn in the experience bar, and goes with its entry" {
+  Game.player.xp = 2500
+  Game.player.xpMax = 10000
+  Test.mount(nil, SCREEN)
+  Test.expect(panel().box(DONE_GREEN).count() == 0)
+  const entry = Panel.xpSources.add(new Done())
+  Test.expect(panel().box(DONE_GREEN).shown())
+  destroy entry
+  Test.expect(panel().box(DONE_GREEN).count() == 0)
 }
 
 test "every button of the game's menu has its cell on the panel, with its icon, friends and guild before the game menu's" {

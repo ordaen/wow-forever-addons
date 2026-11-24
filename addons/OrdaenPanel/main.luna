@@ -14,6 +14,7 @@ import { CELL_HEIGHT } from "@/cells"
 import {
   CharButton, CharView, Choices, DEFAULTS, Edge, Fit, Item, MicroIcons, Outline, XpBorder, XpTexture, XpView, Zone
 } from "@/choices"
+import { XpPart, XpSource } from "@/extend"
 import { BagLine, MicroLine, MoneyLine, SocialLine } from "@/items"
 import Locale from "@/locales"
 import { BottomPage, GeneralPage, MicroPage, StatusPage } from "@/settings"
@@ -196,7 +197,7 @@ public class ZoneBox implements Component {
         <SocialLine $if={self.socialAlone} gold={self.panel.goldIcons} guildMerged={self.panel.guildMerged} vertical={self.panel.vertical}
                     height={self.panel.inside} rise={self.panel.rise} />
         <XpBar $if={self.experience} room={self.panel.inside} fill={self.panel.xpFill} bezel={self.panel.xpBezel}
-               view={self.panel.xpView} />
+               view={self.panel.xpView} sources={self.panel.xpParts} />
         <text $if={self.zoneName} value={Game.location.zone} textColor={INK}
               textOutline={self.panel.outline} textShadow={self.panel.shadow} wrap={.None} />
         <box $if={self.clock} @pointerPress={self.onClock} @keyPress(.Enter)={self.onClock} @keyPress(.Space)={self.onClock}>
@@ -302,6 +303,10 @@ public class Panel implements Module, App {
   // With Ordaen Social on, its window holds the friends and the guild: the friends' button alone opens it, the guild's
   // goes (and comes back as the module is turned off).
   public derived guildMerged: Boolean = Ordaen.modules.any(module => module.title == SOCIAL)
+  // Parts of the next level's experience other modules know the player will get (Ordaen Quests: quests done, not
+  // turned in), drawn in the experience's tube after its fill, each with its tooltip.
+  public const xpSources = new Registry<any XpSource>()
+  public derived xpParts: Array<XpPart> = self.partsOf()
   // With Ordaen Account on, its window holds the collections, the legacy and the achievements: one button, in the
   // legacy's place, opens it; the legacy's and the collections' go (and come back as the module is turned off).
   public derived accountMerged: Boolean = Ordaen.modules.any(module => module.title == ACCOUNT)
@@ -391,6 +396,16 @@ public class Panel implements Module, App {
   opacityOf(self): Number {
     if (Ordaen.placing) { return 1 }
     return opacityNow(self.settings.values.visibility, self.hovered || self.portraitHovered)
+  }
+
+  // What the other modules' sources give now, none left out where one has nothing to show.
+  partsOf(self): Array<XpPart> {
+    const parts: Array<XpPart> = []
+    for (source of self.xpSources) {
+      const part = source.part()
+      if (part != nil) { parts.push(part) }
+    }
+    return parts
   }
 
   placeOf(self): Docked {
@@ -498,7 +513,7 @@ public class Panel implements Module, App {
               home={EXPERIENCE_HOME}>
         <box width={self.freeXpWidth} background={Ordaen.art.window.wood} border={Ordaen.art.frame.small}
              padding={3sp}>
-          <XpBar fill={self.xpFill} bezel={self.xpBezel} view={self.xpView} />
+          <XpBar fill={self.xpFill} bezel={self.xpBezel} view={self.xpView} sources={self.xpParts} />
         </box>
       </Placed>
       <Placed $if={self.freeMoney} id={"OrdaenPanel.currencies"} title={Locale.PANEL_CURRENCIES}
