@@ -237,9 +237,9 @@ test "Ctrl+click on an attachment tries it on and takes nothing" {
   const window = Test.page().window(MAIL)
   window.text("Pay for the sword").click()
   _ = Test.requests()
-  Game.input.controlDown = (): Boolean => true
+  Test.hold([.Ctrl])
   window.text("Sword").click()
-  Game.input.controlDown = (): Boolean => false
+  Test.hold([])
   Test.expect(tried == "|Hitem:12|h[Sword]|h")
   Test.expect(!asked().contains("Mailbox.takeItem"))
 }
@@ -275,9 +275,20 @@ test "Shift+click on a row takes everything from it, one thing at a time as the 
   window.text("Bolts for you").click()
   Test.hold([])
   Test.expect(asked() == "Mailbox.takeItem 2 1")
-  Game.mailbox.letters = (): Array<Game.MailLetter> => [letter(2, .Player, "Bolts for you", "Regy", 0, 0, 2, [item(3, 2592, "Wool Cloth", 5)])]
+  // The inbox read the take brings at once still holds what was taken: nothing is asked again.
   Game.mailObserver.changed.emit()
+  Test.pass(1)
+  Test.expect(asked() == "")
+  Game.mailbox.letters = (): Array<Game.MailLetter> => [letter(2, .Player, "Bolts for you", "Regy", 0, 0, 2, [item(3, 2592, "Wool Cloth", 5)])]
+  answered()
   Test.expect(asked() == "Mailbox.takeItem 2 3")
+}
+
+// The server answers what was asked, with the inbox read anew, and a moment passes.
+function answered() {
+  Game.mailObserver.changed.emit()
+  Game.mailObserver.taken.emit()
+  Test.pass(0.3)
 }
 
 test "«Take all» takes the money first and leaves cash on delivery and game masters' letters" {
@@ -292,7 +303,7 @@ test "«Take all» takes the money first and leaves cash on delivery and game ma
   window.button("Take all (2)").click()
   Test.expect(asked() == "Mailbox.takeMoney 1")
   Game.mailbox.letters = (): Array<Game.MailLetter> => letters().filter(l => l.index != 1)
-  Game.mailObserver.changed.emit()
+  answered()
   Test.expect(asked() == "Mailbox.takeItem 2 1")
 }
 
@@ -328,13 +339,13 @@ test "«Inventory is full» stops taking; «can't carry any more» skips that at
   window.button("Take all (2)").click()
   _ = Test.requests()
   Game.mailbox.letters = (): Array<Game.MailLetter> => letters().filter(l => l.index != 1)
-  Game.mailObserver.changed.emit()
+  answered()
   Test.expect(asked() == "Mailbox.takeItem 2 1")
   Game.mailObserver.refused.emit(Game.strings.itemMaxCount)
-  Game.mailObserver.changed.emit()
+  Test.pass(0.3)
   Test.expect(asked() == "Mailbox.takeItem 2 3")
   Game.mailObserver.refused.emit(Game.strings.inventoryFull)
-  Game.mailObserver.changed.emit()
+  Test.pass(3)
   Test.expect(asked() == "")
   Test.expect(window.text("Bags are full").shown())
 }
@@ -367,9 +378,11 @@ test "an attachment that won't come is skipped after a few tries, never asked fo
   Test.hold([.Shift])
   window.text("Bolts for you").click()
   Test.hold([])
-  Game.mailObserver.changed.emit()
-  Game.mailObserver.changed.emit()
-  Game.mailObserver.changed.emit()
+  // No answer comes: it is asked again past the ceiling, and after three tries the next attachment is.
+  Test.pass(2.1)
+  Test.pass(2.1)
+  Test.expect(!asked().contains("Mailbox.takeItem 2 3"))
+  Test.pass(2.1)
   Test.expect(asked().contains("Mailbox.takeItem 2 3"))
 }
 
@@ -449,10 +462,10 @@ test "ticked letters are taken or returned together from the footer; Shift ticks
   _ = Test.requests()
   const window = Test.page().window(MAIL)
   window.text("Auction successful: Linen Cloth").item().button(Ordaen.art.ctl.check).click()
-  Game.input.shiftDown = (): Boolean => true
+  Test.hold([.Shift])
   window.text("Pay for the sword").item().button(Ordaen.art.ctl.check).click()
-  Game.input.shiftDown = (): Boolean => false
-  Game.input.controlDown = (): Boolean => false
+  Test.hold([])
+  Test.hold([])
   Test.expect(window.button("Take (3)").shown())
 }
 

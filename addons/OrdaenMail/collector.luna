@@ -1,14 +1,19 @@
 // Taking from several letters at once («Take all», the ticked letters, Shift+click on one): one thing at a time,
-// paced by the game. It takes a letter's money or one attachment, then waits until the inbox is read anew
-// (`changed`), a short ceiling of time at most, and goes on with what the inbox then holds. The letters are named by
+// paced by the server. It takes a letter's money or one attachment, then waits for the server's answer (`taken`, or a
+// failure), a short ceiling of time at most, and a moment more, and goes on with what the inbox then holds. The inbox
+// read the take itself brings (`changed`) comes before the answer, still holding what was taken: asked again then, the
+// same thing goes twice and the server says its mail database failed; asked in the answer's own moment, the server
+// leaves it unanswered (the user's probe, 2026-11-24). The letters are named by
 // their sender and subject, as the inbox shifts under them. «Inventory is full» stops it; «can't carry any more» skips
 // that attachment; one that won't come after a few tries is skipped, never looped on. Cash on delivery and a game
 // master's letters are never taken by it; the free bag slots the setting keeps are left free (money still comes).
 import Game from "$game"
 import { collectable, keyOf } from "@/letters"
 
-// How long the game is given to answer before the next thing is asked.
+// How long the server is given to answer before the thing is asked again.
 const CEILING = 2
+// How long after the server's answer the next thing is asked.
+const PACE = 0.25
 // Tries of one attachment before it is skipped.
 const TRIES = 3
 
@@ -35,7 +40,7 @@ public class Collector {
   keepFree = 0
 
   constructor() {
-    Game.mailObserver.changed.listen(self.onChanged)
+    Game.mailObserver.taken.listen(self.onAnswer)
     Game.mailObserver.refused.listen(self.onRefused)
     Game.mailObserver.failed.listen(self.onFailed)
   }
@@ -117,22 +122,32 @@ public class Collector {
     self.step()
   }
 
-  // The inbox read anew: what was asked came, or the inbox refreshed; the next thing is asked.
-  onChanged(mut self) {
-    if (!(peek self.running)) { return }
+  async pace(mut self) {
+    await Game.delay(PACE)
+    self.waiting = nil
     self.step()
+  }
+
+  // The server answered what was asked: the next thing is asked a moment later.
+  onAnswer(mut self) {
+    if (!(peek self.running)) { return }
+    if (self.waiting != nil) { destroy self.waiting }
+    self.waiting = self.pace()
   }
 
   onRefused(mut self, message: String) {
     if (!(peek self.running)) { return }
     if (message == Game.strings.inventoryFull) {
       self.stop(.Full)
-    } else if (message == Game.strings.itemMaxCount) {
-      self.skipped[self.asked] = true
+      return
     }
+    if (message == Game.strings.itemMaxCount) { self.skipped[self.asked] = true }
+    self.onAnswer()
   }
 
   onFailed(mut self) {
-    if (peek self.running) { self.skipped[self.asked] = true }
+    if (!(peek self.running)) { return }
+    self.skipped[self.asked] = true
+    self.onAnswer()
   }
 }
