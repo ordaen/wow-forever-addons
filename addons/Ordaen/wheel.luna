@@ -11,7 +11,7 @@
 // each (`slotAt`, `SLOT_LUA`), which a test holds to the same answers. Every slice, segment and curved outline is a box
 // as large as the wheel, cut by masks (`art/pieces/radial.json`): a ring for its radii and two half-planes turned to
 // its two edges; the straight edges are thin boxes turned along them.
-import { Align, Art, FillDuration, Line, Mask, Piece, Position } from "$ltml"
+import { Align, Art, FillDuration, Line, Mask, Piece, Position, TextAlign } from "$ltml"
 import { Component } from "@/module"
 import { BRIGHT_TEXT, SECONDARY_TEXT } from "@/units"
 
@@ -115,6 +115,10 @@ const ICON = 40dp
 const ICON_AT = 125dp
 // An icon's hollow: its square and the lip round it.
 const CARVE = 48dp
+// A name with no picture, in its wedge: kept this far off the wedge's sides and the ring's edges, and never wider than
+// this (a ring of one or two items).
+const WORDS_INSET = 6dp
+const WORDS_MOST = 120dp
 const MIDDLE = 168dp
 const CATEGORY = 30dp
 const RIM = 2dp
@@ -166,6 +170,13 @@ public function itemTurn(index: Integer, count: Integer): Number<Angle> {
 }
 
 // How wide a slice of a ring of `count` is, its gaps taken off.
+// How wide an item's name may stand in its wedge, at a scale of 1: the wedge's width at the band, its widest, less a
+// margin each side (a long word reaches into the wedge's outer part); a ring of one or two, no wider than this.
+function wordsWidthOf(count: Integer): Number<Length> {
+  const across = 2 * BAND * (Number.pi / count.max(1)).sin()
+  return (across - 2 * WORDS_INSET).min(WORDS_MOST)
+}
+
 function sliceTurn(count: Integer): Number<Angle> {
   return count == 1 ? 360deg : 360deg / count - 2 * GAP
 }
@@ -184,6 +195,11 @@ public class Wheel implements Component {
   derived cuts: Array<Cut> = self.cutsOf()
   derived edges: Array<Edge> = self.edgesOf()
   derived spots: Array<Spot> = self.spotsOf()
+  // The items with a picture, each in its hollow; those with none, their name right in the wedge.
+  derived pictured: Array<Spot> = self.spots.filter(spot => spot.item.icon != nil)
+  derived worded: Array<Spot> = self.spots.filter(spot => spot.item.icon == nil)
+  derived wordsWidth: Number<Length> = wordsWidthOf(self.count) * self.scale
+  derived wordsHeight: Number<Length> = (BAND - INNER - 2 * WORDS_INSET) * self.scale
   derived middleSize: Number<Length> = MIDDLE * self.scale
   derived categorySize: Number<Length> = CATEGORY * self.scale
   derived named: Boolean = self.middle.name != "" && self.names != WheelNames.Off
@@ -337,7 +353,7 @@ public class Wheel implements Component {
              background={cut.art} tint={cut.tint} opacity={cut.opacity} mask={cut.masks} zLevel={1} />
         <box $for={edge of self.edges} position={Position.Absolute} left={edge.left} top={edge.top} width={edge.width}
              height={edge.height} background={PLAIN} tint={edge.tint} opacity={edge.opacity} rotation={edge.turn} zLevel={2} />
-        <box $for={spot of self.spots} position={Position.Absolute} left={spot.left} top={spot.top} width={CARVE * self.scale}
+        <box $for={spot of self.pictured} position={Position.Absolute} left={spot.left} top={spot.top} width={CARVE * self.scale}
              height={CARVE * self.scale} opacity={spot.item.dim ? DIM_OPACITY : 1} zLevel={4}>
           // The hollow under the icon: its lip shows round the icon, its shade inside is under it, so the icon is whole.
           <box position={Position.Absolute} left={0dp} top={0dp} width={CARVE * self.scale} height={CARVE * self.scale}
@@ -350,20 +366,22 @@ public class Wheel implements Component {
                yAlign={Align.End} zLevel={1}>
             <text value={spot.item.count} textSize={SECONDARY_TEXT} textColor={BRIGHT_TEXT} />
           </box>
-          // An item with no picture: its name in the hollow, one line, cut to it.
-          <box $if={spot.item.icon == nil} position={Position.Absolute} left={(CARVE - ICON) / 2 * self.scale}
-               top={(CARVE - ICON) / 2 * self.scale} width={ICON * self.scale} height={ICON * self.scale}
-               xAlign={Align.Center} yAlign={Align.Center} zLevel={1}>
-            <text value={spot.item.name} textSize={SECONDARY_TEXT * self.scale} textColor={BRIGHT_TEXT} wrap={.Cut} />
-          </box>
           <box $if={spot.chosen} position={Position.Absolute} left={(CARVE - ICON) / 2 * self.scale}
                top={(CARVE - ICON) / 2 * self.scale} width={ICON * self.scale} height={ICON * self.scale} border={ICON_LIT}
                zLevel={2} />
         </box>
+        // An item with no picture: its name right in its wedge, centred where an icon would stand, wrapped as the wedge's
+        // width needs; gold while aimed at.
+        <box $for={spot of self.worded} position={Position.Absolute} left={spot.left + (CARVE * self.scale - self.wordsWidth) / 2}
+             top={spot.top + (CARVE * self.scale - self.wordsHeight) / 2} width={self.wordsWidth} height={self.wordsHeight}
+             yAlign={Align.Center} textAlign={TextAlign.Center} opacity={spot.item.dim ? DIM_OPACITY : 1}
+             zLevel={4}>
+          <text value={spot.item.name} textSize={SECONDARY_TEXT * self.scale} textColor={spot.chosen ? GOLD : NAME} leading={.Tight} />
+        </box>
         <$if={self.names == WheelNames.Always}>
-          <box $for={spot of self.spots} position={Position.Absolute} left={spot.left - 30dp} top={spot.top + CARVE * self.scale}
+          <box $for={spot of self.pictured} position={Position.Absolute} left={spot.left - 30dp} top={spot.top + CARVE * self.scale}
                width={CARVE * self.scale + 60dp} xAlign={Align.Center} opacity={spot.item.dim ? DIM_OPACITY : 1} zLevel={4}>
-            <text $if={spot.item.icon != nil} value={spot.item.name} textSize={SECONDARY_TEXT} textColor={NAME} />
+            <text value={spot.item.name} textSize={SECONDARY_TEXT} textColor={NAME} />
           </box>
         </>
         <box position={Position.Absolute} left={(self.size - self.middleSize) / 2} top={(self.size - self.middleSize) / 2}
