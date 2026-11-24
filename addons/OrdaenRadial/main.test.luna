@@ -7,6 +7,7 @@ import Client from "$client"
 import { SpellChargeInfo, SpellCooldownInfo } from "$client"
 import Events from "$events"
 import Test from "$test"
+import { NO_ICON_MARK } from "Ordaen"
 import root Radial from "OrdaenRadial"
 import { Item, Ring } from "@/choices"
 import { emoteNames } from "@/emotes"
@@ -148,9 +149,6 @@ test "the tab's tree opens a submenu, the place chosen shows its item and takes 
   clickDown(settings, settings.button("Back to the preset"))
   Test.expect(firstRing().items["3_1"] is Item.Pinged)
 }
-
-// The picker's «no icon» cell, by its mark's colour.
-const NO_ICON_MARK: Color = Color.hex("#a89878")
 
 test "the tab chooses a place's icon: «no icon» has its name stand in its wedge, and «The item's own» brings its icon back" {
   start()
