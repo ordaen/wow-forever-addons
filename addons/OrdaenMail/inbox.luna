@@ -6,7 +6,7 @@
 // letter; Shift+click on a checkbox ticks the range from the last ticked. While letters are being taken the list takes
 // no clicks.
 import Game from "$game"
-import { Align, Art, Track } from "$ltml"
+import { Align, Art, Modifier, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import { ARTWORK, ButtonPlate, Choice, Column, Component, FoldCaption, ItemButton, ModuleMemory, Money, PickRow, PushButton, SECONDARY_TEXT, ScrolledList, Table, TableCell, TableRow, Tick, Tip, TipRow, ToolPick, ToolSort, Toolbar, tracksOf } from "Ordaen"
 import { Filter, URGENT_DAYS, View, collectable, matches } from "@/letters"
@@ -101,7 +101,7 @@ function tipRows(letter: Game.MailLetter): Array<TipRow> {
   return rows
 }
 
-// What a click on a row asks, by the keys held.
+// What a click on a table's row asks, by the keys held (the table's row hears every press).
 function clickOf(): RowClick {
   if (Game.input.shiftDown()) { return .Take }
   if (Game.input.controlDown()) { return .Return }
@@ -148,7 +148,13 @@ public class LetterRow implements Component {
 
   onPick(mut self) {
     if (self.busy) { return }
-    self.clicked.emit(self.letter.index, clickOf())
+    self.clicked.emit(self.letter.index, .Open)
+  }
+
+  // Shift takes everything from the letter; Ctrl returns it.
+  onModified(mut self, key: Modifier) {
+    if (self.busy) { return }
+    self.clicked.emit(self.letter.index, key == .Shift ? .Take : .Return)
   }
 
   onEnter(mut self) { self.hovered = true }
@@ -168,7 +174,7 @@ public class LetterRow implements Component {
   public render(self): Template {
     return $ltml {
       <box @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
-        <PickRow columns={ROW} picked={self.on} @pick={self.onPick}>
+        <PickRow columns={ROW} picked={self.on} @pick={self.onPick} @modified={self.onModified}>
           <Tick value={mut self.checked} />
           <box width={ICON} height={ICON} icon={kindIcon(self.letter.kind)} />
           <box columns={1}>

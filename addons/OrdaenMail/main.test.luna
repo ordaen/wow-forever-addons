@@ -270,10 +270,10 @@ test "Shift+click on a row takes everything from it, one thing at a time as the 
   Game.mailObserver.opened.emit()
   _ = Test.requests()
   const window = Test.page().window(MAIL)
-  Game.input.shiftDown = (): Boolean => true
+  // Shift held as the client holds it: the row hears the click with it.
+  Test.hold([.Shift])
   window.text("Bolts for you").click()
-  Game.input.shiftDown = (): Boolean => false
-  Game.input.controlDown = (): Boolean => false
+  Test.hold([])
   Test.expect(asked() == "Mailbox.takeItem 2 1")
   Game.mailbox.letters = (): Array<Game.MailLetter> => [letter(2, .Player, "Bolts for you", "Regy", 0, 0, 2, [item(3, 2592, "Wool Cloth", 5)])]
   Game.mailObserver.changed.emit()
@@ -349,10 +349,9 @@ test "taking leaves the bag slots the setting keeps free" {
   _ = Test.requests()
   const window = Test.page().window(MAIL)
   Game.bags.free = 0
-  Game.input.shiftDown = (): Boolean => true
+  Test.hold([.Shift])
   window.text("Bolts for you").click()
-  Game.input.shiftDown = (): Boolean => false
-  Game.input.controlDown = (): Boolean => false
+  Test.hold([])
   Test.expect(asked() == "")
 }
 
@@ -365,10 +364,9 @@ test "an attachment that won't come is skipped after a few tries, never asked fo
   Game.mailObserver.opened.emit()
   _ = Test.requests()
   const window = Test.page().window(MAIL)
-  Game.input.shiftDown = (): Boolean => true
+  Test.hold([.Shift])
   window.text("Bolts for you").click()
-  Game.input.shiftDown = (): Boolean => false
-  Game.input.controlDown = (): Boolean => false
+  Test.hold([])
   Game.mailObserver.changed.emit()
   Game.mailObserver.changed.emit()
   Game.mailObserver.changed.emit()
@@ -384,11 +382,10 @@ test "Ctrl+click returns a player's letter, and never the world's" {
   Game.mailObserver.opened.emit()
   _ = Test.requests()
   const window = Test.page().window(MAIL)
-  Game.input.controlDown = (): Boolean => true
+  Test.hold([.Ctrl])
   window.text("Bolts for you").click()
   window.text("Welcome").click()
-  Game.input.shiftDown = (): Boolean => false
-  Game.input.controlDown = (): Boolean => false
+  Test.hold([])
   Test.expect(asked() == "Mailbox.giveBack 2")
 }
 
