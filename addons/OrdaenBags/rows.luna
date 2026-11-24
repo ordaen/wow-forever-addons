@@ -10,7 +10,7 @@ import root Ordaen from "Ordaen"
 import { Component, ItemButton, Menu, MenuEntry, Quality, SECONDARY_TEXT, SlotWell, usableItem } from "Ordaen"
 import { UseClick } from "@/clicks"
 import { CARD_GAP, CARD_PAD, Card, CardRow, Section } from "@/layout"
-import { Slot, handsOver } from "@/model"
+import { CONTAINER, Slot, handsOver } from "@/model"
 import { SlotMenu } from "@/slotMenu"
 import { Vault } from "@/vault"
 
@@ -125,8 +125,8 @@ class BagSlot implements Component {
   // A container's item is used by the client's secure click, on the scheme's chord for Use; a guild bank's has none,
   // nor a copy of a vault that isn't open, nor any slot while Use hands the item over (sold to a merchant, put in a
   // trade or a letter): the client's secure use equips what can be worn (`SecureTemplates.lua`), so the bags hand it
-  // over themselves.
-  derived action: Action | nil = self.slot.vault == Vault.Guild || !self.shelf.live || handsOver(self.shelf.filter.place) ? nil : Action.UseBagItem {
+  // over themselves. A bag's use is the bags' own too: the client's puts it on only where a place is empty.
+  derived action: Action | nil = self.slot.vault == Vault.Guild || !self.shelf.live || handsOver(self.shelf.filter.place) || self.slot.read.kind == CONTAINER ? nil : Action.UseBagItem {
     bag: self.slot.bag, slot: self.slot.index, chord: self.shelf.useClick.chord
   }
   derived menuShown: Boolean = self.shelf.menu?.slot == self.slot

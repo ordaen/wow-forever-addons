@@ -1245,7 +1245,7 @@ test "the bags shut while «Sort the bags» goes stop it" {
 
 // The bag slots
 
-test "the bag button opens the bag slots: each bag with its name and fill, one with no slots left out" {
+test "the bag button opens the bag slots: each bag with its name and fill, an empty place as one" {
   const world = new World(everyday())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
   Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
@@ -1253,7 +1253,7 @@ test "the bag button opens the bag slots: each bag with its name and fill, one w
   Game.bags.open = true
   bags().button(BAG_BUTTON).click()
   const window = bagSlots()
-  Test.expect(reads(window, "Backpack | 7/16 | Linen Bag | 2/6 | Bag slots"))
+  Test.expect(reads(window, "Backpack | 7/16 | Linen Bag | 2/6 | Empty bag slot | Empty bag slot | Empty bag slot | Bag slots"))
   Test.expect(window.box(BACKPACK).shown() && window.box(LINEN_BAG).shown())
 }
 
@@ -1935,4 +1935,71 @@ test "in the category view the tabs stand down a marble column the page's height
   Test.expect(bags().text(Locale.SEARCH).rect().left >= column.rect().right)
   // The items keep the page's side room from the column, as the toolbar does.
   Test.expect(nth(1).rect().left - column.rect().right >= Ordaen.lengthOf(8sp) / 1ui)
+}
+
+// Putting a bag on
+
+// What the game was asked, but the tooltips of the slots the cursor crossed: where it isn't this, the test fails with it.
+function askedOnly(expected: String): Boolean {
+  const said = Test.requests().filter(request => !request.contains("Items.show")).join(", ")
+  if (said != expected) { panic(`the game was asked «${said}», not «${expected}»`) }
+  return true
+}
+
+// The everyday bags with a new bag in the backpack's sixth slot, and the client's four bag places.
+function withNewBag(world: mut World) {
+  world.items.push({ bag: 0, slot: 6, id: 4245, name: "Small Silk Pack", icon: LINEN_BAG, kind: 1 })
+  Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
+  Game.bags.size = (bag: Integer): Integer => world.size(bag)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.items.icon = (id: Integer): Art | nil => world.icon(id)
+  const frame = Client.CreateFrame("Button", nil, Client.UIParent)
+  Game.bags.buttons = [
+    { kind: .Backpack, bag: 0, frame: frame, icon: nil }, { kind: .Bag, bag: 1, frame: frame, icon: nil },
+    { kind: .Bag, bag: 2, frame: frame, icon: nil }, { kind: .Bag, bag: 3, frame: frame, icon: nil },
+    { kind: .Bag, bag: 4, frame: frame, icon: nil }
+  ]
+}
+
+test "a bag used goes on in an empty bag place, by the bags themselves" {
+  const world = new World(everyday())
+  withNewBag(mut world)
+  Test.mount(nil, SCREEN)
+  Game.bags.open = true
+  Test.flush()
+  _ = Test.requests()
+  bags().button(LINEN_BAG).click()
+  Test.expect(Test.performed().length == 0 && askedOnly("Bags.wear 0 6 2"))
+}
+
+test "with every place taken, the smallest bag is emptied into the others, then the new one goes on in its place" {
+  const world = new World(everyday())
+  world.sizes = [16, 6, 8, 8, 8]
+  withNewBag(mut world)
+  Game.bags.swap = (fromBag: Integer, fromSlot: Integer, toBag: Integer, toSlot: Integer): Boolean =>
+  world.swap(fromBag, fromSlot, toBag, toSlot)
+  Test.mount(nil, SCREEN)
+  Game.bags.open = true
+  Test.flush()
+  _ = Test.requests()
+  bags().button(LINEN_BAG).click()
+  Test.expect(askedOnly("Bags.swap 1 2 0 8, Bags.swap 1 4 0 10"))
+  Game.bags.updated.emit(1)
+  Game.bags.updated.emit(0)
+  Test.expect(askedOnly("Bags.wear 0 6 1"))
+}
+
+test "a bag whose smallest replacement holds more than the other bags have free stays, and the chat says why" {
+  const world = new World(everyday())
+  world.sizes = [9, 6, 0, 0, 0]
+  withNewBag(mut world)
+  Game.bags.buttons = [{ kind: .Bag, bag: 1, frame: Client.CreateFrame("Button", nil, Client.UIParent), icon: nil }]
+  Test.mount(nil, SCREEN)
+  Game.bags.open = true
+  Test.flush()
+  _ = Test.requests()
+  _ = Test.printed()
+  bags().button(LINEN_BAG).click()
+  Test.expect(askedOnly(""))
+  Test.expect(Test.printed().join("\n").contains("holds more than the other bags have free"))
 }

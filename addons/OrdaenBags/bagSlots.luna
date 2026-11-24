@@ -1,6 +1,8 @@
 // The bag slots: a small window of their own beside the bags, opened by the header's bag button. Each bag with its
 // icon, its name and its fill («5/16»), the backpack first; the cursor on one shows its tooltip and lights its items in
-// the bags' window, the rest faded.
+// the bags' window, the rest faded. An empty place stands too, as «Empty bag slot»; a bag let go on a line, or a
+// click there while the cursor holds one, puts it on in that place.
+import Client from "$client"
 import Game from "$game"
 import { Align, Frame, Track } from "$ltml"
 import { Component, KeptWindow, SECONDARY_TEXT, Window, WindowTabSpec } from "Ordaen"
@@ -25,8 +27,10 @@ public struct BagLine {
 
 class BagEntry implements Component {
   public lit: Event<Integer> = new Event()
+  public put: Event<Integer> = new Event()
+  derived name: String = self.line.info.slots > 0 ? self.line.info.name : Locale.EMPTY_BAG_PLACE
   state hovered = false
-  derived fill: String = Locale.FILL.format(self.line.used, self.line.info.slots)
+  derived fill: String = self.line.info.slots > 0 ? Locale.FILL.format(self.line.used, self.line.info.slots) : ""
   derived back: Color = self.hovered ? SHADE : CLEAR
 
   line: Signal<BagLine>
@@ -39,6 +43,12 @@ class BagEntry implements Component {
     self.lit.emit(self.line.info.bag)
   }
 
+  onDrop(self) { self.put.emit(self.line.info.bag) }
+
+  onPress(self) {
+    if (Client.CursorHasItem()) { self.put.emit(self.line.info.bag) }
+  }
+
   onLeave(mut self) {
     self.hovered = false
     self.lit.emit(-1)
@@ -47,9 +57,9 @@ class BagEntry implements Component {
   public render(self): Template {
     return $ltml {
       <box columns={ROW} gap={3sp} yAlign={Align.Center} padding={ROW_ROOM} background={self.back} @pointerEnter={self.onEnter}
-           @pointerLeave={self.onLeave}>
+           @pointerLeave={self.onLeave} @drop={self.onDrop} @pointerPress={self.onPress}>
         <box width={ICON} height={ICON} background={WELL} icon={self.line.info.icon} />
-        <text value={self.line.info.name} textColor={INK} />
+        <text value={self.name} textColor={INK} />
         <text value={self.fill} textColor={LABEL} textFont={.Numbers} textSize={SECONDARY_TEXT} wrap={.None} />
       </box>
     }
@@ -59,6 +69,8 @@ class BagEntry implements Component {
 public class BagSlotsWindow implements Component {
   public close: Event<nil> = new Event()
   public lit: Event<Integer> = new Event()
+  // A bag let go on a place, by the place.
+  public put: Event<Integer> = new Event()
   state tab = 1
   derived tabs: Array<WindowTabSpec> = [{ title: Locale.BAG_SLOTS }]
 
@@ -71,12 +83,13 @@ public class BagSlotsWindow implements Component {
 
   onClose(self) { self.close.emit() }
   onLit(self, bag: Integer) { self.lit.emit(bag) }
+  onPut(self, bag: Integer) { self.put.emit(bag) }
 
   public render(self): Template {
     return $ltml {
       <Window tabs={self.tabs} selected={mut self.tab} declared={mut self.declared} minWidth={LIST + frameSides()} padding={NO_ROOM} @close={self.onClose}>
         <box columns={1} gap={3sp}>
-          <BagEntry $for={line of self.lines} line={line} @lit={self.onLit} />
+          <BagEntry $for={line of self.lines} line={line} @lit={self.onLit} @put={self.onPut} />
         </box>
       </Window>
     }

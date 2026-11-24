@@ -22,6 +22,7 @@ import {
 import { Arranger } from "@/arrange"
 import { BagLine, BagSlotsWindow } from "@/bagSlots"
 import { BANK_ICON, BankBag, BankSlotsWindow, bankInfos } from "@/bank"
+import { BagChanger, Change } from "@/change"
 import { OURS, SlotAction, UseClick, actionAt, chordOf, useClickOf } from "@/clicks"
 import { Gold } from "@/gold"
 import { Guard, GuardTips, Hovered } from "@/guard"
@@ -30,7 +31,7 @@ import { JUNK_RULES, JunkLists, JunkRules, LEARNED, Mark, NO_LISTS, afterSale, s
 import { NO_ROOM, ROW_LEAST, SLOT_GAP, SLOT_SIZE } from "@/layout"
 import Locale from "@/locales"
 import { MERCHANT_VIEW, MerchantView, MerchantWindow, SIDE_WIDTH } from "@/merchant"
-import { MOVED, Slot, SortBy, handsOver } from "@/model"
+import { CONTAINER, MOVED, Slot, SortBy, handsOver } from "@/model"
 import { BagsView, Choices, Pane, junkIn, worthIn } from "@/pane"
 import { ClicksPage, ConveniencePage, JunkPage, LookPage } from "@/settings"
 import { MenuAct, SlotMenu, menuOf } from "@/slotMenu"
@@ -119,6 +120,8 @@ public class Bags implements Module, App {
   public junkLists: mut ModuleMemory<JunkLists> = new ModuleMemory<JunkLists>(NO_LISTS, .Character, "junk")
   public gold: Gold
   public arranger: mut Arranger
+  // A bag from the bags being put on, the bag it replaces emptied first.
+  public changer: mut BagChanger = new BagChanger()
   public hovered: mut Hovered
   tips: GuardTips
 
@@ -370,6 +373,7 @@ public class Bags implements Module, App {
     }
     self.learnSale(bag)
     self.arranger.step()
+    self.changer.step()
   }
 
   // What an update of the bags changed: the protections follow their items, and the sections are worked out again.
@@ -417,10 +421,8 @@ public class Bags implements Module, App {
     _ = self.carried.revision
     let lines: Array<BagLine> = []
     for (index, info of self.carried.infos) {
-      if (info.slots > 0) {
-        const slots = self.carried.bags[index] ?? []
-        lines.push({ info: info, used: slots.count(slot => peek slot.id != 0) })
-      }
+      const slots = self.carried.bags[index] ?? []
+      lines.push({ info: info, used: slots.count(slot => peek slot.id != 0) })
     }
     return lines
   }
@@ -482,6 +484,10 @@ public class Bags implements Module, App {
       return
     }
     const place = peek Game.bags.place
+    if (slot.vault == Vault.Bags && !handsOver(place) && slot.read.kind == CONTAINER) {
+      self.putOn(slot)
+      return
+    }
     if (slot.vault != Vault.Bags || !handsOver(place) || !Game.bags.send(slot.bag, slot.index)) { return }
     if (place != Game.BagPlace.Merchant) { return }
     const rules = peek self.settings.values.junk
@@ -507,6 +513,30 @@ public class Bags implements Module, App {
     const now = afterSale(was, shareOf(sold, Game.items.maxStack(sale.id) ?? 1))
     self.junkLists.write(withScore(lists, sale.id, now))
     if (was <= LEARNED && now > LEARNED) { self.say(Locale.CHAT_LEARNED.format(sale.link)) }
+  }
+
+  // A bag of the bags used: put on, in an empty place or the smallest bag's; the chat says why where it can't be.
+  putOn(mut self, slot: Slot) { self.change(slot, nil) }
+
+  change(mut self, slot: Slot, into: Integer | nil) {
+    const infos = peek self.carried.infos
+    const change = self.changer.start(slot, self.carried.all, (bag: Integer): Boolean => infos[bag + 1]?.general == true, into)
+    const line = match (change) {
+      Change.Started => ""
+      Change.NoPlace => Locale.CHAT_NO_BAG_PLACE
+      Change.NoRoom => Locale.CHAT_NO_BAG_ROOM
+      Change.Refused => Locale.CHAT_BAG_REFUSED
+    }
+    if (line != "") { say({ name: Locale.CHAT_CAPTION, color: CAPTION }, line) }
+  }
+
+  // A bag of the bags held on the cursor let go on a bag's place: the client holds it locked in its slot, which is let
+  // go first; anything else on the cursor stays.
+  onPutBag(mut self, into: Integer) {
+    const bag = self.carried.all.find(slot => peek slot.locked && slot.read.kind == CONTAINER && slot.vault == Vault.Bags)
+    if (bag == nil) { return }
+    Client.ClearCursor()
+    self.change(bag, into)
   }
 
   // A line of the module's in the chat, where the player keeps them.
@@ -713,7 +743,7 @@ public class Bags implements Module, App {
           {self.side.body}
         </Window>
         <BagSlotsWindow $if={self.slotsOpen && self.shown && self.main.isBags} lines={self.bagLines} declared={mut self.slotsWindow}
-                        @close={self.onSlotsClosed} @lit={self.onLit} />
+                        @close={self.onSlotsClosed} @lit={self.onLit} @put={self.onPutBag} />
         <BankSlotsWindow $if={self.bankSlotsOpen && self.bankOpen} bags={self.bankBags} declared={mut self.bankSlotsWindow}
                          @close={self.onBankSlotsClosed} />
         <Dialog $if={self.moving != nil} width={DIALOG} title={self.moneyTitle}>

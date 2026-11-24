@@ -37,6 +37,8 @@ public enum Grouping implements Plain { Type = "type", None = "none", Worn = "wo
 
 // The client's classes of items (`Enum.ItemClass`) the tabs are made of.
 const CONSUMABLE = 0
+// A bag: its use puts it on (`BagChanger`).
+public const CONTAINER = 1
 const WEAPON = 2
 const GEM = 3
 const ARMOR = 4
