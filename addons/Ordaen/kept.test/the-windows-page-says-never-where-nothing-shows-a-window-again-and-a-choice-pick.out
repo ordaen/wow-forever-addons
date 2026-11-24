@@ -151,16 +151,17 @@ surface 301.75,139.96 996.5x620.08 on MEDIUM clamped raised by a click
       box 1256.35,152.29 27.5x26.67 absolute clipped @keyPress @pointerPress
         box 1256.35,152.29 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
         box 1262.6,161.88 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
-surface 903.86,469.01 216.67x86.14 on FULLSCREEN_DIALOG #0a0806f7
-  box 904.69,475.53 215x24.37 #d6a56b2e @keyPress @pointerPress
-    box 911.36,481.36 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 0 of 4
-      box 911.36,481.36 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=1
-    text 930.29,479.8 178.02x15.83 "Combat" #f0e6d2
-  box 904.69,499.9 215x24.37 #00000000 @keyPress @pointerPress
-    box 911.36,505.73 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 0 of 4
-      box 911.36,505.73 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
-    text 930.29,504.16 178.02x15.83 "Travel" #f0e6d2
-  box 904.69,524.26 215x24.37 #00000000 @keyPress @pointerPress
-    box 911.36,530.1 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 0 of 4
-      box 911.36,530.1 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
-    text 930.29,528.53 178.02x15.83 "Movement" #f0e6d2
+surface 903.86,469.01 216.67x86.14 on FULLSCREEN_DIALOG #0a0806f7 clamped
+  box 904.69,475.53 215x73.1 scrolled 0 of 0
+    box 904.69,475.53 215x24.37 #d6a56b2e @keyPress @pointerPress
+      box 911.36,481.36 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 0 of 4
+        box 911.36,481.36 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=1
+      text 930.29,479.8 178.02x15.83 "Combat" #f0e6d2
+    box 904.69,499.9 215x24.37 #00000000 @keyPress @pointerPress
+      box 911.36,505.73 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 0 of 4
+        box 911.36,505.73 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
+      text 930.29,504.16 178.02x15.83 "Travel" #f0e6d2
+    box 904.69,524.26 215x24.37 #00000000 @keyPress @pointerPress
+      box 911.36,530.1 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 0 of 4
+        box 911.36,530.1 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
+      text 930.29,528.53 178.02x15.83 "Movement" #f0e6d2

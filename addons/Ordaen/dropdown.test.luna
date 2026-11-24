@@ -109,3 +109,29 @@ test "a label longer than the plate is cut inside it, and the arrow stays on the
   Test.expect(label.right <= arrow.left && label.bottom <= plate.bottom && label.top >= plate.top)
   destroy page
 }
+
+class Long {
+  public state picked = 1
+  public render(self): Template {
+    const many: Array<Choice<Integer>> = []
+    for (n of 1..40) { many.push({ value: n, label: `Choice ${n}` }) }
+    return $ltml {
+      <box padding={{ top: 100sp }}>
+        <CompactDropdown value={mut self.picked} choices={many} width={170ui} />
+      </box>
+    }
+  }
+}
+
+test "a list longer than the screen stays on it and scrolls to its last choice" {
+  let page = new Long()
+  Test.mount(page, { left: 0, top: 0, width: 1600, height: 900, screen: true })
+  Test.click(Test.holding("Choice 1", nil), nil)
+  Test.click(Test.holding("Choice 3", nil), nil)
+  Test.expect(page.picked == 3)
+  Test.click(Test.holding("Choice 3", nil), nil)
+  Test.moveTo(Test.holding("Choice 2", nil))
+  Test.wheel(-40)
+  Test.shot("scrolled to its end: the list held to the screen, its last choices in view")
+  destroy page
+}

@@ -1,0 +1,128 @@
+-- scrolled to its end: the list held to the screen, its last choices in view
+box 0,0 1600x312.78
+  box 0,284.44 170x28.33
+    box 0,284.44 170x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerPress
+      text 9.96,291.41 133.91x14.4 "Choice 3" #f0c860
+      box 149.56,291.94 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+surface 0,9.71 203.33x890.29 on FULLSCREEN_DIALOG #0a0806f7 clamped
+  box 0.83,16.23 201.67x877.24 scrolled 97.42 of 97.42
+    box 0.83,-81.19 201.67x24.37 #00000000 @keyPress @pointerPress
+      box 9.17,-73.69 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
+      text 26.43,-76.92 164.69x15.83 "Choice 1" #f0e6d2
+    box 0.83,-56.82 201.67x24.37 #d6a56b2e @keyPress @pointerPress
+      box 9.17,-49.32 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
+      text 26.43,-52.56 164.69x15.83 "Choice 2" #f0e6d2
+    box 0.83,-32.46 201.67x24.37 #00000000 @keyPress @pointerPress
+      box 9.17,-24.96 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 1 of 2
+      text 26.43,-28.19 164.69x15.83 "Choice 3" #f0e6d2
+    box 0.83,-8.09 201.67x24.37 #00000000 @keyPress @pointerPress
+      box 9.17,-0.59 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
+      text 26.43,-3.82 164.69x15.83 "Choice 4" #f0e6d2
+    box 0.83,16.28 201.67x24.37 #00000000 @keyPress @pointerPress
+      box 9.17,23.78 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
+      text 26.43,20.54 164.69x15.83 "Choice 5" #f0e6d2
+    box 0.83,40.64 201.67x24.37 #00000000 @keyPress @pointerPress
+      box 9.17,48.14 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
+      text 26.43,44.91 164.69x15.83 "Choice 6" #f0e6d2
+    box 0.83,65.01 201.67x24.37 #00000000 @keyPress @pointerPress
+      box 9.17,72.51 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
+      text 26.43,69.28 164.69x15.83 "Choice 7" #f0e6d2
+    box 0.83,89.38 201.67x24.37 #00000000 @keyPress @pointerPress
+      box 9.17,96.88 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
+      text 26.43,93.64 164.69x15.83 "Choice 8" #f0e6d2
+    box 0.83,113.74 201.67x24.37 #00000000 @keyPress @pointerPress
+      box 9.17,121.24 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
+      text 26.43,118.01 164.69x15.83 "Choice 9" #f0e6d2
+    box 0.83,138.11 201.67x24.37 #00000000 @keyPress @pointerPress
+      box 9.17,145.61 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
+      text 26.43,142.38 164.69x15.83 "Choice 10" #f0e6d2
+    box 0.83,162.48 201.67x24.37 #00000000 @keyPress @pointerPress
+      box 9.17,169.98 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
+      text 26.43,166.74 164.69x15.83 "Choice 11" #f0e6d2
+    box 0.83,186.84 201.67x24.37 #00000000 @keyPress @pointerPress
+      box 9.17,194.34 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
+      text 26.43,191.11 164.69x15.83 "Choice 12" #f0e6d2
+    box 0.83,211.21 201.67x24.37 #00000000 @keyPress @pointerPress
+      box 9.17,218.71 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
+      text 26.43,215.48 164.69x15.83 "Choice 13" #f0e6d2
+    box 0.83,235.58 201.67x24.37 #00000000 @keyPress @pointerPress
+      box 9.17,243.08 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
+      text 26.43,239.84 164.69x15.83 "Choice 14" #f0e6d2
+    box 0.83,259.94 201.67x24.37 #00000000 @keyPress @pointerPress
+      box 9.17,267.44 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
+      text 26.43,264.21 164.69x15.83 "Choice 15" #f0e6d2
+    box 0.83,284.31 201.67x24.37 #00000000 @keyPress @pointerPress
+      box 9.17,291.81 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
+      text 26.43,288.58 164.69x15.83 "Choice 16" #f0e6d2
+    box 0.83,308.68 201.67x24.37 #00000000 @keyPress @pointerPress
+      box 9.17,316.18 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
+      text 26.43,312.94 164.69x15.83 "Choice 17" #f0e6d2
+    box 0.83,333.04 201.67x24.37 #00000000 @keyPress @pointerPress
+      box 9.17,340.54 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
+      text 26.43,337.31 164.69x15.83 "Choice 18" #f0e6d2
+    box 0.83,357.41 201.67x24.37 #00000000 @keyPress @pointerPress
+      box 9.17,364.91 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
+      text 26.43,361.68 164.69x15.83 "Choice 19" #f0e6d2
+    box 0.83,381.78 201.67x24.37 #00000000 @keyPress @pointerPress
+      box 9.17,389.28 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
+      text 26.43,386.04 164.69x15.83 "Choice 20" #f0e6d2
+    box 0.83,406.14 201.67x24.37 #00000000 @keyPress @pointerPress
+      box 9.17,413.64 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
+      text 26.43,410.41 164.69x15.83 "Choice 21" #f0e6d2
+    box 0.83,430.51 201.67x24.37 #00000000 @keyPress @pointerPress
+      box 9.17,438.01 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
+      text 26.43,434.78 164.69x15.83 "Choice 22" #f0e6d2
+    box 0.83,454.88 201.67x24.37 #00000000 @keyPress @pointerPress
+      box 9.17,462.38 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
+      text 26.43,459.14 164.69x15.83 "Choice 23" #f0e6d2
+    box 0.83,479.24 201.67x24.37 #00000000 @keyPress @pointerPress
+      box 9.17,486.74 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
+      text 26.43,483.51 164.69x15.83 "Choice 24" #f0e6d2
+    box 0.83,503.61 201.67x24.37 #00000000 @keyPress @pointerPress
+      box 9.17,511.11 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
+      text 26.43,507.88 164.69x15.83 "Choice 25" #f0e6d2
+    box 0.83,527.98 201.67x24.37 #00000000 @keyPress @pointerPress
+      box 9.17,535.48 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
+      text 26.43,532.24 164.69x15.83 "Choice 26" #f0e6d2
+    box 0.83,552.34 201.67x24.37 #00000000 @keyPress @pointerPress
+      box 9.17,559.84 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
+      text 26.43,556.61 164.69x15.83 "Choice 27" #f0e6d2
+    box 0.83,576.71 201.67x24.37 #00000000 @keyPress @pointerPress
+      box 9.17,584.21 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
+      text 26.43,580.98 164.69x15.83 "Choice 28" #f0e6d2
+    box 0.83,601.08 201.67x24.37 #00000000 @keyPress @pointerPress
+      box 9.17,608.58 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
+      text 26.43,605.34 164.69x15.83 "Choice 29" #f0e6d2
+    box 0.83,625.44 201.67x24.37 #00000000 @keyPress @pointerPress
+      box 9.17,632.94 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
+      text 26.43,629.71 164.69x15.83 "Choice 30" #f0e6d2
+    box 0.83,649.81 201.67x24.37 #00000000 @keyPress @pointerPress
+      box 9.17,657.31 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
+      text 26.43,654.08 164.69x15.83 "Choice 31" #f0e6d2
+    box 0.83,674.18 201.67x24.37 #00000000 @keyPress @pointerPress
+      box 9.17,681.68 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
+      text 26.43,678.44 164.69x15.83 "Choice 32" #f0e6d2
+    box 0.83,698.54 201.67x24.37 #00000000 @keyPress @pointerPress
+      box 9.17,706.04 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
+      text 26.43,702.81 164.69x15.83 "Choice 33" #f0e6d2
+    box 0.83,722.91 201.67x24.37 #00000000 @keyPress @pointerPress
+      box 9.17,730.41 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
+      text 26.43,727.18 164.69x15.83 "Choice 34" #f0e6d2
+    box 0.83,747.28 201.67x24.37 #00000000 @keyPress @pointerPress
+      box 9.17,754.78 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
+      text 26.43,751.54 164.69x15.83 "Choice 35" #f0e6d2
+    box 0.83,771.64 201.67x24.37 #00000000 @keyPress @pointerPress
+      box 9.17,779.14 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
+      text 26.43,775.91 164.69x15.83 "Choice 36" #f0e6d2
+    box 0.83,796.01 201.67x24.37 #00000000 @keyPress @pointerPress
+      box 9.17,803.51 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
+      text 26.43,800.28 164.69x15.83 "Choice 37" #f0e6d2
+    box 0.83,820.38 201.67x24.37 #00000000 @keyPress @pointerPress
+      box 9.17,827.88 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
+      text 26.43,824.64 164.69x15.83 "Choice 38" #f0e6d2
+    box 0.83,844.74 201.67x24.37 #00000000 @keyPress @pointerPress
+      box 9.17,852.24 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
+      text 26.43,849.01 164.69x15.83 "Choice 39" #f0e6d2
+    box 0.83,869.11 201.67x24.37 #00000000 @keyPress @pointerPress
+      box 9.17,876.61 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
+      text 26.43,873.38 164.69x15.83 "Choice 40" #f0e6d2

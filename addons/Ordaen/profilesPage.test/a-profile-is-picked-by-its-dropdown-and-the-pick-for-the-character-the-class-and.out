@@ -102,16 +102,17 @@ box 0,0 760x638.69
         box 267.54,624.52 0x0
         text 307.56,617.32 38.33x14.4 "Create" #808080
         box 385.9,624.52 0x0
-surface 258.98,89.89 216.67x86.14 on FULLSCREEN_DIALOG #0a0806f7
-  box 259.81,96.41 215x24.37 #00000000 @keyPress @pointerPress
-    box 268.14,103.91 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
-    text 285.41,100.68 178.02x15.83 "Default" #f0e6d2
-  box 259.81,120.78 215x24.37 #00000000 @keyPress @pointerPress
-    box 268.14,128.28 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 1 of 2
-    text 285.41,125.04 178.02x15.83 "Healing" #f0e6d2
-  box 259.81,145.14 215x24.37 #00000000 @keyPress @pointerPress
-    box 268.14,152.64 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
-    text 285.41,149.41 178.02x15.83 "Raid" #f0e6d2
+surface 258.98,89.89 216.67x86.14 on FULLSCREEN_DIALOG #0a0806f7 clamped
+  box 259.81,96.41 215x73.1 scrolled 0 of 0
+    box 259.81,96.41 215x24.37 #00000000 @keyPress @pointerPress
+      box 268.14,103.91 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
+      text 285.41,100.68 178.02x15.83 "Default" #f0e6d2
+    box 259.81,120.78 215x24.37 #00000000 @keyPress @pointerPress
+      box 268.14,128.28 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 1 of 2
+      text 285.41,125.04 178.02x15.83 "Healing" #f0e6d2
+    box 259.81,145.14 215x24.37 #00000000 @keyPress @pointerPress
+      box 268.14,152.64 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
+      text 285.41,149.41 178.02x15.83 "Raid" #f0e6d2
 
 -- «Healing» for the character, «Raid» for the class: the character's wins, the page says why
 box 0,0 760x612.91

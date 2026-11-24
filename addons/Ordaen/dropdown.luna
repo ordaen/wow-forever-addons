@@ -2,7 +2,8 @@
 // arrow. Left-click opens the menu under it, each choice with its mark (the picked one's gold), the light under the
 // cursor. Left-click on a choice picks it and closes the menu; a click anywhere else closes it. Disabled, it doesn't
 // open. A choice not built yet (`soon`) is listed dimmed, with «in development» after its name, and takes no click.
-import { Align, Art, Beside, Bounds, ByInteractionState, Edges, Layer, Line, Position, Shadow, TextWeight, TextWrap } from "$ltml"
+import Game from "$game"
+import { Align, Art, Beside, Bounds, ByInteractionState, Edges, Layer, Line, Overflow, Position, Shadow, TextWeight, TextWrap } from "$ltml"
 import root Ordaen from "Ordaen"
 import Locale from "@/locales"
 import { Component } from "@/module"
@@ -31,6 +32,14 @@ const MENU_PAD: Edges = { top: 2sp, bottom: 2sp }
 const ITEM_PAD: Edges = { top: 1.5sp, right: 4sp, bottom: 1.5sp, left: 9sp }
 const CLEAR: Color = Color.hex("#00000000")
 const LIGHT: ByInteractionState<Color> = { default: CLEAR, hover: Color.hex("#d6a56b2e"), focus: Color.hex("#d6a56b2e") }
+// What the open menu takes of the screen's height besides its choices: its padding and edges, and a margin.
+const SCREEN_MARGIN = 32dp
+
+// The open menu's choices: as high as they are, at most the screen's height, scrolling past it; the menu itself is
+// held on the screen (`clamp`).
+function listRoom(): Bounds {
+  return { max: Game.screen.height - SCREEN_MARGIN }
+}
 
 // One choice in the open menu.
 public class DropdownItem<T: Unknown> implements Component {
@@ -124,9 +133,11 @@ public class Dropdown<T: Unknown> implements Component {
             <box width={18.75dp} height={18.75dp} background={Ordaen.art.ctl.dropdownArrow} shadow={ARROW_SHADOW} />
           </box>
           <surface leading={.Row} $if={self.open} layer={Layer.Tooltip} place={Beside { beside: "parent" }} width={WIDTH + 23.4375dp}
-                   background={MENU_BACK} border={MENU_EDGE} padding={MENU_PAD} columns={1}
+                   background={MENU_BACK} border={MENU_EDGE} padding={MENU_PAD} columns={1} clamp={true}
                    @pointerPressOutside={self.close}>
-            <DropdownItem $for={choice of self.choices} choice={choice} value={self.value} @pick={self.onPick} />
+            <box columns={1} height={listRoom()} overflow={Overflow.Scroll}>
+              <DropdownItem $for={choice of self.choices} choice={choice} value={self.value} @pick={self.onPick} />
+            </box>
           </surface>
         </box>
       </SettingRow>
@@ -186,9 +197,11 @@ public class CompactDropdown<T: Unknown> implements Component {
           <box width={18.75dp} height={18.75dp} background={Ordaen.art.ctl.dropdownArrow} shadow={ARROW_SHADOW} />
         </box>
         <surface leading={.Row} $if={self.open} layer={Layer.Tooltip} place={Beside { beside: "parent" }} width={self.listBounds}
-                 background={MENU_BACK} border={MENU_EDGE} padding={MENU_PAD} columns={1} @pointerPressOutside={self.close}>
-          <DropdownItem $for={choice of self.choices} choice={choice} value={self.value} compact={true}
-                        @pick={self.onPick} />
+                 background={MENU_BACK} border={MENU_EDGE} padding={MENU_PAD} columns={1} clamp={true} @pointerPressOutside={self.close}>
+          <box columns={1} height={listRoom()} overflow={Overflow.Scroll}>
+            <DropdownItem $for={choice of self.choices} choice={choice} value={self.value} compact={true}
+                          @pick={self.onPick} />
+          </box>
         </surface>
       </box>
     }
@@ -297,9 +310,11 @@ public class ManyDropdown<T: Unknown> implements Component {
             <box width={18.75dp} height={18.75dp} background={Ordaen.art.ctl.dropdownArrow} shadow={ARROW_SHADOW} />
           </box>
           <surface leading={.Row} $if={self.open} layer={Layer.Tooltip} place={Beside { beside: "parent" }} width={WIDTH + 23.4375dp}
-                   background={MENU_BACK} border={MENU_EDGE} padding={MENU_PAD} columns={1}
+                   background={MENU_BACK} border={MENU_EDGE} padding={MENU_PAD} columns={1} clamp={true}
                    @pointerPressOutside={self.close}>
-            <ManyItem $for={choice of self.choices} choice={choice} value={self.value} @flip={self.onFlip} />
+            <box columns={1} height={listRoom()} overflow={Overflow.Scroll}>
+              <ManyItem $for={choice of self.choices} choice={choice} value={self.value} @flip={self.onFlip} />
+            </box>
           </surface>
         </box>
       </SettingRow>
