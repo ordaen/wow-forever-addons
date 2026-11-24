@@ -1873,6 +1873,21 @@ test "the one-bag view keeps no room for the tabs it doesn't show: it may be the
   Test.expect(Inventory.main.leastWidth < withTabs - 100ui)
 }
 
+test "every category's name stands whole in the tabs' column, the column at least its least width" {
+  const world = new World(everyday())
+  Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Test.mount(nil, SCREEN)
+  Game.bags.open = true
+  Test.flush()
+  for (kind of [ItemKind.Consumables, ItemKind.Equipment, ItemKind.Trade, ItemKind.Other]) {
+    const name = kindName(kind)
+    const button = Test.page().button(name).rect()
+    const label = Test.page().button(name).text(name).rect()
+    Test.expect(label.left >= button.left && label.right <= button.right)
+  }
+}
+
 test "a group is at least the fewest slots in a row wide, as the player sets it, and the window narrows to one" {
   const world = new World(everyday())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)

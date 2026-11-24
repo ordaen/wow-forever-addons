@@ -8,7 +8,7 @@
 // hide an item under a scroll; it scrolls only where the screen is too low for it.
 import Client from "$client"
 import Game from "$game"
-import { Align, ArtBorder, Edges, Overflow, Side, Track } from "$ltml"
+import { Align, ArtBorder, Bounds, Edges, Overflow, Side, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import { ARTWORK, Choice, Component, FooterBand, FooterCount, FooterCounts, ListTab, ModuleMemory, Money, PushButton, SECONDARY_TEXT, ScrolledList, Tabs, Tip, TipRow, ToolAct, ToolButton, ToolPick, Toolbar, reachDown } from "Ordaen"
 import { BANK_ICON } from "@/bank"
@@ -60,7 +60,9 @@ public const SCROLL_ROOM = 18.75dp
 const AROUND_LIST = 257.8125dp
 
 const BODY: Array<Track> = ["max-content", { fr: 1 }]
-const WITH_TABS: Array<Track> = [TABS_WIDTH, { fr: 1 }]
+// The tabs' column is as wide as its longest tab, never narrower than `TABS_WIDTH`: a name is never cut short.
+const WITH_TABS: Array<Track> = ["max-content", { fr: 1 }]
+const TABS_BOUNDS: Bounds = { min: TABS_WIDTH }
 // The tabs' column: the window's room at the top, the sides and under them.
 const COLUMN_ROOM: Edges = { top: 8sp, right: 4sp, bottom: 8sp, left: 4sp }
 const FILL: Array<Track> = [{ fr: 1 }]
@@ -390,14 +392,16 @@ public class Pane {
   // whole height, the toolbar and the list beside it. Else the toolbar over the list.
   public const body: Template = $ltml {
     <box $if={self.withList} columns={WITH_TABS} rows={FILL}>
-      <box $if={self.isGuild} columns={1} gap={0.5sp} padding={COLUMN_ROOM} background={Ordaen.art.window.marble}>
+      <box $if={self.isGuild} columns={1} gap={0.5sp} padding={COLUMN_ROOM} width={TABS_BOUNDS} background={Ordaen.art.window.marble}>
         <GuildTabEntry $for={tab of self.guild.tabs} tab={tab} current={self.guild.tab} page={self.guild.page} live={self.live}
                        @picked={self.onGuildTab} />
         <ListTab $if={self.live} label={Locale.GUILD_LOG} selected={self.guild.page == GuildPage.Log} @pick={self.onGuildLog} />
         <ListTab $if={self.live} label={Locale.GUILD_MONEY_LOG} selected={self.guild.page == GuildPage.MoneyLog}
                  @pick={self.onMoneyLog} />
       </box>
-      <Tabs $else tabs={self.tabNames} selected={mut self.tabPlace} counts={self.tabCounts} offs={self.tabOffs} vertical={true} />
+      <box $else columns={1} rows={FILL} width={TABS_BOUNDS}>
+        <Tabs tabs={self.tabNames} selected={mut self.tabPlace} counts={self.tabCounts} offs={self.tabOffs} vertical={true} />
+      </box>
       <box rows={BODY} gap={6sp} padding={SIDE_ROOM}>
         {self.tools}
         {self.content}
