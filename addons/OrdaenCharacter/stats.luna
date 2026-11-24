@@ -2,10 +2,10 @@
 // big numbers, then sections parted by cuts in the wood, each its cards first, then its gauges, then its plain lines.
 // A gauge is a stat with a cap the player works towards (hit, crit, a weapon's skill), a line one without (attack
 // speed, penetration), a card one of a section's main numbers (attack power, damage a second, a school's spell damage).
-import { Align, Art, BarFill, Event, FillFrom, Piece, Position, TextAlign, TextFont, Track } from "$ltml"
+import { Align, Art, Event, Piece, Position, TextAlign, TextFont, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { BRIGHT_TEXT, Component, Groove, SECONDARY_TEXT, TITLE_TEXT, Tip, Weights, XpFill, xpFillArt } from "Ordaen"
-import { GaugeBar } from "@/gauge"
+import { BRIGHT_TEXT, Component, Groove, RoundedFill, SECONDARY_TEXT, TITLE_TEXT, Tip, Weights, XpFill, xpFillArt } from "Ordaen"
+import { CARVED_EDGE, CarveShade, GaugeBar } from "@/gauge"
 import Locale from "@/locales"
 import { Skill, Stats, WANDS } from "@/sheet"
 import { Boost, Breakdown, NO_BREAKDOWN, statName } from "@/sources"
@@ -485,13 +485,15 @@ public class StatCard implements Component {
   public render(self): Template {
     return $ltml {
       <StatSpot stat={self.figure.stat} title={self.title} shown={self.shown} @tipped={self.onTipped}>
-        <box columns={[Style.SOCKET, { fr: 1 }]} gap={2.5sp} padding={2sp} background={Style.CARD} yAlign={Align.Center}>
+        <box columns={[Style.SOCKET, { fr: 1 }]} gap={2.5sp} padding={2sp} background={Ordaen.art.window.marble}
+             border={CARVED_EDGE} yAlign={Align.Center}>
+          <CarveShade />
           <box width={Style.SOCKET} height={Style.SOCKET} background={Style.SOCKET_FLOOR} xAlign={Align.Center} yAlign={Align.Center}>
             <box width={Style.GLYPH} height={Style.GLYPH} background={self.figure.glyph} tint={self.figure.color}
                  opacity={self.glyphShade} />
           </box>
           <box leading={.Tight}>
-            <text $if={self.labelled} value={self.figure.label} textSize={SECONDARY_TEXT} textColor={Style.DIM} wrap={.None} />
+            <text $if={self.labelled} value={self.figure.label} textSize={SECONDARY_TEXT} textColor={Style.INK} wrap={.None} />
             <text value={self.figure.value} textSize={TITLE_TEXT} textFont={TextFont.Numbers} textColor={self.ink} wrap={.None} />
           </box>
         </box>
@@ -575,11 +577,11 @@ public class MainStat implements Component {
   }
 }
 
-// A resistance's column: the value, the bar filling from the bottom, the picture under it.
+// A resistance's column: the value, the gauge's well filling from the bottom, the picture under it.
 public class ResistColumn implements Component {
   public tipped: Event<Stat | nil> = new Event()
 
-  derived fill: BarFill = { value: (self.resist.value / self.resist.cap).min(1), color: self.resist.color, from: FillFrom.Bottom }
+  derived share: Number = (self.resist.value / self.resist.cap).min(1)
   derived ink: Color = inkOf(self.resist.stat, self.boosts, self.resist.value == 0 ? Style.DIM : BRIGHT_TEXT)
   derived title: String = `${statName(self.resist.stat)} ${self.resist.value}`
 
@@ -598,9 +600,9 @@ public class ResistColumn implements Component {
     return $ltml {
       <StatSpot stat={self.resist.stat} title={self.title} shown={self.shown} @tipped={self.onTipped}>
         <box gap={1sp} xAlign={Align.Center}>
-          <text value={String.of(self.resist.value)} textSize={SECONDARY_TEXT} textFont={TextFont.Numbers}
-                textColor={self.ink} wrap={.None} />
-          <box width={Style.RESIST_WIDTH} height={Style.RESIST_HEIGHT} background={Style.TROUGH} fill={self.fill} />
+          <text value={String.of(self.resist.value)} textFont={TextFont.Numbers} textColor={self.ink} wrap={.None} />
+          <GaugeBar value={self.share} tone={self.resist.color} height={Style.RESIST_HEIGHT} vertical={true}
+                    width={Style.RESIST_WIDTH} />
           <box width={Style.RESIST_ICON} height={Style.RESIST_ICON} background={self.resist.glyph} tint={self.resist.color} />
         </box>
       </StatSpot>
@@ -608,9 +610,9 @@ public class ResistColumn implements Component {
   }
 }
 
-// A pool's bar, a glass tube as the experience bar's (Ordaen's art): back to front its trough, the fill in its colour
-// (the experience's brushed fill made grey under it), the shine, the bronze ring; the amount at its middle and what it
-// regains at its right; the stat it shows (health, mana) its tooltip's.
+// A pool's bar, a look of its own: a slim bar with softly rounded corners and a thin bronze line round it; back to front
+// the line, the dark trough, the fill in its colour (the experience's brushed fill made grey under it), a gloss over its
+// upper part; the amount at its middle and what it regains at its right; the stat it shows (health, mana) its tooltip's.
 public class PoolBar implements Component {
   public tipped: Event<Stat | nil> = new Event()
 
@@ -645,18 +647,21 @@ public class PoolBar implements Component {
   public render(self): Template {
     return $ltml {
       <StatSpot stat={self.stat} title={self.title} shown={self.shown} @tipped={self.onTipped}>
-        <box height={Style.BAR} xAlign={Align.Center} yAlign={Align.Center}>
-          <box position={Position.Absolute} top={0ui} right={0ui} bottom={0ui} left={0ui}
-               background={Ordaen.art.panel.xpTrough} />
-          <box position={Position.Absolute} top={Style.TUBE_INSET} right={Style.TUBE_INSET} bottom={Style.TUBE_INSET}
-               left={Style.TUBE_INSET} columns={self.parts} rows={Style.ONE_ROW} zLevel={1}>
+        <box height={Style.POOL} xAlign={Align.Center} yAlign={Align.Center}>
+          <box position={Position.Absolute} top={0ui} right={0ui} bottom={0ui} left={0ui}>
+            <RoundedFill color={Style.POOL_RIM} radius={Style.POOL_ROUND} />
+          </box>
+          <box position={Position.Absolute} top={Style.POOL_LINE} right={Style.POOL_LINE} bottom={Style.POOL_LINE}
+               left={Style.POOL_LINE}>
+            <RoundedFill color={Style.POOL_TROUGH} radius={Style.POOL_ROUND - Style.POOL_LINE} />
+          </box>
+          <box position={Position.Absolute} top={Style.POOL_LINE} right={Style.POOL_LINE} bottom={Style.POOL_LINE}
+               left={Style.POOL_LINE} columns={self.parts} rows={Style.ONE_ROW} zLevel={1}>
             <box background={FILL} tint={self.color} desaturate={true} />
             <box />
           </box>
-          <box position={Position.Absolute} top={0ui} right={0ui} bottom={0ui} left={0ui}
-               background={Ordaen.art.panel.xpShine} zLevel={2} />
-          <box position={Position.Absolute} top={0ui} right={0ui} bottom={0ui} left={0ui}
-               background={Ordaen.art.panel.xpTube} zLevel={3} />
+          <box position={Position.Absolute} top={Style.POOL_LINE} right={Style.POOL_LINE} left={Style.POOL_LINE}
+               height={Style.POOL_GLOSS} background={Style.GLOSS} zLevel={2} />
           <box zLevel={4}>
             <text value={self.amount} textSize={SECONDARY_TEXT} textFont={TextFont.Numbers} textColor={self.ink}
                   textOutline={1} textShadow={Style.TUBE_SHADOW} wrap={.None} />

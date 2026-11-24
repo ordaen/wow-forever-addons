@@ -1345,13 +1345,23 @@ test "the model stands in its race's scene from the game's dressing room, enlarg
   Test.expect(((column.bottom - column.top) / (Style.SCENE_HEIGHT / 1ui) - 1).abs() < 0.01)
 }
 
-test "health and the resource are glass tubes as the experience bar is, each filled in its colour" {
+test "health and the resource are slim bars of their own, a thin line round them, each filled in its colour" {
   Test.mount(nil, PAGE)
   Game.items.icon = icons
   const window = opened(new FakeSheet())
-  Test.expect(window.box(Ordaen.art.panel.xpTube).count() == 2)
-  Test.expect(window.box(Ordaen.art.panel.xpTrough).count() == 2)
+  Test.expect(window.box(Ordaen.art.panel.xpTube).count() == 0)
   Test.expect(window.box(xpFillArt(XpFill.Brushed)).count() == 2)
+  // The bar's line round its trough, no thicker than a texel and a bit.
+  const bar = window.box(xpFillArt(XpFill.Brushed)).nth(1).rect()
+  Test.expect(bar.bottom - bar.top < 24)
+}
+
+test "the gauges, the resistances and the cards are carved down to the marble" {
+  Test.mount(nil, PAGE)
+  Game.items.icon = icons
+  const window = opened(new FakeSheet())
+  // Six resistances, the gauges, and the melee section's two cards, each on the marble.
+  Test.expect(window.box(Ordaen.art.window.marble).count() > 12)
 }
 
 test "the bars' and the stats' columns share the room the model's leaves, which stays as wide in a wider window" {

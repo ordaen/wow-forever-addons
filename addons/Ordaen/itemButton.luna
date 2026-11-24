@@ -95,9 +95,11 @@ const CREST_WHOLE = 64 / 41
 const CREST_RIM = 3 / 41
 const ICON_MASK: Asset = "Interface/Common/Common-IconMask"
 // Framed: the client's talent frame (grey, its metal) over the slot, the icon and the well inside it, a tenth of the
-// slot in from each side as the talents' nodes hold theirs; an item's quality from uncommon up the frame's tint.
+// slot in from each side as the talents' nodes hold theirs; an item's quality from uncommon up the frame's tint, else
+// darkened to sit with the client's empty-slot pictures (a common or poor item's, an empty slot's).
 const TALENT_FRAME: Atlas = "talents-node-square-gray"
 const TALENT_FRAME_RIM = 0.1
+const FRAME_UNLIT: Color = Color.hex("#5a5a5a")
 const NO_EDGE: Line = { width: 0dp, color: Color.hex("#00000000") }
 const CLEAR: Color = Color.hex("#00000000")
 const SHINE: ByInteractionState<Color> = { default: CLEAR, hover: Color.hex("#ffffff26"), focus: Color.hex("#ffffff26") }
@@ -173,7 +175,7 @@ public class ItemButton implements Component {
   // The border goes round the slot on a sunk well; a crest's rim and a talent frame are their own, coloured by an item's
   // quality.
   derived slotEdge: Line = self.sunk ? self.edge : NO_EDGE
-  derived frameTint: Color = self.lit ? self.edge.color : UNTINTED
+  derived frameTint: Color = self.lit ? self.edge.color : FRAME_UNLIT
   derived framed: Boolean = self.crested && self.lit
   derived iconMask: Asset | nil = self.crested ? ICON_MASK : nil
 

@@ -7,7 +7,7 @@
 import Game from "$game"
 import { Action, Align, Art, BarFill, Edges, Event, FillFrom, Line, MouseButton, Overflow, Position, TextFont, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { ButtonPlate, CUT, Component, Cut, Groove, ItemButton, PushButton, SECONDARY_TEXT, SlotWell, TITLE_TEXT, Tabs, TipText, WINDOW_ROOM, classColor } from "Ordaen"
+import { ButtonPlate, CUT, Component, Cut, Groove, ItemButton, PushButton, SECONDARY_TEXT, SHORT_CUT, ShortCut, SlotWell, TITLE_TEXT, Tabs, TipText, WINDOW_ROOM, classColor } from "Ordaen"
 import { Active } from "OrdaenAuras"
 import { ItemLevel } from "@/itemLevel"
 import Locale from "@/locales"
@@ -490,11 +490,17 @@ public class GearPage implements Component {
             <Groove upright={true} />
           </box>
           <box>
-            <box gap={2.5sp}>
-              <box columns={5}>
-                <MainStat $for={main of self.mains} main={main} shown={self.shown} boosts={self.boosts} @tipped={self.onTipped} />
+            <box columns={5} yAlign={Align.Stretch}>
+              <box $for={index, main of self.mains}>
+                <box $if={index > 1} position={Position.Absolute} left={-SHORT_CUT / 2} top={0ui} bottom={0ui}
+                     width={SHORT_CUT} rows={[{ fr: 1 }]} yAlign={Align.Stretch}>
+                  <ShortCut />
+                </box>
+                <MainStat main={main} shown={self.shown} boosts={self.boosts} @tipped={self.onTipped} />
               </box>
-              <Cut />
+            </box>
+            <Cut />
+            <box gap={2.5sp} padding={Style.AFTER_CUT}>
               <box gap={1.5sp} padding={Style.SECTION_PAD}>
                 <StatGauge $for={g of self.shared} gauge={g} shown={self.shown} boosts={self.boosts} @tipped={self.onTipped} />
                 <StatRow $for={row of self.sharedLines} row={row} shown={self.shown} boosts={self.boosts} @tipped={self.onTipped} />

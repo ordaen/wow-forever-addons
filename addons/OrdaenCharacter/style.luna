@@ -32,10 +32,15 @@ public const FIELD: Number<Length> = 35.15625dp
 public const FIELD_PAD: Edges = { left: 3sp, right: 3sp }
 public const FIELD_BACK: Color = Color.hex("#00000080")
 
-// A health or power bar: a glass tube, its fill inside the ring (the art's 10 texels of 64 at each edge); the room
-// its regeneration keeps from the tube's right end; its texts' shadow.
-public const BAR: Number<Length> = 32dp
-public const TUBE_INSET: Number<Length> = BAR * 10 / 64
+// A health or power bar: slim, its corners softly rounded, a thin bronze line round its dark trough, a gloss over the
+// fill's upper part; the room its regeneration keeps from the bar's right end; its texts' shadow (the item level's too).
+public const POOL: Number<Length> = 24dp
+public const POOL_LINE: Number<Length> = 1.171875dp
+public const POOL_ROUND: Number<Length> = 4.6875dp
+public const POOL_GLOSS: Number<Length> = POOL * 0.4
+public const POOL_RIM: Color = Color.hex("#8a6a3e")
+public const POOL_TROUGH: Color = Color.hex("#0b0805")
+public const GLOSS: Color = Color.hex("#ffffff1f")
 public const TUBE_REGEN: Number<Length> = 10dp
 public const TUBE_SHADOW: Shadow = { color: Color.hex("#000000"), x: 1ui, y: -1ui }
 public const ONE_ROW: Array<Track> = [{ fr: 1 }]
@@ -62,6 +67,8 @@ public function detailsLine(): ArtBorder {
 }
 public const SECTION_PAD: Edges = { top: 2.5sp, right: SIDE_ROOM, bottom: 2.5sp, left: SIDE_ROOM }
 public const CARDS_PAD: Edges = { bottom: 2sp }
+// The room under a cut before what follows it, as a section's gap.
+public const AFTER_CUT: Edges = { top: 2.5sp }
 // A main stat's room and its number's size: twice the body's, whatever size the look gives the body.
 public const MAIN_PAD: Edges = { top: 2.5sp, bottom: 2.5sp }
 public const MAIN_TEXT: Number<TextSize> = 2rem
@@ -69,7 +76,7 @@ public const MAIN_TEXT: Number<TextSize> = 2rem
 public const RESIST_PAD: Edges = { bottom: 3sp }
 public const RESIST_WIDTH: Number<Length> = 20dp
 public const RESIST_HEIGHT: Number<Length> = 84dp
-public const RESIST_ICON: Number<Length> = 20dp
+public const RESIST_ICON: Number<Length> = 30dp
 
 public const INK: Color = Color.hex("#e8dcc4")
 public const DIM: Color = Color.hex("#a3977f")
