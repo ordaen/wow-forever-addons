@@ -13,22 +13,52 @@ import Game from "$game"
 import { Align, Art, ByInteractionState, Edges, Event, Frame, Line, MouseButton, Position, Side, TextAlign, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import { Component } from "@/module"
-import { ScrolledList } from "@/scrolledList"
+import { Ground, ScrolledList } from "@/scrolledList"
 import { BRIGHT_TEXT } from "@/units"
 
 // A column: its heading (`""`: none), its width, where its heading and its cells stand (`Align.Center` too), whether a
-// heading click sorts by it.
+// heading click sorts by it, the group it is in: neighbouring columns of one group share a heading over theirs.
 public struct Column {
   title: String
   width: Track
   align: Align | nil
   sortable: Boolean | nil
+  group: String | nil
+}
+
+// A heading over a run of columns: its group's title, `""` over a column in none; how many columns it spans.
+struct Span {
+  title: String
+  columns: Integer
+}
+
+// The headings over the columns' headings, one per run of neighbouring columns of one group, one per column in none;
+// none where no column has a group.
+function spansOf(columns: Array<Column>): Array<Span> {
+  let spans: Array<Span> = []
+  if (!columns.any(column => column.group != nil)) { return spans }
+  for (index, column of columns) {
+    const group = column.group
+    if (group == nil) {
+      spans.push({ title: "", columns: 1 })
+    } else if (columns[index - 1]?.group != group) {
+      let run = 1
+      for (next of index + 1..columns.length) {
+        if (columns[next]?.group != group) { break }
+        run = run + 1
+      }
+      spans.push({ title: group, columns: run })
+    }
+  }
+  return spans
 }
 
 const NAME: ByInteractionState<Color> = { default: Color.hex("#cbb994"), hover: BRIGHT_TEXT, focus: BRIGHT_TEXT }
 const PLAIN: Color = Color.hex("#a3977f")
 const GOLD: Color = Color.hex("#f0c860")
 const RULE: Line = { width: 1.171875dp, color: Color.hex("#3e2f1d"), sides: [Side.Bottom] }
+// A group's heading: its title over its columns, a rule under it reaching across them.
+const GROUP_RULE: Line = { width: 1.171875dp, color: Color.hex("#5a4630"), sides: [Side.Bottom] }
 const LIGHT: Color = Color.hex("#d6a56b")
 const CLEAR: Color = Color.hex("#00000000")
 const SHADE: ByInteractionState<Color> = { default: CLEAR, hover: Color.hex("#00000033"), focus: Color.hex("#00000033") }
@@ -116,8 +146,25 @@ public class Heading implements Component {
   }
 }
 
+// A group's heading over its columns' headings; over a column in no group, nothing.
+class GroupHeading implements Component {
+  derived titled: Boolean = self.span.title != ""
+
+  span: Signal<Span>
+  constructor(span: Signal<Span>) { self.span = span }
+
+  public render(self): Template {
+    return $ltml {
+      <box $if={self.titled} columnSpan={self.span.columns} padding={PADDING} xAlign={Align.Center} border={GROUP_RULE}>
+        <text value={self.span.title} textColor={PLAIN} wrap={.None} />
+      </box>
+      <box $else columnSpan={self.span.columns} />
+    }
+  }
+}
+
 // One row of a table: its cells in the slot, laid out in the columns' tracks. The shade under the cursor; selected, a
-// darker one. A click of any button reports `pick` with the click (its button and where it was in the row), as a
+// darker one. On the wood (`Ground.Wood`, as its table stands) a rule under it. A click of any button reports `pick` with the click (its button and where it was in the row), as a
 // box's `click` does: the page tells a left-click from a right-click. A double press reports `double` after its
 // second `pick`; the cursor coming onto any part of the row reports `enter` with the row's frame (a tooltip stands
 // beside it), and leaving it `leave`.
@@ -128,16 +175,25 @@ public class TableRow implements Component {
   public leave: Event<nil> = new Event()
 
   derived background: Color | ByInteractionState<Color> = self.selected ? BACK : SHADE
+  derived rule: Line | nil = self.ground == Ground.Wood ? RULE : nil
 
   tracks: Signal<Array<Track>>
   selected: Signal<Boolean>
   // How high it is: as high as what it holds with its padding (a line of text: a line and a half), unless it is told
   // another (a row of icons).
   const height: Number<Length> | nil
-  constructor(tracks: Signal<Array<Track>>, selected: Signal<Boolean> = false, height: Number<Length> | nil = nil) {
+  ground: Signal<Ground>
+  constructor(
+    tracks: Signal<Array<Track>>,
+    selected: Signal<Boolean> = false,
+    height: Number<Length> | nil = nil,
+    // What its table stands on: on the wood, rows are ruled apart.
+    ground: Signal<Ground> = Ground.Well
+  ) {
     self.tracks = tracks
     self.selected = selected
     self.height = height
+    self.ground = ground
   }
 
   onClick(mut self, click: Event.Press) { self.pick.emit(click.button) }
@@ -152,7 +208,7 @@ public class TableRow implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={self.tracks} height={self.height} gap={3sp} padding={ROW_PADDING} yAlign={Align.Center} background={self.background}
+      <box columns={self.tracks} height={self.height} gap={3sp} padding={ROW_PADDING} yAlign={Align.Center} background={self.background} border={self.rule}
            @pointerPress.self={self.onClick} @pointerPress.self.double={self.onDouble} @pointerEnter={self.onEnter}
            @pointerLeave={self.onLeave} @keyPress(.Enter)={self.onKey} @keyPress(.Space)={self.onKey}>
         <slot />
@@ -199,6 +255,8 @@ function textAlignOf(align: Align | nil): TextAlign | nil {
 
 public class Table implements Component {
   derived tracks: Array<Track> = tracksOf(self.columns)
+  derived spans: Array<Span> = spansOf(self.columns)
+  derived headBack: Color | nil = self.ground == Ground.Well ? BACK : nil
 
   const columns: Array<Column>
   sorted: mut Signal<Integer>
@@ -206,6 +264,7 @@ public class Table implements Component {
   height: Signal<Number<Length> | nil>
   const rowsVary: Boolean
   empty: Signal<String>
+  ground: Signal<Ground>
   derived emptyShown: Boolean = self.empty != ""
   constructor(
     columns: Array<Column>,
@@ -220,9 +279,13 @@ public class Table implements Component {
     rowsVary: Boolean = false,
     // What it says under its headings while it has no rows («Nothing found»): the owner, which knows its rows, says
     // it while there are none; `""` says nothing.
-    empty: Signal<String> = ""
+    empty: Signal<String> = "",
+    // What it stands on: a well (its headings on a darker band), or the wood (its rows ruled apart: their
+    // `TableRow`s say so too).
+    ground: Signal<Ground> = Ground.Well
   ) {
     self.empty = empty
+    self.ground = ground
     self.columns = columns
     self.sorted = sorted
     self.descending = descending
@@ -233,8 +296,9 @@ public class Table implements Component {
   public render(self): Template {
     return $ltml {
       <box columns={1} rows={FILLED}>
-        <ScrolledList columns={1} height={self.height} virtual={!self.rowsVary}>
-          <box #head columns={self.tracks} gap={3sp} padding={SIDES} background={BACK} border={RULE}>
+        <ScrolledList columns={1} height={self.height} virtual={!self.rowsVary} ground={self.ground}>
+          <box #head columns={self.tracks} gap={3sp} padding={SIDES} background={self.headBack} border={RULE}>
+            <GroupHeading $for={span of self.spans} span={span} />
             <Heading $for={index, column of self.columns} column={column} index={index} sorted={mut self.sorted}
                      descending={mut self.descending} />
           </box>

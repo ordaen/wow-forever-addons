@@ -1,11 +1,15 @@
 // A list that scrolls, drawn as a well: a box sunk into the wood, its rim the look's line round it and its floor
-// darker than the wood, and inside the rim the rows, which scroll and are cut at the rim's inner edge. Its one padding
-// is the scrolling box's, so it scrolls with the rows: a row scrolled out is cut at the rim, never at the padding. A
-// part that stays while the rows scroll (a table's headings) is its slot `head`, over the rows inside the rim, at the
-// rows' sides. Every list that scrolls is one; no module draws its own.
+// darker than the wood, and inside the rim the rows, which scroll and are cut at the rim's inner edge; or, on the
+// wood (`Ground.Wood`), with no rim and no floor. Its one padding is the scrolling box's, so it scrolls with the rows:
+// a row scrolled out is cut at the rim, never at the padding. A part that stays while the rows scroll (a table's
+// headings) is its slot `head`, over the rows inside the rim, at the rows' sides. Every list that scrolls is one; no
+// module draws its own.
 import { Align, Columns, Edges, Gaps, Overflow, Size, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import { Component } from "@/module"
+
+// What a list stands on: a well sunk into the wood, or the wood itself (a table's rows then ruled apart).
+public enum Ground { Well, Wood }
 
 // The room between the rim and what the well holds: the least room a text keeps from a frame's line, and an item's step.
 // None where the rows bring their own (`rowsPadded`): they stand edge to edge inside the rim, their shade and rules
@@ -16,8 +20,9 @@ const NONE = 0sp
 const PARTS: Array<Track> = ["max-content", { fr: 1 }]
 
 public class ScrolledList implements Component {
-  derived rim = Ordaen.art.ctl.well.rim
-  derived floor = Ordaen.art.ctl.well.floor
+  derived sunk: Boolean = self.ground == Ground.Well
+  derived rim = self.sunk ? Ordaen.art.ctl.well.rim : nil
+  derived floor = self.sunk ? Ordaen.art.ctl.well.floor : nil
   derived inside: Number<Spacing> = self.rowsPadded ? NONE : INSIDE
   // The head keeps the rows' sides: what stands in it stands over what stands in the rows.
   derived headSides: Edges = { left: self.inside, right: self.inside }
@@ -30,6 +35,7 @@ public class ScrolledList implements Component {
   width: Signal<Size | nil>
   const virtual: Boolean
   const rowsPadded: Boolean
+  ground: Signal<Ground>
   constructor(
     // Its rows' grid: one column where none is said.
     columns: Signal<Columns | nil> = nil,
@@ -43,8 +49,11 @@ public class ScrolledList implements Component {
     // Its rows are of one height: a virtual list, which builds only the rows in view.
     virtual: Boolean = false,
     // Its rows bring their own padding (and their shade, their rules): they stand edge to edge inside the rim.
-    rowsPadded: Boolean = false
+    rowsPadded: Boolean = false,
+    // A well, or the wood.
+    ground: Signal<Ground> = Ground.Well
   ) {
+    self.ground = ground
     self.columns = columns
     self.rows = rows
     self.gap = gap

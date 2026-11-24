@@ -6,6 +6,7 @@ import Test from "$test"
 import Wow from "LunaTypeRenderer"
 import { Age } from "@/age"
 import { Money } from "@/money"
+import { Ground } from "@/scrolledList"
 import { Column, Table, TableCell, TableRow, tracksOf } from "@/table"
 
 public struct Sale {
@@ -237,6 +238,57 @@ test "a long text in a cell is cut at its column, and every row's columns stand 
   let page = new Shared()
   Test.mount(page, { left: 0, top: 0, width: 500, height: 300 })
   Test.shot("three shared columns: the long zone cut at its edge, «alt» under «Note» as «main» is")
+  destroy page
+  Test.expect(Test.blank())
+}
+
+const GROUPED: Array<Column> = [
+  { title: "Item", width: { fr: 1 }, sortable: true },
+  { title: "House", width: 80ui, align: Align.End, sortable: true, group: "Cost" },
+  { title: "Vendor", width: 80ui, align: Align.End, sortable: true, group: "Cost" },
+  { title: "House", width: 80ui, align: Align.End, group: "Price" },
+  { title: "Vendor", width: 80ui, align: Align.End, group: "Price" },
+  { title: "Profit", width: 80ui, align: Align.End }
+]
+const GROUPED_TRACKS: Array<Track> = tracksOf(GROUPED)
+const WARES: Array<String> = ["Copper Bar", "Bronze Axe"]
+
+// Two groups of two columns between two columns in none, on the wood.
+class Grouped {
+  public state sorted = 0
+  public state descending = false
+
+  public render(self): Template {
+    return $ltml {
+      <Table columns={GROUPED} sorted={mut self.sorted} descending={mut self.descending} ground={Ground.Wood}>
+        <TableRow $for={ware of WARES} tracks={GROUPED_TRACKS} ground={Ground.Wood}>
+          <text value={ware} />
+          <text value={"1"} />
+          <text value={"2"} />
+          <text value={"3"} />
+          <text value={"4"} />
+          <text value={"5"} />
+        </TableRow>
+      </Table>
+    }
+  }
+}
+
+test "neighbouring columns of one group share a heading over theirs; a table on the wood has no well, its rows ruled" {
+  let page = new Grouped()
+  Test.mount(page, { left: 0, top: 0, width: 600, height: 200 })
+  const cost = Test.page().text("Cost").rect()
+  const price = Test.page().text("Price").rect()
+  const house = Test.page().text("House").nth(1).rect()
+  const vendor = Test.page().text("Vendor").nth(1).rect()
+  // «Cost» over its two columns' headings, within their outer edges; «Price» past them, over its own.
+  Test.expect(cost.bottom <= house.top && cost.left >= house.left - 80 && cost.right <= vendor.right)
+  Test.expect(price.left > vendor.right && price.bottom <= house.top)
+  // A column in no group has its heading in the headings' row.
+  Test.expect(Test.page().text("Item").rect().top == house.top)
+  Test.click(Test.holding("Vendor", nil), nil)
+  Test.expect(page.sorted == 3)
+  Test.shot("grouped headings on the wood: «Cost» and «Price» over their pairs, no well, a rule under each row")
   destroy page
   Test.expect(Test.blank())
 }
