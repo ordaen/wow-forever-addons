@@ -75,13 +75,13 @@ function listed(listing: Listing): Model {
   }
 }
 
-// The tooltip a part of a locked tooltip opens. A unit that is gone opens nothing. A list (another module's) is
-// locked itself, its rows opening what they name; anything else takes no cursor and opens nothing further.
+// The tooltip a part of a locked tooltip opens. A unit that is gone opens nothing. It is locked as it opens, whatever
+// it shows (a list of another module's, an item, a unit, a term): the cursor goes into it, and what it holds opens
+// further, at any depth.
 public class Opened implements Component {
   derived read: Model | nil = self.readNow()
   derived some: Boolean = self.read != nil
   derived model: Model = self.read ?? NOTHING
-  derived further: Boolean = self.opensFurther()
 
   opens: Signal<Opens>
   options: Signal<Options>
@@ -108,16 +108,9 @@ public class Opened implements Component {
     }
   }
 
-  opensFurther(self): Boolean {
-    match (self.opens) {
-      Opens.Listing => return true
-      else => return false
-    }
-  }
-
   public render(self): Template {
     return $ltml {
-      <TipFrame $if={self.some} model={self.model} side={true} locked={self.further}>
+      <TipFrame $if={self.some} model={self.model} side={true} locked={true}>
         <Opened #opened={opens} opens={opens} options={self.options} />
       </TipFrame>
     }

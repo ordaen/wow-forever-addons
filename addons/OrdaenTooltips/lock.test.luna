@@ -556,6 +556,31 @@ test "a fact that speaks of an amount opens its term with the amount in it" {
   Test.expect(reads(Test.page().window(ARMOUR), `Armour 42 | ${ARMOUR}`))
 }
 
+test "what a locked tooltip opens is locked itself: the cursor goes into it, and what it holds opens further" {
+  // A spell whose reagent opens its item; the item is soulbound, which opens its term.
+  Client.C_Item.GetItemInfoInstant = (item: String | Integer): (Number | nil, String | nil, String | nil, String | nil, FileId | nil, Number | nil, Number | nil) => {
+    return item == "Linen Cloth" ? 2589 : nil, nil, nil, nil, nil, nil, nil
+  }
+  Game.items.tooltip = (id: Integer): Game.TooltipData | nil => id != 2589 ? nil : {
+    kind: 0, id: 2589, about: "item:2589", lines: [{ left: "Linen Cloth", kind: 22 }, { left: "Soulbound", kind: 20 }]
+  }
+  Test.mount(new Elsewhere(), SCREEN)
+  Game.tooltip.main = inSlot({
+    kind: 1, id: 1459, about: "spell:1459",
+    lines: [{ left: "Arcane Intellect", kind: 13 }, { left: "Reagents: Linen Cloth (2)", kind: 0 }]
+  })
+  Test.pass(SHOWS)
+  Test.pass(CHARGED)
+  Game.tooltip.main = hidden()
+  locked().text("Linen Cloth").hover()
+  const cloth = Test.page().window("Soulbound")
+  Test.expect(cloth.shown())
+  // In the item's tooltip, a level down, its term opens as the first tooltip's do.
+  cloth.text("Soulbound").hover()
+  const BOUND = "Already yours: it can't be traded or auctioned, only sold to a vendor."
+  Test.expect(Test.page().window(BOUND).shown() && isLocked())
+}
+
 test "a tooltip beside a locked one opens its terms too" {
   Game.spells.tooltip = (id: Integer): Game.TooltipData | nil => ({
     kind: 1, id: 7001, lines: [{ left: "Healing Touch", kind: 13 }, { left: "Instant", kind: 0 }]
