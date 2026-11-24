@@ -445,9 +445,21 @@ function skillPast(strike: Strike, stats: Stats): Number {
   return strike == .Melee ? stats.meleeSkillPast : strike == .Ranged ? stats.rangedSkillPast : 0
 }
 
+// A raid boss's defense past a character's of the game's greatest level, at which the hit caps and the avoidances are
+// counted (level 63's 315 against level 60's 300).
+const BOSS_DEFENSE_PAST_MOST = 15
+
+// What the weapon's skill takes off a target's chances, in percent: each point past the target's defense 0.04, from
+// where the caps are counted (a weapon at its level's most; against a boss, at the greatest level's).
+function edgeOf(strike: Strike, stats: Stats, boss: Boolean): Number {
+  if (strike == .Spell) { return 0 }
+  const short = boss ? stats.bossDefensePast - BOSS_DEFENSE_PAST_MOST : 0
+  return (skillPast(strike, stats) - short) * SKILL_STEP
+}
+
 function oddsOf(strike: Strike, stats: Stats, boss: Boolean, caps: HitCaps): Odds {
   const hit = strike == .Spell ? stats.spellHit : strike == .Ranged ? stats.rangedHit : stats.meleeHit
-  const edge = skillPast(strike, stats) * SKILL_STEP
+  const edge = edgeOf(strike, stats, boss)
   const miss = ((boss ? caps.boss : caps.level) - hit - edge).max(0)
   if (strike == .Spell) { return { miss: miss, dodge: 0, parry: 0, block: 0 } }
   const of = boss ? BOSS_AVOIDANCE : LEVEL_AVOIDANCE

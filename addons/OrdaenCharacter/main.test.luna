@@ -530,6 +530,23 @@ test "what lands's card wears the percent glyph, the glyphs' eleventh row" {
   Test.expect(window.paintedWith(percent))
 }
 
+test "a low character's weapon skill counts against a boss's 315 of defense, as the game's skills frame does" {
+  Test.mount(nil, PAGE)
+  Game.items.icon = icons
+  const sheet = new FakeSheet()
+  // Level 9 with 38 of 45 in the weapon: 7 short of its level, 277 short of a level 63 boss.
+  sheet.figures = (): Stats => Stats { meleeCrit: 20, meleeSkillPast: -7, bossDefensePast: 270 }
+  const window = opened(mut sheet)
+  // A target of its level: 0.28 more misses and dodges, 0.28 less crit.
+  window.text("89.44%").hover()
+  const tip = Test.page().window(Locale.LANDS_TIP)
+  Test.expect(tip.texts().join(" | ").contains("Targets of your level | Miss | 5.28% | Dodge | 5.28%"))
+  Test.expect(tip.texts().join(" | ").contains("Crit | 19.72%"))
+  // A boss: its 8 of misses counted for the greatest level, then 262 points more short; the crit 11.08 less.
+  Test.expect(tip.texts().join(" | ").contains("Raid bosses | Miss | 18.48%"))
+  Test.expect(tip.texts().join(" | ").contains("Crit | 8.92%"))
+}
+
 test "a spell's misses come first, its crits of what lands" {
   Test.mount(nil, PAGE)
   Game.items.icon = icons
