@@ -84,6 +84,20 @@ public class Stock {
     if (regroup) { self.revision += 1 }
   }
 
+  // A container's place among the kept ones (1 on), by its number; none for one not kept.
+  public placeOf(self, bag: Integer): Integer | nil {
+    for (index, info of self.infos) {
+      if (info.bag == bag) { return index }
+    }
+    return nil
+  }
+
+  // Whether a container takes any item, by its number; false for one not kept.
+  public general(self, bag: Integer): Boolean {
+    const place = self.placeOf(bag)
+    return place != nil && self.infos[place]?.general == true
+  }
+
   // The slot at a container's number and its slot, where it is kept.
   public slotAt(self, bag: Integer, index: Integer): Slot | nil {
     for (slots of self.bags) {
@@ -118,7 +132,10 @@ public class Stock {
     }
     if (!same) {
       let fills: Map<Integer, String> = {}
-      for (index, slots of self.bags) { fills[index - 1] = Locale.FILL.format(self.used[index] ?? 0, slots.length) }
+      for (index, slots of self.bags) {
+        const info = self.infos[index]
+        if (info != nil) { fills[info.bag] = Locale.FILL.format(self.used[index] ?? 0, slots.length) }
+      }
       self.fills = fills
     }
     self.free = free

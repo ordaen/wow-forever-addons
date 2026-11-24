@@ -2132,3 +2132,20 @@ test "a bag isn't put on while the cursor holds something" {
   Client.CursorHasItem = (): Boolean => true
   Test.expect(new BagChanger().start(bag, [], (place: Integer): Boolean => true) == Change.Busy)
 }
+
+test "the keyring's keys are read with the bags: under «Keys», and the keyring a line of the bag slots" {
+  const world = new World(everyday())
+  world.items.push({ bag: -1, slot: 1, id: 5396, name: "Key to Searing Gorge", icon: DEED, kind: 13 })
+  Game.bags.containers = [0, 1, 2, 3, 4, -1]
+  Game.bags.bag = (bag: Integer): Game.BagInfo => bag == -1 ?
+    { bag: -1, item: nil, name: "Keyring", icon: nil, slots: 32, general: false } : world.bag(bag)
+  Game.bags.size = (bag: Integer): Integer => bag == -1 ? 32 : world.size(bag)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.items.icon = (id: Integer): Art | nil => world.icon(id)
+  Test.mount(nil, SCREEN)
+  Game.bags.open = true
+  bags().button("Keys").click()
+  Test.expect(held(DEED).shown() && !held(SWORD).shown())
+  bags().button(BAG_BUTTON).click()
+  Test.expect(bagSlots().text("Keyring").shown() && bagSlots().text("1/32").shown())
+}

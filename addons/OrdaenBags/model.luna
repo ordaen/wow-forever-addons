@@ -28,6 +28,7 @@ public enum Tab implements Plain {
   Equipment = "equipment"
   Trade = "trade"
   Recipes = "recipes"
+  Keys = "keys"
   Other = "other"
   Junk = "junk"
 }
@@ -46,10 +47,11 @@ const REAGENT = 5
 const TRADE = 7
 const RECIPE = 9
 const QUEST = 12
+const KEY = 13
 
 // The kinds' tabs, in their fixed order: quest items and consumables first, then equipment, trade goods, recipes, the
 // rest, junk last.
-public const KINDS: Array<Tab> = [.Quest, .Consumables, .Equipment, .Trade, .Recipes, .Other, .Junk]
+public const KINDS: Array<Tab> = [.Quest, .Consumables, .Equipment, .Trade, .Recipes, .Keys, .Other, .Junk]
 
 // One item, one tab: junk where the verdict says so whatever its class (a grey hammer is junk, not equipment); a trade
 // good where crafting takes it, as the client marks it, whatever its class (a feather is the client's miscellany);
@@ -63,6 +65,7 @@ public function tabOf(kind: Integer, reagent: Boolean, why: Why | nil): Tab {
     WEAPON, ARMOR => .Equipment
     TRADE, REAGENT, GEM => .Trade
     RECIPE => .Recipes
+    KEY => .Keys
     else => .Other
   }
 }

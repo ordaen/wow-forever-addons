@@ -16,6 +16,7 @@ public function tabName(tab: Tab): String {
     .Equipment => Locale.TAB_EQUIPMENT
     .Trade => Locale.TAB_TRADE
     .Recipes => Locale.TAB_RECIPES
+    .Keys => Locale.TAB_KEYS
     .Other => Locale.TAB_OTHER
     .Junk => Locale.TAB_JUNK
   }

@@ -359,7 +359,7 @@ public class Bags implements Module, App {
   // Every bag read: a bag whose size changed gets its slots made again.
   public readAll(mut self) {
     let infos: Array<Game.BagInfo> = []
-    for (bag of 0..Game.bags.last) { infos.push(Game.bags.bag(bag)) }
+    for (bag of Game.bags.containers) { infos.push(Game.bags.bag(bag)) }
     self.settle(self.carried.read(infos, peek self.junkLists.values, peek self.settings.values.junk))
   }
 
@@ -367,12 +367,15 @@ public class Bags implements Module, App {
   // An item the client loaded: each bag holding it read before it was is read again, its verdict with it.
   onLoaded(mut self, item: Integer) {
     for (place, slots of self.carried.bags) {
-      if (slots.any(slot => peek slot.id == item && !slot.read.loaded)) { self.onUpdated(place - 1) }
+      const bag = self.carried.infos[place]?.bag
+      if (bag != nil && slots.any(slot => peek slot.id == item && !slot.read.loaded)) { self.onUpdated(bag) }
     }
   }
 
   onUpdated(mut self, bag: Integer) {
-    const changed = self.carried.update(bag + 1, Game.bags.size(bag), peek self.junkLists.values, peek self.settings.values.junk)
+    const place = self.carried.placeOf(bag)
+    const changed = place == nil ? nil :
+      self.carried.update(place, Game.bags.size(bag), peek self.junkLists.values, peek self.settings.values.junk)
     if (changed == nil) {
       self.readAll()
     } else {
@@ -428,8 +431,11 @@ public class Bags implements Module, App {
     _ = self.carried.revision
     let lines: Array<BagLine> = []
     for (index, info of self.carried.infos) {
-      const slots = self.carried.bags[index] ?? []
-      lines.push({ info: info, used: slots.count(slot => peek slot.id != 0) })
+      // A bag's place stands empty too; the keyring (no place) only where the client gives it slots.
+      if (info.bag >= 0 || info.slots > 0) {
+        const slots = self.carried.bags[index] ?? []
+        lines.push({ info: info, used: slots.count(slot => peek slot.id != 0) })
+      }
     }
     return lines
   }
@@ -555,7 +561,7 @@ public class Bags implements Module, App {
 
   change(mut self, slot: Slot, into: Integer | nil) {
     const infos = peek self.carried.infos
-    const change = self.changer.start(slot, self.carried.all, (bag: Integer): Boolean => infos[bag + 1]?.general == true, into)
+    const change = self.changer.start(slot, self.carried.all, (bag: Integer): Boolean => self.carried.general(bag), into)
     const line = match (change) {
       Change.Started => ""
       Change.NoPlace => Locale.CHAT_NO_BAG_PLACE
@@ -745,7 +751,7 @@ public class Bags implements Module, App {
   // «Sort the bags»: the bags that take any item, their unprotected slots, into the sort's order.
   arrange(mut self) {
     const infos = peek self.carried.infos
-    self.arranger.start(self.carried.all, (bag: Integer): Boolean => infos[bag + 1]?.general == true, peek self.list.values.sort)
+    self.arranger.start(self.carried.all, (bag: Integer): Boolean => self.carried.general(bag), peek self.list.values.sort)
   }
 
   onLit(mut self, bag: Integer) { self.lit = bag < 0 ? peek self.kept : bag }
