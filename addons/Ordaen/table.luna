@@ -14,7 +14,7 @@ import { Align, Art, ByInteractionState, Edges, Event, Frame, Line, MouseButton,
 import root Ordaen from "Ordaen"
 import { Component } from "@/module"
 import { Ground, ScrolledList } from "@/scrolledList"
-import { BRIGHT_TEXT } from "@/units"
+import { BRIGHT_TEXT, WINDOW_ROOM } from "@/units"
 
 // A column: its heading (`""`: none), its width, where its heading and its cells stand (`Align.Center` too), whether a
 // heading click sorts by it, the group it is in: neighbouring columns of one group share a heading over theirs.
@@ -80,13 +80,17 @@ const CLEAR: Color = Color.hex("#00000000")
 const SHADE: ByInteractionState<Color> = { default: CLEAR, hover: Color.hex("#00000033"), focus: Color.hex("#00000033") }
 const BACK: Color = Color.hex("#00000040")
 const PADDING: Edges = { top: 3sp, bottom: 3sp }
-// A heading in a row of two (a group's, and those under it): half the room, so the two rows stand as high as one
-// heading's with its room.
-const HALF_PADDING: Edges = { top: 1.5sp, bottom: 1.5sp }
+// A heading in a row of two (a group's, and those under it): a quarter of the room, so the two rows stand close to as
+// high as one heading's with its room.
+const HALF_PADDING: Edges = { top: 0.75sp, bottom: 0.75sp }
 // A row of one line of text is the line and half a line round it: a line and a half of the rhythm, whatever the
 // density.
 const ROW_PADDING: Edges = { top: 1.5sp, right: 3sp, bottom: 1.5sp, left: 3sp }
 const SIDES: Edges = { left: 3sp, right: 3sp }
+// On the wood a table has no side of its own: it stands against its window's or its column's border, and its first
+// and last columns keep the window's room from it, as what stands over the table does.
+const WOOD_ROW_PADDING: Edges = { top: 1.5sp, right: WINDOW_ROOM, bottom: 1.5sp, left: WINDOW_ROOM }
+const WOOD_SIDES: Edges = { left: WINDOW_ROOM, right: WINDOW_ROOM }
 const HEAD: Array<Track> = ["max-content", "max-content"]
 // A row of one line of text: the text and the row's padding.
 public const ROW: Number<Length> = 32.8125dp
@@ -119,6 +123,7 @@ public class Heading implements Component {
   derived marked: Number = self.picked ? 1 : 0
   derived mark: Art = self.descending ? Ordaen.art.ctl.markDown : Ordaen.art.ctl.markUp
   derived sortable: Boolean = self.column.sortable == true
+  derived markFirst: Boolean = self.column.align == Align.End
   derived color: Color | ByInteractionState<Color> = self.picked ? GOLD : self.sortable ? NAME : PLAIN
   derived shade: Color | ByInteractionState<Color> = self.sortable ? SHADE : CLEAR
 
@@ -163,9 +168,15 @@ public class Heading implements Component {
         <box position={Position.Absolute} left={0ui} right={0ui} bottom={0ui} height={2.34375dp} background={self.light} />
         // The title lights with the heading, wherever on it the cursor is.
         <box columns={HEAD} gap={1sp} yAlign={Align.Center} interactionState={self.$interactionState}>
+          // A column whose cells stand at its end has its mark before the title: the title ends where they do.
+          <box $if={self.sortable && self.markFirst} width={MARK_WIDTH} height={MARK_HEIGHT}>
+            <box position={Position.Absolute} left={MARK_LEFT} top={MARK_TOP} width={MARK_CELL}
+                 height={MARK_CELL} background={self.mark} tint={GOLD}
+                 opacity={self.marked} />
+          </box>
           <text value={self.column.title} textColor={self.color} wrap={.None} />
           // The mark takes the triangle's own room; its cell, a triangle in its middle, reaches past it.
-          <box $if={self.sortable} width={MARK_WIDTH} height={MARK_HEIGHT}>
+          <box $if={self.sortable && !self.markFirst} width={MARK_WIDTH} height={MARK_HEIGHT}>
             <box position={Position.Absolute} left={MARK_LEFT} top={MARK_TOP} width={MARK_CELL}
                  height={MARK_CELL} background={self.mark} tint={GOLD}
                  opacity={self.marked} />
@@ -176,14 +187,21 @@ public class Heading implements Component {
   }
 }
 
-// A group's heading over its columns' headings, with half a heading's room.
+// A group's heading over its columns' headings, with half a heading's room. In a well a rule under it; on the wood the
+// headings' row rule runs there, meeting the rules between the columns.
 class GroupHeading implements Component {
+  derived rule: Line | nil = self.ruled ? GROUP_RULE : nil
+
   span: Signal<Span>
-  constructor(span: Signal<Span>) { self.span = span }
+  ruled: Signal<Boolean>
+  constructor(span: Signal<Span>, ruled: Signal<Boolean> = true) {
+    self.span = span
+    self.ruled = ruled
+  }
 
   public render(self): Template {
     return $ltml {
-      <box columnSpan={self.span.columns} padding={HALF_PADDING} xAlign={Align.Center} border={GROUP_RULE}>
+      <box columnSpan={self.span.columns} padding={HALF_PADDING} xAlign={Align.Center} border={self.rule}>
         <text value={self.span.title} textColor={PLAIN} wrap={.None} />
       </box>
     }
@@ -204,6 +222,7 @@ public class TableRow implements Component {
   derived background: Color | ByInteractionState<Color> = self.selected ? BACK : SHADE
   derived rule: Line | nil = self.ground == Ground.Wood ? RULE : nil
   derived columnRule: Line | nil = self.ground == Ground.Wood ? COLUMN_RULE : nil
+  derived padding: Edges = self.ground == Ground.Wood ? WOOD_ROW_PADDING : ROW_PADDING
 
   tracks: Signal<Array<Track>>
   selected: Signal<Boolean>
@@ -236,7 +255,7 @@ public class TableRow implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={self.tracks} height={self.height} gap={3sp} padding={ROW_PADDING} yAlign={Align.Center} background={self.background} border={self.rule}
+      <box columns={self.tracks} height={self.height} gap={3sp} padding={self.padding} yAlign={Align.Center} background={self.background} border={self.rule}
            columnRule={self.columnRule} @pointerPress.self={self.onClick} @pointerPress.self.double={self.onDouble} @pointerEnter={self.onEnter}
            @pointerLeave={self.onLeave} @keyPress(.Enter)={self.onKey} @keyPress(.Space)={self.onKey}>
         <slot />
@@ -291,6 +310,7 @@ public class Table implements Component {
   // On the wood the headings are ruled over and under; in a well, under (the rim is over them).
   derived headRule: Line = self.onWood ? HEAD_RULES : RULE
   derived columnRule: Line | nil = self.onWood ? COLUMN_RULE : nil
+  derived headSides: Edges = self.onWood ? WOOD_SIDES : SIDES
 
   const columns: Array<Column>
   sorted: mut Signal<Integer>
@@ -331,11 +351,11 @@ public class Table implements Component {
     return $ltml {
       <box columns={1} rows={FILLED}>
         <ScrolledList columns={1} height={self.height} virtual={!self.rowsVary} ground={self.ground}>
-          <box #head columns={self.tracks} gap={3sp} padding={SIDES} background={self.headBack} border={self.headRule}
-               columnRule={self.columnRule}>
+          <box #head columns={self.tracks} gap={3sp} padding={self.headSides} background={self.headBack} border={self.headRule}
+               columnRule={self.columnRule} rowRule={self.columnRule}>
             <$if={self.grouped}>
               <$for={span of self.spans}>
-                <GroupHeading $if={span.title != ""} span={span} />
+                <GroupHeading $if={span.title != ""} span={span} ruled={!self.onWood} />
                 // The spans come of the columns, which never change: each is read once.
                 <Heading $else column={span.column} index={peek span.index} sorted={mut self.sorted}
                          descending={mut self.descending} rows={2} />

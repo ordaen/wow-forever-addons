@@ -54,8 +54,9 @@ const SELLERS: Sellers = {
   showNearest: (npcs: Array<Integer>) => { _ = Quests?.showNearest(npcs) }
 }
 const PAGE_ROOM: Edges = { top: 4sp, right: WINDOW_ROOM, bottom: 4sp, left: WINDOW_ROOM }
-// The recipes page runs to the window's edges: its toolbar keeps the window's room at the left.
-const TOOL_ROOM: Edges = { top: 6sp, right: 3sp, bottom: 3sp, left: WINDOW_ROOM }
+// The recipes page runs to the window's edges: its toolbar keeps the window's room at both sides, as the table's first
+// and last columns do, and as much room from the tabs over it as from the table under it.
+const TOOL_ROOM: Edges = { top: 4.5sp, right: WINDOW_ROOM, bottom: 4.5sp, left: WINDOW_ROOM }
 // The recipes' side and the card share the width alike, the side never narrower than its lists' least; the
 // categories and the recipes share the side's, each never narrower than its least. The toolbar over the region.
 const GRID: Array<Track> = [{ fr: 1 }, { fr: 1 }]
