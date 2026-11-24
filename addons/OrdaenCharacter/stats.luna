@@ -3,7 +3,7 @@
 // A gauge is a stat with a cap the player works towards (hit, crit, a weapon's skill), a line one without (attack
 // speed, penetration), a card one of a section's main numbers (attack power, damage a second, a school's spell damage).
 import { Align, Event, Piece, Position, TextAlign, TextFont, Track } from "$ltml"
-import { BRIGHT_TEXT, Component, Corners, Groove, RoundedFill, SECONDARY_TEXT, Tip, Weights } from "Ordaen"
+import { BRIGHT_TEXT, Component, Corners, Groove, RoundedFill, SECONDARY_TEXT, Weights } from "Ordaen"
 import { CarveShade, CarvedFloor, GaugeBar, GaugeMark, WELL_INSET, WellSlice } from "@/gauge"
 import Locale from "@/locales"
 import { Skill, Stats, WANDS, meleeDps, rangedDps, swingOf } from "@/sheet"
@@ -399,32 +399,49 @@ function inkOf(stat: Stat | nil, boosts: Map<String, Boost>, plain: Color): Colo
   return plain
 }
 
-// What a stat's view stands in: with the cursor on it, the stat's tooltip (its name and value, the game's words on it,
-// its sources) stands beside it, and `tipped` tells the page which stat it is, so its sources light; a stat that feeds
-// the one whose tooltip is open glows gold. A view of no stat (`stat` none) is a plain box.
+// The stat under the cursor, as a view tells the page: which stat, the name its view gives it, and whether something
+// in the view shows a tooltip of its own (a gauge's mark under the cursor), the stat's own shut meanwhile.
+public struct Tipped {
+  const stat: Stat
+  const title: String
+  const quiet: Boolean
+}
+
+// What a stat's view stands in: with the cursor on it, `tipped` tells the page which stat it is, so the page shows its
+// tooltip (its name and value, the game's words on it, its sources) beside the page and its sources light; a stat that
+// feeds the one whose tooltip is open glows gold. A view of no stat (`stat` none) is a plain box.
 public class StatSpot implements Component {
   // The stat under the cursor; none once the cursor leaves.
-  public tipped: Event<Stat | nil> = new Event()
+  public tipped: Event<Tipped | nil> = new Event()
 
   state hovered = false
-  derived open: Boolean = self.hovered && self.stat != nil && !self.quiet
   derived glows: Boolean = self.stat != nil && self.shown.fed.any(s => s == self.stat)
 
   stat: Signal<Stat | nil>
   title: Signal<String>
   shown: Signal<Breakdown>
-  // Something in it shows a tooltip of its own (a gauge's mark under the cursor): its own stays shut meanwhile.
+  // Something in it shows a tooltip of its own (a gauge's mark under the cursor): the stat's stays shut meanwhile.
   quiet: Signal<Boolean>
   constructor(stat: Signal<Stat | nil>, title: Signal<String>, shown: Signal<Breakdown>, quiet: Signal<Boolean> = false) {
     self.stat = stat
     self.title = title
     self.shown = shown
     self.quiet = quiet
+    watch (shut of self.quiet) {
+      if (peek self.hovered) { self.tell(shut) }
+    }
+  }
+
+  // Tells the page the stat under the cursor.
+  tell(self, shut: Boolean) {
+    const stat = peek self.stat
+    if (stat == nil) { return }
+    self.tipped.emit({ stat: stat, title: peek self.title, quiet: shut })
   }
 
   onEnter(mut self) {
     self.hovered = true
-    self.tipped.emit(peek self.stat)
+    self.tell(peek self.quiet)
   }
 
   onLeave(mut self) {
@@ -438,7 +455,6 @@ public class StatSpot implements Component {
         <slot />
         <box $if={self.glows} position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui}
              border={Style.SOURCE_RIM} background={Style.SOURCE_GLOW} zLevel={3} />
-        <Tip $if={self.open} title={self.title} text={self.shown.text} rows={self.shown.rows} sections={self.shown.sections} />
       </box>
     }
   }
@@ -452,7 +468,7 @@ function marksOf(gauge: Gauge): Array<GaugeMark> {
 // A gauge: the name, the channel filled up to the value's share of the cap, its caps marked on it, the value at the
 // right. A mark under the cursor shows its own tooltip, the gauge's shut meanwhile.
 public class StatGauge implements Component {
-  public tipped: Event<Stat | nil> = new Event()
+  public tipped: Event<Tipped | nil> = new Event()
 
   state onMark = false
   derived share: Number = self.gauge.cap <= 0 ? 0 : self.gauge.value / self.gauge.cap
@@ -469,7 +485,7 @@ public class StatGauge implements Component {
     self.boosts = boosts
   }
 
-  onTipped(self, stat: Stat | nil) { self.tipped.emit(stat) }
+  onTipped(self, tip: Tipped | nil) { self.tipped.emit(tip) }
   onMarkEntered(mut self) { self.onMark = true }
   onMarkLeft(mut self) { self.onMark = false }
 
@@ -490,7 +506,7 @@ public class StatGauge implements Component {
 
 // A line: the name on the left, the value on the right with its unit after it, in the value's colour.
 public class StatRow implements Component {
-  public tipped: Event<Stat | nil> = new Event()
+  public tipped: Event<Tipped | nil> = new Event()
 
   derived ink: Color = inkOf(self.row.stat, self.boosts, self.row.value == "0" ? Style.DIM : BRIGHT_TEXT)
   derived title: String = self.row.label
@@ -504,7 +520,7 @@ public class StatRow implements Component {
     self.boosts = boosts
   }
 
-  onTipped(self, stat: Stat | nil) { self.tipped.emit(stat) }
+  onTipped(self, tip: Tipped | nil) { self.tipped.emit(tip) }
 
   public render(self): Template {
     return $ltml {
@@ -523,7 +539,7 @@ public class StatRow implements Component {
 // name after it and the value, larger, at the right, on one line; a name longer than the room the value leaves wraps.
 const SOCKET_CORNERS: Corners = { topLeft: true, bottomLeft: true, topRight: false, bottomRight: false }
 public class StatCard implements Component {
-  public tipped: Event<Stat | nil> = new Event()
+  public tipped: Event<Tipped | nil> = new Event()
 
   derived glyphShade: Number = self.figure.lit ? 1 : 0.7
   derived title: String = self.figure.label
@@ -538,7 +554,7 @@ public class StatCard implements Component {
     self.boosts = boosts
   }
 
-  onTipped(self, stat: Stat | nil) { self.tipped.emit(stat) }
+  onTipped(self, tip: Tipped | nil) { self.tipped.emit(tip) }
 
   public render(self): Template {
     return $ltml {
@@ -571,7 +587,7 @@ public class StatCard implements Component {
 // A section: the cut over it with its title on it, then a padded group of its cards, its gauges set a little further
 // off (with what the section is given after them: the defence's resistances), its lines.
 public class SectionView implements Component {
-  public tipped: Event<Stat | nil> = new Event()
+  public tipped: Event<Tipped | nil> = new Event()
 
   derived carded: Boolean = self.section.cards.length > 0
   derived led: Boolean = self.section.lead.length > 0
@@ -585,7 +601,7 @@ public class SectionView implements Component {
     self.boosts = boosts
   }
 
-  onTipped(self, stat: Stat | nil) { self.tipped.emit(stat) }
+  onTipped(self, tip: Tipped | nil) { self.tipped.emit(tip) }
 
   public render(self): Template {
     return $ltml {
@@ -618,7 +634,7 @@ public class SectionView implements Component {
 
 // A main stat: the big number over its three letters; its tooltip names it in full.
 public class MainStat implements Component {
-  public tipped: Event<Stat | nil> = new Event()
+  public tipped: Event<Tipped | nil> = new Event()
 
   derived title: String = self.main.label
   derived ink: Color = inkOf(self.main.stat, self.boosts, BRIGHT_TEXT)
@@ -634,7 +650,7 @@ public class MainStat implements Component {
     self.boosts = boosts
   }
 
-  onTipped(self, stat: Stat | nil) { self.tipped.emit(stat) }
+  onTipped(self, tip: Tipped | nil) { self.tipped.emit(tip) }
 
   public render(self): Template {
     return $ltml {
@@ -656,7 +672,7 @@ function resistTrack(resist: Resist): Track { return { fr: resist.value } }
 // resistances the character has, each a slice in its school's colour as wide as its share of their sum, its value in
 // it, its own tooltip under the cursor.
 public class ResistBar implements Component {
-  public tipped: Event<Stat | nil> = new Event()
+  public tipped: Event<Tipped | nil> = new Event()
 
   derived tracks: Array<Track> = self.resists.map(resistTrack)
 
@@ -667,7 +683,7 @@ public class ResistBar implements Component {
     self.shown = shown
   }
 
-  onTipped(self, stat: Stat | nil) { self.tipped.emit(stat) }
+  onTipped(self, tip: Tipped | nil) { self.tipped.emit(tip) }
 
   public render(self): Template {
     return $ltml {
@@ -704,7 +720,7 @@ function deeper(color: Color): Color {
 // the line, the dark trough, the fill in its colour rounded as the trough is, a gloss over the fill's upper part; the
 // amount at its middle and what it regains at its right; the stat it shows (health, mana) its tooltip's.
 public class PoolBar implements Component {
-  public tipped: Event<Stat | nil> = new Event()
+  public tipped: Event<Tipped | nil> = new Event()
 
   // The fill and the rest of the tube, inside its ring.
   derived parts: Array<Track> = [{ fr: self.filled }, { fr: 1 - self.filled }]
@@ -734,7 +750,7 @@ public class PoolBar implements Component {
     self.boosts = boosts
   }
 
-  onTipped(self, stat: Stat | nil) { self.tipped.emit(stat) }
+  onTipped(self, tip: Tipped | nil) { self.tipped.emit(tip) }
 
   // Over one another by their levels: the trough, the fill, the shine, the ring, the texts; the regeneration's lines
   // under it.

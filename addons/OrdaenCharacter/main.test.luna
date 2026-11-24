@@ -6,7 +6,7 @@
 import Client from "$client"
 import Events from "$events"
 import Game from "$game"
-import { Art, Piece } from "$ltml"
+import { Art, Piece, Point } from "$ltml"
 import Runtime from "$runtime"
 import Test from "$test"
 import root Ordaen from "Ordaen"
@@ -23,6 +23,12 @@ import Style from "@/style"
 import { KeptWipe } from "@/talents"
 
 const PAGE: Test.Page = { left: 0, top: 0, width: 1400, height: 900, screen: true }
+// A screen with room beside the window on either side.
+const WIDE_PAGE: Test.Page = { left: 0, top: 0, width: 2600, height: 1000, screen: true }
+// How far a tooltip's edge may stand from the page's it meets: the window's frame between them.
+const EDGE = 20
+// How far under the window's top its page starts: its title and its tabs.
+const HEADER = 120
 // A text the window always shows: its last tab.
 const WINDOW = "Statistics"
 const HELM = 12640
@@ -468,6 +474,40 @@ test "each section has its own haste, its tooltip what it speeds up; none is sha
   Test.expect(window.text("6.00%").rect().top < window.text("4.00%").rect().top)
   window.text("6.00%").hover()
   Test.expect(Test.page().window(Locale.HASTE_MELEE_TIP).shown())
+}
+
+test "a stat's tooltip stands beside the page by the corners the settings pick, clear of the stats and slots it lights" {
+  Test.mount(nil, WIDE_PAGE)
+  Game.items.icon = icons
+  const sheet = new FakeSheet()
+  sheet.figures = (): Stats => Stats { meleeHaste: 6 }
+  const window = opened(mut sheet)
+  const page = window.rect()
+  window.text("6.00%").hover()
+  // By default its top left on the page's top right: past the page's right edge, level with its top.
+  const beside = Test.page().window(Locale.HASTE_MELEE_TIP).rect()
+  Test.expect(beside.left >= page.right - EDGE)
+  Test.expect(beside.top >= page.top && beside.top < page.top + HEADER)
+  // Its bottom left on the page's bottom right.
+  Char.settings.change((choices: mut Choices): nil => {
+    choices.tipCorner = Point.BottomLeft
+    choices.pageCorner = Point.BottomRight
+  })
+  const low = Test.page().window(Locale.HASTE_MELEE_TIP).rect()
+  Test.expect(low.left >= page.right - EDGE && (low.bottom - page.bottom).abs() < EDGE)
+}
+
+test "a stat's tooltip with no room beside the page on either side stands inside it, in the corner the settings pick" {
+  Test.mount(nil, PAGE)
+  Game.items.icon = icons
+  const sheet = new FakeSheet()
+  sheet.figures = (): Stats => Stats { meleeHaste: 6 }
+  const window = opened(mut sheet)
+  const page = window.rect()
+  window.text("6.00%").hover()
+  const inside = Test.page().window(Locale.HASTE_MELEE_TIP).rect()
+  Test.expect(inside.left > page.left + EDGE && (inside.right - page.right).abs() < EDGE)
+  Test.expect(inside.top >= page.top && inside.top < page.top + HEADER)
 }
 
 test "the damage a second's tooltip lights what feeds it directly: attack power and attack speed, not the haste behind it" {

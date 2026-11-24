@@ -136,20 +136,24 @@ public class Tip implements Component {
   rows: Signal<Array<TipRow>>
   keys: Signal<Array<String>>
   sections: Signal<Array<TipSection>>
+  // Where it stands: beside the box it is written in, the game's way, unless its owner says which of its corners on
+  // which of that box's (a page's tooltip beside the whole page, clear of what it lights).
+  place: Signal<Beside>
   constructor(
     title: Signal<String>, text: Signal<String>, rows: Signal<Array<TipRow>> = [], keys: Signal<Array<String>> = [],
-    sections: Signal<Array<TipSection>> = []
+    sections: Signal<Array<TipSection>> = [], place: Signal<Beside> = BY_ITS_BOX
   ) {
     self.title = title
     self.text = text
     self.rows = rows
     self.keys = keys
     self.sections = sections
+    self.place = place
   }
 
   public render(self): Template {
     return $ltml {
-      <surface leading={.Tight} layer={Layer.Tooltip} place={BY_ITS_BOX} clamp={true} width={self.width}
+      <surface leading={.Tight} layer={Layer.Tooltip} place={self.place} clamp={true} width={self.width}
                border={Ordaen.art.frame.small} background={Ordaen.art.window.wood} artOrigin={true}
                padding={5sp} columns={1} gap={2sp}>
         <text value={self.title} textColor={NAME} textSize={TITLE_TEXT} leading={.Title} />
