@@ -59,6 +59,13 @@ public struct Ring implements Plain {
   items: mut Map<String, Item>
   // When an item may be used, by its place: one with none always.
   conditions: mut Map<String, Condition>
+  // The icon the player chose for a place, over the item's own; a place with none shows its item's.
+  icons: mut Map<String, PlaceIcon> = {}
+}
+
+// An icon chosen for a place: the client's file by its number or path, or none (its name stands in its wedge).
+public struct PlaceIcon implements Plain {
+  icon: FileId | Asset | nil
 }
 
 public struct Choices implements Plain {

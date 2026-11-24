@@ -34,7 +34,7 @@ public function countOf(ring: Ring, parent: String): Integer { return ring.count
 // Whether one more item fits in a ring's place.
 public function hasRoom(ring: Ring, parent: String): Boolean { return countOf(ring, parent) < WHEEL_MOST }
 
-// Every key of the three maps moved from one place to another.
+// Every key of the four maps moved from one place to another.
 function move(ring: mut Ring, from: String, to: String) {
   const items: Map<String, Item> = {}
   for (key, item of ring.items) { items[movedKey(key, from, to)] = item }
@@ -45,9 +45,12 @@ function move(ring: mut Ring, from: String, to: String) {
   const conditions = ring.conditions.clone()
   ring.conditions = {}
   for (key, condition of conditions) { ring.conditions[movedKey(key, from, to)] = condition }
+  const icons = ring.icons.clone()
+  ring.icons = {}
+  for (key, icon of icons) { ring.icons[movedKey(key, from, to)] = icon }
 }
 
-// The keys a test holds taken away from the three maps.
+// The keys a test holds taken away from the four maps.
 function dropWhere(ring: mut Ring, gone: (key: String) => Boolean) {
   const items: Map<String, Item> = {}
   for (key, item of ring.items) {
@@ -63,6 +66,11 @@ function dropWhere(ring: mut Ring, gone: (key: String) => Boolean) {
   ring.conditions = {}
   for (key, condition of conditions) {
     if (!gone(key)) { ring.conditions[key] = condition }
+  }
+  const icons = ring.icons.clone()
+  ring.icons = {}
+  for (key, icon of icons) {
+    if (!gone(key)) { ring.icons[key] = icon }
   }
 }
 

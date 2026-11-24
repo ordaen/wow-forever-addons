@@ -149,6 +149,27 @@ test "the tab's tree opens a submenu, the place chosen shows its item and takes 
   Test.expect(firstRing().items["3_1"] is Item.Pinged)
 }
 
+// The picker's «no icon» cell, by its mark's colour.
+const NO_ICON_MARK: Color = Color.hex("#a89878")
+
+test "the tab chooses a place's icon: «no icon» has its name stand in its wedge, and «The item's own» brings its icon back" {
+  start()
+  const settings = radialTab()
+  clickDown(settings, settings.button("1. Windows"))
+  clickDown(settings, settings.button("Choose an icon"))
+  Test.page().box(NO_ICON_MARK).click()
+  Test.page().button("Pick").click()
+  Test.expect(firstRing().icons["1"] != nil && firstRing().icons["1"]?.icon == nil)
+  hold("F", 0, -FAR)
+  // The windows' slice, straight up, written in its wedge; its book icon gone.
+  Test.expect(!Test.drawn().any(drawn => drawn.file == "Interface/Icons/INV_Misc_Book_09"))
+  _ = Test.releaseBound("F")
+  const again = radialTab()
+  clickDown(again, again.button("1. Windows"))
+  clickDown(again, again.button("The item's own"))
+  Test.expect(firstRing().icons["1"] == nil)
+}
+
 test "a place added inside a submenu is moved earlier, and one taken away takes what stands under it, those after it moving up" {
   start()
   const settings = radialTab()

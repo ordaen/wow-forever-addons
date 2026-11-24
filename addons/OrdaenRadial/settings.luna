@@ -3,12 +3,12 @@
 // moved, taken away and chosen; the place chosen given an item from the catalogue on a condition; and «Back to the
 // preset» for the ring or for all. A change applies at once; out of a fight the wheel takes it, in one at its end.
 import Client from "$client"
-import { Align, Line } from "$ltml"
+import { Align, Art, Line } from "$ltml"
 import {
-  Checkbox, Choice, Component, Dropdown, Fact, NumberInput, PushButton, SECONDARY_TEXT, Section, Settings, SlotMode,
-  TextField, Unit, WheelModifier, WheelNames
+  Checkbox, Choice, Component, Dropdown, Fact, IconChoice, IconPicker, IconPickerFirst, NumberInput, PushButton,
+  SECONDARY_TEXT, Section, SettingRow, Settings, SlotMode, TextField, Unit, WheelModifier, WheelNames
 } from "Ordaen"
-import { Choices, Condition, Item, OpensAt, Ping, Ring, Window } from "@/choices"
+import { Choices, Condition, Item, OpensAt, Ping, PlaceIcon, Ring, Window } from "@/choices"
 import { shown } from "@/items"
 import { RadialKind } from "@/kinds"
 import Locale from "@/locales"
@@ -69,6 +69,8 @@ const DROP_EDGE: Line = { width: 1dp, color: Color.hex("#6c5535") }
 const MENU_ICON: Asset = "Interface/Icons/INV_Misc_Bag_07"
 const LINE_ICON: Asset = "Interface/Icons/INV_Misc_Note_01"
 const BUTTON_WIDTH = 160dp
+// The icon a place shows, beside its buttons.
+const ICON_SIZE = 32dp
 
 // An emote by what the player wrote: its token (`laugh`), or the command the wheel names it by (`/смех`).
 function emoteToken(text: String, emotes: Map<String, String>): String {
@@ -227,6 +229,12 @@ public class RingsPage implements Component {
   derived hasChoice: Boolean = self.chosenItem != nil
   derived roomBeside: Boolean = self.roomBesideOf()
   derived roomInside: Boolean = self.roomInsideOf()
+  // The icon picker open for the place chosen; the icon the player chose for it (none: its item's own), and the icon
+  // it shows now either way (none: its name in its wedge).
+  state picking = false
+  derived chosenIcon: PlaceIcon | nil = self.chosenIconOf()
+  derived shownIcon: Art | nil = self.shownIconOf()
+  derived iconValue: IconChoice = self.iconValueOf()
   // The catalogue, with the kinds other modules add as the page is made.
   const catalogue: Array<Choice<String>>
 
@@ -292,6 +300,42 @@ public class RingsPage implements Component {
   itemAt(self, place: String): Item | nil {
     const ring = self.shownRing
     return ring != nil ? ring.items[place] : nil
+  }
+
+  chosenIconOf(self): PlaceIcon | nil {
+    const ring = self.shownRing
+    return ring != nil ? ring.icons[self.place] : nil
+  }
+
+  shownIconOf(self): Art | nil {
+    const chosen = self.chosenIcon
+    if (chosen != nil) { return chosen.icon }
+    const item = self.chosenItem
+    return item != nil ? shown(item, nil, self.emotes).icon : nil
+  }
+
+  // What the picker opens on: the icon shown, where it is a file the picker offers (an atlas or a piece: none).
+  iconValueOf(self): IconChoice {
+    const icon = self.shownIcon
+    if (icon is FileId) { return icon }
+    if (icon is Asset) { return icon }
+    return nil
+  }
+
+  openPicker(mut self) { self.picking = true }
+  onCancelled(mut self) { self.picking = false }
+
+  // An icon picked for the place chosen (none: its name in its wedge).
+  onPicked(mut self, icon: IconChoice) {
+    self.picking = false
+    const place = self.place
+    self.change((r: mut Ring): nil => { r.icons[place] = { icon: icon } })
+  }
+
+  // The place chosen shows its item's own icon again.
+  ownIcon(mut self) {
+    const place = self.place
+    self.change((r: mut Ring): nil => { r.icons[place] = nil })
   }
 
   // Whether a place fits beside the one chosen (in the ring itself where none is chosen).
@@ -451,6 +495,7 @@ public class RingsPage implements Component {
       r.counts = fresh.counts.clone()
       r.items = fresh.items.clone()
       r.conditions = fresh.conditions.clone()
+      r.icons = fresh.icons.clone()
     })
     self.load(peek self.ring)
   }
@@ -488,6 +533,14 @@ public class RingsPage implements Component {
         <Fact label={Locale.PLACE} value={self.path} />
         <Dropdown label={Locale.KIND} value={mut self.kind} choices={self.catalogue} disabled={!self.hasChoice} />
         <TextField label={Locale.ITEM_TEXT} hint={Locale.ITEM_TEXT_TIP} value={mut self.text} />
+        <SettingRow label={Locale.ICON} disabled={!self.hasChoice}>
+          <box columns={["max-content", "max-content", "max-content"]} gap={3sp} yAlign={Align.Center}>
+            <box $if={self.shownIcon != nil} width={ICON_SIZE} height={ICON_SIZE} icon={self.shownIcon} />
+            <text $else value={Locale.ICON_NONE} textSize={SECONDARY_TEXT} wrap={.None} />
+            <PushButton label={Locale.ICON_CHOOSE} width={BUTTON_WIDTH} disabled={!self.hasChoice} @click={self.openPicker} />
+            <PushButton label={Locale.ICON_OWN} width={BUTTON_WIDTH} disabled={self.chosenIcon == nil} @click={self.ownIcon} />
+          </box>
+        </SettingRow>
         <TextField label={Locale.CONDITION_CLASS} hint={Locale.CONDITION_CLASS_TIP} value={mut self.classTag} />
         <TextField label={Locale.CONDITION_FORM} hint={Locale.CONDITION_FORM_TIP} value={mut self.form} />
         <Dropdown label={Locale.CONDITION_MODIFIER} value={mut self.modifier} choices={MODIFIERS} />
@@ -497,6 +550,8 @@ public class RingsPage implements Component {
           <text value={Locale.DROP} />
         </box>
       </Section>
+      <IconPicker $if={self.picking} value={self.iconValue} title={Locale.ICON_TITLE} first={IconPickerFirst.NoIcon}
+                  @picked={self.onPicked} @cancelled={self.onCancelled} />
       <Section title={Locale.SECTION_PRESET}>
         <PushButton label={Locale.RESET_RING} width={BUTTON_WIDTH} @click={self.resetRing} />
         <PushButton label={Locale.RESET_ALL} width={BUTTON_WIDTH} @click={self.resetAll} />

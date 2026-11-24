@@ -152,5 +152,10 @@
   "EMOTE_SQUEAL": "Визжать",
   "EMOTE_SUSPICIOUS": "Подозревать",
   "EMOTE_SWEAT": "Потеть",
-  "EMOTE_VETO": "Вето"
+  "EMOTE_VETO": "Вето",
+  "ICON": "Значок",
+  "ICON_CHOOSE": "Выбрать значок",
+  "ICON_OWN": "Свой у пункта",
+  "ICON_NONE": "Без значка: название в секторе",
+  "ICON_TITLE": "Значок места"
 }

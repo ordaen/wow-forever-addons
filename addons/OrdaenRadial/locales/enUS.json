@@ -152,5 +152,10 @@
   "EMOTE_SQUEAL": "Squeal",
   "EMOTE_SUSPICIOUS": "Suspicious",
   "EMOTE_SWEAT": "Sweat",
-  "EMOTE_VETO": "Veto"
+  "EMOTE_VETO": "Veto",
+  "ICON": "Icon",
+  "ICON_CHOOSE": "Choose an icon",
+  "ICON_OWN": "The item's own",
+  "ICON_NONE": "No icon: the name in its wedge",
+  "ICON_TITLE": "The place's icon"
 }

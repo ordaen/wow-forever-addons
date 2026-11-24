@@ -15,7 +15,7 @@ import {
   DEAD_ZONE, Module, ROOT, SecureWheel, Settings, SettingsPage, Wheel, WheelAction, WheelEntry, WheelItem, WheelMiddle,
   WheelModifier, WheelNames, WheelRing, WHEEL_MOST, slotAt
 } from "Ordaen"
-import { Choices, Condition, Item, Ring, Window } from "@/choices"
+import { Choices, Condition, Item, PlaceIcon, Ring, Window } from "@/choices"
 import { emoteNames } from "@/emotes"
 import { actionOf, inForm, refusesInFight, shown } from "@/items"
 import { RadialKind, RadialOffer } from "@/kinds"
@@ -67,6 +67,13 @@ public struct Laid {
   items: Map<String, Item>
   counts: Map<String, Integer>
   conditions: Map<String, Condition>
+  icons: Map<String, PlaceIcon>
+}
+
+// An item as drawn, with the icon the player chose for its place over its own (`nil` chosen: its name in its wedge).
+function withChosenIcon(drawn: WheelItem, chosen: PlaceIcon | nil): WheelItem {
+  if (chosen == nil) { return drawn }
+  return { icon: chosen.icon, ..drawn }
 }
 
 public function laidOut(ring: Ring, offers: Map<String, RadialOffer>): Laid {
@@ -101,7 +108,7 @@ public function laidOut(ring: Ring, offers: Map<String, RadialOffer>): Laid {
     }
     entries.push({ path: wheelPlace(place), action: action, refusesInFight: refusesInFight(item), modifier: modifier })
   }
-  return { rings: rings, entries: entries, items: items, counts: counts, conditions: ring.conditions }
+  return { rings: rings, entries: entries, items: items, counts: counts, conditions: ring.conditions, icons: ring.icons }
 }
 
 public class Radial implements Module, App {
@@ -225,7 +232,7 @@ public class Radial implements Module, App {
     if (ring == nil || self.level == ROOT) { return nil }
     const item = ring.items[placeOf(self.level)]
     if (item == nil) { return nil }
-    return self.drawnOf(item).icon
+    return withChosenIcon(self.drawnOf(item), ring.icons[placeOf(self.level)]).icon
   }
 
   // The items of the ring shown, with their state now: read again as the wheel's count moves while it is up.
@@ -244,7 +251,7 @@ public class Radial implements Module, App {
       const item = ring.items[at] ?? Item.Empty
       // A submenu or a slot of several has a band of its items; it shows the one the mouse wheel stepped to, or a
       // slot its current child.
-      let drawn = self.drawnOf(item)
+      let drawn = withChosenIcon(self.drawnOf(item), ring.icons[at])
       let segments = 0
       let segment = 0
       if (item is Item.Menu || item is Item.Slot) {
@@ -252,7 +259,7 @@ public class Radial implements Module, App {
         const step = wheel.step(wheelPlace(at))
         segment = step > 0 || item is Item.Menu ? step : wheel.current(wheelPlace(at))
         const child = segment > 0 ? ring.items[within(at, segment)] : nil
-        if (child != nil) { drawn = self.drawnOf(child) }
+        if (child != nil) { drawn = withChosenIcon(self.drawnOf(child), ring.icons[within(at, segment)]) }
       }
       const off = !holdsNow(ring.conditions[at]) || fighting && refusesInFight(item)
       items.push({

@@ -1,4 +1,4 @@
-// Every emote of the client's, by its token (`LAUGH`), sorted for the wheel: families, each of groups, each of eight
+// Every emote of the client's the server does (not those `SILENT`), by its token (`LAUGH`), sorted for the wheel: families, each of groups, each of eight
 // emotes at most, so a family is a submenu of submenus. An emote shows the client's own command for it in the
 // player's language (`/смех`), and does it by its token.
 import Client from "$client"
@@ -68,7 +68,7 @@ public const EMOTES: Array<EmoteFamily> = [
   },
   {
     title: Locale.EMOTES_BODY, groups: [
-      { title: Locale.EMOTES_POSES, tokens: ["SIT", "STAND", "LAYDOWN", "LEAN", "DUCK", "RAISE", "ARM", "COVEREARS"] },
+      { title: Locale.EMOTES_POSES, tokens: ["SIT", "STAND", "LAYDOWN", "DUCK", "RAISE", "ARM", "COVEREARS"] },
       { title: Locale.EMOTES_FOOD, tokens: ["EAT", "DRINK", "CHUG", "HUNGRY", "THIRSTY", "HICCUP", "BURP", "DROOL"] },
       { title: Locale.EMOTES_HEALTH, tokens: ["COUGH", "SNEEZE", "SNIFF", "SWEAT", "BLEED", "PULSE", "BREATH", "COLD"] },
       { title: Locale.EMOTES_TIRED, tokens: ["TIRED", "YAWN", "SLEEP", "BORED", "FIDGET", "TAP"] },
@@ -83,6 +83,9 @@ public const EMOTES: Array<EmoteFamily> = [
     ]
   }
 ]
+
+// The emotes the client lists and the server does nothing for (tried in game): on no wheel.
+public const SILENT: Array<String> = ["LEAN"]
 
 // The client numbers its emotes up to this (`MAXEMOTEINDEX`; a few numbers stand empty).
 const EMOTES_MOST = 700
