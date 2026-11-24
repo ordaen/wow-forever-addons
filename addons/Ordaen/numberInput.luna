@@ -63,13 +63,34 @@ public function stepped(value: Number, least: Number, most: Number, step: Number
   return least.max(most.min(on))
 }
 
-// A value as the slider shows it, in its unit.
-public function said(value: Number, unit: Unit): String {
+// The decimals a step has: 0 for 1, 2 for 0.01 or 0.05; at most six. A value written with them says no more than the
+// steps can tell apart, whatever the client kept it as (a 32-bit float's 0.71999996900558 for 0.72).
+public function placesOf(step: Number): Integer {
+  let scaled = step
+  for (places of 0..6) {
+    if ((scaled - scaled.round()).abs() < 0.000001) { return places }
+    scaled = scaled * 10
+  }
+  return 6
+}
+
+// A number written to so many decimals, without the zeros at their end: 0.72, 2, 0.5.
+public function decimal(value: Number, places: Integer): String {
+  const text = `%.${places}f`.format(value)
+  if (places == 0) { return text }
+  // The zeros at the end go, then a point left alone.
+  const trimmed = text.match("^(.-)0*$") ?? text
+  const whole = trimmed.match("^(.-)%.?$") ?? trimmed
+  return whole == "-0" ? "0" : whole
+}
+
+// A value as the slider shows it, in its unit, to its step's decimals.
+public function said(value: Number, unit: Unit, step: Number): String {
   match (unit) {
     Unit.Percent => return "%d%%".format((value * 100).round())
     .Px => return Locale.UNIT_PX.format(value.round())
     .Sec => return Locale.UNIT_SEC.format(value)
-    .None => return String.of(value)
+    .None => return decimal(value, placesOf(step))
   }
 }
 
@@ -103,7 +124,7 @@ public class NumberInput implements Component {
   derived fraction: Number = self.most > self.least ? (self.held - self.least) / (self.most - self.least) : 0
   derived fillWidth: Number<Length> = self.fraction * (LENGTH - 2 * EDGE)
   derived knobLeft: Number<Length> = self.fraction * LENGTH
-  derived shown: String = self.sliding ? said(self.held, self.unit) : nameOf(self.unit)
+  derived shown: String = self.sliding ? said(self.held, self.unit, self.step) : nameOf(self.unit)
   // The field's text, and whether it is a number.
   public state text: String
   public derived bad: Boolean = numberOf(self.text) == nil
@@ -156,7 +177,7 @@ public class NumberInput implements Component {
     self.rest = new Resting<Number>((to: Number): nil => { self.write(to) })
     // A field follows its value and takes what is typed; a slider shows its value as it is and has no text.
     if (!self.sliding) {
-      self.text = String.of(peek self.held * self.scale)
+      self.text = self.written(peek self.held)
       watch (typed of self.text) { self.typed(typed) }
       watch (shown of self.held) { self.show(shown) }
     }
@@ -170,13 +191,16 @@ public class NumberInput implements Component {
     if (kept != peek self.value) {
       self.value = kept
     } else if (kept != number / self.scale) {
-      self.text = String.of(kept * self.scale)
+      self.text = self.written(kept)
     }
   }
 
+  // A value as the field writes it: in its scale, to its step's decimals.
+  written(self, value: Number): String { return decimal(value * self.scale, placesOf(self.step * self.scale)) }
+
   // The value changed: the field says it, unless it already does.
   show(mut self, value: Number) {
-    if (numberOf(peek self.text) != value * self.scale) { self.text = String.of(value * self.scale) }
+    if (numberOf(peek self.text) != value * self.scale) { self.text = self.written(value) }
   }
 
   // What a drag or a held − or + rested at, or ended at: the value takes it, and the control shows the value again.
@@ -236,7 +260,7 @@ public class NumberInput implements Component {
 
   // What − or + says under the cursor: each key and how far it steps, signed, in the value's unit.
   stepsTip(self, title: String, sign: String): TipText {
-    return stepTip(title, steps => sign + said(steps * self.step, self.unit))
+    return stepTip(title, steps => sign + said(steps * self.step, self.unit, self.step))
   }
 
   // Each keystroke writes the value where the text already is one (in the range, on a step), and where it is past a
@@ -252,7 +276,7 @@ public class NumberInput implements Component {
     if (number == nil) { return }
     // The text is what the field writes for what the control shows (following a held − or +): nothing to take. Told
     // by the text, as the number read back from it may differ from the one written in its last digits.
-    if (typed == String.of(peek self.held * self.scale)) { return }
+    if (typed == self.written(peek self.held)) { return }
     const value = number / self.scale
     const past = (value > self.most && value >= 0) || (value < self.least && value <= 0)
     if (past || value == stepped(value, self.least, self.most, self.step)) {

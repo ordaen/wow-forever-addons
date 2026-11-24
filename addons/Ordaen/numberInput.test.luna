@@ -209,3 +209,17 @@ test "a window's place and size are InputNumbers: a field between − and +, in 
   Test.shot("the window's place and size")
   destroy page
 }
+
+// A setting the client keeps as a 32-bit float: 0.72 read back as 0.71999996900558, on steps of 0.01.
+class Floated {
+  state scale: Number = 0.71999996900558
+
+  public render(self): Template {
+    return $ltml { <NumberInput label={"Scale"} value={mut self.scale} least={0.65} most={1.15} step={0.01} /> }
+  }
+}
+
+test "a value is written to its step's decimals, whatever the client kept it as" {
+  Test.mount(new Floated(), { left: 0, top: 0, width: 800, height: 200 })
+  Test.expect(Test.page().text("0.72").shown())
+}

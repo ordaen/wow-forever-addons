@@ -62,6 +62,11 @@ function specOf(stat: Stat): Spec {
     .MeleeLands => { name: Locale.LANDS, percent: true, of: s => landsOf(.Melee, s) }
     .RangedLands => { name: Locale.LANDS, percent: true, of: s => landsOf(.Ranged, s) }
     .SpellLands => { name: Locale.LANDS, percent: true, of: s => landsOf(.Spell, s) }
+    .DamageReduction => { name: Locale.DAMAGE_REDUCTION, percent: true, of: s => s.atMaxLevel ? s.bossArmorReduction : s.armorReduction }
+    .HitTaken => { name: Locale.HIT_TAKEN, percent: true, of: s => hitTakenOf(s) }
+    .MainHandSkill => { name: Locale.WEAPON_SKILL, percent: false, of: s => s.meleeSkillPast }
+    .OffHandSkill => { name: Locale.WEAPON_SKILL, percent: false, of: s => s.offSkillPast }
+    .RangedSkill => { name: Locale.WEAPON_SKILL, percent: false, of: s => s.rangedSkillPast }
   }
 }
 
@@ -72,13 +77,24 @@ public function statName(stat: Stat): String { return specOf(stat).name }
 public function statValue(stat: Stat, stats: Stats): Number { return specOf(stat).of(stats) }
 
 // A stat that feeds another: so much of `to` a point of `from` gives, past the first `past` points (stamina's first
-// twenty give a point of health each, the rest ten).
+// twenty give a point of health each, the rest ten); its points counted from `from` (the defense's from the level's,
+// fewer than none below it).
 struct Feed {
   const from: Stat
   const to: Stat
   const per: Number
   const past: Integer = 0
+  const start: Number = 0
 }
+
+// What a feed gives of its stat at so many points (counted from its start).
+function fedBy(feed: Feed, points: Number): Number {
+  if (feed.past <= 0) { return points * feed.per }
+  return feed.past.min(points) + (points - feed.past).max(0) * feed.per
+}
+
+// What the defense skill raises past the level's.
+const DEFENDED: Array<Stat> = [.Dodge, .Parry, .Block]
 
 // The classes that block with a shield: a point of strength is a twentieth of a point of the block's damage.
 const SHIELD_CLASSES: Array<String> = ["WARRIOR", "PALADIN", "SHAMAN"]
@@ -169,8 +185,10 @@ function perText(per: Number): String {
 }
 
 // How a stat's share of another is worked out, written before it in its tooltip: «20 × 15 =», or with the first points
-// giving one each, «20 + (280 × 10) =».
+// giving one each, «20 + (280 × 10) =», or counted from a start, «(44 − 45) × 0.04 =».
 function workingOf(feed: Feed, points: Number): String {
+  // Counted from a start: the stat less it, «(44 − 45) × 0.04 =».
+  if (feed.start != 0) { return `(${(points + feed.start).floor()} − ${feed.start.floor()}) × ${perText(feed.per)} =` }
   const counted = points.floor()
   if (feed.past > 0 && counted > feed.past) { return `${feed.past} + (${counted - feed.past} × ${perText(feed.per)}) =` }
   if (feed.past > 0) { return "" }
@@ -218,6 +236,9 @@ function feedsOf(stats: Stats, classTag: String): Array<Feed> {
     if (stats.resource == Resource.Mana) { all.push({ from: .Spirit, to: .ManaRegen, per: stats.manaFromSpirit / stats.spirit }) }
   }
   if (SHIELD_CLASSES.any(tag => tag == classTag)) { all.push({ from: .Strength, to: .BlockValue, per: 1 / 20 }) }
+  // The defense past the level's: 0.04% of dodge, parry and block a point (the game's `DEFAULT_STATDEFENSE_TOOLTIP`).
+  const levels = stats.defense - stats.defensePast
+  for (avoided of DEFENDED) { all.push({ from: .Defense, to: avoided, per: SKILL_STEP, start: levels }) }
   return all
 }
 
@@ -551,9 +572,8 @@ function gradeOf(outcome: Outcome): Color | nil {
   return toneOf(outcome.share, whole)
 }
 
-// One target's section of what a strike comes to: a line a part, its name in the bar's colour, then the bar.
-function outcomeSection(title: String, strike: Strike, stats: Stats, boss: Boolean): TipSection {
-  const outcomes = outcomesOf(strike, stats, boss)
+// One target's section of what blows come to: a line a part, its name in the bar's colour, then the bar.
+function outcomeSection(title: String, outcomes: Array<Outcome>): TipSection {
   const rows = outcomes.map(o => TipRow {
     label: o.label,
     value: amountText(o.share, true),
@@ -563,15 +583,103 @@ function outcomeSection(title: String, strike: Strike, stats: Stats, boss: Boole
   return { title: title, rows: rows, shares: outcomes.map(o => TipSlice { share: o.share, color: o.color }) }
 }
 
+// A tooltip's two targets, the one its card counts first (a raid's boss at the game's greatest level, else a target of
+// the player's level): each target's section by `sectionOf`.
+function bothTargets(stats: Stats, sectionOf: (title: String, boss: Boolean) => TipSection): Array<TipSection> {
+  const boss = stats.atMaxLevel
+  return [
+    sectionOf(boss ? Locale.HIT_CAP_BOSS : Locale.HIT_CAP_LEVEL, boss),
+    sectionOf(boss ? Locale.HIT_CAP_LEVEL : Locale.HIT_CAP_BOSS, !boss)
+  ]
+}
+
 // What lands's tooltip: what the card counts, then what a strike comes to against each target, the card's first.
 function landsBreakdown(strike: Strike, stats: Stats): Breakdown {
   const text = strike == .Melee ? Locale.LANDS_TIP : strike == .Ranged ? Locale.LANDS_RANGED_TIP : Locale.LANDS_SPELL_TIP
-  const boss = stats.atMaxLevel
-  const first = boss ? Locale.HIT_CAP_BOSS : Locale.HIT_CAP_LEVEL
-  const second = boss ? Locale.HIT_CAP_LEVEL : Locale.HIT_CAP_BOSS
-  const sections: Array<TipSection> = [outcomeSection(first, strike, stats, boss), outcomeSection(second, strike, stats, !boss)]
+  const sections = bothTargets(stats, (title: String, boss: Boolean): TipSection => outcomeSection(title, outcomesOf(strike, stats, boss)))
   const fed: Array<Stat> = strike == .Melee ? [.MeleeHit, .Expertise] : strike == .Ranged ? [.RangedHit] : [.SpellHit]
   return { text: text, sections: sections, fed: fed, shares: {} }
+}
+
+// What an enemy's blows from the front come to on the player, part by part in the order the roll takes them, each in
+// what the parts before it leave (the game's paper doll, `GetEnemyChanceToMiss` and its kin): a miss from 5%, 0.04% more
+// a point of the player's defense past the enemy's weapon skill; the player's dodge, parry and block (a shield's), 0.04%
+// less a point of the enemy's skill past the level's; a crit from 5%, as the miss the other way; a crushing blow from
+// an enemy 15 points past the defense (at most the level's), 2% a point less 15; ordinary hits the rest. The enemy: a
+// raid boss (its level 63's skill, 315), or one of the player's level.
+function takenOf(stats: Stats, boss: Boolean): Array<Outcome> {
+  const past = boss ? stats.bossDefensePast : 0
+  const edge = (stats.defensePast - past) * SKILL_STEP
+  const lose = past * SKILL_STEP
+  const gap = past + (-stats.defensePast).max(0)
+  const parts: Array<Outcome> = []
+  const add = (label: String, chance: Number, color: Color) => {
+    parts.push({ label: label, share: chance.max(0).min(roomOf(parts)), color: color })
+  }
+  add(Locale.MISS, BASE_ENEMY_MISS + edge, Style.GREEN)
+  add(Locale.DODGE, stats.dodge - lose, Style.EVADED)
+  add(Locale.PARRY, stats.parry - lose, Style.EVADED)
+  if (stats.shield) { add(Locale.BLOCK, stats.block - lose, Style.YELLOW) }
+  add(Locale.CRIT, BASE_ENEMY_CRIT - edge, Style.RED)
+  add(Locale.CRUSHING, gap >= CRUSHING_GAP ? gap * 2 - CRUSHING_GAP : 0, Style.CRUSHED)
+  add(Locale.ORDINARY, 100, Style.TAKEN)
+  return parts
+}
+const BASE_ENEMY_MISS = 5
+const BASE_ENEMY_CRIT = 5
+const CRUSHING_GAP = 15
+
+// What of an enemy's blows lands on the player, from the front, against the enemy the card counts: neither a miss, a
+// dodge nor a parry.
+function hitTakenOf(stats: Stats): Number {
+  const parts = takenOf(stats, stats.atMaxLevel)
+  let avoided: Number = 0
+  for (index of 1..3) { avoided = avoided + (parts[index]?.share ?? 0) }
+  return 100 - avoided
+}
+
+function takenBreakdown(stats: Stats): Breakdown {
+  const sections = bothTargets(stats, (title: String, boss: Boolean): TipSection => outcomeSection(title, takenOf(stats, boss)))
+  return { text: Locale.HIT_TAKEN_TIP, sections: sections, fed: [.Defense, .Dodge, .Parry, .Block], shares: {} }
+}
+
+// What a weapon's skill does against each target, as the game's skills frame says it: past the target's defense (a
+// raid boss's 315, a target of the player's level's own), so much more hit and crit and less dodge and parry, signed;
+// against a boss, the main hand's glancing blows too.
+function skillBreakdown(stat: Stat, stats: Stats): Breakdown {
+  const past = statValue(stat, stats)
+  const sections = bothTargets(stats, (title: String, boss: Boolean): TipSection => {
+    const edge = (past - (boss ? stats.bossDefensePast : 0)) * SKILL_STEP
+    const rows: Array<TipRow> = [
+      { label: Locale.SKILL_HIT, value: signedPercent(edge), valueTone: edgeTone(edge) },
+      { label: Locale.CRIT, value: signedPercent(edge), valueTone: edgeTone(edge) }
+    ]
+    if (stat == .MainHandSkill) {
+      const chance = boss ? stats.bossGlancing : stats.levelGlancing
+      const penalty = boss ? stats.bossGlancingPenalty : stats.levelGlancingPenalty
+      rows.push({ label: Locale.GLANCING, value: Locale.GLANCING_PENALTY.format(amountText(chance, true), amountText(penalty, true)) })
+    }
+    return { title: title, rows: rows }
+  })
+  return { text: Locale.WEAPON_SKILL_TIP, sections: sections, fed: [], shares: {} }
+}
+
+// A change in percent with its sign: «+0.28%», «-11.08%».
+function signedPercent(value: Number): String { return "%+.2f%%".format(value) }
+
+// A change's colour: green in the player's favour, red against, plain at none.
+function edgeTone(edge: Number): Color | nil {
+  if (edge > 0) { return Style.GREEN }
+  return edge < 0 ? Style.RED : nil
+}
+
+// The armor's cut of a raid boss's physical damage and of a target of the player's level's, the card's first.
+function reductionBreakdown(stats: Stats): Breakdown {
+  const sections = bothTargets(stats, (title: String, boss: Boolean): TipSection => TipSection {
+    title: title,
+    rows: [{ label: Locale.DAMAGE_REDUCTION, value: amountText(boss ? stats.bossArmorReduction : stats.armorReduction, true) }]
+  })
+  return { text: Locale.DAMAGE_REDUCTION_TIP, sections: sections, fed: [.Armor], shares: {} }
 }
 
 // What a stat's tooltip lists, and what lights with it.
@@ -579,6 +687,9 @@ public function breakdownOf(stat: Stat, text: String, facts: Facts): Breakdown {
   if (stat == .MeleeDps || stat == .RangedDps) { return damageBreakdown(stat == .RangedDps, facts.stats) }
   const strike = strikeOf(stat)
   if (strike != nil) { return landsBreakdown(strike, facts.stats) }
+  if (stat == .HitTaken) { return takenBreakdown(facts.stats) }
+  if (stat == .MainHandSkill || stat == .OffHandSkill || stat == .RangedSkill) { return skillBreakdown(stat, facts.stats) }
+  if (stat == .DamageReduction) { return reductionBreakdown(facts.stats) }
   const spec = specOf(stat)
   const parts = partsOf(stat, facts)
   const fromStats = parts.fromStats.map(part => part)
@@ -655,8 +766,8 @@ function partsOf(stat: Stat, facts: Facts): Parts {
 
   for (feed of feedsOf(facts.stats, facts.classTag)) {
     if (feed.to == stat) {
-      const points = specOf(feed.from).of(facts.stats)
-      const amount = feed.past.min(points) + (points - feed.past).max(0) * feed.per
+      const points = specOf(feed.from).of(facts.stats) - feed.start
+      const amount = fedBy(feed, points)
       if (amount != 0) {
         fromStats.push({ row: { label: statName(feed.from), value: amountText(amount, spec.percent), working: workingOf(feed, points) }, amount: amount })
         fed.push(feed.from)

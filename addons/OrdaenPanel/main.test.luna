@@ -80,6 +80,16 @@ class Social implements Module {
   }
 }
 
+// Ordaen Account as Ordaen's modules hold it: its title.
+class Account implements Module {
+  public const title: String = "Ordaen Account"
+  public const pages: Array<SettingsPage> = []
+
+  public render(self): Template {
+    return $ltml { <box /> }
+  }
+}
+
 // One of the game's own frames the panel stands in for, hides or leaves unseen.
 function frame(name: String): any Client.Frame {
   const made = Client.CreateFrame("Button", name, Client.C_UI.GetUIParent(), nil)
@@ -255,6 +265,26 @@ test "with Ordaen Social on, the friends' cell alone opens the friends and the g
   Test.expect(panel().box(FRIENDS).shown() && !panel().box(GUILD).shown())
   destroy social
   Test.expect(panel().box(FRIENDS).shown() && panel().box(GUILD).shown())
+}
+
+test "with Ordaen Account on, one cell in the legacy's place opens the collections' button; the collections' cell goes" {
+  let clicked: Array<String> = []
+  const collections = frame("CollectionsMicroButton")
+  collections.SetScript("OnClick", () => { clicked.push("collections") })
+  Game.frames.CollectionsMicroButton = collections
+  const legacy = frame("LegacyMicroButton")
+  legacy.SetScript("OnClick", () => { clicked.push("legacy") })
+  Game.frames.LegacyMicroButton = legacy
+  Test.mount(nil, SCREEN)
+  Test.expect(panel().box(LEGACY).shown() && panel().box(COLLECTIONS).shown())
+  const account = Ordaen.modules.add(new Account())
+  Test.expect(panel().box(LEGACY).count() == 1 && !panel().box(COLLECTIONS).shown())
+  panel().box(LEGACY).click()
+  Test.expect(clicked.join(", ") == "collections")
+  destroy account
+  Test.expect(panel().box(LEGACY).shown() && panel().box(COLLECTIONS).shown())
+  panel().box(LEGACY).click()
+  Test.expect(clicked.join(", ") == "collections, legacy")
 }
 
 test "a bag's cell draws no edge round its icon" {

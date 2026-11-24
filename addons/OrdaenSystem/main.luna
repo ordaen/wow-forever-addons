@@ -9,7 +9,9 @@ import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
 import { GamePass, KeptWindow, Module, SettingsPage, WindowsPage, windowsTitle } from "Ordaen"
 import { ADDONS_TAB, AddOnsWindow, SETTINGS_TAB, WINDOW } from "@/addonsWindow"
+import { GameKeeping } from "@/keeping"
 import { GameMenu, Live, MenuDress } from "@/menu"
+import { ProfileQuestion } from "@/question"
 
 public class System implements Module, App {
   public const title: String = "Ordaen System"
@@ -34,6 +36,8 @@ public class System implements Module, App {
   const live: mut Live = { on: true }
   // Blizzard's settings window let through as it is, asked for by a page of ours.
   const pass: mut GamePass = new GamePass()
+  // The game's settings and keys, kept per profile.
+  const keeping: mut GameKeeping = new GameKeeping()
 
   constructor() {
     self.framework = Runtime.Addon.of(Ordaen)?.name ?? "Ordaen"
@@ -111,7 +115,8 @@ public class System implements Module, App {
     return $ltml {
       <MenuDress $if={self.dressed} menu={self.menu} @addons={self.openWindow} />
       <AddOnsWindow $if={self.made} shown={self.open} framework={self.framework} declared={mut self.window}
-                    @close={self.closeWindow} @blizzard={self.passSettings} />
+                    keeping={mut self.keeping} @close={self.closeWindow} @blizzard={self.passSettings} />
+      <ProfileQuestion keeping={mut self.keeping} />
     }
   }
 }

@@ -47,6 +47,13 @@ public enum Stat {
   MeleeLands
   RangedLands
   SpellLands
+  // How much less physical damage the armor lets through, and what of an enemy's blows lands on the player: in percent.
+  DamageReduction
+  HitTaken
+  // The weapons' skills: the main hand's, the off hand's, the ranged weapon's.
+  MainHandSkill
+  OffHandSkill
+  RangedSkill
 }
 
 // Every stat, in the enum's order.
@@ -92,7 +99,12 @@ public const EVERY_STAT: Array<Stat> = [
   .RangedDps,
   .MeleeLands,
   .RangedLands,
-  .SpellLands
+  .SpellLands,
+  .DamageReduction,
+  .HitTaken,
+  .MainHandSkill,
+  .OffHandSkill,
+  .RangedSkill
 ]
 
 // The main stats in the client's order: an aura's change names them by their place here (0 strength to 4 spirit).

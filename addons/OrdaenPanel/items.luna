@@ -12,8 +12,10 @@ const WHOLE: Array<Track> = [{ fr: 1 }]
 const PAIR: Array<Track> = ["max-content", "max-content"]
 
 // The game's menu's buttons before its last. With the spellbook and the talents in one window (Ordaen Spells), the
-// spellbook's button alone opens it.
-function menuOf(faced: Boolean, social: Boolean, merged: Boolean, guildMerged: Boolean): Array<Cell> {
+// spellbook's button alone opens it. With the collections, the legacy and the achievements in one window (Ordaen
+// Account), one button opens it, in the legacy's place with the legacy's icon: the collections' button, whose window
+// the account's stands for.
+function menuOf(faced: Boolean, social: Boolean, merged: Boolean, guildMerged: Boolean, accountMerged: Boolean): Array<Cell> {
   let cells: Array<Cell> = []
   if (faced) { cells.push(Cell.Face) }
   cells.push(Cell.Menu { icon: "@/assets/micro-professions.tga", frame: Game.frames.ProfessionMicroButton, friends: false })
@@ -21,10 +23,13 @@ function menuOf(faced: Boolean, social: Boolean, merged: Boolean, guildMerged: B
   if (!merged) {
     cells.push(Cell.Menu { icon: "@/assets/micro-spectalents.tga", frame: Game.frames.TalentMicroButton, friends: false })
   }
-  cells.push(Cell.Menu { icon: "@/assets/micro-legacy.tga", frame: Game.frames.LegacyMicroButton, friends: false })
+  const legacy = accountMerged ? Game.frames.CollectionsMicroButton : Game.frames.LegacyMicroButton
+  cells.push(Cell.Menu { icon: "@/assets/micro-legacy.tga", frame: legacy, friends: false })
   cells.push(Cell.Menu { icon: "@/assets/micro-questlog.tga", frame: Game.frames.QuestLogMicroButton, friends: false })
   cells.push(Cell.Menu { icon: "@/assets/micro-groupfinder.tga", frame: Game.frames.LFDMicroButton, friends: false })
-  cells.push(Cell.Menu { icon: "@/assets/micro-collections.tga", frame: Game.frames.CollectionsMicroButton, friends: false })
+  if (!accountMerged) {
+    cells.push(Cell.Menu { icon: "@/assets/micro-collections.tga", frame: Game.frames.CollectionsMicroButton, friends: false })
+  }
   if (social) { pushSocial(mut cells, guildMerged) }
   // The game menu's button is the menu's last, whatever stands before it.
   cells.push(Cell.Menu { icon: "@/assets/micro-gamemenu.tga", frame: Game.frames.MainMenuMicroButton, friends: false })
@@ -43,7 +48,7 @@ function pushSocial(cells: mut Array<Cell>, guildMerged: Boolean) {
 // player's face, unless the portrait in the screen's corner stands for it; friends and guild stand in it, before the
 // game menu's button, where they sit with it.
 public class MicroLine implements Component {
-  derived cells: Array<Cell> = menuOf(self.faced, self.social, self.merged, self.guildMerged)
+  derived cells: Array<Cell> = menuOf(self.faced, self.social, self.merged, self.guildMerged, self.accountMerged)
 
   gold: Signal<Boolean>
   vertical: Signal<Boolean>
@@ -51,6 +56,7 @@ public class MicroLine implements Component {
   social: Signal<Boolean>
   merged: Signal<Boolean>
   guildMerged: Signal<Boolean>
+  accountMerged: Signal<Boolean>
   height: Signal<Number<Length>>
   face: Signal<String | nil>
   icon: Signal<Art | nil>
@@ -65,6 +71,8 @@ public class MicroLine implements Component {
     merged: Signal<Boolean> = false,
     // The friends and the guild open one window: the friends' button alone.
     guildMerged: Signal<Boolean> = false,
+    // The collections, the legacy and the achievements open one window: one button, in the legacy's place.
+    accountMerged: Signal<Boolean> = false,
     height: Signal<Number<Length>> = CELL_HEIGHT,
     // The character's cell: the unit whose face it shows, or the class's icon.
     face: Signal<String | nil> = "player",
@@ -78,6 +86,7 @@ public class MicroLine implements Component {
     self.social = social
     self.merged = merged
     self.guildMerged = guildMerged
+    self.accountMerged = accountMerged
     self.height = height
     self.face = face
     self.icon = icon

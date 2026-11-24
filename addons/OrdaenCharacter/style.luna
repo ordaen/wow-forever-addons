@@ -1,7 +1,7 @@
 // The character window's look: its size at the player's scale, the paper doll's measures and the colours of what a
 // stat, a slot or a faction says. Every gap and padding is counted in Ordaen's spacing unit (`sp`); a row is as tall as
 // its text.
-import { ArtBorder, Edges, Fr, Gaps, Line, Shadow, Side, Track } from "$ltml"
+import { ArtBorder, Edges, Fr, Line, Shadow, Side, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import { RULE_COLOR, RULE_WIDTH } from "Ordaen"
 
@@ -83,11 +83,6 @@ public const AFTER_CUT: Edges = { top: 2.5sp }
 // A main stat's room and its number's size: twice the body's, whatever size the look gives the body.
 public const MAIN_PAD: Edges = { top: 2.5sp, bottom: 2.5sp }
 public const MAIN_TEXT: Number<TextSize> = 2rem
-// A resistance's bar and its picture; the room under the resistances, before the gauges.
-public const RESIST_PAD: Edges = { bottom: 3sp }
-public const RESIST_ICON: Number<Length> = 24dp
-// The resistances two columns of three: the room between the rows and between the columns.
-public const RESIST_GAP: Gaps = { rows: 1.5sp, columns: 4sp }
 
 public const INK: Color = Color.hex("#e8dcc4")
 public const DIM: Color = Color.hex("#a3977f")
@@ -97,6 +92,11 @@ public const YELLOW: Color = Color.hex("#ffd040")
 public const GREEN: Color = Color.hex("#40d060")
 // A dodge's and a parry's share of what a strike comes to: red, dimmed beside a miss's.
 public const AVOIDED: Color = Color.hex("#b0453c")
+// What blows on the player come to: a dodge's and a parry's green, muted beside a miss's; an ordinary hit's red, muted
+// beside a crit's; a crushing blow's deepest.
+public const EVADED: Color = Color.hex("#4f9a5c")
+public const TAKEN: Color = Color.hex("#a0503a")
+public const CRUSHED: Color = Color.hex("#c0181f")
 // An ordinary hit's share of what a strike comes to: green, muted beside a crit's.
 public const ORDINARY: Color = Color.hex("#5f8a62")
 public const BACK: Color = Color.hex("#00000066")

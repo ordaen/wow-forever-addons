@@ -180,7 +180,7 @@ public class Bindings {
 
   // A command's keys made exactly `keys`: the ones it has unbound, then each bound in order (the client keeps the
   // first bound first). False where the client refuses a key.
-  put(self, action: String, keys: Array<String>): Boolean {
+  public put(self, action: String, keys: Array<String>): Boolean {
     const context = Client.C_KeyBindings.GetBindingContextForAction(action)
     const first, second = Client.GetBindingKey(action, nil, context)
     for (held of keysOf(first, second)) { _ = Client.SetBinding(held, nil, context) }

@@ -230,6 +230,7 @@ public struct Stats {
   // 63's) past the level's: each point of skill past a target's defense takes 0.04% off its misses, dodges and parries
   // and adds as much to crit, as the game's skills frame counts it.
   meleeSkillPast: Number = 0
+  offSkillPast: Number = 0
   rangedSkillPast: Number = 0
   bossDefensePast: Number = 15
   // The chance a swing of the main hand glances, and how much less a glancing blow deals, in percent: against a raid
@@ -238,6 +239,13 @@ public struct Stats {
   levelGlancing: Number = 0
   bossGlancingPenalty: Number = 0
   levelGlancingPenalty: Number = 0
+  // A shield in the off hand: what blocks.
+  shield: Boolean = false
+  // How much less physical damage the armor lets through from a raid boss, in percent (`armorReduction` a target's of
+  // the player's level).
+  bossArmorReduction: Number = 0
+  // The defense skill past the level's (five a level; below it, less than nothing).
+  defensePast: Number = 0
   conversions: Conversions = {}
 }
 
@@ -250,6 +258,9 @@ const WEAPON_SKILLS: Map<Integer, Integer> = {
 public const WANDS = 228
 // The client's item class of weapons.
 const WEAPON_CLASS = 2
+// The client's item class of armor, and its subclass of shields.
+const ARMOR_CLASS = 4
+const SHIELDS = 6
 // The combat ratings' numbers for hit (`CR_HIT_MELEE`, `CR_HIT_RANGED`, `CR_HIT_SPELL`).
 const RATING_HIT_MELEE = 6
 const RATING_HIT_RANGED = 7
@@ -390,6 +401,14 @@ function skillValue(id: Integer | nil): Integer | nil {
     if (data != nil && data.skillID.floor() == id) { return (data.rank + data.modifier).floor() }
   }
   return nil
+}
+
+// Whether the off hand holds a shield.
+function shieldWorn(): Boolean {
+  const id = Client.GetInventoryItemID("player", 17)
+  if (id == nil) { return false }
+  let _, _, _, _, _, kind, subclass = Client.C_Item.GetItemInfoInstant(id.floor())
+  return kind == ARMOR_CLASS && subclass == SHIELDS
 }
 
 function weaponSkill(slot: Integer): Integer | nil {
@@ -666,12 +685,16 @@ public class ClientSheet implements Sheet {
       offSkill: weaponSkill(17),
       rangedSkill: rangedSkill,
       meleeSkillPast: (skillValue(mainSkill) ?? levelDefense) - levelDefense,
+      offSkillPast: (skillValue(weaponSkill(17)) ?? levelDefense) - levelDefense,
       rangedSkillPast: (skillValue(rangedSkill) ?? levelDefense) - levelDefense,
       bossDefensePast: bossDefense - levelDefense,
       bossGlancing: Client.GetGlancingBlowChance(nil, bossDefense) * 100,
       levelGlancing: Client.GetGlancingBlowChance(nil, levelDefense) * 100,
       bossGlancingPenalty: Client.GetGlancingBlowPenalty(nil, bossDefense) * 100,
       levelGlancingPenalty: Client.GetGlancingBlowPenalty(nil, levelDefense) * 100,
+      shield: shieldWorn(),
+      bossArmorReduction: Client.C_PaperDollInfo.GetArmorEffectiveness(armor, RAID_BOSS_LEVEL) * 100,
+      defensePast: defenseBase + defenseBonus - levelDefense,
       conversions: {
         attackPerStrength: Client.GetAttackPowerForStat(STRENGTH, 1),
         attackPerAgility: Client.GetAttackPowerForStat(AGILITY, 1),
