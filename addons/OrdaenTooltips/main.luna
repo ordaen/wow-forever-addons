@@ -182,6 +182,8 @@ public class Tooltips implements Module, App {
 
   constructor() {
     Ordaen.modules.add(self)
+    // What is drawn here is unseen from the game's show itself; the watch's word follows a frame later.
+    Game.tooltip.claim((data: Game.TooltipData): Boolean => self.claims(data))
     watch { self.keepUnseen() }
     watch { Game.tooltip.hidePinned(self.pinnedShown) }
     watch { self.follow() }
@@ -363,6 +365,12 @@ public class Tooltips implements Module, App {
     // Nothing here draws the game's tooltips any more: they are seen again.
     Game.tooltip.hide(false)
     Game.tooltip.hidePinned(false)
+  }
+
+  // Whether what the game's tooltip shows is drawn here: a kind read here, its switch on.
+  public claims(self, data: Game.TooltipData): Boolean {
+    const kind = kindOf(data)
+    return kind != nil && self.wanted(kind, data)
   }
 
   // The game's own tooltip is unseen for a show drawn here, and seen for one left to it.

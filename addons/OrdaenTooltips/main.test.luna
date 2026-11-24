@@ -831,3 +831,12 @@ test "an item's worth to the spec stands at its foot, and a weapon whose skill i
   const tip = Test.page().window("Dull Mace")
   Test.expect(tip.text("+100%").shown() && tip.text("Needs the weapon skill: train it first").shown())
 }
+
+test "what is drawn here is claimed from the game's show itself: an item while items are drawn, nothing with their switch off" {
+  Test.mount(nil, { left: 0, top: 0, width: 800, height: 600, screen: true })
+  const cloth: Game.TooltipData = { kind: 0, id: 2589, about: "item:2589", lines: [{ left: "Linen Cloth", kind: 22 }] }
+  Test.expect(Tooltips.claims(cloth))
+  Tooltips.settings.values.itemsOn = false
+  Test.expect(!Tooltips.claims(cloth))
+  Tooltips.settings.values.itemsOn = true
+}
