@@ -335,3 +335,20 @@ test "a quest without a timer says no time" {
   Test.flush()
   Test.expect(Test.page().texts().all(text => !text.contains("Time left")))
 }
+
+test "a long objective wraps within the tracker's width, its lines under where the title starts" {
+  const long = "Arcane Reference: Magical Terms in Plain Words for the Young Wizard, Second Edition: 0/1"
+  Test.questLog([
+    { id: 101, title: "Rare Books", header: "Elwynn Forest", level: 7, tag: 1, watched: true,
+      objectives: [{ text: long }] }
+  ])
+  Test.mount(nil, PAGE)
+  Tracker.refresh()
+  Test.flush()
+  const goal = Test.page().text(long)
+  const tag = Test.page().text("(Group)").rect()
+  // Wrapped onto more than one line, within the tracker as wide as ever.
+  Test.expect(goal.letters().bottom - goal.letters().top > 2 * (tag.bottom - tag.top))
+  const title = Test.page().text("Rare Books").rect()
+  Test.expect(goal.rect().left == title.left && goal.rect().right - goal.rect().left < 351)
+}

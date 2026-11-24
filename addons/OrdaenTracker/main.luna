@@ -7,7 +7,7 @@
 import Client from "$client"
 import Events from "$events"
 import Game from "$game"
-import { Action, Align, Anchored, Bounds, ByInteractionState, Edges, FillDuration, Gaps, Overflow, Point, Track } from "$ltml"
+import { Action, Align, Anchored, ByInteractionState, Edges, FillDuration, Gaps, Overflow, Point, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import { BRIGHT_TEXT, ButtonPlate, Component, Dialog, ItemButton, Menu, MenuEntry, Module, Placed, PushButton, RoundedFill, SECONDARY_TEXT, Settings, SettingsPage, playSound, questLevelColor, rowShade } from "Ordaen"
 import { QuestLevel } from "OrdaenQuestPage"
@@ -15,8 +15,8 @@ import { QuestOpener } from "@/extend"
 import Locale from "@/locales"
 import { Choices, DEFAULTS, GeneralPage, GroundShown } from "@/settings"
 
-// As wide as the design's tracker (360 px), never narrower.
-const WIDTH: Bounds = { min: 351.5625dp, max: nil }
+// As wide as the design's tracker (360 px): a longer line wraps within it.
+const WIDTH = 351.5625dp
 // Off the screen's right edge, and off what stands over and under it.
 const EDGE = 11.71875dp
 const GAP = 7.03125dp
@@ -27,8 +27,9 @@ const DIM: Color = Color.hex("#a3977f")
 const RED: Color = Color.hex("#ff2020")
 // Its quests, in all its height.
 const ROWS: Array<Track> = [{ fr: 1 }]
-// A quest: its level, and beside it its title line with its lines under, which start where the title starts.
-const QUEST: Array<Track> = ["max-content", { fr: 1 }]
+// A quest: its level, and beside it its title line with its lines under, which start where the title starts and wrap
+// within the tracker (the column takes its share, never its longest line).
+const QUEST: Array<Track> = ["max-content", { fr: 1, min: 0ui }]
 // Between a quest's title line and its lines, and its level and its title.
 const LINES_GAP: Gaps = { columns: 2sp, rows: 1sp }
 const TITLE: Array<Track> = [{ fr: 1 }, "max-content", "max-content", "max-content"]
