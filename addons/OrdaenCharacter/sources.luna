@@ -158,10 +158,11 @@ struct Part {
   const amount: Number
 }
 
-// A stat's tooltip and what lights while it is open: the text under its title, its sections, the stats that feed it,
-// and each item's share by its slot.
+// A stat's tooltip and what lights while it is open: the text under its title, its lines before any section, its
+// sections, the stats that feed it, and each item's share by its slot.
 public struct Breakdown {
   const text: String
+  const rows: Array<TipRow> = []
   const sections: Array<TipSection>
   const fed: Array<Stat>
   const shares: Map<Integer, String>
@@ -285,43 +286,51 @@ function sum(parts: Array<Part>): Number {
   return total
 }
 
-// One weapon's lines in the damage's tooltip, as the game's paper doll writes them: its seconds between hits, its hit's
-// damage (the least down, the most up, at least 1) and its damage a second.
-function handRows(min: Number, max: Number, speed: Number): Array<TipRow> {
-  return [
+// One weapon's lines in the damage's tooltip, as the game's paper doll writes them: its seconds between hits and its
+// hit's damage (the least down, the most up, at least 1); a hand's of two, its damage a second too (the card's is both
+// hands').
+function handRows(min: Number, max: Number, speed: Number, ofTwo: Boolean): Array<TipRow> {
+  const rows: Array<TipRow> = [
     { label: Locale.ATTACK_SPEED, value: "%.2f".format(speed) },
-    { label: Locale.DAMAGE, value: `${min.floor().max(1)} - ${max.ceil().max(1)}` },
-    { label: Locale.DPS, value: "%.1f".format(handDps(min, max, speed)) }
+    { label: Locale.DAMAGE, value: `${min.floor().max(1)} - ${max.ceil().max(1)}` }
   ]
+  if (ofTwo) { rows.push({ label: Locale.DPS, value: "%.1f".format(handDps(min, max, speed)) }) }
+  return rows
 }
 
-// The weapons' damage's tooltip (`CharacterDamageFrame_OnEnter`): the main hand's, then the off hand's where one is
-// held; or the ranged weapon's. Attack power lights with it, and each weapon's slot with its damage a second.
+// The weapons' damage's tooltip (`CharacterDamageFrame_OnEnter`): the weapon's lines, or with a weapon in each hand
+// each hand's section; the melee's glancing blows. Attack power lights with it, and each weapon's slot with its damage
+// a second.
 function damageBreakdown(ranged: Boolean, stats: Stats): Breakdown {
-  const sections: Array<TipSection> = []
   const shares: Map<Integer, String> = {}
   if (ranged) {
-    sections.push({ title: Locale.SECTION_RANGED, rows: handRows(stats.rangedMinDamage, stats.rangedMaxDamage, stats.rangedSpeed) })
     shares[RANGED_SLOT] = "%.1f".format(rangedDps(stats))
-    return { text: "", sections: sections, fed: [.RangedAttackPower], shares: shares }
+    const rows = handRows(stats.rangedMinDamage, stats.rangedMaxDamage, stats.rangedSpeed, false)
+    return { text: "", rows: rows, sections: [], fed: [.RangedAttackPower], shares: shares }
   }
-  sections.push({ title: Locale.MAIN_HAND, rows: handRows(stats.minDamage, stats.maxDamage, stats.speed) })
   shares[MAIN_HAND_SLOT] = "%.1f".format(handDps(stats.minDamage, stats.maxDamage, stats.speed))
+  const sections: Array<TipSection> = []
   const off = stats.offSpeed ?? 0
+  let rows: Array<TipRow> = []
   if (off > 0) {
-    sections.push({ title: Locale.OFF_HAND, rows: handRows(stats.offMinDamage, stats.offMaxDamage, off) })
+    sections.push({ title: Locale.MAIN_HAND, rows: handRows(stats.minDamage, stats.maxDamage, stats.speed, true) })
+    sections.push({ title: Locale.OFF_HAND, rows: handRows(stats.offMinDamage, stats.offMaxDamage, off, true) })
     shares[OFF_HAND_SLOT] = "%.1f".format(handDps(stats.offMinDamage, stats.offMaxDamage, off))
+  } else {
+    rows = handRows(stats.minDamage, stats.maxDamage, stats.speed, false)
   }
+  const hit = (stats.minDamage + stats.maxDamage) / 2
   sections.push({ title: Locale.GLANCING_BLOWS, rows: [
-    glancingRow(Locale.HIT_CAP_BOSS, stats.bossGlancing, stats.bossGlancingPenalty),
-    glancingRow(Locale.HIT_CAP_LEVEL, stats.levelGlancing, stats.levelGlancingPenalty)
+    glancingRow(Locale.HIT_CAP_BOSS, stats.bossGlancingPenalty, hit),
+    glancingRow(Locale.HIT_CAP_LEVEL, stats.levelGlancingPenalty, hit)
   ] })
-  return { text: "", sections: sections, fed: [.AttackPower], shares: shares }
+  return { text: "", rows: rows, sections: sections, fed: [.AttackPower], shares: shares }
 }
 
-// A target's glancing blows in the damage's tooltip: how often a swing glances, and how much less such a blow deals.
-function glancingRow(target: String, chance: Number, penalty: Number): TipRow {
-  return { label: target, value: Locale.GLANCING_PENALTY.format(amountText(chance, true), amountText(penalty, true)) }
+// A target's glancing blows in the damage's tooltip: how much less such a blow deals, in percent and in damage off the
+// main hand's average hit («-35.00% (-42)»). How often a swing glances is the chance to hit's.
+function glancingRow(target: String, penalty: Number, hit: Number): TipRow {
+  return { label: target, value: `-${amountText(penalty, true)} (-${(hit * penalty / 100).round()})` }
 }
 
 // The weapons' slots.

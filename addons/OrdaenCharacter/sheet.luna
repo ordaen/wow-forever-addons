@@ -455,7 +455,8 @@ public function clientWords(): LineWords {
       { stem: Locale.WORD_PARRY, stats: [.Parry] },
       { stem: Locale.WORD_BLOCK, stats: [.Block] }
     ],
-    spells: Locale.WORD_SPELLS
+    spells: Locale.WORD_SPELLS,
+    shieldBlock: Runtime.text("SHIELD_BLOCK_TEMPLATE") ?? ""
   }
 }
 
@@ -505,6 +506,7 @@ public function wornBy(unit: String, slot: Integer, words: LineWords): Worn {
   const bonuses = bonusesOf(linesOf(unit, slot), words)
   const gives: Array<Given> = []
   for (given of givenBy(Client.GetInventoryItemLink(unit, slot))) { gives.push(given) }
+  for (given of bonuses.base) { gives.push(given) }
   for (given of bonuses.enchant) { gives.push(given) }
   return {
     slot: slot, item: item, quality: qualityFrom(quality), level: level?.floor(), durability: nil, name: name ?? "",

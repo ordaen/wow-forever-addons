@@ -25,13 +25,15 @@ public struct ChanceWord {
 }
 
 // The client's words the reader tells lines by: the enchant's and an active set bonus's starts, the flat bonuses, the
-// chances, and the word that makes a chance a spell's.
+// chances, the word that makes a chance a spell's, and a shield's block as its own line says it («%d Блок», the
+// client's `SHIELD_BLOCK_TEMPLATE`; none: no such line is read).
 public struct LineWords {
   const enchant: String
   const setBonus: String
   const flat: Array<FlatWord>
   const chances: Array<ChanceWord>
   const spells: String
+  const shieldBlock: String = ""
 }
 
 // A set some of whose pieces are worn: its name and what its bonuses in effect give.
@@ -40,10 +42,22 @@ public struct WornSet {
   const gives: Array<Given>
 }
 
-// What the reader found: the enchant's stats, and the item's set (none for an item of none).
+// What the reader found: the item's own stats its item stats leave out (a shield's block), the enchant's stats, and
+// the item's set (none for an item of none).
 public struct LineBonuses {
+  const base: Array<Given>
   const enchant: Array<Given>
   const set: WornSet | nil
+}
+
+// The amount a line says in a template's place for it («39 Блок» by «%d Блок»); none where the line isn't one.
+function amountBy(text: String, template: String): Number | nil {
+  const start, end = template.match("^(.-)%%d(.*)$")
+  if (start == nil || end == nil) { return nil }
+  const rest = start == "" ? text : after(text, start)
+  if (rest == nil) { return nil }
+  const amount, tail = rest.match("^(%d+)(.*)$")
+  return amount != nil && tail == end ? numberOf(amount) : nil
 }
 
 // The client's type of an enchant's line (`ItemEnchantmentPermanent`).
@@ -100,14 +114,18 @@ public function givenOf(text: String, words: LineWords): Array<Given> {
   return gives
 }
 
-// What an item's lines give beyond its item stats: its enchant's line, and its set's name with each bonus in effect
-// (a bonus not yet in effect starts otherwise, with the pieces it needs).
+// What an item's lines give beyond its item stats: a shield's block, its enchant's line, and its set's name with each
+// bonus in effect (a bonus not yet in effect starts otherwise, with the pieces it needs).
 public function bonusesOf(lines: Array<ItemLine>, words: LineWords): LineBonuses {
+  const base: Array<Given> = []
   const enchant: Array<Given> = []
   let setName: String | nil = nil
   const setGives: Array<Given> = []
   for (index, line of lines) {
-    if (line.kind == ENCHANT_LINE) {
+    const block = words.shieldBlock != "" ? amountBy(line.text, words.shieldBlock) : nil
+    if (block != nil) {
+      base.push({ stat: .BlockValue, amount: block })
+    } else if (line.kind == ENCHANT_LINE) {
       for (given of givenOf(after(line.text, words.enchant) ?? line.text, words)) { enchant.push(given) }
     } else if (index > 1) {
       // A set's name with the pieces worn of it, «Соучастники (1/2)».
@@ -123,5 +141,5 @@ public function bonusesOf(lines: Array<ItemLine>, words: LineWords): LineBonuses
     }
   }
   const name = setName
-  return { enchant: enchant, set: name != nil ? { name: name, gives: setGives } : nil }
+  return { base: base, enchant: enchant, set: name != nil ? { name: name, gives: setGives } : nil }
 }

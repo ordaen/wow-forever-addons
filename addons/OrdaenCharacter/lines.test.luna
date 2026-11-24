@@ -17,7 +17,8 @@ const RUSSIAN: LineWords = {
     { stem: "вероятность попадания", stats: [.MeleeHit, .RangedHit], spells: [.SpellHit] },
     { stem: "критическ", stats: [.MeleeCrit, .RangedCrit], spells: [.SpellCrit] }
   ],
-  spells: "заклинан"
+  spells: "заклинан",
+  shieldBlock: "%d Блок"
 }
 
 // What a list of stats gives, written out: «Stamina 2, Armor 16».
@@ -33,6 +34,16 @@ test "an enchant's line gives each of its flat bonuses" {
   const found = bonusesOf(lines, RUSSIAN)
   Test.expect(told(found.enchant) == "Stamina 2, Armor 16")
   Test.expect(found.set == nil)
+}
+
+test "a shield's block line gives the block's damage as the item's own; a block chance's line is no such line" {
+  const lines: Array<ItemLine> = [
+    { text: "Щит стражника", kind: 0 },
+    { text: "1386 к броне", kind: 0 },
+    { text: "39 Блок", kind: 0 },
+    { text: "Если на персонаже: повышает вероятность блокирования атак щитом на 1%.", kind: 0 }
+  ]
+  Test.expect(told(bonusesOf(lines, RUSSIAN).base) == "BlockValue 39")
 }
 
 test "a set's name and its bonuses in effect, a flat one and a chance; one not yet in effect is left out" {

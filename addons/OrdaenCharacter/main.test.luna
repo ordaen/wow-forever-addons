@@ -75,6 +75,8 @@ class FakeSheet implements Sheet {
   stand = 4500
   // The helm and the two-hander pieces of one set, whose bonus in effect gives strength.
   matched = false
+  // A shield in the off hand, its block's line read as 39 of the block's damage.
+  shielded = false
 
   public worn(self, slot: Integer): Worn {
     if (slot == 1) {
@@ -88,6 +90,12 @@ class FakeSheet implements Sheet {
       return {
         slot: slot, item: REAPER, quality: Quality.Epic, level: 58, durability: 1, name: "Arcanite Reaper",
         gives: [{ stat: .Strength, amount: 20 }, { stat: .MeleeCrit, amount: 1 }], set: self.matched ? PRIDE : nil
+      }
+    }
+    if (slot == 17 && self.shielded) {
+      return {
+        slot: slot, item: HELM, quality: Quality.Rare, level: 40, durability: 1, name: "Guardian's Shield",
+        gives: [{ stat: .Armor, amount: 1386 }, { stat: .BlockValue, amount: 39 }]
       }
     }
     return { slot: slot, item: nil, quality: Quality.Common, level: nil, durability: nil }
@@ -412,7 +420,7 @@ test "a class that keeps a relic has the relic's well in the ranged slot" {
   Test.expect(!window.paintedWith("Interface/PaperDoll/UI-PaperDoll-Slot-Ranged"))
 }
 
-test "the damage a second's card says each hand's speed, damage and damage a second, the weapon's slot lit with it" {
+test "the damage a second's card says the weapon's speed and damage, and how much less each target's glancing blows deal" {
   Test.mount(nil, PAGE)
   Game.items.icon = icons
   const sheet = new FakeSheet()
@@ -422,11 +430,38 @@ test "the damage a second's card says each hand's speed, damage and damage a sec
   }
   const window = opened(mut sheet)
   window.text("50.0").hover()
-  // Its title the name alone: the value stands on the card. Then each target's glancing blows: how often, how much less.
-  const tip = Test.page().window("Main Hand")
-  Test.expect(tip.texts().join(" | ") == "DPS | Main Hand | Attack speed | 2.50 | Damage | 100 - 150 | DPS | 50.0 | Glancing blows | Raid bosses | 40.00% · 35.00% less damage | Targets of your level | 10.00% · 5.00% less damage")
+  // Its title the name alone: the value stands on the card, no hand's heading for one weapon. The glancing blows' cut,
+  // in percent and off the average hit of 125 (their chance is the chance to hit's).
+  const tip = Test.page().window("Glancing blows")
+  Test.expect(tip.texts().join(" | ") == "DPS | Attack speed | 2.50 | Damage | 100 - 150 | Glancing blows | Raid bosses | -35.00% (-44) | Targets of your level | -5.00% (-6)")
   // The main hand's slot shows its share; attack power glows, as what feeds it.
   Test.expect(window.text("50.0").count() >= 2)
+}
+
+test "with a weapon in each hand the damage a second's card says each hand's speed, damage and damage a second" {
+  Test.mount(nil, PAGE)
+  Game.items.icon = icons
+  const sheet = new FakeSheet()
+  sheet.figures = (): Stats => Stats {
+    speed: 2.5, minDamage: 100, maxDamage: 150, offSpeed: 2, offMinDamage: 40, offMaxDamage: 60
+  }
+  const window = opened(mut sheet)
+  window.text("75.0").hover()
+  const tip = Test.page().window("Off Hand")
+  Test.expect(tip.texts().join(" | ").contains("DPS | Main Hand | Attack speed | 2.50 | Damage | 100 - 150 | DPS | 50.0 | Off Hand | Attack speed | 2.00 | Damage | 40 - 60 | DPS | 25.0"))
+}
+
+test "the damage a block stops lights the shield, its share the block its tooltip line says" {
+  Test.mount(nil, PAGE)
+  Game.items.icon = icons
+  const sheet = new FakeSheet()
+  sheet.shielded = true
+  sheet.figures = (): Stats => Stats { block: 5, blockValue: 41, shield: true }
+  const window = opened(mut sheet)
+  window.text("Damage Blocked").hover()
+  Test.expect(Test.page().text("Guardian's Shield").shown())
+  // The off hand's slot, in the window, shows the shield's 39 of the 41, as its row in the tooltip says it.
+  Test.expect(window.text("+39").shown())
 }
 
 test "what health and mana regain stands under their bars, out of a fight and in one, each with its own tooltip" {
