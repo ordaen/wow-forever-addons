@@ -173,7 +173,9 @@ public class Characters implements Component {
         <Table columns={COLUMNS} sorted={mut self.sorted} descending={mut self.descending}>
           <CharacterRow $for={line of self.ordered} $key={line.who} line={line} @forget={self.ask} />
         </Table>
-        <text $if={self.alone} value={Locale.ONLY_ONE} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
+        <box $if={self.alone} padding={Style.NOTE_ROOM}>
+          <text value={Locale.ONLY_ONE} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
+        </box>
         <Dialog $if={self.asking != nil} title={Locale.FORGET_TITLE} width={CONFIRM_WIDTH}>
           <text value={self.question} textColor={Style.INK} />
           <PushButton #buttons label={Locale.CANCEL} width={140.625dp} @click={self.cancel} />

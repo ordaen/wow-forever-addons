@@ -78,7 +78,9 @@ public class Cooldowns implements Component {
   public render(self): Template {
     return $ltml {
       <box rows={self.rows} gap={6sp}>
-        <text $if={self.empty} value={Locale.NO_COOLDOWNS} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
+        <box $if={self.empty} padding={Style.TOP_ROOM}>
+          <text value={Locale.NO_COOLDOWNS} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
+        </box>
         <Table columns={COLUMNS} sorted={mut self.sorted} descending={mut self.descending}>
           <TableRow $for={wait of self.ordered} $key={wait}>
             <TableCell> <text value={wait.recipe} textColor={Style.INK} /> </TableCell>

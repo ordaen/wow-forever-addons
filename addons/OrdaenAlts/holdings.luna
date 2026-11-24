@@ -200,13 +200,17 @@ public class Holdings implements Component {
   public render(self): Template {
     return $ltml {
       <box rows={PAGE} gap={3sp}>
-        <Toolbar search={mut self.search} placeholder={Locale.SEARCH_ITEMS}>
-          <FilterButton values={mut self.places} start={EVERY_PLACE} groups={FILTERS} />
-        </Toolbar>
+        <box padding={Style.TOP_ROOM}>
+          <Toolbar search={mut self.search} placeholder={Locale.SEARCH_ITEMS}>
+            <FilterButton values={mut self.places} start={EVERY_PLACE} groups={FILTERS} />
+          </Toolbar>
+        </box>
         <Table columns={COLUMNS} sorted={mut self.sorted} descending={mut self.descending} empty={self.empty}>
           <ItemRow $for={entry of self.ordered} $key={entry.id} entry={entry} />
         </Table>
-        <text value={self.totals} textColor={Style.DIM} textSize={SECONDARY_TEXT} />
+        <box padding={Style.NOTE_ROOM}>
+          <text value={self.totals} textColor={Style.DIM} textSize={SECONDARY_TEXT} />
+        </box>
       </box>
     }
   }

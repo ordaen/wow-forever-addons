@@ -1,9 +1,17 @@
 // The window's look: its size at the player's scale and colours, and how a number of hours reads. A text's size is a
 // step of the ladder (`$ltml`'s `TextSize`).
+import { Edges } from "$ltml"
 import Locale from "@/locales"
 
 public const WIDTH: Number<Length> = 1390dp
 public const HEIGHT: Number<Length> = 656.25dp
+
+// A page runs to the frame's line on every side (its tab's `padding` none): its table takes the whole section. What
+// stands over it keeps the window's room at the top and the sides (`TOP_ROOM`); a note under it at the sides and the
+// bottom (`NOTE_ROOM`).
+public const NO_ROOM: Edges = {}
+public const TOP_ROOM: Edges = { top: 8sp, right: 8sp, left: 8sp }
+public const NOTE_ROOM: Edges = { right: 8sp, bottom: 4sp, left: 8sp }
 
 public const INK: Color = Color.hex("#e8dcc4")
 public const DIM: Color = Color.hex("#a3977f")
