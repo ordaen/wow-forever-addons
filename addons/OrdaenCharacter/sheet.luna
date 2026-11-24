@@ -661,6 +661,11 @@ public class ClientSheet implements Sheet {
     const rangedSkill = relic ? nil : weaponSkill(18)
     const levelDefense = level * DEFENSE_PER_LEVEL
     const bossDefense = RAID_BOSS_LEVEL * DEFENSE_PER_LEVEL
+    // Haste as the game's paper doll reads each: the melee's, the ranged weapon's with its ammo's, the spells'.
+    const meleeHaste = Client.GetMeleeHaste()
+    let weaponHaste, ammoHaste = Client.GetRangedHaste()
+    const rangedHaste = weaponHaste + ammoHaste
+    const spellHaste = Client.UnitSpellHaste("player")
     return {
       restingRegen: resting * 5,
       healthRegen: healthRegen * 5,
@@ -736,7 +741,11 @@ public class ClientSheet implements Sheet {
       rangedCrit: Client.GetRangedCritChance(),
       spellCrit: Client.GetSpellCritChance(),
       hit: hit,
-      haste: Client.GetHaste(),
+      // The gauge's haste: the greatest of the three, as the game's paper doll shows it.
+      haste: meleeHaste.max(rangedHaste).max(spellHaste),
+      meleeHaste: meleeHaste,
+      rangedHaste: rangedHaste,
+      spellHaste: spellHaste,
       dodge: Client.GetDodgeChance(),
       parry: Client.GetParryChance(),
       block: block,

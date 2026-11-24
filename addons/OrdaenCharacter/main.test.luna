@@ -1532,6 +1532,15 @@ test "the client's sheet reads health's and mana's regeneration a second, and sp
   Test.expect(stats.healthFromSpirit == 7.5 && stats.manaFromSpirit == 30)
 }
 
+test "the client's sheet reads the three hastes, the ranged with its ammo's, and the gauge's the greatest" {
+  Test.mount(nil, PAGE)
+  Client.GetMeleeHaste = (): Number => 4
+  Client.GetRangedHaste = (): (Number, Number) => { return 3, 2 }
+  Client.UnitSpellHaste = (unit: String): Number => 6
+  const stats = new ClientSheet().stats()
+  Test.expect(stats.meleeHaste == 4 && stats.rangedHaste == 5 && stats.spellHaste == 6 && stats.haste == 6)
+}
+
 test "the client's sheet reads the glancing blows against a raid boss's 315 of defense and the level's own" {
   Test.mount(nil, PAGE)
   Client.UnitLevel = (unit: String): Number => 60
