@@ -1808,7 +1808,7 @@ test "a count changing redraws that count alone, where the sort isn't by count" 
     Game.bags.updated.emit(0)
     Test.flush()
   })
-  Test.expect(told == "GetStringHeight=1 GetUnboundedStringWidth=1 SetText=1" && bags().text("15").shown())
+  Test.expect(told == "GetUnboundedStringWidth=1 SetText=1" && bags().text("15").shown())
 }
 
 test "an empty bag put on shows its section in the view «By bag»" {
