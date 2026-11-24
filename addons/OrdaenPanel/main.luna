@@ -82,6 +82,8 @@ const TALENTS_TOP = 50ui
 const SPELLS = "Ordaen Spells"
 // Ordaen Social's title, as its module gives it.
 const SOCIAL = "Ordaen Social"
+// Ordaen Account's title, as its module gives it.
+const ACCOUNT = "Ordaen Account"
 // Ordaen Social's folder, by which it tells Ordaen how many whispers wait unread.
 const SOCIAL_FOLDER = "OrdaenSocial"
 
@@ -183,11 +185,12 @@ public class ZoneBox implements Component {
           <box $if={self.panel.portraitShown} columns={PORTRAIT_ROOM} yAlign={Align.Center}>
             <box width={PORTRAIT_WIDTH} height={1ui} />
             <MicroLine gold={self.panel.goldIcons} faced={false} social={self.social}
-                       merged={self.panel.spellsMerged} guildMerged={self.panel.guildMerged} height={self.panel.inside}
-                       rise={self.panel.rise} />
+                       merged={self.panel.spellsMerged} guildMerged={self.panel.guildMerged}
+                       accountMerged={self.panel.accountMerged} height={self.panel.inside} rise={self.panel.rise} />
           </box>
           <MicroLine $else gold={self.panel.goldIcons} vertical={self.panel.vertical} social={self.social}
-                     merged={self.panel.spellsMerged} guildMerged={self.panel.guildMerged} height={self.panel.inside} face={self.panel.face}
+                     merged={self.panel.spellsMerged} guildMerged={self.panel.guildMerged}
+                     accountMerged={self.panel.accountMerged} height={self.panel.inside} face={self.panel.face}
                      icon={self.panel.classIcon} rise={self.panel.rise} />
         </>
         <SocialLine $if={self.socialAlone} gold={self.panel.goldIcons} guildMerged={self.panel.guildMerged} vertical={self.panel.vertical}
@@ -299,6 +302,9 @@ public class Panel implements Module, App {
   // With Ordaen Social on, its window holds the friends and the guild: the friends' button alone opens it, the guild's
   // goes (and comes back as the module is turned off).
   public derived guildMerged: Boolean = Ordaen.modules.any(module => module.title == SOCIAL)
+  // With Ordaen Account on, its window holds the collections, the legacy and the achievements: one button, in the
+  // legacy's place, opens it; the legacy's and the collections' go (and come back as the module is turned off).
+  public derived accountMerged: Boolean = Ordaen.modules.any(module => module.title == ACCOUNT)
   // The whispers Ordaen Social says wait unread: a plain violet bubble with how many, pointing at the friends' button
   // from over it (under it on a panel along the top), while any wait.
   derived unread: Integer = Ordaen.noticeOf(SOCIAL_FOLDER)
@@ -479,7 +485,8 @@ public class Panel implements Module, App {
                look={WHISPERS_LOOK} pulse={true} />
       <Placed $if={self.freeMicro} id={"OrdaenPanel.micromenu"} title={Locale.PANEL_MICROMENU} home={MICRO_HOME}>
         <box background={Ordaen.art.window.wood} border={Ordaen.art.frame.small} padding={3sp}>
-          <MicroLine gold={self.goldIcons} merged={self.spellsMerged} guildMerged={self.guildMerged} face={self.face} icon={self.classIcon} />
+          <MicroLine gold={self.goldIcons} merged={self.spellsMerged} guildMerged={self.guildMerged}
+                     accountMerged={self.accountMerged} face={self.face} icon={self.classIcon} />
         </box>
       </Placed>
       <Placed $if={self.freeSocial} id={"OrdaenPanel.social"} title={Locale.PANEL_SOCIAL} home={SOCIAL_HOME}>
