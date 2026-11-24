@@ -120,7 +120,7 @@ test "the right click buys one purchase, Shift+Left-click a count, and a dear pu
   Test.page().window(Locale.BUY).button(Locale.CANCEL).click()
   Test.expect(heard.take() == "")
   // Shift: a count of the thread, three; Shift+Right-click its link.
-  Game.input.shiftDown = (): Boolean => true
+  Test.hold([.Shift])
   window.button(THREAD).click()
   const dialog = Test.page().window(Locale.HOW_MANY)
   dialog.button("+").click()
@@ -238,11 +238,11 @@ test "an item that starts a quest has the game's mark; Left puts it onto the cur
   Test.expect(window.box("Interface/ContainerFrame/UI-Icon-QuestBang").count() == 1)
   window.button(THREAD).click()
   Test.expect(heard.take() == "pickup 1")
-  Game.input.controlDown = (): Boolean => true
+  Test.hold([.Ctrl])
   window.button(DAGGER).click()
   Test.expect(heard.take() == "dress item:102")
-  Game.input.controlDown = (): Boolean => false
-  Game.input.altDown = (): Boolean => true
+  Test.hold([])
+  Test.hold([.Alt])
   window.button(DAGGER).click()
   Test.expect(heard.take() == "modified item:102")
 }

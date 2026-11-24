@@ -436,12 +436,12 @@ test "Shift+left set to Pick up picks the item up, and the right opens the menu,
   Bags.settings.change((values: mut Choices): nil => { values.slotPresses = { shiftLeft: .Pickup, ..values.slotPresses } })
   _ = Test.requests()
   Test.hold([.Shift])
-  Game.input.shiftDown = (): Boolean => true
+  Test.hold([.Shift])
   Test.hold([.Shift])
   bags().button(CLOTH).click()
   Test.expect(Test.performed().length == 0 && Test.requests().join(", ").contains("Bags.pickup 0 3"))
   Test.hold([])
-  Game.input.shiftDown = (): Boolean => false
+  Test.hold([])
   Test.hold([])
   bags().button(CLOTH).rightClick()
   Test.expect(Test.performed().length == 0 && Test.page().text("Mark as junk").shown())
@@ -464,14 +464,14 @@ test "Alt+click and Ctrl+click do nothing in Ordaen's scheme: protecting is the 
   Game.bags.open = true
   _ = Test.requests()
   Test.hold([.Ctrl])
-  Game.input.controlDown = (): Boolean => true
+  Test.hold([.Ctrl])
   bags().button(CLOTH).click()
   Test.hold([.Alt])
-  Game.input.controlDown = (): Boolean => false
-  Game.input.altDown = (): Boolean => true
+  Test.hold([])
+  Test.hold([.Alt])
   bags().button(CLOTH).click()
   Test.hold([])
-  Game.input.altDown = (): Boolean => false
+  Test.hold([])
   Test.expect(!Test.requests().join(", ").contains("Bags.pickup") && Test.performed().length == 0)
   bags().button(CLOTH).rightClick()
   Test.expect(Test.page().text(Locale.MENU_PROTECT).shown())
@@ -499,7 +499,7 @@ test "the bank opens in a window of its own beside the bags', its slots read and
   Test.expect(bank().button(GEM).shown() && !bank().button(SWORD).shown())
   Bags.settings.change((values: mut Choices): nil => { values.slotPresses = { shiftLeft: .Pickup, ..values.slotPresses } })
   _ = Test.requests()
-  Game.input.shiftDown = (): Boolean => true
+  Test.hold([.Shift])
   Test.hold([.Shift])
   bank().button(GEM).click()
   Test.expect(Test.requests().join(", ").contains("Bags.pickup 6 2"))
@@ -528,7 +528,7 @@ test "away from the banker the bank is a tab of the bags' window: what it held, 
   bags().text(Locale.BANK).click()
   Test.expect(bags().button(GEM).shown() && bags().text(Locale.BANK_COPY).shown())
   _ = Test.requests()
-  Game.input.shiftDown = (): Boolean => true
+  Test.hold([.Shift])
   Test.hold([.Shift])
   bags().button(GEM).click()
   Test.expect(!Test.requests().join(", ").contains("Bags.pickup"))

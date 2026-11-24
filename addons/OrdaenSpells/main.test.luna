@@ -554,7 +554,7 @@ test "Shift+Left-click on a spell's slot puts it in as the game's book does, and
   _ = Test.requests()
   _ = Test.performed()
   Test.hold([.Shift])
-  Game.input.shiftDown = (): Boolean => true
+  Test.hold([.Shift])
   window.text("Rend").item().button(ICON).click()
   Test.hold([])
   Test.expect(Test.requests().any(r => r == "Spellbook.link 772"))

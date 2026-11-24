@@ -196,7 +196,7 @@ test "the coordinates' tooltip says how to send them to the chat" {
 
 test "the coordinates Shift+Left-clicked are sent to the chat" {
   Test.mount(nil, SCREEN)
-  Game.input.shiftDown = (): Boolean => true
+  Test.hold([.Shift])
   _ = Test.requests()
   minimap().text(COORDS).click()
   Test.expect(Test.requests().any(r => r == "Minimap.sendCoords"))
@@ -206,7 +206,7 @@ test "the coordinates clicked without Shift, or with the right button, send noth
   Test.mount(nil, SCREEN)
   _ = Test.requests()
   minimap().text(COORDS).click()
-  Game.input.shiftDown = (): Boolean => true
+  Test.hold([.Shift])
   minimap().text(COORDS).rightClick()
   Test.expect(!Test.requests().any(r => r == "Minimap.sendCoords"))
 }

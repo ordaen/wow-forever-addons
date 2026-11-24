@@ -260,7 +260,7 @@ test "an option's text never wraps: the window widens to hold the longest" {
 
 test "Shift held while talking shows the window all the same" {
   Test.mount(nil, SCREEN)
-  Game.input.shiftDown = (): Boolean => true
+  Test.hold([.Shift])
   Test.talk(flightMaster())
   Test.expect(asked() == "" && Test.page().window("Thor").shown())
 }
@@ -297,10 +297,10 @@ test "Shift shows the list over a marked option, and a mark is taken away the sa
   window().text("Tell me about Goldshire.").rightClick()
   Test.page().text("Always pick this option").click()
   Events.GOSSIP_CLOSED.emit(false)
-  Game.input.shiftDown = (): Boolean => true
+  Test.hold([.Shift])
   Test.talk(innkeeper())
-  Game.input.shiftDown = (): Boolean => false
-  Game.input.controlDown = (): Boolean => false
+  Test.hold([])
+  Test.hold([])
   Test.expect(asked() == "" && window().shown())
   window().text("Tell me about Goldshire.").rightClick()
   Test.page().text("Always pick this option").click()
@@ -520,10 +520,10 @@ test "Ctrl+click on a reward's slot tries it on and picks nothing" {
   Test.talk(innkeeper())
   Test.quest(pie())
   Events.QUEST_COMPLETE.emit()
-  Game.input.controlDown = (): Boolean => true
+  Test.hold([.Ctrl])
   window().button("Interface/Icons/INV_Boots_01").click()
-  Game.input.shiftDown = (): Boolean => false
-  Game.input.controlDown = (): Boolean => false
+  Test.hold([])
+  Test.hold([])
   Test.expect(tried == "item:1002" && Dialogue.choice == 0)
 }
 
@@ -777,7 +777,7 @@ test "Shift held while talking accepts and hands in nothing on its own" {
   Test.mount(nil, SCREEN)
   Dialogue.settings.values.autoAccept = Auto.All
   Dialogue.settings.values.autoComplete = Auto.All
-  Game.input.shiftDown = (): Boolean => true
+  Test.hold([.Shift])
   Test.talk(innkeeper())
   Test.expect(asked() == "" && window().shown())
 }
@@ -837,9 +837,9 @@ test "a reward's slot shows the item's tooltip, and Shift+click puts its link in
   _ = Test.requests()
   window().button("Interface/Icons/INV_Gauntlets_04").hover()
   Test.expect(Test.requests().join(", ").contains("1001"))
-  Game.input.shiftDown = (): Boolean => true
+  Test.hold([.Shift])
   window().button("Interface/Icons/INV_Gauntlets_04").click()
-  Game.input.shiftDown = (): Boolean => false
+  Test.hold([])
   Test.expect(Test.requests().join(", ").contains("1001") && Dialogue.choice == 0)
 }
 

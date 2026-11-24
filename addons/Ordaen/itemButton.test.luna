@@ -56,7 +56,7 @@ test "an item's slot draws its icon, its quality's border, its count and markers
   Test.shot("the common slot clicked: picked, nothing put into the chat")
 
   page.picked = 0
-  Game.input.shiftDown = (): Boolean => true
+  Test.hold([.Shift])
   Test.click({ x: 58, y: 16 }, nil)
   Test.expect(page.picked == 0)
   Test.shot("Shift+clicked: the item's link put into the chat, nothing picked")

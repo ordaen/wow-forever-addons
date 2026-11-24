@@ -940,7 +940,7 @@ test "«Undo» puts an addon on for this character alone back as it was" {
 }
 
 test "Ctrl on a group's parent switches the parent and its group together, to the parent's new state" {
-  Game.input.controlDown = () => true
+  Test.hold([.Ctrl])
   Test.mount(nil, SCREEN)
   open()
   flip("Ordaen")
@@ -951,7 +951,7 @@ test "Ctrl on a group's parent switches the parent and its group together, to th
 }
 
 test "Ctrl on a parent switches every addon of its group, however many" {
-  Game.input.controlDown = () => true
+  Test.hold([.Ctrl])
   Test.addon({ name: "Rack", title: "Rack", category: "Store" })
   Test.addon({ name: "Shelf", title: "Shelf", group: "Rack", category: "Store" })
   Test.addon({ name: "Hook", title: "Hook", group: "Rack", category: "Store" })
@@ -2734,7 +2734,7 @@ test "the card's spikes: each count of frames over its time, joined" {
 }
 
 test "the card's switch with Ctrl held switches the addon alone, not its group" {
-  Game.input.controlDown = () => true
+  Test.hold([.Ctrl])
   Test.mount(nil, SCREEN)
   open()
   row("Ordaen").click()
@@ -2743,7 +2743,7 @@ test "the card's switch with Ctrl held switches the addon alone, not its group" 
 }
 
 test "a row's menu switches the addon alone, with Ctrl held too" {
-  Game.input.controlDown = () => true
+  Test.hold([.Ctrl])
   Test.mount(nil, SCREEN)
   open()
   menu("Ordaen").button(Locale.DISABLE).click()

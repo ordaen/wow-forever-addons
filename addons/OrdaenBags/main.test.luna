@@ -717,7 +717,7 @@ test "Shift+click set to Pick up on a slot picks its item up, or puts down there
   pick(Ordaen.art.ctl.tool.categories, "One bag")
   Bags.settings.change((values: mut Choices): nil => { values.slotPresses = { shiftLeft: .Pickup, ..values.slotPresses } })
   _ = Test.requests()
-  Game.input.shiftDown = (): Boolean => true
+  Test.hold([.Shift])
   Test.hold([.Shift])
   nth(3).click()
   nth(6).click()
@@ -805,7 +805,7 @@ test "Shift+right-click puts the item's link into the chat" {
   Game.items.icon = (id: Integer): Art | nil => world.icon(id)
   Test.mount(nil, SCREEN)
   Game.bags.open = true
-  Game.input.shiftDown = (): Boolean => true
+  Test.hold([.Shift])
   Test.hold([.Shift])
   held(POTION).rightClick()
   Test.expect(asked("Bags.follow true, Items.showBag 0 3, Chat.link 118"))
