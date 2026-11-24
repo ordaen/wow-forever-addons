@@ -852,10 +852,40 @@ public class TrainerPage {
     Client.BuyTrainerService(service.index)
   }
 
-  // «Learn»: the picked service.
+  // The services as the list shows them, top to bottom: by category where it groups them, a folded one's left out.
+  inOrder(self): Array<Game.TrainerService> {
+    if ((peek self.tabled) || !(peek self.grouped)) { return peek self.shown }
+    const all: Array<Game.TrainerService> = []
+    for (category of peek self.categories) {
+      for (service of self.inCategory(category)) { all.push(service) }
+    }
+    return all
+  }
+
+  // What is picked once the service at `index` is learned: the next the list shows that can be learned now, from its
+  // top again past its end; where no other can, the one learned stays, its card saying it is known.
+  nextAfter(self, index: Integer): Integer {
+    const ignored = peek self.ignoredNames
+    let passed = false
+    let first = index
+    for (service of self.inOrder()) {
+      if (service.index == index) {
+        passed = true
+      } else if (showOf(service, ignored) == .Available) {
+        if (passed) { return service.index }
+        if (first == index) { first = service.index }
+      }
+    }
+    return first
+  }
+
+  // «Learn»: the picked service; the card goes on to the next that can be learned (a new profession once it is
+  // confirmed).
   onTrain(mut self) {
     const current = peek self.current
-    if (current != nil) { self.learn(current) }
+    if (current == nil || !learnable(current, peek self.ignoredNames)) { return }
+    self.learn(current)
+    if (!(peek self.confirming)) { self.picked = self.nextAfter(current.index) }
   }
 
   // A double press on a service: it stays picked, and is learned.
@@ -900,7 +930,10 @@ public class TrainerPage {
   onConfirmed(mut self) {
     self.confirming = false
     const current = peek self.current
-    if (current != nil && learnable(current, peek self.ignoredNames)) { Client.BuyTrainerService(current.index) }
+    if (current != nil && learnable(current, peek self.ignoredNames)) {
+      Client.BuyTrainerService(current.index)
+      self.picked = self.nextAfter(current.index)
+    }
   }
 
   onConfirmCancel(mut self) { self.confirming = false }

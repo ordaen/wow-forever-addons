@@ -1170,6 +1170,33 @@ test "Learn buys the picked service where it can be learned and paid for, and is
   Test.expect(bought.length == 1)
 }
 
+// Three services that can be learned now around one that can't yet, each said by its description.
+function described(): Array<Game.TrainerService> {
+  return [
+    { index: 1, name: "A", rank: "", icon: nil, status: Game.ServiceStatus.Available, level: 1, cost: 100, description: "About A" },
+    { index: 2, name: "B", rank: "", icon: nil, status: Game.ServiceStatus.Unavailable, level: 30, cost: 100, description: "About B" },
+    { index: 3, name: "C", rank: "", icon: nil, status: Game.ServiceStatus.Available, level: 1, cost: 100, description: "About C" },
+    { index: 4, name: "D", rank: "", icon: nil, status: Game.ServiceStatus.Available, level: 1, cost: 100, description: "About D" }
+  ]
+}
+
+test "Learn goes on to the next service that can be learned now, past one that can't, and from the top past the end" {
+  Test.mount(nil, PAGE)
+  Game.trainer.services = described
+  Game.money.amount = 1000
+  const bought: Array<Integer> = []
+  Client.BuyTrainerService = (index: Integer): nil => bought.push(index)
+  Game.trainer.open = true
+  Game.trainer.changed.emit()
+  const window = Test.page().window(TRAINER)
+  window.button("A").click()
+  window.button("Learn").click()
+  Test.expect(bought[1] == 1 && window.text("About C").shown() && !window.text("About A").shown())
+  window.button("D").click()
+  window.button("Learn").click()
+  Test.expect(bought[2] == 4 && window.text("About A").shown())
+}
+
 // Four services that can be learned now (one starting a profession), and one that can't yet.
 function batch(): Array<Game.TrainerService> {
   return [
