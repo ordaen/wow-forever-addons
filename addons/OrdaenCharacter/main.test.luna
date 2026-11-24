@@ -327,6 +327,19 @@ test "right-click on a slot uses what is worn there, the client's own doing, and
   Test.expect(Test.performed().join(", ") == "item 1")
 }
 
+test "while a spell waits for its target (an armour kit), left-click applies it to the worn item, the client's secure doing" {
+  Test.mount(nil, PAGE)
+  const sheet = new FakeSheet()
+  Game.items.icon = icons
+  const window = opened(mut sheet)
+  Game.player.targeting = true
+  Test.flush()
+  window.button(HELM_ICON).click()
+  Test.expect(sheet.heard.length == 0)
+  Test.expect(Test.performed().join(", ") == "item 1")
+  Game.player.targeting = false
+}
+
 test "a slot under the cursor shows the tooltip of the slot, never the item's (which the game compares with itself)" {
   Test.mount(nil, PAGE)
   Game.items.icon = icons

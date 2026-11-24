@@ -56,7 +56,8 @@ public function wearColor(left: Number): Color { return left < WORN_OUT ? Style.
 // A slot of the paper doll, as the game's own slot takes the mouse: Left-click and a drag pick up what is worn and let
 // go there what the cursor holds, Ctrl+Left-click tries it on, Alt+Left-click opens what the bags hold for the slot
 // (the game's flyout), Shift+Left-click links it (the library's slot), and the right button uses it, the client's own
-// doing. Lit while the cursor holds what goes in it; dimmed while it is picked up or on its way; its cooldown's run
+// doing. While a spell waits for its target (an armour kit, a sharpening stone) the left click applies it to the
+// worn item, the client's own secure doing too, as `/use 16` does. Lit while the cursor holds what goes in it; dimmed while it is picked up or on its way; its cooldown's run
 // over its icon; the ammo's count on its own. Another player's slot (not `own`) is only shown: its tooltip the
 // item's, compared with what the player wears, and no click uses or picks up anything.
 public class GearSlot implements Component {
@@ -68,7 +69,8 @@ public class GearSlot implements Component {
   derived empty: Art | nil = self.worn.item == nil ? self.spec.empty : nil
   derived wearShown: Boolean = self.wear && self.worn.durability != nil
   derived wearFill: BarFill = self.fillOf()
-  derived use: Action | nil = self.own && self.worn.item != nil ? Action.UseWornItem { slot: self.spec.id } : nil
+  derived use: Action | nil = self.own && self.worn.item != nil ?
+    Action.UseWornItem { slot: self.spec.id, chord: Game.player.targeting ? MouseButton.Left : MouseButton.Right } : nil
   derived wornSlot: Integer | nil = self.own ? self.spec.id : nil
   derived cooling: Boolean = self.worn.cooldown != nil
   derived coolFill: BarFill = { duration: self.worn.cooldown, color: COOLING, from: FillFrom.Top }
@@ -106,6 +108,8 @@ public class GearSlot implements Component {
       if (Game.input.controlDown()) { self.tried.emit(peek self.spec.id) }
       return
     }
+    // The client applied the waiting spell to the item, on the secure click.
+    if (peek Game.player.targeting) { return }
     const slot = peek self.spec.id
     if (Game.input.controlDown()) {
       self.tried.emit(slot)
