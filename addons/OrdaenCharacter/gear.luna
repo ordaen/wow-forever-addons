@@ -5,18 +5,18 @@
 // the bars, another slot) and lets go there what the cursor holds, as the game's own slot does. The game's sets stand
 // over the three columns.
 import Game from "$game"
-import { Action, Align, Art, BarFill, Beside, Edges, Event, FillFrom, Line, MouseButton, Overflow, Position, TextFont, Track } from "$ltml"
+import { Action, Align, Art, BarFill, Edges, Event, FillFrom, Line, MouseButton, Overflow, Position, TextFont, Track } from "$ltml"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
 import { ButtonPlate, Component, Cut, ItemButton, PushButton, RULE_WIDTH, SECONDARY_TEXT, SHORT_CUT, ShortCut, SlotWell, TITLE_TEXT, Tabs, Tip, TipText, WINDOW_ROOM, classColor } from "Ordaen"
 import { Active } from "OrdaenAuras"
 import { ItemLevel } from "@/itemLevel"
 import Locale from "@/locales"
-import { Choices, slotSizeOf, statTipPlace } from "@/settings"
+import { Choices, slotSizeOf } from "@/settings"
 import { AMMO, GearSet, LEFT, RELIC_WEAPONS, RIGHT, Resource, Skill, SlotSpec, Stats, WEAPONS, Who, Worn } from "@/sheet"
 import { Boost, Breakdown, NO_BREAKDOWN, boostsOf, breakdownOf, wordsOf } from "@/sources"
 import { Stat } from "@/stat"
-import { Main, MainStat, PoolBar, Resist, ResistBar, Row, Section, SectionView, StatRow, Tipped, defenceOf, energyRegenRows, healthRegenRows, mainsOf, powerRegenRows, resistsOf, sectionsOf, speedsOf } from "@/stats"
+import { Main, MainStat, PoolBar, Resist, ResistBar, Row, Section, SectionView, StatRow, TIP_LEFT, defenceOf, energyRegenRows, healthRegenRows, mainsOf, powerRegenRows, resistsOf, sectionsOf, speedsOf } from "@/stats"
 import Style from "@/style"
 
 // Durability under a quarter is red, as the game's armour figure turns it.
@@ -336,14 +336,9 @@ public class GearPage implements Component {
   derived energyRegen: Array<Row> = energyRegenRows(self.stats)
   // Mana's sources; rage and energy have none of a stat's.
   derived powerStat: Stat | nil = self.stats.resource == Resource.Mana ? .Power : nil
-  // The stat under the cursor (none while none is), what its tooltip says and what lights with it. The tooltip stands
-  // beside the page where the player chose, so it covers none of what it lights; shut while the stat's view shows a
-  // tooltip of its own.
-  state tipped: Tipped | nil = nil
+  // The stat whose tooltip is open (none while none is), what it says and what lights with it.
+  state tipped: Stat | nil = nil
   derived shown: Breakdown = self.shownOf()
-  derived tipOpen: Boolean = self.tipped != nil && !(self.tipped?.quiet ?? false)
-  derived tipTitle: String = self.tipped?.title ?? ""
-  derived tipPlace: Beside = statTipPlace(self.choices)
   // The stats the auras on the character raise or lower: their values green or red.
   derived boosts: Map<String, Boost> = boostsOf({
     stats: self.stats, worn: self.worn, auras: self.auras, classTag: self.tag
@@ -399,7 +394,7 @@ public class GearPage implements Component {
   }
 
   shownOf(self): Breakdown {
-    const stat = self.tipped?.stat
+    const stat = self.tipped
     if (stat == nil) { return NO_BREAKDOWN }
     return breakdownOf(stat, wordsOf(stat, self.stats), {
       stats: self.stats, worn: self.worn, auras: self.auras, classTag: self.tag
@@ -409,7 +404,7 @@ public class GearPage implements Component {
   // What the slot's item gives the stat whose tooltip is open; empty while it gives none.
   shareOf(self, slot: Integer): String { return self.shown.shares[slot] ?? "" }
 
-  onTipped(mut self, tip: Tipped | nil) { self.tipped = tip }
+  onTipped(mut self, stat: Stat | nil) { self.tipped = stat }
 
   wornOf(self, slot: Integer): Worn {
     return self.worn.find(piece => piece.slot == slot) ?? NOTHING
@@ -438,18 +433,20 @@ public class GearPage implements Component {
               </box>
               <box gap={2.5sp}>
                 <PoolBar amount={self.health} color={Style.HEALTH} regen={self.healthRegen} stat={Stat.Health} shown={self.shown}
-                         boosts={self.boosts} @tipped={self.onTipped} />
+                         boosts={self.boosts} tip={TIP_LEFT} @tipped={self.onTipped} />
                 <PoolBar amount={self.power} color={self.powerTint} regen={self.powerRegen} filled={self.powerFilled}
-                         stat={self.powerStat} shown={self.shown} boosts={self.boosts} @tipped={self.onTipped} />
-                <PoolBar $if={self.energyShown} amount={self.energy} color={Style.ENERGY} regen={self.energyRegen} />
+                         stat={self.powerStat} shown={self.shown} boosts={self.boosts} tip={TIP_LEFT} @tipped={self.onTipped} />
+                <PoolBar $if={self.energyShown} amount={self.energy} color={Style.ENERGY} regen={self.energyRegen}
+                         tip={TIP_LEFT} />
               </box>
             </box>
-            <SectionView section={self.defence} shown={self.shown} boosts={self.boosts} @tipped={self.onTipped}>
-              <ResistBar $if={self.resisted} resists={self.resists} shown={self.shown} @tipped={self.onTipped} />
+            <SectionView section={self.defence} shown={self.shown} boosts={self.boosts} tip={TIP_LEFT} @tipped={self.onTipped}>
+              <ResistBar $if={self.resisted} resists={self.resists} shown={self.shown} tip={TIP_LEFT} @tipped={self.onTipped} />
             </SectionView>
             <Cut />
             <box gap={0.5sp} padding={Style.SECTION_PAD}>
-              <StatRow $for={row of self.speeds} row={row} shown={self.shown} boosts={self.boosts} @tipped={self.onTipped} />
+              <StatRow $for={row of self.speeds} row={row} shown={self.shown} boosts={self.boosts} tip={TIP_LEFT}
+                       @tipped={self.onTipped} />
             </box>
           </box>
           <box rows={[{ fr: 1 }]} border={Style.DOLL_SIDES}>
@@ -502,8 +499,6 @@ public class GearPage implements Component {
             </box>
           </box>
         </box>
-        <Tip $if={self.tipOpen} title={self.tipTitle} text={self.shown.text} rows={self.shown.rows}
-             sections={self.shown.sections} place={self.tipPlace} />
       </box>
     }
   }

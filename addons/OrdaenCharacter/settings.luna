@@ -3,7 +3,6 @@
 // nothing: the tab shows ours.
 import Client from "$client"
 import Game from "$game"
-import { Beside, Hang, Point } from "$ltml"
 import { Checkbox, Choice, Component, Dropdown, ModuleMemory, Resting, Segmented, SettingRow, Settings, SpecWeights, defaultBuildOf, specsOf } from "Ordaen"
 import Locale from "@/locales"
 import Style from "@/style"
@@ -36,47 +35,11 @@ public function slotSizeOf(size: SlotSize): Number<Length> {
   }
 }
 
-// The corners a stat's tooltip and the page meet at.
-const CORNERS: Array<Choice<Point>> = [
-  { value: Point.TopLeft, label: Locale.CORNER_TOP_LEFT },
-  { value: Point.TopRight, label: Locale.CORNER_TOP_RIGHT },
-  { value: Point.BottomLeft, label: Locale.CORNER_BOTTOM_LEFT },
-  { value: Point.BottomRight, label: Locale.CORNER_BOTTOM_RIGHT }
-]
-
-// A point seen in a mirror: left for right.
-function mirrored(point: Point): Point {
-  return match (point) {
-    .TopLeft => .TopRight
-    .TopRight => .TopLeft
-    .Left => .Right
-    .Right => .Left
-    .BottomLeft => .BottomRight
-    .BottomRight => .BottomLeft
-    .Top => .Top
-    .Center => .Center
-    .Bottom => .Bottom
-  }
-}
-
-// Where a stat's tooltip stands, written in the page's box: its corner the player chose on the page's; where the
-// screen has no room for that, both mirrored, on the page's other side; where it has none on either side (a window as
-// wide as the screen nearly), inside the page in the chosen corner.
-public function statTipPlace(choices: Choices): Beside {
-  const hang: Hang = { point: choices.tipCorner, to: choices.pageCorner }
-  const other: Hang = { point: mirrored(choices.tipCorner), to: mirrored(choices.pageCorner) }
-  const inside: Hang = { point: mirrored(choices.tipCorner), to: choices.pageCorner }
-  return { beside: "parent", prefer: [hang, other, inside] }
-}
-
 // What the player chooses.
 public struct Choices implements Plain {
   // A thin bar under each slot shows its item's durability.
   durability: Boolean
   slotSize: SlotSize = SlotSize.Sharpest
-  // A stat's tooltip stands beside the page, its `tipCorner` on the page's `pageCorner`: clear of what it lights.
-  tipCorner: Point = Point.TopLeft
-  pageCorner: Point = Point.TopRight
   // The names of the spec tabs; empty for ours.
   specOne: String = ""
   specTwo: String = ""
@@ -150,10 +113,6 @@ public class GeneralPage implements Component {
       <SettingRow label={Locale.SETTING_SLOT_SIZE} hint={Locale.SETTING_SLOT_SIZE_TIP}>
         <Segmented value={mut self.settings.values.slotSize} choices={SLOT_SIZES} />
       </SettingRow>
-      <Dropdown label={Locale.SETTING_TIP_CORNER} hint={Locale.SETTING_TIP_PLACE_TIP}
-                value={mut self.settings.values.tipCorner} choices={CORNERS} />
-      <Dropdown label={Locale.SETTING_PAGE_CORNER} hint={Locale.SETTING_TIP_PLACE_TIP}
-                value={mut self.settings.values.pageCorner} choices={CORNERS} />
       <Dropdown label={self.classLabel} hint={Locale.SETTING_CLASS_BUILD_TIP} value={mut self.classBuild}
                 choices={self.builds} />
       <Dropdown label={Locale.SETTING_PRIMARY_BUILD} hint={Locale.SETTING_PICKED_BUILD_TIP}
