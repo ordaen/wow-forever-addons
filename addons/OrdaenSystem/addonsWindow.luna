@@ -9,7 +9,7 @@ import Game from "$game"
 import { Action, Align, Edges, Track } from "$ltml"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
-import { ARTWORK, ButtonPlate, Choice, Component, Dialog, FooterBand, KeptWindow, Menu, MenuEntry, ModuleMemory, Placing, PushButton, SECONDARY_TEXT, ScrolledList, SmallTabs, TextField, Tip, TipRow, TipText, ToolPick, Toolbar, WINDOW_ROOM, Window, WindowSide, WindowTabSpec } from "Ordaen"
+import { ARTWORK, ButtonPlate, Choice, Component, Dialog, FooterBand, KeptWindow, Menu, MenuEntry, ModuleMemory, Placing, PushButton, SECONDARY_TEXT, ScrolledList, Tabs, TextField, Tip, TipRow, TipText, ToolPick, Toolbar, WINDOW_ROOM, Window, WindowSide, WindowTabSpec } from "Ordaen"
 import { Card } from "@/card"
 import { AddOn, Catalog, Status, plain } from "@/catalog"
 import { Age, FilterPick, Heat, Loading, Standing, Written } from "@/filter"
@@ -639,7 +639,7 @@ public class AddOnsWindow implements Component {
       <Window tabs={self.tabs} selected={mut self.tab} declared={mut self.declared} shown={self.shown}
               footer={self.footer} side={self.side} @close={self.onClose}>
         <box $if={self.onOptions} rows={OPTIONS_ROWS} gap={3sp}>
-          <SmallTabs tabs={self.sections} selected={mut self.section} />
+          <Tabs tabs={self.sections} selected={mut self.section} />
           <KeysPage $if={self.onKeys} bindings={mut self.bindings} fighting={self.fighting} />
           <SettingsTab $else settings={mut self.settings} group={self.group} @blizzard={self.onBlizzard} />
         </box>
