@@ -30,6 +30,8 @@ public enum Kind {
   Penetration
   AttackSpeed
   RangedSpeed
+  AttackRangedSpeed
+  CastSpeed
   Haste
   RunSpeed
 }
@@ -62,6 +64,8 @@ const KIND_OF: Map<String, Kind> = {
   ["penetration"]: .Penetration,
   ["attackSpeed"]: .AttackSpeed,
   ["rangedSpeed"]: .RangedSpeed,
+  ["attackRangedSpeed"]: .AttackRangedSpeed,
+  ["castSpeed"]: .CastSpeed,
   ["haste"]: .Haste,
   ["runSpeed"]: .RunSpeed
 }
