@@ -139,5 +139,18 @@
   "WINDOW_GUILD": "Guild",
   "WINDOW_GROUP_FINDER": "Group finder",
   "WINDOW_CALENDAR": "Calendar",
-  "WINDOW_BAGS": "Bags"
+  "WINDOW_BAGS": "Bags",
+  "EMOTE_CLAP": "Clap",
+  "EMOTE_INCOMING": "Incoming",
+  "EMOTE_MASSAGE": "Massage",
+  "EMOTE_SEXY": "Sexy",
+  "EMOTE_SMACK": "Smack",
+  "EMOTE_SNAP": "Snap",
+  "EMOTE_SNEAK": "Sneak",
+  "EMOTE_SNEEZE": "Sneeze",
+  "EMOTE_SNORT": "Snort",
+  "EMOTE_SQUEAL": "Squeal",
+  "EMOTE_SUSPICIOUS": "Suspicious",
+  "EMOTE_SWEAT": "Sweat",
+  "EMOTE_VETO": "Veto"
 }

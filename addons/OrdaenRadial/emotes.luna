@@ -94,9 +94,32 @@ function text(name: String): String | nil {
   return value is String ? value : nil
 }
 
-// What the wheel names each emote by, by its token: its first command; where an emote of a lower number has the same
-// first command (`/привет` is «hello» and «greet»: the client takes it for the lower), the first of its own that is no
-// emote's first.
+// The emotes a client in another language than English gives no command in its own: named by our words, with no
+// slash (no command says them).
+const UNNAMED: Map<String, String> = {
+  CLAP: Locale.EMOTE_CLAP, INCOMING: Locale.EMOTE_INCOMING, MASSAGE: Locale.EMOTE_MASSAGE, SEXY: Locale.EMOTE_SEXY,
+  SMACK: Locale.EMOTE_SMACK, SNAP: Locale.EMOTE_SNAP, SNEAK: Locale.EMOTE_SNEAK, SNEEZE: Locale.EMOTE_SNEEZE,
+  SNORT: Locale.EMOTE_SNORT, SQUEAL: Locale.EMOTE_SQUEAL, SUSPICIOUS: Locale.EMOTE_SUSPICIOUS, SWEAT: Locale.EMOTE_SWEAT,
+  VETO: Locale.EMOTE_VETO
+}
+
+// Whether a command is in the client's own letters, not English ones (`/смех`, not `/laugh`).
+function native(command: String): Boolean {
+  const at, _ = command.find("[\128-\255]")
+  return at != nil
+}
+
+// What the wheel names an emote by, of its commands: none another emote of a lower number has first (the client takes
+// that for the lower: `/привет` is «greet», not «hello»); of those, in a client in English the first, in any other the
+// first in its own letters, or our name where it has none.
+function nameOf(token: String, own: Array<String>, owners: Map<String, String>, english: Boolean): String {
+  const free = own.filter(command => owners[command] == nil || owners[command] == token)
+  const first = free[1] ?? own[1] ?? token
+  if (english) { return first }
+  return free.find(command => native(command)) ?? UNNAMED[token] ?? first
+}
+
+// What the wheel names each emote by, by its token (`nameOf`).
 public function emoteNames(): Map<String, String> {
   const commands: Map<String, Array<String>> = {}
   // Each first command's emote: the lowest number's.
@@ -117,10 +140,8 @@ public function emoteNames(): Map<String, String> {
       }
     }
   }
+  const english = Client.GetLocale() == "enUS" || Client.GetLocale() == "enGB"
   const names: Map<String, String> = {}
-  for (token, own of commands) {
-    const first = own[1] ?? token
-    names[token] = owners[first] == token ? first : own.find(command => owners[command] == nil) ?? first
-  }
+  for (token, own of commands) { names[token] = nameOf(token, own, owners, english) }
   return names
 }

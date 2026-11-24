@@ -139,5 +139,18 @@
   "WINDOW_GUILD": "Гильдия",
   "WINDOW_GROUP_FINDER": "Поиск группы",
   "WINDOW_CALENDAR": "Календарь",
-  "WINDOW_BAGS": "Сумки"
+  "WINDOW_BAGS": "Сумки",
+  "EMOTE_CLAP": "Хлопать",
+  "EMOTE_INCOMING": "Идут!",
+  "EMOTE_MASSAGE": "Массаж",
+  "EMOTE_SEXY": "Соблазнять",
+  "EMOTE_SMACK": "Шлёпнуть",
+  "EMOTE_SNAP": "Щёлкнуть пальцами",
+  "EMOTE_SNEAK": "Красться",
+  "EMOTE_SNEEZE": "Чихнуть",
+  "EMOTE_SNORT": "Хрюкнуть",
+  "EMOTE_SQUEAL": "Визжать",
+  "EMOTE_SUSPICIOUS": "Подозревать",
+  "EMOTE_SWEAT": "Потеть",
+  "EMOTE_VETO": "Вето"
 }
