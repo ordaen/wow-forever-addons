@@ -495,9 +495,9 @@ function outcomesOf(strike: Strike, stats: Stats, boss: Boolean): Array<Outcome>
     outcomes.push({ label: Locale.CRIT, share: crits, color: Style.GREEN })
     return outcomes
   }
-  outcomes.push({ label: Locale.DODGE, share: odds.dodge, color: Style.RED, whole: whole.dodge })
+  outcomes.push({ label: Locale.DODGE, share: odds.dodge, color: Style.AVOIDED, whole: whole.dodge })
   if (strike == .Melee) {
-    outcomes.push({ label: Locale.PARRY, share: odds.parry, color: Style.RED, whole: whole.parry })
+    outcomes.push({ label: Locale.PARRY, share: odds.parry, color: Style.AVOIDED, whole: whole.parry })
     outcomes.push({ label: Locale.GLANCING, share: boss ? stats.bossGlancing : stats.levelGlancing, color: Style.YELLOW })
   }
   let taken: Number = 0

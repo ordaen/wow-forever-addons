@@ -502,6 +502,8 @@ test "what lands of a blow is a card of its own: at the greatest level a boss's,
   // Each name in its bar's colour, each section's bar under it.
   Test.expect(tip.text("Glancing blow").nth(1).textColor().equal(Style.YELLOW) && tip.text("Ordinary hit").nth(1).textColor().equal(Style.ORDINARY))
   Test.expect(tip.box(Style.ORDINARY).count() == 2 && tip.box(Style.YELLOW).count() == 2)
+  // A miss bright red, a dodge and a parry dimmed.
+  Test.expect(tip.text("Miss").nth(1).textColor().equal(Style.RED) && tip.text("Dodge").nth(1).textColor().equal(Style.AVOIDED))
 }
 
 test "below the greatest level a target of the player's level counts; weapon skill moves every chance; a crit fits in what is left" {
