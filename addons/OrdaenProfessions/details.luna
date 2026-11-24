@@ -3,17 +3,19 @@
 // («Not learned» while it isn't), the made item's description. A learned recipe: under the description its make row
 // (`MakeRow`: the mode, the count, «Create») and what became of the last «Create», what the work needs besides
 // reagents (red while missing), the reagents with their prices and totals (one section, untitled), when the prices
-// were updated beside «To the shopping list» while something lacks, its switches. A recipe not learned: «Where to
-// learn» (each place a row, `LearnPlaceRow`, then what learning it asks) and «Prices & costs»: nothing of making it
-// here (its tools, the shopping list, the switches).
+// were updated beside «To the shopping list» while something lacks, its switches. A recipe not learned: two small
+// tabs, «Where to learn» (its places in a table that sorts, `LearnTable`, then what learning it asks) and «Prices &
+// costs», each with its marble footer under the scroll (the first «Show the nearest on the map», the second when the
+// prices were updated and «To the shopping list»): nothing of making it here (its tools, the switches).
 import Game from "$game"
 import { Align, Art, Edges, Line, Overflow, Scrollbar, Side, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { BRIGHT_TEXT, Component, ItemButton, PushButton, SECONDARY_TEXT, Section, TITLE_TEXT, WINDOW_ROOM } from "Ordaen"
+import { BRIGHT_TEXT, Component, FooterCount, ItemButton, ListFooter, PushButton, SECONDARY_TEXT, SmallTabs, TITLE_TEXT, WINDOW_ROOM } from "Ordaen"
 import type { PriceSource } from "OrdaenAuction"
+import root Quests from "OrdaenQuests"
 import { PartPrice, Totals, partsOf, totalsOf, yieldOf } from "@/cost"
 import { Flag } from "@/flag"
-import { LearnPlaceRow } from "@/learnPlaces"
+import { LearnTable } from "@/learnPlaces"
 import Locale from "@/locales"
 import { MakeRow, Queueing } from "@/make"
 import { PriceTable, PricesAge } from "@/priceRows"
@@ -29,8 +31,11 @@ const SWITCHES: Line = { width: 1.171875dp, color: Style.LINE, sides: [Side.Top]
 const DETAILS_ROOM: Edges = { top: 5sp, right: WINDOW_ROOM, bottom: 5sp, left: 5sp }
 const SWITCHES_PAD: Edges = { top: 3sp }
 const FLAGS: Array<Track> = [{ fr: 1 }, { fr: 1 }]
-// The scroll, the panel's whole height.
-const PANEL: Array<Track> = [{ fr: 1 }]
+// The scroll; a recipe not learned, its tab's footer under it.
+const PANEL: Array<Track> = [{ fr: 1 }, "max-content"]
+const UNLEARNED_TABS: Array<String> = [Locale.SECTION_LEARN, Locale.SECTION_PRICES]
+const NO_COUNTS: Array<FooterCount> = []
+const WIDE = 257.8125dp
 // When the prices were updated, «To the shopping list».
 const AGE_SHOP: Array<Track> = [{ fr: 1 }, "max-content"]
 const NO_TOTALS: Totals = {
@@ -54,6 +59,12 @@ public class RecipeDetails implements Component {
   // «Stop» or «Remove from queue», with the recipe.
   public drop: Event<Integer> = new Event()
 
+  // A recipe not learned: its tab, «Where to learn» (1) or «Prices & costs» (2).
+  state unlearnedTab = 1
+  derived learning: Boolean = self.unlearnedTab == 1
+  // A place of it on the map: its vendors.
+  derived npcs: Array<Integer> = self.places.filter(place => place.npc != 0).map(place => place.npc)
+  derived mapped: Boolean = self.npcs.length > 0 && !Game.situation.combat
   derived has: Boolean = self.recipe != nil
   // The recipe shown: where none is chosen nothing is drawn, and this stands for it.
   derived shown: Game.Recipe = self.recipe ?? NOTHING
@@ -148,6 +159,12 @@ public class RecipeDetails implements Component {
   }
 
   onShop(self) { self.shop.emit(self.shown.id, self.pricedCount) }
+
+  // «Show the nearest on the map»: the nearest of its vendors.
+  onNearest(self) { _ = Quests?.showNearest(peek self.npcs) }
+
+  // How far an NPC's nearest spot is, in yards (Ordaen Quests' reading of QuestieDB); none without it.
+  const distance: (npc: Integer) => Number | nil = (npc: Integer): Number | nil => Quests?.distanceTo(npc)
   onOpen(self, place: LearnPlace) { self.open.emit(place) }
 
   // Read again when a price may have moved (`revision`).
@@ -215,10 +232,21 @@ public class RecipeDetails implements Component {
                      @create={self.onCreate} @drop={self.onDrop} />
             <text $if={self.noted} value={self.note} textSize={SECONDARY_TEXT} textColor={NOTE} />
             <text $if={self.learned} value={self.needs} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
-            <Section $else title={Locale.SECTION_LEARN}>
-              <LearnPlaceRow $for={place of self.places} place={place} @open={self.onOpen} />
-              <text $if={self.asked} value={self.asks} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
-            </Section>
+            // A recipe not learned: «Where to learn» and «Prices & costs», a small tab each.
+            <box $else columns={1} gap={3sp}>
+              <SmallTabs tabs={UNLEARNED_TABS} selected={mut self.unlearnedTab} />
+              <$if={self.learning}>
+                <LearnTable places={self.places} distance={self.distance} @open={self.onOpen} />
+                <text $if={self.asked} value={self.asks} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
+              </>
+              <$elseif={self.unlearnedPriced}>
+                <PriceTable parts={self.parts} auction={self.auctionSide} merchant={self.merchantSide} totals={self.totals} />
+                <text $if={self.noPrices} value={self.noPricesText} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
+              </>
+              <box $else>
+                <ReagentRow $for={index, reagent of self.reagents} reagent={reagent} index={index} />
+              </box>
+            </box>
             <box $if={self.learnedPriced} gap={3sp}>
               <PriceTable parts={self.parts} auction={self.auctionSide} merchant={self.merchantSide} totals={self.totals} />
               <text $if={self.noPrices} value={self.noPricesText} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
@@ -227,12 +255,7 @@ public class RecipeDetails implements Component {
                 <PushButton $if={self.lacking} label={Locale.TO_SHOPPING} width={210.9375dp} @click={self.onShop} />
               </box>
             </box>
-            <Section $elseif={self.unlearnedPriced} title={Locale.SECTION_PRICES}>
-              <PriceTable parts={self.parts} auction={self.auctionSide} merchant={self.merchantSide} totals={self.totals} />
-              <text $if={self.noPrices} value={self.noPricesText} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
-              <PricesAge totals={self.totals} />
-            </Section>
-            <box $else>
+            <box $elseif={self.learned}>
               <ReagentRow $for={index, reagent of self.reagents} reagent={reagent} index={index} />
             </box>
             <box $if={self.learned} columns={FLAGS} gap={6sp} padding={SWITCHES_PAD} border={SWITCHES}>
@@ -240,6 +263,14 @@ public class RecipeDetails implements Component {
               <Flag label={Locale.TRACK} on={self.tracked} @flipped={self.onTrack} />
             </box>
           </box>
+          // A recipe not learned: each tab's marble footer.
+          <ListFooter $if={self.learning && !self.learned} counts={NO_COUNTS}>
+            <PushButton label={Locale.SHOW_NEAREST} width={WIDE} disabled={!self.mapped} @click={self.onNearest} />
+          </ListFooter>
+          <ListFooter $elseif={!self.learned} counts={NO_COUNTS}>
+            <PricesAge totals={self.totals} />
+            <PushButton $if={self.lacking && self.priced} label={Locale.TO_SHOPPING} width={WIDE} @click={self.onShop} />
+          </ListFooter>
         </>
       </box>
     }

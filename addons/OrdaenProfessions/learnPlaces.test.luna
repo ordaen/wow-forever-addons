@@ -1,0 +1,44 @@
+// «Where to learn»'s table: each place a row, nearest first, one with no distance known last; its headings sort it.
+import Test from "$test"
+import { LearnTable } from "@/learnPlaces"
+import { LearnPlace } from "@/sources"
+
+function places(): Array<LearnPlace> {
+  return [
+    { way: "Vendor", name: "Alys Vol'tyr", zone: "Undercity", cost: 0, quest: 0, npc: 1 },
+    { way: "Vendor", name: "Borya", zone: "Booty Bay", cost: 0, quest: 0, npc: 2 },
+    { way: "Trainer", name: "Profession trainer, from skill 40", zone: "", cost: 500, quest: 0, npc: 0 }
+  ]
+}
+
+// Borya is 120 yards away, Alys 3400; the trainer has no spot.
+function yards(npc: Integer): Number | nil { return npc == 2 ? 120 : npc == 1 ? 3400.6 : nil }
+
+class Page {
+  public opened = ""
+  onOpen(mut self, place: LearnPlace) { self.opened = place.name }
+  public render(self): Template {
+    return $ltml { <LearnTable places={places()} distance={yards} @open={self.onOpen} /> }
+  }
+}
+
+function names(): String {
+  return Test.page().texts().filter(text => text == "Alys Vol'tyr" || text == "Borya" || text.contains("trainer")).join(", ")
+}
+
+test "the places nearest first, one with no distance last; the name and the price sort, a click opens a vendor" {
+  let page = new Page()
+  Test.mount(page, { left: 0, top: 0, width: 700, height: 400 })
+  Test.expect(names() == "Borya, Alys Vol'tyr, Profession trainer, from skill 40")
+  Test.expect(Test.page().text("Borya").item().texts().join(" | ") == "Borya | Booty Bay | Vendor | 120 yd | —")
+  Test.page().button("Name").click()
+  Test.expect(names() == "Alys Vol'tyr, Borya, Profession trainer, from skill 40")
+  Test.page().button("Cost").click()
+  Test.page().button("Cost").click()
+  // The dearest first: the trainer's price before the vendors' none.
+  Test.expect(names() == "Profession trainer, from skill 40, Borya, Alys Vol'tyr")
+  Test.page().text("Borya").click()
+  Test.expect(page.opened == "Borya")
+  destroy page
+  Test.expect(Test.blank())
+}

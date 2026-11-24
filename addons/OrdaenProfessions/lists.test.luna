@@ -756,7 +756,7 @@ test "the card of a recipe not learned says so in red, and has nothing of making
   Test.expect(!window().text("|cffff4040Needs: Loom|r").shown())
 }
 
-test "the card of a recipe not learned says where to learn it, a row a place, the trainer's price at its right" {
+test "the card of a recipe not learned has two tabs: where to learn it, a table row a place, and its prices, each with its footer" {
   Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
   Game.professions.list = professions()
   Game.tradeSkill.categories = categories()
@@ -765,8 +765,15 @@ test "the card of a recipe not learned says where to learn it, a row a place, th
   Test.mount(nil, SCREEN)
   Game.tradeSkill.open = TAILORING
   window().button("Not learned").click()
-  Test.expect(window().text("Where to learn").shown() && window().text("Trainer").shown())
-  Test.expect(window().text("Trainer").item().texts()[2]?.contains("Profession trainer, from skill") == true)
+  // «Where to learn» first: its table, the trainer's row (the place, its way, no distance known, its price), and in
+  // its footer the map's button, off with no vendor to show.
+  Test.expect(window().button("Where to learn").shown() && window().button("Name").shown() && window().button("Distance").shown())
+  const row = window().text("Trainer").item().texts()
+  Test.expect(row[1]?.contains("Profession trainer, from skill") == true && row[2] == "Trainer" && row[3] == "—")
+  Test.expect(window().button("Show the nearest on the map").shown())
+  // «Prices & costs»: the prices' footer in its place.
+  window().button("Prices & costs").click()
+  Test.expect(!window().text("Trainer").shown() && !window().button("Show the nearest on the map").shown())
 }
 
 test "a recipe grey for the skill says it doesn't raise it" {

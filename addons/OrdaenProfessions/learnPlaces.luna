@@ -1,42 +1,133 @@
-// A place a recipe not learned is learned at, a row of its card's «Where to learn» (`LearnPlace`): how (dim), whom or
-// what, as a link where a click opens something (a quest's page, a vendor on the map; greyed in a fight, where the
-// client opens no map for an addon), the zone under it, the trainer's price at its right.
+// The places a recipe not learned is learned at, its card's «Where to learn» (`LearnPlace`): a table on the wood
+// whose headings sort it (the name, the way, how far, the price): each place's name a link where a click opens
+// something (a quest's page, a vendor on the map; greyed in a fight, where the client opens no map for an addon), its
+// zone under it; how it is learned; how far its nearest spot is, on the player's continent; the trainer's price. Past
+// a few rows it scrolls, its scrollbar on hover.
 import Game from "$game"
 import { Align, Track } from "$ltml"
-import { Component, Money, SECONDARY_TEXT } from "Ordaen"
+import { Column, Component, Ground, Money, SECONDARY_TEXT, Table, TableCell, TableRow, tracksOf } from "Ordaen"
+import Locale from "@/locales"
 import { LearnPlace } from "@/sources"
 import Style from "@/style"
 
 const LINK: Color = Color.hex("#d6b878")
-const ROW: Array<Track> = [{ fr: 1 }, "max-content"]
+const NONE = "—"
+const COLUMNS: Array<Column> = [
+  { title: Locale.COLUMN_NAME, width: { fr: 1 }, sortable: true },
+  { title: Locale.COLUMN_WAY, width: 93.75dp, sortable: true },
+  { title: Locale.COLUMN_DISTANCE, width: 117.1875dp, align: Align.End, sortable: true },
+  { title: Locale.COLUMN_PRICE, width: 105.46875dp, align: Align.End, sortable: true }
+]
+const TRACKS: Array<Track> = tracksOf(COLUMNS)
+const BY_WAY = 2
+const BY_DISTANCE = 3
+const BY_PRICE = 4
+// More rows than this scroll, the table this high.
+const MOST_ROWS = 5
+const MOST_HEIGHT = 257.8125dp
 
-public class LearnPlaceRow implements Component {
-  // The row clicked, where it opens something.
+// A place with how far it is, as the table lists it.
+public struct Placed {
+  place: LearnPlace
+  // In yards; none where no spot of it is known on the player's continent.
+  yards: Number | nil
+}
+
+// Whether `a` stands before `b` by a column, a place with no distance after every one with one, either way; then by
+// name. Never a place before itself.
+function placedBefore(column: Integer, descending: Boolean, a: Placed, b: Placed): Boolean {
+  if (column == BY_DISTANCE && a.yards != b.yards) {
+    const x = a.yards
+    const y = b.yards
+    if (x == nil || y == nil) { return x != nil }
+    return (x < y) != descending
+  }
+  if (column == BY_WAY && a.place.way != b.place.way) { return (a.place.way < b.place.way) != descending }
+  if (column == BY_PRICE && a.place.cost != b.place.cost) { return (a.place.cost < b.place.cost) != descending }
+  if (a.place.name == b.place.name) { return false }
+  return (a.place.name < b.place.name) != descending
+}
+
+// How far a place is, as the table says it.
+function yardsText(yards: Number | nil): String {
+  if (yards == nil) { return NONE }
+  return Locale.YARDS.format(yards.floor())
+}
+
+class LearnPlaceRow implements Component {
   public open: Event<LearnPlace> = new Event()
 
-  derived opens: Boolean = self.place.quest != 0 || (self.place.npc != 0 && !Game.situation.combat)
+  derived opens: Boolean = self.placed.place.quest != 0 || (self.placed.place.npc != 0 && !Game.situation.combat)
   derived nameColor: Color = self.opens ? LINK : Style.INK
-  derived hasZone: Boolean = self.place.zone != ""
-  derived priced: Boolean = self.place.cost > 0
+  derived hasZone: Boolean = self.placed.place.zone != ""
+  derived priced: Boolean = self.placed.place.cost > 0
+  derived far: String = yardsText(self.placed.yards)
 
-  place: Signal<LearnPlace>
-  constructor(place: Signal<LearnPlace>) { self.place = place }
+  placed: Signal<Placed>
+  constructor(placed: Signal<Placed>) { self.placed = placed }
 
-  onClick(mut self) {
-    if (self.opens) { self.open.emit(self.place) }
+  onPick(mut self) {
+    if (self.opens) { self.open.emit(self.placed.place) }
   }
 
   public render(self): Template {
     return $ltml {
-      <box columns={ROW} gap={3sp} yAlign={Align.Center} @pointerPress={self.onClick}>
+      <TableRow tracks={TRACKS} ground={Ground.Wood} @pick={self.onPick}>
         <box gap={0.5sp}>
-          <text value={self.place.way} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
-          <text value={self.place.name} textColor={self.nameColor} />
-          <text $if={self.hasZone} value={self.place.zone} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
+          <text value={self.placed.place.name} textColor={self.nameColor} wrap={.Cut} />
+          <text $if={self.hasZone} value={self.placed.place.zone} textSize={SECONDARY_TEXT} textColor={Style.DIM} wrap={.Cut} />
         </box>
-        <Money $if={self.priced} amount={self.place.cost} />
-        <box $else />
-      </box>
+        <text value={self.placed.place.way} textColor={Style.DIM} wrap={.Cut} />
+        <TableCell align={Align.End}>
+          <text value={self.far} textColor={Style.DIM} wrap={.None} textFont={.Numbers} />
+        </TableCell>
+        <TableCell align={Align.End}>
+          <Money $if={self.priced} amount={self.placed.place.cost} />
+          <text $else value={NONE} textColor={Style.DIM} />
+        </TableCell>
+      </TableRow>
+    }
+  }
+}
+
+public class LearnTable implements Component {
+  // A place clicked, where it opens something.
+  public open: Event<LearnPlace> = new Event()
+  state sorted = BY_DISTANCE
+  state descending = false
+  derived placed: Array<Placed> = self.placedOf()
+  derived height: Number<Length> | nil = self.places.length > MOST_ROWS ? MOST_HEIGHT : nil
+
+  places: Signal<Array<LearnPlace>>
+  const distance: (npc: Integer) => Number | nil
+  constructor(
+    places: Signal<Array<LearnPlace>>,
+    // How far an NPC's nearest spot is, in yards; none where none is known.
+    distance: (npc: Integer) => Number | nil
+  ) {
+    self.places = places
+    self.distance = distance
+  }
+
+  placedOf(self): Array<Placed> {
+    const list: Array<Placed> = []
+    for (place of self.places) {
+      list.push({ place: place, yards: place.npc == 0 ? nil : self.distance(place.npc) })
+    }
+    const column = self.sorted
+    const descending = self.descending
+    list.sort((a, b) => placedBefore(column, descending, a, b))
+    return list
+  }
+
+  onOpen(mut self, place: LearnPlace) { self.open.emit(place) }
+
+  public render(self): Template {
+    return $ltml {
+      <Table columns={COLUMNS} sorted={mut self.sorted} descending={mut self.descending} height={self.height}
+             rowsVary={true} ground={Ground.Wood}>
+        <LearnPlaceRow $for={one of self.placed} placed={one} @open={self.onOpen} />
+      </Table>
     }
   }
 }
