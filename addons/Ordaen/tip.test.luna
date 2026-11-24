@@ -84,6 +84,38 @@ class Effects implements Component {
   }
 }
 
+const RED: Color = Color.hex("#bf3f3f")
+
+// A box whose Tip has a section with a bar of shares: three parts red, one green.
+class Shares implements Component {
+  state hovered = false
+
+  onEnter(mut self) { self.hovered = true }
+  onLeave(mut self) { self.hovered = false }
+
+  public render(self): Template {
+    return $ltml {
+      <box height={40ui} @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
+        <text value={"Attacks"} />
+        <Tip $if={self.hovered} title={"Attacks"} text={""}
+             sections={[{ title: "Bosses", rows: [{ label: "Miss", value: "75%" }], shares: [{ share: 75, color: RED }, { share: 25, color: GREEN }] }]} />
+      </box>
+    }
+  }
+}
+
+test "a section's shares are a bar under its rows, each as wide as its part of their sum" {
+  const page = new Shares()
+  Test.mount(page, { left: 0, top: 0, width: 300, height: 200 })
+  Test.moveTo(Test.holding("Attacks", nil))
+  Test.pass(0.1)
+  const red = Test.page().box(RED).rect()
+  const green = Test.page().box(GREEN).rect()
+  Test.expect(red.top > Test.page().text("Miss").rect().bottom)
+  Test.expect(green.left >= red.right - 0.5 && ((red.right - red.left) - 3 * (green.right - green.left)).abs() < 1)
+  destroy page
+}
+
 test "a row's value is drawn in its own colour where it has one, else in the names'" {
   const page = new Effects()
   Test.mount(page, { left: 0, top: 0, width: 300, height: 200 })

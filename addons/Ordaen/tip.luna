@@ -26,6 +26,8 @@ const ROW: Array<Track> = [{ fr: 1 }, "max-content"]
 const MARKED: Array<Track> = ["max-content", "max-content", "max-content"]
 // A row's picture: as high as its line.
 const ICON = 16dp
+// A section's bar of shares: thin, under its rows.
+const SHARES_HEIGHT = 8dp
 
 // A word after a row's label in a colour of its own: a standing's name in its standing's colour. Without its text, the
 // label stands alone.
@@ -49,10 +51,38 @@ public struct TipRow {
   const valueTone: Color | nil = nil
 }
 
-// A titled group of a Tip's rows, under its text and its own rows: a stat's sources, «Items», «Effects».
+// A part of a whole a section's bar shows: its share of the whole and its colour.
+public struct TipSlice {
+  const share: Number
+  const color: Color
+}
+
+// A titled group of a Tip's rows, under its text and its own rows: a stat's sources, «Items», «Effects»; where it has
+// `shares`, a thin bar under its rows, the shares side by side across it, each as wide as its part of their sum.
 public struct TipSection {
   const title: String
   const rows: Array<TipRow>
+  const shares: Array<TipSlice> = []
+}
+
+function trackOf(slice: TipSlice): Track { return { fr: slice.share.max(0) } }
+
+// A section's bar, as `Tip` draws each.
+class TipShares implements Component {
+  derived columns: Array<Track> = self.shares.map(trackOf)
+
+  shares: Signal<Array<TipSlice>>
+  constructor(shares: Signal<Array<TipSlice>>) {
+    self.shares = shares
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={self.columns} height={SHARES_HEIGHT} padding={{ top: 1sp }}>
+        <box $for={slice of self.shares} background={slice.color} />
+      </box>
+    }
+  }
 }
 
 // What a control's Tip says, for a control that draws its own (a push button): its name, its text and its rows.
@@ -124,6 +154,7 @@ public class Tip implements Component {
         <box $for={section of self.sections} columns={1} gap={1sp} padding={{ top: 2sp }}>
           <text value={section.title} textColor={HEADING} />
           <TipLine $for={row of section.rows} row={row} />
+          <TipShares $if={section.shares.length > 0} shares={section.shares} />
         </box>
         <Hotkeys keys={self.keys} />
       </surface>
