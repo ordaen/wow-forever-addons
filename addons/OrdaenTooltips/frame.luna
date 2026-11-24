@@ -310,6 +310,10 @@ public class TipFrame implements Component {
   derived icon: Art | nil = self.iconArt()
   derived face: String | nil = self.faceUnit()
   derived titleColumns: Array<Track> = self.hasIcon ? WITH_ICON : ALONE
+  // A tooltip with no name nor picture (what using an item does, under its tab) has no title: its first section
+  // stands at its top, with no rule over it.
+  derived titled: Boolean = self.model.name != "" || self.hasIcon
+  derived factsRule: Line | nil = self.titled ? RULE : nil
   derived hasDesc: Boolean = self.model.desc.length > 0
   derived hasInfo: Boolean = self.model.info.length > 0
   derived descColumns: Array<Track> = self.tracks(self.model.desc.length)
@@ -442,7 +446,7 @@ public class TipFrame implements Component {
         <box width={"min-content"} padding={INSIDE} border={Ordaen.art.frame.small}
              background={Ordaen.art.window.wood}>
           <box width={self.width} height={0ui} />
-          <box columns={self.titleColumns} gap={3sp} yAlign={Align.Center} padding={self.titlePadding}>
+          <box $if={self.titled} columns={self.titleColumns} gap={3sp} yAlign={Align.Center} padding={self.titlePadding}>
             <box $if={self.hasIcon} width={ICON} height={ICON} border={RIM} padding={0.5sp} background={BLACK}
                  rows={FILL}>
               <box icon={self.icon} portrait={self.face} />
@@ -468,7 +472,7 @@ public class TipFrame implements Component {
               </box>
             </box>
           </box>
-          <box $if={self.hasFacts} columns={self.facts} border={RULE}>
+          <box $if={self.hasFacts} columns={self.facts} border={self.factsRule}>
             <BandCell $for={index, fact of self.model.facts} fact={fact.cell} index={index} last={self.bandLast}
                       lit={self.locked && opensSomething(fact.opens)}>
               <box #opened>

@@ -20,7 +20,7 @@ test "a spell's band reads its cost and range, its cast and its cooldown, the co
     line("Launches a bolt of frost.", nil, DESCRIPTION)
   ]
   const band = bandOf(lines, { amount: 65, resource: .Mana, color: Color.hex("#0000ff") })
-  Test.expect(said(band) == "65 | 30 yd range | 2.5 sec | CD 10 sec")
+  Test.expect(said(band) == "65 | 30 yd | 2.5 sec | CD 10 sec")
   const cost = band.facts[1]
   Test.expect(cost?.glyph == Glyph.Cost && cost?.tint?.equal(Color.hex("#2f6fe0")) == true)
   Test.expect(band.facts[3]?.kind == .CastTime && band.facts[4]?.kind == .Cooldown)

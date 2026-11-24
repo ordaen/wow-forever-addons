@@ -108,6 +108,8 @@
   "TOOLTIPS_DELAY_SHORT": "Короткая (0,3 с)",
   "TOOLTIPS_DELAY_MEDIUM": "Средняя (0,6 с)",
   "TOOLTIPS_DELAY_LONG": "Долгая (1 с)",
+  "WORTH_UNTRAINED": "Нужен навык владения: сначала изучите его",
+  "USE_HEADER": "Использование",
   "TOOLTIPS_PLACE": "Положение",
   "TOOLTIPS_PLACE_ANCHOR": "Рядом с объектом",
   "TOOLTIPS_PLACE_BLIZZARD": "Как у Blizzard",

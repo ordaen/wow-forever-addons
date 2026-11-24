@@ -429,7 +429,7 @@ test "a spell reads its rank and tab, its cost and range, its cast, its descript
   Game.tooltip.main = showing(frostbolt())
   Test.pass(SHOWS)
   const bolt = tip("Frostbolt")
-  Test.expect(reads(bolt, "Frostbolt | Rank 4 | · | Frost | 65 | 30 yd range | 2.5 sec | Launches a bolt of frost at the enemy. | Requires | Staff"))
+  Test.expect(reads(bolt, "Frostbolt | Rank 4 | · | Frost | 65 | 30 yd | 2.5 sec | Launches a bolt of frost at the enemy. | Requires | Staff"))
   Test.expect(bolt.paintedWith("Interface/Icons/Spell_Frost_FrostBolt02"))
   Test.expect(inColor(bolt.text("Staff"), RED))
 }
@@ -494,7 +494,7 @@ test "a trainer's recipe is the recipe's tooltip, its reagents in the footer, wi
   Game.tooltip.main = showing(wandRecipe())
   Test.pass(SHOWS)
   // What it makes beside it, then the recipe: its name, what it does, its reagents.
-  Test.expect(reads(tip("Enchanting: Lesser Magic Wand"), "Lesser Magic Wand | Ranged | · | Wand | Binds when equipped | 12–22 | 1.5/s | Requires level | 5 | Enchanting: Lesser Magic Wand | Runed Copper Rod | Creates a Lesser Magic Wand. | Simple Wood | 1 | Lesser Magic Essence | 1"))
+  Test.expect(reads(tip("Enchanting: Lesser Magic Wand"), "Lesser Magic Wand | Ranged | · | Wand | Binds when equipped | 12–22 | 1.5/s | Requires level | 5 | Enchanting: Lesser Magic Wand | Tools:Runed Copper Rod | Creates a Lesser Magic Wand. | Simple Wood | 1 | Lesser Magic Essence | 1"))
   Test.expect(inColor(tip("Enchanting: Lesser Magic Wand").text("Lesser Magic Essence").item().text("1"), RED))
 }
 
@@ -1151,11 +1151,11 @@ test "what using an item does stands beside it, with the time until it can be us
   Test.mount(nil, SCREEN)
   Game.tooltip.main = showing(axeTip())
   Test.pass(SHOWS)
-  const use = tip("Healing Touch").text("Healing Touch").item()
-  Test.expect(reads(use, "Healing Touch | Instant | Heals you for |cffffd100100|r. | Ready in | 30 s"))
+  const use = tip("Use").text("Use").item()
+  Test.expect(reads(use, "Use | Instant | Heals you for |cffffd100100|r. | Ready in | 30 s"))
   Test.expect(inColor(use.text("30 s"), GOLD))
   // The axe says it no more.
-  Test.expect(!tip("Healing Touch").text("Use: Heals you.").shown())
+  Test.expect(!tip("Use").text("Use: Heals you.").shown())
 }
 
 test "an item's wait is read again as the seconds pass" {
@@ -1165,10 +1165,10 @@ test "an item's wait is read again as the seconds pass" {
   Test.mount(nil, SCREEN)
   Game.tooltip.main = showing(axeTip())
   Test.pass(SHOWS)
-  Test.expect(tip("Healing Touch").text("30 s").shown())
+  Test.expect(tip("Use").text("30 s").shown())
   left = 20
   Test.pass(1.1)
-  Test.expect(tip("Healing Touch").text("20 s").shown())
+  Test.expect(tip("Use").text("20 s").shown())
 }
 
 test "an item whose use is ready waits for no second once it is locked" {
@@ -1177,7 +1177,7 @@ test "an item whose use is ready waits for no second once it is locked" {
   Game.tooltip.main = showing(axeTip())
   Test.pass(SHOWS)
   Test.pass(1.3)
-  Test.expect(tip("Healing Touch").text("Healing Touch").shown() && Test.idle())
+  Test.expect(tip("Use").text("Use").shown() && Test.idle())
 }
 
 test "an item's «Cooldown» unticked leaves the wait out of what using it does" {
@@ -1529,7 +1529,7 @@ test "a spell's first lines with no right side are cells of its band; a later on
   Game.tooltip.main = showing({
     kind: 1, id: 3,
     lines: [
-      { left: "Shoot", kind: NAME_OF_SPELL }, { left: "Range: 30 yd.", kind: 0 }, { left: "Instant", kind: 0 },
+      { left: "Shoot", kind: NAME_OF_SPELL }, { left: "30 yd range", kind: 0 }, { left: "Instant", kind: 0 },
       { left: "Uses a wand.", kind: DESCRIBED }, { left: "Needs a wand.", kind: 0 }, { left: "---", kind: 1 }
     ]
   })
@@ -1545,7 +1545,7 @@ test "a spell's line with no right side after its fourth is the body's, though n
   Game.tooltip.main = showing({
     kind: 1, id: 3,
     lines: [
-      { left: "Shoot", kind: NAME_OF_SPELL }, { left: "Range: 30 yd.", kind: 0 }, { left: "Instant", kind: 0 },
+      { left: "Shoot", kind: NAME_OF_SPELL }, { left: "30 yd range", kind: 0 }, { left: "Instant", kind: 0 },
       { left: "Cooldown: 10 sec", kind: 0 }, { left: "Needs a wand.", kind: 0 }
     ]
   })
@@ -1652,6 +1652,23 @@ test "an item in the bags and the bank says how many in each; all of it in the b
   Test.expect(reads(tip("Wool"), "Wool | In bags | 1 | Stack size | 20"))
 }
 
+test "what using an item does has no title of its own: under its «Use» tab, what the spell's title says as rows" {
+  Game.spells.tooltip = (id: Integer): Game.TooltipData | nil => ({
+    kind: 1, id: 7002,
+    lines: [{ left: "Light Armor Kit", kind: 13 }, { left: "Armor: +24", kind: 0 }, { left: "Lasts 30 min.", kind: 0 }]
+  })
+  Test.mount(nil, SCREEN)
+  Game.tooltip.main = showing({
+    kind: 0, id: 2304,
+    lines: [{ left: "Light Armor Kit", kind: 22 }, { left: "Use: Permanently increase the armor of an item.", kind: 44, spell: 7002 }]
+  })
+  Test.pass(SHOWS)
+  const group = tip("Use")
+  // The kit's name once, the item's; the spell's armour a row, its label on the left.
+  Test.expect(group.text("Light Armor Kit").count() == 1)
+  Test.expect(group.text("+24").rect().left > group.text("Armor").rect().right)
+}
+
 test "what using an item does keeps its own footer, the wait after it" {
   Game.spells.tooltip = (id: Integer): Game.TooltipData | nil => ({
     kind: 1, id: 7001,
@@ -1661,7 +1678,7 @@ test "what using an item does keeps its own footer, the wait after it" {
   Test.mount(nil, SCREEN)
   Game.tooltip.main = showing(axeTip())
   Test.pass(SHOWS)
-  Test.expect(reads(tip("Healing Touch").text("Healing Touch").item(), "Healing Touch | Requires | Druid | Ready in | 30 s"))
+  Test.expect(reads(tip("Use").text("Use").item(), "Use | Requires | Druid | Ready in | 30 s"))
 }
 
 test "an item compared by level: the level it has more of, and no row for a level it lacks" {

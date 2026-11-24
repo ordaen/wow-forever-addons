@@ -108,6 +108,8 @@
   "TOOLTIPS_DELAY_SHORT": "Short (0.3 s)",
   "TOOLTIPS_DELAY_MEDIUM": "Medium (0.6 s)",
   "TOOLTIPS_DELAY_LONG": "Long (1 s)",
+  "WORTH_UNTRAINED": "Needs the weapon skill: train it first",
+  "USE_HEADER": "Use",
   "TOOLTIPS_PLACE": "Position",
   "TOOLTIPS_PLACE_ANCHOR": "Beside the object",
   "TOOLTIPS_PLACE_BLIZZARD": "Blizzard's place",

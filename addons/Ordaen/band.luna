@@ -151,11 +151,18 @@ function cellOf(
     return digits == nil ? { text: text } : { text: "CD " + valueOf(text), kind: .Cooldown }
   }
   if (first) {
-    // The range, beside the cost or alone: its value only, the closing full stop dropped.
+    // The range, beside the cost or alone: its value only, the closing full stop dropped. A line that says no range
+    // (an armour kit's «Armor: +24») is a cell as it reads.
     if (text == Game.strings.meleeRange || text == Locale.MELEE_RANGE_TEXT) {
       return { text: Locale.MELEE_RANGE_SHORT, kind: .Melee }
     }
-    return { text: valueOf(text).replace("%.$", ""), kind: .Range }
+    if (text == Game.strings.unlimitedRange) { return { text: text, kind: .Range } }
+    const distance = text.unformat(Game.strings.spellRange)
+    if (distance != nil) {
+      // The distance and the unit after it in the client's line («30 yd», «30 м»), the rest of the line left out.
+      const unit = Game.strings.spellRange.match("%%s(%s*[^%s]*)") ?? ""
+      return { text: (String.of(distance[1]) + unit).replace("%.$", ""), kind: .Range }
+    }
   }
   return { text: text }
 }

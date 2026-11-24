@@ -3,11 +3,12 @@
 // in the footer. What it does when used, the set it belongs to and the item a recipe makes are tooltips of their
 // own beside it.
 import Game from "$game"
+import Runtime from "$runtime"
 import Ordaen from "Ordaen"
-import { BRIGHT_TEXT } from "Ordaen"
+import { BRIGHT_TEXT, BandFact, BandKind } from "Ordaen"
 import { GOLD, GREEN, GREY, RED, YELLOW, colorOf } from "@/colors"
 import Locale from "@/locales"
-import { Fact, Kind, Model, Note, Part, TextLine, iconOf, named, namedWith } from "@/model"
+import { Fact, Kind, Model, Note, Part, Picture, TextLine, iconOf, named, namedWith } from "@/model"
 import { Options } from "@/options"
 import { spell } from "@/spell"
 import { Term } from "@/terms"
@@ -181,7 +182,7 @@ public function item(data: Game.TooltipData, options: Options): ItemRead | nil {
       // What using it does is a tooltip of its own beside the item: the spell with its cast and its cooldown.
       let cast = line.spell
       let used = cast != nil ? Game.spells.tooltip(cast) : nil
-      let side = used != nil ? spell(used, options) : nil
+      let side = used != nil ? useSide(spell(used, options)) : nil
       if (side != nil) {
         let wait = options.itemsCooldown && id != nil ? Game.items.cooldown(id) : nil
         if (wait != nil) {
@@ -335,4 +336,42 @@ public function compare(
     }
   }
   return { body: body, ..target }
+}
+
+// What using an item does, as the tooltip beside it: under its tab («Use»), no title (the spell's name is the item's
+// own, or says less than it); what the spell's title lines say (an armour kit's bonus, a duration) as rows, the
+// label on the left and the value on the right, at the body's size, before its words.
+function useSide(model: Model | nil): Model | nil {
+  if (model == nil) { return nil }
+  let body: Array<TextLine> = []
+  for (part of model.desc) { body.push(rowOf(part.text)) }
+  for (part of model.info) { body.push(rowOf(part.text)) }
+  // The spell's own cells (its cost, range, cast, cooldown) stay its band; the rest (an armour kit's armour) are rows.
+  let facts: Array<Fact> = []
+  for (fact of model.facts) {
+    if (fact.cell.kind == BandKind.Other) { body.push(factRow(fact.cell)) } else { facts.push(fact) }
+  }
+  for (line of model.body) { body.push(line) }
+  return { header: Locale.USE_HEADER, picture: Picture.None, name: "", desc: [], info: [], facts: facts, body: body, ..model }
+}
+
+// A band's cell as a row: what its glyph stands for, in the game's word, and its value.
+function factRow(cell: BandFact): TextLine {
+  const glyph = cell.glyph
+  const word = glyph == nil ? nil : match (glyph) {
+    .Arm => Runtime.text("ARMOR")
+    .Dmg => Runtime.text("DAMAGE")
+    .Spd => Runtime.text("SPEED")
+    .Blk => Runtime.text("BLOCK")
+    else => nil
+  }
+  if (word == nil) { return rowOf(cell.text) }
+  return { left: word, right: cell.text, rightColor: cell.color }
+}
+
+// A title line's fact as a row: «Armor: +24» its label and its value; a line with no label, the label alone.
+function rowOf(text: String): TextLine {
+  let label, value = text.match("^(.-):%s+(.+)$")
+  if (label == nil || value == nil) { return { left: text } }
+  return { left: label, right: value }
 }

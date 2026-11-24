@@ -288,11 +288,12 @@ test "the tooltips beside an item stand in a column away from the corner, and th
   const group = Test.page().window("Axe")
   const main = group.text("Axe").rect()
   const worn = group.text("Worn Axe").rect()
-  const use = group.text("Healing Touch").rect()
+  // What using it does, under its «Use» tab, the set's tooltip under it in the same column.
+  const use = group.text("Use").rect()
   const set = group.text("Deep Woods (1/3)").rect()
   // The group runs leftwards from the corner: the column beside the axe, the worn axe beyond it.
   Test.expect(use.right < main.left && worn.right < use.left)
-  Test.expect(near(use.left, set.left) && use.bottom < set.top)
+  Test.expect(use.left > set.left && use.right < main.left && use.bottom < set.top)
 }
 
 // What is drawn here and what is left to the game
@@ -659,7 +660,7 @@ test "right of its owner the group runs rightwards: the axe at the owner, the co
   Test.pass(SHOWS)
   const group = Test.page().window("Axe")
   const main = group.text("Axe").rect()
-  const use = group.text("Healing Touch").rect()
+  const use = group.text("Use").rect()
   const worn = group.text("Worn Axe").rect()
   Test.expect(near(group.rect().left, 140) && main.right < use.left && use.right < worn.left)
 }
@@ -685,14 +686,15 @@ test "under its owner the tooltips beside line up their tops with the main one's
   Game.tooltip.main = leftSlot(axeWithSides())
   Test.pass(SHOWS)
   const below = Test.page().window("Axe")
-  Test.expect(near(below.text("Healing Touch").rect().top, below.text("Axe").rect().top))
+  // What using it does stands under its «Use» tab, the tab level with the axe's title or above it.
+  Test.expect(below.text("Use").rect().top <= below.text("Axe").rect().top)
   Game.tooltip.main = showing(axeWithSides())
   Test.pass(SHOWS)
   const above = Test.page().window("Axe")
   // The set's tooltip is the column's last: its bottom on the axe's.
   const set = above.text("Deep Woods (1/3)").item().rect()
   Test.expect(near(set.bottom, above.rect().bottom))
-  Test.expect(above.text("Axe").rect().top > above.text("Healing Touch").rect().top)
+  Test.expect(above.text("Axe").rect().top > above.text("Use").rect().top)
 }
 
 test "compared, the main tooltip's title stands level with the worn item's under its «Equipped»" {
@@ -810,4 +812,22 @@ test "straight from a button's tooltip to a slot's, the slot's shows at once bes
   Test.pass(0.02)
   const at = Test.page().window("Sword").rect()
   Test.expect(near(at.top, 200) && near(at.right, 1300))
+}
+
+test "an item's worth to the spec stands at its foot, and a weapon whose skill isn't trained says so" {
+  Client.C_Item.GetItemInfoInstant = (item: String | Integer): (Number | nil, String | nil, String | nil, String | nil, FileId | nil, Number | nil, Number | nil) => {
+    return 1201, "Weapon", "Mace", "INVTYPE_WEAPON", nil, 2, 4
+  }
+  Client.C_Item.GetItemStats = (link: String): Unknown => {
+    const stats: Map<String, Number> = { ["ITEM_MOD_INTELLECT_SHORT"]: 5 }
+    return stats
+  }
+  Test.mount(nil, SCREEN)
+  Game.tooltip.main = showing({
+    kind: 0, id: 1201, about: "item:1201",
+    lines: [{ left: "Dull Mace", kind: 22 }, { left: "Mace", kind: 0, validType: false }]
+  })
+  Test.pass(SHOWS)
+  const tip = Test.page().window("Dull Mace")
+  Test.expect(tip.text("+100%").shown() && tip.text("Needs the weapon skill: train it first").shown())
 }

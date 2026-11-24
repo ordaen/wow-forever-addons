@@ -512,7 +512,7 @@ public class Tooltips implements Module, App {
     }
     const link = data.about ?? ""
     return {
-      model: withWorth(model, link), sides: read.sides, compared: compared, item: data.id ?? 0, link: link,
+      model: withWorth(model, link, data.lines.any(line => line.validType == false)), sides: read.sides, compared: compared, item: data.id ?? 0, link: link,
       object: "", locks: locks, place: place
     }
   }
@@ -557,8 +557,9 @@ public class Tooltips implements Module, App {
 }
 
 // The item's worth to the player's spec, as a note at the foot: how much more or less than what is worn, green or
-// red; nothing for an item that isn't worn or that the spec weighs at nothing.
-function withWorth(model: Model, link: String): Model {
+// red; nothing for an item that isn't worn or that the spec weighs at nothing. A weapon of a kind the class can learn
+// and the player hasn't (`untrained`: the client marks its type) says so after it.
+function withWorth(model: Model, link: String, untrained: Boolean): Model {
   if (link == "") { return model }
   const share = Ordaen.worth.upgradeOf(link)
   if (share == nil) { return model }
@@ -569,6 +570,7 @@ function withWorth(model: Model, link: String): Model {
   let foot: Array<Note> = []
   for (note of model.foot) { foot.push(note) }
   foot.push({ left: Locale.WORTH_FOR.format(spec), right: right, valueColor: color })
+  if (untrained) { foot.push({ left: Locale.WORTH_UNTRAINED, valueColor: RED }) }
   return { foot: foot, ..model }
 }
 
