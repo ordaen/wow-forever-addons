@@ -11,7 +11,7 @@
 import { BattleNetSelf, Friend, FriendRequest, Hero, Ignored, Presence } from "$game"
 import { Align, Art, ByInteractionState, Edges, MouseButton, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { ARTWORK, ButtonPlate, Choice, Column, CompactDropdown, Component, Fact, Field, FilterButton, FilterGroup, ModuleMemory, PushButton, SECONDARY_TEXT, ScrolledList, TITLE_TEXT, Table, TableCell, TableRow, ToolPick, ToolSort, Toolbar, agoText, classColor, rowShade, switched, tracksOf, trimmed } from "Ordaen"
+import { ARTWORK, ButtonPlate, Choice, Column, CompactDropdown, Component, Fact, Field, FilterButton, FilterGroup, ModuleMemory, PushButton, SECONDARY_TEXT, ScrolledList, TITLE_TEXT, Table, TableCell, TableRow, ToolPick, ToolSort, Toolbar, agoText, classColor, rowShade, switched, trimmed } from "Ordaen"
 import Locale from "@/locales"
 import Style from "@/style"
 
@@ -42,7 +42,6 @@ const COLUMNS: Array<Column> = [
   { title: Locale.WHERE, width: { fr: 1 }, sortable: true },
   { title: Locale.COLUMN_NOTE, width: { fr: 1 } }
 ]
-const TRACKS: Array<Track> = tracksOf(COLUMNS)
 // The sorts, by the table's column from 1, and the one no column shows: those online first.
 const BY_LEVEL = 2
 const BY_WHERE = 3
@@ -262,7 +261,7 @@ class FriendTableRow implements Component {
 
   public render(self): Template {
     return $ltml {
-      <TableRow tracks={TRACKS} selected={self.picked} @pick={self.onPick}>
+      <TableRow selected={self.picked} @pick={self.onPick}>
         <TableCell>
           <box columns={[Style.DOT, { fr: 1 }, "max-content"]} gap={2sp} yAlign={Align.Center}>
             <box width={Style.DOT} height={Style.DOT} background={markOf(self.friend.presence)} />

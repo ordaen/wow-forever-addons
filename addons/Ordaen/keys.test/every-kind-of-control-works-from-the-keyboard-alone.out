@@ -84,14 +84,15 @@ surface 420,121.62 760x656.75 on MEDIUM clamped raised by a click
         box 445.69,491.41 708.62x76.83
           box 445.69,491.41 708.62x76.83 #0000004d
             box 446.52,492.24 706.96x33.73
-              box 455.06,492.24 689.89x33.73 #00000040
-                box 463.59,492.24 672.82x32.9 #00000000 @keyPress @pointerPress
-                  box 463.59,523.47 672.82x1.67 absolute #d6a56b
+              box 446.52,492.24 706.96x33.73 #00000040
+                box 459.32,492.24 681.36x32.9 #00000000 @keyPress @pointerPress
+                  box 459.32,523.47 681.36x1.67 absolute #d6a56b
                   box 463.59,500.77 28.68x15.83
                     text 463.59,500.77 25.83x15.83 "Name" #f0c860
             box 446.52,525.98 706.96x41.43 scrolled 0 of 0
-              box 455.06,534.51 689.89x24.37 #00000000 @keyPress @pointerEnter @pointerLeave @pointerPress
-                text 463.59,538.77 672.82x15.83 "a row" #ffffff
+              box 446.52,534.51 706.96x24.37 #00000000 @keyPress @pointerEnter @pointerLeave @pointerPress
+                box 459.32,534.51 681.36x24.37
+                  text 463.59,538.77 672.82x15.83 "a row" #ffffff
         box 445.69,573.93 708.62x20 @keyPress @pointerPress
           text 445.69,573.93 708.62x15.83 "menu" #ffffff
         box 445.69,599.62 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @keyPress @pointerPress

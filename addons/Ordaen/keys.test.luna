@@ -11,7 +11,7 @@ import { MoneyInput } from "@/moneyInput"
 import { NumberInput } from "@/numberInput"
 import { Segmented } from "@/segmented"
 import { Switch } from "@/switch"
-import { Column, Table, TableRow } from "@/table"
+import { Column, Table, TableCell, TableRow } from "@/table"
 import { Tabs } from "@/tabs"
 import { TextBox } from "@/textBox"
 import { KeptWindow, Window, WindowTabSpec } from "@/window"
@@ -67,7 +67,7 @@ class Controls {
           <MoneyInput label={"Price"} value={mut self.money} />
           <TextBox value={mut self.notes} height={40ui} />
           <Table columns={COLUMNS} sorted={mut self.sorted} descending={mut self.descending}>
-            <TableRow tracks={[{ fr: 1 }]} @pick={self.pickRow}> <text value={"a row"} /> </TableRow>
+            <TableRow @pick={self.pickRow}> <TableCell> <text value={"a row"} /> </TableCell> </TableRow>
           </Table>
           <box height={20ui} @pointerPress={self.showMenu} @keyPress(.Enter)={self.showMenu} @keyPress(.Space)={self.showMenu}>
             <text value={"menu"} />

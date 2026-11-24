@@ -5,7 +5,7 @@
 import Client from "$client"
 import Game from "$game"
 import { Align, Frame, Track } from "$ltml"
-import { Column, Component, FooterCount, ItemButton, ItemId, ListFooter, Money, PushButton, SECONDARY_TEXT, Table, TableRow, tracksOf } from "Ordaen"
+import { Column, Component, FooterCount, ItemButton, ItemId, ListFooter, Money, PushButton, SECONDARY_TEXT, Table, TableCell, TableRow } from "Ordaen"
 import { nameOf } from "@/house"
 import Locale from "@/locales"
 import { PriceSource } from "@/quote"
@@ -27,7 +27,6 @@ const COLUMNS: Array<Column> = [
   { title: Locale.COLUMN_TOTAL, width: 105.46875dp, align: Align.End },
   { title: Locale.COLUMN_NEAREST, width: 105.46875dp, align: Align.End }
 ]
-const TRACKS: Array<Track> = tracksOf(COLUMNS)
 const ITEM: Array<Track> = ["max-content", { fr: 1 }]
 const LINES: Array<Track> = ["max-content", "max-content"]
 const PAGE: Array<Track> = [{ fr: 1 }, "max-content"]
@@ -95,26 +94,30 @@ class VendorRow implements Component {
 
   public render(self): Template {
     return $ltml {
-      <TableRow tracks={TRACKS} selected={self.selected} @pick={self.onPick} @enter={self.onRowEnter}>
-        <box columns={ITEM} gap={2.5sp} yAlign={Align.Center}>
-          <ItemButton item={self.row.item} size={Style.SLOT} dimmed={self.row.toBuy == 0} tipped={false} />
-          <text value={self.name} textColor={self.color} wrap={.Cut} />
-        </box>
-        <box rows={LINES} xAlign={Align.End}>
-          <text value={"%d"} arguments={[self.row.toBuy]} textColor={self.ink} />
-          <text value={Locale.HELD_OF} arguments={[self.row.held, self.row.needed]} textColor={Style.DIM}
-                textSize={SECONDARY_TEXT} wrap={.None} />
-        </box>
-        <box xAlign={Align.End}>
+      <TableRow selected={self.selected} @pick={self.onPick} @enter={self.onRowEnter}>
+        <TableCell>
+          <box columns={ITEM} gap={2.5sp} yAlign={Align.Center}>
+            <ItemButton item={self.row.item} size={Style.SLOT} dimmed={self.row.toBuy == 0} tipped={false} />
+            <text value={self.name} textColor={self.color} wrap={.Cut} />
+          </box>
+        </TableCell>
+        <TableCell align={Align.End}>
+          <box rows={LINES} xAlign={Align.End}>
+            <text value={"%d"} arguments={[self.row.toBuy]} textColor={self.ink} />
+            <text value={Locale.HELD_OF} arguments={[self.row.held, self.row.needed]} textColor={Style.DIM}
+                  textSize={SECONDARY_TEXT} wrap={.None} />
+          </box>
+        </TableCell>
+        <TableCell align={Align.End}>
           <Money amount={self.unit} />
-        </box>
-        <box xAlign={Align.End}>
+        </TableCell>
+        <TableCell align={Align.End}>
           <Money amount={self.unit * self.row.toBuy} />
-        </box>
-        <box xAlign={Align.End}>
+        </TableCell>
+        <TableCell align={Align.End}>
           <text $if={self.nearest != nil} value={Locale.YARDS} arguments={[(self.nearest ?? 0).floor()]} textColor={self.ink} />
           <text $else value={"—"} textColor={Style.DIM} />
-        </box>
+        </TableCell>
       </TableRow>
     }
   }

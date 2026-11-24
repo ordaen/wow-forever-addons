@@ -11,7 +11,7 @@
 import Game from "$game"
 import { Align, Art, Columns, Cursor, Edges, Event, Frame, MouseButton, Position, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { ARTWORK, ButtonPlate, Choice, Column, Component, CountInput, Dialog, FoldCaption, FooterCount, ITEM_KINDS, ItemButton, ItemKind, KeptWindow, ListFooter, Menu, MenuEntry, ModuleMemory, Money, PushButton, SECONDARY_TEXT, ScrolledList, Table, TableRow, ToolPick, Toolbar, Window, WindowSide, WindowTabSpec, kindName, tracksOf } from "Ordaen"
+import { ARTWORK, ButtonPlate, Choice, Column, Component, CountInput, Dialog, FoldCaption, FooterCount, ITEM_KINDS, ItemButton, ItemKind, KeptWindow, ListFooter, Menu, MenuEntry, ModuleMemory, Money, PushButton, SECONDARY_TEXT, ScrolledList, Table, TableCell, TableRow, ToolPick, Toolbar, Window, WindowSide, WindowTabSpec, kindName } from "Ordaen"
 import Locale from "@/locales"
 import { Sold, Vendor, Ware } from "@/vendor"
 
@@ -95,7 +95,6 @@ const COLUMNS: Array<Column> = [
   { title: Locale.COLUMN_IN_BAGS, width: 93.75dp, align: Align.End, sortable: true },
   { title: Locale.COLUMN_PRICE, width: 117.1875dp, align: Align.End, sortable: true }
 ]
-const TRACKS: Array<Track> = tracksOf(COLUMNS)
 
 // Whether the item stays in the list: its name holds the search, and the filter keeps it.
 function kept(ware: Ware, filter: WareFilter, query: String, money: Integer): Boolean {
@@ -331,22 +330,24 @@ class WareTableRow implements Component {
 
   public render(self): Template {
     return $ltml {
-      <TableRow tracks={TRACKS} @pick={self.onPick} @enter={self.onRowEnter}>
-        <box columns={TABLE_CELL} gap={3sp} yAlign={Align.Center}>
-          <ItemButton item={self.ware.id} tipped={false} art={self.ware.icon} count={self.ware.stack} quality={self.ware.quality}
-                      size={TABLE_SLOT} linkOnShift={false} @pressed={self.onSlot} />
-          <text value={self.ware.name} textColor={self.nameColor} wrap={.Cut} />
-        </box>
-        <text value={self.ware.kind} textColor={DIM} wrap={.Cut} />
-        <box xAlign={Align.End}>
+      <TableRow @pick={self.onPick} @enter={self.onRowEnter}>
+        <TableCell>
+          <box columns={TABLE_CELL} gap={3sp} yAlign={Align.Center}>
+            <ItemButton item={self.ware.id} tipped={false} art={self.ware.icon} count={self.ware.stack} quality={self.ware.quality}
+                        size={TABLE_SLOT} linkOnShift={false} @pressed={self.onSlot} />
+            <text value={self.ware.name} textColor={self.nameColor} wrap={.Cut} />
+          </box>
+        </TableCell>
+        <TableCell> <text value={self.ware.kind} textColor={DIM} wrap={.Cut} /> </TableCell>
+        <TableCell align={Align.End}>
           <text value={"%d"} arguments={[self.ware.level]} textColor={INK} textFont={.Numbers} wrap={.None} />
-        </box>
-        <box xAlign={Align.End}>
+        </TableCell>
+        <TableCell align={Align.End}>
           <text value={"%d"} arguments={[self.carried]} textColor={INK} textFont={.Numbers} wrap={.None} />
-        </box>
-        <box xAlign={Align.End}>
+        </TableCell>
+        <TableCell align={Align.End}>
           <Money amount={self.ware.price} color={self.priceColor} />
-        </box>
+        </TableCell>
         <Menu $if={self.menuShown} entries={self.entries} title={self.ware.name} @pick={self.onChose} @close={self.onClosed} />
       </TableRow>
     }

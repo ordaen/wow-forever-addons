@@ -5,9 +5,9 @@
 // above those offline whatever the order; an offline member's zone says when they were last online. A click picks a
 // member (its card shows beside the list); again, the card goes.
 import { GuildRights, Member } from "$game"
-import { Align, MouseButton, TextWrap, Track } from "$ltml"
+import { Align, MouseButton, TextWrap } from "$ltml"
 import root Ordaen from "Ordaen"
-import { Choice, Column, Component, Fact, PushButton, SECONDARY_TEXT, TITLE_TEXT, Table, TableCell, TableRow, ToolPick, ToolSort, Toolbar, classColor, hoursAgoText, tracksOf } from "Ordaen"
+import { Choice, Column, Component, Fact, PushButton, SECONDARY_TEXT, TITLE_TEXT, Table, TableCell, TableRow, ToolPick, ToolSort, Toolbar, classColor, hoursAgoText } from "Ordaen"
 import { markOf, orDash, presenceText } from "@/friends"
 import Locale from "@/locales"
 import Style from "@/style"
@@ -46,7 +46,7 @@ function extraOf(member: Member, extra: Extra): String {
   }
 }
 
-const STATUS_WIDTH = 23.4375dp
+const STATUS_WIDTH = 28.125dp
 const LEVEL_WIDTH = 82.03125dp
 const RANK_WIDTH = 140.625dp
 // The status (a dot, no heading: those online always stand first), the level, the name, where they are, the rank (a
@@ -79,7 +79,6 @@ const CLUB_COLUMNS: Array<Column> = [
 ]
 // The sorts no column shows, the toolbar's alone: `columns.length + 1` and on.
 const MORE_SORTS: Array<String> = [Locale.COLUMN_CLASS]
-const TRACKS: Array<Track> = tracksOf(GUILD_COLUMNS)
 // The columns as they are numbered from 1, then the toolbar's own sorts.
 const BY_LEVEL = 2
 const BY_NAME = 3
@@ -177,7 +176,7 @@ class MemberRow implements Component {
 
   public render(self): Template {
     return $ltml {
-      <TableRow tracks={TRACKS} selected={self.picked} @pick={self.onPick}>
+      <TableRow selected={self.picked} @pick={self.onPick}>
         <TableCell>
           <box width={Style.DOT} height={Style.DOT} background={markOf(self.member.presence)} />
         </TableCell>

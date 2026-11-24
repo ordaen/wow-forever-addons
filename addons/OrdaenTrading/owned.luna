@@ -4,7 +4,7 @@
 // the client's from a click alone). «Check» asks the client for them again and browses their items.
 import Game from "$game"
 import { Align, Frame, Track } from "$ltml"
-import { Column, Component, ItemButton, ModuleMemory, Money, PushButton, SECONDARY_TEXT, Table, TableRow, tracksOf } from "Ordaen"
+import { Column, Component, ItemButton, ModuleMemory, Money, PushButton, SECONDARY_TEXT, Table, TableCell, TableRow } from "Ordaen"
 import { House, nameOf } from "@/house"
 import Locale from "@/locales"
 import { PriceKey } from "@/quote"
@@ -16,12 +16,11 @@ import { leftText } from "@/style"
 const CANCEL_WIDTH: Number<Length> = 87.890625dp
 const COLUMNS: Array<Column> = [
   { title: Locale.COLUMN_ITEM, width: { fr: 1 } },
-  { title: Locale.COLUMN_COUNT, width: 58.59375dp, align: Align.End },
+  { title: Locale.COLUMN_COUNT, width: 63.28125dp, align: Align.End },
   { title: Locale.COLUMN_UNIT, width: 93.75dp, align: Align.End },
-  { title: Locale.COLUMN_LEFT, width: 65.625dp, align: Align.End },
-  { title: "", width: CANCEL_WIDTH, align: Align.End }
+  { title: Locale.COLUMN_LEFT, width: 70.3125dp, align: Align.End },
+  { title: "", width: CANCEL_WIDTH + 14.0625dp, align: Align.End }
 ]
-const TRACKS: Array<Track> = tracksOf(COLUMNS)
 const ITEM: Array<Track> = ["max-content", { fr: 1 }]
 const LINES: Array<Track> = ["max-content", "max-content"]
 // The list, the rest of the window's height; «Check» and what it does under it.
@@ -72,27 +71,29 @@ class OwnedRow implements Component {
 
   public render(self): Template {
     return $ltml {
-      <TableRow tracks={TRACKS} @enter={self.onRowEnter}>
-        <box columns={ITEM} gap={2.5sp} yAlign={Align.Center}>
-          <ItemButton item={self.shown.item} size={Style.SLOT} tipped={false} />
-          <box rows={LINES} overflow={.Hidden}>
-            <text value={self.shown.name} textColor={self.shown.color} wrap={.None} />
-            <text value={self.lowest} textColor={self.lowestColor} textSize={SECONDARY_TEXT} wrap={.None} />
+      <TableRow @enter={self.onRowEnter}>
+        <TableCell>
+          <box columns={ITEM} gap={2.5sp} yAlign={Align.Center}>
+            <ItemButton item={self.shown.item} size={Style.SLOT} tipped={false} />
+            <box rows={LINES} overflow={.Hidden}>
+              <text value={self.shown.name} textColor={self.shown.color} wrap={.None} />
+              <text value={self.lowest} textColor={self.lowestColor} textSize={SECONDARY_TEXT} wrap={.None} />
+            </box>
           </box>
-        </box>
-        <box xAlign={Align.End}>
+        </TableCell>
+        <TableCell align={Align.End}>
           <text value={"%d"} arguments={[self.shown.quantity]} textColor={Style.INK} />
-        </box>
-        <box xAlign={Align.End}>
+        </TableCell>
+        <TableCell align={Align.End}>
           <Money $if={self.priced} amount={self.unit} />
-        </box>
-        <box xAlign={Align.End}>
+        </TableCell>
+        <TableCell align={Align.End}>
           <text value={self.shown.left} textColor={Style.INK} />
-        </box>
-        <box xAlign={Align.End}>
+        </TableCell>
+        <TableCell align={Align.End}>
           <PushButton $if={!self.shown.sold} label={Locale.CANCEL_AUCTION} width={CANCEL_WIDTH} disabled={self.busy}
                       @click={self.onCancel} />
-        </box>
+        </TableCell>
       </TableRow>
     }
   }

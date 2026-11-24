@@ -8,7 +8,7 @@ import { Fact } from "@/fact"
 import { FoldCaption } from "@/foldCaption"
 import { PICKED_ROW, PickRow } from "@/pickRow"
 import { PushButton } from "@/pushButton"
-import { Column, Table, TableCell, TableRow, tracksOf } from "@/table"
+import { Column, Table, TableCell, TableRow } from "@/table"
 import { ToolSort, Toolbar, sortChoices } from "@/toolbar"
 
 const HAMMER: Asset = "Interface/Icons/Trade_BlackSmithing"
@@ -110,7 +110,7 @@ class Listing {
         </Toolbar>
         <Table columns={COLUMNS} sorted={mut self.sorted} descending={mut self.descending} height={200dp}
                empty={self.names.length == 0 ? "Nothing found" : ""}>
-          <TableRow $for={name of self.names} tracks={tracksOf(COLUMNS)}>
+          <TableRow $for={name of self.names}>
             <TableCell column={COLUMNS[1]}>
               <text value={name} />
             </TableCell>

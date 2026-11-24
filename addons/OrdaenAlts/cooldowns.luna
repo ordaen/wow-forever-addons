@@ -1,7 +1,7 @@
 // «Cooldowns»: each recipe with a cooldown, per character, ready now or the hour it will be.
 import Game from "$game"
 import { Align, Track } from "$ltml"
-import { Column, Component, Hour, SECONDARY_TEXT, Table, TableRow, tracksOf } from "Ordaen"
+import { Column, Component, Hour, SECONDARY_TEXT, Table, TableCell, TableRow } from "Ordaen"
 import Locale from "@/locales"
 import { Records } from "@/records"
 import Style from "@/style"
@@ -11,7 +11,6 @@ const COLUMNS: Array<Column> = [
   { title: Locale.COL_NAME, width: { fr: 2 }, sortable: true },
   { title: Locale.COL_READY, width: 164.0625dp, align: Align.End, sortable: true }
 ]
-const TRACKS: Array<Track> = tracksOf(COLUMNS)
 
 // One recipe of one character with a cooldown.
 public struct Wait {
@@ -81,12 +80,12 @@ public class Cooldowns implements Component {
       <box rows={self.rows} gap={6sp}>
         <text $if={self.empty} value={Locale.NO_COOLDOWNS} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
         <Table columns={COLUMNS} sorted={mut self.sorted} descending={mut self.descending}>
-          <TableRow $for={wait of self.ordered} $key={wait} tracks={TRACKS}>
-            <text value={wait.recipe} textColor={Style.INK} />
-            <text value={wait.who} textColor={Style.INK} wrap={.None} />
-            <box xAlign={Align.End}>
+          <TableRow $for={wait of self.ordered} $key={wait}>
+            <TableCell> <text value={wait.recipe} textColor={Style.INK} /> </TableCell>
+            <TableCell> <text value={wait.who} textColor={Style.INK} wrap={.None} /> </TableCell>
+            <TableCell align={Align.End}>
               <text value={wait.text} textColor={wait.color} wrap={.None} />
-            </box>
+            </TableCell>
           </TableRow>
         </Table>
       </box>

@@ -11,7 +11,7 @@
 import Game from "$game"
 import { Align, Beside, Edges, Frame, Layer, Line, MouseButton, Side, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { ARTWORK, ButtonPlate, Choice, Column, Component, Copper, CountInput, DropdownItem, ItemButton, ItemId, Menu, MenuEntry, ModuleMemory, Money, PushButton, SECONDARY_TEXT, ScrolledList, SelectItem, Table, TableRow, ToolButton, ToolPick, Toolbar, ageText, tracksOf } from "Ordaen"
+import { ARTWORK, ButtonPlate, Choice, Column, Component, Copper, CountInput, DropdownItem, ItemButton, ItemId, Menu, MenuEntry, ModuleMemory, Money, PushButton, SECONDARY_TEXT, ScrolledList, SelectItem, Table, TableCell, TableRow, ToolButton, ToolPick, Toolbar, ageText } from "Ordaen"
 import { PriceHistory } from "@/history"
 import { House } from "@/house"
 import { ItemPanel } from "@/itemPanel"
@@ -62,7 +62,6 @@ const COLUMNS: Array<Column> = [
   { title: Locale.COLUMN_SHARE, width: 65.625dp, align: Align.End, sortable: true },
   { title: Locale.COLUMN_AGE, width: 82.03125dp, align: Align.End, sortable: true }
 ]
-const TRACKS: Array<Track> = tracksOf(COLUMNS)
 // A row an item: its range in the lowest's place, sorted by the lowest.
 const ITEM_COLUMNS: Array<Column> = [
   { title: Locale.COLUMN_ITEM, width: { fr: 1 }, sortable: true },
@@ -73,7 +72,6 @@ const ITEM_COLUMNS: Array<Column> = [
   { title: Locale.COLUMN_SHARE, width: 65.625dp, align: Align.End, sortable: true },
   { title: Locale.COLUMN_AGE, width: 82.03125dp, align: Align.End, sortable: true }
 ]
-const ITEM_TRACKS: Array<Track> = tracksOf(ITEM_COLUMNS)
 const RANGE: Array<Track> = ["max-content", "max-content", "max-content"]
 // A category's name and nothing at its right; a subclass stands in under its class.
 const CATEGORY: Array<Track> = [{ fr: 1 }]
@@ -84,7 +82,6 @@ const LISTING_COLUMNS: Array<Column> = [
   { title: Locale.COLUMN_COUNT, width: 65.625dp, align: Align.End },
   { title: Locale.COLUMN_LEFT, width: 65.625dp, align: Align.End }
 ]
-const LISTING_TRACKS: Array<Track> = tracksOf(LISTING_COLUMNS)
 // The categories at the left, the results at the right.
 const PAGE: Array<Track> = [Style.CATEGORIES, { fr: 1 }]
 // How long the typing settles before what is typed is searched for, in seconds.
@@ -344,20 +341,17 @@ class FoundRow implements Component {
   found: Signal<Found>
   selected: Signal<Boolean>
   wanted: Signal<Boolean>
-  tracks: Signal<Array<Track>>
   menuOpen: Signal<Boolean>
   constructor(
     found: Signal<Found>,
     selected: Signal<Boolean>,
     wanted: Signal<Boolean>,
-    tracks: Signal<Array<Track>>,
     // Its menu shows, under it.
     menuOpen: Signal<Boolean>
   ) {
     self.found = found
     self.selected = selected
     self.wanted = wanted
-    self.tracks = tracks
     self.menuOpen = menuOpen
   }
 
@@ -385,37 +379,41 @@ class FoundRow implements Component {
 
   public render(self): Template {
     return $ltml {
-      <TableRow tracks={self.tracks} selected={self.selected} @pick={self.onPick} @enter={self.onRowEnter}>
+      <TableRow selected={self.selected} @pick={self.onPick} @enter={self.onRowEnter}>
         <RowMenu $if={self.menuOpen} key={peek self.found.key} @act={self.onAct} />
-        <box columns={ITEM} gap={2.5sp} yAlign={Align.Center}>
-          <ItemButton item={self.found.item} size={Style.SLOT} tipped={false} />
-          <box overflow={.Hidden}>
-            <text value={self.found.name} textColor={self.found.color} wrap={.Cut} />
+        <TableCell>
+          <box columns={ITEM} gap={2.5sp} yAlign={Align.Center}>
+            <ItemButton item={self.found.item} size={Style.SLOT} tipped={false} />
+            <box overflow={.Hidden}>
+              <text value={self.found.name} textColor={self.found.color} wrap={.Cut} />
+            </box>
           </box>
-        </box>
-        <box yAlign={Align.Center}>
-          <box $if={self.wanted} width={9.375dp} height={9.375dp} background={LISTED_PIP} />
-        </box>
-        <box xAlign={Align.End}>
+        </TableCell>
+        <TableCell>
+          <box yAlign={Align.Center}>
+            <box $if={self.wanted} width={9.375dp} height={9.375dp} background={LISTED_PIP} />
+          </box>
+        </TableCell>
+        <TableCell align={Align.End}>
           <text value={"%d"} arguments={[self.found.listed]} textColor={Style.INK} />
-        </box>
-        <box xAlign={Align.End}>
+        </TableCell>
+        <TableCell align={Align.End}>
           <box $if={self.ranged} columns={RANGE} gap={1sp} yAlign={Align.Center}>
             <Money amount={self.found.low} />
             <text value={"–"} textColor={Style.DIM} />
             <Money amount={self.found.high} />
           </box>
           <Money $else amount={self.found.low} />
-        </box>
-        <box xAlign={Align.End}>
+        </TableCell>
+        <TableCell align={Align.End}>
           <Money $if={self.priced} amount={self.market} />
-        </box>
-        <box xAlign={Align.End}>
+        </TableCell>
+        <TableCell align={Align.End}>
           <text value={self.share} textColor={self.shareInk} />
-        </box>
-        <box xAlign={Align.End}>
+        </TableCell>
+        <TableCell align={Align.End}>
           <text value={self.age} textColor={self.ageInk} wrap={.None} />
-        </box>
+        </TableCell>
       </TableRow>
     }
   }
@@ -454,6 +452,8 @@ public class BuyPage implements Component {
   derived wanted: String = "%s|%d|%d|%d|%d".format(self.search, self.itemClass, self.itemSubclass, self.list.values.level,
     self.list.values.quality)
   derived empty: String = self.items > 0 ? Locale.NO_RESULTS : Locale.NO_PRICES_FIND
+  // What the table says under its headings while it has no rows.
+  derived emptySaid: String = self.rows.length == 0 ? self.empty : ""
   derived anyClass: Boolean = self.itemClass == ANY
   // The typing's turn: a settle that comes after a later key, or after Enter, is stale.
   turn = 0
@@ -648,23 +648,19 @@ public class BuyPage implements Component {
             <PushButton label={Locale.PAGE_SHOPPING} width={Style.OPENER} @click={self.onOpenList} />
           </box>
           <box rows={FILL}>
-            <Table $if={self.byItem} columns={ITEM_COLUMNS} sorted={mut self.list.values.sorted} descending={mut self.list.values.descending}>
+            <Table $if={self.byItem} columns={ITEM_COLUMNS} sorted={mut self.list.values.sorted} descending={mut self.list.values.descending}
+                   empty={self.emptySaid}>
               <FoundRow $for={row of self.rows} $key={row.item} found={row} selected={self.picked == row.key}
-                        wanted={self.shopping.needed[row.item] != nil} tracks={ITEM_TRACKS}
+                        wanted={self.shopping.needed[row.item] != nil}
                         menuOpen={self.menuFor == row.key} @pick={self.onPick} @menu={self.onMenu}
                         @act={self.onAct} />
-              <box $if={self.rows.length == 0} padding={Style.NOTE_PAD} yAlign={Align.Center}>
-                <text value={self.empty} textColor={Style.DIM} />
-              </box>
             </Table>
-            <Table $else columns={COLUMNS} sorted={mut self.list.values.sorted} descending={mut self.list.values.descending}>
+            <Table $else columns={COLUMNS} sorted={mut self.list.values.sorted} descending={mut self.list.values.descending}
+                   empty={self.emptySaid}>
               <FoundRow $for={row of self.rows} $key={row.key} found={row} selected={self.picked == row.key}
-                        wanted={self.shopping.needed[row.item] != nil} tracks={TRACKS}
+                        wanted={self.shopping.needed[row.item] != nil}
                         menuOpen={self.menuFor == row.key} @pick={self.onPick} @menu={self.onMenu}
                         @act={self.onAct} />
-              <box $if={self.rows.length == 0} padding={Style.NOTE_PAD} yAlign={Align.Center}>
-                <text value={self.empty} textColor={Style.DIM} />
-              </box>
             </Table>
           </box>
         </box>
@@ -697,16 +693,16 @@ class ListingRow implements Component {
 
   public render(self): Template {
     return $ltml {
-      <TableRow tracks={LISTING_TRACKS} selected={self.selected}>
-        <box xAlign={Align.End}>
+      <TableRow selected={self.selected}>
+        <TableCell align={Align.End}>
           <Money amount={self.listing.unit} />
-        </box>
-        <box xAlign={Align.End}>
+        </TableCell>
+        <TableCell align={Align.End}>
           <text value={"%d"} arguments={[self.listing.quantity]} textColor={Style.INK} wrap={.None} />
-        </box>
-        <box xAlign={Align.End}>
+        </TableCell>
+        <TableCell align={Align.End}>
           <text value={self.left} textColor={Style.INK} wrap={.None} />
-        </box>
+        </TableCell>
       </TableRow>
     }
   }

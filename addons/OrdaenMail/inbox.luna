@@ -8,7 +8,7 @@
 import Game from "$game"
 import { Align, Art, Modifier, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { ARTWORK, ButtonPlate, Choice, Column, Component, FoldCaption, ItemButton, ModuleMemory, Money, PickRow, PushButton, SECONDARY_TEXT, ScrolledList, Table, TableCell, TableRow, Tick, Tip, TipRow, ToolPick, ToolSort, Toolbar, tracksOf } from "Ordaen"
+import { ARTWORK, ButtonPlate, Choice, Column, Component, FoldCaption, ItemButton, ModuleMemory, Money, PickRow, PushButton, SECONDARY_TEXT, ScrolledList, Table, TableCell, TableRow, Tick, Tip, TipRow, ToolPick, ToolSort, Toolbar } from "Ordaen"
 import { Filter, URGENT_DAYS, View, collectable, matches } from "@/letters"
 import Locale from "@/locales"
 import Style from "@/style"
@@ -50,7 +50,6 @@ const COLUMNS: Array<Column> = [
   { title: Locale.COL_ATTACHED, width: 152.34375dp },
   { title: Locale.COL_DAYS, width: 82.03125dp, align: Align.End, sortable: true }
 ]
-const TRACKS: Array<Track> = tracksOf(COLUMNS)
 const ROW: Array<Track> = ["max-content", ICON, { fr: 1 }, "max-content", 63.28125dp]
 const TOP: Array<Track> = [{ fr: 1 }, "max-content"]
 const PAGE: Array<Track> = ["max-content", { fr: 1 }, "max-content"]
@@ -220,7 +219,7 @@ public class LetterTableRow implements Component {
 
   public render(self): Template {
     return $ltml {
-      <TableRow tracks={TRACKS} selected={self.on} @pick={self.onPick}>
+      <TableRow selected={self.on} @pick={self.onPick}>
         <TableCell> <text value={self.letter.subject} textColor={Style.INK} wrap={.Cut} /> </TableCell>
         <TableCell> <text value={senderOf(self.letter)} textColor={Style.DIM} wrap={.Cut} /> </TableCell>
         <TableCell> <text value={attachedText(self.letter)} textColor={Style.DIM} wrap={.Cut} /> </TableCell>

@@ -7,7 +7,7 @@
 // (a push button's label goes down as its art's pushed row does): there the frame that takes the click is measured
 // alone.
 import Client from "$client"
-import { Art, Track } from "$ltml"
+import { Art } from "$ltml"
 import Test from "$test"
 import root Ordaen from "Ordaen"
 import { Checkbox } from "@/checkbox"
@@ -19,7 +19,7 @@ import { ModuleRow } from "@/moduleRow"
 import { ButtonPlate, PushButton } from "@/pushButton"
 import { Segmented } from "@/segmented"
 import { Switch } from "@/switch"
-import { Column, Table, TableRow, tracksOf } from "@/table"
+import { Column, Table, TableCell, TableRow } from "@/table"
 import { Tabs } from "@/tabs"
 import { TreeRow } from "@/treeRow"
 import { KeptWindow, Window, WindowTabSpec } from "@/window"
@@ -386,14 +386,13 @@ class Sorted {
   state column = 1
   state descending = false
   state selected = false
-  tracks: Array<Track> = tracksOf(COLUMNS)
 
   public render(self): Template {
     return $ltml {
       <box width={585.9375dp}>
         <Table columns={COLUMNS} sorted={mut self.column} descending={mut self.descending}>
-          <TableRow tracks={self.tracks} selected={self.selected}>
-            <text value={"Linen Bandage"} />
+          <TableRow selected={self.selected}>
+            <TableCell> <text value={"Linen Bandage"} /> </TableCell>
           </TableRow>
         </Table>
       </box>

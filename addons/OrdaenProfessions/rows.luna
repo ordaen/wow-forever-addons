@@ -4,7 +4,7 @@
 // says what was clicked (`Act`): the left button picks it, the right one opens its menu.
 import Game from "$game"
 import { Align, Art, Edges, Frame, Line, MouseButton, Position, Track } from "$ltml"
-import { BRIGHT_TEXT, Component, Ground, ItemButton, Money, TableRow, WINDOW_ROOM } from "Ordaen"
+import { BRIGHT_TEXT, Component, Ground, ItemButton, Money, TableCell, TableRow, WINDOW_ROOM } from "Ordaen"
 import { RecipeMenu } from "@/menu"
 import { BothSources, SourceTotals, betterOf, roughCost, roughProfit } from "@/split"
 import Style from "@/style"
@@ -254,7 +254,6 @@ public class RecipeTableRow implements Component {
 
   recipe: Signal<Game.Recipe>
   facts: Signal<TableFacts | nil>
-  tracks: Signal<Array<Track>>
   chosen: Signal<Integer>
   kept: Signal<Kept>
   menuFor: Signal<Integer>
@@ -263,7 +262,6 @@ public class RecipeTableRow implements Component {
     recipe: Signal<Game.Recipe>,
     // What the table shows of it besides the game's.
     facts: Signal<TableFacts | nil>,
-    tracks: Signal<Array<Track>>,
     chosen: Signal<Integer>,
     kept: Signal<Kept>,
     menuFor: Signal<Integer>,
@@ -272,7 +270,6 @@ public class RecipeTableRow implements Component {
   ) {
     self.recipe = recipe
     self.facts = facts
-    self.tracks = tracks
     self.chosen = chosen
     self.kept = kept
     self.menuFor = menuFor
@@ -289,30 +286,32 @@ public class RecipeTableRow implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={1}>
+      <box columns={"subgrid"}>
         // The table builds only the rows in view, each as high as the first: every row is one line, a long name cut
         // short («…») at its column.
-        <TableRow tracks={self.tracks} selected={self.isChosen} ground={Ground.Wood} @pick={self.onPick} @enter={self.onEnter}>
-          <text value={self.recipe.name} textColor={self.color} textShadow={Style.SHADOW} wrap={.Cut} />
-          <box xAlign={Align.End}>
+        <TableRow selected={self.isChosen} ground={Ground.Wood} @pick={self.onPick} @enter={self.onEnter}>
+          <TableCell> <text value={self.recipe.name} textColor={self.color} textShadow={Style.SHADOW} wrap={.Cut} /> </TableCell>
+          <TableCell align={Align.End}>
             <text value={self.skill} textColor={Style.DIM} wrap={.None} textFont={.Numbers} />
-          </box>
-          <text value={self.subtype} textColor={Style.DIM} wrap={.Cut} />
-          <text value={self.slot} textColor={Style.DIM} wrap={.Cut} />
-          <box xAlign={Align.End}>
+          </TableCell>
+          <TableCell> <text value={self.subtype} textColor={Style.DIM} wrap={.Cut} /> </TableCell>
+          <TableCell> <text value={self.slot} textColor={Style.DIM} wrap={.Cut} /> </TableCell>
+          <TableCell align={Align.End}>
             <text value={self.count} textColor={BRIGHT_TEXT} wrap={.None} textFont={.Numbers} />
-          </box>
+          </TableCell>
           <$if={self.priced}>
-            <SourceCell amount={self.auction.cost} rough={roughCost(self.auction)} />
-            <SourceCell amount={self.merchant.cost} rough={roughCost(self.merchant)} />
-            <SourceCell amount={self.auction.sale} rough={false} />
-            <SourceCell amount={self.merchant.sale} rough={false} />
-            <box xAlign={Align.End} columns={{ each: "max-content" }} gap={0.5sp}>
-              <text $if={self.profitRough && self.hasProfit} value={"~"} textColor={Style.DIM} />
-              <text $if={self.losing} value={"-"} textColor={Style.RED} />
-              <Money $if={self.hasProfit} amount={self.profit} color={self.profitColor} />
-              <text $else value={"—"} textColor={Style.DIM} />
-            </box>
+            <TableCell> <SourceCell amount={self.auction.cost} rough={roughCost(self.auction)} /> </TableCell>
+            <TableCell> <SourceCell amount={self.merchant.cost} rough={roughCost(self.merchant)} /> </TableCell>
+            <TableCell> <SourceCell amount={self.auction.sale} rough={false} /> </TableCell>
+            <TableCell> <SourceCell amount={self.merchant.sale} rough={false} /> </TableCell>
+            <TableCell align={Align.End}>
+              <box xAlign={Align.End} columns={{ each: "max-content" }} gap={0.5sp}>
+                <text $if={self.profitRough && self.hasProfit} value={"~"} textColor={Style.DIM} />
+                <text $if={self.losing} value={"-"} textColor={Style.RED} />
+                <Money $if={self.hasProfit} amount={self.profit} color={self.profitColor} />
+                <text $else value={"—"} textColor={Style.DIM} />
+              </box>
+            </TableCell>
           </>
         </TableRow>
         <RecipeMenu $if={self.menuOpen} recipe={self.recipe} kept={self.kept} @act={self.onAct} />
