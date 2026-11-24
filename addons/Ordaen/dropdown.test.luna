@@ -123,7 +123,7 @@ class Long {
   }
 }
 
-test "a list longer than the screen stays on it and scrolls to its last choice" {
+test "a list longer than the screen stays on it and scrolls to its last choice, which a click picks" {
   let page = new Long()
   Test.mount(page, { left: 0, top: 0, width: 1600, height: 900, screen: true })
   Test.click(Test.holding("Choice 1", nil), nil)
@@ -133,5 +133,7 @@ test "a list longer than the screen stays on it and scrolls to its last choice" 
   Test.moveTo(Test.holding("Choice 2", nil))
   Test.wheel(-40)
   Test.shot("scrolled to its end: the list held to the screen, its last choices in view")
+  Test.click(Test.holding("Choice 38", nil), nil)
+  Test.expect(page.picked == 38 && !Test.page().text("Choice 39").shown())
   destroy page
 }
