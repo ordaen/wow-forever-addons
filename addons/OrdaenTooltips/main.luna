@@ -12,13 +12,15 @@ import { AddedToItem, AddedToObject } from "@/added"
 import { extras } from "@/buttons"
 import { Choices, Delay, KindDelay, KindPlace, Place, delaySeconds } from "@/choices"
 import { GREEN, RED } from "@/colors"
-import { ItemKeys, ItemLines, ObjectLines } from "@/extend"
+import { ItemKeys, ItemLines, ObjectLines, UnitWants, Wanted } from "@/extend"
 import { compare, item } from "@/item"
 import Locale from "@/locales"
-import { Kind, Model, Note } from "@/model"
+import { Kind, Model, Note, TextLine } from "@/model"
 import { Options } from "@/options"
+import { wantedRows } from "@/quests"
 import { group, kindOf } from "@/read"
 import { AurasPage, GeneralPage, ItemsPage, NpcsPage, ObjectsPage, PlayersPage, SpellsPage, TextsPage } from "@/settings"
+import { creatureOf } from "@/unit"
 import { Standing, TipGroup } from "@/view"
 
 // The game's number for the line a unit's name stands on.
@@ -159,6 +161,8 @@ public class Tooltips implements Module, App {
   public const keys = new Registry<any ItemKeys>()
   // What a world object gives.
   public const gives = new Registry<any ObjectLines>()
+  // What a creature is wanted for: the quests whose items it drops, among the tooltip's own quest rows.
+  public const wants = new Registry<any UnitWants>()
 
   // The pinned tooltip, read as the hover one is; nothing while none is pinned, or one of a kind left to the game.
   derived pinnedRead: Shown | nil = self.pinnedNow()
@@ -492,7 +496,7 @@ public class Tooltips implements Module, App {
     if (told.kind != Kind.Item) {
       const object = told.kind == Kind.Object ? told.name : ""
       return {
-        model: told, sides: read.sides, compared: [], item: 0, link: "", object: object, locks: locks, place: place
+        model: self.withWants(told, data), sides: read.sides, compared: [], item: 0, link: "", object: object, locks: locks, place: place
       }
     }
 
@@ -515,6 +519,24 @@ public class Tooltips implements Module, App {
       model: withWorth(model, link, data.lines.any(line => line.validType == false)), sides: read.sides, compared: compared, item: data.id ?? 0, link: link,
       object: "", locks: locks, place: place
     }
+  }
+
+  // A creature's tooltip with what other modules say it is wanted for after the game's quest rows; anything else as
+  // it is.
+  withWants(self, model: Model, data: Game.TooltipData): Model {
+    if (model.kind != Kind.Unit || self.wants.length == 0) { return model }
+    const creature = creatureOf(data)
+    if (creature == 0) { return model }
+    const found: Array<Wanted> = []
+    for (row of self.wants) {
+      for (want of row.wants(creature)) { found.push(want) }
+    }
+    const rows = wantedRows(found, data.lines)
+    if (rows.length == 0) { return model }
+    const more: Array<TextLine> = []
+    for (line of model.more) { more.push(line) }
+    for (line of rows) { more.push(line) }
+    return { more: more, ..model }
   }
 
   // Beside its owner where its kind stands so and the owner is a frame it can stand by: by the list's row the owner

@@ -1,11 +1,11 @@
 // What other modules add to Ordaen Tooltips' tooltips, through its registries (`worth`, `uses`, `held` and `keys` for an
-// item, `gives` for a world object), as small adders of the test's own: what each adds stands in its section after
+// item, `gives` for a world object, `wants` for a creature), as small adders of the test's own: what each adds stands in its section after
 // the tooltip's own footer, follows what it read, and goes with its handle.
 import Client from "$client"
 import Game from "$game"
 import Test from "$test"
 import root Tooltips from "OrdaenTooltips"
-import { ItemKeys, ItemLines, Line, ObjectLines } from "@/extend"
+import { ItemKeys, ItemLines, Line, ObjectLines, UnitWants, Wanted } from "@/extend"
 
 // The general delay before a tooltip shows, and the frame its watch takes to see the show.
 const SHOWS = 0.32
@@ -237,4 +237,60 @@ test "an item the game gives no number for asks the added rows nothing" {
   Test.pass(SHOWS)
   Test.expect(reads(Test.page().window("Mystery"), "Mystery") && asked == 0)
   destroy added
+}
+
+// What a boar is wanted for: a quest's meat, while it is one of the boars that drop it.
+class Hunted implements UnitWants {
+  public state have = 2
+
+  public wants(self, creature: Integer): Array<Wanted> {
+    if (creature != 113) { return [] }
+    return [
+      { quest: "Pie for Billy", objective: "Chunk of Boar Meat", have: self.have, need: 4 },
+      { quest: "The Fargodeep Mine", objective: "Boar Tusk", have: 1, need: 3 }
+    ]
+  }
+
+  public loot(mut self) { self.have = 4 }
+}
+
+function boar(creature: Integer): Game.UnitInfo {
+  return {
+    name: "Stonetusk Boar", player: false, dead: false, ghost: false, afk: false, dnd: false, pvp: false, level: 5,
+    sameFaction: false, inParty: false, friend: false, ignored: false, tapped: false, creatureType: "Beast",
+    creature: creature, classification: "normal"
+  }
+}
+
+// The boar's tooltip; the client's own rows name a quest of the two.
+function boarTip(): Game.TooltipData {
+  return {
+    kind: 2,
+    lines: [
+      { left: "Stonetusk Boar", kind: 2, unit: "mouseover" },
+      { left: "Level 5 Beast", kind: 0 },
+      { left: "The Fargodeep Mine", kind: 17 },
+      { left: " - Boar Tusk: 1/3", kind: 8 }
+    ]
+  }
+}
+
+test "what a creature is wanted for stands after the game's quest rows as they do, a quest they name left out, and follows what it read" {
+  let creature = 113
+  Game.units.of = (unit: String): Game.UnitInfo | nil => boar(creature)
+  Test.mount(nil, SCREEN)
+  const hunted = new Hunted()
+  const wants = Tooltips.wants.add(hunted)
+  Game.tooltip.main = showing(boarTip())
+  Test.pass(SHOWS)
+  Test.expect(reads(Test.page().window("Stonetusk Boar"), "Stonetusk Boar | Beast | Level 5 | The Fargodeep Mine | Boar Tusk | 1/3 | Pie for Billy | Chunk of Boar Meat | 2/4"))
+  Test.expect(Test.page().text("Pie for Billy").textColor().equal(Color.hex("#ffd100")))
+  hunted.loot()
+  Test.pass(SHOWS)
+  Test.expect(Test.page().text("4/4").textColor().equal(Color.hex("#1eff00")))
+  creature = 114
+  Game.tooltip.main = showing(boarTip())
+  Test.pass(SHOWS)
+  Test.expect(!Test.page().text("Pie for Billy").shown())
+  destroy wants
 }

@@ -2,6 +2,7 @@
 // in gold, each objective a row with the player's counter, green once done, and the party's under it, set in.
 import Game from "$game"
 import { GOLD, GREEN } from "@/colors"
+import { Wanted } from "@/extend"
 import { TextLine, named } from "@/model"
 import { Term } from "@/terms"
 import { clean } from "@/text"
@@ -10,6 +11,30 @@ import { clean } from "@/text"
 public const QUEST_TITLE = 17
 public const QUEST_OBJECTIVE = 8
 public const QUEST_PLAYER = 18
+
+// The rows of what other modules say a creature is wanted for, as `quests` draws the game's: each quest's title once,
+// its objectives under it; a quest whose title the game's rows (`lines`) already name is left out.
+public function wantedRows(wants: Array<Wanted>, lines: Array<Game.TooltipLine>): mut Array<TextLine> {
+  let listed: Map<String, Boolean> = {}
+  for (line of lines) {
+    let text = clean(line.left)
+    if (line.kind == QUEST_TITLE && text != nil) { listed[text] = true }
+  }
+  let rows: Array<TextLine> = []
+  let last = ""
+  for (want of wants) {
+    if (listed[want.quest] == true) { continue }
+    if (want.quest != last) {
+      rows.push({ left: want.quest, color: GOLD })
+      last = want.quest
+    }
+    rows.push({
+      left: want.objective, right: `${want.have}/${want.need}`, rightColor: want.have >= want.need ? GREEN : nil,
+      opens: named(Term.Quest)
+    })
+  }
+  return rows
+}
 
 // `party`: the party's objectives are shown too.
 public function quests(lines: Array<Game.TooltipLine>, party: Boolean): mut Array<TextLine> {

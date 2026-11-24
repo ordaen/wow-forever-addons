@@ -1,6 +1,6 @@
 // What other modules add to Ordaen Tooltips' tooltips: the contract, imported by type alone
 // (`import type { ItemLines, Line } from "OrdaenTooltips"`). Each section is a registry of Tooltips' root (`worth`,
-// `uses`, `held` for an item, `gives` for a world object), added to in a watch that follows that root; Tooltips
+// `uses`, `held` for an item, `gives` for a world object, `wants` for a creature), added to in a watch that follows that root; Tooltips
 // draws what was added after its own footer (before the hotkeys), a section after another, each entry's lines
 // together. An item's hotkeys take what `keys` gives after their own.
 
@@ -42,6 +42,21 @@ public trait ItemLines {
 // tooltip's own, as they are. Budget as for `ItemLines`.
 public trait ItemKeys {
   public keys(self, item: Integer, link: String): Array<String>
+}
+
+// An objective of a quest of the player's that a creature serves (it drops an item the quest asks for): the
+// quest's title, the objective's text without its count, and the count.
+public struct Wanted {
+  quest: String
+  objective: String
+  have: Integer
+  need: Integer
+}
+
+// What a module says a creature is wanted for, by the creature's number (`Game.UnitInfo.creature`): drawn as the
+// game's own quest rows are, after them, a quest the game's rows already name left out. Budget as for `ItemLines`.
+public trait UnitWants {
+  public wants(self, creature: Integer): Array<Wanted>
 }
 
 // What a module adds to a world object's tooltip (a vein, a herb, a chest), by the object's name. Budget as for

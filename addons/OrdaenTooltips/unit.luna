@@ -201,6 +201,13 @@ public function unit(data: Game.TooltipData, options: Options): Model | nil {
   return { picture: Picture.Face { unit: token }, ..npc(who, name, data, options) }
 }
 
+// The number of the NPC a unit's tooltip is of; 0 for a player, a unit gone, or a tooltip of anything else.
+public function creatureOf(data: Game.TooltipData): Integer {
+  let first = data.lines[1]
+  let token = first != nil && first.kind == UNIT_NAME ? first.unit : nil
+  return token != nil ? Game.units.of(token)?.creature ?? 0 : 0
+}
+
 // A unit's tooltip by the game's name for it, as a part of another tooltip opens it: a player's whole; an NPC's
 // without the lines only the game's tooltip of it has (its role, its quests). Nothing once the unit is gone.
 public function unitOf(token: String, options: Options): Model | nil {
