@@ -1189,7 +1189,7 @@ test "the guild's news filter offers the game's kinds here and asks the game for
 }
 
 test "a line of the guild's news has its tooltip: an achievement's name and description, an item's own button" {
-  Client.GetAchievementInfo = (id: Integer): (Number | nil, String | nil, Number | nil, Boolean | nil, Number | nil, Number | nil, Number | nil, String | nil, Number | nil, FileId | nil, String | nil, Boolean | nil, Boolean | nil, String | nil) => {
+  Client.GetAchievementInfo = (id: Integer, index: Integer | nil): (Number | nil, String | nil, Number | nil, Boolean | nil, Number | nil, Number | nil, Number | nil, String | nil, Number | nil, FileId | nil, String | nil, Boolean | nil, Boolean | nil, String | nil) => {
     return id, "Level 20", 10, true, 11, 10, 26, "Reach level 20.", 0, nil, nil, false, false, nil
   }
   Test.mount(nil, PAGE)
