@@ -680,8 +680,8 @@ test "with Ordaen Trading turned off the window shows no price, and «Prices» i
   Test.mount(nil, SCREEN)
   Game.tradeSkill.open = TAILORING
   const page = settings()
-  // The modules in the list: Alts, Bags, Map, Professions, Tooltips, Quests, Tracker, Trading.
-  page.button(Ordaen.art.ctl.switchOn).nth(8).click()
+  // Trading's switch, in its own row of the modules' list.
+  page.text("Trading").item().button(Ordaen.art.ctl.switchOn).click()
   Test.expect(!window().text("Cost").shown() && !window().text("Auction").shown())
   page.button("Professions").click()
   page.text("Prices").hover()

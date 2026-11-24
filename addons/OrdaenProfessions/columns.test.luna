@@ -16,6 +16,12 @@ function recipe(id: Integer, name: String, category: Integer): Game.Recipe {
   }
 }
 
+// The window's grip: the middle of its own, never another surface's (the panel's).
+function grip(): Test.Point {
+  const at = Test.page().window("Overview").box(Ordaen.art.ctl.grip).rect()
+  return { x: (at.left + at.right) / 2, y: (at.top + at.bottom) / 2 }
+}
+
 // Take what is at `at` and let it go `dx`, `dy` further.
 function dragBy(at: Test.Point, dx: Number, dy: Number) {
   Test.moveTo(at)
@@ -44,9 +50,9 @@ test "at the window's least only the longest names wrap; wider, the lists and th
   Test.mount(nil, SCREEN)
   Game.tradeSkill.open = TAILORING
   Test.expect(Test.page().window("Overview").text("Enchanted Runecloth Robe of Long Nights").shown())
-  dragBy(Test.painted(Ordaen.art.ctl.grip, nil), -900, -500)
+  dragBy(grip(), -900, -500)
   Test.shot("the window at its least: the longest category and recipe wrap, every other name on one line")
-  dragBy(Test.painted(Ordaen.art.ctl.grip, nil), 1000, 0)
+  dragBy(grip(), 1000, 0)
   Test.shot("the window widened: no name wraps, the lists and the card wider alike")
   Test.expect(Test.page().window("Overview").text("Rich Purple Silk Shirt").shown())
 }
