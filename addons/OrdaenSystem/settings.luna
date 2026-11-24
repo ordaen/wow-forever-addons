@@ -17,7 +17,8 @@ public enum LineKind {
   Slider
   // One of a list of choices.
   Choice
-  // Anything else: a button, a section of Blizzard's own drawing, a control of two settings. Blizzard's window shows it.
+  // Anything else: a button, a section of Blizzard's own drawing. Blizzard's window shows it. A control of two settings
+  // (a checkbox with a slider or a dropdown) is two lines: the checkbox's, and the other's under it.
   Blizzard
 }
 
@@ -30,6 +31,9 @@ public struct SettingLine {
   variable: String
   // Whether the variable is a console variable: the window writes it.
   cvar: Boolean
+  // The checkbox the line stands under, by its variable (`""`: none): a slider's or a dropdown's of a line of two
+  // controls, greyed while the checkbox is off, as Blizzard's is.
+  under: String
   // A slider's range.
   least: Number
   most: Number
@@ -56,7 +60,6 @@ public struct PageGroup {
 function kindOf(template: String, data: Client.SettingsData): LineKind {
   if (template.contains("SectionHeader")) { return .Header }
   if (data.setting == nil) { return .Blizzard }
-  if (template.contains("CheckboxSlider") || template.contains("CheckboxDropdown")) { return .Blizzard }
   if (template.contains("Checkbox")) { return .Check }
   if (template.contains("Slider")) { return .Slider }
   if (template.contains("Dropdown")) { return .Choice }
@@ -70,6 +73,26 @@ const HIDDEN = "NoDisplayKB"
 function shown(category: any Client.SettingsCategory): Boolean {
   const name = category.GetName()
   return category.GetCategorySet() != .AddOns && name != HIDDEN && name != Runtime.text("SETTINGS_KEYBINDINGS_LABEL")
+}
+
+// A line of a page: its kind, name and tooltip, its setting (none: a header or Blizzard's own), a slider's range, and
+// the checkbox it stands under.
+function lineOf(
+  kind: LineKind, name: String, tooltip: String, setting: any Client.Setting | nil, range: Client.SettingsSliderOptions | nil,
+  under: String
+): SettingLine {
+  const variable = setting?.GetVariable() ?? ""
+  return {
+    kind: kind,
+    name: name,
+    tooltip: tooltip,
+    variable: variable,
+    cvar: variable != "" && Client.C_CVar.GetCVar(variable) != nil,
+    under: under,
+    least: range?.minValue ?? 0,
+    most: range?.maxValue ?? 0,
+    step: range == nil || range.steps <= 0 ? 1 : (range.maxValue - range.minValue) / range.steps
+  }
 }
 
 function pageOf(panel: any Client.SettingsPanelFrame, category: any Client.SettingsCategory, child: Boolean): SettingsPage {
@@ -119,20 +142,24 @@ public class SystemSettings {
     for (initializer of panel.GetLayout(category)?.initializers ?? []) {
       const data = initializer.data
       if (data == nil) { continue }
-      const kind = kindOf(initializer.GetTemplate(), data)
+      const box = data.cbSetting
+      if (box != nil) {
+        // A line of two controls: its checkbox, then its slider or its dropdown under it.
+        const check = box.GetVariable()
+        lines.push(lineOf(.Check, data.cbLabel ?? box.GetName(), data.cbTooltip ?? "", box, nil, ""))
+        const slider = data.sliderSetting
+        const dropdown = data.dropdownSetting
+        if (slider != nil) {
+          lines.push(lineOf(.Slider, data.sliderLabel ?? slider.GetName(), data.sliderTooltip ?? "", slider, data.sliderOptions, check))
+        } else if (dropdown != nil) {
+          lines.push(lineOf(.Choice, data.dropDownLabel ?? dropdown.GetName(), data.dropDownTooltip ?? "", dropdown, nil, check))
+        }
+        continue
+      }
       const options = data.options
       const range = options is Client.SettingsSliderOptions ? options : nil
-      const variable = data.setting?.GetVariable() ?? ""
-      lines.push({
-        kind: kind,
-        name: data.name ?? data.setting?.GetName() ?? "",
-        tooltip: data.tooltip ?? "",
-        variable: variable,
-        cvar: variable != "" && Client.C_CVar.GetCVar(variable) != nil,
-        least: range?.minValue ?? 0,
-        most: range?.maxValue ?? 0,
-        step: range == nil || range.steps <= 0 ? 1 : (range.maxValue - range.minValue) / range.steps
-      })
+      const kind = kindOf(initializer.GetTemplate(), data)
+      lines.push(lineOf(kind, data.name ?? data.setting?.GetName() ?? "", data.tooltip ?? "", data.setting, range, ""))
     }
     return lines
   }
@@ -177,6 +204,8 @@ public class SystemSettings {
       if (data.setting?.GetVariable() == variable && options != nil && !(options is Client.SettingsSliderOptions)) {
         return options()
       }
+      const offered = data.dropdownOptions
+      if (data.dropdownSetting?.GetVariable() == variable && offered != nil) { return offered() }
     }
     return []
   }

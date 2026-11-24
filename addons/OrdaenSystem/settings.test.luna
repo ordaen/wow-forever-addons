@@ -65,3 +65,23 @@ test "a setting over a console variable is written as it is changed; one over no
   Test.expect(Client.C_CVar.GetCVar("autoLootDefault") == "1")
   Game.situation.combat = false
 }
+
+test "a line of two controls is its checkbox and, set in under it, its slider or dropdown, greyed while the box is off" {
+  const settings = read()
+  Test.mount(new SettingsTab(mut settings), { left: 0, top: 0, width: 1100, height: 600 })
+  Test.page().text("Mouse").click()
+  const box = settings.lines.find(line => line.variable == "enableMouseSpeed") ?? panic("the checkbox's line")
+  const slider = settings.lines.find(line => line.variable == "mouseSpeed") ?? panic("the slider's line")
+  Test.expect(box.kind == .Check && slider.kind == .Slider && slider.under == "enableMouseSpeed")
+  Test.expect((settings.lines.find(line => line.variable == "cameraSmoothTrackingStyle")?.under ?? "") == "autoInteract")
+  Test.expect(Test.page().text("Sensitivity").shown() && Test.page().text("Camera").shown())
+  Test.expect(!Test.page().button("Open in the game's window").shown())
+  // Off, the slider takes nothing; on, it writes its variable.
+  const before = Client.C_CVar.GetCVar("mouseSpeed")
+  Test.page().text("Sensitivity").item().button("+").click()
+  Test.expect(Client.C_CVar.GetCVar("mouseSpeed") == before)
+  Test.page().text("Mouse Sensitivity").item().button(Ordaen.art.ctl.check).click()
+  Test.expect(Client.C_CVar.GetCVar("enableMouseSpeed") == "1")
+  Test.page().text("Sensitivity").item().button("+").click()
+  Test.expect(Client.C_CVar.GetCVar("mouseSpeed") != before)
+}
