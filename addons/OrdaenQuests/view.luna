@@ -6,9 +6,8 @@
 // place. Left-click picks it (its page shows beside the list); Shift+Left-click and Space track it or stop tracking
 // it; Right-click opens its menu: track, share, abandon.
 import Game from "$game"
-import { Align, Art, Bounds, ByInteractionState, Edges, Line, Side, Track } from "$ltml"
-import root Ordaen from "Ordaen"
-import { ButtonPlate, Component, Cut, Menu, MenuEntry, Money, PushButton, SECONDARY_TEXT, Shown, SwitchFace, Tip, TipText, questLevelColor, rowShade } from "Ordaen"
+import { Align, Bounds, ByInteractionState, Edges, Line, Side, Track } from "$ltml"
+import { ButtonPlate, Component, Cut, FoldCaption, Menu, MenuEntry, Money, PushButton, SECONDARY_TEXT, Shown, SwitchFace, Tip, TipText, questLevelColor, rowShade } from "Ordaen"
 import { Experience, Named, QuestLevel, Reward, RewardView, Rewards, SCROLL_DIM, SCROLL_ROW, Scroll, ScrollHeading, ScrollText, Standing, WELL_TEXT, WIDE_SCROLL, choiceViews, logReward, scrollOverflows } from "OrdaenQuestPage"
 import { LogQuest } from "@/book"
 import Locale from "@/locales"
@@ -54,8 +53,8 @@ const HEADER_BAND: Color = Color.hex("#d6a56b38")
 const HEADER_LINE: Line = { width: 1.171875dp, color: Color.hex("#d6a56b66"), sides: [Side.Bottom] }
 // Between two objectives of a quest: what a wrapped one's lines don't have.
 const GOAL_GAP = 1sp
-// The fold mark's cell, as a tree's row has it.
-const MARK = 18.75dp
+// What follows a header's caption: «вы здесь», then the count at the row's right.
+const HEADER_REST: Array<Track> = [{ fr: 1 }, "max-content"]
 
 // A text a quest's row ends with: «Готово», «Провалено», or none while it is in progress (its objectives say how far).
 function stateOf(quest: LogQuest): String {
@@ -64,12 +63,11 @@ function stateOf(quest: LogQuest): String {
   return ""
 }
 
-// The header of a group: a fold mark and the header's text; «вы здесь» beside the player's zone; at the right how
-// many of its quests are complete of all of them, «1/3».
+// The header of a group, on its band: the library's fold caption of the header's text; «вы здесь» after it beside the
+// player's zone; at the right how many of its quests are complete of all of them, «1/3».
 public class HeaderRow implements Component {
   public fold: Event<String> = new Event()
 
-  derived mark: Art = self.folded ? Ordaen.art.ctl.markClosed : Ordaen.art.ctl.markOpen
   derived counter: String = `${self.quests.filter(quest => quest.done).length}/${self.quests.length}`
 
   header: Signal<String>
@@ -87,14 +85,14 @@ public class HeaderRow implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={["max-content", "max-content", { fr: 1 }, "max-content"]} gap={2sp} yAlign={Align.Center}
-           padding={HEADER_PAD} background={HEADER_BAND} border={HEADER_LINE}
-           @pointerPress={self.onFold} @keyPress(.Enter)={self.onFold} @keyPress(.Space)={self.onFold}>
-        <box width={MARK} height={MARK} background={self.mark} tint={DIM} />
-        <text value={self.header} textColor={GOLD} wrap={.None} />
-        <text $if={self.here} value={Locale.HERE} textColor={DIM} textSize={SECONDARY_TEXT} wrap={.None} />
-        <box $else />
-        <text value={self.counter} textColor={DIM} textSize={SECONDARY_TEXT} textFont={.Numbers} wrap={.None} />
+      <box padding={HEADER_PAD} background={HEADER_BAND} border={HEADER_LINE}>
+        <FoldCaption title={self.header} folded={self.folded} @toggled={self.onFold}>
+          <box columns={HEADER_REST} gap={2sp} yAlign={Align.Center}>
+            <text $if={self.here} value={Locale.HERE} textColor={DIM} textSize={SECONDARY_TEXT} wrap={.None} />
+            <box $else />
+            <text value={self.counter} textColor={DIM} textSize={SECONDARY_TEXT} textFont={.Numbers} wrap={.None} />
+          </box>
+        </FoldCaption>
       </box>
     }
   }

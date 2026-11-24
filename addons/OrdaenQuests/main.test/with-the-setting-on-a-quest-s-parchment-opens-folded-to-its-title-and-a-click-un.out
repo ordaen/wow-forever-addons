@@ -56,11 +56,14 @@ surface 548.15,192.46 893.38x515.08 on MEDIUM clamped raised by a click
           box 578.94,359.33 442.12x282.57 scrolled 0 of 0
             box 578.94,359.33 442.12x174.33
               box 578.94,359.33 442.12x87.17
-                box 578.94,359.33 442.12x33.73 #d6a56b38 @keyPress @pointerPress
-                  box 584.63,369.11 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-marks row 3 of 8 tint=#a3977f
-                  text 603.65,367.86 80x15.83 "Elwynn Forest" #ffd100
-                  text 689.34,369.11 303.68x13.33 "you are here" #a3977f
-                  text 998.71,369.11 16.67x13.33 "0/1" #a3977f
+                box 578.94,359.33 442.12x33.73 #d6a56b38
+                  box 584.63,367.86 430.74x15.83 #00000000 @keyPress @pointerPress
+                    box 584.63,370.78 10x10 Interface\AddOns\Ordaen\media\ctl-marks row 3 of 8
+                    text 600.32,367.86 80x15.83 "Elwynn Forest" #e8c35a
+                    box 686.01,369.11 329.37x13.33
+                      box 686.01,369.11 329.37x13.33
+                        text 686.01,369.11 307.01x13.33 "you are here" #a3977f
+                        text 998.71,369.11 16.67x13.33 "0/1" #a3977f
                 box 578.94,393.06 442.12x53.43
                   box 578.94,393.06 442.12x53.43 #ffd10026 @keyPress @pointerEnter @pointerLeave @pointerPress
                     box 584.63,404.44 430.74x15.83
@@ -74,11 +77,14 @@ surface 548.15,192.46 893.38x515.08 on MEDIUM clamped raised by a click
                       text 584.63,423.12 403.39x12 "Wolves slain" #a3977f
                       text 993.71,423.12 21.67x12 "5/10" #a3977f
               box 578.94,446.5 442.12x87.17
-                box 578.94,446.5 442.12x33.73 #d6a56b38 @keyPress @pointerPress
-                  box 584.63,456.28 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-marks row 3 of 8 tint=#a3977f
-                  text 603.65,455.03 50x15.83 "Westfall" #ffd100
-                  box 659.34,462.95 333.68x0
-                  text 998.71,456.28 16.67x13.33 "0/1" #a3977f
+                box 578.94,446.5 442.12x33.73 #d6a56b38
+                  box 584.63,455.03 430.74x15.83 #00000000 @keyPress @pointerPress
+                    box 584.63,457.95 10x10 Interface\AddOns\Ordaen\media\ctl-marks row 3 of 8
+                    text 600.32,455.03 50x15.83 "Westfall" #e8c35a
+                    box 656.01,456.28 359.37x13.33
+                      box 656.01,456.28 359.37x13.33
+                        box 656.01,462.95 337.01x0
+                        text 998.71,456.28 16.67x13.33 "0/1" #a3977f
                 box 578.94,480.23 442.12x53.43
                   box 578.94,480.23 442.12x53.43 #00000000 @keyPress @pointerEnter @pointerLeave @pointerPress
                     box 584.63,491.61 430.74x15.83
@@ -136,11 +142,11 @@ surface 548.15,192.46 893.38x515.08 on MEDIUM clamped raised by a click
     box 555.35,659.8 489.3x40.54
       box 555.35,659.8 489.3x40.54 Interface/FrameGeneral/UI-Background-Marble
         box 578.11,666.32 443.79x13.33
-          box 578.11,672.99 344.86x0
-          box 940.03,666.32 81.87x13.33
-            box 940.03,666.32 81.87x13.33
-              text 940.03,666.32 51.67x13.33 "In the log" #a3977f
-              text 1000.23,666.32 21.67x13.33 "3/25" #e8dcc4
+          box 578.11,666.32 426.72x13.33
+            box 578.11,666.32 81.87x13.33
+              text 578.11,666.32 51.67x13.33 "In the log" #a3977f
+              text 638.31,666.32 21.67x13.33 "3/25" #e8dcc4
+          box 1021.89,672.99 0x0
     box 1044.65,659.8 389.68x40.54
       box 1047.35,659.8 386.98x40.54 Interface/FrameGeneral/UI-Background-Marble
         box 1070.11,666.32 341.47x28.33

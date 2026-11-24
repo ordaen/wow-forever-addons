@@ -13,10 +13,10 @@
 import Client from "$client"
 import Events from "$events"
 import Game from "$game"
-import { Align, Edges, Layer, Place, Point, Track } from "$ltml"
+import { Edges, Layer, Place, Point, Track } from "$ltml"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
-import { ARTWORK, ButtonPlate, Choice, CompactDropdown, Dialog, FilterButton, FilterGroup, FooterBand, FooterCount, FooterCounts, KeptWindow, Module, ModuleMemory, PushButton, SECONDARY_TEXT, Settings, SettingsPage, Tabs, ToolPick, Toolbar, Window, WindowSide, WindowTabSpec, WindowsPage, playSound, windowsTitle } from "Ordaen"
+import { ARTWORK, ButtonPlate, Choice, CompactDropdown, Dialog, FilterButton, FilterGroup, FooterBand, FooterCount, KeptWindow, ListFooter, Module, ModuleMemory, PushButton, SECONDARY_TEXT, Settings, SettingsPage, Tabs, ToolPick, Toolbar, Window, WindowSide, WindowTabSpec, WindowsPage, playSound, windowsTitle } from "Ordaen"
 import root Maps from "OrdaenMap"
 import type { SidePanel } from "OrdaenMap"
 import { Named, Standing } from "OrdaenQuestPage"
@@ -51,7 +51,6 @@ const BODY: Array<Track> = ["max-content", { fr: 1 }]
 const FILL: Array<Track> = [{ fr: 1 }]
 // The log: its kinds' sub-tabs, the toolbar, the list.
 const LOG_ROWS: Array<Track> = ["max-content", "max-content", { fr: 1 }]
-const FOOT: Array<Track> = [{ fr: 1 }, "max-content"]
 // The status select stands an item's step after the search, as wide as its longest choice.
 const AFTER_SEARCH: Edges = { left: 3sp }
 const STATUS_WIDTH = 164.0625dp
@@ -122,16 +121,12 @@ public class Quests implements Module, App {
     { title: windowsTitle(), content: $ltml { <WindowsPage windows={mut self.windows} /> } }
   ]
   public settings: mut Settings<Choices> = new Settings<Choices>({ ownKey: true })
-  // The window's footer: QuestieDB's absence where it can't be read, and the count against the log's cap (red when
-  // full), as label and value, on the footer band (marble, a line over it).
+  // The window's footer, as every list window's: the count against the log's cap (red when full) at its left, and
+  // QuestieDB's absence at its right where it can't be read.
   const footer: Template = $ltml {
-    <FooterBand>
-      <box columns={FOOT} gap={6sp} yAlign={Align.Center}>
-        <text $if={!self.known} value={Locale.NO_QUESTIE} textColor={RED} textSize={SECONDARY_TEXT} />
-        <box $else />
-        <FooterCounts counts={self.counted} />
-      </box>
-    </FooterBand>
+    <ListFooter counts={self.counted}>
+      <text $if={!self.known} value={Locale.NO_QUESTIE} textColor={RED} textSize={SECONDARY_TEXT} />
+    </ListFooter>
   }
 
   // What QuestieDB says of the log's quests, read once a quest.
