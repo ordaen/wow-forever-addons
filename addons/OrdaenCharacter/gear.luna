@@ -429,7 +429,7 @@ public class GearPage implements Component {
                 <text value={self.fullName} textSize={TITLE_TEXT} leading={.Title} textFont={TextFont.Title} textColor={self.whoColor} />
                 <text value={self.whoText} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
               </box>
-              <box gap={1sp}>
+              <box gap={2.5sp}>
                 <PoolBar amount={self.health} color={Style.HEALTH} stat={Stat.Health} shown={self.shown} boosts={self.boosts} @tipped={self.onTipped} />
                 <PoolBar amount={self.power} color={self.powerTint} regen={self.powerRegen} filled={self.powerFilled}
                          stat={self.powerStat} shown={self.shown} boosts={self.boosts} @tipped={self.onTipped} />

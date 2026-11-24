@@ -322,6 +322,10 @@ test "a framed slot has the client's talent frame over it, tinted in an uncommon
   const icon = Test.page().box(HAMMER).nth(1).rect()
   const rim = (slot.right - slot.left) / 10
   Test.expect((icon.left - slot.left - rim).abs() < 0.5 && (slot.bottom - icon.bottom - rim).abs() < 0.5)
+  // The light under the cursor inside the frame, as the icon is: never a square over the frame's curves.
+  Test.page().box(HAMMER).nth(1).hover()
+  const light = Test.page().box(Color.hex("#ffffff26")).nth(1).rect()
+  Test.expect(light.left == icon.left && light.top == icon.top && light.right == icon.right)
 }
 
 test "a slot's count is written in the numbers' font, outlined, so it reads on any icon" {

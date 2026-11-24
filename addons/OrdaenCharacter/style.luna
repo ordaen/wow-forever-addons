@@ -48,7 +48,7 @@ public const ONE_ROW: Array<Track> = [{ fr: 1 }]
 // A gauge's channel (a skill's too) and its columns (the name, the value).
 public const CHANNEL: Number<Length> = 16.40625dp
 // A gauge with its text in it: a skill's rank, a faction's standing.
-public const GAUGE_BAR: Number<Length> = 22.265625dp
+public const GAUGE_BAR: Number<Length> = 26.953125dp
 public const GAUGE_LABEL: Number<Length> = 150dp
 public const GAUGE_VALUE: Number<Length> = 72dp
 // A card's socket, its glyph and the socket's floor, a section's padding and the room between its cards and its gauges.

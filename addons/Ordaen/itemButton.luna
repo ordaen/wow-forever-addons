@@ -390,8 +390,9 @@ public class ItemButton implements Component {
         </box>
         <box position={Position.Absolute} left={self.inset} top={self.inset} right={self.inset} bottom={self.inset}
              background={Ordaen.art.ctl.qualityRim} tint={self.edge.color} opacity={self.rim} zLevel={1} />
-        <box position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui} background={SHINE}
-        />
+        // The light under the cursor over the icon alone: inside a crest's rim or a talent frame, never over its curves.
+        <box position={Position.Absolute} left={self.inset} top={self.inset} right={self.inset} bottom={self.inset}
+             background={SHINE} />
         <Pip $for={marker of self.markers} marker={peek marker} />
         <slot />
         <box $if={self.counted} position={Position.Absolute} left={self.inset} top={self.inset} right={self.inset}

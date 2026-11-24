@@ -1361,11 +1361,9 @@ test "health and the resource are slim bars of their own, a thin line round them
   Test.mount(nil, PAGE)
   Game.items.icon = icons
   const window = opened(new FakeSheet())
-  Test.expect(window.box(Ordaen.art.panel.xpTube).count() == 0)
-  Test.expect(window.box(xpFillArt(XpFill.Brushed)).count() == 2)
-  // The bar's line round its trough, no thicker than a texel and a bit.
-  const bar = window.box(xpFillArt(XpFill.Brushed)).nth(1).rect()
-  Test.expect(bar.bottom - bar.top < 24)
+  Test.expect(window.box(Ordaen.art.panel.xpTube).count() == 0 && window.box(xpFillArt(XpFill.Brushed)).count() == 0)
+  // The line round each, its fill rounded in the pool's colour: no square fill over the line's round corners.
+  Test.expect(window.box(Style.POOL_RIM).count() > 0 && window.box(Style.HEALTH).count() > 1)
 }
 
 test "the gauges, the resistances and the cards are carved down to the marble" {

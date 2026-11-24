@@ -2,18 +2,15 @@
 // big numbers, then sections parted by cuts in the wood, each its cards first, then its gauges, then its plain lines.
 // A gauge is a stat with a cap the player works towards (hit, crit, a weapon's skill), a line one without (attack
 // speed, penetration), a card one of a section's main numbers (attack power, damage a second, a school's spell damage).
-import { Align, Art, Event, Piece, Position, TextAlign, TextFont, Track } from "$ltml"
+import { Align, Event, Piece, Position, TextAlign, TextFont, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { BRIGHT_TEXT, Component, Groove, RoundedFill, SECONDARY_TEXT, TITLE_TEXT, Tip, Weights, XpFill, xpFillArt } from "Ordaen"
+import { BRIGHT_TEXT, Component, Corners, Groove, RoundedFill, SECONDARY_TEXT, TITLE_TEXT, Tip, Weights } from "Ordaen"
 import { CARVED_EDGE, CarveShade, GaugeBar } from "@/gauge"
 import Locale from "@/locales"
 import { Skill, Stats, WANDS } from "@/sheet"
 import { Boost, Breakdown, NO_BREAKDOWN, statName } from "@/sources"
 import { Stat } from "@/stat"
 import Style from "@/style"
-
-// A pool bar's fill: the experience bar's brushed one, given the pool's colour.
-const FILL: Art = xpFillArt(XpFill.Brushed)
 
 // A stat with a cap: its name, its value against the cap, the value as written and the fill's colour.
 public struct Gauge {
@@ -414,7 +411,7 @@ public class StatGauge implements Component {
     return $ltml {
       <StatSpot stat={self.gauge.stat} title={self.title} shown={self.shown} @tipped={self.onTipped}>
         <box columns={[Style.GAUGE_LABEL, { fr: 1 }, Style.GAUGE_VALUE]} gap={2.5sp} yAlign={Align.Center}>
-          <text value={self.gauge.label} textSize={SECONDARY_TEXT} textColor={BRIGHT_TEXT} wrap={.None} />
+          <text value={self.gauge.label} textColor={BRIGHT_TEXT} wrap={.None} />
           <GaugeBar value={self.share} tone={self.gauge.tone} height={Style.CHANNEL} />
           <text value={self.gauge.text} textFont={TextFont.Numbers} textColor={self.ink} textAlign={TextAlign.End}
                 wrap={.None} />
@@ -424,7 +421,7 @@ public class StatGauge implements Component {
   }
 }
 
-// A line: the name on the left, the value on the right with its unit dimmed after it.
+// A line: the name on the left, the value on the right with its unit after it, in the value's colour.
 public class StatRow implements Component {
   public tipped: Event<Stat | nil> = new Event()
 
@@ -446,9 +443,9 @@ public class StatRow implements Component {
     return $ltml {
       <StatSpot stat={self.row.stat} title={self.title} shown={self.shown} @tipped={self.onTipped}>
         <box columns={[{ fr: 1 }, "max-content", "max-content"]} gap={1sp} yAlign={Align.Center}>
-          <text value={self.row.label} textSize={SECONDARY_TEXT} textColor={Style.INK} wrap={.None} />
+          <text value={self.row.label} textColor={Style.INK} wrap={.None} />
           <text value={self.row.value} textFont={TextFont.Numbers} textColor={self.ink} wrap={.None} />
-          <text value={self.row.unit} textSize={SECONDARY_TEXT} textColor={Style.DIM} wrap={.None} />
+          <text value={self.row.unit} textColor={self.ink} wrap={.None} />
         </box>
       </StatSpot>
     }
@@ -611,13 +608,15 @@ public class ResistColumn implements Component {
 }
 
 // A pool's bar, a look of its own: a slim bar with softly rounded corners and a thin bronze line round it; back to front
-// the line, the dark trough, the fill in its colour (the experience's brushed fill made grey under it), a gloss over its
-// upper part; the amount at its middle and what it regains at its right; the stat it shows (health, mana) its tooltip's.
+// the line, the dark trough, the fill in its colour rounded as the trough is, a gloss over the fill's upper part; the
+// amount at its middle and what it regains at its right; the stat it shows (health, mana) its tooltip's.
 public class PoolBar implements Component {
   public tipped: Event<Stat | nil> = new Event()
 
   // The fill and the rest of the tube, inside its ring.
   derived parts: Array<Track> = [{ fr: self.filled }, { fr: 1 - self.filled }]
+  // The fill rounded as the trough is at its left end, and at its right once the bar is full.
+  derived fillCorners: Corners = { topLeft: true, bottomLeft: true, topRight: self.filled >= 1, bottomRight: self.filled >= 1 }
   derived regained: Boolean = self.regen != ""
   derived title: String = self.stat != nil ? `${statName(self.stat ?? .Health)} ${self.amount}` : ""
   derived ink: Color = inkOf(self.stat, self.boosts, BRIGHT_TEXT)
@@ -657,11 +656,13 @@ public class PoolBar implements Component {
           </box>
           <box position={Position.Absolute} top={Style.POOL_LINE} right={Style.POOL_LINE} bottom={Style.POOL_LINE}
                left={Style.POOL_LINE} columns={self.parts} rows={Style.ONE_ROW} zLevel={1}>
-            <box background={FILL} tint={self.color} desaturate={true} />
+            <box>
+              <RoundedFill color={self.color} radius={Style.POOL_ROUND - Style.POOL_LINE} corners={self.fillCorners} />
+              <box position={Position.Absolute} top={0ui} left={Style.POOL_ROUND} right={Style.POOL_ROUND}
+                   height={Style.POOL_GLOSS} background={Style.GLOSS} />
+            </box>
             <box />
           </box>
-          <box position={Position.Absolute} top={Style.POOL_LINE} right={Style.POOL_LINE} left={Style.POOL_LINE}
-               height={Style.POOL_GLOSS} background={Style.GLOSS} zLevel={2} />
           <box zLevel={4}>
             <text value={self.amount} textSize={SECONDARY_TEXT} textFont={TextFont.Numbers} textColor={self.ink}
                   textOutline={1} textShadow={Style.TUBE_SHADOW} wrap={.None} />

@@ -104,7 +104,7 @@ public class SkillRow implements Component {
         <box opacity={self.barShown ? 1 : 0}>
           <GaugeBar value={self.share} tone={Style.SKILL} height={Style.GAUGE_BAR} text={self.rank} />
         </box>
-        <text value={self.bonus} textSize={SECONDARY_TEXT} textFont={TextFont.Numbers} textColor={Style.GREEN} wrap={.None} />
+        <text value={self.bonus} textFont={TextFont.Numbers} textColor={Style.GREEN} wrap={.None} />
       </box>
     }
   }
