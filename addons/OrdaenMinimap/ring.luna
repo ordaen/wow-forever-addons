@@ -16,11 +16,15 @@ public struct RingSpec {
   glyph: Art | nil
   glyphWidth: Number<Length> = 0ui
   glyphHeight: Number<Length> = 0ui
+  // Its side: a ring button's, the mail's larger.
+  size: Number<Length> = BUTTON
 }
 
 public const BUTTON: Number<Length> = 39.84375dp
 // Room round the frame for the ring: 16 px out to a button's centre, 17 its radius.
 public const ROOM: Number<Length> = 38.671875dp
+// Mail waiting stands out: its button and glyph a third larger than the others.
+const MAIL_BUTTON: Number<Length> = BUTTON * 4 / 3
 
 // Ours, which other parts of the minimap stand by: the tooltip beside the Ordaen button, the drawer under its own.
 public const ORDAEN_BUTTON: RingSpec = { id: RingId.Ordaen, angle: 250 }
@@ -30,7 +34,10 @@ public const RING: Array<RingSpec> = [
   { id: RingId.Tracking, angle: 290, glyph: "ui-hud-minimap-tracking-up", glyphWidth: 18.75dp, glyphHeight: 17.578125dp },
   ORDAEN_BUTTON,
   DRAWER_BUTTON,
-  { id: RingId.Mail, angle: 65, glyph: "ui-hud-minimap-mail-up", glyphWidth: 21.09375dp, glyphHeight: 15.8203125dp },
+  {
+    id: RingId.Mail, angle: 65, glyph: "ui-hud-minimap-mail-up", glyphWidth: 21.09375dp * 4 / 3,
+    glyphHeight: 15.8203125dp * 4 / 3, size: MAIL_BUTTON
+  },
   { id: RingId.CraftingOrder, angle: 85 },
   { id: RingId.Landing, angle: 120 }
 ]
@@ -42,7 +49,7 @@ public class RingButton implements Component {
   // In the frame's box, whose places start at its line (`artOrigin`).
   derived left: Number<Length> = self.map.ringLeft(self.spec)
   derived top: Number<Length> = self.map.ringTop(self.spec)
-  derived opacity: Number = self.map.ringOpacity()
+  derived opacity: Number = self.map.ringOpacity(self.spec)
   // The game's button under ours, where there is one.
   derived theirs: any Frame | nil = self.frameOf()
   derived visible: Boolean = self.shownNow()
@@ -69,12 +76,14 @@ public class RingButton implements Component {
     }
   }
 
-  // The game's buttons show only while theirs would (the mail while there is mail); the drawer only while it is on
+  // The game's buttons show only while theirs would, the mail while there is mail (the client says so by its event:
+  // its frame's showing is told nothing); the drawer only while it is on
   // and holds something.
   shownNow(self): Boolean {
     let frame = self.theirs
     return match (self.spec.id) {
       RingId.Ordaen, RingId.Tracking => true
+      RingId.Mail => self.map.hasMail()
       RingId.Drawer => self.map.isDrawerOn() && self.map.holds() > 0
       else => frame != nil && frame.IsShown()
     }
@@ -122,9 +131,9 @@ public class RingButton implements Component {
     return $ltml {
       <$if={self.visible}>
         <embed $if={self.theirs != nil} frame={self.theirs} position={Position.Absolute} left={self.left}
-               top={self.top} width={BUTTON} height={BUTTON} opacity={0} />
+               top={self.top} width={self.spec.size} height={self.spec.size} opacity={0} />
         // Over the game's own button, which lies under it unseen, and over the map: the mouse is this box's.
-        <box position={Position.Absolute} left={self.left} top={self.top} width={BUTTON} height={BUTTON}
+        <box position={Position.Absolute} left={self.left} top={self.top} width={self.spec.size} height={self.spec.size}
              zLevel={1} opacity={self.opacity} xAlign={Align.Center} yAlign={Align.Center} background={self.art}
              @pointerPress={self.onClick} @dragStart={self.onDragStart} @drag={self.onDrag} @dragStop={self.onDragStop}
              @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>

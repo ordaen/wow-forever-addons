@@ -135,6 +135,7 @@ test "the frame is square with or without the zone's strip, the clock's and the 
 
 test "moved off its home the frame has its metal on every side, the ring round it" {
   Game.frames.MinimapMail = frame("MinimapMail", true)
+  Test.mail(true)
   Test.mount(nil, SCREEN)
   moveAway()
   minimap().hover()
@@ -143,12 +144,13 @@ test "moved off its home the frame has its metal on every side, the ring round i
   Test.expect(at.right < SCREEN.width - 100)
   Test.expect(at.top > 100)
   Test.expect(near(at.right - at.left, at.bottom - at.top))
-  Test.expect(mail.left > at.right - 10)
+  Test.expect(middleX(mail) > at.right)
 }
 
 test "docked, the ring runs along the frame's left and bottom, every button on the screen" {
   Game.frames.MinimapTrackingButton = frame("MinimapTrackingButton", true)
   Game.frames.MinimapMail = frame("MinimapMail", true)
+  Test.mail(true)
   Game.frames.MinimapCraftingOrder = frame("MinimapCraftingOrder", true)
   Game.frames.ExpansionLandingPageMinimapButton = frame("ExpansionLandingPageMinimapButton", true)
   Test.mount(nil, SCREEN)
@@ -380,6 +382,7 @@ test "the mail button shows while the game shows its mail" {
   Game.minimap.frame = frame("Minimap", true)
   Game.frames.MinimapTrackingButton = frame("MinimapTrackingButton", true)
   Game.frames.MinimapMail = frame("MinimapMail", true)
+  Test.mail(true)
   Test.mount(nil, SCREEN)
   Test.expect(minimap().button(MAIL).shown())
 }
@@ -431,6 +434,7 @@ test "the Ordaen button right-clicked opens Ordaen's dev tools, and again closes
 test "a ring button dragged round the frame follows the cursor, frame after frame, and stays where it is let go" {
   Game.minimap.frame = frame("Minimap", true)
   Game.frames.MinimapMail = frame("MinimapMail", true)
+  Test.mail(true)
   Test.mount(nil, SCREEN)
   moveAway()
   minimap().hover()
@@ -456,6 +460,7 @@ test "a ring button dragged round the frame follows the cursor, frame after fram
 test "a ring button taken off its middle and dragged by a pixel moves by a pixel" {
   Game.minimap.frame = frame("Minimap", true)
   Game.frames.MinimapMail = frame("MinimapMail", true)
+  Test.mail(true)
   Test.mount(nil, SCREEN)
   minimap().hover()
   const at = minimap().button(MAIL).rect()
@@ -475,6 +480,7 @@ test "a ring button taken off its middle and dragged by a pixel moves by a pixel
 test "a ring button follows the cursor from the drag's start, the pixels the client waits for counted" {
   Game.minimap.frame = frame("Minimap", true)
   Game.frames.MinimapMail = frame("MinimapMail", true)
+  Test.mail(true)
   Test.mount(nil, SCREEN)
   moveAway()
   minimap().hover()
@@ -492,6 +498,7 @@ test "a ring button follows the cursor from the drag's start, the pixels the cli
 test "docked, a ring button dragged along the bottom follows the cursor along it" {
   Game.minimap.frame = frame("Minimap", true)
   Game.frames.MinimapMail = frame("MinimapMail", true)
+  Test.mail(true)
   Test.mount(nil, SCREEN)
   minimap().hover()
   const at = minimap().button(MAIL).rect()
@@ -508,10 +515,10 @@ test "docked, a ring button dragged along the bottom follows the cursor along it
 
 test "a ring button let go hides with the ring once the cursor leaves the minimap" {
   Game.minimap.frame = frame("Minimap", true)
-  Game.frames.MinimapMail = frame("MinimapMail", true)
+  Game.frames.MinimapTrackingButton = frame("MinimapTrackingButton", true)
   Test.mount(nil, SCREEN)
   minimap().hover()
-  minimap().button(MAIL).hover()
+  minimap().button(TRACKING).hover()
   Test.press(nil)
   minimap().text(CLOCK).hover()
   Test.pass(0.02)
@@ -520,7 +527,28 @@ test "a ring button let go hides with the ring once the cursor leaves the minima
   Test.release(nil)
   Test.open("/ordaen")
   Test.page().window(SETTINGS).text(SETTINGS).hover()
-  Test.expect(minimap().button(MAIL).opacity() == 0)
+  Test.expect(minimap().button(TRACKING).opacity() == 0)
+}
+
+test "mail waiting shows its button with the ring hidden, a third larger than the others" {
+  Game.minimap.frame = frame("Minimap", true)
+  Game.frames.MinimapTrackingButton = frame("MinimapTrackingButton", true)
+  Game.frames.MinimapMail = frame("MinimapMail", false)
+  Test.mount(nil, SCREEN)
+  Test.expect(!minimap().button(MAIL).shown())
+  // Mail comes while the cursor is away: the client says so by its event alone.
+  Test.mail(true)
+  Test.flush()
+  Test.expect(minimap().button(MAIL).shown() && minimap().button(MAIL).opacity() == 1)
+  Test.expect(minimap().button(TRACKING).opacity() == 0)
+  minimap().hover()
+  const mail = minimap().button(MAIL).rect()
+  const tracking = minimap().button(TRACKING).rect()
+  Test.expect(((mail.right - mail.left) / (tracking.right - tracking.left) - 4 / 3).abs() < 0.02)
+  // Read, it goes.
+  Test.mail(false)
+  Test.flush()
+  Test.expect(!minimap().button(MAIL).shown())
 }
 
 test "the drawer's button taken to be dragged hides its tooltip" {
@@ -547,6 +575,7 @@ test "the game's tracking button lies unseen under ours" {
 test "the zone's tooltip is the one tooltip shown, the ring's buttons showing none" {
   Game.frames.MinimapTrackingButton = frame("MinimapTrackingButton", true)
   Game.frames.MinimapMail = frame("MinimapMail", true)
+  Test.mail(true)
   Test.mount(nil, SCREEN)
   minimap().text(ZONE).hover()
   Test.expect(Test.page().window("Faction territory").count() == 1 && Test.surfaces().length == 2)
@@ -556,6 +585,7 @@ test "no tooltip shows until the cursor comes onto a part that has one" {
   Game.minimap.frame = frame("Minimap", true)
   Game.frames.MinimapTrackingButton = frame("MinimapTrackingButton", true)
   Game.frames.MinimapMail = frame("MinimapMail", true)
+  Test.mail(true)
   Game.minimap.entries = [{ text: "Details", icon: DETAILS }]
   Test.mount(nil, SCREEN)
   minimap().hover()
@@ -583,6 +613,7 @@ test "with nothing to hold the drawer has no button" {
 test "the drawer's tooltip says what its button does, and no other button's says it" {
   Game.frames.MinimapTrackingButton = frame("MinimapTrackingButton", true)
   Game.frames.MinimapMail = frame("MinimapMail", true)
+  Test.mail(true)
   Game.minimap.buttons = [frame("OtherAddonButton", true)]
   Game.minimap.entries = [{ text: "Details", icon: DETAILS }, { text: "Plater" }]
   Test.mount(nil, SCREEN)

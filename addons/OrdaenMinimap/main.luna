@@ -1,4 +1,6 @@
 import Build from "$build"
+import Client from "$client"
+import Events from "$events"
 import Game from "$game"
 import { Align, Anchored, ArtBorder, EmbedLook, Event, Frame, Line, MouseButton, Overflow, Point, Position, Shadow, Side } from "$ltml"
 import Runtime from "$runtime"
@@ -55,13 +57,16 @@ public class Minimap implements Module, App {
   state angles: mut Map<RingId, Number> = {}
   state hovered = false
   state drawerOpen = false
-  // The ring button being dragged, its angle meanwhile, and where its middle stood as the drag began.
+  // The ring button being dragged, its angle meanwhile, and where its middle stood as the drag began, and its size.
   state dragging: RingId | nil = nil
   state dragAngle: Number = 0
   dragX: Number = 0
   dragY: Number = 0
+  dragSize: Number<Length> = BUTTON
   state hint: Hint = Hint.None
   state entryName = ""
+  // Whether the player has mail waiting (the client's `HasNewMail`, told anew with `UPDATE_PENDING_MAIL`).
+  state mail: Boolean = Client.HasNewMail()
 
   // At home it stands in the screen's top right corner with nothing round it there: the frame's line on the screen's
   // edges, its metal on its left and bottom alone (the bottom left corner the one rounded), the ring along those two.
@@ -126,6 +131,7 @@ public class Minimap implements Module, App {
     // A right click on the map opens the minimap's settings, never a ping.
     Game.minimap.takeRightClick(true)
     Game.minimap.rightClicked.listen(self.onMapRightClick)
+    Events.UPDATE_PENDING_MAIL.listen(self.onMail)
     Ordaen.modules.add(self)
     // The room it keeps down from the screen's top right corner while it stands at home there: what stands along the
     // right edge (the tracker) starts under it.
@@ -185,17 +191,17 @@ public class Minimap implements Module, App {
   }
 
   // The frame's side, how far out the ring runs (its box's far sides), and docked, where a button's middle stops short
-  // of the screen's edges: the bottom's right end, as far down from the top.
+  // of the screen's edges (a button's half in from them): the bottom's right end, as far down from the top.
   derived side: Number = self.frameSide / 1ui
   derived ringOut: Number = RING_OUT / 1ui
   derived ringFar: Number = self.side + self.ringOut
-  derived cornerEnd: Number = self.side - BUTTON / 2 / 1ui
 
   // A button's middle at `angle`: along it from the frame's middle onto the box RING_OUT round the frame (a square's
   // projection, not a circle's). Docked, the screen's edges stand on the frame's top and right: what would stand on
   // the right lies along the bottom, and what on top up the left, each as far from the screen's corner, clockwise
-  // still. Rounded to hundredths.
-  ringAt(self, angle: Number): (Number, Number) {
+  // still, a button of `size` whole on the screen. Rounded to hundredths.
+  ringAt(self, angle: Number, size: Number<Length>): (Number, Number) {
+    let cornerEnd = self.side - size / 2 / 1ui
     let t = angle.rad()
     let dx = t.sin()
     let dy = -t.cos()
@@ -210,20 +216,21 @@ public class Minimap implements Module, App {
         y = self.side - x
         x = -self.ringOut
       }
-      x = x.min(self.cornerEnd)
-      y = y.max(self.side - self.cornerEnd)
+      x = x.min(cornerEnd)
+      y = y.max(self.side - cornerEnd)
     }
     return Minimap.hundredths(x), Minimap.hundredths(y)
   }
 
   // The angle a place points to from the frame's middle, to the whole degree; docked, its nearest place along the
-  // bottom and the left, where the ring runs.
-  angleAt(self, x: Number, y: Number): Number {
+  // bottom and the left, where the ring runs, for a button of `size`.
+  angleAt(self, x: Number, y: Number, size: Number<Length>): Number {
+    let cornerEnd = self.side - size / 2 / 1ui
     let px = x
     let py = y
     if (self.docked) {
-      let bottomX = x.max(-self.ringOut).min(self.cornerEnd)
-      let leftY = y.max(self.side - self.cornerEnd).min(self.ringFar)
+      let bottomX = x.max(-self.ringOut).min(cornerEnd)
+      let leftY = y.max(self.side - cornerEnd).min(self.ringFar)
       let onBottom = Minimap.apart(x - bottomX, y - self.ringFar) <= Minimap.apart(x + self.ringOut, y - leftY)
       px = onBottom ? bottomX : -self.ringOut
       py = onBottom ? self.ringFar : leftY
@@ -244,18 +251,19 @@ public class Minimap implements Module, App {
   }
 
   public ringLeft(self, spec: RingSpec): Number<Length> {
-    let x, y = self.ringAt(self.angle(spec))
-    return x * 1ui - BUTTON / 2
+    let x, y = self.ringAt(self.angle(spec), spec.size)
+    return x * 1ui - spec.size / 2
   }
 
   public ringTop(self, spec: RingSpec): Number<Length> {
-    let x, y = self.ringAt(self.angle(spec))
-    return y * 1ui - BUTTON / 2
+    let x, y = self.ringAt(self.angle(spec), spec.size)
+    return y * 1ui - spec.size / 2
   }
 
   // Whether the ring shows: always, or with «Buttons on mouseover» while the cursor is on the minimap, a button is
-  // dragged or the drawer shows.
-  public ringOpacity(self): Number {
+  // dragged or the drawer shows. The mail's shows whenever there is mail.
+  public ringOpacity(self, spec: RingSpec): Number {
+    if (spec.id == RingId.Mail) { return 1 }
     if (!self.settings.values.buttonsHover || self.hovered || self.drawerShown || self.dragging != nil) { return 1 }
     return 0
   }
@@ -263,13 +271,17 @@ public class Minimap implements Module, App {
   public isDrawerOpen(self): Boolean { return self.drawerOpen }
   public isDrawerOn(self): Boolean { return self.settings.values.drawerOn }
   public holds(self): Integer { return self.held }
+  public hasMail(self): Boolean { return self.mail }
+
+  onMail(mut self) { self.mail = Client.HasNewMail() }
 
   // The drag taken as it starts: the client starts it once the cursor has gone a few pixels from the press, and the
   // button is where those take it at once, never left behind until the cursor moves again.
   public startDrag(mut self, spec: RingSpec, dx: Number<Length>, dy: Number<Length>) {
-    let x, y = self.ringAt(self.angle(spec))
+    let x, y = self.ringAt(self.angle(spec), spec.size)
     self.dragX = x
     self.dragY = y
+    self.dragSize = spec.size
     self.dragAngle = self.angle(spec)
     self.dragging = spec.id
     self.hint = Hint.None
@@ -279,7 +291,7 @@ public class Minimap implements Module, App {
   // The cursor gone `dx`, `dy` since the press: the button's middle as it stood, moved as far, held by the cursor
   // where it took it.
   public dragTo(mut self, dx: Number<Length>, dy: Number<Length>) {
-    self.dragAngle = self.angleAt(self.dragX + dx / 1ui, self.dragY + dy / 1ui)
+    self.dragAngle = self.angleAt(self.dragX + dx / 1ui, self.dragY + dy / 1ui, self.dragSize)
   }
 
   public stopDrag(mut self, spec: RingSpec) {
