@@ -424,7 +424,7 @@ public class StatSpot implements Component {
         <slot />
         <box $if={self.glows} position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui}
              border={Style.SOURCE_RIM} background={Style.SOURCE_GLOW} zLevel={3} />
-        <Tip $if={self.open} title={self.title} text={self.shown.text} sections={self.shown.sections} />
+        <Tip $if={self.open} title={self.title} text={self.shown.text} rows={self.shown.rows} sections={self.shown.sections} />
       </box>
     }
   }
