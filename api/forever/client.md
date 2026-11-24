@@ -84,6 +84,11 @@ at the end. Commits are lunatype's unless named `dev` (wow-dev-tools). What tool
   the execution; `issecretvalue` tells one. Known: build 70938, 2026-11-14 (ce82077), dev 1b370f2. Stand-in:
   `Client.secret`, `issecretvalue` (`client.lua`), `Test.secret()`; `client_test.lua` «What the client keeps from
   addons». Comparing with `nil` is not held: Lua 5.1 calls `__eq` only between two tables.
+- **The player's statistics turn secret** while `C_Secrets.ShouldUnitStatsBeSecret()` says so (in a fight where
+  secrets apply): every function the client's documentation marks `SecretWhenUnitStatsRestricted` (`UnitStat`,
+  `GetSpellBonusDamage`, `UnitAttackPower`, 63 of them) gives its numbers as secrets. Known: build 71037, 2026-11-24,
+  the character window's `GetSpellBonusDamage(...).max` raised. Stand-in: `Client.secretStats`, `Test.secretStats`;
+  the event it fires as they turn (`ADDON_RESTRICTION_STATE_CHANGED`, Combat) is not yet seen in the game.
 - **A table the client keeps raises when walked or read** (`pairs`, `next`, `ipairs`, a key); `canaccesstable`
   tells one. Known: dev d6fe56d, 0fdbf8b. Stand-in: `Client.secretTable`, `canaccesstable` (`client.lua`);
   wow-dev-tools `Json.test`, `Record.test`. `#` of one is not held (Lua 5.1 can't refuse it).

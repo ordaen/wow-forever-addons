@@ -230,6 +230,8 @@ public class Character implements Module, App {
         Events.UNIT_STATS.listen(self.onUnitStats)
         Events.UNIT_ATTACK_POWER.listen(self.onUnitStats)
         Events.UNIT_RESISTANCES.listen(self.onUnitStats)
+        // The statistics read again as the client gives them plain once more.
+        Events.ADDON_RESTRICTION_STATE_CHANGED.listen(self.readStats)
         Events.UPDATE_FACTION.listen(self.readFactions)
         Events.SKILL_LINES_CHANGED.listen(self.readSkills)
         Events.CURSOR_CHANGED.listen(self.readFits)
@@ -473,7 +475,11 @@ public class Character implements Module, App {
     if (unit == "player") { self.readGear() }
   }
 
-  readStats(mut self) { self.stats = self.sheet.stats() }
+  // The statistics as the client gives them; while it holds them secret, those it gave last stay.
+  readStats(mut self) {
+    const read = self.sheet.stats()
+    if (read != nil) { self.stats = read }
+  }
 
   onUnitStats(mut self, unit: String) {
     if (unit == "player") { self.readStats() }

@@ -320,7 +320,8 @@ public trait Sheet {
   public worn(self, slot: Integer): Worn
   public usesAmmo(self): Boolean
   public who(self): Who
-  public stats(self): Stats
+  // The player's statistics; none while the client holds them secret (in a fight where secrets apply).
+  public stats(self): Stats | nil
   public factions(self): Array<Faction>
   // Whether a faction of the list is inactive: asked of the one the player picks.
   public inactive(self, index: Integer): Boolean
@@ -612,7 +613,8 @@ public class ClientSheet implements Sheet {
     }
   }
 
-  public stats(self): Stats {
+  public stats(self): Stats | nil {
+    if (Client.C_Secrets.ShouldUnitStatsBeSecret()) { return nil }
     let base, positive, negative = Client.UnitAttackPower("player")
     let rangedBase, rangedPositive, rangedNegative = Client.UnitRangedAttackPower("player")
     let _, armor, _, _ = Client.UnitArmor("player")

@@ -112,7 +112,7 @@ class FakeSheet implements Sheet {
   // What the sheet says of the stats, made anew at each read as the client's sheet makes them: a test may put
   // others in.
   figures: () => Stats = warrior
-  public stats(self): Stats { return self.figures() }
+  public stats(self): Stats | nil { return self.figures() }
 
   public factions(self): Array<Faction> {
     const rows: Array<Faction> = [
@@ -185,8 +185,9 @@ class FakeSheet implements Sheet {
 // The worn items' icons, as the game gives them.
 function icons(id: Integer): Art | nil { return id == HELM ? HELM_ICON : id == OTHER_HELM ? OTHER_ICON : REAPER_ICON }
 
-// The game's character window, shown as its key or its micro button shows it, with the test's sheet: ours.
-function opened(sheet: mut FakeSheet): Test.Part {
+// The game's character window, shown as its key or its micro button shows it, with the test's sheet (or the
+// client's): ours.
+function opened(sheet: mut any Sheet): Test.Part {
   Char.sheet = sheet
   const game = Client.CreateFrame("Frame", "CharacterFrame", Client.UIParent, nil)
   game.Hide()
@@ -1611,10 +1612,22 @@ test "the client's sheet reads health's and mana's regeneration a second, and sp
   Client.GetHealthRegen = (): (Number, Number) => { return 4, 1 }
   Client.GetHealthRegenFromSpirit = (): (Number, Number) => { return 2, 0 }
   Client.GetManaRegenFromSpirit = (): (Number, Number) => { return 6, 0 }
-  const stats = new ClientSheet().stats()
+  const stats = new ClientSheet().stats() ?? panic("the stand-in gives plain statistics")
   // Spirit's health counted standing, as the game's sheet takes it: three quarters.
   Test.expect(stats.healthRegen == 20 && stats.combatHealthRegen == 5)
   Test.expect(stats.healthFromSpirit == 7.5 && stats.manaFromSpirit == 30)
+}
+
+test "while the client holds the statistics secret the window keeps what it read, and reads them again once plain" {
+  Test.mount(nil, PAGE)
+  Game.items.icon = icons
+  const window = opened(new ClientSheet())
+  // A fight where secrets apply: the stats' changes are heard, and nothing is counted with a secret.
+  Test.secretStats(true)
+  Test.event("UNIT_STATS", "player")
+  Test.expect(window.text(Locale.SECTION_MELEE).shown())
+  Test.secretStats(false)
+  Test.expect(window.text(Locale.SECTION_MELEE).shown())
 }
 
 test "the client's sheet reads the three hastes, the ranged with its ammo's" {
@@ -1622,7 +1635,7 @@ test "the client's sheet reads the three hastes, the ranged with its ammo's" {
   Client.GetMeleeHaste = (): Number => 4
   Client.GetRangedHaste = (): (Number, Number) => { return 3, 2 }
   Client.UnitSpellHaste = (unit: String): Number => 6
-  const stats = new ClientSheet().stats()
+  const stats = new ClientSheet().stats() ?? panic("the stand-in gives plain statistics")
   Test.expect(stats.meleeHaste == 4 && stats.rangedHaste == 5 && stats.spellHaste == 6)
 }
 
@@ -1631,7 +1644,7 @@ test "the client's sheet reads the glancing blows against a raid boss's 315 of d
   Client.UnitLevel = (unit: String): Number => 60
   Client.GetGlancingBlowChance = (skill: Number | nil, defense: Number): Number => defense == 315 ? 0.4 : 0.1
   Client.GetGlancingBlowPenalty = (skill: Number | nil, defense: Number): Number => defense == 315 ? 0.35 : 0.05
-  const stats = new ClientSheet().stats()
+  const stats = new ClientSheet().stats() ?? panic("the stand-in gives plain statistics")
   Test.expect(stats.bossGlancing == 40 && stats.levelGlancing == 10)
   Test.expect(stats.bossGlancingPenalty == 35 && stats.levelGlancingPenalty == 5)
   Test.expect(stats.bossDefensePast == 15)
