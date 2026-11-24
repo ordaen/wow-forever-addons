@@ -49,8 +49,9 @@ test "a profession's trainer opens our window in place of the game's, its servic
   const window = Test.page().window(Locale.TRAINER)
   // What is known is left out at first.
   Test.expect(window.text("Red Linen Robe").shown() && !window.text("Linen Shirt").shown())
-  // The footer counts each kind by a dot and its number: one to learn now, one not yet, one known.
-  Test.expect(window.text(Locale.COLUMN_SKILL).shown() && window.texts().join(" | ").contains("1 | 1 | 1"))
+  // The footer counts each kind by its label and its number: one to learn now, one not yet, one known.
+  Test.expect(window.text(Locale.COLUMN_SKILL).shown() &&
+      window.texts().join(" | ").contains("Available | 1 | Unavailable | 1 | Learned | 1"))
   window.input().type("bolt")
   Test.expect(!window.text("Red Linen Robe").shown() && window.text("Bolt of Woolen Cloth").shown())
   Game.trainer.open = false
@@ -139,7 +140,7 @@ test "a right-click's «Ignore» covers every rank of a service with «Ignored»
   window.text("Red Linen Robe").nth(1).click()
   window.button(Locale.TRAIN).click()
   Test.expect(bought.length == 0)
-  Test.expect(window.texts().join(" | ").contains("0 | 1 | 1 | 1 | Your money"))
+  Test.expect(window.texts().join(" | ").contains("Available | 0 | Unavailable | 1 | Learned | 1 | Ignored | 1 | Your money"))
   Test.expect(Game.saved.stored(.Character, "OrdaenProfessions:ignored") != nil)
   Test.pass(1)
   window.text("Red Linen Robe").nth(1).rightClick()

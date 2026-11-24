@@ -6,17 +6,16 @@
 // card in the right column with «Learn» (a new profession asked first, greyed with no free slot); the game's tooltip of
 // a service while the cursor is anywhere on its row. A double press learns a service, a right-click opens its menu
 // (learn, ignore it or stop ignoring it, its link in the chat). The footer counts what can be learned (green), what
-// can't yet (red) and what is known (blue), each a dot and its number whose tip says what it counts, and shows the
-// player's money. The services are the game's (`Game.trainer`); a service the player can't learn yet is red, a known
+// can't yet (red) and what is known (blue), each its label and its number in its colour, and shows the player's
+// money. The services are the game's (`Game.trainer`); a service the player can't learn yet is red, a known
 // one dim, one ignored grey. The marks are the character's, kept by the owning module
 // (`TrainerIgnored`), every rank of a spell under its name.
 import Client from "$client"
 import Game from "$game"
 import { Align, Columns, Edges, Event, Frame, Line, MouseButton, Overflow, Position, Side, TextFont, Track } from "$ltml"
-import root Ordaen from "Ordaen"
 import {
-  ARTWORK, BandCell, BandFact, ButtonPlate, Choice, Column, Component, Dialog, FilterButton, FooterBand, FilterGroup, FoldCaption, KeptWindow,
-  Menu, MenuEntry, ModuleMemory, Money, PushButton, SECONDARY_TEXT, SkillBar, TITLE_TEXT, Table, TableRow,
+  ARTWORK, BandCell, BandFact, ButtonPlate, Choice, Column, Component, Dialog, FilterButton, FilterGroup, FoldCaption, FooterCount, KeptWindow,
+  ListFooter, Menu, MenuEntry, ModuleMemory, Money, PushButton, SECONDARY_TEXT, SkillBar, TITLE_TEXT, Table, TableRow,
   Tip, TipRow, TipText, ToolPick, ToolSort, Toolbar, WINDOW_ROOM, Window, WindowSide, WindowTabSpec, bandOf, richDescription,
   sortChoices, switched
 } from "Ordaen"
@@ -69,8 +68,6 @@ const GREY: Color = Color.hex("#7a7a7a")
 // An ignored row's plate: the row under it barely seen.
 const PLATE: Color = Color.hex("#16110cd9")
 const WHITE: Color = Color.hex("#ffffff")
-// A footer count's dot.
-const DOT = 9.375dp
 // A picked line, as a picked table row is shaded.
 const PICKED: Color = Color.hex("#00000040")
 const ICON = 28.125dp
@@ -87,7 +84,6 @@ const LINE: Array<Track> = [ICON, { fr: 1 }, "max-content"]
 const PAIR: Array<Track> = [{ fr: 1 }, "max-content"]
 const CARD: Array<Track> = ["max-content", { fr: 1 }, "max-content"]
 const FOOT: Columns = { each: "max-content" }
-const SPREAD: Array<Track> = ["max-content", { fr: 1 }, "max-content"]
 const DIALOG = 375dp
 const FILTERS: Array<FilterGroup<TrainerShow>> = [
   {
@@ -486,42 +482,10 @@ class PriceLine implements Component {
   }
 }
 
-// One count of the footer: the colour its services are known by, how many there are, and what its tip says.
-struct StatusCount {
-  color: Color
-  value: Integer
-  title: String
-  text: String
-}
-
 // The band's rules above and below it, as the tooltip has them.
 const BAND_RULE: Line = { width: 1.171875dp, color: Color.hex("#d6a56b2e"), sides: [Side.Top, Side.Bottom] }
 // A line of prices: the place, the price after it.
 const PRICE_LINE: Array<Track> = [{ fr: 1 }, "max-content"]
-
-// A count in the footer: a dot of its colour and its number, no label; under the cursor its tip says what it counts.
-class StatusDot implements Component {
-  state hovered = false
-  derived number: String = String.of(self.count.value)
-
-  count: Signal<StatusCount>
-  constructor(count: Signal<StatusCount>) {
-    self.count = count
-  }
-
-  onEnter(mut self) { self.hovered = true }
-  onLeave(mut self) { self.hovered = false }
-
-  public render(self): Template {
-    return $ltml {
-      <box columns={FOOT} gap={2sp} yAlign={Align.Center} @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
-        <box width={DOT} height={DOT} background={self.count.color} mask={Ordaen.art.panel.faceRound} />
-        <text value={self.number} textSize={SECONDARY_TEXT} textFont={TextFont.Numbers} textColor={INK} wrap={.None} />
-        <Tip $if={self.hovered} title={self.count.title} text={self.count.text} />
-      </box>
-    }
-  }
-}
 
 // The game's facts of the service's spell: its tooltip's lines after its name, the line of what it does left out (the
 // card says that itself), each as «left   right».
@@ -685,7 +649,7 @@ public class TrainerPage {
   derived confirmText: String = Locale.TRAINER_CONFIRM_PROFESSION.format(self.current?.name ?? "")
   // The footer's counts: what can be learned now (one ignored left out), what can't yet, what is known; and
   // what is ignored, where anything is.
-  derived counts: Array<StatusCount> = self.countsOf()
+  derived counts: Array<FooterCount> = self.countsOf()
   public derived side: WindowSide | nil = { width: CARD_WIDTH, content: self.card }
   // Nothing picked: the trainer's card, its greeting, and what all that can be learned now costs together (the footer
   // counts them).
@@ -768,14 +732,14 @@ public class TrainerPage {
   // How many services the footer counts as this: what the filter would show of them.
   count(self, show: TrainerShow): Integer { return self.services.count(service => showOf(service, self.ignoredNames) == show) }
 
-  countsOf(self): Array<StatusCount> {
-    const counts: Array<StatusCount> = [
-      { color: GREEN, value: self.count(.Available), title: Locale.TRAINER_AVAILABLE, text: Locale.TRAINER_AVAILABLE_TIP },
-      { color: RED, value: self.count(.Unavailable), title: Locale.TRAINER_UNAVAILABLE, text: Locale.TRAINER_UNAVAILABLE_TIP },
-      { color: BLUE, value: self.count(.Known), title: Locale.TRAINER_KNOWN, text: Locale.TRAINER_KNOWN_TIP }
+  countsOf(self): Array<FooterCount> {
+    const counts: Array<FooterCount> = [
+      { label: Locale.TRAINER_AVAILABLE, value: String.of(self.count(.Available)), color: GREEN },
+      { label: Locale.TRAINER_UNAVAILABLE, value: String.of(self.count(.Unavailable)), color: RED },
+      { label: Locale.TRAINER_KNOWN, value: String.of(self.count(.Known)), color: BLUE }
     ]
     const ignored = self.count(.Ignored)
-    if (ignored > 0) { counts.push({ color: GREY, value: ignored, title: Locale.TRAINER_IGNORED, text: Locale.TRAINER_IGNORED_TIP }) }
+    if (ignored > 0) { counts.push({ label: Locale.TRAINER_IGNORED, value: String.of(ignored), color: GREY }) }
     return counts
   }
 
@@ -1025,18 +989,10 @@ public class TrainerPage {
 
   // The footer, a band across the main section: the counts at its left, the player's money at its right.
   public const footer: Template = $ltml {
-    <FooterBand>
-      <box columns={SPREAD} gap={6sp} yAlign={Align.Center}>
-        <box columns={FOOT} gap={6sp} yAlign={Align.Center}>
-          <StatusDot $for={count of self.counts} count={count} />
-        </box>
-        <box />
-        <box columns={FOOT} gap={3sp} yAlign={Align.Center}>
-          <text value={Locale.TRAINER_YOUR_MONEY} textColor={DIM} textSize={SECONDARY_TEXT} wrap={.None} />
-          <Money amount={Game.money.amount} />
-        </box>
-      </box>
-    </FooterBand>
+    <ListFooter counts={self.counts}>
+      <text value={Locale.TRAINER_YOUR_MONEY} textColor={DIM} textSize={SECONDARY_TEXT} wrap={.None} />
+      <Money amount={Game.money.amount} />
+    </ListFooter>
   }
 
   public const body: Template = $ltml {

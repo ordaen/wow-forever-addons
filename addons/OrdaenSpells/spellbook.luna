@@ -9,7 +9,7 @@ import Game from "$game"
 import { Action, Align, BarFill, Bounds, ByInteractionState, Columns, Event, FillDuration, FillFrom, Frame, MouseButton, Overflow, Position, Track } from "$ltml"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
-import { ARTWORK, Choice, Column, Component, Corner, FooterBand, FooterCount, FooterCounts, ItemButton, Marker, ModuleMemory, SECONDARY_TEXT, Section, Table, TableRow, ToolPick, Toolbar, tracksOf } from "Ordaen"
+import { ARTWORK, Choice, Column, Component, Corner, FooterCount, ItemButton, ListFooter, Marker, ModuleMemory, SECONDARY_TEXT, Section, Table, TableRow, ToolPick, Toolbar, tracksOf } from "Ordaen"
 import Locale from "@/locales"
 import Style from "@/style"
 
@@ -418,8 +418,6 @@ public class SpellbookPage {
   }
 
   public const footer: Template = $ltml {
-    <FooterBand>
-      <FooterCounts counts={self.counts} />
-    </FooterBand>
+    <ListFooter counts={self.counts} />
   }
 }

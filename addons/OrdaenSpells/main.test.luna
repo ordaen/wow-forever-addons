@@ -990,12 +990,8 @@ test "with nothing picked, the trainer asks for a pick, and the footer counts th
   Game.trainer.changed.emit()
   const window = Test.page().window(TRAINER)
   Test.expect(window.text("Due to learn all:").shown())
-  // Each count a dot and its number, no label: its tip says what it counts.
-  Test.expect(window.texts().join(" | ").contains("1 | 2 | 3 | Your money"))
-  Test.expect(!Test.page().text("Unavailable").shown())
-  window.text("2").hover()
-  Test.expect(Test.page().text("Unavailable").shown() &&
-      Test.page().text("Can't be learned yet: a level, a skill or an earlier rank is missing.").shown())
+  // Each count its label and its number, the money after them.
+  Test.expect(window.texts().join(" | ").contains("Available | 1 | Unavailable | 2 | Learned | 3 | Your money"))
 }
 
 test "with nothing picked, the card is the trainer's: its greeting and what all not learned costs, the counts left to the footer" {
@@ -1006,7 +1002,8 @@ test "with nothing picked, the card is the trainer's: its greeting and what all 
   Game.trainer.changed.emit()
   const window = Test.page().window(TRAINER)
   Test.expect(window.text("Hail, warrior.").shown())
-  Test.expect(!window.text("Available").shown() && !window.text("Unavailable").shown())
+  // The card counts nothing: «Available» is the footer's alone.
+  Test.expect(window.text("Available").shown() && !window.text("Available").nth(2).shown())
   Test.expect(window.texts().join(" | ").contains("Due to learn all: | 9g 4s 0c"))
 }
 
@@ -1122,10 +1119,10 @@ test "the count of the services follows what the trainer says" {
   Game.trainer.open = true
   Game.trainer.changed.emit()
   const window = Test.page().window(TRAINER)
-  Test.expect(window.texts().join(" | ").contains("1 | 1 | 1 | Your money"))
+  Test.expect(window.texts().join(" | ").contains("Available | 1 | Unavailable | 1 | Learned | 1 | Your money"))
   Game.trainer.services = (): Array<Game.TrainerService> => []
   Game.trainer.changed.emit()
-  Test.expect(window.texts().join(" | ").contains("0 | 0 | 0 | Your money"))
+  Test.expect(window.texts().join(" | ").contains("Available | 0 | Unavailable | 0 | Learned | 0 | Your money"))
 }
 
 test "a price of all the player's money is in ink" {

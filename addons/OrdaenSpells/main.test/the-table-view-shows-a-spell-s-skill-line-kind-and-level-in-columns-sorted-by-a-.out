@@ -105,15 +105,17 @@ surface 425,173.29 799.82x553.42 on MEDIUM clamped raised by a click
     box 432.2,693.96 785.42x25.54
       box 432.2,693.96 785.42x25.54 Interface/FrameGeneral/UI-Background-Marble
         box 454.96,700.49 739.91x13.33
-          box 454.96,700.49 41.87x13.33
-            text 454.96,700.49 26.67x13.33 "Shown" #a3977f
-            text 490.16,700.49 6.67x13.33 "5" #e8dcc4
-          box 513.89,700.49 81.87x13.33
-            text 513.89,700.49 66.67x13.33 "Active spells" #a3977f
-            text 589.09,700.49 6.67x13.33 "4" #e8dcc4
-          box 612.82,700.49 86.87x13.33
-            text 612.82,700.49 71.67x13.33 "Passive spells" #a3977f
-            text 693.02,700.49 6.67x13.33 "1" #e8dcc4
+          box 454.96,700.49 722.84x13.33
+            box 454.96,700.49 41.87x13.33
+              text 454.96,700.49 26.67x13.33 "Shown" #a3977f
+              text 490.16,700.49 6.67x13.33 "5" #e8dcc4
+            box 513.89,700.49 81.87x13.33
+              text 513.89,700.49 66.67x13.33 "Active spells" #a3977f
+              text 589.09,700.49 6.67x13.33 "4" #e8dcc4
+            box 612.82,700.49 86.87x13.33
+              text 612.82,700.49 71.67x13.33 "Passive spells" #a3977f
+              text 693.02,700.49 6.67x13.33 "1" #e8dcc4
+          box 1194.87,707.15 0x0
     box 1203.07,704.96 13.33x13.33 absolute
       box 1203.07,704.96 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 425,173.29 799.82x39
