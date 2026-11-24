@@ -86,10 +86,9 @@ test "full bags leave every item, show the window and sound once where the playe
   Test.expect(Test.sounds().filter(sound => sound == FULL_SOUND).length == 1)
 }
 
-test "what was looted is a line each where the player chose the lines, the money as what the purse gained" {
+test "what was looted is a line each, as the player has it unless they chose otherwise, the money as the purse's gain" {
   Test.mount(nil, SCREEN)
   _ = window(4)
-  choose((values: mut Choices): nil => { values.loot = { toasts: true, ..values.loot } })
   Game.money.amount = 100
   Test.event("LOOT_READY", true)
   Test.event("LOOT_SLOT_CLEARED", 3)
@@ -108,8 +107,41 @@ test "what was looted is a line each where the player chose the lines, the money
   Test.expect(Inventory.lootLines.shown.length == 0)
 }
 
+// As fast looting meets it: the window emptied at once closes, and the client tells the money after.
+test "the money told just after its window closed is a line; money gained later isn't" {
+  _ = window(4)
+  Game.money.amount = 100
+  Test.event("LOOT_READY", true)
+  Test.event("LOOT_CLOSED")
+  Test.pass(0.5)
+  Game.money.amount = 150
+  Test.flush()
+  const line = Inventory.lootLines.shown.find(line => line.coins) ?? panic("the money's line")
+  Test.expect(line.count == 50)
+  Test.pass(5)
+  Game.money.amount = 300
+  Test.pass(0.5)
+  Test.expect(Inventory.lootLines.shown.length == 0)
+}
+
+test "the money of a window still to come is counted on as the next opens" {
+  _ = window(4)
+  Game.money.amount = 100
+  Test.event("LOOT_READY", true)
+  Test.event("LOOT_CLOSED")
+  Test.event("LOOT_READY", true)
+  Game.money.amount = 130
+  Test.event("LOOT_CLOSED")
+  Test.pass(0.2)
+  Game.money.amount = 140
+  Test.pass(0.5)
+  const line = Inventory.lootLines.shown.find(line => line.coins) ?? panic("the money's line")
+  Test.expect(line.count == 40)
+}
+
 test "with the lines off, nothing looted is kept" {
   _ = window(4)
+  choose((values: mut Choices): nil => { values.loot = { toasts: false, ..values.loot } })
   Game.money.amount = 100
   Test.event("LOOT_READY", true)
   Test.event("LOOT_SLOT_CLEARED", 3)

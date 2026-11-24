@@ -19,6 +19,8 @@ const FROM = 20ui
 // A line comes at most this soon after the one before it: they slide in one by one.
 const APART = 0.15
 const MOST = 20
+// The client tells the money looted this long after the window closed, at most.
+const MONEY_AFTER = 2
 // An epic or better flashes this long.
 const FLASH = 1
 const ICON = 28ui
@@ -102,29 +104,65 @@ class ToastLine implements Component {
   }
 }
 
-// The lines shown and to come: what the module posts as it loots, kept as long as a line lives.
+// The lines shown and to come, while the player shows them: an item or a currency taken from a loot window (`post`), and
+// the money as what the purse gains from a window's opening to a little after it closes, since the client tells the
+// money after a window emptied at once is closed.
 public class LootLines {
   state toasts: Array<Toast> = []
+  on: Signal<Boolean>
+  // The purse as a window opened or last gained, while its money is still to come; nothing otherwise.
+  purse: Integer | nil = nil
+  ending: Task<nil> | nil = nil
   // The game's time, read only while a line shows: nothing is run each frame otherwise.
   derived now: Number = self.toasts.length > 0 ? Game.clock.time : 0
   public derived shown: Array<Toast> = Ordaen.placing ? SAMPLES : self.toasts.filter(toast => toast.came <= self.now)
   derived samples: Boolean = Ordaen.placing
   public derived clock: Number = self.samples ? SAMPLED : self.now
 
-  constructor() {
+  constructor(on: Signal<Boolean>) {
+    self.on = on
     watch (now of self.now) { self.forget(now) }
+    Game.loot.opened.listen(self.onOpened)
+    Game.loot.closed.listen(self.onClosed)
+    watch (copper of Game.money.amount) { self.onMoney(copper) }
   }
 
-  // A line for what was looted: one of it shown already counts up.
+  destructor() { self.stopEnding() }
+
+  // A line for an item or a currency looted: one of it shown already counts up. The money is the purse's gain.
   public post(mut self, slot: LootSlot) {
-    const coins = slot.kind == LootKind.Money
-    self.add(coins ? "coins" : slot.link ?? slot.name, slot.name, slot.icon, qualityOf(slot.quality), slot.count.max(1), slot.link,
-      slot.quest, coins)
+    if (!peek self.on || slot.kind == LootKind.Money) { return }
+    self.add(slot.link ?? slot.name, slot.name, slot.icon, qualityOf(slot.quality), slot.count.max(1), slot.link, slot.quest,
+      false)
   }
 
-  // Money looted, in copper.
-  public postCoins(mut self, copper: Integer) {
-    self.add("coins", "", nil, .Common, copper, nil, false, true)
+  // A window opened: the purse counts from here, unless a window before it still waits for its money.
+  onOpened(mut self, auto: Boolean) {
+    self.stopEnding()
+    if (self.purse == nil) { self.purse = peek Game.money.amount }
+  }
+
+  onClosed(mut self) {
+    self.stopEnding()
+    self.ending = self.endPurse()
+  }
+
+  async endPurse(mut self) {
+    await Game.delay(MONEY_AFTER)
+    self.purse = nil
+    self.ending = nil
+  }
+
+  stopEnding(mut self) {
+    if (self.ending != nil) { destroy self.ending }
+    self.ending = nil
+  }
+
+  onMoney(mut self, copper: Integer) {
+    const was = self.purse
+    if (was == nil) { return }
+    self.purse = copper
+    if (copper > was && peek self.on) { self.add("coins", "", nil, .Common, copper - was, nil, false, true) }
   }
 
   add(mut self, key: String, name: String, icon: Art | nil, quality: Quality, count: Integer, link: String | nil, quest: Boolean,

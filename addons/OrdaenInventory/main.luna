@@ -186,11 +186,9 @@ public class Inventory implements Module, App {
   public side: Pane
   // Looting fast, and the lines of what was looted.
   public looter: Looter
-  public lootLines: mut LootLines = new LootLines()
+  public lootLines: mut LootLines
   derived lootChoices: LootChoices = self.settings.values.loot
   derived toastsShown: Boolean = self.lootChoices.toasts
-  // The money while a loot window is open: what it gains is looted.
-  lootMoney: Integer | nil = nil
 
   constructor() {
     self.gold = new Gold()
@@ -207,10 +205,8 @@ public class Inventory implements Module, App {
       self.vaultWidth, self.lit, self.running, self.goldRows, mut self.slotsOpen, mut self.bankSlotsOpen, self.menu, self.useClick
     )
     self.looter = new Looter(self.lootChoices)
+    self.lootLines = new LootLines(self.toastsShown)
     self.looter.took.listen(self.onLooted)
-    Game.loot.opened.listen(self.onLootOpened)
-    Game.loot.closed.listen(self.onLootClosed)
-    watch (copper of Game.money.amount) { self.onMoney(copper) }
     Ordaen.modules.add(self)
     self.changer.stuck.listen(self.onBagStuck)
     Game.bags.updated.listen(self.onUpdated)
@@ -817,20 +813,7 @@ public class Inventory implements Module, App {
 
   onSettings(self) { Ordaen.toggleSettings(Runtime.Addon.of(self)) }
 
-  // An item or a currency taken from the loot window is a line; the money is the purse's gain.
-  onLooted(mut self, slot: Game.LootSlot) {
-    if (peek self.toastsShown && slot.kind != .Money) { self.lootLines.post(slot) }
-  }
-
-  onLootOpened(mut self, auto: Boolean) { self.lootMoney = peek Game.money.amount }
-  onLootClosed(mut self) { self.lootMoney = nil }
-
-  onMoney(mut self, copper: Integer) {
-    const was = self.lootMoney
-    if (was == nil) { return }
-    self.lootMoney = copper
-    if (copper > was && peek self.toastsShown) { self.lootLines.postCoins(copper - was) }
-  }
+  onLooted(mut self, slot: Game.LootSlot) { self.lootLines.post(slot) }
 
   public render(self): Template {
     return $ltml {

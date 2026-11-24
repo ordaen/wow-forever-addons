@@ -23,7 +23,7 @@ public struct LootChoices implements Plain {
   // The game's reel as a catch comes in.
   reelSound: Boolean = true
   // What was looted shown beside the screen's middle, a line each (`LootToasts`).
-  toasts: Boolean = false
+  toasts: Boolean = true
 }
 
 // What looting is while the player chose nothing.
