@@ -8,6 +8,7 @@ import { Component, OwnerKeys } from "Ordaen"
 import { BETWEEN, Bar, buttonName, heightOf, shortKey } from "@/bar"
 import { BarChoice, BarKind, BarSpec, BarsChoices, SPECS, defaultChoice } from "@/barChoices"
 import Locale from "@/locales"
+import { promote } from "@/ranks"
 
 // The game's pages Панель 1 shows: the one the player turned to (Shift and the wheel, or the page arrows), then a
 // form's (a bonus bar's: 7 to 10), else the first.
@@ -92,6 +93,7 @@ public class ActionBars implements Component, OwnerKeys {
     self.bind()
     Events.UPDATE_BINDINGS.listen(self.rebind)
     Events.UPDATE_SHAPESHIFT_FORMS.listen(self.reform)
+    Events.LEARNED_SPELL_IN_SKILL_LINE.listen(self.learned)
     watch (values of self.values) { Ordaen.afterCombat(() => self.apply(values)) }
     watch (games of self.hidden) { Ordaen.afterCombat(() => self.putAway(games)) }
   }
@@ -119,6 +121,9 @@ public class ActionBars implements Component, OwnerKeys {
   reform(mut self) { Ordaen.afterCombat(() => self.countForms()) }
 
   countForms(mut self) { self.forms = Client.GetNumShapeshiftForms() }
+
+  // A spell learned: a new rank takes its previous rank's slots.
+  learned(self, spell: Number, _line: Integer, _perk: Boolean) { promote(spell.floor()) }
 
   // The game's keys and bars go back as they were.
   giveBack(owner: any Client.Frame, parents: Map<any Client.Frame, any Client.Frame>) {

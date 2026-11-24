@@ -1,0 +1,42 @@
+// A new rank of a spell takes the place of the rank before it on the action bars, wherever the player had put that
+// one; a rank lower still, kept on purpose (a heal cast small), stays where it is.
+import Client from "$client"
+import root Ordaen from "Ordaen"
+
+// The client's action slots: its bars' pages, the forms' bonus bars and the extra bars.
+const SLOTS = 180
+
+// A spell's rank, from the client's word for it («Rank 3», «Уровень 3»); none for a spell without ranks.
+function rankOf(spell: Integer): Integer | nil {
+  return Client.C_Spell.GetSpellSubtext(spell)?.match("(%d+)")?.toNumber()?.floor()
+}
+
+// The action slots holding the rank just below `spell`'s: the same name, one rank less.
+function previousSlots(spell: Integer): Array<Integer> {
+  const slots: Array<Integer> = []
+  const name = Client.C_Spell.GetSpellName(spell)
+  const rank = rankOf(spell)
+  if (name == nil || rank == nil || rank < 2) { return slots }
+  for (slot of 1..SLOTS) {
+    const kind, held, _ = Client.GetActionInfo(slot)
+    if (kind == "spell" && held is Number) {
+      const id = held.floor()
+      if (id != spell && Client.C_Spell.GetSpellName(id) == name && rankOf(id) == rank - 1) { slots.push(slot) }
+    }
+  }
+  return slots
+}
+
+// `spell` learned: each slot that held the rank before it holds it now. Out of a fight (the bars are protected in
+// one), and only while the cursor is the player's to keep: a spell picked up for it lets go what the cursor held.
+public function promote(spell: Integer) {
+  Ordaen.afterCombat(() => {
+    const held, _, _, _ = Client.GetCursorInfo()
+    if (held != nil) { return }
+    for (slot of previousSlots(spell)) {
+      Client.C_Spell.PickupSpell(spell)
+      Client.PlaceAction(slot)
+      Client.ClearCursor()
+    }
+  })
+}

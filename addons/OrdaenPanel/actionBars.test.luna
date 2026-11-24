@@ -171,6 +171,34 @@ test "an item the cursor holds goes onto the bar's button it is let go on, or cl
   Test.expect(secondKind == "item" && second == 119 && !Client.CursorHasItem() && Test.performed().length == 0)
 }
 
+// Fireball's ranks 1 to 3, as the client names them.
+const FIREBALL_RANKS: Map<Integer, String> = { [133]: "Rank 1", [143]: "Rank 2", [145]: "Rank 3" }
+function fireballRank(id: String | Integer): String | nil { return id is Integer ? FIREBALL_RANKS[id] : nil }
+
+test "a new rank learned takes the slots of the rank before it; a rank lower still stays, the cursor left empty" {
+  alone()
+  const holder = new Holder()
+  Test.mount(new ActionBars(holder.settings.values, holder.defaults), SCREEN)
+  Test.flush()
+  Client.C_Spell.GetSpellName = (id: String | Integer): String | nil => fireballRank(id) != nil ? "Fireball" : nil
+  Client.C_Spell.GetSpellSubtext = fireballRank
+  // Rank 1 kept for a small cast, rank 2 on two bars.
+  Client.C_Spell.PickupSpell(133)
+  Client.PlaceAction(61)
+  Client.C_Spell.PickupSpell(143)
+  Client.PlaceAction(62)
+  Client.C_Spell.PickupSpell(143)
+  Client.PlaceAction(25)
+  Test.event("LEARNED_SPELL_IN_SKILL_LINE", 145, 1, false)
+  Test.flush()
+  const first, _, _ = Client.GetActionInfo(61)
+  const _, low, _ = Client.GetActionInfo(61)
+  const _, second, _ = Client.GetActionInfo(62)
+  const _, other, _ = Client.GetActionInfo(25)
+  const held, _, _, _ = Client.GetCursorInfo()
+  Test.expect(first == "spell" && low == 133 && second == 145 && other == 145 && held == nil)
+}
+
 test "an action out of range has its icon darkened and its key in red" {
   alone()
   Client.C_ActionBar.HasAction = (slot: Integer): Boolean => slot == 62
