@@ -102,6 +102,8 @@ function currenciesOf(): Array<Cost> {
 
 public class Vendor {
   public state open = false
+  // The merchant's window shows the buyback: a slot's use there sells nothing, as the game's window has it.
+  public state buyingBack = false
   public state name = ""
   public state wares: Array<Ware> = []
   public state sold: Array<Sold> = []

@@ -143,6 +143,9 @@ public class Bags implements Module, App {
   public state menu: SlotMenu | nil = nil
   // The guild's money dialog, and what it holds.
   state moving: MoneyMove | nil = nil
+  // The refundable purchase whose sale is asked about.
+  state refunding: Slot | nil = nil
+  derived refundText: String = self.refundTextOf()
   state amount = 0
   // The window is built the first time it opens, and kept drawn, shown or hidden, from then on.
   state ever = false
@@ -502,6 +505,14 @@ public class Bags implements Module, App {
       return
     }
     const place = peek Game.bags.place
+    if (place == Game.BagPlace.Merchant && slot.vault == Vault.Bags) {
+      // The buyback shown: nothing is sold. A purchase still refundable is asked about first, and refunded.
+      if (peek self.vendor.buyingBack) { return }
+      if (refundOf(slot) != nil) {
+        self.refunding = slot
+        return
+      }
+    }
     if (slot.vault == Vault.Bags && !handsOver(place) && slot.read.kind == CONTAINER) {
       self.putOn(slot)
       return
@@ -620,7 +631,7 @@ public class Bags implements Module, App {
     let sold = 0
     let worth = 0
     for (slot of self.carried.all) {
-      if (sold < SAFE_SALE && slot.junk && peek slot.id != 0 && !peek slot.locked && slot.read.price > 0) {
+      if (sold < SAFE_SALE && slot.junk && peek slot.id != 0 && !peek slot.locked && slot.read.price > 0 && refundOf(slot) == nil) {
         if (Game.bags.send(slot.bag, slot.index)) {
           sold += 1
           worth += slot.read.price * peek slot.count
@@ -694,6 +705,23 @@ public class Bags implements Module, App {
 
   onMoneyCancel(mut self) { self.moving = nil }
 
+  refundTextOf(self): String {
+    const slot = self.refunding
+    const info = slot == nil ? nil : refundOf(slot)
+    if (slot == nil || info == nil) { return "" }
+    return info.money > 0 ? Locale.REFUND_ASK_MONEY.format(slot.read.link, Game.money.format(info.money.floor())) :
+      Locale.REFUND_ASK.format(slot.read.link)
+  }
+
+  // The refund asked about given, in the player's click.
+  onRefund(mut self) {
+    const slot = peek self.refunding
+    self.refunding = nil
+    if (slot != nil) { Client.C_Container.ContainerRefundItemPurchase(slot.bag, slot.index, false) }
+  }
+
+  onRefundCancel(mut self) { self.refunding = nil }
+
   // The guild's money moved, in the player's click on the dialog's button.
   onMoneyMove(mut self) {
     const amount = peek self.amount
@@ -764,6 +792,11 @@ public class Bags implements Module, App {
                         @close={self.onSlotsClosed} @lit={self.onLit} @put={self.onPutBag} />
         <BankSlotsWindow $if={self.bankSlotsOpen && self.bankOpen} bags={self.bankBags} declared={mut self.bankSlotsWindow}
                          @close={self.onBankSlotsClosed} />
+        <Dialog $if={self.refunding != nil} width={DIALOG} title={Locale.REFUND}>
+          <text value={self.refundText} />
+          <PushButton #buttons label={Locale.CANCEL} width={BUTTON} @click={self.onRefundCancel} />
+          <PushButton #buttons label={Locale.REFUND} width={BUTTON} plate={ButtonPlate.Accent} @click={self.onRefund} />
+        </Dialog>
         <Dialog $if={self.moving != nil} width={DIALOG} title={self.moneyTitle}>
           <MoneyField value={mut self.amount} />
           <PushButton #buttons label={Locale.CANCEL} width={BUTTON} @click={self.onMoneyCancel} />
@@ -772,4 +805,13 @@ public class Bags implements Module, App {
       </>
     }
   }
+}
+
+// What the merchant gives back for a purchase still refundable (bought for items, currencies or more money than it sells
+// for, within the game's time); none for anything else.
+function refundOf(slot: Slot): Client.ItemPurchaseInfo | nil {
+  const info = Client.C_Container.GetContainerItemPurchaseInfo(slot.bag, slot.index, false)
+  if (info == nil || info.refundSeconds <= 0) { return nil }
+  if (info.money <= 0 && info.itemCount <= 0 && info.currencyCount <= 0) { return nil }
+  return info
 }

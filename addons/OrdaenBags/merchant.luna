@@ -48,6 +48,8 @@ const RED: Color = Color.hex("#ff4040")
 // The tabs' icons, the client's own: a merchant's coins, and the game's buyback icon.
 const VENDOR_ICON: Asset = "Interface/Icons/INV_Misc_Coin_02"
 const BUYBACK_ICON: Asset = "Interface/MerchantFrame/UI-BuyBack-Icon"
+// The buyback's tab, the second.
+const BUYBACK_TAB = 2
 // «Repair an item»'s hammer: the game's blacksmith's icon.
 const REPAIR_ICON: Asset = "Interface/Icons/Trade_BlackSmithing"
 // The game's «!» over the icon of an item that starts a quest (`TEXTURE_ITEM_QUEST_BANG`).
@@ -378,6 +380,7 @@ public class MerchantWindow implements Component {
     self.list = list
     self.junkCount = junkCount
     self.junkWorth = junkWorth
+    watch { self.vendor.buyingBack = self.tab == BUYBACK_TAB }
   }
 
   shownOf(self): Array<Ware> {

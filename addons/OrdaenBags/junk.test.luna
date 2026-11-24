@@ -615,3 +615,43 @@ test "an item crafting takes is a trade good whatever its class; junk stays junk
   Test.expect(tabOf(15, true, nil) == Tab.Trade && tabOf(15, false, nil) == Tab.Other)
   Test.expect(tabOf(15, true, .Grey) == Tab.Junk)
 }
+
+test "a purchase still refundable is asked about at the merchant and refunded, never sold for coin" {
+  const world = new World(carried())
+  Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
+  Game.bags.size = (bag: Integer): Integer => world.size(bag)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.items.icon = (id: Integer): Art | nil => world.icon(id)
+  Client.C_Container.GetContainerItemPurchaseInfo = (bag: Integer, slot: Integer, equipped: Boolean): Client.ItemPurchaseInfo | nil =>
+  bag == 0 && slot == 3 ? { money: 5000, itemCount: 0, refundSeconds: 3600, currencyCount: 0, hasEnchants: false } : nil
+  let refunded = ""
+  Client.C_Container.ContainerRefundItemPurchase = (bag: Integer, slot: Integer, equipped: Boolean | nil): nil => {
+    refunded = `${bag}/${slot}`
+  }
+  Test.mount(nil, SCREEN)
+  Game.bags.open = true
+  Game.bags.place = Game.BagPlace.Merchant
+  _ = Test.requests()
+  bags().button(CLOTH).click()
+  Test.expect(!Test.requests().join(", ").contains("Bags.send"))
+  const dialog = Test.page().window(Locale.REFUND)
+  Test.expect(dialog.shown())
+  dialog.button(Locale.REFUND).click()
+  Test.expect(refunded == "0/3" && !Test.page().window(Locale.REFUND).shown())
+}
+
+test "while the merchant's window shows the buyback, a slot's use sells nothing" {
+  const world = new World(carried())
+  Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
+  Game.bags.size = (bag: Integer): Integer => world.size(bag)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.items.icon = (id: Integer): Art | nil => world.icon(id)
+  Test.mount(nil, SCREEN)
+  Game.bags.open = true
+  Game.bags.place = Game.BagPlace.Merchant
+  Events.MERCHANT_SHOW.emit()
+  Test.page().button(Locale.BUYBACK).click()
+  _ = Test.requests()
+  bags().button(CLOTH).click()
+  Test.expect(!Test.requests().join(", ").contains("Bags.send"))
+}
