@@ -26,9 +26,10 @@ const FLASH = 1
 const ICON = 28ui
 const WIDTH = 200ui
 const ROW: Array<Track> = [ICON, { fr: 1 }]
+// The money's line is its coins alone, with no icon.
+const COINS_ROW: Array<Track> = [{ fr: 1 }]
 const BACK: Color = Color.hex("#000000aa")
 const COUNT: Color = Color.hex("#ffffff")
-const COINS: Asset = "Interface/Icons/INV_Misc_Coin_01"
 // Where the lines stand while the player never moved them: right of the screen's middle, a little up.
 const HOME: Anchored = { point: "CENTER", x: 400ui, y: -260ui }
 
@@ -93,9 +94,9 @@ class ToastLine implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={ROW} gap={2sp} width={WIDTH} yAlign={Align.Center} background={BACK} opacity={self.opacity} left={self.left}
+      <box columns={self.toast.coins ? COINS_ROW : ROW} gap={2sp} width={WIDTH} height={ICON} yAlign={Align.Center} background={BACK} opacity={self.opacity} left={self.left}
            @pointerEnter={self.onEnter}>
-        <box width={ICON} height={ICON} background={self.toast.coins ? COINS : self.toast.icon} border={self.edge} />
+        <box $if={!self.toast.coins} width={ICON} height={ICON} background={self.toast.icon} border={self.edge} />
         <text value={self.text} textColor={self.color} wrap={TextWrap.Cut} />
         <box position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui} background={self.color}
              opacity={self.flash * 0.5} />

@@ -11,6 +11,8 @@ const ORE = "|cffffffff|Hitem:2770::::::::1:::::::::|h[Copper Ore]|h|r"
 const LEATHER = "|cffffffff|Hitem:2318::::::::1:::::::::|h[Light Leather]|h|r"
 const BLADE = "|cffa335ee|Hitem:871::::::::1:::::::::|h[Flurry Axe]|h|r"
 const FULL_SOUND = 139
+// The coin the money's line once showed.
+const COIN_ICON = "Interface/Icons/INV_Misc_Coin_01"
 const SCREEN: Test.Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
 
 // A window of ore (5), a locked axe and leather (2); the backpack has `free` free slots. What is taken, by slot.
@@ -103,6 +105,9 @@ test "what was looted is a line each, as the player has it unless they chose oth
   _ = Test.holding("+5 Copper Ore", nil)
   _ = Test.holding("+2 Light Leather", nil)
   _ = Test.holding(Game.money.format(12), nil)
+  // The money is its coins alone; the items keep their icons.
+  Test.expect(Test.drawn().find(drawn => drawn.file == COIN_ICON) == nil)
+  Test.expect(Test.drawn().find(drawn => drawn.file == 135232) != nil)
   Test.pass(5)
   Test.expect(Inventory.lootLines.shown.length == 0)
 }
