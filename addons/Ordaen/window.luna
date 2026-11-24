@@ -212,15 +212,23 @@ const ONE: Array<Track> = [{ fr: 1 }]
 const ROW: Array<Track> = [{ fr: 1 }, "max-content"]
 
 // A window's side section: a column at the body's right, running from its top line to its bottom one, the frame's
-// line between it and the main section (as the trainer's card beside its list). It shares neither the main section's
-// head nor its footer: it lays out its own top, and its own footer where it has one, flush with its edges as the
-// main section's is (a FooterBand of its buttons).
+// line between it and the main section (as the trainer's card beside its list). It shares not the main section's head:
+// it lays out its own top. Its bottom is `bottom`'s.
 public struct WindowSide {
   // How wide its content is, at least: the section adds its room on both sides and the frame's line, and grows
   // where its content's least width is more.
   width: Number<Length>
   content: Template
-  footer: Template | nil = nil
+  bottom: SideBottom = SideBottom.Line
+}
+
+// Where a side section ends: at the body's bottom line; over a footer of its own, flush with its edges as the main
+// section's is (a FooterBand of its buttons), the two footers side by side; or over the window's footer, which then
+// runs under both sections, one band (a list's counts and the card's action in one footer).
+public enum SideBottom {
+  Line
+  Own { footer: Template }
+  OverFooter
 }
 // How wide a side section of content `width` stands beside the main one: its room on both sides and the frame's line
 // between them with it.
@@ -520,11 +528,14 @@ public class Window implements Component {
   side: Signal<WindowSide | nil>
   derived sided: Boolean = self.side != nil
   derived sideContent: Template = self.side?.content ?? self.nothing
-  derived sideFooted: Boolean = self.side?.footer != nil
-  derived sideFooter: Template = self.side?.footer ?? self.nothing
+  derived sideFooter: Template | nil = self.sideFooterOf()
+  derived sideFooted: Boolean = self.sideFooter != nil
+  // The window's footer runs under the side too.
+  derived across: Boolean = self.footed && self.side?.bottom == SideBottom.OverFooter
+  derived footerColumns: Integer = self.across ? 2 : 1
   // The rows each section's content takes: both where it has no footer under it.
   derived mainRows: Integer = self.footed ? 1 : 2
-  derived sideRows: Integer = self.sideFooted ? 1 : 2
+  derived sideRows: Integer = self.sideFooted || self.across ? 1 : 2
   // The side's content's width: the one the player dragged it to, or the one it is given.
   derived sideWidth: Number<Length> = self.sideWidthOf()
   // The side's line: the room its art and line take (what the side keeps at its left), and how far its line's middle
@@ -739,6 +750,13 @@ public class Window implements Component {
     })
   }
 
+  // The side's own footer, where its bottom is one.
+  sideFooterOf(self): Template | nil {
+    const bottom = self.side?.bottom
+    if (bottom is SideBottom.Own) { return bottom.footer }
+    return nil
+  }
+
   sideWidthOf(self): Number<Length> {
     const side = self.side
     if (side == nil) { return 0ui }
@@ -907,11 +925,11 @@ public class Window implements Component {
             <SideLine inside={self.lineMiddle} width={self.lineRim} @grab={self.onSideGrab} @drag={self.onSide}
                       @drop={self.onSideSettle} />
           </box>
-          <box $if={self.footed} rows={ONE}>
+          <box $if={self.footed} rows={ONE} columnSpan={self.footerColumns}>
             {self.footer}
           </box>
           <box $if={self.sideFooted} padding={self.sideRoom} rows={ONE}>
-            {self.sideFooter}
+            {self.sideFooter ?? self.nothing}
             <SideLine inside={self.lineMiddle} width={self.lineRim} @grab={self.onSideGrab} @drag={self.onSide}
                       @drop={self.onSideSettle} />
           </box>

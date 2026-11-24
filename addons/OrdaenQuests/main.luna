@@ -461,10 +461,12 @@ public class Quests implements Module, App {
         <QuestPage quest={self.pickedQuest ?? quest} text={self.text} facts={self.pickedFacts} player={self.level}
                    foldFirst={self.settings.values.foldedScroll} footed={true} @act={self.onAct} />
       },
-      footer: $ltml {
-        <FooterBand>
-          <QuestButtons quest={self.pickedQuest ?? quest} @act={self.onAct} />
-        </FooterBand>
+      bottom: .Own {
+        footer: $ltml {
+          <FooterBand>
+            <QuestButtons quest={self.pickedQuest ?? quest} @act={self.onAct} />
+          </FooterBand>
+        }
       }
     }
   }
