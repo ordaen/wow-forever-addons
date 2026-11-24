@@ -10,7 +10,7 @@ body:
       options:
         - Ordaen
         - OrdaenAlts
-        - OrdaenAuction
+        - OrdaenTrading
         - OrdaenMap
         - OrdaenMinimap
         - OrdaenPanel

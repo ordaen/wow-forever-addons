@@ -1,4 +1,4 @@
-// What the player chooses for Ordaen Auction, and its tab in the settings window. Each control writes one entry of the
+// What the player chooses for Ordaen Trading, and its tab in the settings window. Each control writes one entry of the
 // settings, at once.
 import { Component, NumberInput, Settings, Switch, Unit } from "Ordaen"
 import Locale from "@/locales"

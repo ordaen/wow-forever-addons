@@ -1,4 +1,4 @@
-// Ordaen Auction among Ordaen's modules as the player meets it: listed in Ordaen's settings, its page's settings and
+// Ordaen Trading among Ordaen's modules as the player meets it: listed in Ordaen's settings, its page's settings and
 // their hints, each taking effect at once (scanning as the house opens, the house's cut, the window; the price line
 // is `tooltip.test.luna`'s), kept between sessions; what a merchant asks, kept for the account.
 import Client from "$client"
@@ -22,9 +22,9 @@ function names(id: Integer): Game.TooltipData | nil {
   return { lines: [{ left: name, kind: 0 }] }
 }
 
-// Ordaen's settings window at the module's page, as `/ordaen auction` opens it.
+// Ordaen's settings window at the module's page, as `/ordaen trading` opens it.
 function settings(): Test.Part {
-  (Client.SlashCmdList["ORDAEN"] ?? panic("/ordaen is Ordaen's command"))("auction")
+  (Client.SlashCmdList["ORDAEN"] ?? panic("/ordaen is Ordaen's command"))("trading")
   return Test.page().window(SETTINGS)
 }
 
@@ -49,7 +49,7 @@ function bags(): Array<Game.Sellable> | nil {
 test "Ordaen lists the module, whose page has its four settings, scanning and the window on" {
   Test.mount(nil, SCREEN)
   const page = settings()
-  Test.expect(page.button("Auction").shown() && page.text(SCAN_ON_OPEN).shown() && page.text(CUT).shown())
+  Test.expect(page.button("Trading").shown() && page.text(SCAN_ON_OPEN).shown() && page.text(CUT).shown())
   Test.expect(page.text("Ordaen's auction house window").shown() && page.text("Price in item tooltips").shown())
   Test.expect(page.text("5").shown())
 }

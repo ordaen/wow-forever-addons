@@ -1,4 +1,4 @@
-// Ordaen Auction's window as the player meets it: shown while the house is open and the setting has it, in place of the
+// Ordaen Trading's window as the player meets it: shown while the house is open and the setting has it, in place of the
 // game's own window, which stands away unseen meanwhile; its close and Escape leave the house; «Buy» and «Sell» as its
 // tabs; «Shopping list» and «My auctions» as windows of their own, opened and closed from their buttons; the gear to
 // the module's settings. The house is the test's: what it reports (`Game.auctionHouse`) and what it was asked
@@ -48,9 +48,9 @@ function back(own: any Client.Frame): Boolean {
   return own.GetAlpha() == 1 && (own.GetLeft() ?? 0).floor() == 16
 }
 
-// Ordaen's settings window at the module's page, as `/ordaen auction` opens it.
+// Ordaen's settings window at the module's page, as `/ordaen trading` opens it.
 function settings(): Test.Part {
-  (Client.SlashCmdList["ORDAEN"] ?? panic("/ordaen is Ordaen's command"))("auction")
+  (Client.SlashCmdList["ORDAEN"] ?? panic("/ordaen is Ordaen's command"))("trading")
   return Test.page().window(SETTINGS)
 }
 
@@ -183,7 +183,7 @@ test "the window off in the settings: the house opens with none of it, the game'
   Test.expect(!window().shown() && back(own))
 }
 
-test "the window's gear opens Ordaen's settings at Ordaen Auction's page" {
+test "the window's gear opens Ordaen's settings at Ordaen Trading's page" {
   Test.mount(nil, SCREEN)
   Game.auctionHouse.open = true
   Game.auctionHouse.opened.emit()

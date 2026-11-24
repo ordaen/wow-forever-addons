@@ -1,4 +1,4 @@
-// Ordaen Auction's lines in an item's tooltip, added to Ordaen Tooltips' sections: the
+// Ordaen Trading's lines in an item's tooltip, added to Ordaen Tooltips' sections: the
 // «Auction» line in `worth` (what one costs on the house, and how old the price is), the shopping list's in `held` (how
 // many are wanted, and how many this character holds of them). Each is asked once per item shown, and again when a
 // cell it read moves: a price's `revision`, the list's.

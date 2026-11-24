@@ -4,7 +4,7 @@
 // and less what the parts not sold there cost at the other source («~» where a part has no price at either), or the
 // cost alone as a loss where the item isn't bought there.
 import Game from "$game"
-import type { PriceSource } from "OrdaenAuction"
+import type { PriceSource } from "OrdaenTrading"
 import { PartPrice, partsOf, totalsOf, yieldOf } from "@/cost"
 
 // One source's totals.

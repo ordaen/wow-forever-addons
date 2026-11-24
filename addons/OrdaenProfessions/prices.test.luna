@@ -1,7 +1,7 @@
-// Ordaen Auction's prices in the professions window as the player meets them: the chosen recipe's reagents at the
+// Ordaen Trading's prices in the professions window as the player meets them: the chosen recipe's reagents at the
 // house and at a merchant, the cheaper way and the totals; the table's cost and profit; the queue's missing reagents
 // priced and put on the shopping list; «No prices» while nothing was scanned; no price at all with «Prices» off or
-// Ordaen Auction turned off. The house's prices come from a scan the game answers (`Game.auctionQuery`), a merchant's
+// Ordaen Trading turned off. The house's prices come from a scan the game answers (`Game.auctionQuery`), a merchant's
 // from the merchant's window (`Game.merchant`).
 import Client from "$client"
 import Game from "$game"
@@ -31,8 +31,8 @@ const AMBER: Color = Color.hex("#ffb02e")
 const CHEAPER: Color = Color.hex("#40c0402e")
 // A text the settings window always shows.
 const SETTINGS = "Move mode"
-const PRICES_OFF = "Needs Ordaen Auction: turn it on to see prices."
-const PRICES_TIP = "Cost, sale and profit by Ordaen Auction's prices."
+const PRICES_OFF = "Needs Ordaen Trading: turn it on to see prices."
+const PRICES_TIP = "Cost, sale and profit by Ordaen Trading's prices."
 
 function recipe(id: Integer, name: String, craftable: Integer, difficulty: Game.Difficulty): Game.Recipe {
   return {
@@ -114,8 +114,8 @@ function near(a: Color, b: Color): Boolean {
 }
 
 // Whether the window shows `next` straight after `first`, in the order drawn.
-// Whether Ordaen Auction's shopping list reads exactly this, its rows from the first under the headings to «Search
-// all»: the list's window opened from Ordaen Auction's «Shopping list» at the house (open), as the player does.
+// Whether Ordaen Trading's shopping list reads exactly this, its rows from the first under the headings to «Search
+// all»: the list's window opened from Ordaen Trading's «Shopping list» at the house (open), as the player does.
 function shoppingList(expected: String): Boolean {
   Test.page().button("Shopping list").click()
   let read: Array<String> = []
@@ -585,7 +585,7 @@ test "a missing reagent with no price: «—» red, and nothing left to buy is s
   Test.expect(follows("Left to buy", "—"))
 }
 
-test "«To the shopping list» puts each missing reagent onto Ordaen Auction's list" {
+test "«To the shopping list» puts each missing reagent onto Ordaen Trading's list" {
   Game.clock.server = NOW
   Game.merchant.prices = merchant
   Game.merchant.opened.emit()
@@ -601,7 +601,7 @@ test "«To the shopping list» puts each missing reagent onto Ordaen Auction's l
   window().button("Create").click()
   window().button("Queue (1)").click()
   window().button("To the shopping list").click()
-  // The list, as Ordaen Auction's window shows it at the house: the thread, which the bags lack; not the bolt, held.
+  // The list, as Ordaen Trading's window shows it at the house: the thread, which the bags lack; not the bolt, held.
   Game.auctionHouse.open = true
   Test.expect(shoppingList("Item 2320 | Recipe 2387 ×1 — Player's queue | 1 | 0 of 1 held | 0g 0s 15c | 0g 0s 15c | Buy 1"))
 }
@@ -624,7 +624,7 @@ test "a missing reagent the game names no item of isn't put onto the shopping li
   window().button("Create").click()
   window().button("Queue (1)").click()
   window().button("To the shopping list").click()
-  // The list, as Ordaen Auction's window shows it at the house: the thread alone.
+  // The list, as Ordaen Trading's window shows it at the house: the thread alone.
   Game.auctionHouse.open = true
   Test.expect(shoppingList("Item 2320 | Recipe 2387 ×1 — Player's queue | 1 | 0 of 1 held | 0g 0s 15c | 0g 0s 15c | Buy 1"))
 }
@@ -668,7 +668,7 @@ test "with «Prices» off the window shows no price; on again, they are back" {
   Test.expect(Test.page().window(PRICES_TIP).shown())
 }
 
-test "with Ordaen Auction turned off the window shows no price, and «Prices» is greyed with why; on again, they are back" {
+test "with Ordaen Trading turned off the window shows no price, and «Prices» is greyed with why; on again, they are back" {
   Game.clock.server = NOW
   Game.auctionQuery.results.emit(house())
   Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
@@ -680,8 +680,8 @@ test "with Ordaen Auction turned off the window shows no price, and «Prices» i
   Test.mount(nil, SCREEN)
   Game.tradeSkill.open = TAILORING
   const page = settings()
-  // The modules in the list: Alts, Auction, Tooltips, Professions.
-  page.button(Ordaen.art.ctl.switchOn).nth(2).click()
+  // The modules in the list: Alts, Map, Professions, Tooltips, Quests, Tracker, Trading.
+  page.button(Ordaen.art.ctl.switchOn).nth(7).click()
   Test.expect(!window().text("Cost").shown() && !window().text("Auction").shown())
   page.button("Professions").click()
   page.text("Prices").hover()

@@ -10,9 +10,9 @@ import { Action, Align, Edges, Track } from "$ltml"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
 import { ARTWORK, Choice, Column, FilterButton, FilterGroup, Ground, ItemId, KeptWindow, Module, ModuleMemory, PushButton, Settings, SettingsPage, Table, Tabs, ToolPick, Toolbar, WINDOW_ROOM, Window, WindowTabSpec, WindowsPage, tracksOf, windowsTitle } from "Ordaen"
-import root Auction from "OrdaenAuction"
-import type { PriceSource } from "OrdaenAuction"
 import root Quests from "OrdaenQuests"
+import root Trading from "OrdaenTrading"
+import type { PriceSource } from "OrdaenTrading"
 import { TrainerIgnored, TrainerList, TrainerView, TrainerWindow } from "OrdaenTrainer"
 import { BandBar } from "@/bandBar"
 import { Book, written } from "@/book"
@@ -88,7 +88,7 @@ const COLUMNS: Array<Column> = [
   { title: Locale.COLUMN_MAKEABLE, width: 93.75dp, align: Align.End, sortable: true }
 ]
 const MONEY = 117.1875dp
-// With Ordaen Auction's prices besides: one making's cost at the house and at a merchant, what the made item brings at
+// With Ordaen Trading's prices besides: one making's cost at the house and at a merchant, what the made item brings at
 // each, the profit at the better.
 const PRICED_COLUMNS: Array<Column> = [
   { title: Locale.COLUMN_RECIPE, width: NAMES, sortable: true },
@@ -326,7 +326,7 @@ public class Professions implements Module, App {
   public derived listing: Array<Game.Recipe> = self.listingOf()
   public derived chosenRecipe: Integer = self.chosenRecipeOf()
   derived chosen: Game.Recipe | nil = self.chosenOf()
-  // Ordaen Auction's prices, while it is on and «Prices» is: nothing of it is read while it is off.
+  // Ordaen Trading's prices, while it is on and «Prices» is: nothing of it is read while it is off.
   derived prices: any PriceSource | nil = self.pricesOf()
   // Where the open profession's recipes turn yellow and grey: read once each time another profession opens.
   derived thresholds: Thresholds = thresholdsOf(Game.tradeSkill.open)
@@ -406,10 +406,10 @@ public class Professions implements Module, App {
     return list
   }
 
-  // «To the shopping list» on «Queue»: each missing reagent onto Ordaen Auction's list, as asked by the first line
+  // «To the shopping list» on «Queue»: each missing reagent onto Ordaen Trading's list, as asked by the first line
   // that needs it (the list takes nothing of one that lacks none); one the game names no item of can't go on it.
   onShop(self, needs: Array<Need>) {
-    const auction = Auction
+    const auction = Trading
     if (auction == nil) { return }
     for (need of needs) {
       const item = need.item
@@ -422,7 +422,7 @@ public class Professions implements Module, App {
 
   // The card's «To the shopping list»: what the count of the recipe lacks of each reagent, as asked by it.
   onCardShop(self, recipe: Integer, count: Integer) {
-    const auction = Auction
+    const auction = Trading
     if (auction == nil) { return }
     for (reagent of Game.tradeSkill.reagents(recipe)) {
       const item = reagent.itemID
@@ -443,7 +443,7 @@ public class Professions implements Module, App {
   }
 
   pricesOf(self): any PriceSource | nil {
-    const auction = Auction
+    const auction = Trading
     if (auction == nil || !self.settings.values.prices) { return nil }
     return auction.prices
   }

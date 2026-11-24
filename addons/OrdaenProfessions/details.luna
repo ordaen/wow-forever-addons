@@ -11,8 +11,8 @@ import Game from "$game"
 import { Align, Art, Edges, Line, Overflow, Scrollbar, Side, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import { BRIGHT_TEXT, Component, FooterCount, ItemButton, ListFooter, PushButton, SECONDARY_TEXT, SmallTabs, TITLE_TEXT, WINDOW_ROOM } from "Ordaen"
-import type { PriceSource } from "OrdaenAuction"
 import root Quests from "OrdaenQuests"
+import type { PriceSource } from "OrdaenTrading"
 import { PartPrice, Totals, partsOf, totalsOf, yieldOf } from "@/cost"
 import { Flag } from "@/flag"
 import { LearnTable } from "@/learnPlaces"
@@ -89,7 +89,7 @@ public class RecipeDetails implements Component {
   derived tracked: Boolean = has(self.kept.tracked, self.shown.id)
   derived cannotTrack: Boolean = !self.shown.learned
   derived noted: Boolean = self.note != ""
-  // Ordaen Auction's prices, while they are shown: each reagent's for the count the make row says, and the totals.
+  // Ordaen Trading's prices, while they are shown: each reagent's for the count the make row says, and the totals.
   derived priced: Boolean = self.prices != nil
   // How many the prices are for: the make row's count, one at least.
   derived pricedCount: Integer = self.count.max(1)
@@ -99,7 +99,7 @@ public class RecipeDetails implements Component {
   derived merchantSale: Integer | nil = merchantSaleOf(self.made, self.shown.id, self.pricedCount)
   derived auctionSide: SourceTotals = sourceTotalsOf(self.parts, Source.Auction, self.totals.sale)
   derived merchantSide: SourceTotals = sourceTotalsOf(self.parts, Source.Merchant, self.merchantSale)
-  // Ordaen Auction is on but has no price for any part: nothing was scanned, or (where the house prices what it
+  // Ordaen Trading is on but has no price for any part: nothing was scanned, or (where the house prices what it
   // makes) none of the reagents.
   derived noPrices: Boolean = self.priced && self.reagents.length > 0 && !self.totals.priced
   derived noPricesText: String = self.totals.sale == nil ? Locale.NO_PRICES : Locale.NO_REAGENT_PRICES
@@ -120,7 +120,7 @@ public class RecipeDetails implements Component {
     kept: Signal<Kept>,
     // What became of the last «Create» that waits in the queue; empty for none.
     note: Signal<String>,
-    // Ordaen Auction's prices while they are shown (it is on, and «Prices» is); none for none.
+    // Ordaen Trading's prices while they are shown (it is on, and «Prices» is); none for none.
     prices: Signal<any PriceSource | nil>,
     // The make row's: how many, by which mode, of the profession open; where the recipe turns yellow and grey.
     count: mut Signal<Integer>,

@@ -1,20 +1,20 @@
 // Ordaen Professions' page in the settings window: what the window does about the recipes it shows. Each control
 // writes one entry of the settings, at once.
 import { Checkbox, Component, Settings } from "Ordaen"
-import root Auction from "OrdaenAuction"
+import root Trading from "OrdaenTrading"
 import Locale from "@/locales"
 
 // What the player chooses.
 public struct Choices implements Plain {
-  // The recipe's card and the lists show Ordaen Auction's prices: the cost, the sale and the profit. Greyed while
-  // Ordaen Auction is off, which has them.
+  // The recipe's card and the lists show Ordaen Trading's prices: the cost, the sale and the profit. Greyed while
+  // Ordaen Trading is off, which has them.
   prices: Boolean
   // The window opens a profession at the category and recipe the player left it at.
   remember: Boolean
 }
 
 public class GeneralPage implements Component {
-  derived noAuction: Boolean = Auction == nil
+  derived noAuction: Boolean = Trading == nil
   derived pricesTip: String = self.noAuction ? Locale.SETTING_PRICES_OFF : Locale.SETTING_PRICES_TIP
 
   settings: mut Settings<Choices>

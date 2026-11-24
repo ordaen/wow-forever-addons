@@ -7,8 +7,8 @@ import Game from "$game"
 import Test from "$test"
 import root Ordaen from "Ordaen"
 import { classColor } from "Ordaen"
-import root Auction from "OrdaenAuction"
 import root Mail from "OrdaenMail"
+import root Trading from "OrdaenTrading"
 
 const PAGE: Test.Page = { left: 20, top: 20, width: 1500, height: 820, screen: true }
 // A text the mail window always shows: its third tab.
@@ -307,13 +307,13 @@ test "«Take all» takes the money first and leaves cash on delivery and game ma
   Test.expect(asked() == "Mailbox.takeItem 2 1")
 }
 
-test "«Take all» writes the house's sale into Ordaen Auction's ledger once, from its invoice" {
+test "«Take all» writes the house's sale into Ordaen Trading's ledger once, from its invoice" {
   Client.GetInboxInvoiceInfo = (index: Number): (String | nil, String | nil, String | nil, Number | nil, Number | nil, Number | nil, Number | nil, Number | nil, Number | nil, Number | nil, Number | nil) => {
     if (index == 1) { return "seller", "Linen Cloth", nil, 12500, nil, nil, nil, nil, nil, nil, 20 }
     return nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil
   }
   Test.mount(nil, PAGE)
-  const auction = Auction ?? panic("Ordaen Auction is on")
+  const auction = Trading ?? panic("Ordaen Trading is on")
   const before, copperBefore = auction.ledger.total(.Sold)
   Game.mailbox.letters = letters
   Game.mailbox.waiting = (): Integer => 4

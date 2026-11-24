@@ -7,13 +7,13 @@
 // removed, and «Remove bought» clears every row at 0.
 import Game from "$game"
 import { Align, Frame, Track } from "$ltml"
-import { Age, ButtonPlate, Column, Component, ItemButton, ItemId, ModuleMemory, Money, PushButton, SECONDARY_TEXT, Table, TableRow, tracksOf } from "Ordaen"
+import { Age, ButtonPlate, Column, Component, FooterCount, ItemButton, ItemId, ListFooter, ModuleMemory, Money, PushButton, SECONDARY_TEXT, Table, TableRow, tracksOf } from "Ordaen"
 import { ageOf } from "@/buy"
 import { nameOf } from "@/house"
 import Locale from "@/locales"
 import { Purchase } from "@/purchase"
 import { PriceKey, PriceSource, Quote } from "@/quote"
-import { Row, ShoppingList } from "@/shopping"
+import { Market, Row, ShoppingList, marketOf } from "@/shopping"
 import Style from "@/style"
 import { Source } from "@/wanted"
 
@@ -34,7 +34,8 @@ const PRICE: Array<Track> = ["max-content", "max-content"]
 const PAGE: Array<Track> = ["max-content", { fr: 1 }, "max-content"]
 const FILL: Array<Track> = [{ fr: 1 }]
 const HEAD: Array<Track> = [{ fr: 1 }, "max-content", "max-content"]
-const BUTTONS: Array<Track> = ["max-content", "max-content", "max-content"]
+// The footer has its buttons alone.
+const NO_COUNTS: Array<FooterCount> = []
 
 // What asked for a line, as the row says it: «Bronze Axe ×5 — Regron's queue», «by hand».
 function sourceText(source: Source): String {
@@ -168,20 +169,26 @@ public class ShoppingPage implements Component {
   state picked: ItemId | nil = nil
   // The purchase of the row picked: its listings, then what the player's clicks buy.
   state purchase: mut Purchase | nil = nil
-  derived empty: Boolean = self.list.rows.length == 0
+  // The list's rows bought at the page's market, every row for none.
+  derived rows: Array<Row> = self.list.rows.filter(row => self.market == nil || marketOf(self.prices, row.item) == self.market)
+  derived empty: Boolean = self.rows.length == 0
   derived chosen: Boolean = self.chosenOf()
   // The row whose purchase the client priced, none for none, and the price.
   derived quotedItem: ItemId | nil = self.quotedItemOf()
   derived quotedTotal: Integer = self.purchase?.quotedTotal ?? 0
   // Every row's sum, and whether a row without a price left it short.
   derived total: Integer = self.totalOf()
-  derived short: Boolean = self.list.rows.any(row => row.toBuy > 0 && quoteOf(self.prices, row.item) == nil)
+  derived short: Boolean = self.rows.any(row => row.toBuy > 0 && quoteOf(self.prices, row.item) == nil)
+  // Searched and bought from at the house alone.
+  derived away: Boolean = self.empty || !Game.auctionHouse.open
 
   const prices: any PriceSource
   list: mut ShoppingList
-  constructor(prices: any PriceSource, list: mut ShoppingList) {
+  const market: Market | nil
+  constructor(prices: any PriceSource, list: mut ShoppingList, market: Market | nil = nil) {
     self.prices = prices
     self.list = list
+    self.market = market
   }
 
   // The row picked, while it is on the list.
@@ -198,7 +205,7 @@ public class ShoppingPage implements Component {
 
   totalOf(self): Integer {
     let copper = 0
-    for (row of self.list.rows) { copper += (quoteOf(self.prices, row.item)?.copper() ?? 0) * row.toBuy }
+    for (row of self.rows) { copper += (quoteOf(self.prices, row.item)?.copper() ?? 0) * row.toBuy }
     return copper
   }
 
@@ -218,7 +225,7 @@ public class ShoppingPage implements Component {
   // From the player's click alone: the row's purchase bought from, or its listings asked first.
   onBuy(mut self, item: ItemId) {
     self.picked = item
-    const toBuy = (peek self.list.rows).find(row => row.item == item)?.toBuy ?? 0
+    const toBuy = (peek self.rows).find(row => row.item == item)?.toBuy ?? 0
     const held = self.purchase
     if (held != nil && held.key == PriceKey.of(item) && peek held.listed) {
       _ = held.buy(toBuy)
@@ -252,7 +259,7 @@ public class ShoppingPage implements Component {
         </box>
         <box rows={FILL}>
           <Table columns={COLUMNS} sorted={mut self.kept.values.sorted} descending={mut self.kept.values.descending}>
-            <ShoppingRow $for={row of self.list.rows} $key={row} row={row} prices={self.prices}
+            <ShoppingRow $for={row of self.rows} $key={row} row={row} prices={self.prices}
                          selected={self.picked == row.item}
                          quotedItem={self.quotedItem} quotedTotal={self.quotedTotal} @pick={self.onPick}
                          @buy={self.onBuy} />
@@ -261,12 +268,12 @@ public class ShoppingPage implements Component {
             </box>
           </Table>
         </box>
-        <box columns={BUTTONS} gap={3sp}>
-          <PushButton label={Locale.SEARCH_ALL} width={175.78125dp} plate={ButtonPlate.Accent} disabled={self.empty}
+        <ListFooter counts={NO_COUNTS}>
+          <PushButton label={Locale.SEARCH_ALL} width={175.78125dp} plate={ButtonPlate.Accent} disabled={self.away}
                       @click={self.onSearch} />
           <PushButton label={Locale.REMOVE_BOUGHT} width={199.21875dp} disabled={self.empty} @click={self.onClear} />
           <PushButton label={Locale.REMOVE} width={152.34375dp} disabled={!self.chosen} @click={self.onRemove} />
-        </box>
+        </ListFooter>
       </box>
     }
   }

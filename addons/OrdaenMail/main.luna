@@ -10,9 +10,9 @@ import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
 import { ButtonPlate, Dialog, FOOTER_ROOM, FooterCount, FooterCounts, GamePass, GameWindowButton, KeptWindow, Module, ModuleMemory, PushButton, Settings, SettingsPage, Window, WindowSide, WindowTabSpec, WindowsPage, windowsTitle } from "Ordaen"
 import root Alts from "OrdaenAlts"
-import root Auction from "OrdaenAuction"
 import root Professions from "OrdaenProfessions"
 import type { Crafting } from "OrdaenProfessions"
+import root Trading from "OrdaenTrading"
 import { Collector } from "@/collector"
 import { Compose } from "@/compose"
 import { Inbox, RowClick } from "@/inbox"
@@ -126,11 +126,11 @@ public class Mail implements Module, App {
     if (peek Game.mailObserver.open) { self.onOpened() }
   }
 
-  // A letter of the auction house's taken from: written into Ordaen Auction's sales ledger once (its invoice, a sale or
-  // a purchase; an auction back unsold where it has none), while Ordaen Auction is on.
+  // A letter of the auction house's taken from: written into Ordaen Trading's sales ledger once (its invoice, a sale or
+  // a purchase; an auction back unsold where it has none), while Ordaen Trading is on.
   noteTaken(mut self, letter: Game.MailLetter) {
     if (letter.kind != Game.MailKind.Auction) { return }
-    const auction = Auction
+    const auction = Trading
     const key = keyOf(letter)
     if (auction == nil || self.ledgered.any(k => k == key)) { return }
     self.ledgered.push(key)

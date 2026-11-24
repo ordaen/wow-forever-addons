@@ -1,5 +1,5 @@
 // The recipe book and the «Worth it» tab as the player meets them: a profession opened writes what its recipes take and
-// make into the account's book; the tab lists every recipe of the characters reached, priced by Ordaen Auction, with
+// make into the account's book; the tab lists every recipe of the characters reached, priced by Ordaen Trading, with
 // what the holdings make now; the modes; the picked row's missing reagents onto the shopping list; a character played
 // later keeps the first one's book.
 import Client from "$client"

@@ -1,4 +1,4 @@
-// What a recipe costs with Ordaen Auction's prices (`prices` on its root, read only while it is on): each reagent's
+// What a recipe costs with Ordaen Trading's prices (`prices` on its root, read only while it is on): each reagent's
 // price at the house and at a merchant for the count, the cheaper one as the way it is had, and the totals: the cost
 // (every part at its unit price), what is left to buy (the parts the bags lack), the sale of what it makes (the
 // house's cut taken), the profit, and the oldest house price used. A part no price reaches makes the totals none:
@@ -6,7 +6,7 @@
 import Game from "$game"
 import { Art } from "$ltml"
 import { ItemId } from "Ordaen"
-import type { PriceKey, PriceSource } from "OrdaenAuction"
+import type { PriceKey, PriceSource } from "OrdaenTrading"
 
 // How a part is had: bought at the house, bought from a merchant, or by no price known.
 public enum Way { Buy = "buy", Vendor = "vendor", None = "none" }

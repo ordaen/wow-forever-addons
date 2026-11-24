@@ -1,4 +1,4 @@
-// Ordaen Auction's lines in Ordaen Tooltips' item tooltip as the player meets them: «Auction», what one costs on the
+// Ordaen Trading's lines in Ordaen Tooltips' item tooltip as the player meets them: «Auction», what one costs on the
 // house with the price's age (amber from a day, dim past three), asked anew each time an item shows; «On the shopping
 // list», how many are wanted and held; gone with Tooltips turned off and back with it on; the price line off in the
 // settings; nothing added and nothing broken with Tooltips not installed.
@@ -7,8 +7,8 @@ import Game from "$game"
 import Runtime from "$runtime"
 import Test from "$test"
 import { ItemId } from "Ordaen"
-import root Auction from "OrdaenAuction"
 import root Tooltips from "OrdaenTooltips"
+import root Trading from "OrdaenTrading"
 
 // The general delay before a tooltip shows, and the frame its watch takes to see the show.
 const SHOWS = 0.32
@@ -113,7 +113,7 @@ test "the price line off in the settings: the tooltip has none" {
   Game.clock.server = START
   Test.mount(nil, SCREEN)
   Game.auctionQuery.results.emit([{ key: ORE, copper: 125, quantity: 12 }])
-  (Client.SlashCmdList["ORDAEN"] ?? panic("/ordaen is Ordaen's command"))("auction")
+  (Client.SlashCmdList["ORDAEN"] ?? panic("/ordaen is Ordaen's command"))("trading")
   const page = Test.page().window(SETTINGS)
   page.button("Price in item tooltips").click()
   Game.tooltip.main = hidden()
@@ -126,7 +126,7 @@ test "the price line off in the settings: the tooltip has none" {
 test "an item on the shopping list says how many are wanted, and how many of them this character holds" {
   Test.mount(nil, SCREEN)
   Game.items.owned = (id: Integer): Integer => 4
-  Auction.shopping.add(ItemId.of(ORE), 12, .ByHand)
+  Trading.shopping.add(ItemId.of(ORE), 12, .ByHand)
   Game.tooltip.main = hidden()
   Test.pass(0.2)
   Game.tooltip.main = showing(ore())
@@ -144,7 +144,7 @@ test "the lines go with Tooltips turned off, and are back with it on" {
   Game.clock.server = START
   Test.mount(nil, SCREEN)
   Game.auctionQuery.results.emit([{ key: ORE, copper: 125, quantity: 12 }])
-  Auction.shopping.add(ItemId.of(ORE), 12, .ByHand)
+  Trading.shopping.add(ItemId.of(ORE), 12, .ByHand)
   const tooltips = Runtime.Addon.of(Tooltips) ?? panic("the tooltips are installed")
   tooltips.disable()
   Test.pass(0.02)
@@ -161,7 +161,7 @@ test "without Tooltips installed the module runs, its list kept, and nothing bre
   Test.uninstall("OrdaenTooltips")
   Test.reload()
   Test.mount(nil, SCREEN)
-  Auction.shopping.add(ItemId.of(ORE), 3, .ByHand)
+  Trading.shopping.add(ItemId.of(ORE), 3, .ByHand)
   Game.auctionHouse.open = true
   Test.page().window("Sell").button("Shopping list").click()
   Test.expect(Test.page().window("Search all").text("3").shown() && Test.errors().length == 0)

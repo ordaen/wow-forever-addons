@@ -1,4 +1,4 @@
-// What the market's modules (Ordaen Auction, Ordaen Alts, Ordaen Professions) name alike: an item, an amount of money,
+// What the market's modules (Ordaen Trading, Ordaen Alts, Ordaen Professions) name alike: an item, an amount of money,
 // an hour of the server's clock. Each is a number of its own kind, here so that no module imports another for a type.
 import Game from "$game"
 

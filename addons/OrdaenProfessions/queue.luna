@@ -7,7 +7,7 @@
 import Game from "$game"
 import { Align, Art, Edges, Frame, Line, Overflow, Track } from "$ltml"
 import { ButtonPlate, Component, CountInput, FooterBand, ItemButton, Money, PushButton, SECONDARY_TEXT, WINDOW_ROOM } from "Ordaen"
-import type { PriceSource } from "OrdaenAuction"
+import type { PriceSource } from "OrdaenTrading"
 import { Way, unitOf } from "@/cost"
 import Locale from "@/locales"
 import { wayText } from "@/priceRows"
@@ -244,7 +244,7 @@ public class QueuePage implements Component {
   // A line's stepper set its recipe's count; nought takes it out.
   public counted: Event<(Integer, Integer)> = new Event()
 
-  // «To the shopping list»: every need, with what it lacks (Ordaen Auction's list takes nothing of one that lacks none).
+  // «To the shopping list»: every need, with what it lacks (Ordaen Trading's list takes nothing of one that lacks none).
   public shop: Event<Array<Need>> = new Event()
   // «Create next».
   public next: Event<nil> = new Event()
@@ -268,7 +268,7 @@ public class QueuePage implements Component {
   constructor(
     // The open profession's queue, in the order it runs.
     queued: Signal<Array<Queued>>,
-    // Ordaen Auction's prices while they are shown; none for none.
+    // Ordaen Trading's prices while they are shown; none for none.
     prices: Signal<any PriceSource | nil> = nil,
     // What the queue is doing or why it waits; whether «Create next» can start a run.
     status: Signal<String> = "",

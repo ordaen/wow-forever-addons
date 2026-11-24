@@ -106,11 +106,11 @@ test "attributes Blizzard's own code to Blizzard, and nothing named to other" {
 
 test "counts LunaType and the addons written in it as ours, by their TOC, not by a name" {
   // The client's list: a LunaType addon's TOC names its sources in a dev build; another addon's names none.
-  Client.C_AddOns.DoesAddOnExist = (name: String | Integer): Boolean => name == "OrdaenAuction" || name == "OrdaenElsewhere" || name == "Details"
-  Client.C_AddOns.GetAddOnMetadata = (name: String | Integer, variable: String): String | nil => name == "OrdaenAuction" && variable == "X-LunaType-Source" ? "C:/addons/OrdaenAuction" : nil
+  Client.C_AddOns.DoesAddOnExist = (name: String | Integer): Boolean => name == "OrdaenTrading" || name == "OrdaenElsewhere" || name == "Details"
+  Client.C_AddOns.GetAddOnMetadata = (name: String | Integer, variable: String): String | nil => name == "OrdaenTrading" && variable == "X-LunaType-Source" ? "C:/addons/OrdaenTrading" : nil
   // A seam's fault is LunaType's error.
   Test.expect(isOurs("LunaType"))
-  Test.expect(isOurs("OrdaenAuction"))
+  Test.expect(isOurs("OrdaenTrading"))
   Test.expect(!isOurs("Details"))
   Test.expect(!isOurs("OrdaenElsewhere"))
   Test.expect(!isOurs("OrdaenMissing"))

@@ -1,5 +1,5 @@
 import { Copper, Hour, ItemId } from "Ordaen"
-// Ordaen Auction's own price source: the current house's maps, read with no table, closure or string made. Every
+// Ordaen Trading's own price source: the current house's maps, read with no table, closure or string made. Every
 // reader holds it as `any PriceSource` and never knows which source it is; the item panel's chart holds it as
 // `any PriceHistory`, its `revision` moving with every scan and browse that keeps an hour.
 import { HourPrice, PriceHistory } from "@/history"

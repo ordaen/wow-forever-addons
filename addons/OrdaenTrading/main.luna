@@ -1,4 +1,4 @@
-// Ordaen Auction: the house's prices, homemade, every Ordaen addon's through `prices`; the
+// Ordaen Trading: the house's prices, homemade, every Ordaen addon's through `prices`; the
 // merchants' prices; the sales ledger; the house's window, shown while the house is open.
 // A module loaded on demand: a player with it off loads none of its data.
 import Game from "$game"
@@ -37,8 +37,8 @@ const SHOPPING_TABS: Array<WindowTabSpec> = [{ title: Locale.PAGE_SHOPPING }]
 const OWNED_TABS: Array<WindowTabSpec> = [{ title: Locale.PAGE_OWNED }]
 const FILL: Array<Track> = [{ fr: 1 }]
 
-public class Auction implements Module, App {
-  public const title: String = "Ordaen Auction"
+public class Trading implements Module, App {
+  public const title: String = "Ordaen Trading"
   settings: mut Settings<Choices> = new Settings<Choices>(DEFAULTS)
   // Its windows, declared: where each stands and what the player does with it, kept in the profile.
   public window: mut KeptWindow = new KeptWindow("main", self.title, { x: 0ui, y: 0ui, width: Style.WIDTH, height: Style.HEIGHT }, true)

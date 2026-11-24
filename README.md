@@ -7,7 +7,7 @@ LunaType: a typed language for addons that compiles to the Lua the game loads.
 |---|---|
 | [Ordaen](addons/Ordaen) | Ordaen Core: what every module builds on, the controls, the settings window and the look, with its art. |
 | [OrdaenAlts](addons/OrdaenAlts) | Your characters' professions, recipes and what they hold. |
-| [OrdaenAuction](addons/OrdaenAuction) | Auction prices, the house window and the shopping list. |
+| [OrdaenTrading](addons/OrdaenTrading) | Auction prices, the house window and the shopping list. |
 | [OrdaenMap](addons/OrdaenMap) | The world map with OpenMap: the map and the quest log apart or docked, other modules' pins, dungeon cards, townsfolk from QuestieDB. |
 | [OrdaenMinimap](addons/OrdaenMinimap) | The minimap in Ordaen's frame: zone, coordinates and clock, its buttons round it, and a drawer for other addons' buttons. |
 | [OrdaenPanel](addons/OrdaenPanel) | The bottom panel: the menu, the bags, money and experience. |

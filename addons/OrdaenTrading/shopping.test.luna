@@ -7,7 +7,7 @@ import Game from "$game"
 import Test from "$test"
 import root Ordaen from "Ordaen"
 import { ItemId } from "Ordaen"
-import root Auction from "OrdaenAuction"
+import root Trading from "OrdaenTrading"
 
 const SCREEN: Test.Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
 const START = 1790002800
@@ -76,8 +76,8 @@ test "an empty list says how it fills, and its buttons do nothing" {
 test "lines of one item are one row: their counts summed, what this character holds taken off" {
   Game.items.owned = (id: Integer): Integer => id == COPPER_BAR ? 4 : 0
   Game.spells.name = (id: Integer): String | nil => id == BRONZE_AXE ? "Bronze Axe" : nil
-  Auction.shopping.add(ItemId.of(COPPER_BAR), 12, .Queue { recipe: BRONZE_AXE, crafts: 6, character: "Regron" })
-  Auction.shopping.add(ItemId.of(COPPER_BAR), 2, .ByHand)
+  Trading.shopping.add(ItemId.of(COPPER_BAR), 12, .Queue { recipe: BRONZE_AXE, crafts: 6, character: "Regron" })
+  Trading.shopping.add(ItemId.of(COPPER_BAR), 2, .ByHand)
   Game.clock.server = START
   Game.items.tooltip = names
   Test.mount(nil, SCREEN)
@@ -88,7 +88,7 @@ test "lines of one item are one row: their counts summed, what this character ho
 }
 
 test "a recipe the game doesn't name is named by its number" {
-  Auction.shopping.add(ItemId.of(LINEN), 4, .Queue { recipe: 9999, crafts: 2, character: "Regy" })
+  Trading.shopping.add(ItemId.of(LINEN), 4, .Queue { recipe: 9999, crafts: 2, character: "Regy" })
   Game.clock.server = START
   Game.items.tooltip = names
   Test.mount(nil, SCREEN)
@@ -98,7 +98,7 @@ test "a recipe the game doesn't name is named by its number" {
 }
 
 test "a line of none adds nothing" {
-  Auction.shopping.add(ItemId.of(LINEN), 0, .ByHand)
+  Trading.shopping.add(ItemId.of(LINEN), 0, .ByHand)
   Game.clock.server = START
   Game.items.tooltip = names
   Test.mount(nil, SCREEN)
@@ -109,7 +109,7 @@ test "a line of none adds nothing" {
 
 test "an item held in full is dimmed at 0, «Bought»" {
   Game.items.owned = (id: Integer): Integer => id == LINEN ? 25 : 0
-  Auction.shopping.add(ItemId.of(LINEN), 20, .ByHand)
+  Trading.shopping.add(ItemId.of(LINEN), 20, .ByHand)
   Game.clock.server = START
   Game.items.tooltip = names
   Test.mount(nil, SCREEN)
@@ -120,7 +120,7 @@ test "an item held in full is dimmed at 0, «Bought»" {
 }
 
 test "what the bags hold is read again as they change" {
-  Auction.shopping.add(ItemId.of(LINEN), 20, .ByHand)
+  Trading.shopping.add(ItemId.of(LINEN), 20, .ByHand)
   Game.clock.server = START
   Game.items.tooltip = names
   Test.mount(nil, SCREEN)
@@ -133,8 +133,8 @@ test "what the bags hold is read again as they change" {
 }
 
 test "a priced row shows its price with its age and its sum; the list's total sums every row" {
-  Auction.shopping.add(ItemId.of(LINEN), 20, .ByHand)
-  Auction.shopping.add(ItemId.of(COPPER_BAR), 3, .ByHand)
+  Trading.shopping.add(ItemId.of(LINEN), 20, .ByHand)
+  Trading.shopping.add(ItemId.of(COPPER_BAR), 3, .ByHand)
   Game.clock.server = START
   Game.items.tooltip = names
   Test.mount(nil, SCREEN)
@@ -146,8 +146,8 @@ test "a priced row shows its price with its age and its sum; the list's total su
 }
 
 test "a row with nothing to say its price marks the total as short of it" {
-  Auction.shopping.add(ItemId.of(LINEN), 20, .ByHand)
-  Auction.shopping.add(ItemId.of(COPPER_BAR), 3, .ByHand)
+  Trading.shopping.add(ItemId.of(LINEN), 20, .ByHand)
+  Trading.shopping.add(ItemId.of(COPPER_BAR), 3, .ByHand)
   Game.clock.server = START
   Game.items.tooltip = names
   Test.mount(nil, SCREEN)
@@ -158,8 +158,8 @@ test "a row with nothing to say its price marks the total as short of it" {
 }
 
 test "«Search all» browses every item on the list in one query" {
-  Auction.shopping.add(ItemId.of(LINEN), 20, .ByHand)
-  Auction.shopping.add(ItemId.of(COPPER_BAR), 3, .ByHand)
+  Trading.shopping.add(ItemId.of(LINEN), 20, .ByHand)
+  Trading.shopping.add(ItemId.of(COPPER_BAR), 3, .ByHand)
   Game.clock.server = START
   Game.items.tooltip = names
   Test.mount(nil, SCREEN)
@@ -171,8 +171,8 @@ test "«Search all» browses every item on the list in one query" {
 }
 
 test "a row picked can be removed; «Remove» with none picked does nothing" {
-  Auction.shopping.add(ItemId.of(LINEN), 20, .ByHand)
-  Auction.shopping.add(ItemId.of(COPPER_BAR), 3, .ByHand)
+  Trading.shopping.add(ItemId.of(LINEN), 20, .ByHand)
+  Trading.shopping.add(ItemId.of(COPPER_BAR), 3, .ByHand)
   Game.clock.server = START
   Game.items.tooltip = names
   Test.mount(nil, SCREEN)
@@ -187,8 +187,8 @@ test "a row picked can be removed; «Remove» with none picked does nothing" {
 
 test "«Remove bought» takes every row at 0, and keeps the rest" {
   Game.items.owned = (id: Integer): Integer => id == LINEN ? 25 : 0
-  Auction.shopping.add(ItemId.of(LINEN), 20, .ByHand)
-  Auction.shopping.add(ItemId.of(COPPER_BAR), 3, .ByHand)
+  Trading.shopping.add(ItemId.of(LINEN), 20, .ByHand)
+  Trading.shopping.add(ItemId.of(COPPER_BAR), 3, .ByHand)
   Game.clock.server = START
   Game.items.tooltip = names
   Test.mount(nil, SCREEN)
@@ -199,7 +199,7 @@ test "«Remove bought» takes every row at 0, and keeps the rest" {
 }
 
 test "the list is kept between sessions, for every character of the account" {
-  Auction.shopping.add(ItemId.of(LINEN), 20, .ByHand)
+  Trading.shopping.add(ItemId.of(LINEN), 20, .ByHand)
   Test.reload()
   Game.clock.server = START
   Game.items.tooltip = names
@@ -216,15 +216,15 @@ test "the list is kept between sessions, for every character of the account" {
 }
 
 test "a list of 500 lines lets its oldest go for a new one" {
-  Auction.shopping.add(ItemId.of(LINEN), 1, .ByHand)
-  for (index of 1..499) { Auction.shopping.add(ItemId.of(COPPER_BAR), 1, .ByHand) }
+  Trading.shopping.add(ItemId.of(LINEN), 1, .ByHand)
+  for (index of 1..499) { Trading.shopping.add(ItemId.of(COPPER_BAR), 1, .ByHand) }
   Game.clock.server = START
   Game.items.tooltip = names
   Test.mount(nil, SCREEN)
   Game.auctionHouse.open = true
   Test.page().window("Sell").button("Shopping list").click()
   Test.expect(list().text("Linen Cloth").shown())
-  Auction.shopping.add(ItemId.of(AXE), 1, .ByHand)
+  Trading.shopping.add(ItemId.of(AXE), 1, .ByHand)
   Test.expect(!list().text("Linen Cloth").shown() && list().text("Bronze Axe").shown())
 }
 
@@ -232,7 +232,7 @@ test "a list of 500 lines lets its oldest go for a new one" {
 
 test "«Buy N» on a row asks its listings first; the next click prices a commodity's N, and «Confirm» buys them" {
   Game.items.owned = (id: Integer): Integer => id == COPPER_BAR ? 4 : 0
-  Auction.shopping.add(ItemId.of(COPPER_BAR), 22, .ByHand)
+  Trading.shopping.add(ItemId.of(COPPER_BAR), 22, .ByHand)
   Game.clock.server = START
   Game.items.tooltip = names
   Test.mount(nil, SCREEN)
@@ -257,7 +257,7 @@ test "«Buy N» on a row asks its listings first; the next click prices a commod
 }
 
 test "a row picked asks its listings; picked again it asks nothing more" {
-  Auction.shopping.add(ItemId.of(LINEN), 20, .ByHand)
+  Trading.shopping.add(ItemId.of(LINEN), 20, .ByHand)
   Game.clock.server = START
   Game.items.tooltip = names
   Test.mount(nil, SCREEN)
@@ -272,7 +272,7 @@ test "a row picked asks its listings; picked again it asks nothing more" {
 }
 
 test "«Buy N» of an item buys out its cheapest auction with a buyout, one a click" {
-  Auction.shopping.add(ItemId.of(AXE), 2, .ByHand)
+  Trading.shopping.add(ItemId.of(AXE), 2, .ByHand)
   Game.clock.server = START
   Game.items.tooltip = names
   Test.mount(nil, SCREEN)
@@ -291,7 +291,7 @@ test "«Buy N» of an item buys out its cheapest auction with a buyout, one a cl
 }
 
 test "«Buy N» waits for a price, and while the client answers another action" {
-  Auction.shopping.add(ItemId.of(LINEN), 20, .ByHand)
+  Trading.shopping.add(ItemId.of(LINEN), 20, .ByHand)
   Game.clock.server = START
   Game.items.tooltip = names
   Test.mount(nil, SCREEN)
@@ -308,8 +308,8 @@ test "«Buy N» waits for a price, and while the client answers another action" 
 }
 
 test "removing the row picked lets its purchase go: another row picked asks its own listings" {
-  Auction.shopping.add(ItemId.of(LINEN), 20, .ByHand)
-  Auction.shopping.add(ItemId.of(COPPER_BAR), 3, .ByHand)
+  Trading.shopping.add(ItemId.of(LINEN), 20, .ByHand)
+  Trading.shopping.add(ItemId.of(COPPER_BAR), 3, .ByHand)
   Game.clock.server = START
   Game.items.tooltip = names
   Test.mount(nil, SCREEN)
@@ -326,7 +326,7 @@ test "removing the row picked lets its purchase go: another row picked asks its 
 // More of the list
 
 test "the list says where what is held is counted, and what is left to buy is in ink" {
-  Auction.shopping.add(ItemId.of(LINEN), 20, .ByHand)
+  Trading.shopping.add(ItemId.of(LINEN), 20, .ByHand)
   Game.clock.server = START
   Game.items.tooltip = names
   Test.mount(nil, SCREEN)
@@ -336,7 +336,7 @@ test "the list says where what is held is counted, and what is left to buy is in
 }
 
 test "«Search all» with one item browses it" {
-  Auction.shopping.add(ItemId.of(LINEN), 20, .ByHand)
+  Trading.shopping.add(ItemId.of(LINEN), 20, .ByHand)
   Game.clock.server = START
   Game.items.tooltip = names
   Test.mount(nil, SCREEN)
@@ -349,8 +349,8 @@ test "«Search all» with one item browses it" {
 
 test "«Remove bought» takes the last row too" {
   Game.items.owned = (id: Integer): Integer => id == COPPER_BAR ? 5 : 0
-  Auction.shopping.add(ItemId.of(LINEN), 20, .ByHand)
-  Auction.shopping.add(ItemId.of(COPPER_BAR), 3, .ByHand)
+  Trading.shopping.add(ItemId.of(LINEN), 20, .ByHand)
+  Trading.shopping.add(ItemId.of(COPPER_BAR), 3, .ByHand)
   Game.clock.server = START
   Game.items.tooltip = names
   Test.mount(nil, SCREEN)
@@ -362,8 +362,8 @@ test "«Remove bought» takes the last row too" {
 
 test "«Remove» is off until a row is picked, and again once the row is gone" {
   Game.items.owned = (id: Integer): Integer => id == LINEN ? 25 : 0
-  Auction.shopping.add(ItemId.of(LINEN), 20, .ByHand)
-  Auction.shopping.add(ItemId.of(COPPER_BAR), 3, .ByHand)
+  Trading.shopping.add(ItemId.of(LINEN), 20, .ByHand)
+  Trading.shopping.add(ItemId.of(COPPER_BAR), 3, .ByHand)
   Game.clock.server = START
   Game.items.tooltip = names
   Test.mount(nil, SCREEN)
@@ -380,8 +380,8 @@ test "«Remove» is off until a row is picked, and again once the row is gone" {
 }
 
 test "«Buy N» picks its row" {
-  Auction.shopping.add(ItemId.of(LINEN), 20, .ByHand)
-  Auction.shopping.add(ItemId.of(COPPER_BAR), 3, .ByHand)
+  Trading.shopping.add(ItemId.of(LINEN), 20, .ByHand)
+  Trading.shopping.add(ItemId.of(COPPER_BAR), 3, .ByHand)
   Game.clock.server = START
   Game.items.tooltip = names
   Test.mount(nil, SCREEN)
@@ -394,8 +394,8 @@ test "«Buy N» picks its row" {
 
 test "a row bought in full with no price leaves the total whole" {
   Game.items.owned = (id: Integer): Integer => id == COPPER_BAR ? 5 : 0
-  Auction.shopping.add(ItemId.of(LINEN), 20, .ByHand)
-  Auction.shopping.add(ItemId.of(COPPER_BAR), 3, .ByHand)
+  Trading.shopping.add(ItemId.of(LINEN), 20, .ByHand)
+  Trading.shopping.add(ItemId.of(COPPER_BAR), 3, .ByHand)
   Game.clock.server = START
   Game.items.tooltip = names
   Test.mount(nil, SCREEN)
@@ -406,7 +406,7 @@ test "a row bought in full with no price leaves the total whole" {
 }
 
 test "a price two days old says its age under it" {
-  Auction.shopping.add(ItemId.of(LINEN), 20, .ByHand)
+  Trading.shopping.add(ItemId.of(LINEN), 20, .ByHand)
   Game.clock.server = START
   Game.items.tooltip = names
   Game.auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }])
@@ -418,7 +418,7 @@ test "a price two days old says its age under it" {
 }
 
 test "the client's price for one of a commodity is the row's sum" {
-  Auction.shopping.add(ItemId.of(COPPER_BAR), 1, .ByHand)
+  Trading.shopping.add(ItemId.of(COPPER_BAR), 1, .ByHand)
   Game.clock.server = START
   Game.items.tooltip = names
   Test.mount(nil, SCREEN)
@@ -434,7 +434,7 @@ test "the client's price for one of a commodity is the row's sum" {
 }
 
 test "an item removed and put on the list again comes back unpicked" {
-  Auction.shopping.add(ItemId.of(LINEN), 20, .ByHand)
+  Trading.shopping.add(ItemId.of(LINEN), 20, .ByHand)
   Game.clock.server = START
   Game.items.tooltip = names
   Test.mount(nil, SCREEN)
@@ -442,6 +442,6 @@ test "an item removed and put on the list again comes back unpicked" {
   Test.page().window("Sell").button("Shopping list").click()
   list().text("Linen Cloth").click()
   list().button("Remove").click()
-  Auction.shopping.add(ItemId.of(LINEN), 20, .ByHand)
+  Trading.shopping.add(ItemId.of(LINEN), 20, .ByHand)
   Test.expect(!list().text("Linen Cloth").item().paintedWith(PICKED) && list().button("Remove").paintedWith(Ordaen.art.ctl.buttonDisabled))
 }

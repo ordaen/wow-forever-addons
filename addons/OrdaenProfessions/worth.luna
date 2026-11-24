@@ -1,14 +1,14 @@
 // The «Выгода» tab (`professions/worth`): what is worth making across the characters this one reaches, in four modes,
 // read from the recipe book (`@/book`), Ordaen Alts' records (who is reached, what each holds, when a cooldown is
-// ready) and Ordaen Auction's prices, never from the open profession. One run of every known recipe when the mode, the
+// ready) and Ordaen Trading's prices, never from the open profession. One run of every known recipe when the mode, the
 // book, Alts' records or a price changes while the tab shows; nothing while another tab does.
 import Client from "$client"
 import Game from "$game"
 import { Align, Edges, MouseButton, Track } from "$ltml"
 import { BRIGHT_TEXT, Choice, Column, Component, FooterBand, Hour, ItemId, Money, PushButton, SECONDARY_TEXT, Segmented, Table, TableRow, WINDOW_ROOM, tracksOf } from "Ordaen"
 import root Alts from "OrdaenAlts"
-import root Auction from "OrdaenAuction"
-import type { PriceKey, PriceSource } from "OrdaenAuction"
+import root Trading from "OrdaenTrading"
+import type { PriceKey, PriceSource } from "OrdaenTrading"
 import { Book, Entry, Reagent, yieldOfEntry } from "@/book"
 import { unitOf } from "@/cost"
 import Locale from "@/locales"
@@ -188,7 +188,7 @@ public class WorthPage implements Component {
   derived unopenedLine: String = Locale.WORTH_UNOPENED.format(self.unopened)
   derived emptyLine: String = self.empty ? Locale.WORTH_EMPTY : ""
   derived picked: Worth | nil = self.rows.find(row => row.key == self.chosen)
-  derived canShop: Boolean = Auction != nil && self.picked != nil && (self.picked?.missing?.length ?? 0) > 0
+  derived canShop: Boolean = Trading != nil && self.picked != nil && (self.picked?.missing?.length ?? 0) > 0
   derived empty: Boolean = self.rows.length == 0
 
   book: Signal<Book>
@@ -327,9 +327,9 @@ public class WorthPage implements Component {
 
   onPick(mut self, key: String) { self.chosen = self.chosen == key ? "" : key }
 
-  // «В список покупок»: what one making of the picked row lacks, onto Ordaen Auction's list.
+  // «В список покупок»: what one making of the picked row lacks, onto Ordaen Trading's list.
   onShop(self) {
-    const auction = Auction
+    const auction = Trading
     const row = peek self.picked
     if (auction == nil || row == nil) { return }
     for (part of row.missing) {

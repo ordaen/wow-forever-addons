@@ -4,6 +4,7 @@
 import Game from "$game"
 import { ItemId } from "Ordaen"
 import { Kept } from "@/kept"
+import { PriceKey, PriceSource } from "@/quote"
 import { Source, Wanted } from "@/wanted"
 
 // One item of the list: what is needed in all, what this character holds, what is left to buy, and the lines that
@@ -14,6 +15,17 @@ public struct Row {
   held: Integer
   toBuy: Integer
   lines: Array<Wanted>
+}
+
+// Where an item of the list is bought: from a merchant that sells it for no more than the house asks (or the house
+// has no price), else at the house.
+public enum Market { House, Vendor }
+
+public function marketOf(prices: any PriceSource, item: ItemId): Market {
+  const vendor = prices.vendor(item)
+  if (vendor == nil) { return .House }
+  const house = prices.buy(PriceKey.of(item))
+  return house == nil || vendor <= house.copper() ? .Vendor : .House
 }
 
 // Lines kept at most: a list is tens of rows; past it the oldest line goes.

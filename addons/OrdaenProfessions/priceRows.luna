@@ -1,4 +1,4 @@
-// The chosen recipe's reagents with Ordaen Auction's prices, and the totals under them (`cost.luna`): a reagent's
+// The chosen recipe's reagents with Ordaen Trading's prices, and the totals under them (`cost.luna`): a reagent's
 // icon, name, have / need for the make row's count (red when short), its price at «Auction» and at «Merchant» for
 // that quantity («—» where none is known), the cheaper on a green ground. The totals: «Cost», «Price» (what it sells
 // for, the house's cut taken; its tip the full price and the cut; «doesn't sell» for what makes no item), «Profit»
