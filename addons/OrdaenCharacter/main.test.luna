@@ -1266,6 +1266,14 @@ test "the statistics as one list stand under no category" {
 
 // A gauge's fill: the client's status bar texture, tinted.
 const GAUGE_FILL: Art = "Interface/TargetingFrame/UI-StatusBar"
+// A gauge's fill, the nth on the page: a rounded fill's seven pieces (the middle, the left side, the right side, the
+// four corners), from its left side's left to its right side's right, as high as its middle.
+function gaugeFill(window: Test.Part, nth: Integer): Test.Rect {
+  const pieces = window.box(GAUGE_FILL)
+  const first = (nth - 1) * 7
+  const middle = pieces.nth(first + 1).rect()
+  return { left: pieces.nth(first + 2).rect().left, top: middle.top, right: pieces.nth(first + 3).rect().right, bottom: middle.bottom }
+}
 
 test "each faction's gauge fills its own share, in its own row, as tall as the others" {
   Test.mount(nil, PAGE)
@@ -1275,8 +1283,8 @@ test "each faction's gauge fills its own share, in its own row, as tall as the o
   const window = opened(mut sheet)
   window.button("Progression").click()
   // The rows in order: Alliance, Stormwind, Other, Argent Dawn (a heading keeps its gauge's place, unseen).
-  const stormwind = window.box(GAUGE_FILL).nth(2).rect()
-  const argent = window.box(GAUGE_FILL).nth(4).rect()
+  const stormwind = gaugeFill(window, 2)
+  const argent = gaugeFill(window, 4)
   Test.expect(((stormwind.bottom - stormwind.top) - (argent.bottom - argent.top)).abs() < 0.5)
   Test.expect(((stormwind.right - stormwind.left) / (argent.right - argent.left) - 3).abs() < 0.1)
   // Each in the row of its faction's name.
@@ -1363,7 +1371,27 @@ test "health and the resource are slim bars of their own, a thin line round them
   const window = opened(new FakeSheet())
   Test.expect(window.box(Ordaen.art.panel.xpTube).count() == 0 && window.box(xpFillArt(XpFill.Brushed)).count() == 0)
   // The line round each, its fill rounded in the pool's colour: no square fill over the line's round corners.
-  Test.expect(window.box(Style.POOL_RIM).count() > 0 && window.box(Style.HEALTH).count() > 1)
+  // The health's fill in its colour laid deeper.
+  const deep: Color = { r: Style.HEALTH.r * Style.POOL_DEPTH, g: Style.HEALTH.g * Style.POOL_DEPTH, b: Style.HEALTH.b * Style.POOL_DEPTH, a: Style.HEALTH.a }
+  Test.expect(window.box(Style.POOL_RIM).count() > 0 && window.box(deep).count() > 1)
+}
+
+test "the resistances are rows as the gauges are, one under another; a card's name and its value on one line" {
+  Test.mount(nil, PAGE)
+  Game.items.icon = icons
+  const window = opened(new FakeSheet())
+  // The armour's value over the schools' (none), each at the rows' right: one under the other.
+  const armor = window.text("4120").rect()
+  const zeros = window.text("0")
+  let under = 0
+  for (i of 1..zeros.count()) {
+    const zero = zeros.nth(i).rect()
+    if (zero.top >= armor.bottom && zero.top - armor.bottom < 200 && (zero.right - armor.right).abs() < 1) { under += 1 }
+  }
+  Test.expect(under >= 5)
+  const name = window.text("Attack power").rect()
+  const value = window.text("832").rect()
+  Test.expect(value.left > name.right && (value.top + value.bottom - name.top - name.bottom).abs() < 4)
 }
 
 test "the gauges, the resistances and the cards are carved down to the marble" {

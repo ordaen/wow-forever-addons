@@ -15,7 +15,7 @@ import { Choices, slotSizeOf } from "@/settings"
 import { AMMO, GearSet, LEFT, RIGHT, Resource, Skill, SlotSpec, Stats, WEAPONS, Who, Worn } from "@/sheet"
 import { Boost, Breakdown, NO_BREAKDOWN, boostsOf, breakdownOf, wordsOf } from "@/sources"
 import { Stat } from "@/stat"
-import { Gauge, Main, MainStat, PoolBar, Resist, ResistColumn, Row, Section, SectionView, StatGauge, StatRow, defenceOf, defenceRows, mainsOf, resistsOf, sectionsOf, sharedGauges, sharedRows, speedsOf } from "@/stats"
+import { Gauge, Main, MainStat, PoolBar, Resist, ResistRow, Row, Section, SectionView, StatGauge, StatRow, defenceOf, defenceRows, mainsOf, resistsOf, sectionsOf, sharedGauges, sharedRows, speedsOf } from "@/stats"
 import Style from "@/style"
 
 // Durability under a quarter is red, as the game's armour figure turns it.
@@ -438,8 +438,8 @@ public class GearPage implements Component {
             </box>
             <Groove title={Locale.SECTION_DEFENSE} />
             <box gap={2sp} padding={Style.SECTION_PAD}>
-              <box columns={6} gap={2sp} padding={Style.RESIST_PAD}>
-                <ResistColumn $for={resist of self.resists} resist={resist} shown={self.shown} boosts={self.boosts} @tipped={self.onTipped} />
+              <box gap={1.5sp} padding={Style.RESIST_PAD}>
+                <ResistRow $for={resist of self.resists} resist={resist} shown={self.shown} boosts={self.boosts} @tipped={self.onTipped} />
               </box>
               <box gap={1.5sp}>
                 <StatGauge $for={g of self.defence} gauge={g} shown={self.shown} boosts={self.boosts} @tipped={self.onTipped} />

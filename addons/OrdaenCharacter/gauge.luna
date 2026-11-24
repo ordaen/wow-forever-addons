@@ -1,54 +1,73 @@
 // GaugeBar: the character window's gauge, one look for the stats' gauges, the resistances', the skills' and the
 // reputation's bars (the health and mana tubes are another kind). A well carved through the wood down to the marble
-// the tab lies on: the game's marble its floor, a black line round it, a shade under its top edge and a lit lip along
-// its bottom (the light from the top left: the shade down its left side too, the lip up its right). The fill runs from
-// the left (from the bottom, `vertical`) to the value's share, the client's own status bar texture in the gauge's
-// tone, across it a gloss over the fill's upper half alone, the marble left as it is; its text, in the body's size,
-// stands in the middle over all of it, outlined. The fill is a grid's track, its share of the well, so it never stands past the well.
-import { Align, Line, Position, Shadow, TextFont, Track } from "$ltml"
+// the tab lies on (`CarvedFloor`, the stats' cards' too): its corners softly rounded, a thin dark rim, the game's
+// marble its floor, lit from the top left (a shade under its top edge and down its left side, a faint lip along its
+// bottom and up its right). The fill runs from the left to the value's share, the client's own status bar texture in
+// the gauge's tone, rounded as the well is at its left end (and its right once full), a gloss over its upper half
+// alone, the marble left as it is; its text, in the body's size, stands in the middle over all of it, outlined. The
+// fill is a grid's track, its share of the well, so it never stands past the well.
+import { Align, Position, Shadow, TextFont, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { BRIGHT_TEXT, Component } from "Ordaen"
+import { BRIGHT_TEXT, Component, Corners, RoundedFill } from "Ordaen"
 
 // The client's classic status bar, white to grey down its height: tinted, a lit and shaded bar in one colour.
 const TEXTURE: Asset = "Interface/TargetingFrame/UI-StatusBar"
-const EDGE: Line = { width: 1.171875dp, color: Color.hex("#000000") }
-const SHADE: Color = Color.hex("#000000cc")
-const SHADE_HEIGHT = 3.515625dp
-const SIDE_SHADE: Color = Color.hex("#00000080")
-const SHADE_SIDE = 2.34375dp
-const LIP: Color = Color.hex("#ffdeaa59")
-const SIDE_LIP: Color = Color.hex("#ffdeaa30")
+const RIM: Color = Color.hex("#000000")
+const UNTINTED: Color = Color.hex("#ffffff")
+// The rim's width, and how round the well's corners are, outside the rim and inside it.
+const LINE: Number<Length> = 1.171875dp
+const ROUND: Number<Length> = 3.515625dp
+const INNER: Number<Length> = ROUND - LINE
+const SHADE: Color = Color.hex("#000000b3")
+const SHADE_HEIGHT = 2.34375dp
+const SIDE_SHADE: Color = Color.hex("#00000066")
+const SHADE_SIDE = 1.7578125dp
+const LIP: Color = Color.hex("#ffdeaa1f")
+const SIDE_LIP: Color = Color.hex("#ffdeaa12")
 const LIP_HEIGHT = 1.171875dp
 const GLOSS: Color = Color.hex("#ffffff1f")
 const TEXT_SHADOW: Shadow = { color: Color.hex("#000000"), x: 1.171875dp, y: -1.171875dp }
 const ONE: Array<Track> = [{ fr: 1 }]
 
-// A carve-out's line round it: on a box whose floor is the marble, with `CarveShade` inside (the stats' cards too).
-public const CARVED_EDGE: Line = EDGE
-
-// The carve's light inside a box cut through the wood, lit from the top left: the shade under its top and left
-// edges, the lit lip along its bottom and right.
-public class CarveShade implements Component {
+// The carve's floor, filling the box it stands in: the rim, the marble inside it.
+public class CarvedFloor implements Component {
   public render(self): Template {
     return $ltml {
-      <box position={Position.Absolute} left={0ui} top={0ui} right={0ui} height={SHADE_HEIGHT} background={SHADE} />
-      <box position={Position.Absolute} left={0ui} top={SHADE_HEIGHT} bottom={0ui} width={SHADE_SIDE} background={SIDE_SHADE} />
-      <box position={Position.Absolute} left={0ui} right={0ui} bottom={0ui} height={LIP_HEIGHT} background={LIP} />
-      <box position={Position.Absolute} top={0ui} right={0ui} bottom={0ui} width={LIP_HEIGHT} background={SIDE_LIP} />
+      <box position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui}>
+        <RoundedFill color={RIM} radius={ROUND} />
+        <box position={Position.Absolute} left={LINE} top={LINE} right={LINE} bottom={LINE}>
+          <RoundedFill color={UNTINTED} radius={INNER} art={Ordaen.art.window.marble} />
+        </box>
+      </box>
     }
   }
 }
 
-// The well's two tracks: the fill's share and the rest; down it, the rest over the fill.
-function sharesOf(value: Number, vertical: Boolean): Array<Track> {
+// The carve's light inside the rim, lit from the top left, kept off the round corners: the shade under its top edge
+// and down its left side, the lip along its bottom and up its right. Over what the well holds.
+public class CarveShade implements Component {
+  public render(self): Template {
+    return $ltml {
+      <box position={Position.Absolute} left={LINE} top={LINE} right={LINE} bottom={LINE}>
+        <box position={Position.Absolute} left={INNER} top={0ui} right={INNER} height={SHADE_HEIGHT} background={SHADE} />
+        <box position={Position.Absolute} left={0ui} top={INNER} bottom={INNER} width={SHADE_SIDE} background={SIDE_SHADE} />
+        <box position={Position.Absolute} left={INNER} right={INNER} bottom={0ui} height={LIP_HEIGHT} background={LIP} />
+        <box position={Position.Absolute} top={INNER} right={0ui} bottom={INNER} width={LIP_HEIGHT} background={SIDE_LIP} />
+      </box>
+    }
+  }
+}
+
+// The well's two tracks: the fill's share and the rest.
+function sharesOf(value: Number): Array<Track> {
   const share = value.max(0).min(1)
-  return vertical ? [{ fr: 1 - share }, { fr: share }] : [{ fr: share }, { fr: 1 - share }]
+  return [{ fr: share }, { fr: 1 - share }]
 }
 
 public class GaugeBar implements Component {
-  derived shares: Array<Track> = sharesOf(self.value, self.vertical)
-  derived columns: Array<Track> = self.vertical ? ONE : self.shares
-  derived rows: Array<Track> = self.vertical ? self.shares : ONE
+  derived shares: Array<Track> = sharesOf(self.value)
+  derived full: Boolean = self.value >= 1
+  derived fillCorners: Corners = { topLeft: true, bottomLeft: true, topRight: self.full, bottomRight: self.full }
   derived glossHeight: Number<Length> = self.height / 2
   derived hasText: Boolean = self.text != ""
 
@@ -57,8 +76,6 @@ public class GaugeBar implements Component {
   height: Signal<Number<Length>>
   text: Signal<String>
   font: Signal<TextFont>
-  vertical: Signal<Boolean>
-  width: Signal<Number<Length> | nil>
   constructor(
     // How full, from 0 to 1.
     value: Signal<Number>,
@@ -66,30 +83,28 @@ public class GaugeBar implements Component {
     height: Signal<Number<Length>>,
     // In its middle; none: no text. In the numbers' font unless it is words (a standing's name).
     text: Signal<String> = "",
-    font: Signal<TextFont> = TextFont.Numbers,
-    // Filled from the bottom up (a resistance's column), its `width` given; else from the left, as wide as it is given.
-    vertical: Signal<Boolean> = false,
-    width: Signal<Number<Length> | nil> = nil
+    font: Signal<TextFont> = TextFont.Numbers
   ) {
     self.value = value
     self.tone = tone
     self.height = height
     self.text = text
     self.font = font
-    self.vertical = vertical
-    self.width = width
   }
 
   public render(self): Template {
     return $ltml {
-      <box width={self.width} height={self.height} background={Ordaen.art.window.marble} border={EDGE}
-           columns={self.columns} rows={self.rows}>
-        <box $if={self.vertical} />
-        <box background={TEXTURE} tint={self.tone}>
-          <box $if={!self.vertical} position={Position.Absolute} left={0ui} top={0ui} right={0ui}
-               height={self.glossHeight} background={GLOSS} />
+      <box height={self.height}>
+        <CarvedFloor />
+        <box position={Position.Absolute} left={LINE} top={LINE} right={LINE} bottom={LINE} columns={self.shares}
+             rows={ONE}>
+          <box>
+            <RoundedFill color={self.tone} radius={INNER} corners={self.fillCorners} art={TEXTURE} />
+            <box position={Position.Absolute} left={INNER} top={0ui} right={INNER} height={self.glossHeight}
+                 background={GLOSS} />
+          </box>
+          <box />
         </box>
-        <box $if={!self.vertical} />
         <CarveShade />
         <box $if={self.hasText} position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui}
              xAlign={Align.Center} yAlign={Align.Center}>

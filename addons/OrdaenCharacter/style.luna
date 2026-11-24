@@ -41,6 +41,8 @@ public const POOL_ROUND: Number<Length> = 4.6875dp
 public const POOL_GLOSS: Number<Length> = POOL * 0.4
 public const POOL_RIM: Color = Color.hex("#8a6a3e")
 public const POOL_TROUGH: Color = Color.hex("#0b0805")
+// How much of its colour a pool's fill keeps.
+public const POOL_DEPTH: Number = 0.55
 public const GLOSS: Color = Color.hex("#ffffff1f")
 public const TUBE_REGEN: Number<Length> = 10dp
 public const TUBE_SHADOW: Shadow = { color: Color.hex("#000000"), x: 1ui, y: -1ui }
@@ -52,9 +54,15 @@ public const GAUGE_BAR: Number<Length> = 26.953125dp
 public const GAUGE_LABEL: Number<Length> = 150dp
 public const GAUGE_VALUE: Number<Length> = 72dp
 // A card's socket, its glyph and the socket's floor, a section's padding and the room between its cards and its gauges.
-public const SOCKET: Number<Length> = 44dp
-public const GLYPH: Number<Length> = 28dp
+public const SOCKET: Number<Length> = 36dp
+public const GLYPH: Number<Length> = 24dp
 public const SOCKET_FLOOR: Color = Color.hex("#00000073")
+// The socket's corners inside the card's rim; the card's room: the rim's at the socket, the text's at the right; its
+// value's size.
+public const SOCKET_ROUND: Number<Length> = 2.34375dp
+public const CARD_PAD: Edges = { top: 0.5sp, right: 2sp, bottom: 0.5sp, left: 0.5sp }
+public const CARD_GAP: Number<Spacing> = 1.5sp
+public const CARD_VALUE: Number<TextSize> = 1.35rem
 // A section's room at its sides (the page is bare: this is all the room between its text and the frame or the doll).
 public const SIDE_ROOM: Number<Spacing> = 6sp
 // A list page runs edge to edge (its tab's room none): its subtabs' band from side to side, its toolbar the window's
@@ -75,9 +83,7 @@ public const MAIN_PAD: Edges = { top: 2.5sp, bottom: 2.5sp }
 public const MAIN_TEXT: Number<TextSize> = 2rem
 // A resistance's bar and its picture; the room under the resistances, before the gauges.
 public const RESIST_PAD: Edges = { bottom: 3sp }
-public const RESIST_WIDTH: Number<Length> = 20dp
-public const RESIST_HEIGHT: Number<Length> = 84dp
-public const RESIST_ICON: Number<Length> = 30dp
+public const RESIST_ICON: Number<Length> = 24dp
 
 public const INK: Color = Color.hex("#e8dcc4")
 public const DIM: Color = Color.hex("#a3977f")
