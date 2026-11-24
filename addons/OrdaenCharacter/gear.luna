@@ -16,7 +16,7 @@ import { Choices, slotSizeOf } from "@/settings"
 import { AMMO, GearSet, LEFT, RELIC_WEAPONS, RIGHT, Resource, Skill, SlotSpec, Stats, WEAPONS, Who, Worn } from "@/sheet"
 import { Boost, Breakdown, NO_BREAKDOWN, boostsOf, breakdownOf, wordsOf } from "@/sources"
 import { Stat } from "@/stat"
-import { Gauge, Main, MainStat, PoolBar, Resist, ResistBar, Row, Section, SectionView, StatGauge, StatRow, defenceOf, energyRegenRows, healthRegenRows, mainsOf, powerRegenRows, resistsOf, sectionsOf, sharedGauges, sharedRows, speedsOf } from "@/stats"
+import { Main, MainStat, PoolBar, Resist, ResistBar, Row, Section, SectionView, StatRow, defenceOf, energyRegenRows, healthRegenRows, mainsOf, powerRegenRows, resistsOf, sectionsOf, speedsOf } from "@/stats"
 import Style from "@/style"
 
 // Durability under a quarter is red, as the game's armour figure turns it.
@@ -321,8 +321,6 @@ public class GearPage implements Component {
   derived resisted: Boolean = self.resists.length > 0
   derived defence: Section = defenceOf(self.stats)
   derived speeds: Array<Row> = speedsOf(self.stats)
-  derived shared: Array<Gauge> = sharedGauges(self.stats)
-  derived sharedLines: Array<Row> = sharedRows(self.stats)
   derived sections: Array<Section> = sectionsOf(self.stats, self.skills, self.tag)
   // The bars: health, the resource with what it regains, and a druid's energy beside its mana.
   derived health: String = String.of(self.stats.health)
@@ -495,10 +493,6 @@ public class GearPage implements Component {
             </box>
             <Cut />
             <box gap={2.5sp} padding={Style.AFTER_CUT}>
-              <box gap={1.5sp} padding={Style.SECTION_PAD}>
-                <StatGauge $for={g of self.shared} gauge={g} shown={self.shown} boosts={self.boosts} @tipped={self.onTipped} />
-                <StatRow $for={row of self.sharedLines} row={row} shown={self.shown} boosts={self.boosts} @tipped={self.onTipped} />
-              </box>
               <SectionView $for={section of self.sections} section={section} shown={self.shown} boosts={self.boosts} @tipped={self.onTipped} />
             </box>
           </box>

@@ -42,7 +42,9 @@ function specOf(stat: Stat): Spec {
     .RangedCrit => { name: Locale.CRIT, percent: true, of: s => s.rangedCrit }
     .SpellCrit => { name: Locale.CRIT, percent: true, of: s => s.spellCrit }
     .Expertise => { name: Locale.EXPERTISE, percent: true, of: s => s.expertise }
-    .Haste => { name: Locale.HASTE, percent: true, of: s => s.haste }
+    .MeleeHaste => { name: Locale.HASTE, percent: true, of: s => s.meleeHaste }
+    .RangedHaste => { name: Locale.HASTE, percent: true, of: s => s.rangedHaste }
+    .SpellHaste => { name: Locale.HASTE, percent: true, of: s => s.spellHaste }
     .ArmorPenetration => { name: Locale.ARMOR_PENETRATION, percent: false, of: s => s.armorPenetration }
     .SpellPenetration => { name: Locale.SPELL_PENETRATION, percent: false, of: s => s.spellPenetration }
     .Dodge => { name: Locale.DODGE, percent: true, of: s => s.dodge }
@@ -135,7 +137,9 @@ function changed(change: Change): Array<Stat> {
     .Block => [.Block]
     .BlockValue => [.BlockValue]
     .Expertise => [.Expertise]
-    .Haste => [.Haste]
+    .AttackSpeed => [.MeleeHaste]
+    .RangedSpeed => [.RangedHaste]
+    .Haste => [.MeleeHaste, .RangedHaste, .SpellHaste]
     .RunSpeed => [.RunSpeed]
     else => []
   }
@@ -268,6 +272,9 @@ public function wordsOf(stat: Stat, stats: Stats): String {
     .SpellPenetration => tips.spellPenetration
     .SpellDamage => tips.spellDamage
     .Healing => tips.healing
+    .MeleeHaste => Locale.HASTE_MELEE_TIP
+    .RangedHaste => Locale.HASTE_RANGED_TIP
+    .SpellHaste => Locale.HASTE_SPELL_TIP
     else => ""
   }
 }
@@ -308,7 +315,7 @@ function damageBreakdown(ranged: Boolean, stats: Stats): Breakdown {
   if (ranged) {
     shares[RANGED_SLOT] = "%.1f".format(rangedDps(stats))
     const rows = handRows(stats.rangedMinDamage, stats.rangedMaxDamage, stats.rangedSpeed, false)
-    return { text: "", rows: rows, sections: [], fed: [.RangedAttackPower], shares: shares }
+    return { text: "", rows: rows, sections: [], fed: [.RangedAttackPower, .RangedAttackSpeed, .RangedHaste], shares: shares }
   }
   shares[MAIN_HAND_SLOT] = "%.1f".format(handDps(stats.minDamage, stats.maxDamage, stats.speed))
   const sections: Array<TipSection> = []
@@ -326,7 +333,7 @@ function damageBreakdown(ranged: Boolean, stats: Stats): Breakdown {
     glancingRow(Locale.HIT_CAP_BOSS, stats.bossGlancingPenalty, hit),
     glancingRow(Locale.HIT_CAP_LEVEL, stats.levelGlancingPenalty, hit)
   ] })
-  return { text: "", rows: rows, sections: sections, fed: [.AttackPower], shares: shares }
+  return { text: "", rows: rows, sections: sections, fed: [.AttackPower, .AttackSpeed, .MeleeHaste], shares: shares }
 }
 
 // A target's glancing blows in the damage's tooltip: how much less such a blow deals, in percent and in damage off the
@@ -675,15 +682,6 @@ function skillBreakdown(stat: Stat, stats: Stats): Breakdown {
   return { text: Locale.WEAPON_SKILL_TIP, sections: sections, fed: [], shares: {} }
 }
 
-// Haste as the game's paper doll lists it: the melee swings', the ranged shots' (the ammo's with it), the spells'.
-function hasteRows(stats: Stats): Array<TipRow> {
-  return [
-    { label: Locale.SECTION_MELEE, value: amountText(stats.meleeHaste, true) },
-    { label: Locale.SECTION_RANGED, value: amountText(stats.rangedHaste, true) },
-    { label: Locale.SECTION_SPELLS, value: amountText(stats.spellHaste, true) }
-  ]
-}
-
 // The seconds between swings (each hand's, with a weapon in each) or between shots, and the haste that shortens them,
 // which lights with them.
 function speedBreakdown(ranged: Boolean, stats: Stats): Breakdown {
@@ -696,7 +694,8 @@ function speedBreakdown(ranged: Boolean, stats: Stats): Breakdown {
     if (off > 0) { rows.push({ label: Locale.OFF_HAND, value: secondsText(off) }) }
   }
   rows.push({ label: Locale.HASTE, value: added(ranged ? stats.rangedHaste : stats.meleeHaste, true) })
-  return { text: ranged ? Locale.RANGED_SPEED_TIP : Locale.ATTACK_SPEED_TIP, rows: rows, sections: [], fed: [.Haste], shares: {} }
+  const fed: Array<Stat> = [ranged ? .RangedHaste : .MeleeHaste]
+  return { text: ranged ? Locale.RANGED_SPEED_TIP : Locale.ATTACK_SPEED_TIP, rows: rows, sections: [], fed: fed, shares: {} }
 }
 
 function secondsText(seconds: Number): String { return `${"%.2f".format(seconds)} ${Locale.SECONDS}` }
@@ -747,9 +746,6 @@ public function breakdownOf(stat: Stat, text: String, facts: Facts): Breakdown {
     for (target of avoidanceOf(facts.stats.expertise)) { sections.push(target) }
   }
   // Haste says what it speeds up, and by how much each, over its sources.
-  if (stat == .Haste) {
-    return { text: Locale.HASTE_TIP, rows: hasteRows(facts.stats), sections: sections, fed: parts.fed, shares: parts.shares }
-  }
   return { text: text, sections: sections, fed: parts.fed, shares: parts.shares }
 }
 

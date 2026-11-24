@@ -24,7 +24,10 @@ public enum Stat {
   RangedCrit
   SpellCrit
   Expertise
-  Haste
+  // Haste as the game tells each apart: the melee swings', the ranged shots' (the ammo's with it), the spells'.
+  MeleeHaste
+  RangedHaste
+  SpellHaste
   ArmorPenetration
   SpellPenetration
   Dodge
@@ -83,7 +86,9 @@ public const EVERY_STAT: Array<Stat> = [
   .RangedCrit,
   .SpellCrit,
   .Expertise,
-  .Haste,
+  .MeleeHaste,
+  .RangedHaste,
+  .SpellHaste,
   .ArmorPenetration,
   .SpellPenetration,
   .Dodge,
@@ -150,7 +155,7 @@ public const ITEM_KEYS: Map<String, ItemKey> = {
   ITEM_MOD_PARRY_RATING_SHORT: { stats: [.Parry], rating: 4 },
   ITEM_MOD_BLOCK_RATING_SHORT: { stats: [.Block], rating: 5 },
   ITEM_MOD_BLOCK_VALUE_SHORT: { stats: [.BlockValue] },
-  ITEM_MOD_HASTE_RATING_SHORT: { stats: [.Haste], rating: 18 },
+  ITEM_MOD_HASTE_RATING_SHORT: { stats: [.MeleeHaste, .RangedHaste, .SpellHaste], rating: 18 },
   ITEM_MOD_EXPERTISE_RATING_SHORT: { stats: [.Expertise], rating: 24 },
   ITEM_MOD_ARMOR_PENETRATION_RATING_SHORT: { stats: [.ArmorPenetration] },
   ITEM_MOD_SPELL_PENETRATION_SHORT: { stats: [.SpellPenetration] },

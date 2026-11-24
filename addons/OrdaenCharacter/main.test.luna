@@ -438,26 +438,45 @@ test "the damage a second's card says the weapon's speed and damage, and how muc
   Test.expect(window.text("50.0").count() >= 2)
 }
 
-test "the attack speed's tooltip says each hand's seconds and the haste that shortens them, haste lit" {
+test "the attack speed is a card beside what lands, its tooltip each hand's seconds and the melee haste, which lights" {
   Test.mount(nil, PAGE)
   Game.items.icon = icons
   const sheet = new FakeSheet()
-  sheet.figures = (): Stats => Stats { speed: 2.5, offSpeed: 2, meleeHaste: 5, haste: 5 }
+  sheet.figures = (): Stats => Stats { speed: 2.5, meleeHaste: 5 }
   const window = opened(mut sheet)
+  // The card's seconds, its hourglass the glyphs' fourteenth row.
+  Test.expect(window.text("2.50 s").shown() && window.text("Lands").nth(1).rect().right <= window.text("Attack speed").rect().left)
+  const sheetArt: Asset = "@/media/character-glyphs.tga"
+  const hourglass: Piece = { file: sheetArt, width: 64, height: 1024, rows: 16, normal: 13 }
+  Test.expect(window.paintedWith(hourglass))
   window.text("Attack speed").hover()
   const tip = Test.page().window(Locale.ATTACK_SPEED_TIP)
-  Test.expect(tip.texts().join(" | ").contains("Main Hand | 2.50 s | Off Hand | 2.00 s | Haste | +5.00%"))
+  Test.expect(tip.texts().join(" | ").contains("Main Hand | 2.50 s | Haste | +5.00%"))
+  Test.expect(window.box(Style.SOURCE_GLOW).count() > 0)
 }
 
-test "haste's tooltip says what it speeds up, and by how much each: swings, shots, spells" {
+test "each section has its own haste, its tooltip what it speeds up; none is shared" {
   Test.mount(nil, PAGE)
   Game.items.icon = icons
   const sheet = new FakeSheet()
-  sheet.figures = (): Stats => Stats { haste: 6, meleeHaste: 6, rangedHaste: 4, spellHaste: 3 }
+  sheet.figures = (): Stats => Stats { meleeHaste: 6, rangedHaste: 4, rangedSkill: WANDS, rangedSpeed: 1.5 }
   const window = opened(mut sheet)
-  window.text("Haste").hover()
-  const tip = Test.page().window(Locale.HASTE_TIP)
-  Test.expect(tip.texts().join(" | ").contains("Melee | 6.00% | Ranged | 4.00% | Spells | 3.00%"))
+  // Melee's and the wand's, each its own; a warrior casts nothing, so there is no spells' haste.
+  Test.expect(window.text("6.00%").shown() && window.text("4.00%").shown())
+  Test.expect(window.text("6.00%").rect().top < window.text("4.00%").rect().top)
+  window.text("6.00%").hover()
+  Test.expect(Test.page().window(Locale.HASTE_MELEE_TIP).shown())
+}
+
+test "the damage a second's tooltip lights what feeds it: attack power, attack speed and the melee's haste" {
+  Test.mount(nil, PAGE)
+  Game.items.icon = icons
+  const sheet = new FakeSheet()
+  sheet.figures = (): Stats => Stats { attackPower: 832, speed: 2.5, minDamage: 100, maxDamage: 150, meleeHaste: 5 }
+  const window = opened(mut sheet)
+  window.text("50.0").hover()
+  // Each glows: the attack power's card, the attack speed's card, the haste's gauge.
+  Test.expect(window.box(Style.SOURCE_GLOW).count() >= 3)
 }
 
 test "with a weapon in each hand the damage a second's card says each hand's speed, damage and damage a second" {
@@ -892,7 +911,7 @@ test "every stat stands in view: the main stats, defence, and the melee section'
   Test.expect(window.text("20.05%").shown())
   Test.expect(window.text("Expertise").shown())
   Test.expect(window.text("Attack speed").shown())
-  Test.expect(window.text("3.80").shown())
+  Test.expect(window.text("3.80 s").shown())
 }
 
 test "the weapon held has its skill as a gauge, its bonus counted in" {
@@ -1406,7 +1425,7 @@ test "two hands swing together: the attack speed is both at once, and two of a k
   sheet.figures = (): Stats => Stats { speed: 2.7, offSpeed: 1.8, mainSkill: SWORDS, offSkill: SWORDS }
   const window = opened(mut sheet)
   Char.readStats()
-  Test.expect(window.text("1.08").shown())
+  Test.expect(window.text("1.08 s").shown())
   Test.expect(window.text("Swords").count() == 1)
 }
 
@@ -1532,13 +1551,13 @@ test "the client's sheet reads health's and mana's regeneration a second, and sp
   Test.expect(stats.healthFromSpirit == 7.5 && stats.manaFromSpirit == 30)
 }
 
-test "the client's sheet reads the three hastes, the ranged with its ammo's, and the gauge's the greatest" {
+test "the client's sheet reads the three hastes, the ranged with its ammo's" {
   Test.mount(nil, PAGE)
   Client.GetMeleeHaste = (): Number => 4
   Client.GetRangedHaste = (): (Number, Number) => { return 3, 2 }
   Client.UnitSpellHaste = (unit: String): Number => 6
   const stats = new ClientSheet().stats()
-  Test.expect(stats.meleeHaste == 4 && stats.rangedHaste == 5 && stats.spellHaste == 6 && stats.haste == 6)
+  Test.expect(stats.meleeHaste == 4 && stats.rangedHaste == 5 && stats.spellHaste == 6)
 }
 
 test "the client's sheet reads the glancing blows against a raid boss's 315 of defense and the level's own" {
@@ -1694,7 +1713,6 @@ test "the model stands in its race's scene from the game's dressing room, enlarg
   Test.expect(column.top >= sets.bottom && column.top - sets.bottom < 10 && body.bottom - column.bottom < reach + 2)
   Test.expect(((column.bottom - column.top) / (Style.SCENE_HEIGHT / 1ui) - 1).abs() < 0.01)
 }
-
 test "health and the resource are slim bars of their own, a thin line round them, each filled in its colour" {
   Test.mount(nil, PAGE)
   Game.items.icon = icons

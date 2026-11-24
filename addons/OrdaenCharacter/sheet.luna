@@ -171,7 +171,6 @@ public struct Stats {
   rangedCrit: Number = 0
   spellCrit: Number = 0
   hit: Number = 0
-  haste: Number = 0
   dodge: Number = 0
   parry: Number = 0
   block: Number = 0
@@ -741,8 +740,6 @@ public class ClientSheet implements Sheet {
       rangedCrit: Client.GetRangedCritChance(),
       spellCrit: Client.GetSpellCritChance(),
       hit: hit,
-      // The gauge's haste: the greatest of the three, as the game's paper doll shows it.
-      haste: meleeHaste.max(rangedHaste).max(spellHaste),
       meleeHaste: meleeHaste,
       rangedHaste: rangedHaste,
       spellHaste: spellHaste,
