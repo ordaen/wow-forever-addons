@@ -827,7 +827,7 @@ test "at a merchant and at the mailbox a quest's items dim" {
   Test.expect(held(DEED).opacity() == 1)
 }
 
-test "at the mailbox what is bound dims, and what is put into the letter dims under the game's letter" {
+test "at the mailbox what is bound dims, and what is dragged dims with no mark on it" {
   const world = new World([
     { bag: 0, slot: 1, id: 1, name: "Bound Blade", icon: SWORD, kind: 2, bound: true },
     { bag: 0, slot: 2, id: 2, name: "Free Blade", icon: SHIRT, kind: 2 },
@@ -840,7 +840,20 @@ test "at the mailbox what is bound dims, and what is put into the letter dims un
   Game.bags.open = true
   Game.bags.place = Game.BagPlace.Mail
   Test.expect(held(SWORD).opacity() == DIMMED && held(SHIRT).opacity() == 1 && held(POTION).opacity() == DIMMED)
-  Test.expect(bags().box("Interface/Minimap/Tracking/Mailbox").count() == 1)
+  Test.expect(bags().box("Interface/Minimap/Tracking/Mailbox").count() == 0)
+}
+
+test "anywhere, what is on the cursor or held by the client dims" {
+  const world = new World([
+    { bag: 0, slot: 1, id: 1, name: "Free Blade", icon: SHIRT, kind: 2 },
+    { bag: 0, slot: 2, id: 2, name: "Dragged Blade", icon: POTION, kind: 2, locked: true }
+  ])
+  Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.items.icon = (id: Integer): Art | nil => world.icon(id)
+  Test.mount(nil, SCREEN)
+  Game.bags.open = true
+  Test.expect(held(SHIRT).opacity() == 1 && held(POTION).opacity() == DIMMED)
 }
 
 test "at the auction house what is bound dims" {

@@ -36,8 +36,6 @@ const QUEST = 12
 const QUEST_BORDER: Asset = "Interface/ContainerFrame/UI-Icon-QuestBorder"
 const QUEST_BANG: Asset = "Interface/ContainerFrame/UI-Icon-QuestBang"
 // The game's letter, over a slot whose item is put into the letter being written, in its middle.
-const MAIL_GLYPH: Asset = "Interface/Minimap/Tracking/Mailbox"
-const MAIL_IN = 9.375dp
 // The game's green arrow over gear worth more to the player's spec than what it wears, in the slot's bottom left.
 const UPGRADE_ART: Atlas = "bags-greenarrow"
 const UPGRADE = 16.40625dp
@@ -121,8 +119,6 @@ class BagSlot implements Component {
   derived cursor: Cursor | nil = self.slot.id == 0 || !self.shelf.live || self.shelf.filter.place != Game.BagPlace.Merchant ? nil :
     self.slot.read.price > 0 ? Cursor.Buy : Cursor.BuyError
   derived coin: Boolean = self.slot.junk && self.slot.id != 0
-  // Put into the letter being written: the client holds its slot until the letter goes or lets it go.
-  derived mailed: Boolean = self.shelf.filter.place == Game.BagPlace.Mail && self.slot.id != 0 && self.slot.locked
   // Gear the player can use, worth more to its spec than what it wears (Ordaen's worth).
   derived upgrade: Boolean = self.upgradeNow()
   derived questMark: Asset | nil = self.slot.startsQuest ? QUEST_BANG : self.slot.questItem ? QUEST_BORDER : nil
@@ -154,9 +150,10 @@ class BagSlot implements Component {
     const slot = self.slot
     const filter = self.shelf.filter
     if (filter.lit >= 0 && slot.bag != filter.lit) { return true }
-    if (slot.id == 0) { return false }
+    // On the cursor, or held by the client (a letter, a trade): dimmed until it is let go.
+    if (slot.id == 0 || slot.locked) { return slot.locked }
     if (filter.query != "" && !slot.lower.contains(filter.query)) { return true }
-    return self.mailed || !fits(slot, filter.place)
+    return !fits(slot, filter.place)
   }
 
   onPressed(self, click: Event.Press) { self.shelf.pressed.emit(self.slot, click) }
@@ -180,8 +177,6 @@ class BagSlot implements Component {
              background={PADLOCK} zLevel={3} />
         <box $if={self.upgrade} position={Position.Absolute} left={2.34375dp} bottom={2.34375dp} width={UPGRADE}
              height={UPGRADE} background={UPGRADE_ART} zLevel={3} />
-        <box $if={self.mailed} position={Position.Absolute} left={MAIL_IN} top={MAIL_IN} right={MAIL_IN} bottom={MAIL_IN}
-             background={MAIL_GLYPH} zLevel={3} />
         <box $if={self.coin} position={Position.Absolute} right={2.34375dp} top={2.34375dp} width={COIN} height={COIN}
              background={COIN_ART} zLevel={3} />
         <Menu $if={self.menuShown} entries={self.menuEntries} title={self.menuTitle} @pick={self.onPicked}
