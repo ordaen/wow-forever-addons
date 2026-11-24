@@ -138,3 +138,12 @@ test "an NPC offers the log's done quests it takes back, then those it gives tha
   const second = offers[2] ?? panic("a quest to take")
   Test.expect(second.title == "Kobold Camp Cleanup" && second.level == 6 && !second.turnIn)
 }
+
+test "an objective the client counts whole before it is done counts one short of its need, until done" {
+  const said: Game.QuestObjective = { text: "Chunk of Boar Meat: 4/4", done: false, kind: .Item, have: 4, need: 4 }
+  const facts: Map<Integer, QuestFacts> = { [86]: { drops: [meat(boars([113]))], ..BARE } }
+  const short = (wantsOf([pie(false, [said])], facts)[113] ?? panic("wanted"))[1] ?? panic("a want")
+  Test.expect(short.have == 3 && short.need == 4 && !short.done)
+  const whole = (wantsOf([pie(false, [meatObjective("Chunk of Boar Meat: 4/4", 4)])], facts)[113] ?? panic("wanted"))[1] ?? panic("a want")
+  Test.expect(whole.have == 4 && whole.done)
+}

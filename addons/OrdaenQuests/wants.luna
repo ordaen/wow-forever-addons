@@ -45,7 +45,8 @@ function objectiveFor(quest: LogQuest, facts: QuestFacts, at: Integer): Game.Que
   return drop == nil ? nil : items.find(objective => labelOf(objective.text) == drop.name)
 }
 
-// The log's quests to do by the creatures that drop what their item objectives ask for.
+// The log's quests to do by the creatures that drop what their item objectives ask for. An objective not done counts
+// short of its need: Forever's client can say 1 of 1 before it is done (the game's side raises that as a fault).
 public function wantsOf(quests: Array<LogQuest>, facts: Map<Integer, QuestFacts>): Map<Integer, Array<Wanted>> {
   const by: Map<Integer, mut Array<Wanted>> = {}
   for (quest of quests) {
@@ -55,7 +56,8 @@ public function wantsOf(quests: Array<LogQuest>, facts: Map<Integer, QuestFacts>
       const objective = objectiveFor(quest, known, at)
       if (objective == nil || objective.need == 0) { continue }
       const want: Wanted = {
-        quest: quest.id, title: quest.title, objective: labelOf(objective.text), have: objective.have,
+        quest: quest.id, title: quest.title, objective: labelOf(objective.text),
+        have: objective.done ? objective.have : objective.have.min(objective.need - 1),
         need: objective.need, done: objective.done
       }
       for (creature of droppersOf(drop)) {
