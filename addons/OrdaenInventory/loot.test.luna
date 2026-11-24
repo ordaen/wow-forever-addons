@@ -154,3 +154,11 @@ test "with the lines off, nothing looted is kept" {
   Test.pass(1)
   Test.expect(Inventory.lootLines.shown.length == 0)
 }
+
+test "with no line to show, the lines stand in no frame on the screen" {
+  Test.mount(nil, SCREEN)
+  choose((values: mut Choices): nil => { values.loot = { toasts: false, ..values.loot } })
+  const without = Test.surfaces().length
+  choose((values: mut Choices): nil => { values.loot = { toasts: true, ..values.loot } })
+  Test.expect(Test.surfaces().length == without)
+}

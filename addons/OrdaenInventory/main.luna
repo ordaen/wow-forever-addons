@@ -818,7 +818,7 @@ public class Inventory implements Module, App {
   public render(self): Template {
     return $ltml {
       <frame $for={window of self.gameFrames} of={window} opacity={0} away={true} />
-      <LootToasts $if={self.toastsShown} lines={mut self.lootLines} />
+      <LootToasts $if={self.toastsShown && self.lootLines.any} lines={mut self.lootLines} />
       <$if={self.ever}>
         <Window tabs={self.windowTabs} selected={mut self.windowTab} declared={mut self.window} shown={self.shown}
                 minWidth={self.main.leastWidth} padding={NO_ROOM} withSettings={true} footer={self.main.footer} @close={self.onClose} @settings={self.onSettings}>

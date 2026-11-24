@@ -117,6 +117,8 @@ public class LootLines {
   // The game's time, read only while a line shows: nothing is run each frame otherwise.
   derived now: Number = self.toasts.length > 0 ? Game.clock.time : 0
   public derived shown: Array<Toast> = Ordaen.placing ? SAMPLES : self.toasts.filter(toast => toast.came <= self.now)
+  // Whether a line is shown: the lines stand in no frame otherwise.
+  public derived any: Boolean = self.shown.length > 0
   derived samples: Boolean = Ordaen.placing
   public derived clock: Number = self.samples ? SAMPLED : self.now
 
