@@ -67,12 +67,14 @@ public struct Card {
 
 const NO_CARD: Card = { model: nil, description: "", source: "" }
 const ROW: Array<Track> = [Style.ICON, { fr: 1 }]
+// The least room the figure has.
 const PREVIEW: Number<Length> = 320dp
 const BUTTON: Number<Length> = 180dp
 const TILE: Number<Length> = 46dp
 const TILES: Columns = { autoFit: TILE }
 const CARD_HEAD: Array<Track> = [Style.CARD_ICON, { fr: 1 }]
-const CARD_PARTS: Array<Track> = ["max-content", "max-content", "max-content", "max-content", { fr: 1 }, "max-content"]
+// The figure takes the card's height that its name, its words and its button leave.
+const CARD_PARTS: Array<Track> = ["max-content", { fr: 1 }, "max-content", "max-content", "max-content"]
 
 // The client gives some icons as plain numbers: a file's number, or nothing.
 function fileOf(icon: Number | nil): FileId | nil {
@@ -263,13 +265,13 @@ public class Collections {
         <box width={Style.CARD_ICON} height={Style.CARD_ICON} icon={self.picked?.icon} />
         <text value={self.picked?.name ?? ""} textSize={TITLE_TEXT} textFont={.Title} textColor={Style.GOLD} />
       </box>
-      // Its own height: a box sizes to what it holds, and a figure holds nothing that gives it one.
-      <box height={PREVIEW} background={Style.STAGE} model={self.card.model} xAlign={Align.Center} yAlign={Align.Center}>
+      // On the card's wood, as high as its row: a box sizes to what it holds, and a figure holds nothing that gives it
+      // a height.
+      <box height={{ stretch: true, min: PREVIEW }} model={self.card.model} xAlign={Align.Center} yAlign={Align.Center}>
         <text $if={!self.modelShown} value={Locale.NO_PREVIEW} textColor={Style.DIM} />
       </box>
       <text value={self.card.description} textColor={Style.INK} leading={.Prose} />
       <text value={self.card.source} textColor={Style.DIM} textSize={SECONDARY_TEXT} leading={.Prose} />
-      <box />
       <PushButton label={self.action} width={BUTTON} disabled={!self.usable} @click={self.onUse} />
     </box>
   }

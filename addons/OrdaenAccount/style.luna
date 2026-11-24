@@ -27,5 +27,3 @@ public const GREEN: Color = Color.hex("#40d060")
 public const RED: Color = Color.hex("#ff4040")
 // What the player hasn't: an entry not collected, a challenge not done, a level not reached.
 public const MISSING: Color = Color.hex("#7a7060")
-// The ground of a figure's preview.
-public const STAGE: Color = Color.hex("#0b0a08")

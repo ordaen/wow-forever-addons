@@ -58,10 +58,9 @@ surface 301.66,189.85 1298.34x520.31 on MEDIUM clamped raised by a click
           box 1308.36,256.55 261.69x31.29 @pointerEnter
             box 1308.36,256.55 31.29x31.29 icon=132261
             text 1348.18,262.61 221.87x19.17 "Zebra" #ffd100
-          box 1308.36,296.37 261.69x227.56 #0b0a08 model 1234
-          text 1308.36,532.46 261.69x17.5 "A striped horse of the plains." #e8dcc4
-          text 1308.36,558.5 261.69x15 "Vendor: Zeb" #a3977f
-          box 1308.36,582.03 261.69x69.83
+          box 1308.36,296.37 261.69x305.92 model 1234
+          text 1308.36,610.83 261.69x17.5 "A striped horse of the plains." #e8dcc4
+          text 1308.36,636.86 261.69x15 "Vendor: Zeb" #a3977f
           box 1308.36,660.4 261.69x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
             box 1311.68,674.56 0x0
             text 1423.37,666.65 31.67x15.83 "Mount" #ffd100
