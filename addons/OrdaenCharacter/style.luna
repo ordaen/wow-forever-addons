@@ -95,6 +95,8 @@ public const GOLD: Color = Color.hex("#ffd100")
 public const RED: Color = Color.hex("#ff4040")
 public const YELLOW: Color = Color.hex("#ffd040")
 public const GREEN: Color = Color.hex("#40d060")
+// An ordinary hit's share of what a strike comes to: green, muted beside a crit's.
+public const ORDINARY: Color = Color.hex("#5f8a62")
 public const BACK: Color = Color.hex("#00000066")
 // A card: a plain dark field, opaque.
 public const CARD: Color = Color.hex("#0d0907")

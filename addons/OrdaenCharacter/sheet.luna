@@ -226,6 +226,15 @@ public struct Stats {
   mainSkill: Integer | nil = nil
   offSkill: Integer | nil = nil
   rangedSkill: Integer | nil = nil
+  // The main hand's and the ranged weapon's skill past the level's (five a level), and a raid boss's defense (its level
+  // 63's) past the level's: each point of skill past a target's defense takes 0.04% off its misses, dodges and parries
+  // and adds as much to crit, as the game's skills frame counts it.
+  meleeSkillPast: Number = 0
+  rangedSkillPast: Number = 0
+  bossDefensePast: Number = 15
+  // The chance a swing of the main hand glances: against a raid boss, and against a target of the player's level.
+  bossGlancing: Number = 0
+  levelGlancing: Number = 0
   conversions: Conversions = {}
 }
 
@@ -370,6 +379,16 @@ function said(key: String): String {
 }
 
 // The skill line of the weapon a slot holds; none for an empty slot or what is no weapon (a shield, a book).
+// A skill line's rank with its bonus, none where the player hasn't it.
+function skillValue(id: Integer | nil): Integer | nil {
+  if (id == nil) { return nil }
+  for (index of 1..Client.C_SkillInfo.GetNumSkillLines()) {
+    const data = Client.C_SkillInfo.GetSkillLineInfo(index)
+    if (data != nil && data.skillID.floor() == id) { return (data.rank + data.modifier).floor() }
+  }
+  return nil
+}
+
 function weaponSkill(slot: Integer): Integer | nil {
   const id = Client.GetInventoryItemID("player", slot)
   if (id == nil) { return nil }

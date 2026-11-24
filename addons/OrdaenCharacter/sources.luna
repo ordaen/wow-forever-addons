@@ -4,7 +4,7 @@
 // items' slots with their share, the stats that feed it.
 import Game from "$game"
 import { Art } from "$ltml"
-import { TipRow, TipSection, qualityColor } from "Ordaen"
+import { TipRow, TipSection, TipSlice, qualityColor } from "Ordaen"
 import { Active, Change, Kind } from "OrdaenAuras"
 import Locale from "@/locales"
 import { Resource, Stats, Worn, handDps, meleeDps, rangedDps } from "@/sheet"
@@ -424,70 +424,117 @@ function strikeOf(stat: Stat): Strike | nil {
   }
 }
 
-// What fails of a strike against a target, in percent, at the player's hit and expertise: a miss; a dodge (not a
-// spell's; expertise lowers a melee blow's alone); a parry (a melee blow's, from the front alone). One roll settles a
-// blow, so the shares subtract.
+// What a point of weapon skill past a target's defense takes off its misses, dodges and parries and adds to crit, in
+// percent (the game's skills frame).
+const SKILL_STEP = 0.04
+
+// What fails of a strike against a target, in percent, at the player's hit, weapon skill and expertise: a miss; a
+// dodge (not a spell's; expertise lowers a melee blow's alone); a parry (a melee blow's, from the front alone).
 struct Odds {
   const miss: Number
   const dodge: Number
   const parry: Number
 }
 
+// The weapon skill a strike's weapon has past the level's; none for a spell.
+function skillPast(strike: Strike, stats: Stats): Number {
+  return strike == .Melee ? stats.meleeSkillPast : strike == .Ranged ? stats.rangedSkillPast : 0
+}
+
 function oddsOf(strike: Strike, stats: Stats, boss: Boolean, caps: HitCaps): Odds {
   const hit = strike == .Spell ? stats.spellHit : strike == .Ranged ? stats.rangedHit : stats.meleeHit
-  const miss = ((boss ? caps.boss : caps.level) - hit).max(0)
+  const edge = skillPast(strike, stats) * SKILL_STEP
+  const miss = ((boss ? caps.boss : caps.level) - hit - edge).max(0)
   if (strike == .Spell) { return { miss: miss, dodge: 0, parry: 0 } }
   const of = boss ? BOSS_AVOIDANCE : LEVEL_AVOIDANCE
-  if (strike == .Ranged) { return { miss: miss, dodge: of.dodge, parry: 0 } }
-  const dodge = (of.dodge - stats.expertise).max(0)
-  const parry = (of.parry - (stats.expertise - of.dodge).max(0)).max(0)
+  const dodged = (of.dodge - edge).max(0)
+  if (strike == .Ranged) { return { miss: miss, dodge: dodged, parry: 0 } }
+  const dodge = (dodged - stats.expertise).max(0)
+  const parry = ((of.parry - edge).max(0) - (stats.expertise - dodged).max(0)).max(0)
   return { miss: miss, dodge: dodge, parry: parry }
 }
 
 function strikeCaps(strike: Strike): HitCaps { return strike == .Spell ? SPELL_HIT_CAPS : WEAPON_HIT_CAPS }
 
 // What lands of a strike, from behind (a blow there is never parried), against the target the card counts: a raid's
-// boss at the game's greatest level, else a target of the player's level.
+// boss at the game's greatest level, else a target of the player's level. A melee blow is an ability's: a weapon in
+// each hand misses no more with them.
 public function landsOf(strike: Strike, stats: Stats): Number {
   const odds = oddsOf(strike, stats, stats.atMaxLevel, strikeCaps(strike))
   return 100 - odds.miss - odds.dodge
 }
 
-// One target's lines of what lands: its miss, dodge and parry, then what lands (a blow's from behind and from the
-// front); each coloured by what is left of what the target starts with.
-function landsRows(strike: Strike, stats: Stats, boss: Boolean, caps: HitCaps): Array<TipRow> {
-  const odds = oddsOf(strike, stats, boss, caps)
-  const whole = oddsOf(strike, {}, boss, caps)
-  const rows: Array<TipRow> = [{ label: Locale.MISS, value: amountText(odds.miss, true), valueTone: toneOf(odds.miss, whole.miss) }]
-  if (strike != .Spell) { rows.push({ label: Locale.DODGE, value: amountText(odds.dodge, true), valueTone: toneOf(odds.dodge, whole.dodge) }) }
-  if (strike == .Melee) {
-    rows.push({ label: Locale.PARRY, value: amountText(odds.parry, true), valueTone: toneOf(odds.parry, whole.parry) })
-    const behind = odds.miss + odds.dodge
-    const front = behind + odds.parry
-    rows.push({ label: Locale.LANDS_BEHIND, value: amountText(100 - behind, true), valueTone: toneOf(behind, whole.miss + whole.dodge) })
-    rows.push({ label: Locale.LANDS_FRONT, value: amountText(100 - front, true), valueTone: toneOf(front, whole.miss + whole.dodge + whole.parry) })
-  } else {
-    const fails = odds.miss + odds.dodge
-    rows.push({ label: Locale.LANDS, value: amountText(100 - fails, true), valueTone: toneOf(fails, whole.miss + whole.dodge) })
-  }
-  return rows
+// A strike's chance to crit a target: its own, less what the target's defense has past the weapon's skill.
+function critAt(strike: Strike, stats: Stats, boss: Boolean): Number {
+  if (strike == .Spell) { return stats.spellCrit }
+  const crit = strike == .Ranged ? stats.rangedCrit : stats.meleeCrit
+  return (crit + (skillPast(strike, stats) - (boss ? stats.bossDefensePast : 0)) * SKILL_STEP).max(0)
 }
 
-// What lands's tooltip: what it is, then a section a target, the one the card counts first; with a weapon in each hand,
-// its plain swings' against that target too.
+// A part of what a strike comes to: its name, its share in percent, the colour the bar gives it, and for a part that
+// fails, all of it the target starts with (its value reads green to red by what is left of that).
+struct Outcome {
+  const label: String
+  const share: Number
+  const color: Color
+  const whole: Number | nil = nil
+}
+
+// What a strike comes to against a target, from the front, part by part in the order the game's roll takes them. A
+// swing's or a shot's one roll: misses, dodges, parries and glancing blows first, crits in what they leave (no more:
+// past it a crit is lost), ordinary blows the rest. A spell's two: a miss, then a crit of what lands.
+function outcomesOf(strike: Strike, stats: Stats, boss: Boolean): Array<Outcome> {
+  const caps = strike == .Melee && dualOf(stats) ? DUAL_HIT_CAPS : strikeCaps(strike)
+  const odds = oddsOf(strike, stats, boss, caps)
+  const whole = oddsOf(strike, {}, boss, caps)
+  const crit = critAt(strike, stats, boss)
+  const outcomes: Array<Outcome> = [{ label: Locale.MISS, share: odds.miss, color: Style.RED, whole: whole.miss }]
+  if (strike == .Spell) {
+    const crits = (100 - odds.miss) * crit / 100
+    outcomes.push({ label: Locale.ORDINARY, share: 100 - odds.miss - crits, color: Style.ORDINARY })
+    outcomes.push({ label: Locale.CRIT, share: crits, color: Style.GREEN })
+    return outcomes
+  }
+  outcomes.push({ label: Locale.DODGE, share: odds.dodge, color: Style.RED, whole: whole.dodge })
+  if (strike == .Melee) {
+    outcomes.push({ label: Locale.PARRY, share: odds.parry, color: Style.RED, whole: whole.parry })
+    outcomes.push({ label: Locale.GLANCING, share: boss ? stats.bossGlancing : stats.levelGlancing, color: Style.YELLOW })
+  }
+  let taken: Number = 0
+  for (o of outcomes) { taken = taken + o.share }
+  const room = (100 - taken).max(0)
+  const crits = crit.min(room)
+  outcomes.push({ label: Locale.ORDINARY, share: room - crits, color: Style.ORDINARY })
+  outcomes.push({ label: Locale.CRIT, share: crits, color: Style.GREEN })
+  return outcomes
+}
+
+// How a part's value reads: a failing part's by what is left of it, any other's plain.
+function gradeOf(outcome: Outcome): Color | nil {
+  const whole = outcome.whole
+  if (whole == nil) { return nil }
+  return toneOf(outcome.share, whole)
+}
+
+// One target's section of what a strike comes to: a line a part, its name in the bar's colour, then the bar.
+function outcomeSection(title: String, strike: Strike, stats: Stats, boss: Boolean): TipSection {
+  const outcomes = outcomesOf(strike, stats, boss)
+  const rows = outcomes.map(o => TipRow {
+    label: o.label,
+    value: amountText(o.share, true),
+    tone: o.color,
+    valueTone: gradeOf(o)
+  })
+  return { title: title, rows: rows, shares: outcomes.map(o => TipSlice { share: o.share, color: o.color }) }
+}
+
+// What lands's tooltip: what the card counts, then what a strike comes to against each target, the card's first.
 function landsBreakdown(strike: Strike, stats: Stats): Breakdown {
   const text = strike == .Melee ? Locale.LANDS_TIP : strike == .Ranged ? Locale.LANDS_RANGED_TIP : Locale.LANDS_SPELL_TIP
-  const caps = strikeCaps(strike)
   const boss = stats.atMaxLevel
   const first = boss ? Locale.HIT_CAP_BOSS : Locale.HIT_CAP_LEVEL
   const second = boss ? Locale.HIT_CAP_LEVEL : Locale.HIT_CAP_BOSS
-  const sections: Array<TipSection> = [
-    { title: first, rows: landsRows(strike, stats, boss, caps) },
-    { title: second, rows: landsRows(strike, stats, !boss, caps) }
-  ]
-  if (strike == .Melee && dualOf(stats)) {
-    sections.push({ title: `${Locale.HIT_CAP_DUAL}: ${first}`, rows: landsRows(strike, stats, boss, DUAL_HIT_CAPS) })
-  }
+  const sections: Array<TipSection> = [outcomeSection(first, strike, stats, boss), outcomeSection(second, strike, stats, !boss)]
   const fed: Array<Stat> = strike == .Melee ? [.MeleeHit, .Expertise] : strike == .Ranged ? [.RangedHit] : [.SpellHit]
   return { text: text, sections: sections, fed: fed, shares: {} }
 }
