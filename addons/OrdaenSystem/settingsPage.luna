@@ -182,8 +182,7 @@ class PageEntry implements Component {
 }
 
 // One line of a page: a section's header, a setting with its control, or what only Blizzard draws. The control shows
-// the client's value; one over a console variable writes the variable as it is changed, out of a fight (the client
-// holds some of them in one); any other is Blizzard's to change.
+// the client's value, and writes it as it is changed, out of a fight (the client holds some of them in one).
 class LineRow implements Component {
   public blizzard: Event<nil> = new Event()
   state checked = false
@@ -192,7 +191,7 @@ class LineRow implements Component {
   derived choices: Array<Choice<Boolean | Number | String>> = self.line.kind == .Choice ?
     self.settings.choicesOf(self.settings.page, self.line.variable).map(option => choiceOf(option)) : []
   derived fighting: Boolean = Game.situation.combat
-  derived locked: Boolean = !self.line.cvar || self.fighting || self.settings.values[self.line.under] == false
+  derived locked: Boolean = self.line.writing == .None || self.fighting || self.settings.values[self.line.under] == false
   derived inset: Edges = self.line.under == "" ? {} : INDENT
 
   line: Signal<SettingLine>
@@ -206,9 +205,16 @@ class LineRow implements Component {
       if (value is Number) { self.number = value }
       if (value != nil) { self.chosen = value }
     }
-    watch (checked of self.checked) { self.changed(checked) }
-    watch (number of self.number) { self.changed(number) }
-    watch (chosen of self.chosen) { self.changed(chosen) }
+    // Each control speaks for its own kind of line alone: the others hold their first values, never the setting's.
+    watch (checked of self.checked) {
+      if ((peek self.line).kind == .Check) { self.changed(checked) }
+    }
+    watch (number of self.number) {
+      if ((peek self.line).kind == .Slider) { self.changed(number) }
+    }
+    watch (chosen of self.chosen) {
+      if ((peek self.line).kind == .Choice) { self.changed(chosen) }
+    }
   }
 
   // A control's value that isn't the client's: the player changed it, and the variable is written.
@@ -216,7 +222,7 @@ class LineRow implements Component {
     const variable = peek self.line.variable
     const now = (peek self.settings.values)[variable]
     if (now == nil || now == value || peek self.locked) { return }
-    _ = self.settings.write(variable, value)
+    self.settings.write(peek self.line, value)
   }
 
   onBlizzard(self) { self.blizzard.emit() }

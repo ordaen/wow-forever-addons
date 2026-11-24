@@ -176,6 +176,10 @@ public class AddOnsWindow implements Component {
     { width: Style.CARD, content: self.card } : nil
   // Asked before every key goes back to the client's defaults.
   state resetAsked = false
+  // Asked before the page's settings go back to their defaults.
+  state defaultsAsked = false
+  // Nothing of the settings waits for Apply, or a fight holds them.
+  derived nothingWaits: Boolean = self.settings.waiting.length == 0 || self.fighting
   derived pickedModule: Boolean = self.catalog.byName[self.list.values.picked]?.group == self.framework
   derived tabled: Boolean = self.list.values.view == .Table
   derived columns: Array<Track> = self.tabled ? TABLE_COLUMNS : COLUMNS
@@ -202,7 +206,12 @@ public class AddOnsWindow implements Component {
   // The open tab's footer: none for the settings, the keys' (every key back to the client's defaults, after asking), or the addons'.
   const footer: Template = $ltml {
     <FooterBand $if={self.onGameSettings}>
-      <box />
+      <box columns={FOOT} gap={6sp} yAlign={Align.Center}>
+        <PushButton label={Client.SETTINGS_DEFAULTS} width={BUTTON} disabled={self.fighting} @click={self.onDefaultsAsk} />
+        <box />
+        <PushButton label={Client.APPLY} width={BUTTON} plate={ButtonPlate.Accent} disabled={self.nothingWaits}
+                    @click={self.onApply} />
+      </box>
     </FooterBand>
     <FooterBand $elseif={self.onKeys}>
       <box columns={FOOT} gap={6sp} yAlign={Align.Center}>
@@ -284,6 +293,13 @@ public class AddOnsWindow implements Component {
     return list
   }
   onResetAsk(mut self) { self.resetAsked = true }
+  onDefaultsAsk(mut self) { self.defaultsAsked = true }
+  cancelDefaults(mut self) { self.defaultsAsked = false }
+  confirmDefaults(mut self) {
+    self.defaultsAsked = false
+    self.settings.defaults()
+  }
+  onApply(mut self) { self.settings.apply() }
   cancelReset(mut self) { self.resetAsked = false }
   confirmReset(mut self) {
     self.resetAsked = false
@@ -725,6 +741,11 @@ public class AddOnsWindow implements Component {
           <text value={Client.CONFIRM_RESET_KEYBINDINGS} textColor={Style.INK} />
           <PushButton #buttons label={Locale.CANCEL} width={BUTTON} @click={self.cancelReset} />
           <PushButton #buttons label={Locale.KEYS_RESET_ALL} width={BUTTON} disabled={self.fighting} @click={self.confirmReset} />
+        </Dialog>
+        <Dialog $if={self.defaultsAsked} title={Client.SETTINGS_DEFAULTS} width={CONFIRM_WIDTH}>
+          <text value={Locale.SETTINGS_DEFAULTS_ASK} textColor={Style.INK} />
+          <PushButton #buttons label={Locale.CANCEL} width={BUTTON} @click={self.cancelDefaults} />
+          <PushButton #buttons label={Client.SETTINGS_DEFAULTS} width={BUTTON} disabled={self.fighting} @click={self.confirmDefaults} />
         </Dialog>
       </Window>
     }

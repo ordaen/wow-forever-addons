@@ -44,20 +44,20 @@ test "the search finds a page by a setting's name, and the tab shows only the se
   Test.expect(!Test.page().text("Audio").shown())
 }
 
-test "a setting over a console variable is written as it is changed; one over none is Blizzard's, and nothing is in a fight" {
+test "a setting is written as it is changed: a console variable itself, any other through its setter; nothing in a fight" {
   const settings = read()
   Test.mount(new SettingsTab(mut settings), { left: 0, top: 0, width: 1100, height: 600 })
   Test.expect(Client.C_CVar.GetCVar("autoLootDefault") != "1")
-  Test.expect(settings.lines.find(line => line.variable == "autoLootDefault")?.cvar == true)
+  Test.expect(settings.lines.find(line => line.variable == "autoLootDefault")?.writing == .Variable)
   Test.expect(settings.values["autoLootDefault"] == false)
   Test.page().text("Auto Loot").item().button(Ordaen.art.ctl.check).click()
   Test.expect(Client.C_CVar.GetCVar("autoLootDefault") == "1")
   Test.page().text("Interface").click()
   const tutorials = Test.page().text("Tutorials")
   Test.expect(tutorials.shown())
-  // Over no console variable: shown, never written from here.
+  // Over no console variable: written through Blizzard's own setter.
   tutorials.item().button(Ordaen.art.ctl.check).click()
-  Test.expect(Client.Settings?.GetSetting("PROXY_TUTORIALS")?.GetValue() == true)
+  Test.expect(Client.Settings?.GetSetting("PROXY_TUTORIALS")?.GetValue() == false)
   Test.page().text("Controls").click()
   Game.situation.combat = true
   Test.flush()
@@ -92,4 +92,24 @@ test "the list names its group only while searching: the tabs name it otherwise"
   Test.expect(Test.page().text("Controls").shown() && !Test.page().text("Game").shown())
   Test.page().input().type("auto loot")
   Test.expect(Test.page().text("Game").shown())
+}
+
+test "a setting that waits for Apply holds its value until Apply, which commits it as Blizzard's button does" {
+  const settings = read()
+  Test.mount(new SettingsTab(mut settings), { left: 0, top: 0, width: 1100, height: 600 })
+  Test.page().text("Interface").click()
+  const before = Client.C_CVar.GetCVar("cameraDistanceMaxZoomFactor")
+  Test.page().text("Max Camera Distance").item().button("+").click()
+  Test.expect(Client.C_CVar.GetCVar("cameraDistanceMaxZoomFactor") == before && settings.waiting.length == 1)
+  settings.apply()
+  Test.expect(Client.C_CVar.GetCVar("cameraDistanceMaxZoomFactor") != before && settings.waiting.length == 0)
+}
+
+test "the page's defaults set each of its settings back to the game's" {
+  const settings = read()
+  Test.mount(new SettingsTab(mut settings), { left: 0, top: 0, width: 1100, height: 600 })
+  _ = Client.C_CVar.SetCVar("autoLootDefault", "1")
+  settings.refresh()
+  settings.defaults()
+  Test.expect(Client.C_CVar.GetCVar("autoLootDefault") == Client.C_CVar.GetCVarDefault("autoLootDefault"))
 }

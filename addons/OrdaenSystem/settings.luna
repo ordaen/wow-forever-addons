@@ -1,11 +1,22 @@
 // Blizzard's settings as the «Settings» tab reads them: the window's groups and their pages in the client's order
 // (`SettingsPanel`'s category list), and a page's lines (its layout's initializers), each told by the template it is
-// drawn with. What a line shows is read from the client's setting (`GetValue`); nothing here writes through Blizzard's
-// setting objects, whose fields a write from addon code would taint. A setting over a console variable is written to
-// the variable itself (`SetCVar`), as Blizzard's setting would write it; one that isn't (Blizzard's own getter and
-// setter) is read only, and Blizzard's window changes it.
+// drawn with. What a line shows is read from the client's setting (`GetValue`). A setting over a console variable is
+// written to the variable itself (`SetCVar`), as Blizzard's setting writes it; any other through the setting
+// (`SetValue`, Blizzard's own setter: what the API gives addons). One that waits for Blizzard's Apply holds its new
+// value until `apply` (the panel's own `Commit`, with its timed question after a resolution).
 import Client from "$client"
 import Runtime from "$runtime"
+
+// How a setting is written: its console variable itself; through Blizzard's setting, now; through it, held until
+// Apply; or not at all (a header, Blizzard's own line).
+public enum Writing { Variable, Setting, Apply, None }
+
+// How a setting is written, by what it is kept in and what its change asks.
+function writingOf(setting: any Client.Setting | nil): Writing {
+  if (setting == nil) { return .None }
+  if (setting.HasCommitFlag(.Apply)) { return .Apply }
+  return Client.C_CVar.GetCVar(setting.GetVariable()) != nil ? .Variable : .Setting
+}
 
 // What a line of a page is, by the template Blizzard draws it with.
 public enum LineKind {
@@ -29,8 +40,8 @@ public struct SettingLine {
   tooltip: String
   // The setting's variable (`""` for a header or Blizzard's own line).
   variable: String
-  // Whether the variable is a console variable: the window writes it.
-  cvar: Boolean
+  // How the window writes it.
+  writing: Writing
   // The checkbox the line stands under, by its variable (`""`: none): a slider's or a dropdown's of a line of two
   // controls, greyed while the checkbox is off, as Blizzard's is.
   under: String
@@ -87,7 +98,7 @@ function lineOf(
     name: name,
     tooltip: tooltip,
     variable: variable,
-    cvar: variable != "" && Client.C_CVar.GetCVar(variable) != nil,
+    writing: writingOf(setting),
     under: under,
     least: range?.minValue ?? 0,
     most: range?.maxValue ?? 0,
@@ -108,6 +119,8 @@ public class SystemSettings {
   public state values: Map<String, Boolean | Number | String> = {}
   // Each page's lines, by the page's id: what the search reads.
   state everyLine: Map<Integer, Array<SettingLine>> = {}
+  // Settings changed that wait for Apply, by their variable.
+  public state waiting: Array<String> = []
 
   // The list read anew, as the tab opens: the client's groups, each with its pages and the pages under them, and every
   // page's lines (a thousand lines, read once a tab's open, for the search). The first page is shown.
@@ -183,13 +196,38 @@ public class SystemSettings {
     self.values = values
   }
 
-  // A setting over a console variable set to a value: the variable written as Blizzard's setting writes it (a Boolean
-  // as `1` or `0`), and the page's values read again. Whether the client took it.
-  public write(mut self, variable: String, value: Boolean | Number | String): Boolean {
-    const text = value is Boolean ? (value ? "1" : "0") : String.of(value)
-    const took = Client.C_CVar.SetCVar(variable, text)
+  // A line's setting set to a value, as the line writes it (a console variable's Boolean as `1` or `0`), and the
+  // page's values read again; one that waits for Apply is kept as waiting.
+  public write(mut self, line: SettingLine, value: Boolean | Number | String) {
+    if (line.writing == .Variable) {
+      _ = Client.C_CVar.SetCVar(line.variable, value is Boolean ? (value ? "1" : "0") : String.of(value))
+    } else if (line.writing != .None) {
+      Client.Settings?.GetSetting(line.variable)?.SetValue(value)
+      if (line.writing == .Apply) {
+        const waiting = peek self.waiting
+        if (!waiting.any(each => each == line.variable)) {
+          const next = waiting.map(each => each)
+          next.push(line.variable)
+          self.waiting = next
+        }
+      }
+    }
     self.refresh()
-    return took
+  }
+
+  // What waits for Apply takes hold: the panel's own commit, as its Apply button does.
+  public apply(mut self) {
+    Client.SettingsPanel?.Commit(nil)
+    self.waiting = []
+    self.refresh()
+  }
+
+  // Every setting of the page shown back to its default.
+  public defaults(mut self) {
+    for (line of peek self.lines) {
+      const value = Client.Settings?.GetSetting(line.variable)?.GetDefaultValue()
+      if (value != nil && line.writing != .None && value != (peek self.values)[line.variable]) { self.write(line, value) }
+    }
   }
 
   // A dropdown's choices, asked of the client as the line is drawn (they may follow other settings).
