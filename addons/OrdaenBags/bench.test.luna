@@ -42,12 +42,13 @@ function readSlot(bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean
   return true
 }
 
-// The module's spans since the last call, summed: kilobytes made.
+// The module's spans since the last call, summed: kilobytes its code made. Laying its window out (`layout Bags`) is the
+// renderer's, charged to the module whose surface it is, and left out.
 function made(): Number {
   let kb: Number = 0
   if (Build.dev) {
     for (span of Debug.spans()) {
-      if (span.addon == "OrdaenBags") { kb += span.kb }
+      if (span.addon == "OrdaenBags" && span.label.sub(1, 7) != "layout ") { kb += span.kb }
     }
   }
   return kb
