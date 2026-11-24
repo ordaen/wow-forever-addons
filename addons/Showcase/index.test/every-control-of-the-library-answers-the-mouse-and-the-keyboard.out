@@ -382,16 +382,17 @@ box 0,0 700x401.14
     box 3.32,386.98 0x0
     text 334.17,379.78 31.67x14.4 "Reset" #808080
     box 696.68,386.98 0x0
-surface 348.98,181.52 216.67x86.14 on FULLSCREEN_DIALOG #0a0806f7
-  box 349.81,188.04 215x24.37 #00000000 @keyPress @pointerPress
-    box 358.14,195.54 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 1 of 2
-    text 375.41,192.31 178.02x15.83 "Never" #f0e6d2
-  box 349.81,212.41 215x24.37 #00000000 @keyPress @pointerPress
-    box 358.14,219.91 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
-    text 375.41,216.68 178.02x15.83 "In combat" #f0e6d2
-  box 349.81,236.78 215x24.37 #00000000 @keyPress @pointerPress
-    box 358.14,244.28 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
-    text 375.41,241.04 178.02x15.83 "On a mount — in development" #ffffff
+surface 348.98,181.52 216.67x86.14 on FULLSCREEN_DIALOG #0a0806f7 clamped
+  box 349.81,188.04 215x73.1 scrolled 0 of 0
+    box 349.81,188.04 215x24.37 #00000000 @keyPress @pointerPress
+      box 358.14,195.54 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 1 of 2
+      text 375.41,192.31 178.02x15.83 "Never" #f0e6d2
+    box 349.81,212.41 215x24.37 #00000000 @keyPress @pointerPress
+      box 358.14,219.91 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
+      text 375.41,216.68 178.02x15.83 "In combat" #f0e6d2
+    box 349.81,236.78 215x24.37 #00000000 @keyPress @pointerPress
+      box 358.14,244.28 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
+      text 375.41,241.04 178.02x15.83 "On a mount — in development" #ffffff
 
 -- the cursor on a choice: the light under it
 box 0,0 700x401.14
@@ -454,16 +455,17 @@ box 0,0 700x401.14
     box 3.32,386.98 0x0
     text 334.17,379.78 31.67x14.4 "Reset" #808080
     box 696.68,386.98 0x0
-surface 348.98,181.52 216.67x86.14 on FULLSCREEN_DIALOG #0a0806f7
-  box 349.81,188.04 215x24.37 #00000000 @keyPress @pointerPress
-    box 358.14,195.54 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 1 of 2
-    text 375.41,192.31 178.02x15.83 "Never" #f0e6d2
-  box 349.81,212.41 215x24.37 #d6a56b2e @keyPress @pointerPress
-    box 358.14,219.91 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
-    text 375.41,216.68 178.02x15.83 "In combat" #f0e6d2
-  box 349.81,236.78 215x24.37 #00000000 @keyPress @pointerPress
-    box 358.14,244.28 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
-    text 375.41,241.04 178.02x15.83 "On a mount — in development" #ffffff
+surface 348.98,181.52 216.67x86.14 on FULLSCREEN_DIALOG #0a0806f7 clamped
+  box 349.81,188.04 215x73.1 scrolled 0 of 0
+    box 349.81,188.04 215x24.37 #00000000 @keyPress @pointerPress
+      box 358.14,195.54 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 1 of 2
+      text 375.41,192.31 178.02x15.83 "Never" #f0e6d2
+    box 349.81,212.41 215x24.37 #d6a56b2e @keyPress @pointerPress
+      box 358.14,219.91 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
+      text 375.41,216.68 178.02x15.83 "In combat" #f0e6d2
+    box 349.81,236.78 215x24.37 #00000000 @keyPress @pointerPress
+      box 358.14,244.28 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
+      text 375.41,241.04 178.02x15.83 "On a mount — in development" #ffffff
 
 -- a click elsewhere: the menu closed, nothing picked
 box 0,0 700x401.14
@@ -588,16 +590,17 @@ box 0,0 700x401.14
     box 3.32,386.98 0x0
     text 334.17,379.78 31.67x14.4 "Reset" #808080
     box 696.68,386.98 0x0
-surface 348.98,181.52 216.67x86.14 on FULLSCREEN_DIALOG #0a0806f7
-  box 349.81,188.04 215x24.37 #00000000 @keyPress @pointerPress
-    box 358.14,195.54 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 1 of 2
-    text 375.41,192.31 178.02x15.83 "Never" #f0e6d2
-  box 349.81,212.41 215x24.37 #00000000 @keyPress @pointerPress
-    box 358.14,219.91 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
-    text 375.41,216.68 178.02x15.83 "In combat" #f0e6d2
-  box 349.81,236.78 215x24.37 #00000000 @keyPress @pointerPress
-    box 358.14,244.28 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
-    text 375.41,241.04 178.02x15.83 "On a mount — in development" #ffffff
+surface 348.98,181.52 216.67x86.14 on FULLSCREEN_DIALOG #0a0806f7 clamped
+  box 349.81,188.04 215x73.1 scrolled 0 of 0
+    box 349.81,188.04 215x24.37 #00000000 @keyPress @pointerPress
+      box 358.14,195.54 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 1 of 2
+      text 375.41,192.31 178.02x15.83 "Never" #f0e6d2
+    box 349.81,212.41 215x24.37 #00000000 @keyPress @pointerPress
+      box 358.14,219.91 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
+      text 375.41,216.68 178.02x15.83 "In combat" #f0e6d2
+    box 349.81,236.78 215x24.37 #00000000 @keyPress @pointerPress
+      box 358.14,244.28 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
+      text 375.41,241.04 178.02x15.83 "On a mount — in development" #ffffff
 
 -- a choice clicked: picked, the menu closed, the plate shows it
 box 0,0 700x401.14
