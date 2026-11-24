@@ -1,0 +1,43 @@
+// The shopping list as the professions window's tab (`Trading.shoppingTab`): its items bought at the house on one
+// small tab, the ones a merchant sells on the other, each tab with its count, its table and its footer.
+import { Track } from "$ltml"
+import { Component, SmallTabs } from "Ordaen"
+import Locale from "@/locales"
+import { PriceSource } from "@/quote"
+import { Market, ShoppingList, marketOf } from "@/shopping"
+import { ShoppingPage } from "@/shoppingPage"
+import { Sellers, VendorPage } from "@/vendorPage"
+
+const PAGE: Array<Track> = ["max-content", { fr: 1 }]
+
+public class ShoppingTab implements Component {
+  state tab = 1
+  derived names: Array<String> = self.namesOf()
+
+  const prices: any PriceSource
+  list: mut ShoppingList
+  const sellers: Sellers
+  atMerchant: Signal<Boolean>
+  constructor(prices: any PriceSource, list: mut ShoppingList, sellers: Sellers, atMerchant: Signal<Boolean>) {
+    self.prices = prices
+    self.list = list
+    self.sellers = sellers
+    self.atMerchant = atMerchant
+  }
+
+  // «Auction (3)», «Vendors (2)».
+  namesOf(self): Array<String> {
+    const vendors = self.list.rows.count(row => marketOf(self.prices, row.item) == Market.Vendor)
+    return [Locale.TAB_HOUSE.format(self.list.rows.length - vendors), Locale.TAB_VENDORS.format(vendors)]
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <box rows={PAGE} gap={3sp}>
+        <SmallTabs tabs={self.names} selected={mut self.tab} />
+        <ShoppingPage $if={self.tab == 1} prices={self.prices} list={mut self.list} market={Market.House} />
+        <VendorPage $else prices={self.prices} list={mut self.list} sellers={self.sellers} atMerchant={self.atMerchant} />
+      </box>
+    }
+  }
+}

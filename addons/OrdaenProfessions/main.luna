@@ -12,7 +12,7 @@ import root Ordaen from "Ordaen"
 import { ARTWORK, Choice, Column, FilterButton, FilterGroup, Ground, ItemId, KeptWindow, Module, ModuleMemory, PushButton, Settings, SettingsPage, Table, Tabs, ToolPick, Toolbar, WINDOW_ROOM, Window, WindowTabSpec, WindowsPage, tracksOf, windowsTitle } from "Ordaen"
 import root Quests from "OrdaenQuests"
 import root Trading from "OrdaenTrading"
-import type { PriceSource } from "OrdaenTrading"
+import type { PriceSource, Sellers } from "OrdaenTrading"
 import { TrainerIgnored, TrainerList, TrainerView, TrainerWindow } from "OrdaenTrainer"
 import { BandBar } from "@/bandBar"
 import { Book, written } from "@/book"
@@ -46,6 +46,14 @@ const TRAINER_TAB: WindowTabSpec = { title: Locale.TRAINER, desc: nil, icon: "In
 // window's), and the page in the rest, in the window's room.
 const BODY: Array<Track> = ["max-content", { fr: 1 }]
 const NO_ROOM: Edges = { top: 0sp, right: 0sp, bottom: 0sp, left: 0sp }
+
+// The sellers of a shopping list's item, from Ordaen Quests' data while it is on. Quests names no item's sellers yet
+// (asked of lunatype-quests: `vendorsOf`), so none is known.
+const SELLERS: Sellers = {
+  of: (item: Integer): Array<Integer> => [],
+  distance: (npc: Integer): Number | nil => Quests?.distanceTo(npc),
+  showNearest: (npcs: Array<Integer>) => { _ = Quests?.showNearest(npcs) }
+}
 const PAGE_ROOM: Edges = { top: 4sp, right: WINDOW_ROOM, bottom: 4sp, left: WINDOW_ROOM }
 // The recipes page runs to the window's edges: its toolbar keeps the window's room at the left.
 const TOOL_ROOM: Edges = { top: 6sp, right: 3sp, bottom: 3sp, left: WINDOW_ROOM }
@@ -284,6 +292,10 @@ public class Professions implements Module, App {
   derived queueShown: Boolean = self.pageKind == Page.Queue
   derived overviewShown: Boolean = self.pageKind == Page.Overview
   derived worthShown: Boolean = self.pageKind == Page.Worth
+  derived shoppingShown: Boolean = self.pageKind == Page.Shopping
+  // Ordaen Trading's shopping list as the last page, while Trading is on.
+  const shopping: Boolean = Trading != nil
+  const shoppingTab: Template = Trading?.shoppingTab(SELLERS) ?? $ltml { <box /> }
   // The recipes run to the window's edges; every other page keeps the window's room.
   // The overview's cards keep the window's room; the lists of every other page run to the window's edges.
   derived pageRoom: Edges = self.overviewShown ? PAGE_ROOM : NO_ROOM
@@ -484,6 +496,7 @@ public class Professions implements Module, App {
     kinds.push(Page.Unlearned)
     kinds.push(Page.Queue)
     kinds.push(Page.Worth)
+    if (self.shopping) { kinds.push(Page.Shopping) }
     return kinds
   }
 
@@ -508,6 +521,7 @@ public class Professions implements Module, App {
         Page.Queue => waiting > 0 ? Locale.TAB_QUEUE_COUNT.format(waiting) : Locale.TAB_QUEUE
         Page.Overview => Locale.TAB_OVERVIEW
         Page.Worth => Locale.TAB_WORTH
+        Page.Shopping => Locale.TAB_SHOPPING
       })
     }
     return names
@@ -964,6 +978,7 @@ public class Professions implements Module, App {
               <OverviewPage $elseif={self.overviewShown} profession={self.profession} thresholds={self.thresholds}
                             kept={self.kept} taught={self.taught} @pick={self.openRecipe} />
               <WorthPage $elseif={self.worthShown} book={self.written} prices={self.prices} />
+              <box $elseif={self.shoppingShown} rows={FILL}> {self.shoppingTab} </box>
               // The recipes, from the band to the window's bottom and side to side: the toolbar over the lists on the
               // wood, and the recipe beside both, the full height, on the quest scroll's paper. The categories stand on
               // the wood, parted by a groove from the recipes on the wood stained dark: a chosen category takes the

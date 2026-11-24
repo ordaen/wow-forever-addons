@@ -124,5 +124,11 @@
   "SPAN_WEEK": "Week",
   "SPAN_MONTH": "Month",
   "NO_HISTORY": "No price history yet.",
-  "LISTED_COUNT": "Listed: %d"
+  "LISTED_COUNT": "Listed: %d",
+  "TAB_HOUSE": "Auction (%d)",
+  "TAB_VENDORS": "Vendors (%d)",
+  "COLUMN_NEAREST": "Nearest",
+  "YARDS": "%d yd",
+  "VENDORS_EMPTY": "Nothing on the list a merchant sells for less than the house.",
+  "SHOW_NEAREST": "Show the nearest on the map"
 }

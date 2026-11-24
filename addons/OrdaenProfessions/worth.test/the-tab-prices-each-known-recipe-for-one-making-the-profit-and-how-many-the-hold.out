@@ -43,7 +43,10 @@ surface 288,134.12 1024x631.75 on MEDIUM clamped raised by a click
             box 712.69,240.83 85.8x30.89 Interface\AddOns\Ordaen\media\window-wood @keyPress @pointerPress
               box 711.86,270.89 87.47x0.83 absolute #00000000
               text 730.59,248.78 50x15.83 "Worth it" #f0e6d2
-            box 798.49,240.83 506.31x30.89
+            box 798.49,240.83 115.8x30.89 #00000000 @keyPress @pointerPress
+              box 797.66,270.89 117.47x0.83 absolute #3e2f1d
+              text 816.39,248.78 80x15.83 "Shopping list" #a3977f
+            box 914.29,240.83 390.51x30.89
         box 295.2,271.72 1009.6x486.96
           box 295.2,271.72 1009.6x486.96
             box 295.2,271.72 1009.6x70.66

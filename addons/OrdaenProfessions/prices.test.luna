@@ -117,7 +117,7 @@ function near(a: Color, b: Color): Boolean {
 // Whether Ordaen Trading's shopping list reads exactly this, its rows from the first under the headings to «Search
 // all»: the list's window opened from Ordaen Trading's «Shopping list» at the house (open), as the player does.
 function shoppingList(expected: String): Boolean {
-  Test.page().button("Shopping list").click()
+  Test.page().window("Sell").button("Shopping list").click()
   let read: Array<String> = []
   let inside = false
   for (shown of Test.page().window("Search all").texts()) {

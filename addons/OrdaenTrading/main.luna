@@ -21,8 +21,10 @@ import { Offered, Posting, SellPage } from "@/sell"
 import { Choices, DEFAULTS, GeneralPage } from "@/settings"
 import { ShoppingList } from "@/shopping"
 import { ShoppingPage } from "@/shoppingPage"
+import { ShoppingTab } from "@/shoppingTab"
 import { Status } from "@/status"
 import Style from "@/style"
+import { Sellers } from "@/vendorPage"
 
 // What the module keeps, under its own saved variable.
 const KEPT = "kept"
@@ -74,6 +76,8 @@ public class Trading implements Module, App {
   state page = BUY
   derived shown: Boolean = Game.auctionHouse.open && self.settings.values.window
   state shoppingOpen = false
+  // A merchant's window is open: the shopping list's «Vendors» buys there.
+  state atMerchant = false
   state ownedOpen = false
   // A docked window's one tab, and its width (it stands the screen's height).
   state sideTab = 1
@@ -119,14 +123,24 @@ public class Trading implements Module, App {
     self.lines = new TooltipLines(self.prices, self.priceLine, self.shopping)
     Game.auctionHouse.opened.listen(self.onOpened)
     Game.merchant.opened.listen(self.onMerchant)
+    Game.merchant.closed.listen(self.onMerchantClosed)
     Ordaen.modules.add(self)
+  }
+
+  // The shopping list as another window's tab (the professions window's): the house's items and the merchants', the
+  // sellers found as `sellers` says.
+  public shoppingTab(mut self, sellers: Sellers): Template {
+    return $ltml { <ShoppingTab prices={self.prices} list={mut self.shopping} sellers={sellers} atMerchant={self.atMerchant} /> }
   }
 
   onOpened(mut self) {
     if (peek self.settings.values.scanOnOpen) { _ = self.scanner.full() }
   }
 
+  onMerchantClosed(mut self) { self.atMerchant = false }
+
   onMerchant(mut self) {
+    self.atMerchant = true
     const given = Game.merchant.prices()
     if (given != nil) { takeMerchant(mut self.kept.vendor, given) }
   }

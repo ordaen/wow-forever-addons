@@ -1,0 +1,192 @@
+// The shopping list's items a merchant sells for no more than the house asks (`marketOf`), as the professions window's
+// «Vendors» tab shows them: each item with what asked for it, what is left to buy over what is held, the merchant's
+// price, the sum and how far the nearest seller is. Its footer buys the picked row at the open merchant (when it sells
+// the item), shows the nearest seller on the map, and removes the row.
+import Client from "$client"
+import Game from "$game"
+import { Align, Frame, Track } from "$ltml"
+import { Column, Component, FooterCount, ItemButton, ItemId, ListFooter, Money, PushButton, SECONDARY_TEXT, Table, TableRow, tracksOf } from "Ordaen"
+import { nameOf } from "@/house"
+import Locale from "@/locales"
+import { PriceSource } from "@/quote"
+import { Market, Row, ShoppingList, marketOf } from "@/shopping"
+import Style from "@/style"
+
+// How the sellers of an item are found: the NPCs that sell it, how far one is (nil: not known), and the nearest
+// shown on the map. The professions window gives them, from Ordaen Quests.
+public struct Sellers {
+  of: (item: Integer) => Array<Integer>
+  distance: (npc: Integer) => Number | nil
+  showNearest: (npcs: Array<Integer>) => nil
+}
+
+const COLUMNS: Array<Column> = [
+  { title: Locale.COLUMN_ITEM, width: { fr: 1, min: 175.78125dp } },
+  { title: Locale.COLUMN_TO_BUY, width: 93.75dp, align: Align.End },
+  { title: Locale.COLUMN_PRICE, width: 105.46875dp, align: Align.End },
+  { title: Locale.COLUMN_TOTAL, width: 105.46875dp, align: Align.End },
+  { title: Locale.COLUMN_NEAREST, width: 105.46875dp, align: Align.End }
+]
+const TRACKS: Array<Track> = tracksOf(COLUMNS)
+const ITEM: Array<Track> = ["max-content", { fr: 1 }]
+const LINES: Array<Track> = ["max-content", "max-content"]
+const PAGE: Array<Track> = [{ fr: 1 }, "max-content"]
+const NO_COUNTS: Array<FooterCount> = []
+const WIDE = 257.8125dp
+
+// The nearest of the NPCs that sell an item, in yards; nil where none is known or none has a place.
+function nearestOf(sellers: Sellers, item: ItemId): Number | nil {
+  let best: Number | nil = nil
+  for (npc of sellers.of(item)) {
+    const yards = sellers.distance(npc)
+    if (yards != nil && (best == nil || yards < best)) { best = yards }
+  }
+  return best
+}
+
+// Where the open merchant lists an item, and how many one purchase takes at most; nil where it doesn't sell it.
+struct Offer {
+  index: Integer
+  most: Integer
+}
+
+function offerOf(item: ItemId): Offer | nil {
+  for (index of 1..Client.GetMerchantNumItems()) {
+    if (Client.GetMerchantItemID(index) == item) {
+      return { index: index, most: Client.GetMerchantItemMaxStack(index).floor().max(1) }
+    }
+  }
+  return nil
+}
+
+class VendorRow implements Component {
+  public pick: Event<ItemId> = new Event()
+
+  derived name: String = self.nameText()
+  derived color: Color = self.row.toBuy == 0 ? Style.DIM : self.nameColor()
+  derived ink: Color = self.row.toBuy == 0 ? Style.DIM : Style.INK
+  derived unit: Integer = self.prices.vendor(self.row.item) ?? 0
+  derived nearest: Number | nil = nearestOf(self.sellers, self.row.item)
+
+  row: Signal<Row>
+  const prices: any PriceSource
+  const sellers: Sellers
+  selected: Signal<Boolean>
+  constructor(row: Signal<Row>, prices: any PriceSource, sellers: Sellers, selected: Signal<Boolean>) {
+    self.row = row
+    self.prices = prices
+    self.sellers = sellers
+    self.selected = selected
+  }
+
+  nameText(self): String {
+    const name, _ = nameOf(self.row.item)
+    return name
+  }
+
+  nameColor(self): Color {
+    const _, color = nameOf(self.row.item)
+    return color
+  }
+
+  onPick(self) { self.pick.emit(self.row.item) }
+
+  onRowEnter(self, frame: any Frame) { Game.items.show(frame, self.row.item) }
+
+  public render(self): Template {
+    return $ltml {
+      <TableRow tracks={TRACKS} selected={self.selected} @pick={self.onPick} @enter={self.onRowEnter}>
+        <box columns={ITEM} gap={2.5sp} yAlign={Align.Center}>
+          <ItemButton item={self.row.item} size={Style.SLOT} dimmed={self.row.toBuy == 0} tipped={false} />
+          <text value={self.name} textColor={self.color} wrap={.Cut} />
+        </box>
+        <box rows={LINES} xAlign={Align.End}>
+          <text value={"%d"} arguments={[self.row.toBuy]} textColor={self.ink} />
+          <text value={Locale.HELD_OF} arguments={[self.row.held, self.row.needed]} textColor={Style.DIM}
+                textSize={SECONDARY_TEXT} wrap={.None} />
+        </box>
+        <box xAlign={Align.End}>
+          <Money amount={self.unit} />
+        </box>
+        <box xAlign={Align.End}>
+          <Money amount={self.unit * self.row.toBuy} />
+        </box>
+        <box xAlign={Align.End}>
+          <text $if={self.nearest != nil} value={Locale.YARDS} arguments={[(self.nearest ?? 0).floor()]} textColor={self.ink} />
+          <text $else value={"—"} textColor={Style.DIM} />
+        </box>
+      </TableRow>
+    }
+  }
+}
+
+public class VendorPage implements Component {
+  state picked: ItemId | nil = nil
+  // The rows stand as the list has them: the headings sort nothing.
+  state sorted = 0
+  state descending = false
+  derived rows: Array<Row> = self.list.rows.filter(row => marketOf(self.prices, row.item) == Market.Vendor)
+  derived empty: Boolean = self.rows.length == 0
+  derived chosen: Row | nil = self.rows.find(row => row.item == self.picked)
+  // The open merchant sells the picked row, and some of it is left to buy.
+  derived buyable: Boolean = self.atMerchant && (self.chosen?.toBuy ?? 0) > 0 && offerOf(self.picked ?? 0) != nil
+  derived mapped: Boolean = self.picked != nil && self.sellers.of(self.picked ?? 0).length > 0
+
+  const prices: any PriceSource
+  list: mut ShoppingList
+  const sellers: Sellers
+  atMerchant: Signal<Boolean>
+  constructor(prices: any PriceSource, list: mut ShoppingList, sellers: Sellers, atMerchant: Signal<Boolean>) {
+    self.prices = prices
+    self.list = list
+    self.sellers = sellers
+    self.atMerchant = atMerchant
+  }
+
+  onPick(mut self, item: ItemId) { self.picked = item }
+
+  // From the player's click alone: what is left to buy, in purchases of at most what the merchant sells at once.
+  onBuy(self) {
+    const row = peek self.chosen
+    if (row == nil) { return }
+    const offer = offerOf(row.item)
+    if (offer == nil) { return }
+    let left = row.toBuy
+    for (purchase of 1..((left + offer.most - 1) / offer.most).floor()) {
+      const count = left.min(offer.most)
+      Client.BuyMerchantItem(offer.index, count)
+      left -= count
+    }
+  }
+
+  onNearest(self) {
+    const picked = peek self.picked
+    if (picked != nil) { self.sellers.showNearest(self.sellers.of(picked)) }
+  }
+
+  onRemove(mut self) {
+    const picked = peek self.picked
+    if (picked == nil) { return }
+    self.list.remove(picked)
+    self.picked = nil
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <box rows={PAGE}>
+        <Table columns={COLUMNS} sorted={mut self.sorted} descending={mut self.descending}>
+          <VendorRow $for={row of self.rows} $key={row} row={row} prices={self.prices} sellers={self.sellers}
+                     selected={self.picked == row.item} @pick={self.onPick} />
+          <box $if={self.empty} padding={Style.NOTE_PAD} yAlign={Align.Center}>
+            <text value={Locale.VENDORS_EMPTY} textColor={Style.DIM} />
+          </box>
+        </Table>
+        <ListFooter counts={NO_COUNTS}>
+          <PushButton label={Locale.BUY} width={152.34375dp} disabled={!self.buyable} @click={self.onBuy} />
+          <PushButton label={Locale.SHOW_NEAREST} width={WIDE} disabled={!self.mapped} @click={self.onNearest} />
+          <PushButton label={Locale.REMOVE} width={152.34375dp} disabled={self.chosen == nil} @click={self.onRemove} />
+        </ListFooter>
+      </box>
+    }
+  }
+}

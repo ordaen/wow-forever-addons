@@ -40,7 +40,10 @@ surface 288,134.12 924.9x215.08 on MEDIUM clamped raised by a click
             box 651.06,240.83 85.8x30.89 #00000000 @keyPress @pointerPress
               box 650.22,270.89 87.47x0.83 absolute #3e2f1d
               text 668.96,248.78 50x15.83 "Worth it" #a3977f
-            box 736.86,240.83 468.84x30.89
+            box 736.86,240.83 115.8x30.89 #00000000 @keyPress @pointerPress
+              box 736.02,270.89 117.47x0.83 absolute #3e2f1d
+              text 754.76,248.78 80x15.83 "Shopping list" #a3977f
+            box 852.66,240.83 353.04x30.89
         box 295.2,271.72 910.5x70.29
           box 295.2,271.72 910.5x70.29
             box 295.2,271.72 538.89x70.29
@@ -231,7 +234,10 @@ surface 288,134.12 1312x215.08 on MEDIUM clamped raised by a click
             box 651.06,240.83 85.8x30.89 #00000000 @keyPress @pointerPress
               box 650.22,270.89 87.47x0.83 absolute #3e2f1d
               text 668.96,248.78 50x15.83 "Worth it" #a3977f
-            box 736.86,240.83 855.94x30.89
+            box 736.86,240.83 115.8x30.89 #00000000 @keyPress @pointerPress
+              box 736.02,270.89 117.47x0.83 absolute #3e2f1d
+              text 754.76,248.78 80x15.83 "Shopping list" #a3977f
+            box 852.66,240.83 740.14x30.89
         box 295.2,271.72 1297.6x70.29
           box 295.2,271.72 1297.6x70.29
             box 295.2,271.72 648.8x70.29
