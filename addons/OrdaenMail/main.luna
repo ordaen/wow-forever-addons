@@ -5,10 +5,10 @@
 // its inbox again; the server's letters past those shown are asked for again while more wait.
 import Client from "$client"
 import Game from "$game"
-import { Align, Frame } from "$ltml"
+import { Align, Edges, Frame } from "$ltml"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
-import { ButtonPlate, Dialog, FOOTER_ROOM, FooterCount, FooterCounts, GamePass, GameWindowButton, KeptWindow, Module, ModuleMemory, PushButton, Settings, SettingsPage, Window, WindowSide, WindowTabSpec, WindowsPage, windowsTitle } from "Ordaen"
+import { ButtonPlate, Dialog, FOOTER_ROOM, FooterCount, FooterCounts, KeptWindow, Module, ModuleMemory, PushButton, Settings, SettingsPage, Window, WindowSide, WindowTabSpec, WindowsPage, windowsTitle } from "Ordaen"
 import root Alts from "OrdaenAlts"
 import root Professions from "OrdaenProfessions"
 import type { Crafting } from "OrdaenProfessions"
@@ -28,7 +28,10 @@ import Style from "@/style"
 
 const TAB_INBOX = 1
 const TAB_OUTBOX = 2
+const TAB_OWN = 3
 const GAME_WINDOW = "MailFrame"
+// «To my characters» keeps no room inside the window's frame: its columns keep their own.
+const NO_ROOM: Edges = { top: 0sp, right: 0sp, bottom: 0sp, left: 0sp }
 // How long before the server is asked again for the letters past those shown (it refills about every minute; it may be
 // asked every 15 seconds at most).
 const RECHECK = 15
@@ -59,7 +62,6 @@ public class Mail implements Module, App {
   public sender: mut Sender = new Sender()
   // What «To my characters» sends to each character's professions, the account's (`RulesPage`).
   public sendRules: mut ModuleMemory<SendRules> = new ModuleMemory<SendRules>({}, .Account, "sendRules")
-  pass: mut GamePass = new GamePass()
   // How much more an item is worth to the player's spec than what it wears (Ordaen's worth).
   public upgrade: (link: String) => Number | nil = (link: String): Number | nil => Ordaen.worth.upgradeOf(link)
 
@@ -67,6 +69,8 @@ public class Mail implements Module, App {
   // item.
   derived kin: Array<Kin> | nil = Alts == nil ? nil : kinOf(Alts ?? panic("tested"))
   const crafting: CraftingRead = (item: Integer): Array<Crafting> => Professions.craftingWith(item)
+  // «To my characters»: its columns and its footer.
+  public own: mut OwnTab
 
   state tab = TAB_INBOX
   state letters: Array<Game.MailLetter> = []
@@ -99,7 +103,7 @@ public class Mail implements Module, App {
   derived tabs: Array<WindowTabSpec> = [
     { title: Locale.TAB_INBOX, desc: Locale.LETTERS_COUNT.format(self.total), icon: nil },
     { title: Locale.TAB_SENT, desc: self.outboxDesc(), icon: nil },
-    { title: Locale.TAB_OWN, desc: nil, icon: nil }
+    { title: Locale.TAB_OWN, desc: nil, icon: nil, padding: NO_ROOM }
   ]
   derived current: Game.MailLetter | nil = self.letters.find(l => l.index == self.picked)
   derived sentCurrent: Sent | nil = self.queue.find(l => l.number == self.sentPicked) ?? self.history.find(l => l.number == self.sentPicked)
@@ -107,14 +111,17 @@ public class Mail implements Module, App {
   derived counts: Array<FooterCount> = self.countsOf()
   derived busy: Boolean = self.collector.running
   derived askText: String = self.askTextOf()
+  // The footer: «To my characters»' own on that tab, the counts on the others.
   const footer: Template = $ltml {
-    <box padding={FOOTER_ROOM} columns={[{ fr: 1 }, "max-content"]} yAlign={Align.Center}>
+    <$if={self.tab == TAB_OWN}> {self.own.footer} </>
+    <box $else padding={FOOTER_ROOM} yAlign={Align.Center}>
       <FooterCounts counts={self.counts} />
-      <GameWindowButton @click={self.onGameWindow} />
     </box>
   }
 
   constructor() {
+    self.own = new OwnTab(self.kin, self.crafting, self.sendRules.values, mut self.sender)
+    self.own.configure.listen(self.onSettings)
     Ordaen.modules.add(self)
     Game.mailObserver.opened.listen(self.onOpened)
     Game.mailObserver.changed.listen(self.refresh)
@@ -168,7 +175,7 @@ public class Mail implements Module, App {
     self.picked = 0
     self.ticked = []
     const game = Runtime.frame(GAME_WINDOW)
-    if (game != nil && !self.pass.passes(game)) { self.held = [game] }
+    if (game != nil) { self.held = [game] }
     if ((peek self.queue).any(l => l.state != SentState.Sent)) { self.window.ask(TAB_OUTBOX) }
     self.blockTrades(true)
     self.refresh()
@@ -382,15 +389,6 @@ public class Mail implements Module, App {
 
   onSettings(self) { Ordaen.toggleSettings(Runtime.Addon.of(self)) }
 
-  // A development build's footer button: the game's own mailbox window, as it is.
-  onGameWindow(mut self) {
-    const game = Runtime.frame(GAME_WINDOW)
-    if (game == nil) { return }
-    self.closed = true
-    self.held = []
-    self.pass.pass(game)
-  }
-
   askTextOf(self): String {
     const ask = self.asking
     return match (ask) {
@@ -436,8 +434,7 @@ public class Mail implements Module, App {
                @returnTicked={self.onReturnTicked} />
         <Outbox $elseif={self.tab == TAB_OUTBOX} queue={self.queue} history={self.history} picked={self.sentPicked}
                 @pick={self.onSentPick} @write={self.onWrite} @stop={self.onStop} @resume={self.onResume} />
-        <OwnTab $else reached={self.kin} crafting={self.crafting} rules={self.sendRules.values} sender={mut self.sender}
-                @configure={self.onSettings} />
+        <$else> {self.own.body} </>
       </Window>
       <Dialog $if={self.asking is Ask.Pay} width={Style.ASK} title={Locale.COD_TITLE}>
         <text value={self.askText} textColor={Style.INK} />

@@ -97,6 +97,12 @@ class OwnPage {
   public state reached: Array<Kin> | nil = kin()
   public state rules: SendRules = {}
   public sender: mut Sender = new Sender()
+  own: mut OwnTab
+
+  constructor() {
+    self.own = new OwnTab(self.reached, crafting, self.rules, mut self.sender)
+    self.own.configure.listen(self.onConfigure)
+  }
 
   public slotAt(self, bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean {
     if (bag != 0 || slot > 2) { return false }
@@ -113,8 +119,9 @@ class OwnPage {
 
   public render(self): Template {
     return $ltml {
-      <box width={900ui} height={500ui}>
-        <OwnTab reached={self.reached} crafting={crafting} rules={self.rules} sender={mut self.sender} @configure={self.onConfigure} />
+      <box width={900ui} height={500ui} rows={[{ fr: 1 }, "max-content"]}>
+        {self.own.body}
+        {self.own.footer}
       </box>
     }
   }
@@ -127,6 +134,8 @@ function opened(): mut OwnPage {
   Game.bags.holdings = (): Map<Integer, Integer> | nil => page.bagged
   Game.bags.size = (bag: Integer): Integer => bag == 0 ? 4 : 0
   Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => page.slotAt(bag, slot, mut into)
+  // The tab read the bags as the page was made, before they were answered: they change now.
+  Game.bags.changed.emit()
   Test.mount(page, { left: 0, top: 0, width: 900, height: 500 })
   return page
 }

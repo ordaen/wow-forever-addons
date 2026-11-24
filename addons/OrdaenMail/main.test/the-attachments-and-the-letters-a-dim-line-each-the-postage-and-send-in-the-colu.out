@@ -4,8 +4,8 @@ box 0,0 0x0
   embed 0,0 0x0 frame=none opacity=0
 surface 500,175.79 1039.68x548.42 on MEDIUM clamped raised by a click
   box 500,224.21 1039.68x500 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.98, tr 0.78, bl 0.80, br 0.60, top 0.98>0.78 x35.10, bottom 0.80>0.60 x35.10, left 0.98>0.80 x16.36, right 0.78>0.61 x16.36] @drag @dragStart @dragStop @pointerEnter @pointerLeave
-    box 507.2,231.41 585.6x443.04
-      box 529.96,254.16 540.09x403.22
+    box 507.2,231.41 585.6x458.04
+      box 529.96,254.16 540.09x418.22
         box 529.96,254.16 540.09x28.33
           box 529.96,254.16 434.4x28.33
             box 529.96,254.16 332.33x28.33
@@ -29,9 +29,9 @@ surface 500,175.79 1039.68x548.42 on MEDIUM clamped raised by a click
             box 973.36,268.33 0x0
             text 1004.21,260.41 31.67x15.83 "Write" #f0e6d2
             box 1066.72,268.33 0x0
-        box 529.96,289.61 540.09x360.67
-          text 739.17,462.03 121.67x15.83 "No letters sent yet." #a3977f
-        box 529.96,657.39 540.09x0
+        box 529.96,289.61 540.09x375.67
+          text 739.17,469.53 121.67x15.83 "No letters sent yet." #a3977f
+        box 529.96,672.39 540.09x0
     box 1092.8,231.41 439.68x485.6
       box 1095.5,231.41 436.98x485.6
         box 1118.26,254.16 391.47x448.62
@@ -91,19 +91,15 @@ surface 500,175.79 1039.68x548.42 on MEDIUM clamped raised by a click
                   box 1483.65,682.93 0x0
       box 1090.25,231.41 2.7x485.6 absolute border=Interface\AddOns\Ordaen\media\frame-divider-down sides=left pieces=[left 0.76>0.61 x25.29]
       box 1089.47,231.41 6.67x485.6 absolute @drag @dragStart @dragStop
-    box 507.2,674.45 585.6x42.56
-      box 507.2,674.45 585.6x42.56
-        box 529.96,681.95 428.03x13.33
-          box 529.96,681.95 51.87x13.33
-            text 529.96,681.95 36.67x13.33 "Waiting" #a3977f
-            text 575.16,681.95 6.67x13.33 "0" #e8dcc4
-          box 598.89,681.95 36.87x13.33
-            text 598.89,681.95 21.67x13.33 "Sent" #a3977f
-            text 629.09,681.95 6.67x13.33 "0" #e8dcc4
-        box 957.99,674.45 112.06x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
-          box 961.31,688.62 0x0
-          text 968.18,680.7 91.67x15.83 "Blizzard window" #ffd100
-          box 1066.72,688.62 0x0
+    box 507.2,689.45 585.6x27.56
+      box 507.2,689.45 585.6x27.56
+        box 529.96,689.45 540.09x13.33
+          box 529.96,689.45 51.87x13.33
+            text 529.96,689.45 36.67x13.33 "Waiting" #a3977f
+            text 575.16,689.45 6.67x13.33 "0" #e8dcc4
+          box 598.89,689.45 36.87x13.33
+            text 598.89,689.45 21.67x13.33 "Sent" #a3977f
+            text 629.09,689.45 6.67x13.33 "0" #e8dcc4
     box 1517.93,702.46 13.33x13.33 absolute
       box 1517.93,702.46 13.33x13.33 Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 500,175.79 1039.68x50.67

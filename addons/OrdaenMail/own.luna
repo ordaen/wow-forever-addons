@@ -8,8 +8,8 @@
 // letter sent takes its items out, and what is left is what it shows.
 import Client from "$client"
 import Game from "$game"
-import { Align, Track } from "$ltml"
-import { Component, CountInput, FooterCount, ListFooter, PickRow, PushButton, SECONDARY_TEXT, ScrolledList, TITLE_TEXT, Tick, Tip, TipRow, classColor } from "Ordaen"
+import { Align, Bounds, Edges, Track } from "$ltml"
+import { Component, CountInput, FooterCount, Ground, ListFooter, PushButton, SECONDARY_TEXT, ScrolledList, TITLE_TEXT, Tabs, Tick, Tip, TipRow, classColor } from "Ordaen"
 import type { Alts } from "OrdaenAlts"
 import { skillUpRank } from "OrdaenProfessions"
 import type { CraftRecipe, Crafting } from "OrdaenProfessions"
@@ -19,9 +19,11 @@ import { Sender } from "@/sender"
 import Style from "@/style"
 
 const OFFER: Array<Track> = ["max-content", { fr: 1 }, "max-content"]
-const ENTRY: Array<Track> = [{ fr: 1 }, "max-content"]
-const SPLIT: Array<Track> = [Style.OWN_LIST, { fr: 1 }]
-const DETAILS: Array<Track> = [{ fr: 1 }, "max-content"]
+// The characters' column as wide as its longest name, never narrower than `Style.OWN_LIST`; the sections the rest.
+const SPLIT: Array<Track> = ["max-content", { fr: 1 }]
+const TABS_BOUNDS: Bounds = { min: Style.OWN_LIST }
+// Each column's room: the window keeps none on this tab.
+const PAGE_ROOM: Edges = { top: 8sp, right: 8sp, bottom: 8sp, left: 8sp }
 const FILL: Array<Track> = [{ fr: 1 }]
 
 // The least a recipe must do for a character's skill for what it takes to go: any, green or better, yellow or
@@ -192,31 +194,6 @@ function offersOf(row: OwnRow): Array<Offer> {
   return offers
 }
 
-// A character in the list: its name in its class's colour, how many items go to it.
-class KinEntry implements Component {
-  public pick: Event<String> = new Event()
-
-  derived on: Boolean = self.picked == self.row.who
-
-  row: Signal<OwnRow>
-  picked: Signal<String>
-  constructor(row: Signal<OwnRow>, picked: Signal<String>) {
-    self.row = row
-    self.picked = picked
-  }
-
-  onPick(mut self) { self.pick.emit(self.row.who) }
-
-  public render(self): Template {
-    return $ltml {
-      <PickRow columns={ENTRY} picked={self.on} @pick={self.onPick}>
-        <text value={self.row.name} textColor={self.row.color ?? Style.INK} wrap={.Cut} />
-        <text value={"%d"} arguments={[self.row.items]} textColor={Style.DIM} wrap={.None} textFont={.Numbers} />
-      </PickRow>
-    }
-  }
-}
-
 // An item that goes: ticked, its name, its recipes' count in the best one's colour, how many; its tooltip the
 // recipes, each in its colour.
 class OfferRow implements Component {
@@ -279,7 +256,10 @@ class SectionBlock implements Component {
   }
 }
 
-public class OwnTab implements Component {
+// The tab's parts, which Mail's window lays out: `body` the characters in vertical tabs at the left and the chosen one's
+// sections on the wood at the right, each column with its own room (the window keeps none on this tab); `footer` the
+// letters «Send all» takes and the button.
+public class OwnTab {
   // «Set up the rules», where nothing goes to anyone.
   public configure: Event<nil> = new Event()
 
@@ -287,15 +267,16 @@ public class OwnTab implements Component {
   state chosen: Map<String, Integer> = {}
   // What the bags hold, by item: read again each time they change (a letter sent takes its items out).
   state held: Map<Integer, Integer> = {}
-  // The character chosen in the list; the first where none is, or the one chosen has nothing now.
-  state picked = ""
+  // The character's tab chosen, by its place; the first where the list is shorter now.
+  state picked = 1
   derived noAlts: Boolean = self.reached == nil
   derived kin: Array<Kin> = self.reached ?? []
   derived alone: Boolean = !self.noAlts && self.kin.length == 0
   derived rows: Array<OwnRow> = self.rowsOf()
   derived nothing: Boolean = !self.noAlts && !self.alone && self.rows.length == 0
-  derived shown: Boolean = self.rows.length > 0
-  derived current: OwnRow | nil = self.rows.find(row => row.who == self.picked) ?? self.rows[1]
+  derived names: Array<String> = self.rows.map(row => row.name)
+  derived items: Array<Integer> = self.rows.map(row => row.items)
+  derived current: OwnRow | nil = self.rows[self.picked] ?? self.rows[1]
   derived currentWho: String = self.current?.who ?? ""
   derived sections: Array<Section> = self.current?.sections ?? []
   derived letters: Integer = self.lettersNow()
@@ -340,8 +321,6 @@ public class OwnTab implements Component {
     return stacks == 0 ? 0 : lettersFor(stacks)
   }
 
-  onPick(mut self, who: String) { self.picked = who }
-
   onToggle(mut self, item: Integer, count: Integer) {
     const key = `${peek self.currentWho}:${item}`
     const before = peek self.chosen
@@ -369,34 +348,33 @@ public class OwnTab implements Component {
 
   onConfigure(mut self) { self.configure.emit() }
 
-  public render(self): Template {
-    return $ltml {
-      <box rows={FILL}>
-        <box $if={self.noAlts} xAlign={Align.Center} yAlign={Align.Center}>
-          <text value={Locale.ALTS_OFF} textColor={Style.DIM} />
-        </box>
-        <box $elseif={self.alone} xAlign={Align.Center} yAlign={Align.Center}>
-          <text value={Locale.ALTS_ALONE} textColor={Style.DIM} />
-        </box>
-        <box $elseif={self.nothing} columns={1} gap={4sp} xAlign={Align.Center} yAlign={Align.Center}>
-          <text value={Locale.OWN_NOTHING} textColor={Style.DIM} />
-          <PushButton label={Locale.OWN_RULES} width={Style.WIDE_BUTTON} @click={self.onConfigure} />
-        </box>
-        <box $else columns={SPLIT} gap={4sp}>
-          <ScrolledList columns={1}>
-            <KinEntry $for={row of self.rows} $key={row.who} row={row} picked={self.currentWho} @pick={self.onPick} />
-          </ScrolledList>
-          <box rows={DETAILS}>
-            <ScrolledList columns={1} gap={6sp}>
-              <SectionBlock $for={section of self.sections} $key={section.skillLine} section={section}
-                            @send={self.onSendSection} @toggled={self.onToggle} />
-            </ScrolledList>
-            <ListFooter counts={self.counts}>
-              <PushButton label={Locale.OWN_SEND_ALL} width={Style.WIDE_BUTTON} disabled={self.letters == 0} @click={self.onSendAll} />
-            </ListFooter>
-          </box>
-        </box>
+  public const body: Template = $ltml {
+    <box $if={self.noAlts} xAlign={Align.Center} yAlign={Align.Center} padding={PAGE_ROOM}>
+      <text value={Locale.ALTS_OFF} textColor={Style.DIM} />
+    </box>
+    <box $elseif={self.alone} xAlign={Align.Center} yAlign={Align.Center} padding={PAGE_ROOM}>
+      <text value={Locale.ALTS_ALONE} textColor={Style.DIM} />
+    </box>
+    <box $elseif={self.nothing} columns={1} gap={4sp} xAlign={Align.Center} yAlign={Align.Center} padding={PAGE_ROOM}>
+      <text value={Locale.OWN_NOTHING} textColor={Style.DIM} />
+      <PushButton label={Locale.OWN_RULES} width={Style.WIDE_BUTTON} @click={self.onConfigure} />
+    </box>
+    <box $else columns={SPLIT} rows={FILL}>
+      <box columns={1} rows={FILL} width={TABS_BOUNDS}>
+        <Tabs tabs={self.names} selected={mut self.picked} counts={self.items} vertical={true} />
       </box>
-    }
+      <box rows={FILL} padding={PAGE_ROOM}>
+        <ScrolledList columns={1} gap={6sp} ground={Ground.Wood}>
+          <SectionBlock $for={section of self.sections} $key={section.skillLine} section={section}
+                        @send={self.onSendSection} @toggled={self.onToggle} />
+        </ScrolledList>
+      </box>
+    </box>
+  }
+
+  public const footer: Template = $ltml {
+    <ListFooter counts={self.counts}>
+      <PushButton label={Locale.OWN_SEND_ALL} width={Style.WIDE_BUTTON} disabled={self.letters == 0} @click={self.onSendAll} />
+    </ListFooter>
   }
 }

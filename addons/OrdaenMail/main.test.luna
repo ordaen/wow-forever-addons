@@ -74,6 +74,19 @@ test "the game's mailbox window stays open underneath, unseen and without the mo
   Test.expect(game.IsShown() && game.GetAlpha() == 0 && !game.IsMouseEnabled())
 }
 
+test "«To my characters» has one footer, its own: the letters «Send all» takes and the button; no game window's button anywhere" {
+  Test.mount(nil, PAGE)
+  Game.mailbox.letters = letters
+  Game.mailObserver.open = true
+  Game.mailObserver.opened.emit()
+  const window = Test.page().window(MAIL)
+  Test.expect(!window.button("Blizzard window").shown())
+  window.button("To my characters").click()
+  Test.expect(window.button("Send all").shown() && window.button("Send all").count() == 1)
+  Test.expect(window.text("Letters").count() == 1 && !window.text("4 / 4").shown())
+  Test.expect(!window.button("Blizzard window").shown())
+}
+
 test "the inbox tab counts the letters, the footer the letters shown of those waiting" {
   Test.mount(nil, PAGE)
   Game.mailbox.letters = letters
