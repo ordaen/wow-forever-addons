@@ -5,6 +5,7 @@
 // (`SetValue`, Blizzard's own setter: what the API gives addons). One that waits for Blizzard's Apply holds its new
 // value until `apply` (the panel's own `Commit`, with its timed question after a resolution).
 import Client from "$client"
+import { Event } from "$ltml"
 import Runtime from "$runtime"
 
 // How a setting is written: its console variable itself; through Blizzard's setting, now; through it, held until
@@ -16,6 +17,32 @@ function writingOf(setting: any Client.Setting | nil): Writing {
   if (setting == nil) { return .None }
   if (setting.HasCommitFlag(.Apply)) { return .Apply }
   return Client.C_CVar.GetCVar(setting.GetVariable()) != nil ? .Variable : .Setting
+}
+
+// A setting's value now, by its variable; none where the client has no such setting.
+public function readSetting(variable: String): Boolean | Number | String | nil {
+  return Client.Settings?.GetSetting(variable)?.GetValue()
+}
+
+// A setting set, as its line would write it: its console variable itself (a Boolean as `1` or `0`), or through
+// Blizzard's setting. Whether it waits for Apply.
+public function writeSetting(variable: String, value: Boolean | Number | String): Boolean {
+  const setting = Client.Settings?.GetSetting(variable)
+  const writing = writingOf(setting)
+  if (writing == .Variable) {
+    _ = Client.C_CVar.SetCVar(variable, value is Boolean ? (value ? "1" : "0") : String.of(value))
+  } else if (writing != .None) {
+    setting?.SetValue(value)
+  }
+  return writing == .Apply
+}
+
+// A setting written through the window: its variable and its value, and whether that is its default (a page's
+// defaults), which the profile no longer holds.
+public struct SettingWritten {
+  variable: String
+  value: Boolean | Number | String
+  byDefault: Boolean
 }
 
 // What a line of a page is, by the template Blizzard draws it with.
@@ -112,6 +139,8 @@ function pageOf(panel: any Client.SettingsPanelFrame, category: any Client.Setti
 }
 
 public class SystemSettings {
+  // Each setting the window writes, as it writes it: what the profile keeps (`GameKeeping`).
+  public written: Event<SettingWritten> = new Event()
   public state groups: Array<PageGroup> = []
   // The page shown, by its id: its lines, and the value each of its settings has now.
   public state page = 0
@@ -198,12 +227,9 @@ public class SystemSettings {
 
   // A line's setting set to a value, as the line writes it (a console variable's Boolean as `1` or `0`), and the
   // page's values read again; one that waits for Apply is kept as waiting.
-  public write(mut self, line: SettingLine, value: Boolean | Number | String) {
-    if (line.writing == .Variable) {
-      _ = Client.C_CVar.SetCVar(line.variable, value is Boolean ? (value ? "1" : "0") : String.of(value))
-    } else if (line.writing != .None) {
-      Client.Settings?.GetSetting(line.variable)?.SetValue(value)
-      if (line.writing == .Apply) {
+  public write(mut self, line: SettingLine, value: Boolean | Number | String, byDefault: Boolean = false) {
+    if (line.writing != .None) {
+      if (writeSetting(line.variable, value)) {
         const waiting = peek self.waiting
         if (!waiting.any(each => each == line.variable)) {
           const next = waiting.map(each => each)
@@ -211,6 +237,7 @@ public class SystemSettings {
           self.waiting = next
         }
       }
+      self.written.emit({ variable: line.variable, value: value, byDefault: byDefault })
     }
     self.refresh()
   }
@@ -226,7 +253,7 @@ public class SystemSettings {
   public defaults(mut self) {
     for (line of peek self.lines) {
       const value = Client.Settings?.GetSetting(line.variable)?.GetDefaultValue()
-      if (value != nil && line.writing != .None && value != (peek self.values)[line.variable]) { self.write(line, value) }
+      if (value != nil && line.writing != .None && value != (peek self.values)[line.variable]) { self.write(line, value, true) }
     }
   }
 

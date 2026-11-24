@@ -1,0 +1,115 @@
+// The game's settings and keys kept per profile: a setting set in the window is the profile's; a profile that never
+// held the game's takes them as they are; a switch back to one that holds others asks first, and «Apply» writes them;
+// the active profile's are applied at login; in a fight an apply waits for its end.
+import Client from "$client"
+import Game from "$game"
+import { Key } from "$ltml"
+import Test from "$test"
+import root Ordaen from "Ordaen"
+import Locale from "@/locales"
+
+const SCREEN: Test.Page = { left: 0, top: 0, width: 1300, height: 760, screen: true }
+
+// The options opened as the player opens them: Escape, then the menu's «Options».
+function options() {
+  _ = Test.key(Key.Escape)
+  Test.pass(0.02)
+  Test.page().text(Client.GAMEMENU_OPTIONS).click()
+}
+
+// Auto Loot as the game has it.
+function autoLoot(): String | nil {
+  return Client.C_CVar.GetCVar("autoLootDefault")
+}
+
+test "a setting set in the window is the profile's; a switch back to it asks, and «Apply» writes it" {
+  Test.mount(nil, SCREEN)
+  const first = Ordaen.keeper.profiles.active
+  options()
+  Test.page().text("Auto Loot").item().button(Ordaen.art.ctl.check).click()
+  Test.expect(autoLoot() == "1")
+  // Another profile, which never held the game's: it takes them as they are, and asks nothing.
+  Test.expect(Ordaen.keeper.profiles.make("Second", nil))
+  Ordaen.keeper.profiles.use("Second")
+  Test.flush()
+  Test.expect(!Test.page().text(Locale.GAME_CHANGES_TITLE).shown())
+  _ = Client.C_CVar.SetCVar("autoLootDefault", "0")
+  Ordaen.keeper.profiles.use(first)
+  Test.flush()
+  const question = Test.page().window(Locale.GAME_KEEP_GAME)
+  Test.expect(question.text("Auto Loot").shown() && autoLoot() == "0")
+  question.button(Client.APPLY).click()
+  Test.expect(autoLoot() == "1" && !Test.page().text(Locale.GAME_KEEP_GAME).shown())
+}
+
+test "«Keep the current ones» leaves the game's as they are, and the profile takes them" {
+  Test.mount(nil, SCREEN)
+  const first = Ordaen.keeper.profiles.active
+  options()
+  Test.page().text("Auto Loot").item().button(Ordaen.art.ctl.check).click()
+  Test.expect(Ordaen.keeper.profiles.make("Second", nil))
+  Ordaen.keeper.profiles.use("Second")
+  Test.flush()
+  _ = Client.C_CVar.SetCVar("autoLootDefault", "0")
+  Ordaen.keeper.profiles.use(first)
+  Test.flush()
+  Test.page().window(Locale.GAME_KEEP_GAME).button(Locale.GAME_KEEP_GAME).click()
+  Test.expect(autoLoot() == "0")
+  // Asked again, nothing differs.
+  Ordaen.keeper.profiles.use("Second")
+  Test.flush()
+  Ordaen.keeper.profiles.use(first)
+  Test.flush()
+  Test.expect(!Test.page().text(Locale.GAME_KEEP_GAME).shown())
+}
+
+test "the active profile's settings are applied at login, as they are" {
+  Test.mount(nil, SCREEN)
+  const first = Ordaen.keeper.profiles.active
+  options()
+  Test.page().text("Auto Loot").item().button(Ordaen.art.ctl.check).click()
+  _ = Client.C_CVar.SetCVar("autoLootDefault", "0")
+  // Packed as the game's logout packs it.
+  Ordaen.keeper.profiles.pack()
+  Test.reload()
+  Test.expect(autoLoot() == "1")
+}
+
+test "in a fight an apply waits for the fight's end" {
+  Test.mount(nil, SCREEN)
+  const first = Ordaen.keeper.profiles.active
+  options()
+  Test.page().text("Auto Loot").item().button(Ordaen.art.ctl.check).click()
+  Test.expect(Ordaen.keeper.profiles.make("Second", nil))
+  Ordaen.keeper.profiles.use("Second")
+  Test.flush()
+  _ = Client.C_CVar.SetCVar("autoLootDefault", "0")
+  Ordaen.keeper.profiles.use(first)
+  Test.flush()
+  Game.situation.combat = true
+  Test.flush()
+  Test.page().window(Locale.GAME_KEEP_GAME).button(Client.APPLY).click()
+  Test.expect(autoLoot() == "0")
+  Game.situation.combat = false
+  Test.flush()
+  Test.expect(autoLoot() == "1")
+}
+
+test "a key the player binds is the profile's; a switch back puts it back" {
+  Test.mount(nil, SCREEN)
+  const first = Ordaen.keeper.profiles.active
+  options()
+  // A setting set first: the profile holds the game's from then on.
+  Test.page().text("Auto Loot").item().button(Ordaen.art.ctl.check).click()
+  _ = Client.SetBinding("F", "JUMP", nil)
+  Test.event("UPDATE_BINDINGS")
+  Test.expect(Ordaen.keeper.profiles.make("Second", nil))
+  Ordaen.keeper.profiles.use("Second")
+  Test.flush()
+  _ = Client.SetBinding("F", nil, nil)
+  Test.event("UPDATE_BINDINGS")
+  Ordaen.keeper.profiles.use(first)
+  Test.flush()
+  Test.page().window(Locale.GAME_KEEP_GAME).button(Client.APPLY).click()
+  Test.expect(Client.GetBindingAction("F", false, nil) == "JUMP")
+}

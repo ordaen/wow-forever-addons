@@ -13,13 +13,14 @@ import { ARTWORK, ButtonPlate, Choice, Component, Dialog, FooterBand, KeptWindow
 import { Card } from "@/card"
 import { AddOn, Catalog, Status, plain } from "@/catalog"
 import { Age, FilterPick, Heat, Loading, Standing, Written } from "@/filter"
+import { GameKeeping } from "@/keeping"
 import { Bindings } from "@/keys"
 import { KeysPage } from "@/keysPage"
 import Locale from "@/locales"
 import { Profiler, percent } from "@/perf"
 import { COLUMNS, Hot, Line, LineRow, TABLE_COLUMNS } from "@/rows"
 import { MOST, Sets } from "@/sets"
-import { SystemSettings } from "@/settings"
+import { SettingWritten, SystemSettings } from "@/settings"
 import { SettingsTab } from "@/settingsPage"
 import Style from "@/style"
 
@@ -253,11 +254,17 @@ public class AddOnsWindow implements Component {
   // Ordaen's folder: the addon its modules stand under.
   const framework: String
   const whom: Array<Choice<Boolean>>
-  constructor(framework: String, shown: Signal<Boolean> = true, declared: mut KeptWindow | nil = nil) {
+  // What the profile keeps of the game's settings; none for a window made alone (a test's).
+  const keeping: mut GameKeeping | nil
+  constructor(
+    framework: String, shown: Signal<Boolean> = true, declared: mut KeptWindow | nil = nil, keeping: mut GameKeeping | nil = nil
+  ) {
+    self.keeping = keeping
     self.declared = declared ?? new KeptWindow("addons", Client.ADDONS, WINDOW)
     self.shown = shown
     self.framework = framework
     self.whom = [{ value: true, label: Locale.WHO_ALL }, { value: false, label: Game.player.name }]
+    self.settings.written.listen(self.onWritten)
     watch (open of self.shown) { self.follow(open) }
     watch { self.catalog.setEveryone(self.list.values.everyone) }
     // The keys are read as their tab shows, and again whenever the client's change (Forever's preset page, an addon
@@ -280,6 +287,16 @@ public class AddOnsWindow implements Component {
 
   onBindings(mut self) { self.bindings.read() }
   onSetting(mut self, name: String, value: String) { self.settings.refresh() }
+  // A setting the player set: the profile's, or the game's again where it went back to its default.
+  onWritten(mut self, written: SettingWritten) {
+    const keeping = self.keeping
+    if (keeping == nil) { return }
+    if (written.byDefault) {
+      keeping.forget(written.variable)
+    } else {
+      keeping.record(written.variable, written.value)
+    }
+  }
   // The options' small tabs: each group's name, the key bindings' second.
   sectionsOf(self): Array<String> {
     const names = self.settings.groups.map(group => group.name)

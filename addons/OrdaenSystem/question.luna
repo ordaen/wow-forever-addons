@@ -1,0 +1,57 @@
+// The question at a switch of profile whose game settings or keys differ from the game's: what would change (the
+// first few, then how many more), and «Apply» or «Keep the current ones».
+import Client from "$client"
+import { Align, Track } from "$ltml"
+import { Component, Dialog, PushButton, SECONDARY_TEXT } from "Ordaen"
+import { GameChange, GameKeeping } from "@/keeping"
+import Locale from "@/locales"
+import Style from "@/style"
+
+// The most changes listed; the rest are counted.
+const LISTED_MOST = 12
+const WIDTH = 656.25dp
+const BUTTON = 234.375dp
+const ROW: Array<Track> = [{ fr: 1 }, "max-content"]
+
+// The first `LISTED_MOST` changes.
+function firstOf(changes: Array<GameChange>): Array<GameChange> {
+  const list: Array<GameChange> = []
+  for (change of changes) {
+    if (list.length >= LISTED_MOST) { break }
+    list.push(change)
+  }
+  return list
+}
+
+public class ProfileQuestion implements Component {
+  derived asked: Boolean = self.keeping.asking.length > 0
+  derived text: String = Locale.GAME_CHANGES_TEXT.format(self.keeping.asking.length)
+  derived listed: Array<GameChange> = firstOf(self.keeping.asking)
+  derived more: Integer = self.keeping.asking.length - self.listed.length
+  derived moreText: String = Locale.GAME_CHANGES_MORE.format(self.more)
+
+  const keeping: mut GameKeeping
+  constructor(keeping: mut GameKeeping) {
+    self.keeping = keeping
+  }
+
+  onApply(mut self) { self.keeping.answer(true) }
+  onKeep(mut self) { self.keeping.answer(false) }
+
+  public render(self): Template {
+    return $ltml {
+      <Dialog $if={self.asked} title={Locale.GAME_CHANGES_TITLE} width={WIDTH}>
+        <box gap={2sp}>
+          <text value={self.text} textColor={Style.INK} />
+          <box $for={change of self.listed} columns={ROW} gap={6sp} yAlign={Align.Center}>
+            <text value={change.label} textColor={Style.INK} wrap={.Cut} />
+            <text value={`${change.from} → ${change.to}`} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={.None} />
+          </box>
+          <text $if={self.more > 0} value={self.moreText} textColor={Style.DIM} textSize={SECONDARY_TEXT} />
+        </box>
+        <PushButton #buttons label={Locale.GAME_KEEP_GAME} width={BUTTON} @click={self.onKeep} />
+        <PushButton #buttons label={Client.APPLY} width={BUTTON} @click={self.onApply} />
+      </Dialog>
+    }
+  }
+}
