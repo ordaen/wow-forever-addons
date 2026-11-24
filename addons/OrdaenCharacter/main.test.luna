@@ -573,7 +573,7 @@ test "a crit's tooltip says what a crit does in its own section alone" {
   Test.expect(!tip.texts().join(" | ").contains("spell"))
 }
 
-test "the defence's cards stand first, block's on top; then the defense skill, dodge, parry, the armor and the resistances" {
+test "the defence's cards stand first, block's on top, the damage reduction and the hit on you side by side; then the defense skill, dodge, parry, the armor and the resistances" {
   Test.mount(nil, PAGE)
   Game.items.icon = icons
   const sheet = new FakeSheet()
@@ -587,7 +587,10 @@ test "the defence's cards stand first, block's on top; then the defense skill, d
   const parry = window.text("6.00%").rect()
   const armor = window.text("2000").rect()
   const resistance = window.text("Resistance").rect()
-  Test.expect(block.bottom <= reduction.top && reduction.bottom <= taken.top && taken.bottom <= defense.top)
+  Test.expect(block.bottom <= reduction.top && block.bottom <= taken.top && taken.left >= reduction.right)
+  Test.expect(reduction.bottom <= defense.top && taken.bottom <= defense.top)
+  // Each card's value whole beside its name: the armor's 30, and 100 less 5 of misses, 7 of dodges and 6 of parries.
+  Test.expect(window.text("30.00%").shown() && window.text("82.00%").shown())
   Test.expect(defense.bottom <= dodge.top && dodge.bottom <= parry.top && parry.bottom <= armor.top && armor.bottom <= resistance.top)
 }
 

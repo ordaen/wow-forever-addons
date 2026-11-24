@@ -58,8 +58,6 @@ public struct Section {
   const cards: Array<Array<Figure>>
   const gauges: Array<Gauge>
   const rows: Array<Row>
-  // How many cards a row has room for: a row of fewer leaves the rest (the right column's two; the narrow defence's one).
-  const across: Integer = 2
 }
 
 // A resistance on the resistances' bar: its value, its school's colour and its stat.
@@ -172,21 +170,23 @@ public function mainsOf(stats: Stats, weights: Weights | nil): Array<Main> {
   return order.map(index => all[index] ?? panic("five main stats"))
 }
 
-// The defence section's cards, a row each in its narrow column: block with a shield, on top; the armor's cut of the
-// damage and what of an enemy's blows lands on the player, against the enemy the cards count.
+// The defence section's cards: block with a shield, a row of its own on top; then the armor's cut of the damage and
+// what of an enemy's blows lands on the player, side by side, against the enemy the cards count.
 function defenceCardsOf(stats: Stats): Array<Array<Figure>> {
   const rows: Array<Array<Figure>> = []
   if (stats.shield) {
     rows.push([{ label: Locale.BLOCK, value: percent(stats.block), glyph: glyph(ARMOR_GLYPH), color: Style.STAT, stat: .Block }])
   }
-  rows.push([{ label: Locale.DAMAGE_REDUCTION, value: percent(statValue(.DamageReduction, stats)), glyph: glyph(ARMOR_GLYPH), color: Style.STAT, stat: .DamageReduction }])
-  rows.push([{ label: Locale.HIT_TAKEN, value: percent(statValue(.HitTaken, stats)), glyph: glyph(PERCENT_GLYPH), color: Style.STAT, stat: .HitTaken }])
+  rows.push([
+    { label: Locale.DAMAGE_REDUCTION, value: percent(statValue(.DamageReduction, stats)), glyph: glyph(ARMOR_GLYPH), color: Style.STAT, stat: .DamageReduction },
+    { label: Locale.HIT_TAKEN, value: percent(statValue(.HitTaken, stats)), glyph: glyph(PERCENT_GLYPH), color: Style.STAT, stat: .HitTaken }
+  ])
   return rows
 }
 
 // The defence section: its cards, then its gauges (the resistances' bar after them is the page's).
 public function defenceOf(stats: Stats): Section {
-  return { title: Locale.SECTION_DEFENSE, cards: defenceCardsOf(stats), gauges: defenceGauges(stats), rows: [], across: 1 }
+  return { title: Locale.SECTION_DEFENSE, cards: defenceCardsOf(stats), gauges: defenceGauges(stats), rows: [] }
 }
 
 // The defence section's gauges: the defense skill first (a skill's blue as the weapons' skills are), dodge and
@@ -494,7 +494,7 @@ public class StatRow implements Component {
 }
 
 // A card carved into the wood (the gauges' floor): the picture in its socket the card's whole height at its left, the
-// name after it and the value, larger, at the right, on one line.
+// name after it and the value, larger, at the right, on one line; a name longer than the room the value leaves wraps.
 const SOCKET_CORNERS: Corners = { topLeft: true, bottomLeft: true, topRight: false, bottomRight: false }
 public class StatCard implements Component {
   public tipped: Event<Stat | nil> = new Event()
@@ -517,7 +517,7 @@ public class StatCard implements Component {
   public render(self): Template {
     return $ltml {
       <StatSpot stat={self.figure.stat} title={self.title} shown={self.shown} @tipped={self.onTipped}>
-        <box columns={[Style.SOCKET, "max-content", { fr: 1 }]} gap={Style.CARD_GAP} padding={Style.CARD_PAD}
+        <box columns={[Style.SOCKET, { fr: 1 }, "max-content"]} gap={Style.CARD_GAP} padding={Style.CARD_PAD}
              yAlign={Align.Stretch}>
           <CarvedFloor />
           <box>
@@ -529,7 +529,7 @@ public class StatCard implements Component {
             </box>
           </box>
           <box yAlign={Align.Center} padding={Style.CARD_TEXT_PAD}>
-            <text value={self.figure.label} textColor={Style.INK} wrap={.None} />
+            <text value={self.figure.label} textColor={Style.INK} />
           </box>
           <box yAlign={Align.Center} xAlign={Align.End} padding={Style.CARD_TEXT_PAD}>
             <text value={self.figure.value} textSize={Style.CARD_VALUE} textFont={TextFont.Numbers} textColor={self.ink}
@@ -566,7 +566,7 @@ public class SectionView implements Component {
         <Groove title={self.section.title} />
         <box gap={2sp} padding={Style.SECTION_PAD}>
           <box $if={self.carded} gap={2.5sp} padding={Style.CARDS_PAD}>
-            <box $for={line of self.section.cards} columns={line.length.max(self.section.across)} gap={2.5sp}>
+            <box $for={line of self.section.cards} columns={line.length.max(2)} gap={2.5sp}>
               <StatCard $for={card of line} figure={card} shown={self.shown} boosts={self.boosts} @tipped={self.onTipped} />
             </box>
           </box>
