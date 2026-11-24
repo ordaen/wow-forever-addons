@@ -5,7 +5,7 @@ import Game from "$game"
 import type { DungeonSection, Layer, Pin } from "OrdaenMap"
 import { LogQuest } from "@/book"
 import Locale from "@/locales"
-import { Figure, QuestFacts } from "@/questie"
+import { Figure, QuestFacts, Spot } from "@/questie"
 
 // The log's quests of a dungeon on its card on the map: those under its instance's header, «[level] title».
 public class DungeonQuests implements DungeonSection {
@@ -140,6 +140,31 @@ public class TurnInPins implements Layer {
 }
 
 const NPC: Asset = "Interface/GossipFrame/GossipGossipIcon"
+
+// An NPC and one of its spots.
+public struct FigureSpot {
+  figure: Figure
+  spot: Spot
+}
+
+// Of the figures' spots, the one nearest the player by `distance` (nil: not measurable, another continent); where
+// none is measurable, the first figure's first spot; nil where none has a spot.
+public function nearestOf(figures: Array<Figure>, distance: (spot: Spot) => Number | nil): FigureSpot | nil {
+  let best: FigureSpot | nil = nil
+  let bestYards = 0.0
+  let first: FigureSpot | nil = nil
+  for (figure of figures) {
+    for (spot of figure.spots) {
+      if (first == nil) { first = { figure: figure, spot: spot } }
+      const yards = distance(spot)
+      if (yards != nil && (best == nil || yards < bestYards)) {
+        best = { figure: figure, spot: spot }
+        bestYards = yards
+      }
+    }
+  }
+  return best ?? first
+}
 
 // The NPC another module asked to see on the map (a trainer or a vendor of a recipe): its spots, lit, its name in the
 // tooltip, until the map hides.

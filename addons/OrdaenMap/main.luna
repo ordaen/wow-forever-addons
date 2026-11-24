@@ -9,6 +9,7 @@ import { DungeonSection, Layer, Pin, SidePanel } from "@/extend"
 import { MapHost, OpenMapHost, Placed } from "@/host"
 import Locale from "@/locales"
 import { Choices, GeneralPage } from "@/settings"
+import { yardsFromPlayer } from "@/where"
 
 // A pin to draw, what its tooltip says, and the layer a click on it goes to.
 struct Mark {
@@ -115,6 +116,10 @@ public class Maps implements Module, App {
     self.host.onlyQuest(quest)
     self.host.open(area)
   }
+
+  // How far a place (an `AreaTable` area, 0 to 1 across and down it) is from the player, in yards: a module's
+  // «nearest»; nil on another continent, or where the client can't say.
+  public distanceTo(self, area: Integer, x: Number, y: Number): Number | nil { return yardsFromPlayer(area, x, y) }
 
   // The marks in view placed and drawn; one standing on a pin drawn before it adds its lines to that one's tooltip.
   // A lit one goes first, so it is the one drawn.

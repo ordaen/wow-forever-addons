@@ -1,0 +1,32 @@
+// How far a place of the world is from the player: both taken to the world's yards on their continent
+// (`C_Map.GetWorldPosFromMapPos`), the place by the map of its `AreaTable` area, the player by the map the client
+// says they are on.
+import Client from "$client"
+import { mapOfArea } from "@/areas"
+
+// A place in the world's yards, on its continent.
+struct Yards {
+  continent: Number
+  x: Number
+  y: Number
+}
+
+function yardsOf(map: Number, x: Number, y: Number): Yards | nil {
+  const continent, world = Client.C_Map.GetWorldPosFromMapPos(map, { x: x, y: y })
+  if (continent == nil || world == nil) { return nil }
+  return { continent: continent, x: world.x, y: world.y }
+}
+
+// The yards from the player to a place (an area, 0 to 1 across and down it); nil on another continent, for an area
+// with no map, or where the client says nothing of where the player is (inside an instance).
+public function yardsFromPlayer(area: Integer, x: Number, y: Number): Number | nil {
+  const map = mapOfArea[area]
+  const own = Client.C_Map.GetBestMapForUnit("player")
+  if (map == nil || own == nil) { return nil }
+  const at = Client.C_Map.GetPlayerMapPosition(own, "player")
+  if (at == nil) { return nil }
+  const player = yardsOf(own, at.x, at.y)
+  const place = yardsOf(map, x, y)
+  if (player == nil || place == nil || player.continent != place.continent) { return nil }
+  return ((player.x - place.x) ** 2 + (player.y - place.y) ** 2).sqrt()
+}

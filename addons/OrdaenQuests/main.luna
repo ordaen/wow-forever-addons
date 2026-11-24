@@ -26,12 +26,12 @@ import { LogQuest, logQuests } from "@/book"
 import { TakenClick } from "@/button"
 import { QuestieData } from "@/data"
 import { KINDS, QuestKind } from "@/kind"
-import { ChainPins, DungeonQuests, NpcPins, TurnInPins, leadsTo, startsAt } from "@/layers"
+import { ChainPins, DungeonQuests, NpcPins, TurnInPins, leadsTo, nearestOf, startsAt } from "@/layers"
 import { QuestList } from "@/list"
 import Locale from "@/locales"
 import { Asked, FILTER_START, Folds, ListChoices, Opened, QuestFilter, QuestSort, QuestStatus, QuestView, countOf, foldedOnce, listedOf } from "@/model"
 import { namedOfFacts } from "@/names"
-import { Figure, NpcQuests, QuestFacts } from "@/questie"
+import { Figure, NpcQuests, QuestFacts, Spot } from "@/questie"
 import { standingsOf } from "@/reputation"
 import { Choices, GeneralPage } from "@/settings"
 import Style from "@/style"
@@ -383,9 +383,25 @@ public class Quests implements Module, App {
   // client opens the map for an addon out of one alone), or for an NPC QuestieDB doesn't know or has no spot of.
   public showNpc(mut self, npc: Integer): Boolean {
     const figure = self.data.npc(npc)
-    if (Maps == nil || Game.situation.combat || figure == nil) { return false }
-    const spot = figure.spots[1]
-    if (spot == nil) { return false }
+    return figure != nil && self.showAt(figure, figure.spots[1])
+  }
+
+  // The world map at the spot nearest the player of all the NPCs' (QuestieDB's), that NPC's pins lit with its name
+  // until the map hides: another module's «show the nearest» of trainers or vendors. Where none is on the player's
+  // continent, the first NPC's first spot. False as `showNpc` is, and where QuestieDB knows no spot of any.
+  public showNearest(mut self, npcs: Array<Integer>): Boolean {
+    const figures: Array<Figure> = []
+    for (npc of npcs) {
+      const figure = self.data.npc(npc)
+      if (figure != nil) { figures.push(figure) }
+    }
+    const nearest = nearestOf(figures, (spot: Spot): Number | nil => Maps?.distanceTo(spot.area, spot.x, spot.y))
+    return nearest != nil && self.showAt(nearest.figure, nearest.spot)
+  }
+
+  // The map opened at a spot of an NPC's, its pins lit. Not without Ordaen Map, in a fight, or without a spot.
+  showAt(mut self, figure: Figure, spot: Spot | nil): Boolean {
+    if (Maps == nil || Game.situation.combat || spot == nil) { return false }
     self.shownOnMap = 0
     self.shownNpc = figure
     Maps?.show(spot.area)
