@@ -48,7 +48,7 @@ public import { MoneyField, MoneyInput, copperOf, copperText } from "@/moneyInpu
 public import { NumberInput, Unit } from "@/numberInput"
 public import { PICKED_ROW, PickRow, ROW_HOVER, rowShade } from "@/pickRow"
 public import { ProgressBar } from "@/progressBar"
-public import { ButtonKey, ButtonPlate, PushButton } from "@/pushButton"
+public import { BUTTON_HEIGHT, ButtonKey, ButtonPlate, PushButton } from "@/pushButton"
 public import { Resting } from "@/rest"
 public import { Corners, EVERY_CORNER, GROUND, GROUND_ROUND, RoundedFill } from "@/roundedFill"
 public import { ChatMark, say } from "@/say"
