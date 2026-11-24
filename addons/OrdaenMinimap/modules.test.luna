@@ -75,13 +75,13 @@ test "a module on at login is loaded with Ordaen and drawn" {
   Test.expect(loaded() && minimapAddon().isEnabled() && drawn())
 }
 
-test "a module turned off gives the game its round minimap back; on again, it is square and zooms with the wheel" {
+test "a module turned off gives the game its round minimap and its right click back; on again, it is square, zooms with the wheel and takes the right click" {
   Test.mount(nil, SCREEN)
   _ = Test.requests()
   flip(Ordaen.art.ctl.switchOn)
-  Test.expect(Test.requests().join(", ") == "Minimap.square false")
+  Test.expect(Test.requests().join(", ") == "Minimap.square false, Minimap.takeRightClick false")
   Test.page().window("Move mode").button(Ordaen.art.ctl.switchOff).click()
-  Test.expect(Test.requests().join(", ") == "Minimap.square true, Minimap.wheelZoom")
+  Test.expect(Test.requests().join(", ") == "Minimap.square true, Minimap.wheelZoom, Minimap.takeRightClick true")
 }
 
 test "a module turned off is ended, what it drew gone, off in the client's list, and isn't loaded at the next login" {

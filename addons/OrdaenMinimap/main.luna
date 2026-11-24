@@ -3,7 +3,7 @@ import Game from "$game"
 import { Align, Anchored, ArtBorder, EmbedLook, Event, Frame, Line, MouseButton, Overflow, Point, Position, Shadow, Side } from "$ltml"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
-import { ALWAYS, Module, Placed, Settings, SettingsPage, Tip, opacityNow, reachAcross, reachDown, timeText } from "Ordaen"
+import { ALWAYS, Module, Placed, Settings, SettingsPage, Tip, TipRow, opacityNow, reachAcross, reachDown, timeText } from "Ordaen"
 import { DrawerEntry } from "@/drawer"
 import Locale from "@/locales"
 import { BUTTON, DRAWER_BUTTON, RING, ROOM, RingButton, RingId, RingSpec } from "@/ring"
@@ -117,11 +117,15 @@ public class Minimap implements Module, App {
   public derived hintTitle: String = self.titleOf()
   public derived hintText: String = self.textOf()
   public derived hintKeys: Array<String> = self.keysOf()
+  public derived hintRows: Array<TipRow> = self.rowsOf()
   // Ordaen's art: its root is there before this module loads.
 
   constructor() {
     Game.minimap.square(true)
     Game.minimap.wheelZoom()
+    // A right click on the map opens the minimap's settings, never a ping.
+    Game.minimap.takeRightClick(true)
+    Game.minimap.rightClicked.listen(self.onMapRightClick)
     Ordaen.modules.add(self)
     // The room it keeps down from the screen's top right corner while it stands at home there: what stands along the
     // right edge (the tracker) starts under it.
@@ -133,6 +137,7 @@ public class Minimap implements Module, App {
   destructor() {
     Ordaen.keepTopRight(FOLDER, 0ui)
     Game.minimap.square(false)
+    Game.minimap.takeRightClick(false)
   }
 
   hiddenParts(self): Array<any Frame> {
@@ -305,10 +310,14 @@ public class Minimap implements Module, App {
 
   onClockClick(mut self, click: Event.Press) {
     if (click.button == MouseButton.Right) {
-      Ordaen.toggleSettings(Runtime.Addon.of(self))
+      Game.clock.toggleTimeManager()
     } else {
       Game.clock.toggleCalendar()
     }
+  }
+
+  onMapRightClick(mut self) {
+    Ordaen.toggleSettings(Runtime.Addon.of(self))
   }
 
   // ---- the tooltip of our own parts (the game's buttons show their own)
@@ -317,7 +326,7 @@ public class Minimap implements Module, App {
     return match (self.hint) {
       Hint.Zone => Game.location.realZone
       Hint.Coords => Game.minimap.coords
-      Hint.Clock => timeText(Game.clock.now)
+      Hint.Clock => Locale.CLOCK_TITLE
       Hint.Ordaen => Ordaen.title
       Hint.Drawer => Locale.DRAWER_TITLE
       Hint.Entry => self.entryName
@@ -340,6 +349,17 @@ public class Minimap implements Module, App {
       Hint.Ordaen => Build.dev ? [Locale.ORDAEN_KEY, Locale.ORDAEN_KEY_DEV] : [Locale.ORDAEN_KEY]
       Hint.Drawer => [Locale.DRAWER_KEY, Locale.DRAWER_KEY_DRAG]
       Hint.Zone, Hint.Entry, Hint.None => []
+    }
+  }
+
+  // The clock's: the computer's time and the realm's, whichever the clock shows.
+  rowsOf(self): Array<TipRow> {
+    return match (self.hint) {
+      Hint.Clock => [
+        { label: Locale.CLOCK_LOCAL, value: timeText(Game.clock.computer) },
+        { label: Locale.CLOCK_REALM, value: timeText(Game.clock.realm) }
+      ]
+      Hint.Zone, Hint.Coords, Hint.Ordaen, Hint.Drawer, Hint.Entry, Hint.None => []
     }
   }
 
@@ -386,7 +406,8 @@ public class Minimap implements Module, App {
                    @pointerLeave={self.onHintLeave}>
                 <text value={timeText(Game.clock.now)} textColor={self.clockColor} textShadow={ENGRAVED}
                       textFont={.Numbers} wrap={.None} />
-                <Tip $if={self.hint == Hint.Clock} title={self.hintTitle} text={self.hintText} keys={self.hintKeys} />
+                <Tip $if={self.hint == Hint.Clock} title={self.hintTitle} text={self.hintText} rows={self.hintRows}
+                     keys={self.hintKeys} />
               </box>
             </box>
 

@@ -292,15 +292,24 @@ test "the clock is in ink, and orange while calendar invites wait" {
   Test.expect(minimap().text(CLOCK).textColor().equal(PENDING))
 }
 
-test "the clock's tooltip says what its clicks do" {
+test "the clock's tooltip gives the local time and the realm's, and says what its clicks do" {
+  Game.clock.realm = 12 * 60 + 30
+  Game.clock.computer = 14 * 60 + 5
   Test.mount(nil, SCREEN)
   minimap().text(CLOCK).hover()
   const tip = Test.page().window("Left-click: calendar")
-  Test.expect(tip.texts().join(" | ") == `${CLOCK} | Left-click: calendar | Right-click: minimap settings`)
+  Test.expect(tip.texts().join(" | ") == "Time | Local time | 14:05 | Realm time | 12:30 | Left-click: calendar | Right-click: clock settings")
   // In the hotkeys' place, as every tooltip draws them.
-  Test.expect(tip.text("Right-click: minimap settings").textColor().equal(HOTKEY))
+  Test.expect(tip.text("Right-click: clock settings").textColor().equal(HOTKEY))
   minimap().hover()
-  Test.expect(Test.page().window(CLOCK).count() == 1)
+  Test.expect(!Test.page().text("Realm time").shown())
+}
+
+test "the clock's tooltip follows the times as they change" {
+  Test.mount(nil, SCREEN)
+  minimap().text(CLOCK).hover()
+  Game.clock.computer = 23 * 60 + 59
+  Test.expect(Test.page().window("Local time").text("23:59").shown())
 }
 
 test "a click on the clock opens the calendar" {
@@ -310,11 +319,18 @@ test "a click on the clock opens the calendar" {
   Test.expect(Test.requests().join(", ") == "Clock.toggleCalendar")
 }
 
-test "the clock right-clicked opens the settings on the minimap's page, and again closes them" {
+test "the clock right-clicked opens the client's clock window" {
   Test.mount(nil, SCREEN)
+  _ = Test.requests()
   minimap().text(CLOCK).rightClick()
+  Test.expect(Test.requests().join(", ") == "Clock.toggleTimeManager")
+}
+
+test "the map's right click is the minimap's: no ping, its settings open at the minimap's page, and again close" {
+  Test.mount(nil, SCREEN)
+  Game.minimap.rightClicked.emit()
   Test.expect(Test.page().window(SETTINGS).button("Button drawer").shown())
-  minimap().text(CLOCK).rightClick()
+  Game.minimap.rightClicked.emit()
   Test.expect(!Test.page().window(SETTINGS).shown())
 }
 
@@ -803,5 +819,5 @@ test "the minimap turned off gives the game its map back, square no more" {
   (Runtime.Addon.of(Minimap) ?? panic("the minimap is installed")).disable()
   Test.expect(Test.blank() && !minimap().shown())
   Test.expect(map.GetParent() == Client.C_UI.GetUIParent())
-  Test.expect(Test.requests().join(", ") == "Minimap.square false")
+  Test.expect(Test.requests().join(", ") == "Minimap.square false, Minimap.takeRightClick false")
 }
