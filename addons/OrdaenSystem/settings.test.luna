@@ -85,3 +85,11 @@ test "a line of two controls is its checkbox and, set in under it, its slider or
   Test.page().text("Sensitivity").item().button("+").click()
   Test.expect(Client.C_CVar.GetCVar("mouseSpeed") != before)
 }
+
+test "the list names its group only while searching: the tabs name it otherwise" {
+  const settings = read()
+  Test.mount(new SettingsTab(mut settings), { left: 0, top: 0, width: 1100, height: 600 })
+  Test.expect(Test.page().text("Controls").shown() && !Test.page().text("Game").shown())
+  Test.page().input().type("auto loot")
+  Test.expect(Test.page().text("Game").shown())
+}

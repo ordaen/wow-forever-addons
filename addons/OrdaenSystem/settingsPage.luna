@@ -6,7 +6,7 @@
 import Client from "$client"
 import Game from "$game"
 import { Align, Edges, Track } from "$ltml"
-import { Checkbox, Choice, Component, Dropdown, ListTab, NumberInput, PushButton, ScrolledList, SettingRow, Toolbar } from "Ordaen"
+import { Checkbox, Choice, Component, Dropdown, Ground, ListTab, NumberInput, PushButton, ScrolledList, Section, SettingRow, Toolbar } from "Ordaen"
 import Locale from "@/locales"
 import { LineKind, PageGroup, SettingLine, SettingsPage, SystemSettings, lineMatches } from "@/settings"
 import Style from "@/style"
@@ -31,7 +31,9 @@ public class SettingsTab implements Component {
   derived listed: Array<PageGroup> = self.query != "" ? self.settings.groups : self.pickedGroup()
   derived found: Map<Integer, Boolean> = self.settings.matching(self.query)
   derived shownLines: Array<SettingLine> = self.settings.lines.filter(line => lineMatches(line, self.query))
-  derived title: String = self.titleOf()
+  // The page's lines by its headings, each a section: what stands before the first heading is under the page's name.
+  derived sections: Array<LineSection> = sectionsOf(self.shownLines, self.titleOf())
+  derived searching: Boolean = self.query != ""
   derived canvas: Boolean = self.pageOf()?.canvas == true
 
   const settings: mut SystemSettings
@@ -72,17 +74,19 @@ public class SettingsTab implements Component {
         <Toolbar search={mut self.search} placeholder={Locale.SETTINGS_SEARCH} />
         <box columns={COLUMNS} gap={6sp}>
           <ScrolledList>
-            <PageGroupList $for={group of self.listed} group={group} picked={self.settings.page}
+            <PageGroupList $for={group of self.listed} group={group} captioned={self.searching} picked={self.settings.page}
                            query={self.query} found={self.found} @pick={self.onPick} />
           </ScrolledList>
-          <box rows={["max-content", { fr: 1 }]} gap={3sp}>
-            <text value={self.title} textColor={Style.GOLD} textFont={.Title} wrap={.None} />
+          <box>
             <box $if={self.canvas} rows={["max-content", "max-content"]} gap={3sp}>
               <text value={Locale.SETTINGS_ADDON_PAGE} textColor={Style.DIM} />
               <PushButton label={Locale.SETTINGS_OPEN_BLIZZARD} width={BUTTON} @click={self.onBlizzard} />
             </box>
-            <ScrolledList $else gap={2sp}>
-              <LineRow $for={line of self.shownLines} $key={`${line.variable}|${line.name}`} line={line} settings={mut self.settings} @blizzard={self.onBlizzard} />
+            <ScrolledList $else ground={Ground.Wood} gap={8sp}>
+              <Section $for={section of self.sections} $key={section.title} title={section.title}>
+                <LineRow $for={line of section.lines} $key={`${line.variable}|${line.name}`} line={line} settings={mut self.settings}
+                         @blizzard={self.onBlizzard} />
+              </Section>
             </ScrolledList>
           </box>
         </box>
@@ -91,7 +95,32 @@ public class SettingsTab implements Component {
   }
 }
 
-// A group's caption and its pages; while searching, only the pages the search finds (a group with none is left out).
+// A section of a page: a heading's lines.
+struct LineSection {
+  title: String
+  lines: Array<SettingLine>
+}
+
+// A page's lines cut at its headings: a section each, the lines before the first heading under `first`.
+function sectionsOf(lines: Array<SettingLine>, first: String): Array<LineSection> {
+  const list: Array<LineSection> = []
+  let title = first
+  let held: Array<SettingLine> = []
+  for (line of lines) {
+    if (line.kind == .Header) {
+      if (held.length > 0) { list.push({ title: title, lines: held }) }
+      title = line.name
+      held = []
+    } else {
+      held.push(line)
+    }
+  }
+  if (held.length > 0) { list.push({ title: title, lines: held }) }
+  return list
+}
+
+// A group's pages; while searching, only the pages the search finds (a group with none is left out), each group under
+// its caption (the tabs name the group otherwise).
 class PageGroupList implements Component {
   public pick: Event<Integer> = new Event()
   derived pages: Array<SettingsPage> = self.query == "" ? self.group.pages : self.group.pages.filter(page => self.found[page.id] == true)
@@ -101,7 +130,12 @@ class PageGroupList implements Component {
   picked: Signal<Integer>
   query: Signal<String>
   found: Signal<Map<Integer, Boolean>>
-  constructor(group: Signal<PageGroup>, picked: Signal<Integer>, query: Signal<String>, found: Signal<Map<Integer, Boolean>>) {
+  captioned: Signal<Boolean>
+  constructor(
+    group: Signal<PageGroup>, picked: Signal<Integer>, query: Signal<String>, found: Signal<Map<Integer, Boolean>>,
+    captioned: Signal<Boolean> = false
+  ) {
+    self.captioned = captioned
     self.group = group
     self.picked = picked
     self.query = query
@@ -113,7 +147,7 @@ class PageGroupList implements Component {
   public render(self): Template {
     return $ltml {
       <box $if={self.any} gap={1sp}>
-        <box padding={PAD}>
+        <box $if={self.captioned} padding={PAD}>
           <text value={self.group.name} textColor={Style.DIM} wrap={.None} />
         </box>
         <PageEntry $for={page of self.pages} page={page} picked={self.picked} @pick={self.onPick} />
@@ -188,10 +222,7 @@ class LineRow implements Component {
   public render(self): Template {
     return $ltml {
       <box padding={self.inset}>
-        <box $if={self.line.kind == LineKind.Header} padding={{ top: 3sp }}>
-          <text value={self.line.name} textColor={Style.GOLD} textFont={.Title} wrap={.None} />
-        </box>
-        <Checkbox $elseif={self.line.kind == LineKind.Check} label={self.line.name} value={mut self.checked}
+        <Checkbox $if={self.line.kind == LineKind.Check} label={self.line.name} value={mut self.checked}
                   hint={self.line.tooltip} disabled={self.locked} />
         <NumberInput $elseif={self.line.kind == LineKind.Slider} label={self.line.name} value={mut self.number}
                      least={peek self.line.least} most={peek self.line.most} step={peek self.line.step} hint={self.line.tooltip} disabled={self.locked} />
