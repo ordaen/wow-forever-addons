@@ -47,6 +47,8 @@ function atMerchant() {
   Game.items.icon = (id: Integer): Art | nil => id == 3300 ? FOOT : CLOTH
   Game.items.maxStack = (id: Integer): Integer | nil => 20
   Client.CanGuildBankRepair = (): Boolean => false
+  // The merchant takes what the bags send it (the fake writes the ask).
+  Game.bags.send = (bag: Integer, slot: Integer): Boolean => true
   Client.UnitName = (unit: String): (String, String) => {
     return "Tharynn", ""
   }
