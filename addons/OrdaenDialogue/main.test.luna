@@ -1040,9 +1040,16 @@ test "the keys 1–9 are the first column's as the list shows" {
   Test.expect(asked() == "option 502")
 }
 
-test "Tab gives the keys to the next column" {
+// The screen as the game has it when the player talks to an NPC: what stands on it (the panel) is up before the window
+// opens, so the window, opened last, has the keys.
+function talkedAfterLogin() {
   Test.mount(nil, SCREEN)
+  Test.flush()
   Test.talk(guard())
+}
+
+test "Tab gives the keys to the next column" {
+  talkedAfterLogin()
   Test.flush()
   _ = Test.key(Test.Move.Next)
   Test.flush()
@@ -1051,8 +1058,7 @@ test "Tab gives the keys to the next column" {
 }
 
 test "Shift+Tab gives them back to the column before" {
-  Test.mount(nil, SCREEN)
-  Test.talk(guard())
+  talkedAfterLogin()
   Test.flush()
   _ = Test.key(Test.Move.Next)
   Test.flush()

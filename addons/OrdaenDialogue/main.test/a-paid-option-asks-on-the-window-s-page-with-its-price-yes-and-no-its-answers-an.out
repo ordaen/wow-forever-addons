@@ -1,4 +1,7 @@
 -- a paid option's question as the window's page
+box 0,0 0x0
+  embed 0,0 0x0 frame=none opacity=0
+  embed 0,0 0x0 frame=none opacity=0
 surface 54.82,99.96 384.71x620.08 on MEDIUM clamped raised by a click
   box 54.82,136.71 384.71x583.33 absolute Interface\AddOns\Ordaen\media\window-wood border=Interface\AddOns\Ordaen\media\frame-edge-top pieces=[tl 0.98, tr 0.79, bl 0.80, br 0.61, top 0.98>0.79 x12.36, bottom 0.79>0.61 x12.36, left 0.98>0.80 x19.25, right 0.79>0.61 x19.25] @drag @dragStart @dragStop @pointerEnter @pointerLeave
     box 62.02,143.91 370.31x568.93
@@ -60,3 +63,362 @@ surface 54.82,99.96 384.71x620.08 on MEDIUM clamped raised by a click
       box 397.63,112.29 27.5x26.67 absolute clipped @keyPress @pointerPress
         box 397.63,112.29 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
         box 403.88,121.87 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
+surface 508,781.97 584x45 on LOW clamped
+  box 508,781.97 584x45 opacity=1 @pointerEnter @pointerLeave
+    box 508,781.97 45x45
+      embed 508,781.97 45x45 absolute frame=OrdaenPanelBar1Button1
+      box 508,781.97 45x2.84 absolute
+        text 551.58,783.39 0x0 "" #f0e6d2
+    box 557,781.97 45x45
+      embed 557,781.97 45x45 absolute frame=OrdaenPanelBar1Button2
+      box 557,781.97 45x2.84 absolute
+        text 600.58,783.39 0x0 "" #f0e6d2
+    box 606,781.97 45x45
+      embed 606,781.97 45x45 absolute frame=OrdaenPanelBar1Button3
+      box 606,781.97 45x2.84 absolute
+        text 649.58,783.39 0x0 "" #f0e6d2
+    box 655,781.97 45x45
+      embed 655,781.97 45x45 absolute frame=OrdaenPanelBar1Button4
+      box 655,781.97 45x2.84 absolute
+        text 698.58,783.39 0x0 "" #f0e6d2
+    box 704,781.97 45x45
+      embed 704,781.97 45x45 absolute frame=OrdaenPanelBar1Button5
+      box 704,781.97 45x2.84 absolute
+        text 747.58,783.39 0x0 "" #f0e6d2
+    box 753,781.97 45x45
+      embed 753,781.97 45x45 absolute frame=OrdaenPanelBar1Button6
+      box 753,781.97 45x2.84 absolute
+        text 796.58,783.39 0x0 "" #f0e6d2
+    box 802,781.97 45x45
+      embed 802,781.97 45x45 absolute frame=OrdaenPanelBar1Button7
+      box 802,781.97 45x2.84 absolute
+        text 845.58,783.39 0x0 "" #f0e6d2
+    box 851,781.97 45x45
+      embed 851,781.97 45x45 absolute frame=OrdaenPanelBar1Button8
+      box 851,781.97 45x2.84 absolute
+        text 894.58,783.39 0x0 "" #f0e6d2
+    box 900,781.97 45x45
+      embed 900,781.97 45x45 absolute frame=OrdaenPanelBar1Button9
+      box 900,781.97 45x2.84 absolute
+        text 943.58,783.39 0x0 "" #f0e6d2
+    box 949,781.97 45x45
+      embed 949,781.97 45x45 absolute frame=OrdaenPanelBar1Button10
+      box 949,781.97 45x2.84 absolute
+        text 992.58,783.39 0x0 "" #f0e6d2
+    box 998,781.97 45x45
+      embed 998,781.97 45x45 absolute frame=OrdaenPanelBar1Button11
+      box 998,781.97 45x2.84 absolute
+        text 1041.58,783.39 0x0 "" #f0e6d2
+    box 1047,781.97 45x45
+      embed 1047,781.97 45x45 absolute frame=OrdaenPanelBar1Button12
+      box 1047,781.97 45x2.84 absolute
+        text 1090.58,783.39 0x0 "" #f0e6d2
+surface 508,731.28 584x45 on LOW clamped
+  box 508,731.28 584x45 opacity=1 @pointerEnter @pointerLeave
+    box 508,731.28 45x45
+      embed 508,731.28 45x45 absolute frame=OrdaenPanelBar2Button1 opacity=0
+      box 508,731.28 45x2.84 absolute
+        text 551.58,732.7 0x0 "" #f0e6d2
+    box 557,731.28 45x45
+      embed 557,731.28 45x45 absolute frame=OrdaenPanelBar2Button2 opacity=0
+      box 557,731.28 45x2.84 absolute
+        text 600.58,732.7 0x0 "" #f0e6d2
+    box 606,731.28 45x45
+      embed 606,731.28 45x45 absolute frame=OrdaenPanelBar2Button3 opacity=0
+      box 606,731.28 45x2.84 absolute
+        text 649.58,732.7 0x0 "" #f0e6d2
+    box 655,731.28 45x45
+      embed 655,731.28 45x45 absolute frame=OrdaenPanelBar2Button4 opacity=0
+      box 655,731.28 45x2.84 absolute
+        text 698.58,732.7 0x0 "" #f0e6d2
+    box 704,731.28 45x45
+      embed 704,731.28 45x45 absolute frame=OrdaenPanelBar2Button5 opacity=0
+      box 704,731.28 45x2.84 absolute
+        text 747.58,732.7 0x0 "" #f0e6d2
+    box 753,731.28 45x45
+      embed 753,731.28 45x45 absolute frame=OrdaenPanelBar2Button6 opacity=0
+      box 753,731.28 45x2.84 absolute
+        text 796.58,732.7 0x0 "" #f0e6d2
+    box 802,731.28 45x45
+      embed 802,731.28 45x45 absolute frame=OrdaenPanelBar2Button7 opacity=0
+      box 802,731.28 45x2.84 absolute
+        text 845.58,732.7 0x0 "" #f0e6d2
+    box 851,731.28 45x45
+      embed 851,731.28 45x45 absolute frame=OrdaenPanelBar2Button8 opacity=0
+      box 851,731.28 45x2.84 absolute
+        text 894.58,732.7 0x0 "" #f0e6d2
+    box 900,731.28 45x45
+      embed 900,731.28 45x45 absolute frame=OrdaenPanelBar2Button9 opacity=0
+      box 900,731.28 45x2.84 absolute
+        text 943.58,732.7 0x0 "" #f0e6d2
+    box 949,731.28 45x45
+      embed 949,731.28 45x45 absolute frame=OrdaenPanelBar2Button10 opacity=0
+      box 949,731.28 45x2.84 absolute
+        text 992.58,732.7 0x0 "" #f0e6d2
+    box 998,731.28 45x45
+      embed 998,731.28 45x45 absolute frame=OrdaenPanelBar2Button11 opacity=0
+      box 998,731.28 45x2.84 absolute
+        text 1041.58,732.7 0x0 "" #f0e6d2
+    box 1047,731.28 45x45
+      embed 1047,731.28 45x45 absolute frame=OrdaenPanelBar2Button12 opacity=0
+      box 1047,731.28 45x2.84 absolute
+        text 1090.58,732.7 0x0 "" #f0e6d2
+surface 508,680.59 584x45 on LOW clamped
+  box 508,680.59 584x45 opacity=1 @pointerEnter @pointerLeave
+    box 508,680.59 45x45
+      embed 508,680.59 45x45 absolute frame=OrdaenPanelBar3Button1 opacity=0
+      box 508,680.59 45x2.84 absolute
+        text 551.58,682.01 0x0 "" #f0e6d2
+    box 557,680.59 45x45
+      embed 557,680.59 45x45 absolute frame=OrdaenPanelBar3Button2 opacity=0
+      box 557,680.59 45x2.84 absolute
+        text 600.58,682.01 0x0 "" #f0e6d2
+    box 606,680.59 45x45
+      embed 606,680.59 45x45 absolute frame=OrdaenPanelBar3Button3 opacity=0
+      box 606,680.59 45x2.84 absolute
+        text 649.58,682.01 0x0 "" #f0e6d2
+    box 655,680.59 45x45
+      embed 655,680.59 45x45 absolute frame=OrdaenPanelBar3Button4 opacity=0
+      box 655,680.59 45x2.84 absolute
+        text 698.58,682.01 0x0 "" #f0e6d2
+    box 704,680.59 45x45
+      embed 704,680.59 45x45 absolute frame=OrdaenPanelBar3Button5 opacity=0
+      box 704,680.59 45x2.84 absolute
+        text 747.58,682.01 0x0 "" #f0e6d2
+    box 753,680.59 45x45
+      embed 753,680.59 45x45 absolute frame=OrdaenPanelBar3Button6 opacity=0
+      box 753,680.59 45x2.84 absolute
+        text 796.58,682.01 0x0 "" #f0e6d2
+    box 802,680.59 45x45
+      embed 802,680.59 45x45 absolute frame=OrdaenPanelBar3Button7 opacity=0
+      box 802,680.59 45x2.84 absolute
+        text 845.58,682.01 0x0 "" #f0e6d2
+    box 851,680.59 45x45
+      embed 851,680.59 45x45 absolute frame=OrdaenPanelBar3Button8 opacity=0
+      box 851,680.59 45x2.84 absolute
+        text 894.58,682.01 0x0 "" #f0e6d2
+    box 900,680.59 45x45
+      embed 900,680.59 45x45 absolute frame=OrdaenPanelBar3Button9 opacity=0
+      box 900,680.59 45x2.84 absolute
+        text 943.58,682.01 0x0 "" #f0e6d2
+    box 949,680.59 45x45
+      embed 949,680.59 45x45 absolute frame=OrdaenPanelBar3Button10 opacity=0
+      box 949,680.59 45x2.84 absolute
+        text 992.58,682.01 0x0 "" #f0e6d2
+    box 998,680.59 45x45
+      embed 998,680.59 45x45 absolute frame=OrdaenPanelBar3Button11 opacity=0
+      box 998,680.59 45x2.84 absolute
+        text 1041.58,682.01 0x0 "" #f0e6d2
+    box 1047,680.59 45x45
+      embed 1047,680.59 45x45 absolute frame=OrdaenPanelBar3Button12 opacity=0
+      box 1047,680.59 45x2.84 absolute
+        text 1090.58,682.01 0x0 "" #f0e6d2
+surface 557,629.9 486x45 on LOW clamped
+  box 557,629.9 486x45 opacity=1 @pointerEnter @pointerLeave
+    box 557,629.9 45x45
+      embed 557,629.9 45x45 absolute frame=OrdaenPanelBarpetButton1Cooldown
+      embed 557,629.9 45x45 absolute frame=OrdaenPanelBarpetButton1 opacity=0
+      box 557,629.9 45x2.84 absolute
+        text 600.58,631.32 0x0 "" #f0e6d2
+    box 606,629.9 45x45
+      embed 606,629.9 45x45 absolute frame=OrdaenPanelBarpetButton2Cooldown
+      embed 606,629.9 45x45 absolute frame=OrdaenPanelBarpetButton2 opacity=0
+      box 606,629.9 45x2.84 absolute
+        text 649.58,631.32 0x0 "" #f0e6d2
+    box 655,629.9 45x45
+      embed 655,629.9 45x45 absolute frame=OrdaenPanelBarpetButton3Cooldown
+      embed 655,629.9 45x45 absolute frame=OrdaenPanelBarpetButton3 opacity=0
+      box 655,629.9 45x2.84 absolute
+        text 698.58,631.32 0x0 "" #f0e6d2
+    box 704,629.9 45x45
+      embed 704,629.9 45x45 absolute frame=OrdaenPanelBarpetButton4Cooldown
+      embed 704,629.9 45x45 absolute frame=OrdaenPanelBarpetButton4 opacity=0
+      box 704,629.9 45x2.84 absolute
+        text 747.58,631.32 0x0 "" #f0e6d2
+    box 753,629.9 45x45
+      embed 753,629.9 45x45 absolute frame=OrdaenPanelBarpetButton5Cooldown
+      embed 753,629.9 45x45 absolute frame=OrdaenPanelBarpetButton5 opacity=0
+      box 753,629.9 45x2.84 absolute
+        text 796.58,631.32 0x0 "" #f0e6d2
+    box 802,629.9 45x45
+      embed 802,629.9 45x45 absolute frame=OrdaenPanelBarpetButton6Cooldown
+      embed 802,629.9 45x45 absolute frame=OrdaenPanelBarpetButton6 opacity=0
+      box 802,629.9 45x2.84 absolute
+        text 845.58,631.32 0x0 "" #f0e6d2
+    box 851,629.9 45x45
+      embed 851,629.9 45x45 absolute frame=OrdaenPanelBarpetButton7Cooldown
+      embed 851,629.9 45x45 absolute frame=OrdaenPanelBarpetButton7 opacity=0
+      box 851,629.9 45x2.84 absolute
+        text 894.58,631.32 0x0 "" #f0e6d2
+    box 900,629.9 45x45
+      embed 900,629.9 45x45 absolute frame=OrdaenPanelBarpetButton8Cooldown
+      embed 900,629.9 45x45 absolute frame=OrdaenPanelBarpetButton8 opacity=0
+      box 900,629.9 45x2.84 absolute
+        text 943.58,631.32 0x0 "" #f0e6d2
+    box 949,629.9 45x45
+      embed 949,629.9 45x45 absolute frame=OrdaenPanelBarpetButton9Cooldown
+      embed 949,629.9 45x45 absolute frame=OrdaenPanelBarpetButton9 opacity=0
+      box 949,629.9 45x2.84 absolute
+        text 992.58,631.32 0x0 "" #f0e6d2
+    box 998,629.9 45x45
+      embed 998,629.9 45x45 absolute frame=OrdaenPanelBarpetButton10Cooldown
+      embed 998,629.9 45x45 absolute frame=OrdaenPanelBarpetButton10 opacity=0
+      box 998,629.9 45x2.84 absolute
+        text 1041.58,631.32 0x0 "" #f0e6d2
+surface 0,835.5 1600x64.5 on LOW Interface\AddOns\Ordaen\media\window-wood pieces=[top 0.99>0.79 x83.33] opacity=1
+  box 0,845.65 698x53
+    box 0,845.65 698x53
+      box 0,871.65 128x1
+      box 128,845.65 570x53
+        box 128,845.65 52.83x53
+          box 128,845.65 52.83x53
+            box 128,841.65 57x57 absolute #00000000
+              box 139,852.65 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-professions
+              embed 128,841.65 57x57 absolute frame=none opacity=0
+        box 180.83,845.65 57x53
+          box 180.83,845.65 4.17x53
+            box 180.83,841.65 4.17x57 absolute
+              box 180.83,841.65 4.17x57
+                box 180.83,841.65 0.83x57 #000000 opacity=0.7
+                box 181.67,841.65 0.83x57 #000000 opacity=0.85
+                box 182.5,841.65 0.83x57 #000000 opacity=0.85
+                box 183.33,841.65 0.83x57 #000000 opacity=0.7
+                box 184.17,841.65 0.83x57 #1e1e1e blend=ADD
+                box 180.83,841.65 4.17x0.83 absolute #000000 opacity=0.6
+                box 180.83,842.48 4.17x0.83 absolute #000000 opacity=0.35
+          box 185,845.65 52.83x53
+            box 185,841.65 57x57 absolute #00000000
+              box 196,852.65 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-spellbookabilities
+              embed 185,841.65 57x57 absolute frame=none opacity=0
+        box 237.83,845.65 57x53
+          box 237.83,845.65 4.17x53
+            box 237.83,841.65 4.17x57 absolute
+              box 237.83,841.65 4.17x57
+                box 237.83,841.65 0.83x57 #000000 opacity=0.7
+                box 238.67,841.65 0.83x57 #000000 opacity=0.85
+                box 239.5,841.65 0.83x57 #000000 opacity=0.85
+                box 240.33,841.65 0.83x57 #000000 opacity=0.7
+                box 241.17,841.65 0.83x57 #1e1e1e blend=ADD
+                box 237.83,841.65 4.17x0.83 absolute #000000 opacity=0.6
+                box 237.83,842.48 4.17x0.83 absolute #000000 opacity=0.35
+          box 242,845.65 52.83x53
+            box 242,841.65 57x57 absolute #00000000
+              box 253,852.65 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-spectalents
+              embed 242,841.65 57x57 absolute frame=none opacity=0
+        box 294.83,845.65 57x53
+          box 294.83,845.65 4.17x53
+            box 294.83,841.65 4.17x57 absolute
+              box 294.83,841.65 4.17x57
+                box 294.83,841.65 0.83x57 #000000 opacity=0.7
+                box 295.67,841.65 0.83x57 #000000 opacity=0.85
+                box 296.5,841.65 0.83x57 #000000 opacity=0.85
+                box 297.33,841.65 0.83x57 #000000 opacity=0.7
+                box 298.17,841.65 0.83x57 #1e1e1e blend=ADD
+                box 294.83,841.65 4.17x0.83 absolute #000000 opacity=0.6
+                box 294.83,842.48 4.17x0.83 absolute #000000 opacity=0.35
+          box 299,845.65 52.83x53
+            box 299,841.65 57x57 absolute #00000000
+              box 310,852.65 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-legacy
+              embed 299,841.65 57x57 absolute frame=none opacity=0
+        box 351.83,845.65 57x53
+          box 351.83,845.65 4.17x53
+            box 351.83,841.65 4.17x57 absolute
+              box 351.83,841.65 4.17x57
+                box 351.83,841.65 0.83x57 #000000 opacity=0.7
+                box 352.67,841.65 0.83x57 #000000 opacity=0.85
+                box 353.5,841.65 0.83x57 #000000 opacity=0.85
+                box 354.33,841.65 0.83x57 #000000 opacity=0.7
+                box 355.17,841.65 0.83x57 #1e1e1e blend=ADD
+                box 351.83,841.65 4.17x0.83 absolute #000000 opacity=0.6
+                box 351.83,842.48 4.17x0.83 absolute #000000 opacity=0.35
+          box 356,845.65 52.83x53
+            box 356,841.65 57x57 absolute #00000000
+              box 367,852.65 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-questlog
+              embed 356,841.65 57x57 absolute frame=none opacity=0
+        box 408.83,845.65 57x53
+          box 408.83,845.65 4.17x53
+            box 408.83,841.65 4.17x57 absolute
+              box 408.83,841.65 4.17x57
+                box 408.83,841.65 0.83x57 #000000 opacity=0.7
+                box 409.67,841.65 0.83x57 #000000 opacity=0.85
+                box 410.5,841.65 0.83x57 #000000 opacity=0.85
+                box 411.33,841.65 0.83x57 #000000 opacity=0.7
+                box 412.17,841.65 0.83x57 #1e1e1e blend=ADD
+                box 408.83,841.65 4.17x0.83 absolute #000000 opacity=0.6
+                box 408.83,842.48 4.17x0.83 absolute #000000 opacity=0.35
+          box 413,845.65 52.83x53
+            box 413,841.65 57x57 absolute #00000000
+              box 424,852.65 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-groupfinder
+              embed 413,841.65 57x57 absolute frame=none opacity=0
+        box 465.83,845.65 57x53
+          box 465.83,845.65 4.17x53
+            box 465.83,841.65 4.17x57 absolute
+              box 465.83,841.65 4.17x57
+                box 465.83,841.65 0.83x57 #000000 opacity=0.7
+                box 466.67,841.65 0.83x57 #000000 opacity=0.85
+                box 467.5,841.65 0.83x57 #000000 opacity=0.85
+                box 468.33,841.65 0.83x57 #000000 opacity=0.7
+                box 469.17,841.65 0.83x57 #1e1e1e blend=ADD
+                box 465.83,841.65 4.17x0.83 absolute #000000 opacity=0.6
+                box 465.83,842.48 4.17x0.83 absolute #000000 opacity=0.35
+          box 470,845.65 52.83x53
+            box 470,841.65 57x57 absolute #00000000
+              box 481,852.65 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-collections
+              embed 470,841.65 57x57 absolute frame=none opacity=0
+        box 522.83,845.65 57x53
+          box 522.83,845.65 4.17x53
+            box 522.83,841.65 4.17x57 absolute
+              box 522.83,841.65 4.17x57
+                box 522.83,841.65 0.83x57 #000000 opacity=0.7
+                box 523.67,841.65 0.83x57 #000000 opacity=0.85
+                box 524.5,841.65 0.83x57 #000000 opacity=0.85
+                box 525.33,841.65 0.83x57 #000000 opacity=0.7
+                box 526.17,841.65 0.83x57 #1e1e1e blend=ADD
+                box 522.83,841.65 4.17x0.83 absolute #000000 opacity=0.6
+                box 522.83,842.48 4.17x0.83 absolute #000000 opacity=0.35
+          box 527,845.65 52.83x53
+            box 527,841.65 57x57 absolute #00000000
+              box 538,852.65 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-social
+              embed 527,841.65 57x57 absolute frame=none opacity=0
+        box 579.83,845.65 57x53
+          box 579.83,845.65 4.17x53
+            box 579.83,841.65 4.17x57 absolute
+              box 579.83,841.65 4.17x57
+                box 579.83,841.65 0.83x57 #000000 opacity=0.7
+                box 580.67,841.65 0.83x57 #000000 opacity=0.85
+                box 581.5,841.65 0.83x57 #000000 opacity=0.85
+                box 582.33,841.65 0.83x57 #000000 opacity=0.7
+                box 583.17,841.65 0.83x57 #1e1e1e blend=ADD
+                box 579.83,841.65 4.17x0.83 absolute #000000 opacity=0.6
+                box 579.83,842.48 4.17x0.83 absolute #000000 opacity=0.35
+          box 584,845.65 52.83x53
+            box 584,841.65 57x57 absolute #00000000
+              box 595,852.65 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-guildcommunities
+              embed 584,841.65 57x57 absolute frame=none opacity=0
+        box 636.83,845.65 61.17x53
+          box 636.83,845.65 4.17x53
+            box 636.83,841.65 4.17x57 absolute
+              box 636.83,841.65 4.17x57
+                box 636.83,841.65 0.83x57 #000000 opacity=0.7
+                box 637.67,841.65 0.83x57 #000000 opacity=0.85
+                box 638.5,841.65 0.83x57 #000000 opacity=0.85
+                box 639.33,841.65 0.83x57 #000000 opacity=0.7
+                box 640.17,841.65 0.83x57 #1e1e1e blend=ADD
+                box 636.83,841.65 4.17x0.83 absolute #000000 opacity=0.6
+                box 636.83,842.48 4.17x0.83 absolute #000000 opacity=0.35
+          box 641,845.65 57x53
+            box 641,841.65 57x57 absolute #00000000
+              box 652,852.65 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-gamemenu
+              embed 641,841.65 57x57 absolute frame=none opacity=0
+  box 698,872.15 451x0
+    box 698,872.15 451x0
+  box 1149,864.23 451x15.83
+    box 1531.51,864.23 59.96x15.83
+      text 1531.51,864.23 50x15.83 "0g 0s 0c" #e8dcc4
+    box 1600,872.15 0x0
+surface 0,776 128x124 on LOW opacity=1
+  embed 0,776 128x124 absolute frame=none opacity=0
+  box 0,785 119x115 absolute face:player
+  box 0,776 128x124 absolute border=Interface\AddOns\Ordaen\media\frame-edge-top sides=top,right pieces=[tr 0.80, top 0.99>0.82 x2.83, right 0.78>0.61 x2.73]
+  box 101,767 36x36 absolute Interface\AddOns\Ordaen\media\level-badge
+    text 114.83,777.08 8.33x15.83 "1" #b88f57
