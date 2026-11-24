@@ -131,6 +131,8 @@ public const WINDOW: Placing = { x: 0ui, y: 0ui, width: Style.WIDTH, height: Sty
 
 public class AddOnsWindow implements Component {
   public close: Event<nil> = new Event()
+  // Blizzard's settings window asked for at a page.
+  public blizzard: Event<Integer> = new Event()
 
   state tab = 1
   // The window as the root declares it (`System.window`); one of its own where it is made alone (a test's).
@@ -613,12 +615,13 @@ public class AddOnsWindow implements Component {
   onWaitEnter(mut self) { self.waitHovered = true }
   onWaitLeave(mut self) { self.waitHovered = false }
   onClose(mut self) { self.close.emit() }
+  onBlizzard(self, page: Integer) { self.blizzard.emit(page) }
 
   public render(self): Template {
     return $ltml {
       <Window tabs={self.tabs} selected={mut self.tab} declared={mut self.declared} shown={self.shown}
               footer={self.footer} side={self.side} @close={self.onClose}>
-        <SettingsTab $if={self.onGameSettings} settings={mut self.settings} />
+        <SettingsTab $if={self.onGameSettings} settings={mut self.settings} @blizzard={self.onBlizzard} />
         <KeysPage $elseif={self.onKeys} bindings={mut self.bindings} fighting={self.fighting} />
         <box $else rows={BODY} gap={3sp}>
           <box padding={TOOLS}>

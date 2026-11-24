@@ -22,13 +22,9 @@ function choiceOf(option: Client.SettingsOption): Choice<Boolean | Number | Stri
   return { value: option.value, label: option.label }
 }
 
-// Opens Blizzard's window at a page: what only Blizzard draws.
-function openBlizzard(id: Integer) {
-  const settings = Client.Settings
-  if (settings != nil && !Client.InCombatLockdown()) { settings.OpenToCategory(id, nil) }
-}
-
 public class SettingsTab implements Component {
+  // Blizzard's window asked for at a page: what only Blizzard draws. Its owner lets it through (`GamePass`).
+  public blizzard: Event<Integer> = new Event()
   state search = ""
   derived query: String = self.search.lower()
   derived found: Map<Integer, Boolean> = self.settings.matching(self.query)
@@ -52,7 +48,7 @@ public class SettingsTab implements Component {
   titleOf(self): String { return self.pageOf()?.name ?? "" }
 
   onPick(mut self, id: Integer) { self.settings.open(id) }
-  onBlizzard(self) { openBlizzard(self.settings.page) }
+  onBlizzard(self) { self.blizzard.emit(self.settings.page) }
 
   public render(self): Template {
     return $ltml {
@@ -70,7 +66,7 @@ public class SettingsTab implements Component {
               <PushButton label={Locale.SETTINGS_OPEN_BLIZZARD} width={BUTTON} @click={self.onBlizzard} />
             </box>
             <ScrolledList $else>
-              <LineRow $for={line of self.shownLines} $key={`${line.variable}|${line.name}`} line={line} settings={self.settings} />
+              <LineRow $for={line of self.shownLines} $key={`${line.variable}|${line.name}`} line={line} settings={mut self.settings} @blizzard={self.onBlizzard} />
             </ScrolledList>
           </box>
         </box>
@@ -134,18 +130,21 @@ class PageEntry implements Component {
 }
 
 // One line of a page: a section's header, a setting with its control, or what only Blizzard draws. The control shows
-// the client's value; it is set from the window once the game's side writes settings without Blizzard's objects.
+// the client's value; one over a console variable writes the variable as it is changed, out of a fight (the client
+// holds some of them in one); any other is Blizzard's to change.
 class LineRow implements Component {
+  public blizzard: Event<nil> = new Event()
   state checked = false
   state number: Number = 0
   state chosen: Boolean | Number | String = ""
   derived choices: Array<Choice<Boolean | Number | String>> = self.line.kind == .Choice ?
     self.settings.choicesOf(self.settings.page, self.line.variable).map(option => choiceOf(option)) : []
   derived fighting: Boolean = Game.situation.combat
+  derived locked: Boolean = !self.line.cvar || self.fighting
 
   line: Signal<SettingLine>
-  const settings: SystemSettings
-  constructor(line: Signal<SettingLine>, settings: SystemSettings) {
+  const settings: mut SystemSettings
+  constructor(line: Signal<SettingLine>, settings: mut SystemSettings) {
     self.line = line
     self.settings = settings
     watch {
@@ -154,9 +153,20 @@ class LineRow implements Component {
       if (value is Number) { self.number = value }
       if (value != nil) { self.chosen = value }
     }
+    watch (checked of self.checked) { self.changed(checked) }
+    watch (number of self.number) { self.changed(number) }
+    watch (chosen of self.chosen) { self.changed(chosen) }
   }
 
-  onBlizzard(self) { openBlizzard(self.settings.page) }
+  // A control's value that isn't the client's: the player changed it, and the variable is written.
+  changed(mut self, value: Boolean | Number | String) {
+    const variable = peek self.line.variable
+    const now = (peek self.settings.values)[variable]
+    if (now == nil || now == value || peek self.locked) { return }
+    _ = self.settings.write(variable, value)
+  }
+
+  onBlizzard(self) { self.blizzard.emit() }
 
   public render(self): Template {
     return $ltml {
@@ -164,11 +174,11 @@ class LineRow implements Component {
         <text value={self.line.name} textColor={Style.GOLD} textFont={.Title} wrap={.None} />
       </box>
       <Checkbox $elseif={self.line.kind == LineKind.Check} label={self.line.name} value={mut self.checked}
-                hint={self.line.tooltip} disabled={true} />
+                hint={self.line.tooltip} disabled={self.locked} />
       <NumberInput $elseif={self.line.kind == LineKind.Slider} label={self.line.name} value={mut self.number}
-                   least={peek self.line.least} most={peek self.line.most} step={peek self.line.step} hint={self.line.tooltip} disabled={true} />
+                   least={peek self.line.least} most={peek self.line.most} step={peek self.line.step} hint={self.line.tooltip} disabled={self.locked} />
       <Dropdown $elseif={self.line.kind == LineKind.Choice} label={self.line.name} value={mut self.chosen}
-                choices={peek self.choices} hint={self.line.tooltip} disabled={true} />
+                choices={peek self.choices} hint={self.line.tooltip} disabled={self.locked} />
       <SettingRow $else label={self.line.name} hint={self.line.tooltip}>
         <box xAlign={Align.Start}>
           <PushButton label={Locale.SETTINGS_OPEN_BLIZZARD} width={BUTTON} disabled={self.fighting} @click={self.onBlizzard} />

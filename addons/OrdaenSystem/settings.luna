@@ -1,7 +1,9 @@
 // Blizzard's settings as the «Settings» tab reads them: the window's groups and their pages in the client's order
 // (`SettingsPanel`'s category list), and a page's lines (its layout's initializers), each told by the template it is
 // drawn with. What a line shows is read from the client's setting (`GetValue`); nothing here writes through Blizzard's
-// setting objects, whose fields a write from addon code would taint.
+// setting objects, whose fields a write from addon code would taint. A setting over a console variable is written to
+// the variable itself (`SetCVar`), as Blizzard's setting would write it; one that isn't (Blizzard's own getter and
+// setter) is read only, and Blizzard's window changes it.
 import Client from "$client"
 
 // What a line of a page is, by the template Blizzard draws it with.
@@ -25,6 +27,8 @@ public struct SettingLine {
   tooltip: String
   // The setting's variable (`""` for a header or Blizzard's own line).
   variable: String
+  // Whether the variable is a console variable: the window writes it.
+  cvar: Boolean
   // A slider's range.
   least: Number
   most: Number
@@ -105,11 +109,13 @@ public class SystemSettings {
       const kind = kindOf(initializer.GetTemplate(), data)
       const options = data.options
       const range = options is Client.SettingsSliderOptions ? options : nil
+      const variable = data.setting?.GetVariable() ?? ""
       lines.push({
         kind: kind,
         name: data.name ?? data.setting?.GetName() ?? "",
         tooltip: data.tooltip ?? "",
-        variable: data.setting?.GetVariable() ?? "",
+        variable: variable,
+        cvar: variable != "" && Client.C_CVar.GetCVar(variable) != nil,
         least: range?.minValue ?? 0,
         most: range?.maxValue ?? 0,
         step: range == nil || range.steps <= 0 ? 1 : (range.maxValue - range.minValue) / range.steps
@@ -135,6 +141,15 @@ public class SystemSettings {
       }
     }
     self.values = values
+  }
+
+  // A setting over a console variable set to a value: the variable written as Blizzard's setting writes it (a Boolean
+  // as `1` or `0`), and the page's values read again. Whether the client took it.
+  public write(mut self, variable: String, value: Boolean | Number | String): Boolean {
+    const text = value is Boolean ? (value ? "1" : "0") : String.of(value)
+    const took = Client.C_CVar.SetCVar(variable, text)
+    self.refresh()
+    return took
   }
 
   // A dropdown's choices, asked of the client as the line is drawn (they may follow other settings).

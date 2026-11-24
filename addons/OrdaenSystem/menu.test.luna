@@ -131,6 +131,10 @@ test "a plate held down is pressed, its label lower; let go it is up again" {
   Test.expect(pushed() == "1" && plate("Options").text("Options").rect().top > up)
   Test.release(nil)
   Test.expect(pushed() == "")
+  // «Options» opened System's window in place of the game's, and shut the menu: Escape shuts the window, and the menu
+  // opens again.
+  _ = Test.key(Key.Escape)
+  escape()
   plate("Log Out").hover()
   Test.press(nil)
   Test.expect(pushed() == "5")

@@ -1,12 +1,14 @@
 // Ordaen System: what belongs to the game client rather than to playing. The game menu dressed in Ordaen's look, and
-// the AddOns window that its «AddOns» opens in place of Blizzard's list. At login it costs a script hook on the game
-// menu and a hook of `ShowUIPanel` (Blizzard's list asked for opens ours), and nothing else: the dress is made the
-// first time the menu shows, the window the first time it opens.
+// the window that its «AddOns» and «Options» open in place of Blizzard's: the AddOns list, and the game's settings at
+// the window's «Settings» tab. At login it costs a script hook on the game menu, one on Blizzard's settings window's
+// hide, and a hook of `ShowUIPanel` (Blizzard's list or settings asked for opens ours), and nothing else: the dress is
+// made the first time the menu shows, the window the first time it opens. Blizzard's settings window shows as it is
+// once a page of ours asks for it (what only Blizzard draws), until it hides.
 import Client from "$client"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
-import { KeptWindow, Module, SettingsPage, WindowsPage, windowsTitle } from "Ordaen"
-import { ADDONS_TAB, AddOnsWindow, WINDOW } from "@/addonsWindow"
+import { GamePass, KeptWindow, Module, SettingsPage, WindowsPage, windowsTitle } from "Ordaen"
+import { ADDONS_TAB, AddOnsWindow, SETTINGS_TAB, WINDOW } from "@/addonsWindow"
 import { GameMenu, Live, MenuDress } from "@/menu"
 
 public class System implements Module, App {
@@ -30,6 +32,8 @@ public class System implements Module, App {
   const framework: String
   // Whether the module runs: the menu's hook can't be taken back, so it finds the module ended.
   const live: mut Live = { on: true }
+  // Blizzard's settings window let through as it is, asked for by a page of ours.
+  const pass: mut GamePass = new GamePass()
 
   constructor() {
     self.framework = Runtime.Addon.of(Ordaen)?.name ?? "Ordaen"
@@ -41,8 +45,19 @@ public class System implements Module, App {
     // Blizzard's list asked for, whichever way (its own «AddOns» where that button takes a click): ours in its place.
     // A hook on a rarely called function, its body one comparison.
     Client.hooksecurefunc("ShowUIPanel", (...args: Unknown): nil => {
-      if (live.on && args[1] == Client.AddonList) { self.replace() }
+      if (!live.on) { return }
+      if (args[1] == Client.AddonList) {
+        self.replace()
+      } else if (args[1] == Client.SettingsPanel) {
+        self.replaceSettings()
+      }
     })
+    const panel = Client.SettingsPanel
+    if (panel != nil) {
+      _ = panel.HookScript("OnHide", (...args: Unknown): nil => {
+        _ = self.pass.hidden(panel)
+      })
+    }
   }
 
   destructor() { self.live.on = false }
@@ -62,6 +77,28 @@ public class System implements Module, App {
 
   public closeWindow(mut self) { self.open = false }
 
+  // Blizzard's settings window was shown: unless a page of ours let it through, shut again in the call that showed it,
+  // and ours opened at its «Settings» tab, the game menu shut as Blizzard's «Options» shuts it.
+  replaceSettings(mut self) {
+    const panel = Client.SettingsPanel
+    if (panel == nil || self.pass.passes(panel)) { return }
+    Client.HideUIPanel(panel)
+    if (Client.GameMenuFrame.IsShown()) { self.menu.close() }
+    self.window.ask(SETTINGS_TAB)
+    self.made = true
+    self.open = true
+  }
+
+  // Blizzard's settings window at a page, as it is: ours shuts, the game's shows until it hides.
+  passSettings(mut self, page: Integer) {
+    const panel = Client.SettingsPanel
+    const settings = Client.Settings
+    if (panel == nil || settings == nil || Client.InCombatLockdown()) { return }
+    self.open = false
+    self.pass.pass(panel)
+    settings.OpenToCategory(page, nil)
+  }
+
   // Blizzard's list was shown: shut again in the call that showed it, before a frame draws it, and ours opened, the
   // game menu shut as our «AddOns» shuts it. The list's own hide resets what isn't saved; ours saves each switch.
   replace(mut self) {
@@ -74,7 +111,7 @@ public class System implements Module, App {
     return $ltml {
       <MenuDress $if={self.dressed} menu={self.menu} @addons={self.openWindow} />
       <AddOnsWindow $if={self.made} shown={self.open} framework={self.framework} declared={mut self.window}
-                    @close={self.closeWindow} />
+                    @close={self.closeWindow} @blizzard={self.passSettings} />
     }
   }
 }

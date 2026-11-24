@@ -1,6 +1,9 @@
 // The «Settings» tab against the stand-in's options window: Game (Controls, Mouse under it, Interface), System (Audio)
 // and the addons' pages, each a list of the client's settings or an addon's own frame.
+import Client from "$client"
+import Game from "$game"
 import Test from "$test"
+import root Ordaen from "Ordaen"
 import { SystemSettings } from "@/settings"
 import { SettingsTab } from "@/settingsPage"
 
@@ -47,4 +50,26 @@ test "an addon's own page says it opens in the game's window, with the button th
   Test.page().text("Ordaen").click()
   Test.expect(Test.page().text("This addon draws its own page: it opens in the game's window.").shown())
   Test.expect(Test.page().button("Open in the game's window").shown())
+}
+
+test "a setting over a console variable is written as it is changed; one over none is Blizzard's, and nothing is in a fight" {
+  const settings = read()
+  Test.mount(new SettingsTab(mut settings), { left: 0, top: 0, width: 1100, height: 600 })
+  Test.expect(Client.C_CVar.GetCVar("autoLootDefault") != "1")
+  Test.expect(settings.lines.find(line => line.variable == "autoLootDefault")?.cvar == true)
+  Test.expect(settings.values["autoLootDefault"] == false)
+  Test.page().text("Auto Loot").item().button(Ordaen.art.ctl.check).click()
+  Test.expect(Client.C_CVar.GetCVar("autoLootDefault") == "1")
+  Test.page().text("Interface").click()
+  const tutorials = Test.page().text("Tutorials")
+  Test.expect(tutorials.shown())
+  // Over no console variable: shown, never written from here.
+  tutorials.item().button(Ordaen.art.ctl.check).click()
+  Test.expect(Client.Settings?.GetSetting("PROXY_TUTORIALS")?.GetValue() == true)
+  Test.page().text("Controls").click()
+  Game.situation.combat = true
+  Test.flush()
+  Test.page().text("Auto Loot").item().button(Ordaen.art.ctl.check).click()
+  Test.expect(Client.C_CVar.GetCVar("autoLootDefault") == "1")
+  Game.situation.combat = false
 }
