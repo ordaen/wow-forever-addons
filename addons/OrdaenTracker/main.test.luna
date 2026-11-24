@@ -5,7 +5,7 @@ import Game from "$game"
 import Test from "$test"
 import root Ordaen from "Ordaen"
 import root Tracker from "OrdaenTracker"
-import { QuestLine, QuestLines } from "@/extend"
+import { QuestOpener } from "@/extend"
 
 const PAGE: Test.Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
 
@@ -20,16 +20,12 @@ function logged() {
   ])
 }
 
-// What a module adds: where to go while a quest is to do, whom to hand it to once done; it opens quest 101 alone, and
-// shows quest 101 alone on the map (at Westfall's).
-class Where implements QuestLines {
+// A module's log and map: it opens quest 101 alone, and shows quest 101 alone on the map (at Westfall's).
+class Where implements QuestOpener {
   public showOnMap(self, quest: Integer): Boolean {
     if (quest != 101) { return false }
     Client.C_Map.OpenWorldMap(1436)
     return true
-  }
-  public lines(self, quest: Integer): Array<QuestLine> {
-    return [{ text: "Westfall · 2 places" }]
   }
   public open(self, quest: Integer): Boolean {
     if (quest != 101) { return false }
@@ -107,20 +103,24 @@ test "entering another zone lists that zone's quests in place of the last one's"
   Test.zone("Elwynn Forest")
 }
 
-test "a module's lines stand under each quest to do: where to go; a done quest has none" {
+test "a quest's title is bold, and its row shades under the cursor and opens its menu on a right click anywhere in it" {
   logged()
   Test.mount(nil, PAGE)
-  Tracker.questLines.add(new Where())
   Tracker.refresh()
   Test.flush()
-  // Quests 101 and 103 are to do, 102 done: a line under each of the two.
-  Test.expect(Test.page().text("Westfall · 2 places").count() == 2)
+  Test.expect(Test.page().text("The Defias Brotherhood").told().contains("textWeight=bold"))
+  Test.expect(!Test.page().text("Talk to Gryan Stoutmantle").told().contains("textWeight=bold"))
+  Test.expect(Test.page().box(Color.hex("#ffffff24")).count() == 0)
+  Test.page().text("Talk to Gryan Stoutmantle").hover()
+  Test.expect(Test.page().box(Color.hex("#ffffff24")).count() == 1)
+  Test.page().text("Talk to Gryan Stoutmantle").rightClick()
+  Test.expect(Test.page().window("Abandon quest").button("Show the way").shown())
 }
 
 test "a title's click opens the quest where a module does; Shift+click links it, else untracks it" {
   logged()
   Test.mount(nil, PAGE)
-  Tracker.questLines.add(new Where())
+  Tracker.openers.add(new Where())
   Tracker.refresh()
   Test.flush()
   _ = Test.talked()
@@ -136,7 +136,7 @@ test "a title's click opens the quest where a module does; Shift+click links it,
 test "«Show on the map» is the module's that shows where the quest leads, else the game's map as it was" {
   logged()
   Test.mount(nil, PAGE)
-  Tracker.questLines.add(new Where())
+  Tracker.openers.add(new Where())
   Tracker.refresh()
   Test.flush()
   Test.page().text("The Defias Brotherhood").rightClick()

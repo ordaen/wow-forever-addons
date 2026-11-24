@@ -1,17 +1,17 @@
 // Ordaen Tracker: the tracked quests at the screen's right in Ordaen's look, in place of the game's objective tracker,
 // which is kept unseen while it is on. It draws each tracked quest from the client by itself (its level, title, tag,
-// objectives); other modules add lines under a quest through `questLines` (Quests: where to go, whom to hand it to).
-// The clicks are Blizzard's tracker's: a chat link first, Shift+click untracks, a click opens the quest in the log,
-// Right-click opens its menu, which also points the way to it. Its settings say how many quests it lists, when its
+// objectives); other modules open a quest and show it on the map through `openers` (Quests). A quest's row shades
+// under the cursor, and its clicks are Blizzard's tracker's: a chat link first, Shift+click untracks, a click opens
+// the quest in the log, Right-click opens its menu, which also points the way to it. Its settings say how many quests it lists, when its
 // ground shows (on hover by default) and how dark it is (the chat's rounded ground); the placing mode moves it.
 import Client from "$client"
 import Events from "$events"
 import Game from "$game"
-import { Action, Align, Anchored, Bounds, Edges, FillDuration, Gaps, Overflow, Point, Track } from "$ltml"
+import { Action, Align, Anchored, Bounds, ByInteractionState, Edges, FillDuration, Gaps, Overflow, Point, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { BRIGHT_TEXT, ButtonPlate, Component, Dialog, ItemButton, Menu, MenuEntry, Module, Placed, PushButton, RoundedFill, SECONDARY_TEXT, Settings, SettingsPage, playSound, questLevelColor } from "Ordaen"
+import { BRIGHT_TEXT, ButtonPlate, Component, Dialog, ItemButton, Menu, MenuEntry, Module, Placed, PushButton, RoundedFill, SECONDARY_TEXT, Settings, SettingsPage, playSound, questLevelColor, rowShade } from "Ordaen"
 import { QuestLevel } from "OrdaenQuestPage"
-import { QuestLine, QuestLines } from "@/extend"
+import { QuestOpener } from "@/extend"
 import Locale from "@/locales"
 import { Choices, DEFAULTS, GeneralPage, GroundShown } from "@/settings"
 
@@ -36,6 +36,9 @@ const TITLE: Array<Track> = [{ fr: 1 }, "max-content", "max-content", "max-conte
 const CHECK: Asset = "Interface/RaidFrame/ReadyCheck-Ready"
 const CHECK_SIZE = 14ui
 const ITEM = 24.375dp
+// A quest's row: the list's shade under the cursor, a little room round what it holds.
+const SHADE: Color | ByInteractionState<Color> = rowShade(false)
+const ROW_PAD: Edges = { top: 1sp, right: 1sp, bottom: 1sp, left: 1sp }
 const ASK = 468.75dp
 const ASK_BUTTON = 140.625dp
 
@@ -77,8 +80,8 @@ public class Tracker implements Module, App {
   public const pages: Array<SettingsPage> = [
     { title: Locale.TAB_GENERAL, content: $ltml { <GeneralPage settings={mut self.settings} /> } }
   ]
-  // What the modules add under each tracked quest.
-  public const questLines = new Registry<any QuestLines>()
+  // What opens a quest in a log of a module's, and shows it on the map.
+  public const openers = new Registry<any QuestOpener>()
 
   // The log's quests, in its order; the one the client points the way to; the log's size.
   public state quests: Array<Game.LogQuest> = []
@@ -174,7 +177,7 @@ public class Tracker implements Module, App {
 
   // The quest in the log: the first module that opens it, else the game's map with its log.
   open(self, id: Integer) {
-    for (entry of self.questLines) {
+    for (entry of self.openers) {
       if (entry.open(id)) { return }
     }
     // The client opens the map for an addon out of a fight alone.
@@ -183,7 +186,7 @@ public class Tracker implements Module, App {
 
   // The quest on the map: the first module that shows where it leads, else the game's map as it was.
   showOnMap(self, id: Integer) {
-    for (entry of self.questLines) {
+    for (entry of self.openers) {
       if (entry.showOnMap(id)) { return }
     }
     Client.C_Map.OpenWorldMap(nil)
@@ -197,16 +200,6 @@ public class Tracker implements Module, App {
 
   onAbandonNo(mut self) { self.abandoning = 0 }
 
-  // The lines the modules add under a quest still to do.
-  public linesOf(self, quest: Game.LogQuest): Array<QuestLine> {
-    const lines: Array<QuestLine> = []
-    if (quest.done || quest.failed) { return lines }
-    for (entry of self.questLines) {
-      for (line of entry.lines(quest.id)) { lines.push(line) }
-    }
-    return lines
-  }
-
   public render(self): Template {
     return $ltml {
       <frame of={Game.frames.ObjectiveTracker} opacity={0} away={true} />
@@ -216,7 +209,7 @@ public class Tracker implements Module, App {
              @pointerLeave={self.onLeave}>
           <RoundedFill $if={self.grounded} color={self.ground} />
           <box columns={1} gap={3sp} overflow={Overflow.Scroll}>
-            <TrackedQuest $for={quest of self.listed} $key={quest.id} quest={quest} lines={self.linesOf(quest)}
+            <TrackedQuest $for={quest of self.listed} $key={quest.id} quest={quest}
                           pointed={quest.id == self.superTracked} player={self.level} cooldown={self.cooldowns[quest.id]}
                           @ask={self.onAsk} />
           </box>
@@ -231,8 +224,8 @@ public class Tracker implements Module, App {
   }
 }
 
-// One tracked quest: its level and title, its tag, its item; its objectives, or that it
-// is done or failed; the lines the modules add.
+// One tracked quest: its level and title (bold), its tag, its item; its objectives, or that it is done or failed. The
+// whole row shades under the cursor and takes its clicks.
 class TrackedQuest implements Component {
   public ask: Event<(Integer, Ask)> = new Event()
   state menuOpen = false
@@ -254,20 +247,17 @@ class TrackedQuest implements Component {
   ]
 
   quest: Signal<Game.LogQuest>
-  lines: Signal<Array<QuestLine>>
   pointed: Signal<Boolean>
   player: Signal<Integer>
   // The cooldown running on its item, its button's sweep.
   cooldown: Signal<FillDuration | nil>
   constructor(
     quest: Signal<Game.LogQuest>,
-    lines: Signal<Array<QuestLine>>,
     pointed: Signal<Boolean>,
     player: Signal<Integer>,
     cooldown: Signal<FillDuration | nil>
   ) {
     self.quest = quest
-    self.lines = lines
     self.pointed = pointed
     self.player = player
     self.cooldown = cooldown
@@ -293,11 +283,11 @@ class TrackedQuest implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={QUEST} gap={LINES_GAP} yAlign={Align.Center}>
+      <box columns={QUEST} gap={LINES_GAP} yAlign={Align.Center} padding={ROW_PAD} background={SHADE}
+           @pointerPress(.Left)={self.onOpen} @pointerPress([.Shift, .Left])={self.onShift} @pointerPress(.Right)={self.onMenu}>
         <QuestLevel level={self.quest.level} group={self.quest.group > 1} color={self.levelColor} />
-        <box columns={TITLE} gap={2sp} yAlign={Align.Center} @pointerPress(.Left)={self.onOpen} @pointerPress([.Shift, .Left])={self.onShift}
-             @pointerPress(.Right)={self.onMenu}>
-          <text value={self.quest.title} textColor={BRIGHT_TEXT} wrap={.Cut} />
+        <box columns={TITLE} gap={2sp} yAlign={Align.Center}>
+          <text value={self.quest.title} textColor={BRIGHT_TEXT} textWeight={.Bold} wrap={.Cut} />
           <text value={self.tag} textColor={DIM} textSize={SECONDARY_TEXT} wrap={.None} />
           <box $if={self.checked} width={CHECK_SIZE} height={CHECK_SIZE} background={CHECK} />
           <box $else />
@@ -311,7 +301,6 @@ class TrackedQuest implements Component {
             <text $for={objective of self.quest.objectives} value={objective.text} textColor={BRIGHT_TEXT} />
           </box>
           <text $if={self.quest.failed} value={Locale.FAILED} textColor={RED} />
-          <text $for={line of self.lines} value={line.text} textColor={DIM} />
           <Menu $if={self.menuOpen} entries={self.entries} title={self.quest.title} @pick={self.onEntry} @close={self.onClose} />
         </box>
       </box>

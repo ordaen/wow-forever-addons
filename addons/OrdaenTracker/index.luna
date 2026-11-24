@@ -1,1 +1,1 @@
-public import { QuestLine, QuestLines } from "@/extend"
+public import { QuestOpener } from "@/extend"
