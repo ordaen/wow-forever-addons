@@ -353,7 +353,7 @@ public class Table implements Component {
   derived head: Head = headOf(self.columns)
   derived sides: Number<Spacing> = self.ground == Ground.Wood ? WOOD_SIDES : WELL_SIDES
 
-  const columns: Array<Column>
+  columns: Signal<Array<Column>>
   sorted: mut Signal<Integer>
   descending: mut Signal<Boolean>
   height: Signal<Number<Length> | nil>
@@ -362,7 +362,8 @@ public class Table implements Component {
   ground: Signal<Ground>
   derived emptyShown: Boolean = self.empty != ""
   constructor(
-    columns: Array<Column>,
+    // Follows what it is given: a column for each of what the rows hold (a profession each character may have).
+    columns: Signal<Array<Column>>,
     // The column the rows are ordered by, from 1; 0 for none.
     sorted: mut Signal<Integer>,
     descending: mut Signal<Boolean>,
