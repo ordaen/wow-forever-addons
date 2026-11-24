@@ -34,8 +34,15 @@ public enum Stat {
   Defense
   SpellDamage
   Healing
+  // Mana every five seconds while casting (in a fight), and outside it; health's out of a fight and in one.
   Regen
+  ManaRegen
+  HealthRegen
+  CombatHealthRegen
   RunSpeed
+  // The weapons' damage a second: both hands', the ranged weapon's.
+  MeleeDps
+  RangedDps
 }
 
 // Every stat, in the enum's order.
@@ -73,7 +80,12 @@ public const EVERY_STAT: Array<Stat> = [
   .SpellDamage,
   .Healing,
   .Regen,
-  .RunSpeed
+  .ManaRegen,
+  .HealthRegen,
+  .CombatHealthRegen,
+  .RunSpeed,
+  .MeleeDps,
+  .RangedDps
 ]
 
 // The main stats in the client's order: an aura's change names them by their place here (0 strength to 4 spirit).
@@ -121,5 +133,6 @@ public const ITEM_KEYS: Map<String, ItemKey> = {
   ITEM_MOD_SPELL_POWER_SHORT: { stats: [.SpellDamage, .Healing] },
   ITEM_MOD_SPELL_DAMAGE_DONE_SHORT: { stats: [.SpellDamage] },
   ITEM_MOD_SPELL_HEALING_DONE_SHORT: { stats: [.Healing] },
-  ITEM_MOD_MANA_REGENERATION_SHORT: { stats: [.Regen] }
+  ITEM_MOD_MANA_REGENERATION_SHORT: { stats: [.Regen, .ManaRegen] },
+  ITEM_MOD_HEALTH_REGENERATION_SHORT: { stats: [.HealthRegen, .CombatHealthRegen] }
 }

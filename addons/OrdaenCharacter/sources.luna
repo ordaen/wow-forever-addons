@@ -7,7 +7,7 @@ import { Art } from "$ltml"
 import { TipRow, TipSection, qualityColor } from "Ordaen"
 import { Active, Change, Kind } from "OrdaenAuras"
 import Locale from "@/locales"
-import { Resource, Stats, Worn } from "@/sheet"
+import { Resource, Stats, Worn, handDps, meleeDps, rangedDps } from "@/sheet"
 import { EVERY_STAT, MAINS, Stat } from "@/stat"
 import Style from "@/style"
 
@@ -52,8 +52,13 @@ function specOf(stat: Stat): Spec {
     .Defense => { name: Locale.SECTION_DEFENSE, percent: false, of: s => s.defense }
     .SpellDamage => { name: Locale.SPELL_DAMAGE, percent: false, of: s => s.spellDamage }
     .Healing => { name: Locale.HEALING, percent: false, of: s => s.healing }
-    .Regen => { name: Locale.CASTING_REGEN, percent: false, of: s => s.regen }
+    .Regen => { name: Locale.COMBAT_REGEN, percent: false, of: s => s.regen }
+    .ManaRegen => { name: Locale.REGEN, percent: false, of: s => s.restingRegen }
+    .HealthRegen => { name: Locale.REGEN, percent: false, of: s => s.healthRegen }
+    .CombatHealthRegen => { name: Locale.COMBAT_REGEN, percent: false, of: s => s.combatHealthRegen }
     .RunSpeed => { name: Locale.RUN_SPEED, percent: true, of: s => s.runSpeed }
+    .MeleeDps => { name: Locale.DPS, percent: false, of: s => meleeDps(s) }
+    .RangedDps => { name: Locale.DPS, percent: false, of: s => rangedDps(s) }
   }
 }
 
@@ -92,7 +97,7 @@ function changed(change: Change): Array<Stat> {
     .Armor => [.Armor]
     .Health => [.Health]
     .Power => change.misc == MANA_POWER ? [.Power] : []
-    .Regen => change.misc == MANA_POWER ? [.Regen] : []
+    .Regen => change.misc == MANA_POWER ? [.Regen, .ManaRegen] : []
     .AttackPower, .AttackPowerPercent => [.AttackPower]
     .RangedPower => [.RangedAttackPower]
     .SpellDamage => [.SpellDamage]
@@ -152,6 +157,20 @@ function added(amount: Number, percent: Boolean): String {
   return `${amount < 0 ? "-" : "+"}${amountText(amount.abs(), percent)}`
 }
 
+// What a point gives, as short as it reads: whole where it is whole, else to four figures.
+function perText(per: Number): String {
+  return per == per.floor() ? String.of(per) : "%.4g".format(per)
+}
+
+// How a stat's share of another is worked out, written before it in its tooltip: «20 × 15 =», or with the first points
+// giving one each, «20 + 280 × 10 =».
+function workingOf(feed: Feed, points: Number): String {
+  const counted = points.floor()
+  if (feed.past > 0 && counted > feed.past) { return `${feed.past} + ${counted - feed.past} × ${perText(feed.per)} =` }
+  if (feed.past > 0) { return "" }
+  return `${counted} × ${perText(feed.per)} =`
+}
+
 // A main stat's base as the client says it (without what items and auras add); none for any other stat.
 function baseOf(stat: Stat, stats: Stats): Number | nil {
   for (index, main of MAINS) {
@@ -187,6 +206,11 @@ function feedsOf(stats: Stats, classTag: String): Array<Feed> {
     { from: .Stamina, to: .Health, per: 10, past: 20 }
   ]
   if (stats.resource == Resource.Mana) { all.push({ from: .Intellect, to: .Power, per: 15, past: 20 }) }
+  // Spirit's share of health's regeneration out of a fight, and of mana's outside casting, as the client says it.
+  if (stats.spirit > 0) {
+    all.push({ from: .Spirit, to: .HealthRegen, per: stats.healthFromSpirit / stats.spirit })
+    if (stats.resource == Resource.Mana) { all.push({ from: .Spirit, to: .ManaRegen, per: stats.manaFromSpirit / stats.spirit }) }
+  }
   if (SHIELD_CLASSES.any(tag => tag == classTag)) { all.push({ from: .Strength, to: .BlockValue, per: 1 / 20 }) }
   return all
 }
@@ -200,15 +224,18 @@ public function wordsOf(stat: Stat, stats: Stats): String {
     .Stamina => tips.primary[3] ?? ""
     .Intellect => tips.primary[4] ?? ""
     .Spirit => tips.primary[5] ?? ""
-    .Health => tips.health
-    .Power => tips.power
     .Armor => tips.armor
     .AttackPower => tips.attackPower
     .RangedAttackPower => tips.rangedAttackPower
-    .MeleeHit => tips.hit
+    .MeleeHit, .RangedHit, .SpellHit => tips.hitCap
+    .MeleeCrit, .RangedCrit, .SpellCrit => tips.crit
+    .Expertise => tips.expertise
+    .Defense => tips.defense
     .BlockValue => tips.block
+    .ArmorPenetration => tips.armorPenetration
+    .SpellPenetration => tips.spellPenetration
+    .SpellDamage => tips.spellDamage
     .Healing => tips.healing
-    .Regen => tips.regen
     else => ""
   }
 }
@@ -229,8 +256,44 @@ function sum(parts: Array<Part>): Number {
   return total
 }
 
+// One weapon's lines in the damage's tooltip, as the game's paper doll writes them: its seconds between hits, its hit's
+// damage (the least down, the most up, at least 1) and its damage a second.
+function handRows(min: Number, max: Number, speed: Number): Array<TipRow> {
+  return [
+    { label: Locale.ATTACK_SPEED, value: "%.2f".format(speed) },
+    { label: Locale.DAMAGE, value: `${min.floor().max(1)} - ${max.ceil().max(1)}` },
+    { label: Locale.DPS, value: "%.1f".format(handDps(min, max, speed)) }
+  ]
+}
+
+// The weapons' damage's tooltip (`CharacterDamageFrame_OnEnter`): the main hand's, then the off hand's where one is
+// held; or the ranged weapon's. Attack power lights with it, and each weapon's slot with its damage a second.
+function damageBreakdown(ranged: Boolean, stats: Stats): Breakdown {
+  const sections: Array<TipSection> = []
+  const shares: Map<Integer, String> = {}
+  if (ranged) {
+    sections.push({ title: Locale.SECTION_RANGED, rows: handRows(stats.rangedMinDamage, stats.rangedMaxDamage, stats.rangedSpeed) })
+    shares[RANGED_SLOT] = "%.1f".format(rangedDps(stats))
+    return { text: "", sections: sections, fed: [.RangedAttackPower], shares: shares }
+  }
+  sections.push({ title: Locale.MAIN_HAND, rows: handRows(stats.minDamage, stats.maxDamage, stats.speed) })
+  shares[MAIN_HAND_SLOT] = "%.1f".format(handDps(stats.minDamage, stats.maxDamage, stats.speed))
+  const off = stats.offSpeed ?? 0
+  if (off > 0) {
+    sections.push({ title: Locale.OFF_HAND, rows: handRows(stats.offMinDamage, stats.offMaxDamage, off) })
+    shares[OFF_HAND_SLOT] = "%.1f".format(handDps(stats.offMinDamage, stats.offMaxDamage, off))
+  }
+  return { text: "", sections: sections, fed: [.AttackPower], shares: shares }
+}
+
+// The weapons' slots.
+const MAIN_HAND_SLOT = 16
+const OFF_HAND_SLOT = 17
+const RANGED_SLOT = 18
+
 // What a stat's tooltip lists, and what lights with it.
 public function breakdownOf(stat: Stat, text: String, facts: Facts): Breakdown {
+  if (stat == .MeleeDps || stat == .RangedDps) { return damageBreakdown(stat == .RangedDps, facts.stats) }
   const spec = specOf(stat)
   const parts = partsOf(stat, facts)
   const fromStats = parts.fromStats.map(part => part)
@@ -304,7 +367,7 @@ function partsOf(stat: Stat, facts: Facts): Parts {
       const points = specOf(feed.from).of(facts.stats)
       const amount = feed.past.min(points) + (points - feed.past).max(0) * feed.per
       if (amount != 0) {
-        fromStats.push({ row: { label: statName(feed.from), value: added(amount, spec.percent) }, amount: amount })
+        fromStats.push({ row: { label: statName(feed.from), value: amountText(amount, spec.percent), working: workingOf(feed, points) }, amount: amount })
         fed.push(feed.from)
       }
     }

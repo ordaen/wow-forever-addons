@@ -11,40 +11,67 @@ import { FlatWord, ItemLine, LineWords, WornSet, bonusesOf } from "@/lines"
 import Locale from "@/locales"
 import { Given, ITEM_KEYS, MAINS } from "@/stat"
 
-// A slot of the paper doll: the client's number for it and the art of its well while nothing is worn there.
+// A slot of the paper doll: the client's number for it, the art of its well while nothing is worn there, and the
+// name of the client's text that names it (its tooltip while it is empty).
 public struct SlotSpec {
   const id: Integer
   const empty: Asset
+  const name: String
 }
 
 // The slots as the game's paper doll stands them: eight down the left, eight down the right, the weapons along the
 // bottom with the ammo's after the ranged one.
 public const LEFT: Array<SlotSpec> = [
-  { id: 1, empty: "Interface/PaperDoll/UI-PaperDoll-Slot-Head" },
-  { id: 2, empty: "Interface/PaperDoll/UI-PaperDoll-Slot-Neck" },
-  { id: 3, empty: "Interface/PaperDoll/UI-PaperDoll-Slot-Shoulder" },
-  { id: 15, empty: "Interface/PaperDoll/UI-PaperDoll-Slot-Chest" },
-  { id: 5, empty: "Interface/PaperDoll/UI-PaperDoll-Slot-Chest" },
-  { id: 4, empty: "Interface/PaperDoll/UI-PaperDoll-Slot-Shirt" },
-  { id: 19, empty: "Interface/PaperDoll/UI-PaperDoll-Slot-Tabard" },
-  { id: 9, empty: "Interface/PaperDoll/UI-PaperDoll-Slot-Wrists" }
+  { id: 1, empty: "Interface/PaperDoll/UI-PaperDoll-Slot-Head", name: "HEADSLOT" },
+  { id: 2, empty: "Interface/PaperDoll/UI-PaperDoll-Slot-Neck", name: "NECKSLOT" },
+  { id: 3, empty: "Interface/PaperDoll/UI-PaperDoll-Slot-Shoulder", name: "SHOULDERSLOT" },
+  { id: 15, empty: "Interface/PaperDoll/UI-PaperDoll-Slot-Chest", name: "BACKSLOT" },
+  { id: 5, empty: "Interface/PaperDoll/UI-PaperDoll-Slot-Chest", name: "CHESTSLOT" },
+  { id: 4, empty: "Interface/PaperDoll/UI-PaperDoll-Slot-Shirt", name: "SHIRTSLOT" },
+  { id: 19, empty: "Interface/PaperDoll/UI-PaperDoll-Slot-Tabard", name: "TABARDSLOT" },
+  { id: 9, empty: "Interface/PaperDoll/UI-PaperDoll-Slot-Wrists", name: "WRISTSLOT" }
 ]
 public const RIGHT: Array<SlotSpec> = [
-  { id: 10, empty: "Interface/PaperDoll/UI-PaperDoll-Slot-Hands" },
-  { id: 6, empty: "Interface/PaperDoll/UI-PaperDoll-Slot-Waist" },
-  { id: 7, empty: "Interface/PaperDoll/UI-PaperDoll-Slot-Legs" },
-  { id: 8, empty: "Interface/PaperDoll/UI-PaperDoll-Slot-Feet" },
-  { id: 11, empty: "Interface/PaperDoll/UI-PaperDoll-Slot-Finger" },
-  { id: 12, empty: "Interface/PaperDoll/UI-PaperDoll-Slot-Finger" },
-  { id: 13, empty: "Interface/PaperDoll/UI-PaperDoll-Slot-Trinket" },
-  { id: 14, empty: "Interface/PaperDoll/UI-PaperDoll-Slot-Trinket" }
+  { id: 10, empty: "Interface/PaperDoll/UI-PaperDoll-Slot-Hands", name: "HANDSSLOT" },
+  { id: 6, empty: "Interface/PaperDoll/UI-PaperDoll-Slot-Waist", name: "WAISTSLOT" },
+  { id: 7, empty: "Interface/PaperDoll/UI-PaperDoll-Slot-Legs", name: "LEGSSLOT" },
+  { id: 8, empty: "Interface/PaperDoll/UI-PaperDoll-Slot-Feet", name: "FEETSLOT" },
+  { id: 11, empty: "Interface/PaperDoll/UI-PaperDoll-Slot-Finger", name: "FINGER0SLOT" },
+  { id: 12, empty: "Interface/PaperDoll/UI-PaperDoll-Slot-Finger", name: "FINGER1SLOT" },
+  { id: 13, empty: "Interface/PaperDoll/UI-PaperDoll-Slot-Trinket", name: "TRINKET0SLOT" },
+  { id: 14, empty: "Interface/PaperDoll/UI-PaperDoll-Slot-Trinket", name: "TRINKET1SLOT" }
 ]
 public const WEAPONS: Array<SlotSpec> = [
-  { id: 16, empty: "Interface/PaperDoll/UI-PaperDoll-Slot-MainHand" },
-  { id: 17, empty: "Interface/PaperDoll/UI-PaperDoll-Slot-SecondaryHand" },
-  { id: 18, empty: "Interface/PaperDoll/UI-PaperDoll-Slot-Ranged" }
+  { id: 16, empty: "Interface/PaperDoll/UI-PaperDoll-Slot-MainHand", name: "MAINHANDSLOT" },
+  { id: 17, empty: "Interface/PaperDoll/UI-PaperDoll-Slot-SecondaryHand", name: "SECONDARYHANDSLOT" },
+  { id: 18, empty: "Interface/PaperDoll/UI-PaperDoll-Slot-Ranged", name: "RANGEDSLOT" }
 ]
-public const AMMO: SlotSpec = { id: 0, empty: "Interface/PaperDoll/UI-PaperDoll-Slot-Ammo" }
+// The weapons of a class that keeps a relic in the ranged slot: its well and its name the relic's, as the game's paper
+// doll draws it (`checkRelic` and `UnitHasRelicSlot`).
+public const RELIC_WEAPONS: Array<SlotSpec> = [
+  { id: 16, empty: "Interface/PaperDoll/UI-PaperDoll-Slot-MainHand", name: "MAINHANDSLOT" },
+  { id: 17, empty: "Interface/PaperDoll/UI-PaperDoll-Slot-SecondaryHand", name: "SECONDARYHANDSLOT" },
+  { id: 18, empty: "Interface/PaperDoll/UI-PaperDoll-Slot-Relic", name: "RELICSLOT" }
+]
+public const AMMO: SlotSpec = { id: 0, empty: "Interface/PaperDoll/UI-PaperDoll-Slot-Ammo", name: "AMMOSLOT" }
+
+// The time between two swings of both hands together: two hands swing 1/main + 1/off times a second.
+public function swingOf(stats: Stats): Number {
+  const off = stats.offSpeed
+  if (off == nil || off <= 0) { return stats.speed }
+  return 1 / (1 / stats.speed + 1 / off)
+}
+
+// A hand's damage a second: its average hit over its seconds between hits; none without a weapon's speed.
+public function handDps(min: Number, max: Number, speed: Number): Number {
+  return speed <= 0 ? 0 : (min + max) / 2 / speed
+}
+
+// Both hands' damage a second together, and the ranged weapon's.
+public function meleeDps(stats: Stats): Number {
+  return handDps(stats.minDamage, stats.maxDamage, stats.speed) + handDps(stats.offMinDamage, stats.offMaxDamage, stats.offSpeed ?? 0)
+}
+public function rangedDps(stats: Stats): Number { return handDps(stats.rangedMinDamage, stats.rangedMaxDamage, stats.rangedSpeed) }
 // The slots the items' level counts: every one but the shirt, the tabard and the ammo.
 const SHIRT = 4
 const TABARD = 19
@@ -89,19 +116,24 @@ public struct GearSet {
   const missing: Integer
 }
 
-// What the game's paper doll says of each stat as its tooltip's text, under the stat's name and value: the client's
-// own words, filled with the player's numbers. Empty where the game says nothing.
+// What the game's paper doll says of each stat as its tooltip's text, under the stat's name: the client's own words,
+// filled with the player's numbers, where they tell what the window doesn't already show (what a crit does, the hit
+// a boss takes, what defense takes off a blow). Empty where the game says nothing more.
 public struct StatTips {
-  health: String = ""
-  power: String = ""
   primary: Array<String> = ["", "", "", "", ""]
   armor: String = ""
   attackPower: String = ""
   rangedAttackPower: String = ""
-  hit: String = ""
+  // The hit a raid's boss and a target of the player's level take, for the class (melee, ranged and spells alike).
+  hitCap: String = ""
+  crit: String = ""
+  expertise: String = ""
+  defense: String = ""
   block: String = ""
+  armorPenetration: String = ""
+  spellPenetration: String = ""
+  spellDamage: String = ""
   healing: String = ""
-  regen: String = ""
 }
 
 // Who the character is, as the paper doll's top says it: its name and its surname where Forever gives it one;
@@ -153,6 +185,14 @@ public struct Stats {
   regen: Number = 0
   // Mana every five seconds outside casting: the mana bar's regeneration.
   restingRegen: Number = 0
+  // Health every five seconds out of a fight and in one; what spirit gives of health's and of mana's (standing, as
+  // the game's own sheet counts it).
+  healthRegen: Number = 0
+  combatHealthRegen: Number = 0
+  healthFromSpirit: Number = 0
+  manaFromSpirit: Number = 0
+  // The class keeps a relic where others keep a ranged weapon (a paladin's libram, a druid's idol, a shaman's totem).
+  relic: Boolean = false
   // The five main stats' base, without what buffs and items add or take: the tooltip's «312 (300+12)».
   bases: Array<Integer> = [0, 0, 0, 0, 0]
   tips: StatTips = {}
@@ -439,6 +479,12 @@ const ATTACK_POWER_PER_DPS = 14
 // The schools a spell's damage counts: holy to arcane, as the client numbers them.
 const FIRST_SCHOOL = 2
 const LAST_SCHOOL = 7
+// What spirit gives of health while standing, as the game's sheet takes it (`spiritStandingPenalty`).
+const SPIRIT_STANDING = 0.75
+// A level's defense skill (`SKILL_RANKS_PER_SKILL_LEVEL`), and what a point past it takes off a blow's chances, in
+// percent (`STAT_PER_DEFENSE`).
+const DEFENSE_PER_LEVEL = 5
+const DEFENSE_SHARE = 0.04
 
 // The sheet read from the client, each time it is asked.
 public class ClientSheet implements Sheet {
@@ -554,8 +600,22 @@ public class ClientSheet implements Sheet {
     const schoolDamage: Array<Integer> = []
     for (school of FIRST_SCHOOL..LAST_SCHOOL) { schoolDamage.push((Client.GetSpellBonusDamage(school) ?? 0).floor()) }
     const relic = Client.UnitHasRelicSlot("player")
+    let healthRegen, combatHealthRegen = Client.GetHealthRegen()
+    let healthFromSpirit, _ = Client.GetHealthRegenFromSpirit()
+    let manaFromSpirit, _ = Client.GetManaRegenFromSpirit()
+    // What the game's sheet works out for its texts: the defense past the level's (each point takes 0.04% off a
+    // blow's chances), and the resistance a point of spell penetration takes off, of the player's level.
+    const level = Client.UnitLevel("player")
+    const beyondDefense = (defenseBase + defenseBonus - level * DEFENSE_PER_LEVEL).max(0)
+    const spellPenetration = Client.GetSpellPenetration().floor()
+    const penetrated = spellPenetration * 0.75 / (level * DEFENSE_PER_LEVEL)
     return {
       restingRegen: resting * 5,
+      healthRegen: healthRegen * 5,
+      combatHealthRegen: combatHealthRegen * 5,
+      healthFromSpirit: healthFromSpirit * SPIRIT_STANDING * 5,
+      manaFromSpirit: manaFromSpirit * 5,
+      relic: relic,
       meleeHit: (Client.GetCombatRatingBonus(RATING_HIT_MELEE) ?? 0) + hit,
       rangedHit: (Client.GetCombatRatingBonus(RATING_HIT_RANGED) ?? 0) + Client.GetRangedHitModifier(),
       spellHit: (Client.GetCombatRatingBonus(RATING_HIT_SPELL) ?? 0) + Client.GetSpellHitModifier(),
@@ -620,16 +680,19 @@ public class ClientSheet implements Sheet {
       healing: healing,
       regen: casting * 5,
       tips: {
-        health: said("STAT_HEALTH_TOOLTIP"),
-        power: token != nil ? said(`STAT_${token}_TOOLTIP`) : "",
         primary: primaryTips,
         armor: said("STAT_ARMOR_TOOLTIP").format(reduction),
         attackPower: attackTip.format((attackPower / ATTACK_POWER_PER_DPS).max(0)),
         rangedAttackPower: said("RANGED_ATTACK_POWER_TOOLTIP").format((rangedAttackPower / ATTACK_POWER_PER_DPS).max(0)),
-        hit: said("CR_HIT_MELEE_TOOLTIP").format(hit),
+        hitCap: (Runtime.text(`CR_${Game.player.classTag}_HIT_CAP_TOOLTIP`) ?? said("CR_DEFAULT_HIT_CAP_TOOLTIP")).format(level),
+        crit: said("STAT_CRIT_BONUS"),
+        expertise: said("CR_EXPERTISE_TOOLTIP").format("%.2f%%".format(expertise)),
+        defense: said("DEFAULT_STATDEFENSE_TOOLTIP").format(beyondDefense * DEFENSE_SHARE, beyondDefense * DEFENSE_SHARE),
         block: said("STAT_BLOCK_VALUE_FLAT_TOOLTIP").format(block, Client.GetShieldBlock()),
-        healing: said("STAT_SPELLHEALING_TOOLTIP").format(healing),
-        regen: said("MANA_REGEN_TOOLTIP").format(String.of((resting * 5).floor()))
+        armorPenetration: said("ARMOR_PENETRATION_TOOLTIP").format(Client.GetArmorPenetration().floor()),
+        spellPenetration: said("SPELL_PENETRATION_TOOLTIP").format(spellPenetration, penetrated, penetrated / 2),
+        spellDamage: said("STAT_SPELLPOWER_TOOLTIP").format(spellDamage.floor()),
+        healing: said("STAT_SPELLHEALING_TOOLTIP").format(healing)
       }
     }
   }

@@ -1,7 +1,7 @@
 // The character window's look: its size at the player's scale, the paper doll's measures and the colours of what a
 // stat, a slot or a faction says. Every gap and padding is counted in Ordaen's spacing unit (`sp`); a row is as tall as
 // its text.
-import { ArtBorder, Edges, Fr, Line, Shadow, Side, Track } from "$ltml"
+import { ArtBorder, Edges, Fr, Gaps, Line, Shadow, Side, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import { RULE_COLOR, RULE_WIDTH } from "Ordaen"
 
@@ -60,7 +60,9 @@ public const SOCKET_FLOOR: Color = Color.hex("#00000073")
 // The socket's corners inside the card's rim; the card's room: the rim's at the socket, the text's at the right; its
 // value's size.
 public const SOCKET_ROUND: Number<Length> = 2.34375dp
-public const CARD_PAD: Edges = { top: 0.5sp, right: 2sp, bottom: 0.5sp, left: 0.5sp }
+public const CARD_PAD: Edges = { top: 0.5sp, right: 3sp, bottom: 0.5sp, left: 0.5sp }
+// The room over and under a card's name and value.
+public const CARD_TEXT_PAD: Edges = { top: 2.5sp, bottom: 2.5sp }
 public const CARD_GAP: Number<Spacing> = 1.5sp
 public const CARD_VALUE: Number<TextSize> = 1.35rem
 // A section's room at its sides (the page is bare: this is all the room between its text and the frame or the doll).
@@ -84,6 +86,8 @@ public const MAIN_TEXT: Number<TextSize> = 2rem
 // A resistance's bar and its picture; the room under the resistances, before the gauges.
 public const RESIST_PAD: Edges = { bottom: 3sp }
 public const RESIST_ICON: Number<Length> = 24dp
+// The resistances two columns of three: the room between the rows and between the columns.
+public const RESIST_GAP: Gaps = { rows: 1.5sp, columns: 4sp }
 
 public const INK: Color = Color.hex("#e8dcc4")
 public const DIM: Color = Color.hex("#a3977f")

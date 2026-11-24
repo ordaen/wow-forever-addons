@@ -6,7 +6,7 @@ import { Align, Event, Piece, Position, TextAlign, TextFont, Track } from "$ltml
 import { BRIGHT_TEXT, Component, Corners, Groove, RoundedFill, SECONDARY_TEXT, Tip, Weights } from "Ordaen"
 import { CarveShade, CarvedFloor, GaugeBar } from "@/gauge"
 import Locale from "@/locales"
-import { Skill, Stats, WANDS } from "@/sheet"
+import { Skill, Stats, WANDS, meleeDps, rangedDps, swingOf } from "@/sheet"
 import { Boost, Breakdown, NO_BREAKDOWN, statName } from "@/sources"
 import { Stat } from "@/stat"
 import Style from "@/style"
@@ -99,6 +99,9 @@ const ARMOR_GLYPH = 10
 // The schools' colours, holy to arcane, as the resistances and the spells' cards wear them.
 const SCHOOL_COLORS: Array<Color> = [Style.HOLY, Style.FIRE, Style.NATURE, Style.FROST, Style.SHADOW, Style.ARCANE]
 function schoolColor(school: Integer): Color { return SCHOOL_COLORS[school - 1] ?? panic("six schools") }
+// The schools' names, holy to arcane: a spell card's title.
+const SCHOOL_NAMES: Array<String> = [Locale.SCHOOL_HOLY, Locale.SCHOOL_FIRE, Locale.SCHOOL_NATURE, Locale.SCHOOL_FROST, Locale.SCHOOL_SHADOW, Locale.SCHOOL_ARCANE]
+function schoolName(school: Integer): String { return SCHOOL_NAMES[school - 1] ?? panic("six schools") }
 const HOLY = 2
 const FIRE = 3
 const NATURE = 4
@@ -161,16 +164,38 @@ public function mainsOf(stats: Stats, weights: Weights | nil): Array<Main> {
   return order.map(index => all[index] ?? panic("five main stats"))
 }
 
-// The defence group's gauges: dodge and parry, block with a shield, and last the defense skill, a skill's blue as the
-// weapons' skills are.
+// The defence group's gauges: dodge and parry, the defense skill (a skill's blue as the weapons' skills are), and last
+// block with a shield, so its chance stands over the damage it stops.
 public function defenceOf(stats: Stats): Array<Gauge> {
-  const gauges: Array<Gauge> = [rate(Locale.DODGE, stats.dodge, AVOIDANCE_CAP, .Dodge), rate(Locale.PARRY, stats.parry, AVOIDANCE_CAP, .Parry)]
+  const gauges: Array<Gauge> = [
+    rate(Locale.DODGE, stats.dodge, AVOIDANCE_CAP, .Dodge),
+    rate(Locale.PARRY, stats.parry, AVOIDANCE_CAP, .Parry),
+    { label: Locale.SECTION_DEFENSE, value: stats.defense, cap: DEFENSE_CAP, text: String.of(stats.defense), tone: Style.SKILL, stat: .Defense }
+  ]
   if (stats.block > 0) { gauges.push(rate(Locale.BLOCK, stats.block, AVOIDANCE_CAP, .Block)) }
-  gauges.push({
-    label: Locale.SECTION_DEFENSE, value: stats.defense, cap: DEFENSE_CAP, text: String.of(stats.defense), tone: Style.SKILL,
-    stat: .Defense
-  })
   return gauges
+}
+
+// Under a pool's bar: what it regains, out of a fight and in one, every five seconds (energy every second, in a fight
+// as out of it; rage none).
+public function healthRegenRows(stats: Stats): Array<Row> {
+  return [
+    { label: Locale.REGEN, value: String.of(stats.healthRegen.floor()), unit: Locale.PER_FIVE, stat: .HealthRegen },
+    { label: Locale.COMBAT_REGEN, value: String.of(stats.combatHealthRegen.floor()), unit: Locale.PER_FIVE, stat: .CombatHealthRegen }
+  ]
+}
+public function powerRegenRows(stats: Stats): Array<Row> {
+  return match (stats.resource) {
+    .Mana => [
+      { label: Locale.REGEN, value: String.of(stats.restingRegen.floor()), unit: Locale.PER_FIVE, stat: .ManaRegen },
+      { label: Locale.COMBAT_REGEN, value: String.of(stats.regen.floor()), unit: Locale.PER_FIVE, stat: .Regen }
+    ]
+    .Energy => energyRegenRows(stats)
+    else => []
+  }
+}
+public function energyRegenRows(stats: Stats): Array<Row> {
+  return [{ label: Locale.REGEN, value: String.of(stats.energyRegen.floor()), unit: Locale.PER_SECOND }]
 }
 
 // Under the defence gauges: the damage a block stops, with a shield.
@@ -234,33 +259,13 @@ function joined(first: Array<Gauge>, then: Array<Gauge>): Array<Gauge> {
   return all
 }
 
-// The time between two swings of both hands together: two hands swing 1/main + 1/off times a second.
-function swingOf(stats: Stats): Number {
-  const off = stats.offSpeed
-  if (off == nil || off <= 0) { return stats.speed }
-  return 1 / (1 / stats.speed + 1 / off)
-}
-
-function meleeDps(stats: Stats): Number {
-  if (stats.speed <= 0) { return 0 }
-  const main = (stats.minDamage + stats.maxDamage) / 2 / stats.speed
-  const off = stats.offSpeed
-  if (off == nil || off <= 0) { return main }
-  return main + (stats.offMinDamage + stats.offMaxDamage) / 2 / off
-}
-
-function rangedDps(stats: Stats): Number {
-  if (stats.rangedSpeed <= 0) { return 0 }
-  return (stats.rangedMinDamage + stats.rangedMaxDamage) / 2 / stats.rangedSpeed
-}
-
 function melee(stats: Stats, skills: Array<Skill>): Section {
   const rows: Array<Row> = stats.speed > 0 ? [{ label: Locale.ATTACK_SPEED, value: seconds(swingOf(stats)), unit: Locale.SECONDS }] : []
   return {
     title: Locale.SECTION_MELEE,
     cards: [
       { label: Locale.ATTACK_POWER, value: String.of(stats.attackPower), glyph: glyph(POWER_GLYPH), color: Style.STAT, stat: .AttackPower },
-      { label: Locale.DPS, value: tenths(meleeDps(stats)), glyph: glyph(DAMAGE_GLYPH), color: Style.STAT }
+      { label: Locale.DPS, value: tenths(meleeDps(stats)), glyph: glyph(DAMAGE_GLYPH), color: Style.STAT, stat: .MeleeDps }
     ],
     gauges: joined([
       rate(Locale.HIT, stats.meleeHit, MELEE_HIT_CAP, .MeleeHit),
@@ -281,14 +286,14 @@ function ranged(stats: Stats, skills: Array<Skill>): Section | nil {
       title: Locale.SECTION_RANGED,
       cards: [],
       gauges: skillGauges(skill, nil, skills),
-      rows: [{ label: Locale.DPS, value: tenths(rangedDps(stats)) }, speed]
+      rows: [{ label: Locale.DPS, value: tenths(rangedDps(stats)), stat: .RangedDps }, speed]
     }
   }
   return {
     title: Locale.SECTION_RANGED,
     cards: [
       { label: Locale.ATTACK_POWER, value: String.of(stats.rangedAttackPower), glyph: glyph(POWER_GLYPH), color: Style.STAT, stat: .RangedAttackPower },
-      { label: Locale.DPS, value: tenths(rangedDps(stats)), glyph: glyph(DAMAGE_GLYPH), color: Style.STAT }
+      { label: Locale.DPS, value: tenths(rangedDps(stats)), glyph: glyph(DAMAGE_GLYPH), color: Style.STAT, stat: .RangedDps }
     ],
     gauges: joined([rate(Locale.HIT, stats.rangedHit, MELEE_HIT_CAP, .RangedHit), rate(Locale.CRIT, stats.rangedCrit, CRIT_CAP, .RangedCrit)], skillGauges(skill, nil, skills)),
     rows: [speed]
@@ -304,19 +309,16 @@ function spells(stats: Stats, classTag: String): Section | nil {
   schools.sort((a, b) => (stats.schoolDamage[a - 1] ?? 0) > (stats.schoolDamage[b - 1] ?? 0))
   const cards: Array<Figure> = []
   for (index, school of schools) {
-    cards.push({ label: "", value: String.of(stats.schoolDamage[school - 1] ?? 0), glyph: glyph(school - 1), color: schoolColor(school), lit: index == 1, stat: .SpellDamage })
+    cards.push({ label: schoolName(school), value: String.of(stats.schoolDamage[school - 1] ?? 0), glyph: glyph(school - 1), color: schoolColor(school), lit: index == 1, stat: .SpellDamage })
   }
   if (casting.heals != 0) {
-    cards.push({ label: "", value: String.of(stats.healing), glyph: glyph(HEAL_GLYPH), color: schoolColor(casting.heals), stat: .Healing })
+    cards.push({ label: Locale.HEALING, value: String.of(stats.healing), glyph: glyph(HEAL_GLYPH), color: schoolColor(casting.heals), stat: .Healing })
   }
   return {
     title: Locale.SECTION_SPELLS,
     cards: cards,
     gauges: [rate(Locale.HIT, stats.spellHit, SPELL_HIT_CAP, .SpellHit), rate(Locale.CRIT, stats.spellCrit, CRIT_CAP, .SpellCrit)],
-    rows: [
-      { label: Locale.SPELL_PENETRATION, value: String.of(stats.spellPenetration), stat: .SpellPenetration },
-      { label: Locale.CASTING_REGEN, value: String.of(stats.regen.floor()), unit: Locale.PER_FIVE, stat: .Regen }
-    ]
+    rows: [{ label: Locale.SPELL_PENETRATION, value: String.of(stats.spellPenetration), stat: .SpellPenetration }]
   }
 }
 
@@ -335,6 +337,7 @@ public function sectionsOf(stats: Stats, skills: Array<Skill>, classTag: String)
 }
 
 const NO_BOOSTS: Map<String, Boost> = {}
+const NO_ROWS: Array<Row> = []
 
 // A stat's value's ink: green while an aura raises it, red while one lowers it, else its own.
 function inkOf(stat: Stat | nil, boosts: Map<String, Boost>, plain: Color): Color {
@@ -393,7 +396,7 @@ public class StatGauge implements Component {
 
   derived share: Number = self.gauge.cap <= 0 ? 0 : self.gauge.value / self.gauge.cap
   derived ink: Color = inkOf(self.gauge.stat, self.boosts, self.gauge.value == 0 ? Style.DIM : BRIGHT_TEXT)
-  derived title: String = `${self.gauge.label} ${self.gauge.text}`
+  derived title: String = self.gauge.label
 
   gauge: Signal<Gauge>
   shown: Signal<Breakdown>
@@ -425,7 +428,7 @@ public class StatRow implements Component {
   public tipped: Event<Stat | nil> = new Event()
 
   derived ink: Color = inkOf(self.row.stat, self.boosts, self.row.value == "0" ? Style.DIM : BRIGHT_TEXT)
-  derived title: String = `${self.row.label} ${self.row.value}${self.row.unit}`
+  derived title: String = self.row.label
 
   row: Signal<Row>
   shown: Signal<Breakdown>
@@ -458,7 +461,7 @@ public class StatCard implements Component {
   public tipped: Event<Stat | nil> = new Event()
 
   derived glyphShade: Number = self.figure.lit ? 1 : 0.7
-  derived title: String = self.titleOf()
+  derived title: String = self.figure.label
   derived ink: Color = inkOf(self.figure.stat, self.boosts, BRIGHT_TEXT)
 
   figure: Signal<Figure>
@@ -470,19 +473,12 @@ public class StatCard implements Component {
     self.boosts = boosts
   }
 
-  // A card without a label (a school's spell damage) is named by its stat.
-  titleOf(self): String {
-    const stat = self.figure.stat
-    const name = self.figure.label != "" ? self.figure.label : stat != nil ? statName(stat) : ""
-    return `${name} ${self.figure.value}`
-  }
-
   onTipped(self, stat: Stat | nil) { self.tipped.emit(stat) }
 
   public render(self): Template {
     return $ltml {
       <StatSpot stat={self.figure.stat} title={self.title} shown={self.shown} @tipped={self.onTipped}>
-        <box columns={[Style.SOCKET, "max-content", { fr: 1 }]} gap={Style.CARD_GAP} padding={Style.CARD_PAD} height={Style.SOCKET}
+        <box columns={[Style.SOCKET, "max-content", { fr: 1 }]} gap={Style.CARD_GAP} padding={Style.CARD_PAD}
              yAlign={Align.Stretch}>
           <CarvedFloor />
           <box>
@@ -493,10 +489,10 @@ public class StatCard implements Component {
                    opacity={self.glyphShade} />
             </box>
           </box>
-          <box yAlign={Align.Center}>
+          <box yAlign={Align.Center} padding={Style.CARD_TEXT_PAD}>
             <text value={self.figure.label} textColor={Style.INK} wrap={.None} />
           </box>
-          <box yAlign={Align.Center} xAlign={Align.End}>
+          <box yAlign={Align.Center} xAlign={Align.End} padding={Style.CARD_TEXT_PAD}>
             <text value={self.figure.value} textSize={Style.CARD_VALUE} textFont={TextFont.Numbers} textColor={self.ink}
                   leading={.Tight} wrap={.None} />
           </box>
@@ -553,7 +549,7 @@ public class SectionView implements Component {
 public class MainStat implements Component {
   public tipped: Event<Stat | nil> = new Event()
 
-  derived title: String = `${self.main.label} ${self.main.value}`
+  derived title: String = self.main.label
   derived ink: Color = inkOf(self.main.stat, self.boosts, BRIGHT_TEXT)
   // Its letters gold where the player's spec weighs it among its most.
   derived shortInk: Color = self.main.valued ? Style.GOLD : Style.DIM
@@ -588,7 +584,7 @@ public class ResistRow implements Component {
 
   derived share: Number = (self.resist.value / self.resist.cap).min(1)
   derived ink: Color = inkOf(self.resist.stat, self.boosts, self.resist.value == 0 ? Style.DIM : BRIGHT_TEXT)
-  derived title: String = `${statName(self.resist.stat)} ${self.resist.value}`
+  derived title: String = statName(self.resist.stat)
 
   resist: Signal<Resist>
   shown: Signal<Breakdown>
@@ -631,19 +627,19 @@ public class PoolBar implements Component {
   derived deep: Color = deeper(self.color)
   // The fill rounded as the trough is at its left end, and at its right once the bar is full.
   derived fillCorners: Corners = { topLeft: true, bottomLeft: true, topRight: self.filled >= 1, bottomRight: self.filled >= 1 }
-  derived regained: Boolean = self.regen != ""
-  derived title: String = self.stat != nil ? `${statName(self.stat ?? .Health)} ${self.amount}` : ""
+  derived title: String = self.stat != nil ? statName(self.stat ?? .Health) : ""
   derived ink: Color = inkOf(self.stat, self.boosts, BRIGHT_TEXT)
 
   amount: Signal<String>
   color: Signal<Color>
-  regen: Signal<String>
+  // What it regains, as lines under it, each with its own tooltip.
+  regen: Signal<Array<Row>>
   // How much of the bar is full: rage is empty out of a fight.
   filled: Signal<Number>
   stat: Signal<Stat | nil>
   shown: Signal<Breakdown>
   boosts: Signal<Map<String, Boost>>
-  constructor(amount: Signal<String>, color: Signal<Color>, regen: Signal<String> = "", filled: Signal<Number> = 1,
+  constructor(amount: Signal<String>, color: Signal<Color>, regen: Signal<Array<Row>> = NO_ROWS, filled: Signal<Number> = 1,
     stat: Signal<Stat | nil> = nil, shown: Signal<Breakdown> = NO_BREAKDOWN, boosts: Signal<Map<String, Boost>> = NO_BOOSTS) {
     self.amount = amount
     self.color = color
@@ -656,38 +652,37 @@ public class PoolBar implements Component {
 
   onTipped(self, stat: Stat | nil) { self.tipped.emit(stat) }
 
-  // Over one another by their levels: the trough, the fill, the shine, the ring, the texts.
+  // Over one another by their levels: the trough, the fill, the shine, the ring, the texts; the regeneration's lines
+  // under it.
   public render(self): Template {
     return $ltml {
-      <StatSpot stat={self.stat} title={self.title} shown={self.shown} @tipped={self.onTipped}>
-        <box height={Style.POOL} xAlign={Align.Center} yAlign={Align.Center}>
-          <box position={Position.Absolute} top={0ui} right={0ui} bottom={0ui} left={0ui}>
-            <RoundedFill color={Style.POOL_RIM} radius={Style.POOL_ROUND} />
-          </box>
-          <box position={Position.Absolute} top={Style.POOL_LINE} right={Style.POOL_LINE} bottom={Style.POOL_LINE}
-               left={Style.POOL_LINE}>
-            <RoundedFill color={Style.POOL_TROUGH} radius={Style.POOL_ROUND - Style.POOL_LINE} />
-          </box>
-          <box position={Position.Absolute} top={Style.POOL_LINE} right={Style.POOL_LINE} bottom={Style.POOL_LINE}
-               left={Style.POOL_LINE} columns={self.parts} rows={Style.ONE_ROW} zLevel={1}>
-            <box>
-              <RoundedFill color={self.deep} radius={Style.POOL_ROUND - Style.POOL_LINE} corners={self.fillCorners} />
-              <box position={Position.Absolute} top={0ui} left={Style.POOL_ROUND} right={Style.POOL_ROUND}
-                   height={Style.POOL_GLOSS} background={Style.GLOSS} />
+      <box gap={1sp}>
+        <StatSpot stat={self.stat} title={self.title} shown={self.shown} @tipped={self.onTipped}>
+          <box height={Style.POOL} xAlign={Align.Center} yAlign={Align.Center}>
+            <box position={Position.Absolute} top={0ui} right={0ui} bottom={0ui} left={0ui}>
+              <RoundedFill color={Style.POOL_RIM} radius={Style.POOL_ROUND} />
             </box>
-            <box />
+            <box position={Position.Absolute} top={Style.POOL_LINE} right={Style.POOL_LINE} bottom={Style.POOL_LINE}
+                 left={Style.POOL_LINE}>
+              <RoundedFill color={Style.POOL_TROUGH} radius={Style.POOL_ROUND - Style.POOL_LINE} />
+            </box>
+            <box position={Position.Absolute} top={Style.POOL_LINE} right={Style.POOL_LINE} bottom={Style.POOL_LINE}
+                 left={Style.POOL_LINE} columns={self.parts} rows={Style.ONE_ROW} zLevel={1}>
+              <box>
+                <RoundedFill color={self.deep} radius={Style.POOL_ROUND - Style.POOL_LINE} corners={self.fillCorners} />
+                <box position={Position.Absolute} top={0ui} left={Style.POOL_ROUND} right={Style.POOL_ROUND}
+                     height={Style.POOL_GLOSS} background={Style.GLOSS} />
+              </box>
+              <box />
+            </box>
+            <box zLevel={4}>
+              <text value={self.amount} textSize={SECONDARY_TEXT} textFont={TextFont.Numbers} textColor={self.ink}
+                    textOutline={1} textShadow={Style.TUBE_SHADOW} wrap={.None} />
+            </box>
           </box>
-          <box zLevel={4}>
-            <text value={self.amount} textSize={SECONDARY_TEXT} textFont={TextFont.Numbers} textColor={self.ink}
-                  textOutline={1} textShadow={Style.TUBE_SHADOW} wrap={.None} />
-          </box>
-          <box $if={self.regained} position={Position.Absolute} top={0ui} right={Style.TUBE_REGEN} bottom={0ui}
-               yAlign={Align.Center} zLevel={4}>
-            <text value={self.regen} textSize={SECONDARY_TEXT} textFont={TextFont.Numbers} textColor={BRIGHT_TEXT}
-                  textOutline={1} textShadow={Style.TUBE_SHADOW} wrap={.None} />
-          </box>
-        </box>
-      </StatSpot>
+        </StatSpot>
+        <StatRow $for={row of self.regen} row={row} shown={self.shown} boosts={self.boosts} @tipped={self.onTipped} />
+      </box>
     }
   }
 }

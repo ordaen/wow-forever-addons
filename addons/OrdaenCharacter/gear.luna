@@ -6,16 +6,17 @@
 // over the three columns.
 import Game from "$game"
 import { Action, Align, Art, BarFill, Edges, Event, FillFrom, Line, MouseButton, Overflow, Position, TextFont, Track } from "$ltml"
+import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
-import { ButtonPlate, Component, Cut, Groove, ItemButton, PushButton, RULE_WIDTH, SECONDARY_TEXT, SHORT_CUT, ShortCut, SlotWell, TITLE_TEXT, Tabs, TipText, WINDOW_ROOM, classColor } from "Ordaen"
+import { ButtonPlate, Component, Cut, Groove, ItemButton, PushButton, RULE_WIDTH, SECONDARY_TEXT, SHORT_CUT, ShortCut, SlotWell, TITLE_TEXT, Tabs, Tip, TipText, WINDOW_ROOM, classColor } from "Ordaen"
 import { Active } from "OrdaenAuras"
 import { ItemLevel } from "@/itemLevel"
 import Locale from "@/locales"
 import { Choices, slotSizeOf } from "@/settings"
-import { AMMO, GearSet, LEFT, RIGHT, Resource, Skill, SlotSpec, Stats, WEAPONS, Who, Worn } from "@/sheet"
+import { AMMO, GearSet, LEFT, RELIC_WEAPONS, RIGHT, Resource, Skill, SlotSpec, Stats, WEAPONS, Who, Worn } from "@/sheet"
 import { Boost, Breakdown, NO_BREAKDOWN, boostsOf, breakdownOf, wordsOf } from "@/sources"
 import { Stat } from "@/stat"
-import { Gauge, Main, MainStat, PoolBar, Resist, ResistRow, Row, Section, SectionView, StatGauge, StatRow, defenceOf, defenceRows, mainsOf, resistsOf, sectionsOf, sharedGauges, sharedRows, speedsOf } from "@/stats"
+import { Gauge, Main, MainStat, PoolBar, Resist, ResistRow, Row, Section, SectionView, StatGauge, StatRow, defenceOf, defenceRows, energyRegenRows, healthRegenRows, mainsOf, powerRegenRows, resistsOf, sectionsOf, sharedGauges, sharedRows, speedsOf } from "@/stats"
 import Style from "@/style"
 
 // Durability under a quarter is red, as the game's armour figure turns it.
@@ -75,6 +76,10 @@ public class GearSlot implements Component {
   derived cooling: Boolean = self.worn.cooldown != nil
   derived coolFill: BarFill = { duration: self.worn.cooldown, color: COOLING, from: FillFrom.Top }
   derived shared: Boolean = self.share != ""
+  // An empty slot under the cursor says what goes in it, the client's own name for it, as the game's slot does.
+  state hovered = false
+  derived slotName: String = Runtime.text(self.spec.name) ?? ""
+  derived emptyTip: Boolean = self.hovered && self.worn.item == nil && self.slotName != ""
 
   spec: Signal<SlotSpec>
   worn: Signal<Worn>
@@ -124,12 +129,17 @@ public class GearSlot implements Component {
     if (self.own) { self.picked.emit(peek self.spec.id) }
   }
 
+  onEntered(mut self) { self.hovered = true }
+  onLeft(mut self) { self.hovered = false }
+
   public render(self): Template {
     return $ltml {
       <box gap={2sp}>
         <ItemButton item={self.worn.item} quality={self.worn.quality} art={self.empty} size={self.size} well={SlotWell.Framed}
                     count={self.worn.count} dimmed={self.worn.locked} worn={self.wornSlot} action={self.use}
-                    @pressed={self.onPressed} @dragged={self.onDragged} @dropped={self.onDragged}>
+                    @pressed={self.onPressed} @dragged={self.onDragged} @dropped={self.onDragged} @entered={self.onEntered}
+                    @left={self.onLeft}>
+          <Tip $if={self.emptyTip} title={self.slotName} text={""} />
           <box $if={self.cooling} position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui}
                fill={self.coolFill} />
           <box $if={self.fits} position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui}
@@ -319,10 +329,13 @@ public class GearPage implements Component {
   derived power: String = self.stats.resource == Resource.Rage ? `0 / ${self.stats.power}` : String.of(self.stats.power)
   derived powerFilled: Number = self.stats.resource == Resource.Rage ? 0 : 1
   derived powerTint: Color = resourceColor(self.stats.resource)
-  derived powerRegen: String = self.regenOf(self.stats.resource)
+  // The weapons' slots: a class that keeps a relic has the relic's well and name in the ranged slot.
+  derived weapons: Array<SlotSpec> = self.stats.relic ? RELIC_WEAPONS : WEAPONS
+  derived healthRegen: Array<Row> = healthRegenRows(self.stats)
+  derived powerRegen: Array<Row> = powerRegenRows(self.stats)
   derived energyShown: Boolean = self.stats.energy > 0
   derived energy: String = String.of(self.stats.energy)
-  derived energyRegen: String = self.regenOf(Resource.Energy)
+  derived energyRegen: Array<Row> = energyRegenRows(self.stats)
   // Mana's sources; rage and energy have none of a stat's.
   derived powerStat: Stat | nil = self.stats.resource == Resource.Mana ? .Power : nil
   // The stat whose tooltip is open (none while none is), what it says and what lights with it.
@@ -395,15 +408,6 @@ public class GearPage implements Component {
 
   onTipped(mut self, stat: Stat | nil) { self.tipped = stat }
 
-  // What a resource regains on its bar: mana every five seconds outside casting, energy a second; rage none.
-  regenOf(self, resource: Resource): String {
-    return match (resource) {
-      .Mana => Locale.REGEN_FIVE.format(self.stats.restingRegen.floor())
-      .Energy => Locale.REGEN_SECOND.format(self.stats.energyRegen.floor())
-      else => ""
-    }
-  }
-
   wornOf(self, slot: Integer): Worn {
     return self.worn.find(piece => piece.slot == slot) ?? NOTHING
   }
@@ -430,7 +434,8 @@ public class GearPage implements Component {
                 <text value={self.whoText} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
               </box>
               <box gap={2.5sp}>
-                <PoolBar amount={self.health} color={Style.HEALTH} stat={Stat.Health} shown={self.shown} boosts={self.boosts} @tipped={self.onTipped} />
+                <PoolBar amount={self.health} color={Style.HEALTH} regen={self.healthRegen} stat={Stat.Health} shown={self.shown}
+                         boosts={self.boosts} @tipped={self.onTipped} />
                 <PoolBar amount={self.power} color={self.powerTint} regen={self.powerRegen} filled={self.powerFilled}
                          stat={self.powerStat} shown={self.shown} boosts={self.boosts} @tipped={self.onTipped} />
                 <PoolBar $if={self.energyShown} amount={self.energy} color={Style.ENERGY} regen={self.energyRegen} />
@@ -438,7 +443,7 @@ public class GearPage implements Component {
             </box>
             <Groove title={Locale.SECTION_DEFENSE} />
             <box gap={2sp} padding={Style.SECTION_PAD}>
-              <box gap={1.5sp} padding={Style.RESIST_PAD}>
+              <box columns={2} gap={Style.RESIST_GAP} padding={Style.RESIST_PAD}>
                 <ResistRow $for={resist of self.resists} resist={resist} shown={self.shown} boosts={self.boosts} @tipped={self.onTipped} />
               </box>
               <box gap={1.5sp}>
@@ -473,7 +478,7 @@ public class GearPage implements Component {
                   <Flyout $if={self.flyoutShown} items={self.fitting} @chose={self.onChose} @close={self.onCloseFlyout} />
                 </box>
                 <box columns={{ each: "max-content" }} gap={Style.WEAPON_GAP} xAlign={Align.Center} yAlign={Align.Start}>
-                  <GearSlot $for={spec of WEAPONS} spec={spec} worn={self.wornOf(spec.id)}
+                  <GearSlot $for={spec of self.weapons} spec={spec} worn={self.wornOf(spec.id)}
                             wear={self.choices.durability} fits={self.fitsIn(spec.id)} share={self.shareOf(spec.id)} size={self.slot} own={self.own} @picked={self.onPicked}
                             @tried={self.onTried} @flyout={self.onFlyout} />
                   <GearSlot $if={self.usesAmmo} spec={AMMO} worn={self.wornOf(AMMO.id)} wear={false}

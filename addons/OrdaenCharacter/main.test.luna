@@ -400,6 +400,59 @@ test "the game's sets are tabs over the columns, the one worn picked: another pi
   Test.expect(window.text("Fury").textColor().equal(BRIGHT_TEXT))
 }
 
+// The stand-in gives the client's texts in ruRU alone (its dump's): a test in enUS has no slot names, which the game's
+// slots' tooltips are, so the relic's well is what a test sees.
+test "a class that keeps a relic has the relic's well in the ranged slot" {
+  Test.mount(nil, PAGE)
+  Game.items.icon = icons
+  const sheet = new FakeSheet()
+  sheet.figures = (): Stats => Stats { relic: true }
+  const window = opened(mut sheet)
+  Test.expect(window.paintedWith("Interface/PaperDoll/UI-PaperDoll-Slot-Relic"))
+  Test.expect(!window.paintedWith("Interface/PaperDoll/UI-PaperDoll-Slot-Ranged"))
+}
+
+test "the damage a second's card says each hand's speed, damage and damage a second, the weapon's slot lit with it" {
+  Test.mount(nil, PAGE)
+  Game.items.icon = icons
+  const sheet = new FakeSheet()
+  sheet.figures = (): Stats => Stats { attackPower: 832, speed: 2.5, minDamage: 100, maxDamage: 150, mainSkill: MACES }
+  const window = opened(mut sheet)
+  window.text("50.0").hover()
+  // Its title the name alone: the value stands on the card.
+  const tip = Test.page().window("Main Hand")
+  Test.expect(tip.texts().join(" | ") == "DPS | Main Hand | Attack speed | 2.50 | Damage | 100 - 150 | DPS | 50.0")
+  // The main hand's slot shows its share; attack power glows, as what feeds it.
+  Test.expect(window.text("50.0").count() >= 2)
+}
+
+test "what health and mana regain stands under their bars, out of a fight and in one, each with its own tooltip" {
+  Test.mount(nil, PAGE)
+  Game.items.icon = icons
+  const sheet = new FakeSheet()
+  sheet.figures = (): Stats => Stats { spirit: 100, healthRegen: 40, combatHealthRegen: 0, healthFromSpirit: 30, restingRegen: 55, regen: 12 }
+  const window = opened(mut sheet)
+  Test.expect(window.text(Locale.REGEN).count() == 2 && window.text(Locale.COMBAT_REGEN).count() == 2)
+  // The spells' section keeps no line of its own for it.
+  Test.expect(window.text("55").shown() && window.text("12").shown())
+  window.text("40").hover()
+  // Spirit's share worked out before it, dimmed: its points, what a point gives.
+  const tip = Test.page().window("Spirit")
+  Test.expect(tip.texts().join(" | ") == "Regeneration | Stats | Spirit | 100 × 0.3 = | 30 | Base | 10")
+}
+
+test "the defense skill stands over block, so block's chance stands over the damage it stops" {
+  Test.mount(nil, PAGE)
+  Game.items.icon = icons
+  const sheet = new FakeSheet()
+  sheet.figures = (): Stats => Stats { defense: 300, block: 5, blockValue: 40 }
+  const window = opened(mut sheet)
+  const defense = window.text("300").rect()
+  const block = window.text("5.00%").rect()
+  const stops = window.text("40").rect()
+  Test.expect(defense.bottom <= block.top && block.bottom <= stops.top)
+}
+
 test "the paper doll's sides are the tabs' plain rule, no cut in the wood, the scene out to it" {
   Test.mount(nil, PAGE)
   Game.items.icon = icons
@@ -492,13 +545,13 @@ test "the slot what the cursor holds goes in is lit, the others not; a locked it
 const SHOUT = 6673
 function spellNames(id: Integer): String | nil { return id == SHOUT ? "Battle Shout" : nil }
 
-test "a main stat's tooltip: its name and value, the game's words, its base, then the items that give it, the most first" {
+test "a main stat's tooltip: its name (its value stands on the window), the game's words, its base, then the items that give it, the most first" {
   Test.mount(nil, PAGE)
   Game.items.icon = icons
   const window = opened(new FakeSheet())
   window.text("312").hover()
-  const tip = Test.page().window("Strength 312")
-  Test.expect(tip.texts().join(" | ") == "Strength 312 | Increases your attack power with melee weapons. | Stats | Base | 280 | Items | Arcanite Reaper | +20 | Lionheart Helm | +12")
+  const tip = Test.page().window("Increases your attack power with melee weapons.")
+  Test.expect(tip.texts().join(" | ") == "Strength | Increases your attack power with melee weapons. | Stats | Base | 280 | Items | Arcanite Reaper | +20 | Lionheart Helm | +12")
 }
 
 test "a stat's tooltip lists the stats that feed it and the auras that change it, its base the rest" {
@@ -510,8 +563,9 @@ test "a stat's tooltip lists the stats that feed it and the auras that change it
   Auras.refresh()
   const window = opened(new FakeSheet())
   window.text("832").hover()
-  const tip = Test.page().window("Attack power 832")
-  Test.expect(tip.texts().join(" | ") == "Attack power 832 | Stats | Strength | +624 | Base | 108 | Effects | Battle Shout | +100")
+  // A feeding stat's share worked out before it: its points, what a point gives.
+  const tip = Test.page().window("Battle Shout")
+  Test.expect(tip.texts().join(" | ") == "Attack power | Stats | Strength | 312 × 2 = | 624 | Base | 108 | Effects | Battle Shout | +100")
 }
 
 const DEMORALIZED = 1160
@@ -534,7 +588,7 @@ test "a stat an aura raises reads green, one an aura lowers red whatever else ra
   Test.expect(window.text("832").textColor().equal(Style.RED))
   // Its tooltip's «Effects»: each aura's share in the colour of what it does to the stat.
   window.text("832").hover()
-  const tip = Test.page().window("Attack power 832")
+  const tip = Test.page().window("Battle Shout")
   Test.expect(tip.text("+100").textColor().equal(Style.GREEN))
   Test.expect(tip.text("-35").textColor().equal(Style.RED))
 }
@@ -546,8 +600,8 @@ test "a set's bonus is one row under its name, however many of its pieces are wo
   sheet.matched = true
   const window = opened(mut sheet)
   window.text("312").hover()
-  const tip = Test.page().window("Strength 312")
-  Test.expect(tip.texts().join(" | ") == "Strength 312 | Increases your attack power with melee weapons. | Stats | Base | 280 | Items | Arcanite Reaper | +20 | Lionheart Helm | +12 | Lion's Pride | +10")
+  const tip = Test.page().window("Lion's Pride")
+  Test.expect(tip.texts().join(" | ") == "Strength | Increases your attack power with melee weapons. | Stats | Base | 280 | Items | Arcanite Reaper | +20 | Lionheart Helm | +12 | Lion's Pride | +10")
 }
 
 test "while a stat's tooltip is open, each item that gives it has its share under its slot, and leaving takes them off" {
@@ -578,7 +632,7 @@ test "a percentage's sources are percentages: the crit an item gives" {
   Game.items.icon = icons
   const window = opened(new FakeSheet())
   window.text("20.05%").hover()
-  Test.expect(Test.page().window("Crit 20.05%").text("+1.00%").shown())
+  Test.expect(Test.page().window("Arcanite Reaper").text("+1.00%").shown())
 }
 
 // The stats
@@ -1137,17 +1191,19 @@ test "a wand's section is its skill and its damage a second, no attack power" {
   Test.expect(window.text("Attack power").count() == 1)
 }
 
-test "a druid's energy stands under its mana, with what each regains" {
+test "a druid's energy stands under its mana, with what each regains on a line under its bar" {
   Test.mount(nil, PAGE)
   Game.items.icon = icons
   const sheet = new FakeSheet()
-  sheet.figures = (): Stats => Stats { power: 5240, restingRegen: 76, energy: 100, energyRegen: 10 }
+  sheet.figures = (): Stats => Stats { power: 5240, restingRegen: 76, energy: 87, energyRegen: 13 }
   const window = opened(mut sheet)
   Char.readStats()
-  Test.expect(window.text("5240").shown())
-  Test.expect(window.text("+76/5s").shown())
-  Test.expect(window.text("100").shown())
-  Test.expect(window.text("+10/s").shown())
+  const mana = window.text("5240").rect()
+  const regen = window.text("76").rect()
+  const energy = window.text("87").rect()
+  const energyRegen = window.text("13").rect()
+  Test.expect(mana.bottom <= regen.top && regen.bottom <= energy.top && energy.bottom <= energyRegen.top)
+  Test.expect(window.text("/s").shown())
 }
 
 // Reputation
@@ -1220,6 +1276,17 @@ test "the client's sheet reads what is worn in a slot from the client" {
   const helm = sheet.worn(1)
   Test.expect(helm.item == HELM)
   Test.expect(sheet.worn(2).item == nil)
+}
+
+test "the client's sheet reads health's and mana's regeneration a second, and spirit's share, as every five seconds" {
+  Test.mount(nil, PAGE)
+  Client.GetHealthRegen = (): (Number, Number) => { return 4, 1 }
+  Client.GetHealthRegenFromSpirit = (): (Number, Number) => { return 2, 0 }
+  Client.GetManaRegenFromSpirit = (): (Number, Number) => { return 6, 0 }
+  const stats = new ClientSheet().stats()
+  // Spirit's health counted standing, as the game's sheet takes it: three quarters.
+  Test.expect(stats.healthRegen == 20 && stats.combatHealthRegen == 5)
+  Test.expect(stats.healthFromSpirit == 7.5 && stats.manaFromSpirit == 30)
 }
 
 test "the game's skills page shown opens ours on «Progression»'s skills" {
@@ -1376,19 +1443,21 @@ test "health and the resource are slim bars of their own, a thin line round them
   Test.expect(window.box(Style.POOL_RIM).count() > 0 && window.box(deep).count() > 1)
 }
 
-test "the resistances are rows as the gauges are, one under another; a card's name and its value on one line" {
+test "the resistances are rows as the gauges are, two columns of three; a card's name and its value on one line" {
   Test.mount(nil, PAGE)
   Game.items.icon = icons
   const window = opened(new FakeSheet())
-  // The armour's value over the schools' (none), each at the rows' right: one under the other.
+  // The armour's value first: a school's (none) beside it in its row, two under it in its column.
   const armor = window.text("4120").rect()
   const zeros = window.text("0")
+  let beside = 0
   let under = 0
   for (i of 1..zeros.count()) {
     const zero = zeros.nth(i).rect()
-    if (zero.top >= armor.bottom && zero.top - armor.bottom < 200 && (zero.right - armor.right).abs() < 1) { under += 1 }
+    if ((zero.top - armor.top).abs() < 1 && zero.left > armor.right) { beside += 1 }
+    if (zero.top >= armor.bottom && zero.top - armor.bottom < 100 && (zero.right - armor.right).abs() < 1) { under += 1 }
   }
-  Test.expect(under >= 5)
+  Test.expect(beside == 1 && under == 2)
   const name = window.text("Attack power").rect()
   const value = window.text("832").rect()
   Test.expect(value.left > name.right && (value.top + value.bottom - name.top - name.bottom).abs() < 4)
