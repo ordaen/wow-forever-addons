@@ -376,14 +376,15 @@ public function hitCaps(stat: Stat, stats: Stats): Array<Cap> {
 
 // What a target dodges and parries, in percent (the game's `CR_EXPERTISE_TOOLTIP`, `BASE_ENEMY_DODGE_CHANCE`): a raid's
 // boss, three levels over the player, and a target of the player's level. Expertise takes the dodge off first, and only
-// what is past the dodge takes off the parry (`GetEnemyParryChance`). A blow from the front may be blocked too: the
-// client says no target's block, so it is the players' own measure, a step a level as the dodge's.
+// what is past the dodge takes off the parry (`GetEnemyParryChance`). A blow from the front may be blocked too, with or
+// without a shield: the client says no target's block, so it is the players' own measure, at most 5% at any level.
 struct Avoidance {
   const dodge: Number
   const parry: Number
   const block: Number
 }
-const BOSS_AVOIDANCE: Avoidance = { dodge: 6.5, parry: 16.5, block: 6.5 }
+const MOST_BLOCK = 5
+const BOSS_AVOIDANCE: Avoidance = { dodge: 6.5, parry: 16.5, block: 5 }
 // A target by its name in a tooltip, and what it dodges and parries.
 struct Target {
   const name: String
@@ -473,7 +474,7 @@ function oddsOf(strike: Strike, stats: Stats, boss: Boolean, caps: HitCaps): Odd
   if (strike == .Spell) { return { miss: miss, dodge: 0, parry: 0, block: 0 } }
   const of = boss ? BOSS_AVOIDANCE : LEVEL_AVOIDANCE
   const dodged = (of.dodge - edge).max(0)
-  const block = (of.block - edge).max(0)
+  const block = (of.block - edge).max(0).min(MOST_BLOCK)
   if (strike == .Ranged) { return { miss: miss, dodge: dodged, parry: 0, block: block } }
   const dodge = (dodged - stats.expertise).max(0)
   const parry = ((of.parry - edge).max(0) - (stats.expertise - dodged).max(0)).max(0)

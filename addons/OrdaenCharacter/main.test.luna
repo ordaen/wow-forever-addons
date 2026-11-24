@@ -496,9 +496,9 @@ test "what lands of a blow is a card of its own: at the greatest level a boss's,
   Test.expect(window.text(Locale.LANDS).shown())
   window.text("93.50%").hover()
   const tip = Test.page().window(Locale.LANDS_TIP)
-  // A swing from the front: its 16.5 of parries, 40 of glancing blows and 6.5 of blocks too; the boss's 15 of defense
+  // A swing from the front: its 16.5 of parries, 40 of glancing blows and 5 of blocks too; the boss's 15 of defense
   // past the skill take 0.6 off the crit; ordinary hits the rest.
-  Test.expect(tip.texts().join(" | ").contains("Raid bosses | Miss | 2.00% | Dodge | 4.50% | Parry | 16.50% | Glancing blow | 40.00% | Block | 6.50% | Ordinary hit | 11.10% | Crit | 19.40%"))
+  Test.expect(tip.texts().join(" | ").contains("Raid bosses | Miss | 2.00% | Dodge | 4.50% | Parry | 16.50% | Glancing blow | 40.00% | Block | 5.00% | Ordinary hit | 12.60% | Crit | 19.40%"))
   // A target of the player's level: no misses, 5 - 2 of dodges, its parries and blocks whole, the crit whole.
   Test.expect(tip.texts().join(" | ").contains("Targets of your level | Miss | 0.00% | Dodge | 3.00% | Parry | 5.00% | Glancing blow | 10.00% | Block | 5.00% | Ordinary hit | 57.00% | Crit | 20.00%"))
   Test.expect(tip.text("0.00%").textColor().equal(Style.GREEN) && tip.text("16.50%").textColor().equal(Style.RED))
@@ -520,8 +520,8 @@ test "below the greatest level a target of the player's level counts; weapon ski
   const tip = Test.page().window(Locale.LANDS_TIP)
   // The level's target first: a crit of 50 + 0.4 fits in what the rest leaves.
   Test.expect(tip.texts().join(" | ").contains("Targets of your level | Miss | 3.60% | Dodge | 3.60% | Parry | 4.60% | Glancing blow | 10.00% | Block | 4.60% | Ordinary hit | 23.20% | Crit | 50.40% | Raid bosses"))
-  // A boss leaves 36.1 for a crit of 50 - 0.2: it takes all of it, no ordinary hit.
-  Test.expect(tip.texts().join(" | ").contains("Raid bosses | Miss | 6.60% | Dodge | 5.10% | Parry | 16.10% | Glancing blow | 30.00% | Block | 6.10% | Ordinary hit | 0.00% | Crit | 36.10%"))
+  // A boss leaves 37.6 for a crit of 50 - 0.2: it takes all of it, no ordinary hit.
+  Test.expect(tip.texts().join(" | ").contains("Raid bosses | Miss | 6.60% | Dodge | 5.10% | Parry | 16.10% | Glancing blow | 30.00% | Block | 4.60% | Ordinary hit | 0.00% | Crit | 37.60%"))
 }
 
 test "what lands's card wears the percent glyph, the glyphs' eleventh row" {
@@ -547,6 +547,8 @@ test "a low character's weapon skill counts against a boss's 315 of defense, as 
   Test.expect(tip.texts().join(" | ").contains("Crit | 19.72%"))
   // A boss: its 8 of misses counted for the greatest level, then 262 points more short; the crit 11.08 less.
   Test.expect(tip.texts().join(" | ").contains("Raid bosses | Miss | 18.48%"))
+  // A block never past 5, however short the skill.
+  Test.expect(tip.texts().join(" | ").contains("Block | 5.00%"))
   Test.expect(tip.texts().join(" | ").contains("Crit | 8.92%"))
 }
 
