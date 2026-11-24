@@ -1,0 +1,44 @@
+// A macro's text read as the client reads it: what it would refuse or not find, its letters, and the body made
+// shorter.
+import Test from "$test"
+import Locale from "@/locales"
+import { MOST_LETTERS, Problem, lettersOf, problemsOf, shortened } from "@/macroText"
+
+// The client's commands these bodies use, by their spellings (`commandsOf` reads them from the client's texts).
+const COMMANDS: Map<String, String> = {
+  ["/cast"]: "CAST", ["/закл"]: "CAST", ["/use"]: "USE", ["/castsequence"]: "CASTSEQUENCE", ["/startattack"]: "STARTATTACK"
+}
+
+// The player knows Flash Heal and has Hearthstones; nothing else.
+function known(name: String): Boolean { return name == "Flash Heal" || name == "Hearthstone" }
+
+function said(problems: Array<Problem>): String {
+  return problems.map(problem => `${problem.line}: ${problem.text}`).join(" | ")
+}
+
+test "a sound body has no problems: a tooltip line, conditions, a target, a sequence's reset, a slot's number" {
+  const body = "#showtooltip\n/cast [@mouseover,help,nodead][] Flash Heal\n/castsequence reset=combat Flash Heal, Hearthstone\n/use 13\n/закл [nomod:shift,target=focus] Flash Heal\n/startattack [harm]"
+  Test.expect(problemsOf(body, COMMANDS, known).length == 0)
+}
+
+test "a body's problems name their line: an unknown command, a wrong condition, a name not had, a line said in the chat" {
+  const body = "/cats Flash Heal\n/cast [helpp] Flash Heal\n/cast Fireball\nhello\n/cast [help Flash Heal"
+  Test.expect(said(problemsOf(body, COMMANDS, known)) == [
+    `1: ${Locale.MACRO_UNKNOWN_COMMAND.format("/cats")}`,
+    `2: ${Locale.MACRO_UNKNOWN_CONDITION.format("helpp")}`,
+    `3: ${Locale.MACRO_UNKNOWN_NAME.format("Fireball")}`,
+    `4: ${Locale.MACRO_NOT_COMMAND}`,
+    `5: ${Locale.MACRO_UNCLOSED}`
+  ].join(" | "))
+}
+
+test "a body over the game's letters says by how many, a letter of several bytes counted once" {
+  Test.expect(lettersOf("щит") == 3)
+  const long = "/cast Flash Heal\n" + "#".rep(MOST_LETTERS)
+  Test.expect(said(problemsOf(long, COMMANDS, known)) == `0: ${Locale.MACRO_TOO_LONG.format(17)}`)
+}
+
+test "a body made shorter does the same: @ for target=, short condition names, no room round signs, no empty lines" {
+  const body = "  /cast  [ target=focus , modifier:shift ] Flash Heal ;  [] Hearthstone  \n\n/use [button:2, equipped:Shields] 13"
+  Test.expect(shortened(body) == "/cast [@focus,mod:shift]Flash Heal;[]Hearthstone\n/use [btn:2,worn:Shields]13")
+}
