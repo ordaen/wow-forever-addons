@@ -159,6 +159,10 @@ test "each reagent's price at the house and at a merchant for the count, the che
   Test.expect(reads(window().text("Coarse Thread").item().box(CHEAPER), "0g 0s 10c"))
   Test.expect(reads(window().text("Bolt of Linen Cloth").nth(2).item().box(CHEAPER), "0g 1s 0c"))
   Test.expect(window().text("0 / 1").textColor().equal(RED) && near(window().text("1 / 1").textColor(), INK))
+  // A reagent is a row of its own: the cursor anywhere on it, its price too, shows its item's tooltip beside the row.
+  _ = Test.requests()
+  window().text("Coarse Thread").item().text("0g 0s 15c").hover()
+  Test.expect(Test.requests().any(asked => asked.contains("Items.show")))
 }
 
 test "the totals at each source: the merchant's price is what a vendor pays; a part it doesn't sell is left out, its cost «~»" {

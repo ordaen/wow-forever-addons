@@ -5,23 +5,23 @@
 // (red under nought), and how old the oldest price taken is, in its age's colour; «—» where a part has no price.
 import Game from "$game"
 import { Align, Art, Edges, Frame, Line, Side, Track } from "$ltml"
-import { BRIGHT_TEXT, Component, ItemButton, Money, SECONDARY_TEXT, Tip, ageText } from "Ordaen"
+import { BRIGHT_TEXT, Component, Ground, ItemButton, Money, SECONDARY_TEXT, TableRow, Tip, ageText } from "Ordaen"
 import { PartPrice, Totals, Way } from "@/cost"
 import Locale from "@/locales"
 import { SourceTotals, roughCost, roughProfit } from "@/split"
 import Style from "@/style"
 
 const SLOT = 37.5dp
-// The headings and the rows are one grid: a price's column is as wide as the widest of its heading and its cells, at
-// the text's size. Each cell keeps its row's room round it, and its row's rule over it.
-const PRICED: Array<Track> = [SLOT, { fr: 1 }, "max-content", "max-content", "max-content"]
-const GAP = 2.5sp
-const ROOM = 1sp
-const FIRST: Edges = { top: ROOM, bottom: ROOM }
-const NEXT: Edges = { top: ROOM, bottom: ROOM, left: GAP }
-const LAST: Edges = { top: ROOM, right: 2sp, bottom: ROOM, left: GAP }
-const TOTALS: Array<Track> = [{ fr: 1 }, "max-content"]
-const TOTALS_PAD: Edges = { top: 3sp }
+// The headings, each reagent's row and the totals stand in the same columns: the icon, the name, have / need, the
+// price at the house and at a merchant. Each reagent is a row of its own (its shade under the cursor, its item's
+// tooltip beside the whole row), so the columns are of set widths, not each as wide as its widest cell.
+const MONEY = 117.1875dp
+// The names never narrower than the totals' labels («Cost», «Price», «Profit»), which stand under them.
+const PRICED: Array<Track> = [SLOT, { fr: 1, min: 70.3125dp }, 58.59375dp, MONEY, MONEY]
+// As the library's table rows lay their cells out: their gap, and their room at the sides.
+const GAP = 3sp
+const SIDES: Edges = { left: 3sp, right: 3sp }
+const LINE_ROOM: Edges = { top: 1sp, right: 3sp, bottom: 1sp, left: 3sp }
 const NONE = "—"
 // The cheaper way, on a green ground.
 const TOTALS_RULE: Line = { width: 1.171875dp, color: Style.LINE, sides: [Side.Top] }
@@ -39,9 +39,8 @@ public function wayText(way: Way): String {
   }
 }
 
-// A priced reagent's cells, laid out in the table's columns: it has no box of its own.
+// A priced reagent: a row of the table's, its item's tooltip beside the whole row.
 public class PricedReagentRow implements Component {
-  derived rule: Line | nil = self.index > 1 ? Style.ROW_RULE : nil
   derived item: Integer | nil = self.price.item
   derived icon: Art | nil = self.price.icon
   derived color: Color = self.price.have < self.price.need ? Style.RED : Style.INK
@@ -53,13 +52,9 @@ public class PricedReagentRow implements Component {
   derived vendorBack: Color = self.price.way == Way.Vendor ? CHEAPER : CLEAR
 
   price: Signal<PartPrice>
-  index: Signal<Integer>
-  constructor(price: Signal<PartPrice>, index: Signal<Integer>) {
-    self.price = price
-    self.index = index
-  }
+  constructor(price: Signal<PartPrice>) { self.price = price }
 
-  // The reagent's name shows its tooltip as its icon does.
+  // Anywhere on the row, its item's tooltip beside it.
   onEnter(self, frame: any Frame) {
     const item = self.item
     if (item != nil) { Game.items.show(frame, item) }
@@ -67,30 +62,22 @@ public class PricedReagentRow implements Component {
 
   public render(self): Template {
     return $ltml {
-      <>
-        <box padding={FIRST} border={self.rule} yAlign={Align.Center}>
-          <ItemButton item={self.item} art={self.icon} size={SLOT} />
-        </box>
-        <box padding={NEXT} border={self.rule} yAlign={Align.Center} @pointerEnter={self.onEnter}>
-          <text value={self.price.name} textColor={Style.INK} />
-        </box>
-        <box padding={NEXT} border={self.rule} yAlign={Align.Center}>
+      <TableRow tracks={PRICED} ground={Ground.Wood} @enter={self.onEnter}>
+        <ItemButton item={self.item} art={self.icon} size={SLOT} tipped={false} />
+        <text value={self.price.name} textColor={Style.INK} wrap={.Cut} />
+        <box xAlign={Align.End}>
           <text value={"%d / %d"} arguments={[self.price.have, self.price.need]} wrap={.None} textColor={self.color}
                 textFont={.Numbers} />
         </box>
-        <box padding={NEXT} border={self.rule} yAlign={Align.Center}>
-          <box background={self.auctionBack} xAlign={Align.End}>
-            <Money $if={self.hasAuction} amount={self.auction} />
-            <text $else value={NONE} textColor={Style.DIM} />
-          </box>
+        <box background={self.auctionBack} xAlign={Align.End}>
+          <Money $if={self.hasAuction} amount={self.auction} />
+          <text $else value={NONE} textColor={Style.DIM} />
         </box>
-        <box padding={LAST} border={self.rule} yAlign={Align.Center}>
-          <box background={self.vendorBack} xAlign={Align.End}>
-            <Money $if={self.hasVendor} amount={self.vendor} />
-            <text $else value={NONE} textColor={Style.DIM} />
-          </box>
+        <box background={self.vendorBack} xAlign={Align.End}>
+          <Money $if={self.hasVendor} amount={self.vendor} />
+          <text $else value={NONE} textColor={Style.DIM} />
         </box>
-      </>
+      </TableRow>
     }
   }
 }
@@ -108,14 +95,10 @@ class TotalCell implements Component {
   amount: Signal<Integer | nil>
   rough: Signal<Boolean>
   tip: Signal<String>
-  rule: Signal<Line | nil>
-  last: Signal<Boolean>
-  constructor(amount: Signal<Integer | nil>, rough: Signal<Boolean>, tip: Signal<String>, rule: Signal<Line | nil>, last: Signal<Boolean> = false) {
+  constructor(amount: Signal<Integer | nil>, rough: Signal<Boolean>, tip: Signal<String>) {
     self.amount = amount
     self.rough = rough
     self.tip = tip
-    self.rule = rule
-    self.last = last
   }
 
   onEnter(mut self) { self.hovered = true }
@@ -123,7 +106,7 @@ class TotalCell implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box padding={self.last ? LAST : NEXT} border={self.rule} yAlign={Align.Center} xAlign={Align.End}>
+      <box yAlign={Align.Center} xAlign={Align.End}>
         // The amount alone hears the mouse: its tip under the cursor.
         <box $if={self.has} columns={{ each: "max-content" }} gap={0.5sp} @pointerEnter={self.onEnter}
              @pointerLeave={self.onLeave}>
@@ -164,15 +147,13 @@ class TotalRow implements Component {
 
   public render(self): Template {
     return $ltml {
-      <>
-        <box padding={FIRST} border={self.rule} />
-        <box padding={NEXT} border={self.rule} yAlign={Align.Center}>
-          <text value={self.label} textColor={Style.DIM} wrap={.None} />
-        </box>
-        <box padding={NEXT} border={self.rule} />
-        <TotalCell amount={self.auction} rough={self.auctionRough} tip={self.auctionTip} rule={self.rule} />
-        <TotalCell amount={self.merchant} rough={self.merchantRough} tip={self.merchantTip} rule={self.rule} last={true} />
-      </>
+      <box columns={PRICED} gap={GAP} padding={LINE_ROOM} border={self.rule} yAlign={Align.Center}>
+        <box />
+        <text value={self.label} textColor={Style.DIM} wrap={.None} />
+        <box />
+        <TotalCell amount={self.auction} rough={self.auctionRough} tip={self.auctionTip} />
+        <TotalCell amount={self.merchant} rough={self.merchantRough} tip={self.merchantTip} />
+      </box>
     }
   }
 }
@@ -223,17 +204,19 @@ public class PriceTable implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={PRICED} yAlign={Align.Stretch}>
-        <box padding={FIRST} />
-        <box padding={NEXT} />
-        <box padding={NEXT} />
-        <box padding={NEXT}>
-          <text value={Locale.PRICE_AUCTION} textSize={SECONDARY_TEXT} textColor={Style.DIM} wrap={.None} />
+      <box columns={1}>
+        <box columns={PRICED} gap={GAP} padding={SIDES}>
+          <box />
+          <box />
+          <box />
+          <box xAlign={Align.End}>
+            <text value={Locale.PRICE_AUCTION} textSize={SECONDARY_TEXT} textColor={Style.DIM} wrap={.None} />
+          </box>
+          <box xAlign={Align.End}>
+            <text value={Locale.PRICE_VENDOR} textSize={SECONDARY_TEXT} textColor={Style.DIM} wrap={.None} />
+          </box>
         </box>
-        <box padding={LAST}>
-          <text value={Locale.PRICE_VENDOR} textSize={SECONDARY_TEXT} textColor={Style.DIM} wrap={.None} />
-        </box>
-        <PricedReagentRow $for={index, part of self.parts} price={part} index={index} />
+        <PricedReagentRow $for={part of self.parts} price={part} />
         <TotalRow label={Locale.TOTAL_COST} auction={self.auction.cost} merchant={self.merchant.cost}
                   auctionRough={self.auctionRough} merchantRough={self.merchantRough} auctionTip={self.auctionCostTip}
                   merchantTip={self.merchantCostTip} rule={TOTALS_RULE} />
