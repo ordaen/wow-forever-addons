@@ -239,6 +239,11 @@ public struct Stats {
   levelGlancing: Number = 0
   bossGlancingPenalty: Number = 0
   levelGlancingPenalty: Number = 0
+  // Haste in percent, as the game's paper doll shows each: the melee swings', the ranged shots' (the ammo's with it),
+  // the spells'.
+  meleeHaste: Number = 0
+  rangedHaste: Number = 0
+  spellHaste: Number = 0
   // A shield in the off hand: what blocks.
   shield: Boolean = false
   // How much less physical damage the armor lets through from a raid boss, in percent (`armorReduction` a target's of
