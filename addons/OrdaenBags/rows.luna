@@ -5,7 +5,7 @@
 // vault is open, as the button comes up; every other click and the cursor's coming and going are told to the window
 // through the shelf.
 import Game from "$game"
-import { Action, Align, Cursor, Event, Position, Shadow, Track } from "$ltml"
+import { Action, Align, Cursor, Event, MouseButton, Position, Shadow, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import { Component, ItemButton, Menu, MenuEntry, Quality, SECONDARY_TEXT, SlotWell, usableItem } from "Ordaen"
 import { UseClick } from "@/clicks"
@@ -125,10 +125,13 @@ class BagSlot implements Component {
   // A container's item is used by the client's secure click, on the scheme's chord for Use; a guild bank's has none,
   // nor a copy of a vault that isn't open, nor any slot while Use hands the item over (sold to a merchant, put in a
   // trade or a letter): the client's secure use equips what can be worn (`SecureTemplates.lua`), so the bags hand it
-  // over themselves. A bag's use is the bags' own too: the client's puts it on only where a place is empty.
-  derived action: Action | nil = self.slot.vault == Vault.Guild || !self.shelf.live || handsOver(self.shelf.filter.place) || self.slot.read.kind == CONTAINER ? nil : Action.UseBagItem {
-    bag: self.slot.bag, slot: self.slot.index, chord: self.shelf.useClick.chord
-  }
+  // over themselves. A bag's use is the bags' own too: the client's puts it on only where a place is empty. While a
+  // spell waits for an item to land on (an enchant, a sharpening stone, lockpicking), the left click gives it this
+  // one, as the game's bags do, whatever the scheme says.
+  derived action: Action | nil = self.slot.vault == Vault.Guild || !self.shelf.live ? nil :
+    Game.player.targeting ? Action.UseBagItem { bag: self.slot.bag, slot: self.slot.index, chord: MouseButton.Left } :
+    handsOver(self.shelf.filter.place) || self.slot.read.kind == CONTAINER ? nil :
+    Action.UseBagItem { bag: self.slot.bag, slot: self.slot.index, chord: self.shelf.useClick.chord }
   derived menuShown: Boolean = self.shelf.menu?.slot == self.slot
   derived menuEntries: Array<MenuEntry> = self.shelf.menu?.entries ?? NO_ENTRIES
   derived menuTitle: String = self.shelf.menu?.title ?? ""

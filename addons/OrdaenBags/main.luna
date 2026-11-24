@@ -446,6 +446,9 @@ public class Bags implements Module, App {
   onPressed(mut self, slot: mut Slot, click: Event.Press) {
     self.menu = nil
     if (!self.liveIn(slot.vault)) { return }
+    // The waiting spell took the item on the secure click.
+    if (slot.vault != Vault.Guild && peek Game.player.targeting) { return }
+    if (click.button == MouseButton.Left && self.dropMoney()) { return }
     if (click.button == MouseButton.Left && Client.CursorHasItem()) {
       pickupIn(slot.vault, slot.bag, slot.index)
       return
@@ -453,6 +456,21 @@ public class Bags implements Module, App {
     const chord = chordOf(click.button, Game.input.shiftDown(), Game.input.controlDown(), Game.input.altDown())
     if (chord == nil) { return }
     self.act(mut slot, actionAt(peek self.settings.values.slotPresses, chord))
+  }
+
+  // Gold on the cursor let go on a slot, as the game's bags do: the player's back into the purse, the guild bank's
+  // taken out of it. False where the cursor holds no gold.
+  dropMoney(self): Boolean {
+    const kind, money, _, _ = Client.GetCursorInfo()
+    if (kind == "money") {
+      Client.DropCursorMoney()
+    } else if (kind == "guildbankmoney" && money is Number) {
+      Client.WithdrawGuildBankMoney(money)
+    } else {
+      return false
+    }
+    Client.ClearCursor()
+    return true
   }
 
   act(mut self, slot: mut Slot, action: SlotAction) {

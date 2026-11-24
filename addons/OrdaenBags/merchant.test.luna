@@ -132,6 +132,32 @@ test "the right click buys one purchase, Shift+Left-click a count, and a dear pu
   Test.expect(heard.take() == "" && Test.requests().join(", ").contains("Chat.link 101"))
 }
 
+test "a left click on a purchase the game asks about asks first, as a right click does; nothing goes onto the cursor" {
+  Client.UnitName = nameOf
+  Client.GetMerchantNumItems = (): Integer => 5
+  Client.GetMerchantItemID = (index: Number): Number | nil => 100 + index
+  Client.C_MerchantFrame.GetItemInfo = wareAt
+  Client.GetMerchantItemCostInfo = (index: Number): Number => index == 5 ? 1 : 0
+  Client.GetMerchantItemCostItem = costItem
+  const heard = new Heard()
+  Client.BuyMerchantItem = (index: Integer, count: Integer | nil): nil => heard.add(`buy ${index} ${count ?? 0}`)
+  Client.PickupMerchantItem = (index: Integer): nil => heard.add(`pickup ${index}`)
+  Game.money.amount = 10000
+  Test.mount(nil, SCREEN)
+  Events.MERCHANT_SHOW.emit()
+  const window = Test.page().window(VENDOR)
+  window.button(PATTERN).click()
+  Test.expect(heard.take() == "" && Test.page().window(Locale.BUY).shown())
+  Test.page().window(Locale.BUY).button(Locale.BUY).click()
+  Test.expect(heard.take() == "buy 3 0")
+  window.button(MARK).click()
+  Test.expect(heard.take() == "" && Test.page().window(Locale.BUY).text("2 Copper Ore").shown())
+  Test.page().window(Locale.BUY).button(Locale.CANCEL).click()
+  // A cheap one goes onto the cursor, bought where it lands.
+  window.button(THREAD).click()
+  Test.expect(heard.take() == "pickup 1")
+}
+
 // The thread a trade good, the dagger a weapon; the rest the client hasn't loaded.
 function itemInfo(item: String | Integer): (String | nil, String | nil, Client.ItemQuality | nil, Number | nil, Number | nil,
   String | nil, String | nil, Number | nil, String | nil, FileId | nil, Number | nil, Number | nil, Number | nil, Number | nil,

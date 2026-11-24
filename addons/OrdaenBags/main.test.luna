@@ -2003,3 +2003,47 @@ test "a bag whose smallest replacement holds more than the other bags have free 
   Test.expect(askedOnly(""))
   Test.expect(Test.printed().join("\n").contains("holds more than the other bags have free"))
 }
+
+test "while a spell waits for an item, a left click gives it the slot's item, the client's secure doing; nothing is picked up" {
+  const world = new World(everyday())
+  Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.items.icon = (id: Integer): Art | nil => world.icon(id)
+  Test.mount(nil, SCREEN)
+  Game.bags.open = true
+  Game.player.targeting = true
+  Test.flush()
+  _ = Test.requests()
+  held(SWORD).click()
+  Test.expect(Test.performed().join(", ") == "item 0 4")
+  Test.expect(askedOnly(""))
+  Game.player.targeting = false
+}
+
+test "gold on the cursor let go on a slot goes back into the purse; the guild bank's is taken out" {
+  const world = new World(everyday())
+  Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.items.icon = (id: Integer): Art | nil => world.icon(id)
+  let gold: String = "money"
+  let dropped = 0
+  let withdrawn = 0
+  Client.GetCursorInfo = (): (String | nil, Unknown, Unknown, Unknown) => {
+    return gold, 500, nil, nil
+  }
+  Client.DropCursorMoney = (): nil => {
+    dropped += 1
+  }
+  Client.WithdrawGuildBankMoney = (copper: Number): nil => {
+    withdrawn += copper
+  }
+  Test.mount(nil, SCREEN)
+  Game.bags.open = true
+  Test.flush()
+  _ = Test.requests()
+  bags().button(SWORD).click()
+  Test.expect(dropped == 1 && withdrawn == 0 && askedOnly(""))
+  gold = "guildbankmoney"
+  bags().button(SWORD).click()
+  Test.expect(dropped == 1 && withdrawn == 500 && askedOnly(""))
+}

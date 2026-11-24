@@ -454,11 +454,21 @@ public class MerchantWindow implements Component {
         self.counting = ware
       }
     } else if (click.button == MouseButton.Left) {
-      self.vendor.pickUp(ware)
+      self.pickUp(ware)
     }
   }
 
-  onDragged(self, ware: Ware) { self.vendor.pickUp(ware) }
+  onDragged(mut self, ware: Ware) { self.pickUp(ware) }
+
+  // The item onto the cursor, bought as it lands in a bag; one the game asks about (a high price, a cost in items or
+  // currencies) is asked about first, as a purchase.
+  pickUp(mut self, ware: Ware) {
+    if (asks(ware, nil)) {
+      self.purchase(ware, nil)
+    } else {
+      self.vendor.pickUp(ware)
+    }
+  }
 
   onWareRow(mut self, ware: Ware, button: MouseButton) {
     if (button == MouseButton.Right) { self.purchase(ware, nil) }
@@ -467,7 +477,7 @@ public class MerchantWindow implements Component {
   // A purchase: bought at once, or asked about first where its price reaches the game's asking price or it is paid
   // in items or currencies.
   purchase(mut self, ware: Ware, count: Integer | nil) {
-    if (ware.costs.length > 0 || moneyFor(ware, count) >= HIGH_PRICE) {
+    if (asks(ware, count)) {
       self.asking = { ware: ware, count: count }
       return
     }
@@ -587,4 +597,10 @@ public class MerchantWindow implements Component {
       </Dialog>
     }
   }
+}
+
+// Whether the game asks about a purchase first: its price reaches the game's asking price, or it is paid in items or
+// currencies.
+function asks(ware: Ware, count: Integer | nil): Boolean {
+  return ware.costs.length > 0 || moneyFor(ware, count) >= HIGH_PRICE
 }
