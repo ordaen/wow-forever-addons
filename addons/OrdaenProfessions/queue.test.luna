@@ -174,7 +174,7 @@ test "a recipe waiting reads «Remove from queue» in «Create»'s place, which 
   Test.expect(queueTab().texts().join("") == "Queue (1)")
 }
 
-test "the recipe being made reads «Stop», which ends the run and takes it out; its mode is off meanwhile" {
+test "the recipe being made reads «Stop», which interrupts the craft under way, ends the run and takes it out; its mode is off meanwhile" {
   Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
   Game.professions.list = professions()
   Game.tradeSkill.categories = tailoringCategories()
@@ -187,7 +187,10 @@ test "the recipe being made reads «Stop», which ends the run and takes it out;
   // The count still changes.
   window().button("-").click()
   _ = Test.requests()
+  _ = Test.performed()
   window().button("Stop").click()
+  // The press is secure: the client stops the cast itself.
+  Test.expect(Test.performed().any(done => done == "macro /stopcasting"))
   Test.expect(asked("TradeSkill.stop") && window().button("Create").shown())
   Test.expect(queueTab().texts().join("") == "Queue")
   window().text("Quantity").click()
